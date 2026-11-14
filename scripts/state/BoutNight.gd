@@ -4,6 +4,7 @@ extends RefCounted
 ## (Knockdowns), the result (record, money, members, morale, goals) and the injury roll. Bouts keeps the offers, camp
 ## and weigh-in, and delegates its fight-night entry points here so callers did not change.
 
+const LiverFold := preload("res://scripts/state/LiverFold.gd")
 const StyleName := preload("res://scripts/rules/StyleName.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
@@ -260,6 +261,9 @@ static func _counts(c: Career, f: Dictionary, m: Dictionary, r: Dictionary) -> v
 	so_far[loser] = int(so_far[loser]) + int(k["counts"])
 	# S398 the puncher's chance: the round's winner can be dropped too (Knockdowns.puncher_chance).
 	var winner := "a" if loser == "b" else "b"
+	var lf := LiverFold.roll(f, so_far, rng.seed, m["damage"], r["lines"]) if int(k["counts"]) == 0 and not bool(k["stopped"]) else {}
+	if not lf.is_empty():   # S467 LIVERRIBS1: a body knockdown from the liver
+		k = lf; loser = str(lf["who"]); so_far[loser] = int(so_far[loser]) + 1; r["liver_fold"] = true
 	if not bool(k["stopped"]) and int(k["counts"]) == 0:
 		var kc := Knockdowns.puncher_chance(winner, sides, m["damage"], so_far, rng)
 		if int(kc["counts"]) > 0:
@@ -276,7 +280,7 @@ static func _counts(c: Career, f: Dictionary, m: Dictionary, r: Dictionary) -> v
 		return
 	var name := str(f["first"]) if loser == "a" else str(opp["first"])
 	var lines: Array = r["lines"]
-	lines.append("%s is caught and takes a standing count%s." % [name, "" if int(k["counts"]) == 1 else " - %d of them" % int(k["counts"])])
+	lines.append("%s folds from a shot to the liver: body knockdown, an 8-count." % name if bool(r.get("liver_fold", false)) else "%s is caught and takes a standing count%s." % [name, "" if int(k["counts"]) == 1 else " - %d of them" % int(k["counts"])])
 	if str(k["how"]) == "KO":
 		lines.append("%s goes down and does not beat the count." % name)
 	elif str(k["how"]) == "RSC":

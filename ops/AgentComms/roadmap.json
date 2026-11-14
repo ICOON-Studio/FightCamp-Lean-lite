@@ -1,20 +1,19 @@
 {
  "_note": "SINGLE SOURCE OF TRUTH for the roadmap. The ops board reads this file directly and ROADMAP.md is GENERATED from it by Tools/render_roadmap.py. Do not hand-maintain a second copy anywhere - that is the defect R136/U62 named and it has cost this project eight times.",
- "updated": "2026-11-13",
+ "updated": "2026-11-14",
  "author": "claude S294",
  "now": {
-  "id": "S466",
+  "id": "S467",
   "owner": "claude",
   "updated": "2026-11-14",
-  "summary": "S466: card-table fix (CARDFIX1 collected: she_* teleported her to a fixed card -> she stays where she stands, counter -> outside; PlanChain matched; CARDFIX2 by Qwen + Claude rerun identical: best answers never firing 13 -> 0, every card reached, step bars now change results, wins 51-56 in 100); LANDREACH1 step 2: bisected to d258cab0 (carry started from the short drawn glove) -> ReachLimit.carry_base, rear cross/hook 13-19 cm -> 3-6 cm, block_meet 9->5, hit_frame 11->10, hit_carry ->32; the cross now lands high (forehead) on the game camera; READ-PROOF on Fight prep; liver on the right for southpaws; LIVERRIBS1 v2 passes (John 7/6/7); TURNPRO1 v2 Maria 7/6/6; build exported.",
-  "next_action": "S467: 0) get_usage. 1) His board (Q-224 + Q-225 both answered 'Yes, build after the fight week' - queued behind AMATEURWEEK1): review comments on the S466 cross still (lands high) and the S465 tiles/clash. 2) Collect NIGHTLYTRIAGE1 (Qwen, qwen/nightlytriage1): rerun on main, then fix or note each red test (plan_bots 2 red before S466). 3) Collect LIVERRIBS2 (Goose, issue #271): diff+parse+test; then wire it (Exchanges drain + ribs penalty, Knockdowns body count, InjuryRoll split) per DESIGN_LIVERRIBS1_V2 s6 menu table. 4) LANDREACH1 step 3: the rear cross lands on the forehead - read the face target point vs the drawn face (hit_frame_film seed 4242 00_cross f18/f19); lead hooks 5-9 cm (block_meet 5 left). 5) Seat answers SQ96/98/104 (John), SQ109/111/113 (Dola) -> DESIGN_LOOP_S459.md. 6) Export after any player-visible change.",
-  "last_working_commit": "a7c212eb",
-  "verified_playable": "Builds/FightCamp.exe exported S463 (study card, step gate, move book step tiers)",
-  "incomplete_blocked": "TREEVALUE1 (Qwen) running - rerun before use; Knowledge step 3 waits SQ93-94; Loyalty + ClubDeal wait CLUBWEEK v5 critics; CoachMarket waits COACHFIT1",
-  "done": "S464: TREEVALUE1 void as delivered (3 bouts on 3 fighters, wrong divisor, control skipped) -> fixed in-house: 60 fighters, ratings calibrated to ~50% wins, real mutant arm; punches 9-21, pivot 5.8, tie_up 7.5 read, 7 nodes never consulted because their card never meets their situation (PlanBoard.pick: card + when) -> CARDVISIT1 queued for Qwen; STEPPLAN1 fixed (coach skips steps under Usable, 31d00e44); LANDREACH1 bisected to the POWER1 merge 74a910de; PUSHTANK v2 designed (Q-223); TURNPRO1 v1 to critics; Knowledge v3 + coach fit v6 revisions queued.",
-  "next_acceptance": "TREEVALUE1 any-time run read and its page committed; CARDVISIT1 collected and rerun on the same seeds; LANDREACH1 game-camera measurement written to docs/LANDREACH1_RESULT.md",
+  "summary": "S467: LIVERRIBS2 (Goose) collected; liver vs ribs WIRED in three steps: rib injuries are the left ribs only, bruised 10-21 d / cracked 35-56 d, the liver never lays her off; the fight keeps body shots by side, tank drain liver x1.3 / ribs x0.55 (un-aimed = the old count); hurt left ribs land x0.85; the liver fold (LiverFold.gd) = a body knockdown with its round line and result-page tile (probe: 6.0 pts/shot, 7 folds of 27 counts in 100 bouts; LIVERPROBE1 tunes on 400); aim buttons 'Liver (right side)!' / 'Ribs (left side)!', the liver on the right for southpaws in PaceAim too. Nightly reds: no_pronoun, result_defects, aim_wire green; block_meet -> Qwen LANDREACH3 (the hit point is on the face, the drawn lead glove 4-11 cm above/below it); guard_knee -> GUARDKNEE2 queued; plan_bots/move_tip causes noted. Fight week v8 passes 6/6 (John 7/6/6). 10 stale Qwen PRs closed (all on main). Build exported. Late: ribs crack in the bout (rule 6, x0.6, injury link). LANDREACH3 (Qwen) not fixed: diagnosis collected (contact point and carry start must split); GUARDKNEE2 launched.",
+  "next_action": "S468: 0) get_usage. 1) Lead glove height (docs/LANDREACH3_RESULT.md): split the contact point from the carry start (move _note_shown's carry part out of PunchReach, 498 lines), then FILM seed 4242 on the game camera - his C391 'i wait to see it in the match'. 2) GUARDKNEE2 and LIVERPROBE1 (Qwen queue): collect; set LiverFold.shot_points / fold_scale from LIVERPROBE1's table. 3) LIVERRIBS1 step 4 (crack in the bout BUILT S467): the opponent's corner retiring a cracked boxer + the 3-choice crack card in the corner minute (rules 6-8, design s4.1), then side elbow fixes + the opponent switching sides; BoutRead/Scout lines (design s6). 4) Seat answers SQ98/104 (John), SQ109/111/113 (Dola) -> DESIGN_LOOP_S459.md. 5) Export after any player-visible change.",
+  "last_working_commit": "c03fba4f",
+  "verified_playable": "Builds/FightCamp.exe exported S467 (liver vs ribs: drain by side, hurt ribs, liver fold, rib crack, rib injury split; aim words)",
+  "incomplete_blocked": "LANDREACH3 not fixed (contact point and carry start must split; PunchReach 498 lines); GUARDKNEE2 (Qwen) running, LIVERPROBE1 queued; result_tabs_test hung twice (check on main); crack card + opponent corner retire not built; club week v5 John 7/5 -> v6",
+  "next_acceptance": "block_meet CTRL_LANDED rows green with no new hit_frame THROUGH and a seed-4242 game-camera still; LiverFold knobs set from LIVERPROBE1; the crack card shows 3 un-selected priced choices in the corner minute (corner_crack_golden_test)",
   "awaiting_operator": [
-   "Review: S466 rear cross after the reach fix (lands high), S465 what-to-learn tiles (C388), glove clash (C389)"
+   "Review: S466 rear cross (C391 'i wait to see it in the match'), S465 what-to-learn tiles, glove clash; play S467's build: liver/ribs buttons and the rare liver fold"
   ]
  },
  "next": "S442: 0) get_usage. 1) Result page round 2 (docs/mockups/s441/result/fight_only.png): one logic check + two fresh critics (each with CRITIC_PACK, the 10/10 list and its drawing); fix, send to him at 8+ with the lists. 2) Mechanic 1 ASK FOR A FIGHT: the short map (ops/research/ASKFIGHT_MAP_S441.md: one screen, one decision, prices from the code), two fresh critics + a logic check. 3) Collect POWER1 when the lead's steps land (check steps 3 and 6 against REFERENCE_PUNCH_TARGETS_S439.md; films + critics' scores on the board), then DEFECTS1 (merge main in first; film a blocked punch). 4) Collect R26SWAP1 (Qwen) and the queued briefs as they land (read each against its brief before merging). 5) Wire the towel card into the corner minute once the result page is through.",
@@ -1928,6 +1927,11 @@
    "id": "S466",
    "date": "2026-11-14",
    "summary": "S466: card-table fix (CARDFIX1 collected: she_* teleported her to a fixed card -> she stays where she stands, counter -> outside; PlanChain matched; CARDFIX2 by Qwen + Claude rerun identical: best answers never firing 13 -> 0, every card reached, step bars now change results, wins 51-56 in 100); LANDREACH1 step 2: bisected to d258cab0 (carry started from the short drawn glove) -> ReachLimit.carry_base, rear cross/hook 13-19 cm -> 3-6 cm, block_meet 9->5, hit_frame 11->10, hit_carry ->32; the cross now lands high (forehead) on the game camera; READ-PROOF on Fight prep; liver on the right for southpaws; LIVERRIBS1 v2 passes (John 7/6/7); TURNPRO1 v2 Maria 7/6/6; build exported."
+  },
+  {
+   "id": "S467",
+   "date": "2026-11-14",
+   "summary": "S467: LIVERRIBS2 (Goose) collected; liver vs ribs WIRED in three steps: rib injuries are the left ribs only, bruised 10-21 d / cracked 35-56 d, the liver never lays her off; the fight keeps body shots by side, tank drain liver x1.3 / ribs x0.55 (un-aimed = the old count); hurt left ribs land x0.85; the liver fold (LiverFold.gd) = a body knockdown with its round line and result-page tile (probe: 6.0 pts/shot, 7 folds of 27 counts in 100 bouts; LIVERPROBE1 tunes on 400); aim buttons 'Liver (right side)!' / 'Ribs (left side)!', the liver on the right for southpaws in PaceAim too. Nightly reds: no_pronoun, result_defects, aim_wire green; block_meet -> Qwen LANDREACH3 (the hit point is on the face, the drawn lead glove 4-11 cm above/below it); guard_knee -> GUARDKNEE2 queued; plan_bots/move_tip causes noted. Fight week v8 passes 6/6 (John 7/6/6). 10 stale Qwen PRs closed (all on main). Build exported. Late: ribs crack in the bout (rule 6, x0.6, injury link). LANDREACH3 (Qwen) not fixed: diagnosis collected (contact point and carry start must split); GUARDKNEE2 launched."
   }
  ],
  "blocked_on_operator": [],
@@ -4846,7 +4850,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-14",
+  "updated": "2026-11-14 12:42 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4996,32 +5000,10 @@
   },
   "working_now": [
    {
-    "title": "TASK CARDFIX1 - which card-table fix lets every best answer fire, without breaking the win balance? (probe, no screen)",
+    "title": "TASK LANDREACH3 - the landed lead glove stops 5-11 cm above or below the face point it aims at (fix, headless)",
     "who": "qwen",
-    "started": "2026-11-14T10:05",
-    "run": "CARDFIX1",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "CARDVISIT1",
-    "who": "",
-    "started": "",
-    "run": "CARDVISIT1",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK CARDFIX2 - after the S466 card-table fix, does every best answer fire? (probe, no screen)",
-    "who": "qwen",
-    "started": "2026-11-14T10:42",
-    "run": "CARDFIX2",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "LiverRibs.gd: the liver and the ribs do different things (pure module + unit tests)",
-    "who": "goose",
-    "started": "2026-11-14T10:53",
-    "run": "LIVERRIBS2",
-    "state": "LANDED - Claude collects"
+    "started": "2026-11-14T12:17",
+    "run": "LANDREACH3"
    }
   ],
   "next": [
@@ -5034,7 +5016,7 @@
    {
     "id": "LIVERRIBS1",
     "who": "claude",
-    "title": "Liver vs ribs (his Q-219 yes): v2 passes (Maria 7/6/7, John 7/6/7). Pure LiverRibs.gd on Goose (LIVERRIBS2, issue #271); then Claude wires Exchanges/Knockdowns/InjuryRoll + the crack card",
+    "title": "Liver vs ribs (his Q-219 yes): WIRED S467 - rib injuries bruised/cracked (left only), drain by side, hurt ribs land less, the liver fold (body knockdown) with its result-page line, aim buttons renamed. Left: crack in the bout + the 3-choice crack card, side elbow fixes, opponent switches sides, BoutRead/Scout lines",
     "after": ""
    },
    {
@@ -5493,6 +5475,41 @@
   },
   "done_recently": [
    {
+    "title": "Liver vs ribs wired: rib injury split, drain by side, hurt ribs, liver fold, aim words",
+    "who": "claude",
+    "when": "2026-11-14"
+   },
+   {
+    "title": "Nightly reds: no_pronoun, result_defects, aim_wire green; block_meet/guard_knee to Qwen; plan_bots/move_tip causes noted",
+    "who": "claude",
+    "when": "2026-11-14"
+   },
+   {
+    "title": "Fight week v8 passes 6/6 (John 7/6/6 + Dola 8/8)",
+    "who": "john",
+    "when": "2026-11-14"
+   },
+   {
+    "title": "TASK NIGHTLYTRIAGE1 - which of last night's red tests are still red on main, since when, and the first failing line",
+    "who": "qwen",
+    "when": "2026-11-14"
+   },
+   {
+    "title": "LiverRibs.gd: the liver and the ribs do different things (pure module + unit tests)",
+    "who": "goose",
+    "when": "2026-11-14"
+   },
+   {
+    "title": "TASK CARDFIX2 - after the S466 card-table fix, does every best answer fire? (probe, no screen)",
+    "who": "qwen",
+    "when": "2026-11-14"
+   },
+   {
+    "title": "TASK CARDFIX1 - which card-table fix lets every best answer fire, without breaking the win balance? (probe, no screen)",
+    "who": "qwen",
+    "when": "2026-11-14"
+   },
+   {
     "title": "Card table fixed: her trouble no longer moves her; counter-punchers keep it outside (every best answer fires)",
     "who": "claude"
    },
@@ -5523,38 +5540,6 @@
    {
     "title": "Glove clash (his C389 'clipping'): a glove keeps off the other's glove and forearm; the punching hand keeps its line",
     "who": "claude"
-   },
-   {
-    "title": "LANDREACH1 step 1: the landed cross on the game camera (1.6 cm / 16.5 cm off; depth hides the second)",
-    "who": "claude"
-   },
-   {
-    "title": "What to learn next redesigned as tiles (his C388 'needs redesign'), walk test green",
-    "who": "claude"
-   },
-   {
-    "title": "Maps for the club show and push/tank (his 'Show me the map first') on the board as Q-224 / Q-225",
-    "who": "claude"
-   },
-   {
-    "title": "CARDVISIT1 - which cards does a played bout ever reach, and which plan lines can ever fire there? (probe, no screen) - collected (S465, Claude rerun identical)",
-    "who": "qwen"
-   },
-   {
-    "title": "TREEVALUE1 - is every move-tree node worth drilling against at least one style? (probe, no screen) - collected (S463-S464)",
-    "who": "qwen"
-   },
-   {
-    "title": "KNOWBOTS3 - the Knowledge bots test, with a truth that drives results and an ORACLE arm (probe, no screen) - collected (S463-S464)",
-    "who": "qwen"
-   },
-   {
-    "title": "NODEREAD1 - which move-tree nodes does the played bout read? (probe, no screen) - collected (S463-S464)",
-    "who": "qwen"
-   },
-   {
-    "title": "KNOWBOTS2 - the Knowledge bots test on a FAIR prospect pool (probe, no screen) - collected (S463-S464)",
-    "who": "qwen"
    }
   ],
   "scope_note": "S294: lean restart (E:\\FightCamp\\Lean\\docs\\RESTART_PLAN.md). Old roadmap items are parked until the weekly builds reach them.",
@@ -5683,6 +5668,30 @@
   "map": {
    "done_earlier": [
     {
+     "text": "Card table fix: she stays put",
+     "who": "claude"
+    },
+    {
+     "text": "Cross reach: rear hand lands",
+     "who": "claude"
+    },
+    {
+     "text": "READ-PROOF on Fight prep",
+     "who": "claude"
+    },
+    {
+     "text": "Liver on the right (southpaw)",
+     "who": "claude"
+    },
+    {
+     "text": "Liver vs ribs v2: passes 7/6",
+     "who": "agent"
+    },
+    {
+     "text": "CARDFIX2: every answer fires",
+     "who": "agent"
+    },
+    {
      "text": "Maps: club show + push/tank",
      "who": "claude"
     },
@@ -5713,56 +5722,28 @@
     {
      "text": "Landed reach bisect: POWER1",
      "who": "claude"
-    },
-    {
-     "text": "Pick what she learns next",
-     "who": "claude"
-    },
-    {
-     "text": "Fight reads step levels",
-     "who": "claude"
-    },
-    {
-     "text": "Knowledge reads proved (+6)",
-     "who": "agent"
-    },
-    {
-     "text": "Hosted show designed 7/7, 8/8",
-     "who": "agent"
-    },
-    {
-     "text": "Plan test green (fixture)",
-     "who": "claude"
-    },
-    {
-     "text": "Pro read wired: tape + prep line",
-     "who": "claude"
     }
    ],
    "done_session": [
     {
-     "text": "Card table fix: she stays put",
-     "who": "claude"
-    },
-    {
-     "text": "Cross reach: rear hand lands",
-     "who": "claude"
-    },
-    {
-     "text": "READ-PROOF on Fight prep",
-     "who": "claude"
-    },
-    {
-     "text": "Liver on the right (southpaw)",
-     "who": "claude"
-    },
-    {
-     "text": "Liver vs ribs v2: passes 7/6",
+     "text": "LiverRibs module collected",
      "who": "agent"
     },
     {
-     "text": "CARDFIX2: every answer fires",
-     "who": "agent"
+     "text": "Rib injury: bruised or cracked",
+     "who": "claude"
+    },
+    {
+     "text": "Nightly reds: 2 fixed, 3 noted",
+     "who": "claude"
+    },
+    {
+     "text": "Fight week v8 passes 6/6",
+     "who": "claude"
+    },
+    {
+     "text": "Liver vs ribs wired (3 steps)",
+     "who": "claude"
     }
    ],
    "now": [
@@ -5803,7 +5784,7 @@
      "who": "claude"
     },
     {
-     "text": "LiverRibs module (Goose)",
+     "text": "Lead glove height (Qwen)",
      "who": "agent"
     }
    ],
@@ -5873,20 +5854,24 @@
      "who": "claude"
     },
     {
-     "text": "Cross lands high: aim fix",
+     "text": "Guard knee bisect (Qwen)",
+     "who": "agent"
+    },
+    {
+     "text": "Crack card: liver/ribs step 4",
      "who": "claude"
     },
     {
-     "text": "Wire liver vs ribs",
-     "who": "claude"
+     "text": "Liver fold tune (Qwen, 400)",
+     "who": "agent"
     }
    ],
-   "session": "S466"
+   "session": "S467"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
- "last_working_commit": "1ce9a05e",
- "next_action": "S463: 0) get_usage. 1) Collect KNOWBOTS2 (Qwen, qwen/knowbots2, TASK_KNOWBOTS2.md): RERUN the probe on the same seeds before reading its page. Pass -> Knowledge step 3 design; fail again -> Knowledge redesign to the design loop. 2) Seat answers SQ79-87 -> design_loop.py next rounds (LIVERRIBS1 v2 Kalli, COACHFIT1 v5 Dola, CLUBWEEK1 v5 Kalli: when v5 lands re-measure with tools/loyal1_probe.gd before wiring Loyalty + ClubDeal). 3) POWER1E: his look on the review board; if he sees the inside snap, smooth the guard handoff in HitImpact._quick_back (the join at f25, shot 03 seed 4242). 4) INTEGRATE1 left: #12 CoachMarket waits COACHFIT1, #13 waits AMATEURWEEK1, #14 MatPrice waits the BJJ plan screen. No menu design until mechanics are in. 5) PRs 259/260/261: he closes them or allows gh pr close.",
+ "last_working_commit": "c03fba4f",
+ "next_action": "S468: 0) get_usage. 1) Lead glove height (docs/LANDREACH3_RESULT.md): split the contact point from the carry start (move _note_shown's carry part out of PunchReach, 498 lines), then FILM seed 4242 on the game camera - his C391 'i wait to see it in the match'. 2) GUARDKNEE2 and LIVERPROBE1 (Qwen queue): collect; set LiverFold.shot_points / fold_scale from LIVERPROBE1's table. 3) LIVERRIBS1 step 4 (crack in the bout BUILT S467): the opponent's corner retiring a cracked boxer + the 3-choice crack card in the corner minute (rules 6-8, design s4.1), then side elbow fixes + the opponent switching sides; BoutRead/Scout lines (design s6). 4) Seat answers SQ98/104 (John), SQ109/111/113 (Dola) -> DESIGN_LOOP_S459.md. 5) Export after any player-visible change.",
  "next_acceptance": "He has seen the corners intro and the versus tape in the .exe; RANKSHOWUI briefed and launched; short_m restored with a hit-gap before/after."
 }

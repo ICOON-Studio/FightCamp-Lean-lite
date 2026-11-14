@@ -135,3 +135,27 @@ static func heal_days(choice: String, roll: float) -> int:
 	if choice == "fight" and roll < WORSE_CHANCE:
 		base += WORSE_DAYS
 	return base
+
+
+## S467 wiring: a boxer's body shots taken, as the fight keeps them: {"free": n, "liver": n, "ribs": n} - "free" are the
+## un-aimed shots (LIVER_SHARE of them land on the liver). Aimed shots (PaceAim "right_ribs" = liver, "left_ribs" = ribs)
+## count on their side.
+const LIVER_SHARE := 0.6
+
+
+static func add_shots(sides: Dictionary, n: int, aim: String) -> void:
+	var k := "liver" if aim == "right_ribs" else ("ribs" if aim == "left_ribs" else "free")
+	sides[k] = int(sides.get(k, 0)) + n
+
+
+## Liver and ribs counts (the free shots split LIVER_SHARE / the rest, rounded) for hurt reads and screens.
+static func counts(sides: Dictionary) -> Dictionary:
+	var free := int(sides.get("free", 0))
+	var liver := roundi(float(free) * LIVER_SHARE)
+	return {"liver": int(sides.get("liver", 0)) + liver, "ribs": int(sides.get("ribs", 0)) + free - liver}
+
+
+## Body-cost units the shots drain: liver x LIVER_DRAIN, ribs x RIB_DRAIN, a free shot their mean (1.0 at 60/40, unrounded).
+static func drain_units(sides: Dictionary) -> float:
+	var free_mean := LIVER_SHARE * LIVER_DRAIN + (1.0 - LIVER_SHARE) * RIB_DRAIN
+	return float(sides.get("free", 0)) * free_mean + float(sides.get("liver", 0)) * LIVER_DRAIN + float(sides.get("ribs", 0)) * RIB_DRAIN

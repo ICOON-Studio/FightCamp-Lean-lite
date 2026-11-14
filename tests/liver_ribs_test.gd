@@ -17,6 +17,7 @@ func _initialize() -> void:
 	_test_corner_retires()
 	_test_injury_split()
 	_test_heal_days()
+	_test_side_tally()
 	_test_traffic_mean()
 	_test_control_wrong_drain()
 	print("LIVER_RIBS failures=%d" % failures)
@@ -259,3 +260,21 @@ func _test_control_wrong_drain() -> void:
 	var wrong_mean: float = 0.6 * LR.RIB_DRAIN + 0.4 * LR.LIVER_DRAIN
 	_check(not _near(wrong_mean, 1.0, 0.001),
 		"CONTROL: swapped drain mean != 1.0 (got %f)" % wrong_mean)
+
+
+## S467 wiring: the fight's side tally. Ten free shots drain 10 units (the old count); ten aimed at the liver 13, at the
+## ribs 5.5; counts split the free ones 6/4 and add the aimed ones on their side.
+func _test_side_tally() -> void:
+	var free := {}
+	LR.add_shots(free, 10, "")
+	var liv := {}
+	LR.add_shots(liv, 10, "right_ribs")
+	var rib := {}
+	LR.add_shots(rib, 10, "left_ribs")
+	_check(_near(LR.drain_units(free), 10.0, 1e-4) and _near(LR.drain_units(liv), 13.0, 1e-4) and _near(LR.drain_units(rib), 5.5, 1e-4),
+		"side tally: free 10 -> 10 units, liver 10 -> 13, ribs 10 -> 5.5 (got %.3f %.3f %.3f)" % [LR.drain_units(free), LR.drain_units(liv), LR.drain_units(rib)])
+	LR.add_shots(free, 2, "left_ribs")
+	var cn: Dictionary = LR.counts(free)
+	_check(int(cn["liver"]) == 6 and int(cn["ribs"]) == 6, "side tally counts: 10 free + 2 ribs -> liver 6, ribs 6 (got %s)" % str(cn))
+	# CONTROL: a swapped drain (liver cheap) must read differently.
+	_check(not _near(LR.drain_units(liv), LR.drain_units(rib), 1e-3), "CONTROL: liver and ribs drain differ")

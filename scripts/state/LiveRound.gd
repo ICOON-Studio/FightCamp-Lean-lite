@@ -4,6 +4,7 @@ extends RefCounted
 ## closes it into the round dict Bouts has always kept ({n, won, mine, theirs, corner, energy, ...} + exchanges).
 ## Lives in the fight moment as m["live"]. No preload of Bouts (Bouts preloads this).
 
+const LiverRibs := preload("res://scripts/rules/LiverRibs.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 const HabitFix := preload("res://scripts/rules/HabitFix.gd")
@@ -84,6 +85,9 @@ static func open(c: Career, f: Dictionary, m: Dictionary, n: int, plan: String, 
 	# S310: body shots taken all fight ({a: by her, b: by the opponent}), kept on the bout so they carry round to round.
 	if n == 1 or not f["bout"].has("body"):
 		f["bout"]["body"] = {"a": 0, "b": 0}
+	# S467 LIVERRIBS1: the same shots by side ({free, liver, ribs} each), for the drain and the hurt reads (LiverRibs).
+	if n == 1 or not f["bout"].has("sides"):
+		f["bout"]["sides"] = {"a": {}, "b": {}}
 	# S339 the coach's plan she walks out with (her saved board); the corner changes it on the bout only.
 	if n == 1 or not f["bout"].has("arrows"):
 		f["bout"]["arrows"] = (f.get("arrows", []) as Array).duplicate(true)
@@ -104,7 +108,7 @@ static func open(c: Career, f: Dictionary, m: Dictionary, n: int, plan: String, 
 	m["live"] = {"pace": pace0 if pace0 != "" else str(was.get("pace", "steady")), "aim": str(was.get("aim", "")), "n": n, "plan": plan, "ex": [], "shouts": 0, "mode": mode, "her_hurt": bool(jobs.get("hurt", false)), "opp_hurt": false,
 		"talk": talk, "talk_kind": str(jobs.get("talk", "")), "setup": setup, "adapt": Adaptation.start(f["bout"], str(jobs.get("adapt", "")), Exchanges.uptake(float((f.get("personality", {}) as Dictionary).get("coachability", 55.0)), 0) * FighterProfile.trust(f)),
 		"cost": 0.0, "e": e, "base": base, "fix": fix, "last": n >= int(f["bout"].get("rounds", BoutRules.ROUNDS)),
-		"place": int(f["bout"].get("last_place", 0)), "body": f["bout"]["body"],
+		"place": int(f["bout"].get("last_place", 0)), "body": f["bout"]["body"], "sides": f["bout"]["sides"],
 		"body_cost_a": Exchanges.body_cost(float(own_attrs.get("body", 55.0))),
 		"body_cost_b": PerkFight.body_cost(f) * Exchanges.body_cost(float(opp_attrs.get("body", 55.0))) / Exchanges.BODY_COST}
 	m["live"]["start"] = state(m["live"], 0)
@@ -307,6 +311,13 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 		lv["plan_won_arrow"] = arrow
 	# S323 Push throws more (and so lands more), Save less.
 	s["landed"][0] = maxi(0, int(round(float(s["landed"][0]) * PaceAim.output(pace))))
+	# S467 LIVERRIBS1 rule 5: hurt left ribs drop that elbow - the hurt side lands x RIB_OUTPUT_HURT (the same hurt line as
+	# the corner's rib call, PaceAim.RIB_HURT_AT shots on the ribs).
+	var sd: Dictionary = lv.get("sides", {})
+	for k in 2:   # rule 6: a cracked side lands x CRACK_OUTPUT (LiverFold._crack)
+		var crk := bool((f["bout"].get("cracked", {}) as Dictionary).get("ab"[k], false))
+		if crk or int(LiverRibs.counts(sd.get("ab"[k], {}))["ribs"]) >= PaceAim.RIB_HURT_AT:
+			s["landed"][k] = maxi(0, int(round(float(s["landed"][k]) * (LiverRibs.CRACK_OUTPUT if crk else LiverRibs.RIB_OUTPUT_HURT))))
 	var pressed := PlanPressure.after(f["bout"], lv, s, fit_now, bool(pick.get("planned", false)))
 	# S355 Counter sense: she makes an attacker miss and a free counter comes back (its own dice).
 	if PerkFight.has(f, "counter_sense") and PerkFight.counters(f, sit, bool(s["won"]), _rng(c, f, n, i + 73).randf()):
@@ -324,11 +335,15 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	var bt: Dictionary = lv.get("body", {"a": 0, "b": 0})
 	bt["b"] = int(bt.get("b", 0)) + int(body[0])
 	bt["a"] = int(bt.get("a", 0)) + int(body[1])
+	var sides: Dictionary = lv.get("sides", {"a": {}, "b": {}})
+	LiverRibs.add_shots(sides["b"], int(body[0]), aim)
+	LiverRibs.add_shots(sides["a"], int(body[1]), "")
 	if bool(cl.get("hit", false)):
 		var ribs := int(cl["shots"]) - (1 if bool(cl["head"]) else 0)
 		s["landed"][1] = int(s["landed"][1]) + int(cl["shots"])
 		body[1] = int(body[1]) + ribs
 		bt["a"] = int(bt.get("a", 0)) + ribs
+		LiverRibs.add_shots(sides["a"], ribs, "")
 		if float(cl["damage"]) > 0.0:
 			var cdmg: Dictionary = m.get("damage", {"a": 0.0, "b": 0.0})
 			cdmg["a"] = float(cdmg.get("a", 0.0)) + float(cl["damage"])

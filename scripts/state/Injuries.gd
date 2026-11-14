@@ -192,7 +192,8 @@ static func after_bout(c: Career, f: Dictionary, m: Dictionary) -> void:
 		for p in ["left_eye", "right_eye", "nose", "left_ribs", "right_ribs"]:
 			places[p] = BodyMap.value(bm as Dictionary, "a", p)
 	var dmg_dict: Dictionary = {"places": places, "rounds": (m["rounds"] as Array).size(),
-		"head_stoppage": head_stop, "ko_history": history, "day": c.day}
+		"head_stoppage": head_stop, "ko_history": history, "day": c.day,
+		"rib_cracked": bool(((f.get("bout", {}) as Dictionary).get("cracked", {}) as Dictionary).get("a", false))}   # S467 rule 6: cracked in the bout
 	var roll := InjuryRoll.bout_roll(_seed(c, f, 7), dmg_dict)
 	if head_stop:
 		f["ko_history"] = history + [c.day]

@@ -176,9 +176,9 @@ func _test9() -> void:
 		ok = false
 	if PA.aim_word("body") != "Go to the body":
 		ok = false
-	if PA.aim_word("left_ribs") != "Left ribs!":
+	if PA.aim_word("left_ribs") != "Ribs (left side)!":
 		ok = false
-	if PA.aim_word("right_ribs") != "Right ribs!":
+	if PA.aim_word("right_ribs") != "Liver (right side)!":
 		ok = false
 	if PA.aim_word("head_hurt") != "Finish the head!":
 		ok = false

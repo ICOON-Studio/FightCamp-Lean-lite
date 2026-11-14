@@ -1,3 +1,17 @@
+S467 (2026-11-14)
+- Liver and ribs now do different things in a fight. In the corner bar the two body buttons read "Liver (right side)!" and
+  "Ribs (left side)!" (hover says what each does). A liver shot drains the tank faster (1.3 times a body shot), a rib shot
+  less (about half). Once a boxer's left ribs are hurt that hand lands less (15 in 100 fewer).
+- The liver fold: once the liver is hurt, a fresh shot there can fold a boxer - a body knockdown, an 8-count. The round line
+  says "folds from a shot to the liver"; the result page's counts tile says how many came from the liver (hover: which round).
+  It is rare: about 7 in 100 bouts in our test run.
+- Ribs can crack in the fight: once the left ribs are badly hurt, a rib shot can crack them (the round line says so). That
+  side then lands much less (6 in 10) and the boxer leaves with a cracked rib. Choosing what to do about it in the corner
+  comes next.
+- After the fight a rib injury is now "Bruised ribs (left)" (10-21 days) or "Cracked rib (left)" (35-56 days); the liver
+  never lays a boxer off.
+- The liver is on the right side for southpaws too on the corner's aim buttons.
+
 S466 (2026-11-14)
 - Fight: the right hand (cross and rear hook) reaches her again. Since an earlier punch change it stopped 13-19 cm short of the
   face; now it gets there. It can still land high on the forehead: that is the next fix. Watch a few crosses up close.

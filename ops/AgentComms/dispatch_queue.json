@@ -1440,6 +1440,12 @@
    "seat": "qwen",
    "status": "queued",
    "queued": "2026-11-14T12:28"
+  },
+  {
+   "task": "LIVERPROBE1",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-14T12:43"
   }
  ]
 }

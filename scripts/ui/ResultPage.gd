@@ -270,10 +270,15 @@ static func cost_card(main: Node, m: Dictionary, f: Dictionary, names: Array) ->
 		for x in (r as Dictionary).get("exchanges", []):
 			dealt += int(bool(((x as Dictionary).get("after", {}) as Dictionary).get("hurt", [false, false])[1]))
 	var counts := int((m.get("counts", {}) as Dictionary).get("a", 0))
+	var folds: Array = []   # S467 LIVERRIBS1: which counts were body knockdowns from the liver
+	for r in m["rounds"]:
+		if bool((r as Dictionary).get("liver_fold", false)) and str((r as Dictionary).get("down", "")) == "a":
+			folds.append("round %d" % int((r as Dictionary).get("n", 0)))
+	var count_tip := "Counts from the referee in the bout." + ("" if folds.is_empty() else " Body knockdown (liver): %s." % ", ".join(PackedStringArray(folds)))
 	var facts := UI.hbox(26)
 	for fact in [["%d" % hurt, "times hurt", UI.AMBER if hurt > 0 else UI.GREEN, "Exchanges your boxer finished hurt (the opponent won one big)."],
 			["%d" % dealt, "times the opponent was hurt", UI.FG, "Exchanges the opponent finished hurt: the same count the other way."],
-			["%d" % counts, "standing counts", UI.RED if counts > 0 else UI.GREEN, "Counts from the referee in the bout."]]:
+			["%d" % counts, "standing counts" if folds.is_empty() else "counts, %d from the liver" % folds.size(), UI.RED if counts > 0 else UI.GREEN, count_tip]]:
 		var cell := UI.vbox(0)
 		cell.mouse_filter = Control.MOUSE_FILTER_PASS
 		cell.tooltip_text = str(fact[3])

@@ -96,13 +96,17 @@ func _test4_body_aim_against_burned_opponent() -> void:
 	_check(is_equal_approx(edge_burned - edge_fresh, 3.0), "body on burned: +3 (got %.1f)" % (edge_burned - edge_fresh))
 
 
-## 5. S432: the two rib calls are not twins - the liver side (her lead hook's side) hurts first, and stance flips it.
+## 5. S432: the two rib calls are not twins - the liver side hurts first. S467 (LIVERRIBS1 v2 s2 anatomy): the liver is on
+## the RIGHT of every body, so a southpaw's right side opens first too (the S432 stance flip was the anatomy defect).
 func _test5_liver_side_first() -> void:
 	var lv := {"body": {"a": 0, "b": 7}, "opp_hurt": false}
 	var ortho := PaceAim.opp_hurt(lv, "orthodox")
 	_check(bool(ortho["right_ribs"]) and not bool(ortho["left_ribs"]), "orthodox, 7 body shots: the right ribs (liver) open first (%s)" % str(ortho))
 	var lefty := PaceAim.opp_hurt(lv, "southpaw")
-	_check(bool(lefty["left_ribs"]) and not bool(lefty["right_ribs"]), "southpaw, 7 body shots: the left ribs open first (%s)" % str(lefty))
+	_check(bool(lefty["right_ribs"]) and not bool(lefty["left_ribs"]), "southpaw, 7 body shots: the right ribs (liver) open first too (%s)" % str(lefty))
+	# S467: aimed shots count on their side - 7 aimed at the left ribs open the left, not the liver.
+	var aimed := PaceAim.opp_hurt({"body": {"a": 0, "b": 7}, "sides": {"b": {"ribs": 7}}, "opp_hurt": false}, "orthodox")
+	_check(bool(aimed["left_ribs"]) and not bool(aimed["right_ribs"]), "7 shots aimed at the left ribs open the left (%s)" % str(aimed))
 	var both := PaceAim.opp_hurt({"body": {"a": 0, "b": 10}, "opp_hurt": false}, "orthodox")
 	_check(bool(both["right_ribs"]) and bool(both["left_ribs"]), "10 body shots: both sides hurt (%s)" % str(both))
 	var none := PaceAim.opp_hurt({"body": {"a": 0, "b": 5}, "opp_hurt": false}, "orthodox")

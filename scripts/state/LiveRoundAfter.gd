@@ -2,6 +2,7 @@ extends RefCounted
 ## SPLIT500: end-of-exchange bookkeeping lifted out of LiveRound.exchange so the file stays under the
 ## 500-line limit. Called once from exchange after the plan tally; updates lv and rec in place.
 
+const LiverRibs := preload("res://scripts/rules/LiverRibs.gd")
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 const PaceAim := preload("res://scripts/rules/PaceAim.gd")
 const Combos := preload("res://scripts/rules/Combos.gd")
@@ -14,13 +15,20 @@ const TheRead := preload("res://scripts/rules/TheRead.gd")
 static func her_energy(lv: Dictionary, i: int) -> float:
 	var e: Dictionary = lv["e"]
 	return lerpf(float(e.get("a", 100.0)), float(e.get("a_end", 100.0)), float(i) / Exchanges.EXCHANGES) \
-		- float(lv["cost"]) - float((lv.get("body", {}) as Dictionary).get("a", 0)) * Exchanges.BODY_COST
+		- float(lv["cost"]) - body_units(lv, "a") * Exchanges.BODY_COST
 
 
 static func opp_energy(lv: Dictionary, i: int) -> float:
 	var e: Dictionary = lv["e"]
 	return lerpf(float(e.get("b", 100.0)), float(e.get("b_end", 100.0)), float(i) / Exchanges.EXCHANGES) \
-		- float((lv.get("body", {}) as Dictionary).get("b", 0)) * float(lv.get("body_cost_b", Exchanges.BODY_COST))
+		- body_units(lv, "b") * float(lv.get("body_cost_b", Exchanges.BODY_COST))
+
+
+static func body_units(lv: Dictionary, who: String) -> float:
+	var sd: Dictionary = lv.get("sides", {})
+	if sd.has(who):
+		return LiverRibs.drain_units(sd[who])
+	return float((lv.get("body", {}) as Dictionary).get(who, 0))
 
 
 ## S310 what the fight display shows after i exchanges.

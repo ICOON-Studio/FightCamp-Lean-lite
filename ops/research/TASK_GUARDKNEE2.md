@@ -21,7 +21,7 @@ cddf2815 POWER1 step 1 "the body goes into the punch", 74a910de POWER1 steps 2-4
 - REGRESSION each no worse than main today: punch_range_test, hit_frame_test, block_meet_test.
 
 ## Contract
-OWNS: the one scripts/fight3d file the first bad commit changed (name it in the PR; under 500 lines), docs/GUARDKNEE2_RESULT.md
+OWNS: scripts/fight3d/FightStage.gd, scripts/fight3d/PunchWeight.gd, scripts/fight3d/JoinSmoother.gd, scripts/fight3d/BoxerBuild.gd, docs/GUARDKNEE2_RESULT.md (touch only the one of these the first bad commit changed; if it is another file, stop and report it)
 RED_TEST: tests/guard_knee_test.gd -> GUARD_KNEE failures=
 REGRESSION: punch_range_test, hit_frame_test, block_meet_test
 VISUAL: yes - Claude checks a guard still on the game camera before merge; you only run headless.

@@ -2,6 +2,7 @@ extends RefCounted
 ## Pace (push / steady / save) and Aim (where she goes on the other boxer's body): what each costs and buys.
 ## Pure static module. Exchanges reads edge/spend/output/recover; the shout bar reads pace_word/aim_word/offers.
 
+const LiverRibs := preload("res://scripts/rules/LiverRibs.gd")
 const PACES := ["push", "steady", "save"]
 const AIMS := ["", "head", "body", "left_ribs", "right_ribs", "head_hurt"]
 
@@ -87,9 +88,9 @@ static func aim_word(aim: String) -> String:
 	if aim == "body":
 		return "Go to the body"
 	if aim == "left_ribs":
-		return "Left ribs!"
+		return "Ribs (left side)!"
 	if aim == "right_ribs":
-		return "Right ribs!"
+		return "Liver (right side)!"
 	if aim == "head_hurt":
 		return "Finish the head!"
 	return ""
@@ -121,7 +122,7 @@ static func aim_effect(aim: String, opp: String) -> String:
 	if aim == "body":
 		return "Body: drains %s for later" % opp
 	if aim == "left_ribs" or aim == "right_ribs":
-		return "%s: hurt, hits harder" % ("Left ribs" if aim == "left_ribs" else "Right ribs")
+		return "Ribs: hurt, that hand lands less" if aim == "left_ribs" else "Liver: hurt, drains the tank faster"
 	if aim == "head_hurt":
 		return "The hurt head: hits harder"
 	return "Initiative: 1 in 5 to the body"
@@ -134,7 +135,7 @@ static func aim_tip(aim: String, opp: String) -> String:
 	elif aim == "body":
 		t = "Go to the body. Half the punches go downstairs; each one takes energy from %s for the rest of the fight. A named target is a little easier to read in every exchange." % opp
 	elif aim == "left_ribs" or aim == "right_ribs":
-		t = "The hurt ribs. More exchanges won and every punch there does about a third more damage."
+		t = "The hurt ribs. More exchanges won and every punch there does about a third more damage. Hurt ribs drop that elbow: the left hand lands 15 in 100 less. A rib shot drains about half a body shot's energy." if aim == "left_ribs" 			else "The hurt liver. More exchanges won and every punch there does about a third more damage. A liver shot drains 1.3 times a body shot's energy for the rest of the fight. The liver never means weeks out after the fight; hurt ribs can."
 	elif aim == "head_hurt":
 		t = "Finish the head! %s is hurt there: more exchanges won and every punch there does about a third more damage." % opp
 	return "%s
@@ -165,12 +166,17 @@ const BURN_PER_ENERGY := 1.0
 const LIVER_SHARE := 0.6
 
 static func opp_hurt(lv: Dictionary, stance: String = "orthodox") -> Dictionary:
+	# S467 LIVERRIBS1 v2 s2: the liver is on the RIGHT of every body (the stance swap was the S460 anatomy defect); the
+	# side tally (aimed shots on their side) when the bout keeps one. `stance` stays for the callers; it no longer moves it.
 	var bt: Dictionary = lv.get("body", {})
 	var total := int(bt.get("b", 0))
 	var liver := roundi(float(total) * LIVER_SHARE)
-	var liver_side := "left_ribs" if stance.to_lower() == "southpaw" else "right_ribs"
-	var other_side := "right_ribs" if liver_side == "left_ribs" else "left_ribs"
-	return {"head": bool(lv.get("opp_hurt", false)), liver_side: liver >= RIB_HURT_AT, other_side: total - liver >= RIB_HURT_AT}
+	var sd: Dictionary = (lv.get("sides", {}) as Dictionary).get("b", {})
+	if not sd.is_empty():
+		var cn := LiverRibs.counts(sd)
+		liver = int(cn["liver"])
+		total = liver + int(cn["ribs"])
+	return {"head": bool(lv.get("opp_hurt", false)), "right_ribs": liver >= RIB_HURT_AT, "left_ribs": total - liver >= RIB_HURT_AT}
 
 static func opp_burn(body_shots: int, opp_energy: float) -> Dictionary:
 	return {"core": float(body_shots) * BURN_PER_BODY, "legs": (100.0 - opp_energy) * BURN_PER_ENERGY}

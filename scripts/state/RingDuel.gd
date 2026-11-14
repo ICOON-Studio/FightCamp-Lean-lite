@@ -4,6 +4,7 @@ extends RefCounted
 ## night. The corner's call steers her want; the opponent's game steers theirs. BoutRead walks the same maths in expectation
 ## (mean_edges). Pure static on the career dicts; zero state outside f["bout"] and the live round.
 
+const LiverRibs := preload("res://scripts/rules/LiverRibs.gd")
 const StyleName := preload("res://scripts/rules/StyleName.gd")
 const Attrs := preload("res://scripts/rules/Attrs.gd")
 const AttrGen := preload("res://scripts/rules/AttrGen.gd")
@@ -308,13 +309,22 @@ static func wins_breaks(f: Dictionary, o: Dictionary) -> Array:
 static func her_energy(lv: Dictionary, i: int) -> float:
 	var e: Dictionary = lv["e"]
 	return lerpf(float(e.get("a", 100.0)), float(e.get("a_end", 100.0)), float(i) / Exchanges.EXCHANGES) - float(lv["cost"]) \
-		- float((lv.get("body", {}) as Dictionary).get("a", 0)) * float(lv.get("body_cost_a", Exchanges.BODY_COST))
+		- body_units(lv, "a") * float(lv.get("body_cost_a", Exchanges.BODY_COST))
 
 
 static func opp_energy(lv: Dictionary, i: int) -> float:
 	var e: Dictionary = lv["e"]
 	return lerpf(float(e.get("b", 100.0)), float(e.get("b_end", 100.0)), float(i) / Exchanges.EXCHANGES) \
-		- float((lv.get("body", {}) as Dictionary).get("b", 0)) * float(lv.get("body_cost_b", Exchanges.BODY_COST))
+		- body_units(lv, "b") * float(lv.get("body_cost_b", Exchanges.BODY_COST))
+
+
+## S467 LIVERRIBS1: body shots taken as drain units - a liver shot LiverRibs.LIVER_DRAIN, a rib shot RIB_DRAIN, an
+## un-aimed one their 60/40 mean (= the old count); a bout without the side tally keeps the count.
+static func body_units(lv: Dictionary, who: String) -> float:
+	var sd: Dictionary = lv.get("sides", {})
+	if sd.has(who):
+		return LiverRibs.drain_units(sd[who])
+	return float((lv.get("body", {}) as Dictionary).get(who, 0))
 
 
 ## What the fight display shows after i exchanges.
