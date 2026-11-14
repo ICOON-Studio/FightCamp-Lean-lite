@@ -1943,18 +1943,25 @@
    "seat": "kalli",
    "brief": "research/DESIGN_COACHFIT1_V8_REVISE_KALLI.md",
    "stem": "DESIGN_COACHFIT1_V8_REVISE_KALLI_KALLI",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-14 20:43",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-14 22:10",
+   "sent_ms": 1794687031223,
+   "answered_at": "2026-11-14 22:40",
+   "answer": "research/DESIGN_COACHFIT1_V8_REVISE_KALLI_KALLI.md",
+   "chars": 40773
   },
   {
    "id": "SQ132",
    "seat": "kalli",
    "brief": "research/DESIGN_WEIGHT1_R4_REVISE_KALLI.md",
    "stem": "DESIGN_WEIGHT1_R4_REVISE_KALLI_KALLI",
-   "status": "queued",
+   "status": "sent",
    "queued_at": "2026-11-14 20:43",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-14 23:10",
+   "sent_ms": 1794690638718
   },
   {
    "id": "SQ133",
@@ -1991,18 +1998,28 @@
    "seat": "john",
    "brief": "research/DESIGN_CLUBWEEK1_V7_CRITIC_JOHN.md",
    "stem": "DESIGN_CLUBWEEK1_V7_CRITIC_JOHN_JOHN",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-14 20:43",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-14 22:10",
+   "sent_ms": 1794687033601,
+   "answered_at": "2026-11-14 22:40",
+   "answer": "research/DESIGN_CLUBWEEK1_V7_CRITIC_JOHN_JOHN.md",
+   "chars": 15918
   },
   {
    "id": "SQ136",
    "seat": "maria",
    "brief": "research/DESIGN_CLUBWEEK1_V7_CRITIC_MARIA.md",
    "stem": "DESIGN_CLUBWEEK1_V7_CRITIC_MARIA_MARIA",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-14 20:43",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-14 22:10",
+   "sent_ms": 1794687036085,
+   "answered_at": "2026-11-14 22:40",
+   "answer": "research/DESIGN_CLUBWEEK1_V7_CRITIC_MARIA_MARIA.md",
+   "chars": 11177
   },
   {
    "id": "SQ137",
@@ -2024,30 +2041,39 @@
    "seat": "dola",
    "brief": "research/DESIGN_CLUBWEEK1_V7_CRITIC_DOLA.md",
    "stem": "DESIGN_CLUBWEEK1_V7_CRITIC_DOLA_DOLA",
-   "status": "sent",
+   "status": "answered",
    "queued_at": "2026-11-14 20:44",
    "tries": 0,
    "sent_at": "2026-11-14 21:40",
    "pid": 2576,
-   "transcript": "AgentComms/seat_logs/SQ138_dola.txt"
+   "transcript": "AgentComms/seat_logs/SQ138_dola.txt",
+   "answered_at": "2026-11-14 22:10",
+   "answer": "research/DESIGN_CLUBWEEK1_V7_CRITIC_DOLA_DOLA.md"
   },
   {
    "id": "SQ139",
    "seat": "dola",
    "brief": "research/FIGHTWEEK_SCREEN_V1_CRITIC_DOLA.md",
    "stem": "FIGHTWEEK_SCREEN_V1_CRITIC_DOLA_DOLA",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-14 21:29",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-14 22:40",
+   "pid": 36888,
+   "transcript": "AgentComms/seat_logs/SQ139_dola.txt",
+   "answered_at": "2026-11-14 23:10",
+   "answer": "research/FIGHTWEEK_SCREEN_V1_CRITIC_DOLA_DOLA.md"
   },
   {
    "id": "SQ140",
    "seat": "john",
    "brief": "research/FIGHTWEEK_SCREEN_V1_CRITIC_JOHN.md",
    "stem": "FIGHTWEEK_SCREEN_V1_CRITIC_JOHN_JOHN",
-   "status": "queued",
+   "status": "sent",
    "queued_at": "2026-11-14 21:29",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-14 23:10",
+   "sent_ms": 1794690641076
   },
   {
    "id": "SQ141",
@@ -2063,9 +2089,11 @@
    "seat": "maria",
    "brief": "research/DESIGN_STEPVALUE1_V1_CRITIC_MARIA.md",
    "stem": "DESIGN_STEPVALUE1_V1_CRITIC_MARIA_MARIA",
-   "status": "queued",
+   "status": "sent",
    "queued_at": "2026-11-14 22:04",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-14 23:10",
+   "sent_ms": 1794690643475
   },
   {
    "id": "SQ143",
@@ -2074,6 +2102,24 @@
    "stem": "DESIGN_PLANFLOW1_V3_REVISE_KALLI_KALLI",
    "status": "queued",
    "queued_at": "2026-11-14 22:04",
+   "tries": 0
+  },
+  {
+   "id": "SQ144",
+   "seat": "kalli",
+   "brief": "research/DESIGN_AMATEURWEEK1_V9_REVISE_KALLI.md",
+   "stem": "DESIGN_AMATEURWEEK1_V9_REVISE_KALLI_KALLI",
+   "status": "queued",
+   "queued_at": "2026-11-14 23:15",
+   "tries": 0
+  },
+  {
+   "id": "SQ145",
+   "seat": "john",
+   "brief": "research/LADDER1_RESEARCH_JOHN.md",
+   "stem": "LADDER1_RESEARCH_JOHN_JOHN",
+   "status": "queued",
+   "queued_at": "2026-11-14 23:15",
    "tries": 0
   }
  ]

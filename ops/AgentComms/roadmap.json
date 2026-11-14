@@ -3,23 +3,12 @@
  "updated": "2026-11-14",
  "author": "claude S294",
  "now": {
-  "id": "S474",
+  "id": "S475",
   "owner": "claude",
   "updated": "2026-11-14",
-  "summary": "S474: FIGHT WEEK BUILD STARTED (his S473 'Yes, build it'). Five pure rule modules on main, each green on main: WeighGap (Goose, 72), BoutSheet (Qwen, 96), FightWeek tank/load/sparring (Arena, 90), FightWeekEvents pull-out/favours (Goose, 53), FilmTruth (Goose, 50). Claude wired: WeekPhase amateur branch (fight_week bout: week before = Build, fight week by load stop), bout.r1_edge round-1 hook (live + forecast), the fight week's choice layer on the tank (BoutRules.tank_parts_for). Nothing sets fight_week yet: game unchanged until the screen lands. Fight week screen mockup v1 (docs/mockups/s474) -> critics Dola+John (SQ139/140). Q-S294-229 asks his 7 map rules. Sounds: C401 kept 8, redo round '2,6,8' kept 3 -> SOUNDWIRE2 (Qwen) wires all 11. Rear knee: foot turn 45 moves it half way; two rulers disagree ~1 deg -> KNEERULER1. Console API credits fallback written (his 'set it up'); Higgsfield refused the refund, plan credits end Dec 14.",
-  "next_action": "S475: 0) get_usage. 1) Collect: Arena FWPICK1 (assistant's pick) + REGIONSHOWS1 (show calendar) - diff + test on main; Qwen SOUNDWIRE2 (11 kept sounds wired; check import sidecars + sound_bank_test); then KNEERULER1 runs. 2) Q-S294-229 answer -> Savings brief (Goose) and the Bouts.weigh club-show branch (WeighGap, ops/research/AMATEURWEEK1_CHECKS_S474.md item 3); set WeekPhase.LOAD_DEFAULT tick_over on his yes. 3) Critics SQ139/140 on the fight week screen -> fix -> his board for the look -> Grok Dev builds the screen; THEN the switch: amateur bouts booked with fight_week true, Set camp gone for them, lead 1-3 weeks (RegionShows + BoutSheet), golden path walks it. 4) Design loop answers SQ130-138 -> critics -> 6/6 maps to his board.",
-  "last_working_commit": "df924dcc",
-  "verified_playable": "Builds/FightCamp.exe exported S469 (close-range punches arrive; the clinch no longer reaches from punching distance)",
-  "incomplete_blocked": "guard_knee_test red (hips, not the knee); punch_speed_test 41 (pre-existing); plan_bots_test red (step bars)",
-  "next_acceptance": "guard_knee within 0.03 of the take with footwork 0; punch_speed ruler settled; PLANFLOW1 v2 at 6+ depth and 6+ general",
-  "awaiting_operator": [
-   "Look: S469 match strip of jabs and crosses (your C391) and the clinch before/after strip, both on the review board",
-   "Look: S468 uppercut clipping before/after strip (C394) on the review board",
-   "Play S469's build: inside exchanges and the clinch entry",
-   "Look: the crack card in the corner (S471 stills on the review board)"
-  ]
+  "summary": "S475: COLLECTED + REDIRECTED BY HIS NOTES. Collected SOUNDWIRE2 (Qwen: the 11 kept sounds wired; Claude stopped the combo pop stacking and fixed a flaky variant check), FWPICK1 + REGIONSHOWS1 (Arena: assistant's pick, club-show calendar, both green here), KNEERULER1 (Qwen: the valgus ruler reads the raw take true; guard_knee's plane ruler sees ~60% of it, so its +0.0291 bar was the wrong target). LIVERRIBS1 Aim labels done (Liver! / Ribs!, map effect lines, body line no longer names the opponent). Design loop: plan flowchart v2 PASSES 6/6 (John 7/6, Maria 7/6, Dola 7/8) -> v3 to Kalli for John's logic faults (SQ143); step value v1 to Dola + Maria (SQ141/142). HIS Q-S294-229 ANSWER (board, comment): trips 4.1 'useless logistics' -> cut for a MANDATORY SPARRING-PARTNER screen (your boxer | partners | the opponent's known card); season ladder must reach 9/10 with REPUTATION as the currency, not fixed win counts; asked how tells' truth shows, look-again vs next group, mood (answered in ops/research/AMATEURWEEK1_OPERATOR_NOTES_S475.md). Map v9 to Kalli (SQ144), LADDER1 research to John (SQ145). FWPAY1 (Goose) held, issue closed; FWTRIPS1 (Arena) running but NOT to be collected. KNEEFIX1 on Qwen (honest knee bar + rear toes 45 / band 20 + stills both settings). Miro P0 redrawn at start."
  },
- "next": "S469: 0) get_usage. 1) Lead glove (docs/CLASH2_RESULT.md last section): carry_base takes the face when the reach was not at full weight on the hit frame; block_meet CTRL_LANDED lets the ease finish; hit_gap_probe on the hidden desktop WITH --log; FILM seed 4242 jabs=2 crosses=2 (his C391). 2) Clipping leftovers: the frame after the rear uppercut's hit, a boxer's own two gloves, the rear uppercut 0.114 m off her chin - read his comment on the S468 strip first. 3) GUARDKNEE2 + LIVERPROBE1 (Qwen): collect, set LiverFold knobs. 4) LIVERRIBS1 step 4: corner retiring a cracked boxer + the 3-choice crack card. 5) Seat answers SQ104/109/111/113/115 -> DESIGN_LOOP_S459.md. 6) Export after any player-visible change.",
+ "next": "S476: 0) get_usage. 1) Collect Qwen KNEEFIX1 (open every still in docs/kneefix1 yourself: does the rear knee cave at 45? guard + mid-jab; then his look on the review board before merge). 2) Seat answers: SQ144 fight week map v9 (sparring partner screen replaces trips) -> two fresh critics (6/6, 7+ depth) -> his board; SQ145 LADDER1 research -> Kalli writes the ladder map (reputation as currency, 9/10 bar). SQ141/142 step value critics; SQ143 plan flowchart v3 -> his board; SQ139/140 fight week screen critics now judge v1 (trips gone: redraw the mockup after v9). 3) Arena FWTRIPS1: close its lite PR unmerged (trips cut). 4) Keep Arena busy on a pure module from v9 once it lands (sparring-partner match score). 5) LIVERRIBS1 left: the forecast does not read the Aim (the Aim is chosen live; decide whether a plan-level aim exists to mirror) and the play in the exe.",
  "assessment": {
   "source": "Codex deep audit + Cursor televised-MMA gap assessment, both 2026-09-12",
   "bars": [
@@ -1975,6 +1964,11 @@
    "id": "S474",
    "date": "2026-11-14",
    "summary": "S474: FIGHT WEEK BUILD STARTED (his S473 'Yes, build it'). Five pure rule modules on main, each green on main: WeighGap (Goose, 72), BoutSheet (Qwen, 96), FightWeek tank/load/sparring (Arena, 90), FightWeekEvents pull-out/favours (Goose, 53), FilmTruth (Goose, 50). Claude wired: WeekPhase amateur branch (fight_week bout: week before = Build, fight week by load stop), bout.r1_edge round-1 hook (live + forecast), the fight week's choice layer on the tank (BoutRules.tank_parts_for). Nothing sets fight_week yet: game unchanged until the screen lands. Fight week screen mockup v1 (docs/mockups/s474) -> critics Dola+John (SQ139/140). Q-S294-229 asks his 7 map rules. Sounds: C401 kept 8, redo round '2,6,8' kept 3 -> SOUNDWIRE2 (Qwen) wires all 11. Rear knee: foot turn 45 moves it half way; two rulers disagree ~1 deg -> KNEERULER1. Console API credits fallback written (his 'set it up'); Higgsfield refused the refund, plan credits end Dec 14."
+  },
+  {
+   "id": "S475",
+   "date": "2026-11-14",
+   "summary": "S475: COLLECTED + REDIRECTED BY HIS NOTES. Collected SOUNDWIRE2 (Qwen: the 11 kept sounds wired; Claude stopped the combo pop stacking and fixed a flaky variant check), FWPICK1 + REGIONSHOWS1 (Arena: assistant's pick, club-show calendar, both green here), KNEERULER1 (Qwen: the valgus ruler reads the raw take true; guard_knee's plane ruler sees ~60% of it, so its +0.0291 bar was the wrong target). LIVERRIBS1 Aim labels done (Liver! / Ribs!, map effect lines, body line no longer names the opponent). Design loop: plan flowchart v2 PASSES 6/6 (John 7/6, Maria 7/6, Dola 7/8) -> v3 to Kalli for John's logic faults (SQ143); step value v1 to Dola + Maria (SQ141/142). HIS Q-S294-229 ANSWER (board, comment): trips 4.1 'useless logistics' -> cut for a MANDATORY SPARRING-PARTNER screen (your boxer | partners | the opponent's known card); season ladder must reach 9/10 with REPUTATION as the currency, not fixed win counts; asked how tells' truth shows, look-again vs next group, mood (answered in ops/research/AMATEURWEEK1_OPERATOR_NOTES_S475.md). Map v9 to Kalli (SQ144), LADDER1 research to John (SQ145). FWPAY1 (Goose) held, issue closed; FWTRIPS1 (Arena) running but NOT to be collected. KNEEFIX1 on Qwen (honest knee bar + rear toes 45 / band 20 + stills both settings). Miro P0 redrawn at start."
   }
  ],
  "blocked_on_operator": [],
@@ -4893,7 +4887,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-14 22:11 board_sync",
+  "updated": "2026-11-14",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5046,14 +5040,40 @@
     "title": "TASK KNEERULER1 - do both knee rulers read the raw take as the take? (measure only, headless)",
     "who": "qwen",
     "started": "2026-11-14T22:06",
-    "run": "KNEERULER1"
+    "run": "KNEERULER1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK FWTRIPS1 - fight-week trips and coach away (pure module + test)",
+    "who": "",
+    "started": "2026-11-14 22:11",
+    "run": "FWTRIPS1"
+   },
+   {
+    "title": "TASK FWPAY1 - who pays for the fight-week trip (pure module + test)",
+    "who": "",
+    "started": "2026-11-14 22:11",
+    "run": "FWPAY1",
+    "state": "STOPPED - Claude relaunches or closes"
    }
   ],
   "next": [
    {
+    "id": "SPARPARTNER1",
+    "who": "kalli",
+    "title": "Sparring partner screen (his S475 note, replaces the fight week trips): your boxer | the partners | the opponent's known card; in fight week map v9 (SQ144)",
+    "after": ""
+   },
+   {
+    "id": "LADDER1",
+    "who": "kalli",
+    "title": "Season ladder at 9/10 (his S475 note): see the ladder, find an opponent, book - reputation as the currency instead of fixed win counts; John researching games + real boxing (SQ145), then Kalli's map",
+    "after": ""
+   },
+   {
     "id": "STEPVALUE1",
     "who": "kalli",
-    "title": "Footwork and defence worth learning (his S473 'Yes, design it'): the bout ignores step mastery and steps win 12-20 % of picks v punches 52-66 %; map v1 at Kalli (SQ130) -> two fresh critics 6+/6+ -> his board -> wire into the bout (M5 gate + grade)",
+    "title": "Footwork and defence worth learning: Kalli's v1 map in (self 7/7); critics Dola SQ141 + Maria SQ142 (S475)",
     "after": "-"
    },
    {
@@ -5065,7 +5085,7 @@
    {
     "id": "PLANFLOW1",
     "who": "kalli",
-    "title": "Fight plan as an if-then flowchart: v1 critics 7/8, 7/6, 6/5 (misses by one); v2 at Kalli with his four pictures and the code facts; then two fresh critics, his board",
+    "title": "Fight plan as an if-then flowchart: v2 PASSES 6/6 (John 7/6, Maria 7/6, Dola 7/8, S475); v3 at Kalli (SQ143) fixes John's 5 logic faults, then his board",
     "after": ""
    },
    {
@@ -5077,7 +5097,7 @@
    {
     "id": "LIVERRIBS1",
     "who": "claude",
-    "title": "Liver vs ribs: crack card built, the cracked side's guard wired (S471). Left: the Aim labels, play it in the exe",
+    "title": "Liver vs ribs: crack card + cracked side's guard (S471), Aim labels Liver!/Ribs! (S475). Left: the forecast does not read the Aim (chosen live), play it in the exe",
     "after": ""
    },
    {
@@ -5542,6 +5562,22 @@
   },
   "done_recently": [
    {
+    "title": "S475: Aim buttons read Liver! / Ribs!",
+    "who": "claude"
+   },
+   {
+    "title": "S475: knee rulers checked - the plane bar was the wrong target (Qwen)",
+    "who": "claude"
+   },
+   {
+    "title": "S475: assistant's pick + club-show calendar modules (Arena)",
+    "who": "claude"
+   },
+   {
+    "title": "S475: 11 kept sounds wired (Qwen)",
+    "who": "claude"
+   },
+   {
     "title": "Fight week screen mockup v1",
     "who": "claude",
     "when": "S474"
@@ -5800,6 +5836,18 @@
     {
      "text": "Plan flowchart v2 passes 6/6",
      "who": "agent"
+    },
+    {
+     "text": "Knee rulers: plane bar wrong",
+     "who": "agent"
+    },
+    {
+     "text": "Aim buttons: Liver! / Ribs!",
+     "who": "claude"
+    },
+    {
+     "text": "Your notes: trips cut, ladder",
+     "who": "claude"
     }
    ],
    "now": [
@@ -5840,23 +5888,7 @@
      "who": "operator"
     },
     {
-     "text": "BUILD the fight week",
-     "who": "claude"
-    },
-    {
      "text": "Critics: fight week screen",
-     "who": "agent"
-    },
-    {
-     "text": "Your call: 7 fight week rules",
-     "who": "operator"
-    },
-    {
-     "text": "Who pays module (Goose)",
-     "who": "agent"
-    },
-    {
-     "text": "Trips module (Qwen, queued)",
      "who": "agent"
     },
     {
@@ -5869,6 +5901,14 @@
     },
     {
      "text": "Critics: club week v7",
+     "who": "agent"
+    },
+    {
+     "text": "Fight week map v9 (Kalli)",
+     "who": "agent"
+    },
+    {
+     "text": "Ladder research (John)",
      "who": "agent"
     }
    ],
@@ -5936,6 +5976,14 @@
     {
      "text": "Coach fit v8, weight r4",
      "who": "claude"
+    },
+    {
+     "text": "Sparring partner screen",
+     "who": "claude"
+    },
+    {
+     "text": "Season ladder 9/10, reputation",
+     "who": "claude"
     }
    ],
    "session": "S475"
@@ -5944,6 +5992,6 @@
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
  "last_working_commit": "df924dcc",
- "next_action": "S475: 0) get_usage. 1) Collect: Arena FWPICK1 (assistant's pick) + REGIONSHOWS1 (show calendar) - diff + test on main; Qwen SOUNDWIRE2 (11 kept sounds wired; check import sidecars + sound_bank_test); then KNEERULER1 runs. 2) Q-S294-229 answer -> Savings brief (Goose) and the Bouts.weigh club-show branch (WeighGap, ops/research/AMATEURWEEK1_CHECKS_S474.md item 3); set WeekPhase.LOAD_DEFAULT tick_over on his yes. 3) Critics SQ139/140 on the fight week screen -> fix -> his board for the look -> Grok Dev builds the screen; THEN the switch: amateur bouts booked with fight_week true, Set camp gone for them, lead 1-3 weeks (RegionShows + BoutSheet), golden path walks it. 4) Design loop answers SQ130-138 -> critics -> 6/6 maps to his board.",
+ "next_action": "S476: 0) get_usage. 1) Collect Qwen KNEEFIX1 (open every still in docs/kneefix1 yourself: does the rear knee cave at 45? guard + mid-jab; then his look on the review board before merge). 2) Seat answers: SQ144 fight week map v9 (sparring partner screen replaces trips) -> two fresh critics (6/6, 7+ depth) -> his board; SQ145 LADDER1 research -> Kalli writes the ladder map (reputation as currency, 9/10 bar). SQ141/142 step value critics; SQ143 plan flowchart v3 -> his board; SQ139/140 fight week screen critics now judge v1 (trips gone: redraw the mockup after v9). 3) Arena FWTRIPS1: close its lite PR unmerged (trips cut). 4) Keep Arena busy on a pure module from v9 once it lands (sparring-partner match score). 5) LIVERRIBS1 left: the forecast does not read the Aim (the Aim is chosen live; decide whether a plan-level aim exists to mirror) and the play in the exe.",
  "next_acceptance": "He has seen the corners intro and the versus tape in the .exe; RANKSHOWUI briefed and launched; short_m restored with a hit-gap before/after."
 }

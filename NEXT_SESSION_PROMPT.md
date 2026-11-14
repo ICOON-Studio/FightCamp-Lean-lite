@@ -1,44 +1,43 @@
-# S475 handover (written 2026-11-14 at the end of S474; S473's handover is in git history)
+# S476 handover (written 2026-11-14 at the end of S475; S474's handover is in git history)
 
-OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `python ops/Tools/where_we_are.py roll S475`.
-S474 did NOT redraw the Miro P0 frame (context ran out): redraw it at the start (`where_we_are.py svg` -> one
-canvas_update_from_svg; its stderr asks for TRIM + LEARN this time - follow Tools/where_we_are_svg.py docstring step 3).
+OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `python ops/Tools/where_we_are.py roll S476`.
+Miro P0: S475 redrew it (start + end). Partial updates work: send only the changed card slots + new ones + data-deleted lines
+(the frame's own resize is refused by Miro - leave the frame rect out; the frame just stays taller).
 
 ## USAGE RULES (kept)
-- Run `get_usage` first. Hand over at 420k context; start the wrap-up at ~385k (S474 reached 417k before starting it - stop earlier).
-- Godot jobs through `python ops/Tools/godot_slot.py run --who s475 -- <cmd>`; never wrap Godot in `timeout` inside the slot.
-- Arena: `python ops/Tools/lite_mirror.py --lean push` first; the repo is ICOON-Studio/FightCamp-Lean-lite, branch main; a short
-  prompt that names ops/research/TASK_<ID>.md works (Arena reads the brief from the repo). New chat per task.
-- Goose: 3 tasks a day (GOOSE_PER_DAY). seat_dispatch holds Goose rows while Qwen runs; file the issue by hand
-  (`gh issue create --label goose --title "<ID> - <title>" --body-file ops/research/TASK_<ID>.md`).
+- Run `get_usage` first. Hand over at 420k; start the wrap-up at ~310-330k (a full Miro redraw costs ~25k: send partials).
+- Godot jobs through `python ops/Tools/godot_slot.py run --who s476 -- <cmd>`.
+- Arena: `python ops/Tools/lite_mirror.py --lean push` first; repo ICOON-Studio/FightCamp-Lean-lite, branch main; a short prompt
+  naming ops/research/TASK_<ID>.md works. New chat per task. S475: Arena showed a Terms dialog (signed out) - the owner cleared it.
+- Goose: 3 a day; S474+S475 filed 4 on 2026-11-14 (FWPAY1 closed unused).
+- Never `cd` into a worktree (use `git -C`); it moves the session's working directory.
 
 ## HIS WORDS THIS SESSION
-- C401 sound picks "6,9,12,14,18,23,28,30" (one per sound), then the redo board "2,6,8" -> 11 kept in assets/audio/sounds.json.
-- "we mightneed it if you get low on credits,set it up" ($200 Console API credits) -> ops/research/API_CREDITS_FALLBACK_S474.md
-  (the desktop Code tab cannot use them; the `claude` CLI with /login Console account can; manual switch).
-- "higgsfeld refused the refund, will i keep the credits forever?" -> no: plan credits end with the paid period (Dec 14).
-  Offered to spend them on approved asset work before then: no answer yet.
+- Q-S294-229 board answer (comment, not a yes) - verbatim + Claude's answers in ops/research/AMATEURWEEK1_OPERATOR_NOTES_S475.md:
+  4.1 trips "useless logistics and pain in the ass" -> a MANDATORY sparring partner, picked on a screen: left your boxer, middle the
+  partners, right the opponent's card (what is known). Season ladder "at least 9/10", reputation over fixed win counts. Asked how
+  tell truth shows, how look-again works, how mood works (answered), wanted to see section 9 (crop sent:
+  docs/mockups/s474/fight_night_frame_v1.png). The other 6 rules (pro offer 9 wins, savings, rest gaps, tick over, weigh-in,
+  cottage) were NOT answered: the trips/cottage/savings ones are moot; ask the rest again only if v9 still needs them.
+- "arena rdy" (he accepted Arena's terms).
 
 ## IN FLIGHT (yours - collect, do not relaunch)
-- Arena FWPICK1 (assistant's fight-week pick) chat https://arena.ai/agent/01a1db8f-0c20-7c3f-a84c-864baacf9434
-- Arena REGIONSHOWS1 (club-show calendar + slots) chat https://arena.ai/agent/01a1db96-14b1-7162-8f51-db28c29688f8
-- Qwen SOUNDWIRE2 (wire the 11 kept sounds; needs the 11 .ogg.import sidecars; sound_bank_test), then KNEERULER1 queued.
-- Seat queue: SQ139 Dola + SQ140 John score the fight week screen mockup (docs/mockups/s474/fight_week_v1.png);
-  SQ130-138 design loop answers (STEPVALUE1, coach fit v8, weight r4, plan flowchart v2 John/Maria, club week v7).
-Collect = take the files by diff onto main, run the test here, commit, close the PR/issue, archive the live_runs row.
+- Qwen KNEEFIX1 (E:\FightCamp\wt\LEAN_KNEEFIX1, branch qwen/kneefix1): guard_knee SOURCE -> the ruler's own read of the raw take
+  [-0.0109, 0.0176]; REAR_YAW -45 + REAR_BAND 20; stills both settings in docs/kneefix1. CAUTION: 45 was rolled back once because
+  "the rear knee caved" - open every still yourself, then the review board for his look before merging the setting.
+- Arena FWTRIPS1 (chat https://arena.ai/agent/01a1dbad-e080-797e-ae46-6f33e93a32c3): trips were CUT - close its lite PR unmerged.
+- Seat queue: SQ144 Kalli fight week map v9 (sparring partner screen replaces trips); SQ145 John LADDER1 research; SQ141/142
+  step value critics (Dola, Maria); SQ143 Kalli plan flowchart v3; SQ139/140 fight week screen critics (v1 - redraw after v9);
+  SQ131/132 coach fit v8, weight r4; SQ135/136/138 club week v7 critics.
 
-## FIRST: KEEP BUILDING THE FIGHT WEEK (AMATEURWEEK1)
-On main (all green here): scripts/rules/WeighGap.gd, BoutSheet.gd, FightWeek.gd, FightWeekEvents.gd, FilmTruth.gd;
-WeekPhase amateur branch (bout.fight_week: week before = Build, fight week by bout.load); BoutRules.first_round_edge
-(bout.r1_edge, live + forecast); BoutRules.tank_parts_for adds the fight week's choice layer. NOTHING sets fight_week yet.
-Order: 1) collect the agents above. 2) Q-S294-229 (his 7 rules): on his answer - Savings brief (Goose), WeekPhase.LOAD_DEFAULT
-tick_over, the Bouts.weigh club-show branch (ops/research/AMATEURWEEK1_CHECKS_S474.md item 3; rivals need a walking weight).
-3) Critics on the screen -> fix -> his board for the look -> Grok Dev builds it from the mockup. 4) THE SWITCH in one change:
-amateur bouts booked with fight_week true (Bouts.accept), Set camp gone for them, lead 1-3 weeks from RegionShows +
-BoutSheet, FightWeek.round_one -> bout.r1_edge at the bell, ring rust (BoutSheet.rusty) too, golden path walks it.
+## FIRST
+1. Collect KNEEFIX1 (above). 2. Seat answers: v9 -> two fresh critics (`design_loop.py critic AMATEURWEEK1_V9 ... --seat dola|john`)
+-> 6/6 + depth 7 -> his board WITH the redrawn screen mockup (sparring partner columns; names only in headers - v1 had "her" and
+"She pays"). LADDER1 research -> Kalli map -> critics to 9/10. Plan flowchart v3 -> his board. 3. Arena: a pure module from v9 when
+it lands (partner-to-opponent match score). 4. The fight week switch still waits for v9 + his look at the screen.
 
 ## NOTES
-- Animation item for S475: the rear knee, Qwen KNEERULER1 (do both knee rulers read the raw take as the take?).
-  docs/KNEESWEEP1_RESULT.md + KNEESWEEP2_RESULT.md: knee settings and foot turn are exhausted; the two rulers disagree ~1 deg.
-- Tank decision (S474): the game's own tiredness layer stays (2 a point over 50, cap 20); the map's 1-a-point layer is NOT used.
-- Coach away (map 4.1): the other boxers train at 60% (no coach rating; Sim.gd:45), not 0.85.
+- Built and on main, unwired until the switch: WeighGap, BoutSheet, FightWeek, FightWeekEvents, FilmTruth, FightWeekPick,
+  RegionShows. FightWeekPick names a trip-free week; check it against v9 before wiring.
+- LIVERRIBS1 left: the forecast (BoutRead) does not read the Aim - the Aim is picked live, so decide whether a plan-level aim
+  exists to mirror; and play it in the exe.
