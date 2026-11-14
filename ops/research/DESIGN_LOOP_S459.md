@@ -34,3 +34,4 @@ DONE = two critics (one fresh) each at 6+ DEPTH and 6+ GENERAL DESIGN. Then it g
 - WEIGHT1 round 5 in (Kalli SQ132, file R4_REVISE) -> critics Dola SQ149 + Maria SQ150.
 - STEPVALUE1 v1: Maria 7/6 (play 5) PASS; Dola SQ141 still out.
 - Fight week screen v1: Dola + John in (SQ139/140); the screen is redrawn after map v9 (SQ144, sparring partner replaces trips).
+- S476 later: STEPVALUE1 v1 PASSES - Dola 8/8 (play 7), Maria 7/6 (play 5): on his board with the map (build after the fight week? + the ropes count rule).

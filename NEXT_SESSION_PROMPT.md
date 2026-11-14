@@ -1,45 +1,51 @@
-# S476 handover (written 2026-11-14 at the end of S475; S474's handover is in git history)
+# S477 handover (written 2026-11-15 at the end of S476; S475's handover is in git history)
 
-OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `python ops/Tools/where_we_are.py roll S476`.
-Miro P0: S475 redrew it (start + end). Partial updates work: send only the changed card slots + new ones + data-deleted lines
-(the frame's own resize is refused by Miro - leave the frame rect out; the frame just stays taller).
+OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `python ops/Tools/where_we_are.py roll S477`.
+Miro P0 redrawn at the end of S476 (partial update, no frame rect: works).
 
 ## USAGE RULES (kept)
-- Run `get_usage` first. Hand over at 420k; start the wrap-up at ~310-330k (a full Miro redraw costs ~25k: send partials).
-- Godot jobs through `python ops/Tools/godot_slot.py run --who s476 -- <cmd>`.
-- Arena: `python ops/Tools/lite_mirror.py --lean push` first; repo ICOON-Studio/FightCamp-Lean-lite, branch main; a short prompt
-  naming ops/research/TASK_<ID>.md works. New chat per task. S475: Arena showed a Terms dialog (signed out) - the owner cleared it.
-- Goose: 3 a day; S474+S475 filed 4 on 2026-11-14 (FWPAY1 closed unused).
-- Never `cd` into a worktree (use `git -C`); it moves the session's working directory.
+- Run `get_usage` first. Hand over at 420k; start the wrap-up at ~310-330k (send Miro partials, not the whole frame).
+- Godot jobs through `python ops/Tools/godot_slot.py run --who s477 -- <cmd>`. hidden_desktop takes `--log=<path>` (with `=`).
+- Tests run as tools/run_tests.sh does: `--headless --audio-driver Dummy --fixed-fps 60` (block_meet: 30).
+- Never `cd` into a worktree (use `git -C` / `--path`).
 
-## HIS WORDS THIS SESSION
-- Q-S294-229 board answer (comment, not a yes) - verbatim + Claude's answers in ops/research/AMATEURWEEK1_OPERATOR_NOTES_S475.md:
-  4.1 trips "useless logistics and pain in the ass" -> a MANDATORY sparring partner, picked on a screen: left your boxer, middle the
-  partners, right the opponent's card (what is known). Season ladder "at least 9/10", reputation over fixed win counts. Asked how
-  tell truth shows, how look-again works, how mood works (answered), wanted to see section 9 (crop sent:
-  docs/mockups/s474/fight_night_frame_v1.png). The other 6 rules (pro offer 9 wins, savings, rest gaps, tick over, weigh-in,
-  cottage) were NOT answered: the trips/cottage/savings ones are moot; ask the rest again only if v9 still needs them.
-- "arena rdy" (he accepted Arena's terms).
+## WHAT S476 DID
+- KNEEFIX1 (Qwen) collected by diff (aae812d2): rear toes 45, band 20, guard_knee SOURCE = its own ruler's read of the take.
+  Its MIN_GUARD_FRAMES 15 -> 8 was REFUSED: the count is the fidget draw (8/150/275 frames on one tree), so the test now watches
+  1320 frames, bar 15 kept (fixed-fps 60: 68 / 21 frames). Close stills docs/kneefix1/knee_band_20_*.png on the review board.
+- CLASH3 (Claude, GloveClear.gd): off a landing punch the guard arm opens outward only ACROSS the push (the old normalized sum
+  cancelled it). hit_frame_film seed 4242: frames > 2 cm 5 -> 3, rear uppercut 6.5 -> 2.8 cm; seed 77: 10 -> 8. One new 4.1 cm
+  frame on seed 77 cross 09 (OPEN_SIDE 0.5 tried: worse). hit_frame / hit_carry / block_meet / punch_range are red on main with
+  the SAME fail sets (pre-existing; punch_range needs a window).
+- LIVERRIBS1: decided - no plan-level aim (the aim is a live shout, reset each bout); the forecast stays. Left: play it in the exe.
+- Design loop: club week v7 Dola 7/7, John 6/5, Maria 7/5 -> v8 to Kalli (SQ146); coach fit v8 -> Dola SQ147 + John SQ148;
+  weight r5 -> Dola SQ149 + Maria SQ150; step value Maria 7/6 (pass; Dola SQ141 out). Tracker: ops/research/DESIGN_LOOP_S459.md.
+- Arena FWTRIPS1 never opened a PR (nothing to close). PRs 291/293/294 closed (collected).
 
 ## IN FLIGHT (yours - collect, do not relaunch)
-- Qwen KNEEFIX1 LANDED (branch qwen/kneefix1, commit a59e1c80) - NOT MERGED. guard_knee passes (rear -0.0067 / +0.0020 v the
-  calibrated source) BUT it lowered MIN_GUARD_FRAMES 15 -> 8 (boxer 1 settles only 8 frames at yaw -45) = a weakened test, and its
-  4 stills (docs/kneefix1 on the branch) cannot show the knee: the two boxers stand inside each other's guard (gloves through heads,
-  a GAP defect in the guard still itself) and the camera is far. Next: keep the SOURCE calibration (sound), refuse the frames cut
-  (find why b1 settles 8 frames at -45), render close rear-leg stills both settings at a real range, then his look.
-- Arena FWTRIPS1 (chat https://arena.ai/agent/01a1dbad-e080-797e-ae46-6f33e93a32c3): trips were CUT - close its lite PR unmerged.
-- Seat queue: SQ144 Kalli fight week map v9 (sparring partner screen replaces trips); SQ145 John LADDER1 research; SQ141/142
-  step value critics (Dola, Maria); SQ143 Kalli plan flowchart v3; SQ139/140 fight week screen critics (v1 - redraw after v9);
-  SQ131/132 coach fit v8, weight r4; SQ135/136/138 club week v7 critics.
+- Qwen BLOCKCLIP1 (launched 00:18, ETA ~02:30; ops/research/TASK_BLOCKCLIP1.md, branch qwen/blockclip1): the catching glove sits
+  9.9 cm inside a blocked cross (seed 77 shot 08_cross f27; GloveClear skips blocked punches by design, so BlockCatch MEET_M).
+  Merge bar: 08_cross <= 0.02 m every frame, no NEW deep frame on any shot of seeds 77 + 4242, block_meet FAIL set not larger;
+  open its f27 stills yourself, then his look.
+- Qwen OWNGLOVE1 QUEUED (starts when BLOCKCLIP1 frees the seat, ETA ~05:00; ops/research/TASK_OWNGLOVE1.md): a boxer's own
+  two gloves stack through each other in the plain guard - tests/own_gloves_test.gd red on main (0.100 / 0.127 m). Merge bar:
+  that test green, OWN film lines down, CLASH lines no new frame, the 6 regression tests' FAIL sets not larger, guard stills.
+- Seat queue: SQ144 Kalli fight week map v9 (sparring partner screen replaces trips); SQ145 John LADDER1; SQ143 Kalli plan
+  flowchart v3; SQ141 Dola step value; SQ146-150 (above).
+
+## HIS BOARD (asked S476, quote his answers)
+- Q-S294-230 STEPVALUE1 (Dola 8/8, Maria 7/6): build after the fight week? On yes: section 10 build order of
+  ops/research/DESIGN_STEPVALUE1_V1_KALLI_KALLI.md - rule pieces 2-6 are Arena/Qwen pure modules.
+- Q-S294-231 the ropes count (three step-backs in a round without a pivot = on the ropes).
 
 ## FIRST
-1. Collect KNEEFIX1 (above). 2. Seat answers: v9 -> two fresh critics (`design_loop.py critic AMATEURWEEK1_V9 ... --seat dola|john`)
--> 6/6 + depth 7 -> his board WITH the redrawn screen mockup (sparring partner columns; names only in headers - v1 had "her" and
-"She pays"). LADDER1 research -> Kalli map -> critics to 9/10. Plan flowchart v3 -> his board. 3. Arena: a pure module from v9 when
-it lands (partner-to-opponent match score). 4. The fight week switch still waits for v9 + his look at the screen.
+1. get_usage. Collect BLOCKCLIP1. 2. Seat answers: v9 -> two fresh critics (`design_loop.py critic AMATEURWEEK1_V9 <map> --seat dola|john`)
+-> 6/6 + depth 7 -> his board WITH the redrawn sparring-partner screen (names only in headers). LADDER1 -> Kalli map -> critics to 9/10.
+Plan flowchart v3 -> his board. 3. Arena: a pure module from v9 (partner-to-opponent match score) - `lite_mirror.py --lean push` first.
+4. Collect OWNGLOVE1. CLASH3 left: cross 09 seed 77
+(the clearance thinks it clear: its forearm-line glove model vs the drawn glove, which keeps the hand's rotation).
 
 ## NOTES
-- Built and on main, unwired until the switch: WeighGap, BoutSheet, FightWeek, FightWeekEvents, FilmTruth, FightWeekPick,
-  RegionShows. FightWeekPick names a trip-free week; check it against v9 before wiring.
-- LIVERRIBS1 left: the forecast (BoutRead) does not read the Aim - the Aim is picked live, so decide whether a plan-level aim
-  exists to mirror; and play it in the exe.
+- Built and on main, unwired until the fight week switch: WeighGap, BoutSheet, FightWeek, FightWeekEvents, FilmTruth,
+  FightWeekPick, RegionShows. FightWeekPick names a trip-free week; check it against v9 before wiring.
+- Baseline films (scratchpad, may be gone): seed 4242 jabs=2 crosses=2 uppercuts=1; seed 77 jabs=3 crosses=3 uppercuts=2.

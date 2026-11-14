@@ -71,6 +71,7 @@ static var CLASH_PASSES: int = 1 if BALLS else 4
 const LIVE_S := 0.12
 const PUSH_MAX_M := 0.10   # the most one pass moves a wrist
 const RETRACT := 0.6
+const OPEN_SIDE := 1.0   # S476 CLASH3: how much of "open outward" goes across the push off a landing punch (0.5 tried: seed 77 cross 4.1 -> 5.5 cm, worse)
 const TUCK_M := Vector2(0.25, 0.40)   # wrist to shoulder: no drawing in under .x, all of it from .y
 ## Her arms as shown, world space, per side: [elbow, wrist, the glove's axis (unit), the hand's rank, her scale, how far
 ## the elbow and the wrist moved since the frame before, a live punch's kind] (read by the other boxer's GloveClear). The boxer drawn first in
@@ -288,10 +289,13 @@ func _clear_arms(skel: Skeleton3D, ids: Array, k: float, rank: int) -> void:
 			# Off a live punch her arm opens OUTWARD, away from her own middle (a punch that lands came up or through the
 			# middle of her guard; the film's freeze frames had the uppercut's glove at her chin 7-8 cm inside her forearm,
 			# her arm pinned between it and the other's guard hand with no room to draw in).
+			# S476 CLASH3: the outward part goes only ACROSS the push, never against it. (aside + out).normalized() cancelled
+			# the push when "outward" pointed back at the punch: seed 4242's rear uppercut, her guard glove 9.5 cm inside it,
+			# 4 passes took it to 6.2 cm (clash_meter 6.5 cm, the frame after the hit).
 			for sd in _arms:
 				if _arms[sd] != ids:
-					var out_l: Vector3 = s - skel.get_bone_global_pose(int(_arms[sd][0])).origin
-					aside = (aside + out_l.normalized()).normalized()
+					var out_l: Vector3 = (s - skel.get_bone_global_pose(int(_arms[sd][0])).origin).normalized()
+					aside = aside + (out_l - aside * out_l.dot(aside)) * OPEN_SIDE
 		var back := s - g_hd.origin
 		var room := clampf((back.length() * k - TUCK_M.x) / (TUCK_M.y - TUCK_M.x), 0.0, 1.0)
 		var move := (aside + back.normalized() * RETRACT * room) * minf(best / lerpf(0.5, 1.0, at), PUSH_MAX_M) / k

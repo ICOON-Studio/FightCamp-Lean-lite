@@ -297,6 +297,17 @@ func _speeds(s: Dictionary) -> void:
 		if float(cl["depth"]) > worst:
 			worst = float(cl["depth"])
 			worst_f = f
+	var own_deep := 0
+	var own_worst := {"depth": -9.0, "pair": "", "f": 0}
+	for i in pts.size():
+		var ow: Dictionary = ((pts[i] as Array)[2] as Dictionary).get("own", {"depth": -9.0, "pair": ""})
+		if int(s["first"]) + i < PRE_F + 1:
+			continue
+		if float(ow["depth"]) > CLASH_M:
+			own_deep += 1
+		if float(ow["depth"]) > float(own_worst["depth"]):
+			own_worst = {"depth": float(ow["depth"]), "pair": str(ow["pair"]), "f": int(s["first"]) + i}
+	print("HIT_FRAME_FILM %s OWN frames deeper than %.2f m from the hit on: %d, worst %.3f m at f%02d (%s)" % [str(s["dir"]).get_file(), CLASH_M, own_deep, float(own_worst["depth"]), int(own_worst["f"]), str(own_worst["pair"])])
 	var cline := "HIT_FRAME_FILM %s CLASH frames deeper than %.2f m from the hit on: %d, worst %.3f m at f%02d | %s" % [str(s["dir"]).get_file(), CLASH_M, deep, worst, worst_f, ", ".join(crow)]
 	print(cline)
 	labels.append("   " + cline.substr(15))

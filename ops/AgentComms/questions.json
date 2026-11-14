@@ -7373,6 +7373,40 @@
       "answered_at": "2026-11-14T21:13:46Z",
       "seen_by_claude": true,
       "comment_only": true
+    },
+    {
+      "id": "Q-S294-230",
+      "asked": "2026-11-14T22:38:33.880352+00:00",
+      "session": "S294",
+      "text": "Footwork and defence worth learning: a step no longer scores, it changes the exchange (takes damage away, moves the distance, drains the opponent's tank, opens a counter). Each step beats one or two styles and is wrong against others. Critics: Dola 8 depth / 8 design, Maria 7 / 6. Build it after the fight week?",
+      "options": [
+        "Yes, build it after the fight week",
+        "Not yet"
+      ],
+      "attach": [
+        "research/DESIGN_STEPVALUE1_V1_KALLI_KALLI.md"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-231",
+      "asked": "2026-11-14T22:38:34.098175+00:00",
+      "session": "S294",
+      "text": "Footwork rule: stepping back three times in a round without a pivot out puts your boxer on the ropes. Take this rule?",
+      "options": [
+        "Yes",
+        "No"
+      ],
+      "attach": [
+        "research/DESIGN_STEPVALUE1_V1_KALLI_KALLI.md"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
     }
   ]
 }

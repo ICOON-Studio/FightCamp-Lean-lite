@@ -1,20 +1,14 @@
 {
   "_note": "SINGLE SOURCE OF TRUTH for the roadmap. The ops board reads this file directly and ROADMAP.md is GENERATED from it by Tools/render_roadmap.py. Do not hand-maintain a second copy anywhere - that is the defect R136/U62 named and it has cost this project eight times.",
-  "updated": "2026-11-14",
+  "updated": "2026-11-15",
   "author": "claude S294",
   "now": {
-    "id": "S475",
+    "id": "S476",
     "owner": "claude",
-    "updated": "2026-11-14",
-    "summary": "S475: COLLECTED + REDIRECTED BY HIS NOTES. Collected SOUNDWIRE2 (Qwen: the 11 kept sounds wired; Claude stopped the combo pop stacking and fixed a flaky variant check), FWPICK1 + REGIONSHOWS1 (Arena: assistant's pick, club-show calendar, both green here), KNEERULER1 (Qwen: the valgus ruler reads the raw take true; guard_knee's plane ruler sees ~60% of it, so its +0.0291 bar was the wrong target). LIVERRIBS1 Aim labels done (Liver! / Ribs!, map effect lines, body line no longer names the opponent). Design loop: plan flowchart v2 PASSES 6/6 (John 7/6, Maria 7/6, Dola 7/8) -> v3 to Kalli for John's logic faults (SQ143); step value v1 to Dola + Maria (SQ141/142). HIS Q-S294-229 ANSWER (board, comment): trips 4.1 'useless logistics' -> cut for a MANDATORY SPARRING-PARTNER screen (your boxer | partners | the opponent's known card); season ladder must reach 9/10 with REPUTATION as the currency, not fixed win counts; asked how tells' truth shows, look-again vs next group, mood (answered in ops/research/AMATEURWEEK1_OPERATOR_NOTES_S475.md). Map v9 to Kalli (SQ144), LADDER1 research to John (SQ145). FWPAY1 (Goose) held, issue closed; FWTRIPS1 (Arena) running but NOT to be collected. KNEEFIX1 on Qwen (honest knee bar + rear toes 45 / band 20 + stills both settings). Miro P0 redrawn at start.",
-    "next_action": "S476: 0) get_usage. 1) Collect Qwen KNEEFIX1 (open every still in docs/kneefix1 yourself: does the rear knee cave at 45? guard + mid-jab; then his look on the review board before merge). 2) Seat answers: SQ144 fight week map v9 (sparring partner screen replaces trips) -> two fresh critics (6/6, 7+ depth) -> his board; SQ145 LADDER1 research -> Kalli writes the ladder map (reputation as currency, 9/10 bar). SQ141/142 step value critics; SQ143 plan flowchart v3 -> his board; SQ139/140 fight week screen critics now judge v1 (trips gone: redraw the mockup after v9). 3) Arena FWTRIPS1: close its lite PR unmerged (trips cut). 4) Keep Arena busy on a pure module from v9 once it lands (sparring-partner match score). 5) LIVERRIBS1 left: the forecast does not read the Aim (the Aim is chosen live; decide whether a plan-level aim exists to mirror) and the play in the exe.",
-    "last_working_commit": "fb6dd472",
-    "verified_playable": "S475 build exported (Builds/FightCamp.exe): the 11 kept sounds play, Aim buttons read Liver!/Ribs!; golden_path green. Not played by him yet.",
-    "incomplete_blocked": "Fight week switch: waits on Kalli's map v9 (sparring partner screen replaces trips, his S475 notes) + critics + his look. KNEEFIX1 not merged (weakened test, stills unusable). Season ladder: LADDER1 research at John.",
-    "next_acceptance": "KNEEFIX1 judged on close rear-leg stills with the 15-frame bar kept; fight week map v9 scored 6/6 + depth 7 by two fresh critics and on his board with a redrawn mockup; LADDER1 research in and a ladder map briefed to Kalli.",
-    "awaiting_operator": "Nothing blocking: his look at map v9 + the sparring-partner screen when it reaches the board."
+    "updated": "2026-11-15",
+    "summary": "S476: KNEE COLLECTED, UPPERCUT CLIPPING HALVED. Collected KNEEFIX1 (Qwen: rear toes 45 + band 20, guard_knee source = its own ruler's read) but refused its frames cut 15->8: the low count was the fidget draw (8/150/275 frames on one tree), the test now watches 1320 frames, bar 15 kept; close rear-knee stills on the review board. CLASH3 (Claude): off a landing punch the guard arm now opens outward only ACROSS the push (the old sum cancelled it): seed 4242 frames >2 cm 5->3, rear uppercut 6.5->2.8 cm; seed 77 10->8. Left: the blocked cross (catching glove 9.9 cm inside, BlockCatch MEET_M) -> BLOCKCLIP1 on Qwen (launched 00:18, ETA ~02:30). LIVERRIBS1: decided no plan-level aim (the aim is a live shout; a plan aim would be a new mechanic for the critics), the forecast stays. Seat answers: club week v7 Dola 7/7, John 6/5, Maria 7/5 -> v8 to Kalli (SQ146); coach fit v8 -> Dola+John (SQ147/148); weight r5 -> Dola+Maria (SQ149/150); step value Maria 7/6 pass. FWTRIPS1 (Arena) never opened a PR. | LATER IN S476: clash_meter now reads a boxer's OWN two gloves; nothing keeps them apart - tests/own_gloves_test.gd red (guard + fidgets, no punches: boxer 0 0.100 m, boxer 1 0.127 m); films show it after 9 of 10 shots. OWNGLOVE1 queued on Qwen after BLOCKCLIP1."
   },
-  "next": "S476: 0) get_usage. 1) Collect Qwen KNEEFIX1 (open every still in docs/kneefix1 yourself: does the rear knee cave at 45? guard + mid-jab; then his look on the review board before merge). 2) Seat answers: SQ144 fight week map v9 (sparring partner screen replaces trips) -> two fresh critics (6/6, 7+ depth) -> his board; SQ145 LADDER1 research -> Kalli writes the ladder map (reputation as currency, 9/10 bar). SQ141/142 step value critics; SQ143 plan flowchart v3 -> his board; SQ139/140 fight week screen critics now judge v1 (trips gone: redraw the mockup after v9). 3) Arena FWTRIPS1: close its lite PR unmerged (trips cut). 4) Keep Arena busy on a pure module from v9 once it lands (sparring-partner match score). 5) LIVERRIBS1 left: the forecast does not read the Aim (the Aim is chosen live; decide whether a plan-level aim exists to mirror) and the play in the exe.",
+  "next": "S477: 0) get_usage. 1) Collect Qwen BLOCKCLIP1 (branch qwen/blockclip1: 08_cross seed 77 <= 0.02 m every frame, no new deep frame on any shot, block_meet FAIL set not larger; open its f27 stills yourself, then his look). 2) Seat answers: SQ144 fight week map v9 -> two fresh critics -> 6/6 + depth 7 -> his board WITH the redrawn sparring-partner screen (names only in headers); SQ145 LADDER1 research -> Kalli map; SQ143 plan flowchart v3 -> his board; SQ146-150 design loop. 3) Arena: a pure module from v9 (partner-to-opponent match score). 4) CLASH3 left: a boxer's own two gloves (clash_meter reads only pairs across boxers - add own-pair), cross 09 seed 77 one 4.1 cm frame (the clearance believes it clear: its forearm-line glove model vs the drawn glove).",
   "assessment": {
     "source": "Codex deep audit + Cursor televised-MMA gap assessment, both 2026-09-12",
     "bars": [
@@ -1975,6 +1969,11 @@
       "id": "S475",
       "date": "2026-11-14",
       "summary": "S475: COLLECTED + REDIRECTED BY HIS NOTES. Collected SOUNDWIRE2 (Qwen: the 11 kept sounds wired; Claude stopped the combo pop stacking and fixed a flaky variant check), FWPICK1 + REGIONSHOWS1 (Arena: assistant's pick, club-show calendar, both green here), KNEERULER1 (Qwen: the valgus ruler reads the raw take true; guard_knee's plane ruler sees ~60% of it, so its +0.0291 bar was the wrong target). LIVERRIBS1 Aim labels done (Liver! / Ribs!, map effect lines, body line no longer names the opponent). Design loop: plan flowchart v2 PASSES 6/6 (John 7/6, Maria 7/6, Dola 7/8) -> v3 to Kalli for John's logic faults (SQ143); step value v1 to Dola + Maria (SQ141/142). HIS Q-S294-229 ANSWER (board, comment): trips 4.1 'useless logistics' -> cut for a MANDATORY SPARRING-PARTNER screen (your boxer | partners | the opponent's known card); season ladder must reach 9/10 with REPUTATION as the currency, not fixed win counts; asked how tells' truth shows, look-again vs next group, mood (answered in ops/research/AMATEURWEEK1_OPERATOR_NOTES_S475.md). Map v9 to Kalli (SQ144), LADDER1 research to John (SQ145). FWPAY1 (Goose) held, issue closed; FWTRIPS1 (Arena) running but NOT to be collected. KNEEFIX1 on Qwen (honest knee bar + rear toes 45 / band 20 + stills both settings). Miro P0 redrawn at start."
+    },
+    {
+      "id": "S476",
+      "date": "2026-11-15",
+      "summary": "S476: KNEE COLLECTED, UPPERCUT CLIPPING HALVED. Collected KNEEFIX1 (Qwen: rear toes 45 + band 20, guard_knee source = its own ruler's read) but refused its frames cut 15->8: the low count was the fidget draw (8/150/275 frames on one tree), the test now watches 1320 frames, bar 15 kept; close rear-knee stills on the review board. CLASH3 (Claude): off a landing punch the guard arm now opens outward only ACROSS the push (the old sum cancelled it): seed 4242 frames >2 cm 5->3, rear uppercut 6.5->2.8 cm; seed 77 10->8. Left: the blocked cross (catching glove 9.9 cm inside, BlockCatch MEET_M) -> BLOCKCLIP1 on Qwen (launched 00:18, ETA ~02:30). LIVERRIBS1: decided no plan-level aim (the aim is a live shout; a plan aim would be a new mechanic for the critics), the forecast stays. Seat answers: club week v7 Dola 7/7, John 6/5, Maria 7/5 -> v8 to Kalli (SQ146); coach fit v8 -> Dola+John (SQ147/148); weight r5 -> Dola+Maria (SQ149/150); step value Maria 7/6 pass. FWTRIPS1 (Arena) never opened a PR. | LATER IN S476: clash_meter now reads a boxer's OWN two gloves; nothing keeps them apart - tests/own_gloves_test.gd red (guard + fidgets, no punches: boxer 0 0.100 m, boxer 1 0.127 m); films show it after 9 of 10 shots. OWNGLOVE1 queued on Qwen after BLOCKCLIP1."
     }
   ],
   "blocked_on_operator": [],
@@ -5064,7 +5063,7 @@
       {
         "id": "CLASH3",
         "who": "claude",
-        "title": "Clipping leftovers: a jab's glove against the other's forearm (5 frames, 5.5 cm, seed 4242), a boxer's own two gloves, the frame after the rear uppercut hit (S469: clinch reach fixed, 18 -> 2 frames)",
+        "title": "Clipping leftovers: S476 fixed the landing-punch push (rear uppercut 6.5 -> 2.8 cm) and measured own-glove clipping (OWNGLOVE1, Qwen); left: cross 09 seed 77 one 4.1 cm frame (the clearance's forearm-line glove model v the drawn glove), the blocked cross -> BLOCKCLIP1 (Qwen)",
         "after": ""
       },
       {
@@ -5082,7 +5081,7 @@
       {
         "id": "LIVERRIBS1",
         "who": "claude",
-        "title": "Liver vs ribs: crack card + cracked side's guard (S471), Aim labels Liver!/Ribs! (S475). Left: the forecast does not read the Aim (chosen live), play it in the exe",
+        "title": "Liver vs ribs: crack card + cracked side's guard (S471), Aim labels Liver!/Ribs! (S475); S476 decided no plan-level aim (live shout only), the forecast stays. Left: play it in the exe",
         "after": ""
       },
       {
@@ -5273,6 +5272,18 @@
       }
     ],
     "waiting_seat": [
+      {
+        "id": "BLOCKCLIP1",
+        "who": "qwen",
+        "title": "TASK BLOCKCLIP1 - the catching glove 9.9 cm inside the cross it blocks (BlockCatch meeting point), stills main v branch",
+        "after": ""
+      },
+      {
+        "id": "OWNGLOVE1",
+        "who": "qwen",
+        "title": "TASK OWNGLOVE1 - a boxer's own two gloves pass through each other in the guard (up to 12.7 cm): keep them apart in GloveClear, film + stills",
+        "after": "BLOCKCLIP1"
+      },
       {
         "id": "CHOP4",
         "who": "codex (after PAD1, FOOTLOCK)",
@@ -5547,6 +5558,14 @@
     },
     "done_recently": [
       {
+        "title": "S476: rear knee - toes 45, bar kept honest (Qwen + Claude)",
+        "who": "qwen"
+      },
+      {
+        "title": "S476: uppercut glove clipping 6.5 -> 2.8 cm",
+        "who": "claude"
+      },
+      {
         "title": "S475: Aim buttons read Liver! / Ribs!",
         "who": "claude"
       },
@@ -5591,36 +5610,6 @@
         "id": "PICKSPREAD1",
         "who": "arena",
         "title": "Learn-next cards measured: punches beat footwork/defence"
-      },
-      {
-        "id": "PLAYSHORT1",
-        "who": "claude",
-        "title": "Board: straight-to-a-fight buttons"
-      },
-      {
-        "title": "Arena: is any 'what to learn next' card always the best pick? (probe)",
-        "who": "arena",
-        "when": "2026-11-14"
-      },
-      {
-        "title": "TASK HOOKCAP2 - the hard hooks' glove is twice real speed: cap their playback pace (headless)",
-        "who": "qwen",
-        "when": "2026-11-14"
-      },
-      {
-        "title": "TASK SPEEDRULER1 - sort punch_speed_test's 41 failures: which bar is wrong, which punch is wrong (measure only, headless)",
-        "who": "qwen",
-        "when": "2026-11-14"
-      },
-      {
-        "title": "TASK PELVIS1 - measure the rig's hips against the source take (a probe; no fix, headless)",
-        "who": "qwen",
-        "when": "2026-11-14"
-      },
-      {
-        "title": "TASK SPLIT471 - three scripts at the 500-line limit get room (pure moves, no behaviour change, headless)",
-        "who": "qwen",
-        "when": "2026-11-14"
       }
     ],
     "scope_note": "S294: lean restart (E:\\FightCamp\\Lean\\docs\\RESTART_PLAN.md). Old roadmap items are parked until the weekly builds reach them.",
@@ -5805,7 +5794,24 @@
           "who": "agent"
         }
       ],
-      "done_session": [],
+      "done_session": [
+        {
+          "text": "Rear knee: toes 45, bar honest",
+          "who": "agent"
+        },
+        {
+          "text": "Uppercut clipping 6.5 -> 2.8 cm",
+          "who": "claude"
+        },
+        {
+          "text": "Club week v7 critics in",
+          "who": "agent"
+        },
+        {
+          "text": "Liver/ribs: no plan aim (decided)",
+          "who": "claude"
+        }
+      ],
       "now": [
         {
           "text": "Between-rounds voices: your ear",
@@ -5836,10 +5842,6 @@
           "who": "claude"
         },
         {
-          "text": "Your look: uppercut clipping fix",
-          "who": "operator"
-        },
-        {
           "text": "Your look: match strip, clinch",
           "who": "operator"
         },
@@ -5856,15 +5858,23 @@
           "who": "agent"
         },
         {
-          "text": "Critics: club week v7",
-          "who": "agent"
-        },
-        {
           "text": "Fight week map v9 (Kalli)",
           "who": "agent"
         },
         {
           "text": "Ladder research (John)",
+          "who": "agent"
+        },
+        {
+          "text": "Your look: rear knee + uppercut",
+          "who": "operator"
+        },
+        {
+          "text": "Club week v8 (Kalli)",
+          "who": "agent"
+        },
+        {
+          "text": "Critics: coach fit v8, weight r5",
           "who": "agent"
         }
       ],
@@ -5930,10 +5940,6 @@
           "who": "claude"
         },
         {
-          "text": "Coach fit v8, weight r4",
-          "who": "claude"
-        },
-        {
           "text": "Sparring partner screen",
           "who": "claude"
         },
@@ -5948,6 +5954,6 @@
   "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
   "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
   "last_working_commit": "df924dcc",
-  "next_action": "S476: 0) get_usage. 1) Collect Qwen KNEEFIX1 (open every still in docs/kneefix1 yourself: does the rear knee cave at 45? guard + mid-jab; then his look on the review board before merge). 2) Seat answers: SQ144 fight week map v9 (sparring partner screen replaces trips) -> two fresh critics (6/6, 7+ depth) -> his board; SQ145 LADDER1 research -> Kalli writes the ladder map (reputation as currency, 9/10 bar). SQ141/142 step value critics; SQ143 plan flowchart v3 -> his board; SQ139/140 fight week screen critics now judge v1 (trips gone: redraw the mockup after v9). 3) Arena FWTRIPS1: close its lite PR unmerged (trips cut). 4) Keep Arena busy on a pure module from v9 once it lands (sparring-partner match score). 5) LIVERRIBS1 left: the forecast does not read the Aim (the Aim is chosen live; decide whether a plan-level aim exists to mirror) and the play in the exe.",
+  "next_action": "S477: 0) get_usage. 1) Collect Qwen BLOCKCLIP1 (branch qwen/blockclip1: 08_cross seed 77 <= 0.02 m every frame, no new deep frame on any shot, block_meet FAIL set not larger; open its f27 stills yourself, then his look). 2) Seat answers: SQ144 fight week map v9 -> two fresh critics -> 6/6 + depth 7 -> his board WITH the redrawn sparring-partner screen (names only in headers); SQ145 LADDER1 research -> Kalli map; SQ143 plan flowchart v3 -> his board; SQ146-150 design loop. 3) Arena: a pure module from v9 (partner-to-opponent match score). 4) CLASH3 left: a boxer's own two gloves (clash_meter reads only pairs across boxers - add own-pair), cross 09 seed 77 one 4.1 cm frame (the clearance believes it clear: its forearm-line glove model vs the drawn glove).",
   "next_acceptance": "He has seen the corners intro and the versus tape in the .exe; RANKSHOWUI briefed and launched; short_m restored with a hit-gap before/after."
 }

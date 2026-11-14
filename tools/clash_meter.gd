@@ -43,6 +43,7 @@ static func worst(stage: Node) -> Dictionary:
 				if d > float(best["depth"]):
 					best = {"depth": d, "pair": "0%s %s x 1%s %s (ranks %d %d)" % [x["side"], pair[0], y["side"], pair[1], _rank(stage, 0, x["side"]), _rank(stage, 1, y["side"])]}
 	best["drift"] = drift(stage)
+	best["own"] = own(stage)   # S476 CLASH3: a boxer's own two arms through each other
 	best["layers"] = preload("res://tools/layer_trace.gd").report(stage)   # S469: who moved the hands after ArmClash
 	for i in 2:
 		var gc: Node = stage.boxers[i].get("gclear")
@@ -50,6 +51,21 @@ static func worst(stage: Node) -> Dictionary:
 			gc.set("dbg_on", true)
 			best["dbg%d" % i] = str(gc.get("dbg"))
 	return best
+
+
+## S476 CLASH3: the deepest a boxer's own glove is inside her own other glove or other forearm, both boxers:
+## {depth, pair: "1 l glove x r glove"}. Guard gloves touch (padding), so read it against the same 2 cm give as worst().
+static func own(stage: Node) -> Dictionary:
+	var out := {"depth": -9.0, "pair": ""}
+	for i in 2:
+		var a := arms(stage, i)
+		if a.size() < 2:
+			continue
+		for pair in [["glove", "glove"], ["glove", "fore"], ["fore", "glove"]]:
+			var d := depth(a[0][pair[0]], a[1][pair[1]])
+			if d > float(out["depth"]):
+				out = {"depth": d, "pair": "%d %s %s x %s %s" % [i, a[0]["side"], pair[0], a[1]["side"], pair[1]]}
+	return out
 
 
 ## How far two capsules [a, b, r] are inside each other (metres; <= 0 = apart).

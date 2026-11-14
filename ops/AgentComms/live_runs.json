@@ -1,105 +1,132 @@
 {
-  "_doc": "Claude writes one entry per agent run at launch (operator S144: 'make it more clear, who is working on what, ETA'). The ops board /agents page joins it to the live processes. eta = Claude's estimate at launch, local time; status running|waiting|done.",
-  "seats": 3,
-  "runs": {
-    "FWTRIPS1": {
-      "id": "FWTRIPS1",
-      "seat": "arena",
-      "status": "running - DO NOT COLLECT (S475: owner cut 4.1 trips; map v9 replaces it with a sparring-partner choice)",
-      "title": "TASK FWTRIPS1 - fight-week trips and coach away (pure module + test)",
-      "brief": "ops/research/TASK_FWTRIPS1.md",
-      "chat": "https://arena.ai/agent/01a1dbad-e080-797e-ae46-6f33e93a32c3",
-      "started": "2026-11-14 22:11",
-      "eta": "about 30-45 min (FWPICK1/REGIONSHOWS1 took ~35 min each)"
-    },
-    "FWPAY1": {
-      "id": "FWPAY1",
-      "seat": "goose",
-      "status": "held S475 (issue closed: owner questioned trips; map v9)",
-      "title": "TASK FWPAY1 - who pays for the fight-week trip (pure module + test)",
-      "brief": "ops/research/TASK_FWPAY1.md",
-      "issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/292",
-      "started": "2026-11-14 22:11",
-      "eta": "about 45-60 min (Goose's S474 modules)",
-      "reconciled": "2026-11-14 22:40 board_reconcile: Actions run 43635826022 finished success, nothing pushed"
-    },
-    "KNEEFIX1": {
-      "agent": "qwen",
-      "id": "KNEEFIX1",
-      "title": "TASK KNEEFIX1 - rear knee: honest bar + the setting that meets it, with guard stills (change + stills)",
-      "status": "landed S475 - NOT merged: test weakened (MIN_GUARD_FRAMES 15->8), stills cannot show the knee (boxers overlap at clinch range, far camera)",
-      "started": "2026-11-14T23:18",
-      "eta": "2026-11-15T01:08",
-      "branch": "qwen/kneefix1",
-      "worktree": "E:/FightCamp/wt/LEAN_KNEEFIX1",
-      "wt": "E:/FightCamp/wt/LEAN_KNEEFIX1",
-      "brief": "ops/research/TASK_KNEEFIX1.md",
-      "repo": "FightCamp-Lean",
-      "where": "pc",
-      "log": "E:/FightCamp/wt/KNEEFIX1_dispatch_out.txt",
-      "match": "seat_dispatch.py run kneefix1",
-      "model": "qwen3-coder",
-      "dispatch": {
-        "prompt": "E:/FightCamp/wt/KNEEFIX1_dispatch_prompt.txt",
-        "out": "E:/FightCamp/wt/KNEEFIX1_dispatch_out.txt",
-        "runner_log": "E:/FightCamp/wt/KNEEFIX1_dispatch_runner.log",
-        "source": "command line",
-        "brief_copied": true,
-        "runner_pid": 11216,
-        "seat_pid": 42496
-      },
-      "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 6/6 PASS; PR #294",
-      "finished": "2026-11-14T23:37",
-      "pr": 294,
-      "checks": [
-        {
-          "kind": "RED_TEST",
-          "script": "tests/guard_knee_test.gd",
-          "ok": true,
-          "last": "GUARD_KNEE failures=0"
-        },
-        {
-          "kind": "REGRESSION",
-          "script": "tests/boxer_footwork_test.gd",
-          "ok": true,
-          "last": "BOXER_FOOTWORK failures=0"
-        },
-        {
-          "kind": "REGRESSION",
-          "script": "tests/knee_track_test.gd",
-          "ok": true,
-          "last": "KNEE_TRACK checks=6 failures=0"
-        },
-        {
-          "kind": "REGRESSION",
-          "script": "tests/foot_plant_test.gd",
-          "ok": true,
-          "last": "FOOT_PLANT checks=14 failures=0"
-        },
-        {
-          "kind": "REGRESSION",
-          "script": "tests/ring_feet_test.gd",
-          "ok": true,
-          "last": "RING_FEET_TEST failures=0"
-        },
-        {
-          "kind": "REGRESSION",
-          "script": "tests/human_feet_test.gd",
-          "ok": true,
-          "last": "HUMAN_FEET_TEST failures=0"
-        }
-      ],
-      "films": {
-        "before": {},
-        "after": {},
-        "board": ""
-      }
-    }
+ "_doc": "Claude writes one entry per agent run at launch (operator S144: 'make it more clear, who is working on what, ETA'). The ops board /agents page joins it to the live processes. eta = Claude's estimate at launch, local time; status running|waiting|done.",
+ "seats": 3,
+ "runs": {
+  "FWTRIPS1": {
+   "id": "FWTRIPS1",
+   "seat": "arena",
+   "status": "running - DO NOT COLLECT (S475: owner cut 4.1 trips; map v9 replaces it with a sparring-partner choice)",
+   "title": "TASK FWTRIPS1 - fight-week trips and coach away (pure module + test)",
+   "brief": "ops/research/TASK_FWTRIPS1.md",
+   "chat": "https://arena.ai/agent/01a1dbad-e080-797e-ae46-6f33e93a32c3",
+   "started": "2026-11-14 22:11",
+   "eta": "about 30-45 min (FWPICK1/REGIONSHOWS1 took ~35 min each)"
   },
-  "codex_budget": {
-    "used_percent": 65,
-    "resets": "2026-10-07T04:42",
-    "read_at": "2026-10-02T18:10",
-    "rule": "max 2 Codex seats, luna/medium, stop new launches at 85%"
+  "FWPAY1": {
+   "id": "FWPAY1",
+   "seat": "goose",
+   "status": "held S475 (issue closed: owner questioned trips; map v9)",
+   "title": "TASK FWPAY1 - who pays for the fight-week trip (pure module + test)",
+   "brief": "ops/research/TASK_FWPAY1.md",
+   "issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/292",
+   "started": "2026-11-14 22:11",
+   "eta": "about 45-60 min (Goose's S474 modules)",
+   "reconciled": "2026-11-14 22:40 board_reconcile: Actions run 43635826022 finished success, nothing pushed"
+  },
+  "KNEEFIX1": {
+   "agent": "qwen",
+   "id": "KNEEFIX1",
+   "title": "TASK KNEEFIX1 - rear knee: honest bar + the setting that meets it, with guard stills (change + stills)",
+   "status": "landed S475 - NOT merged: test weakened (MIN_GUARD_FRAMES 15->8), stills cannot show the knee (boxers overlap at clinch range, far camera)",
+   "started": "2026-11-14T23:18",
+   "eta": "2026-11-15T01:08",
+   "branch": "qwen/kneefix1",
+   "worktree": "E:/FightCamp/wt/LEAN_KNEEFIX1",
+   "wt": "E:/FightCamp/wt/LEAN_KNEEFIX1",
+   "brief": "ops/research/TASK_KNEEFIX1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/KNEEFIX1_dispatch_out.txt",
+   "match": "seat_dispatch.py run kneefix1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/KNEEFIX1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/KNEEFIX1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/KNEEFIX1_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 11216,
+    "seat_pid": 42496
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 6/6 PASS; PR #294",
+   "finished": "2026-11-14T23:37",
+   "pr": 294,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/guard_knee_test.gd",
+     "ok": true,
+     "last": "GUARD_KNEE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/boxer_footwork_test.gd",
+     "ok": true,
+     "last": "BOXER_FOOTWORK failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/knee_track_test.gd",
+     "ok": true,
+     "last": "KNEE_TRACK checks=6 failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/foot_plant_test.gd",
+     "ok": true,
+     "last": "FOOT_PLANT checks=14 failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/ring_feet_test.gd",
+     "ok": true,
+     "last": "RING_FEET_TEST failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/human_feet_test.gd",
+     "ok": true,
+     "last": "HUMAN_FEET_TEST failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "BLOCKCLIP1": {
+   "agent": "qwen",
+   "id": "BLOCKCLIP1",
+   "title": "TASK BLOCKCLIP1 - the catching glove sits 9.9 cm inside the cross it blocks (measure, fix, stills)",
+   "status": "running",
+   "started": "2026-11-15T00:18",
+   "eta": "2026-11-15T02:08",
+   "branch": "qwen/blockclip1",
+   "worktree": "E:/FightCamp/wt/LEAN_BLOCKCLIP1",
+   "wt": "E:/FightCamp/wt/LEAN_BLOCKCLIP1",
+   "brief": "ops/research/TASK_BLOCKCLIP1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/BLOCKCLIP1_dispatch_out.txt",
+   "match": "seat_dispatch.py run blockclip1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/BLOCKCLIP1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/BLOCKCLIP1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/BLOCKCLIP1_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 40356,
+    "seat_pid": 14768
+   },
+   "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
   }
+ },
+ "codex_budget": {
+  "used_percent": 65,
+  "resets": "2026-10-07T04:42",
+  "read_at": "2026-10-02T18:10",
+  "rule": "max 2 Codex seats, luna/medium, stop new launches at 85%"
+ }
 }

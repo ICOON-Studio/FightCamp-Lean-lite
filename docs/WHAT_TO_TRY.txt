@@ -1,3 +1,12 @@
+S476 (2026-11-15)
+- The rear leg in the guard: the back foot now turns 45 degrees out, as in the captured take, and the rear knee sits over it,
+  bent and loaded, instead of caving in. Watch the boxers standing in guard between punches.
+- Glove clipping on uppercuts: when an uppercut lands up the middle, the other boxer's guard glove now moves fully off it.
+  On our test film the worst glove-in-glove frame went from 6.5 cm to 2.8 cm. Still left: a blocked cross can show the
+  catching glove inside the punch (being fixed by the animation seat).
+- From S475, now in the build: the 11 sounds you kept (clinch, corner minute, pads, the gym's room sound), and the body aim
+  buttons in a fight read "Liver!" / "Ribs!".
+
 S474 (2026-11-14)
 - Nothing new to play this time: the fight week (your "Yes, build it") is being built under the hood. Five rule pieces are
   in (the club-show weight gap, the bout sheet, the tank and load, the Monday pull-out and favours, film nights), and the
