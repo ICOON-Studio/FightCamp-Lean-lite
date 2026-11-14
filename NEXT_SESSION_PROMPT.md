@@ -33,10 +33,10 @@ Miro P0 redrawn at the end of S476 (partial update, no frame rect: works).
 - Seat queue: SQ144 Kalli fight week map v9 (sparring partner screen replaces trips); SQ145 John LADDER1; SQ143 Kalli plan
   flowchart v3; SQ141 Dola step value; SQ146-150 (above).
 
-## HIS BOARD (asked S476, quote his answers)
+## HIS BOARD (answered S476)
 - Q-S294-230 STEPVALUE1 (Dola 8/8, Maria 7/6): build after the fight week? On yes: section 10 build order of
   ops/research/DESIGN_STEPVALUE1_V1_KALLI_KALLI.md - rule pieces 2-6 are Arena/Qwen pure modules.
-- Q-S294-231 the ropes count (three step-backs in a round without a pivot = on the ropes).
+- Q-S294-231 the ropes count (three step-backs in a round without a pivot = on the ropes): ANSWERED 'Yes'.
 
 ## FIRST
 1. get_usage. Collect BLOCKCLIP1. 2. Seat answers: v9 -> two fresh critics (`design_loop.py critic AMATEURWEEK1_V9 <map> --seat dola|john`)

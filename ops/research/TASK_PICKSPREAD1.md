@@ -1,6 +1,6 @@
 # TASK PICKSPREAD1 - is any "what to learn next" card always the right pick? (a probe; headless, no fix)
 
-Status: OPEN (S473, Claude main). Discipline: boxing. Model: Arena (cloud, lite mirror).
+Status: DONE (collected S473, 6d58be0e; result docs/PICKSPREAD1_RESULT.md). Discipline: boxing. Model: Arena (cloud, lite mirror).
 
 ## Why now
 The owner approved the progression plan (Q-211 "Yes, go ahead"); its build order item 12 asks for the probes, one of them
@@ -35,7 +35,7 @@ choice, and if not, which card or move dominates and why (read LearnSlots' scori
 ## Contract
 OWNS: tools/pickspread_probe.gd, docs/PICKSPREAD1_RESULT.md
 RED_TEST: tools/pickspread_probe.gd -> PICKSPREAD pass= (a new probe; nothing is red on main - it has no file yet)
-REGRESSION: none (no game script changes)
+REGRESSION: tests/learn_slots_test.gd (no game script changes)
 VISUAL: no
 NOT YOURS: every script under scripts/, every test under tests/, tools/treevalue_probe.gd. No number changed anywhere.
 Run: `godot --headless --audio-driver Dummy --path . --script res://tools/pickspread_probe.gd` (Godot 4.7.2). No .glb/.png/

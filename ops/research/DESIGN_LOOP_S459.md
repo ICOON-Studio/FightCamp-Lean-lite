@@ -35,3 +35,12 @@ DONE = two critics (one fresh) each at 6+ DEPTH and 6+ GENERAL DESIGN. Then it g
 - STEPVALUE1 v1: Maria 7/6 (play 5) PASS; Dola SQ141 still out.
 - Fight week screen v1: Dola + John in (SQ139/140); the screen is redrawn after map v9 (SQ144, sparring partner replaces trips).
 - S476 later: STEPVALUE1 v1 PASSES - Dola 8/8 (play 7), Maria 7/6 (play 5): on his board with the map (build after the fight week? + the ropes count rule).
+- S476: his answers - STEPVALUE1 'Yes, build it after the fight week'; ropes count 'Yes'. DESIGNED + APPROVED.
+
+## S477 (2026-11-15)
+- WEIGHT1 round 5: Maria 7/6 (play 6) PASS - first pass for weight; Dola SQ149 still out.
+- PLANFLOW1 v3 in (Kalli SQ143, self 7/7/7): v3 adds results-changing pieces (Main bet, Test it, GUESS, Lean on it), so it goes
+  to two critics again before his board: John SQ151 (found the v2 logic faults) + Maria SQ152.
+- LADDER1: John's research in (SQ145: 10 games, England Boxing / BBBofC rules, reputation earns/unlocks, the 9/10 screen);
+  Claude checked its code claims (Roster PRO_WINS 7 / PRO_RANK 3 / 9 any rank, Region RANK_MIN_WINS 4, AskBout has no caller,
+  Matchmaking BAND_UP 5 / TOP_ASK_FANS 3). Map v1 brief to Kalli (SQ153, DESIGN_LADDER1_V1_WRITE_KALLI).

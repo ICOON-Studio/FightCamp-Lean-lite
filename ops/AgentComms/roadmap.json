@@ -6,7 +6,7 @@
     "id": "S476",
     "owner": "claude",
     "updated": "2026-11-15",
-    "summary": "S476: KNEE COLLECTED, UPPERCUT CLIPPING HALVED. Collected KNEEFIX1 (Qwen: rear toes 45 + band 20, guard_knee source = its own ruler's read) but refused its frames cut 15->8: the low count was the fidget draw (8/150/275 frames on one tree), the test now watches 1320 frames, bar 15 kept; close rear-knee stills on the review board. CLASH3 (Claude): off a landing punch the guard arm now opens outward only ACROSS the push (the old sum cancelled it): seed 4242 frames >2 cm 5->3, rear uppercut 6.5->2.8 cm; seed 77 10->8. Left: the blocked cross (catching glove 9.9 cm inside, BlockCatch MEET_M) -> BLOCKCLIP1 on Qwen (launched 00:18, ETA ~02:30). LIVERRIBS1: decided no plan-level aim (the aim is a live shout; a plan aim would be a new mechanic for the critics), the forecast stays. Seat answers: club week v7 Dola 7/7, John 6/5, Maria 7/5 -> v8 to Kalli (SQ146); coach fit v8 -> Dola+John (SQ147/148); weight r5 -> Dola+Maria (SQ149/150); step value Maria 7/6 pass. FWTRIPS1 (Arena) never opened a PR. | LATER IN S476: clash_meter now reads a boxer's OWN two gloves; nothing keeps them apart - tests/own_gloves_test.gd red (guard + fidgets, no punches: boxer 0 0.100 m, boxer 1 0.127 m); films show it after 9 of 10 shots. OWNGLOVE1 queued on Qwen after BLOCKCLIP1."
+    "summary": "S476: KNEE COLLECTED, UPPERCUT CLIPPING HALVED. Collected KNEEFIX1 (Qwen: rear toes 45 + band 20, guard_knee source = its own ruler's read) but refused its frames cut 15->8: the low count was the fidget draw (8/150/275 frames on one tree), the test now watches 1320 frames, bar 15 kept; close rear-knee stills on the review board. CLASH3 (Claude): off a landing punch the guard arm now opens outward only ACROSS the push (the old sum cancelled it): seed 4242 frames >2 cm 5->3, rear uppercut 6.5->2.8 cm; seed 77 10->8. Left: the blocked cross (catching glove 9.9 cm inside, BlockCatch MEET_M) -> BLOCKCLIP1 on Qwen (launched 00:18, ETA ~02:30). LIVERRIBS1: decided no plan-level aim (the aim is a live shout; a plan aim would be a new mechanic for the critics), the forecast stays. Seat answers: club week v7 Dola 7/7, John 6/5, Maria 7/5 -> v8 to Kalli (SQ146); coach fit v8 -> Dola+John (SQ147/148); weight r5 -> Dola+Maria (SQ149/150); step value Maria 7/6 pass. FWTRIPS1 (Arena) never opened a PR. | LATER IN S476: clash_meter now reads a boxer's OWN two gloves; nothing keeps them apart - tests/own_gloves_test.gd red (guard + fidgets, no punches: boxer 0 0.100 m, boxer 1 0.127 m); films show it after 9 of 10 shots. OWNGLOVE1 queued on Qwen after BLOCKCLIP1. | His board: STEPVALUE1 approved (build after the fight week) + the ropes count rule (Yes)."
   },
   "next": "S477: 0) get_usage. 1) Collect Qwen BLOCKCLIP1 (branch qwen/blockclip1: 08_cross seed 77 <= 0.02 m every frame, no new deep frame on any shot, block_meet FAIL set not larger; open its f27 stills yourself, then his look). 2) Seat answers: SQ144 fight week map v9 -> two fresh critics -> 6/6 + depth 7 -> his board WITH the redrawn sparring-partner screen (names only in headers); SQ145 LADDER1 research -> Kalli map; SQ143 plan flowchart v3 -> his board; SQ146-150 design loop. 3) Arena: a pure module from v9 (partner-to-opponent match score). 4) CLASH3 left: a boxer's own two gloves (clash_meter reads only pairs across boxers - add own-pair), cross 09 seed 77 one 4.1 cm frame (the clearance believes it clear: its forearm-line glove model vs the drawn glove).",
   "assessment": {
@@ -1973,7 +1973,7 @@
     {
       "id": "S476",
       "date": "2026-11-15",
-      "summary": "S476: KNEE COLLECTED, UPPERCUT CLIPPING HALVED. Collected KNEEFIX1 (Qwen: rear toes 45 + band 20, guard_knee source = its own ruler's read) but refused its frames cut 15->8: the low count was the fidget draw (8/150/275 frames on one tree), the test now watches 1320 frames, bar 15 kept; close rear-knee stills on the review board. CLASH3 (Claude): off a landing punch the guard arm now opens outward only ACROSS the push (the old sum cancelled it): seed 4242 frames >2 cm 5->3, rear uppercut 6.5->2.8 cm; seed 77 10->8. Left: the blocked cross (catching glove 9.9 cm inside, BlockCatch MEET_M) -> BLOCKCLIP1 on Qwen (launched 00:18, ETA ~02:30). LIVERRIBS1: decided no plan-level aim (the aim is a live shout; a plan aim would be a new mechanic for the critics), the forecast stays. Seat answers: club week v7 Dola 7/7, John 6/5, Maria 7/5 -> v8 to Kalli (SQ146); coach fit v8 -> Dola+John (SQ147/148); weight r5 -> Dola+Maria (SQ149/150); step value Maria 7/6 pass. FWTRIPS1 (Arena) never opened a PR. | LATER IN S476: clash_meter now reads a boxer's OWN two gloves; nothing keeps them apart - tests/own_gloves_test.gd red (guard + fidgets, no punches: boxer 0 0.100 m, boxer 1 0.127 m); films show it after 9 of 10 shots. OWNGLOVE1 queued on Qwen after BLOCKCLIP1."
+      "summary": "S476: KNEE COLLECTED, UPPERCUT CLIPPING HALVED. Collected KNEEFIX1 (Qwen: rear toes 45 + band 20, guard_knee source = its own ruler's read) but refused its frames cut 15->8: the low count was the fidget draw (8/150/275 frames on one tree), the test now watches 1320 frames, bar 15 kept; close rear-knee stills on the review board. CLASH3 (Claude): off a landing punch the guard arm now opens outward only ACROSS the push (the old sum cancelled it): seed 4242 frames >2 cm 5->3, rear uppercut 6.5->2.8 cm; seed 77 10->8. Left: the blocked cross (catching glove 9.9 cm inside, BlockCatch MEET_M) -> BLOCKCLIP1 on Qwen (launched 00:18, ETA ~02:30). LIVERRIBS1: decided no plan-level aim (the aim is a live shout; a plan aim would be a new mechanic for the critics), the forecast stays. Seat answers: club week v7 Dola 7/7, John 6/5, Maria 7/5 -> v8 to Kalli (SQ146); coach fit v8 -> Dola+John (SQ147/148); weight r5 -> Dola+Maria (SQ149/150); step value Maria 7/6 pass. FWTRIPS1 (Arena) never opened a PR. | LATER IN S476: clash_meter now reads a boxer's OWN two gloves; nothing keeps them apart - tests/own_gloves_test.gd red (guard + fidgets, no punches: boxer 0 0.100 m, boxer 1 0.127 m); films show it after 9 of 10 shots. OWNGLOVE1 queued on Qwen after BLOCKCLIP1. | His board: STEPVALUE1 approved (build after the fight week) + the ropes count rule (Yes)."
     }
   ],
   "blocked_on_operator": [],
@@ -4892,7 +4892,7 @@
   },
   "plan": {
     "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-    "updated": "2026-11-14 23:44 board_sync",
+    "updated": "2026-11-15 00:41 board_sync",
     "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
     "titles": {
       "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5040,7 +5040,14 @@
       "GYMLIFE2": "Gym picture: smooth shadow boxing, walks round the kit, nobody under a button",
       "INTROCORNER2": "Fight intro from the corners: each name call shown, never alike"
     },
-    "working_now": [],
+    "working_now": [
+      {
+        "title": "TASK BLOCKCLIP1 - the catching glove sits 9.9 cm inside the cross it blocks (measure, fix, stills)",
+        "who": "qwen",
+        "started": "2026-11-15T00:18",
+        "run": "BLOCKCLIP1"
+      }
+    ],
     "next": [
       {
         "id": "SPARPARTNER1",
@@ -5057,8 +5064,8 @@
       {
         "id": "STEPVALUE1",
         "who": "kalli",
-        "title": "Footwork and defence worth learning: Kalli's v1 map in (self 7/7); critics Dola SQ141 + Maria SQ142 (S475)",
-        "after": "-"
+        "title": "Footwork and defence worth learning: APPROVED (his Q-S294-230 'Yes, build it after the fight week'; Q-S294-231 'Yes' to the ropes count: three step-backs in a round without a pivot out = on the ropes). Map ops/research/DESIGN_STEPVALUE1_V1_KALLI_KALLI.md, section 10 build order; critics Dola 8/8, Maria 7/6. Build starts once the fight week ships (pieces 2-6 = pure modules for Arena/Qwen).",
+        "after": "AMATEURWEEK1"
       },
       {
         "id": "CLASH3",

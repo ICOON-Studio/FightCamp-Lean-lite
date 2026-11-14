@@ -7386,10 +7386,11 @@
       "attach": [
         "research/DESIGN_STEPVALUE1_V1_KALLI_KALLI.md"
       ],
-      "answer": null,
+      "answer": "Yes, build it after the fight week",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-14T22:43:22Z",
+      "seen_by_claude": false,
+      "comment_only": false
     },
     {
       "id": "Q-S294-231",
@@ -7403,10 +7404,11 @@
       "attach": [
         "research/DESIGN_STEPVALUE1_V1_KALLI_KALLI.md"
       ],
-      "answer": null,
+      "answer": "Yes",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-14T22:43:35Z",
+      "seen_by_claude": false,
+      "comment_only": false
     }
   ]
 }
