@@ -18605,6 +18605,70 @@
     "after": {},
     "board": ""
    }
+  },
+  {
+   "agent": "goose",
+   "id": "WEIGHGAP1",
+   "title": "the club-show weight gap (pure rule module + unit test)",
+   "status": "collected S474",
+   "started": "2026-11-14T21:16",
+   "where": "cloud",
+   "repo": "FightCamp-Lean",
+   "brief": "ops/research/TASK_WEIGHGAP1.md",
+   "model": "Goose + Qwen token plan (GitHub Actions)",
+   "eta": "2026-11-14T22:16",
+   "note": "S380 seat_dispatch: pure rule module routed to Goose instead of a PC worktree (dispatch_queue.json)",
+   "issue": "285",
+   "branch": "goose/issue-285",
+   "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/285"
+  },
+  {
+   "agent": "qwen",
+   "id": "BOUTSHEET1",
+   "title": "TASK BOUTSHEET1 - the amateur bout sheet: slots, swap, pass, refusals, rematch, rest window (pure module + unit test)",
+   "status": "collected S474",
+   "started": "2026-11-14T21:16",
+   "eta": "2026-11-14T23:06",
+   "branch": "qwen/boutsheet1",
+   "worktree": "E:/FightCamp/wt/LEAN_BOUTSHEET1",
+   "wt": "E:/FightCamp/wt/LEAN_BOUTSHEET1",
+   "brief": "ops/research/TASK_BOUTSHEET1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/BOUTSHEET1_dispatch_out.txt",
+   "match": "seat_dispatch.py run boutsheet1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/BOUTSHEET1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/BOUTSHEET1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/BOUTSHEET1_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 34976,
+    "seat_pid": 44060
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 1/2 PASS; PR #286",
+   "finished": "2026-11-14T21:25",
+   "pr": 286,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/bout_sheet_test.gd",
+     "ok": false,
+     "last": "BOUT_SHEET checks=96 failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/amateur_booking_test.gd",
+     "ok": true,
+     "last": "AMATEUR_BOOKING checks=101 failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
   }
  ]
 }

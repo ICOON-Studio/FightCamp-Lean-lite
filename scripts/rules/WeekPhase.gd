@@ -44,7 +44,44 @@ static func phase(bout: Dictionary, day: int) -> String:
 	if bout.is_empty() or bool(bout.get("done", false)):
 		return "base"
 	var weeks := int(ceil((int(bout.get("day", day)) - day) / 7.0))
-	return "taper" if weeks <= 1 else ("peak" if weeks == 2 else "build")
+	if weeks <= 1:
+		return "taper"
+	# S474 AMATEURWEEK1 (map v8 s1): an amateur bout has no camp - the week before runs as BUILD (its strip sets the
+	# trip and the week-before sparring night); PEAK is a camp week (pro, title, championships).
+	return "peak" if weeks == 2 and not amateur(bout) else "build"
+
+
+## S474: a club-show bout run as a fight week, no camp. Bouts.gd marks it at booking (bout["fight_week"] = true: an
+## amateur bout outside the championships); a camp bout (pro, title, championships, any unmarked bout) is unchanged.
+static func amateur(bout: Dictionary) -> bool:
+	return bool(bout.get("fight_week", false)) and not bool(bout.get("pro", false)) and not bout.has("champ")
+
+
+## S474 AMATEURWEEK1 (map v8 s4.3): the fight week of an amateur bout is set by its LOAD STOP (bout["load"]):
+## rest_up = the three-rest-day taper; tick_over = one rest day, volume halved; train_through = a full normal week.
+## A camp bout keeps the taper. LOAD_DEFAULT stays rest_up (today's taper) until the operator rules on Q-S294-229.
+const LOAD_DEFAULT := "rest_up"
+const LOAD_WEEKS := {
+	"tick_over": [["roadwork", "light"], ["F", "light"], ["intervals", "light"], ["speed_bag", "light"],
+		["shadow", "light"], ["roadwork", "light"], ["rest", "normal"]],
+	"train_through": [["roadwork", "normal"], ["F", "normal"], ["intervals", "normal"], ["speed_bag", "light"],
+		["roadwork", "normal"], ["shadow", "light"], ["rest", "normal"]],
+}
+
+
+static func load_stop(bout: Dictionary) -> String:
+	return str(bout.get("load", LOAD_DEFAULT)) if amateur(bout) else "rest_up"
+
+
+## The coach's week for phase p; an amateur fight week reads the bout's load stop.
+static func week_for(p: String, focus: String, bout: Dictionary) -> Array:
+	var stop := load_stop(bout) if p == "taper" else ""
+	if LOAD_WEEKS.has(stop):
+		var out: Array = []
+		for d in LOAD_WEEKS[stop]:
+			out.append([str(FOCUS.get(focus, "heavy_bag")) if str(d[0]) == "F" else str(d[0]), str(d[1])])
+		return out
+	return week(p, focus)
 
 
 ## The phase as of `day` on the fighter; a change of phase drops the last phase's exceptions (a new week is written).

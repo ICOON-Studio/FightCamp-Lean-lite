@@ -35,3 +35,15 @@ KNEE_TURN_DEG=15 also moves the rear knee toward the target (b0: -0.0064, +0.024
 KneeTrack ALLOW_DEG and BENT_DEG have no effect on guard_knee across their ranges - the values are identical to main at every setting tested.
 
 The knee-solve settings are ruled out as the fix for the rear knee gap. The fix belongs elsewhere (foot placement, hip position, or a different parameter not swept here).
+
+## S474 follow-up (Claude): the rear FOOT turn
+The two rulers pull against each other because our rear toes turn 32 deg out and the take's turn 45.4 (docs/PELVIS1_RESULT.md).
+BoxerFootwork REAR_YAW_DEG sweep (guard_knee rear mean b0 / b1, target +0.029, bar 0.03; footwork failures):
+- -32 (main): -0.031 / -0.017, footwork 0
+- -38: -0.028 / -0.013, footwork 0
+- -45 (the take): -0.014 / -0.006, footwork 0 (boxer 1 held a guard 8 frames - a short run, re-check)
+- -45 + KNEE_TURN 15: +0.010 / +0.011 (guard_knee passes the mean) but rear valgus 24-25 deg (footwork 2)
+- -45 + REAR_BAND 26: +0.014 / +0.024 (passes the mean) but rear valgus 24 deg (footwork 2)
+Reading: the foot turn is the right knob (moves the knee half way with no valgus cost). Next: -45 with KNEE_TURN 30-40 /
+REAR_BAND 20-22 to find a pair inside both bars, then game-camera stills before anything is kept (a look change).
+Main keeps -32 until then.

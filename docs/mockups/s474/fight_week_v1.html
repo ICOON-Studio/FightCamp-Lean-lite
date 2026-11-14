@@ -1,0 +1,179 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Fight week v1 (S474)</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;700;800&family=Permanent+Marker&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#ece7dc;--dim:#a9b0b8;--line:#4a5560;--gold:#f2c14b;--red:#d9463a;--green:#58c27a;--blue:#4f8fe0;--board:#2c3236}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;overflow:hidden;font-family:Barlow,Arial,sans-serif;color:var(--ink);
+ background:#3a2c1f radial-gradient(900px 500px at 50% 40%,#4a3826,#2a1f15)}
+.frame{position:absolute;left:150px;top:14px;width:1620px;height:1052px;border:16px solid #6b4a2b;border-radius:8px;
+ box-shadow:inset 0 0 0 3px #3a2816,0 10px 40px rgba(0,0,0,.7);
+ background:var(--board) radial-gradient(1200px 700px at 40% 30%,#3a4146,#24292c)}
+.m{font-family:"Permanent Marker",cursive}
+.inner{position:absolute;inset:18px 26px}
+/* header 96 */
+.hd{height:96px;display:flex;align-items:center;gap:22px;border-bottom:2px solid #55606a}
+.por{width:74px;height:74px;border-radius:6px;background:#6b7a88;border:2px solid #cfd6dd;display:flex;align-items:center;justify-content:center;font-size:12px;color:#223}
+.hd .nm{font-size:30px;line-height:1}.hd .sub{font-size:17px;color:var(--dim);margin-top:6px}
+.vs{font-size:24px;color:var(--dim)}
+.tags{margin-left:auto;display:flex;gap:10px;align-items:center}
+.tag{border:2px solid #6d7882;border-radius:7px;padding:6px 10px;font-weight:700;font-size:17px;white-space:nowrap}
+.tag.g{border-color:var(--gold);color:var(--gold)}.tag.b{border-color:var(--blue);color:#9cc3ff}
+.days{font-size:44px;color:var(--gold);line-height:1;text-align:center}.days small{display:block;font-family:Barlow;font-size:14px;color:var(--dim)}
+/* week-before strip 84 */
+.strip{height:84px;margin-top:10px;display:flex;align-items:center;gap:16px;border:2px dashed #7d8790;border-radius:8px;padding:0 16px;background:rgba(255,255,255,.03)}
+.strip .lbl{font-size:24px;color:#d9dee3;width:200px}
+.pill{border:2px solid #6d7882;border-radius:20px;padding:7px 14px;font-weight:700;font-size:17px}
+.pill.on{border-color:var(--gold);background:rgba(242,193,75,.12);color:var(--gold)}
+.mag{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;color:#fff;box-shadow:0 3px 6px rgba(0,0,0,.5)}
+.mag.spar{background:var(--red)}.mag.film{background:#2b2b2b;border:3px solid #ddd}.mag.pads{background:var(--blue)}
+.note{font-size:16px;color:var(--dim)}
+/* body columns */
+.body{position:absolute;top:212px;left:0;right:0;height:676px;display:flex;gap:18px}
+.col{display:flex;flex-direction:column;gap:9px}
+.card{border:2px solid #5c6670;border-radius:9px;padding:12px 14px;background:rgba(0,0,0,.18)}
+.card.on{border-color:var(--gold);box-shadow:0 0 0 2px rgba(242,193,75,.25)}
+.card.red{border-color:var(--red)}
+.ttl{font-size:22px;margin-bottom:6px}
+.row{display:flex;justify-content:space-between;font-size:16px;margin:3px 0}
+.row b{font-weight:800}.up{color:var(--green)}.dn{color:#ff8a7a}.gold{color:var(--gold)}
+.sec{font-size:22px;color:#d9dee3;margin:2px 0 2px}
+/* centre */
+.daysrow{display:flex;gap:8px}
+.day{flex:1;height:132px;border:2px solid #56616b;border-radius:8px;padding:6px;display:flex;flex-direction:column;align-items:center;gap:6px;background:rgba(255,255,255,.03)}
+.day .d{font-weight:800;font-size:16px}.day .t{font-size:13px;color:var(--dim);text-align:center}
+.day.bell{border-color:var(--gold);background:rgba(242,193,75,.08)}
+.load{display:flex;gap:10px}
+.stop{flex:1;border:2px solid #5c6670;border-radius:9px;padding:7px 12px;background:rgba(0,0,0,.18);position:relative}
+.stop.on{border-color:var(--gold);background:rgba(242,193,75,.08)}
+.stop .n{font-size:21px}.stop .best{font-size:14px;color:var(--dim);margin-top:4px;font-style:italic}
+.hov{position:absolute;left:104%;top:auto;bottom:-10px;width:250px;width:330px;background:#14181b;border:2px solid var(--gold);border-radius:8px;padding:8px 10px;font-size:15px;z-index:5;box-shadow:0 8px 24px rgba(0,0,0,.6)}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{border:2px solid #6d7882;border-radius:7px;padding:5px 10px;font-weight:700;font-size:15px}
+.chip.uns{border-color:var(--red);color:#ff9a8a}.chip.rdy{border-color:var(--green);color:#8fe0a8}
+.wt{display:flex;gap:10px}
+.wp{flex:1;border:2px solid #5c6670;border-radius:9px;padding:6px 12px;font-size:15px}
+.wp.off{opacity:.45}
+/* right gold frame */
+.gold-frame{border:4px solid var(--gold);border-radius:10px;padding:14px 16px;background:rgba(242,193,75,.05);height:100%;display:flex;flex-direction:column;gap:10px}
+.ready{font-size:22px;color:var(--gold)}
+.tank{height:30px;display:flex;border:2px solid #6d7882;border-radius:6px;overflow:hidden}
+.tank div{height:100%}
+.band{font-size:15px;color:var(--dim)}
+.big{font-size:34px;font-weight:800}
+.ln{display:flex;justify-content:space-between;align-items:center;font-size:16px;padding:4px 0;border-bottom:1px solid #46505a}
+.tg{font-size:12px;font-weight:800;border-radius:4px;padding:2px 6px;margin-left:6px}
+.tg.r{background:#2f6b45}.tg.u{background:#8a2c24}.tg.s{background:#5a4a12;color:var(--gold)}
+/* bottom 120 */
+.bot{position:absolute;bottom:0;left:0;right:0;height:112px;border-top:2px solid #55606a;display:flex;align-items:center;gap:18px}
+.asst{display:flex;gap:12px;align-items:center;flex:1}
+.asst .por{width:64px;height:64px}
+.asst .say{font-size:24px;line-height:1.2}.asst .why{font-size:16px;color:var(--dim)}
+.btn{border-radius:8px;padding:14px 22px;font-weight:800;font-size:20px;border:2px solid #7a6a55;background:#3b2f24}
+.btn.red{background:#b2352b;border-color:#e2675c}
+</style></head><body>
+<div class="frame"><div class="inner">
+
+<div class="hd">
+ <div class="por">photo</div>
+ <div><div class="nm m">Fight week</div><div class="sub">Lucy 3-1 &nbsp;v&nbsp; Priya Nair 4-2 &nbsp;&middot;&nbsp; 60 kg</div></div>
+ <div class="por">photo</div>
+ <div class="tags">
+  <span class="tag b">AWAY at Fitzroy Lodge</span>
+  <span class="tag">Favours with the host &#9679;&#9675;&#9675;</span>
+  <span class="tag">Scale: 61.4 now &middot; inside the 2.5 kg gap by 0.6 on the day</span>
+  <span class="tag g">Next 4 weeks &#8599;</span>
+  <div class="days m">9<small>days to the bell</small></div>
+ </div>
+</div>
+
+<div class="strip">
+ <div class="lbl m">The week before</div>
+ <span class="pill">Home gym &middot; free</span>
+ <span class="pill on">City club, with your assistant &middot; $270</span>
+ <span class="pill">Alone &middot; $210</span>
+ <div style="width:30px"></div>
+ <div class="mag spar">SPAR</div>
+ <div class="note">Week-before sparring: costs one pad night, readies <b>2 lines</b> (you pick)</div>
+</div>
+
+<div class="body">
+ <!-- LEFT 440 -->
+ <div class="col" style="width:440px">
+  <div class="sec m">Where to train</div>
+  <div class="card on"><div class="ttl">City club, commute with your assistant</div>
+   <div class="row"><span>$150 + $120 food</span><b class="gold">week before</b></div>
+   <div class="row"><span>A partner who also counters</span><b class="up">round 1 +1.0</b></div>
+   <div class="row"><span>Injury that week</span><b class="dn">x1.15</b></div>
+  </div>
+  <div class="card red"><div class="ttl" style="color:#ff9a8a">Your assistant is away all week</div>
+   <div class="row"><span>Your other boxers train at</span><b class="dn">0.85 (head coach only)</b></div>
+   <div class="row"><span>Evening class</span><b class="dn">stops: -$350</b></div>
+  </div>
+  <div class="sec m">Who pays the trip</div>
+  <div class="card on"><div class="row"><b>The club</b><span>$270 &middot; mood +3</span></div>
+   <div class="row note"><span>paid for her more than the others lately</span><span class="dn">-2 with each</span></div></div>
+  <div class="card"><div class="row"><b>Half each</b><span>$135 &middot; mood +3 on a win</span></div></div>
+  <div class="card" style="opacity:.5"><div class="row"><b>She pays</b><span>savings $90: too little</span></div></div>
+ </div>
+
+ <!-- CENTRE 920 -->
+ <div class="col" style="width:640px;flex:1">
+  <div class="sec m">Fight week</div>
+  <div class="daysrow">
+   <div class="day"><div class="d">Mon</div><div class="t">roadwork</div><div class="mag pads">PADS</div></div>
+   <div class="day"><div class="d">Tue</div><div class="t">shadow</div><div class="mag spar">SPAR</div><div class="t dn">-3 tank</div></div>
+   <div class="day"><div class="d">Wed</div><div class="t">intervals</div><div class="mag film">FILM</div></div>
+   <div class="day"><div class="d">Thu</div><div class="t">speed bag</div><div class="mag pads">PADS</div></div>
+   <div class="day"><div class="d">Fri</div><div class="t">rest</div></div>
+   <div class="day"><div class="d">Sat</div><div class="t">light shadow</div></div>
+   <div class="day bell"><div class="d gold">Sun</div><div class="t gold">FIGHT NIGHT<br>weigh-in 1 h before</div></div>
+  </div>
+  <div class="sec m">The week's load</div>
+  <div class="load">
+   <div class="stop"><div class="n">Rest up</div><div class="row"><span>tank</span><b>0 off</b></div><div class="row"><span>round 1</span><b class="dn">flat -1.0</b></div><div class="row"><span>banked</span><b>a fifth</b></div><div class="best">best: tiredness 65+, or a heavy cut</div></div>
+   <div class="stop on"><div class="n gold">Tick over</div><div class="row"><span>tank</span><b>6 off</b></div><div class="row"><span>round 1</span><b class="up">sharp + 1 line up</b></div><div class="row"><span>banked</span><b>half</b></div><div class="best">best: most weeks under 65</div>
+    <div class="hov"><b class="gold">Train through instead:</b> 6 more off the tank, Uppercut 27 &#8594; 31 reaches <b>Usable</b> by the bell, +6 tiredness after.</div></div>
+   <div class="stop"><div class="n">Train through</div><div class="row"><span>tank</span><b class="dn">12 off</b></div><div class="row"><span>round 1</span><b class="up">sharp</b></div><div class="row"><span>banked</span><b>the full week</b></div><div class="best">best: a move a week from Usable</div></div>
+  </div>
+  <div class="row" style="font-size:16px"><span>Tick over fires one line a level up in rounds 1-2:</span><b class="gold">Waits &#8594; feint, body hook &#9662;</b></div>
+  <div class="sec m">The weight</div>
+  <div class="wt">
+   <div class="wp"><b>Eat less</b><br><span class="dn">4 off the tank</span></div>
+   <div class="wp"><b>Train it off</b><br>0.3 kg for <span class="dn">+8 tiredness</span></div>
+   <div class="wp off"><b>Ask for a kilo</b> &#9679;<br>only within 1 kg of the gap</div>
+  </div>
+  <div class="sec m">Plan lines</div>
+  <div class="chips"><span class="chip rdy">Waits &#8594; feint, body hook</span><span class="chip rdy">Pressed &#8594; step back</span><span class="chip uns">Loads up &#8594; check hook &middot; UNSPARRED</span><span class="chip">Inside &#8594; tie up</span></div>
+ </div>
+
+ <!-- RIGHT 560 -->
+ <div class="col" style="width:470px">
+  <div class="gold-frame">
+   <div class="ready m">2 ready &middot; 1 UNSPARRED &middot; 2 SEEN tells</div>
+   <div class="sec m" style="margin:0">On fight night</div>
+   <div><div class="row"><span>The tank at the first bell</span><b class="big">85</b></div>
+    <div class="tank"><div style="width:6%;background:#7c858d"></div><div style="width:6%;background:#e0a33a"></div><div style="width:3%;background:var(--red)"></div><div style="flex:1;background:#2c6b46"></div></div>
+    <div class="band">grey: tiredness 3 &middot; gold: tick over 6 &middot; red: sparring 3 &nbsp;(hover: wins in 100 each)</div></div>
+   <div class="row"><span>Round 1</span><b class="up">Sharp, one line up</b></div>
+   <div class="ln"><span>Waits &#8594; feint, body hook<span class="tg r">READY</span><span class="tg s">SEEN 70</span></span><b>fires 1 in 2</b></div>
+   <div class="ln"><span>Pressed &#8594; step back<span class="tg r">READY</span></span><b>1 in 3</b></div>
+   <div class="ln"><span>Loads up &#8594; check hook<span class="tg u">UNSPARRED</span></span><b class="dn">level down</b></div>
+   <div class="row"><span>Scale on the day</span><b class="up">inside the gap by 0.6 kg</b></div>
+   <div class="row"><span>Win band</span><b class="big gold" style="font-size:28px">46-58%</b></div>
+   <div class="sec m" style="margin-top:4px">Banked</div>
+   <div class="row"><span>Technique</span><b class="up">+0.4</b></div><div class="row"><span>Tiredness after the bell</span><b>+0</b></div>
+   <div class="sec m" style="margin-top:4px">Season</div>
+   <div class="row note"><span>Tick over at this tiredness v the others</span><b>-1 to +2 in 100</b></div>
+  </div>
+ </div>
+</div>
+
+<div class="bot">
+ <div class="asst"><div class="por">coach</div><div><div class="say m">"Tick over, the city club the week before, spar Tuesday."</div><div class="why">Your assistant's pick - what drove it: the opponent counters in round 1. Sure 4 in 5.</div></div></div>
+ <div class="btn">Use the pick</div>
+ <div class="btn red">Lock the week</div>
+</div>
+
+</div></div>
+</body></html>

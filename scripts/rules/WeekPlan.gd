@@ -98,7 +98,7 @@ static func days_of(f: Dictionary) -> Array:
 ## The coach's week for her phase and the camp's stat (no exceptions).
 static func coach_of(f: Dictionary) -> Array:
 	var camp: Dictionary = f.get("camp", {})
-	return WeekPhase.week(str(f.get("phase", "base")), str(camp.get("focus", f.get("focus", ""))))
+	return WeekPhase.week_for(str(f.get("phase", "base")), str(camp.get("focus", f.get("focus", ""))), f.get("bout", {}))
 
 
 ## S356 the weeks after this one as the coach will write them ([days, evenings] each, no exceptions): each Monday's phase
@@ -109,7 +109,7 @@ static func ahead(f: Dictionary, day: int, weeks: int) -> Array:
 	var camp: Dictionary = f.get("camp", {})
 	for k in range(1, maxi(1, weeks)):
 		var p := WeekPhase.phase(f.get("bout", {}), monday + 7 * k)
-		out.append([WeekPhase.week(p, str(camp.get("focus", f.get("focus", "")))),
+		out.append([WeekPhase.week_for(p, str(camp.get("focus", f.get("focus", ""))), f.get("bout", {})),
 			evenings_for(WeekPhase.spar(p), WeekPhase.pads(p), WeekPhase.film_night(p, camp, monday + 7 * k)), p])
 	return out
 

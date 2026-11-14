@@ -1818,7 +1818,8 @@
    "sent_ms": 1794674420970,
    "answered_at": "2026-11-14 19:11",
    "answer": "research/DESIGN_PLANFLOW1_V2_REVISE_KALLI_KALLI.md",
-   "chars": 36142
+   "chars": 36142,
+   "seen_by_claude": true
   },
   {
    "id": "SQ123",
@@ -1859,7 +1860,8 @@
    "sent_ms": 1794674425553,
    "answered_at": "2026-11-14 19:12",
    "answer": "research/DESIGN_COACHFIT1_V7_CRITIC_JOHN_JOHN.md",
-   "chars": 17988
+   "chars": 17988,
+   "seen_by_claude": true
   },
   {
    "id": "SQ126",
@@ -1873,7 +1875,8 @@
    "sent_ms": 1794674427943,
    "answered_at": "2026-11-14 19:12",
    "answer": "research/DESIGN_COACHFIT1_V7_CRITIC_MARIA_MARIA.md",
-   "chars": 9687
+   "chars": 9687,
+   "seen_by_claude": true
   },
   {
    "id": "SQ127",
@@ -1887,7 +1890,8 @@
    "sent_ms": 1794678047552,
    "answered_at": "2026-11-14 20:10",
    "answer": "research/DESIGN_WEIGHT1_R3_CRITIC_JOHN_JOHN.md",
-   "chars": 17887
+   "chars": 17887,
+   "seen_by_claude": true
   },
   {
    "id": "SQ128",
@@ -1901,7 +1905,8 @@
    "sent_ms": 1794678050551,
    "answered_at": "2026-11-14 20:10",
    "answer": "research/DESIGN_WEIGHT1_R3_CRITIC_MARIA_MARIA.md",
-   "chars": 11931
+   "chars": 11931,
+   "seen_by_claude": true
   },
   {
    "id": "SQ129",
@@ -1915,7 +1920,8 @@
    "sent_ms": 1794678054803,
    "answered_at": "2026-11-14 20:10",
    "answer": "research/DESIGN_CLUBWEEK1_V7_REVISE_KALLI_KALLI.md",
-   "chars": 32897
+   "chars": 32897,
+   "seen_by_claude": true
   },
   {
    "id": "SQ130",
@@ -1991,12 +1997,14 @@
    "seat": "dola",
    "brief": "research/DESIGN_PLANFLOW1_V2_CRITIC_DOLA.md",
    "stem": "DESIGN_PLANFLOW1_V2_CRITIC_DOLA_DOLA",
-   "status": "sent",
+   "status": "answered",
    "queued_at": "2026-11-14 20:44",
    "tries": 0,
    "sent_at": "2026-11-14 20:45",
    "pid": 44924,
-   "transcript": "AgentComms/seat_logs/SQ137_dola.txt"
+   "transcript": "AgentComms/seat_logs/SQ137_dola.txt",
+   "answered_at": "2026-11-14 21:10",
+   "answer": "research/DESIGN_PLANFLOW1_V2_CRITIC_DOLA_DOLA.md"
   },
   {
    "id": "SQ138",
@@ -2005,6 +2013,24 @@
    "stem": "DESIGN_CLUBWEEK1_V7_CRITIC_DOLA_DOLA",
    "status": "queued",
    "queued_at": "2026-11-14 20:44",
+   "tries": 0
+  },
+  {
+   "id": "SQ139",
+   "seat": "dola",
+   "brief": "research/FIGHTWEEK_SCREEN_V1_CRITIC_DOLA.md",
+   "stem": "FIGHTWEEK_SCREEN_V1_CRITIC_DOLA_DOLA",
+   "status": "queued",
+   "queued_at": "2026-11-14 21:29",
+   "tries": 0
+  },
+  {
+   "id": "SQ140",
+   "seat": "john",
+   "brief": "research/FIGHTWEEK_SCREEN_V1_CRITIC_JOHN.md",
+   "stem": "FIGHTWEEK_SCREEN_V1_CRITIC_JOHN_JOHN",
+   "status": "queued",
+   "queued_at": "2026-11-14 21:29",
    "tries": 0
   }
  ]

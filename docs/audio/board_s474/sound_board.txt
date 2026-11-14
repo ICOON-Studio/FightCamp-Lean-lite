@@ -1,0 +1,24 @@
+FightCamp sound board - Round 2 (redo) - 2026-11-14 21:33
+NOBODY HAS LISTENED TO THESE YET. Claude and the agents cannot hear. Your ear decides: keep / redo / drop.
+Made with Ludo audio (your Pro plan). Numbers: loudness (LUFS), peak (dB), length (s).
+
+ 1. clinch_break  (clinch_break_4.ogg)  - plays when the referee breaks the clinch
+    UNHEARD. 0.939 s, loudness -22.45, peak -1.75 dB. Prompt: boxing referee shouts 'Break!' firmly, then two clinched boxers pull apart: leather gloves slap off shoulders and bodies separate, dry close microphone, small arena
+ 2. clinch_break  (clinch_break_5.ogg)  - plays when the referee breaks the clinch
+    UNHEARD. 1.412 s, loudness -16.52, peak -2.05 dB. Prompt: boxing referee shouts 'Break!' firmly, then two clinched boxers pull apart: leather gloves slap off shoulders and bodies separate, dry close microphone, small arena
+ 3. clinch_break  (clinch_break_6.ogg)  - plays when the referee breaks the clinch
+    UNHEARD. 0.965 s, loudness -24.46, peak -1.87 dB. Prompt: boxing referee shouts 'Break!' firmly, then two clinched boxers pull apart: leather gloves slap off shoulders and bodies separate, dry close microphone, small arena
+ 4. pads_coach_clap  (pads_coach_clap_4.ogg)  - plays when pad night: the coach claps the mitts to call the next drill
+    UNHEARD. 0.601 s, loudness -22.48, peak -1.12 dB. Prompt: boxing coach claps two leather focus mitts together once, loud crisp leather clap with a short echo in a small gym, single clap
+ 5. pads_coach_clap  (pads_coach_clap_5.ogg)  - plays when pad night: the coach claps the mitts to call the next drill
+    UNHEARD. 0.473 s, loudness -23.68, peak -1.49 dB. Prompt: boxing coach claps two leather focus mitts together once, loud crisp leather clap with a short echo in a small gym, single clap
+ 6. pads_coach_clap  (pads_coach_clap_6.ogg)  - plays when pad night: the coach claps the mitts to call the next drill
+    UNHEARD. 0.623 s, loudness -18.53, peak -1.26 dB. Prompt: boxing coach claps two leather focus mitts together once, loud crisp leather clap with a short echo in a small gym, single clap
+ 7. pads_mitt_jab  (pads_mitt_jab_4.ogg)  - plays when pad night: a jab pops into the coach's mitt
+    UNHEARD. 0.103 s, loudness -23.1, peak -1.75 dB. Prompt: a fast light jab snaps into a leather focus mitt held by a coach: a crisp tight pop with a little room echo, single hit, close microphone, small boxing gym
+ 8. pads_mitt_jab  (pads_mitt_jab_5.ogg)  - plays when pad night: a jab pops into the coach's mitt
+    UNHEARD. 0.181 s, loudness -20.52, peak -1.37 dB. Prompt: a fast light jab snaps into a leather focus mitt held by a coach: a crisp tight pop with a little room echo, single hit, close microphone, small boxing gym
+ 9. pads_mitt_jab  (pads_mitt_jab_6.ogg)  - plays when pad night: a jab pops into the coach's mitt
+    UNHEARD. 0.477 s, loudness -18.38, peak -1.3 dB. Prompt: a fast light jab snaps into a leather focus mitt held by a coach: a crisp tight pop with a little room echo, single hit, close microphone, small boxing gym
+
+Reply on the board with the numbers: e.g. '1 keep, 2 redo heavier, 5 drop'.

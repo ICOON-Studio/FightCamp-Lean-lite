@@ -96,6 +96,20 @@ func _initialize() -> void:
 	cut["diet"] = "hold"
 	_check(is_equal_approx(base_kg - taper_kg, WP.TAPER_KG) and is_equal_approx(float(WP.day("rest", "normal", cut, 20.0)["kg"]) - WP.CUT_DEFICIT / WP.KCAL_PER_KG, base_kg),
 		"fight week on a cut drops %.2f kg a day more; a hold diet does not" % WP.TAPER_KG)
+	# S474 AMATEURWEEK1: a fight-week bout (no camp) runs the week before as BUILD; its fight week follows the load stop.
+	var am := {"day": 28, "fight_week": true}
+	_check(PH.phase(am, 14) == "build" and PH.phase(am, 21) == "taper" and PH.phase(bout, 14) == "peak"
+		and PH.phase({"day": 28, "fight_week": true, "pro": true}, 14) == "peak" and PH.phase({"day": 28, "fight_week": true, "champ": "r"}, 14) == "peak",
+		"amateur week before = build; camp, pro and championship bouts keep peak")
+	_check(PH.week_for("taper", "technique", am) == taper and PH.week_for("taper", "technique", bout) == taper, "rest up (the default) is today's taper")
+	var tick := PH.week_for("taper", "technique", {"day": 28, "fight_week": true, "load": "tick_over"})
+	var thru := PH.week_for("taper", "technique", {"day": 28, "fight_week": true, "load": "train_through"})
+	_check(tick.filter(func(d): return str(d[0]) == "rest").size() == 1 and tick.has(["shadow", "light"]), "tick over: one rest day, light sessions")
+	var h_tick := WP.hours(tick, WP.evenings_for(0, 3))
+	var h_thru := WP.hours(thru, WP.evenings_for(0, 3))
+	_check(h_taper < h_tick and h_tick < h_thru, "load stops in order of volume: rest up %.1f < tick over %.1f < train through %.1f h" % [h_taper, h_tick, h_thru])
+	_check(PH.week_for("taper", "technique", {"day": 28, "load": "train_through"}) == taper, "an unmarked (camp) bout ignores a load stop")
+	_check(PH.week_for("build", "technique", {"day": 28, "fight_week": true, "load": "tick_over"}) == build, "the load stop only writes the fight week")
 	print("WEEK_PHASE %s" % ("PASS" if _fails == 0 else "FAIL %d" % _fails))
 	quit(0 if _fails == 0 else 1)
 
