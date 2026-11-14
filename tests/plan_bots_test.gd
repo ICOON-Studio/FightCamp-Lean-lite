@@ -20,6 +20,7 @@ const StrikeMap := preload("res://scripts/rules/StrikeMap.gd")
 const PlanFight := preload("res://scripts/rules/PlanFight.gd")
 const PlanRead := preload("res://scripts/rules/PlanRead.gd")
 const CoachPlan := preload("res://scripts/rules/CoachPlan.gd")
+const StepMastery := preload("res://scripts/rules/StepMastery.gd")
 const FightWhy := preload("res://scripts/rules/FightWhy.gd")
 
 const N := 200
@@ -49,6 +50,10 @@ func _initialize() -> void:
 		_check(bare.size() == 1 and bare.all(func(a): return PlanFight.fit(str(a["move"]), _game_on(str(st), str(a["move"]))) == "best" and PlanFight.rate(str(a["move"]), {}) >= 1.0),
 			"coach 58 writes one drilled best line vs %s with no combination drilled: %s" % [st, str(bare)])
 		_check(CoachPlan.write(str(st), 74.0, lucy0.get("moves", {}), {}).size() == 2, "coach 74 writes two lines vs %s" % st)
+		# S464 STEPPLAN1: a fresh signing's bars (step_back / pivot_out / tie_up at 0 never fire) - the coach plans none of them.
+		var fresh := CoachPlan.write(str(st), 74.0, lucy0.get("moves", {}), {"1-1": 50.0}, StepMastery.start_values(55.0))
+		_check(fresh.all(func(a): return not StepMastery.NODES.has(str(a["move"])) or float(StepMastery.start_values(55.0)[str(a["move"])]) >= 30.0),
+			"the coach plans no step she cannot fire yet vs %s: %s" % [st, str(fresh)])
 	var why := FightWhy.read([{"won": true, "plan": hp, "exchanges": [{"won": true, "landed": [4, 3], "planned": true, "arrow": "step_back",
 		"arrow_fit": "best", "psit": "press", "plan_edge": 5.0}]}], "Lucy", "Maria")
 	_check(str(why["plan"]).begins_with("The coach's plan") and str(why["next"]).contains("plan of your own"), "the Why says it was the coach's plan")
@@ -128,6 +133,10 @@ func _share(plan_of: Callable, coach: float, corner: bool, adjust: bool, n: int 
 		var f: Dictionary = c.fighter()
 		f["camp"] = {}
 		f["combos"] = {"1-1": 50.0, "1-2": 50.0}
+		# S464 STEPPLAN1: every step/defence bar at Signature (85, always fires = before the S463 gate) - this test grades the plan, not
+		# the drilling (the approved PROGRESSION_MAP M1 starts a new signing's step_back / pivot_out / tie_up at 0, as fight_why_test does).
+		for sid in StepMastery.NODES:
+			(f.get_or_add("steps", {}) as Dictionary)[sid] = 85.0
 		f["arrows"] = (plan_of.call(f) as Array).duplicate(true)
 		f["bout"] = {"opp": (Data.OPPONENTS[opp_i] as Dictionary).duplicate(true), "day": c.day, "weighed": true, "made": true,
 			"done": false, "film": 0, "rounds": 3}

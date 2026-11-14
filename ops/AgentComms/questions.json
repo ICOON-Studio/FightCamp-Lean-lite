@@ -7220,10 +7220,10 @@
         "No, wait for the final menus"
       ],
       "attach": [],
-      "answer": null,
-      "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answer": "Yes, greybox the pick now",
+      "note": "Answered in chat S463 (\"Yes, greybox it\"); LEARNPICK1 built S463.",
+      "answered_at": "2026-11-14T06:35:31.461968+00:00",
+      "seen_by_claude": true
     },
     {
       "id": "Q-S294-222",
@@ -7237,6 +7237,23 @@
       "attach": [
         "research/DESIGN_HOSTSHOW1_V4_REVISE_KALLI_KALLI.md",
         "research/DESIGN_HOSTSHOW1_V4_CRITIC_JOHN_JOHN.md"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-223",
+      "asked": "2026-11-14T06:35:45.515020+00:00",
+      "session": "S294",
+      "text": "Push switch + tank (the 2 bars next to the fighter, race-manager style) v2 passed two critics: Dola 8/7, Maria 7/6. Build it after the fight week?",
+      "options": [
+        "Yes, after the fight week",
+        "Show me the map first"
+      ],
+      "attach": [
+        "research/DESIGN_PUSHTANK_V2_CRITIC_MARIA_MARIA.md"
       ],
       "answer": null,
       "note": null,

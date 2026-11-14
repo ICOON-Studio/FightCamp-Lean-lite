@@ -1387,6 +1387,13 @@
    "status": "held",
    "queued": "2026-11-14T07:40",
    "note": "nightly review: animation, goes in the animation order; Cursor replaced (S446)"
+  },
+  {
+   "task": "CARDVISIT1",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-14T09:15",
+   "note": "S464: which cards bouts reach; launches when the watchdog leaves RED"
   }
  ]
 }

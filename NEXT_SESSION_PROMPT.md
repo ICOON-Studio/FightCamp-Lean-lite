@@ -1,33 +1,33 @@
-# S464 handover (written 2026-11-14 at the end of S463; S462's handover is in git history)
+# S465 handover (written 2026-11-14 at the end of S464; S463's handover is in git history)
 
-OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `python ops/Tools/where_we_are.py roll S464`.
+OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `python ops/Tools/where_we_are.py roll S465`.
 
 ## USAGE RULES (kept)
 - Run `get_usage` first. Hand over at 420k context; wrap-up from ~395k. At most TWO helper sessions / subagents at once.
-- Never idle while a test or agent runs: run_in_background and do the next item.
+- Never idle while a test or agent runs: run_in_background and do the next item. The watchdog went RED on RAM most of S464
+  (his game, 8+ GB): no new Godot job on RED; the heat governor pauses running ones.
 
 ## HIS RULINGS IN FORCE (quote them)
-- S459: "need to finish intergrading mechanics before we spend more time in designing the menus" -> integrate first; no menu design.
-- S461 greybox: each mechanic lands on the screen it belongs to as a line, a number, a hover or a few buttons; final menus after.
+- S459: "need to finish intergrading mechanics before we spend more time in designing the menus" -> integrate first.
+- S461 greybox: each mechanic lands on the screen it belongs to as a line, a number, a hover or a few buttons.
 - S459: design loop on the free seats until every mechanic scores 6+ depth and 6+ general (ops/Tools/design_loop.py).
-- S463 Q-221 "Yes, greybox it": the what-to-learn-next pick is built (below).
 
 ## FIRST
-1. Collect TREEVALUE1 (Qwen, qwen/treevalue1, ops/research/TASK_TREEVALUE1.md, launched 03:53, ETA ~05:15). RERUN on the same seeds
-   (worktree E:/FightCamp/wt/LEAN_TREEVALUE1, `--path` it through godot_slot) and diff the page before reading. Check its bouts have
-   NO fire_level key and its probe_off control shows no step value. Nodes under 1.5 in 100 against every style (Herd, Push off are the
-   suspects) -> PROGRESSION_MAP line 96 says they merge into Cut off / Tie up; he approved that map, so a merge is built, then reported.
-2. Seat answers -> design_loop.py next rounds: SQ91 LIVERRIBS v2 (John), SQ93-94 Knowledge v2 (Dola, Maria), SQ95-96 fight week v8,
-   SQ97-98 club week v5, SQ99-100 coach fit v5 (cut at section 12 - flagged), SQ101-102 push/tank v2, SQ103-104 weight r2, SQ105 Kalli
-   writes TURNPRO1 v1 (then two critics). Two critics 6+/6+ = DESIGNED -> his board with --attach.
-   Knowledge DESIGNED -> build step 3 (reads and exposure into training, bouts, week; greybox on existing screens).
-   Club week DESIGNED -> re-measure tools/loyal1_probe.gd before wiring Loyalty (#6) + ClubDeal (#11).
-3. His board: Q-220 R58 (a fighter leaves), Q-222 HOSTSHOW1 (both designed; build after the fight week), POWER1E look.
-4. Watch: new boxers' step_back/pivot/tie_up start at 0 and never fire until studied (the gate). If his play says early plans feel
-   dead, StepMastery.start_values is the lever, not the gate.
-5. PRs 259-266 stale/collected - `gh pr close` is blocked: he closes them or allows it.
+1. TREEVALUE1: the last S464 run (any-time sweep) may have finished after the handover - read
+   ops/AgentComms/treevalue1_s464.log. Each swept node is planned with no "when" there; a node still reading the same at 0 and
+   70 sits on a card bouts never reach. docs/TREEVALUE1_RESULT.md is written by that run; commit tools/treevalue_probe.gd +
+   the page (both uncommitted on main). Earlier runs: treevalue1_s464_floor / _shared_when / _own_when .log.
+   Herd/Push off merge (PROGRESSION_MAP line 96) is NOT decided until CARDVISIT1 says which cards are reached.
+2. CARDVISIT1 (Qwen, ops/research/TASK_CARDVISIT1.md, dispatch queue, launches when the watchdog leaves RED): collect,
+   RERUN on the same seeds, diff the page. Cards never reached -> the card chain / answer table is the design question.
+3. LANDREACH1 (ops/research/TASK_LANDREACH1.md): red since the POWER1 merge 74a910de; step 1 = the rear glove on the game
+   camera (tools/hit_frame_film.gd). Worktree E:/FightCamp/wt/LEAN_BISECT (detached) is free for it - put it on main first.
+4. Seat answers: SQ96 fight week v8, SQ98 club week v5, SQ104 weight r2 (John) - each is DESIGNED if John gives 6+/6+ (Dola /
+   Kalli already did). SQ106-107 TURNPRO1 v1 critics, SQ108 Knowledge v3 (Kalli), SQ109 coach fit v6 (Dola).
+5. His board: Q-220 R58, Q-222 HOSTSHOW1, Q-223 PUSHTANK (all designed, build after the fight week).
+6. Export a build (S464 exported none).
 
-## DONE IN S463 (ops/research/S463_DIGEST.md)
-- LEARNPICK1: StudyWeek.gd + WHAT TO LEARN NEXT on her page + study act + DrillWeek study slot; study_week_test, study_pick_walk_test.
-- STEPMASTERY1 gate on (FireLevel reads step bars); MoveBook shows step tiers; plan_bout/fight_why/phase_wire fixtures updated.
-- KNOWBOTS2 VOID -> KNOWBOTS3 PASS (rerun identical). NODEREAD1 collected. HOSTSHOW1 v4 designed. Build exported, WHAT_TO_TRY S463.
+## DONE IN S464 (ops/research/S464_DIGEST.md)
+- STEPPLAN1 fixed: CoachPlan skips steps under Usable; plan tests use drilled bars (31d00e44).
+- TREEVALUE1 probe made valid (calibration, full fighters, mutant arm); 7 nodes never consulted - the card + when rule.
+- LANDREACH1 bisected; PUSHTANK v2 designed (Q-223); traits never move (TraitLine.crossed has nothing to wire).

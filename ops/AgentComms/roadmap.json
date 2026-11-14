@@ -7,10 +7,18 @@
   "owner": "claude",
   "updated": "2026-11-14",
   "summary": "S463: LEARNPICK1 wired (his 'Yes, greybox it'): WHAT TO LEARN NEXT on her page, the study slot raises a picked step on pad nights (step_back 0->32 in 5 weeks), walk test in the real scenes; STEPMASTERY1 gate ON (a planned step fires by its bar; drilled +1.94 plan edge vs undrilled +1.20), MoveBook shows step tiers; KNOWBOTS2 VOID (honest page, void instrument) -> KNOWBOTS3 PASS on Claude's rerun (READER +6 top-10s, ORACLE +14, BAD last); NODEREAD1 collected (steps read only through the gate); TREEVALUE1 on Qwen; HOSTSHOW1 v4 designed (Q-222), R58 designed (Q-220); critics queued SQ93-105 (Knowledge v2, fight week v8, club week v5, coach fit v5, push/tank v2, weight r2, TURNPRO1 v1 by Kalli).",
-  "next_action": "S464: 0) get_usage. 1) Collect TREEVALUE1 (Qwen, qwen/treevalue1, TASK_TREEVALUE1.md): RERUN on the same seeds and diff the page before reading; nodes under 1.5 in 100 against every style (Herd, Push off suspects) -> PROGRESSION_MAP line 96: merge into Cut off / Tie up (his call if it changes the tree he approved). 2) Seat answers SQ91, SQ93-105 -> design_loop.py next rounds; two critics 6+/6+ = DESIGNED -> his board. Knowledge v2 designed -> build step 3 (reads/exposure into training, bouts, week). CLUBWEEK v5 designed -> re-measure tools/loyal1_probe.gd before wiring #6/#11. TURNPRO1 v1 (Kalli) -> two critics. 3) His board: Q-220 R58, Q-222 HOSTSHOW1, POWER1E look. 4) Balance watch: new boxers' steps start at 0 and never fire until studied - if his play says plans feel dead early, the start values (StepMastery.start_values) are the lever, not the gate. 5) PRs 259-266: he closes them or allows gh pr close.",
-  "last_working_commit": "see git log",
+  "next_action": "S465: 0) get_usage. 1) Read ops/AgentComms/treevalue1_s464.log (the any-time sweep: each swept node planned with no when) - a node that still reads the same at 0 and 70 sits on a card bouts never reach; write docs/TREEVALUE1_RESULT.md from that run (the probe writes it), commit tools/treevalue_probe.gd + the page. 2) CARDVISIT1 (Qwen, dispatch queue, launches on GREEN): collect, RERUN, diff. If cards outside/clinch are never reached, the fix is the game's card chain or the answer table (PlanFight.GAME_CARD / ANSWERS), a design call - not a node merge. 3) LANDREACH1 step 1: the rear glove on the game camera (tools/hit_frame_film.gd, wt/LEAN_BISECT on main), cross + rear hook at contact. 4) Seat answers SQ96/98/104 (John), SQ106-109 -> design_loop next rounds. 5) His board: Q-220, Q-222, Q-223. 6) Export a build (none this session: RED).",
+  "last_working_commit": "a42a2771",
   "verified_playable": "Builds/FightCamp.exe exported S463 (study card, step gate, move book step tiers)",
-  "incomplete_blocked": "TREEVALUE1 (Qwen) running - rerun before use; Knowledge step 3 waits SQ93-94; Loyalty + ClubDeal wait CLUBWEEK v5 critics; CoachMarket waits COACHFIT1"
+  "incomplete_blocked": "TREEVALUE1 (Qwen) running - rerun before use; Knowledge step 3 waits SQ93-94; Loyalty + ClubDeal wait CLUBWEEK v5 critics; CoachMarket waits COACHFIT1",
+  "done": "S464: TREEVALUE1 void as delivered (3 bouts on 3 fighters, wrong divisor, control skipped) -> fixed in-house: 60 fighters, ratings calibrated to ~50% wins, real mutant arm; punches 9-21, pivot 5.8, tie_up 7.5 read, 7 nodes never consulted because their card never meets their situation (PlanBoard.pick: card + when) -> CARDVISIT1 queued for Qwen; STEPPLAN1 fixed (coach skips steps under Usable, 31d00e44); LANDREACH1 bisected to the POWER1 merge 74a910de; PUSHTANK v2 designed (Q-223); TURNPRO1 v1 to critics; Knowledge v3 + coach fit v6 revisions queued.",
+  "next_acceptance": "TREEVALUE1 any-time run read and its page committed; CARDVISIT1 collected and rerun on the same seeds; LANDREACH1 game-camera measurement written to docs/LANDREACH1_RESULT.md",
+  "awaiting_operator": [
+   "Q-S294-220 R58 a fighter leaves (build after the fight week?)",
+   "Q-S294-222 HOSTSHOW1 (build after the fight week?)",
+   "Q-S294-223 PUSHTANK v2 (build after the fight week?)",
+   "PRs 259-266: close them or allow gh pr close"
+  ]
  },
  "next": "S442: 0) get_usage. 1) Result page round 2 (docs/mockups/s441/result/fight_only.png): one logic check + two fresh critics (each with CRITIC_PACK, the 10/10 list and its drawing); fix, send to him at 8+ with the lists. 2) Mechanic 1 ASK FOR A FIGHT: the short map (ops/research/ASKFIGHT_MAP_S441.md: one screen, one decision, prices from the code), two fresh critics + a logic check. 3) Collect POWER1 when the lead's steps land (check steps 3 and 6 against REFERENCE_PUNCH_TARGETS_S439.md; films + critics' scores on the board), then DEFECTS1 (merge main in first; film a blocked punch). 4) Collect R26SWAP1 (Qwen) and the queued briefs as they land (read each against its brief before merging). 5) Wire the towel card into the corner minute once the result page is through.",
  "assessment": {
@@ -1908,6 +1916,11 @@
    "id": "S463",
    "date": "2026-11-14",
    "summary": "S463: LEARNPICK1 wired (his 'Yes, greybox it'): WHAT TO LEARN NEXT on her page, the study slot raises a picked step on pad nights (step_back 0->32 in 5 weeks), walk test in the real scenes; STEPMASTERY1 gate ON (a planned step fires by its bar; drilled +1.94 plan edge vs undrilled +1.20), MoveBook shows step tiers; KNOWBOTS2 VOID (honest page, void instrument) -> KNOWBOTS3 PASS on Claude's rerun (READER +6 top-10s, ORACLE +14, BAD last); NODEREAD1 collected (steps read only through the gate); TREEVALUE1 on Qwen; HOSTSHOW1 v4 designed (Q-222), R58 designed (Q-220); critics queued SQ93-105 (Knowledge v2, fight week v8, club week v5, coach fit v5, push/tank v2, weight r2, TURNPRO1 v1 by Kalli)."
+  },
+  {
+   "id": "S464",
+   "date": "2026-11-14",
+   "summary": "S464: TREEVALUE1 void as delivered (3 bouts on 3 fighters, wrong divisor, control skipped) -> fixed in-house: 60 fighters, ratings calibrated to ~50% wins, real mutant arm; punches 9-21, pivot 5.8, tie_up 7.5 read, 7 nodes never consulted because their card never meets their situation (PlanBoard.pick: card + when) -> CARDVISIT1 queued for Qwen; STEPPLAN1 fixed (coach skips steps under Usable, 31d0"
   }
  ],
  "blocked_on_operator": [],
@@ -4826,7 +4839,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-14 02:42 board_sync",
+  "updated": "2026-11-14 04:42 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4976,11 +4989,32 @@
   },
   "working_now": [
    {
+    "title": "TASK KNOWBOTS2 - the Knowledge bots test on a FAIR prospect pool (probe, no screen)",
+    "who": "qwen",
+    "started": "2026-11-13T23:22",
+    "run": "KNOWBOTS2",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK NODEREAD1 - which move-tree nodes does the played bout read? (probe, no screen)",
+    "who": "qwen",
+    "started": "2026-11-14T01:02",
+    "run": "NODEREAD1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK KNOWBOTS3 - the Knowledge bots test, with a truth that drives results and an ORACLE arm (probe, no screen)",
+    "who": "qwen",
+    "started": "2026-11-14T02:42",
+    "run": "KNOWBOTS3",
+    "state": "LANDED - Claude collects"
+   },
+   {
     "title": "TASK TREEVALUE1 - is every move-tree node worth drilling against at least one style? (probe, no screen)",
     "who": "qwen",
     "started": "2026-11-14T03:53",
     "run": "TREEVALUE1",
-    "eta": "2026-11-14T05:15"
+    "state": "LANDED - Claude collects"
    }
   ],
   "next": [
@@ -5060,12 +5094,6 @@
     "id": "DAMAGESHOW1",
     "who": "claude",
     "title": "Show the damage already in the game, step 2 and 3: the 3D face during the fight, then the portraits afterwards (step 1, the result page, is built and waits for his look)",
-    "after": ""
-   },
-   {
-    "id": "CLIPFIX4",
-    "who": "claude",
-    "title": "The punch ruler and the three retimed jabs finished in-house from PR 224 (three seat rounds were each rejected at review), then side films, then close PRs 222-224",
     "after": ""
    },
    {
@@ -5452,6 +5480,12 @@
   },
   "done_recently": [
    {
+    "id": "CLIPFIX4",
+    "who": "claude",
+    "title": "S464 check: the punch ruler and three retimed jabs were merged S440 (docs/CLIPFIX4_RESULT.md); PRs 222-224 wait on his close",
+    "after": ""
+   },
+   {
     "title": "HOSTSHOW1 hosted club show designed (John 7/7, Dola 8/8) (S463)",
     "who": "claude"
    },
@@ -5640,6 +5674,22 @@
   "map": {
    "done_earlier": [
     {
+     "text": "Pick what she learns next",
+     "who": "claude"
+    },
+    {
+     "text": "Fight reads step levels",
+     "who": "claude"
+    },
+    {
+     "text": "Knowledge reads proved (+6)",
+     "who": "agent"
+    },
+    {
+     "text": "Hosted show designed 7/7, 8/8",
+     "who": "agent"
+    },
+    {
      "text": "Plan test green (fixture)",
      "who": "claude"
     },
@@ -5678,40 +5728,20 @@
     {
      "text": "READ1 sized: READ_EDGE 6",
      "who": "claude"
-    },
-    {
-     "text": "LANDED matches the holo",
-     "who": "claude"
-    },
-    {
-     "text": "Plan lines by round (PlanPhase)",
-     "who": "claude"
-    },
-    {
-     "text": "Traits on the fighter board",
-     "who": "claude"
-    },
-    {
-     "text": "Liver vs ribs map v1",
-     "who": "claude"
     }
    ],
    "done_session": [
     {
-     "text": "Pick what she learns next",
+     "text": "Push/tank v2 designed (Q-223)",
      "who": "claude"
     },
     {
-     "text": "Fight reads step levels",
+     "text": "Coach skips undrilled steps",
      "who": "claude"
     },
     {
-     "text": "Knowledge reads proved (+6)",
-     "who": "agent"
-    },
-    {
-     "text": "Hosted show designed 7/7, 8/8",
-     "who": "agent"
+     "text": "Landed reach bisect: POWER1",
+     "who": "claude"
     }
    ],
    "now": [
@@ -5736,16 +5766,20 @@
      "who": "operator"
     },
     {
-     "text": "Training J critics: 7/8 and 6/5",
-     "who": "claude"
-    },
-    {
      "text": "Your look: rear uppercut",
      "who": "operator"
     },
     {
-     "text": "Critics: 7 maps (SQ93-105)",
-     "who": "agent"
+     "text": "Tree value probe: 9 of 16 read",
+     "who": "claude"
+    },
+    {
+     "text": "Critics: TURNPRO1 v1, 2 seats",
+     "who": "claude"
+    },
+    {
+     "text": "Knowledge v3, coach fit v6",
+     "who": "claude"
     }
    ],
    "next": [
@@ -5814,19 +5848,19 @@
      "who": "claude"
     },
     {
-     "text": "Tree value: cut dead moves",
-     "who": "agent"
-    },
-    {
-     "text": "Knowledge step 3 wiring",
+     "text": "Where bouts are fought (Qwen)",
      "who": "claude"
     },
     {
-     "text": "Turning pro map v1 to critics",
-     "who": "agent"
+     "text": "Landed rear hand: game camera",
+     "who": "claude"
+    },
+    {
+     "text": "Traits never move: design it",
+     "who": "claude"
     }
    ],
-   "session": "S463"
+   "session": "S464"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",

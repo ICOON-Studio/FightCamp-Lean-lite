@@ -192,7 +192,7 @@ static func _open(c: Career, f: Dictionary, m: Dictionary, plan: String, fix: St
 		# S397 rule 1: no plan written - the coach writes one from the tape (CoachPlan; no coach writes nothing).
 		if (f["bout"]["arrows"] as Array).is_empty():
 			f["bout"]["arrows"] = CoachPlan.write(str(f["bout"]["opp"].get("style", "")), float(c.coach.get("rating", 0.0)),
-				f.get("moves", {}), f.get("combos", {}))
+				f.get("moves", {}), f.get("combos", {}), f.get("steps", {}))
 	var ja: Dictionary = jobs.get("arrow", {})
 	if n > 1 and not ja.is_empty():
 		var before: Array = f["bout"]["arrows"]

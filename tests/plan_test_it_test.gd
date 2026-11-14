@@ -11,6 +11,7 @@ extends SceneTree
 const Data := preload("res://scripts/state/Data.gd")
 const PlanTest := preload("res://scripts/state/PlanTest.gd")
 const OppFile := preload("res://scripts/rules/OppFile.gd")
+const StepMastery := preload("res://scripts/rules/StepMastery.gd")
 
 const GOOD := [{"move": "1-1"}, {"move": "step_back"}, {"move": "pivot_out"}, {"move": "tie_up"}]
 const BAD := [{"move": "cut_off"}, {"move": "3b-3"}, {"move": "herd"}, {"move": "3b-3@inside"}]
@@ -67,6 +68,10 @@ func _career() -> Career:
 	var f: Dictionary = c.fighter()
 	f["camp"] = {}
 	f["combos"] = {"1-1": 50.0, "1-2": 50.0}
+	# S464 STEPPLAN1: every step/defence bar at Signature (85, always fires = before the S463 gate) - this test grades the plan, not
+	# the drilling (the approved PROGRESSION_MAP M1 starts a new signing's step_back / pivot_out / tie_up at 0, as fight_why_test does).
+	for sid in StepMastery.NODES:
+		(f.get_or_add("steps", {}) as Dictionary)[sid] = 85.0
 	return c
 
 

@@ -19,8 +19,20 @@ in-session before it), 6f56de81 / aba17ad9 (POWER1D/E uppercut tails). Bisect bl
 moving back 1.5-3 cm on a hit (BLOCKLOOK3) would explain landed gloves missing the face; check whether it also runs on
 landed (not blocked) punches.
 
+## S464 bisect (Claude, worktree wt/LEAN_BISECT, block_meet_test headless through godot_slot)
+- 5769c501 (S445, the last nightly green): 0 failures, A_B cross to_face 0.022.
+- 74a910de (S446, the POWER1 steps 2-4 merge on his Q-207 'yes merge it'): 12 failures, A_B cross 0.140.
+- 10c41edc (S448): 10. main 45e17607: 8 (every cross and rear hook 15-19 cm short; jabs and lead hooks mostly pass).
+So it is NOT the block work (S449-S455): the landed control went red the day POWER1 merged; the nightly of 11-13 still ran
+5769c501. POWER1 merged in its FIX state (punch_range 74, hit_frame 11 on main - POWER1E note).
+- Tried and REJECTED: staging CTRL_LANDED at RangeTable.clip_m like hit_frame_test does -> 11 failures (worse: cross
+  0.21-0.28). The landed rear hand really stops short of the face at its own distance too; the test is not the stale part.
+- Next: read the drawn rear glove on the game camera (tools/hit_frame_film.gd, a seeded bout, cross and rear hook at
+  contact) - if the operator's eye sees the cross land, the ruler's face point is the question; if it stops short, ReachLimit
+  (0.30 m cap) / ReachDrive in the POWER1 stack is the suspect (PunchReach.gd is at 498 lines: a fix goes in its own file).
+
 ## Contract
-OWNS: decided by the main session after the bisect (scripts/fight3d/*)
+OWNS: docs/LANDREACH1_RESULT.md (step 1 = the game-camera measurement above; the fix's files are named in a new brief after it)
 RED_TEST: tests/block_meet_test.gd -> BLOCK_MEET failures=0 ; tests/move_tip_test.gd -> MOVE_TIP failures=0
 REGRESSION: block_catch_test, uppercut_tail_test, hit_carry_test, punch_snap_test, golden_path_test
 VISUAL: yes - stills on the game camera through still_framing.gd save_if_framed (visual gate)

@@ -9,11 +9,17 @@ extends RefCounted
 ## Cards he does not read get no arrow, so she improvises there exactly as with no plan: a coach's plan is safe, never
 ## a wrong one. How many cards he reads comes from his rating (READ_AT); no coach reads none.
 ## No "when" arrows, no habits, no second game on a card: those are the player's to find, so the player's plan stays best.
-##   CoachPlan.reads(rating) -> int   CoachPlan.cards(style) -> Array   CoachPlan.write(style, rating, mastery, combos) -> Array
+##   CoachPlan.reads(rating) -> int   CoachPlan.cards(style) -> Array   CoachPlan.write(style, rating, mastery, combos, steps) -> Array
+## S464 STEPPLAN1: the same rule for steps and defences since the S463 gate - a step whose bar is under Usable never fires,
+## so the coach does not plan it (a fresh signing's step_back / pivot_out / tie_up start at 0); he writes her next best
+## answer on that card. steps = her bars (f.steps); empty = no bars = every step fires (old saves, probes).
 
 const StrikeMap := preload("res://scripts/rules/StrikeMap.gd")
 const PlanFight := preload("res://scripts/rules/PlanFight.gd")
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
+const StepMastery := preload("res://scripts/rules/StepMastery.gd")
+## S464 STEPPLAN1: a step or defence is drilled once its bar reaches Usable (FireLevel.USABLE_AT); under it, it never fires.
+const STEP_USABLE := 30.0
 
 ## A card read at each of these ratings (Data.COACHES: Reid 58 reads one, Hale 74 two; no coach, Sim.NO_COACH_RATING, none).
 ## Two at most: measured S397 (tools/plan_effect_probe.gd, 600 close bouts vs a presser), none 45.0%, one card 52.8%, two
@@ -56,22 +62,24 @@ static func _add(per: Dictionary, card: String, game: String, w: float) -> void:
 
 ## The coach's plan: one arrow on each card he reads (most-fought first, skipping a card she has no drilled best answer on),
 ## the first best answer there she can throw at full rate.
-static func write(style: String, rating: float, mastery: Dictionary, combos: Dictionary) -> Array:
+static func write(style: String, rating: float, mastery: Dictionary, combos: Dictionary, steps: Dictionary = {}) -> Array:
 	var plan: Array = []
 	var want := reads(rating)
 	for cg in cards(style):
 		if plan.size() >= want:
 			break
-		var id := answer(str(cg[0]), str(cg[1]), mastery, combos)
+		var id := answer(str(cg[0]), str(cg[1]), mastery, combos, steps)
 		if id != "":
 			plan.append({"move": id, "coach": true})
 	return plan
 
 
 ## The coach's answer on a card to a game: the first best move out of it she can do at full rate; "" if none.
-static func answer(card: String, game: String, mastery: Dictionary, combos: Dictionary) -> String:
+static func answer(card: String, game: String, mastery: Dictionary, combos: Dictionary, steps: Dictionary = {}) -> String:
 	for m in StrikeMap.outs(card):
 		var id := str(m["id"])
 		if PlanFight.fit(id, game) == "best" and PlanFight.can_do(m, mastery) and PlanFight.rate(id, combos) >= 1.0:
+			if StepMastery.NODES.has(id) and StepMastery.fire_mastery(steps, id) < STEP_USABLE:
+				continue
 			return id
 	return ""

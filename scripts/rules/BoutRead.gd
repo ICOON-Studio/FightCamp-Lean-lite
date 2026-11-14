@@ -267,7 +267,7 @@ static func _read_copy(f: Dictionary, opp: Dictionary, camp: Dictionary, coach: 
 	fx["camp"] = camp
 	fx["bout"] = {}
 	if (fx.get("arrows", []) as Array).is_empty():
-		fx["arrows"] = CoachPlan.write(str(opp.get("style", "")), coach, fx.get("moves", {}), fx.get("combos", {}))
+		fx["arrows"] = CoachPlan.write(str(opp.get("style", "")), coach, fx.get("moves", {}), fx.get("combos", {}), fx.get("steps", {}))
 	return fx
 
 

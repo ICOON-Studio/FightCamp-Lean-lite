@@ -1,6 +1,6 @@
 # TASK STEPPLAN1 - a new fighter's coach plan is worth nothing since the step gate
 
-Status: HELD for the main session (2026-11-14 nightly review). Discipline: boxing. Model: qwen3-coder once the design call is made.
+Status: DONE S464 (Claude, in-house). Decision below. Was: HELD for the main session (2026-11-14 nightly review). Discipline: boxing. Model: qwen3-coder once the design call is made.
 Source: nightly 2026-11-14 (commit 7b7ac6e6): plan_bots_test and plan_test_it_test went red. Cause: f9791ce6 (S463 STEPMASTERY1 gate on).
 
 ## What the nightly showed
@@ -45,3 +45,15 @@ changed. PR body: `RESULT:` lines for the two red tests.
 ## The one trap
 The forecast must keep mirroring the fight: since the 2026-11-14 review PlanChain.walk takes the step bars (BoutRead passes
 fx.steps). Any change to how steps fire goes in FireLevel so both read it.
+
+## S464 decision and fix (Claude)
+The approved PROGRESSION_MAP M1 says it in words: "Every other node starts at 0" - a new signing cannot fire step_back /
+pivot_out / tie_up until drilled. So the game keeps that (no start-value change), and two things follow from it:
+1. GAME: CoachPlan.write/answer take her bars (f.steps; BoutNight + BoutRead pass them) and skip a step or defence under
+   Usable (30) - the same rule CoachPlan already had for undrilled combinations ("Undrilled answers stay out"); he writes her
+   next best answer on that card. Empty bars = every step fires (old saves, probes). Check in plan_bots_test: "the coach
+   plans no step she cannot fire yet" (5 styles).
+2. TESTS: plan_bots_test and plan_test_it_test grade the plan, not the drilling: every step/defence bar at Signature 85, as
+   fight_why_test since S463. Results: PLAN_BOTS checks=35 failures=0; PLAN_TEST_IT PASS; plan_bout, fight_why, phase_wire,
+   fire_level, plan_chain green.
+Watch (his play): the first weeks' plans are punch-only until a step is studied (WHAT TO LEARN NEXT) - the map's intent.
