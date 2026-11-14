@@ -1266,62 +1266,211 @@
    "seat": "dola",
    "brief": "research/DESIGN_COACHFIT1_V5_REVISE_DOLA.md",
    "stem": "DESIGN_COACHFIT1_V5_REVISE_DOLA_DOLA",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-13 22:56",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-14 01:11",
+   "pid": 50232,
+   "transcript": "AgentComms/seat_logs/SQ86_dola.txt",
+   "answered_at": "2026-11-14 01:41",
+   "answer": "research/DESIGN_COACHFIT1_V5_REVISE_DOLA_DOLA.md"
   },
   {
    "id": "SQ87",
    "seat": "kalli",
    "brief": "research/DESIGN_CLUBWEEK1_V5_REVISE_KALLI.md",
    "stem": "DESIGN_CLUBWEEK1_V5_REVISE_KALLI_KALLI",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-13 23:18",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-14 01:11",
+   "sent_ms": 1794611475804,
+   "answered_at": "2026-11-14 02:11",
+   "answer": "research/DESIGN_CLUBWEEK1_V5_REVISE_KALLI_KALLI.md",
+   "chars": 39607
   },
   {
    "id": "SQ88",
    "seat": "kalli",
    "brief": "research/DESIGN_AMATEURWEEK1_V8_REVISE_KALLI.md",
    "stem": "DESIGN_AMATEURWEEK1_V8_REVISE_KALLI_KALLI",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-14 00:58",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-14 02:41",
+   "sent_ms": 1794616884282,
+   "answered_at": "2026-11-14 03:11",
+   "answer": "research/DESIGN_AMATEURWEEK1_V8_REVISE_KALLI_KALLI.md",
+   "chars": 28601
   },
   {
    "id": "SQ89",
    "seat": "john",
    "brief": "research/DESIGN_HOSTSHOW1_V4_CRITIC_JOHN.md",
    "stem": "DESIGN_HOSTSHOW1_V4_CRITIC_JOHN_JOHN",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-14 00:58",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-14 01:11",
+   "sent_ms": 1794611478231,
+   "answered_at": "2026-11-14 01:41",
+   "answer": "research/DESIGN_HOSTSHOW1_V4_CRITIC_JOHN_JOHN.md",
+   "chars": 15056
   },
   {
    "id": "SQ90",
    "seat": "dola",
    "brief": "research/DESIGN_HOSTSHOW1_V4_CRITIC_DOLA.md",
    "stem": "DESIGN_HOSTSHOW1_V4_CRITIC_DOLA_DOLA",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-14 00:58",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-14 02:11",
+   "pid": 6772,
+   "transcript": "AgentComms/seat_logs/SQ90_dola.txt",
+   "answered_at": "2026-11-14 02:41",
+   "answer": "research/DESIGN_HOSTSHOW1_V4_CRITIC_DOLA_DOLA.md"
   },
   {
    "id": "SQ91",
    "seat": "john",
    "brief": "research/DESIGN_LIVERRIBS1_V2_CRITIC_JOHN.md",
    "stem": "DESIGN_LIVERRIBS1_V2_CRITIC_JOHN_JOHN",
-   "status": "queued",
+   "status": "sent",
    "queued_at": "2026-11-14 00:58",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-14 02:11",
+   "sent_ms": 1794615073987
   },
   {
    "id": "SQ92",
    "seat": "maria",
    "brief": "research/DESIGN_LIVERRIBS1_V2_CRITIC_MARIA.md",
    "stem": "DESIGN_LIVERRIBS1_V2_CRITIC_MARIA_MARIA",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-14 00:58",
+   "tries": 0,
+   "sent_at": "2026-11-14 01:11",
+   "sent_ms": 1794611480787,
+   "answered_at": "2026-11-14 01:41",
+   "answer": "research/DESIGN_LIVERRIBS1_V2_CRITIC_MARIA_MARIA.md",
+   "chars": 14786
+  },
+  {
+   "id": "SQ93",
+   "seat": "dola",
+   "brief": "research/DESIGN_KNOWLEDGE_CRITIC_DOLA.md",
+   "stem": "DESIGN_KNOWLEDGE_CRITIC_DOLA_DOLA",
+   "status": "queued",
+   "queued_at": "2026-11-14 04:00",
+   "tries": 0
+  },
+  {
+   "id": "SQ94",
+   "seat": "maria",
+   "brief": "research/DESIGN_KNOWLEDGE_CRITIC_MARIA.md",
+   "stem": "DESIGN_KNOWLEDGE_CRITIC_MARIA_MARIA",
+   "status": "queued",
+   "queued_at": "2026-11-14 04:00",
+   "tries": 0
+  },
+  {
+   "id": "SQ95",
+   "seat": "dola",
+   "brief": "research/DESIGN_AMATEURWEEK1_V8_CRITIC_DOLA.md",
+   "stem": "DESIGN_AMATEURWEEK1_V8_CRITIC_DOLA_DOLA",
+   "status": "queued",
+   "queued_at": "2026-11-14 04:01",
+   "tries": 0
+  },
+  {
+   "id": "SQ96",
+   "seat": "john",
+   "brief": "research/DESIGN_AMATEURWEEK1_V8_CRITIC_JOHN.md",
+   "stem": "DESIGN_AMATEURWEEK1_V8_CRITIC_JOHN_JOHN",
+   "status": "queued",
+   "queued_at": "2026-11-14 04:01",
+   "tries": 0
+  },
+  {
+   "id": "SQ97",
+   "seat": "dola",
+   "brief": "research/DESIGN_CLUBWEEK1_V5_CRITIC_DOLA.md",
+   "stem": "DESIGN_CLUBWEEK1_V5_CRITIC_DOLA_DOLA",
+   "status": "queued",
+   "queued_at": "2026-11-14 04:01",
+   "tries": 0
+  },
+  {
+   "id": "SQ98",
+   "seat": "john",
+   "brief": "research/DESIGN_CLUBWEEK1_V5_CRITIC_JOHN.md",
+   "stem": "DESIGN_CLUBWEEK1_V5_CRITIC_JOHN_JOHN",
+   "status": "queued",
+   "queued_at": "2026-11-14 04:01",
+   "tries": 0
+  },
+  {
+   "id": "SQ99",
+   "seat": "kalli",
+   "brief": "research/DESIGN_COACHFIT1_V5_CRITIC_KALLI.md",
+   "stem": "DESIGN_COACHFIT1_V5_CRITIC_KALLI_KALLI",
+   "status": "queued",
+   "queued_at": "2026-11-14 04:01",
+   "tries": 0
+  },
+  {
+   "id": "SQ100",
+   "seat": "maria",
+   "brief": "research/DESIGN_COACHFIT1_V5_CRITIC_MARIA.md",
+   "stem": "DESIGN_COACHFIT1_V5_CRITIC_MARIA_MARIA",
+   "status": "queued",
+   "queued_at": "2026-11-14 04:01",
+   "tries": 0
+  },
+  {
+   "id": "SQ101",
+   "seat": "dola",
+   "brief": "research/DESIGN_PUSHTANK_V2_CRITIC_DOLA.md",
+   "stem": "DESIGN_PUSHTANK_V2_CRITIC_DOLA_DOLA",
+   "status": "queued",
+   "queued_at": "2026-11-14 04:02",
+   "tries": 0
+  },
+  {
+   "id": "SQ102",
+   "seat": "maria",
+   "brief": "research/DESIGN_PUSHTANK_V2_CRITIC_MARIA.md",
+   "stem": "DESIGN_PUSHTANK_V2_CRITIC_MARIA_MARIA",
+   "status": "queued",
+   "queued_at": "2026-11-14 04:02",
+   "tries": 0
+  },
+  {
+   "id": "SQ103",
+   "seat": "kalli",
+   "brief": "research/DESIGN_WEIGHT1_R2_CRITIC_KALLI.md",
+   "stem": "DESIGN_WEIGHT1_R2_CRITIC_KALLI_KALLI",
+   "status": "queued",
+   "queued_at": "2026-11-14 04:02",
+   "tries": 0
+  },
+  {
+   "id": "SQ104",
+   "seat": "john",
+   "brief": "research/DESIGN_WEIGHT1_R2_CRITIC_JOHN.md",
+   "stem": "DESIGN_WEIGHT1_R2_CRITIC_JOHN_JOHN",
+   "status": "queued",
+   "queued_at": "2026-11-14 04:02",
+   "tries": 0
+  },
+  {
+   "id": "SQ105",
+   "seat": "kalli",
+   "brief": "research/DESIGN_TURNPRO1_V1_WRITE_KALLI.md",
+   "stem": "DESIGN_TURNPRO1_V1_WRITE_KALLI_KALLI",
+   "status": "queued",
+   "queued_at": "2026-11-14 04:03",
    "tries": 0
   }
  ]

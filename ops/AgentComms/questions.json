@@ -7209,6 +7209,39 @@
       "note": null,
       "answered_at": null,
       "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-221",
+      "asked": "2026-11-13T23:06:16.741710+00:00",
+      "session": "S294",
+      "text": "Step moves (step back, pivot, tie-up) have bars but nothing trains them: the game has no way to pick what a boxer learns next. Add a plain greybox pick now (the coach's 3 cards as buttons on the Training screen), before the final menus?",
+      "options": [
+        "Yes, greybox the pick now",
+        "No, wait for the final menus"
+      ],
+      "attach": [],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-222",
+      "asked": "2026-11-14T02:01:48.957009+00:00",
+      "session": "S294",
+      "text": "The hosted club show (HOSTSHOW1 v4) passed two critics: John 7/7, Dola 8/8. Build it after the fight week, as planned?",
+      "options": [
+        "Yes, after the fight week",
+        "Show me the map first"
+      ],
+      "attach": [
+        "research/DESIGN_HOSTSHOW1_V4_REVISE_KALLI_KALLI.md",
+        "research/DESIGN_HOSTSHOW1_V4_CRITIC_JOHN_JOHN.md"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
     }
   ]
 }

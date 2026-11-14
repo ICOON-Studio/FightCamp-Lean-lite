@@ -1,6 +1,6 @@
 # TASK KNOWBOTS3 - the Knowledge bots test, with a truth that drives results and an ORACLE arm (probe, no screen)
 
-Status: OPEN (S463, Claude main). Discipline: boxing. Model: qwen3-coder (Qwen), default.
+Status: DONE - PASS (S463: Claude rerun on the same seeds matched the page to the digit: ORACLE-BLIND +14, BAD < BLIND, READER-BLIND +6, sensitivity +8, READER closes 43% of the ORACLE gap). Collected from qwen/knowbots3 b0b58da0. Discipline: boxing. Model: qwen3-coder (Qwen), default.
 Mechanic: PROGRESSIVE KNOWLEDGE (ops/research/KNOWLEDGE_S411.md). Step 1 built (scripts/rules/Knowledge.gd).
 
 ## Why KNOWBOTS2 was VOID (Claude's code read, S463) - not a verdict on Knowledge

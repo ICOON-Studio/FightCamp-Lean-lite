@@ -101,6 +101,10 @@ func _initialize() -> void:
 	print("  exchanges won: good plan %.3f, her own way %.3f, bad plan %.3f" % [good, float(o[0]), bad])
 	print("  mean plan edge an exchange: good %+.2f, her own way %+.2f, bad %+.2f" % [g[1], o[1], b[1]])
 	_check(float(g[1]) > 1.5 and float(b[1]) < 0.0 and float(o[1]) == 0.0, "the plan's edge: good above +1.5, bad below 0, none exactly 0")
+	# S463 STEPMASTERY1: the same good plan with its steps never drilled (bars 0) fires its steps never - it keeps less edge.
+	var raw := _share(GOOD, 0.0)
+	print("  good plan, steps undrilled: edge %+.2f (drilled %+.2f)" % [raw[1], g[1]])
+	_check(float(raw[1]) < float(g[1]) - 0.3, "undrilled steps cost the good plan its step answers")
 	_check(good - float(o[0]) >= 0.02 and good - bad >= 0.03, "the good plan wins more exchanges than her own way and the bad plan (%.3f / %.3f / %.3f)" % [good, float(o[0]), bad])
 	_check(bad <= float(o[0]) + 0.01, "the bad plan does no better than no plan")
 	_check(good - bad <= 0.20, "by a bounded margin - the plan is one edge among the corner's (%.3f)" % (good - bad))
@@ -135,7 +139,7 @@ func _book(c: Career, f: Dictionary) -> Dictionary:
 
 ## [share of exchanges she won, mean plan edge an exchange, branch (when) arrows thrown] over BOUTS simulated bouts (days 40..)
 ## with this saved plan.
-func _share(arrows: Array) -> Array:
+func _share(arrows: Array, steps_at := 60.0) -> Array:
 	var won := 0
 	var all := 0
 	var edge := 0.0
@@ -152,6 +156,12 @@ func _share(arrows: Array) -> Array:
 			var row := StrikeMap.move(str(a["move"]))
 			if str(row.get("kind", "")) == "combo":
 				combos[str(row["combo"])] = maxf(float(combos.get(str(row["combo"]), 0.0)), 60.0)
+			elif str(row.get("kind", "")) in ["step", "defence"]:
+				# S463 STEPMASTERY1 gate: a step/defence line fires by its bar too - the arms drill theirs alike (steps_at).
+				var sid := str(a["move"]).split("@")[0]
+				if not f.has("steps"):
+					f["steps"] = {}
+				f["steps"][sid] = steps_at
 		var m := _book(c, f)
 		Bouts.fight_step(c, f, m, "sim")
 		for r in m["rounds"]:

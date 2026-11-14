@@ -1,40 +1,33 @@
-# S463 handover (written 2026-11-13 at the end of S462; S461's handover is in git history)
+# S464 handover (written 2026-11-14 at the end of S463; S462's handover is in git history)
 
-OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `python ops/Tools/where_we_are.py roll S463`.
+OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `python ops/Tools/where_we_are.py roll S464`.
 
 ## USAGE RULES (kept)
 - Run `get_usage` first. Hand over at 420k context; wrap-up from ~395k. At most TWO helper sessions / subagents at once.
 - Never idle while a test or agent runs: run_in_background and do the next item.
 
 ## HIS RULINGS IN FORCE (quote them)
-- S459: "need to finish intergrading mechanics before we spend more time in designing the menus" -> INTEGRATE1 first; no menu design.
+- S459: "need to finish intergrading mechanics before we spend more time in designing the menus" -> integrate first; no menu design.
 - S461 greybox: each mechanic lands on the screen it belongs to as a line, a number, a hover or a few buttons; final menus after.
 - S459: design loop on the free seats until every mechanic scores 6+ depth and 6+ general (ops/Tools/design_loop.py).
+- S463 Q-221 "Yes, greybox it": the what-to-learn-next pick is built (below).
 
 ## FIRST
-1. Collect KNOWBOTS2 (Qwen, qwen/knowbots2, ops/research/TASK_KNOWBOTS2.md, launched 23:22, ETA ~00:50). RERUN the probe on the same
-   seeds before reading its page (worktree E:/FightCamp/wt/LEAN_KNOWBOTS2, `--path` the worktree through godot_slot). Pass -> design
-   Knowledge step 3 (reads wired on existing screens); fail again -> Knowledge redesign to the design loop with both results.
-2. Seat answers SQ79-87 -> design_loop.py next rounds. SQ85 LIVERRIBS1 v2 (Kalli), SQ86 COACHFIT1 v5 (Dola), SQ87 CLUBWEEK1 v5 (Kalli,
-   the LOYAL1 fix: need 2 / want 3). When CLUBWEEK v5 lands: re-measure with tools/loyal1_probe.gd (on main) before wiring #6 + #11.
-3. POWER1E is on the review board (docs/mockups/s462/power1e). If he flags the inside snap (shot 03, seed 4242, f24->f25: the glove
-   drops ~0.15 m in one frame when _quick_back hands her to the guard at close range), smooth that handoff in HitImpact._quick_back.
-4. INTEGRATE1 state (ops/research/INTEGRATION_S459.md): 1-5, 7-9 done; 6 + 11 wait CLUBWEEK v5; 10 stopped (KNOWBOTS); 12 waits
-   COACHFIT1; 13 waits AMATEURWEEK1; 14 waits the BJJ plan screen. Nothing else wireable without a new menu.
-5. PRs 259/260/261 stale (collected) - `gh pr close` is blocked: he closes them or allows it.
+1. Collect TREEVALUE1 (Qwen, qwen/treevalue1, ops/research/TASK_TREEVALUE1.md, launched 03:53, ETA ~05:15). RERUN on the same seeds
+   (worktree E:/FightCamp/wt/LEAN_TREEVALUE1, `--path` it through godot_slot) and diff the page before reading. Check its bouts have
+   NO fire_level key and its probe_off control shows no step value. Nodes under 1.5 in 100 against every style (Herd, Push off are the
+   suspects) -> PROGRESSION_MAP line 96 says they merge into Cut off / Tie up; he approved that map, so a merge is built, then reported.
+2. Seat answers -> design_loop.py next rounds: SQ91 LIVERRIBS v2 (John), SQ93-94 Knowledge v2 (Dola, Maria), SQ95-96 fight week v8,
+   SQ97-98 club week v5, SQ99-100 coach fit v5 (cut at section 12 - flagged), SQ101-102 push/tank v2, SQ103-104 weight r2, SQ105 Kalli
+   writes TURNPRO1 v1 (then two critics). Two critics 6+/6+ = DESIGNED -> his board with --attach.
+   Knowledge DESIGNED -> build step 3 (reads and exposure into training, bouts, week; greybox on existing screens).
+   Club week DESIGNED -> re-measure tools/loyal1_probe.gd before wiring Loyalty (#6) + ClubDeal (#11).
+3. His board: Q-220 R58 (a fighter leaves), Q-222 HOSTSHOW1 (both designed; build after the fight week), POWER1E look.
+4. Watch: new boxers' step_back/pivot/tie_up start at 0 and never fire until studied (the gate). If his play says early plans feel
+   dead, StepMastery.start_values is the lever, not the gate.
+5. PRs 259-266 stale/collected - `gh pr close` is blocked: he closes them or allows it.
 
-## DONE IN S462 (ops/research/S462_DIGEST.md)
-- plan_bout_test green (fixture combos at Sharp). #5 ProRead wired (ProReadWire, proread_wire_test). #9 TellWorth on the camp Film
-  hover (tell_wire_test). POWER1E rear uppercut tail (uppercut_tail 0). KNOWBOTS1 rejected (invented page, rerun fails). LOYAL1 rerun
-  honest, fails structurally. Build exported with WHAT_TO_TRY S462.
-
-## TRAPS (S459, kept)
-- LiveRound.gd has a TIGHT 470-line cap (file_limits): fold changes into existing lines.
-- A seat-test or film run with `sharedholo` fails fight3d_play (the tool checks the side holos) - mockup only.
-- Control runs: copy the touched files aside, `git show HEAD:<f> > <f>`, run, copy back (never a bare stash).
-- S460: `gh pr close` is refused by the auto-mode permission check. Seat dispatch: `python ops/Tools/seat_dispatch.py --task <ID> --seat qwen`
-  (dry run) then `--act`; OWNS must be bare paths (notes in parentheses on the next line).
-- S461: a seat's probe page can be invented: rerun the probe (same seeds) and compare before using a number.
-- S461: a control run that loads scripts BEFORE a fix keeps the old code for its whole run - kill and rerun it after the fix.
-- S462: Antigravity's result pages are not to be trusted (two invented); give it only work proven by a test Claude reruns.
-- S462: a brief must name a source that exists (KNOWBOTS1 named "Recruit.gd prospects" - the game has no prospect pool).
+## DONE IN S463 (ops/research/S463_DIGEST.md)
+- LEARNPICK1: StudyWeek.gd + WHAT TO LEARN NEXT on her page + study act + DrillWeek study slot; study_week_test, study_pick_walk_test.
+- STEPMASTERY1 gate on (FireLevel reads step bars); MoveBook shows step tiers; plan_bout/fight_why/phase_wire fixtures updated.
+- KNOWBOTS2 VOID -> KNOWBOTS3 PASS (rerun identical). NODEREAD1 collected. HOSTSHOW1 v4 designed. Build exported, WHAT_TO_TRY S463.

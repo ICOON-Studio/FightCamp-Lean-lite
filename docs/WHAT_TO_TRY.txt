@@ -1,3 +1,13 @@
+S463 (2026-11-14)
+- Her page (Overview, scroll down past the moves and combinations): WHAT TO LEARN NEXT, your answer "Yes, greybox it". The
+  coach's three picks, each with why ("Answers a Pressure fighter", "Third move of Out-boxer", "5 weeks to Usable"). Pick a
+  punch and her pad nights drill it; pick a step or defence (step back, pivot, tie up...) and it goes in her study slot: her
+  pad nights raise it, about 5 weeks to Usable on 3 pad nights. One slot: the other steps grey out until it is usable.
+- The fight now reads those steps: a planned step back / pivot / tie up comes off by how well she knows it (under 30 never,
+  Usable half the time, Sharp 3 in 4, Signature always) - like combinations since S450. A new boxer knows only step in and
+  step out, so a plan full of steps does less until she studies them. The Playbook's moves say "Not learned (n of 30)".
+  Does picking what she learns feel worth it, and does a learned step show in the fight?
+
 S462 (2026-11-13)
 - Fight: the rear uppercut. After it lands, the glove no longer drifts up and home slowly: it holds on the chin a split second,
   then the hand comes back to her guard, as the lead uppercut has since S458. Watch a few landed rear uppercuts: does it land

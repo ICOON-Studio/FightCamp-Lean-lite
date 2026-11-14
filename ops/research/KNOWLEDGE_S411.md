@@ -67,3 +67,11 @@ Before any screen: bots on the real rules, signing from prospects, same seeds. A
 
 ## Build order, after the fighter model
 1. `Knowledge.gd`, pure, with the truth-inside test. 2. The bots test: stop here if it fails. 3. Reads and exposure wired into training, bouts and the Week board. 4. The moment. 5. Fighter page, signing card and floor bars. 6. Hires as instruments.
+
+## Proved (S463, build step 2 done)
+KNOWBOTS3 (docs/KNOWBOTS3_RESULT.md, Qwen, rerun by Claude on the same seeds, identical): 60 worlds, 4 years, prospects drawn
+at random, the truth = each boxer's real attribute levels. A perfect scout (ORACLE) lands 14 more top-10 boxers than a blind
+signer, so the test can see scouting; a bad signer lands the fewest (control holds). The READER, who pays the read prices
+above, lands 6 more top-10s than the blind signer after paying (bar: 5), closing 43% of the gap to perfect; with wider
+day-one ranges, +8. It paid about $10,000 a world over four years for that. Next: build step 3 (reads and exposure wired
+into training, bouts and the week) once two critics score this map 6+ on depth and on general design (S459 loop).

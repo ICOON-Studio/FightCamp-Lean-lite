@@ -6,7 +6,7 @@
    "agent": "qwen",
    "id": "KNOWBOTS2",
    "title": "TASK KNOWBOTS2 - the Knowledge bots test on a FAIR prospect pool (probe, no screen)",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-13T23:22",
    "eta": "2026-11-14T01:12",
    "branch": "qwen/knowbots2",
@@ -26,6 +26,162 @@
     "brief_copied": true,
     "runner_pid": 34040,
     "seat_pid": 46136
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 2/3 PASS; PR #265",
+   "finished": "2026-11-14T00:05",
+   "pr": 265,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tools/knowbots_probe.gd",
+     "ok": false,
+     "last": "RESULT: tools/knowbots_probe.gd -> reader_minus_blind=-3 per 60 worlds pass=no sensitivity=-5"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/knowledge_test.gd",
+     "ok": true,
+     "last": "KNOWLEDGE failures=0 (24 checks)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/world_years_test.gd",
+     "ok": true,
+     "last": "WORLD_YEARS checks=30 failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "NODEREAD1": {
+   "agent": "qwen",
+   "id": "NODEREAD1",
+   "title": "TASK NODEREAD1 - which move-tree nodes does the played bout read? (probe, no screen)",
+   "status": "landed",
+   "started": "2026-11-14T01:02",
+   "eta": "2026-11-14T02:52",
+   "branch": "qwen/noderead1",
+   "worktree": "E:/FightCamp/wt/LEAN_NODEREAD1",
+   "wt": "E:/FightCamp/wt/LEAN_NODEREAD1",
+   "brief": "ops/research/TASK_NODEREAD1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/NODEREAD1_dispatch_out.txt",
+   "match": "seat_dispatch.py run noderead1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/NODEREAD1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/NODEREAD1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/NODEREAD1_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 18960,
+    "seat_pid": 51352
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 2/2 PASS; PR #266",
+   "finished": "2026-11-14T02:15",
+   "pr": 266,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tools/noderead_probe.gd",
+     "ok": true,
+     "last": "Result doc written to docs/NODEREAD1_RESULT.md"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/plan_bout_test.gd",
+     "ok": true,
+     "last": "PLAN_BOUT failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "KNOWBOTS3": {
+   "agent": "qwen",
+   "id": "KNOWBOTS3",
+   "title": "TASK KNOWBOTS3 - the Knowledge bots test, with a truth that drives results and an ORACLE arm (probe, no screen)",
+   "status": "landed",
+   "started": "2026-11-14T02:42",
+   "eta": "2026-11-14T04:32",
+   "branch": "qwen/knowbots3",
+   "worktree": "E:/FightCamp/wt/LEAN_KNOWBOTS3",
+   "wt": "E:/FightCamp/wt/LEAN_KNOWBOTS3",
+   "brief": "ops/research/TASK_KNOWBOTS3.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/KNOWBOTS3_dispatch_out.txt",
+   "match": "seat_dispatch.py run knowbots3",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/KNOWBOTS3_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/KNOWBOTS3_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/KNOWBOTS3_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 41576,
+    "seat_pid": 36984
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 3/3 PASS; PR #267",
+   "finished": "2026-11-14T03:49",
+   "pr": 267,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tools/knowbots_probe.gd",
+     "ok": true,
+     "last": "RESULT: tools/knowbots_probe.gd -> instrument=ok oracle_minus_blind=14 reader_minus_blind=6 pass=yes sensitivity=8"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/knowledge_test.gd",
+     "ok": true,
+     "last": "KNOWLEDGE failures=0 (24 checks)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/world_years_test.gd",
+     "ok": true,
+     "last": "WORLD_YEARS checks=30 failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "TREEVALUE1": {
+   "agent": "qwen",
+   "id": "TREEVALUE1",
+   "title": "TASK TREEVALUE1 - is every move-tree node worth drilling against at least one style? (probe, no screen)",
+   "status": "running",
+   "started": "2026-11-14T03:53",
+   "eta": "2026-11-14T05:43",
+   "branch": "qwen/treevalue1",
+   "worktree": "E:/FightCamp/wt/LEAN_TREEVALUE1",
+   "wt": "E:/FightCamp/wt/LEAN_TREEVALUE1",
+   "brief": "ops/research/TASK_TREEVALUE1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/TREEVALUE1_dispatch_out.txt",
+   "match": "seat_dispatch.py run treevalue1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/TREEVALUE1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/TREEVALUE1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/TREEVALUE1_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 49780,
+    "seat_pid": 10572
    },
    "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
   }

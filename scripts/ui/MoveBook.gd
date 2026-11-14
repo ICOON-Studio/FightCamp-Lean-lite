@@ -15,6 +15,7 @@ const Combos := preload("res://scripts/rules/Combos.gd")
 const MoveMastery := preload("res://scripts/rules/MoveMastery.gd")
 const Icons := preload("res://scripts/ui/Icons.gd")
 const MoveTip := preload("res://scripts/ui/MoveTip.gd")
+const StepMastery := preload("res://scripts/rules/StepMastery.gd")
 
 signal picked(id: String)
 
@@ -53,6 +54,10 @@ func _progress(m: Dictionary, mastery: Dictionary) -> Array:
 		return ["", 0.0]
 	if SM.grey_reason(m, mastery) != "":
 		return ["LOCKED", 0.0]
+	if str(m["kind"]) in ["step", "defence"] and _fighter.has("steps"):
+		# S463 STEPMASTERY1: a step or defence fires by its own bar now (FireLevel), so it shows its tier like a combination.
+		var sv := StepMastery.fire_mastery(_fighter["steps"] as Dictionary, str(m["id"]))
+		return [MoveMastery.tier(sv), clampf(sv / 100.0, 0.0, 1.0)]
 	if str(m["kind"]) != "combo":
 		return ["READY", 1.0]
 	var v := float(_combos.get(str(m["combo"]), 0.0))
@@ -73,7 +78,7 @@ func _book_head(groups: Array, mastery: Dictionary) -> Control:
 	var h := UI.hbox(14)
 	h.name = "BookHead"
 	h.add_child(UI.label("%d of %d moves usable" % [ready, total], 22, UI.FG, "bold"))
-	h.tooltip_text = "Usable: thrown on the night, its pad time behind it (mastery 30; steps and defences from day one)."   # S398: no squares
+	h.tooltip_text = "Usable: thrown on the night, its pad time behind it (mastery 30). Steps and defences: step in and step out from day one, the rest learned on pad nights (the fighter page's study slot)."   # S398: no squares
 	var next := ""   # S397 blind round 5: "worth pad time next" disagreed with the Week's pads; the Week owns what is drilled
 	if next != "":
 		var nm := ""
@@ -119,6 +124,10 @@ func _group(title: String, line: String, ids: Array, words: Dictionary, mastery:
 		if m.is_empty():
 			continue
 		var why := SM.grey_reason(m, mastery)
+		if why == "" and str(m["kind"]) in ["step", "defence"] and _fighter.has("steps"):
+			var sv := StepMastery.fire_mastery(_fighter["steps"] as Dictionary, str(id))
+			if sv < 30.0:
+				why = "Not learned (%d of 30): never comes off in a fight. Study it on the fighter page." % int(sv)
 		var forced := str(m["kind"]) == "forced"
 		var small := str(words.get(str(id), "")) + ("" if why == "" or forced else "\n" + why)
 		# A forced move (the referee's break) still plays: it shows what is done to her.

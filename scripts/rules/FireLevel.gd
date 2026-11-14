@@ -10,6 +10,7 @@ extends RefCounted
 ## what the bout does today with no planned answer at that moment.
 
 const StrikeMap := preload("res://scripts/rules/StrikeMap.gd")
+const StepMastery := preload("res://scripts/rules/StepMastery.gd")
 
 ## The mastery tiers and their default shares (1.0 = always fires = today's behavior).
 const USABLE_AT := 30.0
@@ -56,9 +57,12 @@ static func fires(level_shares: Dictionary, mastery: float, roll: float) -> bool
 	return roll < share(level_shares, mastery)
 
 
-## The mastery for an arrow: combo mastery for combos, 100.0 for steps/defences.
+## The mastery for an arrow: combo mastery for combos; a step/defence reads its bar (S463 STEPMASTERY1 gate,
+## StepMastery.fire_mastery: no bars = 100.0, today's game); anything else 100.0.
 static func mastery_of(f: Dictionary, arrow: String) -> float:
 	var row := StrikeMap.move(arrow)
 	if str(row.get("kind", "")) != "combo":
+		if StepMastery.NODES.has(arrow.split("@")[0]):
+			return StepMastery.fire_mastery(f.get("steps", {}) as Dictionary, arrow)
 		return 100.0
 	return float((f.get("combos", {}) as Dictionary).get(str(row.get("combo", "")), 0.0))

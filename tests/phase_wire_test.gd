@@ -60,6 +60,8 @@ func _planned(arrows: Array) -> Array:
 		sc.coach = {"rating": 60.0}
 		var sf: Dictionary = Data.fighter_state(Data.lucy(), sc.day)
 		sf["arrows"] = arrows.duplicate(true)
+		# S463 STEPMASTERY1 gate: her steps at Signature (85, always fire = before the gate) - this test is about the phase tags.
+		sf["steps"] = {"step_back": 85.0, "pivot_out": 85.0, "tie_up": 85.0}
 		var opp: Dictionary = (Data.OPPONENTS[k % Data.OPPONENTS.size()] as Dictionary).duplicate(true)
 		sf["bout"] = {"opp": opp, "day": sc.day, "weighed": true, "made": true, "done": false, "film": 1}
 		sc.fighters = [sf]

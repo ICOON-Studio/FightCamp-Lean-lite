@@ -79,6 +79,9 @@ func _bout(day: int, arrows: Array) -> Dictionary:
 	var f: Dictionary = c.fighter()
 	f["camp"] = {}
 	f["combos"] = {"1-1": 50.0, "1-2": 50.0}
+	# S463 STEPMASTERY1 gate: the plan's steps/defences at Signature (85, always fire = before the gate) - this test grades the plan, not the drilling.
+	for sid in ["step_back", "pivot_out", "tie_up", "cut_off", "herd"]:
+		(f.get_or_add("steps", {}) as Dictionary)[sid] = 85.0
 	f["arrows"] = arrows.duplicate(true)
 	f["bout"] = {"opp": (Data.OPPONENTS[0] as Dictionary).duplicate(true), "day": c.day, "weighed": true, "made": true, "done": false,
 		"film": 0, "rounds": 3}
