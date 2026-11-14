@@ -4883,7 +4883,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-14 18:41 board_sync",
+  "updated": "2026-11-14 19:45 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5040,13 +5040,25 @@
     "state": "LANDED - Claude collects"
    },
    {
-    "title": "TASK SPEEDRULER1 - sort punch_speed_test's 41 failures: which bar is wrong, which punch is wrong (measure only, headless)",
+    "title": "Arena: is any 'what to learn next' card always the best pick? (probe)",
+    "who": "arena",
+    "started": "2026-11-14T19:19",
+    "run": "PICKSPREAD1"
+   },
+   {
+    "title": "TASK PACEREMEASURE1 - is punch_pace.json stale, and what would a fresh one change? (measure only, headless)",
     "who": "qwen",
-    "started": "2026-11-14T18:36",
-    "run": "SPEEDRULER1"
+    "started": "2026-11-14T19:34",
+    "run": "PACEREMEASURE1"
    }
   ],
   "next": [
+   {
+    "id": "STEPVALUE1",
+    "who": "kalli",
+    "title": "Footwork and defence worth learning (his S473 'Yes, design it'): the bout ignores step mastery and steps win 12-20 % of picks v punches 52-66 %; map v1 at Kalli (SQ130) -> two fresh critics 6+/6+ -> his board -> wire into the bout (M5 gate + grade)",
+    "after": "-"
+   },
    {
     "id": "CLASH3",
     "who": "claude",
@@ -5533,6 +5545,16 @@
   },
   "done_recently": [
    {
+    "title": "TASK HOOKCAP2 - the hard hooks' glove is twice real speed: cap their playback pace (headless)",
+    "who": "qwen",
+    "when": "2026-11-14"
+   },
+   {
+    "title": "TASK SPEEDRULER1 - sort punch_speed_test's 41 failures: which bar is wrong, which punch is wrong (measure only, headless)",
+    "who": "qwen",
+    "when": "2026-11-14"
+   },
+   {
     "title": "TASK PELVIS1 - measure the rig's hips against the source take (a probe; no fix, headless)",
     "who": "qwen",
     "when": "2026-11-14"
@@ -5588,16 +5610,6 @@
     "who": "qwen",
     "title": "Tests tick at a fixed 60 a second: the punch speed test repeats",
     "after": "S470"
-   },
-   {
-    "title": "TASK GUARDKNEE3 - the rear guard knee back on the source take WITH the footwork rig on (headless)",
-    "who": "qwen",
-    "when": "2026-11-14"
-   },
-   {
-    "title": "TASK LIVERPROBE1 - tune the liver fold to the design's bar on 400 played bouts (probe, no screen)",
-    "who": "qwen",
-    "when": "2026-11-14"
    }
   ],
   "scope_note": "S294: lean restart (E:\\FightCamp\\Lean\\docs\\RESTART_PLAN.md). Old roadmap items are parked until the weekly builds reach them.",

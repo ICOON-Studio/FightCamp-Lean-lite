@@ -1480,6 +1480,12 @@
    "seat": "qwen",
    "status": "queued",
    "queued": "2026-11-14T18:30"
+  },
+  {
+   "task": "KNEESWEEP1",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-14T20:23"
   }
  ]
 }

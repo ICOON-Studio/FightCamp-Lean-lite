@@ -86,12 +86,11 @@ AGY_MODEL = "gemini-4-argon-high"   # S369 operator: "antigravity should have ar
 SEATS = {"qwen": {"agent": "qwen", "who": ("qwen",), "model": "qwen3-coder", "minutes": 90},
          ## S446 operator: "replace cursor with grokbots,arena,goose" - no roadmap `who` dispatches to Cursor any more.
          "cursor": {"agent": "cursor", "who": (), "model": "auto", "minutes": 90},   # S439 operator on Q-191 (out of usage): "Use Auto model" until the limit resets; was grok-4.7-high.   # S398 non-Claude top model; S399 11-08: GPT-5.6 Sol + Codex 5.3 hit Cursor's monthly limit (resets 12/7) - Grok 4.7 High answers
-         "agy": {"agent": "antigravity", "who": ("antigravity", "agy"), "model": AGY_MODEL, "minutes": 65},
-         ## S473 operator: "use also ollama on thebest free model available" - Qwen Code against the LOCAL Ollama
-         ## (qwen3-coder-fc:30b, the GPU's 16 GB; Ollama cloud needs paid credits). qwen_task.cmd with QWEN_LOCAL=1.
-         "ollama": {"agent": "ollama", "who": ("ollama",), "model": "qwen3-coder-fc:30b", "minutes": 120}}
-SEAT_PROCS = {"qwen": "qwen-code", "cursor": "cursor-agent", "agy": "agy.exe", "ollama": "qwen3-coder-fc:30b"}
-PC_AGENTS = ("qwen", "cursor", "antigravity", "agy", "codex", "cline", "ziva", "ollama")
+         "agy": {"agent": "antigravity", "who": ("antigravity", "agy"), "model": AGY_MODEL, "minutes": 65}}
+## S473: an `ollama` seat (Qwen Code on a local qwen3-coder 30b) was tried and REMOVED the same day (operator: "yes stop using
+## it and delete the models to free up space"): 16 GB of RAM loaded, and Qwen Code's ~29k-token prompt left it no room to answer.
+SEAT_PROCS = {"qwen": "qwen-code", "cursor": "cursor-agent", "agy": "agy.exe"}
+PC_AGENTS = ("qwen", "cursor", "antigravity", "agy", "codex", "cline", "ziva")
 MAX_PC_AGENTS = 3         # S419 operator: "i think thepc can handle more, change the rule ?" (was 2 since the S218 hang; the watchdog still refuses on RED and Godot jobs still queue two at a time in godot_slot)
 LAUNCHES_PER_CYCLE = 1    # one new agent per 30-min cycle - each launch seeds a cache and starts Godot imports
 E_FREE_MIN_GB = 20
@@ -277,11 +276,11 @@ def seat_busy(seat: str, procs: list) -> str:
             return f"running {k}"
     ## S408: the Cursor app keeps a `cursor-agent-worker` helper running all day; it is not a seat's run
     hit = next((pid for pid, cmd in procs if SEAT_PROCS[seat] in cmd and "cursor-agent-worker" not in cmd
-                and not (seat == "qwen" and SEAT_PROCS["ollama"] in cmd)), None)
+), None)
     return f"a {SEAT_PROCS[seat]} process is live (pid {hit})" if hit else ""
 
 
-RUN_PROC = {"qwen": ("qwen-code",), "ollama": ("qwen-code",), "cursor": ("cursor-agent",), "agy": ("agy.exe",), "antigravity": ("agy.exe",),
+RUN_PROC = {"qwen": ("qwen-code",), "cursor": ("cursor-agent",), "agy": ("agy.exe",), "antigravity": ("agy.exe",),
             "codex": ("codex exec", "codex.exe exec")}
 
 
@@ -435,7 +434,7 @@ def prompt_text(seat: str, task: str, wt: Path, branch: str) -> str:
                 f"Read files ONLY inside {wt.as_posix()} (and the images in its _eyes folder): a read anywhere else is denied "
                 "and ends your run with nothing delivered. Tooling the brief names (seat_dispatch, judges, the board) is not "
                 "yours to read.")
-    name = {"qwen": "Qwen", "ollama": "Qwen (local)", "cursor": "Cursor"}[seat]
+    name = {"qwen": "Qwen", "cursor": "Cursor"}[seat]
     return "\n".join([
         f"You are {name} working in the Godot 4.7.2 repo at {wt} (a git worktree of E:\\FightCamp\\Lean, branch {branch}, cut from origin/main).",
         f"Read the brief ops/research/TASK_{task}.md in that folder in full and do exactly what it says. Its '## Contract' block is binding:",
@@ -1009,9 +1008,7 @@ def run(task: str) -> int:
                          "The sheets, open each by this exact path:\n" + "\n".join(f"- {p}" for p in sheets))
             proc = _agy(wt, text, out, env)
         else:
-            wrapper = ROOT / "Tools" / ("qwen_task.cmd" if seat in ("qwen", "ollama") else "cursor_task.cmd")
-            if seat == "ollama":   # S473: the local model through the same CLI
-                env.update(QWEN_LOCAL="1", QWEN_MODEL=SEATS["ollama"]["model"])
+            wrapper = ROOT / "Tools" / ("qwen_task.cmd" if seat == "qwen" else "cursor_task.cmd")
             proc = subprocess.Popen(["cmd", "/c", str(wrapper), str(prompt), str(wt), str(out)], cwd=str(GAME),
                                     stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
                                     creationflags=NO_WINDOW, env=env)
