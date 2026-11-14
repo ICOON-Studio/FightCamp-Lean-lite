@@ -19,6 +19,7 @@ const WeekTwist := preload("res://scripts/rules/WeekTwist.gd")
 const PadReview := preload("res://scripts/rules/PadReview.gd")
 const StyleName := preload("res://scripts/rules/StyleName.gd")
 const MoveTree := preload("res://scripts/rules/MoveTree.gd")
+const StudyWeek := preload("res://scripts/rules/StudyWeek.gd")
 
 ## f key: the evenings this week as they ran (note); {"<dow>": {kind, minutes, cards}}.
 const NOTED := "week_nights"
@@ -66,9 +67,14 @@ static func run(career: Career, f: Dictionary) -> Dictionary:
 			career.add_news("%s has a new weapon: the %s (%s)." % [f["first"], new_weapon.to_lower(),
 				MoveMastery.describe(new_weapon, float(moves[new_weapon]))])
 	f["learning"] = learning
+	# S463 LEARNPICK1: the study slot (a step or defence the player picked) rides the same pad nights.
+	var study := StudyWeek.week(f, (nights.get("pads", []) as Array).size())
+	for row in study:
+		if float(row[1]) < StudyWeek.USABLE and float(row[2]) >= StudyWeek.USABLE:
+			career.add_news("%s can use %s now: it is usable in a fight plan. The study slot is free." % [f["first"], StudyWeek.name_of(str(row[0])).to_lower()])
 	var sty := _style_week(career, f)
 	return {"style": sty, "rows": rows, "new_weapon": new_weapon, "new_combo": _combo_news(career, f, drilled, before_combos, before_own),
-		"pads": r["log"], "review": PadReview.rows(r["log"], nights), "held": r.get("held", []), "faded": r.get("faded", [])}
+		"study": study, "pads": r["log"], "review": PadReview.rows(r["log"], nights), "held": r.get("held", []), "faded": r.get("faded", [])}
 
 
 ## S459 INTEGRATE1 (PROGRESSION_MAP_S448 M4): the named style as the week turns. Three Sharp moves of a style's set name it;

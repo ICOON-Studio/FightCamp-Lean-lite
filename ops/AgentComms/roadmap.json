@@ -4823,7 +4823,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-13 23:11 board_sync",
+  "updated": "2026-11-14 02:42 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4973,10 +4973,24 @@
   },
   "working_now": [
    {
-    "title": "TASK KNOWBOTS2 - Knowledge bots on a fair pool (world's young boxers, hype independent of truth)",
+    "title": "TASK KNOWBOTS2 - the Knowledge bots test on a FAIR prospect pool (probe, no screen)",
     "who": "qwen",
     "started": "2026-11-13T23:22",
-    "run": "KNOWBOTS2"
+    "run": "KNOWBOTS2",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK NODEREAD1 - which move-tree nodes does the played bout read? (probe, no screen)",
+    "who": "qwen",
+    "started": "2026-11-14T01:02",
+    "run": "NODEREAD1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK KNOWBOTS3 - the Knowledge bots test, with a truth that drives results and an ORACLE arm (probe, no screen)",
+    "who": "qwen",
+    "started": "2026-11-14T02:42",
+    "run": "KNOWBOTS3"
    }
   ],
   "next": [
@@ -5007,7 +5021,7 @@
    {
     "id": "STEPMASTERY1",
     "who": "claude",
-    "title": "Step bars on screen: the move tree on the Playbook, the slot picker, then the fire gate (rules + data are in)",
+    "title": "Step bars (S463 traced): bars are given at signing (Data.gd 259, SaveGame 43) but nothing trains them and the bout never reads them (FireLevel.mastery_of returns 100 for steps). Order: 1) 'step:<id>' pad-night cards in PadWeek (mastery/cap/drillable/gain, StepMastery.shadow_gain), 2) the gate: FireLevel.mastery_of -> StepMastery.fire_mastery, 3) bars on the Playbook. Gate never before 1. UNBLOCKED (S463 LEARNPICK1, his 'Yes, greybox it'): the fighter page's WHAT TO LEARN NEXT card picks a step into the study slot; pad nights raise it (step_back 0 -> 32 in 5 weeks); next = the fire gate reads the bars, after NODEREAD1 says the bout reads steps.",
     "after": "STEPMASTERY1A"
    },
    {
@@ -5669,6 +5683,30 @@
   "map": {
    "done_earlier": [
     {
+     "text": "Plan test green (fixture)",
+     "who": "claude"
+    },
+    {
+     "text": "Pro read wired: tape + prep line",
+     "who": "claude"
+    },
+    {
+     "text": "Film hover: what tape buys",
+     "who": "claude"
+    },
+    {
+     "text": "Rear uppercut tail fixed",
+     "who": "claude"
+    },
+    {
+     "text": "KNOWBOTS1 rerun: reads fail",
+     "who": "claude"
+    },
+    {
+     "text": "Rear uppercut film on the board",
+     "who": "claude"
+    },
+    {
      "text": "Towel card in both corners",
      "who": "claude"
     },
@@ -5699,58 +5737,9 @@
     {
      "text": "Liver vs ribs map v1",
      "who": "claude"
-    },
-    {
-     "text": "HUD + office marks fixed",
-     "who": "claude"
-    },
-    {
-     "text": "Fight seams hidden (no slow-down)",
-     "who": "claude"
-    },
-    {
-     "text": "Styles in the game",
-     "who": "claude"
-    },
-    {
-     "text": "POWER1D lead uppercut tail landed",
-     "who": "claude"
-    },
-    {
-     "text": "Training J drawn: Dola 7/8",
-     "who": "claude"
-    },
-    {
-     "text": "COACHMARKET1 collected",
-     "who": "claude"
     }
    ],
-   "done_session": [
-    {
-     "text": "Plan test green (fixture)",
-     "who": "claude"
-    },
-    {
-     "text": "Pro read wired: tape + prep line",
-     "who": "claude"
-    },
-    {
-     "text": "Film hover: what tape buys",
-     "who": "claude"
-    },
-    {
-     "text": "Rear uppercut tail fixed",
-     "who": "claude"
-    },
-    {
-     "text": "KNOWBOTS1 rerun: reads fail",
-     "who": "claude"
-    },
-    {
-     "text": "Rear uppercut film on the board",
-     "who": "claude"
-    }
-   ],
+   "done_session": [],
    "now": [
     {
      "text": "Between-rounds voices: your ear",
@@ -5875,7 +5864,7 @@
      "who": "claude"
     }
    ],
-   "session": "S462"
+   "session": "S463"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",

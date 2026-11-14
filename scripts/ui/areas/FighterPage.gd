@@ -36,6 +36,8 @@ const WB_KIT := preload("res://scripts/ui/WhiteboardKit.gd")
 const Faces := preload("res://scripts/rules/Faces.gd")
 const NationalsView := preload("res://scripts/ui/NationalsView.gd")
 const BoutHistory := preload("res://scripts/ui/BoutHistory.gd")
+const StudyWeek := preload("res://scripts/rules/StudyWeek.gd")
+const PadWeek := preload("res://scripts/rules/PadWeek.gd")
 const DarkOverview := preload("res://scripts/ui/DarkOverview.gd")
 
 ## S414 operator on Q-S294-143: "Show me one real page first". On until the dark-or-cream answer; false draws the old page.
@@ -123,6 +125,7 @@ func _tab(main: Node, c: Career, f: Dictionary, g: Dictionary, t: int, folded: b
 			mv_card.add_child(UI.muted("Gold bar = a weapon. Pad time goes to the move being learned; the week cards keep theirs sharp (%s). Weapons on the night: %d (+%.1f)." % [
 				", ".join(f["cards"]),
 				BoutRules.weapons(moves).size(), BoutRules.weapons_edge(BoutRules.weapons(moves))], UI.SMALL, true))
+			_study_card(main, f)
 		2:
 			var card := _card("BODY")
 			UI.add_rows(card, [UI.kv("Weight", "%.1f kg" % f["weight"], UI.FG, "mono"), UI.kv("Class limit", "%.1f kg" % f["limit"], UI.FG, "mono"),
@@ -149,6 +152,30 @@ func _tab(main: Node, c: Career, f: Dictionary, g: Dictionary, t: int, folded: b
 			for h in done:
 				card.add_child(UI.row(h["title"], "%s, %s" % ["met" if bool(h["met"]) else "not met", Clock.fmt(int(h["d"]))],
 					UI.GREEN if bool(h["met"]) else UI.RED))
+
+
+## S463 LEARNPICK1 (greybox, Q-S294-221): what she studies next. The slot row says how far it is and how long it takes on
+## this week's pad nights; the coach's cards (LearnSlots.cards) each say why, and a click studies it.
+func _study_card(main: Node, f: Dictionary) -> void:
+	var card := _card("WHAT TO LEARN NEXT")
+	var pads := (PadWeek.nights_of(f).get("pads", []) as Array).size()
+	var slot: Array = f.get("learning_slots", [])
+	if slot.is_empty():
+		card.add_child(UI.muted("Study slot: free. Pick one of the coach's cards; her pad nights then work on it.", UI.SMALL, true))
+	for id in slot:
+		card.add_child(UI.row("Studying " + StudyWeek.slot_line(f, str(id), pads), "On her %d pad night%s a week. At 30 a fight plan can use it." % [pads, "" if pads == 1 else "s"], UI.AMBER))
+	var full := slot.size() >= StudyWeek.slot_count(f)
+	for c in StudyWeek.cards(f):
+		var id := str(c["id"])
+		var punch := StudyWeek.MoveTree.PUNCH_IDS.has(id)
+		var now := punch and str(f.get("learning", "")) == id
+		var why := ". ".join(c["reasons"] as Array)
+		var b := UI.button("Study %s" % StudyWeek.name_of(id), "Btn", main.act.bind("study", "%s|%s" % [f["id"], id]),
+			now or (full and not punch), "Her pad move already" if now else ("The slot is taken until the move in it is usable" if full and not punch else ""))
+		if not b.disabled:
+			b.tooltip_text = why
+		card.add_child(b)
+		card.add_child(UI.muted(why, UI.SMALL, true))
 
 
 ## S302 combos: her combination book - learned ones as bars (gold = she throws it in fights), locked ones say what they need.

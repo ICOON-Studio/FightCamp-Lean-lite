@@ -18,6 +18,7 @@ const PadWeek := preload("res://scripts/rules/PadWeek.gd")
 const PadEdit := preload("res://scripts/rules/PadEdit.gd")
 const PlanCards := preload("res://scripts/rules/PlanCards.gd")
 const DrillTray := preload("res://scripts/ui/DrillTray.gd")
+const StudyWeek := preload("res://scripts/rules/StudyWeek.gd")
 const ProLadder := preload("res://scripts/state/ProLadder.gd")
 
 
@@ -51,6 +52,13 @@ static func act(main: Node, name: String, arg: String) -> bool:
 				f.erase("week_plan")   # S351 a new main = the coach's week for it
 			elif name == "combo":
 				PlanCards.drill_it(f, parts[1] if parts.size() > 1 else "")   # S382 in camp the slot alone drills nothing
+			main.render()
+		"study":
+			# S463 LEARNPICK1: "fid|node" - the coach's card she studies next (a punch = her pad move; a step = the study slot).
+			var parts := arg.split("|")
+			var f := who(main, parts[0])
+			if not StudyWeek.pick(f, parts[1]):
+				main.toast("The study slot is taken: it frees when the move in it is usable.")
 			main.render()
 		"weekplan":
 			# S351 one block more or less on a session: "fid|session|+1"; her main follows the biggest session.
