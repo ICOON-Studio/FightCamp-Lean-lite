@@ -94,7 +94,7 @@ static func proof_words(f: Dictionary) -> Array:
 	if read.is_empty():
 		return ["", false]
 	if ProRead.proof(tape):
-		return ["Read-proof: she beat their read two pro fights running", true]
+		return ["Read-proof: beat the other corner's read two pro fights running", true]
 	var last: Dictionary = read[read.size() - 1]["read"]
 	var beat := bool(last.get("split", false)) or (int(last.get("fired_in_read", 0)) >= ProRead.PROOF_FIRED and int(last.get("won_in_read", 0)) * 2 >= int(last.get("fired_in_read", 0)))
 	return ["%s of 2: beat the read in two pro fights running - throw the read punch %d+ times and win half, or hold a second Sharp line" % ["1" if beat else "0", ProRead.PROOF_FIRED], false]

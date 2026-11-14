@@ -47,7 +47,7 @@ static func line(c: Career, f: Dictionary) -> String:
 	if str(inj["type"]) == "ko":
 		return "%s - cleared on %s" % [InjuryRoll.line({"type": "ko", "days_out": int(inj["days_out"])}), Clock.fmt(int(inj["until_day"]))]
 	var w := InjuryRoll.weeks_out(int(inj["until_day"]) - c.day)
-	return "%s (%s) - heals in %s, fit on %s" % [InjuryRoll.NAMES[str(inj["type"])], severity(int(inj["days_out"])),
+	return "%s (%s) - heals in %s, fit on %s" % [InjuryRoll.name_of(inj), severity(int(inj["days_out"])),
 		"1 week" if w == 1 else "%d weeks" % w, Clock.fmt(int(inj["until_day"]))]
 
 
@@ -88,7 +88,7 @@ static func choice_modal(c: Career, f: Dictionary) -> Dictionary:
 	var weeks := int(ceil((int(b["day"]) - c.day) / 7.0))
 	var body := "%s: %s.\n\nThe bout with %s is on %s, %s away - before the injury heals.\n\nPull out: the club pays $%d for the empty slot; rest and heal.\nFight hurt: the bout starts %d %% down on energy, and the %s comes out of the fight worse (%d %% longer to heal)." % [
 		f["first"], line(c, f), b["opp"]["name"], Clock.fmt(int(b["day"])), "1 week" if weeks <= 1 else "%d weeks" % weeks,
-		BoutRules.MISSED_WEIGHT_COST, int(HURT_ENERGY[sev]), str(InjuryRoll.NAMES[str(inj["type"])]).to_lower(), int((WORSE_MULT - 1.0) * 100)]
+		BoutRules.MISSED_WEIGHT_COST, int(HURT_ENERGY[sev]), InjuryRoll.name_of(inj).to_lower(), int((WORSE_MULT - 1.0) * 100)]
 	return {"type": "info", "title": "%s is hurt before the bout" % f["first"], "body": body, "locked": true, "fid": f["id"],
 		"buttons": [["Pull out ($%d)" % BoutRules.MISSED_WEIGHT_COST, "pullout", str(f["id"])], ["Fight hurt", "fighthurt", str(f["id"])]]}
 
@@ -248,6 +248,8 @@ static func _hurt(c: Career, f: Dictionary, roll: Dictionary, where: String, why
 	if out(c, f) and int(was["until_day"]) >= c.day + days:
 		return   # S327 she is already out longer (e.g. fought hurt and it got worse): the old injury stands
 	f["injury"] = {"type": str(roll["type"]), "days_out": days, "until_day": c.day + days, "choice": "", "why": why}
+	if roll.has("kind"):
+		f["injury"]["kind"] = str(roll["kind"])   # S467 LIVERRIBS1: bruised / cracked ribs
 	var what := line(c, f)
 	c.add_news("%s %s: %s." % [f["first"], "is suspended after the stoppage" if str(roll["type"]) == "ko" else "is hurt " + where, what])
 	for o in f["offers"]:

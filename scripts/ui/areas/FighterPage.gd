@@ -163,7 +163,7 @@ func _study_card(main: Node, f: Dictionary) -> void:
 	var pads := (PadWeek.nights_of(f).get("pads", []) as Array).size()
 	var slot: Array = f.get("learning_slots", [])
 	if slot.is_empty():
-		card.add_child(UI.muted("Study slot free: pick one of the coach's cards below. Her pad nights then work on it.", UI.SMALL, true))
+		card.add_child(UI.muted("Study slot free: pick one of the coach's cards below. Pad nights then work on it.", UI.SMALL, true))
 	for id in slot:
 		var sid := str(id)
 		var m := StudyWeek.MoveTree.mastery(f, sid)

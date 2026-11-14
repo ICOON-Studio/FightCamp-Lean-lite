@@ -162,6 +162,13 @@ func _check_no_new_injury_type() -> void:
 		if tp != "none" and tp != "ko":
 			var days: int = int(r.get("days_out", 0))
 			var found := false
+			if tp == "ribs":
+				# S467 LIVERRIBS1 v2 rule 9: a bout rib injury is bruised (10-21 days) or cracked (35-56 days).
+				var span: Array = IR.LiverRibs.CRACKED_DAYS if str(r.get("kind", "")) == "cracked" else IR.LiverRibs.BRUISED_DAYS
+				found = r.has("kind") and days >= int(span[0]) and days <= int(span[1])
+				if not found:
+					days_ok = false
+				continue
 			for t in IR.BOUT_TYPES:
 				if str(t[0]) == tp:
 					if days >= int(t[2]) and days <= int(t[3]):

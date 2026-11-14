@@ -28,7 +28,7 @@ func _initialize() -> void:
 	print("  bout: %s, cards %s" % [str(m["outcome"]), str(m["cards"])])
 	_habit_line(rounds)
 	_corner_tile(m, rounds)
-	_why_next(f, rounds, names)
+	_why_next_any(f, rounds, names)
 	_tank(rounds)
 	_head(f, m)
 	_units()
@@ -66,6 +66,25 @@ func _corner_tile(m: Dictionary, rounds: Array) -> void:
 			tile = t
 	var want := "%d of %d" % [worked, calls]
 	_check(str(tile.get("big", "")) == want, "7. corner tile says '%s', the round lines '%s'" % [str(tile.get("big", "")), want])
+
+
+## S467: since the S466 card fix the seed-44 bout no longer reaches line C's situation, so check 2 takes the first bout of
+## seeds 44-63 that fought a wrong answer (the check is about the "Try" move, not about which seed shows it).
+func _why_next_any(f: Dictionary, rounds: Array, names: Array) -> void:
+	for sd in range(44, 64):
+		var r: Array = rounds
+		var fx: Dictionary = f
+		var nm: Array = names
+		if sd != 44:
+			var cf := Dump._setup(sd)
+			fx = cf[1]
+			r = Dump._fight(cf[0], fx, Dump.PLAN, true)["rounds"]
+			nm = [str(fx["first"]), str(fx["bout"]["opp"]["first"])]
+		if str(FightWhy.read(r, str(nm[0]), str(nm[1]))["next"]).begins_with("Against "):
+			print("    check 2 on seed %d" % sd)
+			_why_next(fx, r, nm)
+			return
+	_why_next(f, rounds, names)   # none of 20 fought a wrong answer: fails, says so
 
 
 ## 2. "Against X, replace A. Try B.": B must be a move PlanLines.options offers at A's own place (PlanLines.set_line

@@ -1427,6 +1427,19 @@
    "queued": "2026-11-14T11:45",
    "note": "S466: re-run each nightly red test on main; first FAIL line; last green nightly",
    "launched": "2026-11-14T11:13"
+  },
+  {
+   "task": "LANDREACH3",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-14T12:15",
+   "launched": "2026-11-14T12:17"
+  },
+  {
+   "task": "GUARDKNEE2",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-14T12:28"
   }
  ]
 }

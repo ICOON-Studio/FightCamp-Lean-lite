@@ -19,6 +19,10 @@ const RIB_HURT_LINE := 35.0  # S434 RIBHURT1
 const HURT_WEIGHT := 3  # S434 RIBHURT1
 const BOUT_TYPES := [["cut", 20, 14, 21], ["nose", 15, 21, 35], ["head", 37, 21, 35], ["hand", 18, 35, 56], ["ribs", 10, 21, 35]]
 const TRAIN_TYPES := [["hand", 40, 14, 28], ["ribs", 30, 14, 21], ["strain", 30, 7, 14]]
+## S467 LIVERRIBS1 v2 rule 9: the liver (her right side) never gives a weeks-out injury; a rib injury is the LEFT ribs, split
+## into bruised / cracked by LiverRibs.injury_split. The rate stays this table's until LIVERPROBE1 tunes it.
+const LiverRibs := preload("res://scripts/rules/LiverRibs.gd")
+const RIB_KIND_NAMES := {"bruised": "Bruised ribs (left)", "cracked": "Cracked rib (left)"}
 const NAMES := {"cut": "Cut", "nose": "Broken nose", "head": "Head knock", "hand": "Hand injury", "ribs": "Rib injury", "strain": "Strain"}
 
 
@@ -67,10 +71,9 @@ static func bout_roll(seed: int, damage: Dictionary) -> Dictionary:
 	for fp in ["left_eye", "right_eye", "nose"]:
 		if places.has(fp) and float(places[fp]) <= FACE_CUT_LINE:
 			face_cut = true
-	var ribs_hurt: bool = false  # S434 RIBHURT1
-	for rp in ["left_ribs", "right_ribs"]:
-		if places.has(rp) and float(places[rp]) <= RIB_HURT_LINE:
-			ribs_hurt = true
+	# S434 RIBHURT1; S467: the left ribs only (the right side is the liver: it drains tonight, it never lays her off).
+	var left_ribs: float = float(places.get("left_ribs", 100.0))
+	var ribs_hurt: bool = left_ribs <= RIB_HURT_LINE
 	var total: int = 0
 	for t in BOUT_TYPES:
 		var w: int = int(t[1])
@@ -92,6 +95,11 @@ static func bout_roll(seed: int, damage: Dictionary) -> Dictionary:
 		if roll < float(accum):
 			chosen = t
 			break
+	if chosen[0] == "ribs":
+		var cracked := str(LiverRibs.injury_split(left_ribs, bool(damage.get("rib_cracked", false)), rng.randf())["kind"]) == "cracked"
+		var span: Array = LiverRibs.CRACKED_DAYS if cracked else LiverRibs.BRUISED_DAYS
+		return {"injured": true, "type": "ribs", "kind": "cracked" if cracked else "bruised",
+			"days_out": rng.randi_range(int(span[0]), int(span[1]))}
 	var days: int = rng.randi_range(int(chosen[2]), int(chosen[3]))
 	return {"injured": true, "type": str(chosen[0]), "days_out": days}
 
@@ -201,4 +209,12 @@ static func line(inj: Dictionary) -> String:
 		return "No injuries"
 	var w: int = weeks_out(int(inj["days_out"]))
 	var ws: String = "1 week" if w == 1 else "%d weeks" % w
-	return "%s - out %s" % [str(NAMES[t]), ws]
+	return "%s - out %s" % [name_of(inj), ws]
+
+
+## The injury's name; a bout rib injury says bruised or cracked and which side (S467 LIVERRIBS1).
+static func name_of(inj: Dictionary) -> String:
+	var t: String = str(inj.get("type", "none"))
+	if t == "ribs" and RIB_KIND_NAMES.has(str(inj.get("kind", ""))):
+		return str(RIB_KIND_NAMES[str(inj["kind"])])
+	return str(NAMES.get(t, t))
