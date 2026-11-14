@@ -45,6 +45,7 @@ footer{margin:30px 0 10px;font-size:13px;color:var(--dim)}
 footer a{color:var(--dim)}
 .warn{color:var(--out);font-size:13px}
 .playbtn{font:inherit;font-weight:600;padding:8px 14px;margin:0 8px 8px 0;border-radius:6px;border:1px solid var(--accent);background:#3a2418;color:var(--ink);cursor:pointer}.playbtn.main{background:var(--accent);color:#14110f}.playbtn[disabled]{opacity:.5;cursor:not-allowed}
+.quickrow{display:flex;flex-wrap:wrap;margin-top:4px}.playbtn.quick{padding:6px 12px;font-size:.92em}
 .chip{display:inline-block;font-size:11px;padding:1px 8px;border-radius:6px;background:#2a2f3a;color:#9ec1ff;margin:0 6px 2px 0;white-space:nowrap}
 .chip.s{background:#33271f;color:#e0703a;font-weight:700}
 .card.run{border-left-color:var(--run);box-shadow:0 0 0 1px #2c5a35 inset}
@@ -162,9 +163,12 @@ function partsFor(sid, running, next, done){
 // S310: Play the game - the latest build, or straight to the part an update asks him to test.
 async function loadPlay(){
   const info=await get("/api/launch"), box=$("playList");
-  const rows=((info&&info.targets)||[]).filter(t=>t.id==="fightcamp_latest");   // S416 operator: "remove old builds and only post the latest"
+  const all=(info&&info.targets)||[], rows=all.filter(t=>t.id==="fightcamp_latest");   // S416 operator: "remove old builds and only post the latest"
   if(!rows.length){ box.innerHTML=`<span class="empty">No game build found on this PC.</span>`; return; }
-  box.innerHTML=rows.map(t=>`<button type="button" class="playbtn${t.id==="fightcamp_latest"?" main":""}" data-id="${esc(t.id)}" title="${esc(t.why)}"${t.ready?"":" disabled"}>${esc(t.label)}</button>`).join("")
+  // S473 operator: "please add shortcuts to see a fight here" - the latest build opened straight on a fight (launch_targets.json `short`).
+  const quick=all.filter(t=>t.short);
+  box.innerHTML=rows.map(t=>`<button type="button" class="playbtn main" data-id="${esc(t.id)}" title="${esc(t.why)}"${t.ready?"":" disabled"}>${esc(t.label)}</button>`).join("")
+    +(quick.length?`<div class="meta" style="margin-top:8px">Straight to a fight:</div><div class="quickrow">`+quick.map(t=>`<button type="button" class="playbtn quick" data-id="${esc(t.id)}" title="${esc(t.why)}"${t.ready?"":" disabled"}>${esc(t.short)}</button>`).join("")+`</div>`:"")
     +`<div class="meta">Close a running FightCamp first.</div>`;
   box.querySelectorAll(".playbtn").forEach(b=>b.onclick=async()=>{
     b.disabled=true; $("playState").textContent="Starting "+b.textContent+"…";

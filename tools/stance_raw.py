@@ -55,7 +55,9 @@ for fr in range(max(f0, start), f1 + 1):
     pel_yaw = math.degrees(math.atan2(front.cross(pelvis).z, front.dot(pelvis)))
     # rear ankle relative to rear hip, across the fight line (+ = outward from her midline side)
     ra = (p[rear][2] - p[rear][0]).dot(across)
-    rows.append((abs(d.dot(front)), abs(d.dot(across)), yaw, hip_h, pel_yaw, ra, lead))
+    leg = sum((p[s][1] - p[s][0]).length + (p[s][2] - p[s][1]).length for s in p) * 0.5   # S473: hip-knee + knee-ankle
+    straight = {k: (p[k][2] - p[k][0]).length / ((p[k][1] - p[k][0]).length + (p[k][2] - p[k][1]).length) for k in p}
+    rows.append((abs(d.dot(front)), abs(d.dot(across)), yaw, hip_h, pel_yaw, ra, lead, leg, straight[lead], straight[rear]))
 n = len(rows)
 avg = lambda k: sum(r[k] for r in rows) / n
 print(f"STANCE_RAW {path.split('/')[-1]} frames={n} lead={rows[0][6]}")
@@ -77,3 +79,5 @@ for fr in range(max(f0, start), f1 + 1):
 for s in vals:
     v = vals[s]
     print(f"STANCE_RAW valgus {s} ({'lead' if s == rows[0][6] else 'rear'}) mean={sum(v)/len(v):.1f} min={min(v):.1f} max={max(v):.1f} deg (rig test bar |8|)")
+print(f"STANCE_RAW leg_len={avg(7):.3f} hips_over_leg={avg(3) / avg(7):.3f}")
+print(f"STANCE_RAW leg_straight lead={avg(8):.3f} rear={avg(9):.3f}  (hip-ankle / leg length; 1 = straight)")

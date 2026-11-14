@@ -362,8 +362,13 @@ func _finish() -> void:
 		frames, heads_min, HEADS_M, heads_dips, toe_cross])
 	print("PUNCH_RANGE at the uppercut floor (gap 0.70-0.74 m): %d frames, heads closest %.3f m, lead toes crossed %d" % [close_frames,
 		close_heads, close_toes])
-	for i in 2:
-		print("PUNCH_RANGE live %d: %s" % [i, str(stage.boxers[i].get("live", {}))])
+	if stage == null:
+		# S472: headless there is no 3D fight (it runs only with a picture): say so instead of a script error
+		failures += 1
+		print("FAIL no 3D stage - run windowed on the hidden desktop (header)")
+	else:
+		for i in 2:
+			print("PUNCH_RANGE live %d: %s" % [i, str(stage.boxers[i].get("live", {}))])
 	print("PUNCH_RANGE failures=%d" % failures)
 	quit(1 if failures > 0 else 0)
 

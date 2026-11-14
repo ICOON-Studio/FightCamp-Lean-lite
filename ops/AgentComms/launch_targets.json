@@ -27,7 +27,8 @@
     "/tn",
     "FightCamp Play test film"
    ],
-   "gui": false
+   "gui": false,
+   "short": "Fight night"
   },
   {
    "id": "fightcamp_test_nofilm",
@@ -55,7 +56,8 @@
     "/tn",
     "FightCamp Play test corner"
    ],
-   "gui": false
+   "gui": false,
+   "short": "Corner minute"
   },
   {
    "id": "fightcamp_test_injury",
@@ -153,7 +155,8 @@
     "/tn",
     "FightCamp Play test men fight"
    ],
-   "gui": false
+   "gui": false,
+   "short": "Men's fight"
   },
   {
    "id": "fightcamp_test_gameplan",
@@ -207,6 +210,22 @@
    "args": [
     "<repo_root>"
    ]
+  },
+  {
+   "id": "fightcamp_test_round3",
+   "label": "Round 3",
+   "why": "Fight night, rounds 1-2 skipped (the corner calls 'lead'): opens on round 3. Its own save slot; your career save is untouched.",
+   "candidates": [
+    "%WINDIR%/System32/schtasks.exe"
+   ],
+   "args": [
+    "/run",
+    "/tn",
+    "FightCamp Play test round3"
+   ],
+   "gui": false,
+   "short": "Round 3"
   }
- ]
+ ],
+ "_shortcuts": "S473 operator: 'please add shortcuts to see a fight here' - the Play panel shows the rows with a `short` label as quick buttons under the main one."
 }

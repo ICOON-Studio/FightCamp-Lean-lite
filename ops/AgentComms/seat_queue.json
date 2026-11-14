@@ -1728,27 +1728,38 @@
    "sent_ms": 1794662959536,
    "answered_at": "2026-11-14 16:10",
    "answer": "research/DESIGN_CLUBWEEK1_V6_REVISE_KALLI_KALLI.md",
-   "chars": 37085
+   "chars": 37085,
+   "seen_by_claude": true
   },
   {
    "id": "SQ116",
    "seat": "kalli",
    "brief": "research/DESIGN_WEIGHT1_R3_REVISE_KALLI.md",
    "stem": "DESIGN_WEIGHT1_R3_REVISE_KALLI_KALLI",
-   "status": "sent",
+   "status": "answered",
    "queued_at": "2026-11-14 13:58",
    "tries": 0,
    "sent_at": "2026-11-14 16:40",
-   "sent_ms": 1794667226511
+   "sent_ms": 1794667226511,
+   "answered_at": "2026-11-14 17:10",
+   "answer": "research/DESIGN_WEIGHT1_R3_REVISE_KALLI_KALLI.md",
+   "chars": 34932,
+   "seen_by_claude": true
   },
   {
    "id": "SQ118",
    "seat": "kalli",
    "brief": "research/DESIGN_COACHFIT1_V7_REVISE_KALLI.md",
    "stem": "DESIGN_COACHFIT1_V7_REVISE_KALLI_KALLI",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-14 15:26",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-14 17:40",
+   "sent_ms": 1794670838272,
+   "answered_at": "2026-11-14 18:10",
+   "answer": "research/DESIGN_COACHFIT1_V7_REVISE_KALLI_KALLI.md",
+   "chars": 35483,
+   "seen_by_claude": true
   },
   {
    "id": "SQ119",
@@ -1762,7 +1773,8 @@
    "sent_ms": 1794662961887,
    "answered_at": "2026-11-14 16:10",
    "answer": "research/DESIGN_PLANFLOW1_V1_CRITIC_JOHN_JOHN.md",
-   "chars": 17588
+   "chars": 17588,
+   "seen_by_claude": true
   },
   {
    "id": "SQ120",
@@ -1791,7 +1803,8 @@
    "sent_ms": 1794662964670,
    "answered_at": "2026-11-14 16:10",
    "answer": "research/DESIGN_PLANFLOW1_V1_CRITIC_MARIA_MARIA.md",
-   "chars": 9556
+   "chars": 9556,
+   "seen_by_claude": true
   },
   {
    "id": "SQ122",
@@ -1810,19 +1823,68 @@
    "status": "queued",
    "queued_at": "2026-11-14 16:13",
    "tries": 0,
-   "skips": 1,
-   "last_error": "2026-11-14 16:40 no CDP on 9333 (the app runs without its debug port or is closed; never launched from here - it opens a window)"
+   "skips": 4,
+   "last_error": "2026-11-14 18:10 no CDP on 9333 (the app runs without its debug port or is closed; never launched from here - it opens a window)"
   },
   {
    "id": "SQ124",
    "seat": "maria",
    "brief": "research/DESIGN_CLUBWEEK1_V6_CRITIC_MARIA.md",
    "stem": "DESIGN_CLUBWEEK1_V6_CRITIC_MARIA_MARIA",
-   "status": "sent",
+   "status": "answered",
    "queued_at": "2026-11-14 16:13",
    "tries": 0,
    "sent_at": "2026-11-14 16:40",
-   "sent_ms": 1794667233390
+   "sent_ms": 1794667233390,
+   "answered_at": "2026-11-14 17:10",
+   "answer": "research/DESIGN_CLUBWEEK1_V6_CRITIC_MARIA_MARIA.md",
+   "chars": 10059,
+   "seen_by_claude": true
+  },
+  {
+   "id": "SQ125",
+   "seat": "john",
+   "brief": "research/DESIGN_COACHFIT1_V7_CRITIC_JOHN.md",
+   "stem": "DESIGN_COACHFIT1_V7_CRITIC_JOHN_JOHN",
+   "status": "queued",
+   "queued_at": "2026-11-14 18:38",
+   "tries": 0
+  },
+  {
+   "id": "SQ126",
+   "seat": "maria",
+   "brief": "research/DESIGN_COACHFIT1_V7_CRITIC_MARIA.md",
+   "stem": "DESIGN_COACHFIT1_V7_CRITIC_MARIA_MARIA",
+   "status": "queued",
+   "queued_at": "2026-11-14 18:38",
+   "tries": 0
+  },
+  {
+   "id": "SQ127",
+   "seat": "john",
+   "brief": "research/DESIGN_WEIGHT1_R3_CRITIC_JOHN.md",
+   "stem": "DESIGN_WEIGHT1_R3_CRITIC_JOHN_JOHN",
+   "status": "queued",
+   "queued_at": "2026-11-14 18:38",
+   "tries": 0
+  },
+  {
+   "id": "SQ128",
+   "seat": "maria",
+   "brief": "research/DESIGN_WEIGHT1_R3_CRITIC_MARIA.md",
+   "stem": "DESIGN_WEIGHT1_R3_CRITIC_MARIA_MARIA",
+   "status": "queued",
+   "queued_at": "2026-11-14 18:38",
+   "tries": 0
+  },
+  {
+   "id": "SQ129",
+   "seat": "kalli",
+   "brief": "research/DESIGN_CLUBWEEK1_V7_REVISE_KALLI.md",
+   "stem": "DESIGN_CLUBWEEK1_V7_REVISE_KALLI_KALLI",
+   "status": "queued",
+   "queued_at": "2026-11-14 18:38",
+   "tries": 0
   }
  ]
 }
