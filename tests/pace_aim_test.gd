@@ -176,9 +176,9 @@ func _test9() -> void:
 		ok = false
 	if PA.aim_word("body") != "Go to the body":
 		ok = false
-	if PA.aim_word("left_ribs") != "Ribs (left side)!":
+	if PA.aim_word("left_ribs") != "Ribs!":
 		ok = false
-	if PA.aim_word("right_ribs") != "Liver (right side)!":
+	if PA.aim_word("right_ribs") != "Liver!":
 		ok = false
 	if PA.aim_word("head_hurt") != "Finish the head!":
 		ok = false
@@ -295,6 +295,6 @@ func _test14() -> void:
 	for aim in PA.AIMS:
 		if PA.aim_effect(aim, "Erin") == "" or not PA.aim_tip(aim, "Erin").contains("next exchange"):
 			ok = false
-	if not PA.aim_effect("body", "Erin").contains("Erin") or PA.pace_effect("push") == PA.pace_effect("save"):
+	if PA.aim_effect("body", "Erin").contains("Erin") or PA.pace_effect("push") == PA.pace_effect("save"):
 		ok = false
 	_check(ok, "test 14: every pace and aim has its effect line and says when it counts")

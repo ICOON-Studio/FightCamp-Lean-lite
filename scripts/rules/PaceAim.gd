@@ -88,9 +88,9 @@ static func aim_word(aim: String) -> String:
 	if aim == "body":
 		return "Go to the body"
 	if aim == "left_ribs":
-		return "Ribs (left side)!"
+		return "Ribs!"   # S475 LIVERRIBS1 map: "Liver" / "Ribs" in place of the side names
 	if aim == "right_ribs":
-		return "Liver (right side)!"
+		return "Liver!"
 	if aim == "head_hurt":
 		return "Finish the head!"
 	return ""
@@ -120,9 +120,9 @@ static func aim_effect(aim: String, opp: String) -> String:
 	if aim == "head":
 		return "Head: upstairs, easy to read"
 	if aim == "body":
-		return "Body: drains %s for later" % opp
+		return "Body: drains the tank for later"   # S475: names only in headers (S448)
 	if aim == "left_ribs" or aim == "right_ribs":
-		return "Ribs: hurt, that hand lands less" if aim == "left_ribs" else "Liver: hurt, drains the tank faster"
+		return "Ribs: can crack, weeks out" if aim == "left_ribs" else "Liver: drains fast, can fold"   # S475 LIVERRIBS1 map rows
 	if aim == "head_hurt":
 		return "The hurt head: hits harder"
 	return "Initiative: 1 in 5 to the body"

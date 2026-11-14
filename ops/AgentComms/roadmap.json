@@ -4893,7 +4893,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-14 21:41 board_sync",
+  "updated": "2026-11-14 22:11 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5043,27 +5043,10 @@
   },
   "working_now": [
    {
-    "title": "TASK FWPICK1 - your assistant's fight-week pick (pure module + test)",
-    "who": "arena",
-    "started": "2026-11-14T21:35",
-    "run": "FWPICK1"
-   },
-   {
-    "title": "TASK REGIONSHOWS1 - club-show calendar and slots by class (pure module + test)",
-    "who": "arena",
-    "started": "2026-11-14T21:52",
-    "run": "REGIONSHOWS1"
-   },
-   {
-    "title": "TASK SOUNDWIRE2 - wire the 11 sounds you kept (clinch, corner minute, pads, gym tone)",
+    "title": "TASK KNEERULER1 - do both knee rulers read the raw take as the take? (measure only, headless)",
     "who": "qwen",
-    "started": "2026-11-14T21:38",
-    "run": "SOUNDWIRE2"
-   },
-   {
-    "title": "Critics on the fight week screen mockup (Dola, John)",
-    "who": "dola",
-    "started": "2026-11-14T21:30"
+    "started": "2026-11-14T22:06",
+    "run": "KNEERULER1"
    }
   ],
   "next": [
@@ -5745,64 +5728,6 @@
   "map": {
    "done_earlier": [
     {
-     "text": "Board: buttons to a fight",
-     "who": "claude"
-    },
-    {
-     "text": "Hard hooks capped (Qwen)",
-     "who": "claude"
-    },
-    {
-     "text": "Hips ruled out (rear knee)",
-     "who": "claude"
-    },
-    {
-     "text": "Punch speed failures sorted",
-     "who": "claude"
-    },
-    {
-     "text": "Arena: punches beat steps",
-     "who": "claude"
-    },
-    {
-     "text": "Ludo: 30 sounds made",
-     "who": "claude"
-    },
-    {
-     "text": "Higgsfield cancelled+refund",
-     "who": "claude"
-    },
-    {
-     "text": "Crack card: venue dark, lighter 3D",
-     "who": "claude"
-    },
-    {
-     "text": "Split 3 scripts: collected, fixed",
-     "who": "claude"
-    },
-    {
-     "text": "Rear knee: the take's 18 deg",
-     "who": "claude"
-    },
-    {
-     "text": "Double hook: a graze, by design",
-     "who": "claude"
-    },
-    {
-     "text": "Speed test finding in (Qwen)",
-     "who": "agent"
-    },
-    {
-     "text": "Block test: own 30 fps, green",
-     "who": "claude"
-    },
-    {
-     "text": "Cracked side guards worse: wired",
-     "who": "claude"
-    }
-   ],
-   "done_session": [
-    {
      "text": "Sound picks: 11 kept (2 boards)",
      "who": "operator"
     },
@@ -5836,6 +5761,44 @@
     },
     {
      "text": "Tank + load module (Arena)",
+     "who": "agent"
+    },
+    {
+     "text": "Board: buttons to a fight",
+     "who": "claude"
+    },
+    {
+     "text": "Hard hooks capped (Qwen)",
+     "who": "claude"
+    },
+    {
+     "text": "Hips ruled out (rear knee)",
+     "who": "claude"
+    },
+    {
+     "text": "Punch speed failures sorted",
+     "who": "claude"
+    },
+    {
+     "text": "Arena: punches beat steps",
+     "who": "claude"
+    }
+   ],
+   "done_session": [
+    {
+     "text": "Sounds wired: 11 kept (Qwen)",
+     "who": "agent"
+    },
+    {
+     "text": "Assistant's pick module (Arena)",
+     "who": "agent"
+    },
+    {
+     "text": "Club-show calendar (Arena)",
+     "who": "agent"
+    },
+    {
+     "text": "Plan flowchart v2 passes 6/6",
      "who": "agent"
     }
    ],
@@ -5877,14 +5840,6 @@
      "who": "operator"
     },
     {
-     "text": "Step value map (Kalli)",
-     "who": "claude"
-    },
-    {
-     "text": "Critics: plan v2, club week v7",
-     "who": "claude"
-    },
-    {
      "text": "BUILD the fight week",
      "who": "claude"
     },
@@ -5895,6 +5850,26 @@
     {
      "text": "Your call: 7 fight week rules",
      "who": "operator"
+    },
+    {
+     "text": "Who pays module (Goose)",
+     "who": "agent"
+    },
+    {
+     "text": "Trips module (Qwen, queued)",
+     "who": "agent"
+    },
+    {
+     "text": "Step value critics (2 seats)",
+     "who": "agent"
+    },
+    {
+     "text": "Plan flowchart v3 (Kalli)",
+     "who": "agent"
+    },
+    {
+     "text": "Critics: club week v7",
+     "who": "agent"
     }
    ],
    "next": [
@@ -5961,13 +5936,9 @@
     {
      "text": "Coach fit v8, weight r4",
      "who": "claude"
-    },
-    {
-     "text": "Knee ruler check (Qwen)",
-     "who": "agent"
     }
    ],
-   "session": "S474"
+   "session": "S475"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
