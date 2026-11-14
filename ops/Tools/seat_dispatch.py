@@ -88,9 +88,9 @@ SEATS = {"qwen": {"agent": "qwen", "who": ("qwen",), "model": "qwen3-coder", "mi
          "cursor": {"agent": "cursor", "who": (), "model": "auto", "minutes": 90},   # S439 operator on Q-191 (out of usage): "Use Auto model" until the limit resets; was grok-4.7-high.   # S398 non-Claude top model; S399 11-08: GPT-5.6 Sol + Codex 5.3 hit Cursor's monthly limit (resets 12/7) - Grok 4.7 High answers
          "agy": {"agent": "antigravity", "who": ("antigravity", "agy"), "model": AGY_MODEL, "minutes": 65},
          ## S473 operator: "use also ollama on thebest free model available" - Qwen Code against the LOCAL Ollama
-         ## (qwen3-coder:30b, the GPU's 16 GB; Ollama cloud needs paid credits). qwen_task.cmd with QWEN_LOCAL=1.
-         "ollama": {"agent": "ollama", "who": ("ollama",), "model": "qwen3-coder:30b", "minutes": 120}}
-SEAT_PROCS = {"qwen": "qwen-code", "cursor": "cursor-agent", "agy": "agy.exe", "ollama": "qwen3-coder:30b"}
+         ## (qwen3-coder-fc:30b, the GPU's 16 GB; Ollama cloud needs paid credits). qwen_task.cmd with QWEN_LOCAL=1.
+         "ollama": {"agent": "ollama", "who": ("ollama",), "model": "qwen3-coder-fc:30b", "minutes": 120}}
+SEAT_PROCS = {"qwen": "qwen-code", "cursor": "cursor-agent", "agy": "agy.exe", "ollama": "qwen3-coder-fc:30b"}
 PC_AGENTS = ("qwen", "cursor", "antigravity", "agy", "codex", "cline", "ziva", "ollama")
 MAX_PC_AGENTS = 3         # S419 operator: "i think thepc can handle more, change the rule ?" (was 2 since the S218 hang; the watchdog still refuses on RED and Godot jobs still queue two at a time in godot_slot)
 LAUNCHES_PER_CYCLE = 1    # one new agent per 30-min cycle - each launch seeds a cache and starts Godot imports
