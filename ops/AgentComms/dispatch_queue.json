@@ -1391,9 +1391,17 @@
   {
    "task": "CARDVISIT1",
    "seat": "qwen",
-   "status": "queued",
+   "status": "landed",
    "queued": "2026-11-14T09:15",
-   "note": "S464: which cards bouts reach; launches when the watchdog leaves RED"
+   "note": "S464: which cards bouts reach; launches when the watchdog leaves RED | S465 landed 899b294d, Claude rerun on main",
+   "launched": "2026-11-14T09:43"
+  },
+  {
+   "task": "CARDFIX1",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-14T10:00",
+   "note": "S465: four card-table arms; which lets every best answer fire without breaking win balance"
   }
  ]
 }

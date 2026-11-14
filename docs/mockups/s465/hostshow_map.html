@@ -1,0 +1,77 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;background:#16130f;color:#ece4d6;font-family:"Segoe UI",Arial,sans-serif;padding:26px 30px;overflow:hidden}
+h1{font-size:30px;letter-spacing:.5px;color:#f3c76b}
+.sub{font-size:16px;color:#b9ad98;margin:4px 0 16px}
+.lane{display:flex;gap:10px;margin-bottom:18px}
+.step{flex:1;background:#221d16;border:1px solid #3d3326;border-top:4px solid #f3c76b;border-radius:6px;padding:10px 12px;position:relative}
+.step.d{border-top-color:#e06a4a}.step.a{border-top-color:#62b6a5}
+.step .when{font-size:13px;color:#b9ad98;text-transform:uppercase;letter-spacing:1px}
+.step .t{font-size:18px;font-weight:700;margin:3px 0 6px}
+.step ul{list-style:none;font-size:14px;line-height:1.38}
+.step li:before{content:"\25B8 ";color:#f3c76b}
+.step.d li:before{color:#e06a4a}.step.a li:before{color:#62b6a5}
+.step:not(:last-child):after{content:"\2192";position:absolute;right:-12px;top:44%;color:#6b5d48;font-size:18px}
+h2{font-size:18px;color:#f3c76b;margin:2px 0 8px;letter-spacing:1px;text-transform:uppercase}
+.grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.m{background:#1d1913;border:1px solid #3d3326;border-radius:6px;padding:9px 12px}
+.m b{display:block;font-size:15px;color:#fff;margin-bottom:3px}
+.m span{font-size:13.5px;color:#cfc4b1;line-height:1.35}
+.m.main{grid-row:span 2;border-color:#f3c76b}
+.foot{display:flex;gap:10px;margin-top:14px}
+.box{flex:1;background:#1d1913;border:1px dashed #5a4c38;border-radius:6px;padding:10px 12px;font-size:14px;line-height:1.4}
+.box h3{font-size:14px;color:#f3c76b;margin-bottom:4px;letter-spacing:1px}
+.tag{display:inline-block;font-size:11px;padding:1px 6px;border-radius:3px;background:#3a2f20;color:#f3c76b;margin-left:6px;vertical-align:2px}
+</style></head><body>
+<h1>HOSTED CLUB SHOW: the map</h1>
+<div class="sub">About three times a year the club puts on its own amateur night. You pick the date, the hall and the card. Critics: John 7 depth / 7 play, Dola 8 / 8. Builds after the fight week.</div>
+
+<h2>One show, start to finish</h2>
+<div class="lane">
+ <div class="step"><div class="when">8+ weeks out</div><div class="t">Book it</div><ul>
+  <li>Pick 1 of 4 Saturdays (a region show the same day = fewer seats)</li>
+  <li>Pick the hall: gym floor 88 seats / community 250 / town 400</li>
+  <li>Hold each boxer for the show, or let away offers in</li></ul></div>
+ <div class="step"><div class="when">24 days out</div><div class="t">Be the matchmaker</div><ul>
+  <li>Each boxer: ask a name above, a name below, an outside novice, a skills bout, wait, or leave off</li>
+  <li>How to ask: as it is, spend a favour, or promise a return bout</li>
+  <li>Each choice shows: yes chance, win chance, rank, pro-offer chance, seats</li></ul></div>
+ <div class="step"><div class="when">Same weeks</div><div class="t">Fill the card</div><ul>
+  <li>The coach fills visiting pairs</li>
+  <li>Ladder pairs: swap a pair so a rival above can lose (costs a favour with each club)</li>
+  <li>Book 0-2 standby reserves at $40 each</li></ul></div>
+ <div class="step"><div class="when">12 days out</div><div class="t">Ticket read</div><ul>
+  <li>See seats sold so far</li>
+  <li>Keep / cheaper door / boxers sell tickets (lose a pad night) / move to a smaller hall / cancel</li></ul></div>
+ <div class="step d"><div class="when">Final week</div><div class="t">Pull-outs and weight</div><ul>
+  <li>1 in 4 bouts falls over: use a reserve, a tougher short-notice name, a novice, or run short</li>
+  <li>Close on weight: keep the cut, ask the other corner, harder week, or stand down</li></ul></div>
+ <div class="step d"><div class="when">Show day</div><div class="t">The night</div><ul>
+  <li>Weigh-in the same day</li>
+  <li>Visiting bouts, then ours, the main event last</li>
+  <li>Watch or skip each bout</li></ul></div>
+ <div class="step a"><div class="when">After</div><div class="t">The sheet</div><ul>
+  <li>Cash vs boxing away ($450 a boxer)</li>
+  <li>Reputation, new members, favours</li>
+  <li>Buttons: add places, review a pro offer, book the next show</li></ul></div>
+</div>
+
+<h2>Where it shows in the game, and what each place does</h2>
+<div class="grid">
+ <div class="m main"><b>Fights &gt; OUR SHOW tab <span class="tag">NEW TAB</span></b><span>The whole show on one page. PLAN: the four Saturdays, the three halls, hold switches. BOOKED: date, hall, seats, days left; a timeline (asks close, ticket read, region show, reserves, weigh-in, the night); one row per boxer with the ask choices and their chances; ladder pairs and swaps; the two reserve slots; the seats bar and cash vs away; favours with each club. AFTER: the sheet.</span></div>
+ <div class="m"><b>Home: notices + Coming up</b><span>"The card is open: ask opponents", "An opponent said no", "Ticket read ready", "Weight check", "Pull-out on the card", "Show night".</span></div>
+ <div class="m"><b>Top bar</b><span>SHOW CARD / TICKET READ / PULL-OUT / SHOW NIGHT stops; NEEDS YOU while a boxer on the card has no ask out.</span></div>
+ <div class="m"><b>Fighter &gt; Overview</b><span>Next bout "Our show, main event", or "Ask out, answer Sunday"; a "Held for our show" badge; the return-bout lock.</span></div>
+ <div class="m"><b>Fights &gt; a bout offer</b><span>"Held for our show" passes it; "+1 favour" when filling another club's short slot.</span></div>
+ <div class="m"><b>Club &gt; Money</b><span>CLUB SHOW row: "Plan a show" or the date, deposit, likely net; show costs in the forecast.</span></div>
+ <div class="m"><b>Club &gt; People: favours</b><span>0-2 favours per club, when they lapse, what earns one.</span></div>
+ <div class="m"><b>Fight night + result</b><span>"Crowd 214, our show, main event"; the club tile: on the night's sheet, rank gained, favour earned.</span></div>
+ <div class="m"><b>Week review + World news</b><span>Monday: net cash and reputation with the causes. News: visiting results, rank arrows.</span></div>
+</div>
+
+<div class="foot">
+ <div class="box"><h3>THE DECISION THAT BINDS</h3>A bigger hall pays more and lifts the asks, but a half-empty night costs reputation. Favours are scarce (0-2 a club, about 4-6 earned a year), so each ask, swap or weight plea spends the same small purse.</div>
+ <div class="box"><h3>ALREADY IN THE GAME</h3>The show itself (every 112 days), win chance, rank, pro offer, region shows, members. NEW: halls, favours, ladder swaps, reserves, ticket read, same-day weigh-in, the sheet.</div>
+ <div class="box"><h3>BUILD (after the fight week)</h3>13 small tasks, each under 500 lines with a test first; a probe checks the cash and seat numbers before any screen shows them; one golden-path test plays a whole show.</div>
+</div>
+</body></html>

@@ -7205,10 +7205,11 @@
         "research/R58_MAP_S439.md",
         "research/DESIGN_R58_LEAVES2_CRITIC_DOLA_DOLA.md"
       ],
-      "answer": null,
+      "answer": "Yes, build after the fight week",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-14T07:40:38Z",
+      "seen_by_claude": true,
+      "comment_only": false
     },
     {
       "id": "Q-S294-221",
@@ -7238,10 +7239,11 @@
         "research/DESIGN_HOSTSHOW1_V4_REVISE_KALLI_KALLI.md",
         "research/DESIGN_HOSTSHOW1_V4_CRITIC_JOHN_JOHN.md"
       ],
-      "answer": null,
+      "answer": "Show me the map first",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-14T07:39:21Z",
+      "seen_by_claude": true,
+      "comment_only": false
     },
     {
       "id": "Q-S294-223",
@@ -7254,6 +7256,43 @@
       ],
       "attach": [
         "research/DESIGN_PUSHTANK_V2_CRITIC_MARIA_MARIA.md"
+      ],
+      "answer": "Show me the map first",
+      "note": null,
+      "answered_at": "2026-11-14T07:31:42Z",
+      "seen_by_claude": true,
+      "comment_only": false
+    },
+    {
+      "id": "Q-S294-224",
+      "asked": "2026-11-14T07:47:32.828179+00:00",
+      "session": "S294",
+      "text": "Hosted club show: here is the map (one show start to finish + every screen it shows on). Build it after the fight week?",
+      "options": [
+        "Yes, build after the fight week",
+        "Change something (say what)",
+        "Not now"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-224_0_hostshow_map.png"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-225",
+      "asked": "2026-11-14T07:47:33.236650+00:00",
+      "session": "S294",
+      "text": "Push switch + tank: here is the map (the three tanks, one fight in order, every screen it shows on). Build it after the fight week?",
+      "options": [
+        "Yes, build after the fight week",
+        "Change something (say what)",
+        "Not now"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-225_0_pushtank_map.png"
       ],
       "answer": null,
       "note": null,

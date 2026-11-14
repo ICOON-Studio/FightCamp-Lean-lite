@@ -26,6 +26,9 @@ func _initialize() -> void:
 	var g := main.find_child("FirstWeekStrip", true, false)
 	if g != null:
 		(g as CanvasItem).visible = false
+	for b in main.find_children("*", "Button", true, false):   # S465: the coach guide covered the card
+		if str((b as Button).text) == "Skip the guide":
+			(b as Button).emit_signal("pressed")
 	await _shot(out, "s463_study_card")
 	for b in main.find_children("*", "Button", true, false):
 		if str((b as Button).text).begins_with("Study ") and not (b as Button).disabled and not str((b as Button).text).contains("hook"):
@@ -46,10 +49,14 @@ func _shot(out: String, name: String) -> void:
 	while sc != null and not (sc is ScrollContainer):
 		sc = sc.get_parent()
 	if sc != null and lbl != null:
-		(sc as ScrollContainer).ensure_control_visible(lbl.get_parent() as Control)
+		var panel := lbl.get_parent().get_parent() as Control
+		(sc as ScrollContainer).ensure_control_visible(panel)
 		for i in 3:
 			await process_frame
-		(sc as ScrollContainer).scroll_vertical += 0
+		(sc as ScrollContainer).scroll_vertical = int(panel.global_position.y - (sc as Control).global_position.y) + (sc as ScrollContainer).scroll_vertical - 20
+	for n in main.find_children("*", "PanelContainer", true, false):   # S465: the sign toast sat on the tiles
+		if (n as Control).theme_type_variation == "Toast":
+			(n as CanvasItem).visible = false
 	print("STUDY_STILL label=%s scroll=%s" % [lbl != null, sc != null])
 	await RenderingServer.frame_post_draw
 	root.get_texture().get_image().save_png(out.path_join(name + ".png"))

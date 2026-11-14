@@ -1,0 +1,64 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;background:#16130f;color:#ece4d6;font-family:"Segoe UI",Arial,sans-serif;padding:26px 30px;overflow:hidden}
+h1{font-size:30px;letter-spacing:.5px;color:#f3c76b}
+.sub{font-size:16px;color:#b9ad98;margin:4px 0 14px}
+h2{font-size:18px;color:#f3c76b;margin:2px 0 8px;letter-spacing:1px;text-transform:uppercase}
+.top{display:flex;gap:14px;margin-bottom:14px}
+.pic{width:760px;flex:none}
+.pic img{width:760px;border:1px solid #3d3326;border-radius:6px;display:block}
+.pic .cap{font-size:13px;color:#b9ad98;margin-top:4px}
+.tanks{flex:1;display:flex;flex-direction:column;gap:9px}
+.tk{background:#221d16;border:1px solid #3d3326;border-left:6px solid #f3c76b;border-radius:6px;padding:9px 14px}
+.tk.legs{border-left-color:#3cc0ad}.tk.head{border-left-color:#e06a4a}
+.tk b{font-size:18px}.tk .o{font-size:14px;color:#b9ad98;margin-left:8px}
+.tk p{font-size:14.5px;line-height:1.4;margin-top:3px;color:#d8cdb9}
+.lane{display:flex;gap:10px;margin-bottom:14px}
+.step{flex:1;background:#1d1913;border:1px solid #3d3326;border-top:4px solid #f3c76b;border-radius:6px;padding:9px 12px;font-size:14px;line-height:1.38}
+.step .t{font-size:16px;font-weight:700;margin-bottom:3px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+.m{background:#1d1913;border:1px solid #3d3326;border-radius:6px;padding:8px 11px}
+.m b{display:block;font-size:14.5px;color:#fff;margin-bottom:2px}
+.m span{font-size:13px;color:#cfc4b1;line-height:1.33}
+table{width:100%;border-collapse:collapse;font-size:14px}
+td,th{border-bottom:1px solid #332a1f;padding:5px 8px;text-align:left}
+th{color:#f3c76b;font-weight:600}
+</style></head><body>
+<h1>PUSH SWITCH + TANK: the map</h1>
+<div class="sub">Your two bars beside the fighter, race-manager style: you choose which tank to spend tonight, and against whom. Critics: Dola 8 depth / 7 play, Maria 7 / 6. Builds after the fight week.</div>
+
+<div class="top">
+ <div class="pic"><img src="../s442/pushtank/fight_bars_v2.png"><div class="cap">The fight screen (drawn S442): two panels on top, the rings under the feet, the corner minute on the right.</div></div>
+ <div class="tanks">
+  <div class="tk"><b>HANDS spends WIND</b><span class="o">Coast / Steady / Push</span><p>Push lands more and harder but drains wind fast; under 40 wind pushing is worth nothing, under 35 she is gassed. Coast saves wind for a round already won. Wind comes back in the minute.</p></div>
+  <div class="tk legs"><b>FEET spends LEGS</b><span class="o">Press / Hold / Move</span><p>Picks where the fight happens: in close, in the pocket, or long. Press costs both sides legs; under 30 legs she cannot step in or off the ropes. Legs barely come back in the minute.</p></div>
+  <div class="tk head"><b>HEAD: no switch</b><span class="o">the wear both protect</span><p>Rises with every exchange lost. At 60 one more clear round can end it in a count. It never comes back during the fight, and after it decides injuries and days off sparring.</p></div>
+  <table><tr><th>Spend</th><th>Right when</th></tr>
+   <tr><td>Wind, save legs (Push + Hold)</td><td>against a mover; a pocket war with the better chin</td></tr>
+   <tr><td>Legs, save wind (Steady + Move)</td><td>against a body puncher; ahead late</td></tr>
+   <tr><td>Both (Push + Press)</td><td>the round that decides it; a hurt opponent</td></tr>
+   <tr><td>Neither (Coast + Hold)</td><td>a round already settled, head low</td></tr></table>
+ </div>
+</div>
+
+<h2>One fight, in the order you touch it</h2>
+<div class="lane">
+ <div class="step"><div class="t">Before: the game plan</div>HANDS and FEET for each round, plus what to do in the last round if ahead or behind.</div>
+ <div class="step"><div class="t">The round</div>Bars drain live. Changing HANDS or FEET is a shout: it uses 1 of the 2 shouts a round that land in full, and a fighter who stopped listening keeps the minute's setting.</div>
+ <div class="step"><div class="t">The opponent</div>Has a plan too, seen only as tells ("her corner has her pushing") and, once filmed, tighter ranges on her bars.</div>
+ <div class="step"><div class="t">The corner minute (pit stop)</div>Set HANDS and FEET for free; water gives wind back, a little legs; nothing gives head back.</div>
+ <div class="step"><div class="t">After</div>Wind, legs, head at the last bell on the result; the tiredness card at home turns them into rest days.</div>
+</div>
+
+<h2>Where it shows in the game, and what each place does</h2>
+<div class="grid">
+ <div class="m"><b>Fight 3D: the rings</b><span>Wind (outer) and legs (inner) under each fighter's feet, never over a body; hidden in a count.</span></div>
+ <div class="m"><b>Fight 3D: corner panels</b><span>HANDS, FEET, WIND, LEGS, HEAD with their lines and a plain line: "gassed at 1:00 of round 3 at Push".</span></div>
+ <div class="m"><b>Fight 3D: bottom bar</b><span>The calls, shouts left, clock, landed. The old PACE and AIM rows go: 4 things fewer on screen.</span></div>
+ <div class="m"><b>Corner minute (3D and 2D)</b><span>Set both switches; the refills.</span></div>
+ <div class="m"><b>Fight without a picture</b><span>The same panel as rows.</span></div>
+ <div class="m"><b>Playbook &gt; Game plan</b><span>A ROUND row: HANDS and FEET per round, last round if ahead / behind.</span></div>
+ <div class="m"><b>Result</b><span>Wind, legs and head at the last bell.</span></div>
+ <div class="m"><b>Home: tiredness card</b><span>Rest days worked out from wind and legs.</span></div>
+</div>
+</body></html>

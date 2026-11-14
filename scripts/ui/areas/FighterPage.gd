@@ -157,26 +157,74 @@ func _tab(main: Node, c: Career, f: Dictionary, g: Dictionary, t: int, folded: b
 ## S463 LEARNPICK1 (greybox, Q-S294-221): what she studies next. The slot row says how far it is and how long it takes on
 ## this week's pad nights; the coach's cards (LearnSlots.cards) each say why, and a click studies it.
 func _study_card(main: Node, f: Dictionary) -> void:
+	## S465 C388 ("doesnt look good, needs redesign"): the study slot as one progress bar, the coach's cards side by side as
+	## tiles (move, kind, weeks to usable, why, one Study button) instead of page-wide buttons with the reason under them.
 	var card := _card("WHAT TO LEARN NEXT")
 	var pads := (PadWeek.nights_of(f).get("pads", []) as Array).size()
 	var slot: Array = f.get("learning_slots", [])
 	if slot.is_empty():
-		card.add_child(UI.muted("Study slot: free. Pick one of the coach's cards; the pad nights then work on it.", UI.SMALL, true))
+		card.add_child(UI.muted("Study slot free: pick one of the coach's cards below. Her pad nights then work on it.", UI.SMALL, true))
 	for id in slot:
-		card.add_child(UI.row("Studying " + StudyWeek.slot_line(f, str(id), pads), "On %d pad night%s a week. At 30 a fight plan can use it." % [pads, "" if pads == 1 else "s"], UI.AMBER))
+		var sid := str(id)
+		var m := StudyWeek.MoveTree.mastery(f, sid)
+		var r := UI.stat_row("Studying " + StudyWeek.name_of(sid), m, false, UI.FG, "  of 30, " + _weeks_word(f, sid, pads))
+		(r.get_meta("bar") as Control).set("frac", clampf(m / StudyWeek.USABLE, 0.0, 1.0))
+		card.add_child(r)
+	if not slot.is_empty():
+		card.add_child(UI.muted("On %d pad night%s a week. At 30 a fight plan can use it; the slot then frees." % [pads, "" if pads == 1 else "s"], UI.SMALL, true))
 	var full := slot.size() >= StudyWeek.slot_count(f)
+	var tiles := UI.hbox(14)
+	card.add_child(tiles)
 	for c in StudyWeek.cards(f):
-		var id := str(c["id"])
-		var punch := StudyWeek.MoveTree.PUNCH_IDS.has(id)
-		var now := punch and str(f.get("learning", "")) == id
-		var why := ". ".join(c["reasons"] as Array)
-		var held := "Already the pad move being learned" if now else ("The slot is taken until the move in it is usable" if full and not punch else "")
-		var b := UI.button("Study %s" % StudyWeek.name_of(id), "Btn", main.act.bind("study", "%s|%s" % [f["id"], id]),
-			now or (full and not punch), held)
-		if not b.disabled:
-			b.tooltip_text = why
-		card.add_child(b)
-		card.add_child(UI.muted(why if held == "" else "%s. %s" % [held, why], UI.SMALL, true))   # a grey button says why on screen
+		tiles.add_child(_study_tile(main, f, c, full, pads))
+
+
+func _weeks_word(f: Dictionary, id: String, pads: int) -> String:
+	var w := StudyWeek.weeks_left(f, id, pads)
+	return "needs pad nights" if w < 0 else ("about %d week%s" % [w, "" if w == 1 else "s"])
+
+
+## One coach's card: what the move is, how long to usable, why the coach picks it, and the one Study button.
+func _study_tile(main: Node, f: Dictionary, c: Dictionary, full: bool, pads: int) -> Control:
+	var id := str(c["id"])
+	var punch := StudyWeek.MoveTree.PUNCH_IDS.has(id)
+	var now := punch and str(f.get("learning", "")) == id
+	var held := "Already the pad move being learned" if now else ("Slot taken until the move in it is usable" if full and not punch else "")
+	var tile := PanelContainer.new()
+	tile.custom_minimum_size = Vector2(380, 0)
+	tile.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = Color(1, 1, 1, 0.05)
+	sb.border_color = Color(1, 1, 1, 0.18)
+	sb.set_border_width_all(1)
+	sb.border_width_top = 3
+	sb.set_corner_radius_all(4)
+	sb.set_content_margin_all(14)
+	tile.add_theme_stylebox_override("panel", sb)
+	var v := UI.vbox(6)
+	tile.add_child(v)
+	v.add_child(UI.label(StudyWeek.name_of(id), 22, UI.FG, "bold"))
+	var kind := "Punch, learned on the pads" if punch else ("Footwork" if str(StudyWeek.MoveTree._node(id).get("branch", "")) == "footwork" else "Defence")
+	var m := StudyWeek.MoveTree.mastery(f, id)
+	var how := "takes the pad move's place" if punch else "%d of 30 now, %s" % [int(m), _weeks_word(f, id, pads)]
+	v.add_child(UI.muted("%s  ·  %s" % [kind, how], UI.SMALL, true))
+	for reason in (c["reasons"] as Array):
+		if str(reason).ends_with("to Usable"):   # the line above already says how long
+			continue
+		var words := str(reason)
+		for n in StudyWeek.MoveTree.NODES:   # "Opens push_off" -> "Opens Push off": game words, never ids
+			words = words.replace(str(n["id"]), StudyWeek.name_of(str(n["id"])))
+		v.add_child(UI.label("▸ " + words, UI.SMALL, UI.FG, "body", true))
+	var spacer := Control.new()
+	spacer.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	v.add_child(spacer)
+	var b := UI.button("Study %s" % StudyWeek.name_of(id), "Btn", main.act.bind("study", "%s|%s" % [f["id"], id]), now or (full and not punch), held)
+	b.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+	b.custom_minimum_size.x = 220
+	v.add_child(b)
+	if held != "":
+		v.add_child(UI.muted(held, UI.SMALL, true))   # a grey button says why on screen
+	return tile
 
 
 ## S302 combos: her combination book - learned ones as bars (gold = she throws it in fights), locked ones say what they need.
