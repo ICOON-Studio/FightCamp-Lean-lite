@@ -7276,10 +7276,11 @@
       "attach": [
         "AgentComms/board_attach/Q-S294-224_0_hostshow_map.png"
       ],
-      "answer": null,
+      "answer": "Yes, build after the fight week",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-14T08:46:29Z",
+      "seen_by_claude": false,
+      "comment_only": false
     },
     {
       "id": "Q-S294-225",
@@ -7294,10 +7295,11 @@
       "attach": [
         "AgentComms/board_attach/Q-S294-225_0_pushtank_map.png"
       ],
-      "answer": null,
+      "answer": "Yes, build after the fight week",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-14T08:51:31Z",
+      "seen_by_claude": false,
+      "comment_only": false
     }
   ]
 }

@@ -307,7 +307,7 @@ func _note_shown(skel: Skeleton3D) -> void:
 		if _thru > 0.0:
 			# Review round 1: the carry goes THROUGH_M on from where the glove IS on the hit frame (1-3 cm short of her
 			# face point, or past it), not from the face point: the base is the glove now less the carry already run.
-			_hit_w = shown - _dir_w * _carried(_t_now)
+			_hit_w = ReachLimit.carry_base(_hit_w, shown - _dir_w * _carried(_t_now), _clip)   # S466 LANDREACH1: only when near
 		_hit_f = f
 	_dir_pending = false
 	if f == _hit_f and _arms.has(_hand):

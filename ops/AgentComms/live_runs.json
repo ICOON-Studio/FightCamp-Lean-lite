@@ -6,7 +6,7 @@
    "agent": "qwen",
    "id": "CARDFIX1",
    "title": "TASK CARDFIX1 - which card-table fix lets every best answer fire, without breaking the win balance? (probe, no screen)",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-14T10:05",
    "eta": "2026-11-14T11:55",
    "branch": "qwen/cardfix1",
@@ -27,7 +27,34 @@
     "runner_pid": 48828,
     "seat_pid": 11944
    },
-   "note": "S368 seat_dispatch: launched unattended (dispatch_queue.json); merging stays off"
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 3/3 PASS; PR #270",
+   "finished": "2026-11-14T10:37",
+   "pr": 270,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tools/cardfix_probe.gd",
+     "ok": true,
+     "last": "Result doc written to docs/CARDFIX1_RESULT.md"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/plan_bout_test.gd",
+     "ok": true,
+     "last": "PLAN_BOUT failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/fire_level_test.gd",
+     "ok": true,
+     "last": "FIRE_LEVEL failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
   },
   "CARDVISIT1": {
    "status": "landed",
@@ -59,6 +86,104 @@
     "after": {},
     "board": ""
    }
+  },
+  "CARDFIX2": {
+   "agent": "qwen",
+   "id": "CARDFIX2",
+   "title": "TASK CARDFIX2 - after the S466 card-table fix, does every best answer fire? (probe, no screen)",
+   "status": "landed",
+   "started": "2026-11-14T10:42",
+   "eta": "2026-11-14T12:32",
+   "branch": "qwen/cardfix2",
+   "worktree": "E:/FightCamp/wt/LEAN_CARDFIX2",
+   "wt": "E:/FightCamp/wt/LEAN_CARDFIX2",
+   "brief": "ops/research/TASK_CARDFIX2.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/CARDFIX2_dispatch_out.txt",
+   "match": "seat_dispatch.py run cardfix2",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/CARDFIX2_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/CARDFIX2_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/CARDFIX2_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 45036,
+    "seat_pid": 41388
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 3/3 PASS; PR #272",
+   "finished": "2026-11-14T10:59",
+   "pr": 272,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tools/cardfix2_probe.gd",
+     "ok": true,
+     "last": "Result doc written to docs/CARDFIX2_RESULT.md"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/plan_bout_test.gd",
+     "ok": true,
+     "last": "PLAN_BOUT failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/fire_level_test.gd",
+     "ok": true,
+     "last": "FIRE_LEVEL failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "LIVERRIBS2": {
+   "agent": "goose",
+   "id": "LIVERRIBS2",
+   "title": "LiverRibs.gd: the liver and the ribs do different things (pure module + unit tests)",
+   "status": "landed",
+   "started": "2026-11-14T10:53",
+   "where": "cloud",
+   "repo": "FightCamp-Lean",
+   "brief": "ops/research/TASK_LIVERRIBS2.md",
+   "model": "Goose + Qwen token plan (GitHub Actions)",
+   "eta": "2026-11-14T11:53",
+   "note": "S380 seat_dispatch: pure rule module routed to Goose instead of a PC worktree (dispatch_queue.json)",
+   "issue": "271",
+   "branch": "goose/issue-271",
+   "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/271",
+   "reconciled": "2026-11-14 11:12 board_reconcile: run finished (success), branch goose/issue-271 pushed"
+  },
+  "NIGHTLYTRIAGE1": {
+   "agent": "qwen",
+   "id": "NIGHTLYTRIAGE1",
+   "title": "TASK NIGHTLYTRIAGE1 - which of last night's red tests are still red on main, since when, and the first failing line",
+   "status": "running",
+   "started": "2026-11-14T11:13",
+   "eta": "2026-11-14T13:03",
+   "branch": "qwen/nightlytriage1",
+   "worktree": "E:/FightCamp/wt/LEAN_NIGHTLYTRIAGE1",
+   "wt": "E:/FightCamp/wt/LEAN_NIGHTLYTRIAGE1",
+   "brief": "ops/research/TASK_NIGHTLYTRIAGE1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/NIGHTLYTRIAGE1_dispatch_out.txt",
+   "match": "seat_dispatch.py run nightlytriage1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/NIGHTLYTRIAGE1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/NIGHTLYTRIAGE1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/NIGHTLYTRIAGE1_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 36124,
+    "seat_pid": 38644
+   },
+   "note": "S368 seat_dispatch: launched unattended (dispatch_queue.json); merging stays off"
   }
  },
  "codex_budget": {

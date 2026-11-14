@@ -1341,12 +1341,15 @@
    "seat": "john",
    "brief": "research/DESIGN_LIVERRIBS1_V2_CRITIC_JOHN.md",
    "stem": "DESIGN_LIVERRIBS1_V2_CRITIC_JOHN_JOHN",
-   "status": "sent",
+   "status": "answered",
    "queued_at": "2026-11-14 00:58",
    "tries": 0,
    "sent_at": "2026-11-14 10:00",
    "sent_ms": 1794643236891,
-   "note": "S465: no answer 8 h after the 02:11 send (bot turn died) - resent"
+   "note": "S465: no answer 8 h after the 02:11 send (bot turn died) - resent",
+   "answered_at": "2026-11-14 10:42",
+   "answer": "research/DESIGN_LIVERRIBS1_V2_CRITIC_JOHN_JOHN.md",
+   "chars": 11611
   },
   {
    "id": "SQ92",
@@ -1413,9 +1416,11 @@
    "seat": "john",
    "brief": "research/DESIGN_AMATEURWEEK1_V8_CRITIC_JOHN.md",
    "stem": "DESIGN_AMATEURWEEK1_V8_CRITIC_JOHN_JOHN",
-   "status": "queued",
+   "status": "sent",
    "queued_at": "2026-11-14 04:01",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-14 11:12",
+   "sent_ms": 1794647529421
   },
   {
    "id": "SQ97",
@@ -1592,11 +1597,11 @@
    "stem": "DESIGN_COACHFIT1_V6_REVISE_DOLA_DOLA",
    "status": "sent",
    "queued_at": "2026-11-14 08:35",
-   "tries": 1,
-   "sent_at": "2026-11-14 10:11",
-   "pid": 29712,
+   "tries": 2,
+   "sent_at": "2026-11-14 11:12",
+   "pid": 16612,
    "transcript": "AgentComms/seat_logs/SQ109_dola.txt",
-   "last_error": "2026-11-14 10:00 cici send exited without a transcript (see SQ109_dola.log)"
+   "last_error": "2026-11-14 10:42 cici send exited without a transcript (see SQ109_dola.log)"
   },
   {
    "id": "SQ110",
@@ -1610,7 +1615,8 @@
    "sent_ms": 1794642115710,
    "answered_at": "2026-11-14 10:00",
    "answer": "research/DESIGN_TURNPRO1_V2_REVISE_KALLI_KALLI.md",
-   "chars": 19720
+   "chars": 19720,
+   "seen_by_claude": true
   },
   {
    "id": "SQ111",
@@ -1633,7 +1639,8 @@
    "sent_ms": 1794642118714,
    "answered_at": "2026-11-14 10:00",
    "answer": "research/DESIGN_KNOWLEDGE_V3_CRITIC_MARIA_MARIA.md",
-   "chars": 8696
+   "chars": 8696,
+   "seen_by_claude": true
   },
   {
    "id": "SQ113",
@@ -1649,11 +1656,14 @@
    "seat": "maria",
    "brief": "research/DESIGN_TURNPRO1_V2_CRITIC_MARIA.md",
    "stem": "DESIGN_TURNPRO1_V2_CRITIC_MARIA_MARIA",
-   "status": "sent",
+   "status": "answered",
    "queued_at": "2026-11-14 10:01",
    "tries": 0,
    "sent_at": "2026-11-14 10:11",
-   "sent_ms": 1794643909741
+   "sent_ms": 1794643909741,
+   "answered_at": "2026-11-14 10:42",
+   "answer": "research/DESIGN_TURNPRO1_V2_CRITIC_MARIA_MARIA.md",
+   "chars": 9274
   }
  ]
 }

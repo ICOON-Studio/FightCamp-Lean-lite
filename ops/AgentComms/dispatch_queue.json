@@ -1423,9 +1423,10 @@
   {
    "task": "NIGHTLYTRIAGE1",
    "seat": "qwen",
-   "status": "queued",
+   "status": "launched",
    "queued": "2026-11-14T11:45",
-   "note": "S466: re-run each nightly red test on main; first FAIL line; last green nightly"
+   "note": "S466: re-run each nightly red test on main; first FAIL line; last green nightly",
+   "launched": "2026-11-14T11:13"
   }
  ]
 }

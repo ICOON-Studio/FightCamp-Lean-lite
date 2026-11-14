@@ -16,6 +16,10 @@ const RangeTable := preload("res://scripts/fight3d/RangeTable.gd")
 const CORR_M := 0.30
 const UPPER_ELBOW_DEG := 120.0
 const GRAZE_M := 0.15
+## S466 LANDREACH1 (bisected to d258cab0): the carry starts from the glove as drawn on the hit frame only when that is
+## within SHOWN_M of the face point; review round 1 assumed it was "1-3 cm short", but the rear hand was 13-19 cm short there
+## and the carry then started from the short point, so the landed cross never reached her face. Further off = the face point.
+const SHOWN_M := 0.02
 
 
 ## Review round 1: the cap holds while the reach brings the glove TO her, through the hit frame; after it the carry goes on
@@ -219,3 +223,14 @@ static func _fit_held(pr: Node, skel: Skeleton3D, ids: Array, s: Vector3, target
 			step *= 0.5
 		full = best_hd + best_err * step
 	return full
+
+
+## S466 LANDREACH1: where the landed glove's carry starts (see SHOWN_M). `face` = the latched face point, `shown` = the glove
+## as drawn on the hit frame less the carry already run. Only the rear cross and rear hook (the bisect's short punches): the lead
+## hand and the uppercuts land on their drawn point, and snapping them to the face sent their carry 0.12-0.27 m through
+## (hit_frame THROUGH). `-- nopunchrange` (RangeTable off) = the review round 1 rule.
+static func carry_base(face: Vector3, shown: Vector3, clip: String) -> Vector3:
+	var rear := clip.contains("right_cross") or clip.contains("right_hook")
+	if not RangeTable.on or not rear or not face.is_finite() or shown.distance_to(face) <= SHOWN_M:
+		return shown
+	return face

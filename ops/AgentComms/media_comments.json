@@ -2984,6 +2984,22 @@
       "text": "MARKUP: 1 marks -> Feedback/2026-11-13-39/README.md",
       "at": "2026-11-13T18:53:50Z",
       "seen_by_claude": true
+    },
+    {
+      "path": "_sent/2026-11-14_0359_what_to_learn_next_card_on_her_page_lear/s463_study_picked.png",
+      "text": "doesnt look good, needs redesign",
+      "at": "2026-11-14T07:41:33Z",
+      "seen_by_claude": true,
+      "id": "C388",
+      "addressed": "cited by 4bf09010 2026-11-14"
+    },
+    {
+      "id": "C389",
+      "path": "media:_sent/2026-11-13_2321_power1e_rear_uppercut_tail_quick_hand_ba/rear_uppercut_seed4242_00.png",
+      "text": "MARKUP: 2 marks -> Feedback/2026-11-14-01/README.md",
+      "at": "2026-11-14T07:43:02Z",
+      "seen_by_claude": true,
+      "addressed": "cited by 97ca0023 2026-11-14"
     }
   ]
 }

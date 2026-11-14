@@ -24,7 +24,7 @@ wrong - say so and stop.
 
 ## Contract
 OWNS: tools/nightly_triage.py, docs/NIGHTLY_TRIAGE_S466.md
-RED_TEST: tools/nightly_triage.py -> NIGHTLY_TRIAGE red=
+RED_TEST: tests/golden_path_test.gd -> GOLDEN_PATH failures=0 (the CONTROL run; the deliverable is tools/nightly_triage.py -> NIGHTLY_TRIAGE red=...)
 REGRESSION: golden_path_test (the control above)
 VISUAL: no
 NOT YOURS: every file in scripts/ and tests/ (read-only). Never fix a test; report.
