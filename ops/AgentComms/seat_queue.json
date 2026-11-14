@@ -1349,7 +1349,8 @@
    "note": "S465: no answer 8 h after the 02:11 send (bot turn died) - resent",
    "answered_at": "2026-11-14 10:42",
    "answer": "research/DESIGN_LIVERRIBS1_V2_CRITIC_JOHN_JOHN.md",
-   "chars": 11611
+   "chars": 11611,
+   "seen_by_claude": true
   },
   {
    "id": "SQ92",
@@ -1416,11 +1417,15 @@
    "seat": "john",
    "brief": "research/DESIGN_AMATEURWEEK1_V8_CRITIC_JOHN.md",
    "stem": "DESIGN_AMATEURWEEK1_V8_CRITIC_JOHN_JOHN",
-   "status": "sent",
+   "status": "answered",
    "queued_at": "2026-11-14 04:01",
    "tries": 0,
    "sent_at": "2026-11-14 11:12",
-   "sent_ms": 1794647529421
+   "sent_ms": 1794647529421,
+   "answered_at": "2026-11-14 11:42",
+   "answer": "research/DESIGN_AMATEURWEEK1_V8_CRITIC_JOHN_JOHN.md",
+   "chars": 15091,
+   "seen_by_claude": true
   },
   {
    "id": "SQ97",
@@ -1442,9 +1447,15 @@
    "seat": "john",
    "brief": "research/DESIGN_CLUBWEEK1_V5_CRITIC_JOHN.md",
    "stem": "DESIGN_CLUBWEEK1_V5_CRITIC_JOHN_JOHN",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-14 04:01",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-14 12:11",
+   "sent_ms": 1794651112315,
+   "answered_at": "2026-11-14 12:41",
+   "answer": "research/DESIGN_CLUBWEEK1_V5_CRITIC_JOHN_JOHN.md",
+   "chars": 15736,
+   "seen_by_claude": true
   },
   {
    "id": "SQ99",
@@ -1526,9 +1537,14 @@
    "seat": "john",
    "brief": "research/DESIGN_WEIGHT1_R2_CRITIC_JOHN.md",
    "stem": "DESIGN_WEIGHT1_R2_CRITIC_JOHN_JOHN",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-14 04:02",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-14 13:10",
+   "sent_ms": 1794654627794,
+   "answered_at": "2026-11-14 13:40",
+   "answer": "research/DESIGN_WEIGHT1_R2_CRITIC_JOHN_JOHN.md",
+   "chars": 18351
   },
   {
    "id": "SQ105",
@@ -1595,13 +1611,13 @@
    "seat": "dola",
    "brief": "research/DESIGN_COACHFIT1_V6_REVISE_DOLA.md",
    "stem": "DESIGN_COACHFIT1_V6_REVISE_DOLA_DOLA",
-   "status": "sent",
+   "status": "queued",
    "queued_at": "2026-11-14 08:35",
-   "tries": 2,
-   "sent_at": "2026-11-14 11:12",
-   "pid": 16612,
+   "tries": 5,
+   "sent_at": "2026-11-14 13:10",
+   "pid": 51308,
    "transcript": "AgentComms/seat_logs/SQ109_dola.txt",
-   "last_error": "2026-11-14 10:42 cici send exited without a transcript (see SQ109_dola.log)"
+   "last_error": "2026-11-14 13:40 cici send exited without a transcript (see SQ109_dola.log)"
   },
   {
    "id": "SQ110",
@@ -1663,7 +1679,28 @@
    "sent_ms": 1794643909741,
    "answered_at": "2026-11-14 10:42",
    "answer": "research/DESIGN_TURNPRO1_V2_CRITIC_MARIA_MARIA.md",
-   "chars": 9274
+   "chars": 9274,
+   "seen_by_claude": true
+  },
+  {
+   "id": "SQ115",
+   "seat": "kalli",
+   "brief": "research/DESIGN_CLUBWEEK1_V6_REVISE_KALLI.md",
+   "stem": "DESIGN_CLUBWEEK1_V6_REVISE_KALLI_KALLI",
+   "status": "queued",
+   "queued_at": "2026-11-14 13:15",
+   "tries": 0,
+   "skips": 1,
+   "last_error": "2026-11-14 13:40 gbot send rc=1: ['GROKBOT FAIL SendGrokBotUserMessage 400 {\"code\":\"invalid_argument\",\"message\":\"Error\",\"details\":[{\"type\":\"aiserver.v1.ErrorDetails\",\"debug\":{\"error\":\"ERROR_BAD_REQUEST\",\"details\":{\"title\":\"Bad Request\",\"detail\":\"text exceeds the maximum leng']"
+  },
+  {
+   "id": "SQ116",
+   "seat": "kalli",
+   "brief": "research/DESIGN_WEIGHT1_R3_REVISE_KALLI.md",
+   "stem": "DESIGN_WEIGHT1_R3_REVISE_KALLI_KALLI",
+   "status": "queued",
+   "queued_at": "2026-11-14 13:58",
+   "tries": 0
   }
  ]
 }

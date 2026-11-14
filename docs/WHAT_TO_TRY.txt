@@ -1,3 +1,11 @@
+S468 (2026-11-14)
+- Gloves and forearms no longer pass through each other the way they did (your "still clipping" marks on the rear
+  uppercut). Watch a fight up close, especially uppercuts and the moments right after a punch lands: a guard hand now
+  moves aside or draws in when the other boxer's glove comes through, and opens outward when a punch lands up the middle.
+  On our test film the frames with a glove inside a glove went from 14 to 1-3 per punch. One frame right after a rear
+  uppercut lands can still show the guard forearm against the glove.
+- Not in this build yet: the lead glove's height on the face at the hit (found the cause, fix next).
+
 S467 (2026-11-14)
 - Liver and ribs now do different things in a fight. In the corner bar the two body buttons read "Liver (right side)!" and
   "Ribs (left side)!" (hover says what each does). A liver shot drains the tank faster (1.3 times a body shot), a rib shot

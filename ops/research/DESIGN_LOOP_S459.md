@@ -18,7 +18,7 @@ DONE = two critics (one fresh) each at 6+ DEPTH and 6+ GENERAL DESIGN. Then it g
 | Read reveal (READREVEAL1) | no map | - | Claude drafts the map | next batch |
 | Camp locations (CAMPLOC1) | camp v3 mockups S449 | - | map + critic | next batch |
 | Contract ledger (LEDGER1) | - | - | map + critic | next batch |
-| Weight (WEIGHT1) | WEIGHT_MAP_S434 round 2 (Claude) | r1: coach 7/6, sim designer 6/6; r2 never scored | r2: Kalli 8/6 (play 7) S464; John scores r2 | SQ104 |
+| Weight (WEIGHT1) | WEIGHT_MAP_S434 round 2 (Claude) | r1: coach 7/6, sim designer 6/6; r2 never scored | r2: Kalli 8/6 (play 7) S464; John 7/5 (play 6) S468 - MISSES general design by one: r3 from John's 10/10 list (DESIGN_WEIGHT1_R2_CRITIC_JOHN_JOHN) | r3 (Kalli, SQ116) |
 | Turning pro (TURNPRO1) | v1 (DESIGN_TURNPRO1_V1_WRITE_KALLI_KALLI, S464) | v1: Dola 7/7 (play 6), Maria 6/5 (play 5) S464 | v2 written (DESIGN_TURNPRO1_V2_REVISE_KALLI_KALLI, S465); v2 Maria 7/6 (play 6) S466/S467 (stopping the stipend must cost morale/loyalty, else the timing rests on a fake cost) - PASSES 6/6 on Maria; Dola scores v2 (SQ113) for the second critic | SQ113 |
 | Liver vs ribs (LIVERRIBS1) | v2 (DESIGN_LIVERRIBS1_V2_REVISE_KALLI_KALLI, S463) | v2: Maria 7/6 (play 7) S463; John 7/6 (play 7) S466 - PASSES 6/6 on two critics | Build list from John 10/10 points (body-threat line only with a found tell; no one-click aim before the tell) | done |
 | Progressive knowledge (KNOWLEDGE) | KNOWLEDGE_S411 v2 + proof (KNOWBOTS3 pass, S463) | v2: Dola 8/7, Maria 7/5 (play 7) S464; v3: Maria 7/6 (play 6) S465 - passes the 6/6 bar if fixed: the perk leak + the S&C shortcut | v3 written (S464); Dola scores v3 (SQ111) | see seat_queue |

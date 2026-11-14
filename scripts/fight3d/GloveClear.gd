@@ -47,14 +47,38 @@ var shown_head := Vector3.INF
 ## clip's hips up to ~0.5 m from her root before the root catches up.
 var shown_hips := Vector3.INF
 ## S465 C389 (operator markup on the rear uppercut tail: "clipping", twice): a glove never passes through the other boxer's
-## glove or forearm. Touch: glove 0.06 m radius each -> 0.12 m centre to centre; glove to forearm (~0.04 m) 0.10 m. Each
-## boxer moves out of ARM_SHARE of the overlap (both do, so the pair clears it; the peer's arms are read up to a frame late).
-## `-- noclash` = the control arm.
-const GLOVE_TOUCH_M := 0.12
-const ARM_TOUCH_M := 0.10
+## glove or forearm. Each boxer moves out of ARM_SHARE of the overlap (both do, so the pair clears it; the peer's arms are
+## read up to a frame late). `-- noclash` = the control arm.
+## S468 C394 (his four marks on the same film after that fix, each "still clipping"): the S465 shapes were two 0.06 m balls
+## 0.08 m past the wrist, touching at 0.12 m - but the mounted glove (Gloves.SIZE 1.2, S400) is 0.17 m thick and runs from
+## 0.12 m behind the wrist to 0.19 m ahead of it, so "clear" still drew one glove 3-5 cm inside the other, and a forearm
+## was never kept off a glove at all. The shapes are the drawn ones now: the glove a capsule along the forearm from
+## GLOVE_AT.x to GLOVE_AT.y ahead of the wrist, radius GLOVE_R; the forearm a capsule elbow to wrist, radius FORE_R (times
+## the body's scale); the padding gives SQUISH_M. Her glove AND her forearm are kept off the other's gloves and forearms,
+## the deepest overlap first, CLASH_PASSES times a frame. tools/clash_meter.gd reads the same shapes off the drawn bodies.
+## `-- ballclash` = the S465 balls (control arm).
 const ARM_SHARE := 0.6
-## Her arms as shown, world space, per side: [elbow, glove centre] (read by the other boxer's GloveClear).
+static var BALLS: bool = OS.get_cmdline_user_args().has("ballclash")
+static var GLOVE_AT: Vector2 = Vector2(0.08, 0.08) if BALLS else Vector2(0.04, 0.115)
+static var GLOVE_R: float = 0.06 if BALLS else 0.075
+static var FORE_R: float = 0.04
+static var SQUISH_M: float = 0.0   # the ruler allows 2 cm of give (tools/clash_meter.gd); a give here on top drew 3 cm
+static var CLASH_PASSES: int = 1 if BALLS else 4
+## Right of way (S468; the S465 rule was "a punching hand never moves", and the film showed her jab going out through
+## the other's uppercut hand on its way home: two hands that never moved). Rank 2 = a punch on its way in or on her (armed
+## on this hand, up to LIVE_S clip seconds past its contact); 1 = that hand going home (armed past that, or fading);
+## 0 = a guard hand. The lower rank moves out of all of the overlap, equals share it, two live punches leave each other be.
+const LIVE_S := 0.12
+const PUSH_MAX_M := 0.10   # the most one pass moves a wrist
+const RETRACT := 0.6
+const TUCK_M := Vector2(0.25, 0.40)   # wrist to shoulder: no drawing in under .x, all of it from .y
+## Her arms as shown, world space, per side: [elbow, wrist, the glove's axis (unit), the hand's rank, her scale, how far
+## the elbow and the wrist moved since the frame before, a live punch's kind] (read by the other boxer's GloveClear). The boxer drawn first in
+## a frame reads the other's arms a frame late: a jab's glove is 10-13 cm on by then, so she reads them one step ahead
+## (shown_f tells her they are last frame's).
 var shown_arms := {}
+var shown_f := -1
+var clash_late := false   # BoxerBuild: ArmClash runs clash_pass() after ElbowClear
 var clash := true
 var clash_pushes := 0    # frames a glove was moved off the other's glove or forearm (for probes)
 var heads := true        # `-- noheads` turns the head clearance off (control arm)
@@ -131,62 +155,149 @@ func _process_modification() -> void:
 		var l2 := g_la.origin.distance_to(g_hd.origin)
 		PunchReach.solve(skel, ids, s, g_hd.origin + dir * push / k, l1, l2, g_hd.basis)
 		pushes += 1
+	if not clash_late:
+		clash_pass()
+
+
+## S468: the arms off each other, and her arms as shown for the other boxer. Run LAST of the arm layers (ArmClash, after
+## ElbowClear): mid-stack, ElbowClear then moved her elbows 2-18 cm (tools/clash_meter.gd `drift`), and the glove's long
+## axis follows the forearm, so a glove just cleared swung back into the other's. `clash_late` false = run here, mid-stack
+## (the S465 place: `-- ballclash`, and any body built without ArmClash).
+func clash_pass() -> void:
+	var skel := get_skeleton()
+	if skel == null:
+		return
+	var k := skel.global_transform.basis.get_scale().x
 	if clash and peer != null and is_instance_valid(peer):
+		if dbg_on:
+			dbg = "late %s" % str(int(peer.shown_f) != Engine.get_process_frames())
 		for side in _arms:
-			if _punching(side):
-				continue   # a landed punch's glove, out and home, is PunchReach's; the other boxer's guard moves off it
-			_clear_arms(skel, _arms[side], k)
+			var rank := _rank(side)
+			if dbg_on:
+				dbg += " | %s r%d before %.3f" % [side, rank, _deepest(skel, _arms[side], k)]
+			if rank < (1 if BALLS else 2):   # a live punch's glove is PunchReach's; the other boxer's hands move off it
+				_clear_arms(skel, _arms[side], k, rank)
+			if dbg_on:
+				dbg += " after %.3f" % _deepest(skel, _arms[side], k)
 	for side in _arms:
 		var ids: Array = _arms[side]
+		var elbow: Vector3 = skel.global_transform * skel.get_bone_global_pose(int(ids[1])).origin
+		var wrist: Vector3 = skel.global_transform * skel.get_bone_global_pose(int(ids[2])).origin
+		var was: Array = shown_arms.get(side, [])
+		var fresh := was.size() == 8 and shown_f == Engine.get_process_frames() - 1
+		var rank := _rank(side)
+		shown_arms[side] = [elbow, wrist, (wrist - elbow).normalized(), rank, k,
+			elbow - (was[0] as Vector3) if fresh else Vector3.ZERO, wrist - (was[1] as Vector3) if fresh else Vector3.ZERO,
+			0 if rank < 2 else (1 if float(reach.get("_thru")) > 0.0 else (0 if bool(reach.get("_height_only")) else 2))]
+			# ^ a live punch's kind: 1 it LANDS (her arm opens outward off it), 2 it is BLOCKED (FightStage.arm_block: the
+			#   catching glove is meant to meet it - BlockCatch's job; pushed off it with the true glove shape the catch ended
+			#   9 cm under her face, block_meet GY), 0 anything else (a miss passes her: she moves off it as off any hand)
+	shown_f = Engine.get_process_frames()
+
+
+## Probe (dbg_on): how deep this arm is in the other's arms by this modifier's own shapes and read (no squish, no knee).
+var dbg_on := false
+var dbg := ""
+func _deepest(skel: Skeleton3D, ids: Array, k: float) -> float:
+	var to_w := skel.global_transform
+	var elbow: Vector3 = to_w * skel.get_bone_global_pose(int(ids[1])).origin
+	var wrist: Vector3 = to_w * skel.get_bone_global_pose(int(ids[2])).origin
+	var along := (wrist - elbow).normalized()
+	var out := -9.0
+	for arm in (peer.shown_arms as Dictionary).values():
+		var pk := float(arm[4])
+		var late := int(peer.shown_f) != Engine.get_process_frames()
+		var pe: Vector3 = (arm[0] as Vector3) + ((arm[5] as Vector3) if late else Vector3.ZERO)
+		var pw: Vector3 = (arm[1] as Vector3) + ((arm[6] as Vector3) if late else Vector3.ZERO)
+		var pa := (pw - pe).normalized()
+		for m in [[wrist + along * GLOVE_AT.x * k, wrist + along * GLOVE_AT.y * k, GLOVE_R * k], [elbow, wrist, FORE_R * k]]:
+			for t in [[pw + pa * GLOVE_AT.x * pk, pw + pa * GLOVE_AT.y * pk, GLOVE_R * pk], [pe, pw, FORE_R * pk]]:
+				var pts := Geometry3D.get_closest_points_between_segments(m[0], m[1], t[0], t[1])
+				out = maxf(out, float(m[2]) + float(t[2]) - (pts[0] as Vector3).distance_to(pts[1]))
+	return out
+
+
+## The hand's right of way (see LIVE_S): 2 a live punch, 1 going home, 0 a guard hand.
+func _rank(side: String) -> int:
+	if reach == null:
+		return 0
+	var hand := side + "Hand"
+	if str(reach.get("_clip")) != "" and str(reach.get("_hand")) == hand:
+		var rap: AnimationPlayer = reach.get("ap")
+		return 2 if rap == null or rap.current_animation_position <= float(reach.get("_contact")) + LIVE_S else 1
+	return 1 if (reach.get("_fades") as Dictionary).has(hand) else 0
+
+
+## S465 C389, S468 C394: her glove and forearm off the other's gloves and forearms (the shapes above). The deepest overlap
+## wins; she moves out of her share of it (soft knee as for heads; all of it when the other hand outranks hers) and the arm
+## is re-solved with the hand's rotation kept (the wrist moves; the arm turns about the shoulder with it).
+func _clear_arms(skel: Skeleton3D, ids: Array, k: float, rank: int) -> void:
+	var to_w := skel.global_transform
+	for n in CLASH_PASSES:
 		var g_la: Transform3D = skel.get_bone_global_pose(int(ids[1]))
 		var g_hd: Transform3D = skel.get_bone_global_pose(int(ids[2]))
-		var gc := g_hd.origin + (g_hd.origin - g_la.origin).normalized() * GLOVE_FWD_M / k
-		shown_arms[side] = [skel.global_transform * g_la.origin, skel.global_transform * gc, _punching(side)]
-
-
-## S465: a landed punch's hand from arming to the end of its fade home (PunchReach `_clip` armed on it, or `_fades` holds
-## it). Nudging it on its way home broke hit_carry's SMOOTH (34 -> 43 failures with only the landing frames locked).
-func _punching(side: String) -> bool:
-	if reach == null:
-		return false
-	var hand := side + "Hand"
-	return (str(reach.get("_clip")) != "" and str(reach.get("_hand")) == hand) or (reach.get("_fades") as Dictionary).has(hand)
-
-
-## S465 C389: her glove off the other's gloves and forearms. The deepest overlap wins; the wrist moves out of ARM_SHARE of it
-## (soft knee as for heads) and the arm is re-solved with the hand's rotation kept.
-func _clear_arms(skel: Skeleton3D, ids: Array, k: float) -> void:
-	var g_la: Transform3D = skel.get_bone_global_pose(int(ids[1]))
-	var g_hd: Transform3D = skel.get_bone_global_pose(int(ids[2]))
-	var gc_w: Vector3 = skel.global_transform * (g_hd.origin + (g_hd.origin - g_la.origin).normalized() * GLOVE_FWD_M / k)
-	var best := 0.0
-	var dir := Vector3.ZERO
-	var share := ARM_SHARE
-	for arm in (peer.shown_arms as Dictionary).values():
-		var elbow: Vector3 = arm[0]
-		var glove: Vector3 = arm[1]
-		## A landing glove (PunchReach on, through the tail) never moves: this glove takes the whole overlap (S465 log:
-		## the rear uppercut's tail kept its reach weight 291 frames, so a 0.6 share left the gloves inside each other).
-		var own := 1.0 if bool(arm[2]) else ARM_SHARE
-		var p_g := GLOVE_TOUCH_M + SOFT_M * 0.5 - gc_w.distance_to(glove)
-		if p_g * own > best * share:
-			best = p_g
-			share = own
-			dir = gc_w - glove
-		var q := Geometry3D.get_closest_point_to_segment(gc_w, elbow, glove)
-		var p_a := ARM_TOUCH_M + SOFT_M * 0.5 - gc_w.distance_to(q)
-		if p_a * own > best * share:
-			best = p_a
-			share = own
-			dir = gc_w - q
-	if best <= 0.0 or dir.length() < 1e-5:
-		return
-	var push := (best * best / (2.0 * SOFT_M) if best < SOFT_M else best - SOFT_M * 0.5) * share
-	var to_me := skel.global_transform.affine_inverse()
-	var d_local := (to_me.basis * dir).normalized()
-	var s: Vector3 = skel.get_bone_global_pose(int(ids[0])).origin
-	PunchReach.solve(skel, ids, s, g_hd.origin + d_local * push / k, s.distance_to(g_la.origin), g_la.origin.distance_to(g_hd.origin), g_hd.basis)
-	clash_pushes += 1
+		var elbow: Vector3 = to_w * g_la.origin
+		var wrist: Vector3 = to_w * g_hd.origin
+		var along := (wrist - elbow).normalized()
+		var mine := [[wrist + along * GLOVE_AT.x * k, wrist + along * GLOVE_AT.y * k, GLOVE_R * k, 1.0], [elbow, wrist, FORE_R * k, 0.0]]
+		var best := 0.0     # the push wanted, metres
+		var dir := Vector3.ZERO
+		var at := 1.0       # where on her arm the touch is: 1 = the glove or the wrist, 0 = the elbow
+		var live := false   # the touch is the hand of a punch that lands
+		for arm in (peer.shown_arms as Dictionary).values():
+			var prank := int(arm[3])
+			if (prank < rank or int(arm[7]) == 2) and not BALLS:
+				continue   # that hand moves off hers; a blocked punch is the block's to meet
+			var pk := float(arm[4])
+			var late := not BALLS and int(peer.shown_f) != Engine.get_process_frames()
+			var pe: Vector3 = (arm[0] as Vector3) + ((arm[5] as Vector3) if late else Vector3.ZERO)
+			var pw: Vector3 = (arm[1] as Vector3) + ((arm[6] as Vector3) if late else Vector3.ZERO)
+			var pa := (pw - pe).normalized()
+			# Equals share it: the boxer drawn first moves ARM_SHARE of it off arms a frame old; the one drawn second sees the
+			# other's arms as they are drawn this frame and takes what is left.
+			var own := 1.0 if prank > rank or not late else ARM_SHARE
+			var theirs := [[pw + pa * GLOVE_AT.x * pk, pw + pa * GLOVE_AT.y * pk, GLOVE_R * pk], [pe, pw, FORE_R * pk]]
+			for m in mine:
+				if BALLS and float(m[3]) == 0.0:
+					continue   # the S465 rule: her glove only
+				for t in theirs:
+					var pts := Geometry3D.get_closest_points_between_segments(m[0], m[1], t[0], t[1])
+					var gap: Vector3 = pts[0] - pts[1]
+					var p := float(m[2]) + float(t[2]) - SQUISH_M + SOFT_M * 0.5 - gap.length()
+					if p <= 0.0:
+						continue
+					var push := (p * p / (2.0 * SOFT_M) if p < SOFT_M else p - SOFT_M * 0.5) * own
+					if push > best:
+						best = push
+						live = int(arm[7]) == 1
+						dir = gap if gap.length() > 1e-4 else (wrist + along * GLOVE_FWD_M * k) - pw
+						var seg: Vector3 = (m[1] as Vector3) - (m[0] as Vector3)
+						at = 1.0 if float(m[3]) == 1.0 else clampf(((pts[0] as Vector3) - (m[0] as Vector3)).dot(seg) / maxf(seg.length_squared(), 1e-8), 0.0, 1.0)
+		if best <= 0.0 or dir.length() < 1e-5:
+			return
+		# The wrist's move turns the whole arm about the shoulder: a point on the forearm follows by about half (at the elbow)
+		# to all (at the wrist) of it, so a touch there asks the wrist for that much more.
+		var s: Vector3 = skel.get_bone_global_pose(int(ids[0])).origin
+		# ... and she draws the hand in toward her own shoulder as she moves it aside (RETRACT of the push, none once the
+		# glove is TUCK_M.x from the shoulder: it would go into her own face). clashdbg on the film: her long-guard glove sat
+		# BETWEEN the other's two gloves, a gap narrower than a glove, so pushing off one pushed into the other and the
+		# overlap never fell (0.066 -> 0.052, 0.059 -> 0.064 m); drawing the arm in is the way out of a pinch, and what a
+		# boxer does when crowded.
+		var aside := (to_w.affine_inverse().basis * dir).normalized()
+		if live:
+			# Off a live punch her arm opens OUTWARD, away from her own middle (a punch that lands came up or through the
+			# middle of her guard; the film's freeze frames had the uppercut's glove at her chin 7-8 cm inside her forearm,
+			# her arm pinned between it and the other's guard hand with no room to draw in).
+			for sd in _arms:
+				if _arms[sd] != ids:
+					var out_l: Vector3 = s - skel.get_bone_global_pose(int(_arms[sd][0])).origin
+					aside = (aside + out_l.normalized()).normalized()
+		var back := s - g_hd.origin
+		var room := clampf((back.length() * k - TUCK_M.x) / (TUCK_M.y - TUCK_M.x), 0.0, 1.0)
+		var move := (aside + back.normalized() * RETRACT * room) * minf(best / lerpf(0.5, 1.0, at), PUSH_MAX_M) / k
+		PunchReach.solve(skel, ids, s, g_hd.origin + move, s.distance_to(g_la.origin), g_la.origin.distance_to(g_hd.origin), g_hd.basis)
+		if n == 0:
+			clash_pushes += 1
 
 
 ## S316: heads touch up close (temple to temple, a head on a shoulder) but never pass through each other - inside_guard_probe

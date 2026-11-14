@@ -1748,6 +1748,48 @@
       "at": "2026-11-13 20:55",
       "text": "BOARD ANSWER Q-S294-219 - question: Liver vs ribs: today they differ only in where body hooks land (60 of 100 on the liver side, so it hurts first); damage per hook and the 'hurt' line are the same. Make them different, as in real boxing? | answer: Yes: liver = stamina drain + a knockdown chance when hurt, ribs = the injury place (cracked rib, weeks out). Design map + critics first | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
       "status": "waiting"
+    },
+    {
+      "id": "P243",
+      "from": "board",
+      "at": "2026-11-14 09:31",
+      "text": "BOARD ANSWER Q-S294-223 - question: Push switch + tank (the 2 bars next to the fighter, race-manager style) v2 passed two critics: Dola 8/7, Maria 7/6. Build it after the fight week? | answer: Show me the map first | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P244",
+      "from": "board",
+      "at": "2026-11-14 09:39",
+      "text": "BOARD ANSWER Q-S294-222 - question: The hosted club show (HOSTSHOW1 v4) passed two critics: John 7/7, Dola 8/8. Build it after the fight week, as planned? | answer: Show me the map first | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P245",
+      "from": "board",
+      "at": "2026-11-14 09:40",
+      "text": "BOARD ANSWER Q-S294-220 - question: A fighter leaves (R58): the design passed two critics (Maria 7/7, Dola 7/8). Build it after the fight week? | answer: Yes, build after the fight week | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P246",
+      "from": "board",
+      "at": "2026-11-14 10:46",
+      "text": "BOARD ANSWER Q-S294-224 - question: Hosted club show: here is the map (one show start to finish + every screen it shows on). Build it after the fight week? | answer: Yes, build after the fight week | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P247",
+      "from": "board",
+      "at": "2026-11-14 10:51",
+      "text": "BOARD ANSWER Q-S294-225 - question: Push switch + tank: here is the map (the three tanks, one fight in order, every screen it shows on). Build it after the fight week? | answer: Yes, build after the fight week | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P248",
+      "from": "board",
+      "at": "2026-11-14 10:51",
+      "text": "BOARD ANSWER Q-S294-225 - question: Push switch + tank: here is the map (the three tanks, one fight in order, every screen it shows on). Build it after the fight week? | answer: Yes, build after the fight week | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
     }
   ]
 }

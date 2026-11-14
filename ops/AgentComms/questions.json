@@ -7279,7 +7279,7 @@
       "answer": "Yes, build after the fight week",
       "note": null,
       "answered_at": "2026-11-14T08:46:29Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "comment_only": false
     },
     {
@@ -7298,7 +7298,7 @@
       "answer": "Yes, build after the fight week",
       "note": null,
       "answered_at": "2026-11-14T08:51:31Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "comment_only": false
     }
   ]

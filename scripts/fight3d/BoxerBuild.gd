@@ -13,6 +13,7 @@ const BeatClips := preload("res://scripts/fight3d/BeatClips.gd")
 const FighterKit := preload("res://scripts/fight3d/FighterKit.gd")
 const Gloves := preload("res://scripts/fight3d/Gloves.gd")
 const ElbowClear := preload("res://scripts/fight3d/ElbowClear.gd")
+const ArmClash := preload("res://scripts/fight3d/ArmClash.gd")
 const JoinSmoother := preload("res://scripts/fight3d/JoinSmoother.gd")
 const PunchReach := preload("res://scripts/fight3d/PunchReach.gd")
 const HitSnap := preload("res://scripts/fight3d/HitSnap.gd")
@@ -160,6 +161,8 @@ static func build(stage: Node3D, spec: Dictionary, index: int) -> Dictionary:
 		else:
 			gc.free()
 			gc = null
+	if gc != null and not GloveClear.BALLS:
+		ArmClash.attach(skel, gc, skel.get_node_or_null("ElbowClear"))   # S468 C394: arms off each other after ElbowClear
 	# S370: knees point over the toes before FootPlant solves its IK (FootPlant keeps the knee's bend plane).
 	var kt := KneeTrack.attach(skel, ap) if not OS.get_cmdline_user_args().has("noknee") else null
 	# S306: her planted feet stay where they stand; a foot steps when her body has moved off it.

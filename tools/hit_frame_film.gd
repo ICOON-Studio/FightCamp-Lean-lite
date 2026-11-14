@@ -13,12 +13,14 @@ extends SceneTree
 ## Writes <out_dir>/<nn>_<move>/fNN.png (the hit is the frame named in hits.txt) and prints HIT_FRAME_FILM shots=<n>.
 
 const Bouts := preload("res://scripts/state/Bouts.gd")
+const ClashMeter := preload("res://tools/clash_meter.gd")   # S468 C394: gloves and forearms through each other, as drawn
 const W := 960
 const H := 540
 const PRE_F := 18
 const POST_F := 24
 const CROP := Vector2i(400, 320)
 const GIVE_UP_S := 240.0
+const CLASH_M := 0.02   # padding gives a little; deeper reads as one glove inside the other
 
 var main: Node
 var view: Node
@@ -123,6 +125,11 @@ func _process(delta: float) -> bool:
 		if stage == null:
 			return false
 		seen_gaps = (stage.hit_gaps as Array).size()
+		var order := []
+		for ch in (stage.boxers[0]["skel"] as Skeleton3D).get_children():
+			if ch is SkeletonModifier3D:
+				order.append(str(ch.name))
+		print("HIT_FRAME_FILM modifier order: ", ", ".join(order))
 	_drive()
 	_mix()
 	if side:
@@ -230,6 +237,7 @@ func _grab() -> void:
 	for i in 2:
 		at.append({"LeftHand": stage.glove_front(i, "LeftHand"), "RightHand": stage.glove_front(i, "RightHand"),
 			"face": stage.target_point(i, false)})
+	at.append(ClashMeter.worst(stage))
 	gring.append(at)
 	if ring.size() > PRE_F + 1:
 		ring.pop_front()
@@ -268,6 +276,28 @@ func _speeds(s: Dictionary) -> void:
 	print(line)
 	print("HIT_FRAME_FILM %s top speed before the hit %.1f m/s, arriving on the hit frame %.1f m/s (%.0f%%)" % [str(s["dir"]).get_file(),
 		peak, at_hit, 100.0 * at_hit / maxf(peak, 0.001)])
+	# S468 C394: the deepest any glove or forearm of one is inside the other's, per drawn frame (tools/clash_meter.gd).
+	var crow := PackedStringArray()
+	var deep := 0
+	var worst := -9.0
+	var worst_f := 0
+	for i in pts.size():
+		var cl: Dictionary = (pts[i] as Array)[2]
+		var f := int(s["first"]) + i
+		if f < PRE_F + 1:
+			continue   # his marks are from the hit on
+		if float(cl["depth"]) > CLASH_M:
+			deep += 1
+			crow.append("f%02d %.3f %s drift w %.3f e %.3f" % [f, float(cl["depth"]), str(cl["pair"]), (cl["drift"] as Vector2).x, (cl["drift"] as Vector2).y])
+			print("HIT_FRAME_FILM clashdbg f%02d depth %.3f %s
+    0: %s
+    1: %s" % [f, float(cl["depth"]), str(cl["pair"]), str(cl.get("dbg0", "")), str(cl.get("dbg1", ""))])
+		if float(cl["depth"]) > worst:
+			worst = float(cl["depth"])
+			worst_f = f
+	var cline := "HIT_FRAME_FILM %s CLASH frames deeper than %.2f m from the hit on: %d, worst %.3f m at f%02d | %s" % [str(s["dir"]).get_file(), CLASH_M, deep, worst, worst_f, ", ".join(crow)]
+	print(cline)
+	labels.append("   " + cline.substr(15))
 	labels.append("   " + line.substr(15))
 	labels.append("   top %.1f m/s, on the hit frame %.1f m/s (%.0f%%)" % [peak, at_hit, 100.0 * at_hit / maxf(peak, 0.001)])
 

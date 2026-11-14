@@ -1438,8 +1438,9 @@
   {
    "task": "GUARDKNEE2",
    "seat": "qwen",
-   "status": "queued",
-   "queued": "2026-11-14T12:28"
+   "status": "launched",
+   "queued": "2026-11-14T12:28",
+   "launched": "2026-11-14T12:58"
   },
   {
    "task": "LIVERPROBE1",

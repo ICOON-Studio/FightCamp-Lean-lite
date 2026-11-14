@@ -3,20 +3,21 @@
  "updated": "2026-11-14",
  "author": "claude S294",
  "now": {
-  "id": "S467",
+  "id": "S468",
   "owner": "claude",
   "updated": "2026-11-14",
-  "summary": "S467: LIVERRIBS2 (Goose) collected; liver vs ribs WIRED in three steps: rib injuries are the left ribs only, bruised 10-21 d / cracked 35-56 d, the liver never lays her off; the fight keeps body shots by side, tank drain liver x1.3 / ribs x0.55 (un-aimed = the old count); hurt left ribs land x0.85; the liver fold (LiverFold.gd) = a body knockdown with its round line and result-page tile (probe: 6.0 pts/shot, 7 folds of 27 counts in 100 bouts; LIVERPROBE1 tunes on 400); aim buttons 'Liver (right side)!' / 'Ribs (left side)!', the liver on the right for southpaws in PaceAim too. Nightly reds: no_pronoun, result_defects, aim_wire green; block_meet -> Qwen LANDREACH3 (the hit point is on the face, the drawn lead glove 4-11 cm above/below it); guard_knee -> GUARDKNEE2 queued; plan_bots/move_tip causes noted. Fight week v8 passes 6/6 (John 7/6/6). 10 stale Qwen PRs closed (all on main). Build exported. Late: ribs crack in the bout (rule 6, x0.6, injury link). LANDREACH3 (Qwen) not fixed: diagnosis collected (contact point and carry start must split); GUARDKNEE2 launched.",
-  "next_action": "S468: 0) get_usage. 1) Lead glove height (docs/LANDREACH3_RESULT.md): split the contact point from the carry start (move _note_shown's carry part out of PunchReach, 498 lines), then FILM seed 4242 on the game camera - his C391 'i wait to see it in the match'. 2) GUARDKNEE2 and LIVERPROBE1 (Qwen queue): collect; set LiverFold.shot_points / fold_scale from LIVERPROBE1's table. 3) LIVERRIBS1 step 4 (crack in the bout BUILT S467): the opponent's corner retiring a cracked boxer + the 3-choice crack card in the corner minute (rules 6-8, design s4.1), then side elbow fixes + the opponent switching sides; BoutRead/Scout lines (design s6). 4) Seat answers SQ98/104 (John), SQ109/111/113 (Dola) -> DESIGN_LOOP_S459.md. 5) Export after any player-visible change.",
-  "last_working_commit": "c03fba4f",
-  "verified_playable": "Builds/FightCamp.exe exported S467 (liver vs ribs: drain by side, hurt ribs, liver fold, rib crack, rib injury split; aim words)",
-  "incomplete_blocked": "LANDREACH3 not fixed (contact point and carry start must split; PunchReach 498 lines); GUARDKNEE2 (Qwen) running, LIVERPROBE1 queued; result_tabs_test hung twice (check on main); crack card + opponent corner retire not built; club week v5 John 7/5 -> v6",
-  "next_acceptance": "block_meet CTRL_LANDED rows green with no new hit_frame THROUGH and a seed-4242 game-camera still; LiverFold knobs set from LIVERPROBE1; the crack card shows 3 un-selected priced choices in the corner minute (corner_crack_golden_test)",
+  "summary": "S468: result_tabs_test no longer hangs (a script error before quit: its seed-44 story died with the S466 card fix; the sample bout is now found by FixLab's rule, failures=0; fixlab_scan: on 20 sample bouts the plan wins 9 of 40, the best change 11 - under MIN_GAIN). His C394 'still clipping' (x4) on the seed-4242 rear uppercut: new ruler tools/clash_meter.gd (bodies as drawn) read red on main (14 frames, 7-8 cm); now rear uppercut 3 frames (one 6.5 cm), lead uppercut 1 frame (2.4 cm): true glove and forearm shapes, right of way (live punch > hand going home > guard), the pass runs after ElbowClear (ArmClash.gd; ElbowClear moved elbows 2-18 cm after the old pass), a crowded hand draws in, an arm opens outward off a live punch. Lead glove height NOT changed: landreach4_probe shows block_meet reads a half-eased glove and the hit point re-latches onto it (docs/CLASH2_RESULT.md). Club week v6 queued for Kalli (SQ115). Regression: block_meet 4, hit_frame 10, hit_carry 38 (old rule same day 38). Build exported.",
+  "next_action": "S469: 0) get_usage. 1) Lead glove (docs/CLASH2_RESULT.md last section): carry_base takes the face when the reach was not at full weight on the hit frame; block_meet CTRL_LANDED lets the ease finish; hit_gap_probe on the hidden desktop WITH --log; FILM seed 4242 jabs=2 crosses=2 (his C391). 2) Clipping leftovers: the frame after the rear uppercut's hit, a boxer's own two gloves, the rear uppercut 0.114 m off her chin - read his comment on the S468 strip first. 3) GUARDKNEE2 + LIVERPROBE1 (Qwen): collect, set LiverFold knobs. 4) LIVERRIBS1 step 4: corner retiring a cracked boxer + the 3-choice crack card. 5) Seat answers SQ104/109/111/113/115 -> DESIGN_LOOP_S459.md. 6) Export after any player-visible change.",
+  "last_working_commit": "69415ab2",
+  "verified_playable": "Builds/FightCamp.exe exported S468 (gloves and forearms kept off each other: seed-4242 uppercut film 14 -> 1-3 clipped frames)",
+  "incomplete_blocked": "Lead glove height not changed (cause found: the hit point latches onto a half-eased glove); one clipped frame after the rear uppercut hit; GUARDKNEE2 (Qwen) running, LIVERPROBE1 queued; plan-change value on the sample bouts (9 -> 11 of 40) not yet measured on real bouts",
+  "next_acceptance": "block_meet CTRL_LANDED rows green with the ease finished and no new hit_frame THROUGH; a seed-4242 game-camera film of jab and cross; his look at the S468 uppercut strip; LiverFold knobs from LIVERPROBE1; the crack card shows 3 choices",
   "awaiting_operator": [
+   "Look: S468 uppercut clipping before/after strip (C394) on the review board",
    "Review: S466 rear cross (C391 'i wait to see it in the match'), S465 what-to-learn tiles, glove clash; play S467's build: liver/ribs buttons and the rare liver fold"
   ]
  },
- "next": "S442: 0) get_usage. 1) Result page round 2 (docs/mockups/s441/result/fight_only.png): one logic check + two fresh critics (each with CRITIC_PACK, the 10/10 list and its drawing); fix, send to him at 8+ with the lists. 2) Mechanic 1 ASK FOR A FIGHT: the short map (ops/research/ASKFIGHT_MAP_S441.md: one screen, one decision, prices from the code), two fresh critics + a logic check. 3) Collect POWER1 when the lead's steps land (check steps 3 and 6 against REFERENCE_PUNCH_TARGETS_S439.md; films + critics' scores on the board), then DEFECTS1 (merge main in first; film a blocked punch). 4) Collect R26SWAP1 (Qwen) and the queued briefs as they land (read each against its brief before merging). 5) Wire the towel card into the corner minute once the result page is through.",
+ "next": "S469: 0) get_usage. 1) Lead glove (docs/CLASH2_RESULT.md last section): carry_base takes the face when the reach was not at full weight on the hit frame; block_meet CTRL_LANDED lets the ease finish; hit_gap_probe on the hidden desktop WITH --log; FILM seed 4242 jabs=2 crosses=2 (his C391). 2) Clipping leftovers: the frame after the rear uppercut's hit, a boxer's own two gloves, the rear uppercut 0.114 m off her chin - read his comment on the S468 strip first. 3) GUARDKNEE2 + LIVERPROBE1 (Qwen): collect, set LiverFold knobs. 4) LIVERRIBS1 step 4: corner retiring a cracked boxer + the 3-choice crack card. 5) Seat answers SQ104/109/111/113/115 -> DESIGN_LOOP_S459.md. 6) Export after any player-visible change.",
  "assessment": {
   "source": "Codex deep audit + Cursor televised-MMA gap assessment, both 2026-09-12",
   "bars": [
@@ -1932,6 +1933,11 @@
    "id": "S467",
    "date": "2026-11-14",
    "summary": "S467: LIVERRIBS2 (Goose) collected; liver vs ribs WIRED in three steps: rib injuries are the left ribs only, bruised 10-21 d / cracked 35-56 d, the liver never lays her off; the fight keeps body shots by side, tank drain liver x1.3 / ribs x0.55 (un-aimed = the old count); hurt left ribs land x0.85; the liver fold (LiverFold.gd) = a body knockdown with its round line and result-page tile (probe: 6.0 pts/shot, 7 folds of 27 counts in 100 bouts; LIVERPROBE1 tunes on 400); aim buttons 'Liver (right side)!' / 'Ribs (left side)!', the liver on the right for southpaws in PaceAim too. Nightly reds: no_pronoun, result_defects, aim_wire green; block_meet -> Qwen LANDREACH3 (the hit point is on the face, the drawn lead glove 4-11 cm above/below it); guard_knee -> GUARDKNEE2 queued; plan_bots/move_tip causes noted. Fight week v8 passes 6/6 (John 7/6/6). 10 stale Qwen PRs closed (all on main). Build exported. Late: ribs crack in the bout (rule 6, x0.6, injury link). LANDREACH3 (Qwen) not fixed: diagnosis collected (contact point and carry start must split); GUARDKNEE2 launched."
+  },
+  {
+   "id": "S468",
+   "date": "2026-11-14",
+   "summary": "S468: result_tabs_test no longer hangs (a script error before quit: its seed-44 story died with the S466 card fix; the sample bout is now found by FixLab's rule, failures=0; fixlab_scan: on 20 sample bouts the plan wins 9 of 40, the best change 11 - under MIN_GAIN). His C394 'still clipping' (x4) on the seed-4242 rear uppercut: new ruler tools/clash_meter.gd (bodies as drawn) read red on main (14 frames, 7-8 cm); now rear uppercut 3 frames (one 6.5 cm), lead uppercut 1 frame (2.4 cm): true glove and forearm shapes, right of way (live punch > hand going home > guard), the pass runs after ElbowClear (ArmClash.gd; ElbowClear moved elbows 2-18 cm after the old pass), a crowded hand draws in, an arm opens outward off a live punch. Lead glove height NOT changed: landreach4_probe shows block_meet reads a half-eased glove and the hit point re-latches onto it (docs/CLASH2_RESULT.md). Club week v6 queued for Kalli (SQ115). Regression: block_meet 4, hit_frame 10, hit_carry 38 (old rule same day 38). Build exported."
   }
  ],
  "blocked_on_operator": [],
@@ -4850,7 +4856,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-14 12:42 board_sync",
+  "updated": "2026-11-14",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5000,13 +5006,25 @@
   },
   "working_now": [
    {
-    "title": "TASK LANDREACH3 - the landed lead glove stops 5-11 cm above or below the face point it aims at (fix, headless)",
+    "title": "TASK GUARDKNEE2 - which commit bowed the rear guard knee out, and the smallest fix (bisect, headless)",
     "who": "qwen",
-    "started": "2026-11-14T12:17",
-    "run": "LANDREACH3"
+    "started": "2026-11-14T12:58",
+    "run": "GUARDKNEE2"
    }
   ],
   "next": [
+   {
+    "id": "LANDREACH4",
+    "who": "claude",
+    "title": "Lead glove height: the hit point latches onto a half-eased glove (S468 probe) - carry_base by reach weight, block_meet lets the ease finish, then the seed-4242 match film he waits for (C391)",
+    "after": ""
+   },
+   {
+    "id": "CLASH3",
+    "who": "claude",
+    "title": "Clipping leftovers after his look at the S468 strip: the frame after the rear uppercut hit, a boxer's own two gloves, the rear uppercut 11 cm off her chin",
+    "after": ""
+   },
    {
     "id": "INTEGRATE1",
     "who": "claude",
@@ -5475,6 +5493,16 @@
   },
   "done_recently": [
    {
+    "title": "Glove clipping (his C394): drawn-body ruler, true glove shapes, clearance after the elbow step - 14 clipped frames to 1-3",
+    "who": "claude",
+    "when": "2026-11-14"
+   },
+   {
+    "title": "Result page test no longer hangs; sample bout found by rule",
+    "who": "claude",
+    "when": "2026-11-14"
+   },
+   {
     "title": "Liver vs ribs wired: rib injury split, drain by side, hurt ribs, liver fold, aim words",
     "who": "claude",
     "when": "2026-11-14"
@@ -5531,14 +5559,6 @@
    },
    {
     "title": "Build exported (S466)",
-    "who": "claude"
-   },
-   {
-    "title": "Build exported (S465): tiles + glove clash",
-    "who": "claude"
-   },
-   {
-    "title": "Glove clash (his C389 'clipping'): a glove keeps off the other's glove and forearm; the punching hand keeps its line",
     "who": "claude"
    }
   ],
@@ -5668,6 +5688,26 @@
   "map": {
    "done_earlier": [
     {
+     "text": "LiverRibs module collected",
+     "who": "agent"
+    },
+    {
+     "text": "Rib injury: bruised or cracked",
+     "who": "claude"
+    },
+    {
+     "text": "Nightly reds: 2 fixed, 3 noted",
+     "who": "claude"
+    },
+    {
+     "text": "Fight week v8 passes 6/6",
+     "who": "claude"
+    },
+    {
+     "text": "Liver vs ribs wired (3 steps)",
+     "who": "claude"
+    },
+    {
      "text": "Card table fix: she stays put",
      "who": "claude"
     },
@@ -5702,47 +5742,15 @@
     {
      "text": "Glove clash fix (C389)",
      "who": "claude"
-    },
-    {
-     "text": "CARDVISIT1 rerun: matches Qwen",
-     "who": "claude"
-    },
-    {
-     "text": "Landed cross: game camera",
-     "who": "claude"
-    },
-    {
-     "text": "Push/tank v2 designed (Q-223)",
-     "who": "claude"
-    },
-    {
-     "text": "Coach skips undrilled steps",
-     "who": "claude"
-    },
-    {
-     "text": "Landed reach bisect: POWER1",
-     "who": "claude"
     }
    ],
    "done_session": [
     {
-     "text": "LiverRibs module collected",
-     "who": "agent"
-    },
-    {
-     "text": "Rib injury: bruised or cracked",
+     "text": "Result page test: no more hang",
      "who": "claude"
     },
     {
-     "text": "Nightly reds: 2 fixed, 3 noted",
-     "who": "claude"
-    },
-    {
-     "text": "Fight week v8 passes 6/6",
-     "who": "claude"
-    },
-    {
-     "text": "Liver vs ribs wired (3 steps)",
+     "text": "Glove clipping: 14 frames to 1-3",
      "who": "claude"
     }
    ],
@@ -5768,10 +5776,6 @@
      "who": "operator"
     },
     {
-     "text": "Your look: rear uppercut",
-     "who": "operator"
-    },
-    {
      "text": "Knowledge v3, coach fit v6",
      "who": "claude"
     },
@@ -5784,8 +5788,12 @@
      "who": "claude"
     },
     {
-     "text": "Lead glove height (Qwen)",
-     "who": "agent"
+     "text": "Lead glove height in the match",
+     "who": "claude"
+    },
+    {
+     "text": "Your look: uppercut clipping fix",
+     "who": "operator"
     }
    ],
    "next": [
@@ -5864,9 +5872,17 @@
     {
      "text": "Liver fold tune (Qwen, 400)",
      "who": "agent"
+    },
+    {
+     "text": "Lead glove: latch + match film",
+     "who": "claude"
+    },
+    {
+     "text": "Club week v6 (Kalli)",
+     "who": "agent"
     }
    ],
-   "session": "S467"
+   "session": "S468"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",

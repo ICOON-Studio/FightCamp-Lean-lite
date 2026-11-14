@@ -3000,6 +3000,62 @@
       "at": "2026-11-14T07:43:02Z",
       "seen_by_claude": true,
       "addressed": "cited by 97ca0023 2026-11-14"
+    },
+    {
+      "path": "_sent/2026-11-14_1124_landed_rear_cross_after_the_reach_fix_ga/f18.png",
+      "text": "Fine",
+      "at": "2026-11-14T09:48:48Z",
+      "seen_by_claude": true,
+      "id": "C390"
+    },
+    {
+      "path": "_sent/2026-11-14_1124_landed_rear_cross_after_the_reach_fix_ga/f19.png",
+      "text": "Fine but iwait to see it in the match",
+      "at": "2026-11-14T09:50:06Z",
+      "seen_by_claude": true,
+      "id": "C391"
+    },
+    {
+      "id": "C392",
+      "path": "media:_sent/2026-11-14_1015_glove_clash_c389_top_your_marked_frames_/clash_compare.png",
+      "text": "MARKUP: 5 marks -> Feedback/2026-11-14-02/README.md",
+      "at": "2026-11-14T10:10:17Z",
+      "seen_by_claude": true
+    },
+    {
+      "path": "_sent/2026-11-14_0957_landed_cross_on_the_game_camera_does_it_/landreach_cross_hits.png",
+      "text": "ok",
+      "at": "2026-11-14T10:10:47Z",
+      "seen_by_claude": true,
+      "id": "C393"
+    },
+    {
+      "id": "C394",
+      "path": "media:_sent/2026-11-13_2321_power1e_rear_uppercut_tail_quick_hand_ba/rear_uppercut_seed4242_00.png",
+      "text": "MARKUP: 4 marks -> Feedback/2026-11-14-03/README.md",
+      "at": "2026-11-14T10:14:22Z",
+      "seen_by_claude": true
+    },
+    {
+      "path": "_sent/2026-11-13_2152_fight_hud_landed_now_matches_the_holos_s/p06e_round2_live.png",
+      "text": "ok",
+      "at": "2026-11-14T10:15:55Z",
+      "seen_by_claude": true,
+      "id": "C395"
+    },
+    {
+      "path": "_sent/2026-11-13_2042_shared_holo_in_the_landed_box_side_holos/p06e_round2_live.png",
+      "text": "old idea",
+      "at": "2026-11-14T10:16:26Z",
+      "seen_by_claude": true,
+      "id": "C396"
+    },
+    {
+      "path": "_sent/2026-11-13_2023_fight_hud_office_after_his_c371_c383_mar/office_real.png",
+      "text": "ok",
+      "at": "2026-11-14T10:16:36Z",
+      "seen_by_claude": true,
+      "id": "C397"
     }
   ]
 }
