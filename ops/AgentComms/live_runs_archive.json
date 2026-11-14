@@ -18669,6 +18669,60 @@
     "after": {},
     "board": ""
    }
+  },
+  {
+   "agent": "qwen",
+   "id": "KNEESWEEP2",
+   "title": "TASK KNEESWEEP2 - rear foot at the take's 45 deg: which knee setting puts the rear knee inside BOTH bars? (sweep, measure only)",
+   "status": "collected S474",
+   "started": "2026-11-14T21:26",
+   "eta": "2026-11-14T23:16",
+   "branch": "qwen/kneesweep2",
+   "worktree": "E:/FightCamp/wt/LEAN_KNEESWEEP2",
+   "wt": "E:/FightCamp/wt/LEAN_KNEESWEEP2",
+   "brief": "ops/research/TASK_KNEESWEEP2.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/KNEESWEEP2_dispatch_out.txt",
+   "match": "seat_dispatch.py run kneesweep2",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/KNEESWEEP2_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/KNEESWEEP2_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/KNEESWEEP2_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 1528,
+    "seat_pid": 34216
+   },
+   "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
+  },
+  {
+   "agent": "goose",
+   "id": "FWEVENTS1",
+   "title": "fight week events: the Monday pull-out roll, late replacement asks, favours with a host (pure module + test)",
+   "status": "collected S474",
+   "started": "2026-11-14T21:30",
+   "where": "cloud",
+   "repo": "FightCamp-Lean",
+   "brief": "ops/research/TASK_FWEVENTS1.md",
+   "model": "Goose + Qwen token plan (GitHub Actions)",
+   "eta": "2026-11-14T22:30",
+   "note": "S380 seat_dispatch: pure rule module routed to Goose instead of a PC worktree (command line)",
+   "issue": "287",
+   "branch": "goose/issue-287",
+   "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/287"
+  },
+  {
+   "id": "FWTANK1",
+   "agent": "arena",
+   "title": "TASK FWTANK1 - fight week tank, load stop, sparring nights (pure module + test)",
+   "started": "2026-11-14T21:19",
+   "eta": "~45 min",
+   "status": "collected S474",
+   "brief": "ops/research/TASK_FWTANK1.md",
+   "chat": "https://arena.ai/agent/01a1db7e-aea3-7362-8ed6-f33600d196ea",
+   "branch": "arena/00d196ea-fightcamp-lean-lite"
   }
  ]
 }
