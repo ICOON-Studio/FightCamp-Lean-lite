@@ -149,6 +149,18 @@
       "issue": "305",
       "branch": "goose/issue-305",
       "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/305"
+    },
+    "MORNINGS1": {
+      "agent": "arena",
+      "id": "MORNINGS1",
+      "title": "Club week coached mornings + the weak spot (pure module + test)",
+      "status": "running",
+      "started": "2026-11-15T09:52",
+      "eta": "2026-11-15T10:50",
+      "chat": "https://arena.ai/agent/01a1de31-8b24-7169-bd21-dc521a2471c1",
+      "brief": "ops/research/TASK_MORNINGS1.md",
+      "repo": "ICOON-Studio/FightCamp-Lean-lite",
+      "seat": "arena"
     }
   },
   "codex_budget": {

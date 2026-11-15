@@ -1,3 +1,12 @@
+S483 (2026-11-15)
+- PLAYBOOK > Game plan: film now finds the opponent's MODES too (what they do in an exchange: walks you down, boxes at
+  range, waits to counter, loads up big shots). Their style word gives one away for free; film finds the next two, one
+  right after their best weapon and one before their weakness. "+ Add an IF" marks each found mode FOUND: OFTEN / SOME /
+  RARE (how often it showed on their films, out of up to 4), and the opponent's file says the same, e.g. "Loads up big
+  shots: SOME (2 of 4 films)". A mode that never shows on film is not a tell.
+- Club week (your "Yes, build it after the fight week"): four questions for you on the board (Q-242 to Q-245); nothing
+  of it is in the game yet.
+
 S482 (2026-11-15)
 - PLAYBOOK > Game plan is now ONE chart page (your Q-240 "Yes, build it"); the list is gone. Left: the opponent's file
   (what film found, and your answer to each). Middle: the BELL BOX (what your boxer does at each range when nothing

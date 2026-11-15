@@ -1,32 +1,37 @@
-# S483 handover (written 2026-11-15 at the end of S482; S481's handover is in git history)
+# S484 handover (written 2026-11-15 at the end of S483; S482's handover is in git history)
 
-OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `python ops/Tools/where_we_are.py roll S483`.
+OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `python ops/Tools/where_we_are.py roll S484`.
 
 ## USAGE RULES (kept)
-- Run `get_usage` first. Hand over at 420k; start the wrap-up at ~310-330k (S482 ran to 453k: start earlier).
-- Godot jobs through `python ops/Tools/godot_slot.py run --who s483 -- <cmd>`; put `timeout` OUTSIDE godot_slot (inside, Git
-  Bash finds Windows TIMEOUT.EXE). hidden_desktop takes `--log=<path>` and also goes through godot_slot.
-- Tests run as tools/run_tests.sh does: `--headless --audio-driver Dummy --fixed-fps 60` (block_meet: 30).
-- Never `cd` into a worktree; use `--path <wt>`. Never type the Godot terminal-build's file name in a Bash command.
-- Arena: pure modules only; lite mirror `python ops/Tools/lite_mirror.py --lean push`.
-- Qwen by hand: `python ops/Tools/seat_dispatch.py --task <ID> --seat qwen --act` (contract REGRESSION must name a test;
-  a seat still marked "running" in live_runs.json blocks it - land the old run first).
+- Run `get_usage` first. Hand over at 420k; start the wrap-up at ~310k. The Miro P0 redraw costs ~20k each time: do it
+  once at start and once at the end, never more.
+- Godot jobs through `python ops/Tools/godot_slot.py run --who s484 -- <cmd>`; `timeout` OUTSIDE godot_slot. Single tests
+  as tools/run_tests.sh runs them (`--headless --audio-driver Dummy --fixed-fps 60`); a runner script for a test list was
+  used in S483 (xargs -P 3, rc + SCRIPT ERROR check).
+- Never `cd` into a worktree (S483 did once by accident); use `git -C <wt>`.
+- Arena: pure modules only, it has no Godot - run its test yourself. Lite mirror `python ops/Tools/lite_mirror.py --lean push`.
+- Qwen rerun: a landed run blocks seat_dispatch (worktree, local + remote branch, run record). Save the old commit to
+  `<branch>-r1`, retire the worktree, delete both branches, mark the run failed, `seat_dispatch.py retry <ID>`, then `--act`.
+- Goose: GOOSE_PER_DAY 3 (S483 used all three). Briefs say "never sleep to wait; foreground timeout".
 
-## WHAT S482 DID (ops/research/S482_DIGEST.md)
-- The Game plan is ONE chart page (PlanChart + PlanChartShapes + PlanAuto), golden path tests/plan_chart_test.gd; coach's
-  starter now fireable; Your coach rewrites it / Start from last bout.
-- Partner edge on its own key (bout.spar_edge, rounds 1-2), EDGE x2.5 from a paired probe. Women's 70 kg class.
-- CLASH6 round 1 crashed the film -> round 2 brief. Seat prompt: windowed Godot only via hidden_desktop.
+## WHAT S483 DID (ops/research/S483_DIGEST.md)
+- Mode tells wired: OppFile tape order weapon, mode, habits, mode, weakness; OFTEN/SOME/RARE on the chart's + Add an IF and
+  the file column. plan_file_test fixed (S466 outside card).
+- Club week build started: CHECKs note, owner questions Q-242..245 on the board, MORNINGS1 on Arena.
+- STYLE2 timed out -> STYLE3 (lever count first). CLASH6 round 2 on Qwen. Kalli ladder v2 queued (SQ169).
+- Coaches M1 (Dola) and Training K (built from Dola's spec) on the review board.
 
 ## IN FLIGHT (yours - collect, do not relaunch)
-- Qwen MODETELLS1 (branch qwen/modetells1, wt E:/FightCamp/wt/LEAN_MODETELLS1): merge bar = the two OWNS files only,
-  `tests/mode_tells_test.gd -> MODE_TELLS PASS fails=0`, plan_chart_test green.
-- Goose STYLE2 (#302, running since 05:27): PR or "could not open a PR" -> fetch goose/issue-302.
-- Kalli SQ169 ladder v2; SQ168 training K spec. Dola SQ165 coaches M1 LANDED (ops/research/COACHFIT_M1_DRAW_S480_DOLA_DOLA.md): render it (tools/render_mockup.py) and put it on the review board.
+- Qwen CLASH6 round 2 (qwen/clash6, wt E:/FightCamp/wt/LEAN_CLASH6): RUN the hidden film yourself before merging; merge bar
+  in ops/research/TASK_CLASH6.md.
+- Goose STYLE3 (#305, branch goose/issue-305): read the LEVER lines first; merge only StyleName EFFECTS numbers + probe + doc.
+- Arena MORNINGS1 (chat https://arena.ai/agent/01a1de31-8b24-7169-bd21-dc521a2471c1, lite PR relays to an arena/* PR):
+  `tests/coached_mornings_test.gd -> COACHED_MORNINGS PASS fails=0`, diff = the two OWNS files.
+- Kalli SQ169 ladder v2 (seat queue).
 
 ## FIRST
-1. Collect MODETELLS1, then wire it: the + Add an IF list and the file column show OFTEN / SOME / RARE (ModeTells.band) and
-   the tape order (ModeTells.tape_order). Then relaunch Qwen on CLASH6 round 2; run its hidden film YOURSELF before merging.
-2. His look at the chart (review board S482) and his play of the fight week gate the rest of PLANFLOW1 stage 1 and FIGHTWEEK3.
-3. Q-241 (club week build) - act on his answer.
-4. Seat answers as they land (ladder v2 -> two fresh critics via design_loop.py critic).
+1. Collect the four above as they land.
+2. His board answers Q-242..245 -> CHECKs 4, 6, 7, 10 (ops/research/CLUBWEEK1_V9_CHECKS_S483.md) -> brief ClubDeal v9
+   (pad turns) for a seat. Q-242 decides the turn unit.
+3. TRAINGAME2: the game's real numbers into docs/mockups/s483/training_k.html, then two critics.
+4. His look (chart, K, coaches M1) and his play of the fight week gate PLANFLOW1's rest and FIGHTWEEK3.

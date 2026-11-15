@@ -7574,6 +7574,93 @@
       "answered_at": "2026-11-15T05:42:35Z",
       "seen_by_claude": true,
       "seen": true
+    },
+    {
+      "id": "Q-S294-241",
+      "asked": "2026-11-15T06:28:09.846589+00:00",
+      "session": "S294",
+      "text": "Club week v9 passed both critics (John 6/6/6, Maria 7/6/6). Build it after the fight week, with their 3 must-fixes folded in (a short fight week costs a pad turn, loyalty drifts every week, cover/volunteers are never free)?",
+      "options": [
+        "Yes, build it after the fight week",
+        "Not yet"
+      ],
+      "attach": [
+        "research/DESIGN_CLUBWEEK1_V9_REVISE_KALLI_KALLI.md"
+      ],
+      "answer": "Yes, build it after the fight week",
+      "note": null,
+      "answered_at": "2026-11-15T07:24:48Z",
+      "seen_by_claude": true,
+      "comment_only": false
+    },
+    {
+      "id": "Q-S294-242",
+      "asked": "2026-11-15T07:50:51.938276+00:00",
+      "session": "S294",
+      "text": "Club week, coach's pad hours: with 2+ boxers the coach has pad hours to share (sessional 2 a week, full-time 3; each hour = 3 boxer turns). An ordinary week still gives everyone full pads; selling a class, a 4th boxer or a twist sends someone to the bag that night (half the learning). OK?",
+      "options": [
+        "Yes",
+        "Change it"
+      ],
+      "attach": [
+        "research/DESIGN_CLUBWEEK1_V9_REVISE_KALLI_KALLI.md"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-243",
+      "asked": "2026-11-15T07:50:52.156572+00:00",
+      "session": "S294",
+      "text": "Club week, day job: a boxer without the gym sponsorship (the $250 a week stipend) loses mornings to work. How many a week?",
+      "options": [
+        "1 morning",
+        "2 mornings",
+        "None"
+      ],
+      "attach": [
+        "research/DESIGN_CLUBWEEK1_V9_REVISE_KALLI_KALLI.md"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-244",
+      "asked": "2026-11-15T07:50:52.440401+00:00",
+      "session": "S294",
+      "text": "Club week, leaving: a fighter still under 25 loyalty after 2 talks leaves the gym; one turning pro under 50 takes an outside manager (club share 10% instead of 25%). Yes, or morale only (-4 a Monday, nobody leaves)?",
+      "options": [
+        "Yes, they can leave",
+        "Morale only"
+      ],
+      "attach": [
+        "research/DESIGN_CLUBWEEK1_V9_REVISE_KALLI_KALLI.md"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-245",
+      "asked": "2026-11-15T07:50:52.652863+00:00",
+      "session": "S294",
+      "text": "Club week, loyalty on screen: a 0-100 bar, or only its word (Loyal, Settled, Wavering, Leaving) like the other traits?",
+      "options": [
+        "Word only",
+        "0-100 bar"
+      ],
+      "attach": [
+        "research/DESIGN_CLUBWEEK1_V9_REVISE_KALLI_KALLI.md"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
     }
   ]
 }
