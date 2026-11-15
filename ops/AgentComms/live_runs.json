@@ -198,6 +198,18 @@
    "repo": "FightCamp-Lean-lite",
    "where": "cloud",
    "url": "https://arena.ai/agent/01a1debf-625b-7c8c-81e3-59f868eab383"
+  },
+  "STEPVALUE2": {
+   "agent": "arena",
+   "id": "STEPVALUE2",
+   "title": "What a step is worth against each style, for the learn card (STEPVALUE1 piece 6, pure table + test)",
+   "status": "running",
+   "started": "2026-11-15T12:42",
+   "eta": "2026-11-15T13:00",
+   "brief": "ops/research/TASK_STEPVALUE2.md",
+   "repo": "FightCamp-Lean-lite",
+   "where": "cloud",
+   "url": "https://arena.ai/agent/01a1dec4-84c1-7fed-8c3f-c62337d95d4f"
   }
  },
  "codex_budget": {

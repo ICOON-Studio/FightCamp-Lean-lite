@@ -1,6 +1,6 @@
-# S485 handover (written 2026-11-15 at the end of S484; S483's handover is in git history)
+# S486 handover (written 2026-11-15 at the end of S485; S484's handover is in git history)
 
-OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `python ops/Tools/where_we_are.py roll S485`.
+OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `python ops/Tools/where_we_are.py roll S486`.
 
 ## USAGE RULES (kept)
 - Run `get_usage` first. Hand over at 420k; start the wrap-up at ~310k. The Miro P0 redraw costs ~20k each time: do it
@@ -14,30 +14,27 @@ OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py s
   `<branch>-r1`, retire the worktree, delete both branches, mark the run failed, `seat_dispatch.py retry <ID>`, then `--act`.
 - Goose: GOOSE_PER_DAY 3 (S483 used all three). Briefs say "never sleep to wait; foreground timeout".
 
-## WHAT S484 DID (ops/research/S484_DIGEST.md)
-- Collected MORNINGS1 (Arena), FOURMONEY1 (Qwen, new: four stipends = 9 weeks on today's cash), STYLE3 probe + lever table
-  (Goose: 3 dead style levers; retune NOT merged) -> STYLE4 at Kalli.
-- CLASH6 round 2 FAILED (kept on local qwen/clash6-r2). Two red rounds: audit, no round 3.
-- TRAINGAME2: training K page with the game's real numbers (tools/training_k_numbers.gd); check hook 1.8 short Friday.
+## WHAT S485 DID (ops/research/S485_DIGEST.md)
+- Club week v1 WIRED on his S484 answers: loyalty bar on the Overview ("62 - Settled"), LoyaltyWire (sponsorship +5/-8,
+  Monday drift to 60, wants_sponsor -3), pro share 10% under 50, a day job = 2 of 6 mornings (WORK on the week plan),
+  film seats (third boxer in a fight week watches alone). CHECKs 4/6/7/10 closed. Leaving + the talk = R58 build (not done).
+- Arena x3 merged (DAYJOB1 with 2 parse fixes, FILMSEATS1, STEPEFFECT1); STEPVALUE2 running at wrap-up.
+- FOURSTART1 money with classes + ticket cuts -> board Q-S294-246 (one sponsored starter, three on day jobs).
+- Arena prompt recipe that works: navigate arena.ai/agent, wait 6 s, click (400,272), execCommand insertText into
+  document.activeElement, wait, send button at about (661,360) in the 800x600 frame. Brief has a GDSCRIPT TRAPS paragraph.
 
-## IN FLIGHT (seat queue - collect, do not resend)
-- Ladder v2 critics IN: Dola 7/8/7, John 6/6/6 (below the 7 bar) -> SQ175 Kalli writes v3 with John's five fixes; then two
-  fresh critics again.
-- Training K: Kalli 4/5/4 (SQ173, she scored the numbers note, not a design); John SQ172 pending. Next: a real design pass.
-- SQ172 John + SQ173 Kalli: training K critics.
-- SQ174 Kalli: STYLE4 - new levers for Slugger, Boxer-puncher, Counter-puncher (then a Qwen code brief + retune of all six at
-  100 bouts a cell; gates in docs/STYLE3_RESULT.md).
-- Qwen CLASH7 (qwen/clash7, wt E:/FightCamp/wt/LEAN_CLASH7, ETA ~14:00): the audit fix - Skeleton3D MANUAL + SkelPump
-  (puncher first). RUN its hidden film yourself; bar in ops/research/TASK_CLASH7.md.
-- Arena is free; Qwen once CLASH7 lands: give each a task in the first hour (Arena: a pure module; Qwen: STYLE4 code once Kalli lands).
+## IN FLIGHT (collect, do not resend)
+- Qwen CLASH7 (qwen/clash7, wt E:/FightCamp/wt/LEAN_CLASH7, ETA ~13:44): RUN its hidden film yourself; bar in
+  ops/research/TASK_CLASH7.md (08_jab and 09_jab 0 frames > 0.02 m, regression set not grown, pass log regular).
+- Arena STEPVALUE2 (https://arena.ai/agent/01a1dec4-84c1-7fed-8c3f-c62337d95d4f, a lite PR): run tests/step_value_test.gd.
+- Seat queue: SQ172 John (training K critic), SQ174 Kalli (STYLE4 levers -> Qwen code brief + retune all six at 100 bouts a
+  cell), SQ175 Kalli (ladder v3 -> two fresh critics).
 
 ## FIRST
-1. Seat answers above; quote the scores.
-2. Club week: his answers are IN (S484 chat, recorded in ops/research/CLUBWEEK1_V9_CHECKS_S483.md): pads never short (no
-   pad-turn rule, ClubDeal v9 pad turns dropped), 2 mornings lost without sponsorship, fighters can leave, loyalty 0-100 bar +
-   word. Close CHECKs 4, 6, 7, 10 and brief the club week build for the seats.
-   BOARD QUESTIONS (his S484 anger: "stop pasting 5k words for a simple question ... give context and ask"): the question text
-   must stand alone with its context in 2-3 plain lines; never attach a long design map - attach a one-screen picture or nothing.
-3. Collect CLASH7 (audit in TASK_CLASH6.md 'Audit (S484)': ap.seek(t, true) mid-frame breaks the stack order).
-4. FOURSTART1 map: docs/FOURMONEY1_RESULT.md + classes + ticket cuts.
-5. His look (chart, training K, coaches M1) and his play of the fight week gate PLANFLOW1's rest and FIGHTWEEK3.
+1. Collect CLASH7 and STEPVALUE2; seat answers.
+2. R58 build (ops/research/R58_MAP_S439.md section 8; pro share stays 10% per his Q-244, the map says 12%): APPROACH1 and
+   PROMISE1 to Arena/Qwen first hour; LEAVE1 + LOYALHOOKS1 Claude (removing a fighter touches c.fighters, a booked bout, UI
+   fid refs, the save; c.fighter() is fighters[0]).
+3. STEPVALUE1: piece 3 (the ropes count inside the exchange) and wiring StepEffect into LiveRound; then probes 2-7.
+4. Q-246 answer -> FOURSTART1 start state.
+5. His look/play gates (chart, training K, fight week) for PLANFLOW1 rest and FIGHTWEEK3.

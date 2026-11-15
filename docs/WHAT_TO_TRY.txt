@@ -1,3 +1,16 @@
+S485 (2026-11-15)
+- FIGHTER > Overview: LOYALTY is now shown under Tiredness as you picked (Q-245): a 0-100 bar with its word, e.g.
+  "62 - Settled". Hover it: the last three things that moved it.
+- Loyalty moves now: putting a boxer on the gym sponsorship +5, taking it away -8 (Club > Money, the stipend button says
+  so); every Monday a boxer under 60 gains 1; a top prospect (potential 80+) left on a day job 8 weeks or more loses 3 a
+  week. Leaving the club is not in yet (that is the "a fighter leaves" build, next).
+- A DAY JOB now costs 2 mornings a week (your Q-243): the Training tab marks Tue and Thu "WORK" (another day when she
+  rests on one of those), and her morning gains count 4 of 6 (was a hidden 15% cut).
+- Turning pro under 50 loyalty: an outside manager signs her and the club keeps 10%, not 25% (your Q-244). The pro offer
+  says so before you accept.
+- Fight week: your coach sits down for 2 film nights a week. If three of your boxers fight the same week, the third one
+  to lock a film night watches alone and finds no tell; the fight week screen says so in amber.
+
 S483 (2026-11-15)
 - PLAYBOOK > Game plan: film now finds the opponent's MODES too (what they do in an exchange: walks you down, boxes at
   range, waits to counter, loads up big shots). Their style word gives one away for free; film finds the next two, one
