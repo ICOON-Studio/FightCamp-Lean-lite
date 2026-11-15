@@ -1544,9 +1544,22 @@
   {
    "task": "CLASH7",
    "seat": "qwen",
-   "status": "launched",
+   "status": "failed",
    "queued": "2026-11-15T12:10",
-   "launched": "2026-11-15T11:54"
+   "launched": "2026-11-15T11:54",
+   "note": "S486: depths unchanged (0.054/0.057 m); order now right; kept as base of CLASH8"
+  },
+  {
+   "task": "CLASH8",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-15T13:00"
+  },
+  {
+   "task": "STYLE4",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-15T12:57"
   }
  ]
 }

@@ -37,7 +37,7 @@ const TRAINING := [["ring", "Ring"], ["bag", "Heavy bag"], ["rack", "Weights rac
 ## S414 "add descriptions on each item and what it improves/cost". Costs are real kit prices (ops/research/GYM_PLANNER_SITES_S414.md);
 ## what each builds is a proposal: nothing in the game reads it yet.
 const INFO := {
-	"ring": {"cost": "$3,500", "builds": "Footwork, Ring IQ", "what": "Sparring and pad rounds, five pairs at once."},
+	"ring": {"cost": "$3,500", "builds": "Footwork, Fight IQ", "what": "Sparring and pad rounds, five pairs at once."},
 	"bag": {"cost": "$570", "builds": "Power, Technique", "what": "One boxer at a time, working the shots."},
 	"rack": {"cost": "$1,050", "builds": "Power, Conditioning", "what": "Dumbbells on a rack, four people lifting."},
 	"bench": {"cost": "$400", "builds": "Power", "what": "Two people taking turns on the weights."},

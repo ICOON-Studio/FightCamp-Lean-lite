@@ -27,7 +27,7 @@ const FINDS := {
 }
 const WORDS := {
 	"power": "Power", "speed": "Speed", "technique": "Technique",
-	"defense": "Defence", "conditioning": "Cardio", "fight_iq": "Ring IQ",
+	"defense": "Defence", "conditioning": "Stamina", "fight_iq": "Fight IQ",   # S486 one vocabulary (Data.LABEL, S443)
 }
 
 
