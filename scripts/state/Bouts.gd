@@ -33,6 +33,8 @@ const GymSpend := preload("res://scripts/state/GymSpend.gd")
 const FirstHour := preload("res://scripts/rules/FirstHour.gd")
 const HeadCoach := preload("res://scripts/rules/HeadCoach.gd")
 const ClubStart := preload("res://scripts/rules/ClubStart.gd")
+const FightWeekPlan := preload("res://scripts/state/FightWeekPlan.gd")
+const WeighGap := preload("res://scripts/rules/WeighGap.gd")
 
 
 const OFFER_ANSWER_DAYS := 3
@@ -83,7 +85,7 @@ static func offers_settled(f: Dictionary) -> bool:
 static func camp_due(c: Career, f: Dictionary) -> bool:
 	var b: Dictionary = f["bout"]
 	# S359 (grey_reason_test under load: a bout dict with keys but no day crashed here): booked = it has its day.
-	return b.has("day") and (f["camp"] as Dictionary).is_empty() and int(b["day"]) - c.day >= BoutRules.CAMP_MIN_DAYS
+	return b.has("day") and (f["camp"] as Dictionary).is_empty() and int(b["day"]) - c.day >= BoutRules.CAMP_MIN_DAYS and not WeekPhase.amateur(b)   # S481: a fight-week bout has no camp (FightWeekPlan)
 
 
 static func weigh_in_today(c: Career, f: Dictionary) -> bool:
@@ -194,6 +196,7 @@ static func accept(c: Career, id: String) -> bool:
 	f["bout"] = {"opp": (o["opp"] as Dictionary).duplicate(true), "day": int(o["day"]), "weighed": false, "made": false, "done": false,
 		"film": BoutRules.FILM_DEPTH_DEFAULT}
 	f["booked_fight"] = true
+	FightWeekPlan.mark(c, f)   # S481 FIGHTWEEK2: a club-show bout is a fight week, no camp (S428 scope; the switch is on)
 	WeekPhase.sync(f, c.day)   # S356 a bout booked: the coach writes the camp's phase from today, not next Monday
 	FighterProfile.apply_morale(f, "booked", "A fight booked: %s" % o["opp"]["name"])
 	c.add_news("Booked: %s vs %s, %s." % [f["name"], o["opp"]["name"], Clock.fmt(int(o["day"]))])
@@ -287,6 +290,9 @@ static func withdraw_bout(c: Career, f: Dictionary) -> void:
 static func start_camp(c: Career, f: Dictionary, focus: String, protocol: int, film: bool, partner: bool = false) -> int:
 	if (f["bout"] as Dictionary).is_empty() or not (f["camp"] as Dictionary).is_empty():
 		return 0
+	# S481: a camp set on a club-show bout (a test, TestJump) makes it a camp bout - the fight week's keys go
+	for k in ["fight_week", "load", "fw_locked", "spar_days", "eat_less", "unsparred", "fw_film"]:
+		(f["bout"] as Dictionary).erase(k)
 	var cost := BoutRules.camp_cost(protocol, partner)
 	if cost > 0:
 		c.pay(-cost, "Sparring partner for %s: %s, %d visits" % [f["first"],
@@ -330,6 +336,10 @@ static func tape_days(c: Career, f: Dictionary) -> void:
 static func weigh(c: Career, f: Dictionary) -> bool:
 	f["bout"]["weighed"] = true
 	var made := BoutRules.made_weight(float(f["weight"]), float(f["limit"]))
+	# S481 FIGHTWEEK2: a club show matches walking weights within the gap (England Boxing 7.1.3, WeighGap)
+	if not made and WeekPhase.amateur(f["bout"]):
+		var lim := float(f["limit"])
+		made = WeighGap.in_gap(float(f["weight"]), float((f["bout"]["opp"] as Dictionary).get("weight", lim)), lim)
 	f["bout"]["made"] = made
 	if not made and f["bout"].has("champ"):
 		# S328 a championship has no empty slot to pay for: she is out of the draw.

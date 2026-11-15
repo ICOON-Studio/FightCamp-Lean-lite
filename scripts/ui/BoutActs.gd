@@ -208,7 +208,7 @@ static func act(main: Node, name: String, arg: String) -> bool:
 			var fid := str(Bouts.find_offer(c, arg)[0].get("id", ""))
 			if Bouts.accept(c, arg):
 				main.nav({"area": "home", "tab": 0})
-				main.toast("Bout booked. Next: set the camp.")
+				main.toast("Bout booked. Next: %s." % ("set the fight week" if WeekPhase.amateur(Bouts.find_offer(c, arg)[0].get("bout", {})) else "set the camp"))
 				main.show_poster(fid)
 		"declineOffer":
 			Bouts.decline(c, arg)

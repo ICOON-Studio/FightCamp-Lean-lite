@@ -151,9 +151,12 @@ func _end() -> void:
 
 
 func _secs(s: float) -> void:
-	var end := Time.get_ticks_msec() + int(s * 1000.0)
-	while Time.get_ticks_msec() < end:
+	# game time, not the wall clock: the runner fixes the frame step (--fixed-fps, S470), so a headless
+	# frame can pass far faster than 1/60 s of real time while the game's own timers count delta
+	var t := 0.0
+	while t < s:
 		await process_frame
+		t += root.get_process_delta_time()
 
 
 func _check(label: String, ok: bool, detail: String) -> void:

@@ -54,7 +54,14 @@ def _state() -> dict:
 def fetch(force: bool = False) -> str:
     done = [r for r in runs() if r.get("status") == "completed"]
     if not done:
-        return "NIGHTLY_FETCH no finished cloud nightly yet"
+        ## S481: Lean has no cloud nightly workflow; the full suite runs on the PC at 05:00 (task "FightCamp Nightly
+        ## Tests", operator S402) and writes latest.txt itself. Say THAT, not "no nightly" (operator S481: "why the
+        ## nightly didnt run ?" - it had run; this line said otherwise).
+        latest = NIGHTLY / "latest.txt"
+        if latest.exists():
+            first = latest.read_text(encoding="utf-8-sig", errors="replace").splitlines()[0]
+            return "NIGHTLY (PC 05:00 task) %s" % first[:160]
+        return "NIGHTLY no result yet (PC task 'FightCamp Nightly Tests' writes AgentComms/nightly/latest.txt)"
     run = done[0]
     st = _state()
     if not force and st.get("run_id") == run["databaseId"]:

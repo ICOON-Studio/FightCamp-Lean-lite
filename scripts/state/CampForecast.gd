@@ -40,6 +40,10 @@ static func run(c: Career, f: Dictionary, focus: String, protocol: int, film := 
 		"start": int((f.get("camp", {}) as Dictionary).get("start", c.day))}
 	if protocol < 1 and (f.get("camp", {}) as Dictionary).is_empty():
 		g["camp"] = {}   # S434 no camp is no camp: a protocol-0 "camp" cut weight (Sim.week_ctx) where her real week does not
+	elif not (g["camp"] as Dictionary).is_empty():
+		# S481: a camp set on a club-show bout makes it a camp bout (Bouts.start_camp drops the fight week's keys): forecast that
+		for k in ["fight_week", "load", "fw_locked", "spar_days", "eat_less", "unsparred", "fw_film"]:
+			(g.get("bout", {}) as Dictionary).erase(k)
 	var bout: Dictionary = g.get("bout", {})
 	var n := maxi(0, int(bout.get("day", c.day)) - c.day)   # fight night is stepped to, never trained on
 	var inj: Dictionary = g.get("injury", {})

@@ -79,6 +79,8 @@ const GymSlots := preload("res://scripts/rules/GymSlots.gd")
 @export var income_history: Array = []
 ## S415 the equipment bought ({id, day}, GymSlots). [] = a save from before: the whole gym stands.
 @export var gym_slots: Array = []
+## S481 FIGHTWEEK2 favours with each host club ({club: n}, FightWeekPlan.favours: a club not here starts at 1).
+@export var favours: Dictionary = {}
 
 
 static func quick_start(name: String = "Anvil Street Gym", town: String = "London", start_id: String = "fresh",

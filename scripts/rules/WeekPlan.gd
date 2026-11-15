@@ -119,8 +119,24 @@ static func ahead(f: Dictionary, day: int, weeks: int) -> Array:
 static func evenings_of(f: Dictionary) -> Array:
 	var p := str(f.get("phase", "base"))
 	var camp: Dictionary = f.get("camp", {})
+	var spar := int(WeekPhase.edits(f).get("spar", WeekPhase.spar(p)))
+	# S481 FIGHTWEEK2: a locked fight week's film night takes a pad night as a camp's does, and its fight-week sparring
+	# nights that fall in this week are this week's spar evenings (FightWeekPlan.lock: bout.fw_film, bout.spar_days).
+	var b: Dictionary = f.get("bout", {})
+	if WeekPhase.amateur(b) and bool(b.get("fw_locked", false)):
+		if camp.is_empty() and b.has("fw_film"):
+			camp = {"film": true, "start": int(b["fw_film"])}
+		if not WeekPhase.edits(f).has("spar"):
+			var pd := int(f.get("phase_day", 0))
+			var monday := pd - posmod(pd, 7)
+			var n := 0
+			for d in b.get("spar_days", []):
+				var on := int(b.get("day", 0)) - int(d)
+				if on >= monday and on < monday + 7:
+					n += 1
+			spar = maxi(spar, n)
 	# S382: the camp's one film night falls in its first week, on the first pad night from the day it was set
-	return evenings_for(int(WeekPhase.edits(f).get("spar", WeekPhase.spar(p))), WeekPhase.pads(p),
+	return evenings_for(spar, WeekPhase.pads(p),
 		WeekPhase.film_night(p, camp, int(f.get("phase_day", -1))), posmod(int(camp.get("start", 0)), 7))
 
 

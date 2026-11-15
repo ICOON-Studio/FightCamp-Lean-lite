@@ -205,7 +205,10 @@ func _week_two(c: Career) -> void:
 		c.fighter()["bout"].get("opp", {}).get("name", "?"), Clock.fmt(int(c.fighter()["bout"].get("day", 0)))])
 	var lead := int(c.fighter()["bout"].get("day", 0)) - c.day
 	_check(lead >= 14 and lead <= 32 and posmod(int(c.fighter()["bout"].get("day", 0)), 7) == 5, "fight night is a Saturday 2-4 weeks out (%d days)" % lead)
-	_check(Needs.flags(c).any(func(x): return x["t"] == "SET CAMP"), "SET CAMP waits on the top bar")
+	# S481 FIGHTWEEK2 (S428 scope): a club-show bout asks for its FIGHT WEEK, not a camp (fight_week_screen_test walks it);
+	# this path still sets a camp through the act, which makes it a camp bout (Bouts.start_camp), to keep the camp checks.
+	_check(Needs.flags(c).any(func(x): return x["t"] == "FIGHT WEEK") and not Needs.flags(c).any(func(x): return x["t"] == "SET CAMP"),
+		"FIGHT WEEK waits on the top bar, no SET CAMP")
 	_check(str(Sim.goal_read(c, c.fighter())["row"]).contains("booked fight 1"), "the debut goal counts the booking: %s" % Sim.goal_read(c, c.fighter())["row"])
 
 	# The camp.
@@ -306,6 +309,10 @@ func _missed_weight() -> void:
 	while c.fighter()["offers"].is_empty():
 		Sim.step_day(c)
 	_check(Bouts.accept(c, str(c.fighter()["offers"][0]["id"])), "second career: bout accepted, no camp, holding weight")
+	# S481: a club show weighs walking weights within a gap and its fight week cuts; the missed weight is a camp bout's
+	# (title, pro) never cut - this bout is made one.
+	for k in ["fight_week", "load"]:
+		(c.fighter()["bout"] as Dictionary).erase(k)
 	while not Bouts.weigh_in_today(c, c.fighter()):
 		Sim.step_day(c)
 	var cash := c.cash

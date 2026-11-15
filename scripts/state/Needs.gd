@@ -4,6 +4,7 @@ extends RefCounted
 
 const Data := preload("res://scripts/state/Data.gd")
 const Bouts := preload("res://scripts/state/Bouts.gd")
+const FightWeekPlan := preload("res://scripts/state/FightWeekPlan.gd")
 const Sim := preload("res://scripts/state/Sim.gd")
 const GymBills := preload("res://scripts/rules/GymBills.gd")
 const GameMoney := preload("res://scripts/rules/GameMoney.gd")
@@ -89,6 +90,10 @@ static func needs(career: Career) -> Array:
 			n.append({"red": false, "t": "Set %s's fight camp" % f["first"],
 				"s": "bout on %s, %d weeks: time for a camp" % [Clock.fmt(int(f["bout"]["day"])), int(days / 7.0)],
 				"act": "camp", "arg": f["id"], "label": "Set camp"})
+		if FightWeekPlan.is_open(f):
+			n.append({"red": false, "t": "Set %s's fight week" % f["first"],
+				"s": "bout on %s: the load, the sparring partner, the weight" % Clock.fmt(int(f["bout"]["day"])),
+				"act": "fightweek", "arg": f["id"], "label": "Fight week"})
 	# S328 update 30: the season goal - she is eligible and the entry window is open.
 	for f in career.fighters:
 		if Champs.cannot_enter(career, f) == "":
@@ -130,6 +135,8 @@ static func flags(career: Career) -> Array:
 	for f in career.fighters:
 		if Bouts.camp_due(career, f):
 			out.append({"t": "SET CAMP", "act": "camp", "arg": f["id"], "red": false})
+		if FightWeekPlan.is_open(f):   # S481 FIGHTWEEK2: a club-show bout's week to set (no camp)
+			out.append({"t": "FIGHT WEEK", "act": "fightweek", "arg": f["id"], "red": false})
 	if career.review_pending:
 		out.append({"t": "WEEK REVIEW", "act": "review", "arg": "", "red": false})
 	for f in career.fighters:

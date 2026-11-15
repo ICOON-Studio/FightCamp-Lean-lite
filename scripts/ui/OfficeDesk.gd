@@ -35,7 +35,7 @@ const DAYS := 28
 const SHOWN_MAIL := 3
 const WEEKS := 8
 ## A need's act -> its KitIcon.
-const NEED_ICON := {"openBout": "offer", "interview": "members", "camp": "camp", "weighin": "weight", "injurychoice": "injured",
+const NEED_ICON := {"openBout": "offer", "interview": "members", "camp": "camp", "fightweek": "camp", "weighin": "weight", "injurychoice": "injured",
 	"prooffer": "contract", "goaltalk": "star", "review": "calendar", "trial": "scouted", "opennight": "mat", "closedgym": "lock",
 	"go": "money", "guideweek": "calendar"}
 ## A chip that owns a calendar cell first (a cell draws one chip; all of them sit in its hover).

@@ -68,10 +68,11 @@ func _initialize() -> void:
 	var min_scale := 1.0
 	var t0 := -1.0
 	var t1 := -1.0
-	var start := Time.get_ticks_msec()
-	while Time.get_ticks_msec() - start < 15000 and not bool(rv.get("revealed")):
+	# game time, not the wall clock: the runner fixes the frame step (--fixed-fps, S470) and the turn's tween counts delta
+	var now := 0.0
+	while now < 15.0 and not bool(rv.get("revealed")):
 		await process_frame
-		var now := (Time.get_ticks_msec() - start) / 1000.0
+		now += root.get_process_delta_time()
 		if card.scale.x < 0.999 and t0 < 0.0:
 			t0 = now
 		if card.scale.x < 0.999:

@@ -304,7 +304,11 @@ func _test_announcer_crowd() -> void:
 	SfxScript.stop("crowd_arena_loop", 0.0)
 	var n = SfxScript.ensure()
 	_check(n != null and not n._loops.has("crowd_arena_loop"), "the bed is off before the walk-in")
-	await create_timer(2.1).timeout   # crowd_roar has a 2 s cooldown; the checks above just played it
+	# crowd_roar has a 2 s cooldown; the checks above just played it. Sfx keeps cooldowns on the wall clock, and the
+	# runner's --fixed-fps (S470) lets game time run ahead of it, so wait the cooldown out in real time.
+	var wall := Time.get_ticks_msec() + 2100
+	while Time.get_ticks_msec() < wall:
+		await process_frame
 	var roars := int(n.played.get("crowd_roar", 0))
 	_check(FightVoice.intro_opening(), "the kept opening line plays")
 	_check(n._loops.has("crowd_arena_loop"), "the arena crowd runs under the announcer's opening")
