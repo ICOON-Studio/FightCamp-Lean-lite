@@ -16,6 +16,7 @@ const GymBills := preload("res://scripts/rules/GymBills.gd")
 const HomeJuniors := preload("res://scripts/state/HomeJuniors.gd")
 const ProLadder := preload("res://scripts/state/ProLadder.gd")
 const Membership := preload("res://scripts/rules/Membership.gd")
+const Leaving := preload("res://scripts/state/Leaving.gd")
 const Grants := preload("res://scripts/rules/Grants.gd")
 const LoyaltyWire := preload("res://scripts/state/LoyaltyWire.gd")
 
@@ -291,6 +292,7 @@ static func day_events(c: Career) -> void:
 	grant_day(c)
 	if c.day % 7 == 0:
 		LoyaltyWire.week(c)   # S485 CLUBWEEK1: the weekly loyalty drift and wants_sponsor
+		Leaving.monday(c)   # S486 R58 LEAVE1: a farewell bout boxed, or loyalty under 25 after two words: the boxer leaves
 	if int(c.show.get("day", -1)) != c.day:
 		return
 	var rng := RandomNumberGenerator.new()

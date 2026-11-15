@@ -138,7 +138,7 @@
    "agent": "qwen",
    "id": "CLASH7",
    "title": "TASK CLASH7 - one pump runs both boxers' skeleton stacks once a frame, in a fixed order (glove clash root fix)",
-   "status": "failed (S486: order fixed, depths unchanged 0.054/0.057 m; branch qwen/clash7 kept as CLASH8 base, not merged)",
+   "status": "landed",
    "started": "2026-11-15T11:54",
    "eta": "2026-11-15T13:44",
    "branch": "qwen/clash7",
@@ -159,7 +159,70 @@
     "runner_pid": 44992,
     "seat_pid": 24292
    },
-   "note": "S368 seat_dispatch: launched unattended (dispatch_queue.json); merging stays off"
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 5/9 PASS; PR #310",
+   "finished": "2026-11-15T13:09",
+   "pr": 310,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tools/hit_frame_film.gd",
+     "ok": false,
+     "last": "   at: cleanup (core/object/object.cpp:2536)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/own_gloves_test.gd",
+     "ok": true,
+     "last": "OWN_GLOVES failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/guard_knee_test.gd",
+     "ok": true,
+     "last": "GUARD_KNEE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/guard_weave_test.gd",
+     "ok": true,
+     "last": "guard_weave_test: PASS"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/glove_cut_test.gd",
+     "ok": true,
+     "last": "glove_cut_test: PASS"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/cam_line_test.gd",
+     "ok": true,
+     "last": "CAM_LINE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/hit_frame_test.gd",
+     "ok": false,
+     "last": "HIT_FRAME failures=4"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/hit_carry_test.gd",
+     "ok": false,
+     "last": "HIT_CARRY failures=36"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/block_meet_test.gd",
+     "ok": false,
+     "last": "BLOCK_MEET failures=1"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
   },
   "DAYJOB1": {
    "agent": "arena",
@@ -215,7 +278,7 @@
    "agent": "arena",
    "id": "APPROACH1",
    "title": "A rival club approaches an unhappy fighter: when, the offer, the talk, the five answers (R58, pure + test)",
-   "status": "running",
+   "status": "merged (S486, as is)",
    "started": "2026-11-15T12:54",
    "eta": "2026-11-15T13:19",
    "brief": "ops/research/TASK_APPROACH1.md",
@@ -227,13 +290,40 @@
    "agent": "arena",
    "id": "PROMISE1",
    "title": "Promises to a fighter: made, listed when they bind, kept or broken, what they lock (R58, pure + test)",
-   "status": "running",
+   "status": "merged (S486, as is)",
    "started": "2026-11-15T12:54",
    "eta": "2026-11-15T13:19",
    "brief": "ops/research/TASK_PROMISE1.md",
    "repo": "FightCamp-Lean-lite",
    "where": "cloud",
    "url": "https://arena.ai/agent/01a1ded7-b848-7498-927e-b9eaa5009c26"
+  },
+  "CLASH8": {
+   "agent": "qwen",
+   "id": "CLASH8",
+   "title": "TASK CLASH8 - with the order fixed, which layer puts the defender's glove back into the punch? (measure, then fix)",
+   "status": "running",
+   "started": "2026-11-15T13:04",
+   "eta": "2026-11-15T14:54",
+   "branch": "qwen/clash8",
+   "worktree": "E:/FightCamp/wt/LEAN_CLASH8",
+   "wt": "E:/FightCamp/wt/LEAN_CLASH8",
+   "brief": "ops/research/TASK_CLASH8.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/CLASH8_dispatch_out.txt",
+   "match": "seat_dispatch.py run clash8",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/CLASH8_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/CLASH8_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/CLASH8_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 27688,
+    "seat_pid": 34908
+   },
+   "note": "S368 seat_dispatch: launched unattended (dispatch_queue.json); merging stays off"
   }
  },
  "codex_budget": {

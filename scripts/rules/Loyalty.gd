@@ -52,6 +52,7 @@ const MOVES := {
 	"wants_sponsor": -3,
 	"stripe_now": StripeCall.NOW_LOYAL, "stripe_hold": -StripeCall.HOLD_LOYAL,
 	"word_card": 0,
+	"teammate_left": -2,   # S486 R58 M6: a team-mate under Settled when a boxer leaves the club (Leaving)
 }
 
 

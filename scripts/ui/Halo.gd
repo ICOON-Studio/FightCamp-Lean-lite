@@ -78,8 +78,17 @@ func _outside(grow: float) -> void:
 	if host == null:
 		return
 	var room := Vector2.ONE * (MARGIN + grow)
-	position = -room
-	size = host.size + room * 2.0
+	if host is Container:   # a container lays it out by rectangle: top-left anchors first (no full-rect size warning)
+		anchor_right = 0.0
+		anchor_bottom = 0.0
+		position = -room
+		size = host.size + room * 2.0
+		return
+	# S486: elsewhere the full-rect anchors hold: offsets (setting size on unequal anchors warned on every card)
+	offset_left = -room.x
+	offset_top = -room.y
+	offset_right = room.x
+	offset_bottom = room.y
 
 
 func _sized() -> void:
