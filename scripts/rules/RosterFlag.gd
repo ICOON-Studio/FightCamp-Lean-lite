@@ -5,6 +5,7 @@ extends RefCounted
 
 ## Most urgent first: [check key, state that raises it, the word on the card, red?].
 const ORDER := [
+	["approach", "bad", "APPROACHED", true],   # S488 APPROACHUI2: a rival club's approach (unanswered = the boxer goes)
 	["camp", "bad", "SET CAMP", true],
 	["fight", "offer", "OFFER", false],
 	["weight", "bad", "WEIGHT", true],

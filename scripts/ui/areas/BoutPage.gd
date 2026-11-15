@@ -131,7 +131,8 @@ func _answer_row(main: Node, f: Dictionary, o: Dictionary, offer_id: String, wf:
 	accept.name = "Accept"
 	foot.add_child(accept)
 	var decline_why := "You already answered this offer - pick another from Fights" if not open else ""
-	var decline := UI.button("Pass", "BtnQuiet", main.act.bind("declineOffer", offer_id), not open, decline_why)
+	var price := Bouts.pass_price(main.career, f, o) if open else 0   # S488 APPROACHUI2: Pass shows its loyalty price
+	var decline := UI.button("Pass" if price == 0 else "Pass: loyalty %d" % price, "BtnQuiet", main.act.bind("declineOffer", offer_id), not open, decline_why)
 	decline.name = "Pass"
 	foot.add_child(decline)
 	if bool(o["mismatch"]):

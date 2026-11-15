@@ -103,6 +103,11 @@ static func gain(c: Career, stat: String, f: Dictionary = {}) -> float:
 ## Real: most amateurs work or study; a stipend lets one or two top prospects train full time (round 1, club owner).
 ## GAME value (S485, his Q-243): a day job takes 2 of the 6 mornings, so stat gain is 4/6 (was a flat 15% less).
 
+## S488 APPROACHUI2 (R58 map s7): the Money row's note while an answer to Eastside holds the stipend, else "".
+static func stipend_held(c: Career, f: Dictionary) -> String:
+	return "held to %s" % Clock.fmt(int(f["stipend_lock"])) if ApproachWire.stipend_locked(c, f) else ""
+
+
 static func set_stipend(c: Career, f: Dictionary, on: bool) -> String:
 	if bool(f.get("pro", false)):
 		return "a pro lives on purses"
@@ -297,6 +302,7 @@ static func day_events(c: Career) -> void:
 		LoyaltyWire.week(c)   # S485 CLUBWEEK1: the weekly loyalty drift and wants_sponsor
 		ApproachWire.monday(c)   # S487 R58 APPROACHWIRE1: an approach ends unanswered (the boxer leaves) or a new one opens
 		Leaving.monday(c)   # S486 R58 LEAVE1: a farewell bout boxed, or loyalty under 25 after two words: the boxer leaves
+	ApproachWire.HomeBout.sweep(c)   # S488 HOMEBOUT1: a promised show night passed with no bout boxed breaks the promise
 	if int(c.show.get("day", -1)) != c.day:
 		return
 	var rng := RandomNumberGenerator.new()

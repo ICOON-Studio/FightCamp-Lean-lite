@@ -18,7 +18,12 @@ const GOAL_TAB := "6"
 
 
 static func rows(c: Career, f: Dictionary) -> Array:
-	return [_fit(c, f), _weight(c, f), _mood(f), _goal(c, f), _fight(c, f), _camp(c, f), _file(f), _plan(f)]
+	var out := [_fit(c, f), _weight(c, f), _mood(f), _goal(c, f), _fight(c, f), _camp(c, f), _file(f), _plan(f)]
+	var ap: Dictionary = f.get("approach", {})
+	if not ap.is_empty():   # S488 APPROACHUI2 (R58 map s7): a rival club's approach is the coach's first check while it is open
+		out.push_front(_row("approach", "Rival club", "wants an answer by " + load("res://scripts/state/Clock.gd").fmt(int(ap.get("ends", c.day))),
+			"bad", "approach", str(f["id"])))
+	return out
 
 
 ## How many of the checks that are due are green: [ok, due].

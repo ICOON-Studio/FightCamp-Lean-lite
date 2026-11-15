@@ -26,6 +26,7 @@ const BodyReport := preload("res://scripts/rules/BodyReport.gd")
 const BodyTrack := preload("res://scripts/rules/BodyTrack.gd")
 const Injuries := preload("res://scripts/state/Injuries.gd")
 const Loyalty := preload("res://scripts/rules/Loyalty.gd")
+const HomeBout := preload("res://scripts/state/HomeBout.gd")   # S488 HOMEBOUT1
 const PlanRecord := preload("res://scripts/rules/PlanRecord.gd")
 const NOTES_PATH := "res://assets/data/fight_habits.json"
 
@@ -118,9 +119,12 @@ static func run(c: Career, f: Dictionary, m: Dictionary) -> void:
 		if win:
 			f["purse"] = mini(int(f["purse_top"]), int(f["purse"]) + int(f["purse_step"]))
 	else:
-		# S328 a championship is England Boxing's show: no ticket cut for the club.
-		m["club_cut"] = 0 if f["bout"].has("champ") else BoutRules.TICKET_CUT
-		if not f["bout"].has("champ"):
+		# S328 a championship is England Boxing's show: no ticket cut for the club. S488 our own show: the gate is ours.
+		var no_cut: bool = f["bout"].has("champ") or HomeBout.is_home(f)
+		m["club_cut"] = 0 if no_cut else BoutRules.TICKET_CUT
+		if HomeBout.is_home(f):
+			HomeBout.boxed(c, f)   # S488 HOMEBOUT1: the promised top of our show is kept by boxing it
+		if not no_cut:
 			c.pay(BoutRules.TICKET_CUT, "Ticket cut: %s vs %s" % [f["first"], opp["name"]])
 		var r := c.rival(str(opp["name"]))
 		if not r.is_empty() and outcome != "draw":

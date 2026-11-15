@@ -179,6 +179,15 @@ static func rankings(c: Career, div: String = "wlw") -> Array:
 	return rows
 
 
+## S488 APPROACHUI2 (R58 map s7): a rival who boxed for us and left - "(left us Apr 2026)" beside the name; else "".
+static func left_tag(r: Dictionary) -> String:
+	if int(r.get("left", -1)) < 0:
+		return ""
+	var clock: GDScript = load("res://scripts/state/Clock.gd")
+	var d: Dictionary = clock._date(int(r["left"]))
+	return "(left us %s %d)" % [clock.MONTHS[int(d["month"]) - 1], int(d["year"])]
+
+
 ## The table's order: net wins, then wins, then rating (S387: its own function, BoutRead.rank_move sorts by the same rule).
 static func before(x: Dictionary, y: Dictionary) -> bool:
 	var nx := int(x["w"]) - int(x["l"])

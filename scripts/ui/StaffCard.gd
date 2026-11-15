@@ -25,6 +25,7 @@ const GymSpend := preload("res://scripts/state/GymSpend.gd")
 const Membership := preload("res://scripts/rules/Membership.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const BjjSide := preload("res://scripts/rules/BjjSide.gd")
+const Promises := preload("res://scripts/rules/Promises.gd")
 
 const TABS := [["People", "gym", 1], ["Money", "money", 0], ["Records", "gym", 4]]
 const ROLE_WORD := {"assistant": "Second coach", "strength": "Strength coach", "physio": "Physio", "cutman": "Cutman"}
@@ -54,6 +55,27 @@ static func page(parent: Container, main: Node, c: Career) -> void:
 		root.add_child(bjj)
 	root.add_child(_roles(main, c))
 	root.add_child(_members(c))
+	var prom := _promises(c)
+	if prom != null:
+		root.add_child(prom)
+
+
+## S488 APPROACHUI2 (R58 map s7): PROMISES OPEN - each boxer's name as its row's header, what was promised and by when.
+static func _promises(c: Career) -> Control:
+	var rows := Promises.open_rows(c)
+	if rows.is_empty():
+		return null
+	var p := _slate()
+	p.name = "PromisesOpen"
+	var v := UI.vbox(4)
+	p.add_child(v)
+	v.add_child(UI.label("PROMISES OPEN", 13, INK, "bold"))
+	for r in rows:
+		var h := UI.hbox(10)
+		h.add_child(UI.label(str(r["name"]), 13, INK, "bold"))
+		h.add_child(UI.label(str(r["line"]), 13, INK, "body"))
+		v.add_child(h)
+	return p
 
 
 static func _head(main: Node) -> Control:

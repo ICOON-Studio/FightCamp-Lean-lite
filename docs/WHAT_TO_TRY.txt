@@ -1,3 +1,15 @@
+S487-S488 (2026-11-15)
+- A RIVAL CLUB CAN APPROACH YOUR BOXER. When an unhappy prospect's loyalty is low, Eastside ABC makes an offer on a Monday.
+  Look for the red APPROACHED flag (top bar and the boxer's Roster card) and the card on top of the boxer's Overview: the
+  offer, the answer-by date, "Tell it straight" once, and five answers (match the stipend, half each, move the stipend from a
+  team-mate, promise the top of your club show, let them go). No answer by the date = the boxer goes.
+- PROMISE: OUR SHOW is now a real bout: the club show is booked and your boxer gets a legal novice on that night (fight week,
+  weigh-in, the fight). The club takes no ticket cut on its own show. Box the bout = promise kept (+loyalty); miss weight or
+  pull out = promise broken and the boxer leaves.
+- The approach on the other screens: an offer's Pass button says "Pass: loyalty -3"; Club > Money shows "held to <date>" on a
+  stipend an answer locked (the button greys out); Club > People lists PROMISES OPEN; Records shows promises and leavers;
+  WORLD > Rankings tags a boxer who left you "(left us <month>)".
+
 S486 (2026-11-15)
 - A BOXER CAN NOW LEAVE THE CLUB. A boxer whose loyalty falls under 25 after two straight talks leaves on the Monday;
   a bout booked inside two weeks is boxed first, then they go. They box on for Eastside ABC: look for them on WORLD >

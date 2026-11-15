@@ -130,3 +130,18 @@ static func line(p: Dictionary, date_text: String) -> String:
 	if kind == NO_SIGNING:
 		return "No signing in your class before " + date_text
 	return ""
+
+
+## S488 APPROACHUI2: Club > People's PROMISES OPEN rows, soonest first: [{fid, name, line, by_day}] (the name is the row's header).
+static func open_rows(c) -> Array:
+	var out: Array = []
+	for p in c.promises:
+		if str(p.get("state", "")) != "open":
+			continue
+		var f: Dictionary = c.fighter_by_id(str(p["fid"]))
+		if f.is_empty():
+			continue
+		var when: String = load("res://scripts/state/Clock.gd").fmt(int(p.get("by_day", 0)))
+		out.append({"fid": str(p["fid"]), "name": str(f["name"]), "line": line(p, when), "by_day": int(p.get("by_day", 0))})
+	out.sort_custom(func(a, b): return int(a["by_day"]) < int(b["by_day"]))
+	return out

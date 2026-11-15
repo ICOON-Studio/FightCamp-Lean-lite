@@ -11,6 +11,7 @@ const Roster := preload("res://scripts/state/Roster.gd")
 const Loyalty := preload("res://scripts/rules/Loyalty.gd")
 const Needs := preload("res://scripts/state/Needs.gd")
 const ApproachWire := preload("res://scripts/state/ApproachWire.gd")
+const Bouts := preload("res://scripts/state/Bouts.gd")
 const ApproachCard := preload("res://scripts/ui/ApproachCard.gd")
 
 var failures := 0
@@ -104,8 +105,15 @@ func _initialize() -> void:
 	var night := int(c.show["day"])
 	_check(c.cash == cash - 3500 and night > c.day and c.promises.size() == 1, "the show booked for day %d and the promise listed" % night)
 	var lb := Loyalty.value(kid)
-	while c.day <= night:
+	while c.day < night:   # S488 HOMEBOUT1: the night's bout is weighed and boxed; boxing it keeps the promise
+		kid["weight"] = float(kid["limit"])
+		if not (kid["bout"] as Dictionary).is_empty() and Bouts.weigh_in_today(c, kid):
+			Bouts.weigh(c, kid)
 		Sim.step_day(c)
+	if not (kid["bout"] as Dictionary).is_empty() and Bouts.weigh_in_today(c, kid):
+		Bouts.weigh(c, kid)
+	var fm := {"fid": kid["id"], "step": "tape", "total": Bouts.rounds_of(kid)}
+	Bouts.fight_step(c, kid, fm, "sim")
 	_check(str(c.promises[0]["state"]) == "kept" and Loyalty.value(kid) >= lb + 10, "kept on the night: %s, loyalty %d -> %d" % [c.promises[0]["state"], lb, Loyalty.value(kid)])
 
 	# LET THEM GO: leaves next Monday.

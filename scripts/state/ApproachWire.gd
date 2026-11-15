@@ -24,6 +24,7 @@ const GameMoney := preload("res://scripts/rules/GameMoney.gd")
 const Leaving := preload("res://scripts/state/Leaving.gd")
 const Region := preload("res://scripts/state/Region.gd")
 const Clock := preload("res://scripts/state/Clock.gd")
+const HomeBout := preload("res://scripts/state/HomeBout.gd")   # S488 HOMEBOUT1: the promised show's bout
 
 const CLUB := Leaving.TO_CLUB
 ## The map's grievance (M4 MOVE): the team-mate whose stipend moved loses Approach.TICK every GRIEVANCE_DAYS to the end day.
@@ -72,7 +73,7 @@ static func answer_view(c: Career, f: Dictionary) -> Dictionary:
 	var h: Dictionary = c.fighter_by_id(str(a.get("holder", ""))) if group == "keep" else {}
 	var hv: Dictionary = {} if h.is_empty() else {"loyalty": Loyalty.value(h)}
 	return {"loyalty": Loyalty.value(f), "talk": str(a.get("talk", "")), "group": group, "holder": hv,
-		"can_book": _can_book(c), "ticks_after_show": TICKS_AFTER_SHOW if group == "keep" else 0,
+		"can_book": _can_book(c) and HomeBout.reason(c, f) == "", "ticks_after_show": TICKS_AFTER_SHOW if group == "keep" else 0,
 		"holder_ticks": 0 if h.is_empty() or Loyalty.value(h) >= Loyalty.LOYAL_AT else HOLDER_TICKS,
 		"day": int(a.get("day", c.day))}
 
@@ -190,13 +191,16 @@ static func answer(c: Career, fid: String, id: String) -> String:
 				h["grievance"] = {"from": c.day, "until": end}
 			c.add_news("The club stipend moves to %s; %s takes a day job and minds it." % [first, h["first"]])
 		"promise":
-			var why: String = load("res://scripts/state/GymSpend.gd").book_show(c)
+			var why: String = HomeBout.reason(c, f)
+			if why == "":
+				why = load("res://scripts/state/GymSpend.gd").book_show(c)
 			if why != "":
 				return why
 			var m := Promises.make(c.promises, fid, Promises.SHOW_TOP, int(c.show["day"]), c.day)
 			if not bool(m["ok"]):
 				return str(m["why"])
 			c.promises = m["list"]
+			HomeBout.book(c, f, int(c.show["day"]))   # S488 HOMEBOUT1: a legal novice on the night, no ticket cut
 			Loyalty.commit(f, int(Approach.GAIN["promise"]), "approach_promise", c.day)
 			f["ticks_wait_until"] = int(c.show["day"])
 			c.add_news("You promise %s the top of the club show on %s." % [first, Clock.fmt(int(c.show["day"]))])
@@ -215,8 +219,8 @@ static func _on_stipend(f: Dictionary, weekly: int) -> void:
 	f.erase("day_job_since")
 
 
-## The club show's night: each open show_top promise for tonight is kept (the boxer fit) or broken (leaves next Monday).
-## Until HOMEBOUT1 the boxer tops the card by being fit on the night; the home bout itself is not boxed yet.
+## The club show's night: an open show_top promise whose boxer has tonight's home bout waits for the fight (HomeBout.boxed
+## keeps it when BoutFinish ends it); one with no bout tonight (missed weight, pulled out) is broken (leaves next Monday).
 static func show_night(c: Career) -> Array:
 	var out: Array = []
 	var list: Array = c.promises.duplicate(true)
@@ -227,9 +231,11 @@ static func show_night(c: Career) -> Array:
 		if f.is_empty():
 			p["state"] = "broken"
 			continue
+		if HomeBout.is_home(f) and int(f["bout"]["day"]) == c.day:
+			continue   # S488 HOMEBOUT1: kept by boxing it tonight (BoutFinish -> HomeBout.boxed)
 		var inj: Dictionary = f.get("injury", {})
 		var fit := inj.is_empty() or c.day >= int(inj.get("until_day", 0))
-		var r := Promises.resolve(p, {"day": c.day, "fit": fit, "made_weight": true, "boxed": fit})
+		var r := Promises.resolve(p, {"day": c.day, "fit": fit, "made_weight": true, "boxed": false})
 		if str(r["state"]) == "open":
 			continue
 		p["state"] = r["state"]

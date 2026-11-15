@@ -290,7 +290,7 @@
    "agent": "qwen",
    "id": "STYLE4",
    "title": "TASK STYLE4 - rewire the three dead style levers (Boxer-puncher, Counter-puncher, Slugger) and retune all six",
-   "status": "running",
+   "status": "done - not merged (S488 audit): levers 0.1 pt on a 66-pt spread; lever table hard-coded, not measured; miss read landed. Round 3 = STYLE5, queued after CLASH9",
    "started": "2026-11-15T13:59",
    "eta": "2026-11-15T15:49",
    "branch": "qwen/style4",
@@ -311,15 +311,73 @@
     "runner_pid": 27616,
     "seat_pid": 12760
    },
-   "note": "S368 seat_dispatch: launched unattended (roadmap plan.next); merging stays off"
+   "note": "S368 seat_dispatch: qwen exit 0; 2 commit(s); checks 7/8 PASS; PR #315",
+   "finished": "2026-11-15T14:41",
+   "pr": 315,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tools/style4_probe.gd",
+     "ok": false,
+     "last": "STYLE4 done (756.2s)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/style_name_test.gd",
+     "ok": true,
+     "last": "STYLE_NAME failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/style_wire_test.gd",
+     "ok": true,
+     "last": "STYLE_WIRE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/learn_slots_test.gd",
+     "ok": true,
+     "last": "LEARN_SLOTS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/aim_wire_test.gd",
+     "ok": true,
+     "last": "AIM_WIRE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/clinch_why_test.gd",
+     "ok": true,
+     "last": "CLINCH_WHY failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/judges_test.gd",
+     "ok": true,
+     "last": "JUDGES failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/fighter_model_test.gd",
+     "ok": true,
+     "last": "FIGHTER_MODEL failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
   },
   "APPROACH2": {
    "agent": "arena",
-   "status": "running",
+   "status": "merged (S488): PASS on main, 5 of 5 mutants red",
    "title": "A blind contract test for the rival club's approach, with five mutants (R58)",
    "started": "2026-11-15T14:12",
    "eta": "2026-11-15T15:00",
-   "chat": "https://arena.ai/agent/01a1df16-850a-751c-9fb9-5f050bd336aa"
+   "chat": "https://arena.ai/agent/01a1df16-850a-751c-9fb9-5f050bd336aa",
+   "reconciled": "2026-11-15 14:51 board_reconcile: PR #314 open - collect it"
   }
  },
  "codex_budget": {

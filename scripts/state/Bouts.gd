@@ -244,6 +244,13 @@ static func passed(c: Career, f: Dictionary) -> void:
 	Loyalty.apply(f, "offer_passed", c.day)
 
 
+## S488 APPROACHUI2 (R58 map s7): what Pass costs on this offer card - the same tests as passed(); 0 when it costs nothing.
+static func pass_price(c: Career, f: Dictionary, o: Dictionary) -> int:
+	if bool(o.get("mismatch", false)) or f.is_empty() or Injuries.out(c, f) or not (f.get("bout", {}) as Dictionary).is_empty() 			or Promises.blocks_offer(c.promises, str(f["id"]), c.day):
+		return 0
+	return int(Loyalty.MOVES.get("offer_passed", 0))
+
+
 ## S357 the short-notice swap card can come up: an amateur bout (not a championship, not pro) at least SWAP_MIN_DAYS out, with a
 ## tougher opponent in her division to send.
 static func can_swap(c: Career, f: Dictionary) -> bool:

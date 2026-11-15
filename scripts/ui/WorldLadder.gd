@@ -184,6 +184,8 @@ static func _name(main: Node, f: Dictionary, row: Dictionary) -> Control:
 	h.add_child(b)
 	for m in row.get("marks", []):
 		h.add_child(Compare.icon(str(m), 14, _mark_col(str(m))))
+	if str(row.get("left_tag", "")) != "":   # S488 APPROACHUI2: a boxer who left us, at his new club
+		h.add_child(UI.muted(str(row["left_tag"]), UI.TINY))
 	return h
 
 static func _chance(row: Dictionary, line: String) -> Control:
@@ -380,7 +382,7 @@ static func _rival(c: Career, r: Dictionary, rank: int) -> Dictionary:
 	return {"id": str(r["name"]), "oid": 0, "name": str(r["name"]), "ours": false, "rank": rank, "w": int(r["w"]),
 		"l": int(r["l"]), "d": 0, "age": int(who.get("age", 0)), "style": str(who.get("style", "")), "ko": 0,
 		"has_ko": false, "pro": false, "reach": false, "booked_opp": false, "marks": [], "trend": "", "band": {},
-		"ask": {}, "scouted": false, "partial": false, "opp": {}, "tip": "", "boxer": who, "club": str(r.get("club", ""))}
+		"ask": {}, "scouted": false, "partial": false, "opp": {}, "tip": "", "boxer": who, "club": str(r.get("club", "")), "left_tag": Region.left_tag(who)}
 
 static func _route_of(c: Career, f: Dictionary) -> Dictionary:
 	if ProLadder.on_ladder(c, f):

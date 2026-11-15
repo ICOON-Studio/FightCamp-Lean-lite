@@ -156,7 +156,7 @@ static func markers(c: Career, past_n: int, ahead: Array) -> Array:
 			if int(ahead[i]["day"]) >= day:
 				idx = past_n + i
 				break
-		var cut := 0 if b.has("champ") else BoutRules.TICKET_CUT
+		var cut := 0 if b.has("champ") or bool(b.get("home", false)) else BoutRules.TICKET_CUT   # S488 our show: no cut
 		var bit := "no ticket cut" if cut == 0 else "+%s on fight night" % GameMoney.text(cut)
 		out.append({
 			"n": n,

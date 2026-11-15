@@ -252,11 +252,13 @@ static func _fighter(main: Node, c: Career, f: Dictionary) -> Control:
 		stipend.add_child(UI.label("purse", 12, UI.MUTED, "bold"))
 	else:
 		var job := bool(f.get("day_job", false))
-		stipend.add_child(UI.label("off" if job else "on", 12, UI.MUTED, "bold"))
+		var held := GymSpend.stipend_held(main.career, f)   # S488 APPROACHUI2: an answer to Eastside holds it to its end day
+		stipend.add_child(UI.label(("off" if job else "on") if held == "" else held, 12, UI.MUTED, "bold"))
 		var b := UI.button("Start %s" % UI.money(GameMoney.FIGHTER_STIPEND) if job else "Stop the stipend", "Btn",
-			main.act.bind("stipend", "%s|%s" % [f["id"], "on" if job else "off"]))
+			main.act.bind("stipend", "%s|%s" % [f["id"], "on" if job else "off"]), held != "", "The stipend is %s: the answer to the rival club's approach." % held)
 		b.name = "Stipend_" + str(f["id"])
-		b.tooltip_text = "Off the sponsorship the boxer works 2 mornings a week (Tue, Thu): 4 of the 6 training mornings. Stopping it costs 8 loyalty, starting it gives 5."
+		if held == "":
+			b.tooltip_text = "Off the sponsorship the boxer works 2 mornings a week (Tue, Thu): 4 of the 6 training mornings. Stopping it costs 8 loyalty, starting it gives 5."
 		_short_button(b)
 		stipend.add_child(b)
 	var earns := UI.label(_earns(f), 13, UI.GREEN if _earns(f) != "none" else UI.MUTED, "body")
