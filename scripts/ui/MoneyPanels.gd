@@ -256,7 +256,7 @@ static func _fighter(main: Node, c: Career, f: Dictionary) -> Control:
 		var b := UI.button("Start %s" % UI.money(GameMoney.FIGHTER_STIPEND) if job else "Stop the stipend", "Btn",
 			main.act.bind("stipend", "%s|%s" % [f["id"], "on" if job else "off"]))
 		b.name = "Stipend_" + str(f["id"])
-		b.tooltip_text = "Off the sponsorship she works 2 mornings a week (Tue, Thu): 4 of her 6 training mornings. Stopping it costs 8 loyalty, starting it gives 5."
+		b.tooltip_text = "Off the sponsorship the boxer works 2 mornings a week (Tue, Thu): 4 of the 6 training mornings. Stopping it costs 8 loyalty, starting it gives 5."
 		_short_button(b)
 		stipend.add_child(b)
 	var earns := UI.label(_earns(f), 13, UI.GREEN if _earns(f) != "none" else UI.MUTED, "body")

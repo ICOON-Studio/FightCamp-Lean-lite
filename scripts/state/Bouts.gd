@@ -27,6 +27,7 @@ const BoutNight := preload("res://scripts/state/BoutNight.gd")
 const TrainingLoad := preload("res://scripts/rules/TrainingLoad.gd")
 const Injuries := preload("res://scripts/state/Injuries.gd")
 const Loyalty := preload("res://scripts/rules/Loyalty.gd")
+const Promises := preload("res://scripts/rules/Promises.gd")   # S487 R58 M5: a show promise replaces the offers
 const Champs := preload("res://scripts/state/Champs.gd")
 const PeakCamp := preload("res://scripts/rules/PeakCamp.gd")
 const WeekPhase := preload("res://scripts/rules/WeekPhase.gd")
@@ -121,7 +122,8 @@ static func day_events(c: Career) -> void:
 		tape_days(c, f)
 		if bool(f.get("pro", false)) or Champs.active(f):
 			continue   # S328 no other offers while she is in the championships
-		if (f["bout"] as Dictionary).is_empty() and c.day >= int(f["next_offer_day"]) and offers_settled(f):
+		if (f["bout"] as Dictionary).is_empty() and c.day >= int(f["next_offer_day"]) and offers_settled(f) \
+				and not Promises.blocks_offer(c.promises, str(f["id"]), c.day):   # S487 promised the top of our show
 			var div: Dictionary = Data.DIVISIONS[f["div"]]
 			var names: Array = div["opponents"]
 			var own := AmateurBooking.bouts_of(int(f["w"]), int(f["l"]))
@@ -236,6 +238,8 @@ static func decline(c: Career, id: String) -> void:
 ## never counts: passing an unsafe pair is the right call). Injured or already booked: no move.
 static func passed(c: Career, f: Dictionary) -> void:
 	if f.is_empty() or Injuries.out(c, f) or not (f.get("bout", {}) as Dictionary).is_empty():
+		return
+	if Promises.blocks_offer(c.promises, str(f["id"]), c.day):   # S487 R58: the promised show night is the bout
 		return
 	Loyalty.apply(f, "offer_passed", c.day)
 

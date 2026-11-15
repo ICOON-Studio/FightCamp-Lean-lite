@@ -19,6 +19,7 @@ const Membership := preload("res://scripts/rules/Membership.gd")
 const Leaving := preload("res://scripts/state/Leaving.gd")
 const Grants := preload("res://scripts/rules/Grants.gd")
 const LoyaltyWire := preload("res://scripts/state/LoyaltyWire.gd")
+const ApproachWire := preload("res://scripts/state/ApproachWire.gd")   # S487 R58 APPROACHWIRE1
 
 const KIT := GymBills.KIT_BUDGET
 const KIT_ORDER := GymBills.KIT_ORDER
@@ -91,7 +92,7 @@ static func days_out(c: Career) -> float:
 
 
 static func gain(c: Career, stat: String, f: Dictionary = {}) -> float:
-	var m := GymUpgrades.gain_mult(c.upgrades, stat, c.day) * (DAY_JOB_GAIN if bool(f.get("day_job", false)) else 1.0) * GymBonus.training(c.gym_plan, stat)
+	var m := GymUpgrades.gain_mult(c.upgrades, stat, c.day) * (DAY_JOB_GAIN if bool(f.get("day_job", false)) else 1.0) * GymBonus.training(c.gym_plan, stat) * ApproachWire.train_mult(c, f)   # S487 HALF EACH x0.925 to its end day
 	if kit_gain_on:
 		m *= GymKinds.gain_mult(c.gym_slots, c.day, stat)
 	return m
@@ -107,6 +108,8 @@ static func set_stipend(c: Career, f: Dictionary, on: bool) -> String:
 		return "a pro lives on purses"
 	if on == not bool(f.get("day_job", false)):
 		return "already so"
+	if ApproachWire.stipend_locked(c, f):   # S487 R58: an answer to Eastside holds the stipend to its end day
+		return "held to %s (the answer to %s)" % [Clock.fmt(int(f["stipend_lock"])), ApproachWire.CLUB]
 	f["day_job"] = not on
 	LoyaltyWire.stipend(c, f, on)   # S485 CLUBWEEK1: sponsorship given +5 / pulled -8
 	var home := bool(f.get("home", false)) and int(f.get("home_until", 0)) > c.day
@@ -292,6 +295,7 @@ static func day_events(c: Career) -> void:
 	grant_day(c)
 	if c.day % 7 == 0:
 		LoyaltyWire.week(c)   # S485 CLUBWEEK1: the weekly loyalty drift and wants_sponsor
+		ApproachWire.monday(c)   # S487 R58 APPROACHWIRE1: an approach ends unanswered (the boxer leaves) or a new one opens
 		Leaving.monday(c)   # S486 R58 LEAVE1: a farewell bout boxed, or loyalty under 25 after two words: the boxer leaves
 	if int(c.show.get("day", -1)) != c.day:
 		return
@@ -302,6 +306,7 @@ static func day_events(c: Career) -> void:
 	c.pay(int(n["tickets"]) + int(n["raffle"]), "Club show: %d tickets and the raffle" % int(n["sold"]))
 	c.members += int(n["members"])
 	c.show = {"day": -1, "last": c.day, "night": n}
+	ApproachWire.show_night(c)   # S487 R58: a promised top of the show kept or broken
 	var net := int(n["net"])
 	c.add_news("Club show night: %d sold, the raffle %s. %s" % [int(n["sold"]), GameMoney.text(int(n["raffle"])),
 		("The night made %s after the hall, and %d new members signed up." % [GameMoney.text(net), int(n["members"])]) if net > 0

@@ -14,6 +14,7 @@ const BoutActs := preload("res://scripts/ui/BoutActs.gd")
 const FightWeekActs := preload("res://scripts/ui/FightWeekActs.gd")
 const RosterActs := preload("res://scripts/ui/RosterActs.gd")
 const GrapplerPage := preload("res://scripts/ui/areas/GrapplerPage.gd")
+const ApproachCard := preload("res://scripts/ui/ApproachCard.gd")   # S487 R58 APPROACHWIRE1
 const SaveGame := preload("res://scripts/state/SaveGame.gd")
 const FightView := preload("res://scripts/fight3d/FightView.gd")
 const TestJump := preload("res://scripts/ui/TestJump.gd")
@@ -416,7 +417,7 @@ func act(name: String, arg: String = "") -> void:
 			Grapplers.close_open(career, career.grappler_by_id(arg))
 			close_modal()
 		_:
-			if not (GymActs.act(self, name, arg) or BoutActs.act(self, name, arg) or FightWeekActs.act(self, name, arg) or RosterActs.act(self, name, arg) or GrapplerPage.act(self, name, arg)):
+			if not (GymActs.act(self, name, arg) or BoutActs.act(self, name, arg) or FightWeekActs.act(self, name, arg) or RosterActs.act(self, name, arg) or GrapplerPage.act(self, name, arg) or ApproachCard.act(self, name, arg)):
 				push_warning("unknown action " + name)
 
 

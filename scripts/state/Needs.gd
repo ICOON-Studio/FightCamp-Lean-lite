@@ -14,6 +14,7 @@ const SeasonPath := preload("res://scripts/rules/SeasonPath.gd")
 const FirstWeek := preload("res://scripts/rules/FirstWeek.gd")
 const Grapplers := preload("res://scripts/state/Grapplers.gd")
 const ProLadder := preload("res://scripts/state/ProLadder.gd")
+const ApproachWire := preload("res://scripts/state/ApproachWire.gd")
 
 
 ## S324 update 27: GymBills' read of the gym's money now: "ok" | "warn" (runway under 8 weeks) | "red" (below $0) | "closed".
@@ -60,6 +61,12 @@ static func needs(career: Career) -> Array:
 		var pf := career.fighter_by_id(str(career.pro_offer["fid"]))
 		n.append({"red": true, "t": "A promoter wants to sign %s" % pf["name"], "s": "%s: a pro contract" % career.pro_offer["promoter"],
 			"act": "prooffer", "arg": pf["id"], "label": "Hear it"})
+	# S487 R58 APPROACHWIRE1 (map section 7): a rival club's approach blocks time until it is answered (unanswered = gone).
+	for f in ApproachWire.open_for(career):
+		n.append({"red": true, "t": "%s wants %s" % [ApproachWire.CLUB, f["first"]],
+			"s": "%s
+answer by %s, or lose the boxer" % [f["approach"]["line"], Clock.fmt(int(f["approach"]["ends"]))],
+			"act": "approach", "arg": f["id"], "label": "Decide"})
 	for f in career.fighters:
 		if Injuries.pending(f):
 			n.append({"red": true, "t": "%s is hurt before the bout" % f["first"], "s": Injuries.line(career, f) + "; pull out or fight hurt",
@@ -130,6 +137,8 @@ static func flags(career: Career) -> Array:
 	for p in career.prospects:
 		if str(p["state"]) == "invited" and int(p["trial_day"]) <= career.day:
 			out.append({"t": "TRIAL", "act": "trial", "arg": p["id"], "red": true})
+	for f in ApproachWire.open_for(career):
+		out.append({"t": "APPROACHED", "act": "approach", "arg": f["id"], "red": true})
 	if not career.pro_offer.is_empty():
 		out.append({"t": "PRO OFFER", "act": "prooffer", "arg": career.pro_offer["fid"], "red": true})
 	for f in career.fighters:

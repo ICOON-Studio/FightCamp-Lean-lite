@@ -21,6 +21,8 @@ const Bouts := preload("res://scripts/state/Bouts.gd")
 const Injuries := preload("res://scripts/state/Injuries.gd")
 const Aftermath := preload("res://scripts/rules/Aftermath.gd")
 const Loyalty := preload("res://scripts/rules/Loyalty.gd")
+const ApproachCard := preload("res://scripts/ui/ApproachCard.gd")   # S487 R58 APPROACHWIRE1
+const ApproachWire := preload("res://scripts/state/ApproachWire.gd")
 
 const PANEL_BG := Color(0.095, 0.075, 0.066, 0.94)
 const INSET := Color(0.05, 0.04, 0.035, 0.9)
@@ -132,6 +134,8 @@ static func make(page: Container, main: Node, c: Career, f: Dictionary, g: Dicti
 	root.add_child(_boxer(f, c))
 	var right := UI.vbox(14)
 	right.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	if ApproachWire.is_open(f):   # S487 R58: a rival club's approach sits on top until it is answered
+		right.add_child(ApproachCard.fill(panel(), main, c, f))
 	var top := UI.hbox(14)
 	top.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	top.add_child(_attributes(f))
@@ -211,7 +215,7 @@ static func loyalty(f: Dictionary) -> Control:
 	var row := UI.hbox(10)
 	row.name = "Loyalty"
 	row.mouse_filter = Control.MOUSE_FILTER_PASS
-	var tip := "Loyalty %d of 100. Under 50 an outside manager signs her if she turns pro (the club keeps 10%%, not 25%%). Under 25 after two talks she leaves." % v
+	var tip := "Loyalty %d of 100. Under 50 an outside manager signs the boxer on turning pro (the club keeps 10%%, not 25%%). Under 25 after two talks the boxer leaves." % v
 	var moves: Array = Loyalty.reasons(f, 0).slice(0, 3)
 	for m in moves:
 		tip += "
@@ -403,6 +407,7 @@ static func _goal(main: Node, c: Career, f: Dictionary, g: Dictionary) -> PanelC
 		buttons.add_child(b)
 	if red != null and red != find and red != plan:
 		main_style(red)
+	buttons.add_child(_quiet(ApproachCard.let_go_button(main, c, f)))   # S487 R58 M7: the places' exit
 	card[1].add_child(buttons)
 	return card[0]
 

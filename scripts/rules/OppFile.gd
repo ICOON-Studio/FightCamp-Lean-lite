@@ -97,7 +97,7 @@ static func tells(opp: Dictionary) -> Array:
 ## A mode tell: how often film shows her in it (ModeTells.band), the plan line that answers it. band "" = never on film.
 static func mode_tell(mode: String, films: int, shown: int) -> Dictionary:
 	var band := ModeTells.band(films, shown)
-	var how_often := "%s (%d of %d films)" % [band.to_upper(), shown, films] if band != "" else "not on her films"
+	var how_often := "%s (%d of %d films)" % [band.to_upper(), shown, films] if band != "" else "not on the films"
 	return {"id": "mode:" + mode, "what": "Mode", "how": "tape", "call": "", "when": mode if band != "" else "",
 		"band": band, "value": "%s: %s" % [str(GAME_WORDS.get(mode, mode)).capitalize(), how_often],
 		"counter": "Plan an arrow for 'If %s'" % str(FightFlow.WHEN_WORDS.get(mode, mode)) if band != "" else ""}

@@ -58,6 +58,8 @@ const GymSlots := preload("res://scripts/rules/GymSlots.gd")
 @export var premises: int = 0
 @export var kit_level: String = "standard"
 @export var show: Dictionary = {"day": -1, "last": -1}
+## S487 R58 M5: promises to fighters (Promises.gd rows {fid, kind, by_day, wclass, state, made_day}).
+@export var promises: Array = []
 ## S397 round 2: the dues band (Membership.DUES), evening coaches beyond the staff jobs (each carries more members), and
 ## the year's grant bid ({} none; {due, amount} waiting for the answer; "last": the day of the last bid).
 @export var dues_band: String = "standard"

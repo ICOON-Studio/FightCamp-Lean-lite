@@ -47,7 +47,7 @@ func build(main: Node, m: Dictionary) -> void:
 		UI.kv("The gym's %d%% of it (manager + trainer)" % int(Roster.GYM_SHARE * 100), UI.money(int(night["gym"])), UI.GREEN),
 	])
 	if Roster.signing_share(f) < Roster.GYM_SHARE:
-		debut[1].add_child(UI.muted("Loyalty under 50: an outside manager signs her and the club keeps only the trainer's %d%%." % int(round(Roster.signing_share(f) * 100)), UI.SMALL, true))
+		debut[1].add_child(UI.muted("Loyalty under 50: an outside manager signs the boxer and the club keeps only the trainer's %d%%." % int(round(Roster.signing_share(f) * 100)), UI.SMALL, true))
 	if int(night["above"]) == 0:
 		debut[1].add_child(UI.muted("Under %d sold, the debut pays nothing. More members, more wins and titles sell more tickets." % ProDebut.BREAK_EVEN, UI.SMALL, true))
 	var grid := UI.hbox(16)

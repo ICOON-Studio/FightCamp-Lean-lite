@@ -44,7 +44,7 @@ static func week(c: Career) -> void:
 static func idle_week(c: Career, f: Dictionary) -> void:
 	var inj: Dictionary = f.get("injury", {})
 	var fit := inj.is_empty() or c.day >= int(inj.get("until_day", 0))
-	if not fit or not (f.get("bout", {}) as Dictionary).is_empty():
+	if not fit or not (f.get("bout", {}) as Dictionary).is_empty() or int(f.get("ticks_wait_until", -1)) > c.day:   # S487 promised a show
 		f["idle_weeks"] = 0
 		return
 	f["idle_weeks"] = int(f.get("idle_weeks", 0)) + 1
@@ -54,5 +54,7 @@ static func idle_week(c: Career, f: Dictionary) -> void:
 
 
 static func wants_sponsor(f: Dictionary, day: int) -> bool:
+	if int(f.get("ticks_wait_until", -1)) > day:   # S487 R58 PROMISE: the ask waits for the show night
+		return false
 	return bool(f.get("day_job", false)) and int(f.get("pot", 0)) >= WANTS_POT \
 		and day - int(f.get("day_job_since", 0)) >= WANTS_WEEKS * 7
