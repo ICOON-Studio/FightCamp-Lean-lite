@@ -95,6 +95,12 @@ static func read(rounds: Array, first: String, opp: String) -> Dictionary:
 	if float(pt["tank"]) >= 1.0:
 		out["against"] = str(out["against"]) + " Wrong answers punished cost %s %d of the tank for the rest of the fight." % [first,
 			int(round(float(pt["tank"])))]
+	# S490 STEPVALUE1 (map s7: the Why, AGAINST YOU): the ropes count (StepWire) - only when it happened.
+	var ropes := 0
+	for r in rounds:
+		ropes += int((r as Dictionary).get("ropes", 0))
+	if ropes > 0:
+		out["against"] = str(out["against"]) + " On the ropes %s with no way off." % ("once" if ropes == 1 else _n(ropes, "time"))
 	# R11C: a standing count on the cards says what it cost. Names the round(s) where a boxer took a count.
 	var count_text := _count_line(rounds, first, opp)
 	if count_text != "":

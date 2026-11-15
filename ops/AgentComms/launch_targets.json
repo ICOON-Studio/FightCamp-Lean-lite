@@ -60,6 +60,21 @@
    "short": "Corner minute"
   },
   {
+   "id": "fightcamp_test_training",
+   "label": "Test: the training week",
+   "why": "Starts the latest build on the training screen: a quick-start career, week 1 played and reviewed, Lucy between fights in week 2 - opens on her Training tab (the week's mornings and evenings). Its own save slot; your career save is untouched. Operator S490: 'can you add the training scene here'.",
+   "candidates": [
+    "%WINDIR%/System32/schtasks.exe"
+   ],
+   "args": [
+    "/run",
+    "/tn",
+    "FightCamp Play test training"
+   ],
+   "gui": false,
+   "short": "Training"
+  },
+  {
    "id": "fightcamp_test_injury",
    "label": "Test: an injury before her bout (update 29)",
    "why": "A quick-start career: Lucy booked and in camp, then a hand injury in training runs past the bout. Opens on the choice: how serious, when she is fit, pull her out ($300) or let her fight hurt. Its own save slot.",

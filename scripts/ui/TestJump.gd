@@ -17,7 +17,8 @@ extends RefCounted
 ##                                        the coach's whiteboard
 ##   FightCamp.exe -- jump=training       S382 TRAINING1: quick start, no bout taken, week 1 played to its review and closed
 ##                                        - Lucy between fights in week 2 (the Uppercut on Mon + Wed pads, the 1-1 on Fri);
-##                                        opens on her fighter page: the Training tab is the tester's click
+##                                        opens on her Training tab, the week's plan (S490 operator: "can you add the training
+##                                        scene here" - the board's Training button)
 ##   FightCamp.exe -- jump=club4          S489 FOURSTART1: the test club (Lucy, Kira, Josh + Ana, Reid hired); opens on the gym
 ##   FightCamp.exe -- jump=belt           S362 update 64: quick start, Ana Ribeiro's belt road (the no-gi Record tab)
 ##   FightCamp.exe -- jump=men            S371 update 68: quick start, then Danny Osei (a man, the men's lightweights) signed
@@ -155,6 +156,7 @@ static func run(main: Node, jump: String) -> bool:
 		if not main.modal.is_empty():
 			main.act("close")
 		main.act("fighter", str(f["id"]))
+		main.act("ftab", "3")   # S490 the Training tab
 		return (f.get("bout", {}) as Dictionary).is_empty() and c.day >= 7
 	if jump == "proladder" or jump == "proranked":   # S397 rank 4: a pro after the debut, the promoter's offers waiting
 		f["w"] = 9

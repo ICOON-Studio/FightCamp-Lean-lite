@@ -168,7 +168,7 @@ async function loadPlay(){
   // S473 operator: "please add shortcuts to see a fight here" - the latest build opened straight on a fight (launch_targets.json `short`).
   const quick=all.filter(t=>t.short);
   box.innerHTML=rows.map(t=>`<button type="button" class="playbtn main" data-id="${esc(t.id)}" title="${esc(t.why)}"${t.ready?"":" disabled"}>${esc(t.label)}</button>`).join("")
-    +(quick.length?`<div class="meta" style="margin-top:8px">Straight to a fight:</div><div class="quickrow">`+quick.map(t=>`<button type="button" class="playbtn quick" data-id="${esc(t.id)}" title="${esc(t.why)}"${t.ready?"":" disabled"}>${esc(t.short)}</button>`).join("")+`</div>`:"")
+    +(quick.length?`<div class="meta" style="margin-top:8px">Straight to:</div><div class="quickrow">`+quick.map(t=>`<button type="button" class="playbtn quick" data-id="${esc(t.id)}" title="${esc(t.why)}"${t.ready?"":" disabled"}>${esc(t.short)}</button>`).join("")+`</div>`:"")
     +`<div class="meta">Close a running FightCamp first.</div>`;
   box.querySelectorAll(".playbtn").forEach(b=>b.onclick=async()=>{
     b.disabled=true; $("playState").textContent="Starting "+b.textContent+"…";

@@ -56,7 +56,8 @@ static func top(landed: Dictionary) -> String:
 
 
 ## {worked, hurt, call (BoutRules.CORNER key), why}. _names = [hers, the opponent's] (unused since S448); energy = hers at the bell.
-static func card(summary: Dictionary, energy: float, _names: Array) -> Dictionary:
+## S490 STEPVALUE1: ropes = how often the ropes count put your boxer on the ropes this round (round "ropes"); HURT names it.
+static func card(summary: Dictionary, energy: float, _names: Array, ropes: int = 0) -> Dictionary:
 	var mine: Dictionary = summary.get("a", {}).get("landed", {})
 	var theirs: Dictionary = summary.get("b", {}).get("landed", {})
 	var whole: Array = summary.get("a", {}).get("whole", [])
@@ -68,6 +69,8 @@ static func card(summary: Dictionary, energy: float, _names: Array) -> Dictionar
 	if not whole.is_empty():
 		worked += " Your boxer's %s landed whole." % str(whole[0])
 	var hurt := "The opponent landed nothing clean." if bad == "" else "The opponent landed %s." % landed(int(theirs[bad]), bad)
+	if ropes > 0:
+		hurt += " Put on the ropes %s: a pivot out or a step out gets your boxer off." % ("once" if ropes == 1 else "%d times" % ropes)
 	var call := "long"
 	var why := "Keep the opponent behind your jab."
 	if energy < WEARY_AT:

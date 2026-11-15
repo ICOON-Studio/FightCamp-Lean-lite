@@ -201,7 +201,7 @@ func _round(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 	# S303 corner card (watched rounds only: the 3D view reads it off the beats it played).
 	var advice := ""
 	if (last.has("card") or last.has("exchanges")) and stop == "":
-		var cc := CornerCard.card(last.get("card", CornerCard.summarize([])), float(en.get("a_end", 100.0)), [fname, oname])
+		var cc := CornerCard.card(last.get("card", CornerCard.summarize([])), float(en.get("a_end", 100.0)), [fname, oname], int(last.get("ropes", 0)))
 		# S309: the exchanges' read already says the call in the coach's words.
 		if not last.has("card") and not exs.is_empty():
 			# S320: a skipped round has no punch-by-punch card - say what its exchanges landed (it read "nothing clean").
