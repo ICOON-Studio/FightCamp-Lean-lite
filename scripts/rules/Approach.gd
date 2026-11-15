@@ -19,13 +19,13 @@ const TALK_FAILED := -4
 
 const GAIN := {
 	"match": 12,
-	"half": 4,
-	"half_landed": 9,
+	"half": 6,
+	"half_landed": 10,
 	"move": 12,
 	"promise": 4,
 	"promise_kept": 10,
 }
-const HOLDER_MOVE := -8
+const HOLDER_MOVE := -12
 const HOLDER_HALF := -4
 const TICK := -3
 

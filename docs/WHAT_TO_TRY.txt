@@ -1,3 +1,15 @@
+S486 (2026-11-15)
+- A BOXER CAN NOW LEAVE THE CLUB. A boxer whose loyalty falls under 25 after two straight talks leaves on the Monday;
+  a bout booked inside two weeks is boxed first, then they go. They box on for Eastside ABC: look for them on WORLD >
+  Rankings. The club loses 2 reputation (5 for a regional top 5 or a pro), every team-mate under 50 loses 2 loyalty, and
+  a professional's new manager pays the club a release fee (40% of what the boxer earned the gym in a year, $500 at least).
+  Not on screen yet: the rival club's approach card and "Let go" on the Overview (next build).
+- Loyalty now moves with what you do (hover the Overview's loyalty bar to see why): passing a fair bout offer or letting
+  it expire -3 (never the mismatch, never while injured), a win +2, a loss -1, stopped -3 (a Loyal boxer, 70+, takes
+  losses at half), the goal you set met +5 / missed -4, keeping a boxer amateur when the pro offer comes -8, turning pro
+  +5, signing a new boxer in the same weight class -4, four weeks fit with no bout booked -3.
+- Words: the mornings now say Stamina and Fight IQ like the rest of the game (they said Cardio and Ring IQ in one place).
+
 S485 (2026-11-15)
 - FIGHTER > Overview: LOYALTY is now shown under Tiredness as you picked (Q-245): a 0-100 bar with its word, e.g.
   "62 - Settled". Hover it: the last three things that moved it.

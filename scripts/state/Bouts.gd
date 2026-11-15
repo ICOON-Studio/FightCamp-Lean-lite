@@ -26,6 +26,7 @@ const CornerJobs := preload("res://scripts/rules/CornerJobs.gd")
 const BoutNight := preload("res://scripts/state/BoutNight.gd")
 const TrainingLoad := preload("res://scripts/rules/TrainingLoad.gd")
 const Injuries := preload("res://scripts/state/Injuries.gd")
+const Loyalty := preload("res://scripts/rules/Loyalty.gd")
 const Champs := preload("res://scripts/state/Champs.gd")
 const PeakCamp := preload("res://scripts/rules/PeakCamp.gd")
 const WeekPhase := preload("res://scripts/rules/WeekPhase.gd")
@@ -147,6 +148,7 @@ static func day_events(c: Career) -> void:
 				if not bool(o["mismatch"]):
 					c.add_news("The offer from %s for %s expired." % [o["opp"]["club"], f["first"]])
 					f["next_offer_day"] = c.day + AFTER_EXPIRY
+					passed(c, f)
 
 
 ## S374 (operator "Yes, fix it" - Danny walks 61.6 kg for the men's 60 and his first offer, 17 days out, left him at 60.32
@@ -227,6 +229,15 @@ static func decline(c: Career, id: String) -> void:
 	o["answered"] = true
 	if not bool(o["mismatch"]):
 		fo[0]["next_offer_day"] = c.day + AFTER_DECLINE
+		passed(c, fo[0])
+
+
+## S486 R58 LOYALHOOKS1 (map M1): a legal offer passed or left to expire while fit and free costs loyalty -3 (the mismatch
+## never counts: passing an unsafe pair is the right call). Injured or already booked: no move.
+static func passed(c: Career, f: Dictionary) -> void:
+	if f.is_empty() or Injuries.out(c, f) or not (f.get("bout", {}) as Dictionary).is_empty():
+		return
+	Loyalty.apply(f, "offer_passed", c.day)
 
 
 ## S357 the short-notice swap card can come up: an amateur bout (not a championship, not pro) at least SWAP_MIN_DAYS out, with a

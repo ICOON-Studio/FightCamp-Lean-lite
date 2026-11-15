@@ -145,6 +145,9 @@ static func sign_fighter(c: Career, raw: Dictionary, picks: Array) -> Dictionary
 		c.add_news(Recruit.apply_focus(f, focus, c.day))
 	PerkRoad.newly_open(f, c.day)
 	f["joined"] = c.day
+	for t in c.fighters:   # S486 LOYALHOOKS1: a signing in the same class (map M1: -4 once)
+		if str(t.get("div", "")) == str(f.get("div", "")):
+			Loyalty.apply(t, "signing_class", c.day)
 	f["registered"] = registered_day(f, c.day)   # S331 the nationals need 3 months REGISTERED (England Boxing), not with us
 	var bouts: int = int(f.get("w", 0)) + int(f.get("l", 0)) + int(f.get("d", 0))
 	f["goal"] = FighterGoal.goal_for(f, SIGNING_GOAL if bouts == 0 else SIGNING_GOAL_CARDED, c.day)
@@ -258,6 +261,7 @@ static func turn_pro(c: Career) -> Dictionary:
 	if Loyalty.pro_share(f) < share_of(f):
 		f["gym_share"] = Loyalty.pro_share(f)
 		c.add_news("An outside manager signs %s: the club keeps only the trainer's %d%%." % [f["first"], int(round(Loyalty.pro_share(f) * 100))])
+	Loyalty.apply(f, "turn_pro", c.day)   # S486 LOYALHOOKS1: after the share is set (the share reads loyalty before it)
 	f["promoter"] = o["promoter"]
 	f["purse"] = int(o["purse"])
 	f["purse_step"] = int(o["step"])
@@ -291,6 +295,7 @@ static func debut_day(day: int) -> int:
 static func decline_pro(c: Career) -> void:
 	var f := c.fighter_by_id(str(c.pro_offer["fid"]))
 	f["pro_declines"] = int(f.get("pro_declines", 0)) + 1
+	Loyalty.apply(f, "decline_pro", c.day)   # S486 LOYALHOOKS1: kept amateur for the nationals, against the boxer's wish
 	c.add_news("%s stays amateur for now. %s" % [f["first"],
 		"The door is closed short of a number 1 ranking." if int(f["pro_declines"]) >= 3 else "The promoters will be back after more wins."])
 	c.pro_offer = {}

@@ -1552,8 +1552,9 @@
   {
    "task": "CLASH8",
    "seat": "qwen",
-   "status": "queued",
-   "queued": "2026-11-15T13:00"
+   "status": "launched",
+   "queued": "2026-11-15T13:00",
+   "launched": "2026-11-15T13:04"
   },
   {
    "task": "STYLE4",

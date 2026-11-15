@@ -2603,9 +2603,11 @@
    "seat": "kalli",
    "brief": "research/DESIGN_LADDER1_V3_REVISE_KALLI.md",
    "stem": "DESIGN_LADDER1_V3_REVISE_KALLI_KALLI",
-   "status": "queued",
+   "status": "sent",
    "queued_at": "2026-11-15 12:00",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-15 13:10",
+   "sent_ms": 1794741024796
   },
   {
    "id": "SQ176",

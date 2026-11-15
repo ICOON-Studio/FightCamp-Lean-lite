@@ -324,6 +324,18 @@
     "seat_pid": 34908
    },
    "note": "S368 seat_dispatch: launched unattended (dispatch_queue.json); merging stays off"
+  },
+  "LOYAL3": {
+   "agent": "arena",
+   "id": "LOYAL3",
+   "title": "Bot clubs answer a rival club's approach: does one answer always win? (R58 probe)",
+   "status": "running",
+   "started": "2026-11-15T13:13",
+   "eta": "2026-11-15T13:38",
+   "brief": "ops/research/TASK_LOYAL3.md",
+   "repo": "FightCamp-Lean-lite",
+   "where": "cloud",
+   "url": "https://arena.ai/agent/01a1dee9-a65e-7ba6-a0f8-c0e38c6372b8"
   }
  },
  "codex_budget": {

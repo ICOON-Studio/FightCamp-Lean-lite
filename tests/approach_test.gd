@@ -235,22 +235,22 @@ func _answers() -> void:
 	)
 	_check(
 		bool(c_half["available"])
-		and int(c_half["loyalty_end"]) == 37
+		and int(c_half["loyalty_end"]) == 39
 		and int(c_half["holder_end"]) == 60
 		and int(c_half["cash"]) == 0
 		and int(c_half["locked_to"]) == 175
 		and is_equal_approx(float(c_half["train"]), 0.925)
 		and is_equal_approx(float(c_half["holder_train"]), 0.925),
-		"half: loyalty 37, Lucy 60, both train 0.925"
+		"half: loyalty 39 (33+6), Lucy 60, both train 0.925"
 	)
 	_check(
 		bool(c_move["available"])
 		and int(c_move["loyalty_end"]) == 45
-		and int(c_move["holder_end"]) == 47
+		and int(c_move["holder_end"]) == 43
 		and int(c_move["cash"]) == 0
 		and is_equal_approx(float(c_move["train"]), 1.0)
 		and is_equal_approx(float(c_move["holder_train"]), 0.85),
-		"move: loyalty 45, Lucy 47 (64-8-9), holder_train 0.85"
+		"move: loyalty 45, Lucy 43 (64-12-9), holder_train 0.85"
 	)
 	_check(
 		bool(c_promise["available"])
@@ -274,8 +274,8 @@ func _answers() -> void:
 	var landed_cols: Array = Approach.answers(landed_view)
 	var landed_half: Dictionary = landed_cols[1]
 	_check(
-		bool(landed_half["available"]) and int(landed_half["loyalty_end"]) == 42,
-		"talk landed: half loyalty_end 42 (33+9)"
+		bool(landed_half["available"]) and int(landed_half["loyalty_end"]) == 43,
+		"talk landed: half loyalty_end 43 (33+10)"
 	)
 
 	var failed_view: Dictionary = base.duplicate()

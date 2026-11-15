@@ -25,6 +25,7 @@ const BoutBurn := preload("res://scripts/rules/BoutBurn.gd")
 const BodyReport := preload("res://scripts/rules/BodyReport.gd")
 const BodyTrack := preload("res://scripts/rules/BodyTrack.gd")
 const Injuries := preload("res://scripts/state/Injuries.gd")
+const Loyalty := preload("res://scripts/rules/Loyalty.gd")
 const PlanRecord := preload("res://scripts/rules/PlanRecord.gd")
 const NOTES_PATH := "res://assets/data/fight_habits.json"
 
@@ -149,6 +150,8 @@ static func run(c: Career, f: Dictionary, m: Dictionary) -> void:
 		c.add_news("%s loses to %s %s (%s). %d members leave the gym." % [f["name"], opp["name"], how, card_text,
 			int(m.get("members_lost", 0))])
 	FighterProfile.apply_morale(f, outcome, {"win": "Beat %s", "loss": "Lost to %s", "draw": "Drew with %s"}[outcome] % opp["name"])
+	if outcome != "draw":   # S486 LOYALHOOKS1 (map M1): win +2, loss -1, stopped -3 (a Loyal boxer takes losses at half)
+		Loyalty.apply(f, "bout_won" if outcome == "win" else ("stopped" if stop != "" else "bout_lost"), c.day)
 	CornerTrust.settle(f, opp["name"])
 	coach_note(c, f, "fight")
 	var goal: Dictionary = f.get("goal", {})
@@ -158,6 +161,7 @@ static func run(c: Career, f: Dictionary, m: Dictionary) -> void:
 		(f["history"] as Array).append({"title": goal["title"], "met": met, "d": c.day})
 		# The defect FighterGoal reported: its morale move now lands on the fighter.
 		FighterProfile.apply_morale(f, "goal_met" if met else "goal_missed", "%s %s" % [goal["title"], "met" if met else "missed"])
+		Loyalty.apply(f, "goal_met" if met else "goal_missed", c.day)   # S486 LOYALHOOKS1: the goal you set, +5 / -4
 	Region.update_rank(c, f)
 	f["goal"] = {}
 	f["goal_talk"] = true

@@ -53,7 +53,13 @@ const MOVES := {
 	"stripe_now": StripeCall.NOW_LOYAL, "stripe_hold": -StripeCall.HOLD_LOYAL,
 	"word_card": 0,
 	"teammate_left": -2,   # S486 R58 M6: a team-mate under Settled when a boxer leaves the club (Leaving)
+	# S486 R58 LOYALHOOKS1 (map R58_MAP_S439 M1, ESTIMATES): the bouts the player takes or passes, results, goals, the pro
+	# decision, a signing in the same class, four idle weeks. Each prices a choice the player makes.
+	"offer_passed": -3, "no_bout": -3, "bout_won": 2, "bout_lost": -1, "stopped": -3, "goal_met": 5, "goal_missed": -4,
+	"decline_pro": -8, "turn_pro": 5, "signing_class": -4,
 }
+## A Loyal fighter (LOYAL_AT+) takes result losses at half, toward zero (map M1 THE UPSIDE): -1 -> 0, -3 -> -1.
+const HALVED_WHEN_LOYAL := ["bout_lost", "stopped"]
 
 
 ## The fighter's loyalty: f["loyalty"], else the personality trait, else START.
@@ -120,6 +126,8 @@ static func move_for(f: Dictionary, cause: String, day: int) -> Dictionary:
 			return {"n": int(MOVES["short_running"]), "why": "short_running"}
 	if cause == "held_pads" and pads_run(book, day) >= PADS_RUN:
 		return {"n": 0, "why": PADS_WHY}
+	if HALVED_WHEN_LOYAL.has(cause) and value(f) >= LOYAL_AT:
+		return {"n": int(float(MOVES[cause]) / 2.0), "why": cause}   # int() cuts toward zero
 	return {"n": int(MOVES[cause]), "why": cause}
 
 
