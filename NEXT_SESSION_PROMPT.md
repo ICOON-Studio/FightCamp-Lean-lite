@@ -29,8 +29,10 @@ OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py s
 ## FIRST
 0. Miro P0 was NOT redrawn at S481's end (context): the cards are saved in where_we_are; `roll S482`, then redraw
    (svg -> canvas_update_from_svg; 4 surplus widgets are marked deleted - the frame's own stale slots).
-1. get_usage. His board: Q-240 (build the plan flowchart this way?) + comments on the fight week stills; his play of the
-   fight week is the gate.
+1. get_usage. BUILD THE PLAN FLOWCHART - his Q-240 answer in chat: "Yes, build it". One Game plan page (the list goes),
+   docs/mockups/s481/plan_flowchart_v2.png, map ops/research/DESIGN_PLANFLOW1_V3_REVISE_KALLI_KALLI.md; four clicks a line
+   (bell box, + Add an IF from the opponent's file, pick the answer, test it); the arrows stay f["arrows"] (no second plan
+   system); a golden-path test walks it. His play of the fight week is still the gate for FIGHTWEEK3.
 2. Collect PARTNERPROBE1 (gate: CLOSE beats LOOSE by 3-5 in 100; miss -> tune PartnerMatch LINES/EDGE), STYLE2, CLASH6.
 3. FIGHTWEEK3 (the leftovers): pull-out roll + fall-through card, Train it off / Ask a kilo, favours earned, win band.
 4. Seat answers as they land.

@@ -10,10 +10,10 @@
     "last_working_commit": "ba0a5c94",
     "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
     "in_flight": "Qwen CLASH6 (wt E:/FightCamp/wt/LEAN_CLASH6, ETA ~10:30); Goose PARTNERPROBE1 #300 (run 43677244116), STYLE2 #302; seats SQ161-SQ168",
-    "next_action": "S482: 0) get_usage. 1) His board: Q-240 (plan flowchart build?) and any comment on the fight week stills; his play of the fight week is the gate. 2) Collect PARTNERPROBE1 (#300; if it misses CLOSE beats LOOSE by 3-5 in 100, tune PartnerMatch LINES/EDGE), STYLE2 (#302; EFFECTS numbers + Part B on the game loop), Qwen CLASH6 (merge bar in TASK_CLASH6.md). 3) Fight week leftovers (FIGHTWEEK3): the Monday pull-out roll + fall-through card (FightWeekEvents), Train it off / Ask for a kilo (WeighGap.ways), favours earned by filling a late gap, the week-before night's pad cost, win band on the right panel. 4) Seat answers: Kalli SQ163 women's 70 kg -> Data.DIVISIONS 'wlm'; Maria SQ164 weight M1 + Dola SQ165 coaches M1 -> render + board; SQ166/167 club week v9 critics; SQ168 training K spec -> HTML; SQ161/162 ladder critics.",
+    "next_action": "S482: 0) get_usage. 1) BUILD THE PLAN FLOWCHART (his Q-240 'Yes, build it', in chat): one Game plan page, the list goes; docs/mockups/s481/plan_flowchart_v2.png + map ops/research/DESIGN_PLANFLOW1_V3_REVISE_KALLI_KALLI.md; setup in four clicks (bell box, + Add an IF from the file, pick the answer, test it); golden path walks it. Any comment on the fight week stills; his play of the fight week is the gate. 2) Collect PARTNERPROBE1 (#300; if it misses CLOSE beats LOOSE by 3-5 in 100, tune PartnerMatch LINES/EDGE), STYLE2 (#302; EFFECTS numbers + Part B on the game loop), Qwen CLASH6 (merge bar in TASK_CLASH6.md). 3) Fight week leftovers (FIGHTWEEK3): the Monday pull-out roll + fall-through card (FightWeekEvents), Train it off / Ask for a kilo (WeighGap.ways), favours earned by filling a late gap, the week-before night's pad cost, win band on the right panel. 4) Seat answers: Kalli SQ163 women's 70 kg -> Data.DIVISIONS 'wlm'; Maria SQ164 weight M1 + Dola SQ165 coaches M1 -> render + board; SQ166/167 club week v9 critics; SQ168 training K spec -> HTML; SQ161/162 ladder critics.",
     "incomplete_blocked": "FIGHTWEEK3 leftovers (pull-out roll, Train it off / Ask a kilo, favours earned, win band) wait on his play of the fight week; Miro P0 redraw moved to S482's start (context).",
     "next_acceptance": "His play of the fight week in the .exe (or a board comment); PARTNERPROBE1/STYLE2/CLASH6 collected against their merge bars.",
-    "awaiting_operator": "Q-S294-240 (one flowchart Game plan page, set up in four clicks - build it?); his look at the fight week stills (review S481)."
+    "awaiting_operator": "His play of the fight week in the .exe (review S481 stills)."
   },
   "next": "S477: 0) get_usage. 1) Collect Qwen BLOCKCLIP1 (branch qwen/blockclip1: 08_cross seed 77 <= 0.02 m every frame, no new deep frame on any shot, block_meet FAIL set not larger; open its f27 stills yourself, then his look). 2) Seat answers: SQ144 fight week map v9 -> two fresh critics -> 6/6 + depth 7 -> his board WITH the redrawn sparring-partner screen (names only in headers); SQ145 LADDER1 research -> Kalli map; SQ143 plan flowchart v3 -> his board; SQ146-150 design loop. 3) Arena: a pure module from v9 (partner-to-opponent match score). 4) CLASH3 left: a boxer's own two gloves (clash_meter reads only pairs across boxers - add own-pair), cross 09 seed 77 one 4.1 cm frame (the clearance believes it clear: its forearm-line glove model vs the drawn glove).",
   "assessment": {
@@ -4924,7 +4924,7 @@
   },
   "plan": {
     "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-    "updated": "2026-11-15 06:41 board_sync",
+    "updated": "2026-11-15 07:41 board_sync",
     "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
     "titles": {
       "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5074,22 +5074,29 @@
     },
     "working_now": [
       {
-        "title": "TASK CLASH6 - the glove clash resolved in two phases (all boxers update, then all resolve)",
-        "who": "qwen",
-        "started": "2026-11-15T07:29",
-        "run": "CLASH6"
+        "title": "Coach fit as numbers: fit, word, gain and tiredness, coach time, ceilings (pure module + test)",
+        "who": "arena",
+        "started": "2026-11-15T06:28",
+        "run": "COACHFIT2"
       },
       {
         "title": "what a close sparring partner is worth on fight night, in wins (a probe; headless, measure only)",
         "who": "goose",
         "started": "2026-11-15T06:32",
-        "run": "PARTNERPROBE1"
+        "run": "PARTNERPROBE1",
+        "state": "LANDED - Claude collects"
       },
       {
-        "title": "Named styles worth 1.5-4 wins in 100: tune the style effects; the road to a style on the game's loop",
+        "title": "make each named style worth 1.5 to 4 wins in 100 (tune StyleName.EFFECTS), and redo the road to a style",
         "who": "goose",
         "started": "2026-11-15T07:27",
         "run": "STYLE2"
+      },
+      {
+        "title": "TASK CLASH6 - resolve the glove clash in two phases (all boxers update, then all resolve)",
+        "who": "qwen",
+        "started": "2026-11-15T07:30",
+        "run": "CLASH6"
       }
     ],
     "next": [
@@ -5119,8 +5126,8 @@
       },
       {
         "id": "PLANFLOW1",
-        "who": "kalli",
-        "title": "Fight plan as an if-then flowchart: v2 passed 6/6 (S475); v3 in (Kalli self 7/7/7, S477) adds result-changing pieces (Main bet, Test it, GUESS, Lean on it) -> critics John SQ151 + Maria SQ152, then his board",
+        "who": "claude",
+        "title": "Build the plan flowchart: one Game plan page, set up in four clicks (his Q-240 \"Yes, build it\")",
         "after": ""
       },
       {
@@ -5973,6 +5980,6 @@
   "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
   "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
   "last_working_commit": "ba0a5c94",
-  "next_action": "S482: 0) get_usage. 1) His board: Q-240 (plan flowchart build?) and any comment on the fight week stills; his play of the fight week is the gate. 2) Collect PARTNERPROBE1 (#300; if it misses CLOSE beats LOOSE by 3-5 in 100, tune PartnerMatch LINES/EDGE), STYLE2 (#302; EFFECTS numbers + Part B on the game loop), Qwen CLASH6 (merge bar in TASK_CLASH6.md). 3) Fight week leftovers (FIGHTWEEK3): the Monday pull-out roll + fall-through card (FightWeekEvents), Train it off / Ask for a kilo (WeighGap.ways), favours earned by filling a late gap, the week-before night's pad cost, win band on the right panel. 4) Seat answers: Kalli SQ163 women's 70 kg -> Data.DIVISIONS 'wlm'; Maria SQ164 weight M1 + Dola SQ165 coaches M1 -> render + board; SQ166/167 club week v9 critics; SQ168 training K spec -> HTML; SQ161/162 ladder critics.",
+  "next_action": "S482: 0) get_usage. 1) BUILD THE PLAN FLOWCHART (his Q-240 'Yes, build it', in chat): one Game plan page, the list goes; docs/mockups/s481/plan_flowchart_v2.png + map ops/research/DESIGN_PLANFLOW1_V3_REVISE_KALLI_KALLI.md; setup in four clicks (bell box, + Add an IF from the file, pick the answer, test it); golden path walks it. Any comment on the fight week stills; his play of the fight week is the gate. 2) Collect PARTNERPROBE1 (#300; if it misses CLOSE beats LOOSE by 3-5 in 100, tune PartnerMatch LINES/EDGE), STYLE2 (#302; EFFECTS numbers + Part B on the game loop), Qwen CLASH6 (merge bar in TASK_CLASH6.md). 3) Fight week leftovers (FIGHTWEEK3): the Monday pull-out roll + fall-through card (FightWeekEvents), Train it off / Ask for a kilo (WeighGap.ways), favours earned by filling a late gap, the week-before night's pad cost, win band on the right panel. 4) Seat answers: Kalli SQ163 women's 70 kg -> Data.DIVISIONS 'wlm'; Maria SQ164 weight M1 + Dola SQ165 coaches M1 -> render + board; SQ166/167 club week v9 critics; SQ168 training K spec -> HTML; SQ161/162 ladder critics.",
   "next_acceptance": "His play of the fight week in the .exe (or a board comment); PARTNERPROBE1/STYLE2/CLASH6 collected against their merge bars."
 }

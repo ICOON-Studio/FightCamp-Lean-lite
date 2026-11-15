@@ -7551,10 +7551,29 @@
         "AgentComms/board_attach/Q-S294-239_0_plan_flowchart_v1.png",
         "AgentComms/board_attach/Q-S294-239_1_plan_today_real.png"
       ],
-      "answer": null,
+      "answer": "why do we need 2 pages for the fight plan ? flowchart looks good but how do you set the plan up ?",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-15T04:48:09Z",
+      "seen_by_claude": true,
+      "comment_only": true
+    },
+    {
+      "id": "Q-S294-240",
+      "asked": "2026-11-15T05:25:53.223213+00:00",
+      "session": "S294",
+      "text": "Your Q-239: one Game plan page only, the flowchart (the list goes). How you set it up, drawn: 1 click the bell box, 2 + Add an IF from the opponent's file, 3 click the empty box and pick the answer, 4 test it or box. Build it this way?",
+      "options": [
+        "Yes, build it",
+        "Change it (comment)"
+      ],
+      "attach": [
+        "research/Q239_plan_flowchart_v2.png"
+      ],
+      "answer": "Yes, build it",
+      "note": "answered in chat (S481): \"Yes, build it\"",
+      "answered_at": "2026-11-15T05:42:35Z",
+      "seen_by_claude": true,
+      "seen": true
     }
   ]
 }
