@@ -284,7 +284,7 @@ func _numbers() -> void:
 	f["camp"] = {"protocol": 3}
 	_check(int(BoutRead.camp_for(f, 3)["protocol"]) == 3, "her own camp when she has one")
 	var s := BoutRead.stage(maria)
-	_check(int(s["found"]) == 0 and int(s["all"]) == 4 and float(s["share"]) == 0.0, "Maria's file: 0 of 4")
+	_check(int(s["found"]) == 0 and int(s["all"]) == 6 and float(s["share"]) == 0.0, "Maria's file: 0 of 6 (S483: two mode tells)")
 
 
 func _ranks() -> void:

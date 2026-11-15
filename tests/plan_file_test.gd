@@ -36,8 +36,10 @@ func _initialize() -> void:
 	OppFile.open(opp, "weakness")
 	rows = _by_id(PlanFile.rows(opp, plan, mastery, combos))
 	var w: Dictionary = rows["weapon"]
-	_check(str(w["sit"]) == "counter" and str(w["place"]) == "long" and str(w["move"]) == "1-2" and str(w["fit"]) == "ok",
-		"weapon -> counter game at long range, 1-2 fires and Works (got %s %s %s %s)" % [w["sit"], w["place"], w["move"], w["fit"]])
+	# S466 CARDFIX1: a counter-puncher waits OUTSIDE (PlanFight.GAME_CARD counter -> outside); the coach's starter has no
+	# line there, so the file says NO ANSWER and names the best one (this check still read the old long-range card).
+	_check(str(w["sit"]) == "counter" and str(w["place"]) == "outside" and str(w["move"]) == "" and str(w["fit"]) == "none",
+		"weapon -> counter game outside, the starter has no answer there (got %s %s %s %s)" % [w["sit"], w["place"], w["move"], w["fit"]])
 	_check(str(w["best"]) != "" and PlanFight.fit(str(w["best"]), "counter") == "best" and float(w["best_edge"]) > float(w["edge"]),
 		"a better answer is named: %s %+.1f over %+.1f" % [w["best"], float(w["best_edge"]), float(w["edge"])])
 	_check(str(w["say"]).contains("better"), "the coach's line names the better answer: %s" % w["say"])

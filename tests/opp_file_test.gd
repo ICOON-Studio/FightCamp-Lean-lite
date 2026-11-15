@@ -15,17 +15,22 @@ var failures := 0
 
 
 func _initialize() -> void:
-	# 1. Maria's file: two tells free, four hidden in tape order.
+	# 1. Maria's file: two tells free, six hidden in tape order (S483 MODETELLS1: her top unfree mode after her weapon, the
+	# second before her weakness; on 4 films she loads up in 2, boxes at range in 1; pressing is free, her style says it).
 	var maria: Dictionary = (Data.OPPONENTS[0] as Dictionary).duplicate(true)
 	var ids: Array = OppFile.tells(maria).map(func(t): return str(t["id"]))
-	_check(ids == ["look", "style", "weapon", "habit:fades_late", "habit:digs_body_when_hurt", "weakness"], "Maria's file: %s" % str(ids))
+	_check(ids == ["look", "style", "weapon", "mode:loadup", "habit:fades_late", "habit:digs_body_when_hurt", "mode:range", "weakness"], "Maria's file: %s" % str(ids))
+	var mt: Dictionary = OppFile.tells(maria)[3]
+	_check(str(mt["when"]) == "loadup" and str(mt["band"]) == "some" and str(mt["value"]).contains("SOME (2 of 4 films)")
+		and str(OppFile.tells(maria)[6]["band"]) == "rare",
+		"her mode tells: loads up SOME (2 of 4 films), boxes at range RARE, answered by an IF line (%s)" % str(mt["value"]))
 	_check(OppFile.known(maria, "look") and OppFile.known(maria, "style") and not OppFile.known(maria, "weapon"), "free at booking: record and style; her weapon is hidden")
 	_check(OppFile.main_game(maria) == "press" and str(OppFile.tells(maria)[1]["counter"]) == "Plan an arrow for 'If the opponent presses'", "her game: she presses -> plan a branch for it")
 	_check(OppFile.film_depth(maria) == 1, "nothing found: film depth 1")
 	var order: Array = []
-	for i in 5:
+	for i in 7:
 		order.append(OppFile.tape(maria))
-	_check(order == ["weapon", "habit:fades_late", "habit:digs_body_when_hurt", "weakness", ""], "tape opens weapon, habits, weakness, then nothing (%s)" % str(order))
+	_check(order == ["weapon", "mode:loadup", "habit:fades_late", "habit:digs_body_when_hurt", "mode:range", "weakness", ""], "tape opens weapon, mode, habits, weakness, then nothing (%s)" % str(order))
 	_check(OppFile.film_depth(maria) == 3 and OppFile.hidden(maria).is_empty(), "the whole file open: film depth 3")
 	_check((maria.get("notes_seen", []) as Array) == ["habit:fades_late", "habit:digs_body_when_hurt"], "her habits reach the coach's notes (the ring and THE READ use them)")
 	var weak: Dictionary = OppFile.tells(maria)[-1]
@@ -80,7 +85,7 @@ func _initialize() -> void:
 	Sim.step_day(c3)
 	Sim.step_day(c3)
 	var rec: Dictionary = c3.rival("Maria Ortega")
-	_check((rec.get("file_found", []) as Array) == ["weapon", "habit:fades_late"], "the career's record of Maria keeps what the tape found (%s)" % str(rec.get("file_found", [])))
+	_check((rec.get("file_found", []) as Array) == ["weapon", "mode:loadup"], "the career's record of Maria keeps what the tape found (%s)" % str(rec.get("file_found", [])))
 	var rematch: Dictionary = rec.duplicate(true)
 	_check(OppFile.known(rematch, "weapon") and not OppFile.known(rematch, "weakness"), "a rematch offer starts with her weapon known, her weakness still hidden")
 	f3["bout"]["day"] = c3.day

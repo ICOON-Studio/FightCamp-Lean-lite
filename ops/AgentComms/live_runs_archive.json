@@ -19109,6 +19109,102 @@
       "branch": "arena/01a1dd59-fightcamp-lean-lite",
       "chat": "https://arena.ai/agent/01a1dd59-dec9-7c6d-a884-cfad25ce9418",
       "brief": "ops/research/TASK_PARTNERMATCH1.md"
+    },
+    {
+      "agent": "arena",
+      "id": "COACHFIT2",
+      "title": "Coach fit as numbers: fit, word, gain and tiredness, coach time, ceilings (pure module + test)",
+      "status": "landed",
+      "started": "2026-11-15T06:28",
+      "eta": "2026-11-15T07:45",
+      "branch": "arena/01a1dd77-fightcamp-lean-lite",
+      "chat": "https://arena.ai/agent/01a1dd77-618e-7712-a4b2-849d37bbb252",
+      "brief": "ops/research/TASK_COACHFIT2.md",
+      "repo": "ICOON-Studio/FightCamp-Lean-lite",
+      "seat": "arena",
+      "note": " | S482: collected in S481 (92/0)"
+    },
+    {
+      "agent": "goose",
+      "id": "PARTNERPROBE1",
+      "title": "what a close sparring partner is worth on fight night, in wins (a probe; headless, measure only)",
+      "status": "landed",
+      "started": "2026-11-15T06:32",
+      "where": "cloud",
+      "repo": "FightCamp-Lean",
+      "brief": "ops/research/TASK_PARTNERPROBE1.md",
+      "model": "Goose + Qwen token plan (GitHub Actions)",
+      "eta": "2026-11-15T07:32",
+      "note": "S380 seat_dispatch: pure rule module routed to Goose instead of a PC worktree (S480 Claude by hand (his Q-238 approval))",
+      "issue": "300",
+      "branch": "goose/issue-300",
+      "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/300",
+      "reconciled": "2026-11-15 07:40 board_reconcile: run finished (success), branch goose/issue-300 pushed"
+    },
+    {
+      "agent": "qwen",
+      "id": "MODETELLS1",
+      "title": "TASK MODETELLS1 - the opponent's mode as a tell: share bands and the tape order (pure rule module + test)",
+      "status": "landed",
+      "started": "2026-11-15T08:23",
+      "eta": "2026-11-15T10:13",
+      "branch": "qwen/modetells1",
+      "worktree": "E:/FightCamp/wt/LEAN_MODETELLS1",
+      "wt": "E:/FightCamp/wt/LEAN_MODETELLS1",
+      "brief": "ops/research/TASK_MODETELLS1.md",
+      "repo": "FightCamp-Lean",
+      "where": "pc",
+      "log": "E:/FightCamp/wt/MODETELLS1_dispatch_out.txt",
+      "match": "seat_dispatch.py run modetells1",
+      "model": "qwen3-coder",
+      "dispatch": {
+        "prompt": "E:/FightCamp/wt/MODETELLS1_dispatch_prompt.txt",
+        "out": "E:/FightCamp/wt/MODETELLS1_dispatch_out.txt",
+        "runner_log": "E:/FightCamp/wt/MODETELLS1_dispatch_runner.log",
+        "source": "command line",
+        "brief_copied": true,
+        "runner_pid": 23400,
+        "seat_pid": 34408
+      },
+      "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 2/2 PASS; PR #303 | S483 collected + wired (1b061582)",
+      "finished": "2026-11-15T08:46",
+      "pr": 303,
+      "checks": [
+        {
+          "kind": "RED_TEST",
+          "script": "tests/mode_tells_test.gd",
+          "ok": true,
+          "last": "MODE_TELLS PASS fails=0"
+        },
+        {
+          "kind": "REGRESSION",
+          "script": "tests/plan_chart_test.gd",
+          "ok": true,
+          "last": "   at: cleanup (core/object/object.cpp:2536)"
+        }
+      ],
+      "films": {
+        "before": {},
+        "after": {},
+        "board": ""
+      }
+    },
+    {
+      "agent": "goose",
+      "id": "STYLE2",
+      "title": "make each named style worth 1.5 to 4 wins in 100 (tune StyleName.EFFECTS), and redo the road to a style",
+      "status": "failed",
+      "started": "2026-11-15T07:27",
+      "where": "cloud",
+      "repo": "FightCamp-Lean",
+      "brief": "ops/research/TASK_STYLE2.md",
+      "model": "Goose + Qwen token plan (GitHub Actions)",
+      "eta": "2026-11-15T08:27",
+      "note": "S483: timed out at 100 min; round 2 = STYLE3",
+      "issue": "302",
+      "branch": "goose/issue-302",
+      "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/302",
+      "reconciled": "2026-11-15 09:26 board_reconcile: Actions run 43681136158 finished failure at 2026-11-15T07:12:49Z"
     }
   ]
 }

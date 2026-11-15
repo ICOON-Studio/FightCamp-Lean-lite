@@ -116,6 +116,22 @@ func _initialize() -> void:
 		_check(not (f["bout"].get("plan_test", {}) as Dictionary).is_empty(), "click 4: Test it ran on the plan")
 	else:
 		_check(false, "click 4: Test it is pressable")
+
+	# 5) S483 MODETELLS1: film finds the opponent's modes; the + Add an IF list says how often (FOUND: OFTEN/SOME/RARE) and
+	# the file column carries the same word.
+	OppFile.open_all(opp)
+	PlanChart.adding_if = false
+	main.act("go", "playbook:1")
+	await _frames(6)
+	gp = main.find_child("GamePlan", true, false)
+	var file_txt := " ".join(gp.find_child("PlanFile", true, false).find_children("*", "Label", true, false).map(func(l): return str(l.text)))
+	_check(file_txt.contains("SOME (") or file_txt.contains("OFTEN (") or file_txt.contains("RARE ("), "the file column shows a mode's band (%s)" % file_txt.left(160))
+	add = gp.find_child("AddIf", true, false)
+	add.on_click.call()
+	await _frames(3)
+	ifs = main.find_child("GamePlan", true, false).find_child("AddIfList", true, false)
+	var chips := " ".join(ifs.find_children("*", "Label", true, false).map(func(l): return str(l.text))) if ifs != null else ""
+	_check(chips.contains("FOUND: SOME") or chips.contains("FOUND: OFTEN") or chips.contains("FOUND: RARE"), "the IF list names a found mode's band (%s)" % chips.left(200))
 	_end()
 
 

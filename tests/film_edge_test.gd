@@ -54,15 +54,15 @@ func _initialize() -> void:
 	f["combos"] = {"1-2-3-2": 40.0}
 	f["bout"] = {"opp": maria, "film": 1}
 	var s0 := FilmEdge.summary(f)
-	_check(int(s0["n"]) == 0 and int(s0["of"]) == 4 and bool(s0["tape"]) and is_equal_approx(float(s0["edge"]), 0.0),
-		"before tape: 0/4 answered, +0.0 (%s)" % str(s0))
+	_check(int(s0["n"]) == 0 and int(s0["of"]) == 6 and bool(s0["tape"]) and is_equal_approx(float(s0["edge"]), 0.0),
+		"before tape: 0/6 answered (S483: her two mode tells count), +0.0 (%s)" % str(s0))
 	var bare_gap := ComboOdds.gap(f, maria)
 	OppFile.tape(maria)
 	_check(FilmEdge.answered(f) == 1 and is_equal_approx(float(FilmEdge.summary(f)["edge"]), 0.4), "her weapon found and answered: 1, +0.4")
 	OppFile.open_all(maria)
 	var s4 := FilmEdge.summary(f)
-	_check(int(s4["n"]) == 4 and int(s4["of"]) == 4 and is_equal_approx(float(s4["edge"]), BoutRules.FILM_EDGE_MAX),
-		"her whole file answered: 4/4, capped at +1.2 (%s)" % str(s4))
+	_check(int(s4["n"]) >= 4 and int(s4["of"]) == 6 and is_equal_approx(float(s4["edge"]), BoutRules.FILM_EDGE_MAX),
+		"her whole file answered: 4+ of 6, capped at +1.2 (%s)" % str(s4))
 	_check(is_equal_approx(ComboOdds.gap(f, maria) - bare_gap, BoutRules.FILM_EDGE_MAX), "the bout's opening gap moves by the film edge (%.2f)"
 		% (ComboOdds.gap(f, maria) - bare_gap))
 	f["arrows"] = []

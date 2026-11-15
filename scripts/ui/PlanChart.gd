@@ -151,7 +151,7 @@ func _file_compact() -> Control:
 		var when_txt := ""
 		if int(rr["round"]) > 0:
 			when_txt = " (round %d)" % int(rr["round"])
-		elif float(rr["share"]) > 0.0:
+		elif float(rr["share"]) > 0.0 and str(rr.get("band", "")) == "":
 			when_txt = " (%d%% of the exchanges)" % roundi(100.0 * float(rr["share"]))
 		v.add_child(UI.label(str(rr["value"]) + when_txt if bool(rr["known"]) else "Not on film yet: a film night finds it.",
 			UI.SMALL, UI.FG if bool(rr["known"]) else UI.MUTED, "semi", true))
@@ -399,8 +399,8 @@ func _add_list() -> Control:
 	if not b.is_empty() and vs == "":
 		found[OppFile.main_game(b["opp"])] = "THEIR GAME"
 		for r in PlanFile.rows(b["opp"], arrows, f.get("moves", {}), f.get("combos", {})):
-			if bool(r["known"]) and str(r["sit"]) != "" and not found.has(str(r["sit"])):
-				found[str(r["sit"])] = "FOUND"
+			if bool(r["known"]) and str(r["sit"]) != "" and not found.has(str(r["sit"])):   # S483 a mode tell: its band
+				found[str(r["sit"])] = "FOUND" + (": " + str(r["band"]).to_upper() if str(r.get("band", "")) != "" else "")
 	var order: Array = FightFlow.WHEN_WORDS.keys()
 	order.sort_custom(func(a, c): return found.has(a) and not found.has(c))
 	for w in order:

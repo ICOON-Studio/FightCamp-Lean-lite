@@ -12,12 +12,13 @@ extends RefCounted
 ## whole file (open_all: three rounds show everything); history() lists every bout our gym has had with her.
 ##   tells(opp) -> [{id, what, value, counter, call, when, how}]   known(opp, id)   hidden(opp)   found(opp)
 ##   tape(opp) -> id found ("" when the file is open)   sessions_due(start, day)   film_depth(opp)   main_game(opp)
-##   remember(record, opp)   open_all(opp)   history(results, name) -> results with her, newest first   has_tape(opp)
+##   mode_tell(mode, films, shown) (S483 MODETELLS1)   remember(record, opp)   open_all(opp)   history(results, name) -> results with her, newest first   has_tape(opp)
 ## Pure static; preloads the style table (Exchanges), the habit words (RoundStyle) and the WHEN words (FightFlow). State: opp["file_found"] (tell ids).
 
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 const RoundStyle := preload("res://scripts/rules/RoundStyle.gd")
 const FightFlow := preload("res://scripts/rules/FightFlow.gd")
+const ModeTells := preload("res://scripts/rules/ModeTells.gd")
 
 const TAPE_EVERY := 2
 const DEPTH_NONE := 1
@@ -75,13 +76,31 @@ static func tells(opp: Dictionary) -> Array:
 	var w := _answer(str(opp.get("threat", "")), WEAPON_ANSWERS)
 	out.append({"id": "weapon", "what": "Best weapon", "how": "tape", "value": str(opp.get("threat", "?")),
 		"counter": w[0], "call": w[1], "when": w[2]})
-	for h in RoundStyle.opponent_habits(opp):
-		out.append({"id": "habit:" + str(h), "what": "Habit", "how": "tape", "value": str(HABIT_WORDS.get(h, h)),
-			"counter": "The read: the corner shouts the counter when it comes", "call": "", "when": ""})
+	# S483 MODETELLS1 (Q-240, map 4.1): two of her modes are tells too, in the tape order weapon, top mode, habits,
+	# second mode, weakness; her style's main game is the free one. Each says how often film shows it.
+	var films := ModeTells.films(int(opp.get("w", 0)) + int(opp.get("l", 0)))
+	var shown := ModeTells.shown(Exchanges.STYLE_MODES.get(str(opp.get("style", "")), {}), films)
+	for id in ModeTells.order(game, shown, RoundStyle.opponent_habits(opp)):
+		var sid := str(id)
+		if sid.begins_with("habit:"):
+			var h := sid.trim_prefix("habit:")
+			out.append({"id": sid, "what": "Habit", "how": "tape", "value": str(HABIT_WORDS.get(h, h)),
+				"counter": "The read: the corner shouts the counter when it comes", "call": "", "when": ""})
+		elif sid.begins_with("mode:") and int(shown.get(sid.trim_prefix("mode:"), 0)) > 0:   # never on her films: no tell
+			out.append(mode_tell(sid.trim_prefix("mode:"), films, int(shown.get(sid.trim_prefix("mode:"), 0))))
 	var k := _answer(str(opp.get("weak", "")), WEAKNESS_ANSWERS)
 	out.append({"id": "weakness", "what": "Weakness", "how": "tape", "value": str(opp.get("weak", "?")),
 		"counter": k[0], "call": k[1], "when": k[2]})
 	return out
+
+
+## A mode tell: how often film shows her in it (ModeTells.band), the plan line that answers it. band "" = never on film.
+static func mode_tell(mode: String, films: int, shown: int) -> Dictionary:
+	var band := ModeTells.band(films, shown)
+	var how_often := "%s (%d of %d films)" % [band.to_upper(), shown, films] if band != "" else "not on her films"
+	return {"id": "mode:" + mode, "what": "Mode", "how": "tape", "call": "", "when": mode if band != "" else "",
+		"band": band, "value": "%s: %s" % [str(GAME_WORDS.get(mode, mode)).capitalize(), how_often],
+		"counter": "Plan an arrow for 'If %s'" % str(FightFlow.WHEN_WORDS.get(mode, mode)) if band != "" else ""}
 
 
 ## The game her style plays most (Exchanges.STYLE_MODES); "" for a style the table does not know.
@@ -168,11 +187,14 @@ static func has_tape(opp: Dictionary) -> bool:
 
 
 ## The film depth the fight reads: 1 with nothing found, 3 with the whole file open.
+## S483: her modes are not counted here (they feed the plan, FilmEdge); the corner's read in the ring is her weapon, habits
+## and weakness, as before.
 static func film_depth(opp: Dictionary) -> int:
-	var all := tells(opp).filter(func(t): return str(t["how"]) != "booking").size()
+	var all := tells(opp).filter(func(t): return str(t["how"]) != "booking" and not str(t["id"]).begins_with("mode:")).size()
 	if all == 0:
 		return DEPTH_ALL
-	return DEPTH_NONE + roundi(float(DEPTH_ALL - DEPTH_NONE) * float(found(opp).size()) / float(all))
+	var got := found(opp).filter(func(id): return not str(id).begins_with("mode:")).size()
+	return DEPTH_NONE + roundi(float(DEPTH_ALL - DEPTH_NONE) * float(got) / float(all))
 
 
 ## [answer, call, when] for the first row whose words her text holds.
