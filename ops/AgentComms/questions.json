@@ -7854,7 +7854,7 @@
       "answer": "Change more (say what)",
       "note": null,
       "answered_at": "2026-11-15T20:32:52Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "comment_only": false
     },
     {
@@ -7870,6 +7870,41 @@
       "attach": [
         "AgentComms/board_attach/Q-S294-256_0_fight_analysis_v3.png",
         "research/FIGHTFILM1_MAP_V3_S495.md"
+      ],
+      "answer": "Yes, build it",
+      "note": null,
+      "answered_at": "2026-11-15T21:58:30Z",
+      "seen_by_claude": true,
+      "comment_only": false
+    },
+    {
+      "id": "Q-S294-257",
+      "asked": "2026-11-15T22:16:06.611960+00:00",
+      "session": "S294",
+      "text": "Training K v6 - your 3 marks done: (1) the right panel says what it is ('next week: the bout'); with no bout booked it shows NO BOUT BOOKED and an Ask for a fight button (second picture). (2) The coach split has a white drag line with a grip, and the COACH label says 'drag the white line to share' (the coach's 75 min an evening, shared between two boxers). (3) Lock is gone: the evening tile and the Friday panel show the coaches, '1 of 2 coaches free'. Build it as drawn?",
+      "options": [
+        "Yes, build it",
+        "Change more (say what)"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-257_0_training_k_v6b_nobout.png"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-258",
+      "asked": "2026-11-15T22:25:51.540993+00:00",
+      "session": "S294",
+      "text": "BODYLOOK1 round 3 (PR 324): the coach's collar is one clean band now (no break, slit or skin sliver at the front) and the singlet strap tips are smooth (before left/top, after right/bottom). Left: in the hunched close-up the collar's front stands a finger off his neck; one small kink on a strap's outer edge. Merge it into the next build?",
+      "options": [
+        "Yes, merge it",
+        "Fix the gap first"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-258_0_r3_bench_closeup_pose_before_top_after_bottom.jpg"
       ],
       "answer": null,
       "note": null,
