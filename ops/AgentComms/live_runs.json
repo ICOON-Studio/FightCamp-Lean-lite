@@ -1,530 +1,542 @@
 {
-  "_doc": "Claude writes one entry per agent run at launch (operator S144: 'make it more clear, who is working on what, ETA'). The ops board /agents page joins it to the live processes. eta = Claude's estimate at launch, local time; status running|waiting|done.",
-  "seats": 3,
-  "runs": {
-    "STYLE1": {
-      "agent": "goose",
-      "id": "STYLE1",
-      "title": "TASK STYLE1 - does any named style dominate, and is each worth having? (probe, measure only)",
-      "status": "done - superseded by STYLE3 (S484)",
-      "started": "2026-11-15T05:58",
-      "eta": "2026-11-15T07:30",
-      "branch": "goose/*",
-      "brief": "ops/research/TASK_STYLE1.md",
-      "repo": "ICOON-Studio/FightCamp-Lean-lite",
-      "chat": "https://arena.ai/agent/01a1dc46-8131-7b0e-af3a-6e1d928bcaec",
-      "seat": "arena",
-      "issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/298"
-    },
-    "CLASH5": {
-      "agent": "qwen",
-      "id": "CLASH5",
-      "title": "TASK CLASH5 - the guard glove that jumps 30 cm in one frame (seed 4242 08_jab f40), and the clash read that cannot see it",
-      "status": "failed",
-      "started": "2026-11-15T05:53",
-      "eta": "2026-11-15T07:43",
-      "branch": "qwen/clash5",
-      "worktree": "E:/FightCamp/wt/LEAN_CLASH5",
-      "wt": "E:/FightCamp/wt/LEAN_CLASH5",
-      "brief": "ops/research/TASK_CLASH5.md",
-      "repo": "FightCamp-Lean",
-      "where": "pc",
-      "log": "E:/FightCamp/wt/CLASH5_dispatch_out.txt",
-      "match": "seat_dispatch.py run clash5",
-      "model": "qwen3-coder",
-      "dispatch": {
-        "prompt": "E:/FightCamp/wt/CLASH5_dispatch_prompt.txt",
-        "out": "E:/FightCamp/wt/CLASH5_dispatch_out.txt",
-        "runner_log": "E:/FightCamp/wt/CLASH5_dispatch_runner.log",
-        "source": "command line",
-        "brief_copied": true,
-        "runner_pid": 45296,
-        "seat_pid": 27060
-      },
-      "note": "S368 seat_dispatch runner crashed: FileNotFoundError(2, 'The filename or extension is too long', None, 206, None)",
-      "finished": "2026-11-15T07:21"
-    },
-    "CLASH6": {
-      "agent": "qwen",
-      "id": "CLASH6",
-      "title": "TASK CLASH6 - resolve the glove clash in two phases (all boxers update, then all resolve)",
-      "status": "failed - S484 round 2 missed the bar; audit next",
-      "started": "2026-11-15T09:46",
-      "eta": "2026-11-15T11:36",
-      "branch": "qwen/clash6",
-      "worktree": "E:/FightCamp/wt/LEAN_CLASH6",
-      "wt": "E:/FightCamp/wt/LEAN_CLASH6",
-      "brief": "ops/research/TASK_CLASH6.md",
-      "repo": "FightCamp-Lean",
-      "where": "pc",
-      "log": "E:/FightCamp/wt/CLASH6_dispatch_out.txt",
-      "match": "seat_dispatch.py run clash6",
-      "model": "qwen3-coder",
-      "dispatch": {
-        "prompt": "E:/FightCamp/wt/CLASH6_dispatch_prompt.txt",
-        "out": "E:/FightCamp/wt/CLASH6_dispatch_out.txt",
-        "runner_log": "E:/FightCamp/wt/CLASH6_dispatch_runner.log",
-        "source": "command line",
-        "brief_copied": true,
-        "runner_pid": 38700,
-        "seat_pid": 36580
-      },
-      "note": "S368 seat_dispatch runner crashed: FileNotFoundError(2, 'The filename or extension is too long', None, 206, None)",
-      "finished": "2026-11-15T10:30",
-      "pr": 304,
-      "checks": [
-        {
-          "kind": "RED_TEST",
-          "script": "tools/hit_frame_film.gd",
-          "ok": false,
-          "last": "   at: cleanup (core/object/object.cpp:2536)"
-        },
-        {
-          "kind": "REGRESSION",
-          "script": "tests/own_gloves_test.gd",
-          "ok": true,
-          "last": "OWN_GLOVES failures=0"
-        },
-        {
-          "kind": "REGRESSION",
-          "script": "tests/guard_knee_test.gd",
-          "ok": false,
-          "last": "================================================================"
-        },
-        {
-          "kind": "REGRESSION",
-          "script": "tests/guard_weave_test.gd",
-          "ok": true,
-          "last": "guard_weave_test: PASS"
-        },
-        {
-          "kind": "REGRESSION",
-          "script": "tests/glove_cut_test.gd",
-          "ok": true,
-          "last": "glove_cut_test: PASS"
-        },
-        {
-          "kind": "REGRESSION",
-          "script": "tests/cam_line_test.gd",
-          "ok": true,
-          "last": "CAM_LINE failures=0"
-        },
-        {
-          "kind": "REGRESSION",
-          "script": "tests/hit_frame_test.gd",
-          "ok": false,
-          "last": "HIT_FRAME failures=5"
-        },
-        {
-          "kind": "REGRESSION",
-          "script": "tests/hit_carry_test.gd",
-          "ok": false,
-          "last": "================================================================"
-        },
-        {
-          "kind": "REGRESSION",
-          "script": "tests/block_meet_test.gd",
-          "ok": false,
-          "last": "================================================================"
-        }
-      ],
-      "films": {
-        "before": {},
-        "after": {},
-        "board": ""
-      }
-    },
-    "DAYJOB1": {
-      "agent": "arena",
-      "id": "DAYJOB1",
-      "title": "Day job: two mornings lost a week, the sponsorship billed in 4-week blocks (pure module + test)",
-      "status": "merged (S485); PR 308 closed S486",
-      "started": "2026-11-15T12:12",
-      "eta": "2026-11-15T13:00",
-      "brief": "ops/research/TASK_DAYJOB1.md",
-      "repo": "FightCamp-Lean-lite",
-      "where": "cloud",
-      "url": "https://arena.ai/agent/01a1dead-d208-7ec9-a399-f01c3a333cf0",
-      "branch": "arena/3a333cf0-fightcamp-lean-lite"
-    },
-    "FILMSEATS1": {
-      "agent": "arena",
-      "id": "FILMSEATS1",
-      "title": "Film seats in a fight week: who watches with the coach, who watches alone (pure module + test)",
-      "status": "merged (S485, as is)",
-      "started": "2026-11-15T12:27",
-      "eta": "2026-11-15T12:45",
-      "brief": "ops/research/TASK_FILMSEATS1.md",
-      "repo": "FightCamp-Lean-lite",
-      "where": "cloud",
-      "url": "https://arena.ai/agent/01a1deba-0752-73e4-97f8-08e3024d5ae3",
-      "branch": "arena/024d5ae3-fightcamp-lean-lite"
-    },
-    "STEPEFFECT1": {
-      "agent": "arena",
-      "id": "STEPEFFECT1",
-      "title": "The ten steps: what each does when it fires, and how well (STEPVALUE1 pieces 2+4, pure table + test)",
-      "status": "merged (S485, as is; table checked row by row)",
-      "started": "2026-11-15T12:34",
-      "eta": "2026-11-15T12:55",
-      "brief": "ops/research/TASK_STEPEFFECT1.md",
-      "repo": "FightCamp-Lean-lite",
-      "where": "cloud",
-      "url": "https://arena.ai/agent/01a1debf-625b-7c8c-81e3-59f868eab383"
-    },
-    "STEPVALUE2": {
-      "agent": "arena",
-      "id": "STEPVALUE2",
-      "title": "What a step is worth against each style, for the learn card (STEPVALUE1 piece 6, pure table + test)",
-      "status": "merged (S486, as is; the brief example was wrong, the table right)",
-      "started": "2026-11-15T12:42",
-      "eta": "2026-11-15T13:00",
-      "brief": "ops/research/TASK_STEPVALUE2.md",
-      "repo": "FightCamp-Lean-lite",
-      "where": "cloud",
-      "url": "https://arena.ai/agent/01a1dec4-84c1-7fed-8c3f-c62337d95d4f"
-    },
-    "APPROACH1": {
-      "agent": "arena",
-      "id": "APPROACH1",
-      "title": "A rival club approaches an unhappy fighter: when, the offer, the talk, the five answers (R58, pure + test)",
-      "status": "merged (S486, as is)",
-      "started": "2026-11-15T12:54",
-      "eta": "2026-11-15T13:19",
-      "brief": "ops/research/TASK_APPROACH1.md",
-      "repo": "FightCamp-Lean-lite",
-      "where": "cloud",
-      "url": "https://arena.ai/agent/01a1ded7-3327-7ae3-9572-d91710f85b41"
-    },
-    "PROMISE1": {
-      "agent": "arena",
-      "id": "PROMISE1",
-      "title": "Promises to a fighter: made, listed when they bind, kept or broken, what they lock (R58, pure + test)",
-      "status": "merged (S486, as is)",
-      "started": "2026-11-15T12:54",
-      "eta": "2026-11-15T13:19",
-      "brief": "ops/research/TASK_PROMISE1.md",
-      "repo": "FightCamp-Lean-lite",
-      "where": "cloud",
-      "url": "https://arena.ai/agent/01a1ded7-b848-7498-927e-b9eaa5009c26"
-    },
-    "CLASH8": {
-      "agent": "qwen",
-      "id": "CLASH8",
-      "title": "TASK CLASH8 - with the order fixed, which layer puts the defender's glove back into the punch? (measure, then fix)",
-      "status": "done - not merged (S487): no layer undoes the clash; the guard glove clears the forearm axis, not the drawn one; pass lines were false. Next CLASH9",
-      "started": "2026-11-15T13:04",
-      "eta": "2026-11-15T14:54",
-      "branch": "qwen/clash8",
-      "worktree": "E:/FightCamp/wt/LEAN_CLASH8",
-      "wt": "E:/FightCamp/wt/LEAN_CLASH8",
-      "brief": "ops/research/TASK_CLASH8.md",
-      "repo": "FightCamp-Lean",
-      "where": "pc",
-      "log": "E:/FightCamp/wt/CLASH8_dispatch_out.txt",
-      "match": "seat_dispatch.py run clash8",
-      "model": "qwen3-coder",
-      "dispatch": {
-        "prompt": "E:/FightCamp/wt/CLASH8_dispatch_prompt.txt",
-        "out": "E:/FightCamp/wt/CLASH8_dispatch_out.txt",
-        "runner_log": "E:/FightCamp/wt/CLASH8_dispatch_runner.log",
-        "source": "dispatch_queue.json",
-        "brief_copied": true,
-        "runner_pid": 27688,
-        "seat_pid": 34908
-      },
-      "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 2/5 PASS; PR #313",
-      "finished": "2026-11-15T13:57",
-      "pr": 313,
-      "checks": [
-        {
-          "kind": "RED_TEST",
-          "script": "tools/hit_frame_film.gd",
-          "ok": false,
-          "last": "   at: cleanup (core/object/object.cpp:2536)"
-        },
-        {
-          "kind": "REGRESSION",
-          "script": "tests/own_gloves_test.gd",
-          "ok": true,
-          "last": "OWN_GLOVES failures=0"
-        },
-        {
-          "kind": "REGRESSION",
-          "script": "tests/hit_carry_test.gd",
-          "ok": false,
-          "last": "HIT_CARRY failures=34"
-        },
-        {
-          "kind": "REGRESSION",
-          "script": "tests/hit_frame_test.gd",
-          "ok": false,
-          "last": "HIT_FRAME failures=5"
-        },
-        {
-          "kind": "REGRESSION",
-          "script": "tests/cam_line_test.gd",
-          "ok": true,
-          "last": "CAM_LINE failures=0"
-        }
-      ],
-      "films": {
-        "before": {},
-        "after": {},
-        "board": ""
-      }
-    },
-    "LOYAL3": {
-      "agent": "arena",
-      "id": "LOYAL3",
-      "title": "Bot clubs answer a rival club's approach: does one answer always win? (R58 probe)",
-      "status": "merged (S487, probe as is; Approach tuned: MOVE 59% -> 54% max)",
-      "started": "2026-11-15T13:13",
-      "eta": "2026-11-15T13:38",
-      "brief": "ops/research/TASK_LOYAL3.md",
-      "repo": "FightCamp-Lean-lite",
-      "where": "cloud",
-      "url": "https://arena.ai/agent/01a1dee9-a65e-7ba6-a0f8-c0e38c6372b8"
-    },
-    "STYLE4": {
-      "agent": "qwen",
-      "id": "STYLE4",
-      "title": "TASK STYLE4 - rewire the three dead style levers (Boxer-puncher, Counter-puncher, Slugger) and retune all six",
-      "status": "done - not merged (S488 audit): levers 0.1 pt on a 66-pt spread; lever table hard-coded, not measured; miss read landed. Round 3 = STYLE5, queued after CLASH9",
-      "started": "2026-11-15T13:59",
-      "eta": "2026-11-15T15:49",
-      "branch": "qwen/style4",
-      "worktree": "E:/FightCamp/wt/LEAN_STYLE4",
-      "wt": "E:/FightCamp/wt/LEAN_STYLE4",
-      "brief": "ops/research/TASK_STYLE4.md",
-      "repo": "FightCamp-Lean",
-      "where": "pc",
-      "log": "E:/FightCamp/wt/STYLE4_dispatch_out.txt",
-      "match": "seat_dispatch.py run style4",
-      "model": "qwen3-coder",
-      "dispatch": {
-        "prompt": "E:/FightCamp/wt/STYLE4_dispatch_prompt.txt",
-        "out": "E:/FightCamp/wt/STYLE4_dispatch_out.txt",
-        "runner_log": "E:/FightCamp/wt/STYLE4_dispatch_runner.log",
-        "source": "roadmap plan.next",
-        "brief_copied": true,
-        "runner_pid": 27616,
-        "seat_pid": 12760
-      },
-      "note": "S368 seat_dispatch: qwen exit 0; 2 commit(s); checks 7/8 PASS; PR #315",
-      "finished": "2026-11-15T14:41",
-      "pr": 315,
-      "checks": [
-        {
-          "kind": "RED_TEST",
-          "script": "tools/style4_probe.gd",
-          "ok": false,
-          "last": "STYLE4 done (756.2s)"
-        },
-        {
-          "kind": "REGRESSION",
-          "script": "tests/style_name_test.gd",
-          "ok": true,
-          "last": "STYLE_NAME failures=0"
-        },
-        {
-          "kind": "REGRESSION",
-          "script": "tests/style_wire_test.gd",
-          "ok": true,
-          "last": "STYLE_WIRE failures=0"
-        },
-        {
-          "kind": "REGRESSION",
-          "script": "tests/learn_slots_test.gd",
-          "ok": true,
-          "last": "LEARN_SLOTS failures=0"
-        },
-        {
-          "kind": "REGRESSION",
-          "script": "tests/aim_wire_test.gd",
-          "ok": true,
-          "last": "AIM_WIRE failures=0"
-        },
-        {
-          "kind": "REGRESSION",
-          "script": "tests/clinch_why_test.gd",
-          "ok": true,
-          "last": "CLINCH_WHY failures=0"
-        },
-        {
-          "kind": "REGRESSION",
-          "script": "tests/judges_test.gd",
-          "ok": true,
-          "last": "JUDGES failures=0"
-        },
-        {
-          "kind": "REGRESSION",
-          "script": "tests/fighter_model_test.gd",
-          "ok": true,
-          "last": "FIGHTER_MODEL failures=0"
-        }
-      ],
-      "films": {
-        "before": {},
-        "after": {},
-        "board": ""
-      }
-    },
-    "APPROACH2": {
-      "agent": "arena",
-      "status": "merged (S488): PASS on main, 5 of 5 mutants red",
-      "title": "A blind contract test for the rival club's approach, with five mutants (R58)",
-      "started": "2026-11-15T14:12",
-      "eta": "2026-11-15T15:00",
-      "chat": "https://arena.ai/agent/01a1df16-850a-751c-9fb9-5f050bd336aa",
-      "reconciled": "2026-11-15 14:51 board_reconcile: PR #314 open - collect it"
-    },
-    "CLASH9": {
-      "agent": "qwen",
-      "id": "CLASH9",
-      "title": "TASK CLASH9 - the guard glove sees the true overlap and still stays in: why does the push not clear it? (measure, then fix)",
-      "status": "failed",
-      "started": "2026-11-15T16:28",
-      "eta": "2026-11-15T18:18",
-      "branch": "qwen/clash9",
-      "worktree": "E:/FightCamp/wt/LEAN_CLASH9",
-      "wt": "E:/FightCamp/wt/LEAN_CLASH9",
-      "brief": "ops/research/TASK_CLASH9.md",
-      "repo": "FightCamp-Lean",
-      "where": "pc",
-      "log": "E:/FightCamp/wt/CLASH9_dispatch_out.txt",
-      "match": "seat_dispatch.py run clash9",
-      "model": "qwen3-coder",
-      "dispatch": {
-        "prompt": "E:/FightCamp/wt/CLASH9_dispatch_prompt.txt",
-        "out": "E:/FightCamp/wt/CLASH9_dispatch_out.txt",
-        "runner_log": "E:/FightCamp/wt/CLASH9_dispatch_runner.log",
-        "source": "command line",
-        "brief_copied": true,
-        "runner_pid": 31664,
-        "seat_pid": 26644
-      },
-      "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 2/5 PASS; PR not opened: [WinError 206] The filename or extension is too long; NOT committed (outside OWNS): out/clash9_film/00_cross/f00.png, out/clash9_film/00_cross/f01.png, out/clash9_film/00_cross/f02.png, out/clash9_film/00_cross/f03.png, out/clash9_film/00_cross/f04.png, out/clash9_film/00_cross/f05.png, out/clash9_film/00_cross/f06.png, out/clash9_film/00_cross/f07.png, out/clash9_film/00_cross/f08.png, out/clash9_film/00_cross/f09.png, out/clash9_film/00_cross/f10.png, out/clash9_film/00_cross/f11.png, out/clash9_film/00_cross/f12.png, out/clash9_film/00_cross/f13.png, out/clash9_film/00_cross/f14.png, out/clash9_film/00_cross/f15.png, out/clash9_film/00_cross/f16.png, out/clash9_film/00_cross/f17.png, out/clash9_film/00_cross/f18.png, out/clash9_film/00_cross/f19.png, out/clash9_film/00_cross/f20.png, out/clash9_film/00_cross/f21.png, out/clash9_film/00_cross/f22.png, out/clash9_film/00_cross/f23.png, out/clash9_film/00_cross/f24.png, out/clash9_film/00_cross/f25.png, out/clash9_film/00_cross/f26.png, out/clash9_film/00_cross/f27.png, out/clash9_film/00_cross/f28.png, out/clash9_film/00_cross/f29.png, out/clash9_film/00_cross/f30.png, out/clash9_film/00_cross/f31.png, out/clash9_film/00_cross/f32.png, out/clash9_film/00_cross/f33.png, out/clash9_film/00_cross/f34.png, out/clash9_film/00_cross/f35.png, out/clash9_film/00_cross/f36.png, out/clash9_film/00_cross/f37.png, out/clash9_film/00_cross/f38.png, out/clash9_film/00_cross/f39.png, out/clash9_film/00_cross/f40.png, out/clash9_film/00_cross/f41.png, out/clash9_film/00_cross/f42.png, out/clash9_film/01_rear_uppercut/f00.png, out/clash9_film/01_rear_uppercut/f01.png, out/clash9_film/01_rear_uppercut/f02.png, out/clash9_film/01_rear_uppercut/f03.png, out/clash9_film/01_rear_uppercut/f04.png, out/clash9_film/01_rear_uppercut/f05.png, out/clash9_film/01_rear_uppercut/f06.png, out/clash9_film/01_rear_uppercut/f07.png, out/clash9_film/01_rear_uppercut/f08.png, out/clash9_film/01_rear_uppercut/f09.png, out/clash9_film/01_rear_uppercut/f10.png, out/clash9_film/01_rear_uppercut/f11.png, out/clash9_film/01_rear_uppercut/f12.png, out/clash9_film/01_rear_uppercut/f13.png, out/clash9_film/01_rear_uppercut/f14.png, out/clash9_film/01_rear_uppercut/f15.png, out/clash9_film/01_rear_uppercut/f16.png, out/clash9_film/01_rear_uppercut/f17.png, out/clash9_film/01_rear_uppercut/f18.png, out/clash9_film/01_rear_uppercut/f19.png, out/clash9_film/01_rear_uppercut/f20.png, out/clash9_film/01_rear_uppercut/f21.png, out/clash9_film/01_rear_uppercut/f22.png, out/clash9_film/01_rear_uppercut/f23.png, out/clash9_film/01_rear_uppercut/f24.png, out/clash9_film/01_rear_uppercut/f25.png, out/clash9_film/01_rear_uppercut/f26.png, out/clash9_film/01_rear_uppercut/f27.png, out/clash9_film/01_rear_uppercut/f28.png, out/clash9_film/01_rear_uppercut/f29.png, out/clash9_film/01_rear_uppercut/f30.png, out/clash9_film/01_rear_uppercut/f31.png, out/clash9_film/01_rear_uppercut/f32.png, out/clash9_film/01_rear_uppercut/f33.png, out/clash9_film/01_rear_uppercut/f34.png, out/clash9_film/01_rear_uppercut/f35.png, out/clash9_film/01_rear_uppercut/f36.png, out/clash9_film/01_rear_uppercut/f37.png, out/clash9_film/01_rear_uppercut/f38.png, out/clash9_film/01_rear_uppercut/f39.png, out/clash9_film/01_rear_uppercut/f40.png, out/clash9_film/01_rear_uppercut/f41.png, out/clash9_film/01_rear_uppercut/f42.png, out/clash9_film/02_rear_uppercut/f00.png, out/clash9_film/02_rear_uppercut/f01.png, out/clash9_film/02_rear_uppercut/f02.png, out/clash9_film/02_rear_uppercut/f03.png, out/clash9_film/02_rear_uppercut/f04.png, out/clash9_film/02_rear_uppercut/f05.png, out/clash9_film/02_rear_uppercut/f06.png, out/clash9_film/02_rear_uppercut/f07.png, out/clash9_film/02_rear_uppercut/f08.png, out/clash9_film/02_rear_uppercut/f09.png, out/clash9_film/02_rear_uppercut/f10.png, out/clash9_film/02_rear_uppercut/f11.png, out/clash9_film/02_rear_uppercut/f12.png, out/clash9_film/02_rear_uppercut/f13.png, out/clash9_film/02_rear_uppercut/f14.png, out/clash9_film/02_rear_uppercut/f15.png, out/clash9_film/02_rear_uppercut/f16.png, out/clash9_film/02_rear_uppercut/f17.png, out/clash9_film/02_rear_uppercut/f18.png, out/clash9_film/02_rear_uppercut/f19.png, out/clash9_film/02_rear_uppercut/f20.png, out/clash9_film/02_rear_uppercut/f21.png, out/clash9_film/02_rear_uppercut/f22.png, out/clash9_film/02_rear_uppercut/f23.png, out/clash9_film/02_rear_uppercut/f24.png, out/clash9_film/02_rear_uppercut/f25.png, out/clash9_film/02_rear_uppercut/f26.png, out/clash9_film/02_rear_uppercut/f27.png, out/clash9_film/02_rear_uppercut/f28.png, out/clash9_film/02_rear_uppercut/f29.png, out/clash9_film/02_rear_uppercut/f30.png, out/clash9_film/02_rear_uppercut/f31.png, out/clash9_film/02_rear_uppercut/f32.png, out/clash9_film/02_rear_uppercut/f33.png, out/clash9_film/02_rear_uppercut/f34.png, out/clash9_film/02_rear_uppercut/f35.png, out/clash9_film/02_rear_uppercut/f36.png, out/clash9_film/02_rear_uppercut/f37.png, out/clash9_film/02_rear_uppercut/f38.png, out/clash9_film/02_rear_uppercut/f39.png, out/clash9_film/02_rear_uppercut/f40.png, out/clash9_film/02_rear_uppercut/f41.png, out/clash9_film/02_rear_uppercut/f42.png, out/clash9_film/03_cross/f00.png, out/clash9_film/03_cross/f01.png, out/clash9_film/03_cross/f02.png, out/clash9_film/03_cross/f03.png, out/clash9_film/03_cross/f04.png, out/clash9_film/03_cross/f05.png, out/clash9_film/03_cross/f06.png, out/clash9_film/03_cross/f07.png, out/clash9_film/03_cross/f08.png, out/clash9_film/03_cross/f09.png, out/clash9_film/03_cross/f10.png, out/clash9_film/03_cross/f11.png, out/clash9_film/03_cross/f12.png, out/clash9_film/03_cross/f13.png, out/clash9_film/03_cross/f14.png, out/clash9_film/03_cross/f15.png, out/clash9_film/03_cross/f16.png, out/clash9_film/03_cross/f17.png, out/clash9_film/03_cross/f18.png, out/clash9_film/03_cross/f19.png, out/clash9_film/03_cross/f20.png, out/clash9_film/03_cross/f21.png, out/clash9_film/03_cross/f22.png, out/clash9_film/03_cross/f23.png, out/clash9_film/03_cross/f24.png, out/clash9_film/03_cross/f25.png, out/clash9_film/03_cross/f26.png, out/clash9_film/03_cross/f27.png, out/clash9_film/03_cross/f28.png, out/clash9_film/03_cross/f29.png, out/clash9_film/03_cross/f30.png, out/clash9_film/03_cross/f31.png, out/clash9_film/03_cross/f32.png, out/clash9_film/03_cross/f33.png, out/clash9_film/03_cross/f34.png, out/clash9_film/03_cross/f35.png, out/clash9_film/03_cross/f36.png, out/clash9_film/03_cross/f37.png, out/clash9_film/03_cross/f38.png, out/clash9_film/03_cross/f39.png, out/clash9_film/03_cross/f40.png, out/clash9_film/03_cross/f41.png, out/clash9_film/03_cross/f42.png, out/clash9_film/04_lead_uppercut/f00.png, out/clash9_film/04_lead_uppercut/f01.png, out/clash9_film/04_lead_uppercut/f02.png, out/clash9_film/04_lead_uppercut/f03.png, out/clash9_film/04_lead_uppercut/f04.png, out/clash9_film/04_lead_uppercut/f05.png, out/clash9_film/04_lead_uppercut/f06.png, out/clash9_film/04_lead_uppercut/f07.png, out/clash9_film/04_lead_uppercut/f08.png, out/clash9_film/04_lead_uppercut/f09.png, out/clash9_film/04_lead_uppercut/f10.png, out/clash9_film/04_lead_uppercut/f11.png, out/clash9_film/04_lead_uppercut/f12.png, out/clash9_film/04_lead_uppercut/f13.png, out/clash9_film/04_lead_uppercut/f14.png, out/clash9_film/04_lead_uppercut/f15.png, out/clash9_film/04_lead_uppercut/f16.png, out/clash9_film/04_lead_uppercut/f17.png, out/clash9_film/04_lead_uppercut/f18.png, out/clash9_film/04_lead_uppercut/f19.png, out/clash9_film/04_lead_uppercut/f20.png, out/clash9_film/04_lead_uppercut/f21.png, out/clash9_film/04_lead_uppercut/f22.png, out/clash9_film/04_lead_uppercut/f23.png, out/clash9_film/04_lead_uppercut/f24.png, out/clash9_film/04_lead_uppercut/f25.png, out/clash9_film/04_lead_uppercut/f26.png, out/clash9_film/04_lead_uppercut/f27.png, out/clash9_film/04_lead_uppercut/f28.png, out/clash9_film/04_lead_uppercut/f29.png, out/clash9_film/04_lead_uppercut/f30.png, out/clash9_film/04_lead_uppercut/f31.png, out/clash9_film/04_lead_uppercut/f32.png, out/clash9_film/04_lead_uppercut/f33.png, out/clash9_film/04_lead_uppercut/f34.png, out/clash9_film/04_lead_uppercut/f35.png, out/clash9_film/04_lead_uppercut/f36.png, out/clash9_film/04_lead_uppercut/f37.png, out/clash9_film/04_lead_uppercut/f38.png, out/clash9_film/04_lead_uppercut/f39.png, out/clash9_film/04_lead_uppercut/f40.png, out/clash9_film/04_lead_uppercut/f41.png, out/clash9_film/04_lead_uppercut/f42.png, out/clash9_film/05_lead_uppercut/f00.png, out/clash9_film/05_lead_uppercut/f01.png, out/clash9_film/05_lead_uppercut/f02.png, out/clash9_film/05_lead_uppercut/f03.png, out/clash9_film/05_lead_uppercut/f04.png, out/clash9_film/05_lead_uppercut/f05.png, out/clash9_film/05_lead_uppercut/f06.png, out/clash9_film/05_lead_uppercut/f07.png, out/clash9_film/05_lead_uppercut/f08.png, out/clash9_film/05_lead_uppercut/f09.png, out/clash9_film/05_lead_uppercut/f10.png, out/clash9_film/05_lead_uppercut/f11.png, out/clash9_film/05_lead_uppercut/f12.png, out/clash9_film/05_lead_uppercut/f13.png, out/clash9_film/05_lead_uppercut/f14.png, out/clash9_film/05_lead_uppercut/f15.png, out/clash9_film/05_lead_uppercut/f16.png, out/clash9_film/05_lead_uppercut/f17.png, out/clash9_film/05_lead_uppercut/f18.png, out/clash9_film/05_lead_uppercut/f19.png, out/clash9_film/05_lead_uppercut/f20.png, out/clash9_film/05_lead_uppercut/f21.png, out/clash9_film/05_lead_uppercut/f22.png, out/clash9_film/05_lead_uppercut/f23.png, out/clash9_film/05_lead_uppercut/f24.png, out/clash9_film/05_lead_uppercut/f25.png, out/clash9_film/05_lead_uppercut/f26.png, out/clash9_film/05_lead_uppercut/f27.png, out/clash9_film/05_lead_uppercut/f28.png, out/clash9_film/05_lead_uppercut/f29.png, out/clash9_film/05_lead_uppercut/f30.png, out/clash9_film/05_lead_uppercut/f31.png, out/clash9_film/05_lead_uppercut/f32.png, out/clash9_film/05_lead_uppercut/f33.png, out/clash9_film/05_lead_uppercut/f34.png, out/clash9_film/05_lead_uppercut/f35.png, out/clash9_film/05_lead_uppercut/f36.png, out/clash9_film/05_lead_uppercut/f37.png, out/clash9_film/05_lead_uppercut/f38.png, out/clash9_film/05_lead_uppercut/f39.png, out/clash9_film/05_lead_uppercut/f40.png, out/clash9_film/05_lead_uppercut/f41.png, out/clash9_film/05_lead_uppercut/f42.png, out/clash9_film/06_jab/f00.png, out/clash9_film/06_jab/f01.png, out/clash9_film/06_jab/f02.png, out/clash9_film/06_jab/f03.png, out/clash9_film/06_jab/f04.png, out/clash9_film/06_jab/f05.png, out/clash9_film/06_jab/f06.png, out/clash9_film/06_jab/f07.png, out/clash9_film/06_jab/f08.png, out/clash9_film/06_jab/f09.png, out/clash9_film/06_jab/f10.png, out/clash9_film/06_jab/f11.png, out/clash9_film/06_jab/f12.png, out/clash9_film/06_jab/f13.png, out/clash9_film/06_jab/f14.png, out/clash9_film/06_jab/f15.png, out/clash9_film/06_jab/f16.png, out/clash9_film/06_jab/f17.png, out/clash9_film/06_jab/f18.png, out/clash9_film/06_jab/f19.png, out/clash9_film/06_jab/f20.png, out/clash9_film/06_jab/f21.png, out/clash9_film/06_jab/f22.png, out/clash9_film/06_jab/f23.png, out/clash9_film/06_jab/f24.png, out/clash9_film/06_jab/f25.png, out/clash9_film/06_jab/f26.png, out/clash9_film/06_jab/f27.png, out/clash9_film/06_jab/f28.png, out/clash9_film/06_jab/f29.png, out/clash9_film/06_jab/f30.png, out/clash9_film/06_jab/f31.png, out/clash9_film/06_jab/f32.png, out/clash9_film/06_jab/f33.png, out/clash9_film/06_jab/f34.png, out/clash9_film/06_jab/f35.png, out/clash9_film/06_jab/f36.png, out/clash9_film/06_jab/f37.png, out/clash9_film/06_jab/f38.png, out/clash9_film/06_jab/f39.png, out/clash9_film/06_jab/f40.png, out/clash9_film/06_jab/f41.png, out/clash9_film/06_jab/f42.png, out/clash9_film/07_cross/f00.png, out/clash9_film/07_cross/f01.png, out/clash9_film/07_cross/f02.png, out/clash9_film/07_cross/f03.png, out/clash9_film/07_cross/f04.png, out/clash9_film/07_cross/f05.png, out/clash9_film/07_cross/f06.png, out/clash9_film/07_cross/f07.png, out/clash9_film/07_cross/f08.png, out/clash9_film/07_cross/f09.png, out/clash9_film/07_cross/f10.png, out/clash9_film/07_cross/f11.png, out/clash9_film/07_cross/f12.png, out/clash9_film/07_cross/f13.png, out/clash9_film/07_cross/f14.png, out/clash9_film/07_cross/f15.png, out/clash9_film/07_cross/f16.png, out/clash9_film/07_cross/f17.png, out/clash9_film/07_cross/f18.png, out/clash9_film/07_cross/f19.png, out/clash9_film/07_cross/f20.png, out/clash9_film/07_cross/f21.png, out/clash9_film/07_cross/f22.png, out/clash9_film/07_cross/f23.png, out/clash9_film/07_cross/f24.png, out/clash9_film/07_cross/f25.png, out/clash9_film/07_cross/f26.png, out/clash9_film/07_cross/f27.png, out/clash9_film/07_cross/f28.png, out/clash9_film/07_cross/f29.png, out/clash9_film/07_cross/f30.png, out/clash9_film/07_cross/f31.png, out/clash9_film/07_cross/f32.png, out/clash9_film/07_cross/f33.png, out/clash9_film/07_cross/f34.png, out/clash9_film/07_cross/f35.png, out/clash9_film/07_cross/f36.png, out/clash9_film/07_cross/f37.png, out/clash9_film/07_cross/f38.png, out/clash9_film/07_cross/f39.png, out/clash9_film/07_cross/f40.png, out/clash9_film/07_cross/f41.png, out/clash9_film/07_cross/f42.png, out/clash9_film/08_jab/f00.png, out/clash9_film/08_jab/f01.png, out/clash9_film/08_jab/f02.png, out/clash9_film/08_jab/f03.png, out/clash9_film/08_jab/f04.png, out/clash9_film/08_jab/f05.png, out/clash9_film/08_jab/f06.png, out/clash9_film/08_jab/f07.png, out/clash9_film/08_jab/f08.png, out/clash9_film/08_jab/f09.png, out/clash9_film/08_jab/f10.png, out/clash9_film/08_jab/f11.png, out/clash9_film/08_jab/f12.png, out/clash9_film/08_jab/f13.png, out/clash9_film/08_jab/f14.png, out/clash9_film/08_jab/f15.png, out/clash9_film/08_jab/f16.png, out/clash9_film/08_jab/f17.png, out/clash9_film/08_jab/f18.png, out/clash9_film/08_jab/f19.png, out/clash9_film/08_jab/f20.png, out/clash9_film/08_jab/f21.png, out/clash9_film/08_jab/f22.png, out/clash9_film/08_jab/f23.png, out/clash9_film/08_jab/f24.png, out/clash9_film/08_jab/f25.png, out/clash9_film/08_jab/f26.png, out/clash9_film/08_jab/f27.png, out/clash9_film/08_jab/f28.png, out/clash9_film/08_jab/f29.png, out/clash9_film/08_jab/f30.png, out/clash9_film/08_jab/f31.png, out/clash9_film/08_jab/f32.png, out/clash9_film/08_jab/f33.png, out/clash9_film/08_jab/f34.png, out/clash9_film/08_jab/f35.png, out/clash9_film/08_jab/f36.png, out/clash9_film/08_jab/f37.png, out/clash9_film/08_jab/f38.png, out/clash9_film/08_jab/f39.png, out/clash9_film/08_jab/f40.png, out/clash9_film/08_jab/f41.png, out/clash9_film/08_jab/f42.png, out/clash9_film/09_jab/f00.png, out/clash9_film/09_jab/f01.png, out/clash9_film/09_jab/f02.png, out/clash9_film/09_jab/f03.png, out/clash9_film/09_jab/f04.png, out/clash9_film/09_jab/f05.png, out/clash9_film/09_jab/f06.png, out/clash9_film/09_jab/f07.png, out/clash9_film/09_jab/f08.png, out/clash9_film/09_jab/f09.png, out/clash9_film/09_jab/f10.png, out/clash9_film/09_jab/f11.png, out/clash9_film/09_jab/f12.png, out/clash9_film/09_jab/f13.png, out/clash9_film/09_jab/f14.png, out/clash9_film/09_jab/f15.png, out/clash9_film/09_jab/f16.png, out/clash9_film/09_jab/f17.png, out/clash9_film/09_jab/f18.png, out/clash9_film/09_jab/f19.png, out/clash9_film/09_jab/f20.png, out/clash9_film/09_jab/f21.png, out/clash9_film/09_jab/f22.png, out/clash9_film/09_jab/f23.png, out/clash9_film/09_jab/f24.png, out/clash9_film/09_jab/f25.png, out/clash9_film/09_jab/f26.png, out/clash9_film/09_jab/f27.png, out/clash9_film/09_jab/f28.png, out/clash9_film/09_jab/f29.png, out/clash9_film/09_jab/f30.png, out/clash9_film/09_jab/f31.png, out/clash9_film/09_jab/f32.png, out/clash9_film/09_jab/f33.png, out/clash9_film/09_jab/f34.png, out/clash9_film/09_jab/f35.png, out/clash9_film/09_jab/f36.png, out/clash9_film/09_jab/f37.png, out/clash9_film/09_jab/f38.png, out/clash9_film/09_jab/f39.png, out/clash9_film/09_jab/f40.png, out/clash9_film/09_jab/f41.png, out/clash9_film/09_jab/f42.png, out/clash9_film/hits.txt, out/clash9_film/log.txt, out/clash9_film2/00_cross/f00.png, out/clash9_film2/00_cross/f01.png, out/clash9_film2/00_cross/f02.png, out/clash9_film2/00_cross/f03.png, out/clash9_film2/00_cross/f04.png, out/clash9_film2/00_cross/f05.png, out/clash9_film2/00_cross/f06.png, out/clash9_film2/00_cross/f07.png, out/clash9_film2/00_cross/f08.png, out/clash9_film2/00_cross/f09.png, out/clash9_film2/00_cross/f10.png, out/clash9_film2/00_cross/f11.png, out/clash9_film2/00_cross/f12.png, out/clash9_film2/00_cross/f13.png, out/clash9_film2/00_cross/f14.png, out/clash9_film2/00_cross/f15.png, out/clash9_film2/00_cross/f16.png, out/clash9_film2/00_cross/f17.png, out/clash9_film2/00_cross/f18.png, out/clash9_film2/00_cross/f19.png, out/clash9_film2/00_cross/f20.png, out/clash9_film2/00_cross/f21.png, out/clash9_film2/00_cross/f22.png, out/clash9_film2/00_cross/f23.png, out/clash9_film2/00_cross/f24.png, out/clash9_film2/00_cross/f25.png, out/clash9_film2/00_cross/f26.png, out/clash9_film2/00_cross/f27.png, out/clash9_film2/00_cross/f28.png, out/clash9_film2/00_cross/f29.png, out/clash9_film2/00_cross/f30.png, out/clash9_film2/00_cross/f31.png, out/clash9_film2/00_cross/f32.png, out/clash9_film2/00_cross/f33.png, out/clash9_film2/00_cross/f34.png, out/clash9_film2/00_cross/f35.png, out/clash9_film2/00_cross/f36.png, out/clash9_film2/00_cross/f37.png, out/clash9_film2/00_cross/f38.png, out/clash9_film2/00_cross/f39.png, out/clash9_film2/00_cross/f40.png, out/clash9_film2/00_cross/f41.png, out/clash9_film2/00_cross/f42.png, out/clash9_film2/01_rear_uppercut/f00.png, out/clash9_film2/01_rear_uppercut/f01.png, out/clash9_film2/01_rear_uppercut/f02.png, out/clash9_film2/01_rear_uppercut/f03.png, out/clash9_film2/01_rear_uppercut/f04.png, out/clash9_film2/01_rear_uppercut/f05.png, out/clash9_film2/01_rear_uppercut/f06.png, out/clash9_film2/01_rear_uppercut/f07.png, out/clash9_film2/01_rear_uppercut/f08.png, out/clash9_film2/01_rear_uppercut/f09.png, out/clash9_film2/01_rear_uppercut/f10.png, out/clash9_film2/01_rear_uppercut/f11.png, out/clash9_film2/01_rear_uppercut/f12.png, out/clash9_film2/01_rear_uppercut/f13.png, out/clash9_film2/01_rear_uppercut/f14.png, out/clash9_film2/01_rear_uppercut/f15.png, out/clash9_film2/01_rear_uppercut/f16.png, out/clash9_film2/01_rear_uppercut/f17.png, out/clash9_film2/01_rear_uppercut/f18.png, out/clash9_film2/01_rear_uppercut/f19.png, out/clash9_film2/01_rear_uppercut/f20.png, out/clash9_film2/01_rear_uppercut/f21.png, out/clash9_film2/01_rear_uppercut/f22.png, out/clash9_film2/01_rear_uppercut/f23.png, out/clash9_film2/01_rear_uppercut/f24.png, out/clash9_film2/01_rear_uppercut/f25.png, out/clash9_film2/01_rear_uppercut/f26.png, out/clash9_film2/01_rear_uppercut/f27.png, out/clash9_film2/01_rear_uppercut/f28.png, out/clash9_film2/01_rear_uppercut/f29.png, out/clash9_film2/01_rear_uppercut/f30.png, out/clash9_film2/01_rear_uppercut/f31.png, out/clash9_film2/01_rear_uppercut/f32.png, out/clash9_film2/01_rear_uppercut/f33.png, out/clash9_film2/01_rear_uppercut/f34.png, out/clash9_film2/01_rear_uppercut/f35.png, out/clash9_film2/01_rear_uppercut/f36.png, out/clash9_film2/01_rear_uppercut/f37.png, out/clash9_film2/01_rear_uppercut/f38.png, out/clash9_film2/01_rear_uppercut/f39.png, out/clash9_film2/01_rear_uppercut/f40.png, out/clash9_film2/01_rear_uppercut/f41.png, out/clash9_film2/01_rear_uppercut/f42.png, out/clash9_film2/02_rear_uppercut/f00.png, out/clash9_film2/02_rear_uppercut/f01.png, out/clash9_film2/02_rear_uppercut/f02.png, out/clash9_film2/02_rear_uppercut/f03.png, out/clash9_film2/02_rear_uppercut/f04.png, out/clash9_film2/02_rear_uppercut/f05.png, out/clash9_film2/02_rear_uppercut/f06.png, out/clash9_film2/02_rear_uppercut/f07.png, out/clash9_film2/02_rear_uppercut/f08.png, out/clash9_film2/02_rear_uppercut/f09.png, out/clash9_film2/02_rear_uppercut/f10.png, out/clash9_film2/02_rear_uppercut/f11.png, out/clash9_film2/02_rear_uppercut/f12.png, out/clash9_film2/02_rear_uppercut/f13.png, out/clash9_film2/02_rear_uppercut/f14.png, out/clash9_film2/02_rear_uppercut/f15.png, out/clash9_film2/02_rear_uppercut/f16.png, out/clash9_film2/02_rear_uppercut/f17.png, out/clash9_film2/02_rear_uppercut/f18.png, out/clash9_film2/02_rear_uppercut/f19.png, out/clash9_film2/02_rear_uppercut/f20.png, out/clash9_film2/02_rear_uppercut/f21.png, out/clash9_film2/02_rear_uppercut/f22.png, out/clash9_film2/02_rear_uppercut/f23.png, out/clash9_film2/02_rear_uppercut/f24.png, out/clash9_film2/02_rear_uppercut/f25.png, out/clash9_film2/02_rear_uppercut/f26.png, out/clash9_film2/02_rear_uppercut/f27.png, out/clash9_film2/02_rear_uppercut/f28.png, out/clash9_film2/02_rear_uppercut/f29.png, out/clash9_film2/02_rear_uppercut/f30.png, out/clash9_film2/02_rear_uppercut/f31.png, out/clash9_film2/02_rear_uppercut/f32.png, out/clash9_film2/02_rear_uppercut/f33.png, out/clash9_film2/02_rear_uppercut/f34.png, out/clash9_film2/02_rear_uppercut/f35.png, out/clash9_film2/02_rear_uppercut/f36.png, out/clash9_film2/02_rear_uppercut/f37.png, out/clash9_film2/02_rear_uppercut/f38.png, out/clash9_film2/02_rear_uppercut/f39.png, out/clash9_film2/02_rear_uppercut/f40.png, out/clash9_film2/02_rear_uppercut/f41.png, out/clash9_film2/02_rear_uppercut/f42.png, out/clash9_film2/03_cross/f00.png, out/clash9_film2/03_cross/f01.png, out/clash9_film2/03_cross/f02.png, out/clash9_film2/03_cross/f03.png, out/clash9_film2/03_cross/f04.png, out/clash9_film2/03_cross/f05.png, out/clash9_film2/03_cross/f06.png, out/clash9_film2/03_cross/f07.png, out/clash9_film2/03_cross/f08.png, out/clash9_film2/03_cross/f09.png, out/clash9_film2/03_cross/f10.png, out/clash9_film2/03_cross/f11.png, out/clash9_film2/03_cross/f12.png, out/clash9_film2/03_cross/f13.png, out/clash9_film2/03_cross/f14.png, out/clash9_film2/03_cross/f15.png, out/clash9_film2/03_cross/f16.png, out/clash9_film2/03_cross/f17.png, out/clash9_film2/03_cross/f18.png, out/clash9_film2/03_cross/f19.png, out/clash9_film2/03_cross/f20.png, out/clash9_film2/03_cross/f21.png, out/clash9_film2/03_cross/f22.png, out/clash9_film2/03_cross/f23.png, out/clash9_film2/03_cross/f24.png, out/clash9_film2/03_cross/f25.png, out/clash9_film2/03_cross/f26.png, out/clash9_film2/03_cross/f27.png, out/clash9_film2/03_cross/f28.png, out/clash9_film2/03_cross/f29.png, out/clash9_film2/03_cross/f30.png, out/clash9_film2/03_cross/f31.png, out/clash9_film2/03_cross/f32.png, out/clash9_film2/03_cross/f33.png, out/clash9_film2/03_cross/f34.png, out/clash9_film2/03_cross/f35.png, out/clash9_film2/03_cross/f36.png, out/clash9_film2/03_cross/f37.png, out/clash9_film2/03_cross/f38.png, out/clash9_film2/03_cross/f39.png, out/clash9_film2/03_cross/f40.png, out/clash9_film2/03_cross/f41.png, out/clash9_film2/03_cross/f42.png, out/clash9_film2/04_lead_uppercut/f00.png, out/clash9_film2/04_lead_uppercut/f01.png, out/clash9_film2/04_lead_uppercut/f02.png, out/clash9_film2/04_lead_uppercut/f03.png, out/clash9_film2/04_lead_uppercut/f04.png, out/clash9_film2/04_lead_uppercut/f05.png, out/clash9_film2/04_lead_uppercut/f06.png, out/clash9_film2/04_lead_uppercut/f07.png, out/clash9_film2/04_lead_uppercut/f08.png, out/clash9_film2/04_lead_uppercut/f09.png, out/clash9_film2/04_lead_uppercut/f10.png, out/clash9_film2/04_lead_uppercut/f11.png, out/clash9_film2/04_lead_uppercut/f12.png, out/clash9_film2/04_lead_uppercut/f13.png, out/clash9_film2/04_lead_uppercut/f14.png, out/clash9_film2/04_lead_uppercut/f15.png, out/clash9_film2/04_lead_uppercut/f16.png, out/clash9_film2/04_lead_uppercut/f17.png, out/clash9_film2/04_lead_uppercut/f18.png, out/clash9_film2/04_lead_uppercut/f19.png, out/clash9_film2/04_lead_uppercut/f20.png, out/clash9_film2/04_lead_uppercut/f21.png, out/clash9_film2/04_lead_uppercut/f22.png, out/clash9_film2/04_lead_uppercut/f23.png, out/clash9_film2/04_lead_uppercut/f24.png, out/clash9_film2/04_lead_uppercut/f25.png, out/clash9_film2/04_lead_uppercut/f26.png, out/clash9_film2/04_lead_uppercut/f27.png, out/clash9_film2/04_lead_uppercut/f28.png, out/clash9_film2/04_lead_uppercut/f29.png, out/clash9_film2/04_lead_uppercut/f30.png, out/clash9_film2/04_lead_uppercut/f31.png, out/clash9_film2/04_lead_uppercut/f32.png, out/clash9_film2/04_lead_uppercut/f33.png, out/clash9_film2/04_lead_uppercut/f34.png, out/clash9_film2/04_lead_uppercut/f35.png, out/clash9_film2/04_lead_uppercut/f36.png, out/clash9_film2/04_lead_uppercut/f37.png, out/clash9_film2/04_lead_uppercut/f38.png, out/clash9_film2/04_lead_uppercut/f39.png, out/clash9_film2/04_lead_uppercut/f40.png, out/clash9_film2/04_lead_uppercut/f41.png, out/clash9_film2/04_lead_uppercut/f42.png, out/clash9_film2/05_lead_uppercut/f00.png, out/clash9_film2/05_lead_uppercut/f01.png, out/clash9_film2/05_lead_uppercut/f02.png, out/clash9_film2/05_lead_uppercut/f03.png, out/clash9_film2/05_lead_uppercut/f04.png, out/clash9_film2/05_lead_uppercut/f05.png, out/clash9_film2/05_lead_uppercut/f06.png, out/clash9_film2/05_lead_uppercut/f07.png, out/clash9_film2/05_lead_uppercut/f08.png, out/clash9_film2/05_lead_uppercut/f09.png, out/clash9_film2/05_lead_uppercut/f10.png, out/clash9_film2/05_lead_uppercut/f11.png, out/clash9_film2/05_lead_uppercut/f12.png, out/clash9_film2/05_lead_uppercut/f13.png, out/clash9_film2/05_lead_uppercut/f14.png, out/clash9_film2/05_lead_uppercut/f15.png, out/clash9_film2/05_lead_uppercut/f16.png, out/clash9_film2/05_lead_uppercut/f17.png, out/clash9_film2/05_lead_uppercut/f18.png, out/clash9_film2/05_lead_uppercut/f19.png, out/clash9_film2/05_lead_uppercut/f20.png, out/clash9_film2/05_lead_uppercut/f21.png, out/clash9_film2/05_lead_uppercut/f22.png, out/clash9_film2/05_lead_uppercut/f23.png, out/clash9_film2/05_lead_uppercut/f24.png, out/clash9_film2/05_lead_uppercut/f25.png, out/clash9_film2/05_lead_uppercut/f26.png, out/clash9_film2/05_lead_uppercut/f27.png, out/clash9_film2/05_lead_uppercut/f28.png, out/clash9_film2/05_lead_uppercut/f29.png, out/clash9_film2/05_lead_uppercut/f30.png, out/clash9_film2/05_lead_uppercut/f31.png, out/clash9_film2/05_lead_uppercut/f32.png, out/clash9_film2/05_lead_uppercut/f33.png, out/clash9_film2/05_lead_uppercut/f34.png, out/clash9_film2/05_lead_uppercut/f35.png, out/clash9_film2/05_lead_uppercut/f36.png, out/clash9_film2/05_lead_uppercut/f37.png, out/clash9_film2/05_lead_uppercut/f38.png, out/clash9_film2/05_lead_uppercut/f39.png, out/clash9_film2/05_lead_uppercut/f40.png, out/clash9_film2/05_lead_uppercut/f41.png, out/clash9_film2/05_lead_uppercut/f42.png, out/clash9_film2/06_jab/f00.png, out/clash9_film2/06_jab/f01.png, out/clash9_film2/06_jab/f02.png, out/clash9_film2/06_jab/f03.png, out/clash9_film2/06_jab/f04.png, out/clash9_film2/06_jab/f05.png, out/clash9_film2/06_jab/f06.png, out/clash9_film2/06_jab/f07.png, out/clash9_film2/06_jab/f08.png, out/clash9_film2/06_jab/f09.png, out/clash9_film2/06_jab/f10.png, out/clash9_film2/06_jab/f11.png, out/clash9_film2/06_jab/f12.png, out/clash9_film2/06_jab/f13.png, out/clash9_film2/06_jab/f14.png, out/clash9_film2/06_jab/f15.png, out/clash9_film2/06_jab/f16.png, out/clash9_film2/06_jab/f17.png, out/clash9_film2/06_jab/f18.png, out/clash9_film2/06_jab/f19.png, out/clash9_film2/06_jab/f20.png, out/clash9_film2/06_jab/f21.png, out/clash9_film2/06_jab/f22.png, out/clash9_film2/06_jab/f23.png, out/clash9_film2/06_jab/f24.png, out/clash9_film2/06_jab/f25.png, out/clash9_film2/06_jab/f26.png, out/clash9_film2/06_jab/f27.png, out/clash9_film2/06_jab/f28.png, out/clash9_film2/06_jab/f29.png, out/clash9_film2/06_jab/f30.png, out/clash9_film2/06_jab/f31.png, out/clash9_film2/06_jab/f32.png, out/clash9_film2/06_jab/f33.png, out/clash9_film2/06_jab/f34.png, out/clash9_film2/06_jab/f35.png, out/clash9_film2/06_jab/f36.png, out/clash9_film2/06_jab/f37.png, out/clash9_film2/06_jab/f38.png, out/clash9_film2/06_jab/f39.png, out/clash9_film2/06_jab/f40.png, out/clash9_film2/06_jab/f41.png, out/clash9_film2/06_jab/f42.png, out/clash9_film2/07_cross/f00.png, out/clash9_film2/07_cross/f01.png, out/clash9_film2/07_cross/f02.png, out/clash9_film2/07_cross/f03.png, out/clash9_film2/07_cross/f04.png, out/clash9_film2/07_cross/f05.png, out/clash9_film2/07_cross/f06.png, out/clash9_film2/07_cross/f07.png, out/clash9_film2/07_cross/f08.png, out/clash9_film2/07_cross/f09.png, out/clash9_film2/07_cross/f10.png, out/clash9_film2/07_cross/f11.png, out/clash9_film2/07_cross/f12.png, out/clash9_film2/07_cross/f13.png, out/clash9_film2/07_cross/f14.png, out/clash9_film2/07_cross/f15.png, out/clash9_film2/07_cross/f16.png, out/clash9_film2/07_cross/f17.png, out/clash9_film2/07_cross/f18.png, out/clash9_film2/07_cross/f19.png, out/clash9_film2/07_cross/f20.png, out/clash9_film2/07_cross/f21.png, out/clash9_film2/07_cross/f22.png, out/clash9_film2/07_cross/f23.png, out/clash9_film2/07_cross/f24.png, out/clash9_film2/07_cross/f25.png, out/clash9_film2/07_cross/f26.png, out/clash9_film2/07_cross/f27.png, out/clash9_film2/07_cross/f28.png, out/clash9_film2/07_cross/f29.png, out/clash9_film2/07_cross/f30.png, out/clash9_film2/07_cross/f31.png, out/clash9_film2/07_cross/f32.png, out/clash9_film2/07_cross/f33.png, out/clash9_film2/07_cross/f34.png, out/clash9_film2/07_cross/f35.png, out/clash9_film2/07_cross/f36.png, out/clash9_film2/07_cross/f37.png, out/clash9_film2/07_cross/f38.png, out/clash9_film2/07_cross/f39.png, out/clash9_film2/07_cross/f40.png, out/clash9_film2/07_cross/f41.png, out/clash9_film2/07_cross/f42.png, out/clash9_film2/08_jab/f00.png, out/clash9_film2/08_jab/f01.png, out/clash9_film2/08_jab/f02.png, out/clash9_film2/08_jab/f03.png, out/clash9_film2/08_jab/f04.png, out/clash9_film2/08_jab/f05.png, out/clash9_film2/08_jab/f06.png, out/clash9_film2/08_jab/f07.png, out/clash9_film2/08_jab/f08.png, out/clash9_film2/08_jab/f09.png, out/clash9_film2/08_jab/f10.png, out/clash9_film2/08_jab/f11.png, out/clash9_film2/08_jab/f12.png, out/clash9_film2/08_jab/f13.png, out/clash9_film2/08_jab/f14.png, out/clash9_film2/08_jab/f15.png, out/clash9_film2/08_jab/f16.png, out/clash9_film2/08_jab/f17.png, out/clash9_film2/08_jab/f18.png, out/clash9_film2/08_jab/f19.png, out/clash9_film2/08_jab/f20.png, out/clash9_film2/08_jab/f21.png, out/clash9_film2/08_jab/f22.png, out/clash9_film2/08_jab/f23.png, out/clash9_film2/08_jab/f24.png, out/clash9_film2/08_jab/f25.png, out/clash9_film2/08_jab/f26.png, out/clash9_film2/08_jab/f27.png, out/clash9_film2/08_jab/f28.png, out/clash9_film2/08_jab/f29.png, out/clash9_film2/08_jab/f30.png, out/clash9_film2/08_jab/f31.png, out/clash9_film2/08_jab/f32.png, out/clash9_film2/08_jab/f33.png, out/clash9_film2/08_jab/f34.png, out/clash9_film2/08_jab/f35.png, out/clash9_film2/08_jab/f36.png, out/clash9_film2/08_jab/f37.png, out/clash9_film2/08_jab/f38.png, out/clash9_film2/08_jab/f39.png, out/clash9_film2/08_jab/f40.png, out/clash9_film2/08_jab/f41.png, out/clash9_film2/08_jab/f42.png, out/clash9_film2/09_jab/f00.png, out/clash9_film2/09_jab/f01.png, out/clash9_film2/09_jab/f02.png, out/clash9_film2/09_jab/f03.png, out/clash9_film2/09_jab/f04.png, out/clash9_film2/09_jab/f05.png, out/clash9_film2/09_jab/f06.png, out/clash9_film2/09_jab/f07.png, out/clash9_film2/09_jab/f08.png, out/clash9_film2/09_jab/f09.png, out/clash9_film2/09_jab/f10.png, out/clash9_film2/09_jab/f11.png, out/clash9_film2/09_jab/f12.png, out/clash9_film2/09_jab/f13.png, out/clash9_film2/09_jab/f14.png, out/clash9_film2/09_jab/f15.png, out/clash9_film2/09_jab/f16.png, out/clash9_film2/09_jab/f17.png, out/clash9_film2/09_jab/f18.png, out/clash9_film2/09_jab/f19.png, out/clash9_film2/09_jab/f20.png, out/clash9_film2/09_jab/f21.png, out/clash9_film2/09_jab/f22.png, out/clash9_film2/09_jab/f23.png, out/clash9_film2/09_jab/f24.png, out/clash9_film2/09_jab/f25.png, out/clash9_film2/09_jab/f26.png, out/clash9_film2/09_jab/f27.png, out/clash9_film2/09_jab/f28.png, out/clash9_film2/09_jab/f29.png, out/clash9_film2/09_jab/f30.png, out/clash9_film2/09_jab/f31.png, out/clash9_film2/09_jab/f32.png, out/clash9_film2/09_jab/f33.png, out/clash9_film2/09_jab/f34.png, out/clash9_film2/09_jab/f35.png, out/clash9_film2/09_jab/f36.png, out/clash9_film2/09_jab/f37.png, out/clash9_film2/09_jab/f38.png, out/clash9_film2/09_jab/f39.png, out/clash9_film2/09_jab/f40.png, out/clash9_film2/09_jab/f41.png, out/clash9_film2/09_jab/f42.png, out/clash9_film2/hits.txt, out/clash9_film2/log.txt, out/clash9_final/00_cross/f00.png, out/clash9_final/00_cross/f01.png, out/clash9_final/00_cross/f02.png, out/clash9_final/00_cross/f03.png, out/clash9_final/00_cross/f04.png, out/clash9_final/00_cross/f05.png, out/clash9_final/00_cross/f06.png, out/clash9_final/00_cross/f07.png, out/clash9_final/00_cross/f08.png, out/clash9_final/00_cross/f09.png, out/clash9_final/00_cross/f10.png, out/clash9_final/00_cross/f11.png, out/clash9_final/00_cross/f12.png, out/clash9_final/00_cross/f13.png, out/clash9_final/00_cross/f14.png, out/clash9_final/00_cross/f15.png, out/clash9_final/00_cross/f16.png, out/clash9_final/00_cross/f17.png, out/clash9_final/00_cross/f18.png, out/clash9_final/00_cross/f19.png, out/clash9_final/00_cross/f20.png, out/clash9_final/00_cross/f21.png, out/clash9_final/00_cross/f22.png, out/clash9_final/00_cross/f23.png, out/clash9_final/00_cross/f24.png, out/clash9_final/00_cross/f25.png, out/clash9_final/00_cross/f26.png, out/clash9_final/00_cross/f27.png, out/clash9_final/00_cross/f28.png, out/clash9_final/00_cross/f29.png, out/clash9_final/00_cross/f30.png, out/clash9_final/00_cross/f31.png, out/clash9_final/00_cross/f32.png, out/clash9_final/00_cross/f33.png, out/clash9_final/00_cross/f34.png, out/clash9_final/00_cross/f35.png, out/clash9_final/00_cross/f36.png, out/clash9_final/00_cross/f37.png, out/clash9_final/00_cross/f38.png, out/clash9_final/00_cross/f39.png, out/clash9_final/00_cross/f40.png, out/clash9_final/00_cross/f41.png, out/clash9_final/00_cross/f42.png, out/clash9_final/01_rear_uppercut/f00.png, out/clash9_final/01_rear_uppercut/f01.png, out/clash9_final/01_rear_uppercut/f02.png, out/clash9_final/01_rear_uppercut/f03.png, out/clash9_final/01_rear_uppercut/f04.png, out/clash9_final/01_rear_uppercut/f05.png, out/clash9_final/01_rear_uppercut/f06.png, out/clash9_final/01_rear_uppercut/f07.png, out/clash9_final/01_rear_uppercut/f08.png, out/clash9_final/01_rear_uppercut/f09.png, out/clash9_final/01_rear_uppercut/f10.png, out/clash9_final/01_rear_uppercut/f11.png, out/clash9_final/01_rear_uppercut/f12.png, out/clash9_final/01_rear_uppercut/f13.png, out/clash9_final/01_rear_uppercut/f14.png, out/clash9_final/01_rear_uppercut/f15.png, out/clash9_final/01_rear_uppercut/f16.png, out/clash9_final/01_rear_uppercut/f17.png, out/clash9_final/01_rear_uppercut/f18.png, out/clash9_final/01_rear_uppercut/f19.png, out/clash9_final/01_rear_uppercut/f20.png, out/clash9_final/01_rear_uppercut/f21.png, out/clash9_final/01_rear_uppercut/f22.png, out/clash9_final/01_rear_uppercut/f23.png, out/clash9_final/01_rear_uppercut/f24.png, out/clash9_final/01_rear_uppercut/f25.png, out/clash9_final/01_rear_uppercut/f26.png, out/clash9_final/01_rear_uppercut/f27.png, out/clash9_final/01_rear_uppercut/f28.png, out/clash9_final/01_rear_uppercut/f29.png, out/clash9_final/01_rear_uppercut/f30.png, out/clash9_final/01_rear_uppercut/f31.png, out/clash9_final/01_rear_uppercut/f32.png, out/clash9_final/01_rear_uppercut/f33.png, out/clash9_final/01_rear_uppercut/f34.png, out/clash9_final/01_rear_uppercut/f35.png, out/clash9_final/01_rear_uppercut/f36.png, out/clash9_final/01_rear_uppercut/f37.png, out/clash9_final/01_rear_uppercut/f38.png, out/clash9_final/01_rear_uppercut/f39.png, out/clash9_final/01_rear_uppercut/f40.png, out/clash9_final/01_rear_uppercut/f41.png, out/clash9_final/01_rear_uppercut/f42.png, out/clash9_final/02_rear_uppercut/f00.png, out/clash9_final/02_rear_uppercut/f01.png, out/clash9_final/02_rear_uppercut/f02.png, out/clash9_final/02_rear_uppercut/f03.png, out/clash9_final/02_rear_uppercut/f04.png, out/clash9_final/02_rear_uppercut/f05.png, out/clash9_final/02_rear_uppercut/f06.png, out/clash9_final/02_rear_uppercut/f07.png, out/clash9_final/02_rear_uppercut/f08.png, out/clash9_final/02_rear_uppercut/f09.png, out/clash9_final/02_rear_uppercut/f10.png, out/clash9_final/02_rear_uppercut/f11.png, out/clash9_final/02_rear_uppercut/f12.png, out/clash9_final/02_rear_uppercut/f13.png, out/clash9_final/02_rear_uppercut/f14.png, out/clash9_final/02_rear_uppercut/f15.png, out/clash9_final/02_rear_uppercut/f16.png, out/clash9_final/02_rear_uppercut/f17.png, out/clash9_final/02_rear_uppercut/f18.png, out/clash9_final/02_rear_uppercut/f19.png, out/clash9_final/02_rear_uppercut/f20.png, out/clash9_final/02_rear_uppercut/f21.png, out/clash9_final/02_rear_uppercut/f22.png, out/clash9_final/02_rear_uppercut/f23.png, out/clash9_final/02_rear_uppercut/f24.png, out/clash9_final/02_rear_uppercut/f25.png, out/clash9_final/02_rear_uppercut/f26.png, out/clash9_final/02_rear_uppercut/f27.png, out/clash9_final/02_rear_uppercut/f28.png, out/clash9_final/02_rear_uppercut/f29.png, out/clash9_final/02_rear_uppercut/f30.png, out/clash9_final/02_rear_uppercut/f31.png, out/clash9_final/02_rear_uppercut/f32.png, out/clash9_final/02_rear_uppercut/f33.png, out/clash9_final/02_rear_uppercut/f34.png, out/clash9_final/02_rear_uppercut/f35.png, out/clash9_final/02_rear_uppercut/f36.png, out/clash9_final/02_rear_uppercut/f37.png, out/clash9_final/02_rear_uppercut/f38.png, out/clash9_final/02_rear_uppercut/f39.png, out/clash9_final/02_rear_uppercut/f40.png, out/clash9_final/02_rear_uppercut/f41.png, out/clash9_final/02_rear_uppercut/f42.png, out/clash9_final/03_cross/f00.png, out/clash9_final/03_cross/f01.png, out/clash9_final/03_cross/f02.png, out/clash9_final/03_cross/f03.png, out/clash9_final/03_cross/f04.png, out/clash9_final/03_cross/f05.png, out/clash9_final/03_cross/f06.png, out/clash9_final/03_cross/f07.png, out/clash9_final/03_cross/f08.png, out/clash9_final/03_cross/f09.png, out/clash9_final/03_cross/f10.png, out/clash9_final/03_cross/f11.png, out/clash9_final/03_cross/f12.png, out/clash9_final/03_cross/f13.png, out/clash9_final/03_cross/f14.png, out/clash9_final/03_cross/f15.png, out/clash9_final/03_cross/f16.png, out/clash9_final/03_cross/f17.png, out/clash9_final/03_cross/f18.png, out/clash9_final/03_cross/f19.png, out/clash9_final/03_cross/f20.png, out/clash9_final/03_cross/f21.png, out/clash9_final/03_cross/f22.png, out/clash9_final/03_cross/f23.png, out/clash9_final/03_cross/f24.png, out/clash9_final/03_cross/f25.png, out/clash9_final/03_cross/f26.png, out/clash9_final/03_cross/f27.png, out/clash9_final/03_cross/f28.png, out/clash9_final/03_cross/f29.png, out/clash9_final/03_cross/f30.png, out/clash9_final/03_cross/f31.png, out/clash9_final/03_cross/f32.png, out/clash9_final/03_cross/f33.png, out/clash9_final/03_cross/f34.png, out/clash9_final/03_cross/f35.png, out/clash9_final/03_cross/f36.png, out/clash9_final/03_cross/f37.png, out/clash9_final/03_cross/f38.png, out/clash9_final/03_cross/f39.png, out/clash9_final/03_cross/f40.png, out/clash9_final/03_cross/f41.png, out/clash9_final/03_cross/f42.png, out/clash9_final/04_lead_uppercut/f00.png, out/clash9_final/04_lead_uppercut/f01.png, out/clash9_final/04_lead_uppercut/f02.png, out/clash9_final/04_lead_uppercut/f03.png, out/clash9_final/04_lead_uppercut/f04.png, out/clash9_final/04_lead_uppercut/f05.png, out/clash9_final/04_lead_uppercut/f06.png, out/clash9_final/04_lead_uppercut/f07.png, out/clash9_final/04_lead_uppercut/f08.png, out/clash9_final/04_lead_uppercut/f09.png, out/clash9_final/04_lead_uppercut/f10.png, out/clash9_final/04_lead_uppercut/f11.png, out/clash9_final/04_lead_uppercut/f12.png, out/clash9_final/04_lead_uppercut/f13.png, out/clash9_final/04_lead_uppercut/f14.png, out/clash9_final/04_lead_uppercut/f15.png, out/clash9_final/04_lead_uppercut/f16.png, out/clash9_final/04_lead_uppercut/f17.png, out/clash9_final/04_lead_uppercut/f18.png, out/clash9_final/04_lead_uppercut/f19.png, out/clash9_final/04_lead_uppercut/f20.png, out/clash9_final/04_lead_uppercut/f21.png, out/clash9_final/04_lead_uppercut/f22.png, out/clash9_final/04_lead_uppercut/f23.png, out/clash9_final/04_lead_uppercut/f24.png, out/clash9_final/04_lead_uppercut/f25.png, out/clash9_final/04_lead_uppercut/f26.png, out/clash9_final/04_lead_uppercut/f27.png, out/clash9_final/04_lead_uppercut/f28.png, out/clash9_final/04_lead_uppercut/f29.png, out/clash9_final/04_lead_uppercut/f30.png, out/clash9_final/04_lead_uppercut/f31.png, out/clash9_final/04_lead_uppercut/f32.png, out/clash9_final/04_lead_uppercut/f33.png, out/clash9_final/04_lead_uppercut/f34.png, out/clash9_final/04_lead_uppercut/f35.png, out/clash9_final/04_lead_uppercut/f36.png, out/clash9_final/04_lead_uppercut/f37.png, out/clash9_final/04_lead_uppercut/f38.png, out/clash9_final/04_lead_uppercut/f39.png, out/clash9_final/04_lead_uppercut/f40.png, out/clash9_final/04_lead_uppercut/f41.png, out/clash9_final/04_lead_uppercut/f42.png, out/clash9_final/05_lead_uppercut/f00.png, out/clash9_final/05_lead_uppercut/f01.png, out/clash9_final/05_lead_uppercut/f02.png, out/clash9_final/05_lead_uppercut/f03.png, out/clash9_final/05_lead_uppercut/f04.png, out/clash9_final/05_lead_uppercut/f05.png, out/clash9_final/05_lead_uppercut/f06.png, out/clash9_final/05_lead_uppercut/f07.png, out/clash9_final/05_lead_uppercut/f08.png, out/clash9_final/05_lead_uppercut/f09.png, out/clash9_final/05_lead_uppercut/f10.png, out/clash9_final/05_lead_uppercut/f11.png, out/clash9_final/05_lead_uppercut/f12.png, out/clash9_final/05_lead_uppercut/f13.png, out/clash9_final/05_lead_uppercut/f14.png, out/clash9_final/05_lead_uppercut/f15.png, out/clash9_final/05_lead_uppercut/f16.png, out/clash9_final/05_lead_uppercut/f17.png, out/clash9_final/05_lead_uppercut/f18.png, out/clash9_final/05_lead_uppercut/f19.png, out/clash9_final/05_lead_uppercut/f20.png, out/clash9_final/05_lead_uppercut/f21.png, out/clash9_final/05_lead_uppercut/f22.png, out/clash9_final/05_lead_uppercut/f23.png, out/clash9_final/05_lead_uppercut/f24.png, out/clash9_final/05_lead_uppercut/f25.png, out/clash9_final/05_lead_uppercut/f26.png, out/clash9_final/05_lead_uppercut/f27.png, out/clash9_final/05_lead_uppercut/f28.png, out/clash9_final/05_lead_uppercut/f29.png, out/clash9_final/05_lead_uppercut/f30.png, out/clash9_final/05_lead_uppercut/f31.png, out/clash9_final/05_lead_uppercut/f32.png, out/clash9_final/05_lead_uppercut/f33.png, out/clash9_final/05_lead_uppercut/f34.png, out/clash9_final/05_lead_uppercut/f35.png, out/clash9_final/05_lead_uppercut/f36.png, out/clash9_final/05_lead_uppercut/f37.png, out/clash9_final/05_lead_uppercut/f38.png, out/clash9_final/05_lead_uppercut/f39.png, out/clash9_final/05_lead_uppercut/f40.png, out/clash9_final/05_lead_uppercut/f41.png, out/clash9_final/05_lead_uppercut/f42.png, out/clash9_final/06_jab/f00.png, out/clash9_final/06_jab/f01.png, out/clash9_final/06_jab/f02.png, out/clash9_final/06_jab/f03.png, out/clash9_final/06_jab/f04.png, out/clash9_final/06_jab/f05.png, out/clash9_final/06_jab/f06.png, out/clash9_final/06_jab/f07.png, out/clash9_final/06_jab/f08.png, out/clash9_final/06_jab/f09.png, out/clash9_final/06_jab/f10.png, out/clash9_final/06_jab/f11.png, out/clash9_final/06_jab/f12.png, out/clash9_final/06_jab/f13.png, out/clash9_final/06_jab/f14.png, out/clash9_final/06_jab/f15.png, out/clash9_final/06_jab/f16.png, out/clash9_final/06_jab/f17.png, out/clash9_final/06_jab/f18.png, out/clash9_final/06_jab/f19.png, out/clash9_final/06_jab/f20.png, out/clash9_final/06_jab/f21.png, out/clash9_final/06_jab/f22.png, out/clash9_final/06_jab/f23.png, out/clash9_final/06_jab/f24.png, out/clash9_final/06_jab/f25.png, out/clash9_final/06_jab/f26.png, out/clash9_final/06_jab/f27.png, out/clash9_final/06_jab/f28.png, out/clash9_final/06_jab/f29.png, out/clash9_final/06_jab/f30.png, out/clash9_final/06_jab/f31.png, out/clash9_final/06_jab/f32.png, out/clash9_final/06_jab/f33.png, out/clash9_final/06_jab/f34.png, out/clash9_final/06_jab/f35.png, out/clash9_final/06_jab/f36.png, out/clash9_final/06_jab/f37.png, out/clash9_final/06_jab/f38.png, out/clash9_final/06_jab/f39.png, out/clash9_final/06_jab/f40.png, out/clash9_final/06_jab/f41.png, out/clash9_final/06_jab/f42.png, out/clash9_final/07_cross/f00.png, out/clash9_final/07_cross/f01.png, out/clash9_final/07_cross/f02.png, out/clash9_final/07_cross/f03.png, out/clash9_final/07_cross/f04.png, out/clash9_final/07_cross/f05.png, out/clash9_final/07_cross/f06.png, out/clash9_final/07_cross/f07.png, out/clash9_final/07_cross/f08.png, out/clash9_final/07_cross/f09.png, out/clash9_final/07_cross/f10.png, out/clash9_final/07_cross/f11.png, out/clash9_final/07_cross/f12.png, out/clash9_final/07_cross/f13.png, out/clash9_final/07_cross/f14.png, out/clash9_final/07_cross/f15.png, out/clash9_final/07_cross/f16.png, out/clash9_final/07_cross/f17.png, out/clash9_final/07_cross/f18.png, out/clash9_final/07_cross/f19.png, out/clash9_final/07_cross/f20.png, out/clash9_final/07_cross/f21.png, out/clash9_final/07_cross/f22.png, out/clash9_final/07_cross/f23.png, out/clash9_final/07_cross/f24.png, out/clash9_final/07_cross/f25.png, out/clash9_final/07_cross/f26.png, out/clash9_final/07_cross/f27.png, out/clash9_final/07_cross/f28.png, out/clash9_final/07_cross/f29.png, out/clash9_final/07_cross/f30.png, out/clash9_final/07_cross/f31.png, out/clash9_final/07_cross/f32.png, out/clash9_final/07_cross/f33.png, out/clash9_final/07_cross/f34.png, out/clash9_final/07_cross/f35.png, out/clash9_final/07_cross/f36.png, out/clash9_final/07_cross/f37.png, out/clash9_final/07_cross/f38.png, out/clash9_final/07_cross/f39.png, out/clash9_final/07_cross/f40.png, out/clash9_final/07_cross/f41.png, out/clash9_final/07_cross/f42.png, out/clash9_final/08_jab/f00.png, out/clash9_final/08_jab/f01.png, out/clash9_final/08_jab/f02.png, out/clash9_final/08_jab/f03.png, out/clash9_final/08_jab/f04.png, out/clash9_final/08_jab/f05.png, out/clash9_final/08_jab/f06.png, out/clash9_final/08_jab/f07.png, out/clash9_final/08_jab/f08.png, out/clash9_final/08_jab/f09.png, out/clash9_final/08_jab/f10.png, out/clash9_final/08_jab/f11.png, out/clash9_final/08_jab/f12.png, out/clash9_final/08_jab/f13.png, out/clash9_final/08_jab/f14.png, out/clash9_final/08_jab/f15.png, out/clash9_final/08_jab/f16.png, out/clash9_final/08_jab/f17.png, out/clash9_final/08_jab/f18.png, out/clash9_final/08_jab/f19.png, out/clash9_final/08_jab/f20.png, out/clash9_final/08_jab/f21.png, out/clash9_final/08_jab/f22.png, out/clash9_final/08_jab/f23.png, out/clash9_final/08_jab/f24.png, out/clash9_final/08_jab/f25.png, out/clash9_final/08_jab/f26.png, out/clash9_final/08_jab/f27.png, out/clash9_final/08_jab/f28.png, out/clash9_final/08_jab/f29.png, out/clash9_final/08_jab/f30.png, out/clash9_final/08_jab/f31.png, out/clash9_final/08_jab/f32.png, out/clash9_final/08_jab/f33.png, out/clash9_final/08_jab/f34.png, out/clash9_final/08_jab/f35.png, out/clash9_final/08_jab/f36.png, out/clash9_final/08_jab/f37.png, out/clash9_final/08_jab/f38.png, out/clash9_final/08_jab/f39.png, out/clash9_final/08_jab/f40.png, out/clash9_final/08_jab/f41.png, out/clash9_final/08_jab/f42.png, out/clash9_final/09_jab/f00.png, out/clash9_final/09_jab/f01.png, out/clash9_final/09_jab/f02.png, out/clash9_final/09_jab/f03.png, out/clash9_final/09_jab/f04.png, out/clash9_final/09_jab/f05.png, out/clash9_final/09_jab/f06.png, out/clash9_final/09_jab/f07.png, out/clash9_final/09_jab/f08.png, out/clash9_final/09_jab/f09.png, out/clash9_final/09_jab/f10.png, out/clash9_final/09_jab/f11.png, out/clash9_final/09_jab/f12.png, out/clash9_final/09_jab/f13.png, out/clash9_final/09_jab/f14.png, out/clash9_final/09_jab/f15.png, out/clash9_final/09_jab/f16.png, out/clash9_final/09_jab/f17.png, out/clash9_final/09_jab/f18.png, out/clash9_final/09_jab/f19.png, out/clash9_final/09_jab/f20.png, out/clash9_final/09_jab/f21.png, out/clash9_final/09_jab/f22.png, out/clash9_final/09_jab/f23.png, out/clash9_final/09_jab/f24.png, out/clash9_final/09_jab/f25.png, out/clash9_final/09_jab/f26.png, out/clash9_final/09_jab/f27.png, out/clash9_final/09_jab/f28.png, out/clash9_final/09_jab/f29.png, out/clash9_final/09_jab/f30.png, out/clash9_final/09_jab/f31.png, out/clash9_final/09_jab/f32.png, out/clash9_final/09_jab/f33.png, out/clash9_final/09_jab/f34.png, out/clash9_final/09_jab/f35.png, out/clash9_final/09_jab/f36.png, out/clash9_final/09_jab/f37.png, out/clash9_final/09_jab/f38.png, out/clash9_final/09_jab/f39.png, out/clash9_final/09_jab/f40.png, out/clash9_final/09_jab/f41.png, out/clash9_final/09_jab/f42.png, out/clash9_final/hits.txt, out/clash9_final/log.txt, out/clash9_seed77/00_jab/f00.png, out/clash9_seed77/00_jab/f01.png, out/clash9_seed77/00_jab/f02.png, out/clash9_seed77/00_jab/f03.png, out/clash9_seed77/00_jab/f04.png, out/clash9_seed77/00_jab/f05.png, out/clash9_seed77/00_jab/f06.png, out/clash9_seed77/00_jab/f07.png, out/clash9_seed77/00_jab/f08.png, out/clash9_seed77/00_jab/f09.png, out/clash9_seed77/00_jab/f10.png, out/clash9_seed77/00_jab/f11.png, out/clash9_seed77/00_jab/f12.png, out/clash9_seed77/00_jab/f13.png, out/clash9_seed77/00_jab/f14.png, out/clash9_seed77/00_jab/f15.png, out/clash9_seed77/00_jab/f16.png, out/clash9_seed77/00_jab/f17.png, out/clash9_seed77/00_jab/f18.png, out/clash9_seed77/00_jab/f19.png, out/clash9_seed77/00_jab/f20.png, out/clash9_seed77/00_jab/f21.png, out/clash9_seed77/00_jab/f22.png, out/clash9_seed77/00_jab/f23.png, out/clash9_seed77/00_jab/f24.png, out/clash9_seed77/00_jab/f25.png, out/clash9_seed77/00_jab/f26.png, out/clash9_seed77/00_jab/f27.png, out/clash9_seed77/00_jab/f28.png, out/clash9_seed77/00_jab/f29.png, out/clash9_seed77/00_jab/f30.png, out/clash9_seed77/00_jab/f31.png, out/clash9_seed77/00_jab/f32.png, out/clash9_seed77/00_jab/f33.png, out/clash9_seed77/00_jab/f34.png, out/clash9_seed77/00_jab/f35.png, out/clash9_seed77/00_jab/f36.png, out/clash9_seed77/00_jab/f37.png, out/clash9_seed77/00_jab/f38.png, out/clash9_seed77/00_jab/f39.png, out/clash9_seed77/00_jab/f40.png, out/clash9_seed77/00_jab/f41.png, out/clash9_seed77/00_jab/f42.png, out/clash9_seed77/01_rear_uppercut/f00.png, out/clash9_seed77/01_rear_uppercut/f01.png, out/clash9_seed77/01_rear_uppercut/f02.png, out/clash9_seed77/01_rear_uppercut/f03.png, out/clash9_seed77/01_rear_uppercut/f04.png, out/clash9_seed77/01_rear_uppercut/f05.png, out/clash9_seed77/01_rear_uppercut/f06.png, out/clash9_seed77/01_rear_uppercut/f07.png, out/clash9_seed77/01_rear_uppercut/f08.png, out/clash9_seed77/01_rear_uppercut/f09.png, out/clash9_seed77/01_rear_uppercut/f10.png, out/clash9_seed77/01_rear_uppercut/f11.png, out/clash9_seed77/01_rear_uppercut/f12.png, out/clash9_seed77/01_rear_uppercut/f13.png, out/clash9_seed77/01_rear_uppercut/f14.png, out/clash9_seed77/01_rear_uppercut/f15.png, out/clash9_seed77/01_rear_uppercut/f16.png, out/clash9_seed77/01_rear_uppercut/f17.png, out/clash9_seed77/01_rear_uppercut/f18.png, out/clash9_seed77/01_rear_uppercut/f19.png, out/clash9_seed77/01_rear_uppercut/f20.png, out/clash9_seed77/01_rear_uppercut/f21.png, out/clash9_seed77/01_rear_uppercut/f22.png, out/clash9_seed77/01_rear_uppercut/f23.png, out/clash9_seed77/01_rear_uppercut/f24.png, out/clash9_seed77/01_rear_uppercut/f25.png, out/clash9_seed77/01_rear_uppercut/f26.png, out/clash9_seed77/01_rear_uppercut/f27.png, out/clash9_seed77/01_rear_uppercut/f28.png, out/clash9_seed77/01_rear_uppercut/f29.png, out/clash9_seed77/01_rear_uppercut/f30.png, out/clash9_seed77/01_rear_uppercut/f31.png, out/clash9_seed77/01_rear_uppercut/f32.png, out/clash9_seed77/01_rear_uppercut/f33.png, out/clash9_seed77/01_rear_uppercut/f34.png, out/clash9_seed77/01_rear_uppercut/f35.png, out/clash9_seed77/01_rear_uppercut/f36.png, out/clash9_seed77/01_rear_uppercut/f37.png, out/clash9_seed77/01_rear_uppercut/f38.png, out/clash9_seed77/01_rear_uppercut/f39.png, out/clash9_seed77/01_rear_uppercut/f40.png, out/clash9_seed77/01_rear_uppercut/f41.png, out/clash9_seed77/01_rear_uppercut/f42.png, out/clash9_seed77/02_jab/f00.png, out/clash9_seed77/02_jab/f01.png, out/clash9_seed77/02_jab/f02.png, out/clash9_seed77/02_jab/f03.png, out/clash9_seed77/02_jab/f04.png, out/clash9_seed77/02_jab/f05.png, out/clash9_seed77/02_jab/f06.png, out/clash9_seed77/02_jab/f07.png, out/clash9_seed77/02_jab/f08.png, out/clash9_seed77/02_jab/f09.png, out/clash9_seed77/02_jab/f10.png, out/clash9_seed77/02_jab/f11.png, out/clash9_seed77/02_jab/f12.png, out/clash9_seed77/02_jab/f13.png, out/clash9_seed77/02_jab/f14.png, out/clash9_seed77/02_jab/f15.png, out/clash9_seed77/02_jab/f16.png, out/clash9_seed77/02_jab/f17.png, out/clash9_seed77/02_jab/f18.png, out/clash9_seed77/02_jab/f19.png, out/clash9_seed77/02_jab/f20.png, out/clash9_seed77/02_jab/f21.png, out/clash9_seed77/02_jab/f22.png, out/clash9_seed77/02_jab/f23.png, out/clash9_seed77/02_jab/f24.png, out/clash9_seed77/02_jab/f25.png, out/clash9_seed77/02_jab/f26.png, out/clash9_seed77/02_jab/f27.png, out/clash9_seed77/02_jab/f28.png, out/clash9_seed77/02_jab/f29.png, out/clash9_seed77/02_jab/f30.png, out/clash9_seed77/02_jab/f31.png, out/clash9_seed77/02_jab/f32.png, out/clash9_seed77/02_jab/f33.png, out/clash9_seed77/02_jab/f34.png, out/clash9_seed77/02_jab/f35.png, out/clash9_seed77/02_jab/f36.png, out/clash9_seed77/02_jab/f37.png, out/clash9_seed77/02_jab/f38.png, out/clash9_seed77/02_jab/f39.png, out/clash9_seed77/02_jab/f40.png, out/clash9_seed77/02_jab/f41.png, out/clash9_seed77/02_jab/f42.png, out/clash9_seed77/03_lead_uppercut/f00.png, out/clash9_seed77/03_lead_uppercut/f01.png, out/clash9_seed77/03_lead_uppercut/f02.png, out/clash9_seed77/03_lead_uppercut/f03.png, out/clash9_seed77/03_lead_uppercut/f04.png, out/clash9_seed77/03_lead_uppercut/f05.png, out/clash9_seed77/03_lead_uppercut/f06.png, out/clash9_seed77/03_lead_uppercut/f07.png, out/clash9_seed77/03_lead_uppercut/f08.png, out/clash9_seed77/03_lead_uppercut/f09.png, out/clash9_seed77/03_lead_uppercut/f10.png, out/clash9_seed77/03_lead_uppercut/f11.png, out/clash9_seed77/03_lead_uppercut/f12.png, out/clash9_seed77/03_lead_uppercut/f13.png, out/clash9_seed77/03_lead_uppercut/f14.png, out/clash9_seed77/03_lead_uppercut/f15.png, out/clash9_seed77/03_lead_uppercut/f16.png, out/clash9_seed77/03_lead_uppercut/f17.png, out/clash9_seed77/03_lead_uppercut/f18.png, out/clash9_seed77/03_lead_uppercut/f19.png, out/clash9_seed77/03_lead_uppercut/f20.png, out/clash9_seed77/03_lead_uppercut/f21.png, out/clash9_seed77/03_lead_uppercut/f22.png, out/clash9_seed77/03_lead_uppercut/f23.png, out/clash9_seed77/03_lead_uppercut/f24.png, out/clash9_seed77/03_lead_uppercut/f25.png, out/clash9_seed77/03_lead_uppercut/f26.png, out/clash9_seed77/03_lead_uppercut/f27.png, out/clash9_seed77/03_lead_uppercut/f28.png, out/clash9_seed77/03_lead_uppercut/f29.png, out/clash9_seed77/03_lead_uppercut/f30.png, out/clash9_seed77/03_lead_uppercut/f31.png, out/clash9_seed77/03_lead_uppercut/f32.png, out/clash9_seed77/03_lead_uppercut/f33.png, out/clash9_seed77/03_lead_uppercut/f34.png, out/clash9_seed77/03_lead_uppercut/f35.png, out/clash9_seed77/03_lead_uppercut/f36.png, out/clash9_seed77/03_lead_uppercut/f37.png, out/clash9_seed77/03_lead_uppercut/f38.png, out/clash9_seed77/03_lead_uppercut/f39.png, out/clash9_seed77/03_lead_uppercut/f40.png, out/clash9_seed77/03_lead_uppercut/f41.png, out/clash9_seed77/03_lead_uppercut/f42.png, out/clash9_seed77/04_jab/f00.png, out/clash9_seed77/04_jab/f01.png, out/clash9_seed77/04_jab/f02.png, out/clash9_seed77/04_jab/f03.png, out/clash9_seed77/04_jab/f04.png, out/clash9_seed77/04_jab/f05.png, out/clash9_seed77/04_jab/f06.png, out/clash9_seed77/04_jab/f07.png, out/clash9_seed77/04_jab/f08.png, out/clash9_seed77/04_jab/f09.png, out/clash9_seed77/04_jab/f10.png, out/clash9_seed77/04_jab/f11.png, out/clash9_seed77/04_jab/f12.png, out/clash9_seed77/04_jab/f13.png, out/clash9_seed77/04_jab/f14.png, out/clash9_seed77/04_jab/f15.png, out/clash9_seed77/04_jab/f16.png, out/clash9_seed77/04_jab/f17.png, out/clash9_seed77/04_jab/f18.png, out/clash9_seed77/04_jab/f19.png, out/clash9_seed77/04_jab/f20.png, out/clash9_seed77/04_jab/f21.png, out/clash9_seed77/04_jab/f22.png, out/clash9_seed77/04_jab/f23.png, out/clash9_seed77/04_jab/f24.png, out/clash9_seed77/04_jab/f25.png, out/clash9_seed77/04_jab/f26.png, out/clash9_seed77/04_jab/f27.png, out/clash9_seed77/04_jab/f28.png, out/clash9_seed77/04_jab/f29.png, out/clash9_seed77/04_jab/f30.png, out/clash9_seed77/04_jab/f31.png, out/clash9_seed77/04_jab/f32.png, out/clash9_seed77/04_jab/f33.png, out/clash9_seed77/04_jab/f34.png, out/clash9_seed77/04_jab/f35.png, out/clash9_seed77/04_jab/f36.png, out/clash9_seed77/04_jab/f37.png, out/clash9_seed77/04_jab/f38.png, out/clash9_seed77/04_jab/f39.png, out/clash9_seed77/04_jab/f40.png, out/clash9_seed77/04_jab/f41.png, out/clash9_seed77/04_jab/f42.png, out/clash9_seed77/05_rear_uppercut/f00.png, out/clash9_seed77/05_rear_uppercut/f01.png, out/clash9_seed77/05_rear_uppercut/f02.png, out/clash9_seed77/05_rear_uppercut/f03.png, out/clash9_seed77/05_rear_uppercut/f04.png, out/clash9_seed77/05_rear_uppercut/f05.png, out/clash9_seed77/05_rear_uppercut/f06.png, out/clash9_seed77/05_rear_uppercut/f07.png, out/clash9_seed77/05_rear_uppercut/f08.png, out/clash9_seed77/05_rear_uppercut/f09.png, out/clash9_seed77/05_rear_uppercut/f10.png, out/clash9_seed77/05_rear_uppercut/f11.png, out/clash9_seed77/05_rear_uppercut/f12.png, out/clash9_seed77/05_rear_uppercut/f13.png, out/clash9_seed77/05_rear_uppercut/f14.png, out/clash9_seed77/05_rear_uppercut/f15.png, out/clash9_seed77/05_rear_uppercut/f16.png, out/clash9_seed77/05_rear_uppercut/f17.png, out/clash9_seed77/05_rear_uppercut/f18.png, out/clash9_seed77/05_rear_uppercut/f19.png, out/clash9_seed77/05_rear_uppercut/f20.png, out/clash9_seed77/05_rear_uppercut/f21.png, out/clash9_seed77/05_rear_uppercut/f22.png, out/clash9_seed77/05_rear_uppercut/f23.png, out/clash9_seed77/05_rear_uppercut/f24.png, out/clash9_seed77/05_rear_uppercut/f25.png, out/clash9_seed77/05_rear_uppercut/f26.png, out/clash9_seed77/05_rear_uppercut/f27.png, out/clash9_seed77/05_rear_uppercut/f28.png, out/clash9_seed77/05_rear_uppercut/f29.png, out/clash9_seed77/05_rear_uppercut/f30.png, out/clash9_seed77/05_rear_uppercut/f31.png, out/clash9_seed77/05_rear_uppercut/f32.png, out/clash9_seed77/05_rear_uppercut/f33.png, out/clash9_seed77/05_rear_uppercut/f34.png, out/clash9_seed77/05_rear_uppercut/f35.png, out/clash9_seed77/05_rear_uppercut/f36.png, out/clash9_seed77/05_rear_uppercut/f37.png, out/clash9_seed77/05_rear_uppercut/f38.png, out/clash9_seed77/05_rear_uppercut/f39.png, out/clash9_seed77/05_rear_uppercut/f40.png, out/clash9_seed77/05_rear_uppercut/f41.png, out/clash9_seed77/05_rear_uppercut/f42.png, out/clash9_seed77/06_lead_uppercut/f00.png, out/clash9_seed77/06_lead_uppercut/f01.png, out/clash9_seed77/06_lead_uppercut/f02.png, out/clash9_seed77/06_lead_uppercut/f03.png, out/clash9_seed77/06_lead_uppercut/f04.png, out/clash9_seed77/06_lead_uppercut/f05.png, out/clash9_seed77/06_lead_uppercut/f06.png, out/clash9_seed77/06_lead_uppercut/f07.png, out/clash9_seed77/06_lead_uppercut/f08.png, out/clash9_seed77/06_lead_uppercut/f09.png, out/clash9_seed77/06_lead_uppercut/f10.png, out/clash9_seed77/06_lead_uppercut/f11.png, out/clash9_seed77/06_lead_uppercut/f12.png, out/clash9_seed77/06_lead_uppercut/f13.png, out/clash9_seed77/06_lead_uppercut/f14.png, out/clash9_seed77/06_lead_uppercut/f15.png, out/clash9_seed77/06_lead_uppercut/f16.png, out/clash9_seed77/06_lead_uppercut/f17.png, out/clash9_seed77/06_lead_uppercut/f18.png, out/clash9_seed77/06_lead_uppercut/f19.png, out/clash9_seed77/06_lead_uppercut/f20.png, out/clash9_seed77/06_lead_uppercut/f21.png, out/clash9_seed77/06_lead_uppercut/f22.png, out/clash9_seed77/06_lead_uppercut/f23.png, out/clash9_seed77/06_lead_uppercut/f24.png, out/clash9_seed77/06_lead_uppercut/f25.png, out/clash9_seed77/06_lead_uppercut/f26.png, out/clash9_seed77/06_lead_uppercut/f27.png, out/clash9_seed77/06_lead_uppercut/f28.png, out/clash9_seed77/06_lead_uppercut/f29.png, out/clash9_seed77/06_lead_uppercut/f30.png, out/clash9_seed77/06_lead_uppercut/f31.png, out/clash9_seed77/06_lead_uppercut/f32.png, out/clash9_seed77/06_lead_uppercut/f33.png, out/clash9_seed77/06_lead_uppercut/f34.png, out/clash9_seed77/06_lead_uppercut/f35.png, out/clash9_seed77/06_lead_uppercut/f36.png, out/clash9_seed77/06_lead_uppercut/f37.png, out/clash9_seed77/06_lead_uppercut/f38.png, out/clash9_seed77/06_lead_uppercut/f39.png, out/clash9_seed77/06_lead_uppercut/f40.png, out/clash9_seed77/06_lead_uppercut/f41.png, out/clash9_seed77/06_lead_uppercut/f42.png, out/clash9_seed77/07_cross/f00.png, out/clash9_seed77/07_cross/f01.png, out/clash9_seed77/07_cross/f02.png, out/clash9_seed77/07_cross/f03.png, out/clash9_seed77/07_cross/f04.png, out/clash9_seed77/07_cross/f05.png, out/clash9_seed77/07_cross/f06.png, out/clash9_seed77/07_cross/f07.png, out/clash9_seed77/07_cross/f08.png, out/clash9_seed77/07_cross/f09.png, out/clash9_seed77/07_cross/f10.png, out/clash9_seed77/07_cross/f11.png, out/clash9_seed77/07_cross/f12.png, out/clash9_seed77/07_cross/f13.png, out/clash9_seed77/07_cross/f14.png, out/clash9_seed77/07_cross/f15.png, out/clash9_seed77/07_cross/f16.png, out/clash9_seed77/07_cross/f17.png, out/clash9_seed77/07_cross/f18.png, out/clash9_seed77/07_cross/f19.png, out/clash9_seed77/07_cross/f20.png, out/clash9_seed77/07_cross/f21.png, out/clash9_seed77/07_cross/f22.png, out/clash9_seed77/07_cross/f23.png, out/clash9_seed77/07_cross/f24.png, out/clash9_seed77/07_cross/f25.png, out/clash9_seed77/07_cross/f26.png, out/clash9_seed77/07_cross/f27.png, out/clash9_seed77/07_cross/f28.png, out/clash9_seed77/07_cross/f29.png, out/clash9_seed77/07_cross/f30.png, out/clash9_seed77/07_cross/f31.png, out/clash9_seed77/07_cross/f32.png, out/clash9_seed77/07_cross/f33.png, out/clash9_seed77/07_cross/f34.png, out/clash9_seed77/07_cross/f35.png, out/clash9_seed77/07_cross/f36.png, out/clash9_seed77/07_cross/f37.png, out/clash9_seed77/07_cross/f38.png, out/clash9_seed77/07_cross/f39.png, out/clash9_seed77/07_cross/f40.png, out/clash9_seed77/07_cross/f41.png, out/clash9_seed77/07_cross/f42.png, out/clash9_seed77/08_cross/f00.png, out/clash9_seed77/08_cross/f01.png, out/clash9_seed77/08_cross/f02.png, out/clash9_seed77/08_cross/f03.png, out/clash9_seed77/08_cross/f04.png, out/clash9_seed77/08_cross/f05.png, out/clash9_seed77/08_cross/f06.png, out/clash9_seed77/08_cross/f07.png, out/clash9_seed77/08_cross/f08.png, out/clash9_seed77/08_cross/f09.png, out/clash9_seed77/08_cross/f10.png, out/clash9_seed77/08_cross/f11.png, out/clash9_seed77/08_cross/f12.png, out/clash9_seed77/08_cross/f13.png, out/clash9_seed77/08_cross/f14.png, out/clash9_seed77/08_cross/f15.png, out/clash9_seed77/08_cross/f16.png, out/clash9_seed77/08_cross/f17.png, out/clash9_seed77/08_cross/f18.png, out/clash9_seed77/08_cross/f19.png, out/clash9_seed77/08_cross/f20.png, out/clash9_seed77/08_cross/f21.png, out/clash9_seed77/08_cross/f22.png, out/clash9_seed77/08_cross/f23.png, out/clash9_seed77/08_cross/f24.png, out/clash9_seed77/08_cross/f25.png, out/clash9_seed77/08_cross/f26.png, out/clash9_seed77/08_cross/f27.png, out/clash9_seed77/08_cross/f28.png, out/clash9_seed77/08_cross/f29.png, out/clash9_seed77/08_cross/f30.png, out/clash9_seed77/08_cross/f31.png, out/clash9_seed77/08_cross/f32.png, out/clash9_seed77/08_cross/f33.png, out/clash9_seed77/08_cross/f34.png, out/clash9_seed77/08_cross/f35.png, out/clash9_seed77/08_cross/f36.png, out/clash9_seed77/08_cross/f37.png, out/clash9_seed77/08_cross/f38.png, out/clash9_seed77/08_cross/f39.png, out/clash9_seed77/08_cross/f40.png, out/clash9_seed77/08_cross/f41.png, out/clash9_seed77/08_cross/f42.png, out/clash9_seed77/09_cross/f00.png, out/clash9_seed77/09_cross/f01.png, out/clash9_seed77/09_cross/f02.png, out/clash9_seed77/09_cross/f03.png, out/clash9_seed77/09_cross/f04.png, out/clash9_seed77/09_cross/f05.png, out/clash9_seed77/09_cross/f06.png, out/clash9_seed77/09_cross/f07.png, out/clash9_seed77/09_cross/f08.png, out/clash9_seed77/09_cross/f09.png, out/clash9_seed77/09_cross/f10.png, out/clash9_seed77/09_cross/f11.png, out/clash9_seed77/09_cross/f12.png, out/clash9_seed77/09_cross/f13.png, out/clash9_seed77/09_cross/f14.png, out/clash9_seed77/09_cross/f15.png, out/clash9_seed77/09_cross/f16.png, out/clash9_seed77/09_cross/f17.png, out/clash9_seed77/09_cross/f18.png, out/clash9_seed77/09_cross/f19.png, out/clash9_seed77/09_cross/f20.png, out/clash9_seed77/09_cross/f21.png, out/clash9_seed77/09_cross/f22.png, out/clash9_seed77/09_cross/f23.png, out/clash9_seed77/09_cross/f24.png, out/clash9_seed77/09_cross/f25.png, out/clash9_seed77/09_cross/f26.png, out/clash9_seed77/09_cross/f27.png, out/clash9_seed77/09_cross/f28.png, out/clash9_seed77/09_cross/f29.png, out/clash9_seed77/09_cross/f30.png, out/clash9_seed77/09_cross/f31.png, out/clash9_seed77/09_cross/f32.png, out/clash9_seed77/09_cross/f33.png, out/clash9_seed77/09_cross/f34.png, out/clash9_seed77/09_cross/f35.png, out/clash9_seed77/09_cross/f36.png, out/clash9_seed77/09_cross/f37.png, out/clash9_seed77/09_cross/f38.png, out/clash9_seed77/09_cross/f39.png, out/clash9_seed77/09_cross/f40.png, out/clash9_seed77/09_cross/f41.png, out/clash9_seed77/09_cross/f42.png, out/clash9_seed77/hits.txt, out/clash9_seed77/log.txt",
-      "finished": "2026-11-15T17:23",
-      "pr": null,
-      "checks": [
-        {
-          "kind": "RED_TEST",
-          "script": "tools/hit_frame_film.gd",
-          "ok": false,
-          "last": "   at: cleanup (core/object/object.cpp:2536)"
-        },
-        {
-          "kind": "REGRESSION",
-          "script": "tests/own_gloves_test.gd",
-          "ok": true,
-          "last": "OWN_GLOVES failures=0"
-        },
-        {
-          "kind": "REGRESSION",
-          "script": "tests/hit_carry_test.gd",
-          "ok": false,
-          "last": "HIT_CARRY failures=42"
-        },
-        {
-          "kind": "REGRESSION",
-          "script": "tests/hit_frame_test.gd",
-          "ok": false,
-          "last": "HIT_FRAME failures=5"
-        },
-        {
-          "kind": "REGRESSION",
-          "script": "tests/cam_line_test.gd",
-          "ok": true,
-          "last": "CAM_LINE failures=0"
-        }
-      ],
-      "films": {
-        "before": {},
-        "after": {},
-        "board": ""
-      }
-    },
-    "ROPESCONTRACT1": {
-      "agent": "arena",
-      "id": "ROPESCONTRACT1",
-      "title": "Blind contract test for the ropes count (step backs put your boxer on the ropes), with 5 mutants",
-      "status": "merged (S492): PASS on main, 5 of 5 mutants red; PR 317 closed",
-      "started": "2026-11-15T17:20",
-      "eta": "2026-11-15T17:45",
-      "brief": "ops/research/TASK_ROPESCONTRACT1.md",
-      "repo": "FightCamp-Lean-lite",
-      "where": "cloud",
-      "note": "S490 launched in the browser pane (arena.ai/agent, tab-16); PR relays to an arena/* PR on FightCamp-Lean"
-    },
-    "WHYGRADE1": {
-      "agent": "qwen",
-      "id": "WHYGRADE1",
-      "title": "TASK WHYGRADE1 - why a good plan reads GOOD less often since CARDFIX1: count each line's fires by situation (measure only)",
-      "status": "merged (S492): result + probe on main; Claude's fix: the good plan says WHEN (6 lines) -> fight_why 411/540, bad 2",
-      "started": "2026-11-15T17:14",
-      "eta": "2026-11-15T19:04",
-      "branch": "qwen/whygrade1",
-      "worktree": "E:/FightCamp/wt/LEAN_WHYGRADE1",
-      "wt": "E:/FightCamp/wt/LEAN_WHYGRADE1",
-      "brief": "ops/research/TASK_WHYGRADE1.md",
-      "repo": "FightCamp-Lean",
-      "where": "pc",
-      "log": "E:/FightCamp/wt/WHYGRADE1_dispatch_out.txt",
-      "match": "seat_dispatch.py run whygrade1",
-      "model": "qwen3-coder",
-      "dispatch": {
-        "prompt": "E:/FightCamp/wt/WHYGRADE1_dispatch_prompt.txt",
-        "out": "E:/FightCamp/wt/WHYGRADE1_dispatch_out.txt",
-        "runner_log": "E:/FightCamp/wt/WHYGRADE1_dispatch_runner.log",
-        "source": "command line",
-        "brief_copied": true,
-        "runner_pid": 35052,
-        "seat_pid": 17736
-      },
-      "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 0/2 PASS; PR #318",
-      "finished": "2026-11-15T17:30",
-      "pr": 318,
-      "checks": [
-        {
-          "kind": "RED_TEST",
-          "script": "tools/why_fires_probe.gd",
-          "ok": false,
-          "last": "WHYFIRES sit=tiring         place=own_ropes  n=167  fired=0    by=(none)  won=69 lost=98 (41%)"
-        },
-        {
-          "kind": "REGRESSION",
-          "script": "tests/fight_why_test.gd",
-          "ok": false,
-          "last": "FIGHT_WHY failures=1"
-        }
-      ],
-      "films": {
-        "before": {},
-        "after": {},
-        "board": ""
-      }
-    },
-    "BODYLOOK1": {
-      "agent": "ziva",
-      "id": "BODYLOOK1",
-      "title": "Bodies look stitched: coach neck seam, fighters' shoulders and walk, see-through parts - measure on the game camera, then fix",
-      "status": "superseded",
-      "started": "2026-11-15T18:45",
-      "eta": "2026-11-15T22:30",
-      "branch": "ziva/bodylook1",
-      "wt": "E:/FightCamp/wt/ZIVA_LEAN",
-      "brief": "ops/research/TASK_BODYLOOK1.md",
-      "repo": "FightCamp-Lean",
-      "where": "pc",
-      "note": "S492: Ziva Smart, effort Max. Chat 'BODYLOOK1 task in progress' at 127.0.0.1:7012. ETA: S360-S399 Ziva rounds ran 3-4 h; the operator's game holds RAM, so renders may wait on the watchdog. | S492: superseded - Fable (Claude side session) took BODYLOOK1 over; Ziva stalled on its zoom step (bridge timeout); its before stills in E:/FightCamp/wt/ZIVA_LEAN/docs/playtest/BODYLOOK1 are reused. | S492 end: the operator started a Fable Claude session (local_43234449) that stops Ziva and takes over.",
-      "reconciled": "2026-11-15 18:40 board_reconcile: no process and no write for ? min (no worktree for branch 'ziva/bodylook1')"
-    }
+ "_doc": "Claude writes one entry per agent run at launch (operator S144: 'make it more clear, who is working on what, ETA'). The ops board /agents page joins it to the live processes. eta = Claude's estimate at launch, local time; status running|waiting|done.",
+ "seats": 3,
+ "runs": {
+  "STYLE1": {
+   "agent": "goose",
+   "id": "STYLE1",
+   "title": "TASK STYLE1 - does any named style dominate, and is each worth having? (probe, measure only)",
+   "status": "done - superseded by STYLE3 (S484)",
+   "started": "2026-11-15T05:58",
+   "eta": "2026-11-15T07:30",
+   "branch": "goose/*",
+   "brief": "ops/research/TASK_STYLE1.md",
+   "repo": "ICOON-Studio/FightCamp-Lean-lite",
+   "chat": "https://arena.ai/agent/01a1dc46-8131-7b0e-af3a-6e1d928bcaec",
+   "seat": "arena",
+   "issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/298"
   },
-  "codex_budget": {
-    "used_percent": 65,
-    "resets": "2026-10-07T04:42",
-    "read_at": "2026-10-02T18:10",
-    "rule": "max 2 Codex seats, luna/medium, stop new launches at 85%"
+  "CLASH5": {
+   "agent": "qwen",
+   "id": "CLASH5",
+   "title": "TASK CLASH5 - the guard glove that jumps 30 cm in one frame (seed 4242 08_jab f40), and the clash read that cannot see it",
+   "status": "failed",
+   "started": "2026-11-15T05:53",
+   "eta": "2026-11-15T07:43",
+   "branch": "qwen/clash5",
+   "worktree": "E:/FightCamp/wt/LEAN_CLASH5",
+   "wt": "E:/FightCamp/wt/LEAN_CLASH5",
+   "brief": "ops/research/TASK_CLASH5.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/CLASH5_dispatch_out.txt",
+   "match": "seat_dispatch.py run clash5",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/CLASH5_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/CLASH5_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/CLASH5_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 45296,
+    "seat_pid": 27060
+   },
+   "note": "S368 seat_dispatch runner crashed: FileNotFoundError(2, 'The filename or extension is too long', None, 206, None)",
+   "finished": "2026-11-15T07:21"
+  },
+  "CLASH6": {
+   "agent": "qwen",
+   "id": "CLASH6",
+   "title": "TASK CLASH6 - resolve the glove clash in two phases (all boxers update, then all resolve)",
+   "status": "failed - S484 round 2 missed the bar; audit next",
+   "started": "2026-11-15T09:46",
+   "eta": "2026-11-15T11:36",
+   "branch": "qwen/clash6",
+   "worktree": "E:/FightCamp/wt/LEAN_CLASH6",
+   "wt": "E:/FightCamp/wt/LEAN_CLASH6",
+   "brief": "ops/research/TASK_CLASH6.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/CLASH6_dispatch_out.txt",
+   "match": "seat_dispatch.py run clash6",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/CLASH6_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/CLASH6_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/CLASH6_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 38700,
+    "seat_pid": 36580
+   },
+   "note": "S368 seat_dispatch runner crashed: FileNotFoundError(2, 'The filename or extension is too long', None, 206, None)",
+   "finished": "2026-11-15T10:30",
+   "pr": 304,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tools/hit_frame_film.gd",
+     "ok": false,
+     "last": "   at: cleanup (core/object/object.cpp:2536)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/own_gloves_test.gd",
+     "ok": true,
+     "last": "OWN_GLOVES failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/guard_knee_test.gd",
+     "ok": false,
+     "last": "================================================================"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/guard_weave_test.gd",
+     "ok": true,
+     "last": "guard_weave_test: PASS"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/glove_cut_test.gd",
+     "ok": true,
+     "last": "glove_cut_test: PASS"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/cam_line_test.gd",
+     "ok": true,
+     "last": "CAM_LINE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/hit_frame_test.gd",
+     "ok": false,
+     "last": "HIT_FRAME failures=5"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/hit_carry_test.gd",
+     "ok": false,
+     "last": "================================================================"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/block_meet_test.gd",
+     "ok": false,
+     "last": "================================================================"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "DAYJOB1": {
+   "agent": "arena",
+   "id": "DAYJOB1",
+   "title": "Day job: two mornings lost a week, the sponsorship billed in 4-week blocks (pure module + test)",
+   "status": "merged (S485); PR 308 closed S486",
+   "started": "2026-11-15T12:12",
+   "eta": "2026-11-15T13:00",
+   "brief": "ops/research/TASK_DAYJOB1.md",
+   "repo": "FightCamp-Lean-lite",
+   "where": "cloud",
+   "url": "https://arena.ai/agent/01a1dead-d208-7ec9-a399-f01c3a333cf0",
+   "branch": "arena/3a333cf0-fightcamp-lean-lite"
+  },
+  "FILMSEATS1": {
+   "agent": "arena",
+   "id": "FILMSEATS1",
+   "title": "Film seats in a fight week: who watches with the coach, who watches alone (pure module + test)",
+   "status": "merged (S485, as is)",
+   "started": "2026-11-15T12:27",
+   "eta": "2026-11-15T12:45",
+   "brief": "ops/research/TASK_FILMSEATS1.md",
+   "repo": "FightCamp-Lean-lite",
+   "where": "cloud",
+   "url": "https://arena.ai/agent/01a1deba-0752-73e4-97f8-08e3024d5ae3",
+   "branch": "arena/024d5ae3-fightcamp-lean-lite"
+  },
+  "STEPEFFECT1": {
+   "agent": "arena",
+   "id": "STEPEFFECT1",
+   "title": "The ten steps: what each does when it fires, and how well (STEPVALUE1 pieces 2+4, pure table + test)",
+   "status": "merged (S485, as is; table checked row by row)",
+   "started": "2026-11-15T12:34",
+   "eta": "2026-11-15T12:55",
+   "brief": "ops/research/TASK_STEPEFFECT1.md",
+   "repo": "FightCamp-Lean-lite",
+   "where": "cloud",
+   "url": "https://arena.ai/agent/01a1debf-625b-7c8c-81e3-59f868eab383"
+  },
+  "STEPVALUE2": {
+   "agent": "arena",
+   "id": "STEPVALUE2",
+   "title": "What a step is worth against each style, for the learn card (STEPVALUE1 piece 6, pure table + test)",
+   "status": "merged (S486, as is; the brief example was wrong, the table right)",
+   "started": "2026-11-15T12:42",
+   "eta": "2026-11-15T13:00",
+   "brief": "ops/research/TASK_STEPVALUE2.md",
+   "repo": "FightCamp-Lean-lite",
+   "where": "cloud",
+   "url": "https://arena.ai/agent/01a1dec4-84c1-7fed-8c3f-c62337d95d4f"
+  },
+  "APPROACH1": {
+   "agent": "arena",
+   "id": "APPROACH1",
+   "title": "A rival club approaches an unhappy fighter: when, the offer, the talk, the five answers (R58, pure + test)",
+   "status": "merged (S486, as is)",
+   "started": "2026-11-15T12:54",
+   "eta": "2026-11-15T13:19",
+   "brief": "ops/research/TASK_APPROACH1.md",
+   "repo": "FightCamp-Lean-lite",
+   "where": "cloud",
+   "url": "https://arena.ai/agent/01a1ded7-3327-7ae3-9572-d91710f85b41"
+  },
+  "PROMISE1": {
+   "agent": "arena",
+   "id": "PROMISE1",
+   "title": "Promises to a fighter: made, listed when they bind, kept or broken, what they lock (R58, pure + test)",
+   "status": "merged (S486, as is)",
+   "started": "2026-11-15T12:54",
+   "eta": "2026-11-15T13:19",
+   "brief": "ops/research/TASK_PROMISE1.md",
+   "repo": "FightCamp-Lean-lite",
+   "where": "cloud",
+   "url": "https://arena.ai/agent/01a1ded7-b848-7498-927e-b9eaa5009c26"
+  },
+  "CLASH8": {
+   "agent": "qwen",
+   "id": "CLASH8",
+   "title": "TASK CLASH8 - with the order fixed, which layer puts the defender's glove back into the punch? (measure, then fix)",
+   "status": "done - not merged (S487): no layer undoes the clash; the guard glove clears the forearm axis, not the drawn one; pass lines were false. Next CLASH9",
+   "started": "2026-11-15T13:04",
+   "eta": "2026-11-15T14:54",
+   "branch": "qwen/clash8",
+   "worktree": "E:/FightCamp/wt/LEAN_CLASH8",
+   "wt": "E:/FightCamp/wt/LEAN_CLASH8",
+   "brief": "ops/research/TASK_CLASH8.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/CLASH8_dispatch_out.txt",
+   "match": "seat_dispatch.py run clash8",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/CLASH8_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/CLASH8_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/CLASH8_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 27688,
+    "seat_pid": 34908
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 2/5 PASS; PR #313",
+   "finished": "2026-11-15T13:57",
+   "pr": 313,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tools/hit_frame_film.gd",
+     "ok": false,
+     "last": "   at: cleanup (core/object/object.cpp:2536)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/own_gloves_test.gd",
+     "ok": true,
+     "last": "OWN_GLOVES failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/hit_carry_test.gd",
+     "ok": false,
+     "last": "HIT_CARRY failures=34"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/hit_frame_test.gd",
+     "ok": false,
+     "last": "HIT_FRAME failures=5"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/cam_line_test.gd",
+     "ok": true,
+     "last": "CAM_LINE failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "LOYAL3": {
+   "agent": "arena",
+   "id": "LOYAL3",
+   "title": "Bot clubs answer a rival club's approach: does one answer always win? (R58 probe)",
+   "status": "merged (S487, probe as is; Approach tuned: MOVE 59% -> 54% max)",
+   "started": "2026-11-15T13:13",
+   "eta": "2026-11-15T13:38",
+   "brief": "ops/research/TASK_LOYAL3.md",
+   "repo": "FightCamp-Lean-lite",
+   "where": "cloud",
+   "url": "https://arena.ai/agent/01a1dee9-a65e-7ba6-a0f8-c0e38c6372b8"
+  },
+  "STYLE4": {
+   "agent": "qwen",
+   "id": "STYLE4",
+   "title": "TASK STYLE4 - rewire the three dead style levers (Boxer-puncher, Counter-puncher, Slugger) and retune all six",
+   "status": "done - not merged (S488 audit): levers 0.1 pt on a 66-pt spread; lever table hard-coded, not measured; miss read landed. Round 3 = STYLE5, queued after CLASH9",
+   "started": "2026-11-15T13:59",
+   "eta": "2026-11-15T15:49",
+   "branch": "qwen/style4",
+   "worktree": "E:/FightCamp/wt/LEAN_STYLE4",
+   "wt": "E:/FightCamp/wt/LEAN_STYLE4",
+   "brief": "ops/research/TASK_STYLE4.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/STYLE4_dispatch_out.txt",
+   "match": "seat_dispatch.py run style4",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/STYLE4_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/STYLE4_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/STYLE4_dispatch_runner.log",
+    "source": "roadmap plan.next",
+    "brief_copied": true,
+    "runner_pid": 27616,
+    "seat_pid": 12760
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 2 commit(s); checks 7/8 PASS; PR #315",
+   "finished": "2026-11-15T14:41",
+   "pr": 315,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tools/style4_probe.gd",
+     "ok": false,
+     "last": "STYLE4 done (756.2s)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/style_name_test.gd",
+     "ok": true,
+     "last": "STYLE_NAME failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/style_wire_test.gd",
+     "ok": true,
+     "last": "STYLE_WIRE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/learn_slots_test.gd",
+     "ok": true,
+     "last": "LEARN_SLOTS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/aim_wire_test.gd",
+     "ok": true,
+     "last": "AIM_WIRE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/clinch_why_test.gd",
+     "ok": true,
+     "last": "CLINCH_WHY failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/judges_test.gd",
+     "ok": true,
+     "last": "JUDGES failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/fighter_model_test.gd",
+     "ok": true,
+     "last": "FIGHTER_MODEL failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "APPROACH2": {
+   "agent": "arena",
+   "status": "merged (S488): PASS on main, 5 of 5 mutants red",
+   "title": "A blind contract test for the rival club's approach, with five mutants (R58)",
+   "started": "2026-11-15T14:12",
+   "eta": "2026-11-15T15:00",
+   "chat": "https://arena.ai/agent/01a1df16-850a-751c-9fb9-5f050bd336aa",
+   "reconciled": "2026-11-15 14:51 board_reconcile: PR #314 open - collect it"
+  },
+  "CLASH9": {
+   "agent": "qwen",
+   "id": "CLASH9",
+   "title": "TASK CLASH9 - the guard glove sees the true overlap and still stays in: why does the push not clear it? (measure, then fix)",
+   "status": "failed",
+   "started": "2026-11-15T16:28",
+   "eta": "2026-11-15T18:18",
+   "branch": "qwen/clash9",
+   "worktree": "E:/FightCamp/wt/LEAN_CLASH9",
+   "wt": "E:/FightCamp/wt/LEAN_CLASH9",
+   "brief": "ops/research/TASK_CLASH9.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/CLASH9_dispatch_out.txt",
+   "match": "seat_dispatch.py run clash9",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/CLASH9_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/CLASH9_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/CLASH9_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 31664,
+    "seat_pid": 26644
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 2/5 PASS; PR not opened: [WinError 206] The filename or extension is too long; NOT committed (outside OWNS): out/clash9_film/00_cross/f00.png, out/clash9_film/00_cross/f01.png, out/clash9_film/00_cross/f02.png, out/clash9_film/00_cross/f03.png, out/clash9_film/00_cross/f04.png, out/clash9_film/00_cross/f05.png, out/clash9_film/00_cross/f06.png, out/clash9_film/00_cross/f07.png, out/clash9_film/00_cross/f08.png, out/clash9_film/00_cross/f09.png, out/clash9_film/00_cross/f10.png, out/clash9_film/00_cross/f11.png, out/clash9_film/00_cross/f12.png, out/clash9_film/00_cross/f13.png, out/clash9_film/00_cross/f14.png, out/clash9_film/00_cross/f15.png, out/clash9_film/00_cross/f16.png, out/clash9_film/00_cross/f17.png, out/clash9_film/00_cross/f18.png, out/clash9_film/00_cross/f19.png, out/clash9_film/00_cross/f20.png, out/clash9_film/00_cross/f21.png, out/clash9_film/00_cross/f22.png, out/clash9_film/00_cross/f23.png, out/clash9_film/00_cross/f24.png, out/clash9_film/00_cross/f25.png, out/clash9_film/00_cross/f26.png, out/clash9_film/00_cross/f27.png, out/clash9_film/00_cross/f28.png, out/clash9_film/00_cross/f29.png, out/clash9_film/00_cross/f30.png, out/clash9_film/00_cross/f31.png, out/clash9_film/00_cross/f32.png, out/clash9_film/00_cross/f33.png, out/clash9_film/00_cross/f34.png, out/clash9_film/00_cross/f35.png, out/clash9_film/00_cross/f36.png, out/clash9_film/00_cross/f37.png, out/clash9_film/00_cross/f38.png, out/clash9_film/00_cross/f39.png, out/clash9_film/00_cross/f40.png, out/clash9_film/00_cross/f41.png, out/clash9_film/00_cross/f42.png, out/clash9_film/01_rear_uppercut/f00.png, out/clash9_film/01_rear_uppercut/f01.png, out/clash9_film/01_rear_uppercut/f02.png, out/clash9_film/01_rear_uppercut/f03.png, out/clash9_film/01_rear_uppercut/f04.png, out/clash9_film/01_rear_uppercut/f05.png, out/clash9_film/01_rear_uppercut/f06.png, out/clash9_film/01_rear_uppercut/f07.png, out/clash9_film/01_rear_uppercut/f08.png, out/clash9_film/01_rear_uppercut/f09.png, out/clash9_film/01_rear_uppercut/f10.png, out/clash9_film/01_rear_uppercut/f11.png, out/clash9_film/01_rear_uppercut/f12.png, out/clash9_film/01_rear_uppercut/f13.png, out/clash9_film/01_rear_uppercut/f14.png, out/clash9_film/01_rear_uppercut/f15.png, out/clash9_film/01_rear_uppercut/f16.png, out/clash9_film/01_rear_uppercut/f17.png, out/clash9_film/01_rear_uppercut/f18.png, out/clash9_film/01_rear_uppercut/f19.png, out/clash9_film/01_rear_uppercut/f20.png, out/clash9_film/01_rear_uppercut/f21.png, out/clash9_film/01_rear_uppercut/f22.png, out/clash9_film/01_rear_uppercut/f23.png, out/clash9_film/01_rear_uppercut/f24.png, out/clash9_film/01_rear_uppercut/f25.png, out/clash9_film/01_rear_uppercut/f26.png, out/clash9_film/01_rear_uppercut/f27.png, out/clash9_film/01_rear_uppercut/f28.png, out/clash9_film/01_rear_uppercut/f29.png, out/clash9_film/01_rear_uppercut/f30.png, out/clash9_film/01_rear_uppercut/f31.png, out/clash9_film/01_rear_uppercut/f32.png, out/clash9_film/01_rear_uppercut/f33.png, out/clash9_film/01_rear_uppercut/f34.png, out/clash9_film/01_rear_uppercut/f35.png, out/clash9_film/01_rear_uppercut/f36.png, out/clash9_film/01_rear_uppercut/f37.png, out/clash9_film/01_rear_uppercut/f38.png, out/clash9_film/01_rear_uppercut/f39.png, out/clash9_film/01_rear_uppercut/f40.png, out/clash9_film/01_rear_uppercut/f41.png, out/clash9_film/01_rear_uppercut/f42.png, out/clash9_film/02_rear_uppercut/f00.png, out/clash9_film/02_rear_uppercut/f01.png, out/clash9_film/02_rear_uppercut/f02.png, out/clash9_film/02_rear_uppercut/f03.png, out/clash9_film/02_rear_uppercut/f04.png, out/clash9_film/02_rear_uppercut/f05.png, out/clash9_film/02_rear_uppercut/f06.png, out/clash9_film/02_rear_uppercut/f07.png, out/clash9_film/02_rear_uppercut/f08.png, out/clash9_film/02_rear_uppercut/f09.png, out/clash9_film/02_rear_uppercut/f10.png, out/clash9_film/02_rear_uppercut/f11.png, out/clash9_film/02_rear_uppercut/f12.png, out/clash9_film/02_rear_uppercut/f13.png, out/clash9_film/02_rear_uppercut/f14.png, out/clash9_film/02_rear_uppercut/f15.png, out/clash9_film/02_rear_uppercut/f16.png, out/clash9_film/02_rear_uppercut/f17.png, out/clash9_film/02_rear_uppercut/f18.png, out/clash9_film/02_rear_uppercut/f19.png, out/clash9_film/02_rear_uppercut/f20.png, out/clash9_film/02_rear_uppercut/f21.png, out/clash9_film/02_rear_uppercut/f22.png, out/clash9_film/02_rear_uppercut/f23.png, out/clash9_film/02_rear_uppercut/f24.png, out/clash9_film/02_rear_uppercut/f25.png, out/clash9_film/02_rear_uppercut/f26.png, out/clash9_film/02_rear_uppercut/f27.png, out/clash9_film/02_rear_uppercut/f28.png, out/clash9_film/02_rear_uppercut/f29.png, out/clash9_film/02_rear_uppercut/f30.png, out/clash9_film/02_rear_uppercut/f31.png, out/clash9_film/02_rear_uppercut/f32.png, out/clash9_film/02_rear_uppercut/f33.png, out/clash9_film/02_rear_uppercut/f34.png, out/clash9_film/02_rear_uppercut/f35.png, out/clash9_film/02_rear_uppercut/f36.png, out/clash9_film/02_rear_uppercut/f37.png, out/clash9_film/02_rear_uppercut/f38.png, out/clash9_film/02_rear_uppercut/f39.png, out/clash9_film/02_rear_uppercut/f40.png, out/clash9_film/02_rear_uppercut/f41.png, out/clash9_film/02_rear_uppercut/f42.png, out/clash9_film/03_cross/f00.png, out/clash9_film/03_cross/f01.png, out/clash9_film/03_cross/f02.png, out/clash9_film/03_cross/f03.png, out/clash9_film/03_cross/f04.png, out/clash9_film/03_cross/f05.png, out/clash9_film/03_cross/f06.png, out/clash9_film/03_cross/f07.png, out/clash9_film/03_cross/f08.png, out/clash9_film/03_cross/f09.png, out/clash9_film/03_cross/f10.png, out/clash9_film/03_cross/f11.png, out/clash9_film/03_cross/f12.png, out/clash9_film/03_cross/f13.png, out/clash9_film/03_cross/f14.png, out/clash9_film/03_cross/f15.png, out/clash9_film/03_cross/f16.png, out/clash9_film/03_cross/f17.png, out/clash9_film/03_cross/f18.png, out/clash9_film/03_cross/f19.png, out/clash9_film/03_cross/f20.png, out/clash9_film/03_cross/f21.png, out/clash9_film/03_cross/f22.png, out/clash9_film/03_cross/f23.png, out/clash9_film/03_cross/f24.png, out/clash9_film/03_cross/f25.png, out/clash9_film/03_cross/f26.png, out/clash9_film/03_cross/f27.png, out/clash9_film/03_cross/f28.png, out/clash9_film/03_cross/f29.png, out/clash9_film/03_cross/f30.png, out/clash9_film/03_cross/f31.png, out/clash9_film/03_cross/f32.png, out/clash9_film/03_cross/f33.png, out/clash9_film/03_cross/f34.png, out/clash9_film/03_cross/f35.png, out/clash9_film/03_cross/f36.png, out/clash9_film/03_cross/f37.png, out/clash9_film/03_cross/f38.png, out/clash9_film/03_cross/f39.png, out/clash9_film/03_cross/f40.png, out/clash9_film/03_cross/f41.png, out/clash9_film/03_cross/f42.png, out/clash9_film/04_lead_uppercut/f00.png, out/clash9_film/04_lead_uppercut/f01.png, out/clash9_film/04_lead_uppercut/f02.png, out/clash9_film/04_lead_uppercut/f03.png, out/clash9_film/04_lead_uppercut/f04.png, out/clash9_film/04_lead_uppercut/f05.png, out/clash9_film/04_lead_uppercut/f06.png, out/clash9_film/04_lead_uppercut/f07.png, out/clash9_film/04_lead_uppercut/f08.png, out/clash9_film/04_lead_uppercut/f09.png, out/clash9_film/04_lead_uppercut/f10.png, out/clash9_film/04_lead_uppercut/f11.png, out/clash9_film/04_lead_uppercut/f12.png, out/clash9_film/04_lead_uppercut/f13.png, out/clash9_film/04_lead_uppercut/f14.png, out/clash9_film/04_lead_uppercut/f15.png, out/clash9_film/04_lead_uppercut/f16.png, out/clash9_film/04_lead_uppercut/f17.png, out/clash9_film/04_lead_uppercut/f18.png, out/clash9_film/04_lead_uppercut/f19.png, out/clash9_film/04_lead_uppercut/f20.png, out/clash9_film/04_lead_uppercut/f21.png, out/clash9_film/04_lead_uppercut/f22.png, out/clash9_film/04_lead_uppercut/f23.png, out/clash9_film/04_lead_uppercut/f24.png, out/clash9_film/04_lead_uppercut/f25.png, out/clash9_film/04_lead_uppercut/f26.png, out/clash9_film/04_lead_uppercut/f27.png, out/clash9_film/04_lead_uppercut/f28.png, out/clash9_film/04_lead_uppercut/f29.png, out/clash9_film/04_lead_uppercut/f30.png, out/clash9_film/04_lead_uppercut/f31.png, out/clash9_film/04_lead_uppercut/f32.png, out/clash9_film/04_lead_uppercut/f33.png, out/clash9_film/04_lead_uppercut/f34.png, out/clash9_film/04_lead_uppercut/f35.png, out/clash9_film/04_lead_uppercut/f36.png, out/clash9_film/04_lead_uppercut/f37.png, out/clash9_film/04_lead_uppercut/f38.png, out/clash9_film/04_lead_uppercut/f39.png, out/clash9_film/04_lead_uppercut/f40.png, out/clash9_film/04_lead_uppercut/f41.png, out/clash9_film/04_lead_uppercut/f42.png, out/clash9_film/05_lead_uppercut/f00.png, out/clash9_film/05_lead_uppercut/f01.png, out/clash9_film/05_lead_uppercut/f02.png, out/clash9_film/05_lead_uppercut/f03.png, out/clash9_film/05_lead_uppercut/f04.png, out/clash9_film/05_lead_uppercut/f05.png, out/clash9_film/05_lead_uppercut/f06.png, out/clash9_film/05_lead_uppercut/f07.png, out/clash9_film/05_lead_uppercut/f08.png, out/clash9_film/05_lead_uppercut/f09.png, out/clash9_film/05_lead_uppercut/f10.png, out/clash9_film/05_lead_uppercut/f11.png, out/clash9_film/05_lead_uppercut/f12.png, out/clash9_film/05_lead_uppercut/f13.png, out/clash9_film/05_lead_uppercut/f14.png, out/clash9_film/05_lead_uppercut/f15.png, out/clash9_film/05_lead_uppercut/f16.png, out/clash9_film/05_lead_uppercut/f17.png, out/clash9_film/05_lead_uppercut/f18.png, out/clash9_film/05_lead_uppercut/f19.png, out/clash9_film/05_lead_uppercut/f20.png, out/clash9_film/05_lead_uppercut/f21.png, out/clash9_film/05_lead_uppercut/f22.png, out/clash9_film/05_lead_uppercut/f23.png, out/clash9_film/05_lead_uppercut/f24.png, out/clash9_film/05_lead_uppercut/f25.png, out/clash9_film/05_lead_uppercut/f26.png, out/clash9_film/05_lead_uppercut/f27.png, out/clash9_film/05_lead_uppercut/f28.png, out/clash9_film/05_lead_uppercut/f29.png, out/clash9_film/05_lead_uppercut/f30.png, out/clash9_film/05_lead_uppercut/f31.png, out/clash9_film/05_lead_uppercut/f32.png, out/clash9_film/05_lead_uppercut/f33.png, out/clash9_film/05_lead_uppercut/f34.png, out/clash9_film/05_lead_uppercut/f35.png, out/clash9_film/05_lead_uppercut/f36.png, out/clash9_film/05_lead_uppercut/f37.png, out/clash9_film/05_lead_uppercut/f38.png, out/clash9_film/05_lead_uppercut/f39.png, out/clash9_film/05_lead_uppercut/f40.png, out/clash9_film/05_lead_uppercut/f41.png, out/clash9_film/05_lead_uppercut/f42.png, out/clash9_film/06_jab/f00.png, out/clash9_film/06_jab/f01.png, out/clash9_film/06_jab/f02.png, out/clash9_film/06_jab/f03.png, out/clash9_film/06_jab/f04.png, out/clash9_film/06_jab/f05.png, out/clash9_film/06_jab/f06.png, out/clash9_film/06_jab/f07.png, out/clash9_film/06_jab/f08.png, out/clash9_film/06_jab/f09.png, out/clash9_film/06_jab/f10.png, out/clash9_film/06_jab/f11.png, out/clash9_film/06_jab/f12.png, out/clash9_film/06_jab/f13.png, out/clash9_film/06_jab/f14.png, out/clash9_film/06_jab/f15.png, out/clash9_film/06_jab/f16.png, out/clash9_film/06_jab/f17.png, out/clash9_film/06_jab/f18.png, out/clash9_film/06_jab/f19.png, out/clash9_film/06_jab/f20.png, out/clash9_film/06_jab/f21.png, out/clash9_film/06_jab/f22.png, out/clash9_film/06_jab/f23.png, out/clash9_film/06_jab/f24.png, out/clash9_film/06_jab/f25.png, out/clash9_film/06_jab/f26.png, out/clash9_film/06_jab/f27.png, out/clash9_film/06_jab/f28.png, out/clash9_film/06_jab/f29.png, out/clash9_film/06_jab/f30.png, out/clash9_film/06_jab/f31.png, out/clash9_film/06_jab/f32.png, out/clash9_film/06_jab/f33.png, out/clash9_film/06_jab/f34.png, out/clash9_film/06_jab/f35.png, out/clash9_film/06_jab/f36.png, out/clash9_film/06_jab/f37.png, out/clash9_film/06_jab/f38.png, out/clash9_film/06_jab/f39.png, out/clash9_film/06_jab/f40.png, out/clash9_film/06_jab/f41.png, out/clash9_film/06_jab/f42.png, out/clash9_film/07_cross/f00.png, out/clash9_film/07_cross/f01.png, out/clash9_film/07_cross/f02.png, out/clash9_film/07_cross/f03.png, out/clash9_film/07_cross/f04.png, out/clash9_film/07_cross/f05.png, out/clash9_film/07_cross/f06.png, out/clash9_film/07_cross/f07.png, out/clash9_film/07_cross/f08.png, out/clash9_film/07_cross/f09.png, out/clash9_film/07_cross/f10.png, out/clash9_film/07_cross/f11.png, out/clash9_film/07_cross/f12.png, out/clash9_film/07_cross/f13.png, out/clash9_film/07_cross/f14.png, out/clash9_film/07_cross/f15.png, out/clash9_film/07_cross/f16.png, out/clash9_film/07_cross/f17.png, out/clash9_film/07_cross/f18.png, out/clash9_film/07_cross/f19.png, out/clash9_film/07_cross/f20.png, out/clash9_film/07_cross/f21.png, out/clash9_film/07_cross/f22.png, out/clash9_film/07_cross/f23.png, out/clash9_film/07_cross/f24.png, out/clash9_film/07_cross/f25.png, out/clash9_film/07_cross/f26.png, out/clash9_film/07_cross/f27.png, out/clash9_film/07_cross/f28.png, out/clash9_film/07_cross/f29.png, out/clash9_film/07_cross/f30.png, out/clash9_film/07_cross/f31.png, out/clash9_film/07_cross/f32.png, out/clash9_film/07_cross/f33.png, out/clash9_film/07_cross/f34.png, out/clash9_film/07_cross/f35.png, out/clash9_film/07_cross/f36.png, out/clash9_film/07_cross/f37.png, out/clash9_film/07_cross/f38.png, out/clash9_film/07_cross/f39.png, out/clash9_film/07_cross/f40.png, out/clash9_film/07_cross/f41.png, out/clash9_film/07_cross/f42.png, out/clash9_film/08_jab/f00.png, out/clash9_film/08_jab/f01.png, out/clash9_film/08_jab/f02.png, out/clash9_film/08_jab/f03.png, out/clash9_film/08_jab/f04.png, out/clash9_film/08_jab/f05.png, out/clash9_film/08_jab/f06.png, out/clash9_film/08_jab/f07.png, out/clash9_film/08_jab/f08.png, out/clash9_film/08_jab/f09.png, out/clash9_film/08_jab/f10.png, out/clash9_film/08_jab/f11.png, out/clash9_film/08_jab/f12.png, out/clash9_film/08_jab/f13.png, out/clash9_film/08_jab/f14.png, out/clash9_film/08_jab/f15.png, out/clash9_film/08_jab/f16.png, out/clash9_film/08_jab/f17.png, out/clash9_film/08_jab/f18.png, out/clash9_film/08_jab/f19.png, out/clash9_film/08_jab/f20.png, out/clash9_film/08_jab/f21.png, out/clash9_film/08_jab/f22.png, out/clash9_film/08_jab/f23.png, out/clash9_film/08_jab/f24.png, out/clash9_film/08_jab/f25.png, out/clash9_film/08_jab/f26.png, out/clash9_film/08_jab/f27.png, out/clash9_film/08_jab/f28.png, out/clash9_film/08_jab/f29.png, out/clash9_film/08_jab/f30.png, out/clash9_film/08_jab/f31.png, out/clash9_film/08_jab/f32.png, out/clash9_film/08_jab/f33.png, out/clash9_film/08_jab/f34.png, out/clash9_film/08_jab/f35.png, out/clash9_film/08_jab/f36.png, out/clash9_film/08_jab/f37.png, out/clash9_film/08_jab/f38.png, out/clash9_film/08_jab/f39.png, out/clash9_film/08_jab/f40.png, out/clash9_film/08_jab/f41.png, out/clash9_film/08_jab/f42.png, out/clash9_film/09_jab/f00.png, out/clash9_film/09_jab/f01.png, out/clash9_film/09_jab/f02.png, out/clash9_film/09_jab/f03.png, out/clash9_film/09_jab/f04.png, out/clash9_film/09_jab/f05.png, out/clash9_film/09_jab/f06.png, out/clash9_film/09_jab/f07.png, out/clash9_film/09_jab/f08.png, out/clash9_film/09_jab/f09.png, out/clash9_film/09_jab/f10.png, out/clash9_film/09_jab/f11.png, out/clash9_film/09_jab/f12.png, out/clash9_film/09_jab/f13.png, out/clash9_film/09_jab/f14.png, out/clash9_film/09_jab/f15.png, out/clash9_film/09_jab/f16.png, out/clash9_film/09_jab/f17.png, out/clash9_film/09_jab/f18.png, out/clash9_film/09_jab/f19.png, out/clash9_film/09_jab/f20.png, out/clash9_film/09_jab/f21.png, out/clash9_film/09_jab/f22.png, out/clash9_film/09_jab/f23.png, out/clash9_film/09_jab/f24.png, out/clash9_film/09_jab/f25.png, out/clash9_film/09_jab/f26.png, out/clash9_film/09_jab/f27.png, out/clash9_film/09_jab/f28.png, out/clash9_film/09_jab/f29.png, out/clash9_film/09_jab/f30.png, out/clash9_film/09_jab/f31.png, out/clash9_film/09_jab/f32.png, out/clash9_film/09_jab/f33.png, out/clash9_film/09_jab/f34.png, out/clash9_film/09_jab/f35.png, out/clash9_film/09_jab/f36.png, out/clash9_film/09_jab/f37.png, out/clash9_film/09_jab/f38.png, out/clash9_film/09_jab/f39.png, out/clash9_film/09_jab/f40.png, out/clash9_film/09_jab/f41.png, out/clash9_film/09_jab/f42.png, out/clash9_film/hits.txt, out/clash9_film/log.txt, out/clash9_film2/00_cross/f00.png, out/clash9_film2/00_cross/f01.png, out/clash9_film2/00_cross/f02.png, out/clash9_film2/00_cross/f03.png, out/clash9_film2/00_cross/f04.png, out/clash9_film2/00_cross/f05.png, out/clash9_film2/00_cross/f06.png, out/clash9_film2/00_cross/f07.png, out/clash9_film2/00_cross/f08.png, out/clash9_film2/00_cross/f09.png, out/clash9_film2/00_cross/f10.png, out/clash9_film2/00_cross/f11.png, out/clash9_film2/00_cross/f12.png, out/clash9_film2/00_cross/f13.png, out/clash9_film2/00_cross/f14.png, out/clash9_film2/00_cross/f15.png, out/clash9_film2/00_cross/f16.png, out/clash9_film2/00_cross/f17.png, out/clash9_film2/00_cross/f18.png, out/clash9_film2/00_cross/f19.png, out/clash9_film2/00_cross/f20.png, out/clash9_film2/00_cross/f21.png, out/clash9_film2/00_cross/f22.png, out/clash9_film2/00_cross/f23.png, out/clash9_film2/00_cross/f24.png, out/clash9_film2/00_cross/f25.png, out/clash9_film2/00_cross/f26.png, out/clash9_film2/00_cross/f27.png, out/clash9_film2/00_cross/f28.png, out/clash9_film2/00_cross/f29.png, out/clash9_film2/00_cross/f30.png, out/clash9_film2/00_cross/f31.png, out/clash9_film2/00_cross/f32.png, out/clash9_film2/00_cross/f33.png, out/clash9_film2/00_cross/f34.png, out/clash9_film2/00_cross/f35.png, out/clash9_film2/00_cross/f36.png, out/clash9_film2/00_cross/f37.png, out/clash9_film2/00_cross/f38.png, out/clash9_film2/00_cross/f39.png, out/clash9_film2/00_cross/f40.png, out/clash9_film2/00_cross/f41.png, out/clash9_film2/00_cross/f42.png, out/clash9_film2/01_rear_uppercut/f00.png, out/clash9_film2/01_rear_uppercut/f01.png, out/clash9_film2/01_rear_uppercut/f02.png, out/clash9_film2/01_rear_uppercut/f03.png, out/clash9_film2/01_rear_uppercut/f04.png, out/clash9_film2/01_rear_uppercut/f05.png, out/clash9_film2/01_rear_uppercut/f06.png, out/clash9_film2/01_rear_uppercut/f07.png, out/clash9_film2/01_rear_uppercut/f08.png, out/clash9_film2/01_rear_uppercut/f09.png, out/clash9_film2/01_rear_uppercut/f10.png, out/clash9_film2/01_rear_uppercut/f11.png, out/clash9_film2/01_rear_uppercut/f12.png, out/clash9_film2/01_rear_uppercut/f13.png, out/clash9_film2/01_rear_uppercut/f14.png, out/clash9_film2/01_rear_uppercut/f15.png, out/clash9_film2/01_rear_uppercut/f16.png, out/clash9_film2/01_rear_uppercut/f17.png, out/clash9_film2/01_rear_uppercut/f18.png, out/clash9_film2/01_rear_uppercut/f19.png, out/clash9_film2/01_rear_uppercut/f20.png, out/clash9_film2/01_rear_uppercut/f21.png, out/clash9_film2/01_rear_uppercut/f22.png, out/clash9_film2/01_rear_uppercut/f23.png, out/clash9_film2/01_rear_uppercut/f24.png, out/clash9_film2/01_rear_uppercut/f25.png, out/clash9_film2/01_rear_uppercut/f26.png, out/clash9_film2/01_rear_uppercut/f27.png, out/clash9_film2/01_rear_uppercut/f28.png, out/clash9_film2/01_rear_uppercut/f29.png, out/clash9_film2/01_rear_uppercut/f30.png, out/clash9_film2/01_rear_uppercut/f31.png, out/clash9_film2/01_rear_uppercut/f32.png, out/clash9_film2/01_rear_uppercut/f33.png, out/clash9_film2/01_rear_uppercut/f34.png, out/clash9_film2/01_rear_uppercut/f35.png, out/clash9_film2/01_rear_uppercut/f36.png, out/clash9_film2/01_rear_uppercut/f37.png, out/clash9_film2/01_rear_uppercut/f38.png, out/clash9_film2/01_rear_uppercut/f39.png, out/clash9_film2/01_rear_uppercut/f40.png, out/clash9_film2/01_rear_uppercut/f41.png, out/clash9_film2/01_rear_uppercut/f42.png, out/clash9_film2/02_rear_uppercut/f00.png, out/clash9_film2/02_rear_uppercut/f01.png, out/clash9_film2/02_rear_uppercut/f02.png, out/clash9_film2/02_rear_uppercut/f03.png, out/clash9_film2/02_rear_uppercut/f04.png, out/clash9_film2/02_rear_uppercut/f05.png, out/clash9_film2/02_rear_uppercut/f06.png, out/clash9_film2/02_rear_uppercut/f07.png, out/clash9_film2/02_rear_uppercut/f08.png, out/clash9_film2/02_rear_uppercut/f09.png, out/clash9_film2/02_rear_uppercut/f10.png, out/clash9_film2/02_rear_uppercut/f11.png, out/clash9_film2/02_rear_uppercut/f12.png, out/clash9_film2/02_rear_uppercut/f13.png, out/clash9_film2/02_rear_uppercut/f14.png, out/clash9_film2/02_rear_uppercut/f15.png, out/clash9_film2/02_rear_uppercut/f16.png, out/clash9_film2/02_rear_uppercut/f17.png, out/clash9_film2/02_rear_uppercut/f18.png, out/clash9_film2/02_rear_uppercut/f19.png, out/clash9_film2/02_rear_uppercut/f20.png, out/clash9_film2/02_rear_uppercut/f21.png, out/clash9_film2/02_rear_uppercut/f22.png, out/clash9_film2/02_rear_uppercut/f23.png, out/clash9_film2/02_rear_uppercut/f24.png, out/clash9_film2/02_rear_uppercut/f25.png, out/clash9_film2/02_rear_uppercut/f26.png, out/clash9_film2/02_rear_uppercut/f27.png, out/clash9_film2/02_rear_uppercut/f28.png, out/clash9_film2/02_rear_uppercut/f29.png, out/clash9_film2/02_rear_uppercut/f30.png, out/clash9_film2/02_rear_uppercut/f31.png, out/clash9_film2/02_rear_uppercut/f32.png, out/clash9_film2/02_rear_uppercut/f33.png, out/clash9_film2/02_rear_uppercut/f34.png, out/clash9_film2/02_rear_uppercut/f35.png, out/clash9_film2/02_rear_uppercut/f36.png, out/clash9_film2/02_rear_uppercut/f37.png, out/clash9_film2/02_rear_uppercut/f38.png, out/clash9_film2/02_rear_uppercut/f39.png, out/clash9_film2/02_rear_uppercut/f40.png, out/clash9_film2/02_rear_uppercut/f41.png, out/clash9_film2/02_rear_uppercut/f42.png, out/clash9_film2/03_cross/f00.png, out/clash9_film2/03_cross/f01.png, out/clash9_film2/03_cross/f02.png, out/clash9_film2/03_cross/f03.png, out/clash9_film2/03_cross/f04.png, out/clash9_film2/03_cross/f05.png, out/clash9_film2/03_cross/f06.png, out/clash9_film2/03_cross/f07.png, out/clash9_film2/03_cross/f08.png, out/clash9_film2/03_cross/f09.png, out/clash9_film2/03_cross/f10.png, out/clash9_film2/03_cross/f11.png, out/clash9_film2/03_cross/f12.png, out/clash9_film2/03_cross/f13.png, out/clash9_film2/03_cross/f14.png, out/clash9_film2/03_cross/f15.png, out/clash9_film2/03_cross/f16.png, out/clash9_film2/03_cross/f17.png, out/clash9_film2/03_cross/f18.png, out/clash9_film2/03_cross/f19.png, out/clash9_film2/03_cross/f20.png, out/clash9_film2/03_cross/f21.png, out/clash9_film2/03_cross/f22.png, out/clash9_film2/03_cross/f23.png, out/clash9_film2/03_cross/f24.png, out/clash9_film2/03_cross/f25.png, out/clash9_film2/03_cross/f26.png, out/clash9_film2/03_cross/f27.png, out/clash9_film2/03_cross/f28.png, out/clash9_film2/03_cross/f29.png, out/clash9_film2/03_cross/f30.png, out/clash9_film2/03_cross/f31.png, out/clash9_film2/03_cross/f32.png, out/clash9_film2/03_cross/f33.png, out/clash9_film2/03_cross/f34.png, out/clash9_film2/03_cross/f35.png, out/clash9_film2/03_cross/f36.png, out/clash9_film2/03_cross/f37.png, out/clash9_film2/03_cross/f38.png, out/clash9_film2/03_cross/f39.png, out/clash9_film2/03_cross/f40.png, out/clash9_film2/03_cross/f41.png, out/clash9_film2/03_cross/f42.png, out/clash9_film2/04_lead_uppercut/f00.png, out/clash9_film2/04_lead_uppercut/f01.png, out/clash9_film2/04_lead_uppercut/f02.png, out/clash9_film2/04_lead_uppercut/f03.png, out/clash9_film2/04_lead_uppercut/f04.png, out/clash9_film2/04_lead_uppercut/f05.png, out/clash9_film2/04_lead_uppercut/f06.png, out/clash9_film2/04_lead_uppercut/f07.png, out/clash9_film2/04_lead_uppercut/f08.png, out/clash9_film2/04_lead_uppercut/f09.png, out/clash9_film2/04_lead_uppercut/f10.png, out/clash9_film2/04_lead_uppercut/f11.png, out/clash9_film2/04_lead_uppercut/f12.png, out/clash9_film2/04_lead_uppercut/f13.png, out/clash9_film2/04_lead_uppercut/f14.png, out/clash9_film2/04_lead_uppercut/f15.png, out/clash9_film2/04_lead_uppercut/f16.png, out/clash9_film2/04_lead_uppercut/f17.png, out/clash9_film2/04_lead_uppercut/f18.png, out/clash9_film2/04_lead_uppercut/f19.png, out/clash9_film2/04_lead_uppercut/f20.png, out/clash9_film2/04_lead_uppercut/f21.png, out/clash9_film2/04_lead_uppercut/f22.png, out/clash9_film2/04_lead_uppercut/f23.png, out/clash9_film2/04_lead_uppercut/f24.png, out/clash9_film2/04_lead_uppercut/f25.png, out/clash9_film2/04_lead_uppercut/f26.png, out/clash9_film2/04_lead_uppercut/f27.png, out/clash9_film2/04_lead_uppercut/f28.png, out/clash9_film2/04_lead_uppercut/f29.png, out/clash9_film2/04_lead_uppercut/f30.png, out/clash9_film2/04_lead_uppercut/f31.png, out/clash9_film2/04_lead_uppercut/f32.png, out/clash9_film2/04_lead_uppercut/f33.png, out/clash9_film2/04_lead_uppercut/f34.png, out/clash9_film2/04_lead_uppercut/f35.png, out/clash9_film2/04_lead_uppercut/f36.png, out/clash9_film2/04_lead_uppercut/f37.png, out/clash9_film2/04_lead_uppercut/f38.png, out/clash9_film2/04_lead_uppercut/f39.png, out/clash9_film2/04_lead_uppercut/f40.png, out/clash9_film2/04_lead_uppercut/f41.png, out/clash9_film2/04_lead_uppercut/f42.png, out/clash9_film2/05_lead_uppercut/f00.png, out/clash9_film2/05_lead_uppercut/f01.png, out/clash9_film2/05_lead_uppercut/f02.png, out/clash9_film2/05_lead_uppercut/f03.png, out/clash9_film2/05_lead_uppercut/f04.png, out/clash9_film2/05_lead_uppercut/f05.png, out/clash9_film2/05_lead_uppercut/f06.png, out/clash9_film2/05_lead_uppercut/f07.png, out/clash9_film2/05_lead_uppercut/f08.png, out/clash9_film2/05_lead_uppercut/f09.png, out/clash9_film2/05_lead_uppercut/f10.png, out/clash9_film2/05_lead_uppercut/f11.png, out/clash9_film2/05_lead_uppercut/f12.png, out/clash9_film2/05_lead_uppercut/f13.png, out/clash9_film2/05_lead_uppercut/f14.png, out/clash9_film2/05_lead_uppercut/f15.png, out/clash9_film2/05_lead_uppercut/f16.png, out/clash9_film2/05_lead_uppercut/f17.png, out/clash9_film2/05_lead_uppercut/f18.png, out/clash9_film2/05_lead_uppercut/f19.png, out/clash9_film2/05_lead_uppercut/f20.png, out/clash9_film2/05_lead_uppercut/f21.png, out/clash9_film2/05_lead_uppercut/f22.png, out/clash9_film2/05_lead_uppercut/f23.png, out/clash9_film2/05_lead_uppercut/f24.png, out/clash9_film2/05_lead_uppercut/f25.png, out/clash9_film2/05_lead_uppercut/f26.png, out/clash9_film2/05_lead_uppercut/f27.png, out/clash9_film2/05_lead_uppercut/f28.png, out/clash9_film2/05_lead_uppercut/f29.png, out/clash9_film2/05_lead_uppercut/f30.png, out/clash9_film2/05_lead_uppercut/f31.png, out/clash9_film2/05_lead_uppercut/f32.png, out/clash9_film2/05_lead_uppercut/f33.png, out/clash9_film2/05_lead_uppercut/f34.png, out/clash9_film2/05_lead_uppercut/f35.png, out/clash9_film2/05_lead_uppercut/f36.png, out/clash9_film2/05_lead_uppercut/f37.png, out/clash9_film2/05_lead_uppercut/f38.png, out/clash9_film2/05_lead_uppercut/f39.png, out/clash9_film2/05_lead_uppercut/f40.png, out/clash9_film2/05_lead_uppercut/f41.png, out/clash9_film2/05_lead_uppercut/f42.png, out/clash9_film2/06_jab/f00.png, out/clash9_film2/06_jab/f01.png, out/clash9_film2/06_jab/f02.png, out/clash9_film2/06_jab/f03.png, out/clash9_film2/06_jab/f04.png, out/clash9_film2/06_jab/f05.png, out/clash9_film2/06_jab/f06.png, out/clash9_film2/06_jab/f07.png, out/clash9_film2/06_jab/f08.png, out/clash9_film2/06_jab/f09.png, out/clash9_film2/06_jab/f10.png, out/clash9_film2/06_jab/f11.png, out/clash9_film2/06_jab/f12.png, out/clash9_film2/06_jab/f13.png, out/clash9_film2/06_jab/f14.png, out/clash9_film2/06_jab/f15.png, out/clash9_film2/06_jab/f16.png, out/clash9_film2/06_jab/f17.png, out/clash9_film2/06_jab/f18.png, out/clash9_film2/06_jab/f19.png, out/clash9_film2/06_jab/f20.png, out/clash9_film2/06_jab/f21.png, out/clash9_film2/06_jab/f22.png, out/clash9_film2/06_jab/f23.png, out/clash9_film2/06_jab/f24.png, out/clash9_film2/06_jab/f25.png, out/clash9_film2/06_jab/f26.png, out/clash9_film2/06_jab/f27.png, out/clash9_film2/06_jab/f28.png, out/clash9_film2/06_jab/f29.png, out/clash9_film2/06_jab/f30.png, out/clash9_film2/06_jab/f31.png, out/clash9_film2/06_jab/f32.png, out/clash9_film2/06_jab/f33.png, out/clash9_film2/06_jab/f34.png, out/clash9_film2/06_jab/f35.png, out/clash9_film2/06_jab/f36.png, out/clash9_film2/06_jab/f37.png, out/clash9_film2/06_jab/f38.png, out/clash9_film2/06_jab/f39.png, out/clash9_film2/06_jab/f40.png, out/clash9_film2/06_jab/f41.png, out/clash9_film2/06_jab/f42.png, out/clash9_film2/07_cross/f00.png, out/clash9_film2/07_cross/f01.png, out/clash9_film2/07_cross/f02.png, out/clash9_film2/07_cross/f03.png, out/clash9_film2/07_cross/f04.png, out/clash9_film2/07_cross/f05.png, out/clash9_film2/07_cross/f06.png, out/clash9_film2/07_cross/f07.png, out/clash9_film2/07_cross/f08.png, out/clash9_film2/07_cross/f09.png, out/clash9_film2/07_cross/f10.png, out/clash9_film2/07_cross/f11.png, out/clash9_film2/07_cross/f12.png, out/clash9_film2/07_cross/f13.png, out/clash9_film2/07_cross/f14.png, out/clash9_film2/07_cross/f15.png, out/clash9_film2/07_cross/f16.png, out/clash9_film2/07_cross/f17.png, out/clash9_film2/07_cross/f18.png, out/clash9_film2/07_cross/f19.png, out/clash9_film2/07_cross/f20.png, out/clash9_film2/07_cross/f21.png, out/clash9_film2/07_cross/f22.png, out/clash9_film2/07_cross/f23.png, out/clash9_film2/07_cross/f24.png, out/clash9_film2/07_cross/f25.png, out/clash9_film2/07_cross/f26.png, out/clash9_film2/07_cross/f27.png, out/clash9_film2/07_cross/f28.png, out/clash9_film2/07_cross/f29.png, out/clash9_film2/07_cross/f30.png, out/clash9_film2/07_cross/f31.png, out/clash9_film2/07_cross/f32.png, out/clash9_film2/07_cross/f33.png, out/clash9_film2/07_cross/f34.png, out/clash9_film2/07_cross/f35.png, out/clash9_film2/07_cross/f36.png, out/clash9_film2/07_cross/f37.png, out/clash9_film2/07_cross/f38.png, out/clash9_film2/07_cross/f39.png, out/clash9_film2/07_cross/f40.png, out/clash9_film2/07_cross/f41.png, out/clash9_film2/07_cross/f42.png, out/clash9_film2/08_jab/f00.png, out/clash9_film2/08_jab/f01.png, out/clash9_film2/08_jab/f02.png, out/clash9_film2/08_jab/f03.png, out/clash9_film2/08_jab/f04.png, out/clash9_film2/08_jab/f05.png, out/clash9_film2/08_jab/f06.png, out/clash9_film2/08_jab/f07.png, out/clash9_film2/08_jab/f08.png, out/clash9_film2/08_jab/f09.png, out/clash9_film2/08_jab/f10.png, out/clash9_film2/08_jab/f11.png, out/clash9_film2/08_jab/f12.png, out/clash9_film2/08_jab/f13.png, out/clash9_film2/08_jab/f14.png, out/clash9_film2/08_jab/f15.png, out/clash9_film2/08_jab/f16.png, out/clash9_film2/08_jab/f17.png, out/clash9_film2/08_jab/f18.png, out/clash9_film2/08_jab/f19.png, out/clash9_film2/08_jab/f20.png, out/clash9_film2/08_jab/f21.png, out/clash9_film2/08_jab/f22.png, out/clash9_film2/08_jab/f23.png, out/clash9_film2/08_jab/f24.png, out/clash9_film2/08_jab/f25.png, out/clash9_film2/08_jab/f26.png, out/clash9_film2/08_jab/f27.png, out/clash9_film2/08_jab/f28.png, out/clash9_film2/08_jab/f29.png, out/clash9_film2/08_jab/f30.png, out/clash9_film2/08_jab/f31.png, out/clash9_film2/08_jab/f32.png, out/clash9_film2/08_jab/f33.png, out/clash9_film2/08_jab/f34.png, out/clash9_film2/08_jab/f35.png, out/clash9_film2/08_jab/f36.png, out/clash9_film2/08_jab/f37.png, out/clash9_film2/08_jab/f38.png, out/clash9_film2/08_jab/f39.png, out/clash9_film2/08_jab/f40.png, out/clash9_film2/08_jab/f41.png, out/clash9_film2/08_jab/f42.png, out/clash9_film2/09_jab/f00.png, out/clash9_film2/09_jab/f01.png, out/clash9_film2/09_jab/f02.png, out/clash9_film2/09_jab/f03.png, out/clash9_film2/09_jab/f04.png, out/clash9_film2/09_jab/f05.png, out/clash9_film2/09_jab/f06.png, out/clash9_film2/09_jab/f07.png, out/clash9_film2/09_jab/f08.png, out/clash9_film2/09_jab/f09.png, out/clash9_film2/09_jab/f10.png, out/clash9_film2/09_jab/f11.png, out/clash9_film2/09_jab/f12.png, out/clash9_film2/09_jab/f13.png, out/clash9_film2/09_jab/f14.png, out/clash9_film2/09_jab/f15.png, out/clash9_film2/09_jab/f16.png, out/clash9_film2/09_jab/f17.png, out/clash9_film2/09_jab/f18.png, out/clash9_film2/09_jab/f19.png, out/clash9_film2/09_jab/f20.png, out/clash9_film2/09_jab/f21.png, out/clash9_film2/09_jab/f22.png, out/clash9_film2/09_jab/f23.png, out/clash9_film2/09_jab/f24.png, out/clash9_film2/09_jab/f25.png, out/clash9_film2/09_jab/f26.png, out/clash9_film2/09_jab/f27.png, out/clash9_film2/09_jab/f28.png, out/clash9_film2/09_jab/f29.png, out/clash9_film2/09_jab/f30.png, out/clash9_film2/09_jab/f31.png, out/clash9_film2/09_jab/f32.png, out/clash9_film2/09_jab/f33.png, out/clash9_film2/09_jab/f34.png, out/clash9_film2/09_jab/f35.png, out/clash9_film2/09_jab/f36.png, out/clash9_film2/09_jab/f37.png, out/clash9_film2/09_jab/f38.png, out/clash9_film2/09_jab/f39.png, out/clash9_film2/09_jab/f40.png, out/clash9_film2/09_jab/f41.png, out/clash9_film2/09_jab/f42.png, out/clash9_film2/hits.txt, out/clash9_film2/log.txt, out/clash9_final/00_cross/f00.png, out/clash9_final/00_cross/f01.png, out/clash9_final/00_cross/f02.png, out/clash9_final/00_cross/f03.png, out/clash9_final/00_cross/f04.png, out/clash9_final/00_cross/f05.png, out/clash9_final/00_cross/f06.png, out/clash9_final/00_cross/f07.png, out/clash9_final/00_cross/f08.png, out/clash9_final/00_cross/f09.png, out/clash9_final/00_cross/f10.png, out/clash9_final/00_cross/f11.png, out/clash9_final/00_cross/f12.png, out/clash9_final/00_cross/f13.png, out/clash9_final/00_cross/f14.png, out/clash9_final/00_cross/f15.png, out/clash9_final/00_cross/f16.png, out/clash9_final/00_cross/f17.png, out/clash9_final/00_cross/f18.png, out/clash9_final/00_cross/f19.png, out/clash9_final/00_cross/f20.png, out/clash9_final/00_cross/f21.png, out/clash9_final/00_cross/f22.png, out/clash9_final/00_cross/f23.png, out/clash9_final/00_cross/f24.png, out/clash9_final/00_cross/f25.png, out/clash9_final/00_cross/f26.png, out/clash9_final/00_cross/f27.png, out/clash9_final/00_cross/f28.png, out/clash9_final/00_cross/f29.png, out/clash9_final/00_cross/f30.png, out/clash9_final/00_cross/f31.png, out/clash9_final/00_cross/f32.png, out/clash9_final/00_cross/f33.png, out/clash9_final/00_cross/f34.png, out/clash9_final/00_cross/f35.png, out/clash9_final/00_cross/f36.png, out/clash9_final/00_cross/f37.png, out/clash9_final/00_cross/f38.png, out/clash9_final/00_cross/f39.png, out/clash9_final/00_cross/f40.png, out/clash9_final/00_cross/f41.png, out/clash9_final/00_cross/f42.png, out/clash9_final/01_rear_uppercut/f00.png, out/clash9_final/01_rear_uppercut/f01.png, out/clash9_final/01_rear_uppercut/f02.png, out/clash9_final/01_rear_uppercut/f03.png, out/clash9_final/01_rear_uppercut/f04.png, out/clash9_final/01_rear_uppercut/f05.png, out/clash9_final/01_rear_uppercut/f06.png, out/clash9_final/01_rear_uppercut/f07.png, out/clash9_final/01_rear_uppercut/f08.png, out/clash9_final/01_rear_uppercut/f09.png, out/clash9_final/01_rear_uppercut/f10.png, out/clash9_final/01_rear_uppercut/f11.png, out/clash9_final/01_rear_uppercut/f12.png, out/clash9_final/01_rear_uppercut/f13.png, out/clash9_final/01_rear_uppercut/f14.png, out/clash9_final/01_rear_uppercut/f15.png, out/clash9_final/01_rear_uppercut/f16.png, out/clash9_final/01_rear_uppercut/f17.png, out/clash9_final/01_rear_uppercut/f18.png, out/clash9_final/01_rear_uppercut/f19.png, out/clash9_final/01_rear_uppercut/f20.png, out/clash9_final/01_rear_uppercut/f21.png, out/clash9_final/01_rear_uppercut/f22.png, out/clash9_final/01_rear_uppercut/f23.png, out/clash9_final/01_rear_uppercut/f24.png, out/clash9_final/01_rear_uppercut/f25.png, out/clash9_final/01_rear_uppercut/f26.png, out/clash9_final/01_rear_uppercut/f27.png, out/clash9_final/01_rear_uppercut/f28.png, out/clash9_final/01_rear_uppercut/f29.png, out/clash9_final/01_rear_uppercut/f30.png, out/clash9_final/01_rear_uppercut/f31.png, out/clash9_final/01_rear_uppercut/f32.png, out/clash9_final/01_rear_uppercut/f33.png, out/clash9_final/01_rear_uppercut/f34.png, out/clash9_final/01_rear_uppercut/f35.png, out/clash9_final/01_rear_uppercut/f36.png, out/clash9_final/01_rear_uppercut/f37.png, out/clash9_final/01_rear_uppercut/f38.png, out/clash9_final/01_rear_uppercut/f39.png, out/clash9_final/01_rear_uppercut/f40.png, out/clash9_final/01_rear_uppercut/f41.png, out/clash9_final/01_rear_uppercut/f42.png, out/clash9_final/02_rear_uppercut/f00.png, out/clash9_final/02_rear_uppercut/f01.png, out/clash9_final/02_rear_uppercut/f02.png, out/clash9_final/02_rear_uppercut/f03.png, out/clash9_final/02_rear_uppercut/f04.png, out/clash9_final/02_rear_uppercut/f05.png, out/clash9_final/02_rear_uppercut/f06.png, out/clash9_final/02_rear_uppercut/f07.png, out/clash9_final/02_rear_uppercut/f08.png, out/clash9_final/02_rear_uppercut/f09.png, out/clash9_final/02_rear_uppercut/f10.png, out/clash9_final/02_rear_uppercut/f11.png, out/clash9_final/02_rear_uppercut/f12.png, out/clash9_final/02_rear_uppercut/f13.png, out/clash9_final/02_rear_uppercut/f14.png, out/clash9_final/02_rear_uppercut/f15.png, out/clash9_final/02_rear_uppercut/f16.png, out/clash9_final/02_rear_uppercut/f17.png, out/clash9_final/02_rear_uppercut/f18.png, out/clash9_final/02_rear_uppercut/f19.png, out/clash9_final/02_rear_uppercut/f20.png, out/clash9_final/02_rear_uppercut/f21.png, out/clash9_final/02_rear_uppercut/f22.png, out/clash9_final/02_rear_uppercut/f23.png, out/clash9_final/02_rear_uppercut/f24.png, out/clash9_final/02_rear_uppercut/f25.png, out/clash9_final/02_rear_uppercut/f26.png, out/clash9_final/02_rear_uppercut/f27.png, out/clash9_final/02_rear_uppercut/f28.png, out/clash9_final/02_rear_uppercut/f29.png, out/clash9_final/02_rear_uppercut/f30.png, out/clash9_final/02_rear_uppercut/f31.png, out/clash9_final/02_rear_uppercut/f32.png, out/clash9_final/02_rear_uppercut/f33.png, out/clash9_final/02_rear_uppercut/f34.png, out/clash9_final/02_rear_uppercut/f35.png, out/clash9_final/02_rear_uppercut/f36.png, out/clash9_final/02_rear_uppercut/f37.png, out/clash9_final/02_rear_uppercut/f38.png, out/clash9_final/02_rear_uppercut/f39.png, out/clash9_final/02_rear_uppercut/f40.png, out/clash9_final/02_rear_uppercut/f41.png, out/clash9_final/02_rear_uppercut/f42.png, out/clash9_final/03_cross/f00.png, out/clash9_final/03_cross/f01.png, out/clash9_final/03_cross/f02.png, out/clash9_final/03_cross/f03.png, out/clash9_final/03_cross/f04.png, out/clash9_final/03_cross/f05.png, out/clash9_final/03_cross/f06.png, out/clash9_final/03_cross/f07.png, out/clash9_final/03_cross/f08.png, out/clash9_final/03_cross/f09.png, out/clash9_final/03_cross/f10.png, out/clash9_final/03_cross/f11.png, out/clash9_final/03_cross/f12.png, out/clash9_final/03_cross/f13.png, out/clash9_final/03_cross/f14.png, out/clash9_final/03_cross/f15.png, out/clash9_final/03_cross/f16.png, out/clash9_final/03_cross/f17.png, out/clash9_final/03_cross/f18.png, out/clash9_final/03_cross/f19.png, out/clash9_final/03_cross/f20.png, out/clash9_final/03_cross/f21.png, out/clash9_final/03_cross/f22.png, out/clash9_final/03_cross/f23.png, out/clash9_final/03_cross/f24.png, out/clash9_final/03_cross/f25.png, out/clash9_final/03_cross/f26.png, out/clash9_final/03_cross/f27.png, out/clash9_final/03_cross/f28.png, out/clash9_final/03_cross/f29.png, out/clash9_final/03_cross/f30.png, out/clash9_final/03_cross/f31.png, out/clash9_final/03_cross/f32.png, out/clash9_final/03_cross/f33.png, out/clash9_final/03_cross/f34.png, out/clash9_final/03_cross/f35.png, out/clash9_final/03_cross/f36.png, out/clash9_final/03_cross/f37.png, out/clash9_final/03_cross/f38.png, out/clash9_final/03_cross/f39.png, out/clash9_final/03_cross/f40.png, out/clash9_final/03_cross/f41.png, out/clash9_final/03_cross/f42.png, out/clash9_final/04_lead_uppercut/f00.png, out/clash9_final/04_lead_uppercut/f01.png, out/clash9_final/04_lead_uppercut/f02.png, out/clash9_final/04_lead_uppercut/f03.png, out/clash9_final/04_lead_uppercut/f04.png, out/clash9_final/04_lead_uppercut/f05.png, out/clash9_final/04_lead_uppercut/f06.png, out/clash9_final/04_lead_uppercut/f07.png, out/clash9_final/04_lead_uppercut/f08.png, out/clash9_final/04_lead_uppercut/f09.png, out/clash9_final/04_lead_uppercut/f10.png, out/clash9_final/04_lead_uppercut/f11.png, out/clash9_final/04_lead_uppercut/f12.png, out/clash9_final/04_lead_uppercut/f13.png, out/clash9_final/04_lead_uppercut/f14.png, out/clash9_final/04_lead_uppercut/f15.png, out/clash9_final/04_lead_uppercut/f16.png, out/clash9_final/04_lead_uppercut/f17.png, out/clash9_final/04_lead_uppercut/f18.png, out/clash9_final/04_lead_uppercut/f19.png, out/clash9_final/04_lead_uppercut/f20.png, out/clash9_final/04_lead_uppercut/f21.png, out/clash9_final/04_lead_uppercut/f22.png, out/clash9_final/04_lead_uppercut/f23.png, out/clash9_final/04_lead_uppercut/f24.png, out/clash9_final/04_lead_uppercut/f25.png, out/clash9_final/04_lead_uppercut/f26.png, out/clash9_final/04_lead_uppercut/f27.png, out/clash9_final/04_lead_uppercut/f28.png, out/clash9_final/04_lead_uppercut/f29.png, out/clash9_final/04_lead_uppercut/f30.png, out/clash9_final/04_lead_uppercut/f31.png, out/clash9_final/04_lead_uppercut/f32.png, out/clash9_final/04_lead_uppercut/f33.png, out/clash9_final/04_lead_uppercut/f34.png, out/clash9_final/04_lead_uppercut/f35.png, out/clash9_final/04_lead_uppercut/f36.png, out/clash9_final/04_lead_uppercut/f37.png, out/clash9_final/04_lead_uppercut/f38.png, out/clash9_final/04_lead_uppercut/f39.png, out/clash9_final/04_lead_uppercut/f40.png, out/clash9_final/04_lead_uppercut/f41.png, out/clash9_final/04_lead_uppercut/f42.png, out/clash9_final/05_lead_uppercut/f00.png, out/clash9_final/05_lead_uppercut/f01.png, out/clash9_final/05_lead_uppercut/f02.png, out/clash9_final/05_lead_uppercut/f03.png, out/clash9_final/05_lead_uppercut/f04.png, out/clash9_final/05_lead_uppercut/f05.png, out/clash9_final/05_lead_uppercut/f06.png, out/clash9_final/05_lead_uppercut/f07.png, out/clash9_final/05_lead_uppercut/f08.png, out/clash9_final/05_lead_uppercut/f09.png, out/clash9_final/05_lead_uppercut/f10.png, out/clash9_final/05_lead_uppercut/f11.png, out/clash9_final/05_lead_uppercut/f12.png, out/clash9_final/05_lead_uppercut/f13.png, out/clash9_final/05_lead_uppercut/f14.png, out/clash9_final/05_lead_uppercut/f15.png, out/clash9_final/05_lead_uppercut/f16.png, out/clash9_final/05_lead_uppercut/f17.png, out/clash9_final/05_lead_uppercut/f18.png, out/clash9_final/05_lead_uppercut/f19.png, out/clash9_final/05_lead_uppercut/f20.png, out/clash9_final/05_lead_uppercut/f21.png, out/clash9_final/05_lead_uppercut/f22.png, out/clash9_final/05_lead_uppercut/f23.png, out/clash9_final/05_lead_uppercut/f24.png, out/clash9_final/05_lead_uppercut/f25.png, out/clash9_final/05_lead_uppercut/f26.png, out/clash9_final/05_lead_uppercut/f27.png, out/clash9_final/05_lead_uppercut/f28.png, out/clash9_final/05_lead_uppercut/f29.png, out/clash9_final/05_lead_uppercut/f30.png, out/clash9_final/05_lead_uppercut/f31.png, out/clash9_final/05_lead_uppercut/f32.png, out/clash9_final/05_lead_uppercut/f33.png, out/clash9_final/05_lead_uppercut/f34.png, out/clash9_final/05_lead_uppercut/f35.png, out/clash9_final/05_lead_uppercut/f36.png, out/clash9_final/05_lead_uppercut/f37.png, out/clash9_final/05_lead_uppercut/f38.png, out/clash9_final/05_lead_uppercut/f39.png, out/clash9_final/05_lead_uppercut/f40.png, out/clash9_final/05_lead_uppercut/f41.png, out/clash9_final/05_lead_uppercut/f42.png, out/clash9_final/06_jab/f00.png, out/clash9_final/06_jab/f01.png, out/clash9_final/06_jab/f02.png, out/clash9_final/06_jab/f03.png, out/clash9_final/06_jab/f04.png, out/clash9_final/06_jab/f05.png, out/clash9_final/06_jab/f06.png, out/clash9_final/06_jab/f07.png, out/clash9_final/06_jab/f08.png, out/clash9_final/06_jab/f09.png, out/clash9_final/06_jab/f10.png, out/clash9_final/06_jab/f11.png, out/clash9_final/06_jab/f12.png, out/clash9_final/06_jab/f13.png, out/clash9_final/06_jab/f14.png, out/clash9_final/06_jab/f15.png, out/clash9_final/06_jab/f16.png, out/clash9_final/06_jab/f17.png, out/clash9_final/06_jab/f18.png, out/clash9_final/06_jab/f19.png, out/clash9_final/06_jab/f20.png, out/clash9_final/06_jab/f21.png, out/clash9_final/06_jab/f22.png, out/clash9_final/06_jab/f23.png, out/clash9_final/06_jab/f24.png, out/clash9_final/06_jab/f25.png, out/clash9_final/06_jab/f26.png, out/clash9_final/06_jab/f27.png, out/clash9_final/06_jab/f28.png, out/clash9_final/06_jab/f29.png, out/clash9_final/06_jab/f30.png, out/clash9_final/06_jab/f31.png, out/clash9_final/06_jab/f32.png, out/clash9_final/06_jab/f33.png, out/clash9_final/06_jab/f34.png, out/clash9_final/06_jab/f35.png, out/clash9_final/06_jab/f36.png, out/clash9_final/06_jab/f37.png, out/clash9_final/06_jab/f38.png, out/clash9_final/06_jab/f39.png, out/clash9_final/06_jab/f40.png, out/clash9_final/06_jab/f41.png, out/clash9_final/06_jab/f42.png, out/clash9_final/07_cross/f00.png, out/clash9_final/07_cross/f01.png, out/clash9_final/07_cross/f02.png, out/clash9_final/07_cross/f03.png, out/clash9_final/07_cross/f04.png, out/clash9_final/07_cross/f05.png, out/clash9_final/07_cross/f06.png, out/clash9_final/07_cross/f07.png, out/clash9_final/07_cross/f08.png, out/clash9_final/07_cross/f09.png, out/clash9_final/07_cross/f10.png, out/clash9_final/07_cross/f11.png, out/clash9_final/07_cross/f12.png, out/clash9_final/07_cross/f13.png, out/clash9_final/07_cross/f14.png, out/clash9_final/07_cross/f15.png, out/clash9_final/07_cross/f16.png, out/clash9_final/07_cross/f17.png, out/clash9_final/07_cross/f18.png, out/clash9_final/07_cross/f19.png, out/clash9_final/07_cross/f20.png, out/clash9_final/07_cross/f21.png, out/clash9_final/07_cross/f22.png, out/clash9_final/07_cross/f23.png, out/clash9_final/07_cross/f24.png, out/clash9_final/07_cross/f25.png, out/clash9_final/07_cross/f26.png, out/clash9_final/07_cross/f27.png, out/clash9_final/07_cross/f28.png, out/clash9_final/07_cross/f29.png, out/clash9_final/07_cross/f30.png, out/clash9_final/07_cross/f31.png, out/clash9_final/07_cross/f32.png, out/clash9_final/07_cross/f33.png, out/clash9_final/07_cross/f34.png, out/clash9_final/07_cross/f35.png, out/clash9_final/07_cross/f36.png, out/clash9_final/07_cross/f37.png, out/clash9_final/07_cross/f38.png, out/clash9_final/07_cross/f39.png, out/clash9_final/07_cross/f40.png, out/clash9_final/07_cross/f41.png, out/clash9_final/07_cross/f42.png, out/clash9_final/08_jab/f00.png, out/clash9_final/08_jab/f01.png, out/clash9_final/08_jab/f02.png, out/clash9_final/08_jab/f03.png, out/clash9_final/08_jab/f04.png, out/clash9_final/08_jab/f05.png, out/clash9_final/08_jab/f06.png, out/clash9_final/08_jab/f07.png, out/clash9_final/08_jab/f08.png, out/clash9_final/08_jab/f09.png, out/clash9_final/08_jab/f10.png, out/clash9_final/08_jab/f11.png, out/clash9_final/08_jab/f12.png, out/clash9_final/08_jab/f13.png, out/clash9_final/08_jab/f14.png, out/clash9_final/08_jab/f15.png, out/clash9_final/08_jab/f16.png, out/clash9_final/08_jab/f17.png, out/clash9_final/08_jab/f18.png, out/clash9_final/08_jab/f19.png, out/clash9_final/08_jab/f20.png, out/clash9_final/08_jab/f21.png, out/clash9_final/08_jab/f22.png, out/clash9_final/08_jab/f23.png, out/clash9_final/08_jab/f24.png, out/clash9_final/08_jab/f25.png, out/clash9_final/08_jab/f26.png, out/clash9_final/08_jab/f27.png, out/clash9_final/08_jab/f28.png, out/clash9_final/08_jab/f29.png, out/clash9_final/08_jab/f30.png, out/clash9_final/08_jab/f31.png, out/clash9_final/08_jab/f32.png, out/clash9_final/08_jab/f33.png, out/clash9_final/08_jab/f34.png, out/clash9_final/08_jab/f35.png, out/clash9_final/08_jab/f36.png, out/clash9_final/08_jab/f37.png, out/clash9_final/08_jab/f38.png, out/clash9_final/08_jab/f39.png, out/clash9_final/08_jab/f40.png, out/clash9_final/08_jab/f41.png, out/clash9_final/08_jab/f42.png, out/clash9_final/09_jab/f00.png, out/clash9_final/09_jab/f01.png, out/clash9_final/09_jab/f02.png, out/clash9_final/09_jab/f03.png, out/clash9_final/09_jab/f04.png, out/clash9_final/09_jab/f05.png, out/clash9_final/09_jab/f06.png, out/clash9_final/09_jab/f07.png, out/clash9_final/09_jab/f08.png, out/clash9_final/09_jab/f09.png, out/clash9_final/09_jab/f10.png, out/clash9_final/09_jab/f11.png, out/clash9_final/09_jab/f12.png, out/clash9_final/09_jab/f13.png, out/clash9_final/09_jab/f14.png, out/clash9_final/09_jab/f15.png, out/clash9_final/09_jab/f16.png, out/clash9_final/09_jab/f17.png, out/clash9_final/09_jab/f18.png, out/clash9_final/09_jab/f19.png, out/clash9_final/09_jab/f20.png, out/clash9_final/09_jab/f21.png, out/clash9_final/09_jab/f22.png, out/clash9_final/09_jab/f23.png, out/clash9_final/09_jab/f24.png, out/clash9_final/09_jab/f25.png, out/clash9_final/09_jab/f26.png, out/clash9_final/09_jab/f27.png, out/clash9_final/09_jab/f28.png, out/clash9_final/09_jab/f29.png, out/clash9_final/09_jab/f30.png, out/clash9_final/09_jab/f31.png, out/clash9_final/09_jab/f32.png, out/clash9_final/09_jab/f33.png, out/clash9_final/09_jab/f34.png, out/clash9_final/09_jab/f35.png, out/clash9_final/09_jab/f36.png, out/clash9_final/09_jab/f37.png, out/clash9_final/09_jab/f38.png, out/clash9_final/09_jab/f39.png, out/clash9_final/09_jab/f40.png, out/clash9_final/09_jab/f41.png, out/clash9_final/09_jab/f42.png, out/clash9_final/hits.txt, out/clash9_final/log.txt, out/clash9_seed77/00_jab/f00.png, out/clash9_seed77/00_jab/f01.png, out/clash9_seed77/00_jab/f02.png, out/clash9_seed77/00_jab/f03.png, out/clash9_seed77/00_jab/f04.png, out/clash9_seed77/00_jab/f05.png, out/clash9_seed77/00_jab/f06.png, out/clash9_seed77/00_jab/f07.png, out/clash9_seed77/00_jab/f08.png, out/clash9_seed77/00_jab/f09.png, out/clash9_seed77/00_jab/f10.png, out/clash9_seed77/00_jab/f11.png, out/clash9_seed77/00_jab/f12.png, out/clash9_seed77/00_jab/f13.png, out/clash9_seed77/00_jab/f14.png, out/clash9_seed77/00_jab/f15.png, out/clash9_seed77/00_jab/f16.png, out/clash9_seed77/00_jab/f17.png, out/clash9_seed77/00_jab/f18.png, out/clash9_seed77/00_jab/f19.png, out/clash9_seed77/00_jab/f20.png, out/clash9_seed77/00_jab/f21.png, out/clash9_seed77/00_jab/f22.png, out/clash9_seed77/00_jab/f23.png, out/clash9_seed77/00_jab/f24.png, out/clash9_seed77/00_jab/f25.png, out/clash9_seed77/00_jab/f26.png, out/clash9_seed77/00_jab/f27.png, out/clash9_seed77/00_jab/f28.png, out/clash9_seed77/00_jab/f29.png, out/clash9_seed77/00_jab/f30.png, out/clash9_seed77/00_jab/f31.png, out/clash9_seed77/00_jab/f32.png, out/clash9_seed77/00_jab/f33.png, out/clash9_seed77/00_jab/f34.png, out/clash9_seed77/00_jab/f35.png, out/clash9_seed77/00_jab/f36.png, out/clash9_seed77/00_jab/f37.png, out/clash9_seed77/00_jab/f38.png, out/clash9_seed77/00_jab/f39.png, out/clash9_seed77/00_jab/f40.png, out/clash9_seed77/00_jab/f41.png, out/clash9_seed77/00_jab/f42.png, out/clash9_seed77/01_rear_uppercut/f00.png, out/clash9_seed77/01_rear_uppercut/f01.png, out/clash9_seed77/01_rear_uppercut/f02.png, out/clash9_seed77/01_rear_uppercut/f03.png, out/clash9_seed77/01_rear_uppercut/f04.png, out/clash9_seed77/01_rear_uppercut/f05.png, out/clash9_seed77/01_rear_uppercut/f06.png, out/clash9_seed77/01_rear_uppercut/f07.png, out/clash9_seed77/01_rear_uppercut/f08.png, out/clash9_seed77/01_rear_uppercut/f09.png, out/clash9_seed77/01_rear_uppercut/f10.png, out/clash9_seed77/01_rear_uppercut/f11.png, out/clash9_seed77/01_rear_uppercut/f12.png, out/clash9_seed77/01_rear_uppercut/f13.png, out/clash9_seed77/01_rear_uppercut/f14.png, out/clash9_seed77/01_rear_uppercut/f15.png, out/clash9_seed77/01_rear_uppercut/f16.png, out/clash9_seed77/01_rear_uppercut/f17.png, out/clash9_seed77/01_rear_uppercut/f18.png, out/clash9_seed77/01_rear_uppercut/f19.png, out/clash9_seed77/01_rear_uppercut/f20.png, out/clash9_seed77/01_rear_uppercut/f21.png, out/clash9_seed77/01_rear_uppercut/f22.png, out/clash9_seed77/01_rear_uppercut/f23.png, out/clash9_seed77/01_rear_uppercut/f24.png, out/clash9_seed77/01_rear_uppercut/f25.png, out/clash9_seed77/01_rear_uppercut/f26.png, out/clash9_seed77/01_rear_uppercut/f27.png, out/clash9_seed77/01_rear_uppercut/f28.png, out/clash9_seed77/01_rear_uppercut/f29.png, out/clash9_seed77/01_rear_uppercut/f30.png, out/clash9_seed77/01_rear_uppercut/f31.png, out/clash9_seed77/01_rear_uppercut/f32.png, out/clash9_seed77/01_rear_uppercut/f33.png, out/clash9_seed77/01_rear_uppercut/f34.png, out/clash9_seed77/01_rear_uppercut/f35.png, out/clash9_seed77/01_rear_uppercut/f36.png, out/clash9_seed77/01_rear_uppercut/f37.png, out/clash9_seed77/01_rear_uppercut/f38.png, out/clash9_seed77/01_rear_uppercut/f39.png, out/clash9_seed77/01_rear_uppercut/f40.png, out/clash9_seed77/01_rear_uppercut/f41.png, out/clash9_seed77/01_rear_uppercut/f42.png, out/clash9_seed77/02_jab/f00.png, out/clash9_seed77/02_jab/f01.png, out/clash9_seed77/02_jab/f02.png, out/clash9_seed77/02_jab/f03.png, out/clash9_seed77/02_jab/f04.png, out/clash9_seed77/02_jab/f05.png, out/clash9_seed77/02_jab/f06.png, out/clash9_seed77/02_jab/f07.png, out/clash9_seed77/02_jab/f08.png, out/clash9_seed77/02_jab/f09.png, out/clash9_seed77/02_jab/f10.png, out/clash9_seed77/02_jab/f11.png, out/clash9_seed77/02_jab/f12.png, out/clash9_seed77/02_jab/f13.png, out/clash9_seed77/02_jab/f14.png, out/clash9_seed77/02_jab/f15.png, out/clash9_seed77/02_jab/f16.png, out/clash9_seed77/02_jab/f17.png, out/clash9_seed77/02_jab/f18.png, out/clash9_seed77/02_jab/f19.png, out/clash9_seed77/02_jab/f20.png, out/clash9_seed77/02_jab/f21.png, out/clash9_seed77/02_jab/f22.png, out/clash9_seed77/02_jab/f23.png, out/clash9_seed77/02_jab/f24.png, out/clash9_seed77/02_jab/f25.png, out/clash9_seed77/02_jab/f26.png, out/clash9_seed77/02_jab/f27.png, out/clash9_seed77/02_jab/f28.png, out/clash9_seed77/02_jab/f29.png, out/clash9_seed77/02_jab/f30.png, out/clash9_seed77/02_jab/f31.png, out/clash9_seed77/02_jab/f32.png, out/clash9_seed77/02_jab/f33.png, out/clash9_seed77/02_jab/f34.png, out/clash9_seed77/02_jab/f35.png, out/clash9_seed77/02_jab/f36.png, out/clash9_seed77/02_jab/f37.png, out/clash9_seed77/02_jab/f38.png, out/clash9_seed77/02_jab/f39.png, out/clash9_seed77/02_jab/f40.png, out/clash9_seed77/02_jab/f41.png, out/clash9_seed77/02_jab/f42.png, out/clash9_seed77/03_lead_uppercut/f00.png, out/clash9_seed77/03_lead_uppercut/f01.png, out/clash9_seed77/03_lead_uppercut/f02.png, out/clash9_seed77/03_lead_uppercut/f03.png, out/clash9_seed77/03_lead_uppercut/f04.png, out/clash9_seed77/03_lead_uppercut/f05.png, out/clash9_seed77/03_lead_uppercut/f06.png, out/clash9_seed77/03_lead_uppercut/f07.png, out/clash9_seed77/03_lead_uppercut/f08.png, out/clash9_seed77/03_lead_uppercut/f09.png, out/clash9_seed77/03_lead_uppercut/f10.png, out/clash9_seed77/03_lead_uppercut/f11.png, out/clash9_seed77/03_lead_uppercut/f12.png, out/clash9_seed77/03_lead_uppercut/f13.png, out/clash9_seed77/03_lead_uppercut/f14.png, out/clash9_seed77/03_lead_uppercut/f15.png, out/clash9_seed77/03_lead_uppercut/f16.png, out/clash9_seed77/03_lead_uppercut/f17.png, out/clash9_seed77/03_lead_uppercut/f18.png, out/clash9_seed77/03_lead_uppercut/f19.png, out/clash9_seed77/03_lead_uppercut/f20.png, out/clash9_seed77/03_lead_uppercut/f21.png, out/clash9_seed77/03_lead_uppercut/f22.png, out/clash9_seed77/03_lead_uppercut/f23.png, out/clash9_seed77/03_lead_uppercut/f24.png, out/clash9_seed77/03_lead_uppercut/f25.png, out/clash9_seed77/03_lead_uppercut/f26.png, out/clash9_seed77/03_lead_uppercut/f27.png, out/clash9_seed77/03_lead_uppercut/f28.png, out/clash9_seed77/03_lead_uppercut/f29.png, out/clash9_seed77/03_lead_uppercut/f30.png, out/clash9_seed77/03_lead_uppercut/f31.png, out/clash9_seed77/03_lead_uppercut/f32.png, out/clash9_seed77/03_lead_uppercut/f33.png, out/clash9_seed77/03_lead_uppercut/f34.png, out/clash9_seed77/03_lead_uppercut/f35.png, out/clash9_seed77/03_lead_uppercut/f36.png, out/clash9_seed77/03_lead_uppercut/f37.png, out/clash9_seed77/03_lead_uppercut/f38.png, out/clash9_seed77/03_lead_uppercut/f39.png, out/clash9_seed77/03_lead_uppercut/f40.png, out/clash9_seed77/03_lead_uppercut/f41.png, out/clash9_seed77/03_lead_uppercut/f42.png, out/clash9_seed77/04_jab/f00.png, out/clash9_seed77/04_jab/f01.png, out/clash9_seed77/04_jab/f02.png, out/clash9_seed77/04_jab/f03.png, out/clash9_seed77/04_jab/f04.png, out/clash9_seed77/04_jab/f05.png, out/clash9_seed77/04_jab/f06.png, out/clash9_seed77/04_jab/f07.png, out/clash9_seed77/04_jab/f08.png, out/clash9_seed77/04_jab/f09.png, out/clash9_seed77/04_jab/f10.png, out/clash9_seed77/04_jab/f11.png, out/clash9_seed77/04_jab/f12.png, out/clash9_seed77/04_jab/f13.png, out/clash9_seed77/04_jab/f14.png, out/clash9_seed77/04_jab/f15.png, out/clash9_seed77/04_jab/f16.png, out/clash9_seed77/04_jab/f17.png, out/clash9_seed77/04_jab/f18.png, out/clash9_seed77/04_jab/f19.png, out/clash9_seed77/04_jab/f20.png, out/clash9_seed77/04_jab/f21.png, out/clash9_seed77/04_jab/f22.png, out/clash9_seed77/04_jab/f23.png, out/clash9_seed77/04_jab/f24.png, out/clash9_seed77/04_jab/f25.png, out/clash9_seed77/04_jab/f26.png, out/clash9_seed77/04_jab/f27.png, out/clash9_seed77/04_jab/f28.png, out/clash9_seed77/04_jab/f29.png, out/clash9_seed77/04_jab/f30.png, out/clash9_seed77/04_jab/f31.png, out/clash9_seed77/04_jab/f32.png, out/clash9_seed77/04_jab/f33.png, out/clash9_seed77/04_jab/f34.png, out/clash9_seed77/04_jab/f35.png, out/clash9_seed77/04_jab/f36.png, out/clash9_seed77/04_jab/f37.png, out/clash9_seed77/04_jab/f38.png, out/clash9_seed77/04_jab/f39.png, out/clash9_seed77/04_jab/f40.png, out/clash9_seed77/04_jab/f41.png, out/clash9_seed77/04_jab/f42.png, out/clash9_seed77/05_rear_uppercut/f00.png, out/clash9_seed77/05_rear_uppercut/f01.png, out/clash9_seed77/05_rear_uppercut/f02.png, out/clash9_seed77/05_rear_uppercut/f03.png, out/clash9_seed77/05_rear_uppercut/f04.png, out/clash9_seed77/05_rear_uppercut/f05.png, out/clash9_seed77/05_rear_uppercut/f06.png, out/clash9_seed77/05_rear_uppercut/f07.png, out/clash9_seed77/05_rear_uppercut/f08.png, out/clash9_seed77/05_rear_uppercut/f09.png, out/clash9_seed77/05_rear_uppercut/f10.png, out/clash9_seed77/05_rear_uppercut/f11.png, out/clash9_seed77/05_rear_uppercut/f12.png, out/clash9_seed77/05_rear_uppercut/f13.png, out/clash9_seed77/05_rear_uppercut/f14.png, out/clash9_seed77/05_rear_uppercut/f15.png, out/clash9_seed77/05_rear_uppercut/f16.png, out/clash9_seed77/05_rear_uppercut/f17.png, out/clash9_seed77/05_rear_uppercut/f18.png, out/clash9_seed77/05_rear_uppercut/f19.png, out/clash9_seed77/05_rear_uppercut/f20.png, out/clash9_seed77/05_rear_uppercut/f21.png, out/clash9_seed77/05_rear_uppercut/f22.png, out/clash9_seed77/05_rear_uppercut/f23.png, out/clash9_seed77/05_rear_uppercut/f24.png, out/clash9_seed77/05_rear_uppercut/f25.png, out/clash9_seed77/05_rear_uppercut/f26.png, out/clash9_seed77/05_rear_uppercut/f27.png, out/clash9_seed77/05_rear_uppercut/f28.png, out/clash9_seed77/05_rear_uppercut/f29.png, out/clash9_seed77/05_rear_uppercut/f30.png, out/clash9_seed77/05_rear_uppercut/f31.png, out/clash9_seed77/05_rear_uppercut/f32.png, out/clash9_seed77/05_rear_uppercut/f33.png, out/clash9_seed77/05_rear_uppercut/f34.png, out/clash9_seed77/05_rear_uppercut/f35.png, out/clash9_seed77/05_rear_uppercut/f36.png, out/clash9_seed77/05_rear_uppercut/f37.png, out/clash9_seed77/05_rear_uppercut/f38.png, out/clash9_seed77/05_rear_uppercut/f39.png, out/clash9_seed77/05_rear_uppercut/f40.png, out/clash9_seed77/05_rear_uppercut/f41.png, out/clash9_seed77/05_rear_uppercut/f42.png, out/clash9_seed77/06_lead_uppercut/f00.png, out/clash9_seed77/06_lead_uppercut/f01.png, out/clash9_seed77/06_lead_uppercut/f02.png, out/clash9_seed77/06_lead_uppercut/f03.png, out/clash9_seed77/06_lead_uppercut/f04.png, out/clash9_seed77/06_lead_uppercut/f05.png, out/clash9_seed77/06_lead_uppercut/f06.png, out/clash9_seed77/06_lead_uppercut/f07.png, out/clash9_seed77/06_lead_uppercut/f08.png, out/clash9_seed77/06_lead_uppercut/f09.png, out/clash9_seed77/06_lead_uppercut/f10.png, out/clash9_seed77/06_lead_uppercut/f11.png, out/clash9_seed77/06_lead_uppercut/f12.png, out/clash9_seed77/06_lead_uppercut/f13.png, out/clash9_seed77/06_lead_uppercut/f14.png, out/clash9_seed77/06_lead_uppercut/f15.png, out/clash9_seed77/06_lead_uppercut/f16.png, out/clash9_seed77/06_lead_uppercut/f17.png, out/clash9_seed77/06_lead_uppercut/f18.png, out/clash9_seed77/06_lead_uppercut/f19.png, out/clash9_seed77/06_lead_uppercut/f20.png, out/clash9_seed77/06_lead_uppercut/f21.png, out/clash9_seed77/06_lead_uppercut/f22.png, out/clash9_seed77/06_lead_uppercut/f23.png, out/clash9_seed77/06_lead_uppercut/f24.png, out/clash9_seed77/06_lead_uppercut/f25.png, out/clash9_seed77/06_lead_uppercut/f26.png, out/clash9_seed77/06_lead_uppercut/f27.png, out/clash9_seed77/06_lead_uppercut/f28.png, out/clash9_seed77/06_lead_uppercut/f29.png, out/clash9_seed77/06_lead_uppercut/f30.png, out/clash9_seed77/06_lead_uppercut/f31.png, out/clash9_seed77/06_lead_uppercut/f32.png, out/clash9_seed77/06_lead_uppercut/f33.png, out/clash9_seed77/06_lead_uppercut/f34.png, out/clash9_seed77/06_lead_uppercut/f35.png, out/clash9_seed77/06_lead_uppercut/f36.png, out/clash9_seed77/06_lead_uppercut/f37.png, out/clash9_seed77/06_lead_uppercut/f38.png, out/clash9_seed77/06_lead_uppercut/f39.png, out/clash9_seed77/06_lead_uppercut/f40.png, out/clash9_seed77/06_lead_uppercut/f41.png, out/clash9_seed77/06_lead_uppercut/f42.png, out/clash9_seed77/07_cross/f00.png, out/clash9_seed77/07_cross/f01.png, out/clash9_seed77/07_cross/f02.png, out/clash9_seed77/07_cross/f03.png, out/clash9_seed77/07_cross/f04.png, out/clash9_seed77/07_cross/f05.png, out/clash9_seed77/07_cross/f06.png, out/clash9_seed77/07_cross/f07.png, out/clash9_seed77/07_cross/f08.png, out/clash9_seed77/07_cross/f09.png, out/clash9_seed77/07_cross/f10.png, out/clash9_seed77/07_cross/f11.png, out/clash9_seed77/07_cross/f12.png, out/clash9_seed77/07_cross/f13.png, out/clash9_seed77/07_cross/f14.png, out/clash9_seed77/07_cross/f15.png, out/clash9_seed77/07_cross/f16.png, out/clash9_seed77/07_cross/f17.png, out/clash9_seed77/07_cross/f18.png, out/clash9_seed77/07_cross/f19.png, out/clash9_seed77/07_cross/f20.png, out/clash9_seed77/07_cross/f21.png, out/clash9_seed77/07_cross/f22.png, out/clash9_seed77/07_cross/f23.png, out/clash9_seed77/07_cross/f24.png, out/clash9_seed77/07_cross/f25.png, out/clash9_seed77/07_cross/f26.png, out/clash9_seed77/07_cross/f27.png, out/clash9_seed77/07_cross/f28.png, out/clash9_seed77/07_cross/f29.png, out/clash9_seed77/07_cross/f30.png, out/clash9_seed77/07_cross/f31.png, out/clash9_seed77/07_cross/f32.png, out/clash9_seed77/07_cross/f33.png, out/clash9_seed77/07_cross/f34.png, out/clash9_seed77/07_cross/f35.png, out/clash9_seed77/07_cross/f36.png, out/clash9_seed77/07_cross/f37.png, out/clash9_seed77/07_cross/f38.png, out/clash9_seed77/07_cross/f39.png, out/clash9_seed77/07_cross/f40.png, out/clash9_seed77/07_cross/f41.png, out/clash9_seed77/07_cross/f42.png, out/clash9_seed77/08_cross/f00.png, out/clash9_seed77/08_cross/f01.png, out/clash9_seed77/08_cross/f02.png, out/clash9_seed77/08_cross/f03.png, out/clash9_seed77/08_cross/f04.png, out/clash9_seed77/08_cross/f05.png, out/clash9_seed77/08_cross/f06.png, out/clash9_seed77/08_cross/f07.png, out/clash9_seed77/08_cross/f08.png, out/clash9_seed77/08_cross/f09.png, out/clash9_seed77/08_cross/f10.png, out/clash9_seed77/08_cross/f11.png, out/clash9_seed77/08_cross/f12.png, out/clash9_seed77/08_cross/f13.png, out/clash9_seed77/08_cross/f14.png, out/clash9_seed77/08_cross/f15.png, out/clash9_seed77/08_cross/f16.png, out/clash9_seed77/08_cross/f17.png, out/clash9_seed77/08_cross/f18.png, out/clash9_seed77/08_cross/f19.png, out/clash9_seed77/08_cross/f20.png, out/clash9_seed77/08_cross/f21.png, out/clash9_seed77/08_cross/f22.png, out/clash9_seed77/08_cross/f23.png, out/clash9_seed77/08_cross/f24.png, out/clash9_seed77/08_cross/f25.png, out/clash9_seed77/08_cross/f26.png, out/clash9_seed77/08_cross/f27.png, out/clash9_seed77/08_cross/f28.png, out/clash9_seed77/08_cross/f29.png, out/clash9_seed77/08_cross/f30.png, out/clash9_seed77/08_cross/f31.png, out/clash9_seed77/08_cross/f32.png, out/clash9_seed77/08_cross/f33.png, out/clash9_seed77/08_cross/f34.png, out/clash9_seed77/08_cross/f35.png, out/clash9_seed77/08_cross/f36.png, out/clash9_seed77/08_cross/f37.png, out/clash9_seed77/08_cross/f38.png, out/clash9_seed77/08_cross/f39.png, out/clash9_seed77/08_cross/f40.png, out/clash9_seed77/08_cross/f41.png, out/clash9_seed77/08_cross/f42.png, out/clash9_seed77/09_cross/f00.png, out/clash9_seed77/09_cross/f01.png, out/clash9_seed77/09_cross/f02.png, out/clash9_seed77/09_cross/f03.png, out/clash9_seed77/09_cross/f04.png, out/clash9_seed77/09_cross/f05.png, out/clash9_seed77/09_cross/f06.png, out/clash9_seed77/09_cross/f07.png, out/clash9_seed77/09_cross/f08.png, out/clash9_seed77/09_cross/f09.png, out/clash9_seed77/09_cross/f10.png, out/clash9_seed77/09_cross/f11.png, out/clash9_seed77/09_cross/f12.png, out/clash9_seed77/09_cross/f13.png, out/clash9_seed77/09_cross/f14.png, out/clash9_seed77/09_cross/f15.png, out/clash9_seed77/09_cross/f16.png, out/clash9_seed77/09_cross/f17.png, out/clash9_seed77/09_cross/f18.png, out/clash9_seed77/09_cross/f19.png, out/clash9_seed77/09_cross/f20.png, out/clash9_seed77/09_cross/f21.png, out/clash9_seed77/09_cross/f22.png, out/clash9_seed77/09_cross/f23.png, out/clash9_seed77/09_cross/f24.png, out/clash9_seed77/09_cross/f25.png, out/clash9_seed77/09_cross/f26.png, out/clash9_seed77/09_cross/f27.png, out/clash9_seed77/09_cross/f28.png, out/clash9_seed77/09_cross/f29.png, out/clash9_seed77/09_cross/f30.png, out/clash9_seed77/09_cross/f31.png, out/clash9_seed77/09_cross/f32.png, out/clash9_seed77/09_cross/f33.png, out/clash9_seed77/09_cross/f34.png, out/clash9_seed77/09_cross/f35.png, out/clash9_seed77/09_cross/f36.png, out/clash9_seed77/09_cross/f37.png, out/clash9_seed77/09_cross/f38.png, out/clash9_seed77/09_cross/f39.png, out/clash9_seed77/09_cross/f40.png, out/clash9_seed77/09_cross/f41.png, out/clash9_seed77/09_cross/f42.png, out/clash9_seed77/hits.txt, out/clash9_seed77/log.txt",
+   "finished": "2026-11-15T17:23",
+   "pr": null,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tools/hit_frame_film.gd",
+     "ok": false,
+     "last": "   at: cleanup (core/object/object.cpp:2536)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/own_gloves_test.gd",
+     "ok": true,
+     "last": "OWN_GLOVES failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/hit_carry_test.gd",
+     "ok": false,
+     "last": "HIT_CARRY failures=42"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/hit_frame_test.gd",
+     "ok": false,
+     "last": "HIT_FRAME failures=5"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/cam_line_test.gd",
+     "ok": true,
+     "last": "CAM_LINE failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "ROPESCONTRACT1": {
+   "agent": "arena",
+   "id": "ROPESCONTRACT1",
+   "title": "Blind contract test for the ropes count (step backs put your boxer on the ropes), with 5 mutants",
+   "status": "merged (S492): PASS on main, 5 of 5 mutants red; PR 317 closed",
+   "started": "2026-11-15T17:20",
+   "eta": "2026-11-15T17:45",
+   "brief": "ops/research/TASK_ROPESCONTRACT1.md",
+   "repo": "FightCamp-Lean-lite",
+   "where": "cloud",
+   "note": "S490 launched in the browser pane (arena.ai/agent, tab-16); PR relays to an arena/* PR on FightCamp-Lean"
+  },
+  "WHYGRADE1": {
+   "agent": "qwen",
+   "id": "WHYGRADE1",
+   "title": "TASK WHYGRADE1 - why a good plan reads GOOD less often since CARDFIX1: count each line's fires by situation (measure only)",
+   "status": "merged (S492): result + probe on main; Claude's fix: the good plan says WHEN (6 lines) -> fight_why 411/540, bad 2",
+   "started": "2026-11-15T17:14",
+   "eta": "2026-11-15T19:04",
+   "branch": "qwen/whygrade1",
+   "worktree": "E:/FightCamp/wt/LEAN_WHYGRADE1",
+   "wt": "E:/FightCamp/wt/LEAN_WHYGRADE1",
+   "brief": "ops/research/TASK_WHYGRADE1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/WHYGRADE1_dispatch_out.txt",
+   "match": "seat_dispatch.py run whygrade1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/WHYGRADE1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/WHYGRADE1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/WHYGRADE1_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 35052,
+    "seat_pid": 17736
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 0/2 PASS; PR #318",
+   "finished": "2026-11-15T17:30",
+   "pr": 318,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tools/why_fires_probe.gd",
+     "ok": false,
+     "last": "WHYFIRES sit=tiring         place=own_ropes  n=167  fired=0    by=(none)  won=69 lost=98 (41%)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/fight_why_test.gd",
+     "ok": false,
+     "last": "FIGHT_WHY failures=1"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "PALETTEGUARD1": {
+   "agent": "qwen",
+   "id": "PALETTEGUARD1",
+   "title": "TASK PALETTEGUARD1 - a test that blocks loose colours in screen scripts (one palette, his Q-251 \"do it and i will judge\")",
+   "status": "running",
+   "started": "2026-11-15T20:12",
+   "eta": "2026-11-15T22:02",
+   "branch": "qwen/paletteguard1",
+   "worktree": "E:/FightCamp/wt/LEAN_PALETTEGUARD1",
+   "wt": "E:/FightCamp/wt/LEAN_PALETTEGUARD1",
+   "brief": "ops/research/TASK_PALETTEGUARD1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/PALETTEGUARD1_dispatch_out.txt",
+   "match": "seat_dispatch.py run paletteguard1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/PALETTEGUARD1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/PALETTEGUARD1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/PALETTEGUARD1_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 29744,
+    "seat_pid": 28512
+   },
+   "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
   }
+ },
+ "codex_budget": {
+  "used_percent": 65,
+  "resets": "2026-10-07T04:42",
+  "read_at": "2026-10-02T18:10",
+  "rule": "max 2 Codex seats, luna/medium, stop new launches at 85%"
+ }
 }

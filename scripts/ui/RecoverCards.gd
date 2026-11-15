@@ -7,6 +7,7 @@ extends RefCounted
 ## the energy bar and her body is CornerOverlay's (it calls CornerStats.preview and eases the ribs on her figure).
 ##   build(mn, sel, on_change, ink, mute, tv) -> HBoxContainer   now_words(id, mn, n) -> String   tip(id) -> String
 
+const Palette := preload("res://scripts/ui/Palette.gd")   # S493 Q-251 the one palette
 const UI := preload("res://scripts/ui/UI.gd")
 const TV := preload("res://scripts/ui/TV.gd")
 const CornerJobs := preload("res://scripts/rules/CornerJobs.gd")
@@ -87,7 +88,7 @@ static func _card(o: Dictionary, mn: Dictionary, rec: Dictionary, used: int, on_
 	var green: Color = TV.GREEN if tv else UI.GREEN
 	var p := PanelContainer.new()
 	p.name = "RecCard_" + id
-	var bg := Color(1, 1, 1, 0.05) if tv else Color(0, 0, 0, 0.04)
+	var bg := Color(Palette.TEXT, 0.05) if tv else Color(Palette.PAGE, 0.04)
 	var edge: Color = green if on else (TV.LINE if tv else UI.LINE)
 	p.add_theme_stylebox_override("panel", UI.box(bg, edge, 6, 2 if on else 1, 8, 3))
 	p.tooltip_text = tip(id)
@@ -133,7 +134,7 @@ static func _card(o: Dictionary, mn: Dictionary, rec: Dictionary, used: int, on_
 class _Pips extends Control:
 	var total := 3
 	var left := 3
-	var fill := Color.WHITE
+	var fill := Palette.TEXT
 	const R := 6.0
 
 	func _init() -> void:
@@ -159,7 +160,7 @@ class _Icon extends Control:
 		mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 	func _draw() -> void:
-		var col: Color = {"water": Color("#5fb4f0"), "ice": Color("#bfe6f5")}.get(kind, Color("#e9b84a"))
+		var col: Color = {"water": Palette.ACCENT, "ice": Palette.TEXT}.get(kind, Palette.HEADER)
 		var m := size * 0.5
 		match kind:
 			"water":
@@ -167,8 +168,8 @@ class _Icon extends Control:
 				draw_colored_polygon(PackedVector2Array([m + Vector2(-7.5, 2), m + Vector2(0, -13), m + Vector2(7.5, 2)]), col)
 			"ice":
 				draw_rect(Rect2(m - Vector2(10, 10), Vector2(20, 20)), col)
-				draw_rect(Rect2(m - Vector2(10, 10), Vector2(20, 20)), Color.WHITE, false, 1.5)
-				draw_line(m + Vector2(-6, -4), m + Vector2(-1, -8), Color(1, 1, 1, 0.9), 2.0)
+				draw_rect(Rect2(m - Vector2(10, 10), Vector2(20, 20)), Palette.TEXT, false, 1.5)
+				draw_line(m + Vector2(-6, -4), m + Vector2(-1, -8), Color(Palette.TEXT, 0.9), 2.0)
 			_:
 				draw_circle(m + Vector2(0, -3), 8.0, col)
 				draw_rect(Rect2(m + Vector2(-9, 6), Vector2(18, 7)), col)

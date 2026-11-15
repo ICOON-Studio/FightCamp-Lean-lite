@@ -5,11 +5,12 @@ extends RefCounted
 ## S309 (operator on update 9: "fix the wording"): two women in the ring, so every line names who it means
 ## (names = [hers, the opponent's]); the grade reads as a sentence, coloured by how well she does it.
 
+const Palette := preload("res://scripts/ui/Palette.gd")   # S493 Q-251 the one palette
 const UI := preload("res://scripts/ui/TV.gd")  # S333: fight graphics keep the dark TV look
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 const EnergyPips := preload("res://scripts/ui/EnergyPips.gd")
 
-const GRADE_COLOR := {"Good": Color("#6cc27a"), "OK": Color("#f0a020"), "Poor": Color("#e06060")}
+const GRADE_COLOR := {"Good": Palette.GOOD, "OK": Palette.WARN, "Poor": Palette.BAD}
 const PICK := "   - coach's pick"
 ## S310 the shout bar's mark comes from her tapes (LiveRound.preview "mark"): her usual game, not what she does now.
 const PICK_FILM := "   - coach's pick (from film)"
@@ -59,10 +60,10 @@ static func now_button(now: Dictionary, names: Array, pick: Callable) -> Button:
 	if now.is_empty():
 		return null
 	var b := UI.button2(str(now["line"]), "The set-up: the opponent is in the gap", "ChoiceOn", pick.bind("now"), Vector2(0, 80),
-		Color("#14110f"), Color("#3a2a10"), false, UI.BODY, UI.SMALL)
+		Palette.TEXT, Palette.MUTED, false, UI.BODY, UI.SMALL)
 	b.name = "Shout_now"
-	b.add_theme_stylebox_override("normal", UI.box(Color("#f0b429"), Color("#ffd166"), 6, 2, 12, 8))
-	b.add_theme_stylebox_override("hover", UI.box(Color("#ffc94a"), Color("#ffe08a"), 6, 2, 12, 8))
+	b.add_theme_stylebox_override("normal", UI.box(Palette.ACTION, Palette.hovered(Palette.ACTION), 6, 2, 12, 8))
+	b.add_theme_stylebox_override("hover", UI.box(Palette.hovered(Palette.ACTION), Palette.CHOSEN, 6, 2, 12, 8))
 	b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	return b
 
@@ -80,7 +81,7 @@ static func fix_row(fixes: Array, names: Array, chosen: String, pick: Callable, 
 		cb.name = "Change_" + str(ch["id"])
 		cb.tooltip_text = str(ch["tip"])
 		cb.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		cb.modulate = Color(1, 1, 1, 1.0 if chosen == "" or chosen == str(ch["key"]) else 0.45)
+		cb.modulate = Palette.fade(1.0 if chosen == "" or chosen == str(ch["key"]) else 0.45)
 		row.add_child(cb)
 	for h in fixes:
 		var paid := int(h["paid"])
@@ -93,12 +94,12 @@ Your one change this minute. Next round this habit stops costing your boxer, as 
 		for l in b.find_children("*", "Label", true, false):   # S443: the long line ran under "Leave it"; it ends in ... and the hover has it all
 			(l as Label).text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		b.modulate = Color(1, 1, 1, 1.0 if chosen == "" or chosen == str(h["id"]) else 0.45)
+		b.modulate = Palette.fade(1.0 if chosen == "" or chosen == str(h["id"]) else 0.45)
 		row.add_child(b)
 	var none := UI.button2("Leave it", "Just the plan", "BtnQuiet", pick.bind(""), Vector2(160, 50), UI.FG, UI.MUTED, false,
 		UI.SMALL + 1, UI.TINY)
 	none.name = "FixNone"
-	none.modulate = Color(1, 1, 1, 1.0 if chosen == "" else 0.45)
+	none.modulate = Palette.fade(1.0 if chosen == "" else 0.45)
 	row.add_child(none)
 	return row
 

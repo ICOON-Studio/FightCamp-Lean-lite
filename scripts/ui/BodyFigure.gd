@@ -3,6 +3,7 @@ extends Control
 ## With a portrait (set_portrait / portrait_for) it draws that picture and the places on it: S320 her own baked body
 ## (C146 "we have real andropoid,use it"); S353 the muscle holo for every boxer (BodyHolo).
 
+const Palette := preload("res://scripts/ui/Palette.gd")   # S493 Q-251 the one palette
 const BM := preload("res://scripts/rules/BodyMap.gd")
 const BodyTrack := preload("res://scripts/rules/BodyTrack.gd")
 const BodyTip := preload("res://scripts/ui/BodyTip.gd")
@@ -15,14 +16,14 @@ const DESIGN_H := 150.0
 const FLASH_S := 0.35
 
 const BAND_COLOURS := {
-	"fine": Color("#6cc27a"),
-	"hurt": Color("#f0a020"),
-	"critical": Color("#e0503c"),
-	"doctor": Color("#a050e0"),
+	"fine": Palette.GOOD_FILL,
+	"hurt": Palette.WARN,
+	"critical": Palette.BAD_FILL,
+	"doctor": Palette.ELITE,
 }
 
-const FILL := Color(0.18, 0.18, 0.2)
-const OUTLINE := Color(1, 1, 1, 0.35)
+const FILL := Palette.TILE
+const OUTLINE := Color(Palette.TEXT, 0.35)
 
 const NAMES := {
 	"head": "Head", "left_eye": "Left eye", "right_eye": "Right eye",
@@ -138,10 +139,10 @@ func _plate(on: bool) -> void:
 func _paint_skin() -> void:
 	if _skin == null:
 		return
-	var cols: Array[Color] = [Color(0, 0, 0, 0)]
+	var cols: Array[Color] = [Palette.CLEAR]
 	for key in MASK_KEYS:
 		if not _track.has(key):
-			cols.append(Color(0, 0, 0, 0))
+			cols.append(Palette.CLEAR)
 			continue
 		# A fresh part is her own skin and kit; the colour rises in as the part works (blue-for-fresh read as "a blue
 		# statue" in the S324 still - both corners looked the same).
@@ -266,7 +267,7 @@ func _draw() -> void:
 
 
 func _draw_portrait() -> void:
-	var edge := Color(0, 0, 0, 0.7)
+	var edge := Color(Palette.PAGE, 0.7)
 	var strokes: Dictionary = _anchors.get("track", {})
 	var tracked := not _track.is_empty() and (_skin != null or not strokes.is_empty())
 	if _skin == null:
@@ -291,7 +292,7 @@ func _draw_portrait() -> void:
 		elif BM.band(float(_values.get(p, 100.0))) != "fine":
 			# S352 CORNERFIG1: her own red kit under a red hurt spot - solid fill and a light rim so it reads on any vest.
 			_ellipse(c, g["rx"], g["ry"], Color(col.r, col.g, col.b, 0.95))
-			draw_polyline(_ellipse_pts(c, g["rx"], g["ry"]), Color(1, 1, 1, 0.9), maxf(2.0, size.y * 0.01), true)
+			draw_polyline(_ellipse_pts(c, g["rx"], g["ry"]), Color(Palette.TEXT, 0.9), maxf(2.0, size.y * 0.01), true)
 		else:
 			_ellipse(c, g["rx"], g["ry"], Color(col.r, col.g, col.b, 0.62 if p.ends_with("ribs") else 0.92))
 			draw_polyline(_ellipse_pts(c, g["rx"], g["ry"]), edge, 1.0, true)
@@ -313,9 +314,9 @@ func _draw_track(strokes: Dictionary) -> void:
 		var w: float = maxf(3.0, float(st["w"]) * r.size.x) * (1.0 + 0.35 * pu)
 		var col := BodyTrack.colour(float(_track[key])).lerp(Color.WHITE, 0.5 * pu)
 		col.a = TRACK_ALPHA
-		draw_polyline(pts, Color(0, 0, 0, 0.55), w + 2.0, true)
-		draw_circle(pts[0], (w + 2.0) * 0.5, Color(0, 0, 0, 0.55))
-		draw_circle(pts[pts.size() - 1], (w + 2.0) * 0.5, Color(0, 0, 0, 0.55))
+		draw_polyline(pts, Color(Palette.PAGE, 0.55), w + 2.0, true)
+		draw_circle(pts[0], (w + 2.0) * 0.5, Color(Palette.PAGE, 0.55))
+		draw_circle(pts[pts.size() - 1], (w + 2.0) * 0.5, Color(Palette.PAGE, 0.55))
 		draw_polyline(pts, col, w, true)
 		draw_circle(pts[0], w * 0.5, col)
 		draw_circle(pts[pts.size() - 1], w * 0.5, col)

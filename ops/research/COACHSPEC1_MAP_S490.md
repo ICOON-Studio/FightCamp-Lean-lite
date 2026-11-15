@@ -1,6 +1,6 @@
-# COACHSPEC1 - coach roles and specialties (design map, S490, round 3 S492)
+# COACHSPEC1 - coach roles and specialties (design map, S490, round 4 S493)
 
-Status: PROPOSAL, round 3 (S492): the rules a critic found broken in round 2 are rewritten and re-probed (section 11 lists
+Status: PROPOSAL, round 4 (S493): section 12 answers the round-3 critic. Round 3 (S492): the rules a critic found broken in round 2 are rewritten and re-probed (section 11 lists
 each). Per the S425 rule it reaches the operator's board only after two fresh critics score its depth 7 or more. Nothing here
 is built. Screens: `docs/mockups/s490/coach_spec/` (staff_hire, evening_plan; drawn for round 2, section 11 says what they
 must change). Balance probes: `probe_coachspec.py` (round 2) and `probe_coachspec_r3.py` (round 3 rules R1-R7, pads over 12
@@ -41,7 +41,7 @@ Words: the stat is **Stamina** on every screen (operator S443, Q-S294-195; `Data
 | S&C staff job | `scripts/rules/StaffRoles.gd:10,18` | "Strength and conditioning coach, 2 sessions", $100/wk: training injury risk x0.85, a pro camp's bill halved. No effect on gains | yes (`GymSpend.gd:85`) |
 | BJJ coach | `scripts/rules/BjjSide.gd:20-22,42-43` | $34 a one-hour class; 3 adult + 2 beginner classes = $170/wk | yes, as a COST line only |
 | BJJ learning | `scripts/rules/NoGi.gd:16,19` | 3 classes a week, the syllabus move +3.2 mastery a week, flat: the coach has no quality | yes |
-| Mobility | `WeekPlan.gd:40,271-276` | a 20-min morning with no stat; a small conditioning attribute gain at the coach's rating | yes |
+| Mobility | `WeekPlan.gd:40,271-276` | a 20-min morning with no stat; a small Flexibility gain at the coach's rating | yes |
 | Move mastery | `MoveMastery.gd:8,62-79` | 2.1 an hour on pads x (1 + 0.40 x pads rating / 100) x (1 - m / cap); Usable at 30, Sharp at 60 | yes |
 
 ## 2. The gap the idea fills
@@ -58,19 +58,19 @@ Words: the stat is **Stamina** on every screen (operator S443, Q-S294-195; `Data
 Review round 1 found a third model (CoachFit units) beside two agreed ones. This version uses ONLY the agreed two:
 - **Mornings = CoachedMornings** (built, not wired): each week you deal coached mornings - you own 4, a sessional boxing coach
   2, a full-time 3 (`CoachedMornings.gd:19-20`). A coached morning x1.25 (x1.40 on her weak spot); a pair x1.15.
-  NEW: the S&C coach owns his DAYS, not a count. On each of his days the Stamina and strength mornings are his GROUP session:
-  - **R1 better of the two:** the group morning is rated max(his area, the boxing coach's programme area), so a hire never
-    lowers a morning. With the full-time coach (Stamina 90) the S&C coach adds his days and the group bonus, not his rating -
+  NEW: the S&C coach owns their DAYS, not a count. On each of their days the Stamina and strength mornings are his GROUP session:
+  - **R1 better of the two:** the group morning is rated max(their area, the boxing coach's programme area), so a hire never
+    lowers a morning. With the full-time coach (Stamina 90) the S&C coach adds their days and the group bonus, not their rating -
     the hire card says so ("adds days and the group, not rating").
   - **R2 a group needs two:** x1.15 only with 2 to 6 fighters on that morning; one fighter alone trains at x1.00.
-  - **R3 one runner, no stacking:** a morning that you or the boxing coach coach on one of his days is run by that coach
+  - **R3 one runner, no stacking:** a morning that you or the boxing coach coach on one of their days is run by that coach
     (x1.25, x1.40 on the weak spot) and gets no group bonus. The week board shows the runner's coin; the deal only moves a
     morning off the group where the coached morning adds more.
-  A morning nobody coaches runs on the boxing coach's programme: his area rating, x1.00 (today's wired rule, unchanged).
+  A morning nobody coaches runs on the boxing coach's programme: their area rating, x1.00 (today's wired rule, unchanged).
 - **Nights = training_k minutes**: a pad night is 75 min of the boxing coach (`WeekPlan.gd:57`), split between the fighters on
   pads that night (the agreed training_k coach row). A sparring night: the coach referees (training_k). NEW (**R4**): you may
   hold one fighter's whole pad night yourself - 75 min at YOUR pads rating. It costs **2 of your 4** (a full evening against a
-  morning's attention) and at most **1 a week**; that fighter leaves the coach's split, so the others get his whole 75.
+  morning's attention) and at most **1 a week**; that fighter leaves the coach's split, so the others get the whole 75.
 - **Rating = whoever runs it**: every morning and night is rated at the area rating of the person who runs it (CoachAreas, wired).
 - CoachFit's time units, its overrun penalty ("fit -8") and "coach time 10 of 10" are dropped from this map. CoachFit's other
   parts (bond, temper) are untouched and still its own design.
@@ -92,21 +92,24 @@ Review round 1 found a third model (CoachFit units) beside two agreed ones. This
 - Today the head coach rates nothing; keeps the four edges unchanged (`HeadCoach.gd`).
 
 ### 3.2 Boxing coach (the striking coach) - Reid, Hale, Price, Mendez
-- Runs: pad nights (75 min each, split by face), sparring nights (referee), the corner, and his coached mornings (2 sessional,
-  3 full-time). Unattended mornings run on his programme at his area rating (today's rule).
+- Runs: pad nights (75 min each, split by face), sparring nights (referee), the corner, and their coached mornings (2 sessional,
+  3 full-time). Unattended mornings run on their programme at their area rating (today's rule).
 - Areas: as in code (`Data.gd:34-39`, `CoachMarket.gd:12-17`). The role badge reads the top area: "Pads" Reid.
 - The weekly puzzle: three boxers, a Standard week of 3 pad nights each (`PadWeek.gd:54`), but one coach with 3 x 75 min.
   Worked example (evening_plan, a STAND-IN split): Mon Lucy 45 / Josh 30; Wed Kira 75 (you take Lucy); Fri Josh 45 / Lucy 30.
 - Cost: unchanged ($450 sessional is the decided number; $380 / $520 / $1,090 from code).
 - **R7 two boxing coaches** (the slots allow 2, `CoachMarket.MAX_HIRED`): each brings 75 min to every pad night (two coaches
-  = 150 min a night, so three boxers stop sharing one coach), each brings his coached mornings (2 sessional, 3 full-time),
-  and the unattended programme takes the better rating per area. The head boxing coach (the player picks him on the staff
+  = 150 min a night, so three boxers stop sharing one coach), each brings their coached mornings (2 sessional, 3 full-time),
+  and the unattended programme takes the better rating per area. The head boxing coach (the player picks one on the staff
   page) sets the programme's plan; the second holds pads and coaches mornings. Probe: Reid + Price ($830) gives the club's
   moves their first Sharp in week 5 instead of 10 and +17% pad mastery, but only +1.0 stat points - the moves route.
 
+- **R13 class nights cost pads (round 4):** each evening-class night (the +$350 a week the coach already earns, decided
+  numbers) takes 30 of that night's 75 pad minutes. The player picks 0, 1 or 2 class nights: money or moves (P).
+
 ### 3.3 Strength and conditioning coach (mobility inside it) - NEW as a coach, replaces the flat S&C job
-- Runs: MORNINGS ONLY, as group sessions on his days. Never pads, sparring, corner or mat.
-- Days: the player picks his days for the whole club on the week board (2 days for the $100 hire; 4 days for the $200 hire (P)).
+- Runs: MORNINGS ONLY, as group sessions on their days. Never pads, sparring, corner or mat.
+- Days: the player picks their days for the whole club on the week board (2 days for the $100 hire; 4 days for the $200 hire (P)).
 - Areas (P), re-set by the probe (v1 had 80 / 82): candidate A, 2 days, $100/wk (the code's wage, `StaffRoles.gd:10`):
   **Stamina 66, strength 68** - an accredited S&C coach (UKSCA in the UK; CHECK). Candidate B, 4 days, $200/wk (P):
   **Stamina 60, strength 60** - a gym fitness instructor: lower rated, cheaper per day, more days. The card says which.
@@ -116,21 +119,23 @@ Review round 1 found a third model (CoachFit units) beside two agreed ones. This
   0.009 stat points a fighter-week (0.021 overreached) against the 0.099 a half-gain morning costs, and 0.5-1.3% of a bout in
   a BUILD week. An option that never wins is cut, not dressed up.
 - The pro camp bill halved (code) stays.
+- **R12 load (round 4):** a morning the S&C coach runs costs x0.85 of its tiredness (load planned, not just sets), and in a
+  fight week the S&C coach plans the taper: tiredness at the first bell -3 (P). This is the real job (Kalli r3 depth 3).
 
-One Normal morning, Lucy (headroom Stamina 0.90, Power 1.02), probe output:
+One Normal morning, the women's lightweight (headroom Stamina 0.90, Strength 1.02), probe output:
 
-| Who runs the morning | Rating | Mult | Stamina | Strength (Power) |
+| Who runs the morning | Rating | Mult | Stamina | Strength |
 |---|---|---|---|---|
-| Nobody (Reid's programme) | 48 / 46 | x1.00 | 0.150 | 0.168 |
+| Nobody (the sessional coach's programme) | 48 / 46 | x1.00 | 0.150 | 0.168 |
 | You (P) | 40 | x1.25 | 0.175 | - |
-| Reid coaching it | 48 | x1.25 | 0.187 | - |
+| The sessional coach coaching it | 48 | x1.25 | 0.187 | - |
 | S&C B, group (P) | 60 / 60 | x1.15 | 0.190 | 0.217 |
 | S&C A, group (P) | 66 / 68 | x1.15 | 0.198 | 0.230 |
-| Hale's programme | 90 / 84 | x1.00 | 0.202 | 0.223 |
+| The full-time coach's programme | 90 / 84 | x1.00 | 0.202 | 0.223 |
 
-Per fighter of the test club (staff_hire "On your fighters"; Reid's programme -> S&C A group):
-women's lightweight Stamina 0.150 -> 0.198, Power 0.168 -> 0.230; women's featherweight 0.187 -> 0.248, 0.206 -> 0.281;
-men's welterweight 0.094 -> 0.124, 0.105 -> 0.144 (he is near his potential: the player puts the S&C days where the young ones
+Per fighter of the test club (staff_hire "On your fighters"; the sessional coach's programme -> S&C A group):
+women's lightweight Stamina 0.150 -> 0.198, Strength 0.168 -> 0.230; women's featherweight 0.187 -> 0.248, 0.206 -> 0.281;
+men's welterweight 0.094 -> 0.124, 0.105 -> 0.144 (near the ceiling: the player puts the S&C days where the young ones
 train hard).
 
 ### 3.4 BJJ coach - the no-gi coach gets a belt
@@ -144,24 +149,27 @@ train hard).
   a fee (P). So the belt hire is a ceiling on the athlete's career, not only a drill rate. Sources: section 7.
 - Gi: out of scope. Wrestling for takedowns: waits for the wrestling sport.
 
-### 3.6 The corner (R6)
-- On fight night the corner man is you or a boxing coach. His **sparring** rating (ring reading) sets how much of a GOOD
-  call lands: a right call's edge x (0.8 + 0.004 x rating) on top of her uptake (`Exchanges.uptake` / `call_edge`, wired):
-  you 40 -> 0.96, Ex-pro 55 -> 1.02, Reid 58 -> 1.03, Hale 66 -> 1.06, Mendez 72 -> 1.09. A wrong call is unchanged.
-- The pick is a real choice on a club show night with two of your boxers on the card: one coach per corner, so somebody
-  gets you (or the second coach).
-
-### 3.7 Staff over months (R9, owner question 6)
-- A coach's area rises +1 for every 12 weeks he runs that area (mornings coached, pad minutes held), up to +8 over his
-  start (P). A boxing coach given no pad night and no coached morning for 4 weeks asks to leave (the existing notice rule).
-
 ### 3.5 Hiring rules (one budget)
 - Slots: you (always), up to 2 boxing coaches (`CoachMarket.MAX_HIRED`), one S&C, one BJJ coach (only with a BJJ athlete).
 - Signing fee: $1,000 for a boxing coach (code). S&C and BJJ: a week's pay to let go (`StaffRoles.notice`), no signing fee (P).
 
+### 3.6 The corner (R10, round 4: replaces R6)
+- On a club show the club's boxing coach works EVERY corner for the club - bouts run one after another and club mates are never
+  matched (England Boxing practice; Kalli's round-3 fault 1). So there is no corner pick: the corner is the head boxing coach,
+  or you when none is hired.
+- The corner's **sparring** rating (ring reading) adds to a GOOD call's edge and never takes away (fault 2: today's x1.0 is
+  the floor): edge x (1 + 0.004 x max(0, sparring - 40)). You 40 -> x1.00 (today), Ex-pro 55 -> 1.06, sessional 58 -> 1.07,
+  full-time 66 -> 1.10, the women's-coach candidate 72 -> 1.13. A wrong call is unchanged. Not probed over a bout: it can
+  only add, so no club is worse than today; the size is read in the build's probe and shown on the hire card.
+
+### 3.7 Staff over months (R11, round 4: growth CUT)
+- Kalli round 3: +1 a quarter is too slow to feel and was never shown. Cut. A coach's ratings are what the hire card says.
+- Kept: a boxing coach given no pad night and no coached morning for 4 weeks asks to leave - now WARNED: the week review shows
+  "the coach has had no work for 3 weeks" one week before the notice.
+
 ## 4. What the player decides each week
-1. Which two (or four) days are the S&C coach's, and lining each fighter's Stamina / strength mornings up with them (his days
-   are a teal chip on the day header and a teal tint on every morning he runs).
+1. Which two (or four) days are the S&C coach's, and lining each fighter's Stamina / Strength mornings up with them (their days
+   are a teal chip on the day header and a teal tint on every morning they run).
 2. Where your 4 go: four coached mornings (x1.25 at your rating), or one fighter's whole pad night (75 min at your pads
    rating, costs 2) and two mornings. 12-week probe (Reid route): the night trades 1.9% of the club's stat points for the
    club's first Sharp move in week 7 instead of 10 - worth it when a move sits under a line before sparring or a bout.
@@ -169,29 +177,29 @@ train hard).
    `PadWeek.gd:384-394`), and the featherweight gets the coach's whole 75 (check hook 12 -> 21.1); costs one coached morning.
    Or your coach holds them 45 min -> 28.0, Usable Fri, and the featherweight gets 30 (-> 15.7). (Uppercut 18.5 and check hook
    12 at the start of the week are STAND-INS; every step after is `MoveMastery.gain`.)
-3. Fight night: who works which corner when two of your boxers are on one card (3.6).
-4. On the mat: whether the athlete teaches the beginners (code: saves $68 a week, costs her one class), and which belt of
+3. On the mat: whether the athlete teaches the beginners (code: saves $68 a week, costs her one class), and which belt of
    coach to pay for - the ceiling on her promotions (3.4).
-5. Over months: which role to hire next with one budget - stats (S&C, full-time coach) or moves (a second boxing coach),
-   section 6 - and which coach to keep busy so he grows (3.7).
+4. Over months: which role to hire next with one budget - stats (S&C, full-time coach) or moves (a second boxing coach),
+   section 6 - and which coach to keep busy (a coach with no work for 4 weeks asks to leave, 3.5).
 
 ## 5. Every menu the mechanic appears on (S425 rule)
 
 | Menu | What shows | Wired to | Exists? |
 |---|---|---|---|
 | Club > People > Staff (hire) | role cards (you, boxing, S&C, BJJ) with what each runs (sun / moon / stool / mat with a word under each), 5 area meters with the area word, the 4 / 2 + 3 a week; S&C candidates with his days, Stamina and Strength meters against today's tick, the injury shield, "adds days and the group, not rating" when the full-time coach out-rates him; per-fighter 12-week totals before -> after (never one morning's %); the hiring routes with $/week, 12-week stat points AND pad mastery + first Sharp week (two columns: stats, moves) | `Data.COACHES` + `CoachMarket.market()` (+ `role`), `StaffRoles` (S&C becomes a coach record with areas and days), `BjjSide` (+ belt), `CoachedMornings.owned`, probe numbers (to become a forecast call) | screen exists (StaffCard); roles NEW. Mockup `staff_hire` |
-| Fighter Week (training board) | S&C DAYS row (his chips), COACH row in minutes by face (training_k) with your slice, morning tiles tinted by who runs them + coin, evening tiles with the coin of who holds the pads, the decision box for a night (hold her pads: costs 2 suns), THIS WEEK in totals (stat points, mastery) | `WeekPlan.coach_for` reads the runner of THAT slot (ctx `coach` becomes per-slot); `CoachedMornings.deal`; PadWeek night minutes per fighter (`nights.per` already exists, `PadWeek.gd:332-334`) | board exists (training_k agreed look); roles NEW. Mockup `evening_plan` |
+| Fighter Week (training board) | S&C DAYS row (their chips), COACH row in minutes by face (training_k) with your slice, morning tiles tinted by who runs them + coin, evening tiles with the coin of who holds the pads, the decision box for a night (hold her pads: costs 2 suns), THIS WEEK in totals (stat points, mastery) | `WeekPlan.coach_for` reads the runner of THAT slot (ctx `coach` becomes per-slot); `CoachedMornings.deal`; PadWeek night minutes per fighter (`nights.per` already exists, `PadWeek.gd:332-334`) | board exists (training_k agreed look); roles NEW. Mockup `evening_plan` |
 | No-gi athlete page | THE MAT COACH: belt, drill rate a week, classes, "can promote up to: purple" (her ceiling under this coach) | `NoGi.DRILL_GAIN` x belt mult (P), `BjjSide.coach_week`, promotion ceiling by coach belt (R8) | page exists; belt + ceiling NEW |
 | Money | coach wages grouped by role in WHERE IT GOES | `StaffRoles.wages`, `GameMoney`, `BjjSide.money` | exists; grouping NEW |
-| Week review (Monday) | "Stamina +0.198 on the S&C morning"; "pads: 1 night with you, 2 with your coach" | WeekPlan results by slot | exists; lines NEW |
-| Fight night corner | who works the corner (face + role) and his ring-reading meter; on a two-boxer card, one coach per corner | corner pick -> `Exchanges.call_edge` x (0.8 + 0.004 x sparring) (R6) | partly; the effect NEW |
+| Week review (Monday) | "Stamina +0.198 on the S&C morning"; "pads: 1 night with you, 2 with your coach"; R14: "You held her pads on Wednesday: the uppercut turned Usable"; R11: "the coach has had no work for 3 weeks" | WeekPlan results by slot, MoveMastery tier change by slot | exists; lines NEW |
+| Fight log / result page | R14: "the uppercut from Wednesday's pads landed 3 times" (a move whose band rose on a night YOU held, landed in this bout) | `FightStats` lands by move + the slot record | NEW |
+| Fight night corner | the club coach in the corner (face + role) and their ring-reading meter with "+7% on a good call" | `Exchanges.call_edge` x (1 + 0.004 x max(0, sparring - 40)) (R10) | partly; the effect NEW |
 
 ## 6. Balance probe (run, not argued)
 `python docs/mockups/s490/coach_spec/probe_coachspec.py`: the test club (Lucy, Kira, Josh; `Data.gd`), the base week
 (`WeekPhase.gd:26-27`), 12 weeks, headroom re-read every week, coached mornings dealt greedily where they add most, morning
 stats only. Club stat points gained in 12 weeks:
 
-| Route | $/wk (coaches) | Stamina | Power | Speed | All | $ per extra point vs Reid alone |
+| Route | $/wk (coaches) | Stamina | Strength | Speed | All | $ per extra point vs Reid alone |
 |---|---|---|---|---|---|---|
 | Reid alone | 450 | 14.79 | 13.28 | 3.37 | 31.44 | - |
 | Reid + $100 S&C A (66 / 68) | 550 | 16.49 | 14.21 | 3.37 | 34.08 (+2.64) | 454 |
@@ -200,9 +208,9 @@ stats only. Club stat points gained in 12 weeks:
 | v1: Reid + $100 S&C at 80 / 82 | 550 | 17.02 | 14.87 | 3.37 | 35.26 (+3.82) | 314 |
 | No coach, you at 40 (first hour) | 0 | 11.13 | 11.73 | 2.15 | 25.02 | - |
 
-Reading: v1's 80 / 82 gave the $100 S&C as many points as the $200 one and 59% of Hale's for 16% of his extra money - the
+Reading: v1's 80 / 82 gave the $100 S&C as many points as the $200 one and 59% of Hale's for 16% of the full-time coach's extra money - the
 reviewer was right. At 66 / 68 the ladder is clean: each dearer route buys more points, each at a worse price, and Hale stays
-the most points in the club. Hale's other side: his pads 58 (+23%) against Reid's 74 (+30%), so the Hale route loses on move
+the most points in the club. The full-time coach's other side: pads 58 (+23%) against Reid's 74 (+30%), so the Hale route loses on move
 learning - a real trade, shown on staff_hire. With no coach hired, you at 40 give 25.0 against 22.3 if your coached mornings
 ran at the no-coach rating (CoachedMornings as designed): +12%, while Reid still adds +26% over that - the first hire stays
 needed.
@@ -248,7 +256,7 @@ column. Not probed: the corner's call reach over a bout (R6), staff growth (R7),
 - UKSCA as the UK S&C accrediting body: CHECK (from memory).
 - US: USA Boxing certifies coaches by level; most amateur gym coaches are volunteers or paid per session by the fighter; a pro
   trainer takes ~10% of the purse (the game's trainer 10%, CRITIC_PACK 4.13). UNVERIFIED this session.
-- $450/wk sessional (decided) = GBP 360 = ~16 h at GBP 22: three evenings and two mornings - matches "2 + 3" on his card.
+- $450/wk sessional (decided) = GBP 360 = ~16 h at GBP 22: three evenings and two mornings - matches "2 + 3" on the coach's card.
 
 ## 8. Room for later sports (not designed now)
 The role table is data: role -> what it may run -> areas. A wrestling coach later = one role row with new areas (takedowns,
@@ -306,7 +314,7 @@ To 10:
 ## 11. Review round 3 (S492) - each fault a round-2 critic found, and what was done
 1. An S&C hire lowered Stamina beside the full-time coach -> R1 better-of rule (3.0); probe: Hale + S&C A +1.38, B +2.23.
 2. The x1.15 group bonus without a group -> R2: 2 to 6 fighters on the morning, x1.00 alone.
-3. No overlap rule -> R3: one runner per morning; a coached morning on his day gets x1.25, never the group bonus as well.
+3. No overlap rule -> R3: one runner per morning; a coached morning on their day gets x1.25, never the group bonus as well.
 4. Your held pad night likely dominant and unprobed -> probed over 12 weeks (section 6): at a cost of 1 it was near free;
    R4 makes it cost 2 of your 4, at most 1 a week: a trade of 1.9% of stats for a Sharp move three weeks sooner.
 5. The 12-week points left out pads -> the route table and the hire screen carry pad mastery and the first Sharp week.
@@ -324,4 +332,55 @@ To 10:
     card headers (owner S448). The round-2 mockups still carry the old labels and the old per-morning %: they are redrawn
     with the build, not before the critics' depth verdict.
 Small: candidate B's lower rating has its reason on the card (fitness instructor against an accredited S&C coach); B's Speed
-rise in round 2 came from your coached mornings moving off Stamina once his four days took those mornings.
+rise in round 2 came from your coached mornings moving off Stamina once their four days took those mornings.
+
+## 12. Review round 4 (S493) - each fault Kalli found in round 3 (depth 6, general 5, play 5), and what was done
+Maria scored round 3 depth 7, general 6, play 6; Kalli's lower score sets the work.
+
+General design:
+1. The corner pick is false to the sport -> R10 (3.6): the club coach works every corner at a show; no pick.
+2. R6 made no-coach corners worse than today -> R10 floors the edge at x1.00: a hire can only add.
+3. Fixed "he" for coaches -> they / the coach / role words throughout.
+4. Names in rules and rows -> role words (the sessional coach, the full-time coach, the women's lightweight); names stay only
+   as candidate names on cards and in the probe's route labels.
+5. Power / mobility words -> Strength, Flexibility (the Attrs words).
+6. Section order -> 3.5 before 3.6 and 3.7.
+
+Depth:
+1. No common currency -> the WINS column below (pack conversions: 5 points better in stats = 72% vs 50%, so about +4.4 wins
+   in 100 a point on every stat; a Sharp planned line over Usable = +2.8 wins in 100).
+2. No money pressure -> the MEMBERS column below: how many more members pay for the route.
+3. The S&C coach ignored load -> R12 (3.3): their mornings cost x0.85 tiredness; they plan the fight-week taper (-3 at the bell).
+4. Unprobed rules: R10 cannot make any club worse (floor); R11 growth is cut; the BJJ ceiling is a career rule, read in the
+   living-world probe, and stays marked (P).
+
+Play:
+- R14: the moment is paid off - the week review and the fight log say which night YOU held made a move, and that it landed.
+- R11: the leaving rule warns a week ahead.
+- R13: class nights take pad minutes, so the coach's week is money against moves, the trade every real club makes.
+
+Missing (Kalli's list) -> 1 R12, 2 the wins column, 3 R13, 4 R12's taper, 5 the roster break point below.
+
+### The route table with wins and money (from section 6's probe, converted; est.)
+Club of three boxers. "Wins" = extra stat points spread over 3 fighters and about 6 fight stats, x 4.4 wins in 100 a point
+(linear near an even matchup). "Members" = extra wage / $8.08 a member a week ($35 a month dues).
+
+| Route | $/wk | Extra stat points 12 wk | Wins in 100, each fighter | First Sharp | Members to pay for it |
+|---|---|---|---|---|---|
+| Sessional coach alone | 450 | - | - | week 10 | - |
+| + S&C A | 550 | +2.64 | +0.6 | week 10 | +13 |
+| + S&C B | 650 | +3.79 | +0.9 | week 10 | +25 |
+| + a second boxing coach | 830 | +1.01 | +0.2, and +2.8 a bout in weeks 5-9 (Sharp 5 weeks sooner) | week 5 | +47 |
+| Full-time coach | 1,090 | +6.51 | +1.6 | week 10 | +79 |
+| Full-time + S&C B | 1,290 | +8.75 | +2.1 | week 10 | +104 |
+
+Reading: the stats routes buy little per bout but last a career; the moves route buys a lot for the bouts in weeks 5-9 and
+nothing after week 10. A club with a bout booked soon takes moves; a club building for nationals takes stats. Money decides
+how far up either ladder a club can go: a 30-member club pays for the S&C A hire with 13 more members, not for the full-time
+coach. No route is best for every club.
+
+### Roster break point (est.; the build's probe reads it)
+One boxing coach holds 75 pad minutes a night. From evening_plan: 75 min moves a drilled line about one band in a night,
+45 min about 60% of that. Three boxers at 25 min each: a band in about three nights. Past three boxers on pads the first Sharp
+move slips past week 12; the second boxing coach (150 min a night) is the fix, and the hire card says so when a fourth boxer
+signs.

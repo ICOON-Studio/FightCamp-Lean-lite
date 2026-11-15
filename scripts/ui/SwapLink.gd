@@ -2,8 +2,9 @@ extends Control
 ## S442 LOOP corner cards (CornerSwapCards): the hover line from a swap card to the lost line's place on the ring strip
 ## (the place opens a second line "C → Double jab"), and the cards' worth bar.
 
+const Palette := preload("res://scripts/ui/Palette.gd")   # S493 Q-251 the one palette
 const Halo := preload("res://scripts/ui/Halo.gd")
-const POOR := Color("#e06060")
+const POOR := Palette.BAD
 
 
 var pin_name := ""
@@ -26,7 +27,7 @@ func point(from: Control, to: Control, words: String) -> void:
 			said.visible = words != ""
 		var sb := to.get_theme_stylebox("panel") as StyleBoxFlat
 		if sb != null:
-			sb.border_color = Halo.CHALK if words != "" else Color("#3a2e26")
+			sb.border_color = Halo.CHALK if words != "" else Palette.LINE
 	position = Vector2.ZERO
 	size = get_viewport_rect().size if is_inside_tree() else Vector2.ZERO
 	queue_redraw()
@@ -47,13 +48,13 @@ func _draw() -> void:
 class WorthBar extends Control:
 	var was := 0.0
 	var worth := 0.0
-	var fill := Color.WHITE
+	var fill := Palette.TEXT
 
 	func _x(v: float) -> float:
 		return clampf((v + 7.0) / 16.0, 0.0, 1.0) * size.x
 
 	func _draw() -> void:
-		draw_rect(Rect2(Vector2.ZERO, size), Color("#2e2520"))
+		draw_rect(Rect2(Vector2.ZERO, size), Palette.HOVER)
 		var a := _x(was)
 		draw_rect(Rect2(a, 0, maxf(2.0, _x(worth) - a), size.y), fill)
 		draw_rect(Rect2(a - 2.0, -5.0, 4.0, size.y + 10.0), POOR)

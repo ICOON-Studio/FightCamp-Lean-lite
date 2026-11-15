@@ -3,6 +3,7 @@ extends RefCounted
 ## the plan. Every cell comes from the bout's exchange records; nothing is written here.
 ##   round_strip(m, names, lab)   exchanges(m, names)   numbers(main, m, f, opp, names)   plan(m, names)
 
+const Palette := preload("res://scripts/ui/Palette.gd")   # S493 Q-251 the one palette
 const UI := preload("res://scripts/ui/TV.gd")
 const Broadcast := preload("res://scripts/ui/Broadcast.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
@@ -21,7 +22,7 @@ const ResultMarks := preload("res://scripts/ui/ResultMarks.gd")
 const ResultCause := preload("res://scripts/ui/ResultCause.gd")
 
 const TEXT := 20
-const FIT_COL := {"best": Color("#6cc27a"), "ok": Color("#6cc27a"), "wrong": Color("#e0503c"), "none": Color("#b5a595")}
+const FIT_COL := {"best": Palette.GOOD, "ok": Palette.GOOD, "wrong": Palette.BAD, "none": Palette.MUTED}
 
 
 ## Three rounds side by side: who took it and how the judges saw it, a square an exchange in its winner's colour with the
@@ -41,7 +42,7 @@ static func round_strip(m: Dictionary, names: Array, lab: Dictionary) -> HBoxCon
 		var exs: Array = r.get("exchanges", [])
 		var won := exs.filter(func(x): return bool(x["won"])).size()
 		var top := UI.hbox(12)
-		top.add_child(UI.label("ROUND %d" % (i + 1), 24, Color.WHITE, "display"))
+		top.add_child(UI.label("ROUND %d" % (i + 1), 24, Palette.TEXT, "display"))
 		top.add_child(UI.label("%d-%d" % [won, exs.size() - won], 24, (Broadcast.HERS if bool(r["won"]) else Broadcast.THEIRS).lightened(0.3), "display"))
 		top.add_child(UI.spacer())
 		top.add_child(UI.label(_judges_word(per, i, names), TEXT, UI.MUTED))
@@ -85,7 +86,7 @@ static func _square(x: Dictionary, r: Dictionary, names: Array, cause: String) -
 	sq.mouse_filter = Control.MOUSE_FILTER_PASS
 	sq.tooltip_text = _tip(x, names)
 	var l: Array = x.get("landed", [0, 0])
-	var t := UI.label("%d-%d" % [int(l[0]), int(l[1])], 20, Color.WHITE, "bold")
+	var t := UI.label("%d-%d" % [int(l[0]), int(l[1])], 20, Palette.TEXT, "bold")
 	t.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	sq.add_child(t)
 	v.add_child(sq)
@@ -138,7 +139,7 @@ static func exchanges(m: Dictionary, names: Array) -> VBoxContainer:
 		var row := UI.hbox(8)
 		var head := UI.vbox(0)
 		head.custom_minimum_size = Vector2(150, 0)
-		head.add_child(UI.label("ROUND %d" % int(r["n"]), 24, Color.WHITE, "display"))
+		head.add_child(UI.label("ROUND %d" % int(r["n"]), 24, Palette.TEXT, "display"))
 		var call := str(r.get("corner", ""))
 		head.add_child(UI.label("Call: %s" % FightStats.call_word(call) if call != "" else "No call", 18, UI.MUTED, "body", true))
 		row.add_child(head)
@@ -168,7 +169,7 @@ static func _ex_card(x: Dictionary, r: Dictionary, names: Array) -> PanelContain
 	var l: Array = x.get("landed", [0, 0])
 	top.add_child(UI.label("%d-%d" % [int(l[0]), int(l[1])], 24, col.lightened(0.35), "display"))
 	v.add_child(top)
-	v.add_child(UI.label(FightStats.game_word(str(x.get("mode", ""))), 18, Color.WHITE, "bold"))
+	v.add_child(UI.label(FightStats.game_word(str(x.get("mode", ""))), 18, Palette.TEXT, "bold"))
 	var place := int(x.get("place", -1))
 	if place >= 0 and place < RingDuel.PLACE_WORD_CAP.size():
 		v.add_child(UI.label(str(RingDuel.PLACE_WORD_CAP[place]) + (", on the ropes" if bool(x.get("pinned", false)) else ""), 16, UI.MUTED))
@@ -266,12 +267,12 @@ static func plan(m: Dictionary, names: Array) -> HBoxContainer:
 		var fit := "none" if sit == "" else PlanFight.fit(str(a["move"]), sit)
 		var line := UI.hbox(10)
 		line.add_child(_tag("ABCDEFGHI"[i] if i < 9 else "", UI.GOLD))
-		var words := UI.label("%s, %s → %s" % [place, cond, _move(str(a["move"]))], TEXT, Color.WHITE, "body", true)
+		var words := UI.label("%s, %s → %s" % [place, cond, _move(str(a["move"]))], TEXT, Palette.TEXT, "body", true)
 		line.add_child(words)
 		line.add_child(UI.label(str(PlanLines.FIT_WORDS.get(fit, "")), TEXT, FIT_COL.get(fit, UI.MUTED), "bold"))
 		var u: Array = uses.get(str(a["move"]), [])
 		var res := UI.label("never used" if u.is_empty() else "won %d of %d" % [u.filter(func(w): return w).size(), u.size()], TEXT,
-			UI.MUTED if u.is_empty() else Color.WHITE)
+			UI.MUTED if u.is_empty() else Palette.TEXT)
 		res.custom_minimum_size = Vector2(150, 0)
 		line.add_child(res)
 		lv.add_child(line)

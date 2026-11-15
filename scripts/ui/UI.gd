@@ -8,14 +8,15 @@ extends RefCounted
 const Bar := preload("res://scripts/ui/Bar.gd")
 const Plate := preload("res://scripts/ui/Plate.gd")
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")   # S417 the approved wood and slate look
+const Palette := preload("res://scripts/ui/Palette.gd")   # S493 the one palette (Q-251)
 const GameMoney := preload("res://scripts/rules/GameMoney.gd")
 const Sfx := preload("res://scripts/audio/Sfx.gd")
 
 const BG := Color("#cfe0ea")       # the gym wall
 const PANEL := Color("#f6efe0")    # a card: cream paper (S412 operator: "reminds web browser not a game")
-const TOP_BAR := Color("#17130f")
-const TOP_INK := Color("#efe6d8")
-const TOP_SOFT := Color("#b8a88f")
+const TOP_BAR := Palette.PAGE
+const TOP_INK := Palette.TEXT
+const TOP_SOFT := Palette.MUTED
 const PANEL2 := Color("#ebe1cc")   # a pressed or raised card
 const LINE := Color("#d3c7ae")     # card borders, rules
 const ROWLINE := Color("#ddd2bc")  # the dotted lines between rows
@@ -27,17 +28,17 @@ const GOLD := Color("#27589e")     # ring-canvas blue (primary)
 const GOLD_LIP := Color("#16325c")
 const PLATE := Color("#e4d8bf")    # S412 a quiet button: a tan plate with a lip
 const PLATE_LIP := Color("#b09c78")
-const DARK := Color("#2b241d")     # a dark plate: tabs, the main secondary button
+const DARK := Palette.HOVER     # a dark plate: tabs, the main secondary button
 const DARK_LIP := Color("#0e0b08")
 const GOLD_INK := Color("#ffffff")
-const RED := Color("#e2483d")
-const GREEN := Color("#23935d")
-const AMBER := Color("#d97a00")
+const RED := Palette.BAD_FILL
+const GREEN := Palette.GOOD_FILL
+const AMBER := Palette.WARN
 const YELLOW := Color("#ffd54a")   # sticky notes
 const YELLOW_EDGE := Color("#d9b235")
 const MINT := Color("#9fe0c0")
 const SKY := Color("#bfd8ff")
-const PURPLE := Color("#8a5cf0")
+const PURPLE := Palette.ELITE
 
 const BODY := 19
 const SMALL := 16
@@ -206,11 +207,11 @@ static func theme() -> Theme:
 	# S359 (operator on a whiteboard hover: "unreadable"): the engine's tooltip was see-through grey on grey. Solid ink,
 	# white words, body size.
 	# S491 (operator: "we need to have a cohesive interface"): the engine's tooltip wears the house card (Tips.gd colours).
-	var tip := box(Color("#fffdf6"), Color("#d8d4cb"), 4, 1, 14, 10)
+	var tip := box(Palette.HOVER, Palette.LINE, 4, 1, 14, 10)
 	tip.shadow_color = Color(0, 0, 0, 0.22)
 	tip.shadow_size = 6
 	t.set_stylebox("panel", "TooltipPanel", tip)
-	t.set_color("font_color", "TooltipLabel", Color("#1f2a44"))
+	t.set_color("font_color", "TooltipLabel", Palette.TEXT)
 	t.set_font("font", "TooltipLabel", font("body"))
 	t.set_font_size("font_size", "TooltipLabel", BODY)
 	_theme = t

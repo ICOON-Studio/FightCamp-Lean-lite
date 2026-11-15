@@ -3,6 +3,7 @@ extends RefCounted
 ##   mount(panel, main, m) draws it on the fight-night panel; mount(.., false) = no buttons (the 3D intro, S436).
 ##   tape_rows(f, opp, her_cm) is the same list every tape screen reads (TapeRows).
 
+const Palette := preload("res://scripts/ui/Palette.gd")   # S493 Q-251 the one palette
 const UI := preload("res://scripts/ui/UI.gd")
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const VersusPanel := preload("res://scripts/ui/VersusPanel.gd")
@@ -108,15 +109,15 @@ static func _card(main: Node, c: Career, f: Dictionary, opp: Dictionary, m: Dict
 ## The camp and scouting lines belong to the decision before the fight and stay on fight night's own page.
 const BROADCAST := ["Record", "Age", "Weight", "Height", "Reach", "Stance", "Style"]
 const DASH := "-"
-const BAND := Color(0.0, 0.0, 0.0, 0.42)
+const BAND := Color(Palette.PAGE, 0.42)
 const BAND_H := 54.0
 const BAND_W := 700.0
 const EDGE_W := 6.0
-const INK := Color("#f4efe4")
-const INK_SOFT := Color("#cfc7b8")
-const BETTER := Color("#58d68d")
-const EDGE_RED := Color("#e2483d")
-const EDGE_BLUE := Color("#3f7fe0")
+const INK := Palette.TEXT
+const INK_SOFT := Palette.MUTED
+const BETTER := Palette.GOOD
+const EDGE_RED := Palette.RED_CORNER
+const EDGE_BLUE := Palette.BLUE_CORNER
 
 
 static func _broadcast(c: Career, f: Dictionary, opp: Dictionary, m: Dictionary) -> Control:
@@ -208,7 +209,7 @@ static func _edge(colour: Color) -> ColorRect:
 
 ## Words that sit straight on the walls get a soft dark shadow so they read on the red and on the blue.
 static func _shade(l: Label) -> void:
-	l.add_theme_color_override("font_shadow_color", Color(0, 0, 0, 0.7))
+	l.add_theme_color_override("font_shadow_color", Color(Palette.PAGE, 0.7))
 	l.add_theme_constant_override("shadow_offset_x", 0)
 	l.add_theme_constant_override("shadow_offset_y", 2)
 	l.add_theme_constant_override("shadow_outline_size", 6)

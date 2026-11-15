@@ -296,6 +296,10 @@ func _bell() -> Control:
 		var st := Shapes.stamp(f, mid)
 		if st != null:
 			row.add_child(st)
+		var spots := PlanLines.blind(arrows, place)   # S493 WHYGRADE1: a line with no IF is thrown whatever happens here
+		if not spots.is_empty():
+			row.add_child(Icons.icon("info", 16, UI.AMBER, "Walks into it when %s.
+With no IF, this line is thrown whatever happens here: add an IF for that." % " or ".join(PackedStringArray(spots.map(func(w): return str(FightFlow.WHEN_WORDS[w]))))))
 		v.add_child(row)
 		if i >= 0 and _bouts.has(mid):   # S373 FLOWBOUT1: how the range's move has done in real bouts, under its row
 			var said := UI.hbox(0)

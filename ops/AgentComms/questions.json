@@ -7723,7 +7723,7 @@
       "answer": "c but make it simpler to understand i think its to complecated",
       "note": null,
       "answered_at": "2026-11-15T17:00:35Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "comment_only": true
     },
     {
@@ -7742,7 +7742,7 @@
       "answer": "Change first (say what)",
       "note": null,
       "answered_at": "2026-11-15T17:17:49Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "comment_only": false
     },
     {
@@ -7764,7 +7764,7 @@
       "answer": "Why do you make the ladder scripted,make it so player can deicde whos the best opponent for his fighter at any given time and apply rules",
       "note": null,
       "answered_at": "2026-11-15T17:14:18Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "comment_only": true
     },
     {
@@ -7784,8 +7784,59 @@
       "answer": "i have no idea , do it and i will judge",
       "note": null,
       "answered_at": "2026-11-15T17:12:41Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "comment_only": true
+    },
+    {
+      "id": "Q-S294-252",
+      "asked": "2026-11-15T17:54:03.431741+00:00",
+      "session": "S294",
+      "text": "Training K v4 - your 3 marks done: (1) THIS WEEK is now two plain rows (move, bar, 12 -> 28, when it is usable); (2) no circles: the pictures are rounded squares showing the whole icon; (3) the Lights/Standard/Hard/Yours/Coach's week row and the red bands are gone (one 'too tired' line stays). Build it as drawn?",
+      "options": [
+        "Build it",
+        "Change more (say what)"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-252_0_training_k_v4.png"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-253",
+      "asked": "2026-11-15T17:55:07.416505+00:00",
+      "session": "S294",
+      "text": "Rival club card, option C made simpler (your 'its to complecated'): three answers, each says only what happens to her, the loyalty bar (white mark = 50, where she stops looking), and what it costs. Talk-first is one button above. Build it as drawn?",
+      "options": [
+        "Build it",
+        "Change more (say what)"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-253_0_overview_C2.png"
+      ],
+      "answer": "Build it",
+      "note": null,
+      "answered_at": "2026-11-15T18:13:22Z",
+      "seen_by_claude": false,
+      "comment_only": false
+    },
+    {
+      "id": "Q-S294-254",
+      "asked": "2026-11-15T17:59:49.605993+00:00",
+      "session": "S294",
+      "text": "Miro 'Where we are' map: it has 16 empty card slots left over from older layouts. May the redraw delete them (only empty slots, no cards with text)?",
+      "options": [
+        "Yes, delete the empty slots",
+        "No, keep them"
+      ],
+      "attach": [],
+      "answer": "Yes, delete the empty slots",
+      "note": null,
+      "answered_at": "2026-11-15T18:11:56Z",
+      "seen_by_claude": false,
+      "comment_only": false
     }
   ]
 }

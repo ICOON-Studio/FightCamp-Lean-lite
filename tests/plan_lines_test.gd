@@ -21,6 +21,7 @@ func _initialize() -> void:
 	_test_3_options_rated()
 	_test_4_strength()
 	_test_5_coach_lines()
+	_test_6_blind_spots()
 	print("PLAN_LINES %s" % ("PASS" if _fails == 0 else "FAIL %d" % _fails))
 	quit(0 if _fails == 0 else 1)
 
@@ -92,6 +93,17 @@ func _test_5_coach_lines() -> void:
 		var s := PlanLines.skill_for(n)
 		_check(PlanBoard.arrow_limit(s) == n and PlanBoard.arrow_limit(s - 1) == n - 1, "test 5: coach %d holds %d lines" % [s, n])
 	_check(PlanLines.skill_for(4) == 0, "test 5: the newest coach holds 4")
+
+
+## S493 WHYGRADE1 shown: an any-time tie up inside walks into a tiring or hurt opponent (fit wrong) until an IF covers it.
+func _test_6_blind_spots() -> void:
+	var any_time := [{"move": "tie_up"}]
+	var spots := PlanLines.blind(any_time, "inside")
+	_check(spots.has("tiring") and spots.has("hurt") and not spots.has("she_tired"), "test 6: any-time tie up walks into tiring and hurt (%s)" % [spots])
+	var covered := [{"move": "tie_up"}, {"move": "3b-3@inside", "when": "tiring"}]
+	_check(not PlanLines.blind(covered, "inside").has("tiring"), "test 6: an IF for tiring at that place closes the spot")
+	_check(PlanLines.blind([{"move": "tie_up", "when": "she_tired"}], "inside").is_empty(), "test 6: a line that says WHEN has no blind spot")
+	_check(PlanLines.blind([], "inside").is_empty(), "test 6: no line, no blind spot")
 
 
 func _opt(opts: Array, id: String) -> Dictionary:

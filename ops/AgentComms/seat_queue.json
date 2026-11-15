@@ -2723,22 +2723,64 @@
    "seat": "kalli",
    "brief": "research/DESIGN_COACHSPEC1_R3_CRITIC_KALLI.md",
    "stem": "DESIGN_COACHSPEC1_R3_CRITIC_KALLI_KALLI",
-   "status": "sent",
+   "status": "answered",
    "queued_at": "2026-11-15 18:53",
    "tries": 0,
    "sent_at": "2026-11-15 19:10",
-   "sent_ms": 1794762646605
+   "sent_ms": 1794762646605,
+   "answered_at": "2026-11-15 19:40",
+   "answer": "research/DESIGN_COACHSPEC1_R3_CRITIC_KALLI_KALLI.md",
+   "chars": 9809,
+   "seen_by_claude": true
   },
   {
    "id": "SQ184",
    "seat": "maria",
    "brief": "research/DESIGN_COACHSPEC1_R3_CRITIC_MARIA.md",
    "stem": "DESIGN_COACHSPEC1_R3_CRITIC_MARIA_MARIA",
-   "status": "sent",
+   "status": "answered",
    "queued_at": "2026-11-15 18:53",
    "tries": 0,
    "sent_at": "2026-11-15 19:10",
-   "sent_ms": 1794762649759
+   "sent_ms": 1794762649759,
+   "answered_at": "2026-11-15 19:40",
+   "answer": "research/DESIGN_COACHSPEC1_R3_CRITIC_MARIA_MARIA.md",
+   "chars": 10089,
+   "seen_by_claude": true
+  },
+  {
+   "id": "SQ185",
+   "seat": "dola",
+   "brief": "research/DESIGN_COACHSPEC1_R4_CRITIC_DOLA.md",
+   "stem": "DESIGN_COACHSPEC1_R4_CRITIC_DOLA_DOLA",
+   "status": "sent",
+   "queued_at": "2026-11-15 19:57",
+   "tries": 0,
+   "sent_at": "2026-11-15 20:10",
+   "pid": 30456,
+   "transcript": "AgentComms/seat_logs/SQ185_dola.txt"
+  },
+  {
+   "id": "SQ186",
+   "seat": "john",
+   "brief": "research/DESIGN_COACHSPEC1_R4_CRITIC_JOHN.md",
+   "stem": "DESIGN_COACHSPEC1_R4_CRITIC_JOHN_JOHN",
+   "status": "sent",
+   "queued_at": "2026-11-15 19:57",
+   "tries": 0,
+   "sent_at": "2026-11-15 20:10",
+   "sent_ms": 1794766226047
+  },
+  {
+   "id": "SQ187",
+   "seat": "kalli",
+   "brief": "research/DESIGN_LADDER1_V4_REVISE_KALLI.md",
+   "stem": "DESIGN_LADDER1_V4_REVISE_KALLI_KALLI",
+   "status": "sent",
+   "queued_at": "2026-11-15 19:58",
+   "tries": 0,
+   "sent_at": "2026-11-15 20:10",
+   "sent_ms": 1794766230105
   }
  ]
 }

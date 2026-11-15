@@ -26,8 +26,12 @@ const FightWhy := preload("res://scripts/rules/FightWhy.gd")
 const N := 200
 ## Rule 1's simmed arms (S434: their bar needs the bigger sample; the live arms stay at N).
 const N_SIM := 1000
-## The player's well-read plan against a presser (plan_effect_probe GOOD).
-const GOOD := [{"move": "1-1"}, {"move": "step_back"}, {"move": "pivot_out"}, {"move": "tie_up"}]
+## The player's well-read plan against a presser. S493 (the S492 WHYGRADE1 cause, fight_why_test's GOOD): since CARDFIX1 a line
+## with no "when" fires on EVERY situation at its place - the old 4 lines' any-time tie_up fired on a merely tiring opponent
+## inside and lost exchanges, so "your plan beats the coach's clearly" went red in the nightly. A well-read plan says WHEN: the
+## 6 lines a first hired coach holds, each answer on its situation (PlanFight.ANSWERS best); 3b-3 drilled like the 1-1.
+const GOOD := [{"move": "1-1"}, {"move": "step_back"}, {"move": "pivot_out"}, {"move": "tie_up", "when": "she_tired"},
+	{"move": "feint", "when": "counter"}, {"move": "3b-3@inside", "when": "tiring"}]
 
 var checks := 0
 var failures := 0
@@ -132,7 +136,7 @@ func _share(plan_of: Callable, coach: float, corner: bool, adjust: bool, n: int 
 		c.day = 40 + i
 		var f: Dictionary = c.fighter()
 		f["camp"] = {}
-		f["combos"] = {"1-1": 50.0, "1-2": 50.0}
+		f["combos"] = {"1-1": 50.0, "1-2": 50.0, "3b-3": 50.0}   # S493: the good plan's 3b-3 line drilled like the 1-1
 		# S464 STEPPLAN1: every step/defence bar at Signature (85, always fires = before the S463 gate) - this test grades the plan, not
 		# the drilling (the approved PROGRESSION_MAP M1 starts a new signing's step_back / pivot_out / tie_up at 0, as fight_why_test does).
 		for sid in StepMastery.NODES:

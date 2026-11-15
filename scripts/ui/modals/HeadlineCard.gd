@@ -6,6 +6,7 @@ extends VBoxContainer
 ## A milestone the game can tell (entering the rankings, a first win) gets the purple glow and a ribbon.
 ##   wanted(m) -> bool      make(main, m) -> HeadlineCard      go()
 
+const Palette := preload("res://scripts/ui/Palette.gd")   # S493 Q-251 the one palette
 const UI := preload("res://scripts/ui/UI.gd")
 const TV := preload("res://scripts/ui/TV.gd")
 const Icons := preload("res://scripts/ui/Icons.gd")
@@ -17,13 +18,13 @@ const Faces := preload("res://scripts/rules/Faces.gd")
 const Headline := preload("res://scripts/rules/Headline.gd")
 
 const W := 840.0
-const SOFT := Color("#b8a88f")
-const WARM := Color("#e8ddd0")
-const LOSS := Color("#ff8a78")
-const GOLD_TOP := Color("#f2cd6a")
-const GOLD_INK := Color("#231b16")
-const RIBBON := Color("#2a1f45")
-const RIBBON_INK := Color("#e6dcff")
+const SOFT := Palette.MUTED
+const WARM := Palette.TEXT
+const LOSS := Palette.BAD
+const GOLD_TOP := Palette.HEADER
+const GOLD_INK := Palette.ON_LIGHT
+const RIBBON := Palette.HOVER
+const RIBBON_INK := Palette.ELITE
 
 var _main: Node
 var _m: Dictionary
@@ -74,7 +75,7 @@ func _build() -> void:
 	card.name = "HeadlineCard"
 	card.custom_minimum_size = Vector2(W, 0)
 	card.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-	card.add_theme_stylebox_override("panel", UI.box(Color("#1b1612"), UI.PURPLE if not ms.is_empty() else Color("#4a3a30"), 8,
+	card.add_theme_stylebox_override("panel", UI.box(Palette.PAGE, UI.PURPLE if not ms.is_empty() else Palette.LINE, 8,
 		2 if not ms.is_empty() else 1, 30, 34))
 	card.gui_input.connect(func(e: InputEvent):
 		if e is InputEventMouseButton and (e as InputEventMouseButton).pressed and (e as InputEventMouseButton).button_index == MOUSE_BUTTON_LEFT:
@@ -85,7 +86,7 @@ func _build() -> void:
 		rb.name = "Milestone"
 		rb.add_theme_stylebox_override("panel", UI.box(RIBBON, UI.PURPLE, 22, 2, 28, 6))
 		var rh := UI.hbox(10)
-		rh.add_child(Icons.icon("trophy", 24, Color("#c9b3ff"), str(ms["words"])))
+		rh.add_child(Icons.icon("trophy", 24, Palette.ELITE, str(ms["words"])))
 		rh.add_child(UI.label(str(ms["words"]).to_upper(), 20, RIBBON_INK, "caps"))
 		rb.add_child(rh)
 		ribbon.add_child(rb)
@@ -96,7 +97,7 @@ func _build() -> void:
 	v.add_child(_centred(UI.label(str(h["night"]).to_upper(), 19, SOFT, "caps")))
 	var tone := str(h["tone"])
 	var words := str(h["title"]).to_upper()   # 64 px as drawn; a longer headline steps down so the card keeps its width
-	var t := _centred(UI.display(words, clampi(1380 / maxi(1, words.length()), 36, 64), LOSS if tone == "loss" else (Color.WHITE if tone == "win" else TV.FG)))
+	var t := _centred(UI.display(words, clampi(1380 / maxi(1, words.length()), 36, 64), LOSS if tone == "loss" else (Palette.TEXT if tone == "win" else TV.FG)))
 	t.name = "Title"
 	v.add_child(t)
 	var row := UI.hbox(10)
@@ -121,7 +122,7 @@ func _build() -> void:
 	b.custom_minimum_size = Vector2(260, 60)
 	b.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	for st in ["normal", "hover", "pressed", "focus"]:
-		var sb := UI.box(GOLD_TOP if st != "pressed" else TV.GOLD, Color("#f7dc8f"), 6, 1, 18, 8)
+		var sb := UI.box(GOLD_TOP if st != "pressed" else TV.GOLD, Palette.CHOSEN, 6, 1, 18, 8)
 		b.add_theme_stylebox_override(st, sb)
 	var bh := UI.hbox(10)
 	bh.alignment = BoxContainer.ALIGNMENT_CENTER
@@ -146,7 +147,7 @@ func _side(nm: String, kind: String, club: String, stem: String, rec: String, ra
 	p.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var v := UI.vbox(4)
 	var frame := PanelContainer.new()
-	frame.add_theme_stylebox_override("panel", UI.box(Color("#0b0a0a"), colour, 6, 3, 0, 0))
+	frame.add_theme_stylebox_override("panel", UI.box(Palette.PAGE, colour, 6, 3, 0, 0))
 	frame.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	frame.clip_contents = true
 	frame.custom_minimum_size = Vector2(156, 156)
@@ -154,7 +155,7 @@ func _side(nm: String, kind: String, club: String, stem: String, rec: String, ra
 	if pic != null:
 		frame.add_child(pic)
 	v.add_child(frame)
-	v.add_child(_centred(UI.display(nm.to_upper(), 38, Color.WHITE)))
+	v.add_child(_centred(UI.display(nm.to_upper(), 38, Palette.TEXT)))
 	v.add_child(_centred(UI.label(kind.to_upper(), UI.SMALL + 1, SOFT, "caps")))
 	v.add_child(_centred(UI.label(club.to_upper() if club != "" else " ", UI.SMALL + 1, SOFT, "caps")))
 	v.add_child(_moved(rec))
@@ -171,7 +172,7 @@ func _moved(text: String) -> HBoxContainer:
 	var parts := text.split(Headline.ARROW)
 	if parts.size() == 2:
 		h.add_child(UI.label(parts[0] + Headline.ARROW, 20, WARM, "bold"))
-		h.add_child(UI.label(parts[1], 20, Color.WHITE, "bold"))
+		h.add_child(UI.label(parts[1], 20, Palette.TEXT, "bold"))
 	else:
 		h.add_child(UI.label(text, 20, WARM, "bold"))
 	return h
@@ -194,7 +195,7 @@ func _cards() -> Control:
 		box.add_theme_stylebox_override("panel", UI.box(col.darkened(0.6), col, 5, 2, 10, 2))
 		box.custom_minimum_size = Vector2(118, 52)
 		var cv := UI.vbox(0)
-		cv.add_child(_centred(UI.display(str(cards[j]), 30, Color.WHITE)))
+		cv.add_child(_centred(UI.display(str(cards[j]), 30, Palette.TEXT)))
 		cv.add_child(_centred(UI.label("Judge %d" % (j + 1), UI.SMALL, SOFT)))
 		box.add_child(cv)
 		h.add_child(box)

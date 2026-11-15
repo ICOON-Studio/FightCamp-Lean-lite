@@ -14,6 +14,7 @@ extends RefCounted
 const SM := preload("res://scripts/rules/StrikeMap.gd")
 const PlanBoard := preload("res://scripts/rules/PlanBoard.gd")
 const PlanFight := preload("res://scripts/rules/PlanFight.gd")
+const FightFlow := preload("res://scripts/rules/FightFlow.gd")   # S493 the situations an IF can name
 
 ## Ring order: where a bout goes, from outside to the corner.
 const PLACES := ["outside", "long", "mid", "inside", "clinch", "own_ropes", "opp_ropes", "corner"]
@@ -76,6 +77,21 @@ static func clear_line(arrows: Array, place: String, when := "") -> Array:
 	var i := find(arrows, place, when)
 	if i >= 0:
 		out.remove_at(i)
+	return out
+
+
+## S493 WHYGRADE1, shown to the player: a line with no "when" is thrown on EVERY situation at its place that has no IF line
+## of its own (PlanBoard.pick). Its blind spots: the situations where it walks into it (PlanFight fit "wrong") and no IF
+## covers them (the old good plan's any-time tie up on a tiring opponent inside lost 13 points of wins).
+static func blind(arrows: Array, place: String) -> Array:
+	var i := find(arrows, place, "")
+	if i < 0:
+		return []
+	var mid := str(arrows[i]["move"])
+	var out: Array = []
+	for w in FightFlow.WHEN_WORDS:
+		if find(arrows, place, str(w)) < 0 and PlanFight.fit(mid, str(w)) == "wrong":
+			out.append(str(w))
 	return out
 
 

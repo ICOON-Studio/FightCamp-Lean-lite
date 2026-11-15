@@ -4,9 +4,10 @@ extends RefCounted
 ## the colour of its news, one short line under it, the rest on the hover.
 ##   build(tiles, first) -> VBoxContainer
 
+const Palette := preload("res://scripts/ui/Palette.gd")   # S493 Q-251 the one palette
 const UI := preload("res://scripts/ui/TV.gd")
 
-const TONE := {"good": Color("#6cc27a"), "bad": Color("#e0503c"), "flat": Color("#f3ece2")}
+const TONE := {"good": Palette.GOOD, "bad": Palette.BAD, "flat": Palette.TEXT}
 
 
 static func build(tiles: Array, first: String) -> VBoxContainer:
@@ -28,7 +29,7 @@ static func tile(t: Dictionary) -> PanelContainer:
 	p.name = "After_" + str(t["id"])
 	p.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	p.custom_minimum_size = Vector2(0, 118)
-	var sb := UI.box(Color(1, 1, 1, 0.05), Color(0, 0, 0, 0), 6, 0, 12, 8)
+	var sb := UI.box(Color(Palette.TEXT, 0.05), Palette.CLEAR, 6, 0, 12, 8)
 	sb.border_color = col if str(t.get("tone", "flat")) != "flat" else UI.LINE
 	sb.border_width_top = 3
 	p.add_theme_stylebox_override("panel", sb)

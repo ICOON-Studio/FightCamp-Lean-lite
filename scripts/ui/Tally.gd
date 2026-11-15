@@ -8,9 +8,11 @@ extends RefCounted
 ##   Tally.skip_all()                       every running roll ends at its value (a click does it)
 ## No glow or particles here: those are for milestones only (ops/research/UX_AUDIT_S442.md, "Numbers that move").
 
+const Palette := preload("res://scripts/ui/Palette.gd")   # S493 Q-251 the one palette
+
 const SECONDS := 0.45
-const UP := Color("#2fb56e")
-const DOWN := Color("#e2483d")
+const UP := Palette.GOOD
+const DOWN := Palette.BAD
 
 static var last: Dictionary = {}     # key -> the value the player last saw
 static var _runs: Dictionary = {}    # key -> [tween, end Callable]

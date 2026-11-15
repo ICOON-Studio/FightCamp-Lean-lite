@@ -19286,6 +19286,199 @@
     "board": ""
    },
    "archived": "2026-11-15 12:11 board_sync"
+  },
+  {
+   "agent": "qwen",
+   "id": "CLASH7",
+   "title": "TASK CLASH7 - one pump runs both boxers' skeleton stacks once a frame, in a fixed order (glove clash root fix)",
+   "status": "closed",
+   "started": "2026-11-15T11:54",
+   "eta": "2026-11-15T13:44",
+   "branch": "qwen/clash7",
+   "worktree": "E:/FightCamp/wt/LEAN_CLASH7",
+   "wt": "E:/FightCamp/wt/LEAN_CLASH7",
+   "brief": "ops/research/TASK_CLASH7.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/CLASH7_dispatch_out.txt",
+   "match": "seat_dispatch.py run clash7",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/CLASH7_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/CLASH7_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/CLASH7_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 44992,
+    "seat_pid": 24292
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 5/9 PASS; PR #310",
+   "finished": "2026-11-15T13:09",
+   "pr": 310,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tools/hit_frame_film.gd",
+     "ok": false,
+     "last": "   at: cleanup (core/object/object.cpp:2536)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/own_gloves_test.gd",
+     "ok": true,
+     "last": "OWN_GLOVES failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/guard_knee_test.gd",
+     "ok": true,
+     "last": "GUARD_KNEE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/guard_weave_test.gd",
+     "ok": true,
+     "last": "guard_weave_test: PASS"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/glove_cut_test.gd",
+     "ok": true,
+     "last": "glove_cut_test: PASS"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/cam_line_test.gd",
+     "ok": true,
+     "last": "CAM_LINE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/hit_frame_test.gd",
+     "ok": false,
+     "last": "HIT_FRAME failures=4"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/hit_carry_test.gd",
+     "ok": false,
+     "last": "HIT_CARRY failures=36"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/block_meet_test.gd",
+     "ok": false,
+     "last": "BLOCK_MEET failures=1"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "reconciled": "2026-11-15 13:36 board_reconcile: PR #310 closed",
+   "archived": "2026-11-15 13:36 board_sync"
+  },
+  {
+   "agent": "qwen",
+   "id": "STYLE5",
+   "title": "TASK STYLE5 - named styles worth real points: one exchange edge each, counted for real, tuned into the band",
+   "status": "collected",
+   "started": "2026-11-15T15:12",
+   "eta": "2026-11-15T17:02",
+   "branch": "qwen/style5",
+   "worktree": "E:/FightCamp/wt/LEAN_STYLE5",
+   "wt": "E:/FightCamp/wt/LEAN_STYLE5",
+   "brief": "ops/research/TASK_STYLE5.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/STYLE5_dispatch_out.txt",
+   "match": "seat_dispatch.py run style5",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/STYLE5_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/STYLE5_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/STYLE5_dispatch_runner.log",
+    "source": "roadmap plan.next",
+    "brief_copied": true,
+    "runner_pid": 25100,
+    "seat_pid": 5236
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 4 commit(s); checks 7/8 PASS; PR #316 | S490 collected by hand 439a07c9 (fixed conditions, calibrated probe, tuned pts)",
+   "finished": "2026-11-15T16:16",
+   "pr": 316,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/style_levers_test.gd",
+     "ok": true,
+     "last": "STYLE_LEVERS PASS fails=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/style_name_test.gd",
+     "ok": true,
+     "last": "STYLE_NAME failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/style_wire_test.gd",
+     "ok": true,
+     "last": "STYLE_WIRE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/learn_slots_test.gd",
+     "ok": true,
+     "last": "LEARN_SLOTS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/aim_wire_test.gd",
+     "ok": true,
+     "last": "AIM_WIRE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/clinch_why_test.gd",
+     "ok": true,
+     "last": "CLINCH_WHY failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/fight_why_test.gd",
+     "ok": false,
+     "last": "FIGHT_WHY failures=1"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/golden_path_test.gd",
+     "ok": true,
+     "last": "GOLDEN_PATH failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "archived": "2026-11-15 17:11 board_sync"
+  },
+  {
+   "agent": "ziva",
+   "id": "BODYLOOK1",
+   "title": "Bodies look stitched: coach neck seam, fighters' shoulders and walk, see-through parts - measure on the game camera, then fix",
+   "status": "superseded",
+   "started": "2026-11-15T18:45",
+   "eta": "2026-11-15T22:30",
+   "branch": "ziva/bodylook1",
+   "wt": "E:/FightCamp/wt/ZIVA_LEAN",
+   "brief": "ops/research/TASK_BODYLOOK1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "note": "S492: Ziva Smart, effort Max. Chat 'BODYLOOK1 task in progress' at 127.0.0.1:7012. ETA: S360-S399 Ziva rounds ran 3-4 h; the operator's game holds RAM, so renders may wait on the watchdog. | S492: superseded - Fable (Claude side session) took BODYLOOK1 over; Ziva stalled on its zoom step (bridge timeout); its before stills in E:/FightCamp/wt/ZIVA_LEAN/docs/playtest/BODYLOOK1 are reused. | S492 end: the operator started a Fable Claude session (local_43234449) that stops Ziva and takes over.",
+   "reconciled": "2026-11-15 18:40 board_reconcile: no process and no write for ? min (no worktree for branch 'ziva/bodylook1')",
+   "archived": "2026-11-15 19:41 board_sync"
   }
  ]
 }

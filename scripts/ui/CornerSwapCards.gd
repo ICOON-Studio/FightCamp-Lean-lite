@@ -7,6 +7,7 @@ extends RefCounted
 ## (CornerJobsRow.suffix -> "|arrow=i:move" -> BoutNight -> PlanFight.corner_change = LineSwap.apply).
 ##   row(f, round_exs, arrows, limit) -> LineSwap.row + {round_game} or {}     build(mn, sel, on_change, other, ink, mute) -> VBox
 
+const Palette := preload("res://scripts/ui/Palette.gd")   # S493 Q-251 the one palette
 const UI := preload("res://scripts/ui/UI.gd")
 const TV := preload("res://scripts/ui/TV.gd")
 const Icons := preload("res://scripts/ui/Icons.gd")
@@ -18,11 +19,11 @@ const StrikeMap := preload("res://scripts/rules/StrikeMap.gd")
 const SwapLink := preload("res://scripts/ui/SwapLink.gd")
 
 ## The drawing's colours: green = Beats it, red = the lost line / Walks into it, cream = hover (CallButtons.GRADE_COLOR).
-const GOOD := Color("#6cc27a")
-const FAIR := Color("#f0a020")
-const POOR := Color("#e06060")
-const CARD_BG := Color("#211a15")
-const EDGE := Color("#4a3a30")
+const GOOD := Palette.GOOD
+const FAIR := Palette.WARN
+const POOR := Palette.BAD
+const CARD_BG := Palette.HOVER
+const EDGE := Palette.LINE
 const W := 302.0
 
 
@@ -99,7 +100,7 @@ static func build(mn: Dictionary, sel: Dictionary, on_change: Callable, other: O
 static func _header(l: String, tally: String, game: String) -> PanelContainer:
 	var p := PanelContainer.new()
 	p.name = "LostMost"
-	var sb := UI.box(Color("#241c17"), POOR, 4, 0, 12, 4)
+	var sb := UI.box(Palette.HOVER, POOR, 4, 0, 12, 4)
 	sb.border_width_left = 4
 	p.add_theme_stylebox_override("panel", sb)
 	var h := UI.hbox(10)
@@ -125,7 +126,7 @@ static func _card(o: Dictionary, l: String, rate: float, on: bool, press: Callab
 	b.name = "Swap_" + str(o["move"])
 	b.custom_minimum_size = Vector2(W, 128)
 	for st in ["normal", "hover", "pressed", "focus", "hover_pressed"]:
-		b.add_theme_stylebox_override(st, UI.box(CARD_BG if not on else Color("#3a2f26"), EDGE, 6, 1, 0, 0))
+		b.add_theme_stylebox_override(st, UI.box(CARD_BG if not on else Palette.TILE, EDGE, 6, 1, 0, 0))
 	var fit := str(o["fit"])
 	var v := VBoxContainer.new()
 	v.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -136,15 +137,15 @@ static func _card(o: Dictionary, l: String, rate: float, on: bool, press: Callab
 	top.add_child(UI.spacer())
 	if str(o.get("fit_words", "")) != "":
 		var chip := PanelContainer.new()
-		chip.add_theme_stylebox_override("panel", UI.box(GOOD if fit == "best" else (POOR if fit == "wrong" else Color("#5a5048")), Color(0, 0, 0, 0), 4, 0, 10, 1))
-		chip.add_child(UI.label(str(o["fit_words"]), 19, Color("#0f2a17") if fit == "best" else TV.FG, "bold"))
+		chip.add_theme_stylebox_override("panel", UI.box(Palette.GOOD_FILL if fit == "best" else (Palette.BAD_FILL if fit == "wrong" else Palette.LINE), Palette.CLEAR, 4, 0, 10, 1))
+		chip.add_child(UI.label(str(o["fit_words"]), 19, Palette.ON_LIGHT if fit == "best" else TV.FG, "bold"))
 		chip.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		top.add_child(chip)
 	v.add_child(_pad(top, 6))
 	var wb := SwapLink.WorthBar.new()
 	wb.was = float(o["was_worth"])
 	wb.worth = float(o["worth"])
-	wb.fill = GOOD if fit == "best" else Color("#cdbfa8")
+	wb.fill = Palette.GOOD_FILL if fit == "best" else Palette.MUTED
 	wb.custom_minimum_size = Vector2(W - 26, 12)
 	v.add_child(_pad(wb, 0))
 	v.add_child(_pad(UI.label("%+d over improvising · %s was %+d" % [roundi(float(o["worth"])), l, roundi(float(o["was_worth"]))], 19, TV.MUTED), 0))
@@ -158,7 +159,7 @@ static func _card(o: Dictionary, l: String, rate: float, on: bool, press: Callab
 	gap.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	v.add_child(gap)
 	var foot := PanelContainer.new()
-	var fsb := UI.box(Color("#2f2620"), Color("#6a5a4a"), 0, 0, 0, 3)
+	var fsb := UI.box(Palette.HOVER, Palette.WOOD, 0, 0, 0, 3)
 	fsb.border_width_top = 1
 	fsb.corner_radius_bottom_left = 6
 	fsb.corner_radius_bottom_right = 6
@@ -219,7 +220,7 @@ static func _strip(arrows: Array, round_game: String) -> HFlowContainer:
 		said.visible = false
 		col.add_child(said)
 		p.add_child(col)
-		p.add_theme_stylebox_override("panel", UI.box(Color("#1a1411"), Color("#3a2e26"), 4, 1, 4, 1))
+		p.add_theme_stylebox_override("panel", UI.box(Palette.PAGE, Palette.LINE, 4, 1, 4, 1))
 		flow.add_child(p)
 		tiles[id] = p
 	flow.set_meta("tiles", tiles)
@@ -238,7 +239,7 @@ static func caption(mute: Color) -> VBoxContainer:
 static func _pin(l: String, colour: Color, font: int = 22) -> PanelContainer:
 	var p := PanelContainer.new()
 	p.name = "Pin_" + l
-	p.add_theme_stylebox_override("panel", UI.box(Color("#120e0c"), colour, 4, 2, 7, 0))
+	p.add_theme_stylebox_override("panel", UI.box(Palette.PAGE, colour, 4, 2, 7, 0))
 	p.add_child(UI.label(l, font, TV.FG, "display"))
 	p.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	return p

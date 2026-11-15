@@ -19,10 +19,9 @@ grandfather list for old files that shrinks as they are cleaned.
 ## Prefab check
 Godot has no built-in colour lint; gdlint (gdtoolkit) has no such rule. A 150-line GDScript test is the smallest fit.
 
-## Owned files (create; touch nothing else except the one line in tools/run_tests.sh)
+## Owned files (create; touch nothing else - Claude adds the test to tools/run_tests.sh when collecting)
 - `tests/palette_guard_test.gd` (new, extends SceneTree, under 250 lines, no preloads of game scripts)
 - `tests/palette_baseline.json` (new, written by the test's write mode)
-- `tools/run_tests.sh` - add `palette_guard_test` to the test list (find the list near other `_test` names; one line)
 
 ## What to build
 `tests/palette_guard_test.gd`:
@@ -77,8 +76,8 @@ Never `var x := <an Array or Dictionary element>` (Variant -> parse error: write
 comment start - track quote state when cutting the trailing comment.
 
 ## Contract
-OWNS: tests/palette_guard_test.gd, tests/palette_baseline.json, tools/run_tests.sh (one list line)
+OWNS: tests/palette_guard_test.gd, tests/palette_baseline.json
 RED_TEST: tests/palette_guard_test.gd -> PALETTE_GUARD files=<n> exempt=<n> raw=<n> over=0 new=0 shrunk=0 (red on main: the file does not exist)
-REGRESSION: none (reads files only)
+REGRESSION: tests/wood_kit_test.gd (the palette constants it reads must still load; the guard itself only reads files)
 VISUAL: no
 NOT YOURS: every other file. Under 250 lines. Never delete or weaken a test. Work on your own branch, open a PR into main, never merge.

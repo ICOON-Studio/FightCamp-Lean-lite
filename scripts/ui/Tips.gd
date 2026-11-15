@@ -14,6 +14,7 @@ extends Node
 ##   hint: [[key, words]]}
 ##   tone: "good" | "bad" | "watch" | "".   Tips.close_all()   S491 meter: {shift, caption} = TipMeter's odds bar.
 
+const Palette := preload("res://scripts/ui/Palette.gd")   # S493 Q-251 the one palette
 const UI := preload("res://scripts/ui/UI.gd")
 const Glossary := preload("res://scripts/rules/Glossary.gd")
 const TipMeter := preload("res://scripts/ui/TipMeter.gd")
@@ -29,18 +30,18 @@ const MARGIN := 16.0
 const GAP := 10.0
 const TEXT_W := 330.0
 ## J90 section 4: text inks that pass 4.5:1 on the card (the house amber / green / red do not).
-const CARD_BG := Color("#fffdf6")
-const CARD_EDGE := Color("#d8d4cb")
-const INK := Color("#1f2a44")
-const RED := Color("#c8312a")
-const GOOD := Color("#1c6e43")
-const BAD := Color("#a8261f")
-const WATCH := Color("#8f5100")
-const MUTED := Color("#5e6773")
-const RULE := Color("#e2ded4")
+const CARD_BG := Palette.HOVER
+const CARD_EDGE := Palette.LINE
+const INK := Palette.TEXT
+const RED := Palette.BAD
+const GOOD := Palette.GOOD
+const BAD := Palette.BAD
+const WATCH := Palette.WARN
+const MUTED := Palette.MUTED
+const RULE := Palette.LINE
 ## J90 6c T3 sticky note.
-const NOTE_BG := Color("#fbe7a1")
-const NOTE_EDGE := Color("#e2c770")
+const NOTE_BG := Palette.TILE
+const NOTE_EDGE := Palette.HEADER
 const NOTE_DELAY := 0.25
 const NOTE_W := 290.0
 
@@ -276,7 +277,7 @@ func _build(s: Dictionary) -> Control:
 	var panel := PanelContainer.new()
 	var st := UI.box(CARD_BG, CARD_EDGE, 4, 1, 18, 14)
 	st.content_margin_top = 22
-	st.shadow_color = Color(0, 0, 0, 0.22)
+	st.shadow_color = Palette.shadow()
 	st.shadow_size = 6
 	st.shadow_offset = Vector2(2, 4)
 	panel.add_theme_stylebox_override("panel", st)
@@ -340,7 +341,7 @@ func _build(s: Dictionary) -> Control:
 		h.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		for k in hint:
 			var chip := PanelContainer.new()
-			chip.add_theme_stylebox_override("panel", UI.box(Color(0, 0, 0, 0), INK, 3, 1, 6, 1))
+			chip.add_theme_stylebox_override("panel", UI.box(Palette.CLEAR, INK, 3, 1, 6, 1))
 			chip.mouse_filter = Control.MOUSE_FILTER_IGNORE
 			chip.add_child(_text(str(k[0]).to_upper(), "semi", 15, INK))
 			h.add_child(chip)
@@ -386,7 +387,7 @@ class _Magnet extends Control:
 		if locked:
 			draw_circle(c, 8.0, RED)
 			if pinned:
-				draw_circle(c + Vector2(-2.5, -2.5), 2.0, Color.WHITE)
+				draw_circle(c + Vector2(-2.5, -2.5), 2.0, Palette.TEXT)
 			return
 		draw_circle(c, 8.0, CARD_BG)
 		draw_arc(c, 7.0, 0.0, TAU, 32, INK, 2.0, true)
@@ -425,7 +426,7 @@ func _open_note(id: String, _at: Control) -> void:
 	var panel := PanelContainer.new()
 	panel.name = "TipNote"
 	var st := UI.box(NOTE_BG, NOTE_EDGE, 2, 1, 16, 12)
-	st.shadow_color = Color(0, 0, 0, 0.22)
+	st.shadow_color = Palette.shadow()
 	st.shadow_size = 5
 	st.shadow_offset = Vector2(2, 4)
 	panel.add_theme_stylebox_override("panel", st)

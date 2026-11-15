@@ -1,3 +1,11 @@
+S493 (2026-11-15)
+- ONE COLOUR PALETTE, FIRST PART (your "do it and i will judge"): the Office is now in the gym's warm look (no more navy),
+  and the fight result pages, the between-rounds cards, the fighter Overview, the body figure and every hover tip use the
+  same colours as the gym screen. Hover tips are dark cards now, not cream paper. Green and red words on the dark boards are
+  brighter so they read. Judge it: open the Office, a fighter's Overview, and a result page after a fight.
+- GAME PLAN: in the bell box, a line with no IF now shows an amber "i" when it walks into a situation (for example a tie up
+  when the opponent is tiring). Hover it: it says which situations, and to add an IF for them.
+
 S491 (2026-11-15)
 - FIGHT SCREEN, YOUR NOTES: the status word ("Waiting to counter", "Draw the lead") no longer sits on a face - it is under
   each boxer's name plate. The bare "EYE" is gone: the plate says what is hurt in words ("Eye hurt", "Nose badly hurt") and

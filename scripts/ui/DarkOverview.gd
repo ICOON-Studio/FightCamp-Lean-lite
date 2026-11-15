@@ -4,6 +4,7 @@ extends RefCounted
 ## Every number and every action is the one the cream Overview had (AttrBoard.rows, Sim.goal_read, the same main.act calls).
 ##   panel(title) -> [PanelContainer, VBoxContainer]   make(page, main, c, f, g)   ink(node)   dim_wall(main)   main_style(button)
 
+const Palette := preload("res://scripts/ui/Palette.gd")   # S493 Q-251 the one palette
 const UI := preload("res://scripts/ui/UI.gd")
 const RankRow := preload("res://scripts/ui/RankRow.gd")
 const WarmKit := preload("res://scripts/ui/WarmKit.gd")
@@ -25,17 +26,17 @@ const ApproachCard := preload("res://scripts/ui/ApproachCard.gd")   # S487 R58 A
 const ApproachWire := preload("res://scripts/state/ApproachWire.gd")
 const FallThroughCard := preload("res://scripts/ui/FallThroughCard.gd")   # S490 FIGHTWEEK3
 
-const PANEL_BG := Color(0.095, 0.075, 0.066, 0.94)
-const INSET := Color(0.05, 0.04, 0.035, 0.9)
-const EDGE := Color("#c8402f")
-const SIDE := Color("#3a2f28")
-const INK := Color("#f1e8da")
-const SOFT := Color("#c9b9a2")
-const HEAD := Color("#ffd54a")
-const TRACK := Color(1, 1, 1, 0.09)
-const WALL_DARK := Color(0.30, 0.28, 0.27)
-const BAND := {"weak": Color("#e2483d"), "fair": Color("#f08a24"), "solid": Color("#3f7fe0"), "strong": Color("#2fb56e"), "elite": Color("#a36cff")}
-const TONE := {"green": Color("#2fb56e"), "red": Color("#e2483d"), "amber": Color("#f08a24"), "gold": Color("#3f7fe0"), "": SOFT}
+const PANEL_BG := Color(Palette.PAGE, 0.94)
+const INSET := Color(Palette.PAGE, 0.9)
+const EDGE := Palette.ACTION
+const SIDE := Palette.LINE
+const INK := Palette.TEXT
+const SOFT := Palette.MUTED
+const HEAD := Palette.HEADER
+const TRACK := Color(Palette.TEXT, 0.09)
+const WALL_DARK := Palette.WALL_DARK
+const BAND := {"weak": Palette.BAD_FILL, "fair": Palette.WARN, "solid": Palette.ACCENT, "strong": Palette.GOOD_FILL, "elite": Palette.ELITE}
+const TONE := {"green": Palette.GOOD, "red": Palette.BAD, "amber": Palette.WARN, "gold": Palette.ACCENT, "": SOFT}
 const LEFT_W := 440
 const SIDE_W := 440
 
@@ -44,7 +45,7 @@ const SIDE_W := 440
 class Bar extends Control:
 	var frac := 0.0
 	var tick := -1.0
-	var colour := Color.WHITE
+	var colour := Palette.TEXT
 
 	func _init() -> void:
 		custom_minimum_size = Vector2(130, 24)
@@ -60,16 +61,16 @@ class Bar extends Control:
 		var fw: float = clampf(frac, 0.0, 1.0) * (w - skew)
 		if fw > 0.0:
 			draw_colored_polygon(PackedVector2Array([Vector2(skew, 0), Vector2(skew + fw, 0), Vector2(fw, h), Vector2(0, h)]), colour)
-			draw_colored_polygon(PackedVector2Array([Vector2(skew, 0), Vector2(skew + fw, 0), Vector2(skew * 0.5 + fw, h * 0.5), Vector2(skew * 0.5, h * 0.5)]), Color(1, 1, 1, 0.18))
+			draw_colored_polygon(PackedVector2Array([Vector2(skew, 0), Vector2(skew + fw, 0), Vector2(skew * 0.5 + fw, h * 0.5), Vector2(skew * 0.5, h * 0.5)]), Color(Palette.TEXT, 0.18))
 		if tick >= 0.0:
 			var x: float = clampf(tick, 0.0, 1.0) * (w - skew)
-			draw_line(Vector2(x + skew, -2), Vector2(x, h + 2), Color.WHITE, 3.0, true)
+			draw_line(Vector2(x + skew, -2), Vector2(x, h + 2), Palette.TEXT, 3.0, true)
 
 
 ## A ring with the number inside.
 class Ring extends Control:
 	var frac := 0.0
-	var colour := Color.WHITE
+	var colour := Palette.TEXT
 
 	func _init() -> void:
 		mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -156,7 +157,7 @@ static func _boxer(f: Dictionary, c: Career = null) -> Control:
 	var col := UI.vbox(0)
 	col.custom_minimum_size.x = LEFT_W
 	var nm := str(f["name"]).to_upper()
-	col.add_child(UI.display(nm, clampi(int(float(LEFT_W) / (float(nm.length()) * 0.62)), 36, 60), Color.WHITE))
+	col.add_child(UI.display(nm, clampi(int(float(LEFT_W) / (float(nm.length()) * 0.62)), 36, 60), Palette.TEXT))
 	col.add_child(UI.label("%s, %d, %s, amateur %d-%d" % [f["wc"], f["age"], f["stance"], f["w"], f["l"]], UI.BODY, SOFT, "semi"))
 	# S437 RANKSHOWUI: where she stands, always: a number, or how many wins from a number (RankLine's own words).
 	var standing: Control = RankRow.build(c, f) if c != null else null
@@ -177,7 +178,7 @@ static func _boxer(f: Dictionary, c: Career = null) -> Control:
 		pic.offset_left = -125.0   # the picture is square with empty sides: wider than the column makes the boxer full height
 		pic.offset_right = 125.0
 	var g: Dictionary = AttrBoard.glance(f)
-	var ring := _ring(float(g["fight_avg"]) / 100.0, Color("#ffd54a"), str(int(g["overall"])), "OF 100", 130.0)   # S443: StatBlock.overall, the roster's ring too
+	var ring := _ring(float(g["fight_avg"]) / 100.0, Palette.HEADER, str(int(g["overall"])), "OF 100", 130.0)   # S443: StatBlock.overall, the roster's ring too
 	ring.position = Vector2(LEFT_W - 136, 8)
 	holder.add_child(ring)
 	col.add_child(holder)
@@ -248,7 +249,7 @@ static func _ring(frac: float, colour: Color, big: String, small: String, px: fl
 	v.add_theme_constant_override("separation", -4)
 	v.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	v.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	var b := UI.label(big, int(px * 0.3), Color.WHITE, "bold")
+	var b := UI.label(big, int(px * 0.3), Palette.TEXT, "bold")
 	b.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	v.add_child(b)
 	if small != "":
@@ -303,10 +304,10 @@ static func _row(r: Dictionary, pot: float) -> Control:
 	h.add_child(lab)
 	if key == "temper":
 		var tag := PanelContainer.new()
-		tag.add_theme_stylebox_override("panel", UI.box(Color(1, 1, 1, 0.04), col, 4, 1, 12, 3))
+		tag.add_theme_stylebox_override("panel", UI.box(Color(Palette.TEXT, 0.04), col, 4, 1, 12, 3))
 		tag.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 		tag.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		tag.add_child(UI.label("Trades" if v >= 60.0 else ("Patient" if v <= 40.0 else "Even"), UI.SMALL, Color.WHITE, "bold"))
+		tag.add_child(UI.label("Trades" if v >= 60.0 else ("Patient" if v <= 40.0 else "Even"), UI.SMALL, Palette.TEXT, "bold"))
 		h.add_child(tag)
 		return h
 	var bar := Bar.new()
@@ -350,7 +351,7 @@ static func _glance(f: Dictionary) -> PanelContainer:
 
 static func _note(key: String, value: String, edge: Color) -> Control:
 	var p := PanelContainer.new()
-	var s := UI.box(INSET, Color(0, 0, 0, 0), 6, 0, 16, 11)
+	var s := UI.box(INSET, Palette.CLEAR, 6, 0, 16, 11)
 	s.border_color = edge
 	s.border_width_left = 5
 	p.add_theme_stylebox_override("panel", s)
@@ -379,7 +380,7 @@ static func _goal(main: Node, c: Career, f: Dictionary, g: Dictionary) -> PanelC
 		row.add_child(_ring(float(g["share"]), tone, "%d%%" % int(float(g["share"]) * 100.0), "", 112.0))   # small: the guide's bubble sits below it in the first hour
 		var text := UI.vbox(4)
 		text.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		var title := UI.label(str(g["title"]), 28, Color.WHITE, "bold", true)
+		var title := UI.label(str(g["title"]), 28, Palette.TEXT, "bold", true)
 		title.tooltip_text = str(g["line"])
 		title.mouse_filter = Control.MOUSE_FILTER_PASS
 		text.add_child(title)

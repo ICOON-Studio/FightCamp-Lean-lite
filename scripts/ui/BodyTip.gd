@@ -6,6 +6,7 @@ extends Control
 ##   log_hit(log, place, move, big, round_n)   text(place, value, entry, head_value, cut, closed) -> String
 ##   panel(text) -> Control (the tooltip)   attach(figure) -> BodyTip (the hover ring)
 
+const Palette := preload("res://scripts/ui/Palette.gd")   # S493 Q-251 the one palette
 const BM := preload("res://scripts/rules/BodyMap.gd")
 const UI := preload("res://scripts/ui/TV.gd")   # fight graphics keep the dark TV look
 
@@ -13,8 +14,8 @@ const UI := preload("res://scripts/ui/TV.gd")   # fight graphics keep the dark T
 const NAMES := {"head": "Head", "left_eye": "Left eye", "right_eye": "Right eye", "nose": "Nose",
 	"left_ribs": "Left ribs", "right_ribs": "Liver (right ribs)"}
 const BandWords := preload("res://scripts/rules/BandWords.gd")   # DEFECTS1: the band words, one table for every screen
-const BAND_COLOURS := {"fine": Color("#6cc27a"), "hurt": Color("#f0a020"), "critical": Color("#e0503c"),
-	"doctor": Color("#a050e0")}
+const BAND_COLOURS := {"fine": Palette.GOOD, "hurt": Palette.WARN, "critical": Palette.BAD,
+	"doctor": Palette.ELITE}
 const MOVE_WORDS := {"jab": ["jab", "jabs"], "cross": ["cross", "crosses"], "lead_hook": ["lead hook", "lead hooks"],
 	"body_hook": ["body hook", "body hooks"], "rear_uppercut": ["uppercut", "uppercuts"]}
 
@@ -64,7 +65,7 @@ static func text(place: String, value: float, entry: Dictionary, head_value: flo
 ## The tooltip in the HUD's look: faint dark glass, the first line as a title (its band word in the band colour).
 static func panel(t: String) -> Control:
 	var p := PanelContainer.new()
-	p.add_theme_stylebox_override("panel", UI.box(Color(0.06, 0.05, 0.05, 0.86), Color(1, 1, 1, 0.10), 8, 1, 12, 8))
+	p.add_theme_stylebox_override("panel", UI.box(Color(Palette.HOVER, 0.86), Color(Palette.TEXT, 0.10), 8, 1, 12, 8))
 	var col := VBoxContainer.new()
 	col.add_theme_constant_override("separation", 2)
 	p.add_child(col)
@@ -121,5 +122,5 @@ func _draw() -> void:
 		return
 	var g: Dictionary = fig.call("_geom_px", hover)
 	var pts: PackedVector2Array = fig.call("_ellipse_pts", g["c"], float(g["rx"]) * 1.15, float(g["ry"]) * 1.15)
-	draw_polyline(pts, Color(0, 0, 0, 0.55), 4.0, true)
-	draw_polyline(pts, Color(1, 1, 1, 0.95), 2.0, true)
+	draw_polyline(pts, Color(Palette.PAGE, 0.55), 4.0, true)
+	draw_polyline(pts, Color(Palette.TEXT, 0.95), 2.0, true)

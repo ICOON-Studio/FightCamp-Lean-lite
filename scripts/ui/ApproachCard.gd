@@ -7,18 +7,19 @@ extends RefCounted
 ## approachtalk, approachanswer (a confirm) -> approachdo, letgo (a confirm) -> letgodo.
 ## Fills a panel the caller makes (DarkOverview.panel): no preload of DarkOverview (it preloads this file).
 
+const Palette := preload("res://scripts/ui/Palette.gd")   # S493 Q-251 the one palette
 const UI := preload("res://scripts/ui/UI.gd")
 const Approach := preload("res://scripts/rules/Approach.gd")
 const Loyalty := preload("res://scripts/rules/Loyalty.gd")
 const ApproachWire := preload("res://scripts/state/ApproachWire.gd")
 const Leaving := preload("res://scripts/state/Leaving.gd")
 
-const INK := Color("#f1e8da")
-const SOFT := Color("#c9b9a2")
-const HEAD := Color("#ffd54a")
-const RED := Color("#e2483d")
-const AMBER := Color("#f08a24")
-const GREEN := Color("#2fb56e")
+const INK := Palette.TEXT
+const SOFT := Palette.MUTED
+const HEAD := Palette.HEADER
+const RED := Palette.BAD
+const AMBER := Palette.WARN
+const GREEN := Palette.GOOD
 
 
 ## The card's rows, in order (also what the test reads): {head, offer, talk, cols: [{id, word, lines, available, why}]}.

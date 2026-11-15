@@ -6,19 +6,20 @@ extends RefCounted
 const Bar := preload("res://scripts/ui/Bar.gd")
 const GameMoney := preload("res://scripts/rules/GameMoney.gd")
 
-const BG := Color("#1d1714")
-const PANEL := Color("#2a211c")
-const PANEL2 := Color("#342922")
-const LINE := Color("#4a3a30")
-const ROWLINE := Color("#3a2e26")
-const RAIL := Color("#241c18")
-const FG := Color("#f3ece2")
-const MUTED := Color("#b5a595")
-const GOLD := Color("#e9b84a")
-const GOLD_INK := Color("#231b16")
-const RED := Color("#e0503c")
-const GREEN := Color("#6cc27a")
-const AMBER := Color("#f0a020")
+const Palette := preload("res://scripts/ui/Palette.gd")   # S493 Q-251: the broadcast kit draws from the one palette
+const BG := Palette.PAGE
+const PANEL := Palette.HOVER
+const PANEL2 := Palette.TILE
+const LINE := Palette.LINE
+const ROWLINE := Palette.LINE
+const RAIL := Palette.PAGE
+const FG := Palette.TEXT
+const MUTED := Palette.MUTED
+const GOLD := Palette.HEADER
+const GOLD_INK := Palette.ON_LIGHT
+const RED := Palette.BAD
+const GREEN := Palette.GOOD
+const AMBER := Palette.WARN
 
 const BODY := 19
 const SMALL := 16
@@ -81,7 +82,7 @@ static func theme() -> Theme:
 	t.default_font = font("body")
 	t.default_font_size = BODY
 	t.set_color("font_color", "Label", FG)
-	var clear := Color(0, 0, 0, 0)
+	var clear := Palette.CLEAR
 	_button(t, "Button", PANEL, LINE, FG, GOLD, 8, 12, 8, "semi", SMALL)
 	_button(t, "TBtn", PANEL, LINE, FG, GOLD, 10, 18, 14, "semi", 21)
 	_button(t, "TBtnPrimary", GOLD, GOLD, GOLD_INK, GOLD, 10, 18, 14, "semi", 21)
@@ -98,7 +99,7 @@ static func theme() -> Theme:
 	_button(t, "Flag", clear, GOLD, GOLD, GOLD, 999, 12, 6, "caps", TINY, Color(GOLD, 0.12))
 	_button(t, "FlagRed", clear, RED, RED, RED, 999, 12, 6, "caps", TINY, Color(RED, 0.12))
 	_button(t, "Go", GOLD, GOLD, GOLD_INK, GOLD, 10, 16, 8, "bold", BODY)
-	_button(t, "GoBlock", RED, RED, Color.WHITE, RED, 10, 16, 8, "bold", BODY)
+	_button(t, "GoBlock", Palette.ACTION, Palette.ACTION, FG, Palette.ACTION, 10, 16, 8, "bold", BODY)
 	_button(t, "GoFight", FG, FG, BG, FG, 10, 16, 8, "bold", BODY)
 	_button(t, "Speed", clear, LINE, MUTED, MUTED, 6, 4, 6, "mono", TINY)
 	_button(t, "SpeedOn", LINE, LINE, FG, MUTED, 6, 4, 6, "mono", TINY)
@@ -252,7 +253,7 @@ static func button2(big: String, small: String, variation: String, on_press: Cal
 	m.add_child(v)
 	b.add_child(m)
 	if disabled:
-		b.modulate = Color(1, 1, 1, 0.45)
+		b.modulate = Palette.fade(0.45)
 	return b
 
 
@@ -363,7 +364,7 @@ static func stat_row(name: String, value: float, gold: bool = false, number_colo
 	l.custom_minimum_size = Vector2(150, 0)
 	h.add_child(l)
 	var bar: Control = Bar.new()
-	bar.track = Color("#3a2e26")   # S333: the dark track under the fight
+	bar.track = Palette.PAGE   # S333: the dark track under the fight (S493: sunk Page, the palette track)
 	bar.frac = value - floorf(value)
 	bar.fill = GOLD if gold else GREEN
 	bar.size_flags_horizontal = Control.SIZE_EXPAND_FILL

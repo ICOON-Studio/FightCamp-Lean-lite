@@ -39,7 +39,8 @@ func _initialize() -> void:
 	var soft := UI.muted("soft")
 	var blue := UI.label("blue", UI.BODY, UI.GOLD)
 	var red := UI.label("red", UI.BODY, UI.RED)
-	for l in [plain, soft, blue, red]:
+	var amber := UI.label("amber", UI.BODY, UI.AMBER)   # S493: a warning word keeps its colour
+	for l in [plain, soft, blue, red, amber]:
 		card[1].add_child(l)
 	var note := UI.note("inside a note")
 	card[1].add_child(note)
@@ -73,7 +74,9 @@ func _initialize() -> void:
 	_check(plain.get_theme_color("font_color") == WoodKit.INK, "a plain word on a slate is chalk")
 	_check(soft.get_theme_color("font_color") == WoodKit.SOFT, "a quiet word on a slate is the quiet chalk")
 	_check(blue.get_theme_color("font_color") == WoodKit.BLUE, "a blue word on a slate is the light blue")
-	_check(red.get_theme_color("font_color") == UI.RED, "a coloured word keeps its colour")
+	_check(amber.get_theme_color("font_color") == UI.AMBER, "a coloured word keeps its colour")
+	# S493 one palette (Q-251): a fill red/green as words on slate reads 2.9-3.0:1 - it takes the lightened word colour.
+	_check(red.get_theme_color("font_color") == UI.Palette.BAD, "a red word on a slate is the readable word red")
 	_check((note.get_child(0) as Label).get_theme_color("font_color") == WoodKit.SOFT, "a note on a slate is see-through: chalk")
 	_check(on_sticky.get_theme_color("font_color") == UI.FG, "a word on a sticky keeps its ink")
 	# S420: since df7fe37a (S419, operator "the white in the picture doesn blend") a tag is see-through on a slate, so its

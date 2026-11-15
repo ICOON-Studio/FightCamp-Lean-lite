@@ -7,11 +7,12 @@ extends RefCounted
 ##   lists(st, names)   the opponent's games with how often we won against each, and our calls with a dot per use
 ##   build(rounds, names) -> all three      tabs(first, second, a, b) -> two blocks behind two buttons
 
+const Palette := preload("res://scripts/ui/Palette.gd")   # S493 Q-251 the one palette
 const UI := preload("res://scripts/ui/TV.gd")
 const FightStats := preload("res://scripts/rules/FightStats.gd")
 const CornerStats := preload("res://scripts/ui/CornerStats.gd")
 
-const BLUE := Color("#6f9cf0")
+const BLUE := Palette.ACCENT
 const TEXT := 20
 const ROWS := 3
 
@@ -172,4 +173,4 @@ class _Pips extends Control:
 
 	func _draw() -> void:
 		for i in n:
-			draw_circle(Vector2(8.0 + i * 16.0, 8.0), 6.0, Color("#6cc27a") if i < won else Color("#e0503c"))
+			draw_circle(Vector2(8.0 + i * 16.0, 8.0), 6.0, Palette.GOOD_FILL if i < won else Palette.BAD_FILL)

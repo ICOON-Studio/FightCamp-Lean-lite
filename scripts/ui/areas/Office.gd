@@ -6,6 +6,7 @@ extends VBoxContainer
 ## saying where they come from. Until their own tasks land, the apps open the pages the game has (section 2).
 
 const UI := preload("res://scripts/ui/UI.gd")
+const Palette := preload("res://scripts/ui/Palette.gd")   # S493 Q-251: the gym look, no navy of its own
 const KitIcon := preload("res://scripts/ui/KitIcon.gd")
 const HoverLabel := preload("res://scripts/ui/HoverLabel.gd")
 const Pulse := preload("res://scripts/ui/Pulse.gd")
@@ -14,17 +15,17 @@ const OfficeDesk := preload("res://scripts/ui/OfficeDesk.gd")
 const CashChart := preload("res://scripts/ui/CashChart.gd")
 const Clock := preload("res://scripts/state/Clock.gd")
 
-const BG := Color("#0b0f15")
-const PANEL := Color("#121821")
-const PANEL2 := Color("#18202b")
-const LINE := Color("#283242")
-const INK := Color("#e9e4da")
-const DIM := Color("#97a1b0")
-const HEAD := Color("#c9bfae")
-const RED := Color("#d93a3a")
-const GREEN := Color("#5fcf7a")
-const AMBER := Color("#f2b84b")
-const BLUE := Color("#5aa3ff")
+const BG := Palette.PAGE
+const PANEL := Palette.CARD
+const PANEL2 := Palette.TILE
+const LINE := Palette.LINE
+const INK := Palette.TEXT
+const DIM := Palette.MUTED
+const HEAD := Palette.HEADER
+const RED := Palette.BAD_FILL
+const GREEN := Palette.GOOD
+const AMBER := Palette.WARN
+const BLUE := Palette.ACCENT
 const WALL := "res://assets/ui/art/gym_main.jpg"
 const CREST := "res://assets/ui/club_badge.svg"
 ## [label, KitIcon, act, arg]: section 2's routes. Mail is the game's news list (Main's "mail": World > News, read).
@@ -32,7 +33,7 @@ const APPS := [["Desktop", "booked", "go", "office:0"], ["Mail", "offer", "mail"
 	["Fighters", "hands", "go", "fighters:0"], ["Staff", "coach", "go", "gym:1"], ["Finance", "money", "go", "money:0"],
 	["Records", "contract", "go", "gym:4"]]
 const TONE := {"r": RED, "a": AMBER, "g": GREEN, "b": BLUE}
-const CHIP := {"bout": [RED, Color.WHITE], "fight_week": [Color("#6d5a2a"), Color("#f6e6bd")], "show": [RED, Color.WHITE],
+const CHIP := {"bout": [RED, INK], "fight_week": [Palette.SECOND, Palette.HEADER], "show": [RED, INK],
 	"open": [BLUE, BG], "champs": [AMBER, BG]}
 const CARD_W := 232
 const BAR_H := 64
@@ -46,7 +47,7 @@ func build(main: Node) -> void:
 	desk.clip_contents = true
 	add_child(desk)
 	var wall := _tex(WALL, Vector2.ZERO, TextureRect.STRETCH_KEEP_ASPECT_COVERED)
-	wall.modulate = Color(1, 1, 1, 0.22)   # the gym photo, dimmed behind the desktop
+	wall.modulate = Palette.fade(0.22)   # the gym photo, dimmed behind the desktop
 	desk.add_child(wall)
 	var v := UI.vbox(0)
 	desk.add_child(v)
@@ -61,12 +62,12 @@ func build(main: Node) -> void:
 	body.add_child(pad)
 	pad.add_child(_window(main, c, cards))
 	var fm := _margin(136, 0, 0, 10)
-	fm.add_child(_nm(UI.label(FOOT, 16, Color("#6f7a8a")), "OfficeFoot"))
+	fm.add_child(_nm(UI.label(FOOT, 16, DIM), "OfficeFoot"))
 	v.add_child(fm)
 
 ## The OS strip: crest, club name, date and week, cash.
 func _top(c: Career) -> Control:
-	var p := _panel("OfficeTop", UI.box(Color(0.03, 0.04, 0.06, 0.92), Color(0, 0, 0, 0), 0, 0, 22, 4), Control.SIZE_FILL, Vector2(0, 46))
+	var p := _panel("OfficeTop", UI.box(Palette.alpha(BG, 0.92), Palette.CLEAR, 0, 0, 22, 4), Control.SIZE_FILL, Vector2(0, 46))
 	var h := UI.hbox(18)
 	p.add_child(h)
 	h.add_child(_tex(CREST, Vector2(30, 30), TextureRect.STRETCH_KEEP_ASPECT_CENTERED))
@@ -79,7 +80,7 @@ func _top(c: Career) -> Control:
 	return p
 
 func _dock(main: Node, c: Career, cards: Array) -> Control:
-	var p := _panel("OfficeDock", UI.box(Color(0.03, 0.04, 0.06, 0.85), Color(0, 0, 0, 0), 0, 0, 15, 18), Control.SIZE_FILL, Vector2(108, 0))
+	var p := _panel("OfficeDock", UI.box(Palette.alpha(BG, 0.85), Palette.CLEAR, 0, 0, 15, 18), Control.SIZE_FILL, Vector2(108, 0))
 	var col := UI.vbox(12)
 	p.add_child(col)
 	var flagged := cards.filter(func(x): return str(x["tone"]) == "r").size()
@@ -96,27 +97,27 @@ func _dock(main: Node, c: Career, cards: Array) -> Control:
 		b.pressed.connect(main.act.bind(str(a[2]), str(a[3])))
 		var count := c.unread if word == "Mail" else (flagged if word == "Fighters" else 0)
 		if count > 0:
-			b.add_child(_badge(count, RED if word == "Mail" else Color("#b8862e"), "unread mail" if word == "Mail" else "fighters with a red flag"))
+			b.add_child(_badge(count, RED if word == "Mail" else AMBER, "unread mail" if word == "Mail" else "fighters with a red flag"))
 		col.add_child(b)
 	return p
 
 func _badge(n: int, col: Color, why: String) -> Control:
 	var p := _panel("Badge", UI.box(col, BG, 12, 2, 6, 0))
 	p.position = Vector2(60, -6)
-	var l := _num(str(n), 16, Color.WHITE, why)
+	var l := _num(str(n), 16, INK, why)
 	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	p.add_child(l)
 	return p
 
 ## The Desktop window: its bar, then needs | calendar | mail, fighters | money, the staff strip.
 func _window(main: Node, c: Career, cards: Array) -> Control:
-	var sb := UI.box(Color(0.055, 0.075, 0.105, 0.96), Color("#33404f"), 12, 1, 0, 0)
-	sb.shadow_color = Color(0, 0, 0, 0.6)
+	var sb := UI.box(Palette.alpha(PANEL, 0.96), LINE, 12, 1, 0, 0)
+	sb.shadow_color = Palette.shadow()
 	sb.shadow_size = 20
 	var win := _panel("DesktopWindow", sb, Control.SIZE_EXPAND_FILL)
 	var v := UI.vbox(0)
 	win.add_child(v)
-	var bar := _panel("WindowBar", UI.box(Color("#1a2230"), LINE, 0, 0, 18, 6), Control.SIZE_FILL, Vector2(0, 44))
+	var bar := _panel("WindowBar", UI.box(BG, LINE, 0, 0, 18, 6), Control.SIZE_FILL, Vector2(0, 44))
 	bar.add_child(UI.label("THIS WEEK AT THE CLUB", 20, INK, "caps"))
 	v.add_child(bar)
 	var grid := _margin(18, 18, 18, 18)
@@ -154,7 +155,7 @@ func _needs(main: Node, c: Career) -> Control:
 		var h := UI.hbox(12)
 		row.add_child(h)
 		var tone: Color = [RED, AMBER, BLUE][clampi(int(x["level"]), 0, 2)]
-		var ic := _panel("Icon", UI.box(Color(tone, 0.18), Color(0, 0, 0, 0), 9, 0, 8, 8))
+		var ic := _panel("Icon", UI.box(Palette.alpha(tone, 0.18), Palette.CLEAR, 9, 0, 8, 8))
 		ic.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		ic.add_child(KitIcon.icon(str(x["icon"]), 26, tone))
 		h.add_child(ic)
@@ -163,7 +164,7 @@ func _needs(main: Node, c: Career) -> Control:
 		tx.add_child(UI.label(str(x["t"]), 18, INK, "bold", true))
 		tx.add_child(UI.label(str(x["s"]).replace("\n", ", "), 16, DIM, "body", true))
 		h.add_child(tx)
-		var go := _button(str(x["label"]), RED if hot else Color("#223042"), RED if hot else Color("#3a4a5e"), 8, 1)
+		var go := _button(str(x["label"]), Palette.ACTION if hot else Palette.SECOND, Palette.ACTION if hot else LINE, 8, 1)
 		go.size_flags_horizontal = Control.SIZE_SHRINK_END
 		go.name = "NeedGo_%d" % i
 		go.pressed.connect(main.act.bind(str(x["act"]), str(x["arg"])))
@@ -187,15 +188,15 @@ func _calendar(c: Career) -> Control:
 		g.add_child(hl)
 	for cell in OfficeDesk.calendar(c):
 		var today := bool(cell["today"])
-		var p := _panel("Day_%d" % int(cell["d"]), UI.box(PANEL2, AMBER if today else Color("#222b38"), 6, 2 if today else 1, 4, 2), Control.SIZE_EXPAND_FILL, Vector2(0, 54))
+		var p := _panel("Day_%d" % int(cell["d"]), UI.box(PANEL2, Palette.CHOSEN if today else LINE, 6, 2 if today else 1, 4, 2), Control.SIZE_EXPAND_FILL, Vector2(0, 54))
 		var cv := UI.vbox(0)
 		p.add_child(cv)
 		cv.add_child(UI.label(str(cell["n"]), 16, INK if today else DIM))
 		var chips: Array = cell["chips"]
 		if not chips.is_empty():
 			var ch: Dictionary = chips[0]
-			var cols: Array = CHIP.get(str(ch["kind"]), [Color("#2c3a4c"), Color("#cfd8e3")])
-			var chip := _panel("Chip", UI.box(cols[0], Color(0, 0, 0, 0), 4, 0, 4, 0))
+			var cols: Array = CHIP.get(str(ch["kind"]), [PANEL2, INK])
+			var chip := _panel("Chip", UI.box(cols[0], Palette.CLEAR, 4, 0, 4, 0))
 			chip.add_child(_clip(UI.label(str(ch["t"]), 16, cols[1], "bold")))
 			cv.add_child(chip)
 			p.tooltip_text = "\n".join(chips.map(func(x): return str(x["tip"])))
@@ -206,7 +207,7 @@ func _mail(c: Career) -> Control:
 	var card := _card("MailPanel", "Mail", "%d unread" % c.unread, 420.0)
 	for m in OfficeDesk.mail(c):
 		var h := UI.hbox(10)
-		var dot := _panel("Dot", UI.box(BLUE if bool(m["unread"]) else Color(0, 0, 0, 0), Color(0, 0, 0, 0), 5, 0, 0, 0), Control.SIZE_FILL, Vector2(10, 10))
+		var dot := _panel("Dot", UI.box(BLUE if bool(m["unread"]) else Palette.CLEAR, Palette.CLEAR, 5, 0, 0, 0), Control.SIZE_FILL, Vector2(10, 10))
 		dot.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
 		h.add_child(dot)
 		var tx := UI.vbox(0)
@@ -251,9 +252,9 @@ func _fighter(main: Node, x: Dictionary) -> Control:
 		pic.add_child(face)
 	var tags := UI.hbox(6)   # the class chip is the card's header (S448: names only in headers); the flag on the right
 	tags.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE, Control.PRESET_MODE_MINSIZE, 8)
-	tags.add_child(_tag(str(x["header"]), Color(0.03, 0.04, 0.06, 0.85), INK))
+	tags.add_child(_tag(str(x["header"]), Palette.alpha(BG, 0.85), INK))
 	tags.add_child(UI.spacer())
-	tags.add_child(_tag(str(x["flag"]), TONE.get(str(x["tone"]), BLUE), Color.WHITE if str(x["tone"]) == "r" else BG))
+	tags.add_child(_tag(str(x["flag"]), TONE.get(str(x["tone"]), BLUE), INK if str(x["tone"]) == "r" else BG))
 	pic.add_child(tags)
 	var bd := _margin(12, 0, 12, 12)
 	v.add_child(bd)
@@ -286,10 +287,10 @@ func _vbar(word: String, n: int, why: String) -> Control:
 	track.custom_minimum_size = Vector2(14, BAR_H)
 	track.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	track.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	track.add_theme_stylebox_override("panel", UI.box(Color("#263040"), Color(0, 0, 0, 0), 4, 0, 0, 0))
+	track.add_theme_stylebox_override("panel", UI.box(BG, LINE, 4, 1, 0, 0))
 	if n > 0:
 		var fill := ColorRect.new()
-		fill.color = GREEN if n >= 70 else (AMBER if n >= 50 else Color("#ff7a6a"))
+		fill.color = Palette.GOOD_FILL if n >= 70 else (AMBER if n >= 50 else Palette.BAD_FILL)
 		fill.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		fill.anchor_left = 0.0
 		fill.anchor_right = 1.0
@@ -323,7 +324,7 @@ func _money(c: Career) -> Control:
 		col.custom_minimum_size = Vector2(30, 64)
 		col.tooltip_text = "Week %d: %d members (the Money page's forecast)" % [k + 1, n]
 		var fill := ColorRect.new()
-		fill.color = GREEN if n >= int(m["members"]) else Color("#ff7a6a")
+		fill.color = Palette.GOOD_FILL if n >= int(m["members"]) else Palette.BAD_FILL
 		var hgt := 60.0 * clampf(float(n) / float(maxi(1, int(m["cap"]))), 0.05, 1.0)
 		fill.position = Vector2(4, 64.0 - hgt)
 		fill.size = Vector2(22, hgt)
@@ -334,12 +335,12 @@ func _money(c: Career) -> Control:
 	if not ahead.is_empty():
 		var d := int(ahead[-1]) - int(m["members"])
 		card[1].add_child(_num("%d members in %d weeks (%s)" % [int(ahead[-1]), ahead.size(), UI.signed(d).replace("$", "")], 16,
-			GREEN if d >= 0 else Color("#ff7a6a"), "Where the forecast takes the members: dues, reputation and room"))
+			GREEN if d >= 0 else Palette.BAD, "Where the forecast takes the members: dues, reputation and room"))
 	card[1].add_child(UI.label("BILLS COMING", 16, HEAD, "caps"))
 	for b in m["bills"]:
 		var h := UI.hbox(8)
 		h.add_child(UI.label(Clock.fmt(int(b["day"])), 16, INK, "body", true))
-		h.add_child(_num("-" + UI.money(int(b["amount"])), 16, Color("#ff7a6a"), str(b["tip"]), "bold"))
+		h.add_child(_num("-" + UI.money(int(b["amount"])), 16, Palette.BAD, str(b["tip"]), "bold"))
 		card[1].add_child(h)
 	return card[0]
 
@@ -352,8 +353,8 @@ func _staff(c: Career) -> Control:
 		var st := UI.hbox(12)
 		st.name = "Staff_%d" % h.get_child_count()
 		if bool(r["empty"]):
-			st.modulate = Color(1, 1, 1, 0.55)
-		var ph := _panel("Face", UI.box(Color("#1b2230"), Color("#6b5a3a"), 38, 2, 6, 6), Control.SIZE_FILL, Vector2(76, 76))   # S459 C379 bigger
+			st.modulate = Palette.fade(0.55)
+		var ph := _panel("Face", UI.box(PANEL2, Palette.WOOD, 38, 2, 6, 6), Control.SIZE_FILL, Vector2(76, 76))   # S459 C379 bigger
 		if str(r["face"]) != "":
 			ph.add_child(_tex(str(r["face"]), Vector2.ZERO, TextureRect.STRETCH_KEEP_ASPECT_COVERED))
 		elif not bool(r["empty"]):
@@ -412,7 +413,7 @@ func _tex(path: String, min_size: Vector2, stretch: int) -> TextureRect:
 	return t
 
 func _tag(text: String, bg: Color, ink: Color) -> Control:
-	var p := _panel("Tag", UI.box(bg, Color("#3a4658"), 6, 1, 7, 2))
+	var p := _panel("Tag", UI.box(bg, LINE, 6, 1, 7, 2))
 	p.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	p.add_child(UI.label(text, 16, ink, "bold"))
 	return p

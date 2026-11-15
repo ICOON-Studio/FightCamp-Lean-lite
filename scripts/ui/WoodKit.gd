@@ -5,10 +5,11 @@ extends RefCounted
 ## card and button from here, so all pages change together; ink() gives the words on a slate their chalk colours.
 
 const DIR := "res://assets/ui/wood/"
-const INK := Color("#efe6d8")    # chalk
-const SOFT := Color("#b8a88f")   # a quieter chalk
-const HEAD := Color("#f2c14e")   # a card's title
-const BLUE := Color("#8fbcff")   # the ring-canvas blue, light enough to read on slate
+const Palette := preload("res://scripts/ui/Palette.gd")   # S493 the one palette
+const INK := Palette.TEXT        # chalk
+const SOFT := Palette.MUTED      # a quieter chalk
+const HEAD := Palette.HEADER     # a card's title
+const BLUE := Palette.ACCENT     # your side, light enough to read on slate
 const DARK_INK := Color("#241f1a")
 ## The paper inks UI.gd gives a word (UI.FG, UI.MUTED, UI.GOLD; tests/wood_kit_test.gd holds them equal).
 const PAPER_MUTED := Color("#5d5243")
@@ -134,3 +135,7 @@ static func _chalk(c: Control, key: String) -> void:
 		c.add_theme_color_override(key, SOFT)
 	elif was == PAPER_BLUE:
 		c.add_theme_color_override(key, BLUE)
+	elif was == Palette.GOOD_FILL:   # S493 a fill green as words on slate reads 3.0:1 - the lightened word green
+		c.add_theme_color_override(key, Palette.GOOD)
+	elif was == Palette.BAD_FILL:
+		c.add_theme_color_override(key, Palette.BAD)

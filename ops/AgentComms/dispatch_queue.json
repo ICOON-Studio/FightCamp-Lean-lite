@@ -1566,8 +1566,9 @@
   {
    "task": "CLASH9",
    "seat": "qwen",
-   "status": "queued",
-   "queued": "2026-11-15T14:05"
+   "status": "done",
+   "queued": "2026-11-15T14:05",
+   "note": "S493: result on qwen/clash9 (diagnosis c); fix briefed as CLASH10"
   },
   {
    "task": "WHYGRADE1",
@@ -1578,8 +1579,28 @@
   {
    "task": "STYLE5",
    "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-15T15:00",
+   "launched": "2026-11-15T15:12"
+  },
+  {
+   "task": "WHYGRADE1",
+   "seat": "qwen",
    "status": "queued",
-   "queued": "2026-11-15T15:00"
+   "queued": "2026-11-15T16:28"
+  },
+  {
+   "task": "PALETTEGUARD1",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-15T19:46",
+   "launched": "2026-11-15T20:12"
+  },
+  {
+   "task": "CLASH10",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-15T20:01"
   }
  ]
 }
