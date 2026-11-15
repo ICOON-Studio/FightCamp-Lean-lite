@@ -4,7 +4,8 @@ extends SceneTree
 ## The hooks counted below are the beats handed to add_beats, not a second tally.
 ## Population: Lucy Jackson (orthodox out-boxer, a step plan) vs Priya Nair (orthodox counter-puncher). They differ in
 ## stats, technique and plan. 200 seeds, 3-round amateur. Arms: default share 0.2, body plan share 0.5, head share 0.08.
-## S439: the two rates that sit near their bars ("body plan target more-hit rib at or under 35", "S318 loser hurt") are
+## S439: the rates that sit near their bars ("body plan target more-hit rib at or under 35", "S318 loser hurt", and since S487
+## "at or under 55" after the LIVERRIBS1 split moved it to 58 in one window) are
 ## judged on the MEAN of EIGHT disjoint 200-day windows (days 1000..2599; one window's sd is about 3 points), every
 ## window printed (RIB_WINDOW). The other checks read the first window (days 1000..1199) as before.
 
@@ -56,6 +57,7 @@ func _initialize() -> void:
 	_emit(head)
 	var crit_w: Array = [float(body["critical_pct"])]
 	var loser_w: Array = [float(plain["loser_hurt"])]
+	var hurt_w: Array = [float(body["hurt_pct"])]   # S487: judged on the mean of the windows too (one window's sd ~3 points)
 	print("RIB_WINDOW 0 days %d..%d body_crit=%.1f loser_hurt=%.1f" % [_day0, _day0 + SEEDS - 1, crit_w[0], loser_w[0]])
 	var keep: Array = [_worst, _worst_where, _rounds, _short, _short_worst, _short_gap_sum]
 	_quiet = true
@@ -65,7 +67,8 @@ func _initialize() -> void:
 		var b2: Dictionary = _arm(c, "body", "body", "")
 		crit_w.append(float(b2["critical_pct"]))
 		loser_w.append(float(p2["loser_hurt"]))
-		print("RIB_WINDOW %d days %d..%d body_crit=%.1f loser_hurt=%.1f" % [w, _day0, _day0 + SEEDS - 1, crit_w[w], loser_w[w]])
+		hurt_w.append(float(b2["hurt_pct"]))
+		print("RIB_WINDOW %d days %d..%d body_crit=%.1f loser_hurt=%.1f body_hurt=%.1f" % [w, _day0, _day0 + SEEDS - 1, crit_w[w], loser_w[w], hurt_w[w]])
 	_quiet = false
 	_day0 = 1000
 	_worst = keep[0]
@@ -74,7 +77,7 @@ func _initialize() -> void:
 	_short = keep[3]
 	_short_worst = keep[4]
 	_short_gap_sum = keep[5]
-	_judge(plain, body, head, crit_w, loser_w)
+	_judge(plain, body, head, crit_w, loser_w, hurt_w)
 	print("RIB_MATCH worst=%d %s" % [_worst, _worst_where])
 	print("RIB_SHORT rounds=%d of %d worst_gap=%d mean_gap=%.2f (settled body count out of the free singles' reach; not judged)" % [
 		_short, _rounds, _short_worst, float(_short_gap_sum) / float(maxi(_short, 1))])
@@ -424,7 +427,7 @@ func _mean(xs: Array) -> float:
 	return t / float(maxi(xs.size(), 1))
 
 
-func _judge(plain: Dictionary, body: Dictionary, head: Dictionary, crit_w: Array, loser_w: Array) -> void:
+func _judge(plain: Dictionary, body: Dictionary, head: Dictionary, crit_w: Array, loser_w: Array, hurt_w: Array) -> void:
 	var loss_l: float = float(plain["liver_loss"])
 	var loss_o: float = float(plain["other_loss"])
 	var loss_all: float = loss_l + loss_o
@@ -436,7 +439,9 @@ func _judge(plain: Dictionary, body: Dictionary, head: Dictionary, crit_w: Array
 	var mh: float = float(plain["more_hit_mean"])
 	_check(mh >= 62.0 and mh <= 82.0, "default more-hit rib averages %.1f (62-82)" % mh)
 	_check(float(plain["hurt_pct"]) <= 15.0, "default more-hit rib under 55 in %.1f%% (at most 15)" % float(plain["hurt_pct"]))
-	_check(float(body["hurt_pct"]) >= 60.0, "body plan target more-hit rib at or under 55 in %.1f%% (at least 60)" % float(body["hurt_pct"]))
+	var hm: float = _mean(hurt_w)
+	_check(hm >= 60.0, "body plan target more-hit rib at or under 55 in %.1f%% (at least 60; mean of %d windows: %s)" % [hm, hurt_w.size(),
+		" ".join(PackedStringArray(hurt_w.map(func(x): return "%.1f" % x)))])
 	var cm: float = _mean(crit_w)
 	_check(cm <= 20.0, "body plan target more-hit rib at or under 35 in %.1f%% (at most 20; mean of %d windows: %s)" % [cm, crit_w.size(),
 		" ".join(PackedStringArray(crit_w.map(func(x): return "%.1f" % x)))])

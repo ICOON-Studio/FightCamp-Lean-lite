@@ -1568,6 +1568,12 @@
    "seat": "qwen",
    "status": "queued",
    "queued": "2026-11-15T14:05"
+  },
+  {
+   "task": "WHYGRADE1",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-15T14:40"
   }
  ]
 }

@@ -3,15 +3,15 @@
  "updated": "2026-11-15",
  "author": "claude S294",
  "now": {
-  "id": "S486",
+  "id": "S487",
   "owner": "claude",
   "updated": "2026-11-15",
-  "summary": "S486: R58 'a fighter leaves' built in the state: Leaving.gd (own Monday under 25 after two words, approach, let go; farewell bout inside 14 days; rep -2/-5, a pro's release fee, Eastside ABC rival row, team-mates -2), LOYALHOOKS1 (offer passed -3, results +2/-1/-3 Loyal at half, goal +5/-4, pro -8/+5, same-class signing -4, 4 idle weeks -3), Arena APPROACH1 + PROMISE1 merged as is, STEPVALUE2 merged. Not on screen yet: the approach card, Let go, promises (APPROACHWIRE1 next). CLASH7 not merged (order fixed, depths unchanged) -> CLASH8 on Qwen (trace the layer). STYLE4: Kalli's levers -> TASK_STYLE4 queued for Qwen. TRAINGAME2 critics 5/5/6 and 4/5/4 -> v2 at Kalli (SQ176). Halo anchor warning fixed; mornings say Stamina / Fight IQ.",
-  "next_action": "S487: 0) get_usage; where_we_are roll S487. 1) Collect Qwen CLASH8 (qwen/clash8, wt E:/FightCamp/wt/LEAN_CLASH8, BASE qwen/clash7): read docs/CLASH8_RESULT.md (the layer named), run its hidden film yourself; merge qwen/clash7+clash8 only with 08_jab and 09_jab at 0 frames > 0.02 m (seed 4242) and seed 77 not worse. 2) Collect Arena LOYAL3 (lite PR): run tests/loyal3_probe.gd; tune Approach.gd constants until each answer is best in a band and none over 60%. 3) APPROACHWIRE1 (Claude): Monday Approach.due -> f['approach'] {day, offer, ends}, news + red need on Home, the card on the Overview with the five columns (Approach.answers; cost lines from GymSpend), the talk button, each answer's act (MATCH: stipend lock 12 weeks; HALF: half state x0.925; MOVE; PROMISE: book_show + Promises.make + the home bout; LET GO: Leaving.leave), unanswered on the end day -> Leaving.leave(approach); Overview 'Let go' (Leaving.let_go_price confirm); golden-path test walking one approach. 4) Seat answers SQ175 Kalli ladder v3, SQ176 Kalli TRAINGAME2 v2 -> two fresh critics. 5) STYLE4 runs on Qwen after CLASH8 (seat_dispatch). 6) Q-246 answer -> FOURSTART1 start state.",
-  "last_working_commit": "c1be342c",
-  "verified_playable": "S483 export (no wired game change in S484: CoachedMornings is not called yet)",
-  "incomplete_blocked": "CLASH7 running (Qwen); STYLE4 (Kalli); club week build to brief",
-  "next_acceptance": "Ladder v2 reaches his board only with both critics at depth 7+; STYLE4 code merged only when docs/STYLE3_RESULT.md's gates pass (each style 1.5-4 wins in 100, none best vs all) at 100 bouts a cell; ClubDeal v9 briefed only after his Q-242 answer; no CLASH brief before the audit names which skeleton's stack runs first and what peer data each reads.",
+  "summary": "S487: R58 APPROACHWIRE1 built and on screen: Eastside ABC approaches an unhappy prospect on a Monday (Approach.due), red need + APPROACHED flag, the card on top of the Overview (offer, answer-by, Tell it straight, five answers with cost / loyalty in 12 weeks / team-mate / training), each answer acted (MATCH stipend held 12 weeks; HALF $125+$125 x0.925; MOVE holder day job -12 + grievance; PROMISE show booked + Promises row, offers and idle ticks wait, kept/broken on the night; LET GO leaves Monday), unanswered = leaves; Overview 'Let go'. approach_wire_test PASS, still checked (ops/previews/s487). LOYAL3 (Arena) merged: MOVE won 59% -> Approach tuned (holder -12, HALF +6/+10) -> MOVE 54% max, HALF 16%. CLASH8 (Qwen) not merged: no layer undoes the clash; GloveClear clears the forearm axis, the glove is drawn on another; its pass lines were false -> CLASH9 queued. Nightly: rib_damage fixed (8-window mean), fight_why bisected to CARDFIX1 -> WHYGRADE1 queued; 5 R58 tests added to the nightly list; 5 she/her strings fixed. STYLE4 running (Qwen), APPROACH2 blind contract test (Arena), ladder v3 to Dola + John critics.",
+  "next_action": "S488: 0) get_usage; where_we_are roll S488. 1) Collect Arena APPROACH2 (lite PR, chat 01a1df16): run tests/approach_contract_test.gd, apply its five mutants to ApproachWire.gd one at a time (each must go red), merge the test. 2) Qwen STYLE4 (qwen/style4, wt LEAN_STYLE4): merge only when docs/STYLE3_RESULT.md's gates pass (each style 1.5-4 wins in 100, none best vs all); CLASH9 then WHYGRADE1 dispatch themselves after it. 3) HOMEBOUT1 (Claude): the promised show's bout is really boxed - a legal novice on c.show.day (Bouts.legal_index), no ticket cut; ApproachWire.show_night today counts 'fit' as boxed. 4) APPROACHUI2: the other menus of map section 7 (Roster flag row, offer Pass price, Money stipend 'held to', Records + Rankings 'left us' tag, Week review row, Club > People promises). 5) STEPVALUE1: ropes count + StepEffect in LiveRound, the learn card reads StepValue. 6) Seat answers: SQ176 Kalli TRAINGAME2 v2 -> two critics; SQ177/178 ladder v3 critics -> his board only at depth 7+ both. 7) FOURSTART1 re-scoped by his Q-246 answer: a TEST CLUB (four fighters: 3 boxers in different classes + 1 BJJ) to see every menu populated and for the tests; the normal start stays 0 fighters (a walk-in).",
+  "last_working_commit": "576a681a",
+  "verified_playable": "S487 export (approach card on the Overview checked in a real still)",
+  "incomplete_blocked": "STYLE4 running (Qwen); APPROACH2 running (Arena); CLASH9 + WHYGRADE1 queued (Qwen); SQ176-178 at seats",
+  "next_acceptance": "APPROACH2 merged only with 5 of 5 mutants red; STYLE4 merged only on STYLE3 gates; CLASH merge only with 08_jab and 09_jab at 0 frames > 0.02 m printed by Claude's own film run; ladder v3 to his board only at depth 7+ from both critics.",
   "awaiting_operator": "his look: Game plan chart, training K, coaches M1; his play: the fight week"
  },
  "next": "S477: 0) get_usage. 1) Collect Qwen BLOCKCLIP1 (branch qwen/blockclip1: 08_cross seed 77 <= 0.02 m every frame, no new deep frame on any shot, block_meet FAIL set not larger; open its f27 stills yourself, then his look). 2) Seat answers: SQ144 fight week map v9 -> two fresh critics -> 6/6 + depth 7 -> his board WITH the redrawn sparring-partner screen (names only in headers); SQ145 LADDER1 research -> Kalli map; SQ143 plan flowchart v3 -> his board; SQ146-150 design loop. 3) Arena: a pure module from v9 (partner-to-opponent match score). 4) CLASH3 left: a boxer's own two gloves (clash_meter reads only pairs across boxers - add own-pair), cross 09 seed 77 one 4.1 cm frame (the clearance believes it clear: its forearm-line glove model vs the drawn glove).",
@@ -2030,6 +2030,11 @@
    "id": "S486",
    "date": "2026-11-15",
    "summary": "S486: R58 'a fighter leaves' built in the state: Leaving.gd (own Monday under 25 after two words, approach, let go; farewell bout inside 14 days; rep -2/-5, a pro's release fee, Eastside ABC rival row, team-mates -2), LOYALHOOKS1 (offer passed -3, results +2/-1/-3 Loyal at half, goal +5/-4, pro -8/+5, same-class signing -4, 4 idle weeks -3), Arena APPROACH1 + PROMISE1 merged as is, STEPVALUE2 merged. Not on screen yet: the approach card, Let go, promises (APPROACHWIRE1 next). CLASH7 not merged (order fixed, depths unchanged) -> CLASH8 on Qwen (trace the layer). STYLE4: Kalli's levers -> TASK_STYLE4 queued for Qwen. TRAINGAME2 critics 5/5/6 and 4/5/4 -> v2 at Kalli (SQ176). Halo anchor warning fixed; mornings say Stamina / Fight IQ."
+  },
+  {
+   "id": "S487",
+   "date": "2026-11-15",
+   "summary": "S487: R58 APPROACHWIRE1 built and on screen: Eastside ABC approaches an unhappy prospect on a Monday (Approach.due), red need + APPROACHED flag, the card on top of the Overview (offer, answer-by, Tell it straight, five answers with cost / loyalty in 12 weeks / team-mate / training), each answer acted (MATCH stipend held 12 weeks; HALF $125+$125 x0.925; MOVE holder day job -12 + grievance; PROMISE show booked + Promises row, offers and idle ticks wait, kept/broken on the night; LET GO leaves Monday), unanswered = leaves; Overview 'Let go'. approach_wire_test PASS, still checked (ops/previews/s487). LOYAL3 (Arena) merged: MOVE won 59% -> Approach tuned (holder -12, HALF +6/+10) -> MOVE 54% max, HALF 16%. CLASH8 (Qwen) not merged: no layer undoes the clash; GloveClear clears the forearm axis, the glove is drawn on another; its pass lines were false -> CLASH9 queued. Nightly: rib_damage fixed (8-window mean), fight_why bisected to CARDFIX1 -> WHYGRADE1 queued; 5 R58 tests added to the nightly list; 5 she/her strings fixed. STYLE4 running (Qwen), APPROACH2 blind contract test (Arena), ladder v3 to Dola + John critics."
   }
  ],
  "blocked_on_operator": [],
@@ -2774,7 +2779,7 @@
    {
     "id": "NIGHTLY1",
     "owner": "claude",
-    "state": "[S418: first real PC full run 11-10 05:00 @a5d7f66b: pass=239 fail=0, 8 minutes; main CI green at 09e9f598 (232 tests). No red to act on. week_slate, head_aim and knowledge tests join the list from 11-11.] [S292: 10-23 cloud nightly @4ddc99bf 1002/13 vs 10-22 @c4dc03a0: FIXED camp_pays, mastery_select_wire, q226_strands; NEW bag_mount, build_holds_clock hang, gym_club_clearance, iso_ceiling_fixtures, no_garage, profile_drawer, reception_keeps_gym, reception_street_door, room_camera_flow, room_draft_flow, room_walls_mgt2, skip_day_drawer; fight_identity still red. Fixed in S292: reception_street_door/room_draft_flow/room_walls_mgt2 (d3e6a40c), profile_drawer/skip_day_drawer/gym_club_clearance deferred apply (242870b7). Left = gym-building tests (parked by D48) + fight_identity.] [S286: S285 master cloud runs @ab5f6216: q226_strands, camp_pays, mastery_select_wire RED on master (fight_identity run in progress) - Qwen's earlier run had q226 green -> flips run to run. Qwen BOUTREPEAT1 r1 fd2e55fb: the BOUT ENGINE replays per seed 3/3 both arms -> noise is upstream (career route: world gen, camp, rollover). r2 running #341. Also as_game: creation_root + gym_step_layout_s238 fixed (ASGAMERED9 9a52acec route), creation_api C14 -> r2 #342.] [S285: 10-22 cloud nightly @c4dc03a0 1048/13 (10-21 @d2e7be87 = same set but fight_room_walkout) vs last check 10-20 @bb2108dc: 6 NEW red - camp_pays, mastery_select_wire, fight_identity, q226_strands (bout lever effects shrank together; suspect d5fe4376 ATTRWIRE1), equipment_training_rows (reception_desk has no day-lap row) -> Arena NIGHTLY13; fight_root_single_writer ('ON arm holds every bound') + fighter_gloves_both_corners (hang) NOT assigned yet; 6 FIXED (fight_clip_slice, fight_room_walkout, profile_overview, punch_retime, see_through_occluders, stat_vocabulary)] [S275: 10-20 cloud nightly @bb2108dc 990/15 vs 10-19 943/17: 9 NEW red (af_motion, asset_manifest, fight_room_walkout hang, iso_ceiling_fixtures, profile_overview, punch_retime, see_through_occluders, stat_vocabulary, switch_gate_contact_push_carry), 11 FIXED (composure_live, doctor_live, fight_room_positions, fight_strike_speed, first_corner, human2, mixamo_s215, pad_chain_fight, q226_strands, rig_convention_contract, switch_gate_hold_pair_geometry); 7 -> Goose NIGHTLY12 #303, the 2 floor tests -> Codex FLOORTPM1 gate] [S266: 10-19 cloud nightly 17 fails - 5 were platform (cloud vs PC digests): dual pins 69442854, PC 5/5 + cloud 5/5; the other 12 -> Cursor NIGHTLY11 #282] [S264: 2026-10-19 cloud nightly @61ca511a 943/17 vs 10-17 885/16: 13 NEW red (composure_live, doctor_live, pad_chain_fight, fight_strike_whole, human2 = OFF-arm pins moved; switch_gate_hold_pair_geometry, q226_strands, rig_convention_contract, mixamo_s215 121 vs 115 rows; hangs fight_strike_speed, first_corner, fight_grapple_seam, fight_room_positions), 11 FIXED (decision_pacing, fight_identity, fight_realtime, corner_instruction_contract, switch_gate_hands_smooth, promotions_board, fight_contact_stop ...). Cursor NIGHTLY10 issue #278 bisects each pin to its commit] [S256: NIGHTLYPARK1 82e26f37 - fight_contact_stop + promotions_board PARKED (tests/parked_tests.json), asset_manifest green; boxing reds left: camp_pays, decision_pacing, fight_clip_slice, fight_pair_live, fight_stage_realism, switch_gate_hands_smooth] [S255: 2026-10-18 nightly stopped after 25/918 (log 199 B, asset_manifest red as before) - nothing new; 10-17 set (885/16) to Qwen NIGHTLYLABEL1] [S250: no new nightly since 5b92bef2 (2026-10-17, 885/16) - nothing new to diff] [S244: NIGHTLY8 #246/#247 collected c9848f0e; fight_identity 'rivalry heat costs stamina' still red (cold 90.7 = hot 90.7 - heat has no effect)] [S242: NIGHTLY7 finished - c",
+    "state": "[S487: 11-15 nightly @0faaf983 348/10 red; the 05:00 review fixed tips/card_flip/callout_pop/holo_live/sound_bank. On HEAD: plan_file PASS (test already updated); rib_damage FIXED (judged on the 8-window mean like its neighbours: 61.1%, window 0 was 58.0); fight_why STILL RED 276-279/540 (bar 360): bisected 7b7ac6e6..0faaf983 to 3fd32033 S466 CARDFIX1 (375 -> 279); adding a counter answer (feint) to the good plan changes nothing (276) - suspect the she_tired/she_hurt cards (no longer fixed inside/own_ropes, where the plan's defensive lines fired) -> WHYGRADE1 measures fires per situation before/after; plan_bots still red (known, STEPPLAN1 numbers); block_meet known (B_A pro_left_hook control row). approach/leaving/promises/loyalty_hooks/approach_wire added to the nightly list (they never ran at 05:00).] [S418: first real PC full run 11-10 05:00 @a5d7f66b: pass=239 fail=0, 8 minutes; main CI green at 09e9f598 (232 tests). No red to act on. week_slate, head_aim and knowledge tests join the list from 11-11.] [S292: 10-23 cloud nightly @4ddc99bf 1002/13 vs 10-22 @c4dc03a0: FIXED camp_pays, mastery_select_wire, q226_strands; NEW bag_mount, build_holds_clock hang, gym_club_clearance, iso_ceiling_fixtures, no_garage, profile_drawer, reception_keeps_gym, reception_street_door, room_camera_flow, room_draft_flow, room_walls_mgt2, skip_day_drawer; fight_identity still red. Fixed in S292: reception_street_door/room_draft_flow/room_walls_mgt2 (d3e6a40c), profile_drawer/skip_day_drawer/gym_club_clearance deferred apply (242870b7). Left = gym-building tests (parked by D48) + fight_identity.] [S286: S285 master cloud runs @ab5f6216: q226_strands, camp_pays, mastery_select_wire RED on master (fight_identity run in progress) - Qwen's earlier run had q226 green -> flips run to run. Qwen BOUTREPEAT1 r1 fd2e55fb: the BOUT ENGINE replays per seed 3/3 both arms -> noise is upstream (career route: world gen, camp, rollover). r2 running #341. Also as_game: creation_root + gym_step_layout_s238 fixed (ASGAMERED9 9a52acec route), creation_api C14 -> r2 #342.] [S285: 10-22 cloud nightly @c4dc03a0 1048/13 (10-21 @d2e7be87 = same set but fight_room_walkout) vs last check 10-20 @bb2108dc: 6 NEW red - camp_pays, mastery_select_wire, fight_identity, q226_strands (bout lever effects shrank together; suspect d5fe4376 ATTRWIRE1), equipment_training_rows (reception_desk has no day-lap row) -> Arena NIGHTLY13; fight_root_single_writer ('ON arm holds every bound') + fighter_gloves_both_corners (hang) NOT assigned yet; 6 FIXED (fight_clip_slice, fight_room_walkout, profile_overview, punch_retime, see_through_occluders, stat_vocabulary)] [S275: 10-20 cloud nightly @bb2108dc 990/15 vs 10-19 943/17: 9 NEW red (af_motion, asset_manifest, fight_room_walkout hang, iso_ceiling_fixtures, profile_overview, punch_retime, see_through_occluders, stat_vocabulary, switch_gate_contact_push_carry), 11 FIXED (composure_live, doctor_live, fight_room_positions, fight_strike_speed, first_corner, human2, mixamo_s215, pad_chain_fight, q226_strands, rig_convention_contract, switch_gate_hold_pair_geometry); 7 -> Goose NIGHTLY12 #303, the 2 floor tests -> Codex FLOORTPM1 gate] [S266: 10-19 cloud nightly 17 fails - 5 were platform (cloud vs PC digests): dual pins 69442854, PC 5/5 + cloud 5/5; the other 12 -> Cursor NIGHTLY11 #282] [S264: 2026-10-19 cloud nightly @61ca511a 943/17 vs 10-17 885/16: 13 NEW red (composure_live, doctor_live, pad_chain_fight, fight_strike_whole, human2 = OFF-arm pins moved; switch_gate_hold_pair_geometry, q226_strands, rig_convention_contract, mixamo_s215 121 vs 115 rows; hangs fight_strike_speed, first_corner, fight_grapple_seam, fight_room_positions), 11 FIXED (decision_pacing, fight_identity, fight_realtime, corner_instruction_contract, switch_gate_hands_smooth, promotions_board, fight_contact_stop ...). Cursor NIGHTLY10 issue #278 bisects each pin to its commit] [S256: NIGHTLYPARK1 82e26f37 - fight_contact_stop + promotions_board PARKED (tests/parked_tests.json), asset_manifest green; boxing reds left: camp_pays, decision_pacing, fight_clip_slice, fight_pair_live, fight_stage_realism, switch_gate_hands_smooth] [S255: 2026-10-18 nightly stopped after 25/918 (log 199 B, asset_manifest red as before) - nothing new; 10-17 set (885/16) to Qwen NIGHTLYLABEL1] [S250: no new nightly since 5b92bef2 (2026-10-17, 885/16) - nothing new to diff] [S244: NIGHTLY8 #246/#247 collected c9848f0e; fight_identity 'rivalry heat costs stamina' still red (cold 90.7 = hot 90.7 - heat has no effect)] [S242: NIGHTLY7 finished - c",
     "what": "Untracked chronic nightly reds (red 4 nights, no owner): fighter_gloves_both_corners (533 s then rc=127; FightClipRetarget._load_fbx 'Reading less data than requested' on every corner via build_silhouette_corrections - cache the FBX load); fight_readable_onset (hang); MMA off the demo path: fight_plan_ai_corner (GREAT coach won less often than POOR, pooled), fight_back_bands_contract (striker sub-finish 33.3% not in 12-32%), fight_footwork_economy (mma ON 9.3 m/min < 12)",
     "milestone": "B",
     "advances": "a nightly that can go green, so a new red is seen the day it lands",
@@ -4948,7 +4953,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-15 13:11 board_sync",
+  "updated": "2026-11-15 14:11 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5098,21 +5103,23 @@
   },
   "working_now": [
    {
-    "title": "TASK CLASH8 - with the order fixed, which layer puts the defender's glove back into the punch? (measure, then fix)",
+    "title": "TASK STYLE4 - rewire the three dead style levers (Boxer-puncher, Counter-puncher, Slugger) and retune all six",
     "who": "qwen",
-    "started": "2026-11-15T13:03"
+    "started": "2026-11-15T13:59",
+    "run": "STYLE4"
    },
    {
-    "title": "Bot clubs answer a rival club's approach: does one answer always win? (R58 probe LOYAL3)",
+    "title": "A blind contract test for the rival club's approach, with five mutants (R58)",
     "who": "arena",
-    "started": "2026-11-15T13:13"
+    "started": "2026-11-15T14:12",
+    "run": "APPROACH2"
    }
   ],
   "next": [
    {
     "id": "R58",
     "who": "claude",
-    "title": "A fighter leaves: Leaving + loyalty hooks BUILT (S486), Approach/Promises rules merged; next APPROACHWIRE1: the approach card, Let go, promises on screen",
+    "title": "A fighter leaves: approach card, five answers, Let go and promises LIVE (S487); left: the home bout on the promised show (HOMEBOUT1), the other menus (APPROACHUI2)",
     "after": ""
    },
    {
@@ -5130,13 +5137,13 @@
    {
     "id": "STYLE4",
     "who": "qwen",
-    "title": "Dead style levers rewired (Kalli's mid pull, miss return, inside power) + retune all six: TASK_STYLE4 queued on Qwen after CLASH8",
+    "title": "Dead style levers rewired + retune all six: RUNNING on Qwen (S487)",
     "after": ""
    },
    {
     "id": "FOURSTART1",
     "who": "claude",
-    "title": "Four starters: money with classes + ticket cuts (docs/FOURSTART1_MONEY_S485.md); his Q-246 (one sponsored, three on day jobs) then the start state",
+    "title": "Test club with four fighters (his Q-246: the normal game starts with 0 fighters; four are only to see the menus populated and for the tests): 3 boxers in different classes + 1 BJJ, reachable from the create screen as a test start and from the tests",
     "after": ""
    },
    {
@@ -5148,7 +5155,7 @@
    {
     "id": "CLASH3",
     "who": "claude",
-    "title": "Clipping: CLASH7 fixed the update order but not the depth (S486); CLASH8 on Qwen traces the layer that undoes the clash",
+    "title": "Clipping: CLASH8 found the guard glove clears along the forearm while the glove is drawn on another axis; CLASH9 (Qwen, after STYLE4) measures why the push leaves it in",
     "after": ""
    },
    {
@@ -5262,7 +5269,7 @@
    {
     "id": "FOURSTART1",
     "who": "claude",
-    "title": "Four fighters at the start: weights, a BJJ fighter, staggered first week, money re-measured for four",
+    "title": "Test club with four fighters (his Q-246: the normal game starts with 0 fighters; four are only to see the menus populated and for the tests): 3 boxers in different classes + 1 BJJ, reachable from the create screen as a test start and from the tests",
     "after": "HANDSPROBE1"
    },
    {
@@ -5625,6 +5632,26 @@
   },
   "done_recently": [
    {
+    "title": "Rival club approach card on the Overview, five answers live (APPROACHWIRE1)",
+    "who": "claude",
+    "done": "2026-11-15"
+   },
+   {
+    "title": "Bot clubs probe: no answer always wins (Arena LOYAL3, Approach tuned)",
+    "who": "arena",
+    "done": "2026-11-15"
+   },
+   {
+    "title": "Glove clash traced: no later layer, the axis differs (Qwen CLASH8, not merged)",
+    "who": "qwen",
+    "done": "2026-11-15"
+   },
+   {
+    "title": "TASK CLASH7 - one pump runs both boxers' skeleton stacks once a frame, in a fixed order (glove clash root fix)",
+    "who": "qwen",
+    "when": "2026-11-15"
+   },
+   {
     "title": "Step worth by style (Arena STEPVALUE2, S486)",
     "who": "arena",
     "done": "2026-11-15"
@@ -5663,33 +5690,6 @@
     "title": "Club week coached mornings + the weak spot (pure module + test)",
     "who": "arena",
     "when": "2026-11-15"
-   },
-   {
-    "title": "why the named styles are worth almost nothing: count each lever, then tune (STYLE2 round 2)",
-    "who": "goose",
-    "when": "2026-11-15"
-   },
-   {
-    "title": "Training K page with the game's real numbers",
-    "who": "S484"
-   },
-   {
-    "title": "Goose: style lever count (STYLE3) - 3 dead levers",
-    "who": "S484"
-   },
-   {
-    "title": "Qwen: four starters' money probe (FOURMONEY1)",
-    "who": "S484"
-   },
-   {
-    "title": "Arena: coached mornings + weak spot module (MORNINGS1)",
-    "who": "S484"
-   },
-   {
-    "id": "MODETELLS1",
-    "who": "qwen",
-    "title": "The opponent's modes are tells: OFTEN/SOME/RARE on the Game plan chart (S483)",
-    "after": ""
    }
   ],
   "scope_note": "S294: lean restart (E:\\FightCamp\\Lean\\docs\\RESTART_PLAN.md). Old roadmap items are parked until the weekly builds reach them.",
@@ -5818,6 +5818,22 @@
   "map": {
    "done_earlier": [
     {
+     "text": "A boxer can leave the club",
+     "who": "claude"
+    },
+    {
+     "text": "Loyalty moves on results, offers",
+     "who": "claude"
+    },
+    {
+     "text": "Approach + Promises rules (Arena)",
+     "who": "agent"
+    },
+    {
+     "text": "Step worth by style (Arena)",
+     "who": "agent"
+    },
+    {
      "text": "Club week v1: loyalty, day job",
      "who": "claude"
     },
@@ -5856,40 +5872,24 @@
     {
      "text": "Coaches board M1 on review board",
      "who": "agent"
-    },
-    {
-     "text": "Club week CHECKs + 4 questions",
-     "who": "claude"
-    },
-    {
-     "text": "Training K page built",
-     "who": "claude"
-    },
-    {
-     "text": "Game plan chart built (Q-240)",
-     "who": "claude"
-    },
-    {
-     "text": "Partner probe paired, gate fails",
-     "who": "claude"
     }
    ],
    "done_session": [
     {
-     "text": "A boxer can leave the club",
+     "text": "Rival club approach card, live",
      "who": "claude"
     },
     {
-     "text": "Loyalty moves on results, offers",
+     "text": "Bot clubs probe, Approach tuned",
+     "who": "agent"
+    },
+    {
+     "text": "Clash traced to the glove axis",
+     "who": "agent"
+    },
+    {
+     "text": "Rib test fixed, why bisected",
      "who": "claude"
-    },
-    {
-     "text": "Approach + Promises rules (Arena)",
-     "who": "agent"
-    },
-    {
-     "text": "Step worth by style (Arena)",
-     "who": "agent"
     }
    ],
    "now": [
@@ -5938,10 +5938,6 @@
      "who": "claude"
     },
     {
-     "text": "Ladder v2 (Kalli, John 5/5/6)",
-     "who": "claude"
-    },
-    {
      "text": "Your call: Q-246 starters money",
      "who": "operator"
     },
@@ -5950,7 +5946,7 @@
      "who": "agent"
     },
     {
-     "text": "STYLE4 levers queued (Qwen)",
+     "text": "Ladder v3 at critics Dola + John",
      "who": "agent"
     }
    ],
@@ -6016,24 +6012,32 @@
      "who": "claude"
     },
     {
-     "text": "Clipping: code audit (CLASH)",
-     "who": "claude"
-    },
-    {
      "text": "Four starters map (FOURSTART1)",
      "who": "claude"
     },
     {
-     "text": "Approach card + Let go on screen",
+     "text": "Home bout on the promised show",
      "who": "claude"
+    },
+    {
+     "text": "Approach on the other menus",
+     "who": "claude"
+    },
+    {
+     "text": "CLASH9: why the push stays in",
+     "who": "agent"
+    },
+    {
+     "text": "Good-plan grade since CARDFIX1",
+     "who": "agent"
     }
    ],
-   "session": "S486"
+   "session": "S487"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
  "last_working_commit": "c1be342c",
- "next_action": "S487: 0) get_usage; where_we_are roll S487. 1) Collect Qwen CLASH8 (qwen/clash8, wt E:/FightCamp/wt/LEAN_CLASH8, BASE qwen/clash7): read docs/CLASH8_RESULT.md (the layer named), run its hidden film yourself; merge qwen/clash7+clash8 only with 08_jab and 09_jab at 0 frames > 0.02 m (seed 4242) and seed 77 not worse. 2) Collect Arena LOYAL3 (lite PR): run tests/loyal3_probe.gd; tune Approach.gd constants until each answer is best in a band and none over 60%. 3) APPROACHWIRE1 (Claude): Monday Approach.due -> f['approach'] {day, offer, ends}, news + red need on Home, the card on the Overview with the five columns (Approach.answers; cost lines from GymSpend), the talk button, each answer's act (MATCH: stipend lock 12 weeks; HALF: half state x0.925; MOVE; PROMISE: book_show + Promises.make + the home bout; LET GO: Leaving.leave), unanswered on the end day -> Leaving.leave(approach); Overview 'Let go' (Leaving.let_go_price confirm); golden-path test walking one approach. 4) Seat answers SQ175 Kalli ladder v3, SQ176 Kalli TRAINGAME2 v2 -> two fresh critics. 5) STYLE4 runs on Qwen after CLASH8 (seat_dispatch). 6) Q-246 answer -> FOURSTART1 start state.",
+ "next_action": "S488: 0) get_usage; where_we_are roll S488. 1) Collect Arena APPROACH2 (lite PR, chat 01a1df16): run tests/approach_contract_test.gd, apply its five mutants to ApproachWire.gd one at a time (each must go red), merge the test. 2) Qwen STYLE4 (qwen/style4, wt LEAN_STYLE4): merge only when docs/STYLE3_RESULT.md's gates pass (each style 1.5-4 wins in 100, none best vs all); CLASH9 then WHYGRADE1 dispatch themselves after it. 3) HOMEBOUT1 (Claude): the promised show's bout is really boxed - a legal novice on c.show.day (Bouts.legal_index), no ticket cut; ApproachWire.show_night today counts 'fit' as boxed. 4) APPROACHUI2: the other menus of map section 7 (Roster flag row, offer Pass price, Money stipend 'held to', Records + Rankings 'left us' tag, Week review row, Club > People promises). 5) STEPVALUE1: ropes count + StepEffect in LiveRound, the learn card reads StepValue. 6) Seat answers: SQ176 Kalli TRAINGAME2 v2 -> two critics; SQ177/178 ladder v3 critics -> his board only at depth 7+ both. 7) FOURSTART1 re-scoped by his Q-246 answer: a TEST CLUB (four fighters: 3 boxers in different classes + 1 BJJ) to see every menu populated and for the tests; the normal start stays 0 fighters (a walk-in).",
  "next_acceptance": "Ladder v2 reaches his board only with both critics at depth 7+; STYLE4 code merged only when docs/STYLE3_RESULT.md's gates pass (each style 1.5-4 wins in 100, none best vs all) at 100 bouts a cell; ClubDeal v9 briefed only after his Q-242 answer; no CLASH brief before the audit names which skeleton's stack runs first and what peer data each reads."
 }
