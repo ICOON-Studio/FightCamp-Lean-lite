@@ -6,13 +6,13 @@
   "id": "S484",
   "owner": "claude",
   "updated": "2026-11-15",
-  "summary": "S484: collected Arena MORNINGS1 (CoachedMornings + test, run locally PASS), Qwen FOURMONEY1 (four stipends: a fresh start on today's $17,200 lasts 9 weeks; dues-only, classes and ticket cuts not counted), Goose STYLE3 probe + lever table (Slugger, Boxer-puncher, Counter-puncher levers DEAD: their conditions are rarely true; EFFECTS retune NOT merged - fails both gates, inside the noise) -> STYLE4 redesign of the three levers at Kalli (SQ174). CLASH6 round 2 FAILED (08_jab 0.051 m, 09_jab 0.062 m, two shots gained clash frames; kept on local qwen/clash6-r2) - two red rounds = Claude code audit next, no round 3. TRAINGAME2: training K page carries the game's real numbers (tools/training_k_numbers.gd); the check hook is 1.8 short on Friday (Usable Monday of fight week) - the page's 'five more minutes' story is impossible, minutes barely move mastery; critics John+Kalli queued (SQ172/173). Ladder v2 to John+Dola critics (SQ170/171).",
-  "next_action": "S485: 0) get_usage; where_we_are roll S485. 1) Seat answers: SQ170/171 ladder v2 critics (7+ both = his board), SQ172/173 training K critics, SQ174 Kalli STYLE4 levers (then a code brief for Qwen: three levers + retune all six at 100 bouts a cell). 2) His board answers Q-242..245 -> CHECKs 4,6,7,10 -> ClubDeal v9 brief (pad turns) for a seat. 3) CLASH audit (Claude, Opus advised): read GloveClear/ArmClash order across the two skeletons (which stack runs first, what peer data each reads) with layer_trace before any brief; CLASH6 rounds 1-2 on qwen/clash6-r1 / -r2. 4) FOURSTART1 map: money from docs/FOURMONEY1_RESULT.md plus classes and ticket cuts. 5) His look/play gates (chart, training K, fight week) for PLANFLOW1 rest and FIGHTWEEK3.",
+  "summary": "S484: collected Arena MORNINGS1 (CoachedMornings + test, run locally PASS), Qwen FOURMONEY1 (four stipends: a fresh start on today's $17,200 lasts 9 weeks; dues-only, classes and ticket cuts not counted), Goose STYLE3 probe + lever table (Slugger, Boxer-puncher, Counter-puncher levers DEAD: their conditions are rarely true; EFFECTS retune NOT merged - fails both gates, inside the noise) -> STYLE4 redesign of the three levers at Kalli (SQ174). CLASH6 round 2 FAILED (08_jab 0.051 m, 09_jab 0.062 m, two shots gained clash frames; kept on local qwen/clash6-r2) - two red rounds = Claude code audit next, no round 3. TRAINGAME2: training K page carries the game's real numbers (tools/training_k_numbers.gd); the check hook is 1.8 short on Friday (Usable Monday of fight week) - the page's 'five more minutes' story is impossible, minutes barely move mastery; critics John+Kalli queued (SQ172/173). Ladder v2 to John+Dola critics (SQ170/171). Stage 2: CLASH audit - root cause is the UPDATE ORDER: both skeletons run Idle and ap.seek(t, true) (HitImpact.gd:49 hit-stop catch-up) re-poses a boxer mid-frame, so the two stacks do not run once a frame in a fixed order (08_jab f40: both read last frame's arms). CLASH7 on Qwen: Skeleton3D MANUAL mode + one SkelPump advancing the puncher first, the defender second.",
+  "next_action": "S485: 0) get_usage; where_we_are roll S485. 1) Seat answers: SQ170/171 ladder v2 critics (7+ both = his board), SQ172/173 training K critics, SQ174 Kalli STYLE4 levers (then a code brief for Qwen: three levers + retune all six at 100 bouts a cell). 2) Club week: his S484 chat answers (Q-242 'No, never short' = no pad-turn rule; Q-243 '2 mornings'; Q-244 'Yes, they can leave'; Q-245 0-100 bar + word) -> close CHECKs 4,6,7,10 (ops/research/CLUBWEEK1_V9_CHECKS_S483.md) -> brief the club week build for seats. 3) Collect Qwen CLASH7 (qwen/clash7, ETA ~14:00 2026-11-15): RUN its hidden film yourself; merge only with 08_jab and 09_jab at 0 frames > 0.02 m, regression set not grown, and the pass log regular (1 each, puncher first). 4) FOURSTART1 map: money from docs/FOURMONEY1_RESULT.md plus classes and ticket cuts. 5) His look/play gates (chart, training K, fight week) for PLANFLOW1 rest and FIGHTWEEK3.",
   "last_working_commit": "d7563a4e",
   "verified_playable": "S483 export (no wired game change in S484: CoachedMornings is not called yet)",
-  "incomplete_blocked": "CLASH clipping (two failed rounds, audit next); club week build (Q-242..245); STYLE4 (Kalli)",
+  "incomplete_blocked": "CLASH7 running (Qwen); STYLE4 (Kalli); club week build to brief",
   "next_acceptance": "Ladder v2 reaches his board only with both critics at depth 7+; STYLE4 code merged only when docs/STYLE3_RESULT.md's gates pass (each style 1.5-4 wins in 100, none best vs all) at 100 bouts a cell; ClubDeal v9 briefed only after his Q-242 answer; no CLASH brief before the audit names which skeleton's stack runs first and what peer data each reads.",
-  "awaiting_operator": "Q-242..245 club week; his look: Game plan chart, training K, coaches M1; his play: the fight week"
+  "awaiting_operator": "his look: Game plan chart, training K, coaches M1; his play: the fight week"
  },
  "next": "S477: 0) get_usage. 1) Collect Qwen BLOCKCLIP1 (branch qwen/blockclip1: 08_cross seed 77 <= 0.02 m every frame, no new deep frame on any shot, block_meet FAIL set not larger; open its f27 stills yourself, then his look). 2) Seat answers: SQ144 fight week map v9 -> two fresh critics -> 6/6 + depth 7 -> his board WITH the redrawn sparring-partner screen (names only in headers); SQ145 LADDER1 research -> Kalli map; SQ143 plan flowchart v3 -> his board; SQ146-150 design loop. 3) Arena: a pure module from v9 (partner-to-opponent match score). 4) CLASH3 left: a boxer's own two gloves (clash_meter reads only pairs across boxers - add own-pair), cross 09 seed 77 one 4.1 cm frame (the clearance believes it clear: its forearm-line glove model vs the drawn glove).",
  "assessment": {
@@ -2019,7 +2019,7 @@
   {
    "id": "S484",
    "date": "2026-11-15",
-   "summary": "S484: collected Arena MORNINGS1 (CoachedMornings + test, run locally PASS), Qwen FOURMONEY1 (four stipends: a fresh start on today's $17,200 lasts 9 weeks; dues-only, classes and ticket cuts not counted), Goose STYLE3 probe + lever table (Slugger, Boxer-puncher, Counter-puncher levers DEAD: their conditions are rarely true; EFFECTS retune NOT merged - fails both gates, inside the noise) -> STYLE4 redesign of the three levers at Kalli (SQ174). CLASH6 round 2 FAILED (08_jab 0.051 m, 09_jab 0.062 m, two shots gained clash frames; kept on local qwen/clash6-r2) - two red rounds = Claude code audit next, no round 3. TRAINGAME2: training K page carries the game's real numbers (tools/training_k_numbers.gd); the check hook is 1.8 short on Friday (Usable Monday of fight week) - the page's 'five more minutes' story is impossible, minutes barely move mastery; critics John+Kalli queued (SQ172/173). Ladder v2 to John+Dola critics (SQ170/171)."
+   "summary": "S484: collected Arena MORNINGS1 (CoachedMornings + test, run locally PASS), Qwen FOURMONEY1 (four stipends: a fresh start on today's $17,200 lasts 9 weeks; dues-only, classes and ticket cuts not counted), Goose STYLE3 probe + lever table (Slugger, Boxer-puncher, Counter-puncher levers DEAD: their conditions are rarely true; EFFECTS retune NOT merged - fails both gates, inside the noise) -> STYLE4 redesign of the three levers at Kalli (SQ174). CLASH6 round 2 FAILED (08_jab 0.051 m, 09_jab 0.062 m, two shots gained clash frames; kept on local qwen/clash6-r2) - two red rounds = Claude code audit next, no round 3. TRAINGAME2: training K page carries the game's real numbers (tools/training_k_numbers.gd); the check hook is 1.8 short on Friday (Usable Monday of fight week) - the page's 'five more minutes' story is impossible, minutes barely move mastery; critics John+Kalli queued (SQ172/173). Ladder v2 to John+Dola critics (SQ170/171). Stage 2: CLASH audit - root cause is the UPDATE ORDER: both skeletons run Idle and ap.seek(t, true) (HitImpact.gd:49 hit-stop catch-up) re-poses a boxer mid-frame, so the two stacks do not run once a frame in a fixed order (08_jab f40: both read last frame's arms). CLASH7 on Qwen: Skeleton3D MANUAL mode + one SkelPump advancing the puncher first, the defender second."
   }
  ],
  "blocked_on_operator": [],
@@ -4938,7 +4938,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-15 11:11 board_sync",
+  "updated": "2026-11-15 11:26 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5088,25 +5088,18 @@
   },
   "working_now": [
    {
-    "title": "why the named styles are worth almost nothing: count each lever, then tune (STYLE2 round 2)",
-    "who": "goose",
-    "started": "2026-11-15T09:47",
-    "run": "STYLE3",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK FOURMONEY1 - the money of four starters: a pure probe over the existing bill rules (test + result page)",
+    "title": "Glove clipping: both skeletons run once a frame in a fixed order (CLASH7)",
     "who": "qwen",
-    "started": "2026-11-15T10:59",
-    "run": "FOURMONEY1"
+    "started": "2026-11-15T11:54",
+    "run": "CLASH7"
    }
   ],
   "next": [
    {
     "id": "CLUBWEEK1",
     "who": "claude",
-    "title": "Club week v9 build (his Q-241 'Yes, build it after the fight week'): CHECKs done (ops/research/CLUBWEEK1_V9_CHECKS_S483.md), Q-242..245 on his board, MORNINGS1 on Arena; ClubDeal v9 next",
-    "after": "Q-242..245"
+    "title": "Club week v9 build: his answers in (S484: pads never short, 2 mornings lost without sponsorship, fighters can leave, loyalty 0-100 bar); close CHECKs 4,6,7,10, then brief",
+    "after": ""
    },
    {
     "id": "FIGHTWEEK3",
@@ -5141,7 +5134,7 @@
    {
     "id": "CLASH3",
     "who": "claude",
-    "title": "Clipping: CLASH6 failed twice (S483, S484) -> Claude code audit of the two skeletons' order before any new brief",
+    "title": "Clipping: audit done S484 (skeleton update order); CLASH7 on Qwen: manual skeleton pump, puncher first",
     "after": ""
    },
    {
@@ -5618,6 +5611,11 @@
   },
   "done_recently": [
    {
+    "title": "why the named styles are worth almost nothing: count each lever, then tune (STYLE2 round 2)",
+    "who": "goose",
+    "when": "2026-11-15"
+   },
+   {
     "title": "Training K page with the game's real numbers",
     "who": "S484"
    },
@@ -5661,10 +5659,6 @@
    },
    {
     "title": "S480: unsparred plan lines wired (inert); fight week screen v2 drawn; plan list vs flowchart on his board (Q-239)",
-    "who": "claude"
-   },
-   {
-    "title": "S479: CLASH4 not merged; cause = one-frame glove jump at f40 (CLASH5)",
     "who": "claude"
    }
   ],
@@ -6014,6 +6008,6 @@
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
  "last_working_commit": "c8b1fe6d",
- "next_action": "S485: 0) get_usage; where_we_are roll S485. 1) Seat answers: SQ170/171 ladder v2 critics (7+ both = his board), SQ172/173 training K critics, SQ174 Kalli STYLE4 levers (then a code brief for Qwen: three levers + retune all six at 100 bouts a cell). 2) His board answers Q-242..245 -> CHECKs 4,6,7,10 -> ClubDeal v9 brief (pad turns) for a seat. 3) CLASH audit (Claude, Opus advised): read GloveClear/ArmClash order across the two skeletons (which stack runs first, what peer data each reads) with layer_trace before any brief; CLASH6 rounds 1-2 on qwen/clash6-r1 / -r2. 4) FOURSTART1 map: money from docs/FOURMONEY1_RESULT.md plus classes and ticket cuts. 5) His look/play gates (chart, training K, fight week) for PLANFLOW1 rest and FIGHTWEEK3.",
+ "next_action": "S485: 0) get_usage; where_we_are roll S485. 1) Seat answers: SQ170/171 ladder v2 critics (7+ both = his board), SQ172/173 training K critics, SQ174 Kalli STYLE4 levers (then a code brief for Qwen: three levers + retune all six at 100 bouts a cell). 2) Club week: his S484 chat answers (Q-242 'No, never short' = no pad-turn rule; Q-243 '2 mornings'; Q-244 'Yes, they can leave'; Q-245 0-100 bar + word) -> close CHECKs 4,6,7,10 (ops/research/CLUBWEEK1_V9_CHECKS_S483.md) -> brief the club week build for seats. 3) Collect Qwen CLASH7 (qwen/clash7, ETA ~14:00 2026-11-15): RUN its hidden film yourself; merge only with 08_jab and 09_jab at 0 frames > 0.02 m, regression set not grown, and the pass log regular (1 each, puncher first). 4) FOURSTART1 map: money from docs/FOURMONEY1_RESULT.md plus classes and ticket cuts. 5) His look/play gates (chart, training K, fight week) for PLANFLOW1 rest and FIGHTWEEK3.",
  "next_acceptance": "Ladder v2 reaches his board only with both critics at depth 7+; STYLE4 code merged only when docs/STYLE3_RESULT.md's gates pass (each style 1.5-4 wins in 100, none best vs all) at 100 bouts a cell; ClubDeal v9 briefed only after his Q-242 answer; no CLASH brief before the audit names which skeleton's stack runs first and what peer data each reads."
 }

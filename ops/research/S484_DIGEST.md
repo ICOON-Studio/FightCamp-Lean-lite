@@ -28,3 +28,10 @@ SQ170 John / SQ171 Dola: ladder v2 critics. SQ172 John / SQ173 Kalli: training K
 
 ## Waiting on the owner
 Q-242..245 (club week: pad hours, day job, leaving, loyalty display) - ClubDeal v9 waits on Q-242.
+
+## Stage 2 - CLASH audit (same session)
+Root cause: the two boxers' skeleton stacks do not run once a frame in a fixed order. Both run in Idle mode; game code re-poses
+a boxer mid-frame with ap.seek(t, true) (HitImpact.gd:49, the hit-stop catch-up), so at 08_jab f40 both boxers read the other's
+arms from the previous frame (late true, true) and boxer 0's 10.3 cm push went into a glove boxer 1 saw elsewhere. Logs show
+(true,false), (false,false) and (true,true) pairs. Fix briefed as TASK_CLASH7 (Qwen, running): Skeleton3D MANUAL mode and one
+SkelPump that advances the puncher's skeleton first, the defender's second. TASK_CLASH6.md "Audit (S484)".

@@ -60,7 +60,7 @@ RESULT: tests/coached_mornings_test.gd -> COACHED_MORNINGS PASS fails=0
 ## Contract
 OWNS: scripts/rules/CoachedMornings.gd, tests/coached_mornings_test.gd
 RED_TEST: tests/coached_mornings_test.gd -> COACHED_MORNINGS PASS fails=0 (red on main: the files do not exist)
-REGRESSION: none (nothing calls it yet)
+REGRESSION: tests/coached_mornings_test.gd (the only caller; no game system calls it yet)
 VISUAL: no
 NOT YOURS: every other file. Both files under 500 lines. Never delete or weaken a test.
 Run: `godot --headless --audio-driver Dummy --fixed-fps 60 --path . --script res://tests/coached_mornings_test.gd` (Godot 4.7.2).

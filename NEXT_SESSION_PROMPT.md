@@ -21,16 +21,23 @@ OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py s
 - TRAINGAME2: training K page with the game's real numbers (tools/training_k_numbers.gd); check hook 1.8 short Friday.
 
 ## IN FLIGHT (seat queue - collect, do not resend)
-- SQ170 John + SQ171 Dola: ladder v2 critics (both 7+ depth = his board; else Kalli revises).
+- Ladder v2 critics IN: Dola 7/8/7, John 6/6/6 (below the 7 bar) -> SQ175 Kalli writes v3 with John's five fixes; then two
+  fresh critics again.
+- Training K: Kalli 4/5/4 (SQ173, she scored the numbers note, not a design); John SQ172 pending. Next: a real design pass.
 - SQ172 John + SQ173 Kalli: training K critics.
 - SQ174 Kalli: STYLE4 - new levers for Slugger, Boxer-puncher, Counter-puncher (then a Qwen code brief + retune of all six at
   100 bouts a cell; gates in docs/STYLE3_RESULT.md).
-- Qwen and Arena are free: give each a task in the first hour (Arena: a pure module; Qwen: STYLE4 code once Kalli lands).
+- Qwen CLASH7 (qwen/clash7, wt E:/FightCamp/wt/LEAN_CLASH7, ETA ~14:00): the audit fix - Skeleton3D MANUAL + SkelPump
+  (puncher first). RUN its hidden film yourself; bar in ops/research/TASK_CLASH7.md.
+- Arena is free; Qwen once CLASH7 lands: give each a task in the first hour (Arena: a pure module; Qwen: STYLE4 code once Kalli lands).
 
 ## FIRST
 1. Seat answers above; quote the scores.
-2. His board answers Q-242..245 -> CHECKs 4, 6, 7, 10 (ops/research/CLUBWEEK1_V9_CHECKS_S483.md) -> ClubDeal v9 brief.
-3. CLASH audit yourself (Opus if he picks it): which boxer's modifier stack runs first, what peer arms each GloveClear/ArmClash
-   reads (layer_trace, clash_meter); rounds 1-2 on qwen/clash6-r1 / -r2; TASK_CLASH6.md has both results.
+2. Club week: his answers are IN (S484 chat, recorded in ops/research/CLUBWEEK1_V9_CHECKS_S483.md): pads never short (no
+   pad-turn rule, ClubDeal v9 pad turns dropped), 2 mornings lost without sponsorship, fighters can leave, loyalty 0-100 bar +
+   word. Close CHECKs 4, 6, 7, 10 and brief the club week build for the seats.
+   BOARD QUESTIONS (his S484 anger: "stop pasting 5k words for a simple question ... give context and ask"): the question text
+   must stand alone with its context in 2-3 plain lines; never attach a long design map - attach a one-screen picture or nothing.
+3. Collect CLASH7 (audit in TASK_CLASH6.md 'Audit (S484)': ap.seek(t, true) mid-frame breaks the stack order).
 4. FOURSTART1 map: docs/FOURMONEY1_RESULT.md + classes + ticket cuts.
 5. His look (chart, training K, coaches M1) and his play of the fight week gate PLANFLOW1's rest and FIGHTWEEK3.

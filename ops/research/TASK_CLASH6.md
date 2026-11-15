@@ -77,3 +77,16 @@ plus a clash_pair pass on each own skeleton. Its films (docs/clash6 in the workt
 08_jab 0.055 m. Bar is 0 frames > 0.02 m and no new frames - fails both. Two red rounds = audit, not round 3 (S224 rule):
 next step is a Claude code audit of the GloveClear / ArmClash order across the two skeletons (which skeleton's modifier
 stack runs first, what peer data each reads), before any further tuning brief.
+
+## Audit (S484, Claude) - the root cause is the update ORDER, not the push
+Read: GloveClear.clash_pass / _clear_arms (S468-S478), ArmClash.gd, clash_meter.worst, Qwen's two film logs (docs/clash6 in
+the CLASH6 worktree), the Godot 4.7.2 Skeleton3D API (probe: modifier_callback_mode_process Physics|Idle|Manual, advance()).
+1. The resolver is right only when the boxer drawn SECOND reads the other's arms fresh (own = 1.0: she takes all of what is
+   left). At seed 4242 08_jab f40 BOTH boxers logged `late true`: each read the other's arms from the previous frame, and
+   boxer 0's ArmClash moved her left glove 10.3 cm that frame into a place boxer 1 still saw empty -> 0.051 m.
+2. Across the clash frames of both logs the late flags pair as (true,false), (false,false) and (true,true): the two stacks do
+   NOT run once a frame in a fixed order. (false,false) = one stack ran twice in a frame.
+3. Why: both skeletons run in Idle mode, and game code re-poses a boxer mid-frame with `ap.seek(t, true)` (HitImpact.gd:49 the
+   hit-stop catch-up - exactly the frames after a hit where every failure sits; also MovePlayer 504/528, Clinch, IdleMatch,
+   KnockdownCount). A forced pose dirties that skeleton, so its modifier pass happens at another moment than the other's.
+4. So no share, pass count or extrapolation can fix it (13 tunings in CLASH5-6). Fix the order: TASK_CLASH7.

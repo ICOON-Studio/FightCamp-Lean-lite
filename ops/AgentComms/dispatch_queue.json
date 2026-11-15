@@ -1540,6 +1540,13 @@
    "status": "launched",
    "queued": "2026-11-15T11:00",
    "launched": "2026-11-15T10:59"
+  },
+  {
+   "task": "CLASH7",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-15T12:10",
+   "launched": "2026-11-15T11:54"
   }
  ]
 }

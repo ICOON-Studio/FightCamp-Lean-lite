@@ -22,3 +22,30 @@ files) - before ClubDeal v9 is briefed.
 **Owner questions on the board (S483):** Q-S294-242 pad hours, Q-243 day job, Q-244 leaving, Q-245 loyalty on screen.
 Q1 (the Club week tab) waits for the drawn page (map section 12).
 **First seat task:** TASK_MORNINGS1 (Arena) - coached mornings + the weak spot, no owner answer needed.
+
+## Owner answers (S484, asked again in chat - the board showed the 5k-word map, not the question)
+- Q-242 pad hours: "No, never short" - every boxer always gets full pads; there is NO pad-turn sharing rule. ClubDeal v9's
+  pad turns are dropped; selling a class / a 4th boxer / a twist never sends anyone to the bag.
+- Q-243 day job: "2 mornings" - an unsponsored boxer loses 2 coached mornings a week.
+- Q-244 leaving: "Yes, they can leave" - under 25 loyalty after 2 talks = leaves; turning pro under 50 = outside manager, club
+  share 10% instead of 25%.
+- Q-245 loyalty display: 0-100 bar (his pick), with its word beside it ("62 - Settled").
+CHECKs 4, 6, 7, 10 can now close; the club week build brief needs no pad-turn module.
+
+## CHECKs 4, 6, 7, 10 closed (S485, read from main 155771bb)
+4. **StepMastery counts nights with a turn: moot.** Pads are never short (Q-242), so every pad night is a full night and the
+   S463 study slot fills as today (about 6 a week). No change to StepMastery.
+6. **A later-date path in code: NONE** (no reschedule/postpone anywhere in scripts/). With pads never short, a fight week on a
+   class week costs nobody a pad night, so the collision line's SHORT cases are gone; only FILM over (3 of 2) is left.
+   DECIDED: the Later date button and the collision line wait for v2; v1 shows the film line only ("Film: 3 boxers, 2 seats -
+   one watches alone") on the bout page.
+7. **COACHFIT1's budget: one budget, COACHFIT1's coach time.** COACHFIT1 v8 already charges mornings (Normal 0.5, Hard 1.0)
+   and borrows past the budget at a FIT cost (-8 / -18), never a missed session. That matches "never short": a busy coach
+   gives a worse session, not a missing one. The club week reads CoachedMornings.owned (You 4 + Coach 2 sessional / 3
+   full-time, on main since MORNINGS1) for the morning count; a sold second class costs Coach 1 coach time that evening.
+   ClubDeal.gd (R73DEAL1, pad places and shorts) is SUPERSEDED for pads; only class_cash / class_members_4w stay in use.
+10. **AMATEURPROBE1 / MONEYFOUR1:** AMATEURPROBE1 (S430, amateur bouts 1-2 weeks out) still stands - the fight-week code
+   since then kept its lead rule. MONEYFOUR1 (S430) is SUPERSEDED by FOURMONEY1 (S484, today's bills): four stipends on
+   $17,200 last 9 weeks dues-only. Quote FOURMONEY1, not MONEYFOUR1; FOURSTART1 adds classes and ticket cuts.
+
+All ten CHECKs closed. Build plan: ops/research/CLUBWEEK1_BUILD_S485.md.

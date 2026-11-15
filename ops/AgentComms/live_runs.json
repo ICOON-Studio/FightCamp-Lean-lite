@@ -134,23 +134,6 @@
     "board": ""
    }
   },
-  "STYLE3": {
-   "agent": "goose",
-   "id": "STYLE3",
-   "title": "why the named styles are worth almost nothing: count each lever, then tune (STYLE2 round 2)",
-   "status": "landed",
-   "started": "2026-11-15T09:47",
-   "where": "cloud",
-   "repo": "FightCamp-Lean",
-   "brief": "ops/research/TASK_STYLE3.md",
-   "model": "Goose + Qwen token plan (GitHub Actions)",
-   "eta": "2026-11-15T10:47",
-   "note": "S380 seat_dispatch: pure rule module routed to Goose instead of a PC worktree (S483 Claude)",
-   "issue": "305",
-   "branch": "goose/issue-305",
-   "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/305",
-   "reconciled": "2026-11-15 11:10 board_reconcile: run finished (success), branch goose/issue-305 pushed"
-  },
   "MORNINGS1": {
    "agent": "arena",
    "id": "MORNINGS1",
@@ -168,7 +151,7 @@
    "agent": "qwen",
    "id": "FOURMONEY1",
    "title": "TASK FOURMONEY1 - the money of four starters: a pure probe over the existing bill rules (test + result page)",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-15T10:59",
    "eta": "2026-11-15T12:49",
    "branch": "qwen/fourmoney1",
@@ -188,6 +171,54 @@
     "brief_copied": true,
     "runner_pid": 46244,
     "seat_pid": 15028
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 2/2 PASS; PR #307",
+   "finished": "2026-11-15T11:14",
+   "pr": 307,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/four_money_probe_test.gd",
+     "ok": true,
+     "last": "FOURMONEY PASS fails=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/four_money_probe_test.gd",
+     "ok": true,
+     "last": "FOURMONEY PASS fails=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "CLASH7": {
+   "agent": "qwen",
+   "id": "CLASH7",
+   "title": "TASK CLASH7 - one pump runs both boxers' skeleton stacks once a frame, in a fixed order (glove clash root fix)",
+   "status": "running",
+   "started": "2026-11-15T11:54",
+   "eta": "2026-11-15T13:44",
+   "branch": "qwen/clash7",
+   "worktree": "E:/FightCamp/wt/LEAN_CLASH7",
+   "wt": "E:/FightCamp/wt/LEAN_CLASH7",
+   "brief": "ops/research/TASK_CLASH7.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/CLASH7_dispatch_out.txt",
+   "match": "seat_dispatch.py run clash7",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/CLASH7_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/CLASH7_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/CLASH7_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 44992,
+    "seat_pid": 24292
    },
    "note": "S368 seat_dispatch: launched unattended (dispatch_queue.json); merging stays off"
   }
