@@ -5396,7 +5396,7 @@
    {
     "id": "FIGHTFILM1",
     "who": "claude",
-    "title": "Fight analysis page + live fight log + film nights where the player finds the opponent's tells (his S494 ask): v1 Dola 8/8/8, John 5/6/7 (printed the tell, free tells); v2 map ops/research/FIGHTFILM1_MAP_V2_S495.md + mockup + measured check (tools/film_check_probe.py) with Dola + John (SQ193/SQ194); to his board only at depth 7+ from both",
+    "title": "Fight analysis page + live fight log + film nights where the player finds the opponent's tells (his S494 ask): v1 Dola 8/8/8 John 5/6/7; v2 Dola 9/9/9 John 6/7/7 (the screen did the check, weak second film); v3 map ops/research/FIGHTFILM1_MAP_V3_S495.md (camera-seen counts, evidence bar, all 72 claims probed, evening priced in power) with Dola + John (SQ196/SQ197); to his board only at depth 7+ from both",
     "after": ""
    }
   ],
