@@ -69,3 +69,11 @@ arms before the cross clash). For phase 2 find a write path Godot 4.7.2 allows -
 from both CURRENT published arms and applies only ITS OWN half of the correction (both see the same frame's data, so the two
 halves agree), or say in the result page why that cannot work. RUN THE RED TEST through the brief's film line
 (hidden_desktop) before you finish; a result with "PENDING" is not a result.
+
+## Round 2 result (S484, Claude) - FAIL, no merge
+Qwen commit 32ac0f42 (kept on local branch qwen/clash6-r2, never pushed): both boxers move ARM_SHARE 0.6 of the overlap
+plus a clash_pair pass on each own skeleton. Its films (docs/clash6 in the worktree): seed 4242 08_jab 0.051 m f40 (main
+0.054), 09_jab 0.062 m f19 (main 0.057); 01_rear_uppercut gains 2 frames (0.047), 04_lead_uppercut 1 (0.028); seed 77
+08_jab 0.055 m. Bar is 0 frames > 0.02 m and no new frames - fails both. Two red rounds = audit, not round 3 (S224 rule):
+next step is a Claude code audit of the GloveClear / ArmClash order across the two skeletons (which skeleton's modifier
+stack runs first, what peer data each reads), before any further tuning brief.

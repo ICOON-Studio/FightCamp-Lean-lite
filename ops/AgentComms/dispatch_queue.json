@@ -1533,6 +1533,13 @@
    "seat": "qwen",
    "status": "queued",
    "queued": "2026-11-15T00:35"
+  },
+  {
+   "task": "FOURMONEY1",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-15T11:00",
+   "launched": "2026-11-15T10:59"
   }
  ]
 }

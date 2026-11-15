@@ -1,172 +1,200 @@
 {
-  "_doc": "Claude writes one entry per agent run at launch (operator S144: 'make it more clear, who is working on what, ETA'). The ops board /agents page joins it to the live processes. eta = Claude's estimate at launch, local time; status running|waiting|done.",
-  "seats": 3,
-  "runs": {
-    "STYLE1": {
-      "agent": "goose",
-      "id": "STYLE1",
-      "title": "TASK STYLE1 - does any named style dominate, and is each worth having? (probe, measure only)",
-      "status": "running - S479: Arena's sandbox could not download Godot (SSL); moved to Goose issue #298",
-      "started": "2026-11-15T05:58",
-      "eta": "2026-11-15T07:30",
-      "branch": "goose/*",
-      "brief": "ops/research/TASK_STYLE1.md",
-      "repo": "ICOON-Studio/FightCamp-Lean-lite",
-      "chat": "https://arena.ai/agent/01a1dc46-8131-7b0e-af3a-6e1d928bcaec",
-      "seat": "arena",
-      "issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/298"
-    },
-    "CLASH5": {
-      "agent": "qwen",
-      "id": "CLASH5",
-      "title": "TASK CLASH5 - the guard glove that jumps 30 cm in one frame (seed 4242 08_jab f40), and the clash read that cannot see it",
-      "status": "failed",
-      "started": "2026-11-15T05:53",
-      "eta": "2026-11-15T07:43",
-      "branch": "qwen/clash5",
-      "worktree": "E:/FightCamp/wt/LEAN_CLASH5",
-      "wt": "E:/FightCamp/wt/LEAN_CLASH5",
-      "brief": "ops/research/TASK_CLASH5.md",
-      "repo": "FightCamp-Lean",
-      "where": "pc",
-      "log": "E:/FightCamp/wt/CLASH5_dispatch_out.txt",
-      "match": "seat_dispatch.py run clash5",
-      "model": "qwen3-coder",
-      "dispatch": {
-        "prompt": "E:/FightCamp/wt/CLASH5_dispatch_prompt.txt",
-        "out": "E:/FightCamp/wt/CLASH5_dispatch_out.txt",
-        "runner_log": "E:/FightCamp/wt/CLASH5_dispatch_runner.log",
-        "source": "command line",
-        "brief_copied": true,
-        "runner_pid": 45296,
-        "seat_pid": 27060
-      },
-      "note": "S368 seat_dispatch runner crashed: FileNotFoundError(2, 'The filename or extension is too long', None, 206, None)",
-      "finished": "2026-11-15T07:21"
-    },
-    "CLASH6": {
-      "agent": "qwen",
-      "id": "CLASH6",
-      "title": "TASK CLASH6 - resolve the glove clash in two phases (all boxers update, then all resolve)",
-      "status": "running",
-      "started": "2026-11-15T09:46",
-      "eta": "2026-11-15T11:36",
-      "branch": "qwen/clash6",
-      "worktree": "E:/FightCamp/wt/LEAN_CLASH6",
-      "wt": "E:/FightCamp/wt/LEAN_CLASH6",
-      "brief": "ops/research/TASK_CLASH6.md",
-      "repo": "FightCamp-Lean",
-      "where": "pc",
-      "log": "E:/FightCamp/wt/CLASH6_dispatch_out.txt",
-      "match": "seat_dispatch.py run clash6",
-      "model": "qwen3-coder",
-      "dispatch": {
-        "prompt": "E:/FightCamp/wt/CLASH6_dispatch_prompt.txt",
-        "out": "E:/FightCamp/wt/CLASH6_dispatch_out.txt",
-        "runner_log": "E:/FightCamp/wt/CLASH6_dispatch_runner.log",
-        "source": "command line",
-        "brief_copied": true,
-        "runner_pid": 38700,
-        "seat_pid": 36580
-      },
-      "note": "S368 seat_dispatch: launched unattended (command line); merging stays off",
-      "finished": "2026-11-15T09:23",
-      "pr": 304,
-      "checks": [
-        {
-          "kind": "RED_TEST",
-          "script": "tools/hit_frame_film.gd",
-          "ok": false,
-          "last": "   at: cleanup (core/object/object.cpp:2536)"
-        },
-        {
-          "kind": "REGRESSION",
-          "script": "tests/own_gloves_test.gd",
-          "ok": true,
-          "last": "OWN_GLOVES failures=0"
-        },
-        {
-          "kind": "REGRESSION",
-          "script": "tests/guard_knee_test.gd",
-          "ok": false,
-          "last": "================================================================"
-        },
-        {
-          "kind": "REGRESSION",
-          "script": "tests/guard_weave_test.gd",
-          "ok": true,
-          "last": "guard_weave_test: PASS"
-        },
-        {
-          "kind": "REGRESSION",
-          "script": "tests/glove_cut_test.gd",
-          "ok": true,
-          "last": "glove_cut_test: PASS"
-        },
-        {
-          "kind": "REGRESSION",
-          "script": "tests/cam_line_test.gd",
-          "ok": true,
-          "last": "CAM_LINE failures=0"
-        },
-        {
-          "kind": "REGRESSION",
-          "script": "tests/hit_frame_test.gd",
-          "ok": false,
-          "last": "HIT_FRAME failures=5"
-        },
-        {
-          "kind": "REGRESSION",
-          "script": "tests/hit_carry_test.gd",
-          "ok": false,
-          "last": "================================================================"
-        },
-        {
-          "kind": "REGRESSION",
-          "script": "tests/block_meet_test.gd",
-          "ok": false,
-          "last": "================================================================"
-        }
-      ],
-      "films": {
-        "before": {},
-        "after": {},
-        "board": ""
-      }
-    },
-    "STYLE3": {
-      "agent": "goose",
-      "id": "STYLE3",
-      "title": "why the named styles are worth almost nothing: count each lever, then tune (STYLE2 round 2)",
-      "status": "running",
-      "started": "2026-11-15T09:47",
-      "where": "cloud",
-      "repo": "FightCamp-Lean",
-      "brief": "ops/research/TASK_STYLE3.md",
-      "model": "Goose + Qwen token plan (GitHub Actions)",
-      "eta": "2026-11-15T10:47",
-      "note": "S380 seat_dispatch: pure rule module routed to Goose instead of a PC worktree (S483 Claude)",
-      "issue": "305",
-      "branch": "goose/issue-305",
-      "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/305"
-    },
-    "MORNINGS1": {
-      "agent": "arena",
-      "id": "MORNINGS1",
-      "title": "Club week coached mornings + the weak spot (pure module + test)",
-      "status": "running",
-      "started": "2026-11-15T09:52",
-      "eta": "2026-11-15T10:50",
-      "chat": "https://arena.ai/agent/01a1de31-8b24-7169-bd21-dc521a2471c1",
-      "brief": "ops/research/TASK_MORNINGS1.md",
-      "repo": "ICOON-Studio/FightCamp-Lean-lite",
-      "seat": "arena"
-    }
+ "_doc": "Claude writes one entry per agent run at launch (operator S144: 'make it more clear, who is working on what, ETA'). The ops board /agents page joins it to the live processes. eta = Claude's estimate at launch, local time; status running|waiting|done.",
+ "seats": 3,
+ "runs": {
+  "STYLE1": {
+   "agent": "goose",
+   "id": "STYLE1",
+   "title": "TASK STYLE1 - does any named style dominate, and is each worth having? (probe, measure only)",
+   "status": "running - S479: Arena's sandbox could not download Godot (SSL); moved to Goose issue #298",
+   "started": "2026-11-15T05:58",
+   "eta": "2026-11-15T07:30",
+   "branch": "goose/*",
+   "brief": "ops/research/TASK_STYLE1.md",
+   "repo": "ICOON-Studio/FightCamp-Lean-lite",
+   "chat": "https://arena.ai/agent/01a1dc46-8131-7b0e-af3a-6e1d928bcaec",
+   "seat": "arena",
+   "issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/298"
   },
-  "codex_budget": {
-    "used_percent": 65,
-    "resets": "2026-10-07T04:42",
-    "read_at": "2026-10-02T18:10",
-    "rule": "max 2 Codex seats, luna/medium, stop new launches at 85%"
+  "CLASH5": {
+   "agent": "qwen",
+   "id": "CLASH5",
+   "title": "TASK CLASH5 - the guard glove that jumps 30 cm in one frame (seed 4242 08_jab f40), and the clash read that cannot see it",
+   "status": "failed",
+   "started": "2026-11-15T05:53",
+   "eta": "2026-11-15T07:43",
+   "branch": "qwen/clash5",
+   "worktree": "E:/FightCamp/wt/LEAN_CLASH5",
+   "wt": "E:/FightCamp/wt/LEAN_CLASH5",
+   "brief": "ops/research/TASK_CLASH5.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/CLASH5_dispatch_out.txt",
+   "match": "seat_dispatch.py run clash5",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/CLASH5_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/CLASH5_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/CLASH5_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 45296,
+    "seat_pid": 27060
+   },
+   "note": "S368 seat_dispatch runner crashed: FileNotFoundError(2, 'The filename or extension is too long', None, 206, None)",
+   "finished": "2026-11-15T07:21"
+  },
+  "CLASH6": {
+   "agent": "qwen",
+   "id": "CLASH6",
+   "title": "TASK CLASH6 - resolve the glove clash in two phases (all boxers update, then all resolve)",
+   "status": "failed",
+   "started": "2026-11-15T09:46",
+   "eta": "2026-11-15T11:36",
+   "branch": "qwen/clash6",
+   "worktree": "E:/FightCamp/wt/LEAN_CLASH6",
+   "wt": "E:/FightCamp/wt/LEAN_CLASH6",
+   "brief": "ops/research/TASK_CLASH6.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/CLASH6_dispatch_out.txt",
+   "match": "seat_dispatch.py run clash6",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/CLASH6_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/CLASH6_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/CLASH6_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 38700,
+    "seat_pid": 36580
+   },
+   "note": "S368 seat_dispatch runner crashed: FileNotFoundError(2, 'The filename or extension is too long', None, 206, None)",
+   "finished": "2026-11-15T10:30",
+   "pr": 304,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tools/hit_frame_film.gd",
+     "ok": false,
+     "last": "   at: cleanup (core/object/object.cpp:2536)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/own_gloves_test.gd",
+     "ok": true,
+     "last": "OWN_GLOVES failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/guard_knee_test.gd",
+     "ok": false,
+     "last": "================================================================"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/guard_weave_test.gd",
+     "ok": true,
+     "last": "guard_weave_test: PASS"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/glove_cut_test.gd",
+     "ok": true,
+     "last": "glove_cut_test: PASS"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/cam_line_test.gd",
+     "ok": true,
+     "last": "CAM_LINE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/hit_frame_test.gd",
+     "ok": false,
+     "last": "HIT_FRAME failures=5"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/hit_carry_test.gd",
+     "ok": false,
+     "last": "================================================================"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/block_meet_test.gd",
+     "ok": false,
+     "last": "================================================================"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "STYLE3": {
+   "agent": "goose",
+   "id": "STYLE3",
+   "title": "why the named styles are worth almost nothing: count each lever, then tune (STYLE2 round 2)",
+   "status": "running",
+   "started": "2026-11-15T09:47",
+   "where": "cloud",
+   "repo": "FightCamp-Lean",
+   "brief": "ops/research/TASK_STYLE3.md",
+   "model": "Goose + Qwen token plan (GitHub Actions)",
+   "eta": "2026-11-15T10:47",
+   "note": "S380 seat_dispatch: pure rule module routed to Goose instead of a PC worktree (S483 Claude)",
+   "issue": "305",
+   "branch": "goose/issue-305",
+   "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/305"
+  },
+  "MORNINGS1": {
+   "agent": "arena",
+   "id": "MORNINGS1",
+   "title": "Club week coached mornings + the weak spot (pure module + test)",
+   "status": "landed",
+   "started": "2026-11-15T09:52",
+   "eta": "2026-11-15T10:50",
+   "chat": "https://arena.ai/agent/01a1de31-8b24-7169-bd21-dc521a2471c1",
+   "brief": "ops/research/TASK_MORNINGS1.md",
+   "repo": "ICOON-Studio/FightCamp-Lean-lite",
+   "seat": "arena",
+   "reconciled": "2026-11-15 10:40 board_reconcile: PR #306 open - collect it"
+  },
+  "FOURMONEY1": {
+   "agent": "qwen",
+   "id": "FOURMONEY1",
+   "title": "TASK FOURMONEY1 - the money of four starters: a pure probe over the existing bill rules (test + result page)",
+   "status": "running",
+   "started": "2026-11-15T10:59",
+   "eta": "2026-11-15T12:49",
+   "branch": "qwen/fourmoney1",
+   "worktree": "E:/FightCamp/wt/LEAN_FOURMONEY1",
+   "wt": "E:/FightCamp/wt/LEAN_FOURMONEY1",
+   "brief": "ops/research/TASK_FOURMONEY1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/FOURMONEY1_dispatch_out.txt",
+   "match": "seat_dispatch.py run fourmoney1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/FOURMONEY1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/FOURMONEY1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/FOURMONEY1_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 46244,
+    "seat_pid": 15028
+   },
+   "note": "S368 seat_dispatch: launched unattended (dispatch_queue.json); merging stays off"
   }
+ },
+ "codex_budget": {
+  "used_percent": 65,
+  "resets": "2026-10-07T04:42",
+  "read_at": "2026-10-02T18:10",
+  "rule": "max 2 Codex seats, luna/medium, stop new launches at 85%"
+ }
 }
