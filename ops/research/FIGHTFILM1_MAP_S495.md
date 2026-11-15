@@ -73,6 +73,20 @@ History). Same layout, same words. Mockup: `docs/mockups/s495/fight_analysis/fig
   with a button **Fix it on the pads** (CODE HabitFix / pads drill). This is display only in v1; rivals filming us is a
   small-living-world item, not this build.
 
+### 2.1b Checked against a pro video-stats product (S495, operator's reference: Jabbr DeepStrike, design reference only)
+A pro product counts per fighter per round: landed against HIGH IMPACT (clean, visible effect) against thrown; pressure
+and aggression as a share of the round; the distance each punch came from; a landed-quality and a power-commit spread;
+combinations (accuracy by length, singles against combos, combination trees); and a predicted chance each round goes to
+each fighter on the judges' cards, with knockdowns. What our sim knows, and where each goes:
+| Their stat | Our sim (CODE) | On the page |
+|---|---|---|
+| High impact against landed | Each exchange's decisive shot is a `big` beat (with `knockback` on a dominant one); a set-up that lands and a read that lands are damage (LiveRound, `damage`) | REPORT: a third bar per punch, "clean" inside "landed" inside "thrown". SHOW ME > Result gets "Clean". Supports the best-weapon tell: "her cross lands clean 4 times, her jab never" |
+| Distance of each punch | The exchange's `place` (outside, long, mid, inside, clinch, ropes): each punch takes its exchange's place | SHOW ME > Range. REPORT: landed by range for both corners. Supports the game tells ("she lands at long range, never inside") |
+| Pressure / aggression share | Her game per exchange (`mode`, walks you down = pressing), who steps in (`step_in` beats), PlanPressure on our side | REPORT: "Pressing: 6 of 18 exchanges" per corner (shares, not a new number) |
+| Combinations, singles against combos, accuracy by length | Beats carry the combination (BurstShape / Combos) | REPORT: Her combinations gets singles against combos and landed share by length (1, 2, 3+) |
+| Round-score chance on the judges' cards | NOT a prediction for us: the three judges score every round from the exchanges with no dice (`scripts/rules/Judges.gd`, one reason a card) | A ROUNDS STRIP above the report: each round's three cards with the reason on hover, knockdowns marked. Her film: "she lost round 3 on all three cards" backs a fade tell. Your bout: the same strip the result page has. Live: the corner minute may show "the cards so far" (P, later) |
+| Landed-quality and power-commit spreads, stance and balance around each punch | Not in the sim: the 3D view never decides, so a per-punch quality or balance would be a made-up number | Left out on purpose |
+
 ### 2.2 Buttons and what each changes
 | Button | Changes |
 |---|---|
