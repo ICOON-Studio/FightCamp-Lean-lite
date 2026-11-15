@@ -186,6 +186,18 @@
    "where": "cloud",
    "url": "https://arena.ai/agent/01a1deba-0752-73e4-97f8-08e3024d5ae3",
    "branch": "arena/024d5ae3-fightcamp-lean-lite"
+  },
+  "STEPEFFECT1": {
+   "agent": "arena",
+   "id": "STEPEFFECT1",
+   "title": "The ten steps: what each does when it fires, and how well (STEPVALUE1 pieces 2+4, pure table + test)",
+   "status": "merged (S485, as is; table checked row by row)",
+   "started": "2026-11-15T12:34",
+   "eta": "2026-11-15T12:55",
+   "brief": "ops/research/TASK_STEPEFFECT1.md",
+   "repo": "FightCamp-Lean-lite",
+   "where": "cloud",
+   "url": "https://arena.ai/agent/01a1debf-625b-7c8c-81e3-59f868eab383"
   }
  },
  "codex_budget": {
