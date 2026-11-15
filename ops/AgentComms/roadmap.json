@@ -4988,7 +4988,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-15 20:42 board_sync",
+  "updated": "2026-11-15 21:42 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5142,7 +5142,8 @@
     "title": "TASK CLASH10 - clear the glove on the axis it is DRAWN on, re-read after each push, inside the clash pass (on main)",
     "who": "qwen",
     "started": "2026-11-15T20:42",
-    "run": "CLASH10"
+    "run": "CLASH10",
+    "state": "LANDED - Claude collects"
    }
   ],
   "next": [
@@ -5395,7 +5396,7 @@
    {
     "id": "FIGHTFILM1",
     "who": "claude",
-    "title": "Fight analysis page + live fight log + film nights where the player finds the opponent's tells (his S494 'yes design the fight analysis page'): map ops/research/FIGHTFILM1_MAP_S495.md and mockup done; Dola + John scoring it (SQ191/SQ192); to his board only at depth 7+ from both",
+    "title": "Fight analysis page + live fight log + film nights where the player finds the opponent's tells (his S494 ask): v1 Dola 8/8/8, John 5/6/7 (printed the tell, free tells); v2 map ops/research/FIGHTFILM1_MAP_V2_S495.md + mockup + measured check (tools/film_check_probe.py) with Dola + John (SQ193/SQ194); to his board only at depth 7+ from both",
     "after": ""
    }
   ],

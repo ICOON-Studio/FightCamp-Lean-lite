@@ -1,0 +1,269 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Fight analysis v2</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Palette.gd tokens */
+:root{--page:#1a1512;--card:#242728;--tile:#353635;--hover:#2b241d;--wood:#4c362a;--line:#4c4b45;--text:#eee2ce;--muted:#b1a084;
+--header:#e6bd55;--accent:#6fa0e6;--good:#2cb56f;--bad:#ff7a66;--warn:#cf9245;--action:#991d1c;--second:#442f24;--chosen:#c8a585;
+--goodfill:#239058;--badfill:#df4639;--red:#df4639;--blue:#6fa0e6}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:var(--page)}
+body{position:relative;font-family:'Barlow',sans-serif;color:var(--text);font-size:16px}
+.top{position:absolute;left:0;top:0;width:1920px;height:52px;background:#120e0c;border-bottom:2px solid var(--wood);display:flex;align-items:center;padding:0 24px;gap:18px}
+.top .crumb{font-weight:700;font-size:17px;color:var(--muted);letter-spacing:.4px}.top .crumb b{color:var(--text)}
+.top .sp{flex:1}.top .t{font-weight:600;font-size:16px;color:var(--muted)}.top .t b{color:var(--header)}
+.panel{position:absolute;border-radius:6px;padding:14px 18px;background:linear-gradient(#262829,#1f2122);
+  border:9px solid var(--wood);box-shadow:inset 0 0 0 2px #2a1c13,inset 0 0 24px rgba(0,0,0,.6),0 0 0 2px #6b4a33,0 6px 14px rgba(0,0,0,.6)}
+.panel::before,.panel::after{content:"";position:absolute;width:9px;height:9px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#c8b39a,#5b4636);top:-9px}
+.panel::before{left:-9px}.panel::after{right:-9px}
+.pt{font-weight:800;font-size:21px;color:var(--header);letter-spacing:.6px;display:flex;align-items:center;gap:10px}
+.pt small{font-weight:600;font-size:15px;color:var(--muted);letter-spacing:.2px}
+.caps{font-weight:700;font-size:13px;letter-spacing:2.2px;color:var(--muted);text-transform:uppercase}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:38px;padding:0 16px;border-radius:5px;font-weight:700;font-size:16px;color:#f6ead8;white-space:nowrap;
+  background:linear-gradient(#5a3e2f,var(--second));border:1px solid #7a5440;box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 2px 3px rgba(0,0,0,.6)}
+.btn.act{background:linear-gradient(#b52a28,var(--action));border:1px solid #d2544a}
+.btn.small{height:30px;font-size:14px;padding:0 10px}
+.pick{display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 10px;border-radius:4px;background:var(--tile);border:1px solid var(--line);font-weight:600;font-size:15px;white-space:nowrap}
+.pick.on{border:2px solid var(--chosen);background:#3d3a35}
+.pick .k{color:var(--muted);font-weight:600;font-size:13px}
+.dot{display:inline-block;width:11px;height:11px;border-radius:50%;flex:none}
+.d-b{background:var(--blue)}.d-r{background:var(--red)}
+/* header */
+.hdr{left:24px;top:66px;width:1872px;height:78px;display:flex;align-items:center;gap:18px;padding:0 22px}
+.hdr .nm{font-weight:800;font-size:28px;letter-spacing:.4px}
+.hdr .vs{color:var(--muted);font-weight:700;font-size:22px}
+.hdr .meta{color:var(--muted);font-weight:600;font-size:18px}
+.hdr .sp{flex:1}
+.pips{display:inline-flex;gap:6px;margin-left:6px}.pip{width:16px;height:16px;border-radius:50%;border:2px solid var(--header)}.pip.f{background:var(--header)}
+/* film */
+.film{left:24px;top:158px;width:760px;height:516px}
+.screen{position:relative;width:722px;height:372px;margin-top:10px;border-radius:4px;overflow:hidden;background:#0d0f14}
+.ctl{display:flex;align-items:center;gap:10px;margin-top:10px}
+.ctl .clock{font-family:'Barlow Condensed';font-weight:700;font-size:22px;margin-left:6px}
+.tl{position:relative;height:34px;margin-top:10px;background:var(--page);border:1px solid var(--line);border-radius:3px}
+.tl .rd{position:absolute;top:0;bottom:0;border-left:1px dashed #6a5f52}
+.tl .rl{position:absolute;top:-1px;font-size:11px;color:var(--muted);font-weight:700;padding-left:3px}
+.tl .tick{position:absolute;top:9px;width:3px;height:18px;border-radius:1px}
+.tl .head{position:absolute;top:-4px;bottom:-4px;width:2px;background:#fff}
+/* pattern */
+.pat{left:24px;top:688px;width:760px;height:378px}
+.pat .row{display:flex;align-items:center;gap:10px;margin-top:7px}
+.pat .lab{width:62px;font-weight:800;font-size:15px;letter-spacing:1.5px;color:var(--muted)}
+.sel{flex:1;display:flex;align-items:center;justify-content:space-between;height:36px;padding:0 14px;border-radius:4px;background:var(--tile);border:2px solid var(--chosen);font-weight:700;font-size:18px}
+.sel span{color:var(--muted);font-size:14px}
+.res{margin-top:9px;padding:8px 14px;border-radius:4px;background:rgba(0,0,0,.28);border-left:4px solid var(--good)}
+.res .big{font-weight:800;font-size:22px}.res .big em{font-style:normal;color:var(--good)}
+.res .sub{color:var(--muted);font-weight:600;font-size:15px;margin-top:3px}
+.marked{margin-top:4px}.mk{display:flex;align-items:center;gap:10px;height:26px;font-size:15px;font-weight:600;border-bottom:1px solid #34332f}
+.mk .w{width:150px;color:var(--muted);font-weight:700;font-size:14px}
+/* punches */
+.pun{left:798px;top:158px;width:574px;height:908px}
+.filters{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+.count{display:flex;justify-content:space-between;margin-top:10px;font-weight:600;font-size:15px;color:var(--muted)}
+.count b{color:var(--text)}
+.list{margin-top:6px;height:690px;overflow:hidden}
+.ln{display:flex;align-items:center;gap:10px;height:27px;padding:0 8px;font-size:16px;font-weight:500;border-bottom:1px solid #2e2f2e;white-space:nowrap}
+.ln .c{font-family:'Barlow Condensed';font-weight:600;font-size:16px;color:var(--muted);width:66px}
+.ln .p{flex:1;overflow:hidden;text-overflow:ellipsis}
+.ln .r{font-weight:700;font-size:14px;width:84px;text-align:right}
+.ln.cur{background:#3d3a35;outline:2px solid var(--chosen);outline-offset:-2px}
+.ln.habit .p{color:var(--warn);font-weight:700}
+.r-l{color:var(--good)}.r-b{color:var(--muted)}.r-m{color:#8d8577}
+.sit{height:24px;display:flex;align-items:center;gap:8px;padding:0 8px;font-size:13px;font-weight:700;letter-spacing:1.6px;color:var(--header);text-transform:uppercase;background:rgba(230,189,85,.06);border-bottom:1px solid #3a3528}
+/* report */
+.rep{left:1386px;top:158px;width:510px;height:908px}
+.tabs{display:flex;gap:6px;margin-top:10px}
+.tab{height:32px;padding:0 16px;display:flex;align-items:center;gap:7px;border-radius:4px 4px 0 0;font-weight:700;font-size:15px;background:var(--tile);color:var(--muted)}
+.tab.on{background:var(--chosen);color:var(--page)}
+.sec{margin-top:14px}
+.bar{display:flex;align-items:center;gap:8px;height:24px;font-size:15px;font-weight:600}
+.bar .n{width:96px;color:var(--text)}
+.bar .tr{position:relative;flex:1;height:14px;background:var(--page);border:1px solid var(--line);border-radius:2px}
+.bar .th{position:absolute;left:0;top:0;bottom:0;background:#4f5a6b}
+.bar .la{position:absolute;left:0;top:0;bottom:0;background:var(--blue)}
+.bar .v{width:58px;text-align:right;font-weight:700}
+.legend{display:flex;gap:14px;font-size:13px;color:var(--muted);font-weight:600;margin-top:4px}
+.legend i{display:inline-block;width:12px;height:10px;margin-right:5px;vertical-align:middle}
+.cmb{display:flex;align-items:center;gap:8px;height:27px;font-size:15px;font-weight:600;border-bottom:1px solid #2e2f2e}
+.cmb .x{width:34px;font-weight:800;color:var(--header)}.cmb .nm2{width:150px}
+.tchip{font-family:'Barlow Condensed';font-weight:600;font-size:14px;padding:0 6px;border-radius:3px;background:var(--tile);border:1px solid var(--line);color:var(--accent)}
+.say{margin-top:8px;padding:9px 12px;background:rgba(0,0,0,.25);border-radius:4px;font-size:16px;font-weight:500;line-height:1.4}
+.say div{padding:3px 0}
+.split{display:flex;gap:10px;align-items:center;font-size:15px;font-weight:600}
+.split .seg{height:18px;border-radius:2px}
+</style><style>
+.hdr .nm,.hdr span{white-space:nowrap}
+.film{height:556px}.screen{height:330px}
+.pat{top:728px;height:338px}
+.strip{display:flex;gap:6px;margin-top:8px}
+.rb{flex:1;background:var(--page);border:1px solid var(--line);border-radius:3px;padding:4px 8px;font-size:14px;font-weight:600}
+.rb .h{display:flex;justify-content:space-between;color:var(--muted);font-weight:700;font-size:12px;letter-spacing:1.4px}
+.rb .cards{display:flex;gap:5px;margin-top:3px}
+.card{flex:1;text-align:center;border-radius:2px;padding:1px 0;font-family:'Barlow Condensed';font-weight:700;font-size:15px}
+.cb{background:rgba(111,160,230,.22);color:#cfe0f7;border:1px solid rgba(111,160,230,.6)}
+.cr{background:rgba(223,70,57,.18);color:#f6c2bb;border:1px solid rgba(223,70,57,.55)}
+.ln .rg{width:52px;color:var(--muted);font-size:14px;font-weight:600}
+.ln .af{width:96px;font-size:14px;font-weight:600;color:var(--text)}
+.ln .p{flex:1}
+.hd{display:flex;gap:10px;padding:0 8px;height:20px;align-items:center;font-size:12px;font-weight:700;letter-spacing:1.4px;color:var(--muted)}
+.bar .cl{position:absolute;left:0;top:0;bottom:0;background:#cfe0f7}
+.mk{height:28px}.mk .w{width:126px}.mk .f{width:150px;color:var(--muted);font-weight:600;font-size:14px}
+.res .big em{color:var(--good)}
+.tag{display:inline-flex;align-items:center;height:26px;padding:0 10px;border-radius:13px;background:#3a2e22;border:1px solid var(--warn);color:#f0c98f;font-weight:700;font-size:14px}
+</style></head><body>
+<div class="top"><span class="crumb">Fighters &rsaquo; Fight prep &rsaquo; <b>Film night</b></span><span class="sp"></span>
+<span class="t">Thu 12 Mar 2026 &middot; evening</span><span class="t">Fight night in <b>3 days</b></span></div>
+
+<div class="panel hdr">
+  <span class="dot d-b" style="width:16px;height:16px"></span><span class="nm">Mia Holt</span><span class="vs">vs</span>
+  <span class="dot d-r" style="width:16px;height:16px"></span><span class="nm">Tess Rowe</span>
+  <span class="meta">&nbsp;&middot; club show, Feb 2026 &middot; Holt won on points</span>
+  <span class="sp"></span>
+  <span class="tag">Tonight: whole evening</span>
+  <span class="caps" style="font-size:14px">Film 1 of 3</span><span class="btn small">Next film &rsaquo;</span>
+  <span class="caps" style="font-size:14px;color:var(--text)">Checks</span><span class="pips"><span class="pip f"></span><span class="pip f"></span><span class="pip"></span></span>
+  <span style="font-weight:700;font-size:16px;color:var(--muted)">2 of 3 left</span>
+  <span class="btn">Done for tonight</span>
+</div>
+
+<div class="panel film">
+  <div class="pt">THE FILM <small>ringside camera &middot; Round 2</small></div>
+  <div class="screen"><svg width="722" height="330" viewBox="0 20 722 330">
+      <defs><radialGradient id="sp" cx="50%" cy="30%" r="70%"><stop offset="0" stop-color="#3a4150"/><stop offset="1" stop-color="#0d0f14"/></radialGradient>
+      <linearGradient id="cv" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5d6f86"/><stop offset="1" stop-color="#3b4859"/></linearGradient></defs>
+      <rect width="722" height="372" fill="url(#sp)"/>
+      <polygon points="40,330 682,330 600,205 122,205" fill="url(#cv)"/>
+      <line x1="122" y1="205" x2="600" y2="205" stroke="#cfd6df" stroke-width="2" opacity=".5"/>
+      <line x1="96" y1="160" x2="626" y2="160" stroke="#e8e8e8" stroke-width="3" opacity=".75"/>
+      <line x1="80" y1="128" x2="642" y2="128" stroke="#e8e8e8" stroke-width="3" opacity=".75"/>
+      <line x1="64" y1="96" x2="658" y2="96" stroke="#e8e8e8" stroke-width="3" opacity=".75"/>
+      <rect x="92" y="84" width="10" height="250" fill="#b23a2e"/><rect x="620" y="84" width="10" height="250" fill="#2f5fa8"/>
+      <!-- blue boxer (her), jab out, right hand low -->
+      <g transform="translate(400,0)">
+        <ellipse cx="0" cy="318" rx="44" ry="8" fill="#000" opacity=".35"/>
+        <rect x="-16" y="230" width="13" height="86" rx="5" fill="#2b3f66"/><rect x="5" y="230" width="13" height="86" rx="5" fill="#2b3f66"/>
+        <rect x="-22" y="208" width="44" height="34" rx="7" fill="#2f5fa8"/>
+        <path d="M-20 150 Q0 138 20 150 L24 212 L-24 212 Z" fill="#c79a7a"/>
+        <circle cx="0" cy="128" r="19" fill="#c79a7a"/>
+        <path d="M-18 158 L-78 150" stroke="#c79a7a" stroke-width="11" stroke-linecap="round"/><circle cx="-86" cy="149" r="12" fill="#2f5fa8"/>
+        <path d="M18 160 L30 196" stroke="#c79a7a" stroke-width="11" stroke-linecap="round"/><circle cx="31" cy="203" r="12" fill="#2f5fa8"/>
+      </g>
+      <!-- red boxer (the other), slipping, right hand loading -->
+      <g transform="translate(290,0)">
+        <ellipse cx="0" cy="320" rx="44" ry="8" fill="#000" opacity=".35"/>
+        <rect x="-18" y="232" width="13" height="86" rx="5" fill="#5a2622"/><rect x="5" y="232" width="13" height="86" rx="5" fill="#5a2622"/>
+        <rect x="-22" y="210" width="44" height="34" rx="7" fill="#b23a2e"/>
+        <path d="M-20 154 Q0 142 20 154 L24 214 L-24 214 Z" fill="#a77657"/>
+        <circle cx="-6" cy="134" r="19" fill="#a77657"/>
+        <path d="M16 162 L46 142" stroke="#a77657" stroke-width="11" stroke-linecap="round"/><circle cx="52" cy="138" r="12" fill="#b23a2e"/>
+        <path d="M-16 162 L-4 140" stroke="#a77657" stroke-width="11" stroke-linecap="round"/><circle cx="-2" cy="132" r="12" fill="#b23a2e"/>
+      </g>
+      
+      
+      
+    </svg></div>
+  <div class="ctl">
+    <span class="btn small">&#9664; Previous moment</span><span class="btn small act" style="width:44px">&#10074;&#10074;</span><span class="btn small">Next moment &#9654;</span>
+    <span class="pick">0.5x</span><span class="pick on">1x</span><span class="pick">2x</span>
+    <span class="clock">R2 0:44</span><span style="flex:1"></span>
+    <span style="font-size:14px;color:var(--muted);font-weight:600">moment 21 of 31</span>
+  </div>
+  <div class="tl" id="tl"></div>
+  <div class="strip">
+    <div class="rb"><div class="h"><span>ROUND 1</span><span>the judges</span></div><div class="cards"><span class="card cb">10-9</span><span class="card cb">10-9</span><span class="card cb">10-9</span></div></div>
+    <div class="rb"><div class="h"><span>ROUND 2</span><span>split</span></div><div class="cards"><span class="card cb">10-9</span><span class="card cr">9-10</span><span class="card cb">10-9</span></div></div>
+    <div class="rb"><div class="h"><span>ROUND 3</span><span>reason on hover</span></div><div class="cards"><span class="card cr">9-10</span><span class="card cr">9-10</span><span class="card cr">9-10</span></div></div>
+  </div>
+</div>
+
+<div class="panel pat">
+  <div class="pt">MARK A PATTERN <small>finding is free, filing costs a check</small></div>
+  <div class="row"><span class="lab">WHEN</span><div class="sel">Their jab <span>&#9662; 9 choices</span></div></div>
+  <div class="row"><span class="lab">THEN</span><div class="sel">Right hand low <span>&#9662; 8 choices &middot; within 2 s</span></div></div>
+  <div class="res">
+    <div class="big">Coach: &ldquo;<em>That's her.</em>&rdquo; &nbsp;7 of 31 jabs</div>
+    <div class="sub">After their other punches: 3 of 43. One film: filed at 70%. Pooled with a second film: 90%.</div>
+  </div>
+  <div class="row" style="margin-top:9px"><span class="btn" style="opacity:.42">Check it with the coach (2 left)</span><span class="btn act">File it at 70%</span><span class="btn">Watch list</span></div>
+  <div class="marked">
+    <div class="caps" style="margin-top:4px">Marked tonight &nbsp;&middot;&nbsp; film 1 | film 2</div>
+    <div class="mk"><span class="w" style="color:var(--good)">That's her</span><span class="f">7/31 &nbsp;|&nbsp; &ndash;</span>Their jab &rarr; right hand low</div>
+    <div class="mk"><span class="w" style="color:var(--warn)">Watch list</span><span class="f">hurt 2 times &nbsp;|&nbsp; &ndash;</span><span style="color:var(--muted)">They are hurt &rarr; single wild right</span></div>
+  </div>
+</div>
+
+<div class="panel pun">
+  <div class="pt">THE PUNCHES <small>both corners, every punch, in order</small></div>
+  <div class="caps" style="margin-top:10px">Show me</div>
+  <div class="filters">
+    <span class="pick on"><span class="dot d-b"></span>Them</span><span class="pick"><span class="dot d-r"></span>The other</span><span class="pick">Both</span>
+    <span class="pick"><span class="k">Hand</span> Any</span><span class="pick on"><span class="k">Punch</span> Jab</span>
+    <span class="pick"><span class="k">Result</span> Any</span><span class="pick"><span class="k">Range</span> Any</span>
+    <span class="pick"><span class="k">Round</span> All</span><span class="pick"><span class="k">Their game</span> Any</span><span class="pick"><span class="k">After</span> Any</span>
+  </div>
+  <div class="count"><span><b>31</b> lines of 164</span><span>jabs landed <b>9 of 31</b> &middot; clean 2 &middot; blocked 14 &middot; missed 8</span></div>
+  <div class="hd"><span style="width:62px">CLOCK</span><span style="width:11px"></span><span style="flex:1">PUNCH</span><span style="width:52px">RANGE</span><span style="width:96px">AFTER</span><span style="width:84px;text-align:right">RESULT</span></div>
+  <div class="list" id="list" style="height:660px"></div>
+</div>
+
+<div class="panel rep">
+  <div class="pt">THE REPORT</div>
+  <div class="tabs"><span class="tab on"><span class="dot d-b"></span>Them</span><span class="tab"><span class="dot d-r"></span>The other</span></div>
+  <div class="sec"><div class="caps">Thrown, landed, clean</div><div id="bars" style="margin-top:6px"></div>
+    <div class="legend"><span><i style="background:#4f5a6b"></i>thrown</span><span><i style="background:var(--blue)"></i>landed</span><span><i style="background:#cfe0f7"></i>clean</span><span>head 19 &middot; body 6</span></div>
+    <div style="margin-top:6px;display:flex;align-items:center;gap:10px"><span class="btn small">Check it (1): best weapon</span><span style="font-size:14px;color:var(--muted);font-weight:600">the punch that lands clean most</span></div></div>
+  <div class="sec"><div class="caps">Landed by round</div>
+    <div class="bar"><span class="n">Round 1</span><span class="tr"><span class="th" style="width:87%"></span><span class="la" style="width:32%"></span></span><span class="v">10/27</span></div>
+    <div class="bar"><span class="n">Round 2</span><span class="tr"><span class="th" style="width:81%"></span><span class="la" style="width:29%"></span></span><span class="v">9/25</span></div>
+    <div class="bar"><span class="n">Round 3</span><span class="tr"><span class="th" style="width:71%"></span><span class="la" style="width:19%"></span></span><span class="v">6/22</span></div></div>
+  <div class="sec"><div class="caps">Landed by range</div>
+    <div class="bar"><span class="n">Long</span><span class="tr"><span class="th" style="width:100%"></span><span class="la" style="width:29%"></span></span><span class="v">11/38</span></div>
+    <div class="bar"><span class="n">Mid</span><span class="tr"><span class="th" style="width:63%"></span><span class="la" style="width:24%"></span></span><span class="v">9/24</span></div>
+    <div class="bar"><span class="n">Inside</span><span class="tr"><span class="th" style="width:32%"></span><span class="la" style="width:13%"></span></span><span class="v">5/12</span></div></div>
+  <div class="sec"><div class="caps">Their game, share of exchanges</div>
+    <div class="split" style="margin-top:7px"><span class="seg" style="width:220px;background:var(--blue)"></span><span class="seg" style="width:130px;background:#4f6c99"></span><span class="seg" style="width:75px;background:#3c4d66"></span></div>
+    <div class="legend" style="font-size:14px;color:var(--text)"><span>Boxes at range 9</span><span>Walks you down 6</span><span>Waits to counter 3</span></div>
+    <div style="margin-top:6px"><span class="btn small">Check it (1): their game</span></div></div>
+  <div class="sec"><div class="caps">Their combinations</div>
+    <div class="cmb"><span class="x">x7</span><span class="nm2">Jab, cross</span><span class="tchip">R1 0:22</span><span class="tchip">R1 1:31</span><span class="tchip">R2 0:12</span><span class="tchip">+4</span></div>
+    <div class="cmb"><span class="x">x3</span><span class="nm2">Jab, jab, cross</span><span class="tchip">R1 0:58</span><span class="tchip">R2 1:40</span><span class="tchip">R3 0:30</span></div></div>
+  <div class="sec"><div class="caps">What the numbers say</div>
+    <div class="say"><div>The jab is thrown most; the cross lands clean most, 4 times.</div>
+      <div>Round 3: 6 landed of 22, against 10 of 27 in round 1.</div>
+      <div>Inside, 5 landed of 12; at long range, 11 of 38.</div></div></div>
+</div>
+
+<script>
+const L=[
+ ["sit","Round 1 &middot; boxes at range"],
+ ["R1 0:06","Jab to the head","long","guard up","Blocked","b"],["R1 0:09","Jab to the head","long","guard up","Missed","m"],
+ ["R1 0:22","Jab to the head","long","threw on","Landed","l"],["R1 0:31","Jab to the body","long","guard up","Blocked","b"],
+ ["sit","Round 1 &middot; walks the other down"],
+ ["R1 0:38","Jab to the head","mid","right low","Landed","l"],["R1 0:47","Jab to the head","mid","lunged in","Blocked","b"],
+ ["R1 0:58","Jab to the head","mid","threw on","Clean","c"],["R1 1:04","Jab to the head","mid","guard up","Missed","m"],
+ ["sit","Round 1 &middot; boxes at range"],
+ ["R1 1:16","Jab to the head","long","right low","Blocked","b"],["R1 1:31","Jab to the head","long","threw on","Landed","l"],
+ ["R1 1:44","Jab to the head","long","guard up","Blocked","b"],["R1 2:20","Jab to the head","long","guard up","Missed","m"],
+ ["sit","Round 2 &middot; boxes at range"],
+ ["R2 0:12","Jab to the head","long","threw on","Landed","l"],["R2 0:20","Jab to the head","long","guard up","Missed","m"],
+ ["R2 0:33","Jab to the head","long","guard up","Blocked","b"],["R2 0:44","Jab to the head","long","right low","Blocked","b","cur"],
+ ["sit","Round 2 &middot; waits to counter"],
+ ["R2 1:02","Jab to the head","mid","guard up","Missed","m"],["R2 1:10","Jab to the head","mid","threw on","Landed","l"],
+ ["R2 1:23","Jab to the body","mid","guard up","Blocked","b"],["R2 1:40","Jab to the head","long","right low","Clean","c"],
+ ["sit","Round 3 &middot; walks the other down"],
+ ["R3 0:09","Jab to the head","inside","stood still","Blocked","b"],["R3 0:30","Jab to the head","mid","threw on","Landed","l"]
+];
+const list=document.getElementById('list');
+for(const x of L){
+  if(x[0]==="sit"){list.insertAdjacentHTML('beforeend',`<div class="sit">${x[1]}</div>`);continue}
+  const cls={l:"r-l",b:"r-b",m:"r-m",c:"r-l"}[x[5]];
+  list.insertAdjacentHTML('beforeend',`<div class="ln ${x[6]||""}"><span class="c">${x[0]}</span><span class="dot d-b"></span><span class="p">${x[1]}</span><span class="rg">${x[2]}</span><span class="af">${x[3]}</span><span class="r ${cls}"${x[5]==="c"?' style="font-weight:800"':""}>${x[4]}</span></div>`);
+}
+const B=[["Jab",31,9,2],["Cross",18,8,4],["Lead hook",12,4,1],["Body hook",9,3,1],["Uppercut",4,1,0]];
+const bars=document.getElementById('bars');
+for(const b of B){bars.insertAdjacentHTML('beforeend',`<div class="bar"><span class="n">${b[0]}</span><span class="tr"><span class="th" style="width:${b[1]/31*100}%"></span><span class="la" style="width:${b[2]/31*100}%"></span><span class="cl" style="width:${b[3]/31*100}%"></span></span><span class="v">${b[3]}/${b[2]}/${b[1]}</span></div>`)}
+const tl=document.getElementById('tl');const W=720;
+for(let r=0;r<3;r++){tl.insertAdjacentHTML('beforeend',`<span class="rd" style="left:${r*W/3}px"></span><span class="rl" style="left:${r*W/3}px">R${r+1}</span>`)}
+const sec=s=>{const m=s.match(/R(\d) (\d):(\d\d)/);return (m[1]-1)*180+(+m[2])*60+(+m[3])};
+for(const x of L){if(x[0]==="sit")continue;tl.insertAdjacentHTML('beforeend',`<span class="tick" style="left:${sec(x[0])/540*W}px;background:#8b95a3"></span>`)}
+tl.insertAdjacentHTML('beforeend',`<span class="head" style="left:${sec("R2 0:44")/540*W}px"></span>`);
+</script></body></html>

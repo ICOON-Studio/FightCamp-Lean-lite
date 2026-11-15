@@ -14,7 +14,9 @@ claude/confident-chaplygin-6b0d8f, PR 320 open). Collect from ITS PR; open every
   vulnerabilities; our sim already logs every punch). If yes: design map first (critics 7+), then mockup.
 
 ## SEAT ANSWERS TO COLLECT
-- SQ188 Dola + SQ189 John: LADDER1 v4 critics. Both depth 7+ and general 7+ -> his board with the map (`ask --attach`); else
+- LADDER1 v4 scored: Dola 8/8/7, John 6/6/7 -> v5 to Kalli (SQ195). HE LIKED JOHN'S 10/10 LADDER SCREEN ("this is not bad
+  that john made"): docs/mockups/s494/ladder/ladder_v4_john_10of10.png - v5 keeps that screen; two fresh critics at 7+ next.
+  (Old line, done:) SQ188 Dola + SQ189 John: LADDER1 v4 critics. Both depth 7+ and general 7+ -> his board with the map (`ask --attach`); else
   v5 to Kalli with both critiques inlined (the seats cannot read the repo: inline everything, see DESIGN_COACHSPEC1_R5_REVISE_KALLI.md).
 - SQ190 Kalli: COACHSPEC1 round 5 (John 7/6/6's four points) -> two fresh critics.
 

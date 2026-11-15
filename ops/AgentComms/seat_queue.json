@@ -2795,26 +2795,91 @@
    "seat": "dola",
    "brief": "research/DESIGN_LADDER1_V4_CRITIC_DOLA.md",
    "stem": "DESIGN_LADDER1_V4_CRITIC_DOLA_DOLA",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-15 20:52",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-15 21:10",
+   "pid": 34880,
+   "transcript": "AgentComms/seat_logs/SQ188_dola.txt",
+   "answered_at": "2026-11-15 21:40",
+   "answer": "research/DESIGN_LADDER1_V4_CRITIC_DOLA_DOLA.md"
   },
   {
    "id": "SQ189",
    "seat": "john",
    "brief": "research/DESIGN_LADDER1_V4_CRITIC_JOHN.md",
    "stem": "DESIGN_LADDER1_V4_CRITIC_JOHN_JOHN",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-15 20:52",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-15 21:10",
+   "sent_ms": 1794769829026,
+   "answered_at": "2026-11-15 21:40",
+   "answer": "research/DESIGN_LADDER1_V4_CRITIC_JOHN_JOHN.md",
+   "chars": 12320
   },
   {
    "id": "SQ190",
    "seat": "kalli",
    "brief": "research/DESIGN_COACHSPEC1_R5_REVISE_KALLI.md",
    "stem": "DESIGN_COACHSPEC1_R5_REVISE_KALLI_KALLI",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-15 20:52",
+   "tries": 0,
+   "sent_at": "2026-11-15 21:10",
+   "sent_ms": 1794769831423,
+   "answered_at": "2026-11-15 21:40",
+   "answer": "research/DESIGN_COACHSPEC1_R5_REVISE_KALLI_KALLI.md",
+   "chars": 19440
+  },
+  {
+   "id": "SQ191",
+   "seat": "dola",
+   "brief": "research/DESIGN_FIGHTFILM1_V1_CRITIC_DOLA.md",
+   "stem": "DESIGN_FIGHTFILM1_V1_CRITIC_DOLA_DOLA",
+   "status": "sent",
+   "queued_at": "2026-11-15 21:25",
+   "tries": 0,
+   "sent_at": "2026-11-15 22:10",
+   "pid": 23236,
+   "transcript": "AgentComms/seat_logs/SQ191_dola.txt"
+  },
+  {
+   "id": "SQ192",
+   "seat": "john",
+   "brief": "research/DESIGN_FIGHTFILM1_V1_CRITIC_JOHN.md",
+   "stem": "DESIGN_FIGHTFILM1_V1_CRITIC_JOHN_JOHN",
+   "status": "sent",
+   "queued_at": "2026-11-15 21:25",
+   "tries": 0,
+   "sent_at": "2026-11-15 22:10",
+   "sent_ms": 1794773439982
+  },
+  {
+   "id": "SQ193",
+   "seat": "dola",
+   "brief": "research/DESIGN_FIGHTFILM1_V2_CRITIC_DOLA.md",
+   "stem": "DESIGN_FIGHTFILM1_V2_CRITIC_DOLA_DOLA",
+   "status": "queued",
+   "queued_at": "2026-11-15 22:33",
+   "tries": 0
+  },
+  {
+   "id": "SQ194",
+   "seat": "john",
+   "brief": "research/DESIGN_FIGHTFILM1_V2_CRITIC_JOHN.md",
+   "stem": "DESIGN_FIGHTFILM1_V2_CRITIC_JOHN_JOHN",
+   "status": "queued",
+   "queued_at": "2026-11-15 22:33",
+   "tries": 0
+  },
+  {
+   "id": "SQ195",
+   "seat": "kalli",
+   "brief": "research/DESIGN_LADDER1_V5_REVISE_KALLI.md",
+   "stem": "DESIGN_LADDER1_V5_REVISE_KALLI_KALLI",
+   "status": "queued",
+   "queued_at": "2026-11-15 22:39",
    "tries": 0
   }
  ]
