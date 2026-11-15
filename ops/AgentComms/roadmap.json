@@ -5134,7 +5134,8 @@
    "R37": "Ask for a fight: the show is the unit, a compare tab beside her boxer while searching for an opponent",
    "RANKSHOWUI": "Rank earned shown after every fight (result, Why, fighter page)",
    "GYMLIFE2": "Gym picture: smooth shadow boxing, walks round the kit, nobody under a button",
-   "INTROCORNER2": "Fight intro from the corners: each name call shown, never alike"
+   "INTROCORNER2": "Fight intro from the corners: each name call shown, never alike",
+   "FIGHTFILM1": "Fight analysis page: every punch of a fight, and film nights where you find the opponent's tells yourself"
   },
   "working_now": [
    {
@@ -5389,6 +5390,12 @@
     "id": "LIVEROUNDSPLIT1",
     "who": "claude",
     "title": "LiveRound.gd 488 lines -> under its 470 limit (helpers to a rules module)",
+    "after": ""
+   },
+   {
+    "id": "FIGHTFILM1",
+    "who": "claude",
+    "title": "Fight analysis page + live fight log + film nights where the player finds the opponent's tells (his S494 'yes design the fight analysis page'): map ops/research/FIGHTFILM1_MAP_S495.md and mockup done; Dola + John scoring it (SQ191/SQ192); to his board only at depth 7+ from both",
     "after": ""
    }
   ],
