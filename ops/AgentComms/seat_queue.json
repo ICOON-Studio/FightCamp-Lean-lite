@@ -2528,18 +2528,23 @@
    "seat": "john",
    "brief": "research/DESIGN_LADDER1_V2_CRITIC_JOHN.md",
    "stem": "DESIGN_LADDER1_V2_CRITIC_JOHN_JOHN",
-   "status": "queued",
+   "status": "sent",
    "queued_at": "2026-11-15 11:00",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-15 11:10",
+   "sent_ms": 1794733823965
   },
   {
    "id": "SQ171",
    "seat": "dola",
    "brief": "research/DESIGN_LADDER1_V2_CRITIC_DOLA.md",
    "stem": "DESIGN_LADDER1_V2_CRITIC_DOLA_DOLA",
-   "status": "queued",
+   "status": "sent",
    "queued_at": "2026-11-15 11:00",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-15 11:10",
+   "pid": 25840,
+   "transcript": "AgentComms/seat_logs/SQ171_dola.txt"
   },
   {
    "id": "SQ172",
@@ -2555,8 +2560,19 @@
    "seat": "kalli",
    "brief": "research/DESIGN_TRAINGAME2_CRITIC_KALLI.md",
    "stem": "DESIGN_TRAINGAME2_CRITIC_KALLI_KALLI",
-   "status": "queued",
+   "status": "sent",
    "queued_at": "2026-11-15 11:07",
+   "tries": 0,
+   "sent_at": "2026-11-15 11:10",
+   "sent_ms": 1794733826972
+  },
+  {
+   "id": "SQ174",
+   "seat": "kalli",
+   "brief": "research/DESIGN_STYLE4_LEVERS_KALLI.md",
+   "stem": "DESIGN_STYLE4_LEVERS_KALLI_KALLI",
+   "status": "queued",
+   "queued_at": "2026-11-15 11:10",
    "tries": 0
   }
  ]

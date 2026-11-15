@@ -6,7 +6,7 @@
    "agent": "goose",
    "id": "STYLE1",
    "title": "TASK STYLE1 - does any named style dominate, and is each worth having? (probe, measure only)",
-   "status": "running - S479: Arena's sandbox could not download Godot (SSL); moved to Goose issue #298",
+   "status": "done - superseded by STYLE3 (S484)",
    "started": "2026-11-15T05:58",
    "eta": "2026-11-15T07:30",
    "branch": "goose/*",
@@ -48,7 +48,7 @@
    "agent": "qwen",
    "id": "CLASH6",
    "title": "TASK CLASH6 - resolve the glove clash in two phases (all boxers update, then all resolve)",
-   "status": "failed",
+   "status": "failed - S484 round 2 missed the bar; audit next",
    "started": "2026-11-15T09:46",
    "eta": "2026-11-15T11:36",
    "branch": "qwen/clash6",
@@ -138,7 +138,7 @@
    "agent": "goose",
    "id": "STYLE3",
    "title": "why the named styles are worth almost nothing: count each lever, then tune (STYLE2 round 2)",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-15T09:47",
    "where": "cloud",
    "repo": "FightCamp-Lean",
@@ -148,20 +148,21 @@
    "note": "S380 seat_dispatch: pure rule module routed to Goose instead of a PC worktree (S483 Claude)",
    "issue": "305",
    "branch": "goose/issue-305",
-   "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/305"
+   "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/305",
+   "reconciled": "2026-11-15 11:10 board_reconcile: run finished (success), branch goose/issue-305 pushed"
   },
   "MORNINGS1": {
    "agent": "arena",
    "id": "MORNINGS1",
    "title": "Club week coached mornings + the weak spot (pure module + test)",
-   "status": "landed",
+   "status": "landed - collected S484",
    "started": "2026-11-15T09:52",
    "eta": "2026-11-15T10:50",
    "chat": "https://arena.ai/agent/01a1de31-8b24-7169-bd21-dc521a2471c1",
    "brief": "ops/research/TASK_MORNINGS1.md",
    "repo": "ICOON-Studio/FightCamp-Lean-lite",
    "seat": "arena",
-   "reconciled": "2026-11-15 10:40 board_reconcile: PR #306 open - collect it"
+   "reconciled": "2026-11-15 11:10 board_reconcile: PR #306 closed (merged by diff or rejected)"
   },
   "FOURMONEY1": {
    "agent": "qwen",
