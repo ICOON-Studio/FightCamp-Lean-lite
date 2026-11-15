@@ -9,7 +9,7 @@ extends RefCounted
 const REACH_SHARE := 0.95      # of the landed twin's reach (the bar: 0.90); the landed straight is near its full arm
 const STRAIGHT_ARM := 0.97     # a landed straight's hand at this share of the arm (block_catch: 0.48-0.53 m of ~0.53)
 const HOOK_ELBOW_DEG := 97.0   # a landed hook's elbow (block_catch: 92-99 deg) - its reach on the arc
-const SURFACE_M := 0.045       # FightStage.BLOCK_SURFACE_M: the punch's front stops this far off the glove's mount
+const SURFACE_M := 0.075       # FightStage.BLOCK_SURFACE_M: the punch's front stops this far off the glove's mount
 const ARM_SHARE := 0.97        # the catching glove at most this share of HER arm from her shoulder
 const FWD_MIN := 0.11          # the glove's centre at least this far in front of her face (block_catch CATCH 0.06-0.14, and the
 const FWD_MAX := 0.135         # absorb's 3-5 cm knock must leave it >= 0.08 off her face) and at most this far: where the 90 %

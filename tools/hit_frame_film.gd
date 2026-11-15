@@ -293,7 +293,9 @@ func _speeds(s: Dictionary) -> void:
 			print("HIT_FRAME_FILM clashdbg f%02d depth %.3f %s
     0: %s
     1: %s
-    hands moved after ArmClash by: %s" % [f, float(cl["depth"]), str(cl["pair"]), str(cl.get("dbg0", "")), str(cl.get("dbg1", "")), str(cl.get("layers", ""))])
+    hands moved after ArmClash by: %s
+    trail 0: %s
+    trail 1: %s" % [f, float(cl["depth"]), str(cl["pair"]), str(cl.get("dbg0", "")), str(cl.get("dbg1", "")), str(cl.get("layers", "")), str(cl.get("trail0", "")), str(cl.get("trail1", ""))])
 		if float(cl["depth"]) > worst:
 			worst = float(cl["depth"])
 			worst_f = f

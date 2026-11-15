@@ -45,6 +45,8 @@ static func worst(stage: Node) -> Dictionary:
 	best["drift"] = drift(stage)
 	best["own"] = own(stage)   # S476 CLASH3: a boxer's own two arms through each other
 	best["layers"] = preload("res://tools/layer_trace.gd").report(stage)   # S469: who moved the hands after ArmClash
+	best["trail0"] = preload("res://tools/layer_trace.gd").trail(stage, 0)   # S478 CLASH3: every layer that moved a hand, in run order
+	best["trail1"] = preload("res://tools/layer_trace.gd").trail(stage, 1)
 	for i in 2:
 		var gc: Node = stage.boxers[i].get("gclear")
 		if gc != null:

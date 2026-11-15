@@ -37,7 +37,7 @@ const STRAIGHT := Vector2(0.11, 0.05)   # forward, out to the catching side - me
 const HOOK := Vector2(0.08, 0.09)       # a hook comes from the side: the glove sits wider, by the temple
 const BELOW_FACE_M := 0.045   # cheek height: under the face point ...
 const LOW_M := 0.06           # ... the lowest it goes to meet a low hook (the bar: -0.08; GloveClear lifts the face after this reads it - block_meet read the glove up to 0.025 lower)
-const MEET_M := 0.06          # the glove's centre sits this far behind the punching glove's front (touching it)
+const MEET_M := 0.075         # BLOCKCLIP1 (Qwen, S477): one glove radius - two fronts touching, padding on padding
 const MEET_NEAR := Vector2(0.10, 0.30)  # the punch is this near the catch point: the glove goes to meet it on its line
 const OVER_HEAD_MAX_M := 0.022  # ... and never more than this above the head bone (the bar: 0.03)
 

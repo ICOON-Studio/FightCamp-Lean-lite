@@ -11,6 +11,7 @@ extends SkeletonModifier3D
 ##   setup(skel)  other (the other boxer's Skeleton3D, set by FightStage)
 
 const PunchReach := preload("res://scripts/fight3d/PunchReach.gd")
+const BlockCatch := preload("res://scripts/fight3d/BlockCatch.gd")   # S478: RISE_S, when a blocked punch becomes the catch's
 
 ## Head ~0.09 m + glove ~0.06 m radius: they touch at ~0.15 m. Kept at the touch: the other head is read before her own sway
 ## and snap move it (up to ~5 cm), so 0.13 left 12 of 571 inside frames deep in a head (36 without this modifier).
@@ -69,6 +70,7 @@ static var CLASH_PASSES: int = 1 if BALLS else 4
 ## on this hand, up to LIVE_S clip seconds past its contact); 1 = that hand going home (armed past that, or fading);
 ## 0 = a guard hand. The lower rank moves out of all of the overlap, equals share it, two live punches leave each other be.
 const LIVE_S := 0.12
+const OWN_ROUNDS := 2   # S478: rounds of (the other boxer's arms, then her own) per frame
 const PUSH_MAX_M := 0.10   # the most one pass moves a wrist
 const RETRACT := 0.6
 const OPEN_SIDE := 1.0   # S476 CLASH3: how much of "open outward" goes across the push off a landing punch (0.5 tried: seed 77 cross 4.1 -> 5.5 cm, worse)
@@ -169,17 +171,22 @@ func clash_pass() -> void:
 	if skel == null:
 		return
 	var k := skel.global_transform.basis.get_scale().x
+	_clear_own(skel, k)   # S477 OWNGLOVE1: her own two gloves stay out of each other; S478: BEFORE the other boxer's arms, which get the last word
 	if clash and peer != null and is_instance_valid(peer):
 		if dbg_on:
 			dbg = "late %s" % str(int(peer.shown_f) != Engine.get_process_frames())
-		for side in _arms:
-			var rank := _rank(side)
-			if dbg_on:
-				dbg += " | %s r%d before %.3f" % [side, rank, _deepest(skel, _arms[side], k)]
-			if rank < (1 if BALLS else 2):   # a live punch's glove is PunchReach's; the other boxer's hands move off it
-				_clear_arms(skel, _arms[side], k, rank)
-			if dbg_on:
-				dbg += " after %.3f" % _deepest(skel, _arms[side], k)
+		# S478: the other boxer's arms and her own settle together - each push can put a glove back into the other's (seed 4242
+		# 08_jab f40: her own pass after the clash left two guard gloves 5.4 cm deep), so the pair runs OWN_ROUNDS times.
+		for r in OWN_ROUNDS:
+			for side in _arms:
+				var rank := _rank(side)
+				if dbg_on and r == 0:
+					dbg += " | %s r%d before %.3f" % [side, rank, _deepest(skel, _arms[side], k)]
+				if rank < (1 if BALLS else 2):   # a live punch's glove is PunchReach's; the other boxer's hands move off it
+					_clear_arms(skel, _arms[side], k, rank)
+				if dbg_on and r == OWN_ROUNDS - 1:
+					dbg += " after %.3f" % _deepest(skel, _arms[side], k)
+			_clear_own(skel, k)   # and her own gloves again, so the other boxer's push never leaves them in each other
 	for side in _arms:
 		var ids: Array = _arms[side]
 		var elbow: Vector3 = skel.global_transform * skel.get_bone_global_pose(int(ids[1])).origin
@@ -189,11 +196,19 @@ func clash_pass() -> void:
 		var rank := _rank(side)
 		shown_arms[side] = [elbow, wrist, (wrist - elbow).normalized(), rank, k,
 			elbow - (was[0] as Vector3) if fresh else Vector3.ZERO, wrist - (was[1] as Vector3) if fresh else Vector3.ZERO,
-			0 if rank < 2 else (1 if float(reach.get("_thru")) > 0.0 else (0 if bool(reach.get("_height_only")) else 2))]
+			0 if rank < 2 else (1 if float(reach.get("_thru")) > 0.0 else (0 if bool(reach.get("_height_only")) or not _block_up() else 2))]
 			# ^ a live punch's kind: 1 it LANDS (her arm opens outward off it), 2 it is BLOCKED (FightStage.arm_block: the
 			#   catching glove is meant to meet it - BlockCatch's job; pushed off it with the true glove shape the catch ended
 			#   9 cm under her face, block_meet GY), 0 anything else (a miss passes her: she moves off it as off any hand)
 	shown_f = Engine.get_process_frames()
+
+
+## S478 CLASH3: a blocked punch is BlockCatch's to meet only once her catch is rising (BlockCatch.RISE_S before its contact,
+## on the punch's own clip). Before that - a blocked rear hook armed on the hand still coming home from a landed cross,
+## seed 77's 08_cross f27-f29, 10 cm inside her guard glove - she moves off it as off any hand.
+func _block_up() -> bool:
+	var rap: AnimationPlayer = reach.get("ap")
+	return rap == null or float(reach.get("_contact")) - rap.current_animation_position <= BlockCatch.RISE_S
 
 
 ## Probe (dbg_on): how deep this arm is in the other's arms by this modifier's own shapes and read (no squish, no knee).
@@ -302,6 +317,90 @@ func _clear_arms(skel: Skeleton3D, ids: Array, k: float, rank: int) -> void:
 		PunchReach.solve(skel, ids, s, g_hd.origin + move, s.distance_to(g_la.origin), g_la.origin.distance_to(g_hd.origin), g_hd.basis)
 		if n == 0:
 			clash_pushes += 1
+
+
+## S477 OWNGLOVE1: a boxer's own two gloves stay out of each other in the guard and its fidgets (no punches thrown).
+## After the cross-boxer clearance, check her own arms for overlap. When they overlap by more than the 2 cm give (SQUISH_M),
+## move the hand with the lower rank out of the overlap; equal ranks: the rear hand moves (orthodox Right, southpaw Left).
+## Move along the gap between the two gloves (sideways, away from the other), re-solve with PunchReach.solve keeping the
+## hand's rotation, CLASH_PASSES passes, PUSH_MAX_M per pass. Keep the hand off her own face (TUCK_M, as _clear_arms does).
+func _clear_own(skel: Skeleton3D, k: float) -> void:
+	var to_w := skel.global_transform
+	var rear := _rear_side(skel)
+	for n in CLASH_PASSES:
+		var arm_data := {}
+		for side in _arms:
+			var ids: Array = _arms[side]
+			var g_la: Transform3D = skel.get_bone_global_pose(int(ids[1]))
+			var g_hd: Transform3D = skel.get_bone_global_pose(int(ids[2]))
+			var elbow: Vector3 = to_w * g_la.origin
+			var wrist: Vector3 = to_w * g_hd.origin
+			var along := (wrist - elbow).normalized()
+			arm_data[side] = {"ids": ids, "elbow": elbow, "wrist": wrist, "along": along,
+				"glove": [wrist + along * GLOVE_AT.x * k, wrist + along * GLOVE_AT.y * k, GLOVE_R * k],
+				"fore": [elbow, wrist, FORE_R * k], "rank": _rank(side), "is_rear": side == rear,
+				"la": g_la, "hd": g_hd}
+		var sides := arm_data.keys()
+		if sides.size() < 2:
+			return
+		var a0: Dictionary = arm_data[sides[0]]
+		var a1: Dictionary = arm_data[sides[1]]
+		var best := 0.0
+		var move_side := ""
+		var dir := Vector3.ZERO
+		var at := 1.0
+		for pair in [["glove", "glove"], ["glove", "fore"], ["fore", "glove"]]:
+			var m: Array = a0[pair[0]]
+			var t: Array = a1[pair[1]]
+			var pts := Geometry3D.get_closest_points_between_segments(m[0], m[1], t[0], t[1])
+			var gap: Vector3 = pts[0] - pts[1]
+			var p := float(m[2]) + float(t[2]) - SQUISH_M + SOFT_M * 0.5 - gap.length()
+			if p <= 0.0:
+				continue
+			var push := p * p / (2.0 * SOFT_M) if p < SOFT_M else p - SOFT_M * 0.5
+			if push <= best:
+				continue
+			best = push
+			dir = gap if gap.length() > 1e-4 else (a0["wrist"] + a0["along"] * GLOVE_FWD_M * k) - a1["wrist"]
+			var r0 := int(a0["rank"])
+			var r1 := int(a1["rank"])
+			if r0 < r1:
+				move_side = sides[0]
+			elif r1 < r0:
+				move_side = sides[1]
+			else:
+				move_side = sides[0] if bool(a0["is_rear"]) else sides[1]
+			var seg: Vector3 = (m[1] as Vector3) - (m[0] as Vector3)
+			at = 1.0 if pair[0] == "glove" else clampf(((pts[0] as Vector3) - (m[0] as Vector3)).dot(seg) / maxf(seg.length_squared(), 1e-8), 0.0, 1.0)
+		if best <= 0.0 or dir.length() < 1e-5 or move_side == "":
+			return
+		var arm: Dictionary = arm_data[move_side]
+		var ids: Array = arm["ids"]
+		var s: Vector3 = skel.get_bone_global_pose(int(ids[0])).origin
+		var g_hd: Transform3D = arm["hd"]
+		# The gap points from a1 to a0; if moving a1, negate it (push away from a0)
+		var push_dir := dir if move_side == sides[0] else -dir
+		var aside := (to_w.affine_inverse().basis * push_dir).normalized()
+		var back := s - g_hd.origin
+		var room := clampf((back.length() * k - TUCK_M.x) / (TUCK_M.y - TUCK_M.x), 0.0, 1.0)
+		var move := (aside + back.normalized() * RETRACT * room) * minf(best / lerpf(0.5, 1.0, at), PUSH_MAX_M) / k
+		PunchReach.solve(skel, ids, s, g_hd.origin + move, s.distance_to(arm["la"].origin), arm["la"].origin.distance_to(g_hd.origin), g_hd.basis)
+
+
+## The rear hand's side: orthodox = Right, southpaw = Left. Read from BoxerFootworkRig's plan if present (the way
+## BoxerFootwork does); fallback: the hand further back in skeleton space (the rear hand guards the face, the lead extends).
+func _rear_side(skel: Skeleton3D) -> String:
+	for child in skel.get_children():
+		var plan = child.get("plan") if child != null else null
+		if plan != null:
+			var side = plan.get("side") if plan is Object else null
+			if side != null and float(side) < 0.0:
+				return "Left"
+			if side != null:
+				return "Right"
+	var left_w := skel.get_bone_global_pose(int(_arms["Left"][2])).origin
+	var right_w := skel.get_bone_global_pose(int(_arms["Right"][2])).origin
+	return "Left" if left_w.z > right_w.z else "Right"
 
 
 ## S316: heads touch up close (temple to temple, a head on a shoulder) but never pass through each other - inside_guard_probe
