@@ -7851,6 +7851,26 @@
       "attach": [
         "AgentComms/board_attach/Q-S294-255_0_training_k_v5.png"
       ],
+      "answer": "Change more (say what)",
+      "note": null,
+      "answered_at": "2026-11-15T20:32:52Z",
+      "seen_by_claude": false,
+      "comment_only": false
+    },
+    {
+      "id": "Q-S294-256",
+      "asked": "2026-11-15T21:43:51.566746+00:00",
+      "session": "S294",
+      "text": "Fight analysis page (your Reddit video): every punch of a fight in a list you can filter. On a film night you read the opponent's past fight and spot their habits yourself; the coach checks them and the corner minute tells you if you read them right. Your own fights get the same page after the bell, and a live fight log sits beside the fight. Two critics passed it (Dola 8/9/8, John 7/7/7). Build it?",
+      "options": [
+        "Yes, build it",
+        "Change something first",
+        "Not now"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-256_0_fight_analysis_v3.png",
+        "research/FIGHTFILM1_MAP_V3_S495.md"
+      ],
       "answer": null,
       "note": null,
       "answered_at": null,

@@ -28,7 +28,7 @@ Score, each out of 10, with the reasons:
 1. DEPTH - real choices with trade-offs that change outcomes; no dominant pick; it interacts with the rest of the game.
 2. GENERAL DESIGN - clear, consistent with the game's rules and words, buildable from what the game has, nothing useless.
 3. PLAY - fun week to week: anticipation, a reason to come back, a reward the player feels.
-The bar (owner S459): the mechanic is DESIGNED when critics give it 6+ on DEPTH and 6+ on GENERAL DESIGN.
+The bar (owner S459): the mechanic is DESIGNED when critics give it 7+ on DEPTH and 7+ on GENERAL DESIGN (owner S425).
 
 Also answer: which options are missing, which are useless, and what each option changes (owner S403).
 End with **To reach 10/10**: the concrete changes that would take it to 10, most important first, each specific enough to
@@ -42,7 +42,7 @@ You are the designer. Read the whole game (critic pack below), the current map, 
 the next version of the map in full (not a diff): answer EVERY point of each critic's 'To reach 10/10' list (do it, or say
 in one line why not), keep every rule the owner agreed (quoted in the map), keep it buildable from what the game has, and
 keep the map's table of every menu the mechanic appears on and what each is wired to (owner S425).
-The bar it must reach with fresh critics: 6+ DEPTH and 6+ GENERAL DESIGN (owner S459). Numbers: say which are ESTIMATES.
+The bar it must reach with fresh critics: 7+ DEPTH and 7+ GENERAL DESIGN (owner S425). Numbers: say which are ESTIMATES.
 Plain words; names only in headers. Return only the new map, starting with its title line.
 """
 

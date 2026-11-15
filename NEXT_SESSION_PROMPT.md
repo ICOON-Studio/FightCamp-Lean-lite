@@ -38,11 +38,24 @@ A seat that errors on quota is finished: do not relaunch it there. Move its task
 Antigravity, Ziva (3D only), or Claude's own sessions/subagents (critics: a fresh Claude subagent with the critic pack).
 
 ## SIDE SESSIONS STARTED IN S494 (they report to S494; check them first)
-- "Design the fight analysis page + film tells + live log" (local_07f835cc-0a27-4edc-aaf6-01471d0439be): FIGHTFILM1 v2 map +
-  mockup pushed (3fe980ab); v1 Dola 8/8/8, John 5; v2 queued to Dola SQ193 + John SQ194. His board only at 7+ from both.
-- "Prototype an automatic boxing video analyzer" (local_2e2e5ceb-0b16-48b8-bdaa-af215813d368): pose tracking of 29 labelled
-  Olympic bouts, numbers expected ~00:40 on 11-16; report ops/research/FIGHT_VIDEO_ANALYZER_S495.md + ops/Tools/fight_video/.
-  Read its measured accuracy before telling him anything works.
+- "Design the fight analysis page + film tells + live log" (local_07f835cc-0a27-4edc-aaf6-01471d0439be): DONE as design.
+  FIGHTFILM1 v3 passed (Dola 8/9/8, John 7/7/7) -> his board Q-S294-256 with mockup + map (dccd962d). Build only on his yes;
+  section 7b of the map lists what to measure while building. Archive the session once its answer is acted on.
+- "Prototype an automatic boxing video analyzer" (local_2e2e5ceb-0b16-48b8-bdaa-af215813d368): final run on 29 labelled
+  Olympic bouts, then report ops/research/FIGHT_VIDEO_ANALYZER_S495.md + ops/Tools/fight_video/ + a licence section.
+  LICENCES (its findings): code libraries permissive (YOLO/AGPL avoided); the Olympic set is academic/non-profit only,
+  BoxingVI has no licence, the person detector was trained on non-commercial Human-Art -> as built it CANNOT be sold.
+  His answer: "make our own labelled clips" -> its next task (after the report): synthetic clips rendered from our own 3D
+  fights with exact labels from the sim + real footage we have rights to (CC-licensed; his own gym clips with consent, a
+  confirm-or-fix labelling tool) -> ops/research/FIGHT_VIDEO_DATASET_S495.md. Read its MEASURED accuracy before telling him
+  anything works. Money ideas told to him: free "analyze your sparring" tool as FightCamp marketing first; a paid club
+  analyzer / stat sheets only with clean licences and good accuracy (his money/scope call).
+- BODYLOOK1 (local_43234449-27fa-4767-ae29-8f567b15015c, PR 320): stills checked by S494 - shorts hole gone, singlet straps
+  much cleaner, coach gets a real collar; left: a thin skin sliver + dark slit at the front of the coach's collar, tiny steps
+  at the strap tips. Told him: merge (his draft in that session: "merge PR 320 and export the build"), re-run tests because
+  GitHub's run was CANCELLED, then fix those two. Check whether it merged.
+- RAM: archived S491, S492 and the 5 am review sessions (his yes). S493's start session (local_4984f4a3-...) refused: live
+  work (BODYLOOK1 reports to it) - archive it after BODYLOOK1 is collected.
 
 ## AGENTS
 - Qwen CLASH10 (glove clipping, worktree E:/FightCamp/wt/LEAN_CLASH10, ETA 22:32 on 11-15): open every still before any merge.

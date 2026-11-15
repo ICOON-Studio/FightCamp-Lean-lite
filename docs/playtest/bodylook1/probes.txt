@@ -1,0 +1,39 @@
+BODYLOOK_EDGE exported mh_boxer_11 load_ms=94 border_verts=140 off_line_mm mean=6.99 p90=15.24 max=22.33 kit_on_skin=148 not_on_spot=0 weights_differ=0 worst=0.000 collar=0
+BODYLOOK_EDGE exported mh_boxer_14 load_ms=80 border_verts=141 off_line_mm mean=7.37 p90=18.28 max=34.10 kit_on_skin=157 not_on_spot=0 weights_differ=0 worst=0.000 collar=0
+BODYLOOK_EDGE exported mh_boxer_23 load_ms=88 border_verts=148 off_line_mm mean=8.35 p90=19.08 max=34.47 kit_on_skin=164 not_on_spot=4 weights_differ=0 worst=0.002 collar=0
+BODYLOOK_EDGE exported mh_boxer_01 load_ms=86 border_verts=160 off_line_mm mean=4.45 p90=9.37 max=12.48 kit_on_skin=166 not_on_spot=2 weights_differ=0 worst=0.003 collar=0
+BODYLOOK_EDGE exported mh_staff_coach load_ms=81 border_verts=0 off_line_mm mean=0.00 p90=0.00 max=0.00 kit_on_skin=0 not_on_spot=0 weights_differ=0 worst=0.000 collar=0
+BODYLOOK_OVERLAP exported mh_staff_coach head_verts=12230 head_low_y=1.419 within3mm={ "Staff_Shirt": 42 }
+BODYLOOK_OVERLAP exported mh_staff_coach MH_Skin_Head verts=12230 under_outfit=704 y=1.419..1.517
+BODYLOOK_OVERLAP exported mh_staff_coach MH_Skin_Body verts=6841 under_outfit=262 y=0.719..1.395
+BODYLOOK_OVERLAP exported mh_staff_coach_2 head_verts=12230 head_low_y=1.340 within3mm={ "Staff_Shirt": 28 }
+BODYLOOK_OVERLAP exported mh_staff_coach_2 MH_Skin_Head verts=12230 under_outfit=671 y=1.340..1.465
+BODYLOOK_OVERLAP exported mh_staff_coach_2 MH_Skin_Body verts=6850 under_outfit=269 y=0.678..1.374
+BODYLOOK_OVERLAP exported mh_staff_trainer head_verts=12230 head_low_y=1.424 within3mm={ "Staff_Shirt": 33 }
+BODYLOOK_OVERLAP exported mh_staff_trainer MH_Skin_Head verts=12230 under_outfit=691 y=1.424..1.561
+BODYLOOK_OVERLAP exported mh_staff_trainer MH_Skin_Body verts=6798 under_outfit=249 y=0.731..1.395
+BODYLOOK_OVERLAP exported mh_staff_cutman_1 head_verts=12230 head_low_y=1.322 within3mm={ "Staff_Shirt": 32 }
+BODYLOOK_OVERLAP exported mh_staff_cutman_1 MH_Skin_Head verts=12230 under_outfit=672 y=1.322..1.449
+BODYLOOK_OVERLAP exported mh_staff_cutman_1 MH_Skin_Body verts=6850 under_outfit=269 y=0.668..1.357
+[exported] BODYLOOK_SKIN mh_staff_coach MH_Skin_Head per=4 collar_band_verts=345 mean weights: spine_04 0.47, Head 0.28, LeftShoulder 0.06, RightShoulder 0.06, clavicle_out_l 0.03, clavicle_out_r 0.03, clavicle_scap_l 0.03, clavicle_scap_r 0.03
+[exported] BODYLOOK_SKIN mh_staff_coach Staff_Shirt per=4 collar_band_verts=1334 mean weights: spine_04 0.40, LeftShoulder 0.13, RightShoulder 0.12, clavicle_scap_r 0.08, clavicle_scap_l 0.07, upperarm_out_l 0.05, upperarm_out_r 0.05, clavicle_pec_l 0.02
+BODYLOOK_EDGE fixed mh_boxer_11 load_ms=161 border_verts=140 off_line_mm mean=3.05 p90=8.57 max=11.71 kit_on_skin=148 not_on_spot=0 weights_differ=0 worst=0.000 collar=0
+BODYLOOK_EDGE fixed mh_boxer_14 load_ms=164 border_verts=125 off_line_mm mean=2.33 p90=5.37 max=12.76 kit_on_skin=193 not_on_spot=0 weights_differ=0 worst=0.000 collar=0
+BODYLOOK_EDGE fixed mh_boxer_23 load_ms=163 border_verts=140 off_line_mm mean=2.85 p90=9.64 max=11.30 kit_on_skin=172 not_on_spot=0 weights_differ=0 worst=0.000 collar=0
+BODYLOOK_EDGE fixed mh_boxer_01 load_ms=151 border_verts=160 off_line_mm mean=0.93 p90=1.55 max=1.81 kit_on_skin=164 not_on_spot=0 weights_differ=0 worst=0.000 collar=0
+BODYLOOK_EDGE fixed mh_staff_coach load_ms=378 border_verts=0 off_line_mm mean=0.00 p90=0.00 max=0.00 kit_on_skin=0 not_on_spot=0 weights_differ=0 worst=0.000 collar=1
+BODYLOOK_OVERLAP fixed mh_staff_coach head_verts=11766 head_low_y=1.454 within3mm={ "Staff_Shirt": 1 }
+BODYLOOK_OVERLAP fixed mh_staff_coach MH_Skin_Head verts=11766 under_outfit=277 y=1.454..1.524
+BODYLOOK_OVERLAP fixed mh_staff_coach MH_Skin_Body verts=6764 under_outfit=104 y=0.719..0.791
+BODYLOOK_OVERLAP fixed mh_staff_coach_2 head_verts=11791 head_low_y=1.402 within3mm={  }
+BODYLOOK_OVERLAP fixed mh_staff_coach_2 MH_Skin_Head verts=11791 under_outfit=242 y=1.402..1.470
+BODYLOOK_OVERLAP fixed mh_staff_coach_2 MH_Skin_Body verts=6783 under_outfit=110 y=0.678..0.762
+BODYLOOK_OVERLAP fixed mh_staff_trainer head_verts=11772 head_low_y=1.486 within3mm={  }
+BODYLOOK_OVERLAP fixed mh_staff_trainer MH_Skin_Head verts=11772 under_outfit=265 y=1.486..1.569
+BODYLOOK_OVERLAP fixed mh_staff_trainer MH_Skin_Body verts=6732 under_outfit=104 y=0.731..0.804
+BODYLOOK_OVERLAP fixed mh_staff_cutman_1 head_verts=11791 head_low_y=1.387 within3mm={  }
+BODYLOOK_OVERLAP fixed mh_staff_cutman_1 MH_Skin_Head verts=11791 under_outfit=241 y=1.387..1.456
+BODYLOOK_OVERLAP fixed mh_staff_cutman_1 MH_Skin_Body verts=6783 under_outfit=110 y=0.668..0.751
+[fixed] BODYLOOK_SKIN mh_staff_coach MH_Skin_Head per=4 collar_band_verts=320 mean weights: spine_04 0.43, Head 0.32, LeftShoulder 0.05, RightShoulder 0.05, clavicle_out_l 0.04, clavicle_out_r 0.04, clavicle_scap_r 0.03, clavicle_scap_l 0.03
+[fixed] BODYLOOK_SKIN mh_staff_coach Staff_Shirt per=4 collar_band_verts=1334 mean weights: spine_04 0.46, Head 0.30, clavicle_out_l 0.05, clavicle_out_r 0.05, LeftShoulder 0.04, RightShoulder 0.04, clavicle_scap_r 0.02, clavicle_scap_l 0.02
+[fixed] BODYLOOK_SKIN mh_staff_coach Staff_Shirt per=4 collar_band_verts=432 mean weights: Head 0.49, spine_04 0.41, clavicle_out_l 0.03, clavicle_out_r 0.03, clavicle_scap_l 0.01, clavicle_scap_r 0.01, RightShoulder 0.01, LeftShoulder 0.01

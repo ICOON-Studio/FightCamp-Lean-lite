@@ -6,6 +6,8 @@ extends RefCounted
 const RawAsset := preload("res://scripts/fight3d/RawAsset.gd")
 const Twist := preload("res://scripts/fight3d/MetaHumanTwist.gd")
 const Look := preload("res://scripts/rules/MetaHumanLook.gd")
+const ClothMask := preload("res://scripts/fight3d/ClothMask.gd")
+const StaffCollar := preload("res://scripts/fight3d/StaffCollar.gd")
 
 const UE5_TO_OURS := {
 	"pelvis": "Hips",
@@ -46,6 +48,11 @@ const UE5_FINGERS := {
 	"pinky_01_r": "RightLittleProximal", "pinky_02_r": "RightLittleIntermediate", "pinky_03_r": "RightLittleDistal",
 }
 
+## BODYLOOK1 (S492): no skin under a staff outfit (+ its collar rib), no skin islands in the trunks, smooth welded kit
+## borders - ClothMask.gd says why. `-- nobodylook` = the bodies as exported: the control arm of the before/after stills
+## and probes (tests/body_look_test.gd flips it for its own two arms).
+static var body_look := not OS.get_cmdline_user_args().has("nobodylook")
+
 const SKIN_SHADER := "res://assets/models/metahuman/mh_skin.gdshader"
 const MICRO_NORMAL := "res://assets/models/metahuman/mh_skin_micro_normal.png"
 
@@ -77,6 +84,8 @@ static func load_fighter(glb_path: String) -> Node3D:
 		ap.add_animation_library("", AnimationLibrary.new())
 		fighter.add_child(ap)
 	seat_brows(fighter)
+	if body_look:
+		StaffCollar.add(fighter, ClothMask.apply(fighter)["collar"])
 	dress(fighter, glb_path)
 	return fighter
 

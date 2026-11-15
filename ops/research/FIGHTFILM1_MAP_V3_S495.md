@@ -35,7 +35,7 @@ proposed number, tuned in play.
 | NOT taken | Dola: easier hurt habits on one film (rare moments are the point: hurt habits are two-film tells); compound triggers; style-wide lessons (later versions) | - |
 
 ## 1. Where the data comes from (traced in the code, S495)
-| What the page needs | Where the game has it | Gap and the v2 answer |
+| What the page needs | Where the game has it | Gap and the v3 answer |
 |---|---|---|
 | The round as six 30-second exchanges | CODE `scripts/state/LiveRound.gd` keeps one record an exchange: the opponent's game (`mode`), situation, our call and whether heard, punches landed per corner, body shots, winner and margin, place in the ring (`place`), the best move each side had, the habit and the read | none |
 | Every punch | CODE `scripts/fight3d/ExchangeBeats.gd` + `scripts/rules/RoundScript.gd` build beats `{t, who, move, result, def, big, knockback, read}`; habits rewrite beats (`scripts/rules/HabitBeats.gd`, fires `{who, habit, t}`); the 3D pose of a tell exists (`scripts/fight3d/TellPose.gd`) | Built only in the 3D view and never stored: a skipped or word-view round has no punch list. NEW: build the beats once when the exchange settles, through a helper module (LiveRound.gd is 488 lines, over its 470 limit), store them on the record; the 3D view plays the stored beats. NEW: each beat gets its AFTER fact (section 2.1), written by the same pass, so the film's pose and the list agree |
@@ -43,7 +43,7 @@ proposed number, tuned in play.
 | The opponent's past bouts | CODE `RivalPast.gd` keeps each as one row `{d, vs, vs_club, win, how}` | NEW `FilmBout.gd`: rebuilds the whole bout from the opponent's real profile, the same every time (seed = their id + the bout's day): their games in their style's mix (`Exchanges.STYLE_MODES`), their habits fired on their real triggers, their best weapon landing clean most, the result matching the row, the AFTER facts with their base rates |
 | How many films | CODE `ModeTells.films(bouts)`, at most `MAX_FILMS` = 4; a debutant has no tape (`FilmTruth.locked`) | none |
 | Tells and answers | CODE `OppFile.tells(opp)`: look and style free; best weapon, two games, each habit (7 words), weakness, each with its answer | none |
-| Seen / looked again / confirmed / cleared | CODE `FilmTruth.gd` (`SEEN_TRUE` 0.70, `LOOKED_TRUE` 0.90, `check_minute`), built and wired nowhere | First use; adds a 0.30 "maybe" figure |
+| Seen / looked again / confirmed / cleared | CODE `FilmTruth.gd` (`SEEN_TRUE` 0.70, `LOOKED_TRUE` 0.90, `check_minute`), built and wired nowhere | First use; LOOKED_TRUE becomes 0.85; adds MAYBE_ONE 0.30 and MAYBE_POOLED 0.20 |
 | What a found tell is worth | CODE `FilmEdge.gd`: each found tell the plan answers adds `FILM_PER_ANSWER` = 0.4 power on the night, at most `FILM_EDGE_MAX` = 1.2 (three answered tells); `TheRead.gd`: with film, a fifth fewer looks to read a habit | NEW: pays at the tell's figure until confirmed. Three tells at 70% = 0.84, so confirming and second films still pay |
 | Film nights | CODE `FightWeekPlan.gd` + `FilmSeats.gd`: 2 coached film nights a week (+1 with a full-time coach); over the count the boxer watches alone and finds nothing | NEW: the two ways to use a night (section 3.1) |
 | Coach ratings | CODE `scripts/state/Data.gd`: Luke Reid 58, Marcus Hale 74; `CoachMarket.gd`: Jamie Price 53, Rosa Mendez 60; Reid grows to 82 (GROWTH) | Checks and the coach's own watch by rating (section 3.1) |
@@ -71,7 +71,8 @@ from History, and "the round so far" from the corner minute). Mockup v3: `docs/m
   seconds names the opponent's game in that exchange. SHOW ME: Corner, Hand, Punch, Result, Range, Round, Their game,
   After. A count line: "36 lines of 164 - landed 9 of 31, clean 2". With an After filter on, the count line shows what the camera saw
   ("seen: right low after 5 of 21 jabs, after 2 of 30 other punches"): a careful player sees where to look; the coach's
-  check counts every punch. Finding is free and approximate; the check is exact and files.
+  check is the coach going frame by frame for 20 minutes, so it counts every punch. The screen is what you see at full speed;
+  finding is free and approximate, the frame-by-frame check is exact and files.
 - **Right, THE REPORT** (tabs: Them / The other; your bout: You / The opponent): thrown, landed and clean bars per punch (sort by count or by clean rate);
   head against body; landed by round; landed by range; their games by share of exchanges; combinations with clickable
   times; three sentences that only state numbers ("The jab is thrown most; the cross lands clean most, 4 times."). Two rows
@@ -127,7 +128,8 @@ counter lands / throws fewer / gets out-landed. 9 x 8 = 72 claims; 9 can be true
 
 ### 3.3 The coach's check: the counting rules (on every punch; the screen shows the camera-seen counts)
 - **A fact after a moment** (WHEN a punch or a moment, THEN an AFTER fact or the next lines): k = times it followed within
-  2 s; n = the moments; expected E = n x its rate after everything else; spread = sqrt(E + E x n / rest). **That's her /
+  2 s; n = the moments; expected E = n x its rate after everything else; spread = sqrt(E + E x n / rest), with the rest's count taken as at least 1 (no division by zero when the fact never
+  follows anything else). **That's her /
   him** when k >= 3 and (k - E) / spread >= 2.33; **Maybe** at 1.28 and k >= 2; **Not enough moments (n)** when n < 3;
   else **Nothing there**.
 - **Throws fewer** (a window): E = their punches a minute outside the window x the window's length x the slowdown every
@@ -217,7 +219,7 @@ Every other claim is noise and is never true.
 |---|---|---|
 | Fight week > Film evening card | Coached / Alone (CODE); when the clock reaches it: Watch it yourself (whole evening, the pads forecast it costs) / Let the coach watch (20 min, pads still run, what he looks for) | FightWeekPlan film night -> FightAnalysis with checks by coach rating, or the coach's tell(s) |
 | FIGHT ANALYSIS (new scene) | Section 2 | FightLog (lines), FilmBout (past bouts), FilmPattern (counts, words, filing), FightStats + Judges (report, rounds strip), TapeFilm (film) |
-| Fighter page > Fight prep | Watch the tape (film + report, no filing); WHAT YOUR PLAN SHOULD ANSWER lists each tell with its figure (30 / 70 / 90%, CONFIRMED, CLEARED) and where it was seen (click opens the page there) | FightAnalysis (film only); OppFile + FilmTruth states |
+| Fighter page > Fight prep | Watch the tape (film + report, no filing); WHAT YOUR PLAN SHOULD ANSWER lists each tell with its figure (30 / 70 / 85%, CONFIRMED, CLEARED) and where it was seen (click opens the page there) | FightAnalysis (film only); OppFile + FilmTruth states |
 | Rival file (World > Rankings) and the opponent's file card (bout offer, Camp, fight night) | Each tell's state and figure; the evidence counts on hover | OppFileCard reading FilmTruth states |
 | Playbook > Game plan | A line on an unconfirmed tell shows its figure and rates Works at best; a CLEARED tell's line is marked "change this line" | PlanLines + FilmTruth state |
 | Fight screen (3D and words) | The live log (section 4) | FightLog over the stored beats |
@@ -245,6 +247,23 @@ Rate test: `film_pattern_test.gd` runs 1,000 fixed-seed films and asserts noise 
 | Live log panel | screen | Grok Dev | layout snapshot in a fight |
 | Film night stop, FilmEdge pay at the figure, FilmTruth states on the cards, corner minute line, result tab, History button, Tape Room retired, `tools/film_check_probe.py` rerun on FilmBout | wiring | Claude | the golden path |
 Discipline: boxing (the demo). Ships ON (GameSwitches.GAME_ON).
+
+## 7b. To settle while building (from the v3 critics; they change numbers on the stop, not the mechanic)
+1. Measure power into wins in the game's own fight (1,000 even bouts at +0.28, +0.4, +0.9, +1.2): the +5.5 a power point
+   is derived from BoutRules' round model, and the watched bout settles six exchanges a round (John).
+2. Settle the weapon rule (`weapons_edge` pays from the fifth weapon on, BASE_WEAPONS 4): the stop shows the edge this boxer
+   actually gains tonight, which may be 0.
+3. Price the stop in wins with how long each lasts: a weapon "+x in 100, every bout from now on"; a tell "+y in 100 against
+   this opponent, and the plan line it unlocks" (measure a confirmed line rated Beats it against none, 1,000 bouts).
+4. Price the TAPER rest night (fight-night energy with and without it); if it is worth under 1 in 100, the TAPER film night
+   costs the coach's sparring slot instead.
+5. Show trust words (Sure 85%, Likely 70%, Maybe 30/20%) with the paid % on hover, so the figures are not read as odds.
+6. A dash says why on hover ("missed at full speed: body in the way"); a hurt or fade claim on a film with fewer than 3
+   moments says "rare: needs a second film or the corner minute" before the check is spent, and goes to the watch list free.
+7. Cap checks at 2 a film and at 6 an opponent, so a full-time coach still has to choose.
+8. Build FilmBout, rerun the probe on its real output (all 72 claims, 1,000 films, tiring boxers, a rest-rate-0 case).
+Dola's smaller asks for later: clear a claim from the watch list, sort claims by strength, a coach priority on his own watch,
+replay a film for the current opponent.
 
 ## 8. Open points for the critics
 1. Is "the camera sees 2 punches in 3" a fair way to make the check buy information, or does it read as an arbitrary fog?

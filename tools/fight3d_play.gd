@@ -9,6 +9,7 @@ extends SceneTree
 ## 3-punch signature named the GO-TO, the plan 1-1 / step in / body - and prints the go-to's throws a round (GOTO lines).
 ## The live round's side holos follow the scorebug (S405, checked on every still). The corner card's holo shows where the punches landed.
 ## S382: `hold=<s>` keeps the corner card up that many more seconds (films), `end=corner` stops after the corner minute.
+## BODYLOOK1: `seed=<n>` plays the same fight every run; `nobodylook` = the bodies as exported (MHRig control arm).
 
 const W := 1920
 const H := 1080
@@ -30,6 +31,9 @@ func _initialize() -> void:
 	var args := OS.get_cmdline_user_args()
 	if not args.is_empty():
 		out_dir = args[0]
+	for a in args:   # BODYLOOK1: `seed=<n>` = the same career and fight every run (a before/after pair of stills)
+		if str(a).begins_with("seed="):
+			seed(int(str(a).substr(5)))
 	DirAccess.make_dir_recursive_absolute(out_dir)
 	FastDraw.begin()
 	root.size = Vector2i(W, H)

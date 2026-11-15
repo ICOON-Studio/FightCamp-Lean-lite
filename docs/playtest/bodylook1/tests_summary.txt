@@ -1,0 +1,36 @@
+body_look_test: BODY_LOOK failures=0
+male_bodies_test: MALE_BODIES failures=0
+glove_cut_test: glove_cut_test: PASS
+art_toon_paint_test: ART_TOON_PAINT_TEST failures=0
+corner_warm_test: CORNER_WARM_TEST failures=0
+corner_lens_test: CORNER_LENS failures=0
+foot_plant_test: FOOT_PLANT checks=14 failures=0
+fight_polish_test: FIGHT_POLISH checks=9 failures=0
+intro_style_test: INTRO_STYLE pairs=640 checks=8560 failures=0
+golden_path_test: GOLDEN_PATH failures=0
+PASS the ruler sees the coach's fault: 704 head vertices lie under his tee as exported
+PASS the game draws less than half of that (240): only the ring tucked under his collar
+PASS the head keeps every vertex (only covered triangles go): 12230 = 12230
+PASS the exported coach has no collar
+PASS the coach's tee has a collar rib
+PASS the collar is skinned and wears the shirt's own material
+PASS painting the shirt paints its collar
+PASS the ruler sees it: the exported tee's collar band has 0.00 of its weight on the head and neck
+PASS the collar rib moves with his neck (0.50 of its weight on the head and neck)
+PASS the collar is a ring round a neck (0.17 x 0.05 x 0.13 m)
+PASS the ruler sees Priya's fault: 2 skin islands in her kit as exported
+PASS no skin island is left in Priya's kit (0)
+PASS the ruler sees Lucy's staircase: her kit border sits 7.0 mm off a straight line as exported
+PASS Lucy's kit border is a smoother line in the game (3.1 mm, was 7.0)
+PASS as exported the kit is welded to the skin: 148 twins, 0 weighted differently, 0 off the spot
+PASS ... and still is after the border slides: 148 twins, 0 weighted differently, 0 off the spot
+PASS a boxer's head mesh is untouched (its arc is the singlet's neckline): 23860 = 23860
+PASS a boxer gets no collar
+CORNER intro gloves at the touch, closest 0.206 m
+FAIL the gloves touch in the intro (< 12 cm apart)
+CORNER_FILM failures=1
+CORNER intro gloves at the touch, closest 0.201 m
+FAIL the gloves touch in the intro (< 12 cm apart)
+CORNER_FILM failures=1
+FIGHT3D_PLAY failures=0
+FIGHT3D_PLAY failures=0

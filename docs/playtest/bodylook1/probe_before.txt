@@ -1,0 +1,107 @@
+GODOT_SLOT start after 0 s (bodylook)
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+BODYLOOK mh_boxer_11 SURF MH_Body/MH_Skin_Body tris=12578 Shader mh_skin.gdshader
+BODYLOOK mh_boxer_11 SURF MH_Body/MH_Trunks tris=1574 Std cull=0 transp=0 depth_draw=0 alpha=1.00 shading=1
+BODYLOOK mh_boxer_11 SURF MH_Body/MH_Top tris=1480 Std cull=0 transp=0 depth_draw=0 alpha=1.00 shading=1
+BODYLOOK mh_boxer_11 SURF MH_Body/MH_Trim tris=488 Std cull=2 transp=0 depth_draw=0 alpha=1.00 shading=1
+BODYLOOK mh_boxer_11 SURF MH_Body/MH_Skin_Head tris=23860 Shader mh_skin.gdshader
+BODYLOOK mh_boxer_11 SURF MH_Body/MH_Teeth tris=5950 Std cull=2 transp=0 depth_draw=0 alpha=1.00 shading=1
+BODYLOOK mh_boxer_11 SURF MH_Body/MH_Eye tris=1440 Std cull=2 transp=0 depth_draw=0 alpha=1.00 shading=1
+BODYLOOK mh_boxer_11 SURF MH_Body/MH_Eyelashes tris=1218 Std cull=2 transp=4 depth_draw=0 alpha=0.40 shading=1
+BODYLOOK mh_boxer_11 SURF MH_BrowCards/MH_Brows tris=992 Std cull=2 transp=2 depth_draw=0 alpha=1.00 shading=1
+BODYLOOK mh_boxer_11 SURF MH_HairCards/MH_Hair tris=28631 Std cull=2 transp=2 depth_draw=0 alpha=1.00 shading=1
+BODYLOOK mh_boxer_11 OPEN MH_Body/MH_Top edges=46
+BODYLOOK mh_boxer_11 OPEN MH_Body/MH_Skin_Head edges=92
+BODYLOOK mh_boxer_11 OPEN MH_Body/MH_Teeth edges=106
+BODYLOOK mh_boxer_11 OPEN MH_Body/MH_Eyelashes edges=1560
+BODYLOOK mh_boxer_11 OPEN MH_BrowCards/MH_Brows edges=1984
+BODYLOOK mh_boxer_11 OPEN MH_HairCards/MH_Hair edges=45579
+BODYLOOK mh_boxer_11 SHARED MH_Body/MH_Skin_Body|MH_Body/MH_Top edges=60
+BODYLOOK mh_boxer_11 SHARED MH_Body/MH_Skin_Body|MH_Body/MH_Trunks edges=80
+BODYLOOK mh_boxer_11 SHARED MH_Body/MH_Trim|MH_Body/MH_Trunks edges=94
+BODYLOOK mh_boxer_11 SHARED MH_Body/MH_Top|MH_Body/MH_Trim edges=76
+BODYLOOK mh_boxer_11 NONMANIFOLD MH_Body/MH_Skin_Body edges=17
+BODYLOOK mh_boxer_11 NONMANIFOLD MH_Body/MH_Skin_Head edges=2
+BODYLOOK mh_boxer_11 NONMANIFOLD MH_Body/MH_Teeth edges=2
+BODYLOOK mh_boxer_11 NONMANIFOLD MH_HairCards/MH_Hair edges=21
+BODYLOOK mh_boxer_17 SURF MH_Body/MH_Skin_Body tris=12646 Shader mh_skin.gdshader
+BODYLOOK mh_boxer_17 SURF MH_Body/MH_Trunks tris=1536 Std cull=0 transp=0 depth_draw=0 alpha=1.00 shading=1
+BODYLOOK mh_boxer_17 SURF MH_Body/MH_Top tris=1562 Std cull=0 transp=0 depth_draw=0 alpha=1.00 shading=1
+BODYLOOK mh_boxer_17 SURF MH_Body/MH_Trim tris=416 Std cull=2 transp=0 depth_draw=0 alpha=1.00 shading=1
+BODYLOOK mh_boxer_17 SURF MH_Body/MH_Skin_Head tris=23860 Shader mh_skin.gdshader
+BODYLOOK mh_boxer_17 SURF MH_Body/MH_Teeth tris=5950 Std cull=2 transp=0 depth_draw=0 alpha=1.00 shading=1
+BODYLOOK mh_boxer_17 SURF MH_Body/MH_Eye tris=1440 Std cull=2 transp=0 depth_draw=0 alpha=1.00 shading=1
+BODYLOOK mh_boxer_17 SURF MH_Body/MH_Eyelashes tris=1218 Std cull=2 transp=4 depth_draw=0 alpha=0.40 shading=1
+BODYLOOK mh_boxer_17 SURF MH_BrowCards/MH_Brows tris=992 Std cull=2 transp=2 depth_draw=0 alpha=1.00 shading=1
+BODYLOOK mh_boxer_17 SURF MH_HairCards/MH_Hair tris=9874 Std cull=2 transp=2 depth_draw=0 alpha=1.00 shading=1
+BODYLOOK mh_boxer_17 OPEN MH_Body/MH_Top edges=46
+BODYLOOK mh_boxer_17 OPEN MH_Body/MH_Skin_Head edges=92
+BODYLOOK mh_boxer_17 OPEN MH_Body/MH_Teeth edges=106
+BODYLOOK mh_boxer_17 OPEN MH_Body/MH_Eyelashes edges=1560
+BODYLOOK mh_boxer_17 OPEN MH_BrowCards/MH_Brows edges=1984
+BODYLOOK mh_boxer_17 OPEN MH_HairCards/MH_Hair edges=12030
+BODYLOOK mh_boxer_17 SHARED MH_Body/MH_Skin_Body|MH_Body/MH_Top edges=58
+BODYLOOK mh_boxer_17 SHARED MH_Body/MH_Skin_Body|MH_Body/MH_Trunks edges=80
+BODYLOOK mh_boxer_17 SHARED MH_Body/MH_Trim|MH_Body/MH_Trunks edges=96
+BODYLOOK mh_boxer_17 SHARED MH_Body/MH_Top|MH_Body/MH_Trim edges=76
+BODYLOOK mh_boxer_17 NONMANIFOLD MH_Body/MH_Skin_Body edges=15
+BODYLOOK mh_boxer_17 NONMANIFOLD MH_Body/MH_Skin_Head edges=3
+BODYLOOK mh_boxer_17 NONMANIFOLD MH_Body/MH_Teeth edges=17
+BODYLOOK mh_boxer_17 NONMANIFOLD MH_HairCards/MH_Hair edges=3
+BODYLOOK mh_staff_coach SURF MH_Body/MH_Skin_Body tris=11925 Shader mh_skin.gdshader
+BODYLOOK mh_staff_coach SURF MH_Body/MH_Skin_Head tris=23860 Shader mh_skin.gdshader
+BODYLOOK mh_staff_coach SURF MH_Body/MH_Teeth tris=5950 Std cull=2 transp=0 depth_draw=0 alpha=1.00 shading=1
+BODYLOOK mh_staff_coach SURF MH_Body/MH_Eye tris=1440 Std cull=2 transp=0 depth_draw=0 alpha=1.00 shading=1
+BODYLOOK mh_staff_coach SURF MH_Body/MH_Eyelashes tris=1218 Std cull=2 transp=4 depth_draw=0 alpha=0.40 shading=1
+BODYLOOK mh_staff_coach SURF MH_BrowCards/MH_Brows tris=1020 Std cull=2 transp=2 depth_draw=0 alpha=1.00 shading=1
+BODYLOOK mh_staff_coach SURF MH_HairCards/MH_Hair tris=14088 Std cull=2 transp=2 depth_draw=0 alpha=1.00 shading=1
+BODYLOOK mh_staff_coach SURF Staff_CreatorOutfit/Staff_Shirt tris=18822 Std cull=0 transp=0 depth_draw=0 alpha=1.00 shading=1
+BODYLOOK mh_staff_coach SURF Staff_CreatorOutfit/Staff_Shorts tris=6436 Std cull=2 transp=0 depth_draw=0 alpha=1.00 shading=1
+BODYLOOK mh_staff_coach OPEN MH_Body/MH_Skin_Body edges=177
+BODYLOOK mh_staff_coach OPEN MH_Body/MH_Skin_Head edges=92
+BODYLOOK mh_staff_coach OPEN MH_Body/MH_Teeth edges=106
+BODYLOOK mh_staff_coach OPEN MH_Body/MH_Eyelashes edges=1560
+BODYLOOK mh_staff_coach OPEN MH_BrowCards/MH_Brows edges=1928
+BODYLOOK mh_staff_coach OPEN MH_HairCards/MH_Hair edges=15694
+BODYLOOK mh_staff_coach OPEN Staff_CreatorOutfit/Staff_Shorts edges=92
+BODYLOOK mh_staff_coach NONMANIFOLD MH_Body/MH_Skin_Head edges=7
+BODYLOOK mh_staff_coach NONMANIFOLD Staff_CreatorOutfit/Staff_Shorts edges=2
+BODYLOOK mh_staff_coach_2 SURF MH_Body/MH_Skin_Body tris=11986 Shader mh_skin.gdshader
+BODYLOOK mh_staff_coach_2 SURF MH_Body/MH_Skin_Head tris=23860 Shader mh_skin.gdshader
+BODYLOOK mh_staff_coach_2 SURF MH_Body/MH_Teeth tris=5950 Std cull=2 transp=0 depth_draw=0 alpha=1.00 shading=1
+BODYLOOK mh_staff_coach_2 SURF MH_Body/MH_Eye tris=1440 Std cull=2 transp=0 depth_draw=0 alpha=1.00 shading=1
+BODYLOOK mh_staff_coach_2 SURF MH_Body/MH_Eyelashes tris=1218 Std cull=2 transp=4 depth_draw=0 alpha=0.40 shading=1
+BODYLOOK mh_staff_coach_2 SURF MH_BrowCards/MH_Brows tris=992 Std cull=2 transp=2 depth_draw=0 alpha=1.00 shading=1
+BODYLOOK mh_staff_coach_2 SURF MH_HairCards/MH_Hair tris=10758 Std cull=2 transp=2 depth_draw=0 alpha=1.00 shading=1
+BODYLOOK mh_staff_coach_2 SURF Staff_CreatorOutfit/Staff_Shirt tris=18470 Std cull=0 transp=0 depth_draw=0 alpha=1.00 shading=1
+BODYLOOK mh_staff_coach_2 SURF Staff_CreatorOutfit/Staff_Shorts tris=6519 Std cull=2 transp=0 depth_draw=0 alpha=1.00 shading=1
+BODYLOOK mh_staff_coach_2 OPEN MH_Body/MH_Skin_Body edges=142
+BODYLOOK mh_staff_coach_2 OPEN MH_Body/MH_Skin_Head edges=92
+BODYLOOK mh_staff_coach_2 OPEN MH_Body/MH_Teeth edges=106
+BODYLOOK mh_staff_coach_2 OPEN MH_Body/MH_Eyelashes edges=1560
+BODYLOOK mh_staff_coach_2 OPEN MH_BrowCards/MH_Brows edges=1984
+BODYLOOK mh_staff_coach_2 OPEN MH_HairCards/MH_Hair edges=13581
+BODYLOOK mh_staff_coach_2 OPEN Staff_CreatorOutfit/Staff_Shorts edges=91
+BODYLOOK mh_staff_coach_2 NONMANIFOLD MH_Body/MH_Skin_Head edges=3
+BODYLOOK mh_staff_coach_2 NONMANIFOLD MH_Body/MH_Teeth edges=12
+BODYLOOK mh_staff_coach_2 NONMANIFOLD MH_HairCards/MH_Hair edges=60
+BODYLOOK mh_staff_trainer SURF MH_Body/MH_Skin_Body tris=11863 Shader mh_skin.gdshader
+BODYLOOK mh_staff_trainer SURF MH_Body/MH_Skin_Head tris=23860 Shader mh_skin.gdshader
+BODYLOOK mh_staff_trainer SURF MH_Body/MH_Teeth tris=5950 Std cull=2 transp=0 depth_draw=0 alpha=1.00 shading=1
+BODYLOOK mh_staff_trainer SURF MH_Body/MH_Eye tris=1440 Std cull=2 transp=0 depth_draw=0 alpha=1.00 shading=1
+BODYLOOK mh_staff_trainer SURF MH_Body/MH_Eyelashes tris=1218 Std cull=2 transp=4 depth_draw=0 alpha=0.40 shading=1
+BODYLOOK mh_staff_trainer SURF MH_BrowCards/MH_Brows tris=2088 Std cull=2 transp=2 depth_draw=0 alpha=1.00 shading=1
+BODYLOOK mh_staff_trainer SURF MH_HairCards/MH_Hair tris=5178 Std cull=2 transp=2 depth_draw=0 alpha=1.00 shading=1
+BODYLOOK mh_staff_trainer SURF Staff_CreatorOutfit/Staff_Shirt tris=18822 Std cull=0 transp=0 depth_draw=0 alpha=1.00 shading=1
+BODYLOOK mh_staff_trainer SURF Staff_CreatorOutfit/Staff_Shorts tris=6436 Std cull=2 transp=0 depth_draw=0 alpha=1.00 shading=1
+BODYLOOK mh_staff_trainer OPEN MH_Body/MH_Skin_Body edges=157
+BODYLOOK mh_staff_trainer OPEN MH_Body/MH_Skin_Head edges=92
+BODYLOOK mh_staff_trainer OPEN MH_Body/MH_Teeth edges=106
+BODYLOOK mh_staff_trainer OPEN MH_Body/MH_Eyelashes edges=1560
+BODYLOOK mh_staff_trainer OPEN MH_BrowCards/MH_Brows edges=3395
+BODYLOOK mh_staff_trainer OPEN MH_HairCards/MH_Hair edges=7204
+BODYLOOK mh_staff_trainer OPEN Staff_CreatorOutfit/Staff_Shorts edges=92
+BODYLOOK mh_staff_trainer NONMANIFOLD MH_Body/MH_Teeth edges=8
+BODYLOOK mh_staff_trainer NONMANIFOLD MH_BrowCards/MH_Brows edges=1
+BODYLOOK mh_staff_trainer NONMANIFOLD Staff_CreatorOutfit/Staff_Shorts edges=2

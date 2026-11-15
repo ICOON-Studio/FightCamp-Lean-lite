@@ -35,6 +35,7 @@ const RkJoinFeet := preload("res://scripts/fight3d/RkJoinFeet.gd")
 const FloorStand := preload("res://scripts/fight3d/FloorStand.gd")
 const FootLock := preload("res://scripts/fight3d/FootLock.gd")
 const PunchWeight := preload("res://scripts/fight3d/PunchWeight.gd")
+const WalkPure := preload("res://scripts/fight3d/WalkPure.gd")
 
 
 static func build(stage: Node3D, spec: Dictionary, index: int) -> Dictionary:
@@ -169,6 +170,9 @@ static func build(stage: Node3D, spec: Dictionary, index: int) -> Dictionary:
 	# S306: her planted feet stay where they stand; a foot steps when her body has moved off it.
 	# S314 `nostagger` = the clip's own stance spread (the control arm of gap 7).
 	var fp := FootPlant.attach(skel, ap, kt, null if OS.get_cmdline_user_args().has("nostagger") else body) if not OS.get_cmdline_user_args().has("nofeet") else null
+	# BODYLOOK1: the corner walk is a captured take - FootPlant lets go while it plays (it folded her knees in).
+	if fp != null:
+		WalkPure.attach(skel, ap, fp)
 	# S376 (operator: "hands are below canvas wtf"): a boxer on the canvas lies ON it - body lifted, arms swung up out of it.
 	# S391: the procedural footwork over FootPlant; its hips and torso run before the guard so the arms' IK reads them. It
 	# starts let go (want 0): RingFeet.gd takes the legs when the fight or a director's walk runs.

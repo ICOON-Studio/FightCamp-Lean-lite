@@ -1,0 +1,29 @@
+GODOT_SLOT start after 0 s (bodylook)
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+BODYLOOK_WIND mh_boxer_11 DUP MH_Skin_Body with MH_Skin_Body at (0.401047, 0.969676, 0.17028)
+BODYLOOK_WIND mh_boxer_11 MH_Skin_Body tris=12578 agree=4 against=12574 dup=1
+BODYLOOK_WIND mh_boxer_11 MH_Trunks tris=1574 agree=0 against=1574 dup=0
+BODYLOOK_WIND mh_boxer_11 MH_Top tris=1480 agree=0 against=1480 dup=0
+BODYLOOK_WIND mh_boxer_11 MH_Trim tris=488 agree=0 against=488 dup=0
+BODYLOOK_WIND mh_boxer_11 DUP MH_Skin_Head with MH_Skin_Head at (0.021432, 1.519076, 0.091312)
+BODYLOOK_WIND mh_boxer_11 MH_Skin_Head tris=23860 agree=14 against=23846 dup=1
+BODYLOOK_WIND mh_boxer_17 DUP MH_Skin_Body with MH_Skin_Body at (0.339062, 1.025026, 0.016861)
+BODYLOOK_WIND mh_boxer_17 MH_Skin_Body tris=12646 agree=12 against=12634 dup=1
+BODYLOOK_WIND mh_boxer_17 MH_Trunks tris=1536 agree=0 against=1536 dup=0
+BODYLOOK_WIND mh_boxer_17 MH_Top tris=1562 agree=0 against=1562 dup=0
+BODYLOOK_WIND mh_boxer_17 MH_Trim tris=416 agree=0 against=416 dup=0
+BODYLOOK_WIND mh_boxer_17 DUP MH_Skin_Head with MH_Skin_Head at (-0.018318, 1.490258, 0.087895)
+BODYLOOK_WIND mh_boxer_17 MH_Skin_Head tris=23860 agree=31 against=23829 dup=1
+BODYLOOK_WIND mh_boxer_10 MH_Skin_Body tris=12590 agree=11 against=12579 dup=0
+BODYLOOK_WIND mh_boxer_10 MH_Trunks tris=1556 agree=0 against=1556 dup=0
+BODYLOOK_WIND mh_boxer_10 MH_Top tris=1530 agree=0 against=1530 dup=0
+BODYLOOK_WIND mh_boxer_10 MH_Trim tris=460 agree=0 against=460 dup=0
+BODYLOOK_WIND mh_boxer_10 DUP MH_Skin_Head with MH_Skin_Head at (-0.021274, 1.448525, 0.088546)
+BODYLOOK_WIND mh_boxer_10 DUP MH_Skin_Head with MH_Skin_Head at (0.021214, 1.448897, 0.08879)
+BODYLOOK_WIND mh_boxer_10 DUP MH_Skin_Head with MH_Skin_Head at (0.037492, 1.529544, 0.085363)
+BODYLOOK_WIND mh_boxer_10 DUP MH_Skin_Head with MH_Skin_Head at (0.036905, 1.529429, 0.085791)
+BODYLOOK_WIND mh_boxer_10 DUP MH_Skin_Head with MH_Skin_Head at (0.033759, 1.529559, 0.086548)
+BODYLOOK_WIND mh_boxer_10 MH_Skin_Head tris=23860 agree=14 against=23846 dup=5
+BODYLOOK_WIND mh_staff_coach MH_Skin_Body tris=11925 agree=6 against=11919 dup=0
+BODYLOOK_WIND mh_staff_coach MH_Skin_Head tris=23860 agree=35 against=23825 dup=0

@@ -41,9 +41,9 @@ const SEATED_HIPS_M := 0.54
 ## af_walk's ground speed at 1x on the unscaled body (tools/corner_probe.gd: the standing foot moves back 0.90-0.98 m/s).
 const WALK_MS := 0.92
 const BOXER_WALK_MS := 0.7   # S391: a boxer's step pairs to the centre, in her guard
-## S395 ow_walk (tools/walk_cycle.gd, a real captured walk): its ground speed at 1x, and the pace a boxer walks it at.
+## S395 ow_walk (a real captured walk): its ground speed at 1x and a boxer's pace. BODYLOOK1: 0.85 = 96 steps a minute (0.6 was 68, slow motion; people walk 100-115).
 const OW_WALK_MS := 1.58
-const OW_WALK_RATE := 0.6
+const OW_WALK_RATE := 0.85
 ## S396 (blind review 5.5: "guard-to-walk snaps at the bell"): the film dropped her hands in ~0.15 s. A boxer lowers her
 ## guard over most of a second, so the walk joins slower and her ground speed eases in with it (no skate while the legs blend).
 ## S396 (blind review 5.5: "the coach is see-through"): the seconds' near-black shirts melted into the dark hall behind the

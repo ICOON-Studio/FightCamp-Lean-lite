@@ -1,0 +1,12 @@
+BODYLOOK_WALK scene ow_walk boxer=0 standing_ankle_over_rest_m min=0.025 median=0.042 max=0.091
+BODYLOOK_WALK scene ow_walk boxer=0 trunk_lean_deg median=-2.7 (min -6.6 max -0.4) knee_bend_deg straightest=1.8 median=26.5 deepest=64.0 hips_height_m median=0.926 bob=0.054
+BODYLOOK_WALK scene ow_walk boxer=0 frames=210 ankle_gap_m min=0.058 p10=0.064 median=0.074 under4cm=0% knee_in_m median=-0.004 p90=0.011 max=0.034
+BODYLOOK_WALK raw ow_walk boxer=0 standing_ankle_over_rest_m min=0.019 median=0.028 max=0.050
+BODYLOOK_WALK raw ow_walk boxer=0 trunk_lean_deg median=-4.1 (min -7.4 max -1.9) knee_bend_deg straightest=0.1 median=25.8 deepest=70.7 hips_height_m median=0.926 bob=0.054
+BODYLOOK_WALK raw ow_walk boxer=0 frames=210 ankle_gap_m min=0.057 p10=0.062 median=0.068 under4cm=0% knee_in_m median=-0.003 p90=0.005 max=0.014
+BODYLOOK_WALK scene off=FootPlant ow_walk boxer=0 standing_ankle_over_rest_m min=0.018 median=0.028 max=0.050
+BODYLOOK_WALK scene off=FootPlant ow_walk boxer=0 trunk_lean_deg median=-2.7 (min -6.6 max -0.4) knee_bend_deg straightest=0.1 median=25.8 deepest=70.7 hips_height_m median=0.926 bob=0.054
+BODYLOOK_WALK scene off=FootPlant ow_walk boxer=0 frames=210 ankle_gap_m min=0.057 p10=0.062 median=0.068 under4cm=0% knee_in_m median=-0.003 p90=0.005 max=0.014
+BODYLOOK_WALK fight ow_walk boxer=0 standing_ankle_over_rest_m min=-0.000 median=0.000 max=0.000
+BODYLOOK_WALK fight ow_walk boxer=0 trunk_lean_deg median=-2.7 (min -6.6 max -0.4) knee_bend_deg straightest=5.1 median=36.5 deepest=64.0 hips_height_m median=0.878 bob=0.090
+BODYLOOK_WALK fight ow_walk boxer=0 frames=210 ankle_gap_m min=0.059 p10=0.064 median=0.078 under4cm=0% knee_in_m median=-0.006 p90=0.015 max=0.042
