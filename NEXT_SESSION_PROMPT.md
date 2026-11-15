@@ -10,8 +10,8 @@ claude/confident-chaplygin-6b0d8f, PR 320 open). Collect from ITS PR; open every
 - Q-255 Training K v5 (his Q-252 mark 1 done: no opponent / win % on the Training screen): docs/mockups/s494/training_k/
   training_k_v5.png. On "Build it": build Training K (WeekCards.gd is the current week board, 552 lines: the build replaces or
   splits it). The win chance moves to the fighter's own page.
-- His answer on a fight-analysis page for our fights (his Reddit video: strike log + click to seek, landed/thrown, combos,
-  vulnerabilities; our sim already logs every punch). If yes: design map first (critics 7+), then mockup.
+- Fight analysis page: he said yes (design it, use it for Film to unlock tells, a live action log window) - in its own
+  session (below).
 
 ## SEAT ANSWERS TO COLLECT
 - LADDER1 v4 scored: Dola 8/8/7, John 6/6/7 -> v5 to Kalli (SQ195). HE LIKED JOHN'S 10/10 LADDER SCREEN ("this is not bad
@@ -19,6 +19,30 @@ claude/confident-chaplygin-6b0d8f, PR 320 open). Collect from ITS PR; open every
   (Old line, done:) SQ188 Dola + SQ189 John: LADDER1 v4 critics. Both depth 7+ and general 7+ -> his board with the map (`ask --attach`); else
   v5 to Kalli with both critiques inlined (the seats cannot read the repo: inline everything, see DESIGN_COACHSPEC1_R5_REVISE_KALLI.md).
 - SQ190 Kalli: COACHSPEC1 round 5 (John 7/6/6's four points) -> two fresh critics.
+
+## USE THESE SEATS FIRST - THEIR TOKENS RUN OUT SOON (operator, end of S494, 2026-11-15)
+"bots will soon be out of tokens , dola,arena,goose,kimi,qwen/ludo" then "use them". In the FIRST HOUR, before own work, give
+each one a real task and keep it busy until its tokens end (re-task the moment one lands):
+- Dola: every open critic round (FIGHTFILM1 v2 SQ193 is queued; COACHSPEC1 r5 critic once Kalli's SQ190 answer is read;
+  LADDER1 v5 critic once Kalli's SQ195 lands) - one seat_queue brief each, everything inlined.
+- Arena: a pure rule module + blind contract test each (e.g. the FIGHTFILM1 strike-log reader / pattern counter for the
+  analysis page, the ladder's yes-chance and win-gives formulas from LADDER1 v4) - lite mirror, its PR, read the CI log.
+- Goose: a long cloud job (a `goose` issue): the palette sweep of one HUD file with the palette guard as the gate, or the
+  page-width check (any visible Control past x 1920 at text=3) for tools/layout_snapshot.gd.
+- Kimi: design/research reviews (whatever seat_queue / its launcher supports - check reference_how_to_reach_each_agent).
+- Qwen: CLASH10 is running; next small pure modules + tests (seat_dispatch).
+- Ludo: batch every already-approved asset or still review now (his Ludo month ends ~12-11).
+- Grok bots too (operator: "the gorkbots almost over, keep using them until they run out and use the other agents"): Kalli
+  (design revisions SQ190/SQ195 follow-ups), John and Maria (critics, research) - keep them busy until they stop.
+A seat that errors on quota is finished: do not relaunch it there. Move its task to a seat that still runs: Cline,
+Antigravity, Ziva (3D only), or Claude's own sessions/subagents (critics: a fresh Claude subagent with the critic pack).
+
+## SIDE SESSIONS STARTED IN S494 (they report to S494; check them first)
+- "Design the fight analysis page + film tells + live log" (local_07f835cc-0a27-4edc-aaf6-01471d0439be): FIGHTFILM1 v2 map +
+  mockup pushed (3fe980ab); v1 Dola 8/8/8, John 5; v2 queued to Dola SQ193 + John SQ194. His board only at 7+ from both.
+- "Prototype an automatic boxing video analyzer" (local_2e2e5ceb-0b16-48b8-bdaa-af215813d368): pose tracking of 29 labelled
+  Olympic bouts, numbers expected ~00:40 on 11-16; report ops/research/FIGHT_VIDEO_ANALYZER_S495.md + ops/Tools/fight_video/.
+  Read its measured accuracy before telling him anything works.
 
 ## AGENTS
 - Qwen CLASH10 (glove clipping, worktree E:/FightCamp/wt/LEAN_CLASH10, ETA 22:32 on 11-15): open every still before any merge.
