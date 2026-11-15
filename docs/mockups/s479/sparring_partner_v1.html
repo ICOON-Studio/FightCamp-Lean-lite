@@ -1,0 +1,228 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Sparring partner v1 (S479)</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;700;800&family=Permanent+Marker&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#ece7dc;--dim:#a9b0b8;--line:#4a5560;--gold:#f2c14b;--red:#d9463a;--green:#58c27a;--blue:#4f8fe0;--board:#2c3236}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;overflow:hidden;font-family:Barlow,Arial,sans-serif;color:var(--ink);
+ background:#3a2c1f radial-gradient(900px 500px at 50% 40%,#4a3826,#2a1f15)}
+.frame{position:absolute;left:150px;top:14px;width:1620px;height:1052px;border:16px solid #6b4a2b;border-radius:8px;
+ box-shadow:inset 0 0 0 3px #3a2816,0 10px 40px rgba(0,0,0,.7);
+ background:var(--board) radial-gradient(1200px 700px at 40% 30%,#3a4146,#24292c)}
+.m{font-family:"Permanent Marker",cursive}
+.inner{position:absolute;inset:18px 26px}
+/* header 96 */
+.hd{height:96px;display:flex;align-items:center;gap:22px;border-bottom:2px solid #55606a}
+.por{width:74px;height:74px;border-radius:6px;background:#6b7a88;border:2px solid #cfd6dd;display:flex;align-items:center;justify-content:center;font-size:12px;color:#223}
+.hd .nm{font-size:30px;line-height:1}.hd .sub{font-size:17px;color:var(--dim);margin-top:6px}
+.vs{font-size:24px;color:var(--dim)}
+.tags{margin-left:auto;display:flex;gap:10px;align-items:center}
+.tag{border:2px solid #6d7882;border-radius:7px;padding:6px 10px;font-weight:700;font-size:17px;white-space:nowrap}
+.tag.g{border-color:var(--gold);color:var(--gold)}.tag.b{border-color:var(--blue);color:#9cc3ff}
+.days{font-size:44px;color:var(--gold);line-height:1;text-align:center}.days small{display:block;font-family:Barlow;font-size:14px;color:var(--dim)}
+/* week-before strip 84 */
+.strip{height:84px;margin-top:10px;display:flex;align-items:center;gap:16px;border:2px dashed #7d8790;border-radius:8px;padding:0 16px;background:rgba(255,255,255,.03)}
+.strip .lbl{font-size:24px;color:#d9dee3;width:200px}
+.pill{border:2px solid #6d7882;border-radius:20px;padding:7px 14px;font-weight:700;font-size:17px}
+.pill.on{border-color:var(--gold);background:rgba(242,193,75,.12);color:var(--gold)}
+.mag{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;color:#fff;box-shadow:0 3px 6px rgba(0,0,0,.5)}
+.mag.spar{background:var(--red)}.mag.film{background:#2b2b2b;border:3px solid #ddd}.mag.pads{background:var(--blue)}
+.note{font-size:16px;color:var(--dim)}
+/* body columns */
+.body{position:absolute;top:212px;left:0;right:0;height:676px;display:flex;gap:18px}
+.col{display:flex;flex-direction:column;gap:9px}
+.card{border:2px solid #5c6670;border-radius:9px;padding:12px 14px;background:rgba(0,0,0,.18)}
+.card.on{border-color:var(--gold);box-shadow:0 0 0 2px rgba(242,193,75,.25)}
+.card.red{border-color:var(--red)}
+.ttl{font-size:22px;margin-bottom:6px}
+.row{display:flex;justify-content:space-between;font-size:16px;margin:3px 0}
+.row b{font-weight:800}.up{color:var(--green)}.dn{color:#ff8a7a}.gold{color:var(--gold)}
+.sec{font-size:22px;color:#d9dee3;margin:2px 0 2px}
+/* centre */
+.daysrow{display:flex;gap:8px}
+.day{flex:1;height:132px;border:2px solid #56616b;border-radius:8px;padding:6px;display:flex;flex-direction:column;align-items:center;gap:6px;background:rgba(255,255,255,.03)}
+.day .d{font-weight:800;font-size:16px}.day .t{font-size:13px;color:var(--dim);text-align:center}
+.day.bell{border-color:var(--gold);background:rgba(242,193,75,.08)}
+.load{display:flex;gap:10px}
+.stop{flex:1;border:2px solid #5c6670;border-radius:9px;padding:7px 12px;background:rgba(0,0,0,.18);position:relative}
+.stop.on{border-color:var(--gold);background:rgba(242,193,75,.08)}
+.stop .n{font-size:21px}.stop .best{font-size:14px;color:var(--dim);margin-top:4px;font-style:italic}
+.hov{position:absolute;left:104%;top:auto;bottom:-10px;width:250px;width:330px;background:#14181b;border:2px solid var(--gold);border-radius:8px;padding:8px 10px;font-size:15px;z-index:5;box-shadow:0 8px 24px rgba(0,0,0,.6)}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{border:2px solid #6d7882;border-radius:7px;padding:5px 10px;font-weight:700;font-size:15px}
+.chip.uns{border-color:var(--red);color:#ff9a8a}.chip.rdy{border-color:var(--green);color:#8fe0a8}
+.wt{display:flex;gap:10px}
+.wp{flex:1;border:2px solid #5c6670;border-radius:9px;padding:6px 12px;font-size:15px}
+.wp.off{opacity:.45}
+/* right gold frame */
+.gold-frame{border:4px solid var(--gold);border-radius:10px;padding:14px 16px;background:rgba(242,193,75,.05);height:100%;display:flex;flex-direction:column;gap:10px}
+.ready{font-size:22px;color:var(--gold)}
+.tank{height:30px;display:flex;border:2px solid #6d7882;border-radius:6px;overflow:hidden}
+.tank div{height:100%}
+.band{font-size:15px;color:var(--dim)}
+.big{font-size:34px;font-weight:800}
+.ln{display:flex;justify-content:space-between;align-items:center;font-size:16px;padding:4px 0;border-bottom:1px solid #46505a}
+.tg{font-size:12px;font-weight:800;border-radius:4px;padding:2px 6px;margin-left:6px}
+.tg.r{background:#2f6b45}.tg.u{background:#8a2c24}.tg.s{background:#5a4a12;color:var(--gold)}
+/* bottom 120 */
+.bot{position:absolute;bottom:0;left:0;right:0;height:112px;border-top:2px solid #55606a;display:flex;align-items:center;gap:18px}
+.asst{display:flex;gap:12px;align-items:center;flex:1}
+.asst .por{width:64px;height:64px}
+.asst .say{font-size:24px;line-height:1.2}.asst .why{font-size:16px;color:var(--dim)}
+.btn{border-radius:8px;padding:14px 22px;font-weight:800;font-size:20px;border:2px solid #7a6a55;background:#3b2f24}
+.btn.red{background:#b2352b;border-color:#e2675c}
+
+.cols{position:absolute;top:110px;left:0;right:0;height:800px;display:flex;gap:20px}
+.side{flex:0 0 400px;width:400px;display:flex;flex-direction:column;gap:10px}
+.mid{flex:1;min-width:0;display:flex;flex-direction:column;gap:7px}
+.sec{white-space:nowrap}
+.pol{width:112px;height:134px;background:#efe9dc;padding:8px 8px 26px;transform:rotate(-2deg);box-shadow:0 6px 14px rgba(0,0,0,.5)}
+.pol div{width:100%;height:100%;background:#6b7a88;display:flex;align-items:center;justify-content:center;color:#223;font-size:13px}
+.ptop{display:flex;gap:16px;align-items:flex-start}
+.facts .row{font-size:17px;gap:10px}
+.prow{display:grid;grid-template-columns:48px minmax(0,1fr) 130px 168px;gap:10px;align-items:center;background:#efe9dc;color:#2a2622;border-radius:8px;padding:6px 10px;box-shadow:0 3px 8px rgba(0,0,0,.4)}
+.prow.off{opacity:.5}
+.prow .sil{width:48px;height:48px;border-radius:6px;background:#b9b2a5;display:flex;align-items:center;justify-content:center;font-size:11px;color:#444}
+.prow .who{font-weight:800;font-size:18px}
+.prow .what{font-size:14px;white-space:nowrap;color:#4d4740;margin-top:2px}
+.prow .rd{font-size:13px;white-space:nowrap;color:#6a6258;margin-top:3px;font-style:italic}
+.mw{text-align:center;font-weight:800;font-size:22px;border:2px solid #8a8175;border-radius:8px;padding:4px 0}
+.mw small{display:block;font-size:13px;font-weight:600;color:#5d564d}
+.mw.close{color:#1f6b3a;border-color:#2f8a4f}.mw.part{color:#7a5a12;border-color:#b08a2e}.mw.loose{color:#7a2c24;border-color:#a8473c}
+.mw.pick{border:4px solid var(--gold);box-shadow:0 0 0 3px rgba(242,193,75,.45)}
+.cost{font-size:15px;text-align:right;font-weight:700}
+.sb{display:block;margin-top:3px;border-radius:7px;padding:7px 8px;font-weight:800;font-size:15px;text-align:center;background:#b2352b;color:#fff;border:2px solid #e2675c}
+.sb.done{background:#2f6b45;border-color:#58c27a}
+.sb.grey{background:#8f877c;border-color:#8f877c;font-size:13px}
+.asstnote{font-size:13px;font-weight:800;color:#7a5a12;background:#f6dd8f;border-radius:4px;padding:2px 6px;display:inline-block;margin-top:4px}
+.mh{display:flex;justify-content:space-between;align-items:baseline}
+.key{font-size:15px;color:var(--dim)}
+.q{color:var(--dim)}
+.tell{border-left:4px solid var(--green);padding-left:8px;font-size:16px;margin:4px 0}
+.tell .tw{font-size:13px;color:var(--dim)}
+</style></head><body>
+<div class="frame"><div class="inner">
+
+<div class="hd">
+ <div class="por">photo</div>
+ <div><div class="nm m">Sparring, Tue, 4 days out</div><div class="sub">Lucy &nbsp;&middot;&nbsp; pick one partner &nbsp;&middot;&nbsp; a closer partner readies more plan lines</div></div>
+ <div class="tags"><div class="tag">Favours with the host &#9679;&#9675;&#9675;</div><div class="tag">Cash $1,240</div><div class="tag b">AWAY at Fitzroy Lodge</div></div>
+</div>
+
+<div class="cols">
+ <div class="side">
+  <div class="sec m">Your boxer</div>
+  <div class="card"><div class="ptop">
+   <div class="pol"><div>photo</div></div>
+   <div class="facts" style="flex:1">
+    <div class="row"><span>Class</span><b>60 kg</b></div>
+    <div class="row"><span>Stance</span><b>orthodox</b></div>
+    <div class="row"><span>Height</span><b>168 cm</b></div>
+    <div class="row"><span>Reach</span><b>172 cm</b></div>
+    <div class="row"><span>Style</span><b>Pressure</b></div>
+   </div></div></div>
+  <div class="card">
+   <div class="ttl">What matters against a counterpuncher</div>
+   <div class="row"><span>Feints - draw the counter early</span><b>58</b></div>
+   <div class="row"><span>Defence - take it on the gloves</span><b>61</b></div>
+   <div class="row"><span>Ring IQ - stop walking straight in</span><b>49</b></div>
+  </div>
+  <div class="card on">
+   <div class="ttl">Lines this night readies</div>
+   <div class="row"><span>&#10003; Waits &rarr; feint, body hook</span><span class="tg r">READIED</span></div>
+   <div class="row"><span>&#10003; Pressed &rarr; step back</span><span class="tg r">READIED</span></div>
+   <div class="row"><span>&#10003; Loads up &rarr; check hook</span><span class="tg r">READIED</span></div>
+   <div class="row q" style="font-size:14px"><span>CLOSE readies all 3 &middot; PART 2 &middot; LOOSE 1</span></div>
+  </div>
+  <div class="card"><div class="row"><span>Tiredness now</span><b>34</b></div><div class="row"><span>This night</span><b class="dn">-3 tank</b></div></div>
+ </div>
+
+ <div class="mid">
+  <div class="mh"><div class="sec m">Sparring partners</div><div class="key">R1 = round-1 edge &middot; points: style 2 &middot; stance 1 &middot; reach &plusmn;5 cm 1 &middot; each filmed tell 1</div></div>
+
+  <div class="prow">
+   <div class="sil">photo</div>
+   <div><div class="who">Club boxer &middot; 57 kg</div>
+    <div class="what">Counter &middot; orthodox &middot; reach 2 cm shorter &middot; level</div>
+    <div class="rd">also drops the right after the jab (your coach's notes)</div><div><span class="asstnote">your assistant's pick: counters like her and shares her tell</span></div></div>
+   <div class="mw close pick">CLOSE<small>5 pts &middot; 3 lines &middot; R1 +1.0</small></div>
+   <div><div class="cost">free</div><span class="sb done">Picked</span></div>
+  </div>
+
+  <div class="prow">
+   <div class="sil">photo</div>
+   <div><div class="who">Boxer at Fitzroy Lodge</div>
+    <div class="what">Counter &middot; orthodox &middot; reach 1 cm longer &middot; above</div>
+    <div class="rd">no tell of theirs found yet &middot; injury that night x1.15</div></div>
+   <div class="mw part">PART<small>4 pts &middot; 2 lines &middot; R1 +0.5</small></div>
+   <div><div class="cost">$160 or 1 favour</div><span class="sb">Spar with this partner</span></div>
+  </div>
+
+  <div class="prow">
+   <div class="sil">photo</div>
+   <div><div class="who">Boxer at St Anne's ABC</div>
+    <div class="what">Counter &middot; southpaw &middot; reach 4 cm shorter &middot; level</div>
+    <div class="rd">the test is marked "likely"</div></div>
+   <div class="mw part">PART<small>3 pts &middot; 2 lines &middot; R1 +0.5</small></div>
+   <div><div class="cost">$160</div><span class="sb">Spar with this partner</span></div>
+  </div>
+
+  <div class="prow">
+   <div class="sil">photo</div>
+   <div><div class="who">Club boxer &middot; 63 kg</div>
+    <div class="what">Pressure &middot; southpaw &middot; reach 6 cm longer &middot; above</div>
+    <div class="rd">test: Works / Walks into it only &middot; injury that night x1.15</div></div>
+   <div class="mw loose">LOOSE<small>0 pts &middot; 1 line &middot; R1 +0</small></div>
+   <div><div class="cost">free</div><span class="sb">Spar with this partner</span></div>
+  </div>
+
+  <div class="prow">
+   <div class="sil">photo</div>
+   <div><div class="who">Club member</div>
+    <div class="what">orthodox &middot; style unknown &middot; below</div>
+    <div class="rd">Beats it reads "?" &middot; the test may flatter</div></div>
+   <div class="mw loose">LOOSE<small>1 pt &middot; 1 line &middot; R1 +0</small></div>
+   <div><div class="cost">free</div><span class="sb">Spar with this partner</span></div>
+  </div>
+
+  <div class="prow off">
+   <div class="sil">photo</div>
+   <div><div class="who">Boxer at Repton</div>
+    <div class="what">Counter &middot; orthodox &middot; reach 3 cm longer &middot; above</div>
+    <div class="rd">no tell of theirs found yet</div></div>
+   <div class="mw part">PART<small>4 pts &middot; 2 lines &middot; R1 +0.5</small></div>
+   <div><div class="cost">1 favour</div><span class="sb grey">no favours with this host</span></div>
+  </div>
+ </div>
+
+ <div class="side">
+  <div class="sec m">Priya Nair</div>
+  <div class="card"><div class="ptop">
+   <div class="pol" style="transform:rotate(2deg)"><div>photo</div></div>
+   <div class="facts" style="flex:1">
+    <div class="row"><span>Record</span><b>4-2</b></div>
+    <div class="row"><span>Style</span><b>Counter</b></div>
+    <div class="row"><span>Stance</span><b>orthodox</b></div>
+    <div class="row"><span>Height</span><b>170 cm</b></div>
+    <div class="row"><span>Reach</span><b>174 cm</b></div>
+   </div></div></div>
+  <div class="card">
+   <div class="ttl">Filmed tells</div>
+   <div class="tell">Drops the right after her jab<div class="tw">seen twice on film &middot; true about 7 in 10</div></div>
+  </div>
+  <div class="card">
+   <div class="ttl">Not found yet</div>
+   <div class="row q"><span>When pressed: ?</span><span>film night: next group</span></div>
+   <div class="row q"><span>Round 3 habit: ?</span><span>film night: next group</span></div>
+   <div class="row q"><span>Body work: ?</span><span>look again</span></div>
+  </div>
+ </div>
+</div>
+
+<div class="bot">
+ <div class="asst"><div class="por">coach</div><div><div class="say m">"The club boxer at 57 - counters like her, drops the right like her."</div><div class="why">Your assistant's pick - what drove it: the filmed tell. A film night finds the next group of tells.</div></div></div>
+ <div class="btn">Back to the week</div>
+</div>
+
+</div></div>
+</body></html>
