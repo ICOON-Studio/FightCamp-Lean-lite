@@ -3,7 +3,7 @@ extends RefCounted
 ## WEEK as the player sets it - the load stop, 0-2 fight-week sparring nights and one week-before night, each with a picked
 ## sparring partner, the weight way and the film night - and the LOCK that writes it into the bout the fight already reads:
 ##   bout.load (WeekPhase.week_for, BoutRules.tank_parts_for), bout.spar_days + bout.eat_less (the tank's choice layer),
-##   bout.r1_edge (BoutRules round-1 power edge: the best night's PartnerMatch edge, plus Rest up's flat round), bout.unsparred
+##   bout.r1_edge (BoutRules round-1 power edge: Rest up's flat round), bout.spar_edge (S482: the best night's PartnerMatch edge, rounds 1-2), bout.unsparred
 ##   (FireLevel.round_mastery: lines still unsparred fire a level down in rounds 1-2), bout.fw_film (WeekPlan: the film night
 ##   takes a pad night), f.sparred (the plan lines she has sparred).
 ## A plan LINE is unsparred when its key (move|when) is not in f.sparred; f.sparred is filled with her whole plan the day the
@@ -217,7 +217,8 @@ static func read(c: Career, f: Dictionary, plan: Dictionary) -> Dictionary:
 	var r1 := FightWeek.round_one(tired(f), stop)
 	var left_after: Array = free.filter(func(x): return not readied.has(x))
 	return {"stop": stop, "tank": FightWeek.tank(tired(f), stop, fw_days, bool(plan.get("eat_less", false))),
-		"round_one": r1, "edge": edge + float(r1["edge"]), "nights": rows, "missing": missing, "lines": lns,
+		"round_one": r1, "edge": float(r1["edge"]), "spar_edge": edge,   # S482: the partner apart (rounds 1-2)
+		"nights": rows, "missing": missing, "lines": lns,
 		"readied": readied, "unsparred": left_after, "partners": plist, "weight": weight(f),
 		"spar_days": fw_days}
 
@@ -247,7 +248,8 @@ static func lock(c: Career, f: Dictionary, plan: Dictionary) -> String:
 	b["load"] = str(r["stop"])
 	b["spar_days"] = r["spar_days"]
 	b["eat_less"] = bool(plan.get("eat_less", false))
-	b["r1_edge"] = float(r["edge"])
+	b["r1_edge"] = float(r["edge"])   # the flat round (Rest up)
+	b["spar_edge"] = float(r["spar_edge"])   # S482 PARTNERPROBE1: the best night's partner edge, rounds 1-2 (BoutRules.spar_edge)
 	b["unsparred"] = (r["unsparred"] as Array).map(func(k): return str(k).split("|")[0])
 	var sparred: Array = f.get("sparred", [])
 	for k in r["readied"]:

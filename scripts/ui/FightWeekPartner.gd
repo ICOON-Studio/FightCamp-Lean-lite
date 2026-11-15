@@ -124,7 +124,7 @@ static func _list(main: Node, c: Career, f: Dictionary, m: Dictionary, r: Dictio
 		badge.add_child(UI.label(str(mt["word"]), 24, WORD_COL.get(str(mt["word"]), UI.FG), "bold"))
 		var pts := int(mt["points"])
 		var nl := int(PartnerMatch.LINES[str(mt["word"])])
-		badge.add_child(UI.label("%d %s · %d %s · R1 %+.1f" % [pts, "pt" if pts == 1 else "pts", nl, "line" if nl == 1 else "lines",
+		badge.add_child(UI.label("%d %s · %d %s · rounds 1-2 %+.1f" % [pts, "pt" if pts == 1 else "pts", nl, "line" if nl == 1 else "lines",
 			float(mt["edge"])], 15, UI.MUTED))
 		var price := "free" if bool(p["ours"]) else ("$160 or 1 favour" if bool(cost["favour_ok"]) else "$160")
 		var btn_col := UI.vbox(2)

@@ -15,7 +15,7 @@ const SM := preload("res://scripts/rules/StrikeMap.gd")
 const ComboBuilder := preload("res://scripts/ui/ComboBuilder.gd")
 const MoveBook := preload("res://scripts/ui/MoveBook.gd")
 const MoveWords := preload("res://scripts/rules/MoveWords.gd")
-const GamePlan := preload("res://scripts/ui/GamePlan.gd")
+const PlanChart := preload("res://scripts/ui/PlanChart.gd")   # S482 PLANFLOW1: the plan as a chart (GamePlan underneath)
 const MatPlayer := preload("res://scripts/ui/MatPlayer.gd")
 const BjjFilm := preload("res://scripts/rules/BjjFilm.gd")
 const NoGi := preload("res://scripts/rules/NoGi.gd")
@@ -102,7 +102,7 @@ func _plan(main: Node, f: Dictionary) -> Control:
 	var scroll := ScrollContainer.new()
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	scroll.add_child(GamePlan.make(main, f, func(_id): pass))   # S416 operator: "there should not be a preview on this menu"
+	scroll.add_child(PlanChart.chart(main, f, func(_id): pass))   # S416 no preview here; S482 his Q-240 "Yes, build it": the chart, the list goes
 	h.add_child(scroll)
 	return h
 

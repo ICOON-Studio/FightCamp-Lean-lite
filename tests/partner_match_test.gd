@@ -59,7 +59,7 @@ func _same(a: Array, b: Array) -> bool:
 
 func _test_six_rows() -> void:
 	var opp := _opp()
-	# Row 1: club boxer 57 kg - the opponent's twin: 5 points, CLOSE, 3 lines of 3, edge 1.0.
+	# Row 1: club boxer 57 kg - the opponent's twin: 5 points, CLOSE, 3 lines of 3, the CLOSE edge.
 	var twin := _person("m", 57.0, "Counter", "orthodox", 172.0, 40, ["drops_right_after_jab"])
 	var twin_pts := PartnerMatch.points(twin, opp)
 	_check(int(twin_pts.get("total", -1)) == 5, "the club twin scores 5 points (got %d)" % int(twin_pts.get("total", -1)))
@@ -71,7 +71,7 @@ func _test_six_rows() -> void:
 	var twin_night := PartnerMatch.night(twin, opp, 40, 3)
 	_check(str(twin_night.get("word", "")) == "CLOSE", "the twin's night word is CLOSE")
 	_check(int(twin_night.get("lines", -1)) == 3, "a CLOSE night readies 3 lines of 3")
-	_check(is_equal_approx(float(twin_night.get("edge", -1.0)), 1.0), "a CLOSE night gives the round-1 edge 1.0")
+	_check(is_equal_approx(float(twin_night.get("edge", -1.0)), PartnerMatch.EDGE["CLOSE"]), "a CLOSE night gives the rounds 1-2 edge (S482: 2.5, PARTNERPROBE1)")
 	_check(is_equal_approx(float(twin_night.get("injury_mult", -1.0)), 1.0), "a level partner adds no injury risk")
 	_check(bool(twin_night.get("beats_it_known", false)), "a CLOSE night knows beats-it")
 	_check(not bool(twin_night.get("test_likely", true)), "a CLOSE night's test is not marked likely")
@@ -82,7 +82,7 @@ func _test_six_rows() -> void:
 	var outside_night := PartnerMatch.night(outside, opp, 40, 3)
 	_check(str(outside_night.get("word", "")) == "PART", "4 points is PART")
 	_check(int(outside_night.get("lines", -1)) == 2, "a PART night readies 2 lines")
-	_check(is_equal_approx(float(outside_night.get("edge", -1.0)), 0.5), "a PART night gives the round-1 edge 0.5")
+	_check(is_equal_approx(float(outside_night.get("edge", -1.0)), PartnerMatch.EDGE["PART"]), "a PART night gives the rounds 1-2 edge (S482: 1.25)")
 	_check(is_equal_approx(float(outside_night.get("injury_mult", -1.0)), PartnerMatch.INJURY_ABOVE), "a level-above partner lifts injury risk to 1.15")
 	_check(bool(outside_night.get("test_likely", false)), "a PART night's test is marked likely")
 	_check(bool(outside_night.get("beats_it_known", false)), "a PART night knows beats-it")
@@ -162,7 +162,7 @@ func _test_word_and_lines_cap() -> void:
 	var twin := _person("m", 57.0, "Counter", "orthodox", 172.0, 40, ["drops_right_after_jab"])
 	var capped := PartnerMatch.night(twin, opp, 40, 2)
 	_check(int(capped.get("lines", -1)) == 2, "a CLOSE night never readies more than the 2 lines picked")
-	_check(is_equal_approx(float(capped.get("edge", -1.0)), 1.0), "capping the lines leaves the CLOSE edge at 1.0")
+	_check(is_equal_approx(float(capped.get("edge", -1.0)), PartnerMatch.EDGE["CLOSE"]), "capping the lines leaves the CLOSE edge whole")
 	_check(int(PartnerMatch.night(twin, opp, 40, 0).get("lines", -1)) == 0, "with no lines picked a CLOSE night readies none")
 	var wrong := _person("m", 63.0, "Pressure", "southpaw", 180.0, 40, [])
 	_check(int(PartnerMatch.night(wrong, opp, 40, 0).get("lines", -1)) == 0, "with no lines picked a LOOSE night readies none")

@@ -56,3 +56,16 @@ S470 (layer_trace first), S478 (rise gate, own pass order), S479 (CLASH5 brief).
 Two boxers see each other at the same moment. Let both arms land where their own layers put them, then settle the contact once.
 ## Prefab check
 None: our own animation layers.
+
+## Round 1 result (S482, Claude) - FAIL: the film crashes; round 2 below
+Qwen's branch qwen/clash6 (worktree commit 3ca1f325, never pushed) made ArmClash call GloveClear.clash_pair(), which
+resolves BOTH boxers - it writes the PEER's skeleton (peer._clear_arms / peer._clear_own) from inside THIS skeleton's
+modifier. Its red test was never run (the windowed film was started without hidden_desktop and killed by its timeout).
+Claude ran it on the hidden desktop: Godot crashes with signal 11 on the first fight frames. GDScript backtrace:
+PunchReachMath.solve:74 <- PunchReach.solve:464 <- GloveClear._clear_own:401 <- GloveClear.clash_pair:217 <-
+ArmClash._process_modification:24. Full log: ops/research/CLASH6_R1_CRASH_LOG.txt.
+ROUND 2 (same OWNS, same pass lines): a modifier writes ONLY its own skeleton. Keep phase 1 (each GloveClear publishes its
+arms before the cross clash). For phase 2 find a write path Godot 4.7.2 allows - e.g. each boxer's ArmClash computes the pair
+from both CURRENT published arms and applies only ITS OWN half of the correction (both see the same frame's data, so the two
+halves agree), or say in the result page why that cannot work. RUN THE RED TEST through the brief's film line
+(hidden_desktop) before you finish; a result with "PENDING" is not a result.

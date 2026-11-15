@@ -140,6 +140,8 @@ const DIVISIONS := {
 		"opponents": ["Holly Marsh", "Grace Adeyemi", "Nina Kowalski"], "mismatch": "Bethany Cole"},
 	"www": {"name": "Welterweight, women's amateur", "short": "welterweight", "limit": 65.0, "sex": "f",
 		"opponents": ["Jade Okoro", "Laura Finch", "Rosa Delgado"], "mismatch": "Kerry Walsh"},
+	"wlm": {"name": "Light middleweight, women's amateur", "short": "light middleweight", "limit": 70.0, "sex": "f",   # S482 Q-233 "add womans only", Kalli SQ163
+		"opponents": ["Hannah Holloway", "Leona Ashworth", "Tasha Lomax"], "mismatch": "Dionne Carver"},
 	"wmw": {"name": "Middleweight, women's amateur", "short": "middleweight", "limit": 75.0, "sex": "f",
 		"opponents": ["Amy Croft", "Siobhan Byrne", "Leah Morgan"], "mismatch": "Victoria Hale"},
 	"mfw": {"name": "Featherweight, men's amateur", "short": "featherweight", "limit": 55.0, "sex": "m",
@@ -177,6 +179,13 @@ const DIVISION_RIVALS: Array[Dictionary] = [
 	{"div": "www", "name": "Rosa Delgado", "first": "Rosa", "club": "Earlsfield ABC", "age": 23, "stance": "southpaw", "style": "Counter-puncher", "w": 6, "l": 2, "rating": 64.5, "threat": "Left cross over the jab", "weak": "Gives away round 1"},
 	{"div": "www", "name": "Kerry Walsh", "first": "Kerry", "club": "St Pancras ABC", "age": 27, "stance": "orthodox", "style": "Boxer-puncher", "w": 14, "l": 4, "rating": 71.0, "threat": "Everything", "weak": "None you can use yet"},
 	{"div": "www", "name": "Tia Benson", "first": "Tia", "club": "Lion ABC", "age": 21, "stance": "orthodox", "style": "Volume puncher", "w": 3, "l": 3, "rating": 60.0, "threat": "Three-punch flurries", "weak": "Heavy legs late"},
+	# S482 women's 70 kg (Kalli SQ163, research/K_WOMEN70_S480_KALLI.md): her sentences mapped onto the threat/weak words the bout reads
+	{"div": "wlm", "name": "Hannah Holloway", "first": "Hannah", "club": "Repton ABC", "age": 22, "stance": "orthodox", "style": "Out-boxer", "w": 5, "l": 2, "rating": 58.5, "threat": "Jab-cross down the middle", "weak": "Heavy legs late"},
+	{"div": "wlm", "name": "Leona Ashworth", "first": "Leona", "club": "Rotunda ABC", "age": 24, "stance": "southpaw", "style": "Counter-puncher", "w": 6, "l": 3, "rating": 60.5, "threat": "Straight left down the middle", "weak": "Gives away round 1"},
+	{"div": "wlm", "name": "Tasha Lomax", "first": "Tasha", "club": "Birtley ABC", "age": 26, "stance": "orthodox", "style": "Pressure fighter", "w": 7, "l": 3, "rating": 62.5, "threat": "Body hooks", "weak": "Walks in straight"},
+	{"div": "wlm", "name": "Dionne Carver", "first": "Dionne", "club": "Fitzroy Lodge ABC", "age": 28, "stance": "orthodox", "style": "Boxer-puncher", "w": 19, "l": 4, "rating": 72.0, "threat": "Everything", "weak": "None you can use yet"},
+	{"div": "wlm", "name": "Kayleigh Thwaite", "first": "Kayleigh", "club": "West Ham ABC", "age": 21, "stance": "orthodox", "style": "Volume puncher", "w": 8, "l": 4, "rating": 59.5, "threat": "Never stops throwing", "weak": "Fades after round 2"},
+	{"div": "wlm", "name": "Rachel Penrose", "first": "Rachel", "club": "Dale Youth ABC", "age": 25, "stance": "southpaw", "style": "Pressure fighter", "w": 10, "l": 5, "rating": 63.5, "threat": "Body hooks", "weak": "Stands still after combinations"},
 	{"div": "wmw", "name": "Amy Croft", "first": "Amy", "club": "Dale Youth ABC", "age": 23, "stance": "orthodox", "style": "Pressure fighter", "w": 4, "l": 3, "rating": 61.0, "threat": "Overhand right", "weak": "Fades after round 2"},
 	{"div": "wmw", "name": "Siobhan Byrne", "first": "Siobhan", "club": "West Ham Boxing Club", "age": 25, "stance": "orthodox", "style": "Boxer-puncher", "w": 5, "l": 2, "rating": 63.0, "threat": "Jab-cross down the middle", "weak": "Slow to start"},
 	{"div": "wmw", "name": "Leah Morgan", "first": "Leah", "club": "Fitzroy Lodge ABC", "age": 26, "stance": "southpaw", "style": "Counter-puncher", "w": 7, "l": 3, "rating": 65.0, "threat": "Counter left hook", "weak": "Leaves the chin open"},

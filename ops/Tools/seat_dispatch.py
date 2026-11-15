@@ -446,6 +446,11 @@ def prompt_text(seat: str, task: str, wt: Path, branch: str) -> str:
         "No taskkill / Stop-Process / kill on a PID read from tasklist, and never by image name. A Godot job of yours that hangs: "
         "give every run its own timeout (`timeout 300 <cmd>`), so it ends by itself; if one is still stuck, leave it and say so in your result.",
         "Nothing may open on the screen: do not open images, videos or apps.",
+        ## S482: Qwen CLASH6 ran the brief's hit_frame_film with `timeout 300 <godot> --windowed ...` - the hidden_desktop.py
+        ## wrapper dropped - and a 'FightCamp (DEBUG)' window sat 'not responding' on the owner's monitor ("is game crashed ?").
+        "A --windowed Godot run (a film or still the brief asks for) goes ONLY through the brief's exact line: "
+        "python tools/hidden_desktop.py run --timeout=<s> --log=<file> <godot> ... --windowed ... - it runs on a never-shown "
+        "desktop. A bare --windowed Godot, with or without `timeout`, opens on the owner's monitor: never run one.",
         f"Commit only the OWNS files on {branch} with explicit paths (git add -- <file>; never git add -A, stash, reset or clean). "
         "Do not push: the dispatcher pushes your branch and opens the PR.",
         "End your reply with one line per test you ran: RESULT: <test path> -> <the exact pass line you saw>.",

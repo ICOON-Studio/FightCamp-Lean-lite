@@ -33,8 +33,8 @@ const CLOSE_MIN := 5
 const PART_MIN := 3
 ## Plan lines the night readies (never more than the lines the player picked).
 const LINES := {"CLOSE": 3, "PART": 2, "LOOSE": 1}
-## The round-1 edge against this opponent.
-const EDGE := {"CLOSE": 1.0, "PART": 0.5, "LOOSE": 0.0}
+## The edge against this opponent in rounds 1-2 (S482: bout.spar_edge; PARTNERPROBE1 sized it - docs/PARTNERPROBE1_RESULT.md).
+const EDGE := {"CLOSE": 2.5, "PART": 1.25, "LOOSE": 0.0}   # S482 PARTNERPROBE1 paired, rounds 1-2: close vs loose +3.7 / +5.3 in 100 (seeds 4801/4802)
 ## A partner more than 5 levels above the boxer is "above", more than 5 below is "below".
 const LEVEL_GAP := 5
 ## "Above": the night's injury risk.

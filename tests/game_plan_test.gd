@@ -51,7 +51,7 @@ func _initialize() -> void:
 		_end()
 		return
 	for p in PlanLines.PLACES:
-		_check(gp.find_child("Line_%s_" % p, false, false) != null, "test 2: a line for %s" % p)
+		_check(gp.find_child("Line_%s_" % p, true, false) != null, "test 2: a line for %s" % p)
 	_check(gp.find_child("PlanMeter", true, false) != null, "test 2: the lines meter and the plan edge show")
 	# S398 rank 5: the coach's starter on show is not the plan the fight uses until a line is changed - it says so.
 	var unsaved := gp.find_children("*", "Label", true, false).any(func(l): return str((l as Label).text).to_upper().contains("NOT SAVED"))
@@ -116,7 +116,7 @@ func _initialize() -> void:
 	GamePlan.open = PlanLines.place_for("loadup") + "|loadup"
 	gp._refresh()
 	await _frames(2)
-	_check(gp.find_child("Line_mid_loadup", false, false) != null, "test 6: + When she loads up adds a line")
+	_check(gp.find_child("Line_mid_loadup", true, false) != null, "test 6: + When she loads up adds a line")
 	gp._pick("mid", "loadup", "slip 2-3", false)
 	await _frames(2)
 	_check(PlanLines.find(f["arrows"], "mid", "loadup") >= 0, "test 6: the situation's answer is saved with its when")

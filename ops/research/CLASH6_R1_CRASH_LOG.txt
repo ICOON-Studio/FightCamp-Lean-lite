@@ -1,0 +1,70 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+Vulkan 1.4.315 - Forward+ - Using Device #0: AMD - AMD Radeon RX 6800 XT
+
+WARNING: Sub-surface scattering is not supported in viewports with a transparent background. Disabling SSS in transparent viewport.
+   at: _render_scene (servers/rendering/renderer_rd/forward_clustered/render_forward_clustered.cpp:1963)
+HIT_FRAME_FILM start: Lucy Jackson vs Priya Nair
+HIT_FRAME_FILM modifier order: PunchWeight, JoinSmoother, TiredSag, BoxerFootworkUpper, FighterLife, GuardWeave, GuardTuck, PunchReach, HitSnap, GloveClear, RkJoinFeet, ElbowClear, ArmClash, KneeTrack, FootPlant, BoxerFootworkRig, FloorClear, FootLock, FloorStand, CornerIK, MetaHumanTwist, PoseRecorder
+
+================================================================
+CrashHandlerException: Program crashed with signal 11
+Engine version: Godot Engine v4.7.2.stable.official (ed1daf0bf001b61586d9930840f2f1394092c079)
+Dumping the backtrace. Please include this when reporting the bug on: https://github.com/godotengine/godot/issues
+Load address: 7ff4ccda0000
+
+[1] 7ff610e74d61 (main+40d4d61) - no debug info in PE/COFF executable
+[2] 7ff9d8237732 (ntdll.dll+127732) - no debug info in PE/COFF executable
+[3] 7ff9d827ab3e (ntdll.dll+16ab3e) - no debug info in PE/COFF executable
+[4] 7ff9d81d6984 (ntdll.dll+c6984) - no debug info in PE/COFF executable
+[5] 7ff9d827a47d (ntdll.dll+16a47d) - no debug info in PE/COFF executable
+[6] 7ff6108cb734 (main+3b2b734) - no debug info in PE/COFF executable
+[7] 7ff610baf4aa (main+3e0f4aa) - no debug info in PE/COFF executable
+[8] 7ff610bb0e57 (main+3e10e57) - no debug info in PE/COFF executable
+[9] 7ff60f78195b (main+29e195b) - no debug info in PE/COFF executable
+[10] 7ff60f782e58 (main+29e2e58) - no debug info in PE/COFF executable
+[11] 7ff60f7830cc (main+29e30cc) - no debug info in PE/COFF executable
+[12] 7ff60d3f6a49 (main+656a49) - no debug info in PE/COFF executable
+[13] 7ff60d2d6139 (main+536139) - no debug info in PE/COFF executable
+[14] 7ff61093c471 (main+3b9c471) - no debug info in PE/COFF executable
+[15] 7ff60d4107b0 (main+6707b0) - no debug info in PE/COFF executable
+[16] 7ff60d2d6139 (main+536139) - no debug info in PE/COFF executable
+[17] 7ff61093c471 (main+3b9c471) - no debug info in PE/COFF executable
+[18] 7ff60d4107b0 (main+6707b0) - no debug info in PE/COFF executable
+[19] 7ff60d2d4797 (main+534797) - no debug info in PE/COFF executable
+[20] 7ff610bb803e (main+3e1803e) - no debug info in PE/COFF executable
+[21] 7ff61093c471 (main+3b9c471) - no debug info in PE/COFF executable
+[22] 7ff60d4107b0 (main+6707b0) - no debug info in PE/COFF executable
+[23] 7ff60d2d4797 (main+534797) - no debug info in PE/COFF executable
+[24] 7ff610bb803e (main+3e1803e) - no debug info in PE/COFF executable
+[25] 7ff610bb84fb (main+3e184fb) - no debug info in PE/COFF executable
+[26] 7ff612d9dad2 (main+5ffdad2) - no debug info in PE/COFF executable
+[27] 7ff60d3f3db5 (main+653db5) - no debug info in PE/COFF executable
+[28] 7ff60d2d4797 (main+534797) - no debug info in PE/COFF executable
+[29] 7ff60f78e4c5 (main+29ee4c5) - no debug info in PE/COFF executable
+[30] 7ff60f78c5b3 (main+29ec5b3) - no debug info in PE/COFF executable
+[31] 7ff60f77f7e0 (main+29df7e0) - no debug info in PE/COFF executable
+[32] 7ff60f780b57 (main+29e0b57) - no debug info in PE/COFF executable
+[33] 7ff610bb62c0 (main+3e162c0) - no debug info in PE/COFF executable
+[34] 7ff610baeb55 (main+3e0eb55) - no debug info in PE/COFF executable
+[35] 7ff60f2311b1 (main+24911b1) - no debug info in PE/COFF executable
+[36] 7ff60f231c18 (main+2491c18) - no debug info in PE/COFF executable
+[37] 7ff60f232774 (main+2492774) - no debug info in PE/COFF executable
+[38] 7ff60cdfda9c (main+5da9c) - no debug info in PE/COFF executable
+[39] 7ff60cda2ef0 (main+2ef0) - no debug info in PE/COFF executable
+[40] 7ff60cdf2b41 (main+52b41) - no debug info in PE/COFF executable
+[41] 7ff60cdf2b7d (main+52b7d) - no debug info in PE/COFF executable
+[42] 7ff60cda10c8 (main+10c8) - no debug info in PE/COFF executable
+[43] 7ff60cda13f5 (main+13f5) - no debug info in PE/COFF executable
+[44] 7ff9d70ddda6 (kernel32.dll+2dda6) - no debug info in PE/COFF executable
+[45] 7ff9d81d9c5b (ntdll.dll+c9c5b) - no debug info in PE/COFF executable
+[46] -1 (main+-7ff60cda0001) - no debug info in PE/COFF executable
+-- END OF C++ BACKTRACE --
+================================================================
+GDScript backtrace (most recent call first):
+    [0] solve (res://scripts/fight3d/PunchReachMath.gd:74)
+    [1] solve (res://scripts/fight3d/PunchReach.gd:464)
+    [2] _clear_own (res://scripts/fight3d/GloveClear.gd:401)
+    [3] clash_pair (res://scripts/fight3d/GloveClear.gd:217)
+    [4] _process_modification (res://scripts/fight3d/ArmClash.gd:24)
+-- END OF GDSCRIPT BACKTRACE --
+================================================================

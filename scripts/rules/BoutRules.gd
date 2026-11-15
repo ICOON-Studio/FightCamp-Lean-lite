@@ -170,6 +170,14 @@ static func first_round_edge(n: int, bout: Dictionary) -> float:
 	return float(bout.get("r1_edge", 0.0)) if n == 1 else 0.0
 
 
+## S482 PARTNERPROBE1: the fight week's sparring partner edge, apart from the flat round and ring rust - bout["spar_edge"]
+## (power points) in rounds 1..SPAR_LAST_ROUND, the rounds an unsparred line also lives in (FightWeek.BOOST_LAST_ROUND).
+## No key = today's game.
+const SPAR_LAST_ROUND := 2
+static func spar_edge(n: int, bout: Dictionary) -> float:
+	return float(bout.get("spar_edge", 0.0)) if n >= 1 and n <= SPAR_LAST_ROUND else 0.0
+
+
 ## The daily-gain multiplier the camp puts on one stat (1.0 off the focus or without a camp).
 static func camp_gain_mult(camp: Dictionary, stat: String) -> float:
 	if camp.is_empty() or str(camp.get("focus", "")) != stat:

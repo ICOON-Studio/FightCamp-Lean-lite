@@ -220,6 +220,7 @@ func _right(r: Dictionary) -> Control:
 	var r1: Dictionary = r["round_one"]
 	col.add_child(UI.kv("Round 1", "%s, edge %+.1f" % [str(r1["state"]).capitalize(), float(r["edge"])],
 		UI.GREEN if float(r["edge"]) >= 0.0 else UI.RED))
+	col.add_child(UI.kv("Rounds 1-2, from sparring", "edge %+.1f" % float(r.get("spar_edge", 0.0)), UI.GREEN if float(r.get("spar_edge", 0.0)) > 0.0 else UI.MUTED))
 	for row in r["nights"]:
 		var mt: Dictionary = row["match"]
 		col.add_child(UI.kv("Sparring, %d days out" % int(row["days"]), "no partner yet" if mt.is_empty() else

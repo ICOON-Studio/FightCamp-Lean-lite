@@ -43,7 +43,7 @@ func _rival(name: String) -> Dictionary:
 ## weakness reads as one the opponent file can answer.
 func _divisions() -> void:
 	var men: Array = Data.divisions_for("m")
-	_check(men.size() == 4 and Data.divisions_for("f").size() == 4, "four men's and four women's divisions (%d / %d)" % [men.size(), Data.divisions_for("f").size()])
+	_check(men.size() == 4 and Data.divisions_for("f").size() == 5, "four men's and five women's divisions (S482 Q-233: 70 kg, women only) (%d / %d)" % [men.size(), Data.divisions_for("f").size()])
 	for d in men:
 		var div: Dictionary = Data.DIVISIONS[d]
 		_check([55.0, 60.0, 65.0, 70.0, 75.0].has(float(div["limit"])), "%s limit %.1f kg is a men's class" % [d, float(div["limit"])])

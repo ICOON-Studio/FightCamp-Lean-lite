@@ -211,6 +211,7 @@ func _meter() -> Control:
 	# S398 rank 5: with no saved plan this shows the coach's starter, which the fight does not use until a line is changed.
 	var unsaved := (f.get("arrows", []) as Array).is_empty()
 	var shown := "A SUGGESTION, NOT SAVED: %d LINES. CHANGE ANY LINE TO USE THEM" if unsaved else "ANSWERS WRITTEN: %d"
+	shown = shown.replace("LINES", "LINE") if arrows.size() == 1 else shown   # S482 still: "1 LINES"
 	lines.add_child(UI.caps((shown + ", THE COACH CAN HOLD %d") % [arrows.size(), limit]))
 	for n in range(1, PlanBoard.TOP_COACH + 1):
 		if n <= limit:

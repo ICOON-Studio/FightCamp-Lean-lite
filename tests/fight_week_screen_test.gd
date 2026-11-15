@@ -73,8 +73,8 @@ func _initialize() -> void:
 	main.act("fwlock")
 	_check(not FightWeekPlan.is_open(f) and main.modal.is_empty(), "the week locks and the screen closes")
 	_check(str(b.get("load", "")) == "tick_over" and (b.get("spar_days", []) as Array) == [6], "bout: Tick over, one night 6 days out")
-	_check(absf(float(b.get("r1_edge", -9.0)) - float(m["edge"])) < 0.001,
-		"round-1 edge = the partner's %s edge %.1f (got %.1f)" % [str(m["word"]), float(m["edge"]), float(b.get("r1_edge", -9.0))])
+	_check(absf(float(b.get("spar_edge", -9.0)) - float(m["edge"])) < 0.001,
+		"rounds 1-2 edge = the partner's %s edge %.1f (got %.1f)" % [str(m["word"]), float(m["edge"]), float(b.get("spar_edge", -9.0))])
 	var readied := int(m["lines"]) > 0
 	_check((b.get("unsparred", []) as Array).is_empty() == readied, "the night readied the new line: unsparred %s" % str(b.get("unsparred", [])))
 	_check((f["sparred"] as Array).has(FightWeekPlan.key_of(fresh)) == readied, "the readied line is filed as sparred")

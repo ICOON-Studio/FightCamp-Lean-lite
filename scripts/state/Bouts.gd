@@ -291,7 +291,7 @@ static func start_camp(c: Career, f: Dictionary, focus: String, protocol: int, f
 	if (f["bout"] as Dictionary).is_empty() or not (f["camp"] as Dictionary).is_empty():
 		return 0
 	# S481: a camp set on a club-show bout (a test, TestJump) makes it a camp bout - the fight week's keys go
-	for k in ["fight_week", "load", "fw_locked", "spar_days", "eat_less", "unsparred", "fw_film"]:
+	for k in ["fight_week", "load", "fw_locked", "spar_days", "eat_less", "unsparred", "fw_film", "spar_edge"]:
 		(f["bout"] as Dictionary).erase(k)
 	var cost := BoutRules.camp_cost(protocol, partner)
 	if cost > 0:
