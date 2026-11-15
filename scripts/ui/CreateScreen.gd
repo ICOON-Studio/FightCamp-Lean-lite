@@ -192,6 +192,12 @@ func _club(main: Node, v: VBoxContainer, s: Dictionary) -> void:
 	for cd in ClubStart.CARDS:
 		row.add_child(_start_card(main, cd, str(cd["id"]) == pick))
 	v.add_child(row)
+	# S489 FOURSTART1 (his Q-246): the test club - four fighters at the club to see every menu full. Testing only.
+	var test_on := str(s.get("test_club", "")) == "1"
+	var tb := UI.button("TEST CLUB: %s - start with four fighters (three boxers, one grappler) to see every menu full. Testing only" % ("ON" if test_on else "OFF"),
+		"BtnSolid" if test_on else "BtnQuiet", func(): _keep(main); main.act("cpick", "test_club|" + ("0" if test_on else "1")))
+	tb.name = "TestClub"
+	v.add_child(tb)
 
 
 ## One building: its floor plan, drawn from the same data the game plays on, and the one edge it gives.

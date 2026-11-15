@@ -16,6 +16,7 @@ const Combos := preload("res://scripts/rules/Combos.gd")
 const WorldBout := preload("res://scripts/world/WorldBout.gd")
 const PlanFight := preload("res://scripts/rules/PlanFight.gd")
 const TheRead := preload("res://scripts/rules/TheRead.gd")
+const StepWire := preload("res://scripts/state/StepWire.gd")
 
 ## Form on the night (GV). Narrower than WorldBout's: the wide off-night was swallowing a good plan.
 const FORM_SD := 5.0   # watched bout. World bouts stay at 8 so a big gap is never a sure win.
@@ -345,6 +346,7 @@ static func settle(lv: Dictionary, rec: Dictionary, s: Dictionary, rng: RandomNu
 	rec["perks"] = perks
 	rec["perk_line"] = "Your boxer makes the opponent miss and counters - Counter sense." if perks.has("counter_sense") else ""
 	lv["at"] = PlanFight.where_next(arrow, bool(s["won"]), sit)
+	StepWire.after(lv, rec, arrow, bool(rec.get("planned", false)))   # S489 STEPVALUE1: the ropes count can override the place
 	exs.append(rec)
 	if call != "":
 		lv["cost"] = float(lv["cost"]) + float(Exchanges.CALLS[call]["cost"])

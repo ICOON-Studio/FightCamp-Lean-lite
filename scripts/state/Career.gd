@@ -83,6 +83,8 @@ const GymSlots := preload("res://scripts/rules/GymSlots.gd")
 @export var gym_slots: Array = []
 ## S481 FIGHTWEEK2 favours with each host club ({club: n}, FightWeekPlan.favours: a club not here starts at 1).
 @export var favours: Dictionary = {}
+## S489 FOURSTART1 the TEST CLUB (TestClub): four fighters to see every menu full; never the normal start.
+@export var test_club: bool = false
 
 
 static func quick_start(name: String = "Anvil Street Gym", town: String = "London", start_id: String = "fresh",

@@ -455,7 +455,7 @@ static func close(f: Dictionary, m: Dictionary) -> Dictionary:
 		"fix": str(lv.get("fix", "")), "habits_paid": paid, "fix_came": fix_came, "adapt": lv.get("adapt", {}),
 		"fix_hold": Exchanges.uptake(float((f.get("personality", {}) as Dictionary).get("coachability", 55.0)), 0) * FighterProfile.trust(f), "start": lv.get("start", {}),
 		"talk": str(lv.get("talk_kind", "")), "setup": (lv.get("setup", {}) as Dictionary).duplicate(),
-		"arrows": PlanFight.tally(exs), "plan": (fb.get("arrows", []) as Array).duplicate(true),
+		"arrows": PlanFight.tally(exs), "plan": (fb.get("arrows", []) as Array).duplicate(true), "ropes": int(lv.get("ropes_times", 0)),   # S489 STEPVALUE1
 		"hurt_at_bell": bool(exs[-1].get("after", {}).get("hurt", [false, false])[0]) if not exs.is_empty() else false}
 
 

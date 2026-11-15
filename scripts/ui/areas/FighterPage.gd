@@ -14,6 +14,7 @@ const Bouts := preload("res://scripts/state/Bouts.gd")
 const Injuries := preload("res://scripts/state/Injuries.gd")
 const Champs := preload("res://scripts/state/Champs.gd")
 const NextStep := preload("res://scripts/rules/NextStep.gd")
+const StepValue := preload("res://scripts/rules/StepValue.gd")
 const AttrBoard := preload("res://scripts/ui/AttrBoard.gd")
 const WeekBoard := preload("res://scripts/ui/WeekBoard.gd")
 const FightPrep := preload("res://scripts/ui/FightPrep.gd")
@@ -215,6 +216,11 @@ func _study_tile(main: Node, f: Dictionary, c: Dictionary, full: bool, pads: int
 		for n in StudyWeek.MoveTree.NODES:   # "Opens push_off" -> "Opens Push off": game words, never ids
 			words = words.replace(str(n["id"]), StudyWeek.name_of(str(n["id"])))
 		v.add_child(UI.label("▸ " + words, UI.SMALL, UI.FG, "body", true))
+	if not punch and StepValue.TARGET.has(id):   # S489 STEPVALUE1: what the step is worth, against the booked opponent's style
+		var style := StudyWeek.opp_style(f) if StudyWeek.opp_style(f) != "" else StepValue.best_style(id)
+		var worth := UI.label("▸ " + StepValue.learn_line(id, style, m, "ok"), UI.SMALL, UI.GOLD, "body", true)
+		worth.name = "StepWorth_" + id
+		v.add_child(worth)
 	var spacer := Control.new()
 	spacer.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	v.add_child(spacer)

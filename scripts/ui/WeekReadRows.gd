@@ -6,6 +6,7 @@ const UI := preload("res://scripts/ui/UI.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const TrainingPreview := preload("res://scripts/rules/TrainingPreview.gd")
 const WeekRead := preload("res://scripts/rules/WeekRead.gd")
+const Loyalty := preload("res://scripts/rules/Loyalty.gd")
 
 const HEAD_W := 86.0
 const WORD_W := 92.0
@@ -60,6 +61,21 @@ static func goal(id: String, g: Dictionary) -> Control:
 static func rank(id: String, rk: Dictionary) -> Control:
 	var kind := str(rk["kind"])
 	return _line("Rank_" + id, "RANK", str(RANK_WORDS[kind]), str(CHIPS[kind]), str(rk["text"]), -1.0, -1.0)
+
+
+## LOYALTY | DOWN | the bar from Monday's value to now | "58 to 49, Settled to Wavering. A short week -6, ..." (APPROACHUI3,
+## map R58 s7). null when nothing moved loyalty in the week.
+static func loyalty(id: String, f: Dictionary, from_day: int, to_day: int) -> Control:
+	var lw := Loyalty.week(f, from_day, to_day)
+	if lw.is_empty():
+		return null
+	var kind := str(lw["kind"])
+	var colour := "green" if kind == "up" else ("" if kind == "same" else "amber")
+	if bool(lw["crossed"]):
+		colour = "gold" if kind == "up" else "red"
+	var word: String = {"up": "UP", "down": "DOWN", "same": "HELD"}[kind]
+	return _line("Loyalty_" + id, "LOYALTY", word, colour, str(lw["text"]), float(lw["before"]) / 100.0,
+		float(lw["after"]) / 100.0)
 
 
 ## RUNWAY | SAFE | the weeks of cash left | the weekly balance against the close rule.

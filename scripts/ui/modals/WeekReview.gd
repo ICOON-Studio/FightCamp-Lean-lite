@@ -90,6 +90,9 @@ func build(main: Node, m: Dictionary) -> void:
 			t = _land_read(v, WeekReadRows.goal(str(fr["id"]), fr["goal"]), t, step)
 		if fr.has("rank") and head["kind"] != "rank":   # a rank that is the week's surprise waits for the sticky note
 			t = _land_read(v, WeekReadRows.rank(str(fr["id"]), fr["rank"]), t, step)
+		var lrow := WeekReadRows.loyalty(str(fr["id"]), c.fighter_by_id(str(fr["id"])), c.day - 7, c.day + 1)
+		if lrow != null:
+			t = _land_read(v, lrow, t, step)
 		var on_pads := {}
 		t = _pads(c, v, fr, t, step, on_pads)
 		var notes: Array = []

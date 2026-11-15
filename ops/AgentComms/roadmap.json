@@ -3,16 +3,16 @@
  "updated": "2026-11-15",
  "author": "claude S294",
  "now": {
-  "id": "S489",
+  "id": "S490",
   "owner": "claude",
   "updated": "2026-11-15",
-  "summary": "S488: APPROACH2 collected (Arena's blind contract test PASS, 5 of 5 mutants red). STYLE4 (Qwen) audited, NOT merged: levers +0.1 on a 66-point exchange spread move nothing; its lever table was hard-coded, not measured; the Counter miss read landed punches -> TASK_STYLE5 queued for Qwen after CLASH9 (points levers per style situation, real counters, saturation check). HOMEBOUT1 built: PROMISE: OUR SHOW books a legal novice on the show's night (ordinary offer+accept), no ticket cut, the promise kept by boxing it (BoutFinish -> HomeBout.boxed), broken when no bout is boxed (HomeBout.sweep); home_bout_test. APPROACHUI2 built: Roster APPROACHED flag + checklist row, Pass: loyalty -3, Money 'held to', People PROMISES OPEN, Records People rows, Rankings '(left us <month>)'; approach_ui_test. Kalli's TRAINGAME2 v2 to Dola + Maria critics (SQ179/180). Export built.",
-  "next_action": "S489: 0) get_usage; where_we_are roll S489. 1) Collect Qwen CLASH9 (glove clipping: why the push leaves the glove in) when it lands; STYLE5 then WHYGRADE1 dispatch after it - merge STYLE5 only on real counts (StyleLevers.COUNTS) + both gates, read its probe for printed constants. 2) Seat answers: SQ177 Dola + SQ178 John ladder v3 (his board only at depth 7+ both); SQ179 Dola + SQ180 Maria TRAINGAME2 v2. 3) APPROACHUI3: Week review loyalty row (moves by cause, band crossed) + a still of the approach screens on the hidden desktop. 4) STEPVALUE1: ropes count + StepEffect in LiveRound, the learn card reads StepValue. 5) FOURSTART1 test club (3 boxers + 1 BJJ) for populated menus and tests. 6) Arena: one pure module (lite_mirror --lean push first).",
-  "last_working_commit": "57687d91",
-  "verified_playable": "S487 export (approach card on the Overview checked in a real still)",
-  "incomplete_blocked": "STYLE4 running (Qwen); APPROACH2 running (Arena); CLASH9 + WHYGRADE1 queued (Qwen); SQ176-178 at seats",
-  "next_acceptance": "APPROACH2 merged only with 5 of 5 mutants red; STYLE4 merged only on STYLE3 gates; CLASH merge only with 08_jab and 09_jab at 0 frames > 0.02 m printed by Claude's own film run; ladder v3 to his board only at depth 7+ from both critics.",
-  "awaiting_operator": "his look: Game plan chart, training K, coaches M1; his play: the fight week"
+  "summary": "S489: ladder v3 critics in (Dola 7/7, John 7/7, play 6) -> his board Q-247 (build after the fight week; close John's two holes first: 'Not this show' dominates, a far-down ask resets the clock free). APPROACHUI3 built: the Week review LOYALTY row (Loyalty.week: the week's moves by cause, biggest first, a band crossed; WeekReadRows.loyalty; loyalty_week_test). FOURSTART1 built (his Q-246): the TEST CLUB - Lucy/Kira/Josh in three classes + Ana, Reid hired, past the guide (TestClub.make), the create screen's TEST CLUB switch and jump=club4; the normal start stays 0 fighters (test_club_test). STEPVALUE1 piece 3: the ropes count in the live round (StepWire after RingDuel's where_next: 3 planned step backs = own_ropes, pivot/step out clear, cut off/herd = opp_ropes; round 'ropes' kept; step_ropes_test) and piece 8 part: the learn card's step tiles say what a step is worth (StepValue.learn_line). Main.gd and GamePlan.gd back under file limits; LiveRound.gd still 488 (> its 470 tight limit). Export built.",
+  "next_action": "S490: 0) get_usage; where_we_are roll S490. 1) Collect Qwen STYLE5 (wt LEAN_STYLE5, edits StyleLevers/StyleName/LiveRound - apply the DIFF, LiveRound changed on main in S489) - merge only on real counts (StyleLevers.COUNTS), style_levers_test, control rates 25-75%, both gates; then dispatch CLASH9 (glove clipping, it never started) and WHYGRADE1. 2) Seat answers SQ179 Dola + SQ180 Maria on TRAINGAME2 v2 (6+ both -> his board). 3) LADDER1: if Q-247 yes, Kalli closes John's two holes (v3.1). 4) STEPVALUE1 next pieces: the Why AGAINST YOU line 'On the ropes N times' (FightWhy reads round 'ropes'), corner card names a step; then the probes (s9) before any DENY/OPEN/DRAIN size. 5) LiveRound.gd 488 -> under 470 (move helpers to a rules module). 6) A still of the approach screens + the test club menus on the hidden desktop (jump=club4). 7) Arena: one pure module.",
+  "last_working_commit": "d46e59e1",
+  "verified_playable": "Builds/FightCamp.exe exported 2026-11-15 16:04 (S489): test club on the create screen, Week review loyalty row, ropes count, step worth on the learn card; headless tests green (S489_DIGEST).",
+  "incomplete_blocked": "STYLE5 (Qwen) still running; CLASH9 not started; ropes not yet in the Why/corner lines; LiveRound.gd over its 470 limit; no approach/test-club stills yet.",
+  "next_acceptance": "STYLE5 merged only on real StyleLevers.COUNTS + style_levers_test + control rates 25-75% + both gates; the Why names 'On the ropes N times' in a played bout; file_limits_test green.",
+  "awaiting_operator": "Q-247 season ladder v3 (build after the fight week?); TRAINGAME2 v2: Maria 6/6/6, Dola SQ179 pending; two surplus Miro P0 slot widgets to delete (his OK)."
  },
  "next": "S489: 0) get_usage; where_we_are roll S489. 1) Collect Qwen CLASH9 (glove clipping: why the push leaves the glove in) when it lands; STYLE5 then WHYGRADE1 dispatch after it - merge STYLE5 only on real counts (StyleLevers.COUNTS) + both gates, read its probe for printed constants. 2) Seat answers: SQ177 Dola + SQ178 John ladder v3 (his board only at depth 7+ both); SQ179 Dola + SQ180 Maria TRAINGAME2 v2. 3) APPROACHUI3: Week review loyalty row (moves by cause, band crossed) + a still of the approach screens on the hidden desktop. 4) STEPVALUE1: ropes count + StepEffect in LiveRound, the learn card reads StepValue. 5) FOURSTART1 test club (3 boxers + 1 BJJ) for populated menus and tests. 6) Arena: one pure module (lite_mirror --lean push first).",
  "assessment": {
@@ -2040,6 +2040,11 @@
    "id": "S488",
    "date": "2026-11-15",
    "summary": "S488: APPROACH2 collected (Arena's blind contract test PASS, 5 of 5 mutants red). STYLE4 (Qwen) audited, NOT merged: levers +0.1 on a 66-point exchange spread move nothing; its lever table was hard-coded, not measured; the Counter miss read landed punches -> TASK_STYLE5 queued for Qwen after CLASH9 (points levers per style situation, real counters, saturation check). HOMEBOUT1 built: PROMISE: OUR SHOW books a legal novice on the show's night (ordinary offer+accept), no ticket cut, the promise kept by boxing it (BoutFinish -> HomeBout.boxed), broken when no bout is boxed (HomeBout.sweep); home_bout_test. APPROACHUI2 built: Roster APPROACHED flag + checklist row, Pass: loyalty -3, Money 'held to', People PROMISES OPEN, Records People rows, Rankings '(left us <month>)'; approach_ui_test. Kalli's TRAINGAME2 v2 to Dola + Maria critics (SQ179/180). Export built."
+  },
+  {
+   "id": "S489",
+   "date": "2026-11-15",
+   "summary": "S489: ladder v3 critics in (Dola 7/7, John 7/7, play 6) -> his board Q-247 (build after the fight week; close John's two holes first: 'Not this show' dominates, a far-down ask resets the clock free). APPROACHUI3 built: the Week review LOYALTY row (Loyalty.week: the week's moves by cause, biggest first, a band crossed; WeekReadRows.loyalty; loyalty_week_test). FOURSTART1 built (his Q-246): the TEST CLUB - Lucy/Kira/Josh in three classes + Ana, Reid hired, past the guide (TestClub.make), the create screen's TEST CLUB switch and jump=club4; the normal start stays 0 fighters (test_club_test). STEPVALUE1 piece 3: the ropes count in the live round (StepWire after RingDuel's where_next: 3 planned step backs = own_ropes, pivot/step out clear, cut off/herd = opp_ropes; round 'ropes' kept; step_ropes_test) and piece 8 part: the learn card's step tiles say what a step is worth (StepValue.learn_line). Main.gd and GamePlan.gd back under file limits; LiveRound.gd still 488 (> its 470 tight limit). Export built."
   }
  ],
  "blocked_on_operator": [],
@@ -4958,7 +4963,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-15 14:51 board_sync",
+  "updated": "2026-11-15",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5108,25 +5113,17 @@
   },
   "working_now": [
    {
-    "title": "TASK CLASH9 - why the clash push leaves the guard glove in (glove clipping)",
+    "title": "TASK STYLE5 - named styles worth real points: one exchange edge each, counted for real, tuned into the band",
     "who": "qwen",
-    "started": "2026-11-15T15:10",
-    "run": "CLASH9",
-    "state": "queued - the 30-min dispatch starts it; ETA ~16:00"
-   },
-   {
-    "title": "TASK STYLE5 - named styles worth real points, counted for real (round 3 after the STYLE4 audit)",
-    "who": "qwen",
-    "started": "",
-    "run": "STYLE5",
-    "state": "queued after CLASH9; ETA ~17:00"
+    "started": "2026-11-15T15:12",
+    "run": "STYLE5"
    }
   ],
   "next": [
    {
     "id": "R58",
     "who": "claude",
-    "title": "A fighter leaves: approach card, five answers, Let go, promises, the promised show bout (S488 HOMEBOUT1) and the approach on Roster/offer/Money/People/Records/Rankings (S488 APPROACHUI2) LIVE; left: Week review loyalty row (APPROACHUI3), a still check",
+    "title": "A fighter leaves: approach, answers, promises, the promised show bout, the approach on 6 menus and the Week review loyalty row LIVE (S486-S489); left: a still check",
     "after": ""
    },
    {
@@ -5138,7 +5135,7 @@
    {
     "id": "LADDER1",
     "who": "kalli",
-    "title": "Season ladder at 9/10 (his S475 note): reputation as the currency instead of fixed win counts. John's research IN (S477: 10 games, England Boxing/BBBofC rules, reputation earns + unlocks, the 9/10 screen; code claims checked); map v1 at Kalli (SQ153), then two critics to 9/10",
+    "title": "Season ladder v3 passed critics 7/7 (S489) -> his board Q-247; close John's two holes before code",
     "after": ""
    },
    {
@@ -5148,15 +5145,9 @@
     "after": ""
    },
    {
-    "id": "FOURSTART1",
-    "who": "claude",
-    "title": "Test club with four fighters (his Q-246: the normal game starts with 0 fighters; four are only to see the menus populated and for the tests): 3 boxers in different classes + 1 BJJ, reachable from the create screen as a test start and from the tests",
-    "after": ""
-   },
-   {
     "id": "STEPVALUE1",
     "who": "claude",
-    "title": "Footwork and defence worth learning: StepEffect + StepValue merged (S485/S486). Left: ropes count, StepEffect in the exchange, the learn card, probes",
+    "title": "Footwork worth learning: ropes count live + step worth on the learn card (S489). Left: the Why/corner lines, then probes s9 before DENY/OPEN/DRAIN sizes",
     "after": "AMATEURWEEK1"
    },
    {
@@ -5356,6 +5347,12 @@
     "who": "claude",
     "title": "Knowledge (what you know about a boxer narrows as you study them): design v3 APPROVED (his 'Yes, both', S471) - build after the fight week",
     "after": "AMATEURWEEK1"
+   },
+   {
+    "id": "LIVEROUNDSPLIT1",
+    "who": "claude",
+    "title": "LiveRound.gd 488 lines -> under its 470 limit (helpers to a rules module)",
+    "after": ""
    }
   ],
   "waiting_seat": [
@@ -5633,6 +5630,24 @@
   },
   "done_recently": [
    {
+    "id": "APPROACHUI3",
+    "who": "claude",
+    "title": "Week review loyalty row: moves by cause, a band crossed (S489)",
+    "after": ""
+   },
+   {
+    "id": "FOURSTART1",
+    "who": "claude",
+    "title": "Test club: three boxers in three classes + Ana, create-screen switch, jump=club4 (S489)",
+    "after": ""
+   },
+   {
+    "id": "STEPROPES1",
+    "who": "claude",
+    "title": "Ropes count in the live round + step worth on the learn card (S489)",
+    "after": ""
+   },
+   {
     "id": "HOMEBOUT1",
     "who": "claude",
     "title": "The promised show's bout is really boxed: a legal novice on the night, no ticket cut, kept by boxing it (S488)",
@@ -5679,21 +5694,6 @@
     "title": "Approach + Promises rules (Arena, S486)",
     "who": "arena",
     "done": "2026-11-15"
-   },
-   {
-    "title": "Loyalty moves on results, offers, goals, the pro call (S486)",
-    "who": "claude",
-    "done": "2026-11-15"
-   },
-   {
-    "title": "A boxer can leave the club (Leaving, S486)",
-    "who": "claude",
-    "done": "2026-11-15"
-   },
-   {
-    "id": "CLUBWEEK1v1",
-    "who": "claude",
-    "title": "S485: club week v1 wired - loyalty bar, sponsorship moves, day job = 2 mornings, pro share 10%, film seats"
    }
   ],
   "scope_note": "S294: lean restart (E:\\FightCamp\\Lean\\docs\\RESTART_PLAN.md). Old roadmap items are parked until the weekly builds reach them.",
@@ -5822,6 +5822,22 @@
   "map": {
    "done_earlier": [
     {
+     "text": "Contract test approach, 5/5",
+     "who": "claude"
+    },
+    {
+     "text": "Promised show bout boxed",
+     "who": "claude"
+    },
+    {
+     "text": "Approach on 6 more menus",
+     "who": "claude"
+    },
+    {
+     "text": "STYLE4 audited, STYLE5 brief",
+     "who": "claude"
+    },
+    {
      "text": "Rival club approach card, live",
      "who": "claude"
     },
@@ -5860,39 +5876,27 @@
     {
      "text": "Film seats wired (Arena)",
      "who": "claude"
-    },
-    {
-     "text": "StepEffect table (Arena)",
-     "who": "claude"
-    },
-    {
-     "text": "Four starters money: Q-246",
-     "who": "claude"
-    },
-    {
-     "text": "Coached mornings module (Arena)",
-     "who": "agent"
-    },
-    {
-     "text": "Four starters' money probe",
-     "who": "agent"
     }
    ],
    "done_session": [
     {
-     "text": "Contract test approach, 5/5",
+     "text": "Ladder v3 critics 7/7 -> Q-247",
      "who": "claude"
     },
     {
-     "text": "Promised show bout boxed",
+     "text": "Week review loyalty row",
      "who": "claude"
     },
     {
-     "text": "Approach on 6 more menus",
+     "text": "Test club: 4 fighters (club4)",
      "who": "claude"
     },
     {
-     "text": "STYLE4 audited, STYLE5 brief",
+     "text": "Ropes count live",
+     "who": "claude"
+    },
+    {
+     "text": "Step worth on the learn card",
      "who": "claude"
     }
    ],
@@ -5946,12 +5950,12 @@
      "who": "operator"
     },
     {
-     "text": "Ladder v3 at critics Dola + John",
+     "text": "Critics: training K v2 Dola+Maria",
      "who": "agent"
     },
     {
-     "text": "Critics: training K v2 Dola+Maria",
-     "who": "agent"
+     "text": "Your call: Q-247 season ladder",
+     "who": "operator"
     }
    ],
    "next": [
@@ -5961,10 +5965,6 @@
     },
     {
      "text": "HOSTSHOW1: host a club show",
-     "who": "claude"
-    },
-    {
-     "text": "FOURSTART1: build 4 starters",
      "who": "claude"
     },
     {
@@ -6016,10 +6016,6 @@
      "who": "claude"
     },
     {
-     "text": "Four starters map (FOURSTART1)",
-     "who": "claude"
-    },
-    {
      "text": "CLASH9: why the push stays in",
      "who": "agent"
     },
@@ -6028,20 +6024,24 @@
      "who": "agent"
     },
     {
-     "text": "Week review loyalty row",
+     "text": "STYLE5: styles worth points (Qwen)",
+     "who": "agent"
+    },
+    {
+     "text": "Ropes in the Why + corner card",
      "who": "claude"
     },
     {
-     "text": "STYLE5: styles worth points (Qwen)",
-     "who": "agent"
+     "text": "LiveRound under 470 lines",
+     "who": "claude"
     }
    ],
-   "session": "S488"
+   "session": "S489"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
- "last_working_commit": "c1be342c",
- "next_action": "S488: 0) get_usage; where_we_are roll S488. 1) Collect Arena APPROACH2 (lite PR, chat 01a1df16): run tests/approach_contract_test.gd, apply its five mutants to ApproachWire.gd one at a time (each must go red), merge the test. 2) Qwen STYLE4 (qwen/style4, wt LEAN_STYLE4): merge only when docs/STYLE3_RESULT.md's gates pass (each style 1.5-4 wins in 100, none best vs all); CLASH9 then WHYGRADE1 dispatch themselves after it. 3) HOMEBOUT1 (Claude): the promised show's bout is really boxed - a legal novice on c.show.day (Bouts.legal_index), no ticket cut; ApproachWire.show_night today counts 'fit' as boxed. 4) APPROACHUI2: the other menus of map section 7 (Roster flag row, offer Pass price, Money stipend 'held to', Records + Rankings 'left us' tag, Week review row, Club > People promises). 5) STEPVALUE1: ropes count + StepEffect in LiveRound, the learn card reads StepValue. 6) Seat answers: SQ176 Kalli TRAINGAME2 v2 -> two critics; SQ177/178 ladder v3 critics -> his board only at depth 7+ both. 7) FOURSTART1 re-scoped by his Q-246 answer: a TEST CLUB (four fighters: 3 boxers in different classes + 1 BJJ) to see every menu populated and for the tests; the normal start stays 0 fighters (a walk-in).",
+ "last_working_commit": "d46e59e1",
+ "next_action": "S490: 0) get_usage; where_we_are roll S490. 1) Collect Qwen STYLE5 (wt LEAN_STYLE5, edits StyleLevers/StyleName/LiveRound - apply the DIFF, LiveRound changed on main in S489) - merge only on real counts (StyleLevers.COUNTS), style_levers_test, control rates 25-75%, both gates; then dispatch CLASH9 (glove clipping, it never started) and WHYGRADE1. 2) Seat answers SQ179 Dola + SQ180 Maria on TRAINGAME2 v2 (6+ both -> his board). 3) LADDER1: if Q-247 yes, Kalli closes John's two holes (v3.1). 4) STEPVALUE1 next pieces: the Why AGAINST YOU line 'On the ropes N times' (FightWhy reads round 'ropes'), corner card names a step; then the probes (s9) before any DENY/OPEN/DRAIN size. 5) LiveRound.gd 488 -> under 470 (move helpers to a rules module). 6) A still of the approach screens + the test club menus on the hidden desktop (jump=club4). 7) Arena: one pure module.",
  "next_acceptance": "Ladder v2 reaches his board only with both critics at depth 7+; STYLE4 code merged only when docs/STYLE3_RESULT.md's gates pass (each style 1.5-4 wins in 100, none best vs all) at 100 bouts a cell; ClubDeal v9 briefed only after his Q-242 answer; no CLASH brief before the audit names which skeleton's stack runs first and what peer data each reads."
 }

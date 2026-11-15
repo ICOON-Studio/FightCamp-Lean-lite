@@ -11,6 +11,7 @@ extends RefCounted
 ## Pure static; preloads only StripeCall (the stripe call's prices) and ProDebut (the professional's shares).
 ##   value(f) band(v, known) apply(f, cause, day) forecast(f, weekly, weeks, day) forecast_line(f, weekly, day)
 ##   wants_word(f, day) can_tell_straight(f, day) leaves(f, day) can_hold_pads(f, bouts) pro_share(f) reasons(f, since_day)
+##   week(f, from_day, to_day): the week review's row (moves by cause, a band crossed)
 
 const StripeCall := preload("res://scripts/rules/StripeCall.gd")
 const ProDebut := preload("res://scripts/rules/ProDebut.gd")
@@ -240,3 +241,53 @@ static func reasons(f: Dictionary, since_day: int) -> Array:
 		if int(e.get("d", 0)) >= since_day:
 			out.append({"d": int(e.get("d", 0)), "n": int(e.get("n", 0)), "why": str(e.get("why", ""))})
 	return out
+
+
+## The week review's words for a cause (APPROACHUI3); a cause not named here reads as its code, spaced.
+const WEEK_WORDS := {"short": "a short week", "short_running": "short again", "full_week": "a full week",
+	"held_pads": "you held pads", "offer_passed": "an offer passed", "no_bout": "no bout", "bout_won": "a win",
+	"bout_lost": "a loss", "stopped": "stopped", "teammate_left": "a team-mate left", "signing_class": "a signing in the class"}
+
+
+## The loyalty moves dated from_day <= d < to_day, summed by cause (APPROACHUI3, map R58 s7: "loyalty moves by cause;
+## band crossed"). {} when nothing moved. {kind up|down|same, before, after, band_before, band_after, crossed, causes
+## [{n, word}] biggest first, text}.
+static func week(f: Dictionary, from_day: int, to_day: int) -> Dictionary:
+	var by: Dictionary = {}
+	var order: Array = []
+	var first := -1
+	var last := -1
+	var book := log_of(f)
+	for i in book.size():
+		var e: Dictionary = book[i]
+		var d := int(e.get("d", 0))
+		if d < from_day or d >= to_day or int(e.get("n", 0)) == 0:
+			continue
+		if first < 0:
+			first = i
+		last = i
+		var key := str(e.get("why", "")).split(" (")[0]
+		if not by.has(key):
+			order.append(key)
+		by[key] = int(by.get(key, 0)) + int(e.get("n", 0))
+	if first < 0:
+		return {}
+	var after := int(book[last].get("v", value(f)))
+	var before := clampi(int(book[first].get("v", after)) - int(book[first].get("n", 0)), 0, 100)
+	var known := int(f.get("known", 0))
+	var causes: Array = []
+	for k in order:
+		if int(by[k]) != 0:
+			causes.append({"n": int(by[k]), "word": str(WEEK_WORDS.get(k, str(k).replace("_", " ")))})
+	causes.sort_custom(func(a, b): return absi(int(a["n"])) > absi(int(b["n"])))
+	var bb := band(before, known)
+	var ba := band(after, known)
+	var kind := "up" if after > before else ("down" if after < before else "same")
+	var text := "%d to %d" % [before, after] if kind != "same" else "Held at %d" % after
+	text += (", %s to %s." % [bb, ba]) if bb != ba else (", %s." % ba)
+	var parts: Array = causes.map(func(c): return "%s %+d" % [c["word"], int(c["n"])])
+	if not parts.is_empty():
+		var said := ", ".join(parts)
+		text += " " + said.substr(0, 1).to_upper() + said.substr(1) + "."
+	return {"kind": kind, "before": before, "after": after, "band_before": bb, "band_after": ba, "crossed": bb != ba,
+		"causes": causes, "text": text}

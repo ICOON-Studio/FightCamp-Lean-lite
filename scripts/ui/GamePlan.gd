@@ -1,7 +1,6 @@
 extends VBoxContainer
 ## S360 PLAYBOOK > Game plan (operator Q-S294-91: "build it make it interactive for player, with meaningful options and not
-## chores and visually and progressively rewarding"; Game Godot/research/PLAYBOOK_CLARITY_S359.md). The coach's game plan
-## written as lines, the way a corner writes it on a card: "At long range -> One-two", "When she presses -> Step back".
+## chores and visually and progressively rewarding"; PLAYBOOK_CLARITY_S359.md): the plan as a corner's card lines.
 ## - Meaningful: every answer is rated against the opponent's game the way the bout scores it (PlanLines / PlanFight: Beats
 ##   it / Works / Walks into it, and its edge over improvising); "Rate against" tries the plan on another kind of opponent.
 ## - Not a chore: a pick saves at once (no Save button); hovering an answer plays it on her body; Real fight plans fill

@@ -35,6 +35,11 @@ func _initialize() -> void:
 	_check(labels.has("WHAT TO LEARN NEXT"), "the card shows on her page")
 	var studies: Array = page.find_children("*", "Button", true, false).filter(func(b): return str((b as Button).text).begins_with("Study "))
 	_check(studies.size() >= 1 and studies.size() <= 3, "1-3 Study buttons (%d)" % studies.size())
+	# S489 STEPVALUE1: a step's tile says what it is worth (StepValue.learn_line), never a code word.
+	var worths: Array = page.find_children("StepWorth_*", "Label", true, false)
+	print("  step worth lines: %d" % worths.size())
+	_check(worths.is_empty() or (str((worths[0] as Label).text).contains("in 100") or str((worths[0] as Label).text).contains("Little use"))
+		and not str((worths[0] as Label).text).contains("_"), "a step's worth line in game words")
 	var step_btn: Button = null
 	var step_id := ""
 	for b in studies:

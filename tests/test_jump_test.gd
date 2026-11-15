@@ -70,6 +70,12 @@ func _initialize() -> void:
 			main.queue_free()
 			await process_frame
 			continue
+		if jump == "club4":
+			# S489 FOURSTART1: the test club - three boxers in three classes, Ana on the mat, its own save slot.
+			_check(ok and main.career.test_club and main.save_path == TestJump.SAVE_PATH, "club4: the test club, its own save slot")
+			main.queue_free()
+			await process_frame
+			continue
 		if jump == "belt":
 			# S362 update 64: Ana's belt road (the no-gi Record tab).
 			_check(ok and str(main.route.get("fighter", "")) == "ana" and main.find_child("BeltRoad", true, false) != null, "belt: Ana's belt road is open")

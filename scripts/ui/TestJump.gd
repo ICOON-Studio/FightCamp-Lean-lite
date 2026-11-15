@@ -18,6 +18,7 @@ extends RefCounted
 ##   FightCamp.exe -- jump=training       S382 TRAINING1: quick start, no bout taken, week 1 played to its review and closed
 ##                                        - Lucy between fights in week 2 (the Uppercut on Mon + Wed pads, the 1-1 on Fri);
 ##                                        opens on her fighter page: the Training tab is the tester's click
+##   FightCamp.exe -- jump=club4          S489 FOURSTART1: the test club (Lucy, Kira, Josh + Ana, Reid hired); opens on the gym
 ##   FightCamp.exe -- jump=belt           S362 update 64: quick start, Ana Ribeiro's belt road (the no-gi Record tab)
 ##   FightCamp.exe -- jump=men            S371 update 68: quick start, then Danny Osei (a man, the men's lightweights) signed
 ##                                        through scouting, played on until his first men's offers arrive; opens on FIGHTS >
@@ -41,6 +42,7 @@ const Champs := preload("res://scripts/state/Champs.gd")
 const Roster := preload("res://scripts/state/Roster.gd")
 const ProLadder := preload("res://scripts/state/ProLadder.gd")
 const Sim := preload("res://scripts/state/Sim.gd")
+const TestClub := preload("res://scripts/state/TestClub.gd")
 const WeekTwist := preload("res://scripts/rules/WeekTwist.gd")
 const OwnCombos := preload("res://scripts/rules/OwnCombos.gd")
 const ComboWords := preload("res://scripts/rules/ComboWords.gd")
@@ -49,7 +51,7 @@ const SAVE_PATH := "user://test_jump_save.json"
 const SCENE_JUMPS := {"grapple": "res://scenes/dev/GrappleBrowser.tscn", "strikemap": "res://scenes/dev/StrikeBrowser.tscn",
 	"theatre": "res://scenes/dev/GrappleTheatre.tscn"}
 const JUMPS := ["fight", "fight_nofilm", "corner", "round3", "injury", "nationals", "pro", "taperoom", "camp", "belt", "men", "men_fight", "gameplan",
-	"training", "proladder", "proranked"]
+	"training", "proladder", "proranked", "club4"]
 ## What two weeks of pad time on the 1-2 and the 1-2-3 leave her with (Combos.LEARN_AT is 30).
 const DRILLED := {"1-2": 62.0, "1-2-3": 48.0}
 ## S378 jump=gameplan: her own combinations (PLAYBOOK > Combos rows) and their pad time - the first a signature.
@@ -119,6 +121,10 @@ static func run(main: Node, jump: String) -> bool:
 	var c: Career = main.career
 	FirstWeek.skip(c)   # S387 a jump is past the first-week guide
 	var f: Dictionary = c.fighter()
+	if jump == "club4":   # S489 FOURSTART1: the test club, four fighters on the books; opens on the gym
+		TestClub.make(c)
+		main.render()
+		return c.fighters.size() == 3 and c.grapplers.size() == 1
 	if jump == "belt":
 		FirstWeek.ana_joins(c)
 		main.act("fighter", "ana")

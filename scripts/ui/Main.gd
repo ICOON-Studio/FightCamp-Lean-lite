@@ -88,8 +88,7 @@ func _ready() -> void:
 	_toast_timer.timeout.connect(func(): UI.clear(_toast_layer))
 	add_child(_toast_timer)
 	render()
-	# S396 Steam: `-- capture=<file.png>` saves the screen after 6 s and quits (a release build checks itself on a hidden
-	# desktop; store screenshots). Without the option nothing changes.
+	# S396 Steam: `-- capture=<file.png>` saves the screen after 6 s and quits (a release build's hidden self-check).
 	for a in OS.get_cmdline_user_args():
 		if a.begins_with("capture="):
 			var wait := 6.0   # `capture_s=<seconds>` waits longer (a fight jump loads its 3D first)
@@ -105,9 +104,8 @@ func _ready() -> void:
 					if (b as Button).text == a.trim_prefix("click=") and (b as Button).is_visible_in_tree():
 						(b as Button).pressed.emit()
 						return)
-	# S310: the ops board's Play buttons start the build at the part to test (TestJump: `-- jump=fight`).
-	# S335 `-- jump=grapple` (the ground-move browser), S337 `jump=strikemap` (StrikeMap's position cards), S379
-	# `jump=theatre` (the Grappling theatre): prototypes outside the boxing game open on their own scene (TestJump.SCENE_JUMPS).
+	# S310: the ops board's Play buttons start the build at the part to test (TestJump: `-- jump=fight`); S335+ scene
+	# jumps (grapple, strikemap, theatre) open prototypes outside the boxing game on their own scene (TestJump.SCENE_JUMPS).
 	var jump_scene := TestJump.scene_for(OS.get_cmdline_user_args())
 	if jump_scene != "":
 		get_tree().change_scene_to_file.call_deferred(jump_scene)
@@ -441,6 +439,7 @@ var quiet_moments := false   # S387 TestJump plays through: no poster moment in 
 func _start_career(gym_name: String, city: String) -> void:
 	var c := Career.from_create(create, gym_name, city)
 	FirstWeek.begin(c)
+	if str(create.get("test_club", "")) == "1": load("res://scripts/state/TestClub.gd").make(c)   # S489 FOURSTART1 TEST CLUB
 	resume(c)   # S388 lands on the gym; nothing opens by itself (S275): the guide's "Meet the walk-in" opens the boxer
 
 

@@ -1,3 +1,13 @@
+S489 (2026-11-15)
+- TEST CLUB (for seeing every menu full; the normal game still starts with 0 fighters): on the create screen, under HOW THE
+  CLUB STARTS, switch TEST CLUB on. You open with three boxers in three weight classes (Lucy, Kira, Josh), Ana on the mat and
+  Reid hired. The ops board can also start it with `-- jump=club4`.
+- WEEK REVIEW: a new LOYALTY row per boxer when loyalty moved that week - the bar from Monday to now, UP / DOWN / HELD, the
+  band crossed ("Settled to Wavering") and what did it, biggest first ("Short again -6, an offer passed -3").
+- FOOTWORK: three step backs in a round with no pivot out or step out put your boxer on the ropes for the next exchange;
+  cutting off and herding pushes the opponent there. On the fighter's Overview, WHAT TO LEARN NEXT now says what each step
+  is worth against the booked opponent's style ("Worth about +3.0 in 100 against a pressure fighter (once usable)").
+
 S487-S488 (2026-11-15)
 - A RIVAL CLUB CAN APPROACH YOUR BOXER. When an unhappy prospect's loyalty is low, Eastside ABC makes an offer on a Monday.
   Look for the red APPROACHED flag (top bar and the boxer's Roster card) and the card on top of the boxer's Overview: the
