@@ -1,3 +1,11 @@
+S478 (2026-11-15)
+- Gloves in the fight: a boxer's own two gloves no longer sink into each other in the guard. They sit side by side and touch
+  at the thumbs. Watch either boxer standing in guard between punches.
+- A cross that lands and is followed by a blocked hook: the other boxer's guard glove used to sit inside the puncher's hand
+  for a few frames (10 cm). Now it moves aside (3.6 cm at worst on our test film).
+- A blocked punch now meets the catching glove front to front instead of sinking into it.
+- Still left: a few frames where both guards bump at speed (worst 5-6 cm on the test film); the animation seat is on it.
+
 S476 (2026-11-15)
 - The rear leg in the guard: the back foot now turns 45 degrees out, as in the captured take, and the rear knee sits over it,
   bent and loaded, instead of caving in. Watch the boxers standing in guard between punches.

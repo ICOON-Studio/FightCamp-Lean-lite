@@ -2167,11 +2167,14 @@
    "seat": "kalli",
    "brief": "research/DESIGN_CLUBWEEK1_V8_REVISE_KALLI.md",
    "stem": "DESIGN_CLUBWEEK1_V8_REVISE_KALLI_KALLI",
-   "status": "sent",
+   "status": "answered",
    "queued_at": "2026-11-14 23:50",
    "tries": 0,
    "sent_at": "2026-11-15 02:10",
-   "sent_ms": 1794701441127
+   "sent_ms": 1794701441127,
+   "answered_at": "2026-11-15 02:40",
+   "answer": "research/DESIGN_CLUBWEEK1_V8_REVISE_KALLI_KALLI.md",
+   "chars": 38719
   },
   {
    "id": "SQ147",
@@ -2236,11 +2239,14 @@
    "seat": "john",
    "brief": "research/DESIGN_PLANFLOW1_V3_CRITIC_JOHN.md",
    "stem": "DESIGN_PLANFLOW1_V3_CRITIC_JOHN_JOHN",
-   "status": "sent",
+   "status": "answered",
    "queued_at": "2026-11-15 00:48",
    "tries": 0,
    "sent_at": "2026-11-15 02:10",
-   "sent_ms": 1794701443662
+   "sent_ms": 1794701443662,
+   "answered_at": "2026-11-15 02:40",
+   "answer": "research/DESIGN_PLANFLOW1_V3_CRITIC_JOHN_JOHN.md",
+   "chars": 12909
   },
   {
    "id": "SQ152",
@@ -2270,9 +2276,12 @@
    "seat": "dola",
    "brief": "research/TRAINGAME_K_DRAW_S477_DOLA.md",
    "stem": "TRAINGAME_K_DRAW_S477_DOLA_DOLA",
-   "status": "queued",
+   "status": "sent",
    "queued_at": "2026-11-15 01:03",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-15 02:40",
+   "pid": 29976,
+   "transcript": "AgentComms/seat_logs/SQ154_dola.txt"
   },
   {
    "id": "SQ155",
@@ -2290,6 +2299,24 @@
    "stem": "DESIGN_AMATEURWEEK1_V9_CRITIC_JOHN_JOHN",
    "status": "queued",
    "queued_at": "2026-11-15 02:17",
+   "tries": 0
+  },
+  {
+   "id": "SQ157",
+   "seat": "john",
+   "brief": "research/DESIGN_CLUBWEEK1_V8_CRITIC_JOHN.md",
+   "stem": "DESIGN_CLUBWEEK1_V8_CRITIC_JOHN_JOHN",
+   "status": "queued",
+   "queued_at": "2026-11-15 02:42",
+   "tries": 0
+  },
+  {
+   "id": "SQ158",
+   "seat": "maria",
+   "brief": "research/DESIGN_CLUBWEEK1_V8_CRITIC_MARIA.md",
+   "stem": "DESIGN_CLUBWEEK1_V8_CRITIC_MARIA_MARIA",
+   "status": "queued",
+   "queued_at": "2026-11-15 02:42",
    "tries": 0
   }
  ]

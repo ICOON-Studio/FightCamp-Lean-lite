@@ -14,6 +14,33 @@
    "repo": "ICOON-Studio/FightCamp-Lean-lite",
    "chat": "https://arena.ai/agent/01a1dc46-8131-7b0e-af3a-6e1d928bcaec",
    "seat": "arena"
+  },
+  "CLASH4": {
+   "agent": "qwen",
+   "id": "CLASH4",
+   "title": "TASK CLASH4 - two guard gloves still meet inside each other when BOTH boxers read the other a frame late",
+   "status": "running",
+   "started": "2026-11-15T02:38",
+   "eta": "2026-11-15T04:28",
+   "branch": "qwen/clash4",
+   "worktree": "E:/FightCamp/wt/LEAN_CLASH4",
+   "wt": "E:/FightCamp/wt/LEAN_CLASH4",
+   "brief": "ops/research/TASK_CLASH4.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/CLASH4_dispatch_out.txt",
+   "match": "seat_dispatch.py run clash4",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/CLASH4_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/CLASH4_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/CLASH4_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 48816,
+    "seat_pid": 21448
+   },
+   "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
   }
  },
  "codex_budget": {

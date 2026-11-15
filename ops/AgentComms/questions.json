@@ -7389,7 +7389,7 @@
       "answer": "Yes, build it after the fight week",
       "note": null,
       "answered_at": "2026-11-14T22:43:22Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "comment_only": false
     },
     {
@@ -7407,8 +7407,110 @@
       "answer": "Yes",
       "note": null,
       "answered_at": "2026-11-14T22:43:35Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "comment_only": false
+    },
+    {
+      "id": "Q-S294-232",
+      "asked": "2026-11-15T00:19:31.860251+00:00",
+      "session": "S294",
+      "text": "Weight design passed 2 critics. A boxer at fault at the scale: keep bout off + $300 to the club, or a walkover loss?",
+      "options": [
+        "Keep bout off + $300",
+        "Walkover loss"
+      ],
+      "attach": [
+        "research/BOARD_WEIGHT1_R5_S478.md"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-233",
+      "asked": "2026-11-15T00:19:32.091022+00:00",
+      "session": "S294",
+      "text": "Add women's 70 kg and men's 65 kg classes (more room to move up/down)?",
+      "options": [
+        "Yes, add both",
+        "No, keep the classes"
+      ],
+      "attach": [
+        "research/BOARD_WEIGHT1_R5_S478.md"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-234",
+      "asked": "2026-11-15T00:19:32.349454+00:00",
+      "session": "S294",
+      "text": "Men's 57.5 kg is not a World Boxing class (nearest 55). Change it to 55?",
+      "options": [
+        "Yes, 55 kg",
+        "Keep 57.5"
+      ],
+      "attach": [
+        "research/BOARD_WEIGHT1_R5_S478.md"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-235",
+      "asked": "2026-11-15T00:19:32.844221+00:00",
+      "session": "S294",
+      "text": "Coach fit design passed 2 critics. Approve it, so the mockup is drawn and the probes run?",
+      "options": [
+        "Yes, approve",
+        "Another round first"
+      ],
+      "attach": [
+        "research/BOARD_COACHFIT1_V8_S478.md"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-236",
+      "asked": "2026-11-15T00:42:39.182841+00:00",
+      "session": "S294",
+      "text": "Fight plan flowchart passed 2 critics. Should the chart replace the move map as the plan's first view?",
+      "options": [
+        "Yes, chart first",
+        "No, move map stays first"
+      ],
+      "attach": [
+        "research/BOARD_PLANFLOW1_V3_S478.md"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-237",
+      "asked": "2026-11-15T00:42:39.411358+00:00",
+      "session": "S294",
+      "text": "Film during a camp is free today. Should it take one of the camp's evenings, like outside a camp?",
+      "options": [
+        "Yes, it costs an evening",
+        "No, keep it free in camp"
+      ],
+      "attach": [
+        "research/BOARD_PLANFLOW1_V3_S478.md"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
     }
   ]
 }
