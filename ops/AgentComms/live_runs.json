@@ -20,7 +20,7 @@
    "agent": "qwen",
    "id": "CLASH5",
    "title": "TASK CLASH5 - the guard glove that jumps 30 cm in one frame (seed 4242 08_jab f40), and the clash read that cannot see it",
-   "status": "running",
+   "status": "failed",
    "started": "2026-11-15T05:53",
    "eta": "2026-11-15T07:43",
    "branch": "qwen/clash5",
@@ -41,26 +41,28 @@
     "runner_pid": 45296,
     "seat_pid": 27060
    },
-   "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
+   "note": "S368 seat_dispatch runner crashed: FileNotFoundError(2, 'The filename or extension is too long', None, 206, None)",
+   "finished": "2026-11-15T07:21"
   },
   "COACHFIT2": {
    "agent": "arena",
    "id": "COACHFIT2",
    "title": "Coach fit as numbers: fit, word, gain and tiredness, coach time, ceilings (pure module + test)",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-15T06:28",
    "eta": "2026-11-15T07:45",
    "branch": "arena/01a1dd77-fightcamp-lean-lite",
    "chat": "https://arena.ai/agent/01a1dd77-618e-7712-a4b2-849d37bbb252",
    "brief": "ops/research/TASK_COACHFIT2.md",
    "repo": "ICOON-Studio/FightCamp-Lean-lite",
-   "seat": "arena"
+   "seat": "arena",
+   "note": " | S482: collected in S481 (92/0)"
   },
   "PARTNERPROBE1": {
    "agent": "goose",
    "id": "PARTNERPROBE1",
    "title": "what a close sparring partner is worth on fight night, in wins (a probe; headless, measure only)",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-15T06:32",
    "where": "cloud",
    "repo": "FightCamp-Lean",
@@ -70,7 +72,78 @@
    "note": "S380 seat_dispatch: pure rule module routed to Goose instead of a PC worktree (S480 Claude by hand (his Q-238 approval))",
    "issue": "300",
    "branch": "goose/issue-300",
-   "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/300"
+   "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/300",
+   "reconciled": "2026-11-15 07:40 board_reconcile: run finished (success), branch goose/issue-300 pushed"
+  },
+  "STYLE2": {
+   "agent": "goose",
+   "id": "STYLE2",
+   "title": "make each named style worth 1.5 to 4 wins in 100 (tune StyleName.EFFECTS), and redo the road to a style",
+   "status": "running",
+   "started": "2026-11-15T07:27",
+   "where": "cloud",
+   "repo": "FightCamp-Lean",
+   "brief": "ops/research/TASK_STYLE2.md",
+   "model": "Goose + Qwen token plan (GitHub Actions)",
+   "eta": "2026-11-15T08:27",
+   "note": "S380 seat_dispatch: pure rule module routed to Goose instead of a PC worktree (S481 STYLE1 fail: tune StyleName.EFFECTS to 1.5-4 in 100; redo Part B on prog_probe loop)",
+   "issue": "302",
+   "branch": "goose/issue-302",
+   "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/302"
+  },
+  "CLASH6": {
+   "agent": "qwen",
+   "id": "CLASH6",
+   "title": "TASK CLASH6 - resolve the glove clash in two phases (all boxers update, then all resolve)",
+   "status": "failed",
+   "started": "2026-11-15T07:30",
+   "eta": "2026-11-15T09:20",
+   "branch": "qwen/clash6",
+   "worktree": "E:/FightCamp/wt/LEAN_CLASH6",
+   "wt": "E:/FightCamp/wt/LEAN_CLASH6",
+   "brief": "ops/research/TASK_CLASH6.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/CLASH6_dispatch_out.txt",
+   "match": "seat_dispatch.py run clash6",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/CLASH6_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/CLASH6_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/CLASH6_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": false,
+    "runner_pid": 28596,
+    "seat_pid": 8272
+   },
+   "note": "S368 seat_dispatch: launched unattended (command line); merging stays off | S482: Qwen exited 08:04 without the red-test film (its windowed run was killed); Claude runs the film hidden. | S482 film: signal 11 crash in clash_pair (writes the peer skeleton); round 2 in TASK_CLASH6.md"
+  },
+  "MODETELLS1": {
+   "agent": "qwen",
+   "id": "MODETELLS1",
+   "title": "TASK MODETELLS1 - the opponent's mode as a tell: share bands and the tape order (pure rule module + test)",
+   "status": "running",
+   "started": "2026-11-15T08:23",
+   "eta": "2026-11-15T10:13",
+   "branch": "qwen/modetells1",
+   "worktree": "E:/FightCamp/wt/LEAN_MODETELLS1",
+   "wt": "E:/FightCamp/wt/LEAN_MODETELLS1",
+   "brief": "ops/research/TASK_MODETELLS1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/MODETELLS1_dispatch_out.txt",
+   "match": "seat_dispatch.py run modetells1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/MODETELLS1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/MODETELLS1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/MODETELLS1_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 23400,
+    "seat_pid": 34408
+   },
+   "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
   }
  },
  "codex_budget": {

@@ -1,3 +1,19 @@
+S482 (2026-11-15)
+- PLAYBOOK > Game plan is now ONE chart page (your Q-240 "Yes, build it"); the list is gone. Left: the opponent's file
+  (what film found, and your answer to each). Middle: the BELL BOX (what your boxer does at each range when nothing
+  special happens) with a diamond for every IF and an arrow to its answer. Set a line in four clicks: click a range in the
+  bell box and pick; press "+ Add an IF" (the opponent's game and what film found come first); pick the answer in the
+  list under the new diamond; Test it on a sparring night.
+- Every answer shows how drilled it is: LEARNING never fires in a fight, USABLE fires half the time, SHARP three in four.
+  A new boxer has most combinations and steps at LEARNING, so the chart will tell you to put them on the pads first.
+- Two new buttons: "Your coach rewrites it" (an IF for every moment film found, each with a line your boxer can fire) and
+  "Start from last bout" (keeps the 2-3 lines she threw most last bout).
+- Fixed: the coach's suggested plan used to be four lines a new boxer could never fire.
+- THE FIGHT WEEK (built S481, your "Yes, build it"): book a club show and Home asks FIGHT WEEK - no camp. Pick the load
+  stop, 0-2 sparring nights and a partner for each (close / part / loose match; an outside partner costs $160 or a
+  favour). A close sparring partner is now worth about 4-5 wins in 100 on fight night (rounds 1 and 2), measured.
+- New: a women's 70 kg class (light middleweight), with its own six rivals.
+
 S480 (2026-11-15)
 - Film in a camp: a camp that opens in a Peak week or in the fight week now also gives up one pad night for the film night
   (your board answer: "Yes, it costs an evening"). Before, only a camp opening in a Build week paid it. Set a camp with film
