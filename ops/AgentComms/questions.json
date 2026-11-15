@@ -7422,10 +7422,11 @@
       "attach": [
         "research/BOARD_WEIGHT1_R5_S478.md"
       ],
-      "answer": null,
+      "answer": "Keep bout off + $300",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-15T04:07:05Z",
+      "seen_by_claude": true,
+      "comment_only": false
     },
     {
       "id": "Q-S294-233",
@@ -7439,10 +7440,11 @@
       "attach": [
         "research/BOARD_WEIGHT1_R5_S478.md"
       ],
-      "answer": null,
+      "answer": "add womans only",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-15T04:07:38Z",
+      "seen_by_claude": true,
+      "comment_only": true
     },
     {
       "id": "Q-S294-234",
@@ -7456,10 +7458,11 @@
       "attach": [
         "research/BOARD_WEIGHT1_R5_S478.md"
       ],
-      "answer": null,
+      "answer": "Yes, 55 kg",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-15T04:07:49Z",
+      "seen_by_claude": true,
+      "comment_only": false
     },
     {
       "id": "Q-S294-235",
@@ -7473,10 +7476,11 @@
       "attach": [
         "research/BOARD_COACHFIT1_V8_S478.md"
       ],
-      "answer": null,
+      "answer": "Yes, approve",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-15T04:11:31Z",
+      "seen_by_claude": true,
+      "comment_only": false
     },
     {
       "id": "Q-S294-236",
@@ -7490,10 +7494,11 @@
       "attach": [
         "research/BOARD_PLANFLOW1_V3_S478.md"
       ],
-      "answer": null,
+      "answer": "can i see them both",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-15T04:15:51Z",
+      "seen_by_claude": true,
+      "comment_only": true
     },
     {
       "id": "Q-S294-237",
@@ -7507,10 +7512,11 @@
       "attach": [
         "research/BOARD_PLANFLOW1_V3_S478.md"
       ],
-      "answer": null,
+      "answer": "Yes, it costs an evening",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-15T04:16:24Z",
+      "seen_by_claude": true,
+      "comment_only": false
     },
     {
       "id": "Q-S294-238",
@@ -7524,6 +7530,26 @@
       "attach": [
         "research/BOARD_AMATEURWEEK1_V9_S479.md",
         "research/BOARD_SPARPARTNER_S479.png"
+      ],
+      "answer": "Yes, approve",
+      "note": null,
+      "answered_at": "2026-11-15T04:20:13Z",
+      "seen_by_claude": true,
+      "comment_only": false
+    },
+    {
+      "id": "Q-S294-239",
+      "asked": "2026-11-15T04:36:57.601170+00:00",
+      "session": "S294",
+      "text": "Here are both fight plan views: the list in the game today and the flowchart (not built). Which should open first on the Game plan tab?",
+      "options": [
+        "The flowchart first",
+        "Today's list first",
+        "Keep both, a switch between them"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-239_0_plan_flowchart_v1.png",
+        "AgentComms/board_attach/Q-S294-239_1_plan_today_real.png"
       ],
       "answer": null,
       "note": null,

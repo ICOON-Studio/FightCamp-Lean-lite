@@ -3,18 +3,17 @@
  "updated": "2026-11-15",
  "author": "claude S294",
  "now": {
-  "id": "S479",
+  "id": "S480",
   "owner": "claude",
   "updated": "2026-11-15",
-  "summary": "S479: CLASH4 NOT MERGED, CAUSE NARROWED; FIGHT WEEK v9 + PARTNER SCREEN ON HIS BOARD. Qwen's CLASH4 (OWN_ROUNDS 3) left 4242 08_jab f40 at 5.4 cm and broke the brief's keep-OWN_ROUNDS rule (PR 297 closed). Claude's read-by-order fix measured IDENTICAL (reverted): the cause is a one-frame 12 cm guard-glove jump at f40 (18 m/s), which extrapolation cannot predict -> CLASH5 (Qwen) finds the snapping layer. Fight week v9 PASSED (Dola 7/7, John 7/6/7); Claude drew Frame B, the sparring partner screen (docs/mockups/s479), took John's fixes (sparring Tue 4 days out; CLOSE readies 3 lines, PART 2, LOOSE 1) -> board Q-238. PARTNERMATCH1 (pure module) to Arena chat 01a1dd59. STYLE1 to Goose #298 (Arena's sandbox cannot download Godot). Club week v8 failed John 6/5 -> v9 to Kalli SQ159. Dola's training K was cut off half way -> re-asked SQ160. No game code changed: no export.",
-  "last_working_commit": "4af31f4d",
+  "summary": "S480: HIS SEVEN BOARD ANSWERS ACTED ON. Collected PARTNERMATCH1 (Arena PR 299, 90 checks 0 failures on the PC). Q-237 'Yes, it costs an evening': a camp opening in Peak or fight week now gives film a pad night too (WeekPhase.film_night). Q-234 'Yes, 55 kg': men's featherweight 57.5 -> 55 kg. Q-232 'Keep bout off + $300': today's rule, no change. Q-233 'add womans only': women's 70 kg opponents table to Kalli (SQ163), wire when it lands. Q-238 v9 approved: unsparred plan lines fire a level down in rounds 1-2 (FireLevel.round_mastery via bout.unsparred, inert until the fight week switch); PARTNERPROBE1 to Goose #300 (CLOSE beats LOOSE by 3-5 in 100); fight week screen Frame A redrawn for v9 (docs/mockups/s480/fight_week_v2.png: trips gone). Q-235 coach fit approved: COACHFIT2 fit maths to Arena (chat 01a1dd77); coaches board M1 to Dola (SQ165); weight M1 to Maria (SQ164). Q-236 'can i see them both': today's Game plan tab + flowchart drawing -> Q-239. Ladder v1 critics John SQ161 + Dola SQ162. Build exported.",
+  "last_working_commit": "0641a67b",
   "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
   "incomplete_blocked": "claude/clash3-glove-axis DROPPED (BLOCKCLIP1 cleared cross 09 instead; its block_meet regression stays off main).",
-  "next_action": "S480: 0) get_usage. 1) His board answers Q-232..238 (weight, classes, 57.5 kg, coach fit, plan flowchart x2, fight week v9) -> act: coach fit approved = Grok Dev mockup brief + probes; v9 approved = wire PartnerMatch to a partner screen after PARTNERMATCH1 lands. 2) Collect Qwen CLASH5 (qwen/clash5: names the layer that jumps the glove 12 cm at 4242 08_jab f40; merge bar = 0 frames > 2 cm, no new CLASH frame on seeds 4242/77, OWN 0, own_gloves green, hit_frame 3 / hit_carry 32 / block_meet@30 1 FAIL sets = main; diff only). 3) Collect Arena PARTNERMATCH1 (chat 01a1dd59, PR on FightCamp-Lean-lite relays as arena/*; ci_arena.py guard). 4) Collect Goose STYLE1 (#298). 5) Seat answers: Kalli SQ159 club week v9 -> critics John+Maria; Dola SQ160 training K -> TRAINGAME2 (save HTML to docs/mockups/s477/training_k/, render, replace est. numbers, critics); Kalli SQ153 ladder v1 -> critics.",
+  "next_action": "S481: 0) get_usage. 1) Collect Qwen CLASH5 (qwen/clash5, wt E:/FightCamp/wt/LEAN_CLASH5; merge bar: 08_jab 0 frames > 2 cm, no new CLASH frame seeds 4242/77, OWN 0, own_gloves green, hit_frame 3 / hit_carry 32 / block_meet@30 1 FAIL sets = main, OWN_ROUNDS 2; diff only). 2) Collect Arena COACHFIT2 (chat 01a1dd77, relays as arena/*; run tests/coach_fit_test.gd on the PC), Goose STYLE1 (#298) and PARTNERPROBE1 (#300). 3) BUILD THE FIGHT WEEK (his S473 'Yes, build it' + Q-238): Frame A docs/mockups/s480/fight_week_v2.png + Frame B docs/mockups/s479/sparring_partner_v1.png, wired to FightWeek/PartnerMatch/BoutSheet/WeighGap, set bout.unsparred + r1_edge from the picked partner, set fight_week (the switch) with the screen; one golden-path test walks it. If PARTNERPROBE1 fails its gate, tune LINES/EDGE first. 4) Seat answers: Kalli SQ163 women's 70 kg -> Data.DIVISIONS 'wlm' + RegionShows + tests (gauges/male_boxer count four women -> five); Maria SQ164 weight M1 + Dola SQ165 coaches M1 -> render (tools/render_mockup.py), fix numbers, board; SQ159 club week v9 -> critics; SQ160 training K -> TRAINGAME2; SQ161/162 ladder critics. 5) His Q-239 (plan view).",
   "next_acceptance": "CLASH4 merged with 4242 08_jab clean; his board answers acted on; v9 scored by two critics.",
   "awaiting_operator": [
-   "Q-S294-232..237 (weight, classes, 57.5 kg, coach fit, plan flowchart, film in camp)",
-   "Q-S294-238 fight week v9 + sparring partner screen"
+   "Q-S294-239 fight plan: list or flowchart first (both pictures attached)"
   ]
  },
  "next": "S477: 0) get_usage. 1) Collect Qwen BLOCKCLIP1 (branch qwen/blockclip1: 08_cross seed 77 <= 0.02 m every frame, no new deep frame on any shot, block_meet FAIL set not larger; open its f27 stills yourself, then his look). 2) Seat answers: SQ144 fight week map v9 -> two fresh critics -> 6/6 + depth 7 -> his board WITH the redrawn sparring-partner screen (names only in headers); SQ145 LADDER1 research -> Kalli map; SQ143 plan flowchart v3 -> his board; SQ146-150 design loop. 3) Arena: a pure module from v9 (partner-to-opponent match score). 4) CLASH3 left: a boxer's own two gloves (clash_meter reads only pairs across boxers - add own-pair), cross 09 seed 77 one 4.1 cm frame (the clearance believes it clear: its forearm-line glove model vs the drawn glove).",
@@ -1998,6 +1997,11 @@
    "id": "S479",
    "date": "2026-11-15",
    "summary": "S479: CLASH4 NOT MERGED, CAUSE NARROWED; FIGHT WEEK v9 + PARTNER SCREEN ON HIS BOARD. Qwen's CLASH4 (OWN_ROUNDS 3) left 4242 08_jab f40 at 5.4 cm and broke the brief's keep-OWN_ROUNDS rule (PR 297 closed). Claude's read-by-order fix measured IDENTICAL (reverted): the cause is a one-frame 12 cm guard-glove jump at f40 (18 m/s), which extrapolation cannot predict -> CLASH5 (Qwen) finds the snapping layer. Fight week v9 PASSED (Dola 7/7, John 7/6/7); Claude drew Frame B, the sparring partner screen (docs/mockups/s479), took John's fixes (sparring Tue 4 days out; CLOSE readies 3 lines, PART 2, LOOSE 1) -> board Q-238. PARTNERMATCH1 (pure module) to Arena chat 01a1dd59. STYLE1 to Goose #298 (Arena's sandbox cannot download Godot). Club week v8 failed John 6/5 -> v9 to Kalli SQ159. Dola's training K was cut off half way -> re-asked SQ160. No game code changed: no export."
+  },
+  {
+   "id": "S480",
+   "date": "2026-11-15",
+   "summary": "S480: HIS SEVEN BOARD ANSWERS ACTED ON. Collected PARTNERMATCH1 (Arena PR 299, 90 checks 0 failures on the PC). Q-237 'Yes, it costs an evening': a camp opening in Peak or fight week now gives film a pad night too (WeekPhase.film_night). Q-234 'Yes, 55 kg': men's featherweight 57.5 -> 55 kg. Q-232 'Keep bout off + $300': today's rule, no change. Q-233 'add womans only': women's 70 kg opponents table to Kalli (SQ163), wire when it lands. Q-238 v9 approved: unsparred plan lines fire a level down in rounds 1-2 (FireLevel.round_mastery via bout.unsparred, inert until the fight week switch); PARTNERPROBE1 to Goose #300 (CLOSE beats LOOSE by 3-5 in 100); fight week screen Frame A redrawn for v9 (docs/mockups/s480/fight_week_v2.png: trips gone). Q-235 coach fit approved: COACHFIT2 fit maths to Arena (chat 01a1dd77); coaches board M1 to Dola (SQ165); weight M1 to Maria (SQ164). Q-236 'can i see them both': today's Game plan tab + flowchart drawing -> Q-239. Ladder v1 critics John SQ161 + Dola SQ162. Build exported."
   }
  ],
  "blocked_on_operator": [],
@@ -4916,7 +4920,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-15 04:11 board_sync",
+  "updated": "2026-11-15 06:41 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5066,33 +5070,30 @@
   },
   "working_now": [
    {
-    "title": "TASK CLASH5 - the guard glove that jumps 12 cm in one frame (4242 08_jab f40)",
+    "title": "TASK CLASH5 - the guard glove that jumps 30 cm in one frame (seed 4242 08_jab f40), and the clash read that cannot see it",
     "who": "qwen",
     "started": "2026-11-15T05:53",
-    "run": "CLASH5",
-    "state": "running, ETA ~07:45"
+    "run": "CLASH5"
    },
    {
-    "title": "PARTNERMATCH1 - sparring partner match rule (pure module + test)",
+    "title": "Coach fit as numbers: fit, word, gain and tiredness, coach time, ceilings (pure module + test)",
     "who": "arena",
-    "started": "2026-11-15T06:01",
-    "run": "PARTNERMATCH1",
-    "state": "running, ETA ~07:15"
+    "started": "2026-11-15T06:28",
+    "run": "COACHFIT2"
    },
    {
-    "title": "STYLE1 - does any named style dominate? (probe)",
+    "title": "what a close sparring partner is worth on fight night, in wins (a probe; headless, measure only)",
     "who": "goose",
-    "started": "2026-11-15T05:58",
-    "run": "STYLE1",
-    "state": "running, Goose #298"
+    "started": "2026-11-15T06:32",
+    "run": "PARTNERPROBE1"
    }
   ],
   "next": [
    {
-    "id": "SPARPARTNER1",
-    "who": "kalli",
-    "title": "Sparring partner screen (his S475 note, replaces the fight week trips): your boxer | the partners | the opponent's known card; in fight week map v9 (SQ144)",
-    "after": ""
+    "id": "FIGHTWEEK2",
+    "who": "claude",
+    "title": "Build the fight week screen + sparring partner screen (Frames A v2 + B), the switch on, golden path",
+    "after": "PARTNERPROBE1"
    },
    {
     "id": "LADDER1",
@@ -5598,6 +5599,14 @@
   },
   "done_recently": [
    {
+    "title": "S480: PartnerMatch collected; camp film costs a pad night (Q-237); men's 55 kg (Q-234)",
+    "who": "claude"
+   },
+   {
+    "title": "S480: unsparred plan lines wired (inert); fight week screen v2 drawn; plan list vs flowchart on his board (Q-239)",
+    "who": "claude"
+   },
+   {
     "title": "S479: CLASH4 not merged; cause = one-frame glove jump at f40 (CLASH5)",
     "who": "claude"
    },
@@ -5612,41 +5621,6 @@
    {
     "who": "claude",
     "title": "CLASH3: landed cross + blocked hook, her guard glove 9.9 -> 3.6 cm (S478)"
-   },
-   {
-    "id": "STEPMASTERY1",
-    "who": "claude",
-    "title": "Step bars DONE (S463, checked S478): pad-night step cards, FireLevel reads StepMastery.fire_mastery, MoveBook shows each step tier (f9791ce6)",
-    "after": "STEPMASTERY1A"
-   },
-   {
-    "title": "S476: rear knee - toes 45, bar kept honest (Qwen + Claude)",
-    "who": "qwen"
-   },
-   {
-    "title": "S476: uppercut glove clipping 6.5 -> 2.8 cm",
-    "who": "claude"
-   },
-   {
-    "title": "S475: Aim buttons read Liver! / Ribs!",
-    "who": "claude"
-   },
-   {
-    "title": "S475: knee rulers checked - the plane bar was the wrong target (Qwen)",
-    "who": "claude"
-   },
-   {
-    "title": "S475: assistant's pick + club-show calendar modules (Arena)",
-    "who": "claude"
-   },
-   {
-    "title": "S475: 11 kept sounds wired (Qwen)",
-    "who": "claude"
-   },
-   {
-    "title": "Fight week screen mockup v1",
-    "who": "claude",
-    "when": "S474"
    }
   ],
   "scope_note": "S294: lean restart (E:\\FightCamp\\Lean\\docs\\RESTART_PLAN.md). Old roadmap items are parked until the weekly builds reach them.",
@@ -5775,6 +5749,18 @@
   "map": {
    "done_earlier": [
     {
+     "text": "CLASH4 cause: one-frame glove jump",
+     "who": "claude"
+    },
+    {
+     "text": "Fight week v9: 2 critics pass",
+     "who": "agent"
+    },
+    {
+     "text": "Sparring partner screen drawn",
+     "who": "claude"
+    },
+    {
      "text": "Clash root: blocked hook 9.9->3.6",
      "who": "claude"
     },
@@ -5817,31 +5803,31 @@
     {
      "text": "Uppercut clipping 6.5 -> 2.8 cm",
      "who": "claude"
-    },
-    {
-     "text": "Club week v7 critics in",
-     "who": "agent"
-    },
-    {
-     "text": "Liver/ribs: no plan aim (decided)",
-     "who": "claude"
-    },
-    {
-     "text": "Sounds wired: 11 kept (Qwen)",
-     "who": "agent"
     }
    ],
    "done_session": [
     {
-     "text": "CLASH4 cause: one-frame glove jump",
-     "who": "claude"
-    },
-    {
-     "text": "Fight week v9: 2 critics pass",
+     "text": "PartnerMatch module collected",
      "who": "agent"
     },
     {
-     "text": "Sparring partner screen drawn",
+     "text": "Camp film costs a pad night",
+     "who": "claude"
+    },
+    {
+     "text": "Men's 57.5 -> 55 kg",
+     "who": "claude"
+    },
+    {
+     "text": "Unsparred lines wired (inert)",
+     "who": "claude"
+    },
+    {
+     "text": "Plan: list vs flowchart drawn",
+     "who": "claude"
+    },
+    {
+     "text": "Fight week screen v2 drawn",
      "who": "claude"
     }
    ],
@@ -5879,10 +5865,6 @@
      "who": "operator"
     },
     {
-     "text": "Your call: weight + coach fit",
-     "who": "operator"
-    },
-    {
      "text": "Your look: own gloves, cross",
      "who": "operator"
     },
@@ -5899,12 +5881,24 @@
      "who": "claude"
     },
     {
-     "text": "Your call: fight week v9",
-     "who": "operator"
+     "text": "Weight M1 drawing (Maria)",
+     "who": "agent"
     },
     {
-     "text": "Ladder v1: critics next",
-     "who": "claude"
+     "text": "Coaches board M1 (Dola)",
+     "who": "agent"
+    },
+    {
+     "text": "Women's 70 kg table (Kalli)",
+     "who": "agent"
+    },
+    {
+     "text": "Ladder v1 critics (John, Dola)",
+     "who": "agent"
+    },
+    {
+     "text": "Your call: plan view (Q-239)",
+     "who": "operator"
     }
    ],
    "next": [
@@ -5969,16 +5963,16 @@
      "who": "claude"
     },
     {
-     "text": "Partner screen build (after OK)",
+     "text": "Build fight week + partner screen",
      "who": "claude"
     }
    ],
-   "session": "S479"
+   "session": "S480"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
- "last_working_commit": "6a9d6402",
- "next_action": "S480: 0) get_usage. 1) His board answers Q-232..238 (weight, classes, 57.5 kg, coach fit, plan flowchart x2, fight week v9) -> act: coach fit approved = Grok Dev mockup brief + probes; v9 approved = wire PartnerMatch to a partner screen after PARTNERMATCH1 lands. 2) Collect Qwen CLASH5 (qwen/clash5: names the layer that jumps the glove 12 cm at 4242 08_jab f40; merge bar = 0 frames > 2 cm, no new CLASH frame on seeds 4242/77, OWN 0, own_gloves green, hit_frame 3 / hit_carry 32 / block_meet@30 1 FAIL sets = main; diff only). 3) Collect Arena PARTNERMATCH1 (chat 01a1dd59, PR on FightCamp-Lean-lite relays as arena/*; ci_arena.py guard). 4) Collect Goose STYLE1 (#298). 5) Seat answers: Kalli SQ159 club week v9 -> critics John+Maria; Dola SQ160 training K -> TRAINGAME2 (save HTML to docs/mockups/s477/training_k/, render, replace est. numbers, critics); Kalli SQ153 ladder v1 -> critics.",
+ "last_working_commit": "0641a67b",
+ "next_action": "S481: 0) get_usage. 1) Collect Qwen CLASH5 (qwen/clash5, wt E:/FightCamp/wt/LEAN_CLASH5; merge bar: 08_jab 0 frames > 2 cm, no new CLASH frame seeds 4242/77, OWN 0, own_gloves green, hit_frame 3 / hit_carry 32 / block_meet@30 1 FAIL sets = main, OWN_ROUNDS 2; diff only). 2) Collect Arena COACHFIT2 (chat 01a1dd77, relays as arena/*; run tests/coach_fit_test.gd on the PC), Goose STYLE1 (#298) and PARTNERPROBE1 (#300). 3) BUILD THE FIGHT WEEK (his S473 'Yes, build it' + Q-238): Frame A docs/mockups/s480/fight_week_v2.png + Frame B docs/mockups/s479/sparring_partner_v1.png, wired to FightWeek/PartnerMatch/BoutSheet/WeighGap, set bout.unsparred + r1_edge from the picked partner, set fight_week (the switch) with the screen; one golden-path test walks it. If PARTNERPROBE1 fails its gate, tune LINES/EDGE first. 4) Seat answers: Kalli SQ163 women's 70 kg -> Data.DIVISIONS 'wlm' + RegionShows + tests (gauges/male_boxer count four women -> five); Maria SQ164 weight M1 + Dola SQ165 coaches M1 -> render (tools/render_mockup.py), fix numbers, board; SQ159 club week v9 -> critics; SQ160 training K -> TRAINGAME2; SQ161/162 ladder critics. 5) His Q-239 (plan view).",
  "next_acceptance": "OWNGLOVE1 and STYLE1 collected or sent back with the reason; fight week v9 at two critics; the 08_cross trace names the layer."
 }

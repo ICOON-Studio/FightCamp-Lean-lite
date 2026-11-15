@@ -1,3 +1,12 @@
+S480 (2026-11-15)
+- Film in a camp: a camp that opens in a Peak week or in the fight week now also gives up one pad night for the film night
+  (your board answer: "Yes, it costs an evening"). Before, only a camp opening in a Build week paid it. Set a camp with film
+  close to a bout and look at the week strip: one PADS night turns into FILM.
+- Men's featherweight is now 55 kg (your "Yes, 55 kg"). Seen on the region shows and a male boxer's class lists.
+- Nothing else you can see changed: the fight week rule that unsparred plan lines fire a level down in rounds 1-2 is in the
+  code but stays off until the fight week screen is built.
+- On your board: both fight plan views side by side (Q-239), and the fight week screen redrawn without the trips.
+
 S478 (2026-11-15)
 - Gloves in the fight: a boxer's own two gloves no longer sink into each other in the guard. They sit side by side and touch
   at the thumbs. Watch either boxer standing in guard between punches.

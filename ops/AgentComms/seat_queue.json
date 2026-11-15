@@ -2363,17 +2363,76 @@
    "seat": "kalli",
    "brief": "research/DESIGN_CLUBWEEK1_V9_REVISE_KALLI.md",
    "stem": "DESIGN_CLUBWEEK1_V9_REVISE_KALLI_KALLI",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-15 05:47",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-15 06:10",
+   "sent_ms": 1794715838435,
+   "answered_at": "2026-11-15 06:40",
+   "answer": "research/DESIGN_CLUBWEEK1_V9_REVISE_KALLI_KALLI.md",
+   "chars": 45303
   },
   {
    "id": "SQ160",
    "seat": "dola",
    "brief": "research/TRAINGAME_K_DRAW_S479_DOLA.md",
    "stem": "TRAINGAME_K_DRAW_S479_DOLA_DOLA",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-15 05:54",
+   "tries": 0,
+   "sent_at": "2026-11-15 06:10",
+   "pid": 16316,
+   "transcript": "AgentComms/seat_logs/SQ160_dola.txt",
+   "answered_at": "2026-11-15 06:40",
+   "answer": "research/TRAINGAME_K_DRAW_S479_DOLA_DOLA.md"
+  },
+  {
+   "id": "SQ161",
+   "seat": "john",
+   "brief": "research/DESIGN_LADDER1_V1_CRITIC_JOHN.md",
+   "stem": "DESIGN_LADDER1_V1_CRITIC_JOHN_JOHN",
+   "status": "sent",
+   "queued_at": "2026-11-15 06:26",
+   "tries": 0,
+   "sent_at": "2026-11-15 06:40",
+   "sent_ms": 1794717644010
+  },
+  {
+   "id": "SQ162",
+   "seat": "dola",
+   "brief": "research/DESIGN_LADDER1_V1_CRITIC_DOLA.md",
+   "stem": "DESIGN_LADDER1_V1_CRITIC_DOLA_DOLA",
+   "status": "queued",
+   "queued_at": "2026-11-15 06:26",
+   "tries": 0
+  },
+  {
+   "id": "SQ163",
+   "seat": "kalli",
+   "brief": "research/K_WOMEN70_S480.md",
+   "stem": "K_WOMEN70_S480_KALLI",
+   "status": "queued",
+   "queued_at": "2026-11-15 06:26",
+   "tries": 0
+  },
+  {
+   "id": "SQ164",
+   "seat": "maria",
+   "brief": "research/WEIGHT_M1_DRAW_S480_MARIA.md",
+   "stem": "WEIGHT_M1_DRAW_S480_MARIA_MARIA",
+   "status": "sent",
+   "queued_at": "2026-11-15 06:37",
+   "tries": 0,
+   "sent_at": "2026-11-15 06:40",
+   "sent_ms": 1794717646281
+  },
+  {
+   "id": "SQ165",
+   "seat": "dola",
+   "brief": "research/COACHFIT_M1_DRAW_S480_DOLA.md",
+   "stem": "COACHFIT_M1_DRAW_S480_DOLA_DOLA",
+   "status": "queued",
+   "queued_at": "2026-11-15 06:37",
    "tries": 0
   }
  ]
