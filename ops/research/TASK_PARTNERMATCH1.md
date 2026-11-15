@@ -69,7 +69,7 @@ RESULT: tests/partner_match_test.gd -> PARTNER_MATCH checks=<n> failures=0
 ## Contract
 OWNS: scripts/rules/PartnerMatch.gd, tests/partner_match_test.gd
 RED_TEST: tests/partner_match_test.gd -> PARTNER_MATCH failures=0 (red on main: the file does not exist)
-REGRESSION: none - nothing else is edited
+REGRESSION: tests/week_phase_test.gd (untouched; nothing else is edited)
 VISUAL: no
 NOT YOURS: every other file; never delete or weaken a test. Do not wire it (Claude does that).
 Godot 4.7.2 headless: `godot --headless --audio-driver Dummy --path . --script res://tests/partner_match_test.gd`. If your

@@ -8,7 +8,7 @@ extends RefCounted
 ##   slots(show)                             -> `bouts` slots matching BoutSheet's slot shape
 ##   offered(from_day, weeks_min, weeks_max) -> slots in [from_day+7*min, from_day+7*max], soonest
 ##   for_div(slot_list, div)                 -> slots of one class, soonest first
-##   short_name(div)                         -> kg class label ("57 kg", "57.5 kg", ...)
+##   short_name(div)                         -> kg class label ("57 kg", "55 kg", ...)
 
 ## Real amateur clubs (fighters stay fictional).
 const HOSTS := ["Fitzroy Lodge", "West Ham", "Repton", "Lynn AC", "Dale Youth", "All Stars"]
@@ -22,7 +22,7 @@ const WOMEN_DIVS := ["wfw", "wlw", "www", "wmw"]
 const MEN_DIVS := ["mfw", "mlw", "mww", "mmw"]
 const SHORT_NAMES := {
 	"wfw": "57 kg", "wlw": "60 kg", "www": "65 kg", "wmw": "75 kg",
-	"mfw": "57.5 kg", "mlw": "60 kg", "mww": "70 kg", "mmw": "75 kg",
+	"mfw": "55 kg", "mlw": "60 kg", "mww": "70 kg", "mmw": "75 kg",
 }
 const SHOWS_PER_WEEK_MIN := 1
 const SHOWS_PER_WEEK_MAX := 2
@@ -138,6 +138,6 @@ static func for_div(slot_list: Array, div: String) -> Array:
 	return out
 
 
-## Short weight-class label in kg ("57 kg", "57.5 kg", ...); "" for an unknown class id.
+## Short weight-class label in kg ("57 kg", "55 kg", ...); "" for an unknown class id.
 static func short_name(div: String) -> String:
 	return str(SHORT_NAMES.get(div, ""))

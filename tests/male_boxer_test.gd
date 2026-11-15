@@ -46,7 +46,7 @@ func _divisions() -> void:
 	_check(men.size() == 4 and Data.divisions_for("f").size() == 4, "four men's and four women's divisions (%d / %d)" % [men.size(), Data.divisions_for("f").size()])
 	for d in men:
 		var div: Dictionary = Data.DIVISIONS[d]
-		_check([57.5, 60.0, 65.0, 70.0, 75.0].has(float(div["limit"])), "%s limit %.1f kg is a men's class" % [d, float(div["limit"])])
+		_check([55.0, 60.0, 65.0, 70.0, 75.0].has(float(div["limit"])), "%s limit %.1f kg is a men's class" % [d, float(div["limit"])])
 		var names: Array = (div["opponents"] as Array) + [div["mismatch"]]
 		var ok := true
 		for n in names:

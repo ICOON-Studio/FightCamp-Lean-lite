@@ -166,10 +166,11 @@ static func pads(p: String) -> int:
 
 
 ## S381 C229 stage 2: film costs no cash but ONE pad night of the camp (the design: "pads 6 -> 5 that week"): the week the
-## camp opens in, when it is a Build week (a camp set in Peak or fight week has no Build night to give). day = a day of the
+## camp opens in, whatever its phase (S480, his Q-237 "Yes, it costs an evening": a camp set in Peak or fight week used to
+## get film free; Peak keeps 6 pad nights, the taper 3, so each has a night to give; no camp = Base = no film). day = a day of the
 ## week asked about (f["phase_day"], the day WeekPhase.sync last ran); -1 = the camp's own first week.
 static func film_night(p: String, camp: Dictionary, day := -1) -> bool:
-	if p != "build" or not bool(camp.get("film", false)):
+	if p == "base" or not bool(camp.get("film", false)):
 		return false
 	if day < 0:
 		return true

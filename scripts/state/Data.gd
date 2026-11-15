@@ -129,7 +129,8 @@ const COACH_IDS: Array[String] = ["reid", "hale"]
 ## opponents = offered in turn (even matches); mismatch = the open fighter the novice rule keeps away.
 ## S371 MALE1 (operator S370: every playthrough = a male boxer + Ana): the men's four are England Boxing senior men's
 ## classes in force from 1 Jan 2025 (John J_MEN1: 55, 57.5*, 60, 62.5*, 65, 70, 75 ...; * = England Boxing only); the
-## opponents are Kalli's K_MEN1 (fictional names, real club names).
+## opponents are Kalli's K_MEN1 (fictional names, real club names). S480 (his Q-234 "Yes, 55 kg"): the men's featherweight
+## limit is 55 kg, a World Boxing class (57.5 is England Boxing only).
 ## S373 the women's four follow the same 2025 classes (John J_MEN1: 61.2 kg is in no rulebook, 66 kg was dropped on
 ## 1 Jan 2025): 57, 60, 65, 75 - valid under England Boxing and World Boxing. Lucy and Samira walk 0.9 kg over (S416: "why start with cut weight immediately with no fight": the cut comes with the offer, so the camp must be able to make it).
 const DIVISIONS := {
@@ -141,7 +142,7 @@ const DIVISIONS := {
 		"opponents": ["Jade Okoro", "Laura Finch", "Rosa Delgado"], "mismatch": "Kerry Walsh"},
 	"wmw": {"name": "Middleweight, women's amateur", "short": "middleweight", "limit": 75.0, "sex": "f",
 		"opponents": ["Amy Croft", "Siobhan Byrne", "Leah Morgan"], "mismatch": "Victoria Hale"},
-	"mfw": {"name": "Featherweight, men's amateur", "short": "featherweight", "limit": 57.5, "sex": "m",
+	"mfw": {"name": "Featherweight, men's amateur", "short": "featherweight", "limit": 55.0, "sex": "m",
 		"opponents": ["Callum Stokes", "Tariq Hussain", "Owen Pritchard"], "mismatch": "Kofi Boateng"},
 	"mlw": {"name": "Lightweight, men's amateur", "short": "lightweight", "limit": 60.0, "sex": "m",
 		"opponents": ["Liam Doherty", "Dean Clarke", "Arjun Patel"], "mismatch": "Mateusz Kowalczyk"},

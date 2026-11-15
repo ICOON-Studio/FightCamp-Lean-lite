@@ -33,8 +33,10 @@ func _initialize() -> void:
 	_check(h_taper <= 0.6 * h_peak and h_taper >= 0.25 * h_peak, "taper volume %.1f h vs peak %.1f h (down 40-75 %%)" % [h_taper, h_peak])
 	# S381 C229 stage 2: film takes one Build-week pad night (Tuesday), never a sparring night, and nothing outside Build.
 	var film_camp := {"focus": "technique", "protocol": 2, "film": true}
-	_check(PH.film_night("build", film_camp) and not PH.film_night("peak", film_camp) and not PH.film_night("taper", film_camp)
-		and not PH.film_night("build", {"focus": "technique", "protocol": 2, "film": false}), "film takes a night in Build weeks only")
+	# S480 Q-237: film costs an evening in any camp week (Build, Peak, fight week), never in a Base week
+	_check(PH.film_night("build", film_camp) and PH.film_night("peak", film_camp) and PH.film_night("taper", film_camp)
+		and not PH.film_night("base", film_camp)
+		and not PH.film_night("build", {"focus": "technique", "protocol": 2, "film": false}), "film takes a night in any camp week")
 	var ev_film := WP.evenings_for(PH.spar("build"), PH.pads("build"), true)
 	var ev_plain := WP.evenings_for(PH.spar("build"), PH.pads("build"))
 	_check(ev_film.count("film") == 1 and ev_film.count("pads") == ev_plain.count("pads") - 1 and ev_film[1] == "film"

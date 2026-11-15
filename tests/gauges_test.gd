@@ -53,8 +53,8 @@ func _window() -> void:
 	_check(women.size() == 4 and men.size() == 4, "four classes a sex (%s / %s)" % [str(women), str(men)])
 	_check(is_equal_approx(Gauges.class_floor(60.0, women), 57.0), "women's lightweight window 57-60")
 	_check(is_equal_approx(Gauges.class_floor(57.0, women), 54.0), "the lightest class: limit - 3")
-	_check(is_equal_approx(Gauges.class_floor(60.0, men), 57.5) and is_equal_approx(Gauges.class_floor(70.0, men), 67.0)
-		and is_equal_approx(Gauges.class_floor(75.0, women), 72.0), "men 60 -> 57.5; a class 10 kg down draws its last 3 kg (men 70 -> 67, women 75 -> 72)")
+	_check(is_equal_approx(Gauges.class_floor(60.0, men), 57.0) and is_equal_approx(Gauges.class_floor(70.0, men), 67.0)
+		and is_equal_approx(Gauges.class_floor(75.0, women), 72.0), "men 60 -> 57 (S480: 55 below it, the 3 kg window wins); a class 10 kg down draws its last 3 kg (men 70 -> 67, women 75 -> 72)")
 
 
 func _fc(fat: float, stale: float, kg: float, inj: float) -> Dictionary:

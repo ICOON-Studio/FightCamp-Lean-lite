@@ -263,7 +263,7 @@ func _test_short_name() -> void:
 	_check(RegionShows.short_name("wlw") == "60 kg", "short_name wlw -> 60 kg")
 	_check(RegionShows.short_name("www") == "65 kg", "short_name www -> 65 kg")
 	_check(RegionShows.short_name("wmw") == "75 kg", "short_name wmw -> 75 kg")
-	_check(RegionShows.short_name("mfw") == "57.5 kg", "short_name mfw -> 57.5 kg")
+	_check(RegionShows.short_name("mfw") == "55 kg", "short_name mfw -> 55 kg")
 	_check(RegionShows.short_name("mlw") == "60 kg", "short_name mlw -> 60 kg")
 	_check(RegionShows.short_name("mww") == "70 kg", "short_name mww -> 70 kg")
 	_check(RegionShows.short_name("mmw") == "75 kg", "short_name mmw -> 75 kg")

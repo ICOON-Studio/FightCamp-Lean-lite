@@ -133,7 +133,7 @@ static func _ghost(b: Control, gauge: Node, f: Dictionary, day: int, dry: Callab
 
 ## Light / Standard / Hard (S381 C229 stage 2: no prices - the club's own nights are free) in nights a week and the edge on
 ## the night; S382 G4 their fight-night legs and injury risk moved to the gauge row (the picked one; the others ghost there
-## on the hover, G5), so the Hard card's red risk line is gone. The film switch is free; it takes a Build-week pad night, so its
+## on the hover, G5), so the Hard card's red risk line is gone. The film switch is free; it takes a pad night of the camp's first week (S480), so its
 ## forecast is in every number on the modal.
 func _options(main: Node, c: Career, f: Dictionary, opp: Dictionary, focus: String, proto: int, film: bool, partner: bool,
 		mine: Dictionary) -> HBoxContainer:
