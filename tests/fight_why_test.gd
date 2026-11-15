@@ -6,7 +6,16 @@ const Data := preload("res://scripts/state/Data.gd")
 const Bouts := preload("res://scripts/state/Bouts.gd")
 const FightWhy := preload("res://scripts/rules/FightWhy.gd")
 
-const GOOD := [{"move": "1-1"}, {"move": "step_back"}, {"move": "pivot_out"}, {"move": "tie_up"}]
+## S492 WHYGRADE1 (docs/WHYGRADE1_RESULT.md; measured with tools/why_fires_probe.gd -- <plan>, 540 bouts each): since
+## CARDFIX1 situations happen where the boxer stands, so a line with no "when" fires on EVERY situation at its place. The old
+## good plan (1-1, step_back, pivot_out, tie_up) read GOOD 278 of 540: its any-time tie_up fired on a merely TIRING opponent
+## inside (36% won against 49% with no plan, -64 exchanges, the biggest loss), and nothing answered a counter-puncher at
+## outside. Probed: feint in pivot_out's place 214 (an any-time feint also fires on pressure); tie_up only when she is tired
+## 326; + feint when she counters 333; + body-head hook when she tires inside 411 (the 5 lines without feint 400). The good
+## plan is the 6 lines a first hired coach holds (Reid 58 -> PlanBoard.arrow_limit 6), each answer on its situation
+## (PlanFight.ANSWERS best): a good plan in this game says WHEN, not only where. 3b-3 is drilled like the 1-1 (combos 50).
+const GOOD := [{"move": "1-1"}, {"move": "step_back"}, {"move": "pivot_out"}, {"move": "tie_up", "when": "she_tired"},
+	{"move": "feint", "when": "counter"}, {"move": "3b-3@inside", "when": "tiring"}]
 const BAD := [{"move": "cut_off"}, {"move": "3b-3"}, {"move": "herd"}, {"move": "3b-3@inside"}]
 ## S434 NOCAMP1 (the review: 53 of 60 against the 54 bar): measured with tools/nocamp_probe.gd "why", the same bouts on
 ## days 40.. - 180 bouts: main's code 162 (0.900), the branch without NOCAMP1 166 (0.922), with it 163 (0.906); 540 bouts:
@@ -78,9 +87,9 @@ func _bout(day: int, arrows: Array) -> Dictionary:
 	c.day = day
 	var f: Dictionary = c.fighter()
 	f["camp"] = {}
-	f["combos"] = {"1-1": 50.0, "1-2": 50.0}
+	f["combos"] = {"1-1": 50.0, "1-2": 50.0, "3b-3": 50.0}   # S492: the good plan's 3b-3 line drilled like the 1-1
 	# S463 STEPMASTERY1 gate: the plan's steps/defences at Signature (85, always fire = before the gate) - this test grades the plan, not the drilling.
-	for sid in ["step_back", "pivot_out", "tie_up", "cut_off", "herd"]:
+	for sid in ["step_back", "pivot_out", "tie_up", "cut_off", "herd", "feint"]:
 		(f.get_or_add("steps", {}) as Dictionary)[sid] = 85.0
 	f["arrows"] = arrows.duplicate(true)
 	f["bout"] = {"opp": (Data.OPPONENTS[0] as Dictionary).duplicate(true), "day": c.day, "weighed": true, "made": true, "done": false,

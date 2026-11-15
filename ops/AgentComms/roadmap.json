@@ -3,12 +3,12 @@
   "updated": "2026-11-15",
   "author": "claude S294",
   "now": {
-    "id": "S491",
+    "id": "S492",
     "owner": "claude",
     "updated": "2026-11-15",
-    "summary": "S491: his fight defects 1-5 fixed and shown (chip off the face, 'EYE' now plain hurt words, opponent energy bar fills, 'Draw the lea' fits, call hovers on the house card with the odds drawn); his mid-session 'large fonts ... out of bound': Text size now grows letters and keeps the 1920x1080 canvas (TextScale), every one-line text settles back to fit its box (audit 60 screens: Largest 64 -> 3); his 'cohesive interface' -> ONELOOK1; TURN PRO crash with no offer fixed; BODYLOOK1 brief for Ziva (defects 6-7).",
-    "next_action": "S492: 0) get_usage; where_we_are roll S492; START ZIVA on BODYLOOK1 (start prints ZIVA DOWN, HAS WORK). 1) Quote board answers Q-248..251 + his review comments on the S491 fight stills. 2) ONELOOK1: Q-251 palette sweep if approved, move the remaining fight hovers (stamina, effects panel, aim/pace) onto the house card, playbook step buttons (80 px), guide bubble off frame (layout_snapshot OFF FRAME). 3) Collect Qwen WHYGRADE1 (fix: good plan's counter lines reach counter|outside), Arena ROPESCONTRACT1 PR #317 (5 mutants), COACHSPEC1 round 3: SQ181 Dola 8/7 pass, SQ182 John 6/5/5 FAIL - fix his four rules (BJJ promotion must follow IBJJF Art. 6.1-6.2: a black-belt professor signs) then two fresh critics. 4) CLASH10 audit by Claude. 5) FIGHTWEEK3 leftovers. 6) Arena pure module.",
-    "last_working_commit": "28680520",
+    "summary": "S492: WHYGRADE1 closed - the test's good plan had no WHEN on its lines, so since CARDFIX1 they fired on every situation at their place (any-time tie up on a merely tiring opponent: 36% won vs 49% with no plan); a 6-line plan that says WHEN reads GOOD 411 of 540 (was 278), bad plan 2; ROPESCONTRACT1 collected (5/5 mutants red); COACHSPEC1 round 3 (John's 12 faults fixed + r3 probe) at Kalli + Maria; Ziva on BODYLOOK1.",
+    "next_action": "S493: 0) get_usage; where_we_are roll S493; check Ziva BODYLOOK1 (chat 'BODYLOOK1 task in progress' at 127.0.0.1:7012, branch ziva/bodylook1): open every before/after still, collect or re-task. 1) Quote board answers Q-248..251 + the Miro question (may the P0 redraw delete its 16 empty surplus card slots? the svg is ready: where_we_are.py svg). 2) Collect SQ183 Kalli + SQ184 Maria COACHSPEC1 round-3 critics (depth 7+ both -> his board with the map; else round 4). 3) ONELOOK1: Q-251 palette sweep if approved; remaining fight hovers onto the house card; playbook step buttons; guide bubble off frame. 4) Player-facing lesson from WHYGRADE1: a plan line with no WHEN fires on every situation at its place (any-time tie up lost 13 pp on a tiring opponent) - the Game plan screen should show it (PLANFLOW1 'uses' lines). 5) plan_bots red (NIGHTLY1) - check if the same any-time-lines cause. 6) CLASH10 audit. 7) FIGHTWEEK3 leftovers. 8) Arena: one pure module (lite_mirror.py --lean push first). | HIS BOARD ANSWERS (after S492 start): Q-248 option C made simpler; Q-249 change Training K first (say what); Q-250 ladder not scripted - player picks the opponent any time, rules limit it (LADDER1 back to design); Q-251 do the palette sweep, he judges.",
+    "last_working_commit": "3e06d9cc",
     "verified_playable": "Builds/FightCamp.exe exported 2026-11-15 (S490): fall-through card, ropes lines, named styles worth points, Training jump",
     "incomplete_blocked": "His 7 fight defects (reported at the end of S490) not started; CLASH clipping 3 rounds red; Miro P0 not redrawn (12 surplus slots need his OK to delete)",
     "next_acceptance": "Each fight defect fixed and shown on a still from the game camera, opened by Claude; his OK closes the look items",
@@ -2055,6 +2055,11 @@
       "id": "S491",
       "date": "2026-11-15",
       "summary": "S491: his fight defects 1-5 fixed and shown (chip off the face, 'EYE' now plain hurt words, opponent energy bar fills, 'Draw the lea' fits, call hovers on the house card with the odds drawn); his mid-session 'large fonts ... out of bound': Text size now grows letters and keeps the 1920x1080 canvas (TextScale), every one-line text settles back to fit its box (audit 60 screens: Largest 64 -> 3); his 'cohesive interface' -> ONELOOK1; TURN PRO crash with no offer fixed; BODYLOOK1 brief for Ziva (defects 6-7)."
+    },
+    {
+      "id": "S492",
+      "date": "2026-11-15",
+      "summary": "S492: WHYGRADE1 closed - the test's good plan had no WHEN on its lines, so since CARDFIX1 they fired on every situation at their place (any-time tie up on a merely tiring opponent: 36% won vs 49% with no plan); a 6-line plan that says WHEN reads GOOD 411 of 540 (was 278), bad plan 2; ROPESCONTRACT1 collected (5/5 mutants red); COACHSPEC1 round 3 (John's 12 faults fixed + r3 probe) at Kalli + Maria; Ziva on BODYLOOK1."
     }
   ],
   "blocked_on_operator": [],
@@ -4973,7 +4978,7 @@
   },
   "plan": {
     "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-    "updated": "2026-11-15",
+    "updated": "2026-11-15 18:42 board_sync",
     "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
     "titles": {
       "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5134,13 +5139,20 @@
         "started": "2026-11-15T17:14",
         "run": "WHYGRADE1",
         "state": "LANDED - Claude collects"
+      },
+      {
+        "title": "Bodies look stitched: coach neck seam, fighters' shoulders and walk, see-through parts - measure on the game camera, then fix",
+        "who": "ziva",
+        "started": "2026-11-15T18:45",
+        "run": "BODYLOOK1",
+        "state": "STOPPED - Claude relaunches or closes"
       }
     ],
     "next": [
       {
         "id": "BODYLOOK1",
         "who": "ziva",
-        "title": "His S490 play: coach 'terrible neck blending', fighters' shoulders + walk, 'you can see through them' - measure on the game camera, name the cause per symptom, fix (TASK_BODYLOOK1.md)",
+        "title": "Ziva working (S492): coach neck seam, fighters' shoulders + walk, see-through parts - measure on the game camera, name the cause per symptom, fix (TASK_BODYLOOK1.md)",
         "after": ""
       },
       {
@@ -5188,7 +5200,7 @@
       {
         "id": "PLANFLOW1",
         "who": "claude",
-        "title": "Plan flowchart: stage 1 built S482, mode tells wired S483 (OFTEN/SOME/RARE). Left: main bet, uses lines (probe 6), Save/Load; his look first",
+        "title": "Plan flowchart: stage 1 built S482, mode tells wired S483 (OFTEN/SOME/RARE). Left: main bet, uses lines (probe 6), Save/Load; his look first | S492 WHYGRADE1: a line with no WHEN fires on every situation at its place - show it on the plan",
         "after": ""
       },
       {
@@ -5659,6 +5671,18 @@
     },
     "done_recently": [
       {
+        "title": "Coach roles round 3: John's 12 faults fixed, r3 probe (S492)",
+        "who": "claude"
+      },
+      {
+        "title": "Ropes contract test, 5/5 mutants red (Arena, S492)",
+        "who": "claude"
+      },
+      {
+        "title": "Good plan says WHEN: fight_why 278 -> 411 of 540 (WHYGRADE1, S492)",
+        "who": "claude"
+      },
+      {
         "title": "TASK STYLE5 - named styles worth real points: one exchange edge each, counted for real, tuned into the band",
         "who": "qwen",
         "when": "2026-11-15"
@@ -5718,11 +5742,6 @@
         "title": "TASK CLASH7 - one pump runs both boxers' skeleton stacks once a frame, in a fixed order (glove clash root fix)",
         "who": "qwen",
         "when": "2026-11-15"
-      },
-      {
-        "title": "Step worth by style (Arena STEPVALUE2, S486)",
-        "who": "arena",
-        "done": "2026-11-15"
       }
     ],
     "scope_note": "S294: lean restart (E:\\FightCamp\\Lean\\docs\\RESTART_PLAN.md). Old roadmap items are parked until the weekly builds reach them.",
@@ -5851,6 +5870,26 @@
     "map": {
       "done_earlier": [
         {
+          "text": "Face chip off, EYE in words",
+          "who": "claude"
+        },
+        {
+          "text": "Opponent energy bar fills",
+          "who": "claude"
+        },
+        {
+          "text": "Call hover: house card + odds",
+          "who": "claude"
+        },
+        {
+          "text": "Large fonts keep the screen",
+          "who": "claude"
+        },
+        {
+          "text": "Text fits its box: 64 -> 3",
+          "who": "claude"
+        },
+        {
           "text": "Training button on the ops board",
           "who": "claude"
         },
@@ -5885,47 +5924,15 @@
         {
           "text": "Step worth on the learn card",
           "who": "claude"
-        },
-        {
-          "text": "Contract test approach, 5/5",
-          "who": "claude"
-        },
-        {
-          "text": "Promised show bout boxed",
-          "who": "claude"
-        },
-        {
-          "text": "Approach on 6 more menus",
-          "who": "claude"
-        },
-        {
-          "text": "STYLE4 audited, STYLE5 brief",
-          "who": "claude"
-        },
-        {
-          "text": "Rival club approach card, live",
-          "who": "claude"
         }
       ],
       "done_session": [
         {
-          "text": "Face chip off, EYE in words",
-          "who": "claude"
+          "text": "Good-plan grade: cause found",
+          "who": "agent"
         },
         {
-          "text": "Opponent energy bar fills",
-          "who": "claude"
-        },
-        {
-          "text": "Call hover: house card + odds",
-          "who": "claude"
-        },
-        {
-          "text": "Large fonts keep the screen",
-          "who": "claude"
-        },
-        {
-          "text": "Text fits its box: 64 -> 3",
+          "text": "Coach roles: round 3 rules",
           "who": "claude"
         }
       ],
@@ -5987,10 +5994,6 @@
           "who": "claude"
         },
         {
-          "text": "Coach specialties map (C408)",
-          "who": "claude"
-        },
-        {
           "text": "Ladder shown: screens + season",
           "who": "claude"
         },
@@ -6000,6 +6003,18 @@
         },
         {
           "text": "Fall-through card (FIGHTWEEK3)",
+          "who": "claude"
+        },
+        {
+          "text": "Bodies: neck, shoulders (Ziva)",
+          "who": "agent"
+        },
+        {
+          "text": "Coach roles: critics R3",
+          "who": "agent"
+        },
+        {
+          "text": "Good plan answers the counter",
           "who": "claude"
         }
       ],
@@ -6057,24 +6072,16 @@
           "who": "claude"
         },
         {
-          "text": "Good-plan grade since CARDFIX1",
-          "who": "agent"
-        },
-        {
-          "text": "Bodies: neck, shoulders (Ziva)",
-          "who": "claude"
-        },
-        {
           "text": "One look: palette + all hovers",
           "who": "claude"
         }
       ],
-      "session": "S491"
+      "session": "S492"
     }
   },
   "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
   "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
-  "last_working_commit": "d46e59e1",
-  "next_action": "S491: 0) get_usage; where_we_are roll S491. 1) HIS FIGHT DEFECTS FIRST (NEXT_SESSION_PROMPT: chip on the face, tooltip redesign, 'Draw the lea' clipped, the 'EYE' label, the opponent energy bar, coach neck seam, shoulders/walk/see-through bodies). 2) Quote board answers Q-248..251 and act. 3) Collect Qwen WHYGRADE1, Arena ROPESCONTRACT1 (5 mutants), SQ181/182 COACHSPEC1 critics. 4) CLASH10 audit by Claude. 5) FIGHTWEEK3 leftovers. 6) Arena pure module.",
+  "last_working_commit": "3e06d9cc",
+  "next_action": "S493: 0) get_usage; where_we_are roll S493; check Ziva BODYLOOK1 (chat 'BODYLOOK1 task in progress' at 127.0.0.1:7012, branch ziva/bodylook1): open every before/after still, collect or re-task. 1) Quote board answers Q-248..251 + the Miro question (may the P0 redraw delete its 16 empty surplus card slots? the svg is ready: where_we_are.py svg). 2) Collect SQ183 Kalli + SQ184 Maria COACHSPEC1 round-3 critics (depth 7+ both -> his board with the map; else round 4). 3) ONELOOK1: Q-251 palette sweep if approved; remaining fight hovers onto the house card; playbook step buttons; guide bubble off frame. 4) Player-facing lesson from WHYGRADE1: a plan line with no WHEN fires on every situation at its place (any-time tie up lost 13 pp on a tiring opponent) - the Game plan screen should show it (PLANFLOW1 'uses' lines). 5) plan_bots red (NIGHTLY1) - check if the same any-time-lines cause. 6) CLASH10 audit. 7) FIGHTWEEK3 leftovers. 8) Arena: one pure module (lite_mirror.py --lean push first). | HIS BOARD ANSWERS (after S492 start): Q-248 option C made simpler; Q-249 change Training K first (say what); Q-250 ladder not scripted - player picks the opponent any time, rules limit it (LADDER1 back to design); Q-251 do the palette sweep, he judges.",
   "next_acceptance": "Ladder v2 reaches his board only with both critics at depth 7+; STYLE4 code merged only when docs/STYLE3_RESULT.md's gates pass (each style 1.5-4 wins in 100, none best vs all) at 100 bouts a cell; ClubDeal v9 briefed only after his Q-242 answer; no CLASH brief before the audit names which skeleton's stack runs first and what peer data each reads."
 }

@@ -35,3 +35,9 @@ and the weight paint at the shoulder, and plays the walk clip beside a reference
 ## Prefab check
 MetaHuman bodies are the house rule (memory feedback_metahuman_only_no_mpfb). No new asset buys (mocap packs: end of
 November, his call).
+
+## Contract
+OWNS: scripts/fight3d/BoxerBuild.gd, scripts/fight3d/CornerCrew.gd, scripts/fight3d/BoxerFootwork.gd, assets/models/metahuman, assets/models/kit, docs/playtest/bodylook1 (more body files only if named in the PR body first)
+RED_TEST: tools/fight3d_play.gd (before stills of each symptom on the game camera are the red)
+REGRESSION: tests/golden_path_test.gd plus the fight motion tests a motion change touches (sh tools/run_tests.sh names)
+VISUAL: yes
