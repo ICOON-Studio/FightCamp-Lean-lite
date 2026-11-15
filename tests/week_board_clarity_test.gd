@@ -118,6 +118,17 @@ func _initialize() -> void:
 	b = _board()
 	_check(b.find_child("Undo_6", true, false) == null and not (f.get("week_edits", {}).get("days", {}) as Dictionary).has("6"),
 		"'undo' puts the coach's card back")
+	# S485 CLUBWEEK1 (his Q-243): off the sponsorship two mornings read WORK; on it, none.
+	_check(b.find_child("WorkMorning_1", true, false) == null and b.find_child("WorkMorning_3", true, false) == null, "on the sponsorship: no WORK mornings")
+	f["day_job"] = true
+	main.act("ftab", "3")
+	await _settle(3)
+	b = _board()
+	var works := 0
+	for i in 7:
+		if b.find_child("WorkMorning_%d" % i, true, false) != null:
+			works += 1
+	_check(works == 2, "a day job: two mornings read WORK (%d)" % works)
 	_done()
 
 

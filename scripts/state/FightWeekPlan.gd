@@ -33,6 +33,7 @@ const FAVOURS_START := 1   # every host club starts one favour up (FightWeekEven
 const SPAR_FIRST := 6
 const SPAR_LAST := 2
 const WEEK_BEFORE := 8
+const FilmSeats := preload("res://scripts/rules/FilmSeats.gd")
 
 
 ## Called the day an amateur bout is booked (Bouts.accept): marks it a fight week (no camp), names the show's host and
@@ -258,9 +259,41 @@ static func lock(c: Career, f: Dictionary, plan: Dictionary) -> String:
 	f["sparred"] = sparred
 	if bool(plan.get("film", false)):
 		b["fw_film"] = c.day
-		var id := OppFile.tape(b["opp"])
-		if id != "":
-			c.add_news("Film night on %s: a new tell found." % str(b["opp"]["first"]), true, true)
+		if film_seat(c, f) == FilmSeats.ALONE:
+			b["fw_film_alone"] = true   # S485 CLUBWEEK1 (map 3.4): over the coach's film seats she watches alone - no tell
+			c.add_news("%s watched the tape of %s alone: the coach's film nights were taken, no tell found." % [str(f["first"]), str(b["opp"]["first"])], true, true)
+		else:
+			var id := OppFile.tape(b["opp"])
+			if id != "":
+				c.add_news("Film night on %s: a new tell found." % str(b["opp"]["first"]), true, true)
 	b["fw_locked"] = true
 	WeekPhase.sync(f, c.day)
 	return ""
+
+
+## S485 CLUBWEEK1 (map 3.4, FilmSeats): the coach sits down for FilmSeats.owned film nights a fight week, first come first
+## served across the boxers whose bouts fall in the same week. COACHED or ALONE for f's film night now.
+static func film_seat(c: Career, f: Dictionary) -> String:
+	return FilmSeats.ALONE if film_taken(c, f) >= FilmSeats.owned(coach_kind(c)) else FilmSeats.COACHED
+
+
+## The film nights other boxers already took for bouts in the same week as f's.
+static func film_taken(c: Career, f: Dictionary) -> int:
+	var day := int((f.get("bout", {}) as Dictionary).get("day", -999))
+	var n := 0
+	for o in c.fighters:
+		var ob: Dictionary = o.get("bout", {})
+		if str(o.get("id", "")) != str(f.get("id", "")) and ob.has("fw_film") and absi(int(ob.get("day", -999)) - day) < 7:
+			n += 1
+	return n
+
+
+## The film line for the fight week screen: "" while a seat is free.
+static func film_line(c: Career, f: Dictionary) -> String:
+	if film_seat(c, f) == FilmSeats.COACHED:
+		return ""
+	return "Film: %d boxers this week, %d coached film nights - she watches alone, no tell" % [film_taken(c, f) + 1, FilmSeats.owned(coach_kind(c))]
+
+
+static func coach_kind(c: Career) -> String:
+	return "full_time" if bool(c.coach.get("full_time", false)) else "sessional"

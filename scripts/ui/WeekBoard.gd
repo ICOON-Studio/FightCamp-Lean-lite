@@ -30,6 +30,7 @@ const FaceFrame := preload("res://scripts/ui/FaceFrame.gd")
 const WEEKS_NO_BOUT := 4
 const COL_GAP := 12.0
 const SHORT := ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+const DayJob := preload("res://scripts/rules/DayJob.gd")
 
 static var picking := ""
 static var picking_eve := ""
@@ -262,6 +263,9 @@ func _strip(main: Node, c: Career, f: Dictionary, pl: Dictionary, pack: Dictiona
 		main.render()
 	var grid := UI.hbox(10)
 	grid.name = "Week"
+	# S485 CLUBWEEK1 (his Q-243): off the gym sponsorship she works 2 mornings; the morning gains count 4 of 6.
+	var rest_days: Array = range(7).filter(func(k): return str((days[k] as Array)[0]) == "rest")
+	var work: Array = DayJob.lost_days(bool(f.get("day_job", false)) and not bool(f.get("pro", false)), rest_days)
 	for i in 7:
 		var col := UI.vbox(8)
 		col.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -276,6 +280,10 @@ func _strip(main: Node, c: Career, f: Dictionary, pl: Dictionary, pack: Dictiona
 		var red: bool = (wk["red"] as Array).has(i)
 		var card_fn := _magnet.bind(m, base[i], r, red, changed.has(str(i)), twist)
 		col.add_child(WeekCards.am(i, m, base[i], r, float(tired[i][3]), float(tired[i][0]), goal_key, card_fn, open))
+		if work.has(i):
+			var job := UI.label("WORK: no morning session (morning gains count 4 of 6)", UI.SMALL, UI.AMBER, "bold", true)
+			job.name = "WorkMorning_%d" % i
+			col.add_child(job)
 		var spec := _night_spec(main, f, i, pack)
 		spec["cost"] = float(tired[i][2]) - float(tired[i][3])
 		spec["key2"] = str(r.get("stat2", "")) if float(r.get("gain2", 0.0)) >= 0.005 else ""

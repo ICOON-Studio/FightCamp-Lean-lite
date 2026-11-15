@@ -173,6 +173,19 @@
    "where": "cloud",
    "url": "https://arena.ai/agent/01a1dead-d208-7ec9-a399-f01c3a333cf0",
    "branch": "arena/3a333cf0-fightcamp-lean-lite"
+  },
+  "FILMSEATS1": {
+   "agent": "arena",
+   "id": "FILMSEATS1",
+   "title": "Film seats in a fight week: who watches with the coach, who watches alone (pure module + test)",
+   "status": "merged (S485, as is)",
+   "started": "2026-11-15T12:27",
+   "eta": "2026-11-15T12:45",
+   "brief": "ops/research/TASK_FILMSEATS1.md",
+   "repo": "FightCamp-Lean-lite",
+   "where": "cloud",
+   "url": "https://arena.ai/agent/01a1deba-0752-73e4-97f8-08e3024d5ae3",
+   "branch": "arena/024d5ae3-fightcamp-lean-lite"
   }
  },
  "codex_budget": {

@@ -92,8 +92,11 @@ func _week_before(main: Node, c: Career, f: Dictionary, m: Dictionary, r: Dictio
 	var film_on := bool(plan.get("film", false))
 	row.add_child(UI.button("FILM NIGHT: %s" % ("ON" if film_on else "OFF"), "BtnSolid" if film_on else "BtnQuiet",
 		main.act.bind("fwfilm", ""), not can_film, "no film of the opponent left to watch"))
-	row.add_child(UI.label("opens one new tell, costs one pad night" if can_film else "no film of the opponent left to watch",
-		16, UI.MUTED))
+	var alone := FightWeekPlan.film_line(c, f) if can_film else ""
+	var film_word := alone if alone != "" else ("opens one new tell, costs one pad night" if can_film else "no film of the opponent left to watch")
+	var fl := UI.label(film_word, 16, UI.AMBER if alone != "" else UI.MUTED)
+	fl.name = "FilmSeatLine"
+	row.add_child(fl)
 	return row
 
 
