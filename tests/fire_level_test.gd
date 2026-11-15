@@ -43,6 +43,15 @@ func _initialize() -> void:
 	_check(FireLevel.share(FireLevel.shares_for({"fire_level": FireLevel.OFF}), 40.0) == 1.0, "the rule-off arm's explicit key -> 1.0")
 	_check(FireLevel.share(FireLevel.shares_for({"fire_level": {}}), 0.0) == 1.0, "an explicit empty key = today's game at every mastery")
 	_check(FireLevel.mastery_of({}, "step_in") == 100.0 and FireLevel.share(FireLevel.GAME_SHARES, FireLevel.mastery_of({}, "step_in")) == 1.0, "a step keeps full fire under the game's shares")
+	# 6. S480 fight week v9: an unsparred plan line fires one level down in rounds 1-2 only; no key = today's game.
+	var spar := {"unsparred": ["feint"]}
+	_check(FireLevel.level_down(90.0) == FireLevel.SHARP_AT and FireLevel.level_down(70.0) == FireLevel.USABLE_AT
+		and FireLevel.level_down(40.0) == 0.0, "level down: Signature -> Sharp, Sharp -> Usable, Usable -> under")
+	_check(FireLevel.round_mastery(spar, "feint", 1, 70.0) == FireLevel.USABLE_AT, "unsparred line, round 1: Sharp reads Usable")
+	_check(FireLevel.round_mastery(spar, "feint", 2, 40.0) == 0.0, "unsparred line, round 2: Usable does not fire")
+	_check(FireLevel.round_mastery(spar, "feint", 3, 70.0) == 70.0, "round 3: the unsparred line fires at its own level")
+	_check(FireLevel.round_mastery(spar, "jab", 1, 70.0) == 70.0, "a sparred line is never shifted")
+	_check(FireLevel.round_mastery({}, "feint", 1, 70.0) == 70.0, "no unsparred key on the bout = today's game")
 	print("FIRE_LEVEL failures=%d" % failures)
 	quit(1 if failures > 0 else 0)
 

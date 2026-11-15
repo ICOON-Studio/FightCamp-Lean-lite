@@ -43,16 +43,18 @@
       },
       "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
     },
-    "PARTNERMATCH1": {
+    "COACHFIT2": {
       "agent": "arena",
-      "id": "PARTNERMATCH1",
-      "title": "Sparring partner match: points, word, lines readied, round-1 edge (pure module + test)",
+      "id": "COACHFIT2",
+      "title": "Coach fit as numbers: fit, word, gain and tiredness, coach time, ceilings (pure module + test)",
       "status": "running",
-      "started": "2026-11-15T06:01",
-      "eta": "2026-11-15T07:15",
-      "branch": "arena/01a1dd59-fightcamp-lean-lite",
-      "chat": "https://arena.ai/agent/01a1dd59-dec9-7c6d-a884-cfad25ce9418",
-      "brief": "ops/research/TASK_PARTNERMATCH1.md"
+      "started": "2026-11-15T06:28",
+      "eta": "2026-11-15T07:45",
+      "branch": "arena/01a1dd77-fightcamp-lean-lite",
+      "chat": "https://arena.ai/agent/01a1dd77-618e-7712-a4b2-849d37bbb252",
+      "brief": "ops/research/TASK_COACHFIT2.md",
+      "repo": "ICOON-Studio/FightCamp-Lean-lite",
+      "seat": "arena"
     }
   },
   "codex_budget": {

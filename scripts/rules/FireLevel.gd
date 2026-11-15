@@ -11,6 +11,7 @@ extends RefCounted
 
 const StrikeMap := preload("res://scripts/rules/StrikeMap.gd")
 const StepMastery := preload("res://scripts/rules/StepMastery.gd")
+const FightWeek := preload("res://scripts/rules/FightWeek.gd")
 
 ## The mastery tiers and their default shares (1.0 = always fires = today's behavior).
 const USABLE_AT := 30.0
@@ -55,6 +56,24 @@ static func shares_for(bout: Dictionary) -> Dictionary:
 ## Returns true if roll < share(level_shares, mastery).
 static func fires(level_shares: Dictionary, mastery: float, roll: float) -> bool:
 	return roll < share(level_shares, mastery)
+
+
+## S480 fight week v9 (his Q-238 "Yes, approve"): a plan line the boxer has not sparred (bout["unsparred"] holds its move
+## ids) fires one level down in rounds FightWeek.FIRST_ROUND..BOOST_LAST_ROUND (FightWeek.fire_shift): Signature reads
+## Sharp, Sharp reads Usable, Usable reads under Usable (it does not fire). No key = today's game.
+static func level_down(mastery: float) -> float:
+	if mastery >= SIGNATURE_AT:
+		return SHARP_AT
+	if mastery >= SHARP_AT:
+		return USABLE_AT
+	return 0.0
+
+
+static func round_mastery(bout: Dictionary, arrow: String, round_no: int, mastery: float) -> float:
+	var unsparred: Array = bout.get("unsparred", [])
+	if FightWeek.fire_shift(unsparred.has(arrow), round_no) < 0:
+		return level_down(mastery)
+	return mastery
 
 
 ## The mastery for an arrow: combo mastery for combos; a step/defence reads its bar (S463 STEPMASTERY1 gate,
