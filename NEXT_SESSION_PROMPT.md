@@ -1,6 +1,6 @@
-# S479 handover (written 2026-11-15 at the end of S478; S477's handover is in git history)
+# S480 handover (written 2026-11-15 at the end of S479; S478's handover is in git history)
 
-OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `python ops/Tools/where_we_are.py roll S479`.
+OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `python ops/Tools/where_we_are.py roll S480`.
 
 ## USAGE RULES (kept)
 - Run `get_usage` first. Hand over at 420k; start the wrap-up at ~310-330k (send Miro partials, not the whole frame).
@@ -12,33 +12,30 @@ OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py s
   official Godot_v4.7.2-stable_linux.x86_64.zip from github.com/godotengine/godot/releases, import once, then run".
 - `agent_comms.py ask --attach` takes paths relative to ops/ (`research/X.md`), not `ops/research/X.md`.
 - The roadmap is 2-space JSON; the board tool sometimes rewrites it 1-space CRLF - rewrite with indent=2 before committing.
+- NEW S479: Arena's sandbox cannot download Godot at all (SSL to release-assets) - Arena gets pure modules only (CI runs the
+  test); anything that must RUN Godot goes to Goose or Qwen. Arena chat: Chrome tab, GitHub chip -> repo picker -> FightCamp-Lean-lite.
 
-## WHAT S478 DID (ops/research/S478_DIGEST.md)
-- CLASH3 root: 08_cross was a LANDED cross; a blocked rear hook armed on the same hand while it came home was skipped by her
-  GloveClear ("blocked = BlockCatch's") though the catch rises only 0.25 s before contact. Rise gate `_block_up` (1c1b3629):
-  9.9 -> 3.6 cm. BLOCKCLIP1 constants merged (09_cross cleared). OWNGLOVE1 merged with the pass order own -> 2 x (other, own):
-  own gloves ~140 frames -> 0, cross frames 10 -> 8 on seeds 77 + 4242. Glove-axis branch dropped.
-- Coach fit v8 and weight r5 PASSED two critics -> his board Q-232..235 with plain pages (ops/research/BOARD_*_S478.md).
-- Fight week v9 in -> critics Dola SQ155 + John SQ156. Plan flowchart v3 PASSED (Maria 7/6/6, John 7/6/7) -> board Q-236
-  (chart first?) + Q-237 (film in camp costs an evening?). Club week v8 in (Kalli) -> critics John SQ157 + Maria SQ158.
-- Build exported; WHAT_TO_TRY S478.
+## WHAT S479 DID (ops/research/S479_DIGEST.md)
+- CLASH4 (Qwen, OWN_ROUNDS 3) not merged: f40 stayed 5.4 cm, brief broken. Claude's read-by-order fix measured identical
+  (reverted). Cause: at 4242 08_jab f40 a glove jumps 12 cm in ONE frame (18 m/s); nothing that reads last frame can see it.
+- Fight week v9 PASSED (Dola 7/7, John 7/6/7). Sparring partner screen drawn (docs/mockups/s479/sparring_partner_v1.png);
+  John's day fix (Tue, 4 days out) and lines-by-match (CLOSE 3 / PART 2 / LOOSE 1) taken -> board Q-238.
+- Club week v8 failed John (6/5) -> v9 Kalli SQ159. Training K from Dola was cut off -> re-asked SQ160.
 
 ## IN FLIGHT (yours - collect, do not relaunch)
-- Qwen CLASH4 (launched 02:37, ETA ~03:40; ops/research/TASK_CLASH4.md, branch qwen/clash4, wt E:/FightCamp/wt/LEAN_CLASH4):
-  why both boxers can read each other a frame late (GloveClear `late` true on both at 4242 08_jab f40, 5.4 cm). Merge bar:
-  that shot 0 frames > 2 cm, no new CLASH frame on either seed, OWN 0, own_gloves green, hit_frame (3) / hit_carry (32) /
-  block_meet@30 (1) FAIL sets = main. Take the DIFF only - Qwen committed 870 film frames last time.
-- Arena STYLE1 (chat https://arena.ai/agent/01a1dc46-8131-7b0e-af3a-6e1d928bcaec, restarted 02:2x with "install Godot"):
-  collect from its PR (CI log, `ci_arena.py guard`, gates in TASK_STYLE1.md). If it failed again: give STYLE1 to Goose.
-- Seat queue: SQ155 Dola + SQ156 John fight week v9 critics; SQ157 John + SQ158 Maria club week v8 critics; SQ153 Kalli
-  ladder map v1; SQ154 Dola training K.
+- Qwen CLASH5 (launched 05:53, ETA ~07:45; ops/research/TASK_CLASH5.md, branch qwen/clash5, wt E:/FightCamp/wt/LEAN_CLASH5):
+  which layer jumps the glove at f40, fixed there. Merge bar: 08_jab 0 frames > 2 cm, no new CLASH frame on seeds 4242/77,
+  OWN 0, own_gloves green, hit_frame (3) / hit_carry (32) / block_meet@30 (1) FAIL sets = main, OWN_ROUNDS still 2. Diff only.
+- Arena PARTNERMATCH1 (chat https://arena.ai/agent/01a1dd59-dec9-7c6d-a884-cfad25ce9418, started 06:01, ETA ~07:15):
+  scripts/rules/PartnerMatch.gd + tests/partner_match_test.gd; check the six drawing rows in the test; ci_arena.py guard.
+- Goose STYLE1 (issue #298, started 05:58): the style dominance probe (TASK_STYLE1.md gates).
+- Seat queue: SQ159 Kalli club week v9; SQ160 Dola training K (second try); SQ153 Kalli ladder v1 in -> needs critics.
 
 ## FIRST
-1. get_usage. His answers to Q-232..237 (Q-236/237 = plan flowchart, BOARD_PLANFLOW1_V3_S478.md): weight (scale fault, classes, 57.5 kg) into the map's rules; coach fit approved ->
-   Grok Dev brief for the "Coaches this week" mockup (M1, map 10.1) + the probes (FITPROBE1, TRAINBALANCE, COACHTIMEPROBE) to
-   Arena/Goose as pure modules.
-2. Collect CLASH4 and STYLE1.
-3. v9 critics in -> 6/6 + depth 7 -> his board WITH the sparring partner screen drawn (names only in headers); then Arena: the
-   partner-to-opponent match score as a pure module from v9.
-4. TRAINGAME2 when Dola's K lands (ops/research/TRAINGAME_K_DRAW_S477_DOLA_DOLA.md): save its HTML to
-   docs/mockups/s477/training_k/, render with tools/render_mockup.py, replace every "est." with the game's real number, critics.
+1. get_usage. His answers Q-232..238 -> act: weight rules into the map; coach fit approved = Grok Dev brief for the "Coaches
+   this week" mockup (M1, map 10.1) + probes (FITPROBE1, TRAINBALANCE, COACHTIMEPROBE) to Goose/Qwen; fight week v9 approved =
+   PARTNERPROBE (CLOSE vs LOOSE on readied lines, target 3-5 wins in 100) and the partner screen build after PARTNERMATCH1.
+2. Collect CLASH5, PARTNERMATCH1, STYLE1.
+3. Ladder v1 critics (design_loop.py critic LADDER1_V1 ... --seat john / dola). Club week v9 critics when SQ159 lands.
+4. TRAINGAME2 when SQ160 lands: save its HTML to docs/mockups/s477/training_k/, render with tools/render_mockup.py, replace
+   every "est." with the game's real number, critics.

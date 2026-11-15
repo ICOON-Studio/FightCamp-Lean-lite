@@ -7511,6 +7511,24 @@
       "note": null,
       "answered_at": null,
       "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-238",
+      "asked": "2026-11-15T03:53:38.123016+00:00",
+      "session": "S294",
+      "text": "Fight week v9 passed 2 critics (trips cut, mandatory sparring partner screen as you described). Approve it as drawn?",
+      "options": [
+        "Yes, approve",
+        "Change something"
+      ],
+      "attach": [
+        "research/BOARD_AMATEURWEEK1_V9_S479.md",
+        "research/BOARD_SPARPARTNER_S479.png"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
     }
   ]
 }

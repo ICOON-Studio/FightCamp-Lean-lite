@@ -1,0 +1,1329 @@
+# CLUBWEEK1_V9 - write the NEXT version of this mechanic's design map (S459 design loop)
+
+You are the designer. Read the whole game (critic pack below), the current map, and the critics' answers at the end. Write
+the next version of the map in full (not a diff): answer EVERY point of each critic's 'To reach 10/10' list (do it, or say
+in one line why not), keep every rule the owner agreed (quoted in the map), keep it buildable from what the game has, and
+keep the map's table of every menu the mechanic appears on and what each is wired to (owner S425).
+The bar it must reach with fresh critics: 6+ DEPTH and 6+ GENERAL DESIGN (owner S459). Numbers: say which are ESTIMATES.
+Plain words; names only in headers. Return only the new map, starting with its title line.
+
+> Also read `ops/research/CRITIC_ACCESS.md`: the Miro board, the real screens, the mockups.
+
+
+> Also read `ops/research/CRITIC_ACCESS.md`: the Miro board, the real screens, the mockups and the eight MMA fighters. Written S403 from the code; update it when a mechanic or screen lands.
+
+## What every critic must return (operator S405: "i want the critics everytime to state what to change to reach 10/10")
+Whatever you score (a screen, a film, a mechanic, a design), end with **To reach 10/10**: the concrete changes that would take it from your score to 10, most important first, each specific enough to build. If it needs something the game cannot do yet, say so. A score without this list is not finished.
+
+
+# FightCamp critic pack: the whole game, for judging whether a screen has the right options
+
+Owner's rule: "i want every screen you design to have the right options so every critic needs to know the whole game design and mechanics to guide you".
+This pack is facts only: no scores, no verdicts, no earlier critic comments, and nothing that is merely proposed. Written 2026-11-08 from the code
+and the agreed plans. Where a document and the code disagree, the pack says what the code does.
+
+How to read the status tags:
+- BUILT = it is in the game now and a player can use it.
+- AGREED, NOT BUILT = the owner approved it (or a plan he approved includes it) but the game does not do it yet. Judge a screen as if it will exist.
+- PARTLY = some of it is in the game; the pack says which part.
+- NOT ESTABLISHED = the pack could not confirm it from the code or the plans. Do not assume either way.
+Names only in headers (owner S448: "notice how the names are only mentioned on the header , nowhere in text menus options , follow that rule"): a person's name sits in the screen's header once; options, buttons, rows, lines and tooltips say her / him / the opponent / your coach. Flag every name you see outside a header.
+A screen should offer an option only if the player can act on it (rule in section 7). "Option" below means anything the player can press, drag, pick or type.
+
+## 1. What the game is
+
+- A boxing gym management game for PC (Godot 4.7, Windows). The player is the head coach and owner of one small boxing club. Not a promoter, not a fighter,
+  not a tycoon. The club lives on members who pay monthly dues; a fighter's bouts add ticket cuts, reputation and new members.
+- Scope for the first release: boxing and no-gi BJJ (the owner decided BJJ ships beside boxing). MMA comes in the first update after launch. Kickboxing and
+  Muay Thai are not scheduled. Early Access is the target; no date.
+- The player controls: whom to sign and which starting focus; the coaches and staff hired; the week of training for each fighter (mornings, pad and sparring
+  evenings, diet); which bouts to take or ask for; the camp before a bout; the game plan written as lines; combinations built and drilled; the corner calls
+  and corner minute on fight night; the fighter's next goal; the club's money (dues, spending, deals, upgrades).
+- The player does NOT control: the punches thrown. The fight is settled by rules (exchanges of 30 seconds); the 3D fight only shows the settled round and
+  never decides. The player also does not control fighters' moods directly, rival fighters, the weather/twist cards, injuries, or when offers arrive.
+- The fun, in the owner's and the design's words: raising an unknown into a champion; the plan is the star; you can always see how your plan made the
+  difference (the Why after every fight); every week costs something (training, weight, fatigue and money pull against each other); fighters are people
+  (traits, habits, moods); fast and honest (anything one click from anywhere, true numbers). The three core mechanics beside the corner (owner S354):
+  the morning sessions that add up to a goal and an intensity (the week), the evening move and combination planner, and a fight plan that is fun to design.
+  The Playbook/Combos area is the part the owner calls really fun ("to try and also learn from the book").
+- Design rule on results: the better-trained fighter usually wins; a good plan turns close fights and gives underdogs a real chance. Measured in tests:
+  good plan about 59% of bouts, no plan 45%, bad plan 41% (one matchup). Training beats planning: 5 points better in stats wins about 72%, 10 points about 95%.
+- Not mobile, not casual: no timers, gacha, daily rewards or ads. Real stats stay visible. Deeper, not wider (owner approved "build all proposed systems").
+- Tone: a gym, warm and tactile, not a spreadsheet. Plain words, one word per concept, no flavour text.
+
+## 2. A career from the first minute to the first pro fight
+
+Time model: the clock runs day by day when the player presses the big CONTINUE button. It stops by itself every Monday (the week review) and for
+anything that needs the player (a bout offer on its last day, weigh-in, fight night, injury choice, trial day, walk-in). Day 0 is Monday 5 January 2026.
+The button says what it is stopping for ("to Thu 15 Jan, the offer expires"). Quiet week = one click.
+
+1. Title screen: Resume career (if a save exists), New career, Quick start (a ready club, London), Load career, Settings, Credits, Quit.
+2. New career, two steps. Step 1 YOU: your name and one of four head coaches on photo cards (Old hand, Ex-pro, Amateur coach, Strength coach), each with one
+   edge. Step 2 YOUR CLUB: country, city, gym name, and one of three starts that double as difficulty: Fresh doors (normal), In debt with one good boxer (hard),
+   Backed with big expectations (risky). A switch lets the player skip the first-hour guide. Quick start takes the first coach card and Fresh doors.
+3. Day 0, Home: the first-hour card (the job: keep the doors open; the first show date; who you are), a walk-in fighter waiting at reception (Lucy Jackson in
+   the standard start; other starts and the male-boxer start use other names). The guide strip runs three stages: FIRST WEEK (sign, coach, week, go),
+   FIRST FIGHT (offer, prep, fight), THE CLUB (second boxer, bouts for both, set the first boxer's next goal). It can be skipped.
+4. Sign the walk-in: an RPG-style card (class from style, potential in stars, each attribute's ceiling, two traits, one habit, a signature move, an
+   ambition) and ONE starting focus. Hire an assistant coach (Luke Reid sessional $450 a week, or Marcus Hale full-time $1,090 a week; $1,000 signing fee).
+   Without any coach, training runs at 60%. Open the Week and lock in week 1 (the coach has already written a week). Press CONTINUE.
+5. Monday of week 2 (day 7): the first bout offer arrives, for the club show on Saturday of week 4 (day 26). Until the first bout is fought there is no twist
+   card and no ask. She starts about 1.4 kg over the limit, so weight is the first real decision (a cut needs starting in week 1). Accept shows a poster
+   reveal and offers the camp.
+6. Fight prep: camp (focus, intensity, partner, film), game plan, weigh-in the day before, fight night, result, Why, goal talk. After the first bout: a second
+   walk-in arrives the next Monday, a rival coach (Frank Doyle, Eastside ABC) is named in the news, three club tasks appear on the guide strip, and Ana (the
+   no-gi athlete) is teased, then asks to join after the club's second bout or by week 9.
+7. The loop afterwards: offers every couple of weeks (a club show every other Saturday from day 12), camps, nationals, money pressure, more fighters.
+8. Amateur road: the National Amateur Championships. Entry needs 5 bouts and 3 months registered, age 19-40; entries close in week 10; a London regional then a
+   national draw. While in it, no other offers come. A loss, injury or missed weight ends the run.
+9. Turning pro: a promoter's offer arrives at 7 wins with a top-3 regional rank, or at 9 wins at any rank. The debut is 4 rounds, about 4 weeks after signing.
+   The gym pays the licence ($230) and, the first time, medicals ($875) and the trainer's licence ($140). Stipend stops. After the debut a pro joins a world
+   division table unranked and the promoter brings three offers per fight (see 4.12). Older docs said "the game ends near the first pro fights"; the code
+   goes further (pro ladder, belts, ageing, retirement), see section 8.
+10. The club failing: 8 weeks in a row below $0 closes the gym. A closed gym shows a summary that cannot be dismissed (New career / Load career / Title).
+
+## 3. The fighter: three layers
+
+Plan agreed by the owner (2026-11-08): a fighter has primary attributes (what the fighter IS, same in every sport), skills (how good at one sport) and moves
+(a jab, a low kick, an armbar; each has its own level in the Playbook: New, Raw, Usable at 30, Sharp at 60, Signature at 85).
+
+AGREED, NOT BUILT: the 10 primary attributes. Operator: "these 10 lookok"; one Speed for hands and feet (the game's Hand speed becomes Speed). Strength; Explosiveness; Speed;
+Stamina; Recovery; Flexibility; Durability; Fight IQ; Composure; Heart. One Strength number for the whole body (no number per hand; left/right differ through
+moves and stance). Merges: Chin and Toughness become Durability; boxing Conditioning and BJJ Cardio become Stamina. Power is not its own number (it comes from
+Strength, Explosiveness and skill). Weight cut, height, reach and stance are written facts, not bars. "Marks easily" is a label for cuts, not a bar. Aggression is
+a slider you set (Patient to Forward), not a bar. Technique and Defence become skills. Explosiveness and Recovery stay only if the fight really uses them.
+AGREED, NOT BUILT: 12 skills (ops/research/S400_REVIEW/SKILLS_PROPOSAL_S404.md). Boxing 5: Accuracy, Timing, Defence, Footwork, Inside fighting. Kickboxing and Muay Thai 6: those + Clinch. No-gi BJJ 5: Takedowns, Guard, Top game, Submissions, Escapes. MMA 12 in three groups. The profile design (one body and mind for every sport; only skills swap; a sport switch appears only once the
+fighter trains both; crossing over costs training time) is agreed in shape; the mockup number lists (24 numbers, 25 for a boxer) predate the 10-attribute list.
+
+BUILT today (what screens show):
+- Boxing: 7 trained stats: Power, Hand speed, Technique, Defence, Conditioning, Ring IQ (fight IQ), Chin; plus Footwork (derived from speed and defence) and
+  the personality values Heart, Discipline, Confidence, Coachability, Temper (Loyalty exists but is not on the board). Amateur women's lightweights sit 55-65;
+  bands: weak under 45, fair under 55, solid under 65, strong under 75, elite above. Each stat has a potential ceiling ("tick") and a weekly delta.
+- Moves with mastery (0-100): Jab, Cross, Lead hook, Body hook, Uppercut, Check hook; from 30 a move is a "weapon" the fight can use. Combinations (the
+  book: 1-1, 1-2, 1-1-2, 2-3, 1-2-3, 1-2-3-2, 3b-3, 1-2-3b, 1-6-3, slip 2-3) unlock when their moves are weapons; players can also build their own.
+- Body: weight vs class limit, condition (fatigue word), injuries. Style word (Out-boxer, Pressure fighter, Counter-puncher, Volume puncher, Boxer-puncher,
+  Slugger). Stance. Age. Record. Rank in the region.
+- Personality and habits, learned not shown as numbers in the ring: 6 traits (heart, temper, confidence, discipline, coachability, loyalty) and habits
+  (for example drops the right after the jab, slow starter, fades late, chases stoppage). A coach's-notes card fills in with words from fights and sparring.
+- Morale (stored 0-100): Fired up (75+), Steady (50+), Flat (30+), Low. Moves: win +8, loss -12, goal met/missed, rest week +4, a month without a fight -6,
+  bout booked +5, wrong corner call -2, right call +1. Morale is also trust in the corner: Fired up 1.05, Steady 1.0, Flat 0.85, Low 0.7 of the corner's
+  word taken in; a Low fighter stops listening.
+- BJJ athletes have 6 stats (strength, cardio, flexibility, explosiveness, composure, aggression) and mastery per move; belts, not ranks.
+- Perks (the perk road): open for good when attributes reach a need, each changes one thing in a bout: Iron chin (Chin 70), Stiff jab (Technique 65),
+  Second wind (Conditioning 70), Ring general (Ring IQ 65, corner calls work 25% better), Counter sense (Defence 65 + Check hook weapon), Body snatcher (Body
+  hook weapon), Finisher (Power 70), Fast hands (Hand speed 70).
+
+## 4. Every mechanic
+
+### 4.1 The week and training plan - BUILT
+- Choice: for each fighter a week of seven mornings (a session each: roadwork, intervals, heavy bag, weights, speed bag, slip rope, shadow, neck work, or rest;
+  each at Light, Normal or Hard) and seven evenings (Pads, Sparring, Rest, Film). The coach writes the week from the camp phase and repeats it; the player edits
+  exceptions (click a day, a popover). "Back to the coach's week" resets. Diet: Hold or Cut 500 kcal a day.
+- Phases counted back from a booked bout: BASE (no bout), BUILD (3+ weeks out), PEAK (2 weeks out, hardest, sparring twice), TAPER (fight week: light, three rest
+  days, no sparring).
+- Changes: each morning adds a small amount to one stat (pace 1.0 per focused week x coach factor x headroom clamp((potential-stat)/25, 0.10, 1.25), a morning
+  is a fifth of it, Light x0.6, Hard x1.3, less when tired); kcal and weight; fatigue (0-100, "Week tiredness"; from 80 she is overreached: gains x0.6 and
+  injury risk x3). The Week tab shows plan totals, the goal line, the coach's one change with a "Do it" button, and the weeks to fight night.
+- Coach factor: 0.5 + rating x 0.7 per cent; no coach = 60%. Strength coach head-coach edge: body mornings +10%, craft mornings -10%.
+- Twist card: once a week the coach draws one (sore wrist, rain, weights room shut, partner ill, head cold, visiting pro, quiet week; or a choice card such as
+  tight knee, scale will not move, night off, heating breaks, combo clicking, southpaw in town, old coach visits, sponsor photoshoot, rival talks trash). Two
+  answers each with a visible price; unanswered = the coach's pick on Monday. Planned vs actual is shown on the review.
+- Training load: acute vs usual load; a spike (ratio 1.5+) raises injury risk 2-4x.
+- Two fighters in camp competing for the coach's pad nights: AGREED, NOT BUILT (see 4.2).
+
+### 4.2 Pads, combinations and mastery - BUILT (pad nights for two fighters AGREED, NOT BUILT)
+- Evenings are nights that carry drill cards. A pad night is 75 minutes split over its cards; a sparring night gives every card already in her hands a share.
+  Standard week: 3 pad nights; camp 2+1 / 2+2 / 3+2 pad+spar for Light/Standard/Hard.
+- Choice: drag a drill card (a move or combination) onto a pad night; split a night 50/50, 70/30, 30/70; remove or clear; pin cards in the tray; "+ drill it".
+- Mastery gain per hour of drilling: pads 2.1, heavy bag 1.05, shadow 0.85, sparring 1.5, speed bag 0.9, double-end bag 1.2. Undrilled moves fade slowly.
+  A drilled combination also holds its punches. Tiers: New, Raw (under 30), Usable (30), Sharp (60), Signature (85). A move at 30+ is a weapon.
+  Today a planned line fires every time once it is usable; sharp is worth about 1 win in 100 over usable. In the game but SWITCHED OFF (S427,
+  measured on 400 bouts a cell): a planned line fires 1 use in 2 at usable, 3 in 4 at sharp, always at Signature (sharp then +2.8 wins in 100
+  over usable, Signature +2.7 over sharp). BUILT for professional bouts (S458-S462, `ProRead`): the opponent's corner studies your boxer's
+  last two professional fights and waits for the punch thrown most; two real weapons or a feint line blunt it. Amateur bouts: not read across bouts.
+- A combination in a fight costs energy (longer costs more); a flurry is limited by hand speed and tiredness; a signature (drilling, not length) may run one
+  punch past the speed cap. Own combinations built in the Playbook (Combos tab) get their own pad mastery.
+- AGREED, NOT BUILT: with two fighters in camp the coach's pad nights are shared; the top row of "Learn on the pads" shows how many go to each (cost to the
+  other fighter), only while two are in camp; a needs flag says when the second camp starts.
+
+### 4.3 Fight camp - BUILT
+- Opened by "Set camp" (a need once a bout is 3+ weeks off, or from Fight prep). Choices: camp focus (one of Conditioning, Power, Technique, Defence, Speed);
+  intensity Light / Standard / Hard (3, 4, 5 nights; focus multiplier 1.1/1.2/1.35; fight-night edge +0.25/+0.6/+1.0; all free); Partner: club mates (free) or an
+  outside mate of the opponent's stance or style ($160); Film (tape study, free).
+- Changes: the camp stat gets a forecast to fight night; scale forecast; tape study opens one tell on the opponent's file every few camp days (weapon first,
+  weakness last). A camp whose three lines are all met on fight night (made weight, stat on target, never overreached) gives PEAK CAMP: +bonus to every stat for
+  that fight. A southpaw partner removes a round-1 penalty for an orthodox boxer who never faced one.
+
+### 4.4 Weight - BUILT
+- Each fighter has a class limit (women's 57/60/65/75 kg, men's 57.5/60/70/75 kg). Weigh-in is the day before. Diet Hold/Cut and training burn move weight;
+  the bout page and Fight prep forecast "now / on the day". Missing weight calls the bout off and the club pays $300 for the empty slot. A boxer over his
+  class can get a bout he can make (a later date). The Old hand head coach makes cuts easier (120 kcal a day more).
+
+### 4.5 Booking and matchmaking - PARTLY
+- Amateurs BUILT: offers arrive (a club show every other Saturday; one offer at a time per fighter, answer by a date, usually 8-12 weeks lead at clubs, 2-4
+  weeks in the first hour). Each offer: Accept or Pass, both free. An unsafe mismatch (a novice, 0-10 bouts, against an open fighter) cannot be accepted. Win chance
+  shown as a band that widens when unscouted. No way to ask for a named amateur opponent: AGREED; rules built (scripts/rules/AskBout.gd), panel not built (Ask for a fight: a "no" is a closed panel or an absent answer with its reason, never a random refusal).
+- Pros BUILT (after the debut, on Fights): the promoter brings three offers per fight (TUNE-UP likely, STEP UP about even, PAYDAY long shot) standing 7 days; OR the
+  player asks for a named boxer within the promoter's band (about 5 places above, unranked reach 15; a top-5 name needs 3 fans); Scout costs $250 and opens the
+  opponent's weapon and weakness and narrows the chance range. A promoter refuses if you duck the step up twice. Each row shows chance, what a win gives (place,
+  fans), what a loss costs, stoppage risk, pay (gym's 25% of the purse), and the gap to the next fight (quick, normal, hard night).
+- Rank rule: beat someone above you and take their place; beat someone below and nothing moves; a losing record is never ranked in the top 10. Purse: $1,500 unranked
+  + $400 per place; tickets follow fans and how close the fight looks. Pro rounds: 4 unranked, 6 ranked, 8 top 10, 10 for a title.
+
+### 4.6 Scouting and the opponent's file - BUILT
+- Free at booking: record, look, style word. Hidden until found: best weapon, each habit, weakness. Amateur: tape study in camp opens one a session. Pro: scout
+  for $250; the weapon is public tape. A found tell names its answer (a plan situation, a corner call or a drill). The Ex-pro head coach opens one tell the day
+  a bout is booked. An opponent with no bouts has no tape. The Tape Room (Fight prep, "Watch the tape") plays 3-4 films of her past bouts, SPOT the tell, then
+  YOUR ANSWER picks a move that becomes a plan line.
+
+### 4.7 The game plan (Playbook) - BUILT
+- A plan is lines: "At long range -> One-two", "When she presses -> Step back" (places: outside, long, mid, inside, clinch, ropes; situations: she presses, boxes at range,
+  waits to counter, loads up, tires). Each answer is rated vs the opponent's game: Beats it / Works / Walks into it, and its edge over improvising, times her pad
+  time. Rate against another kind of opponent; round-by-round pace Push/Steady/Save; a go-to combination. The coach's skill sets how many lines (a plan holds
+  4-6). Real fight plans can be loaded; See the flow; Open the map. With no plan written the assistant coach writes one (poor to about half of a read plan).
+- A plan the fighter has not drilled works less well; a wrong answer costs. During a bout: planned right answers that win exchanges build PRESSURE on the opponent
+  (cuts her output); planned wrong answers she is punished for shrink her energy ceiling.
+- BUILT (`PlanRead`): inside a round the opponent adjusts - a planned line pays in full for its first 2 uses in that round, then less each use; it resets
+  at the bell. AGREED, NOT BUILT: their note replaces the coach's line in the corner minute naming the line that stopped working.
+
+### 4.8 Fight night - BUILT
+- A bout is 3 rounds of 3 minutes (amateur), 4 (pro debut), more later. A round is six 30-second exchanges, each settled by dice on an edge (training, plan, corner call,
+  pressure, tiredness). The opponent fights one way at a time (Pressing, Boxing at range, Waiting to counter, Loading up, Tiring, Hurt), shown as a clue.
+- Every 30 seconds the player may shout one of the 3 calls that fit, or say nothing: Jab and move, Go to the body, Draw the lead, Hands up move your head, Let your
+  hands go, Breathe pick your shots, Tie up, Go for the finish. Each has a best / ok / wrong match to the opponent's mode, needs stats, costs or gives energy; only
+  two instructions per minute get through fully. Pace (Push / Steady / Save) and Aim (Own game / Head / Body / ribs / the hurt head) persist from shout to shout.
+  A set-up "NOW!" fires a learned combination into a gap the opponent opens: big edge, or a cost if wrong.
+- Corner minute between rounds: the corner card (what worked, what hurt, the call), the plan call, ONE CHANGE for the next round (a habit fix, or Elbows in: half the body punches go to the head, saving their energy and adding head damage, or Gloves high: the reverse; moved punches change where she is hit and what it costs, measured not to change who wins), RECOVER with 3 points (water, ice on the ribs, clear
+  her head when hurt), SET-UP (a combination x a gap), TALK (calm / fire up / the truth), change one plan arrow, cutman job (close the cut, enswell an eye, nothing).
+  Trust: a wrong call she followed costs trust; a Low fighter ignores shouting.
+- Knockdowns and counts come from power and damage vs chin, heart for the count; amateur RSC at 3 counts in a round or 4 in a bout. Injury roll after the bout.
+- Result: scorecards (3 judges), win on points / stoppage / draw, "what decided it", the Why, a body report (which part went first, with a "Train X next week"
+  button), "The plan, lit up" flow, then Back home and the goal talk. Watch modes: with a picture the 3D fight plays (1x/2x, Skip round, Skip bout); headless runs
+  stay in words. "Sim to result" skips the fight. Highlights/full modes in design notes: NOT ESTABLISHED as options in the UI.
+- AGREED, NOT BUILT: a cutman card for a closing eye, "stop it (she loses, the eye is safe) or go on (risk of a lasting cut)", behind a divider, never a pop-up,
+  never pre-selected, not using one of the two fixes (the 3D corner has a cutman job row today; whether its stop-or-go choice exists is NOT ESTABLISHED).
+
+### 4.9 The Why - BUILT (the hook)
+- After a bout, plain lines: YOUR PLAN (graded against having no plan: right answers, wrong answers, neutral, worth about +X% chance), AGAINST YOU (what the opponent's
+  habits cost), NEXT (what to train or write). Graded by how each planned move answered what the opponent was doing, not by the dice; "swing" counts replay the
+  dice without the plan's edge. A readable reason for every random swing (R11): AGREED, NOT BUILT as a general feature; it lives on existing rows.
+
+### 4.10 Damage, injuries, suspension - BUILT
+- Six body places per boxer take punches (head, ribs, etc.); bands fine over 55, hurt 55, critical 35, doctor 15. Bout injury roll from settled damage (about 6% a
+  3x3 bout; 72% head/neck, 20% cuts); training injury about 1.3% a week, more when overreached. Stoppage loss = 30-day suspension, longer for repeats. While out: no
+  offers, a quarter of gains. A fighter hurt before a bout: choice "pull out" (club pays the empty slot) or "fight hurt" (less energy: minor 10, moderate 15, serious 20).
+  A damage ledger and fights-left forecast exist for pros in the world model.
+
+### 4.11 Morale, trust, goals - BUILT
+- Goals with deadlines (for example Debut inside a month, Next bout inside a month, Southpaw answer, Five-round engine), set in the office after each bout (Goal talk:
+  pick one of the offered goals). Status ON TRACK / AT RISK / OFF TRACK / MET / MISSED; ~70% clearable by design; meeting or missing moves morale. "Her asks" can be
+  heard or overruled (morale +5 / -5). The ambition shown on the signing card does not yet change anything (the design says a kept goal should build loyalty, a broken one may make a fighter leave: AGREED, NOT BUILT). Overruling a low-coachability fighter hurts more.
+
+### 4.12 Staff - PARTLY
+- Head coach (you): one of four edges: Old hand (cuts easier), Ex-pro (one tell on file when a bout is booked), Amateur coach (a prospect's exact potential), Strength
+  coach (+10% body mornings, -10% craft mornings). Assistants: Luke Reid and Marcus Hale (above); training quality, plan lines taught (more with better rating), evening
+  classes +$350 a week. Staff jobs on the Club page (each changes one number): Second club coach 10 h ($280 a week: +1 roster place, +40 members, runs fitness classes);
+  Strength and conditioning ($100: training injury risk -15%, a pro camp's bill halved); Physio ($75: injuries back a quarter sooner); Cutman ($150 a pro night: half
+  the post-bout layoffs). Letting a staff member go costs a week's pay. Letting the main assistant coach go: NOT ESTABLISHED (Let go exists on the staff jobs).
+- "Coach runs it / I run it" per fighter: AGREED, NOT BUILT (the Roster has no such column).
+
+### 4.13 Money and the gym - BUILT
+- The week review gives one short reason beside any change in members (word getting round, gym full, less room, dues too steep, more than the gym's name can hold).
+- Income each week: members' dues ($35 a month each standard; bands Cheap $25 / Standard $35 / Premium $45 change who joins), evening classes (+$350 with a coach), no-gi
+  dues, sponsors, fitness classes, juniors' dues. Costs: rent $1,800 a month (bigger premises more), England-Boxing-style fees ($315 club + $18 a boxer + $35 a coach a year),
+  coach, fighter stipends ($250 a week, optional), heating and power by season, insurance $1,250 a year, staff, kit budget (Low $0 / Standard $45 / Good $80 a week),
+  upgrades' upkeep. Wages and upkeep are billed every 28 days. Start cash = 1 / 3 / 6 months of costs by start. Runway under 8 weeks warns; below $0 is red; 8 weeks in a
+  row below $0 closes the gym. A loan ($180 a week for 26 weeks) comes with the debt start; the backed start loses $5,000 if the first show is lost. An overdraft rule
+  exists (offered after 12 weeks of trading, 16% a year) but NOT ESTABLISHED as having a screen.
+- One-offs: a bout adds a $450 ticket cut; camps cost a partner fee when used; repairs; a club show you host ($3,500, tickets $25, up to 400 seats, every 16 weeks, can lose
+  money); a club grant bid once a year (answer in 42 days, needs a second coach, odds follow reputation).
+- Spending choices on the Money page: Premises (Unit 70 members/3 places, $1,800 rent; Bigger unit 140/5, $3,400, $12,000 to move; Club building 250/7, $5,500, $25,000);
+  Upgrades (matted floor $2,400; strength corner $3,600; fitness class kit $1,500; youth section $1,800), each bought once, works after a week, one visible effect; Sponsors
+  (Ironclad $250/week from the start; Bow Road Physio $150 after the first win; bigger sponsors later); dues band; kit budget; evening coaches; pro stipends and contract talks.
+- Members: walk toward a target set by reputation, dues band, premises and coaches (at most 6 a week). A win adds +8 members and +5 reputation; a loss removes 1 and 2 reputation;
+  a stoppage loss 2 and 4. Facilities (floor, ring, bags, lockers, office) can be repaired once ($120 bags) for +2 reputation.
+- A pro's share to the gym starts at 25% (manager 15% + trainer 10%); contract talks at the first top-10 and the first belt (keep 25% for a bonus or drop the share), then yearly.
+
+### 4.14 Rankings, titles, the world - PARTLY
+- Amateur regional table (the region's club-show boxers; a player's fighter enters at 4 wins); rankings move as rivals fight each other at shows; news lines. Nationals and the
+  regional bracket (BUILT). World pro tables for four divisions (women's and men's lightweight and welterweight, about 20 ranked each): boxers age, peak, decline and retire
+  (damage ledger and age), new ones arrive yearly, belts at four levels (area, national, continental, world) with mandatory challengers and vacated belts, rivals improve (BUILT in the
+  rules; its screens are on Fights, not World). An open-ended career, year review, three club goals a year, club tiers, a record book of champions and rivalries,
+  a named rival gym that poaches and rematches, promises/poaching at contract time, a career clock with retirement talk, youth-section home-grown prospects, a commentary line
+  and a press card are AGREED (owner "all of them", Q-S294-120) and mostly NOT BUILT; Records (the gym's own history log with filters) and the youth section exist.
+
+### 4.15 BJJ (no-gi) - BUILT
+- Athletes (Ana Ribeiro) are on the mat, not in the ring: belts white, blue, purple, brown, black with 4 stripes each (IBJJF floor: blue needs 2 years, purple 1.5, brown 1; minimum
+  ages 16/16/18/19). The week is 3 classes; a class drills the syllabus move she is closest to owning (+3.2 a week; owned at 30, signature 50). Choices: drill a move; stripe call
+  (now / hold / early) with morale and loyalty costs; promote; enter opens (no-gi tournaments every 35 days, 8-person brackets); fight an open yourself (the player calls the moves on the move
+  graph) or simulate it; who teaches (hired coach or the athlete). No ranking table: the belt is the ladder. 5-10 minute matches by belt; points: takedown 2, sweep 2, pass 3, knee on belly 2,
+  mount 4, back 4. A BJJ athlete costs a roster place and a no-gi coach by the class.
+- The match runs on two-sided beats of about 11 seconds (S405): each side either acts on its pick or works its grips, and a holding lead can draw the referee's 20-second stall count.
+  Measured over 1,000 bouts: white belts finish about 34% of matches, the first to score keeps the bout about 80% of the time, and a one-belt gap wins about 74%.
+
+### 4.16 Perks - BUILT (listed in section 3).
+
+## 5. Every screen in the game today
+
+### 5.0 The shell (on every game screen)
+- Top bar, left to right: Back (<) and Forward (>) arrows (greyed when none); gym name; date and week (hover card); red/amber flags (not on Home): GYM CLOSED, BELOW $0, LOW CASH,
+  APPLICANT, TRIAL, PRO OFFER, SET CAMP, WEEK REVIEW, WEIGH-IN, NEW GOAL (each opens its thing); cash with "running +/- $N a week" (hover card); the big button; Menu.
+- The big button: CONTINUE ("to <date>, <reason>"), RUNNING (click to pause), NEEDS YOU (n) (opens the first red need), or GO TO FIGHT NIGHT. Space also presses it.
+- Menu: Mail (opens World News; shows a new count), Save, Load, Settings, Handbook, Quit to title.
+- Left rail: Home, Fighters, Fights (badge = open offers), Club, World; the club crest (hover: name, members). Keys 1-5 reach the rail (design note: NOT ESTABLISHED in code).
+- A guide strip (first-hour guide only): the current stage's steps, what to do and why, a button for the next step, and Skip the guide.
+- Settings: text size (Small/Medium/Large/Largest), window (Windowed/Full screen), days run at (Normal/Fast/Fastest), four sound sliders (all, punches/ring, crowd, music),
+  Autosave (every Monday, last weeks kept / Off). Handbook: search and group filter (All, Words, The club, The week, The plan, Fight night, Money) with links to areas. Credits.
+
+### 5.1 Title; 5.2 Create (see section 2). Create buttons: Back to title, Next: your club, Back, Open the gym; picks for coach, country, city, gym name, start.
+
+### 5.3 Home (no tabs) - BUILT
+- Notice board of needs as pinned notes, each with a button: Meet the walk-in; Answer a bout offer (Open); Weigh in; Set camp; Hire a coach (Staff); money warning (Money);
+  a sponsor waiting (Deals); Enter for the nationals (Nationals); Week N review ready (Open); New goal waiting (Talk); Trial today (Watch the trial); Pro offer (Hear it);
+  Hurt before the bout (Decide); competes today (Go to the mats); The gym has closed (See the summary). Red = stops the clock; amber should come next; steel can wait.
+- First-hour card until the first bout (the job, show date and countdown, you). The next fight as a matchup card (button: Go to fight night, or the next step).
+- YOUR FIGHTERS table: fighter (name opens the page), record, rank, next fight, weight, freshness, this week's plan. Right column: SINCE LAST MONDAY (each fighter's biggest gain
+  with its cause, injuries, rank moves, new members; "All news and mail"), THE CLUB THIS WEEK (money in, costs, members, coach), COMING UP (bouts, weigh-ins, championship dates, bills).
+
+### 5.4 Fighters > Roster - BUILT
+- A sortable table (columns: fighter, record, rank, The Road, and more) with flag chips per fighter that open the thing that needs her; a card per no-gi athlete with belt,
+  stripes, classes, "<name>'s mat: Playbook"; buttons: Meet the walk-in, Open training, Set camp (locked with a reason when it cannot start), See offers.
+- Fighters > Find a fighter: PROSPECTS NEAR <city> as face cards with scouted ranges for four stats (a range until the trial; the Amateur coach edge shows exact potential),
+  button Invite to a trial (free; she comes in on the Monday; signing costs the stipend). States: trial date, signed, passed. The reception walk-in is separate.
+
+### 5.5 Fighter page (tabs: Overview, Week, Fight prep (only with a bout or camp), Playbook, History)
+- Header: portrait, name, weight class, age, stance, record, goal chip ("Goal, N days: still needs X - at risk").
+- Overview: NEXT STEP (the road: next step and what it needs; Enter for the nationals; the whole road on hover); attribute board (radar of eight against potential plus all values with weekly
+  delta, hover says what each does in a fight); BODY (weight of limit, condition, injury), COACH SAYS, COACH'S NOTES n of m; GOAL (title, days left, meter, status, quote;
+  Talk to <name> when a goal talk is waiting), NEXT BOUT; buttons Plan the week, Fight plan (n arrows), Find a bout; perk road; moves with mastery bars (hover plays the move); combos
+  learned (gold = thrown in fights); contract text ("club stipend $250 a week, until turning pro") and goals so far.
+- Week: head (NEXT/THIS WEEK dates, tiredness), PLAN TOTALS, seven columns of morning and evening cards (click opens a popover: Light | Normal | Hard and sessions; Rest | Pads | Sparring
+  and the drill cards), goal line, the coach's one change with a Do it button, Back to the coach's week, the twist card (choose an answer), LEARN ON THE PADS tray (drag a card to an
+  evening), THIS CAMP (diet pills Hold / Cut 500 kcal) only with a bout booked, a skills road below.
+- Fight prep: VS <opponent> (club, record, game), days to fight night and weigh-in, ONE primary button that moves with the state (Set the camp / Write the game plan before sparring /
+  Watch the tape / Step on the scale / Check the week), the tale of the tape with the win chance and how sure it is, WHAT YOUR PLAN SHOULD ANSWER (each found trait with its answer and
+  "Write it"; hidden ones say what opens them), CAMP AND WEIGHT (scale margin, the camp stat's line to fight night, Change the week).
+- Playbook (boxer): tabs Moves (move book by place in the ring; Watch/Steps, Drill, Replay, Slow motion), Game plan (see 4.7: Write a line / Change / Clear this line, Answer: <best>,
+  Rate against, Load a real plan, Test it (limited tries), See the flow, Open the map, Build plan in the move browser), Combos (build a chain from "+ move" buttons, Play it, Clear, Save to the
+  book, Drill it on the pads, Watch on the pads, chain hit rates vs opponent types), Escapes (folded into Moves in the agreed menu). A body plays each move on the right.
+- History: every bout she fought (and brought) with result, opponent, cards and why; milestones.
+- No-gi athlete page: one Record view: THE ROAD TO BLACK BELT (five belts with stripes), TO <NEXT> BELT (mat time, moves owned, syllabus), COACH'S CALL (give the stripe, Promote to <belt>, next opens
+  with Enter, who teaches), RECORD in opens; her Playbook is a mat book (moves by group, Systems, Drill, Undo, a game tree with FELT and links).
+
+### 5.6 Fights (no tabs) - BUILT
+- Amateur: OFFERS ON THE TABLE (a card per offer: opponent face, record, win band, chips; Open) with each fighter's STANDING beside it (booked or free, next on the road, Enter for the
+  nationals); when none, the line says when the next offer can come. For a pro: a strip, NEXT FIGHT table (offers, asks: Take this fight / Book <name> / Scout ($250)) and THE ROAD (champions and
+  places around her). No-gi opens card with Enter. Fixtures list (calendar), RESULTS (who beat whom, cards, why).
+- Bout page (an offer): head chips (Legal, even match / Weight at risk / Not safe), tale of the tape, stats vs the estimate, win band and ranks at stake, SCOUTING file (locked lines say what
+  tape study opens), TERMS (date, 3 x 3 minutes, weight, on the scale now/on the day, time for a camp, purse none, club ticket cut $450, answer by). Buttons: Accept the bout (disabled with a
+  reason when unsafe or answered), Pass. Accept plays the poster reveal and offers Set the camp / Later.
+
+### 5.7 Club (tabs: People, Money, Records) - BUILT
+- People: STAFF (you as head coach with your edge; the assistant card with training quality, plan lines, cost, net weekly; two hire cards when none: Hire Luke / Hire Marcus; no-gi coach line;
+  STAFF JOBS with Hire / Let go), MEMBERS (on the books and drift, reputation word, dues band).
+- Money: CASH WEEK BY WEEK chart; NOW (cash, weekly in, costs, net, month's bill, runway line, break-even members); WHERE IT COMES FROM / WHERE IT GOES bars; STIPENDS (Pay/Stop the stipend);
+  CONTRACT TALKS (Keep 25%: pay a bonus / Drop to a lower share); PREMISES (Move); UPGRADES (Buy); KIT BUDGET (Low/Standard/Good); evening coaches (Hire one / Let one go); CLUB GRANT (Bid for a grant);
+  CLUB SHOW (Book the show); ONE-OFFS IN and PAID OUT (last 8 weeks); DEALS (Sign a sponsor); FACILITIES (Repair); dues bands buttons.
+- Records: the gym's own history, newest first, with filters (who: everyone / each fighter / coach / gym; what: bouts, honours, people...).
+
+### 5.8 World (tabs: News, Rankings, Championships) - BUILT
+- News: AROUND THE REGION (other clubs' bouts, names are links) and fixtures/events. Rankings: a table per division the gym has a fighter in (rank, fighter, gym, record, style, last bout; click a name for the rival file; a
+  fighter enters at 4 wins; no-gi says the belt is the ladder). Championships: the road to the nationals per amateur (rings for what she still needs, Enter, the London regional and national draw brackets, titles).
+- Rival file (modal): record, style and the tells found so far; locked lines say what tape study unlocks.
+
+### 5.9 Modals (open on a press or when the clock stops on them; nothing else opens by itself)
+- Interview/Trial (walk-in, prospect): the fighter as an RPG recruit, one starting focus (Sharpen the signature +10 mastery, Fix the habit gone in 4 weeks, Raise the ceiling +5 potential), Sign or Pass.
+- Pro offer: the debut money picture (tickets she sells, her share, what the gym pays now, what ends); buttons Turn <name> pro / Stay amateur.
+- Goal talk: pick one of the goals offered, Set goal or Later.
+- Camp: see 4.3; buttons Later / Start (shows the cost).
+- Weigh-in: Step on the scale (made or missed). Injury choice: pull out or fight hurt.
+- Fight night: tale of the tape (Begin fight, Sim to result); rounds with shout bar, Sim the round; corner minute (call buttons, fixes, jobs, Say nothing / No fix); To the scorecards / To the result;
+  result with Train X next week, The plan lit up, Back home.
+- Week review (per fighter): bars fill to the next whole point, moves drilled, new weapon, rank change, planned vs actual, pads cards turning over, money, the coach's word; rows land one at a time with the biggest
+  surprise last; the only button is Next week. Open night (BJJ): Simulate this bout or Fight it, Back to the gym. Closed gym summary. Info boxes (Settings, Handbook, Credits).
+
+## 6. The seven approved menus, and the agreed structure of all menus
+
+Owner, Q-S294-127: "Yes, build the seven": Home, Fighter Week, Boxing profile, Playbook, Fight night, Money, World. A shared warm-wall kit (WarmKit: wall, whiteboard, paper, sticky, magnet, chalkboard, marker
+ledge) is built first so screens cannot drift. None of the seven is rebuilt in the kit yet; the screens in section 5 are the current ones. Agreed structure: five rail buttons (Home, Fighters, Fights, Club, World); one
+home per job; no mailbox (Mail opens World News and the Monday page replaces the week-review pop-up); nothing opens by itself; time is one big button saying what it stops for; one booked fight runs in a straight line
+(Home countdown, camp, weigh-in, tape, fight night, the Why).
+
+- Home (agreed): needs first, the job, the next fight, one row per fighter, Since last Monday with causes, the club's week, what is coming; the week review folds in as a need that "sits here, never pops up"; the line
+  under the big button names the next stop; the first-week guide card only in the first hour.
+- Fighter Week (agreed): the whiteboard: sessions as magnets, the fight date circled, colour only means risk, one red button moves the week on; plan totals, fatigue, the goal line, the coach's one change with the effect on the
+  button; Learn on the pads; ADD "Coach's pad nights" as the top row, two fighters in camp only, with the cost to the other fighter (R55).
+- Boxing profile (agreed in shape; numbers superseded by the 10 attributes in section 3): tabs Overview, Week, Playbook, History on one portrait header; three columns Body, Skills, Mind with a style line ("Keeps it
+  long"), one thing to work on and where it is trained; the sport switch only once she trains both; a rival gym's offer with its three answers (match it, promise something, let her go) as the top card when it
+  comes (R58, needs the running world).
+- Playbook (agreed): Moves (Escapes folded in), Game plan (lines drawn on a board, plays a default at once, rate against each kind of opponent), Combos; "No bout booked: try the plan against each kind of opponent".
+- Fight night (agreed): dark and tight, handwritten coach notes, three fixes / time for two; stats cut to three rows in the minute; the "she has adapted" note (14 words at most) replaces the coach's note (R25); a
+  cutman card only when an eye is closing (R28); the result with scorecards and the Why (plan, against you, next); the money lines move from the Why to Home; no "one change for next time" (the Why's NEXT carries it).
+- Money (agreed): the gym's books on the whiteboard: cash, runway, in and out, bills, deals, repairs, upgrades; dues bands wait for the owner's call on the cut.
+- World (agreed): News cut to only what touches you; Rankings with rivals that develop (movement arrows, Developing column); Championships; fixtures; no-gi "belt is the ladder".
+- Other menus in the agreed map (not in the seven; final text per MENU_STRUCTURE_S402): Start (three starts, already in game); First week; Fighters (a real roster); Fights (Ask for a fight sits under
+  the offers: level, date window, an answer with its reason; it waits for the bot test that a smart ask beats a plain one, R37); Fight prep ("What your plan should answer", no injury-risk lines on camp
+  choices); Club > People (staff cards keep their faces; members panel cut); Grow (finding and signing only plus the pro offer; no prospect deadlines); Top bar (no change).
+- Held back, do not build from an old mockup: one change after the Why, camp injury risk, scorecards after each round, members panel, prospect deadlines, sponsor line and per-fighter costs, the progress chart on History.
+- Conditional elements and when each appears: Coach's pad nights (two fighters in camp, until a camp ends); Needs flag for the second camp (the second camp starts, until she opens the Week); Cutman card (an eye reaches
+  the closing state at the bell); Adapted note (from round 2, when the opponent has answered one of your lines); Rival offer (the running world sends one; a flag only, answered or past its date); Ask for a fight
+  (always, once a boxer is signed); Swing reason (a random roll moved a number you can see, scrolls off with the week).
+
+## 7. The owner's standing rulings on screens (quoted or near-verbatim)
+
+- Only actionable information: "i do not want stupid and unecessary information to be displayed unless the player can really do something about it". Cut it, hover it, or put the action on it.
+- One top bar and modals; nothing opens by itself; moments come as flags on the top bar. A week review sits as a need on Home.
+- No flavour text; plain words; one word per concept (Raw, Usable, Sharp, Signature everywhere). Hover explains every number.
+- Not mobile: "thats not how sim/manager games look , its very simplestic no actual stats to make the player understand how good the fighter is". Real stats stay. Not an 80s spreadsheet; no placeholders.
+- Do NOT judge against a generic management sim ("they seems like economic management simulator"). Judge fit to this game and its plan.
+- Look B, the gym whiteboard: marker notes, polaroid, needs as sticky notes, the cash tin, the fight date circled; warm tan plaster wall, wood and aluminium frames, cream paper. ONE art style across menus
+  ("no art consistency" was his complaint). Stylized comic portraits in menus are on and must match the fighter. Marker fonts Permanent Marker and Kalam.
+- Screens come only from agreed mockups; nothing is built on a menu he has not OK'd. A generic Money page was reverted.
+- Fight night goes dark and tight (the Miro "Corner minute"); the coach's notes stay handwritten.
+- Everything new ships switched ON. Hover cards on top-bar date and cash. Animated meters (every bar tweens).
+- Weekly job pages must not become a pop-up. One-click reach from anywhere. Two Point alignment is parked (the gym floor is out of the first release).
+- No gym still with the Day Plan or a drawer open; stills of fights show both fighters head to feet; boxers wear boots (visual rules for pictures).
+- Scouting means opponents; finding fighters is "Find a fighter". The facility is a "gym"; a fight camp is only pre-bout preparation. Fighters are fictional; organisations real-named only where legal.
+
+## 8. Where the documents and the code differ, and what could not be established
+
+Code wins. For the critic: do not judge a screen against these older statements.
+- Autosave, Settings and Handbook: docs say "not built"; they are built (autosave every Monday).
+- Pros have no offers/world after the debut (docs): the code has a pro ladder, promoter offers, asking, scouting, belts, ageing and retirement.
+- Ask for a fight: docs say impossible; it exists for pros only. Amateurs cannot ask.
+- Gym closes after 4 weeks below $0 (CLAUDE.md numbers) vs 8 weeks in code. Gym's share of a pro purse 35% (CLAUDE.md) vs 25% in code. A loss costs 3 members and 2 reputation (CLAUDE.md) vs 1 and 2 in code (stoppage 2 and 4).
+- Ex-pro head-coach edge: design says one extra corner call; code gives one opponent tell on file at booking. Old hand: design "cheaper camps"; code: easier weight cuts.
+- Roster limit "up to 8": code gives 3 places, +2 per premises tier, +1 per second coach (5 and 7 at the larger premises).
+- Four rail buttons plus Playbook: the Playbook is reached from the fighter page, not the rail. Docs on Fights tabs are out of date (one page).
+- "Coach runs it", year review and club goals, club tiers, rival gym, poaching, career clock: not in code. Overdraft has rules but no screen found. Keys 1-5 for the rail and highlights/full watch options: not found.
+- NOT ESTABLISHED: the exact number of moves in the Playbook; whether the 3D corner's cutman choice offers "stop it / go on"; whether the week review ever opens without a press (the owner listed it as a defect on 2026-11-08);
+  the owner's answer on an open-ended career and a roster of 8; whether R11 (readable reason for every swing) exists beyond the Why; crossover numbers between boxing and BJJ (left blank on purpose).
+
+## Added S409
+The building: chosen once at new career, one of four gym plans, each with one small permanent edge (5% more members, 5% more show income, 3% better power and technique training, or injured boxers back 10% sooner).
+The gym on Home has people in it: the club's fighters and members, working at equipment and walking the floor. More members, more people (2 to 12). Decoration only: they take no clicks.
+
+## Added S410
+- The shell's top bar is dark on every game screen (5.0).
+- Fighters > Roster (5.4) is now full-body cards on a painted gym: weight class and rank, a corner flag for the most urgent answer (Set camp, Offer, Weight, Mood low), Condition / Mood / Weight tiles, the next fight and days to it; a click opens the fighter's page. Under them, Scouted for you: up to four prospects, with Invite to a trial. A Cards / Table switch keeps the sortable table (Rank, The Road, Goal).
+- Fights > a bout offer (5.6) opens as a versus screen: the two boxers on a red and a blue wall, the tale of the tape (record, age, weight on the day against the limit, height, stance), the win chance and how sure it is, what a win and a loss change, Full report / Pass / Accept. Full report is the old bout page: stats against the estimate, win band, ranks at stake, the file, the terms.
+- The game does not hold a venue, last-five form or a fighter's reach, and there is no scouting before accepting an amateur offer.
+
+## Added S448 (code check)
+- The attributes in section 3 marked AGREED, NOT BUILT are in the code: `scripts/rules/Attrs.gd` holds the 14 abilities (Strength,
+  Explosiveness, Speed, Stamina, Recovery, Flexibility, Durability, Fight IQ, Composure; skills Accuracy, Timing, Defence, Footwork,
+  Inside fighting) plus Heart; the old seven (Power, Hand speed, Technique, Defence, Conditioning, Ring IQ, Chin) are kept as a summary
+  read from them. Punches are moves with mastery. Our own fighters have no height or reach value yet (opponents do).
+- The plan's step and defence answers are `StrikeMap` arrows: step in, step out, step back, cut off, herd, pivot out, push off, feint,
+  tie up, roll out. BUILT since S463 (`StepMastery`): each of the 10 has its own mastery bar, given at signing from Footwork; a step fires by its
+  bar like a punch (under Usable 30 the coach never plans it and it mostly fails). Training a step (S463, greybox): the fighter page's WHAT TO LEARN NEXT card puts ONE step or defence in the study slot; the week's pad nights raise
+  it about 6 a week (step back 0 to 32 in about 5 weeks); at Usable 30 it leaves the slot. One slot only. NOT BUILT: nothing takes a step past 30
+  (to Sharp 60), sparring gives a step nothing, and two steps cannot be learned at once.
+- Coaches: Luke Reid pads 74 (rating 58), Marcus Hale pads 58 / conditioning 90 (rating 74).
+- Units: the code counts a pad night as 240 drill units (PadWeek.PAD_NIGHT_MINUTES) for the 75 real minutes in 4.2; a sparring night shares 180
+  units over the moves on the fighter's cards and plan. Mastery maths uses the units.
+
+## Added S451 (code check; where this and an older line above disagree, this wins)
+- FireLevel is ON since S450: a planned line fires 1 use in 2 at Usable, 3 in 4 at Sharp, always at Signature. The line in 4.2 that says
+  "SWITCHED OFF" is out of date.
+- Our own fighters now have height and reach, and the fight reads them (S450). The S448 line saying they have none is out of date.
+- Phases come from any booked bout, camp or no camp: a bout 1 week out makes the week TAPER (WeekPhase.phase), also for an amateur bout.
+- Two rest rules after a stoppage loss, both in code: the 30-day suspension (Injuries) and the next bout offered 8 weeks later than usual
+  (Matchmaking.STOP_REST_WEEKS).
+- The office is a full-screen computer desktop (owner's Q-213 "A, full screen", S451): the gym's office pin opens it. Its Desktop shows what
+  needs you, the next four weeks (bouts, bills, dues), mail, the fighters with each one's flag, money 8 weeks ahead and the staff. Its other
+  apps (Mail, Schedule, Fighters, Staff, Finance, Records) are AGREED, NOT BUILT; today they lead to the existing pages.
+
+SANDBOX (S412): the player runs any gym with any boxers, men or women. Never write about one boxer as the story, and never a fixed he or she in text or mockups.
+
+
+# THE DESIGN MAP TO JUDGE
+
+# DESIGN_CLUBWEEK1_V8_REVISE_KALLI_KALLI - Kalli answer (seat queue SQ146)
+
+Brief: research/DESIGN_CLUBWEEK1_V8_REVISE_KALLI.md
+Sent: 2026-11-15 02:10 | collected: 2026-11-15 02:40 by Tools/seat_queue.py (the 30-min reconcile)
+Verify the sources before using it.
+
+---
+
+On it: I'm writing CLUBWEEK1 v8 in full now. It answers all 12 of John's points and all 10 of Maria's.
+
+# CLUBWEEK1 v8: the club week, with the fight weeks inside it (S459, S472, 2026-11-15)
+
+Part 1 of 4
+
+v8 is a full map. It replaces v7 (seat SQ129), and nothing outside this page stands.
+
+**What decides this version:** John's critic (SQ135: depth 6, general design 5, play 6) and Maria's critic (SQ136: depth 7, general design 5, play 6). Both failed v7 on general design.
+
+**Not opened this pass:** `ops/research/CRITIC_ACCESS.md`, the Miro board and the mockups. The owner's computer is offline, so this map is checked against the critic pack, v7 and the two critics only.
+
+**Owner rules kept, quoted**
+- **Q-190 (S434/S435):** "Just rename it 'gym sponsorship', the club pays." It's never mixed up with Sponsor deals on Club > Money.
+- **S448:** "notice how the names are only mentioned on the header , nowhere in text menus options , follow that rule". Rows, buttons, tooltips, notes and Why lines say the 65 kg boxer, a team-mate, the grappler, your coach, the opponent.
+- **S412:** "the player runs any gym with any boxers, men or women." No fixed he or she, and never one fighter as the story.
+- **S425:** every menu the mechanic appears on, and what each is wired to (section 7).
+- **S459:** 6+ DEPTH and 6+ GENERAL DESIGN from fresh critics, ESTIMATEs marked, buildable from what the game has.
+- **Pack section 7:**
+  - "i do not want stupid and unecessary information to be displayed unless the player can really do something about it".
+  - One word per concept.
+  - Screens only from agreed mockups. The Club week waits for the owner's OK on a drawn page (owner question 1).
+- **Pack section 1:** "Deeper, not wider." A quiet week is one click.
+- Classes in kg: women 57/60/65/75, men 57.5/60/70/75. Females never fight or spar males.
+- "Gym" is the facility. "Camp" means only a pro's pre-bout preparation; an amateur bout has a fight week.
+
+**Marks**
+- **CODE:** in the code today, with the file or symbol named.
+- **REAL:** real practice, with its source.
+- **ESTIMATE:** ours, gated by the section 9 probes. No probe has run on v7 or v8, so every place, loyalty, price and rate below that isn't CODE is ESTIMATE.
+- **NEW:** a rule this map adds.
+- **v2:** held back until its probe passes.
+
+**One word list**
+- **Energy** is fight-night fuel (CODE `BoutNight._energy`, as in WEIGHT1 R4). "Tank" is gone from this map. AMATEURWEEK1 v9 still says "tank" and renames it in its next version.
+- **Tiredness** (0–100) is the week's wear (CODE, "Week tiredness"). **Stamina** is the ability.
+- **A place** is the coach's pad rounds inside one boxer's evening: about 20 coach minutes, 3 places to a coach's pad hour (NEW, ESTIMATE). It makes that evening count at the **pads rate** (2.1 mastery an hour, CODE).
+- **A bag night** is an evening without a place. The boxer still trains the full evening, 240 units over the same drill cards (CODE `PadWeek.PAD_NIGHT_MINUTES`), but at the **heavy-bag rate** (1.05 an hour, CODE). So a bag night is half the mastery.
+- **A morning** is a morning session (CODE). A **coached morning** has You or Coach present. **Work** marks a morning lost to a day job (3.6).
+- **Coach** is the hired assistant coach. **You** are the head coach.
+- **Fight week** is the code's TAPER week (`WeekPhase.phase`).
+
+## 0. Every critic point answered
+
+### 0.1 John (SQ135): To reach 10/10
+| # | John's point | v8 |
+|---|---|---|
+| 1 | Redefine a place as the coach's pad rounds inside the night; without one, bag rate; recount from coach minutes | **Done (3.1).** A place is about 20 coach minutes, 3 to a pad hour. An evening without one is a bag night at 1.05, half the mastery (CODE rates). Owned places are recounted from pad hours: 9 with a sessional coach, 12 with a full-time one. The table is re-run |
+| 2 | Close the cover and class money pump | **Done (3.2).** A class pays $117. Cover costs $130, once a week, and is offered only when the counter reads BAG or SHORT. A class plus cover now loses $13 |
+| 3 | MONEYFOUR2 around one class night, with loyalty beside cash | **Done (9, probe 7).** One sponsorship plus one class night a week, reporting cash and the lowest loyalty over 52 weeks |
+| 4 | Write the job rota as a rule or cut it; one meaning for "mornings" | **Written (3.6).** Without the sponsorship, a boxer loses 2 mornings a week to a day job, marked WORK. "Free mornings" is gone: a coached morning is a coached morning, and WORK is a lost one. Owner question 3 |
+| 5 | Write the morning rates against an uncoached morning | **Done (3.5).** Solo coached is +30% over an uncoached morning; shared is +10% each. Both beat training alone, so MORNINGS1 tests two real options |
+| 6 | Merge the Protect pin with row order | **Done (3.3).** Drag order sets who's dealt first. The pin becomes **Lock**, which only stops a class, the photo twist or Hold pads taking that boxer's places |
+| 7 | Fight week as 3 shorter one-to-one sessions, frequency 80%+, each one slot | **Done (3.4).** 3 sessions of 120 units (360, half volume, 3 of 3 nights). Each takes one place, plus one place for the film and plan night, so a fight week takes 4. That 1 extra is the coach-time cost |
+| 8 | Say what loyalty is in code; keep morale separate; move the loop break | **Done (3.7).** Loyalty is the code's Loyalty trait (pack 3) shown as a bar. Morale stays the fight's trust meter. The Low-morale loop break moves to a morale map (MOOD). Leaving is its own one-line rule (owner question 4) |
+| 9 | Write all twist answers with prices; the code's clock rule | **Done (3.9), the Maria way.** The code's WeekTwist deck stays. The 7 cards that touch the club's evenings are reworded with 2 priced answers each. No answer means Coach's pick on Monday (CODE). The "clock waits" line is cut |
+| 10 | Fix the fourth start's pro (70 kg has no table) | **Moved out (2).** The fourth start goes to its own map, START2, carrying John's fix: the men's pro becomes a 66 kg welterweight |
+| 11 | A reward line when a squeeze passes, and an upside Why line | **Done (3.8, 7).** Week review: "Two fight weeks, nobody short: +2 loyalty each". Why: "Full fight week: three one-to-one sessions" |
+| 12 | Run probes 1–3 under the new unit, then settle the CHECKs | **Ordered first (10)** under the new unit. The CHECKs are in 11 |
+
+### 0.2 John's missing options
+| Option | v8 |
+|---|---|
+| One cover a week, tied to SHORT | Done (3.2): once a week, only at BAG or SHORT |
+| "Bag night" printed on the row | Done: night magnets print PADS or BAG, and the class magnet names the weight class that goes to bag |
+| A review line for a squeeze handled | Done (3.8) |
+| Fight week as 3 short sessions | Done (3.4) |
+
+### 0.3 Maria (SQ136): To reach 10/10
+| # | Maria's point | v8 |
+|---|---|---|
+| 1 | One owner for the coach's week | **CLUBWEEK1 owns it, in places,** as Maria recommends. COACHFIT1 reads who holds each place for its fit and bond, and converts its budget at 3 places per pad hour. CHECK (Claude, with COACHFIT1's next version) that its sessional 8 / full-time 12 maps onto 2 and 3 pad hours |
+| 2 | Energy, not Tank | Done (word list) |
+| 3 | Ask the owner about the training cut | **Asked (owner question 2), and the default no longer cuts.** With a sessional coach and 3 boxers, an ordinary week is FULL: 9 places for 9 asked, everyone at the code's full pads volume. Bag nights come only from choices: a class, two fight weeks, a fourth boxer, a twist |
+| 4 | Settle the coach's evenings and the second class first | CHECKs 1 and 2, run before any probe (10) |
+| 5 | Mark the 10% pro share and leaving as GAME VALUE; owner question | **Done (owner question 4).** Without a yes, the pro share stays 25% (CODE) and a boxer under 25 loyalty only takes morale −4 each Monday (ESTIMATE). Nobody leaves |
+| 6 | Take the fourth start out | Done: START2 |
+| 7 | Keep WeekTwist and reword it | Done (3.9) |
+| 8 | A pads volunteer as the lasting fix | **Done (3.2).** A staff job at $120 a week: +3 places every week, drilled at 0.8 of the pads rate (ESTIMATE). Hiring a full-time coach is the other lasting fix, at 12 places |
+| 9 | "Ask for a later date" at Accept | **Done (4.1)** where a collision shows, reading the code's later-date path for weight. CHECK (Claude) that it can be reused |
+| 10 | Make loyalty bite | **Done (3.7).** Need met gives 0 (was +1), Want met +1, short −5 (was −3), short again −8 (was −6). LOYAL1 must show the talk turning up 2–4 times a season, or the numbers move again |
+
+### 0.4 Maria's missing and weak options
+| Option | v8 |
+|---|---|
+| Pads volunteer | Done (3.2) |
+| A session moved to a morning | **Done (3.5).** A coached morning can become one place for one boxer at 0.8 of the pads rate. It costs that coached morning |
+| A later date at a collision | Done (4.1) |
+| The season cost of a class printed | Done: "+$117: three evenings go to bag this week" with the weight classes named, and "a class every week: 3 bag nights a week" on hover |
+| Borrow a place (rarely right) | **Cut.** Cover, the volunteer and a later date do its job without a debt to track |
+| By hand (expected to be cut) | **Cut as a mode.** Moving a night magnet between rows stays as plain editing, and DEALPRICE1 only checks whether editing is worth teaching |
+| Pass on the sponsorship (free) | **Fixed:** the giver now loses 3 (it was taken away), the receiver gains 5 |
+| Tell it straight (a coin flip) | **Given a real trade (3.7).** Give the place back costs a team-mate a place next week. Tell it straight costs no place, and holds for +6 against −4 |
+
+### 0.5 John's options table, the ones not kept as they were
+| Option | v8 |
+|---|---|
+| Protect pin | becomes Lock (point 6) |
+| Cover $80 | $130, once a week, at BAG or SHORT only |
+| Solo or shared morning | rewritten against an uncoached morning |
+| Club twist (12) | the code deck, 7 cards reworded with answers |
+| Fourth start | START2 |
+
+Part 2 of 4
+
+## 1. The idea in five lines
+1. **The Club week is the Monday deal of the club's scarce things:** the coach's **places**, the **coached mornings**, the **gym sponsorship**, and **your one talk**.
+2. **A pad hour can be sold as a class.** That's the money lever. Its price is printed in bag nights, by weight class.
+3. **Bouts sit on the same board.** A fight week takes 4 places. Two fight weeks together, or a fight week on a class week, is where boxers go SHORT, and the bout page says so before Accept.
+4. **What lasts past the week is loyalty,** the code's trait shown as a bar, and every move prints its cause.
+5. **The NEXT WEEK line** shows a collision two weeks out. A quiet week is one click.
+
+## 2. When it appears (the starts unchanged)
+- **The game's three starts stay exactly as they are (CODE):** Fresh doors, In debt and Backed.
+- **With one fighter,** the fighter's Week tab works as today, and that fighter is dealt every place they ask for.
+- **When a second fighter signs, the Club week tab appears on Fighters (NEW).** One guide line, "Two fighters now share the coach's pad hours", and a Home note open it.
+- **The fourth start** ("Take over a club") moves to its own map, START2. It carries John's pro fix (a men's 66 kg welterweight, inside the code's table) and Maria's roster question. This map doesn't need it.
+
+## 3. The week, as the player meets it
+
+### 3.1 Places, recounted from coach minutes (answers John 1, Maria 1 and 3)
+**What a place is**
+- Coach's pad rounds for one boxer in one evening: about 3 rounds plus wraps and notes, about 20 coach minutes (ESTIMATE; CHECK John: pad rounds per boxer on a real club night).
+- With a place, the boxer's evening counts at the pads rate, 2.1 an hour (CODE).
+- Without one it's a **bag night**: the same evening, the same 240 units and the same drill cards, at 1.05 an hour (CODE). Half the mastery, and the boxer still trained.
+
+**Where the places come from**
+
+| Who | Pad hours a week | Places |
+|---|---|---|
+| Sessional coach | 2 (ESTIMATE; CHECK Claude) | 6 |
+| Full-time coach | 3 (ESTIMATE; CHECK Claude) | 9 |
+| You | 1 | 3 |
+| **Owned, sessional / full-time** | | **9 / 12** |
+
+- The code's evening members' class (+$350 a week, CODE) is separate from the pad hours and never changes.
+- With no coach, only your 3 places exist, and training already runs at 60% (CODE).
+
+**Need and Want**
+- **Want 3** places a week, one per evening: the code's standard 3 pad nights at full pads volume.
+- **Need 2.**
+- **In a fight week,** Need and Want are both 4 (3.4).
+- A boxer gets at most Want.
+
+**The counter's words**
+| Word | Meaning | Cost |
+|---|---|---|
+| OK | spare places | none |
+| FULL | every Want met | none |
+| BAG n | Want unmet: n bag nights this week, every Need met | the mastery only |
+| SHORT n | n places under Need | the mastery plus loyalty (3.7) |
+
+Colour repeats the word and is never the only signal.
+
+**The shortage table, sessional coach (owned 9)**
+| Week | Asked | Need | Word |
+|---|---|---|---|
+| Ordinary, 3 boxers | 9 | 6 | **FULL**: today's volume, no cut |
+| One amateur fight week | 4 + 3 + 3 = 10 | 8 | BAG 1 |
+| Two fight weeks together | 4 + 4 + 3 = 11 | 10 | BAG 2 |
+| A class sold, ordinary (owned 6) | 9 | 6 | BAG 3 |
+| A class sold plus one fight week | 10 | 8 | **SHORT 2** |
+| A class sold plus two fight weeks | 11 | 10 | **SHORT 4** |
+| 4 boxers (a bigger unit, CODE roster) | 12 | 8 | BAG 3; a full-time coach makes it FULL |
+| Pro camp, BUILD or PEAK | the camp's pad nights: Light 2, Standard 2, Hard 3 (CODE 2+1 / 2+2 / 3+2). Sparring nights take no places | | read per week |
+| Pro fight week | 4 | 4 | as the amateur one |
+
+With a full-time coach (owned 12), every row moves up 3. Only stacked choices go SHORT. All values ESTIMATE.
+
+**Steps:** a step in the study slot rises only on nights with a place. 3 places give about 6 a week (CODE S463); 2 give about 4 (ESTIMATE). CHECK (Claude) that StepMastery can read places.
+
+**Freed places,** from a rest week, a pull-out or a bout ending, print on the counter: "Freed 3: give to [row] / [row], or sell as a class +$117". The default follows deal order.
+
+### 3.2 The money lever and its valves (answers John 2, Maria 8)
+| Lever | What it does | Price | Tag |
+|---|---|---|---|
+| **CLASS** (flip a pad hour; yours too) | the hour runs a second members' class | +$117 that night, about 1 new member in 4 weeks taught; 3 places gone, the boxers named on the magnet ("+$117: 60 and 75 kg boxers go to bag Thursday") | ESTIMATE; CHECK Claude: a second class an evening in DuesLevers |
+| **Cover a night** | a sessional cover coach takes one pad hour | $130, +3 places at the full rate; once a week, offered only at BAG or SHORT | ESTIMATE |
+| **Pads volunteer** (staff job, Club > People) | a club volunteer holds pads every week | $120 a week, +3 places drilled at 0.8 of the pads rate | ESTIMATE |
+| **Hire full-time** | Coach's pad hours go from 2 to 3 | the code's full-time wage (CODE $1,090 against $450) | places ESTIMATE |
+| **Rest week** (row switch) | Need and Want 0 | +4 morale (CODE rest week) | CODE |
+
+**Why the pump is shut:**
+- A class plus cover nets −$13.
+- A class plus the volunteer nets −$3 a week, and the volunteer's places are worth less.
+- Classes earn only by leaving boxers on bag.
+- The **second club coach** ($280, CODE) adds no places, because its hours are fitness classes in the code. Its card says so.
+
+### 3.3 The deal (answers John 6, Maria's "By hand")
+- **Coach deals it** is the default and one click. It deals Want in **row order**: drag a row up and it's dealt earlier, and the order is kept week to week.
+- **Lock (NEW, one row at most):** a class, the photo twist (3.9) and Hold pads can't take that boxer's places. Its price prints before Start week: "Lock the 65 kg boxer: the class takes the 60 kg boxer's Thursday instead."
+- **Editing:** drag a night magnet from one row to another. **Back to Coach's deal** undoes it.
+- **Pulls, printed as words:** warnings first (SCALE inside 14 days, FIGHT WEEK, REST at tiredness 70+ or hurt), then at most two labelled stickies:
+  - **WEAK SPOT:** the lowest ability the fight reads, 3+ under the fighter's level, with who finds it ("Low Defence: pressure fighters find it"). CHECK (Claude) which abilities the fight reads.
+  - **WEAPON:** the ability gating the next perk ("Fast hands at Speed 70: about 4 weeks").
+  - **GOAL:** the active goal (CODE).
+  - **AHEAD:** the next rival up the regional table, and the answers owned.
+
+  A pull asks for 2 coached mornings, or AHEAD asks for its place first.
+- **A quiet week:** when nothing differs from last week (no fight week, no BAG or SHORT, no talk, no twist due), the page shows only the counters and the rows, and the button reads "Coach deals it: same as last week". Press it, then Continue.
+
+### 3.4 The fight week: 3 one-to-one sessions (answers John 7)
+- **When:** the 7 days before any booked bout (CODE TAPER, `WeekPhase.phase`), amateur or pro.
+- **Sessions:** 3 one-to-one sessions of 120 units each, 360 for the week. That's half the standard 720 at full frequency (3 of 3 nights). Each session is about 40 minutes of the boxer's work with 20 of Coach's on the pads (ESTIMATE).
+- **Places:** each session takes one place, and the film and plan night takes one more: **4 places**. That extra place is the coach-time cost of a bout.
+- **Real taper (REAL, Bosquet et al. 2007, meta-analysis of 27 studies):** cut volume 41–60%, keep intensity and frequency; frequency 80%+ of pre-taper.
+- **Load stops and sparring belong to AMATEURWEEK1 v9** (Rest up / Tick over / Train through, and fight-week sparring at its price).
+  - Rest up drops to 2 sessions (3 places).
+  - Sparring nights take no places.
+- **The row prints:** "Fight week: 3 one-to-one sessions, half volume".
+
+### 3.5 Coached mornings (answers John 5, Maria's morning session)
+**Owned:** 6 a week, You 4 and Coach 2 (ESTIMATE; COACHFIT1 reads these).
+
+**Rates against an uncoached morning (CODE rate × coach factor):**
+
+| Use | Rate | Tag |
+|---|---|---|
+| Uncoached | 1.0 (CODE) | CODE |
+| Solo coached | 1.3, without Hard's extra tiredness | ESTIMATE |
+| Shared coached, two fighters | 1.1 each | ESTIMATE |
+| Pads in the morning | one place for one boxer at 0.8 of the pads rate, using up that coached morning | ESTIMATE |
+
+**What 6 coached mornings give:**
+- all solo: +1.8 morning-equivalents on one or two pulls;
+- all shared: +1.2 spread over up to 12 sessions.
+
+MORNINGS1 requires each to win in 30–70% of seeds.
+
+### 3.6 The gym sponsorship and the day job (answers John 4)
+**The sponsorship is the stipend** (CODE, $250 a week, Club > Money > STIPENDS):
+- Shown and billed as the gym sponsorship in 4-week blocks of $1,000.
+- Who can hold one: amateurs and the grappler. A pro can't, because the stipend stops on signing (CODE).
+
+**The day job (NEW, ESTIMATE; owner question 3)**
+- **A boxer without the sponsorship** works a day job: 2 mornings a week (Tue and Thu) are marked WORK on the Week tab and train nothing.
+- **A grappler without it** misses 1 mat class in 3 (NoGi classes, CODE count).
+- **A pro** has no day job.
+- **With the sponsorship,** every morning trains.
+
+**Block choices and loyalty**
+- Give: loyalty +5.
+- Renew: −$1,000, loyalty +2.
+- Pass on: the receiver +5, the giver −3.
+- Let end: 0.
+- Stop mid-block: −8.
+
+CHECK (Claude) that the stipend and the sponsorship are one record.
+
+**The grappler's row** on the Club week holds two things only:
+- **SPONSORSHIP:** held or not.
+- **SATURDAY CORNER:** shown only when a boxer and the grappler compete the same Saturday. Pick You, or a $100 mat coach (ESTIMATE).
+
+Everything else stays on the grappler page (CODE). GRAPPLE1 gates more (v2).
+
+Part 3 of 4
+
+### 3.7 Loyalty: the code's trait, shown as a bar (answers John 8, Maria 5 and 10)
+**What it is:** the code's Loyalty trait (pack 3: it exists but isn't on the board), shown 0–100 as a bar on the row and on Overview.
+
+**What it isn't:** morale stays the fight's meter (CODE: win +8, loss −12, and so on; trust in the corner 1.05 / 1.0 / 0.85 / 0.7). Loyalty never touches the corner.
+
+**Bands:** Loyal 70+, Settled 50+, Wavering 25+, Leaving under 25.
+
+**Moves (NEW, ESTIMATE except where marked)**
+| Cause | Loyalty |
+|---|---|
+| Want met | +1 |
+| Need met only | 0 |
+| Short (under Need) | −5; short again next week −8; 1 short week in 4 waived at Loyal 70+ |
+| A squeeze passed, nobody short (3.8) | +2 each |
+| Promise kept / broken | +5 / −12 |
+| Sponsorship given / renewed / passed away / stopped | +5 / +2 / −3 / −8 |
+| Holding pads | +3 a week, 4 weeks at most |
+| Stripe call now / hold | as StripeCall (CODE) |
+| A team-mate let go | −5 |
+| The talk | below |
+
+**Every move prints its cause:** "−5: short of a place this week". Overview keeps a 4-week log, and the week review shows the week's moves.
+
+**Hold pads (Loyal 70+, 6+ bouts):** the holder gives one of their places to a team-mate. The team-mate's night counts at 0.7 of the pads rate, the holder isn't counted short, and the holder gets +3 a week. ESTIMATE.
+
+**The talk** (loyalty under 50, flag "Wants a word")
+- **Limits:** one talk a week for the club. It costs your Monday, not a place. Each fighter at most once in 4 weeks.
+- **The three answers:**
+  1. **Give the place back:** dealt first next week, +4. The card names the boxer who drops a place next week.
+  2. **A dated promise** (a place, a bout, the sponsorship): +5 kept, −12 broken, listed under PROMISES OPEN.
+  3. **Tell it straight:** costs no place. It holds on the visible Coachability, printed on the button ("holds: 60 in 100"): +6 if it holds, −4 if not, then an 8-week wait.
+
+**Under 25** (owner question 4)
+- **If the owner says yes:** after 2 talks the fighter leaves the next Monday (one line, NEW). A fighter turning pro under 50 signs with an outside manager, and the club's share is 10%, the code's 25% minus its 15% manager part (GYM_SHARE, CODE).
+- **Without a yes:** nobody leaves, the share stays 25%, and the fighter takes morale −4 each Monday under 25 (ESTIMATE).
+
+**Moved out:** the Low-morale loop break (no −6 for a month without a fight while Low) goes to a morale map, MOOD.
+
+### 3.8 The NEXT WEEK line and the reward line
+**The NEXT WEEK line** sits under the counters. It reads booked bouts, camps and class nights, and shows only when the next two weeks differ from this one:
+- "NEXT WEEK: fight week for the 65 kg boxer; Asked 10 of 9, BAG 1. A class leaves 2 SHORT."
+- "IN 2 WEEKS: two fight weeks; BAG 2. Cover a night, or ask for a later date."
+
+**The reward (answers John 11):** when a week with a fight week or a class ends with nobody short, the Monday review prints "Two fight weeks, nobody short: +2 loyalty each". The Why gets the upside line too: "Full fight week: three one-to-one sessions".
+
+### 3.9 Twists: the code's deck, reworded (answers John 9, Maria 7)
+- **The code's WeekTwist deck stays,** one card a week.
+- **No answer means Coach's pick on Monday (CODE).**
+- **With 2+ fighters,** the 7 cards that touch the evenings are reworded for the club, each with 2 priced answers (prices ESTIMATE unless marked).
+- The other cards (sore wrist, rain, weights room shut, head cold, quiet week, tight knee, scale won't move, combo clicking, rival talks trash) stay per fighter, as today.
+
+| Card | Answer 1 | Answer 2 |
+|---|---|---|
+| Heating breaks | Fix it today: −$180 | Run cold: one pad hour lost, 3 places |
+| Night off (a boxer asks) | Give it: +4 morale (CODE), 1 place freed | Refuse: −4 morale (CODE) |
+| Partner ill | Pads instead: the sparring night becomes a pad night and needs a place | Outside partner: $160 (CODE camp fee) |
+| Southpaw in town | Book the southpaw: $40, one boxer's place becomes southpaw rounds (lifts the round-1 penalty, as the CODE camp rule) | Pass |
+| Old coach visits | Let them hold pads: +3 places one night, free | Thank them: nothing |
+| Sponsor photoshoot | Do it: +$150, one boxer loses one place (never a Locked one) | Decline |
+| Visiting pro | Spars one boxer: one sparring night at "above" level, injury ×1.15 (AMATEURWEEK1 rule) | Rent them the gym: +$60 |
+
+The 6 new cards from v7 are v2, behind ROTATWIST1.
+
+### 3.10 Let a fighter go
+- **Where:** the row menu.
+- **Price:** the rest of the sponsorship block or 1 week's stipend, and −5 loyalty to each team-mate. The roster place frees now.
+- **Confirm:** a second press, never pre-selected. ESTIMATE.
+
+## 4. The fight week inside the club week
+
+### 4.1 The offer, the collision line and a later date (answers Maria 9)
+**The offer stays as the code has it:** one at a time, Accept or Pass, both free (CODE, pack 4.5). The bout sheet's cards and rules belong to AMATEURWEEK1 v9 and LADDER1.
+
+**The collision line (NEW), above Accept:**
+- It appears only when dates collide, reading ClubDeal's forecast.
+- It names the weight class, never a name. Examples:
+  - "This fight week lands on the 60 kg boxer's: BAG 2."
+  - "This fight week lands on a class week: SHORT 2. Flip the class to pads, cover a night ($130), or ask for a later date."
+
+**Ask for a later date (NEW button, only beside a collision line):**
+- It asks the host for the next show, 2 weeks later.
+- The host agrees about 1 time in 2 (ESTIMATE). The answer comes with Monday's need, and the offer stays open until then.
+- It reads the code's later-date path for a boxer over the class. CHECK (Claude) that it can be reused.
+
+### 4.2 Pro and amateur side by side
+| | Amateur | Professional |
+|---|---|---|
+| Notice | an offer by its date (CODE) | promoter's offers, standing 7 days (CODE) |
+| Before the bout | fight week only, 4 places | camp of 4 or 6 weeks, Light / Standard / Hard pad nights 2 / 2 / 3 (CODE), then the fight week, 4 places |
+| Rounds | 3 × 3 minutes (CODE) | 4 unranked, 6 ranked (CODE) |
+| Money to the club | $450 ticket cut (CODE) | 25% of the purse (CODE) |
+| Sponsorship | can hold one | can't (CODE) |
+| Day job | yes, without the sponsorship | none |
+
+## 5. Every decision
+| When | Decision | Options and prices | Probe |
+|---|---|---|---|
+| Monday | Deal | Coach deals it (default) / drag row order / Lock one row / edit magnets / Back to Coach's deal | DEALPRICE1, LOCK1 |
+| Monday | Each pad hour | PADS (3 places) or CLASS (+$117) | MONEYFOUR2 |
+| Monday | Valves | Cover $130 (once, at BAG or SHORT); rest week; freed places; Hold pads | COVER1, SHORTWEEK1 |
+| Monday | Coached mornings | Solo 1.3 / shared 1.1 each / pads in the morning | MORNINGS1 |
+| Monday | Sponsorship | give, renew, pass on, let end, stop | MONEYFOUR2 |
+| Monday | Talk | place back / promise / straight | LOYAL1 |
+| Monday | Twist | 2 priced answers | ROTATWIST1 |
+| Offer | Accept (collision line) / Ask for a later date / Pass | 4.1 | LATER1 |
+| Club > People | Pads volunteer $120 a week; full-time coach | 3.2 | COVER1 |
+| Fight week | Load stops | AMATEURWEEK1 v9 | its probes |
+| Saturday | Who corners a clash | You / $100 mat coach | none: rare |
+| Any time | Let a fighter go | 3.10 | none: rare |
+
+Part 4 of 4
+
+## 6. The numbers
+**MEASURED (earlier probes, four amateurs):**
+- 28 bouts a year, 41 wins in 100.
+- No sponsorship gives +$31k over a year; 4 sponsorships close 80% of gyms (AMATEURPROBE1, MONEYFOUR1).
+- Plans: good 59%, none 45%, bad 41%; +5 stats is about 72% (pack). FireLevel is on (S450).
+
+**CODE:**
+- Pads 2.1 an hour, heavy bag 1.05.
+- PAD_NIGHT 240 units; the standard week is 3 pad nights.
+- Stipend $250; members' evening class +$350.
+- Ticket cut $450; full-time coach $1,090 against sessional $450; second club coach $280.
+- Camp pad nights 2+1 / 2+2 / 3+2; TAPER 1 week out; outside partner $160.
+- Rest week and night off: morale +4; refused night off −4.
+- GYM_SHARE 25% (manager 15% + trainer 10%); the Loyalty trait; StripeCall; NoGi class count.
+
+**REAL:** taper volume −41–60% with frequency kept at 80%+ (Bosquet et al. 2007).
+
+**ESTIMATE:**
+- 20 coach minutes a place; pad hours 2 / 3 / 1.
+- Need 2, Want 3; fight week 4 places at 120 units a session.
+- Class +$117; cover $130; volunteer $120 at 0.8.
+- Solo 1.3, shared 1.1, morning pads 0.8; Hold pads 0.7.
+- Every loyalty move; the day job's 2 mornings.
+- Mat coach $100; later date 1 in 2; twist prices.
+- Steps at 2 places.
+
+**Cash, sessional coach, 3 boxers, a year (ESTIMATE):**
+- A class every week: +$6,100, plus members, and 3 bag nights every week.
+- 1 sponsorship: −$13,000, giving 2 mornings a week back and loyalty.
+- Cover in each fight week (about 28 a year with 3 or 4 boxers): up to −$3,600.
+
+## 7. Every menu it appears on, and what each is wired to (S425; names only in headers)
+| Menu | What shows | Wired to |
+|---|---|---|
+| **The guide** | one line when the second fighter signs | GuideLight, Roster.sign_fighter |
+| **Fighters > Club week** (appears with 2+ fighters; owner OK needed) | counters with words (PLACES Asked / Need / Owned with OK / FULL / BAG n / SHORT n; COACHED MORNINGS; SPONSORSHIP; runway); NEXT WEEK line; pad-hour magnets PADS / CLASS with the weight classes that go to bag; Cover (only at BAG or SHORT); rows (name once in the header cell, morale word, loyalty bar with its last cause, sponsorship or WORK, pulls as labelled stickies, night magnets PADS / BAG / FIGHT WEEK, rest switch, Lock); grappler row (sponsorship, corner clash); freed places; talk card; PROMISES OPEN; twist; Coach deals it / Back to Coach's deal; Start week | ClubDeal (places, Need and Want, fight week, cover, freed, lock, forecast), DuesLevers (second class), PadWeek (rates), WeekPhase, WeakSpot, Loyalty, WeekTwist (club wording), LeverSize, GymSpend (stipend), DayJob (NEW) |
+| **Fighter > Week** | own cells as today; shared cells say "Change on the Club week"; PADS or BAG on each evening; WORK on day-job mornings | WeekBoard, WeekEditors, ClubDeal, DayJob |
+| **Fighter > Overview** | pulls with labels; loyalty bar with its 4-week log; Let go in the row menu | FighterPage, AttrBoard, Attrs, PerkRoad, Loyalty |
+| **Fighter > Fight prep** | amateur: the fight week's 3 sessions and its places; pro: camp pad nights as places | FightPrep, FightWeek, Camp, ClubDeal |
+| **Grappler page** | unchanged; sponsorship line; missed class on WORK | GrapplerPage, NoGi, StripeCall, Loyalty, DayJob |
+| **Home** | one row per fighter; "Wants a word"; sponsorship ending; NEXT WEEK SHORT note; later-date answer; Club week note when the second fighter signs | Home, HomeRows, Needs, Loyalty, ClubDeal, BoutSheet |
+| **Fighters cards** | loyalty word, sponsorship or WORK, flag (Fight week, Set camp, Wants a word) | RosterCards, FighterCard, RosterFlag |
+| **Fights, bout page / versus screen** | the collision line above Accept; Ask for a later date | BoutPage, OfferCard, ClubDeal.forecast, the later-date path (CHECK) |
+| **Fights (pro)** | the promoter's offers as today, with the collision line | ProFights, ClubDeal.forecast |
+| **Club > People** | Coach card with pad hours (2 or 3) and PADS / CLASS; pads volunteer staff job ($120, +3 places at 0.8); second club coach "+1 roster place, no places"; no-gi coach | StaffCard, CoachAreas, StaffJobs, ClubDeal |
+| **Club > Money** | class nights beside the +$350; sponsorship as the stipend with block dates; cover nights; volunteer | Money, GymBills, GymSpend, CashForecast, DuesLevers |
+| **Top bar and Continue** | flags FIGHT WEEK, SET CAMP, WANTS A WORD; stops once for a SHORT week, a twist answer and a sponsorship end | Shell, Needs, Clock |
+| **Fight night and the Why** | "Short of pads in the fight week" and the upside "Full fight week: three one-to-one sessions" | FightWhy, LeverSize |
+| **Monday week review** | bag nights and shortages with causes; loyalty moves with causes; the reward line | WeekReview, WeekCause, Loyalty |
+| **Pro offer** | the share, 25%, or 10% only if the owner says yes (owner question 4) | ProOffer, Loyalty |
+
+## 8. Held for v2, each gated on its probe passing the cut rule
+| Held | Probe |
+|---|---|
+| Favours, one regional pool with AMATEURWEEK1 | SHEETDEAL1 |
+| Fans and home against away | LADDER1 |
+| Trial mat every 4 weeks | TRIAL1 |
+| Six new twist cards | ROTATWIST1 |
+| Sparring settings (Body only stays cut) | SPARSET1 |
+| Mood-only rates | MOODRATE1 |
+| The grappler in the deal | GRAPPLE1 |
+| The fourth start | START2 (its own map) |
+
+## 9. Probes (played bouts, 40 seeds × 52 weeks, three seed sets; no screen before its table)
+**Cut rule:** a choice worth under 1.5 wins in 100 on a bout, with no season effect, is cut, not drawn.
+
+1. **SHORTWEEK1 + LOYAL1** (3 boxers, sessional, owned 9):
+   - BAG in 25–50% of weeks; SHORT in 5–20%.
+   - Coach's deal's longest short run is 2 or fewer weeks.
+   - The talk turns up 2–4 times a season per club.
+   - Starving one row loses exactly one fighter a seed if owner question 4 is yes.
+2. **DEALPRICE1 + LOCK1:**
+   - Edited deals against Coach's: under 4 in 100 means editing stays but isn't taught.
+   - Lock against no lock in class weeks: 1.5+ in 100 for the locked boxer.
+3. **VOLUME1:** mastery paces and the 59/45/41 plan numbers at 1, 2 and 3 bag nights a week. If one bag night a week moves the plan numbers by more than 2, the class pays more or the volunteer gets cheaper.
+4. **TAPER1:** 3 sessions at 360 units against a full-volume fight week; the taper wins by 1.5+ in 100.
+5. **MORNINGS1:** solo 1.3 against shared 1.1 against morning pads; each best in 30–70% of seeds.
+6. **COVER1:** cover chosen in 10–40% of fight weeks; the volunteer pays back within 26 weeks in at least 1 seed set in 2.
+7. **MONEYFOUR2:** 1 sponsorship plus 1 class night a week stays cash-level over 52 weeks, reporting the lowest loyalty beside cash, which must stay 40+ under Coach's deal.
+8. **LATER1:** a later date beats Accept-and-cover in 25–60% of collisions.
+9. **ROTATWIST1 (the 7 reworded cards):** no answer best more than 2 times in 3.
+
+## 10. Build order (5 rule modules, down from 7)
+1. **CHECKs 1 and 2 first** (pad hours, a second class), then probes 1–3 under the new place unit, emitting the LeverSize tables.
+2. **Pure rules, one per task:**
+   - ClubDeal (places, Need and Want, fight week, cover, lock, freed, forecast)
+   - Loyalty (bar, causes, talk)
+   - WeakSpot
+   - LeverSize
+   - DayJob with the stipend as the sponsorship
+3. **Code changes:** a second class an evening (DuesLevers), the club wording for 7 WeekTwist cards, the pads volunteer in StaffJobs, the later-date path at a collision.
+4. **Screens, after owner question 1 and the drawn page:** the Club week, the collision line and later-date button, the Overview loyalty log, the Money lines.
+5. **One golden-path test:**
+   1. Fresh doors; the second fighter signs, and the Club week appears.
+   2. A class is sold, and BAG 3 shows.
+   3. A fight week.
+   4. A collision line at Accept, then Ask for a later date.
+   5. A class plus a fight week leaves a boxer SHORT 2.
+   6. Cover a night.
+   7. A talk.
+   8. A reworded twist.
+   9. The reward line, then the Why line.
+
+## 11. Owner questions and CHECKs
+**Owner questions**
+1. **The Club week:** OK it as a tab on Fighters? Asked with the drawn page from section 12.
+2. **Bag nights:** an ordinary week keeps today's full pads volume, but a class, two fight weeks, a fourth boxer or a twist can put a boxer on bag nights (half the mastery that night). Yes?
+3. **The day job:** a boxer without the gym sponsorship loses 2 mornings a week to work. Yes, or does the sponsorship give loyalty only?
+4. **Leaving and the pro share:** a fighter under 25 loyalty after 2 talks leaves, and turning pro under 50 drops the club's share to 10%. Yes, or morale only?
+
+**CHECK (Claude)**
+1. The coach's pad hours in code (sessional 2, full-time 3).
+2. A second class an evening in DuesLevers.
+3. The stipend and the sponsorship as one record.
+4. StepMastery counting only nights with a place.
+5. Which abilities the fight reads, for WEAK SPOT.
+6. The later-date path reused at a collision.
+7. With COACHFIT1: its budget read as 3 places a pad hour.
+
+**CHECK (John):** pad rounds per boxer on a real club night, and the 20-minute place.
+
+## 12. The page for the owner (1920×1080, Look B whiteboard; drawn in the next board session)
+- **Dark top bar:** CONTINUE reads "to Mon 9 Feb, the week review".
+- **Top strip (0–120):** counter magnets, each a word and numbers: PLACES "Asked 10 · Need 8 · Owned 9 · BAG 1", COACHED MORNINGS "Solo 4 · Shared 2", SPONSORSHIP "1 of 1 · block ends 2 Mar", RUNWAY "11 weeks".
+- **Under it (120–180), in red marker, only when it matters:** "IN 2 WEEKS: two fight weeks, BAG 2. Cover a night or ask for a later date."
+- **Left (40–440), PAD HOURS:**
+  - three magnets (Tue and Thu for Coach, Fri for You), each flipping PADS ("3 boxers on pads") and CLASS ("+$117: 60 and 75 kg boxers go to bag");
+  - COVER ($130, "only at BAG or SHORT, once a week");
+  - a note pointing to the volunteer on Club > People.
+- **Centre (480–1480), THE SQUAD:**
+  - one row per boxer, the name once in its header cell, with the weight class;
+  - the morale word;
+  - the loyalty bar, its last cause in marker ("+1: full week");
+  - up to two stickies (WEAK SPOT, WEAPON, GOAL, AHEAD);
+  - night magnets, solid PADS, hatched BAG, three small FIGHT WEEK session magnets;
+  - WORK on day-job mornings;
+  - the rest switch and the Lock;
+  - drag to reorder;
+  - the grappler's row last, with the sponsorship and the corner clash only.
+- **Right (1520–1880):** the twist with 2 priced answers, the talk card with its odds, PROMISES OPEN with dates.
+- **Bottom (980–1060):** Coach deals it ("same as last week" when quiet), Back to Coach's deal, and Start week in gold. Green appears only on Continue.
+- **Stress state on the same page:** a class on Thursday plus a fight week. PLACES reads SHORT 2, one row shows two BAG nights, and the class magnet names the weight classes that pay for it.
+
+## 13. Risks
+- **Coach's deal may still dominate.** That's accepted. The choices that bite are the class, cover, the volunteer, a later date, the sponsorship and the talk, not the deal itself.
+- **The day job and leaving need the owner (questions 3 and 4).** Without them, the sponsorship is loyalty only and loyalty only moves morale. The map still runs, with less depth.
+- **The place maths rests on CHECK 1.** If the code has no pad-hour count, 9 and 12 are design values the code must adopt.
+
+## 14. Self-score: DEPTH 7, GENERAL DESIGN 7, PLAY 7 (mine, not a critic's)
+**To reach 10/10**
+1. Settle CHECKs 1 and 2, then run probes 1–3 under the new place unit and paste the tables.
+2. Draw section 12 at 1920×1080 and get owner questions 1–4 answered on it.
+3. Align with COACHFIT1 so both maps read one place count (CHECK 7).
+4. Tune loyalty from LOYAL1 until the talk turns up 2–4 times a season.
+5. Bring back v2 items only as their probes pass, GRAPPLE1 first, so the grappler's row carries real choices.
+
+
+# CRITIC ANSWER: DESIGN_CLUBWEEK1_V8_CRITIC_JOHN_JOHN.md
+
+# DESIGN_CLUBWEEK1_V8_CRITIC_JOHN_JOHN - John answer (seat queue SQ157)
+
+Brief: research/DESIGN_CLUBWEEK1_V8_CRITIC_JOHN.md
+Sent: 2026-11-15 04:10 | collected: 2026-11-15 04:40 by Tools/seat_queue.py (the 30-min reconcile)
+Verify the sources before using it.
+
+---
+
+On it. I'm checking CLUBWEEK1 v8's place maths and money against the critic pack first, then I'll score it. Beast is still offline, so `CRITIC_ACCESS.md`, the board and the mockups aren't open.
+
+**Logic check.** I recomputed the place table, the money and the twists. Some numbers hold up:
+- An ordinary week is 9 places asked against 9 owned, so FULL.
+- One fight week is 10 asked against 9, so BAG 1.
+- A class week is 9 asked against 6, so BAG 3.
+- A class plus a fight week is SHORT 2, and a class plus two fight weeks is SHORT 4.
+- Four boxers is BAG 3.
+- The sponsorship's 4 × $250 is $1,000, and over a year 52 × $250 is $13,000.
+- A class every week is 52 × $117, about $6,100.
+- 28 covers at $130 is about $3,640.
+- The fight week's 360 units against 720 is a 50% volume cut, inside Bosquet's 41–60%.
+- The twist split is right: 7 reworded cards plus 9 kept makes the code's 16.
+- The 10% pro share is the code's 25% minus the 15% manager part.
+- There are no names outside headers and no fixed he or she.
+
+Fourteen things don't hold or aren't stated:
+
+1. **The table's two-fight-week row is wrong.** Need is 4 + 4 + 2 = 10 against 9 owned, so that week is **SHORT 1**, not BAG 2. The same error is in the IN 2 WEEKS example and the collision line ("BAG 2"). It breaks the map's own claim that "only stacked choices go SHORT": with a sessional coach, two fight weeks together always leave someone short.
+2. **Two fight weeks together aren't rare (DERIVED).**
+   - Amateur bouts only happen at club shows every other Saturday (GAME), so fight weeks can only fall in 26 of 52 weeks.
+   - With 3 boxers at about 7 bouts each, a boxer has a fight week in about 27 in 100 show weeks.
+   - At least two of three then share one in about 18 in 100 show weeks, about 9 in 100 of all weeks.
+   - So SHORT comes from bouts alone about one week in 11, before any class is sold.
+3. **Places have no per-night rule, and two features need one.**
+   - The pad hours sit on three nights (Tue and Thu for Coach, Fri for You), 3 places each, and Want is "one per evening". A class on Thursday then takes all three Thursday places, so every boxer goes to bag that night.
+   - **Lock can't do what its own example says.** "The class takes the 60 kg boxer's Thursday instead" only works if a hour holds fewer places than there are boxers.
+   - **A fight week asks 4 places from 3 pad nights,** so one night must give the same boxer two places, or the film and plan night needs coach time outside the pad hours.
+   - The Friday pad hour is also the weigh-in day for a Saturday show.
+   - State whether places are pooled for the week or tied to a night, and whether one boxer can hold two in one night.
+4. **"Place" is already two game words.** A roster place (premises "3 places", "+1 roster place") and a ranking place (take their place, $400 per place) both exist. The map even writes "+1 roster place, no places" on one card. A third meaning breaks one word per concept.
+5. **The film night isn't pad rounds.** A place is defined as about 20 minutes of the coach on the pads, but a fight week's fourth place is a film and plan night. Either call it coach time, or give it its own counter.
+6. **The class still pumps money, through members.** A class plus cover nets −$13 a week, but the class also brings about 1 new member in 4 weeks. That's about 13 members a year at $35 a month, worth far more than $676 a year in net cost. And cover is always on offer after a class, because the class itself makes BAG 3. Say whether the class's member raises the code's member target (capped by premises), or adds members directly.
+7. **Coached mornings stack on the coach factor without saying so.**
+   - In the code, every morning already runs at the coach factor (0.5 + rating × 0.7%: Luke Reid 0.91, Marcus Hale 1.02, no coach 0.6).
+   - "Uncoached 1.0" isn't a state the code has, so 1.3 and 1.1 are either a pure bonus on top or a hidden cut to every other morning. Say which.
+   - **Shared is beaten on totals.** Six solo mornings give +1.8, and six shared give +1.2. MORNINGS1's "each best in 30–70 in 100" is unlikely unless the headroom clamp bites.
+8. **The day job is the biggest change, and it has no probe.**
+   - Losing Tue and Thu takes about 2 of 5 training mornings from every unsponsored boxer: about 0.4 stat points a week before the headroom clamp (DERIVED from pace 1.0, a morning a fifth).
+   - That runs into the pack's own measure: 5 points better in stats wins about 72 in 100.
+   - It lands on every existing save, which has optional stipends today.
+   - Nothing in section 9 measures it. The "28 bouts, +$31k, 80% close" figures aren't in the pack, so I can't verify them.
+9. **Loyalty climbs on its own.**
+   - FULL is the default week, and Want met gives +1, so every boxer gains about +50 a year and sits at Loyal.
+   - No starting value or decay is given.
+   - The talk then turns up only for a gym that sells classes, and LOYAL1's "2–4 a season" depends on that one choice.
+10. **Loyalty does touch the corner.** Under 25, it costs morale −4 every Monday, and morale is the corner's trust (0.85 at Flat, 0.7 at Low). That contradicts "Loyalty never touches the corner".
+11. **"The visible Coachability" doesn't exist.** The pack says traits are learned through the coach's notes, not shown as numbers. Showing Loyalty as a 0–100 bar is also a change to that rule, and it needs the owner's yes.
+12. **Several twist answers are beaten by another option:**
+    - **Heating breaks:** Run cold plus cover costs $130, which beats Fix it at $180.
+    - **Old coach visits:** "Thank them" is never right.
+    - **Southpaw in town:** at $40 it does what the $160 camp partner does, and the code rule is about sparring a southpaw, not pads.
+    - **Visiting pro:** lists the injury cost but no gain.
+13. **The later date can run out of time.** The offer has its own answer-by date (GAME), but the host's answer comes "with Monday's need". Say what happens when the answer-by falls before Monday.
+14. **Small things:**
+    - Pro camps of "4 or 6 weeks" aren't marked.
+    - Rest up's 3 places and Train through's places (AMATEURWEEK1) aren't counted.
+    - Amateur PEAK weeks (2 out: hardest, sparring twice) aren't on the table.
+    - **Hold pads** lowers the club's total mastery (0.7 against a full place), and the holder's own evening is unstated.
+    - **COACHFIT1 match:** if COACHFIT1 counts places plus coached mornings, the sessional coach matches its 8 (6 + 2). The full-time coach is one short of its 12 (9 + 2 = 11).
+
+The John CHECK on pad rounds per boxer on a real club night isn't researched in this pass, so the 20 minutes stays an ESTIMATE.
+
+I score CLUBWEEK1 v8 at depth 6, general design 5 and play 6, so it doesn't meet the owner's bar yet. General design needs 6+, and three fixes would get it there: one new word for "place", the corrected place table, and a per-night rule for places. Beast is offline, so I judged it from the critic pack and the map, without `CRITIC_ACCESS.md`, the board or the mockups.
+
+## Scores
+
+**Depth 6.** There are real trades:
+- **Class:** $117 against bag nights for named weight classes.
+- **Sponsorship:** $1,000 a block against mornings lost to the day job and loyalty.
+- **At Accept:** cover, a later date, or take the bout.
+- **The talk:** three answers, with different costs.
+
+They connect to bouts, money, members and the pro share.
+
+What holds it at 6:
+- Coach's deal still decides most weeks (the map admits it).
+- Solo mornings beat shared on totals.
+- Lock can't work inside its own night geometry.
+- Four of the seven twists have an option that's beaten or empty.
+- Loyalty drifts to Loyal on a normal week, so the talk barely exists for a gym that doesn't sell classes.
+
+**General design 5.** v8 answers every v7 point, keeps the code's twist deck, restores the code's rates, and marks every number. But at its core:
+- "Place" is a third meaning of a game word.
+- The two-fight-week row is wrong (it's SHORT 1).
+- There's no rule for which night a place sits on, so Lock and the fight week's 4 places can't be built as written.
+- The morning rates ignore the coach factor.
+- Loyalty breaks two pack rules: it moves morale, and it needs traits shown as numbers.
+- The day job, the largest gain change on the page, has no probe.
+- It adds 5 modules, needs 4 owner answers, and no probe has run.
+
+**Play 6.**
+- The Monday board is a good ritual: stickies saying why, the NEXT WEEK line two weeks ahead, the collision line at Accept, and a reward line when a squeeze passes.
+- But most weeks are FULL and one click.
+- The day job only takes away.
+- Loyalty rises by itself, so the player rarely feels a fighter wavering. The tension the map promises shows up mainly when the player sells classes.
+
+## What each option changes, and verdict
+| Option | What it changes | Verdict |
+|---|---|---|
+| Coach deals it / row order | Who goes to bag first | Keep; it's the default |
+| Lock | Stops a class, photo or Hold pads taking one boxer's places | **Useless as written:** a class takes every place that night. Keep only with a per-night rule where an hour holds 2 boxers |
+| Edit magnets / Back to Coach's deal | Hand changes | Keep as plain editing |
+| PADS / CLASS per pad hour | +$117 and members, against 3 bag nights | Keep; the core lever. Route its member through the code's member target |
+| Cover $130 | +3 places once a week | Keep; offer it only at SHORT, not BAG, or the class pump stays open |
+| Pads volunteer $120 | +3 places at 0.8 every week | Keep |
+| Rest week | Frees 3 places, +4 morale | Keep |
+| Solo / shared / morning pads | Mastery spread against total | **Shared is beaten on totals** until it's rebalanced |
+| Sponsorship give / renew / pass on / let end / stop | Cash, mornings lost to the day job, loyalty | Keep; "Renew" needs its own reason over "Give" |
+| Talk: place back / promise / straight | Loyalty, places next week | Keep; straight can't print odds from a hidden trait |
+| Hold pads | Loyalty +3 against less total mastery | **Weak:** worth it only to stop a −5. Say what the holder's own evening gives |
+| Ask for a later date | Moves the bout 2 weeks, 1 in 2 | Keep |
+| Twists | See check 12 | Fix Heating, Old coach, Southpaw, Visiting pro |
+| Let a fighter go | Roster place now, −5 to team-mates | Keep |
+| Saturday corner You / $100 | Who corners a clash | Keep; rare |
+
+**Missing options**
+- **Swap a pad hour's night.** Move Friday's hour off weigh-in night, so the fight week's sessions don't fall on the scale day.
+- **A shorter class.** Half an hour as a class sells half the price and costs 1 or 2 places, not 3. It gives the money lever a middle step.
+- **Lend the coach** to a team-mate's corner, or to film night, as its own choice. This separates film from pads.
+- **A loyalty reason to keep a promise,** such as the bout a boxer asked for, linked to the goal talk the code already has, so promises aren't made up from nothing.
+
+## To reach 10/10
+1. **Rename "place" to "pad turn".** "Pad turn" is the coach's pad rounds for one boxer on one evening. Keep "place" for the roster and the rankings.
+2. **Write the per-night rule.**
+   - A pad hour holds 3 pad turns, one boxer per turn, and a boxer takes at most one turn a night.
+   - A class takes a whole hour. Then Lock works only by moving the locked boxer to another night that has a free turn. Show that on the magnet, or cut Lock.
+   - Move You's hour off weigh-in night (Wednesday).
+3. **Fix the table, and the lines that copy it:**
+   - Two fight weeks with a sessional coach is SHORT 1.
+   - Change "only stacked choices go SHORT" to "two fight weeks, or any class week with a bout".
+   - Correct the IN 2 WEEKS line and the collision line.
+   - Run SHORTWEEK1 with bouts only on show Saturdays (DERIVED: about 9 in 100 weeks).
+4. **Split the fight week:** 3 pad turns for the sessions, plus 1 coach evening for film and plan, counted separately. Count Rest up at 2 and Train through at 3 plus a sparring night, matched to AMATEURWEEK1's names.
+5. **Write the coached morning as a multiplier on the coach factor.** Solo is ×1.25, shared ×1.15 each (2.3 against 1.25 per pair), so solo is focus and shared is spread at near equal totals. Every other morning stays at today's rate, so it's a bonus, not a cut.
+6. **Give the day job a probe (DAYJOB1)** that reports stat gain and wins in 100 at 0, 1 and 2 lost mornings. Default to 1 lost morning until it runs, and ask owner question 3 with that table.
+7. **Make loyalty move:**
+   - Start at the trait's value.
+   - Want met gives 0, and FULL weeks drift 1 point a week toward 60.
+   - Short −5, again −8.
+   - The talk's odds use a band the coach's notes reveal ("listens: usually"), not a hidden number.
+   - Admit that under 25 touches morale, and say so on the bar's hover.
+8. **Shut the members leak.** The class raises the member target by 4, capped by premises, and cover is offered only at SHORT.
+9. **Fix four twists:**
+   - **Fix the heating:** $120.
+   - **Old coach visits:** "Ask them to corner Saturday" (+3 morale) instead of "Thank them".
+   - **Southpaw in town:** one sparring night with a southpaw at $80, applying the code's round-1 rule.
+   - **Visiting pro:** +1 tell of the boxer's own habit (the coach's notes), so it gains something.
+10. **The later date:** the host answers inside the offer's answer-by date, or the offer is extended to the next Monday.
+11. **Fix the small things:**
+    - Mark pro camp lengths as an ESTIMATE.
+    - Count amateur PEAK weeks.
+    - Make Hold pads 0.85 and the holder's night a bag night.
+    - Give the full-time coach 3 coached mornings, so COACHFIT1's 12 matches (9 + 3).
+12. **Run probes 1–3 and DAYJOB1** under the pad-turn unit, then draw the page and get owner questions 1–4 answered.
+
+**Real evidence:** amateur boxers in England aren't paid for bouts, so a day job fits the real sport. Bosquet et al. (2007, a meta-analysis) found the best results with an 8–14 day taper that cuts volume 41–60% and keeps intensity, so the code's 1-week fight week is at the short end. Both are from earlier reading, not reread today.
+
+## The 10/10 page (1920×1080, Look B; FIGHTERS, CLUB WEEK)
+
+**Shell (0–64 px):** dark top bar; CONTINUE reads "to Mon 9 Feb, the week review".
+
+**Counter strip (64–170):** four magnets:
+- PAD TURNS "Asked 10 · Need 8 · Owned 9 · BAG 1"
+- COACHED MORNINGS "Solo 4 · Shared 2"
+- SPONSORSHIP "1 of 3 · ends 2 Mar"
+- RUNWAY "11 weeks"
+
+Under them, the red marker line: "IN 2 WEEKS: two fight weeks, SHORT 1. Cover a night or ask for a later date."
+
+**Left (40–440): the coach's week as a grid of 3 nights × 3 turns.**
+- Tue and Thu belong to Coach, Wed to You.
+- Each turn has a small face chip with the weight class.
+- Each hour flips PADS or CLASS. CLASS greys its three turns and reads "+$117 · +4 member target · 3 boxers on bag Thursday", the turns are draggable between nights, and "move this hour to another night" is on hover.
+- COVER only appears when the counter reads SHORT.
+
+**Centre (480–1480): one row per boxer, the name once in its header cell, with the weight class.**
+- The morale word, and the loyalty bar with its last cause ("+1 drift to 60").
+- Up to two stickies (WEAK SPOT, WEAPON, GOAL, AHEAD).
+- Seven morning cells (coached ones marked with your face or Coach's, WORK greyed with "Tue: day job").
+- Evening magnets in solid PADS, hatched BAG and FIGHT WEEK. Fight week shows 3 turn magnets plus one FILM magnet on Coach's evening counter.
+- Drag to reorder.
+- The grappler's row last.
+
+**Right (1520–1880):**
+- The twist card with 2 priced answers.
+- The talk card, its odds in words from the coach's notes.
+- PROMISES OPEN with dates.
+
+**Bottom (980–1060):** Back to Coach's deal, plus one pulsing gold "Start week". On a quiet week the page folds to the counters and "Same as last week". Hover on any BAG magnet: "half the mastery tonight, 1.05 an hour against 2.1".
+
+**Stress state on the same layout:** a class on Thursday plus a fight week. PAD TURNS reads SHORT 2 in red, two rows show hatched Thursday magnets, and the class magnet lists the weight classes that pay for it.
+
+## Sources
+No new outside sources this pass. Every figure is DERIVED from the critic pack (4.1, 4.2, 4.3, 4.5, 4.13, S448, S451) and the map's own numbers.
+
+
+# CRITIC ANSWER: DESIGN_CLUBWEEK1_V8_CRITIC_MARIA_MARIA.md
+
+# DESIGN_CLUBWEEK1_V8_CRITIC_MARIA_MARIA - Maria answer (seat queue SQ158)
+
+Brief: research/DESIGN_CLUBWEEK1_V8_CRITIC_MARIA.md
+Sent: 2026-11-15 03:10 | collected: 2026-11-15 03:40 by Tools/seat_queue.py (the 30-min reconcile)
+Verify the sources before using it.
+
+---
+
+I give CLUBWEEK1 v8 **DEPTH 7, GENERAL DESIGN 6, PLAY 6**, so it clears the owner's bar for the first time. The big fix is the unit. A place is now the coach's pad rounds inside an evening, and an evening without one is a bag night at the code's heavy-bag rate. So an ordinary week with a sessional coach and 3 boxers is FULL at today's volume, and shortages come only from choices: a class, fight weeks, a fourth boxer, a twist.
+
+v8 also does these:
+- It closes the class and cover money pump (now −$13).
+- It makes CLUBWEEK1 the one owner of the coach's week.
+- It uses Energy, not Tank.
+- It keeps WeekTwist and rewords 7 cards.
+- It moves the fourth start out.
+- It asks the owner about leaving and the 10% share.
+
+It stays at 6 for three reasons:
+- The pad-hour counts (2 and 3) and a second class an evening are both unconfirmed CHECKs, and the whole count rests on them.
+- The day job is a new penalty on the built stipend.
+- Two new ideas appear without a probe or an owner line: a fight week costing 4 places, and Lock.
+
+## Scores
+
+**1. DEPTH: 7/10**
+
+What works:
+- **Selling a class is now a clean fork.** +$117 turns 3 places into bag nights, and the magnet names the weight classes that pay ("60 and 75 kg boxers go to bag"). A class on a fight week is SHORT 2, which costs loyalty. Money against training, every Monday, in the game's own units.
+- **The valves are each priced differently:**
+  - cover at $130, once a week, only at BAG or SHORT;
+  - the pads volunteer at $120 for 3 places at 0.8 of the pads rate;
+  - full-time hire for 12 places;
+  - a later date at a collision, about 1 time in 2;
+  - a rest week.
+- **The fight week is real taper practice.** 3 one-to-one sessions at half volume with frequency kept fits Bosquet 2007, and the extra place for film and plan makes a bout cost the club coach time.
+- **Loyalty now bites:** Need met gives 0 and short gives −5, then −8. Tell it straight has a real trade (no place given, +6 or −4 on visible Coachability) against giving a place back, which names the team-mate who drops one.
+- **Passing on the sponsorship now costs the giver −3,** so it's no longer free.
+
+What holds it back:
+- **Coach's deal will be the default almost every week,** and the map accepts that. The deal's own levers (row order, Lock, editing) are thin. Most of the depth lives in class, cover and the talk.
+- **Solo against shared mornings (1.3 against 1.1 each)** is a small sum. Shared gives 2.2 against solo's 1.3, so shared wins on total and solo only when one pull matters. That's solvable once per gym.
+- **The day job's 2 lost mornings is the only reason the sponsorship matters for training.** If the owner says no to question 3, the sponsorship becomes loyalty only and one of the four scarce things goes soft.
+
+**2. GENERAL DESIGN: 6/10**
+
+What works:
+- Every critic point has a row.
+- One word list: place, bag night, coached morning, WORK, fight week, Energy.
+- The counter's four words with colour only repeating them.
+- Every price is tagged ESTIMATE, CODE or REAL.
+- Five rule modules.
+- A quiet week is one click.
+- Names appear only in header cells, and no fixed pronouns.
+- The menu table is complete.
+- The held list is gated by probes.
+
+What fails:
+- **The pad-hour counts are the foundation, and they're CHECKs.** Sessional 2 and full-time 3 pad hours, 20 minutes a place, 3 places an hour are all estimates. If the code has no pad-hour count, these are new design values the code must adopt (the map's own risk). Then "an ordinary week is FULL" is a design choice, not a finding.
+- **The day job changes a built system.** The stipend (CODE) is optional money today. The map turns not paying it into 2 lost mornings a week for every unsponsored amateur. That cuts training for most boxers by default unless the club pays $250 a week each. It's a bigger nerf than v7's bag nights, and it's only owner question 3. With MONEYFOUR1's "4 sponsorships close 80% of gyms", most players will run unsponsored boxers on 5 mornings.
+- **A fight week costing 4 places, and Lock, are new and unprobed.** TAPER1 tests volume, not the 4-place cost. LOCK1 is listed but Lock isn't an owner line, even though it changes who goes to bag.
+- **The coached-morning count of 6 (You 4, Coach 2) is invented** and overlaps COACHFIT1's budget. CHECK 7 covers places, not mornings.
+- **The twist rewording adds new prices:** heating $180, southpaw $40, photoshoot +$150, gym rental +$60. That's fine, but "Visiting pro: injury ×1.15" leans on an AMATEURWEEK1 rule that isn't built.
+- **The Fight night Why line "Short of pads in the fight week"** depends on a bout effect from bag nights. The map doesn't say what a short fight week does on fight night beyond mastery.
+
+**3. PLAY: 6/10**
+
+Each week has a clear beat:
+- the counter reads FULL, BAG or SHORT;
+- the NEXT WEEK line warns two weeks out;
+- the class is a temptation;
+- a collision shows at Accept;
+- the talk gives a fighter a voice.
+
+The reward line ("Two fight weeks, nobody short: +2 loyalty each") finally gives a positive beat for handling a squeeze. Quiet weeks stay one click. But the gain is still mostly avoiding bag nights and loyalty loss. The only visible upside is cash from classes.
+
+## Options: missing, useless, and what each changes
+
+**Missing**
+- **A cheaper middle on the day job:** pay half the stipend ($125, ESTIMATE) for 1 lost morning instead of 2, so sponsorship isn't all or nothing. Many real amateurs work part-time around training.
+- **A fight-week Rest up option on the Club week itself** (2 sessions, 3 places), so the player can trade the taper for a place when two fight weeks collide. The map leaves it to AMATEURWEEK1.
+- **The bout effect of a short fight week,** printed on the collision line ("a bag night in the fight week: about −1 in 100", ESTIMATE). Without it the player can't price SHORT against cover.
+- **A way to buy a place for one boxer from the volunteer only in fight weeks,** instead of every week.
+
+**Useless or near-useless**
+- **Editing magnets by hand:** expected under 4 in 100 against Coach's deal, so it's kept but not taught. That's fine, but it doesn't belong in the decision table.
+- **Old coach visits, "Thank them: nothing":** a free +3 places is always taken. Give the visit a price (a night of your Monday talk, for example).
+- **Southpaw in town, "Pass":** with a booked southpaw opponent, $40 for a lifted round-1 penalty is always right. Without one, the card shouldn't come.
+
+**What each option changes**
+- **Coach deals it:** Want dealt in row order.
+- **Drag row order:** who gets places first.
+- **Lock:** one boxer's places can't be taken by a class, the photo twist or Hold pads.
+- **Edit magnets:** move one night between rows.
+- **PADS or CLASS on a pad hour:** 3 places, or +$117 and about 1 member in 4 weeks.
+- **Cover:** +3 places for $130.
+- **Pads volunteer:** +3 places a week at 0.8, $120 a week.
+- **Hire full-time:** places 9 to 12, wage $450 to $1,090.
+- **Rest week:** Need 0, +4 morale.
+- **Freed places:** give to a row or sell as a class.
+- **Hold pads:** a team-mate trains at 0.7, and the holder gets +3 loyalty a week.
+- **Solo morning:** 1.3 for one boxer.
+- **Shared morning:** 1.1 each for two.
+- **Morning pads:** one place at 0.8, using up that coached morning.
+- **Sponsorship give, renew, pass on, let end, stop:** +5, +2, +5 and −3, 0, −8 loyalty. It also returns or loses the 2 WORK mornings.
+- **Give the place back:** +4, and a team-mate drops a place.
+- **Promise:** +5 kept, −12 broken.
+- **Tell it straight:** +6 or −4 on Coachability.
+- **Twist answers:** the priced trades in 3.9.
+- **Accept with the collision line:** commit to BAG or SHORT.
+- **Ask for a later date:** the bout 2 weeks later, about 1 time in 2.
+- **Saturday corner:** you, or a $100 mat coach.
+- **Let a fighter go:** frees the roster place, costs the block or a week, and −5 loyalty to each team-mate.
+
+## To reach 10/10
+
+1. **Settle CHECKs 1 and 2 before anything else.** If the code has no pad hours, write "places are a NEW design value" and put "a sessional coach gives 2 pad hours" to the owner beside question 2.
+2. **Soften the day job and make it an honest owner question:** "Without sponsorship, a boxer works and loses 2 mornings (or 1 at half sponsorship). Yes?" Add the half-sponsorship tier at $125, ESTIMATE.
+3. **Print what a short fight week costs on fight night** on the collision line and in the Why, measured by TAPER1. Then SHORT against cover against later date is a priced choice.
+4. **Put the coached-morning count under CHECK 7 with COACHFIT1** so both maps read one count of places and mornings.
+5. **Add the fight week's 4 places and Lock to the owner questions** in one line each, since both change who goes to bag.
+6. **Fix the free twist answers:** give Old coach visits a cost, and only draw Southpaw in town when a southpaw is booked or in the region.
+7. **Offer Rest up on the Club week in fight weeks** (2 sessions, 3 places), so the player can trade the taper.
+8. **Move "edit magnets" out of the decision table into plain editing,** and keep the table to choices that pass the cut rule.
+9. **Run probes 1, 3, 4 and 7 (SHORTWEEK1 and LOYAL1, VOLUME1, TAPER1, MONEYFOUR2) and paste the tables.** If MONEYFOUR2 shows a class every week is always right, raise the class's member cost or cut its price.
+10. **Make solo mornings matter,** for example solo coached counts double toward a WEAK SPOT pull, so solo against shared isn't a one-time sum.
+
+**My 10/10: Fighters > Club week, 1920×1080, Look B whiteboard**
+- **Dark top bar** with CONTINUE "to Mon 9 Feb, the week review".
+- **Top strip (0–120), counter magnets with words:** "PLACES Asked 10 · Need 8 · Owned 9 · BAG 1", "MORNINGS Solo 4 · Shared 2", "SPONSORSHIP 1 of 3 · 2 boxers on WORK", "Runway 11 weeks".
+- **Under it, in red marker, only when it matters:** "IN 2 WEEKS: two fight weeks, BAG 2. A bag night in a fight week costs about 1 in 100. Cover, Rest up, or ask for a later date."
+- **Left (40–440), PAD HOURS:**
+  - Three magnets flipping PADS or CLASS, each with "+$117: 60 and 75 kg boxers go to bag".
+  - COVER ($130, at BAG or SHORT).
+  - The volunteer's line with "fight weeks only" as a choice.
+- **Centre (480–1480), THE SQUAD:**
+  - One row per boxer, with the name once in its header cell and the weight class.
+  - The morale word, and the loyalty bar with its last cause in marker.
+  - Up to two stickies.
+  - Night magnets: solid PADS, hatched BAG, three FIGHT WEEK session magnets with a Rest up switch.
+  - WORK on day-job mornings, with "half sponsorship: 1 morning back".
+  - The rest switch and Lock with its price.
+  - The grappler's row last.
+- **Right (1520–1880):** the twist with 2 priced answers, the talk card with "holds: 60 in 100", and PROMISES OPEN with dates.
+- **Bottom (980–1060):** Coach deals it ("same as last week" when quiet), Back to Coach's deal, and Start week in gold.
