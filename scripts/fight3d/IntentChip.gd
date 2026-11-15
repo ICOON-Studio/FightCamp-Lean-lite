@@ -2,7 +2,8 @@ extends Control
 ## A word over each boxer's head while the scorebug is up (S405: the same rule as the side holos).
 ## The opponent: her game in the coming exchange, Exchanges.MODES[sit]["label"] from LiveRound.preview.
 ## His boxer: "Hurt" / "Tired" when Exchanges.situation says so, else the call in force, else nothing.
-## Follows the head bone. Kept out of the scoreboard and the top strips. Never takes a click.
+## S491 operator ("remove that from his face"): the word no longer rides the head - it sits in a lane under its boxer's
+## name plate (ours left, the opponent right), off every body. Hidden while that boxer is off screen. Never takes a click.
 
 const TV := preload("res://scripts/ui/TV.gd")
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")
@@ -11,8 +12,8 @@ const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 const LiveRound := preload("res://scripts/state/LiveRound.gd")
 
 const RED := Color("#e2483d")
-const CLEAR_Y := 268.0
-const KEEP_CLEAR := [Rect2(640, 0, 640, 240), Rect2(20, 20, 600, 180), Rect2(1300, 20, 600, 180)]
+const LANE_Y := 208.0   # under the side plates (20..200), above the body maps (350+)
+const LANE_X := [20.0, 1900.0]   # ours from the left edge, the opponent's ending at the right edge
 
 var view: Control
 var side := 0
@@ -71,13 +72,11 @@ static func screen_of(cam: Camera3D, world: Vector3, view_size: Vector2) -> Dict
 	return {"ok": true, "pos": pos}
 
 
-## The chip's top-left, sitting over the head and kept inside the open middle between the panels.
-static func clamp_box(head: Vector2, chip: Vector2, open_l: float, open_r: float, view_size: Vector2) -> Vector2:
-	var x := head.x - chip.x * 0.5
-	var y := head.y - chip.y - 8.0
-	x = clampf(x, open_l, maxf(open_l, open_r - chip.x))
-	y = clampf(y, 0.0, maxf(0.0, view_size.y - chip.y))
-	return Vector2(x, y)
+## The chip's top-left in its lane under the boxer's plate. It never follows the head.
+static func lane_box(who: int, chip: Vector2) -> Vector2:
+	if who == 0:
+		return Vector2(LANE_X[0], LANE_Y)
+	return Vector2(LANE_X[1] - chip.x, LANE_Y)
 
 
 func _ready() -> void:
@@ -105,24 +104,7 @@ func place(cam: Camera3D, world: Vector3, open_l: float, open_r: float, view_siz
 	visible = shown(bug_on, _word.text, on_screen)
 	if not visible:
 		return
-	position = _off_board(clamp_box(hit["pos"], size, open_l, open_r, view_size))
-
-
-## Drop a chip that would cover the scoreboard or a top strip to just under that band.
-func _off_board(pos: Vector2) -> Vector2:
-	var origin := Vector2.ZERO
-	var parent := get_parent() as Control
-	if parent != null:
-		origin = parent.get_global_rect().position
-	var r := Rect2(origin + pos, size)
-	var hit := false
-	for box in KEEP_CLEAR:
-		if r.intersects(box as Rect2):
-			hit = true
-			break
-	if not hit:
-		return pos
-	return Vector2(pos.x, CLEAR_Y - origin.y)
+	position = lane_box(side, size)
 
 
 func _mount() -> void:

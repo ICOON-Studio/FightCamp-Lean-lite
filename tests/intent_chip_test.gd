@@ -1,6 +1,6 @@
 extends SceneTree
-## The word over each head. Every sit uses the mode's label. Off screen and behind the lens hide it.
-## A head that lands under a panel is clamped into the open middle. Moving the head moves the chip.
+## The status word per boxer. Every sit uses the mode's label. Off screen and behind the lens hide it.
+## S491 ("remove that from his face"): the chip sits in its lane under the boxer's plate and never follows the head.
 
 const IntentChip := preload("res://scripts/fight3d/IntentChip.gd")
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
@@ -46,25 +46,21 @@ func _follow() -> void:
 	root.add_child(chip)
 	await process_frame
 	chip.place(cam, Vector3(-0.25, 1.7, 0.0), open_l, open_r, view, true, "Pressing")
-	var x0 := chip.position.x
+	var p0 := chip.position
 	_check(chip.visible, "a head in frame shows the chip (%s)" % chip.position)
+	var head: Dictionary = IntentChip.screen_of(cam, Vector3(-0.25, 1.7, 0.0), view)
+	var face := Rect2((head["pos"] as Vector2) - Vector2(80, 60), Vector2(160, 180))
+	_check(not Rect2(chip.position, chip.size).intersects(face), "the chip is off the face (%s vs %s)" % [chip.position, face])
+	_check(chip.position.y >= 200.0 and chip.position.y + chip.size.y <= 350.0, "under the plate, above the body maps (%s)" % chip.position)
 	chip.place(cam, Vector3(0.55, 1.7, 0.0), open_l, open_r, view, true, "Pressing")
-	var x1 := chip.position.x
-	_check(chip.visible and absf(x1 - x0) > 5.0, "the chip follows a moved head (%.0f -> %.0f)" % [x0, x1])
-	var under := Vector3.ZERO
-	var found := false
-	for i in 24:
-		var world := Vector3(-0.2 * float(i), 1.7, 0.0)
-		var hit: Dictionary = IntentChip.screen_of(cam, world, view)
-		if bool(hit.get("ok", false)) and float((hit["pos"] as Vector2).x) < open_l:
-			under = world
-			found = true
-			break
-	_check(found, "a head can sit on screen under the left panel")
-	if found:
-		chip.place(cam, under, open_l, open_r, view, true, "Pressing")
-		_check(chip.visible and chip.position.x >= open_l - 0.5 and chip.position.x + chip.size.x <= open_r + 0.5,
-			"clamped between the panels (%s size %s)" % [chip.position, chip.size])
+	_check(chip.visible and chip.position == p0, "a moved head does not move the chip (%s -> %s)" % [p0, chip.position])
+	var opp := IntentChip.new()
+	opp.side = 1
+	root.add_child(opp)
+	await process_frame
+	opp.place(cam, Vector3(0.25, 1.7, 0.0), open_l, open_r, view, true, "Pressing")
+	_check(opp.visible and absf(opp.position.x + opp.size.x - 1900.0) < 0.5, "the opponent's chip ends at the right edge (%s)" % opp.position)
+	opp.queue_free()
 	chip.place(cam, Vector3(0, 1.7, 8.0), open_l, open_r, view, true, "Pressing")
 	_check(not chip.visible, "hidden when the head is behind the lens")
 	chip.place(cam, Vector3(40, 1.7, 0.0), open_l, open_r, view, true, "Pressing")

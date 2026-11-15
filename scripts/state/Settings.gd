@@ -4,9 +4,10 @@ extends RefCounted
 ##   Settings.read() -> {key: value}   Settings.write(d)   Settings.apply(d, tree)
 
 const Sfx := preload("res://scripts/audio/Sfx.gd")
+const TextScale := preload("res://scripts/ui/TextScale.gd")
 
 const PATH := "user://settings.cfg"
-## Text size: the whole interface scales (Window.content_scale_factor).
+## Text size: the letters grow, the screen keeps its 1920 x 1080 layout (S491: TextScale; zooming the window cut every edge).
 const TEXT_SIZES := [["Small", 0.9], ["Medium", 1.0], ["Large", 1.15], ["Largest", 1.3]]
 const WINDOWS := [["Windowed", "windowed"], ["Full screen", "fullscreen"]]
 ## S397 blind round 4 (speed buttons beside CONTINUE read as a second clock): how fast CONTINUE runs the days (Main.speed).
@@ -44,7 +45,9 @@ static func apply(d: Dictionary, tree: SceneTree) -> void:
 		Sfx.set_user(str(b[0]), float(d["vol_" + str(b[0])]))
 	if tree == null or tree.root == null:
 		return
-	tree.root.content_scale_factor = float(TEXT_SIZES[int(d["text"])][1])
+	tree.root.content_scale_factor = 1.0
+	# Headless runs (tests) stay at Medium: a test must not read the player's text size (the control arm).
+	TextScale.use(tree, 1.0 if DisplayServer.get_name() == "headless" else float(TEXT_SIZES[int(d["text"])][1]))
 	if DisplayServer.get_name() == "headless":
 		return
 	var full := str(WINDOWS[int(d["window"])][1]) == "fullscreen"

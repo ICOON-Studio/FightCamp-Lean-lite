@@ -1,3 +1,14 @@
+S491 (2026-11-15)
+- FIGHT SCREEN, YOUR NOTES: the status word ("Waiting to counter", "Draw the lead") no longer sits on a face - it is under
+  each boxer's name plate. The bare "EYE" is gone: the plate says what is hurt in words ("Eye hurt", "Nose badly hurt") and
+  shows nothing on a fresh boxer. The opponent's energy bar fills to the low guess, the range paler past it. Call names fit
+  their boxes ("Draw the lead", not "Draw the lea").
+- HOVER A CALL in the fight: a proper card - when it works, how it does against the opponent's game, the energy, the skill,
+  and the chance as a bar (EVEN in the middle, green = more wins in 100, red = fewer).
+- TEXT SIZE (Settings > Text size, Large / Largest): the letters grow and every screen keeps its full size - nothing runs off
+  the edge any more. Text that would not fit its box steps back toward its normal size.
+- Turning pro twice no longer crashes.
+
 S490 (2026-11-15)
 - OPS BOARD: the Play row has a TRAINING button (beside Corner minute). It opens the game on a boxer's Training tab in
   week 2, between fights.

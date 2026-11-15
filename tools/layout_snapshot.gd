@@ -7,6 +7,7 @@ extends SceneTree
 ##   python tools/hidden_desktop.py run --timeout=180 <godot.exe> --path . --windowed --resolution 1920x1080 \
 ##       --script res://tools/layout_snapshot.gd -- <out_dir> [noguide]   (noguide: stills for the operator, guide hidden)
 
+const TextScale := preload("res://scripts/ui/TextScale.gd")
 const W := 1920
 const H := 1080
 
@@ -312,6 +313,11 @@ func _shot(name: String) -> void:
 	_draw_tree(img, main)
 	img.save_png(out_dir.path_join(name + ".png"))
 	print("wrote ", out_dir.path_join(name + ".png"))
+	for a in OS.get_cmdline_user_args():   # S491 one-look sweep: `text=<0-3>` checks the screens at that Text size
+		if str(a).begins_with("text=") and TextScale.factor() == 1.0:
+			TextScale.use(self, float(load("res://scripts/state/Settings.gd").TEXT_SIZES[int(str(a).substr(5))][1]))
+	for o in TextScale.overflow(main):   # S491: text wider than its box (cut, or spilling onto a neighbour)
+		print("TEXTFIT %s %s \"%s\" needs %.0f has %.0f" % [name, o["name"], o["text"], o["need"], o["have"]])
 
 
 func _draw_tree(img: Image, node: Node) -> void:

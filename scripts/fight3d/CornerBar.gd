@@ -4,6 +4,8 @@ extends Control
 ## seconds at each exchange; the ring, the pulse and the NOW plate all read that one counter.
 
 const TV := preload("res://scripts/ui/TV.gd")
+const TextScale := preload("res://scripts/ui/TextScale.gd")
+const Tips := preload("res://scripts/ui/Tips.gd")
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const HoverLabel := preload("res://scripts/ui/HoverLabel.gd")
 const Halo := preload("res://scripts/ui/Halo.gd")
@@ -156,6 +158,7 @@ func _rebuild(pv: Dictionary, wide: int) -> void:
 		b.tooltip_text = PaceAim.pace_tip(str(p))
 		_wood(b, str(p) == pace)
 		_place(_body, b, x, 36, 92, 44)
+		TextScale.fit(b, 92.0, b.get_theme_font_size("font_size"), 14)   # S491: "Steady" no longer covers "Save"
 		x += 96.0
 	# S459 operator C371 point 7 ("how save and own game work together?"): PACE and AIM read as one row of five buttons.
 	# A wide gap with a divider between the two groups, each heading over its own buttons.
@@ -177,6 +180,7 @@ func _rebuild(pv: Dictionary, wide: int) -> void:
 		b.tooltip_text = PaceAim.aim_tip(str(a), _opp(pv))
 		_wood(b, str(a) == aim)
 		_place(_body, b, x, 36, bw, 44)
+		TextScale.fit(b, bw, b.get_theme_font_size("font_size"), 14)   # S491: "Take initiati" ran under "Head"
 		x += bw + 6.0
 	x += 8.0   # S459 FIGHTSEAM1: no countdown ring to the next join (it marked the seam)
 	_effects(x, pace, aim, _opp(pv))
@@ -209,7 +213,7 @@ func _rebuild(pv: Dictionary, wide: int) -> void:
 	_place(_body, RoundBoard.build(_ex_over(), sit, names, right - x - 16.0, 150.0, FightSeam.landed_ex(view), SharedHolo.holo_of(view), SharedHolo.hurt_of(view)), x + 8.0, 6, right - x - 16.0, 150)
 
 
-func _call(call: String, sit: String, names: Array, on: bool, _wide: float, pv_grades: Dictionary = {}) -> Control:
+func _call(call: String, sit: String, names: Array, on: bool, wide: float, pv_grades: Dictionary = {}) -> Control:
 	var frame := Panel.new()
 	frame.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var edge := StyleBoxFlat.new()
@@ -247,6 +251,7 @@ func _call(call: String, sit: String, names: Array, on: bool, _wide: float, pv_g
 	title.name = "CallTitle_" + call
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	box.add_child(title)
+	TextScale.fit(title, wide - 24.0, 22, 22)   # S491: "HANDS UP, MOVE YO" at Largest
 	var under := HBoxContainer.new()
 	under.alignment = BoxContainer.ALIGNMENT_CENTER
 	under.add_theme_constant_override("separation", 8)
@@ -268,11 +273,14 @@ func _call(call: String, sit: String, names: Array, on: bool, _wide: float, pv_g
 	lab.set_meta("shift", shift)
 	lab.custom_minimum_size = Vector2(52, 22)
 	under.add_child(lab)
-	b.tooltip_text = "%s
-%s
-%s Chance to win these 30 seconds: %s%d in 100. %s" % [Exchanges.named(str(row["when"]), names),
-		Exchanges.named(str(row["expect"]), names), _grade_word(fit), "+" if shift > 0 else "", shift,
-		Exchanges.named(str(Exchanges.GRADE_LINE.get(grade_word, "")), names) + "."]
+	var tip := {"title": str(row["label"]), "rows": [["When", Exchanges.named(str(row["when"]), names), "", ""],
+		["Against the opponent", _fit_short(fit), "", {"best": "good", "ok": "watch"}.get(fit, "bad")],
+		["Energy", _cost_word(float(row["cost"])), "", "watch" if float(row["cost"]) > 0.0 else "good"],
+		["Skill", {"Good": "Good at this", "Poor": "Weak at this"}.get(grade_word, "Can do this"), "", {"Good": "good", "Poor": "bad"}.get(grade_word, "")]],
+		"meter": {"shift": shift, "caption": "next 30 s"},
+		"means": Exchanges.named(str(row["expect"]), names) + "."}
+	Tips.card(b, func(): return tip)   # S491 "i have seen better from you . try harder": the house card, odds drawn
+	b.set_meta("tip", tip)   # stills pin it (tools/fight3d_play.gd)
 	var cost := float(row["cost"])
 	var spend := TV.label(_cost_word(cost), 20, WoodKit.HEAD if not on else Color("#6b3d00"), "bold")   # S427: gold on the lit plate could not be read
 	spend.name = "Cost_" + call
@@ -301,15 +309,17 @@ func _effects(x: float, pace: String, aim: String, opp: String) -> void:
 
 %s" % [PaceAim.pace_tip(pace), PaceAim.aim_tip(aim, opp)]
 	_place(_body, panel, x, 4, FX_W - 8.0, 80)
-	var head := TV.label("FROM THE NEXT EXCHANGE", 20, WoodKit.SOFT, "bold")
+	var head := TV.label("NEXT EXCHANGE", 20, WoodKit.SOFT, "bold")   # S491: fits at 20 px (was cut, then shrunk)
 	head.name = "EffectsTag"
-	_place(panel, head, 10, 2, FX_W - 28.0, 24)
+	_place(panel, head, 10, 0, FX_W - 28.0, 26)
 	var p := TV.label(PaceAim.pace_effect(pace), 20, WoodKit.HEAD if pace != "steady" else WoodKit.INK)
 	p.name = "PaceEffect"
-	_place(panel, p, 10, 26, FX_W - 28.0, 24)
+	_place(panel, p, 10, 26, FX_W - 28.0, 27)
 	var a := TV.label(PaceAim.aim_effect(aim, opp), 20, WoodKit.HEAD if aim != "" else WoodKit.INK)
 	a.name = "AimEffect"
-	_place(panel, a, 10, 50, FX_W - 28.0, 24)
+	_place(panel, a, 10, 52, FX_W - 28.0, 27)
+	for l in [head, p, a]:   # S491: "Initiative: 1 in 5 to the body" ran out of its box into the Heard pips
+		TextScale.fit(l, FX_W - 28.0, 20, 16)
 
 
 func _opp(_pv: Dictionary) -> String:
@@ -404,14 +414,8 @@ func _cost_word(cost: float) -> String:
 	return "Even"
 
 
-func _grade_word(fit: String) -> String:
-	if fit == "best":
-		return "Beats the opponent's game."
-	if fit == "ok":
-		return "Works against the opponent's game."
-	if fit == "wrong":
-		return "Risky: plays into the opponent's game."
-	return "No answer to the opponent's game."
+func _fit_short(fit: String) -> String:
+	return {"best": "Beats their game", "ok": "Works", "wrong": "Plays into their game"}.get(fit, "No answer")
 
 
 func _shift_ink(shift: int, on: bool) -> Color:

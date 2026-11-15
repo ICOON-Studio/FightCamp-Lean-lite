@@ -15,7 +15,10 @@ const EnergyForecast := preload("res://scripts/rules/EnergyForecast.gd")
 const Drawn := preload("res://scripts/fight3d/BodyPanels.gd")
 const RED := Color("#e2483d")
 const BAND_RANK := {"doctor": 0, "critical": 1, "hurt": 2, "fine": 3}
-const SHORT := {"head": "HEAD", "left_eye": "EYE", "right_eye": "EYE", "nose": "NOSE", "left_ribs": "RIBS", "right_ribs": "RIBS"}
+## S491 operator ("wtf is eye"): the tag read a bare place name ("EYE") even on a fresh boxer. Now it says what is wrong in
+## words, and stays blank while nothing is hurt.
+const SHORT := {"head": "Head", "left_eye": "Eye", "right_eye": "Eye", "nose": "Nose", "left_ribs": "Ribs", "right_ribs": "Ribs"}
+const HURT_WORDS := {"hurt": "%s hurt", "critical": "%s badly hurt", "doctor": "%s: doctor"}
 const WIDE := 16.0
 const NARROW := 6.0
 const WORDS := ["energy", "legs", "guard"]
@@ -68,10 +71,9 @@ static func worst_place(values: Dictionary) -> String:
 			low = v
 	return best
 static func tag_text(place: String, band: String) -> String:
-	var word := str(SHORT.get(place, place.to_upper()))
-	if word == "EYE" and band in ["critical", "doctor"]:
-		return "EYE x"
-	return word
+	if not HURT_WORDS.has(band):
+		return ""
+	return str(HURT_WORDS[band]) % str(SHORT.get(place, place.capitalize()))
 ## One line under the name. Our boxer: the plan in game words, never "Plan: Take initiative".
 static func own_line(lv: Dictionary) -> String:
 	var id := str(lv.get("plan", ""))
@@ -145,12 +147,14 @@ func _mount() -> void:
 		offset_left = 1300.0
 		offset_right = 1900.0
 	_name = _lab("", 30, WoodKit.INK, "Name")
-	_at(_name, 8, 4, 420, 36)
+	_name.clip_text = true   # a long name stops before the tag
+	_name.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+	_at(_name, 8, 0, 360, 42)
 	_tag = _lab("", 22, WoodKit.INK, "WorstTag")
 	_tag.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-	_at(_tag, 436, 8, 150, 32)
+	_at(_tag, 372, 6, 214, 32)
 	_chip = _lab("", 22, WoodKit.INK, "PlanChip" if side == 0 else "HabitChip")
-	_at(_chip, 8, 42, 560, 28)
+	_at(_chip, 8, 44, 560, 30)
 	var colours: Array = [WoodKit.HEAD, Color("#5ac76a"), WoodKit.BLUE]
 	var nums: Array = []
 	for i in 3:
@@ -158,11 +162,11 @@ func _mount() -> void:
 		var word := _lab(WORDS[i], 22, WoodKit.SOFT, WORDS[i].capitalize() + "Word")
 		_at(word, 8, y, 84, 28)
 		var num := _lab("", 22, WoodKit.INK, NUMS[i])
-		_at(num, 96, y, 88, 28)
+		_at(num, 108, y, 80 if side == 0 else 104, 28)   # S491: a gap after the word ("energy80" read as one word)
 		var tank := Drawn.Tank.new()
 		tank.col = colours[i]
 		tank.name = WORDS[i].capitalize() + "Bar"
-		_at(tank, 190, y + 3.0, 210.0 if side == 0 else 380.0, 22)
+		_at(tank, 196.0 if side == 0 else 216.0, y + 3.0, 204.0 if side == 0 else 364.0, 22)   # "96-100" needs room
 		_tanks.append(tank)
 		nums.append(num)
 	_energy = nums[0]
@@ -380,6 +384,7 @@ func _paint_habit(mode: String) -> void:
 	if _habit_n != null:
 		var word := str((Exchanges.MODES.get(mode, {}) as Dictionary).get("label", mode))
 		_habit_n.text = "%s, %d %s" % [word, n, "time" if n == 1 else "times"]
+		_habit_n.add_theme_font_size_override("font_size", 19 if _habit_n.text.length() > 16 else 22)   # S491: two lines, not three
 		_habit_card.tooltip_text = _habit_n.text
 func _mode_of(lv: Dictionary) -> String:
 	var exs: Array = lv.get("ex", [])

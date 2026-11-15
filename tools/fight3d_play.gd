@@ -36,6 +36,10 @@ func _initialize() -> void:
 	main = load("res://scenes/Main.tscn").instantiate()
 	root.add_child(main)
 	await _wait(4)
+	for a in OS.get_cmdline_user_args():   # S491: `text=<0-3>` films at that Text size (the player's file is not touched)
+		if str(a).begins_with("text="):
+			var Settings := load("res://scripts/state/Settings.gd")
+			load("res://scripts/ui/TextScale.gd").use(self, float(Settings.TEXT_SIZES[int(str(a).substr(5))][1]))
 	main.act("quick")
 	main.act("interview")
 	for card in ["Jab and move", "Pad rounds", "Hill sprints"]:
@@ -224,6 +228,18 @@ func _initialize() -> void:
 	# builds no holo at all is stale: main shows the two side figures, and that check failed with count 2.
 	for k in 4:
 		await _shot("p06%s_round2_live" % "bcde"[k], 6.0)
+		if k == 0:   # S491: the call hover card, pinned for a still
+			var call_b: Control = null
+			for n in root.find_children("Call_*", "Button", true, false):
+				if (n as Control).has_meta("tip"):
+					call_b = n as Control
+			if call_b != null:
+				var tip: Dictionary = call_b.get_meta("tip")
+				load("res://scripts/ui/Tips.gd").pin(call_b, func(): return tip)
+				await _shot("p06t_call_hover", 0.4)
+				load("res://scripts/ui/Tips.gd").close_all()
+			else:
+				print("TIPSTILL no call button")
 		_holo_off(view, "round 2 still %d" % (k + 1))
 	var bl: Node = view.find_child("BodyLive", true, false)
 	if bl != null:
@@ -276,6 +292,11 @@ func _shot(name: String, after_s: float) -> void:
 	var path := out_dir.path_join(name + ".png")
 	img.save_png(path)
 	print("wrote ", path)
+	var nm := root.find_child("SidePanel0", true, false)
+	var nl: Label = nm.find_child("Name", true, false) if nm != null else null
+	print("TEXTSCALE %s %.2f name_px %d" % [name, load("res://scripts/ui/TextScale.gd").factor(), nl.get_theme_font_size("font_size") if nl != null else -1])
+	for o in load("res://scripts/ui/TextScale.gd").overflow(root):   # S491: text wider than its box, per still
+		print("TEXTFIT %s %s \"%s\" needs %.0f has %.0f" % [name, o["name"], o["text"], o["need"], o["have"]])
 
 
 ## Every label on the two side panels, so a still run can be read without opening the picture.

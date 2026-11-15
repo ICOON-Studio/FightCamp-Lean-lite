@@ -46,8 +46,9 @@ func _finish() -> void:
 func _pure() -> void:
 	var vals := {"head": 80.0, "left_eye": 40.0, "right_eye": 90.0, "nose": 30.0, "left_ribs": 70.0, "right_ribs": 60.0}
 	_check(SidePanel.worst_place(vals) == "nose", "worst_place picks the lowest band (%s)" % SidePanel.worst_place(vals))
-	_check(SidePanel.tag_text("nose", "critical") == "NOSE", "tag_text names the place")
-	_check(SidePanel.tag_text("left_eye", "doctor") == "EYE x", "tag_text marks a bad eye")
+	_check(SidePanel.tag_text("nose", "critical") == "Nose badly hurt", "tag_text says what is wrong")
+	_check(SidePanel.tag_text("left_eye", "doctor") == "Eye: doctor", "tag_text marks an eye for the doctor")
+	_check(SidePanel.tag_text("head", "fine") == "", "a fresh boxer has no tag (S491 'wtf is eye')")
 	_check(SidePanel.energy_range(94.0, true) == "91-97", "energy_range scouted (%s)" % SidePanel.energy_range(94.0, true))
 	_check(SidePanel.energy_range(94.0, false) == "86-100", "energy_range wide (%s)" % SidePanel.energy_range(94.0, false))
 	_check(SidePanel.forecast_line(0, 1) == "lasts to R3", "a full tank reads lasts to R3")
@@ -189,7 +190,7 @@ func _labels() -> void:
 			var b: Rect2 = labs[j].get_global_rect()
 			var overlap := a.intersection(b)
 			if overlap.size.x > 4.0 and overlap.size.y > 4.0:
-				hit = "%s '%s' and %s '%s'" % [labs[i].name, labs[i].text, labs[j].name, labs[j].text]
+				hit = "%s '%s' %s and %s '%s' %s" % [labs[i].name, labs[i].text, a, labs[j].name, labs[j].text, b]
 				break
 		if hit != "":
 			break

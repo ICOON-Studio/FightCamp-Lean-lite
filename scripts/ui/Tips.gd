@@ -12,10 +12,11 @@ extends Node
 ##   Two levels only: a note has no keywords of its own.
 ##   Tips.card(control, spec: Callable)   spec.call() -> {title, rows: [[label, value, delta, tone]], means, keys: [term id],
 ##   hint: [[key, words]]}
-##   tone: "good" | "bad" | "watch" | "".   Tips.close_all()
+##   tone: "good" | "bad" | "watch" | "".   Tips.close_all()   S491 meter: {shift, caption} = TipMeter's odds bar.
 
 const UI := preload("res://scripts/ui/UI.gd")
 const Glossary := preload("res://scripts/rules/Glossary.gd")
+const TipMeter := preload("res://scripts/ui/TipMeter.gd")
 
 const LOCK_S := 0.7
 const FADE_IN_S := 0.12
@@ -309,6 +310,8 @@ func _build(s: Dictionary) -> Control:
 			g.add_child(_text(str(row[2]) if row.size() > 2 else "", "semi", 19,
 				{"good": GOOD, "bad": BAD, "watch": WATCH}.get(tone, MUTED)))
 		v.add_child(g)
+	if s.get("meter") is Dictionary:   # S491: odds drawn, not written
+		v.add_child(TipMeter.make(s["meter"]))
 	if str(s.get("means", "")) != "":
 		v.add_child(_text("Means: " + str(s["means"]), "hand", 19, INK, true))
 	var keys: Array = (s.get("keys", []) as Array).filter(func(k): return not Glossary.term(str(k)).is_empty())
@@ -356,12 +359,14 @@ static func _text(t: String, kind: String, size: int, colour: Color, wrap := fal
 	var l := Label.new()
 	l.text = t
 	l.add_theme_font_override("font", UI.font(kind))
-	l.add_theme_font_size_override("font_size", size)
+	var px := TipMeter.TextScale.scaled(size, TipMeter.TextScale.factor())   # S491: at the final size, so the card is measured right
+	l.add_theme_font_size_override("font_size", px)
+	l.set_meta(TipMeter.TextScale.META, px)
 	l.add_theme_color_override("font_color", colour)
 	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	if wrap:
 		l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		l.custom_minimum_size = Vector2(TEXT_W, 0)
+		l.custom_minimum_size = Vector2(TEXT_W * TipMeter.TextScale.factor(), 0)
 	return l
 
 

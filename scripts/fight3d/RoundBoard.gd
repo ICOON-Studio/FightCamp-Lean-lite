@@ -6,6 +6,7 @@ extends RefCounted
 ##   YOUR CALLS each call used this round with a tick or a cross per use (stop shouting what loses)
 ## Pure builder: build(ex, sit, names, w, h) from the round's exchange records (LiveRound) - it holds no state.
 
+const TextScale := preload("res://scripts/ui/TextScale.gd")
 const TV := preload("res://scripts/ui/TV.gd")
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
@@ -92,7 +93,7 @@ static func _landed(board: Control, ex: Array, _me: String, _her: String, x: flo
 		var fig := SharedHolo.new()
 		fig.name = "SharedHolo"
 		fig.setup(holo, [mine - int(t["body"][0]), int(t["body"][0])], [hers - int(t["body"][1]), int(t["body"][1])], RED, BLUE, hurt)
-		_put(board, fig, x, 26, w, h - 30.0)
+		_put(board, fig, x, 36, w, h - 40.0)   # S491: the head count sat on the LANDED heading
 		for k in 2:
 			var big := TV.label(str([mine, hers][k]), 40, [RED, BLUE][k], "bold")
 			big.name = ["LandedMine", "LandedHers"][k]
@@ -134,7 +135,9 @@ static func _landed(board: Control, ex: Array, _me: String, _her: String, x: flo
 
 static func _calls(board: Control, ex: Array, x: float, w: float, _h: float, ticks_on: bool = true) -> void:
 	# S444 operator C333 on this box: "what is this for?" - the heading now says it: each call, did it win its exchanges.
-	_put(board, _tag("CALLS WORKED?" if ticks_on else "CALLS THIS ROUND"), x, 6, w, 22)
+	var head := _tag("CALLS WORKED?" if ticks_on else "CALLS")   # S491: "CALLS THIS ROUND" ran under the 2x button
+	_put(board, head, x, 6, w, 22)
+	TextScale.fit(head, w, head.get_theme_font_size("font_size"), 20)
 	var rows := calls(ex)
 	if rows.is_empty():
 		var none := TV.label("No call yet", 22, WoodKit.SOFT, "bold")
@@ -150,6 +153,7 @@ static func _calls(board: Control, ex: Array, x: float, w: float, _h: float, tic
 		var wins := (r["wins"] as Array).slice(-3) if ticks_on else []
 		var tick_w := 28.0 * float(wins.size()) + 4.0   # S444: the name takes the room the ticks leave ("Draw the" was cut)
 		_put(board, lab, x, y, w - tick_w, 30)
+		TextScale.fit(lab, w - tick_w, 20, 14)   # S491 "text out of bound": "Draw the lea" - shrink to fit, never cut
 		var ticks := Ticks.new()
 		ticks.wins = wins
 		ticks.mouse_filter = Control.MOUSE_FILTER_IGNORE

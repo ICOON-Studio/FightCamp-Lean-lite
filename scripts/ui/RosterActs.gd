@@ -72,6 +72,8 @@ static func act(main: Node, name: String, arg: String) -> bool:
 		"turnpro":
 			var f := Roster.turn_pro(c)
 			main.close_modal()
+			if f.is_empty():
+				return true
 			main.toast("%s is a pro. Debut on %s." % [f["first"], Clock.fmt(int(f["bout"]["day"]))])
 		"declinepro":
 			Roster.decline_pro(c)

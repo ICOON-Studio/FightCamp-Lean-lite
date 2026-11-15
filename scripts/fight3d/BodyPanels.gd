@@ -217,15 +217,19 @@ class Tank extends Control:
 				draw_line(Vector2(0, y), Vector2(size.x, y - size.x), Color("#2b2520"), 5.0)
 				y += 12.0
 			return
-		if band_lo >= 0.0:
+		if band_lo >= 0.0:   # S491 ("bars seem to not work"): a solid fill to the low guess, the range as a paler run past it
+			var pale := Color(col, 0.4)
 			if wide:
 				var x0 := size.x * band_lo
 				var x1 := size.x * band_hi
-				draw_rect(Rect2(x0, 0, maxf(4.0, x1 - x0), size.y), col)
+				draw_rect(Rect2(0, 0, x0, size.y), col)
+				draw_rect(Rect2(x0, 0, maxf(4.0, x1 - x0), size.y), pale)
+				draw_line(Vector2(x1, 0), Vector2(x1, size.y), Color(col, 0.9), 2.0)
 			else:
 				var y0 := size.y * (1.0 - band_hi)
 				var y1 := size.y * (1.0 - band_lo)
-				draw_rect(Rect2(0, y0, size.x, maxf(4.0, y1 - y0)), col)
+				draw_rect(Rect2(0, y1, size.x, size.y - y1), col)
+				draw_rect(Rect2(0, y0, size.x, maxf(4.0, y1 - y0)), pale)
 			return
 		if wide:
 			draw_rect(Rect2(0, 0, size.x * fill, size.y), col)

@@ -248,6 +248,8 @@ static func debut_words(f: Dictionary, t: Dictionary) -> String:
 ## She signs pro: the stipend and the amateur career end, the debut is booked.
 static func turn_pro(c: Career) -> Dictionary:
 	var o := c.pro_offer
+	if o.is_empty():   # S491: a second TURN PRO press (or a stale modal) after the offer was taken crashed here
+		return {}
 	var f := c.fighter_by_id(str(o["fid"]))
 	# S329 update 31: the gym pays her licence and brain scans (and the trainer's licence) now.
 	var sheet := debut_sheet(c, f, float(o["terms"]))
