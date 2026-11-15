@@ -1,0 +1,275 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Season ladder (S490)</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Barlow:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--line:#2b3546;--ink:#ece6da;--dim:#9aa4b3;--red:#e24b4b;--blue:#4f8dff;--green:#5fcf7a;--amber:#f2b84b;--gold:#e8b04a;--slate:#3a4a62;
+ --b0:#5b6573;--b1:#7d8fa8;--b2:#4f8dff;--b3:#b48cff;--b4:#e8b04a}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;overflow:hidden;position:relative;font-family:Barlow,sans-serif;color:var(--ink);font-size:17px;
+ background:linear-gradient(rgba(9,12,17,.9),rgba(9,12,17,.95)),url(../../../../assets/ui/art/gym_main.jpg) center/cover}
+.top{position:absolute;left:0;right:0;top:0;height:54px;background:rgba(8,11,16,.97);border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 22px;gap:18px}
+.crest{width:32px;height:32px;border-radius:50%;background:url(../../../../assets/ui/art/crests/anvil.png) center/cover}
+.club{font-family:Oswald;font-weight:600;font-size:22px;letter-spacing:2px}
+.nav{color:var(--dim);font-weight:700}.nav b{color:var(--ink);background:#223042;border:1px solid #3a4a5e;border-radius:7px;padding:5px 12px;margin-left:8px}
+.sp{flex:1}.date b{color:var(--amber)}
+.cont{height:40px;padding:0 18px;border-radius:8px;background:#2e7d46;border:1px solid #5fcf7a;font-family:Oswald;font-size:20px;letter-spacing:1.5px;display:flex;align-items:center;gap:10px;box-shadow:0 0 0 3px rgba(95,207,122,.25),0 0 18px rgba(95,207,122,.55)}
+.cont small{font-family:Barlow;font-size:14px;letter-spacing:0;font-weight:700;color:#d6f5de}
+.cont.off{background:#26313f;border-color:#4a5a70;color:var(--dim);box-shadow:none}.cont.off small{color:var(--dim)}
+.cls{display:block;font-size:11px;font-weight:800;line-height:1;margin-top:2px;color:var(--dim)}.cls.open{color:#ff8b8b}
+.ck{display:flex;gap:3px;position:absolute;right:10px;top:7px}.ck i{display:flex;align-items:center;justify-content:center;height:22px;border-radius:4px;font-style:normal;font-size:11px;font-weight:800;padding:0 6px;border:1px solid}
+.ck .f1{background:rgba(95,207,122,.35);border-color:var(--green);color:var(--ink)}.ck .pd{background:repeating-linear-gradient(45deg,#3a3320 0 5px,#241f14 5px 10px);border-color:var(--gold);color:var(--gold)}
+.cax{position:relative;height:16px;margin-left:150px;border-top:1px solid #556;font-size:11px;font-weight:800;color:var(--dim)}.cax span{position:absolute;top:2px;transform:translateX(-50%)}
+.crow{display:flex;align-items:center;height:22px;font-size:13px;font-weight:800}.crow .lb{width:150px;flex:none}.crow .tk{position:relative;flex:1;height:22px}.crow .tk:before{content:"";position:absolute;left:0;right:0;top:10px;border-top:1px dotted #3a4658}
+.crow em{position:absolute;top:3px;font-style:normal;font-size:13px;white-space:nowrap}
+.sub2{font-size:12px;font-weight:700;color:var(--dim);position:absolute;left:12px;bottom:3px;white-space:nowrap}
+.box{position:absolute;background:rgba(14,19,27,.95);border:1px solid #33404f;border-radius:12px}
+h2{font-family:Oswald;font-weight:600;font-size:18px;letter-spacing:2px;color:#cfc4b1}
+/* header */
+.hd{left:16px;top:64px;width:1888px;height:96px;display:flex;align-items:center;gap:18px;padding:0 18px}
+.pt{width:72px;height:72px;border-radius:50%;background-size:cover;background-position:center 12%;border:2px solid #6b5a3a;flex:none}
+.nm{font-family:Oswald;font-size:28px;font-weight:600;letter-spacing:1px;line-height:1}
+.sub{font-size:15px;color:var(--dim);font-weight:700;margin-top:4px}
+.bigrank{font-family:Oswald;font-size:40px;font-weight:700;line-height:1;text-align:center;width:150px}
+.bigrank small{display:block;font-family:Barlow;font-size:14px;color:var(--dim);font-weight:700;margin-top:2px}
+.meter{flex:1;position:relative;height:72px}
+.meter .lab{font-family:Oswald;font-size:15px;letter-spacing:1.5px;color:#cfc4b1}
+.bar{position:absolute;left:0;right:0;top:24px;height:22px;border-radius:6px;overflow:hidden;display:flex;border:1px solid #3a4658}
+.bar i{display:block;height:100%}
+.bar .fill{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,rgba(255,255,255,.0),rgba(255,255,255,.22));border-right:3px solid #fff}
+.ticks{position:absolute;left:0;right:0;top:50px;font-size:13px;color:var(--dim);font-weight:700}
+.ticks span{position:absolute;transform:translateX(-50%);white-space:nowrap}
+.mk{position:absolute;top:12px;width:2px;height:44px;background:#fff}
+.mk b{position:absolute;top:-14px;left:50%;transform:translateX(-50%);font-family:Oswald;font-size:16px;white-space:nowrap}
+.pro{position:absolute;top:18px;height:34px;border-left:3px dashed var(--gold)}
+.pro b{position:absolute;left:6px;top:-6px;font-size:13px;color:var(--gold);white-space:nowrap;font-weight:800}
+/* strip */
+.strip{position:absolute;left:16px;top:168px;width:1888px;height:72px;display:flex;gap:10px}
+.mag{flex:1;background:rgba(18,24,33,.96);border:1px solid var(--line);border-radius:10px;padding:7px 12px;position:relative}
+.mag b{display:block;font-family:Oswald;font-size:13px;letter-spacing:1.6px;color:var(--dim);font-weight:600}
+.mag span{font-weight:800;font-size:16px}
+.mag .mini{position:absolute;left:12px;right:12px;bottom:6px;height:6px;border-radius:3px;background:#263142;overflow:hidden}
+.mag .mini i{display:block;height:100%}
+/* table */
+.tb{left:16px;top:248px;width:1186px;height:718px;padding:10px 12px}
+.flt{position:absolute;right:14px;top:9px;display:flex;gap:6px}
+.flt span{border:1px solid #3a4a5e;border-radius:6px;padding:3px 10px;font-size:14px;font-weight:800;color:var(--dim)}
+.flt span.on{background:#223042;color:var(--ink)}
+.th,.tr{display:grid;grid-template-columns:62px 54px 214px 66px 88px 134px 176px 100px 108px 160px;align-items:center}
+.th{margin-top:12px;height:28px;font-family:Oswald;font-size:13px;letter-spacing:1px;white-space:nowrap;color:var(--dim);border-bottom:1px solid var(--line)}
+.tr{height:48px;border-bottom:1px solid rgba(43,53,70,.7);font-weight:700;font-size:16px}
+.tr .f{width:40px;height:40px;border-radius:50%;background-size:cover;background-position:center 12%;border:1.5px solid #5a4c35}
+.rk{font-family:Oswald;font-size:22px;font-weight:600;display:flex;align-items:center;gap:6px}
+.ar{font-size:13px}.up{color:var(--green)}.dn{color:var(--red)}.st{color:var(--dim)}
+.cl{line-height:1.15}.cl small{display:block;font-size:12px;font-weight:800;margin-top:2px}
+.chip{display:inline-block;border-radius:4px;padding:0 5px;font-size:12px;font-weight:800;color:#111;margin-right:4px;line-height:17px}
+.c-top{background:#e8b04a}.c-man{background:#ff8b5a}.c-eli{background:#b48cff}.c-pro{background:#e24b4b;color:#fff}.c-new{background:#4fd1c5}.c-chal{background:#4f8dff;color:#fff}
+.rep{display:flex;align-items:center;gap:8px}
+.rep b{font-family:Oswald;font-size:20px;width:30px;text-align:right}
+.rep .rb{width:120px;height:10px;border-radius:5px;background:#263142;position:relative;overflow:hidden}
+.rep .rb i{position:absolute;left:0;top:0;bottom:0}
+.rep small{display:block;font-size:11px;color:var(--dim);font-weight:800;line-height:1}
+.wl .w{color:var(--green)}.wl .l{color:var(--red)}
+.ans{font-family:Oswald;font-size:14px;letter-spacing:1px;line-height:1.1}
+.ans small{display:block;font-family:Barlow;font-size:12px;letter-spacing:0;color:var(--dim);font-weight:700}
+.yes{color:var(--green)}.no{color:#ff8b8b}.tune{color:var(--amber)}
+.me{background:linear-gradient(90deg,rgba(58,74,98,.85),rgba(58,74,98,.35));border:1px solid #6f87ab;border-radius:6px}
+.sel{background:rgba(232,176,74,.10);outline:2px solid var(--gold);outline-offset:-2px;border-radius:6px}
+.grey{opacity:.5}
+.line{height:22px;display:flex;align-items:center;gap:10px;font-size:13px;font-weight:800;letter-spacing:.3px}
+.line i{flex:1;border-top:2px dashed}
+.reach{color:var(--green)}.reach i{border-color:rgba(95,207,122,.6)}
+.low{color:var(--amber)}.low i{border-color:rgba(242,184,75,.6)}
+.rnk{color:var(--dim)}.rnk i{border-color:#5b6573;border-top-style:dotted}
+/* card */
+.cd{left:1214px;top:248px;width:690px;height:718px;padding:0;overflow:hidden}
+.ch{height:104px;display:flex;align-items:center;gap:14px;padding:0 18px;background:linear-gradient(90deg,rgba(232,176,74,.18),rgba(14,19,27,0));border-bottom:1px solid var(--line)}
+.ch .pt{width:76px;height:76px}
+.sec{padding:8px 18px 0}
+.sec h3{font-family:Oswald;font-size:14px;letter-spacing:1.8px;color:var(--dim);font-weight:600;margin-bottom:6px}
+.res{display:grid;grid-template-columns:150px 1fr 44px;row-gap:4px;align-items:center;font-size:14px;font-weight:700}
+.res .z{position:relative;height:13px}
+.res .z:before{content:"";position:absolute;left:50%;top:-3px;bottom:-3px;border-left:1px solid #556}
+.res .z i{position:absolute;top:0;bottom:0;border-radius:2px}
+.res em{font-style:normal;font-family:Oswald;font-size:16px;text-align:right}
+.chance{position:relative;height:50px;margin-top:2px}
+.chance .tr0{position:absolute;left:0;right:0;top:16px;height:8px;background:#263142;border-radius:4px}
+.chance .band{position:absolute;top:12px;height:16px;background:rgba(79,141,255,.45);border:1px solid var(--blue);border-radius:4px}
+.chance .ex{position:absolute;top:6px;height:28px;border-left:2px dashed #fff}
+.chance .rd{position:absolute;top:8px;width:14px;height:14px;margin-left:-7px;color:var(--gold);font-size:18px;line-height:14px}
+.chance span{position:absolute;top:-2px;font-size:12px;font-weight:800;color:var(--dim);white-space:nowrap;transform:translateX(-50%)}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{border:1px solid #3a4a5e;border-radius:6px;padding:3px 8px;font-size:14px;font-weight:700}
+.tag.lock{color:var(--dim);border-style:dashed}
+.tag.found{border-color:var(--green)}
+.plan{display:inline-block;background:#2e5f3d;border:1px solid var(--green);border-radius:6px;padding:2px 10px;font-family:Oswald;letter-spacing:1px}
+.cal{display:flex;gap:6px}
+.cal div{flex:1;border:1px solid #3a4a5e;border-radius:7px;padding:4px 6px;text-align:center;font-size:13px;font-weight:800;line-height:1.25}
+.cal div b{display:block;font-family:Oswald;font-size:16px;font-weight:600}
+.cal .free{border-color:var(--green);color:var(--green)}.cal .bk{color:var(--dim);background:repeating-linear-gradient(45deg,#1b2330 0 6px,#141a24 6px 12px)}
+.wchip{display:flex;align-items:center;gap:10px;background:rgba(242,184,75,.12);border:1px solid var(--amber);border-radius:8px;padding:6px 10px;font-size:14px;font-weight:700}
+.wchip .k{font-family:Oswald;color:var(--amber);letter-spacing:1px}
+.btnsm{border:1px solid #556;border-radius:6px;padding:2px 8px;font-size:13px;font-weight:800;background:#1d2633}
+.btns{position:absolute;left:18px;right:18px;bottom:16px;display:flex;gap:10px}
+.btn{height:46px;flex:1;border-radius:8px;border:1px solid #4a5a70;background:#1d2633;font-family:Oswald;font-size:18px;letter-spacing:1px;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn.gold{background:linear-gradient(#e8b04a,#c48d2c);color:#16110a;border-color:#ffd27a}
+.btn small{font-family:Barlow;font-size:13px;font-weight:800;letter-spacing:0}
+.hov{position:absolute;background:#0b0f15;border:1px solid var(--gold);border-radius:8px;padding:8px 10px;font-size:13px;font-weight:700;line-height:1.35;box-shadow:0 6px 20px rgba(0,0,0,.6)}
+.hov b{color:var(--gold)}
+/* challenge strip */
+.chs{left:16px;top:976px;width:1888px;height:92px;display:flex;align-items:center;gap:14px;padding:0 16px;border:2px solid var(--blue);background:rgba(20,32,54,.97)}
+.chs .f{width:56px;height:56px;border-radius:50%;background-size:cover;background-position:center 12%;border:2px solid var(--blue);flex:none}
+.chs .t{font-family:Oswald;font-size:20px;letter-spacing:1.5px;color:#9cc0ff;line-height:1.1}
+.chs .t small{display:block;font-family:Barlow;font-size:14px;letter-spacing:0;color:var(--ink);font-weight:700}
+.ab{flex:1;height:64px;border-radius:9px;border:1px solid #4a5a70;background:#1d2633;padding:6px 14px;display:flex;flex-direction:column;justify-content:center}
+.ab b{font-family:Oswald;font-size:19px;letter-spacing:1px;display:flex;align-items:baseline}
+.ab .avg{margin-left:auto;font-family:Barlow;font-size:14px;letter-spacing:0;font-weight:800;color:var(--ink)}.ab .avg em{font-style:normal;font-family:Oswald;font-size:18px;margin-left:4px}
+.ab small{font-size:13px;font-weight:700;color:var(--dim);line-height:1.25}
+.ab .cost{font-family:Oswald;font-size:16px;margin-left:8px}
+</style></head><body>
+<div class="top"><div class="crest"></div><div class="club">ANVIL STREET GYM</div>
+ <div class="nav">Fights <b>Ladder</b></div><div class="sp"></div>
+ <div class="date">Wed <b>3 Jun 2026</b> · week 22</div>
+ <div class="cont off">CONTINUE <small>answer the challenge first</small></div></div>
+
+<!-- header: the only place her name appears -->
+<div class="box hd">
+ <div class="pt" style="background-image:url(../../../../assets/ui/style_b/portraits/mh_boxer_11.png)"></div>
+ <div style="width:300px"><div class="nm">LUCY JACKSON</div><div class="sub">Women's lightweight 60 kg · London region<br>7-2 · 9 bouts (novice) · Out-boxer</div></div>
+ <div class="bigrank">6th<small>ranked, of 10</small></div>
+ <div class="meter">
+  <div class="lab">REPUTATION</div>
+  <div class="bar"><i style="width:15%;background:var(--b0)"></i><i style="width:15%;background:var(--b1)"></i><i style="width:15%;background:var(--b2)"></i><i style="width:10%;background:var(--b3)"></i><i style="width:45%;background:linear-gradient(90deg,var(--b4),#7a5d22)"></i>
+   <div class="fill" style="width:31%"></div></div>
+  <div class="mk" style="left:31%"><b>31</b></div>
+  <div class="pro" style="left:45%"><b>45 PRO OFFER · needs 14</b></div>
+  <div class="ticks"><span style="left:7.5%">Unknown</span><span style="left:22.5%">Known locally</span><span style="left:37.5%;color:#fff">Rated</span><span style="left:50%">Contender</span><span style="left:77%">Pro-ready</span></div>
+ </div>
+</div>
+
+<!-- the strip: five things to plan around -->
+<div class="strip">
+ <div class="mag" style="flex:1.3"><b>CLOCK</b><span>Stopped: an ask is pending</span><div class="ck"><i class="f1">1 free</i><i class="pd">ask pending</i></div><div class="sub2">8 weeks in a row with no bout: reputation starts to drop</div></div>
+ <div class="mag" style="flex:.85"><b>PRO OFFER</b><span>At 45 · about 2 wins away</span><div class="mini"><i style="width:69%;background:var(--gold)"></i></div></div>
+ <div class="mag" style="flex:.85"><b>SEASON</b><span>Ends Mon 4 Jan · bouts 5 of 18</span><div class="mini"><i style="width:27.8%;background:var(--blue)"></i></div></div>
+ <div class="mag" style="border-color:#4f8dff"><b>TARGET (PINNED)</b><span>Ranked 3rd · free from Sat 18 Jul</span></div>
+ <div class="mag"><b>NATIONALS</b><span>2026: lost in the regional semi</span><div class="sub2">next entries close Mon 15 Mar 2027</div></div>
+</div>
+
+<!-- the ladder -->
+<div class="box tb">
+ <h2>THE LADDER <span style="font-family:Barlow;letter-spacing:0;font-size:14px;color:var(--dim);font-weight:700;margin-left:8px">sorted by reputation · win / lose = what a unanimous result moves for your boxer</span></h2>
+ <div class="flt"><span class="on">All</span><span>Same stance</span><span>Same style</span></div>
+ <div class="th"><div>RANK</div><div></div><div>CLUB</div><div>RECORD</div><div>STANCE</div><div>STYLE</div><div>REPUTATION</div><div>WIN / LOSE</div><div>CHANCE TO WIN</div><div>ANSWER</div></div>
+
+ <div class="tr"><div class="rk">1<span class="ar st">–</span></div><div class="f" style="background-image:url(../../../../assets/ui/style_b/portraits/mh_boxer_15.png)"></div>
+  <div class="cl">Belfast Gloves ABC<small><span class="chip c-top">THE TOP</span><span class="chip c-pro">PRO TALK 3 WEEKS</span></small></div><div>10-2<span class="cls open">OPEN · 12</span></div><div>Orthodox</div><div>Volume puncher</div>
+  <div class="rep"><b>56</b><div><div class="rb"><i style="width:56%;background:var(--b4)"></i></div><small>Pro-ready</small></div></div>
+  <div class="wl"><span class="w">+15</span> / <span class="l">−1</span></div><div>13–25%</div><div class="ans no">NOT SAFE<small>open class · and out of reach</small></div></div>
+
+ <div class="line reach">YOUR BOXER'S REACH · up to 16 above (47)<i></i></div>
+
+ <div class="tr"><div class="rk">2<span class="ar up">▲1</span></div><div class="f" style="background-image:url(../../../../assets/ui/style_b/portraits/mh_boxer_18.png)"></div>
+  <div class="cl">Fitzroy Lodge ABC<small><span class="chip c-man">MANDATORY</span>v the top, Sat 20 Jun</small></div><div>10-4<span class="cls open">OPEN · 14</span></div><div>Orthodox</div><div>Volume puncher</div>
+  <div class="rep"><b>44</b><div><div class="rb"><i style="width:44%;background:var(--b2)"></i></div><small>Rated</small></div></div>
+  <div class="wl"><span class="w">+12</span> / <span class="l">−4</span></div><div>24–36%</div><div class="ans no">NOT SAFE<small>open class · 2 more bouts</small></div></div>
+
+ <div class="tr"><div class="rk">3<span class="ar dn">▼1</span></div><div class="f" style="background-image:url(../../../../assets/ui/style_b/portraits/mh_boxer_14.png)"></div>
+  <div class="cl">Leicester ABC<small><span class="chip c-eli">ELIMINATOR</span>v 4th, Sat 4 Jul</small></div><div>8-2</div><div>Orthodox</div><div>Counter-puncher</div>
+  <div class="rep"><b>39</b><div><div class="rb"><i style="width:39%;background:var(--b2)"></i></div><small>Rated</small></div></div>
+  <div class="wl"><span class="w">+11</span> / <span class="l">−5</span></div><div>30–42%</div><div class="ans no">BOOKED<small>until Sat 4 Jul</small></div></div>
+
+ <div class="tr"><div class="rk">4<span class="ar up">▲2</span></div><div class="f" style="background-image:url(../../../../assets/ui/style_b/portraits/mh_boxer_20.png)"></div>
+  <div class="cl">Stadium ABC<small><span class="chip c-eli">ELIMINATOR</span><span class="chip c-new">NEW 6 APR</span></small></div><div>6-2</div><div>Southpaw</div><div>Boxer-puncher</div>
+  <div class="rep"><b>35</b><div><div class="rb"><i style="width:35%;background:var(--b2)"></i></div><small>Rated</small></div></div>
+  <div class="wl"><span class="w">+9</span> / <span class="l">−7</span></div><div>36–48%</div><div class="ans no">BOOKED<small>until Sat 4 Jul</small></div></div>
+
+ <div class="tr sel"><div class="rk">5<span class="ar st">–</span></div><div class="f" style="background-image:url(../../../../assets/ui/style_b/portraits/mh_boxer_17.png)"></div>
+  <div class="cl">Dale Youth ABC<small><span style="color:var(--gold);font-size:15px">★</span> your coach's pick</small></div><div>7-3</div><div>Orthodox</div><div>Boxer-puncher</div>
+  <div class="rep"><b>33</b><div><div class="rb"><i style="width:33%;background:var(--b2)"></i></div><small>Rated</small></div></div>
+  <div class="wl"><span class="w">+9</span> / <span class="l">−7</span></div><div>51–63%</div><div class="ans" style="color:var(--gold)">ASKED · SAT 20 JUN<small>sheet final Sat 6 Jun</small></div></div>
+
+ <div class="tr me"><div class="rk">6<span class="ar up">▲1</span></div><div class="f" style="background-image:url(../../../../assets/ui/style_b/portraits/mh_boxer_11.png)"></div>
+  <div class="cl">Anvil Street Gym<small style="color:#c9d6ea">your boxer</small></div><div>7-2</div><div>Orthodox</div><div>Out-boxer</div>
+  <div class="rep"><b>31</b><div><div class="rb"><i style="width:31%;background:var(--b2)"></i></div><small>Rated</small></div></div>
+  <div></div><div></div><div></div></div>
+
+ <div class="tr"><div class="rk">7<span class="ar dn">▼1</span></div><div class="f" style="background-image:url(../../../../assets/ui/style_b/portraits/mh_boxer_10.png)"></div>
+  <div class="cl">West Ham BC</div><div>5-2</div><div>Southpaw</div><div>Counter-puncher</div>
+  <div class="rep"><b>27</b><div><div class="rb"><i style="width:27%;background:var(--b1)"></i></div><small>Known locally</small></div></div>
+  <div class="wl"><span class="w">+7</span> / <span class="l">−9</span></div><div>55–67%</div><div class="ans yes">YES<small>Sat 20 Jun</small></div></div>
+
+ <div class="tr"><div class="rk">8<span class="ar st">–</span></div><div class="f" style="background-image:url(../../../../assets/ui/style_b/portraits/mh_boxer_22.png)"></div>
+  <div class="cl">Earlsfield ABC<small><span class="chip c-chal">CHALLENGES HER</span>see below</small></div><div>5-4</div><div>Southpaw</div><div>Pressure fighter</div>
+  <div class="rep"><b>23</b><div><div class="rb"><i style="width:23%;background:var(--b1)"></i></div><small>Known locally</small></div></div>
+  <div class="wl"><span class="w">+5</span> / <span class="l">−11</span></div><div>66–78%</div><div class="ans yes">YES<small>Sat 20 Jun</small></div></div>
+
+ <div class="tr"><div class="rk">9<span class="ar up">▲1</span></div><div class="f" style="background-image:url(../../../../assets/ui/style_b/portraits/mh_boxer_12.png)"></div>
+  <div class="cl">All Stars ABC</div><div>5-6<span class="cls open">OPEN · 11</span></div><div>Orthodox</div><div>Pressure fighter</div>
+  <div class="rep"><b>17</b><div><div class="rb"><i style="width:17%;background:var(--b1)"></i></div><small>Known locally</small></div></div>
+  <div class="wl"><span class="w">+3</span> / <span class="l">−13</span></div><div>72–84%</div><div class="ans no">NOT SAFE<small>open class · 2 more bouts</small></div></div>
+
+ <div class="line low">LOWER LINE · down to 16 below (15) · under it a bout is a tune-up: the clock keeps running<i></i></div>
+
+ <div class="tr"><div class="rk">10<span class="ar dn">▼1</span></div><div class="f" style="background-image:url(../../../../assets/ui/style_b/portraits/mh_boxer_13.png)"></div>
+  <div class="cl">Guadalajara BC</div><div>4-5</div><div>Southpaw</div><div>Pressure fighter</div>
+  <div class="rep"><b>12</b><div><div class="rb"><i style="width:12%;background:var(--b0)"></i></div><small>Unknown</small></div></div>
+  <div class="wl"><span class="w">+2</span> / <span class="l">−14</span></div><div>79–91%</div><div class="ans tune">TUNE-UP<small>clock keeps running</small></div></div>
+
+ <div class="line rnk">NOT RANKED YET · 4 wins to enter · below this line in reputation order<i></i></div>
+
+ <div class="tr grey"><div class="rk" style="font-size:16px">–</div><div class="f" style="background-image:url(../../../../assets/ui/style_b/portraits/mh_boxer_21.png)"></div>
+  <div class="cl">Lynn AC<small>1 more win: would sit 9th</small></div><div>3-2</div><div>Orthodox</div><div>Out-boxer</div>
+  <div class="rep"><b>19</b><div><div class="rb"><i style="width:19%;background:var(--b1)"></i></div><small>Known locally</small></div></div>
+  <div class="wl"><span class="w">+4</span> / <span class="l">−12</span></div><div>69–81%</div><div class="ans yes">YES<small>Sat 20 Jun</small></div></div>
+
+ <div class="tr grey"><div class="rk" style="font-size:16px">–</div><div class="f" style="background-image:url(../../../../assets/ui/style_b/portraits/mh_boxer_23.png)"></div>
+  <div class="cl">Islington BC<small>2 more wins to enter</small></div><div>2-3</div><div>Orthodox</div><div>Slugger</div>
+  <div class="rep"><b>6</b><div><div class="rb"><i style="width:6%;background:var(--b0)"></i></div><small>Unknown</small></div></div>
+  <div class="wl"><span class="w">+1</span> / <span class="l">−15</span></div><div>83–95%</div><div class="ans tune">TUNE-UP<small>clock keeps running</small></div></div>
+</div>
+
+<!-- the card for the selected row: the opponent's name only here -->
+<div class="box cd">
+ <div class="ch"><div class="pt" style="background-image:url(../../../../assets/ui/style_b/portraits/mh_boxer_17.png)"></div>
+  <div style="flex:1"><div class="nm" style="font-size:26px">CHLOE BENNETT</div><div class="sub">Ranked 5th · Dale Youth ABC · 7-3 · 10 bouts (novice) · reputation 33</div></div>
+  <div style="text-align:center;color:var(--gold);font-family:Oswald;font-size:15px;letter-spacing:1px;line-height:1.1"><span style="font-size:30px">★</span><br>COACH'S PICK</div></div>
+
+ <div class="sec"><h3>WHAT EACH RESULT MOVES FOR YOUR BOXER</h3>
+  <div class="res">
+   <div>Stops the opponent</div><div class="z"><i style="left:50%;width:30%;background:var(--green)"></i></div><em class="w" style="color:var(--green)">+12</em>
+   <div>Wins, unanimous</div><div class="z"><i style="left:50%;width:22.5%;background:var(--green)"></i></div><em style="color:var(--green)">+9</em>
+   <div>Wins, split</div><div class="z"><i style="left:50%;width:10%;background:var(--green)"></i></div><em style="color:var(--green)">+4</em>
+   <div>Draw</div><div class="z"><i style="left:50%;width:2.5%;background:var(--green)"></i></div><em style="color:var(--green)">+1</em>
+   <div>Loses, unanimous</div><div class="z"><i style="left:32.5%;width:17.5%;background:var(--red)"></i></div><em style="color:var(--red)">−7</em>
+   <div>Is stopped</div><div class="z"><i style="left:25%;width:25%;background:var(--red)"></i></div><em style="color:var(--red)">−10</em>
+  </div></div>
+
+ <div class="sec"><h3>CHANCE TO WIN</h3>
+  <div class="crow"><span class="lb" style="color:var(--gold)">&#9733; Your coach reads</span><div class="tk"><div style="position:absolute;left:44%;width:26%;top:5px;height:12px;border:1px dashed rgba(232,176,74,.85);border-radius:3px;background:rgba(232,176,74,.08)"></div><em style="left:57%;transform:translateX(-50%);color:var(--gold);font-size:17px;top:0">&#9733;</em><em style="left:71.5%;color:var(--gold)">57% · could be 13 off</em></div></div>
+  <div class="crow"><span class="lb" style="color:#9cc0ff">Before tape</span><div class="tk"><div style="position:absolute;left:51%;width:12%;top:5px;height:12px;background:rgba(79,141,255,.55);border:1px solid var(--blue);border-radius:3px"></div><em style="left:64.5%;color:#9cc0ff">51–63%</em></div></div>
+  <div class="crow"><span class="lb">The ladder prices it</span><div class="tk"><div style="position:absolute;left:45%;top:2px;height:18px;border-left:3px solid #fff"></div><em style="left:46.5%">45% · sets the win / lose numbers</em></div></div>
+  <div class="cax"><span style="left:0;transform:none">0%</span><span style="left:25%">25%</span><span style="left:50%">50%</span><span style="left:75%">75%</span><span style="left:100%;transform:translateX(-100%)">100%</span></div>
+ </div>
+
+ <div class="sec" style="display:flex;gap:18px">
+  <div style="width:150px"><h3>YOUR PLAN</h3><span class="plan">WORKS</span></div>
+  <div style="flex:1"><h3>WHAT WE KNOW · 1 tape</h3><div class="tags"><span class="tag">Boxer-puncher</span><span class="tag">Orthodox</span><span class="tag found">Stands still after combinations</span><span class="tag lock">Best punch: tape study opens this</span></div></div>
+ </div>
+
+ <div class="sec"><h3>THE OPPONENT'S DATES</h3>
+  <div class="cal"><div class="free" style="border-color:var(--gold);color:var(--gold)"><b>Sat 20 Jun</b>asked: YES</div><div class="bk"><b>Sat 4 Jul</b>booked</div><div class="bk"><b>Sat 18 Jul</b>booked</div><div class="bk"><b>Sat 1 Aug</b>booked</div><div class="free"><b>Sat 15 Aug</b>free</div></div></div>
+
+ <div class="sec"><div class="wchip"><span class="k">WEIGHT AT RISK</span><span style="flex:1">your boxer: 0.9 kg to go by the weigh-in, Fri 19 Jun · on Cut she makes the limit</span><span class="btnsm">Start a cut</span><span class="btnsm">Later date</span></div></div>
+
+ <div class="btns"><div class="btn" style="border:2px solid var(--gold);color:var(--gold);flex:1.4">ASKED · SAT 20 JUN <small style="color:var(--dim)">the opponent said YES · sheet final 6 Jun</small></div><div class="btn" style="flex:.7">PIN AS TARGET</div></div>
+</div>
+
+
+<!-- the challenge, only while one is open -->
+<div class="box chs">
+ <div class="f" style="background-image:url(../../../../assets/ui/style_b/portraits/mh_boxer_22.png)"></div>
+ <div class="t" style="width:372px">CHALLENGE FROM RANKED 8TH<small>Earlsfield ABC · 5-4 · win <span style="color:var(--green)">+5</span> / lose <span style="color:var(--red)">−11</span><br>answer by Fri 5 Jun · the sheet goes final Sat 6 Jun</small></div>
+ <div class="ab"><b>ACCEPT <span class="cost" style="color:var(--green)">0</span><span class="avg">average by 1 Aug<em style="color:var(--green)">+1.9</em></span></b><small>takes Sat 20 Jun · your ask for ranked 5th goes;<br>ranked 5th is next free Sat 15 Aug</small></div>
+ <div class="ab" style="border-color:var(--amber)"><b>NOT THIS SHOW <span class="cost" style="color:var(--amber)">−1</span><span class="avg">average by 1 Aug<em style="color:var(--green)">+2.3</em></span></b><small>the challenger picks Sat 4 Jul, 14 days after your boxer's bout ·<br>stopped on 20 Jun = 30 days out: counts as a pass, −2 more</small></div>
+ <div class="ab"><b>PASS <span class="cost" style="color:var(--red)">−2</span><span class="avg">average by 1 Aug<em style="color:var(--green)">+1.1</em></span></b><small>keeps every date · the challenger may come again in 4 weeks;<br>a second pass: none for 8 weeks</small></div>
+</div>
+</body></html>

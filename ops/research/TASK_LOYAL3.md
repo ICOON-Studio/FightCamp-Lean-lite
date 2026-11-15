@@ -48,12 +48,12 @@ Variant -> parse error: write `var x: int = int(d["k"])`); Array has no join(); 
 in a script without class_name; a ternary is `a if cond else b`; `%` with one value needs no array but a literal `%%`.
 
 ## Contract
-OWNS: tests/loyal3_probe.gd
-RED_TEST: tests/loyal3_probe.gd -> LOYAL3 pass=1 (red on main: the file does not exist)
+OWNS: tools/loyal3_probe.gd
+RED_TEST: tools/loyal3_probe.gd -> LOYAL3 pass=1 (S490: a probe belongs in tools/; red on main: the file does not exist)
 REGRESSION: tests/approach_test.gd
 VISUAL: no
 NOT YOURS: every other file. Under 500 lines. Never delete or weaken a test.
-Run: `godot --headless --audio-driver Dummy --fixed-fps 60 --path . --script res://tests/loyal3_probe.gd` (Godot 4.7.2).
+Run: `godot --headless --audio-driver Dummy --fixed-fps 60 --path . --script res://tools/loyal3_probe.gd` (Godot 4.7.2).
 You have no Godot: parse with gdtoolkit and check the arithmetic by hand on one club. Work on your own branch, open a PR
 into main, never merge. PR body: `RESULT: tests/loyal3_probe.gd -> LOYAL3 pass=<what you expect and why>`.
 

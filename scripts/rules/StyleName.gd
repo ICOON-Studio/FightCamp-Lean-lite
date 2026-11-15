@@ -9,12 +9,12 @@ const MoveTree := preload("res://scripts/rules/MoveTree.gd")
 const MAX_LINES := 7
 
 const EFFECTS := {
-	"Out-boxer": {"lever": "range_open", "add": 0.1},
-	"Volume puncher": {"lever": "combo_energy", "mult": 0.9},
-	"Boxer-puncher": {"lever": "mid_edge", "add": 0.1},
-	"Pressure fighter": {"lever": "pressure_answers", "mult": 1.2},
-	"Slugger": {"lever": "knockdown", "mult": 1.1},
-	"Counter-puncher": {"lever": "counter_edge", "add": 0.15, "when": ["loadup", "press"]},
+	"Out-boxer": {"lever": "range_open", "add": 0.1, "pts": 1.5},
+	"Volume puncher": {"lever": "combo_energy", "mult": 0.9, "pts": 0.2},
+	"Boxer-puncher": {"lever": "mid_pull", "add": 0.1, "pts": 2.1},
+	"Pressure fighter": {"lever": "pressure_answers", "mult": 1.2, "pts": 2.6},
+	"Slugger": {"lever": "inside_power", "mult": 1.15, "pts": 5.0},
+	"Counter-puncher": {"lever": "miss_return", "add": 0.1, "pts": 2.0},
 }
 
 
@@ -92,7 +92,7 @@ static func plan_cap(f: Dictionary, coach_cap: int) -> int:
 
 
 ## S459 INTEGRATE1: the planned line's edge multiplier in the live round (a gain only; LiveRound applies it to a positive
-## edge). Boxer-puncher: +mid_edge on the mid card; Counter-puncher: +counter_edge while the opponent loads up or presses.
+## edge). S486 STYLE4: the old mid_edge and counter_edge levers are gone; this returns 1.0 now (no double count).
 static func plan_mult(f: Dictionary, at: String, opp_mode: String) -> float:
 	var m := 1.0
 	if at == "mid":
@@ -101,8 +101,12 @@ static func plan_mult(f: Dictionary, at: String, opp_mode: String) -> float:
 
 
 ## S459 INTEGRATE1: Slugger's knockdown x1.1 as power points on Knockdowns' scale (exp((power - chin) / scale)).
+## S486 STYLE4: the knockdown lever is gone (inside_power replaced it); this returns 0.0 now (log(1.0) = 0).
 static func knock_power(f: Dictionary, scale: float) -> float:
-	return scale * log(effect(f, "knockdown"))
+	var eff := effect(f, "knockdown")
+	if eff <= 0.0 or is_equal_approx(eff, 1.0):
+		return 0.0
+	return scale * log(eff)
 
 
 ## S459 INTEGRATE1: the plan's line limit with the named style's extra line - never below the coach's own limit (a top

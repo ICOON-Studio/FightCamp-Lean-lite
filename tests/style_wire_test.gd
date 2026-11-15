@@ -41,19 +41,21 @@ func _open() -> void:
 
 
 func _plan() -> void:
+	# S486 STYLE4: the old mid_edge and counter_edge levers are gone; plan_mult returns 1.0 for all styles now.
 	var bp := {"moves": {"Cross": 61.0, "Uppercut": 60.0}, "steps": {"step_in": 60.0}, "named_style": "Boxer-puncher"}
-	_check(is_equal_approx(StyleName.plan_mult(bp, "mid", "range"), 1.1), "Boxer-puncher x1.1 on the mid card")
-	_check(is_equal_approx(StyleName.plan_mult(bp, "long", "range"), 1.0), "Boxer-puncher x1.0 at long")
+	_check(is_equal_approx(StyleName.plan_mult(bp, "mid", "range"), 1.0), "Boxer-puncher plan_mult x1.0 (mid_edge lever gone)")
+	_check(is_equal_approx(StyleName.plan_mult(bp, "long", "range"), 1.0), "Boxer-puncher plan_mult x1.0 at long")
 	var cp := {"moves": {"Lead hook": 60.0, "Check hook": 60.0}, "steps": {"step_out": 60.0}, "named_style": "Counter-puncher"}
-	_check(is_equal_approx(StyleName.plan_mult(cp, "long", "press"), 1.15), "Counter-puncher x1.15 vs a presser")
-	_check(is_equal_approx(StyleName.plan_mult(cp, "long", "range"), 1.0), "Counter-puncher x1.0 vs a range game")
+	_check(is_equal_approx(StyleName.plan_mult(cp, "long", "press"), 1.0), "Counter-puncher plan_mult x1.0 (counter_edge lever gone)")
+	_check(is_equal_approx(StyleName.plan_mult(cp, "long", "range"), 1.0), "Counter-puncher plan_mult x1.0 vs a range game")
 	_check(is_equal_approx(StyleName.plan_mult({}, "mid", "press"), 1.0), "no style: x1.0")
 
 
 func _knock() -> void:
+	# S486 STYLE4: the knockdown lever is gone (inside_power replaced it); knock_power returns 0.0 now.
 	var sl := {"moves": {"Body hook": 60.0, "Lead hook": 60.0}, "steps": {"roll_out": 60.0}, "named_style": "Slugger"}
 	var add := StyleName.knock_power(sl, Knockdowns.POWER_CHIN_SCALE)
-	_check(is_equal_approx(exp(add / Knockdowns.POWER_CHIN_SCALE), 1.1), "Slugger: the added power multiplies the count chance by 1.1 (+%.2f)" % add)
+	_check(is_zero_approx(add), "Slugger: knock_power returns 0.0 (knockdown lever gone, +%.2f)" % add)
 	_check(is_zero_approx(StyleName.knock_power({}, Knockdowns.POWER_CHIN_SCALE)), "no style: no power added")
 
 

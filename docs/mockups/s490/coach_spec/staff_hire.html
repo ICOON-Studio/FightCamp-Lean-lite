@@ -1,0 +1,352 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Coach roles: staff and hire (S490)</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Barlow:wght@500;600;700;800&family=Permanent+Marker&family=Kalam:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{--line:#2b3546;--ink:#ece6da;--dim:#9aa4b3;--red:#e24b4b;--blue:#4f8dff;--green:#5fcf7a;--amber:#f2b84b;--gold:#e8b04a;
+ --sta:#4fd1c5;--str:#e24b4b;--spd:#5aa3ff;--acc:#ff7ab6;--def:#f2b84b;--iq:#b48cff;--rec:#5fcf7a;--paper:#efe6d2;--pow:#c9a27a;
+ --head:#e8b04a;--box:#4f8dff;--sc:#2ec4b6;--bjj:#b48cff}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;overflow:hidden;position:relative;font-family:Barlow,sans-serif;color:var(--ink);font-size:17px;
+ background:linear-gradient(rgba(9,12,17,.88),rgba(9,12,17,.94)),url(../../../../assets/ui/art/gym_main.jpg) center/cover}
+.top{position:absolute;left:0;right:0;top:0;height:54px;background:rgba(8,11,16,.97);border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 22px;gap:18px}
+.crest{width:32px;height:32px;border-radius:50%;background:url(../../../../assets/ui/art/crests/anvil.png) center/cover}
+.club{font-family:Oswald;font-weight:600;font-size:22px;letter-spacing:2px}
+.nav{color:var(--dim);font-weight:700}.nav b{color:var(--ink);background:#223042;border:1px solid #3a4a5e;border-radius:7px;padding:5px 12px;margin-left:8px}
+.nav i{font-style:normal;margin-left:8px;padding:5px 12px;color:var(--dim)}
+.sp{flex:1}.date b{color:var(--amber)}.cash{color:var(--green);font-weight:800}
+.cont{height:40px;padding:0 18px;border-radius:8px;background:#2e7d46;border:1px solid #5fcf7a;font-family:Oswald;font-size:20px;letter-spacing:1.5px;display:flex;align-items:center;gap:10px;box-shadow:0 0 0 3px rgba(95,207,122,.25),0 0 18px rgba(95,207,122,.5)}
+.cont small{font-family:Barlow;font-size:14px;letter-spacing:0;font-weight:700;color:#d6f5de}
+.box{position:absolute;background:rgba(14,19,27,.95);border:1px solid #33404f;border-radius:12px}
+h2{font-family:Oswald;font-weight:600;font-size:19px;letter-spacing:2px;color:#cfc4b1}
+h2 small{font-family:Barlow;letter-spacing:0;color:var(--dim);font-size:14px;font-weight:700;margin-left:8px}
+.p{border-bottom:2px dotted currentColor}
+.d{border-bottom:2px dashed currentColor}
+/* role slot cards (left) */
+.slot{position:absolute;left:16px;width:548px;height:222px;border-radius:12px;background:rgba(18,24,33,.97);border:1px solid var(--line);overflow:hidden}
+.slot .band{position:absolute;left:0;top:0;bottom:0;width:8px}
+.slot .ph{position:absolute;left:22px;top:16px;width:92px;height:92px;border-radius:50%;background-size:cover;background-position:center 12%;border:3px solid #6b5a3a}
+.badge{position:absolute;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:3px solid #0e131b}
+.slot .badge{left:80px;top:72px}
+.slot .hd{position:absolute;left:134px;top:12px;right:14px;display:flex;justify-content:space-between;align-items:baseline}
+.slot .nm{font-family:Oswald;font-size:22px;font-weight:600;letter-spacing:1px}
+.slot .role{font-family:Oswald;font-size:15px;letter-spacing:1.5px}
+.slot .wage{font-family:Oswald;font-size:22px}
+.slot .wage small{font-family:Barlow;font-size:13px;color:var(--dim);font-weight:800;margin-left:3px}
+.runs{position:absolute;left:134px;top:64px;display:flex;gap:4px}
+.run{width:56px;text-align:center}
+.run span{display:flex;width:36px;height:34px;margin:0 auto;border-radius:8px;align-items:center;justify-content:center;background:#1c2531;border:1px solid #3a4656}
+.run em{display:block;font-style:normal;font-size:11px;font-weight:800;letter-spacing:.3px;margin-top:2px;color:var(--ink)}
+.run.off{opacity:.28}
+.pips{position:absolute;right:16px;top:68px;display:flex;gap:3px;align-items:center}
+.pips u{display:flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:5px;background:#2a3442}
+.pips u.on{background:currentColor}
+.pips small{font-size:13px;font-weight:800;color:var(--dim);margin-left:6px}
+.mini{position:absolute;left:22px;right:16px;top:124px;display:flex;gap:8px}
+.mm{flex:1;text-align:center}
+.mm .ic{width:36px;height:36px;margin:0 auto;border-radius:50%;border:2px solid;background:#141a22 center/88% no-repeat}
+.mm .bar{height:8px;background:#26303c;border-radius:4px;margin-top:5px;position:relative;overflow:hidden}
+.mm .bar i{position:absolute;left:0;top:0;bottom:0;border-radius:4px}
+.mm .w{display:flex;justify-content:center;align-items:baseline;gap:5px;margin-top:3px}
+.mm .w em{font-style:normal;font-size:13px;font-weight:800;color:#c3cad4}
+.mm .w b{font-family:Oswald;font-weight:500;font-size:19px}
+.empty{border:2px dashed var(--sc);background:rgba(46,196,182,.06)}
+/* center */
+.tabs{position:absolute;left:580px;top:112px;width:850px;height:52px;display:flex;gap:8px}
+.tab{flex:1;border-radius:10px;background:#18202b;border:1px solid #34404f;display:flex;align-items:center;justify-content:center;gap:10px;font-family:Oswald;font-size:18px;letter-spacing:1.5px;color:var(--dim)}
+.tab.on{color:var(--ink);border:2px solid var(--sc);background:rgba(46,196,182,.12)}
+.tab small{font-family:Barlow;font-size:13px;font-weight:800;letter-spacing:0}
+.cand{position:absolute;top:176px;width:420px;height:530px;border-radius:12px;background:rgba(18,24,33,.97);border:1px solid #3a4656}
+.cand.pick{border:2px solid var(--sc)}
+.cand .ph{position:absolute;left:18px;top:16px;width:108px;height:108px;border-radius:50%;background-size:cover;background-position:center 12%;border:3px solid #6b5a3a}
+.cand .badge{left:88px;top:84px;background:var(--sc)}
+.cand .hd{position:absolute;left:146px;top:14px;right:16px}
+.cand .nm{font-family:Oswald;font-size:24px;font-weight:600;letter-spacing:1px;line-height:1.1}
+.cand .role{font-family:Oswald;font-size:15px;letter-spacing:1.5px;color:var(--sc)}
+.cand .runs{left:146px;top:70px}
+.days{position:absolute;left:18px;right:18px;top:142px;display:flex;align-items:center;gap:6px}
+.days .lb{display:flex;align-items:center;gap:6px;width:84px;color:var(--sc)}
+.days u{display:flex;align-items:center;justify-content:center;width:38px;height:32px;border-radius:6px;background:#222b37;color:#6f7988;font-size:14px;font-weight:800;text-decoration:none}
+.days u.on{background:var(--sc);color:#0e131b}
+.big{position:absolute;left:18px;right:18px}
+.big .row{display:flex;align-items:center;gap:10px;height:84px;border-bottom:1px solid #26303c}
+.big .ic{width:48px;height:48px;border-radius:50%;border:3px solid;background:#141a22 center/88% no-repeat;flex:none}
+.big .lab{width:78px;font-weight:800;font-size:16px;line-height:1.1}
+.track{position:relative;flex:1;height:16px;background:#26303c;border-radius:8px}
+.track i{position:absolute;left:0;top:0;bottom:0;border-radius:8px}
+.track s{position:absolute;top:-7px;width:4px;height:30px;border-radius:2px;background:var(--box)}
+.track em{position:absolute;top:21px;font-style:normal;font-size:12px;font-weight:800;color:#8fb4ff;white-space:nowrap;transform:translateX(-50%);display:flex;align-items:center;gap:3px}
+.big .val{width:90px;text-align:right;font-family:Oswald;font-size:26px;line-height:1}
+.big .val small{display:block;margin-top:5px;font-family:Barlow;font-size:13px;font-weight:800;color:#8fb4ff}
+.shield{display:flex;align-items:center;gap:10px;height:96px;font-weight:800;font-size:15px}
+.cost{position:absolute;left:18px;right:18px;bottom:16px;height:56px;display:flex;align-items:center;justify-content:space-between}
+.cost .w{font-family:Oswald;font-size:30px}
+.cost .w small{font-family:Barlow;font-size:14px;color:var(--dim);font-weight:800;margin-left:4px}
+.hire{height:52px;padding:0 28px;border-radius:10px;font-family:Oswald;font-size:22px;letter-spacing:2px;display:flex;align-items:center;background:#1d5f58;border:1px solid var(--sc);color:#e8fffb}
+.hire.ghost{background:#18202b;border:1px solid #4a5666;color:#c3cad4}
+/* fighters impact */
+.fhd{display:flex;align-items:center;font-family:Oswald;font-size:14px;letter-spacing:1.2px;color:var(--dim);margin-top:6px;height:24px}
+.fx{display:flex;align-items:center;gap:12px;height:66px;border-bottom:1px solid #26303c}
+.fx:last-child{border:none}
+.fx .pt{width:52px;height:52px;border-radius:50%;background-size:cover;background-position:center 12%;border:2px solid #6b5a3a;flex:none}
+.fx .wc{width:66px;font-size:13px;font-weight:800;color:var(--dim);line-height:1.15}
+.fx .pair{display:flex;align-items:center;gap:10px;width:330px}
+.fx .pair .ic{width:32px;height:32px;border-radius:50%;border:2px solid;background:#141a22 center/88% no-repeat;flex:none}
+.fx .bars{position:relative;width:130px;height:24px;flex:none}
+.fx .bars i{position:absolute;left:0;height:10px;border-radius:4px}
+.fx .num{font-family:Oswald;font-size:19px;white-space:nowrap}
+/* right: routes */
+.rt{border-radius:10px;padding:10px 12px;background:#18202b;border:1px solid #34404f;margin-top:10px}
+.rt.on{border:2px solid var(--sc);background:rgba(46,196,182,.08)}
+.rt .top2{display:flex;align-items:center;gap:8px;height:34px}
+.rt .who{display:flex;gap:2px}
+.co{width:32px;height:32px;border-radius:50%;background-size:cover;background-position:center 12%;border:3px solid;flex:none}
+.rt .cost2{margin-left:auto;font-family:Oswald;font-size:22px}
+.rt .cost2 small{font-family:Barlow;font-size:13px;color:var(--dim);font-weight:800;margin-left:2px}
+.pbar{display:flex;align-items:center;gap:8px;margin-top:6px}
+.pbar .tr{flex:1;height:16px;border-radius:5px;background:#222b37;position:relative;overflow:hidden}
+.pbar .tr i{position:absolute;top:0;bottom:0}
+.pbar b{font-family:Oswald;font-weight:500;font-size:19px;width:58px;text-align:right}
+.chip{display:flex;align-items:center;gap:4px;font-size:13px;font-weight:800;color:#c3cad4;width:84px}
+.mp{display:flex;align-items:center;gap:3px;margin-top:6px;height:16px}.mp u{display:block;width:14px;height:14px;border-radius:50%}.mp u.g{border-radius:3px;width:26px;background:repeating-linear-gradient(90deg,var(--sc) 0 6px,#1d8f85 6px 9px)}.mp i{width:8px}
+.note{position:absolute;background:var(--paper);color:#2a2219;border-radius:6px;box-shadow:0 6px 18px rgba(0,0,0,.5);transform:rotate(-.6deg)}
+.note .hand{font-family:Kalam;font-size:21px;line-height:1.25}
+.legend{position:absolute;right:16px;top:66px;display:flex;align-items:center;gap:8px;font-size:14px;font-weight:800;color:var(--dim)}
+.legend span{color:var(--ink);font-family:Oswald;font-weight:500}
+</style></head><body>
+
+<!-- inline icons -->
+<svg width="0" height="0" style="position:absolute">
+ <defs>
+  <symbol id="glove" viewBox="0 0 24 24"><path d="M6 10c0-4 2.5-6 6-6h2c3 0 5 2 5 5v4c0 3-2 5-5 5H9c-2 0-3-1-3-3z" fill="currentColor"/><rect x="7" y="17" width="9" height="4" rx="1.2" fill="currentColor" opacity=".75"/><path d="M6 11c-2 0-3 1-3 2.5S4 16 6 16" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="kb" viewBox="0 0 24 24"><path d="M8 9a4 4 0 0 1 8 0" fill="none" stroke="currentColor" stroke-width="2.6"/><circle cx="12" cy="15" r="6.5" fill="currentColor"/></symbol>
+  <symbol id="belt" viewBox="0 0 24 24"><rect x="2" y="9" width="20" height="5" rx="1" fill="currentColor"/><rect x="9" y="7.5" width="6" height="8" rx="1" fill="currentColor" stroke="#0e131b" stroke-width="1.4"/><path d="M10 15.5l-2 6M14 15.5l2 6" stroke="currentColor" stroke-width="2.4"/></symbol>
+  <symbol id="board" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="18" rx="2" fill="currentColor"/><rect x="8" y="2" width="8" height="4" rx="1" fill="currentColor" stroke="#0e131b" stroke-width="1.4"/><path d="M7.5 11h9M7.5 15h9M7.5 19h5" stroke="#0e131b" stroke-width="1.8"/></symbol>
+  <symbol id="sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></g></symbol>
+  <symbol id="moon" viewBox="0 0 24 24"><path d="M15 3a9 9 0 1 0 6 13A7.5 7.5 0 0 1 15 3z" fill="currentColor"/></symbol>
+  <!-- corner = the corner stool -->
+  <symbol id="corner" viewBox="0 0 24 24"><ellipse cx="12" cy="7" rx="8" ry="3" fill="currentColor"/><path d="M6 9l-2.5 12M18 9l2.5 12M12 10v11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path d="M5.2 15.5h13.6" stroke="currentColor" stroke-width="1.8"/></symbol>
+  <!-- mat = two grapplers' mat seen in perspective: tiles -->
+  <symbol id="mat" viewBox="0 0 24 24"><path d="M6 6h12l4 13H2z" fill="currentColor" opacity=".35"/><path d="M6 6h12l4 13H2z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M10 6l-1.3 13M14 6l1.3 13M4.2 12.5h15.6" stroke="currentColor" stroke-width="1.6"/></symbol>
+  <symbol id="shield" viewBox="0 0 24 24"><path d="M12 2l8 3v6c0 5-3.5 9-8 11-4.5-2-8-6-8-11V5z" fill="currentColor"/><path d="M8 12l3 3 5-6" fill="none" stroke="#0e131b" stroke-width="2.4"/></symbol>
+ </defs>
+</svg>
+
+<div class="top"><div class="crest"></div><div class="club">ANVIL STREET GYM</div>
+<div class="nav">Club<b>People</b><i>Money</i><i>Records</i></div><div class="sp"></div>
+<div class="date">Mon 16 Feb 2026 · <b>Week 7</b></div><div class="cash">$12,940</div>
+<div class="cont">CONTINUE &#9656;<small>to Mon 23</small></div></div>
+
+<div class="legend"><span class="p">dotted</span> new in this proposal &nbsp;·&nbsp; <span class="d">dashed</span> designed, not built</div>
+<div style="position:absolute;left:18px;top:64px;font-family:Oswald;font-size:26px;letter-spacing:2px">STAFF</div>
+
+<!-- ========== LEFT: YOUR COACHES (role slots) ========== -->
+<!-- head coach: you -->
+<div class="slot" style="top:104px"><div class="band" style="background:var(--head)"></div>
+ <div class="ph" style="background-image:url(../../../../assets/ui/style_b/portraits/mh_staff_coach.png)"></div>
+ <div class="badge" style="background:var(--head)"><svg width="24" height="24" color="#0e131b"><use href="#board"/></svg></div>
+ <div class="hd"><div><div class="nm">SAM CARTER</div><div class="role" style="color:var(--head)">HEAD COACH · YOU · OLD HAND</div></div><div class="wage">$0</div></div>
+ <div class="runs">
+  <div class="run" style="color:var(--head)"><span><svg width="22" height="22"><use href="#sun"/></svg></span><em>Mornings</em></div>
+  <div class="run" style="color:var(--head)"><span><svg width="22" height="22"><use href="#moon"/></svg></span><em>Pads</em></div>
+  <div class="run" style="color:var(--head)"><span><svg width="24" height="24"><use href="#corner"/></svg></span><em>Corner</em></div>
+  <div class="run off" style="color:var(--dim)"><span><svg width="24" height="24"><use href="#mat"/></svg></span><em>Mat</em></div></div>
+ <div class="pips" style="color:var(--head)"><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><small class="d" style="color:var(--ink)">4 a week</small></div>
+ <div class="mini">
+  <div class="mm"><div class="ic" style="border-color:var(--acc);background-image:url(../../s456/training_f/icons/pads.png)"></div><div class="bar"><i style="width:40%;background:var(--acc)"></i></div><div class="w"><em>Pads</em><b class="p">40</b></div></div>
+  <div class="mm"><div class="ic" style="border-color:var(--str);background-image:url(../../s456/training_f/icons/heavy_bag.png)"></div><div class="bar"><i style="width:55%;background:var(--str)"></i></div><div class="w"><em>Bag</em><b class="p">55</b></div></div>
+  <div class="mm"><div class="ic" style="border-color:var(--iq);background-image:url(../../s456/training_f/icons/sparring.png)"></div><div class="bar"><i style="width:40%;background:var(--iq)"></i></div><div class="w"><em>Sparring</em><b class="p">40</b></div></div>
+  <div class="mm"><div class="ic" style="border-color:var(--sta);background-image:url(../../s458/training_j/icons/roadwork.png)"></div><div class="bar"><i style="width:40%;background:var(--sta)"></i></div><div class="w"><em>Stamina</em><b class="p">40</b></div></div>
+  <div class="mm"><div class="ic" style="border-color:var(--pow);background-image:url(../../s458/training_j/icons/strength.png)"></div><div class="bar"><i style="width:40%;background:var(--pow)"></i></div><div class="w"><em>Strength</em><b class="p">40</b></div></div>
+ </div></div>
+
+<!-- boxing coach -->
+<div class="slot" style="top:334px"><div class="band" style="background:var(--box)"></div>
+ <div class="ph" style="background-image:url(../../../../assets/ui/style_b/portraits/mh_boxer_07.png)"></div>
+ <div class="badge" style="background:var(--box)"><svg width="24" height="24" color="#0e131b"><use href="#glove"/></svg></div>
+ <div class="hd"><div><div class="nm">LUKE REID</div><div class="role" style="color:var(--box)">BOXING COACH · PADS</div></div><div class="wage">$450<small>a week</small></div></div>
+ <div class="runs">
+  <div class="run" style="color:var(--box)"><span><svg width="22" height="22"><use href="#sun"/></svg></span><em>Mornings</em></div>
+  <div class="run" style="color:var(--box)"><span><svg width="22" height="22"><use href="#moon"/></svg></span><em>Pads</em></div>
+  <div class="run" style="color:var(--box)"><span><svg width="24" height="24"><use href="#corner"/></svg></span><em>Corner</em></div>
+  <div class="run off" style="color:var(--dim)"><span><svg width="24" height="24"><use href="#mat"/></svg></span><em>Mat</em></div></div>
+ <div class="pips" style="color:var(--box)"><u class="on"><svg width="14" height="14" color="#0e131b"><use href="#sun"/></svg></u><u class="on"><svg width="14" height="14" color="#0e131b"><use href="#sun"/></svg></u>
+  <u class="on" style="margin-left:6px"><svg width="13" height="13" color="#0e131b"><use href="#moon"/></svg></u><u class="on"><svg width="13" height="13" color="#0e131b"><use href="#moon"/></svg></u><u class="on"><svg width="13" height="13" color="#0e131b"><use href="#moon"/></svg></u><small style="color:var(--ink)"><span class="d">2</span> + 3</small></div>
+ <div class="mini">
+  <div class="mm"><div class="ic" style="border-color:var(--acc);background-image:url(../../s456/training_f/icons/pads.png)"></div><div class="bar"><i style="width:74%;background:var(--acc)"></i></div><div class="w"><em>Pads</em><b>74</b></div></div>
+  <div class="mm"><div class="ic" style="border-color:var(--str);background-image:url(../../s456/training_f/icons/heavy_bag.png)"></div><div class="bar"><i style="width:64%;background:var(--str)"></i></div><div class="w"><em>Bag</em><b>64</b></div></div>
+  <div class="mm"><div class="ic" style="border-color:var(--iq);background-image:url(../../s456/training_f/icons/sparring.png)"></div><div class="bar"><i style="width:58%;background:var(--iq)"></i></div><div class="w"><em>Sparring</em><b>58</b></div></div>
+  <div class="mm"><div class="ic" style="border-color:var(--sta);background-image:url(../../s458/training_j/icons/roadwork.png)"></div><div class="bar"><i style="width:48%;background:var(--sta)"></i></div><div class="w"><em>Stamina</em><b>48</b></div></div>
+  <div class="mm"><div class="ic" style="border-color:var(--pow);background-image:url(../../s458/training_j/icons/strength.png)"></div><div class="bar"><i style="width:46%;background:var(--pow)"></i></div><div class="w"><em>Strength</em><b>46</b></div></div>
+ </div></div>
+
+<!-- S&C: open slot -->
+<div class="slot empty" style="top:564px;height:180px"><div class="band" style="background:var(--sc)"></div>
+ <div class="ph" style="border:3px dashed var(--sc);background:#141a22;display:flex;align-items:center;justify-content:center;color:var(--sc)"><svg width="52" height="52"><use href="#kb"/></svg></div>
+ <div class="hd"><div><div class="nm" style="color:var(--sc)">OPEN</div><div class="role" style="color:var(--sc)">S&amp;C COACH · STRENGTH AND CONDITIONING</div></div></div>
+ <div class="runs">
+  <div class="run" style="color:var(--sc)"><span><svg width="22" height="22"><use href="#sun"/></svg></span><em>Mornings</em></div>
+  <div class="run off" style="color:var(--dim)"><span><svg width="22" height="22"><use href="#moon"/></svg></span><em>Pads</em></div>
+  <div class="run off" style="color:var(--dim)"><span><svg width="24" height="24"><use href="#corner"/></svg></span><em>Corner</em></div>
+  <div class="run off" style="color:var(--dim)"><span><svg width="24" height="24"><use href="#mat"/></svg></span><em>Mat</em></div></div>
+ <!-- today: who rates Stamina and Strength mornings (the better of you 40 and the boxing coach) -->
+ <div style="position:absolute;right:16px;top:20px;display:flex;align-items:center;gap:8px">
+  <span style="font-size:13px;font-weight:800;color:var(--dim)">today</span>
+  <div class="co" style="border-color:var(--box);background-image:url(../../../../assets/ui/style_b/portraits/mh_boxer_07.png)"></div>
+ </div>
+ <div style="position:absolute;right:16px;top:64px;display:flex;flex-direction:column;gap:8px;width:150px">
+  <div style="display:flex;align-items:center;gap:8px"><div style="width:30px;height:30px;border-radius:50%;border:2px solid var(--sta);background:#141a22 url(../../s458/training_j/icons/roadwork.png) center/88% no-repeat"></div><div style="flex:1;height:8px;background:#26303c;border-radius:4px;overflow:hidden"><i style="display:block;height:8px;width:48%;background:var(--sta)"></i></div><b style="font-family:Oswald;font-weight:500;font-size:19px">48</b></div>
+  <div style="display:flex;align-items:center;gap:8px"><div style="width:30px;height:30px;border-radius:50%;border:2px solid var(--pow);background:#141a22 url(../../s458/training_j/icons/strength.png) center/88% no-repeat"></div><div style="flex:1;height:8px;background:#26303c;border-radius:4px;overflow:hidden"><i style="display:block;height:8px;width:46%;background:var(--pow)"></i></div><b style="font-family:Oswald;font-weight:500;font-size:19px">46</b></div>
+ </div></div>
+
+<!-- BJJ coach -->
+<div class="slot" style="top:754px;height:304px"><div class="band" style="background:var(--bjj)"></div>
+ <div class="ph" style="background-image:url(../../../../assets/ui/style_b/portraits/mh_boxer_08.png)"></div>
+ <div class="badge" style="background:var(--bjj)"><svg width="24" height="24" color="#0e131b"><use href="#belt"/></svg></div>
+ <div class="hd"><div><div class="nm">TOMAS VIEIRA</div><div class="role" style="color:var(--bjj)">BJJ COACH · NO-GI</div></div><div class="wage">$170<small>a week</small></div></div>
+ <div class="runs">
+  <div class="run off" style="color:var(--dim)"><span><svg width="22" height="22"><use href="#sun"/></svg></span><em>Mornings</em></div>
+  <div class="run off" style="color:var(--dim)"><span><svg width="22" height="22"><use href="#moon"/></svg></span><em>Pads</em></div>
+  <div class="run off" style="color:var(--dim)"><span><svg width="24" height="24"><use href="#corner"/></svg></span><em>Corner</em></div>
+  <div class="run" style="color:var(--bjj)"><span><svg width="24" height="24"><use href="#mat"/></svg></span><em>Mat</em></div></div>
+ <div class="pips" style="color:var(--bjj)"><u class="on"></u><u class="on"></u><u class="on"></u><u class="on" style="opacity:.5"></u><u class="on" style="opacity:.5"></u><small style="color:var(--ink)">3 + 2</small></div>
+ <!-- belt + drill rate -->
+ <div style="position:absolute;left:22px;right:16px;top:132px">
+  <div style="display:flex;align-items:center;gap:12px">
+   <div style="width:150px;height:22px;border-radius:4px;background:#6b3f22;position:relative;border:2px solid #0e131b"><i style="position:absolute;right:16px;top:-2px;width:26px;height:22px;background:#111"></i></div>
+   <span style="font-family:Oswald;font-size:17px;letter-spacing:1px;color:#c9a27a">BROWN BELT</span>
+   <span style="margin-left:auto;font-family:Oswald;font-size:24px;color:var(--bjj)">+3.2<small style="font-family:Barlow;font-size:13px;color:var(--dim);font-weight:800"> a week</small></span></div>
+  <div style="display:flex;align-items:center;gap:12px;margin-top:16px">
+   <div style="width:150px;height:22px;border-radius:4px;background:#111;position:relative;border:2px solid #3a4656"><i style="position:absolute;right:16px;top:-2px;width:26px;height:22px;background:#b3321f"></i></div>
+   <span style="font-family:Oswald;font-size:17px;letter-spacing:1px;color:#8a95a5">BLACK BELT</span>
+   <span style="margin-left:auto;font-family:Oswald;font-size:24px;color:#8a95a5"><span class="p">+4.0</span><small style="font-family:Barlow;font-size:13px;color:var(--dim);font-weight:800"> a week</small></span></div>
+  <div style="display:flex;align-items:center;gap:10px;margin-top:16px">
+   <div style="width:32px;height:32px;border-radius:50%;border:2px solid var(--bjj);background:url(../../../../assets/ui/style_b/portraits/mh_boxer_16.png) center 12%/cover"></div>
+   <div style="flex:1;height:14px;background:#26303c;border-radius:7px;position:relative"><i style="position:absolute;left:0;top:0;bottom:0;width:64%;background:var(--bjj);border-radius:7px"></i><i style="position:absolute;left:64%;top:0;bottom:0;width:16%;background:repeating-linear-gradient(90deg,#b48cff 0 5px,rgba(180,140,255,.3) 5px 9px)"></i></div>
+   <span style="font-family:Oswald;font-size:17px;color:#c3cad4;white-space:nowrap">owned in 9.4 / <span class="p">7.5</span> wk</span></div>
+ </div></div>
+
+<!-- ========== CENTER: HIRE ========== -->
+<div class="tabs">
+ <div class="tab"><svg width="24" height="24" color="var(--box)"><use href="#glove"/></svg>BOXING COACH<small style="color:var(--dim)">1 of 2</small></div>
+ <div class="tab on"><svg width="24" height="24" color="var(--sc)"><use href="#kb"/></svg>S&amp;C COACH<small style="color:var(--sc)">open</small></div>
+ <div class="tab"><svg width="24" height="24" color="var(--bjj)"><use href="#belt"/></svg>BJJ COACH<small style="color:var(--dim)">1 of 1</small></div>
+</div>
+
+<!-- candidate A -->
+<div class="cand pick" style="left:580px">
+ <div class="ph" style="background-image:url(../../../../assets/ui/style_b/portraits/mh_staff_cutman_1.png)"></div>
+ <div class="badge"><svg width="24" height="24" color="#0e131b"><use href="#kb"/></svg></div>
+ <div class="hd"><div class="nm">DEV SANDHU</div><div class="role">S&amp;C COACH</div></div>
+ <div class="runs">
+  <div class="run" style="color:var(--sc)"><span><svg width="22" height="22"><use href="#sun"/></svg></span><em>Mornings</em></div>
+  <div class="run off" style="color:var(--dim)"><span><svg width="22" height="22"><use href="#moon"/></svg></span><em>Pads</em></div>
+  <div class="run off" style="color:var(--dim)"><span><svg width="24" height="24"><use href="#corner"/></svg></span><em>Corner</em></div>
+  <div class="run off" style="color:var(--dim)"><span><svg width="24" height="24"><use href="#mat"/></svg></span><em>Mat</em></div></div>
+ <div class="days"><span class="lb"><svg width="22" height="22"><use href="#sun"/></svg><b style="font-family:Oswald;font-size:20px">2</b></span><u>M</u><u>T</u><u class="on">W</u><u>T</u><u>F</u><u class="on">S</u><u style="opacity:.4">S</u></div>
+ <div class="big" style="top:186px">
+  <div class="row"><div class="ic" style="border-color:var(--sta);background-image:url(../../s458/training_j/icons/roadwork.png)"></div>
+   <div class="lab" style="color:var(--sta)">Stamina</div>
+   <div class="track"><i style="width:66%;background:var(--sta)"></i><s style="left:48%"></s><em style="left:48%">&#9679; 48</em></div>
+   <div class="val" style="color:var(--sta)"><span class="p">66</span><small>+39% &#8594; <span class="p">+60%</span></small></div></div>
+  <div class="row"><div class="ic" style="border-color:var(--pow);background-image:url(../../s458/training_j/icons/strength.png)"></div>
+   <div class="lab" style="color:#e2b98f">Strength</div>
+   <div class="track"><i style="width:68%;background:var(--pow)"></i><s style="left:46%"></s><em style="left:46%">&#9679; 46</em></div>
+   <div class="val" style="color:#e2b98f"><span class="p">68</span><small>+37% &#8594; <span class="p">+63%</span></small></div></div>
+  <div class="shield"><span style="color:var(--green)"><svg width="40" height="40"><use href="#shield"/></svg></span>
+   <div style="width:42px;height:42px;border-radius:50%;border:2px solid var(--rec);background:#141a22 url(../../s458/training_j/icons/mobility.png) center/88% no-repeat;flex:none"></div>
+   <span style="display:flex;align-items:center;gap:8px">Training injuries <b style="font-family:Oswald;font-size:24px;color:var(--green);font-weight:500">-15%</b></span>
+   <span style="margin-left:auto;display:flex;gap:4px"><u style="display:flex;width:26px;height:26px;border-radius:5px;background:var(--sc);align-items:center;justify-content:center;color:#0e131b;font-size:13px;font-weight:800;text-decoration:none"><svg width="16" height="16"><use href="#sun"/></svg></u><span class="p" style="font-family:Oswald;font-size:18px;font-weight:500">x1</span></span></div>
+ </div>
+ <div class="cost"><div class="w">$100<small>a week</small></div><div class="hire">HIRE</div></div>
+</div>
+
+<!-- candidate B -->
+<div class="cand" style="left:1012px">
+ <div class="ph" style="background-image:url(../../../../assets/ui/style_b/portraits/mh_staff_coach_2.png)"></div>
+ <div class="badge"><svg width="24" height="24" color="#0e131b"><use href="#kb"/></svg></div>
+ <div class="hd"><div class="nm">GEMMA MARSDEN</div><div class="role">S&amp;C COACH</div></div>
+ <div class="runs">
+  <div class="run" style="color:var(--sc)"><span><svg width="22" height="22"><use href="#sun"/></svg></span><em>Mornings</em></div>
+  <div class="run off" style="color:var(--dim)"><span><svg width="22" height="22"><use href="#moon"/></svg></span><em>Pads</em></div>
+  <div class="run off" style="color:var(--dim)"><span><svg width="24" height="24"><use href="#corner"/></svg></span><em>Corner</em></div>
+  <div class="run off" style="color:var(--dim)"><span><svg width="24" height="24"><use href="#mat"/></svg></span><em>Mat</em></div></div>
+ <div class="days"><span class="lb"><svg width="22" height="22"><use href="#sun"/></svg><b class="p" style="font-family:Oswald;font-size:20px">4</b></span><u class="on">M</u><u>T</u><u class="on">W</u><u>T</u><u class="on">F</u><u class="on">S</u><u style="opacity:.4">S</u></div>
+ <div class="big" style="top:186px">
+  <div class="row"><div class="ic" style="border-color:var(--sta);background-image:url(../../s458/training_j/icons/roadwork.png)"></div>
+   <div class="lab" style="color:var(--sta)">Stamina</div>
+   <div class="track"><i style="width:60%;background:var(--sta)"></i><s style="left:48%"></s><em style="left:48%">&#9679; 48</em></div>
+   <div class="val" style="color:var(--sta)"><span class="p">60</span><small>+39% &#8594; <span class="p">+53%</span></small></div></div>
+  <div class="row"><div class="ic" style="border-color:var(--pow);background-image:url(../../s458/training_j/icons/strength.png)"></div>
+   <div class="lab" style="color:#e2b98f">Strength</div>
+   <div class="track"><i style="width:60%;background:var(--pow)"></i><s style="left:46%"></s><em style="left:46%">&#9679; 46</em></div>
+   <div class="val" style="color:#e2b98f"><span class="p">60</span><small>+37% &#8594; <span class="p">+53%</span></small></div></div>
+  <div class="shield"><span style="color:var(--green)"><svg width="40" height="40"><use href="#shield"/></svg></span>
+   <div style="width:42px;height:42px;border-radius:50%;border:2px solid var(--rec);background:#141a22 url(../../s458/training_j/icons/mobility.png) center/88% no-repeat;flex:none"></div>
+   <span style="display:flex;align-items:center;gap:8px">Training injuries <b style="font-family:Oswald;font-size:24px;color:var(--green);font-weight:500">-15%</b></span>
+   <span style="margin-left:auto;display:flex;gap:4px"><u style="display:flex;width:26px;height:26px;border-radius:5px;background:var(--sc);align-items:center;justify-content:center;color:#0e131b;text-decoration:none"><svg width="16" height="16"><use href="#sun"/></svg></u><span class="p" style="font-family:Oswald;font-size:18px;font-weight:500">x1</span></span></div>
+ </div>
+ <div class="cost"><div class="w"><span class="p">$200</span><small>a week</small></div><div class="hire ghost">HIRE</div></div>
+</div>
+
+<!-- ON YOUR FIGHTERS -->
+<div class="box" style="left:580px;top:718px;width:852px;height:348px;padding:10px 18px">
+ <h2>ON YOUR FIGHTERS <small>one Normal morning on his day</small></h2>
+ <div class="fhd"><span style="width:142px"></span>
+  <span style="width:342px;display:flex;align-items:center;gap:8px;color:var(--sta)">STAMINA MORNING</span>
+  <span style="width:330px;display:flex;align-items:center;gap:8px;color:#e2b98f">STRENGTH MORNING</span></div>
+  <div class="fx"><div class="pt" style="background-image:url(../../../../assets/ui/style_b/portraits/mh_boxer_11.png)"></div><div class="wc">Women's<br>light</div>
+   <div class="pair"><div class="ic" style="border-color:var(--sta);background-image:url(../../s458/training_j/icons/intervals.png)"></div>
+    <div class="bars"><i style="top:1px;width:69px;background:var(--box)"></i><i style="top:13px;width:92px;background:var(--sta)"></i></div>
+    <span class="num">0.150 &#8594; <span class="p" style="color:var(--sta)">0.198</span></span></div>
+   <div class="pair"><div class="ic" style="border-color:var(--pow);background-image:url(../../s458/training_j/icons/strength.png)"></div>
+    <div class="bars"><i style="top:1px;width:78px;background:var(--box)"></i><i style="top:13px;width:106px;background:var(--pow)"></i></div>
+    <span class="num">0.168 &#8594; <span class="p" style="color:#e2b98f">0.230</span></span></div></div>
+  <div class="fx"><div class="pt" style="background-image:url(../../../../assets/ui/style_b/portraits/mh_boxer_19.png)"></div><div class="wc">Women's<br>feather</div>
+   <div class="pair"><div class="ic" style="border-color:var(--sta);background-image:url(../../s458/training_j/icons/roadwork.png)"></div>
+    <div class="bars"><i style="top:1px;width:87px;background:var(--box)"></i><i style="top:13px;width:115px;background:var(--sta)"></i></div>
+    <span class="num">0.187 &#8594; <span class="p" style="color:var(--sta)">0.248</span></span></div>
+   <div class="pair"><div class="ic" style="border-color:var(--pow);background-image:url(../../s458/training_j/icons/strength.png)"></div>
+    <div class="bars"><i style="top:1px;width:95px;background:var(--box)"></i><i style="top:13px;width:130px;background:var(--pow)"></i></div>
+    <span class="num">0.206 &#8594; <span class="p" style="color:#e2b98f">0.281</span></span></div></div>
+  <div class="fx"><div class="pt" style="background-image:url(../../../../assets/ui/style_b/portraits/mh_boxer_01.png)"></div><div class="wc">Men's<br>welter</div>
+   <div class="pair"><div class="ic" style="border-color:var(--sta);background-image:url(../../s458/training_j/icons/roadwork.png)"></div>
+    <div class="bars"><i style="top:1px;width:43px;background:var(--box)"></i><i style="top:13px;width:57px;background:var(--sta)"></i></div>
+    <span class="num">0.094 &#8594; <span class="p" style="color:var(--sta)">0.124</span></span></div>
+   <div class="pair"><div class="ic" style="border-color:var(--pow);background-image:url(../../s458/training_j/icons/strength.png)"></div>
+    <div class="bars"><i style="top:1px;width:49px;background:var(--box)"></i><i style="top:13px;width:67px;background:var(--pow)"></i></div>
+    <span class="num">0.105 &#8594; <span class="p" style="color:#e2b98f">0.144</span></span></div></div>
+  <div class="fx" style="opacity:.5"><div class="pt" style="background-image:url(../../../../assets/ui/style_b/portraits/mh_boxer_16.png)"></div><div class="wc">No-gi<br>BJJ</div>
+   <div style="display:flex;align-items:center;gap:10px;color:var(--bjj)"><svg width="30" height="30"><use href="#mat"/></svg><span style="font-family:Oswald;font-size:22px">&#8212;</span></div></div>
+</div>
+
+<!-- ========== RIGHT: THE ROUTES (probe) ========== -->
+<div class="box" style="left:1446px;top:104px;width:458px;height:600px;padding:12px 16px">
+ <h2>COACH BILL &amp; 12 WEEKS</h2>
+ <div style="display:flex;justify-content:space-between;font-size:13px;font-weight:800;color:var(--dim);margin-top:6px"><span>a week, with the BJJ coach</span><span>club stat points, mornings</span></div>
+ <!-- Reid alone -->
+ <div class="rt"><div class="top2"><div class="who"><div class="co" style="border-color:var(--box);background-image:url(../../../../assets/ui/style_b/portraits/mh_boxer_07.png)"></div></div>
+  <span class="chip"><svg width="16" height="16" color="var(--acc)"><use href="#moon"/></svg>pads +30%</span><div class="cost2">$620<small>/wk</small></div></div>
+  <div class="mp"><u style="background:var(--head)"></u><u style="background:var(--head)"></u><u style="background:var(--head)"></u><u style="background:var(--head)"></u><i></i><u style="background:var(--box)"></u><u style="background:var(--box)"></u></div><div class="pbar"><div class="tr"><i style="left:0;width:82.8%;background:#4a5568"></i></div><b style="color:#c3cad4">31.4</b></div></div>
+ <!-- + A -->
+ <div class="rt on"><div class="top2"><div class="who"><div class="co" style="border-color:var(--box);background-image:url(../../../../assets/ui/style_b/portraits/mh_boxer_07.png)"></div><div class="co" style="border-color:var(--sc);background-image:url(../../../../assets/ui/style_b/portraits/mh_staff_cutman_1.png)"></div></div>
+  <span class="chip"><svg width="16" height="16" color="var(--acc)"><use href="#moon"/></svg>pads +30%</span><div class="cost2">$720<small>/wk</small></div></div>
+  <div class="mp"><u style="background:var(--head)"></u><u style="background:var(--head)"></u><u style="background:var(--head)"></u><u style="background:var(--head)"></u><i></i><u style="background:var(--box)"></u><u style="background:var(--box)"></u><i></i><u class="g"></u><u class="g"></u></div><div class="pbar"><div class="tr"><i style="left:0;width:82.8%;background:#4a5568"></i><i style="left:82.8%;width:7%;background:var(--sc)"></i></div><b class="p" style="color:var(--sc)">+2.6</b></div></div>
+ <!-- + B -->
+ <div class="rt"><div class="top2"><div class="who"><div class="co" style="border-color:var(--box);background-image:url(../../../../assets/ui/style_b/portraits/mh_boxer_07.png)"></div><div class="co" style="border-color:var(--sc);background-image:url(../../../../assets/ui/style_b/portraits/mh_staff_coach_2.png)"></div></div>
+  <span class="chip"><svg width="16" height="16" color="var(--acc)"><use href="#moon"/></svg>pads +30%</span><div class="cost2"><span class="p">$820</span><small>/wk</small></div></div>
+  <div class="mp"><u style="background:var(--head)"></u><u style="background:var(--head)"></u><u style="background:var(--head)"></u><u style="background:var(--head)"></u><i></i><u style="background:var(--box)"></u><u style="background:var(--box)"></u><i></i><u class="g"></u><u class="g"></u><u class="g"></u><u class="g"></u></div><div class="pbar"><div class="tr"><i style="left:0;width:82.8%;background:#4a5568"></i><i style="left:82.8%;width:10%;background:var(--sc)"></i></div><b class="p" style="color:var(--sc)">+3.8</b></div></div>
+ <!-- Hale -->
+ <div class="rt"><div class="top2"><div class="who"><div class="co" style="border-color:var(--box);background-image:url(../../../../assets/ui/style_b/portraits/mh_staff_trainer.png)"></div></div>
+  <span class="chip" style="color:var(--red)"><svg width="16" height="16" color="var(--acc)"><use href="#moon"/></svg>pads +23%</span><div class="cost2">$1,260<small>/wk</small></div></div>
+  <div class="mp"><u style="background:var(--head)"></u><u style="background:var(--head)"></u><u style="background:var(--head)"></u><u style="background:var(--head)"></u><i></i><u style="background:var(--box)"></u><u style="background:var(--box)"></u><u style="background:var(--box)"></u></div><div class="pbar"><div class="tr"><i style="left:0;width:82.8%;background:#4a5568"></i><i style="left:82.8%;width:17.2%;background:var(--box)"></i></div><b class="p" style="color:#8fb4ff">+6.5</b></div></div>
+</div>
+
+<div class="note" style="left:1450px;top:724px;width:450px;height:180px;padding:14px 18px">
+ <div style="display:flex;gap:14px">
+  <div style="flex:none;text-align:center"><div style="width:80px;height:80px;border-radius:50%;background:url(../../../../assets/ui/style_b/portraits/mh_boxer_07.png) center 12%/cover;border:3px solid #6b5a3a"></div>
+   <div style="font-family:Oswald;font-size:13px;letter-spacing:1px;color:#6b5a3a;margin-top:6px">YOUR COACH</div></div>
+  <div><div style="font-family:'Permanent Marker';font-size:21px;color:#b3321f">COACH'S PICK</div>
+  <div class="hand">Two good mornings for a hundred. I keep the pads, he takes the running.</div></div>
+ </div>
+</div>
+
+</body></html>

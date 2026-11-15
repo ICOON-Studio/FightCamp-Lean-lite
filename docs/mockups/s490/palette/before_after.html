@@ -1,0 +1,44 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Palette Before After</title>
+<link rel="stylesheet" href="look.css">
+<style>
+body{background:var(--page)}
+body>*{position:static}
+.wrap{padding:12px 20px}
+.top{display:flex;align-items:baseline;gap:22px;height:44px}
+.top h1{font-family:Marker;font-weight:400;font-size:32px}
+.top span{font-size:17px;color:var(--muted)}
+.r{display:flex;gap:14px;margin-top:6px}
+.shot{width:826px}
+.shot .cap{font-size:15px;font-weight:700;letter-spacing:1.5px;height:22px;color:var(--muted)}
+.shot .cap b{color:var(--header)}
+.shot img{width:826px;height:465px;display:block;border:2px solid var(--frame)}
+.notes{width:212px;background:var(--card);border:1px solid var(--line);border-radius:5px;padding:9px 11px;margin-top:22px;height:465px}
+.notes h3{font-size:14px;letter-spacing:1.5px;color:var(--header);margin-bottom:6px}
+.notes li{font-size:13px;line-height:17px;margin:0 0 6px 14px;color:var(--text)}
+.notes li span{color:var(--muted)}
+</style></head><body><div class="wrap">
+<div class="top"><h1>Before / After</h1><span>Left: the real screen today. Right: the same layout in the gym palette. Bigger, beside the real gym: match.png.</span></div>
+<div class="r">
+ <div class="shot"><div class="cap">BEFORE · <b>fighter Overview</b> (DarkOverview + TV colours)</div><img src="img/overview_before.png"></div>
+ <div class="shot"><div class="cap">AFTER · <b>gym palette</b></div><img src="overview_after.png"></div>
+ <div class="notes"><h3>WHAT CHANGED</h3><ul>
+  <li>Wood frame, slate, planks and backdrop are the gym's own textures.</li>
+  <li>Headers yellow <span>#ffd54a</span> to the gym's cash gold.</li>
+  <li>Bands match the attribute board (4 of 5 were other values); colour + 1 to 5 lit pips.</li>
+  <li>Offer title red to amber with &#9888;: a deadline, not a loss. APPROACHED amber, not red.</li>
+  <li>NEEDS YOU red to the gym's amber, dark text.</li>
+  <li>Overview tab chosen = tan wood.</li></ul></div>
+</div>
+<div class="r" style="margin-top:8px">
+ <div class="shot"><div class="cap">BEFORE · <b>Training</b> (navy simulator look, own colours)</div><img src="img/training_before.png"></div>
+ <div class="shot"><div class="cap">AFTER · <b>gym palette</b></div><img src="training_after.png"></div>
+ <div class="notes"><h3>WHAT CHANGED</h3><ul>
+  <li>Navy-black panels <span>#0e1116 / #121821</span> to the gym's slate in wood frames.</li>
+  <li>Selected = tan, 3 px edge + &#10003; (Kwame, Friday, Yours, Friday evening). Gold is never selection.</li>
+  <li>Teal line and pink bars to the one accent blue; tracks sunk.</li>
+  <li>Green CONTINUE to the gym's red main action.</li>
+  <li>Coach's pick: cream paper to a dark hover card.</li>
+  <li>Session rings and phase chips lose their own colours <span>(your call)</span>.</li></ul></div>
+</div>
+</div></body></html>

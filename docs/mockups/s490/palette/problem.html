@@ -1,0 +1,52 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Menus Today</title>
+<link rel="stylesheet" href="look.css">
+<style>
+body{background:var(--page)}
+body>*{position:static}
+.wrap{padding:12px 22px}
+.top{display:flex;align-items:baseline;gap:22px;height:50px}
+.top h1{font-family:Marker;font-weight:400;font-size:34px}
+.top span{font-size:17px;color:var(--muted)}
+.top span b{color:var(--text)}
+.g{display:grid;grid-template-columns:repeat(4,461px);gap:14px 12px;margin-top:4px}
+.s img{width:461px;height:259px;display:block;border:2px solid var(--line)}
+.s.master img{border:3px solid var(--tab)}
+.tag{height:58px;padding:4px 2px 0;display:flex;gap:8px}
+.fam{flex:none;width:30px;height:30px;border-radius:4px;background:var(--hover);border:1px solid var(--line);color:var(--header);font-weight:700;font-size:17px;text-align:center;line-height:28px}
+.s.master .fam{background:var(--tab);color:var(--page);border-color:var(--tab)}
+.tt{font-size:15px;line-height:18px;font-weight:700;flex:1}
+.tt span{display:block;font-weight:400;font-size:13.5px;color:var(--muted);line-height:17px}
+.sw{display:flex;gap:2px;flex:none;margin-top:3px}
+.sw i{width:14px;height:24px;border-radius:2px;box-shadow:0 0 0 1px var(--line)}
+.jobs{margin-top:6px;background:var(--card);border:1px solid var(--line);border-radius:6px;padding:8px 14px}
+.jobs h3{font-size:15px;letter-spacing:2px;color:var(--header);margin-bottom:4px}
+.jr{display:flex;align-items:center;height:34px;font-size:16px}
+.jr .j{width:160px;font-weight:700}
+.jr .c{display:flex;gap:4px;width:1140px;flex-wrap:nowrap}
+.jr .c span{display:flex;align-items:center;gap:4px;font-size:12px;color:var(--muted);white-space:nowrap}
+.jr .c span i{width:18px;height:18px;border-radius:3px;box-shadow:0 0 0 1px var(--line)}
+.jr .arr{width:60px;text-align:center;color:var(--muted);font-size:20px}
+.jr .one{display:flex;align-items:center;gap:8px;font-weight:700}
+.jr .one i{width:44px;height:22px;border-radius:3px;box-shadow:0 0 0 1px var(--line)}
+</style></head><body><div class="wrap">
+<div class="top"><h1>Menus today</h1><span>You saw it right. Eight real screens, each tagged with the colour family that paints it (letters as in INVENTORY.md). <b>The gym, top left, is the look they should all match.</b></span></div>
+<div class="g">
+ <div class="s master"><img src="img/s_gym.jpg"><div class="tag"><div class="fam">&#10003;</div><div class="tt">Gym staff - THE MASTER<span>wood frame, slate, chalk inks (B + UI.gd). Unchanged.</span></div><div class="sw"><i style="background:#242728"></i><i style="background:#eee2ce"></i><i style="background:#e6bd55"></i><i style="background:#239058"></i><i style="background:#df4639"></i></div></div></div>
+ <div class="s"><img src="img/s_office.jpg"><div class="tag"><div class="fam">G</div><div class="tt">Office - navy desktop<span>Office.gd: 27 colours of its own, cool blue-black, no wood</span></div><div class="sw"><i style="background:#0b0f15"></i><i style="background:#121821"></i><i style="background:#5aa3ff"></i><i style="background:#5fcf7a"></i><i style="background:#d93a3a"></i></div></div></div>
+ <div class="s"><img src="img/s_overview.jpg"><div class="tag"><div class="fam">D</div><div class="tt">Fighter Overview - dark Overview<span>yellow heads, its own band colours (4 of 5 differ)</span></div><div class="sw"><i style="background:#181311"></i><i style="background:#ffd54a"></i><i style="background:#3f7fe0"></i><i style="background:#2fb56e"></i><i style="background:#f08a24"></i></div></div></div>
+ <div class="s"><img src="img/s_result.jpg"><div class="tag"><div class="fam">C</div><div class="tt">Result page - TV brown-gold<span>ResultTabs, AftermathTiles, MatchStats take TV.gd's own green and red</span></div><div class="sw"><i style="background:#1d1714"></i><i style="background:#e9b84a"></i><i style="background:#6cc27a"></i><i style="background:#e0503c"></i><i style="background:#f0a020"></i></div></div></div>
+ <div class="s"><img src="img/s_headline.jpg"><div class="tag"><div class="fam">C</div><div class="tt">Headline card - TV<span>HeadlineCard: TV inks plus its own coral and lilac</span></div><div class="sw"><i style="background:#1b1612"></i><i style="background:#f2cd6a"></i><i style="background:#ff8a78"></i><i style="background:#c9b3ff"></i><i style="background:#e8ddd0"></i></div></div></div>
+ <div class="s"><img src="img/s_corner.jpg"><div class="tag"><div class="fam">J</div><div class="tt">Between rounds - fight HUD<span>RoundBoard, Broadcast: corners in 4 reds and 5 blues across the HUD</span></div><div class="sw"><i style="background:#db4238"></i><i style="background:#f26659"></i><i style="background:#4278e0"></i><i style="background:#5b9bff"></i><i style="background:#80a6ff"></i></div></div></div>
+ <div class="s"><img src="img/s_interview.jpg"><div class="tag"><div class="fam">F</div><div class="tt">Interview - warm paper<span>Interview.gd: polaroid paper #fbfaf6, close to UI paper, never equal</span></div><div class="sw"><i style="background:#fbfaf6"></i><i style="background:#fff8ee"></i><i style="background:#231f1b"></i><i style="background:#c23b2e"></i><i style="background:#1c8a4b"></i></div></div></div>
+ <div class="s"><img src="img/s_training.jpg"><div class="tag"><div class="fam">&#9998;</div><div class="tt">Training - s483 design, not built<span>navy simulator: teal line, pink bars, green CONTINUE, paper note</span></div><div class="sw"><i style="background:#0d131b"></i><i style="background:#4fd1c5"></i><i style="background:#ff7ab6"></i><i style="background:#2e7d46"></i><i style="background:#efe6d2"></i></div></div></div>
+</div>
+<div class="jobs"><h3>SAME JOB, DIFFERENT COLOUR (from the files)</h3>
+ <div class="jr"><span class="j">Good / gained</span><span class="c"><span><i style="background:#23935d"></i>UI</span><span><i style="background:#2fb56e"></i>Overview</span><span><i style="background:#6cc27a"></i>TV</span><span><i style="background:#5fcf7a"></i>Office</span><span><i style="background:#1c6e43"></i>Tips</span><span><i style="background:#2fae6e"></i>RoundBoard</span><span><i style="background:#7fd18b"></i>HudRegroup</span><span><i style="background:#6fd39a"></i>GamePlan</span><span><i style="background:#1c8a4b"></i>RosterCards</span><span>+5 more</span></span><span class="arr">&rarr;</span><span class="one"><i style="background:var(--goodw)"></i>one: 11 / 17</span></div>
+ <div class="jr"><span class="j">Bad / lost</span><span class="c"><span><i style="background:#e2483d"></i>UI</span><span><i style="background:#e0503c"></i>TV</span><span><i style="background:#e06060"></i>CallButtons</span><span><i style="background:#d93a3a"></i>Office</span><span><i style="background:#c8312a"></i>Tips</span><span><i style="background:#f26659"></i>HudArc</span><span><i style="background:#db4238"></i>Broadcast</span><span><i style="background:#ff6a5c"></i>MatMap</span><span><i style="background:#ff8a78"></i>Headline</span><span>+13 more</span></span><span class="arr">&rarr;</span><span class="one"><i style="background:var(--badw)"></i>one: 12 / 18</span></div>
+ <div class="jr"><span class="j">Header / gold</span><span class="c"><span><i style="background:#f2c14e"></i>WoodKit</span><span><i style="background:#ffd54a"></i>Overview</span><span><i style="background:#e9b84a"></i>TV</span><span><i style="background:#f2cd6a"></i>Headline</span><span><i style="background:#f2b544"></i>PlanChart</span><span><i style="background:#f5c518"></i>ReadPanel</span><span><i style="background:#e8c15a"></i>Shell</span><span><i style="background:#c9bfae"></i>Office</span><span>+4 more</span></span><span class="arr">&rarr;</span><span class="one"><i style="background:var(--header)"></i>one: 9</span></div>
+ <div class="jr"><span class="j">Blue / your side</span><span class="c"><span><i style="background:#27589e"></i>UI "GOLD"</span><span><i style="background:#8fbcff"></i>WoodKit</span><span><i style="background:#3f7fe0"></i>Overview</span><span><i style="background:#2f6fdb"></i>ComboStrip</span><span><i style="background:#5b9bff"></i>RoundBoard</span><span><i style="background:#4278e0"></i>Broadcast</span><span><i style="background:#80a6ff"></i>HudBars</span><span><i style="background:#5aa3ff"></i>Office</span><span>+7 more</span></span><span class="arr">&rarr;</span><span class="one"><i style="background:var(--accent)"></i>one: 10</span></div>
+ <div class="jr"><span class="j">Text on dark</span><span class="c"><span><i style="background:#efe6d8"></i>WoodKit</span><span><i style="background:#f3ece2"></i>TV</span><span><i style="background:#f1e8da"></i>Overview</span><span><i style="background:#e9e4da"></i>Office</span><span><i style="background:#eef0f3"></i>MatMap</span><span><i style="background:#f7f2e6"></i>HudRegroup</span><span><i style="background:#1f2a44"></i>Tips (navy, on paper)</span><span>+4 more</span></span><span class="arr">&rarr;</span><span class="one"><i style="background:var(--text)"></i>one: 7</span></div>
+</div>
+<div style="margin-top:14px;font-size:18px;color:var(--muted)">The fix: <b style="color:var(--text)">palette.png</b> (one value per job, picked from the gym) and <b style="color:var(--text)">match.png</b> (the Overview and Training redrawn beside the real gym).</div>
+</div></body></html>

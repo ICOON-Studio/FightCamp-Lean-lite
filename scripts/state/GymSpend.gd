@@ -20,6 +20,7 @@ const Leaving := preload("res://scripts/state/Leaving.gd")
 const Grants := preload("res://scripts/rules/Grants.gd")
 const LoyaltyWire := preload("res://scripts/state/LoyaltyWire.gd")
 const ApproachWire := preload("res://scripts/state/ApproachWire.gd")   # S487 R58 APPROACHWIRE1
+const PullOutWire := preload("res://scripts/state/PullOutWire.gd")   # S490 FIGHTWEEK3
 
 const KIT := GymBills.KIT_BUDGET
 const KIT_ORDER := GymBills.KIT_ORDER
@@ -303,6 +304,7 @@ static func day_events(c: Career) -> void:
 		ApproachWire.monday(c)   # S487 R58 APPROACHWIRE1: an approach ends unanswered (the boxer leaves) or a new one opens
 		Leaving.monday(c)   # S486 R58 LEAVE1: a farewell bout boxed, or loyalty under 25 after two words: the boxer leaves
 	ApproachWire.HomeBout.sweep(c)   # S488 HOMEBOUT1: a promised show night passed with no bout boxed breaks the promise
+	PullOutWire.day(c)   # S490 FIGHTWEEK3: fight week's Monday, 5 days out: the opponent may pull out (one stop)
 	if int(c.show.get("day", -1)) != c.day:
 		return
 	var rng := RandomNumberGenerator.new()

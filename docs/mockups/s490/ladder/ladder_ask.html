@@ -1,0 +1,219 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Ladder ask and challenge (S490)</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Barlow:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--line:#2b3546;--ink:#ece6da;--dim:#9aa4b3;--red:#e24b4b;--blue:#4f8dff;--green:#5fcf7a;--amber:#f2b84b;--gold:#e8b04a}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;overflow:hidden;position:relative;font-family:Barlow,sans-serif;color:var(--ink);font-size:17px;
+ background:linear-gradient(rgba(9,12,17,.9),rgba(9,12,17,.95)),url(../../../../assets/ui/art/gym_main.jpg) center/cover}
+.top{position:absolute;left:0;right:0;top:0;height:54px;background:rgba(8,11,16,.97);border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 22px;gap:18px}
+.crest{width:32px;height:32px;border-radius:50%;background:url(../../../../assets/ui/art/crests/anvil.png) center/cover}
+.club{font-family:Oswald;font-weight:600;font-size:22px;letter-spacing:2px}
+.nav{color:var(--dim);font-weight:700}.nav b{color:var(--ink);background:#223042;border:1px solid #3a4a5e;border-radius:7px;padding:5px 12px;margin-left:8px}
+.sp{flex:1}.date b{color:var(--amber)}
+.cont{height:40px;padding:0 18px;border-radius:8px;background:#26313f;border:1px solid #4a5a70;font-family:Oswald;font-size:20px;letter-spacing:1.5px;display:flex;align-items:center;gap:10px;color:var(--dim)}
+.cont small{font-family:Barlow;font-size:14px;letter-spacing:0;font-weight:700}
+.box{position:absolute;background:rgba(14,19,27,.96);border:1px solid #33404f;border-radius:12px}
+h2{font-family:Oswald;font-weight:600;font-size:20px;letter-spacing:2px;color:#cfc4b1}
+h2 small{font-family:Barlow;letter-spacing:0;color:var(--dim);font-size:14px;font-weight:700;margin-left:8px}
+h3{font-family:Oswald;font-size:14px;letter-spacing:1.6px;color:var(--dim);font-weight:600;margin-bottom:5px}
+.pt{width:52px;height:52px;border-radius:50%;background-size:cover;background-position:center 12%;border:2px solid #6b5a3a;flex:none}
+/* left: two asks */
+.L{left:16px;top:64px;width:760px;height:858px;padding:12px 16px}
+.ask{border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin-top:10px;background:rgba(18,24,33,.9)}
+.ask .hd{display:flex;align-items:center;gap:12px}
+.ask .who{flex:1;font-weight:800;font-size:16px;line-height:1.25}
+.ask .who small{display:block;color:var(--dim);font-size:14px}
+.lt{font-family:Oswald;font-size:22px;width:30px;height:30px;border-radius:6px;background:#223042;border:1px solid #6f87ab;display:flex;align-items:center;justify-content:center;flex:none}
+.stamp{font-family:Oswald;font-size:22px;letter-spacing:1.5px;border:2px solid;border-radius:6px;padding:2px 10px;transform:rotate(-3deg)}
+.res{display:grid;grid-template-columns:150px 1fr 46px;row-gap:4px;align-items:center;font-size:15px;font-weight:700;margin-top:8px}
+.res .z{position:relative;height:13px}
+.res .z:before{content:"";position:absolute;left:50%;top:-3px;bottom:-3px;border-left:1px solid #556}
+.res .z i{position:absolute;top:0;bottom:0;border-radius:2px}
+.res em{font-style:normal;font-family:Oswald;font-size:17px;text-align:right}
+.clk{margin-top:10px}
+.weeks{display:flex;gap:3px;margin-top:4px}
+.weeks div{flex:1;height:34px;border-radius:4px;background:#1f2835;border:1px solid #2f3a4b;font-size:13px;font-weight:800;color:var(--dim);display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.05}
+.weeks .on{background:rgba(95,207,122,.35);border-color:var(--green);color:var(--ink)}
+.weeks .warn{background:rgba(242,184,75,.35);border-color:var(--amber);color:var(--ink)}
+.weeks .fall{background:rgba(226,75,75,.45);border-color:var(--red);color:#fff}
+.weeks .bout{background:#e8b04a;color:#111;border-color:#ffd27a}
+.weeks .pd{background:repeating-linear-gradient(45deg,#3a3320 0 5px,#241f14 5px 10px);border-color:var(--gold);color:var(--gold);font-size:12px}
+.weeks .bk{background:repeating-linear-gradient(45deg,#2a3140 0 5px,#1b212c 5px 10px);border-color:#5a6a80;color:#c9d6ea;font-size:12px}
+.dts{display:flex;gap:3px;margin-top:2px}.dts span{flex:1;text-align:center;font-size:11px;font-weight:800;color:var(--dim)}
+.wl{font-size:13px;color:var(--dim);font-weight:800;margin-top:4px}
+.note{font-size:14px;font-weight:700;margin-top:8px;line-height:1.3}
+.was{display:inline-block;font-size:12px;font-weight:800;color:#111;background:#9aa4b3;border-radius:4px;padding:0 6px;margin-right:6px}
+.now{display:inline-block;font-size:12px;font-weight:800;color:#111;background:var(--green);border-radius:4px;padding:0 6px;margin-right:6px}
+/* right: the challenge */
+.R{left:792px;top:64px;width:1112px;height:858px;padding:12px 16px}
+.chd{display:flex;align-items:center;gap:14px;margin-top:8px;border:2px solid var(--blue);border-radius:10px;padding:6px 14px;background:rgba(20,32,54,.9)}
+.chd .pt{border-color:var(--blue)}
+.g{display:grid;grid-template-columns:262px 1fr 1fr 1fr;gap:8px}
+.ansb{height:44px;border-radius:8px;border:1px solid #4a5a70;background:#1d2633;font-family:Oswald;font-size:20px;letter-spacing:1.5px;display:flex;align-items:center;justify-content:center;gap:10px}
+.rule{font-size:13px;font-weight:700;color:var(--dim);line-height:1.25;margin-top:4px;min-height:33px}
+.case{height:192px;border:1px solid var(--line);border-radius:10px;background:rgba(18,24,33,.92);padding:30px 11px 9px;position:relative}
+.case.sit{padding-top:9px}
+.case.sit{background:rgba(26,34,48,.95)}
+.case.best{border:2px solid var(--gold);background:rgba(232,176,74,.08)}
+.badge{position:absolute;left:10px;top:6px;font-family:Oswald;font-size:14px;letter-spacing:1.5px;background:var(--gold);color:#16110a;border-radius:4px;padding:0 7px}
+.cn{display:flex;align-items:center;gap:8px;font-family:Oswald;font-size:16px;letter-spacing:1.2px;color:#cfc4b1;line-height:1.1}
+.cn .n{width:24px;height:24px;border-radius:50%;background:#223042;border:1px solid #6f87ab;display:flex;align-items:center;justify-content:center;flex:none;font-size:14px}
+.sl{font-size:13px;font-weight:700;line-height:1.3;margin-top:6px}
+.tagx{display:inline-block;font-size:11px;font-weight:800;color:var(--dim);border:1px dashed #4a5a70;border-radius:4px;padding:0 5px;margin-top:6px}
+.shows{display:flex;gap:4px;margin-top:4px}
+.shows div{flex:1;height:44px;border-radius:6px;border:1px solid #2f3a4b;font-size:11px;font-weight:800;text-align:center;line-height:1.15;padding-top:4px;color:var(--dim)}
+.shows div b{display:block;font-family:Oswald;font-size:14px;font-weight:600;color:var(--ink);letter-spacing:.5px}
+.shows .c{background:rgba(79,141,255,.25);border-color:var(--blue);color:#cfe0ff}
+.shows .c14{background:rgba(79,141,255,.25);border:2px solid var(--amber);color:#cfe0ff}
+.shows .a5{background:rgba(232,176,74,.2);border-color:var(--gold);color:var(--gold)}
+.shows .an{border-color:rgba(95,207,122,.7);color:var(--green)}
+.shows .x{background:repeating-linear-gradient(45deg,#1b2330 0 6px,#141a24 6px 12px)}
+.avl{display:flex;justify-content:space-between;font-size:12px;font-weight:800;color:var(--dim);margin-top:8px}
+.av{position:relative;height:24px;background:#1f2835;border-radius:5px;border:1px solid #2f3a4b;margin-top:3px}
+.av:before{content:"";position:absolute;left:50%;top:-3px;bottom:-3px;border-left:1px solid #889}
+.av i{position:absolute;top:3px;bottom:3px;border-radius:3px}
+.av span{position:absolute;top:1px;font-family:Oswald;font-size:17px}
+.why{font-size:12px;font-weight:700;color:var(--dim);margin-top:5px;line-height:1.25}
+.leg{display:flex;gap:16px;font-size:12px;font-weight:800;color:var(--dim);margin-top:8px;align-items:center;flex-wrap:wrap}
+.leg i{display:inline-block;width:14px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-1px;border:1px solid}
+/* bottom: what changed */
+.B{left:16px;top:932px;width:1888px;height:136px;padding:10px 14px;display:flex;gap:12px}
+.fx{flex:1;border:1px solid var(--line);border-radius:9px;padding:7px 12px;background:rgba(18,24,33,.9)}
+.fx h3{margin-bottom:4px;color:#cfc4b1}
+.fx p{font-size:13.5px;font-weight:700;line-height:1.35}
+.fx .tagx{margin:0 0 0 6px;vertical-align:1px}
+</style></head><body>
+<div class="top"><div class="crest"></div><div class="club">ANVIL STREET GYM</div>
+ <div class="nav">Fights <b>Ladder</b></div><div class="sp"></div>
+ <div class="date">Wed <b>3 Jun 2026</b> · week 22</div>
+ <div class="cont">CONTINUE <small>answer the challenge first</small></div></div>
+
+<!-- LEFT: two asks she could have made the same day (fix 2) -->
+<div class="box L">
+ <h2>ASKING<small>Lucy Jackson · reputation 31 · two asks she could make on Tue 2 Jun, side by side</small></h2>
+
+ <div class="ask">
+  <div class="hd"><div class="lt">A</div><div class="pt" style="background-image:url(../../../../assets/ui/style_b/portraits/mh_boxer_17.png)"></div>
+   <div class="who">Ranked 5th · reputation 33 · 2 above her<small>inside her reach · for Sat 20 Jun</small></div>
+   <div class="stamp" style="color:var(--green)">YES</div></div>
+  <div class="res">
+   <div>Wins, unanimous</div><div class="z"><i style="left:50%;width:16.1%;background:var(--green)"></i></div><em style="color:var(--green)">+9</em>
+   <div>Loses, unanimous</div><div class="z"><i style="left:37.5%;width:12.5%;background:var(--red)"></i></div><em style="color:var(--red)">−7</em>
+   <div>Is stopped</div><div class="z"><i style="left:32.1%;width:17.9%;background:var(--red)"></i></div><em style="color:var(--red)">−10</em>
+  </div>
+  <div class="clk"><h3>THE CLOCK · weeks in a row with no bout booked</h3>
+   <div class="weeks"><div class="on">1</div><div class="pd">ask<br>pending</div><div class="bk">booked</div><div class="bout">bout<br>20 Jun</div><div class="on">1</div><div class="on">2</div><div class="on">3</div><div class="on">4</div><div class="on">5</div><div class="on">6</div></div>
+   <div class="dts"><span>25 May</span><span>1 Jun</span><span>8 Jun</span><span>15 Jun</span><span>22 Jun</span><span>29 Jun</span><span>6 Jul</span><span>13 Jul</span><span>20 Jul</span><span>27 Jul</span></div>
+   <div class="wl">from the day she asks, the count stops · it starts again after her bout</div></div>
+ </div>
+
+ <div class="ask" style="border-color:var(--amber)">
+  <div class="hd"><div class="lt">B</div><div class="pt" style="background-image:url(../../../../assets/ui/style_b/portraits/mh_boxer_13.png)"></div>
+   <div class="who">Ranked 10th · reputation 12 · 19 below her<small>under her lower line (15) · for Sat 20 Jun</small></div>
+   <div class="stamp" style="color:var(--amber)">TUNE-UP</div></div>
+  <div class="res">
+   <div>Wins, unanimous</div><div class="z"><i style="left:50%;width:3.6%;background:var(--green)"></i></div><em style="color:var(--green)">+2</em>
+   <div>Loses, unanimous</div><div class="z"><i style="left:25%;width:25%;background:var(--red)"></i></div><em style="color:var(--red)">−14</em>
+   <div>Is stopped</div><div class="z"><i style="left:18%;width:32%;background:var(--red)"></i></div><em style="color:var(--red)">−18</em>
+  </div>
+  <div class="clk"><h3>THE CLOCK · the bout happens, the count does not stop</h3>
+   <div class="weeks"><div class="on">1</div><div class="on">2</div><div class="on">3</div><div class="bout">bout · 4</div><div class="on">5</div><div class="on">6</div><div class="on">7</div><div class="warn">8</div><div class="warn">9</div><div class="fall">10<br>−1</div></div>
+   <div class="dts"><span>25 May</span><span>1 Jun</span><span>8 Jun</span><span>15 Jun</span><span>22 Jun</span><span>29 Jun</span><span>6 Jul</span><span>13 Jul</span><span>20 Jul</span><span>27 Jul</span></div>
+   <div class="wl">a tune-up never stops the count · after 8 weeks she loses 1 reputation every 2 weeks</div></div>
+  <div class="note"><span class="was">WAS</span>any booking stopped the count: a win here pays +2 and a loss is rare, so it bought 8 more weeks almost free.<br><span class="now">NOW</span>she can still box it (a tune-up after a loss or a layoff), but it buys no time.</div>
+ </div>
+
+ <div class="ask" style="padding-bottom:12px">
+  <h3>HER REACH ON THE LADDER · every boxer by reputation</h3>
+  <div style="position:relative;height:92px;margin-top:6px">
+   <div style="position:absolute;left:0;width:25%;top:30px;height:26px;background:rgba(242,184,75,.22);border:1px solid var(--amber);border-radius:5px 0 0 5px"></div>
+   <div style="position:absolute;left:25%;width:53.33%;top:30px;height:26px;background:rgba(95,207,122,.2);border:1px solid var(--green)"></div>
+   <div style="position:absolute;left:78.33%;right:0;top:30px;height:26px;background:rgba(226,75,75,.2);border:1px solid var(--red);border-radius:0 5px 5px 0"></div>
+   <div style="position:absolute;left:1%;top:6px;font-size:13px;font-weight:800;color:var(--amber)">TUNE-UP · clock runs</div>
+   <div style="position:absolute;left:33%;top:6px;font-size:13px;font-weight:800;color:var(--green)">ASK · a booking stops the clock</div>
+   <div style="position:absolute;left:79%;top:6px;font-size:13px;font-weight:800;color:#ff8b8b">NOT ENOUGH IN IT</div>
+   <div style="position:absolute;left:51.67%;top:24px;height:38px;border-left:3px solid #fff"></div>
+   <div style="position:absolute;left:51.67%;top:63px;transform:translateX(-50%);font-family:Oswald;font-size:15px">HER 31</div>
+   <div style="position:absolute;left:calc(93.33% - 6px);top:37px;width:12px;height:12px;border-radius:50%;background:#dfe6f0;border:1px solid #111"></div><div style="position:absolute;left:calc(73.33% - 6px);top:37px;width:12px;height:12px;border-radius:50%;background:#dfe6f0;border:1px solid #111"></div><div style="position:absolute;left:calc(65.00% - 6px);top:37px;width:12px;height:12px;border-radius:50%;background:#dfe6f0;border:1px solid #111"></div><div style="position:absolute;left:calc(58.33% - 6px);top:37px;width:12px;height:12px;border-radius:50%;background:#dfe6f0;border:1px solid #111"></div><div style="position:absolute;left:calc(55.00% - 6px);top:37px;width:12px;height:12px;border-radius:50%;background:#dfe6f0;border:1px solid #111"></div><div style="position:absolute;left:calc(45.00% - 6px);top:37px;width:12px;height:12px;border-radius:50%;background:#dfe6f0;border:1px solid #111"></div><div style="position:absolute;left:calc(38.33% - 6px);top:37px;width:12px;height:12px;border-radius:50%;background:#dfe6f0;border:1px solid #111"></div><div style="position:absolute;left:calc(28.33% - 6px);top:37px;width:12px;height:12px;border-radius:50%;background:#dfe6f0;border:1px solid #111"></div><div style="position:absolute;left:calc(20.00% - 6px);top:37px;width:12px;height:12px;border-radius:50%;background:#dfe6f0;border:1px solid #111"></div><div style="position:absolute;left:calc(31.67% - 6px);top:37px;width:12px;height:12px;border-radius:50%;background:#dfe6f0;border:1px solid #111"></div><div style="position:absolute;left:calc(10.00% - 6px);top:37px;width:12px;height:12px;border-radius:50%;background:#dfe6f0;border:1px solid #111"></div>
+   <div style="position:absolute;left:25%;top:63px;transform:translateX(-50%);font-size:12px;font-weight:800;color:var(--dim)">15</div>
+   <div style="position:absolute;left:78.33%;top:63px;transform:translateX(-50%);font-size:12px;font-weight:800;color:var(--dim)">47</div>
+   <div style="position:absolute;left:0;top:63px;font-size:12px;font-weight:800;color:var(--dim)">0</div>
+   <div style="position:absolute;right:0;top:63px;font-size:12px;font-weight:800;color:var(--dim)">60</div>
+  </div>
+  <div style="font-size:13px;font-weight:700;color:var(--dim)">both lines sit 16 from her today and move out as her reputation grows</div>
+ </div>
+</div>
+
+<!-- RIGHT: one challenge, three weeks, each answer wins once (fix 1) -->
+<div class="box R">
+ <h2>A CHALLENGE<small>the live one on top · below it, the same answers in three different weeks: each one wins once</small></h2>
+ <div class="chd"><div class="pt" style="background-image:url(../../../../assets/ui/style_b/portraits/mh_boxer_22.png)"></div>
+  <div style="flex:1;font-weight:800;line-height:1.3">Ranked 8th · Earlsfield ABC · 5-4 · southpaw pressure fighter · 8 below her · your coach reads 72%<br>
+   <span style="color:var(--dim);font-size:14px">win <span style="color:var(--green)">+5</span> · lose <span style="color:var(--red)">−11</span> · stopped <span style="color:var(--red)">−14</span> · answer by Fri 5 Jun: the 20 Jun sheet goes final Sat 6 Jun</span></div></div>
+
+ <div class="g" style="margin-top:10px">
+  <div style="font-size:13px;font-weight:800;color:var(--dim);line-height:1.3;padding-top:4px">Each answer shows her next four club shows and her average reputation by Sat 1 Aug, if your coach's reads hold.</div>
+  <div><div class="ansb">ACCEPT <b style="color:var(--green)">0</b></div><div class="rule">takes the next show · an ask open for it goes</div></div>
+  <div><div class="ansb" style="border-color:var(--amber)">NOT THIS SHOW <b style="color:var(--amber)">−1</b></div><div class="rule">the challenger picks the show 14 days after her bout · stopped on it: a pass, −2 more</div></div>
+  <div><div class="ansb">PASS <b style="color:var(--red)">−2</b></div><div class="rule">keeps every date · a second pass: no challenge for 8 weeks</div></div>
+ </div>
+
+ <div class="g" style="margin-top:6px">
+  <!-- CASE 1: today -->
+  <div class="case sit"><div class="cn"><span class="n">1</span>TODAY · HER ASK IS OPEN</div>
+   <div class="sl">Her ask: ranked 5th on Sat 20 Jun, said YES.<br>Ranked 5th is booked 4 Jul, 18 Jul and 1 Aug: next free 15 Aug.</div>
+   <div class="sl" style="color:var(--dim)">The challenger: the boxer above.</div></div>
+  <div class="case"><div class="shows"><div class="c"><b>20 Jun</b>challenger</div><div class="x"><b>4 Jul</b>too soon</div><div class="an"><b>18 Jul</b>an ask</div><div class="x"><b>1 Aug</b>too soon</div></div>
+   <div class="avl"><span>−3</span><span>by 1 Aug</span><span>+3</span></div><div class="av"><i style="left:50%;width:15.8%;background:var(--green)"></i><span style="left:67%;color:var(--green)">+1.9</span></div>
+   <div class="why">her ask goes · the boxer she asked is not free again until 15 Aug</div></div>
+  <div class="case best"><span class="badge">BEST</span><div class="shows"><div class="a5"><b>20 Jun</b>ranked 5th</div><div class="c14"><b>4 Jul</b>challenger</div><div class="x"><b>18 Jul</b>too soon</div><div class="an"><b>1 Aug</b>an ask</div></div>
+   <div class="avl"><span>−3</span><span>by 1 Aug</span><span>+3</span></div><div class="av"><i style="left:50%;width:19.2%;background:var(--green)"></i><span style="left:70.5%;color:var(--green)">+2.3</span></div>
+   <div class="why">both bouts happen · the 4 Jul bout is 14 days after the last: a little less in the tank · stopped 20 Jun: −2 more</div></div>
+  <div class="case"><div class="shows"><div class="a5"><b>20 Jun</b>ranked 5th</div><div class="x"><b>4 Jul</b>too soon</div><div class="an"><b>18 Jul</b>an ask</div><div class="x"><b>1 Aug</b>too soon</div></div>
+   <div class="avl"><span>−3</span><span>by 1 Aug</span><span>+3</span></div><div class="av"><i style="left:50%;width:9.2%;background:var(--green)"></i><span style="left:60.5%;color:var(--green)">+1.1</span></div>
+   <div class="why">the −2 is sure · it buys nothing she could not get by pushing it back</div></div>
+
+  <!-- CASE 2: no ask open -->
+  <div class="case sit"><div class="cn"><span class="n">2</span>THE SAME CHALLENGE, NO ASK OPEN</div>
+   <div class="sl">Same challenger, same week, but she has not asked anyone yet.</div>
+   <span class="tagx">for the owner: not a game screen</span></div>
+  <div class="case best"><span class="badge">BEST</span><div class="shows"><div class="c"><b>20 Jun</b>challenger</div><div class="x"><b>4 Jul</b>too soon</div><div class="an"><b>18 Jul</b>an ask</div><div class="x"><b>1 Aug</b>too soon</div></div>
+   <div class="avl"><span>−3</span><span>by 1 Aug</span><span>+3</span></div><div class="av"><i style="left:50%;width:15.8%;background:var(--green)"></i><span style="left:67%;color:var(--green)">+1.9</span></div>
+   <div class="why">nothing to give up: the date was free · a booking stops the clock</div></div>
+  <div class="case"><div class="shows"><div class="an"><b>20 Jun</b>an ask</div><div class="c14"><b>4 Jul</b>challenger</div><div class="x"><b>18 Jul</b>too soon</div><div class="an"><b>1 Aug</b>an ask</div></div>
+   <div class="avl"><span>−3</span><span>by 1 Aug</span><span>+3</span></div><div class="av"><i style="left:50%;width:14.2%;background:var(--green)"></i><span style="left:65.5%;color:var(--green)">+1.7</span></div>
+   <div class="why">one more bout, but the −1 and a 14-day turnaround cost more than it adds</div></div>
+  <div class="case"><div class="shows"><div class="an"><b>20 Jun</b>an ask</div><div class="x"><b>4 Jul</b>too soon</div><div class="an"><b>18 Jul</b>an ask</div><div class="x"><b>1 Aug</b>too soon</div></div>
+   <div class="avl"><span>−3</span><span>by 1 Aug</span><span>+3</span></div><div class="av"><i style="left:50%;width:3.3%;background:var(--green)"></i><span style="left:54.5%;color:var(--green)">+0.4</span></div>
+   <div class="why">−2 to keep a date that nothing needed</div></div>
+
+  <!-- CASE 3: dangerous challenger -->
+  <div class="case sit"><div class="cn"><span class="n">3</span>A CHALLENGER WHOSE STYLE BEATS HERS</div>
+   <div class="sl">Ranked 7th · southpaw counter-puncher · 4 below her · she has never sparred a southpaw: your coach reads 40%.</div>
+   <span class="tagx">for the owner: not a game screen</span></div>
+  <div class="case"><div class="shows"><div class="c"><b>20 Jun</b>challenger</div><div class="x"><b>4 Jul</b>too soon</div><div class="an"><b>18 Jul</b>an ask</div><div class="x"><b>1 Aug</b>too soon</div></div>
+   <div class="avl"><span>−3</span><span>by 1 Aug</span><span>+3</span></div><div class="av"><i style="left:34.2%;width:15.8%;background:var(--red)"></i><span style="left:20%;color:var(--red)">−1.9</span></div>
+   <div class="why">a bout she is more likely to lose than the ladder thinks</div></div>
+  <div class="case"><div class="shows"><div class="an"><b>20 Jun</b>an ask</div><div class="c14"><b>4 Jul</b>challenger</div><div class="x"><b>18 Jul</b>too soon</div><div class="an"><b>1 Aug</b>an ask</div></div>
+   <div class="avl"><span>−3</span><span>by 1 Aug</span><span>+3</span></div><div class="av"><i style="left:34.2%;width:15.8%;background:var(--red)"></i><span style="left:20%;color:var(--red)">−1.9</span></div>
+   <div class="why">the same bad bout two weeks later, with less in the tank, plus −1</div></div>
+  <div class="case best"><span class="badge">BEST</span><div class="shows"><div class="an"><b>20 Jun</b>an ask</div><div class="x"><b>4 Jul</b>too soon</div><div class="an"><b>18 Jul</b>an ask</div><div class="x"><b>1 Aug</b>too soon</div></div>
+   <div class="avl"><span>−3</span><span>by 1 Aug</span><span>+3</span></div><div class="av"><i style="left:50%;width:3.3%;background:var(--green)"></i><span style="left:54.5%;color:var(--green)">+0.4</span></div>
+   <div class="why">−2 is cheaper than the bout · she keeps both dates for asks</div></div>
+ </div>
+ <div class="leg"><span><i style="background:rgba(79,141,255,.25);border-color:var(--blue)"></i>the challenger</span><span><i style="background:rgba(79,141,255,.25);border-color:var(--amber)"></i>the challenger, 14 days after her last bout</span><span><i style="background:rgba(232,176,74,.2);border-color:var(--gold)"></i>the boxer she asked</span><span><i style="border-color:var(--green)"></i>an ask she makes later</span><span><i style="background:#1b2330;border-color:#2f3a4b"></i>too soon after a bout</span></div>
+</div>
+
+<!-- BOTTOM: the two holes, before and after, and the paper probes -->
+<div class="box B">
+ <div class="fx"><h3>HOLE 1 · "NOT THIS SHOW" COST NOTHING</h3>
+  <p><span class="was">WAS</span>0 reputation, the bout just came later and her ask stayed: it beat Accept and Pass almost every time.<br>
+  <span class="now">NOW</span>−1 at once · the challenger picks the show 14 days after her bout, printed on the button · stopped on her bout = 30 days out, so it counts as a pass (−2 more).</p></div>
+ <div class="fx"><h3>HOLE 2 · ASKING FAR DOWN RESET THE CLOCK</h3>
+  <p><span class="was">WAS</span>any booking stopped the count, so a near-risk-free bout far below bought 8 more weeks.<br>
+  <span class="now">NOW</span>a lower line, as wide as her reach: a bout under it is a TUNE-UP. She can box it and it pays by the same sum, but the clock keeps running.</p></div>
+ <div class="fx" style="flex:.9"><h3>PAPER PROBES<span class="tagx">a sum on paper, not the game</span></h3>
+  <p>Which answer is best, over 20,000 made-up challenges: Accept 58% · Not this show 17% · Pass 25% (each needs 15%).<br>
+  A boxer at 55 who only books far down: ends the year at 34 now, 53 before.</p></div>
+</div>
+</body></html>

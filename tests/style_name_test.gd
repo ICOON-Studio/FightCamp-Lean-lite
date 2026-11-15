@@ -61,18 +61,16 @@ func _check_monday() -> void:
 
 func _check_effect() -> void:
 	var f_slug := {"moves": {"Body hook": 60.0, "Lead hook": 60.0}, "steps": {"roll_out": 60.0}, "named_style": "Slugger"}
-	_check(StyleName.effect(f_slug, "knockdown") == 1.1, "Slugger effect knockdown 1.1")
+	_check(StyleName.effect(f_slug, "inside_power") == 1.15, "Slugger effect inside_power 1.15")
 	_check(StyleName.effect(f_slug, "range_open") == 0.0, "Slugger effect range_open 0.0 (neutral add)")
 	_check(StyleName.effect(f_slug, "combo_energy") == 1.0, "Slugger effect combo_energy 1.0 (neutral mult)")
 
 	var f_none := {"moves": {}, "steps": {}}
-	_check(StyleName.effect(f_none, "knockdown") == 1.0, "no style knockdown neutral 1.0 (mult kind)")
+	_check(StyleName.effect(f_none, "inside_power") == 1.0, "no style inside_power neutral 1.0 (mult kind)")
 
 	var f_cp := {"moves": {"Lead hook": 60.0, "Check hook": 60.0}, "steps": {"step_out": 60.0}, "named_style": "Counter-puncher"}
-	_check(StyleName.effect(f_cp, "counter_edge", "loadup") == 0.15, "Counter-puncher counter_edge loadup 0.15")
-	_check(StyleName.effect(f_cp, "counter_edge", "press") == 0.15, "Counter-puncher counter_edge press 0.15")
-	_check(StyleName.effect(f_cp, "counter_edge", "range") == 0.0, "Counter-puncher counter_edge range 0.0 (when blocks it)")
-	_check(StyleName.effect(f_cp, "counter_edge", "") == 0.0, "Counter-puncher counter_edge empty mode 0.0")
+	_check(StyleName.effect(f_cp, "miss_return") == 0.1, "Counter-puncher miss_return 0.1")
+	_check(StyleName.effect(f_cp, "counter_edge", "loadup") == 0.0, "Counter-puncher counter_edge 0.0 (lever gone)")
 
 
 func _check_plan_cap() -> void:

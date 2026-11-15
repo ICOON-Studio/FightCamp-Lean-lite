@@ -1,3 +1,14 @@
+S490 (2026-11-15)
+- OPS BOARD: the Play row has a TRAINING button (beside Corner minute). It opens the game on a boxer's Training tab in
+  week 2, between fights.
+- FOOTWORK, WHERE IT HURT: after a fight, Result > The Why, AGAINST YOU says "On the ropes 3 times with no way off." when
+  step backs put your boxer on the ropes; in the corner minute the HURT row says "Put on the ropes twice: a pivot out or
+  a step out gets your boxer off."
+- NAMED STYLES ARE NOW WORTH POINTS in the fight, each in its own situation: an Out-boxer at long range, a Boxer-puncher
+  in the pocket, a Pressure fighter inside, a Slugger throwing hooks and uppercuts close in, a Counter-puncher when the
+  opponent presses or loads up, a Volume puncher when you push the pace. About 2 to 4 more wins in 100 against the styles
+  each one beats.
+
 S489 (2026-11-15)
 - TEST CLUB (for seeing every menu full; the normal game still starts with 0 fighters): on the create screen, under HOW THE
   CLUB STARTS, switch TEST CLUB on. You open with three boxers in three weight classes (Lucy, Kira, Josh), Ana on the mat and

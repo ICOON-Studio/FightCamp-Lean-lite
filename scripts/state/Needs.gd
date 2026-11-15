@@ -15,6 +15,7 @@ const FirstWeek := preload("res://scripts/rules/FirstWeek.gd")
 const Grapplers := preload("res://scripts/state/Grapplers.gd")
 const ProLadder := preload("res://scripts/state/ProLadder.gd")
 const ApproachWire := preload("res://scripts/state/ApproachWire.gd")
+const PullOutWire := preload("res://scripts/state/PullOutWire.gd")   # S490 FIGHTWEEK3
 
 
 ## S324 update 27: GymBills' read of the gym's money now: "ok" | "warn" (runway under 8 weeks) | "red" (below $0) | "closed".
@@ -67,6 +68,10 @@ static func needs(career: Career) -> Array:
 			"s": "%s
 answer by %s, or lose the boxer" % [f["approach"]["line"], Clock.fmt(int(f["approach"]["ends"]))],
 			"act": "approach", "arg": f["id"], "label": "Decide"})
+	for f in PullOutWire.open_for(career):   # S490 FIGHTWEEK3: the opponent pulled out on fight week's Monday
+		n.append({"red": true, "t": "FELL THROUGH: %s's bout" % f["first"],
+			"s": "the opponent pulled out of the show at %s; take the replacement, go home, or ask for next month" % f["bout"]["fell"]["host"],
+			"act": "fellthrough", "arg": f["id"], "label": "Decide"})
 	for f in career.fighters:
 		if Injuries.pending(f):
 			n.append({"red": true, "t": "%s is hurt before the bout" % f["first"], "s": Injuries.line(career, f) + "; pull out or fight hurt",
@@ -139,6 +144,8 @@ static func flags(career: Career) -> Array:
 			out.append({"t": "TRIAL", "act": "trial", "arg": p["id"], "red": true})
 	for f in ApproachWire.open_for(career):
 		out.append({"t": "APPROACHED", "act": "approach", "arg": f["id"], "red": true})
+	for f in PullOutWire.open_for(career):
+		out.append({"t": "FELL THROUGH", "act": "fellthrough", "arg": f["id"], "red": true})
 	if not career.pro_offer.is_empty():
 		out.append({"t": "PRO OFFER", "act": "prooffer", "arg": career.pro_offer["fid"], "red": true})
 	for f in career.fighters:

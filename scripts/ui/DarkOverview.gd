@@ -23,6 +23,7 @@ const Aftermath := preload("res://scripts/rules/Aftermath.gd")
 const Loyalty := preload("res://scripts/rules/Loyalty.gd")
 const ApproachCard := preload("res://scripts/ui/ApproachCard.gd")   # S487 R58 APPROACHWIRE1
 const ApproachWire := preload("res://scripts/state/ApproachWire.gd")
+const FallThroughCard := preload("res://scripts/ui/FallThroughCard.gd")   # S490 FIGHTWEEK3
 
 const PANEL_BG := Color(0.095, 0.075, 0.066, 0.94)
 const INSET := Color(0.05, 0.04, 0.035, 0.9)
@@ -136,6 +137,8 @@ static func make(page: Container, main: Node, c: Career, f: Dictionary, g: Dicti
 	right.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	if ApproachWire.is_open(f):   # S487 R58: a rival club's approach sits on top until it is answered
 		right.add_child(ApproachCard.fill(panel(), main, c, f))
+	if FallThroughCard.PullOutWire.is_open(f):   # S490 FIGHTWEEK3: the bout fell through - on top until it is answered
+		right.add_child(FallThroughCard.fill(panel(), main, c, f))
 	var top := UI.hbox(14)
 	top.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	top.add_child(_attributes(f))

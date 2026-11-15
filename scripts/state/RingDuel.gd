@@ -94,6 +94,7 @@ static func step(f: Dictionary, o: Dictionary, lv: Dictionary, call: String, mod
 	var n := int(lv.get("n", 1))
 	var a := Duels.effective(Attrs.of(f), ea, bool(lv.get("her_hurt", false)), n >= 3)
 	a["open_add"] = StyleName.effect(f, "range_open")   # S459 INTEGRATE1: the named Out-boxer
+	a["mid_add"] = StyleName.effect(f, "mid_pull")   # S486 STYLE4: the named Boxer-puncher pulls toward middle
 	var b := Duels.effective(opp(o), eb, bool(lv.get("opp_hurt", false)), n >= 3)
 	var ctx := facts(f, o)
 	var place := int(lv.get("place", Duels.LONG))

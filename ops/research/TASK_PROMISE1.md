@@ -71,7 +71,7 @@ ternary is `a if cond else b`.
 ## Contract
 OWNS: scripts/rules/Promises.gd, tests/promises_test.gd
 RED_TEST: tests/promises_test.gd -> PROMISES PASS fails=0 (red on main: the files do not exist)
-REGRESSION: none (nothing calls it yet; Claude wires it after)
+REGRESSION: tests/home_bout_test.gd, tests/approach_wire_test.gd (S490: the wiring that landed after)
 VISUAL: no
 NOT YOURS: every other file. Both files under 500 lines. Never delete or weaken a test.
 Run: `godot --headless --audio-driver Dummy --fixed-fps 60 --path . --script res://tests/promises_test.gd` (Godot 4.7.2).

@@ -329,6 +329,11 @@ static func wants(a: Dictionary, b: Dictionary, ctx: Dictionary, forced: int = -
 ## How well a fighter takes the fight the way `dir` (+1 closer, -1 longer, 0 hold) from `place`; pinned on the ropes costs.
 static func control(a: Dictionary, dir: int, place: int, pinned: bool) -> float:
 	var c := _ctrl(pack(a), dir, place, pinned)
+	# S486 STYLE4: mid_pull steers toward MIDDLE (POCKET) from either side - from long closer or from short longer.
+	var mid_add := float(a.get("mid_add", 0.0))
+	var goes_mid := (dir > 0 and place == LONG) or (dir < 0 and place == INSIDE)
+	if goes_mid and mid_add != 0.0:
+		c *= (1.0 + mid_add)
 	return c * (1.0 + float(a.get("open_add", 0.0))) if dir < 0 else c   # S459 the named Out-boxer steers it open +0.1 (StyleName)
 
 

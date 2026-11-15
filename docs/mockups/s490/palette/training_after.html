@@ -1,0 +1,221 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Training Recoloured</title>
+<link rel="stylesheet" href="look.css">
+<style>
+/* the same WoodKit framed slate, drawn at 60% for this dense screen (corner 30 px instead of 52) */
+.pn{border:1px solid transparent;border-image:url(../../../../assets/ui/wood/panel.png) 52 fill / 30px stretch;filter:drop-shadow(0 3px 5px var(--shadow))}
+.pn.sel{filter:none}
+.art{background-image:url(img/training_before.png);background-repeat:no-repeat}
+.circ{position:absolute;border-radius:50%;border:3px solid var(--line);overflow:hidden}
+.ab{position:absolute}
+.lbl{font-size:15px;font-weight:700;letter-spacing:1.5px;color:var(--text)}
+.sm{font-size:12px;color:var(--muted)}
+.g{color:var(--goodw)} .b{color:var(--badw)} .w{color:var(--needs)} .h{color:var(--header)} .a{color:var(--accent)} .m{color:var(--muted)}
+.fc{top:64px;height:92px}
+.fc .nm{position:absolute;left:84px;top:6px;font-size:21px;font-weight:700;letter-spacing:.5px}
+.fc .l{position:absolute;left:84px;top:34px;font-size:13px;line-height:17px}
+.st{display:inline-block;padding:0 5px;border-radius:2px;font-size:12px;font-weight:700;line-height:16px}
+.day{position:absolute;top:168px;width:150px;text-align:center;font-size:20px;font-weight:600;letter-spacing:.5px}
+.coach{position:absolute;top:194px;height:40px;width:150px;display:flex;gap:2px}
+.coach>div{flex:1;display:flex;align-items:center;gap:4px;padding-left:4px;font-size:15px;font-weight:600;border-radius:3px}
+.dash{border:2px dashed;border-radius:3px;text-align:center;font-size:14px;font-weight:700;letter-spacing:.5px;line-height:15px;padding-top:3px}
+.dash span{display:block;font-size:12px;font-weight:400;color:var(--muted);letter-spacing:0}
+.mt{position:absolute;top:241px;width:150px;height:131px;background:var(--tile);border-radius:4px;border:1px solid var(--line)}
+.lnh{position:absolute;left:8px;top:86px;display:flex;gap:4px}
+.lnh i{font-style:normal;width:17px;height:17px;font-size:12px;font-weight:700;text-align:center;line-height:17px;background:var(--secondary);color:var(--muted);border-radius:2px}
+.lnh i.on{background:var(--tab);color:var(--page)}
+.et{position:absolute;top:379px;width:150px;height:132px;background:var(--tile);border-radius:4px;border:1px solid var(--line)}
+.badge{position:absolute;right:5px;top:26px;width:37px;height:37px;border-radius:50%;background:var(--page);border:3px solid;text-align:center;line-height:31px;font-size:14px;font-weight:700}
+.chipn{position:relative;display:inline-block;padding:0 3px;line-height:16px;margin-right:6px;font-size:15px;font-weight:700;letter-spacing:1px;border:9px solid transparent;border-image:url(../../../../assets/ui/wood/plank.png) 9 fill / 9px stretch}
+.chipn.on{border-image-source:url(../../../../assets/ui/wood/tab_on.png);color:var(--page)}
+.row{display:flex;justify-content:space-between;font-size:16px;font-weight:600;line-height:28px}
+.ses{position:absolute;top:934px;width:76px;text-align:center}
+.ses .circ{position:relative;width:66px;height:66px;margin:2px auto 2px}
+.ses div.t{font-size:14px;font-weight:700;margin-top:6px;line-height:15px}
+.ses div.v{font-size:13px;font-weight:600}
+</style></head><body>
+<!-- top bar -->
+<div class="ab" style="left:0;top:0;width:1920px;height:54px;background:url(../../../../assets/ui/wood/bar.png) 0 0/100% 100%;box-shadow:0 3px 8px var(--shadow)"></div>
+<div class="ab" style="left:22px;top:12px;width:32px;height:32px;border:3px solid var(--text);border-radius:50%"></div>
+<div class="ab" style="left:70px;top:9px;font-family:Marker;font-size:23px;color:var(--accent)">Anvil Street Gym</div>
+<div class="ab m" style="left:302px;top:16px;font-size:16px">&#9666; Gym floor</div>
+<div class="ab tab on" style="left:398px;top:9px;height:36px;line-height:18px;font-size:16px">Training</div>
+<div class="ab" style="left:1332px;top:15px;font-size:18px;font-weight:500">Mon 16 Feb 2026 · <span class="h">Week 7</span></div>
+<div class="ab h" style="left:1532px;top:12px;font-size:21px;font-weight:700">$12,940</div>
+<div class="ab main" style="left:1612px;top:6px;width:288px;height:42px;line-height:24px;padding-left:6px;font-size:20px;letter-spacing:1.5px">CONTINUE &#9656; <span style="font-size:13px;letter-spacing:0;margin-left:6px">to Sat 21, fight night</span></div>
+
+<!-- fighter cards -->
+<div id="fcards"></div>
+
+<!-- week grid -->
+<div class="ab lbl" style="left:24px;top:198px">COACH<div class="sm" style="letter-spacing:0;font-weight:400">75 min a night</div></div>
+<div class="ab lbl" style="left:24px;top:282px">MORNING<div class="sm" style="letter-spacing:0;font-weight:400">one stat</div></div>
+<div class="ab lbl" style="left:24px;top:420px">EVENING<div class="sm" style="letter-spacing:0;font-weight:400">moves</div></div>
+<div id="grid"></div>
+
+<!-- fight week column -->
+<div class="ab" style="left:1222px;top:166px;width:170px;font-size:14px;line-height:19px">
+ <div class="h" style="font-size:20px;font-weight:700;letter-spacing:1px">FIGHT WEEK</div>
+ Mon 23 - Sat 28<br>Taper: 3 pad nights,<br>no sparring<br><br>Weigh-in Sat 28<br>limit 70.0 kg<br><br>First bell tiredness
+ <div class="g" style="font-size:32px;font-weight:700;line-height:36px">48</div>under 50: no penalty
+</div>
+
+<!-- nights row -->
+<div class="ab" style="left:112px;top:520px;display:flex;align-items:center">
+ <span class="lbl" style="margin-right:12px">NIGHTS</span><span class="chipn">LIGHT 70</span><span class="chipn">STANDARD 70</span><span class="chipn">HARD 78</span><span class="chipn on sel" style="padding-right:22px">YOURS 70 · 2 changed</span>
+ <span class="lbl" style="margin:0 12px 0 20px">ONE CLICK</span><span class="chipn" style="letter-spacing:0">Coach's week</span><span class="chipn" style="letter-spacing:0">Copy from...</span><span class="chipn" style="letter-spacing:0">Light recovery</span>
+</div>
+
+<!-- tiredness chart -->
+<div class="ab lbl" style="left:24px;top:600px">TIREDNESS<div class="sm" style="letter-spacing:0;font-weight:400;line-height:14px">end of each<br>day</div></div>
+<svg class="ab" style="left:110px;top:552px" width="1280" height="162" viewBox="110 552 1280 162">
+ <rect x="1215" y="552" width="175" height="160" fill="var(--hover)"/>
+ <line x1="112" y1="563" x2="1385" y2="563" stroke="var(--badw)" stroke-width="2" stroke-dasharray="7 5"/>
+ <text x="1205" y="560" text-anchor="end" font-family="Barlow" font-weight="600" font-size="13" fill="var(--badw)">&#9650; 80 overreached · gains x0.6</text>
+ <line x1="503" y1="595" x2="1135" y2="630" stroke="var(--needs)" stroke-width="2" stroke-dasharray="7 5"/>
+ <text x="516" y="582" font-family="Barlow" font-weight="600" font-size="13" fill="var(--needs)">Cut harder: over 72 from Wed</text>
+ <text x="1205" y="590" text-anchor="end" font-family="Barlow" font-weight="600" font-size="13" fill="var(--needs)">72 · injury x2 by 76</text>
+ <line x1="112" y1="680" x2="1385" y2="680" stroke="var(--goodb)" stroke-width="2" stroke-dasharray="7 5"/>
+ <text x="316" y="694" font-family="Barlow" font-weight="600" font-size="13" fill="var(--goodw)">50 fresh: no energy off</text>
+ <polyline fill="none" stroke="var(--accent)" stroke-width="3" points="187,609 345,619 503,602 661,627 819,656 977,667 1135,686 1250,652 1278,667 1300,662 1330,672 1358,670 1376,681"/>
+ <g fill="var(--accent)"><circle cx="187" cy="609" r="5"/><circle cx="345" cy="619" r="5"/><circle cx="503" cy="602" r="5"/><circle cx="661" cy="627" r="5"/><circle cx="977" cy="667" r="4"/><circle cx="1135" cy="686" r="4"/><circle cx="1250" cy="652" r="4"/><circle cx="1278" cy="667" r="4"/><circle cx="1330" cy="672" r="4"/></g>
+ <circle cx="819" cy="656" r="8" fill="var(--page)" stroke="var(--tab)" stroke-width="4"/><circle cx="1376" cy="681" r="6" fill="var(--goodw)"/>
+ <g font-family="Barlow" font-weight="600" font-size="19" fill="var(--text)"><text x="178" y="637">68</text><text x="336" y="648">65</text><text x="494" y="630">70</text><text x="652" y="655">63</text><text x="810" y="645">55</text></g>
+ <text x="1366" y="708" text-anchor="end" font-family="Barlow" font-weight="700" font-size="19" fill="var(--goodw)">first bell 48</text>
+ <text x="116" y="708" font-family="Barlow" font-size="12" fill="var(--muted)">hover a point: what made it</text>
+</svg>
+<div class="ab" style="left:1226px;top:563px;width:146px;height:68px;background:var(--hover);border:1px solid var(--line);border-radius:3px;padding:4px 7px;font-size:12px">
+ <div style="font-weight:700">DIET</div>
+ <div style="display:flex;gap:2px;margin:3px 0"><span style="background:var(--tab);color:var(--page);padding:1px 6px;font-weight:700">Normal</span><span style="background:var(--secondary);padding:1px 6px">Cut harder</span></div>
+ Fight day <span class="g">69.6 kg</span>
+</div>
+
+<!-- this week buys + mornings -->
+<div class="ab pn" style="left:16px;top:729px;width:1368px;height:150px"></div>
+<div class="ab" style="left:32px;top:740px;width:860px">
+ <span class="lbl" style="font-size:20px">THIS WEEK BUYS</span><span class="m" style="font-size:14px;margin-left:12px">Usable at 30 mastery</span>
+ <div id="buys"></div>
+ <div style="margin-top:6px;border:1px solid var(--line);border-radius:3px;font-size:14px;font-weight:600">
+  <div style="display:flex;gap:18px;padding:2px 10px;background:var(--tile)"><span class="lbl" style="font-size:14px;width:120px">YOUR WEEK</span><span>Win <span class="g">53-55%</span></span><span>Peak tiredness <span>70</span></span><span>Injury risk <span class="g">1.0 in 100</span></span><span>Tell <span class="g">&#10003; found</span></span></div>
+  <div style="display:flex;gap:18px;padding:2px 10px" class="m"><span class="lbl m" style="font-size:14px;width:120px">COACH'S WEEK</span><span>Win 52%</span><span>Peak tiredness 78</span><span>Injury risk 2.7 in 100</span><span>Tell hidden</span></div>
+ </div>
+</div>
+<div class="ab" style="left:910px;top:738px;width:1px;height:132px;background:var(--line)"></div>
+<div class="ab" style="left:936px;top:740px;width:440px;font-size:16px;font-weight:600;line-height:24px">
+ <span class="lbl" style="font-size:20px">MORNINGS</span><span class="m" style="font-size:14px;margin-left:12px;font-weight:400">a season's work</span>
+ <div style="margin-top:6px">Cardio <span class="g">+0.22</span>&nbsp;&nbsp; Technique <span class="g">+0.12</span>&nbsp;&nbsp; Defence <span class="g">+0.17</span></div>
+ <div>Ring IQ <span class="g">+0.12</span>&nbsp;&nbsp; Power <span class="g">+0.12</span>&nbsp;&nbsp; Speed <span class="g">+0.06</span></div>
+ <div style="margin-top:4px;font-weight:500">This bout <span class="g">+0.5%</span> · ten weeks like this <span class="g">+5%</span> est.</div>
+</div>
+
+<!-- sessions -->
+<div class="ab pn" style="left:16px;top:887px;width:1368px;height:181px"></div>
+<div class="ab" style="left:32px;top:898px"><span class="lbl" style="font-size:20px">SESSIONS</span><span class="m" style="font-size:14px;margin-left:12px">mornings: drag onto a day · evenings: drag onto the coach's slice · one session at Normal</span></div>
+<div class="ab" style="left:966px;top:935px;width:1px;height:108px;background:var(--line)"></div>
+<div id="ses"></div>
+
+<!-- right column -->
+<div class="ab pn" style="left:1398px;top:64px;width:504px;height:252px"></div>
+<div class="ab" style="left:1412px;top:72px;width:478px">
+ <div style="display:flex;justify-content:space-between"><div><span class="h" style="font-size:54px;font-weight:700;line-height:58px">53-55%</span> <span style="display:inline-block;width:20px;height:20px;border:2px solid var(--muted);border-radius:50%;font-size:12px;text-align:center;line-height:16px;color:var(--muted);vertical-align:top;margin-top:10px">i</span><div class="m" style="font-size:15px;margin-top:-4px">to win · hover for the parts</div></div>
+ <div style="text-align:right"><div class="h" style="font-size:15px;font-weight:700;letter-spacing:1px;margin-top:6px">CLUB SHOW · SAT 28</div><div style="font-size:26px;font-weight:700">vs JADE OKORO</div></div></div>
+ <div style="display:flex;height:22px;margin:8px 0 6px;font-size:12px;font-weight:700;line-height:22px;text-align:center">
+  <div style="flex:300;background:var(--tile)">base 50%</div><div style="flex:50;background:var(--accent);color:var(--page);border-left:2px solid var(--card)">+1.5</div><div style="flex:50;background:var(--accent);color:var(--page);border-left:2px solid var(--card)">+1.5</div><div style="flex:56;background:repeating-linear-gradient(135deg,var(--accent) 0 5px,var(--sunk-accent) 5px 10px);color:var(--page);border-left:2px solid var(--card)">0 to +2</div></div>
+ <div class="row"><span>Base</span><span>50%</span></div>
+ <div class="row"><span>Body hook ready Wed <span class="m">&#9432;</span></span><span class="g">&#9650; +1.5%</span></div>
+ <div class="row"><span>Check hook ready Mon 23 <span class="m">&#9432;</span></span><span class="g">&#9650; +1.5%</span></div>
+ <div class="row"><span>Film finds the tell <span class="m">&#9432;</span></span><span class="a">0 to +2%</span></div>
+</div>
+<div class="ab pn" style="left:1398px;top:326px;width:504px;height:248px"></div>
+<div class="ab" style="left:1412px;top:340px;width:476px">
+ <div class="lbl" style="font-size:22px;margin-bottom:6px">ON FIGHT NIGHT</div>
+ <div class="row" style="line-height:38px"><span>Weight on the day</span><span class="g">&#10003; 69.6 of 70.0 kg</span></div>
+ <div class="row" style="line-height:38px"><span>Tiredness at the first bell</span><span class="g">&#10003; 48 · none off</span></div>
+ <div class="row" style="line-height:38px"><span>Moves Usable</span><span class="g">Check hook &#10003; · Body hook &#10003;</span></div>
+ <div class="row" style="line-height:38px"><span>Tells found</span><span class="g">1 of 1</span></div>
+ <div class="row" style="line-height:38px"><span>Cardio goal 60.4</span><span class="w">&#9888; 60.3 est.</span></div>
+</div>
+<div class="ab pn sel" style="left:1398px;top:584px;width:504px;height:206px"></div>
+<div class="ab" style="left:1412px;top:596px;width:476px">
+ <div style="display:flex;justify-content:space-between;align-items:center"><span><span class="lbl" style="font-size:20px">FRIDAY EVENING</span> <span class="m" style="font-size:13px">75 min of your coach · drag</span></span><span style="font-size:12px;background:var(--secondary);padding:2px 8px;border-radius:9px">Lock evening &#9679;</span></div>
+ <div style="display:flex;height:30px;margin-top:8px;font-size:17px;font-weight:700;line-height:30px">
+  <div style="flex:65;background:var(--tab);color:var(--page);padding-left:6px;border-radius:3px 0 0 3px;display:flex;align-items:center;gap:6px"><span class="art" style="width:22px;height:22px;border-radius:50%;background-position:-1417px -630px;display:inline-block"></span>65 min</div>
+  <div style="flex:12;background:var(--tile);border-left:2px solid var(--card);padding-left:8px;border-radius:0 3px 3px 0">10</div></div>
+ <div style="font-size:13px;font-weight:600;margin:4px 0 6px">65 min to him, 10 min to her</div>
+ <div style="display:flex;gap:10px;font-size:13px;line-height:17px">
+  <div style="flex:1;background:var(--hover);border:1px solid var(--line);border-radius:3px;padding:5px 8px"><span class="m">fights in 8 days</span><br><b>Check hook 20.7 &rarr; 28.2</b> <span class="w">1.8 short</span><br><span class="g">Usable Mon 23 · &#9650; +1.5% win</span></div>
+  <div style="flex:1;background:var(--hover);border:1px solid var(--line);border-radius:3px;padding:5px 8px"><span class="m">fights tomorrow</span><br><b>Jab stays Usable &#10003; · win +0</b><br><span class="w">waits on bag work</span></div>
+ </div>
+ <div style="font-size:13px;margin-top:5px">Next ring: <span class="a">Sharp at 60</span> mastery &rarr; <span class="g">+2.8%</span> edge est.</div>
+</div>
+<div class="ab" style="left:1400px;top:798px;width:500px;height:196px;background:var(--hover);border:2px solid var(--frame);border-radius:4px;box-shadow:0 3px 8px var(--shadow)"></div>
+<div class="ab art circ" style="left:1417px;top:812px;width:88px;height:88px;border-color:var(--frame);background-position:-1417px -812px"></div>
+<div class="ab m" style="left:1422px;top:908px;font-size:12px;letter-spacing:1px">YOUR COACH</div>
+<div class="ab" style="left:1516px;top:810px;width:378px">
+ <div class="h" style="font-family:Marker;font-size:22px">Coach's pick</div>
+ <div style="font-family:Kalam;font-size:21px;line-height:28px;color:var(--text)">The check hook needs one more pad night: Monday of fight week. Saturday's fighter stays loose: bag work at full load.</div>
+</div>
+<div class="ab main" style="left:1398px;top:1003px;width:504px;height:64px;line-height:46px;text-align:center;font-size:30px;letter-spacing:3px">CONTINUE &#9656; <span style="font-size:16px;letter-spacing:0;margin-left:12px">to Sat 21, fight night</span></div>
+
+<script>
+const $=h=>document.body.insertAdjacentHTML('beforeend',h);
+// fighter cards
+const F=[[16,349,'KWAME ASANTE','Welter 70 kg · boxing','Club show Sat 28 · 12 days','PEAK WEEK','var(--secondary)','var(--text)','coach 185 min',true,'M0,18 L12,14 24,20 36,8 48,15 60,24 70,22'],
+ [375,363,'DANNY COLE','Light 60 kg · boxing','No bout · base week','CARD','var(--secondary)','var(--text)','coach 65 min · base: ok',false,'M0,16 L12,14 24,17 36,13 48,15 60,12 70,14'],
+ [748,385,'MARA ILIC','Feather 57 kg · boxing','Fight night Sat 21 · 5 days','FIGHT WEEK','var(--secondary)','var(--text)','coach 50 min · taper',false,'M0,6 L14,9 28,12 42,15 56,19 70,22'],
+ [1142,250,'ROSA FERREIRA','Women\'s -64 kg · no-gi BJJ','Open Thu 26 · 10 days','MAT WEEK','var(--secondary)','var(--text)','3 no-gi classes',false,'']];
+const cx=[57,415,788,1182];
+F.forEach(([x,w,n,a,b,chip,cb,ct,c,sel,sp],i)=>{
+ $(`<div class="ab pn fc ${sel?'sel':''}" style="left:${x}px;width:${w}px"><div class="art circ" style="left:9px;top:12px;width:64px;height:64px;border-color:var(--frame);background-position:-${cx[i]-32}px -76px"></div>
+ <div class="nm">${n}</div><div class="l"><span class="m">${a}</span><br>${b}<br><span class="st" style="background:${cb};color:${ct}">${chip}</span> <span class="m">${c}</span></div>
+ ${sp?`<svg style="position:absolute;right:16px;top:20px" width="72" height="30"><path d="${sp}" fill="none" stroke="var(--accent)" stroke-width="2"/></svg><div class="m" style="position:absolute;right:16px;top:56px;font-size:13px">tiredness</div>`:''}</div>`);
+});
+// grid
+const days=['MON 16','TUE 17','WED 18','THU 19','FRI 20','SAT 21','SUN 22'];
+const X=i=>112+158*i;
+const coach=[
+ [['h','75 min',1,0,75]],[['t','40',2,0,40],['t','35',3,0,35]],[['h','45',1,0,45],['t','30',3,0,30]],['dash','SPARRING NIGHT','referee only','var(--muted)'],[['h','65 min',1,4,65],['t','10',0,0,10]],['dash','IN THE CORNER','fight day','var(--muted)'],['dash','CLOSED','Sunday','var(--muted)']];
+const pcx=[128,284,301,440,520,760,887];
+const morn=[['N','-0.09','+0.11','Cardio'],['N','-0.06','+0.12','Power'],['N','-0.08','+0.11','Cardio'],['L','-0.04','+0.06','Speed'],['H','-0.05','+0.17','Defence'],['N','-0.05','+0.12','Technique'],[null,'','-8','Tiredness']];
+const eve=[
+ {t:'75 min',b:[21,'var(--needs)'],l1:'Check hook <span class="g">12 &rarr; 20.7</span>',l2:'9.3 to Usable'},
+ {t:'&#9998; was pads',ed:1,l1:'Film · <span class="g">+1 tell</span> · found',l2:'waiting: bag work<br>Cardio <span class="g">+0.11</span> est.'},
+ {t:'45 min',b:[35,'var(--accent)'],l1:'Body hook <span class="g">29 &rarr; 35.4</span>',l2:'<span class="g">Usable &#10003;</span> lands 1 in 2'},
+ {l1:'Sparring · Ring IQ <span class="g">+0.12</span>',l2:'drills only moves at 30+'},
+ {t:'65 min',sel:1,lock:1,b:[28,'var(--needs)'],l1:'Check hook <span class="g">20.7&rarr;28.2</span>',l2:'<span class="w">1.8 short:</span> one more night'},
+ {rest:1,l1:'REST',l2:'no coaching tonight'},
+ {l1:'Rest',l2:'recovers 8'}];
+const fri=4;
+days.forEach((d,i)=>{
+ const x=X(i);
+ $(`<div class="day" style="left:${x}px;${i==fri?'color:var(--tab);font-weight:700':''}">${i==fri?'&#10003; ':''}${d}</div>`);
+ const c=coach[i];
+ if(c[0]==='dash') $(`<div class="coach"><div class="dash" style="left:${x}px;position:absolute;width:150px;height:40px;border-color:${c[3]};display:block;padding-left:0">${c[1]}<span>${c[2]}</span></div></div>`.replace('class="coach"',`class="coach" style="left:${x}px"`).replace(`left:${x}px;position:absolute;`,'position:absolute;left:0;'));
+ else $(`<div class="coach ${i==fri?'':''}" style="left:${x}px">${c.map(([k,t,f,sel,fl])=>`<div style="flex:${fl};${k==='h'?'background:var(--tab);color:var(--page)':'background:var(--tile);color:var(--text);border:1px solid var(--line)'}">${f?'<span class="art" style="width:22px;height:22px;border-radius:50%;flex:none"></span>':''}${t}</div>`).join('')}</div>`);
+ const m=morn[i];
+ $(`<div class="mt ${i==fri?'sel':''}" style="left:${x}px"><div class="art circ" style="left:40px;top:8px;width:68px;height:68px;border-color:${m[0]?'var(--line)':'var(--line)'};background-position:-${x+37}px -247px"></div>
+ ${m[0]?`<div class="lnh">${['L','N','H'].map(k=>`<i class="${k===m[0]?'on':''}">${k}</i>`).join('')}</div><div style="position:absolute;right:8px;top:86px;font-size:13px;font-weight:600">${m[1]} kg</div>`:`<div class="m" style="position:absolute;width:100%;text-align:center;top:86px;font-size:13px">day off</div>`}
+ <div style="position:absolute;width:100%;text-align:center;top:104px;font-size:22px;font-weight:700" class="${m[2][0]=='+'?'g':'g'}">${m[2]} <span style="font-size:13px;color:var(--text);font-weight:600">${m[3]}</span></div></div>`);
+ if(i==2) $(`<div class="ab w" style="left:${x+4}px;top:243px;font-size:16px">&#9650;</div>`);
+ const e=eve[i];
+ $(`<div class="et ${e.sel?'sel':''}" style="left:${x}px">
+  ${e.rest?`<div style="position:absolute;width:100%;text-align:center;top:22px;font-size:34px;color:var(--muted)">&#128274;</div>`:`<div class="art" style="position:absolute;left:3px;top:2px;width:142px;height:60px;border-radius:3px;background-position:-${x+3}px -381px"></div>`}
+  ${e.t?`<div style="position:absolute;left:6px;top:4px;font-size:13px;font-weight:700;background:var(--page);padding:1px 6px;border-radius:2px;${e.ed?'color:var(--accent)':''}">${e.t}</div>`:''}
+  ${e.lock?`<div style="position:absolute;left:62px;width:58px;top:4px;font-size:12px;background:var(--secondary);padding:1px 8px;border-radius:8px;text-align:right">Lock &#9679;</div>`:''}
+  ${e.b?`<div class="badge" style="border-color:${e.b[1]}">${e.b[0]}</div>`:''}
+  <div style="position:absolute;width:100%;text-align:center;top:${e.rest?72:70}px;font-size:13.5px;font-weight:700;line-height:16px;color:${e.rest?'var(--muted)':'var(--text)'}">${e.l1}</div>
+  <div style="position:absolute;width:100%;text-align:center;top:${e.rest?92:89}px;font-size:12px;line-height:14px;color:var(--muted)">${e.l2}</div></div>`);
+});
+$(`<div class="ab" style="left:1214px;top:166px;width:1px;height:546px;background:var(--line)"></div>`);
+// this week buys
+const buys=[['Check hook','12','28.2','Usable Mon 23',0.55],['Body hook','29','35.4','Usable Wed',0.66]];
+let bh='';buys.forEach(([n,a,b,u,f])=>{bh+=`<div style="display:flex;align-items:center;gap:12px;font-size:17px;font-weight:600;height:25px;margin-top:2px"><span style="width:100px">${n}</span>
+ <span style="position:relative;width:240px;height:12px;background:var(--page);box-shadow:inset 0 0 0 1px var(--line);border-radius:6px;overflow:hidden"><span style="position:absolute;left:0;top:0;bottom:0;width:${f*100}%;background:var(--accent)"></span><span style="position:absolute;left:${f*100-12}%;top:0;bottom:0;width:12%;background:repeating-linear-gradient(90deg,var(--text) 0 2px,transparent 2px 5px)"></span><span style="position:absolute;left:50%;top:-3px;bottom:-3px;width:3px;background:var(--goodb)"></span></span>
+ <span style="font-size:20px">${a} &rarr; ${b}</span><span class="m" style="font-size:14px">this week</span><span class="g" style="font-size:15px">${u}</span><span class="g" style="font-size:15px">&#9650; +1.5% win</span></div>`});
+document.getElementById('buys').innerHTML=bh;
+// sessions
+const S=[['Roadwork','+0.11',75],['Intervals','+0.11',167],['Heavy bag','+0.12',259],['Strength','+0.12',351],['Speed bag','+0.10',443],['Slip rope','+0.13',535],['Shadow','+0.12',627],['Neck','+0.12',719],['Mobility','+0.10',811],['Rest','saves 3-5',903],['Pads','+6-10 a night',1029],['Sparring','+0.12',1121],['Film','1 tell',1213],['Rest','saves 8',1305]];
+S.forEach(([n,v,c])=>$(`<div class="ses" style="left:${c-38}px"><div class="art circ" style="background-position:-${c-35}px -933px"></div><div class="t">${n}</div><div class="v ${v[0]=='+'?'g':'m'}">${v}</div></div>`));
+document.querySelectorAll('.art').forEach(e=>{const r=e.getBoundingClientRect();e.style.backgroundPosition=`-${r.left+e.clientLeft}px -${r.top+e.clientTop}px`});
+</script>
+</body></html>

@@ -1,0 +1,46 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Do They Match</title>
+<link rel="stylesheet" href="look.css">
+<style>
+body{background:var(--page)}
+body>*{position:static}
+.wrap{padding:5px 22px 0}
+.top{display:flex;align-items:baseline;gap:20px;height:34px}
+.top h1{font-family:Marker;font-weight:400;font-size:28px}
+.top span{font-size:16px;color:var(--muted)}
+.g{display:grid;grid-template-columns:930px 930px;gap:6px 16px}
+.s{position:relative}
+.s img{width:880px;height:495px;display:block;border:2px solid var(--line)}
+.s.master img{border:3px solid var(--tab)}
+.cap{height:20px;font-size:15px;font-weight:700;letter-spacing:1px;color:var(--muted)}
+.cap b{color:var(--header)}
+.s.master .cap{color:var(--tab)}
+.s.master .cap b{color:var(--tab)}
+.key{width:880px;height:515px;background:var(--card);border:1px solid var(--line);border-radius:6px;padding:14px 18px}
+.key h3{font-size:16px;letter-spacing:2px;color:var(--header);margin-bottom:8px}
+.key li{font-size:16px;line-height:22px;margin:0 0 6px 18px}
+.key li span{color:var(--muted)}
+.chips{display:grid;grid-template-columns:repeat(10,1fr);gap:5px;margin:10px 0 12px}
+.chips div{height:44px;border-radius:4px;box-shadow:0 0 0 1px var(--line);font-size:11px;font-weight:700;padding:2px 4px;line-height:13px}
+</style></head><body><div class="wrap">
+<div class="top"><h1>Do they match now?</h1><span>Half size. Top left is the real gym screen (the master, unchanged); the other two are the drifting screens redrawn with its palette, wood frame, slate and backdrop.</span></div>
+<div class="g">
+ <div class="s master"><div class="cap">&#10003; REAL &middot; <b>gym staff screen</b> (the master, unchanged)</div><img src="img/gym_src.png"></div>
+ <div class="s"><div class="cap">AFTER &middot; <b>fighter Overview</b> in the gym palette</div><img src="overview_after.png"></div>
+ <div class="s"><div class="cap">AFTER &middot; <b>Training</b> (s483 design) in the gym palette</div><img src="training_after.png"></div>
+ <div class="key"><h3>WHAT TO LOOK FOR</h3>
+  <div class="chips">
+   <div style="background:var(--page);color:var(--text)">1 page</div><div style="background:var(--card);color:var(--text)">2 card</div><div style="background:var(--tile);color:var(--text)">3 tile</div><div style="background:var(--text);color:var(--page)">7 text</div><div style="background:var(--header);color:var(--page)">9 header</div>
+   <div style="background:var(--accent);color:var(--page)">10 your side</div><div style="background:var(--goodw);color:var(--page)">11 good</div><div style="background:var(--badw);color:var(--page)">12 bad</div><div style="background:var(--needs);color:var(--page)">14 needs you</div><div style="background:var(--tab);color:var(--page)">16 chosen</div>
+  </div>
+  <ul>
+   <li>Same wood frame with brass corners, same slate, same plank top bar, same gym photo behind. <span>(Training draws the frame at 60%: it is a denser screen.)</span></li>
+   <li>Headers are the gym's cash gold; club name the gym's blue; words the gym's cream.</li>
+   <li>Chosen things are tan with a 3 px edge and a &#10003; corner (Overview tab, Kwame, Friday, YOURS 70, Friday evening). Gold is never "selected".</li>
+   <li>Warnings are amber with &#9888; (the Eastside offer, APPROACHED, NEEDS YOU). Red is a loss or the one main button (CONTINUE).</li>
+   <li>Gains carry &#9650; or +, losses &#9660; or &minus;; bands carry 1 to 5 lit pips; empty pips and bar tracks are sunk Page.</li>
+   <li>Two taste calls in Training <span>(your call)</span>: session rings and phase chips lose their own colours (the label names them); the chosen boxer's coach slice is tan, the others slate.</li>
+  </ul>
+ </div>
+</div>
+</div></body></html>

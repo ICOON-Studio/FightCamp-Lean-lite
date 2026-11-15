@@ -1,0 +1,102 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Overview Recoloured</title>
+<link rel="stylesheet" href="look.css">
+<style>
+.name{position:absolute;left:28px;top:290px;font-family:Marker;font-size:58px;line-height:1;color:var(--text)}
+.facts{position:absolute;left:28px;top:368px;font-size:19px;line-height:23px}
+.meter{position:absolute;left:28px;font-size:19px;font-weight:700;display:flex;align-items:center;gap:8px}
+.meter .lab{width:100px;letter-spacing:.5px}
+.ring{position:absolute;left:334px;top:478px;width:128px;height:128px}
+.fig{position:absolute;left:0;top:610px;width:480px;height:470px;background:url(img/overview_before.png) 0 -610px no-repeat;-webkit-mask-image:radial-gradient(ellipse 62% 72% at 42% 72%,var(--page) 60%,transparent 100%);mask-image:radial-gradient(ellipse 62% 72% at 42% 72%,var(--page) 60%,transparent 100%)}
+.offer{left:484px;top:282px;width:1428px;height:296px}
+.offer h4{font-size:22px;color:var(--needs);font-weight:700;letter-spacing:.3px}
+.opts{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:4px}
+.opts .btn2{text-align:center;padding:0;line-height:18px;font-size:15px;letter-spacing:.5px}
+.opts p{font-size:14.5px;line-height:20px;color:var(--muted);margin-top:4px}
+.opts p b{color:var(--text);font-weight:400}
+.attrs{left:484px;top:593px;width:976px;height:487px}
+.cols{display:grid;grid-template-columns:316px 316px 300px;margin-top:6px}
+.cols h5{font-size:15px;letter-spacing:3px;color:var(--muted);font-weight:700;margin-bottom:6px}
+.at{display:flex;align-items:center;height:38px;font-size:19px;font-weight:600}
+.at .ic{width:24px;color:var(--muted);font-size:16px}
+.at .nm{width:150px}
+.at .num{font-size:23px;font-weight:600;margin-left:10px;width:34px}
+.note{font-size:14.5px;color:var(--muted);line-height:23px;margin:-6px 0 2px 0;width:300px}
+.legend{position:absolute;left:22px;bottom:12px;font-size:15px;color:var(--muted);display:flex;gap:14px;align-items:center}
+.legend span{display:flex;align-items:center;gap:5px}
+.glance{left:1475px;top:593px;width:437px;height:487px}
+.gl{background:var(--tile);border-radius:2px;border-left:4px solid;margin:10px 0 0 0;padding:10px 14px;display:flex;gap:18px;font-size:20px;font-weight:600;align-items:center;min-height:46px}
+.gl span:first-child{font-size:17px;color:var(--text);font-weight:500;width:80px;flex:none}
+</style></head><body>
+<div class="topbar">
+ <div class="nav">&lt;</div><div class="nav dim">&gt;</div>
+ <div class="club">Anvil Street Gym</div>
+ <div class="date"><b>Mon 12 Jan 2026</b><br>Week 2</div>
+ <div class="btn2 tb" style="left:594px;width:100px">&#9679;&nbsp; Gym</div>
+ <div class="btn2 tb" style="left:712px;padding:0 16px">Mail (5 new)</div>
+ <div class="chip" style="left:868px;background:var(--needs);color:var(--page)">&#9888; APPROACHED</div>
+ <div class="btn2 chip" style="left:1024px;height:34px;top:22px;line-height:16px;padding:0 6px">WEEK REVIEW</div>
+ <div class="cash"><b>$40,291</b><br><span>running <span style="color:var(--badw)">&#9660; &minus;$580</span> a week</span></div>
+ <div class="needs" style="left:1580px;width:268px"><b>NEEDS YOU (2)</b><br>A fighter is waiting at reception</div>
+ <div class="btn2 tb" style="left:1858px;width:58px;padding:0;text-align:center;font-size:15px">Menu</div>
+</div>
+<div class="tabs" style="top:102px"><div class="tab on">Overview</div><div class="tab">Training</div><div class="tab">Playbook</div><div class="tab">History</div></div>
+
+<div class="wf" style="left:28px;top:158px;width:1884px;height:107px"><div class="slate">
+ <h3>NEXT STEP</h3>
+ <div style="font-size:20px;margin-top:6px">Nationals ready: Too young for Elite (19+) - entries close in 63 days</div>
+</div></div>
+
+<div class="name">KIRA MENSAH</div>
+<div class="facts">Featherweight, 18, orthodox, amateur 1-0<br><span style="color:var(--muted)">Unranked: 3 wins from entering.</span></div>
+<div class="meter" style="top:418px"><span class="lab">TIREDNESS</span><span class="pips"><b style="background:var(--goodb)"></b><b style="background:var(--goodb)"></b><b></b><b></b><b></b></span><span style="font-size:26px;color:var(--goodw);margin-left:14px">40</span><span style="font-weight:600">Fresh</span></div>
+<div class="meter" style="top:448px"><span class="lab">LOYALTY</span><span class="pips"><b style="background:var(--needs)"></b><b style="background:var(--needs)"></b><b></b><b></b><b></b></span><span style="margin-left:14px;font-weight:600">31 - Wavering</span></div>
+<svg class="ring" viewBox="0 0 128 128"><circle cx="64" cy="64" r="54" fill="var(--page)" stroke="var(--tile)" stroke-width="12"/><circle cx="64" cy="64" r="54" fill="none" stroke="var(--header)" stroke-width="12" stroke-dasharray="193 340" transform="rotate(-90 64 64)"/><text x="64" y="68" text-anchor="middle" font-family="Barlow" font-weight="700" font-size="38" fill="var(--text)">57</text><text x="64" y="90" text-anchor="middle" font-family="Barlow" font-size="14" fill="var(--muted)">OF 100</text></svg>
+<div class="fig"></div>
+
+<div class="wf offer"><div class="slate">
+ <h4>&#9888; EASTSIDE ABC WANTS KIRA MENSAH</h4>
+ <div style="font-size:18px;font-weight:600;margin-top:4px">Full time: Eastside's backers pay the keep. Answer by Mon 19 Jan: no answer and the boxer goes.</div>
+ <div style="display:flex;justify-content:space-between;align-items:center;margin-top:2px"><span style="font-size:17px;color:var(--muted)">Tell it straight first (free): lands about 8 in 10. Landed, HALF EACH counts in full; failed, loyalty &minus;4 and HALF EACH goes.</span><span class="btn2" style="padding:0 4px;line-height:16px;font-size:15px">Tell it straight</span></div>
+ <div class="opts">
+  <div><div class="btn2">MATCH IT</div><p>Cost: <b>$3,000 over 12 weeks</b><br>Loyalty in 12 weeks: <b>43</b> (Wavering)</p></div>
+  <div><div class="btn2">HALF EACH</div><p>Cost: <b>nothing</b><br>Loyalty in 12 weeks: <b>37</b> (Wavering)<br>Team-mate on the stipend: 60<br>Training: 93% for both</p></div>
+  <div><div class="btn2">MOVE THE STIPEND</div><p>Cost: <b>nothing</b><br>Loyalty in 12 weeks: <b>43</b> (Wavering)<br>Team-mate on the stipend: 43<br>The team-mate takes a day job</p></div>
+  <div><div class="btn2">PROMISE: OUR SHOW</div><p>Cost: <b>$3,500 (the show)</b><br>Loyalty in 12 weeks: <b>39</b> (Wavering)</p></div>
+  <div><div class="btn2">LET THEM GO</div><p>Cost: <b>nothing</b><br>Leaves next Monday</p></div>
+ </div>
+</div></div>
+
+<div class="wf attrs"><div class="slate">
+ <h3>ATTRIBUTES</h3>
+ <div class="cols" id="cols"></div>
+ <div class="legend">Pips = band:<span><i class="pip" style="background:var(--badb)"></i>1 Weak</span><span><i class="pip" style="background:var(--needs)"></i>2 Fair</span><span><i class="pip" style="background:var(--accent)"></i>3 Solid</span><span><i class="pip" style="background:var(--goodb)"></i>4 Strong</span><span><i class="pip" style="background:var(--elite)"></i>5 Elite</span><span>&nbsp;White slash = ceiling 86</span></div>
+</div></div>
+
+<div class="wf glance"><div class="slate">
+ <h3>AT A GLANCE</h3>
+ <div class="gl" style="border-color:var(--goodb)"><span>Best</span><span>Coachability, Speed</span></div>
+ <div class="gl" style="border-color:var(--needs)"><span>Work on</span><span>Heart, Durability</span></div>
+ <div class="gl" style="border-color:var(--goodb)"><span style="width:118px">Room to grow</span><span>A lot</span></div>
+ <div class="gl" style="border-color:var(--goodb)"><span>In the ring</span><span>Stays at range, busy, tires faster</span></div>
+ <div class="gl" style="border-color:var(--accent)"><span>Style</span><span>Out-boxer</span></div>
+</div></div>
+
+<script>
+const B={1:'var(--badb)',2:'var(--needs)',3:'var(--accent)',4:'var(--goodb)',5:'var(--elite)'};
+function band(v){return v>=80?5:v>=62?4:v>=55?3:v>=45?2:1}
+const cols=[
+ ['BODY',[['&#9711;','Strength',55,3],['&#8623;','Explosiveness',52,2],['&#8623;','Speed',66,4],['&#9825;','Stamina',54,2,'From round 3: fights 1.36 weaker; Stamina 60 stops it'],['&#8635;','Recovery',62,3],['&#9711;','Flexibility',55,3],['&#9711;','Durability',52,2]]],
+ ['BOXING SKILLS',[['&#9678;','Accuracy',58,3],['&#8623;','Timing',60,3],['&#9711;','Defence',57,3],['&#9711;','Footwork',58,3],['&#9711;','Inside fighting',52,2]]],
+ ['MIND',[['&#9711;','Fight IQ',54,2],['&#9711;','Composure',59,3],['&#9825;','Heart',36,1],['&#9711;','Discipline',64,3,'Disciplined: the truth works: +1.2, not +0.3'],['&#8599;','Confidence',58,3,'Confident: a hard talk never sinks the next round'],['&#9711;','Coachability',84,5],['&#9711;','Temper',null,0]]]];
+let h='';
+for(const [t,rows] of cols){h+='<div><h5>'+t+'</h5>';
+ for(const [ic,n,v,b,note] of rows){
+  if(v===null){h+='<div class="at"><span class="ic">'+ic+'</span><span class="nm">'+n+'</span><span style="border:2px solid var(--goodb);border-radius:4px;padding:1px 10px;font-size:15px;font-weight:700">Patient</span></div>';continue}
+  let p='';for(let i=1;i<=5;i++)p+='<b'+(i<=b?' style="background:'+B[b]+'"':'')+'></b>';
+  h+='<div class="at"><span class="ic">'+ic+'</span><span class="nm">'+n+'</span><span class="pips">'+p+'<s></s></span><span class="num">'+v+'</span></div>';
+  if(note)h+='<div class="note">'+note+'</div>';}
+ h+='</div>';}
+document.getElementById('cols').innerHTML=h;
+</script>
+</body></html>

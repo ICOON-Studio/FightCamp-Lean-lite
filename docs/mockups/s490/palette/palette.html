@@ -1,0 +1,154 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Gym Palette</title>
+<style>
+@font-face{font-family:Barlow;src:url(../../../../assets/fonts/Barlow-Regular.ttf)}
+@font-face{font-family:Barlow;font-weight:600;src:url(../../../../assets/fonts/Barlow-SemiBold.ttf)}
+@font-face{font-family:Barlow;font-weight:700;src:url(../../../../assets/fonts/Barlow-Bold.ttf)}
+@font-face{font-family:Marker;src:url(../../../../assets/fonts/PermanentMarker-Regular.ttf)}
+:root{--page:#1a1512;--card:#242728;--tile:#353635;--hover:#2b241d;--frame:#4c362a;--line:#4c4b45;--text:#eee2ce;--muted:#b1a084;
+--header:#e6bd55;--accent:#6fa0e6;--goodw:#2cb56f;--badw:#ff7a66;--main:#991d1c;--needs:#cf9245;--secondary:#442f24;--tab:#c8a585;
+--goodb:#239058;--badb:#df4639;--elite:#b08eea}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:var(--page);color:var(--text);font-family:Barlow,sans-serif}
+.top{height:84px;display:flex;align-items:center;gap:28px;padding:0 28px;border-bottom:3px solid var(--frame)}
+.top h1{font-family:Marker;font-weight:400;font-size:40px;color:var(--text)}
+.top .sub{font-size:19px;color:var(--muted);line-height:1.3}
+.top .sub b{color:var(--header)}
+.top .count{margin-left:auto;text-align:right;font-size:17px;color:var(--muted)}
+.top .count b{font-size:30px;color:var(--header);display:block;line-height:1}
+.main{display:flex;gap:20px;padding:14px 20px 0 20px}
+.grid{width:1372px}
+.row{margin-bottom:10px}
+.row h2{font-size:15px;letter-spacing:2px;text-transform:uppercase;color:var(--header);margin:0 0 6px 2px;font-weight:700}
+.row h2 span{color:var(--muted);letter-spacing:0;text-transform:none;font-weight:400;margin-left:10px}
+.cells{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+.c{background:var(--card);border:1px solid var(--line);border-radius:6px;overflow:hidden;height:212px;display:flex;flex-direction:column}
+.sw{height:66px;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700;position:relative}
+.sw .n{position:absolute;left:6px;top:5px;width:20px;height:20px;border-radius:10px;background:var(--page);color:var(--header);font-size:12px;display:flex;align-items:center;justify-content:center;border:1px solid var(--header)}
+.meta{padding:6px 9px 0 9px;flex:1}
+.nm{font-size:17px;font-weight:700;color:var(--text);display:flex;justify-content:space-between;align-items:baseline}
+.nm code{font-family:Barlow;font-weight:600;font-size:15px;color:var(--header)}
+.job{font-size:13.5px;color:var(--muted);line-height:1.25;margin-top:2px;min-height:34px}
+.ratio{font-size:13px;color:var(--text);margin-top:3px}
+.ratio i{font-style:normal;color:var(--goodw);font-weight:700}
+.ratio em,.box em{font-style:normal;color:var(--badw);font-weight:700}
+.strip{height:38px;background-size:cover;background-position:center;border-top:1px solid var(--line)}
+.strip.none{display:flex;align-items:center;justify-content:center;font-size:12.5px;color:var(--muted);background:var(--page)}
+.side{width:488px}
+.box{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:8px 12px;margin-bottom:8px}
+.box h3{font-size:15px;letter-spacing:2px;text-transform:uppercase;color:var(--header);margin-bottom:6px}
+.box p{font-size:14px;line-height:1.35;color:var(--text)}
+.box p.m{color:var(--muted)}
+.thumb{position:relative;width:464px;height:261px;background:url(img/gym_src.png) 0 0/464px 261px;border:1px solid var(--frame)}
+.dot{position:absolute;width:16px;height:16px;margin:-8px 0 0 -8px;border-radius:8px;background:var(--header);color:var(--page);font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 2px var(--page)}
+.cb{display:grid;grid-template-columns:86px repeat(7,1fr);gap:3px;font-size:12px;color:var(--muted);align-items:center}
+.cb div.s{height:19px;border-radius:3px}
+.cb .lab{font-size:12.5px;color:var(--text)}
+.nn{display:grid;grid-template-columns:86px repeat(3,1fr);gap:3px;font-size:12px;color:var(--muted);align-items:center}
+.nn div.s{height:20px;border-radius:3px;font-size:11px;color:var(--page);text-align:center;line-height:20px;font-weight:700}
+.nn .lab{font-size:12.5px;color:var(--text)}
+.nn .cue{font-size:12px;color:var(--text);line-height:1.2}
+.chip{display:inline-flex;gap:2px;vertical-align:middle;margin-right:6px}
+.chip b{width:7px;height:16px;transform:skewX(-14deg);border-radius:1px;background:var(--page);box-shadow:inset 0 0 0 1px var(--line)}
+.chip b[style]{box-shadow:0 0 0 1px var(--page)}
+.ex{font-size:15px;font-weight:700;margin:2px 0}
+.bands{display:flex;flex-direction:column;gap:4px;margin-top:4px;font-size:13px}
+.bandrow{display:flex;align-items:center}
+.bandrow span.w{width:62px;color:var(--text);font-weight:600}
+.bandrow span.t{color:var(--muted);margin-left:8px}
+</style></head><body>
+<div class="top">
+  <h1>Gym Palette</h1>
+  <div class="sub">Every menu colour, picked from the <b>main gym screen</b> (the master look, unchanged).<br>One value per job. Numbers are contrast ratios (WCAG; words need 4.5:1, bars and edges 3:1). Wood, slate and buttons stay the game's own textures.</div>
+  <div class="count"><b>19 colours + 3 shade rules</b>replace about 280 in 136 files</div>
+</div>
+<div class="main">
+<div class="grid">
+
+<div class="row"><h2>Surfaces <span>what things sit on</span></h2><div class="cells">
+ <div class="c"><div class="sw" style="background:var(--page)"><span class="n">1</span>Text 14.1</div><div class="meta"><div class="nm">Page / top bar<code>#1a1512</code></div><div class="job">Behind everything, the top bar, empty tracks and pip slots.</div><div class="ratio">text <i>14.1</i> · muted <i>7.1</i></div></div><div class="strip" style="background-image:url(img/strip_page.png)"></div></div>
+ <div class="c"><div class="sw" style="background:var(--card)"><span class="n">2</span>Text 11.8</div><div class="meta"><div class="nm">Card background<code>#242728</code></div><div class="job">The slate inside every wood frame. Main panel.</div><div class="ratio">text <i>11.8</i> · muted <i>5.9</i></div></div><div class="strip" style="background-image:url(img/strip_card.png)"></div></div>
+ <div class="c"><div class="sw" style="background:var(--tile)"><span class="n">3</span>Text 9.5</div><div class="meta"><div class="nm">Tile / row<code>#353635</code></div><div class="job">A box or row inside a card (wage, net, to sign).</div><div class="ratio">text <i>9.5</i> · muted <i>4.8</i></div></div><div class="strip" style="background-image:url(img/strip_tile.png)"></div></div>
+ <div class="c"><div class="sw" style="background:var(--hover)"><span class="n">4</span>Text 12.0</div><div class="meta"><div class="nm">Hover card / message<code>#2b241d</code></div><div class="job">Hover labels, tips, bottom message (was navy-ink paper).</div><div class="ratio">text <i>12.0</i> · muted <i>6.0</i></div></div><div class="strip" style="background-image:url(img/strip_hover.png)"></div></div>
+ <div class="c"><div class="sw" style="background:var(--frame)"><span class="n">5</span>Text 8.8</div><div class="meta"><div class="nm">Wood frame<code>#4c362a</code></div><div class="job">Frames (the wood texture), thick dividers.</div><div class="ratio">edge only, never behind words</div></div><div class="strip" style="background-image:url(img/strip_frame.png)"></div></div>
+ <div class="c"><div class="sw" style="background:var(--card)"><span class="n">6</span><span style="width:150px;height:44px;border:2px solid var(--line);border-radius:3px"></span></div><div class="meta"><div class="nm">Line<code>#4c4b45</code></div><div class="job">Thin tile edges, table rules, the rim of a track. Never a bar's track.</div><div class="ratio">decoration: never the only edge of a button</div></div><div class="strip" style="background-image:url(img/strip_line.png)"></div></div>
+</div></div>
+
+<div class="row"><h2>Words <span>every ratio measured on the card (2) and on a tile (3)</span></h2><div class="cells">
+ <div class="c"><div class="sw" style="background:var(--card);color:var(--text)"><span class="n">7</span>Coaching, Speed</div><div class="meta"><div class="nm">Text<code>#eee2ce</code></div><div class="job">All words and numbers. Names in the marker font.</div><div class="ratio">card <i>11.8</i> · tile <i>9.5</i></div></div><div class="strip" style="background-image:url(img/strip_text.png)"></div></div>
+ <div class="c"><div class="sw" style="background:var(--card);color:var(--muted)"><span class="n">8</span>wage a week</div><div class="meta"><div class="nm">Muted text<code>#b1a084</code></div><div class="job">Labels under a number, "Versus no coach", hints.</div><div class="ratio">card <i>5.9</i> · tile <i>4.8</i></div></div><div class="strip" style="background-image:url(img/strip_muted.png)"></div></div>
+ <div class="c"><div class="sw" style="background:var(--card);color:var(--header);font-size:21px"><span class="n">9</span>$17,200</div><div class="meta"><div class="nm">Header / money<code>#e6bd55</code></div><div class="job">Card headers (ATTRIBUTES, NEXT STEP), cash, the 0-100 ring.</div><div class="ratio">card <i>8.4</i> · tile <i>6.8</i></div></div><div class="strip" style="background-image:url(img/strip_header.png)"></div></div>
+ <div class="c"><div class="sw" style="background:var(--card);color:var(--accent);font-family:Marker;font-weight:400;font-size:20px"><span class="n">10</span>Anvil Street</div><div class="meta"><div class="nm">Accent / your side<code>#6fa0e6</code></div><div class="job">Club name, links, your corner, your edits (&#9998;).</div><div class="ratio">card <i>5.6</i> · tile <i>4.5</i> <span style="color:var(--muted)">(gym #6d9fe6, +1%)</span></div></div><div class="strip" style="background-image:url(img/strip_accent.png)"></div></div>
+ <div class="c"><div class="sw" style="background:var(--card);color:var(--goodw)"><span class="n">11</span>&#9650; +$350 classes</div><div class="meta"><div class="nm">Good / gained<code>#2cb56f</code></div><div class="job">Words for a gain. Always with &#9650; or a + sign.</div><div class="ratio">card <i>5.7</i> · tile <i>4.6</i> <span style="color:var(--muted)">(gym's #239058: tile <em>3.0</em>)</span></div></div><div class="strip" style="background-image:url(img/strip_goodw.png)"></div></div>
+ <div class="c"><div class="sw" style="background:var(--card);color:var(--badw)"><span class="n">12</span>&#9660; &minus;$100 net</div><div class="meta"><div class="nm">Bad / lost<code>#ff7a66</code></div><div class="job">Words for a loss, a risk, a cost. Always with &#9660; or a &minus; sign.</div><div class="ratio">card <i>5.9</i> · tile <i>4.8</i> <span style="color:var(--muted)">(gym's #df4639: tile <em>2.9</em>)</span></div></div><div class="strip" style="background-image:url(img/strip_badw.png)"></div></div>
+</div></div>
+
+<div class="row"><h2>Buttons and bars</h2><div class="cells">
+ <div class="c"><div class="sw" style="background:var(--card)"><span class="n">13</span><span style="background:var(--main);color:var(--text);padding:8px 40px;border-radius:4px;box-shadow:inset 0 1px 0 #c0403a,inset 0 -2px 0 #5e1010">Hire</span></div><div class="meta"><div class="nm">Main action<code>#991d1c</code></div><div class="job">The one red wood button a card (Hire, Sign, Book).</div><div class="ratio">text on it <i>6.4</i></div></div><div class="strip" style="background-image:url(img/strip_main.png)"></div></div>
+ <div class="c"><div class="sw" style="background:var(--card)"><span class="n">14</span><span style="background:var(--needs);color:var(--page);padding:8px 18px;border-radius:4px">NEEDS YOU (1)</span></div><div class="meta"><div class="nm">Needs you / warning<code>#cf9245</code></div><div class="job">Waits on you, a deadline, a limit. Always with &#9888;.</div><div class="ratio">dark text on it <i>6.8</i> · as words <i>5.6</i></div></div><div class="strip" style="background-image:url(img/strip_needs.png)"></div></div>
+ <div class="c"><div class="sw" style="background:var(--card)"><span class="n">15</span><span style="background:var(--secondary);color:var(--text);padding:8px 40px;border-radius:4px;border:1px solid #6a4a36">Hire</span></div><div class="meta"><div class="nm">Second button<code>#442f24</code></div><div class="job">Dark wood: every other button, tabs not chosen.</div><div class="ratio">text on it <i>9.8</i></div></div><div class="strip" style="background-image:url(img/strip_secondary.png)"></div></div>
+ <div class="c"><div class="sw" style="background:var(--card)"><span class="n">16</span><span style="background:var(--tab);color:var(--page);padding:8px 14px;border-radius:4px;font-weight:700">People</span><span style="position:relative;margin-left:14px;width:70px;height:40px;background:var(--tile);outline:3px solid var(--tab);outline-offset:-1px"><span style="position:absolute;right:-1px;top:-1px;width:18px;height:18px;background:var(--tab);color:var(--page);font-size:12px;line-height:18px;text-align:center;border-radius:0 0 0 6px">&#10003;</span></span></div><div class="meta"><div class="nm">Chosen / selected<code>#c8a585</code></div><div class="job">Tab or option you are on. A chosen card or day: 3 px edge + &#10003;.</div><div class="ratio">dark text on it <i>7.9</i> · edge vs card <i>6.6</i></div></div><div class="strip" style="background-image:url(img/strip_tab.png)"></div></div>
+ <div class="c"><div class="sw" style="background:var(--card)"><span class="n">17</span><span style="width:170px;height:10px;border-radius:5px;background:linear-gradient(90deg,var(--goodb) 70%,var(--page) 70%);box-shadow:inset 0 0 0 1px var(--line)"></span></div><div class="meta"><div class="nm">Good bar<code>#239058</code></div><div class="job">Good fills. Strong band. Its track is Page (1).</div><div class="ratio">card <i>3.7</i> · track <i>4.5</i> <span style="color:var(--muted)">(gym's track: <em>2.2</em>)</span></div></div><div class="strip" style="background-image:url(img/strip_goodb.png)"></div></div>
+ <div class="c"><div class="sw" style="background:var(--card)"><span class="n">18</span><span style="width:170px;height:10px;border-radius:5px;background:linear-gradient(90deg,var(--badb) 35%,var(--page) 35%);box-shadow:inset 0 0 0 1px var(--line)"></span></div><div class="meta"><div class="nm">Bad bar<code>#df4639</code></div><div class="job">Bad or hurt fills. Weak band. Its track is Page (1).</div><div class="ratio">card <i>3.6</i> · track <i>4.4</i> <span style="color:var(--muted)">(gym's track: <em>2.1</em>)</span></div></div><div class="strip" style="background-image:url(img/strip_badw.png)"></div></div>
+</div></div>
+
+<div class="row"><h2>Attribute bands <span>number in Text, band shown by colour AND by how many pips are lit</span></h2><div class="cells">
+ <div class="c"><div class="sw" style="background:var(--card)"><span class="chip"><b style="background:var(--badb)"></b><b></b><b></b><b></b><b></b></span><span style="font-size:24px">36</span></div><div class="meta"><div class="nm">Weak<code>#df4639</code></div><div class="job">1 pip. Same as Bad bar (18). Lit pips: 1 px Page outline.</div><div class="ratio">card <i>3.6</i> · tile <em>2.9</em> · outline <i>4.4</i></div></div><div class="strip none">move tier: Unlearned = Line (6)</div></div>
+ <div class="c"><div class="sw" style="background:var(--card)"><span class="chip"><b style="background:var(--needs)"></b><b style="background:var(--needs)"></b><b></b><b></b><b></b></span><span style="font-size:24px">52</span></div><div class="meta"><div class="nm">Fair<code>#cf9245</code></div><div class="job">2 pips. Same as Needs you (14).</div><div class="ratio">card <i>5.6</i> · tile <i>4.5</i> · outline <i>6.8</i></div></div><div class="strip none">move tier: Raw</div></div>
+ <div class="c"><div class="sw" style="background:var(--card)"><span class="chip"><b style="background:var(--accent)"></b><b style="background:var(--accent)"></b><b style="background:var(--accent)"></b><b></b><b></b></span><span style="font-size:24px">58</span></div><div class="meta"><div class="nm">Solid<code>#6fa0e6</code></div><div class="job">3 pips. Same as Accent (10).</div><div class="ratio">card <i>5.6</i> · tile <i>4.5</i> · outline <i>6.8</i></div></div><div class="strip none">move tier: Usable (was green)</div></div>
+ <div class="c"><div class="sw" style="background:var(--card)"><span class="chip"><b style="background:var(--goodb)"></b><b style="background:var(--goodb)"></b><b style="background:var(--goodb)"></b><b style="background:var(--goodb)"></b><b></b></span><span style="font-size:24px">66</span></div><div class="meta"><div class="nm">Strong<code>#239058</code></div><div class="job">4 pips. Same as Good bar (17).</div><div class="ratio">card <i>3.7</i> · tile <em>3.0</em> · outline <i>4.5</i></div></div><div class="strip none">move tier: Sharp (was blue)</div></div>
+ <div class="c"><div class="sw" style="background:var(--card)"><span class="n">19</span><span class="chip"><b style="background:var(--elite)"></b><b style="background:var(--elite)"></b><b style="background:var(--elite)"></b><b style="background:var(--elite)"></b><b style="background:var(--elite)"></b></span><span style="font-size:24px">84</span></div><div class="meta"><div class="nm">Elite<code>#b08eea</code></div><div class="job">5 pips. Not on the gym: matched to the blue.</div><div class="ratio">card <i>5.7</i> · tile <i>4.6</i> · outline <i>6.8</i></div></div><div class="strip none">move tier: Signature</div></div>
+ <div class="c" style="padding:10px 11px"><div class="nm" style="margin-bottom:6px">One ladder, one order</div><p style="font-size:13.5px;line-height:1.35;color:var(--muted)">Red, amber, blue, green, purple, low to high, everywhere: attributes, move tiers, body bands. Today the fighter Overview uses other values for 4 of the 5 bands, and move tiers put green below blue.</p></div>
+</div></div>
+
+</div>
+
+<div class="side">
+ <div class="box"><h3>Where each was picked</h3>
+  <div class="thumb" style="height:236px;background-size:464px 261px">
+   <div class="dot" style="left:91px;top:10px">1</div>
+   <div class="dot" style="left:388px;top:67px">2</div>
+   <div class="dot" style="left:151px;top:174px">3</div>
+   <div class="dot" style="left:250px;top:226px">4</div>
+   <div class="dot" style="left:84px;top:54px">5</div>
+   <div class="dot" style="left:395px;top:174px">6</div>
+   <div class="dot" style="left:75px;top:140px">7</div>
+   <div class="dot" style="left:85px;top:110px">8</div>
+   <div class="dot" style="left:385px;top:10px">9</div>
+   <div class="dot" style="left:65px;top:10px">10</div>
+   <div class="dot" style="left:160px;top:176px">11</div>
+   <div class="dot" style="left:187px;top:174px">12</div>
+   <div class="dot" style="left:150px;top:206px">13</div>
+   <div class="dot" style="left:440px;top:10px">14</div>
+   <div class="dot" style="left:68px;top:223px">15</div>
+   <div class="dot" style="left:51px;top:35px">16</div>
+   <div class="dot" style="left:155px;top:117px">17</div>
+  </div>
+  <p class="m" style="margin-top:6px">S480 gym staff screen. 11 = the green "+$350", 18 = the red of "&minus;$740", 19 = not on this screen.</p>
+ </div>
+ <div class="box"><h3>Colour-blind safe</h3>
+  <p>Good and bad never rely on colour alone:</p>
+  <div class="ex"><span style="color:var(--goodw)">&#9650; +$350 evening classes</span> &nbsp; <span style="color:var(--badw)">&#9660; &minus;$100 net a week</span></div>
+  <p class="m" style="margin:3px 0 6px">Arrow and sign carry the meaning; colour repeats it. Bands carry 1 to 5 lit pips. Red and green turn olive for deuteranopes, and good and bad words are the same grey (L* 66 / 67).</p>
+  <div class="cb">
+   <span></span><span>good</span><span>bad</span><span>weak</span><span>fair</span><span>solid</span><span>strong</span><span>elite</span>
+   <span class="lab">Normal</span><div class="s" style="background:#2cb56f"></div><div class="s" style="background:#ff7a66"></div><div class="s" style="background:#df4639"></div><div class="s" style="background:#cf9245"></div><div class="s" style="background:#6fa0e6"></div><div class="s" style="background:#239058"></div><div class="s" style="background:#b08eea"></div>
+   <span class="lab">Deuteranope</span><div class="s" style="background:#a49a74"></div><div class="s" style="background:#bcad63"></div><div class="s" style="background:#988933"></div><div class="s" style="background:#b5a447"></div><div class="s" style="background:#7699e5"></div><div class="s" style="background:#827b5c"></div><div class="s" style="background:#7d9ee8"></div>
+   <span class="lab">Protanope</span><div class="s" style="background:#b4a66a"></div><div class="s" style="background:#9b9064"></div><div class="s" style="background:#726736"></div><div class="s" style="background:#a7963d"></div><div class="s" style="background:#84a4e9"></div><div class="s" style="background:#8f8454"></div><div class="s" style="background:#769eed"></div>
+   <span class="lab">Tritanope</span><div class="s" style="background:#00b3a3"></div><div class="s" style="background:#ff6276"></div><div class="s" style="background:#f51044"></div><div class="s" style="background:#e18381"></div><div class="s" style="background:#31b0b9"></div><div class="s" style="background:#008f82"></div><div class="s" style="background:#a59db1"></div>
+  </div>
+ </div>
+ <div class="box"><h3>Near neighbours: gold, amber, tan</h3>
+  <div class="nn"><span></span><span>Header gold</span><span>Needs you / Fair</span><span>Chosen tan</span>
+   <span class="lab">Normal</span><div class="s" style="background:#e6bd55"></div><div class="s" style="background:#cf9245"></div><div class="s" style="background:#c8a585"></div>
+   <span class="lab">Grey</span><div class="s" style="background:#c2c2c2">L* 78</div><div class="s" style="background:#9e9e9e">L* 65</div><div class="s" style="background:#ababab">L* 70</div>
+   <span class="lab">Deuteranope</span><div class="s" style="background:#dbc759"></div><div class="s" style="background:#b5a447"></div><div class="s" style="background:#b9ae86"></div>
+   <span class="lab">Its cue</span><span class="cue">words, numbers, the ring</span><span class="cue">&#9888; sign, or 2 pips</span><span class="cue">3 px edge + &#10003;</span></div>
+  <p class="m" style="margin-top:4px">Five became three: selection left gold. Amber and tan are 4.9 L* apart in grey, so neither is told by colour alone.</p>
+ </div>
+ <div class="box"><h3>Four spots on the gym screen below the bar</h3>
+  <p class="m">Green "+$350" <em>3.0</em> and red "&minus;$100" <em>2.9</em> on their tiles ("Best at" 3.7 on the card; words need 4.5). White on amber NEEDS YOU <em>2.7</em>. Green "Best at" bar on its track <em>2.2</em> (bars need 3). Changing the gym itself is your call.</p>
+ </div>
+</div>
+</div>
+</body></html>

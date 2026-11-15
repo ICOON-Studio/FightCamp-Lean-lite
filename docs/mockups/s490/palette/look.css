@@ -1,0 +1,56 @@
+/* The proposed palette as tokens (docs/mockups/s490/palette/README.md). Shared by the recoloured mockups.
+   Rule: the 19 tokens below are the ONLY hex values. Every other shade is one of three named shade rules of a token,
+   and wood, slate, buttons and the backdrop are the game's own textures (WoodKit, MenuFx), never a colour. */
+@font-face{font-family:Barlow;src:url(../../../../assets/fonts/Barlow-Regular.ttf)}
+@font-face{font-family:Barlow;font-weight:500;src:url(../../../../assets/fonts/Barlow-Medium.ttf)}
+@font-face{font-family:Barlow;font-weight:600;src:url(../../../../assets/fonts/Barlow-SemiBold.ttf)}
+@font-face{font-family:Barlow;font-weight:700;src:url(../../../../assets/fonts/Barlow-Bold.ttf)}
+@font-face{font-family:Marker;src:url(../../../../assets/fonts/PermanentMarker-Regular.ttf)}
+@font-face{font-family:Kalam;src:url(../../../../assets/fonts/Kalam-Regular.ttf)}
+:root{--page:#1a1512;--card:#242728;--tile:#353635;--hover:#2b241d;--frame:#4c362a;--line:#4c4b45;--text:#eee2ce;--muted:#b1a084;
+--header:#e6bd55;--accent:#6fa0e6;--goodw:#2cb56f;--badw:#ff7a66;--main:#991d1c;--needs:#cf9245;--secondary:#442f24;--tab:#c8a585;
+--goodb:#239058;--badb:#df4639;--elite:#b08eea;
+/* the three shade rules (Godot: PAGE with alpha, x.lerp(PAGE, 0.4), x.lightened(0.15)) */
+--shadow:color-mix(in srgb,var(--page) 60%,transparent);
+--dim:color-mix(in srgb,var(--page) 50%,transparent);
+--sunk-accent:color-mix(in srgb,var(--accent),var(--page) 40%)}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden;color:var(--text);font-family:Barlow,sans-serif;position:relative;
+ background:linear-gradient(var(--dim),var(--dim)),url(../../../../assets/ui/art/gym_backdrop.jpg) center/cover var(--page)}
+body>*{position:absolute}
+/* the plank top bar (WoodKit.bar) */
+.topbar{left:0;top:0;width:1920px;height:78px;background:url(../../../../assets/ui/wood/bar.png) 0 0/100% 100%;box-shadow:0 3px 8px var(--shadow)}
+.topbar>*{position:absolute}
+/* wooden buttons: plank = TBtn/Btn, tab = Tab, tab_on = TabOn (chosen), red = BtnSolid (main action). 9 px corners, as WoodKit.EDGE */
+.btn2,.nav{border:9px solid transparent;border-image:url(../../../../assets/ui/wood/plank.png) 9 fill / 9px stretch;color:var(--text);font-weight:700;text-align:center}
+.nav{left:18px;top:20px;width:36px;height:38px;line-height:20px;font-size:20px;padding:0}
+.nav.dim{left:66px;opacity:.45}
+.club{left:118px;top:20px;font-family:Marker;font-size:30px;color:var(--accent)}
+.date{left:402px;top:18px;font-size:14px;color:var(--muted);line-height:22px}
+.date b{font-size:18px;color:var(--text);font-weight:600}
+.tb{top:17px;height:44px;line-height:26px;padding:0 13px;font-size:18px}
+.chip{top:24px;height:30px;line-height:30px;padding:0 12px;border-radius:3px;font-size:15px;font-weight:700;letter-spacing:.5px}
+.cash{right:356px;top:14px;text-align:right;font-size:15px;color:var(--muted);line-height:26px}
+.cash b{font-size:24px;color:var(--header)}
+.needs{top:12px;height:54px;background:var(--needs);border-radius:4px;color:var(--page);padding:6px 14px;font-size:15px;line-height:20px;box-shadow:0 2px 4px var(--shadow)}
+.needs b{font-size:18px}
+.tabs{left:28px;display:flex;gap:10px}
+.tab{height:40px;line-height:22px;padding:0 6px;font-size:17px;font-weight:700;border:9px solid transparent;border-image:url(../../../../assets/ui/wood/tab.png) 9 fill / 9px stretch;color:var(--text)}
+.tab.on{border-image-source:url(../../../../assets/ui/wood/tab_on.png);color:var(--page)}
+.main{border:9px solid transparent;border-image:url(../../../../assets/ui/wood/red.png) 9 fill / 9px stretch;color:var(--text);font-weight:700}
+/* the framed slate (WoodKit.slate, UI.theme "Card"): panel.png, 52 px corner kept unscaled */
+.wf{border:22px solid transparent;border-image:url(../../../../assets/ui/wood/panel.png) 52 fill / 52px stretch;filter:drop-shadow(0 4px 6px var(--shadow))}
+.slate{width:100%;height:100%;position:relative;padding:6px 8px}
+.slate h3{font-size:22px;font-weight:700;color:var(--header);letter-spacing:.4px}
+/* chosen / selected: tan, a 3 px edge AND a corner tick (never colour alone) */
+.sel{outline:3px solid var(--tab);outline-offset:-1px}
+.sel::after{content:"\2713";position:absolute;right:-1px;top:-1px;width:22px;height:22px;background:var(--tab);color:var(--page);font:700 15px/22px Barlow;text-align:center;border-radius:0 0 0 7px;z-index:3}
+/* band pips: 5 slots (an empty slot is sunk Page, like a bar track), lit ones in the band colour with a 1 px Page outline so they read >= 4.4:1 on a card or a tile */
+.pips{display:inline-flex;gap:3px;align-items:center}
+.pips b{display:block;width:8px;height:20px;transform:skewX(-14deg);background:var(--page);border-radius:1px;box-shadow:inset 0 0 0 1px var(--line)}
+.pips b[style]{box-shadow:0 0 0 1px var(--page)}
+.pips s{display:block;width:3px;height:24px;background:var(--text);transform:skewX(-20deg);margin-left:3px}
+i.pip{display:inline-block;width:8px;height:14px;transform:skewX(-14deg);box-shadow:0 0 0 1px var(--page)}
+/* a bar: track = Page (sunk), fill = good/bad/accent; the fill-to-track edge is >= 4.4:1 */
+.bar{position:relative;display:inline-block;height:10px;background:var(--page);border-radius:5px;overflow:hidden;box-shadow:inset 0 0 0 1px var(--line)}
+.bar>i{position:absolute;left:0;top:0;bottom:0;border-radius:5px}

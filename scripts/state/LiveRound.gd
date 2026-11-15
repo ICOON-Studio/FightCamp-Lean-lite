@@ -32,17 +32,14 @@ const ReadBack := preload("res://scripts/rules/ReadBack.gd")
 const FireLevel := preload("res://scripts/rules/FireLevel.gd")
 const ProReadWire := preload("res://scripts/state/ProReadWire.gd")   # S462 INTEGRATE1 #5 pros get read
 const StyleName := preload("res://scripts/rules/StyleName.gd")   # S459 INTEGRATE1: the named style's levers
+const StyleLevers := preload("res://scripts/rules/StyleLevers.gd")   # S486 STYLE4: the three new levers
 const LineGrade := preload("res://scripts/rules/LineGrade.gd")   # GRADE1
 const CrackWire := preload("res://scripts/state/CrackWire.gd")   # S470 the corner's answer to a cracked rib
-const HABITS_PATH := "res://assets/data/fight_habits.json"
+const LivePreview := preload("res://scripts/state/LivePreview.gd")   # S490 LIVEROUNDSPLIT1
 
-## Her values a call is done with: the fight stats, her footwork and her personality.
+## Her values a call is done with (LivePreview holds it since S490).
 static func values(f: Dictionary) -> Dictionary:
-	var v: Dictionary = (f.get("stats", {}) as Dictionary).duplicate()
-	v.merge(f.get("personality", {}) as Dictionary)
-	v["footwork"] = float(f.get("footwork", v.get("speed", 55.0)))
-	v.merge(Attrs.of(f), true)   # S398 the attributes a call is done with (Exchanges.CALLS needs)
-	return v
+	return LivePreview.values(f)
 
 
 static func _rng(c: Career, f: Dictionary, n: int, i: int) -> RandomNumberGenerator:
@@ -136,52 +133,17 @@ static func opp_energy(lv: Dictionary, i: int) -> float:
 	return RingDuel.opp_energy(lv, i)
 
 
-## What the corner sees before the next exchange: {sit, clue, offers, coach, mark, grades {call: word}, at (seconds into
-## the round)}. With full film study (depth 3) the corner reads her NEXT game; without, the one she just showed. Our own
-## fighter's state is always seen. coach = the best call for what the corner sees (the clue's answer); mark = the call the
-## shout bar marks "coach's pick" (S310: the mark on every shout gave the answer away). Without film study there is no
-## mark - the player reads the clue. With it the coach marks the answer to the game her tapes show most
-## (Exchanges.favourite) or to our own fighter's state: right while she fights her usual way, wrong when she switches -
-## the clue, which shows what she does now, beats following the mark blindly.
+## S490 the corner's view, the set-up's NOW and the combo words live in LivePreview (file limits).
 static func preview(f: Dictionary, m: Dictionary) -> Dictionary:
-	var lv := live(m)
-	if lv.is_empty():
-		return {}
-	var i := (lv["ex"] as Array).size()
-	var opp: Dictionary = f["bout"]["opp"]
-	var seen := str(lv["mode"])
-	if int(f["bout"]["film"]) < BoutRules.FILM_DEPTH_WITH_STUDY and i > 0:
-		seen = str((lv["ex"][i - 1] as Dictionary)["mode"])
-	var sit := Exchanges.situation(seen, her_energy(lv, i), bool(lv["her_hurt"]))
-	var names := [str(f["first"]), str(opp["first"])]
-	var vals := values(f)
-	var coach := str(Exchanges.MODES[sit]["best"])
-	var mark := ""
-	if int(f["bout"]["film"]) >= BoutRules.FILM_DEPTH_WITH_STUDY:
-		var fav := Exchanges.favourite(str(opp.get("style", "")))
-		mark = str(Exchanges.MODES[Exchanges.situation(fav, her_energy(lv, i), bool(lv["her_hurt"]))]["best"])
-	var grades := {}
-	for k in Exchanges.CALLS.keys():
-		grades[k] = Exchanges.grade(str(k), vals)["word"]
-	return {"sit": sit, "clue": Exchanges.clue(sit, names, i + int(lv["n"]) * 3), "offers": Exchanges.offers(sit),
-		"coach": coach, "mark": mark, "grades": grades, "at": i * Exchanges.EX_SECONDS, "i": i,
-		"shouts": int(lv["shouts"]), "names": names, "now": now_offer(lv, sit), "read": read_view(f, seen),
-		"read_call": str(lv.get("read_call", "")),
-		"pace": str(lv.get("pace", "steady")), "aim": str(lv.get("aim", "")), "aims": PaceAim.offers(PaceAim.opp_hurt(lv, str(f.get("stance", "orthodox"))))}
+	return LivePreview.preview(f, m)
 
 
-## S310 the set-up's NOW button: {combo, gap, line} when the corner SEES the gap it waits for (seen = with film study her
-## next game, without it the one she just showed - so without film it can fire into a game she has left), else {}.
 static func now_offer(lv: Dictionary, sit_seen: String) -> Dictionary:
-	var su: Dictionary = lv.get("setup", {})
-	if su.is_empty() or str(su.get("used", "")) != "" or not CornerJobs.fits(str(su["gap"]), sit_seen):
-		return {}
-	return {"combo": str(su["combo"]), "gap": str(su["gap"]), "line": "NOW! %s!" % combo_words(str(su["combo"]))}
+	return LivePreview.now_offer(lv, sit_seen)
 
 
-## "Jab-Cross-Lead hook" for a combination id.
 static func combo_words(id: String) -> String:
-	return "-".join(PackedStringArray((Combos.row(id).get("moves", [id]) as Array).map(func(x): return str(x))))
+	return LivePreview.combo_words(id)
 
 
 ## Fights the next exchange with this shout ("" = say nothing; "now" = fire the set-up on the plan). Returns the closed
@@ -299,8 +261,10 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 			crng.randf(), crng.randf(), crng.randf())
 		d -= float(cl["edge"])
 	# S398 where this 30 s is fought and the duel there (its own dice, so the round's other rolls stay as they were).
-	var duel := RingDuel.step(f, opp, lv, call, str(lv["mode"]), her_energy(lv, i), opp_energy(lv, i), _rng(c, f, n, i + 91))
+	var prev_mode := str(lv["mode"])   # S488 STYLE5: read before RingDuel.step changes it
+	var duel := RingDuel.step(f, opp, lv, call, prev_mode, her_energy(lv, i), opp_energy(lv, i), _rng(c, f, n, i + 91))
 	d += float(duel["edge"])
+	d += StyleLevers.points(f, int(duel["place"]), prev_mode, pace, arrow)   # S488 STYLE5
 	var rng := _rng(c, f, n, i + 1)
 	var roll_a := rng.randf()
 	var roll_b := rng.randf()
@@ -459,25 +423,12 @@ static func close(f: Dictionary, m: Dictionary) -> Dictionary:
 		"hurt_at_bell": bool(exs[-1].get("after", {}).get("hurt", [false, false])[0]) if not exs.is_empty() else false}
 
 
-## The habits the corner can fix before the next round: [{id, name, paid (times this round)}]. r = the closed round.
 static func fixes(f: Dictionary, r: Dictionary) -> Array:
-	var out: Array = []
-	var paid: Dictionary = r.get("habits_paid", {})
-	for h in HabitFix.offers(f.get("habits", []), f.get("notes_seen", [])):
-		out.append({"id": h, "name": habit_name(h), "paid": int(paid.get(h, 0))})
-	return out
+	return LivePreview.fixes(f, r)
 
 
-static var _names := {}
-
-
-## A habit's name from Kalli's bank ("Drops the right after the jab"); the id when the bank lacks it.
 static func habit_name(id: String) -> String:
-	if _names.is_empty() and FileAccess.file_exists(HABITS_PATH):
-		var data: Variant = JSON.parse_string(FileAccess.get_file_as_string(HABITS_PATH))
-		for row in (data as Dictionary).get("habits", []) if data is Dictionary else []:
-			_names[str(row.get("id", ""))] = str(row.get("name", ""))
-	return str(_names.get(id, id.replace("_", " ").capitalize()))
+	return LivePreview.habit_name(id)
 
 
 ## Plays the rest of the open round with no shouts (the corner's plan). Returns the closed round.
