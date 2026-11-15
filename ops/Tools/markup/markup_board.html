@@ -34,8 +34,13 @@ h2{font:400 18px var(--d);letter-spacing:.08em;color:var(--text2);margin:6px 0 2
 .intent[aria-pressed=true] i{border-color:#111}
 kbd{margin-left:auto;font:700 10px var(--m);color:var(--muted)}
 .intent[aria-pressed=true] kbd{color:#222}
-.stage{position:relative;display:grid;place-items:center;background:radial-gradient(120% 90% at 50% 0%,#232b3c,#151a25 70%);overflow:hidden;padding:16px}
-canvas{max-width:100%;max-height:100%;box-shadow:0 10px 30px rgba(0,0,0,.5);touch-action:none;cursor:crosshair}
+.stage{position:relative;display:grid;place-items:safe center;background:radial-gradient(120% 90% at 50% 0%,#232b3c,#151a25 70%);overflow:auto;padding:16px}
+.stage.panning,.stage.panning canvas{cursor:grab}
+.stage.panning.dragging,.stage.panning.dragging canvas{cursor:grabbing}
+.zoomrow{display:flex;gap:4px}
+.zoomrow button{flex:1;padding:0;font:700 14px var(--m)}
+#zoompct{text-align:center;font:700 12px var(--m);color:var(--text2);letter-spacing:.06em}
+canvas{box-shadow:0 10px 30px rgba(0,0,0,.5);touch-action:none;cursor:crosshair}
 canvas.hidden{display:none}
 .empty{position:absolute;inset:0;display:grid;place-items:center;text-align:center;color:var(--muted);pointer-events:none}
 .empty[hidden]{display:none}
@@ -81,6 +86,11 @@ pre{margin:0;padding:10px;border:1px solid var(--edge);border-radius:3px;backgro
     <h2>Edit</h2>
     <button id="undo">Undo<kbd>^Z</kbd></button>
     <button id="clear">Clear</button>
+    <h2>Zoom</h2>
+    <div class="zoomrow"><button id="zout" title="Zoom out (-)">&minus;</button><button id="zin" title="Zoom in (+)">+</button></div>
+    <div id="zoompct">FIT</div>
+    <div class="zoomrow"><button id="zfit" title="Fit the window (0)">Fit</button><button id="z100" title="Actual pixels (1:1)">1:1</button></div>
+    <div class="hint" style="white-space:normal">CTRL+WHEEL zooms on the cursor. Hold SPACE (or the middle button) and drag to pan.</div>
   </aside>
   <section class="stage" id="stage">
     <canvas id="c" class="hidden"></canvas>
@@ -99,7 +109,9 @@ pre{margin:0;padding:10px;border:1px solid var(--edge);border-radius:3px;backgro
 const $ = s => document.querySelector(s);
 const canvas = $('#c'), ctx = canvas.getContext('2d');
 const COLORS = {wrong:'#e5433a', change:'#f0a02a', keep:'#4fc46a', move:'#3f9dff'};
-const state = {img:null, W:0, H:0, scale:1, marks:[], tool:'box', intent:'wrong', drag:null};
+const state = {img:null, W:0, H:0, scale:1, zoom:0, marks:[], tool:'box', intent:'wrong', drag:null, pan:null, space:false};
+// zoom 0 = fit the window; otherwise the absolute scale (1 = actual pixels). ZOOM_MIN/MAX bound it.
+const ZOOM_MIN = 0.1, ZOOM_MAX = 6, ZOOM_STEP = 1.25;
 
 function setTool(t){ state.tool = t; document.querySelectorAll('.tool').forEach(b => b.setAttribute('aria-pressed', b.dataset.tool === t)); if (t === 'arrow') setIntent('move'); }
 function setIntent(i){ state.intent = i; document.querySelectorAll('.intent').forEach(b => b.setAttribute('aria-pressed', b.dataset.intent === i)); }
@@ -113,20 +125,50 @@ function loadBlob(blob, name, marks){
     canvas.classList.remove('hidden'); $('#empty').hidden = true;
     if (name) $('#source').value = name;
     if (!state.marks.length){ const d = loadDraft(); if (d.length){ state.marks = d; setTimeout(() => toast('Unsaved marks restored - Ctrl+S to save them'), 300); } }
-    rebuild(); fit(); URL.revokeObjectURL(url);
+    state.zoom = 0; rebuild(); fit(); URL.revokeObjectURL(url);
   };
   img.src = url;
 }
-function fit(){
+function fitScale(){ const st = $('#stage'), pad = 32; return Math.min((st.clientWidth - pad) / state.W, (st.clientHeight - pad) / state.H, 1); }
+// Lays the canvas out at the current zoom. anchor = {cx, cy} (client px): that point of the picture stays under it.
+function fit(anchor){
   if (!state.img) return;
-  const st = $('#stage'), pad = 32;
-  const s = Math.min((st.clientWidth - pad) / state.W, (st.clientHeight - pad) / state.H, 1);
-  state.scale = s; const dpr = window.devicePixelRatio || 1;
+  const st = $('#stage');
+  let before = null;
+  if (anchor){ const r = canvas.getBoundingClientRect(); before = {x: (anchor.cx - r.left) / state.scale, y: (anchor.cy - r.top) / state.scale}; }
+  const s = state.zoom > 0 ? state.zoom : fitScale();
+  state.scale = s;
+  // The backing store stays under ~16k px a side (browser canvas limit) at high zoom.
+  const dpr = Math.min(window.devicePixelRatio || 1, 16000 / (Math.max(state.W, state.H) * s));
+  state.dpr = dpr;
   canvas.style.width = Math.round(state.W * s) + 'px'; canvas.style.height = Math.round(state.H * s) + 'px';
   canvas.width = Math.round(state.W * s * dpr); canvas.height = Math.round(state.H * s * dpr);
+  $('#zoompct').textContent = (state.zoom > 0 ? '' : 'FIT ') + Math.round(s * 100) + '%';
+  if (before){ const r = canvas.getBoundingClientRect(); st.scrollLeft += r.left + before.x * s - anchor.cx; st.scrollTop += r.top + before.y * s - anchor.cy; }
   render();
 }
-window.addEventListener('resize', fit);
+function setZoom(z, anchor){
+  if (!state.img) return;
+  state.zoom = z <= 0 ? 0 : Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, z));
+  if (!anchor){ const r = $('#stage').getBoundingClientRect(); anchor = {cx: r.left + r.width / 2, cy: r.top + r.height / 2}; }
+  fit(state.zoom > 0 ? anchor : null);
+}
+function zoomBy(f, anchor){ setZoom(state.scale * f, anchor); }
+$('#zin').onclick = () => zoomBy(ZOOM_STEP);
+$('#zout').onclick = () => zoomBy(1 / ZOOM_STEP);
+$('#zfit').onclick = () => setZoom(0);
+$('#z100').onclick = () => setZoom(1);
+$('#stage').addEventListener('wheel', e => { if (!e.ctrlKey || !state.img) return; e.preventDefault(); zoomBy(e.deltaY < 0 ? ZOOM_STEP : 1 / ZOOM_STEP, {cx: e.clientX, cy: e.clientY}); }, {passive: false});
+// Pan: hold Space or press the middle button, then drag (the stage scrolls).
+$('#stage').addEventListener('pointerdown', e => {
+  if (!state.img || !(state.space || e.button === 1)) return;
+  e.preventDefault(); e.stopPropagation();
+  const st = $('#stage'); state.pan = {x: e.clientX, y: e.clientY, l: st.scrollLeft, t: st.scrollTop}; st.classList.add('panning', 'dragging'); st.setPointerCapture(e.pointerId);
+}, true);
+$('#stage').addEventListener('pointermove', e => { if (!state.pan) return; const st = $('#stage'); st.scrollLeft = state.pan.l - (e.clientX - state.pan.x); st.scrollTop = state.pan.t - (e.clientY - state.pan.y); });
+$('#stage').addEventListener('pointerup', () => { if (!state.pan) return; state.pan = null; $('#stage').classList.remove('dragging'); if (!state.space) $('#stage').classList.remove('panning'); });
+document.addEventListener('keyup', e => { if (e.code === 'Space'){ state.space = false; if (!state.pan) $('#stage').classList.remove('panning'); } });
+window.addEventListener('resize', () => fit());
 function toImg(e){ const r = canvas.getBoundingClientRect(); return {x: (e.clientX - r.left) / state.scale, y: (e.clientY - r.top) / state.scale}; }
 
 // Draws marks in image pixels; the caller has already scaled the context.
@@ -158,7 +200,7 @@ function badge(g, x, y, r, n, c){
 }
 function render(preview){
   if (!state.img) return;
-  const dpr = window.devicePixelRatio || 1;
+  const dpr = state.dpr || window.devicePixelRatio || 1;
   ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.scale(state.scale * dpr, state.scale * dpr); ctx.drawImage(state.img, 0, 0); drawMarks(ctx, preview);
 }
@@ -249,6 +291,8 @@ stage.addEventListener('dragleave', () => stage.classList.remove('over'));
 stage.addEventListener('drop', e => { e.preventDefault(); stage.classList.remove('over'); const f = e.dataTransfer.files[0]; if (f && f.type.startsWith('image/')) loadBlob(f, f.name); });
 document.addEventListener('keydown', e => {
   if (e.target.tagName === 'INPUT') return; const k = e.key.toLowerCase();
+  if (e.code === 'Space'){ e.preventDefault(); if (!state.space){ state.space = true; $('#stage').classList.add('panning'); } return; }
+  if (!e.ctrlKey && (k === '+' || k === '=')){ zoomBy(ZOOM_STEP); return; } if (!e.ctrlKey && (k === '-' || k === '_')){ zoomBy(1 / ZOOM_STEP); return; } if (!e.ctrlKey && k === '0'){ setZoom(0); return; }
   if (e.ctrlKey && k === 'z'){ e.preventDefault(); $('#undo').click(); }
   else if (e.ctrlKey && k === 's'){ e.preventDefault(); save(); }
   else if (k === '1') setTool('pin'); else if (k === '2') setTool('box'); else if (k === '3') setTool('arrow'); else if (k === '4') setTool('pen');
