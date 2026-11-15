@@ -46,6 +46,8 @@ func build(main: Node, m: Dictionary) -> void:
 			UI.GREEN if int(night["share"]) > 0 else UI.AMBER),
 		UI.kv("The gym's %d%% of it (manager + trainer)" % int(Roster.GYM_SHARE * 100), UI.money(int(night["gym"])), UI.GREEN),
 	])
+	if Roster.signing_share(f) < Roster.GYM_SHARE:
+		debut[1].add_child(UI.muted("Loyalty under 50: an outside manager signs her and the club keeps only the trainer's %d%%." % int(round(Roster.signing_share(f) * 100)), UI.SMALL, true))
 	if int(night["above"]) == 0:
 		debut[1].add_child(UI.muted("Under %d sold, the debut pays nothing. More members, more wins and titles sell more tickets." % ProDebut.BREAK_EVEN, UI.SMALL, true))
 	var grid := UI.hbox(16)
@@ -69,7 +71,7 @@ func build(main: Node, m: Dictionary) -> void:
 	])
 	grid.add_child(lose[0])
 	v.add_child(UI.muted("After the debut: %s a bout, +%s a win, up to %s; the gym keeps %d%%. Stay amateur and the promoters come back after %d more wins (the second time on worse terms)." % [
-		UI.money(int(o["purse"])), UI.money(int(o["step"])), UI.money(int(o["top"])), int(Roster.GYM_SHARE * 100), Roster.PRO_RETURN_WINS], UI.SMALL, true))
+		UI.money(int(o["purse"])), UI.money(int(o["step"])), UI.money(int(o["top"])), int(round(Roster.signing_share(f) * 100)), Roster.PRO_RETURN_WINS], UI.SMALL, true))
 	var foot := UI.hbox(10)
 	foot.add_child(UI.spacer())
 	var stay := UI.button("Stay amateur", "BtnQuiet", main.act.bind("declinepro", ""))

@@ -20,6 +20,7 @@ const AmateurBooking := preload("res://scripts/rules/AmateurBooking.gd")
 const GymSpend := preload("res://scripts/state/GymSpend.gd")
 const HomeJuniors := preload("res://scripts/state/HomeJuniors.gd")
 const StarDeal := preload("res://scripts/rules/StarDeal.gd")
+const Loyalty := preload("res://scripts/rules/Loyalty.gd")
 
 ## The goal a new signing brings: a booked bout and her engine up inside a month - her debut, or her next bout when she
 ## already has bouts on her card (S352).
@@ -204,6 +205,11 @@ static func gym_cut(purse: int, f: Dictionary = {}) -> int:
 	return int(round(purse * share_of(f)))
 
 
+## The share the club will keep if she signs pro today: the usual cut, or the trainer's 10% under 50 loyalty (Loyalty.pro_share).
+static func signing_share(f: Dictionary) -> float:
+	return minf(share_of(f), Loyalty.pro_share(f))
+
+
 static func share_of(f: Dictionary) -> float:
 	return GYM_SHARE if f.is_empty() else StarDeal.share(f)
 
@@ -248,6 +254,10 @@ static func turn_pro(c: Career) -> Dictionary:
 	if not c.coach.is_empty():
 		c.coach["pro_licence"] = true
 	f["pro"] = true
+	# S485 CLUBWEEK1 (his Q-244 "Yes"): under 50 loyalty an outside manager signs her; the club keeps the trainer's 10%.
+	if Loyalty.pro_share(f) < share_of(f):
+		f["gym_share"] = Loyalty.pro_share(f)
+		c.add_news("An outside manager signs %s: the club keeps only the trainer's %d%%." % [f["first"], int(round(Loyalty.pro_share(f) * 100))])
 	f["promoter"] = o["promoter"]
 	f["purse"] = int(o["purse"])
 	f["purse_step"] = int(o["step"])

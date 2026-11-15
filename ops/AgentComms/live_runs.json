@@ -134,67 +134,6 @@
     "board": ""
    }
   },
-  "MORNINGS1": {
-   "agent": "arena",
-   "id": "MORNINGS1",
-   "title": "Club week coached mornings + the weak spot (pure module + test)",
-   "status": "landed - collected S484",
-   "started": "2026-11-15T09:52",
-   "eta": "2026-11-15T10:50",
-   "chat": "https://arena.ai/agent/01a1de31-8b24-7169-bd21-dc521a2471c1",
-   "brief": "ops/research/TASK_MORNINGS1.md",
-   "repo": "ICOON-Studio/FightCamp-Lean-lite",
-   "seat": "arena",
-   "reconciled": "2026-11-15 11:10 board_reconcile: PR #306 closed (merged by diff or rejected)"
-  },
-  "FOURMONEY1": {
-   "agent": "qwen",
-   "id": "FOURMONEY1",
-   "title": "TASK FOURMONEY1 - the money of four starters: a pure probe over the existing bill rules (test + result page)",
-   "status": "landed",
-   "started": "2026-11-15T10:59",
-   "eta": "2026-11-15T12:49",
-   "branch": "qwen/fourmoney1",
-   "worktree": "E:/FightCamp/wt/LEAN_FOURMONEY1",
-   "wt": "E:/FightCamp/wt/LEAN_FOURMONEY1",
-   "brief": "ops/research/TASK_FOURMONEY1.md",
-   "repo": "FightCamp-Lean",
-   "where": "pc",
-   "log": "E:/FightCamp/wt/FOURMONEY1_dispatch_out.txt",
-   "match": "seat_dispatch.py run fourmoney1",
-   "model": "qwen3-coder",
-   "dispatch": {
-    "prompt": "E:/FightCamp/wt/FOURMONEY1_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/FOURMONEY1_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/FOURMONEY1_dispatch_runner.log",
-    "source": "dispatch_queue.json",
-    "brief_copied": true,
-    "runner_pid": 46244,
-    "seat_pid": 15028
-   },
-   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 2/2 PASS; PR #307",
-   "finished": "2026-11-15T11:14",
-   "pr": 307,
-   "checks": [
-    {
-     "kind": "RED_TEST",
-     "script": "tests/four_money_probe_test.gd",
-     "ok": true,
-     "last": "FOURMONEY PASS fails=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/four_money_probe_test.gd",
-     "ok": true,
-     "last": "FOURMONEY PASS fails=0"
-    }
-   ],
-   "films": {
-    "before": {},
-    "after": {},
-    "board": ""
-   }
-  },
   "CLASH7": {
    "agent": "qwen",
    "id": "CLASH7",
@@ -221,6 +160,19 @@
     "seat_pid": 24292
    },
    "note": "S368 seat_dispatch: launched unattended (dispatch_queue.json); merging stays off"
+  },
+  "DAYJOB1": {
+   "agent": "arena",
+   "id": "DAYJOB1",
+   "title": "Day job: two mornings lost a week, the sponsorship billed in 4-week blocks (pure module + test)",
+   "status": "merged (S485, 2 parse fixes by Claude)",
+   "started": "2026-11-15T12:12",
+   "eta": "2026-11-15T13:00",
+   "brief": "ops/research/TASK_DAYJOB1.md",
+   "repo": "FightCamp-Lean-lite",
+   "where": "cloud",
+   "url": "https://arena.ai/agent/01a1dead-d208-7ec9-a399-f01c3a333cf0",
+   "branch": "arena/3a333cf0-fightcamp-lean-lite"
   }
  },
  "codex_budget": {

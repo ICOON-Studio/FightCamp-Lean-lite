@@ -127,6 +127,8 @@ func _overview() -> void:
 	await _settle(3)
 	var overview := page.find_child("DarkOverview", true, false) as Control
 	_check(overview != null, "the Overview is on the page")
+	var loyal := page.find_child("LoyaltyWords", true, false) as Label
+	_check(loyal != null and loyal.text.contains(" - "), "the Overview shows loyalty as 'n - Word' (%s)" % (loyal.text if loyal != null else "missing"))
 	var walked: Control = overview if overview != null else page
 	for fault in SlateWalk.faults(walked):
 		_check(false, "Overview: " + str(fault))

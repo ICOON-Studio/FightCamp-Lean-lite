@@ -20,6 +20,7 @@ const Sim := preload("res://scripts/state/Sim.gd")
 const Bouts := preload("res://scripts/state/Bouts.gd")
 const Injuries := preload("res://scripts/state/Injuries.gd")
 const Aftermath := preload("res://scripts/rules/Aftermath.gd")
+const Loyalty := preload("res://scripts/rules/Loyalty.gd")
 
 const PANEL_BG := Color(0.095, 0.075, 0.066, 0.94)
 const INSET := Color(0.05, 0.04, 0.035, 0.9)
@@ -156,6 +157,7 @@ static func _boxer(f: Dictionary, c: Career = null) -> Control:
 		standing.add_theme_color_override("font_color", SOFT)
 		col.add_child(standing)
 	col.add_child(condition(f))
+	col.add_child(loyalty(f))
 	var holder := Control.new()
 	# S430 (operator: "this screen on the bottom is clipped"): 690 pushed the goal and body row off a 1080 screen.
 	holder.custom_minimum_size = Vector2(LEFT_W, 560)
@@ -200,6 +202,33 @@ static func condition(f: Dictionary) -> Control:
 	row.add_child(words)
 	return row
 
+
+## Loyalty as his S484 pick (Q-245): a 0-100 bar with its word beside it ("62 - Settled"); hover = the last three moves.
+static func loyalty(f: Dictionary) -> Control:
+	var v: int = Loyalty.value(f)
+	var word: String = Loyalty.band(v, int(f.get("known", 0)))
+	var tone: Color = TONE["green"] if v >= Loyalty.SETTLED_AT else (TONE["amber"] if v >= Loyalty.LEAVES_UNDER else TONE["red"])
+	var row := UI.hbox(10)
+	row.name = "Loyalty"
+	row.mouse_filter = Control.MOUSE_FILTER_PASS
+	var tip := "Loyalty %d of 100. Under 50 an outside manager signs her if she turns pro (the club keeps 10%%, not 25%%). Under 25 after two talks she leaves." % v
+	var moves: Array = Loyalty.reasons(f, 0).slice(0, 3)
+	for m in moves:
+		tip += "
+%+d  %s" % [int(m["n"]), str(m["why"]).split(" (")[0].replace("_", " ")]
+	row.tooltip_text = tip
+	row.add_child(UI.label("LOYALTY", UI.BODY, SOFT, "bold"))
+	var bar := Bar.new()
+	bar.frac = float(v) / 100.0
+	bar.tick = Loyalty.SETTLED_AT / 100.0
+	bar.colour = tone
+	bar.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+	bar.custom_minimum_size = Vector2(120, 22)
+	row.add_child(bar)
+	var words := UI.label("%d - %s" % [v, word], UI.BODY, INK, "semi")
+	words.name = "LoyaltyWords"
+	row.add_child(words)
+	return row
 
 static func _ring(frac: float, colour: Color, big: String, small: String, px: float) -> Control:
 	var r := Ring.new()

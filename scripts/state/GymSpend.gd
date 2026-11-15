@@ -17,6 +17,7 @@ const HomeJuniors := preload("res://scripts/state/HomeJuniors.gd")
 const ProLadder := preload("res://scripts/state/ProLadder.gd")
 const Membership := preload("res://scripts/rules/Membership.gd")
 const Grants := preload("res://scripts/rules/Grants.gd")
+const LoyaltyWire := preload("res://scripts/state/LoyaltyWire.gd")
 
 const KIT := GymBills.KIT_BUDGET
 const KIT_ORDER := GymBills.KIT_ORDER
@@ -27,7 +28,9 @@ const JUNIORS_COACH := 168
 ## Coach education and safeguarding renewals, a year for each coach on the books (real: a Level 2 badge GBP 300-500), paid
 ## in the year's week 26 (S397 designer pass).
 const COACH_COURSE := 400
-const DAY_JOB_GAIN := 0.85
+## S485 CLUBWEEK1 (his Q-243 "2 mornings"): a day job costs 2 of the 6 training mornings, so 4/6 of the stat gain.
+const DayJob := preload("res://scripts/rules/DayJob.gd")
+const DAY_JOB_GAIN := float(DayJob.WEEK_DAYS - DayJob.LOST) / DayJob.WEEK_DAYS
 const COURSE_WEEK := 26
 ## GYMKIND1: each kind of kit builds something. Off for players (the operator has not approved the rule); the bots test
 ## switches it on to measure what each kind is worth.
@@ -96,7 +99,7 @@ static func gain(c: Career, stat: String, f: Dictionary = {}) -> float:
 ## ---------- stipends (STRUCTURE_DESIGN_S395 5.3b: "most fighters cost little; a stipend is a special deal") ----------
 ## An amateur on the club stipend trains full time; one with a day job pays nothing and trains evenings, gaining less.
 ## Real: most amateurs work or study; a stipend lets one or two top prospects train full time (round 1, club owner).
-## GAME value: evenings-only gains 15% less.
+## GAME value (S485, his Q-243): a day job takes 2 of the 6 mornings, so stat gain is 4/6 (was a flat 15% less).
 
 static func set_stipend(c: Career, f: Dictionary, on: bool) -> String:
 	if bool(f.get("pro", false)):
@@ -104,9 +107,10 @@ static func set_stipend(c: Career, f: Dictionary, on: bool) -> String:
 	if on == not bool(f.get("day_job", false)):
 		return "already so"
 	f["day_job"] = not on
+	LoyaltyWire.stipend(c, f, on)   # S485 CLUBWEEK1: sponsorship given +5 / pulled -8
 	var home := bool(f.get("home", false)) and int(f.get("home_until", 0)) > c.day
 	f["weekly_salary"] = (roundi(GameMoney.FIGHTER_STIPEND * HomeJuniors.HALF) if home else GameMoney.FIGHTER_STIPEND) if on else 0
-	c.add_news("%s %s." % [f["first"], "is back on the club stipend and trains full time" if on else "takes a day job: off the stipend, training evenings"])
+	c.add_news("%s %s." % [f["first"], "is back on the club stipend and trains full time" if on else "takes a day job: off the gym sponsorship, working 2 mornings a week"])
 	return ""
 
 
@@ -285,6 +289,8 @@ static func book_show(c: Career) -> String:
 
 static func day_events(c: Career) -> void:
 	grant_day(c)
+	if c.day % 7 == 0:
+		LoyaltyWire.week(c)   # S485 CLUBWEEK1: the weekly loyalty drift and wants_sponsor
 	if int(c.show.get("day", -1)) != c.day:
 		return
 	var rng := RandomNumberGenerator.new()
