@@ -84,8 +84,7 @@ static func portrait_for(glb: String, corner: String) -> Dictionary:
 	var anchors = JSON.parse_string(FileAccess.get_file_as_string(js))
 	if not anchors is Dictionary:
 		return {}
-	var mask := PORTRAITS.path_join(stem + "_mask.png")
-	return {"tex": load(png), "anchors": anchors, "mask": load(mask) if ResourceLoader.exists(mask) else null}
+	return {"tex": load(png), "anchors": anchors, "mask": load(PORTRAITS.path_join(stem + "_mask.png")) if ResourceLoader.exists(PORTRAITS.path_join(stem + "_mask.png")) else null}
 
 
 ## Draw this picture instead of the drawn figure ({} keeps the drawn one).

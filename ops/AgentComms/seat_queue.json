@@ -2753,34 +2753,69 @@
    "seat": "dola",
    "brief": "research/DESIGN_COACHSPEC1_R4_CRITIC_DOLA.md",
    "stem": "DESIGN_COACHSPEC1_R4_CRITIC_DOLA_DOLA",
-   "status": "sent",
+   "status": "answered",
    "queued_at": "2026-11-15 19:57",
    "tries": 0,
    "sent_at": "2026-11-15 20:10",
    "pid": 30456,
-   "transcript": "AgentComms/seat_logs/SQ185_dola.txt"
+   "transcript": "AgentComms/seat_logs/SQ185_dola.txt",
+   "answered_at": "2026-11-15 20:40",
+   "answer": "research/DESIGN_COACHSPEC1_R4_CRITIC_DOLA_DOLA.md"
   },
   {
    "id": "SQ186",
    "seat": "john",
    "brief": "research/DESIGN_COACHSPEC1_R4_CRITIC_JOHN.md",
    "stem": "DESIGN_COACHSPEC1_R4_CRITIC_JOHN_JOHN",
-   "status": "sent",
+   "status": "answered",
    "queued_at": "2026-11-15 19:57",
    "tries": 0,
    "sent_at": "2026-11-15 20:10",
-   "sent_ms": 1794766226047
+   "sent_ms": 1794766226047,
+   "answered_at": "2026-11-15 20:40",
+   "answer": "research/DESIGN_COACHSPEC1_R4_CRITIC_JOHN_JOHN.md",
+   "chars": 14953
   },
   {
    "id": "SQ187",
    "seat": "kalli",
    "brief": "research/DESIGN_LADDER1_V4_REVISE_KALLI.md",
    "stem": "DESIGN_LADDER1_V4_REVISE_KALLI_KALLI",
-   "status": "sent",
+   "status": "answered",
    "queued_at": "2026-11-15 19:58",
    "tries": 0,
    "sent_at": "2026-11-15 20:10",
-   "sent_ms": 1794766230105
+   "sent_ms": 1794766230105,
+   "answered_at": "2026-11-15 20:40",
+   "answer": "research/DESIGN_LADDER1_V4_REVISE_KALLI_KALLI.md",
+   "chars": 22715
+  },
+  {
+   "id": "SQ188",
+   "seat": "dola",
+   "brief": "research/DESIGN_LADDER1_V4_CRITIC_DOLA.md",
+   "stem": "DESIGN_LADDER1_V4_CRITIC_DOLA_DOLA",
+   "status": "queued",
+   "queued_at": "2026-11-15 20:52",
+   "tries": 0
+  },
+  {
+   "id": "SQ189",
+   "seat": "john",
+   "brief": "research/DESIGN_LADDER1_V4_CRITIC_JOHN.md",
+   "stem": "DESIGN_LADDER1_V4_CRITIC_JOHN_JOHN",
+   "status": "queued",
+   "queued_at": "2026-11-15 20:52",
+   "tries": 0
+  },
+  {
+   "id": "SQ190",
+   "seat": "kalli",
+   "brief": "research/DESIGN_COACHSPEC1_R5_REVISE_KALLI.md",
+   "stem": "DESIGN_COACHSPEC1_R5_REVISE_KALLI_KALLI",
+   "status": "queued",
+   "queued_at": "2026-11-15 20:52",
+   "tries": 0
   }
  ]
 }

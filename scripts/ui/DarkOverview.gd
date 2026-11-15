@@ -23,6 +23,7 @@ const Injuries := preload("res://scripts/state/Injuries.gd")
 const Aftermath := preload("res://scripts/rules/Aftermath.gd")
 const Loyalty := preload("res://scripts/rules/Loyalty.gd")
 const ApproachCard := preload("res://scripts/ui/ApproachCard.gd")   # S487 R58 APPROACHWIRE1
+const TextScale := preload("res://scripts/ui/TextScale.gd")   # S494 TextScale.fit for the name
 const ApproachWire := preload("res://scripts/state/ApproachWire.gd")
 const FallThroughCard := preload("res://scripts/ui/FallThroughCard.gd")   # S490 FIGHTWEEK3
 
@@ -38,7 +39,7 @@ const WALL_DARK := Palette.WALL_DARK
 const BAND := {"weak": Palette.BAD_FILL, "fair": Palette.WARN, "solid": Palette.ACCENT, "strong": Palette.GOOD_FILL, "elite": Palette.ELITE}
 const TONE := {"green": Palette.GOOD, "red": Palette.BAD, "amber": Palette.WARN, "gold": Palette.ACCENT, "": SOFT}
 const LEFT_W := 440
-const SIDE_W := 440
+const SIDE_W := 380   # S494: was 440; at the Largest text size the page ran to 2111 px
 
 
 ## A hand-drawn bar: skewed, thick, with the ceiling tick.
@@ -156,9 +157,13 @@ static func make(page: Container, main: Node, c: Career, f: Dictionary, g: Dicti
 static func _boxer(f: Dictionary, c: Career = null) -> Control:
 	var col := UI.vbox(0)
 	col.custom_minimum_size.x = LEFT_W
+	col.set_meta("on_dark", true)   # S494: the column stands on the dark page, no slate behind it (WoodKit.on_dark)
 	var nm := str(f["name"]).to_upper()
-	col.add_child(UI.display(nm, clampi(int(float(LEFT_W) / (float(nm.length()) * 0.62)), 36, 60), Palette.TEXT))
-	col.add_child(UI.label("%s, %d, %s, amateur %d-%d" % [f["wc"], f["age"], f["stance"], f["w"], f["l"]], UI.BODY, SOFT, "semi"))
+	var name_px := clampi(int(float(LEFT_W) / (float(nm.length()) * 0.62)), 36, 60)
+	var name_l := UI.display(nm, name_px, Palette.TEXT)
+	TextScale.fit(name_l, LEFT_W, name_px, 30)   # S494: at the Largest text size the name pushed the page past 1920
+	col.add_child(name_l)
+	col.add_child(UI.label("%s, %d, %s, amateur %d-%d" % [f["wc"], f["age"], f["stance"], f["w"], f["l"]], UI.BODY, SOFT, "semi", true))
 	# S437 RANKSHOWUI: where she stands, always: a number, or how many wins from a number (RankLine's own words).
 	var standing: Control = RankRow.build(c, f) if c != null else null
 	if standing != null:
@@ -311,7 +316,7 @@ static func _row(r: Dictionary, pot: float) -> Control:
 		h.add_child(tag)
 		return h
 	var bar := Bar.new()
-	bar.custom_minimum_size.x = 50
+	bar.custom_minimum_size.x = 34   # S494: the bar still fills its room; only its floor is lower
 	bar.frac = v / 100.0
 	bar.colour = col
 	if pot > 0.0 and not AttrBoard.PERSONALITY.has(key):
@@ -323,7 +328,7 @@ static func _row(r: Dictionary, pot: float) -> Control:
 	h.add_child(n)
 	var d := float(r["delta"])
 	var change := UI.label("" if absf(d) < 0.05 else ("+%.1f wk" % d if d > 0.0 else "%.1f wk" % d), UI.TINY, TONE["green"] if d > 0.0 else TONE["red"], "mono")
-	change.custom_minimum_size.x = 58
+	change.custom_minimum_size.x = 50
 	change.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	h.add_child(change)
 	return AttrBoard.with_line(h, r, SOFT)   # S439 T17: the Stamina row's line printed under it

@@ -77,6 +77,8 @@ static func plates(t: Theme, name: String, pad_h: int, pad_v: int) -> Color:
 static func ink(n: Node, dark: bool = false) -> void:
 	for c in n.get_children():
 		var here := dark
+		if c.has_meta("on_dark"):
+			here = bool(c.get_meta("on_dark"))
 		if c is PanelContainer or c is Button:
 			var tone := _tone((c as Control).get_theme_stylebox("panel" if c is PanelContainer else "normal"))
 			if tone != 0:
@@ -107,6 +109,8 @@ static func _tone(sb: StyleBox) -> int:
 static func on_dark(n: Node) -> bool:
 	var p := n.get_parent()
 	while p != null:
+		if p.has_meta("on_dark"):   # S494: a column drawn straight on the dark page (no slate of its own) says so
+			return bool(p.get_meta("on_dark"))
 		if p is PanelContainer or p is Button:
 			var tone := _tone((p as Control).get_theme_stylebox("panel" if p is PanelContainer else "normal"))
 			if tone != 0:

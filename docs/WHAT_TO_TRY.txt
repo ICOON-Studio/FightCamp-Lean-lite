@@ -1,3 +1,11 @@
+S494 (2026-11-15)
+- A RIVAL CLUB WANTS YOUR BOXER (your Q-253 "Build it"): the card on top of the boxer's Overview now has three answers -
+  MATCH IT, HALF EACH, LET THEM GO. Each says what happens to the boxer (stays / leaves Monday), shows loyalty before and
+  after on one bar (the white mark is 50: at 50 the boxer stops looking around), and what it costs. "Talk to her first" is
+  one button above them. To see it: a prospect on a day job with loyalty under 35; Eastside ABC comes on a Monday.
+- YOUR TEXT SIZE (Largest): the fighter Overview fits the screen again - the name, the class line, the attributes and
+  At a glance no longer run off the right edge.
+
 S493 (2026-11-15)
 - ONE COLOUR PALETTE, FIRST PART (your "do it and i will judge"): the Office is now in the gym's warm look (no more navy),
   and the fight result pages, the between-rounds cards, the fighter Overview, the body figure and every hover tip use the

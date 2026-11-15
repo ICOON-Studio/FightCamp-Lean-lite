@@ -7799,10 +7799,11 @@
       "attach": [
         "AgentComms/board_attach/Q-S294-252_0_training_k_v4.png"
       ],
-      "answer": null,
+      "answer": "Change more (say what)",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-15T18:21:24Z",
+      "seen_by_claude": true,
+      "comment_only": false
     },
     {
       "id": "Q-S294-253",
@@ -7819,7 +7820,7 @@
       "answer": "Build it",
       "note": null,
       "answered_at": "2026-11-15T18:13:22Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "comment_only": false
     },
     {
@@ -7835,8 +7836,25 @@
       "answer": "Yes, delete the empty slots",
       "note": null,
       "answered_at": "2026-11-15T18:11:56Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "comment_only": false
+    },
+    {
+      "id": "Q-S294-255",
+      "asked": "2026-11-15T18:25:44.883698+00:00",
+      "session": "S294",
+      "text": "Training K v5 - your mark 1 done: the win chance and the fight-night panel are off the Training screen (no opponent, no win % anywhere on it). They move to the fighter's own page in the Fighters tab. The right column now shows what the evenings teach (moves) and the mornings' stat gains; the sessions tray has a morning row and an evening row. Build it as drawn?",
+      "options": [
+        "Build it",
+        "Change more (say what)"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-255_0_training_k_v5.png"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
     }
   ]
 }

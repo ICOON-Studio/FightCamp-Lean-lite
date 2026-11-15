@@ -3,11 +3,11 @@
  "updated": "2026-11-15",
  "author": "claude S294",
  "now": {
-  "id": "S493",
+  "id": "S494",
   "owner": "claude",
   "updated": "2026-11-15",
-  "summary": "S493: his Q-248..251 acted on - one palette (scripts/ui/Palette.gd, 19 colours by job; UI/WoodKit/TV read it; Office, 12 fight menus, Overview, BodyFigure, Tips + tooltip at zero loose colours); Training K v4 (his 3 marks) -> Q-252; rival club card C made simpler -> Q-253; LADDER1 v4 (player picks the opponent, rules limit) to Kalli; COACHSPEC1 round 4 (Kalli r3 6/5/5: corner floor, growth cut, S&C load, class nights, payoff, wins+members columns) to Dola + John; plan chart warns a no-IF line's blind spots (PlanLines.blind); plan_bots good plan says WHEN; CLASH7-9 audit -> CLASH10 (Qwen); PRs 313/318 closed.",
-  "next_action": "S494: 0) get_usage; where_we_are roll S494; quote board answers Q-252 (Training K v4), Q-253 (rival card), Q-254 (Miro empty slots - if yes: where_we_are.py svg + one canvas_update_from_svg). 1) Collect seat answers: SQ185 Dola + SQ186 John (COACHSPEC1 r4: both depth 7+ -> his board with the map; else round 5), SQ187 Kalli (LADDER1 v4 -> two fresh critics). 2) Qwen: PALETTEGUARD1 (add palette_guard_test to tools/run_tests.sh at collect), CLASH10 (open every still), STYLE5. 3) ONELOOK1 palette sweep, worst first: WhiteboardKit (shared by ~10 screens with on_dark ink switching - change + stills together), WeekCards 34 (also 552 lines: split), HudRegroup 27, HudBars 26, RosterCards 22, ReadPanel 18, MatchupCards 16, MatMap 16; then before/after stills to him (his 'i will judge'). 4) Build Training K / rival card on his OK. 5) BODYLOOK1 Fable session: collect its PR (open every still). 6) FIGHTWEEK3 after his play.",
+  "summary": "S494: his Q-252/253/254 acted on - rival club card BUILT (three answers MATCH IT / HALF EACH / LET THEM GO, each: outcome, loyalty before->after bar with the 50 mark, cost; talk = one button; MOVE/PROMISE off the card, rules kept); the fighter Overview fits 1920 at his Largest text size (was 2111 px); WoodKit on_dark meta (roster_slate red since S493 fixed); UI.gd + BodyFigure.gd under 500; Training K v5 (his mark 1: no opponent / win % on the Training screen) -> board Q-255; Miro P0 redrawn, 16 empty slots deleted; PALETTEGUARD1 collected (baseline 868 -> 649, in run_tests.sh, PR 319 closed); COACHSPEC1 r4 Dola 8/8/7, John 7/6/6 -> round 5 to Kalli (SQ190); LADDER1 v4 to Dola + John (SQ188/189); STYLE5 found already done (S490). His Reddit video watched (a strike-log fight-analysis page) - asked whether to design one for our fights. Export built.",
+  "next_action": "S495: 0) get_usage; where_we_are roll S495; quote board answers (Q-255 Training K v5) and his answer on the fight-analysis page. 1) Collect seats: SQ188 Dola + SQ189 John (LADDER1 v4: both depth 7+ and general 7+ -> his board with the map, else v5 to Kalli), SQ190 Kalli (COACHSPEC1 round 5 -> two fresh critics). 2) Collect Qwen CLASH10 (glove clipping, ETA 22:32 S494 day): open every still on the game camera before any merge. 3) BODYLOOK1 Fable session (PR 320): collect, open every before/after still. 4) ONELOOK1 palette sweep, worst first, before/after stills to him: HudRegroup 27, HudBars 26 (fight HUD), RosterCards 22, ReadPanel 18, MatchupCards 15, MatMap 16, WhiteboardKit 13 (shared by ~10 screens, change + stills together); WeekCards 33 waits for Training K (it may be replaced). palette_guard_test ratchets the count down (run it with -- write after each file). 5) Build Training K on his Q-255 OK. 6) FIGHTWEEK3 after his play.",
   "last_working_commit": "e443ba18",
   "verified_playable": "Builds/FightCamp.exe exported S493; golden_path_test + 45 touched tests pass; palette look not yet judged by him",
   "incomplete_blocked": "Palette sweep part 2 (WhiteboardKit with stills, WeekCards, HUD, roster); Training K + rival card wait on Q-252/253; Miro redraw waits on Q-254",
@@ -2065,6 +2065,11 @@
    "id": "S493",
    "date": "2026-11-15",
    "summary": "S493: his Q-248..251 acted on - one palette (scripts/ui/Palette.gd, 19 colours by job; UI/WoodKit/TV read it; Office, 12 fight menus, Overview, BodyFigure, Tips + tooltip at zero loose colours); Training K v4 (his 3 marks) -> Q-252; rival club card C made simpler -> Q-253; LADDER1 v4 (player picks the opponent, rules limit) to Kalli; COACHSPEC1 round 4 (Kalli r3 6/5/5: corner floor, growth cut, S&C load, class nights, payoff, wins+members columns) to Dola + John; plan chart warns a no-IF line's blind spots (PlanLines.blind); plan_bots good plan says WHEN; CLASH7-9 audit -> CLASH10 (Qwen); PRs 313/318 closed."
+  },
+  {
+   "id": "S494",
+   "date": "2026-11-15",
+   "summary": "S494: his Q-252/253/254 acted on - rival club card BUILT (three answers MATCH IT / HALF EACH / LET THEM GO, each: outcome, loyalty before->after bar with the 50 mark, cost; talk = one button; MOVE/PROMISE off the card, rules kept); the fighter Overview fits 1920 at his Largest text size (was 2111 px); WoodKit on_dark meta (roster_slate red since S493 fixed); UI.gd + BodyFigure.gd under 500; Training K v5 (his mark 1: no opponent / win % on the Training screen) -> board Q-255; Miro P0 redrawn, 16 empty slots deleted; PALETTEGUARD1 collected (baseline 868 -> 649, in run_tests.sh, PR 319 closed); COACHSPEC1 r4 Dola 8/8/7, John 7/6/6 -> round 5 to Kalli (SQ190); LADDER1 v4 to Dola + John (SQ188/189); STYLE5 found already done (S490). His Reddit video watched (a strike-log fight-analysis page) - asked whether to design one for our fights. Export built."
   }
  ],
  "blocked_on_operator": [],
@@ -4983,7 +4988,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-15 19:41 board_sync",
+  "updated": "2026-11-15 20:42 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5131,7 +5136,14 @@
    "GYMLIFE2": "Gym picture: smooth shadow boxing, walks round the kit, nobody under a button",
    "INTROCORNER2": "Fight intro from the corners: each name call shown, never alike"
   },
-  "working_now": [],
+  "working_now": [
+   {
+    "title": "TASK CLASH10 - clear the glove on the axis it is DRAWN on, re-read after each push, inside the clash pass (on main)",
+    "who": "qwen",
+    "started": "2026-11-15T20:42",
+    "run": "CLASH10"
+   }
+  ],
   "next": [
    {
     "id": "BODYLOOK1",
@@ -5655,6 +5667,26 @@
   },
   "done_recently": [
    {
+    "title": "Rival club card built: three answers, loyalty bar, costs (S494, his Q-253)",
+    "who": "claude",
+    "when": "2026-11-15"
+   },
+   {
+    "title": "Fighter Overview fits the screen at the Largest text size (S494)",
+    "who": "claude",
+    "when": "2026-11-15"
+   },
+   {
+    "title": "Training K v5: no opponent on the Training screen -> his OK Q-255 (S494)",
+    "who": "claude",
+    "when": "2026-11-15"
+   },
+   {
+    "title": "Palette guard test collected: new loose colours are blocked (S494)",
+    "who": "qwen",
+    "when": "2026-11-15"
+   },
+   {
     "title": "One palette: Palette.gd + Office, fight menus, Overview, tips moved (S493)",
     "who": "claude",
     "when": "2026-11-15"
@@ -5690,24 +5722,6 @@
     "title": "TASK STYLE5 - named styles worth real points: one exchange edge each, counted for real, tuned into the band",
     "who": "qwen",
     "when": "2026-11-15"
-   },
-   {
-    "id": "APPROACHUI3",
-    "who": "claude",
-    "title": "Week review loyalty row: moves by cause, a band crossed (S489)",
-    "after": ""
-   },
-   {
-    "id": "FOURSTART1",
-    "who": "claude",
-    "title": "Test club: three boxers in three classes + Ana, create-screen switch, jump=club4 (S489)",
-    "after": ""
-   },
-   {
-    "id": "STEPROPES1",
-    "who": "claude",
-    "title": "Ropes count in the live round + step worth on the learn card (S489)",
-    "after": ""
    }
   ],
   "scope_note": "S294: lean restart (E:\\FightCamp\\Lean\\docs\\RESTART_PLAN.md). Old roadmap items are parked until the weekly builds reach them.",
@@ -5836,6 +5850,30 @@
   "map": {
    "done_earlier": [
     {
+     "text": "Palette: file + 17 screens moved",
+     "who": "claude"
+    },
+    {
+     "text": "Training K v4 (your 3 marks)",
+     "who": "claude"
+    },
+    {
+     "text": "Rival card: C, simpler",
+     "who": "claude"
+    },
+    {
+     "text": "Coach roles: round 4 written",
+     "who": "claude"
+    },
+    {
+     "text": "Plan: no-IF lines warn",
+     "who": "claude"
+    },
+    {
+     "text": "Clipping audit -> CLASH10",
+     "who": "claude"
+    },
+    {
      "text": "Good-plan grade: cause found",
      "who": "agent"
     },
@@ -5866,56 +5904,24 @@
     {
      "text": "Training button on the ops board",
      "who": "claude"
-    },
-    {
-     "text": "Ropes in the Why + corner card",
-     "who": "claude"
-    },
-    {
-     "text": "LiveRound under 470 lines",
-     "who": "claude"
-    },
-    {
-     "text": "Training K v2 critics 7/7 + 6/6",
-     "who": "claude"
-    },
-    {
-     "text": "Ladder v3 critics 7/7 -> Q-247",
-     "who": "claude"
-    },
-    {
-     "text": "Week review loyalty row",
-     "who": "claude"
-    },
-    {
-     "text": "Test club: 4 fighters (club4)",
-     "who": "claude"
     }
    ],
    "done_session": [
     {
-     "text": "Palette: file + 17 screens moved",
+     "text": "Rival card built (3 answers)",
      "who": "claude"
     },
     {
-     "text": "Training K v4 (your 3 marks)",
+     "text": "Training K v5: no opponent",
      "who": "claude"
     },
     {
-     "text": "Rival card: C, simpler",
+     "text": "Overview fits at Largest text",
      "who": "claude"
     },
     {
-     "text": "Coach roles: round 4 written",
-     "who": "claude"
-    },
-    {
-     "text": "Plan: no-IF lines warn",
-     "who": "claude"
-    },
-    {
-     "text": "Clipping audit -> CLASH10",
-     "who": "claude"
+     "text": "Palette guard test in the suite",
+     "who": "agent"
     }
    ],
    "now": [
@@ -5964,10 +5970,6 @@
      "who": "claude"
     },
     {
-     "text": "STYLE5: calibrated rerun",
-     "who": "claude"
-    },
-    {
      "text": "One colour palette (gym look)",
      "who": "claude"
     },
@@ -5980,14 +5982,6 @@
      "who": "agent"
     },
     {
-     "text": "Your OK: Training K v4 (Q-252)",
-     "who": "operator"
-    },
-    {
-     "text": "Your OK: rival card (Q-253)",
-     "who": "operator"
-    },
-    {
      "text": "Coach roles R4: Dola + John",
      "who": "agent"
     },
@@ -5996,12 +5990,12 @@
      "who": "agent"
     },
     {
-     "text": "Palette guard test (Qwen)",
+     "text": "Glove clash fix (Qwen CLASH10)",
      "who": "agent"
     },
     {
-     "text": "Glove clash fix (Qwen CLASH10)",
-     "who": "agent"
+     "text": "Your OK: Training K v5 (Q-255)",
+     "who": "operator"
     }
    ],
    "next": [
@@ -6064,14 +6058,18 @@
     {
      "text": "Palette: whiteboard, HUD, roster",
      "who": "claude"
+    },
+    {
+     "text": "Fight analysis page? (your call)",
+     "who": "operator"
     }
    ],
-   "session": "S493"
+   "session": "S494"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
  "last_working_commit": "3e06d9cc",
- "next_action": "S494: 0) get_usage; where_we_are roll S494; quote board answers Q-252 (Training K v4), Q-253 (rival card), Q-254 (Miro empty slots - if yes: where_we_are.py svg + one canvas_update_from_svg). 1) Collect seat answers: SQ185 Dola + SQ186 John (COACHSPEC1 r4: both depth 7+ -> his board with the map; else round 5), SQ187 Kalli (LADDER1 v4 -> two fresh critics). 2) Qwen: PALETTEGUARD1 (add palette_guard_test to tools/run_tests.sh at collect), CLASH10 (open every still), STYLE5. 3) ONELOOK1 palette sweep, worst first: WhiteboardKit (shared by ~10 screens with on_dark ink switching - change + stills together), WeekCards 34 (also 552 lines: split), HudRegroup 27, HudBars 26, RosterCards 22, ReadPanel 18, MatchupCards 16, MatMap 16; then before/after stills to him (his 'i will judge'). 4) Build Training K / rival card on his OK. 5) BODYLOOK1 Fable session: collect its PR (open every still). 6) FIGHTWEEK3 after his play.",
+ "next_action": "S495: 0) get_usage; where_we_are roll S495; quote board answers (Q-255 Training K v5) and his answer on the fight-analysis page. 1) Collect seats: SQ188 Dola + SQ189 John (LADDER1 v4: both depth 7+ and general 7+ -> his board with the map, else v5 to Kalli), SQ190 Kalli (COACHSPEC1 round 5 -> two fresh critics). 2) Collect Qwen CLASH10 (glove clipping, ETA 22:32 S494 day): open every still on the game camera before any merge. 3) BODYLOOK1 Fable session (PR 320): collect, open every before/after still. 4) ONELOOK1 palette sweep, worst first, before/after stills to him: HudRegroup 27, HudBars 26 (fight HUD), RosterCards 22, ReadPanel 18, MatchupCards 15, MatMap 16, WhiteboardKit 13 (shared by ~10 screens, change + stills together); WeekCards 33 waits for Training K (it may be replaced). palette_guard_test ratchets the count down (run it with -- write after each file). 5) Build Training K on his Q-255 OK. 6) FIGHTWEEK3 after his play.",
  "next_acceptance": "Ladder v2 reaches his board only with both critics at depth 7+; STYLE4 code merged only when docs/STYLE3_RESULT.md's gates pass (each style 1.5-4 wins in 100, none best vs all) at 100 bouts a cell; ClubDeal v9 briefed only after his Q-242 answer; no CLASH brief before the audit names which skeleton's stack runs first and what peer data each reads."
 }

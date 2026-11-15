@@ -13,6 +13,7 @@ const Needs := preload("res://scripts/state/Needs.gd")
 const ApproachWire := preload("res://scripts/state/ApproachWire.gd")
 const Bouts := preload("res://scripts/state/Bouts.gd")
 const ApproachCard := preload("res://scripts/ui/ApproachCard.gd")
+const Approach := preload("res://scripts/rules/Approach.gd")
 
 var failures := 0
 
@@ -61,9 +62,16 @@ func _initialize() -> void:
 	_check(Needs.blockers(c).any(func(n): return str(n["act"]) == "approach"), "Home: a red need blocks time")
 	_check(Needs.flags(c).any(func(x): return str(x["t"]) == "APPROACHED"), "the top bar flags APPROACHED")
 	var v := ApproachCard.view(c, kid)
-	_check((v["cols"] as Array).size() == 5 and str(v["head"]).contains(str(kid["name"]).to_upper()), "the card: five answers, the name only in the header")
-	_check(not str(v["cols"][1]["lines"]).contains(str(holder["first"])), "no names in the columns")
-	_check((v["cols"] as Array).all(func(col): return bool(col["available"])), "all five open on a stipend ask with a show bookable")
+	# S494 his Q-253: three answers on the card (MATCH IT, HALF EACH, LET THEM GO), each with what happens and its loyalty.
+	_check((v["cols"] as Array).map(func(col): return str(col["id"])) == ["match", "half", "let_go"] and str(v["head"]).contains(str(kid["name"]).to_upper()),
+		"the card: three answers, the name only in the header (%s)" % [(v["cols"] as Array).map(func(col): return str(col["id"]))])
+	_check(not str(v["cols"]).contains(str(holder["first"])) and not str(v["cols"]).contains(str(kid["first"])) and not str(v["offer"]).contains(str(kid["first"])),
+		"no names in the columns or the offer line")
+	_check((v["cols"] as Array).all(func(col): return bool(col["available"])), "all three open on a stipend ask")
+	_check(int(v["cols"][0]["to"]) == int(v["cols"][0]["from"]) + int(Approach.GAIN["match"]) and str(v["cols"][0]["outcome"]).ends_with(" stays"),
+		"MATCH IT: stays, loyalty %d -> %d" % [v["cols"][0]["from"], v["cols"][0]["to"]])
+	_check(bool(v["cols"][2]["leaves"]) and str(v["cols"][2]["outcome"]).ends_with(" leaves Monday"), "LET THEM GO: leaves Monday")
+	_check(str(v["cols"][1]["lines"]).contains("their loyalty"), "HALF EACH: the team-mate's loyalty is on the card")
 
 	# The talk: once, then refused.
 	var t := ApproachWire.talk(c, kid_id)
