@@ -2955,7 +2955,8 @@
    "pid": 45016,
    "transcript": "AgentComms/seat_logs/SQ198_dola.txt",
    "answered_at": "2026-11-16 00:40",
-   "answer": "research/DESIGN_COACHSPEC1_R5_CRITIC_DOLA_DOLA.md"
+   "answer": "research/DESIGN_COACHSPEC1_R5_CRITIC_DOLA_DOLA.md",
+   "seen_by_claude": true
   },
   {
    "id": "SQ199",
@@ -2969,7 +2970,8 @@
    "pid": 19688,
    "transcript": "AgentComms/seat_logs/SQ199_dola.txt",
    "answered_at": "2026-11-16 01:40",
-   "answer": "research/DESIGN_LADDER1_V5_CRITIC_DOLA_DOLA.md"
+   "answer": "research/DESIGN_LADDER1_V5_CRITIC_DOLA_DOLA.md",
+   "seen_by_claude": true
   },
   {
    "id": "SQ200",
@@ -2983,7 +2985,8 @@
    "sent_ms": 1794780633486,
    "answered_at": "2026-11-16 00:40",
    "answer": "research/DESIGN_COACHSPEC1_R5_CRITIC_JOHN_JOHN.md",
-   "chars": 9388
+   "chars": 9388,
+   "seen_by_claude": true
   },
   {
    "id": "SQ201",
@@ -2997,16 +3000,19 @@
    "sent_ms": 1794784245251,
    "answered_at": "2026-11-16 01:40",
    "answer": "research/DESIGN_LADDER1_V5_CRITIC_JOHN_JOHN.md",
-   "chars": 11837
+   "chars": 11837,
+   "seen_by_claude": true
   },
   {
    "id": "SQ202",
    "seat": "kalli",
    "brief": "research/DESIGN_LADDER1_V5_REVISE_KALLI.md",
    "stem": "DESIGN_LADDER1_V5_REVISE_KALLI_KALLI",
-   "status": "queued",
+   "status": "sent",
    "queued_at": "2026-11-16 09:13",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-16 09:40",
+   "sent_ms": 1794814853882
   },
   {
    "id": "SQ203",
@@ -3015,6 +3021,24 @@
    "stem": "DESIGN_COACHSPEC1_R5_REVISE_KALLI_KALLI",
    "status": "queued",
    "queued_at": "2026-11-16 09:13",
+   "tries": 0
+  },
+  {
+   "id": "SQ204",
+   "seat": "john",
+   "brief": "research/DESIGN_GUARDDMG1_V1_CRITIC_JOHN.md",
+   "stem": "DESIGN_GUARDDMG1_V1_CRITIC_JOHN_JOHN",
+   "status": "queued",
+   "queued_at": "2026-11-16 15:47",
+   "tries": 0
+  },
+  {
+   "id": "SQ205",
+   "seat": "dola",
+   "brief": "research/DESIGN_GUARDDMG1_V1_CRITIC_DOLA.md",
+   "stem": "DESIGN_GUARDDMG1_V1_CRITIC_DOLA_DOLA",
+   "status": "queued",
+   "queued_at": "2026-11-16 15:47",
    "tries": 0
   }
  ]
