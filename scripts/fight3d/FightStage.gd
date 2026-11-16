@@ -91,6 +91,7 @@ func setup(a: Dictionary, b: Dictionary) -> void:
 	_ropes = ring.ropes
 	for spec in [a, b]:
 		boxers.append(BoxerBuild.build(self, spec, boxers.size()))
+		boxers[-1]["style"] = str((spec.get("who", {}) as Dictionary).get("style", ""))   # S503 GuardLife: she waits in her style
 	for i in boxers.size():
 		if boxers[i].get("gclear") != null:
 			boxers[i]["gclear"].other = boxers[1 - i]["skel"]

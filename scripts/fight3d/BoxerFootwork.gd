@@ -299,6 +299,7 @@ func _run_pair(dt: float) -> void:
 	pair["u"] = float(pair["u"]) + dt / float(pair["dur"])
 	var u: float = pair["u"]
 	var first: int = pair["first"]
+	var moved := 0.0   # S503: how far the two feet are along their ways (0..2): the body's turn follows the feet
 	for k in 2:
 		var i := first if k == 0 else 1 - first
 		var win: Vector2 = FIRST if k == 0 else SECOND
@@ -312,7 +313,8 @@ func _run_pair(dt: float) -> void:
 		if not (f["swing"] as Dictionary).is_empty():
 			var sw: Dictionary = f["swing"]
 			sw["u"] = s
-			var e := s * s * (3.0 - 2.0 * s)
+			var e := travel(s)
+			moved += e
 			f["at"] = (sw["from"] as Vector2).lerp(sw["to"], e)
 			f["nudge"] = (sw["n0"] as Vector2).lerp(sw["n1"], e)
 			f["yaw"] = lerp_angle(float(sw["yaw0"]), float(sw["yaw1"]), e)
@@ -320,8 +322,11 @@ func _run_pair(dt: float) -> void:
 				f["at"] = sw["to"]
 				f["nudge"] = sw["n1"]
 				f["swing"] = {}
+		elif bool(pair["lifted"][i]):
+			moved += 1.0   # this foot has landed
 	var prog := clampf(u, 0.0, 1.0)
-	yaw = lerp_angle(float(pair["yaw0"]), float(pair["yaw1"]), prog * prog * (3.0 - 2.0 * prog))
+	var turn := prog * prog * (3.0 - 2.0 * prog) if old_swing() else clampf(moved * 0.5, 0.0, 1.0)
+	yaw = lerp_angle(float(pair["yaw0"]), float(pair["yaw1"]), turn)
 	if u >= 1.0 and (feet[LEAD]["swing"] as Dictionary).is_empty() and (feet[REAR]["swing"] as Dictionary).is_empty():
 		yaw = float(pair["yaw1"])
 		done_pairs.append({"dir": pair["dir"], "first": pair["first"], "centre0": pair["c0"], "centre1": centre(),
@@ -331,6 +336,38 @@ func _run_pair(dt: float) -> void:
 
 
 ## 0 at the top of the bounce, 1 at the bottom of the dip: a round, hanging top and a quicker dip (a spring, not a sine).
+## S503 (blind r9, both critics put the feet first: planted feet "slid" 10.6 / 11.7 m a round, 70 % of it a step whose
+## ball stayed under 1.5 cm while it travelled - the warped steps take 4 frames and the sin(PI s) arc is low at both ends,
+## where the foot already moved): a step LIFTS, TRAVELS, SETS DOWN. The foot only travels inside CLEAR_S..1-CLEAR_S of
+## its swing, the lift keeps its sine (a faster rise jerked the knee: sqrt(sin) took knee jerks > 8 deg 65 -> 194) and never peaks
+## under MIN_LIFT_M (x scale); the body's turn over a pair follows the feet's own travel (on the pair's clock the hips
+## turned before the feet moved: ring_feet_test read the feet crossing, 0.08 m). RingFeet's quickest pair 0.27 -> 0.36 s.
+## Film seed 7, 75 s: planted slide 10.6 / 11.7 -> 0.40 / 0.25 m, knee shake L 3.30 -> 3.03 deg.
+## `-- oldswing` = the control arm (smoothstep travel, sin lift, the pair's turn, 0.27 s pairs).
+const CLEAR_S := 0.15
+const MIN_LIFT_M := 0.0195
+static var _old := -1
+
+
+static func old_swing() -> bool:
+	if _old < 0:
+		_old = 1 if OS.get_cmdline_user_args().has("oldswing") else 0
+	return _old == 1
+
+
+## How far along its way a swinging foot is (0..1) at swing time s (0..1).
+static func travel(s: float) -> float:
+	var t := s if old_swing() else clampf((s - CLEAR_S) / (1.0 - 2.0 * CLEAR_S), 0.0, 1.0)
+	return t * t * (3.0 - 2.0 * t)
+
+
+## A swinging foot's lift (m) at swing time s for a step whose peak lift is `peak`.
+static func rise(peak: float, s: float, scale: float) -> float:
+	if old_swing():
+		return peak * sin(PI * s)
+	return maxf(peak, MIN_LIFT_M * scale) * sin(PI * clampf(s, 0.0, 1.0))
+
+
 static func dip_at(ph: float) -> float:
 	var d := 0.5 - 0.5 * cos(TAU * ph)
 	return pow(d, 1.5)
@@ -389,7 +426,7 @@ func pose() -> Dictionary:
 			# heel ramps across the swing: its old 2.4 cm rise inside one frame was a 9.6 deg pitch jump a frame, and
 			# the knee reads the ankle's height. `-- nokneecalm` restores both.
 			var step_m: float = (sw["to"] as Vector2).distance_to(sw["from"] as Vector2)
-			lift = KneeCalm.lift(step_m, scale, spring, FLAT_LIFT_M, LIFT_M) * sin(PI * s)
+			lift = rise(KneeCalm.lift(step_m, scale, spring, FLAT_LIFT_M, LIFT_M), s, scale)
 			heel += KneeCalm.toe_m() * scale * KneeCalm.toe(s)
 			toe_pitch = 1.0
 			# a foot going forward on her left turns the pelvis to her right; the shoulders answer the other way

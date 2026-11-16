@@ -82,6 +82,15 @@ static func clear_of(p_screen: Vector2, boxes: Array, pad: float) -> bool:
 	return true
 
 
+## S503: a flash goes off in the crowd band above both boxers' heads on screen (the low ringside camera puts the front rows
+## at rope height, beside the gloves, where a flash reads as a hit). No boxes (no keep_off) = anywhere.
+static func above_heads(p_screen: Vector2, boxes: Array) -> bool:
+	for b in boxes:
+		if p_screen.y > (b as Rect2).position.y:
+			return false
+	return true
+
+
 ## n flashes over BURST_SPREAD_S (a big shot, a knockdown, the final bell).
 func burst(n: int) -> void:
 	for i in n:
@@ -150,7 +159,7 @@ func _fire() -> void:
 				for tries in 12:
 					var gp := to_global(p)
 					var screen_pt := cam.unproject_position(gp)
-					if cam.is_position_in_frustum(gp) and clear_of(screen_pt, boxes, pad):
+					if cam.is_position_in_frustum(gp) and clear_of(screen_pt, boxes, pad) and above_heads(screen_pt, boxes):
 						found = true
 						break
 					p = src[rng.randi() % src.size()]
@@ -162,10 +171,14 @@ func _fire() -> void:
 			# S497: a flash is a press camera, not a hit spark; cap its screen size.
 			var sf := 1.0
 			if cam != null:
-				var dist := cam.global_transform.origin.distance_to(to_global(node.position))
-				var est_px := SIZE_M / maxf(0.1, dist) * 500.0
-				if est_px > MAX_PX:
-					sf = MAX_PX / est_px
+				# S503 (blind r10 coach: "a floating white flash near the ropes", ex3 #3-#6, ~150 px at 1080p): the old
+				# estimate (500 px a metre at 1 m) read ~3x small on the S501 low zoomed camera - measure the star's two edges.
+				var gc := to_global(node.position)
+				var side := cam.global_transform.basis.x * (SIZE_M * 0.5)
+				var est_px := cam.unproject_position(gc + side).distance_to(cam.unproject_position(gc - side))
+				var cap := MAX_PX * get_viewport().get_visible_rect().size.y / 720.0
+				if est_px > cap:
+					sf = cap / est_px
 			f["sf"] = sf
 			node.scale = Vector3.ONE * sf
 			node.transparency = 0.0

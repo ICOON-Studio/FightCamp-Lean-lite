@@ -13,6 +13,7 @@ const BeatClips := preload("res://scripts/fight3d/BeatClips.gd")
 const GuardLife := preload("res://scripts/fight3d/GuardLife.gd")
 const RkClips := preload("res://scripts/fight3d/RkClips.gd")
 const HitStep := preload("res://scripts/fight3d/HitStep.gd")
+const BoxerFootwork := preload("res://scripts/fight3d/BoxerFootwork.gd")
 
 const BOUNCE_SHARE := 0.55   # of the time on the balls of her feet, fresh (BoxerFootwork.bounce_share)
 const DEAD_M := 0.07         # her place may sit this far off her feet before a step goes in
@@ -20,7 +21,9 @@ const ARRIVE_M := 0.02       # ... this far at the end of a director's walk
 const PAIR_M := 0.34         # the longest calm step pair
 const QUICK_M := 0.45        # the longest lunge pair
 const QUICK_V := 1.3         # her place moving this fast (m/s): a lunge
-const DUR_S := Vector2(0.27, 0.46)   # a pair's length (each foot a little over half of it)
+const DUR_S := Vector2(0.36, 0.46)   # a pair's length (each foot a little over half of it); S503: 0.27 -> 0.36, each foot
+                                     # ~0.19 s in the air (real 0.17-0.25; 0.14 s = a 4-frame flick that dragged its ball)
+const OLD_DUR_MIN := 0.27      # `-- oldswing` (the control arm) keeps the old quickest pair
 const CALM_V := 0.75         # the pace a pair is timed on when her place is not moving (m/s)
 const FREE := ["knockout", "win", "countdown", "fall"]   # as FootPlant's free clips
 const TELEPORT_M := 0.15     # a director moved her body this far from where it was shown: stand there
@@ -138,7 +141,7 @@ static func _chase(rig: Node, goal: Vector2, speed: float, dead: float) -> void:
 	var plan: RefCounted = rig.plan
 	if not (plan.pair as Dictionary).is_empty():
 		if speed >= QUICK_V:   # a lunge cannot wait for a calm pair: it finishes fast
-			plan.pair["dur"] = minf(float(plan.pair["dur"]), DUR_S.x)
+			plan.pair["dur"] = minf(float(plan.pair["dur"]), OLD_DUR_MIN if BoxerFootwork.old_swing() else DUR_S.x)
 		return
 	var err: Vector2 = goal - (plan.centre() as Vector2)
 	var dist := err.length()
@@ -147,7 +150,7 @@ static func _chase(rig: Node, goal: Vector2, speed: float, dead: float) -> void:
 	var quick := speed >= QUICK_V
 	var m := minf(dist, QUICK_M if quick else PAIR_M) * maxf(float(plan.scale), 0.5)
 	m = minf(m, dist)
-	var dur := clampf(m / maxf(speed, CALM_V), DUR_S.x, DUR_S.y)
+	var dur := clampf(m / maxf(speed, CALM_V), OLD_DUR_MIN if BoxerFootwork.old_swing() else DUR_S.x, DUR_S.y)
 	plan.go((plan.centre() as Vector2) + err / dist * m, dur)
 
 

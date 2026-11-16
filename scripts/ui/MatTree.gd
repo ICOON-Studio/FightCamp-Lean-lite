@@ -497,4 +497,3 @@ func _leak_tile(n: int, lk: Dictionary) -> Control:
 	h.add_child(v)
 	card.add_child(h)
 	return card
-

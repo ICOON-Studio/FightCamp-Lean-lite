@@ -116,6 +116,18 @@ static func _count_after_window_pre(moments: Array, b_punches: Array, a_punches:
 	return {"kind": "after", "k": k, "n": n, "rest_k": rest_k, "rest_n": rest_n}
 
 
+## S503: a hook or cross she throws inside her own burst (within COMBO_GAP_S of her previous punch: the one-two,
+## the two-three, the double hook) is a combination, not a wild swing.
+const COMBO_GAP_S := 0.7
+
+
+static func _is_combo_follow(beat: Dictionary, found: Dictionary) -> bool:
+	if str(beat.get("who", "")) != "b":
+		return false
+	var gap: float = float(found.get("t", 0.0)) - float(beat.get("t", 0.0))
+	return gap > 0.0 and gap <= COMBO_GAP_S
+
+
 static func _eval_fact(then: String, after_key: String, beat: Dictionary, beat_t: float, is_b_punch: bool, b_punches: Array, a_punches: Array, seen_only: bool) -> bool:
 	match then:
 		"right_low", "lunged", "stood":
@@ -142,6 +154,8 @@ static func _eval_fact(then: String, after_key: String, beat: Dictionary, beat_t
 			var move: String = str(found.get("move", ""))
 			var pw: String = FilmMoments.punch_word(move)
 			if pw != "hook" and pw != "cross":
+				return false
+			if _is_combo_follow(beat, found):
 				return false
 			if str(found.get("result", "")) != "misses":
 				return false
@@ -174,6 +188,8 @@ static func _eval_fact_for_rest(then: String, after_key: String, beat: Dictionar
 			var move: String = str(found.get("move", ""))
 			var pw: String = FilmMoments.punch_word(move)
 			if pw != "hook" and pw != "cross":
+				return false
+			if _is_combo_follow(beat, found):
 				return false
 			if str(found.get("result", "")) != "misses":
 				return false
@@ -232,7 +248,8 @@ static func _count_fewer_pre(pre: Dictionary, when: String) -> Dictionary:
 				outside += 1
 
 	var slowdown: float = 0.9 if when == "last_min" else 1.0
-	return {"kind": "fewer", "inside": inside, "inside_min": inside_min, "outside": outside, "outside_min": outside_min, "slowdown": slowdown}
+	return {"kind": "fewer", "inside": inside, "inside_min": inside_min, "outside": outside, "outside_min": outside_min, "slowdown": slowdown,
+		"films": 1, "one_round": ONE_ROUND_WHENS.has(when)}
 
 
 static func _count_outlanded_pre(pre: Dictionary, when: String) -> Dictionary:
@@ -297,7 +314,8 @@ static func _count_outlanded_pre(pre: Dictionary, when: String) -> Dictionary:
 			else:
 				out_landed += 1
 
-	return {"kind": "outlanded", "in_landed": in_landed, "in_min": in_min, "out_landed": out_landed, "out_min": out_min}
+	return {"kind": "outlanded", "in_landed": in_landed, "in_min": in_min, "out_landed": out_landed, "out_min": out_min,
+		"films": 1, "one_round": ONE_ROUND_WHENS.has(when)}
 
 
 ## Non-precomputed version for single claims.
@@ -306,7 +324,19 @@ static func count(film: Dictionary, claim: Dictionary, seen_only: bool = false) 
 	return count_pre(pre, claim, seen_only)
 
 
+## S503: a claim about one round of one film rests on one won-or-lost round (rounds come in clumps), so one
+## film can only say "maybe"; two films pooled (two rounds) can pass.
+const ONE_ROUND_WHENS := ["round1", "last_min"]
+
+
 static func judge(counts: Dictionary) -> Dictionary:
+	var j: Dictionary = _judge_counts(counts)
+	if bool(counts.get("one_round", false)) and int(counts.get("films", 1)) < 2 and str(j.get("word", "")) == "pass":
+		j["word"] = "maybe"
+	return j
+
+
+static func _judge_counts(counts: Dictionary) -> Dictionary:
 	var kind: String = str(counts.get("kind", ""))
 	match kind:
 		"after":

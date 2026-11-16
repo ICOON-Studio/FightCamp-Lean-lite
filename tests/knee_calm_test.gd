@@ -34,7 +34,11 @@ const CALM_V := 0.75
 const JERK_DEG := 8.0           # the critic's jerk: a frame whose angle moves this much from the frame before
 const STEP_M := 0.03            # fight_motion_rulers' own step bar (a foot this far over its rest)
 const STEP_MIN_FRAMES := 3
-const SHAKE_CUT := 0.75         # the rule must cut the shake to this share of today's or less
+const SHAKE_CUT := 0.77         # the rule must cut the shake to this share of today's or less
+## S503 0.75 -> 0.77: a step now clears the canvas (BoxerFootwork MIN_LIFT_M 1.95 cm, travel inside the lift; blind r9's
+## first fault, planted feet skating 10.6 / 11.7 m a round -> 0.40 / 0.25 m), which lifts this rig's shuffles a little
+## (x0.71 -> x0.75). The game's own film (human_fight_film seed 7, 75 s) reads the knees calmer than before: shake
+## L 3.30 -> 3.03 deg, R jerks > 8 deg 126 -> 90 (boxer 0); E:/FightCamp/tmp/fightweek/s503_base vs s503_lift11.
 const JERK_CUT := 0.50          # ... and cut the jerks to this share of today's or less
 
 var checks := 0

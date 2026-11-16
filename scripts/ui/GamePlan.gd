@@ -59,7 +59,6 @@ var _fill_to := 0.0
 var _band: Label
 var _pulse := false
 
-
 static func make(m: Node, fighter: Dictionary, play: Callable) -> Control:
 	var g := new()
 	g.name = "GamePlan"
