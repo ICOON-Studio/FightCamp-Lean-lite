@@ -12,9 +12,13 @@ colours:
   3. COLOURS: the vest and shorts colours of the candidates are split into two groups (k-means, k = 2): boxer A and
      boxer B (on vest + shorts, shorts only or vest only - whichever separates them best; bare chests need the shorts). Every frame, the candidates are handed to A and B by colour distance, with a bonus for staying on the
      same tracklet and a cost for jumping across the ring. A is the one seen on more frames.
-Saved: kpt (F,2,17,3) x,y,score (0 where the boxer is not seen); seen (F,2) bool; colour (2,) names; cut (F,) bool;
-src (F,2) index of the person in the pose file (-1 = none); frame, t, fps, size copied from the pose file;
-seg (F,) number of the stretch between cuts."""
+  4. BOUTS: a file may hold several bouts cut together (files of the Olympic test set do), each with its own two
+     kits. The stretches between cuts are grouped into bouts where the kit colours change (find_bouts), and steps 2-3 run
+     per bout: each bout gets its own pair of kits, its own referee group left out and its own A and B.
+Saved: kpt (F,2,17,3) x,y,score (0 where the boxer is not seen); seen (F,2) bool; colour (2,) names (the longest
+bout's); cut (F,) bool; src (F,2) index of the person in the pose file (-1 = none); frame, t, fps, size copied from the
+pose file; seg (F,) number of the stretch between cuts; bout (F,) number of the bout; kits (bouts,2) colour names.
+Boxer A of one bout and boxer A of the next are different people."""
 import sys
 
 import numpy as np
@@ -25,6 +29,9 @@ LINK_GATE = 0.55   # trunk lengths a person may move between two frames (grows w
 GUARD_MIN = 0.50   # share of frames with the hands up for a tracklet to seed a boxer
 MOVE_MIN = 0.15    # trunk lengths per second the trunk must drift on average (seated people do not)
 MIN_LEN_S = 0.4    # shorter tracklets are ignored
+BOUT_ALPHA = 0.008  # a new bout must cut the colour spread by this much per unit of candidate weight (find_bouts)
+OPPONENT_FALLBACK = True  # an empty slot takes the boxer candidate standing next to the placed boxer
+OPPONENT_REACH = 3.0      # trunk lengths, centre to centre
 
 
 def trunk(k):
@@ -196,6 +203,51 @@ def split_kits(full, w):
     return best[1:]
 
 
+def find_bouts(stats, cand, cuts, F):
+    """Where one bout ends and the next begins, from the kit colours alone. -> [(first frame, end frame), ...].
+    The stretches between cuts that hold boxer candidates are split into runs so that the candidates of each run fall
+    into at most three colour groups (two boxers and a referee) as tightly as possible: the cost of a run is its
+    weighted spread round three group centres, every extra bout costs BOUT_ALPHA x the total weight, and the cheapest
+    split wins (dynamic programming over at most a few dozen stretches). One bout = no split."""
+    bounds = np.r_[0, np.flatnonzero(cuts), F]
+    segs = []
+    for a, b in zip(bounds[:-1], bounds[1:]):
+        cs = [i for i in cand if a <= stats[i]["start"] < b]
+        if cs:
+            segs.append((int(a), cs))
+    m = len(segs)
+    if m < 2:
+        return [(0, F)]
+
+    def spread(cs):
+        if len(cs) <= 3:
+            return 0.0
+        v = np.stack([stats[i]["colour"] for i in cs])
+        w = np.array([stats[i]["n"] * stats[i]["guard"] for i in cs], np.float32)
+        cen, lab = colour_groups(v, w, 3)
+        return float((w * ((v - cen[lab]) ** 2).sum(1)).sum())
+
+    cost = np.zeros((m, m + 1))
+    for i in range(m):
+        cs = []
+        for j in range(i + 1, m + 1):
+            cs = cs + segs[j - 1][1]
+            cost[i, j] = spread(cs)
+    penalty = BOUT_ALPHA * float(sum(stats[i]["n"] * stats[i]["guard"] for i in cand))
+    best, prev = [0.0] + [np.inf] * m, [0] * (m + 1)
+    for j in range(1, m + 1):
+        for i in range(j):
+            c = best[i] + cost[i, j] + (penalty if i > 0 else 0.0)
+            if c < best[j]:
+                best[j], prev[j] = c, i
+    starts, j = [], m
+    while j > 0:
+        starts.append(prev[j])
+        j = prev[j]
+    frames = [0] + [segs[i][0] for i in sorted(starts)[1:]] + [F]
+    return list(zip(frames[:-1], frames[1:]))
+
+
 def pick_boxers(pose, fighters=None, log=print):
     kpt, hsv, n = pose["kpt"], pose["col"], pose["n"]
     fps = float(pose["fps"])
@@ -210,23 +262,10 @@ def pick_boxers(pose, fighters=None, log=print):
     seen = np.zeros((F, 2), bool)
     src = -np.ones((F, 2), np.int16)
     seg = np.cumsum(cuts).astype(np.int32)
+    bout = np.zeros(F, np.int32)
     if not cand:
         log("track: no boxer found (nobody keeps a guard up and moves)")
-        return dict(kpt=out_k, seen=seen, src=src, colour=np.array(["?", "?"]), cut=cuts, seg=seg)
-    full = np.stack([stats[i]["colour"] for i in cand])
-    w = np.array([stats[i]["n"] * stats[i]["guard"] for i in cand], np.float32)
-    W, centres, full_centres, third, sep, spread, kit_part = split_kits(full, w)
-    # are two candidates ever on screen together? (one man on a bag or shadow boxing = one fighter)
-    is_cand = np.isin(tid, cand)
-    together = float((is_cand.sum(1) >= 2).mean() / max(1e-6, (is_cand.sum(1) >= 1).mean()))
-    if fighters is None:
-        fighters = 2 if together > 0.15 or sep > 0.5 else 1  # two clearly different kits = two boxers
-    by_colour = fighters == 2 and sep > 3.0 * spread  # else the kits look alike: position decides
-    if fighters == 1:
-        centres = np.stack([np.average(full * W, axis=0, weights=w)] * 2)
-        full_centres = np.stack([np.average(full, axis=0, weights=w)] * 2)
-    log("track: %d tracklets, %d boxer candidates, two on screen together %.0f%% of the time, colour gap %.2f (spread %.2f) -> %d fighter(s), told apart by %s" % (
-        len(tracks), len(cand), 100 * together, sep, spread, fighters, ("the colour of the %s" % kit_part) if by_colour else "position"))
+        return dict(kpt=out_k, seen=seen, src=src, colour=np.array(["?", "?"]), cut=cuts, seg=seg, bout=bout, kits=np.array([["?", "?"]]))
     # the colour each detection is judged by: the median over +-15 frames of its own tracklet, so that a tracklet
     # which slid from one boxer onto the other in a clinch is re-read within a third of a second
     loc = np.zeros(tid.shape + (6,), np.float32)
@@ -236,6 +275,35 @@ def pick_boxers(pose, fighters=None, log=print):
         cv = np.stack([colour_vec(hsv[f, p]) for f, p in tr])
         for i, (f, p) in enumerate(tr):
             loc[f, p] = np.median(cv[max(0, i - 15):i + 16], axis=0)
+    bouts = find_bouts(stats, cand, cuts, F)
+    if len(bouts) > 1:
+        log("track: %d bouts in this file (the kits change at %s s)" % (len(bouts), ", ".join("%.0f" % (b[0] / fps) for b in bouts[1:])))
+    kits = []
+    for k, (f0, f1) in enumerate(bouts):
+        bout[f0:f1] = k
+        mine = [i for i in cand if f0 <= stats[i]["start"] < f1]
+        kits.append(_pick_in(f0, f1, mine, kpt, n, tid, stats, loc, cuts, fighters, out_k, seen, src, log) if mine else ["?", "?"])
+    longest = int(np.argmax([seen[f0:f1].any(1).sum() for f0, f1 in bouts]))
+    return dict(kpt=out_k, seen=seen, src=src, colour=np.array(kits[longest]), cut=cuts, seg=seg, bout=bout, kits=np.array(kits))
+
+
+def _pick_in(f0, f1, cand, kpt, n, tid, stats, loc, cuts, fighters, out_k, seen, src, log):
+    """Steps 2-3 for the frames f0..f1 of one bout, with that bout's own candidates. Fills out_k, seen, src there and
+    returns the two kit names (A first)."""
+    full = np.stack([stats[i]["colour"] for i in cand])
+    w = np.array([stats[i]["n"] * stats[i]["guard"] for i in cand], np.float32)
+    W, centres, full_centres, third, sep, spread, kit_part = split_kits(full, w)
+    # are two candidates ever on screen together? (one man on a bag or shadow boxing = one fighter)
+    is_cand = np.isin(tid[f0:f1], cand)
+    together = float((is_cand.sum(1) >= 2).mean() / max(1e-6, (is_cand.sum(1) >= 1).mean()))
+    if fighters is None:
+        fighters = 2 if together > 0.15 or sep > 0.5 else 1  # two clearly different kits = two boxers
+    by_colour = fighters == 2 and sep > 3.0 * spread  # else the kits look alike: position decides
+    if fighters == 1:
+        centres = np.stack([np.average(full * W, axis=0, weights=w)] * 2)
+        full_centres = np.stack([np.average(full, axis=0, weights=w)] * 2)
+    log("track: frames %d-%d: %d boxer candidates, two on screen together %.0f%% of the time, colour gap %.2f (spread %.2f) -> %d fighter(s), told apart by %s" % (
+        f0, f1, len(cand), 100 * together, sep, spread, fighters, ("the colour of the %s" % kit_part) if by_colour else "position"))
     # hand the candidates of every frame to the slots
     last = [None, None]  # (frame, centre, T, tracklet)
     cand_set = set(cand)
@@ -243,7 +311,7 @@ def pick_boxers(pose, fighters=None, log=print):
     # with two distinct kits, a shorter or lower-guard tracklet in a boxer's colours is that boxer too - but only
     # next to the other boxer or where this boxer just was (a coach in a dark tracksuit at ringside is neither)
     members = set(i for i, s in enumerate(stats) if s["span"] >= 0.2 and s["fight"] >= 0.15 and s["move"] >= MOVE_MIN) if by_colour else set()
-    for f in range(F):
+    for f in range(f0, f1):
         if cuts[f]:
             last = [None, None]
         options = []
@@ -287,12 +355,33 @@ def pick_boxers(pose, fighters=None, log=print):
                 placed[s] = (c, T)
                 out_k[f, s], seen[f, s], src[f, s] = kpt[f, p], True, p
                 last[s] = (f, c, T, t)
-    if fighters == 2 and seen[:, 1].sum() > seen[:, 0].sum():  # A = the boxer seen more
-        out_k, seen, src, full_centres = out_k[:, ::-1].copy(), seen[:, ::-1].copy(), src[:, ::-1].copy(), full_centres[::-1]
+        # THE OPPONENT IS THE FIGHTER NEXT TO HIM: one boxer placed by his kit and the other slot empty (his kit read
+        # wrongly in this light) - a boxer candidate (hands up, moving) right beside the placed one, of his size and not
+        # in the referee's colours, is the other boxer.
+        if OPPONENT_FALLBACK and by_colour and fighters == 2 and len(placed) == 1:
+            s = 1 - next(iter(placed))
+            oc, oT = placed[1 - s]
+            best = None
+            for p in range(int(n[f])):
+                t = int(tid[f, p])
+                if p in used_p or t not in cand_set:
+                    continue
+                c, T = trunk(kpt[f, p])
+                if third is not None and float(np.linalg.norm(loc[f, p] * W - third)) < float(np.linalg.norm((loc[f, p] * W)[None] - centres, axis=1).min()):
+                    continue
+                d = float(np.linalg.norm(c - oc)) / max(T, oT)
+                if d <= OPPONENT_REACH and 0.6 < T / oT < 1.6 and (best is None or d < best[0]):
+                    best = (d, p, t, c, T)
+            if best is not None:
+                d, p, t, c, T = best
+                out_k[f, s], seen[f, s], src[f, s] = kpt[f, p], True, p
+                last[s] = (f, c, T, t)
+    if fighters == 2 and seen[f0:f1, 1].sum() > seen[f0:f1, 0].sum():  # A = the boxer seen more
+        out_k[f0:f1], seen[f0:f1], src[f0:f1], full_centres = out_k[f0:f1, ::-1].copy(), seen[f0:f1, ::-1].copy(), src[f0:f1, ::-1].copy(), full_centres[::-1]
     names = [colour_name(c if kit_part != "shorts" else np.r_[c[3:], c[3:]]) for c in full_centres]
     log("track: boxer A (%s kit) seen on %.0f%% of frames, boxer B (%s kit) on %.0f%%, both on %.0f%%" % (
-        names[0], 100 * seen[:, 0].mean(), names[1], 100 * seen[:, 1].mean(), 100 * seen.all(1).mean()))
-    return dict(kpt=out_k, seen=seen, src=src, colour=np.array(names), cut=cuts, seg=seg)
+        names[0], 100 * seen[f0:f1, 0].mean(), names[1], 100 * seen[f0:f1, 1].mean(), 100 * seen[f0:f1].all(1).mean()))
+    return names
 
 
 def run(pose_npz, out_npz, fighters=None, log=print):

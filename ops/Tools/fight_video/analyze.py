@@ -1,7 +1,7 @@
 """Analyze a boxing video: a strike log per boxer with totals.  (Claude, S495; research tool, not part of the game)
 
 usage: python analyze.py <video> --out <dir> [--start S] [--end S] [--stride N] [--fighters 1|2] [--stills N]
-                         [--models DIR] [--no-models] [--cpu] [--force]
+                         [--models DIR] [--no-models] [--cpu] [--force] [--detector rfdetr.onnx]
 
   <dir>/strikes.txt    the readable log: time, boxer, hand, punch, target, result, then totals per boxer
   <dir>/strikes.json   the same as data (one record per punch + totals + how sure each call is)
@@ -124,7 +124,7 @@ def main():
     if not os.path.exists(pose_npz):
         if "--force" not in a and pc_is_red():
             sys.exit("the PC watchdog reads RED: not starting the pose pass (close something, or --force)")
-        pose.run(video, pose_npz, opt("--start", 0.0), opt("--end", 1e9), opt("--stride", 1), "--cpu" not in a)
+        pose.run(video, pose_npz, opt("--start", 0.0), opt("--end", 1e9), opt("--stride", 1), "--cpu" not in a, detector=opt("--detector", "") or None)
     else:
         print("pose: using the cached %s" % pose_npz)
     track.run(pose_npz, box_npz, opt("--fighters", 0) or None)

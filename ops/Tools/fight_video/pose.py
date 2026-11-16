@@ -1,5 +1,5 @@
 """Stage 1 - every person's body pose in every frame of a video -> <out>.npz.  (Claude, S495)
-usage: python pose.py <video> <out.npz> [--start S] [--end S] [--stride N] [--cpu] [--max-people 10]
+usage: python pose.py <video> <out.npz> [--start S] [--end S] [--stride N] [--cpu] [--max-people 10] [--detector rfdetr.onnx]
 
 Models: YOLOX-m (person boxes) + RTMPose-m (17 COCO keypoints per person), the Apache-2.0 OpenMMLab ONNX files rtmlib
 downloads once to ~/.cache/rtmlib. They run on the graphics card through DirectML when onnxruntime-directml is the
@@ -33,17 +33,23 @@ def _session(path, use_gpu):
     return ort.InferenceSession(path, sess_options=opts, providers=providers)
 
 
-def load_models(use_gpu=True, mode="balanced"):
-    """Returns (detector, pose_model, device_name). rtmlib does the pre/post-processing; we own the ONNX sessions."""
+def load_models(use_gpu=True, mode="balanced", detector=None):
+    """Returns (detector, pose_model, device_name). rtmlib does the pre/post-processing; we own the ONNX sessions.
+    detector = the path of an RF-DETR .onnx (detector.py: weights that may be sold) instead of the default YOLOX-m
+    "humanart" (trained on a non-commercial set: research only)."""
     from rtmlib import YOLOX, RTMPose
     from rtmlib.tools.solution.body import Body
     cfg = Body.MODE[mode]
-    det = YOLOX(cfg["det"], model_input_size=cfg["det_input_size"], backend="onnxruntime", device="cpu")
     pose = RTMPose(cfg["pose"], model_input_size=cfg["pose_input_size"], backend="onnxruntime", device="cpu")
+    if detector:
+        from detector import RFDetrPerson
+        det = RFDetrPerson(detector, use_gpu)
+    else:
+        det = YOLOX(cfg["det"], model_input_size=cfg["det_input_size"], backend="onnxruntime", device="cpu")
     name = "cpu"
     if use_gpu:
         from rtmlib.tools.file import download_checkpoint
-        for tool, url in ((det, cfg["det"]), (pose, cfg["pose"])):
+        for tool, url in ((det, cfg["det"]), (pose, cfg["pose"])) if not detector else ((pose, cfg["pose"]),):
             tool.session = _session(download_checkpoint(url), True)
         name = det.session.get_providers()[0]
     return det, pose, name
@@ -102,7 +108,7 @@ def recolour(video, npz_path, log=print):
     log("recolour: %s done" % os.path.basename(npz_path))
 
 
-def run(video, out, start_s=0.0, end_s=1e9, stride=1, use_gpu=True, max_people=10, log=print):
+def run(video, out, start_s=0.0, end_s=1e9, stride=1, use_gpu=True, max_people=10, log=print, detector=None):
     cap = cv2.VideoCapture(video)
     src_fps = cap.get(cv2.CAP_PROP_FPS) or 30.0
     w, h = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH)), int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
@@ -111,7 +117,7 @@ def run(video, out, start_s=0.0, end_s=1e9, stride=1, use_gpu=True, max_people=1
     last = min(total - 1, int(round(end_s * src_fps))) if total > 0 else int(round(end_s * src_fps))
     if first:
         cap.set(cv2.CAP_PROP_POS_FRAMES, first)
-    det, pose, device = load_models(use_gpu)
+    det, pose, device = load_models(use_gpu, detector=detector)
     log("pose: %s %dx%d %.2f fps, frames %d..%d stride %d on %s" % (os.path.basename(video), w, h, src_fps, first, last, stride, device))
     frames, boxes, kpts, cols, counts, cutdiff = [], [], [], [], [], []
     prev_thumb = None
@@ -160,4 +166,4 @@ if __name__ == "__main__":
         recolour(a[2], a[3])
         sys.exit(0)
     opt = lambda k, d: type(d)(a[a.index(k) + 1]) if k in a else d
-    run(a[1], a[2], opt("--start", 0.0), opt("--end", 1e9), opt("--stride", 1), "--cpu" not in a, opt("--max-people", 10))
+    run(a[1], a[2], opt("--start", 0.0), opt("--end", 1e9), opt("--stride", 1), "--cpu" not in a, opt("--max-people", 10), detector=opt("--detector", "") or None)

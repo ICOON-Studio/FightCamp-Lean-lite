@@ -10,8 +10,9 @@ analysis page reads the simulation's punch log and needs no video.
 
 - **It exists and runs with one command.** `analyze.py <video> --out <dir>` writes a strike log: time, boxer, hand, punch,
   target, result, then totals per boxer, combinations and "hit right after throwing".
-- **It is not accurate enough to trust as fight statistics yet.** On bouts it never saw it finds 44% of the punches the
-  referees marked, and 53% of the punches it reports are real. Where both boxers are tracked well it finds about 70%.
+- **It is not accurate enough to trust as fight statistics yet.** On bouts it never saw it finds 54% of the punches the
+  referees marked, and 51% of the punches it reports are real (44% and 53% before the picker fix of the same day, see
+  "Update: the picker fix"). Where both boxers are tracked well it finds about 70%.
   Its calls on hand, head/body and landed/blocked/missed are barely better than always answering "left", "head",
   "landed". Punch type was right 64% of the time on people the model never saw (the no-training rule: 54%).
 - **Where it works best:** amateur boxing with two different kit colours, a camera that shows both boxers whole.
@@ -67,6 +68,27 @@ How a detection is scored against the referees: it matches a label when its impa
 its glove is within one box diagonal of the label's box; each label and each detection counts once.
 **Recall** = how many of the referees' punches we found. **Precision** = how many of ours were real.
 Every score below is on bouts the models never saw.
+
+## Update: the picker fix (S495, later the same day)
+
+Next step 1 below is done (`track.py`; measured in `ops/research/FIGHT_VIDEO_DATASET_S495.md`, "The picker fix"). The kit
+pair is now chosen per bout inside a file, and an empty boxer slot takes the fighter standing next to the boxer that was
+found. Nothing was trained for it. The tables under "The numbers" are the measurement BEFORE this fix and are kept as
+they were; the same measurement after it:
+
+| | Before | After |
+|---|---|---|
+| All 29 bouts: labels where both boxers are seen (the ceiling) | 74.4% | **87.1%** |
+| All 29 bouts: labels the candidate net catches | 57.1% | **68.1%** |
+| Per file, labels caught: worst / middle / best | 16% / 66% / 88% | **38% / 74% / 90%** |
+| 6 bouts set aside, rules only: found / real | 50.0% / 28.2% | 60.5% / 28.1% |
+| 6 bouts set aside, trained layer: found / real | 44.5% / 53.3% | **53.8% / 51.2%** |
+| 6 bouts set aside, trained layer: hand / head-body / result | 69.0% / 78.0% / 57.8% | 72.4% / 83.8% / 61.2% |
+| 23 bouts by folds, trained layer: found / real | 43.9% / 50.9% | **52.4% / 51.5%** |
+| 23 bouts by folds, trained layer: hand / head-body / result | 71.9% / 82.5% / 56.2% | 72.7% / 81.2% / 57.2% |
+
+So the fix finds about nine more punches in every hundred at the same share of real ones. Hand, target and result are
+still at "always the commonest answer" (64% / 87% / 64%): the picker was never their problem.
 
 ## The numbers
 
@@ -212,6 +234,10 @@ measuring only. So: the datasets, the trained model files and the virtual enviro
 `E:\FightCamp\fight_video_data\`, nothing learnt from them is committed, and nothing of it goes into the game.
 The rules stage (no training) and all the code are ours and free to use.
 
+(Update, same day: the detector now has a clean replacement and the pose weights turned out to be the blocking model
+file; the synthetic clips hit a licence clause of the bought punch animations. All in
+`ops/research/FIGHT_VIDEO_DATASET_S495.md`.)
+
 What a sellable version needs: our own labelled clips (the operator's answer, S495: "make our own labelled clips then" -
 synthetic clips rendered from our own 3D fight with exact labels from the sim, plus real footage we have rights to and
 a labelling tool; planned in `ops/research/FIGHT_VIDEO_DATASET_S495.md`), a person detector with clean weights, and a
@@ -230,7 +256,7 @@ combinations; it has no measure of impact, pressure or distance yet.
 
 In order of value for the effort:
 
-1. **Pick the boxers per scene, not per video** (code, no training): choose the pair of kits for each stretch between
+1. **DONE (see "Update: the picker fix"). Pick the boxers per scene, not per video** (code, no training): choose the pair of kits for each stretch between
    cuts, leave a third colour group (the referee) out, and analyze wide shots only on broadcast footage. This alone
    should lift the four broken test files and is the step toward TV footage.
 2. **Our own labelled clips** (the operator's call, queued as its own task): synthetic exchanges rendered from our 3D

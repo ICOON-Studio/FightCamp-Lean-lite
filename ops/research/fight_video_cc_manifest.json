@@ -1,0 +1,2170 @@
+{
+ "what": "Freely licensed boxing video that may be used commercially, for our own labelled punch set (S495). Each licence was read on the clip's own page by a research helper on the date below; nothing here was downloaded by this task except the two 'Day of the Town' clips already on disk. `use_in_our_set` is our own decision per clip (rules in ops/research/FIGHT_VIDEO_DATASET_S495.md).",
+ "checked_on": "2026-11-16",
+ "summary": {
+  "clips_listed": 67,
+  "per_licence": {
+   "CC BY 2.0": 1,
+   "CC BY 3.0": 7,
+   "CC BY 4.0": 1,
+   "CC BY-SA 2.5 co": 6,
+   "CC BY-SA 3.0": 3,
+   "CC BY-SA 3.0 nl": 3,
+   "CC BY-SA 4.0": 4,
+   "CC0": 4,
+   "Public domain": 38
+  },
+  "per_source": {
+   "Wikimedia Commons": 64,
+   "Internet Archive": 3
+  },
+  "all_clips": {
+   "count": 67,
+   "minutes": 172.4,
+   "mb": 5794.0
+  },
+  "minors_yes": 7,
+  "minors_unknown": 10,
+  "excluding_minors_yes": {
+   "count": 60,
+   "minutes": 112.4,
+   "mb": 2868.5
+  },
+  "score_3_plus_excluding_minors_yes": {
+   "count": 37,
+   "minutes": 78.7,
+   "mb": 1462.0
+  },
+  "score_4_plus_excluding_minors_yes": {
+   "count": 6,
+   "minutes": 4.6,
+   "mb": 150.9
+  },
+  "score_3_plus_excluding_minors_yes_and_duplicates": {
+   "count": 35,
+   "minutes": 77.1,
+   "mb": 1358.8
+  },
+  "boxing_only_score_3_plus_no_minors_no_duplicates_no_sharealike": {
+   "count": 25,
+   "minutes": 62.9,
+   "mb": 1006.0
+  },
+  "sharealike_yes": 16,
+  "licence_review_pending": 3,
+  "files_over_1gb": [
+   "Državno prvenstvo v boksu 2016 Ravne na Koroškem.webm",
+   "Масленица в Екатеринбурге 2019. Кулачный бой.ogv"
+  ]
+ },
+ "clips": [
+  {
+   "title": "Državno prvenstvo v boksu 2016 Ravne na Koroškem.webm",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Dr%C5%BEavno_prvenstvo_v_boksu_2016_Ravne_na_Koro%C5%A1kem.webm",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/3/32/Dr%C5%BEavno_prvenstvo_v_boksu_2016_Ravne_na_Koro%C5%A1kem.webm",
+   "licence": "CC BY 3.0",
+   "licence_url": "https://creativecommons.org/licenses/by/3.0",
+   "licence_templates_on_page": [
+    "YouTube CC-BY"
+   ],
+   "pd_rationale_as_written": null,
+   "licence_review_on_page": "passed: {{LicenseReview}} by INeverCry on 2017-01-20",
+   "author": "Televizija Uršlja",
+   "attribution_text": "Televizija Uršlja, \"Državno prvenstvo v boksu 2016 Ravne na Koroškem\", CC BY 3.0 (https://creativecommons.org/licenses/by/3.0), via Wikimedia Commons",
+   "attribution_required": "yes",
+   "sharealike": "no",
+   "duration_s": 2678.9,
+   "resolution": "1920x1080",
+   "size_mb": 2502.9,
+   "shows": "national amateur championship bouts, indoor ring, TV camera",
+   "minors": "yes",
+   "usefulness_1to5": 5,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "note": "MIXED: early bouts are youth boxers, later bouts adult men - only the adult part is usable; 2.5 GB file, over the 1 GB limit on its own; 44 min; channel watermark",
+   "use_in_our_set": "excluded: shows minors"
+  },
+  {
+   "title": "Boxing Heavy Bag Analysis.webm",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Boxing_Heavy_Bag_Analysis.webm",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/b/b2/Boxing_Heavy_Bag_Analysis.webm",
+   "licence": "CC BY 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by/4.0",
+   "licence_templates_on_page": [
+    "self|cc-by-4.0"
+   ],
+   "pd_rationale_as_written": null,
+   "licence_review_on_page": "not applicable: uploader's own work, self-licensed",
+   "author": "UncleSamPatriot",
+   "attribution_text": "UncleSamPatriot, \"Boxing Heavy Bag Analysis\", CC BY 4.0 (https://creativecommons.org/licenses/by/4.0), via Wikimedia Commons",
+   "attribution_required": "yes",
+   "sharealike": "no",
+   "duration_s": 24.4,
+   "resolution": "1920x1080",
+   "size_mb": 130.9,
+   "shows": "heavy bag work, one adult boxer, 100 fps, indoor",
+   "minors": "no",
+   "usefulness_1to5": 4,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "note": "steady side-on camera, whole body; one boxer only; 131 MB for 24 s",
+   "use_in_our_set": "candidate"
+  },
+  {
+   "title": "EVD-boxeo-001.ogv",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:EVD-boxeo-001.ogv",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/5/57/EVD-boxeo-001.ogv",
+   "licence": "CC BY-SA 2.5 co",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/2.5/co/deed.en",
+   "licence_templates_on_page": [
+    "cc-by-sa-2.5-co"
+   ],
+   "pd_rationale_as_written": null,
+   "licence_review_on_page": "none on page",
+   "author": "Escuela Virtual de Deportes - COLDEPORTES - Colombia (Commons user Evdcoldeportes)",
+   "attribution_text": "Escuela Virtual de Deportes - COLDEPORTES - Colombia (Commons user Evdcoldeportes), \"EVD-boxeo-001\", CC BY-SA 2.5 co (https://creativecommons.org/licenses/by-sa/2.5/co/deed.en), via Wikimedia Commons",
+   "attribution_required": "yes",
+   "sharealike": "yes",
+   "duration_s": 33.7,
+   "resolution": "320x224",
+   "size_mb": 0.7,
+   "shows": "technique demo, two adult amateur boxers, indoor gym",
+   "minors": "no",
+   "usefulness_1to5": 4,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "note": "Coldeportes 'Guia de boxeo' lesson; title cards and captions burnt in; only 320x224",
+   "use_in_our_set": "candidate, ShareAlike: kept apart until a lawyer has read whether a trained model is an adaptation"
+  },
+  {
+   "title": "EVD-boxeo-003.ogv",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:EVD-boxeo-003.ogv",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/0/08/EVD-boxeo-003.ogv",
+   "licence": "CC BY-SA 2.5 co",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/2.5/co/deed.en",
+   "licence_templates_on_page": [
+    "cc-by-sa-2.5-co"
+   ],
+   "pd_rationale_as_written": null,
+   "licence_review_on_page": "none on page",
+   "author": "Escuela Virtual de Deportes - COLDEPORTES - Colombia (Commons user Evdcoldeportes)",
+   "attribution_text": "Escuela Virtual de Deportes - COLDEPORTES - Colombia (Commons user Evdcoldeportes), \"EVD-boxeo-003\", CC BY-SA 2.5 co (https://creativecommons.org/licenses/by-sa/2.5/co/deed.en), via Wikimedia Commons",
+   "attribution_required": "yes",
+   "sharealike": "yes",
+   "duration_s": 34.7,
+   "resolution": "320x224",
+   "size_mb": 0.9,
+   "shows": "combination demo, two amateur boxers, headgear, indoor",
+   "minors": "no",
+   "usefulness_1to5": 4,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "note": "only 320x224; caption cards between drills",
+   "use_in_our_set": "candidate, ShareAlike: kept apart until a lawyer has read whether a trained model is an adaptation"
+  },
+  {
+   "title": "EVD-boxeo-004.ogv",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:EVD-boxeo-004.ogv",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/5/56/EVD-boxeo-004.ogv",
+   "licence": "CC BY-SA 2.5 co",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/2.5/co/deed.en",
+   "licence_templates_on_page": [
+    "cc-by-sa-2.5-co"
+   ],
+   "pd_rationale_as_written": null,
+   "licence_review_on_page": "none on page",
+   "author": "Escuela Virtual de Deportes - COLDEPORTES - Colombia (Commons user Evdcoldeportes)",
+   "attribution_text": "Escuela Virtual de Deportes - COLDEPORTES - Colombia (Commons user Evdcoldeportes), \"EVD-boxeo-004\", CC BY-SA 2.5 co (https://creativecommons.org/licenses/by-sa/2.5/co/deed.en), via Wikimedia Commons",
+   "attribution_required": "yes",
+   "sharealike": "yes",
+   "duration_s": 88.0,
+   "resolution": "320x224",
+   "size_mb": 2.8,
+   "shows": "feint drills, two amateur boxers sparring, indoor ring",
+   "minors": "no",
+   "usefulness_1to5": 4,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "note": "both boxers whole, steady camera; only 320x224",
+   "use_in_our_set": "candidate, ShareAlike: kept apart until a lawyer has read whether a trained model is an adaptation"
+  },
+  {
+   "title": "EVD-boxeo-005.ogv",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:EVD-boxeo-005.ogv",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/3/3d/EVD-boxeo-005.ogv",
+   "licence": "CC BY-SA 2.5 co",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/2.5/co/deed.en",
+   "licence_templates_on_page": [
+    "cc-by-sa-2.5-co"
+   ],
+   "pd_rationale_as_written": null,
+   "licence_review_on_page": "none on page",
+   "author": "Escuela Virtual de Deportes - COLDEPORTES - Colombia (Commons user Evdcoldeportes)",
+   "attribution_text": "Escuela Virtual de Deportes - COLDEPORTES - Colombia (Commons user Evdcoldeportes), \"EVD-boxeo-005\", CC BY-SA 2.5 co (https://creativecommons.org/licenses/by-sa/2.5/co/deed.en), via Wikimedia Commons",
+   "attribution_required": "yes",
+   "sharealike": "yes",
+   "duration_s": 53.9,
+   "resolution": "320x224",
+   "size_mb": 1.6,
+   "shows": "light sparring, two amateur boxers, headgear, indoor ring",
+   "minors": "no",
+   "usefulness_1to5": 4,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "note": "both boxers whole, steady camera; only 320x224",
+   "use_in_our_set": "candidate, ShareAlike: kept apart until a lawyer has read whether a trained model is an adaptation"
+  },
+  {
+   "title": "Day of the Town (2017-09-09) - Russian boxing - 0025.webm",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Day_of_the_Town_(2017-09-09)_-_Russian_boxing_-_0025.webm",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/2/28/Day_of_the_Town_%282017-09-09%29_-_Russian_boxing_-_0025.webm",
+   "licence": "CC BY-SA 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "licence_templates_on_page": [
+    "self|cc-by-sa-4.0"
+   ],
+   "pd_rationale_as_written": null,
+   "licence_review_on_page": "not applicable: uploader's own work, self-licensed",
+   "author": "Zelio007",
+   "attribution_text": "Zelio007, \"Day of the Town (2017-09-09) - Russian boxing - 0025\", CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0), via Wikimedia Commons",
+   "attribution_required": "yes",
+   "sharealike": "yes",
+   "duration_s": 42.1,
+   "resolution": "1920x1080",
+   "size_mb": 14.0,
+   "shows": "amateur bout, headgear, outdoor festival ring, Moscow",
+   "minors": "unknown",
+   "usefulness_1to5": 4,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "note": "boxers wear headgear and look young - possibly under 18; ring ropes cross the frame",
+   "use_in_our_set": "held: ages not confirmed (no clip enters the set until every boxer is known to be an adult)"
+  },
+  {
+   "title": "Boxer Pekka Kokkonen training.webm",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Boxer_Pekka_Kokkonen_training.webm",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/b/b2/Boxer_Pekka_Kokkonen_training.webm",
+   "licence": "CC BY 3.0",
+   "licence_url": "https://creativecommons.org/licenses/by/3.0",
+   "licence_templates_on_page": [
+    "cc-by-3.0"
+   ],
+   "pd_rationale_as_written": null,
+   "licence_review_on_page": "passed: {{VimeoReview}} on 2020-02-04",
+   "author": "Yle Archives - Elävä arkisto",
+   "attribution_text": "Yle Archives - Elävä arkisto, \"Boxer Pekka Kokkonen training\", CC BY 3.0 (https://creativecommons.org/licenses/by/3.0), via Wikimedia Commons",
+   "attribution_required": "yes",
+   "sharealike": "no",
+   "duration_s": 138.2,
+   "resolution": "1920x1080",
+   "size_mb": 22.6,
+   "shows": "boxer training 1961: heavy bag, gym, silent film",
+   "minors": "no",
+   "usefulness_1to5": 3,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "note": "black and white",
+   "use_in_our_set": "candidate"
+  },
+  {
+   "title": "Boxing Match Gunnar Bärlund vs Denis Juliani at Helsinki 3.6.1947.webm",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Boxing_Match_Gunnar_B%C3%A4rlund_vs_Denis_Juliani_at_Helsinki_3.6.1947.webm",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/c/c6/Boxing_Match_Gunnar_B%C3%A4rlund_vs_Denis_Juliani_at_Helsinki_3.6.1947.webm",
+   "licence": "CC BY 3.0",
+   "licence_url": "https://creativecommons.org/licenses/by/3.0",
+   "licence_templates_on_page": [
+    "cc-by-3.0"
+   ],
+   "pd_rationale_as_written": null,
+   "licence_review_on_page": "passed: {{VimeoReview}} on 2019-12-10",
+   "author": "Yle Archives - Elävä arkisto",
+   "attribution_text": "Yle Archives - Elävä arkisto, \"Boxing Match Gunnar Bärlund vs Denis Juliani at Helsinki 3.6.1947\", CC BY 3.0 (https://creativecommons.org/licenses/by/3.0), via Wikimedia Commons",
+   "attribution_required": "yes",
+   "sharealike": "no",
+   "duration_s": 66.3,
+   "resolution": "960x528",
+   "size_mb": 9.3,
+   "shows": "pro bout 1947 newsreel, indoor ring, dark hall",
+   "minors": "no",
+   "usefulness_1to5": 3,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "note": "black and white",
+   "use_in_our_set": "candidate"
+  },
+  {
+   "title": "Boxing Match Yrjö Piitulainen vs Jean Wanes at Helsinki 30.9.1947.webm",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Boxing_Match_Yrj%C3%B6_Piitulainen_vs_Jean_Wanes_at_Helsinki_30.9.1947.webm",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/8/88/Boxing_Match_Yrj%C3%B6_Piitulainen_vs_Jean_Wanes_at_Helsinki_30.9.1947.webm",
+   "licence": "CC BY 3.0",
+   "licence_url": "https://creativecommons.org/licenses/by/3.0",
+   "licence_templates_on_page": [
+    "cc-by-3.0"
+   ],
+   "pd_rationale_as_written": null,
+   "licence_review_on_page": "passed: {{VimeoReview}} on 2019-12-10",
+   "author": "Yle Archives - Elävä arkisto",
+   "attribution_text": "Yle Archives - Elävä arkisto, \"Boxing Match Yrjö Piitulainen vs Jean Wanes at Helsinki 30.9.1947\", CC BY 3.0 (https://creativecommons.org/licenses/by/3.0), via Wikimedia Commons",
+   "attribution_required": "yes",
+   "sharealike": "no",
+   "duration_s": 115.8,
+   "resolution": "960x528",
+   "size_mb": 19.9,
+   "shows": "pro bout 1947 newsreel, indoor ring, both whole",
+   "minors": "no",
+   "usefulness_1to5": 3,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "note": "black and white, several camera angles",
+   "use_in_our_set": "candidate"
+  },
+  {
+   "title": "Турнир по кикбоксингу в разделе фулл-контакт «Шолоховская весна» 18-21 мая 2016 г.webm",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:%D0%A2%D1%83%D1%80%D0%BD%D0%B8%D1%80_%D0%BF%D0%BE_%D0%BA%D0%B8%D0%BA%D0%B1%D0%BE%D0%BA%D1%81%D0%B8%D0%BD%D0%B3%D1%83_%D0%B2_%D1%80%D0%B0%D0%B7%D0%B4%D0%B5%D0%BB%D0%B5_%D1%84%D1%83%D0%BB%D0%BB-%D0%BA%D0%BE%D0%BD%D1%82%D0%B0%D0%BA%D1%82_%C2%AB%D0%A8%D0%BE%D0%BB%D0%BE%D1%85%D0%BE%D0%B2%D1%81%D0%BA%D0%B0%D1%8F_%D0%B2%D0%B5%D1%81%D0%BD%D0%B0%C2%BB_18-21_%D0%BC%D0%B0%D1%8F_2016_%D0%B3.webm",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/3/3a/%D0%A2%D1%83%D1%80%D0%BD%D0%B8%D1%80_%D0%BF%D0%BE_%D0%BA%D0%B8%D0%BA%D0%B1%D0%BE%D0%BA%D1%81%D0%B8%D0%BD%D0%B3%D1%83_%D0%B2_%D1%80%D0%B0%D0%B7%D0%B4%D0%B5%D0%BB%D0%B5_%D1%84%D1%83%D0%BB%D0%BB-%D0%BA%D0%BE%D0%BD%D1%82%D0%B0%D0%BA%D1%82_%C2%AB%D0%A8%D0%BE%D0%BB%D0%BE%D1%85%D0%BE%D0%B2%D1%81%D0%BA%D0%B0%D1%8F_%D0%B2%D0%B5%D1%81%D0%BD%D0%B0%C2%BB_18-21_%D0%BC%D0%B0%D1%8F_2016_%D0%B3.webm",
+   "licence": "CC BY 3.0",
+   "licence_url": "https://creativecommons.org/licenses/by/3.0",
+   "licence_templates_on_page": [
+    "YouTube CC-BY"
+   ],
+   "pd_rationale_as_written": null,
+   "licence_review_on_page": "passed: {{LicenseReview}} by INeverCry on 2016-06-10",
+   "author": "Патриотические силы Донбасса",
+   "attribution_text": "Патриотические силы Донбасса, \"Турнир по кикбоксингу в разделе фулл-контакт «Шолоховская весна» 18-21 мая 2016 г\", CC BY 3.0 (https://creativecommons.org/licenses/by/3.0), via Wikimedia Commons",
+   "attribution_required": "yes",
+   "sharealike": "no",
+   "duration_s": 419.6,
+   "resolution": "1280x720",
+   "size_mb": 276.2,
+   "shows": "full-contact kickboxing bouts, indoor ring, wide steady",
+   "minors": "unknown",
+   "usefulness_1to5": 3,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "note": "kickboxing (punches and kicks); channel watermark; ropes in foreground; fighter ages not stated",
+   "use_in_our_set": "held: ages not confirmed (no clip enters the set until every boxer is known to be an adult)"
+  },
+  {
+   "title": "EVD-boxeo-002.ogv",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:EVD-boxeo-002.ogv",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/b/b9/EVD-boxeo-002.ogv",
+   "licence": "CC BY-SA 2.5 co",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/2.5/co/deed.en",
+   "licence_templates_on_page": [
+    "cc-by-sa-2.5-co"
+   ],
+   "pd_rationale_as_written": null,
+   "licence_review_on_page": "none on page",
+   "author": "Escuela Virtual de Deportes - COLDEPORTES - Colombia (Commons user Evdcoldeportes)",
+   "attribution_text": "Escuela Virtual de Deportes - COLDEPORTES - Colombia (Commons user Evdcoldeportes), \"EVD-boxeo-002\", CC BY-SA 2.5 co (https://creativecommons.org/licenses/by-sa/2.5/co/deed.en), via Wikimedia Commons",
+   "attribution_required": "yes",
+   "sharealike": "yes",
+   "duration_s": 12.6,
+   "resolution": "320x224",
+   "size_mb": 0.2,
+   "shows": "blocking drill demo, two boxers, indoor, close-ups",
+   "minors": "no",
+   "usefulness_1to5": 3,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "note": "only 320x224, 13 s",
+   "use_in_our_set": "candidate, ShareAlike: kept apart until a lawyer has read whether a trained model is an adaptation"
+  },
+  {
+   "title": "Boxer.webm",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Boxer.webm",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/a/a9/Boxer.webm",
+   "licence": "CC BY-SA 3.0",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/3.0",
+   "licence_templates_on_page": [
+    "self|cc-by-sa-3.0"
+   ],
+   "pd_rationale_as_written": null,
+   "licence_review_on_page": "not applicable: uploader's own work, self-licensed",
+   "author": "Evworo",
+   "attribution_text": "Evworo, \"Boxer\", CC BY-SA 3.0 (https://creativecommons.org/licenses/by-sa/3.0), via Wikimedia Commons",
+   "attribution_required": "yes",
+   "sharealike": "yes",
+   "duration_s": 14.1,
+   "resolution": "1920x1080",
+   "size_mb": 10.1,
+   "shows": "one boxer shadow boxing, outdoor athletics track",
+   "minors": "unknown",
+   "usefulness_1to5": 3,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "note": "boxer looks adult; same uploader's other clips show children",
+   "use_in_our_set": "held: ages not confirmed (no clip enters the set until every boxer is known to be an adult)"
+  },
+  {
+   "title": "Bokswedstrijd Holland Duitsland-517970.ogv",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Bokswedstrijd_Holland_Duitsland-517970.ogv",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Bokswedstrijd_Holland_Duitsland-517970.ogv",
+   "licence": "CC BY-SA 3.0 nl",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/3.0/nl/deed.en",
+   "licence_templates_on_page": [
+    "Cc-by-sa-3.0-nl"
+   ],
+   "pd_rationale_as_written": null,
+   "licence_review_on_page": "none on page",
+   "author": "Polygoon-Profilti (producent) / Nederlands Instituut voor Beeld en Geluid (beheerder)",
+   "attribution_text": "Polygoon-Profilti (producent) / Nederlands Instituut voor Beeld en Geluid (beheerder), \"Bokswedstrijd Holland Duitsland-517970\", CC BY-SA 3.0 nl (https://creativecommons.org/licenses/by-sa/3.0/nl/deed.en), via Wikimedia Commons",
+   "attribution_required": "yes",
+   "sharealike": "yes",
+   "duration_s": 112.5,
+   "resolution": "768x576",
+   "size_mb": 29.0,
+   "shows": "amateur international bouts newsreel, indoor ring, Netherlands v Germany",
+   "minors": "no",
+   "usefulness_1to5": 3,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "note": "black and white",
+   "use_in_our_set": "candidate, ShareAlike: kept apart until a lawyer has read whether a trained model is an adaptation"
+  },
+  {
+   "title": "Day of the Town (2017-09-09) - Russian boxing - 0029.webm",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Day_of_the_Town_(2017-09-09)_-_Russian_boxing_-_0029.webm",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/7/7a/Day_of_the_Town_%282017-09-09%29_-_Russian_boxing_-_0029.webm",
+   "licence": "CC BY-SA 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "licence_templates_on_page": [
+    "self|cc-by-sa-4.0"
+   ],
+   "pd_rationale_as_written": null,
+   "licence_review_on_page": "not applicable: uploader's own work, self-licensed",
+   "author": "Zelio007",
+   "attribution_text": "Zelio007, \"Day of the Town (2017-09-09) - Russian boxing - 0029\", CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0), via Wikimedia Commons",
+   "attribution_required": "yes",
+   "sharealike": "yes",
+   "duration_s": 44.2,
+   "resolution": "1920x1080",
+   "size_mb": 17.3,
+   "shows": "amateur bout, headgear, outdoor ring, close handheld shot",
+   "minors": "unknown",
+   "usefulness_1to5": 3,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "note": "boxers wear headgear and look young - possibly under 18; referee and ropes occlude",
+   "use_in_our_set": "held: ages not confirmed (no clip enters the set until every boxer is known to be an adult)"
+  },
+  {
+   "title": "AFN Bavaria - Get Fit- USAG Bavaria Hosts 2026 Halloween Boxing Championship (1029202).webm",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:AFN_Bavaria_-_Get_Fit-_USAG_Bavaria_Hosts_2026_Halloween_Boxing_Championship_(1029202).webm",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/f/f3/AFN_Bavaria_-_Get_Fit-_USAG_Bavaria_Hosts_2026_Halloween_Boxing_Championship_%281029202%29.webm",
+   "licence": "Public domain",
+   "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-USGov-Military-Army",
+   "licence_templates_on_page": [
+    "PD-USGov-Military-Army"
+   ],
+   "pd_rationale_as_written": [
+    "PD-USGov-Military-Army"
+   ],
+   "licence_review_on_page": "none on page; rests on the public-domain tag(s) listed",
+   "author": "U.S. Army video by Staff Sgt. Jamie Robinson",
+   "attribution_text": "U.S. Army video by Staff Sgt. Jamie Robinson, \"AFN Bavaria - Get Fit- USAG Bavaria Hosts 2026 Halloween Boxing Championship (1029202)\", public domain (PD-USGov-Military-Army), via Wikimedia Commons",
+   "attribution_required": "no",
+   "sharealike": "no",
+   "duration_s": 60.1,
+   "resolution": "1920x1080",
+   "size_mb": 24.2,
+   "shows": "garrison amateur bouts, headgear, indoor ring, news package",
+   "minors": "no",
+   "usefulness_1to5": 3,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "note": "short bout cuts mixed with interview and a nutrition segment",
+   "use_in_our_set": "candidate"
+  },
+  {
+   "title": "BEP VAN KLAVEREN ONTTROONT CHRISTOFORIDES - BOKSEN-PGM4011545.webm",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:BEP_VAN_KLAVEREN_ONTTROONT_CHRISTOFORIDES_-_BOKSEN-PGM4011545.webm",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/2/2d/BEP_VAN_KLAVEREN_ONTTROONT_CHRISTOFORIDES_-_BOKSEN-PGM4011545.webm",
+   "licence": "Public domain",
+   "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-old-70",
+   "licence_templates_on_page": [
+    "PD-old-70"
+   ],
+   "pd_rationale_as_written": [
+    "PD-old-70"
+   ],
+   "licence_review_on_page": "none on page; rests on the public-domain tag(s) listed",
+   "author": "Polygoon Hollands Nieuws (producent) / Nederlands Instituut voor Beeld en Geluid (beheerder)",
+   "attribution_text": "Polygoon Hollands Nieuws (producent) / Nederlands Instituut voor Beeld en Geluid (beheerder), \"BEP VAN KLAVEREN ONTTROONT CHRISTOFORIDES - BOKSEN-PGM4011545\", public domain (PD-old-70), via Wikimedia Commons",
+   "attribution_required": "no",
+   "sharealike": "no",
+   "duration_s": 95.5,
+   "resolution": "720x576",
+   "size_mb": 13.4,
+   "shows": "pro bout 1938 newsreel, indoor ring, ringside camera",
+   "minors": "no",
+   "usefulness_1to5": 3,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "note": "black and white",
+   "use_in_our_set": "candidate"
+  },
+  {
+   "title": "BEP VAN KLAVEREN TRAINT VOOR EUROPEES KAMPIOENSCHAP-PGM4011525.webm",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:BEP_VAN_KLAVEREN_TRAINT_VOOR_EUROPEES_KAMPIOENSCHAP-PGM4011525.webm",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/4/4c/BEP_VAN_KLAVEREN_TRAINT_VOOR_EUROPEES_KAMPIOENSCHAP-PGM4011525.webm",
+   "licence": "Public domain",
+   "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-old-70",
+   "licence_templates_on_page": [
+    "PD-old-70"
+   ],
+   "pd_rationale_as_written": [
+    "PD-old-70"
+   ],
+   "licence_review_on_page": "none on page; rests on the public-domain tag(s) listed",
+   "author": "Polygoon Hollands Nieuws (producent) / Nederlands Instituut voor Beeld en Geluid (beheerder)",
+   "attribution_text": "Polygoon Hollands Nieuws (producent) / Nederlands Instituut voor Beeld en Geluid (beheerder), \"BEP VAN KLAVEREN TRAINT VOOR EUROPEES KAMPIOENSCHAP-PGM4011525\", public domain (PD-old-70), via Wikimedia Commons",
+   "attribution_required": "no",
+   "sharealike": "no",
+   "duration_s": 48.0,
+   "resolution": "768x576",
+   "size_mb": 7.0,
+   "shows": "pro boxer sparring, outdoor training ring, newsreel",
+   "minors": "no",
+   "usefulness_1to5": 3,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "note": "black and white",
+   "use_in_our_set": "candidate"
+  },
+  {
+   "title": "BEP VAN KLAVEREN WINT OP PUNTEN VAN ASSANE DIOUF-PGM4011577.webm",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:BEP_VAN_KLAVEREN_WINT_OP_PUNTEN_VAN_ASSANE_DIOUF-PGM4011577.webm",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/0/00/BEP_VAN_KLAVEREN_WINT_OP_PUNTEN_VAN_ASSANE_DIOUF-PGM4011577.webm",
+   "licence": "Public domain",
+   "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-old-70",
+   "licence_templates_on_page": [
+    "PD-old-70"
+   ],
+   "pd_rationale_as_written": [
+    "PD-old-70"
+   ],
+   "licence_review_on_page": "none on page; rests on the public-domain tag(s) listed",
+   "author": "Polygoon Hollands Nieuws (producent) / Nederlands Instituut voor Beeld en Geluid (beheerder)",
+   "attribution_text": "Polygoon Hollands Nieuws (producent) / Nederlands Instituut voor Beeld en Geluid (beheerder), \"BEP VAN KLAVEREN WINT OP PUNTEN VAN ASSANE DIOUF-PGM4011577\", public domain (PD-old-70), via Wikimedia Commons",
+   "attribution_required": "no",
+   "sharealike": "no",
+   "duration_s": 94.0,
+   "resolution": "720x576",
+   "size_mb": 13.1,
+   "shows": "pro bout 1939 newsreel, stadium ring, crowd cuts",
+   "minors": "no",
+   "usefulness_1to5": 3,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "note": "black and white",
+   "use_in_our_set": "candidate"
+  },
+  {
+   "title": "Billy Edwards and the Unknown (1895).webm",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Billy_Edwards_and_the_Unknown_(1895).webm",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/3/3f/Billy_Edwards_and_the_Unknown_%281895%29.webm",
+   "licence": "Public domain",
+   "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-US-expired",
+   "licence_templates_on_page": [
+    "PD-US-expired"
+   ],
+   "pd_rationale_as_written": [
+    "PD-US-expired"
+   ],
+   "licence_review_on_page": "none on page; rests on the public-domain tag(s) listed",
+   "author": "William Kennedy Dickson and William Heise",
+   "attribution_text": "William Kennedy Dickson and William Heise, \"Billy Edwards and the Unknown (1895)\", public domain (PD-US-expired), via Wikimedia Commons",
+   "attribution_required": "no",
+   "sharealike": "no",
+   "duration_s": 15.4,
+   "resolution": "712x518",
+   "size_mb": 7.7,
+   "shows": "1895 exhibition bout, studio ring, static camera",
+   "minors": "no",
+   "usefulness_1to5": 3,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "note": "15 s",
+   "use_in_our_set": "candidate"
+  },
+  {
+   "title": "Bokswedstrijd Giel de Roode - Livio Minelli om het Europeesch welterkampioenschap-PGM4012027.webm",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Bokswedstrijd_Giel_de_Roode_-_Livio_Minelli_om_het_Europeesch_welterkampioenschap-PGM4012027.webm",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/2/2e/Bokswedstrijd_Giel_de_Roode_-_Livio_Minelli_om_het_Europeesch_welterkampioenschap-PGM4012027.webm",
+   "licence": "Public domain",
+   "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-old-70",
+   "licence_templates_on_page": [
+    "PD-old-70"
+   ],
+   "pd_rationale_as_written": [
+    "PD-old-70"
+   ],
+   "licence_review_on_page": "none on page; rests on the public-domain tag(s) listed",
+   "author": "Polygoon Hollands Nieuws (producent) / Nederlands Instituut voor Beeld en Geluid (beheerder)",
+   "attribution_text": "Polygoon Hollands Nieuws (producent) / Nederlands Instituut voor Beeld en Geluid (beheerder), \"Bokswedstrijd Giel de Roode - Livio Minelli om het Europeesch welterkampioenschap-PGM4012027\", public domain (PD-old-70), via Wikimedia Commons",
+   "attribution_required": "no",
+   "sharealike": "no",
+   "duration_s": 74.0,
+   "resolution": "768x576",
+   "size_mb": 10.3,
+   "shows": "pro title bout newsreel, indoor ring, wide and close",
+   "minors": "no",
+   "usefulness_1to5": 3,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "note": "black and white",
+   "use_in_our_set": "candidate"
+  },
+  {
+   "title": "Bokswedstrijd.webm",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Bokswedstrijd.webm",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/0/07/Bokswedstrijd.webm",
+   "licence": "Public domain",
+   "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-old-70",
+   "licence_templates_on_page": [
+    "PD-old-70"
+   ],
+   "pd_rationale_as_written": [
+    "PD-old-70"
+   ],
+   "licence_review_on_page": "none on page; rests on the public-domain tag(s) listed",
+   "author": "Polygoon Hollands Nieuws (producent) / Nederlands Instituut voor Beeld en Geluid (beheerder)",
+   "attribution_text": "Polygoon Hollands Nieuws (producent) / Nederlands Instituut voor Beeld en Geluid (beheerder), \"Bokswedstrijd\", public domain (PD-old-70), via Wikimedia Commons",
+   "attribution_required": "no",
+   "sharealike": "no",
+   "duration_s": 282.2,
+   "resolution": "768x576",
+   "size_mb": 38.1,
+   "shows": "pro title bout 1931 newsreel, outdoor ring, crowd cuts",
+   "minors": "no",
+   "usefulness_1to5": 3,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "note": "black and white; about 1 min 44 s of fight shots per the description",
+   "use_in_our_set": "candidate"
+  },
+  {
+   "title": "Boxing 1892 by William Dickson.webm",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Boxing_1892_by_William_Dickson.webm",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/e/e0/Boxing_1892_by_William_Dickson.webm",
+   "licence": "Public domain",
+   "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-old-70-1923",
+   "licence_templates_on_page": [
+    "PD-old-70-1923"
+   ],
+   "pd_rationale_as_written": [
+    "PD-old-70-1923"
+   ],
+   "licence_review_on_page": "none on page; rests on the public-domain tag(s) listed",
+   "author": "William Dickson",
+   "attribution_text": "William Dickson, \"Boxing 1892 by William Dickson\", public domain (PD-old-70-1923), via Wikimedia Commons",
+   "attribution_required": "no",
+   "sharealike": "no",
+   "duration_s": 41.0,
+   "resolution": "640x360",
+   "size_mb": 3.4,
+   "shows": "1890s exhibition bout, studio ring, static camera",
+   "minors": "no",
+   "usefulness_1to5": 3,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "note": "appears to be the same Corbett-Courtney film",
+   "duplicate_of": "Corbett and Courtney Before the Kinetograph (1894), Best Quality, HD.webm",
+   "use_in_our_set": "candidate"
+  },
+  {
+   "title": "Clash on Clay 2026 (1026763).webm",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Clash_on_Clay_2026_(1026763).webm",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/a/ae/Clash_on_Clay_2026_%281026763%29.webm",
+   "licence": "Public domain",
+   "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-USGov-Military-Army",
+   "licence_templates_on_page": [
+    "PD-USGov-Military-Army"
+   ],
+   "pd_rationale_as_written": [
+    "PD-USGov-Military-Army"
+   ],
+   "licence_review_on_page": "none on page; rests on the public-domain tag(s) listed",
+   "author": "U.S. Army video by Sgt. Sarla Dominguez",
+   "attribution_text": "U.S. Army video by Sgt. Sarla Dominguez, \"Clash on Clay 2026 (1026763)\", public domain (PD-USGov-Military-Army), via Wikimedia Commons",
+   "attribution_required": "no",
+   "sharealike": "no",
+   "duration_s": 30.0,
+   "resolution": "1920x1080",
+   "size_mb": 15.7,
+   "shows": "amateur bouts, headgear, indoor ring, short cuts",
+   "minors": "no",
+   "usefulness_1to5": 3,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "note": "30 s montage",
+   "use_in_our_set": "candidate"
+  },
+  {
+   "title": "Corbett and Courtney Before the Kinetograph (1894), Best Quality, HD.webm",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Corbett_and_Courtney_Before_the_Kinetograph_(1894),_Best_Quality,_HD.webm",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/a/a0/Corbett_and_Courtney_Before_the_Kinetograph_%281894%29%2C_Best_Quality%2C_HD.webm",
+   "licence": "Public domain",
+   "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-US-expired",
+   "licence_templates_on_page": [
+    "PD-US-expired",
+    "PD-old-70",
+    "PD-old-80"
+   ],
+   "pd_rationale_as_written": [
+    "PD-US-expired",
+    "PD-old-70",
+    "PD-old-80"
+   ],
+   "licence_review_on_page": "PENDING: {{LicenseReview}} placed but not yet confirmed by a reviewer",
+   "author": "William Kennedy Dickson",
+   "attribution_text": "William Kennedy Dickson, \"Corbett and Courtney Before the Kinetograph (1894), Best Quality, HD\", public domain (PD-US-expired), via Wikimedia Commons",
+   "attribution_required": "no",
+   "sharealike": "no",
+   "duration_s": 51.5,
+   "resolution": "1440x1080",
+   "size_mb": 29.1,
+   "shows": "1894 exhibition bout, studio ring, static camera, both whole",
+   "minors": "no",
+   "usefulness_1to5": 3,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "note": "silent, black and white; best copy of this film",
+   "use_in_our_set": "candidate"
+  },
+  {
+   "title": "Corbett and Courtney Before the Kinetograph (1894).webm",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Corbett_and_Courtney_Before_the_Kinetograph_(1894).webm",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/1/14/Corbett_and_Courtney_Before_the_Kinetograph_%281894%29.webm",
+   "licence": "Public domain",
+   "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-US-expired",
+   "licence_templates_on_page": [
+    "PD-US-expired"
+   ],
+   "pd_rationale_as_written": [
+    "PD-US-expired"
+   ],
+   "licence_review_on_page": "none on page; rests on the public-domain tag(s) listed",
+   "author": "William Kennedy Dickson",
+   "attribution_text": "William Kennedy Dickson, \"Corbett and Courtney Before the Kinetograph (1894)\", public domain (PD-US-expired), via Wikimedia Commons",
+   "attribution_required": "no",
+   "sharealike": "no",
+   "duration_s": 49.9,
+   "resolution": "1440x1078",
+   "size_mb": 99.8,
+   "shows": "1894 exhibition bout, studio ring, static camera",
+   "minors": "no",
+   "usefulness_1to5": 3,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "note": "duplicate of the HD copy (99.8 MB)",
+   "duplicate_of": "Corbett and Courtney Before the Kinetograph (1894), Best Quality, HD.webm",
+   "use_in_our_set": "skip: a weaker copy of another clip in this list"
+  },
+  {
+   "title": "First Boxing Matches On Okinawa; Marines In Action On Okinawa 06-07/1945 (US Navy film NPC-13079)",
+   "source": "Internet Archive",
+   "page_url": "https://archive.org/details/NPC-13079",
+   "file_url": "https://archive.org/download/NPC-13079/428-npc-13079%20First%20Boxing%20Matches%20On%20Okinawa%20Marines%20In%20Action%20On%20Okinawa%2006%20-7%20-1945.mp4",
+   "licence": "Public domain",
+   "licence_url": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "licence_templates_on_page": [
+    "licenseurl = Public Domain Mark 1.0"
+   ],
+   "pd_rationale_as_written": [
+    "Public Domain Mark 1.0; creator 'United States. Navy'; National Archives description quoted on the item"
+   ],
+   "licence_review_on_page": "none (Internet Archive licence fields are set by the uploader)",
+   "author": "United States. Navy (National Archives)",
+   "attribution_text": "United States Navy / National Archives, \"First Boxing Matches On Okinawa; Marines In Action On Okinawa\" (NPC-13079, 1945), public domain, via Internet Archive",
+   "attribution_required": "no",
+   "sharealike": "no",
+   "duration_s": 556.4,
+   "resolution": "1280x720",
+   "size_mb": 160.2,
+   "shows": "1945 service boxing matches, outdoor ring, spectators; other footage",
+   "minors": "no",
+   "usefulness_1to5": 3,
+   "warning_templates": "none found",
+   "content_check": "item metadata and description read on archive.org; no frames viewed; video not downloaded",
+   "note": "Only part of the 9 min reel is boxing (shot list: contestants introduced, 'scenes of boxing match'); silent black and white. A shorter 42 MB copy is item 'FirstBoxingMatchesOnOkinawa'.",
+   "use_in_our_set": "candidate"
+  },
+  {
+   "title": "Gordon Sisters Boxing (1901).webm",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Gordon_Sisters_Boxing_(1901).webm",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/e/e6/Gordon_Sisters_Boxing_%281901%29.webm",
+   "licence": "Public domain",
+   "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-US-expired",
+   "licence_templates_on_page": [
+    "PD-US-expired"
+   ],
+   "pd_rationale_as_written": [
+    "PD-US-expired"
+   ],
+   "licence_review_on_page": "none on page; rests on the public-domain tag(s) listed",
+   "author": "Edison Manufacturing Co.",
+   "attribution_text": "Edison Manufacturing Co., \"Gordon Sisters Boxing (1901)\", public domain (PD-US-expired), via Wikimedia Commons",
+   "attribution_required": "no",
+   "sharealike": "no",
+   "duration_s": 86.1,
+   "resolution": "1440x1080",
+   "size_mb": 172.3,
+   "shows": "1901 staged women's bout, static camera, both whole",
+   "minors": "no",
+   "usefulness_1to5": 3,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "note": "vaudeville act in dresses; 172 MB",
+   "use_in_our_set": "candidate"
+  },
+  {
+   "title": "Internationale bokswedstrijd.webm",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Internationale_bokswedstrijd.webm",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/d/d2/Internationale_bokswedstrijd.webm",
+   "licence": "Public domain",
+   "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-old-70",
+   "licence_templates_on_page": [
+    "PD-old-70"
+   ],
+   "pd_rationale_as_written": [
+    "PD-old-70"
+   ],
+   "licence_review_on_page": "none on page; rests on the public-domain tag(s) listed",
+   "author": "Polygoon Hollands Nieuws (producent) / Nederlands Instituut voor Beeld en Geluid (beheerder)",
+   "attribution_text": "Polygoon Hollands Nieuws (producent) / Nederlands Instituut voor Beeld en Geluid (beheerder), \"Internationale bokswedstrijd\", public domain (PD-old-70), via Wikimedia Commons",
+   "attribution_required": "no",
+   "sharealike": "no",
+   "duration_s": 195.0,
+   "resolution": "768x576",
+   "size_mb": 27.3,
+   "shows": "pro bouts 1932 newsreel, outdoor velodrome ring, wide",
+   "minors": "no",
+   "usefulness_1to5": 3,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "note": "black and white; boxers small in wide shots",
+   "use_in_our_set": "candidate"
+  },
+  {
+   "title": "Kampioenschap boksen lichtgewicht.webm",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Kampioenschap_boksen_lichtgewicht.webm",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/6/66/Kampioenschap_boksen_lichtgewicht.webm",
+   "licence": "Public domain",
+   "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-old-70",
+   "licence_templates_on_page": [
+    "PD-old-70"
+   ],
+   "pd_rationale_as_written": [
+    "PD-old-70"
+   ],
+   "licence_review_on_page": "none on page; rests on the public-domain tag(s) listed",
+   "author": "Polygoon Hollands Nieuws (producent) / Nederlands Instituut voor Beeld en Geluid (beheerder)",
+   "attribution_text": "Polygoon Hollands Nieuws (producent) / Nederlands Instituut voor Beeld en Geluid (beheerder), \"Kampioenschap boksen lichtgewicht\", public domain (PD-old-70), via Wikimedia Commons",
+   "attribution_required": "no",
+   "sharealike": "no",
+   "duration_s": 134.0,
+   "resolution": "768x576",
+   "size_mb": 18.7,
+   "shows": "pro title bout newsreel, outdoor ring, wide shot",
+   "minors": "no",
+   "usefulness_1to5": 3,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "note": "black and white",
+   "use_in_our_set": "candidate"
+  },
+  {
+   "title": "Leonard Cushing Kinetograph 1894.ogv",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Leonard_Cushing_Kinetograph_1894.ogv",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/6/6f/Leonard_Cushing_Kinetograph_1894.ogv",
+   "licence": "Public domain",
+   "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-old",
+   "licence_templates_on_page": [
+    "PD-old"
+   ],
+   "pd_rationale_as_written": [
+    "PD-old"
+   ],
+   "licence_review_on_page": "none on page; rests on the public-domain tag(s) listed",
+   "author": "William Heise",
+   "attribution_text": "William Heise, \"Leonard Cushing Kinetograph 1894\", public domain (PD-old), via Wikimedia Commons",
+   "attribution_required": "no",
+   "sharealike": "no",
+   "duration_s": 39.9,
+   "resolution": "320x240",
+   "size_mb": 3.7,
+   "shows": "1894 exhibition bout, studio ring, static, low-res",
+   "minors": "no",
+   "usefulness_1to5": 3,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "note": "longer (40 s) but 320x240",
+   "use_in_our_set": "candidate"
+  },
+  {
+   "title": "Leonard-Cushing fight (1894).webm",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Leonard-Cushing_fight_(1894).webm",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/1/12/Leonard-Cushing_fight_%281894%29.webm",
+   "licence": "Public domain",
+   "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-US-expired",
+   "licence_templates_on_page": [
+    "PD-US-expired"
+   ],
+   "pd_rationale_as_written": [
+    "PD-US-expired"
+   ],
+   "licence_review_on_page": "none on page; rests on the public-domain tag(s) listed",
+   "author": "William Kennedy Dickson",
+   "attribution_text": "William Kennedy Dickson, \"Leonard-Cushing fight (1894)\", public domain (PD-US-expired), via Wikimedia Commons",
+   "attribution_required": "no",
+   "sharealike": "no",
+   "duration_s": 23.2,
+   "resolution": "1440x1080",
+   "size_mb": 37.8,
+   "shows": "1894 exhibition bout, studio ring, static, both whole",
+   "minors": "no",
+   "usefulness_1to5": 3,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "note": "silent; 23 s",
+   "use_in_our_set": "candidate"
+  },
+  {
+   "title": "Luc van Dam bokst weer en wint-PGM4012064.webm",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Luc_van_Dam_bokst_weer_en_wint-PGM4012064.webm",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/1/1a/Luc_van_Dam_bokst_weer_en_wint-PGM4012064.webm",
+   "licence": "Public domain",
+   "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-old-70",
+   "licence_templates_on_page": [
+    "PD-old-70"
+   ],
+   "pd_rationale_as_written": [
+    "PD-old-70"
+   ],
+   "licence_review_on_page": "none on page; rests on the public-domain tag(s) listed",
+   "author": "Polygoon Hollands Nieuws (producent) / Nederlands Instituut voor Beeld en Geluid (beheerder)",
+   "attribution_text": "Polygoon Hollands Nieuws (producent) / Nederlands Instituut voor Beeld en Geluid (beheerder), \"Luc van Dam bokst weer en wint-PGM4012064\", public domain (PD-old-70), via Wikimedia Commons",
+   "attribution_required": "no",
+   "sharealike": "no",
+   "duration_s": 73.0,
+   "resolution": "768x576",
+   "size_mb": 10.3,
+   "shows": "pro bout 1949 newsreel, indoor ring, high wide angle",
+   "minors": "no",
+   "usefulness_1to5": 3,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "note": "black and white",
+   "use_in_our_set": "candidate"
+  },
+  {
+   "title": "Rumble in the Deid V Training (995731).webm",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Rumble_in_the_Deid_V_Training_(995731).webm",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/f/fa/Rumble_in_the_Deid_V_Training_%28995731%29.webm",
+   "licence": "Public domain",
+   "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-USGov-Military-Air_Force",
+   "licence_templates_on_page": [
+    "PD-USGov-Military-Air Force"
+   ],
+   "pd_rationale_as_written": [
+    "PD-USGov-Military-Air Force"
+   ],
+   "licence_review_on_page": "none on page; rests on the public-domain tag(s) listed",
+   "author": "U.S. Air Force video by Tech. Sgt. Justin Norton",
+   "attribution_text": "U.S. Air Force video by Tech. Sgt. Justin Norton, \"Rumble in the Deid V Training (995731)\", public domain (PD-USGov-Military-Air Force), via Wikimedia Commons",
+   "attribution_required": "no",
+   "sharealike": "no",
+   "duration_s": 37.6,
+   "resolution": "1920x1080",
+   "size_mb": 20.2,
+   "shows": "sparring and pad work, headgear, indoor ring, close shots",
+   "minors": "no",
+   "usefulness_1to5": 3,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "note": "text overlays",
+   "use_in_our_set": "candidate"
+  },
+  {
+   "title": "SPORT - BOKSEN HOLLAND - ENGELAND-PGM4011889.webm",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:SPORT_-_BOKSEN_HOLLAND_-_ENGELAND-PGM4011889.webm",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/1/13/SPORT_-_BOKSEN_HOLLAND_-_ENGELAND-PGM4011889.webm",
+   "licence": "Public domain",
+   "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-old-70",
+   "licence_templates_on_page": [
+    "PD-old-70"
+   ],
+   "pd_rationale_as_written": [
+    "PD-old-70"
+   ],
+   "licence_review_on_page": "none on page; rests on the public-domain tag(s) listed",
+   "author": "Polygoon Hollands Nieuws (producent) / Nederlands Instituut voor Beeld en Geluid (beheerder)",
+   "attribution_text": "Polygoon Hollands Nieuws (producent) / Nederlands Instituut voor Beeld en Geluid (beheerder), \"SPORT - BOKSEN HOLLAND - ENGELAND-PGM4011889\", public domain (PD-old-70), via Wikimedia Commons",
+   "attribution_required": "no",
+   "sharealike": "no",
+   "duration_s": 50.0,
+   "resolution": "768x576",
+   "size_mb": 7.1,
+   "shows": "amateur international bouts newsreel, indoor ring",
+   "minors": "no",
+   "usefulness_1to5": 3,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "note": "black and white",
+   "use_in_our_set": "candidate"
+  },
+  {
+   "title": "Squires vs Burns 1907.ogv",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Squires_vs_Burns_1907.ogv",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/f/f8/Squires_vs_Burns_1907.ogv",
+   "licence": "Public domain",
+   "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-1923",
+   "licence_templates_on_page": [
+    "PD-1923"
+   ],
+   "pd_rationale_as_written": [
+    "PD-1923"
+   ],
+   "licence_review_on_page": "none on page; rests on the public-domain tag(s) listed",
+   "author": "Miles Brothers",
+   "attribution_text": "Miles Brothers, \"Squires vs Burns 1907\", public domain (PD-1923), via Wikimedia Commons",
+   "attribution_required": "no",
+   "sharealike": "no",
+   "duration_s": 160.0,
+   "resolution": "320x240",
+   "size_mb": 24.3,
+   "shows": "1907 heavyweight title fight, outdoor ring, wide static",
+   "minors": "no",
+   "usefulness_1to5": 3,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "note": "boxers small in frame; 320x240",
+   "use_in_our_set": "candidate"
+  },
+  {
+   "title": "The Corbett-Fitzsimmons Fight.webm",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:The_Corbett-Fitzsimmons_Fight.webm",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/5/54/The_Corbett-Fitzsimmons_Fight.webm",
+   "licence": "Public domain",
+   "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-1923",
+   "licence_templates_on_page": [
+    "PD-1923"
+   ],
+   "pd_rationale_as_written": [
+    "PD-1923"
+   ],
+   "licence_review_on_page": "none on page; rests on the public-domain tag(s) listed",
+   "author": "William Aloysius Brady",
+   "attribution_text": "William Aloysius Brady, \"The Corbett-Fitzsimmons Fight\", public domain (PD-1923), via Wikimedia Commons",
+   "attribution_required": "no",
+   "sharealike": "no",
+   "duration_s": 1147.7,
+   "resolution": "480x360",
+   "size_mb": 142.0,
+   "shows": "1897 heavyweight title fight, outdoor ring, distant static",
+   "minors": "no",
+   "usefulness_1to5": 3,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "note": "19 min; boxers small, washed-out 480x360",
+   "use_in_our_set": "candidate"
+  },
+  {
+   "title": "The Corbett– Fitzsimmons Fight (1897).webm",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:The_Corbett%E2%80%93_Fitzsimmons_Fight_(1897).webm",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/6/63/The_Corbett%E2%80%93_Fitzsimmons_Fight_%281897%29.webm",
+   "licence": "Public domain",
+   "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-US-expired",
+   "licence_templates_on_page": [
+    "PD-US-expired"
+   ],
+   "pd_rationale_as_written": [
+    "PD-US-expired"
+   ],
+   "licence_review_on_page": "PENDING: {{LicenseReview}} placed but not yet confirmed by a reviewer",
+   "author": "Directed by Enoch J. Rector.",
+   "attribution_text": "Directed by Enoch J. Rector., \"The Corbett– Fitzsimmons Fight (1897)\", public domain (PD-US-expired), via Wikimedia Commons",
+   "attribution_required": "no",
+   "sharealike": "no",
+   "duration_s": 175,
+   "resolution": "1440x1080",
+   "size_mb": 40.8,
+   "shows": "1897 heavyweight title fight excerpt, restored 1440x1080",
+   "minors": "no",
+   "usefulness_1to5": 3,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "use_in_our_set": "candidate"
+  },
+  {
+   "title": "VIDEO0021 01.webm",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:VIDEO0021_01.webm",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/c/cf/VIDEO0021_01.webm",
+   "licence": "CC BY-SA 3.0",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/3.0",
+   "licence_templates_on_page": [
+    "self|cc-by-sa-3.0"
+   ],
+   "pd_rationale_as_written": null,
+   "licence_review_on_page": "not applicable: uploader's own work, self-licensed",
+   "author": "Evworo",
+   "attribution_text": "Evworo, \"VIDEO0021 01\", CC BY-SA 3.0 (https://creativecommons.org/licenses/by-sa/3.0), via Wikimedia Commons",
+   "attribution_required": "yes",
+   "sharealike": "yes",
+   "duration_s": 65.3,
+   "resolution": "1920x1080",
+   "size_mb": 40.9,
+   "shows": "child boxer on coach's pads, outdoor track",
+   "minors": "yes",
+   "usefulness_1to5": 3,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "note": "description: 'kid boxer'",
+   "use_in_our_set": "excluded: shows minors"
+  },
+  {
+   "title": "Championnat départemental de l'Ain de savate jeunes 2020 - un assaut.webm",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Championnat_d%C3%A9partemental_de_l%27Ain_de_savate_jeunes_2020_-_un_assaut.webm",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/7/71/Championnat_d%C3%A9partemental_de_l%27Ain_de_savate_jeunes_2020_-_un_assaut.webm",
+   "licence": "CC0",
+   "licence_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+   "licence_templates_on_page": [
+    "self|cc-zero"
+   ],
+   "pd_rationale_as_written": null,
+   "licence_review_on_page": "not applicable: uploader's own work, self-licensed",
+   "author": "Benoît Prieur",
+   "attribution_text": "Benoît Prieur, \"Championnat départemental de l'Ain de savate jeunes 2020 - un assaut\", CC0 1.0, via Wikimedia Commons (credit not required)",
+   "attribution_required": "no",
+   "sharealike": "no",
+   "duration_s": 25.5,
+   "resolution": "1920x1080",
+   "size_mb": 31.0,
+   "shows": "youth savate assault bout, indoor ring, wide shot",
+   "minors": "yes",
+   "usefulness_1to5": 3,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "note": "title says 'jeunes' (youth)",
+   "use_in_our_set": "excluded: shows minors"
+  },
+  {
+   "title": "Chris Dinocola - muay thai sparring - Subfighter Team 2007",
+   "source": "Internet Archive",
+   "page_url": "https://archive.org/details/Subfightercom-ChrisDinocolaMuayThaiSparringSubfighterTeam2007256",
+   "file_url": "https://archive.org/download/Subfightercom-ChrisDinocolaMuayThaiSparringSubfighterTeam2007256/Subfightercom-ChrisDinocolaMuayThaiSparringSubfighterTeam2007256.mp4",
+   "licence": "CC BY 2.0",
+   "licence_url": "http://creativecommons.org/licenses/by/2.0/",
+   "licence_templates_on_page": [
+    "licenseurl = CC BY 2.0"
+   ],
+   "pd_rationale_as_written": null,
+   "licence_review_on_page": "none (licence carried over from the blip.tv original by the archive import)",
+   "author": "Subfighter Mixed Martial Arts Academy (blip.tv user 'Subfightercom')",
+   "attribution_text": "Subfighter Mixed Martial Arts Academy, \"Chris Dinocola - muay thai sparring - Subfighter Team 2007\", CC BY 2.0 (http://creativecommons.org/licenses/by/2.0/), via Internet Archive",
+   "attribution_required": "yes",
+   "sharealike": "no",
+   "duration_s": 126.9,
+   "resolution": "784x432",
+   "size_mb": 33.6,
+   "shows": "Muay Thai gym sparring, indoor",
+   "minors": "unknown",
+   "usefulness_1to5": 2,
+   "warning_templates": "none found",
+   "content_check": "item metadata and description read on archive.org; no frames viewed; video not downloaded",
+   "note": "Kickboxing, not boxing; no creator field on the item.",
+   "use_in_our_set": "held: ages not confirmed (no clip enters the set until every boxer is known to be an adult)"
+  },
+  {
+   "title": "Thai boxing in Wat Kungtaphao.ogv",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Thai_boxing_in_Wat_Kungtaphao.ogv",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/7/7f/Thai_boxing_in_Wat_Kungtaphao.ogv",
+   "licence": "CC BY 3.0",
+   "licence_url": "https://creativecommons.org/licenses/by/3.0",
+   "licence_templates_on_page": [
+    "cc-by-3.0"
+   ],
+   "pd_rationale_as_written": null,
+   "licence_review_on_page": "not applicable: uploader's own work, self-licensed",
+   "author": "Tevaprapas ผู้สร้างสรรค์ผลงาน/ส่งข้อมูลเก็บในคลังข้อมูลเสรีวิกิมีเดียคอมมอนส์ - เทวประภาส มากคล้าย",
+   "attribution_text": "Tevaprapas ผู้สร้างสรรค์ผลงาน/ส่งข้อมูลเก็บในคลังข้อมูลเสรีวิกิมีเดียคอมมอนส์ - เทวประภาส มากคล้าย, \"Thai boxing in Wat Kungtaphao\", CC BY 3.0 (https://creativecommons.org/licenses/by/3.0), via Wikimedia Commons",
+   "attribution_required": "yes",
+   "sharealike": "no",
+   "duration_s": 161.6,
+   "resolution": "320x240",
+   "size_mb": 6.0,
+   "shows": "Muay Thai bout, outdoor temple-fair ring, low-res",
+   "minors": "unknown",
+   "usefulness_1to5": 2,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "note": "not boxing; 320x240",
+   "use_in_our_set": "held: ages not confirmed (no clip enters the set until every boxer is known to be an adult)"
+  },
+  {
+   "title": "Bokswedstrijd Willy Quentemeyer - Leon Fouguet-512260.ogv",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Bokswedstrijd_Willy_Quentemeyer_-_Leon_Fouguet-512260.ogv",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/2/28/Bokswedstrijd_Willy_Quentemeyer_-_Leon_Fouguet-512260.ogv",
+   "licence": "CC BY-SA 3.0 nl",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/3.0/nl/deed.en",
+   "licence_templates_on_page": [
+    "Cc-by-sa-3.0-nl"
+   ],
+   "pd_rationale_as_written": null,
+   "licence_review_on_page": "none on page",
+   "author": "Polygoon-Profilti (producent) / Nederlands Instituut voor Beeld en Geluid (beheerder)",
+   "attribution_text": "Polygoon-Profilti (producent) / Nederlands Instituut voor Beeld en Geluid (beheerder), \"Bokswedstrijd Willy Quentemeyer - Leon Fouguet-512260\", CC BY-SA 3.0 nl (https://creativecommons.org/licenses/by-sa/3.0/nl/deed.en), via Wikimedia Commons",
+   "attribution_required": "yes",
+   "sharealike": "yes",
+   "duration_s": 39.7,
+   "resolution": "384x288",
+   "size_mb": 3.4,
+   "shows": "pro bout newsreel with knockdown, indoor, dark",
+   "minors": "no",
+   "usefulness_1to5": 2,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "note": "lower-resolution copy of the public-domain .webm",
+   "duplicate_of": "BOKSWEDSTRIJD WILLY QUENTEMEYER - LEON FOUGUET-PGM4011865.webm",
+   "use_in_our_set": "low value for punch labels (score under 3)"
+  },
+  {
+   "title": "Thierry Gilletto et Axelle Clerc Berthilier à l'entraînement - 1.webm",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Thierry_Gilletto_et_Axelle_Clerc_Berthilier_%C3%A0_l%27entra%C3%AEnement_-_1.webm",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/3/3d/Thierry_Gilletto_et_Axelle_Clerc_Berthilier_%C3%A0_l%27entra%C3%AEnement_-_1.webm",
+   "licence": "CC0",
+   "licence_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+   "licence_templates_on_page": [
+    "self|cc-zero"
+   ],
+   "pd_rationale_as_written": null,
+   "licence_review_on_page": "not applicable: uploader's own work, self-licensed",
+   "author": "Benoît Prieur",
+   "attribution_text": "Benoît Prieur, \"Thierry Gilletto et Axelle Clerc Berthilier à l'entraînement - 1\", CC0 1.0, via Wikimedia Commons (credit not required)",
+   "attribution_required": "no",
+   "sharealike": "no",
+   "duration_s": 19.8,
+   "resolution": "1920x1080",
+   "size_mb": 15.2,
+   "shows": "savate pad training, coach and woman boxer, indoor ring",
+   "minors": "unknown",
+   "usefulness_1to5": 2,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "note": "mostly kicks on pads; her age is not stated on the page",
+   "use_in_our_set": "held: ages not confirmed (no clip enters the set until every boxer is known to be an adult)"
+  },
+  {
+   "title": "Thierry Gilletto et Axelle Clerc Berthilier à l'entraînement - 2.webm",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Thierry_Gilletto_et_Axelle_Clerc_Berthilier_%C3%A0_l%27entra%C3%AEnement_-_2.webm",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/6/69/Thierry_Gilletto_et_Axelle_Clerc_Berthilier_%C3%A0_l%27entra%C3%AEnement_-_2.webm",
+   "licence": "CC0",
+   "licence_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+   "licence_templates_on_page": [
+    "self|cc-zero"
+   ],
+   "pd_rationale_as_written": null,
+   "licence_review_on_page": "not applicable: uploader's own work, self-licensed",
+   "author": "Benoît Prieur",
+   "attribution_text": "Benoît Prieur, \"Thierry Gilletto et Axelle Clerc Berthilier à l'entraînement - 2\", CC0 1.0, via Wikimedia Commons (credit not required)",
+   "attribution_required": "no",
+   "sharealike": "no",
+   "duration_s": 52.9,
+   "resolution": "1920x1080",
+   "size_mb": 38.8,
+   "shows": "savate pad training, coach and woman boxer, indoor ring",
+   "minors": "unknown",
+   "usefulness_1to5": 2,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "note": "mostly kicks on pads; her age is not stated on the page",
+   "use_in_our_set": "held: ages not confirmed (no clip enters the set until every boxer is known to be an adult)"
+  },
+  {
+   "title": "Масленица в Екатеринбурге 2019. Кулачный бой.ogv",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:%D0%9C%D0%B0%D1%81%D0%BB%D0%B5%D0%BD%D0%B8%D1%86%D0%B0_%D0%B2_%D0%95%D0%BA%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%BD%D0%B1%D1%83%D1%80%D0%B3%D0%B5_2019._%D0%9A%D1%83%D0%BB%D0%B0%D1%87%D0%BD%D1%8B%D0%B9_%D0%B1%D0%BE%D0%B9.ogv",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/7/73/%D0%9C%D0%B0%D1%81%D0%BB%D0%B5%D0%BD%D0%B8%D1%86%D0%B0_%D0%B2_%D0%95%D0%BA%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%BD%D0%B1%D1%83%D1%80%D0%B3%D0%B5_2019._%D0%9A%D1%83%D0%BB%D0%B0%D1%87%D0%BD%D1%8B%D0%B9_%D0%B1%D0%BE%D0%B9.ogv",
+   "licence": "CC0",
+   "licence_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+   "licence_templates_on_page": [
+    "self|cc-zero"
+   ],
+   "pd_rationale_as_written": null,
+   "licence_review_on_page": "not applicable: uploader's own work, self-licensed",
+   "author": "Леонид Макаров",
+   "attribution_text": "Леонид Макаров, \"Масленица в Екатеринбурге 2019. Кулачный бой\", CC0 1.0, via Wikimedia Commons (credit not required)",
+   "attribution_required": "no",
+   "sharealike": "no",
+   "duration_s": 484,
+   "resolution": "1280x720",
+   "size_mb": 1086.9,
+   "shows": "folk fist-fight (stenka), bare-knuckle, outdoor snow, crowd",
+   "minors": "unknown",
+   "usefulness_1to5": 2,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "note": "not boxing technique; children in the crowd; 1.04 GB file",
+   "use_in_our_set": "held: ages not confirmed (no clip enters the set until every boxer is known to be an adult)"
+  },
+  {
+   "title": "Airmen trains for Rumble in the Deid IV (955484).webm",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Airmen_trains_for_Rumble_in_the_Deid_IV_(955484).webm",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Airmen_trains_for_Rumble_in_the_Deid_IV_%28955484%29.webm",
+   "licence": "Public domain",
+   "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-USGov-Military-Air_Force",
+   "licence_templates_on_page": [
+    "PD-USGov-Military-Air Force"
+   ],
+   "pd_rationale_as_written": [
+    "PD-USGov-Military-Air Force"
+   ],
+   "licence_review_on_page": "none on page; rests on the public-domain tag(s) listed",
+   "author": "U.S. Air Force video by Senior Airman Violette Hosack",
+   "attribution_text": "U.S. Air Force video by Senior Airman Violette Hosack, \"Airmen trains for Rumble in the Deid IV (955484)\", public domain (PD-USGov-Military-Air Force), via Wikimedia Commons",
+   "attribution_required": "no",
+   "sharealike": "no",
+   "duration_s": 59.9,
+   "resolution": "3840x2160",
+   "size_mb": 43.9,
+   "shows": "interview plus bag and pad training montage",
+   "minors": "no",
+   "usefulness_1to5": 2,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "use_in_our_set": "low value for punch labels (score under 3)"
+  },
+  {
+   "title": "Athletic Training Program, Manila, Philippine Islands, 10/28/1945 - 11/02/1945 (US Army film ADC-5505)",
+   "source": "Internet Archive",
+   "page_url": "https://archive.org/details/ADC-5505",
+   "file_url": "https://archive.org/download/ADC-5505/ADC-5505.mp4",
+   "licence": "Public domain",
+   "licence_url": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "licence_templates_on_page": [
+    "licenseurl = Public Domain Mark 1.0"
+   ],
+   "pd_rationale_as_written": [
+    "Public Domain Mark 1.0; creator 'United States. Army'"
+   ],
+   "licence_review_on_page": "none (Internet Archive licence fields are set by the uploader)",
+   "author": "United States. Army (National Archives)",
+   "attribution_text": "United States Army / National Archives, \"Athletic Training Program, Manila, Philippine Islands\" (ADC-5505, 1945), public domain, via Internet Archive",
+   "attribution_required": "no",
+   "sharealike": "no",
+   "duration_s": 442.4,
+   "resolution": "640x360",
+   "size_mb": 46.0,
+   "shows": "1945 army sports reel with boxing ring segments",
+   "minors": "no",
+   "usefulness_1to5": 2,
+   "warning_templates": "none found",
+   "content_check": "item metadata and description read on archive.org; no frames viewed; video not downloaded",
+   "note": "Mixed sports (basketball, boxing); the size given is the 640x360 MP4; the 1280x720 original .mov is 449 MB.",
+   "use_in_our_set": "low value for punch labels (score under 3)"
+  },
+  {
+   "title": "BOKSWEDSTRIJD WILLY QUENTEMEYER - LEON FOUGUET-PGM4011865.webm",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:BOKSWEDSTRIJD_WILLY_QUENTEMEYER_-_LEON_FOUGUET-PGM4011865.webm",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/f/f6/BOKSWEDSTRIJD_WILLY_QUENTEMEYER_-_LEON_FOUGUET-PGM4011865.webm",
+   "licence": "Public domain",
+   "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-old-70",
+   "licence_templates_on_page": [
+    "PD-old-70"
+   ],
+   "pd_rationale_as_written": [
+    "PD-old-70"
+   ],
+   "licence_review_on_page": "none on page; rests on the public-domain tag(s) listed",
+   "author": "Polygoon Hollands Nieuws (producent) / Nederlands Instituut voor Beeld en Geluid (beheerder)",
+   "attribution_text": "Polygoon Hollands Nieuws (producent) / Nederlands Instituut voor Beeld en Geluid (beheerder), \"BOKSWEDSTRIJD WILLY QUENTEMEYER - LEON FOUGUET-PGM4011865\", public domain (PD-old-70), via Wikimedia Commons",
+   "attribution_required": "no",
+   "sharealike": "no",
+   "duration_s": 39.0,
+   "resolution": "768x576",
+   "size_mb": 5.4,
+   "shows": "pro bout newsreel with knockdown, indoor, dark",
+   "minors": "no",
+   "usefulness_1to5": 2,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "note": "black and white; same film as the CC BY-SA 3.0 nl .ogv copy",
+   "use_in_our_set": "low value for punch labels (score under 3)"
+  },
+  {
+   "title": "Bits & Pieces - BP114 - Boxers' training - EYE FLM7632 - OB 105690.ogv",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Bits_%26_Pieces_-_BP114_-_Boxers%27_training_-_EYE_FLM7632_-_OB_105690.ogv",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/3/35/Bits_%26_Pieces_-_BP114_-_Boxers%27_training_-_EYE_FLM7632_-_OB_105690.ogv",
+   "licence": "Public domain",
+   "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-old-70",
+   "licence_templates_on_page": [
+    "PD-old-70",
+    "PD-anon-70-EU"
+   ],
+   "pd_rationale_as_written": [
+    "PD-old-70",
+    "PD-anon-70-EU"
+   ],
+   "licence_review_on_page": "none on page; rests on the public-domain tag(s) listed",
+   "author": "Unknown director, Pathé Frères (France)",
+   "attribution_text": "Unknown director, Pathé Frères (France), \"Bits & Pieces - BP114 - Boxers' training - EYE FLM7632 - OB 105690\", public domain (PD-old-70), via Wikimedia Commons",
+   "attribution_required": "no",
+   "sharealike": "no",
+   "duration_s": 31.7,
+   "resolution": "768x576",
+   "size_mb": 6.8,
+   "shows": "boxers' outdoor training fragments, skipping, silent film",
+   "minors": "no",
+   "usefulness_1to5": 2,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "note": "black and white, 31 s",
+   "use_in_our_set": "low value for punch labels (score under 3)"
+  },
+  {
+   "title": "Dertig jaar krachtsport.webm",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Dertig_jaar_krachtsport.webm",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/a/af/Dertig_jaar_krachtsport.webm",
+   "licence": "Public domain",
+   "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-old-70",
+   "licence_templates_on_page": [
+    "PD-old-70"
+   ],
+   "pd_rationale_as_written": [
+    "PD-old-70"
+   ],
+   "licence_review_on_page": "none on page; rests on the public-domain tag(s) listed",
+   "author": "Polygoon Hollands Nieuws (producent) / Nederlands Instituut voor Beeld en Geluid (beheerder)",
+   "attribution_text": "Polygoon Hollands Nieuws (producent) / Nederlands Instituut voor Beeld en Geluid (beheerder), \"Dertig jaar krachtsport\", public domain (PD-old-70), via Wikimedia Commons",
+   "attribution_required": "no",
+   "sharealike": "no",
+   "duration_s": 53.1,
+   "resolution": "768x576",
+   "size_mb": 7.3,
+   "shows": "club training newsreel: group drills, speed bag",
+   "minors": "no",
+   "usefulness_1to5": 2,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "note": "black and white",
+   "use_in_our_set": "low value for punch labels (score under 3)"
+  },
+  {
+   "title": "Glenroy Brothers (1894).webm",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Glenroy_Brothers_(1894).webm",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/4/47/Glenroy_Brothers_%281894%29.webm",
+   "licence": "Public domain",
+   "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-US",
+   "licence_templates_on_page": [
+    "PD-US"
+   ],
+   "pd_rationale_as_written": [
+    "PD-US"
+   ],
+   "licence_review_on_page": "none on page; rests on the public-domain tag(s) listed",
+   "author": "William Heise",
+   "attribution_text": "William Heise, \"Glenroy Brothers (1894)\", public domain (PD-US), via Wikimedia Commons",
+   "attribution_required": "no",
+   "sharealike": "no",
+   "duration_s": 21.2,
+   "resolution": "320x240",
+   "size_mb": 0.6,
+   "shows": "1894 comic boxing act, studio, static camera",
+   "minors": "no",
+   "usefulness_1to5": 2,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "note": "staged comic routine",
+   "use_in_our_set": "low value for punch labels (score under 3)"
+  },
+  {
+   "title": "Gordon Sisters Boxing 1901.ogv",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Gordon_Sisters_Boxing_1901.ogv",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/5/59/Gordon_Sisters_Boxing_1901.ogv",
+   "licence": "Public domain",
+   "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-old",
+   "licence_templates_on_page": [
+    "PD-old"
+   ],
+   "pd_rationale_as_written": [
+    "PD-old"
+   ],
+   "licence_review_on_page": "none on page; rests on the public-domain tag(s) listed",
+   "author": "Thomas Edison",
+   "attribution_text": "Thomas Edison, \"Gordon Sisters Boxing 1901\", public domain (PD-old), via Wikimedia Commons",
+   "attribution_required": "no",
+   "sharealike": "no",
+   "duration_s": 99.3,
+   "resolution": "320x240",
+   "size_mb": 6.6,
+   "shows": "1901 staged women's bout, low-res copy",
+   "minors": "no",
+   "usefulness_1to5": 2,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "note": "duplicate, 320x240",
+   "duplicate_of": "Gordon Sisters Boxing (1901).webm",
+   "use_in_our_set": "skip: a weaker copy of another clip in this list"
+  },
+  {
+   "title": "James J Corbett 1894.ogv",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:James_J_Corbett_1894.ogv",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/7/72/James_J_Corbett_1894.ogv",
+   "licence": "Public domain",
+   "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-old-auto",
+   "licence_templates_on_page": [
+    "PD-old-auto"
+   ],
+   "pd_rationale_as_written": [
+    "PD-old-auto"
+   ],
+   "licence_review_on_page": "none on page; rests on the public-domain tag(s) listed",
+   "author": "William Heise",
+   "attribution_text": "William Heise, \"James J Corbett 1894\", public domain (PD-old-auto), via Wikimedia Commons",
+   "attribution_required": "no",
+   "sharealike": "no",
+   "duration_s": 10.8,
+   "resolution": "320x240",
+   "size_mb": 0.6,
+   "shows": "1894 exhibition bout, low-res copy with title card",
+   "minors": "no",
+   "usefulness_1to5": 2,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "note": "duplicate, 320x240",
+   "duplicate_of": "Corbett and Courtney Before the Kinetograph (1894), Best Quality, HD.webm",
+   "use_in_our_set": "skip: a weaker copy of another clip in this list"
+  },
+  {
+   "title": "LUC VAN DAM BOKST TEGEN BEP VAN KLAVEREN IN HET FEYENOORD - STADION-PGM4011945.webm",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:LUC_VAN_DAM_BOKST_TEGEN_BEP_VAN_KLAVEREN_IN_HET_FEYENOORD_-_STADION-PGM4011945.webm",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/5/54/LUC_VAN_DAM_BOKST_TEGEN_BEP_VAN_KLAVEREN_IN_HET_FEYENOORD_-_STADION-PGM4011945.webm",
+   "licence": "Public domain",
+   "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-old-70",
+   "licence_templates_on_page": [
+    "PD-old-70"
+   ],
+   "pd_rationale_as_written": [
+    "PD-old-70"
+   ],
+   "licence_review_on_page": "none on page; rests on the public-domain tag(s) listed",
+   "author": "Polygoon Hollands Nieuws (producent) / Nederlands Instituut voor Beeld en Geluid (beheerder)",
+   "attribution_text": "Polygoon Hollands Nieuws (producent) / Nederlands Instituut voor Beeld en Geluid (beheerder), \"LUC VAN DAM BOKST TEGEN BEP VAN KLAVEREN IN HET FEYENOORD - STADION-PGM4011945\", public domain (PD-old-70), via Wikimedia Commons",
+   "attribution_required": "no",
+   "sharealike": "no",
+   "duration_s": 68.2,
+   "resolution": "720x576",
+   "size_mb": 9.8,
+   "shows": "pro bout newsreel, stadium ring, mostly crowd shots",
+   "minors": "no",
+   "usefulness_1to5": 2,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "note": "black and white",
+   "use_in_our_set": "low value for punch labels (score under 3)"
+  },
+  {
+   "title": "Men Boxing (1891) Best Quality.webm",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Men_Boxing_(1891)_Best_Quality.webm",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/5/5e/Men_Boxing_%281891%29_Best_Quality.webm",
+   "licence": "Public domain",
+   "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-US-expired",
+   "licence_templates_on_page": [
+    "PD-US-expired",
+    "PD-old-70",
+    "PD-old-80"
+   ],
+   "pd_rationale_as_written": [
+    "PD-US-expired",
+    "PD-old-70",
+    "PD-old-80"
+   ],
+   "licence_review_on_page": "PENDING: {{LicenseReview}} placed but not yet confirmed by a reviewer",
+   "author": "Directed by William K. L. Dickson William Heise.",
+   "attribution_text": "Directed by William K. L. Dickson William Heise., \"Men Boxing (1891) Best Quality\", public domain (PD-US-expired), via Wikimedia Commons",
+   "attribution_required": "no",
+   "sharealike": "no",
+   "duration_s": 25.8,
+   "resolution": "1440x1080",
+   "size_mb": 2.7,
+   "shows": "1891 test film, two men sparring, static camera",
+   "minors": "no",
+   "usefulness_1to5": 2,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "note": "25 s loop of a few seconds",
+   "use_in_our_set": "low value for punch labels (score under 3)"
+  },
+  {
+   "title": "Men Boxing.webm",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Men_Boxing.webm",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/0/07/Men_Boxing.webm",
+   "licence": "Public domain",
+   "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-1923",
+   "licence_templates_on_page": [
+    "PD-1923"
+   ],
+   "pd_rationale_as_written": [
+    "PD-1923"
+   ],
+   "licence_review_on_page": "none on page; rests on the public-domain tag(s) listed",
+   "author": "W.K.L. Dickson, William Heise",
+   "attribution_text": "W.K.L. Dickson, William Heise, \"Men Boxing\", public domain (PD-1923), via Wikimedia Commons",
+   "attribution_required": "no",
+   "sharealike": "no",
+   "duration_s": 40.1,
+   "resolution": "320x240",
+   "size_mb": 2.7,
+   "shows": "1891 test film, two men sparring, static camera",
+   "minors": "no",
+   "usefulness_1to5": 2,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "note": "duplicate",
+   "duplicate_of": "Men Boxing (1891) Best Quality.webm",
+   "use_in_our_set": "skip: a weaker copy of another clip in this list"
+  },
+  {
+   "title": "Rumble in the Deid V teaser 1 (993291).webm",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Rumble_in_the_Deid_V_teaser_1_(993291).webm",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/5/56/Rumble_in_the_Deid_V_teaser_1_%28993291%29.webm",
+   "licence": "Public domain",
+   "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-USGov-Military-Air_Force",
+   "licence_templates_on_page": [
+    "PD-USGov-Military-Air Force"
+   ],
+   "pd_rationale_as_written": [
+    "PD-USGov-Military-Air Force"
+   ],
+   "licence_review_on_page": "none on page; rests on the public-domain tag(s) listed",
+   "author": "U.S. Air Force video by Senior Airman Joseph Garcia",
+   "attribution_text": "U.S. Air Force video by Senior Airman Joseph Garcia, \"Rumble in the Deid V teaser 1 (993291)\", public domain (PD-USGov-Military-Air Force), via Wikimedia Commons",
+   "attribution_required": "no",
+   "sharealike": "no",
+   "duration_s": 25.9,
+   "resolution": "1920x1080",
+   "size_mb": 11.3,
+   "shows": "training montage: pads, heavy bag, dark gym",
+   "minors": "no",
+   "usefulness_1to5": 2,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "use_in_our_set": "low value for punch labels (score under 3)"
+  },
+  {
+   "title": "Енакиево Турнир по боксу посвященный 70-летию Победы в ВОВ.webm",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:%D0%95%D0%BD%D0%B0%D0%BA%D0%B8%D0%B5%D0%B2%D0%BE_%D0%A2%D1%83%D1%80%D0%BD%D0%B8%D1%80_%D0%BF%D0%BE_%D0%B1%D0%BE%D0%BA%D1%81%D1%83_%D0%BF%D0%BE%D1%81%D0%B2%D1%8F%D1%89%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9_70-%D0%BB%D0%B5%D1%82%D0%B8%D1%8E_%D0%9F%D0%BE%D0%B1%D0%B5%D0%B4%D1%8B_%D0%B2_%D0%92%D0%9E%D0%92.webm",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/b/ba/%D0%95%D0%BD%D0%B0%D0%BA%D0%B8%D0%B5%D0%B2%D0%BE_%D0%A2%D1%83%D1%80%D0%BD%D0%B8%D1%80_%D0%BF%D0%BE_%D0%B1%D0%BE%D0%BA%D1%81%D1%83_%D0%BF%D0%BE%D1%81%D0%B2%D1%8F%D1%89%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9_70-%D0%BB%D0%B5%D1%82%D0%B8%D1%8E_%D0%9F%D0%BE%D0%B1%D0%B5%D0%B4%D1%8B_%D0%B2_%D0%92%D0%9E%D0%92.webm",
+   "licence": "CC BY 3.0",
+   "licence_url": "https://creativecommons.org/licenses/by/3.0",
+   "licence_templates_on_page": [
+    "YouTube CC-BY"
+   ],
+   "pd_rationale_as_written": null,
+   "licence_review_on_page": "passed: {{LicenseReview}} by INeverCry on 2016-03-11",
+   "author": "Патриотические силы Донбасса",
+   "attribution_text": "Патриотические силы Донбасса, \"Енакиево Турнир по боксу посвященный 70-летию Победы в ВОВ\", CC BY 3.0 (https://creativecommons.org/licenses/by/3.0), via Wikimedia Commons",
+   "attribution_required": "yes",
+   "sharealike": "no",
+   "duration_s": 725.9,
+   "resolution": "1920x1080",
+   "size_mb": 327.6,
+   "shows": "youth boxing tournament, indoor: ceremony and bouts",
+   "minors": "yes",
+   "usefulness_1to5": 2,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "note": "children visible",
+   "use_in_our_set": "excluded: shows minors"
+  },
+  {
+   "title": "Boxing training.webm",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Boxing_training.webm",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/5/5a/Boxing_training.webm",
+   "licence": "CC BY-SA 3.0",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/3.0",
+   "licence_templates_on_page": [
+    "self|cc-by-sa-3.0"
+   ],
+   "pd_rationale_as_written": null,
+   "licence_review_on_page": "not applicable: uploader's own work, self-licensed",
+   "author": "Evworo",
+   "attribution_text": "Evworo, \"Boxing training\", CC BY-SA 3.0 (https://creativecommons.org/licenses/by-sa/3.0), via Wikimedia Commons",
+   "attribution_required": "yes",
+   "sharealike": "yes",
+   "duration_s": 10.0,
+   "resolution": "1920x1080",
+   "size_mb": 5.7,
+   "shows": "group shadow boxing with children, outdoor track",
+   "minors": "yes",
+   "usefulness_1to5": 2,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "note": "children visible",
+   "use_in_our_set": "excluded: shows minors"
+  },
+  {
+   "title": "Boxing in Mitchells Plain.webm",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Boxing_in_Mitchells_Plain.webm",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/8/8f/Boxing_in_Mitchells_Plain.webm",
+   "licence": "CC BY-SA 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "licence_templates_on_page": [
+    "self|cc-by-sa-4.0"
+   ],
+   "pd_rationale_as_written": null,
+   "licence_review_on_page": "not applicable: uploader's own work, self-licensed",
+   "author": "Bernard303",
+   "attribution_text": "Bernard303, \"Boxing in Mitchells Plain\", CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0), via Wikimedia Commons",
+   "attribution_required": "yes",
+   "sharealike": "yes",
+   "duration_s": 13.9,
+   "resolution": "640x640",
+   "size_mb": 4.9,
+   "shows": "children's amateur bout, makeshift township ring, outdoor",
+   "minors": "yes",
+   "usefulness_1to5": 2,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "note": "description says children; square phone video",
+   "use_in_our_set": "excluded: shows minors"
+  },
+  {
+   "title": "EVD-boxeo-000.ogv",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:EVD-boxeo-000.ogv",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/0/0b/EVD-boxeo-000.ogv",
+   "licence": "CC BY-SA 2.5 co",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/2.5/co/deed.en",
+   "licence_templates_on_page": [
+    "cc-by-sa-2.5-co"
+   ],
+   "pd_rationale_as_written": null,
+   "licence_review_on_page": "none on page",
+   "author": "Escuela Virtual de Deportes - COLDEPORTES - Colombia (Commons user Evdcoldeportes)",
+   "attribution_text": "Escuela Virtual de Deportes - COLDEPORTES - Colombia (Commons user Evdcoldeportes), \"EVD-boxeo-000\", CC BY-SA 2.5 co (https://creativecommons.org/licenses/by-sa/2.5/co/deed.en), via Wikimedia Commons",
+   "attribution_required": "yes",
+   "sharealike": "yes",
+   "duration_s": 106.3,
+   "resolution": "320x224",
+   "size_mb": 3.7,
+   "shows": "lesson intro: boxing history stills, little live action",
+   "minors": "no",
+   "usefulness_1to5": 1,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "use_in_our_set": "low value for punch labels (score under 3)"
+  },
+  {
+   "title": "Day of the Town (2017-09-09) - Kickboxing - 0046.webm",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Day_of_the_Town_(2017-09-09)_-_Kickboxing_-_0046.webm",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/a/a8/Day_of_the_Town_%282017-09-09%29_-_Kickboxing_-_0046.webm",
+   "licence": "CC BY-SA 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "licence_templates_on_page": [
+    "self|cc-by-sa-4.0"
+   ],
+   "pd_rationale_as_written": null,
+   "licence_review_on_page": "not applicable: uploader's own work, self-licensed",
+   "author": "Zelio007",
+   "attribution_text": "Zelio007, \"Day of the Town (2017-09-09) - Kickboxing - 0046\", CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0), via Wikimedia Commons",
+   "attribution_required": "yes",
+   "sharealike": "yes",
+   "duration_s": 13.0,
+   "resolution": "1920x1080",
+   "size_mb": 15.1,
+   "shows": "kickboxing pad demo on street, crowd, handheld",
+   "minors": "unknown",
+   "usefulness_1to5": 1,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "note": "same Day of the Town 2017 series; not boxing",
+   "use_in_our_set": "held: ages not confirmed (no clip enters the set until every boxer is known to be an adult)"
+  },
+  {
+   "title": "Rumble in the Deid V Coming Soon (993396).webm",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Rumble_in_the_Deid_V_Coming_Soon_(993396).webm",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/d/d7/Rumble_in_the_Deid_V_Coming_Soon_%28993396%29.webm",
+   "licence": "Public domain",
+   "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-USGov-Military-Air_Force",
+   "licence_templates_on_page": [
+    "PD-USGov-Military-Air Force"
+   ],
+   "pd_rationale_as_written": [
+    "PD-USGov-Military-Air Force"
+   ],
+   "licence_review_on_page": "none on page; rests on the public-domain tag(s) listed",
+   "author": "U.S. Air Force video by Staff Sgt. Alexis Orozco",
+   "attribution_text": "U.S. Air Force video by Staff Sgt. Alexis Orozco, \"Rumble in the Deid V Coming Soon (993396)\", public domain (PD-USGov-Military-Air Force), via Wikimedia Commons",
+   "attribution_required": "no",
+   "sharealike": "no",
+   "duration_s": 43.5,
+   "resolution": "1920x1080",
+   "size_mb": 22.4,
+   "shows": "event promo montage, ring walk-ins, little punching",
+   "minors": "no",
+   "usefulness_1to5": 1,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "use_in_our_set": "low value for punch labels (score under 3)"
+  },
+  {
+   "title": "Training for Rumble in the Deid (951945).webm",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Training_for_Rumble_in_the_Deid_(951945).webm",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/9/98/Training_for_Rumble_in_the_Deid_%28951945%29.webm",
+   "licence": "Public domain",
+   "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-USGov-Military-Air_Force",
+   "licence_templates_on_page": [
+    "PD-USGov-Military-Air Force"
+   ],
+   "pd_rationale_as_written": [
+    "PD-USGov-Military-Air Force"
+   ],
+   "licence_review_on_page": "none on page; rests on the public-domain tag(s) listed",
+   "author": "U.S. Air Force video by Senior Airman Violette Hosack",
+   "attribution_text": "U.S. Air Force video by Senior Airman Violette Hosack, \"Training for Rumble in the Deid (951945)\", public domain (PD-USGov-Military-Air Force), via Wikimedia Commons",
+   "attribution_required": "no",
+   "sharealike": "no",
+   "duration_s": 15.9,
+   "resolution": "2880x1620",
+   "size_mb": 11.8,
+   "shows": "short dark close-ups of bag work",
+   "minors": "no",
+   "usefulness_1to5": 1,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "use_in_our_set": "low value for punch labels (score under 3)"
+  },
+  {
+   "title": "We’re fighting in Rumble in the Deid (953899).webm",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:We%E2%80%99re_fighting_in_Rumble_in_the_Deid_(953899).webm",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/6/67/We%E2%80%99re_fighting_in_Rumble_in_the_Deid_%28953899%29.webm",
+   "licence": "Public domain",
+   "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-USGov-Military-Air_Force",
+   "licence_templates_on_page": [
+    "PD-USGov-Military-Air Force"
+   ],
+   "pd_rationale_as_written": [
+    "PD-USGov-Military-Air Force"
+   ],
+   "licence_review_on_page": "none on page; rests on the public-domain tag(s) listed",
+   "author": "U.S. Air Force video by Airman 1st Class Robert Nichols",
+   "attribution_text": "U.S. Air Force video by Airman 1st Class Robert Nichols, \"We’re fighting in Rumble in the Deid (953899)\", public domain (PD-USGov-Military-Air Force), via Wikimedia Commons",
+   "attribution_required": "no",
+   "sharealike": "no",
+   "duration_s": 45.0,
+   "resolution": "3840x2160",
+   "size_mb": 25.9,
+   "shows": "airmen introduce themselves, little boxing action",
+   "minors": "no",
+   "usefulness_1to5": 1,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "use_in_our_set": "low value for punch labels (score under 3)"
+  },
+  {
+   "title": "Jeugdland in Ahoy-hallen-510036.ogv",
+   "source": "Wikimedia Commons",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Jeugdland_in_Ahoy-hallen-510036.ogv",
+   "file_url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Jeugdland_in_Ahoy-hallen-510036.ogv",
+   "licence": "CC BY-SA 3.0 nl",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/3.0/nl/deed.en",
+   "licence_templates_on_page": [
+    "Cc-by-sa-3.0-nl"
+   ],
+   "pd_rationale_as_written": null,
+   "licence_review_on_page": "none on page",
+   "author": "Polygoon-Profilti (producent) / Nederlands Instituut voor Beeld en Geluid (beheerder)",
+   "attribution_text": "Polygoon-Profilti (producent) / Nederlands Instituut voor Beeld en Geluid (beheerder), \"Jeugdland in Ahoy-hallen-510036\", CC BY-SA 3.0 nl (https://creativecommons.org/licenses/by-sa/3.0/nl/deed.en), via Wikimedia Commons",
+   "attribution_required": "yes",
+   "sharealike": "yes",
+   "duration_s": 77.7,
+   "resolution": "384x288",
+   "size_mb": 12.5,
+   "shows": "children's fair newsreel with kids boxing",
+   "minors": "yes",
+   "usefulness_1to5": 1,
+   "warning_templates": "none found (no personality-rights or trademark template on the page)",
+   "content_check": "3 or more still frames viewed plus page text; video not downloaded",
+   "note": "children",
+   "use_in_our_set": "excluded: shows minors"
+  }
+ ],
+ "rejected": [
+  {
+   "title": "Boxers outside in Italy.webm",
+   "url": "https://commons.wikimedia.org/wiki/File:Boxers_outside_in_Italy.webm",
+   "reason": "not boxing: CC0 clip of boxer dogs on a hillside (seen in still frames)"
+  },
+  {
+   "title": "Melania v Mayerlin Campeonato Mundo AMB TV tves.webm",
+   "url": "https://commons.wikimedia.org/wiki/File:Melania_v_Mayerlin_Campeonato_Mundo_AMB_TV_tves.webm",
+   "reason": "licence doubtful: PD-VenezuelaGov claimed for a state-TV broadcast of a WBA title fight; promoter/broadcast rights and US status unclear; 400x242"
+  },
+  {
+   "title": "Tves.- La Batalla- Mayerlin Rivas vs Melania Sorroche.webm",
+   "url": "https://commons.wikimedia.org/wiki/File:Tves.-_La_Batalla-_Mayerlin_Rivas_vs_Melania_Sorroche.webm",
+   "reason": "licence doubtful: same PD-VenezuelaGov claim; 35 s TV promo"
+  },
+  {
+   "title": "Muhammad Ali last fight exhibition in Tehran, Iran 1993.webm",
+   "url": "https://commons.wikimedia.org/wiki/File:Muhammad_Ali_last_fight_exhibition_in_Tehran,_Iran_1993.webm",
+   "reason": "licence doubtful: rests on PD-Iran only, TV-channel watermark, author unknown, US status unclear"
+  },
+  {
+   "title": "Jack Doyle vs Frank Borrington, 22 March 1934.webm",
+   "url": "https://commons.wikimedia.org/wiki/File:Jack_Doyle_vs_Frank_Borrington,_22_March_1934.webm",
+   "reason": "licence doubtful: PD-UK-unknown claim, licence review pending, AP Archive watermark in the frames"
+  },
+  {
+   "title": "Khmerboxingchampionship1990s.webm",
+   "url": "https://commons.wikimedia.org/wiki/File:Khmerboxingchampionship1990s.webm",
+   "reason": "provenance doubtful: 1990s event footage uploaded as CC0 'own work'; kickboxing, shaky"
+  },
+  {
+   "title": "De la rue au ring - Gaël Assumani, champion de boxe et espoir des enfants défavorisés de Goma (1).webm",
+   "url": "https://commons.wikimedia.org/wiki/File:De_la_rue_au_ring_-_Ga%C3%ABl_Assumani,_champion_de_boxe_et_espoir_des_enfants_d%C3%A9favoris%C3%A9s_de_Goma_(1).webm",
+   "reason": "tagged PD-USGov-VOA but the frames carry an AP watermark (agency footage is not covered by the VOA public-domain rationale); shows street children boxing (minors)"
+  },
+  {
+   "title": "Moçambique conquista três medalhas de ouro no boxe masculino.webm",
+   "url": "https://commons.wikimedia.org/wiki/File:Mo%C3%A7ambique_conquista_tr%C3%AAs_medalhas_de_ouro_no_boxe_masculino.webm",
+   "reason": "tagged PD-USGov-VOA; tournament footage source unclear (VOA reports can embed third-party pictures); mostly interviews and podium"
+  },
+  {
+   "title": "点赞！中国拳手徐灿卫冕世界拳王金腰带.webm",
+   "url": "https://commons.wikimedia.org/wiki/File:%E7%82%B9%E8%B5%9E%EF%BC%81%E4%B8%AD%E5%9B%BD%E6%8B%B3%E6%89%8B%E5%BE%90%E7%81%BF%E5%8D%AB%E5%86%95%E4%B8%96%E7%95%8C%E6%8B%B3%E7%8E%8B%E9%87%91%E8%85%B0%E5%B8%A6.webm",
+   "reason": "CC BY news clip (China News Service) of a pro title fight; short broadcast-style cuts, third-party event rights possible, low labelling value"
+  },
+  {
+   "title": "Boxing champion Arigoma Chiponda faces his toughest fight.webm",
+   "url": "https://commons.wikimedia.org/wiki/File:Boxing_champion_Arigoma_Chiponda_faces_his_toughest_fight.webm",
+   "reason": "licence review still PENDING on the page (the {{LicenseReview}} tag has not been confirmed by a Commons reviewer), so the CC BY claim is not verified; children shown (minors)"
+  },
+  {
+   "title": "Дружковский бокс.webm",
+   "url": "https://commons.wikimedia.org/wiki/File:%D0%94%D1%80%D1%83%D0%B6%D0%BA%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D0%B9_%D0%B1%D0%BE%D0%BA%D1%81.webm",
+   "reason": "licence review still PENDING on the page (the {{LicenseReview}} tag has not been confirmed by a Commons reviewer), so the CC BY claim is not verified; mostly interviews"
+  },
+  {
+   "title": "Спорт 100- Бокс в НАО.webm",
+   "url": "https://commons.wikimedia.org/wiki/File:%D0%A1%D0%BF%D0%BE%D1%80%D1%82_100-_%D0%91%D0%BE%D0%BA%D1%81_%D0%B2_%D0%9D%D0%90%D0%9E.webm",
+   "reason": "licence review still PENDING on the page (the {{LicenseReview}} tag has not been confirmed by a Commons reviewer), so the CC BY claim is not verified; studio talk show"
+  },
+  {
+   "title": "Турнир по боксу им.Иосифа Кобзона.webm",
+   "url": "https://commons.wikimedia.org/wiki/File:%D0%A2%D1%83%D1%80%D0%BD%D0%B8%D1%80_%D0%BF%D0%BE_%D0%B1%D0%BE%D0%BA%D1%81%D1%83_%D0%B8%D0%BC.%D0%98%D0%BE%D1%81%D0%B8%D1%84%D0%B0_%D0%9A%D0%BE%D0%B1%D0%B7%D0%BE%D0%BD%D0%B0.webm",
+   "reason": "licence review still PENDING on the page (the {{LicenseReview}} tag has not been confirmed by a Commons reviewer), so the CC BY claim is not verified; news report with short bout cuts"
+  },
+  {
+   "title": "Турнир по боксу памяти Иосифа Кобзона состоялся в Агинском.webm",
+   "url": "https://commons.wikimedia.org/wiki/File:%D0%A2%D1%83%D1%80%D0%BD%D0%B8%D1%80_%D0%BF%D0%BE_%D0%B1%D0%BE%D0%BA%D1%81%D1%83_%D0%BF%D0%B0%D0%BC%D1%8F%D1%82%D0%B8_%D0%98%D0%BE%D1%81%D0%B8%D1%84%D0%B0_%D0%9A%D0%BE%D0%B1%D0%B7%D0%BE%D0%BD%D0%B0_%D1%81%D0%BE%D1%81%D1%82%D0%BE%D1%8F%D0%BB%D1%81%D1%8F_%D0%B2_%D0%90%D0%B3%D0%B8%D0%BD%D1%81%D0%BA%D0%BE%D0%BC.webm",
+   "reason": "licence review still PENDING on the page (the {{LicenseReview}} tag has not been confirmed by a Commons reviewer), so the CC BY claim is not verified; children's bouts (minors)"
+  },
+  {
+   "title": "ПРИ ПОДДЕРЖКЕ НАРОДНОГО ДЕПУТАТА ЕВГЕНИЯ ГЕЛЛЕРА В ДИМИТРОВЕ ПРОШЕЛ ОБЛАСТНОЙ ТУРНИР ПО БОКСУ.webm",
+   "url": "https://commons.wikimedia.org/wiki/File:%D0%9F%D0%A0%D0%98_%D0%9F%D0%9E%D0%94%D0%94%D0%95%D0%A0%D0%96%D0%9A%D0%95_%D0%9D%D0%90%D0%A0%D0%9E%D0%94%D0%9D%D0%9E%D0%93%D0%9E_%D0%94%D0%95%D0%9F%D0%A3%D0%A2%D0%90%D0%A2%D0%90_%D0%95%D0%92%D0%93%D0%95%D0%9D%D0%98%D0%AF_%D0%93%D0%95%D0%9B%D0%9B%D0%95%D0%A0%D0%90_%D0%92_%D0%94%D0%98%D0%9C%D0%98%D0%A2%D0%A0%D0%9E%D0%92%D0%95_%D0%9F%D0%A0%D0%9E%D0%A8%D0%95%D0%9B_%D0%9E%D0%91%D0%9B%D0%90%D0%A1%D0%A2%D0%9D%D0%9E%D0%99_%D0%A2%D0%A3%D0%A0%D0%9D%D0%98%D0%A0_%D0%9F%D0%9E_%D0%91%D0%9E%D0%9A%D0%A1%D0%A3.webm",
+   "reason": "licence review still PENDING on the page (the {{LicenseReview}} tag has not been confirmed by a Commons reviewer), so the CC BY claim is not verified; youth tournament (minors)"
+  },
+  {
+   "title": "Герой в перчатках. Анатолий Широкий стал вторым в Ненецком округе мастером спорта по боксу.webm",
+   "url": "https://commons.wikimedia.org/wiki/File:%D0%93%D0%B5%D1%80%D0%BE%D0%B9_%D0%B2_%D0%BF%D0%B5%D1%80%D1%87%D0%B0%D1%82%D0%BA%D0%B0%D1%85._%D0%90%D0%BD%D0%B0%D1%82%D0%BE%D0%BB%D0%B8%D0%B9_%D0%A8%D0%B8%D1%80%D0%BE%D0%BA%D0%B8%D0%B9_%D1%81%D1%82%D0%B0%D0%BB_%D0%B2%D1%82%D0%BE%D1%80%D1%8B%D0%BC_%D0%B2_%D0%9D%D0%B5%D0%BD%D0%B5%D1%86%D0%BA%D0%BE%D0%BC_%D0%BE%D0%BA%D1%80%D1%83%D0%B3%D0%B5_%D0%BC%D0%B0%D1%81%D1%82%D0%B5%D1%80%D0%BE%D0%BC_%D1%81%D0%BF%D0%BE%D1%80%D1%82%D0%B0_%D0%BF%D0%BE_%D0%B1%D0%BE%D0%BA%D1%81%D1%83.webm",
+   "reason": "licence review still PENDING on the page (the {{LicenseReview}} tag has not been confirmed by a Commons reviewer), so the CC BY claim is not verified; news item, a few seconds of archive bout"
+  },
+  {
+   "title": "HISTÓRICO- Carlos Cañizales consigue un KO por el Campeonato Mundial de Peso Mini Mosca en Venezuela.webm",
+   "url": "https://commons.wikimedia.org/wiki/File:HIST%C3%93RICO-_Carlos_Ca%C3%B1izales_consigue_un_KO_por_el_Campeonato_Mundial_de_Peso_Mini_Mosca_en_Venezuela.webm",
+   "reason": "licence review still PENDING on the page (the {{LicenseReview}} tag has not been confirmed by a Commons reviewer), so the CC BY claim is not verified; ringside interviews, 871 MB"
+  },
+  {
+   "title": "Estelle Mossely, Championne Olympique de Boxe - Zack en Roue Libre avec Estelle Mossely (S07E9).webm",
+   "url": "https://commons.wikimedia.org/wiki/File:Estelle_Mossely,_Championne_Olympique_de_Boxe_-_Zack_en_Roue_Libre_avec_Estelle_Mossely_(S07E9).webm",
+   "reason": "licence review still PENDING on the page (the {{LicenseReview}} tag has not been confirmed by a Commons reviewer), so the CC BY claim is not verified; 83 min talk show, 2.6 GB"
+  },
+  {
+   "title": "Sport en France - Jo 2024 (Boxe) - Makan Traoré - nouveau-venu plein d’ambition.webm",
+   "url": "https://commons.wikimedia.org/wiki/File:Sport_en_France_-_Jo_2024_(Boxe)_-_Makan_Traor%C3%A9_-_nouveau-venu_plein_d%E2%80%99ambition.webm",
+   "reason": "licence review still PENDING on the page (the {{LicenseReview}} tag has not been confirmed by a Commons reviewer), so the CC BY claim is not verified; TV portrait, little punching"
+  },
+  {
+   "title": "Alicia et Esther, étudiantes et championnes de France de boxe anglaise.webm",
+   "url": "https://commons.wikimedia.org/wiki/File:Alicia_et_Esther,_%C3%A9tudiantes_et_championnes_de_France_de_boxe_anglaise.webm",
+   "reason": "licence review still PENDING on the page (the {{LicenseReview}} tag has not been confirmed by a Commons reviewer), so the CC BY claim is not verified; interview portrait with brief pad work"
+  },
+  {
+   "title": "SweArena 2026 - sparring 01.webm",
+   "url": "https://commons.wikimedia.org/wiki/File:SweArena_2026_-_sparring_01.webm",
+   "reason": "not boxing: ludosport (light-sabre) sparring; page carries a {{consent}} template"
+  },
+  {
+   "title": "SweArena 2026 - sparring 02.webm",
+   "url": "https://commons.wikimedia.org/wiki/File:SweArena_2026_-_sparring_02.webm",
+   "reason": "not boxing: ludosport (light-sabre) sparring; page carries a {{consent}} template"
+  },
+  {
+   "title": "SweArena 2026 - sparring 03.webm",
+   "url": "https://commons.wikimedia.org/wiki/File:SweArena_2026_-_sparring_03.webm",
+   "reason": "not boxing: ludosport (light-sabre) sparring; page carries a {{consent}} template"
+  },
+  {
+   "title": "Boxing Gloves (1929).webm",
+   "url": "https://commons.wikimedia.org/wiki/File:Boxing_Gloves_(1929).webm",
+   "reason": "fiction comedy with child actors (minors), 2.1 GB"
+  },
+  {
+   "title": "Nijmeegse Rowena (14) drievoudig wereldkampioen kickboksen in Italië.webm",
+   "url": "https://commons.wikimedia.org/wiki/File:Nijmeegse_Rowena_(14)_drievoudig_wereldkampioen_kickboksen_in_Itali%C3%AB.webm",
+   "reason": "news item about a 14-year-old kickboxer (minor); no fight footage"
+  },
+  {
+   "title": "US military 'combatives' and MMA clips on Commons (about 15 files, e.g. 'In Focus - Basic Combatives Course', '2CAB Combatives Invitational', 'MCCS Okinawa hosts 2025 MMA Fight Night')",
+   "url": "https://commons.wikimedia.org/w/index.php?search=filetype%3Avideo+combatives&ns6=1",
+   "reason": "public domain (PD-USGov-Military) but grappling / MMA, not boxing punches"
+  },
+  {
+   "title": "Fiction films with staged boxing on Commons (Battling Butler 1926, The Champion 1915, Fight Night 1926, 1941 'Boksery', 1946 'Pervaya perchatka', His People 1925)",
+   "url": "https://commons.wikimedia.org/wiki/Category:Videos_of_boxing",
+   "reason": "public domain but acted comedy/drama, long files (up to 1 GB), little usable punching"
+  },
+  {
+   "title": "Street Boxing at Lemp and Arsenal",
+   "url": "https://archive.org/details/Rabiddogma-StreetBoxingAtLempAndArsenal590",
+   "reason": "CC BY-NC-ND 3.0 (NonCommercial + NoDerivatives)"
+  },
+  {
+   "title": "South Side Boxing Club - War on the Valley Fight 15",
+   "url": "https://archive.org/details/South_Side_Boxing_Club_-_War_on_the_Valley_Fight_15",
+   "reason": "CC BY-NC-SA 3.0 (NonCommercial)"
+  },
+  {
+   "title": "South Side Boxing Club - War on the Valley Fight 8",
+   "url": "https://archive.org/details/South_Side_Boxing_Club_-_War_on_the_Valley_Fight_8",
+   "reason": "CC BY-NC-SA 3.0 (NonCommercial)"
+  },
+  {
+   "title": "Ace of Spades Boxing",
+   "url": "https://archive.org/details/lvctvcav-Ace_of_Spades_Boxing",
+   "reason": "CC BY-NC 3.0 (NonCommercial)"
+  },
+  {
+   "title": "Local Pro Boxer",
+   "url": "https://archive.org/details/Local_Pro_Boxer",
+   "reason": "CC BY-NC 3.0 (NonCommercial)"
+  },
+  {
+   "title": "At least 85 more Internet Archive boxing hits with NC and/or ND licences",
+   "url": "https://archive.org/search?query=%28title%3A%28boxing+OR+boxer+OR+sparring%29+OR+subject%3Aboxing%29+AND+mediatype%3Amovies+AND+licenseurl%3A%28*nc*+OR+*nd*%29",
+   "reason": "NonCommercial and/or NoDerivatives licence in the item's licence field (counted from the search result, not listed one by one)"
+  },
+  {
+   "title": "TV fight broadcasts uploaded to the Internet Archive with a CC0 / Public Domain Mark tag (HBO World Championship Boxing, ESPN/Top Rank, Showtime, 'Manny_Pacquiao_Fights1996-2014', RIZIN and others)",
+   "url": "https://archive.org/search?query=%28title%3A%28boxing+OR+boxer%29+OR+subject%3Aboxing%29+AND+mediatype%3Amovies+AND+licenseurl%3A*publicdomain*",
+   "reason": "licence claim not credible: commercial broadcasts tagged CC0/PD by the uploader, who is not the rights holder"
+  },
+  {
+   "title": "MILDOG CHARITY MATCH",
+   "url": "https://archive.org/details/MildogCharityMatch",
+   "reason": "modern home video of a charity bout tagged with the Public Domain Mark by a relative of the maker; the PD Mark is not a licence grant (CC0 would be), so the status is not established"
+  },
+  {
+   "title": "Landon Boxing",
+   "url": "https://archive.org/details/20240118-195952",
+   "reason": "2024 phone video tagged with the Public Domain Mark by the uploader (not a licence grant); subject is probably a child"
+  },
+  {
+   "title": "Sparring Zhiwen Vs Halim",
+   "url": "https://archive.org/details/sparring-zhiwen-vs-halim",
+   "reason": "Public Domain Mark asserted with no author or source; 320x240, 48 s"
+  },
+  {
+   "title": "ALLIED BOXING TOURNAMENT, FIFTH ARMY TRAINING CENTER, ROME, ITALY (1944, NARA 111-ADC-2952)",
+   "url": "https://archive.org/details/111-adc-2952",
+   "reason": "HELD, not a bad licence: the item's licence field is empty. It is a US Army Signal Corps film from the National Archives (catalog.archives.gov/id/16755) in the FedFlix collection and is very likely public domain; 8.8 min, 655x480, 144 MB. Confirm 'Use restriction: Unrestricted' on the NARA catalogue page before use."
+  },
+  {
+   "title": "Boxing @ Tachi",
+   "url": "https://archive.org/details/CageRadio-BoxingTachi268",
+   "reason": "CC BY 2.0 but it is a weigh-in, no boxing"
+  }
+ ],
+ "notes": [
+  "METHOD. Wikimedia Commons API only (no video file downloaded): about 110 file-namespace searches (filetype:video with boxing terms in English, Russian, German, French, Spanish, Dutch, Italian, Finnish, Swedish, Polish, Chinese, Japanese, Korean, Thai, Arabic, Persian, plus deepcategory: on Boxing, Boxers, Boxing by country, Boxing venues, Kickboxing, Muay Thai, Savate) gave 2,454 distinct files; 174 passed a boxing keyword filter; each kept clip's licence was read from its own page (imageinfo extmetadata plus the page wikitext) and three or more still thumbnails were viewed. The later searches returned almost no new files, so the Commons pool is close to exhausted.",
+  "CATEGORY NAMES. The only real video category is 'Category:Videos of boxing' (34 files). 'Videos of amateur boxing', 'Boxing videos', 'Videos of savate', 'Videos of boxing training' and 'Videos of kickboxing' do not exist; 'Videos of Muay Thai' has 6 files.",
+  "DAY OF THE TOWN SERIES (Zelio007, CC BY-SA 4.0). The 2017-09-09 set has only two 'Russian boxing' clips (0025, 0029) and one 'Kickboxing' clip (0046); the rest of the 47 'Day of the Town' videos are BMX, skateboarding, puppetry, dance and street scenes. The category listing itself was rate-limited (HTTP 429) on the day, so this rests on the title search.",
+  "PUBLIC DOMAIN GROUPS. (a) US military via DVIDS, tagged PD-USGov-Military-Army / -Air Force (8 clips). (b) Dutch Polygoon newsreels 1931-1949 released by the Netherlands Institute for Sound and Vision through Open Beelden, tagged PD-old-70 with a Public Domain Mark (13 clips). (c) US films of 1891-1907 tagged PD-US-expired / PD-old (Edison, Dickson, Heise, Miles Brothers; 15 clips). (d) Two US-government films of 1945 on the Internet Archive. PD-USGov and PD-US-expired are statements about US law.",
+  "SHAREALIKE. 16 clips are ShareAlike (CC BY-SA 2.5 CO, 3.0, 3.0 NL, 4.0). Cut or annotated excerpts of them that are distributed must carry the same licence; whether a trained model or a label file is an 'adaptation' is a legal question to settle before these go in. The best technique footage found (the six EVD-boxeo lessons) is ShareAlike.",
+  "MINORS. 7 clips are flagged minors=yes from the title, description, categories or the frames, and 10 are 'unknown'. The two 'Russian boxing' clips show headgear and young-looking boxers and may well be under-18 bouts. The Slovenian 2016 national championship is mixed: youth bouts first, adult men later.",
+  "PEOPLE AND MARKS. None of the listed pages carries a personality-rights or trademark warning template. That is not consent: a copyright licence does not cover the image rights of identifiable boxers, referees or spectators, and the TV-sourced clips carry channel logos (TV Urslja, Patriotic Forces of Donbass TV).",
+  "LICENCE REVIEW. YouTube- and Vimeo-sourced clips kept in the list all show a passed review on the page (a named reviewer or the review bot). Three old films carry an unconfirmed {{LicenseReview}} tag but are public domain by age (1891, 1894, 1897). YouTube-sourced files whose review is still pending were moved to 'rejected'.",
+  "SIZES. size_mb is decimal megabytes of the original file on Commons. Two files are over 1 GB on their own (Slovenian championship 2.5 GB, Yekaterinburg fist-fight 1.04 GB). Commons also serves smaller transcodes (240p-1080p WebM) of every file, which would cut the totals several-fold.",
+  "DUPLICATES. Several old films exist in two or three copies (Corbett and Courtney x4 incl. 'Boxing 1892' and 'James J Corbett 1894', Leonard-Cushing x2, Gordon Sisters x2, Men Boxing x2, Quentemeyer-Fouguet x2, Corbett-Fitzsimmons x2); the weaker copies carry a 'duplicate_of' field; dropping them removes 6 entries.",
+  "INTERNET ARCHIVE. 408 boxing-titled movie items carry a CC or public-domain licence field, but that field is typed by the uploader: most CC0 / PD-Mark hits are video-game recordings or ripped TV broadcasts. Only two US-government films and one CC BY gym clip were credible enough to list; frames of these three were not viewed.",
+  "MORE US-MILITARY FOOTAGE. dvidshub.net holds many more boxing videos (unit 'smokers', service-academy and garrison tournaments) than the 8 copied to Commons. Its search page refused automated access on the day (empty HTTP 202), so none are listed; each DVIDS video page states its own public-domain status and must be read one by one.",
+  "YOUTUBE FILTER. Search, then Filters > Features > Creative Commons. With the Data API: search.list with type=video and videoLicense=creativeCommon, then confirm each hit with videos.list part=status (status.license must be 'creativeCommon'). YouTube offers one CC licence only, CC BY (never NC or ND), but the tag is set by the uploader: accept it only when the channel is clearly the maker (a club, a federation, a broadcaster's own channel), never for re-uploaded fights.",
+  "VIMEO FILTER. Search, then the Licence filter: keep 'CC BY', 'CC BY-SA' and 'CC0'; drop every option containing NC or ND. The API exposes the same value in each video's 'license' field (by, by-sa, cc0 against by-nc, by-nd, by-nc-sa, by-nc-nd). The Yle Archives clips in this list came to Commons from Vimeo that way.",
+  "NOT VERIFIED. (1) Nothing was watched in full: content, minors and usefulness scores rest on three to eight still frames and the page text. (2) That the Commons account 'Evdcoldeportes' really is Colombia's sports ministry (the EVD-boxeo source site deportes.gov.co is cited but there is no review tag). (3) Ages of boxers marked 'unknown'. (4) Whether the YouTube/Vimeo originals still carry the CC licence today (Commons records the licence at review time; CC licences are not revocable). (5) Whether TV-produced clips contain third-party footage. (6) Public-domain status outside the United States for the US-law rationales."
+ ]
+}

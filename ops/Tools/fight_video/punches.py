@@ -105,12 +105,15 @@ class Body:
         return self.shm + 0.35 * (self.hipm - self.shm)
 
 
-def lead_side(me, opp):
-    """'left' or 'right': the side whose foot (else shoulder) is nearer the opponent on most frames; None if unknown."""
+def lead_side(me, opp, mask=None):
+    """'left' or 'right': the side whose foot (else shoulder) is nearer the opponent on most frames; None if unknown.
+    mask (F,) = the frames to read (one bout of a file that holds several: each bout has its own two boxers)."""
     fwd = opp.hipm - me.hipm
     votes = 0.0
     for pair in ((L_ANK, R_ANK), (L_SH, R_SH)):
         d = ((me.j[:, pair[0]] - me.j[:, pair[1]]) * fwd).sum(1) / np.maximum(np.linalg.norm(fwd, axis=1) * me.T, 1e-3)
+        if mask is not None:
+            d = d[mask]
         d = d[~np.isnan(d)]
         if len(d):
             votes += float(np.sign(d[np.abs(d) > 0.15]).sum()) * (2.0 if pair[0] == L_ANK else 1.0)
@@ -274,7 +277,10 @@ def detect(boxers, params=None, log=print):
     seen, seg, t = boxers["seen"], boxers["seg"], boxers["t"]
     bodies = [Body(boxers["kpt"][:, b], seen[:, b], seg, fps) for b in (0, 1)]
     two = bool(seen[:, 1].any())
-    leads = [lead_side(bodies[b], bodies[1 - b]) if two else None for b in (0, 1)]
+    # Lead hand per BOUT: a file with several bouts has different people in slot A (track.py's `bout`).
+    bout = np.asarray(boxers["bout"]) if "bout" in boxers else np.zeros(len(t), np.int32)
+    by_bout = {int(k): [lead_side(bodies[b], bodies[1 - b], bout == k) if two else None for b in (0, 1)] for k in np.unique(bout)}
+    leads = by_bout[int(np.bincount(bout).argmax())] if len(t) else [None, None]
     events = []
     for b in ((0, 1) if two else (0,)):
         me, opp = bodies[b], (bodies[1 - b] if two else None)
@@ -292,12 +298,13 @@ def detect(boxers, params=None, log=print):
                     continue
                 found.append(m)
             for m in found:
-                lead = "?" if leads[b] is None else "lead" if side == leads[b] else "rear"
+                c = m["impact"]
+                mine = by_bout[int(bout[c])][b]
+                lead = "?" if mine is None else "lead" if side == mine else "rear"
                 family = rule_type(m, P)
                 target, result = rule_target_result(m, P)
-                c = m["impact"]
                 events.append(dict(
-                    t=round(float(t[c]), 3), frame=int(boxers["frame"][c]), index=c, boxer="AB"[b], hand=side, lead=lead,
+                    t=round(float(t[c]), 3), frame=int(boxers["frame"][c]), index=c, boxer="AB"[b], bout=int(bout[c]), hand=side, lead=lead,
                     family=family, type=name_punch(family, lead), target=target, result=result, m=m))
     events.sort(key=lambda ev: ev["t"])
     number_combos(events, P["COMBO_GAP"])
