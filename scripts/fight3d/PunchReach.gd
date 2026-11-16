@@ -15,6 +15,14 @@ const HOLD_S := 0.05
 const OUT_S := 0.16
 ## The most the chest may lean toward the target (radians) to cover what the arm cannot.
 const LEAN_MAX := 0.30
+## S499 (fight week day 4): on a jab's contact frame the lean arrived whole - the puncher's head moved 19-24 cm in one
+## frame, her hips 2-3 cm (r3d trace). The drawn lean now changes at most LEAN_RATE rad/s, in and out (0.30 rad in 0.1 s;
+## ReachLimit.turn_eased). HitImpact.hit's forced pass (lean_free) and reach_at() stay whole. `-- noleanease` = control.
+const LEAN_RATE := 4.0
+static var LEAN_EASE: bool = not OS.get_cmdline_user_args().has("noleanease")
+var lean_free := false
+var _lean_st := {"prev": Quaternion.IDENTITY, "now": Quaternion.IDENTITY, "base": Quaternion.IDENTITY, "key": 0, "pass": -1}
+var _lean_dt := 0.0
 ## When the next clip cuts in (a combo, a hit), the reach and the carry let go over this long instead of at once (S302
 ## joins report: an instant release jolted the hook hand 12 m/s in one frame; JoinSmoother runs before this modifier).
 const FADE_S := 0.20   # S386: 0.12 (4 frames) still read as a snap off the target
@@ -227,6 +235,7 @@ func _process_modification() -> void:
 	if _clip != "" and str(ap.assigned_animation) != _clip:
 		disarm()
 	var dt := get_process_delta_time()
+	_lean_dt = dt
 	for hand in _fades.keys():
 		var f: Dictionary = _fades[hand]
 		# S350 (SMOOTH3): eased to zero (smoothstep's complement, flat at both ends), not a straight line.
@@ -444,8 +453,7 @@ func _reach(skel: Skeleton3D, hand: String, w: float, target_fn: Callable, glove
 	if hand == _hand and _hit_f == _key:
 		hit_s = skel.global_transform * s   # review round 1: her shoulder on the hit frame before any lean (RangeLive)
 	var lean_to := ReachLimit.lean_to(_clip if hand == _hand and DRIVE and _thru > 0.0 else "", s.distance_to(want), reach, l1, l2)
-	if _chest >= 0 and lean_to > 0.0:
-		ReachLimit.lean(skel, _chest, s, want, lean_to, w, LEAN_MAX)
+	if _chest >= 0 and _lean(skel, hand, s, want, lean_to, w, glove_front):
 		s = skel.get_bone_global_pose(int(ids[0])).origin
 		if DRIVE:
 			# POWER1: the lean moved the shoulder, so the glove's axis (it follows the forearm) lands it elsewhere: re-solve
@@ -467,6 +475,16 @@ func _reach(skel: Skeleton3D, hand: String, w: float, target_fn: Callable, glove
 			_clip, w, got.distance_to(full), g_hd.origin.distance_to(full) * (1.0 - w), want_free.distance_to(want), reach, l1 + l2,
 			s.distance_to(want_free), want.distance_to(got), gf.distance_to(target)])
 	_hold_w = 0.0
+
+
+## The chest lean of one solve; true when the chest turned. The armed hand's lean in the played fight is eased.
+func _lean(skel: Skeleton3D, hand: String, s: Vector3, want: Vector3, lean_to: float, w: float, front: float) -> bool:
+	var q := ReachLimit.lean_q(skel, _chest, s, want, lean_to, w, LEAN_MAX) if lean_to > 0.0 else Quaternion.IDENTITY
+	if LEAN_EASE and hand == _hand and _clip != "" and _key == Engine.get_process_frames() and not lean_free:   # not a fade, not a probe
+		q = ReachLimit.lead_q(self, skel, _chest, _arms[hand], front, q, LEAN_MAX)   # the lean starts before the hit
+		return ReachLimit.turn_eased(_lean_st, skel, _chest, q, _key, int(get_meta("cg_pass", 0)), LEAN_RATE * _lean_dt)
+	ReachLimit.turn(skel, _chest, q)
+	return not q.is_equal_approx(Quaternion.IDENTITY)
 
 
 ## Two-bone solve: shoulder fixed, wrist on `want` (clamped to the arm's reach), elbow kept on its current side; the hand

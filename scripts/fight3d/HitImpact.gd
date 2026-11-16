@@ -47,7 +47,9 @@ static func hit(st: Node, who: int, clip: String, speed: float, hitter: int, mov
 				pass
 			elif absf(past) > 0.01 or (PunchPace.on and past < 0.0):
 				ap_h.seek(c_t, true)
+			pr.set("lean_free", true)   # S499: the hit is judged on the whole reach; the drawn lean eases in (PunchReach.LEAN_RATE)
 			pr._process_modification()
+			pr.set("lean_free", false)
 			# S496: this pass runs PunchReach (and its chest lean) by hand after the stack, so the pop cap must follow it, or the
 			# contact frame alone keeps its one-frame jump (r1b-r1e: 13 contact-frame head jumps whatever PopCap did).
 			var pcap: Node = (st.boxers[hitter]["skel"] as Node).get_node_or_null("PopCap")

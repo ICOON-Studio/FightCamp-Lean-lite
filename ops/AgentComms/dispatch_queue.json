@@ -1617,6 +1617,12 @@
    "queued": "2026-11-16T12:52",
    "title": "TASK BODYSTEP1 - a landed punch moves the hit boxer back a little (the rule only)",
    "launched": "2026-11-16T12:54"
+  },
+  {
+   "task": "FILMBAR1",
+   "seat": "qwen",
+   "queued": "2026-11-16T13:54",
+   "title": "TASK FILMBAR1 - a film-night pattern never passes by luck (an exact test for small counts)"
   }
  ]
 }

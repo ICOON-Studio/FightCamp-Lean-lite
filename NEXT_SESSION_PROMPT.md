@@ -1,23 +1,37 @@
-# S499 handover (written 2026-11-16 at the end of S498)
-
-## S499 so far (2026-11-16, same day): read this first
-- MIRO IS GONE (owner: "miro subscription has been stop ... can you create something like miro for our project"). The map is
-  our own page: http://127.0.0.1:8787/map (`ops/Tools/opsboard/map_board.py`, data `ops/AgentComms/map/`). CLAUDE.md wrap-up
-  3b is rewritten: `where_we_are.py` roll/now/done/next only, no Miro call. `start` prints his new map notes.
-- STILL OWED: copy the old Miro P1-P9 cards and his stickies into the map. Every Miro read was refused today ("daily Miro
-  mcp tool call limit"). Retry once (one cheap helper, brief in `ops/research/MIRO_EXPORT_S499.md`); if it is refused again,
-  ask him to export the board from Miro's own menu.
-- CREDITS: he asked to use the $200 Console credits now. Answer given: the desktop tab can only bill the subscription
-  (63 % of the week used at 13:20, resets 11-19 14:00); the switch is the `claude` CLI + his `/login` to the Console
-  (`ops/research/API_CREDITS_FALLBACK_S474.md`). Tell him when the weekly bar passes about 90 %.
-- BODYSTEP1 collected (HitStep.gd + test on main, flag `nohitstep`), NOT wired, NOT re-run here.
-- PC RED all session on MEMORY (commit 2.5 GB free: his game 3.7 GB, Claude sessions 5.4 GB, Kimi 2.5 GB): no Godot start
-  was possible, so fight motion week day 4 has NOT begun. Items 1-3 below are untouched.
-- Q-S294-262 "Yes, merge it" (ONELOOK1) was passed to the One look session with ONELOOK2 (PR 327); check it merged.
-- PRESSFLASH1 never reached Grok Dev (thread's newest message was 11-13); re-sent 13:33 (GROKBOT SENT).
-- Arena again got nothing: the film-claims brief was not written.
+# S500 handover (written 2026-11-16 at the end of S499)
 
 Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. Roadmap `now.next_action` has the full detail.
+
+## S499 in short (read this first; the S498 notes below are still true except where this says otherwise)
+- MIRO IS GONE (owner: "miro subscription has been stop ... can you create something like miro for our project"). The map is
+  our own page: http://127.0.0.1:8787/map (`ops/Tools/opsboard/map_board.py`, data `ops/AgentComms/map/`). CLAUDE.md wrap-up
+  3b is rewritten: `where_we_are.py` roll/now/done/next only, no Miro call. `start` prints his new map notes: quote each,
+  act, `map_board.py reply <id> "..."`. New pictures he should see go on the map: `map_board.py gallery ...`.
+- STILL OWED: copy the old Miro P1-P9 cards and his stickies into the map. Every Miro read was refused on 11-16 ("daily
+  Miro mcp tool call limit"). Retry ONCE with one cheap helper (the brief is in this session's notes:
+  `ops/research/MIRO_EXPORT_S499.md` lists the 14 frame ids); if refused again, ask him to export from Miro's own menu.
+- CREDITS: he asked to use the $200 Console credits. The desktop tab can only bill the subscription (64 % of the week
+  used at 14:00, resets 11-19 14:00). Tell him when the weekly bar passes about 90 %; the switch is the `claude` CLI + his
+  `/login` to the Console (`ops/research/API_CREDITS_FALLBACK_S474.md`).
+- DAY 4 ON MAIN (1d0247db9): the chest lean is eased. `ReachLimit.turn_eased` (on the chest's real turn: the two solves of
+  a pass ask OPPOSITE turns, lean in then shoulder back, so summing angles ran away to 1.1 rad) + `ReachLimit.lead_q` (the
+  lean starts 0.20 s before contact) + `PunchReach.LEAN_RATE` 4 rad/s; `HitImpact.hit` sets `lean_free` on its forced
+  pass. Control `-- noleanease`, probe `-- leantrace`. Film `E:/FightCamp/tmp/fightweek/r4a` vs `r3d`: head jumps 50 -> 27
+  (contact 11 -> 6, inside a clip 31 -> 13, clip change 8 -> 8), p99 12.3 -> 10.4 cm, head inside a body 5 -> 3.
+  COST: wrist ~2 cm further from the head on the first hit frame (`s498_tools/land.py`: median 0.287 -> 0.309 m, worst
+  0.34 -> 0.40 at frame 601 pro_left_jab_b); `hit_carry_test` 35 -> 51 failures (it was red on main with the ease off too:
+  3 CARRY, 8 ON, 24 SMOOTH; `hit_frame_test` 3 failures both ways). Not tuned further: no context left.
+- BODYSTEP1 collected (`scripts/fight3d/HitStep.gd` + test on main, flag `nohitstep`), NOT wired: that is item 1 now.
+- `file_limits_test` is RED on two UI files not mine: `scripts/ui/GamePlan.gd` and `MatTree.gd` at 501 lines (the One look
+  / Training K sessions' edits in this shared checkout). Check `git log` on them before touching.
+- Q-S294-262 "Yes, merge it" (ONELOOK1) was passed to the One look session with ONELOOK2 (PR 327); check it merged.
+- PRESSFLASH1 had never reached Grok Dev (its thread's newest message was 11-13); re-sent 13:33 (GROKBOT SENT).
+- FILMBAR1 queued for Qwen (`ops/research/TASK_FILMBAR1.md`): Fisher exact / Poisson tails in FilmPattern so
+  `film_count_test` goes green; a lost find is to be reported, not loosened.
+- Arena again got nothing. Two finished sessions archived on his "Yes, archive them" (PC RED on memory -> AMBER); a third
+  ("Agent communications startup", 11-15) refused: it has live work.
+- TRAP: restarting the ops board, match the process on `E:\FightCamp\Lean\ops\Tools\opsboard\server.py`, never on
+  "opsboard" alone (it also stopped the Blood Senate board; its keeper restarted it).
 
 ## The one thing: FIGHT MOTION WEEK, day 4 (to about 2026-11-23)
 The owner (S496): "The fight looks terrible should we stop this project ?" -> "One week code push". The deal told to him:

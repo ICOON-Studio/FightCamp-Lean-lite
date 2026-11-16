@@ -126,20 +126,97 @@ static func miss(pr: Node) -> float:
 ## Turns the chest about the root of the spine so the shoulder comes toward `want` by the part the arm cannot reach
 ## (at most lean_max * w radians).
 static func lean(skel: Skeleton3D, chest: int, s: Vector3, want: Vector3, reach_m: float, w: float, lean_max: float) -> void:
-	var g_ch: Transform3D = skel.get_bone_global_pose(chest)
-	var pivot := g_ch.origin
+	turn(skel, chest, lean_q(skel, chest, s, want, reach_m, w, lean_max))
+
+
+## The turn lean() asks for (skeleton space, about the chest bone); IDENTITY = none.
+static func lean_q(skel: Skeleton3D, chest: int, s: Vector3, want: Vector3, reach_m: float, w: float, lean_max: float) -> Quaternion:
+	var pivot := skel.get_bone_global_pose(chest).origin
 	var from := (s - pivot)
 	var short := s.distance_to(want) - reach_m
 	var dir := (want - s).normalized()
 	var to := from + dir * short
 	if from.length() < 0.05 or to.length() < 0.05:
-		return
+		return Quaternion.IDENTITY
 	var q := Quaternion(from.normalized(), to.normalized())
 	var ang := minf(q.get_angle(), lean_max * w)
 	if ang < 1e-4:
+		return Quaternion.IDENTITY
+	return Quaternion(q.get_axis().normalized(), ang)
+
+
+static func turn(skel: Skeleton3D, chest: int, q: Quaternion) -> void:
+	if q.is_equal_approx(Quaternion.IDENTITY):
 		return
-	q = Quaternion(q.get_axis().normalized(), ang)
-	skel.set_bone_global_pose(chest, Transform3D(Basis(q) * g_ch.basis, pivot))
+	var g_ch: Transform3D = skel.get_bone_global_pose(chest)
+	skel.set_bone_global_pose(chest, Transform3D(Basis(q) * g_ch.basis, g_ch.origin))
+
+
+## S499 (fight motion week, day 4): the chest lean as drawn may change by at most `step` radians a frame. `prev` = the
+## lean drawn last frame, `now` = the lean this solve leaves (both as turns from the chest the clip gives).
+static func ease_q(prev: Quaternion, now: Quaternion, step: float) -> Quaternion:
+	var ang := prev.angle_to(now)
+	return now if ang <= step or ang < 1e-5 else prev.slerp(now, step / ang).normalized()
+
+
+## S499: the lean starts BEFORE the hit. The need for it shows up in one frame (the aimed point closes on her at the
+## glove's speed, 17-30 cm a frame), so easing alone left the glove short on the hit frame (hit_carry_test: ON 8 -> 18
+## failures). In the last LEAD_S real seconds before the contact the chest already turns toward the lean the hit will
+## ask (the glove on the point it is thrown at, from the shoulder as it is now), eased in; a boxer's trunk goes into the
+## punch with the arm, not after it. Returns the larger of that and `q_now` (what this frame's solve asks by itself).
+const LEAD_S := 0.20
+static func lead_q(pr: Node, skel: Skeleton3D, chest: int, ids: Array, front: float, q_now: Quaternion, lean_max: float) -> Quaternion:
+	var ap: AnimationPlayer = pr.get("ap")
+	var tf: Callable = pr.get("_target")
+	if ap == null or not tf.is_valid() or bool(pr.get("_height_only")):
+		return q_now
+	var left := (float(pr.get("_contact")) - ap.current_animation_position) / maxf(absf(ap.get_playing_speed()), 0.1)
+	if left <= 0.0 or left >= LEAD_S:
+		return q_now
+	var clip := str(pr.get("_clip"))
+	var s := skel.get_bone_global_pose(int(ids[0])).origin
+	var elbow := skel.get_bone_global_pose(int(ids[1])).origin
+	var l1 := s.distance_to(elbow)
+	var l2 := elbow.distance_to(skel.get_bone_global_pose(int(ids[2])).origin)
+	var at: Vector3 = skel.global_transform.affine_inverse() * (tf.call() as Vector3)
+	var want := at - (at - s).normalized() * front
+	var to := lean_to(clip, s.distance_to(want), reach(clip, l1, l2), l1, l2)
+	if to <= 0.0:
+		return q_now
+	var q := lean_q(skel, chest, s, want, to, 1.0, lean_max)
+	var u := 1.0 - left / LEAD_S
+	var ang := q.get_angle() * u * u * (3.0 - 2.0 * u)
+	if q.is_equal_approx(Quaternion.IDENTITY) or ang <= (0.0 if q_now.is_equal_approx(Quaternion.IDENTITY) else q_now.get_angle()):
+		return q_now
+	return Quaternion(q.get_axis().normalized(), ang)
+
+
+## One solve's eased chest turn (PunchReach._lean). `st` = {prev, now, base, key, pass}: the lean drawn last frame and
+## the lean this pass has so far (turns from `base`, the chest as the pass found it), the frame and the pass of the
+## stack they belong to. The solve's own turn `q` is taken whole, then the chest is brought back to within `step` of
+## last frame's lean. It works on the chest's real turn, not on a sum of angles: the two solves of a pass can ask
+## opposite turns (lean in, then the shoulder back off the point), and a frame can run more than one pass.
+static func turn_eased(st: Dictionary, skel: Skeleton3D, chest: int, q: Quaternion, key: int, pass_id: int, step: float) -> bool:
+	if int(st["key"]) != key:
+		st["prev"] = (st["now"] as Quaternion) if key - int(st["key"]) == 1 else Quaternion.IDENTITY
+		st["key"] = key
+		st["pass"] = -1
+	var g: Transform3D = skel.get_bone_global_pose(chest)
+	var rot := g.basis.get_rotation_quaternion()
+	if int(st["pass"]) != pass_id:
+		st["pass"] = pass_id
+		st["base"] = rot
+	var base: Quaternion = st["base"]
+	var asked := ((q * rot) * base.inverse()).normalized()
+	var got := ease_q(st["prev"] as Quaternion, asked, step)
+	st["now"] = got
+	if OS.get_cmdline_user_args().has("leantrace"):
+		print("LEANTRACE key %d pass %d last frame %.3f asked %.3f drawn %.3f" % [key, pass_id, (st["prev"] as Quaternion).get_angle(), asked.get_angle(), got.get_angle()])
+	var corr := ((got * base) * rot.inverse()).normalized()
+	if corr.get_angle() < 1e-4:
+		return false
+	turn(skel, chest, corr)
+	return true
 
 
 ## S448 (the played lead uppercut, after its hit): while the reach holds a landed glove on its carry at full weight, the
