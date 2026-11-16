@@ -15,6 +15,7 @@ const CamLine := preload("res://scripts/fight3d/CamLine.gd")
 const TvShot := preload("res://scripts/fight3d/TvShot.gd")
 const RingRopes := preload("res://scripts/fight3d/RingRopes.gd")
 const RingCamera := preload("res://scripts/fight3d/RingCamera.gd")
+const FixedCam := preload("res://scripts/fight3d/FixedCam.gd")
 
 const ASPECT := 16.0 / 9.0
 const HALF := 2.75   # FightStage.RING_M * 0.5
@@ -29,6 +30,12 @@ func _initialize() -> void:
 	_blur_pure()
 	_smear()
 	_ropes_game()
+	# S501: since S500 the round's camera is FixedCam (Side, the default); the moving TV coverage these checks were written
+	# for is still the player's "TV" choice (C key, FixedCam.pick 2). The turning drills run on BOTH lenses; the checks of
+	# the TV coverage's own behaviour (cuts, the captured step, the folded boxer, the far lens's soft crowd) run on TV.
+	FixedCam.pick(0, null)
+	_lens_game()
+	FixedCam.pick(2, null)
 	_lens_game()
 	_captured_step()
 	_folded_behind()
@@ -214,11 +221,24 @@ func _lens_game() -> void:
 		var worst := [0.0, 0.0]
 		var low := 180.0
 		var frames := int(float(d[4]) * 60.0)
+		var pair := [{"pos": Vector3.ZERO}, {"pos": Vector3.ZERO}]
 		for i in frames:
 			ang += float((d[3] as Callable).call(i / 60.0)) / 60.0
 			var u := Vector3(cos(deg_to_rad(ang)), 0.0, sin(deg_to_rad(ang)))
 			var a: Vector3 = (d[1] as Vector3) - u * float(d[2]) * 0.5
 			var b: Vector3 = (d[1] as Vector3) + u * float(d[2]) * 0.5
+			if FixedCam.on and i > 0:
+				# S501: the game path since S500 (owner: "Boxers stay side-on"): RingPlace turns the pair back toward
+				# side-on to the fixed camera every frame (FixedCam.keep_square, 35 deg/s at most). The boxers' own
+				# turn is the drill's; what the game draws is the drill's turn minus that correction.
+				pair[0]["pos"] = a
+				pair[1]["pos"] = b
+				FixedCam.keep_square(pair, cam, 1.0 / 60.0)
+				a = pair[0]["pos"]
+				b = pair[1]["pos"]
+				var axis := (b - a).normalized()
+				ang = rad_to_deg(atan2(axis.z, axis.x))
+				u = axis
 			cam.broadcast(a, b, i == 0, 1.0 / 60.0)
 			var hid := CamLine.hidden_share(cam.global_transform, cam.fov, ASPECT, boxer(a, u, 1.66, false), boxer(b, -u, 1.80, true))
 			var behind := TvShot.behind_deg(a, b, cam.global_position)
@@ -229,8 +249,8 @@ func _lens_game() -> void:
 				worst[k] = maxf(float(worst[k]), float(run[k]))
 		print("CAM_LINE_LENS %s: longest hidden %.2f s, longest under %.0f deg %.2f s, lowest behind %.0f deg, cuts %d" % [
 			d[0], worst[0], CamLine.BEHIND_DEG, worst[1], low, cam.cuts])
-		_check(float(worst[0]) < CamLine.HIDDEN_RUN_MAX_S, "GAME lens, %s: nobody HIDDEN for %.1f s or more (%.2f s)" % [d[0], CamLine.HIDDEN_RUN_MAX_S, worst[0]])
-		_check(float(worst[1]) < CamLine.BEHIND_RUN_MAX_S, "GAME lens, %s: never along the pair for %.1f s or more (%.2f s)" % [d[0], CamLine.BEHIND_RUN_MAX_S, worst[1]])
+		_check(float(worst[0]) < CamLine.HIDDEN_RUN_MAX_S, "GAME lens (%s), %s: nobody HIDDEN for %.1f s or more (%.2f s)" % [FixedCam.NAMES[FixedCam.mode], d[0], CamLine.HIDDEN_RUN_MAX_S, worst[0]])
+		_check(float(worst[1]) < CamLine.BEHIND_RUN_MAX_S, "GAME lens (%s), %s: never along the pair for %.1f s or more (%.2f s)" % [FixedCam.NAMES[FixedCam.mode], d[0], CamLine.BEHIND_RUN_MAX_S, worst[1]])
 		cam.queue_free()
 
 

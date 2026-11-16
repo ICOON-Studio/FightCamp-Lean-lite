@@ -1,30 +1,123 @@
 {
  "rows": [
-  {"title": "Where we are", "frames": [
-   {"id": "where", "title": "Where we are: done, now, next", "kind": "where",
-    "note": "Updated at every session start and end (python ops/Tools/where_we_are.py)."},
-   {"id": "queue", "title": "Who works on what", "kind": "queue",
-    "note": "Live from the ops board: the seats running now, Claude's work, and what comes next in order."}
-  ]},
-  {"title": "The game today: real screens", "frames": [
-   {"id": "screens", "title": "Every screen as the game draws it", "kind": "gallery", "cols": 6,
-    "note": "Rendered from the build at 1920x1080. Double-click on a picture's frame to leave a note beside it.",
-    "globs": ["E:/FightCamp/critic_pack/screens/*_real.png"]}
-  ]},
-  {"title": "Approved menus", "frames": [
-   {"id": "menus402", "title": "Menus final (S402): layouts", "kind": "gallery", "cols": 4, "globs": ["docs/mockups/s402/*.png"]},
-   {"id": "painted402", "title": "Menus final (S402): painted", "kind": "gallery", "cols": 4, "globs": ["docs/mockups/concepts/S402_*.png"]},
-   {"id": "menus401", "title": "Menus for your OK (S401): layouts", "kind": "gallery", "cols": 4, "globs": ["docs/mockups/s401/*.png"]},
-   {"id": "painted401", "title": "Painted menus (S401)", "kind": "gallery", "cols": 4, "globs": ["docs/mockups/concepts/S401_*.png"]}
-  ]},
-  {"title": "Design ideas and older mockups", "frames": [
-   {"id": "ideas", "title": "Core loop, week, belt road, game tree, money", "kind": "gallery", "cols": 4, "globs": ["docs/mockups/*.png"]},
-   {"id": "old", "title": "Old Miro board (archive)", "kind": "links",
-    "note": "The Miro plan was stopped on 2026-11-16. Its cards and your stickies are copied here once Miro allows a read again.",
-    "links": [
-     {"title": "The old Miro board", "url": "https://miro.com/app/board/uXjVEV03QWA=/", "note": "view only"},
-     {"title": "Old finished cards (S371 archive)", "url": "/attach?path=research/MIRO_DONE_ARCHIVE_S371.md", "note": ""}
-    ]}
-  ]}
+  {
+   "title": "Where we are",
+   "frames": [
+    {
+     "id": "where",
+     "title": "Where we are: done, now, next",
+     "kind": "where",
+     "note": "Updated at every session start and end (python ops/Tools/where_we_are.py)."
+    },
+    {
+     "id": "queue",
+     "title": "Who works on what",
+     "kind": "queue",
+     "note": "Live from the ops board: the seats running now, Claude's work, and what comes next in order."
+    }
+   ]
+  },
+  {
+   "title": "The game today: real screens",
+   "frames": [
+    {
+     "id": "screens",
+     "title": "Every screen as the game draws it",
+     "kind": "gallery",
+     "cols": 6,
+     "note": "Rendered from the build at 1920x1080. Double-click on a picture's frame to leave a note beside it.",
+     "globs": [
+      "E:/FightCamp/critic_pack/screens/*_real.png"
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Approved menus",
+   "frames": [
+    {
+     "id": "menus402",
+     "title": "Menus final (S402): layouts",
+     "kind": "gallery",
+     "cols": 4,
+     "globs": [
+      "docs/mockups/s402/*.png"
+     ]
+    },
+    {
+     "id": "painted402",
+     "title": "Menus final (S402): painted",
+     "kind": "gallery",
+     "cols": 4,
+     "globs": [
+      "docs/mockups/concepts/S402_*.png"
+     ]
+    },
+    {
+     "id": "menus401",
+     "title": "Menus for your OK (S401): layouts",
+     "kind": "gallery",
+     "cols": 4,
+     "globs": [
+      "docs/mockups/s401/*.png"
+     ]
+    },
+    {
+     "id": "painted401",
+     "title": "Painted menus (S401)",
+     "kind": "gallery",
+     "cols": 4,
+     "globs": [
+      "docs/mockups/concepts/S401_*.png"
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Design ideas and older mockups",
+   "frames": [
+    {
+     "id": "ideas",
+     "title": "Core loop, week, belt road, game tree, money",
+     "kind": "gallery",
+     "cols": 4,
+     "globs": [
+      "docs/mockups/*.png"
+     ]
+    },
+    {
+     "id": "old",
+     "title": "Old Miro board (archive)",
+     "kind": "links",
+     "note": "The Miro plan was stopped on 2026-11-16. Its cards and your stickies are copied here once Miro allows a read again.",
+     "links": [
+      {
+       "title": "The old Miro board",
+       "url": "https://miro.com/app/board/uXjVEV03QWA=/",
+       "note": "view only"
+      },
+      {
+       "title": "Old finished cards (S371 archive)",
+       "url": "/attach?path=research/MIRO_DONE_ARCHIVE_S371.md",
+       "note": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Fight motion week",
+   "frames": [
+    {
+     "id": "S501_blind",
+     "title": "Blind score S501: coach 5, animator 4.5",
+     "kind": "gallery",
+     "globs": [
+      "E:/FightCamp/tmp/fightweek/r8blind/critic_coach_10.png",
+      "E:/FightCamp/tmp/fightweek/r8blind/critic_animator_10.png"
+     ]
+    }
+   ]
+  }
  ]
 }

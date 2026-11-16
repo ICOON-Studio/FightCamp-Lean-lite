@@ -2,7 +2,7 @@
 (ffmpeg resamples the 30 fps film), each cell stamped with its frame number and film time, COLS x ROWS a sheet.
 
   python tools/film_sheets.py <film.mp4> <out_dir> <name> <start_s> <seconds> [--fps 24] [--cols 4] [--rows 3] [--cell 640]
-      [--crop x:y:w:h]   (crop in film pixels before scaling, e.g. to drop the side panels)
+      [--crop w:h:x:y]   (ffmpeg order: width:height:left:top in film pixels, before scaling; S501: the help said x:y:w:h)
 
 Writes <out_dir>/<name>_01.jpg ... and prints each sheet's frame range. Frame numbers count from 1 at <start_s>, so
 "frame 37 of <name>" is start_s + 36 / fps seconds into the film.

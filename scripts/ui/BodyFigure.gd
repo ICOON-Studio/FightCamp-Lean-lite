@@ -391,7 +391,7 @@ func _flash_now(p: String) -> float:
 
 
 func _flash_colour(base: Color, alpha: float) -> Color:
-	return base if alpha <= 0.0 else base.lerp(Palette.TEXT, alpha)
+	return base if alpha <= 0.0 else base.lerp(Palette.FULL, alpha)   # S501: a hit flashes WHITE (body_figure_test 2; ONELOOK1 had made it cream)
 
 
 ## Set place -> 0..100 (missing places = 100).

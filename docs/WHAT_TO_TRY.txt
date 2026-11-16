@@ -1,3 +1,17 @@
+S501 (2026-11-16) - YOUR SEVEN PICTURE NOTES (C417-C423)
+- BRIGHTER SCREENS ("why is the lighting so dimm", "darker than they should"): the gym photo behind every page was a dark
+  photo (brightness 46 of 255) that the game then darkened again to 68 %. Now the photo is lifted and shown whole, and the
+  card panels are a shade lighter. The World page went from 36 to 75; the fight from 62 to 77 (a brighter arena light).
+- TRAINING, THE FACES OVER EACH DAY ("what is this ?"): the row is now called PADS, 75 min each. Each face is a boxer your
+  coach holds pads for that evening; the orange one is the boxer you are looking at.
+- THE FIGHT'S COMMENTARY LINE now sits under the clock, not over the boxers' boots.
+- FIGHT MOTION WEEK: two new blind critics scored today's fight 5/10 (coach) and 4.5/10 (animator); the first round was 4
+  and 4. Their 10/10 pictures are on your review board. Next: distance and stepping out after each exchange, bigger and
+  quicker reactions to a hit.
+- The pictures on the board now differ and are circled: the test club (four fighters), a fight booked (her fight date,
+  fight-day weight and freshness), and a new game (one boxer signed, so she has the coach to herself). "Walk-in" meant the
+  first boxer who walks into reception in a new game; the captions no longer use the word.
+
 S500 last (2026-11-16) - YOUR "Boxers stay side-on" + "options for pause during the fight and camera selection"
 - THE BOXERS STAY SIDE-ON to the fixed camera: the pair turns slowly so you always see both from the side (checked on
   six moments of one round: all six side-on; before, four were from behind).

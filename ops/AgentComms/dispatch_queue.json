@@ -1622,7 +1622,15 @@
    "task": "FILMBAR1",
    "seat": "qwen",
    "queued": "2026-11-16T13:54",
-   "title": "TASK FILMBAR1 - a film-night pattern never passes by luck (an exact test for small counts)"
+   "title": "TASK FILMBAR1 - a film-night pattern never passes by luck (an exact test for small counts)",
+   "status": "launched",
+   "launched": "2026-11-16T14:12"
+  },
+  {
+   "task": "PRESSFLASH1",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-16T16:11"
   }
  ]
 }

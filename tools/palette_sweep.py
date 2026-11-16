@@ -32,7 +32,7 @@ EXEMPT_TEXT = ("StandardMaterial3D", "ShaderMaterial", "ORMMaterial3D", "albedo"
 PRELOAD = 'const Palette := preload("res://scripts/ui/Palette.gd")'
 
 TOKENS = {
-    "PAGE": "#1a1512", "CARD": "#242728", "TILE": "#353635", "HOVER": "#2b241d", "WOOD": "#4c362a", "LINE": "#4c4b45",
+    "PAGE": "#1a1512", "CARD": "#2e3234", "TILE": "#414342", "HOVER": "#2b241d", "WOOD": "#4c362a", "LINE": "#4c4b45",
     "TEXT": "#eee2ce", "MUTED": "#b1a084", "HEADER": "#e6bd55", "ACCENT": "#6fa0e6", "GOOD": "#2cb56f", "BAD": "#ff7a66",
     "WARN": "#cf9245", "ACTION": "#991d1c", "SECOND": "#442f24", "CHOSEN": "#c8a585", "GOOD_FILL": "#239058",
     "BAD_FILL": "#df4639", "ELITE": "#b08eea",

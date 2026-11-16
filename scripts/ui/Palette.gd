@@ -7,8 +7,8 @@ extends RefCounted
 
 # --- surfaces -------------------------------------------------------------------------------------------------------
 const PAGE := Color("#1a1512")      # 1 page, top bar, sunk slot; every empty bar track and pip slot
-const CARD := Color("#242728")      # 2 a card's slate
-const TILE := Color("#353635")      # 3 a tile or row inside a card
+const CARD := Color("#2e3234")      # 2 a card's slate (S501 C418-C420 "darker than they should": was #242728)
+const TILE := Color("#414342")      # 3 a tile or row inside a card (S501: was #353635)
 const HOVER := Color("#2b241d")     # 4 a hover card or a message
 const WOOD := Color("#4c362a")      # 5 the wood frame's base (on screen the frame is the texture)
 const LINE := Color("#4c4b45")      # 6 tile edges and the rim of a track - decoration only
@@ -52,7 +52,7 @@ const STRIPE_OFF := Color("#4a4a4a")
 ## Every career page sits on ONE wall: the painted gym at ONE exposure (S496 ONELOOK1, operator: "the lightining on some
 ## the stills on the board are darker than others"). Was 0.68 on most pages, 0.30 on a fighter's Overview, 1.0 on the bout
 ## page, 0.22 on the office. A modulate multiplier on the photo, not a colour on screen.
-const WALL_EXPOSURE := Color(0.68, 0.66, 0.64)
+const WALL_EXPOSURE := Color(1.0, 0.98, 0.96)   # S501 C418-C420 "why is the lighting so dimm": was 0.68 on a photo of mean 46/255 (shown ~31); the photos are lifted to ~85 (gamma 0.6) and shown whole
 
 ## Words drawn ON a light fill (the amber warning, the tan chosen tab).
 const ON_LIGHT := PAGE

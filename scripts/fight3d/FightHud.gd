@@ -39,7 +39,9 @@ static func build(view: Control) -> void:
 	view._cap_box.add_theme_stylebox_override("panel", StyleBoxEmpty.new())
 	view._cap_box.visible = false
 	view.add_child(view._cap_box)
-	pin(view._cap_box, Vector4(0.5, 1, 0.5, 1), Vector4(-620, -239, 620, -181))
+	# S501 both blind critics: the line under the ring hid the boxers' boots on the fixed camera (ex3, ex5): it sits under
+	# the clock and the skip buttons now, above the boxers' heads.
+	pin(view._cap_box, Vector4(0.5, 0, 0.5, 0), Vector4(-620, 224, 620, 282))
 	view._caption = UI.label("", 26, UI.FG, "body", true)
 	view._caption.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	view._caption.vertical_alignment = VERTICAL_ALIGNMENT_CENTER

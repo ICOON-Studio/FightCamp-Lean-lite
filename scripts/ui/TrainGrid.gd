@@ -35,7 +35,8 @@ static func _labels() -> VBoxContainer:
 	v.custom_minimum_size = Vector2(LABEL_W, 0)
 	v.add_theme_constant_override("separation", 6)
 	v.add_child(B.lab("", 16))
-	v.add_child(_side_label("COACH", "%d min pads each" % roundi(ClubWeek.PAD_MIN), 42))
+	# S501 C417 "what is this ?" (the faces over each day had no name): the row says what the faces are
+	v.add_child(_side_label("PADS", "%d min each" % roundi(ClubWeek.PAD_MIN), 42))
 	v.add_child(_side_label("MORNING", "one stat", TILE_H - 18))
 	var eve := _side_label("EVENING", "moves", 40)
 	v.add_child(eve)

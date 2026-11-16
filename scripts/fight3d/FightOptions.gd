@@ -8,6 +8,7 @@ extends Node
 ##   mount(bar, view)
 
 const FixedCam := preload("res://scripts/fight3d/FixedCam.gd")
+const Palette := preload("res://scripts/ui/Palette.gd")
 
 var view: Node
 var _pause: Button
@@ -40,7 +41,7 @@ static func mount(bar: Control, fight_view: Node) -> void:
 	note.text = "PAUSED"
 	note.visible = false
 	note.add_theme_font_size_override("font_size", 44)
-	note.add_theme_color_override("font_outline_color", Color.BLACK)
+	note.add_theme_color_override("font_outline_color", Palette.PAGE)
 	note.add_theme_constant_override("outline_size", 10)
 	note.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	note.anchor_left = 0.0

@@ -60,9 +60,9 @@ func _build_lights() -> void:
 	e.background_color = Color(0.008, 0.008, 0.012)
 	e.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
 	e.ambient_light_color = Color(0.5, 0.5, 0.56)
-	e.ambient_light_energy = 0.2
+	e.ambient_light_energy = 0.32   # S501 C420 "darker than it should": was 0.2
 	e.tonemap_mode = Environment.TONE_MAPPER_AGX
-	e.tonemap_exposure = 1.15
+	e.tonemap_exposure = 1.4   # S501 C420: was 1.15
 	e.ssao_enabled = true
 	e.ssao_intensity = 1.6
 	e.ssao_radius = 0.8
