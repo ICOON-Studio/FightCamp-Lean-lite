@@ -51,10 +51,6 @@ class Gain extends Control:
 		draw_line(Vector2(x, -3), Vector2(x, h + 3), Palette.TEXT, 3.0)
 
 
-static func _she(f: Dictionary) -> String:
-	return "he" if Faces.sex(f) == "m" else "she"
-
-
 static func _cap(s: String) -> String:
 	return s.substr(0, 1).to_upper() + s.substr(1)
 
@@ -63,7 +59,6 @@ static func _cap(s: String) -> String:
 ## leaves, from, to, lines, available, why}]}.
 static func view(c: Career, f: Dictionary) -> Dictionary:
 	var a: Dictionary = f["approach"]
-	var she := _she(f)
 	var now := Loyalty.value(f)
 	var cols: Array = []
 	for col in ApproachWire.columns(c, f):
@@ -72,15 +67,15 @@ static func view(c: Career, f: Dictionary) -> Dictionary:
 			continue
 		var leaves := id == "let_go"
 		cols.append({"id": id, "word": str(Approach.BUTTON_WORDS[id]),
-			"outcome": _cap(she) + (" leaves Monday" if leaves else " stays"), "leaves": leaves,
+			"outcome": "The boxer" + (" leaves Monday" if leaves else " stays"), "leaves": leaves,
 			"from": now, "to": now if leaves else int(col["loyalty_end"]), "lines": _lines(c, f, col),
 			"available": bool(col["available"]), "why": str(col["why_not"])})
 	var ends := int(a["ends"])
 	var left := maxi(0, ends - c.day)
 	return {"head": "%s WANTS %s" % [ApproachWire.CLUB.to_upper(), str(f["name"]).to_upper()],
 		"due": "Answer by %s · %d day%s" % [Clock.fmt(ends), left, "" if left == 1 else "s"],
-		"offer": "%s. No answer: %s leaves. The white mark on each bar is 50: at 50 %s stops looking around." % [a["line"], she, she],
-		"talk": _talk_line(c, f), "talk_button": "Talk to %s first" % ("him" if she == "he" else "her"), "cols": cols}
+		"offer": "%s. No answer: the boxer leaves. The white mark on each bar is 50: at 50 the boxer stops looking around." % a["line"],
+		"talk": _talk_line(c, f), "talk_button": "Talk it over first", "cols": cols}
 
 
 static func _lines(c: Career, f: Dictionary, col: Dictionary) -> Array:

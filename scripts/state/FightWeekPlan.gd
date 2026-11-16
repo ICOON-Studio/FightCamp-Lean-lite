@@ -292,7 +292,7 @@ static func film_taken(c: Career, f: Dictionary) -> int:
 static func film_line(c: Career, f: Dictionary) -> String:
 	if film_seat(c, f) == FilmSeats.COACHED:
 		return ""
-	return "Film: %d boxers this week, %d coached film nights - watched alone, no tell" % [film_taken(c, f) + 1, FilmSeats.owned(coach_kind(c))]
+	return "Film: %d boxers this week, %d coached film nights - the boxer watches alone, no tell" % [film_taken(c, f) + 1, FilmSeats.owned(coach_kind(c))]
 
 
 static func coach_kind(c: Career) -> String:
