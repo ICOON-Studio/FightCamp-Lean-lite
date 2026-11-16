@@ -514,21 +514,12 @@ func _week_four(c: Career) -> void:
 	_check(roster != null and roster.find_child("Row_lucy", true, false) != null and roster.find_child("Row_kira", true, false) != null,
 		"the roster shows both as rows")
 	_check(main._shell.find_child("View_cards", true, false) != null, "the cards are one click away")
-	# Her new weapon: pads with a coach. S496 TRAININGK1: the coach's 75 minutes a pad night are shared, so the player opens
-	# TRAINING and drags his line to her on every night the two share (she learns, Lucy keeps her weapons sharp).
+	# Her new weapon: two weeks of pads with a coach (S498 his Q-S294-260 "full pads, no sharing": Lucy on the same nights
+	# costs her nothing).
 	var up_start := float(kira["moves"]["Uppercut"])
 	var weeks_start := c.cash_history.size()
-	main.nav({"area": "training", "fighter": "kira"})
-	_check(main._shell.find_child("Training", true, false) != null, "TRAINING opens on Kira")
-	var shared := 0
-	for d in 6:
-		var ids: Array = load("res://scripts/state/DrillWeek.gd").on_pads(c, d)
-		if ids.size() == 2 and ids.has("kira"):
-			main.act("tksplit", "%d|0|%.1f" % [d, 10.0 if ids[1] == "kira" else 65.0])
-			shared += 1
-	_check(shared > 0 and float((kira.get("coach_min", {}) as Dictionary).values().max()) >= 60.0, "the coach's line dragged to her on %d shared nights" % shared)
-	_play_until(func(): return float(kira["moves"]["Uppercut"]) >= BoutRules.WEAPON_MASTERY or c.cash_history.size() >= weeks_start + 3, "her pad weeks pass")
-	_check(float(kira["moves"]["Uppercut"]) >= BoutRules.WEAPON_MASTERY and c.cash_history.size() <= weeks_start + 3, "pads with the coach's line on her: Kira's uppercut %.0f -> %.0f, a weapon in %d weeks" % [up_start, float(kira["moves"]["Uppercut"]), c.cash_history.size() - weeks_start])
+	_play_until(func(): return c.cash_history.size() >= weeks_start + 2, "two weeks pass")
+	_check(float(kira["moves"]["Uppercut"]) >= BoutRules.WEAPON_MASTERY, "two weeks of pads: Kira's uppercut %.0f -> %.0f, a weapon" % [up_start, float(kira["moves"]["Uppercut"])])
 	_check(str(kira["learning"]) != "Uppercut", "she moves on to the next move: %s" % kira["learning"])
 	# Her own bout: the featherweights.
 	_play_until(func(): return not (kira["offers"] as Array).is_empty() and not bool(kira["offers"][0]["answered"]), "Kira's first offers arrive")

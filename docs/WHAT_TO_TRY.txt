@@ -10,9 +10,9 @@ S496 (2026-11-16) - TRAINING, THE CLUB'S WEEK (your Q-259 "Yes, build it"; your 
   to see her week: Mon-Sun with the coach's evening, the morning and the evening; her tiredness line and the diet under it;
   THIS WEEK, MORNINGS, the evening you clicked and the coach's pick on the right.
 - THE OLD TRAINING TAB IS GONE from the boxer's page. Every "Plan the week" / "Change the week" button opens TRAINING.
-- YOUR COACH HAS 75 MINUTES A PAD NIGHT, SHARED: two or three boxers on pads the same night split them (a third each with
-  three). Drag the white line between two faces to give one boxer more - her move learns faster that night, the others
-  slower. A boxer alone on pads keeps the whole 75. Judge it: TEST CLUB (three boxers), Monday's coach bar.
+- FULL PADS FOR EVERY BOXER (your Q-260 "full pads, no sharing", S498): every boxer on pads a night gets the coach's whole
+  75 minutes, however many are on the pads; the coach row shows one face each, nothing to drag. Judge it: TEST CLUB
+  (three boxers), Monday's coach row.
 - DRAG A SESSION from the SESSIONS tray onto a morning (or Pads / Sparring / Rest onto an evening); L N H sets the effort.
 - Judge it at text size Largest too: the page should fit the width (it scrolls down).
 

@@ -3,7 +3,7 @@ extends RefCounted
 ## night it turns Usable or how far short), MORNINGS (the week's stat gains), the selected EVENING (the coach's minutes by
 ## face and what each boxer's move gets that night), COACH'S PICK (WeekCoach, his words) and CONTINUE; and the bout panel
 ## beside the week (no bout: the week is plain training; a bout: the night and the scale).
-##   this_week(model)  mornings(model)  evening(model, on_split)  pick(model, on_fix)  go(main, model)  bout(model)
+##   this_week(model)  mornings(model)  evening(model, on_day)  pick(model, on_fix)  go(main, model)  bout(model)
 
 const B := preload("res://scripts/ui/TrainBits.gd")
 const Palette := preload("res://scripts/ui/Palette.gd")
@@ -99,16 +99,16 @@ static func mornings(model: Dictionary) -> PanelContainer:
 	return bx[0]
 
 
-static func evening(model: Dictionary, on_split: Callable, on_day: Callable) -> PanelContainer:
-	var n: Dictionary = model.get("night", {"dow": 0, "cell": {"kind": "none", "slices": []}, "sides": []})
+static func evening(model: Dictionary, on_day: Callable) -> PanelContainer:
+	var n: Dictionary = model.get("night", {"dow": 0, "cell": {"kind": "none", "boxers": []}, "sides": []})
 	var dow := int(n["dow"])
 	var cell: Dictionary = n["cell"]
 	var pads := str(cell["kind"]) == "pads"
-	var bx := _box("Evening", "%s EVENING" % DAYS[dow].to_upper(), ("%d min · drag" % roundi(float(cell.get("total", 75.0)))) if pads else "")
+	var bx := _box("Evening", "%s EVENING" % DAYS[dow].to_upper(), "%d min each" % roundi(float((cell["boxers"] as Array)[0]["min"])) if pads else "")
 	var v: VBoxContainer = bx[1]
 	(bx[0] as PanelContainer).add_theme_stylebox_override("panel", B.panel(Palette.CARD, Palette.CHOSEN, 12, 14, 2))
-	var bar := TrainCoach.cell(cell, dow, str(model["sel"]), on_split, on_day)
-	bar.name = "EveningSplit"
+	var bar := TrainCoach.cell(cell, dow, str(model["sel"]), on_day, true)
+	bar.name = "EveningCoach"
 	v.add_child(bar)
 	if not pads:
 		v.add_child(B.lab({"spar": "Sparring night: your coach referees. Moves already usable get ring time.",

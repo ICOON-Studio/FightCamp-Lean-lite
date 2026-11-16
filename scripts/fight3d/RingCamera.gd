@@ -6,6 +6,7 @@ extends Camera3D
 
 const TvShot := preload("res://scripts/fight3d/TvShot.gd")
 const RopeFade := preload("res://scripts/fight3d/RopeFade.gd")
+const CamHold := preload("res://scripts/fight3d/CamHold.gd")
 
 ## The nudge decays with this time constant (seconds).
 const SHAKE_TAU_S := 0.09
@@ -105,6 +106,7 @@ var close := false            # a film shot (or the close-up) holds until broadc
 var shot_name := ""           # S379: what the lens shows (probes read it): main / apron / clinch / film / close
 var cut_why := ""             # S379: why the last broadcast cut came (probes read it)
 var cuts := 0                 # S379: broadcast cuts so far (probes read it: a cut, however small the change)
+var held_cuts := 0            # CAMHOLD1: cuts refused because a punch was in flight (probes read it)
 var _shot := -1
 var _shot_t := 0.0            # real seconds the current shot has held
 var _shot_hold := 0.0
@@ -189,6 +191,8 @@ func broadcast(a: Vector3, b: Vector3, snap: bool = false, delta: float = 0.0) -
 		why = "jump"
 	else:
 		why = _due(a, b)
+	if why != "" and not CamHold.may_cut(why, CamHold.boxer_punching(_boxer(0)) or CamHold.boxer_punching(_boxer(1))):
+		why = ""; held_cuts += 1
 	if why == "hidden":
 		_hid_wait = MIN_SHOT_S
 		prefer = TvShot.open_side(a, b, _here(mid), _bodies, float(SHOTS[0]["dist"]), float(SHOTS[0]["h"]), HIDDEN_AT)

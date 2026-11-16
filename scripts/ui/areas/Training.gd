@@ -3,9 +3,9 @@ extends VBoxContainer
 ## game"): TRAINING, the club's week on one screen (Training K v6c, ops/AgentComms/board_attach/
 ## Q-S294-259_0_training_k_v6c_nobout.png). Reached from the gym floor's Training pin and every old "the week" link
 ## (Routes.canon sends the fighter page's Training tab here). The fighter strip on top (TrainCards); the selected boxer's
-## Mon-Sun below (TrainGrid: the coach's shared evening, the morning, the evening), her tiredness and diet (TrainTired),
+## Mon-Sun below (TrainGrid: the coach's evening, the morning, the evening), her tiredness and diet (TrainTired),
 ## the session tray (TrainTray); on the right THIS WEEK, MORNINGS, the selected evening, COACH'S PICK, CONTINUE (TrainSide).
-## Numbers: ClubWeek.model. Edits go through the week's own acts (wday, weve, diet) and the coach's split (tksplit).
+## Numbers: ClubWeek.model. Edits go through the week's own acts (wday, weve, diet).
 ##   build(main)   act(main, name, arg) -> bool   static sel_day (the evening opened on the right)
 
 const UI := preload("res://scripts/ui/UI.gd")
@@ -22,7 +22,6 @@ const TrainSide := preload("res://scripts/ui/TrainSide.gd")
 const TrainTray := preload("res://scripts/ui/TrainTray.gd")
 const WeekPlan := preload("res://scripts/rules/WeekPlan.gd")
 const WeekPhase := preload("res://scripts/rules/WeekPhase.gd")
-const CoachNights := preload("res://scripts/rules/CoachNights.gd")
 
 static var sel_day := 0
 var model: Dictionary = {}
@@ -63,8 +62,7 @@ func build(main: Node) -> void:
 	var cb := {"am_drop": func(dow: int, id: String): main.act("tkam", "%s|%d|%s" % [fid, dow, id]),
 		"pm_drop": func(dow: int, kind: String): main.act("weve", "%s|%d|%s" % [fid, dow, kind]),
 		"level": func(dow: int, lvl: String): main.act("tklevel", "%s|%d|%s" % [fid, dow, lvl]),
-		"day": func(dow: int): main.act("tkday", str(dow)),
-		"split": func(dow: int, edge: int, left_min: float): main.act("tksplit", "%d|%d|%.1f" % [dow, edge, left_min])}
+		"day": func(dow: int): main.act("tkday", str(dow))}
 	var mid := HBoxContainer.new()
 	mid.add_theme_constant_override("separation", 8)
 	mid.add_child(TrainGrid.make(model, cb, sel_day, f))
@@ -79,7 +77,7 @@ func build(main: Node) -> void:
 	body.add_child(right)
 	right.add_child(TrainSide.this_week(model))
 	right.add_child(TrainSide.mornings(model))
-	right.add_child(TrainSide.evening(model, cb["split"], cb["day"]))
+	right.add_child(TrainSide.evening(model, cb["day"]))
 	right.add_child(TrainSide.pick(model, func(): main.act("tkfix", fid)))
 	var go := UI.button2("START THE WEEK", "play the days", "BtnSolid", main.act.bind("go_btn", ""), Vector2(TrainSide.W, 64),
 		Palette.TEXT, Palette.TEXT, false, 26, 16)
@@ -116,17 +114,6 @@ static func act(main: Node, name: String, arg: String) -> bool:
 			var sess := p[2] if name == "tkam" else str(now[0])
 			var lvl := p[2] if name == "tklevel" else (str(now[1]) if str(now[0]) != "rest" else "normal")
 			main.act("wday", "%s|%s|%s|%s" % [p[0], p[1], sess, lvl])
-		"tksplit":
-			# "dow|edge|left minutes": the white line between two boxers on that pad night (CoachNights.drag)
-			var p := arg.split("|")
-			var dow := clampi(int(p[0]), 0, 6)
-			var ids := DrillWeek.on_pads(c, dow)
-			var d := CoachNights.drag(ids, DrillWeek.night_mins(c, dow), int(p[1]), float(p[2]))
-			for id in d:
-				var f := c.fighter_by_id(str(id))
-				(f.get_or_add("coach_min", {}) as Dictionary)[str(dow)] = float(d[id])
-			sel_day = dow
-			main.render()
 		"tkfix":
 			# the coach's pick applied (WeekCoach.advice's fix: one morning, or the cut)
 			var f := c.fighter_by_id(arg)

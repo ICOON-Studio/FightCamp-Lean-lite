@@ -2,7 +2,7 @@ extends RefCounted
 ## S496 TRAININGK1 (operator Q-S294-259 "Yes, build it": Training K v6c, ops/AgentComms/board_attach/
 ## Q-S294-259_0_training_k_v6c_nobout.png): the club's week as the Training screen shows it. Every number comes from a rule:
 ## mornings and tiredness WeekPlan.week (through WeekData.plan_of), evenings PadWeek / PadEdit (WeekData.pack), the coach's
-## minutes CoachNights (DrillWeek.night_mins), work mornings DayJob, the coach's pick WeekCoach, fight night CampForecast +
+## pad session (PAD_MIN, every boxer on pads gets all of it), work mornings DayJob, the coach's pick WeekCoach, fight night CampForecast +
 ## Gauges. No UI here.
 ##   model(c, sel_id, sel_day) -> {cards, sel, days[7], tired, moves, totals, diet, pick, bout, night}
 
@@ -19,12 +19,14 @@ const PadEdit := preload("res://scripts/rules/PadEdit.gd")
 const DayJob := preload("res://scripts/rules/DayJob.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const MoveMastery := preload("res://scripts/rules/MoveMastery.gd")
-const CoachNights := preload("res://scripts/rules/CoachNights.gd")
 const NoGi := preload("res://scripts/rules/NoGi.gd")
 const Gauges := preload("res://scripts/rules/Gauges.gd")
 
 const SHORT := ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"]
 const USABLE := 30.0
+## S498 his Q-S294-260 "full pads, no sharing": a pad night is the coach's full 75-minute session for EVERY boxer on the pads
+## that night, however many there are (the coach spec's pad session, COACHSPEC1_MAP_R5_S495.md). Drilling reads a full night.
+const PAD_MIN := 75.0
 
 
 ## The boxer the screen opens on: the one asked for, else the first boxer.
@@ -116,9 +118,7 @@ static func card(c: Career, f: Dictionary) -> Dictionary:
 		tag = "FIGHT WEEK" if phase == "taper" or int(b["day"]) - c.day <= 7 else str((WeekPhase.PHASES.get(phase, WeekPhase.PHASES["base"]) as Dictionary)["name"]).to_upper()
 		if tag == "FIGHT WEEK":
 			kind = "fight"
-	var mins := 0.0
-	for d in PadWeek.nights_of(f).get("pads", []):
-		mins += float(DrillWeek.night_mins(c, int(d)).get(str(f["id"]), 0.0))
+	var mins := PAD_MIN * float((PadWeek.nights_of(f).get("pads", []) as Array).size())
 	var spark: Array = []
 	var pl := WeekData.plan_of(c, f)
 	for t in WeekData.tired_days(pl):
@@ -141,29 +141,28 @@ static func _bout_words(c: Career, b: Dictionary) -> String:
 	return "Bout %s · %d days" % [Clock.fmt(int(b["day"])), int(b["day"]) - c.day]
 
 
-## The coach's evening on that weekday: a pad night shared by face (slices), sparring (he referees), the corner (a bout that
+## The coach's evening on that weekday: a pad night (each boxer on the pads, each with the full session), sparring (he referees), the corner (a bout that
 ## night), Sunday closed, else no coaching.
 static func coach_cell(c: Career, dow: int, fdow: int) -> Dictionary:
 	if dow == 6:
-		return {"kind": "closed", "slices": []}
+		return {"kind": "closed", "boxers": []}
 	var corner := false
 	for f in c.fighters:
 		var b: Dictionary = f.get("bout", {})
 		if not b.is_empty() and not bool(b.get("done", false)) and int(b["day"]) == c.day - posmod(c.day, 7) + dow:
 			corner = true
 	if corner or dow == fdow:
-		return {"kind": "corner", "slices": []}
-	var mins := DrillWeek.night_mins(c, dow)
-	if not mins.is_empty():
-		var sl: Array = []
-		for id in DrillWeek.on_pads(c, dow):
-			var f := c.fighter_by_id(str(id))
-			sl.append({"fid": str(id), "stem": Faces.stem(f), "min": float(mins[str(id)])})
-		return {"kind": "pads", "slices": sl, "total": CoachNights.total()}
+		return {"kind": "corner", "boxers": []}
+	var ids := DrillWeek.on_pads(c, dow)
+	if not ids.is_empty():
+		var bx: Array = []
+		for id in ids:
+			bx.append({"fid": str(id), "stem": Faces.stem(c.fighter_by_id(str(id))), "min": PAD_MIN})
+		return {"kind": "pads", "boxers": bx}
 	for f in c.fighters:
 		if (PadWeek.nights_of(f).get("spar", []) as Array).has(dow):
-			return {"kind": "spar", "slices": []}
-	return {"kind": "none", "slices": []}
+			return {"kind": "spar", "boxers": []}
+	return {"kind": "none", "boxers": []}
 
 
 ## Her evening: pads (her coach minutes, the card drilled and its mastery that night), sparring (Fight IQ), film, rest.
@@ -247,7 +246,7 @@ static func _limits(f: Dictionary) -> Array:
 static func night(c: Career, dow: int, fdow: int) -> Dictionary:
 	var cell := coach_cell(c, dow, fdow)
 	var sides: Array = []
-	for s in cell["slices"]:
+	for s in cell["boxers"]:
 		var f := c.fighter_by_id(str(s["fid"]))
 		var pk := WeekData.pack(c, f)
 		var rows := PadEdit.night_rows(f, pk["projs"])

@@ -1,8 +1,9 @@
 extends SceneTree
 ## S496 TRAININGK1 golden path for TRAINING (Training K v6c, his Q-S294-259 "Yes, build it"): the TEST CLUB (TestJump club4:
 ## three boxers + the grappler) opens the club's week from the gym floor; every number on it is a rule's; a session dragged
-## onto a morning, an evening set to pads, the coach's line dragged, a morning's effort changed, the coach's pick applied;
-## the old fighter-page Training tab opens this screen; CONTINUE runs the week and the dragged split is what the pads drilled.
+## onto a morning, an evening set to pads, a morning's effort changed, the coach's pick applied; the old fighter-page
+## Training tab opens this screen; CONTINUE runs the week. S498 (his Q-S294-260 "full pads, no sharing"): a pad night with
+## others on the pads shows each at the full session, nothing to drag, and drills a whole night.
 ## Then a normal start (the walk-in alone): one card, a whole 75-minute night. Text size Largest: nothing spills its box.
 
 const TestJump := preload("res://scripts/ui/TestJump.gd")
@@ -12,7 +13,6 @@ const WeekPhase := preload("res://scripts/rules/WeekPhase.gd")
 const PadWeek := preload("res://scripts/rules/PadWeek.gd")
 const DrillWeek := preload("res://scripts/state/DrillWeek.gd")
 const ClubWeek := preload("res://scripts/state/ClubWeek.gd")
-const CoachNights := preload("res://scripts/rules/CoachNights.gd")
 const TextScale := preload("res://scripts/ui/TextScale.gd")
 
 var _fails := 0
@@ -47,7 +47,7 @@ func _initialize() -> void:
 	var f: Dictionary = ClubWeek.pick(c, "")
 	var fid := str(f["id"])
 	var m: Dictionary = page.get("model")
-	# every number is a rule's: the morning gain is WeekPlan.week's, the coach's slices are CoachNights' split
+	# every number is a rule's: the morning gain is WeekPlan.week's; the coach row gives each boxer on the pads the full session
 	var g := WeekPhase.ahead_view(f, c.day) if WeekPhase.weekend(c.day) else f
 	for i in 7:
 		_check(page.find_child("Morning_%d" % i, true, false) != null and page.find_child("Evening_%d" % i, true, false) != null, "day %d has a morning and an evening" % i)
@@ -57,17 +57,19 @@ func _initialize() -> void:
 		_check(gl.text.begins_with("%+.2f" % float((d0["am"] as Dictionary)["gain"])), "Monday's gain is WeekPlan's (%s)" % gl.text)
 	var pads_day := -1
 	for d in m["days"]:
-		if str((d["coach"] as Dictionary)["kind"]) == "pads" and ((d["coach"] as Dictionary)["slices"] as Array).size() >= 2:
+		if str((d["coach"] as Dictionary)["kind"]) == "pads" and ((d["coach"] as Dictionary)["boxers"] as Array).size() >= 2:
 			pads_day = int(d["dow"])
 			break
-	_check(pads_day >= 0, "a pad night shared by two or more boxers (day %d)" % pads_day)
+	_check(pads_day >= 0, "a pad night with two or more boxers (day %d)" % pads_day)
 	if pads_day >= 0:
-		var sl: Array = ((m["days"] as Array)[pads_day]["coach"] as Dictionary)["slices"]
-		var sum := 0.0
-		for s in sl:
-			sum += float(s["min"])
-			_check(is_equal_approx(float(s["min"]), float(DrillWeek.night_mins(c, pads_day)[str(s["fid"])])), "slice %s is CoachNights' minutes" % str(s["fid"]))
-		_check(is_equal_approx(sum, CoachNights.NIGHT_MIN), "the night's slices add up to 75 (%.1f)" % sum)
+		var bx: Array = ((m["days"] as Array)[pads_day]["coach"] as Dictionary)["boxers"]
+		_check(bx.size() == DrillWeek.on_pads(c, pads_day).size(), "the coach row shows each boxer on the pads that night (%d)" % bx.size())
+		for s in bx:
+			_check(is_equal_approx(float(s["min"]), ClubWeek.PAD_MIN), "%s gets the full %d minutes" % [str(s["fid"]), int(ClubWeek.PAD_MIN)])
+		var row := page.find_child("Coach_%d" % pads_day, true, false) as Control
+		var faces := row.find_child("Faces", false, false) if row != null else null
+		_check(faces != null and faces.get_child_count() == bx.size() and row.mouse_default_cursor_shape != Control.CURSOR_HSIZE,
+			"the coach row: one face each, nothing to drag")
 	for n in ["ThisWeek", "Mornings", "Evening", "CoachPick", "StartWeek", "SessionTray", "TiredChart", "Diet", "BoutPanel", "WeekWhen"]:
 		_check(page.find_child(n, true, false) != null, "the screen shows %s" % n)
 	# a session dragged from the tray onto Tuesday's morning
@@ -99,22 +101,14 @@ func _initialize() -> void:
 		await _frames(3)
 		g = WeekPhase.ahead_view(f, c.day) if WeekPhase.weekend(c.day) else f
 		_check((PadWeek.nights_of(g)["pads"] as Array).has(5), "Saturday's evening is a pad night")
-	# the coach's white line dragged her way on the shared night
+	# the shared pad night opened on the right: every boxer at the full session, her pads drill a whole night
 	if pads_day >= 0:
-		var ids := DrillWeek.on_pads(c, pads_day)
-		var at := ids.find(fid)
-		var was := float(DrillWeek.night_mins(c, pads_day)[fid])
-		# her right-hand line pushed right (she is first), else her left-hand line pushed left
-		var edge := at if at == 0 else at - 1
-		var left := 70.0 if at == 0 else 5.0
-		main.act("tksplit", "%d|%d|%.1f" % [pads_day, edge, left])
+		main.act("tkday", str(pads_day))
 		await _frames(3)
-		var mins: Dictionary = DrillWeek.night_mins(c, pads_day)
-		_check(is_equal_approx(_sum(mins), 75.0) and float(mins[fid]) > was + 5.0, "the line moved: %d -> %d min to her (%s)" % [roundi(was), roundi(float(mins[fid])), str(mins)])
 		var drill := PadWeek.night_minutes(DrillWeek.inputs(c, f)["nights"], pads_day)
-		_check(absf(drill - PadWeek.PAD_NIGHT_MINUTES * CoachNights.factor(float(mins[fid]))) < 0.5, "her pads drill %.0f of 240 that night" % drill)
+		_check(is_equal_approx(drill, PadWeek.PAD_NIGHT_MINUTES), "her pads drill a whole night with others on the pads (%.0f of 240)" % drill)
 		page = main.find_child("Training", true, false)
-		var ev := page.find_child("EveningSplit", true, false)
+		var ev := page.find_child("EveningCoach", true, false)
 		_check(ev != null, "the evening panel opened on that night")
 	# the coach's pick
 	page = main.find_child("Training", true, false)
@@ -151,7 +145,7 @@ func _initialize() -> void:
 	var side := main.find_child("Side", true, false) as Control
 	_check(side != null and side.get_global_rect().end.x <= 1920.0, "Largest text: the right column ends inside 1920 (%.0f)" % (side.get_global_rect().end.x if side else -1.0))
 	TextScale.use(self, 1.0)
-	# CONTINUE: the week runs, and her dragged night drilled what the screen said
+	# CONTINUE: the week runs, and her pad night with others on it drilled a whole night
 	var guard := 0
 	while posmod(c.day, 7) != 0 and guard < 4:   # to a Monday: a whole week ahead
 		main.run_to_stop(8)
@@ -165,17 +159,13 @@ func _initialize() -> void:
 			shared = d
 			break
 	if shared >= 0:
-		var ids2 := DrillWeek.on_pads(c, shared)
-		var at2 := ids2.find(fid)
-		main.act("tksplit", "%d|%d|%.1f" % [shared, at2 if at2 == 0 else at2 - 1, 70.0 if at2 == 0 else 5.0])
-		var mine := float(DrillWeek.night_mins(c, shared)[fid])
 		for k in shared + 1:
 			main.run_to_stop(1)
 			if not main.modal.is_empty():
 				main.act("close")
 		var noted: Dictionary = f.get(DrillWeek.NOTED, {})
-		_check(noted.has(str(shared)) and absf(float(noted[str(shared)]["minutes"]) - PadWeek.PAD_NIGHT_MINUTES * CoachNights.factor(mine)) < 0.5,
-			"CONTINUE: night %d ran her %d coach minutes (%s)" % [shared, roundi(mine), str(noted.get(str(shared), {}))])
+		_check(noted.has(str(shared)) and is_equal_approx(float(noted[str(shared)]["minutes"]), PadWeek.PAD_NIGHT_MINUTES),
+			"CONTINUE: night %d ran her a whole pad night with others on the pads (%s)" % [shared, str(noted.get(str(shared), {}))])
 	await _normal()
 	_end()
 
@@ -197,15 +187,8 @@ func _normal() -> void:
 	for d in m["days"]:
 		var cell: Dictionary = d["coach"]
 		if str(cell["kind"]) == "pads":
-			_check((cell["slices"] as Array).size() == 1 and is_equal_approx(float(cell["slices"][0]["min"]), 75.0), "normal start: a whole 75-minute night alone")
+			_check((cell["boxers"] as Array).size() == 1 and is_equal_approx(float(cell["boxers"][0]["min"]), 75.0), "normal start: a whole 75-minute night alone")
 			break
-
-
-func _sum(d: Dictionary) -> float:
-	var t := 0.0
-	for k in d:
-		t += float(d[k])
-	return t
 
 
 func _frames(n: int) -> void:

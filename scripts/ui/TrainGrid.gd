@@ -3,11 +3,12 @@ extends RefCounted
 ## (TrainCoach), the morning (session picture, Light / Normal / Hard, kilos, the stat gain) and the evening (pads with her
 ## coach minutes and the move's mastery bar; sparring's Fight IQ; film; rest). A morning takes a session dragged from the
 ## tray, an evening takes Pads / Sparring / Rest; a click on an evening opens it on the right.
-##   make(model, cb) -> HBoxContainer   cb: {am_drop(dow, id), pm_drop(dow, kind), level(dow, intensity), day(dow),
-##   split(dow, edge, left_min)}   sel_day: the evening shown on the right
+##   make(model, cb) -> HBoxContainer   cb: {am_drop(dow, id), pm_drop(dow, kind), level(dow, intensity), day(dow)}
+##   sel_day: the evening shown on the right
 
 const B := preload("res://scripts/ui/TrainBits.gd")
 const TrainCoach := preload("res://scripts/ui/TrainCoach.gd")
+const ClubWeek := preload("res://scripts/state/ClubWeek.gd")
 const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const WeekPlan := preload("res://scripts/rules/WeekPlan.gd")
@@ -34,7 +35,7 @@ static func _labels() -> VBoxContainer:
 	v.custom_minimum_size = Vector2(LABEL_W, 0)
 	v.add_theme_constant_override("separation", 6)
 	v.add_child(B.lab("", 16))
-	v.add_child(_side_label("COACH", "drag the white line to share", 42))
+	v.add_child(_side_label("COACH", "%d min pads each" % roundi(ClubWeek.PAD_MIN), 42))
 	v.add_child(_side_label("MORNING", "one stat", TILE_H - 18))
 	var eve := _side_label("EVENING", "moves", 40)
 	v.add_child(eve)
@@ -76,7 +77,7 @@ static func _column(d: Dictionary, model: Dictionary, cb: Dictionary, sel_day: i
 	var head := B.lab(str(d["date"]), 18, Palette.CHOSEN if i == sel_day else Palette.HEADER, "caps")
 	head.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	v.add_child(head)
-	v.add_child(TrainCoach.cell(d["coach"], i, str(model["sel"]), cb.get("split", Callable()), cb.get("day", Callable())))
+	v.add_child(TrainCoach.cell(d["coach"], i, str(model["sel"]), cb.get("day", Callable())))
 	v.add_child(_morning(d, cb))
 	v.add_child(_evening(d, cb, sel_day, f))
 	return v
@@ -239,9 +240,9 @@ static func _center(text: String, px: int, col: Color) -> Label:
 	return l
 
 
-## Her coach minutes on that pad night (the coach cell's slice).
+## Her coach minutes on that pad night (the coach row's entry for her: the full session).
 static func _coach_min(d: Dictionary, f: Dictionary) -> float:
-	for s in (d["coach"] as Dictionary)["slices"]:
+	for s in (d["coach"] as Dictionary)["boxers"]:
 		if str(s["fid"]) == str(f.get("id", "")):
 			return float(s["min"])
 	return 0.0
