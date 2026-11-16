@@ -7,6 +7,7 @@ extends Camera3D
 const TvShot := preload("res://scripts/fight3d/TvShot.gd")
 const RopeFade := preload("res://scripts/fight3d/RopeFade.gd")
 const CamHold := preload("res://scripts/fight3d/CamHold.gd")
+const FixedCam := preload("res://scripts/fight3d/FixedCam.gd")
 
 ## The nudge decays with this time constant (seconds).
 const SHAKE_TAU_S := 0.09
@@ -179,6 +180,8 @@ func broadcast(a: Vector3, b: Vector3, snap: bool = false, delta: float = 0.0) -
 	# slow motion starts divides an unscaled delta by the new time scale.
 	var dt := minf(delta / maxf(Engine.time_scale, 0.05), MAX_DT_S)
 	_shot_t += dt
+	if FixedCam.on:   # S500: one fixed camera for the round, no cuts
+		FixedCam.show(self, a, b, snap or was_film or _shot < 0, dt); _shot = 0; return
 	var mid := Vector3((a.x + b.x) * 0.5, 0.0, (a.z + b.z) * 0.5)
 	_bodies = [TvShot.body_of(_boxer(0)), TvShot.body_of(_boxer(1))]
 	_hid_s = _hid_s + dt if TvShot.cover_pair(global_position, _bodies) >= HIDDEN_AT else 0.0
@@ -383,6 +386,7 @@ func _clinch_yaw(mid: Vector3, side: Vector3, dist: float, h: float, yaw: float)
 ## CAMLINE2: on the side of the pair the lens is on (it took a fixed side of their line, whichever the lens stood on),
 ## unless the bodies cover each other less from the other (TvShot.open_side).
 func close_up(a: Vector3, b: Vector3, head_y: float, hit: int) -> void:
+	if FixedCam.on: return
 	close = true
 	shot_name = "close"
 	_lens(false)

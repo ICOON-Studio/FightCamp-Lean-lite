@@ -1,3 +1,21 @@
+S500 last (2026-11-16) - YOUR "Boxers stay side-on" + "options for pause during the fight and camera selection"
+- THE BOXERS STAY SIDE-ON to the fixed camera: the pair turns slowly so you always see both from the side (checked on
+  six moments of one round: all six side-on; before, four were from behind).
+- PAUSE: the Pause button above the right end of the fight bar, or the P key. Everything stops and PAUSED shows; the
+  same button or key carries on. (Space is still 1x / 2x.)
+- CAMERA: the Camera button next to it, or the C key: Side (the fixed camera, the default), High (the same camera high
+  above the ring), TV (the old coverage that moves and cuts). Judge it: which one do you leave it on?
+- NOT CHECKED BY HAND: I tested Pause and Camera with a test, not by clicking in the .exe. Tell me if a click misbehaves.
+
+S500 later (2026-11-16) - YOUR TWO NOTES ON THE FIGHT ("camera is fixed always", "punches hitting and nothing happens")
+- ONE FIXED CAMERA for the round: a raised tripod beside the ring, no cuts, no close-ups. It only turns to keep the two
+  boxers in the middle and holds them the same size. KNOWN FLAW: the boxers turn during a round, so for part of it you
+  see one of them from behind. A question on the board asks which fix you want.
+- PUNCHES THAT DO NOT LAND ARE NOW MOSTLY CAUGHT ON THE GUARD: the glove meets the glove, it is knocked back, the boxer
+  rocks back a little and you hear the block. In the measured 75 seconds: 16 punches landed (as before), 16 caught on
+  the guard (it was 4), 14 slipped or pulled away from (it was 26). The result of the fight is not changed by this.
+- NOT IN: a blocked punch costs nothing in the numbers yet (no damage through the guard). A question on the board.
+
 S500 (2026-11-16) - THE FIGHT'S MOTION, WEEK DAY 5 (hits move the boxer, arms come home, knees calmer)
 - WATCH A FIGHT (Test jump: men's fight). Four things changed, all measured on the same 75 seconds:
   1. A BOXER WHO IS HIT GOES BACK: a jab rocks him 3 cm, a power shot 10, a body shot 16, a big shot 22 (less on the

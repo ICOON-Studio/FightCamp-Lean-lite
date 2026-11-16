@@ -1,0 +1,70 @@
+extends SceneTree
+## FIGHT_OPTIONS (S500, owner: "also add options for pause during the fight and camera selection"): the Pause button
+## freezes the tree only while a round plays and lets go by itself when the round ends; the Camera button steps through
+## Side / High / TV. A stand-in bar and view (no 3D): the buttons, their words and the pause are what is read.
+
+const FightOptions := preload("res://scripts/fight3d/FightOptions.gd")
+const FixedCam := preload("res://scripts/fight3d/FixedCam.gd")
+
+var failures := 0
+
+
+class FakeView extends Node:
+	var playing := true
+	var stage: Node = null
+
+
+class FakeBar extends Control:
+	func _btn(text: String, named: String, on_press: Callable) -> Button:
+		var b := Button.new()
+		b.name = named
+		b.text = text
+		b.pressed.connect(on_press)
+		return b
+
+
+func _check(ok: bool, what: String) -> void:
+	if not ok:
+		failures += 1
+	print(("PASS " if ok else "FAIL ") + what)
+
+
+func _initialize() -> void:
+	var view := FakeView.new()
+	var bar := FakeBar.new()
+	root.add_child(view)
+	root.add_child(bar)
+	FixedCam.pick(0, null)
+	FightOptions.mount(bar, view)
+	await process_frame   # nodes added in _initialize are in the tree from the first frame
+	var o: Node = bar.get_node("FightOptions")
+	var pause: Button = bar.get_node("Pause")
+	var cam: Button = bar.get_node("Camera")
+	var note: Label = bar.get_node("PausedNote")
+	_check(pause.text == "Pause (P)" and cam.text == "Camera: Side (C)" and not note.visible, "the two buttons say what they do and their keys")
+	pause.pressed.emit()
+	_check(paused and pause.text == "Resume (P)" and note.visible, "Pause freezes the fight and shows PAUSED")
+	_check(pause.process_mode == Node.PROCESS_MODE_ALWAYS and o.process_mode == Node.PROCESS_MODE_ALWAYS, "the buttons still work while paused")
+	pause.pressed.emit()
+	_check(not paused and pause.text == "Pause (P)" and not note.visible, "the same button carries on")
+	pause.pressed.emit()
+	view.playing = false
+	await process_frame
+	await process_frame
+	_check(not paused, "a round that ends under the pause is let go: no other screen stays frozen")
+	pause.pressed.emit()
+	_check(not paused, "Pause does nothing when no round is playing")
+	view.playing = true
+	cam.pressed.emit()
+	_check(FixedCam.mode == 1 and FixedCam.on and cam.text == "Camera: High (C)", "Camera steps to High")
+	cam.pressed.emit()
+	_check(FixedCam.mode == 2 and not FixedCam.on and cam.text == "Camera: TV (C)", "then to TV (the coverage that cuts)")
+	cam.pressed.emit()
+	_check(FixedCam.mode == 0 and FixedCam.on and cam.text == "Camera: Side (C)", "then back to Side")
+	pause.pressed.emit()
+	bar.queue_free()
+	await process_frame
+	await process_frame
+	_check(not paused, "leaving the fight while paused lets go")
+	print("FIGHT_OPTIONS failures=%d" % failures)
+	quit(1 if failures > 0 else 0)

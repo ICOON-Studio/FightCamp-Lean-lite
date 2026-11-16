@@ -10,6 +10,7 @@ extends RefCounted
 
 const RingFeet := preload("res://scripts/fight3d/RingFeet.gd")
 const HitStep := preload("res://scripts/fight3d/HitStep.gd")
+const FixedCam := preload("res://scripts/fight3d/FixedCam.gd")
 const UpperRoom := preload("res://scripts/fight3d/UpperRoom.gd")   # POWER1 step 4: the uppercut's floor
 
 ## S320 a glide step's speed eases in and out over this (Footwork.glide).
@@ -88,6 +89,8 @@ static func compose(st: Node, delta: float) -> void:
 	if delta > 0.0:
 		feet.aim_step(keep, a.length() > b.length())
 		feet.rhythm(delta, keep)
+	if not st.clinch.engaged:
+		FixedCam.keep_square(boxers, st.get("camera"), delta)   # S500: the pair stays side-on to the fixed camera
 	_place(st, delta)
 
 

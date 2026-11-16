@@ -74,6 +74,7 @@ func _mount() -> void:
 	_put_right(skip, 54, 40)
 	var bout := _btn("Skip bout", "SkipBout", func(): view.call("skip_bout"))
 	_put_right(bout, 96, 36)
+	preload("res://scripts/fight3d/FightOptions.gd").mount(self, view)   # S500: Pause (P) and the camera choice (C)
 	visible = false
 
 

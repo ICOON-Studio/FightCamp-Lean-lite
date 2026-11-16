@@ -4,6 +4,9 @@ extends RefCounted
 ## state the punches need (stepping in, tired takes, the combo rhythm); FightView.play_round calls reset().
 
 const Stage := preload("res://scripts/fight3d/FightStage.gd")
+const HitStep := preload("res://scripts/fight3d/HitStep.gd")
+const GUARD_CATCH := 0.7   # S500: of plain misses, the share caught on the guard (the rest: slip 20 %, pull 10 %)
+static var no_guard_catch: bool = OS.get_cmdline_user_args().has("noguardcatch")
 const RoundScript := preload("res://scripts/rules/RoundScript.gd")
 const BeatClips := preload("res://scripts/fight3d/BeatClips.gd")
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
@@ -185,7 +188,13 @@ func _punch(v: Node, b: Dictionary, who: int, other: int, move: String) -> void:
 	if land != "lands" and not stopped and (str(b.get("def", "")) != "" or land == "misses"):
 		d = str(b.get("def", ""))
 		if d == "":
-			d = "slip" if rng.randf() < 0.75 else "pull"
+			# S500 (owner: "i see a lot punches hitting and nothing happens ... the guard doesnt seem that stops punches";
+			# the film: 26 of 49 punches were plain misses answered by a small duck with the glove still in her gloves, 4 were
+			# blocks). A punch that does not land and has no defence of its own is now mostly CAUGHT ON THE GUARD: the glove
+			# meets her glove, it is knocked back, she rocks, the block sounds. Only the show: the result stands.
+			# `-- noguardcatch` = the old slip / pull.
+			var r := rng.randf()
+			d = ("slip" if r < 0.75 else "pull") if no_guard_catch else ("block" if r < GUARD_CATCH else ("slip" if r < GUARD_CATCH + 0.2 else "pull"))
 		if d in ["weave", "pull"] and str(last_def[other]) == d and t - float(last_def_t[other]) < 1.4:
 			d = "slip" if d == "weave" else "block"
 		last_def[other] = d
@@ -222,7 +231,7 @@ func _punch(v: Node, b: Dictionary, who: int, other: int, move: String) -> void:
 		# Body punches (body_hook, kidney, body) are never aimed here.
 		var is_body := move == "body_hook" or clip.contains("kidney") or clip.contains("body")
 		# BLOCKMEET2: blocked head punches are carried onto the blocking glove (arm_block), not just aimed at face height.
-		var is_block := land == "blocked" or str(b.get("def", "")) == "block"
+		var is_block := land == "blocked" or d == "block"
 		if land != "lands" and not stopped and not is_body:
 			if is_block:
 				stage.arm_block(who, clip, at, contact)
@@ -239,7 +248,9 @@ func _punch(v: Node, b: Dictionary, who: int, other: int, move: String) -> void:
 			if is_block:
 				tree.create_timer(at).timeout.connect(func():
 					if not PunchRange.cut_off(stage, who, punch_id):
-						FightSfx.blocked())
+						FightSfx.blocked()
+						if move != "jab" and not stage.clinch.engaged:   # S500: a blocked power punch rocks her back a jab's worth
+							HitStep.start(stage.boxers[other], stage.boxers[who]["pos"], "jab", false, float(stage.RING_M) * 0.5 - 0.06))
 			else:
 				tree.create_timer(at).timeout.connect(func():
 					if not PunchRange.cut_off(stage, who, punch_id):
