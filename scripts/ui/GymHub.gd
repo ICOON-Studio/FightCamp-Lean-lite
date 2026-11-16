@@ -5,6 +5,7 @@ extends RefCounted
 ##   GymHub.build(main, career) -> Control   (S413: fills the window under the top bar)
 ##   S416 GymFloorPeople draws the club's boxers on the picture, above the pieces and below the pins.
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const KitIcon := preload("res://scripts/ui/KitIcon.gd")
 const MenuFx := preload("res://scripts/ui/MenuFx.gd")
@@ -23,7 +24,7 @@ const GuideLines := preload("res://scripts/rules/GuideLines.gd")
 const MIN_HEIGHT := 560.0
 const ABOVE := 100.0   # the top bar and the page's top margin: the gym takes the rest of the window
 const PIN := 56.0
-const NAVY := Color(0.09, 0.14, 0.26, 0.92)
+const NAVY := Color(Palette.CARD, 0.92)
 const TAG := Vector2(170, 104)
 ## S414 the owner: "why you do not use it exactly as it is ?", then "yes": the owner's own picture is the main screen, unchanged.
 ## The drawn gym (IsoGym) stays in the tree, hidden: GymPlan and the people still read it until the pin-and-slot build.
@@ -182,7 +183,7 @@ static func _spot(main: Node, c: Career, p: Array, iso: Control, z: Dictionary) 
 	plate.add_theme_stylebox_override("panel", ps)
 	plate.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	plate.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	plate.add_child(UI.label(str(p[1]), 22, Color.WHITE, "bold"))
+	plate.add_child(UI.label(str(p[1]), 22, Palette.TEXT, "bold"))
 	tag.add_child(plate)
 	var hover := func(on: bool):
 		iso.hot = str(z.get("id", "")) if on else ""
@@ -200,11 +201,11 @@ static func _pin(icon: String, count: int) -> Control:
 	pin.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var sb := StyleBoxFlat.new()
 	sb.bg_color = UI.RED if count > 0 else NAVY
-	sb.border_color = Color.WHITE
+	sb.border_color = Palette.TEXT
 	sb.set_border_width_all(3)
 	sb.set_corner_radius_all(int(PIN / 2.0))
 	pin.add_theme_stylebox_override("panel", sb)
-	var mark := KitIcon.icon(icon, 34, Color.WHITE)
+	var mark := KitIcon.icon(icon, 34, Palette.TEXT)
 	mark.position = Vector2(PIN - 34.0, PIN - 34.0) * 0.5
 	mark.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	pin.add_child(mark)

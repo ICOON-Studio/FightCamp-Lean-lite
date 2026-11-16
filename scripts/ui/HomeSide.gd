@@ -1,6 +1,7 @@
 extends RefCounted
 ## S394 HOME's right column: what happened since Monday and why, the club's week in money and members, what is coming.
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const HomeLook := preload("res://scripts/ui/HomeLook.gd")
 const Sim := preload("res://scripts/state/Sim.gd")
@@ -90,7 +91,8 @@ static func _since(main: Node, c: Career) -> Control:
 static func _item(t: String, s: String, col: Color) -> Control:
 	var h := UI.hbox(10)
 	var dot := Panel.new()
-	dot.add_theme_stylebox_override("panel", UI.box(col, Color(0, 0, 0, 0), 5, 0, 0, 0))
+	var fill := Palette.MUTED if col == UI.MUTED else col   # S498: a dot on the dark card takes the chalk, not the paper ink
+	dot.add_theme_stylebox_override("panel", UI.box(fill, Color(Palette.PAGE, 0), 5, 0, 0, 0))
 	dot.custom_minimum_size = Vector2(10, 10)
 	dot.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
 	var drop := MarginContainer.new()

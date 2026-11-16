@@ -7,6 +7,7 @@ extends RefCounted
 ## PromoShot (the studio photos). Every card says something the player acts on (the operator's S398 rule).
 ##   MatchupCards.make(main, career, fighter, opp, spars) -> PanelContainer "PrepAnswers"
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const Icons := preload("res://scripts/ui/Icons.gd")
 const Sim := preload("res://scripts/state/Sim.gd")
@@ -18,7 +19,7 @@ const PromoShot := preload("res://scripts/ui/PromoShot.gd")
 const MOVES := "res://assets/ui/moves/"
 const PIC := 64
 const KIND_ICON := {"style": "footprints", "weapon": "hand-fist", "habit": "refresh-cw", "weakness": "trending-down"}
-const KIND_COL := {"style": "#0e7490", "weapon": "#b42318", "habit": "#7c3aed", "weakness": "#23935d"}
+const KIND_COL := {"style": Palette.ACCENT, "weapon": Palette.BAD_FILL, "habit": Palette.ELITE, "weakness": Palette.GOOD_FILL}   # S496 on the palette
 ## S399 menu art A/B, arm "b" (PromoShot.ui_art): the kind's flat comic picture instead of the icon tile.
 const KIND_PIC_B := {"style": "threat_game", "weapon": "threat_weapon", "habit": "threat_habit", "weakness": "threat_weakness"}
 const PIC_B_DIR := "res://assets/ui/style_b/icons"
@@ -83,7 +84,7 @@ static func _portrait(f: Dictionary, opp: Dictionary) -> VBoxContainer:
 	var col := UI.vbox(6)
 	col.custom_minimum_size = Vector2(170, 0)
 	var frame := PanelContainer.new()
-	frame.add_theme_stylebox_override("panel", UI.box(Color("#1f2a44"), Color(0, 0, 0, 0), 12, 0, 0, 0))
+	frame.add_theme_stylebox_override("panel", UI.box(Palette.CARD, Color(Palette.PAGE, 0), 12, 0, 0, 0))
 	frame.clip_contents = true
 	var pic := PromoShot.picture(str(Faces.pair(f, opp)[1]), Vector2(170, 210))
 	if pic != null:
@@ -106,22 +107,22 @@ static func _row(main: Node, opp: Dictionary, t: Dictionary, film: bool) -> HBox
 	if not OppFile.known(opp, id):
 		row.add_child(_card(null, KIND_WORD.get(kind, str(t["what"]).to_upper()), "Not found yet",
 			"opens on tape in this camp, one every %d days" % OppFile.TAPE_EVERY if film else "shows on the night: no tape study in this camp",
-			Color("#f3f5f8"), "lock", 380))
+			Palette.TEXT, "lock", 380))
 		return row
 	# S398 critics: ten near-identical renders carried nothing - each kind has its own icon and colour
 	var their := _card(_kind_pic(kind), str(KIND_WORD.get(kind, str(t["what"]).to_upper())), str(t["value"]), "", UI.PANEL,
-		str(KIND_ICON.get(kind, "info")), 380, str(KIND_COL.get(kind, "#334155")))
+		str(KIND_ICON.get(kind, "info")), 380, KIND_COL.get(kind, Palette.TILE))
 	row.add_child(their)
 	var arrow := UI.label("->", 30, UI.MUTED, "bold")
 	arrow.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	row.add_child(arrow)
 	if str(t["when"]) == "":   # a habit: the corner shouts the counter on the night - nothing to write
-		row.add_child(_card(null, "THE CORNER", "Reads it on the night", "the counter is shouted when it comes", Color("#f3f5f8"), "user-check", 0))
+		row.add_child(_card(null, "THE CORNER", "Reads it on the night", "the counter is shouted when it comes", Palette.TEXT, "user-check", 0))
 		return row
 	var answer := str(t["counter"])
 	if answer.begins_with("Plan an arrow for "):   # the game row: an instruction, not the threat again
 		answer = "Write what your fighter does %s" % answer.trim_prefix("Plan an arrow for ").replace("'", "").to_lower()
-	var yours := _card(_answer_pic(answer), "SUGGESTED ANSWER - NOT IN YOUR PLAN YET", answer, "", Color("#eef4ff"), "target", 640, "#2f6fdb")
+	var yours := _card(_answer_pic(answer), "SUGGESTED ANSWER - NOT IN YOUR PLAN YET", answer, "", Palette.TEXT, "target", 640, Palette.ACCENT)
 	var w := UI.button("Write it", "BtnSolid", main.act.bind("ptab", "1"))
 	w.name = "WriteIt_" + id.replace(":", "_")
 	w.size_flags_vertical = Control.SIZE_SHRINK_CENTER
@@ -155,7 +156,7 @@ static func _answer_pic(answer: String) -> Texture2D:
 
 
 ## A picture card: the move picture (or an icon tile), the caps kind, the words, a small line under them.
-static func _card(tex: Texture2D, kind: String, words: String, small: String, bg: Color, icon: String, width: int, tile_col := "#334155") -> PanelContainer:
+static func _card(tex: Texture2D, kind: String, words: String, small: String, bg: Color, icon: String, width: int, tile_col: Color = Palette.TILE) -> PanelContainer:
 	var p := PanelContainer.new()
 	p.add_theme_stylebox_override("panel", UI.box(bg, UI.LINE, 10, 1, 8, 8))
 	p.custom_minimum_size = Vector2(width, PIC + 16)
@@ -172,7 +173,7 @@ static func _card(tex: Texture2D, kind: String, words: String, small: String, bg
 		r.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		if icon != "" and icon != "lock":   # S399 critic: keep the kind's colour - the picture sits in its coloured tile
 			var frame := PanelContainer.new()
-			frame.add_theme_stylebox_override("panel", UI.box(Color(tile_col), Color(0, 0, 0, 0), 8, 0, 5, 5))
+			frame.add_theme_stylebox_override("panel", UI.box(tile_col, Palette.CLEAR, 8, 0, 5, 5))
 			frame.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 			r.custom_minimum_size = Vector2(PIC - 10, PIC - 10)
 			frame.add_child(r)
@@ -181,10 +182,10 @@ static func _card(tex: Texture2D, kind: String, words: String, small: String, bg
 			h.add_child(r)
 	else:
 		var tile := PanelContainer.new()
-		tile.add_theme_stylebox_override("panel", UI.box(Color("#cfd6dd") if icon == "lock" else Color(tile_col), Color(0, 0, 0, 0), 8, 0, 0, 0))
+		tile.add_theme_stylebox_override("panel", UI.box(Palette.PAGE if icon == "lock" else tile_col, Palette.CLEAR, 8, 0, 0, 0))
 		tile.custom_minimum_size = Vector2(PIC, PIC)
 		tile.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-		var ic := Icons.icon(icon, 40, Color.WHITE)
+		var ic := Icons.icon(icon, 40, Palette.TEXT)
 		ic.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 		ic.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		tile.add_child(ic)

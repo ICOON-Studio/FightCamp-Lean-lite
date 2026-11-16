@@ -9,250 +9,59 @@ const Bar := preload("res://scripts/ui/Bar.gd")
 const Plate := preload("res://scripts/ui/Plate.gd")
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")   # S417 the approved wood and slate look
 const Palette := preload("res://scripts/ui/Palette.gd")   # S493 the one palette (Q-251)
+const HouseKit := preload("res://scripts/ui/HouseKit.gd")   # S496 ONELOOK1 the one kit
 const GameMoney := preload("res://scripts/rules/GameMoney.gd")
 const Sfx := preload("res://scripts/audio/Sfx.gd")
 
-const BG := Color("#cfe0ea")       # the gym wall
-const PANEL := Color("#f6efe0")    # a card: cream paper (S412 operator: "reminds web browser not a game")
+## S496 ONELOOK1 (operator: "Everymenu i loook is designed differently ... the colour pallette should be in effect"): the old
+## paper names keep their jobs but every one is a Palette token now - a cream card is the slate, a tan plate dark wood. The
+## page-wide ink pass (WoodKit.ink) turns paper ink to chalk on them. The theme itself is HouseKit.gd.
+const BG := Palette.PAGE           # the wall behind a page
+const PANEL := Palette.CARD        # a card
 const TOP_BAR := Palette.PAGE
 const TOP_INK := Palette.TEXT
 const TOP_SOFT := Palette.MUTED
-const PANEL2 := Color("#ebe1cc")   # a pressed or raised card
-const LINE := Color("#d3c7ae")     # card borders, rules
-const ROWLINE := Color("#ddd2bc")  # the dotted lines between rows
-const RAIL := Color("#cfe0ea")
-const FRAME := Color("#aeb8c0")    # the board's aluminium frame
-const FG := Color("#241f1a")       # ink
-const MUTED := Color("#5d5243")
-const GOLD := Color("#27589e")     # ring-canvas blue (primary)
-const GOLD_LIP := Color("#16325c")
-const PLATE := Color("#e4d8bf")    # S412 a quiet button: a tan plate with a lip
-const PLATE_LIP := Color("#b09c78")
-const DARK := Palette.HOVER     # a dark plate: tabs, the main secondary button
-const DARK_LIP := Color("#0e0b08")
-const GOLD_INK := Color("#ffffff")
+const PANEL2 := Palette.TILE       # a row or raised tile inside a card
+const LINE := Palette.LINE         # card borders, rules
+const ROWLINE := Palette.LINE      # the lines between rows
+const RAIL := Palette.PAGE
+const FRAME := Palette.WOOD        # a frame
+const FG := WoodKit.DARK_INK       # paper ink: chalked on every dark surface by WoodKit.ink
+const MUTED := WoodKit.PAPER_MUTED
+const GOLD := WoodKit.PAPER_BLUE   # the primary accent (your side), chalked to Palette.ACCENT on slate
+const GOLD_LIP := Palette.PAGE
+const PLATE := Palette.SECOND      # a quiet button: dark wood
+const PLATE_LIP := Palette.WOOD
+const DARK := Palette.HOVER        # a dark plate: tabs, the main secondary button
+const DARK_LIP := Palette.PAGE
+const GOLD_INK := Palette.TEXT
 const RED := Palette.BAD_FILL
 const GREEN := Palette.GOOD_FILL
 const AMBER := Palette.WARN
-const YELLOW := Color("#ffd54a")   # sticky notes
-const YELLOW_EDGE := Color("#d9b235")
-const MINT := Color("#9fe0c0")
-const SKY := Color("#bfd8ff")
+const YELLOW := Palette.HEADER     # a note's mark (was the yellow sticky)
+const YELLOW_EDGE := Palette.WARN
+const MINT := Palette.GOOD
+const SKY := Palette.ACCENT
 const PURPLE := Palette.ELITE
 
-const BODY := 19
-const SMALL := 16
-const TINY := 16
-const MIN_TEXT := 16   # S413 look round 2: no word on any page smaller than this (S442 UX audit: 15 -> 16, "fonts are small")
-
-static var _fonts: Dictionary = {}
-static var _theme: Theme
+const BODY := HouseKit.BODY
+const SMALL := HouseKit.SMALL
+const TINY := HouseKit.TINY
+const MIN_TEXT := HouseKit.MIN_TEXT
 
 
 static func font(kind: String) -> Font:
-	if _fonts.is_empty():
-		var regular: FontFile = load("res://assets/fonts/Barlow-Regular.ttf")
-		var semi: FontFile = load("res://assets/fonts/Barlow-SemiBold.ttf")
-		var bold: FontFile = load("res://assets/fonts/Barlow-Bold.ttf")
-		var bebas: FontFile = load("res://assets/fonts/BebasNeue-Regular.ttf")
-		var mono: FontFile = load("res://assets/fonts/IBMPlexMono-Medium.ttf")
-		for sharp: FontFile in [regular, semi, bold]:   # S408 operator's close-ups: small text was soft (glyphs on fractions of a pixel, no hinting)
-			sharp.hinting = TextServer.HINTING_NORMAL
-			sharp.subpixel_positioning = TextServer.SUBPIXEL_POSITIONING_DISABLED
-		_fonts["marker"] = _load_or("res://assets/fonts/PermanentMarker-Regular.ttf", bebas)
-		_fonts["hand"] = _load_or("res://assets/fonts/Kalam-Regular.ttf", regular)
-		_fonts["handbold"] = _load_or("res://assets/fonts/Kalam-Bold.ttf", bold)
-		_fonts["body"] = regular
-		_fonts["semi"] = semi
-		_fonts["bold"] = bold
-		_fonts["caps"] = _spaced(bold, 2)
-		_fonts["italic"] = _italic(regular)
-		_fonts["display"] = _fonts["marker"]
-		# S396 blind review: Plex Mono read as debug output; numbers keep their columns with the body font's tnum figures.
-		var tab := FontVariation.new()
-		tab.base_font = semi
-		tab.opentype_features = {TextServerManager.get_primary_interface().name_to_tag("tnum"): 1}
-		_fonts["mono"] = tab if mono != null else semi
-	return _fonts.get(kind, _fonts["body"])
+	return HouseKit.font(kind)
 
 
-static func _load_or(path: String, fallback: Font) -> Font:
-	return load(path) if ResourceLoader.exists(path) else fallback
-
-
-static func _spaced(base: FontFile, spacing: int) -> FontVariation:
-	var v := FontVariation.new()
-	v.base_font = base
-	v.spacing_glyph = spacing
-	return v
-
-
-static func _italic(base: FontFile) -> FontVariation:
-	var v := FontVariation.new()
-	v.base_font = base
-	v.variation_transform = Transform2D(Vector2(1, 0), Vector2(0.2, 1), Vector2.ZERO)
-	return v
-
-
-static func box(bg: Color, border: Color = Color(0, 0, 0, 0), radius: int = 8, border_w: int = 1,
+static func box(bg: Color, border: Color = Palette.CLEAR, radius: int = 8, border_w: int = 1,
 		pad_h: int = 12, pad_v: int = 8) -> StyleBoxFlat:
-	var s := StyleBoxFlat.new()
-	s.bg_color = bg
-	s.border_color = border
-	s.set_border_width_all(border_w if border.a > 0.0 else 0)
-	s.set_corner_radius_all(radius)
-	s.content_margin_left = pad_h
-	s.content_margin_right = pad_h
-	s.content_margin_top = pad_v
-	s.content_margin_bottom = pad_v
-	s.anti_aliasing = true
-	return s
+	return HouseKit.box(bg, border, radius, border_w, pad_h, pad_v)
 
 
+## The one house theme (HouseKit.gd): every card, button, tab, chip, field and hover on every page.
 static func theme() -> Theme:
-	if _theme != null:
-		return _theme
-	var t := Theme.new()
-	t.default_font = font("body")
-	t.default_font_size = BODY
-	t.set_color("font_color", "Label", FG)
-	var clear := Color(0, 0, 0, 0)
-	var dark_hi := DARK.lightened(0.12)
-	_button(t, "Button", PLATE, PLATE_LIP, FG, FG, 6, 12, 8, "semi", SMALL)
-	_button(t, "TBtn", PLATE, PLATE_LIP, FG, FG, 6, 18, 14, "semi", 21)
-	_button(t, "TBtnPrimary", GOLD, GOLD_LIP, GOLD_INK, GOLD, 6, 18, 14, "semi", 21)
-	_button(t, "Ghost", PLATE, PLATE_LIP, MUTED, MUTED, 6, 12, 8, "semi", SMALL)
-	_button(t, "GhostDark", DARK, DARK_LIP, TOP_INK, DARK, 6, 12, 8, "semi", SMALL, dark_hi)
-	_button(t, "Btn", DARK, DARK_LIP, TOP_INK, DARK, 6, 14, 8, "bold", SMALL, dark_hi)
-	_button(t, "BtnSolid", GOLD, GOLD_LIP, GOLD_INK, GOLD, 6, 14, 8, "bold", SMALL)
-	_button(t, "BtnQuiet", PLATE, PLATE_LIP, MUTED, MUTED, 6, 14, 8, "bold", SMALL)
-	_button(t, "Rail", DARK, DARK_LIP, TOP_INK, DARK, 6, 14, 10, "bold", 17, dark_hi)
-	_button(t, "RailOn", PANEL, RED, FG, PANEL, 6, 14, 10, "bold", 17)
-	_button(t, "Tab", DARK, DARK_LIP, TOP_INK, DARK, 6, 16, 10, "bold", 17, dark_hi)
-	_button(t, "TabOn", PANEL, RED, FG, PANEL, 6, 16, 10, "bold", 17)
-	_button(t, "Choice", PLATE, PLATE_LIP, FG, MUTED, 6, 14, 12, "semi", BODY)
-	_button(t, "ChoiceOn", GOLD, GOLD_LIP, GOLD_INK, GOLD, 6, 14, 12, "semi", BODY)
-	# S342 small choices (the WHEN row): one line of chips instead of a wall of big buttons.
-	_button(t, "Pill", PLATE, PLATE_LIP, MUTED, MUTED, 4, 9, 3, "semi", TINY)
-	_button(t, "PillOn", GOLD, GOLD_LIP, GOLD_INK, GOLD, 4, 9, 3, "semi", TINY)
-	_button(t, "Flag", YELLOW, YELLOW_EDGE, FG, YELLOW_EDGE, 4, 14, 6, "bold", SMALL)
-	_button(t, "FlagRed", RED, Color("#8f241c"), Color.WHITE, RED, 4, 14, 6, "bold", SMALL)
-	_button(t, "Go", GOLD, GOLD_LIP, GOLD_INK, GOLD, 8, 16, 8, "bold", BODY)
-	_button(t, "GoBlock", RED, Color("#8f241c"), Color.WHITE, RED, 8, 16, 8, "bold", BODY)
-	_button(t, "GoFight", FG, DARK_LIP, BG, FG, 8, 16, 8, "bold", BODY)
-	_button(t, "Speed", clear, LINE, MUTED, MUTED, 6, 4, 6, "mono", TINY)
-	_button(t, "SpeedOn", LINE, PLATE_LIP, FG, MUTED, 6, 4, 6, "mono", TINY)
-	_button(t, "Link", clear, clear, GOLD, clear, 0, 0, 0, "bold", BODY)
-	_button(t, "Ink", FG, DARK_LIP, Color.WHITE, FG, 4, 16, 7, "bold", SMALL)
-	var board := box(PANEL, FRAME, 4, 14, 34, 26)
-	board.shadow_color = Color(0, 0, 0, 0.12)
-	board.shadow_size = 6
-	_panel(t, "Board", board)
-	var pol := box(Color.WHITE, Color("#e3e7ea"), 2, 1, 14, 14)
-	pol.content_margin_bottom = 8
-	pol.shadow_color = Color(0, 0, 0, 0.22)
-	pol.shadow_size = 8
-	pol.shadow_offset = Vector2(2, 4)
-	_panel(t, "Polaroid", pol)
-	for sticky in [["Sticky", YELLOW, YELLOW_EDGE], ["StickyRed", Color("#ffc7bf"), Color("#e2958a")],
-			["StickyGreen", MINT, Color("#6fbf97")], ["StickyBlue", SKY, Color("#8fb0e0")]]:
-		var sb := box(sticky[1], sticky[2], 2, 0, 22, 16)
-		sb.border_width_bottom = 6
-		_panel(t, sticky[0], sb)
-	_panel(t, "Tin", WoodKit.slate(34, 30))
-	_panel(t, "Card", WoodKit.slate())   # S417 Q-S294-159: a slate in a wooden frame with brass corners
-	_panel(t, "TopBar", WoodKit.bar(18, 12))
-	_panel(t, "RailPanel", _edge(RAIL, 0, 0, 1, 0, 10, 14))
-	_panel(t, "Modal", WoodKit.slate(38, 34))
-	_panel(t, "Toast", box(DARK, DARK_LIP, 4, 2, 18, 12))
-	_panel(t, "Note", box(Color(0, 0, 0, 0.3), clear, 3, 0, 14, 12))
-	_panel(t, "Badge", box(RED, clear, 9, 0, 6, 0))
-	for chip in [["Chip", MUTED], ["ChipGreen", GREEN], ["ChipRed", RED], ["ChipAmber", AMBER], ["ChipGold", GOLD]]:   # S412 a stamped tag, not a pill
-		# S419 (operator on the mail list's cream tags: "this looks bad"): a see-through dark tag with its colour on the
-		# left edge, so it sits in the slate; the ink pass reads the surface behind it for the word.
-		var tag := box(Color(0, 0, 0, 0.28), chip[1], 2, 0, 10, 3)
-		tag.border_width_left = 4
-		_panel(t, chip[0], tag)
-	var thumb := box(Color(1, 1, 1, 0.38), clear, 3, 0, 0, 0)   # S412 the page's scroll bar: a sliver, no track
-	var gutter := StyleBoxEmpty.new()
-	gutter.content_margin_left = 6
-	t.set_stylebox("scroll", "VScrollBar", gutter)
-	for state in ["grabber", "grabber_highlight", "grabber_pressed"]:
-		t.set_stylebox(state, "VScrollBar", thumb)
-	var sep := StyleBoxLine.new()
-	sep.color = ROWLINE
-	sep.thickness = 1
-	t.set_stylebox("separator", "HSeparator", sep)
-	t.set_constant("separation", "HSeparator", 1)
-	t.set_stylebox("panel", "PopupMenu", box(PANEL2, LINE, 10, 1, 6, 6))
-	t.set_stylebox("hover", "PopupMenu", box(LINE, clear, 6, 0, 10, 8))
-	t.set_color("font_color", "PopupMenu", FG)
-	t.set_color("font_hover_color", "PopupMenu", FG)
-	t.set_font("font", "PopupMenu", font("body"))
-	t.set_font_size("font_size", "PopupMenu", BODY)
-	t.set_constant("v_separation", "PopupMenu", 14)
-	t.set_stylebox("normal", "OptionButton", box(PANEL2, LINE, 8, 1, 10, 7))
-	t.set_stylebox("hover", "OptionButton", box(PANEL2, MUTED, 8, 1, 10, 7))
-	t.set_stylebox("pressed", "OptionButton", box(PANEL2, GOLD, 8, 1, 10, 7))
-	t.set_stylebox("disabled", "OptionButton", box(PANEL2, LINE, 8, 1, 10, 7))
-	t.set_stylebox("focus", "OptionButton", StyleBoxEmpty.new())
-	t.set_color("font_color", "OptionButton", FG)
-	t.set_color("font_disabled_color", "OptionButton", Color(FG, 0.4))
-	t.set_stylebox("normal", "LineEdit", box(PANEL, LINE, 8, 1, 12, 10))
-	t.set_stylebox("focus", "LineEdit", box(PANEL, GOLD, 8, 1, 12, 10))
-	t.set_color("font_color", "LineEdit", FG)
-	t.set_color("font_placeholder_color", "LineEdit", Color(MUTED, 0.7))
-	t.set_stylebox("panel", "ScrollContainer", StyleBoxEmpty.new())
-	# S359 (operator on a whiteboard hover: "unreadable"): the engine's tooltip was see-through grey on grey. Solid ink,
-	# white words, body size.
-	# S491 (operator: "we need to have a cohesive interface"): the engine's tooltip wears the house card (Tips.gd colours).
-	var tip := box(Palette.HOVER, Palette.LINE, 4, 1, 14, 10)
-	tip.shadow_color = Color(0, 0, 0, 0.22)
-	tip.shadow_size = 6
-	t.set_stylebox("panel", "TooltipPanel", tip)
-	t.set_color("font_color", "TooltipLabel", Palette.TEXT)
-	t.set_font("font", "TooltipLabel", font("body"))
-	t.set_font_size("font_size", "TooltipLabel", BODY)
-	_theme = t
-	return t
-
-
-static func _edge(bg: Color, left: int, top: int, right: int, bottom: int, pad_h: int, pad_v: int) -> StyleBoxFlat:
-	var s := box(bg, LINE, 0, 0, pad_h, pad_v)
-	s.border_color = LINE
-	s.border_width_left = left
-	s.border_width_top = top
-	s.border_width_right = right
-	s.border_width_bottom = bottom
-	return s
-
-
-static func _panel(t: Theme, name: String, sb: StyleBox) -> void:
-	t.set_type_variation(name, "PanelContainer")
-	t.set_stylebox("panel", name, sb)
-
-
-static func _button(t: Theme, name: String, bg: Color, border: Color, fg: Color, hover_border: Color, radius: int,
-		pad_h: int, pad_v: int, font_kind: String, size: int, hover_bg: Color = Color(-1, 0, 0, 0)) -> void:
-	if name != "Button":
-		t.set_type_variation(name, "Button")
-	var hb := bg.lightened(0.08) if hover_bg.r < 0.0 else hover_bg
-	if WoodKit.PIECE.has(name):
-		fg = WoodKit.plates(t, name, pad_h, pad_v)
-	else:
-		t.set_stylebox("normal", name, Plate.style(bg, border, radius, pad_h, pad_v, 3))
-		t.set_stylebox("hover", name, Plate.style(hb, border, radius, pad_h, pad_v, 3))
-		t.set_stylebox("pressed", name, Plate.style(bg.darkened(0.1), border, radius, pad_h, pad_v, 0))
-		t.set_stylebox("disabled", name, Plate.style(Color(bg, bg.a * 0.45), Color(border, border.a * 0.45), radius, pad_h, pad_v, 0))
-	t.set_stylebox("focus", name, StyleBoxEmpty.new())
-	t.set_color("font_color", name, fg)
-	t.set_color("font_hover_color", name, FG if fg == MUTED else fg)
-	t.set_color("font_pressed_color", name, fg)
-	t.set_color("font_focus_color", name, fg)
-	t.set_color("font_hover_pressed_color", name, fg)
-	t.set_color("font_disabled_color", name, Color(fg, 0.4))
-	t.set_font("font", name, font(font_kind))
-	t.set_font_size("font_size", name, size)
+	return HouseKit.theme()
 
 
 ## ---------- builders ----------
@@ -333,7 +142,7 @@ static func button2(big: String, small: String, variation: String, on_press: Cal
 	# S429 "text is unreadable and out of limits": a two-line button grows to hold its words, never words over its edge.
 	b.ready.connect(func(): b.custom_minimum_size.y = maxf(b.custom_minimum_size.y, v.get_combined_minimum_size().y + 12.0))
 	if disabled:
-		b.modulate = Color(1, 1, 1, 0.45)
+		b.modulate = Color(Palette.FULL, 0.45)
 	return b
 
 
@@ -382,7 +191,7 @@ static func dot(color: Color) -> Control:
 
 
 ## A list row: [dot] title / sub line ... [right controls].
-static func row(title: String, sub: String = "", dot_color: Color = Color(0, 0, 0, 0), right: Array = []) -> HBoxContainer:
+static func row(title: String, sub: String = "", dot_color: Color = Color(Palette.PAGE, 0), right: Array = []) -> HBoxContainer:
 	var h := hbox(14)
 	if dot_color.a > 0.0:
 		h.add_child(dot(dot_color))

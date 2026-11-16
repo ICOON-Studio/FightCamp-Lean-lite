@@ -4,6 +4,7 @@ extends RefCounted
 ## S418 the wood and slate look: the owner and each coach are a framed slate, and the small tiles are a
 ## chalk outline. Node names Hire_<id> stay, the first week presses them.
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const Bar := preload("res://scripts/ui/Bar.gd")
@@ -81,8 +82,9 @@ static func _promises(c: Career) -> Control:
 static func _head(main: Node) -> Control:
 	var row := UI.hbox(14)
 	row.name = "PeopleHead"
-	var title := UI.display("Club", 48, Color.WHITE)
-	title.add_theme_color_override("font_shadow_color", Color(0, 0, 0, 0.55))
+	row.set_meta("on_dark", true)   # S496: the head stands on the dark wall
+	var title := UI.display("Club", 48, Palette.TEXT)
+	title.add_theme_color_override("font_shadow_color", Color(Palette.PAGE, 0.55))
 	title.add_theme_constant_override("shadow_offset_y", 3)
 	row.add_child(title)
 	var now_a := str(main.route["area"])
@@ -421,16 +423,16 @@ static func _chip(selected: bool, pad_h: int, pad_v: int, on_gym: bool, wide: bo
 	var edge := WoodKit.HEAD if selected else Color(WoodKit.SOFT, 0.35)
 	var w := 2 if selected else 1
 	if on_gym:
-		p.add_theme_stylebox_override("panel", UI.box(Color(1, 1, 1, 0.04), edge, 4, w, w, w))
+		p.add_theme_stylebox_override("panel", UI.box(Color(Palette.TEXT, 0.04), edge, 4, w, w, w))
 		var bed := PanelContainer.new()
 		bed.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		bed.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		bed.size_flags_vertical = Control.SIZE_EXPAND_FILL
-		bed.add_theme_stylebox_override("panel", UI.box(UI.DARK, Color(0, 0, 0, 0), 4, 0, pad_h, pad_v))
+		bed.add_theme_stylebox_override("panel", WoodKit.slate(pad_h, pad_v))
 		p.add_child(bed)
 		p.set_meta("host", bed)
 	else:
-		p.add_theme_stylebox_override("panel", UI.box(Color(1, 1, 1, 0.04), edge, 4, w, pad_h, pad_v))
+		p.add_theme_stylebox_override("panel", UI.box(Color(Palette.TEXT, 0.04), edge, 4, w, pad_h, pad_v))
 		p.set_meta("host", p)
 	return p
 

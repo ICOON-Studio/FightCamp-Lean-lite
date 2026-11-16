@@ -2,6 +2,7 @@ extends RefCounted
 ## Three dues boards on Club > Money's Dues tab. The painting keeps its own shape.
 ## Under it, big and few: the fee, then members, the month's money, home-grown boxers.
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const KitIcon := preload("res://scripts/ui/KitIcon.gd")
@@ -16,8 +17,8 @@ const WHO := {
 	"standard": "The middle of the club",
 	"premium": "Adults who come for fitness",
 }
-const GOLD := Color("#f2c14e")
-const BRASS := Color("#5c4314")
+const GOLD := Palette.HEADER
+const BRASS := Palette.WOOD
 const FEE_PX := 48
 const NUM_PX := 32
 const WORD_PX := 24
@@ -28,7 +29,7 @@ static func build(main: Node, c: Career) -> Control:
 	board.name = "DuesBoard"
 	board.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	board.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	board.add_theme_stylebox_override("panel", UI.box(Color(1, 1, 1, 0.04), Color(0, 0, 0, 0), 0, 0, 0, 0))
+	board.add_theme_stylebox_override("panel", UI.box(Color(Palette.TEXT, 0.04), Color(Palette.PAGE, 0), 0, 0, 0, 0))
 	var row := HBoxContainer.new()
 	row.add_theme_constant_override("separation", 24)
 	row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -171,7 +172,7 @@ static func _tag(host: Control, day: int) -> void:
 	tag.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	tag.z_index = 4
 	var paper := StyleBoxFlat.new()
-	paper.bg_color = Color(0.95, 0.88, 0.72, 0.42)
+	paper.bg_color = Color(Palette.TEXT, 0.42)
 	paper.set_content_margin_all(8)
 	tag.add_theme_stylebox_override("panel", paper)
 	tag.set_anchors_preset(Control.PRESET_TOP_RIGHT)

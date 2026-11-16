@@ -4,6 +4,7 @@ extends Control
 ## tabs, and the pieces fly in from all sides and lock together; then the finished poster lands with a thump and the camp button
 ## shows. A click skips to the end. Only with a picture: headless tests never open it (Main.show_poster).
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const FightPoster := preload("res://scripts/ui/FightPoster.gd")
 const Bouts := preload("res://scripts/state/Bouts.gd")
@@ -158,7 +159,7 @@ func finish() -> void:
 	done.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_board.add_child(done)
 	var flash := ColorRect.new()
-	flash.color = Color(1, 1, 1, 0.75)
+	flash.color = Color(Palette.TEXT, 0.75)
 	flash.size = _size
 	flash.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_board.add_child(flash)

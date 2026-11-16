@@ -2,6 +2,7 @@ extends Button
 ## The gold NOW plate beside the opponent, only while a set-up gap is open. A click is the shout "now".
 ## The countdown reads the shout window's real-seconds counter (ShoutBar._left) so it stays with the bar at 2x.
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const TV := preload("res://scripts/ui/TV.gd")
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const Halo := preload("res://scripts/ui/Halo.gd")
@@ -37,8 +38,8 @@ func setup(v: Node) -> void:
 	offset_right = 1510.0
 	offset_bottom = 760.0
 	var plate := StyleBoxFlat.new()
-	plate.bg_color = Color("#3e2a12")
-	plate.border_color = Color("#6b5338")
+	plate.bg_color = Palette.WOOD
+	plate.border_color = Palette.WOOD
 	plate.set_border_width_all(3)
 	plate.set_corner_radius_all(14)
 	plate.content_margin_left = 12

@@ -4,6 +4,7 @@ extends PanelContainer
 ## with film study (LiveRound.preview "mark", S310).
 ##   setup(preview, round_n)   signal picked(call)   ("" = say nothing)
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/TV.gd")  # S333: fight graphics keep the dark TV look
 const ReadPanel := preload("res://scripts/ui/ReadPanel.gd")
 const CallButtons := preload("res://scripts/ui/CallButtons.gd")
@@ -36,7 +37,7 @@ func setup(pv: Dictionary, round_n: int) -> void:
 	# The corner plank is the bar the player sees. This node only keeps the pick window (real seconds).
 	visible = false
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
-	add_theme_stylebox_override("panel", UI.box(Color(0.05, 0.04, 0.04, 0.9), UI.LINE, 6, 1, 18, 12))
+	add_theme_stylebox_override("panel", UI.box(Color(Palette.PAGE, 0.9), UI.LINE, 6, 1, 18, 12))
 	anchor_left = 0.0
 	anchor_right = 1.0
 	anchor_top = 1.0

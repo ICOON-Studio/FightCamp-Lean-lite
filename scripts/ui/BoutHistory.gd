@@ -4,6 +4,7 @@ extends RefCounted
 ## what the camp and the plan did, then the ones she brought (PriorBouts).
 ##   BoutHistory.make(main, c, f) -> Control
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const PriorBouts := preload("res://scripts/rules/PriorBouts.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
@@ -125,6 +126,6 @@ static func _line(cells: Array, head: bool, res_col: Color = UI.FG) -> Control:
 			x.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 		h.add_child(x)
 	var p := PanelContainer.new()
-	p.add_theme_stylebox_override("panel", UI.box(Color(0, 0, 0, 0), UI.ROWLINE, 0, 0, 0, 6))
+	p.add_theme_stylebox_override("panel", UI.box(Color(Palette.PAGE, 0), UI.ROWLINE, 0, 0, 0, 6))
 	p.add_child(h)
 	return p

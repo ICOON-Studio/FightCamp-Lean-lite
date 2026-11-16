@@ -2,6 +2,7 @@ extends VBoxContainer
 ## The game shell: top bar (back / forward, gym, date, speed, flags, decisions, cash, CONTINUE, menu), the left rail of five
 ## areas (PLAYER_PATH 6) with the club's mark, and one content pane holding the current area's scene.
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const Tally := preload("res://scripts/ui/Tally.gd")
 const Data := preload("res://scripts/state/Data.gd")
@@ -65,6 +66,7 @@ func _ready() -> void:
 	col.add_child(_scroll)
 	col.add_child(_guide)   # after the page, so it draws on top of it
 	_content = MarginContainer.new()
+	_content.set_meta("on_dark", true)   # S496 ONELOOK1: every career page sits on the dark wall (WoodKit.on_dark reads it)
 	_content.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	for side in ["left", "right"]:
 		_content.add_theme_constant_override("margin_" + side, 28)
@@ -126,7 +128,7 @@ func _build_top(main: Node) -> void:
 		nb.add_theme_font_size_override("font_size", 20)
 		h.add_child(nb)
 		HoverLabel.attach(nb, str(nav[3]) if empty else str(nav[2]))
-	var gym := UI.label(c.gym_name, 32, Color("#6ea2f2"), "marker")
+	var gym := UI.label(c.gym_name, 32, Palette.ACCENT, "marker")
 	gym.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	h.add_child(gym)
 	var date := VBoxContainer.new()
@@ -158,7 +160,7 @@ func _build_top(main: Node) -> void:
 	h.add_child(UI.spacer())
 	h.add_child(_cash(c))
 	var g: Dictionary = Needs.go_state(c, main.running)
-	var ink := Color.WHITE if g["cls"] == "GoBlock" else UI.GOLD_INK
+	var ink := Palette.TEXT if g["cls"] == "GoBlock" else UI.GOLD_INK
 	var cls: String = g["cls"]
 	if cls == "GoBlock" and c.guide != "":   # S398 menus: while the guide runs it says the need; the button is not a red alarm
 		cls = "Go"
@@ -190,7 +192,7 @@ func _cash(c: Career) -> Control:
 	v.add_theme_constant_override("separation", 0)
 	v.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	var ms := Needs.money_status(c)   # S324: coloured by GymBills (runway under 8 weeks amber, below $0 red)
-	var cash := UI.label(UI.money(c.cash), 24, Color("#ff7a6e") if ms == "red" or ms == "closed" else (Color("#ffb347") if ms == "warn" else Color("#e8c15a")), "bold")
+	var cash := UI.label(UI.money(c.cash), 24, Palette.BAD if ms == "red" or ms == "closed" else (Palette.WARN if ms == "warn" else Palette.HEADER), "bold")
 	cash.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	cash.name = "TopCash"
 	Tally.number(cash, "cash:%d" % c.get_instance_id(), c.cash, UI.money)   # S442: the tin rolls to a new value (a buy, a bill, a day), never snaps
@@ -208,8 +210,8 @@ func _cash(c: Career) -> Control:
 
 func _pulse(node: CanvasItem) -> void:
 	var t := node.create_tween().set_loops()
-	t.tween_property(node, "modulate", Color(1, 1, 1, 0.7), 1.2).set_trans(Tween.TRANS_SINE)
-	t.tween_property(node, "modulate", Color(1, 1, 1, 1.0), 1.2).set_trans(Tween.TRANS_SINE)
+	t.tween_property(node, "modulate", Color(Palette.FULL, 0.7), 1.2).set_trans(Tween.TRANS_SINE)
+	t.tween_property(node, "modulate", Palette.FULL, 1.2).set_trans(Tween.TRANS_SINE)
 
 
 func _open_gear() -> void:

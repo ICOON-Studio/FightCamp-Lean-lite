@@ -2,6 +2,7 @@ extends RefCounted
 ## Rankings on the World page (MENUWORLD1). Draws the game's ladder: the promoter's band, BoutRead's chance,
 ## the kit's icons. It does not roll dice and it does not build the world.
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const Bars := preload("res://scripts/ui/WorldBars.gd")
@@ -133,15 +134,15 @@ static func _row(main: Node, f: Dictionary, row: Dictionary, chosen: String, lin
 	p.set_meta("booked_opp", bool(row.get("booked_opp", false)))
 	var fade := bool(row.get("pro", false)) and not mine and not bool(row.get("reach", false))
 	if mine:
-		_tint(p, Color(0, 0, 0, 0), WoodKit.HEAD, 2)
+		_tint(p, Color(Palette.PAGE, 0), WoodKit.HEAD, 2)
 	elif str(row["id"]) == chosen:
-		_tint(p, Color(0, 0, 0, 0), WoodKit.BLUE, 2)
+		_tint(p, Color(Palette.PAGE, 0), WoodKit.BLUE, 2)
 	elif stripe % 2 == 1:
-		_tint(p, Color(1, 1, 1, 0.03))
+		_tint(p, Color(Palette.FULL, 0.03))
 	else:
-		_tint(p, Color(0, 0, 0, 0))
+		_tint(p, Color(Palette.PAGE, 0))
 	if fade:
-		p.modulate = Color(1, 1, 1, 0.55)
+		p.modulate = Color(Palette.FULL, 0.55)
 	var h := UI.hbox(4)
 	h.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	var rk := "#%d" % int(row["rank"]) if int(row["rank"]) > 0 else "-"
@@ -151,7 +152,7 @@ static func _row(main: Node, f: Dictionary, row: Dictionary, chosen: String, lin
 	h.add_child(_w(UI.label(str(int(row["age"])), UI.SMALL), 40))
 	var chance := _chance(row, line)
 	if fade:
-		chance.modulate = Color(1, 1, 1, 1.0 / 0.55)
+		chance.modulate = Color(Palette.FULL, 1.0 / 0.55)
 	h.add_child(chance)
 	h.add_child(_scout(row))
 	if trend:
@@ -493,6 +494,6 @@ static func _mark_col(id: String) -> Color:
 		return UI.GREEN
 	return UI.RED
 
-static func _tint(p: PanelContainer, bg: Color, edge: Color = Color(0, 0, 0, 0), w: int = 0) -> void:
+static func _tint(p: PanelContainer, bg: Color, edge: Color = Color(Palette.PAGE, 0), w: int = 0) -> void:
 	p.add_theme_stylebox_override("panel", UI.box(bg, edge, 4, w, 0, 1))
 	p.size_flags_horizontal = Control.SIZE_EXPAND_FILL

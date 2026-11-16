@@ -4,6 +4,7 @@ extends SubViewportContainer
 ## little toward the other corner. A window is about twelve seconds; the seam is a blend, so the loop does not jump. Nothing here
 ## runs without a picture: make() returns null in a headless run and the page keeps its baked still.
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const MH := preload("res://scripts/fight3d/MHRig.gd")
 const Kit := preload("res://scripts/fight3d/FighterKit.gd")
 const FightClips := preload("res://scripts/fight3d/FightClips.gd")
@@ -64,7 +65,7 @@ func _build(glb: String, corner: String, right: bool, key: int) -> void:
 	e.tonemap_mode = Environment.TONE_MAPPER_FILMIC
 	env.environment = e
 	vp.add_child(env)
-	for l in [[Vector3(-55, 35, 0), 1.25, Color(1.0, 0.97, 0.93)], [Vector3(-25, -50, 0), 0.5, Color(0.92, 0.95, 1.0)], [Vector3(-10, 170, 0), 0.7, Color(1.0, 0.95, 0.88)]]:
+	for l in [[Vector3(-55, 35, 0), 1.25, Palette.TEXT], [Vector3(-25, -50, 0), 0.5, Palette.TEXT], [Vector3(-10, 170, 0), 0.7, Palette.TEXT]]:
 		var light := DirectionalLight3D.new()
 		light.rotation_degrees = l[0]
 		light.light_energy = l[1]

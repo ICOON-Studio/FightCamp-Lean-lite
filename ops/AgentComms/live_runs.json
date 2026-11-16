@@ -651,7 +651,7 @@
    "agent": "qwen",
    "id": "ONELOOK2",
    "title": "TASK ONELOOK2 - the fight HUD on the one palette: HudBars.gd + HudRegroup.gd (53 loose colours -> Palette names)",
-   "status": "landed",
+   "status": "collected",
    "started": "2026-11-16T09:04",
    "eta": "2026-11-16T10:54",
    "branch": "qwen/onelook2",
@@ -705,7 +705,8 @@
     "before": {},
     "after": {},
     "board": ""
-   }
+   },
+   "result": "collected by diff S498 with ONELOOK1 (main 602bebd56): HudBars + HudRegroup on the palette, its 8 leftovers on existing tokens; parse + palette_guard + corner_bar + hud_shown green; owner Q-S294-262 \"Yes, merge it\""
   },
   "COACHNECK1": {
    "agent": "qwen",
@@ -772,8 +773,8 @@
    "id": "PRESSFLASH1",
    "title": "TASK PRESSFLASH1 - crowd camera flashes never read as a hit in empty air (both critics' note)",
    "status": "running",
-   "started": "2026-11-16T10:46",
-   "eta": "2026-11-16T13:46",
+   "started": "2026-11-16T13:33",
+   "eta": "2026-11-16T16:30",
    "where": "grok box",
    "branch": "grok/pressflash1",
    "brief": "ops/research/TASK_PRESSFLASH1.md",
@@ -799,7 +800,7 @@
    "agent": "qwen",
    "id": "BODYSTEP1",
    "title": "TASK BODYSTEP1 - a landed punch moves the hit boxer back a little (the rule only, no wiring)",
-   "status": "running",
+   "status": "collected S499 (on main, not wired)",
    "started": "2026-11-16T12:54",
    "eta": "2026-11-16T14:44",
    "branch": "qwen/bodystep1",
@@ -820,7 +821,28 @@
     "runner_pid": 42092,
     "seat_pid": 31640
    },
-   "note": "S368 seat_dispatch: launched unattended (dispatch_queue.json); merging stays off"
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 2/2 PASS; PR #331",
+   "finished": "2026-11-16T13:16",
+   "pr": 331,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/hit_step_test.gd",
+     "ok": true,
+     "last": "HIT_STEP failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/file_limits_test.gd",
+     "ok": true,
+     "last": "FILE_LIMITS failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
   }
  },
  "codex_budget": {

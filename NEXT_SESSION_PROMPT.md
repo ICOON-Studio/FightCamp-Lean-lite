@@ -1,5 +1,22 @@
 # S499 handover (written 2026-11-16 at the end of S498)
 
+## S499 so far (2026-11-16, same day): read this first
+- MIRO IS GONE (owner: "miro subscription has been stop ... can you create something like miro for our project"). The map is
+  our own page: http://127.0.0.1:8787/map (`ops/Tools/opsboard/map_board.py`, data `ops/AgentComms/map/`). CLAUDE.md wrap-up
+  3b is rewritten: `where_we_are.py` roll/now/done/next only, no Miro call. `start` prints his new map notes.
+- STILL OWED: copy the old Miro P1-P9 cards and his stickies into the map. Every Miro read was refused today ("daily Miro
+  mcp tool call limit"). Retry once (one cheap helper, brief in `ops/research/MIRO_EXPORT_S499.md`); if it is refused again,
+  ask him to export the board from Miro's own menu.
+- CREDITS: he asked to use the $200 Console credits now. Answer given: the desktop tab can only bill the subscription
+  (63 % of the week used at 13:20, resets 11-19 14:00); the switch is the `claude` CLI + his `/login` to the Console
+  (`ops/research/API_CREDITS_FALLBACK_S474.md`). Tell him when the weekly bar passes about 90 %.
+- BODYSTEP1 collected (HitStep.gd + test on main, flag `nohitstep`), NOT wired, NOT re-run here.
+- PC RED all session on MEMORY (commit 2.5 GB free: his game 3.7 GB, Claude sessions 5.4 GB, Kimi 2.5 GB): no Godot start
+  was possible, so fight motion week day 4 has NOT begun. Items 1-3 below are untouched.
+- Q-S294-262 "Yes, merge it" (ONELOOK1) was passed to the One look session with ONELOOK2 (PR 327); check it merged.
+- PRESSFLASH1 never reached Grok Dev (thread's newest message was 11-13); re-sent 13:33 (GROKBOT SENT).
+- Arena again got nothing: the film-claims brief was not written.
+
 Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. Roadmap `now.next_action` has the full detail.
 
 ## The one thing: FIGHT MOTION WEEK, day 4 (to about 2026-11-23)

@@ -13,6 +13,7 @@ extends Control
 ##   BodyCallouts.attach(figure, portrait {"tex", "anchors"}, outer: -1 left / +1 right, tip: Callable(place) -> String)
 ##   struck(place)   spot_of(place) -> k   shown(k)   line_of(k)   centre(k)
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const BM := preload("res://scripts/rules/BodyMap.gd")
 const BodyTip := preload("res://scripts/ui/BodyTip.gd")
 const UI := preload("res://scripts/ui/TV.gd")
@@ -257,7 +258,7 @@ func _process(delta: float) -> void:
 		b.position = centre(k) - Vector2(b.r, b.r)
 		b.visible = want or b.modulate.a > 0.01
 		if live_pop:
-			b.pic.modulate = Color.WHITE.lerp(Color(1.0, 0.25, 0.2), 0.5 + 0.5 * sin(Time.get_ticks_msec() * 0.014)) if float(_hold[k]) > 0.0 else Color.WHITE
+			b.pic.modulate = Palette.FULL.lerp(Palette.BAD_FILL, 0.5 + 0.5 * sin(Time.get_ticks_msec() * 0.014)) if float(_hold[k]) > 0.0 else Palette.FULL
 		if b.visible:
 			b.queue_redraw()
 			b.pic.queue_redraw()
@@ -290,7 +291,7 @@ func _colour(s: Dictionary) -> Color:
 	var fl := 0.0
 	for p in s["places"]:
 		fl = maxf(fl, float(fig._flash.get(p, 0.0)))
-	return col.lerp(Color.WHITE, fl)
+	return col.lerp(Palette.TEXT, fl)
 
 
 ## Her own picture cut round the card's place, or the organ's picture (drawn on its Pic, behind the ring).
@@ -318,7 +319,7 @@ func _draw_pic(b: Bubble) -> void:
 		var ang := TAU * i / 32.0
 		pts.append(c + Vector2(cos(ang), sin(ang)) * b.r)
 		uvs.append(Vector2(cuv.x + cos(ang) * cuv.z, cuv.y + sin(ang) * cuv.z * asp))
-	b.pic.draw_polygon(pts, PackedColorArray([Color.WHITE]), uvs, t)
+	b.pic.draw_polygon(pts, PackedColorArray([Palette.TEXT]), uvs, t)
 
 
 ## One card (its local px, centre R,R): a hurt place's tint, her face marks, the outline ring, the condition line's plate.
@@ -332,7 +333,7 @@ func _draw_card(b: Bubble) -> void:
 	if str(s["at"]) == "head" and face != null and not live_pop:
 		var lay := FaceMarks.layout(face_uv, face.get_size().x / face.get_size().y)
 		FaceMarks.paint(b, c, b.r, fig._values, marks, lay["at"] if not lay.is_empty() else FaceMarks.AT)
-	b.draw_arc(c, b.r + 1.0, 0.0, TAU, 48, Color(0, 0, 0, 0.6), RING_W + 3.0, true)
+	b.draw_arc(c, b.r + 1.0, 0.0, TAU, 48, Color(Palette.PAGE, 0.6), RING_W + 3.0, true)
 	b.draw_arc(c, b.r, 0.0, TAU, 48, col, RING_W, true)
 	var t := str(b.line)
 	if t == "":
@@ -340,7 +341,7 @@ func _draw_card(b: Bubble) -> void:
 	var bold: Font = UI.font("bold")
 	var w := bold.get_string_size(t, HORIZONTAL_ALIGNMENT_LEFT, -1, UI.TINY).x + 14.0
 	var pr := _plate_rect(c, w, b.r)
-	b.draw_style_box(UI.box(Color(0.06, 0.05, 0.05, 0.88), Color(col, 0.8), 6, 1, 0, 0), pr)
+	b.draw_style_box(UI.box(Color(Palette.PAGE, 0.88), Color(col, 0.8), 6, 1, 0, 0), pr)
 	# Its name and number in the band colour, the words after them in the HUD's light text.
 	var cut := t.find(" - ")
 	var lead := t if cut < 0 else t.substr(0, cut)
@@ -367,10 +368,10 @@ func _draw() -> void:
 			from = c + Vector2(-outer * b.r * b.scale.x, 0.0)
 			var knee := Vector2(from.x - outer * 12.0, to.y)
 			var path := PackedVector2Array([from, Vector2(knee.x, from.y), knee, to])
-			draw_polyline(path, Color(0, 0, 0, 0.45 * a), 3.5, true)
+			draw_polyline(path, Color(Palette.PAGE, 0.45 * a), 3.5, true)
 			draw_polyline(path, Color(col, 0.9 * a), 1.5, true)
 		else:
-			draw_line(from, to, Color(0, 0, 0, 0.45 * a), 3.5, true)
+			draw_line(from, to, Color(Palette.PAGE, 0.45 * a), 3.5, true)
 			draw_line(from, to, Color(col, 0.8 * a), 1.5, true)
-		draw_circle(to, 4.0, Color(0, 0, 0, 0.5 * a))
+		draw_circle(to, 4.0, Color(Palette.PAGE, 0.5 * a))
 		draw_circle(to, 3.0, Color(col, a))

@@ -60,7 +60,7 @@ static func _italic(base: FontFile) -> FontVariation:
 	return v
 
 
-static func box(bg: Color, border: Color = Color(0, 0, 0, 0), radius: int = 8, border_w: int = 1,
+static func box(bg: Color, border: Color = Color(Palette.PAGE, 0), radius: int = 8, border_w: int = 1,
 		pad_h: int = 12, pad_v: int = 8) -> StyleBoxFlat:
 	var s := StyleBoxFlat.new()
 	s.bg_color = bg
@@ -302,7 +302,7 @@ static func dot(color: Color) -> Control:
 
 
 ## A list row: [dot] title / sub line ... [right controls].
-static func row(title: String, sub: String = "", dot_color: Color = Color(0, 0, 0, 0), right: Array = []) -> HBoxContainer:
+static func row(title: String, sub: String = "", dot_color: Color = Color(Palette.PAGE, 0), right: Array = []) -> HBoxContainer:
 	var h := hbox(14)
 	if dot_color.a > 0.0:
 		h.add_child(dot(dot_color))

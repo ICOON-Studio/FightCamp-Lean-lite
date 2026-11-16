@@ -6,6 +6,7 @@ extends RefCounted
 ## (Data.fighter_state: personality and habits come from the fighter's id).
 ##   RecruitPanel.build(main, career, applicant, picks, act) -> VBoxContainer   focus_of(picks) -> String
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const Data := preload("res://scripts/state/Data.gd")
@@ -92,7 +93,7 @@ static func _ceiling_row(icon: String, name: String, now: float, cap: float, tip
 	stack.add_child(ceil_bar)
 	var now_bar: Control = Bar.new()
 	now_bar.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	now_bar.track = Color(0, 0, 0, 0)
+	now_bar.track = Color(Palette.PAGE, 0)
 	now_bar.fill = UI.GREEN
 	now_bar.frac = now / 100.0
 	stack.add_child(now_bar)
@@ -171,7 +172,7 @@ static func _perks(f: Dictionary) -> HFlowContainer:
 ## A tag on the slate: see-through, a thin chalk edge. The word keeps its UI colour; the ink pass turns paper inks to chalk.
 static func _chip(text: String, colour_key: String) -> PanelContainer:
 	var p := UI.chip(text, colour_key)
-	p.add_theme_stylebox_override("panel", UI.box(Color(1, 1, 1, 0.04), Color(WoodKit.SOFT, 0.35), 4, 1, 10, 3))
+	p.add_theme_stylebox_override("panel", UI.box(Color(Palette.TEXT, 0.04), Color(WoodKit.SOFT, 0.35), 4, 1, 10, 3))
 	return p
 
 
@@ -180,7 +181,7 @@ static func _slate_choice(b: Button, on: bool) -> void:
 	for state in ["normal", "hover", "pressed", "disabled", "focus"]:
 		var hot: bool = state == "hover" and not on
 		var edge := Color(WoodKit.HEAD) if on else (Color(WoodKit.BLUE) if hot else Color(WoodKit.SOFT, 0.35))
-		b.add_theme_stylebox_override(state, UI.box(Color(1, 1, 1, 0.04), edge, 4, 2 if on or hot else 1, 0, 0))
+		b.add_theme_stylebox_override(state, UI.box(Color(Palette.TEXT, 0.04), edge, 4, 2 if on or hot else 1, 0, 0))
 
 
 static func _habit(id: String) -> Dictionary:

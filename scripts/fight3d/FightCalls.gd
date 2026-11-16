@@ -7,6 +7,7 @@ extends PanelContainer
 ## an event. Runs after the stage (process_priority), so its offsets ride on the lens's own shake.
 ##   attach(view)   landed(beat)   line(move, big)   envelope(t)   allowed(used, since)
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/TV.gd")
 const Arc := preload("res://scripts/fight3d/HudArc.gd")
 const CornerCard := preload("res://scripts/rules/CornerCard.gd")
@@ -24,7 +25,7 @@ const ZOOM := 0.62           # of the shot's field of view at the closest
 const CENTRE := 0.75         # how far the push slides the head towards the middle of the frame
 const MOST_A_ROUND := 2
 const APART_S := 8.0
-const GLOW := Color(1.0, 0.72, 0.42)   # the warm flash on a big shot
+const GLOW := Palette.WARN   # the warm flash on a big shot
 const GLOW_MOST := 0.2
 const GLOW_S := 0.3
 const BLOCK_M := 0.24        # S396: a thrower's head or chest this close to the lens's line onto the hit head hides the blow
@@ -94,7 +95,7 @@ static func allowed(used: int, since: float) -> bool:
 func _build() -> void:
 	process_priority = 100
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
-	add_theme_stylebox_override("panel", UI.box(Color(0.04, 0.03, 0.03, 0.82), Color(0, 0, 0, 0), 4, 0, 14, 8))
+	add_theme_stylebox_override("panel", UI.box(Color(Palette.PAGE, 0.82), Color(Palette.PAGE, 0), 4, 0, 14, 8))
 	var row := UI.hbox(12)
 	add_child(row)
 	_strip = ColorRect.new()

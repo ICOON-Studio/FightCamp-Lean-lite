@@ -6,10 +6,11 @@ extends RefCounted
 ##   rows(st, names) -> [{label, a, b, fa, fb, ca, cb}]   head(st, names) -> String   build(st, names) -> VBoxContainer
 ## st = {round, won, score: [a, b], counts, tally (BodyMap.tally), energy: {a, b}, map (BodyMap, may be empty)}
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/TV.gd")
 const BodyMap := preload("res://scripts/rules/BodyMap.gd")
 
-const BLUE := Color("#6f9cf0")
+const BLUE := Palette.ACCENT
 const PLACE_WORDS := {"head": "Head", "left_eye": "Left eye", "right_eye": "Right eye", "nose": "Nose",
 	"left_ribs": "Left ribs", "right_ribs": "Right ribs"}
 const POWER := ["straight", "hook", "uppercut"]
@@ -150,7 +151,7 @@ static func _bar(frac: float, col: Color, leftward: bool) -> Control:
 ## A thin bar that fills from the table's middle outwards (hers grows left, the opponent's right).
 class _Mirror extends Control:
 	var frac := 0.0
-	var fill := Color.WHITE
+	var fill := Palette.TEXT
 	var leftward := false
 	var ghost := 0.0   # S443 C323 the corner's points, drawn past the fill before they happen
 
@@ -160,12 +161,12 @@ class _Mirror extends Control:
 		mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 	func _draw() -> void:
-		draw_rect(Rect2(Vector2.ZERO, size), Color(1, 1, 1, 0.08))
+		draw_rect(Rect2(Vector2.ZERO, size), Color(Palette.TEXT, 0.08))
 		var w := size.x * frac
 		if w > 0.0:
 			draw_rect(Rect2(Vector2(size.x - w if leftward else 0.0, 0.0), Vector2(w, size.y)), fill)
 		var gw := size.x * clampf(ghost, 0.0, 1.0 - frac)
 		if gw > 0.0:
 			var gx := size.x - w - gw if leftward else w
-			draw_rect(Rect2(Vector2(gx, -2.0), Vector2(gw, size.y + 4.0)), Color(0.42, 0.76, 0.48, 0.55))
-			draw_rect(Rect2(Vector2(gx, -2.0), Vector2(gw, size.y + 4.0)), Color(0.42, 0.76, 0.48), false, 1.0)
+			draw_rect(Rect2(Vector2(gx, -2.0), Vector2(gw, size.y + 4.0)), Color(Palette.GOOD, 0.55))
+			draw_rect(Rect2(Vector2(gx, -2.0), Vector2(gw, size.y + 4.0)), Palette.GOOD, false, 1.0)

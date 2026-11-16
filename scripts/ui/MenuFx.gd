@@ -8,7 +8,8 @@ const UI := preload("res://scripts/ui/UI.gd")
 const Sfx := preload("res://scripts/audio/Sfx.gd")
 const RAYS := preload("res://assets/ui/art/sun_rays.gdshader")
 const WALL := "res://assets/ui/art/gym_backdrop.jpg"   # S412 every page sits on the painted gym, as Fighters does
-const WALL_DIM := Color(0.68, 0.66, 0.64)   # the lamps stay, small words on the wall stay readable
+const Palette := preload("res://scripts/ui/Palette.gd")
+const WALL_DIM := Palette.WALL_EXPOSURE   # the lamps stay, small words on the wall stay readable (S496: ONE exposure)
 
 static var instant := DisplayServer.get_name() == "headless"
 
@@ -69,12 +70,12 @@ static func dust(amount: int = 70) -> CPUParticles2D:
 	p.scale_amount_min = 0.12
 	p.scale_amount_max = 0.42
 	var g := Gradient.new()
-	g.colors = PackedColorArray([Color(1, 0.96, 0.85, 0.0), Color(1, 0.96, 0.85, 0.55), Color(1, 0.96, 0.85, 0.0)])
+	g.colors = PackedColorArray([Color(Palette.TEXT, 0.0), Color(Palette.TEXT, 0.55), Color(Palette.TEXT, 0.0)])
 	g.offsets = PackedFloat32Array([0.0, 0.5, 1.0])
 	p.color_ramp = g
 	var soft := GradientTexture2D.new()
 	var spot := Gradient.new()
-	spot.colors = PackedColorArray([Color.WHITE, Color(1, 1, 1, 0)])
+	spot.colors = PackedColorArray([Palette.TEXT, Color(Palette.TEXT, 0)])
 	soft.gradient = spot
 	soft.fill = GradientTexture2D.FILL_RADIAL
 	soft.fill_from = Vector2(0.5, 0.5)
@@ -161,15 +162,18 @@ static func wall() -> TextureRect:
 static func set_wall(main: Node, path: String = "") -> void:
 	var r: TextureRect = main.get_node_or_null("PaintedWall")
 	if r != null:
+		# S496 ONELOOK1 (operator: "the lightining on some the stills ... darker than others"): every career page, one wall at
+		# one exposure. The bout page keeps its red-and-blue wall (as bright a picture as the gym: mean 44 vs 46 of 255);
+		# it had been shown at full exposure, 1.5x every other page.
 		r.texture = load(path if path != "" else WALL)
-		r.modulate = WALL_DIM if path == "" or path == WALL else Color.WHITE
+		r.modulate = WALL_DIM
 
 
 ## ... and its painted paper grain laid over the whole page, cards, buttons and all (multiplied, so white turns to painted paper).
 static func paper_filter() -> TextureRect:
 	var r := wall()
 	r.name = "PaintedPaper"
-	r.modulate = Color.WHITE
+	r.modulate = Palette.FULL
 	r.texture = load("res://assets/ui/art/menu_paper.jpg")
 	var grain := ShaderMaterial.new()   # S412 grain only: the painting's pastel blotches read as a watercolour web page
 	grain.shader = preload("res://assets/ui/art/paper_grain.gdshader")

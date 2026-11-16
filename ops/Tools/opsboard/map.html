@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>FightCamp map</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<!-- S499 operator: "miro subscription has been stop ... can you create something like miro for our project".
+     Our own map: rows of frames on a pan-and-zoom canvas, his sticky notes on top. Data: /api/map (Tools/opsboard/map_board.py). -->
+<style>
+:root{--bg:#14110e;--panel:#211c17;--panel2:#2b2520;--line:#4a4038;--ink:#eee4d6;--dim:#a99c8a;--gold:#f0b84a;
+  --claude:#9b6dff;--agent:#4a9fe8;--operator:#f5a623;--sticky:#f6dd6b;--stickyink:#2a2412}
+*{box-sizing:border-box}html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font:14px/1.4 system-ui,Segoe UI,sans-serif;overflow:hidden}
+#bar{position:fixed;inset:0 0 auto 0;height:44px;background:#1b1713;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;padding:0 12px;z-index:20;white-space:nowrap}
+#bar b{color:var(--gold);font-size:15px}#bar a{color:var(--gold);text-decoration:none}#bar .sp{flex:1}
+#bar button,#bar select{background:var(--panel2);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:5px 10px;font:inherit;cursor:pointer}
+#bar button:hover{border-color:var(--gold)}#hint{color:var(--dim);overflow:hidden;text-overflow:ellipsis}
+#vp{position:fixed;inset:44px 0 0 0;overflow:hidden;cursor:grab;background-image:radial-gradient(#2a241e 1px,transparent 1px);background-size:28px 28px}
+#vp.pan{cursor:grabbing}
+#world{position:absolute;left:0;top:0;transform-origin:0 0;display:flex;flex-direction:column;gap:260px;padding:120px;width:max-content}
+.row>h1{font-size:76px;margin:0 0 40px;color:var(--gold);font-weight:700;letter-spacing:.5px}
+.frames{display:flex;gap:140px;align-items:flex-start}
+.frame{position:relative;background:var(--panel);border:3px solid var(--line);border-radius:18px;padding:26px 30px 34px}
+.frame>h2{font-size:40px;margin:0 0 6px}.frame>.note{font-size:22px;color:var(--dim);margin:0 0 18px;max-width:1500px}
+.frame .score{float:right;font-size:30px;color:var(--gold);border:2px solid var(--gold);border-radius:10px;padding:2px 14px;margin-left:20px}
+.cols{display:flex;gap:26px;align-items:flex-start;margin-top:18px}
+.col{width:400px;background:var(--panel2);border-radius:12px;padding:0 12px 12px}
+.col>h3{font-size:24px;margin:0 -12px 12px;padding:10px 14px;background:#3a4a66;border-radius:12px 12px 0 0;color:#dfe9fb}
+.card{background:#f7f4ee;color:#1d1a16;border:4px solid var(--claude);border-radius:10px;padding:9px 12px;margin:0 0 10px;font-size:20px;line-height:1.25}
+.card.agent{border-color:var(--agent)}.card.operator{border-color:var(--operator)}.card.done{opacity:.55;text-decoration:line-through}
+.empty{color:var(--dim);font-size:18px;padding:4px 2px 8px}
+.grid{display:grid;gap:26px;margin-top:18px}
+.pic{width:640px;margin:0}.pic img{display:block;width:640px;min-height:120px;background:#0d0b09;border:2px solid var(--line);border-radius:8px;cursor:zoom-in}
+.pic figcaption{font-size:20px;color:var(--dim);margin-top:6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.links{font-size:24px;line-height:1.7;margin-top:14px;max-width:1300px}.links a{color:var(--gold)}.links span{color:var(--dim);font-size:19px}
+.err{color:#ff8a7a;font-size:20px}
+.legend{font-size:20px;color:var(--dim);margin-top:14px}.legend i{display:inline-block;width:16px;height:16px;border-radius:4px;margin:0 6px 0 16px;vertical-align:-2px}
+.sticky{position:absolute;width:300px;min-height:150px;background:var(--sticky);color:var(--stickyink);border-radius:4px;box-shadow:0 6px 18px #0009;z-index:5;display:flex;flex-direction:column}
+.sticky.claude{background:#d9c8ff}.sticky.done{opacity:.5}
+.sticky .top{height:26px;cursor:move;display:flex;align-items:center;justify-content:space-between;padding:0 6px;font-size:13px;color:#6b5d22;background:#0001}
+.sticky .top button{border:0;background:none;font-size:18px;line-height:1;cursor:pointer;color:#6b5d22;padding:0 4px}
+.sticky textarea{flex:1;min-height:120px;border:0;background:none;resize:none;font:22px/1.25 system-ui,sans-serif;color:inherit;padding:8px 10px;outline:none;overflow:hidden}
+.sticky .reply{font-size:18px;background:#fff8;border-top:2px solid var(--claude);padding:6px 10px;white-space:pre-wrap}
+#light{position:fixed;inset:0;background:#000d;display:none;z-index:50;align-items:center;justify-content:center;cursor:zoom-out}
+#light img{max-width:96vw;max-height:92vh}#light a{position:fixed;top:10px;right:16px;color:var(--gold);font-size:15px}
+#toast{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);background:#402018;border:1px solid #ff8a7a;color:#ffd9d2;padding:8px 14px;border-radius:8px;display:none;z-index:60}
+</style></head><body>
+<div id="bar"><b>FightCamp map</b><a href="/">ops board</a><a href="/review">pictures</a>
+  <select id="jump" title="Jump to a frame"><option value="">Jump to…</option></select>
+  <button id="fit" title="Show the whole map">Whole map</button><button id="zo">−</button><button id="zi">+</button>
+  <span id="hint">Drag to move · wheel to zoom · double-click to leave a note · click a picture to open it</span><span class="sp"></span><span id="when" style="color:var(--dim)"></span></div>
+<div id="vp"><div id="world"></div></div>
+<div id="light"><a id="lightOpen" target="_blank" rel="noopener">open full size in a tab</a><img id="lightImg" alt=""></div>
+<div id="toast"></div>
+<script>
+const $ = id => document.getElementById(id), vp = $("vp"), world = $("world");
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+let V = {x: 40, y: 40, s: 0.25}, DATA = null, lastKey = "", busy = 0;
+try { const v = JSON.parse(localStorage.getItem("fcmap.view") || "null"); if (v && v.s > 0) V = v; } catch (e) {}
+const apply = () => { world.style.transform = `translate(${V.x}px,${V.y}px) scale(${V.s})`; try { localStorage.setItem("fcmap.view", JSON.stringify(V)); } catch (e) {} };
+const toast = t => { $("toast").textContent = t; $("toast").style.display = "block"; setTimeout(() => $("toast").style.display = "none", 4000); };
+const imgUrl = (p, t) => "/map/img?p=" + encodeURIComponent(p) + (t ? "&t=1" : "");
+
+function frameHtml(f) {
+  let h = `<div class="frame" id="f-${esc(f.id)}" data-id="${esc(f.id)}">${f.score ? `<span class="score">${esc(f.score)}</span>` : ""}<h2>${esc(f.title)}</h2>`;
+  if (f.note) h += `<p class="note">${esc(f.note)}</p>`;
+  if (f.error) h += `<p class="err">Could not draw this frame: ${esc(f.error)}</p>`;
+  if (f._missing && f._missing.length) h += `<p class="err">No pictures found for: ${esc(f._missing.join(", "))}</p>`;
+  if (f.columns) h += `<div class="cols">` + f.columns.map(c => `<div class="col"><h3>${esc(c.title)} <span style="opacity:.6">${c.cards.length}</span></h3>` +
+      (c.cards.map(k => `<div class="card ${esc(k.who)}${k.done ? " done" : ""}">${esc(k.text)}</div>`).join("") || `<div class="empty">Nothing here.</div>`) + `</div>`).join("") + `</div>` +
+      `<div class="legend">Border:<i style="background:var(--claude)"></i>Claude<i style="background:var(--agent)"></i>an agent<i style="background:var(--operator)"></i>waits on you</div>`;
+  if (f.images) h += `<div class="grid" style="grid-template-columns:repeat(${Math.max(1, Math.min(f.cols || 4, f.images.length || 1))},640px)">` +
+      f.images.map(i => `<figure class="pic"><img loading="lazy" src="${imgUrl(i.p, 1)}" data-full="${esc(i.p)}" alt="${esc(i.caption)}"><figcaption title="${esc(i.p)}">${esc(i.caption)}</figcaption></figure>`).join("") + `</div>`;
+  if (f.links) h += `<div class="links">` + f.links.map(l => `<a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.title)}</a>` + (l.note ? ` <span>${esc(l.note)}</span>` : "")).join("<br>") + `</div>`;
+  return h + `</div>`;
+}
+
+function render() {
+  world.innerHTML = DATA.rows.map(r => `<section class="row"><h1>${esc(r.title)}</h1><div class="frames">${r.frames.map(frameHtml).join("")}</div></section>`).join("");
+  $("jump").innerHTML = `<option value="">Jump to…</option>` + DATA.rows.map(r => `<optgroup label="${esc(r.title)}">` +
+      r.frames.map(f => `<option value="${esc(f.id)}">${esc(f.title)}</option>`).join("") + `</optgroup>`).join("");
+  DATA.notes.forEach(drawNote);
+  $("when").textContent = "updated " + (DATA.updated || "").slice(11, 16);
+}
+
+// ---- notes (his stickies; purple = Claude's)
+function drawNote(n) {
+  const host = (n.frame && $("f-" + n.frame)) || world, el = document.createElement("div");
+  el.className = "sticky " + (n.who === "claude" ? "claude" : "") + (n.done ? " done" : ""); el.dataset.id = n.id;
+  el.style.left = n.x + "px"; el.style.top = n.y + "px";
+  el.innerHTML = `<div class="top"><span>${n.who === "claude" ? "Claude" : "your note"} ${esc(n.id || "")}</span><button title="Delete this note">×</button></div>
+    <textarea placeholder="Write here…"></textarea>` + (n.reply ? `<div class="reply"><b>Claude:</b> ${esc(n.reply)}</div>` : "");
+  const ta = el.querySelector("textarea"); ta.value = n.text || "";
+  const grow = () => { ta.style.height = "auto"; ta.style.height = Math.max(120, ta.scrollHeight) + "px"; };
+  ta.addEventListener("input", grow); ta.addEventListener("focus", () => busy++);
+  ta.addEventListener("blur", () => { busy = Math.max(0, busy - 1); if (ta.value !== (n.text || "")) { n.text = ta.value; saveNote(n, el); } });
+  el.querySelector("button").addEventListener("click", async ev => { ev.stopPropagation();
+    if (ta.value.trim() && !confirm("Delete this note?")) return;
+    if (n.id) { const r = await post({op: "delete", id: n.id}); if (!r.ok) return toast("Could not delete the note: " + (r.error || "")); }
+    DATA.notes = DATA.notes.filter(x => x !== n); el.remove(); });
+  el.querySelector(".top").addEventListener("pointerdown", ev => { if (ev.target.tagName === "BUTTON") return; ev.stopPropagation(); ev.preventDefault();
+    const sx = ev.clientX, sy = ev.clientY, ox = n.x, oy = n.y; let moved = false;
+    const mv = e => { n.x = ox + (e.clientX - sx) / V.s; n.y = oy + (e.clientY - sy) / V.s; el.style.left = n.x + "px"; el.style.top = n.y + "px"; moved = true; };
+    const up = () => { removeEventListener("pointermove", mv); removeEventListener("pointerup", up); if (moved) saveNote(n, el); };
+    addEventListener("pointermove", mv); addEventListener("pointerup", up); });
+  host.appendChild(el); grow(); return el;
+}
+async function post(body) {
+  try { const r = await fetch("/api/map/note", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(body)}); return await r.json(); }
+  catch (e) { return {ok: false, error: String(e)}; }
+}
+async function saveNote(n, el) {
+  if (!n.id && !String(n.text || "").trim()) return;                 // an empty new note is not saved
+  const r = await post({op: "save", note: {id: n.id, frame: n.frame, x: n.x, y: n.y, text: n.text, color: n.color, who: n.who}});
+  if (!r.ok) return toast("The note was NOT saved: " + (r.error || "the board did not answer"));
+  Object.assign(n, r.note); el.dataset.id = n.id; el.querySelector(".top span").textContent = (n.who === "claude" ? "Claude " : "your note ") + n.id;
+  lastKey = "";                                                       // the next poll may redraw
+}
+vp.addEventListener("dblclick", ev => {
+  if (ev.target.closest(".sticky,a,img")) return;
+  const fr = ev.target.closest(".frame"), host = fr || world, r = host.getBoundingClientRect();
+  const n = {id: "", who: "operator", frame: fr ? fr.dataset.id : "", x: Math.round((ev.clientX - r.left) / V.s - 20), y: Math.round((ev.clientY - r.top) / V.s - 14), text: "", color: "yellow"};
+  DATA.notes.push(n); drawNote(n).querySelector("textarea").focus();
+});
+
+// ---- move and zoom
+vp.addEventListener("pointerdown", ev => {
+  if (ev.button !== 0 || ev.target.closest(".sticky,a,select,button")) return;
+  const sx = ev.clientX, sy = ev.clientY, ox = V.x, oy = V.y; let moved = false;
+  const mv = e => { if (!moved && Math.abs(e.clientX - sx) + Math.abs(e.clientY - sy) < 4) return; moved = true; vp.classList.add("pan"); V.x = ox + e.clientX - sx; V.y = oy + e.clientY - sy; apply(); };
+  const up = e => { removeEventListener("pointermove", mv); removeEventListener("pointerup", up); vp.classList.remove("pan");
+    if (!moved && e.target.tagName === "IMG" && e.target.dataset.full) openPic(e.target.dataset.full); };
+  addEventListener("pointermove", mv); addEventListener("pointerup", up);
+});
+function zoomAt(cx, cy, k) { const s = Math.min(3, Math.max(0.03, V.s * k)); V.x = cx - (cx - V.x) * s / V.s; V.y = cy - (cy - V.y) * s / V.s; V.s = s; apply(); }
+vp.addEventListener("wheel", ev => { ev.preventDefault(); const r = vp.getBoundingClientRect(); zoomAt(ev.clientX - r.left, ev.clientY - r.top, Math.exp(-ev.deltaY * 0.0015)); }, {passive: false});
+$("zi").onclick = () => zoomAt(vp.clientWidth / 2, vp.clientHeight / 2, 1.3); $("zo").onclick = () => zoomAt(vp.clientWidth / 2, vp.clientHeight / 2, 1 / 1.3);
+function fitEl(el) { if (!el) return; const r = el.getBoundingClientRect(), w = world.getBoundingClientRect();
+  const x = (r.left - w.left) / V.s, y = (r.top - w.top) / V.s, wd = r.width / V.s, ht = r.height / V.s;
+  V.s = Math.min(1.2, (vp.clientWidth - 60) / wd, (vp.clientHeight - 60) / ht); V.x = (vp.clientWidth - wd * V.s) / 2 - x * V.s; V.y = (vp.clientHeight - ht * V.s) / 2 - y * V.s; apply(); }
+$("fit").onclick = () => fitEl(world); $("jump").onchange = e => { if (e.target.value) { fitEl($("f-" + e.target.value)); location.hash = e.target.value; e.target.value = ""; } };
+function openPic(p) { $("lightImg").src = imgUrl(p); $("lightOpen").href = imgUrl(p); $("light").style.display = "flex"; }
+$("light").onclick = e => { if (e.target.tagName !== "A") { $("light").style.display = "none"; $("lightImg").src = ""; } };
+addEventListener("keydown", e => { if (e.key === "Escape") $("light").style.display = "none"; });
+
+async function load(first) {
+  if (!first && (busy || document.hidden)) return;
+  let d; try { d = await (await fetch("/api/map")).json(); } catch (e) { if (first) world.innerHTML = `<p class="err" style="font-size:40px">The ops board did not answer.</p>`; return; }
+  const key = JSON.stringify([d.rows, d.notes]); if (key === lastKey) return; lastKey = key; DATA = d; render();
+  if (first) { apply(); const id = decodeURIComponent(location.hash.slice(1)); if (id && $("f-" + id)) fitEl($("f-" + id)); else if (!localStorage.getItem("fcmap.view")) fitEl(world); }
+}
+addEventListener("hashchange", () => fitEl($("f-" + decodeURIComponent(location.hash.slice(1)))));
+apply(); load(true); setInterval(load, 60000);
+</script></body></html>

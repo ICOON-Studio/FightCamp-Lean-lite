@@ -3,6 +3,7 @@ extends RefCounted
 ## corners - red values left, the label in the middle, blue values right, names on top. Fades in and out.
 ##   build(rows, names) -> Control     show(card, on)
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/TV.gd")  # S333: fight graphics keep the dark TV look
 const TapeRows := preload("res://scripts/rules/TapeRows.gd")
 
@@ -13,8 +14,8 @@ const _ALIAS := {
 	"Reach": "Reach", "Stance": "Stance", "Style": "Style",
 }
 
-const RED := Color(0.95, 0.4, 0.35)
-const BLUE := Color(0.5, 0.65, 1.0)
+const RED := Palette.BAD
+const BLUE := Palette.ACCENT
 
 
 static func tape_rows(f: Dictionary, opp: Dictionary, her_cm: float = 0.0) -> Array:
@@ -28,7 +29,7 @@ static func build(rows: Array, names: Array) -> Control:
 	panel.name = "TaleOfTape"
 	# S370 (operator: "tale of the tape got clipped quite a lot why?"): at 0.88 the ring's ropes and the near corner post
 	# showed through the rows; the card is solid now.
-	panel.add_theme_stylebox_override("panel", UI.box(Color(0.05, 0.04, 0.04, 0.97), UI.LINE, 8, 1, 22, 16))
+	panel.add_theme_stylebox_override("panel", UI.box(Color(Palette.PAGE, 0.97), UI.LINE, 8, 1, 22, 16))
 	panel.anchor_left = 0.5
 	panel.anchor_right = 0.5
 	panel.anchor_top = 0.5

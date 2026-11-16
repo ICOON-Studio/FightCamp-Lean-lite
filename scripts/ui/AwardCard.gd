@@ -5,6 +5,7 @@ extends RefCounted
 ## takes it in four weeks (women's norms, SkillAwards). Every bar says what fills it.
 ##   make(career, fighter) -> PanelContainer
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const Tips := preload("res://scripts/ui/Tips.gd")
 const SkillAwards := preload("res://scripts/rules/SkillAwards.gd")
@@ -94,7 +95,7 @@ static func _ladder(f: Dictionary) -> HBoxContainer:
 		chip.mouse_filter = Control.MOUSE_FILTER_PASS
 		chip.tooltip_text = "%s: %s.%s" % [a["name"], a["tests"], (" Passed %s." % when) if when != "" else ""]
 		if when == "" and id != nxt:
-			chip.modulate = Color(1, 1, 1, 0.55)
+			chip.modulate = Color(Palette.FULL, 0.55)
 		h.add_child(chip)
 	return h
 

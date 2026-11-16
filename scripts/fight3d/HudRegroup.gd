@@ -15,6 +15,7 @@ extends Node
 
 const ReactionBubbles := preload("res://scripts/fight3d/ReactionBubbles.gd")
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
+const Palette := preload("res://scripts/ui/Palette.gd")
 const SMALL := [Rect2(8, 228, 200, 320), Rect2(1712, 228, 200, 320)]   # under each plate's bars, at its outer edge (S452 C363 bigger)
 const NUM_SHIFT := 34.0   # STAMINA is wider than "energy": the number moves right so the two never touch
 const DIM := 0.35
@@ -31,7 +32,7 @@ const READ := {
 	"Legs": [[80, "Light on the feet"], [60, "Legs working"], [40, "Legs heavy"], [0, "Legs gone"]],
 	"Guard": [[80, "Guard tight"], [60, "Guard holding"], [40, "Guard slipping"], [0, "Hands down"]],
 }
-const READ_COL := [Color("#7fd18b"), Color("#f2c14e"), Color("#ff9a3c"), Color("#e2483d")]
+const READ_COL := [Palette.GOOD, Palette.HEADER, Palette.WARN, Palette.BAD]
 
 var view: Control
 var _hold := 0.0
@@ -43,9 +44,8 @@ var _notes: Array = []
 
 
 class Line extends Control:
-	var a := Vector2.ZERO
-	var b := Vector2.ZERO
-	var col := Color(1, 1, 1, 0.8)
+	var a := Vector2.ZERO; var b := Vector2.ZERO
+	var col := Color(Palette.TEXT, 0.8)
 	func _draw() -> void:
 		if a == b:
 			return
@@ -107,7 +107,7 @@ func _costs() -> void:
 		var cost := float(l.get_meta("cost"))
 		var delta := -cost
 		l.text = "        %s%s" % ["+" if delta > 0.0 else "", ("%.1f" % delta).trim_suffix(".0")] if delta != 0.0 else "        0"
-		l.add_theme_color_override("font_color", l.get_meta("ink", Color("#7fd18b") if delta > 0.0 else (Color("#ff8a6a") if delta < 0.0 else Color("#d8d0c0"))))
+		l.add_theme_color_override("font_color", l.get_meta("ink", Palette.GOOD if delta > 0.0 else (Palette.BAD if delta < 0.0 else Palette.TEXT)))
 		l.tooltip_text = "Stamina each exchange while this call runs"
 		var cell := Cell.new()
 		cell.lit = bool(l.get_meta("lit", false))   # S460 C386 point 2: yellow on the gold plate could not be read
@@ -121,7 +121,7 @@ func _costs() -> void:
 class Cell extends Control:
 	var lit := false   # on the lit (gold) call plate: dark brown, the lit cost word's ink
 	func _draw() -> void:
-		var y := Color("#6b3d00") if lit else Color("#f2c14e")
+		var y := Palette.ON_LIGHT if lit else Palette.HEADER
 		draw_rect(Rect2(0, 0, 22, 16), y, false, 2.0)
 		draw_rect(Rect2(22, 5, 3, 6), y)
 		draw_rect(Rect2(3, 3, 12, 10), y)
@@ -155,20 +155,20 @@ class Wash extends Control:
 	var fill := 0.0
 	var flash := 0.0
 	var tag := ""
-	var tag_col := Color.WHITE
+	var tag_col := Palette.TEXT
 	func _ready() -> void:
 		mouse_filter = Control.MOUSE_FILTER_IGNORE
 	func _draw() -> void:
 		var w := size.x * clampf(fill, 0.0, 1.0)
 		if w > 1.0:
-			var c := Color(0.08, 0.06, 0.04, 0.16 + 0.10 * flash)   # S448: a dark wash reads over a green, amber or red bubble
+			var c := Color(Palette.PAGE, 0.16 + 0.10 * flash)   # S448: a dark wash reads over a green, amber or red bubble
 			draw_rect(Rect2(Vector2(10, 4), Vector2(maxf(0.0, w - 20.0), size.y - 8.0)), c)
 		if tag != "":
 			var f := ThemeDB.fallback_font
 			var tw := f.get_string_size(tag, HORIZONTAL_ALIGNMENT_LEFT, -1, 20).x
 			var r := Rect2(Vector2(size.x - tw - 26.0, -16.0), Vector2(tw + 18.0, 28.0))
 			draw_rect(r, tag_col)
-			draw_string(f, r.position + Vector2(9, 21), tag, HORIZONTAL_ALIGNMENT_LEFT, -1, 20, Color("#14100c"))
+			draw_string(f, r.position + Vector2(9, 21), tag, HORIZONTAL_ALIGNMENT_LEFT, -1, 20, Palette.PAGE)
 
 
 ## The ring's share of time left (1 = the wait just began, 0 = the exchange is here). -1 when there is no ring.
@@ -259,14 +259,14 @@ func _build_shout() -> void:
 	_sbox.name = "ShoutBox"
 	_sbox.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var sb := StyleBoxFlat.new()
-	sb.bg_color = Color(0.97, 0.95, 0.9, 0.94)
+	sb.bg_color = Color(Palette.TEXT, 0.94)
 	sb.set_corner_radius_all(32)
 	sb.content_margin_left = 22
 	sb.content_margin_right = 22
 	_sbox.add_theme_stylebox_override("panel", sb)
 	_slab = Label.new()
 	_slab.add_theme_font_size_override("font_size", 26)
-	_slab.add_theme_color_override("font_color", Color("#2a1d14"))
+	_slab.add_theme_color_override("font_color", Palette.PAGE)
 	_slab.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_slab.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	_sbox.add_child(_slab)
@@ -290,11 +290,11 @@ func _shout_begin(said: String) -> void:
 	var x: Dictionary = ex[-1] if not ex.is_empty() and ex[-1] is Dictionary else {}
 	_shout_won = bool(x.get("won", false))
 	_shout_tag = ReactionBubbles.heard_word(int(x.get("shouts_before", 0)), bool(x.get("shout", true)))
-	_wash.tag_col = {"Heard": Color("#7fd18b"), "Half heard": Color("#f2c14e")}.get(_shout_tag, Color("#ff8a6a"))
+	_wash.tag_col = {"Heard": Palette.GOOD, "Half heard": Palette.HEADER}.get(_shout_tag, Palette.BAD)
 	# S448 (operator on Q-208: "make the buble green when heard , red when ignored"): the whole bubble takes the colour.
 	var sb := _sbox.get_theme_stylebox("panel") as StyleBoxFlat
 	if sb != null:
-		sb.bg_color = {"Heard": Color("#9fe0a8"), "Half heard": Color("#f5d27a")}.get(_shout_tag, Color("#f4a593"))
+		sb.bg_color = {"Heard": Palette.GOOD, "Half heard": Palette.HEADER}.get(_shout_tag, Palette.BAD)
 		sb.bg_color.a = 0.95
 	var left := _ring_left()
 	_shout_f0 = left if left > 0.02 else 1.0
@@ -404,7 +404,7 @@ func _call_box(delta: float) -> void:
 		_line.visible = shout.visible
 		_line.a = at + Vector2(0.0 if at.x > _head.x else shout.size.x, shout.size.y * 0.5)
 		_line.b = _head + Vector2(0, 14)
-		_line.col = Color(1, 0.55, 0.5, 0.85)
+		_line.col = Color(Palette.BAD, 0.85)
 		_line.queue_redraw()
 		return
 	if chip == null or not chip.visible:
@@ -427,7 +427,7 @@ func _call_box(delta: float) -> void:
 	_line.visible = true
 	_line.a = to + Vector2(chip.size.x, chip.size.y * 0.5)
 	_line.b = head + Vector2(0, 14)
-	_line.col = Color(1, 0.55, 0.5, 0.85 * a)
+	_line.col = Color(Palette.BAD, 0.85 * a)
 	_line.queue_redraw()
 
 
@@ -438,7 +438,7 @@ func _glass_bug() -> void:
 	for child in bug.get_children():
 		if child is Panel:
 			var sb := StyleBoxFlat.new()
-			sb.bg_color = Color(0.05, 0.05, 0.07, 0.55)
+			sb.bg_color = Color(Palette.PAGE, 0.55)
 			sb.set_corner_radius_all(14)
 			(child as Panel).add_theme_stylebox_override("panel", sb)
 			break
@@ -457,9 +457,9 @@ func _notepad() -> void:
 		var tag := host.find_child("WorstTag", true, false) as CanvasItem if host != null else null
 		if tag != null: tag.visible = false
 	if _notes.is_empty():
-		panel.add_child(_read_lab("ReadHead", "YOUR CORNER'S READ", 20, 40.0, Color("#d8cfc2")))
+		panel.add_child(_read_lab("ReadHead", "YOUR CORNER'S READ", 20, 40.0, Palette.MUTED))
 		for i in KINDS.size():
-			_notes.append(_read_lab("Read" + KINDS[i], "", 26, 74.0 + float(i) * 36.0, Color.WHITE))
+			_notes.append(_read_lab("Read" + KINDS[i], "", 26, 74.0 + float(i) * 36.0, Palette.TEXT))
 			panel.add_child(_notes[-1])
 	for i in KINDS.size():
 		var k: String = KINDS[i]
@@ -491,7 +491,7 @@ static func _read_lab(id: String, text: String, fs: int, y: float, col: Color) -
 	lab.text = text
 	lab.add_theme_font_size_override("font_size", fs)
 	lab.add_theme_constant_override("outline_size", 6)
-	lab.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.85))
+	lab.add_theme_color_override("font_outline_color", Color(Palette.PAGE, 0.85))
 	lab.add_theme_color_override("font_color", col)
 	lab.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	lab.position = Vector2(140, y)

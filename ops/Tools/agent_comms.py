@@ -2641,7 +2641,9 @@ def start(args: argparse.Namespace) -> int:
         print("        or `rules_this_session_earned` - nothing else renders.")
 
     # S385 operator: "i want a map similar to this for this project, needs to be updated on every session end or start".
-    _rule("P0 WHERE WE ARE (Miro) - redraw it NOW and again at your wrap-up")
+    # S499 operator: "miro subscription has been stop ... can you create something like miro for our project" - the map is
+    # our own page now (http://127.0.0.1:8787/map, Tools/opsboard/map_board.py); it reads these cards live, nothing to redraw.
+    _rule("THE MAP (127.0.0.1:8787/map) - WHERE WE ARE: keep the cards current at start and at wrap-up")
     try:
         import where_we_are  # noqa: PLC0415
         c = where_we_are.cards()
@@ -2649,9 +2651,17 @@ def start(args: argparse.Namespace) -> int:
             print(f"  {title}: " + " | ".join(x["text"] for x in c[k]))
     except Exception as exc:  # noqa: BLE001
         print(f"  where_we_are failed: {exc}")
-    print("  START: python Tools/where_we_are.py roll S<n>  (this session's DONE -> Earlier), `now` your work, then")
-    print("         python Tools/where_we_are.py svg -> one canvas_update_from_svg (recipe: Tools/where_we_are_svg.py docstring).")
-    print("  END:   `done` each finished item (<= 34 chars), `drop` stale NOW/NEXT, `next` new ones, redraw the same way.")
+    print("  START: python Tools/where_we_are.py roll S<n>  (this session's DONE -> Earlier), then `now` your work.")
+    print("  END:   `done` each finished item (<= 34 chars), `drop` stale NOW/NEXT, `next` new ones. The map page shows it at once.")
+    print("  A new picture frame / card frame on the map: python Tools/opsboard/map_board.py gallery|cards ... (its docstring).")
+    try:
+        sys.path.insert(0, str(Path(__file__).resolve().parent / "opsboard"))
+        import map_board  # noqa: PLC0415
+        if map_board.unseen(mark=False):
+            print("  HIS NEW NOTES ON THE MAP - QUOTE EACH IN YOUR FIRST MESSAGE, ACT, then `map_board.py reply <id> \"...\"`:")
+            map_board.print_notes()
+    except Exception as exc:  # noqa: BLE001
+        print(f"  map notes failed: {exc}")
     if not full:
         _rule("END OF SESSION")
         print("  A stage ships whole (digest, roadmap now, queue, memory, `ship`); the last message is the queue, then ONE")

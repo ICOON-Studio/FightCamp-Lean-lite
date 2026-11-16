@@ -1,4 +1,4 @@
-﻿extends RefCounted
+extends RefCounted
 ## S320 (operator on the round and result screens: "these needs much better visuals for the player to understand what
 ## happenned"; "you change the menu concept, try more modern panels"): the fight's numbers as pictures - who won each
 ## 30 seconds, the punches landed side by side, the energy left, the rounds so far, each judge's round-by-round card and
@@ -6,15 +6,16 @@
 ##   strip(exchanges)  versus(rows, names)  energy(a, b)  rounds(rounds)  judges(rounds, cards)  decided(lines)
 ##   tile(title, value, colour)  totals(exchanges)
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const UI := preload("res://scripts/ui/TV.gd")  # S333: fight graphics keep the dark TV look
 const BodyMap := preload("res://scripts/rules/BodyMap.gd")
 const BodyFigure := preload("res://scripts/ui/BodyFigure.gd")
 
 ## Her corner and the opponent's, as on the scorebug.
-const HERS := Color(0.86, 0.26, 0.22)
-const THEIRS := Color(0.26, 0.47, 0.88)
-const TRACK := Color(1, 1, 1, 0.08)
+const HERS := Palette.BAD_FILL
+const THEIRS := Palette.ACCENT
+const TRACK := Color(Palette.TEXT, 0.08)
 const EX_SECONDS := 30
 
 
@@ -25,18 +26,18 @@ static func strip(exchanges: Array) -> HBoxContainer:
 		var won := bool(x["won"])
 		var tile := PanelContainer.new()
 		tile.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		tile.add_theme_stylebox_override("panel", UI.box(HERS if won else THEIRS, Color(0, 0, 0, 0), 8, 0, 6, 6))
+		tile.add_theme_stylebox_override("panel", UI.box(HERS if won else THEIRS, Color(Palette.PAGE, 0), 8, 0, 6, 6))
 		var v := UI.vbox(0)
 		tile.add_child(v)
-		var t := UI.mono("%d:%02d" % [((int(x["i"]) + 1) * EX_SECONDS) / 60, ((int(x["i"]) + 1) * EX_SECONDS) % 60], UI.SMALL, Color.WHITE)
+		var t := UI.mono("%d:%02d" % [((int(x["i"]) + 1) * EX_SECONDS) / 60, ((int(x["i"]) + 1) * EX_SECONDS) % 60], UI.SMALL, Palette.TEXT)
 		t.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		v.add_child(t)
 		var said := ""
-		var said_c := Color(1, 1, 1, 0.85)
+		var said_c := Color(Palette.TEXT, 0.85)
 		if bool(x.get("shout", false)):
 			var worked := won and str(x.get("fit", "")) in ["best", "ok"]
 			said = "SHOUT" if worked else "SHOUT X"
-			said_c = Color("#d9ffd9") if worked else Color("#ffd2cc")
+			said_c = Palette.TEXT if worked else Palette.TEXT
 		elif str(x.get("setup", "")) != "":
 			said = "SET-UP"
 		elif not (x.get("read", {}) as Dictionary).is_empty():   # S333 THE READ
@@ -116,8 +117,8 @@ static func rounds(all: Array) -> HBoxContainer:
 	row.add_child(UI.muted("Rounds", UI.TINY))
 	for i in all.size():
 		var chip := PanelContainer.new()
-		chip.add_theme_stylebox_override("panel", UI.box(HERS if bool(all[i]["won"]) else THEIRS, Color(0, 0, 0, 0), 6, 0, 10, 2))
-		chip.add_child(UI.mono(str(i + 1), UI.SMALL, Color.WHITE))
+		chip.add_theme_stylebox_override("panel", UI.box(HERS if bool(all[i]["won"]) else THEIRS, Color(Palette.PAGE, 0), 6, 0, 10, 2))
+		chip.add_child(UI.mono(str(i + 1), UI.SMALL, Palette.TEXT))
 		row.add_child(chip)
 	return row
 
@@ -152,8 +153,8 @@ static func judges(all: Array, cards: Array) -> HBoxContainer:
 			var w := bool(won[i]) != (j == 2 and i == flip)
 			var t := PanelContainer.new()
 			t.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-			t.add_theme_stylebox_override("panel", UI.box(HERS if w else THEIRS, Color(0, 0, 0, 0), 5, 0, 4, 2))
-			var l := UI.mono("10-9" if w else "9-10", UI.TINY, Color.WHITE)
+			t.add_theme_stylebox_override("panel", UI.box(HERS if w else THEIRS, Color(Palette.PAGE, 0), 5, 0, 4, 2))
+			var l := UI.mono("10-9" if w else "9-10", UI.TINY, Palette.TEXT)
 			l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 			t.add_child(l)
 			tiles.add_child(t)

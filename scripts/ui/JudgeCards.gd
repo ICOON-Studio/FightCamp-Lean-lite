@@ -5,6 +5,7 @@ extends RefCounted
 ## (JudgeNight). A stopped bout shows the cards up to the stoppage. Hidden while the judges do not decide the result
 ## (JudgeNight.decides(): S443 HOLD until JUDGES1), so the page never shows cards that disagree with the verdict.
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/TV.gd")
 const Broadcast := preload("res://scripts/ui/Broadcast.gd")
 const JudgeNight := preload("res://scripts/state/JudgeNight.gd")
@@ -44,7 +45,7 @@ static func _card(j: Dictionary, k: int, _names: Array) -> PanelContainer:
 	var p := PanelContainer.new()
 	p.name = "Judge%d" % (k + 1)
 	p.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	p.add_theme_stylebox_override("panel", UI.box(Color(1, 1, 1, 0.05), col.darkened(0.2), 6, 2, 16, 12))
+	p.add_theme_stylebox_override("panel", UI.box(Color(Palette.TEXT, 0.05), col.darkened(0.2), 6, 2, 16, 12))
 	var v := UI.vbox(8)
 	p.add_child(v)
 	var top := UI.hbox(10)
@@ -65,7 +66,7 @@ static func _card(j: Dictionary, k: int, _names: Array) -> PanelContainer:
 		chip.add_theme_stylebox_override("panel", UI.box(cc.darkened(0.35), cc, 3, 1, 4, 2))
 		chip.tooltip_text = "Round %d: %s" % [i + 1, str(sc["reason"])]
 		chip.mouse_filter = Control.MOUSE_FILTER_STOP
-		var l := UI.mono("%d-%d" % [int(sc["a"]), int(sc["b"])], UI.TINY, Color.WHITE)
+		var l := UI.mono("%d-%d" % [int(sc["a"]), int(sc["b"])], UI.TINY, Palette.TEXT)
 		l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		chip.add_child(l)
 		chips.add_child(chip)

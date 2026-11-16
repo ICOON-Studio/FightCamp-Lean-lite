@@ -4,14 +4,15 @@ extends RefCounted
 ## the repo) rendered by tools/holo_render_blender.py and baked by tools/bake_holo_figure.py. No kit, no circles: BodyFigure
 ## lights each part and hurt place on the muscles. Her face rides along for the HEAD close-up (BodyCallouts), so it stays her.
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const HOLO := "res://assets/ui/body/holo_f"
 ## S372 (male boxers): the same pack's male ecorche, rendered and baked the same way (holo_render_blender.py / bake_holo_figure.py
 ## with `m`), for the men's bodies (Faces.MEN_CM).
 const HOLO_M := "res://assets/ui/body/holo_m"
 const FACES := "res://assets/ui/face"
 const Faces := preload("res://scripts/rules/Faces.gd")
-const PLATE := Color(0.035, 0.06, 0.09, 0.92)
-const PLATE_EDGE := Color(0.25, 0.75, 1.0, 0.35)
+const PLATE := Color(Palette.CARD, 0.92)
+const PLATE_EDGE := Color(Palette.ACCENT, 0.35)
 
 
 static func has() -> bool:

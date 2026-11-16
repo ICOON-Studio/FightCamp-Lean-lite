@@ -2,6 +2,7 @@ extends VBoxContainer
 ## CLUB: People (hire a coach, the staff jobs, the members), Facilities, Records. S411 the People
 ## tab is painted cards: what each coach is good at, and what the boxer gets from it.
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const AreaHead := preload("res://scripts/ui/AreaHead.gd")
 const Tips := preload("res://scripts/ui/Tips.gd")
@@ -39,7 +40,7 @@ func _facilities(main: Node, c: Career) -> void:
 			right.append(b)
 		else:
 			right.append(UI.chip("good", "green"))
-		var kit_row := UI.row(f["name"], "", Color(0, 0, 0, 0), right)
+		var kit_row := UI.row(f["name"], "", Color(Palette.PAGE, 0), right)
 		kit_row.name = "Kit_" + str(f["id"])
 		Tips.card(kit_row, func(): return TopCards.kit(c, f))
 		rows.append(kit_row)

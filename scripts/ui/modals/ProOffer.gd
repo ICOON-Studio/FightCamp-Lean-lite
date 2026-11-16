@@ -2,6 +2,7 @@ extends PanelContainer
 ## A promoter's offer to turn her pro: the debut's money (S329 update 31: the tickets she would sell as a picture, her
 ## share, what the gym pays now), what the gym gives up, sign or stay amateur.
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const Roster := preload("res://scripts/state/Roster.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
@@ -88,7 +89,7 @@ static func ticket_parts(c: Career, f: Dictionary) -> Array:
 	var raw := [
 		{"t": "Family and friends", "n": ProDebut.FAMILY, "col": UI.MUTED},
 		{"t": "Gym members", "n": int(floor(maxi(0, c.members) * ProDebut.PER_MEMBER)), "col": UI.GOLD},
-		{"t": "%d wins" % int(f["w"]), "n": ProDebut.PER_WIN * maxi(0, int(f["w"])), "col": Color("#7fb3e6")},
+		{"t": "%d wins" % int(f["w"]), "n": ProDebut.PER_WIN * maxi(0, int(f["w"])), "col": Palette.ACCENT},
 		{"t": "Titles", "n": ProDebut.PER_TITLE * Roster.titles(f), "col": UI.GREEN},
 	]
 	var left := ProDebut.TICKETS

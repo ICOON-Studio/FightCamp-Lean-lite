@@ -4,6 +4,7 @@ extends RefCounted
 ## S345 FIGHTHUD2 (Q-S294-69 "Yes, build it"): the scorebug is the round box top centre (round, clock, the round edge
 ## meter); each boxer's six bars stand in her top corner (HudBars) - the text rows (ENERGY 82, BODY TAKEN 4) are gone.
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const FightCalls := preload("res://scripts/fight3d/FightCalls.gd")
 const UI := preload("res://scripts/ui/TV.gd")  # S333: fight graphics keep the dark TV look
 const LiveRound := preload("res://scripts/state/LiveRound.gd")
@@ -43,12 +44,12 @@ static func build(view: Control) -> void:
 	view._caption.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	view._caption.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	view._caption.add_theme_constant_override("outline_size", 8)
-	view._caption.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.9))
+	view._caption.add_theme_color_override("font_outline_color", Color(Palette.PAGE, 0.9))
 	view._cap_box.add_child(view._caption)
 	view._banner = UI.display("", 64)
 	view._banner.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	view._banner.add_theme_constant_override("outline_size", 10)
-	view._banner.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.9))
+	view._banner.add_theme_color_override("font_outline_color", Color(Palette.PAGE, 0.9))
 	view.add_child(view._banner)
 	pin(view._banner, Vector4(0.5, 0, 0.5, 0), Vector4(-640, 226, 640, 326))
 	FightCalls.attach(view, pin)   # S395 the TV line and the big-shot moment

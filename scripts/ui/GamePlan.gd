@@ -10,6 +10,7 @@ extends VBoxContainer
 ## The lines ARE fighter.arrows (PlanBoard), so the fight reads them unchanged; the map stays behind Open the map.
 ##   GamePlan.make(main, fighter, on_play: Callable(move_id)) -> GamePlan
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const StyleName := preload("res://scripts/rules/StyleName.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const Icons := preload("res://scripts/ui/Icons.gd")
@@ -84,8 +85,8 @@ func _animate() -> void:
 	var t := create_tween()
 	t.tween_property(_fill, "size:x", _fill_to, 0.45).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	if _pulse:
-		_band.modulate = Color(1.7, 1.7, 1.7)
-		create_tween().tween_property(_band, "modulate", Color.WHITE, 0.6)
+		_band.modulate = Palette.LIT_MUL
+		create_tween().tween_property(_band, "modulate", Palette.FULL, 0.6)
 
 
 func _bout() -> Dictionary:
@@ -347,14 +348,14 @@ func _option(place: String, when: String, o: Dictionary, picked: bool) -> Contro
 %s" % [str(o["why"]), does]) if locked else "%s then at %s
 %s" % [
 		str(PlanLines.FIT_WORDS[fit]) + ":" if fit != "none" else "Goes", str(SM.card(str(o["to"])).get("name", "")).to_lower(), does]
-	var big_col: Color = Color("#b8a88f") if locked else ({"best": Color("#6fd39a"), "wrong": Color("#ff6b5e")}.get(fit, Color("#efe6d8")) as Color)   # S429 chalk on the dark wood
+	var big_col: Color = Palette.MUTED if locked else ({"best": Palette.GOOD, "wrong": Palette.BAD}.get(fit, Palette.TEXT) as Color)   # S429 chalk on the dark wood
 	var b := UI.button2(str(o["name"]), small, "ChoiceOn" if picked else "Choice", func(): _pick(place, when, id, locked),
-		OPT, big_col, Color("#b8a88f"), false, UI.SMALL, UI.TINY)
+		OPT, big_col, Palette.MUTED, false, UI.SMALL, UI.TINY)
 	if not locked and fit != "none":
 		b.tooltip_text = "%+.0f over improvising" % float(o["edge"])
 	b.name = "Opt_" + id.replace(" ", "_").replace("@", "_at_")
 	if locked:
-		b.modulate = Color(1, 1, 1, 0.55)
+		b.modulate = Color(Palette.FULL, 0.55)
 	b.mouse_entered.connect(func(): on_play.call(id))
 	return b
 

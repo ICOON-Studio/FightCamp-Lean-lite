@@ -2,6 +2,7 @@ extends RefCounted
 ## The corner bar's drawn icons (split from CornerBar.gd at S459 for the 500-line rule): the exchange clock ring and
 ## the glove that marks a call's chance to win its 30 seconds.
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 
 class Ring extends Control:
 	var frac := 1.0
@@ -11,8 +12,8 @@ class Ring extends Control:
 	func _draw() -> void:
 		var c := size * 0.5
 		var rad := minf(size.x, size.y) * 0.5 - 8.0
-		draw_arc(c, rad, 0.0, TAU, 40, Color("#3a3028"), 8.0, true)
-		var col := Color("#f2c14e") if hot else Color("#cdbb9c")
+		draw_arc(c, rad, 0.0, TAU, 40, Palette.HOVER, 8.0, true)
+		var col := Palette.HEADER if hot else Palette.MUTED
 		if frac > 0.02:
 			draw_arc(c, rad, -PI * 0.5, -PI * 0.5 + TAU * frac, 40, col, 8.0, true)
 		var font := ThemeDB.fallback_font
@@ -23,10 +24,10 @@ class Ring extends Control:
 
 ## A small boxing glove (the icon for "wins the exchange").
 class Glove extends Control:
-	var col := Color.WHITE
+	var col := Palette.TEXT
 
 	func _draw() -> void:
-		var k := Color(0, 0, 0, 0.7)
+		var k := Color(Palette.PAGE, 0.7)
 		draw_circle(Vector2(12, 9), 8.5, k)
 		draw_rect(Rect2(5, 15, 14, 8), k)
 		draw_circle(Vector2(12, 9), 7.0, col)

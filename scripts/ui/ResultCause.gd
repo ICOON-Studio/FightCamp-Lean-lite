@@ -7,6 +7,7 @@ extends RefCounted
 ## plan (BoutActs "planfix"). Without a measurement (a bout from before S443) the card reads FightWhy's lines.
 ##   cause_card(main, m, f, names) -> PanelContainer   panel(title) -> PanelContainer with a VBox at child 0
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/TV.gd")
 const Broadcast := preload("res://scripts/ui/Broadcast.gd")
 const FightWhy := preload("res://scripts/rules/FightWhy.gd")
@@ -21,7 +22,7 @@ const ROW_H := 31   # one bar of the wins ladder
 
 static func panel(title: String) -> PanelContainer:
 	var p := PanelContainer.new()
-	p.add_theme_stylebox_override("panel", UI.box(Color(1, 1, 1, 0.05), Color(1, 1, 1, 0.10), 6, 1, 18, 14))
+	p.add_theme_stylebox_override("panel", UI.box(Color(Palette.TEXT, 0.05), Color(Palette.TEXT, 0.10), 6, 1, 18, 14))
 	var v := UI.vbox(8)
 	p.add_child(v)
 	if title != "":
@@ -131,7 +132,7 @@ static func _line_words(k: String, row: Dictionary, _names: Array) -> String:
 static func _chip(text: String) -> PanelContainer:
 	var p := PanelContainer.new()
 	p.add_theme_stylebox_override("panel", UI.box(Color(UI.GOLD, 0.12), UI.GOLD, 4, 2, 12, 6))
-	p.add_child(UI.label(text, TEXT, Color.WHITE, "bold"))
+	p.add_child(UI.label(text, TEXT, Palette.TEXT, "bold"))
 	return p
 
 
@@ -188,16 +189,16 @@ class _Ladder extends Control:
 			var y := 4.0 + i * BAR_H
 			var r: Array = rows[i]
 			var best := bool(r[2])
-			var col := K.GOLD if best else (Color(1, 1, 1, 0.45) if i > 0 else BC.HERS)
-			draw_string(font, Vector2(0, y + 22), str(r[0]), HORIZONTAL_ALIGNMENT_LEFT, LABEL_W - 10, 20, Color.WHITE if best or i == 0 else K.MUTED)
-			draw_rect(Rect2(LABEL_W, y + 4, bar_w, 22), Color(1, 1, 1, 0.06))
+			var col := K.GOLD if best else (Color(Palette.TEXT, 0.45) if i > 0 else BC.HERS)
+			draw_string(font, Vector2(0, y + 22), str(r[0]), HORIZONTAL_ALIGNMENT_LEFT, LABEL_W - 10, 20, Palette.TEXT if best or i == 0 else K.MUTED)
+			draw_rect(Rect2(LABEL_W, y + 4, bar_w, 22), Color(Palette.TEXT, 0.06))
 			draw_rect(Rect2(LABEL_W, y + 4, bar_w * clampf(float(r[1]) / float(maxi(1, nights)), 0.0, 1.0), 22), col)
 			draw_string(font, Vector2(LABEL_W + bar_w + 12, y + 22), "%d of %d" % [int(r[1]), nights], HORIZONTAL_ALIGNMENT_LEFT, NUM_W, 20,
-				K.GOLD if best else Color.WHITE)
+				K.GOLD if best else Palette.TEXT)
 		var x := LABEL_W + bar_w * 0.5
 		var y0 := 2.0
 		var y1 := 4.0 + rows.size() * BAR_H
 		while y0 < y1:
-			draw_line(Vector2(x, y0), Vector2(x, minf(y0 + 6.0, y1)), Color(1, 1, 1, 0.7), 2.0)
+			draw_line(Vector2(x, y0), Vector2(x, minf(y0 + 6.0, y1)), Color(Palette.TEXT, 0.7), 2.0)
 			y0 += 11.0
 		draw_string(font, Vector2(x - 60, y1 + 18), "even fight", HORIZONTAL_ALIGNMENT_CENTER, 120, 16, K.MUTED)

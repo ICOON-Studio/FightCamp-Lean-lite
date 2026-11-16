@@ -7,6 +7,7 @@ extends RefCounted
 ## The tag is top_level, so it is never clipped by the bar it sits in, and it ignores the mouse, so it never steals the
 ## hover from the button. It sits under the button, above it when the window's bottom is too close, and inside the window.
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 
 const TAG := "HoverTag"
@@ -29,8 +30,8 @@ static func attach(target: Control, word: String, side: String = "below") -> Pan
 	tag.z_index = 100
 	tag.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	tag.visible = false
-	tag.add_theme_stylebox_override("panel", UI.box(Color(0.05, 0.04, 0.035, 0.94), Color(UI.GOLD, 0.7), 4, 1, 8, 3))
-	var lab := UI.label(word.to_upper(), WORD_PX, Color.WHITE, "bold")
+	tag.add_theme_stylebox_override("panel", UI.box(Color(Palette.PAGE, 0.94), Color(UI.GOLD, 0.7), 4, 1, 8, 3))
+	var lab := UI.label(word.to_upper(), WORD_PX, Palette.TEXT, "bold")
 	lab.name = "Word"
 	lab.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	tag.add_child(lab)

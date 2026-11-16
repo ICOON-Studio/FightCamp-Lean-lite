@@ -18,17 +18,15 @@ func _check(ok: bool, what: String) -> void:
 func _initialize() -> void:
 	_check(UI.FG == WoodKit.DARK_INK and UI.MUTED == WoodKit.PAPER_MUTED and UI.GOLD == WoodKit.PAPER_BLUE,
 		"the kit's paper inks equal UI.FG, UI.MUTED and UI.GOLD")
-	for piece in ["panel", "bar", "tab", "tab_on", "plank", "plank_on", "red"]:
-		_check(WoodKit.tex(piece) != null, "piece %s loads" % piece)
-	for name in WoodKit.PIECE:
-		_check(WoodKit.tex(str(WoodKit.PIECE[name][0])) != null, "button %s has its piece" % name)
+	# S498 ONELOOK1 round 2 (operator: "i do not like the wooden panels"): no wood - one plain panel, flat plates.
 	var t := UI.theme()
-	_check(t.get_stylebox("panel", "Card") is StyleBoxTexture, "a card is the framed slate")
-	_check(t.get_stylebox("panel", "TopBar") is StyleBoxTexture, "the top bar is the plank")
-	for name in ["Tab", "TabOn", "Btn", "BtnSolid", "Rail", "RailOn"]:
-		_check(t.get_stylebox("normal", name) is StyleBoxTexture, "%s is a wooden plate" % name)
+	for name in ["Card", "Board", "Tin", "Modal"]:
+		_check(WoodKit.is_panel(t.get_stylebox("panel", name)), "a %s is the house panel" % name)
+	_check(t.get_stylebox("panel", "TopBar") is StyleBoxFlat, "the top bar is a flat strip")
+	for name in WoodKit.PIECE:
+		_check(WoodKit.is_plate(t.get_stylebox("normal", name)), "%s is a flat plate" % name)
 	_check(t.get_color("font_color", "Tab") == WoodKit.INK and t.get_color("font_color", "TabOn") == WoodKit.DARK_INK,
-		"a dark plank takes chalk words, the light one ink")
+		"a dark plate takes chalk words, the light one ink")
 
 	var page := Control.new()
 	page.theme = t
@@ -62,7 +60,7 @@ func _initialize() -> void:
 	var link := UI.button("link", "Link", func(): pass)
 	card[1].add_child(link)
 	var paper := PanelContainer.new()
-	paper.add_theme_stylebox_override("panel", UI.box(UI.PANEL))
+	paper.add_theme_stylebox_override("panel", UI.box(UI.Palette.CHOSEN))   # S496: the one light plate left (a tan tab)
 	var on_paper := UI.label("on paper")
 	paper.add_child(on_paper)
 	page.add_child(paper)
@@ -78,16 +76,17 @@ func _initialize() -> void:
 	# S493 one palette (Q-251): a fill red/green as words on slate reads 2.9-3.0:1 - it takes the lightened word colour.
 	_check(red.get_theme_color("font_color") == UI.Palette.BAD, "a red word on a slate is the readable word red")
 	_check((note.get_child(0) as Label).get_theme_color("font_color") == WoodKit.SOFT, "a note on a slate is see-through: chalk")
-	_check(on_sticky.get_theme_color("font_color") == UI.FG, "a word on a sticky keeps its ink")
+	# S496 ONELOOK1: a note (Sticky) is a dark tile with a coloured edge now, so its words are chalk.
+	_check(on_sticky.get_theme_color("font_color") == WoodKit.INK, "a word on a note is chalk")
 	# S420: since df7fe37a (S419, operator "the white in the picture doesn blend") a tag is see-through on a slate, so its
 	# quiet word turns the quiet chalk like any other (it read UI.MUTED while tags were cream).
 	_check((chip.get_child(0) as Label).get_theme_color("font_color") == WoodKit.SOFT, "a tag on a slate is the quiet chalk")
 	_check(in_dark.get_theme_color("font_color") == WoodKit.INK, "a word laid in a dark plank is chalk")
 	_check(in_light.get_theme_color("font_color") == UI.FG, "a word laid in the light plank keeps its ink")
 	_check(link.get_theme_color("font_color") == WoodKit.BLUE, "a link on a slate is the light blue")
-	_check(on_paper.get_theme_color("font_color") == UI.FG, "a word on a paper panel keeps its ink")
+	_check(on_paper.get_theme_color("font_color") == UI.FG, "a word on a light plate keeps its ink")
 	_check(wall.get_theme_color("font_color") == UI.FG, "this pass leaves a word on the wall alone")
-	_check(WoodKit.on_dark(plain) and not WoodKit.on_dark(on_sticky) and not WoodKit.on_dark(on_paper),
+	_check(WoodKit.on_dark(plain) and WoodKit.on_dark(on_sticky) and not WoodKit.on_dark(on_paper),
 		"a drawn control reads the surface behind it")
 	_check(WoodKit.fg(plain) == WoodKit.INK and WoodKit.fg(on_paper) == UI.FG, "and takes its ink from it")
 

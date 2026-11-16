@@ -5,6 +5,7 @@ extends RefCounted
 ##   Shapes.stamp(fighter, move_id) - the FireLevel chip (combinations and steps), or null
 ##   Shapes.Diamond.new() - an IF (dashed = the "+ Add an IF" slot); on_click is called on a left click
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 
 const UI := preload("res://scripts/ui/UI.gd")
 const SM := preload("res://scripts/rules/StrikeMap.gd")
@@ -59,7 +60,7 @@ static func stamp(f: Dictionary, mid: String) -> Control:
 
 ## The chart's wires: a curve from the bell box to each diamond, an arrow from each diamond to its answer.
 class Wires extends Control:
-	var colour := Color.BLUE
+	var colour := Palette.ACCENT
 	var curves: Array = []   # [from, to, dashed]
 	var arrows: Array = []   # [from, to]
 
@@ -91,8 +92,8 @@ class Wires extends Control:
 
 ## A diamond (the IF). Dashed = the "+ Add an IF" slot. Clicking it calls on_click.
 class Diamond extends Control:
-	var fill := Color.WHITE
-	var edge := Color.BLUE
+	var fill := Palette.TEXT
+	var edge := Palette.ACCENT
 	var dashed := false
 	var on_click: Callable
 
@@ -108,7 +109,7 @@ class Diamond extends Control:
 	func _draw() -> void:
 		var s := size
 		var pts := PackedVector2Array([Vector2(s.x / 2, 0), Vector2(s.x, s.y / 2), Vector2(s.x / 2, s.y), Vector2(0, s.y / 2)])
-		draw_colored_polygon(pts, Color.WHITE if not dashed else fill)
+		draw_colored_polygon(pts, Palette.TEXT if not dashed else fill)
 		pts.append(pts[0])
 		if dashed:
 			for k in 4:

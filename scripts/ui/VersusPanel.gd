@@ -5,6 +5,7 @@ extends RefCounted
 ## stake, the file and the terms stay one click away on the full report (BoutPage).
 ##   VersusPanel.build(main, c, f, o, opp, offer_id, wf, answer) -> Control
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const BoutCompare := preload("res://scripts/ui/BoutCompare.gd")
@@ -21,7 +22,7 @@ const ClubCrest := preload("res://scripts/rules/ClubCrest.gd")
 const VersusLive := preload("res://scripts/ui/VersusLive.gd")
 const TapeRows := preload("res://scripts/rules/TapeRows.gd")
 const CARD_W := 640.0
-const NAME_COLOUR := Color("#f6dfb4")
+const NAME_COLOUR := Palette.TEXT
 ## Bodies baked in the blue kit by default (tools/bake_hub_sprites.gd BLUE_STEMS); their "_alt" picture is the red kit, and the
 ## other way round for the rest.
 const BLUE_KIT := ["02", "08", "12", "14", "17", "20", "23"]
@@ -94,10 +95,10 @@ static func side(who: String, sub: String, stem: String, corner: String, tag_tex
 	var align := HORIZONTAL_ALIGNMENT_RIGHT if right else HORIZONTAL_ALIGNMENT_LEFT
 	var title := UI.display(who, 56, NAME_COLOUR)
 	title.horizontal_alignment = align
-	title.add_theme_color_override("font_shadow_color", Color(0, 0, 0, 0.55))
+	title.add_theme_color_override("font_shadow_color", Color(Palette.PAGE, 0.55))
 	title.add_theme_constant_override("shadow_offset_y", 3)
 	words.add_child(title)
-	var small := UI.label(sub, sub_px, Color.WHITE, "semi")
+	var small := UI.label(sub, sub_px, Palette.TEXT, "semi")
 	small.horizontal_alignment = align
 	words.add_child(small)
 	col.add_child(words)
@@ -118,7 +119,7 @@ static func _crest(crest: String, right: bool, bleed: bool = true) -> TextureRec
 	t.offset_left = outward
 	# The offer can bleed past its half. A full-screen page stops at x 1920, so the right crest stays inside.
 	t.offset_right = outward if bleed or not right else 0.0
-	t.modulate = Color(1, 1, 1, 0.26)
+	t.modulate = Color(Palette.FULL, 0.26)
 	t.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	return t
 
@@ -127,7 +128,7 @@ static func _tag(text: String, right: bool, px: int = 17, foot: float = 0.0) -> 
 	var p := PanelContainer.new()
 	p.name = "CornerTag"
 	# S419: chalk on the red or blue side. Fight night (foot > 0) puts it on a dark plate, 16 px under the figure.
-	var bg := Color(0.07, 0.05, 0.04, 0.88) if foot > 0.0 else Color(1, 1, 1, 0.04)
+	var bg := Color(Palette.PAGE, 0.88) if foot > 0.0 else Color(Palette.TEXT, 0.04)
 	p.add_theme_stylebox_override("panel", UI.box(bg, Color(WoodKit.SOFT, 0.35), 4, 1, 14, 8))
 	p.add_child(UI.label(text, px, WoodKit.INK, "bold"))
 	p.anchor_top = 1.0
@@ -244,7 +245,7 @@ static func _read(c: Career, f: Dictionary, opp: Dictionary, day: int) -> Contro
 	var read := BoutCompare.win_read(c, f, opp, BoutRead.camp_for(f, day - c.day))
 	var p := PanelContainer.new()
 	p.name = "VersusRead"
-	p.add_theme_stylebox_override("panel", UI.box(Color(1, 1, 1, 0.04), Color(WoodKit.SOFT, 0.35), 4, 1, 14, 10))
+	p.add_theme_stylebox_override("panel", UI.box(Color(Palette.TEXT, 0.04), Color(WoodKit.SOFT, 0.35), 4, 1, 14, 10))
 	var h := UI.hbox(12)
 	p.add_child(h)
 	var num := UI.mono("%d%%" % int(read["mid"]), 34, UI.GREEN if int(read["lo"]) >= 50 else (UI.RED if int(read["hi"]) <= 50 else UI.FG))

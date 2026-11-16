@@ -223,7 +223,7 @@ func _pads(c: Career, v: VBoxContainer, fr: Dictionary, t: float, step: float, s
 ## The week's surprise on a yellow sticky note, a little askew, in marker: red for an injury, marker blue for the rest.
 func _headline(head: Dictionary) -> PanelContainer:
 	var p := PanelContainer.new()
-	p.add_theme_stylebox_override("panel", UI.box(UI.YELLOW, UI.YELLOW_EDGE, 3, 1, 28, 14))
+	p.theme_type_variation = "Sticky"   # S498 ONELOOK1: the kit's note (was a yellow paper sticky)
 	p.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	var l := UI.label(str(head["text"]), 30, UI.RED if head["kind"] == "injury" else UI.GOLD, "marker", true)
 	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER

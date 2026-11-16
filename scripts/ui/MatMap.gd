@@ -6,26 +6,27 @@ extends Control
 ## lands. A HOLE stamp on every position where Ana owns no move out. Positions are Tree_<node>, arrows MapEdge_<edge>.
 ##   map.setup(f, info (MatTreeInfo.map_nodes), steps, sel, holes, on_node(node), on_edge(eid), on_hover(eid or ""))
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const BjjTree := preload("res://scripts/rules/BjjTree.gd")
 const Info := preload("res://scripts/ui/MatTreeInfo.gd")
 const MatGlyph := preload("res://scripts/ui/MatGlyph.gd")
 
-const BG := Color("#1d1e22")
-const BOX := Color("#2a2c31")
-const INK := Color("#ffd54a")
-const FELT := Color(1.0, 0.835, 0.29, 0.55)
-const LEARN := Color("#8d929c")
-const AHEAD := Color("#a98bff")
-const BASE := Color(0.84, 0.85, 0.87, 0.55)
-const MISS := Color("#ff6a5c")
-const TEXT := Color("#eef0f3")
-const DIM := Color("#a3a8b2")
+const BG := Palette.CARD
+const BOX := Palette.CARD
+const INK := Palette.HEADER
+const FELT := Color(Palette.HEADER, 0.55)
+const LEARN := Palette.LINE
+const AHEAD := Palette.ELITE
+const BASE := Color(Palette.TEXT, 0.55)
+const MISS := Palette.BAD
+const TEXT := Palette.TEXT
+const DIM := Palette.LINE
 const TOP := 68.0
 const FOOT := 34.0
 const BOX_H := 40.0
 const STATE_COLOR := {"owned": INK, "signature": INK, "felt": FELT, "learning": LEARN, "ahead": AHEAD, "base": BASE,
-	"illegal": Color("#5d6068")}
+	"illegal": Palette.TILE}
 
 var f: Dictionary = {}
 var info: Dictionary = {}
@@ -150,10 +151,10 @@ func _node_box(n: String) -> void:
 	b.focus_mode = Control.FOCUS_NONE
 	b.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 	var on_plan := (info["plan_nodes"] as Array).has(n)
-	var col := INK if on_plan else Color("#5b5f68")
+	var col := INK if on_plan else Palette.TILE
 	var sb := UI.box(BOX, col, 8, 3 if n == sel else (2 if on_plan else 1), 6, 4)
 	if n == sel:
-		sb.shadow_color = Color(1.0, 0.84, 0.3, 0.35)
+		sb.shadow_color = Color(Palette.HEADER, 0.35)
 		sb.shadow_size = 6
 	for st in ["normal", "hover", "pressed", "focus"]:
 		b.add_theme_stylebox_override(st, sb)
@@ -177,7 +178,7 @@ func _node_box(n: String) -> void:
 	if holes.has(n):
 		var stamp := PanelContainer.new()
 		stamp.name = "Hole_" + n
-		stamp.add_theme_stylebox_override("panel", UI.box(Color(0.89, 0.28, 0.24, 0.12), MISS, 3, 2, 5, 0))
+		stamp.add_theme_stylebox_override("panel", UI.box(Color(Palette.BAD_FILL, 0.12), MISS, 3, 2, 5, 0))
 		stamp.add_child(UI.label("HOLE", 12, MISS, "bold"))
 		stamp.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		stamp.position = Vector2(r.end.x - 46.0, r.position.y - 16.0)
@@ -304,7 +305,7 @@ func _free_spot(a: Vector2, b: Vector2, sz: Vector2, fallback: bool = true) -> V
 
 
 func _draw() -> void:
-	draw_style_box(UI.box(BG, Color(0, 0, 0, 0), 12, 0, 0, 0), Rect2(Vector2.ZERO, size))
+	draw_style_box(UI.box(BG, Color(Palette.PAGE, 0), 12, 0, 0, 0), Rect2(Vector2.ZERO, size))
 	if not _built:
 		return
 	for id in info["miss"]:
@@ -323,7 +324,7 @@ func _draw() -> void:
 		var on_plan := steps.has(id)
 		var w := 3.0 if st in ["owned", "signature"] else (2.5 if st == "felt" else 1.6)
 		if on_plan:
-			draw_line(pe[0], pe[1], Color(1.0, 0.84, 0.3, 0.22), 12.0, true)
+			draw_line(pe[0], pe[1], Color(Palette.HEADER, 0.22), 12.0, true)
 			col = INK if st != "felt" else Color(INK, 0.8)
 			w = 4.0
 		if st in ["ahead", "illegal"]:

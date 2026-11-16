@@ -3,7 +3,8 @@ extends PanelContainer
 ## 5.1) or in its top-right corner (a plan card whose miss is costly: the opponent owns the answer and the miss lands in a
 ## hole or hands over 2+ points, design 7). The panel itself is the stylebox the caller sets.
 
-const DASH_RED := Color("#e2483d")
+const Palette := preload("res://scripts/ui/Palette.gd")
+const DASH_RED := Palette.BAD_FILL
 
 var dash := false     # the red dashed outline
 var corner := false   # the red dashed top-right corner

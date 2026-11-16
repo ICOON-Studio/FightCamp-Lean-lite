@@ -7,6 +7,7 @@ extends RefCounted
 ## the viewer's right).
 ##   build(c, f, w) -> Control (w wide, 1.45 x w tall) or null with no bout booked
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const Faces := preload("res://scripts/rules/Faces.gd")
@@ -18,18 +19,18 @@ const FaceFrame := preload("res://scripts/ui/FaceFrame.gd")
 const BEBAS := "res://assets/fonts/BebasNeue-Regular.ttf"
 const FACES := "res://assets/ui/face/poster"   # S387 tools/poster_faces.py: head and shoulders, backdrop keyed out, tones stretched
 
-const INK := Color("#1b1918")
+const INK := Palette.PAGE
 const TALL := 1.45
 ## S391 C237 ("needs some more info displayed like the rankings, and also a bit of variety like the ufc posters"): each bout
 ## draws its own paper, accent, headline and layout from its names, so a run of cards does not look like one card.
 const LOOKS := [
-	{"paper": Color("#f3ead6"), "accent": Color("#c8302a"), "head": "AMATEUR BOXING", "names_first": false},
-	{"paper": Color("#e6ebee"), "accent": Color("#1f4f9c"), "head": "FIGHT NIGHT", "names_first": true},
-	{"paper": Color("#f2e3b8"), "accent": Color("#1b1918"), "head": "%s FIGHT NIGHT", "names_first": false},
-	{"paper": Color("#efe2dc"), "accent": Color("#8a1f3d"), "head": "MAIN EVENT", "names_first": true},
+	{"paper": Palette.TEXT, "accent": Palette.BAD_FILL, "head": "AMATEUR BOXING", "names_first": false},
+	{"paper": Palette.TEXT, "accent": Palette.ACCENT, "head": "FIGHT NIGHT", "names_first": true},
+	{"paper": Palette.TEXT, "accent": Palette.PAGE, "head": "%s FIGHT NIGHT", "names_first": false},
+	{"paper": Palette.TEXT, "accent": Palette.ACTION, "head": "MAIN EVENT", "names_first": true},
 ]
-static var PAPER := Color("#f3ead6")
-static var RED := Color("#c8302a")
+static var PAPER := Palette.TEXT
+static var RED := Palette.BAD_FILL
 
 
 static func build(c: Career, f: Dictionary, w: float = 380.0) -> Control:
@@ -134,7 +135,7 @@ static func _stub(date: String, place: String, k: float) -> VBoxContainer:
 	tear.clip_text = true
 	s.add_child(tear)
 	var band := PanelContainer.new()
-	band.add_theme_stylebox_override("panel", UI.box(INK, Color(0, 0, 0, 0), 0, 0, roundi(10 * k), roundi(6 * k)))
+	band.add_theme_stylebox_override("panel", UI.box(INK, Color(Palette.PAGE, 0), 0, 0, roundi(10 * k), roundi(6 * k)))
 	var bv := UI.vbox(0)
 	band.add_child(bv)
 	bv.add_child(_text(date, 26 * k, PAPER, true))

@@ -4,11 +4,12 @@ extends Control
 ## in green (more); the change in words under it. Used by Tips cards through spec "meter". Sized by the Text size setting.
 ##   TipMeter.make({shift: int, caption: String, span: int = 30}) -> TipMeter    TipMeter.words(shift) -> String
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const TextScale := preload("res://scripts/ui/TextScale.gd")
-const GOOD := Color("#1c6e43")
-const BAD := Color("#a8261f")
-const TRACK := Color("#e2ded4")
-const INK := Color("#1f2a44")
+const GOOD := Palette.GOOD_FILL
+const BAD := Palette.ACTION
+const TRACK := Palette.TEXT
+const INK := Palette.CARD
 const W := 330.0
 const H := 74.0
 

@@ -4,7 +4,11 @@ extends SceneTree
 ## Add -- write to create/refresh the baseline.
 
 const ROOTS: Array[String] = ["res://scripts/ui", "res://scripts/fight3d"]
-const EXEMPT_FILES: Array[String] = ["res://scripts/ui/Palette.gd", "res://scripts/ui/IsoGym.gd"]
+## S496 ONELOOK1: depiction, not screen chrome - the 3D ring, lights and people, the cuts on a face (tools/palette_sweep.py DEPICTION).
+const EXEMPT_FILES: Array[String] = ["res://scripts/ui/Palette.gd", "res://scripts/ui/IsoGym.gd",
+	"res://scripts/fight3d/RingSet.gd", "res://scripts/fight3d/MHRig.gd", "res://scripts/fight3d/MovePlayer.gd",
+	"res://scripts/fight3d/MoveStudio.gd", "res://scripts/fight3d/Referee.gd", "res://scripts/fight3d/CornerCrew.gd",
+	"res://scripts/ui/FaceMarks.gd", "res://scripts/fight3d/FaceFill.gd", "res://scripts/fight3d/PadWork.gd"]
 const EXEMPT_TEXT: Array[String] = ["StandardMaterial3D", "ShaderMaterial", "ORMMaterial3D"]
 const BASELINE_PATH := "res://tests/palette_baseline.json"
 

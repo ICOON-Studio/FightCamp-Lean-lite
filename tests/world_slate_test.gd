@@ -106,10 +106,9 @@ func _plate(panel: PanelContainer, what: String) -> void:
 	if panel == null:
 		_check(false, "%s is a framed slate" % what)
 		return
-	var sb := panel.get_theme_stylebox("panel") as StyleBoxTexture
-	var path := "" if sb == null or sb.texture == null else str(sb.texture.resource_path)
-	print("WORLD_SLATE %s plate %s" % [what, path])
-	_check(path.ends_with("wood/panel.png"), "%s is a framed slate (%s)" % [what, path])
+	var sb := panel.get_theme_stylebox("panel")
+	print("WORLD_SLATE %s plate %s" % [what, sb.get_class() if sb != null else "none"])
+	_check(WoodKit.is_panel(sb), "%s is the house panel" % what)
 
 
 func _see_through(panel: PanelContainer, what: String) -> void:

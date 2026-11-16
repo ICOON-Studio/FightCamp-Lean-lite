@@ -4,6 +4,7 @@ extends RefCounted
 ## colours come from UI / WoodKit only; pins and rings keep their own size inside the row (round, never stretched).
 ## S440 round 2 (fixer): the rings tween like the bars; the need badge carries a drawn envelope; the key line under the rows.
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const Halo := preload("res://scripts/ui/Halo.gd")
@@ -185,7 +186,7 @@ static func name_plate(text: String) -> PanelContainer:
 	p.name = "NamePlate"
 	p.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	p.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
-	p.add_theme_stylebox_override("panel", UI.box(NAVY, Color(0, 0, 0, 0), 8, 0, 12, 4))
+	p.add_theme_stylebox_override("panel", UI.box(NAVY, Color(Palette.PAGE, 0), 8, 0, 12, 4))
 	var l := ink(text, 22, WoodKit.INK, "bold")
 	l.name = "Name"
 	p.add_child(l)
@@ -231,7 +232,7 @@ static func _swatch(col: Color, w: float, radius: int, h: float = -1.0) -> Panel
 	var p := Panel.new()
 	p.custom_minimum_size = Vector2(w, w if h < 0.0 else h)
 	p.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	p.add_theme_stylebox_override("panel", UI.box(col, Color(0, 0, 0, 0), radius, 0, 0, 0))
+	p.add_theme_stylebox_override("panel", UI.box(col, Color(Palette.PAGE, 0), radius, 0, 0, 0))
 	return p
 
 
@@ -244,11 +245,11 @@ static func _gap() -> Control:
 
 static func need_wash() -> StyleBoxFlat:
 	# The warm red-brown plate behind a row that needs the player (UI.RED, darkened and see-through).
-	return UI.box(Color(UI.RED.darkened(0.45), 0.34), Color(0, 0, 0, 0), 16, 0, 0, 0)
+	return UI.box(Color(UI.RED.darkened(0.45), 0.34), Color(Palette.PAGE, 0), 16, 0, 0, 0)
 
 
 static func row_line() -> StyleBoxFlat:
-	var s := UI.box(Color(0, 0, 0, 0), Color(WoodKit.INK, 0.10), 0, 0, 0, 0)
+	var s := UI.box(Color(Palette.PAGE, 0), Color(WoodKit.INK, 0.10), 0, 0, 0, 0)
 	s.border_width_bottom = 1
 	return s
 
@@ -281,7 +282,7 @@ class Dial extends Control:
 
 class UprightBar extends Control:
 	var value := 0.0
-	var colour := Color.WHITE
+	var colour := Palette.TEXT
 	var gold_dot := false
 	var grow := 0.0:
 		set(v):
@@ -307,7 +308,7 @@ class TickBar extends Control:
 	var value := 0.0
 	## Where the white tick sits (0-100); below 0 or from 100 there is no tick (the mood bar has none).
 	var tick_at := 80.0
-	var colour := Color.WHITE
+	var colour := Palette.TEXT
 	var show_zone := false
 	var grow := 0.0:
 		set(v):

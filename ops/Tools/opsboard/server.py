@@ -2254,10 +2254,33 @@ class Handler(BaseHTTPRequestHandler):
             self._send(200 if page.is_file() else 500, page.read_bytes() if page.is_file() else b"review.html missing",
                        "text/html; charset=utf-8")
             return
+        if path in ("/map", "/map.html", "/api/map", "/map/img"):
+            ## S499 operator: "miro subscription has been stop ... can you create something like miro for our project" -
+            ## our own map: frames + pictures + his sticky notes (Tools/opsboard/map_board.py, AgentComms/map/).
+            import map_board
+            from urllib.parse import parse_qs
+            try:
+                if path == "/api/map":
+                    self._json(200, map_board.board())
+                elif path == "/map/img":
+                    q = parse_qs(urlparse(self.path).query)
+                    full = map_board.image_path(q.get("p", [""])[0])
+                    if full is None:
+                        self._send(404, b"not found\n", "text/plain; charset=utf-8")
+                    elif q.get("t"):
+                        self._send(200, map_board.thumb(full).read_bytes(), "image/jpeg")
+                    else:
+                        self._send(200, full.read_bytes(), map_board.IMG_TYPES[full.suffix.lower()])
+                else:
+                    page = ROOT / "Tools" / "opsboard" / "map.html"
+                    self._send(200, page.read_bytes(), "text/html; charset=utf-8")
+            except Exception as exc:
+                self._json(500, {"error": str(exc), "trace": traceback.format_exc()})
+            return
         if path == "/api/media":
             import media_review
             from urllib.parse import parse_qs
-            folder = parse_qs(urlparse(self.path).query).get("folder", [""])[0]
+            folder =parse_qs(urlparse(self.path).query).get("folder", [""])[0]
             try:
                 if folder:
                     self._json(200, {"folder": folder, "files": media_review.folder_files(ROOT, MEDIA_ROOT, folder)})
@@ -2479,6 +2502,19 @@ class Handler(BaseHTTPRequestHandler):
             return
         if path == "/markup/save":
             self._markup_save()
+            return
+        if path == "/api/map/note":
+            ## S499 the map's sticky notes: the page saves each one here (Tools/opsboard/map_board.py note_op).
+            import map_board
+            length = int(self.headers.get("Content-Length", "0") or "0")
+            if length > 8_000:
+                self._json(413, {"ok": False, "error": "note too long"})
+                return
+            try:
+                payload = json.loads((self.rfile.read(length) if length else b"{}").decode("utf-8"))
+                self._json(200, map_board.note_op(payload if isinstance(payload, dict) else {}))
+            except (UnicodeDecodeError, json.JSONDecodeError, ValueError, TypeError) as exc:
+                self._json(400, {"ok": False, "error": f"bad note: {exc}"})
             return
         if path in ("/api/media_remove", "/api/media_restore", "/api/media_remove_older"):
             ## S223 operator: "add option for me to remove the old pictures from the opsboard" - moves, never deletes.

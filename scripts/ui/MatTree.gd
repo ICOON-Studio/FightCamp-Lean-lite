@@ -15,6 +15,7 @@ extends VBoxContainer
 ##   LEAKS  the 3 holes the next field walks Ana into (Leak_<n>), each with one Drill (LeakDrill_<n>).
 ##   MatTree.make(main, f, day, play_edge: Callable(eid), width) -> VBoxContainer
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const BjjTree := preload("res://scripts/rules/BjjTree.gd")
 const Info := preload("res://scripts/ui/MatTreeInfo.gd")
@@ -23,7 +24,7 @@ const Halo := preload("res://scripts/ui/Halo.gd")
 const MatCard := preload("res://scripts/ui/MatCard.gd")
 const MatMap := preload("res://scripts/ui/MatMap.gd")
 const PICS := "res://assets/ui/moves/%s.png"
-const CHARCOAL := Color("#26272b")
+const CHARCOAL := Palette.CARD
 const GOAL_GLYPH := {"back": "back_take", "mount": "transition", "legs": "submission", "points": "takedown"}
 const WORD_CHIP := {"LIKELY": "green", "EVEN": "amber", "LONG SHOT": "red"}
 const NODE_W := 66.0
@@ -97,7 +98,7 @@ func _build() -> void:
 	_tip.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_tip.custom_minimum_size = Vector2(TIP_W, 0)
 	var sb := UI.box(UI.PANEL, UI.FG, 8, 2, 12, 8)
-	sb.shadow_color = Color(0, 0, 0, 0.2)
+	sb.shadow_color = Color(Palette.PAGE, 0.2)
 	sb.shadow_size = 8
 	_tip.add_theme_stylebox_override("panel", sb)
 	add_child(_tip)
@@ -257,13 +258,13 @@ func _node_card(n: String, k: int) -> Control:
 	p.name = "PlanNode_%d" % k
 	p.custom_minimum_size = Vector2(NODE_W, STRIP_H - 14.0)
 	var on := n == sel()
-	p.add_theme_stylebox_override("panel", UI.box(CHARCOAL, Color(0, 0, 0, 0), 8, 2, 4, 8)); _mark(p, on, Color("#ffd54a"), 8.0, true)
+	p.add_theme_stylebox_override("panel", UI.box(CHARCOAL, Color(Palette.PAGE, 0), 8, 2, 4, 8)); _mark(p, on, Palette.HEADER, 8.0, true)
 	var v := UI.vbox(8)
 	v.alignment = BoxContainer.ALIGNMENT_CENTER
 	v.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	v.add_child(MatGlyph.make(MatGlyph.node_kind(n, str(BjjTree.node(n).get("side", ""))), Vector2(NODE_W - 8.0, 56)))
 	var nm := "ANA WINS BY TAP" if n == "tap_win" else str(BjjTree.node(n).get("name", n)).to_upper()
-	var l := UI.label(nm, 11, Color("#eef0f3"), "display", true)
+	var l := UI.label(nm, 11, Palette.TEXT, "display", true)
 	l.autowrap_mode = TextServer.AUTOWRAP_WORD
 	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	v.add_child(l)
@@ -281,7 +282,7 @@ func _edge_card(i: int, ew: float) -> Control:
 	card.name = "Plan_%d" % i
 	card.corner = bool(inf["costly"])
 	card.custom_minimum_size = Vector2(ew, STRIP_H - 14.0)
-	card.add_theme_stylebox_override("panel", UI.box(UI.PANEL, UI.LINE, 8, 2, 0, 0)); _mark(card, not bool(inf["base"]), Color("#ffd54a"), 8.0, false)
+	card.add_theme_stylebox_override("panel", UI.box(UI.PANEL, UI.LINE, 8, 2, 0, 0)); _mark(card, not bool(inf["base"]), Palette.HEADER, 8.0, false)
 	var b := Button.new()
 	b.name = "Edge_" + str(inf["id"])
 	b.flat = true
@@ -319,7 +320,7 @@ func _edge_card(i: int, ew: float) -> Control:
 		pic.add_child(fc)
 	if not bool(inf["base"]):
 		var num := PanelContainer.new()
-		num.add_theme_stylebox_override("panel", UI.box(Color("#ffd54a"), CHARCOAL, 11, 2, 6, 0))
+		num.add_theme_stylebox_override("panel", UI.box(Palette.HEADER, CHARCOAL, 11, 2, 6, 0))
 		num.add_child(UI.label(str(inf["step"]), 13, CHARCOAL, "bold"))
 		num.position = Vector2(6, 6)
 		num.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -478,7 +479,7 @@ func _leak_tile(n: int, lk: Dictionary) -> Control:
 	card.dash = true
 	card.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	card.custom_minimum_size = Vector2(0, 96)
-	card.add_theme_stylebox_override("panel", UI.box(UI.PANEL, Color(0, 0, 0, 0), 8, 0, 8, 8))
+	card.add_theme_stylebox_override("panel", UI.box(UI.PANEL, Color(Palette.PAGE, 0), 8, 0, 8, 8))
 	var h := UI.hbox(8)
 	var node := str(lk["node"])
 	h.add_child(MatGlyph.make(MatGlyph.node_kind(node, str(BjjTree.node(node).get("side", ""))), Vector2(64, 64)))

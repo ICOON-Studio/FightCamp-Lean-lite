@@ -1,6 +1,7 @@
 extends Control
 ## Live-round readouts. One strip each side of the scoreboard: name, mode, three horizontal bars.
 ## The heard pips and the opponent habit card dock into the bottom bar. The figures stand free of these strips.
+const Palette := preload("res://scripts/ui/Palette.gd")
 const TV := preload("res://scripts/ui/TV.gd")
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const BodyMap := preload("res://scripts/rules/BodyMap.gd")
@@ -13,7 +14,7 @@ const CornerTrust := preload("res://scripts/rules/CornerTrust.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const EnergyForecast := preload("res://scripts/rules/EnergyForecast.gd")
 const Drawn := preload("res://scripts/fight3d/BodyPanels.gd")
-const RED := Color("#e2483d")
+const RED := Palette.BAD_FILL
 const BAND_RANK := {"doctor": 0, "critical": 1, "hurt": 2, "fine": 3}
 ## S491 operator ("wtf is eye"): the tag read a bare place name ("EYE") even on a fresh boxer. Now it says what is wrong in
 ## words, and stays blank while nothing is hurt.
@@ -155,7 +156,7 @@ func _mount() -> void:
 	_at(_tag, 372, 6, 214, 32)
 	_chip = _lab("", 22, WoodKit.INK, "PlanChip" if side == 0 else "HabitChip")
 	_at(_chip, 8, 44, 560, 30)
-	var colours: Array = [WoodKit.HEAD, Color("#5ac76a"), WoodKit.BLUE]
+	var colours: Array = [WoodKit.HEAD, Palette.GOOD, WoodKit.BLUE]
 	var nums: Array = []
 	for i in 3:
 		var y := 78.0 + float(i) * 34.0
@@ -194,7 +195,7 @@ func _opp_bottom() -> void:
 	_habit_card.name = "HabitCard"
 	_habit_card.mouse_filter = Control.MOUSE_FILTER_PASS
 	var sb := StyleBoxFlat.new()
-	sb.bg_color = Color("#241b14")
+	sb.bg_color = Palette.HOVER
 	sb.border_color = WoodKit.HEAD
 	sb.set_border_width_all(2)
 	sb.set_corner_radius_all(10)

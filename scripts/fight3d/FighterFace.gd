@@ -5,6 +5,7 @@ extends RefCounted
 ## MetaHuman; nothing is generated. `-- nolook` on the command line skips all of it (the control arm: the body as on main).
 ##   apply(body, skel, look, glb) -> {"eyes": [ShaderMaterial]}    crew(crew_node, stage) - the corner team's eyes and skin
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const EYE_SHADER := "res://assets/shaders/mh_eye.gdshader"
 const SKIN_SHADER := "res://assets/models/metahuman/mh_skin.gdshader"
 ## Where each scar sits on the face, in the body's rest space (metres; the face looks down +Z, eyes at y 1.587, x +-0.0305).
@@ -163,7 +164,7 @@ static func _scars(skel: Skeleton3D, spots: Array) -> void:
 			continue
 		var d := Decal.new()
 		d.texture_albedo = _scar()
-		d.modulate = Color(1.0, 0.86, 0.82, 0.85)
+		d.modulate = Color(Palette.TEXT, 0.85)
 		var sz: Vector2 = row[2]
 		d.size = Vector3(sz.x, 0.05, sz.y * 2.2)
 		d.upper_fade = 0.2
@@ -187,7 +188,7 @@ static func _scar() -> Texture2D:
 			var along := 1.0 - pow(absf(u), 3.0)
 			var across := exp(-v * v * 9.0)
 			var a := clampf(along * across, 0.0, 1.0)
-			img.set_pixel(x, y, Color(0.93, 0.78, 0.74, a))
+			img.set_pixel(x, y, Color(Palette.TEXT, a))
 	_scar_tex = ImageTexture.create_from_image(img)
 	return _scar_tex
 
@@ -196,7 +197,7 @@ static func _scar() -> Texture2D:
 static func _skin_tone(glb: String) -> Color:
 	var p := glb.get_basename() + ".json"
 	if glb.is_empty() or not FileAccess.file_exists(p):
-		return Color("#a8704a")
+		return Palette.CHOSEN
 	var d: Variant = JSON.parse_string(FileAccess.get_file_as_string(p))
 	if d is Dictionary:
 		var rgb: Variant = (d as Dictionary).get("skin_neck_rgb", null)
@@ -204,4 +205,4 @@ static func _skin_tone(glb: String) -> Color:
 			return Color8(int(rgb[0]), int(rgb[1]), int(rgb[2]))
 		if str((d as Dictionary).get("skin", "")).begins_with("#"):
 			return Color(str((d as Dictionary)["skin"]))
-	return Color("#a8704a")
+	return Palette.CHOSEN

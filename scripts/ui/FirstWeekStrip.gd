@@ -6,6 +6,7 @@ extends RefCounted
 ## Every reason is a rule the game runs: the coach share (Sim.NO_COACH_RATING), the show's weight forecast (Sim.weigh_forecast),
 ## the assistant's plan at the bell (CoachPlan), the club tasks (FirstHour.tasks).
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const FirstWeek := preload("res://scripts/rules/FirstWeek.gd")
 const FirstHour := preload("res://scripts/rules/FirstHour.gd")
@@ -17,9 +18,9 @@ const PORTRAIT := "res://assets/ui/art/guide_trainer.png"
 const PORTRAIT_PX := 190.0
 const TAIL_W := 24.0
 const BUBBLE_TEXT_W := 400.0
-const BUBBLE := Color("#262a2d")       # S419 slate (operator: "the white ... doesn blend with the art style of other menus"); was cream
-const BUBBLE_EDGE := Color("#8a6a3d")  # worn brass
-const BUBBLE_INK := Color("#efe6d8")   # chalk (WoodKit.INK)
+const BUBBLE := Palette.CARD       # S419 slate (operator: "the white ... doesn blend with the art style of other menus"); was cream
+const BUBBLE_EDGE := Palette.CHOSEN  # worn brass
+const BUBBLE_INK := Palette.TEXT   # chalk (WoodKit.INK)
 
 const PREP_TAB := 5   # FighterPage "Fight prep"
 const PLAYBOOK_TAB := 7

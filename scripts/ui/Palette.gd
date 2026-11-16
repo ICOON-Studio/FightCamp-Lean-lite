@@ -35,8 +35,32 @@ const ELITE := Color("#b08eea")     # 19 the top band
 ## Nothing: a see-through black (Color.TRANSPARENT is see-through WHITE, which fringes when tweened or blended).
 const CLEAR := Color(0, 0, 0, 0)
 
+## No tint: a modulate multiplier that leaves a picture as it is (never a colour on screen). S496 ONELOOK1.
+const FULL := Color(1, 1, 1, 1)
+## A lit band (brighter than its picture: the plan band under the mouse). A multiplier, not a colour on screen.
+const LIT_MUL := Color(1.7, 1.7, 1.7)
+## The gold the Go button's tan tab is tinted with (a multiplier on the wood picture).
+const GO_TINT := Color(1.0, 0.84, 0.46)
+
+## Depiction, not chrome (S496 ONELOOK1): the real belts of the no-gi road, the black belt's red bar, its stripe tape.
+const BELTS := {"white": Color("#f4f5f6"), "blue": Color("#2f5fd0"), "purple": Color("#7b3fc4"),
+	"brown": Color("#7a4a25"), "black": Color("#151515")}
+const BELT_BAR_RED := Color("#c62832")
+const STRIPE_ON := Color(1, 1, 1, 1)
+const STRIPE_OFF := Color("#4a4a4a")
+
+## Every career page sits on ONE wall: the painted gym at ONE exposure (S496 ONELOOK1, operator: "the lightining on some
+## the stills on the board are darker than others"). Was 0.68 on most pages, 0.30 on a fighter's Overview, 1.0 on the bout
+## page, 0.22 on the office. A modulate multiplier on the photo, not a colour on screen.
+const WALL_EXPOSURE := Color(0.68, 0.66, 0.64)
+
 ## Words drawn ON a light fill (the amber warning, the tan chosen tab).
 const ON_LIGHT := PAGE
+## The three inks for words on a LIGHT plate (a tan tab, an amber or gold tag). A page builder writes them; the ink pass
+## (WoodKit.ink) swaps each for its chalk twin - TEXT, MUTED, ACCENT - wherever the word sits on something dark (S496).
+const PAPER_INK := Color("#241f1a")
+const PAPER_MUTED := Color("#5d5243")
+const PAPER_BLUE := Color("#27589e")
 
 # --- the fight's two corners (one each, family J) --------------------------------------------------------------------
 const RED_CORNER := BAD_FILL
@@ -47,7 +71,7 @@ const SHADOW_A := 0.6
 const DIM_A := 0.5
 const SINK_T := 0.4
 ## The gym photo darkened behind a dark page (a modulate multiplier, not a colour on screen).
-const WALL_DARK := Color(0.30, 0.28, 0.27)
+const WALL_DARK := WALL_EXPOSURE   # S496: was 0.30 (the Overview read darker than every other page)
 ## Button states, WoodKit's own multipliers.
 const HOVER_MUL := 1.18
 const PRESS_MUL := 0.78

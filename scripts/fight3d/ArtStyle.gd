@@ -7,6 +7,7 @@ extends Node
 ## gloves, props); the ring pieces the camera fades keep their StandardMaterial3D (built-in toon modes).
 ##   mode() -> "real"|"toon"    watch(stage) -> ArtStyle (null when real)
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const DEFAULT := "real"
 const TOON := "res://assets/shaders/toon.gdshader"
 const TOON_2SIDE := "res://assets/shaders/toon_2side.gdshader"
@@ -221,12 +222,12 @@ static func is_painted_card(tex: Texture2D, body: String) -> bool:
 static func _card_tone(tex: Texture2D) -> Color:
 	var img: Image = tex.get_image()
 	if img == null:
-		return Color(0.1, 0.08, 0.06)
+		return Palette.PAGE
 	img = img.duplicate()
 	if img.is_compressed():
 		img.decompress()
 	img.resize(128, 128, Image.INTERPOLATE_BILINEAR)
-	var c := Color(0, 0, 0)
+	var c := Palette.PAGE
 	var n := 0
 	for y in 128:
 		for x in 128:
@@ -234,21 +235,21 @@ static func _card_tone(tex: Texture2D) -> Color:
 			if px.a > 0.5:
 				c += px
 				n += 1
-	return Color(0.1, 0.08, 0.06) if n == 0 else Color(c.r / n, c.g / n, c.b / n)
+	return Palette.PAGE if n == 0 else Color(c.r / n, c.g / n, c.b / n)
 
 
 ## The skin texture's own mean colour (its 4x4 mip): the tone a toon face is painted in.
 static func _mean_tone(tex: Variant) -> Color:
 	if not (tex is Texture2D):
-		return Color(0.6, 0.45, 0.35)
+		return Palette.CHOSEN
 	var img: Image = (tex as Texture2D).get_image()
 	if img == null:
-		return Color(0.6, 0.45, 0.35)
+		return Palette.CHOSEN
 	img = img.duplicate()
 	if img.is_compressed():
 		img.decompress()
 	img.resize(4, 4, Image.INTERPOLATE_BILINEAR)
-	var c := Color(0, 0, 0)
+	var c := Palette.PAGE
 	for y in 4:
 		for x in 4:
 			c += img.get_pixel(x, y)

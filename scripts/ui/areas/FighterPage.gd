@@ -1,6 +1,7 @@
 extends VBoxContainer
 ## One fighter's page: Overview, Attributes and moves, Body, Record, Camp, Contract and goals.
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const AwardCard := preload("res://scripts/ui/AwardCard.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const FighterProfile := preload("res://scripts/rules/FighterProfile.gd")
@@ -190,8 +191,8 @@ func _study_tile(main: Node, f: Dictionary, c: Dictionary, full: bool, pads: int
 	tile.custom_minimum_size = Vector2(380, 0)
 	tile.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	var sb := StyleBoxFlat.new()
-	sb.bg_color = Color(1, 1, 1, 0.05)
-	sb.border_color = Color(1, 1, 1, 0.18)
+	sb.bg_color = Color(Palette.TEXT, 0.05)
+	sb.border_color = Color(Palette.TEXT, 0.18)
 	sb.set_border_width_all(1)
 	sb.border_width_top = 3
 	sb.set_corner_radius_all(4)

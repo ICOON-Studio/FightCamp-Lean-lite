@@ -7,7 +7,6 @@ extends RefCounted
 const Palette := preload("res://scripts/ui/Palette.gd")   # S493 Q-251 the one palette
 const UI := preload("res://scripts/ui/UI.gd")
 const RankRow := preload("res://scripts/ui/RankRow.gd")
-const WarmKit := preload("res://scripts/ui/WarmKit.gd")
 const Icons := preload("res://scripts/ui/Icons.gd")
 const AttrBoard := preload("res://scripts/ui/AttrBoard.gd")
 const RosterCards := preload("res://scripts/ui/RosterCards.gd")

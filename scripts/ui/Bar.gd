@@ -4,19 +4,20 @@ extends Control
 ## of pips (the menus' meter, UI.meter / UI.stat_row: a fixed width, never stretched across a card), the last pip filled
 ## in part; `marks` = fractions where a threshold sits (a weapon at 30, a signature at 85), drawn as a small tick under it.
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 var frac: float = 0.0:
 	set(value):
 		frac = clampf(value, 0.0, 1.0)
 		queue_redraw()
-var fill: Color = Color("#6cc27a"):
+var fill: Color = Palette.GOOD:
 	set(value):
 		fill = value
 		queue_redraw()
-var track: Color = Color("#dfe6eb")   # S333 look B: a light track on the white boards
+var track: Color = Palette.TEXT   # S333 look B: a light track on the white boards
 var segments := 0
 var gap := 3.0
 var marks: Array = []
-var mark_color := Color("#55626b")
+var mark_color := Palette.TILE
 
 
 func _init() -> void:

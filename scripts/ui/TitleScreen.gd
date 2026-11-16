@@ -3,12 +3,13 @@ extends Control
 ## gym like an old garage": a painted modern club fills the screen, sun and dust move in it, the name lands, the menu arrives
 ## on slanted plates that answer the mouse. No save: New career leads. With a save: Resume leads. The note on an item shows on hover.
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const SaveGame := preload("res://scripts/state/SaveGame.gd")
 const MenuFx := preload("res://scripts/ui/MenuFx.gd")
 
 const ITEM := Vector2(520, 66)
-const NAVY := Color(0.09, 0.14, 0.26, 0.86)
+const NAVY := Color(Palette.CARD, 0.86)
 const SLANT := 26.0
 
 
@@ -25,9 +26,9 @@ func build(main: Node) -> void:
 	add_child(col)
 	var logo := UI.display("FIGHTCAMP", 138, UI.GOLD)
 	logo.name = "Logo"
-	logo.add_theme_color_override("font_outline_color", Color.WHITE)
+	logo.add_theme_color_override("font_outline_color", Palette.TEXT)
 	logo.add_theme_constant_override("outline_size", 14)
-	logo.add_theme_color_override("font_shadow_color", Color(0.05, 0.08, 0.18, 0.55))
+	logo.add_theme_color_override("font_shadow_color", Color(Palette.CARD, 0.55))
 	logo.add_theme_constant_override("shadow_offset_x", 6)
 	logo.add_theme_constant_override("shadow_offset_y", 8)
 	col.add_child(logo)
@@ -78,11 +79,11 @@ func _item(id: String, big: String, note: String, lead: bool, cb: Callable) -> B
 	hot.color = UI.GOLD if lead else UI.RED
 	hot.scale = Vector2(0.0, 1.0)
 	b.add_child(hot)
-	var words := UI.label(big, 34, Color.WHITE, "bold")
+	var words := UI.label(big, 34, Palette.TEXT, "bold")
 	words.position = Vector2(26, 11)
 	words.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	b.add_child(words)
-	var small := UI.label(note, 19, Color.WHITE, "semi")
+	var small := UI.label(note, 19, Palette.TEXT, "semi")
 	small.set_anchors_and_offsets_preset(Control.PRESET_CENTER_RIGHT)
 	small.offset_left = -300
 	small.offset_right = -44

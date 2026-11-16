@@ -6,13 +6,14 @@ extends RefCounted
 ##   GymEquip.bar(main, hub, c)   the strip that says what the floor holds, with Done
 ##   GymEquip.lay(items, corner, k)   each stands where it does on the picture
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const GymSlots := preload("res://scripts/rules/GymSlots.gd")
 const GymPlaces := preload("res://scripts/rules/GymPlaces.gd")
 const GymSpend := preload("res://scripts/state/GymSpend.gd")
 
 const DIR := "res://assets/ui/art/gym_slots/%s.png"
-const NAVY := Color(0.09, 0.14, 0.26, 0.92)
+const NAVY := Color(Palette.CARD, 0.92)
 const GHOST := 0.38
 const GHOST_HOT := 0.85
 
@@ -67,8 +68,8 @@ static func bar(main: Node, hub: Control, c: Career) -> void:
 	hub.add_child(plate)
 	var row := UI.hbox(18)
 	plate.add_child(row)
-	row.add_child(UI.label("Equip the gym", 22, Color.WHITE, "bold"))
-	var room := UI.label(_room(c), 17, Color.WHITE)
+	row.add_child(UI.label("Equip the gym", 22, Palette.TEXT, "bold"))
+	var room := UI.label(_room(c), 17, Palette.TEXT)
 	room.name = "EquipRoom"
 	room.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	row.add_child(room)
@@ -131,5 +132,5 @@ static func _price(s: Dictionary, why: String, coming: bool) -> Control:
 	plate.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
 	plate.grow_horizontal = Control.GROW_DIRECTION_BOTH
 	plate.grow_vertical = Control.GROW_DIRECTION_BOTH
-	plate.add_child(UI.label("Fitters in" if coming else UI.money(int(s["price"])), 16, Color.WHITE, "bold"))
+	plate.add_child(UI.label("Fitters in" if coming else UI.money(int(s["price"])), 16, Palette.TEXT, "bold"))
 	return plate

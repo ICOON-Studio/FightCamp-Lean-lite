@@ -4,6 +4,7 @@ extends RefCounted
 ## scouted prospects underneath. The S396 sortable table stays one click away (Rank, The Road and Goal live there).
 ##   RosterCards.head(parent, main, c)   RosterCards.build(main, c)   RosterCards.body(stem)
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const Data := preload("res://scripts/state/Data.gd")
@@ -24,19 +25,19 @@ const CARD := Vector2(226, 524)
 const ART_H := 330.0
 const SHOWN_PROSPECTS := 4
 ## One colour per weight class, so a class reads at a glance.
-const PALETTE := [Color("#c23b2e"), Color("#2a62c9"), Color("#b7791f"), Color("#178a96"), Color("#1c8a4b"), Color("#7a3fb0")]
+const PALETTE := [Palette.BAD_FILL, Palette.ACCENT, Palette.WARN, Palette.TILE, Palette.GOOD_FILL, Palette.ELITE]
 const PAINT_LIFT := 1.75   # the paint is greyscale and multiplied: above 1 keeps the spot light bright
-const PAPER := Color("#fff8ee")
-const PAPER_DEEP := Color("#f4e9d7")
-const EDGE := Color("#cdbba3")
-const INK := Color("#231f1b")
-const INK_SOFT := Color("#6e6256")
-const CREAM := Color("#e9dfd2")
+const PAPER := Palette.TEXT
+const PAPER_DEEP := Palette.TEXT
+const EDGE := Palette.MUTED
+const INK := Palette.HOVER
+const INK_SOFT := Palette.LINE
+const CREAM := Palette.TEXT
 ## tone -> [tile, ink]. The tile is see-through; the ink is a colour that reads on slate.
 const TILE := {
-	"good": [Color(1, 1, 1, 0.04), UI.GREEN], "ok": [Color(1, 1, 1, 0.04), UI.GREEN],
-	"watch": [Color(1, 1, 1, 0.04), UI.AMBER], "bad": [Color(1, 1, 1, 0.04), UI.RED],
-	"muted": [Color(1, 1, 1, 0.04), WoodKit.SOFT],
+	"good": [Color(Palette.TEXT, 0.04), UI.GREEN], "ok": [Color(Palette.TEXT, 0.04), UI.GREEN],
+	"watch": [Color(Palette.TEXT, 0.04), UI.AMBER], "bad": [Color(Palette.TEXT, 0.04), UI.RED],
+	"muted": [Color(Palette.TEXT, 0.04), WoodKit.SOFT],
 }
 
 ## "rows" (the painted rows, RosterRows) or "cards"; kept while the game runs. S440 (PAGES2B review): the approved
@@ -48,7 +49,8 @@ static var view := "rows"
 static func head(parent: Container, main: Node, c: Career) -> void:
 	var row := UI.hbox(14)
 	row.name = "FightersHead"
-	row.add_child(UI.display("Fighters", 46, Color.WHITE))   # S440 round 2: the painting's title size; the rows start near its y 190
+	row.set_meta("on_dark", true)   # the head stands on the painted gym (dark), not on a card
+	row.add_child(UI.display("Fighters", 46, Palette.TEXT))   # S440 round 2: the painting's title size; the rows start near its y 190
 	var tabs: Array = Data.area("fighters")["tabs"]
 	var now := int(main.route["tab"])
 	for i in tabs.size():
@@ -72,7 +74,7 @@ static func _tab(text: String, on: bool, press: Callable) -> Button:
 	b.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	if not on:   # the off tab's dark ink is lost on the painted gym
 		b.add_theme_color_override("font_color", CREAM)
-		b.add_theme_color_override("font_hover_color", Color.WHITE)
+		b.add_theme_color_override("font_hover_color", Palette.TEXT)
 	return b
 
 
@@ -107,7 +109,7 @@ static func _card(main: Node, c: Career, r: Dictionary) -> Button:
 	b.pressed.connect(main.act.bind("fighter", id))
 	for st in ["normal", "hover", "pressed", "focus"]:
 		var edge := WoodKit.HEAD if st == "hover" else Color(WoodKit.SOFT, 0.45)
-		b.add_theme_stylebox_override(st, UI.box(Color(0.07, 0.06, 0.05, 0.92), edge, 6, 2))
+		b.add_theme_stylebox_override(st, UI.box(Color(Palette.PAGE, 0.92), edge, 6, 2))
 	MenuFx.hover_grow(b, 1.02)
 	var v := UI.vbox(0)
 	v.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -148,7 +150,7 @@ static func _art(main: Node, c: Career, f: Dictionary, grappler: bool, rank: Str
 		pic.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 		pic.offset_top = 8
 		art.add_child(pic)
-	var tag := UI.label(wc.to_upper() + ("  " + rank if rank.begins_with("#") else ""), UI.TINY, Color.WHITE, "caps")
+	var tag := UI.label(wc.to_upper() + ("  " + rank if rank.begins_with("#") else ""), UI.TINY, Palette.TEXT, "caps")
 	tag.position = Vector2(9, 8)
 	art.add_child(tag)
 	if not grappler:
@@ -314,7 +316,7 @@ static func _prospect(main: Node, x: Dictionary) -> Button:
 	for st in ["normal", "hover", "pressed", "focus"]:
 		var hot: bool = st == "hover"
 		var edge := Color(WoodKit.BLUE if hot else WoodKit.SOFT, 1.0 if hot else 0.35)
-		b.add_theme_stylebox_override(st, UI.box(Color(1, 1, 1, 0.04), edge, 4, 2 if hot else 1))
+		b.add_theme_stylebox_override(st, UI.box(Color(Palette.TEXT, 0.04), edge, 4, 2 if hot else 1))
 	var h := UI.hbox(10)
 	h.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	var pic := body(Faces.stem(x), Vector2(112, 150))

@@ -3,6 +3,7 @@ extends Control
 ## round at once). Calls, Say nothing, 2x and the skips sit here. The pick still waits ShoutBar.SHOW_S real
 ## seconds at each exchange; the ring, the pulse and the NOW plate all read that one counter.
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const TV := preload("res://scripts/ui/TV.gd")
 const TextScale := preload("res://scripts/ui/TextScale.gd")
 const Tips := preload("res://scripts/ui/Tips.gd")
@@ -165,7 +166,7 @@ func _rebuild(pv: Dictionary, wide: int) -> void:
 	x += 14.0
 	var div := ColorRect.new()
 	div.name = "PaceAimDivider"
-	div.color = Color("#6b5338")
+	div.color = Palette.WOOD
 	div.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_place(_body, div, x, 8, 3, 72)
 	x += 17.0
@@ -217,8 +218,8 @@ func _call(call: String, sit: String, names: Array, on: bool, wide: float, pv_gr
 	var frame := Panel.new()
 	frame.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var edge := StyleBoxFlat.new()
-	edge.bg_color = Color(0, 0, 0, 0)
-	edge.border_color = Color("#6b5338")
+	edge.bg_color = Color(Palette.PAGE, 0)
+	edge.border_color = Palette.WOOD
 	edge.set_border_width_all(3)
 	edge.set_corner_radius_all(10)
 	frame.add_theme_stylebox_override("panel", edge)
@@ -282,7 +283,7 @@ func _call(call: String, sit: String, names: Array, on: bool, wide: float, pv_gr
 	Tips.card(b, func(): return tip)   # S491 "i have seen better from you . try harder": the house card, odds drawn
 	b.set_meta("tip", tip)   # stills pin it (tools/fight3d_play.gd)
 	var cost := float(row["cost"])
-	var spend := TV.label(_cost_word(cost), 20, WoodKit.HEAD if not on else Color("#6b3d00"), "bold")   # S427: gold on the lit plate could not be read
+	var spend := TV.label(_cost_word(cost), 20, WoodKit.HEAD if not on else Palette.WARN, "bold")   # S427: gold on the lit plate could not be read
 	spend.name = "Cost_" + call
 	spend.set_meta("cost", cost)   # S444 the regroup preview shows it as a number (HudRegroup._costs)
 	spend.set_meta("ink", _shift_ink(signi(roundi(-cost * 10.0)), on))   # S459: dark ink on the lit plate
@@ -299,8 +300,8 @@ func _effects(x: float, pace: String, aim: String, opp: String) -> void:
 	var panel := Panel.new()
 	panel.name = "Effects"
 	var sb := StyleBoxFlat.new()
-	sb.bg_color = Color("#1a1512")
-	sb.border_color = Color("#5a4a3a")
+	sb.bg_color = Palette.PAGE
+	sb.border_color = Palette.WOOD
 	sb.set_border_width_all(2)
 	sb.set_corner_radius_all(10)
 	panel.add_theme_stylebox_override("panel", sb)
@@ -420,10 +421,10 @@ func _fit_short(fit: String) -> String:
 
 func _shift_ink(shift: int, on: bool) -> Color:
 	if shift > 0:
-		return Color("#2f6b2a") if on else Color("#7fd18b")
+		return Palette.GOOD_FILL if on else Palette.GOOD
 	if shift < 0:
-		return Color("#9a2a1a") if on else Color("#ff8a6a")
-	return WoodKit.DARK_INK if on else Color("#d8d0c0")
+		return Palette.ACTION if on else Palette.BAD
+	return WoodKit.DARK_INK if on else Palette.TEXT
 
 
 

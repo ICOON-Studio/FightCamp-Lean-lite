@@ -3,11 +3,12 @@ extends Control
 ## It only shows when the thing is on the open page, never blocks a click, and goes away under a pop-up: the player can still do
 ## anything in any order (operator S275, nothing interrupts).
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const MenuFx := preload("res://scripts/ui/MenuFx.gd")
 const Halo := preload("res://scripts/ui/Halo.gd")
 
-const DIM := Color(0.05, 0.03, 0.02, 0.38)
-const GOLD := Color("#f4c56a")
+const DIM := Color(Palette.PAGE, 0.38)
+const GOLD := Palette.HEADER
 const PAD := 10.0
 const LOOK_EVERY := 12   # frames between searches for the target: the whole page is a big tree
 

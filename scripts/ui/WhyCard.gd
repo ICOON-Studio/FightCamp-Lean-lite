@@ -1,10 +1,11 @@
 extends RefCounted
 ## S388 the Why panel on the result screen (rules/FightWhy.gd): the plan's grade, what it did, what went against the boxer, what to do next.
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/TV.gd")   # fight graphics keep the dark TV look
 const FightWhy := preload("res://scripts/rules/FightWhy.gd")
 
-const GRADE_COL := {"good": Color(0.35, 0.8, 0.5), "mixed": Color(0.95, 0.75, 0.3), "wrong": Color(0.95, 0.4, 0.35), "none": Color(0.7, 0.72, 0.76)}
+const GRADE_COL := {"good": Palette.GOOD, "mixed": Palette.HEADER, "wrong": Palette.BAD, "none": Palette.TEXT}
 
 
 static func build(rounds: Array, first: String, opp: String, rank_words: String = "") -> Control:

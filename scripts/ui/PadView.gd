@@ -3,6 +3,7 @@ extends Control
 ## tools/padwork_still.gd shows build + camera framing; we loop the book combination until Close.
 ##   PadView.open(main, fighter, combo_id)
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const SCRIPT_PATH := "res://scripts/ui/PadView.gd"
 const PadWork := preload("res://scripts/fight3d/PadWork.gd")
 const Faces := preload("res://scripts/rules/Faces.gd")
@@ -40,7 +41,7 @@ func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_STOP
 	var scrim := ColorRect.new()
-	scrim.color = Color(0.04, 0.027, 0.02, 0.72)
+	scrim.color = Color(Palette.PAGE, 0.72)
 	scrim.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	scrim.mouse_filter = Control.MOUSE_FILTER_STOP
 	add_child(scrim)

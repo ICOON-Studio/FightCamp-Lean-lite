@@ -4,6 +4,7 @@ extends RefCounted
 ## reason. Rows that are not built (the cage, the other sports' coaches) are not on the page until they exist.
 ## rank() is pure. draw() only places the rows ClubSpend already built.
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const KitIcon := preload("res://scripts/ui/KitIcon.gd")
@@ -73,7 +74,7 @@ static func _row(it: Dictionary) -> PanelContainer:
 			tip += "\n" + bit.substr(0, 1).to_upper() + bit.substr(1)
 	tag.tooltip_text = tip
 	# See-through, one chalk line under each row: the list reads as a list, not a wall of cards.
-	var skin := UI.box(Color(1, 1, 1, 0), Color(0, 0, 0, 0), 0, 0, 2, 5)
+	var skin := UI.box(Color(Palette.TEXT, 0), Color(Palette.PAGE, 0), 0, 0, 2, 5)
 	skin.border_width_bottom = 1
 	skin.border_color = Color(WoodKit.SOFT, 0.25)
 	tag.add_theme_stylebox_override("panel", skin)
@@ -139,7 +140,7 @@ static func _later(it: Dictionary) -> Control:
 	text.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	row.add_child(text)
 	var title := UI.label("%s, %s" % [it.get("title", ""), it.get("price_text", "")], 16, UI.FG, "bold")
-	title.modulate = Color(1, 1, 1, 0.75)
+	title.modulate = Color(Palette.FULL, 0.75)
 	title.clip_text = true
 	title.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	text.add_child(title)
@@ -166,7 +167,7 @@ static func _short_button(b: Button) -> void:
 static func _tighten(b: Button) -> void:
 	for state in ["normal", "hover", "pressed", "disabled"]:
 		var sb := b.get_theme_stylebox(state)
-		if sb is StyleBoxFlat:
+		if sb is StyleBoxFlat and not UI.WoodKit.is_plate(sb):   # S498: a house plate keeps its size, as the wooden piece did
 			var copy := (sb as StyleBoxFlat).duplicate() as StyleBoxFlat
 			copy.content_margin_top = 1
 			copy.content_margin_bottom = 1

@@ -11,6 +11,7 @@ extends HBoxContainer
 ##   GaugeRow.make(d, before, w) -> GaugeRow "Gauges"   d = GaugeRow.read(fc, f, day)   values() -> `before` for the next draw
 ##   preview(d2) / preview_off()   deltas: {legs|scale|risk: Label}   ghost_delta(id, was, to) -> {text, colour}
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const WB := preload("res://scripts/ui/WhiteboardKit.gd")
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")
@@ -312,7 +313,7 @@ class Dial extends Control:
 				draw_circle(p, rad, WB.RED)
 				var s := str(out_days)
 				var sw := font.get_string_size(s, HORIZONTAL_ALIGNMENT_LEFT, -1, 12).x
-				draw_string(font, p + Vector2(-sw * 0.5, 4.5), s, HORIZONTAL_ALIGNMENT_LEFT, -1, 12, Color.WHITE)
+				draw_string(font, p + Vector2(-sw * 0.5, 4.5), s, HORIZONTAL_ALIGNMENT_LEFT, -1, 12, Palette.TEXT)
 			elif i < lit and out == "":
 				draw_circle(p, rad, col)
 			else:

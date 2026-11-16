@@ -1,73 +1,111 @@
 extends RefCounted
-## S417 the look the operator approved on Q-S294-159 ("Yes, build this look"): wood with brass corners round a slate
-## board, painted wooden tabs and buttons, a plank for the top bar. The pieces are Ludo's blank cuts of the approved
-## concept (docs/mockups/s416/overview_painted_ludo.png), packed by tools/wood_kit_pack.py. UI.theme() builds every
-## card and button from here, so all pages change together; ink() gives the words on a slate their chalk colours.
+## S498 ONELOOK1 round 2 (operator on Q-S294-261: "i do not like the wooden panels , some pictures ahve some dont , how do
+## you call this consistent ?"): NO WOOD. One plain panel for every card on every page and the fight HUD - the dark slate
+## from the palette (CARD, a 1 px LINE edge, 6 px corners) - and one flat button family on palette tokens. No texture,
+## no grain, no frame. The name stays (25 callers ask WoodKit.slate / bar / plates); tests/one_look_test.gd fails any
+## panel or button that is not one of these. ink() gives the words on a dark surface their chalk colours.
+## (S417's wooden pieces, Q-S294-159, are retired; the PNGs stay in assets/ui/wood/ for history, read by nothing.)
 
-const DIR := "res://assets/ui/wood/"
 const Palette := preload("res://scripts/ui/Palette.gd")   # S493 the one palette
 const INK := Palette.TEXT        # chalk
 const SOFT := Palette.MUTED      # a quieter chalk
 const HEAD := Palette.HEADER     # a card's title
 const BLUE := Palette.ACCENT     # your side, light enough to read on slate
-const DARK_INK := Color("#241f1a")
+const DARK_INK := Palette.PAPER_INK   # words on a light plate (the tan tab, an amber warning)
 ## The paper inks UI.gd gives a word (UI.FG, UI.MUTED, UI.GOLD; tests/wood_kit_test.gd holds them equal).
-const PAPER_MUTED := Color("#5d5243")
-const PAPER_BLUE := Color("#27589e")
-## The corner kept unscaled on the framed slate (the brass plate), and on a wooden button.
-const FRAME := 52
-const EDGE := 9
-## Button name -> [piece, ink, tint]. A name not listed keeps its flat plate.
+const PAPER_MUTED := Palette.PAPER_MUTED
+const PAPER_BLUE := Palette.PAPER_BLUE
+## THE panel: every card, board, modal and HUD plate.
+const PANEL_BG := Palette.CARD
+const PANEL_EDGE := Palette.LINE
+const PANEL_RADIUS := 6
+const PANEL_EDGE_W := 1
+## Button name -> [kind, ink]. kind: "plain" a tile, "on" the chosen tan, "act" the one red action. Every button is one
+## of these three flat plates.
+const KIND_BG := {"plain": Palette.TILE, "on": Palette.CHOSEN, "act": Palette.ACTION}
 const PIECE := {
-	"Button": ["tab", INK, Color.WHITE], "Ghost": ["tab", SOFT, Color.WHITE], "BtnQuiet": ["tab", SOFT, Color.WHITE],
-	"GhostDark": ["tab", INK, Color.WHITE], "Tab": ["tab", INK, Color.WHITE], "Choice": ["tab", INK, Color.WHITE],
-	"Pill": ["tab", SOFT, Color.WHITE], "Speed": ["tab", SOFT, Color.WHITE], "Ink": ["tab", INK, Color.WHITE],
-	"TBtn": ["plank", INK, Color.WHITE], "Btn": ["plank", INK, Color.WHITE], "Rail": ["plank", INK, Color.WHITE],
-	"GoFight": ["plank", INK, Color.WHITE], "RailOn": ["plank_on", INK, Color.WHITE],
-	"TabOn": ["tab_on", DARK_INK, Color.WHITE], "ChoiceOn": ["tab_on", DARK_INK, Color.WHITE],
-	"PillOn": ["tab_on", DARK_INK, Color.WHITE], "SpeedOn": ["tab_on", DARK_INK, Color.WHITE],
-	"Go": ["tab_on", DARK_INK, Color(1.0, 0.84, 0.46)],
-	"BtnSolid": ["red", Color.WHITE, Color.WHITE], "TBtnPrimary": ["red", Color.WHITE, Color.WHITE],
-	"GoBlock": ["red", Color.WHITE, Color.WHITE], "FlagRed": ["red", Color.WHITE, Color.WHITE],
+	"Button": ["plain", INK], "Ghost": ["plain", SOFT], "BtnQuiet": ["plain", SOFT],
+	"GhostDark": ["plain", INK], "Tab": ["plain", INK], "Choice": ["plain", INK],
+	"Pill": ["plain", SOFT], "Speed": ["plain", SOFT], "Ink": ["plain", INK],
+	"TBtn": ["plain", INK], "Btn": ["plain", INK], "Rail": ["plain", INK],
+	"GoFight": ["act", INK], "RailOn": ["on", DARK_INK],
+	"TabOn": ["on", DARK_INK], "ChoiceOn": ["on", DARK_INK],
+	"PillOn": ["on", DARK_INK], "SpeedOn": ["on", DARK_INK],
+	"Go": ["act", INK],
+	"BtnSolid": ["act", INK], "TBtnPrimary": ["act", INK],
+	"GoBlock": ["act", INK], "FlagRed": ["act", INK],
 }
 
 
-static func tex(piece: String) -> Texture2D:
-	return load(DIR + piece + ".png") as Texture2D
-
-
-static func _nine(piece: String, border: int, pad_h: int, pad_top: int, pad_bottom: int, tint: Color) -> StyleBoxTexture:
-	var s := StyleBoxTexture.new()
-	s.texture = tex(piece)
-	s.set_texture_margin_all(border)
+static func _flat(bg: Color, edge: Color, edge_w: int, radius: int, pad_h: int, pad_top: int, pad_bottom: int) -> StyleBoxFlat:
+	var s := StyleBoxFlat.new()
+	s.bg_color = bg
+	s.border_color = edge
+	s.set_border_width_all(edge_w)
+	s.set_corner_radius_all(radius)
 	s.content_margin_left = pad_h
 	s.content_margin_right = pad_h
 	s.content_margin_top = pad_top
 	s.content_margin_bottom = pad_bottom
-	s.modulate_color = tint
+	s.anti_aliasing = true
 	return s
 
 
-## The framed slate, for a card. The frame is 22 px; `pad` is measured from the card's outer edge.
-static func slate(pad_h: int = 30, pad_v: int = 26) -> StyleBoxTexture:
-	return _nine("panel", FRAME, pad_h, pad_v, pad_v, Color.WHITE)
-
-
-## The plank across the top of the screen.
-static func bar(pad_h: int, pad_v: int) -> StyleBoxTexture:
-	var s := _nine("bar", 0, pad_h, pad_v, pad_v, Color.WHITE)
-	s.texture_margin_bottom = 8
+## THE panel, for a card. `pad` is measured from the card's outer edge.
+static func slate(pad_h: int = 30, pad_v: int = 26) -> StyleBoxFlat:
+	var s := _flat(PANEL_BG, PANEL_EDGE, PANEL_EDGE_W, PANEL_RADIUS, pad_h, pad_v, pad_v)
+	s.shadow_color = Palette.alpha(Palette.PAGE, 0.45)
+	s.shadow_size = 6
+	s.shadow_offset = Vector2(0, 3)
 	return s
 
 
-## Sets button `name`'s four states from its wooden piece and returns its ink. Pressed: darker, the word sinks 2 px.
+## Is `sb` the house panel (whatever its padding)? tests/one_look_test.gd asks this of every card on every page.
+static func is_panel(sb: StyleBox) -> bool:
+	if not sb is StyleBoxFlat:
+		return false
+	var f := sb as StyleBoxFlat
+	return f.bg_color.is_equal_approx(PANEL_BG) and f.border_color.is_equal_approx(PANEL_EDGE) 		and f.border_width_top == PANEL_EDGE_W and f.border_width_left == PANEL_EDGE_W and f.corner_radius_top_left == PANEL_RADIUS
+
+
+## The top bar: the page colour with one line under it.
+static func bar(pad_h: int, pad_v: int) -> StyleBoxFlat:
+	var s := _flat(Palette.PAGE, PANEL_EDGE, 0, 0, pad_h, pad_v, pad_v)
+	s.border_width_bottom = PANEL_EDGE_W
+	return s
+
+
+## Is `sb` the top-bar strip (the page's top bar, the fight's corner bar)?
+static func is_bar(sb: StyleBox) -> bool:
+	if not sb is StyleBoxFlat:
+		return false
+	var f := sb as StyleBoxFlat
+	return f.bg_color.is_equal_approx(Palette.PAGE) and f.border_width_top == 0 and f.border_width_bottom == PANEL_EDGE_W 		and f.border_color.is_equal_approx(PANEL_EDGE)
+
+
+## Is `sb` one of the button plates (any kind, any state)?
+static func is_plate(sb: StyleBox) -> bool:
+	if not sb is StyleBoxFlat:
+		return false
+	var bg := (sb as StyleBoxFlat).bg_color
+	for k in KIND_BG:
+		var c: Color = KIND_BG[k]
+		for v in [c, Palette.hovered(c), Palette.pressed(c), Palette.disabled(c)]:
+			if bg.is_equal_approx(v):
+				return true
+	return false
+
+
+## Sets button `name`'s four states from its flat plate and returns its ink. Pressed: darker, the word sinks 2 px.
 static func plates(t: Theme, name: String, pad_h: int, pad_v: int) -> Color:
 	var row: Array = PIECE[name]
-	var tint: Color = row[2]
-	t.set_stylebox("normal", name, _nine(row[0], EDGE, pad_h, pad_v, pad_v + 2, tint))
-	t.set_stylebox("hover", name, _nine(row[0], EDGE, pad_h, pad_v, pad_v + 2, tint * Color(1.18, 1.18, 1.18)))
-	t.set_stylebox("pressed", name, _nine(row[0], EDGE, pad_h, pad_v + 2, pad_v, tint * Color(0.78, 0.78, 0.78)))
-	t.set_stylebox("disabled", name, _nine(row[0], EDGE, pad_h, pad_v, pad_v + 2, Color(tint, 0.42)))
+	var bg: Color = KIND_BG[row[0]]
+	var edge: Color = PANEL_EDGE if row[0] == "plain" else Palette.CLEAR
+	var w := PANEL_EDGE_W if row[0] == "plain" else 0
+	t.set_stylebox("normal", name, _flat(bg, edge, w, 4, pad_h, pad_v, pad_v + 2))
+	t.set_stylebox("hover", name, _flat(Palette.hovered(bg), edge, w, 4, pad_h, pad_v, pad_v + 2))
+	t.set_stylebox("pressed", name, _flat(Palette.pressed(bg), edge, w, 4, pad_h, pad_v + 2, pad_v))
+	t.set_stylebox("disabled", name, _flat(Palette.disabled(bg), Palette.disabled(edge), w, 4, pad_h, pad_v, pad_v + 2))
 	return row[1]
 
 
@@ -100,8 +138,7 @@ static func _tone(sb: StyleBox) -> int:
 		return 0 if bg.a < 0.5 else (1 if bg.get_luminance() < 0.45 else -1)
 	if sb is StyleBoxTexture and (sb as StyleBoxTexture).texture != null:
 		var path := str((sb as StyleBoxTexture).texture.resource_path)
-		var is_dark := path.contains("wood_panel") or path.contains("chalk") or (path.begins_with(DIR) and not path.contains("tab_on"))
-		return 1 if is_dark else -1
+		return 1 if (path.contains("wood_panel") or path.contains("chalk")) else -1
 	return 0
 
 

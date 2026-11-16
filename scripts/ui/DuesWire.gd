@@ -2,6 +2,7 @@ extends RefCounted
 ## DUESWIRE1: the dues price on the week review, Home, the month's books and the dues boards.
 ## Pictures come from the boards. The 1-in number is the roll's own: HomeJuniors.chance (a second club coach adds to it).
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const Halo := preload("res://scripts/ui/Halo.gd")
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")
@@ -71,7 +72,7 @@ static func trial_row(main: Node, c: Career) -> Control:
 	var row := PanelContainer.new()
 	row.name = "JuniorTrial"
 	row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	row.add_theme_stylebox_override("panel", UI.box(Color("#fbf7ee"), Color(0, 0, 0, 0), 8, 0, 12, 8))
+	row.add_theme_stylebox_override("panel", UI.box(Palette.TILE, Color(Palette.PAGE, 0), 8, 0, 12, 8))
 	var h := UI.hbox(12)
 	row.add_child(h)
 	var odds := HomeJuniors.chance(c.staff_roles.has("assistant"), c.dues_band)
@@ -150,7 +151,7 @@ static func trial_card(_main: Node, c: Career) -> Control:
 	var passed: bool = found["passed"]
 	var card := PanelContainer.new()
 	card.name = "YouthIntake"
-	card.add_theme_stylebox_override("panel", UI.box(Color(1, 1, 1, 0.06), Color(0, 0, 0, 0), 10, 0, 14, 10))   # no flat border (S427)
+	card.add_theme_stylebox_override("panel", UI.box(Color(Palette.TEXT, 0.06), Color(Palette.PAGE, 0), 10, 0, 14, 10))   # no flat border (S427)
 	var h := UI.hbox(14)
 	card.add_child(h)
 	h.add_child(_face(found["who"]))
@@ -221,7 +222,7 @@ static func _face(who: Dictionary) -> Control:
 	var slot := PanelContainer.new()
 	slot.name = "JuniorFace"
 	slot.custom_minimum_size = Vector2(84, 84)
-	slot.add_theme_stylebox_override("panel", UI.box(Color(0.16, 0.18, 0.22), Color(0, 0, 0, 0), 8, 0, 0, 0))
+	slot.add_theme_stylebox_override("panel", UI.box(Palette.CARD, Color(Palette.PAGE, 0), 8, 0, 0, 0))
 	var face := HomeLook.face(Faces.stem(who), Vector2(84, 84))
 	if face != null:
 		slot.add_child(face)

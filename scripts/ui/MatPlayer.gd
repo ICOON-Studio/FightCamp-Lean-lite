@@ -9,6 +9,7 @@ extends SubViewportContainer
 ## four bodies in both clips, still there after the card hid): the viewport owns its World3D, as MovePlayer's always did.
 ## `studio` (the hover card): an off-white floor, the camera ~35 deg above, soft shadows.
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const DB := preload("res://scripts/grapple/GrappleMapDB.gd")
 const Pose := preload("res://scripts/grapple/GrapplePose.gd")
 const Player := preload("res://scripts/grapple/GrapplePlayer.gd")
@@ -18,12 +19,12 @@ const BjjTree := preload("res://scripts/rules/BjjTree.gd")
 const MH := preload("res://scripts/fight3d/MHRig.gd")
 const Kit := preload("res://scripts/fight3d/FighterKit.gd")
 
-const TOPS := [Color("#ff6a5c"), Color("#5b93ff")]
-const TRUNKS := [Color("#e2483d"), Color("#2f6fdb")]
+const TOPS := [Palette.BAD, Palette.ACCENT]
+const TRUNKS := [Palette.BAD_FILL, Palette.ACCENT]
 const ORBIT_DEG_S := 9.0
 const HOLD_S := 0.8   # the pause on the landing before the move plays again
-const MAT_BG := Color("#f1eee8")
-const MAT_FLOOR := Color("#ebe7df")
+const MAT_BG := Palette.TEXT
+const MAT_FLOOR := Palette.TEXT
 const POSE_S := 1.6   # S384 each pose of an unfilmed edge holds this long
 const HOLD_IN_S := 0.01   # a held step stops this far inside its end, so it stays the step on screen
 
@@ -221,7 +222,7 @@ func _room(world: Node3D) -> void:
 	var env := WorldEnvironment.new()
 	var e := Environment.new()
 	e.background_mode = Environment.BG_COLOR
-	e.background_color = MAT_BG if studio else Color("#dfe7ec")
+	e.background_color = MAT_BG if studio else Palette.TEXT
 	e.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
 	e.ambient_light_color = Color(0.9, 0.9, 0.92)
 	e.ambient_light_energy = 0.6

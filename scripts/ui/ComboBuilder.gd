@@ -6,6 +6,7 @@ extends HBoxContainer
 ## is a book combination. Right: her own body throws the chain on a loop (MovePlayer.show_chain), the partner a ghost.
 ##   ComboBuilder.make(main, fighter) -> HBoxContainer
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const Icons := preload("res://scripts/ui/Icons.gd")
 const CF := preload("res://scripts/rules/ComboFlow.gd")
@@ -154,7 +155,7 @@ func _palette() -> Control:
 			b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 			b.tooltip_text = why if why != "" else "Coach: %s" % e["cue"]
 			if why != "":
-				b.modulate = Color(1, 1, 1, 0.6)
+				b.modulate = Color(Palette.FULL, 0.6)
 			MoveTip.attach(b, str(id), f)   # S382 MOVETIP1: the hover card plays it (its tier says what the tooltip said)
 			grid.add_child(b)
 		v.add_child(grid)
@@ -171,7 +172,7 @@ func _palette() -> Control:
 		var can := open.has(id)
 		b.tooltip_text = ", ".join(row["moves"]) + (": ready to throw in a fight" if can else ": try it here; every punch needs 30 on the pads before it works in a fight")
 		if not can:
-			b.modulate = Color(1, 1, 1, 0.6)
+			b.modulate = Color(Palette.FULL, 0.6)
 		MoveTip.attach(b, id, f)
 		flow.add_child(b)
 	v.add_child(flow)
@@ -244,7 +245,7 @@ func _refresh(play: bool) -> void:
 	_rows.add_child(ComboStrip.totals(f, chain, r, book_id(chain)))
 	var lessons := PanelContainer.new()
 	lessons.name = "Lessons"
-	lessons.add_theme_stylebox_override("panel", UI.box(Color("#fff7d6"), UI.YELLOW_EDGE, 8, 1, 12, 8))
+	lessons.theme_type_variation = "Sticky"   # S496 ONELOOK1: the house note
 	var lv := UI.vbox(2)
 	lv.add_child(UI.caps("KEY LESSONS"))
 	var said: Array = []

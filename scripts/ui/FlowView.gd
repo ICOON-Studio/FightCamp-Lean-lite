@@ -15,6 +15,7 @@ extends Control
 
 ## S348 (operator C191/C192 "not in par with other menu colours"): the menus' whiteboard look (UI.gd: the gym-wall page,
 ## white cards, marker-blue titles), not the fight broadcast's dark TV.gd.
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const Halo := preload("res://scripts/ui/Halo.gd")
 const FightFlow := preload("res://scripts/rules/FightFlow.gd")
@@ -45,8 +46,8 @@ var _row_no := {}           # depth -> the row's number on screen (1, 2, 3...: d
 ## A soft light from above on the board (S348: white on the gym wall, was a warm spot on the dark), drawn once.
 static func _spotlight() -> TextureRect:
 	var g := Gradient.new()
-	g.set_color(0, Color(1, 1, 1, 0.55))
-	g.set_color(1, Color(0, 0, 0, 0))
+	g.set_color(0, Color(Palette.TEXT, 0.55))
+	g.set_color(1, Color(Palette.PAGE, 0))
 	var tex := GradientTexture2D.new()
 	tex.gradient = g
 	tex.fill = GradientTexture2D.FILL_RADIAL
@@ -390,7 +391,7 @@ func _card(id: String, r: Rect2, start: bool) -> PanelContainer:
 	card.name = "Card_" + id
 	card.mouse_filter = Control.MOUSE_FILTER_PASS
 	var sb: StyleBoxFlat = UI.box(Color(UI.PANEL, 0.95), UI.LINE, 12, 2, 8, 8)
-	sb.shadow_color = Color(0.13, 0.15, 0.18, 0.16)
+	sb.shadow_color = Color(Palette.CARD, 0.16)
 	sb.shadow_size = 10
 	sb.shadow_offset = Vector2(0, 4)
 	card.add_theme_stylebox_override("panel", sb)

@@ -4,7 +4,7 @@ extends "res://scripts/ui/Bar.gd"
 
 var lo := 0.0
 var hi := 0.0
-var box := Color("#e2483d")
+var box := Palette.BAD_FILL
 var open := 1.0:
 	set(value):
 		open = value

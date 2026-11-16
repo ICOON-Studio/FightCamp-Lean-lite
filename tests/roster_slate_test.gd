@@ -67,7 +67,7 @@ func _roster() -> void:
 			_check(false, "ScoutedStrip: " + str(fault))
 		var sb: StyleBox = strip.get_theme_stylebox("panel")
 		print("ROSTER_SLATE ScoutedStrip style %s" % sb.get_class())
-		_check(sb is StyleBoxTexture, "ScoutedStrip is a framed slate (%s)" % sb.get_class())
+		_check(WoodKit.is_panel(sb), "ScoutedStrip is the house panel (%s)" % sb.get_class())
 		var rect := strip.get_global_rect()
 		print("ROSTER_SLATE scouted strip ends at x %.0f (line 1920), y %.0f (line 1080)" % [rect.end.x, rect.end.y])
 		_check(rect.end.x <= 1920.0, "the scouted strip stays inside x 1920 (%.0f)" % rect.end.x)
@@ -137,14 +137,14 @@ func _overview() -> void:
 	if find != null:
 		var find_sb: StyleBox = find.get_theme_stylebox("normal")
 		print("ROSTER_SLATE Find a bout style %s variation %s" % [find_sb.get_class(), find.theme_type_variation])
-		_check(find_sb is StyleBoxTexture, "Find a bout is a wooden button (%s)" % find_sb.get_class())
+		_check(WoodKit.is_plate(find_sb), "Find a bout is a house button (%s)" % find_sb.get_class())
 	for words in ["Plan the week", "Fight plan"]:
 		var b := _button_text(page, words)
 		_check(b != null, "%s is still on the Overview" % words)
 		if b != null:
 			var quiet_sb: StyleBox = b.get_theme_stylebox("normal")
 			print("ROSTER_SLATE %s style %s variation %s" % [words, quiet_sb.get_class(), b.theme_type_variation])
-			_check(quiet_sb is StyleBoxTexture, "%s is a wooden button (%s)" % [words, quiet_sb.get_class()])
+			_check(WoodKit.is_plate(quiet_sb), "%s is a house button (%s)" % [words, quiet_sb.get_class()])
 	var rect := walked.get_global_rect()
 	print("ROSTER_SLATE the Overview ends at x %.0f (line 1920), y %.0f (line 1080)" % [rect.end.x, rect.end.y])
 	_check(rect.end.x <= 1920.0, "the Overview stays inside x 1920 (%.0f)" % rect.end.x)

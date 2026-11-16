@@ -6,6 +6,7 @@ extends Control
 ## shown forecast (operator: animated meters) and the colour flips the moment the count passes the tick.
 ##   NightBar.make(stat, now, end, from) -> NightBar "NightBar"     window(now, end, at) -> Vector2     frac(x, win) -> float
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const TrainingPreview := preload("res://scripts/rules/TrainingPreview.gd")
@@ -13,7 +14,7 @@ const TrainingPreview := preload("res://scripts/rules/TrainingPreview.gd")
 const H := 18.0
 const BAR_H := 8.0
 const TWEEN_S := 0.45
-const TRACK := Color("#dfe6eb")
+const TRACK := Palette.TEXT
 ## Whole points of room either side of the numbers the bar shows.
 const PAD := 1.0
 

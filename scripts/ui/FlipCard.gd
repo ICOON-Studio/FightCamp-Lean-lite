@@ -7,6 +7,7 @@ extends PanelContainer
 ## Both sides are always laid out (the back starts at alpha 0), so the turn never changes the card's size.
 ##   FlipCard.make(f, row) -> "PadCard_<card>"   grow() bar + number   flip() the turn   settle() all at once (skip)
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const Sfx := preload("res://scripts/audio/Sfx.gd")
@@ -24,9 +25,9 @@ const PIC := 64.0
 const FLIP_S := 0.35
 const GROW_S := 0.6
 const PULSE_S := 0.3
-const GOLD_FILL := Color("#a77a00")
-const GOLD_GAIN := Color("#e9a800")
-const GOLD_TRACK := Color("#fff6d0")
+const GOLD_FILL := Palette.HEADER
+const GOLD_GAIN := Palette.HEADER
+const GOLD_TRACK := Palette.TEXT
 
 var row := {}
 ## True once the gold back faces out (the test and the film read it).
@@ -50,7 +51,7 @@ static func make(f: Dictionary, r: Dictionary) -> PanelContainer:
 	card.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	card.add_theme_stylebox_override("panel", StyleBoxEmpty.new())
 	var capv := PadWeek.cap(f, id) if not f.is_empty() else 100.0
-	card.face = card._side("Face", UI.box(Color(1, 1, 1, 0.04), Color(WoodKit.SOFT, 0.35), 4, 1, 10, 8))
+	card.face = card._side("Face", UI.box(Color(Palette.TEXT, 0.04), Color(WoodKit.SOFT, 0.35), 4, 1, 10, 8))
 	card._face_body(f, id, capv)
 	if not (r.get("cross", {}) as Dictionary).is_empty():
 		card.back = card._side("Back", UI.box(DrillCard.GOLD_BG, DrillCard.GOLD_EDGE, 10, 2, 10, 8))
@@ -84,7 +85,7 @@ func _face_body(f: Dictionary, id: String, capv: float) -> void:
 	words.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	top.add_child(words)
 	var tag := PanelContainer.new()
-	tag.add_theme_stylebox_override("panel", UI.box(Color(1, 1, 1, 0.04), Color(WoodKit.SOFT, 0.35), 4, 1, 6, 1))
+	tag.add_theme_stylebox_override("panel", UI.box(Color(Palette.TEXT, 0.04), Color(WoodKit.SOFT, 0.35), 4, 1, 6, 1))
 	tag.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	tag.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	tag.add_child(UI.label(PadEdit.kind_word(f, id) if not f.is_empty() else "DRILL", 11, UI.GOLD, "bold"))

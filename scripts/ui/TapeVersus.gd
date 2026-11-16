@@ -45,6 +45,7 @@ static func mount(panel: PanelContainer, main: Node, m: Dictionary, buttons: boo
 	# from its page. Same margin here; the wall stays full-bleed behind.
 	var pad := MarginContainer.new()
 	pad.name = "TapePad"
+	pad.set_meta("on_dark", true)   # S496: the names stand on the dark versus wall
 	pad.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	for side in ["left", "right"]:
 		pad.add_theme_constant_override("margin_" + side, 28)

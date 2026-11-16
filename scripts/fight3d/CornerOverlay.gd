@@ -1,9 +1,10 @@
-﻿extends Control
+extends Control
 ## S307 the corner minute's screen (docs/FIGHT_NIGHT_SCRIPT.md v2): letterbox bars (2.39:1 on the 16:9 frame), the rest
 ## clock, the coach's lines as captions in the lower bar, the corner card (what worked, what hurt, the coach's call) with
 ## the three calls to pick while the minute runs, and SKIP TO THE BELL.
 ##   build(card, names)  build_intro()  clock(left_s)  say(text)  show_card(on)  picked(call)   signals: chose(call), fixed(habit), skip
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/TV.gd")  # S333: fight graphics keep the dark TV look
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const TowelStrip := preload("res://scripts/ui/TowelStrip.gd")
@@ -42,7 +43,7 @@ const CARD_AFTER_CUT_S := 0.5
 var _pro := false
 const CARD_FADE_S := 0.4
 var _fix_step := 0
-const BAR_COLOUR := Color(0, 0, 0, 1)
+const BAR_COLOUR := Palette.PAGE
 
 var _clock: Label
 var _caption: Label
@@ -71,7 +72,7 @@ func build(card: Dictionary, names: Array) -> void:
 		bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		add_child(bar)
 		_pin(bar, Vector4(0, 0 if top else 1.0 - BAR, 1, BAR if top else 1), Vector4.ZERO)
-	_clock = UI.mono("", UI.BODY, Color("#b8a88f"))   # S442 UX audit: muted brown on the black letterbox could not be read
+	_clock = UI.mono("", UI.BODY, Palette.MUTED)   # S442 UX audit: muted brown on the black letterbox could not be read
 	add_child(_clock)
 	_pin(_clock, Vector4(0, 0, 0, 0), Vector4(32, 30, 420, 70))
 	var sk := UI.button("Skip to the bell", "BtnQuiet", func(): skip.emit())
@@ -87,7 +88,7 @@ func build(card: Dictionary, names: Array) -> void:
 	_card = PanelContainer.new()
 	# S472 C399 ("kind of heavy on the eye, lighten it up a bit"): the near-black slab (0.05, 0.95) -> the TV panel tone,
 	# a touch see-through so the corner reads behind it, with a lighter edge.
-	_card.add_theme_stylebox_override("panel", UI.box(Color(Color("#62513f"), 0.86), Color("#8f7760"), 6, 1, 18, 10))
+	_card.add_theme_stylebox_override("panel", preload("res://scripts/ui/WoodKit.gd").slate(18, 10))   # S498 ONELOOK1: the house panel (was see-through wood brown)
 	add_child(_card)
 	# S350 C197 ("doesnt look good, needs a lot of refining"): the card takes the right part of the frame between the bars,
 	# full height, so the corner itself (her on the stool, the coach) stays in view on the left; the round first, then the

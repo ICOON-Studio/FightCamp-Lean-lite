@@ -5,10 +5,11 @@ extends Control
 ## a grey dash = even. More arrows = more energy. The number itself is the hover.
 ##   count(cost) -> 0..3   colour(cost) -> Color   tip(cost) -> String   make(cost) -> EnergyPips
 
-const SAVE := Color("#6cc27a")
-const COST := Color("#f0a020")
-const HEAVY := Color("#e0503c")
-const EVEN := Color("#b5a595")
+const Palette := preload("res://scripts/ui/Palette.gd")
+const SAVE := Palette.GOOD
+const COST := Palette.WARN
+const HEAVY := Palette.BAD_FILL
+const EVEN := Palette.MUTED
 ## A cost at or over this is "a lot" (CallButtons.energy_words used the same line).
 const HEAVY_AT := 3.0
 const MAX := 3

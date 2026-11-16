@@ -3,14 +3,15 @@ extends Control
 ## and the cards strip. The round-edge meter stays in the tree (HudBars still feeds it) but is not drawn:
 ## the two numbers and the dots are that read now.
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const TV := preload("res://scripts/ui/TV.gd")
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 
-const RED := Color("#e2483d")
-const BLUE := Color("#3a7ce0")
-const DARK := Color("#3a332c")
-const GREY := Color("#2a241e")
-const GREY_INK := Color("#7a6e60")
+const RED := Palette.BAD_FILL
+const BLUE := Palette.ACCENT
+const DARK := Palette.HOVER
+const GREY := Palette.HOVER
+const GREY_INK := Palette.LINE
 
 var view: Node
 var _red: Label
@@ -135,7 +136,7 @@ func _paint() -> void:
 			d.fill = RED if bool((scored[i] as Dictionary).get("won", false)) else BLUE
 		elif i == scored.size() and scored.size() < 6:
 			d.open = true
-			d.fill = Color("#f3ead8")
+			d.fill = Palette.TEXT
 		else:
 			d.open = false
 			d.fill = DARK
@@ -198,21 +199,21 @@ func _place(c: Control, x: float, y: float, w: float, h: float) -> void:
 
 
 class Dot extends Control:
-	var fill: Color = Color("#3a332c")
+	var fill: Color = Palette.HOVER
 	var open := false
 
 	func _draw() -> void:
 		var c := size * 0.5
 		var rad := 12.0
 		if open:
-			draw_arc(c, rad, 0.0, TAU, 32, Color("#f3ead8"), 4.0, true)
+			draw_arc(c, rad, 0.0, TAU, 32, Palette.TEXT, 4.0, true)
 		else:
 			draw_circle(c, rad, fill)
 
 
 class Chip extends Control:
 	var kind := "future"
-	var col: Color = Color("#2a241e")
+	var col: Color = Palette.HOVER
 	var lab: Label
 
 	func _draw() -> void:

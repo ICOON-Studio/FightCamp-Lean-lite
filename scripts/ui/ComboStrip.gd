@@ -8,6 +8,7 @@ extends RefCounted
 ## (ComboOdds). Every number is the game's own; nothing here is a new rule.
 ##   strip(fighter, chain, rated, entries, on_remove) -> HFlowContainer   totals(fighter, chain, rated, book_id) -> Control
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const Icons := preload("res://scripts/ui/Icons.gd")
 const Tips := preload("res://scripts/ui/Tips.gd")
@@ -21,8 +22,8 @@ const SkillAwards := preload("res://scripts/rules/SkillAwards.gd")
 const MoveTip := preload("res://scripts/ui/MoveTip.gd")
 
 const CARD_SIZE := Vector2(136, 176)
-const KIND_COLOR := {"punch": Color("#2f6fdb"), "defence": Color("#4f8a2c"), "step": Color("#8a5a2a")}
-const KIND_TINT := {"punch": Color("#eef4ff"), "defence": Color("#f1f6ea"), "step": Color("#f7f0e8")}
+const KIND_COLOR := {"punch": Palette.ACCENT, "defence": Palette.GOOD_FILL, "step": Palette.WARN}
+const KIND_TINT := {"punch": Palette.TILE, "defence": Palette.TILE, "step": Palette.TILE}   # S496: a dark tile, its kind on the edge
 const TIER_COLOR := {"UNLEARNED": UI.MUTED, "RAW": UI.AMBER, "USABLE": UI.GREEN, "SHARP": UI.GOLD, "SIGNATURE": UI.PURPLE}
 
 
@@ -51,8 +52,8 @@ static func strip(f: Dictionary, chain: Array, rated: Dictionary, entries: Dicti
 					graded_chip.tooltip_text += " About %d more three-punch combinations left in round 3 than ungraded." % extra
 					graded_chip.get_parent().add_child(lab)
 		if i == chain.size() - 1:
-			c.modulate = Color(1, 1, 1, 0)
-			c.create_tween().tween_property(c, "modulate", Color.WHITE, 0.25)
+			c.modulate = Color(Palette.FULL, 0)
+			c.create_tween().tween_property(c, "modulate", Palette.FULL, 0.25)
 	return flow
 
 
@@ -88,7 +89,7 @@ static func _card(f: Dictionary, i: int, id: String, e: Dictionary, chain: Array
 		v.add_child(lab)
 		if lv < Combos.LEARN_AT:
 			# Not usable yet: the card stays in the strip to try, faded, with the way to learn it.
-			p.modulate = Color(1, 1, 1, 0.78)
+			p.modulate = Color(Palette.FULL, 0.78)
 			v.add_child(Icons.tip(UI.chip("pad time first", "amber"),
 				"Not usable yet (mastery %d of %d): pad time first - Training, Pads with the coach" % [int(lv), int(Combos.LEARN_AT)]))
 	else:

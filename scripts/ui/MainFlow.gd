@@ -2,6 +2,7 @@ extends RefCounted
 ## SPLIT500: modal and toast flow lifted out of Main.gd so it stays under the 500-line limit.
 ## Every function here is static and takes `main: Node` (the Main instance) for the state it needs.
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const FightView := preload("res://scripts/fight3d/FightView.gd")
 const INTERVIEW := preload("res://scenes/modals/Interview.tscn")
@@ -27,11 +28,11 @@ static func render_modal(main: Node) -> void:
 		return
 	main._modal_layer.mouse_filter = Control.MOUSE_FILTER_STOP
 	var scrim := ColorRect.new()
-	scrim.color = Color(0.04, 0.027, 0.02, 0.72)
+	scrim.color = Color(Palette.PAGE, 0.72)
 	if str(main.modal["type"]) == "fight":
 		# S472 C398 ("if this is corner minute why it has the gyms background"): fight night happens at the venue, so the
 		# gym never shows through - a solid arena dark, as the 3D corner minute has.
-		scrim.color = Color(0.035, 0.032, 0.038, 1.0)
+		scrim.color = Palette.PAGE
 	scrim.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	main._modal_layer.add_child(scrim)
 	var center := CenterContainer.new()

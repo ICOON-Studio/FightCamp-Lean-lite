@@ -9,6 +9,7 @@ extends RefCounted
 ## S440 round 3 (Claude's rulings): "No bout" + when the next offers come; DO NEXT always one real button ("Plan the week"
 ## and Coach's Drill / Rest / Fix open the week planner on her); the no-gi weight cell names her class.
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const Pulse := preload("res://scripts/ui/Pulse.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")
@@ -37,7 +38,7 @@ static func build(main: Node, c: Career, foot: String = "") -> PanelContainer:
 	# Dark plate so WoodKit.ink / SlateWalk read chalk words as on slate (rows themselves stay see-through).
 	var wrap := PanelContainer.new()
 	wrap.name = "RosterRows"
-	wrap.add_theme_stylebox_override("panel", UI.box(Color(UI.DARK, 0.72), Color(0, 0, 0, 0), 12, 0, 4, 0))
+	wrap.add_theme_stylebox_override("panel", WoodKit.slate(4, 0))
 	var v := UI.vbox(0)
 	v.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	wrap.add_child(v)

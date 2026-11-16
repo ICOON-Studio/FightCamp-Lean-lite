@@ -6,12 +6,13 @@ extends Control
 ##   an edge: a yellow mark for its kind (takedown, sweep, pass, submission, back take, escape, entry, transition, base).
 ##   MatGlyph.node_kind(node_id) -> "top" | "bottom" | "neutral" | "tap_win" | "tap_loss"
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
-const CHARCOAL := Color("#26272b")
-const INK := Color("#ffd54a")
-const ANA := Color("#e2483d")
-const OPP := Color("#2f6fdb")
-const PENDING := Color("#b9bcc4")
+const CHARCOAL := Palette.CARD
+const INK := Palette.HEADER
+const ANA := Palette.BAD_FILL
+const OPP := Palette.ACCENT
+const PENDING := Palette.TEXT
 
 var kind := "neutral"
 var pending := false      # writes "card pending" along the bottom

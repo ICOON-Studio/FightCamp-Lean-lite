@@ -1,8 +1,9 @@
 extends RefCounted
 ## S393: moved out of HudBars (the 500-line rule). One of the six: fill eases to its target, the end past `keep` is gone for the fight, unknown = a dashed "?" arc.
 
-const SIDE_COLOUR := [Color(0.95, 0.4, 0.35), Color(0.5, 0.65, 1.0)]
-const IVORY := Color("#efe8dc")
+const Palette := preload("res://scripts/ui/Palette.gd")
+const SIDE_COLOUR := [Palette.BAD, Palette.ACCENT]
+const IVORY := Palette.TEXT
 
 const EASE_S := 0.35
 var kind := ""
@@ -81,5 +82,5 @@ func colour() -> Color:
 	# (stamina, guard, heart) in her corner's colour, her body (head, body, legs) ivory while fine - amber, then red,
 	# only when it matters, so the eye goes where something happened.
 	if kind in ["stamina", "guard", "heart"]:
-		return SIDE_COLOUR[side] if v >= 0.3 else Color("#f0a020")
-	return [IVORY, Color("#f0a020"), Color("#e0503c")][band_of(v)]
+		return SIDE_COLOUR[side] if v >= 0.3 else Palette.WARN
+	return [IVORY, Palette.WARN, Palette.BAD_FILL][band_of(v)]

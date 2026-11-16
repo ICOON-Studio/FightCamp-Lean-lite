@@ -26,7 +26,6 @@ const RED := Palette.BAD_FILL
 const GREEN := Palette.GOOD
 const AMBER := Palette.WARN
 const BLUE := Palette.ACCENT
-const WALL := "res://assets/ui/art/gym_main.jpg"
 const CREST := "res://assets/ui/club_badge.svg"
 ## [label, KitIcon, act, arg]: section 2's routes. Mail is the game's news list (Main's "mail": World > News, read).
 const APPS := [["Desktop", "booked", "go", "office:0"], ["Mail", "offer", "mail", ""], ["Schedule", "calendar", "go", "fights:0"],
@@ -43,12 +42,10 @@ func build(main: Node) -> void:
 	var c: Career = main.career
 	add_theme_constant_override("separation", 0)
 	size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	var desk := _panel("OfficeDesktop", UI.box(BG, LINE, 12, 1, 0, 0), Control.SIZE_EXPAND_FILL)
-	desk.clip_contents = true
+	# S498 ONELOOK1 (operator: "how do you call this consistent ?"): the office sits on the one gym wall like every page -
+	# no desk of its own, no second photo behind it (was gym_main.jpg at 0.22 on a page-coloured desk).
+	var desk := _panel("OfficeDesktop", StyleBoxEmpty.new(), Control.SIZE_EXPAND_FILL)
 	add_child(desk)
-	var wall := _tex(WALL, Vector2.ZERO, TextureRect.STRETCH_KEEP_ASPECT_COVERED)
-	wall.modulate = Palette.fade(0.22)   # the gym photo, dimmed behind the desktop
-	desk.add_child(wall)
 	var v := UI.vbox(0)
 	desk.add_child(v)
 	v.add_child(_top(c))
@@ -111,9 +108,7 @@ func _badge(n: int, col: Color, why: String) -> Control:
 
 ## The Desktop window: its bar, then needs | calendar | mail, fighters | money, the staff strip.
 func _window(main: Node, c: Career, cards: Array) -> Control:
-	var sb := UI.box(Palette.alpha(PANEL, 0.96), LINE, 12, 1, 0, 0)
-	sb.shadow_color = Palette.shadow()
-	sb.shadow_size = 20
+	var sb := UI.WoodKit.slate(0, 0)   # S498 ONELOOK1: the house panel
 	var win := _panel("DesktopWindow", sb, Control.SIZE_EXPAND_FILL)
 	var v := UI.vbox(0)
 	win.add_child(v)

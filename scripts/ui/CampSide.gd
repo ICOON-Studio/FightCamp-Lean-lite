@@ -5,6 +5,7 @@ extends RefCounted
 ## on from what the last draw showed (`before`, Camp.gd; the dials' own numbers under before["gauges"]).
 ##   make(f, focus, fc, before, day) -> PanelContainer "CampSide"   (fc = CampForecast.run for the chosen focus)
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const Data := preload("res://scripts/state/Data.gd")
@@ -25,7 +26,7 @@ static func make(f: Dictionary, focus: String, fc: Dictionary, before: Dictionar
 	p.name = "CampSide"
 	p.custom_minimum_size = Vector2(W, 0)
 	p.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
-	p.add_theme_stylebox_override("panel", UI.box(Color(1, 1, 1, 0.04), Color(WoodKit.SOFT, 0.35), 4, 1, 16, 16))
+	p.add_theme_stylebox_override("panel", UI.box(Color(Palette.TEXT, 0.04), Color(WoodKit.SOFT, 0.35), 4, 1, 16, 16))
 	var v := UI.vbox(3)
 	p.add_child(v)
 	v.add_child(_face(f))
@@ -69,8 +70,8 @@ static func _stat(k: String, now: float, end: float, from: float) -> PanelContai
 	var on := end >= 0.0
 	var row := PanelContainer.new()
 	row.name = "Stat_" + k
-	row.add_theme_stylebox_override("panel", UI.box(Color(1, 1, 1, 0.04) if on else Color(0, 0, 0, 0),
-		Color(WoodKit.HEAD) if on else Color(0, 0, 0, 0), 4, 2 if on else 0, 8, 3))
+	row.add_theme_stylebox_override("panel", UI.box(Color(Palette.TEXT, 0.04) if on else Color(Palette.PAGE, 0),
+		Color(WoodKit.HEAD) if on else Color(Palette.PAGE, 0), 4, 2 if on else 0, 8, 3))
 	var h := UI.hbox(6)
 	row.add_child(h)
 	h.add_child(UI.label(str(Data.LABEL.get(k, k)), 18, UI.FG, "body"))

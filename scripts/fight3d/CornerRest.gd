@@ -5,11 +5,12 @@ extends HBoxContainer
 ## side shows what the rest has given back, and the middle names who is fresher.
 ##   setup(names, bell, next)   aim(side, value)   tick(frac)   number(side)   at(from, to, frac)
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/TV.gd")
 const CornerJobs := preload("res://scripts/rules/CornerJobs.gd")
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 
-const BLUE := Color("#6f9cf0")
+const BLUE := Palette.ACCENT
 const BAR := Vector2(120, 10)
 ## Under this gap neither looks the fresher.
 const LEVEL_UNDER := 3.0
@@ -126,7 +127,7 @@ func number(side: int) -> float:
 ## A thin tank that fills from the middle of the strip outwards, as the corner table's bars do.
 class _Tank extends Control:
 	var frac := 0.0
-	var fill := Color.WHITE
+	var fill := Palette.TEXT
 	var leftward := false
 
 	func _init() -> void:
@@ -135,6 +136,6 @@ class _Tank extends Control:
 		mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 	func _draw() -> void:
-		draw_rect(Rect2(Vector2.ZERO, size), Color(1, 1, 1, 0.12))
+		draw_rect(Rect2(Vector2.ZERO, size), Color(Palette.TEXT, 0.12))
 		var w := size.x * clampf(frac, 0.0, 1.0)
 		draw_rect(Rect2(Vector2(size.x - w if leftward else 0.0, 0.0), Vector2(w, size.y)), fill)

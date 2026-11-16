@@ -5003,7 +5003,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-16 12:12 board_sync",
+  "updated": "2026-11-16 13:20 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5158,14 +5158,14 @@
     "who": "qwen",
     "started": "2026-11-16T09:04",
     "run": "ONELOOK2",
-    "state": "LANDED - the One look session collects it"
+    "state": "LANDED - Claude collects"
    },
    {
     "title": "TASK COACHNECK1 - the corner coach's neck stays upright in his close-up (the owner's C415 mark)",
     "who": "qwen",
     "started": "2026-11-16T09:41",
     "run": "COACHNECK1",
-    "state": "NOT MERGED - the neck did not move (round 2 after the knees)"
+    "state": "LANDED - Claude collects"
    },
    {
     "title": "TASK PRESSFLASH1 - crowd camera flashes never read as a hit in empty air (both critics' note)",
@@ -5176,14 +5176,15 @@
    {
     "title": "The boxers' knees stop jerking in the fight (about 4 jerks a second per knee today)",
     "who": "ziva",
-    "started": "2026-11-16T11:57:48+02:00",
+    "started": "2026-11-16T12:44",
     "run": "ZIVAKNEE1"
    },
    {
-    "title": "The boxers' knees stop jerking in the fight (about 4 jerks a second per knee today)",
-    "who": "ziva",
-    "started": "2026-11-16T12:44",
-    "run": "ZIVAKNEE1"
+    "title": "TASK BODYSTEP1 - a landed punch moves the hit boxer back a little (the rule only, no wiring)",
+    "who": "qwen",
+    "started": "2026-11-16T12:54",
+    "run": "BODYSTEP1",
+    "state": "LANDED - Claude collects"
    }
   ],
   "next": [
@@ -5823,74 +5824,34 @@
   "session_started": "S418",
   "maps": [
    {
-    "title": "P0 Where we are: DONE / NOW / NEXT (Miro)",
-    "url": "https://miro.com/app/board/uXjVEV03QWA=/?moveToWidget=3458764689579200297",
-    "note": "S385: redrawn at every session start and end from ops/Tools/where_we_are.py (one canvas_update_from_svg)"
+    "title": "The map: where we are, who works on what, every screen, the approved menus",
+    "url": "/map",
+    "note": "S499: our own page, replaces Miro. Drag to move, wheel to zoom, double-click to leave a note."
    },
    {
-    "title": "Core loop - Early Access: mockups, opinions, your notes (Miro)",
-    "url": "https://miro.com/app/board/uXjVEV03QWA=/?moveToWidget=3458764689099716206",
-    "note": "S354: the three mechanics, Kalli + John + Claude opinion lanes, a YOUR NOTES column for stickies"
+    "title": "Where we are: done, now, next",
+    "url": "/map#where",
+    "note": ""
    },
    {
-    "title": "What the player sees: every screen as the loop (Miro)",
+    "title": "Who works on what",
+    "url": "/map#queue",
+    "note": ""
+   },
+   {
+    "title": "Every screen as the game draws it",
+    "url": "/map#screens",
+    "note": ""
+   },
+   {
+    "title": "Menus final (S402)",
+    "url": "/map#menus402",
+    "note": ""
+   },
+   {
+    "title": "Old Miro board (view only, plan stopped 2026-11-16)",
     "url": "https://miro.com/app/board/uXjVEV03QWA=/",
-    "note": "S351: 55 real screens by chapter + the loop at a glance + the training proposal"
-   },
-   {
-    "title": "P0. The whole production (Miro)",
-    "url": "https://miro.com/app/board/uXjVEV03QWA=/?moveToWidget=3458764689038208755",
-    "note": "milestones + every part with its score; updated at each session's wrap-up"
-   },
-   {
-    "title": "P1. Fight view (3D)",
-    "url": "https://miro.com/app/board/uXjVEV03QWA=/?moveToWidget=3458764689038234761",
-    "note": ""
-   },
-   {
-    "title": "P2. Fight decisions",
-    "url": "https://miro.com/app/board/uXjVEV03QWA=/?moveToWidget=3458764689038234762",
-    "note": ""
-   },
-   {
-    "title": "P3. Body and training",
-    "url": "https://miro.com/app/board/uXjVEV03QWA=/?moveToWidget=3458764689038234763",
-    "note": ""
-   },
-   {
-    "title": "P4. Booking and camp",
-    "url": "https://miro.com/app/board/uXjVEV03QWA=/?moveToWidget=3458764689038264441",
-    "note": ""
-   },
-   {
-    "title": "P5. Gym and money",
-    "url": "https://miro.com/app/board/uXjVEV03QWA=/?moveToWidget=3458764689038264442",
-    "note": ""
-   },
-   {
-    "title": "P6. Stakes",
-    "url": "https://miro.com/app/board/uXjVEV03QWA=/?moveToWidget=3458764689038264443",
-    "note": ""
-   },
-   {
-    "title": "P7. Roster",
-    "url": "https://miro.com/app/board/uXjVEV03QWA=/?moveToWidget=3458764689038303019",
-    "note": ""
-   },
-   {
-    "title": "P8. Season and rivals",
-    "url": "https://miro.com/app/board/uXjVEV03QWA=/?moveToWidget=3458764689038303020",
-    "note": ""
-   },
-   {
-    "title": "P9. Screens and look",
-    "url": "https://miro.com/app/board/uXjVEV03QWA=/?moveToWidget=3458764689038303021",
-    "note": ""
-   },
-   {
-    "title": "Game design: map, menus, fight (Miro frames 1-11)",
-    "url": "https://miro.com/app/board/uXjVEV03QWA=/",
-    "note": ""
+    "note": "its cards and your stickies get copied to the map once Miro allows a read"
    },
    {
     "title": "Make-it-a-game plan (S323)",
@@ -5900,6 +5861,22 @@
   ],
   "map": {
    "done_earlier": [
+    {
+     "text": "Camera holds through a punch",
+     "who": "agent"
+    },
+    {
+     "text": "Pads: full session each (Q-260)",
+     "who": "claude"
+    },
+    {
+     "text": "Film counter collected (Goose)",
+     "who": "agent"
+    },
+    {
+     "text": "Nightly reds: 4 of 5 fixed",
+     "who": "claude"
+    },
     {
      "text": "Hit reactions 3 frames sooner",
      "who": "claude"
@@ -5939,39 +5916,15 @@
     {
      "text": "Overview fits at Largest text",
      "who": "claude"
-    },
-    {
-     "text": "Palette guard test in the suite",
-     "who": "agent"
-    },
-    {
-     "text": "Palette: file + 17 screens moved",
-     "who": "claude"
-    },
-    {
-     "text": "Training K v4 (your 3 marks)",
-     "who": "claude"
-    },
-    {
-     "text": "Rival card: C, simpler",
-     "who": "claude"
     }
    ],
    "done_session": [
     {
-     "text": "Camera holds through a punch",
-     "who": "agent"
-    },
-    {
-     "text": "Pads: full session each (Q-260)",
+     "text": "Our own map replaces Miro",
      "who": "claude"
     },
     {
-     "text": "Film counter collected (Goose)",
-     "who": "agent"
-    },
-    {
-     "text": "Nightly reds: 4 of 5 fixed",
+     "text": "ONELOOK1 one look, no wood",
      "who": "claude"
     }
    ],
@@ -6037,15 +5990,15 @@
      "who": "agent"
     },
     {
-     "text": "Fight motion week: day 3",
-     "who": "claude"
-    },
-    {
      "text": "Knees stop jerking (Ziva)",
      "who": "agent"
     },
     {
      "text": "One look: wood panels out",
+     "who": "claude"
+    },
+    {
+     "text": "Fight motion week: day 4",
      "who": "claude"
     }
    ],
@@ -6141,9 +6094,13 @@
     {
      "text": "Film night: 5 chance patterns",
      "who": "claude"
+    },
+    {
+     "text": "Copy old Miro cards + stickies",
+     "who": "claude"
     }
    ],
-   "session": "S498"
+   "session": "S499"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",

@@ -9,19 +9,22 @@ extends RefCounted
 ##   level(intensity) -> LIGHT|NORMAL|HARD   fatigue_word(v, red) -> [word, tip, colour]
 
 const UI := preload("res://scripts/ui/UI.gd")
+const Palette := preload("res://scripts/ui/Palette.gd")
 
-const BOARD := Color("#f4f2ec")      # the whiteboard
-const FRAME := Color("#3b3430")      # its frame
-const INK := Color("#1f2a44")        # navy marker
-const PENCIL := Color("#6b7280")     # the lighter hand
-const RED := Color("#c8312a")        # the red marker: the date, risk
+## S496 ONELOOK1 (operator: "Everymenu i loook is designed differently"): the coach's board is the house slate in a wood
+## frame with chalk words, like every other card - no more white board with navy marker.
+const BOARD := Palette.CARD          # the board
+const FRAME := Palette.WOOD          # its frame
+const INK := Palette.TEXT            # chalk
+const PENCIL := Palette.MUTED        # the lighter hand
+const RED := Palette.BAD             # the red chalk: the date, risk
 const AMBER_AT := 70.0
 const RED_AT := 80.0
 
 
 static func board_style() -> StyleBoxFlat:
 	var s := UI.box(BOARD, FRAME, 6, 12, 28, 22)
-	s.shadow_color = Color(0, 0, 0, 0.25)
+	s.shadow_color = Palette.alpha(Palette.PAGE, 0.25)
 	s.shadow_size = 6
 	return s
 
@@ -81,8 +84,9 @@ static func circled(top: String, under: String) -> Control:
 
 static func sticky() -> PanelContainer:
 	var p := PanelContainer.new()
-	var s := UI.box(Color("#fbe7a1"), Color("#e2c770"), 2, 1, 18, 16)
-	s.shadow_color = Color(0, 0, 0, 0.22)
+	var s := UI.box(Palette.TILE, Palette.HEADER, 2, 0, 18, 16)   # S498 ONELOOK1: the kit's note
+	s.border_width_left = 6
+	s.shadow_color = Color(Palette.PAGE, 0.22)
 	s.shadow_size = 5
 	s.shadow_offset = Vector2(2, 4)
 	p.add_theme_stylebox_override("panel", s)
@@ -92,8 +96,8 @@ static func sticky() -> PanelContainer:
 ## A dark chip with white caps (the phase: "BUILD WEEK").
 static func tape_chip(text: String) -> PanelContainer:
 	var p := PanelContainer.new()
-	p.add_theme_stylebox_override("panel", UI.box(INK, Color(0, 0, 0, 0), 2, 0, 12, 4))
-	p.add_child(UI.label(text, UI.SMALL, Color.WHITE, "caps"))
+	p.add_theme_stylebox_override("panel", UI.box(INK, Color(Palette.PAGE, 0), 2, 0, 12, 4))
+	p.add_child(UI.label(text, UI.SMALL, Palette.TEXT, "caps"))
 	p.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	return p
 
@@ -118,7 +122,7 @@ class Fatigue extends Control:
 		mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 	func _draw() -> void:
-		draw_rect(Rect2(Vector2.ZERO, size), Color("#e2ded4"))
-		var col := RED if value >= RED_AT else (UI.AMBER if value >= AMBER_AT else Color("#3f8f5a"))
+		draw_rect(Rect2(Vector2.ZERO, size), Palette.TEXT)
+		var col := RED if value >= RED_AT else (UI.AMBER if value >= AMBER_AT else Palette.GOOD_FILL)
 		draw_rect(Rect2(Vector2.ZERO, Vector2(size.x * clampf(value / 100.0, 0.0, 1.0), size.y)), col)
 		draw_line(Vector2(size.x * 0.8, -2), Vector2(size.x * 0.8, size.y + 2), INK, 2.0)

@@ -2,6 +2,7 @@ extends RefCounted
 ## S394 HOME's next fight as a matchup: the two real faces, red corner and blue corner, the days to fight night and the way to
 ## Fight prep. With no bout it says so and points at the offers.
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const HomeLook := preload("res://scripts/ui/HomeLook.gd")
 const Faces := preload("res://scripts/rules/Faces.gd")
@@ -43,7 +44,7 @@ static func build(main: Node, c: Career) -> Control:
 	for side in ["left", "right", "top", "bottom"]:
 		m.add_theme_constant_override("margin_" + side, 14)
 	row.add_child(m)
-	row.add_child(_edge(UI.GOLD if booked else Color(0, 0, 0, 0)))
+	row.add_child(_edge(UI.GOLD if booked else Color(Palette.PAGE, 0)))
 	var h := UI.hbox(18)
 	m.add_child(h)
 	var stems: Array = Faces.pair(f, fb["opp"]) if booked else [Faces.stem(f)]
@@ -75,7 +76,7 @@ static func _edge(col: Color) -> Control:
 	for side in ["left", "right", "top", "bottom"]:
 		m.add_theme_constant_override("margin_" + side, 8 if side == "left" or side == "right" else 14)
 	var e := Panel.new()
-	e.add_theme_stylebox_override("panel", UI.box(col, Color(0, 0, 0, 0), 3, 0, 0, 0))
+	e.add_theme_stylebox_override("panel", UI.box(col, Color(Palette.PAGE, 0), 3, 0, 0, 0))
 	e.custom_minimum_size = Vector2(EDGE, 0)
 	m.add_child(e)
 	return m

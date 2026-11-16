@@ -45,7 +45,7 @@ var _tex: Texture2D = null
 var _anchors := {}   # place -> [x, y, rx, ry] as fractions of the portrait
 const PORTRAITS := "res://assets/ui/body"
 ## The body is dimmed a little so the places' colours read on top of it.
-const BODY_TINT := Color(0.7, 0.7, 0.74)
+const BODY_TINT := Palette.TEXT
 ## S323 "the body is the track" (Q-S294-38): BodyLoad's Burn per part painted on her body like tyre temperatures
 ## (BodyTrack colours), the baked strokes in the portrait's json "track"; hurt places then never mix with it.
 var _track := {}     # body place (BodyTrack.body_place) -> Burn 0..100
@@ -147,7 +147,7 @@ func _paint_skin() -> void:
 		# statue" in the S324 still - both corners looked the same).
 		var burn: float = float(_track[key])
 		var pu: float = float(_pulse.get(key, 0.0))
-		var col := BodyTrack.colour(maxf(burn, FRESH_END + 5.0)).lerp(Color.WHITE, 0.5 * pu)
+		var col := BodyTrack.colour(maxf(burn, FRESH_END + 5.0)).lerp(Palette.TEXT, 0.5 * pu)
 		col.a = TINT_ALPHA * clampf((burn - FRESH_START) / (FRESH_END - FRESH_START), 0.0, 1.0)
 		cols.append(col)
 	# S332 (operator C151 on the hit ring over her face: "wtf is that"): a hurt or just-hit face or rib side reddens her
@@ -311,7 +311,7 @@ func _draw_track(strokes: Dictionary) -> void:
 			pts.append(r.position + Vector2(float(q[0]) * r.size.x, float(q[1]) * r.size.y))
 		var pu: float = float(_pulse.get(key, 0.0))
 		var w: float = maxf(3.0, float(st["w"]) * r.size.x) * (1.0 + 0.35 * pu)
-		var col := BodyTrack.colour(float(_track[key])).lerp(Color.WHITE, 0.5 * pu)
+		var col := BodyTrack.colour(float(_track[key])).lerp(Palette.TEXT, 0.5 * pu)
 		col.a = TRACK_ALPHA
 		draw_polyline(pts, Color(Palette.PAGE, 0.55), w + 2.0, true)
 		draw_circle(pts[0], (w + 2.0) * 0.5, Color(Palette.PAGE, 0.55))
@@ -391,7 +391,7 @@ func _flash_now(p: String) -> float:
 
 
 func _flash_colour(base: Color, alpha: float) -> Color:
-	return base if alpha <= 0.0 else base.lerp(Color.WHITE, alpha)
+	return base if alpha <= 0.0 else base.lerp(Palette.TEXT, alpha)
 
 
 ## Set place -> 0..100 (missing places = 100).

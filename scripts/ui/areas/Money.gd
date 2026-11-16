@@ -4,9 +4,9 @@ extends VBoxContainer
 ## 1920x1080 screen - the books (tiles), in and out a week, what you can buy now, deals and staff. The in and out lines are a
 ## name and a signed amount, no bars (his markup: "these bars look stupid do not fit here"). Not-built rows are gone.
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const Tally := preload("res://scripts/ui/Tally.gd")
-const WarmKit := preload("res://scripts/ui/WarmKit.gd")
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const KitIcon := preload("res://scripts/ui/KitIcon.gd")
 const AreaHead := preload("res://scripts/ui/AreaHead.gd")
@@ -29,11 +29,7 @@ var _cash_tab: Button
 
 
 func build(main: Node) -> void:
-	var wall := WarmKit.wall()
-	var holder := get_parent()
-	if holder != null:
-		holder.add_child(wall)
-		holder.move_child(wall, 0)
+	# S498 ONELOOK1: no plaster wall of its own - Money sits on the one gym wall like every other page.
 	add_theme_constant_override("separation", 2)
 	size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	size_flags_vertical = Control.SIZE_EXPAND_FILL
@@ -227,7 +223,7 @@ func _col(c: Career, box_name: String, line_name: String, lines: Array, inn: boo
 ## A line with a faint rule under it, like a cash book.
 func _ruled(line: Control) -> Control:
 	var p := PanelContainer.new()
-	var sb := UI.box(Color(0, 0, 0, 0), Color(0, 0, 0, 0), 0, 0, 0, 1)
+	var sb := UI.box(Color(Palette.PAGE, 0), Color(Palette.PAGE, 0), 0, 0, 0, 1)
 	sb.border_width_bottom = 1
 	sb.border_color = Color(WoodKit.SOFT, 0.18)
 	p.add_theme_stylebox_override("panel", sb)
@@ -311,7 +307,7 @@ func _tile(icon: String, caption: String, lab: Control, tip: String, col: Color)
 	p.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	p.tooltip_text = tip
 	var sb := StyleBoxFlat.new()
-	sb.bg_color = Color("#1b2740")
+	sb.bg_color = Palette.CARD
 	sb.border_color = Color(WoodKit.SOFT, 0.35)
 	sb.set_border_width_all(1)
 	sb.set_corner_radius_all(10)

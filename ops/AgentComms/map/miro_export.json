@@ -1,0 +1,87 @@
+{
+ "exported": "2026-11-16",
+ "production": {
+  "title": "",
+  "text_blocks": []
+ },
+ "parts": [],
+ "frames": [],
+ "mechanics_list": [],
+ "comments": [],
+ "errors": [
+  {
+   "frame": "3458764689038208755 P0 production",
+   "error": "Your organization has reached its daily Miro mcp tool call limit. Please try again tomorrow.",
+   "tried": "canvas_read_as_svg (P0 and MENUS FINAL tried; others not retried: same org-wide limit)"
+  },
+  {
+   "frame": "3458764689038234761 P1",
+   "error": "Your organization has reached its daily Miro mcp tool call limit. Please try again tomorrow.",
+   "tried": "canvas_read_as_svg (P0 and MENUS FINAL tried; others not retried: same org-wide limit)"
+  },
+  {
+   "frame": "3458764689038234762 P2",
+   "error": "Your organization has reached its daily Miro mcp tool call limit. Please try again tomorrow.",
+   "tried": "canvas_read_as_svg (P0 and MENUS FINAL tried; others not retried: same org-wide limit)"
+  },
+  {
+   "frame": "3458764689038234763 P3",
+   "error": "Your organization has reached its daily Miro mcp tool call limit. Please try again tomorrow.",
+   "tried": "canvas_read_as_svg (P0 and MENUS FINAL tried; others not retried: same org-wide limit)"
+  },
+  {
+   "frame": "3458764689038264441 P4",
+   "error": "Your organization has reached its daily Miro mcp tool call limit. Please try again tomorrow.",
+   "tried": "canvas_read_as_svg (P0 and MENUS FINAL tried; others not retried: same org-wide limit)"
+  },
+  {
+   "frame": "3458764689038264442 P5",
+   "error": "Your organization has reached its daily Miro mcp tool call limit. Please try again tomorrow.",
+   "tried": "canvas_read_as_svg (P0 and MENUS FINAL tried; others not retried: same org-wide limit)"
+  },
+  {
+   "frame": "3458764689038264443 P6",
+   "error": "Your organization has reached its daily Miro mcp tool call limit. Please try again tomorrow.",
+   "tried": "canvas_read_as_svg (P0 and MENUS FINAL tried; others not retried: same org-wide limit)"
+  },
+  {
+   "frame": "3458764689038303019 P7",
+   "error": "Your organization has reached its daily Miro mcp tool call limit. Please try again tomorrow.",
+   "tried": "canvas_read_as_svg (P0 and MENUS FINAL tried; others not retried: same org-wide limit)"
+  },
+  {
+   "frame": "3458764689038303020 P8",
+   "error": "Your organization has reached its daily Miro mcp tool call limit. Please try again tomorrow.",
+   "tried": "canvas_read_as_svg (P0 and MENUS FINAL tried; others not retried: same org-wide limit)"
+  },
+  {
+   "frame": "3458764689038303021 P9",
+   "error": "Your organization has reached its daily Miro mcp tool call limit. Please try again tomorrow.",
+   "tried": "canvas_read_as_svg (P0 and MENUS FINAL tried; others not retried: same org-wide limit)"
+  },
+  {
+   "frame": "3458764689777613662 MENUS FINAL (S402)",
+   "error": "Your organization has reached its daily Miro mcp tool call limit. Please try again tomorrow.",
+   "tried": "canvas_read_as_svg (P0 and MENUS FINAL tried; others not retried: same org-wide limit)"
+  },
+  {
+   "frame": "3458764689771007533 MENUS FOR YOUR OK (S401)",
+   "error": "Your organization has reached its daily Miro mcp tool call limit. Please try again tomorrow.",
+   "tried": "canvas_read_as_svg (P0 and MENUS FINAL tried; others not retried: same org-wide limit)"
+  },
+  {
+   "frame": "3458764689772104154 MECHANICS LIST (S401)",
+   "error": "Your organization has reached its daily Miro mcp tool call limit. Please try again tomorrow.",
+   "tried": "canvas_read_as_svg (P0 and MENUS FINAL tried; others not retried: same org-wide limit)"
+  },
+  {
+   "frame": "3458764689099716206 Core loop - Early Access lanes",
+   "error": "Your organization has reached its daily Miro mcp tool call limit. Please try again tomorrow.",
+   "tried": "canvas_read_as_svg (P0 and MENUS FINAL tried; others not retried: same org-wide limit)"
+  },
+  {
+   "frame": "board comments",
+   "error": "Your organization has reached its daily Miro mcp tool call limit. Please try again tomorrow."
+  }
+ ]
+}

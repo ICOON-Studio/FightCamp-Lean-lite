@@ -79,7 +79,7 @@ static func _short_tab(b: Button) -> void:
 static func _tighten_tab(b: Button) -> void:
 	for state in ["normal", "hover", "pressed", "disabled"]:
 		var sb := b.get_theme_stylebox(state)
-		if sb is StyleBoxFlat:
+		if sb is StyleBoxFlat and not UI.WoodKit.is_plate(sb):   # S498: a house plate keeps its size, as the wooden tab did
 			var copy := (sb as StyleBoxFlat).duplicate() as StyleBoxFlat
 			copy.content_margin_top = 2
 			copy.content_margin_bottom = 2

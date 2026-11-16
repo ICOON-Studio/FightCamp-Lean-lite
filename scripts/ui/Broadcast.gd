@@ -7,20 +7,21 @@ extends RefCounted
 ##   frame(panel) -> VBoxContainer   corner(fig, name, colour, right)   compubox(rows)   tank(a, b)   timeline(exchanges)
 ##   quote(text, who)   verdict_card(card, won_rounds, colour)   reasons(lines)   ribbon(items)
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const UI := preload("res://scripts/ui/TV.gd")  # S333: fight graphics keep the dark TV look
 
-const HERS := Color(0.86, 0.26, 0.22)
-const THEIRS := Color(0.26, 0.47, 0.88)
-const INK := Color(0.045, 0.04, 0.04, 0.96)
-const DIM := Color(1, 1, 1, 0.38)
-const TRACK := Color(1, 1, 1, 0.07)
+const HERS := Palette.BAD_FILL
+const THEIRS := Palette.ACCENT
+const INK := Color(Palette.PAGE, 0.96)
+const DIM := Color(Palette.TEXT, 0.38)
+const TRACK := Color(Palette.TEXT, 0.07)
 
 
 ## Restyles the modal as a broadcast graphic: flat ink, square edges, the two corners' colours as a strip on top. Returns
 ## the padded column to build into.
 static func frame(panel: PanelContainer) -> VBoxContainer:
-	panel.add_theme_stylebox_override("panel", UI.box(INK, Color(0, 0, 0, 0), 3, 0, 0, 0))
+	panel.add_theme_stylebox_override("panel", UI.box(INK, Color(Palette.PAGE, 0), 3, 0, 0, 0))
 	panel.custom_minimum_size = Vector2(1440, 0)
 	var outer := UI.vbox(0)
 	panel.add_child(outer)
@@ -47,7 +48,7 @@ static func frame(panel: PanelContainer) -> VBoxContainer:
 ## A fighter standing in her corner's light: her body picture, her name in large type, the corner under it.
 static func corner(fig: Control, name: String, colour: Color, right: bool) -> PanelContainer:
 	var p := PanelContainer.new()
-	var sb := UI.box(Color(colour.r, colour.g, colour.b, 0.16), Color(0, 0, 0, 0), 2, 0, 16, 14)
+	var sb := UI.box(Color(colour.r, colour.g, colour.b, 0.16), Color(Palette.PAGE, 0), 2, 0, 16, 14)
 	sb.border_color = colour
 	sb.border_width_bottom = 5
 	p.add_theme_stylebox_override("panel", sb)
@@ -58,7 +59,7 @@ static func corner(fig: Control, name: String, colour: Color, right: bool) -> Pa
 		fig.custom_minimum_size = Vector2(228, 300)
 		fig.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 		v.add_child(fig)
-	var n := UI.display(name.to_upper(), 36, Color.WHITE)
+	var n := UI.display(name.to_upper(), 36, Palette.TEXT)
 	n.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT if right else HORIZONTAL_ALIGNMENT_LEFT
 	v.add_child(n)
 	var c := UI.caps("BLUE CORNER" if right else "RED CORNER")
@@ -220,7 +221,7 @@ static func ribbon(items: Array) -> HBoxContainer:
 
 static func _numbers_row(label: String, a: String, b: String, a_lead: bool, b_lead: bool) -> HBoxContainer:
 	var row := UI.hbox(12)
-	var na := UI.display(a, 46, Color.WHITE if a_lead else DIM)
+	var na := UI.display(a, 46, Palette.TEXT if a_lead else DIM)
 	na.custom_minimum_size = Vector2(90, 0)
 	row.add_child(na)
 	var l := UI.caps(label.to_upper())
@@ -229,7 +230,7 @@ static func _numbers_row(label: String, a: String, b: String, a_lead: bool, b_le
 	l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	l.size_flags_vertical = Control.SIZE_FILL
 	row.add_child(l)
-	var nb := UI.display(b, 46, Color.WHITE if b_lead else DIM)
+	var nb := UI.display(b, 46, Palette.TEXT if b_lead else DIM)
 	nb.custom_minimum_size = Vector2(90, 0)
 	nb.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	row.add_child(nb)

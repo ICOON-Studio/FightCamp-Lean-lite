@@ -3,6 +3,7 @@ extends RefCounted
 ## Ask (grey, with the reason, when the promoter or a booking says no) and Scout with its price.
 ## The numbers are BoutRead's. This file only draws them.
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const Bars := preload("res://scripts/ui/WorldBars.gd")
@@ -199,7 +200,7 @@ static func sports() -> Control:
 	var row := UI.hbox(6)
 	row.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	row.add_child(UI.label("MMA", UI.SMALL, UI.FG, "bold"))
-	var warn := icon("warn", 16, Color("ffd54a"), "Not built yet")
+	var warn := icon("warn", 16, Palette.HEADER, "Not built yet")
 	warn.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	row.add_child(warn)
 	mma.add_child(row)
@@ -301,7 +302,7 @@ static func key_panel() -> Control:
 			["booked", "Booked", UI.GOLD], ["camp", "In camp", WoodKit.INK], ["injured", "Injured", UI.RED], ["offer", "Offer waiting", UI.AMBER],
 			["contract", "Contract talks", WoodKit.INK], ["free", "Free", WoodKit.SOFT], ["leaving", "Leaving", UI.AMBER], ["retiring", "Retiring", WoodKit.SOFT], ["new_face", "New face", UI.GREEN],
 			["scouted", "Scouted", UI.GREEN], ["unscouted", "Not scouted", WoodKit.SOFT], ["up", "Rising", UI.GREEN], ["down", "Falling", UI.RED],
-			["hands", "Stoppages", WoodKit.INK], ["warn", "Not built yet", Color("ffd54a")]]:
+			["hands", "Stoppages", WoodKit.INK], ["warn", "Not built yet", Palette.HEADER]]:
 		var cell := UI.hbox(4)
 		cell.name = "Key_" + str(it[0])
 		cell.add_child(icon(str(it[0]), 14, it[2] as Color))
@@ -365,7 +366,7 @@ static func region_files(main: Node, c: Career, divs: Array) -> Control:
 static func _panel(on: bool) -> PanelContainer:
 	var p := PanelContainer.new()
 	var edge := WoodKit.HEAD if on else Color(WoodKit.SOFT, 0.35)
-	p.add_theme_stylebox_override("panel", UI.box(Color(1, 1, 1, 0.04), edge, 4, 2 if on else 1, 6, 6))
+	p.add_theme_stylebox_override("panel", UI.box(Color(Palette.TEXT, 0.04), edge, 4, 2 if on else 1, 6, 6))
 	return p
 
 
@@ -384,7 +385,7 @@ static func _ghost(node_name: String) -> PanelContainer:
 	p.name = node_name
 	p.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	p.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
-	p.add_theme_stylebox_override("panel", UI.box(Color(1, 1, 1, 0.04), Color(WoodKit.SOFT, 0.35), 4, 1, 14, 8))
+	p.add_theme_stylebox_override("panel", UI.box(Color(Palette.TEXT, 0.04), Color(WoodKit.SOFT, 0.35), 4, 1, 14, 8))
 	return p
 
 
@@ -392,7 +393,7 @@ static func _ghost(node_name: String) -> PanelContainer:
 static func bed(child: Control) -> PanelContainer:
 	var p := PanelContainer.new()
 	p.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	p.add_theme_stylebox_override("panel", UI.box(Color(UI.DARK, 0.72), Color(0, 0, 0, 0), 0, 0, 0, 0))
+	p.add_theme_stylebox_override("panel", WoodKit.slate(0, 0))
 	p.add_child(child)
 	return p
 

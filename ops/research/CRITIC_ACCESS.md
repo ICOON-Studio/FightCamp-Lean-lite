@@ -1,19 +1,22 @@
 # What a critic can open (S403)
 
-Operator: "giveaccess to miro board for the critics and everything else required". Read `ops/research/CRITIC_PACK.md` first, then use whatever here helps. All of it is read-only for a critic: change nothing.
+Operator S403: "giveaccess to miro board for the critics and everything else required" (S499: the board is now our own map page). Read `ops/research/CRITIC_PACK.md` first, then use whatever here helps. All of it is read-only for a critic: change nothing.
 
-## The Miro board
-https://miro.com/app/board/uXjVEV03QWA=/ (the only board; never uXjVETf7la4=, it is archived).
-Load the tools with ToolSearch, all in one call: `select:mcp__7308b134-feb7-4aa9-9a3c-39cae47ed6e1__canvas_read_as_svg,mcp__7308b134-feb7-4aa9-9a3c-39cae47ed6e1__canvas_search,mcp__7308b134-feb7-4aa9-9a3c-39cae47ed6e1__comment_list_comments,mcp__7308b134-feb7-4aa9-9a3c-39cae47ed6e1__image_get_data`
-Read a frame with `canvas_read_as_svg`, `widget_ids: ["<id>"]`. The owner's notes are both yellow stickies and comments, so read comments too with `comment_list_comments`.
+## The map (S499: our own page, Miro is no longer used)
+The owner's map is http://127.0.0.1:8787/map. A critic reads it from its files, no browser and no Miro tool needed:
+- `ops/AgentComms/map/frames.json`: every frame on the map (rows, titles, which pictures each shows as file globs).
+- `ops/AgentComms/map/notes.json`: the owner's sticky notes (`who: operator`), each with the frame it sits on. Read them all.
+- Where we are (done, now, next): `python ops/Tools/where_we_are.py` prints the cards.
 
-| Frame | Id | What it holds |
+| Frame id | What it holds | Files |
 |---|---|---|
-| MENUS FINAL (S402) | 3458764689777613662 | 17 menus: layout, Ludo's painted art, the owner's stickies |
-| PAINTED MENUS (S401) | 3458764689772257568 | Painted version of each menu |
-| MENUS FOR YOUR OK (S401) | 3458764689771007533 | The earlier round, with the owner's notes |
-| MECHANICS LIST (S401) | 3458764689772104154 | 103 candidate mechanics and the owner's notes |
-| P0 Where we are | 3458764689579200297 | What is done, being worked on, and next |
+| screens | Every screen as the game draws it today | `E:/FightCamp/critic_pack/screens/*_real.png` |
+| menus402 / painted402 | Menus final (S402): layouts and Ludo's painted art | `docs/mockups/s402/*.png`, `docs/mockups/concepts/S402_*.png` |
+| menus401 / painted401 | The earlier round | `docs/mockups/s401/*.png`, `docs/mockups/concepts/S401_*.png` |
+| where | What is done, being worked on, and next | roadmap.json `plan.map` |
+
+The old Miro board (MENUS FINAL, MECHANICS LIST, the owner's stickies up to S498) is a view-only archive; what could be copied
+from it is in `ops/AgentComms/map/miro_export.json` (empty until Miro allows a read: see `ops/research/MIRO_EXPORT_S499.md`).
 
 Some frames carry earlier critics' scores. Ignore them and reach your own verdict: they are there for the owner, not for you.
 

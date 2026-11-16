@@ -4,18 +4,19 @@ extends RefCounted
 ## the opponent's habit our fighter has read, a white tick where she pulls the trigger, and the two corner calls -
 ## WAIT FOR IT (hold the trigger up) and TAKE IT NOW (fire on what she has). read = LiveRound.read_view; pick(call).
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/TV.gd")
 
-const SLAB := Color(0.04, 0.04, 0.05, 0.92)
-const CORNER := Color("#d4202a")
-const READY := Color("#f5c518")
-const STEEL := Color("#2a2d33")
+const SLAB := Color(Palette.PAGE, 0.92)
+const CORNER := Palette.BAD_FILL
+const READY := Palette.HEADER
+const STEEL := Palette.CARD
 
 
 static func build(read: Dictionary, read_call: String, names: Array, pick: Callable) -> PanelContainer:
 	var p := PanelContainer.new()
 	p.name = "ReadPanel"
-	var sb := UI.box(SLAB, Color(0, 0, 0, 0), 0, 0, 0, 0)
+	var sb := UI.box(SLAB, Color(Palette.PAGE, 0), 0, 0, 0, 0)
 	sb.border_width_left = 8
 	sb.border_color = CORNER
 	p.add_theme_stylebox_override("panel", sb)
@@ -30,16 +31,16 @@ static func build(read: Dictionary, read_call: String, names: Array, pick: Calla
 	var h := UI.hbox(18)
 	m.add_child(h)
 	var tag := UI.vbox(0)
-	tag.add_child(UI.label("THE READ", 30, Color.WHITE, "display"))
+	tag.add_child(UI.label("THE READ", 30, Palette.TEXT, "display"))
 	tag.add_child(UI.label(str(read["temper"]).to_upper(), UI.TINY, READY if str(read["temper"]) == "gambler" else UI.MUTED, "caps"))
 	h.add_child(tag)
 	var mid := UI.vbox(4)
 	mid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	var top := UI.hbox(10)
 	var ready := float(read["read"]) >= float(read["trig"])
-	top.add_child(UI.label("%s %s" % [str(names[1]).to_upper(), str(read["label"]).to_upper()], 22, Color.WHITE, "display"))
+	top.add_child(UI.label("%s %s" % [str(names[1]).to_upper(), str(read["label"]).to_upper()], 22, Palette.TEXT, "display"))
 	top.add_child(UI.spacer())
-	var pct := UI.label("%d%%" % roundi(float(read["read"]) * 100.0), 30, READY if ready else Color.WHITE, "display")
+	var pct := UI.label("%d%%" % roundi(float(read["read"]) * 100.0), 30, READY if ready else Palette.TEXT, "display")
 	pct.name = "ReadPct"
 	top.add_child(pct)
 	mid.add_child(top)
@@ -57,12 +58,12 @@ static func build(read: Dictionary, read_call: String, names: Array, pick: Calla
 	h.add_child(mid)
 	for k in [["wait", "WAIT FOR IT", "hold the punch back"], ["take", "TAKE IT NOW", "throw it on %d%%" % roundi(float(read["read"]) * 100.0)]]:
 		var on: bool = read_call == str(k[0])
-		var b := UI.button2(k[1], k[2], "Choice", pick.bind(k[0]), Vector2(170, 58), Color.WHITE if not on else Color("#14110f"),
-			UI.MUTED if not on else Color("#3a2a10"), false, 20, UI.TINY)
+		var b := UI.button2(k[1], k[2], "Choice", pick.bind(k[0]), Vector2(170, 58), Palette.TEXT if not on else Palette.PAGE,
+			UI.MUTED if not on else Palette.HOVER, false, 20, UI.TINY)
 		b.name = "Read_" + k[0]
 		var bg := READY if on else STEEL
-		b.add_theme_stylebox_override("normal", UI.box(bg, Color(1, 1, 1, 0.18), 0, 1, 12, 6))
-		b.add_theme_stylebox_override("hover", UI.box(bg.lightened(0.12), Color(1, 1, 1, 0.4), 0, 1, 12, 6))
+		b.add_theme_stylebox_override("normal", UI.box(bg, Color(Palette.TEXT, 0.18), 0, 1, 12, 6))
+		b.add_theme_stylebox_override("hover", UI.box(bg.lightened(0.12), Color(Palette.TEXT, 0.4), 0, 1, 12, 6))
 		for l in b.find_children("*", "Label", true, false):
 			if (l as Label).text == k[1]:
 				(l as Label).add_theme_font_override("font", UI.font("display"))
@@ -85,10 +86,10 @@ class Meter extends Control:
 		mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 	func _draw() -> void:
-		draw_rect(Rect2(Vector2.ZERO, size), Color("#2a2d33"))
+		draw_rect(Rect2(Vector2.ZERO, size), Palette.CARD)
 		var w := size.x * clampf(frac, 0.0, 1.0)
-		draw_rect(Rect2(0, 0, w, size.y), Color("#f5c518") if is_ready else Color("#d4202a"))
+		draw_rect(Rect2(0, 0, w, size.y), Palette.HEADER if is_ready else Palette.BAD_FILL)
 		# A lighter stripe on the top third: the broadcast bars' sheen.
-		draw_rect(Rect2(0, 0, w, size.y * 0.3), Color(1, 1, 1, 0.18))
+		draw_rect(Rect2(0, 0, w, size.y * 0.3), Color(Palette.TEXT, 0.18))
 		var x := size.x * clampf(trig, 0.0, 1.0)
-		draw_rect(Rect2(x - 2, -4, 4, size.y + 8), Color.WHITE)
+		draw_rect(Rect2(x - 2, -4, 4, size.y + 8), Palette.TEXT)

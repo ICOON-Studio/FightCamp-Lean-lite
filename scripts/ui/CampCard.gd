@@ -7,6 +7,7 @@ extends RefCounted
 ##   card(main, f, key, chosen, now, end, from, pop) -> Button "Focus_<key>"     picture(f, key) -> Texture2D
 ##   option(name, title, line, risk, risk_col, on, press, h) -> Button       count(l, from, to, fmt)   pulse(c)
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const Data := preload("res://scripts/state/Data.gd")
@@ -154,8 +155,8 @@ static func count(l: Control, from: float, to: float, fmt: Callable) -> void:
 ## A short colour pulse when a value changes band (operator: animated meters).
 static func pulse(c: CanvasItem) -> void:
 	var go := func() -> void:
-		c.modulate = Color(1.0, 0.8, 0.35)
-		c.create_tween().tween_property(c, "modulate", Color.WHITE, 0.6).set_ease(Tween.EASE_OUT)
+		c.modulate = Palette.HEADER
+		c.create_tween().tween_property(c, "modulate", Palette.FULL, 0.6).set_ease(Tween.EASE_OUT)
 	if c.is_inside_tree():
 		go.call()
 	else:
@@ -178,7 +179,7 @@ static func _shell(name: String, on: bool, press: Callable) -> Button:
 ## every state: the ink pass reads "normal", and a pale fill would keep dark words on the slate.
 static func _frame(on: bool, hover: bool) -> StyleBoxFlat:
 	var edge := Color(WoodKit.HEAD) if on else (Color(WoodKit.BLUE) if hover else Color(WoodKit.SOFT, 0.35))
-	return UI.box(Color(1, 1, 1, 0.04), edge, 4, 2 if on else 1, 0, 0)
+	return UI.box(Color(Palette.TEXT, 0.04), edge, 4, 2 if on else 1, 0, 0)
 
 
 ## The box's inner column, filling the button with `pad` (sides) and `pad_v` (top and bottom).
@@ -210,7 +211,7 @@ static func _check(pop: bool) -> Control:
 	c.pivot_offset = Vector2(17, 17)
 	c.draw.connect(func() -> void:
 		c.draw_circle(Vector2(17, 17), 17.0, UI.GOLD)
-		c.draw_polyline(PackedVector2Array([Vector2(9, 18), Vector2(15, 24), Vector2(25, 11)]), Color.WHITE, 3.5, true))
+		c.draw_polyline(PackedVector2Array([Vector2(9, 18), Vector2(15, 24), Vector2(25, 11)]), Palette.TEXT, 3.5, true))
 	if not pop:
 		return c
 	c.ready.connect(func() -> void:

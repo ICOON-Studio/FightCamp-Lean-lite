@@ -6,17 +6,18 @@ extends Control
 ## opponent's on the right in theirs. The numbers count what the 3D has landed this round (FightSeam.landed_ex).
 ##   setup(holo_prefix, ours [head, body], theirs [head, body], ours_col, theirs_col)   drawn: [[text, position]] (tests)
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const BodyHolo := preload("res://scripts/ui/BodyHolo.gd")
 const BodyMap := preload("res://scripts/rules/BodyMap.gd")
 
 var tex: Texture2D
 var anchors := {}
 var counts: Array = [[0, 0], [0, 0]]
-var cols: Array = [Color.WHITE, Color.WHITE]
+var cols: Array = [Palette.TEXT, Palette.TEXT]
 var drawn: Array = []
 var bands: Array = [["fine", "fine"], ["fine", "fine"]]   # [ours, theirs] x [head, body]: BodyMap bands, worst place of each
 const BAND_WORD := {"hurt": "hurt", "critical": "badly hurt", "doctor": "badly hurt"}
-const BAND_COL := {"hurt": Color("#ff9a3c"), "critical": Color("#ff4d2e"), "doctor": Color("#ff4d2e")}
+const BAND_COL := {"hurt": Palette.WARN, "critical": Palette.BAD_FILL, "doctor": Palette.BAD_FILL}
 
 
 func setup(holo: String, ours: Array, theirs: Array, ours_col: Color, theirs_col: Color, hurt: Array = []) -> void:
@@ -64,13 +65,13 @@ func _draw() -> void:
 				text += " " + str(BAND_WORD[band])
 			var ink: Color = BAND_COL.get(band, col)
 			var end := Vector2(edge, pt.y)
-			draw_line(pt, end, Color(0, 0, 0, 0.75), 4.0, true)
+			draw_line(pt, end, Color(Palette.PAGE, 0.75), 4.0, true)
 			draw_line(pt, end, col, 2.0, true)
-			draw_circle(pt, 4.0, Color(0, 0, 0, 0.8))
+			draw_circle(pt, 4.0, Color(Palette.PAGE, 0.8))
 			draw_circle(pt, 2.6, col)
 			var tw := font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x
 			var at := Vector2(end.x + 4.0 if dir > 0.0 else end.x - 4.0 - tw, pt.y + float(fs) * 0.35)
-			draw_string_outline(font, at, text, HORIZONTAL_ALIGNMENT_LEFT, -1, fs, 4, Color(0, 0, 0, 0.85))
+			draw_string_outline(font, at, text, HORIZONTAL_ALIGNMENT_LEFT, -1, fs, 4, Color(Palette.PAGE, 0.85))
 			draw_string(font, at, text, HORIZONTAL_ALIGNMENT_LEFT, -1, fs, ink)
 			drawn.append([text, at])
 

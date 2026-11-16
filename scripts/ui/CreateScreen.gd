@@ -5,6 +5,7 @@ extends CenterContainer
 ##   2. YOUR CLUB - city, gym name and one of three starts (ClubStart: the start doubles as difficulty).
 ## Main.create holds the picks: {step, country, city, gym, name, coach, start}.
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const Halo := preload("res://scripts/ui/Halo.gd")
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")
@@ -77,7 +78,7 @@ func build(main: Node) -> void:
 		skip.text = "Skip the first-hour guide"
 		skip.button_pressed = FirstWeek.skip_on()
 		skip.toggled.connect(FirstWeek.set_skip)
-		var skip_box := UI.box(Color(1, 1, 1, 0.04), Color(WoodKit.SOFT, 0.35), 4, 1, 10, 4)
+		var skip_box := UI.box(Color(Palette.TEXT, 0.04), Color(WoodKit.SOFT, 0.35), 4, 1, 10, 4)
 		for state in ["normal", "hover", "pressed", "disabled", "focus"]:
 			skip.add_theme_stylebox_override(state, skip_box)
 		for fc in ["font_color", "font_hover_color", "font_pressed_color", "font_focus_color"]:
@@ -272,7 +273,7 @@ func _card_shell(id: String, on: bool, size: Vector2, framed: bool = true) -> Pa
 	if framed:
 		p.add_theme_stylebox_override("panel", WoodKit.slate(0, 0))
 	else:
-		p.add_theme_stylebox_override("panel", UI.box(Color(1, 1, 1, 0.04), Color(WoodKit.SOFT, 0.35), 4, 1, 0, 0))
+		p.add_theme_stylebox_override("panel", UI.box(Color(Palette.TEXT, 0.04), Color(WoodKit.SOFT, 0.35), 4, 1, 0, 0))
 	var m := MarginContainer.new()
 	for side in ["left", "right", "top", "bottom"]:
 		m.add_theme_constant_override("margin_" + side, pad)
@@ -287,8 +288,8 @@ func _card_shell(id: String, on: bool, size: Vector2, framed: bool = true) -> Pa
 ## A name box on the slate: dark fill, chalk letters, in every LineEdit state.
 func _dark_line(edit: LineEdit) -> void:
 	for state in ["normal", "read_only"]:
-		edit.add_theme_stylebox_override(state, UI.box(Color(0, 0, 0, 0.35), Color(WoodKit.SOFT, 0.5), 4, 1, 12, 10))
-	edit.add_theme_stylebox_override("focus", UI.box(Color(0, 0, 0, 0.35), WoodKit.HEAD, 4, 1, 12, 10))
+		edit.add_theme_stylebox_override(state, UI.box(Color(Palette.PAGE, 0.35), Color(WoodKit.SOFT, 0.5), 4, 1, 12, 10))
+	edit.add_theme_stylebox_override("focus", UI.box(Color(Palette.PAGE, 0.35), WoodKit.HEAD, 4, 1, 12, 10))
 	edit.add_theme_color_override("font_color", WoodKit.INK)
 	edit.add_theme_color_override("font_selected_color", WoodKit.DARK_INK)
 	edit.add_theme_color_override("font_placeholder_color", WoodKit.SOFT)

@@ -18,8 +18,8 @@ const Playbook := preload("res://scripts/ui/areas/Playbook.gd")
 const BjjTree := preload("res://scripts/rules/BjjTree.gd")
 const MatTreeInfo := preload("res://scripts/ui/MatTreeInfo.gd")
 
-const BELT_COLOR := {"white": Color("#f4f5f6"), "blue": Color("#2f5fd0"), "purple": Color("#7b3fc4"),
-	"brown": Color("#7a4a25"), "black": Color("#151515")}
+const Palette := preload("res://scripts/ui/Palette.gd")
+const BELT_COLOR := Palette.BELTS   # S496 ONELOOK1: the real belts live in the palette (depiction, not chrome)
 const BELT_SUB := {"blue": "no minimum at white, age 16+", "purple": "2 years at blue", "brown": "1.5 years at purple, 18+",
 	"black": "1 year at brown, 19+"}
 const ORDINAL := ["", "1st", "2nd", "3rd", "4th"]
@@ -151,7 +151,7 @@ func _belt_bar(belt: String, stripes: int, mine: bool) -> Control:
 	hold.add_child(h)
 	h.add_child(UI.spacer())
 	var tip := PanelContainer.new()
-	tip.add_theme_stylebox_override("panel", UI.box(Color("#c62832") if belt == "black" else Color("#151515"), Color(0, 0, 0, 0), 0, 0, 8, 6))
+	tip.add_theme_stylebox_override("panel", UI.box(Palette.BELT_BAR_RED if belt == "black" else Palette.BELTS["black"], Palette.CLEAR, 0, 0, 8, 6))
 	tip.custom_minimum_size = Vector2(76, 0)
 	var sh := UI.hbox(5)
 	sh.alignment = BoxContainer.ALIGNMENT_CENTER
@@ -159,7 +159,7 @@ func _belt_bar(belt: String, stripes: int, mine: bool) -> Control:
 	if belt != "black":
 		for k in BeltRoad.STRIPES:
 			var s := ColorRect.new()
-			s.color = Color.WHITE if k < stripes else Color("#4a4a4a")
+			s.color = Palette.STRIPE_ON if k < stripes else Palette.STRIPE_OFF
 			s.custom_minimum_size = Vector2(7, 22)
 			s.name = "Stripe_%d" % k
 			sh.add_child(s)
@@ -194,7 +194,7 @@ func _syllabus(main: Node, f: Dictionary, nxt: String, r: Dictionary) -> Control
 			h.add_child(l)
 			var bar: Control = Bar.new()
 			bar.frac = v / 100.0
-			bar.fill = Color("#2a9d8f")
+			bar.fill = Palette.TILE
 			bar.custom_minimum_size = Vector2(130, 8)
 			bar.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 			var tick := ColorRect.new()   # the weapon line (OWNED_AT)
@@ -316,7 +316,7 @@ func _call(main: Node, c: Career, f: Dictionary, nxt: String, r: Dictionary) -> 
 		wl.tooltip_text = "The chance in the first match (the coach's read)"
 		wl.mouse_filter = Control.MOUSE_FILTER_STOP
 		var row := UI.row(str(o["name"]), "%s - %d entrants - $%d%s" % [Clock.fmt(d), NoGi.BRACKET, int(o["fee"]), lean],
-			Color(0, 0, 0, 0), [wl, right])
+			Color(Palette.PAGE, 0), [wl, right])
 		row.name = "Open_%d" % d
 		v.add_child(row)
 		if entered.has(d):
@@ -423,7 +423,7 @@ func _record(f: Dictionary) -> Control:
 		var o: Dictionary = opens[i]
 		var won := bool(o["win"])
 		rows.append(UI.row("%s - %s, %s" % ["Won" if won else "Lost", o["opp"], o["how"]], "%s, %s" % [Clock.fmt(int(o["d"])), o["open"]],
-			Color(0, 0, 0, 0), [UI.label("W" if won else "L", UI.BODY, UI.GREEN if won else UI.RED, "bold")]))
+			Color(Palette.PAGE, 0), [UI.label("W" if won else "L", UI.BODY, UI.GREEN if won else UI.RED, "bold")]))
 	if rows.is_empty():
 		card[1].add_child(UI.muted("The opens show here.", UI.BODY))
 	UI.add_rows(card[1], rows)

@@ -14,7 +14,10 @@ git, agents, operator, board) are `ops/WORKFLOW.md`, imported here; where it and
 - `docs/RESTART_PLAN.md` - the decision, the weekly builds, week 1 in detail.
 - `docs/menu_prototype.html` - the clickable prototype the operator approved ("Yes, restart small"). Its structure, words, look
   and behaviour are the spec. Also published: https://claude.ai/artifact/XBvFSh3qyyQrc8HaW2HR1X
-- Miro board with the full structure: https://miro.com/app/board/uXjVEV03QWA=/
+- THE MAP (operator S499: "miro subscription has been stop ... can you create something like miro for our project"): our own
+  page on the ops board, http://127.0.0.1:8787/map (`ops/Tools/opsboard/map_board.py`, data in `ops/AgentComms/map/`): where we
+  are, who works on what, every real screen, the approved menus, and his sticky notes. Miro is no longer used (the old board
+  https://miro.com/app/board/uXjVEV03QWA=/ is a view-only archive); no session calls a Miro tool.
 
 ## The operator
 The CEO and playtester (40 years of games, no development background). Claude is the developer: decide code questions yourself
@@ -94,12 +97,12 @@ Questions for the operator go on the board (`python ops/Tools/agent_comms.py ask
 2. Ops board: in `ops/AgentComms/roadmap.json` update `now`, `next`, `plan` (working_now / next / done_recently /
    titles) and append the session to `sessions`; run `python ops/Tools/render_roadmap.py`; commit them with the session's work.
 3. Rewrite `NEXT_SESSION_PROMPT.md` here for the next session.
-3b. The Miro production map (operator S323: "so i can always know what we work on and next"): move the cards between
-   DONE / NOW / NEXT in P0 and the part frames P1-P9 (https://miro.com/app/board/uXjVEV03QWA=/, right of frame 11) and keep
-   their scores honest; the ops board links them from roadmap.json `plan.maps`.
-   S385 operator ("a map similar to this ... updated on every session end or start"): the P0 "Where we are" frame
-   (DONE earlier / this session, NOW, NEXT) is drawn from `ops/Tools/where_we_are.py`. At START: `roll S<n>` + `now`;
-   at END: `done` / `drop` / `next`; both times redraw it with `where_we_are.py svg` and one canvas_update_from_svg.
+3b. The map (operator S323: "so i can always know what we work on and next"; S385: "updated on every session end or start";
+   S499: Miro replaced by our own page, http://127.0.0.1:8787/map). At START: `python ops/Tools/where_we_are.py roll S<n>` +
+   `now`; at END: `done` / `drop` / `next`. The page reads them live: nothing to redraw. A design map, a mockup round or new
+   stills he should see go on the map as a frame (`python ops/Tools/opsboard/map_board.py gallery <id> "<title>" --row "<row>"
+   <globs>`; `cards` for a DONE/NOW/NEXT frame). His notes on the map are printed by `start`: quote each, act, then
+   `map_board.py reply <id> "<what was done>"`. Commit `ops/AgentComms/map/frames.json` and `notes.json` with the session.
 4. Memorize the session (memory) and say so in the handover.
 5. Ask the operator whether to hand over or keep going; the handover is ONE copy/paste block.
 

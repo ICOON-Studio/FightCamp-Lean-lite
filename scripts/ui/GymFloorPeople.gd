@@ -1,6 +1,7 @@
 extends Control
 ## S416 boxers on the gym picture. Takes no clicks. S429 fighters stand at today's station; strips from GymWorkouts.
 ## A new spot walks GymPeople.route when one exists (two walkers at most), otherwise the figure fades.
+const Palette := preload("res://scripts/ui/Palette.gd")
 const GymPeople := preload("res://scripts/rules/GymPeople.gd")
 const GymWorkouts := preload("res://scripts/rules/GymWorkouts.gd")
 const GymFloorSpots := preload("res://scripts/rules/GymFloorSpots.gd")
@@ -282,7 +283,7 @@ func _blit(p: Dictionary) -> void:
 	var feet: Vector2 = p["at"]
 	var sc: float = _fig_h(feet.y) / FH
 	draw_set_transform(_corner + feet * _k, 0.0, Vector2(sc, sc))
-	draw_texture_rect_region(tex, Rect2(-FEET, Vector2(FW, FH)), Rect2(float(frame) * FW, 0.0, FW, FH), Color(1, 1, 1, float(p["alpha"])))
+	draw_texture_rect_region(tex, Rect2(-FEET, Vector2(FW, FH)), Rect2(float(frame) * FW, 0.0, FW, FH), Color(Palette.TEXT, float(p["alpha"])))
 func _fig_h(y: float) -> float:
 	return GymFloorSpots.fig_h(y, _k)
 func _strip(stem: String, clip: String) -> Texture2D:

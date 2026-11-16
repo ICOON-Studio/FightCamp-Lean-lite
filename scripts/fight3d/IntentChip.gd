@@ -5,13 +5,14 @@ extends Control
 ## S491 operator ("remove that from his face"): the word no longer rides the head - it sits in a lane under its boxer's
 ## name plate (ours left, the opponent right), off every body. Hidden while that boxer is off screen. Never takes a click.
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const TV := preload("res://scripts/ui/TV.gd")
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const Halo := preload("res://scripts/ui/Halo.gd")
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 const LiveRound := preload("res://scripts/state/LiveRound.gd")
 
-const RED := Color("#e2483d")
+const RED := Palette.BAD_FILL
 const LANE_Y := 208.0   # under the side plates (20..200), above the body maps (350+)
 const LANE_X := [20.0, 1900.0]   # ours from the left edge, the opponent's ending at the right edge
 

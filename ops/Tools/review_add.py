@@ -59,7 +59,11 @@ def main() -> int:
     (batch / "manifest.json").write_text(json.dumps({"title": a.title, "stage": a.stage, "rating": a.rating, "at": now.strftime("%Y-%m-%dT%H:%M"),
                                                      "files": rows}, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     print("POSTED %d file(s) -> http://127.0.0.1:8787/review  (%s)" % (len(rows), batch))
-    if a.supersedes:
+    # S498: an empty or very short prefix matched EVERY post on the board (15 marked older by one bad call).
+    short = [x for x in a.supersedes if len(x.strip()) < 13]
+    if short:
+        print("SUPERSEDES REFUSED: %s - give at least the post's date and time (YYYY-MM-DD_HHMM)" % short)
+    elif a.supersedes:
         hit = media_review.mark_superseded(a.supersedes, batch.name)
         print("OLDER VERSION marked on %d post(s): %s" % (len(hit), ", ".join(hit) or "-"))
     return 0

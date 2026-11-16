@@ -8,6 +8,7 @@ extends Node
 ## - "RSC": he gets up, the count ends in STOPPED; "KO": he stays on the canvas, the count goes to 10.
 ##   attach(view) -> Node   start(down, stop, up_at, fall_in)   holding() -> bool   stop()   phase, shown (probes read them)
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const Stage := preload("res://scripts/fight3d/FightStage.gd")
 const BeatClips := preload("res://scripts/fight3d/BeatClips.gd")
 const FightHud := preload("res://scripts/fight3d/FightHud.gd")
@@ -93,7 +94,7 @@ func _build() -> void:
 	_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	_label.add_theme_constant_override("outline_size", 14)
-	_label.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.9))
+	_label.add_theme_color_override("font_outline_color", Color(Palette.PAGE, 0.9))
 	view.add_child(_label)
 	FightHud.pin(_label, Vector4(0.5, 0, 0.5, 0), Vector4(-640, 110, 640, 270))
 

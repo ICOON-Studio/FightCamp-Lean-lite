@@ -4,6 +4,7 @@ extends Control
 ## and ends. Two at most (a third replaces the oldest), ~2 s each with a strip that runs down, faded in and out. Never over a
 ## head, glove or feet (a fixed set of slots by the post, checked against both boxers' projected bones); no free slot = not
 ## shown, the caption line keeps the words. ON by default, `nobubbles` = the control arm. FightView._fire -> take().
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/TV.gd")
 const Icons := preload("res://scripts/ui/Icons.gd")
 const ScoreBug := preload("res://scripts/fight3d/ScoreBug.gd")
@@ -14,8 +15,8 @@ static var enabled := not OS.get_cmdline_user_args().has("nobubbles")
 const MAX_ON := 2
 const LIFE_S := 2.0     # real seconds on screen at full strength (2x and the shout bar's slow ring do not change it)
 const FADE_S := 0.25
-const EDGE := Color(1, 1, 1, 0.0)   # S443 his C327 "remove the wooden panel , make it transparent": no gold-brown frame (was #cdb68a)
-const BG := Color(0.0, 0.0, 0.0, 0.42)   # S443 C327: see-through dark glass, not a wooden panel (was brown 0.94)
+const EDGE := Color(Palette.TEXT, 0.0)   # S443 his C327 "remove the wooden panel , make it transparent": no gold-brown frame (was #cdb68a)
+const BG := Color(Palette.PAGE, 0.42)   # S443 C327: see-through dark glass, not a wooden panel (was brown 0.94)
 const TEXT_PX := 22
 const GAP := 26.0       # bubble edge to the post
 const POST_TOP := Vector3(-2.75, 1.45, -2.75)   # RingSet post 0 (red corner): (-RING_M / 2, 0, -RING_M / 2), 1.45 m tall
@@ -50,7 +51,7 @@ static func heard_word(shouts_before: int, lands: bool) -> String:
 
 ## Tags one ExchangeBeats beat as a bubble of `kind` (shout / coach / plan / plan_end) with the words it shows.
 static func mark(b: Dictionary, kind: String, x: Dictionary, ctx: Dictionary) -> Dictionary:
-	var bub := {"icon": "", "pin": "", "pin_col": UI.FG, "tag": "", "tag_col": UI.FG, "text": "", "sub": "", "dot": Color(0, 0, 0, 0)}
+	var bub := {"icon": "", "pin": "", "pin_col": UI.FG, "tag": "", "tag_col": UI.FG, "text": "", "sub": "", "dot": Color(Palette.PAGE, 0)}
 	match kind:
 		"shout":
 			var call := str(x["call"]) if bool(x.get("shout", false)) else str(x.get("said", ""))
@@ -73,7 +74,7 @@ static func mark(b: Dictionary, kind: String, x: Dictionary, ctx: Dictionary) ->
 			else:
 				var tl: Array = x.get("plan_tally", [0, 0])
 				bub["text"] = "· %s · %d of %d" % ["won it" if bool(x.get("won", false)) else "lost it", int(tl[0]), int(tl[1])]
-				bub["pin_col"] = UI.GREEN if bool(x.get("won", false)) else Color("#e06060")
+				bub["pin_col"] = UI.GREEN if bool(x.get("won", false)) else Palette.BAD
 	b["bubble"] = "plan" if kind == "plan_end" else kind
 	b["bub"] = bub
 	return b
@@ -196,14 +197,14 @@ func _build(b: Dictionary) -> Control:
 	panel.add_child(row)
 	if str(bub["pin"]) != "":
 		var pin := PanelContainer.new()
-		pin.add_theme_stylebox_override("panel", UI.box(Color(0.07, 0.055, 0.047), bub["pin_col"], 5, 2, 8, 0))
+		pin.add_theme_stylebox_override("panel", UI.box(Palette.PAGE, bub["pin_col"], 5, 2, 8, 0))
 		pin.add_child(UI.label(str(bub["pin"]), 26, UI.FG, "display"))
 		pin.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		row.add_child(pin)
 	elif str(bub["icon"]) != "":
 		var ic := TextureRect.new()
 		ic.texture = _icon(str(bub["icon"]))
-		ic.modulate = Color("#cdb68a")   # the icon keeps the gold (the frame is gone, S443 C327)
+		ic.modulate = Palette.MUTED   # the icon keeps the gold (the frame is gone, S443 C327)
 		ic.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
 		row.add_child(ic)
 	var col := UI.vbox(4)
@@ -220,10 +221,10 @@ func _build(b: Dictionary) -> Control:
 	if str(bub["sub"]) != "":
 		var sub := UI.hbox(8)
 		var dot := PanelContainer.new()   # a round dot in the corner's colour (UI.dot is square)
-		dot.add_theme_stylebox_override("panel", UI.box(bub["dot"], Color(0, 0, 0, 0), 8, 0, 8, 8))
+		dot.add_theme_stylebox_override("panel", UI.box(bub["dot"], Color(Palette.PAGE, 0), 8, 0, 8, 8))
 		dot.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		sub.add_child(dot)
-		sub.add_child(UI.label(str(bub["sub"]), TEXT_PX, Color("#b8a88f"), "semi"))
+		sub.add_child(UI.label(str(bub["sub"]), TEXT_PX, Palette.MUTED, "semi"))
 		col.add_child(sub)
 	_outline(holder)
 	return holder
@@ -232,7 +233,7 @@ func _build(b: Dictionary) -> Control:
 static func _outline(n: Node) -> void:
 	for c in n.get_children():
 		if c is Label:
-			c.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.85))
+			c.add_theme_color_override("font_outline_color", Color(Palette.PAGE, 0.85))
 			c.add_theme_constant_override("outline_size", 6)
 		_outline(c)
 

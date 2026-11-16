@@ -7,10 +7,11 @@ extends Control
 ##   count(log, round_n, struck_places)   tint(n) -> Color   lay_on(figure, hits) -> RoundHits (the words layer)
 ## Keys are each BodyFigure.SPOTS group's first place: "head" (head, eyes, nose), "left_ribs", "right_ribs" (the liver).
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const SPOTS := [["head", "left_eye", "right_eye", "nose"], ["left_ribs"], ["right_ribs"]]   # = BodyFigure.SPOTS
 const WORDS := {"head": "head", "left_ribs": "ribs", "right_ribs": "liver"}
-const FEW := Color("#ffcf6a")    # warm amber: a punch or two
-const MANY := Color("#ff7a1f")   # orange: MANY_AT and more
+const FEW := Palette.HEADER    # warm amber: a punch or two
+const MANY := Palette.WARN   # orange: MANY_AT and more
 const MANY_AT := 6
 const ALPHA_FEW := 0.34
 const ALPHA_MANY := 0.55
@@ -42,7 +43,7 @@ func _hooks(font: Font, fs: int) -> void:
 	for row in rows:
 		var c: Vector2 = row[0]
 		var text := str(row[1])
-		var col := tint(int(row[1])).lerp(Color.WHITE, 0.35)
+		var col := tint(int(row[1])).lerp(Palette.FULL, 0.35)
 		col.a = 1.0
 		var y := maxf(c.y - 14.0, last_y + float(fs) + 4.0)
 		last_y = y
@@ -50,13 +51,13 @@ func _hooks(font: Font, fs: int) -> void:
 		var end := Vector2(edge, y)
 		for pass_i in 2:   # a dark under-stroke first so the line reads on the cyan holo
 			var w := 4.0 if pass_i == 0 else 2.0
-			var lc := Color(0, 0, 0, 0.75) if pass_i == 0 else col
+			var lc := Color(Palette.PAGE, 0.75) if pass_i == 0 else col
 			draw_polyline(PackedVector2Array([c, knee, end]), lc, w, true)
-		draw_circle(c, 4.5, Color(0, 0, 0, 0.8))
+		draw_circle(c, 4.5, Color(Palette.PAGE, 0.8))
 		draw_circle(c, 3.0, col)
 		var tw := font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x
 		var at := Vector2(end.x + (4.0 if hook > 0.0 else -4.0 - tw), y + float(fs) * 0.35)
-		draw_string_outline(font, at, text, HORIZONTAL_ALIGNMENT_LEFT, -1, fs, 5, Color(0, 0, 0, 0.85))
+		draw_string_outline(font, at, text, HORIZONTAL_ALIGNMENT_LEFT, -1, fs, 5, Color(Palette.PAGE, 0.85))
 		draw_string(font, at, text, HORIZONTAL_ALIGNMENT_LEFT, -1, fs, col)
 		drawn.append([text, at])
 
@@ -76,7 +77,7 @@ static func count(log: Dictionary, round_n: int, struck: Array) -> void:
 ## The tint for n punches this round: clear at 0, amber at 1, orange from MANY_AT.
 static func tint(n: int) -> Color:
 	if n <= 0:
-		return Color(0, 0, 0, 0)
+		return Color(Palette.PAGE, 0)
 	var t := clampf(float(n - 1) / float(MANY_AT - 1), 0.0, 1.0)
 	var c := FEW.lerp(MANY, t)
 	c.a = lerpf(ALPHA_FEW, ALPHA_MANY, t)
@@ -123,9 +124,9 @@ func _draw() -> void:
 		var w := font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x
 		var r := maxf(float(fs) * 0.8, w * 0.5 + 5.0)
 		var mid := Vector2(clampf(c.x, r + 1.0, maxf(r + 1.0, size.x - r - 1.0)), c.y)
-		var col := tint(n).lerp(Color.WHITE, 0.35)
+		var col := tint(n).lerp(Palette.FULL, 0.35)
 		col.a = 1.0
-		draw_circle(mid, r, Color(0, 0, 0, 0.72))
+		draw_circle(mid, r, Color(Palette.PAGE, 0.72))
 		draw_arc(mid, r, 0.0, TAU, 24, col, 2.0, true)
 		var at := Vector2(mid.x - w * 0.5, mid.y + float(fs) * 0.35)
 		draw_string(font, at, text, HORIZONTAL_ALIGNMENT_LEFT, -1, fs, col)

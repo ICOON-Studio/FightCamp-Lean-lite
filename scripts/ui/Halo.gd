@@ -5,13 +5,14 @@ extends ColorRect
 ## `Halo.cutout(picture)` is the same idea for a cut-out picture: a line along the figures, not a box round them.
 ## Drawn by halo.gdshader; it never takes a click and lives outside the host's own rect by MARGIN pixels.
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const MenuFx := preload("res://scripts/ui/MenuFx.gd")
 const SHADER := preload("res://scripts/ui/halo.gdshader")
 const CUTOUT := preload("res://scripts/ui/cutout.gdshader")
 
 const MARGIN := 26.0
-const GOLD := Color("#f2c14e")
-const CHALK := Color("#efe6d8")
+const GOLD := Palette.HEADER
+const CHALK := Palette.TEXT
 
 var power := 1.0: set = set_power
 var _clock := 0.0
@@ -52,7 +53,7 @@ static func cutout(pic: CanvasItem, tint: Color = CHALK, width: float = 3.0, sha
 
 
 func _setup(tint: Color, radius: float, grow: float) -> void:
-	color = Color.WHITE
+	color = Palette.TEXT
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	offset_left = -MARGIN - grow

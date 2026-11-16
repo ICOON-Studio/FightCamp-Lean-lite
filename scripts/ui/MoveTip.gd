@@ -18,6 +18,7 @@ extends PanelContainer
 ##       syllabus move ("kimura"). The training drill cards (claude/training1) attach the same way.
 ##   MoveTip.info(move_id, fighter) -> Dictionary   what the card says (pure, for tests)   MoveTip.inst() -> the card
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const Icons := preload("res://scripts/ui/Icons.gd")
 const MovePlayer := preload("res://scripts/fight3d/MovePlayer.gd")
@@ -98,7 +99,7 @@ func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	custom_minimum_size = Vector2(W, 0)
 	var sb := UI.box(UI.PANEL, UI.FG, 10, 2, 14, 12)
-	sb.shadow_color = Color(0, 0, 0, 0.22)
+	sb.shadow_color = Color(Palette.PAGE, 0.22)
 	sb.shadow_size = 10
 	sb.shadow_offset = Vector2(0, 4)
 	add_theme_stylebox_override("panel", sb)

@@ -7,6 +7,7 @@ extends Control
 ## Main keeps one FightView on its fight layer while a fight modal is open (FightView.sync).
 ## Headless (the tests) has no picture: the view is off there and fight night stays in words.
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const FightSfx := preload("res://scripts/audio/FightSfx.gd")
 const Stage := preload("res://scripts/fight3d/FightStage.gd")
 const RoundScript := preload("res://scripts/rules/RoundScript.gd")
@@ -397,7 +398,7 @@ func _bell() -> void:
 	var red := bool(r.get("won", true))
 	var who := str((_ctx["f"] if red else _ctx["opp"])["first"]).to_upper()   # S395 names, as the corner card has them
 	_banner.text = "BELL. %s'S ROUND" % who if _stop == "" else "STOPPED. %s WINS" % who
-	_banner.add_theme_color_override("font_color", Color(0.95, 0.35, 0.3) if red else Color(0.45, 0.6, 1.0))
+	_banner.add_theme_color_override("font_color", Palette.BAD_FILL if red else Palette.ACCENT)
 	_say("")
 	_bell_left = BELL_S
 	FightSfx.bell(false)

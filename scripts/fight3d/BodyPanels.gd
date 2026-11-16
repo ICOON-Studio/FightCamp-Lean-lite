@@ -7,6 +7,7 @@ extends Node
 ## this round's hits, the damage bands, and the tired parts (BodyBurn's track).
 ##   attach(view, live) -> BodyPanels   struck(side, before, lost, move, big)   critical_place(before, after, lost, big)
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const BodyMap := preload("res://scripts/rules/BodyMap.gd")
 const BandWords := preload("res://scripts/rules/BandWords.gd")
 const BodyFigure := preload("res://scripts/ui/BodyFigure.gd")
@@ -182,7 +183,7 @@ class Tank extends Control:
 	var fill := 1.0
 	var mark := -1.0
 	var hatched := false
-	var col := Color("#f2c14e")
+	var col := Palette.HEADER
 	var band_lo := -1.0
 	var band_hi := -1.0
 
@@ -210,11 +211,11 @@ class Tank extends Control:
 
 	func _draw() -> void:
 		var wide := size.x >= size.y
-		draw_rect(Rect2(Vector2.ZERO, size), Color("#0f0d0b"))
+		draw_rect(Rect2(Vector2.ZERO, size), Palette.PAGE)
 		if hatched:
 			var y := 0.0
 			while y < size.y + size.x:
-				draw_line(Vector2(0, y), Vector2(size.x, y - size.x), Color("#2b2520"), 5.0)
+				draw_line(Vector2(0, y), Vector2(size.x, y - size.x), Palette.HOVER, 5.0)
 				y += 12.0
 			return
 		if band_lo >= 0.0:   # S491 ("bars seem to not work"): a solid fill to the low guess, the range as a paler run past it
@@ -238,7 +239,7 @@ class Tank extends Control:
 			var mx := size.x * clampf(mark, 0.0, 1.0)
 			var tick := 0.0
 			while tick < size.y:
-				draw_line(Vector2(mx, tick), Vector2(mx, minf(tick + 4.0, size.y)), Color("#fff4cc"), 2.0)
+				draw_line(Vector2(mx, tick), Vector2(mx, minf(tick + 4.0, size.y)), Palette.TEXT, 2.0)
 				tick += 7.0
 			return
 		var h := size.y * fill
@@ -248,7 +249,7 @@ class Tank extends Control:
 		var my := size.y * (1.0 - clampf(mark, 0.0, 1.0))
 		var x := 0.0
 		while x < size.x:
-			draw_line(Vector2(x, my), Vector2(minf(x + 5.0, size.x), my), Color("#fff4cc"), 3.0)
+			draw_line(Vector2(x, my), Vector2(minf(x + 5.0, size.x), my), Palette.TEXT, 3.0)
 			x += 9.0
 
 
@@ -256,7 +257,7 @@ class Ear extends Control:
 	var lit := true
 
 	func _draw() -> void:
-		var c := Color("#f2c14e") if lit else Color("#b8a88f")
+		var c := Palette.HEADER if lit else Palette.MUTED
 		draw_arc(size * 0.5, minf(size.x, size.y) * 0.38, -1.3, 1.3, 18, c, 4.0, true)
 		draw_circle(size * 0.55, 3.5, c)
 
@@ -265,4 +266,4 @@ class Pip extends Control:
 	var on := false
 
 	func _draw() -> void:
-		draw_circle(size * 0.5, minf(size.x, size.y) * 0.42, Color("#f2c14e") if on else Color("#5a4a3a"))
+		draw_circle(size * 0.5, minf(size.x, size.y) * 0.42, Palette.HEADER if on else Palette.WOOD)

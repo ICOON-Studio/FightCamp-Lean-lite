@@ -3,6 +3,7 @@ extends PanelContainer
 ## icon or graphics and tone of text with unreadable small letters": the coach's office fills the screen, the fighter's photo
 ## is pinned up large, and the card says who they are in big words (the detail is on hover).
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const Data := preload("res://scripts/state/Data.gd")
@@ -15,10 +16,12 @@ const MenuFx := preload("res://scripts/ui/MenuFx.gd")
 
 func build(main: Node, m: Dictionary) -> void:
 	custom_minimum_size = main.get_viewport_rect().size
-	var office := StyleBoxTexture.new()
-	office.texture = load("res://assets/ui/art/sign_office.jpg")
-	office.set_content_margin_all(0)
-	add_theme_stylebox_override("panel", office)
+	# S498 ONELOOK1 (operator: "some pictures ahve some dont"): the walk-in stands on the one gym wall at the house
+	# exposure, like every page - no office photo of its own.
+	add_theme_stylebox_override("panel", StyleBoxEmpty.new())
+	var wall := MenuFx.wall()
+	wall.name = "PaintedWall"
+	add_child(wall)
 	var a: Dictionary = main.career.applicant
 	var picks: Array = m["picks"]
 	var middle := CenterContainer.new()
@@ -72,22 +75,13 @@ func _photo(a: Dictionary) -> Control:
 	var p := PanelContainer.new()
 	p.name = "WalkInPhoto"
 	p.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	var sb := StyleBoxFlat.new()
-	sb.bg_color = Color("#fbfaf6")
-	sb.shadow_color = Color(0.05, 0.1, 0.2, 0.45)
-	sb.shadow_size = 20
-	sb.shadow_offset = Vector2(4, 10)
-	sb.set_content_margin_all(14)
-	sb.content_margin_bottom = 18
-	p.add_theme_stylebox_override("panel", sb)
+	p.add_theme_stylebox_override("panel", WoodKit.slate(14, 14))   # S498: the house panel (was a white photo mount)
 	var v := UI.vbox(10)
 	p.add_child(v)
 	var shot := PromoShot.picture(Faces.stem(a), Vector2(320, 360))
 	if shot != null:
 		v.add_child(shot)
-	var n := UI.label(str(a["first"]), 40, UI.FG, "marker")
+	var n := UI.label(str(a["first"]), 40, WoodKit.INK, "marker")
 	n.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	v.add_child(n)
-	p.rotation_degrees = -3.0
-	p.resized.connect(func(): p.pivot_offset = p.size * 0.5)
 	return p

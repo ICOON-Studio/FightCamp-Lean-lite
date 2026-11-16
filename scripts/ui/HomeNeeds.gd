@@ -3,7 +3,9 @@ extends RefCounted
 ## player, each a paper note pinned to the club's cork board. A red pin stops the clock, an amber pin should come next, a steel pin
 ## can wait. Paper and pins, not cartoon: operator S393 "i want serious proposals".
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
+const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const HomeLook := preload("res://scripts/ui/HomeLook.gd")
 const Needs := preload("res://scripts/state/Needs.gd")
 const Faces := preload("res://scripts/rules/Faces.gd")
@@ -12,10 +14,10 @@ const NOTE := Vector2(300, 196)
 const NOTE_FACE := Vector2(440, 196)   # a note with a photo clipped to it
 const FACE := Vector2(76, 76)
 const TILT := [-1.1, 0.8, -0.5, 1.2, -0.8, 0.6]   # degrees: nobody pins a note dead straight
-const CORK := Color("#c9a97f")
-const WOOD := Color("#8a6a45")
-const PAPER := Color("#fbf7ee")
-const STEEL := Color("#8d96a0")
+const CORK := Palette.CHOSEN
+const WOOD := Palette.CHOSEN
+const PAPER := Palette.TEXT
+const STEEL := Palette.LINE
 const LATER := ["go:money:3"]   # a sponsor on offer waits; a camp, a goal or an entry date does not
 
 
@@ -41,11 +43,7 @@ static func pressing(c: Career) -> Array:
 static func build(main: Node, c: Career) -> Control:
 	var board := PanelContainer.new()
 	board.name = "Needs"
-	var frame := UI.box(CORK, WOOD, 4, 4, 20, 22)
-	frame.shadow_color = Color(0, 0, 0, 0.18)
-	frame.shadow_size = 6
-	board.add_theme_stylebox_override("panel", frame)
-	board.add_child(Speckle.new())
+	board.add_theme_stylebox_override("panel", WoodKit.slate(20, 22))   # S498 ONELOOK1: the house panel (was a cork board)
 	var flow := HFlowContainer.new()
 	flow.add_theme_constant_override("h_separation", 22)
 	flow.add_theme_constant_override("v_separation", 22)
@@ -63,18 +61,11 @@ static func _note(main: Node, c: Career, x: Dictionary, i: int) -> Control:
 	var level := urgency(x)
 	var p := PanelContainer.new()
 	p.name = "Need_%d" % i
-	var sheet := UI.box(PAPER, Color(0, 0, 0, 0), 2, 0, 16, 14)
-	sheet.content_margin_top = 22
-	sheet.shadow_color = Color(0, 0, 0, 0.28)
-	sheet.shadow_size = 5
-	sheet.shadow_offset = Vector2(1, 3)
-	p.add_theme_stylebox_override("panel", sheet)
+	p.theme_type_variation = ["StickyRed", "Sticky", "StickyBlue"][level]   # S498 ONELOOK1: the kit's note, not a paper sheet
 	var with_face: bool = str(x["act"]) == "interview" and not c.applicant.is_empty()
 	var area: Vector2 = NOTE_FACE if with_face else NOTE
 	p.size = area
 	p.custom_minimum_size = area
-	p.rotation = deg_to_rad(float(TILT[i % TILT.size()]))
-	p.pivot_offset = area * 0.5
 	var h := UI.hbox(12)
 	p.add_child(h)
 	if with_face:
@@ -88,7 +79,7 @@ static func _note(main: Node, c: Career, x: Dictionary, i: int) -> Control:
 	t.max_lines_visible = 2
 	t.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	v.add_child(t)
-	var s := UI.label(str(x["s"]), 16, Color(UI.FG, 0.85), "body", true)
+	var s := UI.label(str(x["s"]), 16, UI.MUTED, "body", true)
 	s.max_lines_visible = 2
 	s.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	v.add_child(s)
@@ -101,9 +92,6 @@ static func _note(main: Node, c: Career, x: Dictionary, i: int) -> Control:
 			b.name = "GuideHomeAction"   # the top need: where the guide's light goes on Home
 		b.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 		v.add_child(b)
-	var pin := Pin.new()
-	pin.colour = [UI.RED, UI.AMBER, STEEL][level]
-	p.add_child(pin)
 	var slot := Control.new()
 	slot.custom_minimum_size = area
 	slot.add_child(p)
@@ -124,19 +112,19 @@ class Speckle extends Control:
 		for i in FLECKS:
 			var at := Vector2(rng.randf() * size.x, rng.randf() * size.y)
 			var dark := rng.randf() < 0.6
-			draw_circle(at, rng.randf_range(0.8, 2.6), Color(0.35, 0.22, 0.1, 0.34) if dark else Color(1, 0.95, 0.8, 0.28))
+			draw_circle(at, rng.randf_range(0.8, 2.6), Color(Palette.WOOD, 0.34) if dark else Color(Palette.TEXT, 0.28))
 
 
 ## A round map pin at the top of the note; drawn into the note's margin, so it takes no room.
 class Pin extends Control:
 	const R := 11.0
-	var colour := Color.WHITE
+	var colour := Palette.TEXT
 
 	func _ready() -> void:
 		mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 	func _draw() -> void:
 		var at := Vector2(size.x * 0.5, -12.0)
-		draw_circle(at + Vector2(1.5, 3.0), R, Color(0, 0, 0, 0.3))
+		draw_circle(at + Vector2(1.5, 3.0), R, Color(Palette.PAGE, 0.3))
 		draw_circle(at, R, colour)
-		draw_circle(at + Vector2(-2.5, -2.5), R * 0.3, Color(1, 1, 1, 0.65))
+		draw_circle(at + Vector2(-2.5, -2.5), R * 0.3, Color(Palette.TEXT, 0.65))

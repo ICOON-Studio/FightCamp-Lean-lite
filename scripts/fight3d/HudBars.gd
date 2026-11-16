@@ -16,6 +16,7 @@ const BodyMap := preload("res://scripts/rules/BodyMap.gd")
 const BodyLoad := preload("res://scripts/rules/BodyLoad.gd")
 const Icons := preload("res://scripts/ui/Icons.gd")
 const UI := preload("res://scripts/ui/TV.gd")
+const Palette := preload("res://scripts/ui/Palette.gd")
 
 ## S391 (operator: "the circles need to be a bit bigger ... not so close to the sides ... maybe a bit transparent"): half as large again,
 ## further in, and see-through.
@@ -85,7 +86,7 @@ func _build() -> void:
 		var panel := PanelContainer.new()
 		panel.name = "Bars%d" % side
 		# S347 (operator: "lighten the ui/hud"): a faint glass panel, no frame.
-		panel.add_theme_stylebox_override("panel", UI.box(Color(0.06, 0.05, 0.05, 0.2), Color(0, 0, 0, 0), 10, 0, 14, 10))
+		panel.add_theme_stylebox_override("panel", UI.box(Color(Palette.PAGE, 0.2), Palette.CLEAR, 10, 0, 14, 10))
 		var col := UI.vbox(5)
 		panel.add_child(col)
 		var top := UI.hbox(8)
@@ -382,7 +383,7 @@ class Rings extends Control:
 			_arc(c, R_OUT, mid_deg(i), arcs.get(OUTER[i]) as Arc, str(OUTER[i]), true)
 		if _liver_on:
 			var px := LIVER_PX * (1.0 + 0.18 * liver_flash)
-			var tint := Color(1.0, 0.22, 0.16, 1.0).lerp(Color(1.0, 0.75, 0.7, 1.0), liver_flash)
+			var tint := Palette.BAD_FILL.lerp(Palette.BAD, liver_flash)
 			tint.a = minf(1.0, 0.62 + 0.14 * sin(_liver_t * 5.0) + liver_flash)
 			draw_texture_rect(LIVER_PIC, Rect2(c - Vector2(px, px) * 0.5, Vector2(px, px)), false, tint)
 		var f := ThemeDB.fallback_font
@@ -390,40 +391,40 @@ class Rings extends Control:
 		var word := "HURT" if hurt else ("" if _liver_on or st == null else "%d" % roundi(clampf(st.fill, 0.0, 1.0) * 100.0))
 		var px := HURT_SIZE if hurt else MID_SIZE
 		var at := c + Vector2(-f.get_string_size(word, HORIZONTAL_ALIGNMENT_LEFT, -1, px).x * 0.5, 48.0 if _liver_on else px * 0.36)
-		draw_string_outline(f, at, word, HORIZONTAL_ALIGNMENT_LEFT, -1, px, 6, Color(0, 0, 0, 0.9))
-		draw_string(f, at, word, HORIZONTAL_ALIGNMENT_LEFT, -1, px, Color("#e0503c") if hurt else (st.colour() if st != null else Color.WHITE))
+		draw_string_outline(f, at, word, HORIZONTAL_ALIGNMENT_LEFT, -1, px, 6, Color(Palette.PAGE, 0.9))
+		draw_string(f, at, word, HORIZONTAL_ALIGNMENT_LEFT, -1, px, Palette.BAD if hurt else (st.colour() if st != null else Palette.TEXT))
 
 	## One arc: its dark track, the spent part (comes back at the bell), the fill, the grey end gone for the fight.
 	func _arc(c: Vector2, r: float, mid: float, a: Arc, key: String, outer: bool) -> void:
 		var a0 := deg_to_rad(mid - SPAN * 0.5)
 		var a1 := deg_to_rad(mid + SPAN * 0.5)
-		draw_arc(c, r, a0, a1, 32, Color(1, 1, 1, 0.10), WIDTH, true)
+		draw_arc(c, r, a0, a1, 32, Color(Palette.TEXT, 0.10), WIDTH, true)
 		var icon_r := r + WIDTH * 0.5 + 16.0 if outer else r - WIDTH * 0.5 - 16.0
 		var ic: Texture2D = _tex.get(key)
 		var at := c + Vector2.from_angle(deg_to_rad(mid)) * icon_r
 		if ic != null:
-			draw_texture_rect(ic, Rect2(at - Vector2(12, 12), Vector2(24, 24)), false, Color("#f3ece2"))
+			draw_texture_rect(ic, Rect2(at - Vector2(12, 12), Vector2(24, 24)), false, Palette.TEXT)
 		if a == null:
 			return
 		if not a.known:
 			for k in range(0, 9, 2):
-				draw_arc(c, r, lerpf(a0, a1, float(k) / 9.0), lerpf(a0, a1, float(k + 1) / 9.0), 4, Color(1, 1, 1, 0.38), 2.0, true)
+				draw_arc(c, r, lerpf(a0, a1, float(k) / 9.0), lerpf(a0, a1, float(k + 1) / 9.0), 4, Color(Palette.TEXT, 0.38), 2.0, true)
 			var f := ThemeDB.fallback_font
 			var qs := f.get_string_size("?", HORIZONTAL_ALIGNMENT_LEFT, -1, 30)
 			var q := c + Vector2.from_angle(deg_to_rad(mid)) * r + Vector2(-qs.x * 0.5, qs.y * 0.32)
-			draw_string_outline(f, q, "?", HORIZONTAL_ALIGNMENT_LEFT, -1, 30, 6, Color(0, 0, 0, 0.9))
-			draw_string(f, q, "?", HORIZONTAL_ALIGNMENT_LEFT, -1, 30, Color("#e9b84a"))   # gold: homework still to do
+			draw_string_outline(f, q, "?", HORIZONTAL_ALIGNMENT_LEFT, -1, 30, 6, Color(Palette.PAGE, 0.9))
+			draw_string(f, q, "?", HORIZONTAL_ALIGNMENT_LEFT, -1, 30, Palette.HEADER)   # gold: homework still to do
 			return
 		var fl := clampf(a.fill, 0.0, 1.0)
 		var kp := clampf(maxf(a.keep, fl), 0.0, 1.0)
 		var col := a.colour()
-		_part(c, r, a0, a1, fl, kp, Color(col.r, col.g, col.b, 0.22))   # spent, can come back at the bell
+		_part(c, r, a0, a1, fl, kp, Color(col, 0.22))   # spent, can come back at the bell
 		_part(c, r, a0, a1, 0.0, fl, col)
-		_part(c, r, a0, a1, kp, 1.0, Color(0.42, 0.42, 0.44, 0.85))   # gone for the fight
+		_part(c, r, a0, a1, kp, 1.0, Color(Palette.LINE, 0.85))   # gone for the fight
 		if a.chunk >= 0.0:
-			_part(c, r, a0, a1, a.chunk_span().x, a.chunk_span().y, Color(1.0, 0.95, 0.9, 0.95))   # S392 what this hit took
+			_part(c, r, a0, a1, a.chunk_span().x, a.chunk_span().y, Color(Palette.TEXT, 0.95))   # S392 what this hit took
 		if a._flash > 0.0:
-			draw_arc(c, r, a0, a1, 32, Color(1.0, 0.32, 0.22, 0.9 * a._flash), WIDTH + 6.0 * a._flash, true)   # S394 white on ivory did not read
+			draw_arc(c, r, a0, a1, 32, Color(Palette.BAD_FILL, 0.9 * a._flash), WIDTH + 6.0 * a._flash, true)   # S394 white on ivory did not read
 		# S369 (operator, on the ring: "also add numbers here?"): her value on the arc, 0-100, so the corner can read who is
 		# the more tired without judging arc lengths.
 		if not Arc.number_on_arc(key, fl):
@@ -432,8 +433,8 @@ class Rings extends Control:
 		var txt := "%d" % roundi(fl * 100.0)
 		var ts := nf.get_string_size(txt, HORIZONTAL_ALIGNMENT_LEFT, -1, NUM_SIZE)
 		var tp := c + Vector2.from_angle(deg_to_rad(mid)) * r + Vector2(-ts.x * 0.5, ts.y * 0.32)
-		draw_string_outline(nf, tp, txt, HORIZONTAL_ALIGNMENT_LEFT, -1, NUM_SIZE, 4, Color(0, 0, 0, 0.9))
-		draw_string(nf, tp, txt, HORIZONTAL_ALIGNMENT_LEFT, -1, NUM_SIZE, Color.WHITE)
+		draw_string_outline(nf, tp, txt, HORIZONTAL_ALIGNMENT_LEFT, -1, NUM_SIZE, 4, Color(Palette.PAGE, 0.9))
+		draw_string(nf, tp, txt, HORIZONTAL_ALIGNMENT_LEFT, -1, NUM_SIZE, Palette.TEXT)
 
 	## The share [u0, u1] of an arc, filling from its start (from its end on the mirrored block).
 	func _part(c: Vector2, r: float, a0: float, a1: float, u0: float, u1: float, col: Color) -> void:
@@ -470,8 +471,7 @@ class Rings extends Control:
 class EdgeMeter extends Control:
 	const BAR_H := 18.0
 	const WORD_PX := 22
-	var want := 0.0
-	var value := 0.0
+	var want := 0.0; var value := 0.0
 	var word := ""
 	func _ready() -> void: mouse_filter = Control.MOUSE_FILTER_PASS
 
@@ -483,18 +483,18 @@ class EdgeMeter extends Control:
 		var w := size.x
 		var h := BAR_H
 		var mid := w / 2.0
-		draw_rect(Rect2(0, 0, mid, h), Color(0.95, 0.4, 0.35, 0.16))   # a tug of war: red's half, blue's half
-		draw_rect(Rect2(mid, 0, mid, h), Color(0.5, 0.65, 1.0, 0.16))
+		draw_rect(Rect2(0, 0, mid, h), Color(Palette.RED_CORNER, 0.16))   # a tug of war: red's half, blue's half
+		draw_rect(Rect2(mid, 0, mid, h), Color(Palette.BLUE_CORNER, 0.16))
 		var v := clampf(value, -1.0, 1.0)
 		if v > 0.0:
-			draw_rect(Rect2(mid - mid * v, 0, mid * v, h), Color(0.95, 0.4, 0.35))
+			draw_rect(Rect2(mid - mid * v, 0, mid * v, h), Palette.RED_CORNER)
 		elif v < 0.0:
-			draw_rect(Rect2(mid, 0, mid * -v, h), Color(0.5, 0.65, 1.0))
+			draw_rect(Rect2(mid, 0, mid * -v, h), Palette.BLUE_CORNER)
 		for i in range(1, 6):
 			var x := w * i / 6.0
-			draw_line(Vector2(x, 0.0 if i == 3 else h * 0.55), Vector2(x, h), Color(1, 1, 1, 0.8 if i == 3 else 0.35), 2.0 if i == 3 else 1.0)
+			draw_line(Vector2(x, 0.0 if i == 3 else h * 0.55), Vector2(x, h), Color(Palette.TEXT, 0.8 if i == 3 else 0.35), 2.0 if i == 3 else 1.0)
 		if word != "":   # S394 (blind review: "the only lead cue is unlabelled"): the bar says what it means
 			var f := ThemeDB.fallback_font
 			var at := Vector2((w - f.get_string_size(word, HORIZONTAL_ALIGNMENT_LEFT, -1, WORD_PX).x) * 0.5, size.y - 2.0)   # S396: "AHEAD" too small
-			draw_string_outline(f, at, word, HORIZONTAL_ALIGNMENT_LEFT, -1, WORD_PX, 6, Color(0, 0, 0, 0.85))
-			draw_string(f, at, word, HORIZONTAL_ALIGNMENT_LEFT, -1, WORD_PX, Color(0.95, 0.45, 0.4) if v > 0.05 else (Color(0.55, 0.7, 1.0) if v < -0.05 else Color(0.94, 0.91, 0.86)))
+			draw_string_outline(f, at, word, HORIZONTAL_ALIGNMENT_LEFT, -1, WORD_PX, 6, Color(Palette.PAGE, 0.85))
+			draw_string(f, at, word, HORIZONTAL_ALIGNMENT_LEFT, -1, WORD_PX, Palette.BAD if v > 0.05 else (Palette.ACCENT if v < -0.05 else Palette.TEXT))

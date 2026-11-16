@@ -1,6 +1,7 @@
 extends RefCounted
 ## S394 HOME's roster: one row per fighter, read across: form, rank, next fight, weight, condition, this week.
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const HomeLook := preload("res://scripts/ui/HomeLook.gd")
 const Faces := preload("res://scripts/rules/Faces.gd")
@@ -173,9 +174,9 @@ static func _form(c: Career, f: Dictionary) -> Control:
 	for r in mine:
 		var win := bool(r["win"])
 		var chip := PanelContainer.new()
-		chip.add_theme_stylebox_override("panel", UI.box(UI.GREEN if win else UI.RED, Color(0, 0, 0, 0), 3, 0, 0, 0))
+		chip.add_theme_stylebox_override("panel", UI.box(UI.GREEN if win else UI.RED, Color(Palette.PAGE, 0), 3, 0, 0, 0))
 		chip.custom_minimum_size = Vector2(22, 22)
-		var l := UI.label("W" if win else "L", 13, Color.WHITE if win else Color.WHITE, "bold")
+		var l := UI.label("W" if win else "L", 13, Palette.TEXT if win else Palette.TEXT, "bold")
 		l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		l.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		chip.add_child(l)

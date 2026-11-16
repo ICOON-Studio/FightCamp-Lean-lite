@@ -6,6 +6,7 @@ extends RefCounted
 ##   YOUR CALLS each call used this round with a tick or a cross per use (stop shouting what loses)
 ## Pure builder: build(ex, sit, names, w, h) from the round's exchange records (LiveRound) - it holds no state.
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const TextScale := preload("res://scripts/ui/TextScale.gd")
 const TV := preload("res://scripts/ui/TV.gd")
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")
@@ -13,11 +14,11 @@ const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 const CornerIcons := preload("res://scripts/fight3d/CornerIcons.gd")
 const SharedHolo := preload("res://scripts/fight3d/SharedHolo.gd")
 
-const RED := Color("#e2483d")
-const BLUE := Color("#5b9bff")
-const GREEN := Color("#2fae6e")
-const SLATE := Color("#1a1512")
-const EDGE := Color("#5a4a3a")
+const RED := Palette.BAD_FILL
+const BLUE := Palette.ACCENT
+const GREEN := Palette.GOOD
+const SLATE := Palette.PAGE
+const EDGE := Palette.WOOD
 
 
 ## S459 FIGHTSEAM1: `live` = FightSeam.landed_ex (the punches the 3D has landed); when given, LANDED counts those and the
@@ -27,7 +28,7 @@ static func build(ex: Array, sit: String, names: Array, w: float, h: float, live
 	board.name = "RoundBoard"
 	board.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	board.custom_minimum_size = Vector2(w, h)
-	board.add_theme_stylebox_override("panel", _box(SLATE, EDGE, 10, 2))
+	board.add_theme_stylebox_override("panel", WoodKit.slate(0, 0))   # S498 ONELOOK1: the house panel (was a page slot, wood edge)
 	var me := str(names[0]) if names.size() > 0 else "You"
 	var her := str(names[1]) if names.size() > 1 else "Opponent"
 	# The "<name> NOW" column moved onto the head chip and the side panel. Its width goes to these two.
@@ -190,11 +191,11 @@ class Split extends Control:
 	func _draw() -> void:
 		var total := mine + hers
 		var share := 0.5 if total == 0 else float(mine) / float(total)
-		draw_rect(Rect2(0, 0, size.x, size.y), Color("#3a3028"))
+		draw_rect(Rect2(0, 0, size.x, size.y), Palette.HOVER)
 		if total > 0:
 			draw_rect(Rect2(0, 0, size.x * share, size.y), RED)
 			draw_rect(Rect2(size.x * share, 0, size.x * (1.0 - share), size.y), BLUE)
-		draw_rect(Rect2(size.x * share - 2.0, -3.0, 4.0, size.y + 6.0), Color("#efe6d8"))
+		draw_rect(Rect2(size.x * share - 2.0, -3.0, 4.0, size.y + 6.0), Palette.TEXT)
 
 
 ## One tick or cross per use of a call, oldest first.

@@ -82,7 +82,7 @@ def reply_only(text):
 
 def build(kind, mid, map_path, critics, seat):
     task = (CRITIC_TASK if kind == "critic" else REVISE_TASK).format(id=mid)
-    parts = [task, "\n> Also read `ops/research/CRITIC_ACCESS.md`: the Miro board, the real screens, the mockups.\n",
+    parts = [task, "\n> Also read `ops/research/CRITIC_ACCESS.md`: the map, the real screens, the mockups.\n",
              "\n\n" + _read(os.path.join(RES, "CRITIC_PACK.md")),
              "\n\n# THE DESIGN MAP TO JUDGE\n\n" + _read(map_path)]
     for c in critics:

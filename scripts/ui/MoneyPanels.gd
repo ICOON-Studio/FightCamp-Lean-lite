@@ -3,6 +3,7 @@ extends RefCounted
 ## S443 (proposal B, his Q-S294-198): the coaches for sports not built yet are gone until they exist; the bill's split is
 ## on the NEXT BILL tile's hover. Numbers are the gym's, not the mockup's examples.
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const KitIcon := preload("res://scripts/ui/KitIcon.gd")
@@ -289,7 +290,7 @@ static func _paper(title: String, icon: String, tip: String) -> Array:
 	var p := PanelContainer.new()
 	p.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	# Was 10+8 on torn paper. 5+4 pays back the column frame (22 px a side) across the five cards.
-	var sb := UI.box(Color(1, 1, 1, 0.04), Color(WoodKit.SOFT, 0.35), 4, 1, 8, 5)
+	var sb := UI.box(Color(Palette.TEXT, 0.04), Color(WoodKit.SOFT, 0.35), 4, 1, 8, 5)
 	sb.content_margin_bottom = 4
 	p.add_theme_stylebox_override("panel", sb)
 	var v := UI.vbox(2)
@@ -307,7 +308,7 @@ static func _paper(title: String, icon: String, tip: String) -> Array:
 
 static func _chalk(title: String) -> Array:
 	var p := PanelContainer.new()
-	var sb := UI.box(Color(1, 1, 1, 0.04), Color(WoodKit.SOFT, 0.35), 4, 1, 8, 8)
+	var sb := UI.box(Color(Palette.TEXT, 0.04), Color(WoodKit.SOFT, 0.35), 4, 1, 8, 8)
 	sb.content_margin_bottom = 6
 	p.add_theme_stylebox_override("panel", sb)
 	var v := UI.vbox(2)
@@ -324,7 +325,12 @@ static func _short_button(b: Button) -> void:
 static func _tighten(b: Button) -> void:
 	for state in ["normal", "hover", "pressed", "disabled"]:
 		var sb := b.get_theme_stylebox(state)
-		if sb is StyleBoxFlat:
+		if sb is StyleBoxFlat and UI.WoodKit.is_plate(sb):   # S498: a house plate clamps as the wooden piece did
+			var plate := (sb as StyleBoxFlat).duplicate() as StyleBoxFlat
+			plate.content_margin_top = minf(plate.content_margin_top, 8)
+			plate.content_margin_bottom = minf(plate.content_margin_bottom, 10)
+			b.add_theme_stylebox_override(state, plate)
+		elif sb is StyleBoxFlat:
 			var flat := (sb as StyleBoxFlat).duplicate() as StyleBoxFlat
 			flat.content_margin_top = 1
 			flat.content_margin_bottom = 1

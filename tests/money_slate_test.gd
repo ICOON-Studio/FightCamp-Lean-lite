@@ -128,7 +128,7 @@ func _ghost(node: Node, what: String) -> void:
 
 
 func _framed(panel: Control) -> bool:
-	return _skin(panel).ends_with("wood/panel.png")
+	return panel != null and WoodKit.is_panel(panel.get_theme_stylebox("panel"))
 
 
 func _skin(panel: Control) -> String:

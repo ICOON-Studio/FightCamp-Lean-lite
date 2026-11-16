@@ -24,8 +24,8 @@ const X_DIA := 420.0
 const X_ANS := 680.0
 const POP_W := 570.0
 const POP_MAX := 520.0
-const INK := Color("#efe6d8")
-const SOFT := Color("#b8a88f")
+const INK := Palette.TEXT
+const SOFT := Palette.MUTED
 
 static var adding_if := false   # the "+ Add an IF" list is open
 
@@ -272,7 +272,7 @@ func _bell() -> Control:
 	card.add_theme_stylebox_override("panel", UI.box(UI.DARK, UI.DARK_LIP, 10, 2, 14, 10))
 	var v := UI.vbox(2)
 	card.add_child(v)
-	var head := UI.label("AT THE BELL: WHEN NO \"IF\" HOLDS", UI.TINY, Color("#f2b544"), "bold")
+	var head := UI.label("AT THE BELL: WHEN NO \"IF\" HOLDS", UI.TINY, Palette.HEADER, "bold")
 	v.add_child(head)
 	v.add_child(UI.label("Most of the fight runs on these.", UI.TINY, SOFT))
 	for p in PlanLines.PLACES:
@@ -314,7 +314,7 @@ func _answer(place: String, when: String) -> Control:
 	var card := PanelContainer.new()
 	card.name = "Line_%s_%s" % [place, when]
 	var is_open := open == place + "|" + when
-	card.add_theme_stylebox_override("panel", UI.box(Color.WHITE, UI.LINE, 8, 1, 12, 8))
+	card.add_theme_stylebox_override("panel", UI.box(Palette.TILE, UI.LINE, 8, 1, 12, 8))
 	if is_open: Halo.ring(card, UI.GOLD, 8.0)   # S427: the chosen thing glows (Halo), never a border
 	var v := UI.vbox(4)
 	card.add_child(v)
@@ -356,7 +356,7 @@ func _answers(place: String, when: String) -> Control:
 	var v := UI.vbox(8)
 	card.add_child(v)
 	var title := ("IF " + str(FightFlow.WHEN_WORDS.get(when, when))) if when != "" else str(PlanLines.PLACE_WORDS.get(place, place))
-	v.add_child(UI.label("ANSWER TO \"%s\"" % title.to_upper(), UI.TINY, Color("#f2b544"), "bold", true))
+	v.add_child(UI.label("ANSWER TO \"%s\"" % title.to_upper(), UI.TINY, Palette.HEADER, "bold", true))
 	var i := PlanLines.find(arrows, place, when)
 	var list := UI.vbox(6)
 	for o in PlanLines.options(place, PlanLines.sit_for(when, _game()), f.get("moves", {}), f.get("combos", {})):
@@ -391,7 +391,7 @@ func _answers(place: String, when: String) -> Control:
 func _add_list() -> Control:
 	var card := PanelContainer.new()
 	card.name = "AddIfList"
-	card.add_theme_stylebox_override("panel", UI.box(Color.WHITE, UI.GOLD, 10, 2, 12, 10))
+	card.add_theme_stylebox_override("panel", UI.box(Palette.TILE, UI.GOLD, 10, 2, 12, 10))
 	var v := UI.vbox(6)
 	card.add_child(v)
 	v.add_child(UI.caps("+ ADD AN IF: WHAT THE OPPONENT DOES"))

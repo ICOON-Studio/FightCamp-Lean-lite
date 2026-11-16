@@ -10,6 +10,7 @@ extends RefCounted
 ## The open tab rides on the moment (m["result_tab"]), so a redraw (a button that sets a focus) keeps it.
 ##   build(main, v, m)
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/TV.gd")
 const Broadcast := preload("res://scripts/ui/Broadcast.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
@@ -97,7 +98,7 @@ static func header(c: Career, f: Dictionary, m: Dictionary, names: Array) -> HBo
 
 static func _side(name: String, sub: String, rec: String, colour: Color, right: bool) -> PanelContainer:
 	var p := PanelContainer.new()
-	var sb := UI.box(Color(colour.r, colour.g, colour.b, 0.14), Color(0, 0, 0, 0), 2, 0, 16, 10)
+	var sb := UI.box(Color(colour.r, colour.g, colour.b, 0.14), Color(Palette.PAGE, 0), 2, 0, 16, 10)
 	sb.border_color = colour
 	sb.border_width_left = 0 if right else 5
 	sb.border_width_right = 5 if right else 0
@@ -106,7 +107,7 @@ static func _side(name: String, sub: String, rec: String, colour: Color, right: 
 	var v := UI.vbox(2)
 	p.add_child(v)
 	var al := HORIZONTAL_ALIGNMENT_RIGHT if right else HORIZONTAL_ALIGNMENT_LEFT
-	for row in [[name.to_upper(), 34, Color.WHITE, "display"], [sub, TEXT, UI.MUTED, "body"], [rec, TEXT, UI.FG, "bold"]]:
+	for row in [[name.to_upper(), 34, Palette.TEXT, "display"], [sub, TEXT, UI.MUTED, "body"], [rec, TEXT, UI.FG, "bold"]]:
 		if str(row[0]) == "":
 			continue
 		var lb := UI.label(str(row[0]), int(row[1]), row[2], str(row[3]))
@@ -188,11 +189,11 @@ static func _judges(m: Dictionary) -> GridContainer:
 		g.add_child(jl)
 		for i in rounds.size():
 			var sc := _score(m, j, i)
-			var cell := UI.label("%d-%d" % [sc[0], sc[1]], 18, Color.WHITE, "bold")
+			var cell := UI.label("%d-%d" % [sc[0], sc[1]], 18, Palette.TEXT, "bold")
 			cell.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 			cell.custom_minimum_size = Vector2(64, 26)
 			var bg := PanelContainer.new()
-			var col: Color = Broadcast.HERS if sc[0] > sc[1] else (Broadcast.THEIRS if sc[0] < sc[1] else Color(0.5, 0.5, 0.5))
+			var col: Color = Broadcast.HERS if sc[0] > sc[1] else (Broadcast.THEIRS if sc[0] < sc[1] else Palette.LINE)
 			bg.add_theme_stylebox_override("panel", UI.box(col.darkened(0.35), col, 3, 1, 4, 0))
 			bg.mouse_filter = Control.MOUSE_FILTER_PASS
 			bg.tooltip_text = "Judge %d, round %d: %d-%d." % [j + 1, i + 1, sc[0], sc[1]]

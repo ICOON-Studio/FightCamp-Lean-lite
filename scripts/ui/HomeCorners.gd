@@ -5,6 +5,7 @@ extends RefCounted
 ## Bottom left stays free: the old trainer stands there in the first hour.
 ##   HomeCorners.add(hub, main, career)
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const HomeMatch := preload("res://scripts/ui/HomeMatch.gd")
 const HomeSide := preload("res://scripts/ui/HomeSide.gd")
@@ -12,7 +13,7 @@ const FirstHour := preload("res://scripts/rules/FirstHour.gd")
 const ClubStart := preload("res://scripts/rules/ClubStart.gd")
 const GymBills := preload("res://scripts/rules/GymBills.gd")
 
-const NAVY := Color(0.09, 0.14, 0.26, 0.92)
+const NAVY := Color(Palette.CARD, 0.92)
 const HEIGHT := 44.0
 const MARGIN := 8.0
 const WORDS_MIN_WIDTH := 1500.0   # a narrower window keeps the date and drops the sentence, which stays on the hover
@@ -62,7 +63,7 @@ static func _job(main: Node, c: Career) -> Control:
 	var words := _words(c)
 	if str(words[0]) != "":
 		row.add_child(UI.chip(str(words[0]), "gold"))
-	var said := UI.label(str(words[1]), 17, Color.WHITE, "bold")
+	var said := UI.label(str(words[1]), 17, Palette.TEXT, "bold")
 	said.name = "JobWords"
 	said.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	row.add_child(said)

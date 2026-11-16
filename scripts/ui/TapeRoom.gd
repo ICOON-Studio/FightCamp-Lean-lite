@@ -12,6 +12,7 @@ extends Control
 ## Headless (the tests) there is no film: the clock still runs and the flow still builds, without stills.
 ##   var r := TapeRoom.new(); r.for_fighter(main, f); main.add_child(r)
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const Halo := preload("res://scripts/ui/Halo.gd")
 const Icons := preload("res://scripts/ui/Icons.gd")
@@ -116,7 +117,7 @@ func _film_column() -> Control:
 	screen.ratio = 16.0 / 9.0
 	screen.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	var frame := PanelContainer.new()
-	frame.add_theme_stylebox_override("panel", UI.box(Color(0.06, 0.07, 0.09), UI.FRAME, 6, 3, 0, 0))
+	frame.add_theme_stylebox_override("panel", UI.box(Palette.CARD, UI.FRAME, 6, 3, 0, 0))
 	screen.add_child(frame)
 	if FightView.enabled():
 		film = TapeFilm.new()
@@ -134,7 +135,7 @@ func _film_column() -> Control:
 	var tag := UI.hbox(6)
 	tag.position = Vector2(14, 12)
 	tag.add_child(UI.chip("TAPE", "red"))
-	_clock = UI.label("", UI.SMALL, Color(1, 1, 1, 0.9), "bold")
+	_clock = UI.label("", UI.SMALL, Color(Palette.TEXT, 0.9), "bold")
 	tag.add_child(_clock)
 	over.add_child(tag)
 	v.add_child(screen)
@@ -338,7 +339,7 @@ func _add_node(n: Dictionary, i: int) -> void:
 		h.add_child(pic)
 	else:
 		var blank := ColorRect.new()
-		blank.color = Color(0.06, 0.07, 0.09)
+		blank.color = Palette.CARD
 		blank.custom_minimum_size = THUMB
 		h.add_child(blank)
 	var words := UI.vbox(2)

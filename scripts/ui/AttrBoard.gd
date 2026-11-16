@@ -163,7 +163,7 @@ static func glance(f: Dictionary) -> Dictionary:
 
 static func _glance(g: Dictionary) -> PanelContainer:
 	var p := PanelContainer.new()
-	p.add_theme_stylebox_override("panel", UI.box(UI.YELLOW, UI.YELLOW_EDGE, 4, 1, 16, 12))
+	p.theme_type_variation = "Sticky"   # S496 ONELOOK1: the house note (was a yellow paper sticky)
 	p.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	p.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
 	var v := UI.vbox(6)

@@ -88,7 +88,7 @@ func _offer() -> void:
 	_check(accept != null, "Accept is still on the centre card")
 	var sb := card.get_theme_stylebox("panel")
 	print("CAMP_SLATE centre card style %s" % sb.get_class())
-	_check(sb is StyleBoxTexture, "the centre card is a framed slate (%s)" % sb.get_class())
+	_check(WoodKit.is_panel(sb), "the centre card is the house panel (%s)" % sb.get_class())
 	var read := card.find_child("VersusRead", true, false) as Control
 	if read != null:
 		var strip := read.get_theme_stylebox("panel") as StyleBoxFlat
