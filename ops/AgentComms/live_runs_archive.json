@@ -19479,6 +19479,74 @@
    "note": "S492: Ziva Smart, effort Max. Chat 'BODYLOOK1 task in progress' at 127.0.0.1:7012. ETA: S360-S399 Ziva rounds ran 3-4 h; the operator's game holds RAM, so renders may wait on the watchdog. | S492: superseded - Fable (Claude side session) took BODYLOOK1 over; Ziva stalled on its zoom step (bridge timeout); its before stills in E:/FightCamp/wt/ZIVA_LEAN/docs/playtest/BODYLOOK1 are reused. | S492 end: the operator started a Fable Claude session (local_43234449) that stops Ziva and takes over.",
    "reconciled": "2026-11-15 18:40 board_reconcile: no process and no write for ? min (no worktree for branch 'ziva/bodylook1')",
    "archived": "2026-11-15 19:41 board_sync"
+  },
+  {
+   "agent": "qwen",
+   "id": "CLASH10",
+   "title": "TASK CLASH10 - clear the glove on the axis it is DRAWN on, re-read after each push, inside the clash pass (on main)",
+   "status": "closed",
+   "started": "2026-11-15T20:42",
+   "eta": "2026-11-15T22:32",
+   "branch": "qwen/clash10",
+   "worktree": "E:/FightCamp/wt/LEAN_CLASH10",
+   "wt": "E:/FightCamp/wt/LEAN_CLASH10",
+   "brief": "ops/research/TASK_CLASH10.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/CLASH10_dispatch_out.txt",
+   "match": "seat_dispatch.py run clash10",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/CLASH10_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/CLASH10_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/CLASH10_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 33760,
+    "seat_pid": 29400
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 2/5 PASS; PR #321",
+   "finished": "2026-11-15T21:28",
+   "pr": 321,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tools/hit_frame_film.gd",
+     "ok": false,
+     "last": "   at: cleanup (core/object/object.cpp:2536)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/own_gloves_test.gd",
+     "ok": true,
+     "last": "OWN_GLOVES failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/hit_carry_test.gd",
+     "ok": false,
+     "last": "HIT_CARRY failures=38"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/hit_frame_test.gd",
+     "ok": false,
+     "last": "HIT_FRAME failures=5"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/cam_line_test.gd",
+     "ok": true,
+     "last": "CAM_LINE failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "reconciled": "2026-11-16 00:40 board_reconcile: PR #321 closed",
+   "archived": "2026-11-16 00:41 board_sync"
   }
  ]
 }

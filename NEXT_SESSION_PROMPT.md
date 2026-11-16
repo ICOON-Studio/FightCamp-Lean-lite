@@ -1,79 +1,51 @@
-# S495 handover (written 2026-11-15 at the end of S494)
+# S496 handover (written 2026-11-16 at the end of S495)
 
-OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `python ops/Tools/where_we_are.py roll S495`.
+OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `python ops/Tools/where_we_are.py roll S496`.
 
-## FIRST - ANIMATION ITEM: BODYLOOK1 runs in its own Fable session
-Session "BODYLOOK1 on Fable: body seams, shoulders, walk" (local_43234449-27fa-4767-ae29-8f567b15015c, branch
-claude/confident-chaplygin-6b0d8f, PR 320 open). Collect from ITS PR; open every before/after still yourself (game camera).
+## FIRST - ANIMATION ITEM: the glove clipping, an AUDIT before any new round
+BODYLOOK1 is done for now (PR 324 merged on his Q-258 "Yes, merge it"; left for his eye: the coach's collar front stands a
+finger off the neck in the hunched close-up, one kink on a strap edge - only if he says so). The glove clipping ran six Qwen
+rounds (CLASH5-CLASH10), every one failed or measured worse than main (PR 321 closed S495). The rules call for an audit
+after two red rounds: read the CLASH9/CLASH10 results and the clash pass yourself, name the cause, then brief ONE fix
+(candidate from S494: converge the glove pair on the DRAWN axis inside one loop). Stills on the game camera before any merge.
 
 ## WAITING ON HIM
-- Q-255 Training K v5 (his Q-252 mark 1 done: no opponent / win % on the Training screen): docs/mockups/s494/training_k/
-  training_k_v5.png. On "Build it": build Training K (WeekCards.gd is the current week board, 552 lines: the build replaces or
-  splits it). The win chance moves to the fighter's own page.
-- Fight analysis page: he said yes (design it, use it for Film to unlock tells, a live action log window) - in its own
-  session (below).
+- Q-259 Training K v6c (his Q-257 note "why the fuck you put ask for a fight on the training screen ?": the button is off,
+  the no-bout panel says only the plain training week, the selected card is the boxer with no bout):
+  docs/mockups/s495/training_k/training_k_v6c_nobout.png (+ training_k_v6.png, the fight-week state). On "Yes": build it -
+  WeekCards.gd (552 lines) is split first.
 
-## SEAT ANSWERS TO COLLECT
-- LADDER1 v4 scored: Dola 8/8/7, John 6/6/7 -> v5 to Kalli (SQ195). HE LIKED JOHN'S 10/10 LADDER SCREEN ("this is not bad
-  that john made"): docs/mockups/s494/ladder/ladder_v4_john_10of10.png - v5 keeps that screen; two fresh critics at 7+ next.
-  (Old line, done:) SQ188 Dola + SQ189 John: LADDER1 v4 critics. Both depth 7+ and general 7+ -> his board with the map (`ask --attach`); else
-  v5 to Kalli with both critiques inlined (the seats cannot read the repo: inline everything, see DESIGN_COACHSPEC1_R5_REVISE_KALLI.md).
-- SQ190 Kalli: COACHSPEC1 round 5 (John 7/6/6's four points) -> two fresh critics.
+## RUNNING - COLLECT WHEN THEY LAND (by diff + their own test; never a whole-file take)
+- Qwen ONELOOK2 (fight HUD onto the one palette, HudBars + HudRegroup, 53 loose colours; launched 09:04, ETA ~11:00 11-16,
+  branch qwen/onelook2). Render before/after fight stills on the hidden desktop (game camera, still_framing), his OK first.
+- Goose FILMCOUNT1 (issue #326, branch goose/issue-326; launched 09:08). Goose's PR step FAILED on #322/#323 - collect from
+  the branch. Read its FINDS table and noise numbers: noise avg < 3%, worst < 8%; floors jab habits >= 50% one film. If a
+  floor missed, Claude retunes FilmBout's rates (they are estimates).
+- Grok Dev FIGHTPAGE1 (the fight analysis page, film-night mode; sent 09:14, branch grok/fightpage1, ETA ~13:30). Render it
+  at 1920x1080, text 1.0 and 1.3 (TextScale.overflow empty), judge against docs/mockups/s495/fight_analysis/fight_analysis_v3.png,
+  then his board with the picture.
+- Kalli SQ202 (LADDER1 v6) and SQ203 (COACHSPEC1 r6) - both missed the bar on John's 6 for general design (LADDER1 v5: Dola
+  8/8/8, John 7/6/7; COACHSPEC1 r5: John 7/6/7, Dola REFUSED - "I can't generate the requested content"). On Kalli's answers:
+  two fresh critics each (`design_loop.py critic ... --seat dola` and `--seat john`); 7+ depth and 7+ general from both -> his board.
 
-## USE THESE SEATS FIRST - THEIR TOKENS RUN OUT SOON (operator, end of S494, 2026-11-15)
-"bots will soon be out of tokens , dola,arena,goose,kimi,qwen/ludo" then "use them". In the FIRST HOUR, before own work, give
-each one a real task and keep it busy until its tokens end (re-task the moment one lands):
-- Dola: every open critic round (FIGHTFILM1 v2 SQ193 is queued; COACHSPEC1 r5 critic once Kalli's SQ190 answer is read;
-  LADDER1 v5 critic once Kalli's SQ195 lands) - one seat_queue brief each, everything inlined.
-- Arena: a pure rule module + blind contract test each (e.g. the FIGHTFILM1 strike-log reader / pattern counter for the
-  analysis page, the ladder's yes-chance and win-gives formulas from LADDER1 v4) - lite mirror, its PR, read the CI log.
-- Goose: a long cloud job (a `goose` issue): the palette sweep of one HUD file with the palette guard as the gate, or the
-  page-width check (any visible Control past x 1920 at text=3) for tools/layout_snapshot.gd.
-- Kimi: design/research reviews (whatever seat_queue / its launcher supports - check reference_how_to_reach_each_agent).
-- Qwen: CLASH10 is running; next small pure modules + tests (seat_dispatch).
-- Ludo: batch every already-approved asset or still review now (his Ludo month ends ~12-11).
-- Grok bots too (operator: "the gorkbots almost over, keep using them until they run out and use the other agents"): Kalli
-  (design revisions SQ190/SQ195 follow-ups), John and Maria (critics, research) - keep them busy until they stop.
-A seat that errors on quota is finished: do not relaunch it there. Move its task to a seat that still runs: Cline,
-Antigravity, Ziva (3D only), or Claude's own sessions/subagents (critics: a fresh Claude subagent with the critic pack).
+## THE FIGHT ANALYSIS PAGE (his Q-256 "Yes, build it"; map ops/research/FIGHTFILM1_MAP_V3_S495.md)
+On main: scripts/rules/FightLog.gd, FilmPattern.gd, FilmBout.gd (S495 collected with fixes: real opponent profile into
+RoundScript, threat bias before habits and off the jab, FightLog tie order, scout words lowercased) and
+scripts/fight3d/BoutTape.gd (AfterFight.book writes m["tape"]: every punch of a booked bout, 388 lines a 3-round bout, after
+facts for both corners, the habit tag kept). Claude wires next, once FIGHTPAGE1 + FILMCOUNT1 are in:
+1. The film-night stop in the fight week (FightWeekPlan film night -> FightAnalysis.for_tape; checks = FilmPattern.checks by
+   coach rating; on_check = FilmCount.check; on_file -> OppFile at FilmPattern.figure).
+2. FilmEdge pays at the figure until confirmed (map 3.5); FilmTruth states on the opponent's cards.
+3. Result page tab "Punch by punch" over m["tape"]; History keeps the last 20 tapes (~400 lines each).
+4. Live fight log panel (map section 4) -> a Grok Dev brief once FIGHTPAGE1 lands (one screen per task).
+5. Golden path (map section 6) walks it end to end.
 
-## SIDE SESSIONS STARTED IN S494 (they report to S494; check them first)
-- "Design the fight analysis page + film tells + live log" (local_07f835cc-0a27-4edc-aaf6-01471d0439be): DONE as design.
-  FIGHTFILM1 v3 passed (Dola 8/9/8, John 7/7/7) -> his board Q-S294-256 with mockup + map (dccd962d). Build only on his yes;
-  section 7b of the map lists what to measure while building. Archive the session once its answer is acted on.
-- "Prototype an automatic boxing video analyzer" (local_2e2e5ceb-0b16-48b8-bdaa-af215813d368): final run on 29 labelled
-  Olympic bouts, then report ops/research/FIGHT_VIDEO_ANALYZER_S495.md + ops/Tools/fight_video/ + a licence section.
-  LICENCES (its findings): code libraries permissive (YOLO/AGPL avoided); the Olympic set is academic/non-profit only,
-  BoxingVI has no licence, the person detector was trained on non-commercial Human-Art -> as built it CANNOT be sold.
-  His answer: "make our own labelled clips" -> its next task (after the report): synthetic clips rendered from our own 3D
-  fights with exact labels from the sim + real footage we have rights to (CC-licensed; his own gym clips with consent, a
-  confirm-or-fix labelling tool) -> ops/research/FIGHT_VIDEO_DATASET_S495.md. Read its MEASURED accuracy before telling him
-  anything works. Money ideas told to him: free "analyze your sparring" tool as FightCamp marketing first; a paid club
-  analyzer / stat sheets only with clean licences and good accuracy (his money/scope call).
-- BODYLOOK1 (local_43234449-27fa-4767-ae29-8f567b15015c, PR 320): stills checked by S494 - shorts hole gone, singlet straps
-  much cleaner, coach gets a real collar; left: a thin skin sliver + dark slit at the front of the coach's collar, tiny steps
-  at the strap tips. Told him: merge (his draft in that session: "merge PR 320 and export the build"), re-run tests because
-  GitHub's run was CANCELLED, then fix those two. Check whether it merged.
-- RAM: archived S491, S492 and the 5 am review sessions (his yes). S493's start session (local_4984f4a3-...) refused: live
-  work (BODYLOOK1 reports to it) - archive it after BODYLOOK1 is collected.
+## ONELOOK1 (one look) after ONELOOK2
+Palette baseline 649. Next files: RosterCards 22, ReadPanel 18, MatMap 16, MatchupCards 15, WhiteboardKit 13. UI.gd (41),
+WoodKit (34) and WeekCards (33) need a split first (line limits). Each with before/after stills.
 
-## AGENTS
-- Qwen CLASH10 (glove clipping, worktree E:/FightCamp/wt/LEAN_CLASH10, ETA 22:32 on 11-15): open every still before any merge.
-
-## ONELOOK1 - THE PALETTE SWEEP (his "do it and i will judge")
-palette_guard_test is in the suite: the raw-colour count may only fall (649 now). After each file: run it with `-- write`.
-Worst first: HudRegroup 27 + HudBars 26 (fight HUD: stills via tools/fight3d_play.gd on the hidden desktop), RosterCards 22,
-ReadPanel 18, MatMap 16, MatchupCards 15, WhiteboardKit 13 (~10 screens switch ink by WoodKit.on_dark - change + stills
-together). WeekCards 33 waits for Training K. Before/after stills to him + review_add.py.
-UI.gd 41 and WoodKit.gd 34 are the kits themselves - leave for last.
-
-## KNOWN GAP
-- His text size is Largest. TextScale.overflow checks words against boxes, not a page against 1920: the Overview ran to
-  2111 px unseen. Add a page-width check (any visible Control ending past x 1920) to the layout_snapshot audit at text=3.
-
-## USAGE RULES (kept)
-- get_usage first; wrap up from ~310k, hand over by 420k. Godot through `python ops/Tools/godot_slot.py run --who s495 --`.
-  Repo-root .tmp_s495_*.sh runners (Write tool), deleted after. Windowed renders: tools/hidden_desktop.py with --log=<file>.
-- New tests go into tools/run_tests.sh's list.
-
-## Known reds (NIGHTLY1): block_meet B_A pro_left_hook control row.
+## NOTES
+- `tools/export.sh` worked twice today (08:57, 09:14); it re-stamps ~2,300 .import files (leave them uncommitted).
+- `gbot.py send --file` resolves a relative path from ops/: pass an absolute path.
+- Godot jobs go through `python ops/Tools/godot_slot.py run --who <you> -- <godot command>` (rule_guard blocks a direct launch).
+- Fight video analyzer (S495 research, its own session): report ops/research/FIGHT_VIDEO_ANALYZER_S495.md; data outside the repo.

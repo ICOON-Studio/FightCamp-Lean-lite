@@ -1,5 +1,5 @@
 # FightCamp ops board snapshot for the project manager
-Taken 2026-11-14 10:51 at commit 11f6c957.
+Taken 2026-11-16 08:53 at commit 9990eed94.
 
 ## THE OPERATOR WRITES TO YOU DIRECTLY - answer these first, in section 0 TO THE OPERATOR
 - P12 (operator, 2026-10-17 03:22): OPERATOR S237 SCOPE CALL - read research/LOOP1_SCOPE_S237.md (on master). He wants ONE simple core loop and everything else switched off: fighter walks in -> goal with a deadline (e.g. a fight within a month) -> set training -> watch him train -> hire/assign a coach and watch them work -> gains and attrition meters (his BIG emphasis: the player must see when to change the plan) -> check progress vs the goal, small fixes for fatigue/stress -> light customers + equipment -> find the right opponent -> scouting/film/move learning -> the fight. No story for now. Paul: review the draft keep/off table, say what is wrong or missing, order the build into the smallest playable steps, name which seat builds each, and write the FOR LUDO section as the exact question for Ludo.
@@ -232,4 +232,4 @@ WALKTHROUGH PART 2 of 2:
 - P182 (board, 2026-11-09 14:33): BOARD ANSWER Q-S294-141 - question: Your ChatGPT picture (the whole screen is the gym, roof off, four expansion stages): should it replace the four paintings as the main screen we aim for? | answer: Yes, aim for this | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names
 - P183 (board, 2026-11-09 14:38): BOARD ANSWER Q-S294-137 - question: Four very different main screens, each a painted concept (open the picture). Which one, if any, feels like the game you want? | answer: None: try again | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names
 - P184 (board, 2026-11-09 14:41): BOARD ANSWER Q-S294-142 - question: Coaches: each has his own book and a limit on how far he can take a boxer, a bond you feel on fight night, and changing coach buys new tools but costs depth. Approve this design? (Attached. Built only after the fighter model and only if the bots prove neither staying nor rotating always wins.) | answer: No | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names
-- P185 (board, 2026-11-09 15:47): BOARD ANSWER Q-S2
+- P185 (board, 2026-11-09 15:47): BOARD ANSWER Q-S

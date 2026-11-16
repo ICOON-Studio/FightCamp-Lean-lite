@@ -689,6 +689,18 @@
    "issue": "326",
    "branch": "goose/issue-326",
    "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/326"
+  },
+  "FIGHTPAGE1": {
+   "agent": "grok",
+   "id": "FIGHTPAGE1",
+   "title": "TASK FIGHTPAGE1 - the fight analysis page, film-night mode (punches list, report, mark a pattern)",
+   "status": "running",
+   "started": "2026-11-16T09:14",
+   "eta": "2026-11-16T13:30",
+   "where": "grok box",
+   "branch": "grok/fightpage1",
+   "brief": "ops/research/TASK_FIGHTPAGE1.md",
+   "repo": "FightCamp-Lean"
   }
  },
  "codex_budget": {

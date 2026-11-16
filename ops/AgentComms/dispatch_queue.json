@@ -1599,8 +1599,9 @@
   {
    "task": "CLASH10",
    "seat": "qwen",
-   "status": "queued",
-   "queued": "2026-11-15T20:01"
+   "status": "launched",
+   "queued": "2026-11-15T20:01",
+   "launched": "2026-11-15T20:42"
   }
  ]
 }

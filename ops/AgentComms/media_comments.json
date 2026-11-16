@@ -3058,6 +3058,150 @@
       "at": "2026-11-14T10:16:36Z",
       "seen_by_claude": true,
       "id": "C397"
+    },
+    {
+      "path": "_sent/2026-11-14_1539_crack_card_a_cracked_rib_asks_the_corner/crack_card_corner_2d.png",
+      "text": "if this is corner minute why it has the gyms background",
+      "at": "2026-11-14T14:32:57Z",
+      "seen_by_claude": true,
+      "id": "C398",
+      "addressed": "cited by ffef7717 2026-11-14"
+    },
+    {
+      "path": "_sent/2026-11-14_1539_crack_card_a_cracked_rib_asks_the_corner/crack_card_corner_3d.png",
+      "text": "kind of heavy on the eye, lighten it up a bit",
+      "at": "2026-11-14T14:33:29Z",
+      "seen_by_claude": true,
+      "id": "C399",
+      "addressed": "cited by ffef7717 2026-11-14"
+    },
+    {
+      "path": "_sent/2026-11-14_1428_clinch_reach_after_a_landed_cross_before/clinch_reach_before_after.png",
+      "text": "ok",
+      "at": "2026-11-14T14:33:43Z",
+      "seen_by_claude": true,
+      "id": "C400"
+    },
+    {
+      "path": "_sent/2026-11-14_1926_ludo_sounds_pad_mitts_corner_minute_clin/sound_reel.mp4",
+      "text": "6,9,12,14,18,23,28,30",
+      "at": "2026-11-14T19:09:22Z",
+      "seen_by_claude": true,
+      "at_s": 75.4,
+      "id": "C401",
+      "addressed": "cited by 79600b78 2026-11-14"
+    },
+    {
+      "path": "_sent/2026-11-15_0553_sparring_partner_screen_v1_fight_week_v9/sparring_partner_v1.png",
+      "text": "ok",
+      "at": "2026-11-15T04:23:31Z",
+      "seen_by_claude": true,
+      "id": "C402",
+      "addressed": "cited by 09ffd6b2 2026-11-15"
+    },
+    {
+      "id": "C403",
+      "path": "media:_sent/2026-11-15_1357_rival_club_approach_card_on_the_overview/approach_overview.png",
+      "text": "MARKUP: 1 marks -> Feedback/2026-11-15-01/README.md",
+      "at": "2026-11-15T14:01:16Z",
+      "seen_by_claude": true,
+      "addressed": "cited by b310f4bc 2026-11-15"
+    },
+    {
+      "id": "C404",
+      "path": "media:_sent/2026-11-15_1357_rival_club_approach_card_on_the_overview/approach_overview.png",
+      "text": "MARKUP: 2 marks -> Feedback/2026-11-15-02/README.md",
+      "at": "2026-11-15T14:01:53Z",
+      "seen_by_claude": true,
+      "addressed": "cited by b310f4bc 2026-11-15"
+    },
+    {
+      "id": "C405",
+      "path": "media:_sent/2026-11-15_1357_rival_club_approach_card_on_the_overview/approach_overview.png",
+      "text": "MARKUP: 3 marks -> Feedback/2026-11-15-03/README.md",
+      "at": "2026-11-15T14:02:31Z",
+      "seen_by_claude": true,
+      "addressed": "cited by b310f4bc 2026-11-15"
+    },
+    {
+      "path": "_sent/2026-11-15_1357_rival_club_approach_card_on_the_overview/approach_overview.png",
+      "text": "try The Sims meters -like",
+      "at": "2026-11-15T14:07:14Z",
+      "seen_by_claude": true,
+      "id": "C406",
+      "addressed": "cited by b310f4bc 2026-11-15"
+    },
+    {
+      "id": "C407",
+      "path": "media:_sent/2026-11-15_1107_training_k_with_the_game_s_real_numbers_/training_k.png",
+      "text": "MARKUP: 1 marks -> Feedback/2026-11-15-04/README.md",
+      "at": "2026-11-15T14:10:30Z",
+      "seen_by_claude": true,
+      "addressed": "cited by b310f4bc 2026-11-15"
+    },
+    {
+      "path": "_sent/2026-11-15_0949_coaches_this_week_coachfit1_m1_dola_s_dr/coaches_m1_dola.png",
+      "text": "have you consider adding specialties on coaches : • Head Coach / Program Director: Oversees overall gym operations, sets the overarching strategy, and integrates different martial arts styles.\n• Striking Coaches: Specialized instructors for Boxing, Muay Thai, or Kickboxing.\n• Grappling & Ground Coaches: Instructors for Brazilian Jiu-Jitsu (BJJ) (Gi and No-Gi) and Wrestling or Judo for takedowns and clinch work.\n• MMA / Transition Coaches: Coaches who specifically teach how to blend striking, wrestling, and ground fighting inside a cage or ring.\n• Strength and Conditioning (S&C) & Fitness Coaches: Handled by dedicated athletic trainers, and sometimes supplemented by mobility or yoga instructors",
+      "at": "2026-11-15T14:20:50Z",
+      "seen_by_claude": true,
+      "id": "C408",
+      "addressed": "cited by b310f4bc 2026-11-15"
+    },
+    {
+      "id": "C409",
+      "path": "AgentComms/board_attach/Q-S294-248_0_overview_A.png",
+      "text": "MARKUP for Q-S294-248: 1 marks -> Feedback/2026-11-15-05/README.md",
+      "at": "2026-11-15T16:58:40Z",
+      "seen_by_claude": true
+    },
+    {
+      "id": "C410",
+      "path": "AgentComms/board_attach/Q-S294-249_0_training_k_v3.png",
+      "text": "MARKUP for Q-S294-249: 2 marks -> Feedback/2026-11-15-06/README.md",
+      "at": "2026-11-15T17:16:40Z",
+      "seen_by_claude": true
+    },
+    {
+      "id": "C411",
+      "path": "AgentComms/board_attach/Q-S294-249_0_training_k_v3.png",
+      "text": "MARKUP for Q-S294-249: 3 marks -> Feedback/2026-11-15-07/README.md",
+      "at": "2026-11-15T17:17:41Z",
+      "seen_by_claude": true
+    },
+    {
+      "id": "C412",
+      "path": "AgentComms/board_attach/Q-S294-252_0_training_k_v4.png",
+      "text": "MARKUP for Q-S294-252: 1 marks -> Feedback/2026-11-15-08/README.md",
+      "at": "2026-11-15T18:21:21Z",
+      "seen_by_claude": true
+    },
+    {
+      "id": "C413",
+      "path": "AgentComms/board_attach/Q-S294-255_0_training_k_v5.png",
+      "text": "MARKUP for Q-S294-255: 1 marks -> Feedback/2026-11-15-09/README.md",
+      "at": "2026-11-15T20:16:14Z",
+      "seen_by_claude": true
+    },
+    {
+      "id": "C414",
+      "path": "AgentComms/board_attach/Q-S294-255_0_training_k_v5.png",
+      "text": "MARKUP for Q-S294-255: 2 marks -> Feedback/2026-11-15-10/README.md",
+      "at": "2026-11-15T20:32:47Z",
+      "seen_by_claude": true
+    },
+    {
+      "id": "C415",
+      "path": "media:_sent/2026-11-15_2104_bodylook1_before_after_on_the_game_s_cam/pair_corner_wide_c08.jpg",
+      "text": "MARKUP: 1 marks -> Feedback/2026-11-16-01/README.md",
+      "at": "2026-11-16T07:11:41Z",
+      "seen_by_claude": false
+    },
+    {
+      "path": "_sent/2026-11-15_1651_test_club_every_menu_with_four_fighters_/kira_training.png",
+      "text": "remove this training picture from the game",
+      "at": "2026-11-16T07:14:05Z",
+      "seen_by_claude": false,
+      "id": "C416"
     }
   ]
 }
