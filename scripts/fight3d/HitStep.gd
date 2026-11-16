@@ -59,6 +59,17 @@ static func moved(move: String, big: bool, t: float, room_m: float = 99.0) -> fl
 ## start() at a clean landed punch, tick() once a frame moves the place, lean() is the body's rock back over feet
 ## that have not stepped yet, speed() times the step pair that follows. `-- nohitstep` makes back_m 0: nothing starts.
 const LEAN_MAX_M := 0.08   # the body rocks back this far over planted feet; past it the feet must step
+## S504 (r10 critics: a cross steps back 15-25 cm; s504 films read ~9 cm of hips in 12 frames - the feet's step pair
+## catches the place late and the rock stopped at 8 cm): a longer step rocks further, LEAN_SHARE of it, never under
+## LEAN_MAX_M. `-- oldlean` = 8 cm for every step.
+const LEAN_SHARE := 0.8
+static var old_lean: bool = OS.get_cmdline_user_args().has("oldlean")
+
+
+static func lean_max(k: Dictionary) -> float:
+	if old_lean or k.is_empty():
+		return LEAN_MAX_M
+	return maxf(LEAN_MAX_M, float(k.get("m", 0.0)) * LEAN_SHARE)
 const LEAN_OUT_S := 0.25   # after the step back is over the rock eases out (the feet stand under the place by then)
 
 
@@ -110,10 +121,10 @@ static func speed(bx: Dictionary) -> float:
 
 
 ## The rock back: `lag` is the place minus where the body is shown over its feet. The body goes back with the blow at
-## once, up to LEAN_MAX_M, and only along the blow's line; the feet step after it and the rock eases out.
+## once, up to lean_max(), and only along the blow's line; the feet step after it and the rock eases out.
 static func lean(bx: Dictionary, lag: Vector3) -> Vector3:
 	var k: Dictionary = bx.get("knock", {})
 	if k.is_empty():
 		return Vector3.ZERO
 	var dir: Vector3 = k["dir"]
-	return dir * clampf(lag.dot(dir), 0.0, LEAN_MAX_M) * float(k["w"])
+	return dir * clampf(lag.dot(dir), 0.0, lean_max(k)) * float(k["w"])

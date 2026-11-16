@@ -7,6 +7,8 @@ const Stage := preload("res://scripts/fight3d/FightStage.gd")
 const HitStep := preload("res://scripts/fight3d/HitStep.gd")
 const GUARD_CATCH := 0.7   # S500: of plain misses, the share caught on the guard (the rest: slip 20 %, pull 10 %)
 static var no_guard_catch: bool = OS.get_cmdline_user_args().has("noguardcatch")
+const SNAP_WAIT_S := 0.20   # S504: a hit head's snap is shown this long before his own punch starts (HitSnap RISE_S 0.06 + settle)
+static var snap_wait: bool = not OS.get_cmdline_user_args().has("nosnapwait")
 const RoundScript := preload("res://scripts/rules/RoundScript.gd")
 const BeatClips := preload("res://scripts/fight3d/BeatClips.gd")
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
@@ -176,6 +178,12 @@ func _punch(v: Node, b: Dictionary, who: int, other: int, move: String) -> void:
 	var bt := float(hitsnap.get("_bt")) if hitsnap != null else -1.0
 	if bt >= 0.0 and bt < 0.51 and float(hitsnap.get("_gain")) > 1.5:
 		base = maxf(base, t + (0.51 - bt))
+	# S504 (both r10 blind critics: "a reaction cut by his own punch" - 7 of 37 on the s504base film): a head reaction is
+	# shown to its furthest point and a frame past it before his own punch starts; the punch waits (never dropped), like
+	# the fold's. `-- nosnapwait` = the S311 counter at once.
+	var st_t := float(hitsnap.get("_t")) if hitsnap != null else -1.0
+	if snap_wait and st_t >= 0.0 and st_t < SNAP_WAIT_S and float(hitsnap.get("_deg")) >= 10.0:
+		base = maxf(base, t + (SNAP_WAIT_S - st_t))
 	# Review round 2: the guard wait goes on after the fold's (added before it, a fold could swallow it and the punch landed
 	# up to `wait` early).
 	base += wait

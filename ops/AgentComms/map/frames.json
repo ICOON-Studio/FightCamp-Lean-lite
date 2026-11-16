@@ -118,6 +118,19 @@
      ]
     }
    ]
+  },
+  {
+   "title": "Result page",
+   "frames": [
+    {
+     "id": "scorecard1",
+     "title": "Scorecard tab mockup (S504)",
+     "kind": "gallery",
+     "globs": [
+      "docs/mockups/s504/scorecard/scorecard.png"
+     ]
+    }
+   ]
   }
  ]
 }

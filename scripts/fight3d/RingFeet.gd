@@ -75,7 +75,7 @@ static func tick(st: Node, i: int, delta: float) -> void:
 	if free or float(rig.w) <= 0.0 or goal.distance_to(plan.centre()) > JUMP_M:
 		_stand(rig, _xz(pos), yaw)   # she stands where the fight says until the rig has her back
 		return
-	var dt := 0.0 if float(st._hold_left) > 0.0 else delta   # the hit-stop holds the feet too
+	var dt := 0.0 if float(st._hold_left) > 0.0 and i != int(st._hold_skip) else delta   # the hit-stop holds the hitter's feet (S504: not the hit man's)
 	plan.face(yaw)
 	# HUMANFIGHT1: under a captured clip (a carry) the take keeps its own hips, so the plan's bounce has no body to ride:
 	# its heels pumped alone under still hips and the knees stamped (a critic: "Liam's rear knee stamping"). Calm there.

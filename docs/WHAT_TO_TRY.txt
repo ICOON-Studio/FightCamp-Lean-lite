@@ -1,3 +1,14 @@
+S504 (2026-11-16) - THE FIGHT: PUNCHES THAT LAND MOVE THE OTHER MAN AT ONCE
+- HIT REACTIONS: when a punch lands, the other boxer's head now reaches its furthest point 3-4 frames after the glove
+  (it took 5, and 25 of 37 reactions in a 3-minute test came late; now 3). The game used to freeze BOTH boxers for a
+  moment on a clean hit; now only the puncher holds still and the hit man moves with the blow.
+- HIS OWN PUNCH NO LONGER CUTS IT: a hit boxer waits a fifth of a second before throwing back, so you see the shot land
+  before he answers.
+- A CROSS OR A BODY SHOT PUSHES HIM BACK FURTHER: a clean cross moves him about 11 cm back (was 9), a body shot 16 cm.
+- Watch a few clean jabs, crosses and body shots: does each one look like it hurt? Is anything popping or jerky?
+- AFTER THE FIGHT, A SCORECARD (your idea): a picture of the planned Scorecard tab is on the board (question Q-265) -
+  not in this build yet; say yes and it gets built.
+
 S501 (2026-11-16) - YOUR SEVEN PICTURE NOTES (C417-C423)
 - BRIGHTER SCREENS ("why is the lighting so dimm", "darker than they should"): the gym photo behind every page was a dark
   photo (brightness 46 of 255) that the game then darkened again to 68 %. Now the photo is lifted and shown whole, and the

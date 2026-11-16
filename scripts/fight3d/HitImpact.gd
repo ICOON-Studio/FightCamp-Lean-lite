@@ -25,6 +25,14 @@ const SNAP_DEG_OLD := {"jab": 11.0, "cross": 16.0, "hook": 19.0, "uppercut": 17.
 static var sized_snap: bool = not OS.get_cmdline_user_args().has("oldsnap")
 const CROSS_GIVE := 1.45   # S502: a cross's trunk give (28 deg x 0.55 x 1.45 = 22 -> capped at 14 x 1.45 = 20 deg)
 const BIG_SNAP := 1.6   # S395 (blind review: a big shot in slow motion showed no head snap)
+## S504 (both r10 blind critics, item 1: the hit head's furthest point 2-3 frames after contact; the film read 5): the
+## hit-stop froze the hit boxer's reaction clip too, 1-2 frames, so its peak came late. Only the hitter holds now; the hit
+## boxer's reaction, snap and step back run through it. `-- holdboth` = both held (S302).
+static var hold_both: bool = OS.get_cmdline_user_args().has("holdboth")
+## S504: a hit reaction's join (half-life, duration): the strike join (0.06, 0.3) eased the reaction in over 4-5 frames
+## (s504c: jab heads 6 -> 10 -> 14 -> 18 cm). `-- slowreactjoin` = the strike join.
+const REACT_JOIN := Vector2(0.04, 0.21)
+static var slow_react_join: bool = OS.get_cmdline_user_args().has("slowreactjoin")
 
 const SHAKE_M := {"jab": 0.0, "power": 0.025, "big": 0.06}
 ## S301: a Pro clip plays its recovery fast (BeatClips.recover_scale, from its measured contact) and hands over to the guard
@@ -86,6 +94,9 @@ static func hit(st: Node, who: int, clip: String, speed: float, hitter: int, mov
 	var fast := BeatClips.react_fast(clip, speed)
 	st.stun.clear(who)
 	st.play(who, clip, fast, BeatClips.react_from(clip, fast))   # S496: past its lead-in, the peak on the blow
+	# S504: the blow moves her at once - the reaction's own quicker join (the strike join showed ~45 % of it by frame 2).
+	if not slow_react_join and boxers[who].get("js") != null:
+		(boxers[who]["js"] as Node).join(REACT_JOIN.x, REACT_JOIN.y)
 	var free: Node = (boxers[who]["skel"] as Node).get_node_or_null("PopCap")
 	if free != null:
 		free.set("free_s", float(free.get("FREE_HIT_S")))   # S497: the blow moves her head as fast as it does
@@ -97,7 +108,10 @@ static func hit(st: Node, who: int, clip: String, speed: float, hitter: int, mov
 		st.stun.start(who, clip, speed, light)
 	var kind := "big" if big else ("jab" if move == "jab" else "power")
 	st._hold_left = float(HOLD_S[kind])
+	st._hold_skip = -1 if hold_both else who
 	for i in boxers.size():
+		if i == st._hold_skip:
+			continue
 		var sc: float = (boxers[i]["ap"] as AnimationPlayer).speed_scale
 		if sc != 0.0:
 			st._held_speed[i] = sc
@@ -146,6 +160,8 @@ static func hold(st: Node, delta: float) -> void:
 	st._hold_left -= delta
 	var boxers: Array = st.boxers
 	for i in boxers.size():
+		if i == int(st._hold_skip):
+			continue
 		var ap: AnimationPlayer = boxers[i]["ap"]
 		if st._hold_left > 0.0:
 			if ap.speed_scale != 0.0:

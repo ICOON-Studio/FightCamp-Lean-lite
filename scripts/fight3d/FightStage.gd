@@ -69,6 +69,7 @@ var _ring_side: Array = []    # ropes and posts: see-through while they stand be
 var _cut: Array = [{}, {}]    # per boxer, the Pro clip playing: {clip, contact, back, fast} (S301 recovery cut)
 var _hold_left := 0.0         # S302 hit-stop: both bodies still while > 0
 var _held_speed := [1.0, 1.0]
+var _hold_skip := -1           # S504: the boxer the hit-stop leaves moving (the one hit), -1 = none
 var clinch := Clinch.new()    # S313: the tie-up (real-fight gap 4); referee: Referee.gd (FightCast.crew builds him)
 var referee: Node3D = null
 var stun := HitStun.new()     # S305: a hit boxer stays in her reaction (no defence, fidget or step over it)

@@ -44,7 +44,7 @@ static func compose(st: Node, delta: float) -> void:
 	for i in boxers.size():
 		var bx: Dictionary = boxers[i]
 		# S500: a landed punch moves her place back (HitStep); the hit-stop holds it with the bodies
-		bx["pos"] = (bx["pos"] as Vector3) + HitStep.tick(bx, 0.0 if float(st._hold_left) > 0.0 else delta)
+		bx["pos"] = (bx["pos"] as Vector3) + HitStep.tick(bx, 0.0 if float(st._hold_left) > 0.0 and i != int(st._hold_skip) else delta)
 		if float(bx["move_left"]) > 0.0:
 			# S320 glide steps: the body eases into and out of its step speed (no clip carries it any more).
 			var ramp := 1.0

@@ -150,7 +150,10 @@ func _check_wire() -> void:
 	var rk: Dictionary = {"pos": Vector3(0.0, 0.0, 1.0)}
 	HS.start(rk, Vector3.ZERO, "cross", false, 2.69)
 	_check(HS.lean(rk, Vector3(0.0, 0.0, 0.05)).distance_to(Vector3(0.0, 0.0, 0.05)) < 0.0001, "a 5 cm lag is rocked whole")
-	_check(absf(HS.lean(rk, Vector3(0.0, 0.0, 0.30)).length() - HS.LEAN_MAX_M) < 0.0001, "a 30 cm lag rocks only %.2f m" % HS.LEAN_MAX_M)
+	# S504: the cap scales with the step (a cross's 0.15 m -> 0.12 m), never under LEAN_MAX_M; still a cap.
+	var cap: float = HS.lean_max(rk["knock"])
+	_check(cap > HS.LEAN_MAX_M and cap < 0.15, "a cross's rock cap %.3f m sits between 8 cm and its step" % cap)
+	_check(absf(HS.lean(rk, Vector3(0.0, 0.0, 0.30)).length() - cap) < 0.0001, "a 30 cm lag rocks only %.2f m" % cap)
 	_check(HS.lean(rk, Vector3(0.2, 0.0, -0.1)) == Vector3.ZERO, "a lag forward or sideways rocks nothing")
 	var last: float = 0.05
 	var eased: bool = true

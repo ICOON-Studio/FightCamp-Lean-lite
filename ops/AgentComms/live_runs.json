@@ -767,52 +767,46 @@
    "brief": "ops/research/TASK_COACHNECK2.md",
    "repo": "FightCamp-Lean"
   },
-  "SCORESHEET1": {
+  "STANDOFF1": {
    "agent": "qwen",
-   "id": "SCORESHEET1",
-   "title": "TASK SCORESHEET1 - the official scorecard sheet as data (pure rule module)",
+   "id": "STANDOFF1",
+   "title": "TASK STANDOFF1 - a ruler: glove-pressing stand-offs inside 1.0 m",
    "status": "landed",
-   "started": "2026-11-16T20:18",
-   "eta": "2026-11-16T22:08",
-   "branch": "qwen/scoresheet1",
-   "worktree": "E:/FightCamp/wt/LEAN_SCORESHEET1",
-   "wt": "E:/FightCamp/wt/LEAN_SCORESHEET1",
-   "brief": "ops/research/TASK_SCORESHEET1.md",
+   "started": "2026-11-16T21:41",
+   "eta": "2026-11-16T23:31",
+   "branch": "qwen/standoff1",
+   "worktree": "E:/FightCamp/wt/LEAN_STANDOFF1",
+   "wt": "E:/FightCamp/wt/LEAN_STANDOFF1",
+   "brief": "ops/research/TASK_STANDOFF1.md",
    "repo": "FightCamp-Lean",
    "where": "pc",
-   "log": "E:/FightCamp/wt/SCORESHEET1_dispatch_out.txt",
-   "match": "seat_dispatch.py run scoresheet1",
+   "log": "E:/FightCamp/wt/STANDOFF1_dispatch_out.txt",
+   "match": "seat_dispatch.py run standoff1",
    "model": "qwen3-coder",
    "dispatch": {
-    "prompt": "E:/FightCamp/wt/SCORESHEET1_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/SCORESHEET1_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/SCORESHEET1_dispatch_runner.log",
+    "prompt": "E:/FightCamp/wt/STANDOFF1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/STANDOFF1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/STANDOFF1_dispatch_runner.log",
     "source": "command line",
     "brief_copied": true,
-    "runner_pid": 26172,
-    "seat_pid": 9868
+    "runner_pid": 47012,
+    "seat_pid": 45392
    },
-   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 1/3 PASS; PR #336",
-   "finished": "2026-11-16T20:42",
-   "pr": 336,
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 2/2 PASS; PR #338",
+   "finished": "2026-11-16T21:55",
+   "pr": 338,
    "checks": [
     {
      "kind": "RED_TEST",
-     "script": "tests/score_sheet_test.gd",
-     "ok": false,
-     "last": "SCORE_SHEET failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/judges_test.gd",
+     "script": "tests/stand_off_test.gd",
      "ok": true,
-     "last": "JUDGES failures=0"
+     "last": "STAND_OFF_TEST failures=0"
     },
     {
      "kind": "REGRESSION",
      "script": "tests/file_limits_test.gd",
-     "ok": false,
-     "last": "FILE_LIMITS failures=2"
+     "ok": true,
+     "last": "FILE_LIMITS failures=0"
     }
    ],
    "films": {
@@ -821,30 +815,30 @@
     "board": ""
    }
   },
-  "PUNCHEND1": {
+  "PUNCHEND2": {
    "agent": "qwen",
-   "id": "PUNCHEND1",
-   "title": "TASK PUNCHEND1 - a ruler: where each punch ends and how fast the hand comes home",
+   "id": "PUNCHEND2",
+   "title": "TASK PUNCHEND2 - PunchEnd's \"home\" read from her guard, not the punch's first frame",
    "status": "running",
-   "started": "2026-11-16T21:04",
-   "eta": "2026-11-16T22:54",
-   "branch": "qwen/punchend1",
-   "worktree": "E:/FightCamp/wt/LEAN_PUNCHEND1",
-   "wt": "E:/FightCamp/wt/LEAN_PUNCHEND1",
-   "brief": "ops/research/TASK_PUNCHEND1.md",
+   "started": "2026-11-16T21:57",
+   "eta": "2026-11-16T23:47",
+   "branch": "qwen/punchend2",
+   "worktree": "E:/FightCamp/wt/LEAN_PUNCHEND2",
+   "wt": "E:/FightCamp/wt/LEAN_PUNCHEND2",
+   "brief": "ops/research/TASK_PUNCHEND2.md",
    "repo": "FightCamp-Lean",
    "where": "pc",
-   "log": "E:/FightCamp/wt/PUNCHEND1_dispatch_out.txt",
-   "match": "seat_dispatch.py run punchend1",
+   "log": "E:/FightCamp/wt/PUNCHEND2_dispatch_out.txt",
+   "match": "seat_dispatch.py run punchend2",
    "model": "qwen3-coder",
    "dispatch": {
-    "prompt": "E:/FightCamp/wt/PUNCHEND1_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/PUNCHEND1_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/PUNCHEND1_dispatch_runner.log",
+    "prompt": "E:/FightCamp/wt/PUNCHEND2_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/PUNCHEND2_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/PUNCHEND2_dispatch_runner.log",
     "source": "command line",
     "brief_copied": true,
-    "runner_pid": 17596,
-    "seat_pid": 21892
+    "runner_pid": 20932,
+    "seat_pid": 35372
    },
    "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
   }

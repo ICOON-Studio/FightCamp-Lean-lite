@@ -79,6 +79,25 @@ def _seg_dist(p, a, b):
     return math.dist(p, tuple(a[i] + t * ab[i] for i in range(3)))
 
 
+STEP_WINDOW = 12   # S504: frames after contact searched for the reaction's step back and turn
+## S504 the r10 blind critics' targets per kind: head cm (from the hips), frames to the furthest point, step back cm, turn deg.
+REACT_TARGET = {"jab": "8-12 cm, 2-3 f", "cross": "18-25 cm, 2-3 f, step 15-25 cm, turn 15-20", "hook": "20-30 cm, turn 30-40",
+                "uppercut": "-", "body": "30-50 cm fold, rise 8-12 f"}
+
+
+def react_kind(clip):
+    for k, words in (("body", ("gut", "body", "liver", "kidney")), ("jab", ("jab",)), ("cross", ("cross", "straight")),
+                     ("hook", ("hook",)), ("uppercut", ("upper",))):
+        if any(w in clip for w in words):
+            return k
+    return "other"
+
+
+def _yaw(r):
+    a, b = _v(r, "LeftUpperLeg"), _v(r, "RightUpperLeg")
+    return math.atan2(b[2] - a[2], b[0] - a[0])
+
+
 def contacts(rows):
     """Indexes into one boxer's rows where its hold goes 0 -> 1 (a punch's contact frame)."""
     return [i for i in range(1, len(rows)) if rows[i]["hold"] == "1" and rows[i - 1]["hold"] == "0"]
@@ -92,6 +111,7 @@ def measure(path, fps=30.0):
     jumps = {"contact": 0, "clip change": 0, "inside clip": 0}
     worst_jumps, head_steps = [], []
     react_rows = []
+    kinds = {}
     for who, rows in by_who.items():
         idx = {r["_f"]: i for i, r in enumerate(rows)}
         cs = set(contacts(rows))
@@ -125,6 +145,29 @@ def measure(path, fps=30.0):
                 delays.append(best_k)
                 peaks.append(best)
                 react_rows.append((float(r["film_s"]), who, r["clip"], round(best * 100, 1), best_k))
+                # S504: the same reaction's kind, its step back (hips away from the hitter over STEP_WINDOW frames) and its
+                # turn (the hip line's yaw at its largest inside the window), for the per-kind rows.
+                kind = react_kind(r["clip"])
+                other = by_frame.get(r["_f"], {})
+                hitter = next((o for w2, o in other.items() if w2 != who), None)
+                back, turn, world = 0.0, 0.0, 0.0
+                if hitter is not None:
+                    h0, o0 = _v(r, "Hips"), _v(hitter, "Hips")
+                    away = (h0[0] - o0[0], h0[2] - o0[2])
+                    n = math.hypot(*away) or 1.0
+                    away = (away[0] / n, away[1] / n)
+                    y0 = _yaw(r)
+                    for k in range(1, STEP_WINDOW + 1):
+                        j = idx.get(r["_f"] + k)
+                        if j is None:
+                            break
+                        q = rows[j]
+                        hk = _v(q, "Hips")
+                        if k <= REACT_WINDOW:
+                            world = max(world, math.dist(_v(q, "Head"), _v(r, "Head")))
+                        back = max(back, (hk[0] - h0[0]) * away[0] + (hk[2] - h0[2]) * away[1])
+                        turn = max(turn, abs(math.degrees(math.atan2(math.sin(_yaw(q) - y0), math.cos(_yaw(q) - y0)))))
+                kinds.setdefault(kind, []).append((best, best_k, back, turn, world))
                 for k in range(1, CUT_WINDOW + 1):
                     j = idx.get(r["_f"] + k)
                     if j is not None and is_punch(rows[j]["clip"]):
@@ -191,6 +234,11 @@ def measure(path, fps=30.0):
         "react_peak_median_cm": round(statistics.median(peaks) * 100, 1) if peaks else 0.0,
         "react_cut_count": cuts,
         "react_list": react_rows,
+        "react_by_kind": {k: {"n": len(v), "cm": round(statistics.median(x[0] for x in v) * 100, 1),
+                              "frames": statistics.median(x[1] for x in v),
+                              "back_cm": round(statistics.median(x[2] for x in v) * 100, 1),
+                              "turn_deg": round(statistics.median(x[3] for x in v), 1),
+                              "world_cm": round(statistics.median(x[4] for x in v) * 100, 1)} for k, v in sorted(kinds.items())},
         "head_jumps_contact": jumps["contact"],
         "head_jumps_clip_change": jumps["clip change"],
         "head_jumps_inside_clip": jumps["inside clip"],
@@ -237,6 +285,10 @@ def report(m):
         lines.append("  %-70s %s" % (label, m[k]))
     for k, label in PER_BOXER:
         lines.append("  %-70s %s" % (label + " boxer 0 / 1", " / ".join(str(m["boxers"].get(w, {}).get(k, "-")) for w in ("0", "1"))))
+    lines.append("  reactions by kind (median): n, head cm, frames to peak, step back cm, turn deg   [critics' target]")
+    for k, d in m["react_by_kind"].items():
+        lines.append("    %-9s n=%-3d %5.1f cm  %4.1f f  back %5.1f cm  turn %5.1f deg  head in the ring %5.1f cm   [%s]" % (
+            k, d["n"], d["cm"], d["frames"], d["back_cm"], d["turn_deg"], d["world_cm"], REACT_TARGET.get(k, "-")))
     lines.append("  reactions (film s, who, clip, cm, frames to peak):")
     lines += ["    %s" % (r,) for r in m["react_list"]]
     lines.append("  worst head jumps (cm, film s, who, clip, cause):")
@@ -251,6 +303,10 @@ def compare(a, b, labels=("before", "after")):
     for k, label in PER_BOXER:
         for w in ("0", "1"):
             lines.append("%-70s %10s %10s" % ("%s boxer %s" % (label, w), a["boxers"].get(w, {}).get(k, "-"), b["boxers"].get(w, {}).get(k, "-")))
+    for kind in sorted(set(a["react_by_kind"]) | set(b["react_by_kind"])):
+        for f in ("n", "cm", "frames", "back_cm", "turn_deg", "world_cm"):
+            lines.append("%-70s %10s %10s" % ("reaction %s %s" % (kind, f), a["react_by_kind"].get(kind, {}).get(f, "-"),
+                                              b["react_by_kind"].get(kind, {}).get(f, "-")))
     return "\n".join(lines)
 
 
