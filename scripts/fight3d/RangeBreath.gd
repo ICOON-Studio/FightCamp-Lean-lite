@@ -15,7 +15,8 @@ const LEAD_S := 0.38
 ## Punches closer together than this are one burst: the two stay in the pocket between them.
 const BURST_GAP_S := 1.4
 ## After a burst's last punch they stay in the pocket this long, then one steps out (real 0.3-0.7 s).
-const EXIT_AFTER_S := 0.5
+## S502 (blind critics r8: "leave within ~12 frames of the last punch"): 0.5 -> 0.4 s.
+const EXIT_AFTER_S := 0.4
 ## The rest range between exchanges, pelvis to pelvis (real 1.3-1.6 m, p90 1.9-2.4 m; the elite mean 1.23 +- 0.16 m).
 ## From there an entry lunge covers 0.4-0.7 m to the jab gap, as the real ones do.
 const REST_M := Vector2(1.35, 1.65)
@@ -45,6 +46,13 @@ const CLINCH_LOOK_S := 9.0
 ## reached while steps were whole captured clips (the gap read 1.45 m "inside"), so nobody saw it. 0.92 keeps the boots apart (0.84 still read chest to chest on the round 2 frames).
 const INSIDE_SPELL_M := 0.92   # S390: R16 had 0.68, 0.64 after; main 0.55 overlapped chests
 const INSIDE_LOOK_S := 7.0
+## S502 RANGE AND EXIT (both blind critics r8, item 1: "inside range only to throw or clinch"; the r7 film: 220 of 314 inside
+## frames had nobody punching, both in their idle at 0.94 m, heads ~0.5 m apart, read as forehead to forehead): inside a
+## spell, with no punch in the air, none due within NEXT_LOOK_S and SPELL_HOLD_S gone since the last one, the pair steps out
+## to the edge of the jab (EDGE_M past the jab gap) and lunges back in for the next punch. `-- noinsideedge` = the old hold.
+const EDGE_M := 0.22
+const SPELL_HOLD_S := 0.35
+static var inside_edge: bool = not OS.get_cmdline_user_args().has("noinsideedge")
 
 
 ## The range the stage keeps at view time t. `next` = the first beat not yet fired.
@@ -57,6 +65,11 @@ static func phase(beats: Array, next: int, t: float) -> Dictionary:
 	if not spell.is_empty():
 		var up := fly if not fly.is_empty() else (_punch(beats, next, 1) if step4 else {})
 		var soon := not up.is_empty() and float(up["t"]) - t <= NEXT_LOOK_S
+		if inside_edge and fly.is_empty() and not soon:
+			var prev := _punch(beats, next - 1, -1)
+			var since_hit := t - float(prev.get("contact_t", prev["t"])) if not prev.is_empty() else 99.0
+			if since_hit > SPELL_HOLD_S:
+				return {"phase": "pocket", "who": _who(spell), "move": "", "edge": true}
 		return {"phase": "inside", "who": _who(up) if soon else _who(spell), "move": "inside", "next": str(up["move"]) if soon else "",
 			"clip": str(up.get("clip", "")) if soon else ""}
 	# S315: a spell that ends in a pivot (InsideExits): the pressed boxer pivots out off the line until pivot_t.
@@ -85,6 +98,8 @@ static func want_m(ph: Dictionary, jab_gap: float, roll: float, ranges: Dictiona
 		return lerpf(REST_M.x, REST_M.y, roll)
 	if str(ph["phase"]) == "clinch":
 		return CLINCH_M
+	if bool(ph.get("edge", false)):
+		return jab_gap + EDGE_M
 	if str(ph["phase"]) in ["inside", "pivot"]:
 		var nx := str(ph.get("next", ""))
 		return float(ranges[nx]) if ranges.has(nx) else INSIDE_SPELL_M

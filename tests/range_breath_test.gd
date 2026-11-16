@@ -108,6 +108,20 @@ func _initialize() -> void:
 	_check(str(pv["phase"]) == "pivot" and int(pv["who"]) == 0, "the pressed one pivots out after end_t (phase %s)" % pv["phase"])
 	_check(str(RB.phase(piv, 3, 7.5)["phase"]) == "inside", "before end_t the spell holds")
 	_check(str(RB.phase(piv, 4, 9.5)["phase"]) == "rest", "after the pivot they part to rest")
+	# 7. S502 range and exit: a spell with a long gap between punches steps out to the edge of the jab, then back in.
+	var gap := [
+		{"t": 4.62, "who": "b", "move": "inside", "result": "none", "end_t": 9.0},
+		{"t": 5.0, "who": "b", "move": "lead_hook", "result": "lands", "contact_t": 5.25},
+		{"t": 7.5, "who": "a", "move": "rear_uppercut", "result": "blocked"},
+	]
+	var edge := RB.phase(gap, 2, 5.9)
+	_check(bool(edge.get("edge", false)) and str(edge["phase"]) == "pocket", "a quiet gap inside a spell steps out (phase %s)" % edge["phase"])
+	_check(RB.want_m(edge, jab_gap, 0.5) > jab_gap + 0.15, "the step out ends past the jab gap (%.2f m)" % RB.want_m(edge, jab_gap, 0.5))
+	_check(str(RB.phase(gap, 2, 5.4)["phase"]) == "inside", "right after a punch lands they hold inside (SPELL_HOLD_S)")
+	_check(str(RB.phase(gap, 2, 6.9)["phase"]) == "inside", "the next punch due within NEXT_LOOK_S brings them back in")
+	RB.inside_edge = false
+	_check(str(RB.phase(gap, 2, 5.9)["phase"]) == "inside", "control arm: -- noinsideedge holds the spell inside")
+	RB.inside_edge = true
 	print("RANGE_BREATH %s (%d failures)" % ["PASS" if failures == 0 else "FAIL", failures])
 	quit(failures)
 

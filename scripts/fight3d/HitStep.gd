@@ -6,6 +6,9 @@ extends RefCounted
 const BACK_M := {"jab": 0.03, "power": 0.10, "body": 0.16, "big": 0.22}
 const OVER_S := {"jab": 0.12, "power": 0.20, "body": 0.22, "big": 0.30}
 const MAX_MPS := 1.4
+## S502 (blind critics r8: "a cross: the rear foot takes a half step back, 15-20 cm"): a clean cross steps back this far, a
+## hook keeps "power" (a hook turns the head, it does not push her back). Still under a body shot's.
+const CROSS_BACK_M := 0.15
 
 
 static func kind(move: String, big: bool) -> String:
@@ -22,7 +25,7 @@ static func back_m(move: String, big: bool, room_m: float = 99.0) -> float:
 	if OS.get_cmdline_user_args().has("nohitstep"):
 		return 0.0
 	var k: String = kind(move, big)
-	var raw: float = float(BACK_M[k])
+	var raw: float = CROSS_BACK_M if k == "power" and move.contains("cross") else float(BACK_M[k])
 	var cap: float = maxf(room_m, 0.0)
 	return minf(raw, cap)
 

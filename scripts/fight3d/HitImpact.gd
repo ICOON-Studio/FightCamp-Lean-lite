@@ -17,7 +17,13 @@ const GRAZE_SNAP := 0.35
 ## S302 impact (operator: "the punches feel like they have no power"; John J-GUARDPACE1: hit-stop 2-3 frames on a jab, 4-6
 ## on a power punch; the receiver's head snaps). Seconds both bodies hold at contact, head-snap degrees, camera nudge metres.
 const HOLD_S := {"jab": 0.03, "power": 0.05, "big": 0.06}
-const SNAP_DEG := {"jab": 11.0, "cross": 16.0, "hook": 19.0, "uppercut": 17.0}
+## S502 hit reactions sized (both blind critics r8, item 2: jab 6-10 cm, cross 12-20 cm, hook a 20-40 deg head turn, peak
+## 2-3 frames after contact; the r7 film read jab 4.3-6.8 cm, cross 6.0-8.4, hook 6.1-13.4, peak a median 5 frames late).
+## The snap is the part that peaks at once (RISE_S), so it carries the size now; the clip follows. `-- oldsnap` = S396 sizes.
+const SNAP_DEG := {"jab": 15.0, "cross": 28.0, "hook": 28.0, "uppercut": 22.0}
+const SNAP_DEG_OLD := {"jab": 11.0, "cross": 16.0, "hook": 19.0, "uppercut": 17.0}
+static var sized_snap: bool = not OS.get_cmdline_user_args().has("oldsnap")
+const CROSS_GIVE := 1.45   # S502: a cross's trunk give (28 deg x 0.55 x 1.45 = 22 -> capped at 14 x 1.45 = 20 deg)
 const BIG_SNAP := 1.6   # S395 (blind review: a big shot in slow motion showed no head snap)
 
 const SHAKE_M := {"jab": 0.0, "power": 0.025, "big": 0.06}
@@ -104,9 +110,10 @@ static func hit(st: Node, who: int, clip: String, speed: float, hitter: int, mov
 		snap.fold(st.hand_of(hitter, "LeftHand") == "RightHand")
 		return
 	var deg := 9.0
-	for key in SNAP_DEG:
+	var table: Dictionary = SNAP_DEG if sized_snap else SNAP_DEG_OLD
+	for key in table:
 		if move.contains(key):
-			deg = float(SNAP_DEG[key])
+			deg = float(table[key])
 	if big:
 		deg *= BIG_SNAP
 	var hand: String = st.hand_of(hitter, "LeftHand" if move in ["jab", "lead_hook", "lead_uppercut"] else "RightHand")
@@ -115,7 +122,21 @@ static func hit(st: Node, who: int, clip: String, speed: float, hitter: int, mov
 	# S322 a burning arm (BodyBurn "power" per hand, 1.0 .. BodyLoad.POWER_MIN): its punches snap the head less.
 	var power: Dictionary = boxers[hitter].get("power", {})
 	var arm := "lead" if move in ["jab", "lead_hook", "lead_uppercut", "body_hook"] else "rear"
-	snap.snap(st.target_point(who, false) - shoulder, deg * (1.5 if big else 1.0) * float(power.get(arm, 1.0)))
+	var to_t: Vector3 = st.target_point(who, false) - shoulder
+	var give := 1.0
+	if sized_snap and move.contains("hook"):
+		# S502: a hook turns the head sideways (critics: 20-35 deg, "not back"): snap along the glove's sideways travel, the
+		# part of shoulder -> face across the line between them, with a little of the line kept.
+		var line: Vector3 = st.target_point(who, false) - (boxers[hitter]["node"] as Node3D).global_position
+		line.y = 0.0
+		line = line.normalized()
+		var lat := to_t - line * to_t.dot(line)
+		lat.y = 0.0
+		if lat.length() > 0.02:
+			to_t = lat.normalized() + line * 0.3
+	elif sized_snap and move.contains("cross"):
+		give = CROSS_GIVE
+	snap.snap(to_t, deg * (1.5 if big else 1.0) * float(power.get(arm, 1.0)), give)
 
 
 ## The hit-stop: both AnimationPlayers stand still (whatever speed a move set is kept and given back after).

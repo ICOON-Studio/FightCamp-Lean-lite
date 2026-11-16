@@ -53,6 +53,9 @@ func _check_back_m_order() -> void:
 	_check(jab_v < pow_v, "jab < power (%.4f < %.4f)" % [jab_v, pow_v])
 	_check(pow_v < body_v, "power < body (%.4f < %.4f)" % [pow_v, body_v])
 	_check(body_v < big_v, "body < big (%.4f < %.4f)" % [body_v, big_v])
+	# S502: a clean cross steps back 15-20 cm (blind critics r8); a hook less (it turns the head).
+	_check(pow_v >= 0.15 and pow_v <= 0.20, "a cross steps back 15-20 cm (%.3f)" % pow_v)
+	_check(HS.back_m("lead_hook", false) < pow_v, "a hook steps back less than a cross")
 
 
 func _check_room_cap() -> void:

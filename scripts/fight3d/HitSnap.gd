@@ -9,7 +9,9 @@ extends SkeletonModifier3D
 ## (BRACE_*), on the same frame clock, rising in BRACE_RISE_S and settling like the snap.
 
 ## Up to the peak, then a damped settle (seconds).
-const RISE_S := 0.035
+## S502: 0.035 (one frame) -> 0.06 (two): with the snaps sized up (HitImpact.SNAP_DEG) one frame read as a pop (contact-frame
+## head jumps 3 -> 5 on r9b); the critics ask for the peak 2-3 frames after contact.
+const RISE_S := 0.06
 const SETTLE_TAU_S := 0.11
 const LIFE_S := 0.55
 ## The share of the turn on the neck; the rest on the head.
@@ -71,7 +73,9 @@ func setup(skel: Skeleton3D) -> bool:
 	return _head >= 0
 
 
-func snap(dir_world: Vector3, degrees: float) -> void:
+## S502 `give_mult`: a straight right drives the trunk back further than a jab (blind critics r8: cross 12-20 cm of head
+## travel; r9a read 5.5-8 cm with the 14 deg cap), up to GIVE_MAX_DEG * give_mult.
+func snap(dir_world: Vector3, degrees: float, give_mult: float = 1.0) -> void:
 	var skel := get_skeleton()
 	if skel == null or dir_world.length() < 1e-4:
 		return
@@ -82,7 +86,7 @@ func snap(dir_world: Vector3, degrees: float) -> void:
 	_deg = maxf(degrees, shown)
 	_t = RISE_S * clampf(shown / maxf(_deg, 1e-3), 0.0, 1.0) if shown > 0.0 else 0.0
 	var given := give_envelope(_gt) * _gdeg if _gt >= 0.0 else 0.0
-	_gdeg = minf(maxf(degrees * GIVE_SHARE, given), GIVE_MAX_DEG)
+	_gdeg = minf(maxf(degrees * GIVE_SHARE * give_mult, given), GIVE_MAX_DEG * maxf(give_mult, 1.0))
 	_gt = GIVE_RISE_S * clampf(given / maxf(_gdeg, 1e-3), 0.0, 1.0) if given > 0.0 else 0.0
 
 

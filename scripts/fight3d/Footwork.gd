@@ -117,7 +117,7 @@ func aim_step(dist: float, a_far: bool) -> void:
 			return
 		if not can_step(who):
 			continue
-		var scale := LUNGE_SCALE if ph in ["in", "clinch", "inside"] else (EXIT_SCALE if ph == "rest" else WALK_SCALE)
+		var scale := LUNGE_SCALE if ph in ["in", "clinch", "inside"] else (EXIT_SCALE if ph == "rest" or bool(_aim.get("edge", false)) else WALK_SCALE)
 		_to(who, dist, want_m, scale)
 		return
 
