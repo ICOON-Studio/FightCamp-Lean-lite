@@ -1,0 +1,181 @@
+diff --git a/scripts/fight3d/BeatClips.gd b/scripts/fight3d/BeatClips.gd
+index b0d49c3a2..05dc0d520 100644
+--- a/scripts/fight3d/BeatClips.gd
++++ b/scripts/fight3d/BeatClips.gd
+@@ -187,6 +187,23 @@ static func peak(clip: String) -> float:
+ 	return float((row as Dictionary).get("peak_s", -1.0)) if row is Dictionary else -1.0
+ 
+ 
++## S496 FIGHT MOTION WEEK (two blind critics 4/10; fight_motion_rulers on the r0 film: the hit head's furthest point came 8
++## frames after the blow, median, worst 15 - "clean shots get no reaction"): the takes' peaks sit 0.23-1.03 s in (the
++## actor's own lead-in), and REACT_FAST_MAX caps the catch-up, so most peaked 0.3-0.5 s late. The reaction now STARTS past
++## its lead-in, so its peak lands REACT_LEAD_S after the blow at the speed react_fast gives (JoinSmoother eases her from her
++## pose into it). `-- noreactfrom` = the control arm (from the clip's start, as before).
++const REACT_LEAD_S := 0.10   # r1a: the peak 5 frames after the blow (median; was 8). 0.06 gained nothing (r1b 5) and dragged the hitter's carried glove past join_return's 9 m/s bar
++static var REACT_FROM: bool = not OS.get_cmdline_user_args().has("noreactfrom")
++
++
++## Seconds into `clip` (1x) a hit reaction starts at, playing at `fast`, so its peak lands REACT_LEAD_S after the blow.
++static func react_from(clip: String, fast: float) -> float:
++	var pk := peak(clip)
++	if not REACT_FROM or pk <= 0.0:
++		return 0.0
++	return maxf(0.0, pk - REACT_LEAD_S * fast)
++
++
+ ## The speed a reaction plays at until its peak: its peak lands REACT_PEAK_S after the blow, never slower than `speed`.
+ static func react_fast(clip: String, speed: float) -> float:
+ 	var pk := peak(clip)
+diff --git a/scripts/fight3d/BoxerBuild.gd b/scripts/fight3d/BoxerBuild.gd
+index 2ce8d07e4..ebeddf89c 100644
+--- a/scripts/fight3d/BoxerBuild.gd
++++ b/scripts/fight3d/BoxerBuild.gd
+@@ -17,6 +17,7 @@ const ArmClash := preload("res://scripts/fight3d/ArmClash.gd")
+ const JoinSmoother := preload("res://scripts/fight3d/JoinSmoother.gd")
+ const PunchReach := preload("res://scripts/fight3d/PunchReach.gd")
+ const HitSnap := preload("res://scripts/fight3d/HitSnap.gd")
++const PopCap := preload("res://scripts/fight3d/PopCap.gd")
+ const GloveClear := preload("res://scripts/fight3d/GloveClear.gd")
+ const GuardTuck := preload("res://scripts/fight3d/GuardTuck.gd")
+ const MirrorClip := preload("res://scripts/fight3d/MirrorClip.gd")
+@@ -151,6 +152,13 @@ static func build(stage: Node3D, spec: Dictionary, index: int) -> Dictionary:
+ 	else:
+ 		hs.free()
+ 		hs = null
++	# S496: the trunk and head never jump in one frame (PopCap; `nopopcap` = the control arm). After the reach and the snap.
++	var pc := PopCap.new()
++	pc.name = "PopCap"
++	if pc.setup(skel):
++		skel.add_child(pc)   # moved last at the end of build (after the footwork rig and the foot locks)
++	else:
++		pc.free()
+ 	# S315: no glove inside the other's head (FightStage gives it the other boxer); `noglove` = the control arm.
+ 	var gc: GloveClear = null
+ 	if not OS.get_cmdline_user_args().has("noglove"):
+@@ -207,6 +215,9 @@ static func build(stage: Node3D, spec: Dictionary, index: int) -> Dictionary:
+ 	var tw := skel.find_child("MetaHumanTwist", false, false)
+ 	if tw != null:
+ 		skel.move_child(tw, skel.get_child_count() - 1)
++	var pcap := skel.find_child("PopCap", false, false)   # S496: the pop cap reads the pose every other layer drew
++	if pcap != null:
++		skel.move_child(pcap, (tw.get_index()) if tw != null else skel.get_child_count() - 1)
+ 	ap.animation_finished.connect(stage._on_finished.bind(index))
+ 	return {"node": body, "skel": skel, "ap": ap, "gloves": gl, "joinfeet": jf, "weave": gw, "js": js, "reach": pr, "snap": hs, "gclear": gc, "tuck": gt, "sag": ts, "knee": kt, "feet": fp, "rig": rig, "floor": fc, "stand": fs, "lock": fl, "life": life, "weight": pw, "look": look, "south": south, "front": gl.front_m(),
+ 		"pos": Vector3.ZERO, "vel": Vector3.ZERO, "move_left": 0.0,
+diff --git a/scripts/fight3d/HitImpact.gd b/scripts/fight3d/HitImpact.gd
+index 3ddbdd0fb..12978125c 100644
+--- a/scripts/fight3d/HitImpact.gd
++++ b/scripts/fight3d/HitImpact.gd
+@@ -48,6 +48,11 @@ static func hit(st: Node, who: int, clip: String, speed: float, hitter: int, mov
+ 			elif absf(past) > 0.01 or (PunchPace.on and past < 0.0):
+ 				ap_h.seek(c_t, true)
+ 			pr._process_modification()
++			# S496: this pass runs PunchReach (and its chest lean) by hand after the stack, so the pop cap must follow it, or the
++			# contact frame alone keeps its one-frame jump (r1b-r1e: 13 contact-frame head jumps whatever PopCap did).
++			var pcap: Node = (st.boxers[hitter]["skel"] as Node).get_node_or_null("PopCap")
++			if pcap != null:
++				pcap._process_modification()
+ 			# S445 (blind read: hard/hurt/big takes were never a graze, so clean hits drew 0.2-0.38 m off her): a glove that is
+ 			# off her on the hit frame is a graze whatever the take. The result stands (settled before); only the show changes.
+ 			graze = RangeTable.on and ReachLimit.miss(pr) > ReachLimit.GRAZE_M
+@@ -69,7 +74,7 @@ static func hit(st: Node, who: int, clip: String, speed: float, hitter: int, mov
+ 	# S305: fast to its peak, then the clip's own pace back to guard; locked in it until then (HitStun).
+ 	var fast := BeatClips.react_fast(clip, speed)
+ 	st.stun.clear(who)
+-	st.play(who, clip, fast)
++	st.play(who, clip, fast, BeatClips.react_from(clip, fast))   # S496: past its lead-in, the peak on the blow
+ 	if str((boxers[who]["ap"] as AnimationPlayer).current_animation) == clip:
+ 		# S311: a plain head shot snaps and lets her fight on; hurt, big and body shots keep the full reaction.
+ 		var light := not move.contains("body") and not (BeatClips.REACT["hurt"] as Array).has(clip)
+diff --git a/scripts/fight3d/PopCap.gd b/scripts/fight3d/PopCap.gd
+new file mode 100644
+index 000000000..bdcc5b06c
+--- /dev/null
++++ b/scripts/fight3d/PopCap.gd
+@@ -0,0 +1,86 @@
++extends SkeletonModifier3D
++## S496 FIGHT MOTION WEEK - the per-frame pop cap on the shown pose (the six HUMANFIGHT1 critics' first ask, S430; never
++## built). The owner: "The fight looks terrible should we stop this project?" Two blind critics on the r0 film: 4/10 and 4/10.
++## tools/fight_motion_rulers.py r0: 53 frames where a head moved more than 12 cm in ONE frame (worst 28 cm, ~8 m/s) against
++## 5 on 2026-11-11; control rounds: with POWER1's punch weight and drive layers off, 8. Those layers give the punch its
++## body, so they stay; what goes is the one-frame jump. A real boxer's head moves at most ~2-3 m/s in a cross.
++##
++## After the stack has drawn this frame's pose, the head's travel since the last DRAWN frame is measured. If it is over
++## HEAD_MAX_MPS * delta (measured as head minus hips: r1a showed the contact-frame jumps are 15-19 cm of the trunk's own
++## bend in one frame), the spine-to-head chain (spine, chest, upper chest, neck, head - never the hips, arms or legs, so
++## planted feet stay planted) is eased back toward last frame's drawn chain just far enough that the head travels the cap:
++## the move spreads over two or three frames instead of one. A teleport (over TELEPORT_M) is let through.
++## LAST in the stack: BoxerBuild moves it just before MetaHumanTwist, after the footwork rig and the foot locks.
++## `-- nopopcap` = the control arm.
++##   setup(skel) -> bool
++
++const HEAD_MAX_MPS := 2.7
++const TELEPORT_M := 0.6
++const CHAIN := ["Head", "...", "Spine"]   # documentation only: the chain is walked head -> hips in setup()
++
++static var on: bool = not OS.get_cmdline_user_args().has("nopopcap")
++
++var _skel: Skeleton3D
++var _bones: PackedInt32Array = PackedInt32Array()
++var _head := -1
++var _hips := -1
++var _last_rot: Array = []        # this frame's latest drawn local rotation per chain bone
++var _last_head := Vector3.ZERO   # this frame's latest drawn head minus hips, skeleton space
++var _ref_rot: Array = []         # the PREVIOUS frame's final drawn chain: what every pass of this frame is capped against
++var _ref_head := Vector3.ZERO
++var _last_abs := Vector3.ZERO    # head in skeleton space (with the hips' own travel), this frame's latest
++var _ref_abs := Vector3.ZERO
++var _have := false
++var _frame := -1
++var capped_frames := 0           # probes read it
++
++
++func setup(skel: Skeleton3D) -> bool:
++	_skel = skel
++	_head = skel.find_bone("Head")
++	_hips = skel.find_bone("Hips")
++	# Every bone from the head down to (not including) the hips: the MetaHuman chain has neck_02, spine_04/05 ... between
++	# the humanoid names (CHAIN alone left them free, and r1b's contact-frame jumps stayed at 13).
++	var b := _head
++	while b >= 0 and b != _hips:
++		_bones.append(b)
++		b = skel.get_bone_parent(b)
++	return on and _head >= 0 and _hips >= 0 and _bones.size() >= 3
++
++
++## The stack can run more than once in a frame (a hit forces a pose update to put the punch on its contact): every pass
++## is capped against the previous frame's FINAL pose, so the frame's head travel stays under the cap however many passes.
++func _process_modification() -> void:
++	var skel := get_skeleton()
++	if skel == null or _head < 0:
++		return
++	var f := Engine.get_process_frames()
++	if f != _frame:
++		if _frame >= 0:
++			_ref_rot = _last_rot.duplicate()
++			_ref_head = _last_head
++			_ref_abs = _last_abs
++			_have = true
++		_frame = f
++	var head := skel.get_bone_global_pose(_head).origin - skel.get_bone_global_pose(_hips).origin
++	var dt := get_process_delta_time()
++	if dt <= 0.0:
++		dt = 1.0 / 30.0
++	if _have and _ref_rot.size() == _bones.size():
++		# r1d: capping the trunk's own bend left 13 contact-frame jumps - the hips slide 3-7 cm in the same frame. The cap is on
++		# the head's whole travel; the chain gives back what the hips' slide adds (it leans against it), never more than all.
++		var d_tot := skel.get_bone_global_pose(_head).origin.distance_to(_ref_abs)
++		var d_rel := head.distance_to(_ref_head)
++		var cap := HEAD_MAX_MPS * dt
++		if d_tot > cap and d_tot < TELEPORT_M and d_rel > 0.001:
++			var keep := clampf(1.0 - (d_tot - cap) / d_rel, 0.0, 1.0)
++			for k in _bones.size():
++				var b: int = _bones[k]
++				skel.set_bone_pose_rotation(b, (_ref_rot[k] as Quaternion).slerp(skel.get_bone_pose_rotation(b), keep))
++			head = skel.get_bone_global_pose(_head).origin - skel.get_bone_global_pose(_hips).origin
++			capped_frames += 1
++	_last_rot.resize(_bones.size())
++	for k in _bones.size():
++		_last_rot[k] = skel.get_bone_pose_rotation(_bones[k])
++	_last_head = head
++	_last_abs = skel.get_bone_global_pose(_head).origin

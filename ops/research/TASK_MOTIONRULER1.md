@@ -1,6 +1,6 @@
 # TASK MOTIONRULER1 - one script that prints the fight-motion numbers of a filmed round (before/after compare)
 
-Status: OPEN (S496, Claude main). Discipline: boxing. Model: Qwen (qwen3-coder), default.
+Status: DONE (S496, Claude wrote it: seat_dispatch takes only a Godot RED_TEST, this is a Python tool). Discipline: boxing.
 
 ## Why now
 The owner asked "The fight looks terrible should we stop this project?" and chose a one-week code push on the 3D fight's
