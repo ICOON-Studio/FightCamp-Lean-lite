@@ -181,6 +181,8 @@ func _build_crowd() -> void:
 	flashes.name = "CrowdFlashes"
 	add_child(flashes)
 	flashes.setup(heads_at, near_at)
+	# S497: keep every flash clear of the two boxers (a press camera, not a hit spark).
+	flashes.keep_off = _boxer_screen_boxes
 	# Tiers under the crowd.
 	for side in 4:
 		for row in 9:
@@ -222,3 +224,29 @@ func _mat(col: Color, rough: float) -> StandardMaterial3D:
 	m.albedo_color = col
 	m.roughness = rough
 	return m
+
+
+## S497: the two boxers' screen boxes (Head, Hips, both Hands, both Feet) for CrowdFlashes.keep_off.
+func _boxer_screen_boxes() -> Array:
+	var s = get_parent()
+	if s == null or not ("boxers" in s) or not is_inside_tree():
+		return []
+	var c = get_viewport().get_camera_3d()
+	if c == null:
+		return []
+	var r: Array = []
+	for b in s.boxers:
+		var k: Skeleton3D = b["skel"]
+		var p: Array = []
+		for n in ["Head", "Hips", "LeftHand", "RightHand", "LeftFoot", "RightFoot"]:
+			var i = k.find_bone(n)
+			if i >= 0:
+				p.append(c.unproject_position(k.global_transform * k.get_bone_global_pose(i).origin))
+		if p.size() > 0:
+			var lo = p[0]
+			var hi = p[0]
+			for v in p:
+				lo = lo.min(v)
+				hi = hi.max(v)
+			r.append(Rect2(lo, hi - lo))
+	return r

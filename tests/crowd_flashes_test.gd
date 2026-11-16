@@ -16,6 +16,8 @@ func _initialize() -> void:
 	_near_share()
 	_texture()
 	_ring_has_flashes()
+	_clear_of_truth_table()
+	await _keep_off_skips_when_all_seats_covered()
 	print("CROWD_FLASHES failures=%d" % failures)
 	quit(1 if failures > 0 else 0)
 
@@ -115,3 +117,45 @@ func _ring_has_flashes() -> void:
 		_check(fl.seats.size() > 200, "flashes sit on the real crowd's seats (%d)" % fl.seats.size())
 		_check(fl.near.size() > 30 and fl.near.size() < fl.seats.size(), "the near rows are a part of the crowd (%d)" % fl.near.size())
 	ring.queue_free()
+
+
+## S497: clear_of is a pure helper - true when the screen point is outside every box grown by pad.
+func _clear_of_truth_table() -> void:
+	var box := Rect2(Vector2(100, 100), Vector2(50, 50))
+	var boxes := [box]
+	# Inside the box (no pad): should return false
+	_check(not CF.clear_of(Vector2(120, 120), boxes, 0.0), "clear_of: inside the box is not clear")
+	# Inside the pad but outside the box: should return false (pad grows the box)
+	_check(not CF.clear_of(Vector2(160, 120), boxes, 20.0), "clear_of: inside the pad is not clear")
+	# Outside all boxes: should return true
+	_check(CF.clear_of(Vector2(200, 200), boxes, 20.0), "clear_of: outside every box is clear")
+	# Empty boxes: any point is clear
+	_check(CF.clear_of(Vector2(0, 0), [], 100.0), "clear_of: no boxes means every point is clear")
+
+
+## S497: when keep_off covers every seat's screen point, every flash is skipped (skipped grows, fired does not).
+func _keep_off_skips_when_all_seats_covered() -> void:
+	# Create a camera so _fire() checks keep_off
+	var cam := Camera3D.new()
+	cam.position = Vector3(0, 2, -8)
+	cam.rotation_degrees = Vector3(-5, 180, 0)   # faces the seats at z 6..10
+	root.add_child(cam)
+	cam.current = true
+	await process_frame
+	_check(root.get_camera_3d() == cam, "the test camera is the viewport's camera")
+	var f := _make(10, 20)
+	f.set_process(false)
+	# keep_off returns a huge box covering the entire screen
+	f.keep_off = func() -> Array: return [Rect2(Vector2(-1000, -1000), Vector2(5000, 5000))]
+	var before_fired: int = f.fired
+	var before_skipped: int = f.skipped
+	for i in 20:
+		f.call("_fire")
+	_check(f.fired == before_fired, "keep_off covering all seats: fired stays at %d" % f.fired)
+	_check(f.skipped > before_skipped, "keep_off covering all seats: skipped grows (was %d, now %d)" % [before_skipped, f.skipped])
+	# Control arm: with no boxers to avoid, the same camera sees seats and flashes fire.
+	f.keep_off = Callable()
+	f.call("_fire")
+	_check(f.fired > before_fired, "control: no keep_off, a seat in view fires (fired %d)" % f.fired)
+	cam.queue_free()
+	f.queue_free()

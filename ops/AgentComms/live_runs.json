@@ -647,78 +647,18 @@
     "board": ""
    }
   },
-  "COACHNECK1": {
-   "agent": "qwen",
-   "id": "COACHNECK1",
-   "title": "TASK COACHNECK1 - the corner coach's neck stays upright in his close-up (the owner's C415 mark)",
-   "status": "superseded",
-   "started": "2026-11-16T09:41",
-   "eta": "2026-11-16T11:31",
-   "branch": "qwen/coachneck1",
-   "worktree": "E:/FightCamp/wt/LEAN_COACHNECK1",
-   "wt": "E:/FightCamp/wt/LEAN_COACHNECK1",
-   "brief": "ops/research/TASK_COACHNECK1.md",
-   "repo": "FightCamp-Lean",
-   "where": "pc",
-   "log": "E:/FightCamp/wt/COACHNECK1_dispatch_out.txt",
-   "match": "seat_dispatch.py run coachneck1",
-   "model": "qwen3-coder",
-   "dispatch": {
-    "prompt": "E:/FightCamp/wt/COACHNECK1_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/COACHNECK1_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/COACHNECK1_dispatch_runner.log",
-    "source": "command line",
-    "brief_copied": true,
-    "runner_pid": 34448,
-    "seat_pid": 27736
-   },
-   "note": "S498: rendered before/after, NOT merged - neck moves under 1 degree; PR 329 comment says what round 2 needs",
-   "finished": "2026-11-16T10:23",
-   "pr": 329,
-   "checks": [
-    {
-     "kind": "RED_TEST",
-     "script": "tools/coach_neck_probe.gd",
-     "ok": true,
-     "last": "COACH_NECK neck_vs_chest=130.2 neck_vs_vertical=37.4 head_ahead_cm=7.1 ok=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/corner_crew_bodies_test.gd",
-     "ok": true,
-     "last": "CORNER_CREW_BODIES failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/corner_face_line_test.gd",
-     "ok": true,
-     "last": "CORNER_FACE_LINE failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/corner_jobs_test.gd",
-     "ok": true,
-     "last": "CORNERJOBS failures=0"
-    }
-   ],
-   "films": {
-    "before": {},
-    "after": {},
-    "board": ""
-   }
-  },
   "PRESSFLASH1": {
    "agent": "qwen",
    "id": "PRESSFLASH1",
    "title": "TASK PRESSFLASH1 - crowd camera flashes never read as a hit in empty air",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-16T16:14",
    "eta": "2026-11-16T18:04",
    "where": "pc",
    "branch": "qwen/pressflash1",
    "brief": "ops/research/TASK_PRESSFLASH1.md",
    "repo": "FightCamp-Lean",
-   "note": "S368 seat_dispatch: launched unattended (command line); merging stays off",
+   "note": "PR 334, hit_flash_test green; collect S502 with stills on the game camera",
    "worktree": "E:/FightCamp/wt/LEAN_PRESSFLASH1",
    "wt": "E:/FightCamp/wt/LEAN_PRESSFLASH1",
    "log": "E:/FightCamp/wt/PRESSFLASH1_dispatch_out.txt",
@@ -732,6 +672,33 @@
     "brief_copied": true,
     "runner_pid": 33796,
     "seat_pid": 44532
+   },
+   "finished": "2026-11-16T16:34",
+   "pr": 334,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/crowd_flashes_test.gd",
+     "ok": false,
+     "last": "CROWD_FLASHES failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/hit_flash_test.gd",
+     "ok": true,
+     "last": "HIT_FLASH failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/file_limits_test.gd",
+     "ok": false,
+     "last": "FILE_LIMITS failures=2"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
    }
   },
   "BODYSTEP1": {

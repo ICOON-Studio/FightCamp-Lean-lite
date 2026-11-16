@@ -15,6 +15,8 @@ const NEAR_ROWS_SHARE := 0.7   # share of flashes from the rows nearest the ring
 const SIZE_M := 1.1            # the star's size at full bright (S447 film: 0.55 m was ~20 px from the broadcast camera, lost in its blur)
 const HDR := 2.6               # brighter than white, so the glow and the far blur keep it
 const TEX_PX := 64
+const KEEP_OFF_PX := 90.0      # keep flashes this many pixels from a boxer's screen box (at 1280x720; scales with viewport)
+const MAX_PX := 46.0           # a flash star is at most this wide on screen (a press camera, not a hit spark)
 
 var seats: Array = []          # Vector3 head positions, nearest rows first in `near`
 var near: Array = []
@@ -23,6 +25,8 @@ var _pool: Array = []          # [{sprite, t}] t < 0 = idle
 var _queue: Array = []         # seconds until each queued burst flash fires
 var _idle_t := 0.0
 var fired := 0                 # flashes started (tests read it)
+var skipped := 0               # flashes skipped because every seat sat inside a boxer's screen box
+var keep_off: Callable         # when set, returns Array[Rect2] of boxer screen boxes to avoid
 
 
 func setup(heads: Array, near_heads: Array, seed: int = 4471) -> void:
@@ -67,6 +71,15 @@ static func star_texture() -> ImageTexture:
 			var cool := clampf(r * 1.4, 0.0, 1.0)
 			img.set_pixel(x, y, Color(1.0 - cool * 0.12, 1.0 - cool * 0.05, 1.0, a))
 	return ImageTexture.create_from_image(img)
+
+
+## True when the screen point sits outside every box grown by pad pixels (a flash clear of the boxers).
+static func clear_of(p_screen: Vector2, boxes: Array, pad: float) -> bool:
+	for b in boxes:
+		var r: Rect2 = b
+		if r.grow(pad).has_point(p_screen):
+			return false
+	return true
 
 
 ## n flashes over BURST_SPREAD_S (a big shot, a knockdown, the final bell).
@@ -115,7 +128,7 @@ func step(delta: float) -> void:
 			continue
 		f["t"] = t
 		var k := 1.0 if t <= HOLD_S else 1.0 - (t - HOLD_S) / (FLASH_S - HOLD_S)
-		node.scale = Vector3.ONE * (0.6 + 0.4 * k)
+		node.scale = Vector3.ONE * (0.6 + 0.4 * k) * float(f.get("sf", 1.0))
 		node.transparency = 1.0 - k * k
 
 
@@ -125,15 +138,36 @@ func _fire() -> void:
 			var src: Array = near if rng.randf() < NEAR_ROWS_SHARE else seats
 			var p: Vector3 = src[rng.randi() % src.size()]
 			# S447 film: seats run all round the ring, so most flashes went off behind the camera. Prefer a seat in view.
+			# S497: and keep every flash clear of the boxers (a press camera, not a hit spark).
 			var cam: Camera3D = get_viewport().get_camera_3d() if is_inside_tree() else null
+			var boxes: Array = []
+			var pad := KEEP_OFF_PX
 			if cam != null:
-				for tries in 8:
-					if cam.is_position_in_frustum(to_global(p)):
+				if keep_off.is_valid():
+					boxes = keep_off.call()
+					pad *= get_viewport().get_visible_rect().size.y / 720.0
+				var found := false
+				for tries in 12:
+					var gp := to_global(p)
+					var screen_pt := cam.unproject_position(gp)
+					if cam.is_position_in_frustum(gp) and clear_of(screen_pt, boxes, pad):
+						found = true
 						break
 					p = src[rng.randi() % src.size()]
+				if not found:
+					skipped += 1
+					return
 			var node: MeshInstance3D = f["node"]
 			node.position = p + Vector3(rng.randf_range(-0.12, 0.12), rng.randf_range(0.0, 0.18), 0.0)
-			node.scale = Vector3.ONE
+			# S497: a flash is a press camera, not a hit spark; cap its screen size.
+			var sf := 1.0
+			if cam != null:
+				var dist := cam.global_transform.origin.distance_to(to_global(node.position))
+				var est_px := SIZE_M / maxf(0.1, dist) * 500.0
+				if est_px > MAX_PX:
+					sf = MAX_PX / est_px
+			f["sf"] = sf
+			node.scale = Vector3.ONE * sf
 			node.transparency = 0.0
 			node.visible = true
 			f["t"] = 0.0

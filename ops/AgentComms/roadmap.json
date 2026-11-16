@@ -7,8 +7,8 @@
   "owner": "claude",
   "updated": "2026-11-16",
   "summary": "S501: his seven picture notes acted on (brighter screens: wall photo lifted and shown whole, lighter panels, brighter arena; Training's coach row named PADS; Training pictures redone, circled, plain words); blind score of today's fight coach 5 / animator 4.5; the fight's commentary line moved off the boots; cam_line_test fixed for the fixed camera; body_figure flash and palette guard fixed; run_tests.sh honours TESTS.",
-  "next_action": "S502 FIGHT MOTION WEEK day 7 (to ~11-23; deal: blind whole-fight 4/10 -> 5+ from BOTH critics or 3D leaves the first release). S501 BLIND SCORE on r7 (the current build, fixed camera, side-on): coach 5/10, animator 4.5/10 (r0: 4 and 4); files E:/FightCamp/tmp/fightweek/r8blind (critic_*.md, *_10.png, sheets_close/, the briefs BRIEF_critic_*.md - reuse them with a new folder). BOTH CRITICS' TOP FIVE, in order: 1) RANGE AND EXIT: rest 1.3-1.6 m between heads; close range only to throw or clinch; leave within ~12 frames of the last punch (a 25-35 cm step or a 30-45 deg pivot); never heads < 40 cm for > 8 frames without a punch (ex1 #33-54, wait #9-24). 2) HIT REACTIONS start on contact, peak 2-3 frames later (today median 5), sized: jab 6-10 cm, cross 12-20 cm + half step, hook 20-40 deg head turn; a blocked shot pushes the guard 5-8 cm. 3) DEFENCE ON SCREEN when the sim says missed/blocked: slip 15-20 cm in 4-8 frames, roll 12-20 cm knees, parry, step back. 4) FEET: planted feet slide 12-13 m a round (mostly the idle): lock them, steps of 15-30 cm in 6-8 frames. 5) HANDS HOME: rear glove at the chin, punch back 4-6 frames after contact (worst 17); no glove-over-head end poses. Start with 1 and 2 (both critics, biggest). Then film r9 + two NEW blind critics. ALSO: the roadmap items still open from S501: one lean ease a frame (ReachLimit.turn_eased, PunchReach._lean; solves of a pass ask on top of each other), cross return 10.4 m/s (join_return_test 9.0), human_feet_test 4.9 cm under canvas, head jumps. SEATS: PRESSFLASH1 on Qwen (launched 16:13, wt LEAN_PRESSFLASH1, collect); COACHNECK2 on Ziva (chat Fight Film Analysis at 127.0.0.1:7012, branch ziva/coachneck2); FILMBAR1 PR 333 NOT merged (film_count still 13.3 % worst, a find lost, film_pattern_test red: PR comment = the round-2 brief: a two-rate exact test) -> brief FILMBAR2 for Qwen or Arena. GUARD DAMAGE design: SQ204 John / SQ205 Dola answers -> v2 -> two fresh critics 7+ -> his board.",
-  "last_working_commit": "223dcc358",
+  "next_action": "S502 FIGHT MOTION WEEK day 7 (to ~11-23; deal: blind whole-fight 4/10 -> 5+ from BOTH critics or 3D leaves the first release). S501 BLIND SCORE on r7 (the current build, fixed camera, side-on): coach 5/10, animator 4.5/10 (r0: 4 and 4); files E:/FightCamp/tmp/fightweek/r8blind (critic_*.md, *_10.png, sheets_close/, the briefs BRIEF_critic_*.md - reuse them with a new folder). BOTH CRITICS' TOP FIVE, in order: 1) RANGE AND EXIT: rest 1.3-1.6 m between heads; close range only to throw or clinch; leave within ~12 frames of the last punch (a 25-35 cm step or a 30-45 deg pivot); never heads < 40 cm for > 8 frames without a punch (ex1 #33-54, wait #9-24). 2) HIT REACTIONS start on contact, peak 2-3 frames later (today median 5), sized: jab 6-10 cm, cross 12-20 cm + half step, hook 20-40 deg head turn; a blocked shot pushes the guard 5-8 cm. 3) DEFENCE ON SCREEN when the sim says missed/blocked: slip 15-20 cm in 4-8 frames, roll 12-20 cm knees, parry, step back. 4) FEET: planted feet slide 12-13 m a round (mostly the idle): lock them, steps of 15-30 cm in 6-8 frames. 5) HANDS HOME: rear glove at the chin, punch back 4-6 frames after contact (worst 17); no glove-over-head end poses. Start with 1 and 2 (both critics, biggest). Then film r9 + two NEW blind critics. ALSO: the roadmap items still open from S501: one lean ease a frame (ReachLimit.turn_eased, PunchReach._lean; solves of a pass ask on top of each other), cross return 10.4 m/s (join_return_test 9.0), human_feet_test 4.9 cm under canvas, head jumps. SEATS: PRESSFLASH1 on Qwen (launched 16:13, wt LEAN_PRESSFLASH1, collect); COACHNECK2 on Ziva (chat Fight Film Analysis at 127.0.0.1:7012, branch ziva/coachneck2); FILMBAR1 PR 333 NOT merged (film_count still 13.3 % worst, a find lost, film_pattern_test red: PR comment = the round-2 brief: a two-rate exact test) -> brief FILMBAR2 for Qwen or Arena. GUARD DAMAGE design: SQ204 John / SQ205 Dola answers -> v2 -> two fresh critics 7+ -> his board. | LATER IN S501 (his notes after the stage shipped): (1) \"their shoulders look weird\" on the walk to the centre -> WalkArms.gd (collarbones eased, no slouch, gloves beside the thighs, each looks at the other; -- nowalkarms); (2) \"check how boxing manager and ufc use the camera\" -> ops/research/BOXING_MANAGER_CAMERA_S501.md + UFC_CAMERA_S501.md; (3) his \"Yes, do all three\" -> FixedCam Side lens 1.8 m up, 1.85 m from the ropes, ~9 deg down (was 4 m / 32 deg), SEE_M 3.4 head to boots in the HUD's clear band; zoom - / + (buttons, = and - keys, wheel; FixedCam.zoom 0.65-1.6); KnockdownReplay.skip + 'Skip replay (Space)'; PAUSED no longer shows during a replay. NOT SEEN: the skip on a real knockdown (no knockdown in the render). The S501 blind score (r8, coach 5 / animator 4.5) was on the OLD high camera: the next blind round (r9) films the new one. COLLECT FIRST in S502: PR 334 PRESSFLASH1 (Qwen, hit_flash_test green; stills of a crowd flash on the new camera before merge); Ziva COACHNECK2 (no branch yet).",
+  "last_working_commit": "a9b822936",
   "verified_playable": "Films r3d (new head rule) and r3ctl (control) on today's main; head_clear_test 39 lines green, join_return_test 0 failures; export: see NEXT_SESSION_PROMPT",
   "incomplete_blocked": "Contact-frame trunk snap (found, not fixed); arms home (WIP patch); head jumps 39 -> 49 on today's main unexplained (r3nocam film checks CAMHOLD1); COACHNECK1 not fixed; film_count_test red on 5 chance-prone claims (the finding); no_pronoun_test 6 Training lines (Training K session)",
   "next_acceptance": "Rulers vs r0: head jumps on the contact frame under 4, a head inside the other's body under 5 frames, arm out median under 4 frames with join_return green, then r1 film at two fresh blind critics 5+/10",
@@ -2099,7 +2099,7 @@
   {
    "id": "S501",
    "date": "2026-11-16",
-   "summary": "S501: his seven picture notes acted on (brighter screens: wall photo lifted and shown whole, lighter panels, brighter arena; Training's coach row named PADS; Training pictures redone, circled, plain words); blind score of today's fight coach 5 / animator 4.5; the fight's commentary line moved off the boots; cam_line_test fixed for the fixed camera; body_figure flash and palette guard fixed; run_tests.sh honours TESTS. FILMBAR1 not merged; PRESSFLASH1 to Qwen; COACHNECK2 to Ziva."
+   "summary": "S501: his seven picture notes acted on (brighter screens: wall photo lifted and shown whole, lighter panels, brighter arena; Training's coach row named PADS; Training pictures redone, circled, plain words); blind score of today's fight coach 5 / animator 4.5; the fight's commentary line moved off the boots; cam_line_test fixed for the fixed camera; body_figure flash and palette guard fixed; run_tests.sh honours TESTS. FILMBAR1 not merged; PRESSFLASH1 to Qwen; COACHNECK2 to Ziva. Later: the walk to the centre (WalkArms), the camera study (Boxing Manager + UFC), the side camera lower and closer with zoom and a skippable replay."
   }
  ],
  "blocked_on_operator": [],
@@ -5018,7 +5018,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-16 16:11 board_sync",
+  "updated": "2026-11-16 16:42 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5169,18 +5169,17 @@
   },
   "working_now": [
    {
-    "title": "TASK COACHNECK1 - the corner coach's neck stays upright in his close-up (the owner's C415 mark)",
+    "title": "TASK PRESSFLASH1 - crowd camera flashes never read as a hit in empty air",
     "who": "qwen",
-    "started": "2026-11-16T09:41",
-    "run": "COACHNECK1",
+    "started": "2026-11-16T16:14",
+    "run": "PRESSFLASH1",
     "state": "LANDED - Claude collects"
    },
    {
-    "title": "TASK FILMBAR1 - a film-night pattern never passes by luck (an exact test for small counts)",
-    "who": "qwen",
-    "started": "2026-11-16T14:12",
-    "run": "FILMBAR1",
-    "state": "LANDED - Claude collects"
+    "title": "TASK COACHNECK2 - the corner coach neck upright in his close-up, round 2",
+    "who": "ziva",
+    "started": "2026-11-16T16:15",
+    "run": "COACHNECK2"
    }
   ],
   "next": [
@@ -5712,6 +5711,11 @@
   },
   "done_recently": [
    {
+    "title": "TASK COACHNECK1 - the corner coach's neck stays upright in his close-up (the owner's C415 mark)",
+    "who": "qwen",
+    "when": "2026-11-16"
+   },
+   {
     "title": "Boxers stay side-on to the fixed camera; Pause (P) and Camera (C) buttons in the fight (S500)",
     "who": "claude",
     "when": "2026-11-16"
@@ -5764,26 +5768,6 @@
    {
     "title": "The fight camera never cuts while a punch is in flight (Qwen, collected)",
     "who": "qwen",
-    "when": "2026-11-16"
-   },
-   {
-    "title": "Film pattern counter collected (Goose): five film-night patterns pass by chance too often",
-    "who": "goose",
-    "when": "2026-11-16"
-   },
-   {
-    "title": "Fight motion week day 2: hit reactions 3 frames sooner, head jumps 53 -> 39, glove test green (S497)",
-    "who": "claude",
-    "when": "2026-11-16"
-   },
-   {
-    "title": "Training K v6c built into the game, old Training tab removed (f416dfa56)",
-    "who": "claude",
-    "when": "2026-11-16"
-   },
-   {
-    "title": "TASK FIGHTPAGE1 - the fight analysis page, film-night mode (punches list, report, mark a pattern)",
-    "who": "grok",
     "when": "2026-11-16"
    }
   ],
@@ -5953,6 +5937,18 @@
     {
      "text": "Fight line moved off the boots",
      "who": "claude"
+    },
+    {
+     "text": "Walk to centre: shoulders fixed",
+     "who": "claude"
+    },
+    {
+     "text": "Camera study: BM + UFC",
+     "who": "claude"
+    },
+    {
+     "text": "Side camera low + zoom + skip",
+     "who": "claude"
     }
    ],
    "now": [
@@ -6022,10 +6018,6 @@
     },
     {
      "text": "Coach neck round 2 (Ziva)",
-     "who": "agent"
-    },
-    {
-     "text": "Crowd flashes off boxers (Qwen)",
      "who": "agent"
     }
    ],
@@ -6144,6 +6136,14 @@
     },
     {
      "text": "FILMBAR2: two-rate exact test",
+     "who": "claude"
+    },
+    {
+     "text": "Collect PRESSFLASH1 (PR 334)",
+     "who": "claude"
+    },
+    {
+     "text": "Blind round r9 on the new camera",
      "who": "claude"
     }
    ],

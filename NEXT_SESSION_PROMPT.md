@@ -2,6 +2,26 @@
 
 Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. Roadmap `now.next_action` has the full detail.
 
+## LATER IN S501 (after the stage shipped) - read this first
+- His "their shoulders look weird" (the walk to the centre): `scripts/fight3d/WalkArms.gd` - while they walk, the
+  collarbones ease to rest (not the neck: it bowed the head), the trunk 6 deg up, each looks at the other, gloves kept
+  beside the thighs (side from the glove's own shoulder). Wired in FightIntro.cue_walk and CornerStart. `-- nowalkarms`.
+  The walk clip is `ow_walk` (CMU), not the Mixamo rk_loc_walk. Before/now on the review board.
+- His "check how boxing manager and ufc use the camera": `ops/research/BOXING_MANAGER_CAMERA_S501.md` (from our S426
+  recordings: cuts every 5-8 s, main shot low by the ropes, Cam: Auto, zoom, replay button) and `UFC_CAMERA_S501.md`
+  (one continuous side-on camera, distance + movement settings, quiet skippable knockdown replay). Their camera code is in
+  the encrypted pack; a full REA decompile of their Swift DLL stalled the session once - use a string scan instead.
+- His "Yes, do all three": FixedCam Side lens 1.8 m up, 1.85 m from the ropes, ~9 deg down (was 4 m / 32 deg), SEE_M 3.4,
+  LOOK_H 0.98 (head to boots between the HUD panels - at 2.7 the boots hid behind the fight bar); zoom - / + (buttons right
+  of Camera, = and - keys, wheel; FixedCam.zoom 0.65-1.6); KnockdownReplay.skip + "Skip replay (Space)"; PAUSED only for
+  the player's own pause. fixed_cam_test's "above 2 m" became "the lens sees over the top rope". NOT SEEN: the skip on a
+  real knockdown. Build exported 17:4x.
+- The blind score (coach 5, animator 4.5) was on the OLD high camera: r9 films the new one.
+- COLLECT FIRST: PR 334 PRESSFLASH1 (Qwen landed, hit_flash_test green; render a crowd flash on the new camera before
+  merging). Ziva COACHNECK2: no branch yet (chat "Fight Film Analysis" at 127.0.0.1:7012).
+- The PC: ArcheAge (9.6 GB) pushed memory to 97 % (RED) once; godot_slot held the render until it cleared. His sound
+  dropped once (Windows side, not ours); Discord restarted on his ask.
+
 ## S501 in short
 - HIS SEVEN PICTURE NOTES C417-C423, all acted on and answered on the review board (two posts, 16:25):
   - C418-C420 "why is the lighting so dimm": the gym photo behind every page (mean 46/255) was shown at 0.68 (~31). Both
