@@ -1,3 +1,21 @@
+S497 (2026-11-16) - THE FIGHT'S MOTION, WEEK DAY 2 (your "The fight looks terrible should we stop this project ?")
+- WATCH A FIGHT (Test jump: men's fight). A boxer who is hit now answers sooner: her head reaches its furthest point
+  5 frames after the glove lands (it was 8, the worst 15). Judge it: does a clean shot look like it was felt?
+- FEWER HEAD POPS: a head jumped more than 12 cm in one frame 53 times in the measured 75 seconds, now 39.
+- NOT IN YET (measured, still being fixed): the punching arm hanging out after the hit, heads overlapping at close
+  range, steps that look like slides. No new blind score yet; the two critics score again when those have moved.
+
+S496 (2026-11-16) - TRAINING, THE CLUB'S WEEK (your Q-259 "Yes, build it"; your C416 "remove this training picture")
+- NEW SCREEN: on the gym floor press the TRAINING pin (bottom middle). One card per fighter on top; click a boxer's card
+  to see her week: Mon-Sun with the coach's evening, the morning and the evening; her tiredness line and the diet under it;
+  THIS WEEK, MORNINGS, the evening you clicked and the coach's pick on the right.
+- THE OLD TRAINING TAB IS GONE from the boxer's page. Every "Plan the week" / "Change the week" button opens TRAINING.
+- YOUR COACH HAS 75 MINUTES A PAD NIGHT, SHARED: two or three boxers on pads the same night split them (a third each with
+  three). Drag the white line between two faces to give one boxer more - her move learns faster that night, the others
+  slower. A boxer alone on pads keeps the whole 75. Judge it: TEST CLUB (three boxers), Monday's coach bar.
+- DRAG A SESSION from the SESSIONS tray onto a morning (or Pads / Sparring / Rest onto an evening); L N H sets the effort.
+- Judge it at text size Largest too: the page should fit the width (it scrolls down).
+
 S495 (2026-11-15) - THE BODIES (your S490 notes: "terrible neck blending", "poorly stitched together", "their walking")
 - STAFF COLLARS: the coach, the second and the referee wear a tee with a real collar band now; the neck no longer pokes
   through the shirt in patches. Judge it: Test corner minute, look at the men from behind and in the wide corner shot.

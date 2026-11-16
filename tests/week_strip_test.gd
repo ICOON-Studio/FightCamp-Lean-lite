@@ -75,7 +75,7 @@ func _initialize() -> void:
 		_check(peek.visible and lines.size() == 8 and lines.slice(1) == exp, "the click shows the coach's week: %s" % [lines])
 		_check(peek.find_children("*", "BaseButton", true, false).is_empty(), "read-only: no buttons in it")
 		peek.hide()
-	# 3. The whiteboard header after the camp starts.
+	# 3. S496: the old Training tab's week head went with the tab; its link opens TRAINING (Training K), no camp-week strip.
 	main.act("startcamp")
 	await _settle(0.1)
 	if not main.modal.is_empty():
@@ -83,12 +83,9 @@ func _initialize() -> void:
 	main.act("fighter", str(f["id"]))
 	main.act("ftab", "3")
 	await _settle(0.2)
-	var board := main.find_child("WeekBoard", true, false)
-	# S398 (operator rule: nothing the player cannot act on): the Week head says the week and the fight in words; the strip
-	# stays in the camp modal (above) and its weeks are Fight prep's
-	_check(board != null and board.find_child("WeekStrip", true, false) == null and " ".join(_texts(board)).contains("fight night"),
-		"the Week head names the week and fight night in words, no strip")
-	_check(board != null and not " ".join(_texts(board)).contains("camp week"), "no 'camp week N of M' on the board")
+	var board := main.find_child("Training", true, false)
+	_check(board != null and board.find_child("WeekStrip", true, false) == null, "the week opens TRAINING, no camp strip there")
+	_check(board != null and not " ".join(_texts(board)).contains("camp week"), "no 'camp week N of M' on the week")
 	_done()
 
 

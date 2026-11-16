@@ -48,6 +48,11 @@ static func hit(st: Node, who: int, clip: String, speed: float, hitter: int, mov
 			elif absf(past) > 0.01 or (PunchPace.on and past < 0.0):
 				ap_h.seek(c_t, true)
 			pr._process_modification()
+			# S496: this pass runs PunchReach (and its chest lean) by hand after the stack, so the pop cap must follow it, or the
+			# contact frame alone keeps its one-frame jump (r1b-r1e: 13 contact-frame head jumps whatever PopCap did).
+			var pcap: Node = (st.boxers[hitter]["skel"] as Node).get_node_or_null("PopCap")
+			if pcap != null:
+				pcap._process_modification()
 			# S445 (blind read: hard/hurt/big takes were never a graze, so clean hits drew 0.2-0.38 m off her): a glove that is
 			# off her on the hit frame is a graze whatever the take. The result stands (settled before); only the show changes.
 			graze = RangeTable.on and ReachLimit.miss(pr) > ReachLimit.GRAZE_M
@@ -69,7 +74,10 @@ static func hit(st: Node, who: int, clip: String, speed: float, hitter: int, mov
 	# S305: fast to its peak, then the clip's own pace back to guard; locked in it until then (HitStun).
 	var fast := BeatClips.react_fast(clip, speed)
 	st.stun.clear(who)
-	st.play(who, clip, fast)
+	st.play(who, clip, fast, BeatClips.react_from(clip, fast))   # S496: past its lead-in, the peak on the blow
+	var free: Node = (boxers[who]["skel"] as Node).get_node_or_null("PopCap")
+	if free != null:
+		free.set("free_s", float(free.get("FREE_HIT_S")))   # S497: the blow moves her head as fast as it does
 	if str((boxers[who]["ap"] as AnimationPlayer).current_animation) == clip:
 		# S311: a plain head shot snaps and lets her fight on; hurt, big and body shots keep the full reaction.
 		var light := not move.contains("body") and not (BeatClips.REACT["hurt"] as Array).has(clip)

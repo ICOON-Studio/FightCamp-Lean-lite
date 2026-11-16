@@ -1,5 +1,5 @@
 extends RefCounted
-## S398 Week v8: what the two popovers hold (WeekCards.pop frames them, WeekBoard places them beside their card).
+## S398 Week v8: what the two popovers hold (WeekPopKit.pop frames them, WeekBoard places them beside their card).
 ## Morning: Light | Normal | Hard on top, then every session and Rest, each with its gain and its tiredness from the same
 ## WeekPlan.day the week runs. Evening: Rest | Pads | Sparring on top; on a pads night the drill cards to put on it and
 ## "Take the drill off". Hovering a choice ghosts the week (THIS CAMP's lines) the way the old picker did.
@@ -7,6 +7,7 @@ extends RefCounted
 
 const UI := preload("res://scripts/ui/UI.gd")
 const WeekCards := preload("res://scripts/ui/WeekCards.gd")
+const WeekPopKit := preload("res://scripts/ui/WeekPopKit.gd")
 const WeekPlan := preload("res://scripts/rules/WeekPlan.gd")
 const WeekPhase := preload("res://scripts/rules/WeekPhase.gd")
 const PadEdit := preload("res://scripts/rules/PadEdit.gd")
@@ -24,7 +25,7 @@ static func morning(i: int, current: Array, ctx: Dictionary, start: float, on_pi
 	var gh := Callable()
 	if ghost.is_valid():
 		gh = func(k: String) -> void: ghost.call(i, [str(current[0]), k] if k != "" and k != level else [])
-	v.add_child(WeekCards.segments("Level", LEVEL_WORDS, LEVELS, level, func(k: String): on_pick.call(i, [str(current[0]), k]), gh, rest))
+	v.add_child(WeekPopKit.segments("Level", LEVEL_WORDS, LEVELS, level, func(k: String): on_pick.call(i, [str(current[0]), k]), gh, rest))
 	for s in WeekPhase.SESSIONS + ["rest"]:
 		var card: Array = [s, "normal" if s == "rest" else level]
 		var r := WeekPlan.day(str(s), str(card[1]), ctx, start)
@@ -34,7 +35,7 @@ static func morning(i: int, current: Array, ctx: Dictionary, start: float, on_pi
 		var g2 := Callable()
 		if ghost.is_valid():
 			g2 = func(over: bool) -> void: ghost.call(i, card if over and not on else [])
-		v.add_child(WeekCards.pop_row("Pick_%s" % s, key, str(WeekPlan.session(str(s))["name"]), gain,
+		v.add_child(WeekPopKit.pop_row("Pick_%s" % s, key, str(WeekPlan.session(str(s))["name"]), gain,
 			WeekCards.tired_words(float(r["load"]) / WeekPlan.LOAD_PER_FATIGUE), on, func(): on_pick.call(i, card), g2, goal_key))
 	return v
 
@@ -44,7 +45,7 @@ static func evening(f: Dictionary, i: int, kind: String, entries: Array, cards: 
 		on_drill: Callable, on_clear: Callable) -> VBoxContainer:
 	var v := UI.vbox(6)
 	v.name = "EvePicker"
-	v.add_child(WeekCards.segments("Eve", ["Rest", "Pads", "Sparring"], ["rest", "pads", "sparring"], kind,
+	v.add_child(WeekPopKit.segments("Eve", ["Rest", "Pads", "Sparring"], ["rest", "pads", "sparring"], kind,
 		func(k: String): on_kind.call(i, k)))
 	var pads := float((WeekPlan.EVENINGS["pads"] as Dictionary)["rpe"]) * float((WeekPlan.EVENINGS["pads"] as Dictionary)["min"]) * share / WeekPlan.LOAD_PER_FATIGUE
 	var spar := float((WeekPlan.EVENINGS["sparring"] as Dictionary)["rpe"]) * float((WeekPlan.EVENINGS["sparring"] as Dictionary)["min"]) / WeekPlan.LOAD_PER_FATIGUE
@@ -58,7 +59,7 @@ static func evening(f: Dictionary, i: int, kind: String, entries: Array, cards: 
 		if not PadWeek.drillable(f, card):
 			continue
 		var m := PadWeek.mastery(f, card)
-		v.add_child(WeekCards.pop_row("EveDrill_%s" % card.replace(":", "_").replace(" ", "_"), "pads", PadEdit.title(f, card),
+		v.add_child(WeekPopKit.pop_row("EveDrill_%s" % card.replace(":", "_").replace(" ", "_"), "pads", PadEdit.title(f, card),
 			"mastery %d" % roundi(m), "on this night" if on_now.has(card) else "", on_now.has(card), func(): on_drill.call(i, card)))
 	if not entries.is_empty():
 		var off := UI.button("Take the drill off", "BtnQuiet", func(): on_clear.call(i))

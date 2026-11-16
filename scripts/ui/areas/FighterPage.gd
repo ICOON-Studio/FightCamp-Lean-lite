@@ -28,7 +28,7 @@ const FilmEdge := preload("res://scripts/rules/FilmEdge.gd")
 ## S387 (operator: "maybe it is good idea to put playbook in the fighter page"): the Playbook is tab 7, drawn beside Training.
 ## S396 screen cut: 5 tabs shown (TAB_ORDER); 1, 2 and 6 fold into Overview, their indices kept for old links (Routes.gd).
 const TABS := ["Overview", "Attributes and moves", "Body", "Training", "History", "Fight prep", "Contract and goals", "Playbook"]
-const TAB_ORDER := [0, 3, 5, 7, 4]
+const TAB_ORDER := [0, 5, 7, 4]   # S496: Training left the page (TRAINING, the club's week; Routes sends tab 3 there)
 const TRAINING_TAB := 3
 const PLAYBOOK_TAB := 7
 const PLAYBOOK := preload("res://scenes/areas/Playbook.tscn")
@@ -131,15 +131,10 @@ func _tab(main: Node, c: Career, f: Dictionary, g: Dictionary, t: int, folded: b
 			var card := _card("BODY")
 			UI.add_rows(card, [UI.kv("Weight", "%.1f kg" % f["weight"], UI.FG, "mono"), UI.kv("Class limit", "%.1f kg" % f["limit"], UI.FG, "mono"),
 				UI.kv("Plan", "cutting" if str(f["diet"]) == "cut" else "holding")] + _injury_rows(main.career, f))
-		3:
-			# S354 CORE3: the week planner (WeekBoard) replaces the session-blocks board - the week now drives the sim.
-			# S382 DRILLCARD1: the tab opens on the week strip and its drill tray (the tray replaced the S375 combo planner);
-			# her road (the skills awards, S370 GOALTESTS1) sits below it.
-			add_child(WeekBoard.make(main, c, f))
-			add_child(AwardCard.make(c, f))
 		4:
 			# S397 blind round 3 ("History is one row"): every bout, the ones she brought too, as a table (BoutHistory).
 			add_child(BoutHistory.make(main, c, f))
+			add_child(AwardCard.make(c, f))   # S496 her road (the skills awards) moved here with the Training tab gone
 		5:
 			# S398 Fight prep rebuilt (first-hour critics 4/10): countdown, the road, camp and weight, the file, the plan.
 			add_child(FightPrep.make(main, c, f))

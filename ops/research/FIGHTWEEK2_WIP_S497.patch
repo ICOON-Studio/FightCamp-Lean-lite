@@ -1,0 +1,201 @@
+diff --git a/scripts/fight3d/ArmHome.gd b/scripts/fight3d/ArmHome.gd
+new file mode 100644
+index 000000000..9dab58491
+--- /dev/null
++++ b/scripts/fight3d/ArmHome.gd
+@@ -0,0 +1,84 @@
++extends SkeletonModifier3D
++## S497 FIGHT MOTION WEEK - the punching arm comes home ahead of the body. Both blind critics on the r0 film: "arms parked
++## at full extension ... blue's jab goes out and stays out about 9 frames ... red's straight right sits on blue's gloves
++## for ~14 frames ... A real jab is out and back in a quarter of a second." tools/fight_motion_rulers.py: the arm stays
++## out 6 frames after contact (median), 14 worst. The clips are bag work: the glove travels on up to 0.13 s past the
++## contact, and the recovery plays at most RECOVER_MAX 1.5x because faster the WHOLE body played at the hand's speed (S376).
++## So only the arm runs ahead: after the punch's contact the shoulder, upper arm, forearm and hand take the clip's own pose
++## from AHEAD times as far past the contact as the body is, never past the moment the clip is back in guard (there the arm
++## waits for the body). It is the clip's own way home, sooner. Applied as the clip's change between the two times on top
++## of the pose as it stands, so a layer that already moved the arm keeps its move. Before PunchReach in the stack: the
++## reach reads this arm as "the clip's glove" and lets the landed glove go when it comes back.
++## `-- noarmhome` = the control arm.
++##   setup(skel, ap, reach) -> bool      arm_time(t, contact, back, ahead) -> seconds (pure)
++
++const BeatClips := preload("res://scripts/fight3d/BeatClips.gd")
++
++const AHEAD := 1.5
++const PARTS := ["Shoulder", "UpperArm", "LowerArm", "Hand"]
++
++static var on: bool = not OS.get_cmdline_user_args().has("noarmhome")
++
++var ap: AnimationPlayer
++var reach: Node
++var _tracks := {}        # clip -> {bone index: track index}
++var ahead_s := 0.0       # probes: how far ahead of the body the arm is now, clip seconds
++
++
++func setup(skel: Skeleton3D, player: AnimationPlayer, punch_reach: Node) -> bool:
++	ap = player
++	reach = punch_reach
++	return on and ap != null and reach != null and skel.find_bone("LeftUpperArm") >= 0
++
++
++## The clip time the punching arm is shown at when the body is at `t`: `t` up to the contact; past it, AHEAD times as far
++## on, never past `back` (the clip back in guard); from `back` on, `t` again.
++static func arm_time(t: float, contact: float, back: float, ahead: float) -> float:
++	if t <= contact or back <= contact or t >= back:
++		return t
++	return minf(contact + (t - contact) * ahead, back)
++
++
++func _process_modification() -> void:
++	ahead_s = 0.0
++	var skel := get_skeleton()
++	if skel == null or ap == null or reach == null:
++		return
++	var clip := str(reach.get("_clip"))
++	if clip == "" or str(ap.assigned_animation) != clip or not ap.has_animation(clip):
++		return
++	var anim := ap.get_animation(clip)
++	var t := ap.current_animation_position
++	var contact := float(reach.get("_contact"))
++	var back := BeatClips.recovery(clip).y
++	var ta := arm_time(t, contact, back if back > contact else anim.length, AHEAD)
++	if ta <= t + 1e-4:
++		return
++	ahead_s = ta - t
++	var side := str(reach.get("_hand")).trim_suffix("Hand")
++	var tr: Dictionary = _for(skel, anim, clip)
++	for part in PARTS:
++		var b := skel.find_bone(side + part)
++		if b < 0 or not tr.has(b):
++			continue
++		var was: Quaternion = anim.rotation_track_interpolate(int(tr[b]), t)
++		var will: Quaternion = anim.rotation_track_interpolate(int(tr[b]), ta)
++		skel.set_bone_pose_rotation(b, skel.get_bone_pose_rotation(b) * (was.inverse() * will))
++
++
++## The rotation track of each bone in `clip` (found once a clip).
++func _for(skel: Skeleton3D, anim: Animation, clip: String) -> Dictionary:
++	if _tracks.has(clip):
++		return _tracks[clip]
++	var out := {}
++	for i in anim.get_track_count():
++		if anim.track_get_type(i) != Animation.TYPE_ROTATION_3D:
++			continue
++		var path := anim.track_get_path(i)
++		if path.get_subname_count() == 0:
++			continue
++		var b := skel.find_bone(str(path.get_subname(0)))
++		if b >= 0:
++			out[b] = i
++	_tracks[clip] = out
++	return out
+diff --git a/scripts/fight3d/BoxerBuild.gd b/scripts/fight3d/BoxerBuild.gd
+index ebeddf89c..656b9c7e9 100644
+--- a/scripts/fight3d/BoxerBuild.gd
++++ b/scripts/fight3d/BoxerBuild.gd
+@@ -18,6 +18,7 @@ const JoinSmoother := preload("res://scripts/fight3d/JoinSmoother.gd")
+ const PunchReach := preload("res://scripts/fight3d/PunchReach.gd")
+ const HitSnap := preload("res://scripts/fight3d/HitSnap.gd")
+ const PopCap := preload("res://scripts/fight3d/PopCap.gd")
++const ArmHome := preload("res://scripts/fight3d/ArmHome.gd")
+ const GloveClear := preload("res://scripts/fight3d/GloveClear.gd")
+ const GuardTuck := preload("res://scripts/fight3d/GuardTuck.gd")
+ const MirrorClip := preload("res://scripts/fight3d/MirrorClip.gd")
+@@ -143,6 +144,14 @@ static func build(stage: Node3D, spec: Dictionary, index: int) -> Dictionary:
+ 		pr = null
+ 	if pr != null and is_instance_valid(ec) and ec.is_inside_tree():
+ 		ec.reach = pr   # S321: the landing arm keeps the reach's elbow (and so the glove's aim)
++	# S497: the punching arm comes home ahead of the body (ArmHome, just before the reach; `noarmhome` = the control arm).
++	var ah := ArmHome.new()
++	ah.name = "ArmHome"
++	if pr != null and ah.setup(skel, ap, pr):
++		skel.add_child(ah)
++		skel.move_child(ah, pr.get_index())
++	else:
++		ah.free()
+ 	var hs := HitSnap.new()
+ 	hs.name = "HitSnap"
+ 	hs.sway_seed = absi(hash(str(look.get("name", "")))) + 31   # S471 (FighterLife seeds the same way, + 17)
+diff --git a/scripts/fight3d/PunchReach.gd b/scripts/fight3d/PunchReach.gd
+index fb994e375..b005fa19d 100644
+--- a/scripts/fight3d/PunchReach.gd
++++ b/scripts/fight3d/PunchReach.gd
+@@ -40,6 +40,9 @@ const DRIVE_V := Vector2(2.5, 9.0) # m/s, clip time
+ ## and on the way back the glove never goes further along the punch line than it already is.
+ const CARRY_S := 0.10
+ const RELEASE_M := Vector2(0.06, 0.30)   # clip glove this far from the carry: the reach holds fully / lets go by time
++const HOME_IN_M := 0.02; const HOME_BACK_M := 0.03; const HOME_S := 0.20   # S497 the one-way hold (see _apply)
++static var ONE_WAY: bool = not OS.get_cmdline_user_args().has("norehold")
++var _home := false; var _rel := 0.0; var _out_max := -INF
+ const LATCH_S := 0.011            # the hit frame: HitImpact.hit leaves the clip up to 0.01 s short of its contact
+ const PEAK_DT_MAX := 0.04          # clip seconds: a longer step between two reads is a seek (the hit), not the glove's speed
+ static var DRIVE: bool = not OS.get_cmdline_user_args().has("nodrive")
+@@ -136,6 +139,7 @@ func arm(clip: String, hand_bone: String, contact_s: float, target: Callable, gl
+ 	_last_w = 0.0
+ 	_shown_cur = Vector3.INF
+ 	_hit_f = -1; _real_c = 0.0; remove_meta("hold_on")   # S448 ReachLimit.fit
++	_home = false; _rel = 0.0; _out_max = -INF
+ 	_path = {}
+ 	drive_v = float(drive_for[1]) if drive_for.size() == 3 and str(drive_for[0]) == clip else 0.0
+ 	drive_t = float(drive_for[2]) if drive_v > 0.0 else 0.0
+@@ -274,7 +278,17 @@ func _apply(skel: Skeleton3D, t: float, ramp: float) -> void:
+ 	if drive and _hit_w.is_finite() and t > _contact and _prev_g.is_finite() and _aim_w.is_finite():
+ 		# Review round 2 (hit_carry_test only=pro_right_cross: the clip's glove is still 0.3-0.5 m past her face when the
+ 		# weight goes; let go there, the glove jumped 0.29 m through her head). It lets go as the clip's glove comes back.
+-		_w_now = maxf(_w_now, clampf((_prev_g.distance_to(_aim_w) - RELEASE_M.x) / (RELEASE_M.y - RELEASE_M.x), 0.0, 1.0))
++		# S497 (both blind critics: "arms parked at full extension"; the played cross's weight read 1.0 -> 0.72 -> 0.95, the
++		# glove on her until the clip ended, 14 frames): the hold was by distance alone, so a glove that had come back and
++		# went on home was "far" again and was pinned back on her. One way now: once the clip's glove is coming back and is
++		# inside the carry on the punch line, the hold only falls, over HOME_S (real time). `-- norehold` = the control arm.
++		var out_m := (_prev_g - _aim_w).dot(_dir_w)
++		_out_max = maxf(_out_max, out_m)
++		if ONE_WAY and out_m <= minf(HOME_IN_M, _out_max - HOME_BACK_M):
++			_home = true
++		var far := clampf((_prev_g.distance_to(_aim_w) - RELEASE_M.x) / (RELEASE_M.y - RELEASE_M.x), 0.0, 1.0)
++		_rel = move_toward(_rel, 0.0, get_process_delta_time() / HOME_S) if _home else far
++		_w_now = maxf(_w_now, _rel)
+ 	if _w_now <= 0.0:
+ 		return
+ 	if drive and _hit_w.is_finite() and t > _contact + 1e-4 and _w_now < 1.0 and _prev_g.is_finite():
+diff --git a/tests/arm_home_test.gd b/tests/arm_home_test.gd
+new file mode 100644
+index 000000000..38ed99dbd
+--- /dev/null
++++ b/tests/arm_home_test.gd
+@@ -0,0 +1,37 @@
++extends SceneTree
++## S497 ArmHome: the punching arm's clip time runs ahead of the body after the contact (pure rule).
++## Run: <godot> --headless --audio-driver Dummy --path . --script res://tests/arm_home_test.gd
++
++const ArmHome := preload("res://scripts/fight3d/ArmHome.gd")
++
++var failures := 0
++
++
++func _check(ok: bool, what: String) -> void:
++	if not ok:
++		failures += 1
++	print(("PASS " if ok else "FAIL ") + what)
++
++
++func _initialize() -> void:
++	var c := 0.20
++	var back := 0.60
++	_check(is_equal_approx(ArmHome.arm_time(0.10, c, back, 1.8), 0.10), "before the contact the arm is on the body's time")
++	_check(is_equal_approx(ArmHome.arm_time(c, c, back, 1.8), c), "on the contact the arm is on the body's time (no step)")
++	_check(is_equal_approx(ArmHome.arm_time(0.30, c, back, 1.8), 0.38), "0.10 s past the contact the arm is 0.18 s past it")
++	_check(is_equal_approx(ArmHome.arm_time(0.50, c, back, 1.8), back), "the arm never passes the clip's back-in-guard time")
++	_check(is_equal_approx(ArmHome.arm_time(0.70, c, back, 1.8), 0.70), "past back-in-guard the arm is on the body's time again")
++	_check(is_equal_approx(ArmHome.arm_time(0.30, c, 0.10, 1.8), 0.30), "a clip with no way back measured is left alone")
++	var last := -1.0
++	var mono := true
++	var step_max := 0.0
++	for i in 61:
++		var t := 0.01 * i
++		var ta := ArmHome.arm_time(t, c, back, 1.8)
++		mono = mono and ta >= last - 1e-6 and ta >= t - 1e-6
++		step_max = maxf(step_max, ta - last if last >= 0.0 else 0.0)
++		last = ta
++	_check(mono, "the arm's time never runs backwards and is never behind the body")
++	_check(step_max <= 0.01 * 1.8 + 1e-6, "the arm's time never jumps: at most AHEAD times the body's step (%.4f s)" % step_max)
++	print("ARM_HOME failures=%d" % failures)
++	quit(failures)

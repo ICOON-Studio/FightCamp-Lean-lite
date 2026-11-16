@@ -334,7 +334,7 @@ func act(name: String, arg: String = "") -> void:
 				FirstWeek.set_week(career)
 				render()
 			else:
-				nav({"area": "fighters", "tab": 0, "fighter": str(career.fighter().get("id", "")), "ftab": FighterPage.TRAINING_TAB})
+				nav({"area": "training", "tab": 0, "fighter": str(career.fighter().get("id", ""))})
 		"guideskip":
 			FirstWeek.skip(career)
 			render()
@@ -415,7 +415,7 @@ func act(name: String, arg: String = "") -> void:
 			Grapplers.close_open(career, career.grappler_by_id(arg))
 			close_modal()
 		_:
-			if not (GymActs.act(self, name, arg) or BoutActs.act(self, name, arg) or FightWeekActs.act(self, name, arg) or RosterActs.act(self, name, arg) or GrapplerPage.act(self, name, arg) or ApproachCard.act(self, name, arg) or load("res://scripts/ui/FallThroughCard.gd").act(self, name, arg)):
+			if not (GymActs.act(self, name, arg) or BoutActs.act(self, name, arg) or FightWeekActs.act(self, name, arg) or RosterActs.act(self, name, arg) or GrapplerPage.act(self, name, arg) or ApproachCard.act(self, name, arg) or load("res://scripts/ui/FallThroughCard.gd").act(self, name, arg) or load("res://scripts/ui/areas/Training.gd").act(self, name, arg)):
 				push_warning("unknown action " + name)
 
 
@@ -451,7 +451,7 @@ func show_poster(fid: String) -> void:
 
 ## S387 FirstWeek: true on the fighter's Training tab, where the guide's "Lock in week 1" confirms the week.
 func on_week_tab() -> bool:
-	return route["area"] == "fighters" and str(route.get("fighter", "")) != "" and int(route.get("ftab", 0)) == FighterPage.TRAINING_TAB
+	return route["area"] == "training"   # S496 TRAININGK1: the club's week
 
 
 ## Puts a career on screen at HOME (a new one or a loaded save).

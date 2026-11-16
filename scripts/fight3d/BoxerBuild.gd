@@ -17,6 +17,7 @@ const ArmClash := preload("res://scripts/fight3d/ArmClash.gd")
 const JoinSmoother := preload("res://scripts/fight3d/JoinSmoother.gd")
 const PunchReach := preload("res://scripts/fight3d/PunchReach.gd")
 const HitSnap := preload("res://scripts/fight3d/HitSnap.gd")
+const PopCap := preload("res://scripts/fight3d/PopCap.gd")
 const GloveClear := preload("res://scripts/fight3d/GloveClear.gd")
 const GuardTuck := preload("res://scripts/fight3d/GuardTuck.gd")
 const MirrorClip := preload("res://scripts/fight3d/MirrorClip.gd")
@@ -151,6 +152,13 @@ static func build(stage: Node3D, spec: Dictionary, index: int) -> Dictionary:
 	else:
 		hs.free()
 		hs = null
+	# S496: the trunk and head never jump in one frame (PopCap; `nopopcap` = the control arm). After the reach and the snap.
+	var pc := PopCap.new()
+	pc.name = "PopCap"
+	if pc.setup(skel):
+		skel.add_child(pc)   # moved last at the end of build (after the footwork rig and the foot locks)
+	else:
+		pc.free()
 	# S315: no glove inside the other's head (FightStage gives it the other boxer); `noglove` = the control arm.
 	var gc: GloveClear = null
 	if not OS.get_cmdline_user_args().has("noglove"):
@@ -207,6 +215,9 @@ static func build(stage: Node3D, spec: Dictionary, index: int) -> Dictionary:
 	var tw := skel.find_child("MetaHumanTwist", false, false)
 	if tw != null:
 		skel.move_child(tw, skel.get_child_count() - 1)
+	var pcap := skel.find_child("PopCap", false, false)   # S496: the pop cap reads the pose every other layer drew
+	if pcap != null:
+		skel.move_child(pcap, (tw.get_index()) if tw != null else skel.get_child_count() - 1)
 	ap.animation_finished.connect(stage._on_finished.bind(index))
 	return {"node": body, "skel": skel, "ap": ap, "gloves": gl, "joinfeet": jf, "weave": gw, "js": js, "reach": pr, "snap": hs, "gclear": gc, "tuck": gt, "sag": ts, "knee": kt, "feet": fp, "rig": rig, "floor": fc, "stand": fs, "lock": fl, "life": life, "weight": pw, "look": look, "south": south, "front": gl.front_m(),
 		"pos": Vector3.ZERO, "vel": Vector3.ZERO, "move_left": 0.0,

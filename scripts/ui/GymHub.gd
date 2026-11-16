@@ -33,12 +33,13 @@ const PICTURE := "res://assets/ui/art/gym_empty.jpg"
 const PICTURE_SIZE := Vector2(1672, 941)
 ## Where each pin stands on the picture, as a share of its width and height.
 const PIN_AT := {"reception": Vector2(0.165, 0.555), "training": Vector2(0.48, 0.6), "playbook": Vector2(0.846, 0.288),
-	"fights": Vector2(0.649, 0.31), "office": Vector2(0.13, 0.34), "world": Vector2(0.262, 0.35), "equip": Vector2(0.8, 0.52)}
+	"fights": Vector2(0.649, 0.31), "office": Vector2(0.13, 0.34), "world": Vector2(0.262, 0.35), "equip": Vector2(0.8, 0.52),
+	"week": Vector2(0.40, 0.76)}
 ## id, name, icon, the zone kind the pin stands on ("" = the noticeboard).
 const PLACES := [
 	["reception", "Reception", "members", "reception"], ["training", "Fighters", "bag", "bags"], ["playbook", "Playbook", "mat", "mats"],
 	["fights", "Fights", "champion", "ring"], ["office", "Club office", "money", "office"], ["world", "World", "up", ""],
-	["equip", "Equip the gym", "Strength", "weights"],
+	["equip", "Equip the gym", "Strength", "weights"], ["week", "Training", "calendar", "bags"],
 ]
 
 
@@ -137,6 +138,8 @@ static func _go(main: Node, c: Career, id: String) -> void:
 			main.nav({"area": "world", "tab": 1})
 		"equip":
 			main.act("equipgym", "on")
+		"week":   # S496 TRAININGK1: the club's week (Training K)
+			main.nav({"area": "training"})
 
 
 ## How many things at this place want the player now.

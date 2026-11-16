@@ -27,7 +27,7 @@ func _initialize() -> void:
 	var fid := str(f["id"])
 	_check(WeekPhase.weekend(c.day), "the jump lands on a weekend (day %d, dow %d)" % [c.day, posmod(c.day, 7)])
 	main.act("fighter", fid)
-	main.act("ftab", "3")
+	main.act("ftab", "3")   # S496: the old Training tab's link opens TRAINING (Training K)
 	await _frames(4)
 	var text := _texts(main)
 	var monday := c.day - posmod(c.day, 7) + 7
@@ -36,18 +36,19 @@ func _initialize() -> void:
 	# S398 Week v8: every evening is a card of the same height, a rest night says Rest; the coach's change is one click
 	var rests := 0
 	for i in 7:
-		var n := main.find_child("Night_%d" % i, true, false)
+		var n := main.find_child("Evening_%d" % i, true, false)
 		if n != null and str(n.get("kind")) == "rest":
 			rests += 1
 			_check(_texts(n).contains("Rest"), "rest night %d says Rest" % i)
 	_check(rests > 0, "the week has rest nights")
 	# the critic's "sparring 1 but no sparring night": next week's nights are next week's, not this week's run ones
 	for d in (PadWeek.nights_of(WeekPhase.ahead_view(f, c.day))["spar"] as Array):
-		var sn := main.find_child("Night_%d" % int(d), true, false)
+		var sn := main.find_child("Evening_%d" % int(d), true, false)
 		_check(sn != null and str(sn.get("kind")) == "sparring", "next week's sparring night %d is drawn SPARRING" % int(d))
 	var apply := main.find_child("CoachApply", true, false) as Button
 	if apply != null:
 		apply.pressed.emit()
+		await _frames(2)
 		await _frames(2)
 		var ed: Dictionary = (f.get("week_edits_next", {}) as Dictionary).get("days", {})
 		_check(not ed.is_empty() or str(f.get("diet", "")) == "cut", "Do it made the coach's change (%s)" % str(ed))

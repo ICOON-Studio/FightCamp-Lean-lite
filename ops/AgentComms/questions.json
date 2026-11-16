@@ -7925,6 +7925,46 @@
       "attach": [
         "AgentComms/board_attach/Q-S294-259_0_training_k_v6c_nobout.png"
       ],
+      "answer": "Yes, build it",
+      "note": null,
+      "answered_at": "2026-11-16T07:29:08Z",
+      "seen_by_claude": true,
+      "comment_only": false
+    },
+    {
+      "id": "Q-S294-260",
+      "asked": "2026-11-16T08:46:48.145691+00:00",
+      "session": "S294",
+      "text": "Training screen as built: boxers on pads the same night SHARE the coach's 75 minutes (3 boxers = 25 min each, each learns a third as fast; you drag the white line to give one boxer more). Your earlier answer on shared pad hours (Q-242) was 'No, never short'. Which one stands?",
+      "options": [
+        "Everyone gets full pads, no sharing",
+        "Keep the shared minutes as built"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-260_0_club4_split_t1.png"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-261",
+      "asked": "2026-11-16T08:50:05.648235+00:00",
+      "session": "S294",
+      "text": "One look for every screen: same wall light on every page (darkest-to-brightest page was 32-109, now 32-54), the old cream paper and yellow notes turned into the dark wood-and-slate cards, every colour from the one palette. Before/after of all 25 pages at Medium and Largest text, and the fight screen, are attached. Merge it?",
+      "options": [
+        "Yes, merge it",
+        "Change something first (say what)",
+        "No"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-261_0_ONELOOK1_before_after_text3_1.jpg",
+        "AgentComms/board_attach/Q-S294-261_1_ONELOOK1_before_after_text3_2.jpg",
+        "AgentComms/board_attach/Q-S294-261_2_ONELOOK1_before_after_text1_1.jpg",
+        "AgentComms/board_attach/Q-S294-261_3_ONELOOK1_fight_hud_before_after.jpg",
+        "AgentComms/board_attach/Q-S294-261_4_ONELOOK1_AUDIT.md"
+      ],
       "answer": null,
       "note": null,
       "answered_at": null,

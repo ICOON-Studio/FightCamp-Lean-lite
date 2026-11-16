@@ -104,7 +104,7 @@ func _initialize() -> void:
 			continue
 		if jump == "camp":
 			# S357 update 59: in her camp, a choice twist dealt, on her Training tab (the whiteboard, FighterPage tab 3).
-			_check(ok and str(main.route.get("fighter", "")) == str(f["id"]) and int(main.route.get("ftab", -1)) == 3
+			_check(ok and str(main.route.get("fighter", "")) == str(f["id"]) and str(main.route.get("area", "")) == "training"   # S496 TRAINING
 				and not (f["camp"] as Dictionary).is_empty() and str(f.get("twist", "")) != "" and not bool(f.get("twist_locked", true)),
 				"camp: her camp, an unanswered twist card (%s), on her Training tab" % str(f.get("twist", "")))
 			# S357: the card is the week AHEAD's - Monday must run it (a card dealt mid-week was replaced unseen at the review).

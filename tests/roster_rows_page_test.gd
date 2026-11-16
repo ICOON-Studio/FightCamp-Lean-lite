@@ -362,7 +362,7 @@ func _press_do_next(c: Career, id: String, offer: Dictionary) -> void:
 		"openBout":
 			_check(str(r.get("area", "")) == "fights" and str(r.get("bout", "")) == str(d["arg"]), "%s: DO NEXT opens the offer (route=%s)" % [id, r])
 		"planweek":
-			_check(str(r.get("fighter", "")) == id and int(r.get("ftab", -1)) == FighterPage.TRAINING_TAB,
+			_check(str(r.get("fighter", "")) == id and str(r.get("area", "")) == "training",   # S496: the week is TRAINING
 				"%s: DO NEXT opens the week planner on her (route=%s)" % [id, r])
 		"fighter":
 			_check(str(r.get("fighter", "")) == str(d["arg"]), "%s: DO NEXT opens her page (route=%s)" % [id, r])

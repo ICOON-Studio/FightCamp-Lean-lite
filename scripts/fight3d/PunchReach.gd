@@ -174,6 +174,19 @@ func disarm() -> void:
 	lunge_m = 0.0
 
 
+## S497: the hands the reach holds now and by how much, hand bone name -> weight (PopCap eases the trunk under a held
+## glove only by what the reach does not hold).
+func held() -> Dictionary:
+	var out := {}
+	for h in _fades:
+		out[h] = float(_fades[h]["w"])
+	# _w_now, never _last_w: letting go, the solve runs at weight 1 on a point already blended toward the clip's glove, and
+	# a hold reported as 1 until it ended dropped the hand onto the eased trunk in one frame (the trunk's lag, up to 20 cm).
+	if _clip != "" and _arms.has(_hand) and _w_now > 0.0:
+		out[_hand] = maxf(float(out.get(_hand, 0.0)), _w_now)
+	return out
+
+
 ## The body's carry toward the target now, metres (0 when nothing is armed or fading).
 func lunge() -> float:
 	var out := 0.0

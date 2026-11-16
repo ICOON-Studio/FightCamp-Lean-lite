@@ -15,9 +15,6 @@ extends SceneTree
 
 const TestJump := preload("res://scripts/ui/TestJump.gd")
 const GaugeRow := preload("res://scripts/ui/GaugeRow.gd")
-const WeekDay := preload("res://scripts/ui/WeekDay.gd")
-const WeekCamp := preload("res://scripts/ui/WeekCamp.gd")
-const WeekBoard := preload("res://scripts/ui/WeekBoard.gd")
 const WeekPlan := preload("res://scripts/rules/WeekPlan.gd")
 const WeekPhase := preload("res://scripts/rules/WeekPhase.gd")
 const CampForecast := preload("res://scripts/state/CampForecast.gd")
@@ -38,7 +35,7 @@ func _initialize() -> void:
 	root.add_child(main)
 	await _frames(4)
 	_check(TestJump.run(main, "camp"), "jump=camp runs")
-	await _board()
+	# S496: the whiteboard part (_board) went with the old Training tab (TRAINING has no gauge row); the camp modal stays.
 	await _camp_modal()
 	print("HOVER_GHOSTS %s" % ("PASS" if _fails == 0 else "FAIL %d" % _fails))
 	quit(0 if _fails == 0 else 1)
@@ -98,89 +95,6 @@ func _widget() -> void:
 	await create_timer(GaugeRow.PULSE_S + 0.6).timeout
 	_check((row2.deltas["legs"] as Label).text == "+10" and (row2.deltas["legs"] as Label).modulate.a > 0.9, "the hover's +10 outlives the flash")
 	row2.queue_free()
-
-
-func _board() -> void:
-	var c: Career = main.career
-	var f: Dictionary = c.fighter()
-	var fid := str(f["id"])
-	f["board_taught"] = true
-	main.act("fighter", fid)
-	main.act("ftab", "3")
-	await _frames(3)
-	var b := main.find_child("WeekBoard", true, false)
-	var camp = b.find_child("Goal", true, false) if b != null else null
-	var gauge = b.find_child("Gauges", true, false) if camp != null else null   # S382 DRILLCARD1: shown in the board's head
-	_check(gauge != null, "THIS CAMP has the gauge row")
-	if gauge == null:
-		return
-	var dial: Control = gauge.find_child("Gauge_legs", true, false).find_child("Dial", true, false)
-	var days := WeekPlan.days_of(f)
-	var today := posmod(c.day, 7)
-	var dow := -1
-	for d in range(today, 7):
-		if str((days[d] as Array)[0]) != "rest":
-			dow = d
-	_check(dow >= 0, "a training morning left this week (%d)" % dow)
-	if dow < 0:
-		return
-	var plan_before: Variant = f.get("week_edits", {}).duplicate(true)
-	camp.ghost_day(dow, days[dow])
-	_check(is_nan(float(dial.get("ghost"))), "the day's own card ghosts nothing")
-	camp.ghost_day(dow, ["rest", "normal"])
-	await create_timer(0.3).timeout
-	var g := f.duplicate(true)
-	WeekPhase.edit(g, dow, ["rest", "normal"], WeekPlan.coach_of(g))
-	var want := GaugeRow.read(WeekCamp.forecast(c, g, WeekBoard.goal_of(c, g)), g, c.day)
-	_check(is_equal_approx(float(dial.get("ghost")), float(want["legs"])), "a rest morning ghosts the dry run's LEGS (%.1f / %.1f)" % [
-		float(dial.get("ghost")), float(want["legs"])])
-	_check(str((gauge.deltas["legs"] as Label).text) != "", "and its change under LEGS (%s)" % (gauge.deltas["legs"] as Label).text)
-	_check(f.get("week_edits", {}) == plan_before, "hovering changes no plan")
-	camp.ghost_day(dow, [])
-	_check(is_nan(float(dial.get("ghost"))) and (gauge.deltas["legs"] as Label).text == "", "[] clears the ghost")
-	# 'undo' on a changed day ghosts the coach's card.
-	main.act("wday", "%s|%d|rest|normal" % [fid, dow])
-	await _frames(3)
-	b = main.find_child("WeekBoard", true, false)
-	var undo := b.find_child("Undo_%d" % dow, true, false) as Button
-	gauge = b.find_child("Gauges", true, false)
-	dial = gauge.find_child("Gauge_legs", true, false).find_child("Dial", true, false)
-	_check(undo != null, "the changed day has 'undo'")
-	if undo != null:
-		undo.mouse_entered.emit()
-		await create_timer(0.3).timeout
-		_check(not is_nan(float(dial.get("ghost"))), "hovering 'undo' ghosts the coach's card")
-		undo.mouse_exited.emit()
-		_check(is_nan(float(dial.get("ghost"))), "leaving 'undo' clears it")
-		undo.pressed.emit()
-		await _frames(3)
-	# The 9 picture cards are the morning editor's session icons. Hovering one ghosts that morning;
-	# leaving it clears. The popup picker was dropped, so there is nothing to close.
-	b = main.find_child("WeekBoard", true, false)
-	plan_before = f.get("week_edits", {}).duplicate(true)
-	var tile := b.find_child("DayTile_%d" % dow, true, false) as Button
-	_check(tile != null, "the day tile selects the morning")
-	if tile == null:
-		return
-	tile.pressed.emit()
-	await _frames(3)
-	b = main.find_child("WeekBoard", true, false)
-	gauge = b.find_child("Gauges", true, false)
-	if gauge == null:
-		_check(false, "the gauge row after the day is selected")
-		return
-	dial = gauge.find_child("Gauge_legs", true, false).find_child("Dial", true, false)
-	var rest := _session_icon(b, "rest")
-	_check(rest != null, "the morning editor has Rest")
-	if rest == null:
-		return
-	rest.mouse_entered.emit()
-	await create_timer(0.3).timeout
-	_check(is_equal_approx(float(dial.get("ghost")), float(want["legs"])), "Rest under the cursor ghosts it (%.1f)" % float(dial.get("ghost")))
-	rest.mouse_exited.emit()
-	await _frames(2)
-	_check(is_nan(float(dial.get("ghost"))), "off the icon: no ghost")
-	_check(f.get("week_edits", {}) == plan_before, "the icon's hover changes no plan")
 
 
 func _camp_modal() -> void:
@@ -245,18 +159,6 @@ func _hover_matches(m: Node, gauge: Node, dial: Control, sdial: Control, card: S
 		"%s ghosts its dry run: LEGS %.1f, SCALE %.1f, %s" % [card, float(want["legs"]), float(want["kg"]), (gauge.deltas["legs"] as Label).text])
 	b.mouse_exited.emit()
 	_check(is_nan(float(dial.get("ghost"))) and (gauge.deltas["legs"] as Label).text == "", "%s: leaving clears the ghost" % card)
-
-
-func _session_icon(b: Node, sid: String) -> Button:
-	var ed := b.find_child("MorningEditor", true, false)
-	if ed == null:
-		return null
-	var want := str(WeekPlan.session(sid)["name"])
-	for n in ed.find_children("*", "Button", true, false):
-		var btn := n as Button
-		if btn.text == "" and str(btn.tooltip_text) == want:
-			return btn
-	return null
 
 
 func _frames(n: int) -> void:

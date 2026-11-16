@@ -187,6 +187,23 @@ static func peak(clip: String) -> float:
 	return float((row as Dictionary).get("peak_s", -1.0)) if row is Dictionary else -1.0
 
 
+## S496 FIGHT MOTION WEEK (two blind critics 4/10; fight_motion_rulers on the r0 film: the hit head's furthest point came 8
+## frames after the blow, median, worst 15 - "clean shots get no reaction"): the takes' peaks sit 0.23-1.03 s in (the
+## actor's own lead-in), and REACT_FAST_MAX caps the catch-up, so most peaked 0.3-0.5 s late. The reaction now STARTS past
+## its lead-in, so its peak lands REACT_LEAD_S after the blow at the speed react_fast gives (JoinSmoother eases her from her
+## pose into it). `-- noreactfrom` = the control arm (from the clip's start, as before).
+const REACT_LEAD_S := 0.10   # r1a: the peak 5 frames after the blow (median; was 8). 0.06 gained nothing (r1b 5) and dragged the hitter's carried glove past join_return's 9 m/s bar
+static var REACT_FROM: bool = not OS.get_cmdline_user_args().has("noreactfrom")
+
+
+## Seconds into `clip` (1x) a hit reaction starts at, playing at `fast`, so its peak lands REACT_LEAD_S after the blow.
+static func react_from(clip: String, fast: float) -> float:
+	var pk := peak(clip)
+	if not REACT_FROM or pk <= 0.0:
+		return 0.0
+	return maxf(0.0, pk - REACT_LEAD_S * fast)
+
+
 ## The speed a reaction plays at until its peak: its peak lands REACT_PEAK_S after the blow, never slower than `speed`.
 static func react_fast(clip: String, speed: float) -> float:
 	var pk := peak(clip)

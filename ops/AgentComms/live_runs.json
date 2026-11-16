@@ -651,7 +651,7 @@
    "agent": "qwen",
    "id": "ONELOOK2",
    "title": "TASK ONELOOK2 - the fight HUD on the one palette: HudBars.gd + HudRegroup.gd (53 loose colours -> Palette names)",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-16T09:04",
    "eta": "2026-11-16T10:54",
    "branch": "qwen/onelook2",
@@ -672,13 +672,46 @@
     "runner_pid": 43788,
     "seat_pid": 20440
    },
-   "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 3/4 PASS; PR #327",
+   "finished": "2026-11-16T09:25",
+   "pr": 327,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/palette_guard_test.gd",
+     "ok": false,
+     "last": "PALETTE_GUARD files=293 exempt=28 raw=604 over=0 new=0 shrunk=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/hud_shown_test.gd",
+     "ok": true,
+     "last": "hud_shown_test failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/file_limits_test.gd",
+     "ok": true,
+     "last": "FILE_LIMITS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/corner_bar_test.gd",
+     "ok": true,
+     "last": "CORNER_BAR failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
   },
   "FILMCOUNT1": {
    "agent": "goose",
    "id": "FILMCOUNT1",
    "title": "count any marked pattern on a film (the coach's check), and re-measure the film game on FilmBout's real tapes",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-16T09:08",
    "where": "cloud",
    "repo": "FightCamp-Lean",
@@ -688,18 +721,79 @@
    "note": "S380 seat_dispatch: pure rule module routed to Goose instead of a PC worktree (command line)",
    "issue": "326",
    "branch": "goose/issue-326",
-   "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/326"
+   "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/326",
+   "reconciled": "2026-11-16 10:10 board_reconcile: run finished (success), branch goose/issue-326 pushed"
   },
-  "FIGHTPAGE1": {
+  "COACHNECK1": {
+   "agent": "qwen",
+   "id": "COACHNECK1",
+   "title": "TASK COACHNECK1 - the corner coach's neck stays upright in his close-up (the owner's C415 mark)",
+   "status": "landed",
+   "started": "2026-11-16T09:41",
+   "eta": "2026-11-16T11:31",
+   "branch": "qwen/coachneck1",
+   "worktree": "E:/FightCamp/wt/LEAN_COACHNECK1",
+   "wt": "E:/FightCamp/wt/LEAN_COACHNECK1",
+   "brief": "ops/research/TASK_COACHNECK1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/COACHNECK1_dispatch_out.txt",
+   "match": "seat_dispatch.py run coachneck1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/COACHNECK1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/COACHNECK1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/COACHNECK1_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 34448,
+    "seat_pid": 27736
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 4/4 PASS; PR #329; NOT committed (outside OWNS): E, FightCampwtLEAN_COACHNECK1corner.log, corner.log, corner2.log, corner3.log, docs/playtest/bodylook1/c01_bell_part.png, docs/playtest/bodylook1/c02_behind_walk.png, docs/playtest/bodylook1/c03_low_sits.png, docs/playtest/bodylook1/c04_water.png, docs/playtest/bodylook1/c05_ice.png, docs/playtest/bodylook1/c06_coach_card.png, docs/playtest/bodylook1/c075_side2.png, docs/playtest/bodylook1/c07_reverse_pick.png, docs/playtest/bodylook1/c085_cutman.png, docs/playtest/bodylook1/c08_corner_wide.png, docs/playtest/bodylook1/c08b_ots.png, docs/playtest/bodylook1/c09_other_corner.png, docs/playtest/bodylook1/c10_seconds_out.png, docs/playtest/bodylook1/c11_walk_out.png, docs/playtest/bodylook1/coach_c07_after.json, docs/playtest/bodylook1/i012_red_warms_up.png, docs/playtest/bodylook1/i013_blue_warms_up.png, docs/playtest/bodylook1/i015_tale_of_the_tape.png, docs/playtest/bodylook1/i01_wide.png, docs/playtest/bodylook1/i02_red_named.png, docs/playtest/bodylook1/i03_blue_named.png, docs/playtest/bodylook1/i04_walk_in.png, docs/playtest/bodylook1/i05_touch.png, docs/playtest/bodylook1/i06_seconds_out.png",
+   "finished": "2026-11-16T10:23",
+   "pr": 329,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tools/coach_neck_probe.gd",
+     "ok": true,
+     "last": "COACH_NECK neck_vs_chest=130.2 neck_vs_vertical=37.4 head_ahead_cm=7.1 ok=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/corner_crew_bodies_test.gd",
+     "ok": true,
+     "last": "CORNER_CREW_BODIES failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/corner_face_line_test.gd",
+     "ok": true,
+     "last": "CORNER_FACE_LINE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/corner_jobs_test.gd",
+     "ok": true,
+     "last": "CORNERJOBS failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "PRESSFLASH1": {
    "agent": "grok",
-   "id": "FIGHTPAGE1",
-   "title": "TASK FIGHTPAGE1 - the fight analysis page, film-night mode (punches list, report, mark a pattern)",
+   "id": "PRESSFLASH1",
+   "title": "TASK PRESSFLASH1 - crowd camera flashes never read as a hit in empty air (both critics' note)",
    "status": "running",
-   "started": "2026-11-16T09:14",
-   "eta": "2026-11-16T13:30",
+   "started": "2026-11-16T10:46",
+   "eta": "2026-11-16T13:46",
    "where": "grok box",
-   "branch": "grok/fightpage1",
-   "brief": "ops/research/TASK_FIGHTPAGE1.md",
+   "branch": "grok/pressflash1",
+   "brief": "ops/research/TASK_PRESSFLASH1.md",
    "repo": "FightCamp-Lean"
   }
  },

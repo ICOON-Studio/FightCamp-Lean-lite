@@ -7,6 +7,8 @@ extends RefCounted
 
 ## Fighter-page tabs that fold into Overview (old Attributes and moves, Body, Contract and goals).
 const INTO_OVERVIEW := [1, 2, 6]
+## S496 TRAININGK1 (C416 "remove this training picture from the game"): the fighter page's Training tab opens TRAINING.
+const TRAINING_TAB := 3
 
 
 static func canon(r: Dictionary) -> Dictionary:
@@ -17,6 +19,9 @@ static func canon(r: Dictionary) -> Dictionary:
 		"fighters":
 			if str(out.get("fighter", "")) != "":
 				if INTO_OVERVIEW.has(int(out.get("ftab", 0))):
+					out["ftab"] = 0
+				elif int(out.get("ftab", 0)) == TRAINING_TAB:   # S496 the old Training tab is gone: her week is TRAINING
+					area = "training"
 					out["ftab"] = 0
 			elif tab == 1 or tab == 2:
 				tab = 0

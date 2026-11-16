@@ -9,9 +9,8 @@ var failures := 0
 const TIGHT := {"res://scripts/ui/Main.gd": 470, "res://scripts/state/LiveRound.gd": 470}
 
 ## Known exceptions: other tasks in the SPLIT500 batch are splitting these.
-## WeekCards.gd is R11G; the rest are other split tasks.
+## S496 WeekCards.gd split (WeekPopKit, WeekBars): no longer an exception.
 const KNOWN_EXCEPTIONS := {
-	"res://scripts/ui/WeekCards.gd": "R11G splits WeekCards",
 	"res://scripts/fight3d/CornerCrew.gd": "split by another task",
 	"res://scripts/fight3d/FightIntro.gd": "split by another task",
 	"res://scripts/fight3d/HudBars.gd": "split by another task",

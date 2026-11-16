@@ -20,6 +20,7 @@ const PadReview := preload("res://scripts/rules/PadReview.gd")
 const StyleName := preload("res://scripts/rules/StyleName.gd")
 const MoveTree := preload("res://scripts/rules/MoveTree.gd")
 const StudyWeek := preload("res://scripts/rules/StudyWeek.gd")
+const CoachNights := preload("res://scripts/rules/CoachNights.gd")
 
 ## f key: the evenings this week as they ran (note); {"<dow>": {kind, minutes, cards}}.
 const NOTED := "week_nights"
@@ -123,9 +124,43 @@ static func inputs(career: Career, f: Dictionary) -> Dictionary:
 	var tw := WeekTwist.active(f)   # S356 the twist card scales the pads ("Double down": combo x2, new move x0)
 	var nights := PadWeek.nights_of(f)
 	var week := PadWeek.week_of(f, nights)
+	coach_share(career, f, nights)
 	_lay_noted(f.get(NOTED, {}), nights, week)
 	return {"skill": pad_skill(career), "carded": carded, "nights": nights, "week": week,
 		"mults": {"move": float(tw.get("move_mult", 1.0)), "combo": float(tw.get("combo_mult", 1.0))}}
+
+
+## S496 TRAININGK1 (Training K, his Q-S294-259): the coach's 75 minutes a pad night are shared by the boxers on the pads
+## that night (CoachNights). Each of her pad nights drills her share of a full night: nights.per[dow] (PadWeek.night_minutes).
+static func coach_share(career: Career, f: Dictionary, nights: Dictionary) -> void:
+	var per: Dictionary = nights.get("per", {})
+	for d in nights.get("pads", []):
+		var mins := float(night_mins(career, int(d)).get(str(f.get("id", "")), CoachNights.NIGHT_MIN))
+		per[int(d)] = PadWeek.night_minutes(nights, int(d)) * CoachNights.factor(mins)
+	nights["per"] = per
+
+
+## {fid: coach minutes} on that weekday's pad night: the club's boxers on the pads, in roster order, with the split the
+## player dragged (f["coach_min"] {"<dow>": minutes}).
+static func night_mins(career: Career, dow: int) -> Dictionary:
+	return CoachNights.split(on_pads(career, dow), coach_set(career, dow))
+
+
+static func on_pads(career: Career, dow: int) -> Array:
+	var out: Array = []
+	for g in career.fighters:
+		if (PadWeek.nights_of(g).get("pads", []) as Array).has(dow):
+			out.append(str(g["id"]))
+	return out
+
+
+static func coach_set(career: Career, dow: int) -> Dictionary:
+	var out := {}
+	for g in career.fighters:
+		var m: Dictionary = g.get("coach_min", {})
+		if m.has(str(dow)):
+			out[str(g["id"])] = float(m[str(dow)])
+	return out
 
 
 ## S413: a coach's pad rating is what teaches moves ("Best at: Pad work" has to mean something). No coach = 0, as before.
@@ -162,12 +197,13 @@ static func _lay_noted(noted: Dictionary, nights: Dictionary, week: Dictionary) 
 		return
 	var pads: Array = (nights.get("pads", []) as Array).duplicate()
 	var spar: Array = (nights.get("spar", []) as Array).duplicate()
-	var per: Dictionary = {}
+	var per: Dictionary = (nights.get("per", {}) as Dictionary).duplicate()   # S496: the coach's share on the nights still ahead
 	for k in noted:
 		var d := int(k)
 		var e: Dictionary = noted[k]
 		pads.erase(d)
 		spar.erase(d)
+		per.erase(d)
 		week.erase(PadWeek.DAYS[d])
 		if str(e.get("kind", "")) == "pads":
 			pads.append(d)

@@ -18,6 +18,7 @@ const AREA_SCENES := {
 	"money": preload("res://scenes/areas/Money.tscn"),
 	"world": preload("res://scenes/areas/World.tscn"),
 	"office": preload("res://scenes/areas/Office.tscn"),   # OFFICE1: the club office's computer
+	"training": preload("res://scenes/areas/Training.tscn"),   # S496 TRAININGK1: the club's week (Training K)
 }
 
 const HomeNeeds := preload("res://scripts/ui/HomeNeeds.gd")
