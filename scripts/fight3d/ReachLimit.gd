@@ -165,6 +165,7 @@ static func ease_q(prev: Quaternion, now: Quaternion, step: float) -> Quaternion
 ## ask (the glove on the point it is thrown at, from the shoulder as it is now), eased in; a boxer's trunk goes into the
 ## punch with the arm, not after it. Returns the larger of that and `q_now` (what this frame's solve asks by itself).
 const LEAD_S := 0.20
+const LEAN_TOTAL := 0.45   # 1.5 x PunchReach.LEAN_MAX (hit_carry_test: 0.30 -> 47 failures, 0.45 -> 36, 0.52 -> 37, 0.60 -> 44, no cap 59): the most the chest leans into a punch, all solves of a frame together
 static func lead_q(pr: Node, skel: Skeleton3D, chest: int, ids: Array, front: float, q_now: Quaternion, lean_max: float) -> Quaternion:
 	var ap: AnimationPlayer = pr.get("ap")
 	var tf: Callable = pr.get("_target")
@@ -196,7 +197,7 @@ static func lead_q(pr: Node, skel: Skeleton3D, chest: int, ids: Array, front: fl
 ## stack they belong to. The solve's own turn `q` is taken whole, then the chest is brought back to within `step` of
 ## last frame's lean. It works on the chest's real turn, not on a sum of angles: the two solves of a pass can ask
 ## opposite turns (lean in, then the shoulder back off the point), and a frame can run more than one pass.
-static func turn_eased(st: Dictionary, skel: Skeleton3D, chest: int, q: Quaternion, key: int, pass_id: int, step: float) -> bool:
+static func turn_eased(st: Dictionary, skel: Skeleton3D, chest: int, q: Quaternion, key: int, pass_id: int, step: float, cap: float = LEAN_TOTAL) -> bool:
 	if int(st["key"]) != key:
 		st["prev"] = (st["now"] as Quaternion) if key - int(st["key"]) == 1 else Quaternion.IDENTITY
 		st["key"] = key
@@ -208,6 +209,11 @@ static func turn_eased(st: Dictionary, skel: Skeleton3D, chest: int, q: Quaterni
 		st["base"] = rot
 	var base: Quaternion = st["base"]
 	var asked := ((q * rot) * base.inverse()).normalized()
+	# S500: the WHOLE lean from the chest the pass found is capped. Each solve caps its own turn, but the second solve of a
+	# pass starts from a chest still holding last frame's lean and asked its turn on top: frame after frame the drawn
+	# lean climbed to 1.0 rad on a plain jab (`-- leantrace`, hit_carry_test), and the glove swung with it.
+	if cap > 0.0 and asked.get_angle() > cap and not OS.get_cmdline_user_args().has("noleancap"):
+		asked = Quaternion(asked.get_axis().normalized(), cap)
 	var got := ease_q(st["prev"] as Quaternion, asked, step)
 	st["now"] = got
 	if OS.get_cmdline_user_args().has("leantrace"):
@@ -337,3 +343,22 @@ static func carry_base(face: Vector3, shown: Vector3, clip: String, w: float = 1
 	if not RangeTable.on or not rear or not face.is_finite() or shown.distance_to(face) <= SHOWN_M:
 		return shown
 	return face
+
+
+## S497 the one-way hold (both blind critics: "arms parked at full extension"; the played cross's weight read
+## 1.0 -> 0.72 -> 0.95, the glove on her until the clip ended, 14 frames). After the hit the reach held the landed glove
+## by distance alone, so a glove that had come back and went on home was "far" again and was pinned back on her. Once the
+## clip's glove is coming back and is inside the carry on the punch line, the hold only falls, over HOME_S real seconds.
+## `st` is the punch's own state ({} at arm). `-- norehold` = the control arm. Returns the hold's weight, 0..1.
+const HOME_IN_M := 0.02
+const HOME_BACK_M := 0.03
+const HOME_S := 0.20
+static var one_way: bool = not OS.get_cmdline_user_args().has("norehold")
+static func hold_one_way(st: Dictionary, glove: Vector3, aim: Vector3, dir: Vector3, release_m: Vector2, dt: float) -> float:
+	var out_m := (glove - aim).dot(dir)
+	st["out"] = maxf(float(st.get("out", -INF)), out_m)
+	if one_way and out_m <= minf(HOME_IN_M, float(st["out"]) - HOME_BACK_M):
+		st["home"] = true
+	var far := clampf((glove.distance_to(aim) - release_m.x) / (release_m.y - release_m.x), 0.0, 1.0)
+	st["rel"] = move_toward(float(st.get("rel", 0.0)), 0.0, dt / HOME_S) if bool(st.get("home", false)) else far
+	return float(st["rel"])

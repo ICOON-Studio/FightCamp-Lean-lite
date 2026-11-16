@@ -10,6 +10,7 @@ const FightSfx := preload("res://scripts/audio/FightSfx.gd")
 const PunchPace := preload("res://scripts/fight3d/PunchPace.gd")
 const ReachLimit := preload("res://scripts/fight3d/ReachLimit.gd")
 const RangeTable := preload("res://scripts/fight3d/RangeTable.gd")
+const HitStep := preload("res://scripts/fight3d/HitStep.gd")
 ## POWER1 step 4 (c): a graze's head snap, as a share of the clean hit's.
 const GRAZE_SNAP := 0.35
 
@@ -73,6 +74,8 @@ static func hit(st: Node, who: int, clip: String, speed: float, hitter: int, mov
 	if big and st.has_node("RingSet") and st.get_node("RingSet").get("flashes") != null:
 		st.get_node("RingSet").flashes.burst(9)   # S447: the press reacts to a big shot
 	var boxers: Array = st.boxers
+	if not st.clinch.engaged:   # S500: a clean hit moves her back (HitStep; `-- nohitstep` = none); in a tie-up the hold keeps her
+		HitStep.start(boxers[who], boxers[hitter]["pos"], move, big, float(st.RING_M) * 0.5 - 0.06)
 	# S305: fast to its peak, then the clip's own pace back to guard; locked in it until then (HitStun).
 	var fast := BeatClips.react_fast(clip, speed)
 	st.stun.clear(who)

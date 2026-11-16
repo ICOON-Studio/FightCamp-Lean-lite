@@ -3,12 +3,12 @@
  "updated": "2026-11-16",
  "author": "claude S294",
  "now": {
-  "id": "S499",
+  "id": "S500",
   "owner": "claude",
   "updated": "2026-11-16",
-  "summary": "S499: (1) MIRO REPLACED. The owner: \"miro subscription has been stop ... can you create something like miro for our project\" -> our own map page on the ops board, http://127.0.0.1:8787/map (ops/Tools/opsboard/map_board.py + map.html, data ops/AgentComms/map/): rows of frames (where we are, who works on what, 57 real screens, the S401/S402 menus, older mockups), his sticky notes by double-click, `start` prints his new notes. CLAUDE.md wrap-up 3b and CRITIC_ACCESS.md rewritten; no session calls a Miro tool any more. NOT copied: the old P1-P9 cards and his Miro stickies (every Miro read refused by the daily MCP limit; ops/research/MIRO_EXPORT_S499.md). (2) CREDITS: he asked to use the $200 Console credits; told him the desktop tab bills only the subscription (64 % of the week used, resets 11-19 14:00) and the switch is the claude CLI + his /login. (3) FIGHT MOTION WEEK day 4, on main 1d0247db9: the puncher's chest leans into the punch over a tenth of a second instead of one frame (ReachLimit.turn_eased + lead_q, PunchReach LEAN_RATE 4 rad/s, lead 0.20 s; HitImpact's forced pass stays whole). Same bout filmed, r3d vs r4a: head jumps over 12 cm 50 -> 27 (contact frame 11 -> 6, inside a clip 31 -> 13), head per frame p99 12.3 -> 10.4 cm, a head inside the other's body 5 -> 3. Cost: wrist about 2 cm further from the head on the first hit frame; hit_carry_test (red on main before) 35 -> 51 failures. Collected BODYSTEP1 (HitStep.gd, not wired). Q-262 'Yes, merge it' passed to the One look session. PRESSFLASH1 re-sent to Grok Dev (it had never arrived). FILMBAR1 queued for Qwen (film-night patterns never pass by luck). Two finished sessions archived on his yes (PC RED on memory -> AMBER).",
-  "next_action": "S500 FIGHT MOTION WEEK day 5 (to ~11-23; deal: blind whole-fight score 4/10 -> 5+ or 3D leaves the first release). Compare against E:/FightCamp/tmp/fightweek/r4a (today's main). 1) WIRE THE STEP BACK: scripts/fight3d/HitStep.gd is on main unwired - a hit must move the hit boxer's root back (jab 3 cm, power 10, body 16, big 22; over 0.12-0.30 s; room to the ropes caps it); control arm `-- nohitstep`; expect the last head-inside-body frames (3) to go and reactions to read bigger. 2) THE LEAN'S COST: the glove is ~2 cm (worst 8 cm, pro_left_jab_b frame 601) further from the head on the first hit frame and hit_carry_test went 35 -> 51 failures: try the lead from the punch's start for jabs or LEAN_RATE 5, film, and keep what holds head jumps under ~30 with the glove back on (tools: E:/FightCamp/tmp/fightweek/s498_tools/land.py, `-- leantrace`, `-- noleanease`). 3) Arms home: git apply ops/research/FIGHTWEEK2_WIP_S497.patch, release the glove along the clip's own path at ~6 m/s (arm left out after contact: median 8 frames, worst 17). 4) The 8 clip-change head jumps and the 13 left inside a clip (trace.py on r4a). Then film + two NEW blind critics. ALSO: collect ZIVAKNEE1 (ziva/knee1, knee ruler before/after + look at the film), PRESSFLASH1 (grok/pressflash1), FILMBAR1 (Qwen PR); COACHNECK1 round 2 to Ziva after the knees; retry the Miro copy ONCE (ops/research/MIRO_EXPORT_S499.md) and put what comes back on the map as frames + his notes; Arena still got nothing: give it a pure module in the first 15 minutes.",
-  "last_working_commit": "1d0247db9",
+  "summary": "S500 FIGHT MOTION WEEK day 5, on main 274d9b650. Same 75 s bout filmed each time (seed 7), r4a (S499 main) -> r5arm: a head inside the other's body 3 -> 0 frames, heads closer than 25 cm 0.13 % -> 0, head jumps over 12 cm 27 -> 24 (worst 30 -> 20 cm, at a clip change 8 -> 3), arm left out after contact 8.0 -> 5.5 frames median (worst 17 -> 15), knee jerks 791 -> about 333, hit_carry_test 51 -> 35 failures. Four changes: (1) ZIVAKNEE1 collected (PR 332, KneeCalm.gd, -- nokneecalm); (2) the step back on a hit wired (HitStep start/tick/lean/speed; RingPlace moves the place and rocks the body up to 8 cm, RingFeet times the step; -- nohitstep); (3) the chest lean ran away to 1.0 rad on a plain jab (two solves a frame stacking on last frame's eased lean): ReachLimit.turn_eased caps the whole turn at LEAN_TOTAL 0.45 (-- noleancap); LEAN_RATE and LEAD_S tuning did nothing (42-46 failures whatever the value); (4) arms home: FIGHTWEEK2_WIP_S497 applied (ArmHome + ReachLimit.hold_one_way; -- noarmhome, -- norehold). Grok Dev did not answer PRESSFLASH1 (two sends today, not ticked on the board). Arena got nothing again. No blind critic score yet.",
+  "next_action": "S501 FIGHT MOTION WEEK day 6 (to ~11-23; deal: blind whole-fight score 4/10 -> 5+ or 3D leaves the first release). Compare against E:/FightCamp/tmp/fightweek/r5arm (today's main). 1) THE BLIND SCORE NOW: the rulers have moved on every critic fault but steps; film the bout as a video the way r0 was (E:/FightCamp/tmp/fightweek/r0 has the critics' files and how it was shown) and send it to two NEW blind critics (CRITIC_PACK first, a 10/10 list and drawing each). 2) One ease a frame: the lean is eased per solve, so solve 1 (asks 0.30) and solve 2 fight inside a frame (-- leantrace on hit_carry_test: drawn 0.42 then 0.55 in one frame); ease the pass's final turn once. hit_carry SMOOTH is 24 with the ease, 13 without (-- noleanease). 3) The cross's return is 10.4 m/s (join_return_test bar 9.0), red on main before today too. 4) human_feet_test red on main with or without today's work: boxer 0 one frame 4.9 cm under the canvas. 5) The 16 head jumps left inside a clip and 5 on the contact frame (list them with s498_tools/jumps.py on r5arm). 6) Steps that look like slides: nobody has touched it. ALSO: PRESSFLASH1 to Qwen once FILMBAR1 lands (Grok Dev silent); collect FILMBAR1 (wt LEAN_FILMBAR1, tests/film_exact_test.gd); COACHNECK1 round 2 to Ziva (she is free now); retry the Miro copy ONCE (ops/research/MIRO_EXPORT_S499.md); Arena a pure module.",
+  "last_working_commit": "274d9b650",
   "verified_playable": "Films r3d (new head rule) and r3ctl (control) on today's main; head_clear_test 39 lines green, join_return_test 0 failures; export: see NEXT_SESSION_PROMPT",
   "incomplete_blocked": "Contact-frame trunk snap (found, not fixed); arms home (WIP patch); head jumps 39 -> 49 on today's main unexplained (r3nocam film checks CAMHOLD1); COACHNECK1 not fixed; film_count_test red on 5 chance-prone claims (the finding); no_pronoun_test 6 Training lines (Training K session)",
   "next_acceptance": "Rulers vs r0: head jumps on the contact frame under 4, a head inside the other's body under 5 frames, arm out median under 4 frames with join_return green, then r1 film at two fresh blind critics 5+/10",
@@ -2090,6 +2090,11 @@
    "id": "S499",
    "date": "2026-11-16",
    "summary": "S499: (1) MIRO REPLACED. The owner: \"miro subscription has been stop ... can you create something like miro for our project\" -> our own map page on the ops board, http://127.0.0.1:8787/map (ops/Tools/opsboard/map_board.py + map.html, data ops/AgentComms/map/): rows of frames (where we are, who works on what, 57 real screens, the S401/S402 menus, older mockups), his sticky notes by double-click, `start` prints his new notes. CLAUDE.md wrap-up 3b and CRITIC_ACCESS.md rewritten; no session calls a Miro tool any more. NOT copied: the old P1-P9 cards and his Miro stickies (every Miro read refused by the daily MCP limit; ops/research/MIRO_EXPORT_S499.md). (2) CREDITS: he asked to use the $200 Console credits; told him the desktop tab bills only the subscription (64 % of the week used, resets 11-19 14:00) and the switch is the claude CLI + his /login. (3) FIGHT MOTION WEEK day 4, on main 1d0247db9: the puncher's chest leans into the punch over a tenth of a second instead of one frame (ReachLimit.turn_eased + lead_q, PunchReach LEAN_RATE 4 rad/s, lead 0.20 s; HitImpact's forced pass stays whole). Same bout filmed, r3d vs r4a: head jumps over 12 cm 50 -> 27 (contact frame 11 -> 6, inside a clip 31 -> 13), head per frame p99 12.3 -> 10.4 cm, a head inside the other's body 5 -> 3. Cost: wrist about 2 cm further from the head on the first hit frame; hit_carry_test (red on main before) 35 -> 51 failures. Collected BODYSTEP1 (HitStep.gd, not wired). Q-262 'Yes, merge it' passed to the One look session. PRESSFLASH1 re-sent to Grok Dev (it had never arrived). FILMBAR1 queued for Qwen (film-night patterns never pass by luck). Two finished sessions archived on his yes (PC RED on memory -> AMBER)."
+  },
+  {
+   "id": "S500",
+   "date": "2026-11-16",
+   "summary": "S500 FIGHT MOTION WEEK day 5, on main 274d9b650. Same 75 s bout filmed each time (seed 7), r4a (S499 main) -> r5arm: a head inside the other's body 3 -> 0 frames, heads closer than 25 cm 0.13 % -> 0, head jumps over 12 cm 27 -> 24 (worst 30 -> 20 cm, at a clip change 8 -> 3), arm left out after contact 8.0 -> 5.5 frames median (worst 17 -> 15), knee jerks 791 -> about 333, hit_carry_test 51 -> 35 failures. Four changes: (1) ZIVAKNEE1 collected (PR 332, KneeCalm.gd, -- nokneecalm); (2) the step back on a hit wired (HitStep start/tick/lean/speed; RingPlace moves the place and rocks the body up to 8 cm, RingFeet times the step; -- nohitstep); (3) the chest lean ran away to 1.0 rad on a plain jab (two solves a frame stacking on last frame's eased lean): ReachLimit.turn_eased caps the whole turn at LEAN_TOTAL 0.45 (-- noleancap); LEAN_RATE and LEAD_S tuning did nothing (42-46 failures whatever the value); (4) arms home: FIGHTWEEK2_WIP_S497 applied (ArmHome + ReachLimit.hold_one_way; -- noarmhome, -- norehold). Grok Dev did not answer PRESSFLASH1 (two sends today, not ticked on the board). Arena got nothing again. No blind critic score yet."
   }
  ],
  "blocked_on_operator": [],
@@ -5159,23 +5164,24 @@
   },
   "working_now": [
    {
+    "title": "TASK COACHNECK1 - the corner coach's neck stays upright in his close-up (the owner's C415 mark)",
+    "who": "qwen",
+    "started": "2026-11-16T09:41",
+    "run": "COACHNECK1",
+    "state": "LANDED - Claude collects"
+   },
+   {
     "title": "TASK PRESSFLASH1 - crowd camera flashes never read as a hit in empty air (both critics' note)",
     "who": "grok",
     "started": "2026-11-16T13:33",
-    "run": "PRESSFLASH1"
-   },
-   {
-    "title": "The boxers' knees stop jerking in the fight (about 4 jerks a second per knee today)",
-    "who": "ziva",
-    "started": "2026-11-16T12:44",
-    "run": "ZIVAKNEE1"
+    "run": "PRESSFLASH1",
+    "state": "NO ANSWER from Grok Dev (two sends) - goes to Qwen after FILMBAR1"
    },
    {
     "title": "TASK FILMBAR1 - a film-night pattern never passes by luck (an exact test for small counts)",
     "who": "qwen",
-    "started": "2026-11-16T14:05",
-    "run": "FILMBAR1",
-    "state": "queued"
+    "started": "2026-11-16T14:12",
+    "run": "FILMBAR1"
    }
   ],
   "next": [
@@ -5707,6 +5713,16 @@
   },
   "done_recently": [
    {
+    "title": "Fight motion week day 5: a hit moves the hit boxer back, arms come home sooner, the chest lean capped (heads inside a body 3 -> 0 frames) (S500)",
+    "who": "claude",
+    "when": "2026-11-16"
+   },
+   {
+    "title": "Ziva's knee fix collected: knee jerks 791 -> 389 on the same filmed bout (S500)",
+    "who": "ziva",
+    "when": "2026-11-16"
+   },
+   {
     "title": "Our own map page replaces Miro: 127.0.0.1:8787/map with frames, pictures and your sticky notes (S499)",
     "who": "claude",
     "when": "2026-11-16"
@@ -5759,11 +5775,6 @@
    {
     "title": "TASK FIGHTPAGE1 - the fight analysis page, film-night mode (punches list, report, mark a pattern)",
     "who": "grok",
-    "when": "2026-11-16"
-   },
-   {
-    "title": "Training K v6c: Ask for a fight off the Training screen -> his board Q-259 (S495)",
-    "who": "claude",
     "when": "2026-11-16"
    }
   ],
@@ -5853,6 +5864,18 @@
   "map": {
    "done_earlier": [
     {
+     "text": "Our own map replaces Miro",
+     "who": "claude"
+    },
+    {
+     "text": "ONELOOK1 one look, no wood",
+     "who": "claude"
+    },
+    {
+     "text": "Chest eases into the punch",
+     "who": "claude"
+    },
+    {
      "text": "Camera holds through a punch",
      "who": "agent"
     },
@@ -5895,31 +5918,23 @@
     {
      "text": "Training K v6c: no fight ask",
      "who": "claude"
-    },
-    {
-     "text": "Rival card built (3 answers)",
-     "who": "claude"
-    },
-    {
-     "text": "Training K v5: no opponent",
-     "who": "claude"
-    },
-    {
-     "text": "Overview fits at Largest text",
-     "who": "claude"
     }
    ],
    "done_session": [
     {
-     "text": "Our own map replaces Miro",
+     "text": "Knees jerk half as often (Ziva)",
      "who": "claude"
     },
     {
-     "text": "ONELOOK1 one look, no wood",
+     "text": "Hit boxer steps back on a hit",
      "who": "claude"
     },
     {
-     "text": "Chest eases into the punch",
+     "text": "Chest lean capped (was 57 deg)",
+     "who": "claude"
+    },
+    {
+     "text": "Arms home sooner after a punch",
      "who": "claude"
     }
    ],
@@ -5982,10 +5997,6 @@
     },
     {
      "text": "Crowd flashes off the boxers",
-     "who": "agent"
-    },
-    {
-     "text": "Knees stop jerking (Ziva)",
      "who": "agent"
     },
     {
@@ -6067,10 +6078,6 @@
      "who": "agent"
     },
     {
-     "text": "Arms home after the punch",
-     "who": "claude"
-    },
-    {
      "text": "Heads never overlap inside",
      "who": "claude"
     },
@@ -6087,20 +6094,32 @@
      "who": "claude"
     },
     {
-     "text": "Wire the step back on a hit",
+     "text": "Blind score: film + 2 critics",
      "who": "claude"
     },
     {
-     "text": "Glove back on after the lean",
+     "text": "One lean ease a frame",
+     "who": "claude"
+    },
+    {
+     "text": "Cross glove return under 9 m/s",
+     "who": "claude"
+    },
+    {
+     "text": "Foot 5 cm under canvas, 1 frame",
+     "who": "claude"
+    },
+    {
+     "text": "PRESSFLASH1 to Qwen",
      "who": "claude"
     }
    ],
-   "session": "S499"
+   "session": "S500"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
- "last_working_commit": "a65d80b4f",
- "next_action": "S499 FIGHT MOTION WEEK day 4 (to ~11-23; deal: blind whole-fight score 4/10 -> 5+ or 3D leaves the first release). 0) read the r3nocam film result in NEXT_SESSION_PROMPT (does CAMHOLD1 raise head jumps 39 -> 49?) and collect ZIVAKNEE1 (ziva/knee1 PR: knee ruler before/after, look at the film). 1) the puncher's trunk snap at contact: rate-limit PunchReach's chest lean (ReachLimit.lean, LEAN_MAX 0.30 rad arrives in one frame under a held glove; about 4 rad/s, the forced pass in HitImpact.hit left free so the graze check still reads the full reach) - the 12 contact-frame head jumps and most of the 'inside a clip' ones at clip_t = contact; 2) arms home: git apply ops/research/FIGHTWEEK2_WIP_S497.patch, release the glove along the clip's own path at a capped ~6 m/s so join_return's cross passes; 3) reaction size on the small ones (5-8 cm) and a step back on a body shot (the hit boxer's root is not moved by a hit today: 15-20 cm over 6 frames would also end the last head overlap); then film r1 + two NEW blind critics. COACHNECK1 round 2 (chest axis from spine_03 -> spine_05 bone origins; prove on a pose dumped from the game) to Ziva after the knees. FIGHTFILM1: settle the five chance-prone claims (film_count_test names them) before wiring the film night. Arena got nothing again: give it a pure module in the first 15 minutes (a body-shot step-back rule or the claims' stricter bar).",
+ "last_working_commit": "274d9b650",
+ "next_action": "S501 FIGHT MOTION WEEK day 6 (to ~11-23; deal: blind whole-fight score 4/10 -> 5+ or 3D leaves the first release). Compare against E:/FightCamp/tmp/fightweek/r5arm (today's main). 1) THE BLIND SCORE NOW: the rulers have moved on every critic fault but steps; film the bout as a video the way r0 was (E:/FightCamp/tmp/fightweek/r0 has the critics' files and how it was shown) and send it to two NEW blind critics (CRITIC_PACK first, a 10/10 list and drawing each). 2) One ease a frame: the lean is eased per solve, so solve 1 (asks 0.30) and solve 2 fight inside a frame (-- leantrace on hit_carry_test: drawn 0.42 then 0.55 in one frame); ease the pass's final turn once. hit_carry SMOOTH is 24 with the ease, 13 without (-- noleanease). 3) The cross's return is 10.4 m/s (join_return_test bar 9.0), red on main before today too. 4) human_feet_test red on main with or without today's work: boxer 0 one frame 4.9 cm under the canvas. 5) The 16 head jumps left inside a clip and 5 on the contact frame (list them with s498_tools/jumps.py on r5arm). 6) Steps that look like slides: nobody has touched it. ALSO: PRESSFLASH1 to Qwen once FILMBAR1 lands (Grok Dev silent); collect FILMBAR1 (wt LEAN_FILMBAR1, tests/film_exact_test.gd); COACHNECK1 round 2 to Ziva (she is free now); retry the Miro copy ONCE (ops/research/MIRO_EXPORT_S499.md); Arena a pure module.",
  "next_acceptance": "Rulers vs r0: head jumps on the contact frame under 4, a head inside the other's body under 5 frames, arm out median under 4 frames with join_return green, then r1 film at two fresh blind critics 5+/10"
 }

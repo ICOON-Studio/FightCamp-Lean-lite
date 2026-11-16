@@ -12,6 +12,7 @@ extends RefCounted
 const BeatClips := preload("res://scripts/fight3d/BeatClips.gd")
 const GuardLife := preload("res://scripts/fight3d/GuardLife.gd")
 const RkClips := preload("res://scripts/fight3d/RkClips.gd")
+const HitStep := preload("res://scripts/fight3d/HitStep.gd")
 
 const BOUNCE_SHARE := 0.55   # of the time on the balls of her feet, fresh (BoxerFootwork.bounce_share)
 const DEAD_M := 0.07         # her place may sit this far off her feet before a step goes in
@@ -81,7 +82,7 @@ static func tick(st: Node, i: int, delta: float) -> void:
 	plan.keep_off = opp.plan.spots() if opp != null else []
 	plan.bounce_share = BOUNCE_SHARE * float(bx.get("legs", 1.0))   # burning legs stop bouncing first
 	plan.tick(dt)
-	_chase(rig, goal, (bx["vel"] as Vector3).length() if float(bx["move_left"]) > 0.0 else 0.0, DEAD_M)
+	_chase(rig, goal, maxf((bx["vel"] as Vector3).length() if float(bx["move_left"]) > 0.0 else 0.0, HitStep.speed(bx)), DEAD_M)
 	if bool(bx.get("rig_carry", false)) and not carried and (plan.pair as Dictionary).is_empty() and goal.distance_to(plan.centre()) <= DEAD_M 			and _guarded(clip):
 		# her feet stand under her and she is back in her guard: the captured clip has her legs back. Not mid-punch - the
 		# take's own feet stand a step away from where the rig just stepped hers, and letting go there dragged the lead

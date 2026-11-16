@@ -29,6 +29,8 @@ extends RefCounted
 ##   new(start, yaw, south, scale, seed)  step(dir, size)  face(yaw)  go(to, dur)  place(at, yaw)  tick(dt)
 ##   pose() -> {centre, yaw, hip, feet, ...}
 
+const KneeCalm := preload("res://scripts/fight3d/KneeCalm.gd")
+
 const BOUNCE_HZ := 2.2
 const HZ_SD := 0.18            # each bounce's rate: x (1 + N(0, sd)), clamped +-35 % (bottom-to-bottom CV ~0.13)
 const AMP_SD := 0.15           # each bounce's depth, clamped +-30 %
@@ -55,7 +57,8 @@ const HEEL_REAR := Vector2(0.016, 0.048)   # heel height at the bottom / top of 
 const HEEL_LEAD := Vector2(0.010, 0.038)   # (r4c 1.2-2.4 cm; round 3: the bounce reads from the ankles, balls planted)
 const HEEL_FLAT := Vector2(0.0, 0.012)     # lead, rear flat-footed
 const HEEL_WEIGHT := 0.008     # the unloaded heel rises, the loaded one sinks, this much each way at full sway
-const HEEL_SWING := 0.05       # extra heel on toe-off, mid-swing it eases back
+const HEEL_SWING := 0.05       # extra heel on toe-off, mid-swing it eases back (ZIVAKNEE1: KneeCalm.toe_m() is
+                               # what runs now - 0.03, ramped across the swing, not 0.05 ramped in 1.3 frames)
 const HEEL_BALL_M := 0.18      # heel to ball of the foot (pitch = asin(heel / this))
 const REAR_YAW_DEG := -45.0    # S475 KNEEFIX1: the rear toes turn 45 deg out (KNEESWEEP2 table: the setting that meets the ruler's own read of the raw take)
 const LEAD_YAW_DEG := 0.0
@@ -211,7 +214,7 @@ func tick(dt: float) -> void:
 	spring = move_toward(spring, 1.0 if bouncing else 0.0, dt / SPRING_EASE_S)
 	hold = move_toward(hold, hold_want, dt / HOLD_EASE_S)
 	for i in 2:
-		pivot[i] = move_toward(float(pivot[i]), float(pivot_want[i]), dt / PIVOT_EASE_S)
+		pivot[i] = move_toward(float(pivot[i]), float(pivot_want[i]), dt / KneeCalm.pivot_ease())
 	var target := lerpf(FLAT_M, (MOVE_BOUNCE_M if busy() else BOUNCE_M) * depth, spring * (1.0 - hold * HOLD_CALM))
 	amp = move_toward(amp, target, absf(MOVE_BOUNCE_M - FLAT_M) * dt / AMP_EASE_S)
 	moving = move_toward(moving, 1.0 if busy() else 0.0, dt / AMP_EASE_S)
@@ -364,6 +367,9 @@ func pose() -> Dictionary:
 	var sit := (SIT_M + (MOVE_BOUNCE_M - BOUNCE_M) * MOVE_SIT * moving) * scale * spring + FLAT_SIT * scale * (1.0 - spring)
 	var spread := ((feet[LEAD]["at"] as Vector2) - (feet[REAR]["at"] as Vector2)).length() - (offset(LEAD) - offset(REAR)).length()
 	sit += maxf(spread - WIDE_FROM_M, 0.0) * WIDE_SIT
+	# ZIVAKNEE1: the guard's squat is this much shallower - a boxing stance's knee opens to 140-150 deg,
+	# and the clip's own knee (139.6 on this bout) is the stance the critic named. `-- nokneecalm` keeps today's.
+	sit = KneeCalm.sit(sit)
 	var hip := Vector3(sway.x, -amp * scale * dp - sit, sway.y)
 	var out_feet: Array = []
 	var twist := 0.0
@@ -379,8 +385,12 @@ func pose() -> Dictionary:
 		var planted := sw.is_empty()
 		if not planted:
 			var s: float = sw["u"]
-			lift = lerpf(FLAT_LIFT_M, LIFT_M, spring) * scale * sin(PI * s)
-			heel += HEEL_SWING * scale * sin(PI * minf(s * 1.6, 1.0)) * (1.0 - s)
+			# ZIVAKNEE1: the lift belongs to the step's LENGTH (a 14 cm shuffle is not a 26 cm step) and the toe-off
+			# heel ramps across the swing: its old 2.4 cm rise inside one frame was a 9.6 deg pitch jump a frame, and
+			# the knee reads the ankle's height. `-- nokneecalm` restores both.
+			var step_m: float = (sw["to"] as Vector2).distance_to(sw["from"] as Vector2)
+			lift = KneeCalm.lift(step_m, scale, spring, FLAT_LIFT_M, LIFT_M) * sin(PI * s)
+			heel += KneeCalm.toe_m() * scale * KneeCalm.toe(s)
 			toe_pitch = 1.0
 			# a foot going forward on her left turns the pelvis to her right; the shoulders answer the other way
 			var mv := unrot((sw["to"] as Vector2) - (sw["from"] as Vector2), yaw)

@@ -1,37 +1,40 @@
-# S500 handover (written 2026-11-16 at the end of S499)
+# S501 handover (written 2026-11-16 at the end of S500)
 
 Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. Roadmap `now.next_action` has the full detail.
 
-## S499 in short (read this first; the S498 notes below are still true except where this says otherwise)
-- MIRO IS GONE (owner: "miro subscription has been stop ... can you create something like miro for our project"). The map is
-  our own page: http://127.0.0.1:8787/map (`ops/Tools/opsboard/map_board.py`, data `ops/AgentComms/map/`). CLAUDE.md wrap-up
-  3b is rewritten: `where_we_are.py` roll/now/done/next only, no Miro call. `start` prints his new map notes: quote each,
-  act, `map_board.py reply <id> "..."`. New pictures he should see go on the map: `map_board.py gallery ...`.
-- STILL OWED: copy the old Miro P1-P9 cards and his stickies into the map. Every Miro read was refused on 11-16 ("daily
-  Miro mcp tool call limit"). Retry ONCE with one cheap helper (the brief is in this session's notes:
-  `ops/research/MIRO_EXPORT_S499.md` lists the 14 frame ids); if refused again, ask him to export from Miro's own menu.
-- CREDITS: he asked to use the $200 Console credits. The desktop tab can only bill the subscription (64 % of the week
-  used at 14:00, resets 11-19 14:00). Tell him when the weekly bar passes about 90 %; the switch is the `claude` CLI + his
-  `/login` to the Console (`ops/research/API_CREDITS_FALLBACK_S474.md`).
-- DAY 4 ON MAIN (1d0247db9): the chest lean is eased. `ReachLimit.turn_eased` (on the chest's real turn: the two solves of
-  a pass ask OPPOSITE turns, lean in then shoulder back, so summing angles ran away to 1.1 rad) + `ReachLimit.lead_q` (the
-  lean starts 0.20 s before contact) + `PunchReach.LEAN_RATE` 4 rad/s; `HitImpact.hit` sets `lean_free` on its forced
-  pass. Control `-- noleanease`, probe `-- leantrace`. Film `E:/FightCamp/tmp/fightweek/r4a` vs `r3d`: head jumps 50 -> 27
-  (contact 11 -> 6, inside a clip 31 -> 13, clip change 8 -> 8), p99 12.3 -> 10.4 cm, head inside a body 5 -> 3.
-  COST: wrist ~2 cm further from the head on the first hit frame (`s498_tools/land.py`: median 0.287 -> 0.309 m, worst
-  0.34 -> 0.40 at frame 601 pro_left_jab_b); `hit_carry_test` 35 -> 51 failures (it was red on main with the ease off too:
-  3 CARRY, 8 ON, 24 SMOOTH; `hit_frame_test` 3 failures both ways). Not tuned further: no context left.
-- BODYSTEP1 collected (`scripts/fight3d/HitStep.gd` + test on main, flag `nohitstep`), NOT wired: that is item 1 now.
-- `file_limits_test` is RED on two UI files not mine: `scripts/ui/GamePlan.gd` and `MatTree.gd` at 501 lines (the One look
-  / Training K sessions' edits in this shared checkout). Check `git log` on them before touching.
-- Q-S294-262 "Yes, merge it" (ONELOOK1) was passed to the One look session with ONELOOK2 (PR 327); check it merged.
-- PRESSFLASH1 had never reached Grok Dev (its thread's newest message was 11-13); re-sent 13:33 (GROKBOT SENT).
-- FILMBAR1 queued for Qwen (`ops/research/TASK_FILMBAR1.md`): Fisher exact / Poisson tails in FilmPattern so
-  `film_count_test` goes green; a lost find is to be reported, not loosened.
-- Arena again got nothing. Two finished sessions archived on his "Yes, archive them" (PC RED on memory -> AMBER); a third
-  ("Agent communications startup", 11-15) refused: it has live work.
-- TRAP: restarting the ops board, match the process on `E:\FightCamp\Lean\ops\Tools\opsboard\server.py`, never on
-  "opsboard" alone (it also stopped the Blood Senate board; its keeper restarted it).
+## S500 in short (main 274d9b650; the S498/S499 notes below are still true except where this says otherwise)
+Same 75 s bout filmed after each change (`E:/FightCamp/tmp/fightweek/`: r4a = S499 main, r5knee, r5step, r5cap, r5arm =
+today's main). r4a -> r5arm: a head inside the other's body 3 -> 0 frames; heads closer than 25 cm 0.13 % -> 0; head jumps
+27 -> 24 (worst 30 -> 20 cm, clip change 8 -> 3, contact 6 -> 5, inside a clip 13 -> 16); arm left out 8.0 -> 5.5 frames
+(worst 17 -> 15); knee jerks 791 -> about 333; glove to head on the hit frame median 0.309 -> 0.299 m.
+- ZIVAKNEE1 collected (67a6726f9, PR 332 closed): `KneeCalm.gd`, ruler `tools/knee_ruler.py --compare a.csv b.csv`,
+  control `-- nokneecalm`. The fight did NOT diverge on this bout (every other ruler identical). The steps-a-minute
+  ruler reads lower (186 -> 131): its 3 cm ankle threshold is missed, the steps are still there (Ziva's PR text).
+- STEP BACK WIRED (70136539b): `HitStep.start` in `HitImpact.hit` (clean hits only, not in a tie-up), `HitStep.tick`
+  moves `bx["pos"]` in `RingPlace.compose` (held during the hit-stop), `HitStep.lean` rocks the shown body back up to
+  8 cm over feet that have not stepped (the body is shown over the FEET, so without it a 3 cm jab step showed nothing),
+  `HitStep.speed` times RingFeet's step pair. Control `-- nohitstep`.
+- THE LEAN RAN AWAY (a8274fc1b): `-- leantrace` on `hit_carry_test` showed the drawn chest lean climbing to 1.0 rad on a
+  plain jab: each solve caps its own turn at 0.30, but solve 2 of a frame starts from a chest still holding last frame's
+  eased lean and adds its turn. `ReachLimit.turn_eased` now caps the WHOLE turn at `LEAN_TOTAL` 0.45 (0.30 -> 47
+  hit_carry failures, 0.45 -> 36, 0.52 -> 37, 0.60 -> 44, none 59; `-- noleancap`). LEAN_RATE 4/6/8 and LEAD_S 0.20/0.30
+  made no difference (42-46): do not tune them again.
+- ARMS HOME (274d9b650): the S497 patch applied (ArmHome.gd + the one-way hold, moved into `ReachLimit.hold_one_way`
+  to keep PunchReach at 496 lines). Controls `-- noarmhome`, `-- norehold`.
+- hit_carry_test as a film-free ruler (46 s): `sh` loop in this session printed `total | ON CARRY SMOOTH`. Today's
+  main: 35 (ON 5, CARRY 6, SMOOTH 24). With `-- noleanease`: 24 (ON 8, CARRY 3, SMOOTH 13): the ease still costs SMOOTH.
+- RED ON MAIN, NOT FROM TODAY: `human_feet_test` (boxer 0, one frame 4.9 cm under the canvas; same with `-- nokneecalm`),
+  `join_return_test` (the cross 10.3-10.4 m/s, bar 9.0; same with both arm controls off), `hit_frame_test` 3,
+  `file_limits_test` (GamePlan.gd and MatTree.gd at 501 lines, other sessions' files).
+- SEATS: Grok Dev never answered PRESSFLASH1 (sends 10:42 and 13:33; it is not in AVAILABLE AGENTS): give it to Qwen
+  when FILMBAR1 lands. FILMBAR1 (Qwen) was still writing (`E:/FightCamp/wt/LEAN_FILMBAR1`, tests/film_exact_test.gd).
+  Ziva is free: COACHNECK1 round 2. Arena got nothing again. The Miro copy was not retried.
+- PC: AMBER all session, memory 87-90 %, commit down to 4.8 GB once (RED is under 4): no extra PC agent was launched.
+- TRAP: `gbot.py thread --to dev` prints only a 4,000-character head; use `--limit 6 --out <file>` and read the end.
+- TRAP: a `cd` inside a Bash call moved the session folder again; every call starts with `cd /e/FightCamp/Lean`.
+
+## NEXT (roadmap now.next_action)
+S501 FIGHT MOTION WEEK day 6 (to ~11-23; deal: blind whole-fight score 4/10 -> 5+ or 3D leaves the first release). Compare against E:/FightCamp/tmp/fightweek/r5arm (today's main). 1) THE BLIND SCORE NOW: the rulers have moved on every critic fault but steps; film the bout as a video the way r0 was (E:/FightCamp/tmp/fightweek/r0 has the critics' files and how it was shown) and send it to two NEW blind critics (CRITIC_PACK first, a 10/10 list and drawing each). 2) One ease a frame: the lean is eased per solve, so solve 1 (asks 0.30) and solve 2 fight inside a frame (-- leantrace on hit_carry_test: drawn 0.42 then 0.55 in one frame); ease the pass's final turn once. hit_carry SMOOTH is 24 with the ease, 13 without (-- noleanease). 3) The cross's return is 10.4 m/s (join_return_test bar 9.0), red on main before today too. 4) human_feet_test red on main with or without today's work: boxer 0 one frame 4.9 cm under the canvas. 5) The 16 head jumps left inside a clip and 5 on the contact frame (list them with s498_tools/jumps.py on r5arm). 6) Steps that look like slides: nobody has touched it. ALSO: PRESSFLASH1 to Qwen once FILMBAR1 lands (Grok Dev silent); collect FILMBAR1 (wt LEAN_FILMBAR1, tests/film_exact_test.gd); COACHNECK1 round 2 to Ziva (she is free now); retry the Miro copy ONCE (ops/research/MIRO_EXPORT_S499.md); Arena a pure module.
 
 ## The one thing: FIGHT MOTION WEEK, day 4 (to about 2026-11-23)
 The owner (S496): "The fight looks terrible should we stop this project ?" -> "One week code push". The deal told to him:

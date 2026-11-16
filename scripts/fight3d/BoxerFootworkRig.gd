@@ -10,6 +10,7 @@ extends SkeletonModifier3D
 ##   attach(skel, body, plan, after, early) -> rig | null    drive()    mid()    want, w, ease_w(delta)
 ##   last: {ankle, ball, knee_deg} per foot (probes read it)
 
+const KneeCalm := preload("res://scripts/fight3d/KneeCalm.gd")
 const LEGS := [["LeftUpperLeg", "LeftLowerLeg", "LeftFoot", "LeftToes"], ["RightUpperLeg", "RightLowerLeg", "RightFoot", "RightToes"]]
 ## The guard clip holds the hips at rest height with bent knees, so its feet float ~4.5 cm; the hips come down this much
 ## (skeleton units) so the balls stand ON the canvas with the knees bent ~30 deg at the top of the bounce.
@@ -160,7 +161,8 @@ func _early(skel: Skeleton3D) -> void:
 		_clip_knee_dir[i] = knee_g - hip_g
 	# in her guard the plan's bounce is the hips' height (the guard clip's own bob on top read 4.8 cm against the bar's 4.5);
 	# in a punch, a slip or a reaction (hold) the clip's own height comes through: a duck goes down
-	var y := lerpf(_hips_y, hp.y, float(plan.hold)) - DROP + hip.y / s
+	# ZIVAKNEE1: the guard's squat, shallower by KneeCalm.drop() - see KneeCalm.gd. `-- nokneecalm` keeps DROP.
+	var y := lerpf(_hips_y, hp.y, float(plan.hold)) - KneeCalm.drop(DROP) + hip.y / s
 	if _floored:
 		y = maxf(y, _hips_y * HIP_FLOOR)
 	skel.set_bone_pose_position(_hips, hp + Vector3(hip.x / s, y - hp.y, hip.z / s) * w)
@@ -205,10 +207,30 @@ func _reach_pitch(skel: Skeleton3D, leg: Dictionary, ball: Vector3, turn: Basis,
 	var ids: Array = leg["ids"]
 	var hip := skel.get_bone_global_pose(ids[0]).origin
 	var long := ((skel.get_bone_global_pose(ids[1]).origin - hip).length() + (skel.get_bone_global_pose(ids[2]).origin - skel.get_bone_global_pose(ids[1]).origin).length()) * REACH_MAX
+	# ZIVAKNEE1: this searched the heel's lift in 0.06 rad steps, so a drifting hip made the ankle jump several
+	# steps at once - a 3 cm vertical teleport in one frame, the largest single knee-shake spike in the bout
+	# (tools/knee_ruler.py on the filmed round). The step still finds the bracket; a bisection inside it makes
+	# the heel continuous in the geometry. `-- nokneecalm` keeps the old staircase.
 	var p := pitch
-	while p < MAX_PITCH and (ball + turn * Basis(Vector3.RIGHT, p) * (leg["v"] as Vector3) - hip).length() > long:
+	while p < MAX_PITCH and _too_far(ball, turn, leg, hip, long, p):
 		p += 0.06
-	return minf(p, MAX_PITCH)
+	p = minf(p, MAX_PITCH)
+	if p <= pitch or not KneeCalm.on():
+		return p
+	var lo := maxf(pitch, p - 0.06)
+	var hi := p
+	for k in 5:
+		var mid := (lo + hi) * 0.5
+		if _too_far(ball, turn, leg, hip, long, mid):
+			lo = mid
+		else:
+			hi = mid
+	return hi
+
+
+## Does the leg reach its ball with the heel this high?
+static func _too_far(ball: Vector3, turn: Basis, leg: Dictionary, hip: Vector3, long: float, pitch: float) -> bool:
+	return (ball + turn * Basis(Vector3.RIGHT, pitch) * (leg["v"] as Vector3) - hip).length() > long
 
 
 ## The upper body (skeleton space: +Z forward, +X her left): the lean, the chest's lag, the head's nod, the twist.

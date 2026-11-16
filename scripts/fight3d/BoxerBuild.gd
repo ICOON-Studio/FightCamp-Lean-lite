@@ -18,6 +18,7 @@ const JoinSmoother := preload("res://scripts/fight3d/JoinSmoother.gd")
 const PunchReach := preload("res://scripts/fight3d/PunchReach.gd")
 const HitSnap := preload("res://scripts/fight3d/HitSnap.gd")
 const PopCap := preload("res://scripts/fight3d/PopCap.gd")
+const ArmHome := preload("res://scripts/fight3d/ArmHome.gd")
 const GloveClear := preload("res://scripts/fight3d/GloveClear.gd")
 const GuardTuck := preload("res://scripts/fight3d/GuardTuck.gd")
 const MirrorClip := preload("res://scripts/fight3d/MirrorClip.gd")
@@ -143,6 +144,14 @@ static func build(stage: Node3D, spec: Dictionary, index: int) -> Dictionary:
 		pr = null
 	if pr != null and is_instance_valid(ec) and ec.is_inside_tree():
 		ec.reach = pr   # S321: the landing arm keeps the reach's elbow (and so the glove's aim)
+	# S497: the punching arm comes home ahead of the body (ArmHome, just before the reach; `noarmhome` = the control arm).
+	var ah := ArmHome.new()
+	ah.name = "ArmHome"
+	if pr != null and ah.setup(skel, ap, pr):
+		skel.add_child(ah)
+		skel.move_child(ah, pr.get_index())
+	else:
+		ah.free()
 	var hs := HitSnap.new()
 	hs.name = "HitSnap"
 	hs.sway_seed = absi(hash(str(look.get("name", "")))) + 31   # S471 (FighterLife seeds the same way, + 17)

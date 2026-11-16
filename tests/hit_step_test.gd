@@ -14,6 +14,7 @@ func _initialize() -> void:
 	_check_moved_ends_at_back_m()
 	_check_top_speed()
 	_check_at_zero_over()
+	_check_wire()
 	_report()
 
 
@@ -113,3 +114,46 @@ func _check_top_speed() -> void:
 
 func _check_at_zero_over() -> void:
 	_check(absf(HS.at(0.1, 0.0) - 1.0) < 0.0001, "at(0.1, 0.0) is 1")
+
+
+## S500 the wiring: a hit boxer's place goes back along the blow, capped by the ropes; the body rocks first.
+func _check_wire() -> void:
+	var bx: Dictionary = {"pos": Vector3(0.0, 0.0, 1.0)}
+	HS.start(bx, Vector3(0.0, 0.0, 0.0), "body_hook", false, 2.69)
+	_check(bx.has("knock"), "a clean body shot starts a step back")
+	var at: Vector3 = bx["pos"]
+	var worst: float = 0.0
+	var mid_speed: float = 0.0
+	for f in 60:
+		var step: Vector3 = HS.tick(bx, 1.0 / 60.0)
+		worst = maxf(worst, step.length() * 60.0)
+		at += step
+		if f == 5:
+			mid_speed = HS.speed(bx)
+	_check(absf(at.z - 1.16) < 0.001 and absf(at.x) < 0.001, "the place ends 16 cm straight back (z %.3f)" % at.z)
+	_check(worst <= HS.MAX_MPS + 0.01, "never faster than %.1f m/s (worst %.2f)" % [HS.MAX_MPS, worst])
+	_check(mid_speed > 0.5, "mid-way the feet are timed on a moving place (%.2f m/s)" % mid_speed)
+	_check(not bx.has("knock"), "a second later it is over and gone")
+	_check(HS.tick(bx, 1.0 / 60.0) == Vector3.ZERO and HS.speed(bx) == 0.0, "nothing moves with no step back running")
+	# the ropes: 5 cm of room caps a big shot to 5 cm
+	var roped: Dictionary = {"pos": Vector3(0.0, 0.0, 2.64)}
+	HS.start(roped, Vector3(0.0, 0.0, 1.6), "cross", true, 2.69)
+	_check(absf(float(roped["knock"]["m"]) - 0.05) < 0.001, "5 cm from the ropes a big shot moves 5 cm (%.3f)" % float(roped["knock"]["m"]))
+	var on_ropes: Dictionary = {"pos": Vector3(2.69, 0.0, 0.0)}
+	HS.start(on_ropes, Vector3(1.7, 0.0, 0.0), "cross", true, 2.69)
+	_check(not on_ropes.has("knock"), "on the ropes nothing starts")
+	_check(absf(HS.room(Vector3(1.0, 0.0, 1.0), Vector3(1.0, 0.0, 1.0).normalized(), 2.0) - sqrt(2.0)) < 0.001, "room on a diagonal reads to the nearer rope")
+	# the rock: the body goes back at once, never past LEAN_MAX_M, never sideways or forward
+	var rk: Dictionary = {"pos": Vector3(0.0, 0.0, 1.0)}
+	HS.start(rk, Vector3.ZERO, "cross", false, 2.69)
+	_check(HS.lean(rk, Vector3(0.0, 0.0, 0.05)).distance_to(Vector3(0.0, 0.0, 0.05)) < 0.0001, "a 5 cm lag is rocked whole")
+	_check(absf(HS.lean(rk, Vector3(0.0, 0.0, 0.30)).length() - HS.LEAN_MAX_M) < 0.0001, "a 30 cm lag rocks only %.2f m" % HS.LEAN_MAX_M)
+	_check(HS.lean(rk, Vector3(0.2, 0.0, -0.1)) == Vector3.ZERO, "a lag forward or sideways rocks nothing")
+	var last: float = 0.05
+	var eased: bool = true
+	for f in 40:
+		HS.tick(rk, 1.0 / 60.0)
+		var l: float = HS.lean(rk, Vector3(0.0, 0.0, 0.05)).length()
+		eased = eased and l <= last + 0.0001 and last - l < 0.012
+		last = l
+	_check(eased and last < 0.001, "the rock eases out after the step, no pop (ends %.4f)" % last)

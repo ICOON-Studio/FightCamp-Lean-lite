@@ -9,6 +9,7 @@ extends RefCounted
 ##   compose(stage, delta)
 
 const RingFeet := preload("res://scripts/fight3d/RingFeet.gd")
+const HitStep := preload("res://scripts/fight3d/HitStep.gd")
 const UpperRoom := preload("res://scripts/fight3d/UpperRoom.gd")   # POWER1 step 4: the uppercut's floor
 
 ## S320 a glide step's speed eases in and out over this (Footwork.glide).
@@ -41,6 +42,8 @@ static func compose(st: Node, delta: float) -> void:
 	var feet: RefCounted = st.feet
 	for i in boxers.size():
 		var bx: Dictionary = boxers[i]
+		# S500: a landed punch moves her place back (HitStep); the hit-stop holds it with the bodies
+		bx["pos"] = (bx["pos"] as Vector3) + HitStep.tick(bx, 0.0 if float(st._hold_left) > 0.0 else delta)
 		if float(bx["move_left"]) > 0.0:
 			# S320 glide steps: the body eases into and out of its step speed (no clip carries it any more).
 			var ramp := 1.0
@@ -159,6 +162,7 @@ static func _place(st: Node, delta: float) -> void:
 		var other := RingFeet.shown(st, boxers[1 - i])
 		var n: Node3D = bx["node"]
 		var keep_m: float = st.clinch.floor_m(UpperRoom.keep_m(st, BODY_KEEP_M) + room(_fold(bx), _fold(boxers[1 - i]))) if body_keep else 0.0
+		var rock := HitStep.lean(bx, (bx["pos"] as Vector3) - me)   # S500: her body goes back with the blow before her feet step
 		me = kept(me, other, keep_m)
 		var to := other - me
 		# S302: a landed punch carries her in (shown only; her place on the canvas stays).
@@ -169,7 +173,7 @@ static func _place(st: Node, delta: float) -> void:
 		var lunge := lunge_room((float(pr.lunge()) if pr != null else 0.0) + carry, to.length(), keep_m)
 		# S392: the rig's feet already stand off the line (RingFeet.tick); only a body the rig has let go of takes the shift here.
 		var side: Vector3 = feet.offset(to) * (1.0 - float(bx["rig"].w) if RingFeet.on(st, bx) else 1.0)
-		n.position = me + (to.normalized() * lunge if to.length() > 0.01 else Vector3.ZERO) + st.clinch.offset(i, to) + side
+		n.position = me + (to.normalized() * lunge if to.length() > 0.01 else Vector3.ZERO) + st.clinch.offset(i, to) + side + rock
 		if bx.get("snap") != null:
 			bx["snap"].sway = feet.inside_w   # S315 small head sways inside
 		if bx.get("tuck") != null and not st._no_inguard:

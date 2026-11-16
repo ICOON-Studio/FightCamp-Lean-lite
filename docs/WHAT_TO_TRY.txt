@@ -1,3 +1,15 @@
+S500 (2026-11-16) - THE FIGHT'S MOTION, WEEK DAY 5 (hits move the boxer, arms come home, knees calmer)
+- WATCH A FIGHT (Test jump: men's fight). Four things changed, all measured on the same 75 seconds:
+  1. A BOXER WHO IS HIT GOES BACK: a jab rocks him 3 cm, a power shot 10, a body shot 16, a big shot 22 (less on the
+     ropes). His body goes back at once and his feet step after it. Heads inside the other's body: 3 frames -> 0.
+  2. THE PUNCHING ARM COMES HOME SOONER: it stayed out 8 frames after the hit, now 5 to 6.
+  3. THE PUNCHER'S UPPER BODY no longer over-leans (a bug let the chest lean build up to 57 degrees on a plain jab).
+     Head pops over 12 cm: 27 -> 24, the worst one 30 cm -> 20 cm.
+  4. KNEES (Ziva): they jerked about 790 times in the 75 seconds, now about 330.
+  Judge it: does a clean shot look like it moved him? Do the arms still hang out? Do the knees still twitch?
+- NOT IN YET: steps that look like slides; the cross's glove still comes back too fast; crowd flashes near the boxers
+  (the seat given that task did not answer; it moves to another seat). No new blind score yet: that is next.
+
 S498 (2026-11-16) - THE FIGHT'S MOTION, WEEK DAY 3 (heads inside each other)
 - WATCH A FIGHT (Test jump: men's fight), and watch the BODY SHOTS. Both critics' first fault was heads and bodies
   inside each other. It happened on one thing: a body shot, where the puncher leaned in and the hit boxer folded onto

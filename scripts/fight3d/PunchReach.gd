@@ -48,6 +48,7 @@ const DRIVE_V := Vector2(2.5, 9.0) # m/s, clip time
 ## and on the way back the glove never goes further along the punch line than it already is.
 const CARRY_S := 0.10
 const RELEASE_M := Vector2(0.06, 0.30)   # clip glove this far from the carry: the reach holds fully / lets go by time
+var _home_st := {}   # S497 ReachLimit.hold_one_way
 const LATCH_S := 0.011            # the hit frame: HitImpact.hit leaves the clip up to 0.01 s short of its contact
 const PEAK_DT_MAX := 0.04          # clip seconds: a longer step between two reads is a seek (the hit), not the glove's speed
 static var DRIVE: bool = not OS.get_cmdline_user_args().has("nodrive")
@@ -143,7 +144,7 @@ func arm(clip: String, hand_bone: String, contact_s: float, target: Callable, gl
 	_back_along = INF
 	_last_w = 0.0
 	_shown_cur = Vector3.INF
-	_hit_f = -1; _real_c = 0.0; remove_meta("hold_on")   # S448 ReachLimit.fit
+	_hit_f = -1; _real_c = 0.0; remove_meta("hold_on"); _home_st = {}   # S448 ReachLimit.fit
 	_path = {}
 	drive_v = float(drive_for[1]) if drive_for.size() == 3 and str(drive_for[0]) == clip else 0.0
 	drive_t = float(drive_for[2]) if drive_v > 0.0 else 0.0
@@ -283,7 +284,7 @@ func _apply(skel: Skeleton3D, t: float, ramp: float) -> void:
 	if drive and _hit_w.is_finite() and t > _contact and _prev_g.is_finite() and _aim_w.is_finite():
 		# Review round 2 (hit_carry_test only=pro_right_cross: the clip's glove is still 0.3-0.5 m past her face when the
 		# weight goes; let go there, the glove jumped 0.29 m through her head). It lets go as the clip's glove comes back.
-		_w_now = maxf(_w_now, clampf((_prev_g.distance_to(_aim_w) - RELEASE_M.x) / (RELEASE_M.y - RELEASE_M.x), 0.0, 1.0))
+		_w_now = maxf(_w_now, ReachLimit.hold_one_way(_home_st, _prev_g, _aim_w, _dir_w, RELEASE_M, get_process_delta_time()))   # S497: one way home
 	if _w_now <= 0.0:
 		return
 	if drive and _hit_w.is_finite() and t > _contact + 1e-4 and _w_now < 1.0 and _prev_g.is_finite():
