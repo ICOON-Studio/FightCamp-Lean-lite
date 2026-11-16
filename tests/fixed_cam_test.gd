@@ -29,7 +29,11 @@ func _initialize() -> void:
 	_check(absf(spot.x) < 0.01 and absf(spot.z) > 3.0, "a pair standing along X is filmed from the Z side (side-on)")
 	spot = FC.spot_for(Vector3(0.1, 0.0, -0.7), Vector3(-0.1, 0.0, 0.7))
 	_check(absf(spot.z) < 0.01 and absf(spot.x) > 3.0, "a pair standing along Z is filmed from the X side")
-	_check(spot.y > 2.0, "the tripod is above the top rope")
+	# S501 (owner: "Yes, do all three": lower and closer, as Boxing Manager and UFC): the lens may stand below 2 m now; what
+	# must hold is that its line to the pair's belt, mid-ring, passes OVER the top rope (1.25 m above the canvas) where it
+	# crosses the ropes (2.75 m from the middle), so no rope cuts through the boxers.
+	var over: float = spot.y - (spot.y - FC.LOOK_H) * ((absf(spot.x) + absf(spot.z)) - 2.75) / (absf(spot.x) + absf(spot.z))
+	_check(spot.y > 1.25 + 0.3 and over > 1.25 + 0.15, "the lens looks over the top rope at the pair (lens %.2f m, line at the ropes %.2f m)" % [spot.y, over])
 	_check(FC.look_for(a, b).distance_to(Vector3(0.0, FC.LOOK_H, 0.05)) < 0.001, "it looks at the middle of the pair at belt height")
 	# S500 "Boxers stay side-on": the pair turns toward the line across the picture, never faster than the cap
 	var cam := FC.spot_for(Vector3(-0.6, 0.0, 0.0), Vector3(0.6, 0.0, 0.0))   # on the Z side: side-on = along X

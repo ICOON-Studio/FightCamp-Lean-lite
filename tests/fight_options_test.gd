@@ -12,6 +12,17 @@ var failures := 0
 class FakeView extends Node:
 	var playing := true
 	var stage: Node = null
+	var replay: Node = null
+
+
+class FakeReplay extends Node:
+	var on := false
+	var skipped := 0
+	func active() -> bool:
+		return on
+	func skip() -> void:
+		skipped += 1
+		on = false
 
 
 class FakeBar extends Control:
@@ -61,6 +72,35 @@ func _initialize() -> void:
 	_check(FixedCam.mode == 2 and not FixedCam.on and cam.text == "Camera: TV (C)", "then to TV (the coverage that cuts)")
 	cam.pressed.emit()
 	_check(FixedCam.mode == 0 and FixedCam.on and cam.text == "Camera: Side (C)", "then back to Side")
+	# S501 zoom + / - and Skip replay (owner: "Yes, do all three")
+	var zin: Button = bar.get_node("ZoomIn")
+	var zout: Button = bar.get_node("ZoomOut")
+	var z0: float = FixedCam.zoom
+	zin.pressed.emit()
+	_check(FixedCam.zoom < z0 and zin.visible and zout.visible, "+ zooms in on the Side camera (%.2f -> %.2f)" % [z0, FixedCam.zoom])
+	for k in 20:
+		zin.pressed.emit()
+	_check(is_equal_approx(FixedCam.zoom, FixedCam.ZOOM.x) and zin.disabled, "zoom in stops at its closest and + greys out")
+	for k in 20:
+		zout.pressed.emit()
+	_check(is_equal_approx(FixedCam.zoom, FixedCam.ZOOM.y) and zout.disabled, "zoom out stops at its widest and - greys out")
+	FixedCam.zoom = 1.0
+	_check(FixedCam.fov_for(4.6, 0.8, 16.0 / 9.0) > 20.0 and FixedCam.fov_for(4.6, 0.8, 16.0 / 9.0) < 45.0, "the Side lens frames the pair mid-ring at a normal angle")
+	var skip: Button = bar.get_node("SkipReplay")
+	_check(not skip.visible, "no Skip replay button outside a replay")
+	var rp := FakeReplay.new()
+	root.add_child(rp)
+	view.replay = rp
+	rp.on = true
+	paused = true   # a replay holds the tree itself
+	await process_frame
+	_check(skip.visible and not note.visible, "during a replay: Skip replay shows, PAUSED does not")
+	skip.pressed.emit()
+	_check(rp.skipped == 1, "Skip replay ends it")
+	paused = false
+	view.replay = null
+	rp.queue_free()
+	await process_frame
 	pause.pressed.emit()
 	bar.queue_free()
 	await process_frame

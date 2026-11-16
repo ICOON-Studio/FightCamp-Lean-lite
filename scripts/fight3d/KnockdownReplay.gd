@@ -78,6 +78,12 @@ func active() -> bool:
 	return _t >= 0.0
 
 
+## S501 (owner: "Yes, do all three" - the UFC replay is skippable): the player ends the replay now; the count goes on.
+func skip() -> void:
+	if active():
+		_finish()
+
+
 func _process(delta: float) -> void:
 	if recs.is_empty():
 		return

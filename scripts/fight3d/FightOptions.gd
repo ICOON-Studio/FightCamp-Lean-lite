@@ -5,6 +5,9 @@ extends Node
 ## tripod, the default), High (the same tripod high above the ring), TV (the coverage that rides and cuts).
 ## The pause is the scene tree's own: this node and its buttons run while paused, and it lets go by itself the moment the
 ## round is no longer playing (a skip, the bell, leaving the fight), so no other screen is ever left frozen.
+## S501 (owner: "Yes, do all three", after the Boxing Manager / UFC camera study): ZOOM - and + beside them (keys - and =,
+## the mouse wheel) step FixedCam.zoom on the Side and High cameras; SKIP REPLAY (Space) shows only while a knockdown's
+## slow-motion replay plays (KnockdownReplay.skip). The replay freezes the tree too: PAUSED shows only for the player's pause.
 ##   mount(bar, view)
 
 const FixedCam := preload("res://scripts/fight3d/FixedCam.gd")
@@ -14,6 +17,10 @@ var view: Node
 var _pause: Button
 var _cam: Button
 var _note: Label
+var _zin: Button
+var _zout: Button
+var _skip: Button
+var _mine := false   # the tree is paused by the player's Pause (not by a replay)
 
 
 static func mount(bar: Control, fight_view: Node) -> void:
@@ -24,9 +31,12 @@ static func mount(bar: Control, fight_view: Node) -> void:
 	bar.add_child(o)
 	o._pause = bar.call("_btn", "Pause (P)", "Pause", o.toggle_pause)
 	o._cam = bar.call("_btn", "Camera: Side (C)", "Camera", o.next_camera)
+	o._zin = bar.call("_btn", "+", "ZoomIn", func(): o.zoom(1))
+	o._zout = bar.call("_btn", "-", "ZoomOut", func(): o.zoom(-1))
+	o._skip = bar.call("_btn", "Skip replay (Space)", "SkipReplay", o.skip_replay)
 	var x := -8.0
-	for b: Button in [o._cam, o._pause]:
-		var w := 250.0 if b == o._cam else 160.0
+	for b: Button in [o._zin, o._zout, o._cam, o._pause, o._skip]:
+		var w := 250.0 if b == o._cam else (56.0 if b == o._zin or b == o._zout else (260.0 if b == o._skip else 160.0))
 		bar.add_child(b)
 		b.process_mode = Node.PROCESS_MODE_ALWAYS
 		b.anchor_left = 1.0
@@ -58,10 +68,35 @@ func _playing() -> bool:
 	return is_instance_valid(view) and bool(view.get("playing"))
 
 
+func _replay() -> Node:
+	var r: Variant = view.get("replay") if is_instance_valid(view) else null
+	return r as Node if r is Node and is_instance_valid(r) else null
+
+
+func _replaying() -> bool:
+	var r := _replay()
+	return r != null and bool(r.call("active"))
+
+
 func toggle_pause() -> void:
+	if _replaying():
+		return   # the replay holds the tree itself; Skip replay ends it
 	if not _playing() and not get_tree().paused:
 		return
 	get_tree().paused = not get_tree().paused
+	_mine = get_tree().paused
+	draw()
+
+
+func zoom(steps: int) -> void:
+	FixedCam.zoom_by(steps)
+	draw()
+
+
+func skip_replay() -> void:
+	var r := _replay()
+	if r != null:
+		r.call("skip")
 	draw()
 
 
@@ -76,13 +111,22 @@ func draw() -> void:
 	var paused := is_inside_tree() and get_tree().paused
 	_pause.text = "Resume (P)" if paused else "Pause (P)"
 	_cam.text = "Camera: %s (C)" % str(FixedCam.NAMES[FixedCam.mode])
-	_note.visible = paused
+	_note.visible = paused and _mine and not _replaying()
+	var zoomable := FixedCam.on
+	_zin.visible = zoomable
+	_zout.visible = zoomable
+	_zin.disabled = FixedCam.zoom <= FixedCam.ZOOM.x + 1e-3
+	_zout.disabled = FixedCam.zoom >= FixedCam.ZOOM.y - 1e-3
+	_skip.visible = _replaying()
 
 
 func _process(_delta: float) -> void:
-	if get_tree().paused and not _playing():
+	if get_tree().paused and not _playing() and not _replaying():
 		get_tree().paused = false   # the round ended under the pause (a skip, leaving): nothing stays frozen
+		_mine = false
 		draw()
+	elif _skip.visible != _replaying():
+		draw()   # a replay began or ended
 
 
 func _exit_tree() -> void:
@@ -99,4 +143,25 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 	elif key == KEY_C and _playing():
 		next_camera()
+		get_viewport().set_input_as_handled()
+	elif key == KEY_SPACE and _replaying():
+		skip_replay()
+		get_viewport().set_input_as_handled()
+	elif (key == KEY_EQUAL or key == KEY_PLUS or key == KEY_KP_ADD) and _playing() and FixedCam.on:
+		zoom(1)
+		get_viewport().set_input_as_handled()
+	elif (key == KEY_MINUS or key == KEY_KP_SUBTRACT) and _playing() and FixedCam.on:
+		zoom(-1)
+		get_viewport().set_input_as_handled()
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	var mb := event as InputEventMouseButton
+	if mb == null or not mb.pressed or not _playing() or not FixedCam.on:
+		return
+	if mb.button_index == MOUSE_BUTTON_WHEEL_UP:
+		zoom(1)
+		get_viewport().set_input_as_handled()
+	elif mb.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+		zoom(-1)
 		get_viewport().set_input_as_handled()

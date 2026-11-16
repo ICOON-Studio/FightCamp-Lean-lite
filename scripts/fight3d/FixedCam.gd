@@ -18,14 +18,27 @@ const SQUARE_GAIN := 2.5
 const DEAD_DEG := 4.0
 static var mode: int = 2 if OS.get_cmdline_user_args().has("tvcam") else 0
 static var square_on: bool = not OS.get_cmdline_user_args().has("nosquare")
-const OUT_M := 6.0                     # the tripod stands this far from the ring's middle (3.25 m outside the ropes) ...
-const UP_M := 4.0                      # ... and this high: it looks down about 32 degrees, so a boxer behind the other is
-                                       # still seen (at 2.6 m one body hid the other whenever they lined up with the lens)
-const SEE_M := 3.3                     # the picture is this tall where the pair stands: a boxer fills about 60 % of it
-const SIDE_ROOM_M := 1.6               # ... and never narrower than the pair plus this
-const LOOK_H := 0.95                   # it looks at their belt line
+## S501 (owner, after the Boxing Manager / UFC camera study: "Yes, do all three"): LOWER AND CLOSER. Both reference games
+## watch from near the ropes at about chest height, the boxers big in the picture (ops/research/BOXING_MANAGER_CAMERA_S501.md,
+## UFC_CAMERA_S501.md). Was 6.0 m out, 4.0 m up, looking down 32 deg, the boxers ~45 % of the picture. A lower lens sees one
+## boxer behind the other only when they line up with it: keep_square (S500) keeps them side-on, so they do not.
+const OUT_M := 4.6                     # the tripod stands this far from the ring's middle (1.85 m outside the ropes) ...
+const UP_M := 1.8                      # ... and this high: about chest height, looking down ~9 deg at the pair's middle
+const SEE_M := 3.4                     # the picture is this tall where the pair stands: head to boots in the band the HUD leaves clear (y 270-860)
+const SIDE_ROOM_M := 1.4               # ... and never narrower than the pair plus this
+const LOOK_H := 0.98                   # it looks just under their belt line, so the boots sit above the fight bar
 const EASE_S := 0.45
-const FOV := Vector2(14.0, 46.0)
+const FOV := Vector2(14.0, 62.0)       # wide enough for a pair on the near ropes, 1.85 m from the lens
+## The player's zoom (S501, as Boxing Manager's + / -): SEE_M times this; smaller = closer. FightOptions steps it.
+const ZOOM := Vector2(0.65, 1.6)
+const ZOOM_STEP := 0.15
+static var zoom: float = 1.0
+
+
+## Zoom `steps` (+1 = in, -1 = out) within ZOOM. Returns the new zoom.
+static func zoom_by(steps: int) -> float:
+	zoom = clampf(zoom - float(steps) * ZOOM_STEP, ZOOM.x, ZOOM.y)
+	return zoom
 
 static var on: bool = not OS.get_cmdline_user_args().has("tvcam")
 
@@ -85,7 +98,7 @@ static func look_for(a: Vector3, b: Vector3) -> Vector3:
 
 ## The lens angle (vertical, degrees) that shows SEE_M of height at `dist`, wider when the pair stands `apart` across it.
 static func fov_for(dist: float, apart: float, aspect: float) -> float:
-	var tall: float = maxf(SEE_M, (apart + SIDE_ROOM_M) / maxf(aspect, 0.5))
+	var tall: float = maxf(SEE_M * zoom, (apart + SIDE_ROOM_M) / maxf(aspect, 0.5))
 	return clampf(rad_to_deg(2.0 * atan(tall * 0.5 / maxf(dist, 1.0))), FOV.x, FOV.y)
 
 

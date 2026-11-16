@@ -4,6 +4,10 @@ S501 (2026-11-16) - YOUR SEVEN PICTURE NOTES (C417-C423)
   card panels are a shade lighter. The World page went from 36 to 75; the fight from 62 to 77 (a brighter arena light).
 - TRAINING, THE FACES OVER EACH DAY ("what is this ?"): the row is now called PADS, 75 min each. Each face is a boxer your
   coach holds pads for that evening; the orange one is the boxer you are looking at.
+- THE FIGHT CAMERA, LOWER AND CLOSER (your "Yes, do all three"): the Side camera now stands at chest height by the
+  ropes, like Boxing Manager's main shot; still fixed and side-on. ZOOM: the - and + buttons right of Camera, or the = and
+  - keys, or the mouse wheel. A KNOCKDOWN REPLAY can be skipped: "Skip replay (Space)" shows while it plays. Judge the
+  camera: is it close enough, too close?
 - THE WALK TO THE CENTRE (your "their shoulders look weird"): the shoulders sit level instead of hunched forward,
   the gloves stay beside the thighs and each boxer looks at the other on the way in. Judge it at the start of a fight.
 - THE FIGHT'S COMMENTARY LINE now sits under the clock, not over the boxers' boots.
