@@ -18,6 +18,7 @@ const CornerStart := preload("res://scripts/fight3d/CornerStart.gd")
 const RkClips := preload("res://scripts/fight3d/RkClips.gd")
 const RingFeet := preload("res://scripts/fight3d/RingFeet.gd")
 const CornerWarm := preload("res://scripts/fight3d/CornerWarm.gd")
+const WalkArms := preload("res://scripts/fight3d/WalkArms.gd")
 const IntroStyle := preload("res://scripts/fight3d/IntroStyle.gd")
 const FightVoice := preload("res://scripts/audio/FightVoice.gd")
 
@@ -389,7 +390,10 @@ func cue_walk() -> void:
 		var a: Dictionary = stage.boxers[i]
 		var mark: Vector3 = axis * (stage.gap_m + 0.1) * (-0.5 if i == 0 else 0.5)
 		var face := crew.yaw_to(mark, Vector3.ZERO)
-		crew.walk(a, mark, func(): crew.turn(a, face, func(): stage.guard(i)))
+		WalkArms.hold(a, stage.boxers[1 - i])   # S501 ("their shoulders look weird"): no slouch, gloves beside the thighs while she walks
+		crew.walk(a, mark, func(): crew.turn(a, face, func():
+			WalkArms.release(a)
+			stage.guard(i)))
 
 
 ## The touch: both lead gloves meet between them at chest height without passing through each other.

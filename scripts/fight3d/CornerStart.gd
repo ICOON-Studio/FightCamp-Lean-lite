@@ -20,6 +20,7 @@ extends RefCounted
 const CornerShots := preload("res://scripts/fight3d/CornerShots.gd")
 const TvShot := preload("res://scripts/fight3d/TvShot.gd")
 const RingFeet := preload("res://scripts/fight3d/RingFeet.gd")
+const WalkArms := preload("res://scripts/fight3d/WalkArms.gd")
 
 const HOLD_S := 2.0          # both in their corners before the walk
 const WALK_MS := 0.75        # a calm walk (the fight's glide steps ~0.9 m/s), eased in over WALK_ACC_S, out over WALK_DECEL_M
@@ -85,6 +86,7 @@ func tick(delta: float) -> void:
 				for i in 2:
 					_from.append((fi.stage.boxers[i]["node"] as Node3D).position)
 					if RingFeet.on(fi.stage, fi.stage.boxers[i]):
+						WalkArms.hold(fi.stage.boxers[i], fi.stage.boxers[1 - i])   # S501: as the game's intro walk (FightIntro.cue_walk)
 						fi.crew.walk(fi.stage.boxers[i], _marks[i], _arrive.bind(i))
 		"walk":
 			walk_s += delta
@@ -190,6 +192,7 @@ func _arrive(i: int) -> void:
 		return
 	arrived[i] = true
 	var a: Dictionary = fi.stage.boxers[i]
+	WalkArms.release(a)
 	var at: Vector3 = _marks[i]
 	if CornerShots.pos(a).distance_to(at) > 0.05:
 		(a["node"] as Node3D).position = Vector3(at.x, 0.0, at.z)

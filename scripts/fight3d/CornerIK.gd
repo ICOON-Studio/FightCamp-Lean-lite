@@ -18,7 +18,7 @@ const CHAIN_SHARE := [0.14, 0.12, 0.14, 0.2, 0.2, 0.2]
 ## (eased like the look), BEFORE the look, so the look only has a small turn left for the neck.
 var _upright := {"deg": 0.0, "w": 0.0}
 var _duck := 0.0
-var _loose := {"amount": 0.0, "w": 0.0, "on": false}
+var _loose := {"amount": 0.0, "w": 0.0, "on": false, "neck": true}
 var _loose_bones: Array = []   # both collarbones and the neck
 var _spine := -1
 var _body: Node3D
@@ -115,10 +115,12 @@ func set_duck(w: float) -> void:
 ## the shoulders shrugged up to the chin and the neck pushed forward. An arm IK'd down from that guard hangs off a raised
 ## collarbone (the skin folds between neck and shoulder), and the head juts out once the trunk is tipped upright.
 ## loosen(w) eases both collarbones and the neck `w` of the way (0..1) to their rest turn, before the look and the hands.
-func loosen(w: float) -> void:
+## S501: `neck` false eases the collarbones only (the walk to the centre: the neck's rest turn bows the head).
+func loosen(w: float, neck: bool = true) -> void:
 	_loose["on"] = w > 0.0
 	if w > 0.0:
 		_loose["amount"] = clampf(w, 0.0, 1.0)
+		_loose["neck"] = neck
 
 
 func look(target: Variant) -> void:
@@ -167,6 +169,8 @@ func _process_modification() -> void:
 	if float(_loose["w"]) > 0.0:
 		var lw := float(_loose["amount"]) * _smooth(float(_loose["w"]))
 		for b in _loose_bones:
+			if b == _neck and not bool(_loose["neck"]):
+				continue
 			skel.set_bone_pose_rotation(b, skel.get_bone_pose_rotation(b).slerp(skel.get_bone_rest(b).basis.get_rotation_quaternion(), lw))
 	# The look first: it turns the chest (S309), and the hands then still meet what they reach.
 	_look["w"] = move_toward(float(_look["w"]), 1.0 if bool(_look["on"]) else 0.0, delta / EASE_S)
