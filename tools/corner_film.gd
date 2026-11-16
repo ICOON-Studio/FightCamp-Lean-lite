@@ -7,6 +7,7 @@ extends SceneTree
 ##       --script res://tools/corner_film.gd -- <out_dir> [film] [short] [pick=body] [combos] [seed=N]
 ## `film`: no stills, play the whole fight's corners (run it under --write-movie). Prints CORNER_FILM failures=<n>.
 
+const BodylookPose := preload("res://tools/bodylook_pose.gd")
 const W := 1920
 const H := 1080
 const Bouts := preload("res://scripts/state/Bouts.gd")
@@ -26,6 +27,7 @@ var main: Node
 var out_dir := "user://corner_film"
 var failures := 0
 var film := false
+var posedump := ""
 var short := false   # S397 `short` (operator: "why 5 minute and not shorter?"): round 1 skipped, one corner minute, round 2 opens
 var pick := "body"
 var pro := false
@@ -50,6 +52,8 @@ func _initialize() -> void:
 			habits = Array(str(a).substr(7).split(","))
 		if str(a).begins_with("cast="):
 			cast = Array(str(a).substr(5).split(","))
+		if str(a).begins_with("posedump="):
+			posedump = str(a).substr(9)   # BODYLOOK1: the coach's pose + lens at his close-up, for tools/bodylook_still.gd
 		if str(a).begins_with("seed="):
 			seed(int(str(a).substr(5)))   # FIGHTERLOOK1 A/B: the same career (Career.seed = randi()), so every arm meets the same opponent
 	DirAccess.make_dir_recursive_absolute(out_dir)
@@ -236,6 +240,8 @@ func _watch(view: Node, cm: Node) -> void:
 			picked = true
 			cm._pick(pick)
 		if k < STILLS.size() and tm >= float(STILLS[k][0]):
+			if posedump != "" and str(STILLS[k][1]) == "c07_reverse_pick":
+				BodylookPose.record(cm.crew.actors["coach"], view.stage.camera, posedump)
 			await RenderingServer.frame_post_draw
 			var path := out_dir.path_join(str(STILLS[k][1]) + ".png")
 			root.get_texture().get_image().save_png(path)

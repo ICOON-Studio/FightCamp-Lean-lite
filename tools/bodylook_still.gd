@@ -7,6 +7,8 @@ const MH := preload("res://scripts/fight3d/MHRig.gd")
 const FighterKit := preload("res://scripts/fight3d/FighterKit.gd")
 const FightClips := preload("res://scripts/fight3d/FightClips.gd")
 const CornerIK := preload("res://scripts/fight3d/CornerIK.gd")
+const CornerCrew := preload("res://scripts/fight3d/CornerCrew.gd")
+const BodylookPose := preload("res://tools/bodylook_pose.gd")
 
 func _initialize() -> void:
 	var args := OS.get_cmdline_user_args()
@@ -66,15 +68,43 @@ func _initialize() -> void:
 			ik.look(func(): return at)
 			for i in 60:
 				await process_frame
+	# `pose=<file>`: the pose and lens the game showed (tools/bodylook_pose.gd, written by corner_film `posedump=`).
+	var film := {}
+	for a in args:
+		if str(a).begins_with("pose="):
+			if name.begins_with("mh_staff"):
+				CornerCrew._shirt(body, Color(0.13, 0.2, 0.36))
+			await process_frame   # the body is in the tree before it is placed
+			film = BodylookPose.apply(body, skel, str(a).substr(5))
+			for i in 3:
+				await process_frame
+			neck = skel.global_transform * skel.get_bone_global_pose(skel.find_bone("Neck")).origin
 	var cam := Camera3D.new()
 	cam.fov = 30.0
 	root.add_child(cam)
 	cam.current = true
 	await process_frame   # the lens is in the tree before it is aimed
 	var tag := ("exported" if args.has("nobodylook") else "fixed") + ("_lean" if lean != 0.0 else "") + (("_" + clip) if clip != "" else "") + ("_look" if args.has("look") else "")
-	for view in [["front", Vector3(0.35, 0.05, 1.0)], ["side", Vector3(1.0, 0.05, 0.25)], ["back", Vector3(-0.4, 0.15, -1.0)], ["top", Vector3(0.3, 0.9, 0.7)]]:
-		cam.position = neck + (view[1] as Vector3).normalized() * 0.95 + Vector3(0, -0.02, 0)
-		cam.look_at(neck + Vector3(0, -0.04, 0), Vector3.UP)
+	var views: Array = [["front", Vector3(0.35, 0.05, 1.0)], ["side", Vector3(1.0, 0.05, 0.25)], ["back", Vector3(-0.4, 0.15, -1.0)], ["top", Vector3(0.3, 0.9, 0.7)]]
+	if not film.is_empty():
+		# the film's own lens, then the same collar from closer and from round it (offsets from the film lens's line)
+		tag += "_pose"
+		var from: Vector3 = (film["cam"] as Transform3D).origin - neck
+		views = [["film", Vector3.ZERO]]
+		for turn in [0, -50, 50, 110, 180]:
+			views.append(["near%d" % turn, from.rotated(Vector3.UP, deg_to_rad(turn)).normalized() * 0.42])
+		views.append(["above", (from.normalized() + Vector3.UP * 1.2).normalized() * 0.42])
+	for view in views:
+		if str(view[0]) == "film":
+			cam.global_transform = film["cam"]
+			cam.fov = film["fov"]
+		elif not film.is_empty():
+			cam.fov = 30.0
+			cam.position = neck + (view[1] as Vector3)
+			cam.look_at(neck + Vector3(0, -0.05, 0), Vector3.UP)
+		else:
+			cam.position = neck + (view[1] as Vector3).normalized() * 0.95 + Vector3(0, -0.02, 0)
+			cam.look_at(neck + Vector3(0, -0.04, 0), Vector3.UP)
 		for i in 6:
 			await process_frame
 		await RenderingServer.frame_post_draw

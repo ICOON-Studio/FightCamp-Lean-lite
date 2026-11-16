@@ -2,7 +2,6 @@ extends RefCounted
 ## BODYLOOK1 (S492, the operator on the S490 build: the coach's "terrible neck blending", the fighters' "shoulders look
 ## weird", "sometimes you can see through them (they seem like arts poorly stitched together)"). Three mesh faults the
 ## MetaHuman bodies carry, fixed once at load (tools/bodylook_*.gd measure each):
-##
 ## 1. STAFF: the head mesh runs down the neck onto the collarbones. Under a staff tee ~700 of its vertices lie inside the
 ##    shirt, 42 within 3 mm of it: as the coach moves they poke through the collar in patches. UE hides covered skin with
 ##    a body mask; so do we: a skin triangle whose three corners all lie under the outfit is dropped, and the
@@ -13,7 +12,10 @@ extends RefCounted
 ## 3. BOXERS: the kit is the body's own triangles painted, so the border between skin and singlet runs along triangle
 ##    edges - a staircase with ~2 cm teeth around each arm hole. The border's vertices slide onto a smooth line (Taubin
 ##    smoothing along the border, so the loop does not shrink; every copy of a vertex moves the same, no triangle folds).
-##   apply(fighter) -> {"head_dropped", "body_dropped", "island_tris", "edge_moved", "collar": PackedVector3Array}
+## 4. BOXERS (S495, operator: "the small steps at the singlet strap tips"): where a strap meets the neckline (the kit's
+##    open rim, where the head mesh starts) single kit triangles stand on the rim joined to the singlet by a corner
+##    only - 3 a shoulder on Lucy, 1 on Priya (tools/bodylook_rim.gd): a row of teeth beside the strap. They become skin.
+##   apply(fighter) -> {"head_dropped", "body_dropped", "island_tris", "teeth", "edge_moved", "collar": PackedVector3Array}
 
 const CELL := 0.03             # grid for the cloth vertices: +-1 cell covers the 4 cm normal line
 const UNDER_MAX := 0.04        # a skin vertex is under cloth when cloth lies along its outward normal within 4 cm
@@ -21,6 +23,7 @@ const UNDER_MIN := -0.002      # ... or up to 2 mm behind it
 const LINE_R := 0.012          # how far off the normal line a cloth vertex may sit (outfit vertices are ~1 cm apart)
 const TUCK := 3                # covered skin stays this many triangle rings in from the rim (tucked under the cloth)
 const TUCK_IN_M := 0.010       # ... and the head's covered skin sits this far inside its own surface (inside the collar)
+const TUCK_DEEPER_M := 0.008   # ... each ring further in sits this much deeper again
 const ISLAND_MAX := 40         # skin islands up to this many triangles can be stray cloth
 const EDGE_PASSES := 14        # Taubin passes along a skin/cloth border
 const EDGE_LAMBDA := 0.5
@@ -31,7 +34,7 @@ const KIT_CLOTH := ["MH_Top", "MH_Trim", "MH_Trunks"]
 
 
 static func apply(fighter: Node) -> Dictionary:
-	var out := {"head_dropped": 0, "body_dropped": 0, "island_tris": 0, "edge_moved": 0, "collar": PackedVector3Array()}
+	var out := {"head_dropped": 0, "body_dropped": 0, "island_tris": 0, "teeth": 0, "edge_moved": 0, "collar": PackedVector3Array()}
 	var body: MeshInstance3D = null
 	var kit := false
 	var outfit_pts := PackedVector3Array()   # a staff outfit: head and body skin hide under it
@@ -52,6 +55,7 @@ static func apply(fighter: Node) -> Dictionary:
 		return out
 	if kit:
 		out["island_tris"] = _fill_islands(body)
+		out["teeth"] = _trim_teeth(body)
 		out["edge_moved"] = _smooth_edges(body)
 	if not outfit_pts.is_empty():
 		var line := PackedVector3Array()
@@ -108,6 +112,10 @@ static func _mask(mi: MeshInstance3D, surf: String, to_root: Transform3D, cloth_
 				sunk = true
 	# The skin runs on a little way under the cloth (cut AT the rim, a dark gap showed between collar and neck): a vertex
 	# beside bare skin counts as bare, TUCK rings deep. Copies of a vertex along a UV seam go together (welded places).
+	var covered := under.duplicate()
+	var depth := PackedByteArray()   # how many rings in from the rim a covered vertex is (TUCK = deeper than that)
+	depth.resize(v.size())
+	depth.fill(TUCK)
 	for ring in TUCK:
 		var bare := {}
 		for t in range(0, idx.size(), 3):
@@ -117,6 +125,13 @@ static func _mask(mi: MeshInstance3D, surf: String, to_root: Transform3D, cloth_
 		for i in v.size():
 			if under[i] == 1 and bare.has(_key(v[i])):
 				under[i] = 0
+				depth[i] = ring
+	# S495 (the sliver of skin through the coach's shirt, 3-4 cm under his collar): the tucked skin goes in like a funnel,
+	# each ring TUCK_DEEPER_M further inside than the one above - deep under the shirt the two move apart by more than 1 cm.
+	if tuck_in > 0.0:
+		for i in v.size():
+			if covered[i] == 1:
+				v[i] -= nr[i] * TUCK_DEEPER_M * float(depth[i])
 	var keep := PackedInt32Array()
 	var dropped := 0
 	for t in range(0, idx.size(), 3):
@@ -214,6 +229,57 @@ static func _fill_islands(mi: MeshInstance3D) -> int:
 	return moved.size()
 
 
+## Kit triangles that stand on the kit's open rim with both other edges on skin move into the skin surface.
+static func _trim_teeth(mi: MeshInstance3D) -> int:
+	var skin_s := _surface(mi, "MH_Skin_Body")
+	if skin_s < 0:
+		return 0
+	var ids := {}
+	var uses := {}                      # edge -> [uses by skin triangles, uses by kit triangles]
+	var kit := {}                       # kit surface -> [[edge, edge, edge] per triangle]
+	for s in mi.mesh.get_surface_count():
+		var cloth: bool = KIT_CLOTH.any(func(c): return _name(mi, s).begins_with(c))
+		if s != skin_s and not cloth:
+			continue
+		var arr: Array = mi.mesh.surface_get_arrays(s)
+		var v: PackedVector3Array = arr[Mesh.ARRAY_VERTEX]
+		var idx: PackedInt32Array = arr[Mesh.ARRAY_INDEX]
+		var rows: Array = []
+		for t in range(0, idx.size(), 3):
+			var row := []
+			for c in 3:
+				var ka := _key(v[idx[t + c]])
+				var kb := _key(v[idx[t + (c + 1) % 3]])
+				for k in [ka, kb]:
+					if not ids.has(k):
+						ids[k] = ids.size()
+				var e: int = mini(ids[ka], ids[kb]) * 1000003 + maxi(ids[ka], ids[kb])
+				if not uses.has(e):
+					uses[e] = [0, 0]
+				uses[e][int(cloth)] += 1
+				row.append(e)
+			rows.append(row)
+		if cloth:
+			kit[s] = rows
+	var moved := 0
+	for s in kit:
+		var teeth: Array = []
+		var keep := PackedInt32Array()
+		var idx: PackedInt32Array = mi.mesh.surface_get_arrays(s)[Mesh.ARRAY_INDEX]
+		for t in (kit[s] as Array).size():
+			var n := Vector2i.ZERO          # edges on the open rim, edges on skin
+			for e in kit[s][t]:
+				n += Vector2i(int(uses[e][0] == 0 and uses[e][1] == 1), int(uses[e][0] > 0))
+			if n == Vector2i(1, 2):
+				teeth.append(t)
+			else:
+				keep.append_array([idx[t * 3], idx[t * 3 + 1], idx[t * 3 + 2]])
+		if not teeth.is_empty():
+			_rebuild(mi, {s: keep}, {"from": s, "to": {skin_s: teeth}}, {})
+			moved += teeth.size()
+	return moved
+
+
 ## The border between MH_Skin_Body and the kit painted on it, slid onto a smooth line. Returns the vertices moved (welded).
 static func _smooth_edges(mi: MeshInstance3D) -> int:
 	var skin_s := _surface(mi, "MH_Skin_Body")
@@ -264,7 +330,6 @@ static func _smooth_edges(mi: MeshInstance3D) -> int:
 		return 0
 	# The kit's own open rim is the body's neck hole, hidden under the head mesh's arc. A border vertex that is ON that
 	# rim stays put: slid, it took the rim out from under the arc and the hole showed as a dark line at the strap's top.
-	# (Only those: the straps are 3 cm wide, a wider guard froze the staircase along the whole strap.)
 	var pinned := {}
 	for e in cloth_edges:
 		if int(cloth_edges[e]) == 1 and not skin_edges.has(e):
@@ -312,8 +377,6 @@ static func _smooth_edges(mi: MeshInstance3D) -> int:
 		for id in bad:
 			if move.has(id):
 				move[id] = (move[id] as Vector3) * 0.5
-	# (The kit's vertices sit exactly on their skin twins with the same bone weights - tools/bodylook_edge.gd: 148 of 148
-	# on Lucy, 0 off the spot, 0 weighted differently - so the border needs no weld, only this slide. Every copy moves alike.)
 	var verts := {}
 	for s in surf_ids:
 		var arr: Array = mi.mesh.surface_get_arrays(s)

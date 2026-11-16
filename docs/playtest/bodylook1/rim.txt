@@ -1,0 +1,26 @@
+== as exported
+BODYLOOK_RIM mh_boxer_11 kit triangles standing on the neck hole's edge: 46, lone teeth (both other edges on skin) 6, one edge on skin 3
+BODYLOOK_RIM mh_boxer_11 lone teeth at (0.13 1.40 -0.03) (0.14 1.40 -0.02) (0.14 1.39 0.00) (-0.13 1.40 -0.03) (-0.14 1.40 -0.02) (-0.14 1.39 0.00)
+BODYLOOK_RIM mh_boxer_11 look=false head rim: 92 edges (0 are body edges too), 92 vertices: on skin 0, on kit 46 (of those on the neck hole's edge 46), on nothing 46
+BODYLOOK_RIM mh_boxer_11 rim over the kit, off the line between its neighbours: mean 0.48 mm, worst 1.27 mm (46 vertices)
+BODYLOOK_RIM mh_boxer_14 kit triangles standing on the neck hole's edge: 42, lone teeth (both other edges on skin) 2, one edge on skin 3
+BODYLOOK_RIM mh_boxer_14 lone teeth at (0.15 1.40 0.00) (-0.15 1.40 0.00)
+BODYLOOK_RIM mh_boxer_14 look=false head rim: 92 edges (0 are body edges too), 92 vertices: on skin 2, on kit 44 (of those on the neck hole's edge 44), on nothing 46
+BODYLOOK_RIM mh_boxer_14 rim over the kit, off the line between its neighbours: mean 0.58 mm, worst 1.80 mm (44 vertices)
+BODYLOOK_RIM mh_boxer_01 kit triangles standing on the neck hole's edge: 0, lone teeth (both other edges on skin) 0, one edge on skin 0
+BODYLOOK_RIM mh_boxer_01 lone teeth at 
+BODYLOOK_RIM mh_boxer_01 look=false head rim: 92 edges (0 are body edges too), 92 vertices: on skin 46, on kit 0 (of those on the neck hole's edge 0), on nothing 46
+BODYLOOK_RIM mh_boxer_01 rim over the kit, off the line between its neighbours: mean 0.00 mm, worst 0.00 mm (0 vertices)
+== in the game
+BODYLOOK_RIM mh_boxer_11 kit triangles standing on the neck hole's edge: 40, lone teeth (both other edges on skin) 0, one edge on skin 3
+BODYLOOK_RIM mh_boxer_11 lone teeth at 
+BODYLOOK_RIM mh_boxer_11 look=true head rim: 92 edges (0 are body edges too), 92 vertices: on skin 0, on kit 46 (of those on the neck hole's edge 42), on nothing 46
+BODYLOOK_RIM mh_boxer_11 rim over the kit, off the line between its neighbours: mean 0.48 mm, worst 1.27 mm (46 vertices)
+BODYLOOK_RIM mh_boxer_14 kit triangles standing on the neck hole's edge: 40, lone teeth (both other edges on skin) 0, one edge on skin 3
+BODYLOOK_RIM mh_boxer_14 lone teeth at 
+BODYLOOK_RIM mh_boxer_14 look=true head rim: 92 edges (0 are body edges too), 92 vertices: on skin 2, on kit 44 (of those on the neck hole's edge 42), on nothing 46
+BODYLOOK_RIM mh_boxer_14 rim over the kit, off the line between its neighbours: mean 0.58 mm, worst 1.80 mm (44 vertices)
+BODYLOOK_RIM mh_boxer_01 kit triangles standing on the neck hole's edge: 0, lone teeth (both other edges on skin) 0, one edge on skin 0
+BODYLOOK_RIM mh_boxer_01 lone teeth at 
+BODYLOOK_RIM mh_boxer_01 look=true head rim: 92 edges (0 are body edges too), 92 vertices: on skin 46, on kit 0 (of those on the neck hole's edge 0), on nothing 46
+BODYLOOK_RIM mh_boxer_01 rim over the kit, off the line between its neighbours: mean 0.00 mm, worst 0.00 mm (0 vertices)

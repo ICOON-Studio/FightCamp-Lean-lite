@@ -553,32 +553,142 @@
     "board": ""
    }
   },
-  "CLASH10": {
+  "FIGHTLOG1": {
+   "agent": "goose",
+   "id": "FIGHTLOG1",
+   "title": "the punch list of the fight analysis page: beats -> lines, filters, the count line, the live-log line (pure mo",
+   "status": "merged (S495): on main ad0fa63a9 with Claude fixes",
+   "started": "2026-11-16T00:10",
+   "where": "cloud",
+   "repo": "FightCamp-Lean",
+   "brief": "ops/research/TASK_FIGHTLOG1.md",
+   "model": "Goose + Qwen token plan (GitHub Actions)",
+   "eta": "2026-11-16T01:10",
+   "note": "S380 seat_dispatch: pure rule module routed to Goose instead of a PC worktree (command line)",
+   "issue": "322",
+   "branch": "goose/issue-322",
+   "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/322",
+   "reconciled": "2026-11-16 00:40 board_reconcile: run finished (success), branch goose/issue-322 pushed"
+  },
+  "FILMPATTERN1": {
+   "agent": "goose",
+   "id": "FILMPATTERN1",
+   "title": "the film game's rules: what can be marked, the coach's check, the words and figures, which claim finds which t",
+   "status": "merged (S495): on main ad0fa63a9 with Claude fixes",
+   "started": "2026-11-16T00:12",
+   "where": "cloud",
+   "repo": "FightCamp-Lean",
+   "brief": "ops/research/TASK_FILMPATTERN1.md",
+   "model": "Goose + Qwen token plan (GitHub Actions)",
+   "eta": "2026-11-16T01:12",
+   "note": "S380 seat_dispatch: pure rule module routed to Goose instead of a PC worktree (command line)",
+   "issue": "323",
+   "branch": "goose/issue-323",
+   "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/323",
+   "reconciled": "2026-11-16 00:40 board_reconcile: run finished (success), branch goose/issue-323 pushed"
+  },
+  "FILMBOUT1": {
    "agent": "qwen",
-   "id": "CLASH10",
-   "title": "TASK CLASH10 - clear the glove on the axis it is DRAWN on, re-read after each push, inside the clash pass (on main)",
-   "status": "running",
-   "started": "2026-11-15T20:42",
-   "eta": "2026-11-15T22:32",
-   "branch": "qwen/clash10",
-   "worktree": "E:/FightCamp/wt/LEAN_CLASH10",
-   "wt": "E:/FightCamp/wt/LEAN_CLASH10",
-   "brief": "ops/research/TASK_CLASH10.md",
+   "id": "FILMBOUT1",
+   "title": "TASK FILMBOUT1 - an opponent's past bout rebuilt punch by punch for a film night (rule module + test)",
+   "status": "merged (S495): on main ad0fa63a9 with Claude fixes",
+   "started": "2026-11-16T00:13",
+   "eta": "2026-11-16T02:03",
+   "branch": "qwen/filmbout1",
+   "worktree": "E:/FightCamp/wt/LEAN_FILMBOUT1",
+   "wt": "E:/FightCamp/wt/LEAN_FILMBOUT1",
+   "brief": "ops/research/TASK_FILMBOUT1.md",
    "repo": "FightCamp-Lean",
    "where": "pc",
-   "log": "E:/FightCamp/wt/CLASH10_dispatch_out.txt",
-   "match": "seat_dispatch.py run clash10",
+   "log": "E:/FightCamp/wt/FILMBOUT1_dispatch_out.txt",
+   "match": "seat_dispatch.py run filmbout1",
    "model": "qwen3-coder",
    "dispatch": {
-    "prompt": "E:/FightCamp/wt/CLASH10_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/CLASH10_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/CLASH10_dispatch_runner.log",
-    "source": "dispatch_queue.json",
+    "prompt": "E:/FightCamp/wt/FILMBOUT1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/FILMBOUT1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/FILMBOUT1_dispatch_runner.log",
+    "source": "command line",
     "brief_copied": true,
-    "runner_pid": 33760,
-    "seat_pid": 29400
+    "runner_pid": 39428,
+    "seat_pid": 10908
    },
-   "note": "S368 seat_dispatch: launched unattended (dispatch_queue.json); merging stays off"
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 4/4 PASS; PR #325",
+   "finished": "2026-11-16T00:36",
+   "pr": 325,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/film_bout_test.gd",
+     "ok": true,
+     "last": "FILM_BOUT failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/round_script_test.gd",
+     "ok": true,
+     "last": "ROUND_SCRIPT failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/habit_beats_test.gd",
+     "ok": true,
+     "last": "HABIT_BEATS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/rival_past_test.gd",
+     "ok": true,
+     "last": "RIVAL_PAST failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "ONELOOK2": {
+   "agent": "qwen",
+   "id": "ONELOOK2",
+   "title": "TASK ONELOOK2 - the fight HUD on the one palette: HudBars.gd + HudRegroup.gd (53 loose colours -> Palette names)",
+   "status": "running",
+   "started": "2026-11-16T09:04",
+   "eta": "2026-11-16T10:54",
+   "branch": "qwen/onelook2",
+   "worktree": "E:/FightCamp/wt/LEAN_ONELOOK2",
+   "wt": "E:/FightCamp/wt/LEAN_ONELOOK2",
+   "brief": "ops/research/TASK_ONELOOK2.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/ONELOOK2_dispatch_out.txt",
+   "match": "seat_dispatch.py run onelook2",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/ONELOOK2_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/ONELOOK2_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/ONELOOK2_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 43788,
+    "seat_pid": 20440
+   },
+   "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
+  },
+  "FILMCOUNT1": {
+   "agent": "goose",
+   "id": "FILMCOUNT1",
+   "title": "count any marked pattern on a film (the coach's check), and re-measure the film game on FilmBout's real tapes",
+   "status": "running",
+   "started": "2026-11-16T09:08",
+   "where": "cloud",
+   "repo": "FightCamp-Lean",
+   "brief": "ops/research/TASK_FILMCOUNT1.md",
+   "model": "Goose + Qwen token plan (GitHub Actions)",
+   "eta": "2026-11-16T10:08",
+   "note": "S380 seat_dispatch: pure rule module routed to Goose instead of a PC worktree (command line)",
+   "issue": "326",
+   "branch": "goose/issue-326",
+   "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/326"
   }
  },
  "codex_budget": {

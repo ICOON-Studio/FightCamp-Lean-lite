@@ -7889,10 +7889,11 @@
       "attach": [
         "AgentComms/board_attach/Q-S294-257_0_training_k_v6b_nobout.png"
       ],
-      "answer": null,
-      "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answer": "Change more (say what)",
+      "note": "why the fuck you put ask for a fight on the training screen ?",
+      "answered_at": "2026-11-16T06:53:11Z",
+      "seen_by_claude": true,
+      "comment_only": false
     },
     {
       "id": "Q-S294-258",
@@ -7905,6 +7906,24 @@
       ],
       "attach": [
         "AgentComms/board_attach/Q-S294-258_0_r3_bench_closeup_pose_before_top_after_bottom.jpg"
+      ],
+      "answer": "Yes, merge it",
+      "note": null,
+      "answered_at": "2026-11-16T06:51:21Z",
+      "seen_by_claude": true,
+      "comment_only": false
+    },
+    {
+      "id": "Q-S294-259",
+      "asked": "2026-11-16T06:57:37.736730+00:00",
+      "session": "S294",
+      "text": "Training K v6c, your Q-257 note: Ask for a fight is off the Training screen (asking for a bout belongs where bouts are booked). With no bout booked, the panel now only says the week is plain training, and the selected card is the boxer with no bout. Build it?",
+      "options": [
+        "Yes, build it",
+        "Change more (say what)"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-259_0_training_k_v6c_nobout.png"
       ],
       "answer": null,
       "note": null,

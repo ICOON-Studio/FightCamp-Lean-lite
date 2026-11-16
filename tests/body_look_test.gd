@@ -9,6 +9,7 @@ extends SceneTree
 ##   3. a boxer: the skin/singlet border - straighter, every kit vertex still exactly on its skin twin, same weights
 ##   and what must NOT change: a boxer's head mesh (its arc is the singlet's neckline), any surface's vertex count.
 
+const ClothMask := preload("res://scripts/fight3d/ClothMask.gd")
 const MH := preload("res://scripts/fight3d/MHRig.gd")
 const CornerCrew := preload("res://scripts/fight3d/CornerCrew.gd")
 const KIT := ["MH_Top", "MH_Trim", "MH_Trunks"]
@@ -119,6 +120,94 @@ func _neck_share(body: Node, surf: Array, band: float) -> float:
 	return on / maxf(all, 1e-6)
 
 
+## The largest difference on any one joint between the rib's weights and those of the nearest drawn vertex of the shirt
+## and of the head skin: [shirt, skin]. All three meshes share one Skin, so the joint numbers compare.
+func _collar_gaps(body: Node, collar: MeshInstance3D) -> Array:
+	var worst := [0.0, 0.0]
+	var carr: Array = collar.mesh.surface_get_arrays(0)
+	var cv: PackedVector3Array = carr[Mesh.ARRAY_VERTEX]
+	var box := collar.mesh.get_aabb().grow(0.04)
+	for which in 2:
+		var surf := _surface(body, ["Staff_Shirt", "MH_Skin_Head"][which])
+		var mi := surf[0] as MeshInstance3D
+		var arr: Array = mi.mesh.surface_get_arrays(int(surf[1]))
+		var v: PackedVector3Array = arr[Mesh.ARRAY_VERTEX]
+		var to_collar := ClothMask._to(body, collar).affine_inverse() * ClothMask._to(body, mi)
+		var near := {}
+		for i in arr[Mesh.ARRAY_INDEX]:
+			if not near.has(i) and box.has_point(to_collar * v[i]):
+				near[i] = to_collar * v[i]
+		for c in range(0, cv.size(), 8):   # the rib's ring points (8 vertices each, one set of weights)
+			var centre := Vector3.ZERO
+			for j in 8:
+				centre += cv[c + j] / 8.0
+			var best := -1
+			var best_d := INF
+			for i in near:
+				var d := (near[i] as Vector3).distance_squared_to(centre)
+				if d < best_d:
+					best_d = d
+					best = i
+			if best >= 0:
+				worst[which] = maxf(float(worst[which]), _gap(_mix(carr, c), _mix(arr, best)))
+	return worst
+
+
+func _mix(arr: Array, i: int) -> Dictionary:
+	var bo: PackedInt32Array = arr[Mesh.ARRAY_BONES]
+	var we: PackedFloat32Array = arr[Mesh.ARRAY_WEIGHTS]
+	var per: int = bo.size() / (arr[Mesh.ARRAY_VERTEX] as PackedVector3Array).size()
+	var out := {}
+	for c in per:
+		if we[i * per + c] > 0.0:
+			out[bo[i * per + c]] = float(out.get(bo[i * per + c], 0.0)) + we[i * per + c]
+	return out
+
+
+func _gap(a: Dictionary, b: Dictionary) -> float:
+	var worst := 0.0
+	for k in a:
+		worst = maxf(worst, absf(float(a[k]) - float(b.get(k, 0.0))))
+	for k in b:
+		worst = maxf(worst, absf(float(b[k]) - float(a.get(k, 0.0))))
+	return worst
+
+
+## Kit triangles that stand on the kit's open rim (one edge no other triangle shares) with both other edges on skin.
+func _lone_teeth(body: Node) -> int:
+	var mi := _surface(body, "MH_Skin_Body")[0] as MeshInstance3D
+	var uses := {}   # edge (two welded places) -> [skin triangles, kit triangles]
+	var kit: Array = []
+	for s in mi.mesh.get_surface_count():
+		var nm: String = mi.mesh.surface_get_material(s).resource_name
+		var cloth: bool = nm.begins_with("MH_Top") or nm.begins_with("MH_Trim") or nm.begins_with("MH_Trunks")
+		if nm != "MH_Skin_Body" and not cloth:
+			continue
+		var arr: Array = mi.mesh.surface_get_arrays(s)
+		var v: PackedVector3Array = arr[Mesh.ARRAY_VERTEX]
+		var idx: PackedInt32Array = arr[Mesh.ARRAY_INDEX]
+		for t in range(0, idx.size(), 3):
+			var tri := []
+			for c in 3:
+				var pair := [_key(v[idx[t + c]]), _key(v[idx[t + (c + 1) % 3]])]
+				pair.sort()
+				if not uses.has(pair):
+					uses[pair] = [0, 0]
+				uses[pair][int(cloth)] += 1
+				tri.append(pair)
+			if cloth:
+				kit.append(tri)
+	var lone := 0
+	for tri in kit:
+		var on_rim := 0
+		var on_skin := 0
+		for e in tri:
+			on_rim += int(uses[e][0] == 0 and uses[e][1] == 1)
+			on_skin += int(uses[e][0] > 0)
+		lone += int(on_rim == 1 and on_skin == 2)
+	return lone
+
+
 func _staff() -> void:
 	var raw := _load("mh_staff_coach", false)
 	var fixed := _load("mh_staff_coach", true)
@@ -147,6 +236,11 @@ func _staff() -> void:
 		var w1 := _neck_share(fixed, [collar, 0], 10.0)
 		_check(w0 < 0.02, "the ruler sees it: the exported tee's collar band has %.2f of its weight on the head and neck" % w0)
 		_check(w1 > 0.15, "the collar rib moves with his neck (%.2f of its weight on the head and neck)" % w1)
+		# S495 (the coach's close-up: the rim tore off the rib in shards, the neck rolled over it): rib, shirt rim and
+		# the neck skin on the line carry one set of weights, so no pose can part them.
+		var gaps := _collar_gaps(fixed, collar)
+		_check(float(gaps[0]) < 0.03, "the rib and the shirt's rim under it share their weights (worst difference on a joint %.3f)" % gaps[0])
+		_check(float(gaps[1]) < 0.08, "... and so does the neck skin beside the rib (worst difference %.3f)" % gaps[1])
 		var box := collar.mesh.get_aabb()
 		_check(box.size.x > 0.08 and box.size.x < 0.3 and box.size.y < 0.15, "the collar is a ring round a neck (%.2f x %.2f x %.2f m)" % [box.size.x, box.size.y, box.size.z])
 	raw.free()
@@ -320,6 +414,11 @@ func _border() -> void:
 	# compared the singlet to the HEAD mesh, whose ring lies on it by design). The slide must keep it so.
 	_check(int(b0[1]) >= 100 and int(b0[2]) == 0 and int(b0[3]) == 0, "as exported the kit is welded to the skin: %d twins, %d weighted differently, %d off the spot" % [b0[1], b0[2], b0[3]])
 	_check(int(b1[1]) >= int(b0[1]) and int(b1[2]) == 0 and int(b1[3]) == 0, "... and still is after the border slides: %d twins, %d weighted differently, %d off the spot" % [b1[1], b1[2], b1[3]])
+	# S495 ("the small steps at the singlet strap tips"): single kit triangles standing on the neckline beside each strap.
+	var teeth0 := _lone_teeth(raw)
+	var teeth1 := _lone_teeth(fixed)
+	_check(teeth0 >= 4, "the ruler sees the teeth at Lucy's strap tips: %d lone kit triangles on her neckline as exported" % teeth0)
+	_check(teeth1 == 0, "no lone kit triangle stands on her neckline in the game (%d)" % teeth1)
 	var h0 := _surface(raw, "MH_Skin_Head")
 	var h1 := _surface(fixed, "MH_Skin_Head")
 	var t0: int = ((h0[0] as MeshInstance3D).mesh.surface_get_arrays(h0[1])[Mesh.ARRAY_INDEX] as PackedInt32Array).size()
