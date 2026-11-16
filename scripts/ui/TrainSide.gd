@@ -63,7 +63,7 @@ static func this_week(model: Dictionary) -> PanelContainer:
 			words = "%.1f short of Usable" % float(mv["short"])
 		row.add_child(B.lab(words, 16, Palette.GOOD if dow >= 0 or float(mv["start"]) >= B.USABLE else Palette.MUTED, "bold"))
 		v.add_child(row)
-	var key := B.lab("Usable = she throws it in a fight (30)", 16, Palette.MUTED, "body")
+	var key := B.lab("Usable = thrown in a fight (30)", 16, Palette.MUTED, "body")
 	key.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	key.custom_minimum_size = Vector2(W - 40, 0)
 	v.add_child(key)

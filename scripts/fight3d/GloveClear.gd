@@ -12,6 +12,7 @@ extends SkeletonModifier3D
 
 const PunchReach := preload("res://scripts/fight3d/PunchReach.gd")
 const BlockCatch := preload("res://scripts/fight3d/BlockCatch.gd")   # S478: RISE_S, when a blocked punch becomes the catch's
+const HeadClear := preload("res://scripts/fight3d/HeadClear.gd")   # S498: the head lean's rule (touch, sides, ease)
 
 ## Head ~0.09 m + glove ~0.06 m radius: they touch at ~0.15 m. Kept at the touch: the other head is read before her own sway
 ## and snap move it (up to ~5 cm), so 0.13 left 12 of 571 inside frames deep in a head (36 without this modifier).
@@ -87,6 +88,15 @@ var clash_pushes := 0    # frames a glove was moved off the other's glove or for
 var heads := true        # `-- noheads` turns the head clearance off (control arm)
 var pushes := 0          # frames a glove was moved out (for probes)
 var head_pushes := 0     # frames her trunk leaned out of the other's head
+## S498 (HeadClear): her head's true centre before her own lean (world) - the other boxer's lean is worked out from it;
+## `tie` 0-1 = the tie-up's weight (Clinch sets it: heads on shoulders keep the old touch); the lean shown now and its side.
+var raw_head := Vector3.INF
+var tie := 0.0
+var _lean := Vector3.ZERO
+var _lean_side := 0
+var _lean_frame := -1
+var _dip := Vector3.ZERO      # a body punch's own head dip (world), eased
+var _dip_side := 0
 var _arms := {}
 var _head := -1
 var _hips := -1
@@ -132,7 +142,9 @@ func _process_modification() -> void:
 	# Skeleton space may be scaled (each body is scaled to her height): measure in world metres.
 	var k := skel.global_transform.basis.get_scale().x
 	# The head first: her lean moves her own arms, and the gloves are cleared after it.
-	if heads:
+	if heads and HeadClear.on:
+		_lean_head(skel, to_me, oc, k)
+	elif heads:
 		_clear_head(skel, hc, k)
 	if reach != null:
 		reach.settle()   # S331: her lean (and HitSnap's) carried the landing glove off the face; it lands again
@@ -401,6 +413,55 @@ func _rear_side(skel: Skeleton3D) -> String:
 	var left_w := skel.get_bone_global_pose(int(_arms["Left"][2])).origin
 	var right_w := skel.get_bone_global_pose(int(_arms["Right"][2])).origin
 	return "Left" if left_w.z > right_w.z else "Right"
+
+
+## S498 (HeadClear.gd, the fight week's "heads overlap inside"): the lean out of the other's head worked out from both
+## heads as the clips put them (true centres, half each, sideways as much as back), eased so it never pops.
+func _lean_head(skel: Skeleton3D, to_me: Transform3D, oc: Vector3, k: float) -> void:
+	var g := skel.get_bone_global_pose(_head)
+	var c := g.origin + g.basis.orthonormalized() * _up_rest * HEAD_UP_M / k
+	var f := Engine.get_process_frames()
+	if f != _lean_frame:   # the stack can run twice in a frame (a hit's forced update): one step of the ease a frame
+		_lean_frame = f
+		var dt := get_process_delta_time()
+		var pg: Node = peer if peer != null and is_instance_valid(peer) else null
+		var his: Vector3 = pg.raw_head if pg != null and (pg.raw_head as Vector3).is_finite() else oc
+		var oh := other.find_bone("Hips")
+		var his_hips: Vector3 = other.global_transform * other.get_bone_global_pose(oh).origin if oh >= 0 else his
+		var here := skel.global_transform * c
+		var my_hips: Vector3 = skel.global_transform * skel.get_bone_global_pose(_hips).origin if _hips >= 0 else here
+		# A body punch's thrower dips his head to his side from the start of the clip; what she reads is his dipped head.
+		var low: bool = reach != null and is_instance_valid(reach) and reach.get("ap") != null and HeadClear.low_punch(str(reach.ap.current_animation))
+		var d: Dictionary = HeadClear.dip(here, his, my_hips, his_hips, _dip_side) if low else {"push": Vector3.ZERO, "side": 0}
+		_dip = HeadClear.ease(_dip, d["push"], dt, HeadClear.DIP_MPS, HeadClear.DIP_MPS)
+		_dip_side = int(d["side"]) if low else (_dip_side if _dip.length() > 0.005 else 0)
+		raw_head = here + _dip
+		var touch := maxf(head_touch_m, lerpf(HeadClear.TOUCH_M, head_touch_m, tie))
+		var seed := _lean_side if _lean_side != 0 else _dip_side   # her side: her own, her dip's, else the other's
+		if seed == 0 and pg != null:
+			seed = int(pg._lean_side) if int(pg._lean_side) != 0 else int(pg._dip_side)
+		var w: Dictionary = HeadClear.want(raw_head, his, my_hips, his_hips, touch, seed,
+				HeadClear.shares(_held(reach), _held(pg.reach if pg != null else null)))
+		if int(w["side"]) != 0:
+			_lean_side = int(w["side"])
+		elif _lean.length() < 0.005:
+			_lean_side = 0
+		_lean = HeadClear.ease(_lean, w["push"], dt)
+		if HeadClear.trace and ((w["push"] as Vector3).length() > 0.0 or _lean.length() > 0.0 or _dip.length() > 0.0):
+			print("HEADTRACE f=%d %s raw=%.3f want=%s lean=%s side=%d dip=%s low=%s" % [f, skel.get_parent().name, raw_head.distance_to(his), w["push"], _lean, _lean_side, _dip, low])
+	if (_lean + _dip).length() < 1e-4:
+		return
+	HeadClear.lean(skel, [_spine, _chest], c, to_me.basis * (_lean + _dip))
+	head_pushes += 1
+
+
+## The strongest hold a boxer's landing reach has on a glove now, 0-1 (PunchReach.held).
+static func _held(r) -> float:
+	var out := 0.0
+	if r != null and is_instance_valid(r):
+		for w in (r.held() as Dictionary).values():
+			out = maxf(out, float(w))
+	return out
 
 
 ## S316: heads touch up close (temple to temple, a head on a shoulder) but never pass through each other - inside_guard_probe

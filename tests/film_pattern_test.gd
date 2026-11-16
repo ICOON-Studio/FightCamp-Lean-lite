@@ -279,8 +279,7 @@ func _test_figure() -> void:
 # ---------- word_text ----------
 
 func _test_word_text() -> void:
-	_check(FP.word_text("pass", "her") == "That's her", "word_text pass her")
-	_check(FP.word_text("pass", "him") == "That's him", "word_text pass him")
+	_check(FP.word_text("pass", "her") == "That's it" and FP.word_text("pass", "him") == "That's it", "word_text pass: no her/him")
 	_check(FP.word_text("maybe", "her") == "Maybe", "word_text maybe")
 	_check(FP.word_text("not_enough", "him") == "Not enough moments", "word_text not_enough")
 	_check(FP.word_text("nothing", "her") == "Nothing there", "word_text nothing")

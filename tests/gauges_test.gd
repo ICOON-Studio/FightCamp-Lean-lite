@@ -50,7 +50,8 @@ func _bands() -> void:
 func _window() -> void:
 	var women := GaugeRow.limits_for({"sex": "f"})
 	var men := GaugeRow.limits_for({"sex": "m"})
-	_check(women.size() == 4 and men.size() == 4, "four classes a sex (%s / %s)" % [str(women), str(men)])
+	# S498: the women have a fifth class since the test club (57 kg); the window lists every class of the sex, four or more
+	_check(women.size() >= 4 and men.size() >= 4 and not women.has(0.0) and not men.has(0.0), "four or more classes a sex (%s / %s)" % [str(women), str(men)])
 	_check(is_equal_approx(Gauges.class_floor(60.0, women), 57.0), "women's lightweight window 57-60")
 	_check(is_equal_approx(Gauges.class_floor(57.0, women), 54.0), "the lightest class: limit - 3")
 	_check(is_equal_approx(Gauges.class_floor(60.0, men), 57.0) and is_equal_approx(Gauges.class_floor(70.0, men), 67.0)

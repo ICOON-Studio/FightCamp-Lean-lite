@@ -1,3 +1,16 @@
+S498 (2026-11-16) - THE FIGHT'S MOTION, WEEK DAY 3 (heads inside each other)
+- WATCH A FIGHT (Test jump: men's fight), and watch the BODY SHOTS. Both critics' first fault was heads and bodies
+  inside each other. It happened on one thing: a body shot, where the puncher leaned in and the hit boxer folded onto
+  him. Now the puncher dips his head to the side before the punch lands and the two heads lean to opposite sides.
+  Measured on the same 75 seconds: a head inside the other's body 9 frames -> 5; one of the two overlaps is gone, the
+  other is shallower (15 cm -> 21 cm between the heads at its worst). Judge it: do the heads still pass through?
+- THE CAMERA no longer cuts while a punch is in flight (it waits a third of a second past the hit).
+- TRAINING: every boxer on pads gets the full session (your "full pads, no sharing"); the white drag line is gone.
+- NOT IN YET (found today, fix is next): the puncher's upper body snaps forward in one frame as the punch lands; the
+  punching arm hanging out after the hit; steps that look like slides; the knees (Ziva is on them). No new blind score yet.
+- A CORRECTION: yesterday's "head pops 53 -> 39" does not repeat on this build. Measured four times today it reads 49-50.
+  The upper-body snap above is most of them.
+
 S497 (2026-11-16) - THE FIGHT'S MOTION, WEEK DAY 2 (your "The fight looks terrible should we stop this project ?")
 - WATCH A FIGHT (Test jump: men's fight). A boxer who is hit now answers sooner: her head reaches its furthest point
   5 frames after the glove lands (it was 8, the worst 15). Judge it: does a clean shot look like it was felt?

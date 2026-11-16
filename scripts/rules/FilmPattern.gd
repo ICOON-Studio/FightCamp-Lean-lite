@@ -18,7 +18,7 @@ const THEN_IDS: Array = [
 	"right_low", "lunged", "stood", "to_body", "wild", "countered", "fewer", "outlanded"]
 const THEN_WORDS: Array = [
 	"right hand low", "lunged in", "stood still", "throws to the body",
-	"single wild right", "the other's counter lands", "throws fewer", "gets out-landed"]
+	"a wild swing", "the other's counter lands", "throws fewer", "gets out-landed"]
 
 ## Bars
 const PASS_Z := 2.33
@@ -239,12 +239,11 @@ static func figure(word: String, films: int, alone: bool) -> float:
 	return 0.0
 
 
-## Word text: "That's her/him", "Maybe", "Not enough moments", "Nothing there".
-static func word_text(word: String, pronoun: String) -> String:
+## Word text: "That's it", "Maybe", "Not enough moments", "Nothing there" (S498: no her/him in a script's text - the
+## house rule no_pronoun_test keeps; `pronoun` stays in the signature for its callers).
+static func word_text(word: String, _pronoun: String = "") -> String:
 	if word == "pass":
-		if pronoun == "her":
-			return "That's her"
-		return "That's him"
+		return "That's it"
 	if word == "maybe":
 		return "Maybe"
 	if word == "not_enough":

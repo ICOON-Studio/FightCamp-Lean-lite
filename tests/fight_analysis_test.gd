@@ -155,13 +155,13 @@ func _run() -> void:
 		chip.pressed.emit()
 		var cl: Dictionary = p.selected_line()
 		_check(not cl.is_empty() and "R%d %s" % [int(cl["round"]), FL.clock(float(cl["t"]))] == chip.text, "a combination time selects its line (%s)" % chip.text)
-	# Check it with the coach -> one check, "That's her", File it at 70%
+	# Check it with the coach -> one check, "That's it", File it at 70%
 	p.set_claim(0, 0)
 	_press(p, "CheckIt")
 	_check(int(night["checks_left"]) == 1 and int(night["opp_checks_left"]) == 5, "Check it spends one check (%d left, %d for the opponent)" % [int(night["checks_left"]), int(night["opp_checks_left"])])
 	_check(checked.size() == 1 and str(checked[0][0]["when"]) == "jab" and str(checked[0][0]["then"]) == "right_low" and int(checked[0][1]) == 1,
 		"on_check gets the jab -> right hand low claim and one film seen")
-	_check(str(p.coach_big.text).contains("That's her"), "coach line: " + str(p.coach_big.text))
+	_check(str(p.coach_big.text).contains("That's it"), "coach line: " + str(p.coach_big.text))
 	_check(str(p.file_btn.text) == "File it at 70%" and not p.file_btn.disabled, "File it shows 70%: " + str(p.file_btn.text))
 	_check(str(p.find_child("ChecksWords", true, false).text) == "1 left - 5 for this opponent", "checks line: " + str(p.find_child("ChecksWords", true, false).text))
 	_press(p, "FileIt")
@@ -199,14 +199,14 @@ func _run() -> void:
 	_press(p, "Done")
 	_check(done_n == 1 and p.is_queued_for_deletion(), "Done for tonight calls on_done and closes the page")
 	await _frames(1)
-	# the opponent without the habit (a man): "That's him"
+	# the opponent without the habit (a man): "That's it"
 	var plain: Dictionary = _film(_opp_plain(), {"d": -60, "vs": "Leo Grant", "vs_club": "Lynn AC", "win": true, "how": "stopped in round 2"})
 	var q: Control = _open(_opp_plain(), [plain], _night(1))
 	await _frames(3)
 	_check(int(q.list.line_rows()) == _lines(plain).size(), "opponent without the habit: list rows = FightLog.lines")
 	_check(q.next_film_btn.disabled, "one film: Next film off")
 	_press(q, "CheckIt")
-	_check(str(q.coach_big.text).contains("That's him"), "coach word for a man: " + str(q.coach_big.text))
+	_check(str(q.coach_big.text).contains("That's it"), "coach word for a man: " + str(q.coach_big.text))
 	_words_check(q, ["Sam Cole", "Cole", "Leo Grant", "Grant"], "plain opponent")
 	q.queue_free()
 	await _frames(1)

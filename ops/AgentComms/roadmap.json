@@ -3,16 +3,16 @@
  "updated": "2026-11-16",
  "author": "claude S294",
  "now": {
-  "id": "S497",
+  "id": "S498",
   "owner": "claude",
   "updated": "2026-11-16",
-  "summary": "S497 fight motion week day 2: on main 5900d8fba - hit reactions start past their lead-in (hit head peaks 5 frames after the blow, was 8; worst 8, was 15) and PopCap, the head-jump cap, reworked so join_return stays green (skeleton-space ease, the trunk left to the landing reach while it holds a glove, a hit boxer freed 0.25 s). Film r2b vs r0: head jumps over 12 cm a frame 53 -> 39. Found why arms hang out after a punch (the reach re-pins the glove by distance until the clip ends); ArmHome + a one-way hold kept OFF main in ops/research/FIGHTWEEK2_WIP_S497.patch (arm out 6 -> 5 frames only, join_return cross 10.35 m/s over the 9.0 bar). Seats: CAMHOLD1 queued for Qwen, PRESSFLASH1 sent to Grok Dev. Other sessions checked for the owner: Training K v6c built (f416dfa56) -> Q-S294-260 shared pad minutes vs his 'No, never short'; six old sessions archived. Not collected: COACHNECK1 PR 329, FILMCOUNT1 (goose/issue-326, FilmCount.gd 578 lines), ONELOOK2 PR 327 (ONELOOK1 session).",
-  "next_action": "S498 FIGHT MOTION WEEK day 3 (to ~11-23; deal: blind whole-fight score 4/10 -> 5+ or 3D leaves the first release). 1) heads never overlap inside (a head-clear lean; ruler 'a head inside the other's body' 15 frames, r0 9) - the critics' first fault; 2) arms home: git apply ops/research/FIGHTWEEK2_WIP_S497.patch, release the glove along the clip's own path at a capped ~6 m/s so join_return's cross passes, then the hit-stop/CARRY_S/blocked-punch holds; 3) reaction size on the small ones (5-8 cm); 4) trace one jab's contact frame for the 12 contact-frame head jumps (body node, not the skeleton; a lunge slew did nothing); then film r1 + two NEW blind critics. Collect COACHNECK1 (render c07 before/after, his OK), FILMCOUNT1 (split FilmCount.gd under 500), CAMHOLD1 + PRESSFLASH1 when they land; act on Q-S294-260; update gauges_test + camp_cards_test counts (nightly). Arena a pure module and Ziva the knee jitter in the first 15 minutes.",
-  "last_working_commit": "5900d8fba",
-  "verified_playable": "Builds/FightCamp.exe exported S497 (after the Training K build); join_return_test 0 failures at 60 fps; film r2b measured",
-  "incomplete_blocked": "Arms home + one-way hold (WIP patch, join_return cross red); heads overlapping inside; contact-frame head jumps; COACHNECK1/FILMCOUNT1 not collected",
-  "next_acceptance": "Rulers vs r0: a head inside the other's body under 9 frames, arm out median under 4 frames with join_return green, then r1 film at two fresh blind critics 5+/10",
-  "awaiting_operator": "COACHNECK1 before/after still for his OK"
+  "summary": "S498 fight motion week day 3: on main a65d80b4f - heads lean to opposite sides inside (HeadClear.gd: true head centres keep 0.28 m, half each, sideways as much as back, eased; a body puncher dips his head 11 cm before the punch lands). Same bout filmed on today's main, old lean vs new: a head inside the other's body 9 -> 5 frames, heads closer than 25 cm 0.22 % -> 0.13 % of frames, the second overlap gone, the first 15 -> 21 cm at its worst. Found the contact-frame head jumps: the PUNCHER's trunk bends 19-24 cm in the jab's contact frame (PunchReach's chest lean under a held glove, which PopCap leaves alone). His answers acted on: Q-260 'full pads, no sharing' -> sharing removed by the Training K session (71c58eec6, 7494fd9b6); Q-261 'i do not like the wooden panels , some pictures ahve some dont' -> ONELOOK1 not merged, the One look session is taking the wood out and proving every page uses one panel. Collected: CAMHOLD1 (camera never cuts in a punch, 8fd718ed6), FILMCOUNT1 (Goose, split under 500, 561bf6b62: five film-night claims pass by chance over the 8 % bar, worst 'their jab -> a wild swing' 26.5 %). COACHNECK1 (PR 329) rendered before/after and NOT merged: the neck moves under 1 degree, its probe's chest axis is wrong. Nightly reds: gauges, camp_cards, film word fixed (5fd3fcd34); no_pronoun's 6 Training lines with the Training K session. Ziva runs ZIVAKNEE1 (knees stop jerking).",
+  "next_action": "S499 FIGHT MOTION WEEK day 4 (to ~11-23; deal: blind whole-fight score 4/10 -> 5+ or 3D leaves the first release). 0) read the r3nocam film result in NEXT_SESSION_PROMPT (does CAMHOLD1 raise head jumps 39 -> 49?) and collect ZIVAKNEE1 (ziva/knee1 PR: knee ruler before/after, look at the film). 1) the puncher's trunk snap at contact: rate-limit PunchReach's chest lean (ReachLimit.lean, LEAN_MAX 0.30 rad arrives in one frame under a held glove; about 4 rad/s, the forced pass in HitImpact.hit left free so the graze check still reads the full reach) - the 12 contact-frame head jumps and most of the 'inside a clip' ones at clip_t = contact; 2) arms home: git apply ops/research/FIGHTWEEK2_WIP_S497.patch, release the glove along the clip's own path at a capped ~6 m/s so join_return's cross passes; 3) reaction size on the small ones (5-8 cm) and a step back on a body shot (the hit boxer's root is not moved by a hit today: 15-20 cm over 6 frames would also end the last head overlap); then film r1 + two NEW blind critics. COACHNECK1 round 2 (chest axis from spine_03 -> spine_05 bone origins; prove on a pose dumped from the game) to Ziva after the knees. FIGHTFILM1: settle the five chance-prone claims (film_count_test names them) before wiring the film night. Arena got nothing again: give it a pure module in the first 15 minutes (a body-shot step-back rule or the claims' stricter bar).",
+  "last_working_commit": "a65d80b4f",
+  "verified_playable": "Films r3d (new head rule) and r3ctl (control) on today's main; head_clear_test 39 lines green, join_return_test 0 failures; export: see NEXT_SESSION_PROMPT",
+  "incomplete_blocked": "Contact-frame trunk snap (found, not fixed); arms home (WIP patch); head jumps 39 -> 49 on today's main unexplained (r3nocam film checks CAMHOLD1); COACHNECK1 not fixed; film_count_test red on 5 chance-prone claims (the finding); no_pronoun_test 6 Training lines (Training K session)",
+  "next_acceptance": "Rulers vs r0: head jumps on the contact frame under 4, a head inside the other's body under 5 frames, arm out median under 4 frames with join_return green, then r1 film at two fresh blind critics 5+/10",
+  "awaiting_operator": "ONELOOK1 round 2 comes to his board from the One look session (wood panels out, one panel on every page)"
  },
  "next": "S496: 0) get_usage; where_we_are roll S496; quote board answers (Q-259 Training K v6c; build WeekCards v6c on Yes - WeekCards.gd 552 lines is split first). 1) Collect as they land, by diff + their test: Qwen ONELOOK2 (fight HUD palette, ETA ~11:00 11-16; render before/after fight stills on the hidden desktop, his OK before merge), Goose FILMCOUNT1 (#326, branch goose/issue-326 - Goose's PR step failed twice: collect from the branch; read its FINDS table and noise numbers, retune FilmBout rates if a floor missed), Grok Dev FIGHTPAGE1 (branch grok/fightpage1, ETA ~13:30; render at 1920x1080 text 1.0 and 1.3, judge against fight_analysis_v3.png, then his board). 2) Kalli SQ202 LADDER1 v6 + SQ203 COACHSPEC1 r6 -> two fresh critics each (Dola + John; Dola refused COACHSPEC1 r5 - resend). 3) Wire after FIGHTPAGE1+FILMCOUNT1: the film-night stop in the fight week (FightWeekPlan film night -> FightAnalysis.for_tape with FilmCount.check, FilmPattern.checks by coach rating), FilmEdge pays at the figure, the result page's Punch by punch tab over m['tape'] (BoutTape), History keeps 20 tapes (~400 lines a bout). 4) Live fight log panel brief to Grok Dev once FIGHTPAGE1 lands. 5) ONELOOK1 sweep after ONELOOK2: RosterCards, ReadPanel, MatMap (UI.gd/WoodKit/WeekCards first need a split).",
  "assessment": {
@@ -2080,6 +2080,11 @@
    "id": "S497",
    "date": "2026-11-16",
    "summary": "S497 fight motion week day 2: on main 5900d8fba - hit reactions start past their lead-in (hit head peaks 5 frames after the blow, was 8; worst 8, was 15) and PopCap, the head-jump cap, reworked so join_return stays green (skeleton-space ease, the trunk left to the landing reach while it holds a glove, a hit boxer freed 0.25 s). Film r2b vs r0: head jumps over 12 cm a frame 53 -> 39. Found why arms hang out after a punch (the reach re-pins the glove by distance until the clip ends); ArmHome + a one-way hold kept OFF main in ops/research/FIGHTWEEK2_WIP_S497.patch (arm out 6 -> 5 frames only, join_return cross 10.35 m/s over the 9.0 bar). Seats: CAMHOLD1 queued for Qwen, PRESSFLASH1 sent to Grok Dev. Other sessions checked for the owner: Training K v6c built (f416dfa56) -> Q-S294-260 shared pad minutes vs his 'No, never short'; six old sessions archived. Not collected: COACHNECK1 PR 329, FILMCOUNT1 (goose/issue-326, FilmCount.gd 578 lines), ONELOOK2 PR 327 (ONELOOK1 session)."
+  },
+  {
+   "id": "S498",
+   "date": "2026-11-16",
+   "summary": "S498 fight motion week day 3: on main a65d80b4f - heads lean to opposite sides inside (HeadClear.gd: true head centres keep 0.28 m, half each, sideways as much as back, eased; a body puncher dips his head 11 cm before the punch lands). Same bout filmed on today's main, old lean vs new: a head inside the other's body 9 -> 5 frames, heads closer than 25 cm 0.22 % -> 0.13 % of frames, the second overlap gone, the first 15 -> 21 cm at its worst. Found the contact-frame head jumps: the PUNCHER's trunk bends 19-24 cm in the jab's contact frame (PunchReach's chest lean under a held glove, which PopCap leaves alone). His answers acted on: Q-260 'full pads, no sharing' -> sharing removed by the Training K session (71c58eec6, 7494fd9b6); Q-261 'i do not like the wooden panels , some pictures ahve some dont' -> ONELOOK1 not merged, the One look session is taking the wood out and proving every page uses one panel. Collected: CAMHOLD1 (camera never cuts in a punch, 8fd718ed6), FILMCOUNT1 (Goose, split under 500, 561bf6b62: five film-night claims pass by chance over the 8 % bar, worst 'their jab -> a wild swing' 26.5 %). COACHNECK1 (PR 329) rendered before/after and NOT merged: the neck moves under 1 degree, its probe's chest axis is wrong. Nightly reds: gauges, camp_cards, film word fixed (5fd3fcd34); no_pronoun's 6 Training lines with the Training K session. Ziva runs ZIVAKNEE1 (knees stop jerking)."
   }
  ],
  "blocked_on_operator": [],
@@ -4998,7 +5003,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-16",
+  "updated": "2026-11-16 12:12 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5153,35 +5158,32 @@
     "who": "qwen",
     "started": "2026-11-16T09:04",
     "run": "ONELOOK2",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "count any marked pattern on a film (the coach's check), and re-measure the film game on FilmBout's real tapes",
-    "who": "goose",
-    "started": "2026-11-16T09:08",
-    "run": "FILMCOUNT1",
-    "state": "LANDED - Claude collects"
+    "state": "LANDED - the One look session collects it"
    },
    {
     "title": "TASK COACHNECK1 - the corner coach's neck stays upright in his close-up (the owner's C415 mark)",
     "who": "qwen",
     "started": "2026-11-16T09:41",
     "run": "COACHNECK1",
-    "state": "LANDED - Claude collects"
+    "state": "NOT MERGED - the neck did not move (round 2 after the knees)"
    },
    {
-    "title": "TASK CAMHOLD1 - the fight camera never cuts while a punch is in flight",
-    "who": "qwen",
-    "started": "2026-11-16T10:42",
-    "run": "CAMHOLD1",
-    "state": "QUEUED - the 30-min job launches it"
-   },
-   {
-    "title": "TASK PRESSFLASH1 - crowd camera flashes never read as a hit in empty air",
+    "title": "TASK PRESSFLASH1 - crowd camera flashes never read as a hit in empty air (both critics' note)",
     "who": "grok",
-    "started": "2026-11-16T10:44",
-    "run": "PRESSFLASH1",
-    "state": "RUNNING"
+    "started": "2026-11-16T10:46",
+    "run": "PRESSFLASH1"
+   },
+   {
+    "title": "The boxers' knees stop jerking in the fight (about 4 jerks a second per knee today)",
+    "who": "ziva",
+    "started": "2026-11-16T11:57:48+02:00",
+    "run": "ZIVAKNEE1"
+   },
+   {
+    "title": "The boxers' knees stop jerking in the fight (about 4 jerks a second per knee today)",
+    "who": "ziva",
+    "started": "2026-11-16T12:44",
+    "run": "ZIVAKNEE1"
    }
   ],
   "next": [
@@ -5713,6 +5715,26 @@
   },
   "done_recently": [
    {
+    "title": "Fight motion week day 3: heads lean to opposite sides inside, a body puncher dips his head (head inside a body 9 -> 5 frames) (S498)",
+    "who": "claude",
+    "when": "2026-11-16"
+   },
+   {
+    "title": "Pads: every boxer gets the full session, no sharing (his Q-260 answer)",
+    "who": "claude",
+    "when": "2026-11-16"
+   },
+   {
+    "title": "The fight camera never cuts while a punch is in flight (Qwen, collected)",
+    "who": "qwen",
+    "when": "2026-11-16"
+   },
+   {
+    "title": "Film pattern counter collected (Goose): five film-night patterns pass by chance too often",
+    "who": "goose",
+    "when": "2026-11-16"
+   },
+   {
     "title": "Fight motion week day 2: hit reactions 3 frames sooner, head jumps 53 -> 39, glove test green (S497)",
     "who": "claude",
     "when": "2026-11-16"
@@ -5749,26 +5771,6 @@
    },
    {
     "title": "Rival club card built: three answers, loyalty bar, costs (S494, his Q-253)",
-    "who": "claude",
-    "when": "2026-11-15"
-   },
-   {
-    "title": "Fighter Overview fits the screen at the Largest text size (S494)",
-    "who": "claude",
-    "when": "2026-11-15"
-   },
-   {
-    "title": "Training K v5: no opponent on the Training screen -> his OK Q-255 (S494)",
-    "who": "claude",
-    "when": "2026-11-15"
-   },
-   {
-    "title": "Palette guard test collected: new loose colours are blocked (S494)",
-    "who": "qwen",
-    "when": "2026-11-15"
-   },
-   {
-    "title": "One palette: Palette.gd + Office, fight menus, Overview, tips moved (S493)",
     "who": "claude",
     "when": "2026-11-15"
    }
@@ -5899,6 +5901,18 @@
   "map": {
    "done_earlier": [
     {
+     "text": "Hit reactions 3 frames sooner",
+     "who": "claude"
+    },
+    {
+     "text": "Head-jump cap: glove test green",
+     "who": "claude"
+    },
+    {
+     "text": "Training screen built (K v6c)",
+     "who": "agent"
+    },
+    {
      "text": "Fight page: 3 rule modules in",
      "who": "agent"
     },
@@ -5941,32 +5955,24 @@
     {
      "text": "Rival card: C, simpler",
      "who": "claude"
-    },
-    {
-     "text": "Coach roles: round 4 written",
-     "who": "claude"
-    },
-    {
-     "text": "Plan: no-IF lines warn",
-     "who": "claude"
-    },
-    {
-     "text": "Clipping audit -> CLASH10",
-     "who": "claude"
     }
    ],
    "done_session": [
     {
-     "text": "Hit reactions 3 frames sooner",
-     "who": "claude"
-    },
-    {
-     "text": "Head-jump cap: glove test green",
-     "who": "claude"
-    },
-    {
-     "text": "Training screen built (K v6c)",
+     "text": "Camera holds through a punch",
      "who": "agent"
+    },
+    {
+     "text": "Pads: full session each (Q-260)",
+     "who": "claude"
+    },
+    {
+     "text": "Film counter collected (Goose)",
+     "who": "agent"
+    },
+    {
+     "text": "Nightly reds: 4 of 5 fixed",
+     "who": "claude"
     }
    ],
    "now": [
@@ -6027,20 +6033,20 @@
      "who": "agent"
     },
     {
-     "text": "Fight motion week: day 2",
+     "text": "Crowd flashes off the boxers",
+     "who": "agent"
+    },
+    {
+     "text": "Fight motion week: day 3",
      "who": "claude"
     },
     {
-     "text": "Your answer: pad minutes (Q-260)",
-     "who": "operator"
-    },
-    {
-     "text": "Camera holds the punch (Qwen)",
+     "text": "Knees stop jerking (Ziva)",
      "who": "agent"
     },
     {
-     "text": "Crowd flashes off the boxers",
-     "who": "agent"
+     "text": "One look: wood panels out",
+     "who": "claude"
     }
    ],
    "next": [
@@ -6123,14 +6129,26 @@
     {
      "text": "Heads never overlap inside",
      "who": "claude"
+    },
+    {
+     "text": "Coach neck: round 2 (not fixed)",
+     "who": "agent"
+    },
+    {
+     "text": "Chest snaps at contact: ease it",
+     "who": "claude"
+    },
+    {
+     "text": "Film night: 5 chance patterns",
+     "who": "claude"
     }
    ],
-   "session": "S497"
+   "session": "S498"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
- "last_working_commit": "5900d8fba",
- "next_action": "S498 FIGHT MOTION WEEK day 3 (to ~11-23; deal: blind whole-fight score 4/10 -> 5+ or 3D leaves the first release). 1) heads never overlap inside (a head-clear lean; ruler 'a head inside the other's body' 15 frames, r0 9) - the critics' first fault; 2) arms home: git apply ops/research/FIGHTWEEK2_WIP_S497.patch, release the glove along the clip's own path at a capped ~6 m/s so join_return's cross passes, then the hit-stop/CARRY_S/blocked-punch holds; 3) reaction size on the small ones (5-8 cm); 4) trace one jab's contact frame for the 12 contact-frame head jumps (body node, not the skeleton; a lunge slew did nothing); then film r1 + two NEW blind critics. Collect COACHNECK1 (render c07 before/after, his OK), FILMCOUNT1 (split FilmCount.gd under 500), CAMHOLD1 + PRESSFLASH1 when they land; act on Q-S294-260; update gauges_test + camp_cards_test counts (nightly). Arena a pure module and Ziva the knee jitter in the first 15 minutes.",
- "next_acceptance": "Ladder v2 reaches his board only with both critics at depth 7+; STYLE4 code merged only when docs/STYLE3_RESULT.md's gates pass (each style 1.5-4 wins in 100, none best vs all) at 100 bouts a cell; ClubDeal v9 briefed only after his Q-242 answer; no CLASH brief before the audit names which skeleton's stack runs first and what peer data each reads."
+ "last_working_commit": "a65d80b4f",
+ "next_action": "S499 FIGHT MOTION WEEK day 4 (to ~11-23; deal: blind whole-fight score 4/10 -> 5+ or 3D leaves the first release). 0) read the r3nocam film result in NEXT_SESSION_PROMPT (does CAMHOLD1 raise head jumps 39 -> 49?) and collect ZIVAKNEE1 (ziva/knee1 PR: knee ruler before/after, look at the film). 1) the puncher's trunk snap at contact: rate-limit PunchReach's chest lean (ReachLimit.lean, LEAN_MAX 0.30 rad arrives in one frame under a held glove; about 4 rad/s, the forced pass in HitImpact.hit left free so the graze check still reads the full reach) - the 12 contact-frame head jumps and most of the 'inside a clip' ones at clip_t = contact; 2) arms home: git apply ops/research/FIGHTWEEK2_WIP_S497.patch, release the glove along the clip's own path at a capped ~6 m/s so join_return's cross passes; 3) reaction size on the small ones (5-8 cm) and a step back on a body shot (the hit boxer's root is not moved by a hit today: 15-20 cm over 6 frames would also end the last head overlap); then film r1 + two NEW blind critics. COACHNECK1 round 2 (chest axis from spine_03 -> spine_05 bone origins; prove on a pose dumped from the game) to Ziva after the knees. FIGHTFILM1: settle the five chance-prone claims (film_count_test names them) before wiring the film night. Arena got nothing again: give it a pure module in the first 15 minutes (a body-shot step-back rule or the claims' stricter bar).",
+ "next_acceptance": "Rulers vs r0: head jumps on the contact frame under 4, a head inside the other's body under 5 frames, arm out median under 4 frames with join_return green, then r1 film at two fresh blind critics 5+/10"
 }

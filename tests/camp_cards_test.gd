@@ -145,8 +145,8 @@ func _initialize() -> void:
 	_check(_labels(m.find_child("Protocol_1", true, false)).has("3 nights, spar 1 a week")
 		and _labels(m.find_child("Protocol_2", true, false)).has("4 nights, spar 2 a week"), "Light and Standard in nights, no price")
 	_check(_labels(m.find_child("Film", true, false)).has("Film on the opponent: yes, free"), "film is free: %s" % str(_labels(m.find_child("Film", true, false))))
-	# S381 C229 stage 4: film is earned - nothing found and no plan yet: 0 of Maria's 4 answerable tells, +0.0.
-	_check(_labels(m.find_child("Film", true, false)).has("0/4 answered - +0.0 on the night")
+	# S381 C229 stage 4: film is earned - nothing found and no plan yet: 0 of the 6 answerable tells (4 until the film patterns grew, S495), +0.0.
+	_check(_labels(m.find_child("Film", true, false)).has("0/6 answered - +0.0 on the night")
 		and _labels(m.find_child("Protocol_1", true, false)).any(func(t): return str(t).ends_with("night bonus +0.25"))
 		and _labels(m.find_child("Protocol_2", true, false)).any(func(t): return str(t).ends_with("night bonus +0.6")),
 		"film 'N/M answered', the halved edges on Light / Standard: %s" % str(_labels(m.find_child("Film", true, false))))

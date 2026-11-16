@@ -11,6 +11,7 @@ const RoundStyle := preload("res://scripts/rules/RoundStyle.gd")
 
 const AFTER_KEYS: Array = ["guard_up", "threw_on", "right_low", "left_low", "stood", "lunged"]
 const AFTER_BASE: Array = [0.45, 0.15, 0.12, 0.10, 0.10, 0.08]
+const A_MODES: Array = ["press", "range", "counter"]
 
 
 ## Rebuilds a past bout. opp = opponent profile (id, style, threat, habits).
@@ -21,6 +22,7 @@ static func build(opp: Dictionary, row: Dictionary, rounds: int = 3) -> Dictiona
 	rng.seed = seed
 	var style: String = str(opp.get("style", "Boxer-puncher"))
 	var threat: String = str(opp.get("threat", ""))
+	var weak: String = str(opp.get("weak", "")).to_lower()
 	var habits: Array = (opp.get("habits", []) as Array).duplicate()
 	var a_style: String = "Boxer-puncher"
 	var b_wins_bout: bool = bool(row.get("win", false))
@@ -30,6 +32,16 @@ static func build(opp: Dictionary, row: Dictionary, rounds: int = 3) -> Dictiona
 	var round_a_wins: Array = _decide_round_wins(b_wins_bout, how, is_stop, stop_r, rounds, rng)
 	# The opponent throws her real mix (RoundStyle: rating, style, threat words), not the generic one.
 	var profiles: Dictionary = {"b": RoundStyle.from_opponent(opp)}
+	# FILMCOUNT1: habits minus the two hurt habits (FilmBout fires those itself after a big landings)
+	var non_hurt_habits: Array = []
+	for h in habits:
+		var hs: String = str(h)
+		if hs != "digs_body_when_hurt" and hs != "loads_up_when_hurt":
+			non_hurt_habits.append(hs)
+	var has_digs_body: bool = habits.has("digs_body_when_hurt")
+	var has_loads_up: bool = habits.has("loads_up_when_hurt")
+	# Weakness against pressure?
+	var weak_pressure: bool = weak.contains("backed up") or weak.contains("backs straight") or weak.contains("pressure")
 	var exchanges: Array = []
 	for r in rounds:
 		var rn: int = r + 1
@@ -40,6 +52,7 @@ static func build(opp: Dictionary, row: Dictionary, rounds: int = 3) -> Dictiona
 			ex_n = rng.randi_range(2, 5)
 		var a_wr: bool = r < round_a_wins.size() and bool(round_a_wins[r])
 		var ex_w: Array = _decide_ex_winners(a_wr, ex_n, rng)
+		var a_big_count_rn: int = 0  # track "a" big landings per round (max 2)
 		for i in ex_n:
 			var mode: String = _roll_mode(style, rng)
 			var place: int = _place_for_mode(mode, rng)
@@ -50,9 +63,13 @@ static func build(opp: Dictionary, row: Dictionary, rounds: int = 3) -> Dictiona
 			var ex_seed: int = rng.randi()
 			var script: Dictionary = RoundScript.build(rd, a_style, style, Exchanges.EX_SECONDS, ex_seed, profiles)
 			_bias_threat(script, threat, rng)   # before the habits, so a habit's own punch is never rewritten
-			HabitBeats.apply(script, {"a": [], "b": habits}, {}, rng)
+			HabitBeats.apply(script, {"a": [], "b": non_hurt_habits}, {}, rng)
 			_apply_after_facts(script, habits, rng)
 			_apply_big(script, threat, rng)
+			_apply_a_big(script, rng, a_big_count_rn)
+			# FILMCOUNT1: hurt habits fire after "a" big landings
+			if has_digs_body or has_loads_up:
+				a_big_count_rn = _apply_hurt_habits(script, has_digs_body, has_loads_up, a_big_count_rn, rn)
 			_apply_slowdown(script, habits, rn, i, rng)
 			var landed: Array = [0, 0]
 			for beat in script["beats"]:
@@ -61,8 +78,13 @@ static func build(opp: Dictionary, row: Dictionary, rounds: int = 3) -> Dictiona
 						landed[0] = int(landed[0]) + 1
 					elif str(beat["who"]) == "b":
 						landed[1] = int(landed[1]) + 1
+			# FILMCOUNT1: a_mode drawn AFTER everything else for this exchange
+			var a_mode: String = str(A_MODES[rng.randi_range(0, A_MODES.size() - 1)])
+			# FILMCOUNT1: weakness against pressure - turn up to 2 a misses/blocked into lands
+			if weak_pressure and a_mode == "press":
+				_apply_weakness_pressure(script, landed)
 			exchanges.append({"i": i, "round": rn, "at": int(Exchanges.EX_SECONDS) * i,
-				"mode": mode, "place": place, "pinned": pinned,
+				"mode": mode, "a_mode": a_mode, "place": place, "pinned": pinned,
 				"won": a_won, "landed": landed, "beats": script["beats"]})
 	return {"exchanges": exchanges, "rounds": rounds, "won": b_wins_bout, "how": how}
 
@@ -254,6 +276,70 @@ static func _apply_big(script: Dictionary, threat: String, rng: RandomNumberGene
 			continue
 		var thresh: float = 0.5 if (threat != "" and str(bd["move"]) == threat) else (1.0 / 6.0)
 		bd["big"] = rng.randf() < thresh
+
+
+## FILMCOUNT1: mark "a" landing big with p 1/12.
+static func _apply_a_big(script: Dictionary, rng: RandomNumberGenerator, already_big: int) -> void:
+	for bd in script["beats"]:
+		if str(bd["who"]) != "a" or str(bd["result"]) != "lands" or not _is_punch(str(bd["move"])):
+			continue
+		bd["big"] = rng.randf() < (1.0 / 12.0)
+
+
+## FILMCOUNT1: hurt habits fire after "a" big landings (at most 2 per round total).
+## digs_body -> next "b" punch within 2s becomes "body_hook"
+## loads_up -> next "b" punch within 2s becomes "lead_hook", result "misses", def ""
+## Returns updated a_big_count for the round.
+static func _apply_hurt_habits(script: Dictionary, has_digs: bool, has_loads: bool, a_big_count: int, rn: int) -> int:
+	var beats: Array = script["beats"]
+	var digs_fired: int = 0
+	var loads_fired: int = 0
+	for i in beats.size():
+		var bd: Dictionary = beats[i]
+		if str(bd["who"]) != "a" or str(bd["result"]) != "lands" or not bool(bd.get("big", false)):
+			continue
+		if not _is_punch(str(bd["move"])):
+			continue
+		a_big_count += 1
+		if a_big_count > 2:
+			break
+		var a_t: float = float(bd["t"])
+		# Find next "b" punch within 2s
+		for j in range(i + 1, beats.size()):
+			var nb: Dictionary = beats[j]
+			if float(nb["t"]) - a_t > 2.0:
+				break
+			if str(nb["who"]) != "b" or not _is_punch(str(nb["move"])):
+				continue
+			if has_digs and digs_fired < 2:
+				nb["move"] = "body_hook"
+				nb["habit"] = "digs_body_when_hurt"
+				digs_fired += 1
+				break
+			elif has_loads and loads_fired < 2:
+				nb["move"] = "lead_hook"
+				nb["result"] = "misses"
+				nb["def"] = ""
+				nb["habit"] = "loads_up_when_hurt"
+				loads_fired += 1
+				break
+	return a_big_count
+
+
+## FILMCOUNT1: weakness against pressure - turn up to 2 "a" misses/blocked into lands.
+static func _apply_weakness_pressure(script: Dictionary, landed: Array) -> void:
+	var turned: int = 0
+	for bd in script["beats"]:
+		if turned >= 2:
+			break
+		if str(bd["who"]) != "a" or not _is_punch(str(bd["move"])):
+			continue
+		var result: String = str(bd["result"])
+		if result == "misses" or result == "blocked":
+			bd["result"] = "lands"
+			bd["def"] = ""
+			landed[0] = int(landed[0]) + 1
+			turned += 1
 
 
 static func _apply_slowdown(script: Dictionary, habits: Array, rn: int, ex_i: int, rng: RandomNumberGenerator) -> void:

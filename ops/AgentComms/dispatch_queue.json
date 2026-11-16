@@ -1606,8 +1606,17 @@
   {
    "task": "CAMHOLD1",
    "seat": "qwen",
-   "status": "queued",
-   "queued": "2026-11-16T10:42"
+   "status": "launched",
+   "queued": "2026-11-16T10:42",
+   "launched": "2026-11-16T11:12"
+  },
+  {
+   "task": "BODYSTEP1",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-16T12:52",
+   "title": "TASK BODYSTEP1 - a landed punch moves the hit boxer back a little (the rule only)",
+   "launched": "2026-11-16T12:54"
   }
  ]
 }

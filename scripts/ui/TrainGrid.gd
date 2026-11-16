@@ -43,7 +43,7 @@ static func _labels() -> VBoxContainer:
 	key.columns = 1
 	key.add_theme_constant_override("v_separation", -2)
 	v.add_child(key)
-	for k in [["had", "she had"], ["now", "tonight"], ["ghost", "+1 night"], ["flag", "Usable"]]:
+	for k in [["had", "before"], ["now", "tonight"], ["ghost", "+1 night"], ["flag", "Usable"]]:
 		var h := HBoxContainer.new()
 		h.add_theme_constant_override("separation", 4)
 		var sw := ColorRect.new()
@@ -106,7 +106,7 @@ static func _morning(d: Dictionary, cb: Dictionary) -> Control:
 		why.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		why.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		v.add_child(why)
-		t.tooltip_text = "Off the gym sponsorship she works two mornings a week."
+		t.tooltip_text = "Day job: two mornings a week at work, off the gym sponsorship."
 		return t
 	var pic := B.icon(str(am["id"]), 58, Palette.WARN if bool(am["red"]) else Palette.LINE)
 	pic.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
@@ -213,7 +213,7 @@ static func _evening(d: Dictionary, cb: Dictionary, sel_day: int, f: Dictionary)
 			v.add_child(g)
 			if not cards.is_empty():
 				v.add_child(_center("drills %d usable move%s" % [cards.size(), "" if cards.size() == 1 else "s"], 16, Palette.MUTED))
-			t.tooltip_text = "Sparring: Fight IQ, and the moves she can already use get ring time."
+			t.tooltip_text = "Sparring: Fight IQ, and the moves already usable get ring time."
 		"film":
 			v.add_child(_pic("film"))
 			v.add_child(_center("Film", 18, Palette.TEXT))

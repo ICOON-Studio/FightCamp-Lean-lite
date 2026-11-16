@@ -707,23 +707,6 @@
     "board": ""
    }
   },
-  "FILMCOUNT1": {
-   "agent": "goose",
-   "id": "FILMCOUNT1",
-   "title": "count any marked pattern on a film (the coach's check), and re-measure the film game on FilmBout's real tapes",
-   "status": "landed",
-   "started": "2026-11-16T09:08",
-   "where": "cloud",
-   "repo": "FightCamp-Lean",
-   "brief": "ops/research/TASK_FILMCOUNT1.md",
-   "model": "Goose + Qwen token plan (GitHub Actions)",
-   "eta": "2026-11-16T10:08",
-   "note": "S380 seat_dispatch: pure rule module routed to Goose instead of a PC worktree (command line)",
-   "issue": "326",
-   "branch": "goose/issue-326",
-   "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/326",
-   "reconciled": "2026-11-16 10:10 board_reconcile: run finished (success), branch goose/issue-326 pushed"
-  },
   "COACHNECK1": {
    "agent": "qwen",
    "id": "COACHNECK1",
@@ -749,7 +732,7 @@
     "runner_pid": 34448,
     "seat_pid": 27736
    },
-   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 4/4 PASS; PR #329; NOT committed (outside OWNS): E, FightCampwtLEAN_COACHNECK1corner.log, corner.log, corner2.log, corner3.log, docs/playtest/bodylook1/c01_bell_part.png, docs/playtest/bodylook1/c02_behind_walk.png, docs/playtest/bodylook1/c03_low_sits.png, docs/playtest/bodylook1/c04_water.png, docs/playtest/bodylook1/c05_ice.png, docs/playtest/bodylook1/c06_coach_card.png, docs/playtest/bodylook1/c075_side2.png, docs/playtest/bodylook1/c07_reverse_pick.png, docs/playtest/bodylook1/c085_cutman.png, docs/playtest/bodylook1/c08_corner_wide.png, docs/playtest/bodylook1/c08b_ots.png, docs/playtest/bodylook1/c09_other_corner.png, docs/playtest/bodylook1/c10_seconds_out.png, docs/playtest/bodylook1/c11_walk_out.png, docs/playtest/bodylook1/coach_c07_after.json, docs/playtest/bodylook1/i012_red_warms_up.png, docs/playtest/bodylook1/i013_blue_warms_up.png, docs/playtest/bodylook1/i015_tale_of_the_tape.png, docs/playtest/bodylook1/i01_wide.png, docs/playtest/bodylook1/i02_red_named.png, docs/playtest/bodylook1/i03_blue_named.png, docs/playtest/bodylook1/i04_walk_in.png, docs/playtest/bodylook1/i05_touch.png, docs/playtest/bodylook1/i06_seconds_out.png",
+   "note": "S498: rendered before/after, NOT merged - neck moves under 1 degree; PR 329 comment says what round 2 needs",
    "finished": "2026-11-16T10:23",
    "pr": 329,
    "checks": [
@@ -795,6 +778,49 @@
    "branch": "grok/pressflash1",
    "brief": "ops/research/TASK_PRESSFLASH1.md",
    "repo": "FightCamp-Lean"
+  },
+  "ZIVAKNEE1": {
+   "agent": "ziva",
+   "title": "The boxers' knees stop jerking in the fight (about 4 jerks a second per knee today)",
+   "task": "TASK_ZIVAKNEE1.md",
+   "started": "2026-11-16T12:44",
+   "eta": "2026-11-16T16:00",
+   "status": "running",
+   "branch": "ziva/knee1",
+   "worktree": "E:/FightCamp/wt/ZIVA_LEAN",
+   "chat": "Ziva chat 'Fight Film Analysis' on http://127.0.0.1:7012/",
+   "session": "S498",
+   "id": "ZIVAKNEE1",
+   "where": "pc (Ziva editor, hidden desktop)",
+   "brief": "ops/research/TASK_ZIVAKNEE1.md",
+   "repo": "FightCamp-Lean"
+  },
+  "BODYSTEP1": {
+   "agent": "qwen",
+   "id": "BODYSTEP1",
+   "title": "TASK BODYSTEP1 - a landed punch moves the hit boxer back a little (the rule only, no wiring)",
+   "status": "running",
+   "started": "2026-11-16T12:54",
+   "eta": "2026-11-16T14:44",
+   "branch": "qwen/bodystep1",
+   "worktree": "E:/FightCamp/wt/LEAN_BODYSTEP1",
+   "wt": "E:/FightCamp/wt/LEAN_BODYSTEP1",
+   "brief": "ops/research/TASK_BODYSTEP1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/BODYSTEP1_dispatch_out.txt",
+   "match": "seat_dispatch.py run bodystep1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/BODYSTEP1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/BODYSTEP1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/BODYSTEP1_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 42092,
+    "seat_pid": 31640
+   },
+   "note": "S368 seat_dispatch: launched unattended (dispatch_queue.json); merging stays off"
   }
  },
  "codex_budget": {

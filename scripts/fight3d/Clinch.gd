@@ -192,6 +192,9 @@ func offset(_i: int, to: Vector3) -> Vector3:
 func _process(delta: float) -> void:
 	_w = move_toward(_w, 1.0 if engaged else 0.0, delta / (EASE_S if engaged else RELEASE_S))
 	_tie = move_toward(_tie, 1.0 if holder >= 0 else 0.0, delta / EASE_S)
+	for bx in stage.boxers:   # S498: tied up, the heads keep the old touch (HeadClear's wider one would part them)
+		if bx.get("gclear") != null:
+			bx["gclear"].tie = _tie
 	PushOff.step(stage, delta)
 	if holder < 0:
 		return
