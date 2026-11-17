@@ -65,3 +65,26 @@ ranking) + Watch round 2 / drill / Continue. Board Q-265 + map frame scorecard1.
 ## Debt
 uppercut_tail_test red before and after (4 failures with the old hit-stop, 2 with the new) - not in the nightly list.
 block_absorb, hit_carry, join_return, punch_speed, punch_weight still red since S496-S501.
+
+## After ship (2026-11-17): Scorecard tab, PUNCHEND2, head jumps, cross step back
+- Operator "Yes, build it" (Q-265, in chat and on the board): SCORECARD tab built (scripts/ui/ResultScorecard.gd):
+  three paper sheets from ScoreSheet.build adding up to the header's cards, hover = that judge's reason, round cards,
+  what it means. Fits 1920x1080 with the footer at his text size. result_tabs_test 60 asserts green. Stills
+  docs/mockups/s504/scorecard/real_*.png on /review and the map (scorecard2). Not built: "Watch round 2" (no replay).
+- Operator: "why stopped already ?" - the queue was not empty; work went on.
+- PUNCHEND2 collected (PR 339) + two fixes with tests: the home search started after the run's LAST frame (a hand home
+  inside its own clip never counted; home p50 17 -> 5); `hold` is the stage's hit-stop on BOTH rows, so contact needs the
+  hand at 85 % of its reach. Tried and dropped: hip-line frame (worse), glove-to-head distance (too loose). Reading:
+  landed punches - contact_home p50 30 (never within 30 frames in ring axes), 2 of 34 within 4 frames. Hand-from-hips
+  in ring axes still reads a turned guard as out; a chest bone in the film log would fix the ruler.
+- PRs 338 (STANDOFF1, collected), 333 (FILMBAR1, superseded by FILMBAR2), 329 (COACHNECK1, not taken S498) closed.
+- Qwen IDLEIN1 launched 08:18 (StandOff.idle_inside: both inside 1.0 m, nobody busy), wt LEAN_IDLEIN1.
+- HEAD JUMPS (s504g 90 -> s504k 86 -> s504o 80): 74 of 85 were the head moving on a body that also slid. RingPlace
+  travel_cap 1.8 m/s (`nonodecap`; 2.7 gave the trunk no room: 97), PopCapPre before the reach (`noprecap`: 96 vs 86),
+  PopCap reads the head in the world (`skelpopcap`). A reaction cap at 3.6 m/s cost reaction timing (late 3 -> 8):
+  dropped. Left: ~30 reaction jumps (the blow is free 0.25 s by design), the reach's own trunk bend (layers between
+  PopCapPre and PopCap add 4-10 cm on a jab frame - find which: ArmHome / PunchReach / HitSnap sway / GloveClear).
+  The film tool logs stdout only with hidden_desktop `--log=<file>`.
+- CROSS STEP BACK 11.5 -> 12.9 cm: a clean blow cancels the hit man's velocity toward the hitter (`nostopin`), the rock
+  holds until the feet are under the place (`rockout`). Left: 3 of 8 crosses' shown hips stay 6-20 cm short of the place
+  (frames 815, 3785, 5061 in s504o) - the reaction clip's own hips or the body keep.

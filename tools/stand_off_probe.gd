@@ -24,6 +24,14 @@ func _initialize() -> void:
 	print("STAND_OFF count=%d total_s=%.1f longest_frames=%d near_frames=%d pressing_share=%.3f" % [
 		result["count"], result["total_s"], result["longest_frames"],
 		result["near_frames"], result["pressing_share"]])
+	var idle_result: Dictionary = SO.idle_inside(rows)
+	var spells: Array = idle_result["spells"]
+	for sp in spells:
+		print("  idle start_s=%.3f secs=%.3f hips_m=%.2f a=%s b=%s" % [
+			sp["start_s"], sp["secs"], sp["hips_m"], sp["clip_a"], sp["clip_b"]])
+	print("IDLE_INSIDE spells=%d total_s=%.1f longest_s=%.1f near_frames=%d idle_share=%.2f" % [
+		idle_result["count"], idle_result["total_s"], idle_result["longest_s"],
+		idle_result["near_frames"], idle_result["idle_share"]])
 	quit(0)
 
 

@@ -1,3 +1,10 @@
+S504 (2026-11-17, later) - THE FIGHT: STEADIER HEADS, A CROSS STOPS HIM
+- Fewer head "pops": a boxer's body may no longer slide more than ~6 cm in one frame on a lunge, and his trunk is
+  held steady before the arm reaches for the target. In a 3-minute test the head jumped over 12 cm in one frame 80
+  times (was 90); jab pops 18 -> 12.
+- A clean cross now STOPS a boxer who was stepping in, so he goes back with the blow instead of walking through it
+  (a cross pushes him back ~13 cm now, was ~11), and his body stays back until his feet have stepped under it.
+
 S504 (2026-11-17, your "Yes, build it" on Q-265) - THE SCORECARD TAB
 - After any fight, the result page has a new SCORECARD tab between SUMMARY and THE EXCHANGES: the three judges' sheets
   on paper, each with its name, a row a round (your boxer red, the opponent blue), the running score, the total ringed

@@ -70,6 +70,13 @@ static func lean_max(k: Dictionary) -> float:
 	if old_lean or k.is_empty():
 		return LEAN_MAX_M
 	return maxf(LEAN_MAX_M, float(k.get("m", 0.0)) * LEAN_SHARE)
+## S504 (s504k: a cross still read 11.5 cm back in 12 frames): the step is over in 6 frames, the rock then eased out over
+## the next 8 while the feet had not stepped yet, so the body sank back onto them. The rock now holds until the feet are
+## under the place (the lag along the blow under ROCK_DONE_M), ROCK_HOLD_MAX_S at most. `-- rockout` = the old ease-out.
+const ROCK_DONE_M := 0.02
+const ROCK_HOLD_MAX_S := 0.6
+static var old_rock: bool = OS.get_cmdline_user_args().has("rockout")
+static var stop_in: bool = not OS.get_cmdline_user_args().has("nostopin")
 const LEAN_OUT_S := 0.25   # after the step back is over the rock eases out (the feet stand under the place by then)
 
 
@@ -94,6 +101,11 @@ static func start(bx: Dictionary, from: Vector3, move: String, big: bool, edge_m
 	if m <= 0.0:
 		return
 	bx["knock"] = {"dir": dir, "m": m, "over": over_s(move, big), "t": 0.0, "done": 0.0, "w": 1.0}
+	# S504 (s504n: a cross landing on a boxer stepping IN left him 14 cm closer, not 15 cm back - his step outran the
+	# blow): a clean blow stops the part of her own step that goes toward the hitter. `-- nostopin` = the control arm.
+	var v: Variant = bx.get("vel")
+	if stop_in and v is Vector3 and (v as Vector3).dot(-dir) > 0.0:
+		bx["vel"] = (v as Vector3) + dir * (v as Vector3).dot(-dir)
 
 
 ## One frame: how far the place moves (add it to bx["pos"]). Zero when no step back is running.
@@ -105,7 +117,7 @@ static func tick(bx: Dictionary, delta: float) -> Vector3:
 	var want: float = float(k["m"]) * at(float(k["t"]), float(k["over"]))
 	var step: Vector3 = (k["dir"] as Vector3) * (want - float(k["done"]))
 	k["done"] = want
-	if float(k["t"]) >= float(k["over"]):
+	if float(k["t"]) >= float(k["over"]) and (old_rock or float(k.get("lag", 0.0)) <= ROCK_DONE_M or float(k["t"]) >= float(k["over"]) + ROCK_HOLD_MAX_S):
 		k["w"] = move_toward(float(k["w"]), 0.0, delta / LEAN_OUT_S)
 		if float(k["w"]) <= 0.0:
 			bx.erase("knock")
@@ -127,4 +139,5 @@ static func lean(bx: Dictionary, lag: Vector3) -> Vector3:
 	if k.is_empty():
 		return Vector3.ZERO
 	var dir: Vector3 = k["dir"]
+	k["lag"] = maxf(0.0, lag.dot(dir))   # tick() holds the rock until the feet have caught up (S504)
 	return dir * clampf(lag.dot(dir), 0.0, lean_max(k)) * float(k["w"])

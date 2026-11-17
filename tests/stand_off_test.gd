@@ -23,6 +23,12 @@ func _initialize() -> void:
 	_test_custom_args()
 	_test_empty()
 	_test_mutant_3d_hips()
+	_test_idle_inside_basic()
+	_test_idle_inside_busy_splits()
+	_test_idle_inside_too_far()
+	_test_idle_inside_too_short()
+	_test_idle_inside_missing_frame_splits()
+	_test_idle_inside_phase()
 	print("STAND_OFF_TEST failures=%d" % failures)
 	quit(1 if failures > 0 else 0)
 
@@ -116,6 +122,76 @@ func _test_mutant_3d_hips() -> void:
 		rows.append(r1)
 	var r: Dictionary = SO.analyse(rows)
 	_check(r["near_frames"] == 12, "mutant_3d: near_frames=12 (x/z=0.98) got %d" % r["near_frames"])
+
+
+func _test_idle_inside_basic() -> void:
+	## 30 frames inside 0.9 m, both idle -> 1 spell of 30 frames.
+	## analyse (glove rule) with glove_m=0.30 would report count=0 (gloves too far for pressing),
+	## but idle_inside finds 1 spell because it doesn't require close gloves.
+	var rows := _make_run(100, 129, 0.9, 0.30, "idle", "idle")
+	var r: Dictionary = SO.idle_inside(rows)
+	_check(r["count"] == 1, "idle_basic: count=1 got %d" % r["count"])
+	_check(r["total_frames"] == 30, "idle_basic: total_frames=30 got %d" % r["total_frames"])
+	_check(r["spells"].size() == 1, "idle_basic: spells.size()=1 got %d" % r["spells"].size())
+	if r["spells"].size() > 0:
+		var sp: Dictionary = r["spells"][0]
+		_check(sp["frames"] == 30, "idle_basic: spell frames=30 got %d" % sp["frames"])
+
+
+func _test_idle_inside_busy_splits() -> void:
+	## 30 frames, one boxer in "pro_left_jab" on frames 110-114 -> splits into 10 + 15 idle frames.
+	## Both parts < 20 (min_frames), so 0 spells.
+	var rows := _make_run(100, 129, 0.9, 0.30, "idle", "idle")
+	for row in rows:
+		var f: int = int(row["frame"])
+		if f >= 110 and f <= 114:
+			if int(row["who"]) == 0:
+				row["clip"] = "pro_left_jab"
+	var r: Dictionary = SO.idle_inside(rows)
+	_check(r["count"] == 0, "idle_busy_splits: count=0 (10+15, both <20) got %d" % r["count"])
+	_check(r["near_frames"] == 30, "idle_busy_splits: near_frames=30 got %d" % r["near_frames"])
+
+
+func _test_idle_inside_too_far() -> void:
+	## 30 frames at 1.2 m both idle -> 0 spells and near_frames 0.
+	var rows := _make_run(100, 129, 1.2, 0.30, "idle", "idle")
+	var r: Dictionary = SO.idle_inside(rows)
+	_check(r["count"] == 0, "idle_too_far: count=0 got %d" % r["count"])
+	_check(r["near_frames"] == 0, "idle_too_far: near_frames=0 got %d" % r["near_frames"])
+
+
+func _test_idle_inside_too_short() -> void:
+	## 15 idle frames inside -> 0 spells (under min_frames) but near_frames 15.
+	var rows := _make_run(100, 114, 0.9, 0.30, "idle", "idle")
+	var r: Dictionary = SO.idle_inside(rows)
+	_check(r["count"] == 0, "idle_short: count=0 got %d" % r["count"])
+	_check(r["near_frames"] == 15, "idle_short: near_frames=15 got %d" % r["near_frames"])
+
+
+func _test_idle_inside_missing_frame_splits() -> void:
+	## 50 frames, remove frame 125 -> splits into 25 + 24 = 2 spells.
+	var rows := _make_run(100, 149, 0.9, 0.30, "idle", "idle")
+	var filtered: Array = []
+	for row in rows:
+		if int(row["frame"]) != 125:
+			filtered.append(row)
+	var r: Dictionary = SO.idle_inside(filtered)
+	_check(r["count"] == 2, "idle_missing_frame: count=2 got %d" % r["count"])
+	_check(r["total_frames"] == 49, "idle_missing_frame: total_frames=49 got %d" % r["total_frames"])
+
+
+func _test_idle_inside_phase() -> void:
+	## The film's phase column is the range (in / inside / pocket / clinch) or "rest" - never "fight".
+	## "inside" frames count; the same frames marked "rest" (between rounds) do not.
+	var rows := _make_run(100, 129, 0.9, 0.30, "idle", "idle")
+	for row in rows:
+		row["phase"] = "inside"
+	var r: Dictionary = SO.idle_inside(rows)
+	_check(r["count"] == 1, "idle_phase: inside counts, count=1 got %d" % r["count"])
+	for row in rows:
+		row["phase"] = "rest"
+	r = SO.idle_inside(rows)
+	_check(r["count"] == 0, "idle_phase: rest does not count, count=0 got %d" % r["count"])
 
 
 func _make_run(start_f: int, end_f: int, hips_m: float, glove_m: float, clip0: String, clip1: String) -> Array:

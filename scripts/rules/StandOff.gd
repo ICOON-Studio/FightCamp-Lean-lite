@@ -165,3 +165,113 @@ static func _median(vals: Array) -> float:
 	if n % 2 == 1:
 		return float(s[n / 2])
 	return (float(s[n / 2 - 1]) + float(s[n / 2])) / 2.0
+
+
+static func _mean(vals: Array) -> float:
+	if vals.is_empty():
+		return 0.0
+	var total := 0.0
+	for v in vals:
+		total += float(v)
+	return total / float(vals.size())
+
+
+static func _most_common(arr: Array, indices: Array) -> String:
+	var counts := {}
+	for idx in indices:
+		var v: String = arr[idx]
+		counts[v] = counts.get(v, 0) + 1
+	var best := ""
+	var best_count := 0
+	for k in counts:
+		if counts[k] > best_count:
+			best = k
+			best_count = counts[k]
+	return best
+
+
+static func idle_inside(rows: Array, near_m: float = 1.0, min_frames: int = 20) -> Dictionary:
+	var empty := {
+		"spells": [], "count": 0, "total_frames": 0, "total_s": 0.0,
+		"longest_s": 0.0, "near_frames": 0, "idle_share": 0.0,
+	}
+	if rows.is_empty():
+		return empty
+	var by_frame := _pair_by_frame(rows)
+	var frames := by_frame.keys()
+	frames.sort()
+	var idle_flags: Array = []
+	var near_flags: Array = []
+	var hips_dists: Array = []
+	var clip0s: Array = []
+	var clip1s: Array = []
+	var film_ss: Array = []
+	for f in frames:
+		var pair: Dictionary = by_frame[f]
+		if not (pair.has(0) and pair.has(1)):
+			idle_flags.append(false)
+			near_flags.append(false)
+			hips_dists.append(0.0)
+			clip0s.append("")
+			clip1s.append("")
+			film_ss.append(0.0)
+			continue
+		var r0: Dictionary = pair[0]
+		var r1: Dictionary = pair[1]
+		var hd := _hips_hz_dist(r0, r1)
+		var is_near := hd < near_m
+		var busy := _is_busy(str(r0["clip"])) or _is_busy(str(r1["clip"]))
+		var phase_ok := true
+		if r0.has("phase"):
+			phase_ok = phase_ok and str(r0["phase"]) != "rest"
+		if r1.has("phase"):
+			phase_ok = phase_ok and str(r1["phase"]) != "rest"
+		var is_idle := is_near and (not busy) and phase_ok
+		idle_flags.append(is_idle)
+		near_flags.append(is_near)
+		hips_dists.append(hd)
+		clip0s.append(str(r0["clip"]))
+		clip1s.append(str(r1["clip"]))
+		film_ss.append(float(r0.get("film_s", r1.get("film_s", "0"))))
+	var runs := _extract_runs(idle_flags, frames)
+	var spells: Array = []
+	var total_idle_frames := 0
+	var longest_s := 0.0
+	for run in runs:
+		if run.size() < min_frames:
+			continue
+		var hd_slice := _slice(hips_dists, run)
+		var first_s: float = film_ss[run[0]]
+		var last_s: float = film_ss[run.back()]
+		var step := 1.0 / 30.0
+		var secs: float = (last_s - first_s) + step
+		var entry := {
+			"start_frame": frames[run[0]],
+			"start_s": first_s,
+			"frames": run.size(),
+			"secs": secs,
+			"hips_m": _mean(hd_slice),
+			"clip_a": _most_common(clip0s, run),
+			"clip_b": _most_common(clip1s, run),
+		}
+		spells.append(entry)
+		total_idle_frames += run.size()
+		if secs > longest_s:
+			longest_s = secs
+	var near_count := 0
+	for nf in near_flags:
+		if nf:
+			near_count += 1
+	var idle_share := 0.0
+	if near_count > 0:
+		idle_share = float(total_idle_frames) / float(near_count)
+	var total_s := float(total_idle_frames) / 30.0
+	return {
+		"spells": spells,
+		"count": spells.size(),
+		"total_frames": total_idle_frames,
+		"total_s": total_s,
+		"longest_s": longest_s,
+		"near_frames": near_count,
+		"idle_share": idle_share,
+	}

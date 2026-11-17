@@ -7,7 +7,7 @@
   "owner": "claude",
   "updated": "2026-11-16",
   "summary": "S504: fight week day 9 - HIT REACTIONS (both r10 critics' item 1). Three stacked delays found frame by frame: the hit-stop froze the hit man's reaction too, the clip started 0.10 s before its peak, and it entered through the strike join (~45 % shown by frame 2). Now: hit-stop holds only the hitter (-- holdboth), lead 0.067 s, a reaction's own join 0.04 s (-- slowreactjoin), his own punch waits 0.20 s after his snap (-- nosnapwait; every cutting punch now starts after the peak). Furthest point median 5 -> 4 frames (jab 3.5, hook 3), reactions later than 4 frames 25 -> 3, head jumps 89 -> 90. Cross step back: rock cap scales with the step (HitStep.lean_max). Rulers: reaction rows by kind; Qwen PUNCHEND1 + STANDOFF1 collected (stand-offs are standing close idle, not gloves pressed); PUNCHEND2 launched. Scorecard tab mockup -> board Q-265. Ziva COACHNECK2 never started. Digest ops/research/S504_DIGEST.md.",
-  "next_action": "S505 FIGHT MOTION WEEK day 10 (deal: 5+ from BOTH blind critics or 3D leaves the first release; r10 coach 5, animator 4.5). Reactions now peak at 3-4 frames. NEXT: (1) head jumps over 12 cm (90 in 180 s; 16 on the contact frame, 59 inside clips) capped at 8 cm a frame without losing the reaction timing; (2) cross step back (see NEXT_SESSION_PROMPT: shown hips trail the place; lean_max S504); (3) idle inside 1.0 m: make the inside phase punch, tie up or step out (STANDOFF1 showed no glove presses - measure idle frames inside 1.0 m); (4) hand home within 4 frames - collect Qwen PUNCHEND2 and use contact_home; (5) film r11 + two NEW blind critics. Q-265 Scorecard: his yes -> build the tab (ResultPage TABS + ScoreSheet). Re-send Ziva COACHNECK2. DEBT: uppercut_tail, block_absorb, hit_carry, join_return, punch_speed, punch_weight red.",
+  "next_action": "FIGHT MOTION WEEK day 10 (S505). Deal: 5+ from BOTH blind critics or 3D leaves the first release. 1) Collect Qwen IDLEIN1 (PR 340; fix the brief's phase filter: the film's phase is the range or 'rest', never 'fight', so it read 0 spells), measure idle time inside 1.0 m on s504o, make the inside phase act (punch, tie up or step out). 2) Cross step back 12.9 -> 15+: in 3 of 8 crosses the shown hips stay 6-20 cm short of the place (s504o frames 815, 3785, 5061) - the reaction clip's hips or the body keep. 3) Head jumps 80: find which layer between PopCapPre and PopCap bends the trunk 4-10 cm on a jab frame (ArmHome / PunchReach / HitSnap sway / GloveClear). 4) Film r11 (--write-movie 1920x1080), rulers, two NEW blind critics. 5) Re-send Ziva COACHNECK2. Films: human_fight_film secs=180 seed=7, compare with fight_motion_rulers --compare; base s504o.",
   "last_working_commit": "7123bd874",
   "verified_playable": "Films r3d (new head rule) and r3ctl (control) on today's main; head_clear_test 39 lines green, join_return_test 0 failures; export: see NEXT_SESSION_PROMPT",
   "incomplete_blocked": "Contact-frame trunk snap (found, not fixed); arms home (WIP patch); head jumps 39 -> 49 on today's main unexplained (r3nocam film checks CAMHOLD1); COACHNECK1 not fixed; film_count_test red on 5 chance-prone claims (the finding); no_pronoun_test 6 Training lines (Training K session)",
@@ -2116,7 +2116,7 @@
   {
    "id": "S504",
    "date": "2026-11-16",
-   "summary": "S504: fight week day 9 - HIT REACTIONS (both r10 critics' item 1). Three stacked delays found frame by frame: the hit-stop froze the hit man's reaction too, the clip started 0.10 s before its peak, and it entered through the strike join (~45 % shown by frame 2). Now: hit-stop holds only the hitter (-- holdboth), lead 0.067 s, a reaction's own join 0.04 s (-- slowreactjoin), his own punch waits 0.20 s after his snap (-- nosnapwait; every cutting punch now starts after the peak). Furthest point median 5 -> 4 frames (jab 3.5, hook 3), reactions later than 4 frames 25 -> 3, head jumps 89 -> 90. Cross step back: rock cap scales with the step (HitStep.lean_max). Rulers: reaction rows by kind; Qwen PUNCHEND1 + STANDOFF1 collected (stand-offs are standing close idle, not gloves pressed); PUNCHEND2 launched. Scorecard tab mockup -> board Q-265. Ziva COACHNECK2 never started. Digest ops/research/S504_DIGEST.md. | After ship (2026-11-17, operator 'Yes, build it' on Q-265): SCORECARD tab built on the result page (scripts/ui/ResultScorecard.gd): three paper sheets from ScoreSheet.build that add up to the header's cards, hover = the judge's reason, round-by-round cards, what it means; fits 1920x1080 at Largest; result_tabs_test 60 asserts green; build exported."
+   "summary": "S504: fight week day 9 - HIT REACTIONS (both r10 critics' item 1). Three stacked delays found frame by frame: the hit-stop froze the hit man's reaction too, the clip started 0.10 s before its peak, and it entered through the strike join (~45 % shown by frame 2). Now: hit-stop holds only the hitter (-- holdboth), lead 0.067 s, a reaction's own join 0.04 s (-- slowreactjoin), his own punch waits 0.20 s after his snap (-- nosnapwait; every cutting punch now starts after the peak). Furthest point median 5 -> 4 frames (jab 3.5, hook 3), reactions later than 4 frames 25 -> 3, head jumps 89 -> 90. Cross step back: rock cap scales with the step (HitStep.lean_max). Rulers: reaction rows by kind; Qwen PUNCHEND1 + STANDOFF1 collected (stand-offs are standing close idle, not gloves pressed); PUNCHEND2 launched. Scorecard tab mockup -> board Q-265. Ziva COACHNECK2 never started. Digest ops/research/S504_DIGEST.md. | After ship (2026-11-17, operator 'Yes, build it' on Q-265): SCORECARD tab built on the result page (scripts/ui/ResultScorecard.gd): three paper sheets from ScoreSheet.build that add up to the header's cards, hover = the judge's reason, round-by-round cards, what it means; fits 1920x1080 at Largest; result_tabs_test 60 asserts green; build exported. | Later: PUNCHEND2 collected with two fixes; head jumps 90 -> 80 (body slide cap 1.8 m/s, PopCapPre before the reach, world read); a clean blow stops the step in + rock holds -> cross back 11.5 -> 12.9 cm; Qwen IDLEIN1 launched. | Operator: 'goose could not install godot' - no failure found in Goose runs (Godot cached + download URL fine); ask where. IDLEIN1 landed (PR 340), phase filter wrong in my brief."
   }
  ],
  "blocked_on_operator": [],
@@ -5035,7 +5035,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-16 22:11 board_sync",
+  "updated": "2026-11-17 08:41 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5192,10 +5192,10 @@
     "run": "COACHNECK2"
    },
    {
-    "title": "TASK PUNCHEND2 - PunchEnd's \"home\" read from her guard, not the punch's first frame",
+    "title": "TASK IDLEIN1 - StandOff also counts idle time inside 1.0 m (nobody punching, nobody tying up)",
     "who": "qwen",
-    "started": "2026-11-16T21:57",
-    "run": "PUNCHEND2",
+    "started": "2026-11-17T08:19",
+    "run": "IDLEIN1",
     "state": "LANDED - Claude collects"
    }
   ],
@@ -5740,6 +5740,21 @@
   },
   "done_recently": [
    {
+    "title": "Head pops cut: 90 -> 80 in a 3-minute test; a cross stops a boxer stepping in",
+    "who": "claude",
+    "when": "2026-11-17"
+   },
+   {
+    "title": "Punch-end ruler fixed and collected (PUNCHEND2)",
+    "who": "qwen",
+    "when": "2026-11-17"
+   },
+   {
+    "title": "TASK PUNCHEND2 - PunchEnd's \"home\" read from her guard, not the punch's first frame",
+    "who": "qwen",
+    "when": "2026-11-17"
+   },
+   {
     "title": "Scorecard tab on the fight result: three judges' sheets, a hover a score",
     "who": "claude",
     "when": "2026-11-17"
@@ -5785,16 +5800,6 @@
    },
    {
     "title": "S503: blind r10 coach 5, animator 4.5"
-   },
-   {
-    "title": "TASK FILMBAR2 - film-night patterns: compare two rates exactly (round 2 of FILMBAR1)",
-    "who": "qwen",
-    "when": "2026-11-16"
-   },
-   {
-    "title": "TASK PRESSFLASH1 - crowd camera flashes never read as a hit in empty air",
-    "who": "qwen",
-    "when": "2026-11-16"
    }
   ],
   "scope_note": "S294: lean restart (E:\\FightCamp\\Lean\\docs\\RESTART_PLAN.md). Old roadmap items are parked until the weekly builds reach them.",
@@ -5954,6 +5959,10 @@
     },
     {
      "text": "Scorecard tab built",
+     "who": "claude"
+    },
+    {
+     "text": "Head pops 90 to 80",
      "who": "claude"
     }
    ],

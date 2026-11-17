@@ -146,6 +146,13 @@ func _check_wire() -> void:
 	HS.start(on_ropes, Vector3(1.7, 0.0, 0.0), "cross", true, 2.69)
 	_check(not on_ropes.has("knock"), "on the ropes nothing starts")
 	_check(absf(HS.room(Vector3(1.0, 0.0, 1.0), Vector3(1.0, 0.0, 1.0).normalized(), 2.0) - sqrt(2.0)) < 0.001, "room on a diagonal reads to the nearer rope")
+	# S504: a clean blow stops her step toward the hitter, keeps her step sideways
+	var walker: Dictionary = {"pos": Vector3(0.0, 0.0, 1.0), "vel": Vector3(0.3, 0.0, -0.8)}
+	HS.start(walker, Vector3.ZERO, "cross", false, 2.69)
+	_check(absf((walker["vel"] as Vector3).z) < 0.0001 and absf((walker["vel"] as Vector3).x - 0.3) < 0.0001, "a blow stops her step in, keeps her side step: %s" % str(walker["vel"]))
+	var leaver: Dictionary = {"pos": Vector3(0.0, 0.0, 1.0), "vel": Vector3(0.0, 0.0, 0.5)}
+	HS.start(leaver, Vector3.ZERO, "cross", false, 2.69)
+	_check((leaver["vel"] as Vector3).is_equal_approx(Vector3(0.0, 0.0, 0.5)), "a step away is left alone")
 	# the rock: the body goes back at once, never past LEAN_MAX_M, never sideways or forward
 	var rk: Dictionary = {"pos": Vector3(0.0, 0.0, 1.0)}
 	HS.start(rk, Vector3.ZERO, "cross", false, 2.69)
@@ -155,11 +162,24 @@ func _check_wire() -> void:
 	_check(cap > HS.LEAN_MAX_M and cap < 0.15, "a cross's rock cap %.3f m sits between 8 cm and its step" % cap)
 	_check(absf(HS.lean(rk, Vector3(0.0, 0.0, 0.30)).length() - cap) < 0.0001, "a 30 cm lag rocks only %.2f m" % cap)
 	_check(HS.lean(rk, Vector3(0.2, 0.0, -0.1)) == Vector3.ZERO, "a lag forward or sideways rocks nothing")
+	# S504: the rock holds while the feet still lag (here they never arrive: 5 cm every frame), then eases out by
+	# ROCK_HOLD_MAX_S after the step - 80 frames at 60 fps covers the step, the hold and the ease.
 	var last: float = 0.05
 	var eased: bool = true
-	for f in 40:
+	var held_mid := -1.0
+	for f in 80:
 		HS.tick(rk, 1.0 / 60.0)
 		var l: float = HS.lean(rk, Vector3(0.0, 0.0, 0.05)).length()
 		eased = eased and l <= last + 0.0001 and last - l < 0.012
 		last = l
-	_check(eased and last < 0.001, "the rock eases out after the step, no pop (ends %.4f)" % last)
+		if f == 30:
+			held_mid = l
+	_check(held_mid > 0.049, "the rock holds after the step while the feet lag (%.4f at 0.5 s)" % held_mid)
+	_check(eased and last < 0.001, "the rock eases out after the hold, no pop (ends %.4f)" % last)
+	# feet under the place (no lag): the rock eases out right after the step
+	var rk2: Dictionary = {"pos": Vector3(0.0, 0.0, 1.0)}
+	HS.start(rk2, Vector3.ZERO, "cross", false, 2.69)
+	for f in 40:
+		HS.tick(rk2, 1.0 / 60.0)
+		HS.lean(rk2, Vector3.ZERO)
+	_check(not rk2.has("knock"), "with the feet arrived the step ends within 0.67 s")
