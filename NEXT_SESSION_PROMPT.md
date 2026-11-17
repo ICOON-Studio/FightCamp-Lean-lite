@@ -110,6 +110,16 @@ themselves are the limit (owner: "why should i buy more animations if the ones w
   (each a PR adding one file; collect by diff). Dola (free) still answers: SQ209 FIGHTPLAYER2 critic sent 21:10.
   Owner "assign them to others": Kalli's revisions -> Dola SQ211 (ladder v6 -> DESIGN_LADDER1_V6_DOLA.md), SQ212 (coach
   spec r6 -> DESIGN_COACHSPEC1_R6_DOLA.md); John's guard damage critic -> Goose issue 355 (DESIGN_GUARDDMG1_V1_CRITIC_GOOSE.md).
+- LEAN CI (owner "Yes, switch it", S512): November was at ~28,100 of 50,000 Actions minutes on the 17th (pace ~49,500).
+  ci.yml now runs tools/ci_pick.py: ONLY changed files (owner: "i do not want checks on things that were not change") -
+  changed tests (+ the brief's own RED_TEST on a PR) and a parse check of changed scripts; anything else passes at once; full suite = the PC's 05:00 run or `gh workflow run ci.yml
+  -f full=true`. There is NO nightly suite on GitHub (no workflow has a schedule).
+- ASK FOR A FIGHT BUILD (owner "Yes, build it", S512) - UNCOMMITTED until Goose's ASKDATES1 (issue 357) lands:
+  scripts/state/AskFlow.gd, scripts/ui/AskPanel.gd, tests/ask_wire_test.gd + edits in BoutFinish.gd (host gate, FightLearn
+  teaching on every amateur bout), ResultPage.gd (WHAT IT TAUGHT cell), BoutActs.gd (ask/askbout), Fights.gd (route ask +
+  Ask for a bout), RosterRow.gd (Find a bout -> ask). Collect AskDates.gd by diff, run ask_wire_test + ask_bout_test +
+  fight_learn_test + roster_row_test + roster_slate_test + coach_check_test + golden_path_test, add ask_wire_test and
+  ask_dates_test to run_tests.sh, export. Left: Home DO NEXT line, the stoppage-risk word (no chance figure exists).
 - RAM: ~10 finished sessions sit idle with Remote Control on (~750 MB each, S491 note); watchdog AMBER on memory.
 
 ## ANIMATION LOOP STATE (the animation session's own section; rewritten 2026-11-17 ~22:00, S512 animation session, closed at ~400k tokens)
