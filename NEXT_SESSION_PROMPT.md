@@ -22,6 +22,9 @@ Blind r12 (S509): coach 5.0, animator 5.0 - flat vs r11. Reviews: E:/FightCamp/t
    lead hand (GuardLife WAIT_JAB = pro_left_jab_b); real punches red 23 (7 rear), blue 24 (~half rear). Fix: feints on
    both hands (rear-shoulder cross feint, body feint, level change), paw every 3-4 s not ~2, mix by style (STYLE_EVERY).
    Count hands on the next film; film only with no game window open.
+   ALSO: GuardLife.FIDGETS names mc_head_movement and mc_bob_weave - NO such clips load (0 plays in r12; has_animation
+   filters them out). Point them at the owned weaves (pro_left_weave / pro_right_weave / mc_Box1_M3_Quick_Weave, today
+   defence only) so the waits get head movement. r12 waits: 6 Punch Pro fidgets 32 plays, ow_bounce_idle 6, ow_side_lean 6.
 1. Blue's FREE glove shoots straight up above his head after punches - named by r11 AND r12 critics (r12 sheets ex1
    #40-47, ex2 #27-30, ex4 #25-32, ex5 #35-36). Find which clip / layer lifts it; guard box chin to 10 cm over the brow.
 2. Arm out after contact worst 29 frames (red's cross, ex1 #40-47; median 5, critics want 3-4, never over 2 held).
