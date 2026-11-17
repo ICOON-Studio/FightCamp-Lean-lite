@@ -3,6 +3,7 @@ extends RefCounted
 ## (Light | Normal | Hard, Rest | Pads | Sparring), a popover row, and the floating popover frame (Pop).
 ##   segments(...)  pop_row(...)  pop(name, title, body, on_close) -> Pop
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const WeekCards := preload("res://scripts/ui/WeekCards.gd")
@@ -30,7 +31,7 @@ static func segments(prefix: String, words: Array, keys: Array, on: String, pick
 		b.add_theme_color_override("font_disabled_color", WoodKit.SOFT)
 		for st in ["normal", "hover", "pressed", "focus", "disabled"]:
 			var hot: bool = st == "hover" and not lit
-			var bg := Color(BLUE, 0.95) if lit else Color(1, 1, 1, 0.08 if hot else 0.04)
+			var bg := Color(BLUE, 0.95) if lit else Color(Palette.TEXT, 0.08 if hot else 0.04)
 			var edge := Color(WoodKit.HEAD if lit else (WoodKit.BLUE if hot else WoodKit.SOFT), 1.0 if lit or hot else 0.35)
 			b.add_theme_stylebox_override(st, UI.box(bg, edge, 0, 2 if lit else 1, 0, 0))
 		var key := str(keys[n])
@@ -52,7 +53,7 @@ static func pop_row(name: String, key: String, title: String, gain: String, cost
 	for st in ["normal", "hover", "pressed", "focus"]:
 		var hot: bool = st == "hover" and not on
 		var edge := Color(WoodKit.HEAD if on else (WoodKit.BLUE if hot else WoodKit.SOFT), 1.0 if on or hot else 0.35)
-		b.add_theme_stylebox_override(st, UI.box(Color(1, 1, 1, 0.04), edge, 4, 2 if on else 1, 0, 0))
+		b.add_theme_stylebox_override(st, UI.box(Color(Palette.TEXT, 0.04), edge, 4, 2 if on else 1, 0, 0))
 	b.pressed.connect(pick)
 	if ghost.is_valid():
 		b.mouse_entered.connect(func(): ghost.call(true))
@@ -67,7 +68,7 @@ static func pop_row(name: String, key: String, title: String, gain: String, cost
 	h.add_child(t)
 	if goal_key != "" and key == goal_key:   # S398 critics: the goal's mark in the popover too
 		var dot := ColorRect.new()
-		dot.color = Color("#e0a400")
+		dot.color = Palette.HEADER
 		dot.custom_minimum_size = Vector2(9, 9)
 		dot.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		dot.mouse_filter = Control.MOUSE_FILTER_IGNORE

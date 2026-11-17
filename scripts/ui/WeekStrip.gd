@@ -10,6 +10,7 @@ extends HBoxContainer
 ##   week_lines(phase, focus, film = this week holds the camp's one film night, step, camp) -> 7 strings
 ##   make(f, opp, bout_day, today, start, focus, film, spar_now, proto = the camp modal's pick, -1 = f's own) -> WeekStrip
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const WeekPhase := preload("res://scripts/rules/WeekPhase.gd")
@@ -20,9 +21,9 @@ const SparNights := preload("res://scripts/rules/SparNights.gd")
 const PadWeek := preload("res://scripts/rules/PadWeek.gd")
 
 const FACES := "res://assets/ui/face/studio"
-const INK := Color("#1f2a44")
-const PENCIL := Color("#8a929e")
-const RED := Color("#c8312a")
+const INK := Palette.CARD
+const PENCIL := Palette.TILE
+const RED := Palette.BAD_FILL
 const CELL := Vector2(92, 58)
 const EVENING := {"pads": "pads", "sparring": "sparring", "rest": "rest", "film": "film"}
 
@@ -114,7 +115,7 @@ func _cell(i: int, c: Dictionary) -> Button:
 	b.focus_mode = Control.FOCUS_NONE
 	b.disabled = not bool(c["future"])
 	var now := bool(c["now"])
-	var bg := UI.YELLOW if now else Color(0, 0, 0, 0)
+	var bg := UI.YELLOW if now else Color(Palette.PAGE, 0)
 	var edge := UI.YELLOW_EDGE if now else Color(WoodKit.SOFT, 0.55)
 	for k in ["normal", "hover", "pressed", "disabled", "focus"]:
 		var on_hover: bool = k == "hover" and not b.disabled

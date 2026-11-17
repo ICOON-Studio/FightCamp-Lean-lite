@@ -75,6 +75,14 @@ func _report() -> void:
 	var last := labels.size() - 1
 	if not (cur.has(0) and cur.has(last) and prev.has(0) and prev.has(last)):
 		return
+	if OS.get_cmdline_user_args().has("trunktapabs"):   # S512: every frame, what each layer ADDS to head-from-hips (cm: z forward, y up)
+		var ab: Array = ["in=%.0f/%.0f" % [(cur[0] as Vector3).z * 100.0, (cur[0] as Vector3).y * 100.0]]
+		for k in range(1, labels.size()):
+			if cur.has(k) and cur.has(k - 1):
+				var a: Vector3 = (cur[k] as Vector3) - (cur[k - 1] as Vector3)
+				if a.length() >= 0.005:
+					ab.append("%s=%.0f/%.0f" % [labels[k], a.z * 100.0, a.y * 100.0])
+		print("TRUNKABS f=%d who=%d clip=%s fin=%.0f/%.0f %s" % [int(rec["frame"]), who, ap.current_animation if ap != null else "?", (cur[last] as Vector3).z * 100.0, (cur[last] as Vector3).y * 100.0, " ".join(ab)])
 	var jump: Vector3 = (cur[last] as Vector3) - (prev[last] as Vector3)
 	if jump.length() < PRINT_M:
 		return

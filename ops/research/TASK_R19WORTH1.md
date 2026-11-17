@@ -14,7 +14,7 @@ exchanges waits for LEVERS1's table and is NOT done here.
 ## Contract
 OWNS: scripts/rules/TellWorth.gd, tests/tell_worth_test.gd
 RED_TEST: tests/tell_worth_test.gd -> TELL_WORTH failures=0
-REGRESSION: opp_file_test, plan_lines_test, tape_room_test, file_limits_test
+REGRESSION: opp_file_test, plan_lines_test, film_night_test, file_limits_test
 VISUAL: no
 NOT YOURS: every other file (tools/run_tests.sh too). Read, never edit: scripts/rules/OppFile.gd (184 lines: WEAPON_ANSWERS 30-43 and
 WEAKNESS_ANSWERS 44-57 (column 3 is the plan situation), tells() 66, known 97, hidden 102, tape 112 (it OPENS a tell: never call it),

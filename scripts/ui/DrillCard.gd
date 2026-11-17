@@ -9,6 +9,7 @@ extends Button
 ##   DrillCard.make(f, card, proj, picked, on_pick, on_drill_it) -> DrillCard "Drill_<card>"   payload() -> {drill: card}
 ##   DrillCard.picture(f, card) -> Texture2D   DrillCard.station(f, station) -> Texture2D (her body at that station)
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const Halo := preload("res://scripts/ui/Halo.gd")
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")
@@ -22,13 +23,13 @@ const MoveMastery := preload("res://scripts/rules/MoveMastery.gd")
 const CARD_H := 190.0   # S398 Week v8: the tray sits under the week
 const PIC := 64.0
 const TWEEN_S := 0.45
-const GOLD_BG := Color("#fde58a")
-const GOLD_EDGE := Color("#e2a50c")
-const GOLD_INK := Color("#6b4a00")
-const SLATE := Color("#4b5563")
-const TRACK := Color("#e5e9ee")
-const HATCH := Color("#b7bec7")
-const SOFT_RED := Color("#fde4e2")
+const GOLD_BG := Palette.HEADER
+const GOLD_EDGE := Palette.HEADER
+const GOLD_INK := Palette.WARN
+const SLATE := Palette.CARD
+const TRACK := Palette.TEXT
+const HATCH := Palette.TEXT
+const SOFT_RED := Palette.TEXT
 const MOVES := "res://assets/ui/moves/"
 const STATIONS := "res://assets/ui/training/"
 const FALLBACK := "mh_boxer_10"
@@ -57,7 +58,7 @@ static func make(f: Dictionary, card_id: String, proj: Dictionary, picked: bool,
 		# see-through chalk edge; the card you hold wears the shared halo (hover keeps the blue edge)
 		var hot: bool = st == "hover" and not picked
 		var edge := Color(WoodKit.BLUE if hot else WoodKit.SOFT, 1.0 if hot else 0.35)
-		b.add_theme_stylebox_override(st, UI.box(Color(1, 1, 1, 0.04), edge, 4, 1, 0, 0))
+		b.add_theme_stylebox_override(st, UI.box(Color(Palette.TEXT, 0.04), edge, 4, 1, 0, 0))
 	if picked:
 		Halo.ring(b, WoodKit.HEAD, 4.0)
 	b.tooltip_text = "Drag onto an evening, or click it and then the evening."
@@ -151,7 +152,7 @@ func _face(v: VBoxContainer, f: Dictionary, card_id: String, m: float, end: floa
 	words.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	top.add_child(words)
 	var tag := PanelContainer.new()
-	tag.add_theme_stylebox_override("panel", UI.box(Color(1, 1, 1, 0.04), Color(WoodKit.SOFT, 0.35), 4, 1, 6, 1))
+	tag.add_theme_stylebox_override("panel", UI.box(Color(Palette.TEXT, 0.04), Color(WoodKit.SOFT, 0.35), 4, 1, 6, 1))
 	tag.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	tag.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var tw := UI.label(str(proj.get("tag", PadEdit.kind_word(f, card_id))), 12, UI.GOLD, "bold")
@@ -199,7 +200,7 @@ func _badge(v: VBoxContainer, cross: Dictionary, proj_pads: Array) -> void:
 static func _stamp(words: String) -> PanelContainer:
 	var st := PanelContainer.new()
 	st.name = "Stamp"
-	st.add_theme_stylebox_override("panel", UI.box(Color(0.16, 0.05, 0.04, 0.92), UI.RED, 3, 2, 5, 1))
+	st.add_theme_stylebox_override("panel", UI.box(Color(Palette.PAGE, 0.92), UI.RED, 3, 2, 5, 1))
 	st.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	st.position = Vector2(0, PIC - 18)   # S398: inside the 64 px picture, never over the name
 	st.custom_minimum_size = Vector2(PIC, 0)
@@ -221,7 +222,7 @@ func payload() -> Dictionary:
 
 func _get_drag_data(_at: Vector2) -> Variant:
 	var tag := PanelContainer.new()
-	tag.add_theme_stylebox_override("panel", UI.box(Color(1, 1, 1, 0.04), Color(WoodKit.SOFT, 0.35), 4, 1, 12, 6))
+	tag.add_theme_stylebox_override("panel", UI.box(Color(Palette.TEXT, 0.04), Color(WoodKit.SOFT, 0.35), 4, 1, 12, 6))
 	Halo.ring(tag, WoodKit.HEAD, 4.0)
 	tag.add_child(UI.label(PadEdit.title({}, card) if PadWeek.kind(card) != "own" else "combination", 22, WoodKit.INK, "bold"))
 	set_drag_preview(tag)
@@ -279,7 +280,7 @@ class TierBar extends Control:
 		var dark := WoodKit.on_dark(self)
 		var track_col := Color(WoodKit.SOFT, 0.30) if dark and track == TRACK else track
 		var fill_col := WoodKit.INK if dark and track == TRACK else fill
-		var hatch_col := Color(WoodKit.SOFT, 0.16) if dark else Color("#d5dadf")
+		var hatch_col := Color(WoodKit.SOFT, 0.16) if dark else Palette.TEXT
 		draw_rect(Rect2(0, y, w, h), track_col)
 		draw_rect(Rect2(0, y, w * clampf(now, 0.0, 100.0) / 100.0, h), fill_col)
 		if end > now:

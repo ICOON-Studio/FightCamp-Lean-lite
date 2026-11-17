@@ -1,19 +1,9 @@
 {
 	"res://scripts/fight3d/FightStage.gd": 8,
 	"res://scripts/fight3d/ReactionBubbles.gd": 1,
-	"res://scripts/ui/DrillCard.gd": 12,
-	"res://scripts/ui/DrillTray.gd": 1,
 	"res://scripts/ui/Icons.gd": 1,
 	"res://scripts/ui/KitIcon.gd": 1,
 	"res://scripts/ui/TV.gd": 1,
 	"res://scripts/ui/VersusLive.gd": 1,
-	"res://scripts/ui/WeekCamp.gd": 2,
-	"res://scripts/ui/WeekBars.gd": 7,
-	"res://scripts/ui/WeekCards.gd": 23,
-	"res://scripts/ui/WeekPopKit.gd": 3,
-	"res://scripts/ui/WeekDay.gd": 2,
-	"res://scripts/ui/WeekEditors.gd": 1,
-	"res://scripts/ui/WeekStrip.gd": 4,
-	"res://scripts/ui/WeekTiles.gd": 4,
-	"res://scripts/ui/WeekTired.gd": 1
+	"res://scripts/ui/WeekCards.gd": 16
 }

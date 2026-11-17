@@ -7,6 +7,7 @@ The files other seats own (fight HUD bars, fight motion) are skipped.
 
   python tools/palette_sweep.py            # dry run: per file, how many colours move and the biggest jumps
   python tools/palette_sweep.py --write    # rewrite the files
+  add --training to include the Training tab files (S512)
 """
 import math
 import re
@@ -28,6 +29,9 @@ SKIP |= DEPICTION
 TRAINING = {"WeekCards.gd", "WeekBoard.gd", "WeekCamp.gd", "WeekDay.gd", "WeekEditors.gd", "WeekStrip.gd", "WeekTiles.gd",
             "WeekTired.gd", "WeekPops.gd", "WeekReadRows.gd", "DrillCard.gd", "DrillTray.gd"}
 SKIP |= TRAINING
+## S512: the Training rebuild never came; those screens are live off the palette. `--training` sweeps them too.
+if "--training" in sys.argv:
+    SKIP -= TRAINING
 EXEMPT_TEXT = ("StandardMaterial3D", "ShaderMaterial", "ORMMaterial3D", "albedo", "emission", "Light3D", "light_color")
 PRELOAD = 'const Palette := preload("res://scripts/ui/Palette.gd")'
 

@@ -3,6 +3,7 @@ extends RefCounted
 ## undrill, padsplit, drillit). Nothing about what an edit does changes.
 ##   make(main, f, pl, tired, pack, dow, camp) -> HBox  MorningTitle is the session name
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const Icons := preload("res://scripts/ui/Icons.gd")
@@ -116,7 +117,7 @@ static func _morning(v: Node, main: Node, f: Dictionary, pl: Dictionary, tired: 
 			ib.add_theme_color_override(state, WoodKit.HEAD if id == sid else WoodKit.INK)
 		var edge := Color(WoodKit.HEAD if id == sid else WoodKit.SOFT, 1.0 if id == sid else 0.4)
 		for st in ["normal", "hover", "pressed", "focus"]:
-			ib.add_theme_stylebox_override(st, UI.box(Color(1, 1, 1, 0.05), edge, 8, 2, 2, 2))
+			ib.add_theme_stylebox_override(st, UI.box(Color(Palette.TEXT, 0.05), edge, 8, 2, 2, 2))
 		var use := "normal" if id == "rest" else lvl
 		ib.pressed.connect(_set_morning.bind(main, fid, dow, id, use))
 		if camp != null:

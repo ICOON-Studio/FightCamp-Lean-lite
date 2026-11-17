@@ -11,6 +11,7 @@ extends RefCounted
 ##   tile(key)  chip(text, kind)  am(...) -> Button  night_body(...)  tired_line(i, start, end)  meter(...)  totals(...)
 ##   (S496 split, the 500-line rule: the popover parts are WeekPopKit.gd, the bars WeekBars.gd)
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const Icons := preload("res://scripts/ui/Icons.gd")
@@ -28,7 +29,7 @@ const TILE := {"conditioning": "#be185d", "power": "#9a3412", "speed": "#7c3aed"
 	"defense": "#475569", "chin": "#6b5e4b", "footwork": "#0f766e", "pads": "#334155", "film": "#52525b"}
 const SPARE := ["#86198f", "#155e75", "#3f6212", "#7c2d12", "#1e3a8a", "#581c87"]
 const NIGHT_ICON := {"pads": "hand-fist", "film": "tv"}
-const BLUE := Color("#2f6fdb")
+const BLUE := Palette.ACCENT
 const OVER := 80.0
 const HEAVY := 70.0
 const AM_H := 96.0
@@ -41,13 +42,13 @@ static func tile(key: String, px := 52) -> PanelContainer:
 	p.name = "Tile"
 	var col := Color(str(TILE[key])) if TILE.has(key) else Color(str(SPARE[absi(key.hash()) % SPARE.size()]))
 	if key == "":
-		col = Color("#cfd6dd")
-	p.add_theme_stylebox_override("panel", UI.box(col, Color(0, 0, 0, 0), 8, 0, 0, 0))
+		col = Palette.TEXT
+	p.add_theme_stylebox_override("panel", UI.box(col, Color(Palette.PAGE, 0), 8, 0, 0, 0))
 	p.custom_minimum_size = Vector2(px, px)
 	p.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	p.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	if key != "":
-		var ic := Icons.icon(str(NIGHT_ICON.get(key, AttrBoard.ICON.get(key, "target"))), int(px * 0.55), Color.WHITE)
+		var ic := Icons.icon(str(NIGHT_ICON.get(key, AttrBoard.ICON.get(key, "target"))), int(px * 0.55), Palette.TEXT)
 		ic.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 		ic.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		ic.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -110,7 +111,7 @@ static func am(i: int, m: Array, planned: Array, r: Dictionary, cost: float, sta
 	if not rest and key == goal_key:
 		var dot := ColorRect.new()
 		dot.name = "GoalDot"
-		dot.color = Color("#e0a400")
+		dot.color = Palette.HEADER
 		dot.custom_minimum_size = Vector2(9, 9)
 		dot.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		dot.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -257,7 +258,7 @@ static func _slot(spec: Dictionary, e: Dictionary, at: int) -> PanelContainer:
 	for k in ["font_color", "font_hover_color", "font_pressed_color"]:
 		badge.add_theme_color_override(k, WoodKit.INK)
 	for st in ["normal", "hover", "pressed", "focus"]:
-		badge.add_theme_stylebox_override(st, UI.box(BLUE if st == "hover" else Color("#334155"), Color(0, 0, 0, 0), 8, 0, 6, 1))
+		badge.add_theme_stylebox_override(st, UI.box(BLUE if st == "hover" else Palette.CARD, Color(Palette.PAGE, 0), 8, 0, 6, 1))
 	badge.pressed.connect(func(): (spec["on_split"] as Callable).call(i))
 	h.add_child(badge)
 	return p
@@ -352,7 +353,7 @@ static func shell(name: String, quiet := false) -> Button:
 	for st in ["normal", "hover", "pressed", "focus"]:
 		var hot: bool = st == "hover"
 		var edge := Color(WoodKit.BLUE, 0.9) if hot else Color(WoodKit.SOFT, 0.2 if quiet else 0.35)
-		b.add_theme_stylebox_override(st, UI.box(Color(1, 1, 1, 0.04), edge, 4, 1, 0, 0))
+		b.add_theme_stylebox_override(st, UI.box(Color(Palette.TEXT, 0.04), edge, 4, 1, 0, 0))
 	return b
 
 

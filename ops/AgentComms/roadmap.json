@@ -2144,12 +2144,18 @@
   {
    "id": "S510",
    "date": "2026-11-17",
-   "what": "Animation moved to a Fable 5.2 high session looping to 7/10 (r13 blind 4.5 / 4.5, r14 blind 4.5 / 4.5: punch flight fixed, punches 5 with both; next: bodies passing through each other, body pops, the arm hanging out, the stand-up). FIGHTFILM1 slices 1-5: film night watched yourself, wired to fight week, Fight prep, opponent file card, corner minute, coach card (film_night_test 26 ok). Qwen SPLIT500B running. C: log spam (4 GB Godot logs from crashing film runs) found and cleaned."
+   "what": "Animation on Fable loop (3 sessions): r13 4.5/4.5, r14 4.5/4.5 (r12 5/5) - method wrong, patching stopped (CLAUDE.md 8 findings drive the queue); FIGHTPLAYER2 baseline + scope in flight; S511 goal 'animations fixed (at least 7/10)'. FIGHTFILM1 film nights wired (slices 1-9 with the side session). C: log spam fixed. Map link on the board."
   },
   {
    "id": "S511",
    "date": "2026-11-17",
    "summary": "S511 (side session of S510, main line): FIGHTFILM1 slices 6-9 - Game plan film marks (Works at best / confirmed / change this line), own-bout FIGHT ANALYSIS (result PUNCH BY PUNCH, History Analysis, corner The round so far; WHAT THE OTHER CORNER WILL SEE + Fix it on the pads), Write the answer after File it, Tape Room retired into the page. film_night_test 51 checks green. ASKFIGHT critic round 4 queued; club week v1 already wired, the rest waits COACHFIT1."
+  },
+  {
+   "id": "S512",
+   "date": "2026-11-17",
+   "model": "Opus 5.5",
+   "summary": "Side session beside animation part 3: Dola's Ask critic 7/7 committed, two briefs fixed (tape_room_test -> film_night_test), palette sweep 73 -> 29 (Training tab), own-bout game words without a subject; grapple_fix_test = S399 target test (red on purpose, parked BJJ)."
   }
  ],
  "blocked_on_operator": [],
@@ -5068,7 +5074,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-17 19:42 board_sync",
+  "updated": "2026-11-17 20:41 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5219,11 +5225,10 @@
   },
   "working_now": [
    {
-    "title": "TASK SPLIT500B - QWEN (qwen3-coder) - bring the three grapple files and MatTreeInfo under the 500-line limit",
+    "title": "TASK ASKPROBE4 - QWEN (qwen3-coder) - does the fight week make the show date a real choice?",
     "who": "qwen",
-    "started": "2026-11-17T18:51",
-    "run": "SPLIT500B",
-    "state": "LANDED - Claude collects"
+    "started": "2026-11-17T20:20",
+    "run": "ASKPROBE4"
    }
   ],
   "next": [
@@ -5236,13 +5241,13 @@
    {
     "id": "FIGHTFILM1",
     "who": "claude",
-    "title": "Film nights + fight analysis: S510 watch-it-yourself; S511 plan line marks, result PUNCH BY PUNCH + History Analysis + corner The round so far (own-bout mode), Write the answer, Tape Room retired. Left: the 3D film in the page's film slot, the 3D corner overlay, Settings fight-log switch",
+    "title": "Film nights + fight analysis: S510 watch-it-yourself; S511 plan line marks, result PUNCH BY PUNCH + History Analysis + corner The round so far (own-bout mode), Write the answer, Tape Room retired. Left: the 3D film in the page's film slot, the 3D corner overlay, Settings fight-log switch | S512: own-bout dividers read 'pressing forward' (no subject); Settings fight-log On/Off waits for the live log panel (it sets that panel's default)",
     "after": ""
    },
    {
     "id": "ONELOOK1",
     "who": "claude",
-    "title": "One look across every screen (his S491 'we need to have a cohesive interface /hud/ui/ux'): Text size grows letters only (done), text fits its box (audit 64 -> 3 at Largest, done), house hover card on the fight (done); left: Q-251 palette sweep, every hover on the house card, playbook step buttons, guide bubble off frame",
+    "title": "One look across every screen (his S491 'we need to have a cohesive interface /hud/ui/ux'): text size, text fits, house hover card done; S512 palette sweep 73 -> 29 loose colours (Training tab, drill cards, scorecard; left: fight3d = animation session, WeekCards' per-ability tile colours on purpose); left: every hover on the house card, playbook step buttons, GuideBubble OFF FRAME (needs a layout_snapshot render, not beside a film)",
     "after": ""
    },
    {
@@ -5350,7 +5355,7 @@
    {
     "id": "ASKFIGHT1",
     "who": "claude",
-    "title": "Ask for a fight: v4 critics 5/6; the fight week is built - critic round 4 queued S511 (Kalli, John, Dola; brief ASKFIGHT_CRITIC_S511_BRIEF.md). Build only at 7+",
+    "title": "Ask for a fight: round 4 critics - Dola 7 depth / 7 play (S512, wants the next TWO shows side by side); Kalli SQ206 + John SQ207 queued; ASKPROBE4 (Qwen) first run says the date is a real trade. Build at a second 7+",
     "after": ""
    },
    {
@@ -5472,12 +5477,6 @@
     "who": "claude",
     "title": "Knowledge (what you know about a boxer narrows as you study them): design v3 APPROVED (his 'Yes, both', S471) - build after the fight week",
     "after": "AMATEURWEEK1"
-   },
-   {
-    "id": "LIVEROUNDSPLIT1",
-    "who": "claude",
-    "title": "LiveRound.gd 488 lines -> under its 470 limit (helpers to a rules module)",
-    "after": ""
    },
    {
     "id": "FIGHTFILM1",
@@ -5761,6 +5760,17 @@
   },
   "done_recently": [
    {
+    "id": "LIVEROUNDSPLIT1",
+    "who": "claude",
+    "title": "LiveRound.gd under its limit (439 lines, found done S512)",
+    "after": ""
+   },
+   {
+    "title": "TASK SPLIT500B - QWEN (qwen3-coder) - bring the three grapple files and MatTreeInfo under the 500-line limit",
+    "who": "qwen",
+    "when": "2026-11-17"
+   },
+   {
     "title": "Blind round 12: coach 5, animator 5 (flat vs r11)",
     "who": "claude",
     "when": "2026-11-17"
@@ -5817,26 +5827,6 @@
     "who": "claude",
     "title": "Head jumps 91 -> 86: trunk capped while the landed glove lets go",
     "after": ""
-   },
-   {
-    "title": "TASK HEADSPLIT1 - a ruler that splits each head jump into what moved it, and compares two films fairly",
-    "who": "qwen",
-    "when": "2026-11-17"
-   },
-   {
-    "title": "TASK HEADSPLIT1 - split each head jump by what moved it, compare two films only where they match",
-    "who": "qwen",
-    "when": "2026-11-17"
-   },
-   {
-    "title": "Filmed s507b: the stepping hook's fling 14.7 -> 9.7 m/s; free glove and head ease held",
-    "who": "claude",
-    "when": "2026-11-17"
-   },
-   {
-    "title": "TASK HOOKPAST1 - a ruler for the fling: after a landed punch, how far and how fast does the glove go past the head?",
-    "who": "qwen",
-    "when": "2026-11-17"
    }
   ],
   "scope_note": "S294: lean restart (E:\\FightCamp\\Lean\\docs\\RESTART_PLAN.md). Old roadmap items are parked until the weekly builds reach them.",
@@ -6020,6 +6010,18 @@
     },
     {
      "text": "Plan marks + Tape Room moved in",
+     "who": "claude"
+    },
+    {
+     "text": "Workflow: findings drive the queue",
+     "who": "claude"
+    },
+    {
+     "text": "Palette: Training tab on it",
+     "who": "claude"
+    },
+    {
+     "text": "Ask critic: Dola 7/7",
      "who": "claude"
     }
    ],

@@ -4,13 +4,14 @@ extends Control
 ##   setup(points, selected_day, gap)   column_center(i) -> global x   night(dow)   danger_y() -> global y of the line
 ##   peak   line_80
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const Icons := preload("res://scripts/ui/Icons.gd")
 const WeekPlan := preload("res://scripts/rules/WeekPlan.gd")
 ## The tiredness rule's own line (WeekPlan.OVERREACHED, an estimate to playtest) and what it does to a morning.
 const LINE := WeekPlan.OVERREACHED
-const PLATE := Color(0.08, 0.07, 0.06, 0.92)
+const PLATE := Color(Palette.PAGE, 0.92)
 
 const DAYS := ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 const TOP := 50.0

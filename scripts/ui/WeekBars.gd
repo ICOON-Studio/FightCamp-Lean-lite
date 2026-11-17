@@ -2,6 +2,7 @@ extends RefCounted
 ## S496 split out of WeekCards.gd (the 500-line rule): the week's two drawn bars - a tiredness bar in its zones (ZoneBar)
 ## and the goal row's bar (GoalBar).
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 
@@ -19,15 +20,15 @@ class ZoneBar extends Control:
 		var w := size.x
 		var hh := size.y
 		var dark := WoodKit.on_dark(self)
-		draw_rect(Rect2(0, 0, w, hh), Color(WoodKit.SOFT, 0.22) if dark else Color("#eceff2"))
-		var amber := Color(UI.AMBER, 0.55) if dark else Color("#f5d9a8")
-		var red := Color(UI.RED, 0.5) if dark else Color("#f3b8b2")
+		draw_rect(Rect2(0, 0, w, hh), Color(WoodKit.SOFT, 0.22) if dark else Palette.TEXT)
+		var amber := Color(UI.AMBER, 0.55) if dark else Color(Palette.WARN, 0.4)   # S512: the zones stay amber/red on a light plate
+		var red := Color(UI.RED, 0.5) if dark else Color(Palette.BAD_FILL, 0.35)
 		draw_rect(Rect2(w * 0.7, 0, w * 0.1, hh), amber)   # S398: the zones on every bar
 		draw_rect(Rect2(w * 0.8, 0, w * 0.2, hh), red)
 		if zones:
 			draw_rect(Rect2(0, hh * 0.2, w * clampf(value / 100.0, 0.0, 1.0), hh * 0.6), WoodKit.fg(self))
 		else:
-			var col := UI.RED if value >= 80.0 else (UI.AMBER if value >= 70.0 else (WoodKit.SOFT if dark else Color("#7a8794")))
+			var col := UI.RED if value >= 80.0 else (UI.AMBER if value >= 70.0 else (WoodKit.SOFT if dark else Palette.TILE))
 			draw_rect(Rect2(0, 0, w * clampf(value / 100.0, 0.0, 1.0), hh), col)
 
 
@@ -53,12 +54,12 @@ class GoalBar extends Control:
 		var hh := 12.0
 		var ink := WoodKit.fg(self)
 		var dark := WoodKit.on_dark(self)
-		draw_rect(Rect2(0, 0, size.x - 16.0, hh), Color(WoodKit.SOFT, 0.28) if dark else Color("#eef0f2"))
-		draw_rect(Rect2(0, 0, maxf(3.0, _x(week)), hh), Color("#e0a400"))
+		draw_rect(Rect2(0, 0, size.x - 16.0, hh), Color(WoodKit.SOFT, 0.28) if dark else Palette.TEXT)
+		draw_rect(Rect2(0, 0, maxf(3.0, _x(week)), hh), Palette.HEADER)
 		var px := _x(pace)
 		var y := -3.0
 		while y < hh + 3.0:
-			draw_line(Vector2(px, y), Vector2(px, minf(y + 3.0, hh + 3.0)), Color("#b07f00"), 2.0)
+			draw_line(Vector2(px, y), Vector2(px, minf(y + 3.0, hh + 3.0)), Palette.HEADER, 2.0)
 			y += 5.0
 		var tx := size.x - 16.0
 		draw_line(Vector2(tx, -4), Vector2(tx, hh + 4), ink, 2.0)

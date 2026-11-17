@@ -1,14 +1,37 @@
-# S510 handover (written 2026-11-17, end of S509)
+# S511 handover (written 2026-11-17, end of S510 - supervisor session)
 
-Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. Roadmap `now.next_action` has the detail.
-Digest: `ops/research/S509_DIGEST.md`.
+Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. Digests: `ops/research/S510_DIGEST.md`,
+`ops/research/S510_ANIM_DIGEST.md`.
+
+## GOAL OF THIS SESSION (owner, verbatim): "i want animations fixed (at least 7/10) in the next session"
+Two fresh blind critics (coach + animator, the r12-r14 briefs) both at 7.0+ on one film, by REBUILDING the fight animation
+system the way the studies say (METHOD below), not by patching. Order:
+1. Collect what is in flight (they ran past the end of S510):
+   - `ops/research/FIGHTPLAYER2_BASELINE_S510.md` (part-3 animation session): bought clips on their ORIGINAL skeleton vs on
+     our boxer, and the bout filmed raw / placement-only / full with blind scores. If missing, run it first - it decides
+     whether the damage is the clips, the retargeting or our correction layers.
+   - `ops/research/FIGHTPLAYER2_SCOPE_S510.md` - WRITTEN (262 lines, end of S510): the bought clips score 7.0 alone on our
+     body (RETARGET2B_RESULT.md); the damage is placement (hips pinned per punch) + ~25 layers per boxer; v2 = a planning
+     module that picks takes by distance + a small clip player; phases 0-7, a gate (v2 beats today by 1+ point). Its six
+     'owner decisions' are Claude's except the LICENCE and the purchase: rebuild is decided (standing approval).
+   - LICENCE: ANSWERED - owner, verbatim: "i have permission go on" (MoCap Online AI use): blind AI critics may judge films
+     of the pro_/mc_ clips.
+2. Two fresh critics judge the scope (owner: "have that judged"); 7+ or another round. No owner approval needed (standing).
+3. Build the phases that need no purchase first (strip the layers the baseline shows cost points, fix retargeting if it
+   damages clips, pick punches by distance from what we own, captured reactions only, smooth blending), filming a blind
+   round after each phase. Keep the rules: --log-file E:/..., films only with no game window, watchdog, godot_slot.
+4. If the baseline/scope show the owned clips cap below 7 (the r14 animator put one-man clips at "about 7 to 7.5"), say so
+   in plain words with the exact clips to buy and their price - money is still his explicit yes, after he sees the motion.
+Model: Fable 5.2 at high effort (owner chose "Keep Fable"). Hand over at ~420k context with the loop state written down.
 
 ## METHOD (operator S510, CLAUDE.md item 8 - quote this in your first message)
 Fight animation: STOP PATCHING. 14 rounds of correction layers scored 4.5-5/10 while the Undisputed / Boxing Manager /
 Blood & Canvas studies said the method is wrong (punches recorded per distance, captured reactions, motion matching /
 inertial blending - no layers bending arms and heads). Next: FIGHTPLAYER2 - the baseline diagnosis
 (ops/research/FIGHTPLAYER2_BASELINE_S510.md, part 3), the full scope (ops/research/FIGHTPLAYER2_SCOPE_S510.md), two fresh
-critics judge the scope (owner: "have that judged"; 7+ before his board), his approval, then build it phase by phase.
+critics judge the scope (owner: "have that judged"; 7+), then build it phase by phase. HIS APPROVAL IS STANDING: "i approve
+anything that will fix animations do not post stupid questions that i do not understand" - never ask him about animation
+work; report the critics' scores and what changed in plain words (money for a mocap pack is still his explicit yes).
 No new correction layer in scripts/fight3d until v2 is built. No new animation purchase until the baseline says the clips
 themselves are the limit (owner: "why should i buy more animations if the ones we have right now are so bad").
 
@@ -18,38 +41,12 @@ themselves are the limit (owner: "why should i buy more animations if the ones w
 - He sent a usage-cost video (Fable 5.2 cheap). Done: `.claude/agents/Explore.md` puts search helpers on Haiku. The video's
   other rule for us: do not split small jobs across helpers (briefing + re-reading costs more than doing it).
 
-## Done in S509
-- HEADSPLIT2 + HEADSPLIT3 collected (PRs 350, 351): head jumps by phase incl. `combo`.
-- A paw/feint/fidget waits until the return to guard has eased in (cc1f9476f); exported with WHAT_TO_TRY.
-- PopCap `-- capwhy`: why a >12 cm head frame passes the cap. s509a: 72 of 136 landed punch at full hold, 43 hit
-  reactions (free by design), 11 blocked/height-only (body slide).
-- Rejected + removed: trunk cap after the hit (hit_carry 31 -> 43); trunk cap on the way in of unlanded punches (no gain).
-
-## NEXT (in order)
-Blind r12 (S509): coach 5.0, animator 5.0 - flat vs r11. Reviews: E:/FightCamp/tmp/fightweek/r12blind/critic_*.md.
-0. OWNER (S509): "why they only throw puches with one hand ?" - r12 log: each boxer ~35 wait-beat paws/feints in 75 s, ALL
-   lead hand (GuardLife WAIT_JAB = pro_left_jab_b); real punches red 23 (7 rear), blue 24 (~half rear). Fix: feints on
-   both hands (rear-shoulder cross feint, body feint, level change), paw every 3-4 s not ~2, mix by style (STYLE_EVERY).
-   Count hands on the next film; film only with no game window open.
-   ALSO: GuardLife.FIDGETS names mc_head_movement and mc_bob_weave - NO such clips load (0 plays in r12; has_animation
-   filters them out). Point them at the owned weaves (pro_left_weave / pro_right_weave / mc_Box1_M3_Quick_Weave, today
-   defence only) so the waits get head movement. r12 waits: 6 Punch Pro fidgets 32 plays, ow_bounce_idle 6, ow_side_lean 6.
-1. Blue's FREE glove shoots straight up above his head after punches - named by r11 AND r12 critics (r12 sheets ex1
-   #40-47, ex2 #27-30, ex4 #25-32, ex5 #35-36). Find which clip / layer lifts it; guard box chin to 10 cm over the brow.
-2. Arm out after contact worst 29 frames (red's cross, ex1 #40-47; median 5, critics want 3-4, never over 2 held).
-3. A head inside the other's body (ex4 #21-24). 4. join_return 3 (rear uppercut: guard loop wrap inside the guard join;
-   lead hook: the frame after hit-stop). Run every test with --fixed-fps 60.
-
 ## Traps seen this session
 - EVERY in-session Godot test takes `--fixed-fps 60` (tools/run_tests.sh passes it, S470). Without it hit_carry read 29-33
   and join_return 2-4 run to run, and older debt numbers (block_meet 3) were measured that way.
 - A capped trunk cannot give back the body's own slide: a head that rides the root/hips needs the slide fixed, not PopCap.
 - `cd` into E:/FightCamp/tmp moved the session folder: use absolute paths.
 - watch-video skill: local faster-whisper fails on this PyAV (`metadata_errors`); feed it numpy from `wave` instead.
-
-## Debt (S509, --fixed-fps 60)
-hit_carry 26, block_meet 13, block_catch 10, join_return 3; others from S508 (uppercut_tail 2, block_absorb 11,
-punch_speed 40, hit_frame 4, punch_range 1, guard_knee, human_feet, rokoko_clips off-route) - recheck with the flag.
 
 ## MAIN LINE STATE (main-line side session, S511, 2026-11-17 ~21:30)
 - FIGHTFILM1 slices 1-9 on main. S511 added (d3c340fbc..7e7a21e25): Game plan lines on filed film claims (GamePlanRows
@@ -79,6 +76,35 @@ punch_speed 40, hit_frame 4, punch_range 1, guard_knee, human_feet, rokoko_clips
   runner - every CI test failed since 8d0e67650; now only where /e exists. grapple_fix_test fails 18 on main (pre-existing,
   not in the run list): look at it.
 - C: TRAP: every Godot run takes --log-file E:/FightCamp/tmp/<run>.log; a `cd` in Bash moves the session folder.
+
+## S512 SIDE SESSION (Opus, beside animation part 3, 2026-11-17 ~21:00) - main line only
+- Committed Dola's Ask-for-a-fight round 4 (ops/research/ASKFIGHT_CRITIC_S511_DOLA.md): depth 7 / play 7. Its #1 for 10/10:
+  show the next TWO club shows side by side (soonest = fight week only, next = full prep), each with its own cards; say
+  why a card is absent; per-date prep checkmarks (film evening, spars, week-before). Kalli SQ206 / John SQ207 still queued:
+  build AskBout + FightLearn at a second 7+.
+- ASKPROBE4 (Qwen, E:/FightCamp/wt/LEAN_ASKPROBE4) was still writing at 21:00: a count=2 smoke run already says YES (far
+  +7.5 win, +5.5 plan mastery, +6.3 injury). Its grep: NOT WIRED - FightWeek.spar_night.costs_pad_night (week-before pad
+  night), SPAR_LATE_INJURY_X / SPAR_LATE_CUT_STOP, FightWeek.banked mastery units -> INTEGRATE1 work. Collect by diff.
+- Palette (ONELOOK1, Q-251): tools/palette_sweep.py --training swept the Training tab, drill cards and scorecard; guard
+  baseline 73 -> 29. Left on purpose: WeekCards TILE/SPARE (one colour per ability), fight3d (animation session).
+- FightAnalysisList.GAME_WORDS now subject-free ("pressing forward"...). Settings "Show the fight log" waits for the live
+  log panel (map card "Live fight log", Grok Dev) - the settings page offers only options that work.
+- tests/grapple_fix_test.gd failing 18 is the S399 GRAPPLEFIX1 TARGET test (red on purpose, not in the run list, BJJ
+  parked) - not a regression.
+- Not exported: the .exe does not carry the S512 UI changes yet (the animation session's next export picks them up).
+- FIGHTPLAYER2 HAND-OFF (the S510 supervisor, closing, to S512): part 3 (local_b19ae020) does ONLY the baseline ->
+  ops/research/FIGHTPLAYER2_BASELINE_S510.md, then stops. Everything after it (scope critics, the build) is the main line's.
+  S512 queued the scope critics on the free seats: SQ209 Dola, SQ210 John, brief
+  ops/research/FIGHTPLAYER2_CRITIC_S512_BRIEF.md -> ..._S512_DOLA.md / _JOHN.md. Next: read the baseline against the
+  scope's table 1d, read both critics (7+ = build phase 1, the clip census; under 7 = revise the scope, another round),
+  build on Fable (the owner's "Keep Fable" for animation) in scripts/fight3d/v2/ behind `-- fightplayer2`.
+- BASELINE LANDED (027098b04, part 3 stopped): raw 4.5/4.5 = placement-only 4.5/4.5 = full 4.5/4.5 (six blind critics).
+  Table 1d verdict: the layers buy nothing -> the scope AS WRITTEN; retargeting keeps poses -> no phase 1b, except restore
+  the jab's cut tail (bake 0.84 of 1.07 s) in phase 1; the travel lost to FightClips.hold_root_xz is phase 3's root motion;
+  the feet stack squashes the bought upright stance (knees 146-151 -> 125-135) - the v2 foot lock must keep the clip's knee.
+  The critic brief now carries the baseline (SQ209/210 not sent yet). Part 3's round-15 edits stay PARKED
+  (E:/FightCamp/tmp/fightweek/s512/r15_parked.patch): they are new correction layers, which the METHOD forbids.
+- RAM: ~10 finished sessions sit idle with Remote Control on (~750 MB each, S491 note); watchdog AMBER on memory.
 
 ## ANIMATION LOOP STATE (the animation session's own section; rewritten 2026-11-17 ~21:00, S510 part 2, closed at ~420k tokens)
 Owner S510: the fight animation loops in its own session until both blind critics give 7+. Digest: `ops/research/S510_ANIM_DIGEST.md`

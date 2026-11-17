@@ -12,9 +12,10 @@ const Palette := preload("res://scripts/ui/Palette.gd")
 const FightLog := preload("res://scripts/rules/FightLog.gd")
 const TextScale := preload("res://scripts/ui/TextScale.gd")
 
-## Their game in words (the boxer on film is "them", the corner they fought "the other": no names, no he/she).
-const GAME_WORDS := {"press": "walks the other down", "range": "boxes at range", "counter": "waits to counter",
-	"loadup": "loads up big shots", "tiring": "tires", "hurt": "is hurt"}
+## The game in words, with no one named (S512: on your own bout both corners share one list, and "Round 2 - walks the other
+## down" had no subject; a picker, a divider and the report's legend read these as they are).
+const GAME_WORDS := {"press": "pressing forward", "range": "boxing at range", "counter": "waiting to counter",
+	"loadup": "loading up big shots", "tiring": "tiring", "hurt": "hurt"}
 const PUNCH_ORDER := ["jab", "cross", "hook", "uppercut"]
 const PUNCH_PLURAL := {"jab": "jabs", "cross": "crosses", "hook": "hooks", "uppercut": "uppercuts", "": "punches"}
 const RESULT_ORDER := ["Landed", "Clean", "Blocked", "Slipped", "Missed"]

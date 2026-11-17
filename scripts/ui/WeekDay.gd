@@ -4,6 +4,7 @@ extends RefCounted
 ## night, a click opens the evening popover) and the morning's index card (Tips). The morning card itself is WeekCards.am.
 ##   head(i, day, mine, coach_card, act, ghost)  pm(spec) -> PmCard  magnet_card(m, planned, r, red, mine, twist)  kind(m)
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const WB := preload("res://scripts/ui/WhiteboardKit.gd")
@@ -60,8 +61,8 @@ static func pm(spec: Dictionary) -> PmCard:
 	p.custom_minimum_size = Vector2(0, WeekCards.PM_H)
 	var held := bool(spec.get("picked", false)) and k != "film"
 	var empty_pads := k == "pads" and (spec.get("entries", []) as Array).is_empty()
-	var edge := Color(WoodKit.HEAD) if held else (Color(0, 0, 0, 0) if empty_pads else Color(WoodKit.SOFT, 0.35))
-	p.add_theme_stylebox_override("panel", UI.box(Color(1, 1, 1, 0.04), edge, 4, 2 if held else 1, 9, 9))
+	var edge := Color(WoodKit.HEAD) if held else (Color(Palette.PAGE, 0) if empty_pads else Color(WoodKit.SOFT, 0.35))
+	p.add_theme_stylebox_override("panel", UI.box(Color(Palette.TEXT, 0.04), edge, 4, 2 if held else 1, 9, 9))
 	p.add_child(WeekCards.night_body(spec))
 	if held and k != "pads":
 		p.tooltip_text = "Drop here to make this a pads night"

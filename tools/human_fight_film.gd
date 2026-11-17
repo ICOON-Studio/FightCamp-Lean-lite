@@ -67,6 +67,24 @@ func _initialize() -> void:
 				d[BONES[k]] = sk0.get_bone_global_pose(int(ids[k])).origin)
 		print("HUMANFIGHT boxer ", (view.stage.boxers as Array).find(bx), " ", (bx["node"] as Node3D).name, " scale ", (bx["node"] as Node3D).scale.x,
 			" south ", bx.get("south", false), " look ", str(bx.get("look", {})).left(120))
+	# S512 BASELINE (owner: "animations looked fine when we bought them ... it has to be coding mistakes or pipeline"):
+	# `-- rawclips` switches off every pose layer left on a boxer's skeleton except the join smoother and the twist bones
+	# (the layers with their own `no...` control switch are not attached at all when that is passed);
+	# `-- rawclips=PunchReach,ArmHome` keeps the named ones. The game itself is unchanged. One STACK line a boxer.
+	var raw_keep: Array = ["JoinSmoother", "MetaHumanTwist"]
+	var raw := false
+	for a in args:
+		if str(a) == "rawclips" or str(a).begins_with("rawclips="):
+			raw = true
+			raw_keep.append_array(Array(str(a).trim_prefix("rawclips").trim_prefix("=").split(",", false)))
+	for bx in view.stage.boxers:
+		var names: Array = []
+		for c in (bx["skel"] as Skeleton3D).get_children():
+			if c is SkeletonModifier3D:
+				if raw and not raw_keep.has(str(c.name)):
+					(c as SkeletonModifier3D).active = false
+				names.append(str(c.name) + ("" if (c as SkeletonModifier3D).active else "(off)"))
+		print("STACK boxer ", (view.stage.boxers as Array).find(bx), ": ", " ".join(names))
 	# The absolute floor: the canvas is y 0 (RingSet), a body's ball and ankle joints stand at their rest heights x her scale.
 	var floors := []
 	for bx in view.stage.boxers:
@@ -100,6 +118,12 @@ func _initialize() -> void:
 		_frame += 1
 		_row(view)
 	_log.close()
+	if is_instance_valid(view) and view.stage != null:   # S512: every landed punch as shown (clean / graze / cut off), for the rulers
+		var hf := FileAccess.open(out_dir.path_join("hits.json"), FileAccess.WRITE)
+		hf.store_string(JSON.stringify((view.stage.hit_gaps as Array).map(func(h: Dictionary) -> Dictionary:
+			return {"f": int(h["now_f"]), "hitter": int(h["hitter"]), "move": str(h["move"]), "clip": str(h["clip"]), "miss": snappedf(float(h["miss"]), 0.001), "graze": bool(h["graze"]),
+				"cut": bool(h["cut"]), "gap": snappedf(float(h["gap"]), 0.01), "fwd": snappedf(float(h["fwd"]), 0.001), "side": snappedf(float(h["side"]), 0.001), "up": snappedf(float(h["up"]), 0.001)})))
+		hf.close()
 	print(BeatTally.line())   # S435: what the punch beats of this bout really got
 	print(BeatTally.fallback_line())
 	print("HUMANFIGHT filmed frames ", _frame - start, " fight t ", float(view.t) if is_instance_valid(view) else -1.0)

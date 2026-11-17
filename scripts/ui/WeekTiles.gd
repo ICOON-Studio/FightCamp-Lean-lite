@@ -4,6 +4,7 @@ extends Control
 ## Rest has no bed icon in the set (heart stands in). Fight night has no bell (star stands in); the glove is hand-fist.
 ##   make(fid, days, evs, fight_dow, selected, gap, on_pick) -> WeekTiles
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const Icons := preload("res://scripts/ui/Icons.gd")
@@ -70,7 +71,7 @@ func _tile(i: int, morning: Array, eve: String, fight: bool, on: bool, on_pick: 
 	b.focus_mode = Control.FOCUS_NONE
 	b.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 	b.pressed.connect(on_pick.bind(i))
-	var bg := Color(0.16, 0.09, 0.08, 0.96) if fight else (Color(0.28, 0.22, 0.10, 0.96) if on else Color(0.13, 0.14, 0.15, 0.96))
+	var bg := Color(Palette.PAGE, 0.96) if fight else (Color(Palette.HOVER, 0.96) if on else Color(Palette.CARD, 0.96))
 	var edge := UI.RED if fight else (WoodKit.HEAD if on else Color(WoodKit.SOFT, 0.55))
 	for st in ["normal", "hover", "pressed", "focus"]:
 		var hot: bool = st == "hover"
@@ -120,6 +121,6 @@ func _pips(level: int) -> HBoxContainer:
 		var d := ColorRect.new()
 		d.custom_minimum_size = Vector2(12, 12)
 		d.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		d.color = WoodKit.HEAD if k < level else Color(1, 1, 1, 0.18)
+		d.color = WoodKit.HEAD if k < level else Color(Palette.TEXT, 0.18)
 		h.add_child(d)
 	return h

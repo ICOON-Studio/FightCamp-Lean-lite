@@ -17,10 +17,10 @@ const ResultCause := preload("res://scripts/ui/ResultCause.gd")
 const ResultTabs := preload("res://scripts/ui/ResultTabs.gd")
 
 const TEXT := 20
-const PAPER := Color("#efe5d2")
-const PAPER_LINE := Color("#cbbb9f")
-const RED_INK := Color("#b8262b")
-const BLUE_INK := Color("#27589e")
+const PAPER := Palette.TEXT
+const PAPER_LINE := Palette.MUTED
+const RED_INK := Palette.ACTION
+const BLUE_INK := Palette.PAPER_BLUE
 
 
 static func tab(main: Node, m: Dictionary, f: Dictionary, names: Array) -> VBoxContainer:

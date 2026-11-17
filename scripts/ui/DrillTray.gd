@@ -7,6 +7,7 @@ extends VBoxContainer
 ## slide in when the mode changes (booking, and back to LEARN after the fight).
 ##   DrillTray.make(main, f, cards, projs, on_pick, on_drill_it) -> DrillTray "DrillTray"   DrillTray.picked (static)
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const WB := preload("res://scripts/ui/WhiteboardKit.gd")
@@ -129,7 +130,7 @@ static func _build(main: Node, f: Dictionary) -> Button:
 	for st in ["normal", "hover", "pressed", "focus"]:
 		var hot: bool = st == "hover"
 		var edge := Color(WoodKit.BLUE if hot else WoodKit.SOFT, 0.9 if hot else 0.35)
-		b.add_theme_stylebox_override(st, UI.box(Color(1, 1, 1, 0.04), edge, 4, 2 if hot else 1, 0, 0))
+		b.add_theme_stylebox_override(st, UI.box(Color(Palette.TEXT, 0.04), edge, 4, 2 if hot else 1, 0, 0))
 	b.pressed.connect(func():
 		Playbook.pick = str(f["id"])
 		ComboBuilder.chain = []

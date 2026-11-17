@@ -10,6 +10,7 @@ extends VBoxContainer
 ##   replan: Callable(f_copy) -> the goal lines for that fighter state (WeekBoard.plan_of(c, f_copy)["lines"])
 ##   ghost_day(dow, card) - card [] = off
 
+const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const WB := preload("res://scripts/ui/WhiteboardKit.gd")
 const Data := preload("res://scripts/state/Data.gd")
@@ -83,8 +84,8 @@ func _build(main: Node, f: Dictionary, goal: Dictionary, lines: Array) -> void:
 		now[id] = float(ln["end"])
 		var hold := PanelContainer.new()
 		hold.name = "Line_" + id
-		hold.add_theme_stylebox_override("panel", UI.box(Color(UI.GOLD, 0.35), Color(0, 0, 0, 0), 4, 0, 6, 2))
-		hold.self_modulate = Color(1, 1, 1, 0)
+		hold.add_theme_stylebox_override("panel", UI.box(Color(UI.GOLD, 0.35), Color(Palette.PAGE, 0), 4, 0, 6, 2))
+		hold.self_modulate = Color(Palette.FULL, 0)
 		var row := UI.hbox(10)
 		hold.add_child(row)
 		var title := str(ln["label"]).to_upper() if id == "opp" else "WEIGHT" if id == "weight" else ("FATIGUE PEAK" if id == "fatigue" else str(Data.LABEL.get(id, ln["label"])).to_upper())

@@ -204,3 +204,11 @@ at the surface); 4 punch timing: out fast, back at once; 5 punch from the floor 
 NEW IN r14's RULERS, check first: "a head inside the other's body" 0 -> 3 frames, distance p50 1.39 -> 1.34 m, heads
 closer than 25 cm 0.09 -> 0.13 % - the coach's first item. Suspects: the closer guard (GuardTuck.GUARD, `-- oldguard`)
 letting the men stand nearer, or the hip lag under a body shot's dive (`hiplag=0`). A/B both on full 75 s logs.
+
+## BASELINE (part 3, 2026-11-17 late): the loop is stopped, the rebuild is scoped
+Owner: "animations looked fine when we bought them ... it has to be coding mistakes or pipeline", then "change this, get
+the full scope of fixing" (no new correction layer in scripts/fight3d). Round 15 was not filmed; its edits are parked in
+E:/FightCamp/tmp/fightweek/s512/r15_parked.patch. The baseline: ops/research/FIGHTPLAYER2_BASELINE_S510.md.
+Blind scores, same bout: raw clips 4.5 / 4.5, placement only (reach + feet) 4.5 / 4.5, full r14 4.5 / 4.5. Retargeting
+keeps the poses and loses the travel (hips pinned). Head jumps come from the punch reach (3 -> 24), knee jerks and the
+crouch from the footwork stack (3-6 -> 68-179 a knee, knees 150 -> 130 deg). Scope: ops/research/FIGHTPLAYER2_SCOPE_S510.md.
