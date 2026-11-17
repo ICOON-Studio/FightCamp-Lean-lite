@@ -18,7 +18,7 @@ const LEAN_MAX := 0.30
 ## S499 (fight week day 4): on a jab's contact frame the lean arrived whole - the puncher's head moved 19-24 cm in one
 ## frame, her hips 2-3 cm (r3d trace). The drawn lean now changes at most LEAN_RATE rad/s, in and out (0.30 rad in 0.1 s;
 ## ReachLimit.turn_eased). HitImpact.hit's forced pass (lean_free) and reach_at() stay whole. `-- noleanease` = control.
-const LEAN_RATE := 4.0
+static var LEAN_RATE: float = _arg_f("leanrate", 4.0)   # S505: 2.5 cut jumps 77 -> 63 but block_catch 4 -> 6 red; `-- leanrate=<x>`
 static var LEAN_EASE: bool = not OS.get_cmdline_user_args().has("noleanease")
 var lean_free := false
 var _lean_st := {"prev": Quaternion.IDENTITY, "now": Quaternion.IDENTITY, "base": Quaternion.IDENTITY, "key": 0, "pass": -1}
@@ -494,3 +494,7 @@ func _lean(skel: Skeleton3D, hand: String, s: Vector3, want: Vector3, lean_to: f
 ## SPLIT471: implementation in PunchReachMath; this forwarder keeps GloveClear, GuardTuck, TellPose unchanged.
 static func solve(skel: Skeleton3D, ids: Array, s: Vector3, want: Vector3, l1: float, l2: float, hand_basis: Basis, pole := Vector3.ZERO, pole_w := 0.0) -> void:
 	PunchReachMath.solve(skel, ids, s, want, l1, l2, hand_basis, pole, pole_w)
+
+static func _arg_f(key: String, dflt: float) -> float:
+	var hit: Array = Array(OS.get_cmdline_user_args()).filter(func(a): return str(a).begins_with(key + "="))
+	return float(str(hit[0]).get_slice("=", 1)) if not hit.is_empty() else dflt

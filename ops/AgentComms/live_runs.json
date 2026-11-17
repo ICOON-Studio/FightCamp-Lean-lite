@@ -759,14 +759,15 @@
    "agent": "ziva",
    "id": "COACHNECK2",
    "title": "TASK COACHNECK2 - the corner coach neck upright in his close-up, round 2",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-17T09:02",
    "eta": "2026-11-17T11:00",
    "where": "ziva editor chat Fight Film Analysis",
    "branch": "ziva/coachneck2",
    "brief": "ops/research/TASK_COACHNECK2.md",
    "repo": "FightCamp-Lean",
-   "note": "S505 re-sent go (it waited for a go since S501); probe fixed, CornerIK edits under way"
+   "note": "S505 re-sent go (it waited for a go since S501); probe fixed, CornerIK edits under way",
+   "reconciled": "2026-11-17 09:40 board_reconcile: PR #341 open - collect it"
   },
   "IDLEIN1": {
    "agent": "qwen",
@@ -820,11 +821,49 @@
    "agent": "qwen",
    "id": "PUNCHEND3",
    "title": "TASK PUNCHEND3 - PunchEnd reads the hand in her chest's own frame, not the ring's",
-   "status": "queued (seat_dispatch: launches on the next cycle once the render ends)",
-   "started": "2026-11-17T09:04",
-   "eta": "2026-11-17T11:30",
+   "status": "merged (S505): 3 files on main as is; s505b home_p50 3, contact_home_p50 25 (0 of 35 landed home in 4)",
+   "started": "2026-11-17T09:43",
+   "eta": "2026-11-17T11:33",
    "branch": "qwen/punchend3",
-   "brief": "ops/research/TASK_PUNCHEND3.md"
+   "worktree": "E:/FightCamp/wt/LEAN_PUNCHEND3",
+   "wt": "E:/FightCamp/wt/LEAN_PUNCHEND3",
+   "brief": "ops/research/TASK_PUNCHEND3.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/PUNCHEND3_dispatch_out.txt",
+   "match": "seat_dispatch.py run punchend3",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/PUNCHEND3_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/PUNCHEND3_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/PUNCHEND3_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 15936,
+    "seat_pid": 41836
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 2/2 PASS; PR #342",
+   "finished": "2026-11-17T09:58",
+   "pr": 342,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/punch_end_test.gd",
+     "ok": true,
+     "last": "PUNCH_END_TEST failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/file_limits_test.gd",
+     "ok": true,
+     "last": "FILE_LIMITS failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
   }
  },
  "codex_budget": {

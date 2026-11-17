@@ -1,6 +1,9 @@
 extends RefCounted
-## PUNCHEND2: where each punch ends and how fast the hand comes home.
+## PUNCHEND3: where each punch ends and how fast the hand comes home.
 ## Pure static analyser over shown.csv rows. ZERO preloads.
+## S505: hand position is now read in the boxer's own CHEST FRAME (origin=UpperChest, right=shoulder line,
+## forward=up×right pointing from chest toward hands), not the ring's axes. A cross that turns the chest 40°
+## no longer makes a hand-at-the-chin read "not home". Old films without shoulder columns fall back to ring axes.
 
 const PUNCH_WORDS := ["jab", "cross", "hook", "uppercut", "body_shot"]
 const EXCLUDE_WORDS := ["hit_by", "dodge", "weave", "idle"]
@@ -12,7 +15,7 @@ const CONTACT_REACH := 0.85   # S504 collect: a hold counts as this punch's cont
 
 
 static func analyse(rows: Array) -> Dictionary:
-	var empty: Dictionary = {"punches": [], "head_n": 0, "above_10_n": 0, "above_p50": 0.0, "above_p90": 0.0, "home_p50": 0.0, "home_p90": 0.0, "contact_home_p50": 0.0, "contact_home_p90": 0.0, "contact_home_le4": 0, "landed_n": 0, "by_clip": {}}
+	var empty: Dictionary = {"punches": [], "head_n": 0, "above_10_n": 0, "above_p50": 0.0, "above_p90": 0.0, "home_p50": 0.0, "home_p90": 0.0, "contact_home_p50": 0.0, "contact_home_p90": 0.0, "contact_home_le4": 0, "landed_n": 0, "by_clip": {}, "chest_frame_rows": 0, "ring_axes_rows": 0}
 	if rows.is_empty():
 		return empty
 	var by_frame_who: Dictionary = {}
@@ -72,6 +75,13 @@ static func analyse(rows: Array) -> Dictionary:
 	for clip in by_clip:
 		var d: Dictionary = by_clip[clip]
 		by_clip_out[clip] = {"n": d["n"], "above_p50": _pct(d["above"], 0.5), "home_p50": _pct(d["home"], 0.5), "contact_home_p50": _pct(d["contact_home"], 0.5)}
+	var chest_frame_rows: int = 0
+	var ring_axes_rows: int = 0
+	for r in rows:
+		if _has_shoulders(r):
+			chest_frame_rows += 1
+		else:
+			ring_axes_rows += 1
 	return {
 		"punches": punches,
 		"head_n": head_n,
@@ -85,6 +95,8 @@ static func analyse(rows: Array) -> Dictionary:
 		"contact_home_le4": contact_home_le4,
 		"landed_n": landed_n,
 		"by_clip": by_clip_out,
+		"chest_frame_rows": chest_frame_rows,
+		"ring_axes_rows": ring_axes_rows,
 	}
 
 
@@ -203,11 +215,30 @@ static func _hand_dist(row: Dictionary, hand: String) -> float:
 	return hp.distance_to(hips)
 
 
-## The hand from the hips in ring axes (the brief's rule). S504 collect tried the boxer's own frame (hip line: home
-## median 5 -> 11 frames, the hips turn further than the shoulders) and the glove-to-head distance (an arc keeps the
-## distance: everything read home at once); ring axes stay until the film logs the chest's turn.
+## S505: the hand from the UPPER CHEST in the boxer's own CHEST FRAME. The chest frame is:
+##   origin  = UpperChest
+##   right   = (RightShoulder - LeftShoulder) with y flattened, normalised
+##   up      = world up (0,1,0)
+##   forward = up × right  (points from the chest toward where the hands sit in guard; verified on a guard row)
+## A row without shoulder columns (an old film) falls back to the ring-axes rule: bone - Hips.
 static func _local(row: Dictionary, bone: String) -> Vector3:
+	if _has_shoulders(row):
+		var ls := _bone_pos(row, "LeftShoulder")
+		var rs := _bone_pos(row, "RightShoulder")
+		var uc := _bone_pos(row, "UpperChest")
+		var right := rs - ls
+		right.y = 0.0
+		if right.length() > 0.001:
+			right = right.normalized()
+			var up := Vector3(0.0, 1.0, 0.0)
+			var forward := up.cross(right)
+			var diff := _bone_pos(row, bone) - uc
+			return Vector3(diff.dot(right), diff.dot(up), diff.dot(forward))
 	return _bone_pos(row, bone) - _bone_pos(row, "Hips")
+
+
+static func _has_shoulders(row: Dictionary) -> bool:
+	return row.has("LeftShoulder_x") and row.has("RightShoulder_x") and row.has("UpperChest_x")
 
 
 static func _bone_pos(row: Dictionary, bone: String) -> Vector3:

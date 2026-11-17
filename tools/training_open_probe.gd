@@ -74,6 +74,20 @@ func _initialize() -> void:
 				root.push_input(ev2)
 				await _settle(2)
 			await _settle(3)
+			main.nav({"area": "training"})
+			await _settle(3)
+			var ana: Control = main.find_child("Training", true, false).find_child("Card_" + str((main.career.grapplers as Array)[0]["id"]), true, false)
+			var ar := ana.get_global_rect()
+			for pressed in [true, false]:
+				var ev3 := InputEventMouseButton.new()
+				ev3.button_index = MOUSE_BUTTON_LEFT
+				ev3.pressed = pressed
+				ev3.position = ar.get_center()
+				ev3.global_position = ar.get_center()
+				root.push_input(ev3)
+				await _settle(2)
+			await _settle(3)
+			print("TRAINING_GRAPPLER click her card: route %s, drill picker shown=%s" % [str(main.route), str(main.find_child("DrillPick", true, false) != null)])
 			print("TRAINING_CONTROL click Gym floor at %s: area now %s" % [str(br.get_center()), str(main.route.get("area"))])
 			main.nav({"area": "training"})
 			await _settle(3)

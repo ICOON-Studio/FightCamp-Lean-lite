@@ -99,7 +99,10 @@ static func act(main: Node, name: String, arg: String) -> bool:
 	var c: Career = main.career
 	match name:
 		"tkpick":
-			main.nav({"area": "training", "fighter": arg})
+			if not c.grappler_by_id(arg).is_empty():   # S505: her week is the mat's - her page holds what the classes drill
+				main.nav({"area": "fighters", "fighter": arg, "ftab": 0})
+			else:
+				main.nav({"area": "training", "fighter": arg})
 		"tkday":
 			sel_day = clampi(int(arg), 0, 6)
 			main.render()

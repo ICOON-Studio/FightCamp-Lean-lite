@@ -1,7 +1,8 @@
 extends RefCounted
 ## S496 TRAININGK1: the Training screen's fighter strip - one card per fighter (face, NAME, class, bout, the week's kind,
 ## the coach's minutes this week, the tiredness sparkline). A boxer's card is a button: it selects her week below. The
-## grappler's card shows her mat week (the mat coach runs it; the boxing coach's evenings are not hers).
+## grappler's card shows her mat week (the mat coach runs it; the boxing coach's evenings are not hers); a click opens her
+## page, where the player picks what her classes drill (S505).
 ##   make(model, on_pick: Callable(fid)) -> HBoxContainer
 
 const B := preload("res://scripts/ui/TrainBits.gd")
@@ -28,15 +29,13 @@ static func card(cd: Dictionary, on: bool, on_pick: Callable) -> Control:
 	b.name = "Card_" + str(cd["id"])
 	b.custom_minimum_size = Vector2(0, H)
 	b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	b.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND if boxer else Control.CURSOR_ARROW
+	b.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 	b.add_theme_stylebox_override("panel", B.panel(Palette.HOVER if on else Palette.CARD, Palette.CHOSEN if on else Palette.LINE, 12, 6, 3 if on else 1))
-	if boxer:
-		var fid := str(cd["id"])
-		b.on_click = func(): on_pick.call(fid)
-		if not on:   # S505 (operator: "why i cannot switch fighter in the training screen"): the card lights up under the mouse
-			b.tooltip_text = "Click to plan this boxer's week"   # names stay in headers (S448)
-			b.mouse_entered.connect(func(): b.add_theme_stylebox_override("panel", B.panel(Palette.HOVER, Palette.CHOSEN, 12, 6, 2)))
-			b.mouse_exited.connect(func(): b.add_theme_stylebox_override("panel", B.panel(Palette.CARD, Palette.LINE, 12, 6, 1)))
+	var fid := str(cd["id"])
+	b.on_click = func(): on_pick.call(fid)   # S505 (operator: "it doesnt switch to ana"): a grappler's card opens her page
+	if not on:   # S505 (operator: "why i cannot switch fighter in the training screen"): the card lights up under the mouse
+		b.mouse_entered.connect(func(): b.add_theme_stylebox_override("panel", B.panel(Palette.HOVER, Palette.CHOSEN, 12, 6, 2)))
+		b.mouse_exited.connect(func(): b.add_theme_stylebox_override("panel", B.panel(Palette.CARD, Palette.LINE, 12, 6, 1)))
 	var h := HBoxContainer.new()
 	h.add_theme_constant_override("separation", 10)
 	h.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -85,7 +84,8 @@ static func card(cd: Dictionary, on: bool, on_pick: Callable) -> Control:
 		sv.add_child(sp)
 		sv.add_child(B.lab("tiredness", 16, Palette.MUTED, "body"))
 		h.add_child(sv)
-	b.tooltip_text = "Tiredness by the end of each day: %s" % ", ".join((cd["spark"] as Array).map(func(x): return "%d" % roundi(float(x)))) if boxer else "The mat coach runs this week."
+	b.tooltip_text = ("Tiredness by the end of each day: %s" % ", ".join((cd["spark"] as Array).map(func(x): return "%d" % roundi(float(x))))
+		+ ("" if on else "\nClick to plan this boxer's week.")) if boxer else "The mat coach runs her classes. Click to choose what they drill."
 	return b
 
 

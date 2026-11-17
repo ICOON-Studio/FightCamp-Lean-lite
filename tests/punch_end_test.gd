@@ -26,6 +26,8 @@ func _initialize() -> void:
 	_test_contact_home_minus1()
 	_test_home_inside_clip()
 	_test_hold_of_the_other_man()
+	_test_chest_frame_cross()
+	_test_chest_ring_counts()
 	print("PUNCH_END_TEST failures=%d" % failures)
 	quit(1 if failures > 0 else 0)
 
@@ -48,6 +50,31 @@ func _row(frame: int, who: int, clip: String, hips: Vector3, head: Vector3, lh: 
 		"LeftHand_x": lh.x, "LeftHand_y": lh.y, "LeftHand_z": lh.z,
 		"RightHand_x": rh.x, "RightHand_y": rh.y, "RightHand_z": rh.z,
 	}
+
+
+## Build a row WITH shoulder columns. Hand positions are given in the CHEST FRAME (right, up, forward) and
+## converted to world. The chest rotates around the Y axis through UpperChest by `chest_angle_deg`.
+func _row_chest(frame: int, who: int, clip: String, hips: Vector3, head: Vector3, lh_chest: Vector3, rh_chest: Vector3, chest_angle_deg: float) -> Dictionary:
+	var uc := hips + Vector3(0.0, 0.4, 0.0)
+	var angle := deg_to_rad(chest_angle_deg)
+	var cos_a := cos(angle)
+	var sin_a := sin(angle)
+	var ls_local := Vector3(-0.15, 0.0, 0.0)
+	var rs_local := Vector3(0.15, 0.0, 0.0)
+	var ls := uc + Vector3(ls_local.x * cos_a - ls_local.z * sin_a, ls_local.y, ls_local.x * sin_a + ls_local.z * cos_a)
+	var rs := uc + Vector3(rs_local.x * cos_a - rs_local.z * sin_a, rs_local.y, rs_local.x * sin_a + rs_local.z * cos_a)
+	var right := rs - ls
+	right.y = 0.0
+	right = right.normalized()
+	var up := Vector3(0.0, 1.0, 0.0)
+	var forward := up.cross(right)
+	var lh_world := uc + lh_chest.x * right + lh_chest.y * up + lh_chest.z * forward
+	var rh_world := uc + rh_chest.x * right + rh_chest.y * up + rh_chest.z * forward
+	var row := _row(frame, who, clip, hips, head, lh_world, rh_world)
+	row["UpperChest_x"] = uc.x; row["UpperChest_y"] = uc.y; row["UpperChest_z"] = uc.z
+	row["LeftShoulder_x"] = ls.x; row["LeftShoulder_y"] = ls.y; row["LeftShoulder_z"] = ls.z
+	row["RightShoulder_x"] = rs.x; row["RightShoulder_y"] = rs.y; row["RightShoulder_z"] = rs.z
+	return row
 
 
 ## Common positions.
@@ -351,4 +378,51 @@ func _test_hold_of_the_other_man() -> void:
 	var r := PE.analyse(rows)
 	_check(r["punches"].size() == 1 and int(r["punches"][0]["contact_home_frames"]) == -1 and int(r["landed_n"]) == 0,
 		"other man's hold: not this punch's contact, got %s" % str(r["punches"][0]["contact_home_frames"] if not r["punches"].is_empty() else "none"))
+
+
+func _test_chest_frame_cross() -> void:
+	## S505: a cross that turns the chest 40° between guard and far point. The hand returns to the SAME SPOT in
+	## the chest frame (guard position) by frame 18. In the chest frame: home in 3 frames. In ring axes (old rule):
+	## the guard reference was taken at 0° chest angle, but the recovery hand is at 40° chest angle -> different
+	## world position. Distance in ring axes: ~0.137m > 0.08m HOME_RADIUS_M -> NOT home (would read 30 = never).
+	## Chest-frame positions: RH_GUARD = (0.2, 0.0, 0.0); extended = (0.1, 0.1, -0.5); recovery returns to guard.
+	var rows: Array = []
+	## Guard rows (frames 5-9): chest at 0°, hand at guard in chest frame.
+	for f in range(5, 10):
+		rows.append(_row_chest(f, 0, "idle", HIPS0, HEAD0, Vector3(-0.2, 0.1, 0.0), Vector3(0.2, 0.0, 0.0), 0.0))
+	## Punch run (frames 10-15): chest turns to 40°, hand extends forward in chest frame.
+	for f in range(10, 16):
+		var t: float = float(f - 10) / 5.0
+		var rh_chest := Vector3(0.2, 0.0, 0.0).lerp(Vector3(0.1, 0.1, -0.5), t)
+		rows.append(_row_chest(f, 0, "pro_cross", HIPS0, HEAD0, Vector3(-0.2, 0.1, 0.0), rh_chest, 40.0))
+	## Opponent present for the far frame check.
+	for f in range(5, 16):
+		rows.append(_row(f, 1, "idle", HIPS1, HEAD1, LH_GUARD, RH_GUARD))
+	## Recovery (frames 16-18): chest still at 40°, hand returns to guard in chest frame over 3 frames.
+	rows.append(_row_chest(16, 0, "idle", HIPS0, HEAD0, Vector3(-0.2, 0.1, 0.0), Vector3(0.17, 0.07, -0.33), 40.0))
+	rows.append(_row_chest(17, 0, "idle", HIPS0, HEAD0, Vector3(-0.2, 0.1, 0.0), Vector3(0.19, 0.03, -0.17), 40.0))
+	rows.append(_row_chest(18, 0, "idle", HIPS0, HEAD0, Vector3(-0.2, 0.1, 0.0), Vector3(0.2, 0.0, 0.0), 40.0))
+	var r := PE.analyse(rows)
+	_check(r["punches"].size() == 1, "chest_cross: 1 punch, got %d" % r["punches"].size())
+	if r["punches"].is_empty():
+		return
+	var p: Dictionary = r["punches"][0]
+	_check(p["home_frames"] <= 4, "chest_cross: home within 4 frames in chest frame, got %d" % p["home_frames"])
+	_check(int(r["chest_frame_rows"]) == 14, "chest_cross: chest_frame_rows 14, got %d" % r["chest_frame_rows"])
+	_check(int(r["ring_axes_rows"]) == 11, "chest_cross: ring_axes_rows 11 (opponent has no shoulders), got %d" % r["ring_axes_rows"])
+
+
+func _test_chest_ring_counts() -> void:
+	## S505: mixed rows - some with shoulder columns (chest frame), some without (ring axes fallback).
+	## Verify the summary counts chest_frame_rows and ring_axes_rows correctly.
+	var rows: Array = []
+	## 3 rows with shoulders (chest frame).
+	for f in range(10, 13):
+		rows.append(_row_chest(f, 0, "pro_jab", HIPS0, HEAD0, Vector3(-0.2, 0.1, 0.0), Vector3(0.2, 0.0, 0.0), 0.0))
+	## 2 rows without shoulders (ring axes).
+	for f in range(13, 15):
+		rows.append(_row(f, 0, "idle", HIPS0, HEAD0, LH_GUARD, RH_GUARD))
+	var r := PE.analyse(rows)
+	_check(int(r["chest_frame_rows"]) == 3, "counts: chest_frame_rows 3, got %d" % r["chest_frame_rows"])
+	_check(int(r["ring_axes_rows"]) == 2, "counts: ring_axes_rows 2, got %d" % r["ring_axes_rows"])
 
