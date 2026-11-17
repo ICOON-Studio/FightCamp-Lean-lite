@@ -42,3 +42,13 @@ How to start it (the owner does steps 1-2; Claude never handles the sign-in):
 5. `/cost` in the CLI shows the session's spend; the Console Usage page shows the total. Stop at ~$300 used, or when the
    subscription resets (Thu 16:00 his time) - then back to the desktop app (`/login` with the claude.ai account in the CLI).
 Never set ANTHROPIC_API_KEY globally: it would override the subscription everywhere.
+
+
+## CORRECTION (S512, 2026-11-18, from the owner's claude.ai billing screenshot) - READ THIS FIRST
+The $200 is NOT a one-off prepaid top-up. It is the ULTRA PLAN's MONTHLY API CREDIT: claude.ai Settings > Billing shows
+"API credits - Konstantinos's Individual Org - Linked Nov 14, 2026 - Monthly credit US$200 - Next credit Dec 4, 2026".
+It lands in that Console organization each month. On 2026-11-18 a `claude` CLI logged in to that org as a Console account
+answered "Credit balance too low", so the org held $0 usable then (the first grant may only arrive Dec 4, or November's was
+used). To use it: the `claude` CLI, `/login` -> 2. Anthropic Console account -> Konstantinos's Individual Org (the header
+then reads "API Usage Billing"); the desktop app cannot. Check the balance at platform.claude.com > Settings > Billing.
+The "$350 bonus" the owner named in S512 was not found anywhere yet.

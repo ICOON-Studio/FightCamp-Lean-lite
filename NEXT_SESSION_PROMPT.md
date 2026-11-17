@@ -124,9 +124,37 @@ themselves are the limit (owner: "why should i buy more animations if the ones w
 Owner: "i want animations fixed (at least 7/10)" = two fresh blind critics (coach + animator) both 7.0+ on one film. You are
 the ONLY animation session; you own `scripts/fight3d` (v2 in `scripts/fight3d/v2/`) and this section. Quote the METHOD line.
 WHERE WE ARE: FIGHTPLAYER2 (the rebuild, `ops/research/FIGHTPLAYER2_SCOPE_S510.md`, section 8 = the critics' changes).
-The v2 player EXISTS and plays the real bout behind `-- fightplayer2`. It has NOT been filmed or judged yet: the owner's
+The v2 player EXISTS and plays the real bout behind `-- fightplayer2`. FIRST BLIND ROUND: coach 3.5, animator 3.0 -
+BELOW the old player (see FIRST FILM below). When this section was first written it had not been filmed: the owner's
 game (ArcheAge) was open the whole session and films run only when no game window is open (Q-267). r14 = 4.5 / 4.5 is the
 control arm; the shipped player is untouched without the switch.
+- S513 (CLI session on the Console credits, 2026-11-18 ~00:10-02:30; headless only, his game was open all session;
+  commits ac4ce0972, 95ab3f180). READ THIS FIRST, it is newer than the lists below:
+  * Built after the first blind round (causes b and c below): a reaction starts part-way into its take so the head is
+    furthest 0.13 s after the glove lands (`ChoreoRules.REACT_PEAK_S`), reaction takes vary by the plan's seed
+    (`REACT_VARY_SCORE`), the join into a reaction is 0.11 s; a boxer turns at most 3.5 rad/s and holds his facing
+    while the places are under 0.5 m apart (`Player2.FACE_MAX_RPS`, `FACE_HOLD_M`). Headless bout (`s512b/v2l`): head
+    jumps 14 -> 10, none on a contact or a clip change. NOT FILMED, NOT JUDGED.
+  * The film's rulers now SEE v2's hits (NEXT item 3 done): `Player2._record` fills `stage.hit_gaps` (hits.json) and
+    the film's `hold` column reads `Player2.hit_until`. First reading: the reaction ruler still says 15 frames / 9 cm
+    (it measures the head from the hips over a 15-frame window; the snap itself now shows as it should) - check that
+    ruler against the next film's pictures before trusting it.
+  * FEET (NEXT item 2): measured, not solved. `v2/FootCarry.gd` (opt-in `-- fightplayer2 fp2carry`; FootPlant stays the
+    default): the take's own footwork shown as captured, the plan's travel stepped from the plan, a reaction on the
+    spot keeps its feet. Real bout headless: slip 7.5 / 7.3 m (FootPlant 9.5 / 6.5), in the guard 0.5 m (2.3), knee
+    jerks 36-46 (16-26). WHY the ruler stays high whatever the layer (`tools/fp2_take_feet.gd`, `s513/slipwhy.py
+    <shown.csv>`, `FootCarry.tally` with `fp2log`): (1) about half is the bought takes' OWN shuffles when their hip
+    travel is on the body (alone: kidney shot 0.89 m, dodges 0.6 m, gut-shot stagger 0.41 m, hooks 0.2-0.27 m, a jab
+    0.11 m); (2) the plan moves the body 0.4-0.5 m in 0.3-0.4 s WHILE a take has one foot in the air, so the support
+    foot has to move (the body shot: 21 m of body travel each in 75 s). So the feet are a PLANNER problem first: end
+    the step in before a take that steps itself, plan less travel (cause a: head distance, fewer chest-to-chest
+    bursts), then film `fp2carry` beside the default and let the eye pick. Tried and dropped (no gain): letting a
+    foot the take has in the air ride the body, holding a planted foot's turn when the plan turns the body.
+  * Player2.gd is at 478 lines: the next addition splits it (the facing + follow code into its own file).
+  * NEXT for the next animation session, in order: (1) RANGE, cause a (plan in head distance, drop or restrict the
+    short takes, a step out after a burst's last punch) - the critics' item 1 and the feet's biggest cause; (2) the
+    minimum play time for a take (events cut each other after 1-4 frames, cause c); (3) waiting alive, cause d;
+    (4) film (seed 7, 75 s; also once with `fp2carry`) and a fresh blind round - the gate is still 4.5 + 1.
 - PHASE 1 DONE (0b1a1d50d): the clip census, `assets/data/clip_db.json`, `ops/research/CLIP_CENSUS_S512.md`.
 - PHASE 2 DONE: Goose's choreographer collected by diff (79b9dee65, issue 356 closed), then tightened here (2759011cb):
   `v2/Choreographer.gd` (plan(beats, db, opts): punches planned in the order they LAND, the Punch PRO takes first, a hit
@@ -155,6 +183,49 @@ control arm; the shipped player is untouched without the switch.
   (`s512b/v2a/rulers_motion.txt`, `rulers_raw.txt`): support-foot slip 9.5 / 6.5 m in 75 s (RAW 33-37, shipped
   0.2-0.4, bar 1), head jumps over 12 cm 13 (r14 14, bar 0; all inside a take: jab_a 26 cm, hook_ft 22 cm), heads
   inside 0, distance p50 1.5 m, knees p50 150 / 141 and 133 / 123 (the bought stance is back on boxer 0).
+- FIRST FILM + BLIND ROUND (2026-11-18 ~00:20-00:45, `E:/FightCamp/tmp/fightweek/v2r1/`): v2 scored LOWER than the old
+  player. Coach 3.5, animator 3.0 (r14, the old player: 4.5 / 4.5). The gate is NOT met; v2 stays behind its switch.
+  | critic | whole | punches | defence + reactions | footwork + stance | transitions | waiting |
+  |---|---|---|---|---|---|---|
+  | coach | 3.5 | 3.5 | 3 | 3 | 3.5 | 3.5 |
+  | animator | 3 | 4 | 2.5 | 3.5 | 3 | 2.5 |
+  Reviews with every frame reference: `v2r1/critic_coach.md` (12-item 10/10 list), `v2r1/critic_animator.md`; their
+  10/10 pictures `v2r1/critic_coach_10.png`, `critic_animator_10.png`; film `v2r1/men.mp4`, sheets `v2r1/sheets_close/`.
+  THEIR 10/10 LISTS, most important first (both agree on 1, 2 and 5):
+  1. RANGE. Wait with heads 1.3-1.6 m apart; straights land with heads 0.8-1.1 m apart, hooks 0.5-0.85, uppercuts and
+     body hooks 0.55-0.65; one visible step in (lead foot 25-35 cm in 5-6 frames, down 1-2 frames before the glove);
+     under 0.45 m = a real tie-up or a 30-40 cm step out inside 10 frames. Today every exchange ends chest to chest
+     with gloves parked on faces (ex1 #5-#30, ex4 #43-#60, ex5 #1-#56).
+  2. EVERY LANDED PUNCH SHOWS ON THE HIT MAN FROM THE CONTACT FRAME: head starts 1 frame after, peaks in 3-4, back in
+     10-14; jab 5-8 cm, right hand 12-18 cm + a 20-30 deg turn, body shot hips back 8-10 cm + a 15-25 deg fold inside
+     2-4 frames. Today the hit head moves 0-8 cm, an uppercut gets nothing (ex4 #45-#60), the body fold starts a third
+     of a second late (ex3 #25-#40).
+  3. NEVER SHOW THE BACK, NO WHIRLS: hips at most 60 deg off the other man, at most 6-12 deg of turn and 6-9 cm of head
+     travel a frame, 6-8 frames from a dip to standing. Today: side view to back view in one picture (ex2 #18-#19),
+     backs in ex1 #41-#48, ex4 #42-#48, ex5 #5-#12 and #42-#52; 13 head jumps; takes played for 1 and 4 frames.
+  4. ONE STANCE HELD ALL BOUT (lead foot 50-55 cm ahead, feet 20-30 cm apart sideways, trunk 5-10 deg toward him);
+     punches from the floor and straight home (arm straight 1-2 frames, no back-swing behind the ear, free hand on
+     the chin, the glove stops on what it hits: an arm goes through the body at ex3 #15-#18).
+  5. WAITING ALIVE + FEET PINNED: bounce, head movement, a feint every 2-3 s, a side step a second; a foot carrying
+     weight slides 2 cm at most. Today both are frozen 31 % of the round, one guard take fills 59 %, the planted feet
+     slide 15.6 / 13.4 m (the animator's own reading of shown.csv).
+  6. A defence plays only against a punch and timed to it (the squat at ex2 #7-#24 dodges nothing); every exchange has
+     an end (step out or turn off); keep the pair readable for the fixed camera; use the ropes or leave them.
+  MY READING OF THE CAUSES (code, not taste; check each before building):
+  a. Range: the planner's gap is pelvis to pelvis and the short takes (cross_c 0.64 m, uppercuts 0.53 m) put heads
+     0.5 m apart; inside a burst the pair holds there and each take's leftover travel is added to the body's place.
+     Plan in HEAD distance, drop or restrict the short takes, step out after every burst's last punch.
+  b. Reactions start at second 0 of their take (the old player started them past the lead-in, "the peak on the
+     blow": BeatClips.react_from): start each at its `head_peak_s` minus 3-4 frames. Light reactions fall back to one
+     take (hit_by_hook_v3) for every punch: the size / direction pools are phase 4b.
+  c. Whirls and backs: Player2._face turns each man to the other man's PLACE; chest to chest a take's travel carries
+     a body past that place and the facing flips. Also events cut each other after 1-4 frames (defence, then a
+     reaction, then his own punch). Face along a smoothed fight line, hold a minimum play time, cap the turn rate.
+  d. Waiting: only pro_idle plays; the eight fidget takes, feints and the plan's pivots / side steps are not wired.
+  e. PunchAim solved the body shot through the body: the target must be the SURFACE (ribs + a glove's depth), and a
+     blocked or missed punch gets no finish at all today.
+  THE SHEETS: tools/film_sheets.py cut 12 pictures a sheet at 24 a second; the briefs say 15 at 30. Fix the brief's
+  words (or the tool call) before the next round. `hits.json` is empty for v2 (NEXT item 3).
 - NEXT, in order (each is v2 work, not a correction layer on the old player):
   1. FILM IT the moment no game window is open (`sh E:/FightCamp/tmp/fightweek/s511/film_only.sh <out> fightplayer2`
      - it refuses while a game is open; seed 7, 75 s, beside r14) and run the blind coach + animator round (briefs in

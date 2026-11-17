@@ -138,7 +138,7 @@ static func plan(beats: Array, db: Dictionary, opts: Dictionary) -> Dictionary:
 			var rrow: Dictionary = ri[1]
 			react_part = str(ri[2])
 			var rt: float = contact_t
-			ev[other].append({"t": rt, "clip": react_name, "kind": "reaction", "part": "?", "from_s": 0.0,
+			ev[other].append({"t": rt, "clip": react_name, "kind": "reaction", "part": "?", "from_s": maxf(float(rrow.get("head_peak_s", 0.0)) - R.REACT_PEAK_S, 0.0),
 				"join_s": R.join_for("reaction"), "control_t": rt + R.stun_for(str(ri[3])), "size": str(ri[3]), "move": move})
 			ctrl_until[other] = maxf(float(ctrl_until[other]), rt + R.stun_for(str(ri[3])))
 			stun_until[other] = maxf(float(stun_until[other]), contact_t + R.stun_for(str(ri[3])))

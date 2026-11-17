@@ -71,6 +71,13 @@ static func impact_s_for(move: String) -> float:
 
 
 ## Reaction size by the punch: jab light; cross/hooks/uppercuts medium; big head shots heavy; body_hook medium (gutshot).
+## S513 (the first v2 film, both blind critics: "the man who is hit barely moves"; the rulers: the head's furthest
+## point 15+ frames after the contact): a bought reaction takes 0.2-1.3 s to reach its furthest point. It starts
+## part-way in, so the head is furthest REACT_PEAK_S after the glove lands (the join smoother makes the snap).
+const REACT_PEAK_S := 0.13
+const REACT_VARY_SCORE := 0.30
+
+
 static func react_size_for(move: String, big: bool) -> String:
 	if big and move != "body_hook":
 		return "heavy"

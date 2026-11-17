@@ -18,7 +18,10 @@ static func react(db: Dictionary, rows: Dictionary, move: String, big: bool, fro
 	var best_row: Dictionary = {}
 	var best_score: float = 999.0
 	var size_order: Array = _size_order(size)
+	var pool: Array = []   # S513: every take of the best size that goes the right way ([score, name])
 	for sz in size_order:
+		if not pool.is_empty():
+			break
 		for n in rows:
 			var r: Dictionary = rows[n]
 			if str(r.get("kind", "")) != "reaction":
@@ -52,10 +55,18 @@ static func react(db: Dictionary, rows: Dictionary, move: String, big: bool, fro
 					score += absf(dy - float(want_side) * 0.7)
 			if not ok:
 				continue
+			pool.append([score, str(n)])
 			if score < best_score:
 				best_score = score
 				best = str(n)
 				best_row = r
+	# S513 (the first v2 film: nearly every head punch played ONE take, pro_hit_by_hook_v3): any take within
+	# VARY_SCORE of the best may play, drawn by the plan's own seed.
+	var near: Array = pool.filter(func(c): return float(c[0]) <= best_score + R.REACT_VARY_SCORE)
+	if near.size() > 1:
+		near.sort_custom(func(x, y): return str(x[1]) < str(y[1]))
+		best = str(near[rng.randi_range(0, near.size() - 1)][1])
+		best_row = rows[best]
 	if best == "":
 		# Fallback: nearest size with any direction
 		for sz in size_order:

@@ -144,7 +144,7 @@ func _row(view: Node) -> void:
 		var cells: Array = [str(_frame), "%.3f" % (Engine.get_frames_drawn() / 30.0), "%.3f" % float(view.t), str(i), str(ap.current_animation), "%.2f" % ap.get_playing_speed(),
 			"%.3f" % (ap.current_animation_position if ap.current_animation != "" else 0.0),
 			"%.2f" % (float(rig.w) if rig != null else -1.0), "%.2f" % float(bx.get("rk_pure", 0.0)),
-			"1" if bool(st.scene) else "0", "1" if float(st._hold_left) > 0.0 else "0",
+			"1" if bool(st.scene) else "0", "1" if float(st._hold_left) > 0.0 or (st.v2 != null and float(st.v2.t) < float(st.v2.hit_until)) else "0",
 			"1" if view.get("_shouting") != null or float(view.get("_bell_left")) >= 0.0 else "0", str(st.feet.phase()),
 			"%.2f" % (bx["vel"] as Vector3).length(), "%.2f" % float(bx["move_left"]), "%.0f" % float(bx.get("aim_dir", 0.0)), "%.2f" % float(bx.get("hold_m", 0.0)),
 			"%.3f" % pos.x, "%.3f" % pos.z, "%.3f" % node.global_position.x, "%.3f" % node.global_position.y, "%.3f" % node.global_position.z]
