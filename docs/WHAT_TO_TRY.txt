@@ -1,3 +1,14 @@
+S505 (2026-11-17) - TRAINING: SWITCH FIGHTERS, ANA'S WEEK
+- On TRAINING, the fighter cards at the top are the switch: click a boxer's card to plan that boxer's week. A card you
+  are not on now lights up under the mouse and says so.
+- ANA (the BJJ fighter): her mat coach runs her classes, so her week is not on this screen. Clicking her card now opens
+  her page, where you pick WHAT THE CLASSES DRILL (coach's pick, for the next open, her favourite, or a move you choose).
+
+S505 - THE FIGHT: A CROSS ON A BOXER STEPPING IN
+- A boxer caught by a clean cross while stepping in now goes back the full step with his body (he used to only stop:
+  in the 3-minute test one cross moved his body 2 cm). Crosses push back ~14 cm on average (was ~13); the worst head
+  "pop" in the test went from 28 cm to 21 cm.
+
 S504 (2026-11-17, later) - THE FIGHT: STEADIER HEADS, A CROSS STOPS HIM
 - Fewer head "pops": a boxer's body may no longer slide more than ~6 cm in one frame on a lunge, and his trunk is
   held steady before the arm reaches for the target. In a 3-minute test the head jumped over 12 cm in one frame 80

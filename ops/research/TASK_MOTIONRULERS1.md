@@ -15,8 +15,8 @@ Source: ops/AgentComms/nightly/suite_2026-11-17.log (commit a05c139ea). All thre
 
 ## Contract
 OWNS: scripts/fight3d/BoxerFootwork.gd, scripts/fight3d/RingFeet.gd, scripts/fight3d/GuardLife.gd
-RED_TEST: tests/rokoko_clips_test.gd, tests/human_feet_test.gd, tests/guard_knee_test.gd -> each `failures=0` / PASS
-REGRESSION: knee_calm_test, boxer_footwork_test, range_breath_test, hit_step_test, fight_feel_test
+RED_TEST: tests/rokoko_clips_test.gd -> failures=0 (then the same for tests/human_feet_test.gd and tests/guard_knee_test.gd, REGRESSION)
+REGRESSION: human_feet_test, guard_knee_test, knee_calm_test, boxer_footwork_test, range_breath_test, hit_step_test, fight_feel_test
 VISUAL: yes - a fight still / film on the game camera after the fix (visual gate).
 
 ## Rules

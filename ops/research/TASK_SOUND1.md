@@ -128,7 +128,7 @@ why (e.g. a deliberately quiet footstep: give that event a `"target"` override i
 OWNS: scripts/audio/, assets/audio/, docs/audio/, tests/sound_bank_test.gd, tools/audio_prep.py, tools/sound_board.py,
 tools/audio_ear.py, scripts/ui/UI.gd:275-288, scripts/ui/FlipCard.gd:188-198
 RED_TEST: tests/sound_bank_test.gd -> PASS sound_bank_test
-REGRESSION: golden_path_test, card_flip_test, drill_card_test
+REGRESSION: golden_path_test, card_flip_test
 VISUAL: no (sound; the operator's ear judges on the sound board, never auto-merged without his keep)
 
 ## The test (write it FIRST - it fails on main, where scripts/audio/ does not exist)

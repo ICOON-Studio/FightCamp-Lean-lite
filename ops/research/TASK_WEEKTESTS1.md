@@ -1,6 +1,6 @@
 # TASK WEEKTESTS1 - CURSOR - three tests still drive the old Training board that TRAININGB1 replaced
 
-Status: OPEN (2026-11-11, nightly review). Discipline: boxing. Model: Cursor default.
+Status: SUPERSEDED (S505: the old Training tab and its tests went in S496 TRAININGK1, f416dfa56). Was: Status: OPEN (2026-11-11, nightly review). Discipline: boxing. Model: Cursor default.
 Source: nightly 2026-11-11, 3 of 5 reds. Commit a0d9eb3c (TRAININGB1, approach B) rewrote scripts/ui/WeekBoard.gd and added WeekEditors/WeekTiles/WeekTired. Its message lists week_b, slate, plan, coach, training_week and weekend_plan as green; these three were not run.
 
 ## Contract

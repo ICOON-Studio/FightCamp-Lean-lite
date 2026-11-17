@@ -759,7 +759,7 @@
    "agent": "ziva",
    "id": "COACHNECK2",
    "title": "TASK COACHNECK2 - the corner coach neck upright in his close-up, round 2",
-   "status": "landed",
+   "status": "landed: PR 341 open (neck_vs_chest 44.8 -> 19.8, ok=1); stills on the review board for the owner's look before merge",
    "started": "2026-11-17T09:02",
    "eta": "2026-11-17T11:00",
    "where": "ziva editor chat Fight Film Analysis",
@@ -864,6 +864,33 @@
     "after": {},
     "board": ""
    }
+  },
+  "LEANRED1": {
+   "agent": "qwen",
+   "id": "LEANRED1",
+   "title": "TASK LEANRED1 - why block_catch and hit_frame are red, and why a slower punch lean makes them worse (measure only)",
+   "status": "running",
+   "started": "2026-11-17T10:13",
+   "eta": "2026-11-17T12:03",
+   "branch": "qwen/leanred1",
+   "worktree": "E:/FightCamp/wt/LEAN_LEANRED1",
+   "wt": "E:/FightCamp/wt/LEAN_LEANRED1",
+   "brief": "ops/research/TASK_LEANRED1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/LEANRED1_dispatch_out.txt",
+   "match": "seat_dispatch.py run leanred1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/LEANRED1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/LEANRED1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/LEANRED1_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 14272,
+    "seat_pid": 46412
+   },
+   "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
   }
  },
  "codex_budget": {

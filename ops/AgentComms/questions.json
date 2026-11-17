@@ -8052,6 +8052,23 @@
       "answered_at": "2026-11-17T05:55:23Z",
       "seen_by_claude": true,
       "comment_only": false
+    },
+    {
+      "id": "Q-S294-266",
+      "asked": "2026-11-17T07:07:50.261809+00:00",
+      "session": "S294",
+      "text": "You wrote 'goose could not install godot'. Every Goose run since 11-14 got Godot 4.7.2. Where did you see the failure?",
+      "options": [
+        "A GitHub issue or run (paste the link)",
+        "The Goose app on this PC",
+        "Somewhere else (say where)"
+      ],
+      "attach": [],
+      "answer": "i opened an arena shell and i saw the error",
+      "note": null,
+      "answered_at": "2026-11-17T07:23:51Z",
+      "seen_by_claude": false,
+      "comment_only": true
     }
   ]
 }

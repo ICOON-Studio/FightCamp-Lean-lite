@@ -1,6 +1,6 @@
 # TASK LOOKSLATE1 - CURSOR (Grok 4.7 High) - the Training week page on slate and wood
 
-Status: OPEN (S417, Claude main). Discipline: boxing. Model: grok-4.7-high.
+Status: SUPERSEDED (S505: the old Training tab and its tests went in S496 TRAININGK1, f416dfa56). Was: Status: OPEN (S417, Claude main). Discipline: boxing. Model: grok-4.7-high.
 Source: the operator approved the wood and slate look (Q-S294-159: "Yes, build this look", docs/mockups/s416/overview_painted_ludo.png). S417 built it into the shared theme (scripts/ui/WoodKit.gd): every `UI.card`, pop-up, tab, button and the top bar changed at once. Pages that paint their OWN cream panels did not. The fighter's Training tab is the biggest of them: a cream sheet with white day cards under wooden tabs.
 
 ## Contract

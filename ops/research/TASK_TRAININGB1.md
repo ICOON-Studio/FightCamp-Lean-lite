@@ -1,6 +1,6 @@
 # TASK TRAININGB1 - CURSOR (Grok 4.7 High) - the Training tab rebuilt as approach B, with A's tiredness curve on top
 
-Status: OPEN (S422, Claude main). Discipline: boxing. Model: grok-4.7-high.
+Status: SUPERSEDED (S505: the old Training tab and its tests went in S496 TRAININGK1, f416dfa56). Was: Status: OPEN (S422, Claude main). Discipline: boxing. Model: grok-4.7-high.
 Source: the operator approved B painted (Q-S294-166: "Yes, build this") and then (Q-S294-169): "B, with A's tiredness curve on
 top". Before that, on the built week page: "i do no tlike much the design ... your fonts are small too", "this needs to be
 displayed difrfentely" (the seven little tiredness bars), "toomuch text cut uncessary".

@@ -1,6 +1,6 @@
 # TASK TRAININGB2 - CURSOR (Grok 4.7 High) - the Training tab: a tiredness curve that says something, and the pads list in straight rows
 
-Status: OPEN (S429, Claude main). Discipline: boxing. Model: grok-4.7-high.
+Status: SUPERSEDED (S505: the old Training tab and its tests went in S496 TRAININGK1, f416dfa56). Was: Status: OPEN (S429, Claude main). Discipline: boxing. Model: grok-4.7-high.
 Source: the operator's marks on the S428 Training tab still (ops/Feedback/2026-11-11-05/README.md, marked.png; C284 to C286):
 1. On the Pads editor's list (a box at 40.6%,53.9%, size 12.0 x 33.3% of the 1920x1080 picture): "check alignement on the
    texts/icons. What raw means ?" (The word is already fixed on main: under 30 it now reads "Learning".)
