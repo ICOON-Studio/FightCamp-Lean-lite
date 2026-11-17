@@ -37,3 +37,5 @@ ops/AgentComms/token_log.csv
 # S499 the map page: per-PC state (which notes start has printed, picture previews)
 ops/AgentComms/map/seen.json
 ops/AgentComms/map/thumbs/
+ops/AgentComms/telegram.json
+ops/AgentComms/telegram.log

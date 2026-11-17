@@ -8069,6 +8069,22 @@
       "answered_at": "2026-11-17T07:23:51Z",
       "seen_by_claude": true,
       "comment_only": true
+    },
+    {
+      "id": "Q-S294-267",
+      "asked": "2026-11-17T11:56:48.615680+00:00",
+      "session": "S294",
+      "text": "May fight films (180 s, hidden desktop, GPU) render while you play a game?",
+      "options": [
+        "Yes, film anytime",
+        "Only when I'm not playing",
+        "Ask me each time"
+      ],
+      "attach": [],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
     }
   ]
 }

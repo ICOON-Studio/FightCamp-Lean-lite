@@ -3275,6 +3275,36 @@
       "at": "2026-11-17T07:36:51Z",
       "seen_by_claude": true,
       "addressed": "cited by 5bf777cc5 2026-11-17"
+    },
+    {
+      "path": "_sent/2026-11-17_1013_corner_coach_neck_before_after_coachneck/after_c07_reverse_pick.png",
+      "text": "ok",
+      "at": "2026-11-17T11:52:12Z",
+      "seen_by_claude": true,
+      "id": "C426",
+      "addressed": "cited by 80c215476 2026-11-17"
+    },
+    {
+      "path": "_sent/2026-11-17_1013_corner_coach_neck_before_after_coachneck/before_c07_reverse_pick.png",
+      "text": "ok",
+      "at": "2026-11-17T11:52:19Z",
+      "seen_by_claude": true,
+      "id": "C427",
+      "addressed": "cited by 80c215476 2026-11-17"
+    },
+    {
+      "path": "_sent/2026-11-17_1138_blind_round_r11_the_two_critics_10_10_pi/critic_coach_10.png",
+      "text": "ok",
+      "at": "2026-11-17T11:54:13Z",
+      "seen_by_claude": true,
+      "id": "C428"
+    },
+    {
+      "path": "_sent/2026-11-17_0804_scorecard_tab_the_real_screen/real_scorecard.png",
+      "text": "ok",
+      "at": "2026-11-17T11:54:29Z",
+      "seen_by_claude": true,
+      "id": "C429"
     }
   ]
 }

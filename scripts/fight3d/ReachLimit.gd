@@ -416,3 +416,25 @@ static func hold_one_way(st: Dictionary, glove: Vector3, aim: Vector3, dir: Vect
 	var far := clampf((glove.distance_to(aim) - release_m.x) / (release_m.y - release_m.x), 0.0, 1.0)
 	st["rel"] = move_toward(float(st.get("rel", 0.0)), 0.0, dt / HOME_S) if bool(st.get("home", false)) else far
 	return float(st["rel"])
+
+
+## S508 HOOKREL1 (s507b pro_left_hook_ft @3213: the glove came home 0.31 m in one frame, 9.7 m/s): after the hold the reach
+## let go over OUT_S of CLIP time - ~3 frames on a punch played at 1.5x. It now lets go no faster than the same curve on REAL
+## seconds since the hit (`real_c`): the slower of the two wins, so a 1.0x punch is unchanged and the hit-stop (clip time
+## frozen) still holds on clip time. `-- norealout` = the control arm.
+static var REAL_OUT: bool = not OS.get_cmdline_user_args().has("norealout")
+static func out_weight(w_clip: float, t: float, contact: float, hold: float, real_c: float, hit_seen: bool) -> float:
+	if not REAL_OUT or not hit_seen or t <= contact + hold:
+		return w_clip
+	return maxf(w_clip, preload("res://scripts/fight3d/PunchReachMath.gd").weight(contact + real_c, contact, hold))
+## ... and never past the correction cap (hit_carry upto=pro_left_uppercut_hard at 1.5x: held longer, the aim stayed on her
+## while the clip's glove swung 0.34 m away, so _solve_capped dragged the drawn glove back OUT along the punch, 0.111 m in a
+## frame, three turns). The let-go point sits w of the way from the clip's glove to the aim, so w <= CORR_M / that gap.
+static func in_room(pr: Node, w: float, t: float) -> float:
+	var aim: Vector3 = pr.get("_aim_w")
+	var clip_g: Vector3 = pr.get("_prev_g")
+	if not REAL_OUT or not aim.is_finite() or not clip_g.is_finite():
+		return w
+	var w_clip := preload("res://scripts/fight3d/PunchReachMath.gd").weight(t, float(pr.get("_contact")), float(pr.call("_hold")))
+	var gap := aim.distance_to(clip_g) * maxf(pr.get_skeleton().global_transform.basis.get_scale().x, 1e-4) if pr.get_skeleton() != null else aim.distance_to(clip_g)
+	return maxf(minf(w_clip, w), minf(w, 1.0 if gap <= CORR_M * 0.95 else CORR_M * 0.95 / gap))

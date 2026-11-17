@@ -271,7 +271,7 @@ func reach_at(t: float) -> void:
 
 func _apply(skel: Skeleton3D, t: float, ramp: float) -> void:
 	set_meta("cg_pass", int(get_meta("cg_pass", 0)) + 1)   # review round 1: one pass of the stack (ReachLimit.clip_glove)
-	_w_now = PunchReachMath.weight(t, _contact, _hold()) * ramp
+	_w_now = ReachLimit.out_weight(PunchReachMath.weight(t, _contact, _hold()), t, _contact, _hold(), _real_c, _hit_f >= 0) * ramp   # S508
 	var drive := DRIVE and not _height_only and _target.is_valid()
 	if drive:
 		var dv := _drive(skel, t)
@@ -283,7 +283,7 @@ func _apply(skel: Skeleton3D, t: float, ramp: float) -> void:
 	if drive and _hit_w.is_finite() and t > _contact and _prev_g.is_finite() and _aim_w.is_finite():
 		# Review round 2 (hit_carry_test only=pro_right_cross: the clip's glove is still 0.3-0.5 m past her face when the
 		# weight goes; let go there, the glove jumped 0.29 m through her head). It lets go as the clip's glove comes back.
-		_w_now = maxf(_w_now, ReachLimit.hold_one_way(_home_st, _prev_g, _aim_w, _dir_w, RELEASE_M, get_process_delta_time()))   # S497: one way home
+		_w_now = maxf(ReachLimit.in_room(self, _w_now, t), ReachLimit.hold_one_way(_home_st, _prev_g, _aim_w, _dir_w, RELEASE_M, get_process_delta_time()))   # S497: one way home
 	if _w_now <= 0.0:
 		return
 	if drive and _hit_w.is_finite() and t > _contact + 1e-4 and _w_now < 1.0 and _prev_g.is_finite():

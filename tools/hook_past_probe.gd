@@ -1,5 +1,6 @@
 extends SceneTree
 ## HOOK_PAST_PROBE: one line per worst fling, then the summary line.
+## HOOKPAST2: then one line per held worst run (every stopped punch, reached or not) and the HOOK_HELD summary.
 ## Usage: <godot> --headless --audio-driver Dummy --path . --script res://tools/hook_past_probe.gd -- csv=<path>
 
 const HP := preload("res://scripts/rules/HookPast.gd")
@@ -14,6 +15,7 @@ func _initialize() -> void:
 	var rows := _load_csv(csv_path)
 	if rows.is_empty():
 		print("HOOK_PAST runs=0 past_p50=0.0 past_p90=0.0 up_p90=0.0 fling_p50=0.0 fling_p90=0.0 flings=0")
+		print("HOOK_HELD runs=0 over6=0 over9=0 p50=0.0 p90=0.0")
 		quit(0)
 		return
 	var res := HP.analyse(rows)
@@ -23,6 +25,12 @@ func _initialize() -> void:
 	print("HOOK_PAST runs=%d past_p50=%.1f past_p90=%.1f up_p90=%.1f fling_p50=%.1f fling_p90=%.1f flings=%d" % [
 		res["runs"], res["past_p50"], res["past_p90"], res["up_p90"],
 		res["fling_p50"], res["fling_p90"], res["flings"]])
+	var hres := HP.held(rows)
+	for w in hres["worst"]:
+		print("  held clip=%s who=%d start=%d speed=%.1fm/s at=%d" % [
+			w["clip"], w["who"], w["start_frame"], w["speed_mps"], w["speed_frame"]])
+	print("HOOK_HELD runs=%d over6=%d over9=%d p50=%.1f p90=%.1f" % [
+		hres["runs"], hres["over6"], hres["over9"], hres["p50"], hres["p90"]])
 	quit(0)
 
 

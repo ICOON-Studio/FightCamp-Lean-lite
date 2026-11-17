@@ -10,6 +10,8 @@ extends RefCounted
 ## Two honest limits: past_cm is excursion from the contact point in ANY direction, so the return home counts
 ## in it too - the speed gate is what calls a swing. And a fling is read from frame 2 on: frame 1 after contact
 ## is the impact itself, not the glove sailing away.
+## HOOKPAST2 adds held(): the same runs, but every punch that stopped at all - a coach does not care whether
+## the hook touched the chin; if the fist flies off fast after the punch is stopped, it is a swing.
 
 const PUNCH_WORDS := ["jab", "cross", "hook", "uppercut", "body_shot"]
 const EXCLUDE_WORDS := ["hit_by", "dodge", "weave", "idle"]
@@ -18,6 +20,7 @@ const MIN_RUN := 3
 const PAST_FRAMES := 12
 const FLING_MPS := 6.0
 const FLING_AFTER := 2
+const SWING_MPS := 9.0
 const FPS := 30.0
 const WORST_N := 5
 
@@ -94,6 +97,61 @@ static func analyse(rows: Array) -> Dictionary:
 	return out
 
 
+## HOOKPAST2: every held punch, not only the ones that reached CONTACT_REACH of their reach. From the run's
+## FIRST frame k0 with hold > 0, the punching hand's largest one-frame speed over k0+1 .. k0+12 (or the run's
+## end), m/s at 30 fps. The first hold may be the hit-stop: speed is read from the frame AFTER it, never the
+## arrival into it. "punches" holds one dictionary per held run; "worst" is the 5 fastest.
+static func held(rows: Array) -> Dictionary:
+	var out := {"runs": 0, "punches": [], "over6": 0, "over9": 0, "p50": 0.0, "p90": 0.0, "worst": []}
+	if rows.is_empty():
+		return out
+	var by_who := {}
+	for r in rows:
+		var w: int = int(r["who"])
+		if not by_who.has(w):
+			by_who[w] = []
+		by_who[w].append(r)
+	var punches: Array = []
+	for who in by_who:
+		var sorted := _sort_by_frame(by_who[who])
+		var runs := _extract_runs(sorted)
+		for run in runs:
+			if run.size() < MIN_RUN:
+				continue
+			var p: Dictionary = _held_run(run, who)
+			if not p.is_empty():
+				punches.append(p)
+	var speeds: Array = []
+	var over6 := 0
+	var over9 := 0
+	for p in punches:
+		speeds.append(p["speed_mps"])
+		if p["speed_mps"] > FLING_MPS:
+			over6 += 1
+		if p["speed_mps"] > SWING_MPS:
+			over9 += 1
+	var ranked := punches.duplicate()
+	ranked.sort_custom(func(a, b):
+		if a["speed_mps"] != b["speed_mps"]:
+			return a["speed_mps"] > b["speed_mps"]
+		if a["start_frame"] != b["start_frame"]:
+			return a["start_frame"] < b["start_frame"]
+		return a["who"] < b["who"])
+	var worst: Array = []
+	for i in range(mini(WORST_N, ranked.size())):
+		var p: Dictionary = ranked[i]
+		worst.append({"clip": p["clip"], "who": p["who"], "start_frame": p["start_frame"],
+			"speed_mps": p["speed_mps"], "speed_frame": p["speed_frame"]})
+	out["runs"] = punches.size()
+	out["punches"] = punches
+	out["over6"] = over6
+	out["over9"] = over9
+	out["p50"] = _pct(speeds, 0.5)
+	out["p90"] = _pct(speeds, 0.9)
+	out["worst"] = worst
+	return out
+
+
 static func _analyse_run(run: Array, who: int) -> Dictionary:
 	var hand := _punch_hand(run)
 	var reach := 0.0
@@ -135,6 +193,31 @@ static func _analyse_run(run: Array, who: int) -> Dictionary:
 		"contact_frame": int(contact_row["frame"]), "hand": hand, "kind": _kind(clip),
 		"past_cm": past_cm, "up_cm": up_cm, "fling_mps": fling_mps, "fling_frame": fling_frame,
 		"late_fling_mps": late_mps}
+
+
+static func _held_run(run: Array, who: int) -> Dictionary:
+	var k0 := -1
+	for i in range(run.size()):
+		var r: Dictionary = run[i]
+		if r.has("hold") and float(r["hold"]) > 0.0:
+			k0 = i
+			break
+	if k0 < 0:
+		return {}
+	var hand := _punch_hand(run)
+	var first: Dictionary = run[0]
+	var last_idx: int = mini(k0 + PAST_FRAMES, run.size() - 1)
+	var speed_mps := 0.0
+	var speed_frame := 0
+	for i in range(k0 + 1, last_idx + 1):
+		var pos := _bone_pos(run[i], hand)
+		var prev := _bone_pos(run[i - 1], hand)
+		var mps: float = pos.distance_to(prev) * FPS
+		if mps > speed_mps:
+			speed_mps = mps
+			speed_frame = i - k0
+	return {"clip": str(first["clip"]), "who": who, "start_frame": int(first["frame"]),
+		"hand": hand, "speed_mps": speed_mps, "speed_frame": speed_frame}
 
 
 static func _extract_runs(boxer_rows: Array) -> Array:

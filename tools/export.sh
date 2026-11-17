@@ -32,3 +32,4 @@ cp "$ROOT"/assets/models/metahuman/mh_skin_micro_normal.png "$OUT/assets/models/
 # S310: the ops board's "Test: ..." buttons open these shortcuts (Explorer drops plain arguments).
 powershell -NoProfile -ExecutionPolicy Bypass -File "$(cygpath -w "$ROOT/tools/make_shortcuts.ps1" 2>/dev/null || echo "$ROOT/tools/make_shortcuts.ps1")"
 echo "built $OUT/FightCamp.exe"
+python "$ROOT/ops/Tools/telegram_ping.py" send "new build ready - $(head -1 "$ROOT/docs/WHAT_TO_TRY.txt" 2>/dev/null)" || true   # S508

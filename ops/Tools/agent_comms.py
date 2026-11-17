@@ -1462,6 +1462,14 @@ def ask_question(text: str, options: str = "", path: Path = QUESTIONS_JSON, atta
                  "text": text.strip(), "options": choices, "attach": attached, "answer": None, "note": None,
                  "answered_at": None, "seen_by_claude": False})
     _write_json_atomic(path, data)
+    ## S508 owner "Yes, Telegram": a new question pings his phone (no-op until telegram_ping.py is set up; never fatal).
+    if path == QUESTIONS_JSON:
+        try:
+            sys.path.insert(0, str(Path(__file__).resolve().parent))
+            import telegram_ping
+            telegram_ping.send(f"new question {question_id}: {text.strip()[:200]} - answer at 127.0.0.1:8787")
+        except Exception:
+            pass
     return question_id
 
 _BRIEF_PATH_RE = re.compile(r"[A-Za-z0-9_./-]+\.(?:md|py|gd|json|tscn|cmd)")

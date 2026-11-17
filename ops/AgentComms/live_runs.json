@@ -869,7 +869,7 @@
    "agent": "qwen",
    "id": "HOOKPAST2",
    "title": "TASK HOOKPAST2 - the fling ruler also reads every held punch, not only the ones that reached 85 % of their reach",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-17T14:04",
    "eta": "2026-11-17T15:54",
    "branch": "qwen/hookpast2",
@@ -890,7 +890,28 @@
     "runner_pid": 14968,
     "seat_pid": 51632
    },
-   "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 2/2 PASS; PR #349",
+   "finished": "2026-11-17T14:22",
+   "pr": 349,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/hook_past_test.gd",
+     "ok": true,
+     "last": "HOOK_PAST_TEST failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/file_limits_test.gd",
+     "ok": true,
+     "last": "FILE_LIMITS failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
   },
   "HEADSPLIT2": {
    "agent": "qwen",

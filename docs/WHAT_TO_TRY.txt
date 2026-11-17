@@ -1,3 +1,10 @@
+S508 (2026-11-17) - THE FIGHT: PUNCHES COME HOME SMOOTHER, HEADS POP LESS
+- After a punch lands, the glove now lets go of the other man's face over a few frames instead of snapping home in one
+  (on the test bout: 7 fast flings -> 4).
+- The puncher's head pops a little less as his glove comes home (head jumps on the test bout 91 -> 86).
+- The corner coach's neck now stands up straight in his close-up between rounds (your "ok" on the before/after).
+- Nothing else changed on the screens.
+
 S507 (2026-11-17) - THE FIGHT: HOOKS STOP AT THE HEAD
 - Watch the hooks in a fight (the stepping left hook most): after it lands, the glove no longer flies up and over the
   other man's head. It stays on its line and comes home. (Worst one on the test film: 14.7 m/s -> 9.7 m/s. It still

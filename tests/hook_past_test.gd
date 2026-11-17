@@ -26,6 +26,14 @@ func _initialize() -> void:
 	_test_kinds_and_summary()
 	_test_mutants()
 	_test_empty()
+	_test_held_short_stop()
+	_test_held_comes_home()
+	_test_held_no_hold()
+	_test_held_interleaved()
+	_test_held_first_hold()
+	_test_held_window()
+	_test_held_mutants()
+	_test_held_empty()
 	print("HOOK_PAST_TEST failures=%d" % failures)
 	quit(1 if failures > 0 else 0)
 
@@ -250,6 +258,174 @@ func _test_empty() -> void:
 	_check(res["fling_p90"] == 0.0, "empty: fling_p90 0")
 	_check(res["by_kind"].is_empty(), "empty: by_kind empty")
 	_check(res["worst"].is_empty(), "empty: worst empty")
+
+
+## HOOKPAST2: the stepping hook that stopped short. The glove holds at 0.627 m from UpperChest, but the
+## sail carries the run's reach to 0.787 m: 80 %, under the 85 % contact gate, so analyse() never counted
+## it. held() reads it anyway: 4 frames after the first hold the fist moves 0.35 m in one frame = 10.5 m/s.
+func _test_held_short_stop() -> void:
+	var path := _punch_path(17, 0.60, 1.50, -1.0, Vector3(-0.35, 0.0, 0.0), 8, 3.0)
+	var rows := _rows_for(3213, 1, "pro_left_hook_ft", path, [4, 5, 6, 7], false)
+	var a := HookPast.analyse(rows)
+	_check(a["runs"] == 0, "held short: the 85% ruler misses the stopped-short hook")
+	var res := HookPast.held(rows)
+	_check(res["runs"] == 1, "held short: one held run")
+	if res["runs"] != 1:
+		return
+	var p: Dictionary = res["punches"][0]
+	_check(p["clip"] == "pro_left_hook_ft", "held short: clip named")
+	_check(p["who"] == 1, "held short: who 1")
+	_check(p["start_frame"] == 3213, "held short: the run's start frame")
+	_check(p["hand"] == "RightHand", "held short: right hand punches")
+	_check(absf(p["speed_mps"] - 10.5) < 0.05, "held short: 0.35 m in one frame = 10.5 m/s")
+	_check(p["speed_frame"] == 4, "held short: 4 frames after the first hold")
+	_check(res["over6"] == 1, "held short: over6")
+	_check(res["over9"] == 1, "held short: over9")
+	_check(absf(res["p50"] - 10.5) < 0.05, "held short: p50 10.5")
+	_check(absf(res["p90"] - 10.5) < 0.05, "held short: p90 10.5")
+	_check(res["worst"].size() == 1, "held short: worst has the run")
+	if not res["worst"].is_empty():
+		_check(res["worst"][0]["speed_frame"] == 4, "held short: worst carries at=4")
+
+
+## The coach's hook: it lands, holds, and comes home at 3 m/s. A held run, but no swing.
+func _test_held_comes_home() -> void:
+	var path := _punch_path(13, CONTACT_Z, 1.50, -1.0, Vector3.ZERO, 5, 3.0)
+	var rows := _rows_for(100, 0, "pro_left_hook", path, [4], false)
+	var res := HookPast.held(rows)
+	_check(res["runs"] == 1, "held home: the landed hook is a held run")
+	if res["runs"] != 1:
+		return
+	var p: Dictionary = res["punches"][0]
+	_check(absf(p["speed_mps"] - 3.0) < 0.05, "held home: 3 m/s return")
+	_check(p["speed_frame"] == 2, "held home: the return is 2 frames after the hold")
+	_check(res["over6"] == 0, "held home: not over6")
+	_check(res["over9"] == 0, "held home: not over9")
+	_check(absf(res["p50"] - 3.0) < 0.05, "held home: p50 3")
+
+
+## No hold frame anywhere: the punch never stopped, so it is not a held run.
+func _test_held_no_hold() -> void:
+	var path := _punch_path(13, CONTACT_Z, 1.50, -1.0, Vector3(0.30, 0.15, 0.0), 6, 3.0)
+	var rows := _rows_for(100, 0, "pro_left_hook", path, [], false)
+	var res := HookPast.held(rows)
+	_check(res["runs"] == 0, "held no hold: not in runs")
+	_check(res["over6"] == 0, "held no hold: over6 0")
+	_check(res["worst"].is_empty(), "held no hold: worst empty")
+
+
+## Both boxers interleaved per frame: one held run per who, each with its own punching hand.
+func _test_held_interleaved() -> void:
+	var a := _rows_for(300, 0, "pro_right_cross",
+		_punch_path(13, CONTACT_Z, 1.50, -1.0, Vector3(0.30, 0.15, 0.0), 6, 3.0), [4], false)
+	var b := _rows_for(300, 1, "pro_left_hook",
+		_punch_path(13, CONTACT_Z, 1.50, 1.0, Vector3(-0.25, 0.10, 0.0), 6, 3.0), [4], true)
+	var rows: Array = []
+	for i in range(a.size()):
+		rows.append(a[i])
+		rows.append(b[i])
+	var res := HookPast.held(rows)
+	_check(res["runs"] == 2, "held two boxers: two runs, not one merged")
+	_check(res["over6"] == 2, "held two boxers: both over6")
+	_check(res["over9"] == 1, "held two boxers: only the cross over9")
+	if res["runs"] != 2:
+		return
+	var by_who := {}
+	for p in res["punches"]:
+		by_who[p["who"]] = p
+	_check(by_who.has(0) and by_who.has(1), "held two boxers: one run per who")
+	if by_who.has(0):
+		_check(by_who[0]["hand"] == "RightHand", "held two boxers: who 0 right hand")
+		_check(absf(by_who[0]["speed_mps"] - 10.06) < 0.1, "held two boxers: cross 10.06 m/s")
+	if by_who.has(1):
+		_check(by_who[1]["hand"] == "LeftHand", "held two boxers: who 1 left hand")
+		_check(absf(by_who[1]["speed_mps"] - 8.08) < 0.1, "held two boxers: hook 8.08 m/s")
+		_check(by_who[1]["speed_frame"] == 2, "held two boxers: sail 2 frames after the hold")
+	_check(res["worst"][0]["who"] == 0, "held two boxers: worst first is the cross")
+
+
+## Two holds in one run: the window opens at the FIRST, not the last. Sail at frame 10, holds at 4 and 8:
+## speed_frame is 6 (from 4), not 2 (from 8).
+func _test_held_first_hold() -> void:
+	var path := _punch_path(15, CONTACT_Z, 1.50, -1.0, Vector3(-0.35, 0.0, 0.0), 10, 3.0)
+	var rows := _rows_for(100, 0, "pro_left_hook", path, [4, 8], false)
+	var res := HookPast.held(rows)
+	_check(res["runs"] == 1, "held first: one run")
+	if res["runs"] != 1:
+		return
+	_check(absf(res["punches"][0]["speed_mps"] - 10.5) < 0.05, "held first: 10.5 m/s")
+	_check(res["punches"][0]["speed_frame"] == 6, "held first: counted from the first hold")
+
+
+## The window: the hit-stop is not read, k0+12 is the last frame in, k0+13 is out.
+func _test_held_window() -> void:
+	# Frames 4 and 5 frozen at contact (the hit-stop, two frames of one clip_t). The 4.5 m/s step INTO the
+	# hold is the impact, not the fling: speed is read from the frame after k0 - the 3 m/s return at k0+3.
+	var stop := _rows_for(100, 0, "pro_left_hook",
+		_punch_path(13, CONTACT_Z, 1.50, -1.0, Vector3.ZERO, 6, 3.0), [4, 5], false)
+	var rs := HookPast.held(stop)
+	_check(rs["runs"] == 1, "held hit-stop: one run")
+	if rs["runs"] == 1:
+		_check(absf(rs["punches"][0]["speed_mps"] - 3.0) < 0.05, "held hit-stop: the arrival into the hold is not read")
+		_check(rs["punches"][0]["speed_frame"] == 3, "held hit-stop: the return is 3 frames after the first hold")
+	_check(rs["over6"] == 0, "held hit-stop: no swing")
+	# The sail at k0+13 is outside the window: the frozen frames read 0.
+	var late := _rows_for(100, 0, "pro_left_hook",
+		_punch_path(20, CONTACT_Z, 1.50, -1.0, Vector3(-0.35, 0.0, 0.0), 17, 3.0), [4], false)
+	var rl := HookPast.held(late)
+	_check(rl["runs"] == 1, "held cap: still a held run")
+	_check(rl["over6"] == 0, "held cap: the sail at k0+13 is not read")
+	if rl["runs"] == 1:
+		_check(rl["punches"][0]["speed_mps"] < 0.01, "held cap: the frozen window reads 0")
+	# The sail at k0+12 is the last frame read.
+	var edge := _rows_for(100, 0, "pro_left_hook",
+		_punch_path(19, CONTACT_Z, 1.50, -1.0, Vector3(-0.35, 0.0, 0.0), 16, 3.0), [4], false)
+	var re := HookPast.held(edge)
+	_check(re["runs"] == 1, "held edge: one run")
+	if re["runs"] == 1:
+		_check(absf(re["punches"][0]["speed_mps"] - 10.5) < 0.05, "held edge: k0+12 is read")
+		_check(re["punches"][0]["speed_frame"] == 12, "held edge: at=12")
+
+
+## MUTANTS for held: wrong-way copies. Each must break the assert the real fixture passes.
+func _test_held_mutants() -> void:
+	# 1. the short-stop hook with the sail slowed to a 3 m/s return: no swing.
+	var slow := _rows_for(3213, 1, "pro_left_hook_ft",
+		_punch_path(17, 0.60, 1.50, -1.0, Vector3.ZERO, 8, 3.0), [4, 5, 6, 7], false)
+	var m1 := HookPast.held(slow)
+	_check(m1["runs"] == 1, "held mutant slow: still held")
+	_check(m1["over6"] == 0, "held mutant slow: the over6 assert fails without the sail")
+	# 2. the hold removed: the run leaves the number entirely.
+	var no_hold := _rows_for(3213, 1, "pro_left_hook_ft",
+		_punch_path(17, 0.60, 1.50, -1.0, Vector3(-0.35, 0.0, 0.0), 8, 3.0), [], false)
+	var m2 := HookPast.held(no_hold)
+	_check(m2["runs"] == 0, "held mutant no hold: the runs assert fails")
+	# 3. who-blind: both boxers stamped who 0, the interleaved frames collapse and the two runs are lost.
+	var a := _rows_for(300, 0, "pro_right_cross",
+		_punch_path(13, CONTACT_Z, 1.50, -1.0, Vector3(0.30, 0.15, 0.0), 6, 3.0), [4], false)
+	var b := _rows_for(300, 1, "pro_left_hook",
+		_punch_path(13, CONTACT_Z, 1.50, 1.0, Vector3(-0.25, 0.10, 0.0), 6, 3.0), [4], true)
+	var blind: Array = []
+	for i in range(a.size()):
+		var ra: Dictionary = a[i].duplicate()
+		var rb: Dictionary = b[i].duplicate()
+		ra["who"] = "0"
+		rb["who"] = "0"
+		blind.append(ra)
+		blind.append(rb)
+	var m3 := HookPast.held(blind)
+	_check(m3["runs"] != 2 or m3["over6"] != 2, "held mutant who-blind: the two-boxer assert fails")
+
+
+func _test_held_empty() -> void:
+	var res := HookPast.held([])
+	_check(res["runs"] == 0, "held empty: runs 0")
+	_check(res["over6"] == 0, "held empty: over6 0")
+	_check(res["over9"] == 0, "held empty: over9 0")
+	_check(res["p50"] == 0.0, "held empty: p50 0")
+	_check(res["p90"] == 0.0, "held empty: p90 0")
+	_check(res["punches"].is_empty(), "held empty: punches empty")
+	_check(res["worst"].is_empty(), "held empty: worst empty")
 
 
 ## A punch path in world metres: out to contact_z over frames 0-4 (15 cm/frame), held at contact until

@@ -35,6 +35,12 @@ static var world: bool = not OS.get_cmdline_user_args().has("skelpopcap")
 ## before the reach, the arm is then solved from the capped shoulder and the glove still lands. `-- noprecap`.
 static var pre_on: bool = not OS.get_cmdline_user_args().has("noprecap")
 var pre := false
+## S508 HEADJUMP1 (s507b: 52 of 92 head jumps on a punching boxer's own head; the jumps are trunk 6.5 + neck 6.4 cm, inside
+## the exemption above): with the warm arm fit (S507) the held arm no longer swings when the trunk under it is eased, so the
+## trunk is capped while a glove is held too, and the landing glove is landed again on the eased shoulder (PunchReach.settle,
+## as GloveClear does after its lean) - only while the landed glove lets go (_letting_go). `-- noholdcap` = the S497 exemption.
+## Film s508c vs s508a (same bout, 180 s): head jumps 91 -> 86, stepping hook 9.7 -> 9.0 m/s, fling p90 6.0 -> 5.8.
+static var hold_cap: bool = not OS.get_cmdline_user_args().has("noholdcap")
 
 var _skel: Skeleton3D
 var _bones: PackedInt32Array = PackedInt32Array()
@@ -94,7 +100,8 @@ func _process_modification() -> void:
 		var d_rel := head.distance_to(_ref_head)
 		var cap := HEAD_MAX_MPS * dt
 		if free_s <= 0.0 and d_tot > cap and d_tot < TELEPORT_M and d_rel > 0.001:
-			var keep := lerpf(clampf(1.0 - (d_tot - cap) / d_rel, 0.0, 1.0), 1.0, 0.0 if pre else _holding(skel))
+			var held := 0.0 if pre else _holding(skel)
+			var keep := lerpf(clampf(1.0 - (d_tot - cap) / d_rel, 0.0, 1.0), 1.0, 0.0 if hold_cap and _letting_go(skel, held) else held)
 			if keep < 0.999:
 				var cur: Array = []
 				for b in _bones:
@@ -106,6 +113,8 @@ func _process_modification() -> void:
 					skel.set_bone_pose_rotation(b, par.inverse() * want)
 				head = skel.get_bone_global_pose(_head).origin - skel.get_bone_global_pose(_hips).origin
 				capped_frames += 1
+				if hold_cap and held > 0.0 and _letting_go(skel, held) and skel.get_node_or_null("PunchReach") != null:
+					skel.get_node("PunchReach").settle()   # the glove lands again on the eased shoulder
 	_last_rot.resize(_bones.size())
 	for k in _bones.size():
 		_last_rot[k] = skel.get_bone_global_pose(_bones[k]).basis.get_rotation_quaternion()
@@ -127,3 +136,11 @@ func _holding(skel: Skeleton3D) -> float:
 		for w in (pr.held() as Dictionary).values():
 			out = maxf(out, float(w))
 	return clampf(out, 0.0, 1.0)
+
+
+## S508 A/B r1 (`holdcap` at every held frame): hit_carry 31 -> 57 - the jabs met her 16-22 cm short on the hit frame (the
+## capped trunk held the shoulder back and the reach could not make it up). So the held trunk is capped only once the punch
+## has landed and its glove is letting go (weight under full), never on the way in or at contact.
+func _letting_go(skel: Skeleton3D, held: float) -> bool:
+	var pr := skel.get_node_or_null("PunchReach")
+	return pr != null and held < 0.999 and int(pr.get("_hit_f")) >= 0 and int(pr.get("_hit_f")) != Engine.get_process_frames()
