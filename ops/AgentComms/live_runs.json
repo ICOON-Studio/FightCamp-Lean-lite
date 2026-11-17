@@ -865,59 +865,11 @@
     "board": ""
    }
   },
-  "HEADEASE1": {
-   "agent": "qwen",
-   "id": "HEADEASE1",
-   "title": "TASK HEADEASE1 - a ruler for head reactions: when does a hit head peak, and how fast does it come back?",
-   "status": "landed",
-   "started": "2026-11-17T12:24",
-   "eta": "2026-11-17T14:14",
-   "branch": "qwen/headease1",
-   "worktree": "E:/FightCamp/wt/LEAN_HEADEASE1",
-   "wt": "E:/FightCamp/wt/LEAN_HEADEASE1",
-   "brief": "ops/research/TASK_HEADEASE1.md",
-   "repo": "FightCamp-Lean",
-   "where": "pc",
-   "log": "E:/FightCamp/wt/HEADEASE1_dispatch_out.txt",
-   "match": "seat_dispatch.py run headease1",
-   "model": "qwen4-max",
-   "dispatch": {
-    "prompt": "E:/FightCamp/wt/HEADEASE1_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/HEADEASE1_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/HEADEASE1_dispatch_runner.log",
-    "source": "command line",
-    "brief_copied": true,
-    "runner_pid": 35780,
-    "seat_pid": 46256
-   },
-   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 2/2 PASS; PR #346",
-   "finished": "2026-11-17T12:45",
-   "pr": 346,
-   "checks": [
-    {
-     "kind": "RED_TEST",
-     "script": "tests/head_ease_test.gd",
-     "ok": true,
-     "last": "HEAD_EASE_TEST failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/file_limits_test.gd",
-     "ok": true,
-     "last": "FILE_LIMITS failures=0"
-    }
-   ],
-   "films": {
-    "before": {},
-    "after": {},
-    "board": ""
-   }
-  },
   "HOOKPAST1": {
    "agent": "qwen",
    "id": "HOOKPAST1",
    "title": "TASK HOOKPAST1 - a ruler for the fling: after a landed punch, how far and how fast does the glove go past the head?",
-   "status": "running",
+   "status": "done",
    "started": "2026-11-17T12:45",
    "eta": "2026-11-17T14:35",
    "branch": "qwen/hookpast1",
@@ -937,6 +889,54 @@
     "brief_copied": true,
     "runner_pid": 14580,
     "seat_pid": 51872
+   },
+   "note": "S507: collected onto main by diff (39bf40a77)",
+   "finished": "2026-11-17T13:15",
+   "pr": 347,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/hook_past_test.gd",
+     "ok": true,
+     "last": "HOOK_PAST_TEST failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/file_limits_test.gd",
+     "ok": true,
+     "last": "FILE_LIMITS failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "HEADSPLIT1": {
+   "agent": "qwen",
+   "id": "HEADSPLIT1",
+   "title": "TASK HEADSPLIT1 - a ruler that splits each head jump into what moved it, and compares two films fairly",
+   "status": "running",
+   "started": "2026-11-17T13:23",
+   "eta": "2026-11-17T15:13",
+   "branch": "qwen/headsplit1",
+   "worktree": "E:/FightCamp/wt/LEAN_HEADSPLIT1",
+   "wt": "E:/FightCamp/wt/LEAN_HEADSPLIT1",
+   "brief": "ops/research/TASK_HEADSPLIT1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/HEADSPLIT1_dispatch_out.txt",
+   "match": "seat_dispatch.py run headsplit1",
+   "model": "qwen4-max",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/HEADSPLIT1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/HEADSPLIT1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/HEADSPLIT1_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 45752,
+    "seat_pid": 34884
    },
    "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
   }

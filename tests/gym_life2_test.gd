@@ -8,6 +8,7 @@ const Spots := preload("res://scripts/rules/GymFloorSpots.gd")
 const People := preload("res://scripts/rules/GymPeople.gd")
 const Bonus := preload("res://scripts/rules/GymBonus.gd")
 const Faces := preload("res://scripts/rules/Faces.gd")
+const Hub := preload("res://scripts/ui/GymHub.gd")
 
 const ART := "res://assets/ui/art/hub_sprites"
 const DT := 0.05
@@ -162,7 +163,7 @@ func _buttons(floor, hub: Control, c: Career) -> void:
 		if str(node.name).begins_with("Place_"):
 			var box := node as Control
 			buttons.append(Rect2(box.position, box.size))
-	_check(buttons.size() == 7, "seven hub buttons (%d)" % buttons.size())
+	_check(buttons.size() == Hub.PLACES.size(), "every hub place has its button (%d of %d)" % [buttons.size(), Hub.PLACES.size()])   # S507: TRAININGK1 (S496) added the 8th, Training
 	var stems: Array = _stems(c)
 	var worst := 0.0
 	var worst_at := ""

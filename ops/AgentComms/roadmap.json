@@ -5043,7 +5043,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-17 12:41 board_sync",
+  "updated": "2026-11-17 13:12 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5197,8 +5197,7 @@
     "title": "TASK HOOKPAST1 - a ruler for the fling: after a landed punch, how far and how fast does the glove go past the head?",
     "who": "qwen",
     "started": "2026-11-17T12:45",
-    "run": "HOOKPAST1",
-    "state": "running"
+    "run": "HOOKPAST1"
    }
   ],
   "next": [
@@ -5736,6 +5735,11 @@
   },
   "done_recently": [
    {
+    "title": "TASK HEADEASE1 - a ruler for head reactions: when does a hit head peak, and how fast does it come back?",
+    "who": "qwen",
+    "when": "2026-11-17"
+   },
+   {
     "title": "TASK FREEHAND1 - a ruler for the free hand: does the glove that is NOT punching stay at the chin?",
     "who": "qwen",
     "when": "2026-11-17"
@@ -5788,11 +5792,6 @@
    {
     "title": "TASK STANDOFF1 - a ruler for glove-pressing stand-offs",
     "who": "qwen",
-    "when": "2026-11-16"
-   },
-   {
-    "title": "Scorecard tab mockup on the board (Q-265)",
-    "who": "claude",
     "when": "2026-11-16"
    }
   ],
@@ -5882,64 +5881,6 @@
   "map": {
    "done_earlier": [
     {
-     "text": "Collect IDLEIN1: idle 2.3 s/180",
-     "who": "agent"
-    },
-    {
-     "text": "Cross steps back from shown body",
-     "who": "claude"
-    },
-    {
-     "text": "Trunk tap: head jumps by layer",
-     "who": "claude"
-    },
-    {
-     "text": "PUNCHEND3 chest frame (Qwen)",
-     "who": "agent"
-    },
-    {
-     "text": "Training: switch fighters, Ana",
-     "who": "claude"
-    },
-    {
-     "text": "Blind r11: coach 5, anim 5.0",
-     "who": "claude"
-    },
-    {
-     "text": "Qwen seat on qwen4-max",
-     "who": "claude"
-    },
-    {
-     "text": "Collect PUNCHEND1 + STANDOFF1",
-     "who": "claude"
-    },
-    {
-     "text": "Scorecard mockup -> board Q-265",
-     "who": "claude"
-    },
-    {
-     "text": "Hit reactions: peak 5 -> 3-4 f",
-     "who": "claude"
-    },
-    {
-     "text": "Scorecard tab built",
-     "who": "claude"
-    },
-    {
-     "text": "Head pops 90 to 80",
-     "who": "claude"
-    },
-    {
-     "text": "Collect FILMBAR2 (PR 335)",
-     "who": "claude"
-    },
-    {
-     "text": "Feet lift: slide 11 m -> 0.4 m",
-     "who": "claude"
-    }
-   ],
-   "done_session": [
-    {
      "text": "Scorecard: rank line once (C425)",
      "who": "claude"
     },
@@ -5974,6 +5915,36 @@
     {
      "text": "HEADEASE1 ruler (Qwen)",
      "who": "agent"
+    },
+    {
+     "text": "Collect IDLEIN1: idle 2.3 s/180",
+     "who": "agent"
+    },
+    {
+     "text": "Cross steps back from shown body",
+     "who": "claude"
+    },
+    {
+     "text": "Trunk tap: head jumps by layer",
+     "who": "claude"
+    },
+    {
+     "text": "PUNCHEND3 chest frame (Qwen)",
+     "who": "agent"
+    },
+    {
+     "text": "Training: switch fighters, Ana",
+     "who": "claude"
+    }
+   ],
+   "done_session": [
+    {
+     "text": "Nightly: gym_life2 hub count",
+     "who": "claude"
+    },
+    {
+     "text": "HOOKPAST1 fling ruler collected",
+     "who": "claude"
     }
    ],
    "now": [
@@ -6046,8 +6017,16 @@
      "who": "operator"
     },
     {
-     "text": "HOOKPAST1 fling ruler (Qwen)",
-     "who": "agent"
+     "text": "",
+     "who": "claude"
+    },
+    {
+     "text": "HEADSPLIT1 jump ruler (Qwen)",
+     "who": "claude"
+    },
+    {
+     "text": "HEADJUMP1: films wait on you",
+     "who": "claude"
     }
    ],
    "next": [
@@ -6164,7 +6143,7 @@
      "who": "claude"
     }
    ],
-   "session": "S506"
+   "session": "S507"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",

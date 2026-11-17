@@ -20250,6 +20250,56 @@
     "board": ""
    },
    "archived": "2026-11-17 12:41 board_sync"
+  },
+  {
+   "agent": "qwen",
+   "id": "HEADEASE1",
+   "title": "TASK HEADEASE1 - a ruler for head reactions: when does a hit head peak, and how fast does it come back?",
+   "status": "collected",
+   "started": "2026-11-17T12:24",
+   "eta": "2026-11-17T14:14",
+   "branch": "qwen/headease1",
+   "worktree": "E:/FightCamp/wt/LEAN_HEADEASE1",
+   "wt": "E:/FightCamp/wt/LEAN_HEADEASE1",
+   "brief": "ops/research/TASK_HEADEASE1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/HEADEASE1_dispatch_out.txt",
+   "match": "seat_dispatch.py run headease1",
+   "model": "qwen4-max",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/HEADEASE1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/HEADEASE1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/HEADEASE1_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 35780,
+    "seat_pid": 46256
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 2/2 PASS; PR #346",
+   "finished": "2026-11-17T12:45",
+   "pr": 346,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/head_ease_test.gd",
+     "ok": true,
+     "last": "HEAD_EASE_TEST failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/file_limits_test.gd",
+     "ok": true,
+     "last": "FILE_LIMITS failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "reconciled": "2026-11-17 13:10 board_reconcile: branch qwen/headease1 commits are on master",
+   "archived": "2026-11-17 13:12 board_sync"
   }
  ]
 }
