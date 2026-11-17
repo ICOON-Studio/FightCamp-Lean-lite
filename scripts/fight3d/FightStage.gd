@@ -33,6 +33,7 @@ const RkJoin := preload("res://scripts/fight3d/RkJoin.gd")
 const ShownRoot := preload("res://scripts/fight3d/ShownRoot.gd")
 const PunchReachScript := preload("res://scripts/fight3d/PunchReach.gd")
 const RangeTable := preload("res://scripts/fight3d/RangeTable.gd")   # POWER1 step 4: each punch's own distance
+const Player2 := preload("res://scripts/fight3d/v2/Player2.gd")   # FIGHTPLAYER2 (`-- fightplayer2`): v2 plays the fight
 
 const CONTACT_S := 8.0 / 30.0
 ## When the glove lands, seconds into each move (natives frame 8; baked: the old repo's clip_phases contact_s).
@@ -78,6 +79,7 @@ var side := SideStep.new()    # S306: a dodge's step stays taken; a weave steps 
 ## S307 corner minute / intro: while `scene` is on, a director (CornerMinute) places and plays both boxers; the fight rules
 ## (face each other, keep the gap, the guard between moves, fidgets) are off.
 var scene := false
+var v2: Node = null   # FIGHTPLAYER2: the v2 player, when switched on
 ## S315 `-- noinguard` = the old guard up close (the control arm of the inside guard).
 var _no_inguard := OS.get_cmdline_user_args().has("noinguard")
 
@@ -119,6 +121,8 @@ func setup(a: Dictionary, b: Dictionary) -> void:
 	broadcast(true)
 	ArtStyle.watch(self)   # FIGHTERLOOK1: `art=toon` draws the stage stylized (null and nothing changes when real)
 	FaceFill.attach(self)   # FIGHTERLOOK1: a soft fill behind the live lens (realistic look; off under nolook)
+	if Player2.on():
+		v2 = Player2.new(); add_child(v2); v2.setup(self)
 
 
 func has_move(move: String) -> bool:
@@ -283,7 +287,7 @@ func _process(delta: float) -> void:
 	if camera == null or boxers.size() < 2:   # S510: a ring that failed to build (a parse error in BoxerBuild) threw here EVERY frame - 17 GB of engine log on C: in 90 min from one hung test
 		set_process(false)
 		return
-	for bx in boxers:   # S399 ROKOKO2: a captured Rokoko clip plays pure (RkPure); the legs come back while the rig steps
+	for bx in (boxers if v2 == null or scene else []):   # S399 ROKOKO2: a captured Rokoko clip plays pure (RkPure); the legs come back while the rig steps
 		RkPure.tick(bx, delta, RingFeet.on(self, bx) and not ((bx["rig"] as Node).plan.pair as Dictionary).is_empty())
 		RkLoco.tick(bx, scene, delta)   # a captured step / walk moves her by its own hip travel
 	if _ropes != null:   # S350: a stage built without a ring (probes) threw here every frame and skipped the rest
@@ -293,13 +297,11 @@ func _process(delta: float) -> void:
 		ShownRoot.reset(self)
 		camera.nudge(delta)
 		return
-	stun.tick(delta)
-	side.tick()
-	_recover()
-	life.tick(delta)
-	_hold(delta)
-	_compose(delta)
-	ShownRoot.smooth(self, delta)   # HUMANFIGHT1: a jump of her place is covered over ~0.3 s, never in one frame
+	if v2 != null:
+		v2.tick(delta)
+	else:
+		stun.tick(delta); side.tick(); _recover(); life.tick(delta); _hold(delta); _compose(delta)
+		ShownRoot.smooth(self, delta)   # HUMANFIGHT1: a jump of her place is covered over ~0.3 s, never in one frame
 	if not camera.close:
 		broadcast(false, delta)
 	camera.nudge(delta)
@@ -330,6 +332,7 @@ func _compose(delta: float) -> void:
 
 ## Her guard between moves: the Punch Pro idle when loaded (every Pro clip starts and ends in it, S300), else the old one.
 func guard(who: int) -> void:
+	if v2 != null and not scene: v2.guard(who); return
 	var ap: AnimationPlayer = boxers[who]["ap"]
 	boxers[who]["step_grace"] = 0.0
 	var idle := BeatClips.first(BeatClips.GUARD, ap.has_animation)
@@ -364,6 +367,7 @@ func _recover() -> void:
 
 
 func _on_finished(_name: StringName, who: int) -> void:
+	if v2 != null and not scene: v2.finished(who); return
 	if not scene and float(boxers[who]["move_left"]) <= 0.0:
 		guard(who)
 
@@ -447,6 +451,7 @@ func broadcast(snap: bool = false, delta: float = 0.0) -> void:
 
 
 func _shown_at(i: int) -> Vector3:
+	if v2 != null and not scene: return boxers[i]["pos"]
 	var gc: Node = boxers[i].get("gclear")
 	var h: Vector3 = gc.get("shown_hips") if gc != null and gc.get("shown_hips") != null else Vector3.INF
 	return Vector3(h.x, 0.0, h.z) if h.is_finite() else boxers[i]["pos"]
@@ -463,6 +468,7 @@ func close_up(hit: int) -> void:
 ## their guard).
 func scene_mode(on: bool) -> void:
 	scene = on
+	if v2 != null: v2.scene(on)
 	_hold_left = 0.0
 	for i in boxers.size():
 		var bx: Dictionary = boxers[i]

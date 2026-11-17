@@ -1,0 +1,414 @@
+extends Node
+## FIGHTPLAYER2 phase 3 (S512, scope 3b step 3; `-- fightplayer2`): the v2 fight player. It PLAYS the choreographer's
+## timeline and does nothing else to a boxer:
+##   - a take (punch, reaction, block, defence) starts when its event says, from where it says, through the join smoother
+##     with the join time of its kind;
+##   - the take's own hip travel moves the BODY (RootPath), so a punch steps as it was captured and a hit man who
+##     staggers back has really given ground when the take ends;
+##   - between takes the distance plan moves the bodies (the man it names covers the ground) and FootLock, the one leg
+##     layer left on, steps the feet after the body;
+##   - when a take ends the boxer goes back to the guard take.
+## Every pose layer of the shipped player is switched off while this plays (the baseline: they buy nothing); the join
+## smoother, the twist bones, the foot lock, the floor and the tired sag stay. Directors' scenes (walk-in, corner
+## minute, the count) get the old stack back for as long as they run. The shipped player is the control arm: without
+## the switch nothing here is built.
+##   FightStage: setup(stage) / tick(delta) / guard(who) / finished(who) / scene(on)
+##   FightView: queue(beats, t0, t1) when an exchange is settled, clock(t) every frame; BeatFire: takes(view, beat)
+
+const R := preload("res://scripts/fight3d/v2/ChoreoRules.gd")
+const Choreo := preload("res://scripts/fight3d/v2/Choreographer.gd")
+const Gap := preload("res://scripts/fight3d/v2/ChoreoGap.gd")
+const ClipCensus := preload("res://scripts/fight3d/v2/ClipCensus.gd")
+const RootPath := preload("res://scripts/fight3d/v2/RootPath.gd")
+const BeatClips := preload("res://scripts/fight3d/BeatClips.gd")
+const FightSfx := preload("res://scripts/audio/FightSfx.gd")
+const HitImpact := preload("res://scripts/fight3d/HitImpact.gd")
+const PunchAim := preload("res://scripts/fight3d/v2/PunchAim.gd")
+
+static var KEEP: Array = _keep()
+const GUARD := "pro_idle"
+## The join into each kind of take: [half-life, length] s (scope 3e: into a punch 0.15, a reaction 0.05, a slip 0.15,
+## back to the guard 0.30).
+const JOIN := {"punch": Vector2(0.05, 0.15), "reaction": Vector2(0.02, 0.06), "block": Vector2(0.02, 0.06),
+	"defence": Vector2(0.05, 0.15), "guard": Vector2(0.10, 0.30), "pass": Vector2(0.10, 0.30)}
+const FOLLOW_MPS := 2.4       # the bodies follow the plan at most this fast (the plan itself asks 1.6 at most)
+const FACE_S := 0.10          # the turn to face the other man eases over this
+const EDGE_IN_M := 0.35       # nobody backs closer to the ropes than this
+const DOWN := ["knock", "fall", "countdown", "win", "ko_"]
+
+var st: Node = null
+var db: Dictionary = {}
+var plan: Dictionary = {}
+var t := 0.0                  # the round's clock (FightView.t)
+var live := false             # a round is being played (the clock runs)
+var _next := [0, 0]
+var _take: Array = [{}, {}]   # per boxer: {clip, kind, origin, from_s, path, travel}
+var _home: Array = [Vector3.ZERO, Vector3.ZERO]   # where each body stands on the canvas, the take's travel aside
+var _off: Array = [[], []]
+var _due: Array = []          # [t, Callable]: sounds and camera on the contact
+var _scene := false
+var log_on: bool = OS.get_cmdline_user_args().has("fp2log")
+var _aim: Array = [null, null]       # per boxer: PunchAim
+var _fronts: Array = [{}, {}]       # per boxer: take -> where its glove front is at the contact, in the body frame
+var _rels: Array = [{}, {}]
+var _drawn: Array = [{}, {}]        # per boxer: Head and Chest as drawn last frame (skeleton space)
+var _sampled := false
+var contacts: Array = []      # every contact as played: {t, who, move, result, gap, take} (the rulers read it)
+
+
+## The layers left on. The legs: FootPlant (each foot holds its spot and steps when the body has moved off it; hard
+## lock) + FloorStand. `-- fp2lock` = FootLock instead (a spring: it let a standing foot creep at every start).
+static func _keep() -> Array:
+	var legs := ["FootLock", "FloorStand"] if OS.get_cmdline_user_args().has("fp2lock") else ["FootPlant", "FloorStand"]
+	return ["JoinSmoother", "MetaHumanTwist", "TiredSag", "PunchAim"] + legs
+
+
+static var force := false   # a test switches v2 on without the command line (set FightClips.untouched with it)
+
+
+static func on() -> bool:
+	return force or OS.get_cmdline_user_args().has("fightplayer2")
+
+
+func setup(stage: Node) -> void:
+	st = stage
+	var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(ClipCensus.DB_PATH))
+	db = parsed if parsed is Dictionary else {}
+	for i in 2:
+		var skel: Skeleton3D = st.boxers[i]["skel"]
+		_aim[i] = PunchAim.attach(skel, st.boxers[i]["ap"], st.boxers[i].get("js"))
+		var ids := [skel.find_bone("Head"), skel.find_bone("Chest")]
+		var d: Dictionary = _drawn[i]
+		skel.skeleton_updated.connect(func():
+			d["Head"] = skel.get_bone_global_pose(int(ids[0])).origin
+			d["Chest"] = skel.get_bone_global_pose(int(ids[1])).origin)
+	_layers(false)
+	for i in 2:
+		var z: float = R.REST_M * (0.5 if i == 1 else -0.5)
+		_home[i] = Vector3(0.0, 0.0, z)
+		st.boxers[i]["pos"] = _home[i]
+		(st.boxers[i]["node"] as Node3D).position = _home[i]
+		guard(i)
+	_face(0.0)
+
+
+## The shipped pose layers off (fight) or back on (a director's scene).
+func _layers(on_again: bool) -> void:
+	for i in st.boxers.size():
+		var skel: Skeleton3D = st.boxers[i]["skel"]
+		if on_again:
+			for m in _off[i]:
+				if is_instance_valid(m):
+					(m as SkeletonModifier3D).active = true
+			_off[i] = []
+			continue
+		for c in skel.get_children():
+			if c is SkeletonModifier3D and (c as SkeletonModifier3D).active and not KEEP.has(str(c.name)):
+				(c as SkeletonModifier3D).active = false
+				(_off[i] as Array).append(c)
+		var rig: Node = st.boxers[i].get("rig")
+		if rig != null:
+			rig.want = 0.0
+			rig.w = 0.0
+		var fp: Node = st.boxers[i].get("feet")
+		if fp != null:
+			fp.set("_body", null)   # the bought stance as bought: no front-back stretch of the feet
+
+
+## A director takes the boxers (on) or hands them back where they stand (off).
+func scene(on_scene: bool) -> void:
+	_scene = on_scene
+	_layers(on_scene)
+	if on_scene:
+		return
+	for i in 2:
+		var n: Node3D = st.boxers[i]["node"]
+		_home[i] = Vector3(n.position.x, 0.0, n.position.z)
+		_take[i] = {}
+
+
+## FightView: exchange k is settled - plan it from where the pair stands now.
+func queue(beats: Array, t0: float, t1: float) -> void:
+	var opts := {"t0": t0, "t1": t1, "gap0": _gap(), "seed": int(t0) * 131 + beats.size(),
+		"south": {"a": bool(st.boxers[0].get("south", false)), "b": bool(st.boxers[1].get("south", false))},
+		"scale": {"a": _scale(0), "b": _scale(1)}}
+	plan = Choreo.plan(beats, db, opts)
+	_next = [0, 0]
+	if log_on:
+		print("FP2 plan %.0f-%.0f gap0 %.2f counts %s log %d" % [t0, t1, float(opts["gap0"]), str(plan["counts"]), (plan["log"] as Array).size()])
+		for l in plan["log"]:
+			print("FP2   ", l)
+
+
+func clock(now: float, playing: bool) -> void:
+	t = now
+	live = playing
+
+
+## BeatFire: true when v2 shows this beat itself (its plan already holds every punch, step and defence).
+func takes(view: Node, b: Dictionary) -> bool:
+	var move := str(b["move"])
+	if R.is_punch(move):
+		if view.get("body") != null:
+			view.body.land(b, R.impact_s_for(move))   # the body map
+		return true
+	if move in ["step_in", "step_out"]:
+		FightSfx.step()
+		return true
+	if move in ["slip", "tired", "clinch"]:
+		var who := 0 if str(b["who"]) == "a" else 1
+		var has := func(c: String) -> bool: return _has(who, c)
+		if move == "slip":
+			_play(who, BeatClips.defence("slip", "jab", true, bool(st.boxers[who].get("south", false)), has), 0.0, "defence", true)
+		elif move == "tired":
+			_play(who, "pro_idle_tired" if _has(who, "pro_idle_tired") else GUARD, 0.0, "pass", false)
+		return true   # a clinch: no owned take holds two men (scope 8.8) - they stay at range
+	return false
+
+
+func tick(delta: float) -> void:
+	if st == null or _scene or st.boxers.size() < 2:
+		return
+	if not _sampled:
+		_sample()
+	if live and not plan.is_empty():
+		for i in 2:
+			var track: Array = plan["tracks"]["a" if i == 0 else "b"]
+			while int(_next[i]) < track.size() and float(track[int(_next[i])]["t"]) <= t:
+				_event(i, track[int(_next[i])])
+				_next[i] = int(_next[i]) + 1
+		var k := 0
+		while k < _due.size():
+			if float(_due[k][0]) <= t:
+				(_due[k][1] as Callable).call()
+				_due.remove_at(k)
+			else:
+				k += 1
+		_follow(delta)
+	_place()
+	_face(delta)
+
+
+func _event(i: int, e: Dictionary) -> void:
+	var kind := str(e["kind"])
+	if _down(i):
+		return
+	if kind in ["step", "pivot", "pass"]:
+		return   # the distance plan moves the body; FootLock steps the feet
+	var clip := str(e["clip"])
+	if clip == "" or not _has(i, clip):
+		return
+	_play(i, clip, float(e["from_s"]), kind, kind == "punch" or str(e.get("part", "whole")) == "whole")
+	if kind != "punch":
+		return
+	var who := "a" if i == 0 else "b"
+	var move := str(e["move"])
+	var result := str(e["result"])
+	if result == "lands" and (_fronts[i] as Dictionary).has(clip):
+		_arm(i, clip, move == "body_hook")
+	var big := bool(e.get("big", false))
+	var ct := float(e["contact_t"])
+	_due.append([ct, func() -> void:
+		if str(_take[i].get("clip", "")) != clip:
+			return   # cut before it arrived: nothing lands, nothing sounds
+		contacts.append({"t": t, "who": who, "move": move, "result": result, "take": clip, "gap": _gap(),
+			"node_gap": _node_gap(), "late_s": (st.boxers[i]["ap"] as AnimationPlayer).current_animation_position - float((db["rows"].get(clip, {}) as Dictionary).get("contact_s", 0.0))})
+		if result == "lands":
+			FightSfx.landed(move, big)
+			if st.camera != null:
+				st.camera.shake(float(HitImpact.SHAKE_M["big" if big else ("jab" if move == "jab" else "power")]))
+		elif result == "blocked":
+			FightSfx.blocked()
+		else:
+			FightSfx.missed(0.0, move, "")])
+
+
+## The glove front of every take at its contact, read once off each body (the take posed at its contact, no layer on).
+func _sample() -> void:
+	_sampled = true
+	var rows: Dictionary = db.get("rows", {})
+	for i in 2:
+		var bx: Dictionary = st.boxers[i]
+		var skel: Skeleton3D = bx["skel"]
+		var ap: AnimationPlayer = bx["ap"]
+		var node: Node3D = bx["node"]
+		var body_inv := node.global_transform.affine_inverse()
+		for n in rows:
+			var r: Dictionary = rows[n]
+			if str(r.get("kind", "")) != "punch" or not (r.get("drop", []) as Array).is_empty() or not ap.has_animation(str(n)):
+				continue
+			var hand: String = st.hand_of(i, str(r.get("hand", "LeftHand")))
+			ap.play(str(n))
+			ap.seek(float(r.get("contact_s", 0.3)), true)
+			(bx["gloves"] as Node)._follow()   # the glove onto the sampled hand (it follows the skeleton a frame later otherwise)
+			_fronts[i][str(n)] = body_inv * (st.glove_front(i, hand) as Vector3)
+			# wrist -> glove front in the skeleton's space at the contact (PunchAim solves for the front, not the wrist)
+			_rels[i][str(n)] = skel.global_transform.basis.inverse() * ((st.glove_front(i, hand) as Vector3) - skel.global_transform * skel.get_bone_global_pose(skel.find_bone(hand)).origin)
+		guard(i)
+
+
+## Where a punch is aimed on boxer i, as drawn: the lower face, or the ribs.
+func target(i: int, body: bool) -> Vector3:
+	var skel: Skeleton3D = st.boxers[i]["skel"]
+	var fwd: Vector3 = (st.boxers[i]["node"] as Node3D).global_transform.basis.z.normalized()
+	var s := _scale(i)
+	if body:
+		return skel.global_transform * (_drawn[i].get("Chest", Vector3(0, 1.2, 0)) as Vector3) + (fwd * 0.11 + Vector3.DOWN * 0.14) * s
+	return skel.global_transform * (_drawn[i].get("Head", Vector3(0, 1.5, 0)) as Vector3) + (fwd * 0.09 + Vector3.UP * 0.02) * s
+
+
+## The arm of a landed punch finishes on the target (PunchAim): the offset from where the take will put the glove.
+func _arm(i: int, clip: String, body: bool) -> void:
+	var row: Dictionary = db["rows"][clip]
+	var cs := float(row.get("contact_s", 0.3))
+	var bx: Dictionary = st.boxers[i]
+	var front: Vector3 = _fronts[i][clip]
+	(_aim[i] as Node).arm(clip, st.hand_of(i, str(row.get("hand", "LeftHand"))), cs, func() -> Vector3:
+		var path: PackedVector3Array = _take[i].get("path", PackedVector3Array())
+		var ap: AnimationPlayer = bx["ap"]
+		var rest := RootPath.world((bx["skel"] as Skeleton3D).global_transform.basis, RootPath.at(path, cs) - RootPath.at(path, ap.current_animation_position)) if not path.is_empty() else Vector3.ZERO
+		return target(1 - i, body) - ((bx["node"] as Node3D).global_transform * front + rest), _rels[i].get(clip, Vector3.ZERO))
+
+
+## Starts `clip` on boxer i through the join smoother. `travel`: the take's own hip travel moves his body.
+func _play(i: int, clip: String, from_s: float, kind: String, travel: bool) -> void:
+	if clip == "" or not _has(i, clip):
+		return
+	var bx: Dictionary = st.boxers[i]
+	var ap: AnimationPlayer = bx["ap"]
+	_settle(i)
+	if str(ap.current_animation) == clip:
+		ap.stop()
+	var j: Vector2 = JOIN.get(kind, JOIN["punch"])
+	if bx.get("js") != null:
+		(bx["js"] as Node).join(j.x, j.y)
+		(bx["js"] as Node).set_target(ap, clip)
+	ap.speed_scale = 1.0
+	ap.play(clip, 0.0 if bx.get("js") != null else j.y, 1.0)
+	if from_s > 0.0:
+		ap.seek(from_s, true)
+	_take[i] = {"clip": clip, "kind": kind, "from_s": from_s, "origin": _home[i],
+		"path": RootPath.of(ap.get_animation(clip)) if travel else PackedVector3Array()}
+	if log_on:
+		print("FP2 %6.2f %s %-9s %s from %.2f" % [t, "ab"[i], kind, clip, from_s])
+
+
+## The body stays where the take that ends has carried it.
+func _settle(i: int) -> void:
+	var n: Node3D = st.boxers[i]["node"]
+	_home[i] = Vector3(n.position.x, 0.0, n.position.z)
+	_take[i] = {}
+
+
+func guard(i: int) -> void:
+	var ap: AnimationPlayer = st.boxers[i]["ap"]
+	if not ap.has_animation(GUARD):
+		return
+	_play(i, GUARD, 0.0, "guard", false)
+	# each man in his own point of the loop (both started in step read as one man twice)
+	ap.seek(fmod(float(i) * 0.83 + t * 0.37, maxf(ap.get_animation(GUARD).length - 0.05, 0.1)), true)
+
+
+## FightStage: boxer i's take has played to its end.
+func finished(i: int) -> void:
+	if _scene or _down(i):
+		return
+	guard(i)
+
+
+func _down(i: int) -> bool:
+	var clip := str((st.boxers[i]["ap"] as AnimationPlayer).current_animation)
+	for w in DOWN:
+		if clip.contains(w):
+			return true
+	return false
+
+
+## The bodies follow the distance plan: the man the plan names covers the ground; nobody backs into the ropes.
+func _follow(delta: float) -> void:
+	if delta <= 0.0:
+		return
+	var want := Gap.at(plan["gap"], t)
+	var a: Vector3 = _stand(0)
+	var b: Vector3 = _stand(1)
+	var line := Vector3(b.x - a.x, 0.0, b.z - a.z)
+	var dist := line.length()
+	if dist < 0.01:
+		return
+	var axis := line / dist
+	var err := clampf(want - dist, -FOLLOW_MPS * delta, FOLLOW_MPS * delta)
+	if absf(err) < 0.0005:
+		return
+	var mover := Gap.who(plan["gap"], t)
+	var share := [0.5, 0.5]
+	if mover == "a":
+		share = [1.0, 0.0]
+	elif mover == "b":
+		share = [0.0, 1.0]
+	var edge: float = float(st.RING_M) * 0.5 - EDGE_IN_M
+	for i in 2:
+		var back: Vector3 = axis * (-1.0 if i == 0 else 1.0) * err * float(share[i])
+		var to: Vector3 = (_home[i] as Vector3) + back
+		if err > 0.0 and maxf(absf(to.x), absf(to.z)) > edge and float(share[1 - i]) < 1.0:
+			share[1 - i] = float(share[1 - i]) + float(share[i])   # his back is on the ropes: the other man gives the room
+			share[i] = 0.0
+	for i in 2:
+		_home[i] = (_home[i] as Vector3) + axis * (-1.0 if i == 0 else 1.0) * err * float(share[i])
+
+
+## Where boxer i stands for the DISTANCE: his place, plus a reaction's or a defence's travel so far (a punch's own
+## travel is inside its take's contact distance already).
+func _stand(i: int) -> Vector3:
+	if str(_take[i].get("kind", "")) == "punch":
+		return _home[i]
+	return (_home[i] as Vector3) + _travel(i)
+
+
+func _travel(i: int) -> Vector3:
+	var tk: Dictionary = _take[i]
+	var path: PackedVector3Array = tk.get("path", PackedVector3Array())
+	if path.is_empty():
+		return Vector3.ZERO
+	var bx: Dictionary = st.boxers[i]
+	var ap: AnimationPlayer = bx["ap"]
+	if str(ap.current_animation) != str(tk["clip"]):
+		return Vector3.ZERO
+	var d := RootPath.at(path, ap.current_animation_position) - RootPath.at(path, float(tk["from_s"]))
+	return RootPath.world((bx["skel"] as Skeleton3D).global_transform.basis, d)
+
+
+func _place() -> void:
+	for i in 2:
+		var bx: Dictionary = st.boxers[i]
+		var at: Vector3 = (_home[i] as Vector3) + _travel(i)
+		(bx["node"] as Node3D).position = Vector3(at.x, (bx["node"] as Node3D).position.y, at.z)
+		bx["pos"] = Vector3(at.x, 0.0, at.z)
+
+
+## Each faces the other man's place (not his travelling hips: a slip must not turn the puncher).
+func _face(delta: float) -> void:
+	for i in 2:
+		var to: Vector3 = (_home[1 - i] as Vector3) - (_home[i] as Vector3)
+		if to.length() < 0.05:
+			continue
+		var n: Node3D = st.boxers[i]["node"]
+		var yaw := atan2(to.x, to.z)
+		n.rotation = Vector3(0.0, yaw if delta <= 0.0 else lerp_angle(n.rotation.y, yaw, 1.0 - exp(-delta / FACE_S)), 0.0)
+
+
+func _gap() -> float:
+	var d: Vector3 = _stand(1) - _stand(0)
+	return Vector2(d.x, d.z).length()
+
+
+func _node_gap() -> float:
+	var d: Vector3 = (st.boxers[1]["node"] as Node3D).position - (st.boxers[0]["node"] as Node3D).position
+	return Vector2(d.x, d.z).length()
+
+
+func _scale(i: int) -> float:
+	return (st.boxers[i]["node"] as Node3D).scale.x
+
+
+func _has(i: int, clip: String) -> bool:
+	return clip != "" and (st.boxers[i]["ap"] as AnimationPlayer).has_animation(clip)

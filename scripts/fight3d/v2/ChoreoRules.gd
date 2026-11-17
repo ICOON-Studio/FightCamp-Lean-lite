@@ -10,6 +10,9 @@ const REST_M := 1.7           # rest out of reach (1.6-1.8)
 const CREEP_M := 1.4          # close range, inside punching distance
 const MIN_GAP_M := 0.45       # never closer than this
 const GAP_SPEED_MPS := 1.6    # max gap change rate (a step pair is 0.55-0.60 s)
+const BURST_GAP_S := 2.2      # contacts closer than this are one burst: the pair stays in range between them
+const OWN_GAP_S := 0.12        # one boxer's own contacts are at least this far apart (two hands, one body)
+const KNOCK_FREE_S := 1.0      # a reaction travels only when no other punch is due within this (the last of a combination)
 const LEAVE_S := 1.5          # back at rest within this after a burst's last contact
 
 # --- Fit (scope 3c, ClipCensus) ---

@@ -1,0 +1,205 @@
+extends RefCounted
+## FIGHTPLAYER2 (S512, scope 3b): the DISTANCE PLAN of one exchange, pure. The choreographer hands it the marks it has
+## decided (each punch's contact time and the gap its take is for, a hit man knocked back, the round script's step in /
+## step out) and this lays the feet's work between them the way a coach counts it:
+##   REST out of reach (1.7 m) whenever no punch is near;
+##   a CREEP to 1.4 m before an attack when there is time for it (the other man edges in, or both);
+##   the STEP IN that ends as the punch lands (the puncher's, never faster than GAP_SPEED_MPS when there is room);
+##   inside a burst the pair stays in range and only shifts between one take's distance and the next;
+##   the LEAVE: back at rest within LEAVE_S of a burst's last contact.
+## The plan is piecewise linear: [[t, gap_m, who_moves], ...], t ascending; who_moves names who covers the segment that
+## ENDS at that point ("a" | "b" | "both" | "" = nobody, a hold).
+##   build(marks, t0, t1, gap0, log) -> plan      at(plan, t) -> gap      who(plan, t) -> who moves now
+##   steps(plan) -> [{t, end_t, who, m}]  every segment a viewer can count as a step (the tracks' step events)
+
+const R := preload("res://scripts/fight3d/v2/ChoreoRules.gd")
+
+const LEAD_S := 0.08          # the step in is over this long before the glove lands (the front foot is down)
+const HOLD_S := 0.22          # after a contact the pair stays put this long (the hand comes home, the hit shows)
+const CREEP_S := 0.55         # the edge in from rest to CREEP_M (one calm step pair)
+const CREEP_GAP_S := 0.15     # between the creep's end and the step in
+const APPROACH_MPS := 1.4     # the step in from the creep line (0.3-0.6 m in 0.25-0.45 s)
+const LEAVE_MPS := 1.3        # the step out
+const LEAVE_WAIT_S := 0.12    # after the hold, before the leave starts
+const POCKET_M := 1.2          # just past the jab: where the pair waits between the punches of one burst
+const POCKET_WAIT_S := 1.2    # a wait this long inside a burst is spent at the pocket, not chest to chest
+const MIN_RAMP_S := 0.12      # no move is shorter than this
+const STEP_COUNT_M := 0.12    # a segment that covers this much is a step the viewer can count
+
+
+static func build(marks: Array, t0: float, t1: float, gap0: float, log: Array) -> Array:
+	var out: Array = [[t0, gap0, ""]]
+	var cur_t := t0
+	var cur_g := gap0
+	var n := marks.size()
+	for i in n:
+		var m: Dictionary = marks[i]
+		var kind := str(m.get("kind", "contact"))
+		var mt := clampf(float(m["t"]), t0, t1)
+		var mg := maxf(float(m["gap"]), R.MIN_GAP_M)
+		var mover := str(m.get("who", ""))
+		if kind == "knock":
+			# a hit man driven back by his reaction's own travel: the plan follows the take
+			_to(out, maxf(mt, cur_t + 0.02), mg, mover)
+			cur_t = float(out[-1][0])
+			cur_g = mg
+		elif kind == "step_in" or kind == "step_out":
+			var next_c := _next_contact(marks, i)
+			if cur_g < R.CREEP_M - 0.05 or (next_c >= 0.0 and next_c - mt < 1.0) or mt - 0.4 < cur_t:
+				continue   # in range already, or a punch is about to make the distance itself
+			_to(out, mt - 0.4, cur_g, "")
+			_to(out, mt, R.CREEP_M if kind == "step_in" else R.REST_M, mover)
+			cur_t = mt
+			cur_g = float(out[-1][1])
+		else:
+			var end := mt - LEAD_S
+			if cur_g >= R.CREEP_M - 0.01 and cur_g - mg > 0.05:
+				# from out of reach: a creep when there is time, then the step in on the punch
+				var a_dur := maxf((minf(cur_g, R.CREEP_M) - mg) / APPROACH_MPS, MIN_RAMP_S)
+				var a_start := end - a_dur
+				if cur_g > R.CREEP_M + 0.05 and a_start - CREEP_GAP_S - CREEP_S >= cur_t + 0.1:
+					var c_end := a_start - CREEP_GAP_S
+					_to(out, c_end - CREEP_S, cur_g, "")
+					_to(out, c_end, R.CREEP_M, "both")
+					cur_g = R.CREEP_M
+					cur_t = c_end
+				else:
+					a_dur = maxf((cur_g - mg) / R.GAP_SPEED_MPS, MIN_RAMP_S)
+					a_start = end - a_dur
+				if a_start < cur_t:
+					log.append("gap: late step in at %.2f (%.2f m in %.2f s)" % [mt, cur_g - mg, maxf(end - cur_t, 0.0)])
+					a_start = cur_t
+				_to(out, a_start, cur_g, "")
+				_to(out, maxf(end, a_start + 0.02), mg, mover)
+			else:
+				# in range: shift to this take's distance as late as the speed allows
+				var d := absf(mg - cur_g)
+				if d > 0.005:
+					var dur := maxf(d / R.GAP_SPEED_MPS, MIN_RAMP_S)
+					var start := maxf(end - dur, cur_t)
+					if end - start < d / R.GAP_SPEED_MPS - 0.001:
+						log.append("gap: fast shift at %.2f (%.2f m in %.2f s)" % [mt, d, maxf(end - start, 0.0)])
+					_to(out, start, cur_g, "")
+					_to(out, maxf(end, start + 0.02), mg, mover)
+				else:
+					_to(out, maxf(end, cur_t), mg, "")
+			cur_g = mg
+			cur_t = float(out[-1][0])
+			# what follows this contact: a knock (the take carries him), another punch of the burst, or the leave
+			var nxt: Dictionary = marks[i + 1] if i + 1 < n else {}
+			if str(nxt.get("kind", "")) == "knock":
+				continue
+			_after(out, marks, i, mt, t1)
+			cur_t = float(out[-1][0])
+			cur_g = float(out[-1][1])
+			continue
+		if kind == "knock":
+			_after(out, marks, i, cur_t - HOLD_S, t1)
+			cur_t = float(out[-1][0])
+			cur_g = float(out[-1][1])
+	_to(out, t1, cur_g, "")
+	return out
+
+
+## What the feet do after the contact (or the knock) at mark i: hold while the hit shows, then - by how long until the
+## next punch - stay in range for a quick follow-up, ease out to the POCKET (just past the jab) or leave to REST.
+static func _after(out: Array, marks: Array, i: int, mt: float, t1: float) -> void:
+	var g := float(out[-1][1])
+	var nxt := {}
+	for k in range(i + 1, marks.size()):
+		if str((marks[k] as Dictionary).get("kind", "contact")) == "contact":
+			nxt = marks[k]
+			break
+	var wait := INF if nxt.is_empty() else float(nxt["t"]) - mt
+	if wait >= R.BURST_GAP_S:
+		var ls := mt + HOLD_S + LEAVE_WAIT_S
+		var ld := maxf((R.REST_M - g) / LEAVE_MPS, MIN_RAMP_S)
+		if g < R.REST_M - 0.05 and ls + ld <= t1:
+			_to(out, ls, g, "")
+			_to(out, ls + ld, R.REST_M, "both")
+		return
+	if wait >= POCKET_WAIT_S and g < POCKET_M - 0.08:
+		_to(out, mt + HOLD_S, g, "")
+		_to(out, mt + HOLD_S + maxf((POCKET_M - g) / LEAVE_MPS, MIN_RAMP_S), POCKET_M, "both")
+		return
+	# a quick follow-up: hold only as long as the shift to its distance allows
+	var need := absf(float(nxt["gap"]) - g) / R.GAP_SPEED_MPS
+	var hold_end := clampf(float(nxt["t"]) - LEAD_S - need, mt, mt + HOLD_S)
+	if hold_end > mt + 0.03:
+		_to(out, hold_end, g, "")
+
+
+## The next punch contact after mark i (its time), -1 when there is none.
+static func _next_contact(marks: Array, i: int) -> float:
+	for k in range(i + 1, marks.size()):
+		if str((marks[k] as Dictionary).get("kind", "contact")) == "contact":
+			return float(marks[k]["t"])
+	return -1.0
+
+
+static func _to(out: Array, t: float, g: float, who: String) -> void:
+	var last: Array = out[-1]
+	if t <= float(last[0]) + 0.0005:
+		if absf(g - float(last[1])) > 0.0005:   # two marks on one instant: the later one wins, a hair later
+			out.append([float(last[0]) + 0.02, g, who])
+		return
+	out.append([t, g, who])
+
+
+static func at(plan: Array, t: float) -> float:
+	if plan.is_empty():
+		return R.REST_M
+	if t <= float(plan[0][0]):
+		return float(plan[0][1])
+	for i in range(1, plan.size()):
+		if t <= float(plan[i][0]):
+			var ta := float(plan[i - 1][0])
+			var tb := float(plan[i][0])
+			var f := 0.0 if tb <= ta else (t - ta) / (tb - ta)
+			f = f * f * (3.0 - 2.0 * f)   # a step eases in and out (the slope bar is read on the straight line)
+			return lerpf(float(plan[i - 1][1]), float(plan[i][1]), f)
+	return float(plan[-1][1])
+
+
+## Who covers the ground at time t ("" in a hold).
+static func who(plan: Array, t: float) -> String:
+	for i in range(1, plan.size()):
+		if t <= float(plan[i][0]):
+			return str(plan[i][2]) if absf(float(plan[i][1]) - float(plan[i - 1][1])) > 0.0005 else ""
+	return ""
+
+
+## Every segment that covers STEP_COUNT_M or more: a step a viewer can count.
+static func steps(plan: Array) -> Array:
+	var got: Array = []
+	for i in range(1, plan.size()):
+		var d := float(plan[i][1]) - float(plan[i - 1][1])
+		if absf(d) >= STEP_COUNT_M and str(plan[i][2]) != "":
+			got.append({"t": float(plan[i - 1][0]), "end_t": float(plan[i][0]), "who": str(plan[i][2]), "m": d})
+	return got
+
+
+## The plan's faults, for the tests: [] when it holds R4 (continuous in time, speed, floor, rest when nothing is near).
+static func faults(plan: Array, contacts: Array, t1: float) -> Array:
+	var bad: Array = []
+	for i in range(1, plan.size()):
+		var dt := float(plan[i][0]) - float(plan[i - 1][0])
+		if dt <= 0.0:
+			bad.append("time goes back at %.2f" % float(plan[i][0]))
+			continue
+		var v := absf(float(plan[i][1]) - float(plan[i - 1][1])) / dt
+		if v > R.GAP_SPEED_MPS + 0.05 and str(plan[i][2]) != "" and not bool(str(plan[i][2]).begins_with("knock")):
+			bad.append("speed %.2f m/s at %.2f" % [v, float(plan[i][0])])
+		if float(plan[i][1]) < R.MIN_GAP_M - 0.001:
+			bad.append("under the floor at %.2f" % float(plan[i][0]))
+	var t := float(plan[0][0]) + 2.0
+	while t < t1 - 0.5:
+		var near := false
+		for c in contacts:
+			if absf(float(c) - t) < 1.5 + R.BURST_GAP_S * 0.5:
+				near = true
+		var g := at(plan, t)
+		if not near and (g < 1.35 or g > 1.85):
+			bad.append("not at rest at %.2f (%.2f m)" % [t, g])
+		t += 0.25
+	return bad

@@ -275,6 +275,7 @@ func _queue(m: Dictionary, k: int) -> void:
 	if burn != null:
 		burn.exchange(bs, str((exs[k] as Dictionary).get("sit", "")), (exs[k] as Dictionary).get("after", {}), str((exs[k] as Dictionary).get("pace", "steady")))
 	beats.append_array(bs)
+	if stage.v2 != null: stage.v2.queue(bs, k * Exchanges.EX_SECONDS, (k + 1) * Exchanges.EX_SECONDS)   # FIGHTPLAYER2: the exchange is planned before it plays
 	_round_beats.append_array(bs)
 	if closed:
 		_stop = str(r.get("stopped", ""))
@@ -309,6 +310,7 @@ func freeze() -> void:
 
 
 func _process(delta: float) -> void:
+	if stage != null and stage.v2 != null: stage.v2.clock(t, playing and _bell_left < 0.0 and _shouting == null)
 	if not playing:
 		return
 	var dt := delta
@@ -360,6 +362,7 @@ func _fire(b: Dictionary) -> void:
 
 ## Between beats the two keep working: a short circle or a feel-out step when the next beat is more than a second away.
 func _ambient(dt: float) -> void:
+	if stage.v2 != null: return   # FIGHTPLAYER2: the plan holds every step
 	_quiet += dt
 	var gap := 99.0
 	if next < beats.size():

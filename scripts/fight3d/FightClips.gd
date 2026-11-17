@@ -48,6 +48,9 @@ const TRAVEL_WORDS := ["knock", "ko_", "fall", "win", "walk", "step", "count"]
 ## (no hold_root_xz) and the untouched bake (no fixed/ retime: the jab keeps its full 1.07 s tail). The shipped player
 ## leaves this off and loads exactly what it loaded before (the control arm). Set it before load_into.
 static var as_bought := false
+## The v2 player (`-- fightplayer2`): every take pinned as the shipped player has it (its travel kept beside it, RootPath
+## plays it on the body) but from the untouched bake - the census measured those, so its contact times hold.
+static var untouched: bool = OS.get_cmdline_user_args().has("fightplayer2")
 ## The meta key under which hold_root_xz keeps a pinned clip's own hip travel: PackedVector3Array of (dx, time s, dz)
 ## per key, in the Hips' parent space, from the clip's first key.
 const ROOT_PATH_META := "root_path"
@@ -93,7 +96,7 @@ static func load_into(ap: AnimationPlayer, skel: Skeleton3D, corner_only: bool =
 	for name in baked:
 		var path: String = str(baked[name])
 		var fixed_path: String = path.replace(BAKED_DIR, FIXED_DIR)
-		if fixed_path != path and ResourceLoader.exists(fixed_path) and not as_bought:
+		if fixed_path != path and ResourceLoader.exists(fixed_path) and not as_bought and not untouched:
 			path = fixed_path
 		if _add_baked(lib, skel, prefix, str(name), path):
 			added.append(name)

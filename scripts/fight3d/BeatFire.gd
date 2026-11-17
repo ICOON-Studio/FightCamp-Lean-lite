@@ -62,6 +62,8 @@ func fire(v: Node, b: Dictionary) -> void:
 	var who := 0 if str(b["who"]) == "a" else 1
 	var other := 1 - who
 	var move := str(b["move"])
+	if stage.get("v2") != null and stage.v2.takes(v, b):   # FIGHTPLAYER2: the choreographer's plan already shows this beat
+		return
 	if b.has("tell"):
 		var contact: float = BeatClips.contact(move, float(Stage.CONTACT.get(move, Stage.CONTACT_S))) if move in Stage.CONTACT else 0.0
 		TellPose.apply(stage, who, str(b["tell"]), contact)

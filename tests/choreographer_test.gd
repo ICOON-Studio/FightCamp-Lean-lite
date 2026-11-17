@@ -3,6 +3,7 @@ extends SceneTree
 
 const Choreo := preload("res://scripts/fight3d/v2/Choreographer.gd")
 const R := preload("res://scripts/fight3d/v2/ChoreoRules.gd")
+const Gap := preload("res://scripts/fight3d/v2/ChoreoGap.gd")
 const ClipCensus := preload("res://scripts/fight3d/v2/ClipCensus.gd")
 const RS := preload("res://scripts/rules/RoundScript.gd")
 
@@ -264,6 +265,9 @@ func _sweep() -> void:
 	var total_slid := 0
 	var total_misfit := 0
 	var worst_ik := 0.0
+	var gap_faults := 0
+	var shown := 0
+	var logs := {}
 	for seed in 40:
 		var round := {"n": 1, "won": true, "mine": 60.0, "theirs": 55.0, "corner": "", "lines": []}
 		var script := RS.build(round, "Slugger", "Slugger", 30.0, seed)
@@ -282,14 +286,24 @@ func _sweep() -> void:
 				if R.is_punch(str(plan["beats"][i]["move"])) and R.is_punch(str(plan["beats"][i - 1]["move"])):
 					if float(plan["beats"][i]["contact_t"]) < float(plan["beats"][i - 1]["contact_t"]) - 0.01:
 						_check(false, "sweep seed %d: R2 order" % seed)
-		# R4
+		# R4: the distance plan holds on every seed (speed, floor, rest when no punch is near) - a fault FAILS
 		var gap: Array = plan["gap"]
-		for i in range(1, gap.size()):
-			var dt: float = float(gap[i][0]) - float(gap[i - 1][0])
-			if dt > 0.001:
-				var dg: float = absf(float(gap[i][1]) - float(gap[i - 1][1]))
-				if dg / dt > R.GAP_SPEED_MPS + 0.05:
-					total_misfit += 1
+		var cts: Array = []
+		for ob in plan["beats"]:
+			if R.is_punch(str(ob["move"])) and not bool(ob.get("cut", false)):
+				cts.append(float(ob["contact_t"]))
+				if absf(Gap.at(gap, float(ob["contact_t"]) - Gap.LEAD_S) - float(ob["gap"])) > 0.03:
+					_check(false, "sweep seed %d: R4 the plan is not at the punch's gap at %.2f (%.2f v %.2f)" % [seed, float(ob["contact_t"]), Gap.at(gap, float(ob["contact_t"]) - Gap.LEAD_S), float(ob["gap"])])
+		var bad: Array = Gap.faults(gap, cts, 30.0)
+		gap_faults += bad.size()
+		if not bad.is_empty() and shown < 6:
+			shown += 1
+			print("  seed %d gap faults: %s" % [seed, str(bad.slice(0, 3))])
+		for line in plan["log"]:
+			var key := str(line).get_slice(":", 0)
+			logs[key] = int(logs.get(key, 0)) + 1
+			if key == "misfit":
+				total_misfit += 1
 		# R7, R9, R10
 		for ob in plan["beats"]:
 			if not R.is_punch(str(ob["move"])):
@@ -311,6 +325,9 @@ func _sweep() -> void:
 		var plan2 := Choreo.plan(beats, db, _opts({"t0": 0.0, "t1": 30.0, "seed": seed}))
 		if JSON.stringify(plan) != JSON.stringify(plan2):
 			_check(false, "sweep seed %d: R12 deterministic" % seed)
+	_check(gap_faults == 0, "sweep: the distance plan has no fault on 40 seeds (%d)" % gap_faults)
+	_check(total_misfit <= total_punches / 20, "sweep: at most 1 punch in 20 is thrown off its take's distance (%d of %d)" % [total_misfit, total_punches])
+	print("CHOREO sweep log lines: ", logs)
 	print("CHOREO sweep seeds=40 punches=%d landed=%d cut=%d slid=%d misfit=%d worst_ik=%.3f" % [total_punches, total_landed, total_cut, total_slid, total_misfit, worst_ik])
 
 
