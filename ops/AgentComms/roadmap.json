@@ -3,21 +3,11 @@
  "updated": "2026-11-17",
  "author": "claude S294",
  "now": {
-  "id": "S505",
+  "id": "S506",
   "owner": "claude",
   "updated": "2026-11-17",
-  "summary": "S505: fight week day 10. Cross step back measured from the shown body (a boxer stepping in had his place 7-14 cm ahead of his feet: the knock only caught the place up) - cross back 12.9 -> 14.2 cm, head jumps 80 -> 77, worst 27.6 -> 20.8. TRUNKTAP splits head jumps by layer (jabs: PunchReach lean 45%, clip 46%); leanrate 2.5 cuts jumps 77 -> 63 but block_catch/hit_frame get worse - kept 4.0, Qwen LEANRED1 measuring. IDLEIN1 + PUNCHEND3 collected; hands come home in 4-6 frames to ~15 cm (the guard moves after). Ziva COACHNECK2 PR 341 (neck 44.8 -> 19.8 deg) awaits his look. Training: boxer cards hover, Ana's card opens her drill page. C: 6.4 -> 15 GB free. BLIND r11: coach 5, animator 5.0 - both at 5 (r10 5 / 4.5). Digest ops/research/S505_DIGEST.md.",
-  "next_action": "FIGHT MOTION WEEK day 11 (S506). r11: coach 5, animator 5.0 - BOTH at 5 (the deal's bar); next round aims 6. 1) Collect Qwen FREEHAND1 (scripts/rules/FreeHand.gd + probe: does the non-punching glove stay at the chin), then build the fix both critics put first: an arm layer that holds the free glove within 8-10 cm of the chin while the other hand punches (body shots and a 'drops the right' habit excepted); measure with FreeHand on a 180 s film (seed 7) against s505b. 2) Head reactions sized and EASED OUT (peak frame 2-3, back over 8-12 frames; cross 18-25 cm). 3) No upward arm flings after a punch; hooks stop at the head. 4) Merge Ziva PR 341 after the owner's look. Lean rate stays 4.0 (2.5 rejected, docs/LEANRED1_RESULT.md). block_catch/hit_frame are flaky: compare FAIL sets over 2 runs. Never render while the owner plays.",
-  "last_working_commit": "434a94f0c",
-  "verified_playable": "Films r3d (new head rule) and r3ctl (control) on today's main; head_clear_test 39 lines green, join_return_test 0 failures; export: see NEXT_SESSION_PROMPT",
-  "incomplete_blocked": "Contact-frame trunk snap (found, not fixed); arms home (WIP patch); head jumps 39 -> 49 on today's main unexplained (r3nocam film checks CAMHOLD1); COACHNECK1 not fixed; film_count_test red on 5 chance-prone claims (the finding); no_pronoun_test 6 Training lines (Training K session)",
-  "next_acceptance": "Rulers vs r0: head jumps on the contact frame under 4, a head inside the other's body under 5 frames, arm out median under 4 frames with join_return green, then r1 film at two fresh blind critics 5+/10",
-  "awaiting_operator": [
-   "Q-265 Scorecard tab mockup (docs/mockups/s504/scorecard/scorecard.png): build it?",
-   "Q-266: where he saw 'goose could not install godot'",
-   "PR 341 corner coach neck: his look on /review (before/after still pair)",
-   "Unity + Unity Hub (~27 GB on C:) look unused: uninstall?"
-  ]
+  "summary": "S506: fight week day 11. FREEHAND built: the glove that is not punching is held at its guard point by the chin while the other throws (GuardTuck; body shot 0.5; a beat's right_low/left_low after fact lets it drop; -- nofreehand). HEADEASE built: a hit head eases home over 9-12 frames instead of springing (HitSnap; worst frame 26% -> 17%; BlockCatch keeps the old spring; -- oldsettle). A/B on the red fight tests: identical FAIL sets. Hook fling traced: stepping/hard hooks - the body leaves a fixed aim at full reach weight (not the release); the film decides. FREEHAND1 collected: s505b off_share 0.78, free_p50 24.1 cm (guard 16.8) = the before. HEADEASE1 (Qwen) running. Owner fixes: scorecard rank line once (C425), no judge surname twice; Q-266 = Arena's shell. No film/export: the owner played ArcheAge all session. Digest ops/research/S506_DIGEST.md.",
+  "next_action": "FIGHT MOTION WEEK day 12 (S507). ON AN IDLE PC FIRST (never while the owner plays): 180 s film seed 7 (tools/human_fight_film.gd, no --write-movie for the log) -> tools/free_hand_probe.gd vs s505b (off_share 0.78, free_p50 24.1) and tools/head_ease_probe.gd (HEADEASE1, collect it first) vs s505b; also `-- nofreehand` / `-- oldsettle` control films if a number moves the wrong way. Then: the hook fling on the film (pro_left_hook_ft / _hurt_ft / right_hook_hard, hit_frame THROUGH 0.24-0.36 m): if it shows, hold the aim with the body (re-aim from the shoulder) rather than capping the release. Then blind r12 (two NEW critics) aiming 6. Merge Ziva PR 341 after the owner's look. block_meet runs at FIXED_FPS 30."
  },
  "next": "S496: 0) get_usage; where_we_are roll S496; quote board answers (Q-259 Training K v6c; build WeekCards v6c on Yes - WeekCards.gd 552 lines is split first). 1) Collect as they land, by diff + their test: Qwen ONELOOK2 (fight HUD palette, ETA ~11:00 11-16; render before/after fight stills on the hidden desktop, his OK before merge), Goose FILMCOUNT1 (#326, branch goose/issue-326 - Goose's PR step failed twice: collect from the branch; read its FINDS table and noise numbers, retune FilmBout rates if a floor missed), Grok Dev FIGHTPAGE1 (branch grok/fightpage1, ETA ~13:30; render at 1920x1080 text 1.0 and 1.3, judge against fight_analysis_v3.png, then his board). 2) Kalli SQ202 LADDER1 v6 + SQ203 COACHSPEC1 r6 -> two fresh critics each (Dola + John; Dola refused COACHSPEC1 r5 - resend). 3) Wire after FIGHTPAGE1+FILMCOUNT1: the film-night stop in the fight week (FightWeekPlan film night -> FightAnalysis.for_tape with FilmCount.check, FilmPattern.checks by coach rating), FilmEdge pays at the figure, the result page's Punch by punch tab over m['tape'] (BoutTape), History keeps 20 tapes (~400 lines a bout). 4) Live fight log panel brief to Grok Dev once FIGHTPAGE1 lands. 5) ONELOOK1 sweep after ONELOOK2: RosterCards, ReadPanel, MatMap (UI.gd/WoodKit/WeekCards first need a split).",
  "assessment": {
@@ -2125,6 +2115,11 @@
    "id": "S505",
    "date": "2026-11-17",
    "summary": "S505: fight week day 10. Cross step back measured from the shown body (a boxer stepping in had his place 7-14 cm ahead of his feet: the knock only caught the place up) - cross back 12.9 -> 14.2 cm, head jumps 80 -> 77, worst 27.6 -> 20.8. TRUNKTAP splits head jumps by layer (jabs: PunchReach lean 45%, clip 46%); leanrate 2.5 cuts jumps 77 -> 63 but block_catch/hit_frame get worse - kept 4.0, Qwen LEANRED1 measuring. IDLEIN1 + PUNCHEND3 collected; hands come home in 4-6 frames to ~15 cm (the guard moves after). Ziva COACHNECK2 PR 341 (neck 44.8 -> 19.8 deg) awaits his look. Training: boxer cards hover, Ana's card opens her drill page. C: 6.4 -> 15 GB free. BLIND r11: coach 5, animator 5.0 - both at 5 (r10 5 / 4.5). Digest ops/research/S505_DIGEST.md."
+  },
+  {
+   "id": "S506",
+   "date": "2026-11-17",
+   "summary": "S506: fight week day 11. FREEHAND built: the glove that is not punching is held at its guard point by the chin while the other throws (GuardTuck; body shot 0.5; a beat's right_low/left_low after fact lets it drop; -- nofreehand). HEADEASE built: a hit head eases home over 9-12 frames instead of springing (HitSnap; worst frame 26% -> 17%; BlockCatch keeps the old spring; -- oldsettle). A/B on the red fight tests: identical FAIL sets. Hook fling traced: stepping/hard hooks - the body leaves a fixed aim at full reach weight (not the release); the film decides. FREEHAND1 collected: s505b off_share 0.78, free_p50 24.1 cm (guard 16.8) = the before. HEADEASE1 (Qwen) running. Owner fixes: scorecard rank line once (C425), no judge surname twice; Q-266 = Arena's shell. No film/export: the owner played ArcheAge all session. Digest ops/research/S506_DIGEST.md."
   }
  ],
  "blocked_on_operator": [],
@@ -5043,7 +5038,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-17 11:41 board_sync",
+  "updated": "2026-11-17",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5194,24 +5189,11 @@
   },
   "working_now": [
    {
-    "title": "TASK LEANRED1 - why block_catch and hit_frame are red, and why a slower punch lean makes them worse (measure only)",
+    "title": "TASK HEADEASE1 - a ruler for head reactions: when does a hit head peak, and how fast does it come back?",
     "who": "qwen",
-    "started": "2026-11-17T10:13",
-    "run": "LEANRED1",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK PUNCHEND4 - PunchEnd also reads how fast the hand reaches the guard it SETTLES into after the punch",
-    "who": "qwen",
-    "started": "2026-11-17T11:22",
-    "run": "PUNCHEND4",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK FREEHAND1 - a ruler for the free hand: does the glove that is NOT punching stay at the chin?",
-    "who": "qwen",
-    "started": "2026-11-17T11:39",
-    "run": "FREEHAND1"
+    "started": "2026-11-17T12:23",
+    "run": "HEADEASE1",
+    "state": "running"
    }
   ],
   "next": [
@@ -5219,12 +5201,6 @@
     "id": "HEADJUMP1",
     "who": "claude",
     "title": "Head jumps capped at 8 cm a frame (90 over 12 cm in 180 s), reactions keeping their 3-4 frame peak",
-    "after": ""
-   },
-   {
-    "id": "SCORECARD1",
-    "who": "claude",
-    "title": "Scorecard tab: mockup on the board (Q-265) -> his yes -> build on the result page",
     "after": ""
    },
    {
@@ -5755,6 +5731,21 @@
   },
   "done_recently": [
    {
+    "title": "TASK PUNCHEND4 - PunchEnd also reads how fast the hand reaches the guard it SETTLES into after the punch",
+    "who": "qwen",
+    "when": "2026-11-17"
+   },
+   {
+    "title": "TASK LEANRED1 - why block_catch and hit_frame are red, and why a slower punch lean makes them worse (measure only)",
+    "who": "qwen",
+    "when": "2026-11-17"
+   },
+   {
+    "id": "SCORECARD1",
+    "who": "claude",
+    "title": "Scorecard tab on the result page (his Q-265 'Yes, build it'; S506: rank line once, no surname twice)"
+   },
+   {
     "title": "Head pops cut: 90 -> 80 in a 3-minute test; a cross stops a boxer stepping in",
     "who": "claude",
     "when": "2026-11-17"
@@ -5798,23 +5789,6 @@
     "title": "TASK PUNCHEND1 - a ruler: where each punch ends and how fast the hand comes home",
     "who": "qwen",
     "when": "2026-11-16"
-   },
-   {
-    "title": "TASK SCORESHEET1 - the official scorecard sheet as data (pure rule module)",
-    "who": "qwen",
-    "when": "2026-11-16"
-   },
-   {
-    "title": "S503: feet lift and step - planted slide 11 m -> 0.3 m a round"
-   },
-   {
-    "title": "S503: waiting alive - paw + feint by style, longest wait 2.9 s"
-   },
-   {
-    "title": "S503: FILMBAR2 + SCORESHEET1 collected"
-   },
-   {
-    "title": "S503: blind r10 coach 5, animator 4.5"
    }
   ],
   "scope_note": "S294: lean restart (E:\\FightCamp\\Lean\\docs\\RESTART_PLAN.md). Old roadmap items are parked until the weekly builds reach them.",
@@ -5903,64 +5877,6 @@
   "map": {
    "done_earlier": [
     {
-     "text": "Collect PUNCHEND1 + STANDOFF1",
-     "who": "claude"
-    },
-    {
-     "text": "Scorecard mockup -> board Q-265",
-     "who": "claude"
-    },
-    {
-     "text": "Hit reactions: peak 5 -> 3-4 f",
-     "who": "claude"
-    },
-    {
-     "text": "Scorecard tab built",
-     "who": "claude"
-    },
-    {
-     "text": "Head pops 90 to 80",
-     "who": "claude"
-    },
-    {
-     "text": "Collect FILMBAR2 (PR 335)",
-     "who": "claude"
-    },
-    {
-     "text": "Feet lift: slide 11 m -> 0.4 m",
-     "who": "claude"
-    },
-    {
-     "text": "Waiting: paw + feint, wait 2.9 s",
-     "who": "claude"
-    },
-    {
-     "text": "Blind r10: coach 5, anim 4.5",
-     "who": "claude"
-    },
-    {
-     "text": "Collect SCORESHEET1 (+from_rounds)",
-     "who": "claude"
-    },
-    {
-     "text": "Collect PRESSFLASH1",
-     "who": "claude"
-    },
-    {
-     "text": "Range: step out of idle inside",
-     "who": "claude"
-    },
-    {
-     "text": "Hit reactions sized per punch",
-     "who": "claude"
-    },
-    {
-     "text": "Blind r9: coach 4.5, anim 5",
-     "who": "claude"
-    }
-   ],
-   "done_session": [
-    {
      "text": "Collect IDLEIN1: idle 2.3 s/180",
      "who": "agent"
     },
@@ -5987,6 +5903,60 @@
     {
      "text": "Qwen seat on qwen4-max",
      "who": "claude"
+    },
+    {
+     "text": "Collect PUNCHEND1 + STANDOFF1",
+     "who": "claude"
+    },
+    {
+     "text": "Scorecard mockup -> board Q-265",
+     "who": "claude"
+    },
+    {
+     "text": "Hit reactions: peak 5 -> 3-4 f",
+     "who": "claude"
+    },
+    {
+     "text": "Scorecard tab built",
+     "who": "claude"
+    },
+    {
+     "text": "Head pops 90 to 80",
+     "who": "claude"
+    },
+    {
+     "text": "Collect FILMBAR2 (PR 335)",
+     "who": "claude"
+    },
+    {
+     "text": "Feet lift: slide 11 m -> 0.4 m",
+     "who": "claude"
+    }
+   ],
+   "done_session": [
+    {
+     "text": "Scorecard: rank line once (C425)",
+     "who": "claude"
+    },
+    {
+     "text": "Q-266: it was Arena's shell",
+     "who": "claude"
+    },
+    {
+     "text": "Head reactions eased out 9-12 f",
+     "who": "claude"
+    },
+    {
+     "text": "Judges: no surname twice",
+     "who": "claude"
+    },
+    {
+     "text": "Free glove held at chin: built",
+     "who": "claude"
+    },
+    {
+     "text": "FREEHAND1 ruler: 78% off (Qwen)",
+     "who": "agent"
     }
    ],
    "now": [
@@ -6055,15 +6025,11 @@
      "who": "claude"
     },
     {
-     "text": "Your look: Scorecard tab",
-     "who": "claude"
-    },
-    {
      "text": "Your look: coach neck PR 341",
      "who": "operator"
     },
     {
-     "text": "FREEHAND1: free-hand ruler (Qwen)",
+     "text": "HEADEASE1 head ruler (Qwen)",
      "who": "agent"
     }
    ],
@@ -6173,23 +6139,19 @@
      "who": "claude"
     },
     {
-     "text": "Scorecard sheet on result page",
-     "who": "claude"
-    },
-    {
      "text": "Head jumps capped 8 cm a frame",
      "who": "claude"
     },
     {
-     "text": "Free glove held at the chin",
+     "text": "Film: free hand + head ease",
      "who": "claude"
     },
     {
-     "text": "Head reactions eased 8-12 f",
+     "text": "Hook fling: re-aim from body",
      "who": "claude"
     }
    ],
-   "session": "S505"
+   "session": "S506"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",

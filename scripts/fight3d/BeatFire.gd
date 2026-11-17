@@ -154,6 +154,13 @@ func _punch(v: Node, b: Dictionary, who: int, other: int, move: String) -> void:
 		# the glove covers only the last stretch of its measured path (clip_travel.json) - a short hook, not a wide one.
 		skip = ShortPunch.merge(skip, ShortPunch.skip(BeatClips.travel_path(clip), contact, ShortPunch.want(move, float(ctx["roll"])), sp, SHORT_WIND_S))
 	last_hand[who] = hand
+	# S506 FREEHAND: GuardTuck holds the free glove at the chin while she punches; a beat whose after fact drops a hand
+	# (right_low / left_low - the drops-the-right habit raises it) lets that hand go when it is this punch's free one.
+	var tuck: Node = stage.boxers[who].get("tuck")
+	if tuck != null:
+		var low := str(b.get("after", ""))
+		tuck.set("free_drop", str(stage.hand_of(who, "RightHand" if low == "right_low" else "LeftHand")) if low.ends_with("_low") else "")
+		tuck.set("free_drop_clip", clip)
 	# S371 BODYREACT1 (the S370 probe measured it: 14 of 42 landed body shots were cut off before they ever arrived - no
 	# hit, no reaction, no fold (PunchRange.cut_off: a new beat replaced the armed punch before its contact; the probe's
 	# fliers caught her flip pro_body_shot -> pro_left_hook_v2 on the very contact frame). A body hook flies 0.40 s,

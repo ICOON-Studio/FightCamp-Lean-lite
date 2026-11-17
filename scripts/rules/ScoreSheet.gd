@@ -177,7 +177,7 @@ static func _build_result(j: Dictionary, stopped: bool, stop_round: int, stop_ti
 	return {"kind": "decision", "words": words, "winner": winner_corner}
 
 
-## Three DIFFERENT fictional judge names from the built-in list, seeded deterministically.
+## Three fictional judge names, no surname twice, from the built-in list, seeded deterministically.
 static func _judge_names(seed: int) -> Array:
 	var rng := RandomNumberGenerator.new()
 	rng.seed = seed
@@ -188,8 +188,9 @@ static func _judge_names(seed: int) -> Array:
 		var fi: int = rng.randi_range(0, FIRST.size() - 1)
 		var li: int = rng.randi_range(0, LAST.size() - 1)
 		var full: String = FIRST[fi] + " " + LAST[li]
-		if not used.has(full):
-			used[full] = true
+		# S506 (owner's scorecard still: Ulric Doherty and Malachy Doherty on one card): no surname twice on a panel.
+		if not used.has(LAST[li]):
+			used[LAST[li]] = true
 			out.append(full)
 		attempts += 1
 	while out.size() < 3:

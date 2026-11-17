@@ -229,7 +229,7 @@ func _process_modification() -> void:
 		gm.y = clampf(gm.y, face.y - LOW_M, top)
 		goal_w = gm
 	if _give_t >= 0.0:   # the absorb: knocked back toward her face on the hit spring
-		goal_w -= fwd * float(KNOCK_M.get(_move, 0.025)) * HitSnap.envelope(_give_t)
+		goal_w -= fwd * float(KNOCK_M.get(_move, 0.025)) * HitSnap.envelope(_give_t, true)
 		if goal_w.distance_to(face) < FACE_KEEP_M:
 			goal_w = face + (goal_w - face).normalized() * FACE_KEEP_M
 	var goal := xf.affine_inverse() * goal_w
@@ -275,10 +275,10 @@ func give_left() -> float:
 	var out := 0.0
 	if _give_t >= 0.0:
 		var deg := float(HEAD_DEG.get(_move, 4.0))
-		out = maxf(float(KNOCK_M.get(_move, 0.025)) * HitSnap.envelope(_give_t) * w,
-			HEAD_M_PER_DEG * deg * maxf(HitSnap.envelope(_give_t), HitSnap.give_envelope(_give_t)))
+		out = maxf(float(KNOCK_M.get(_move, 0.025)) * HitSnap.envelope(_give_t, true) * w,
+			HEAD_M_PER_DEG * deg * maxf(HitSnap.envelope(_give_t, true), HitSnap.give_envelope(_give_t, true)))
 	if _brace_t >= 0.0:
-		out = maxf(out, BRACE_M * HitSnap.give_envelope(_brace_t))
+		out = maxf(out, BRACE_M * HitSnap.give_envelope(_brace_t, true))
 	return out
 
 
@@ -292,7 +292,7 @@ func _brace_give(skel: Skeleton3D, dt: float) -> void:
 	if _brace_t < 0.0:
 		return
 	_brace_t += dt
-	var e := HitSnap.give_envelope(_brace_t)
+	var e := HitSnap.give_envelope(_brace_t, true)
 	if e <= 0.0:
 		_brace_t = -1.0
 		return

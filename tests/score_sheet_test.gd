@@ -295,6 +295,16 @@ func _test_judge_names_deterministic() -> void:
 	var n2: String = (s1["judges"][1] as Dictionary)["name"]
 	var n3: String = (s1["judges"][2] as Dictionary)["name"]
 	_check(n1 != n2 and n2 != n3 and n1 != n3, "three different names: %s, %s, %s" % [n1, n2, n3])
+	# S506 (owner's still: two Dohertys on one panel): no surname twice, over many seeds.
+	var twice := 0
+	for sd in 300:
+		var names := ScoreSheet._judge_names(sd)
+		var lasts := {}
+		for nm in names:
+			lasts[str(nm).get_slice(" ", 1)] = true
+		if lasts.size() < 3:
+			twice += 1
+	_check(twice == 0, "no surname twice on a panel over 300 seeds (%d panels had one)" % twice)
 	var m1: String = (s2["judges"][0] as Dictionary)["name"]
 	var m2: String = (s2["judges"][1] as Dictionary)["name"]
 	var m3: String = (s2["judges"][2] as Dictionary)["name"]

@@ -2,7 +2,7 @@ extends RefCounted
 ## S504 the result page's SCORECARD tab (operator's S503 idea, Q-265 mockup docs/mockups/s504/scorecard/scorecard.png,
 ## his "Yes, build it"): the three judges' sheets on paper (ScoreSheet.build: a row a round, the running score, the total
 ## ringed, the corner stamp), a hover on a score = that judge's reason for the round, the rounds one card each (what
-## decided it), and what the result means (record, the rank it earned, the body report's one action).
+## decided it), and what the result means (the cards, the close round, the body report's one action).
 ## The scores are the ones the header's judge grid shows: the judges' own when they decided the bout, else 10-9 to the
 ## round's winner with the third judge's close round flipped (BoutRules.cards_of) - so the sheets always add up to the cards.
 ##   tab(main, m, f, names) -> VBoxContainer      sheet_input(m) -> ScoreSheet's input, or {} before a round is complete
@@ -376,7 +376,8 @@ static func _decided(r: Dictionary, f: Dictionary, split: bool) -> String:
 		f["landed"][0] if won else f["landed"][1], f["landed"][1] if won else f["landed"][0]]
 
 
-## WHAT IT MEANS: the cards in one line, the rank the bout earned, the close round, and the body report's one action.
+## WHAT IT MEANS: the cards in one line, the close round, and the body report's one action. The rank the bout earned
+## stays in the header only (operator C425: "same info on the card twice").
 static func _means(main: Node, m: Dictionary, f: Dictionary, j: Dictionary) -> PanelContainer:
 	var p := ResultCause.panel("")
 	p.name = "WhatItMeans"
@@ -393,9 +394,6 @@ static func _means(main: Node, m: Dictionary, f: Dictionary, j: Dictionary) -> P
 		var cl := UI.label("Round %d was the close one: one judge had it the other way." % (close + 1), TEXT, UI.FG, "body", true)
 		cl.name = "CloseRound"
 		v.add_child(cl)
-	var rank := str(m.get("rank_words", ""))
-	if rank != "":
-		v.add_child(UI.label(rank, TEXT, UI.GOLD, "body", true))
 	var focus := ResultTabs.body_focus(main, m, f)
 	if focus != null:
 		v.add_child(UI.sep())

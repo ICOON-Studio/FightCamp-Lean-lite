@@ -34,6 +34,8 @@ one worktree per agent on D:\FightCamp\wt\<ID>; read the out-file + worktree, ne
 | Kimi | OFF (operator) | | | |
 
 ## Arena (arena.ai Agent Mode) - added 2026-10-03 (operator ruling, copied from Space Strategy E:\SpaceGame)
+- S506 (owner on Q-266: "i opened an arena shell and i saw the error"): Godot does NOT install in Arena's own shell.
+  Arena briefs never ask it to run Godot; its tests run on the mirror's CI (and our collect), never in its sandbox.
 
 **S264: ARENA WORKS ON THE CODE-ONLY MIRROR `ICOON-Studio/FightCamp-lite`** (operator: "this is happening every session, find a way
 this cannot happen again" - Arena's sandbox kept failing `git clone failed: Cloning into '/home/user/FightCamp'...` on the 6.7 GB repo).

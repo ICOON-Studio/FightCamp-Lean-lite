@@ -3194,14 +3194,87 @@
       "path": "media:_sent/2026-11-15_2104_bodylook1_before_after_on_the_game_s_cam/pair_corner_wide_c08.jpg",
       "text": "MARKUP: 1 marks -> Feedback/2026-11-16-01/README.md",
       "at": "2026-11-16T07:11:41Z",
-      "seen_by_claude": false
+      "seen_by_claude": true,
+      "addressed": "cited by 69e8afbe6 2026-11-16"
     },
     {
       "path": "_sent/2026-11-15_1651_test_club_every_menu_with_four_fighters_/kira_training.png",
       "text": "remove this training picture from the game",
       "at": "2026-11-16T07:14:05Z",
-      "seen_by_claude": false,
-      "id": "C416"
+      "seen_by_claude": true,
+      "id": "C416",
+      "addressed": "cited by f416dfa56 2026-11-16"
+    },
+    {
+      "id": "C417",
+      "path": "media:_sent/2026-11-16_1216_training_full_pads_no_sharing_q_260_test/club4_lucy_t3.png",
+      "text": "MARKUP: 1 marks -> Feedback/2026-11-16-02/README.md",
+      "at": "2026-11-16T13:06:17Z",
+      "seen_by_claude": true,
+      "addressed": "cited by 35cdba141 2026-11-16"
+    },
+    {
+      "path": "_sent/2026-11-16_1049_onelook1_every_screen_before_after_one_w/ONELOOK1_before_after_text3_1.jpg",
+      "text": "why is the lighting so dimm in these ?",
+      "at": "2026-11-16T13:06:44Z",
+      "seen_by_claude": true,
+      "id": "C418",
+      "addressed": "cited by 35cdba141 2026-11-16"
+    },
+    {
+      "path": "_sent/2026-11-16_1049_onelook1_every_screen_before_after_one_w/ONELOOK1_before_after_text3_2.jpg",
+      "text": "these pictures look darker than they should",
+      "at": "2026-11-16T13:07:05Z",
+      "seen_by_claude": true,
+      "id": "C419",
+      "addressed": "cited by 35cdba141 2026-11-16"
+    },
+    {
+      "path": "_sent/2026-11-16_1049_onelook1_every_screen_before_after_one_w/ONELOOK1_fight_hud_before_after.jpg",
+      "text": "this also is darker than it should same as some of the pictures i removed already",
+      "at": "2026-11-16T13:07:32Z",
+      "seen_by_claude": true,
+      "id": "C420",
+      "addressed": "cited by 35cdba141 2026-11-16"
+    },
+    {
+      "path": "_sent/2026-11-16_1030_training_training_k_v6c_built_in_the_gam/camp_t1.png",
+      "text": "i do not see any of these , wtf ?",
+      "at": "2026-11-16T13:08:01Z",
+      "seen_by_claude": true,
+      "id": "C421",
+      "addressed": "cited by 35cdba141 2026-11-16"
+    },
+    {
+      "path": "_sent/2026-11-16_1030_training_training_k_v6c_built_in_the_gam/club4_split_t1.png",
+      "text": "all the pictures look the same wtf ?",
+      "at": "2026-11-16T13:08:36Z",
+      "seen_by_claude": true,
+      "id": "C422",
+      "addressed": "cited by 35cdba141 2026-11-16"
+    },
+    {
+      "path": "_sent/2026-11-16_1030_training_training_k_v6c_built_in_the_gam/normal_start_t1.png",
+      "text": "what walk-in wtf are you talking about ?",
+      "at": "2026-11-16T13:09:04Z",
+      "seen_by_claude": true,
+      "id": "C423",
+      "addressed": "cited by 35cdba141 2026-11-16"
+    },
+    {
+      "path": "_sent/2026-11-16_1656_your_note_the_shoulders_on_the_walk_to_t/walk_before_now.jpg",
+      "text": "better",
+      "at": "2026-11-16T17:22:11Z",
+      "seen_by_claude": true,
+      "id": "C424"
+    },
+    {
+      "id": "C425",
+      "path": "media:_sent/2026-11-17_0804_scorecard_tab_the_real_screen/real_scorecard_hover.png",
+      "text": "MARKUP: 2 marks -> Feedback/2026-11-17-01/README.md",
+      "at": "2026-11-17T07:36:51Z",
+      "seen_by_claude": true,
+      "addressed": "cited by 5bf777cc5 2026-11-17"
     }
   ]
 }

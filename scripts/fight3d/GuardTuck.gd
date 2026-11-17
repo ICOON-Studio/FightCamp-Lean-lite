@@ -15,8 +15,25 @@ extends SkeletonModifier3D
 ## (0..1, FightStage sets it from Footwork.inside_w) draws each wrist to a point by the cheek on its own side and turns
 ## the elbow's bend down and in (ElbowClear then keeps it just outside the ribs).
 ##   setup(skel, ap, body, guard_clips, seed)   low   inner
+## S506 FREEHAND (blind r11, both critics' first change: the rear hand "keeps falling to the belt"; "while one arm punches,
+## hold the other glove within 8 cm of the chin"). While a punch clip plays, the hand that is NOT punching is held at its
+## own guard point the same way (GUARD / the inside guard, the two-bone chain, the hand keeping its rotation) at FREE_W; a
+## body shot at FREE_BODY_W (the free glove may sag to cover the ribs). `free_drop` + `free_drop_clip` (BeatFire, from
+## the beat's after fact right_low / left_low, which the drops-the-right habit raises): that punch lets its free hand go
+## and the clip's own drop shows - the film log and the picture agree. Ruler: tools/free_hand_probe.gd. `-- nofreehand`.
+##   free_drop  free_drop_clip   free_hand() -> the hand held now ("" when none)
 
 const PunchReach := preload("res://scripts/fight3d/PunchReach.gd")
+const BeatClips := preload("res://scripts/fight3d/BeatClips.gd")
+const FREE_W := 0.9
+const FREE_BODY_W := 0.5
+## In fast (the punch's first frames are the guard leaving), out slower than the guard eases back in, so the glove
+## handed from this hold to the guard's never dips at the crossover.
+const FREE_IN_S := 0.12
+const FREE_OUT_S := 0.45
+## The same words as scripts/rules/PunchEnd.gd / FreeHand.gd (copied: the rules modules stay preload-free).
+const PUNCH_WORDS := ["jab", "cross", "hook", "uppercut", "body_shot"]
+const EXCLUDE_WORDS := ["hit_by", "dodge", "weave", "idle"]
 
 ## S317 smoothness (tools/smooth_probe.gd raw baseline: the tuck added 77 of our 676 kinks a minute, most on pro_idle):
 ## a wrist moves ~0.2 m between the clip's guard and GUARD; over 0.15 s that is ~50 m/s^2 (the probe's kink is 18). Over
@@ -69,6 +86,13 @@ var _w := 0.0
 var _t := 0.0
 var _phase := 0.0
 var _sh := [-1, -1]
+var free_drop := ""        # the hand a beat lets drop on its punch (LeftHand / RightHand), "" = held
+var free_drop_clip := ""   # the punch clip that drop belongs to
+var _fw := 0.0
+var _free := ""
+var _free_clip := ""
+var _free_want := 0.0
+var _free_on := true
 
 
 func setup(skel: Skeleton3D, player: AnimationPlayer, body_node: Node3D, guard_clips: Array, seed: int) -> bool:
@@ -78,6 +102,7 @@ func setup(skel: Skeleton3D, player: AnimationPlayer, body_node: Node3D, guard_c
 	_phase = float(seed % 97) * 0.37
 	_head = skel.find_bone("Head")
 	_sh = [skel.find_bone("LeftUpperArm"), skel.find_bone("RightUpperArm")]
+	_free_on = not OS.get_cmdline_user_args().has("nofreehand")
 	for side in ["Left", "Right"]:
 		var ids := [skel.find_bone(side + "UpperArm"), skel.find_bone(side + "LowerArm"), skel.find_bone(side + "Hand")]
 		if ids.has(-1):
@@ -92,9 +117,19 @@ func _process_modification() -> void:
 		return
 	var dt := get_process_delta_time()
 	_t += dt
-	var want := 1.0 if guards.has(str(ap.assigned_animation)) else 0.0
+	var clip := str(ap.assigned_animation)
+	var want := 1.0 if guards.has(clip) else 0.0
 	_w = move_toward(_w, want, dt / EASE_S)
-	if _w <= 0.0:
+	if _free_on and clip != _free_clip:
+		_free_clip = clip
+		var fh := free_of(clip, lead)
+		if fh != "":
+			_free = fh
+			_free_want = 0.0 if (clip == free_drop_clip and free_drop == fh) else (FREE_BODY_W if clip.contains("body") else FREE_W)
+		else:
+			_free_want = 0.0
+	_fw = move_toward(_fw, _free_want, dt / (FREE_IN_S if _free_want > _fw else FREE_OUT_S))
+	if _w <= 0.0 and _fw <= 0.0:
 		return
 	_low = move_toward(_low, low, dt / (LOW_UP_S if low < _low else LOW_DOWN_S))
 	var lw := _low * _low * (3.0 - 2.0 * _low)
@@ -105,26 +140,51 @@ func _process_modification() -> void:
 	var head: Vector3 = skel.get_bone_global_pose(_head).origin
 	# Skeleton space is scaled with her height: the guard points are world metres.
 	var k := skel.global_transform.basis.get_scale().x
-	var iw := inner * inner * (3.0 - 2.0 * inner) * e
+	var ef := _fw * _fw * (3.0 - 2.0 * _fw)
+	var iw := inner * inner * (3.0 - 2.0 * inner)   # S506: the inside share alone (was times e, divided back out below)
 	var left := skel.get_bone_global_pose(int(_sh[0])).origin - skel.get_bone_global_pose(int(_sh[1])).origin
 	left.y = 0.0
 	left = left.normalized() if left.length() > 1e-4 else fwd.cross(Vector3.UP)
 	for hand in _arms:
 		var ids: Array = _arms[hand]
+		# S506: the free hand during a punch takes the stronger of the guard's ease and the free hold.
+		var eh := maxf(e, ef) if hand == _free else e
+		if eh <= 0.0:
+			continue
 		var g_hd: Transform3D = skel.get_bone_global_pose(int(ids[2]))
 		var role := "lead" if hand == lead else "rear"
-		var pump := float(PUMP_M[role]) * sin(TAU * PUMP_HZ * _t + _phase + (0.0 if hand == "LeftHand" else 2.1))
+		var pump := float(PUMP_M[role]) * sin(TAU * PUMP_HZ * _t + _phase + (0.0 if hand == "LeftHand" else 2.1)) * e / eh
 		var out := left if hand == "LeftHand" else -left
 		# S316 one guard at every range: her own wrist point from the head bone (GUARD), the lead a little lower at long
 		# range, the inside guard up close; the clip's own guard only shows through the ease in and out.
 		var gp: Vector3 = GUARD[role] / k
 		var to := head + fwd * (gp.x + pump / k) + out * gp.y + Vector3.UP * (gp.z - float(LOW_M[role]) * lw / k)
 		if iw > 0.0:
-			to = to.lerp(head + (fwd * (IN_FWD_M + pump * 0.5) + out * IN_SIDE_M + Vector3.UP * IN_UP_M) / k, iw / e)
-		to += Vector3.DOWN * float(TIRED_DROP_M[role]) * float(tired[role]) * (1.0 - 0.5 * iw / e) / k
-		to = g_hd.origin.lerp(to, e)
+			to = to.lerp(head + (fwd * (IN_FWD_M + pump * 0.5) + out * IN_SIDE_M + Vector3.UP * IN_UP_M) / k, iw)
+		to += Vector3.DOWN * float(TIRED_DROP_M[role]) * float(tired[role]) * (1.0 - 0.5 * iw) / k
+		to = g_hd.origin.lerp(to, eh)
 		var s: Vector3 = skel.get_bone_global_pose(int(ids[0])).origin
 		var l1 := s.distance_to(skel.get_bone_global_pose(int(ids[1])).origin)
 		var l2 := skel.get_bone_global_pose(int(ids[1])).origin.distance_to(g_hd.origin)
-		var pole := (Vector3.DOWN - out * lerpf(ELBOW_IN, IN_ELBOW_IN, iw / e)).normalized()
-		PunchReach.solve(skel, ids, s, to, l1, l2, g_hd.basis, pole, e)
+		var pole := (Vector3.DOWN - out * lerpf(ELBOW_IN, IN_ELBOW_IN, iw)).normalized()
+		PunchReach.solve(skel, ids, s, to, l1, l2, g_hd.basis, pole, eh)
+
+
+## The hand held now by the free hold ("" when none).
+func free_hand() -> String:
+	return _free if _fw > 0.0 else ""
+
+
+## S506: the hand that is NOT punching in `clip` ("" when the clip is no punch). Its punching hand is the clip's own (the
+## measured contact row, else left_ / jab = the left), mirrored for a southpaw (her lead is the right).
+static func free_of(clip: String, lead_hand: String) -> String:
+	var hit := false
+	for w in PUNCH_WORDS:
+		hit = hit or clip.contains(w)
+	for w in EXCLUDE_WORDS:
+		hit = hit and not clip.contains(w)
+	if not hit:
+		return ""
+	var orth := str(BeatClips.contact_row(clip).get("hand", "LeftHand" if clip.contains("left_") or clip.contains("jab") else "RightHand"))
+	var punching := orth if lead_hand == "LeftHand" else ("RightHand" if orth == "LeftHand" else "LeftHand")
+	return "RightHand" if punching == "LeftHand" else "LeftHand"

@@ -2014,6 +2014,55 @@
       "at": "2026-11-16 08:53",
       "text": "BOARD ANSWER Q-S294-257 - question: Training K v6 - your 3 marks done: (1) the right panel says what it is ('next week: the bout'); with no bout booked it shows NO BOUT BOOKED and an Ask for a fight button (second picture). (2) The coach split has a white drag line with a grip, and the COACH label says 'drag the white line to share' (the coach's 75 min an evening, shared between two boxers). (3) Lock is gone: the evening tile and the Friday panel show the coaches, '1 of 2 coaches free'. Build it as drawn? | answer: Change more (say what) | note: why the fuck you put ask for a fight on the training screen ? | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
       "status": "waiting"
+    },
+    {
+      "id": "P281",
+      "from": "board",
+      "at": "2026-11-16 09:29",
+      "text": "BOARD ANSWER Q-S294-259 - question: Training K v6c, your Q-257 note: Ask for a fight is off the Training screen (asking for a bout belongs where bouts are booked). With no bout booked, the panel now only says the week is plain training, and the selected card is the boxer with no bout. Build it? | answer: Yes, build it | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P282",
+      "from": "board",
+      "at": "2026-11-16 11:23",
+      "text": "BOARD ANSWER Q-S294-260 - question: Training screen as built: boxers on pads the same night SHARE the coach's 75 minutes (3 boxers = 25 min each, each learns a third as fast; you drag the white line to give one boxer more). Your earlier answer on shared pad hours (Q-242) was 'No, never short'. Which one stands? | answer: full pads, no sharing , thats for forcing more coaches to be hired ? | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P283",
+      "from": "board",
+      "at": "2026-11-16 11:25",
+      "text": "BOARD ANSWER Q-S294-261 - question: One look for every screen: same wall light on every page (darkest-to-brightest page was 32-109, now 32-54), the old cream paper and yellow notes turned into the dark wood-and-slate cards, every colour from the one palette. Before/after of all 25 pages at Medium and Largest text, and the fight screen, are attached. Merge it? | answer: Change something first (say what) | note: i do not like the wooden panels , some pictures ahve some dont , how do you call this consistent ? | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P284",
+      "from": "board",
+      "at": "2026-11-16 13:08",
+      "text": "BOARD ANSWER Q-S294-262 - question: ONELOOK1 again. You said: \"i do not like the wooden panels , some pictures ahve some dont , how do you call this consistent ?\" Changed: no wood anywhere - every card on every page, the fight HUD and the pop-ups is now the same plain dark panel, and no page has its own photo behind it any more (Money's plaster, the Office photo and the walk-in's office photo are gone). A check now fails the build if any panel is different; it went red on the wood and is green now. Still there on purpose: the gym map on Home, the fighter's figure on Overview, the move picture on Playbook. The Training tab's crea | answer: Yes, merge it | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P285",
+      "from": "board",
+      "at": "2026-11-16 19:19",
+      "text": "BOARD ANSWER Q-S294-264 - question: Damage through the guard: today a blocked punch costs nothing in the numbers. Build it as proposed (a share of the damage goes through, blocked punches wear the guard bar down, a worn guard lets more through)? Research and critics first, then your yes on the design. | answer: Yes, design it | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P286",
+      "from": "board",
+      "at": "2026-11-17 07:55",
+      "text": "BOARD ANSWER Q-S294-265 - question: Scorecard tab after a fight (your S503 idea): three judges' sheets, hover a score for why that judge gave the round, round by round below, what it means + Continue. Build it like this? | answer: Yes, build it | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P287",
+      "from": "board",
+      "at": "2026-11-17 09:23",
+      "text": "BOARD ANSWER Q-S294-266 - question: You wrote 'goose could not install godot'. Every Goose run since 11-14 got Godot 4.7.2. Where did you see the failure? | answer: i opened an arena shell and i saw the error | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
     }
   ]
 }

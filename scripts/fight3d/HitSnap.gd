@@ -14,6 +14,16 @@ extends SkeletonModifier3D
 const RISE_S := 0.06
 const SETTLE_TAU_S := 0.11
 const LIFE_S := 0.55
+## S506 HEADEASE (both r11 blind critics' second change: the head "sized and eased out", furthest 2-3 frames after contact,
+## then back over 8-12 frames). The exponential settle (SETTLE_TAU_S) came back fastest the frame after the peak - 26% of
+## the snap in one 30 fps frame: a spring. Now the snap holds its peak a moment and eases home over SETTLE_S (9 frames at
+## 30 fps), the trunk's give over GIVE_SETTLE_S (12): smoothstep down, the fastest frame mid-way and 1.5/9 of the size.
+## Both end inside LIFE_S / GIVE_LIFE_S. `-- oldsettle` = the exponential settle (the control arm). `spring` = the old
+## curve for a caller that is not a hit head: BlockCatch's knock on the catching glove (eased, a blocked preview jab sank
+## 3.2 cm into the glove - block_meet 3 -> 4 failures, the same both runs).
+const SETTLE_S := 0.30
+const GIVE_SETTLE_S := 0.40
+static var _old_settle := -1
 ## The share of the turn on the neck; the rest on the head.
 const NECK_SHARE := 0.45
 ## S396 (two blind judges: "no hit reaction strong enough to sell any blow"): on the broadcast lens a head turning on its
@@ -91,23 +101,41 @@ func snap(dir_world: Vector3, degrees: float, give_mult: float = 1.0) -> void:
 
 
 ## S396: the trunk's give, 0 -> 1 at GIVE_RISE_S, then a slower settle; 0 after GIVE_LIFE_S.
-static func give_envelope(t: float) -> float:
+static func give_envelope(t: float, spring: bool = false) -> float:
 	if t < 0.0 or t >= GIVE_LIFE_S:
 		return 0.0
 	if t < GIVE_RISE_S:
 		var u := t / GIVE_RISE_S
 		return u * u * (3.0 - 2.0 * u)
-	return exp(-(t - GIVE_RISE_S) / GIVE_TAU_S)
+	if spring or _old():
+		return exp(-(t - GIVE_RISE_S) / GIVE_TAU_S)
+	return _ease_out((t - GIVE_RISE_S) / GIVE_SETTLE_S)
 
 
-## 0 -> 1 at RISE_S, then an exponential settle; 0 after LIFE_S.
-static func envelope(t: float) -> float:
+## 0 -> 1 at RISE_S, then eased home over SETTLE_S (S506; `-- oldsettle` the exponential); 0 after LIFE_S.
+static func envelope(t: float, spring: bool = false) -> float:
 	if t < 0.0 or t >= LIFE_S:
 		return 0.0
 	if t < RISE_S:
 		var u := t / RISE_S
 		return u * u * (3.0 - 2.0 * u)
-	return exp(-(t - RISE_S) / SETTLE_TAU_S)
+	if spring or _old():
+		return exp(-(t - RISE_S) / SETTLE_TAU_S)
+	return _ease_out((t - RISE_S) / SETTLE_S)
+
+
+## 1 -> 0 over u 0..1 (smoothstep down): flat at the peak, flat at home.
+static func _ease_out(u: float) -> float:
+	if u >= 1.0:
+		return 0.0
+	var v := clampf(u, 0.0, 1.0)
+	return 1.0 - v * v * (3.0 - 2.0 * v)
+
+
+static func _old() -> bool:
+	if _old_settle < 0:
+		_old_settle = 1 if OS.get_cmdline_user_args().has("oldsettle") else 0
+	return _old_settle == 1
 
 
 ## A body shot meets her elbow on her left side when `hit_left`.

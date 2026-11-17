@@ -1644,6 +1644,18 @@
    "status": "held",
    "queued": "2026-11-17T06:30",
    "note": "nightly review: rokoko_clips, human_feet, guard_knee red after S503 step lift / paw-feint; animation order, main session decides"
+  },
+  {
+   "task": "PUNCHEND3",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-17T09:04"
+  },
+  {
+   "task": "HEADEASE1",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-17T11:53"
   }
  ]
 }

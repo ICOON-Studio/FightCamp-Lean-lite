@@ -35,7 +35,22 @@ func _initialize() -> void:
 	_check(PunchReach.weight(0.5 + PunchReach.HOLD_S + PunchReach.OUT_S + 0.01, 0.5) == 0.0, "the reach lets go after contact")
 	# 3. Snap envelope.
 	_check(HitSnap.envelope(HitSnap.RISE_S) > 0.99, "the head snap peaks at %.3f s" % HitSnap.RISE_S)
-	_check(HitSnap.envelope(0.25) < 0.25 and HitSnap.envelope(HitSnap.LIFE_S) == 0.0, "the head snap settles to nothing")
+	_check(HitSnap.envelope(HitSnap.RISE_S + HitSnap.SETTLE_S) == 0.0 and HitSnap.envelope(HitSnap.LIFE_S) == 0.0, "the head snap settles to nothing")
+	# S506 HEADEASE: eased home, never a spring - no 30 fps frame after the peak gives back more than 20% of the snap,
+	# and it is still mostly out one frame after the peak (the exponential gave back 26% there).
+	var worst := 0.0
+	var f := 1.0 / 30.0
+	var tt := HitSnap.RISE_S
+	while tt < HitSnap.LIFE_S:
+		worst = maxf(worst, HitSnap.envelope(tt) - HitSnap.envelope(tt + f))
+		tt += f
+	_check(worst <= 0.20 and HitSnap.envelope(HitSnap.RISE_S + f) > 0.9, "the snap eases home: worst frame %.2f of the snap (bar 0.20)" % worst)
+	var gw := 0.0
+	tt = HitSnap.GIVE_RISE_S
+	while tt < HitSnap.GIVE_LIFE_S:
+		gw = maxf(gw, HitSnap.give_envelope(tt) - HitSnap.give_envelope(tt + f))
+		tt += f
+	_check(gw <= 0.15, "the trunk's give eases home: worst frame %.2f (bar 0.15)" % gw)
 	# 4. RoundScript exchanges, across seeds and margins.
 	var tight := true
 	var combos := 0
