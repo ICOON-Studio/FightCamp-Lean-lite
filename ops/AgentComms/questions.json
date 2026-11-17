@@ -8067,7 +8067,7 @@
       "answer": "i opened an arena shell and i saw the error",
       "note": null,
       "answered_at": "2026-11-17T07:23:51Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "comment_only": true
     }
   ]

@@ -13,6 +13,12 @@ Digest: `ops/research/S506_DIGEST.md`.
 - The BEFORE numbers (s505b, tools/free_hand_probe.gd, FREEHAND1 collected): off_share 0.78, free_p50 24.1 cm,
   free_p90 38.9, guard_free_p50 16.8.
 
+## FILMED at the end of S506 (owner: "go ahead film it now", while he played)
+- s506a (both on): FreeHand off_share 0.78 -> 0.30; HeadEase back frames 4 -> 13 (no snaps); hit reactions bigger
+  (jab 14.4, cross 16.7 cm). COST: head jumps 77 -> 91 (punch frames 40 -> 50, hits 34 -> 38). Ease 0.24 / 0.27 tried
+  (s506b/c): back to 4 frames - 0.30/0.40 kept. Both-off film = s505b to the frame (the fight is deterministic).
+- So item 0 below is DONE; the new first item is HEADJUMP1 against s506a.
+
 ## NEXT (in order)
 0. On an idle PC: 180 s film seed 7 (`tools/human_fight_film.gd`, hidden desktop; no `--write-movie` for the log alone)
    -> free_hand_probe vs s505b, head_ease_probe (collect HEADEASE1 first) vs s505b. Adopt if the numbers move the
@@ -25,7 +31,8 @@ Digest: `ops/research/S506_DIGEST.md`.
 3. Merge Ziva PR 341 (COACHNECK2) once the owner OKs the still pair on /review (CornerIK under 500 lines).
 
 ## Seats
-- Qwen HEADEASE1 running (branch qwen/headease1, worktree E:/FightCamp/wt/LEAN_HEADEASE1): HeadEase ruler + probe.
+- HEADEASE1 collected (tools/head_ease_probe.gd). Qwen HOOKPAST1 running (branch qwen/hookpast1): the fling ruler.
+- Films: pass `--log=<dir>/godot.log` to hidden_desktop or there is no godot.log for trunk_tap_report.
 
 ## Traps seen this session
 - block_meet runs at its header's FIXED_FPS 30: at 60 it reads 14 failures (3 is its baseline).
