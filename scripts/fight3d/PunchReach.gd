@@ -15,10 +15,9 @@ const HOLD_S := 0.05
 const OUT_S := 0.16
 ## The most the chest may lean toward the target (radians) to cover what the arm cannot.
 const LEAN_MAX := 0.30
-## S499: a jab's lean arrived whole on its contact frame (head 19-24 cm in a frame). The drawn lean changes at most LEAN_RATE
-## rad/s (ReachLimit.turn_eased); HitImpact.hit's forced pass (lean_free) and reach_at() stay whole. `-- noleanease` = control.
-static var LEAN_RATE: float = _arg_f("leanrate", 4.0)   # S505 LEANRED1: 2.5 on hooks/crosses carried a hook 31 cm past the face
-static var LEAN_RATE_JAB: float = _arg_f("jabrate", 4.0)   # S505: try `-- jabrate=2.5` on an IDLE PC (jab pops: 45% this lean)
+## S499: the drawn lean changes at most LEAN_RATE rad/s (ReachLimit.turn_eased); lean_free / reach_at() whole. `noleanease`.
+static var LEAN_RATE: float = _arg_f("leanrate", 4.0)   # S505: 2.5 (all, or `-- jabrate=` jabs only) rejected - docs/LEANRED1_RESULT.md
+static var LEAN_RATE_JAB: float = _arg_f("jabrate", 4.0)
 static var LEAN_EASE: bool = not OS.get_cmdline_user_args().has("noleanease")
 var lean_free := false
 var _lean_st := {"prev": Quaternion.IDENTITY, "now": Quaternion.IDENTITY, "base": Quaternion.IDENTITY, "key": 0, "pass": -1}

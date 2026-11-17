@@ -13,20 +13,22 @@ func _initialize() -> void:
 		return
 	var rows := _load_csv(csv_path)
 	if rows.is_empty():
-		print("PUNCH_END punches=0 head=0 above10=0 above_p50=0.0 home_p50=0.0 home_p90=0.0 landed=0 contact_home_p50=0.0 contact_home_le4=0 chest_rows=0 ring_rows=0")
+		print("PUNCH_END punches=0 head=0 above10=0 above_p50=0.0 home_p50=0.0 home_p90=0.0 landed=0 contact_home_p50=0.0 contact_home_le4=0 chest_rows=0 ring_rows=0 settle_p50=0.0 contact_settle_p50=0.0 contact_settle_le4=0")
 		quit(0)
 		return
 	var result := PE.analyse(rows)
 	var punches: Array = result["punches"]
 	for p in punches:
-		print("  punch clip=%s who=%d start=%d far=%d out=%d above=%.1fcm miss=%.1fcm home=%d from=%s contact_home=%d body=%s" % [
+		print("  punch clip=%s who=%d start=%d far=%d out=%d above=%.1fcm miss=%.1fcm home=%d from=%s contact_home=%d body=%s settle=%d contact_settle=%d" % [
 			p["clip"], p["who"], p["start_frame"], p["far_frame"], p["out_frames"],
-			p["above_cm"], p["miss_cm"], p["home_frames"], p["home_from"], p["contact_home_frames"], str(p["is_body"])])
-	print("PUNCH_END punches=%d head=%d above10=%d above_p50=%.1f home_p50=%.1f home_p90=%.1f landed=%d contact_home_p50=%.1f contact_home_le4=%d chest_rows=%d ring_rows=%d" % [
+			p["above_cm"], p["miss_cm"], p["home_frames"], p["home_from"], p["contact_home_frames"], str(p["is_body"]),
+			p["settle_frames"], p["contact_settle_frames"]])
+	print("PUNCH_END punches=%d head=%d above10=%d above_p50=%.1f home_p50=%.1f home_p90=%.1f landed=%d contact_home_p50=%.1f contact_home_le4=%d chest_rows=%d ring_rows=%d settle_p50=%.1f contact_settle_p50=%.1f contact_settle_le4=%d" % [
 		punches.size(), result["head_n"], result["above_10_n"],
 		result["above_p50"], result["home_p50"], result["home_p90"],
 		result["landed_n"], result["contact_home_p50"], result["contact_home_le4"],
-		result["chest_frame_rows"], result["ring_axes_rows"]])
+		result["chest_frame_rows"], result["ring_axes_rows"],
+		result["settle_p50"], result["contact_settle_p50"], result["contact_settle_le4"]])
 	quit(0)
 
 

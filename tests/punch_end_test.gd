@@ -28,6 +28,9 @@ func _initialize() -> void:
 	_test_hold_of_the_other_man()
 	_test_chest_frame_cross()
 	_test_chest_ring_counts()
+	_test_settle_guard_15cm_off()
+	_test_settle_no_idle_within_45()
+	_test_contact_settle_3()
 	print("PUNCH_END_TEST failures=%d" % failures)
 	quit(1 if failures > 0 else 0)
 
@@ -425,4 +428,73 @@ func _test_chest_ring_counts() -> void:
 	var r := PE.analyse(rows)
 	_check(int(r["chest_frame_rows"]) == 3, "counts: chest_frame_rows 3, got %d" % r["chest_frame_rows"])
 	_check(int(r["ring_axes_rows"]) == 2, "counts: ring_axes_rows 2, got %d" % r["ring_axes_rows"])
+
+
+func _test_settle_guard_15cm_off() -> void:
+	## PUNCHEND4: hand returns to a guard 15 cm from her pre-punch guard. Old: home_frames=30. New: settle_frames<=4.
+	var rows: Array = []
+	for f in range(5, 10):
+		rows.append(_row(f, 0, "idle", HIPS0, HEAD0, LH_GUARD, RH_GUARD))
+	for f in range(10, 16):
+		var rh := RH_GUARD.lerp(Vector3(0.48, 1.70, 0.0), float(f - 10) / 5.0)
+		rows.append(_row(f, 0, "pro_jab", HIPS0, HEAD0, LH_GUARD, rh))
+	for f in range(5, 16):
+		rows.append(_row(f, 1, "idle", HIPS1, HEAD1, LH_GUARD, RH_GUARD))
+	var new_settle := Vector3(0.2, 1.55, 0.0)
+	for f in range(16, 21):
+		rows.append(_row(f, 0, "idle", HIPS0, HEAD0, LH_GUARD, new_settle))
+	var r := PE.analyse(rows)
+	_check(r["punches"].size() == 1, "settle_15cm: 1 punch")
+	if r["punches"].is_empty():
+		return
+	var p: Dictionary = r["punches"][0]
+	_check(p["home_frames"] == 30, "settle_15cm: old reading home_frames 30, got %d" % p["home_frames"])
+	_check(p["settle_frames"] <= 4 and p["settle_frames"] >= 1, "settle_15cm: settle_frames 1-4, got %d" % p["settle_frames"])
+
+
+func _test_settle_no_idle_within_45() -> void:
+	## PUNCHEND4: no idle within 45 frames -> settle_frames = -1, not in percentiles.
+	var rows: Array = []
+	for f in range(5, 10):
+		rows.append(_row(f, 0, "idle", HIPS0, HEAD0, LH_GUARD, RH_GUARD))
+	for f in range(10, 16):
+		var rh := RH_GUARD.lerp(Vector3(0.48, 1.70, 0.0), float(f - 10) / 5.0)
+		rows.append(_row(f, 0, "pro_jab", HIPS0, HEAD0, LH_GUARD, rh))
+	for f in range(5, 16):
+		rows.append(_row(f, 1, "idle", HIPS1, HEAD1, LH_GUARD, RH_GUARD))
+	for f in range(16, 61):
+		rows.append(_row(f, 0, "pro_cross", HIPS0, HEAD0, LH_GUARD, RH_GUARD))
+	var r := PE.analyse(rows)
+	_check(r["punches"].size() >= 1, "settle_no_idle: at least 1 punch")
+	if r["punches"].is_empty():
+		return
+	var p: Dictionary = r["punches"][0]
+	_check(p["settle_frames"] == -1, "settle_no_idle: settle_frames -1, got %d" % p["settle_frames"])
+	_check(r["settle_p50"] == 0.0, "settle_no_idle: settle_p50 0.0, got %f" % r["settle_p50"])
+
+
+func _test_contact_settle_3() -> void:
+	## PUNCHEND4: landed punch with contact_settle 3.
+	var rows: Array = []
+	for f in range(5, 10):
+		rows.append(_row(f, 0, "idle", HIPS0, HEAD0, LH_GUARD, RH_GUARD))
+	for f in range(10, 16):
+		var rh := RH_GUARD.lerp(Vector3(0.48, 1.70, 0.0), minf(1.0, float(f - 10) / 3.0))
+		var row := _row(f, 0, "pro_jab", HIPS0, HEAD0, LH_GUARD, rh)
+		row["hold"] = "1" if f == 13 else "0"
+		rows.append(row)
+	for f in range(5, 16):
+		var row := _row(f, 1, "idle", HIPS1, HEAD1, LH_GUARD, RH_GUARD)
+		row["hold"] = "0"
+		rows.append(row)
+	for f in range(16, 21):
+		rows.append(_row(f, 0, "idle", HIPS0, HEAD0, LH_GUARD, RH_GUARD))
+	var r := PE.analyse(rows)
+	_check(r["punches"].size() == 1, "contact_settle: 1 punch")
+	if r["punches"].is_empty():
+		return
+	var p: Dictionary = r["punches"][0]
+	_check(p["contact_settle_frames"] == 3, "contact_settle: 3, got %d" % p["contact_settle_frames"])
+	_check(p["contact_home_frames"] == 3, "contact_settle: contact_home 3, got %d" % p["contact_home_frames"])
+	_check(r["contact_settle_le4"] == 1, "contact_settle: le4 1, got %d" % r["contact_settle_le4"])
 

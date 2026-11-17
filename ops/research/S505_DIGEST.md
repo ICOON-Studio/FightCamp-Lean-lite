@@ -21,6 +21,12 @@
 - Ziva COACHNECK2 (it had waited for a "go" since S501): PR 341, neck vs chest 44.8 -> 19.8 deg (ok), head ahead 7.1 ->
   2.7 cm; stills on the review board - merge after the owner's look. `-- nocoachneck` = control.
 
+## Blind round r11 (E:/FightCamp/tmp/fightweek/r11blind)
+Filmed 11:20 on an idle PC (seed 7, 75 s, game camera, 1920x1080), sheets at the r10 times (crop 1150:740:385:140 -
+the camera sits wider than in r10), rulers_raw / rulers_motion, r10 briefs with the folder renamed, two NEW critics.
+Rulers r10 -> r11: reaction peak median 5 -> 3.5 frames, late reactions 8 -> 1, head jumps 37 -> 32 (inside clips
+31 -> 24), arm out after contact median 6 -> 5.5.
+
 ## Operator this session
 - "the game run but its not responding" (Training pin): Training opens in 80 ms on the test club (tools/
   training_open_probe.gd). The freeze was MY 18 GB cache move writing to E: while he played (see PC below).
@@ -42,11 +48,15 @@
    the face, was 7). Built `-- jabrate=` (slower lean on jabs only, default 4.0). Its tests could NOT be judged: with the
    owner playing ArcheAge, block_catch read 9 failures even at the old rate (4 this morning) - frame timing. Measure
    jabrate=2.5 (block_catch, hit_frame, a 180 s film) on an IDLE PC.
+   DONE (idle PC, 11:08): block_catch / hit_frame are FLAKY - the same code at 4.0 gives different FAIL sets run to run;
+   compare FAIL lines over 2+ runs, never the failures= count. Film s505d (jabrate=2.5): head jumps 77 -> 89 (worse).
+   Three films 77 / 63 / 89 = film-to-film noise ~+-10 on that count. DECISION: lean 4.0 everywhere; switches stay.
 2. Hands home after contact: traced in the chest frame (s505b jabs at 211, 595, 1011): the hand comes from ~55 cm to
    ~15 cm of the pre-punch guard in 4-6 frames, then sits 10-17 cm off it through the idle that follows - the guard
    itself is elsewhere after the punch (GuardTuck pump / inside guard). contact_home p50 25 is mostly PunchEnd's 8 cm
    bar against a moving guard. Next: judge on the r11 sheets whether 15 cm off the old guard reads as "arm left out";
-   if not, PunchEnd's home = the guard of the idle AFTER the punch.
+   if not, PunchEnd's home = the guard of the idle AFTER the punch. PUNCHEND4 (Qwen, merged) reads that too: s505b
+   settle_p50 4 frames from the far point, contact_settle_p50 8 (3 of 35 within 4) - the arm IS back fast.
 3. Film r11 (--write-movie 1920x1080, film_sheets) + two NEW blind critics (briefs in E:/FightCamp/tmp/fightweek/
    r11blind, sheet times to set from the r11 film). Only when the owner is not playing.
 4. Merge PR 341 after his look.

@@ -869,7 +869,7 @@
    "agent": "qwen",
    "id": "LEANRED1",
    "title": "TASK LEANRED1 - why block_catch and hit_frame are red, and why a slower punch lean makes them worse (measure only)",
-   "status": "collected (S505): docs/LEANRED1_RESULT.md on main (its edit of the brief dropped)",
+   "status": "landed",
    "started": "2026-11-17T10:13",
    "eta": "2026-11-17T12:03",
    "branch": "qwen/leanred1",
@@ -889,6 +889,54 @@
     "brief_copied": true,
     "runner_pid": 14272,
     "seat_pid": 46412
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 0/2 PASS; PR #343",
+   "finished": "2026-11-17T11:13",
+   "pr": 343,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/block_catch_test.gd",
+     "ok": false,
+     "last": "BLOCK_CATCH failures=6"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/hit_frame_test.gd",
+     "ok": false,
+     "last": "HIT_FRAME failures=7"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "PUNCHEND4": {
+   "agent": "qwen",
+   "id": "PUNCHEND4",
+   "title": "TASK PUNCHEND4 - PunchEnd also reads how fast the hand reaches the guard it SETTLES into after the punch",
+   "status": "merged (S505): 3 files as is; s505b settle_p50 4, contact_settle_p50 8, 3 of 35 within 4 of contact",
+   "started": "2026-11-17T11:22",
+   "eta": "2026-11-17T13:12",
+   "branch": "qwen/punchend4",
+   "worktree": "E:/FightCamp/wt/LEAN_PUNCHEND4",
+   "wt": "E:/FightCamp/wt/LEAN_PUNCHEND4",
+   "brief": "ops/research/TASK_PUNCHEND4.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/PUNCHEND4_dispatch_out.txt",
+   "match": "seat_dispatch.py run punchend4",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/PUNCHEND4_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/PUNCHEND4_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/PUNCHEND4_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 36068,
+    "seat_pid": 36596
    },
    "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
   }

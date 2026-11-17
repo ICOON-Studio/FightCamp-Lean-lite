@@ -15,7 +15,7 @@ const CONTACT_REACH := 0.85   # S504 collect: a hold counts as this punch's cont
 
 
 static func analyse(rows: Array) -> Dictionary:
-	var empty: Dictionary = {"punches": [], "head_n": 0, "above_10_n": 0, "above_p50": 0.0, "above_p90": 0.0, "home_p50": 0.0, "home_p90": 0.0, "contact_home_p50": 0.0, "contact_home_p90": 0.0, "contact_home_le4": 0, "landed_n": 0, "by_clip": {}, "chest_frame_rows": 0, "ring_axes_rows": 0}
+	var empty: Dictionary = {"punches": [], "head_n": 0, "above_10_n": 0, "above_p50": 0.0, "above_p90": 0.0, "home_p50": 0.0, "home_p90": 0.0, "contact_home_p50": 0.0, "contact_home_p90": 0.0, "contact_home_le4": 0, "landed_n": 0, "by_clip": {}, "chest_frame_rows": 0, "ring_axes_rows": 0, "settle_p50": 0.0, "settle_p90": 0.0, "contact_settle_p50": 0.0, "contact_settle_le4": 0}
 	if rows.is_empty():
 		return empty
 	var by_frame_who: Dictionary = {}
@@ -48,6 +48,9 @@ static func analyse(rows: Array) -> Dictionary:
 	var contact_home_le4: int = 0
 	var landed_n: int = 0
 	var by_clip: Dictionary = {}
+	var settle_vals: Array = []
+	var contact_settle_vals: Array = []
+	var contact_settle_le4: int = 0
 	for p in punches:
 		var is_body: bool = p["is_body"]
 		if not is_body:
@@ -62,19 +65,29 @@ static func analyse(rows: Array) -> Dictionary:
 			contact_home_vals.append(ch)
 			if ch <= 4:
 				contact_home_le4 += 1
+		var sf: int = p["settle_frames"]
+		if sf >= 0:
+			settle_vals.append(sf)
+		var csf: int = p["contact_settle_frames"]
+		if csf >= 0:
+			contact_settle_vals.append(csf)
+			if csf <= 4:
+				contact_settle_le4 += 1
 		var clip: String = p["clip"]
 		if not by_clip.has(clip):
-			by_clip[clip] = {"n": 0, "above": [], "home": [], "contact_home": []}
+			by_clip[clip] = {"n": 0, "above": [], "home": [], "contact_home": [], "settle": []}
 		by_clip[clip]["n"] += 1
 		if not is_body:
 			by_clip[clip]["above"].append(p["above_cm"])
 		by_clip[clip]["home"].append(p["home_frames"])
 		if ch >= 0:
 			by_clip[clip]["contact_home"].append(ch)
+		if sf >= 0:
+			by_clip[clip]["settle"].append(sf)
 	var by_clip_out: Dictionary = {}
 	for clip in by_clip:
 		var d: Dictionary = by_clip[clip]
-		by_clip_out[clip] = {"n": d["n"], "above_p50": _pct(d["above"], 0.5), "home_p50": _pct(d["home"], 0.5), "contact_home_p50": _pct(d["contact_home"], 0.5)}
+		by_clip_out[clip] = {"n": d["n"], "above_p50": _pct(d["above"], 0.5), "home_p50": _pct(d["home"], 0.5), "contact_home_p50": _pct(d["contact_home"], 0.5), "settle_p50": _pct(d["settle"], 0.5)}
 	var chest_frame_rows: int = 0
 	var ring_axes_rows: int = 0
 	for r in rows:
@@ -97,6 +110,10 @@ static func analyse(rows: Array) -> Dictionary:
 		"by_clip": by_clip_out,
 		"chest_frame_rows": chest_frame_rows,
 		"ring_axes_rows": ring_axes_rows,
+		"settle_p50": _pct(settle_vals, 0.5),
+		"settle_p90": _pct(settle_vals, 0.9),
+		"contact_settle_p50": _pct(contact_settle_vals, 0.5),
+		"contact_settle_le4": contact_settle_le4,
 	}
 
 
@@ -178,6 +195,10 @@ static func _analyse_run(run: Array, who: int, by_frame_who: Dictionary, by_who:
 		home_from = "start"
 	var home_frames := _compute_home_from_ref(run, who, hand_name, far_frame, by_who, guard_home)
 	var contact_home := _compute_contact_home(run, who, hand_name, by_who, guard_home)
+	var last_frame: int = int(run[run.size() - 1]["frame"])
+	var settle_point := _find_settle_point(last_frame, who, hand_name, by_who)
+	var settle_frames := _compute_settle_frames(far_frame, who, hand_name, by_who, settle_point)
+	var contact_settle_frames := _compute_contact_settle_frames(run, who, hand_name, by_who, settle_point)
 	return {
 		"clip": clip,
 		"who": who,
@@ -190,6 +211,8 @@ static func _analyse_run(run: Array, who: int, by_frame_who: Dictionary, by_who:
 		"home_frames": home_frames,
 		"home_from": home_from,
 		"contact_home_frames": contact_home,
+		"settle_frames": settle_frames,
+		"contact_settle_frames": contact_settle_frames,
 	}
 
 
@@ -321,3 +344,78 @@ static func _pct(vals: Array, p: float) -> float:
 	s.sort()
 	var idx: int = int(p * float(s.size() - 1))
 	return float(s[idx])
+
+
+## PUNCHEND4: the settle point is where the hand rests after the punch - averaged over the first up-to-5 frames
+## whose clip contains "idle" or "guard" in the 45 frames after the run's last frame.
+static func _find_settle_point(last_frame: int, who: int, hand_name: String, by_who: Dictionary) -> Vector3:
+	var boxer_rows: Array = by_who[who]
+	var search_end: int = last_frame + 45
+	var settle_rows: Array = []
+	for r in boxer_rows:
+		var f: int = int(r["frame"])
+		if f <= last_frame:
+			continue
+		if f > search_end:
+			break
+		var clip: String = str(r["clip"])
+		if clip.contains("idle") or clip.contains("guard"):
+			settle_rows.append(r)
+			if settle_rows.size() >= GUARD_AVG_FRAMES:
+				break
+	if settle_rows.is_empty():
+		return Vector3.ZERO
+	var sum := Vector3.ZERO
+	for r in settle_rows:
+		sum += _local(r, hand_name)
+	return sum / float(settle_rows.size())
+
+
+## PUNCHEND4: frames after the far point until the hand is within HOME_RADIUS_M of the settle point.
+## Returns -1 if no settle point, HOME_SEARCH if never reaches it.
+static func _compute_settle_frames(far_frame: int, who: int, hand_name: String, by_who: Dictionary, settle_point: Vector3) -> int:
+	if settle_point == Vector3.ZERO:
+		return -1
+	var search_start: int = far_frame + 1
+	var search_end: int = far_frame + HOME_SEARCH
+	var boxer_rows: Array = by_who[who]
+	for r in boxer_rows:
+		var f: int = int(r["frame"])
+		if f < search_start:
+			continue
+		if f > search_end:
+			break
+		var cur_hand := _local(r, hand_name)
+		if cur_hand.distance_to(settle_point) <= HOME_RADIUS_M:
+			return f - far_frame
+	return HOME_SEARCH
+
+
+## PUNCHEND4: frames after the contact frame until the hand is within HOME_RADIUS_M of the settle point.
+## Returns -1 if no contact or no settle point.
+static func _compute_contact_settle_frames(run: Array, who: int, hand_name: String, by_who: Dictionary, settle_point: Vector3) -> int:
+	if settle_point == Vector3.ZERO:
+		return -1
+	var reach := 0.0
+	for r in run:
+		reach = maxf(reach, _hand_dist(r, hand_name))
+	var contact_frame: int = -1
+	for r in run:
+		if r.has("hold") and str(r["hold"]) == "1" and _hand_dist(r, hand_name) >= CONTACT_REACH * reach:
+			contact_frame = int(r["frame"])
+			break
+	if contact_frame < 0:
+		return -1
+	var search_start: int = contact_frame + 1
+	var search_end: int = contact_frame + HOME_SEARCH
+	var boxer_rows: Array = by_who[who]
+	for r in boxer_rows:
+		var f: int = int(r["frame"])
+		if f < search_start:
+			continue
+		if f > search_end:
+			break
+		var cur_hand := _local(r, hand_name)
+		if cur_hand.distance_to(settle_point) <= HOME_RADIUS_M:
+			return f - contact_frame
+	return HOME_SEARCH

@@ -15,6 +15,7 @@ Digest: `ops/research/S505_DIGEST.md`.
 1. LEANRED1 is in (`docs/LEANRED1_RESULT.md`): 2.5 on hooks/crosses breaks 4 checks (hook carry 7 -> 31 cm). Built
    `-- jabrate=` (jabs only, default 4.0). On an IDLE PC (never while the owner plays: block_catch read 9 even at 4.0):
    block_catch + hit_frame with and without `jabrate=2.5`, then a 180 s film (seed 7) against s505b; adopt if green-equal.
+   DONE S505: rejected (s505d jumps 89; the tests are flaky - compare FAIL sets over 2 runs). Lean stays 4.0.
 2. Merge Ziva PR 341 (COACHNECK2) once the owner OKs the still pair on 127.0.0.1:8787/review. Check CornerIK stays
    under 500 lines at merge.
 3. Film r11 (`--write-movie`, 1920x1080), sheets (`tools/film_sheets.py`, crop as r10), rulers, two NEW blind critics.
