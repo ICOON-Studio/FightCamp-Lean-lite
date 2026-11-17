@@ -8081,10 +8081,11 @@
     "Ask me each time"
    ],
    "attach": [],
-   "answer": null,
-   "note": null,
-   "answered_at": null,
-   "seen_by_claude": false
+   "answer": "Only when I'm not playing",
+   "note": "S509: films only when no game window is open (check the process list first)",
+   "answered_at": "2026-11-17T14:03:40Z",
+   "seen_by_claude": true,
+   "comment_only": false
   },
   {
    "id": "Q-S294-268",

@@ -6,8 +6,8 @@
   "id": "S509",
   "owner": "claude",
   "updated": "2026-11-17",
-  "summary": "S509: fight week day 14. Collected Qwen HEADSPLIT2 (PR 350): head jumps by phase - s508c 39 of 49 punch jumps 'pre'. PopCap -- capwhy (why a >12 cm head frame got past the cap) on s509a: 136 passes = 72 landed punch at full hold (47 frame after the hit, 20 on it), 43 hit reactions freed on purpose, 11 blocked/height-only. Rejected and removed: trunk capped after the hit (hit_carry 31 -> 43) and on the way in of unlanded punches (shared part 18 -> 20). The trunk cap has no lever left: next is the source (range at throw, jab lunge). hit_carry 29-33 and join_return 2-4 are run-to-run noise. Owner's usage video -> .claude/agents/Explore.md on Haiku. Qwen HEADSPLIT3 (combo phase) running. Digest ops/research/S509_DIGEST.md.",
-  "next_action": "FIGHT MOTION WEEK day 15 (S510). Ask the owner Q-S294-267 (films while he plays) and his effort-level answer if unanswered. 1) Collect Qwen HEADSPLIT3 (qwen/headsplit3, combo phase); run it on s508c (E:/FightCamp/tmp/fightweek). 2) HEADJUMP1 at the SOURCE: PopCap levers are spent (S509 capwhy). Measure, per landed punch, the glove-to-target gap at the throw vs the arm's reach (RangeTable / PunchReach reach) - if jabs start 15-20 cm out of reach, fix range/step-in, not a cap; and the jab lunge's root slide (6 cm a frame). 3) Hook recovery 1.5x (BeatClips.RECOVER_MAX): measure first. 4) join_return hook rep 3 / cross rep 4 (test is noisy 2-4: run it 3x). 5) Blind r12 + two NEW critics only once films may run.",
+  "summary": "S509: fight week day 14. Collected Qwen HEADSPLIT2 (PR 350): head jumps by phase - s508c 39 of 49 punch jumps 'pre'. PopCap -- capwhy (why a >12 cm head frame got past the cap) on s509a: 136 passes = 72 landed punch at full hold (47 frame after the hit, 20 on it), 43 hit reactions freed on purpose, 11 blocked/height-only. Rejected and removed: trunk capped after the hit (hit_carry 31 -> 43) and on the way in of unlanded punches (shared part 18 -> 20). The trunk cap has no lever left: next is the source (range at throw, jab lunge). hit_carry 29-33 and join_return 2-4 are run-to-run noise. Owner's usage video -> .claude/agents/Explore.md on Haiku. Qwen HEADSPLIT3 (combo phase) running. Digest ops/research/S509_DIGEST.md. After the first wrap: HEADSPLIT3 collected (combo phase: pre 39 -> 33 + combo 6). Range at the throw is normal (jab closes 14 cm in 6 frames): punches are not thrown from too far. Hook recovery 1.5x fine (p90 4.8 m/s). join_return cross 18-20 m/s = a wait-beat paw starting mid-ease back to guard: GuardLife._joining holds paws/feints/fidgets until the guard join has run (cc1f9476f, -- nojoinwait). Exported. Blind r12 (his 'Film it now'): coach 5.0, animator 5.0 - flat vs r11; head jumps 32 -> 28, arm-out worst 16 -> 29. Both critics: blue's free glove above his head (named in r11 too), arms home in 3-4 frames.",
+  "next_action": "FIGHT MOTION WEEK day 15 (S510). Blind r12 = 5 / 5 (flat). 0) OWNER S509 'why they only throw puches with one hand ?': each boxer ~35 lead-hand paws/feints in 75 s (GuardLife WAIT_JAB), real punches use both - give feints both hands (rear cross feint, body feint, level change), paw every 3-4 s, mix by style. 1) Blue's FREE glove shoots above his head after punches (r11 AND r12 critics: ex1 #40-47, ex2 #27-30, ex4 #25-32 in E:/FightCamp/tmp/fightweek/r12blind/sheets_close): find the clip/layer, keep it in a guard box (chin to 10 cm over the brow). 2) Arm out after contact worst 29 frames (red's cross ex1 #40-47): why does the hold run so long. 3) Head inside the other's body ex4 #21-24. 4) join_return 3 (--fixed-fps 60!). Films only with no game window open (Q-267).",
   "incomplete_blocked": "Qwen HOOKPAST2 running (branch qwen/hookpast2) - collect by diff, then use its HOOK_HELD line as the hook-release ruler.",
   "next_acceptance": "On a 180 s seed 7 film vs s507b: no landed punch over 9 m/s after contact and at most 2 over 6; head jumps per punch clip <= 0.13 in the shared part (head_split_probe); FreeHand off_share <= 0.35, HeadEase back_f_p50 >= 8; punch tests keep or better their S507 A/B FAIL sets.",
   "awaiting_operator": "PR 341 look (coach neck still pair on /review). Unity uninstall (his call). Films while he plays: ask each time (S507: yes).",
@@ -2139,7 +2139,7 @@
   {
    "id": "S509",
    "date": "2026-11-17",
-   "summary": "S509: fight week day 14. Collected Qwen HEADSPLIT2 (PR 350): head jumps by phase - s508c 39 of 49 punch jumps 'pre'. PopCap -- capwhy (why a >12 cm head frame got past the cap) on s509a: 136 passes = 72 landed punch at full hold (47 frame after the hit, 20 on it), 43 hit reactions freed on purpose, 11 blocked/height-only. Rejected and removed: trunk capped after the hit (hit_carry 31 -> 43) and on the way in of unlanded punches (shared part 18 -> 20). The trunk cap has no lever left: next is the source (range at throw, jab lunge). hit_carry 29-33 and join_return 2-4 are run-to-run noise. Owner's usage video -> .claude/agents/Explore.md on Haiku. Qwen HEADSPLIT3 (combo phase) running. Digest ops/research/S509_DIGEST.md."
+   "summary": "S509: fight week day 14. Collected Qwen HEADSPLIT2 (PR 350): head jumps by phase - s508c 39 of 49 punch jumps 'pre'. PopCap -- capwhy (why a >12 cm head frame got past the cap) on s509a: 136 passes = 72 landed punch at full hold (47 frame after the hit, 20 on it), 43 hit reactions freed on purpose, 11 blocked/height-only. Rejected and removed: trunk capped after the hit (hit_carry 31 -> 43) and on the way in of unlanded punches (shared part 18 -> 20). The trunk cap has no lever left: next is the source (range at throw, jab lunge). hit_carry 29-33 and join_return 2-4 are run-to-run noise. Owner's usage video -> .claude/agents/Explore.md on Haiku. Qwen HEADSPLIT3 (combo phase) running. Digest ops/research/S509_DIGEST.md. After the first wrap: HEADSPLIT3 collected (combo phase: pre 39 -> 33 + combo 6). Range at the throw is normal (jab closes 14 cm in 6 frames): punches are not thrown from too far. Hook recovery 1.5x fine (p90 4.8 m/s). join_return cross 18-20 m/s = a wait-beat paw starting mid-ease back to guard: GuardLife._joining holds paws/feints/fidgets until the guard join has run (cc1f9476f, -- nojoinwait). Exported. Blind r12 (his 'Film it now'): coach 5.0, animator 5.0 - flat vs r11; head jumps 32 -> 28, arm-out worst 16 -> 29. Both critics: blue's free glove above his head (named in r11 too), arms home in 3-4 frames."
   }
  ],
  "blocked_on_operator": [],
@@ -5058,7 +5058,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-17 15:11 board_sync",
+  "updated": "2026-11-17 16:42 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5212,7 +5212,7 @@
    {
     "id": "HEADJUMP1",
     "who": "claude",
-    "title": "Head jumps: PopCap levers spent (S509 capwhy: landed carry + reactions); next the source - range at the throw, jab lunge",
+    "title": "Head jumps: PopCap levers spent, range normal (S509); next the contact-frame trunk speed per clip",
     "after": ""
    },
    {
@@ -5743,6 +5743,26 @@
   },
   "done_recently": [
    {
+    "title": "Blind round 12: coach 5, animator 5 (flat vs r11)",
+    "who": "claude",
+    "when": "2026-11-17"
+   },
+   {
+    "title": "HEADSPLIT3 collected: combo phase",
+    "who": "qwen",
+    "when": "2026-11-17"
+   },
+   {
+    "title": "No glove snap when a paw starts mid-return to guard",
+    "who": "claude",
+    "when": "2026-11-17"
+   },
+   {
+    "title": "TASK HEADSPLIT3 - the head-jump ruler counts a combo's next punch as \"after a hit\", not \"before\"",
+    "who": "qwen",
+    "when": "2026-11-17"
+   },
+   {
     "title": "Search helpers on Haiku (Explore agent) after the owner's usage video",
     "who": "claude",
     "when": "2026-11-17"
@@ -5797,21 +5817,6 @@
    },
    {
     "title": "TASK HOOKPAST1 - a ruler for the fling: after a landed punch, how far and how fast does the glove go past the head?",
-    "who": "qwen",
-    "when": "2026-11-17"
-   },
-   {
-    "title": "Hooks stop at the head: the arm fit after the hit starts from last frame's wrist, the fist keeps its turn (hit_frame 9 -> 4, hit_carry 44 -> 30)",
-    "who": "claude",
-    "when": "2026-11-17"
-   },
-   {
-    "title": "Nightly review: gym_life2 counts the hub's 8 places",
-    "who": "claude",
-    "when": "2026-11-17"
-   },
-   {
-    "title": "TASK HEADEASE1 - a ruler for head reactions: when does a hit head peak, and how fast does it come back?",
     "who": "qwen",
     "when": "2026-11-17"
    }
@@ -5969,6 +5974,18 @@
     },
     {
      "text": "Search helpers on Haiku",
+     "who": "claude"
+    },
+    {
+     "text": "HEADSPLIT3 combo phase",
+     "who": "claude"
+    },
+    {
+     "text": "Paw waits for guard: no snap",
+     "who": "claude"
+    },
+    {
+     "text": "Blind r12: 5 / 5",
      "who": "claude"
     }
    ],
@@ -6152,11 +6169,11 @@
      "who": "claude"
     },
     {
-     "text": "Head jumps: range at the throw",
+     "text": "Free glove above the head",
      "who": "claude"
     },
     {
-     "text": "Collect HEADSPLIT3 combo phase",
+     "text": "Feints with both hands",
      "who": "claude"
     }
    ],
@@ -6166,6 +6183,6 @@
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
  "last_working_commit": "7123bd874",
- "next_action": "FIGHT MOTION WEEK day 15 (S510). Ask the owner Q-S294-267 (films while he plays) and his effort-level answer if unanswered. 1) Collect Qwen HEADSPLIT3 (qwen/headsplit3, combo phase); run it on s508c (E:/FightCamp/tmp/fightweek). 2) HEADJUMP1 at the SOURCE: PopCap levers are spent (S509 capwhy). Measure, per landed punch, the glove-to-target gap at the throw vs the arm's reach (RangeTable / PunchReach reach) - if jabs start 15-20 cm out of reach, fix range/step-in, not a cap; and the jab lunge's root slide (6 cm a frame). 3) Hook recovery 1.5x (BeatClips.RECOVER_MAX): measure first. 4) join_return hook rep 3 / cross rep 4 (test is noisy 2-4: run it 3x). 5) Blind r12 + two NEW critics only once films may run.",
+ "next_action": "FIGHT MOTION WEEK day 15 (S510). Blind r12 = 5 / 5 (flat). 0) OWNER S509 'why they only throw puches with one hand ?': each boxer ~35 lead-hand paws/feints in 75 s (GuardLife WAIT_JAB), real punches use both - give feints both hands (rear cross feint, body feint, level change), paw every 3-4 s, mix by style. 1) Blue's FREE glove shoots above his head after punches (r11 AND r12 critics: ex1 #40-47, ex2 #27-30, ex4 #25-32 in E:/FightCamp/tmp/fightweek/r12blind/sheets_close): find the clip/layer, keep it in a guard box (chin to 10 cm over the brow). 2) Arm out after contact worst 29 frames (red's cross ex1 #40-47): why does the hold run so long. 3) Head inside the other's body ex4 #21-24. 4) join_return 3 (--fixed-fps 60!). Films only with no game window open (Q-267).",
  "next_acceptance": "Rulers vs r0: head jumps on the contact frame under 4, a head inside the other's body under 5 frames, arm out median under 4 frames with join_return green, then r1 film at two fresh blind critics 5+/10"
 }

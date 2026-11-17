@@ -31,16 +31,49 @@
 - So the trunk cap has no lever left: a landed punch's trunk must move (r1 S508, carry cap today), reactions are fast by
   design. What is left is the source: range (punches thrown from too far, so the lean/drive covers 15-20 cm at contact)
   or the clip's own trunk speed, and the body slide on the jab lunge (root 6 cm a frame in the worst jumps).
-- NOISE: hit_carry reads 29-33 and join_return 2-4 run to run with the SAME code. Never read +-2 as a result.
+- CORRECTED LATER IN S509: the 'noise' (hit_carry 29-33, join_return 2-4) was MY runs missing `--fixed-fps 60`, which
+  tools/run_tests.sh always passes (S470). With it every run reads the same.
 - Block tests unchanged: block_meet 2-3, block_catch 5-6.
+
+## After the first wrap (owner: "why did you stop ?" - my call, not a rule; carried on)
+- HEADSPLIT3 collected (Qwen PR 351): `combo` phase. s508c: pre 39 -> 33 + combo 6 (a combo's next punch after a hit).
+  head_split_test 293 PASS (was 208).
+- Range at the throw (scratch range_throw.py on s508c): from the punch's first frame to contact the gap closes
+  jab 14 cm (6 frames), cross 7 cm (5), body shot 34 cm (12), hook -5 cm. Normal for a jab stepping in: punches are NOT
+  thrown from too far. Head jumps at contact are the contact frame itself.
+- Hook recovery 1.5x: glove p90 4.8 m/s, worst frame 9.0 m/s at 1.5x; the fastest hook frames (11.9) are the strike at
+  1.0x. RECOVER_MAX left alone.
+- join_return: the cross's 18-20 m/s step was a wait-beat PAW (pro_left_jab_b) starting 2 frames into the ease back to
+  guard - its quick join snapped the returning rear glove 0.33 m in a frame. Fix (cc1f9476f): GuardLife._joining - a due
+  paw / feint / fidget waits until her join into guard has run (`-- nojoinwait`). In the game (s508c, 30 fps) 65 of 110
+  paws start inside that ease (worst 7.4 m/s over 4 frames vs 4.9 later). The test still reads 2-6 run to run (random
+  guard start + beat clocks: uppercut reps now carry the worst frames).
+- Checked, NOT a game defect: pro_idle's loop seam (film wraps worst 4.8 m/s, tail normal). A seam join was tried and removed.
+- Measured with --fixed-fps 60 (as run_tests.sh): with / without the join wait - hit_carry 26 / 31, block_meet 13 / 14,
+  block_catch 10 / 10, join_return 3 / 3 (rear uppercut 11.4, lead hook 9.6 m/s left). block_meet was never 3: earlier
+  sessions also ran it without the fixed frame rate (the nightly lists it failing).
+- Export with WHAT_TO_TRY "no glove snap right after a punch".
+
+## Blind round 12 (E:/FightCamp/tmp/fightweek/r12blind, his "Film it now" 16:50)
+Same bout as r11 (seed 7, 75 s, 1920x1080, sheets at the r11 times and crop), two NEW critics (fresh Claude agents, r11 briefs).
+SCORES: coach 5.0 (r11 5), animator 5.0 (r11 5.0) - flat. Areas coach / animator: punches 5 / 5.5, defence and reactions
+5 / 4.5, footwork 4 / 5, transitions 4.5 / 4, waiting 4.5 / 5.
+Rulers r11 -> r12: head jumps 32 -> 28, cross reaction peak 1 -> 3 frames, body step back 18 -> 23 cm; WORSE: arm out
+after contact worst 16 -> 29 frames, a head inside the other's body 0 -> 2 frames.
+Both critics' shared top fixes: (1) arm home within 3-4 frames, never held over 2 (median 5, worst 29: red's cross ex1
+#40-47); (2) blue's FREE glove shoots straight up above his head after punches (ex1 #40-47, ex2 #27-30, ex4 #25-32, ex5
+#35-36) - r11 named it too, NOT fixed; (3) reactions sized by punch (a landed jab moves the head 4.6 cm at 61.17 s; hook
+turn 18 deg vs 30-40); (4) heads apart (blue's head into red's chest ex4 #21-24) and no glove-on-glove standing at close
+range (wait #13-24); (5) feet in every exchange: entry step in, exit step / pivot out. Coach also: the near rope hides the
+shins. Films + both 10/10 on /review. The film ran while ArcheAge was open (his "now"): the PC lagged - films wait for no game window.
 
 ## Films
 E:/FightCamp/tmp/fightweek/s509a (way-in on, first variant), s509b (way-in, final variant) - identical csv; both with
 CAPWHY lines in godot.log. Baseline for the next lever: s508c.
 
 ## Next
-1. Collect HEADSPLIT3 (qwen/headsplit3): combo phase; run on s508c.
-2. HEADJUMP1 at the source: measure the glove-to-target distance at the moment each landed punch is thrown (RangeTable)
-   - if landed jabs start 15-20 cm beyond arm's reach, the fix is range/step-in, not a cap.
-3. Hook recovery (BeatClips.RECOVER_MAX 1.5x) - measure first. 4. join_return hook rep 3 / cross rep 4.
-5. Blind r12 + two NEW critics - only when films may run (Q-S294-267).
+1. Blue's free glove above his head (r11 + r12 critics, ex1 #40-47): find which clip / layer lifts it, guard box chin to
+   10 cm over the brow.
+2. Arm out after contact: worst 29 frames (red's cross ex1 #40-47) - read why the hold runs that long.
+3. A head inside the other's body (ex4 #21-24, 2 frames). 4. join_return 3 (rear uppercut wrap in the guard join, lead
+   hook after hit-stop).
