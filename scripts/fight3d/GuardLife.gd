@@ -95,7 +95,7 @@ func tick(delta: float) -> void:
 		if not BeatClips.GUARD.has(clip) or RkClips.CLIPS.has(clip):   # S399: the captured guard is the actor's own life - no fidget over it
 			continue
 		_quiet[who] -= delta
-		if _quiet[who] <= 0.0:
+		if _quiet[who] <= 0.0 and not _joining(who):
 			_play_fidget(who, ap)
 
 
@@ -123,7 +123,7 @@ func _tick_beats(who: int, ap: AnimationPlayer, clip: String, delta: float) -> b
 		_beat_in[who][b] = float(_beat_in[who][b]) - delta
 		if float(_beat_in[who][b]) <= 0.0 and due == "":
 			due = b
-	if due == "":
+	if due == "" or _joining(who):   # S509: a due beat waits (its clock stays run out) until her return to guard has eased in
 		return false
 	var row: Dictionary = BEAT[due]
 	var scale: Array = STYLE_EVERY.get(str(stage.boxers[who].get("style", "")), [1.0, 1.0])
@@ -135,6 +135,15 @@ func _tick_beats(who: int, ap: AnimationPlayer, clip: String, delta: float) -> b
 	_fidget[who] = 0.0
 	_beat_left[who] = float(row["to_s"]) / speed
 	return true
+
+
+## S509 (join_return, cross rep: a paw started 2 frames into the cross's ease back to guard; the quick join into the jab
+## snapped the still-returning rear glove home, 0.33 m in one frame = 20 m/s): true while her join into the guard runs.
+## `-- nojoinwait` = the control arm.
+static var JOIN_WAIT: bool = not OS.get_cmdline_user_args().has("nojoinwait")
+func _joining(who: int) -> bool:
+	var js = stage.boxers[who].get("js")
+	return JOIN_WAIT and js != null and (bool(js.get("_pending")) or float(js.get("_t")) >= 0.0)
 
 
 ## Runs `fn` for boxer `who` after `delay` seconds (dropped if she starts something else first: cancel()).

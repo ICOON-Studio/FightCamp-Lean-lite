@@ -5,6 +5,8 @@ extends SceneTree
 ## (A_ALL / B_ALL) - S507: a whole-film comparison counts a different bout, not a different layer.
 ## S508: every HEAD_SPLIT line is followed by its HEAD_SPLIT_PHASE line - WHEN in the punch each jump falls
 ## (pre / contact / post / late / none) and the median frames after contact of the post jumps.
+## S509: combo=<n> sits right after pre=<n> - the pre jumps that fall 1..12 frames after her last landed hit,
+## i.e. the next punch of a combo rather than a punch nothing has happened before.
 ## Usage: <godot> --headless --audio-driver Dummy --path . --script res://tools/head_split_probe.gd -- csv=<a> [csv2=<b>]
 
 const HS := preload("res://scripts/rules/HeadSplit.gd")
@@ -57,8 +59,8 @@ func _line(res: Dictionary) -> String:
 
 func _phase_line(res: Dictionary) -> String:
 	var bp: Dictionary = res["by_phase"]
-	return "HEAD_SPLIT_PHASE pre=%d contact=%d post=%d late=%d none=%d post_p50=%.1f" % [
-		bp["pre"], bp["contact"], bp["post"], bp["late"], bp["none"], res["post_p50_frames"]]
+	return "HEAD_SPLIT_PHASE pre=%d combo=%d contact=%d post=%d late=%d none=%d post_p50=%.1f" % [
+		bp["pre"], bp["combo"], bp["contact"], bp["post"], bp["late"], bp["none"], res["post_p50_frames"]]
 
 
 func _arg(k: String, dflt: String) -> String:

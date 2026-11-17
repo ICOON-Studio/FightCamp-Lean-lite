@@ -22,6 +22,10 @@ extends RefCounted
 ## while her clip has not changed since it: -1 when the current clip holds no contact. phase is pre / contact /
 ## post / late on a punch clip, none on any other kind - the hold runs from the punch's start to ~10 frames
 ## after contact, so a post jump is one the held-glove trunk cap can still be blamed for.
+## S509: a punch clip cuts soon after contact, so the next punch of a COMBO used to read pre. since_prev_hit
+## dates a jump from her most recent contact start on a PUNCH clip, counted across clip changes (-1 when she
+## has not landed one); a contact start on a reaction clip - her own hold rows while she is hit - never counts.
+## A pre jump 1..POST_FRAMES after that hit is phase combo: the second punch coming off the first hit.
 
 const JUMP_CM := 12.0
 const REACT_PREFIXES := ["pro_hit", "react_", "mc_hit"]
@@ -30,7 +34,7 @@ const WORST_N := 5
 const NO_LIMIT := -1
 ## Frames after contact still counted as post - mirrors STEP_WINDOW in tools/fight_motion_rulers.py.
 const POST_FRAMES := 12
-const PHASES := ["pre", "contact", "post", "late", "none"]
+const PHASES := ["pre", "combo", "contact", "post", "late", "none"]
 
 
 ## "jumps" is the count, "jump_list" holds one dictionary per jump. until_frame (NO_LIMIT = the whole film)
@@ -127,14 +131,15 @@ static func _group_by_who(rows: Array) -> Dictionary:
 
 
 ## One dictionary per jump: row b's frame, film_s, who, clip, kind and cause, the five cm numbers, and
-## since_contact / phase. Rows are paired per who and only when frame b = frame a + 1 - a dropped frame is
-## never a jump. The contact count runs over the boxer's WHOLE film, so a contact before until_frame still
-## dates a jump inside the shared part.
+## since_contact / since_prev_hit / phase. Rows are paired per who and only when frame b = frame a + 1 - a
+## dropped frame is never a jump. Both contact counts run over the boxer's WHOLE film, so a contact before
+## until_frame still dates a jump inside the shared part.
 static func _jumps(grouped: Dictionary, until_frame: int) -> Array:
 	var jumps: Array = []
 	for who in grouped:
 		var rows: Array = grouped[who]
 		var since := _contact_offsets(rows)
+		var prev := _prev_hit_offsets(rows)
 		for i in range(1, rows.size()):
 			var b: Dictionary = rows[i]
 			var frame_b: int = int(b["frame"])
@@ -143,7 +148,7 @@ static func _jumps(grouped: Dictionary, until_frame: int) -> Array:
 			var a: Dictionary = rows[i - 1]
 			if int(a["frame"]) + 1 != frame_b:
 				continue
-			var j := _jump(a, b, who, since[i])
+			var j := _jump(a, b, who, since[i], prev[i])
 			if not j.is_empty():
 				jumps.append(j)
 	return jumps
@@ -160,13 +165,33 @@ static func _contact_offsets(rows: Array) -> Array:
 		var r: Dictionary = rows[i]
 		var frame: int = int(r["frame"])
 		if i > 0:
-			var prev: Dictionary = rows[i - 1]
-			if str(r["clip"]) != str(prev["clip"]):
+			if str(r["clip"]) != str(rows[i - 1]["clip"]):
 				contact = -1
-			if _hold(r) == "1" and _hold(prev) == "0":
+			if _contact_start(rows, i):
 				contact = frame
 		out.append(frame - contact if contact >= 0 else -1)
 	return out
+
+
+## Per row of ONE boxer in frame order: the frames since her most recent contact start on a PUNCH clip,
+## counted ACROSS clip changes - the next punch of a combo is still dated by the first one's hit. -1 until
+## she lands one. A contact start on any other kind never counts: a reaction clip's hold rows are her being
+## hit, not her landing. The count is never cleared, so it also reaches past an idle or a reaction clip.
+static func _prev_hit_offsets(rows: Array) -> Array:
+	var out: Array = []
+	var hit := -1
+	for i in range(rows.size()):
+		var r: Dictionary = rows[i]
+		var frame: int = int(r["frame"])
+		if _contact_start(rows, i) and _kind(str(r["clip"])) == "punch":
+			hit = frame
+		out.append(frame - hit if hit >= 0 else -1)
+	return out
+
+
+## A contact start: this row's hold is "1" and the previous row's "0". The first row has no previous row.
+static func _contact_start(rows: Array, i: int) -> bool:
+	return i > 0 and _hold(rows[i]) == "1" and _hold(rows[i - 1]) == "0"
 
 
 static func _hold(row: Dictionary) -> String:
@@ -174,18 +199,22 @@ static func _hold(row: Dictionary) -> String:
 
 
 ## WHEN in the punch: pre before her contact, contact on it, post within POST_FRAMES after, late beyond.
-## Only a punch clip has a phase - a reaction or an idle jump is none whatever its since_contact.
-static func _phase(kind: String, since_contact: int) -> String:
+## A pre jump 1..POST_FRAMES after her last landed hit is combo instead - the next punch of a combo, whose
+## own clip holds no contact. Only a punch clip has a phase - a reaction or an idle jump is none whatever
+## its since_contact.
+static func _phase(kind: String, since_contact: int, since_prev_hit: int) -> String:
 	if kind != "punch":
 		return "none"
 	if since_contact < 0:
+		if since_prev_hit >= 1 and since_prev_hit <= POST_FRAMES:
+			return "combo"
 		return "pre"
 	if since_contact == 0:
 		return "contact"
 	return "post" if since_contact <= POST_FRAMES else "late"
 
 
-## by_phase always carries all five words, so a film with no jumps still reports five zeroes.
+## by_phase always carries all six words, so a film with no jumps still reports six zeroes.
 static func _zero_phases() -> Dictionary:
 	var out := {}
 	for p in PHASES:
@@ -193,7 +222,7 @@ static func _zero_phases() -> Dictionary:
 	return out
 
 
-static func _jump(a: Dictionary, b: Dictionary, who: int, since_contact: int) -> Dictionary:
+static func _jump(a: Dictionary, b: Dictionary, who: int, since_contact: int, since_prev_hit: int) -> Dictionary:
 	var head_cm := _pos(b, "Head").distance_to(_pos(a, "Head")) * 100.0
 	if head_cm <= JUMP_CM:
 		return {}
@@ -207,7 +236,8 @@ static func _jump(a: Dictionary, b: Dictionary, who: int, since_contact: int) ->
 		"kind": kind,
 		"cause": "change" if str(a["clip"]) != clip_b else "inside",
 		"since_contact": since_contact,
-		"phase": _phase(kind, since_contact),
+		"since_prev_hit": since_prev_hit,
+		"phase": _phase(kind, since_contact, since_prev_hit),
 		"head_cm": head_cm,
 		"root_cm": _pos(b, "node").distance_to(_pos(a, "node")) * 100.0,
 		"hips_cm": _seg(b, "Hips", "node").distance_to(_seg(a, "Hips", "node")) * 100.0,
