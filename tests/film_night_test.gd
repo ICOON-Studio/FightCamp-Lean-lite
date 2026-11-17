@@ -169,6 +169,23 @@ func _own_bout(c: Career, f: Dictionary) -> void:
 	f["bout"]["made"] = true
 	var m := {"fid": str(f["id"]), "step": "tape", "round": 0, "rounds": [], "total": 3, "type": "fight"}
 	Bouts.fight_step(c, f, m, "start")
+	Bouts.fight_step(c, f, m, "corner:lead")
+	Bouts.fight_step(c, f, m, "round_out")
+	# 7c. S511 the corner minute after round 1: The round so far opens the page on the rounds fought, read-only
+	main.open_modal(m)
+	await process_frame
+	var sofar: Button = main.find_child("RoundSoFar", true, false)
+	_check(sofar != null, "the corner minute offers The round so far (step %s, %d rounds)" % [str(m.get("step", "")), (m["rounds"] as Array).size()])
+	if sofar != null:
+		sofar.pressed.emit()
+		await process_frame
+		var pg: Node = null
+		for ch in main.get_children():
+			if ch.get_script() == FightAnalysisOwn:
+				pg = ch
+		_check(pg != null and _has_text(pg, "the rounds so far: 1"), "The round so far shows round 1's punches")
+		if pg != null:
+			pg.done_for_tonight()
 	Bouts.fight_step(c, f, m, "rest")
 	_check(str(m.get("step", "")) == "result", "the bout is boxed to its result (%s)" % str(m.get("step", "")))
 	var row: Dictionary = c.results[0] if not c.results.is_empty() else {}

@@ -61,7 +61,10 @@ const FACE_UP_M := 0.07
 ## the lead out in front at chin height (forward, out to her side, up - metres from the head bone; the face is FACE_FWD_M
 ## in front of it, the chin ~0.08 forward and ~0.02 down), elbows bent down and in. At long range only the lead drops a
 ## few cm (LOW_M) - the real guard's lead sags there, the gloves never meet.
-const GUARD := {"lead": Vector3(0.26, 0.07, -0.04), "rear": Vector3(0.14, 0.10, -0.03)}
+## S510 r13 (blind coach: "both carry them 20-30 cm out in front ... it hides the faces from the camera"; animator: "the
+## guard glove already sits 36-40 cm in front of the chest, so the arm only has 20-25 cm to go"): lead 0.26 -> 0.19
+## forward of the head bone (the wrist 10 cm in front of the face), rear 0.14 -> 0.11 (at the cheek). `-- oldguard`.
+static var GUARD: Dictionary = {"lead": Vector3(0.26, 0.07, -0.04), "rear": Vector3(0.14, 0.10, -0.03)} if OS.get_cmdline_user_args().has("oldguard") else {"lead": Vector3(0.19, 0.07, -0.04), "rear": Vector3(0.11, 0.10, -0.03)}
 const ELBOW_IN := 0.5
 const LOW_M := {"lead": 0.05, "rear": 0.0}
 const LOW_UP_S := 0.15

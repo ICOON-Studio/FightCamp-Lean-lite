@@ -61,7 +61,9 @@ const REACT := {
 	# = a jab's; jab_v2_short 0.27 / 0.27, cross_v1_short 0.25 / 0.37, cross_v3 0.30 / 0.33 = a cross's. jab_v1_short is out.
 	"jab": ["pro_hit_by_jab_v3", "pro_hit_by_jab_v4_short", "pro_hit_by_jab_v5_short", "pro_hit_by_cross_v2_short",
 		"mc_hit_jab", "react_head"],
-	"cross": ["pro_hit_by_cross_v1_short", "pro_hit_by_jab_v2_short", "pro_hit_by_cross_v3", "mc_hit_jab", "react_head"],
+	# S510 r13 (blind coach: a cross "bends him like a knockdown ... face to the lights", 29-32 cm; r12's critics asked
+	# 18-25): cross_v3 (33 cm as drawn) and jab_v2_short (24-29) are out, jab_v4_short (0.19 m) is in beside cross_v1_short.
+	"cross": ["pro_hit_by_cross_v1_short", "pro_hit_by_jab_v4_short", "mc_hit_jab", "react_head"],
 	"lead_hook": ["pro_hit_by_hook_v1_short", "pro_hit_by_hook_v2_short", "pro_hit_by_hook_v3_short", "pro_hit_by_hook_v5",
 		"mc_hit_hook", "react_head"],
 	"rear_uppercut": ["pro_hit_by_uppercut_v1", "pro_hit_by_hook_v1_short", "mc_hit_hook", "react_head"],

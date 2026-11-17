@@ -14,6 +14,7 @@ const PadWeek := preload("res://scripts/rules/PadWeek.gd")
 const DrillWeek := preload("res://scripts/state/DrillWeek.gd")
 const ClubWeek := preload("res://scripts/state/ClubWeek.gd")
 const TextScale := preload("res://scripts/ui/TextScale.gd")
+const TrainSide := preload("res://scripts/ui/TrainSide.gd")
 
 var _fails := 0
 var main: Node
@@ -72,6 +73,19 @@ func _initialize() -> void:
 			"the coach row: one face each, nothing to drag")
 	for n in ["ThisWeek", "Mornings", "Evening", "CoachPick", "StartWeek", "SessionTray", "TiredChart", "Diet", "BoutPanel", "WeekWhen"]:
 		_check(page.find_child(n, true, false) != null, "the screen shows %s" % n)
+	# S511 club week 3.3 WEAK SPOT: a boxer 3+ under level on Defence reads the hole and who finds it in MORNINGS
+	var fw: Dictionary = c.fighter_by_id(str(m["sel"]))
+	var st: Dictionary = fw.get("stats", {})
+	var keep := float(st.get("defense", 50.0))
+	st["defense"] = 20.0
+	var mw: Dictionary = ClubWeek.model(c, str(m["sel"]), 0)
+	_check(str(mw.get("weak", "")) == "Low Defence: pressure fighters find it", "the week reads the weak spot (%s)" % str(mw.get("weak", "")))
+	var mb: Node = TrainSide.mornings(mw)
+	root.add_child(mb)
+	_check(mb.find_child("WeakSpot", true, false) != null, "MORNINGS shows the weak spot")
+	mb.queue_free()
+	st["defense"] = keep
+	_check(str(ClubWeek.model(c, str(m["sel"]), 0).get("weak", "x")) != "Low Defence: pressure fighters find it", "back at its level the line goes")
 	# a session dragged from the tray onto Tuesday's morning
 	var tue := page.find_child("Morning_1", true, false)
 	var tray := page.find_child("Tray_slip_rope", true, false)

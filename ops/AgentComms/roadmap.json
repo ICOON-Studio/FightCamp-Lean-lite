@@ -7,7 +7,7 @@
   "owner": "claude",
   "updated": "2026-11-17",
   "summary": "S509: fight week day 14. Collected Qwen HEADSPLIT2 (PR 350): head jumps by phase - s508c 39 of 49 punch jumps 'pre'. PopCap -- capwhy (why a >12 cm head frame got past the cap) on s509a: 136 passes = 72 landed punch at full hold (47 frame after the hit, 20 on it), 43 hit reactions freed on purpose, 11 blocked/height-only. Rejected and removed: trunk capped after the hit (hit_carry 31 -> 43) and on the way in of unlanded punches (shared part 18 -> 20). The trunk cap has no lever left: next is the source (range at throw, jab lunge). hit_carry 29-33 and join_return 2-4 are run-to-run noise. Owner's usage video -> .claude/agents/Explore.md on Haiku. Qwen HEADSPLIT3 (combo phase) running. Digest ops/research/S509_DIGEST.md. After the first wrap: HEADSPLIT3 collected (combo phase: pre 39 -> 33 + combo 6). Range at the throw is normal (jab closes 14 cm in 6 frames): punches are not thrown from too far. Hook recovery 1.5x fine (p90 4.8 m/s). join_return cross 18-20 m/s = a wait-beat paw starting mid-ease back to guard: GuardLife._joining holds paws/feints/fidgets until the guard join has run (cc1f9476f, -- nojoinwait). Exported. Blind r12 (his 'Film it now'): coach 5.0, animator 5.0 - flat vs r11; head jumps 32 -> 28, arm-out worst 16 -> 29. Both critics: blue's free glove above his head (named in r11 too), arms home in 3-4 frames.",
-  "next_action": "FIGHT MOTION WEEK day 15 (S510). Blind r12 = 5 / 5 (flat). 0) OWNER S509 'why they only throw puches with one hand ?': each boxer ~35 lead-hand paws/feints in 75 s (GuardLife WAIT_JAB), real punches use both - give feints both hands (rear cross feint, body feint, level change), paw every 3-4 s, mix by style. 1) Blue's FREE glove shoots above his head after punches (r11 AND r12 critics: ex1 #40-47, ex2 #27-30, ex4 #25-32 in E:/FightCamp/tmp/fightweek/r12blind/sheets_close): find the clip/layer, keep it in a guard box (chin to 10 cm over the brow). 2) Arm out after contact worst 29 frames (red's cross ex1 #40-47): why does the hold run so long. 3) Head inside the other's body ex4 #21-24. 4) join_return 3 (--fixed-fps 60!). Films only with no game window open (Q-267).",
+  "next_action": "METHOD (S510, CLAUDE.md 8): fight animation STOPS PATCHING. FIGHTPLAYER2: baseline diagnosis (part 3, FIGHTPLAYER2_BASELINE_S510.md) + full scope (FIGHTPLAYER2_SCOPE_S510.md) -> two fresh critics judge the scope (7+) -> his board approval -> build by phases. No new fix layer in scripts/fight3d; no animation purchase until the baseline says the clips are the limit. FIGHT MOTION WEEK day 15 (S510). Blind r12 = 5 / 5 (flat). 0) OWNER S509 'why they only throw puches with one hand ?': each boxer ~35 lead-hand paws/feints in 75 s (GuardLife WAIT_JAB), real punches use both - give feints both hands (rear cross feint, body feint, level change), paw every 3-4 s, mix by style. 1) Blue's FREE glove shoots above his head after punches (r11 AND r12 critics: ex1 #40-47, ex2 #27-30, ex4 #25-32 in E:/FightCamp/tmp/fightweek/r12blind/sheets_close): find the clip/layer, keep it in a guard box (chin to 10 cm over the brow). 2) Arm out after contact worst 29 frames (red's",
   "incomplete_blocked": "Qwen HOOKPAST2 running (branch qwen/hookpast2) - collect by diff, then use its HOOK_HELD line as the hook-release ruler.",
   "next_acceptance": "On a 180 s seed 7 film vs s507b: no landed punch over 9 m/s after contact and at most 2 over 6; head jumps per punch clip <= 0.13 in the shared part (head_split_probe); FreeHand off_share <= 0.35, HeadEase back_f_p50 >= 8; punch tests keep or better their S507 A/B FAIL sets.",
   "awaiting_operator": "PR 341 look (coach neck still pair on /review). Unity uninstall (his call). Films while he plays: ask each time (S507: yes).",
@@ -2144,7 +2144,12 @@
   {
    "id": "S510",
    "date": "2026-11-17",
-   "what": "Animation moved to a Fable 5.2 high session looping to 7/10 (r13 blind 4.5 / 4.5, down from 5 / 5; r14 in work: stand up, punch flight, reaction size). FIGHTFILM1 slices 1-5: film night watched yourself, wired to fight week, Fight prep, opponent file card, corner minute, coach card (film_night_test 26 ok). Qwen SPLIT500B running. C: log spam (4 GB Godot logs from crashing film runs) found and cleaned."
+   "what": "Animation moved to a Fable 5.2 high session looping to 7/10 (r13 blind 4.5 / 4.5, r14 blind 4.5 / 4.5: punch flight fixed, punches 5 with both; next: bodies passing through each other, body pops, the arm hanging out, the stand-up). FIGHTFILM1 slices 1-5: film night watched yourself, wired to fight week, Fight prep, opponent file card, corner minute, coach card (film_night_test 26 ok). Qwen SPLIT500B running. C: log spam (4 GB Godot logs from crashing film runs) found and cleaned."
+  },
+  {
+   "id": "S511",
+   "date": "2026-11-17",
+   "summary": "S511 (side session of S510, main line): FIGHTFILM1 slices 6-9 - Game plan film marks (Works at best / confirmed / change this line), own-bout FIGHT ANALYSIS (result PUNCH BY PUNCH, History Analysis, corner The round so far; WHAT THE OTHER CORNER WILL SEE + Fix it on the pads), Write the answer after File it, Tape Room retired into the page. film_night_test 51 checks green. ASKFIGHT critic round 4 queued; club week v1 already wired, the rest waits COACHFIT1."
   }
  ],
  "blocked_on_operator": [],
@@ -5063,7 +5068,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-17 19:11 board_sync",
+  "updated": "2026-11-17 19:42 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5217,7 +5222,8 @@
     "title": "TASK SPLIT500B - QWEN (qwen3-coder) - bring the three grapple files and MatTreeInfo under the 500-line limit",
     "who": "qwen",
     "started": "2026-11-17T18:51",
-    "run": "SPLIT500B"
+    "run": "SPLIT500B",
+    "state": "LANDED - Claude collects"
    }
   ],
   "next": [
@@ -5230,7 +5236,7 @@
    {
     "id": "FIGHTFILM1",
     "who": "claude",
-    "title": "Film nights: WATCH IT YOURSELF wired S510 (fight week -> analysis page -> filed claims on Fight prep, her file card, corner minute CONFIRMED/CLEARED, coach card checks). Left: plan line marks, result tab + History (page needs own-bout mode), 3D corner overlay, Tape Room retire, settings log toggle",
+    "title": "Film nights + fight analysis: S510 watch-it-yourself; S511 plan line marks, result PUNCH BY PUNCH + History Analysis + corner The round so far (own-bout mode), Write the answer, Tape Room retired. Left: the 3D film in the page's film slot, the 3D corner overlay, Settings fight-log switch",
     "after": ""
    },
    {
@@ -5284,7 +5290,7 @@
    {
     "id": "INTEGRATE1",
     "who": "claude",
-    "title": "Integrate built mechanics (his S459 rule): every wirable module is wired (READ-PROOF shown S466); Loyalty/ClubDeal wait CLUBWEEK v5, CoachMarket waits COACHFIT1, AskBout waits AMATEURWEEK1, MatPrice waits the BJJ plan screen (ops/research/INTEGRATION_S459.md)",
+    "title": "Integrate built mechanics (his S459 rule): S511 audit - left unwired: AskBout+FightLearn (critics round 4 queued SQ206-208), ClubDeal class night + CoachedMornings + CoachMarket (wait COACHFIT1 critics), MatPrice (BJJ plan screen), TapeClips (old Tape Room); rest are rulers/tools",
     "after": ""
    },
    {
@@ -5344,7 +5350,7 @@
    {
     "id": "ASKFIGHT1",
     "who": "claude",
-    "title": "Ask for a fight: v4 critics 5/6; waits on the fight week (Q-209) - a later date buys nothing until AMATEURWEEK1",
+    "title": "Ask for a fight: v4 critics 5/6; the fight week is built - critic round 4 queued S511 (Kalli, John, Dola; brief ASKFIGHT_CRITIC_S511_BRIEF.md). Build only at 7+",
     "after": ""
    },
    {
@@ -6007,6 +6013,14 @@
     {
      "text": "Animation to Fable loop session",
      "who": "claude"
+    },
+    {
+     "text": "Fight analysis: your own bouts",
+     "who": "claude"
+    },
+    {
+     "text": "Plan marks + Tape Room moved in",
+     "who": "claude"
     }
    ],
    "now": [
@@ -6198,6 +6212,10 @@
     },
     {
      "text": "Film night: plan marks, result tab",
+     "who": "claude"
+    },
+    {
+     "text": "Ask for a fight: critics round 4",
      "who": "claude"
     }
    ],

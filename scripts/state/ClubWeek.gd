@@ -16,6 +16,7 @@ const WeekPhase := preload("res://scripts/rules/WeekPhase.gd")
 const WeekCoach := preload("res://scripts/rules/WeekCoach.gd")
 const PadWeek := preload("res://scripts/rules/PadWeek.gd")
 const PadEdit := preload("res://scripts/rules/PadEdit.gd")
+const CoachedMornings := preload("res://scripts/rules/CoachedMornings.gd")   # S511 club week 3.3: the WEAK SPOT line
 const DayJob := preload("res://scripts/rules/DayJob.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const MoveMastery := preload("res://scripts/rules/MoveMastery.gd")
@@ -75,6 +76,7 @@ static func model(c: Career, sel_id: String, sel_day: int) -> Dictionary:
 		"limit": WeekPlan.OVERREACHED, "fresh": BoutRules.FRESH_FATIGUE, "peak": float(wk["peak"])}
 	out["moves"] = moves(g, rows)
 	out["totals"] = totals(wk, out["days"])
+	out["weak"] = CoachedMornings.weak_line(f.get("stats", {}))   # S511: the hole the fight finds, "" when none
 	out["bout"] = {"booked": WeekData.booked(goal), "dow": fdow, "day": int((goal["bout"] as Dictionary).get("day", -1)),
 		"phase": str(g.get("phase", "base"))}
 	out["diet"] = diet(c, f, goal, wk)

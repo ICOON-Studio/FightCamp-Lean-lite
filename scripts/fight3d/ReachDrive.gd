@@ -22,6 +22,26 @@ extends RefCounted
 ##   start(p0, v0, t0, c, face, v_end) -> the path    at(path, t, face) -> its point at clip time t
 
 const PEAK_DT_MAX := 0.04
+## S510 r13 (both blind critics, first on both lists: "most punches have no flight - one cell the glove is at the face,
+## the next the arm is fully out"; punch_trace on the film: a jab's hand 3 / 11 / 31 cm in its last three frames, a
+## cross's 7 / 22 / 35). The drive ran DRIVE_S 0.08 s onto an end speed of 12-14 m/s, and a cubic asked to arrive that
+## fast over a 0.25-0.35 m path stands still for most of its time and covers the way in its last quarter. Now a straight
+## punch's glove is in flight FLIGHT_S real seconds (3 frames a jab, 4 a cross at 30 a second; the animator: "3 frames
+## of flight with the hand at 15 %, 45 %, 100 % of the way") and arrives no faster than an even push over that time
+## gives (2 d / T: 6-8 m/s on the paths the fight has - a real jab's and cross's speed). `-- oldflight` = before.
+const FLIGHT_S := {"jab": 0.10, "cross": 0.134, "hook": 0.134}
+static var FLIGHT: bool = not OS.get_cmdline_user_args().has("oldflight")
+
+
+## The flight's length for the armed clip, in clip seconds (td = PunchPace.DRIVE_S x the clip's pace); 0 = the old rule.
+static func flight_s(pr: Node, td: float) -> float:
+	if not FLIGHT:
+		return 0.0
+	var clip := str(pr.get("_clip"))
+	for k in FLIGHT_S:
+		if clip.contains(str(k)):
+			return float(FLIGHT_S[k]) * td / 0.08
+	return 0.0
 
 
 static func aim(pr: Node, g: Vector3, t: float, face: Vector3) -> Vector3:
@@ -39,7 +59,10 @@ static func aim(pr: Node, g: Vector3, t: float, face: Vector3) -> Vector3:
 	# one frame after 13 frames still, bone pops 2 -> 13, punch_speed 47 with the drive against 41 without). No hold: until
 	# the drive the glove is the clip's own; the drive starts from it as shown, where it is and how fast it moves.
 	# ... and it starts early enough to get there on an even push (2 d / v), not in a fixed drive_t: a far glove popped.
-	if not path.has("dir") and t >= c - maxf(td, 2.0 * d / v_end):
+	var fl := flight_s(pr, td)
+	if fl > 0.0:
+		v_end = minf(v_end, 2.0 * d / maxf(c - t, 0.02))
+	if not path.has("dir") and t >= c - (fl if fl > 0.0 else maxf(td, 2.0 * d / v_end)):
 		var sp: Vector3 = pr.get("_shown_prev")
 		var sc: Vector3 = pr.get("_shown_cur")
 		var ts: Vector2 = pr.get("_shown_t")

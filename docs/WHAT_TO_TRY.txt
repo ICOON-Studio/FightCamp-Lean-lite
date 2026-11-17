@@ -1,3 +1,18 @@
+S511 (2026-11-17) - FIGHT ANALYSIS: YOUR OWN BOUTS, THE PLAN MARKS, THE TAPE ROOM MOVED IN
+- After a bout, the result page has a new tab: PUNCH BY PUNCH. It opens the FIGHT ANALYSIS page on the whole fight:
+  every punch of both corners, You / The opponent, the rounds strip, the report. Bottom left: WHAT DECIDED IT and
+  WHAT THE OTHER CORNER WILL SEE - your boxer's own habits that stand out on the film (e.g. "your boxer's jab -> right
+  hand low: 32 of 78"). When it is one of your boxer's habits, FIX IT ON THE PADS trains it out over 4 weeks.
+- Fighter page > History: each club bout has ANALYSIS (the gym keeps the last 20 bouts' tapes; older ones say so).
+- Fight night, the corner minute: THE ROUND SO FAR opens the same page on the rounds fought so far.
+- Playbook > Game plan: a line resting on something the film night filed shows "Film 85%" and rates Works at best
+  until the ring confirms it; "Film: confirmed" lets it rate Beats it again; "Cleared - change this line" when the
+  ring showed it was not there.
+- Film night: after File it, the button turns into WRITE THE ANSWER - the Game plan opens over the film and names the
+  line it needs ("a line for when the opponent boxes at range").
+- Fight prep's WATCH THE TAPE now opens the FIGHT ANALYSIS page on the opponent's films (the old Tape Room is gone):
+  watch, filter, see the report; checking and filing happen on the fight week's film night.
+
 S510 (2026-11-17) - FILM NIGHTS: WATCH THE OPPONENT'S TAPE YOURSELF
 - Fight week > FILM NIGHT ON, then the button beside it: WATCH IT YOURSELF (or LET THE COACH WATCH, as before).
 - Lock the week: the FIGHT ANALYSIS page opens on the opponent's past bouts. Mark a pattern (e.g. their jab -> right

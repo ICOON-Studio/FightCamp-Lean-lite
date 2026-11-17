@@ -52,6 +52,10 @@ var _chest := -1
 var _neck := -1
 var _head := -1
 var _hips_y := 0.0
+var _stand_m := 0.0            # S510: what _stand adds this frame (skeleton units), eased
+var _dt := 1.0 / 60.0
+var _y_s := NAN                # S510: the hips' height as drawn last frame (skeleton units)
+var _ank_y := [NAN, NAN]       # S510: each ankle's height, slow (the heel she stands on)
 var _floored: bool = not OS.get_cmdline_user_args().has("nohipfloor")
 var _legs: Array = []          # [lead, rear]: {ids: [u, l, f, t], v: ball->ankle (flat, yaw 0), fb: foot basis, tb: toe basis, toe_y}
 var last: Array = [{}, {}]
@@ -165,12 +169,60 @@ func _early(skel: Skeleton3D) -> void:
 	var y := lerpf(_hips_y, hp.y, float(plan.hold)) - KneeCalm.drop(DROP) + hip.y / s
 	if _floored:
 		y = maxf(y, _hips_y * HIP_FLOOR)
+	if KneeCalm.standing():
+		# the bounce rides on top untouched; what is under it (the clip's height under a punch, the sit of a step)
+		# follows with a short lag (HIP_LAG_S: hip pops 68 -> 14 a round), then the stance stands up
+		var dip := float(plan.amp) * float(plan.scale) * float(plan.dip()) / s
+		var under := y + dip
+		_y_s = under if is_nan(_y_s) or KneeCalm.HIP_LAG_S <= 0.0 else lerpf(_y_s, under, 1.0 - exp(-_dt / KneeCalm.HIP_LAG_S))
+		y = _stand(skel, _y_s, hp, hip, s) - dip
 	skel.set_bone_pose_position(_hips, hp + Vector3(hip.x / s, y - hp.y, hip.z / s) * w)
 	_torso(skel, p, s)
 
 
+## S510 r13 (blind coach: "both sit far too low ... a knee bend of about 124 degrees; a boxer stands at about 150-160 ...
+## raise both about 8-10 cm"; stance.py on the film: the hip joints ride 10 cm under a straight leg at this stance).
+## The hips ride KneeCalm.STAND_LEG of the leg's length higher, in the guard and in a punch alike, and never so high that
+## a leg must open past KneeCalm.STAND_REACH of its length to keep its foot where the plan put it last frame (a long
+## stance sits down by exactly what it needs; without this the heel rule would stand her on her toes). `y` is the
+## height at the TOP of the bounce: the first build capped the bounced height and the bounce flattened against the cap
+## (boxer_footwork_test: 3.6 -> 1.4 cm a bounce). `-- nostand`.
+func _stand(skel: Skeleton3D, y: float, hp: Vector3, hip: Vector3, s: float) -> float:
+	if w < 0.2:
+		return y
+	var inv := skel.global_transform.affine_inverse()
+	var up := 0.0
+	var room := INF
+	for i in 2:
+		var ids: Array = _legs[i]["ids"]
+		var hj := skel.get_bone_global_pose(ids[0]).origin
+		var kn := skel.get_bone_global_pose(ids[1]).origin
+		var leg_m := (kn - hj).length() + (skel.get_bone_global_pose(ids[2]).origin - kn).length()
+		up = maxf(up, leg_m * KneeCalm.STAND_LEG)
+		if not (last[i] as Dictionary).has("ankle"):
+			continue
+		# the ankle where a FLAT foot has it (the bounce's heel lifts the ankle 2-5 cm: read live, the hips rode it and
+		# the bounce doubled, boxer_footwork_test 3.6 -> 6.0 cm), and STAND_STEP_M further out than it stands: a
+		# shuffle opens the stance by that much without the hips having to sit down for it
+		var a: Vector3 = inv * (last[i]["ankle"] as Vector3)
+		var flat_y := (inv * (last[i]["ball"] as Vector3)).y + (_legs[i]["v"] as Vector3).y
+		_ank_y[i] = a.y if is_nan(_ank_y[i]) else lerpf(_ank_y[i], a.y, 1.0 - exp(-_dt / KneeCalm.STAND_HEEL_S))   # the heel she stands on, not this bounce's
+		a.y = maxf(flat_y, _ank_y[i]) if KneeCalm.STAND_HEEL_S > 0.0 else flat_y
+		var at := hj + Vector3(hip.x / s, y - hp.y, hip.z / s) * w
+		var flat := Vector2(at.x - a.x, at.z - a.z).length() + KneeCalm.STAND_STEP_M / s
+		var long := leg_m * KneeCalm.STAND_REACH
+		if flat < long:
+			room = minf(room, a.y + sqrt(long * long - flat * flat) - at.y)
+	# the rise is eased (a swinging foot changes the room every frame); the sit-down is at once (a leg never over-reaches)
+	var want := clampf(room / w, 0.0, up) if room < INF else up
+	var rise := move_toward(_stand_m, want, KneeCalm.STAND_MPS * _dt / s)
+	_stand_m = minf(want, rise) if KneeCalm.STAND_SIT_MPS <= 0.0 else (rise if want >= _stand_m else move_toward(_stand_m, want, KneeCalm.STAND_SIT_MPS * _dt / s))
+	return y + _stand_m
+
+
 ## One frame toward `want` (RingFeet, once a frame).
 func ease_w(delta: float) -> void:
+	_dt = delta
 	w = move_toward(w, want, delta / EASE_S)
 	upper_w = upper_want if w <= 0.0 else move_toward(upper_w, upper_want, delta / EASE_S)
 

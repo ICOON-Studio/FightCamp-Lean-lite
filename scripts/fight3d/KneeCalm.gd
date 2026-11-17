@@ -47,6 +47,18 @@ const PIVOT_EASE_S := 0.22
 const SIT_SHARE := 1.00
 const DROP_SHARE := 1.00
 
+## S510 r13: the stance stands up (BoxerFootworkRig._stand): the hips this share of the leg's length higher (0.085 =
+## 7.1 cm on a 0.84 m leg: knee 124 -> ~150 deg in the guard), never asking a leg for more than STAND_REACH of its
+## length (0.976 = knee 155 deg). `-- nostand` = the control arm.
+static var STAND_LEG := _knob("standleg", 0.085)
+static var STAND_REACH := _knob("standreach", 0.983)
+static var HIP_LAG_S := _knob("hiplag", 0.05)
+static var STAND_STEP_M := _knob("standstep", 0.10)
+static var STAND_HEEL_S := _knob("standheel", 0.0)
+static var STAND_SIT_MPS := _knob("standsit", 0.0)
+static var STAND_MPS := _knob("standmps", 0.25)   # the rise and the sit-down change this fast at most (m/s)
+static var _stand := -1
+
 static var forced_off := false
 static var _on := -1
 
@@ -58,6 +70,19 @@ static func on() -> bool:
 	if _on < 0:
 		_on = 0 if OS.get_cmdline_user_args().has("nokneecalm") else 1
 	return _on == 1
+
+
+static func _knob(k: String, d: float) -> float:
+	for a in OS.get_cmdline_user_args():
+		if str(a).begins_with(k + "="):
+			return float(str(a).substr(k.length() + 1))
+	return d
+
+
+static func standing() -> bool:
+	if _stand < 0:
+		_stand = 0 if OS.get_cmdline_user_args().has("nostand") else 1
+	return _stand == 1
 
 
 ## A swinging foot's peak lift (world m): the full lift for a full-length step, SHUFFLE_LIFT of it for a shuffle.

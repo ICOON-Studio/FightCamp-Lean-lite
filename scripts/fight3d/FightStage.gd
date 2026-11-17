@@ -267,7 +267,9 @@ func _start(who: int, clip: String, speed: float, fade: float = BLEND_S) -> void
 	if bx.get("js") != null:
 		# S305: back to the guard eases over the idle's 200-300 ms (research G147); into a strike or a reaction stays quick.
 		if fade >= GUARD_FADE_S:
-			(bx["js"] as Node).join(GUARD_HALF_LIFE_S, GUARD_JOIN_S)
+			# S510 r13 (both critics: "rocked 32 cm and in a perfect crouch two frames later"): out of a hit he gathers himself slower. `-- fastrecover`.
+			var hurt: bool = str(ap.current_animation).contains("hit_by") and not OS.get_cmdline_user_args().has("fastrecover")
+			(bx["js"] as Node).join(GUARD_HALF_LIFE_S * (2.0 if hurt else 1.0), GUARD_JOIN_S * (1.8 if hurt else 1.0))
 		else:
 			(bx["js"] as Node).join()
 		# SMOOTH3 Fix 2: tell the join smoother which clip to wait for before capturing

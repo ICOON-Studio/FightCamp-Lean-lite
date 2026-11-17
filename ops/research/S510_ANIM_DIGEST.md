@@ -149,3 +149,58 @@ starts on the contact frame, the cross's rocked pose (animator: "good pictures";
   a 30 fps film (every fifth frame dropped), which hides a flight frame.
 - "Hand at the hip": ex1 #55-58 / ex5 #43-45 = pro_left_hook_v2's own wind-up (in r12 too); ex2 #23-27 = red's hook
   reaction clip. Not the r13 body feint, not FREE_DROP.
+
+## ROUND 14 (built and filmed 2026-11-17 ~20:45, film E:/FightCamp/tmp/fightweek/r14blind/, sheets now cut at the film's own 30 fps)
+1. PUNCH FLIGHT (both r13 critics' first item). ReachDrive.FLIGHT_S: a jab's glove is in flight 0.10 s, a cross's / driven
+   hook's 0.134 s, arriving no faster than an even push gives (2 d / T, 6-8 m/s) - the old drive ran 0.08 s onto 12-14 m/s,
+   and that cubic stands still, then covers the way in its last quarter. `-- oldflight`. flight.py (s511/), landed punches,
+   hand cm in the last four frames: jab 5 / 3 / 8 / 28 -> 3 / 5 / 10 / 20, cross 4 / 9 / 22 / 27 -> 6 / 13 / 18 / 21; contact
+   frames over 25 cm 7 -> 1. punch_speed_test 39 -> 45 failures (its bands want 6-9 m/s read over two 60 fps frames): DEBT.
+2. GUARD GLOVES NEARER THE FACE: GuardTuck.GUARD lead 0.26 -> 0.19 m forward of the head bone, rear 0.14 -> 0.11
+   (`-- oldguard`). Idle lead wrist 27 -> 22 cm from the head bone, rear 16.4 -> 14.3.
+3. CROSS REACTION: BeatClips.REACT cross = cross_v1_short + jab_v4_short (cross_v3 and jab_v2_short out): median 29.1 ->
+   21.5 cm (single ones still 9-34: the drawn size depends on the snap and the start point, not only the clip).
+4. RECOVERY OUT OF A HIT: FightStage._start joins a hit reaction back to the guard at twice the half-life and 1.8x the
+   length (`-- fastrecover`). Not measured yet (needs a "frames from the peak back to the stance" ruler).
+5. HIP LAG: BoxerFootworkRig eases what is UNDER the bounce (the clip's height under a punch, a step's sit) with a 0.05 s
+   lag (KneeCalm.HIP_LAG_S, `hiplag=`): hip pops 19 + 49 -> 6 + 5 a round. Head jumps over 12 cm 23 -> 14.
+6. STAND-UP: BUILT, MEASURED, NOT LANDED (KneeCalm.STAND_*, BoxerFootworkRig._stand; ships at standstep=0.10, which
+   leaves the stance as it was, knees 125-128). What was learned, so the next try does not repeat it:
+   - the hips ride 10 cm under a straight leg at this stance; +7 cm = knee ~150 deg (the coach's number);
+   - a plain rise (no cap) fails boxer_footwork (ankles 1.2-2.5 cm short of their targets, step bob 6.2-7.0 cm) and
+     guard_knee; a rise capped by the more stretched leg (160 deg) gives knees 142-146 and heads +6 cm, but
+     (a) capped on the bounced height it flattens the bounce (3.6 -> 1.4 cm), (b) capped on the live ankle it rides the
+     heels (bounce 6.0 cm), (c) capped on a flat foot the hips must sit 3-6 cm into every step pair, and the test's bar
+     for the bob on a step pair is 6 cm (the owner's "his ass is bouncing"): 8.1-8.4 cm at no margin, 6.5-7.2 at 5 cm
+     margin (knees 130-133), clean only at 10 cm margin = no stand-up at all;
+   - THE OWNER SAW the capped build's sheet (first r14 film, kept in r14a_firstfilm) and asked "reds left leg ?": the
+     rear leg went nearly straight (the cap holds the MORE stretched leg at 160 deg) - a stiff prop leg. Not kept.
+   - so the stance needs BOTH knees bent alike and less sit on a step: probably the feet nearer under the hips while
+     standing (STANCE_LEN 0.50) or the trailing heel lifting instead of the hips sitting. Knobs for probes:
+     standleg= standreach= standstep= standheel= standsit= standmps= hiplag= (and `-- nostand`).
+   - knee jerks rise with any stand-up (27 / 50 -> 60-95 in 30 s): a straighter knee reads every cm of ankle lift.
+7. TRIED AND DROPPED: RingFeet PAIR_M / QUICK_M 0.34 / 0.45 -> 0.28 / 0.36 (longest stance 0.96 -> 0.88 m, typical unchanged):
+   ring_feet_test "shown within a lunge of her place" 0.77 m (bar 0.75), block_meet's set-up void. Reverted.
+8. THE SHEETS: film_sheets.py --fps 30 --cols 5 --rows 3 --cell 512 (15 frames a sheet, still 28 sheets): the 24 fps sheets
+   dropped every fifth film frame, often a punch's flight frame. The r14 briefs say so.
+Tests (--fixed-fps 60): join_return 0, boxer_footwork 0, guard_knee 0, knee_calm 0 (it now pins the old stance), ring_feet 0,
+hit_frame 6 (7), block_meet 12 (13), hit_carry 33 (30-43), arm_home / guard_box / free_hand_hold / range_breath / hit_step /
+hit_snap_gain / lean_ease / head_clear / glove_cut / punch_start / punch_form / punch_snap / fight_feel / fight_flow green.
+Worse: punch_speed 45 (39), block_catch 7 (5), uppercut_tail 2 (1) - not rerun on the last build.
+
+## ROUND 14 JUDGED (blind): coach 4.5 / animator 4.5 - the same whole-fight score as r13
+Coach: punches 5 (r13 4.5), defence + reactions 4 (4), footwork + stance 4.5 (4), transitions 4.5 (3.5), waiting 5 (4).
+Animator: punches 5 (4), defence + reactions 4.5 (4.5), footwork + stance 4 (5.5), transitions 3.5 (4), waiting 4.5 (5).
+Reviews + 10/10 drawings: E:/FightCamp/tmp/fightweek/r14blind/critic_coach.md, critic_animator.md.
+The punch score rose with both (the flight shows); the whole-fight score did not move. Their lists, most important first:
+Coach: 1 bodies never pass through each other (heads 25 cm apart, outside the other's chest); 2 rebuild the body-shot
+reaction as a sequence (ex4 #26-45); 3 the man who lands follows up or gets out; 4 range breathes (rest at 1.6-1.8 m,
+today 1.34); 5 cap the head-back reaction and move the whole man; 6 chin down in every punch (pro_left_jab_b, ex5
+#28-35); 7 bring the hand home (full stretch 1-2 frames); 8 combinations; 9 a blocked punch moves the blocker.
+Animator: 1 no body pops (head 6 cm a frame, chest lean 6 deg a frame outside the 4 frames after a hit); 2 a hit man
+stops punching (cancel his punch when hit before his glove is half out); 3 nothing passes through anything (gloves stop
+at the surface); 4 punch timing: out fast, back at once; 5 punch from the floor (the step lands on the contact frame);
+6 reactions with a shape, blocks that give; 7 defence that answers a punch; 8 one correct stance each; 9 use the ring.
+NEW IN r14's RULERS, check first: "a head inside the other's body" 0 -> 3 frames, distance p50 1.39 -> 1.34 m, heads
+closer than 25 cm 0.09 -> 0.13 % - the coach's first item. Suspects: the closer guard (GuardTuck.GUARD, `-- oldguard`)
+letting the men stand nearer, or the hip lag under a body shot's dive (`hiplag=0`). A/B both on full 75 s logs.

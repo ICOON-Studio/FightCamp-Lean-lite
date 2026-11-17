@@ -39,6 +39,14 @@ and say what you decided. Ask him only about taste, scope or money. Be concise, 
 7. Rule modules may be copied from the archived old repo's `Godot/scripts` (GitHub ICOON-Studio/FightCamp; TrainingPreview, rules/FighterGoal, Membership,
    state/GameMoney, FightCamp, AmateurBooking, rules/MoveMastery, FightPlans, Retention) with their tests. Re-read each and strip
    what is not needed. Never read GameState.gd or FightRealtime.gd whole (huge).
+8. FINDINGS DRIVE THE QUEUE (operator S510, after 14 animation rounds patched while the Undisputed studies said the method was
+   wrong: "change this , get the full scope of fixing"). A study, reference-game read or critic round that says the METHOD is
+   wrong (not just one defect) becomes, the same session: (a) a `## METHOD` line at the top of NEXT_SESSION_PROMPT.md and roadmap
+   `now`, quoted by every later session in its first message, and (b) a scoped plan (`ops/research/<AREA>_SCOPE_S<n>.md`) put on
+   the board as the next item. Until that plan is approved and built, no session adds a new correction layer in that area; it
+   finishes the scope, the plan's phases or a measurement. Before patching any area, run `python ops/Tools/prior_research.py
+   <area words>` and say which study's verdict the work follows. Fight animation now: FIGHTPLAYER2 (see the METHOD line); no new
+   fix layer in scripts/fight3d until it is built.
 
 ## Agent roles (S299, from each seat's record in the old project's run archive)
 Claude decides design and integrates; the operator approves (D49: Ludo makes assets only). Each seat gets ONE kind of work:

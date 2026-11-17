@@ -1669,6 +1669,13 @@
    "seat": "qwen",
    "status": "queued",
    "queued": "2026-11-17T18:37"
+  },
+  {
+   "task": "MORNINGSPROBE1",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-17T21:50",
+   "note": "S511: after ASKPROBE4 lands"
   }
  ]
 }

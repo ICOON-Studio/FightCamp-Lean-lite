@@ -24,6 +24,7 @@ const FlowView := preload("res://scripts/ui/FlowView.gd")
 const Contact := preload("res://scripts/grapple/GrappleContact.gd")
 const MH := preload("res://scripts/fight3d/MHRig.gd")
 const Kit := preload("res://scripts/fight3d/FighterKit.gd")
+const BKit := preload("res://scripts/grapple/GrappleBrowserKit.gd")
 ## S335 operator: "use different colours on the clothes for each" - one colour head to toe per woman (top a shade lighter).
 const TOPS := [Color("#ff6a5c"), Color("#5b93ff")]
 ## S390 (reviewer: "both share a skin tone, the limbs merge into one brown mass, it looks like clipping"): 11 and 10 were both #4f3122.
@@ -99,15 +100,15 @@ func _ready() -> void:
 	var rows := UI.vbox(0)
 	rows.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	add_child(rows)
-	rows.add_child(_top_bar())
+	rows.add_child(BKit.top_bar(self))
 	var body := UI.hbox(0)
 	body.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	rows.add_child(body)
 	var view := _viewport()
 	body.add_child(view)
-	body.add_child(_panel())
+	body.add_child(BKit.panel(self))
 	_cast(view.get_child(0).get_child(0))
-	_family("mount")
+	BKit.family(self, "mount")
 	go_position(db.find(DB.find(db, START)))
 	if not career_match.is_empty():
 		rows.get_child(0).visible = false
@@ -447,156 +448,15 @@ func play_in(move: Dictionary) -> void:
 	_refresh()
 
 
-## ---------- the panels ----------
+## ---------- the panels (SPLIT500B: GrappleBrowserKit builds them; these keep the names callers use) ----------
 
-func _top_bar() -> Control:
-	var bar := PanelContainer.new()
-	bar.add_theme_stylebox_override("panel", UI.box(UI.PANEL, UI.LINE, 0, 1, 18, 10))
-	var h := UI.hbox(6)
-	bar.add_child(h)
-	h.add_child(UI.label("GROUND MOVES", 22, UI.FG, "bold"))
-	h.add_child(UI.muted("  prototype  "))
-	for f in Graph.FAMILIES:
-		var tag := str(f[1])
-		h.add_child(UI.button(str(f[0]), "Tab", func(): _family(tag)))
-	h.add_child(UI.button("Tie-ups", "Tab", func(): _open_ties()))
-	# S379 the Grappling theatre: whole chains of moves played straight, filmed like a documentary.
-	h.add_child(UI.button("Theatre", "Btn", func(): get_tree().change_scene_to_file("res://scenes/dev/GrappleTheatre.tscn")))
-	_plan_toggle = UI.button("Build plan", "Btn", func(): _set_plan_mode(not plan_mode))
-	_plan_toggle.visible = false
-	h.add_child(_plan_toggle)
-	_start_again = UI.button("Start again", "BtnQuiet", func(): plan.clear(); _refresh())
-	_start_again.visible = false
-	h.add_child(_start_again)
-	_flow_btn = UI.button("See the flow", "Btn", show_flow)   # S340 the tie-up plan as a flow on the whiteboard
-	_flow_btn.visible = false
-	h.add_child(_flow_btn)
-	h.add_child(UI.spacer())
-	_search = LineEdit.new()
-	_search.placeholder_text = "find a position"
-	_search.custom_minimum_size = Vector2(220, 0)
-	_search.text_changed.connect(_find)
-	h.add_child(_search)
-	return bar
-
-
-func _panel() -> Control:
-	var p := PanelContainer.new()
-	p.custom_minimum_size = Vector2(PANEL_W, 0)
-	p.add_theme_stylebox_override("panel", UI.box(UI.PANEL, UI.LINE, 0, 1, 18, 14))
-	var scroll := ScrollContainer.new()
-	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
-	p.add_child(scroll)
-	var v := UI.vbox(10)
-	v.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	scroll.add_child(v)
-	_side = UI.vbox(8)
-	_side.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	v.add_child(_side)
-	v.add_child(UI.sep())
-	_list_hdr = UI.caps("POSITIONS")
-	v.add_child(_list_hdr)
-	_list = UI.vbox(4)
-	_list.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	v.add_child(_list)
-	return p
-
-
-## S340 the wrestling plan as a flow (FightFlow): from the tie-up the first arrow leaves, each answer labelled with the
-## reaction it answers ("if she leans in on the tie: Snapdown").
-func show_flow() -> void:
-	var map := TieUpPanel.plan_map()
-	var first: Array = map.filter(func(r): return not plan.is_empty() and str(r["id"]) == str(plan[0]["move"]))
-	var start := str(first[0]["from"]) if not first.is_empty() else _tie_open
-	var v := FlowView.new()
-	v.setup(FightFlow.build(plan, map, start), {"title": "THE FLOW: TIE-UPS", "sub": "%d answers, read top to bottom" % plan.size(),
-		"place_name": TieUpPanel._place_name,
-		"move_name": func(id: String) -> String: return str(FightFlow.PlanBoard.row(map, id).get("name", id))})
-	add_child(v)
-
-
-func _set_plan_mode(on: bool) -> void:
-	plan_mode = on
-	_refresh()
+func _refresh() -> void:
+	BKit.refresh(self)
 
 
 func _remove_plan_arrow(index: int) -> void:
-	if index < 0 or index >= plan.size():
-		return
-	plan.remove_at(index)
-	_refresh()
-
-
-func _sync_plan_bar() -> void:
-	if _plan_toggle == null:
-		return
-	var show := _tie_open != "" and moving.is_empty()
-	_plan_toggle.visible = show
-	_start_again.visible = show and plan_mode
-	_flow_btn.visible = show and plan_mode and not plan.is_empty()
-	if show:
-		_plan_toggle.text = "Done" if plan_mode else "Build plan"
-
-
-func _refresh() -> void:
-	UI.clear(_side)
-	if not moving.is_empty():
-		_side.add_child(UI.caps("NOW PLAYING"))
-		_side.add_child(UI.label(Graph.clean(str(moving["t"]["title"])), 26, UI.GOLD, "bold", true))
-		_side.add_child(UI.button("Skip to the end", "BtnQuiet", func(): player.seek(player.length_s())))
-		_sync_plan_bar()
-		return
-	if _tie_open != "":
-		TieUpPanel.show_tie(self, _tie_open)
-		_sync_plan_bar()
-		return
-	var pos: Dictionary = db[current]
-	_side.add_child(UI.caps("POSITION"))
-	_side.add_child(UI.label(Graph.clean(str(pos["title"])), 28, UI.FG, "bold", true))
-	_side.add_child(UI.muted(", ".join(Array(pos["tags"]).map(func(t): return str(t).replace("_", " "))), UI.TINY, true))
-	_moves("MOVES OUT", graph.outs(current), true)
-	_moves("MOVES IN", graph.ins(current), false)
-	_sync_plan_bar()
-
-
-func _moves(title: String, moves: Array, out: bool) -> void:
-	_side.add_child(UI.sep())
-	_side.add_child(UI.caps("%s  (%d)" % [title, moves.size()]))
-	if moves.is_empty():
-		_side.add_child(UI.muted("none recorded", UI.TINY))
-	for mv in moves:
-		var other: Variant = Graph.lands(mv) if out else (mv["t"]["to"] if bool(mv["reverse"]) else mv["t"]["from"])
-		var where := Graph.clean(str(db[int(other)]["title"])) if other != null else "?"
-		var m: Dictionary = mv
-		var b := UI.button2(Graph.clean(str(mv["t"]["title"])), ("to " if out else "from ") + where, "Choice",
-			(func(): play_out(m)) if out else (func(): play_in(m)), Vector2(PANEL_W - 50, 58), UI.FG, UI.MUTED, false, UI.SMALL, UI.TINY)
-		_side.add_child(b)
-
-
-func _family(tag: String) -> void:
-	_tie_open = ""
-	_list_hdr.text = "POSITIONS"
-	_fill(graph.family(tag).slice(0, 40))
+	BKit.remove_plan_arrow(self, index)
 
 
 func _open_ties() -> void:
-	_tie_open = ""
-	_list_hdr.text = "TIE-UPS"
-	TieUpPanel.fill_list(self)
-	_refresh()
-
-
-func _find(words: String) -> void:
-	if words.strip_edges().length() >= 2:
-		_tie_open = ""
-		_list_hdr.text = "POSITIONS"
-		_fill(graph.search(words).slice(0, 40))
-
-
-func _fill(list: Array) -> void:
-	UI.clear(_list)
-	for p in list:
-		var id := int(p["id"])
-		var n: int = graph.outs(id).size() + graph.ins(id).size()
-		_list.add_child(UI.button2(Graph.clean(str(p["title"])), "%d moves" % n, "Choice", func(): go_position(id),
-			Vector2(PANEL_W - 50, 50), UI.FG, UI.MUTED, false, UI.SMALL, UI.TINY))
+	BKit.open_ties(self)

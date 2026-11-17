@@ -8,6 +8,7 @@ extends "res://scripts/ui/FightAnalysis.gd"
 ## your boxer's habits (Recruit's habit fix, f["habit_fix"], gone in Recruit.HABIT_WEEKS weeks; Sim.end_week settles it).
 ## For a pro, ProReadWire's "their corner will wait for ..." line too. The old Tape Room's films live here now.
 ##   FightAnalysisOwn.open(main, f, rec) -> the page added to main, or null when the bout kept no tape
+##   FightAnalysisOwn.so_far(main, f, m) -> the corner minute's "The round so far": the rounds fought, read-only
 ##   rec = the result modal m or a c.results row: {tape, why3, d, opp, win, outcome, cards}
 
 const FilmCount := preload("res://scripts/rules/FilmCount.gd")
@@ -15,6 +16,7 @@ const FilmMoments := preload("res://scripts/rules/FilmMoments.gd")
 const Recruit := preload("res://scripts/rules/Recruit.gd")
 const ProReadWire := preload("res://scripts/state/ProReadWire.gd")
 const Clock := preload("res://scripts/state/Clock.gd")
+const BoutTape := preload("res://scripts/fight3d/BoutTape.gd")
 
 const SIDE_WORDS := ["The opponent", "You"]
 const MAX_FACTS := 3
@@ -40,6 +42,13 @@ static func open(main: Node, f: Dictionary, r: Dictionary) -> Control:
 	return page
 
 
+## The corner minute's "The round so far" (map 5): the closed rounds through the ring's own path (BoutTape), read-only.
+static func so_far(main: Node, f: Dictionary, m: Dictionary) -> Control:
+	var c: Career = main.career
+	var opp: Dictionary = (f.get("bout", {}) as Dictionary).get("opp", {})
+	return open(main, f, {"tape": BoutTape.build(c, f, m), "opp": str(opp.get("name", "")), "d": c.day, "so_far": true})
+
+
 ## The bout as a film: {exchanges, rounds, row}; {} without a tape.
 static func film_of(r: Dictionary) -> Dictionary:
 	var tape: Array = r.get("tape", [])
@@ -59,6 +68,9 @@ func _ready() -> void:
 	(header.find_child("Done", true, false) as Button).text = "Close"
 	for k in ["b", "a"]:
 		((report.get("_tabs") as Dictionary)[k] as Button).text = str(SIDE_WORDS[0 if k == "b" else 1])
+		var cb: Variant = (list.get("_corner_btns") as Dictionary).get(k)   # THE PUNCHES' corner pills too
+		if cb is Button:
+			(cb as Button).text = str(SIDE_WORDS[0 if k == "b" else 1])
 	UI.clear(_strip)
 	_strip.add_child(ReportPanel.rounds_strip(films[0], _rounds(), SIDE_WORDS))
 
@@ -77,6 +89,8 @@ func _fill_header() -> void:
 
 ## "Mar 2026 - won on points, 3 x 3 min" (the cards when kept).
 func bout_words() -> String:
+	if bool(rec.get("so_far", false)):
+		return "%s - the rounds so far: %d" % [Clock.fmt(int(rec.get("d", 0))), _rounds()]
 	var out := str(rec.get("outcome", "win" if bool(rec.get("win", false)) else "loss"))
 	var cards := str(rec.get("cards", ""))
 	var how := ("stopped in round " + cards.get_slice("round", 1).strip_edges()) if cards.contains("round") else "on points"

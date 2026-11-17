@@ -96,6 +96,11 @@ static func mornings(model: Dictionary) -> PanelContainer:
 	var fl := B.lab(foot, 16, Palette.TEXT, "bold")
 	fl.name = "WeekTotal"
 	v.add_child(fl)
+	if str(model.get("weak", "")) != "":   # S511 club week 3.3 WEAK SPOT: the morning focus that closes it is the player's
+		var wl := B.lab(str(model["weak"]), 16, Palette.WARN, "bold")
+		wl.name = "WeakSpot"
+		wl.tooltip_text = "The lowest of the six fight abilities, 3 or more under this boxer's level. Mornings on it close the gap."
+		v.add_child(wl)
 	return bx[0]
 
 

@@ -83,6 +83,7 @@ func _initialize() -> void:
 ## One arm: the real boxer and rig, driven like the ring drives her. `off` = the control (KneeCalm off).
 func _arm(off: bool) -> Dictionary:
 	KneeCalm.forced_off = off
+	KneeCalm._stand = 0   # S510: this test's bars are the calm rule's gain on the stance it was measured on (knee 125 deg); the stand-up (KneeCalm.standing) is measured on the bout log
 	var stage: Node3D = Stage.new()
 	stage.process_mode = Node.PROCESS_MODE_DISABLED
 	root.add_child(stage)
