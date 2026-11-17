@@ -15,10 +15,10 @@ const HOLD_S := 0.05
 const OUT_S := 0.16
 ## The most the chest may lean toward the target (radians) to cover what the arm cannot.
 const LEAN_MAX := 0.30
-## S499 (fight week day 4): on a jab's contact frame the lean arrived whole - the puncher's head moved 19-24 cm in one
-## frame, her hips 2-3 cm (r3d trace). The drawn lean now changes at most LEAN_RATE rad/s, in and out (0.30 rad in 0.1 s;
-## ReachLimit.turn_eased). HitImpact.hit's forced pass (lean_free) and reach_at() stay whole. `-- noleanease` = control.
-static var LEAN_RATE: float = _arg_f("leanrate", 4.0)   # S505: 2.5 cut jumps 77 -> 63 but block_catch 4 -> 6 red; `-- leanrate=<x>`
+## S499: a jab's lean arrived whole on its contact frame (head 19-24 cm in a frame). The drawn lean changes at most LEAN_RATE
+## rad/s (ReachLimit.turn_eased); HitImpact.hit's forced pass (lean_free) and reach_at() stay whole. `-- noleanease` = control.
+static var LEAN_RATE: float = _arg_f("leanrate", 4.0)   # S505 LEANRED1: 2.5 on hooks/crosses carried a hook 31 cm past the face
+static var LEAN_RATE_JAB: float = _arg_f("jabrate", 4.0)   # S505: try `-- jabrate=2.5` on an IDLE PC (jab pops: 45% this lean)
 static var LEAN_EASE: bool = not OS.get_cmdline_user_args().has("noleanease")
 var lean_free := false
 var _lean_st := {"prev": Quaternion.IDENTITY, "now": Quaternion.IDENTITY, "base": Quaternion.IDENTITY, "key": 0, "pass": -1}
@@ -483,7 +483,7 @@ func _lean(skel: Skeleton3D, hand: String, s: Vector3, want: Vector3, lean_to: f
 	var q := ReachLimit.lean_q(skel, _chest, s, want, lean_to, w, LEAN_MAX) if lean_to > 0.0 else Quaternion.IDENTITY
 	if LEAN_EASE and hand == _hand and _clip != "" and _key == Engine.get_process_frames() and not lean_free:   # not a fade, not a probe
 		q = ReachLimit.lead_q(self, skel, _chest, _arms[hand], front, q, LEAN_MAX)   # the lean starts before the hit
-		return ReachLimit.turn_eased(_lean_st, skel, _chest, q, _key, int(get_meta("cg_pass", 0)), LEAN_RATE * _lean_dt)
+		return ReachLimit.turn_eased(_lean_st, skel, _chest, q, _key, int(get_meta("cg_pass", 0)), (LEAN_RATE_JAB if _clip.contains("jab") else LEAN_RATE) * _lean_dt)
 	ReachLimit.turn(skel, _chest, q)
 	return not q.is_equal_approx(Quaternion.IDENTITY)
 

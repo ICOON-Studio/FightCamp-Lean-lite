@@ -12,8 +12,9 @@ Digest: `ops/research/S505_DIGEST.md`.
 - s505c = the same with `leanrate=2.5`: jumps 63, but block_catch 4 -> 6 and hit_frame 6 -> 7 failures (red already).
 
 ## NEXT (in order)
-1. Collect Qwen LEANRED1 (`docs/LEANRED1_RESULT.md`, branch qwen/leanred1; measure only). Fix what the slower lean
-   moves in those two tests, then make 2.5 the default (`PunchReach.LEAN_RATE`).
+1. LEANRED1 is in (`docs/LEANRED1_RESULT.md`): 2.5 on hooks/crosses breaks 4 checks (hook carry 7 -> 31 cm). Built
+   `-- jabrate=` (jabs only, default 4.0). On an IDLE PC (never while the owner plays: block_catch read 9 even at 4.0):
+   block_catch + hit_frame with and without `jabrate=2.5`, then a 180 s film (seed 7) against s505b; adopt if green-equal.
 2. Merge Ziva PR 341 (COACHNECK2) once the owner OKs the still pair on 127.0.0.1:8787/review. Check CornerIK stays
    under 500 lines at merge.
 3. Film r11 (`--write-movie`, 1920x1080), sheets (`tools/film_sheets.py`, crop as r10), rulers, two NEW blind critics.

@@ -869,7 +869,7 @@
    "agent": "qwen",
    "id": "LEANRED1",
    "title": "TASK LEANRED1 - why block_catch and hit_frame are red, and why a slower punch lean makes them worse (measure only)",
-   "status": "running",
+   "status": "collected (S505): docs/LEANRED1_RESULT.md on main (its edit of the brief dropped)",
    "started": "2026-11-17T10:13",
    "eta": "2026-11-17T12:03",
    "branch": "qwen/leanred1",

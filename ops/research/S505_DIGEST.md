@@ -38,7 +38,10 @@
 - Q-266 on the board: where did he see "goose could not install godot".
 
 ## Next
-1. Read Qwen LEANRED1 -> decide leanrate 2.5 (fix the checks it moves, or keep 4.0).
+1. LEANRED1 (docs/LEANRED1_RESULT.md): 2.5 everywhere adds 4 reds, all crosses/hooks (a left hook carries 31 cm past
+   the face, was 7). Built `-- jabrate=` (slower lean on jabs only, default 4.0). Its tests could NOT be judged: with the
+   owner playing ArcheAge, block_catch read 9 failures even at the old rate (4 this morning) - frame timing. Measure
+   jabrate=2.5 (block_catch, hit_frame, a 180 s film) on an IDLE PC.
 2. Hands home after contact: traced in the chest frame (s505b jabs at 211, 595, 1011): the hand comes from ~55 cm to
    ~15 cm of the pre-punch guard in 4-6 frames, then sits 10-17 cm off it through the idle that follows - the guard
    itself is elsewhere after the punch (GuardTuck pump / inside guard). contact_home p50 25 is mostly PunchEnd's 8 cm
