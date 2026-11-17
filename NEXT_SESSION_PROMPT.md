@@ -4,8 +4,7 @@ Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. Road
 Digest: `ops/research/S509_DIGEST.md`.
 
 ## First
-- Q-S294-267 (may films render while he plays?) and Q-S294-268 (default effort medium instead of high?) on the board.
-  If he says medium: set `effortLevel` to "medium" in `~/.claude/settings.json` (his file; his yes is the go).
+- Q-S294-267 (may films render while he plays?) on the board. Q-268 answered "Yes, medium": effortLevel is medium (S509).
 - He sent a usage-cost video (Fable 5.2 cheap). Done: `.claude/agents/Explore.md` puts search helpers on Haiku. The video's
   other rule for us: do not split small jobs across helpers (briefing + re-reading costs more than doing it).
 
