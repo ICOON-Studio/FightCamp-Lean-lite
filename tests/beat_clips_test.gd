@@ -12,7 +12,8 @@ func _initialize() -> void:
 	var jabs := {}
 	for i in 20:
 		jabs[BeatClips.react("jab", false, all, i / 20.0)] = true
-	_check(jabs.size() >= 5, "a jab to the head plays %d different reactions (was 1)" % jabs.size())
+	# S510: 4 (was 5) - the jab's pool holds the four jab-SIZED Pro reactions (BeatClips.REACT: pools by size, not name)
+	_check(jabs.size() >= 4, "a jab to the head plays %d different reactions (was 1)" % jabs.size())
 	_check(BeatClips.BIG_REACT.has(BeatClips.react("lead_hook", false, all, 0.5, true)), "the big shot plays a big snap")
 	_check(BeatClips.react("body_hook", false, all, 0.5, true) in BeatClips.REACT["body_hook"], "a big body shot keeps a body reaction")
 	for pool in [BeatClips.WIN, BeatClips.OUT, BeatClips.DOWN, BeatClips.TIRED]:

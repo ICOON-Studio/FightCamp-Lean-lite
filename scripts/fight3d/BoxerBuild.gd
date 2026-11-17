@@ -18,6 +18,7 @@ const JoinSmoother := preload("res://scripts/fight3d/JoinSmoother.gd")
 const PunchReach := preload("res://scripts/fight3d/PunchReach.gd")
 const HitSnap := preload("res://scripts/fight3d/HitSnap.gd")
 const PopCap := preload("res://scripts/fight3d/PopCap.gd")
+const GuardBox := preload("res://scripts/fight3d/GuardBox.gd")
 const ArmHome := preload("res://scripts/fight3d/ArmHome.gd")
 const GloveClear := preload("res://scripts/fight3d/GloveClear.gd")
 const GuardTuck := preload("res://scripts/fight3d/GuardTuck.gd")
@@ -147,6 +148,7 @@ static func build(stage: Node3D, spec: Dictionary, index: int) -> Dictionary:
 	# S497: the punching arm comes home ahead of the body (ArmHome, just before the reach; `noarmhome` = the control arm).
 	var ah := ArmHome.new()
 	ah.name = "ArmHome"
+	ah.lead = "RightHand" if south else "LeftHand"
 	if pr != null and ah.setup(skel, ap, pr):
 		skel.add_child(ah)
 		skel.move_child(ah, pr.get_index())
@@ -236,8 +238,14 @@ static func build(stage: Node3D, spec: Dictionary, index: int) -> Dictionary:
 	var pcap := skel.find_child("PopCap", false, false)   # S496: the pop cap reads the pose every other layer drew
 	if pcap != null:
 		skel.move_child(pcap, (tw.get_index()) if tw != null else skel.get_child_count() - 1)
+	# S510: the glove that is not punching stays under her crown (GuardBox; the last arm word, before the twist bones).
+	var gbox := GuardBox.attach(skel, ap, "RightHand" if south else "LeftHand")
+	if gbox != null:
+		skel.move_child(gbox, (tw.get_index()) if tw != null else skel.get_child_count() - 1)
 	if OS.get_cmdline_user_args().has("trunktap"):   # S505 debug: which layer moves the trunk on a head-jump frame
 		load("res://tools/trunk_tap.gd").attach_all(skel, ap, index)
+	if " ".join(OS.get_cmdline_user_args()).contains("handtap="):   # S510 debug: which layer moves a wrist on a jump frame
+		load("res://tools/hand_tap.gd").attach_all(skel, ap, index)
 	ap.animation_finished.connect(stage._on_finished.bind(index))
 	return {"node": body, "skel": skel, "ap": ap, "gloves": gl, "joinfeet": jf, "weave": gw, "js": js, "reach": pr, "snap": hs, "gclear": gc, "tuck": gt, "sag": ts, "knee": kt, "feet": fp, "rig": rig, "floor": fc, "stand": fs, "lock": fl, "life": life, "weight": pw, "look": look, "south": south, "front": gl.front_m(),
 		"pos": Vector3.ZERO, "vel": Vector3.ZERO, "move_left": 0.0,

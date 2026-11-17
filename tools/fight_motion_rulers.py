@@ -23,6 +23,9 @@ CUT_WINDOW = 6           # the hit boxer throwing within this many frames cuts h
 ARM_KEEP = 0.90          # arm still "out" while its length is >= 90 % of its length at contact
 HEADS_CLOSE_M = 0.25
 TRUNK_CLOSE_M = 0.22
+CROWN_M = 0.22           # S510 GuardBox.TOP_M: the head bone -> about the crown; a free glove's top over it is "above the head"
+GLOVE_TOP_M = 0.19       # wrist -> the glove's top along the forearm (no forearm logged: straight up, the worst case)
+BEAT_MAX_F = 8           # S510: a punch clip shown this many frames or fewer is a wait beat (paw / feint), not a punch
 STEP_LIFT_M = 0.03
 STEP_MIN_FRAMES = 3
 PUNCH_WORDS = ("jab", "cross", "hook", "uppercut", "body_shot", "kidney")
@@ -47,9 +50,11 @@ def is_react(clip):
 
 
 def punch_hand(clip):
-    if "kidney" in clip:
+    # S510: pro_body_shot is thrown with the RIGHT hand (its contact row, GuardTuck.free_of); read on the left it gave the
+    # r12 "arm out 29 frames" (the free glove by the chin never drops under 90 % of its distance).
+    if "kidney" in clip or "body_shot" in clip:
         return "RightHand"
-    return "LeftHand" if ("left" in clip or "jab" in clip or "body_shot" in clip) else "RightHand"
+    return "LeftHand" if ("left" in clip or "jab" in clip) else "RightHand"
 
 
 def load(path):
@@ -147,9 +152,11 @@ def measure(path, fps=30.0):
                 react_rows.append((float(r["film_s"]), who, r["clip"], round(best * 100, 1), best_k))
                 # S504: the same reaction's kind, its step back (hips away from the hitter over STEP_WINDOW frames) and its
                 # turn (the hip line's yaw at its largest inside the window), for the per-kind rows.
-                kind = react_kind(r["clip"])
                 other = by_frame.get(r["_f"], {})
                 hitter = next((o for w2, o in other.items() if w2 != who), None)
+                # S510: the kind is the PUNCH that hit (the hitter's clip on the contact frame), not the reaction clip's name:
+                # the reaction pools are sorted by size now (a cross can play pro_hit_by_jab_v2_short).
+                kind = react_kind(hitter["clip"]) if hitter is not None and is_punch(hitter["clip"]) else react_kind(r["clip"])
                 back, turn, world = 0.0, 0.0, 0.0
                 if hitter is not None:
                     h0, o0 = _v(r, "Hips"), _v(hitter, "Hips")
@@ -210,6 +217,40 @@ def measure(path, fps=30.0):
         b["waiting_pct"] = round(100.0 * sum(wait) / max(1, len(rows)), 1)
         b["longest_wait_s"] = round(longest / fps, 2)
         b["punching_pct"] = round(100.0 * sum(is_punch(q["clip"]) for q in rows) / max(1, len(rows)), 1)
+        # S510 free glove: while a punch plays, the other glove's top over the crown line (frames, worst cm)
+        over, worst = 0, 0.0
+        for q in rows:
+            if not is_punch(q["clip"]):
+                continue
+            free = "RightHand" if punch_hand(q["clip"]) == "LeftHand" else "LeftHand"
+            w = _v(q, free)
+            arm = free.replace("Hand", "LowerArm") + "_x"
+            if arm in q and q[arm] not in ("", None):
+                e = _v(q, free.replace("Hand", "LowerArm"))
+                d = _sub(w, e)
+                n = math.sqrt(sum(c * c for c in d)) or 1.0
+                top_y = w[1] + d[1] / n * GLOVE_TOP_M
+            else:
+                top_y = w[1] + GLOVE_TOP_M
+            h = top_y - _v(q, "Head")[1] - CROWN_M
+            if h > 0.0:
+                over += 1
+                worst = max(worst, h)
+        b["free_glove_over_frames"] = over
+        b["free_glove_over_cm"] = round(worst * 100, 1)
+        # S510 wait beats by hand: short runs of a punch clip (owner S509: "why they only throw puches with one hand ?")
+        lead_n, rear_n, run, prev = 0, 0, 0, ""
+        for q in rows + [{"clip": ""}]:
+            if q["clip"] == prev:
+                run += 1
+                continue
+            if prev and is_punch(prev) and run <= BEAT_MAX_F:
+                if punch_hand(prev) == "LeftHand":
+                    lead_n += 1
+                else:
+                    rear_n += 1
+            prev, run = q["clip"], 1
+        b["wait_beats_lead_rear"] = "%d / %d" % (lead_n, rear_n)
         out["boxers"][who] = b
     # 5 spacing
     hips, heads_close, trunk_close, n_both = [], 0, 0, 0
@@ -276,7 +317,9 @@ SUMMARY = [
     ("head_in_trunk_frames", "a head inside the other's body (frames)"),
 ]
 PER_BOXER = [("waiting_pct", "waiting in guard (%)"), ("longest_wait_s", "longest wait (s)"),
-             ("punching_pct", "punching (%)"), ("steps_per_min", "steps a minute"), ("highest_lift_cm", "highest foot lift (cm)")]
+             ("punching_pct", "punching (%)"), ("steps_per_min", "steps a minute"), ("highest_lift_cm", "highest foot lift (cm)"),
+             ("free_glove_over_frames", "free glove top over the crown (frames)"), ("free_glove_over_cm", "free glove over the crown, worst (cm)"),
+             ("wait_beats_lead_rear", "short paws/feints by hand, lead / rear")]
 
 
 def report(m):

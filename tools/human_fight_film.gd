@@ -16,7 +16,7 @@ const TestJump := preload("res://scripts/ui/TestJump.gd")
 const FightIntro := preload("res://scripts/fight3d/FightIntro.gd")
 const FastDraw := preload("res://tools/fast_draw.gd")
 const BeatTally := preload("res://scripts/fight3d/BeatTally.gd")
-const BONES := ["Hips", "Head", "LeftUpperLeg", "RightUpperLeg", "LeftLowerLeg", "RightLowerLeg", "LeftFoot", "RightFoot", "LeftToes", "RightToes", "LeftHand", "RightHand", "Chest", "UpperChest", "Neck", "LeftShoulder", "RightShoulder"]
+const BONES := ["Hips", "Head", "LeftUpperLeg", "RightUpperLeg", "LeftLowerLeg", "RightLowerLeg", "LeftFoot", "RightFoot", "LeftToes", "RightToes", "LeftHand", "RightHand", "Chest", "UpperChest", "Neck", "LeftShoulder", "RightShoulder", "LeftLowerArm", "RightLowerArm"]   # S510: forearms (the free glove ruler)
 
 var main: Node
 var out_dir := "user://human_fight_film"

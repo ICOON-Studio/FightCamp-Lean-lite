@@ -65,6 +65,13 @@ var capped_frames := 0           # probes read it
 ## fault is "a landed punch gets no reaction". A blow IS a fast head: HitImpact frees her for FREE_HIT_S from the hit.
 const FREE_HIT_S := 0.25
 var free_s := 0.0
+## S510 (r12: the worst head jumps were ALL hit reactions in their first frames - 21, 18, 18, 16 cm in one 30 fps frame,
+## cross_v3 57 cm in 4 frames; animator: "no head more than 9 cm a frame except the contact frame of a power shot, cap 14
+## cm"): a freed hit is no longer free of any cap - its head travels at most HIT_MAX_MPS (11.3 cm a 30 fps frame). The
+## reaction's size is kept (each frame is capped against the last drawn pose, so the head catches up a frame later).
+## `-- freehits` = free as before.
+const HIT_MAX_MPS := 3.4   # 4.2 (14 cm a frame) first: the headless r13 log read MORE frames over the ruler's 12 cm (11 -> 15); 3.4 = 11.3 cm, still 23 cm in two frames
+static var hit_cap: bool = not OS.get_cmdline_user_args().has("freehits")
 
 
 func setup(skel: Skeleton3D) -> bool:
@@ -104,9 +111,10 @@ func _process_modification() -> void:
 		# the head's whole travel; the chain gives back what the hips' slide adds (it leans against it), never more than all.
 		var d_tot := _abs(skel).distance_to(_ref_abs)
 		var d_rel := head.distance_to(_ref_head)
-		var cap := HEAD_MAX_MPS * dt
-		if free_s <= 0.0 and d_tot > cap and d_tot < TELEPORT_M and d_rel > 0.001:
-			var held := 0.0 if pre else _holding(skel)
+		var freed := free_s > 0.0
+		var cap := (HIT_MAX_MPS if freed else HEAD_MAX_MPS) * dt
+		if (not freed or hit_cap) and d_tot > cap and d_tot < TELEPORT_M and d_rel > 0.001:
+			var held := 0.0 if (pre or freed) else _holding(skel)
 			var capped_held := hold_cap and held > 0.0 and _letting_go(skel, held)
 			var keep := lerpf(clampf(1.0 - (d_tot - cap) / d_rel, 0.0, 1.0), 1.0, 0.0 if capped_held else held)
 			if keep < 0.999:

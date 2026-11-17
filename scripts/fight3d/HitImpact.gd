@@ -20,7 +20,11 @@ const HOLD_S := {"jab": 0.03, "power": 0.05, "big": 0.06}
 ## S502 hit reactions sized (both blind critics r8, item 2: jab 6-10 cm, cross 12-20 cm, hook a 20-40 deg head turn, peak
 ## 2-3 frames after contact; the r7 film read jab 4.3-6.8 cm, cross 6.0-8.4, hook 6.1-13.4, peak a median 5 frames late).
 ## The snap is the part that peaks at once (RISE_S), so it carries the size now; the clip follows. `-- oldsnap` = S396 sizes.
-const SNAP_DEG := {"jab": 15.0, "cross": 28.0, "hook": 28.0, "uppercut": 22.0}
+## S510 (both r12 critics, item 3: cross 18-25 cm, hook 20-30 cm; r12 read cross 14.6, hook 14.4, a landed jab 4.6 cm):
+## hook 28 -> 33 (14.4 -> 20 cm), and a tired arm's punch still snaps at least SNAP_FLOOR of it. The cross stays 28 / give
+## 1.45: its size comes from the reaction pools sorted by size (BeatClips.REACT; 33 / 1.6 on top of them read 31 cm).
+const SNAP_DEG := {"jab": 15.0, "cross": 28.0, "hook": 33.0, "uppercut": 22.0}
+const SNAP_FLOOR := 0.85
 const SNAP_DEG_OLD := {"jab": 11.0, "cross": 16.0, "hook": 19.0, "uppercut": 17.0}
 static var sized_snap: bool = not OS.get_cmdline_user_args().has("oldsnap")
 const CROSS_GIVE := 1.45   # S502: a cross's trunk give (28 deg x 0.55 x 1.45 = 22 -> capped at 14 x 1.45 = 20 deg)
@@ -151,7 +155,7 @@ static func hit(st: Node, who: int, clip: String, speed: float, hitter: int, mov
 			to_t = lat.normalized() + line * 0.3
 	elif sized_snap and move.contains("cross"):
 		give = CROSS_GIVE
-	snap.snap(to_t, deg * (1.5 if big else 1.0) * float(power.get(arm, 1.0)), give)
+	snap.snap(to_t, deg * (1.5 if big else 1.0) * maxf(float(power.get(arm, 1.0)), SNAP_FLOOR if sized_snap else 0.0), give)
 
 
 ## The hit-stop: both AnimationPlayers stand still (whatever speed a move set is kept and given back after).

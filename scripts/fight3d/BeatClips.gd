@@ -54,9 +54,14 @@ const OFF_TAKES := ["pro_left_jab_special", "pro_left_jab_hard_ft", "pro_right_c
 ## until S310: every jab to the head played jab_v1_short). The big head snaps (hook v6/v7/v8, peak 0.65-0.79 m) are the
 ## big shot's (BIG_REACT); the whole-combination reactions are the hurt boxer's.
 const REACT := {
-	"jab": ["pro_hit_by_jab_v1_short", "pro_hit_by_jab_v2_short", "pro_hit_by_jab_v3", "pro_hit_by_jab_v4_short",
-		"pro_hit_by_jab_v5_short", "mc_hit_jab", "react_head"],
-	"cross": ["pro_hit_by_cross_v1_short", "pro_hit_by_cross_v2_short", "pro_hit_by_cross_v3", "mc_hit_jab", "react_head"],
+	# S510: the straight-punch pools are sorted by the clip's SIZE, not its name (the r13 log: a landed jab moved the head
+	# 5.3 cm with jab_v1_short - its furthest point comes 0.6 s in - and 18-21 cm with jab_v2_short, more than a cross's
+	# 13-17 cm with cross_v2_short; critics: jab 8-12 cm, cross 18-25 cm, "never less than the jab's"). clip_recovery.json
+	# peak_m / peak_s: jab_v3 0.16 / 0.33, jab_v4_short 0.19 / 0.23, jab_v5_short 0.12 / 0.47, cross_v2_short 0.12 / 0.37
+	# = a jab's; jab_v2_short 0.27 / 0.27, cross_v1_short 0.25 / 0.37, cross_v3 0.30 / 0.33 = a cross's. jab_v1_short is out.
+	"jab": ["pro_hit_by_jab_v3", "pro_hit_by_jab_v4_short", "pro_hit_by_jab_v5_short", "pro_hit_by_cross_v2_short",
+		"mc_hit_jab", "react_head"],
+	"cross": ["pro_hit_by_cross_v1_short", "pro_hit_by_jab_v2_short", "pro_hit_by_cross_v3", "mc_hit_jab", "react_head"],
 	"lead_hook": ["pro_hit_by_hook_v1_short", "pro_hit_by_hook_v2_short", "pro_hit_by_hook_v3_short", "pro_hit_by_hook_v5",
 		"mc_hit_hook", "react_head"],
 	"rear_uppercut": ["pro_hit_by_uppercut_v1", "pro_hit_by_hook_v1_short", "mc_hit_hook", "react_head"],

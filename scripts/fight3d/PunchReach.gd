@@ -132,8 +132,7 @@ func arm(clip: String, hand_bone: String, contact_s: float, target: Callable, gl
 	_front = glove_front_m
 	_height_only = false   # HEADAIM2: full aim by default
 	_thru = through_m
-	_peak_v = 0.0
-	_prev_g = Vector3.INF
+	_peak_v = 0.0; _prev_g = Vector3.INF
 	_prev_t = -1.0
 	_hit_w = Vector3.INF
 	hit_face = Vector3.INF
@@ -257,6 +256,7 @@ func _process_modification() -> void:
 		var ramp := clampf(_armed_t / IN_S, 0.0, 1.0)
 		_apply(skel, ap.current_animation_position, ramp * ramp * (3.0 - 2.0 * ramp))
 	ReachLimit.hand_rate(self, skel, dt)
+	if LEAN_EASE: ReachLimit.lean_out(_lean_st, skel, _chest, LEAN_RATE * dt)   # S510: a lean no solve drew this frame eases out
 
 
 ## The armed punch at clip time t (the pose on the skeleton must be the clip's at t): what the modifier does each frame,
@@ -278,8 +278,7 @@ func _apply(skel: Skeleton3D, t: float, ramp: float) -> void:
 		_aim_w = ReachLimit.cap(_prev_g, dv, skel.global_transform.basis * ReachLimit.body_shift(skel, int(_arms[_hand][2]))) if ReachLimit.capping(self) else dv   # _drive just read this frame's clip glove
 		if drive_v > 0.0 and t <= _contact + 1e-4:
 			_w_now = ramp   # ReachDrive sets where the glove goes (far out: the clip's own glove)
-	last_weight = _w_now
-	_last_w = 0.0
+	last_weight = _w_now; _last_w = 0.0
 	if drive and _hit_w.is_finite() and t > _contact and _prev_g.is_finite() and _aim_w.is_finite():
 		# Review round 2 (hit_carry_test only=pro_right_cross: the clip's glove is still 0.3-0.5 m past her face when the
 		# weight goes; let go there, the glove jumped 0.29 m through her head). It lets go as the clip's glove comes back.
@@ -386,7 +385,7 @@ func _carried(t: float) -> float:
 
 ## S331 (INSIDEMISS1): re-lands the armed glove after later modifiers moved her trunk (GloveClear's head lean, HitSnap):
 ## an inside jab's glove rode the lean 0.25 m to the side of the face (hit_gap_probe). `-- nosettle` = the control arm.
-static var SETTLE: bool = not OS.get_cmdline_user_args().has("nosettle")
+static var SETTLE: bool = not OS.get_cmdline_user_args().has("nosettle"); static var LETGO_LEAN: bool = OS.get_cmdline_user_args().has("letgolean")
 func settle() -> void:
 	var skel := get_skeleton()
 	if SETTLE and skel != null and _clip != "" and _w_now > 0.0:
@@ -452,7 +451,8 @@ func _reach(skel: Skeleton3D, hand: String, w: float, target_fn: Callable, glove
 	var reach := ReachLimit.reach(_clip if hand == _hand else "", l1, l2)
 	if hand == _hand and _hit_f == _key:
 		hit_s = skel.global_transform * s   # review round 1: her shoulder on the hit frame before any lean (RangeLive)
-	var lean_to := ReachLimit.lean_to(_clip if hand == _hand and DRIVE and _thru > 0.0 else "", s.distance_to(want), reach, l1, l2)
+	# S510: no elbow-fold lean in the let-go (the glove coming home is "too close": the chest leaned back, then dropped it the frame the hold ended - join_return cross 10.8 m/s). `-- letgolean` = as before.
+	var lean_to := ReachLimit.lean_to(_clip if hand == _hand and DRIVE and _thru > 0.0 and (LETGO_LEAN or _hit_f < 0 or _w_now >= 1.0) else "", s.distance_to(want), reach, l1, l2)
 	if _chest >= 0 and _lean(skel, hand, s, want, lean_to, w, glove_front):
 		s = skel.get_bone_global_pose(int(ids[0])).origin
 		if DRIVE:
@@ -483,6 +483,7 @@ func _lean(skel: Skeleton3D, hand: String, s: Vector3, want: Vector3, lean_to: f
 	if LEAN_EASE and hand == _hand and _clip != "" and _key == Engine.get_process_frames() and not lean_free:   # not a fade, not a probe
 		q = ReachLimit.lead_q(self, skel, _chest, _arms[hand], front, q, LEAN_MAX)   # the lean starts before the hit
 		return ReachLimit.turn_eased(_lean_st, skel, _chest, q, _key, int(get_meta("cg_pass", 0)), (LEAN_RATE_JAB if _clip.contains("jab") else LEAN_RATE) * _lean_dt)
+	if ReachLimit.LEAN_OUT and LEAN_EASE and _key >= 0 and _key != Engine.get_process_frames() and not lean_free: return false   # S510: a FADE (solved before this frame's armed punch) leaned raw on top of the eased lean that already carries it (hook -> cross, head 18 cm in a frame); the eased lean / lean_out own the chest
 	ReachLimit.turn(skel, _chest, q)
 	return not q.is_equal_approx(Quaternion.IDENTITY)
 

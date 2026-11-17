@@ -53,6 +53,9 @@ const INSIDE_LOOK_S := 7.0
 const EDGE_M := 0.22
 const SPELL_HOLD_S := 0.35
 static var inside_edge: bool = not OS.get_cmdline_user_args().has("noinsideedge")
+## S510: a burst that is over steps out at once (the pocket's edge) instead of holding the last punch's range.
+## `-- nopocketexit` = the old hold.
+static var pocket_exit: bool = not OS.get_cmdline_user_args().has("nopocketexit")
 
 
 ## The range the stage keeps at view time t. `next` = the first beat not yet fired.
@@ -87,6 +90,10 @@ static func phase(beats: Array, next: int, t: float) -> Dictionary:
 	if since < EXIT_AFTER_S or since + to_next < BURST_GAP_S:
 		if step4 and not nxt.is_empty() and to_next < BURST_GAP_S:
 			return {"phase": "pocket", "who": _who(nxt), "move": str(nxt["move"])}   # POWER1 step 4: set for the next one
+		if pocket_exit and (nxt.is_empty() or to_next >= BURST_GAP_S):
+			# S510 (r12 wait #13-24: after a burst's last jab blue stepped IN to 0.87 m, heads 0.48 m, gloves on gloves, for
+			# nothing; both critics: "after a combination, step out within 8-10 frames"): the burst is over - start the exit.
+			return {"phase": "pocket", "who": -1, "move": "", "edge": true}
 		return {"phase": "pocket", "who": -1, "move": str(last.get("move", nxt.get("move", "jab")))}
 	# Out of range: the one who did NOT throw the last punch steps out first (the stage falls back to the other).
 	return {"phase": "rest", "who": 1 - _who(last) if not last.is_empty() else -1, "move": ""}

@@ -232,6 +232,25 @@ static func turn_eased(st: Dictionary, skel: Skeleton3D, chest: int, q: Quaterni
 	return true
 
 
+## S510 (r12 19.8 s: a landed hook straight into a cross, the head 18 cm in one frame; join_return cross): the eased lean
+## was only ever drawn by a reach that solved this frame - when the punch ended, let go or a new one armed at weight 0, the
+## lean left over (up to LEAN_TOTAL) was dropped in one frame and the head and arm popped with the chest. Called at the
+## end of every PunchReach frame: when no solve leaned this frame, last frame's lean eases out at `step`, and the next
+## punch's lean carries on from it. `-- noleanout` = the control arm.
+static var LEAN_OUT: bool = not OS.get_cmdline_user_args().has("noleanout")
+static func lean_out(st: Dictionary, skel: Skeleton3D, chest: int, step: float) -> void:
+	var f := Engine.get_process_frames()
+	if not LEAN_OUT or chest < 0:
+		return
+	if int(st["key"]) == f:
+		if int(st["pass"]) == -2:
+			turn(skel, chest, st["now"] as Quaternion)   # a second pass of the stack in the frame: the same lean again
+		return
+	if f - int(st["key"]) != 1 or (st["now"] as Quaternion).get_angle() < 1e-3:
+		return
+	turn_eased(st, skel, chest, Quaternion.IDENTITY, f, -2, step, 0.0)
+
+
 ## S448 (the played lead uppercut, after its hit): while the reach holds a landed glove on its carry at full weight, the
 ## fist keeps the angle to the forearm it had on the hit frame (latch_hand). The clip's own hand turned up over her head
 ## while the reach held the forearm on her face: the wrist bent ~180 deg, and the glove's axis (the forearm's
@@ -406,7 +425,7 @@ static func carry_base(face: Vector3, shown: Vector3, clip: String, w: float = 1
 ## `st` is the punch's own state ({} at arm). `-- norehold` = the control arm. Returns the hold's weight, 0..1.
 const HOME_IN_M := 0.02
 const HOME_BACK_M := 0.03
-const HOME_S := 0.20
+const HOME_S := 0.13   # S510: 0.20 -> 0.13 (r12 critics: "arm home within 3-4 frames"; the trace had a landed cross's hold 1.0 for 10 frames at 60 a second, then 12 more letting go)
 static var one_way: bool = not OS.get_cmdline_user_args().has("norehold")
 static func hold_one_way(st: Dictionary, glove: Vector3, aim: Vector3, dir: Vector3, release_m: Vector2, dt: float) -> float:
 	var out_m := (glove - aim).dot(dir)
