@@ -342,7 +342,7 @@ func _answer(place: String, when: String) -> Control:
 		top.add_child(st)
 	var row := UI.hbox(6)
 	v.add_child(row)
-	_rating(row, _opt(PlanLines.options(place, PlanLines.sit_for(when, _game()), f.get("moves", {}), f.get("combos", {})), mid))
+	_rating(row, GamePlanRows.film_fit(self, _opt(PlanLines.options(place, PlanLines.sit_for(when, _game()), f.get("moves", {}), f.get("combos", {})), mid), when))
 	_in_bouts(row, mid)
 	GamePlanRows.phase_tag(self, row, i)
 	return card

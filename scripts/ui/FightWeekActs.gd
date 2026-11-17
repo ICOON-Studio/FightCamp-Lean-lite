@@ -6,7 +6,7 @@ extends RefCounted
 const FightWeekPlan := preload("res://scripts/state/FightWeekPlan.gd")
 const FightWeek := preload("res://scripts/rules/FightWeek.gd")
 const FilmNight := preload("res://scripts/state/FilmNight.gd")
-const FightAnalysis := preload("res://scripts/ui/FightAnalysis.gd")
+const FightAnalysis := preload("res://scripts/ui/FightAnalysisTape.gd")   # S511: + Write the answer after File it
 
 
 static func act(main: Node, name: String, arg: String) -> bool:
@@ -84,6 +84,8 @@ static func _film_night(main: Node, c: Career, f: Dictionary, plan: Dictionary) 
 	var films := FilmNight.films(c, f)
 	var page := FightAnalysis.new()
 	page.name = "FightAnalysis"
+	page.main_ref = main
+	page.fighter = f
 	var on_check := func(claim: Dictionary, seen: Array) -> Dictionary: return FilmNight.check(f, claim, seen)
 	var on_file := func(claim: Dictionary, word: String, n: int) -> void: FilmNight.file(f, claim, word, n)
 	var on_done := func() -> void:

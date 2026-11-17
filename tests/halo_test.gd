@@ -56,7 +56,7 @@ func _initialize() -> void:
 			"res://scripts/ui/GuideLight.gd", "res://scripts/grapple/BeltMatch.gd", "res://scripts/ui/areas/GrapplerPage.gd",
 			"res://scripts/ui/Bracket.gd", "res://scripts/ui/CoachSteps.gd", "res://scripts/ui/CreateScreen.gd",
 			"res://scripts/ui/GamePlan.gd", "res://scripts/ui/PlanChart.gd", "res://scripts/ui/MatSystems.gd", "res://scripts/ui/MatTree.gd",
-			"res://scripts/ui/TapeRoom.gd", "res://scripts/ui/FlowView.gd", "res://scripts/ui/DrillCard.gd"]:
+			"res://scripts/ui/FlowView.gd", "res://scripts/ui/DrillCard.gd"]:
 		var src := FileAccess.get_file_as_string(path)
 		var scr := load(path) as GDScript
 		_check(scr != null and scr.reload() == OK, "%s parses" % path.get_file())

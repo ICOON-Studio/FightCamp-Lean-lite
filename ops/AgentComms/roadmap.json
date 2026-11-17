@@ -2144,7 +2144,7 @@
   {
    "id": "S510",
    "date": "2026-11-17",
-   "what": "Animation moved to a Fable 5.2 high session looping to 7/10 (r13 built, unscored). FIGHTFILM1 slices 1-5: film night watched yourself, wired to fight week, Fight prep, opponent file card, corner minute, coach card (film_night_test 26 ok). Qwen SPLIT500B running. C: log spam (4 GB Godot logs from crashing film runs) found and cleaned."
+   "what": "Animation moved to a Fable 5.2 high session looping to 7/10 (r13 blind 4.5 / 4.5, down from 5 / 5; r14 in work: stand up, punch flight, reaction size). FIGHTFILM1 slices 1-5: film night watched yourself, wired to fight week, Fight prep, opponent file card, corner minute, coach card (film_night_test 26 ok). Qwen SPLIT500B running. C: log spam (4 GB Godot logs from crashing film runs) found and cleaned."
   }
  ],
  "blocked_on_operator": [],

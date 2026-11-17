@@ -27,7 +27,9 @@ const ResultScorecard := preload("res://scripts/ui/ResultScorecard.gd")   # S504
 
 ## The judges' verdict words (JudgeNight.verdict_words reads the same m["judges"]).
 const VERDICT := {"unanimous": "unanimous decision", "split": "split decision", "majority": "majority decision", "draw": "a draw"}
-const TABS := [["summary", "SUMMARY"], ["scorecard", "SCORECARD"], ["exchanges", "THE EXCHANGES"], ["numbers", "THE NUMBERS"], ["plan", "THE PLAN"]]
+const TABS := [["summary", "SUMMARY"], ["scorecard", "SCORECARD"], ["exchanges", "THE EXCHANGES"], ["numbers", "THE NUMBERS"], ["plan", "THE PLAN"],
+	["punches", "PUNCH BY PUNCH"]]   # S511 FIGHTFILM1 map 5: opens the FIGHT ANALYSIS page on the whole fight
+const FightAnalysisOwn := preload("res://scripts/ui/FightAnalysisOwn.gd")
 const WIDE := 1800.0
 const TEXT := 20
 
@@ -226,6 +228,9 @@ static func _tab_bar(main: Node, m: Dictionary, open: String) -> HBoxContainer:
 	for t in TABS:
 		var on := str(t[0]) == open
 		var b := UI.button(str(t[1]), "Btn" if on else "BtnQuiet", func():
+			if str(t[0]) == "punches":
+				punches(main, m)
+				return
 			m["result_tab"] = str(t[0])
 			main.redraw_modal())
 		b.name = "ResultTab_" + str(t[0])
@@ -242,6 +247,21 @@ static func _tab_bar(main: Node, m: Dictionary, open: String) -> HBoxContainer:
 		b.custom_minimum_size = Vector2(220, 46)
 		bar.add_child(b)
 	return bar
+
+
+## PUNCH BY PUNCH: the FIGHT ANALYSIS page on this bout - its results row (tape, FightWhy lines, cards), else the moment.
+static func punches(main: Node, m: Dictionary) -> Control:
+	var c: Career = main.career
+	var f: Dictionary = c.fighter_by_id(str(m["fid"]))
+	var row: Dictionary = {}
+	for r in c.results:
+		if str(r.get("fid", "")) == str(m["fid"]) and (r as Dictionary).has("tape"):
+			row = r
+			break
+	if row.is_empty():
+		row = {"tape": m.get("tape", []), "why3": m.get("why3", []), "d": c.day, "outcome": str(m.get("outcome", "")),
+			"opp": str(((f.get("bout", {}) as Dictionary).get("opp", {}) as Dictionary).get("name", ""))}
+	return FightAnalysisOwn.open(main, f, row)
 
 
 ## THE SUMMARY: the one cause and its fix beside what the bout cost, then the rounds.

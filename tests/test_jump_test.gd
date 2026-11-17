@@ -142,9 +142,9 @@ func _initialize() -> void:
 			continue
 		if jump == "taperoom":
 			# S343 (Q-S294-68): in her camp with film study, the tape room opens on her opponent's films.
-			var room: Node = main.get_node_or_null("TapeRoom")
-			_check(ok and room != null and (room.clips as Array).size() >= 2 and bool(f["camp"].get("film", false)),
-				"taperoom: her camp has film study and the tape room shows %d films" % ((room.clips as Array).size() if room != null else 0))
+			var room: Node = main.get_node_or_null("FightAnalysis")   # S511: the Tape Room retired into FIGHT ANALYSIS
+			_check(ok and room != null and (room.films as Array).size() >= 2 and bool(f["camp"].get("film", false)),
+				"taperoom: her camp has film study and Watch the tape shows %d films" % ((room.films as Array).size() if room != null else 0))
 			main.queue_free()
 			await process_frame
 			continue

@@ -406,7 +406,7 @@ static func _top(d: Dictionary) -> String:
 	return best
 
 ## THE FILM's rounds strip: per round the corner that won more of its exchanges (FilmBout `won` = the other corner won).
-static func rounds_strip(bout: Dictionary, rounds: int) -> HBoxContainer:
+static func rounds_strip(bout: Dictionary, rounds: int, side_words: Array = ["Them", "The other"]) -> HBoxContainer:
 	var strip := UI.hbox(6)
 	for r in rounds:
 		var other := 0
@@ -425,10 +425,10 @@ static func rounds_strip(bout: Dictionary, rounds: int) -> HBoxContainer:
 		var words: String = "not boxed"
 		var ink: Color = Palette.MUTED
 		if them > other:
-			words = "Them %d-%d" % [them, other]
+			words = "%s %d-%d" % [side_words[0], them, other]
 			ink = Palette.BLUE_CORNER
 		elif other > them:
-			words = "The other %d-%d" % [other, them]
+			words = "%s %d-%d" % [side_words[1], other, them]
 			ink = Palette.RED_CORNER
 		elif them > 0:
 			words = "Even %d-%d" % [them, other]

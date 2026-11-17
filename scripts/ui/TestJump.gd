@@ -243,7 +243,7 @@ static func run(main: Node, jump: String) -> bool:
 		# S343: her camp with film study opens the tape room on her opponent (Q-S294-68).
 		main.act("fighter", str(f["id"]))
 		main.act("taperoom", str(f["id"]))
-		return main.get_node_or_null("TapeRoom") != null
+		return main.get_node_or_null("FightAnalysis") != null   # S511: the Tape Room retired into FIGHT ANALYSIS
 	for i in 60:
 		if Bouts.weigh_in_today(c, f):
 			break

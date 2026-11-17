@@ -18,8 +18,13 @@ const ModeTells := preload("res://scripts/rules/ModeTells.gd")
 const RoundStyle := preload("res://scripts/rules/RoundStyle.gd")
 const OppFile := preload("res://scripts/rules/OppFile.gd")
 const FilmTruth := preload("res://scripts/rules/FilmTruth.gd")
+const PlanLines := preload("res://scripts/rules/PlanLines.gd")
+const FighterProfile := preload("res://scripts/rules/FighterProfile.gd")
 
 const OPP_CHECK_CAP := 6   # map 7b.7: at most 6 checks an opponent across every night
+## A claim's moment -> the plan situation that answers it, when its words name no habit (a weakness or noise).
+const SIT_OF_WHEN := {"jab": "range", "cross": "range", "hook": "range", "combo": "tiring", "hurt": "hurt",
+	"last_min": "tiring", "round1": "tiring", "after_body": "range", "walked": "range"}
 
 
 static func _opp(f: Dictionary) -> Dictionary:
@@ -147,3 +152,26 @@ static func file(f: Dictionary, claim: Dictionary, word: String, n_films: int) -
 	if word == "pass" and tell != "":
 		OppFile.open(opp, tell)
 	return entry
+
+
+## S511 Playbook > Game plan (map 6, 3.5): the plan situation a filed claim rests on - the habit its words name
+## (PlanLines.HABIT_SITS, real or not), else its moment (SIT_OF_WHEN).
+static func sit_of(e: Dictionary) -> String:
+	var t := FilmPattern.matches(FighterProfile.HABITS, "", e)
+	if t.begins_with("habit:"):
+		return str(PlanLines.HABIT_SITS.get(t.trim_prefix("habit:"), ""))
+	return str(SIT_OF_WHEN.get(str(e.get("when", "")), ""))
+
+
+## The filed claim a plan line on situation `sit` rests on: a confirmed one first, then the strongest still open, then a
+## cleared one; {} when none.
+static func claim_on(opp: Dictionary, sit: String) -> Dictionary:
+	var best := {}
+	var rank := {"confirmed": 3, "": 2, "cleared": 1}
+	for e in (opp.get("filed", []) as Array):
+		if sit == "" or sit_of(e) != sit:
+			continue
+		var r := int(rank.get(str(e.get("state", "")), 0)) * 1000 + int(e.get("pct", 0))
+		if best.is_empty() or r > int(rank.get(str(best.get("state", "")), 0)) * 1000 + int(best.get("pct", 0)):
+			best = e
+	return best

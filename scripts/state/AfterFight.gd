@@ -46,12 +46,28 @@ static func book(c: Career, f: Dictionary, m: Dictionary, before: Dictionary, ba
 	if not BoutMarks.seen_all(m):   # S439: a skipped or unwatched bout still leaves its marks (the settled rounds)
 		m["body_map"] = BoutMarks.build(c, f, m)
 	m["tape"] = BoutTape.build(c, f, m)   # S495 FIGHTFILM1: every punch, for the fight analysis page (map section 1)
+	keep_tape(c, f, m)
 	if not m.has("bodies"):   # no ring drew them: the same pick the ring makes (FightCast.bodies_for)
 		var pick := Faces.pair(f, (f["bout"] as Dictionary).get("opp", {}))
 		m["bodies"] = [Faces.glb(pick[0]), Faces.glb(pick[1])]
 	m["rank_words"] = "" if bool(m.get("pro", false)) else rank_words(c, f, before)
 	m["aftermath"] = tiles(c, f, m, before, bank)
 	m["night"] = night_facts(c, f, m, before)   # S442 the headline card's facts (Headline.gd); only a bout just booked has them
+
+
+## S511 FIGHTFILM1 (map 5): the bout's record (BoutFinish pushed it first) keeps its tape and FightWhy's three lines, so
+## History's Analysis opens it later; the gym keeps the last TAPE_KEEP bouts' tapes, older rows say "no tape kept".
+const TAPE_KEEP := 20
+static func keep_tape(c: Career, f: Dictionary, m: Dictionary) -> void:
+	var opp: Dictionary = (f["bout"] as Dictionary).get("opp", {})
+	var read := FightWhy.read(m.get("rounds", []), str(f["first"]), str(opp.get("first", "")))
+	m["why3"] = [str(read.get("plan", "")), str(read.get("against", "")), str(read.get("next", ""))]
+	if c.results.is_empty() or int(c.results[0].get("d", -1)) != c.day or str(c.results[0].get("fid", "")) != str(f["id"]):
+		return
+	c.results[0]["tape"] = m["tape"]
+	c.results[0]["why3"] = m["why3"]
+	for i in range(TAPE_KEEP, c.results.size()):
+		(c.results[i] as Dictionary).erase("tape")
 
 
 ## S442 LOOP drawing 3: what the headline card may say, all booked by now - the outcome and how, the cards, each round's

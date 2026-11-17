@@ -8,7 +8,7 @@ const Roster := preload("res://scripts/state/Roster.gd")
 const FirstHour := preload("res://scripts/rules/FirstHour.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const STRIKE := preload("res://scenes/dev/StrikeBrowser.tscn")
-const TAPE := preload("res://scripts/ui/TapeRoom.gd")
+const TAPE := preload("res://scripts/ui/FightAnalysisTape.gd")   # S511: the Tape Room retired into FIGHT ANALYSIS
 
 
 static func act(main: Node, name: String, arg: String) -> bool:
@@ -22,12 +22,10 @@ static func act(main: Node, name: String, arg: String) -> bool:
 					board.for_fighter(main, f)
 					main.add_child(board)
 		"taperoom":
-			# S343 the tape room (Q-S294-68): her opponent's films, her flow, the answers into her plan.
+			# S343 the tape room (Q-S294-68); S511 FIGHTFILM1 map 6: Watch the tape opens FIGHT ANALYSIS on her films, no filing.
 			for f in c.fighters:
 				if str(f["id"]) == arg and not (f.get("bout", {}) as Dictionary).is_empty():
-					var room := TAPE.new()
-					room.for_fighter(main, f)
-					main.add_child(room)
+					TAPE.watch(main, c, f)
 		"invite":
 			if Roster.invite(c, arg):
 				var p := Roster.prospect(c, arg)

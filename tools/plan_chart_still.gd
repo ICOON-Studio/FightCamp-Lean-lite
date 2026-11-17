@@ -23,7 +23,7 @@ func _initialize() -> void:
 	await _wait(4)
 	print("JUMP ", TestJump.run(main, "taperoom"))
 	for ch in main.get_children():
-		if ch.name == "TapeRoom":
+		if ch.name == "FightAnalysis":
 			main.remove_child(ch)
 			ch.queue_free()
 	var f: Dictionary = (main.career as Career).fighter()

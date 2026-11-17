@@ -8,6 +8,7 @@ const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const PriorBouts := preload("res://scripts/rules/PriorBouts.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
+const FightAnalysisOwn := preload("res://scripts/ui/FightAnalysisOwn.gd")   # S511 FIGHTFILM1 map 5: Analysis on a bout row
 
 ## Column widths: when, opponent, result, method, rounds (the note fills the rest).
 const COLS := [150, 330, 110, 300]
@@ -47,8 +48,22 @@ static func make(main: Node, c: Career, f: Dictionary) -> Control:
 			var d := UI.caps("BEFORE %s" % c.gym_name.to_upper())
 			d.add_theme_color_override("font_color", UI.MUTED)
 			t.add_child(d)
-		t.add_child(_row(r))
+		var line := _row(r)
+		if not bool(r["old"]):
+			_analysis(main, f, line, r["rec"])
+		t.add_child(line)
 	return v
+
+
+## Analysis on a club bout's row: the FIGHT ANALYSIS page on its kept tape; the gym keeps the last AfterFight.TAPE_KEEP.
+static func _analysis(main: Node, f: Dictionary, line: Control, rec: Dictionary) -> void:
+	var h: HBoxContainer = line.get_child(0)
+	if FightAnalysisOwn.film_of(rec).is_empty():
+		h.add_child(UI.muted("no tape kept", UI.SMALL))
+		return
+	var b := UI.button("Analysis", "Btn", func(): FightAnalysisOwn.open(main, f, rec))
+	b.name = "Analysis"
+	h.add_child(b)
 
 
 ## A club bout's row from its result: the method read off the cards ("29-28, 28-29, 29-28" or "RSC round 2").
@@ -71,7 +86,7 @@ static func _club_row(r: Dictionary) -> Dictionary:
 	if not pr.is_empty() and int(pr["used"]) > 0:
 		note += ("; " if note != "" else "") + "plan won %d of %d" % [int(pr["worked"]), int(pr["used"])]
 	return {"when": Clock.fmt(int(r["d"])), "opp": str(r["opp"]), "win": bool(r["win"]), "draw": str(r.get("outcome", "")) == "draw",
-		"method": method, "rounds": _rounds_of(method), "note": note, "tip": "Cards: " + cards, "old": false}
+		"method": method, "rounds": _rounds_of(method), "note": note, "tip": "Cards: " + cards, "old": false, "rec": r}
 
 
 static func _rounds_of(method: String) -> String:

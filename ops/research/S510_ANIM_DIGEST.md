@@ -123,3 +123,29 @@ frames): arm out median 4 -> 4, worst 7 -> 12, join_return 0 -> 4 failures. Left
     moves a wrist by: at most STEP_MPS 2.4 m/s of change from the frame before, MAX_M 0.16 in all (`-- noclashease`).
     join_return 0 failures, block_meet 5 (6), block_catch 5 (5-7), glove_cut green. Bout log h15 vs the r13 film: guard-wrist
     moves over 10 cm a frame 37 -> 19 (r12 41), every ruler and the owner's frames unchanged.
+
+## ROUND 13 JUDGED (blind, film r13blind 19:19): coach 4.5 / animator 4.5 (r12 5.0 / 5.0)
+Coach: punches 4.5, defence + reactions 4, footwork + stance 4, transitions 3.5, waiting 4.
+Animator: punches 4, defence + reactions 4.5, footwork + stance 5.5, transitions 4, waiting 5.
+Reviews: E:/FightCamp/tmp/fightweek/r13blind/critic_coach.md, critic_animator.md (+ their 10/10 drawings).
+BOTH, first on both lists: a punch has no flight ("one cell the glove is at the face, the next the arm is fully out"),
+then hangs 3-5 cells, then returns; a hit is shaken off in 6-7 frames and the stance is back in two; a blocked punch
+moves nothing; both men are the same boxer on one line; lunging stances to 0.93-0.97 m; the near rope over the shins;
+the coach line in the middle of the picture.
+Coach only: both stand far too low (knees 124 deg, wants 150-160, "raise both 8-10 cm"), gloves 20-30 cm off the face,
+a cross reaction bends him "like a knockdown" (29-32 cm, face to the lights), the hand at the hip in range, the body
+attack is a dive, no legs in the punches. Animator only: the lead hook is thrown from the hip with a straight arm
+(pro_left_hook_v2: the glove drops 27 cm, hand 65 cm from the chest), rear-hand twitches (the cross clip started and
+dropped inside 5 frames ten times), waiting inside punching range, both in a punch at once 10.5 % of the round.
+What they say works: the free hand stays at the chin, blocked punches read as blocked, feet do not skate, the reaction
+starts on the contact frame, the cross's rocked pose (animator: "good pictures"; coach: too big).
+
+### What r13 itself made worse, checked on the logs (the owner: "why animations is getting worse?")
+- Reactions: r12's critics asked for cross 18-25 cm; r13 drew 29-32 with the back arching. Too far: trimmed in r14.
+- "Punches appear in one frame" is NOT new: the same jab at 14.8 s moves the hand 34.4 cm in the contact frame in r12
+  and 31.2 in r13 (tools: E:/FightCamp/tmp/fightweek/s511/punch_trace.py). Cause, from hand_tap: the reach drive
+  (ReachDrive, POWER1 S439) covers what is left of the way in the last 2-3 frames while the body lunges 8-18 cm in the
+  same frames, and the guard glove starts only 20-25 cm from the target. The sheets also cut 24 frames a second out of
+  a 30 fps film (every fifth frame dropped), which hides a flight frame.
+- "Hand at the hip": ex1 #55-58 / ex5 #43-45 = pro_left_hook_v2's own wind-up (in r12 too); ex2 #23-27 = red's hook
+  reaction clip. Not the r13 body feint, not FREE_DROP.

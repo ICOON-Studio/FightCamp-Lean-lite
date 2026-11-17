@@ -10,6 +10,7 @@ const OwnCombos := preload("res://scripts/rules/OwnCombos.gd")
 const PlanPhase := preload("res://scripts/rules/PlanPhase.gd")
 const LineGrade := preload("res://scripts/rules/LineGrade.gd")   # S461 INTEGRATE1 #2
 const Attrs := preload("res://scripts/rules/Attrs.gd")
+const FilmNight := preload("res://scripts/state/FilmNight.gd")   # S511 FIGHTFILM1: lines on filed film claims
 
 const PHASE_NEXT := {"all": "early", "early": "middle", "middle": "late", "late": "all"}
 const PHASE_TIP := "Which rounds this line is fought in. Click to change: all rounds, early, middle, late. Outside its rounds your boxer improvises there."
@@ -108,6 +109,47 @@ static func phase_tag(gp, row: Control, i: int) -> void:
 	b.tooltip_text = PHASE_TIP
 	row.add_child(b)
 	grade_tag(row, str((arrows[i] as Dictionary).get("move", "")), Attrs.of(gp.f), i)
+	film_tag(gp, row, str((arrows[i] as Dictionary).get("when", "")), i)
+
+
+## S511 FIGHTFILM1 (map 6 Playbook > Game plan, 3.5): the filed film claim a situation line rests on, or {} (any-time
+## lines, no booked bout, or the plan rated against another game).
+static func film_claim(gp, when: String) -> Dictionary:
+	var vs: Variant = gp.get("vs")   # the plan rated against another game reads no film
+	if when == "" or gp._bout().is_empty() or (vs != null and str(vs) != ""):
+		return {}
+	return FilmNight.claim_on(gp._bout()["opp"], when)
+
+
+## The line's rating against the film: on a claim still open it rates Works at best (the ring has not seen it yet); on a
+## CLEARED claim it answers nothing; a CONFIRMED claim leaves it as rated (it can rate Beats it).
+static func film_fit(gp, o: Dictionary, when: String) -> Dictionary:
+	var e := film_claim(gp, when)
+	if o.is_empty() or e.is_empty() or str(e.get("state", "")) == "confirmed" or str(o.get("fit", "")) == "none":
+		return o
+	var st := str(e.get("state", ""))
+	if st == "" and str(o["fit"]) != "best":
+		return o
+	var c := o.duplicate()
+	c["fit"] = "ok" if st == "" else "none"
+	return c
+
+
+## The film tag on a line: "Film 85%" while open (Works at best), "Film: confirmed", or "Cleared - change this line".
+static func film_tag(gp, row: Control, when: String, i: int) -> void:
+	var e := film_claim(gp, when)
+	if e.is_empty():
+		return
+	var st := str(e.get("state", ""))
+	var words := str({"confirmed": "Film: confirmed", "cleared": "Cleared - change this line"}.get(st, "Film %d%%" % int(e.get("pct", 0))))
+	var ch := UI.chip(str(words), {"confirmed": "green", "cleared": "red"}.get(st, "gold"))
+	ch.name = "Film_%d" % i
+	ch.mouse_filter = Control.MOUSE_FILTER_PASS
+	ch.tooltip_text = "From the film: %s. " % str(e.get("words", "")) + {
+		"confirmed": "The ring confirmed it: this line can rate Beats it.",
+		"cleared": "The ring showed it was not there: this line answers nothing. Change it."}.get(st,
+		"%d%% sure until the ring sees it, so this line rates Works at best." % int(e.get("pct", 0)))
+	row.add_child(ch)
 
 
 ## S461 INTEGRATE1 #2 (LineGrade, GRADE1's centred table): how well THIS boxer does the line - Good / OK / Poor from the two
