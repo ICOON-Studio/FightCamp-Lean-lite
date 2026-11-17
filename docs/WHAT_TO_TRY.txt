@@ -1,3 +1,9 @@
+S507 (2026-11-17) - THE FIGHT: HOOKS STOP AT THE HEAD
+- Watch the hooks in a fight (the stepping left hook most): after it lands, the glove no longer flies up and over the
+  other man's head. It stays on its line and comes home. (Worst one on the test film: 14.7 m/s -> 9.7 m/s. It still
+  comes home a bit fast on a quick punch; that is next.)
+- Nothing else changed on the screens.
+
 S505 (2026-11-17) - TRAINING: SWITCH FIGHTERS, ANA'S WEEK
 - On TRAINING, the fighter cards at the top are the switch: click a boxer's card to plan that boxer's week. A card you
   are not on now lights up under the mouse and says so.

@@ -6,13 +6,13 @@
   "id": "S506",
   "owner": "claude",
   "updated": "2026-11-17",
-  "summary": "S506: fight week day 11. FREEHAND built: the glove that is not punching is held at its guard point by the chin while the other throws (GuardTuck; body shot 0.5; a beat's right_low/left_low after fact lets it drop; -- nofreehand). HEADEASE built: a hit head eases home over 9-12 frames instead of springing (HitSnap; worst frame 26% -> 17%; BlockCatch keeps the old spring; -- oldsettle). A/B on the red fight tests: identical FAIL sets. Hook fling traced: stepping/hard hooks - the body leaves a fixed aim at full reach weight (not the release); the film decides. FREEHAND1 collected: s505b off_share 0.78, free_p50 24.1 cm (guard 16.8) = the before. HEADEASE1 (Qwen) running. Owner fixes: scorecard rank line once (C425), no judge surname twice; Q-266 = Arena's shell. No film/export: the owner played ArcheAge all session. Digest ops/research/S506_DIGEST.md. FILMED (owner: 'go ahead film it now'): free glove off the chin 78% -> 30%; hit head eases home 4 -> 13 frames (0.30/0.40 kept, 0.24/0.27 fell back to 4); cost: head jumps 77 -> 91 (punch frames +10, hits +4) - HEADJUMP1 next. HEADEASE1 collected; HOOKPAST1 (Qwen) running.",
-  "next_action": "FIGHT MOTION WEEK day 12 (S507). 1) HEADJUMP1: head jumps 91 on s506a (77 on s505b; by clip: punch frames 40 -> 50, hit reactions 34 -> 38) - bring them under 77 without losing FREEHAND (FreeHand off_share 0.30) or HEADEASE (HeadEase back_f 13): film 180 s seed 7 trunktap with hidden_desktop --log, compare fight_motion_rulers vs E:/FightCamp/tmp/fightweek/s506a. 2) Collect Qwen HOOKPAST1 (the fling ruler) and read the hooks on s506a; if they fling, re-aim the carry from the body (not a release cap - tried, no effect). 3) Blind r12, two NEW critics, aim 6. 4) Merge Ziva PR 341 after the owner's look. Films while he plays are OK when he says so (S506) - ask.",
-  "incomplete_blocked": "Hook fling fix waits on HOOKPAST1 (Qwen, the film ruler). No .exe export this session (owner playing ArcheAge; big E: write).",
-  "next_acceptance": "HEADJUMP1: on a 180 s seed 7 trunktap film, head jumps > 12 cm <= 77 (s505b) while FreeHand off_share <= 0.35 and HeadEase back_f_p50 >= 8 (s506a 0.30 / 13); red fight tests keep their FAIL sets (A/B with ROW values).",
-  "awaiting_operator": "PR 341 look (coach neck still pair on /review). Unity uninstall (his call). Whether films may run while he plays: ask each time.",
-  "last_working_commit": "427b8ef5d",
-  "verified_playable": "No new .exe in S506 (owner playing; export skipped). Last build: the 2026-11-16 build. S506 changes verified on 180 s films s506a/b/c and controls (hidden desktop), not in an exported .exe."
+  "summary": "S507: fight week day 12 (owner playing ArcheAge; asked whether films may render meanwhile - no answer, no film). Nightly: gym_life2 fixed (8 hub places since TRAININGK1), rokoko_clips off-route, guard_knee/human_feet known. HOOKPAST1 collected (s506a worst pro_left_hook_ft 14.7 m/s, 77 cm past). HOOK FLING FIXED AT THE SOLVE: at reach weight 1.00 the glove left its aim 0.29 m in a frame - each frame's arm fit restarted from the clip's swung arm and found another wrist on the ring, then the clip's fist turned up; ReachLimit warm_from/keep_warm/warm_hand (-- nowarmfit, -- nowarmhand). hit_frame 9 -> 4, hit_carry 44 -> 30, block_catch 11 -> 10, punch_speed 41 -> 40, join_return 2 -> 3 (one rep). HEAD JUMPS: s505b vs s506a share their bout only to ~48 s - 77 -> 91 was mostly a different bout (shared part 20 vs 21); jumps are trunk 6.3 + neck 6.7 cm, inside PopCap's two exemptions. HEADSPLIT1 (Qwen) makes the per-clip / shared-part ruler. Digest ops/research/S507_DIGEST.md. FILMED (owner 'Yes, film now'): s507b - the stepping hook 14.7 -> 9.7 m/s after the warm window covered fast punches (WARM_DT 0.12: a 1.5x punch at 30 fps steps 0.050 s of clip a frame); what is left is the release coming home over OUT_S in clip time. Head jumps unchanged (HEADSPLIT1 collected: shared part 34 -> 35). FreeHand 0.29, HeadEase back 13 f held.",
+  "next_action": "FIGHT MOTION WEEK day 13 (S508). Ask the owner whether films may render while he plays. 1) The hook's release (s507b pro_left_hook_ft who 1 @3213: 9.7 m/s home, 0.31 m in a frame): PunchReach lets go over OUT_S 0.16 s of CLIP time - ~3 frames on a 1.5x punch; let go over real time (or hold_one_way slower on fast clips), A/B on the punch tests (S507 digest table), film, scratchpad hookfling-style count: landed punches over 6 m/s after contact (s506a 3, s507b 4) and the worst. 2) HEADJUMP1 on the puncher's head (punch 0.177 a punch clip on s507b): PopCap exempts the trunk under a held landing glove - ease it and re-land the glove (settle); compare with head_split_probe csv=s507b csv2=<new>. 3) join_return rep 3 of pro_left_hook (10.1 m/s). 4) pro_right_cross_hurt 0.105 m off at contact. 5) Blind r12 + two NEW critics, aim 6. 6) Merge Ziva PR 341 after the owner's look.",
+  "incomplete_blocked": "Qwen HOOKPAST2 running (branch qwen/hookpast2) - collect by diff, then use its HOOK_HELD line as the hook-release ruler.",
+  "next_acceptance": "On a 180 s seed 7 film vs s507b: no landed punch over 9 m/s after contact and at most 2 over 6; head jumps per punch clip <= 0.13 in the shared part (head_split_probe); FreeHand off_share <= 0.35, HeadEase back_f_p50 >= 8; punch tests keep or better their S507 A/B FAIL sets.",
+  "awaiting_operator": "PR 341 look (coach neck still pair on /review). Unity uninstall (his call). Films while he plays: ask each time (S507: yes).",
+  "last_working_commit": "ab26ec8ab",
+  "verified_playable": "Build exported 2026-11-17 14:04 (Builds/FightCamp.exe, WHAT_TO_TRY S507: hooks stop at the head). Verified on films s507a/s507b + headless A/B on 12 punch tests; not played by the owner yet."
  },
  "next": "S496: 0) get_usage; where_we_are roll S496; quote board answers (Q-259 Training K v6c; build WeekCards v6c on Yes - WeekCards.gd 552 lines is split first). 1) Collect as they land, by diff + their test: Qwen ONELOOK2 (fight HUD palette, ETA ~11:00 11-16; render before/after fight stills on the hidden desktop, his OK before merge), Goose FILMCOUNT1 (#326, branch goose/issue-326 - Goose's PR step failed twice: collect from the branch; read its FINDS table and noise numbers, retune FilmBout rates if a floor missed), Grok Dev FIGHTPAGE1 (branch grok/fightpage1, ETA ~13:30; render at 1920x1080 text 1.0 and 1.3, judge against fight_analysis_v3.png, then his board). 2) Kalli SQ202 LADDER1 v6 + SQ203 COACHSPEC1 r6 -> two fresh critics each (Dola + John; Dola refused COACHSPEC1 r5 - resend). 3) Wire after FIGHTPAGE1+FILMCOUNT1: the film-night stop in the fight week (FightWeekPlan film night -> FightAnalysis.for_tape with FilmCount.check, FilmPattern.checks by coach rating), FilmEdge pays at the figure, the result page's Punch by punch tab over m['tape'] (BoutTape), History keeps 20 tapes (~400 lines a bout). 4) Live fight log panel brief to Grok Dev once FIGHTPAGE1 lands. 5) ONELOOK1 sweep after ONELOOK2: RosterCards, ReadPanel, MatMap (UI.gd/WoodKit/WeekCards first need a split).",
  "assessment": {
@@ -2125,6 +2125,11 @@
    "id": "S506",
    "date": "2026-11-17",
    "summary": "S506: fight week day 11. FREEHAND built: the glove that is not punching is held at its guard point by the chin while the other throws (GuardTuck; body shot 0.5; a beat's right_low/left_low after fact lets it drop; -- nofreehand). HEADEASE built: a hit head eases home over 9-12 frames instead of springing (HitSnap; worst frame 26% -> 17%; BlockCatch keeps the old spring; -- oldsettle). A/B on the red fight tests: identical FAIL sets. Hook fling traced: stepping/hard hooks - the body leaves a fixed aim at full reach weight (not the release); the film decides. FREEHAND1 collected: s505b off_share 0.78, free_p50 24.1 cm (guard 16.8) = the before. HEADEASE1 (Qwen) running. Owner fixes: scorecard rank line once (C425), no judge surname twice; Q-266 = Arena's shell. No film/export: the owner played ArcheAge all session. Digest ops/research/S506_DIGEST.md. FILMED (owner: 'go ahead film it now'): free glove off the chin 78% -> 30%; hit head eases home 4 -> 13 frames (0.30/0.40 kept, 0.24/0.27 fell back to 4); cost: head jumps 77 -> 91 (punch frames +10, hits +4) - HEADJUMP1 next. HEADEASE1 collected; HOOKPAST1 (Qwen) running."
+  },
+  {
+   "id": "S507",
+   "date": "2026-11-17",
+   "summary": "S507: fight week day 12 (owner playing ArcheAge; asked whether films may render meanwhile - no answer, no film). Nightly: gym_life2 fixed (8 hub places since TRAININGK1), rokoko_clips off-route, guard_knee/human_feet known. HOOKPAST1 collected (s506a worst pro_left_hook_ft 14.7 m/s, 77 cm past). HOOK FLING FIXED AT THE SOLVE: at reach weight 1.00 the glove left its aim 0.29 m in a frame - each frame's arm fit restarted from the clip's swung arm and found another wrist on the ring, then the clip's fist turned up; ReachLimit warm_from/keep_warm/warm_hand (-- nowarmfit, -- nowarmhand). hit_frame 9 -> 4, hit_carry 44 -> 30, block_catch 11 -> 10, punch_speed 41 -> 40, join_return 2 -> 3 (one rep). HEAD JUMPS: s505b vs s506a share their bout only to ~48 s - 77 -> 91 was mostly a different bout (shared part 20 vs 21); jumps are trunk 6.3 + neck 6.7 cm, inside PopCap's two exemptions. HEADSPLIT1 (Qwen) makes the per-clip / shared-part ruler. Digest ops/research/S507_DIGEST.md. FILMED (owner 'Yes, film now'): s507b - the stepping hook 14.7 -> 9.7 m/s after the warm window covered fast punches (WARM_DT 0.12: a 1.5x punch at 30 fps steps 0.050 s of clip a frame); what is left is the release coming home over OUT_S in clip time. Head jumps unchanged (HEADSPLIT1 collected: shared part 34 -> 35). FreeHand 0.29, HeadEase back 13 f held."
   }
  ],
  "blocked_on_operator": [],
@@ -2869,7 +2874,7 @@
    {
     "id": "NIGHTLY1",
     "owner": "claude",
-    "state": "[S487: 11-15 nightly @0faaf983 348/10 red; the 05:00 review fixed tips/card_flip/callout_pop/holo_live/sound_bank. On HEAD: plan_file PASS (test already updated); rib_damage FIXED (judged on the 8-window mean like its neighbours: 61.1%, window 0 was 58.0); fight_why STILL RED 276-279/540 (bar 360): bisected 7b7ac6e6..0faaf983 to 3fd32033 S466 CARDFIX1 (375 -> 279); adding a counter answer (feint) to the good plan changes nothing (276) - suspect the she_tired/she_hurt cards (no longer fixed inside/own_ropes, where the plan's defensive lines fired) -> WHYGRADE1 measures fires per situation before/after; plan_bots still red (known, STEPPLAN1 numbers); block_meet known (B_A pro_left_hook control row). approach/leaving/promises/loyalty_hooks/approach_wire added to the nightly list (they never ran at 05:00).] [S418: first real PC full run 11-10 05:00 @a5d7f66b: pass=239 fail=0, 8 minutes; main CI green at 09e9f598 (232 tests). No red to act on. week_slate, head_aim and knowledge tests join the list from 11-11.] [S292: 10-23 cloud nightly @4ddc99bf 1002/13 vs 10-22 @c4dc03a0: FIXED camp_pays, mastery_select_wire, q226_strands; NEW bag_mount, build_holds_clock hang, gym_club_clearance, iso_ceiling_fixtures, no_garage, profile_drawer, reception_keeps_gym, reception_street_door, room_camera_flow, room_draft_flow, room_walls_mgt2, skip_day_drawer; fight_identity still red. Fixed in S292: reception_street_door/room_draft_flow/room_walls_mgt2 (d3e6a40c), profile_drawer/skip_day_drawer/gym_club_clearance deferred apply (242870b7). Left = gym-building tests (parked by D48) + fight_identity.] [S286: S285 master cloud runs @ab5f6216: q226_strands, camp_pays, mastery_select_wire RED on master (fight_identity run in progress) - Qwen's earlier run had q226 green -> flips run to run. Qwen BOUTREPEAT1 r1 fd2e55fb: the BOUT ENGINE replays per seed 3/3 both arms -> noise is upstream (career route: world gen, camp, rollover). r2 running #341. Also as_game: creation_root + gym_step_layout_s238 fixed (ASGAMERED9 9a52acec route), creation_api C14 -> r2 #342.] [S285: 10-22 cloud nightly @c4dc03a0 1048/13 (10-21 @d2e7be87 = same set but fight_room_walkout) vs last check 10-20 @bb2108dc: 6 NEW red - camp_pays, mastery_select_wire, fight_identity, q226_strands (bout lever effects shrank together; suspect d5fe4376 ATTRWIRE1), equipment_training_rows (reception_desk has no day-lap row) -> Arena NIGHTLY13; fight_root_single_writer ('ON arm holds every bound') + fighter_gloves_both_corners (hang) NOT assigned yet; 6 FIXED (fight_clip_slice, fight_room_walkout, profile_overview, punch_retime, see_through_occluders, stat_vocabulary)] [S275: 10-20 cloud nightly @bb2108dc 990/15 vs 10-19 943/17: 9 NEW red (af_motion, asset_manifest, fight_room_walkout hang, iso_ceiling_fixtures, profile_overview, punch_retime, see_through_occluders, stat_vocabulary, switch_gate_contact_push_carry), 11 FIXED (composure_live, doctor_live, fight_room_positions, fight_strike_speed, first_corner, human2, mixamo_s215, pad_chain_fight, q226_strands, rig_convention_contract, switch_gate_hold_pair_geometry); 7 -> Goose NIGHTLY12 #303, the 2 floor tests -> Codex FLOORTPM1 gate] [S266: 10-19 cloud nightly 17 fails - 5 were platform (cloud vs PC digests): dual pins 69442854, PC 5/5 + cloud 5/5; the other 12 -> Cursor NIGHTLY11 #282] [S264: 2026-10-19 cloud nightly @61ca511a 943/17 vs 10-17 885/16: 13 NEW red (composure_live, doctor_live, pad_chain_fight, fight_strike_whole, human2 = OFF-arm pins moved; switch_gate_hold_pair_geometry, q226_strands, rig_convention_contract, mixamo_s215 121 vs 115 rows; hangs fight_strike_speed, first_corner, fight_grapple_seam, fight_room_positions), 11 FIXED (decision_pacing, fight_identity, fight_realtime, corner_instruction_contract, switch_gate_hands_smooth, promotions_board, fight_contact_stop ...). Cursor NIGHTLY10 issue #278 bisects each pin to its commit] [S256: NIGHTLYPARK1 82e26f37 - fight_contact_stop + promotions_board PARKED (tests/parked_tests.json), asset_manifest green; boxing reds left: camp_pays, decision_pacing, fight_clip_slice, fight_pair_live, fight_stage_realism, switch_gate_hands_smooth] [S255: 2026-10-18 nightly stopped after 25/918 (log 199 B, asset_manifest red as before) - nothing new; 10-17 set (885/16) to Qwen NIGHTLYLABEL1] [S250: no new nightly since 5b92bef2 (2026-10-17, 885/16) - nothing new to diff] [S244: NIGHTLY8 #246/#247 collected c9848f0e; fight_identity 'rivalry heat costs stamina' still red (cold 90.7 = hot 90.7 - heat has no effect)] [S242: NIGHTLY7 finished - c",
+    "state": "[S507: 11-17 nightly @a05c139e 369/11, 5 red files: block_meet (known), guard_knee + human_feet (known: debt list, map 'Foot 5 cm under canvas'), rokoko_clips (red since S503's step lift; the captured-clip route is OFF in the game since S432 - recorded, not chased), gym_life2 FIXED (it counted 7 hub places; TRAININGK1 added the 8th, Training - now reads GymHub.PLACES).] [S487: 11-15 nightly @0faaf983 348/10 red; the 05:00 review fixed tips/card_flip/callout_pop/holo_live/sound_bank. On HEAD: plan_file PASS (test already updated); rib_damage FIXED (judged on the 8-window mean like its neighbours: 61.1%, window 0 was 58.0); fight_why STILL RED 276-279/540 (bar 360): bisected 7b7ac6e6..0faaf983 to 3fd32033 S466 CARDFIX1 (375 -> 279); adding a counter answer (feint) to the good plan changes nothing (276) - suspect the she_tired/she_hurt cards (no longer fixed inside/own_ropes, where the plan's defensive lines fired) -> WHYGRADE1 measures fires per situation before/after; plan_bots still red (known, STEPPLAN1 numbers); block_meet known (B_A pro_left_hook control row). approach/leaving/promises/loyalty_hooks/approach_wire added to the nightly list (they never ran at 05:00).] [S418: first real PC full run 11-10 05:00 @a5d7f66b: pass=239 fail=0, 8 minutes; main CI green at 09e9f598 (232 tests). No red to act on. week_slate, head_aim and knowledge tests join the list from 11-11.] [S292: 10-23 cloud nightly @4ddc99bf 1002/13 vs 10-22 @c4dc03a0: FIXED camp_pays, mastery_select_wire, q226_strands; NEW bag_mount, build_holds_clock hang, gym_club_clearance, iso_ceiling_fixtures, no_garage, profile_drawer, reception_keeps_gym, reception_street_door, room_camera_flow, room_draft_flow, room_walls_mgt2, skip_day_drawer; fight_identity still red. Fixed in S292: reception_street_door/room_draft_flow/room_walls_mgt2 (d3e6a40c), profile_drawer/skip_day_drawer/gym_club_clearance deferred apply (242870b7). Left = gym-building tests (parked by D48) + fight_identity.] [S286: S285 master cloud runs @ab5f6216: q226_strands, camp_pays, mastery_select_wire RED on master (fight_identity run in progress) - Qwen's earlier run had q226 green -> flips run to run. Qwen BOUTREPEAT1 r1 fd2e55fb: the BOUT ENGINE replays per seed 3/3 both arms -> noise is upstream (career route: world gen, camp, rollover). r2 running #341. Also as_game: creation_root + gym_step_layout_s238 fixed (ASGAMERED9 9a52acec route), creation_api C14 -> r2 #342.] [S285: 10-22 cloud nightly @c4dc03a0 1048/13 (10-21 @d2e7be87 = same set but fight_room_walkout) vs last check 10-20 @bb2108dc: 6 NEW red - camp_pays, mastery_select_wire, fight_identity, q226_strands (bout lever effects shrank together; suspect d5fe4376 ATTRWIRE1), equipment_training_rows (reception_desk has no day-lap row) -> Arena NIGHTLY13; fight_root_single_writer ('ON arm holds every bound') + fighter_gloves_both_corners (hang) NOT assigned yet; 6 FIXED (fight_clip_slice, fight_room_walkout, profile_overview, punch_retime, see_through_occluders, stat_vocabulary)] [S275: 10-20 cloud nightly @bb2108dc 990/15 vs 10-19 943/17: 9 NEW red (af_motion, asset_manifest, fight_room_walkout hang, iso_ceiling_fixtures, profile_overview, punch_retime, see_through_occluders, stat_vocabulary, switch_gate_contact_push_carry), 11 FIXED (composure_live, doctor_live, fight_room_positions, fight_strike_speed, first_corner, human2, mixamo_s215, pad_chain_fight, q226_strands, rig_convention_contract, switch_gate_hold_pair_geometry); 7 -> Goose NIGHTLY12 #303, the 2 floor tests -> Codex FLOORTPM1 gate] [S266: 10-19 cloud nightly 17 fails - 5 were platform (cloud vs PC digests): dual pins 69442854, PC 5/5 + cloud 5/5; the other 12 -> Cursor NIGHTLY11 #282] [S264: 2026-10-19 cloud nightly @61ca511a 943/17 vs 10-17 885/16: 13 NEW red (composure_live, doctor_live, pad_chain_fight, fight_strike_whole, human2 = OFF-arm pins moved; switch_gate_hold_pair_geometry, q226_strands, rig_convention_contract, mixamo_s215 121 vs 115 rows; hangs fight_strike_speed, first_corner, fight_grapple_seam, fight_room_positions), 11 FIXED (decision_pacing, fight_identity, fight_realtime, corner_instruction_contract, switch_gate_hands_smooth, promotions_board, fight_contact_stop ...). Cursor NIGHTLY10 issue #278 bisects each pin to its commit] [S256: NIGHTLYPARK1 82e26f37 - fight_contact_stop + promotions_board PARKED (tests/parked_tests.json), asset_manifest green; boxing reds left: camp_pays, decision_pacing, fight_clip_slice, fight_pair_live, fight_stage_realism, switch_gate_hands_smooth] [S255: 2026-10-18 nightly stopped after 25/918 (log 199 B, asset_manifest red as before) - nothing new; 10-17 set (885/16) to Qwen NIGHTLYLABEL1] [S250: no new nightly since 5b92bef2 (2026-10-17, 885/16) - nothing new to diff] [S244: NIGHTLY8 #246/#247 collected c9848f0e; fight_identity 'rivalry heat costs stamina' still red (cold 90.7 = hot 90.7 - heat has no effect)] [S242: NIGHTLY7 finished - c",
     "what": "Untracked chronic nightly reds (red 4 nights, no owner): fighter_gloves_both_corners (533 s then rc=127; FightClipRetarget._load_fbx 'Reading less data than requested' on every corner via build_silhouette_corrections - cache the FBX load); fight_readable_onset (hang); MMA off the demo path: fight_plan_ai_corner (GREAT coach won less often than POOR, pooled), fight_back_bands_contract (striker sub-finish 33.3% not in 12-32%), fight_footwork_economy (mma ON 9.3 m/min < 12)",
     "milestone": "B",
     "advances": "a nightly that can go green, so a new red is seen the day it lands",
@@ -5043,7 +5048,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-17 13:12 board_sync",
+  "updated": "2026-11-17 13:56 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5194,10 +5199,10 @@
   },
   "working_now": [
    {
-    "title": "TASK HOOKPAST1 - a ruler for the fling: after a landed punch, how far and how fast does the glove go past the head?",
+    "title": "TASK HOOKPAST2 - the fling ruler also reads every held punch (the worst stepping hook stopped short and was not counted)",
     "who": "qwen",
-    "started": "2026-11-17T12:45",
-    "run": "HOOKPAST1"
+    "started": "2026-11-17T14:03",
+    "run": "HOOKPAST2"
    }
   ],
   "next": [
@@ -5735,6 +5740,36 @@
   },
   "done_recently": [
    {
+    "title": "TASK HEADSPLIT1 - a ruler that splits each head jump into what moved it, and compares two films fairly",
+    "who": "qwen",
+    "when": "2026-11-17"
+   },
+   {
+    "title": "TASK HEADSPLIT1 - split each head jump by what moved it, compare two films only where they match",
+    "who": "qwen",
+    "when": "2026-11-17"
+   },
+   {
+    "title": "Filmed s507b: the stepping hook's fling 14.7 -> 9.7 m/s; free glove and head ease held",
+    "who": "claude",
+    "when": "2026-11-17"
+   },
+   {
+    "title": "TASK HOOKPAST1 - a ruler for the fling: after a landed punch, how far and how fast does the glove go past the head?",
+    "who": "qwen",
+    "when": "2026-11-17"
+   },
+   {
+    "title": "Hooks stop at the head: the arm fit after the hit starts from last frame's wrist, the fist keeps its turn (hit_frame 9 -> 4, hit_carry 44 -> 30)",
+    "who": "claude",
+    "when": "2026-11-17"
+   },
+   {
+    "title": "Nightly review: gym_life2 counts the hub's 8 places",
+    "who": "claude",
+    "when": "2026-11-17"
+   },
+   {
     "title": "TASK HEADEASE1 - a ruler for head reactions: when does a hit head peak, and how fast does it come back?",
     "who": "qwen",
     "when": "2026-11-17"
@@ -5763,36 +5798,6 @@
     "title": "Head pops cut: 90 -> 80 in a 3-minute test; a cross stops a boxer stepping in",
     "who": "claude",
     "when": "2026-11-17"
-   },
-   {
-    "title": "Punch-end ruler fixed and collected (PUNCHEND2)",
-    "who": "qwen",
-    "when": "2026-11-17"
-   },
-   {
-    "title": "TASK PUNCHEND2 - PunchEnd's \"home\" read from her guard, not the punch's first frame",
-    "who": "qwen",
-    "when": "2026-11-17"
-   },
-   {
-    "title": "Scorecard tab on the fight result: three judges' sheets, a hover a score",
-    "who": "claude",
-    "when": "2026-11-17"
-   },
-   {
-    "title": "TASK STANDOFF1 - a ruler: glove-pressing stand-offs inside 1.0 m",
-    "who": "qwen",
-    "when": "2026-11-16"
-   },
-   {
-    "title": "S504: hit reactions peak at 3-4 frames (was 5), 3 late (was 25)",
-    "who": "claude",
-    "when": "2026-11-16"
-   },
-   {
-    "title": "TASK STANDOFF1 - a ruler for glove-pressing stand-offs",
-    "who": "qwen",
-    "when": "2026-11-16"
    }
   ],
   "scope_note": "S294: lean restart (E:\\FightCamp\\Lean\\docs\\RESTART_PLAN.md). Old roadmap items are parked until the weekly builds reach them.",
@@ -5881,6 +5886,26 @@
   "map": {
    "done_earlier": [
     {
+     "text": "Nightly: gym_life2 hub count",
+     "who": "claude"
+    },
+    {
+     "text": "HOOKPAST1 fling ruler collected",
+     "who": "claude"
+    },
+    {
+     "text": "Hook fling fixed at the solve",
+     "who": "claude"
+    },
+    {
+     "text": "Filmed: stepping hook 14.7 -> 9.7",
+     "who": "claude"
+    },
+    {
+     "text": "HEADSPLIT1 ruler collected",
+     "who": "claude"
+    },
+    {
      "text": "Scorecard: rank line once (C425)",
      "who": "claude"
     },
@@ -5915,38 +5940,9 @@
     {
      "text": "HEADEASE1 ruler (Qwen)",
      "who": "agent"
-    },
-    {
-     "text": "Collect IDLEIN1: idle 2.3 s/180",
-     "who": "agent"
-    },
-    {
-     "text": "Cross steps back from shown body",
-     "who": "claude"
-    },
-    {
-     "text": "Trunk tap: head jumps by layer",
-     "who": "claude"
-    },
-    {
-     "text": "PUNCHEND3 chest frame (Qwen)",
-     "who": "agent"
-    },
-    {
-     "text": "Training: switch fighters, Ana",
-     "who": "claude"
     }
    ],
-   "done_session": [
-    {
-     "text": "Nightly: gym_life2 hub count",
-     "who": "claude"
-    },
-    {
-     "text": "HOOKPAST1 fling ruler collected",
-     "who": "claude"
-    }
-   ],
+   "done_session": [],
    "now": [
     {
      "text": "Between-rounds voices: your ear",
@@ -6018,14 +6014,6 @@
     },
     {
      "text": "",
-     "who": "claude"
-    },
-    {
-     "text": "HEADSPLIT1 jump ruler (Qwen)",
-     "who": "claude"
-    },
-    {
-     "text": "HEADJUMP1: films wait on you",
      "who": "claude"
     }
    ],
@@ -6139,11 +6127,11 @@
      "who": "claude"
     },
     {
-     "text": "Hook fling: re-aim from body",
+     "text": "Hook release over real time",
      "who": "claude"
     }
    ],
-   "session": "S507"
+   "session": "S508"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",

@@ -408,7 +408,7 @@ func _reach(skel: Skeleton3D, hand: String, w: float, target_fn: Callable, glove
 		return
 	var ids: Array = _arms[hand]
 	_hold_w = 1.0 if w >= 0.999 and hand == _hand and DRIVE and _thru > 0.0 and not height_only and _hit_f >= 0 and _key != _hit_f else 0.0
-	var g_hd: Transform3D = skel.get_bone_global_pose(int(ids[2]))
+	var g_hd: Transform3D = ReachLimit.warm_hand(self, skel, hand, ids)   # S507: after the hit the fist keeps its turn
 	var s: Vector3 = skel.get_bone_global_pose(int(ids[0])).origin
 	var l1 := s.distance_to(skel.get_bone_global_pose(int(ids[1])).origin)
 	var l2 := skel.get_bone_global_pose(int(ids[1])).origin.distance_to(g_hd.origin)
@@ -444,7 +444,7 @@ func _reach(skel: Skeleton3D, hand: String, w: float, target_fn: Callable, glove
 	# moving the wrist turns the forearm, so one step left the front 0.13-0.28 m off (hit_gap_probe, inside punches): the
 	# full-weight wrist is found by re-solving from the moved arm, then the pose is put back and eased in by the weight.
 	var keep := [skel.get_bone_global_pose(int(ids[0])), skel.get_bone_global_pose(int(ids[1])), g_hd]
-	var full := ReachLimit.fit(self, skel, ids, s, target, glove_front, l1, l2, g_hd.basis, pole, pole_w, SOLVE_PASSES, Vector3.INF)
+	var full := ReachLimit.fit(self, skel, ids, s, target, glove_front, l1, l2, g_hd.basis, pole, pole_w, SOLVE_PASSES, ReachLimit.warm_from(self, skel, hand))
 	for k in 3:
 		skel.set_bone_global_pose(int(ids[k]), keep[k])
 	var want: Vector3 = g_hd.origin + (full - g_hd.origin) * w
@@ -466,7 +466,7 @@ func _reach(skel: Skeleton3D, hand: String, w: float, target_fn: Callable, glove
 	var want_free := want
 	if reach < l1 + l2 - 0.005:
 		want = s + (want - s).limit_length(reach)   # POWER1 step 4: an uppercut's elbow stays bent; short is short
-	ReachLimit.solve_capped(self, skel, ids, s, want, l1, l2, g_hd.basis, pole, pole_w, clip_glove, glove_front, hand == _hand and DRIVE and ReachLimit.capping(self))
+	ReachLimit.solve_capped(self, skel, ids, s, want, l1, l2, g_hd.basis, pole, pole_w, clip_glove, glove_front, hand == _hand and DRIVE and ReachLimit.capping(self), hand)
 	if hand == _hand and _hit_f == _key and OS.get_cmdline_user_args().has("reachwhy"):
 		# S472 probe arm (the double hook's far hit): which limit stops the wrist short of `full` on the hit frame
 		var got := skel.get_bone_global_pose(int(ids[2])).origin

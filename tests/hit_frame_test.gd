@@ -25,6 +25,7 @@ const BEFORE_S := 0.30
 const AFTER_S := 0.20
 const SHARE_MIN := 0.5
 const THROUGH_M := Vector2(0.05, 0.11)
+const RETURN_M := 0.005
 const ON_M := 0.05
 const ROLLS := [0.0, 0.3, 0.55, 0.8, 0.99]
 
@@ -145,7 +146,7 @@ func _initialize() -> void:
 			g.append(_glove(ids))
 			if OS.get_cmdline_user_args().has("show=" + clip) and new_api:
 				var aim: Vector3 = reach.get("_aim_w")
-				print("  aim t=%.3f off-aim %.3f m, aim-face %.3f m" % [t, (g[-1] as Vector3).distance_to(aim) if aim.is_finite() else -1.0, aim.distance_to(target) if aim.is_finite() else -1.0])
+				print("  aim t=%.3f off-aim %.3f m, aim-face %.3f m, weight %.2f" % [t, (g[-1] as Vector3).distance_to(aim) if aim.is_finite() else -1.0, aim.distance_to(target) if aim.is_finite() else -1.0, float(reach.get("last_weight"))])
 		var spd: Array = [0.0]
 		for i in range(1, g.size()):
 			spd.append((g[i] as Vector3).distance_to(g[i - 1]) * HZ)
@@ -157,12 +158,14 @@ func _initialize() -> void:
 		shares.append(share)
 		var dir: Vector3 = ((g[ci] as Vector3) - (g[maxi(0, ci - 1)] as Vector3)).normalized()
 		# Before it returns: the run of frames after contact on which the glove keeps going further along its arrival line.
+		# S507: a wobble back under RETURN_M is not the return (pro_right_uppercut_hurt read 0.031 m on a 2 mm dip at +33 ms,
+		# then carried on to 0.085 m); this reads the carry longer, never shorter, so a fling only reads bigger.
 		var past := 0.0
 		for i in range(ci + 1, g.size()):
 			var d: float = ((g[i] as Vector3) - (g[ci] as Vector3)).dot(dir)
-			if d <= past:
+			if d < past - RETURN_M:
 				break
-			past = d
+			past = maxf(past, d)
 		var miss: float = (g[ci] as Vector3).distance_to(target)
 		if OS.get_cmdline_user_args().has("show=" + clip):   # `-- show=<clip>`: the frame table
 			for i in g.size():

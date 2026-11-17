@@ -11,6 +11,15 @@ const MAX_LOOK_DEG := 65.0
 ## A look's share per bone from the head down to the chest (MetaHuman: head, neck_02, neck_01, spine_05, spine_04,
 ## spine_03); a shorter chain uses its first entries, rescaled.
 const CHAIN_SHARE := [0.14, 0.12, 0.14, 0.2, 0.2, 0.2]
+## COACHNECK2 (owner C415: "his neck is coming out horizontally from his neck not vertically"): measured on the c07 pose,
+## the trunk sits 8.8 deg off vertical while the neck juts 44.9 deg out of the chest line (its pitch 44.5). So a look's
+## PITCH now bends the back (the spine entries of the chain), the neck entries take none of it, the neck is held on the
+## chest line, and the head bone finishes the aim - rotating the head cannot move the neck's own line.
+const NECK_ENTRIES := 3          # chain[0..2] = Head, neck_02, neck_01: neck and head, which take no pitch
+const NECK_LIMIT_DEG := 20.0     # the neck stays this close to the chest line while a look is on
+const NECK_MARGIN_DEG := 1.0     # ... and the clamp aims this far inside it, so the pose is not left exactly on the bar
+const NECK_FIX_MAX_DEG := 35.0   # ... straightening at most this much of its own bend in a frame
+const HEAD_AIM_MAX_DEG := 45.0   # the head bone's own turn, to finish the aim the spine and neck left
 
 ## S310 (operator on the side shot of the corner: "doesnt look like a natural human"): the ActionForge crouch bends the
 ## back near flat, so even shared down the chest the look lifted the head out on a stretched, near-level neck. A real
@@ -27,6 +36,8 @@ var _reach := {}           # side -> {target: Callable, w: float, on: bool}
 var _look := {"target": Callable(), "w": 0.0, "on": false}
 var _neck := -1
 var _head := -1
+var _chest3 := -1            # spine_03: the chest line runs from here
+var _chest5 := -1            # spine_05: ... to here (COACHNECK2: not the Chest bone's own +Y basis axis)
 var _chain: Array = []      # the look's bones, head first, up to the chest
 ## The head as shown (world), after this modifier ran; INF before the first frame. A bone read from outside gets the clip's
 ## pose, before the modifiers (S307 trap), and the look moves the head now (S309): the cameras frame this instead.
@@ -66,6 +77,8 @@ func _setup(skel: Skeleton3D) -> bool:
 			_loose_bones.append(skel.find_bone(n))
 	_spine = skel.find_bone("Spine")
 	var chest := skel.find_bone("Chest")
+	_chest3 = chest
+	_chest5 = skel.find_bone("UpperChest")
 	var b := _head
 	while b >= 0 and _chain.size() < CHAIN_SHARE.size():
 		_chain.append(b)
@@ -191,11 +204,125 @@ static func _smooth(u: float) -> float:
 	return u * u * (3.0 - 2.0 * u)
 
 
+## `-- nocoachneck` puts the look back exactly as it was before COACHNECK2 (the before still of the pair, and the switch a
+## later session can re-measure against). Read once, like the other rules in this codebase.
+static var _plain_on := -1
+static func _plain() -> bool:
+	if _plain_on < 0:
+		_plain_on = 1 if OS.get_cmdline_user_args().has("nocoachneck") else 0
+	return _plain_on == 1
+
+
 ## Turns the spine, neck and head (skeleton space) so the face points at `t`, by at most MAX_LOOK_DEG, `w` of the way.
 ## S309 (operator on the corner still: "his neck looks wierd"): the crouching coach looked up at her with the neck and head
 ## alone (40/60) out of a back bent to the floor, so the head jutted out of hunched shoulders. The turn is now shared down
 ## the chain from the head to the chest (CHAIN_SHARE, head first): the back lifts and no joint takes more than a quarter.
+## COACHNECK1 (owner C415: "his neck is coming out horizontally") cut the neck's own share; measured on the c07 pose it
+## moved the neck 0.6 deg, because at that still the clip has already put the face on the target (the look's turn is ~0)
+## and the jut is the clip's own neck: trunk 8.8 deg off vertical, neck 44.9 deg out of the chest line.
+## COACHNECK2 therefore routes what the look does have BY AXIS - pitch bends the back (spine entries), the sideways part
+## is shared exactly as before, the neck entries take no pitch - and then the neck is held on the chest line and the head
+## bone finishes the aim, so the face still lands on the target.
 func _turn_head(skel: Skeleton3D, t: Vector3, w: float) -> void:
+	var chest_line := _chest_line(skel)
+	var lat := chest_line.cross(_fwd_skel)
+	if lat.length() < 1e-4:
+		lat = chest_line.cross(Vector3.UP)
+	lat = lat.normalized()
+	var gh := skel.get_bone_global_pose(_head)
+	var face := (gh.basis.orthonormalized() * _face_local).normalized()
+	var want := (t - gh.origin).normalized()
+	var angle := face.angle_to(want)
+	var axis := face.cross(want)
+	if _plain():
+		# `-- nocoachneck`: the look as it was before COACHNECK2 (every bone shares the turn about the mixed axis) - the
+		# arm the still pair compares against.
+		if angle >= 0.01 and axis.length() >= 1e-6:
+			axis = axis.normalized()
+			var turn_plain := minf(angle, deg_to_rad(MAX_LOOK_DEG)) * w
+			var sum_plain := 0.0
+			for i in _chain.size():
+				sum_plain += float(CHAIN_SHARE[i])
+			var old_plain: Array = _chain.map(func(b): return skel.get_bone_global_pose(b).basis.get_rotation_quaternion())
+			var par_plain := skel.get_bone_parent(_chain[-1])
+			var pn_plain := skel.get_bone_global_pose(par_plain).basis.get_rotation_quaternion() if par_plain >= 0 else Quaternion.IDENTITY
+			var acc_plain := Quaternion.IDENTITY
+			for i in range(_chain.size() - 1, -1, -1):
+				acc_plain = Quaternion(axis, turn_plain * float(CHAIN_SHARE[i]) / sum_plain) * acc_plain
+				var gp: Quaternion = acc_plain * (old_plain[i] as Quaternion)
+				skel.set_bone_pose_rotation(_chain[i], (pn_plain.inverse() * gp).normalized())
+				pn_plain = gp
+		return
+	if angle >= 0.01 and axis.length() >= 1e-6:
+		axis = axis.normalized()
+		var turn := minf(angle, deg_to_rad(MAX_LOOK_DEG)) * w
+		var pitch := turn * axis.dot(lat)
+		var yaw := turn * axis.dot(chest_line)
+		var share_sum := 0.0
+		for i in _chain.size():
+			share_sum += float(CHAIN_SHARE[i])
+		var spine_count := maxi(_chain.size() - NECK_ENTRIES, 1)
+		var per_pitch: Array = []
+		var per_yaw: Array = []
+		for i in _chain.size():
+			per_yaw.append(yaw * float(CHAIN_SHARE[i]) / share_sum)
+			per_pitch.append(0.0 if i < NECK_ENTRIES else pitch / float(spine_count))
+		# Old global turns first (setting a bone moves its children's globals), then each bone from the chest up.
+		var old: Array = _chain.map(func(b): return skel.get_bone_global_pose(b).basis.get_rotation_quaternion())
+		var parent := skel.get_bone_parent(_chain[-1])
+		var parent_new := skel.get_bone_global_pose(parent).basis.get_rotation_quaternion() if parent >= 0 else Quaternion.IDENTITY
+		var acc := Quaternion.IDENTITY
+		for i in range(_chain.size() - 1, -1, -1):
+			acc = Quaternion(lat, per_pitch[i]) * Quaternion(chest_line, per_yaw[i]) * acc
+			var g1: Quaternion = acc * (old[i] as Quaternion)
+			skel.set_bone_pose_rotation(_chain[i], (parent_new.inverse() * g1).normalized())
+			parent_new = g1
+	# COACHNECK2: the neck on the chest line, then the head finishes the aim (both run even when the look's turn is ~0,
+	# which is exactly the c07 case).
+	_neck_on_chest(skel, w)
+	_aim_head(skel, t, w)
+
+
+## The chest line in the skeleton's space: the way the man's back runs, spine_03's origin to spine_05's origin. A
+## MetaHuman spine bone's own +Y basis axis is NOT this (COACHNECK2: round 1's probe read 131 deg where the still shows 45).
+func _chest_line(skel: Skeleton3D) -> Vector3:
+	if _chest3 < 0 or _chest5 < 0:
+		return Vector3.UP
+	var d: Vector3 = skel.get_bone_global_pose(_chest5).origin - skel.get_bone_global_pose(_chest3).origin
+	return d.normalized() if d.length() > 1e-5 else Vector3.UP
+
+
+## COACHNECK2: holds the neck within NECK_LIMIT_DEG of the chest line by turning the low neck bone, eased by `w`. The clip
+## put the neck 44.9 deg out of an upright chest; a man leaning in to talk keeps it in line with his chest, chin tucked.
+## NECK_FIX_MAX_DEG keeps one frame from breaking the neck, and the head's own aim is done after this, so the coach still
+## looks at his boxer.
+func _neck_on_chest(skel: Skeleton3D, w: float) -> void:
+	if _neck < 0 or _head < 0:
+		return
+	var chest_line := _chest_line(skel)
+	var d: Vector3 = skel.get_bone_global_pose(_head).origin - skel.get_bone_global_pose(_neck).origin
+	if d.length() < 1e-5:
+		return
+	var dir := d.normalized()
+	var over := rad_to_deg(dir.angle_to(chest_line)) - maxf(NECK_LIMIT_DEG - NECK_MARGIN_DEG, 0.0)
+	if over <= 0.0:
+		return
+	var axis := dir.cross(chest_line)
+	if axis.length() < 1e-6:
+		return
+	var turn := deg_to_rad(minf(over, NECK_FIX_MAX_DEG)) * w
+	var g := skel.get_bone_global_pose(_neck)
+	var g1 := Quaternion(axis.normalized(), turn) * g.basis.get_rotation_quaternion()
+	var par := skel.get_bone_parent(_neck)
+	var pq := skel.get_bone_global_pose(par).basis.get_rotation_quaternion() if par >= 0 else Quaternion.IDENTITY
+	skel.set_bone_pose_rotation(_neck, (pq.inverse() * g1).normalized())
+
+
+## COACHNECK2: the head bone's own turn to put the face on `t` once the spine and the neck have settled. The head's ORIGIN
+## is the neck's own top, so this can move the face but never the neck's line.
+func _aim_head(skel: Skeleton3D, t: Vector3, w: float) -> void:
+	if _head < 0:
+		return
 	var gh := skel.get_bone_global_pose(_head)
 	var face := (gh.basis.orthonormalized() * _face_local).normalized()
 	var want := (t - gh.origin).normalized()
@@ -205,21 +332,11 @@ func _turn_head(skel: Skeleton3D, t: Vector3, w: float) -> void:
 	var axis := face.cross(want)
 	if axis.length() < 1e-6:
 		return
-	axis = axis.normalized()
-	var turn := minf(angle, deg_to_rad(MAX_LOOK_DEG)) * w
-	var share_sum := 0.0
-	for i in _chain.size():
-		share_sum += float(CHAIN_SHARE[i])
-	# Old global turns first (setting a bone moves its children's globals), then each bone from the chest up.
-	var old: Array = _chain.map(func(b): return skel.get_bone_global_pose(b).basis.get_rotation_quaternion())
-	var parent := skel.get_bone_parent(_chain[-1])
-	var parent_new := skel.get_bone_global_pose(parent).basis.get_rotation_quaternion() if parent >= 0 else Quaternion.IDENTITY
-	var acc := Quaternion.IDENTITY
-	for i in range(_chain.size() - 1, -1, -1):
-		acc = Quaternion(axis, turn * float(CHAIN_SHARE[i]) / share_sum) * acc
-		var g1: Quaternion = acc * (old[i] as Quaternion)
-		skel.set_bone_pose_rotation(_chain[i], (parent_new.inverse() * g1).normalized())
-		parent_new = g1
+	var turn := minf(angle, deg_to_rad(HEAD_AIM_MAX_DEG)) * w
+	var g1 := Quaternion(axis.normalized(), turn) * gh.basis.get_rotation_quaternion()
+	var par := skel.get_bone_parent(_head)
+	var pq := skel.get_bone_global_pose(par).basis.get_rotation_quaternion() if par >= 0 else Quaternion.IDENTITY
+	skel.set_bone_pose_rotation(_head, (pq.inverse() * g1).normalized())
 
 
 ## Two-bone IK in the skeleton's space (FootPlant._solve): the elbow bends in the plane it bends in now.

@@ -100,6 +100,13 @@ static func clip_glove(pr: Node, skel: Skeleton3D, ids: Array, front: float, arm
 ## back by the excess and the arm solved again (twice: the glove's axis turns with the forearm). `capped` false = a plain
 ## solve (a fading reach, the control arm).
 static func solve_capped(pr: Node, skel: Skeleton3D, ids: Array, s: Vector3, want: Vector3, l1: float, l2: float, basis: Basis,
+		pole: Vector3, pole_w: float, clip_glove: Vector3, front: float, capped: bool, hand := "") -> void:
+	_solve_capped(pr, skel, ids, s, want, l1, l2, basis, pole, pole_w, clip_glove, front, capped)
+	if hand != "":
+		keep_warm(pr, skel, hand, ids)   # S507: the next frame's fit starts from this wrist once the punch has landed
+
+
+static func _solve_capped(pr: Node, skel: Skeleton3D, ids: Array, s: Vector3, want: Vector3, l1: float, l2: float, basis: Basis,
 		pole: Vector3, pole_w: float, clip_glove: Vector3, front: float, capped: bool) -> void:
 	solve_held(pr, skel, ids, s, want, l1, l2, basis, pole, pole_w)
 	if capped:
@@ -288,6 +295,53 @@ static func hand_rate(pr: Node, skel: Skeleton3D, dt: float) -> void:
 ## Where the wrist must go for the glove front to sit on `target` (PunchReach._reach's passes, moved here unchanged in S448;
 ## each solve goes through solve_held). `from` INF: from the arm as it stands, measure then solve each pass (the last pass's
 ## target returned); else from that target, solve then measure each pass (the leaned shoulder's re-solve).
+## S507 (the r11 critics' third change, "hooks stop at the head"; HOOKPAST1 on s506a: a stepping hook's glove sailed on
+## 0.77 m past the face at 14.7 m/s). After the hit the clip's arm swings on into its follow-through (pro_left_hook_ft: the
+## clip's wrist 0.6 m off the face 0.1 s after contact). The glove's front follows the forearm, so a ring of wrists puts it on
+## the face; a fit started from the clip's arm found another one each frame and the glove left its aim by 0.3 m in a frame
+## at FULL reach weight (hit_frame THROUGH 0.24 m). Once the punch has landed, the armed hand's fit starts from last frame's
+## solved wrist (world), so it keeps the nearest solution. `-- nowarmfit` = the control arm.
+## A stored wrist is the same punch's when the clip is the same and its clip time is at most WARM_DT on (a new punch, a
+## seek back, a skipped stretch start from the clip). Tried and not kept: the same start BEFORE the hit (`-- warmpre`;
+## pro_right_cross_hurt still met the face 0.105 m off, hit_carry 30 -> 31).
+static var WARM: bool = not OS.get_cmdline_user_args().has("nowarmfit")
+static var WARM_PRE: bool = OS.get_cmdline_user_args().has("warmpre")
+const WARM_DT := 0.12   # S507 film s507a: a 1.5x punch at 30 fps steps 0.050 s of clip a frame - 0.05 refused it and the hook flung
+static func warm_from(pr: Node, skel: Skeleton3D, hand: String) -> Vector3:
+	if not WARM or hand != str(pr.get("_hand")) or not pr.has_meta("warm_w") or float(pr.get("_thru")) <= 0.0:   # a driven punch only
+		return Vector3.INF
+	if not (pr.get("_hit_w") as Vector3).is_finite() and not WARM_PRE:
+		return Vector3.INF
+	var dt := float(pr.get("_prev_t")) - float(pr.get_meta("warm_t", -9.0))
+	if str(pr.get_meta("warm_clip", "")) != str(pr.get("_clip")) or dt < 0.0 or dt > WARM_DT:
+		return Vector3.INF
+	var w: Vector3 = pr.get_meta("warm_w")
+	return skel.global_transform.affine_inverse() * w
+
+
+static func keep_warm(pr: Node, skel: Skeleton3D, hand: String, ids: Array) -> void:
+	if hand == str(pr.get("_hand")):
+		var hd := skel.get_bone_global_pose(int(ids[2]))
+		pr.set_meta("warm_w", skel.global_transform * hd.origin)
+		pr.set_meta("warm_t", float(pr.get("_prev_t")))
+		pr.set_meta("warm_clip", str(pr.get("_clip")))
+		pr.set_meta("warm_q", skel.global_transform.basis.get_rotation_quaternion() * hd.basis.get_rotation_quaternion())
+
+
+## ... and the hand keeps last frame's turn (world): the clip's fist turns up and over in a hook's follow-through, and the
+## glove's front (along the hand) swung up with it, 0.26 m off the aim in a frame. As the reach lets go (its weight under
+## 1) the turn eases back to the clip's. Before the hit, with `-- nowarmfit` or `-- nowarmhand`: the clip's hand as it stands.
+## (join_return: rep 3 of pro_left_hook steps 10.1 m/s at f06 with it, 8.3 at f05 without - a hit-time event at f04 in every arm.)
+static func warm_hand(pr: Node, skel: Skeleton3D, hand: String, ids: Array) -> Transform3D:
+	var t := skel.get_bone_global_pose(int(ids[2]))
+	if OS.get_cmdline_user_args().has("nowarmhand") or not (pr.get("_hit_w") as Vector3).is_finite() or not warm_from(pr, skel, hand).is_finite() or not pr.has_meta("warm_q"):
+		return t
+	var local_q: Quaternion = skel.global_transform.basis.get_rotation_quaternion().inverse() * (pr.get_meta("warm_q") as Quaternion)
+	var q := t.basis.get_rotation_quaternion().slerp(local_q, clampf(float(pr.get("_w_now")), 0.0, 1.0))
+	t.basis = Basis(q).scaled(t.basis.get_scale())
+	return t
+
+
 static func fit(pr: Node, skel: Skeleton3D, ids: Array, s: Vector3, target: Vector3, front: float, l1: float, l2: float,
 		basis: Basis, pole: Vector3, pole_w: float, passes: int, from: Vector3) -> Vector3:
 	if (RangeTable.on and RangeTable.kind(str(pr.get("_clip"))) == "uppercut") or bool(pr.get_meta("hold_on", false)):
