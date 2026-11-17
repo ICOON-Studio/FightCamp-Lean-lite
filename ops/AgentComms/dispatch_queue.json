@@ -1637,6 +1637,13 @@
    "seat": "qwen",
    "status": "queued",
    "queued": "2026-11-16T21:51"
+  },
+  {
+   "task": "MOTIONRULERS1",
+   "seat": "grok",
+   "status": "held",
+   "queued": "2026-11-17T06:30",
+   "note": "nightly review: rokoko_clips, human_feet, guard_knee red after S503 step lift / paw-feint; animation order, main session decides"
   }
  ]
 }
