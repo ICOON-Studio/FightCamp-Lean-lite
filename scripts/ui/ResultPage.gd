@@ -332,7 +332,12 @@ static func footer(main: Node, m: Dictionary, f: Dictionary, opp: Dictionary) ->
 		take.append([UI.signed(int(m.get("gym_cut", 0))), "THE GYM'S PURSE SHARE", UI.GREEN])
 	else:
 		var cut := int(m.get("club_cut", BoutRules.TICKET_CUT))
-		take.append([UI.signed(cut), "CLUB TICKET CUT" if cut > 0 else "NO TICKET CUT AT THE CHAMPIONSHIPS", UI.GREEN if cut > 0 else UI.MUTED])
+		var none := "THE HOST KEPT THE GATE" if m.has("gate_line") else "NO TICKET CUT AT THE CHAMPIONSHIPS"   # S512 a picked name
+		take.append([UI.signed(cut), "CLUB TICKET CUT" if cut > 0 else none, UI.GREEN if cut > 0 else UI.MUTED])
+		if m.has("taught"):   # S512 ASKFIGHT1: what the fight taught (FightLearn), on every amateur result
+			var g := float(m["taught"].get("grow", 0.0))
+			take.append([("+%.1f" % g) if g > 0.0 else "NOTHING", "WHAT IT TAUGHT, EVERY ABILITY" + (" (A STEP UP)" if str(m["taught"].get("kind", "")) == "step_up" else ""),
+				UI.GREEN if g > 0.0 else UI.MUTED])
 	var lost := int(m.get("members_lost", 0))
 	var win := bool(m["win"])
 	take.append(["+%d" % BoutRules.WIN_MEMBERS if win else ("-%d" % lost if lost > 0 else "NO CHANGE"), "MEMBERS AFTER THE NEWS", UI.GOLD if lost == 0 else UI.RED])

@@ -2,6 +2,7 @@ extends RefCounted
 ## The player's moves around a fighter's bout and plan: offers, camp, weigh-in, fight night, the office talk, her week
 ## plan. Each takes the fighter by id (the arg, or the open moment's "fid"). Main.act hands names it does not know here.
 
+const AskFlow := preload("res://scripts/state/AskFlow.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const Sim := preload("res://scripts/state/Sim.gd")
@@ -210,6 +211,19 @@ static func act(main: Node, name: String, arg: String) -> bool:
 				main.nav({"area": "home", "tab": 0})
 				main.toast("Bout booked. Next: %s." % ("set the fight week" if WeekPhase.amateur(Bouts.find_offer(c, arg)[0].get("bout", {})) else "set the camp"))
 				main.show_poster(fid)
+		"ask":
+			main.nav({"area": "fights", "tab": 0, "ask": arg})   # S512 ASKFIGHT1: the Ask panel for one fighter
+		"askbout":
+			# S512 ASKFIGHT1: "fid|kind|name|day" - book the ask through the sheet's accept path (AskFlow.book).
+			var parts := arg.split("|")
+			var g := who(main, parts[0])
+			if AskFlow.book(c, g, parts[1], parts[2], int(parts[3])):
+				main.nav({"area": "home", "tab": 0})
+				main.toast("Bout booked: %s, %s. Next: set the fight week." % [parts[2], Clock.fmt(int(parts[3]))])
+				main.show_poster(parts[0])
+			else:
+				main.toast("The host cannot book that now.")
+				main.render()
 		"declineOffer":
 			Bouts.decline(c, arg)
 			main.nav({"area": "fights", "tab": 0})

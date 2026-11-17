@@ -244,7 +244,8 @@ func nav(r: Dictionary) -> void:
 	past.append(route.duplicate())
 	ahead.clear()
 	route = Routes.canon({"area": r.get("area", "home"), "tab": int(r.get("tab", 0)), "fighter": str(r.get("fighter", "")),
-		"ftab": int(r.get("ftab", 0)), "ptab": int(r.get("ptab", 0)), "bout": str(r.get("bout", ""))})   # S396 screen cut
+		"ftab": int(r.get("ftab", 0)), "ptab": int(r.get("ptab", 0)), "bout": str(r.get("bout", "")),
+		"ask": str(r.get("ask", ""))})   # S396 screen cut; S512 ask = the Ask panel's fighter
 	_drop_old_toast()
 	render()
 	if route["area"] == "home":

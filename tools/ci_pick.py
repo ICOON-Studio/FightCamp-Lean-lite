@@ -37,6 +37,9 @@ def changed_files(env):
     before, after = env.get("BEFORE", ""), env.get("AFTER", "")
     if env.get("EVENT") == "push" and before and after and set(before) != {"0"}:
         return gh(["api", "repos/%s/compare/%s...%s" % (env["REPO"], before, after), "--jq", ".files[].filename"])
+    if env.get("EVENT") == "workflow_dispatch" and after and env.get("BRANCH", "main") != "main":
+        # Goose dispatches ci on its own branch: check what the branch changes against main (full=true runs everything)
+        return gh(["api", "repos/%s/compare/main...%s" % (env["REPO"], after), "--jq", ".files[].filename"])
     return None
 
 

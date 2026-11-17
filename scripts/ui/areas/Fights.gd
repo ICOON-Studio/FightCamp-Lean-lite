@@ -3,6 +3,8 @@ extends VBoxContainer
 ## bout page.
 
 const OfferCard := preload("res://scripts/ui/OfferCard.gd")
+const AskPanel := preload("res://scripts/ui/AskPanel.gd")
+const AskFlow := preload("res://scripts/state/AskFlow.gd")
 const Pulse := preload("res://scripts/ui/Pulse.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const Fixtures := preload("res://scripts/ui/Fixtures.gd")
@@ -28,6 +30,9 @@ func build(main: Node) -> void:
 		var page := BOUT_PAGE.instantiate()
 		add_child(page)
 		page.build(main, str(main.route["bout"]))
+		return
+	if str(main.route.get("ask", "")) != "":   # S512 ASKFIGHT1: the Ask panel for one fighter
+		AskPanel.build(main, self, str(main.route["ask"]))
 		return
 	AreaHead.add(self, main, "fights")
 	# S396 screen cut: Offers, Calendar and Results are one page (docs/STRUCTURE_DESIGN_S395.md 5.4).
@@ -106,6 +111,15 @@ func _standing(main: Node, c: Career, f: Dictionary) -> Control:
 	var fb: Dictionary = f["bout"]
 	if fb.is_empty():
 		v.add_child(UI.label("No bout booked", UI.BODY, UI.GREEN, "bold"))
+		var ask := AskFlow.open(c, f)   # S512 ASKFIGHT1: ask the host for a bout, or why not yet
+		if bool(ask["open"]):
+			var b := UI.button("Ask for a bout", "BtnSolid", main.act.bind("ask", str(f["id"])))
+			b.name = "AskFor_" + str(f["id"])
+			b.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+			v.add_child(b)
+		elif not bool(f.get("pro", false)):
+			v.add_child(UI.label(str(ask["why"]) + (" Asking opens %s." % Clock.fmt(int(ask["opens_day"])) if int(ask["opens_day"]) >= 0 else ""),
+				UI.SMALL, UI.MUTED, "body", true))
 	else:
 		v.add_child(UI.label("Booked: vs %s, %s" % [fb["opp"]["name"], Clock.fmt(int(fb["day"]))], UI.BODY, UI.GOLD, "bold"))
 		var acts := UI.hbox(8)   # S416 operator on this page: "there is nothing to do in this menu wtf?"

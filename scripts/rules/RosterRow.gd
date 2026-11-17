@@ -211,7 +211,7 @@ static func _goal_do(c: Career, f: Dictionary, act: String, arg: String) -> Arra
 		var o: Dictionary = _open_offer(f)
 		if not o.is_empty():
 			return ["Answer the offer", "FIX", "openBout", str(o["id"])]
-		return ["Find a bout", "FIX", "go", "fights:0"]
+		return ["Find a bout", "FIX", "ask", str(f.get("id", ""))]   # S512 ASKFIGHT1: the Ask panel (map v4 s6)
 	return ["Drill %s" % str(Data.LABEL.get(key, key.capitalize())).to_lower(), "DRILL", act, arg]
 
 

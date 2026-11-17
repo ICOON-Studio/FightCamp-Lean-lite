@@ -3,6 +3,7 @@ extends RefCounted
 ## From the last bell to the scorecards, the record, money, members, morale, goals, injury roll and coach's notes.
 ## BoutNight._finish delegates here; every external caller (Bouts, PlanTest, FixLab) still goes through BoutNight.
 
+const AskFlow := preload("res://scripts/state/AskFlow.gd")
 const JudgeNight := preload("res://scripts/state/JudgeNight.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const CrackWire := preload("res://scripts/state/CrackWire.gd")
@@ -120,8 +121,12 @@ static func run(c: Career, f: Dictionary, m: Dictionary) -> void:
 			f["purse"] = mini(int(f["purse_top"]), int(f["purse"]) + int(f["purse_step"]))
 	else:
 		# S328 a championship is England Boxing's show: no ticket cut for the club. S488 our own show: the gate is ours.
-		var no_cut: bool = f["bout"].has("champ") or HomeBout.is_home(f)
+		var no_cut: bool = f["bout"].has("champ") or HomeBout.is_home(f) or bool(f["bout"].get("host_gate", false))   # S512 a picked name: the host keeps the gate
 		m["club_cut"] = 0 if no_cut else BoutRules.TICKET_CUT
+		if bool(f["bout"].get("host_gate", false)):
+			m["gate_line"] = "$0: the host kept the gate (a name you picked)."
+		# S512 ASKFIGHT1: what an amateur fight teaches (FightLearn; a step up a quarter more) - the result page says it.
+		m["taught"] = AskFlow.teach_after(f, opp, win, not win and stop != "")
 		if HomeBout.is_home(f):
 			HomeBout.boxed(c, f)   # S488 HOMEBOUT1: the promised top of our show is kept by boxing it
 		if not no_cut:
