@@ -15,8 +15,11 @@ var out_dir := "user://result_tabs"
 func _initialize() -> void:
 	load("res://scripts/ui/MenuFx.gd").instant = true
 	var args := OS.get_cmdline_user_args()
-	if not args.is_empty():
-		out_dir = args[0]
+	for a in args:   # S504: `text=<0-3>` shoots the tabs at that Text size (the operator plays at Largest, 3)
+		if str(a).begins_with("text="):
+			load("res://scripts/ui/TextScale.gd").use(self, float(load("res://scripts/state/Settings.gd").TEXT_SIZES[int(str(a).substr(5))][1]))
+		else:
+			out_dir = str(a)
 	DirAccess.make_dir_recursive_absolute(out_dir)
 	root.size = Vector2i(1920, 1080)
 	main = load("res://scenes/Main.tscn").instantiate()
@@ -28,12 +31,16 @@ func _initialize() -> void:
 	main.resume(cf[0])
 	await _settle()
 	main.open_modal(m)
-	for tab in ["summary", "exchanges", "numbers", "plan"]:
+	for tab in ["summary", "scorecard", "exchanges", "numbers", "plan"]:
 		m["result_tab"] = tab
 		main.redraw_modal()
 		await _settle(30)
 		_check(tab)
 		await _save("result_" + tab)
+		if tab == "scorecard":   # S504 Q-265: the hover on judge 3's round 1 score (the mockup's card)
+			await _hover("Score3_1_a")
+			await _save("result_scorecard_hover")
+			await _hover("")
 	quit(0)
 
 
@@ -64,6 +71,23 @@ func _save(name: String) -> void:
 	await RenderingServer.frame_post_draw
 	root.get_texture().get_image().save_png(out_dir.path_join(name + ".png"))
 	print("wrote ", out_dir.path_join(name + ".png"))
+
+
+## The mouse over a named control (its centre) and the tooltip's delay waited out; "" moves it away.
+func _hover(name: String) -> void:
+	var at := Vector2(5, 5)
+	if name != "":
+		var c: Control = main.modal_node().find_child(name, true, false)
+		if c == null:
+			print("RESULT_STILL no ", name)
+			return
+		at = c.get_global_rect().get_center()
+	var ev := InputEventMouseMotion.new()
+	ev.position = at
+	ev.global_position = at
+	root.push_input(ev)
+	await create_timer(1.2).timeout
+	await _settle(6)
 
 
 func _settle(n: int = 6) -> void:

@@ -70,6 +70,15 @@
      "globs": [
       "docs/mockups/concepts/S401_*.png"
      ]
+    },
+    {
+     "id": "scorecard2",
+     "title": "Scorecard tab - built (S504)",
+     "kind": "gallery",
+     "globs": [
+      "docs/mockups/s504/scorecard/real_scorecard.png",
+      "docs/mockups/s504/scorecard/real_scorecard_hover.png"
+     ]
     }
    ]
   },

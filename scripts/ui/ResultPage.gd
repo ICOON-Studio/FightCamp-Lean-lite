@@ -5,6 +5,7 @@ extends RefCounted
 ##   header   - both boxers, the verdict and how, the three judges round by round, the rank the bout earned (WhyRank)
 ##   SUMMARY  - the ONE cause with its measured fix (FixLab: the plan as written against the best change, "even the best plan
 ##              makes it an even fight" when the numbers say so), what the bout cost, the rounds strip
+##   SCORECARD - ResultScorecard (S504, the three judges' sheets, a hover a score)
 ##   THE EXCHANGES / THE NUMBERS / THE PLAN - ResultTabs
 ##   footer   - the night's take-home, the plan lit up, Back home
 ## The open tab rides on the moment (m["result_tab"]), so a redraw (a button that sets a focus) keeps it.
@@ -22,10 +23,11 @@ const AftermathTiles := preload("res://scripts/ui/AftermathTiles.gd")
 const FixLab := preload("res://scripts/state/FixLab.gd")
 const ResultTabs := preload("res://scripts/ui/ResultTabs.gd")
 const ResultCause := preload("res://scripts/ui/ResultCause.gd")
+const ResultScorecard := preload("res://scripts/ui/ResultScorecard.gd")   # S504 Q-265 the judges' sheets
 
 ## The judges' verdict words (JudgeNight.verdict_words reads the same m["judges"]).
 const VERDICT := {"unanimous": "unanimous decision", "split": "split decision", "majority": "majority decision", "draw": "a draw"}
-const TABS := [["summary", "SUMMARY"], ["exchanges", "THE EXCHANGES"], ["numbers", "THE NUMBERS"], ["plan", "THE PLAN"]]
+const TABS := [["summary", "SUMMARY"], ["scorecard", "SCORECARD"], ["exchanges", "THE EXCHANGES"], ["numbers", "THE NUMBERS"], ["plan", "THE PLAN"]]
 const WIDE := 1800.0
 const TEXT := 20
 
@@ -47,6 +49,7 @@ static func build(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 	v.add_child(_tab_bar(main, m, tab))
 	var body: Control
 	match tab:
+		"scorecard": body = ResultScorecard.tab(main, m, f, names)
 		"exchanges": body = ResultTabs.exchanges(m, names)
 		"numbers": body = ResultTabs.numbers(main, m, f, opp, names)
 		"plan": body = ResultTabs.plan(m, names)

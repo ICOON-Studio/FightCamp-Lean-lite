@@ -1,3 +1,14 @@
+S504 (2026-11-17, your "Yes, build it" on Q-265) - THE SCORECARD TAB
+- After any fight, the result page has a new SCORECARD tab between SUMMARY and THE EXCHANGES: the three judges' sheets
+  on paper, each with its name, a row a round (your boxer red, the opponent blue), the running score, the total ringed
+  in the winner's colour and a RED / BLUE stamp. The sheets always add up to the cards in the header.
+- HOVER ANY SCORE: that judge's reason for the round - exchanges won, punches landed, hurt, counts, the ropes, and on a
+  split round "a close round: this judge saw it the other way".
+- ROUND BY ROUND below: who took each round and on how many cards, exchanges won, punches landed, the corner's call, a
+  bar of the punches, and the one line that decided it. WHAT IT MEANS beside it: the cards, the close round, the rank.
+- Not drawn from the mockup: "Watch round 2" and a drill button (the game has no round replay yet); Back home stays in
+  the footer. A stoppage shows the cards up to it ("never needed").
+
 S504 (2026-11-16) - THE FIGHT: PUNCHES THAT LAND MOVE THE OTHER MAN AT ONCE
 - HIT REACTIONS: when a punch lands, the other boxer's head now reaches its furthest point 3-4 frames after the glove
   (it took 5, and 25 of 37 reactions in a 3-minute test came late; now 3). The game used to freeze BOTH boxers for a

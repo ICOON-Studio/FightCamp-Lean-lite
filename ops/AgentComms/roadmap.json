@@ -2116,7 +2116,7 @@
   {
    "id": "S504",
    "date": "2026-11-16",
-   "summary": "S504: fight week day 9 - HIT REACTIONS (both r10 critics' item 1). Three stacked delays found frame by frame: the hit-stop froze the hit man's reaction too, the clip started 0.10 s before its peak, and it entered through the strike join (~45 % shown by frame 2). Now: hit-stop holds only the hitter (-- holdboth), lead 0.067 s, a reaction's own join 0.04 s (-- slowreactjoin), his own punch waits 0.20 s after his snap (-- nosnapwait; every cutting punch now starts after the peak). Furthest point median 5 -> 4 frames (jab 3.5, hook 3), reactions later than 4 frames 25 -> 3, head jumps 89 -> 90. Cross step back: rock cap scales with the step (HitStep.lean_max). Rulers: reaction rows by kind; Qwen PUNCHEND1 + STANDOFF1 collected (stand-offs are standing close idle, not gloves pressed); PUNCHEND2 launched. Scorecard tab mockup -> board Q-265. Ziva COACHNECK2 never started. Digest ops/research/S504_DIGEST.md."
+   "summary": "S504: fight week day 9 - HIT REACTIONS (both r10 critics' item 1). Three stacked delays found frame by frame: the hit-stop froze the hit man's reaction too, the clip started 0.10 s before its peak, and it entered through the strike join (~45 % shown by frame 2). Now: hit-stop holds only the hitter (-- holdboth), lead 0.067 s, a reaction's own join 0.04 s (-- slowreactjoin), his own punch waits 0.20 s after his snap (-- nosnapwait; every cutting punch now starts after the peak). Furthest point median 5 -> 4 frames (jab 3.5, hook 3), reactions later than 4 frames 25 -> 3, head jumps 89 -> 90. Cross step back: rock cap scales with the step (HitStep.lean_max). Rulers: reaction rows by kind; Qwen PUNCHEND1 + STANDOFF1 collected (stand-offs are standing close idle, not gloves pressed); PUNCHEND2 launched. Scorecard tab mockup -> board Q-265. Ziva COACHNECK2 never started. Digest ops/research/S504_DIGEST.md. | After ship (2026-11-17, operator 'Yes, build it' on Q-265): SCORECARD tab built on the result page (scripts/ui/ResultScorecard.gd): three paper sheets from ScoreSheet.build that add up to the header's cards, hover = the judge's reason, round-by-round cards, what it means; fits 1920x1080 at Largest; result_tabs_test 60 asserts green; build exported."
   }
  ],
  "blocked_on_operator": [],
@@ -5035,7 +5035,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-16 21:41 board_sync",
+  "updated": "2026-11-16 22:11 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5192,10 +5192,11 @@
     "run": "COACHNECK2"
    },
    {
-    "title": "TASK PUNCHEND2 - PunchEnd reads home from her guard and from the contact frame",
+    "title": "TASK PUNCHEND2 - PunchEnd's \"home\" read from her guard, not the punch's first frame",
     "who": "qwen",
-    "started": "2026-11-16T22:05",
-    "run": "PUNCHEND2"
+    "started": "2026-11-16T21:57",
+    "run": "PUNCHEND2",
+    "state": "LANDED - Claude collects"
    }
   ],
   "next": [
@@ -5739,6 +5740,16 @@
   },
   "done_recently": [
    {
+    "title": "Scorecard tab on the fight result: three judges' sheets, a hover a score",
+    "who": "claude",
+    "when": "2026-11-17"
+   },
+   {
+    "title": "TASK STANDOFF1 - a ruler: glove-pressing stand-offs inside 1.0 m",
+    "who": "qwen",
+    "when": "2026-11-16"
+   },
+   {
     "title": "S504: hit reactions peak at 3-4 frames (was 5), 3 late (was 25)",
     "who": "claude",
     "when": "2026-11-16"
@@ -5782,11 +5793,6 @@
    },
    {
     "title": "TASK PRESSFLASH1 - crowd camera flashes never read as a hit in empty air",
-    "who": "qwen",
-    "when": "2026-11-16"
-   },
-   {
-    "title": "TASK COACHNECK1 - the corner coach's neck stays upright in his close-up (the owner's C415 mark)",
     "who": "qwen",
     "when": "2026-11-16"
    }
@@ -5944,6 +5950,10 @@
     },
     {
      "text": "Hit reactions: peak 5 -> 3-4 f",
+     "who": "claude"
+    },
+    {
+     "text": "Scorecard tab built",
      "who": "claude"
     }
    ],

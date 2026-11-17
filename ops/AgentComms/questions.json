@@ -8047,10 +8047,11 @@
       "attach": [
         "AgentComms/board_attach/Q-S294-265_0_scorecard.png"
       ],
-      "answer": null,
-      "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answer": "Yes, build it",
+      "note": "Built S504 after ship: SCORECARD tab on the fight result (scripts/ui/ResultScorecard.gd).",
+      "answered_at": "2026-11-17T05:55:23Z",
+      "seen_by_claude": true,
+      "comment_only": false
     }
   ]
 }

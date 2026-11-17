@@ -10,6 +10,7 @@ const FightNight := preload("res://scripts/ui/modals/FightNight.gd")
 const BoutActs := preload("res://scripts/ui/BoutActs.gd")
 const ResultCause := preload("res://scripts/ui/ResultCause.gd")
 const PlanLines := preload("res://scripts/rules/PlanLines.gd")
+const ResultScorecard := preload("res://scripts/ui/ResultScorecard.gd")
 
 var failures := 0
 var asserts := 0
@@ -73,11 +74,12 @@ func _initialize() -> void:
 		_check((str(lab["best"]) != str(k)) or int(lab["changes"][k]["wins"]) - int(lab["written"]) >= FixLab.MIN_GAIN, "the fix beats the plan as written by %d nights or more" % FixLab.MIN_GAIN)
 	_check(int((page.find_child("Round1", true, false) as Node).get_child(0).get_child_count()) >= 2, "the rounds strip draws round 1")
 	_check(_pronouns(page) == "", "no he/she on the summary: %s" % _pronouns(page))
-	for t in ["exchanges", "numbers", "plan"]:
+	for t in ["scorecard", "exchanges", "numbers", "plan"]:
 		m["result_tab"] = t
 		page = _page(desk, m)
 		_check(page.find_child("Tab_" + t, true, false) != null and page.find_child("BackHome", true, false) != null, "the %s tab builds with Back home" % t)
 		_check(_pronouns(page) == "", "no he/she on the %s tab: %s" % [t, _pronouns(page)])
+	_scorecard(desk, m)
 	if not fixed:
 		lab["best"] = "rewrite"   # no change beat luck on this bout: the button's path is walked with the rewrite as the fix
 		m["result_tab"] = "summary"
@@ -129,6 +131,38 @@ func _lab_rules(c: Career, f: Dictionary, m: Dictionary) -> Dictionary:
 			"a full plan puts the new line in place of one never used (%s; unused %s)" % [str(full.get("add", {}).get("replaces", "")), str(unused)])
 	_check(FixLab.verdict(25, 30, 40) == "plan_right" and FixLab.verdict(5, 18, 40) == "even" and FixLab.verdict(5, 12, 40) == "class" and FixLab.verdict(5, 30, 40) == "fixed", "the verdict bands")
 	return worst
+
+
+## S504 SCORECARD (Q-265): three paper sheets whose totals ARE the bout's cards, a hover on every score that names the judge
+## and the round, the round cards, and the sheet input's rules: a flipped close round on judge 3 only, no stopped round.
+func _scorecard(desk: Desk, m: Dictionary) -> void:
+	m["result_tab"] = "scorecard"
+	var page := _page(desk, m)
+	for n in ["JudgesCards", "Sheet1", "Sheet2", "Sheet3", "RoundByRound", "WhatItMeans", "RoundCard1"]:
+		_check(page.find_child(n, true, false) != null, "the scorecard holds %s" % n)
+	var j := ResultScorecard.sheet_input(m)
+	var cards: Array = m["cards"]
+	for ji in 3:
+		var tot: Array = j["cards"][ji]
+		_check("%d-%d" % [int(tot[0]), int(tot[1])] == str(cards[ji]), "judge %d's sheet adds up to the card %s: %s" % [ji + 1, str(cards[ji]), str(tot)])
+		var st: Label = page.find_child("Stamp%d" % (ji + 1), true, false)
+		var want := "RED" if int(tot[0]) > int(tot[1]) else ("BLUE" if int(tot[1]) > int(tot[0]) else "EVEN")
+		_check(st != null and st.text == want, "judge %d's stamp reads %s" % [ji + 1, want])
+	var cell: Control = page.find_child("Score3_1_a", true, false)
+	_check(cell != null and cell.tooltip_text.begins_with("Round 1 · Judge 3 gave it to"), "a score's hover is that judge's reason: %s" % (cell.tooltip_text.get_slice("
+", 0) if cell else ""))
+	var fake := {"rounds": [{"won": true, "exchanges": []}, {"won": false, "exchanges": []}, {"won": true, "exchanges": []}], "cards": ["29-28", "29-28", "28-29"], "stopped": ""}
+	var fj := ResultScorecard.sheet_input(fake)
+	var flips := 0
+	for ri in 3:
+		var row: Array = fj["by_round"][ri]
+		flips += int((int(row[2]["a"]) > int(row[2]["b"])) != (int(row[0]["a"]) > int(row[0]["b"])))
+	_check(flips == 1 and str(fj["verdict"]) == "split", "a split card flips one round on judge 3 only: %d flips, %s" % [flips, str(fj["verdict"])])
+	fake["stopped"] = "TKO"
+	_check((ResultScorecard.sheet_input(fake)["by_round"] as Array).size() == 2, "a stoppage scores only the rounds before it")
+	fake["rounds"] = [{"won": true, "exchanges": []}]
+	_check(ResultScorecard.sheet_input(fake).is_empty(), "a first-round stoppage has no card")
+	_check(_pronouns(page) == "", "no he/she on the scorecard: %s" % _pronouns(page))
 
 
 func _page(desk: Desk, m: Dictionary) -> Control:
