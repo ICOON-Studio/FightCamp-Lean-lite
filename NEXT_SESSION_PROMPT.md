@@ -4,14 +4,18 @@ Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. Road
 Digest: `ops/research/S505_DIGEST.md`.
 
 ## Where the fight stands
-- Fight motion week (deal: 5+ from BOTH blind critics or 3D leaves the first release). Last blind round r10 (S503):
-  coach 5, animator 4.5. No round since; r11 briefs are ready in `E:/FightCamp/tmp/fightweek/r11blind` (sheet times
-  still the r10 ones - set them from the r11 film).
+- Fight motion week (deal: 5+ from BOTH blind critics or 3D leaves the first release). BLIND r11 (S505, 11:20):
+  coach 5, animator 5.0 - both at 5 for the first time (r10 5 / 4.5). Files `E:/FightCamp/tmp/fightweek/r11blind`
+  (critic_*.md, 10/10 pictures on /review). Their shared #1: the FREE hand drops to the belt on most punches.
 - Base film now `E:/FightCamp/tmp/fightweek/s505b` (180 s, seed 7; log has Chest/UpperChest/Neck/shoulders). Against
   s504o: cross back 12.9 -> 14.2 cm, head jumps 80 -> 77, worst 27.6 -> 20.8 cm.
 - s505c = the same with `leanrate=2.5`: jumps 63, but block_catch 4 -> 6 and hit_frame 6 -> 7 failures (red already).
 
 ## NEXT (in order)
+0. Collect Qwen FREEHAND1 (running, branch qwen/freehand1: scripts/rules/FreeHand.gd + tools/free_hand_probe.gd + test),
+   then build the fix both r11 critics put first: hold the non-punching glove within 8-10 cm of the chin while the other
+   hand punches (body shots + the "drops the right" habit excepted); 180 s film seed 7 vs s505b, FreeHand before/after.
+   Then: head reactions sized + eased out over 8-12 frames; no upward arm flings; a punch on the guard moves the guard.
 1. LEANRED1 is in (`docs/LEANRED1_RESULT.md`): 2.5 on hooks/crosses breaks 4 checks (hook carry 7 -> 31 cm). Built
    `-- jabrate=` (jabs only, default 4.0). On an IDLE PC (never while the owner plays: block_catch read 9 even at 4.0):
    block_catch + hit_frame with and without `jabrate=2.5`, then a 180 s film (seed 7) against s505b; adopt if green-equal.
@@ -28,6 +32,9 @@ Digest: `ops/research/S505_DIGEST.md`.
 - PR 341 look (coach neck before/after on /review).
 - Unity + Unity Hub (~27 GB on C:) look unused - uninstall? (his call; he removes it in Settings > Apps or says yes.)
 - Page file is 57 GB on C: - shrinking it is his Windows setting; told him how.
+
+## Seats
+- Qwen seat = qwen4-max since S505 (his "can you use qwen 4 max ?"; Token Plan; `qwen_task.cmd` + seat_dispatch SEATS).
 
 ## PC lessons (S505)
 - `C:\Users\user\.cache\eyes` is a JUNCTION to `E:\eyes_cache` - never "move it to E:" again.

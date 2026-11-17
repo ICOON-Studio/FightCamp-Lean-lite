@@ -6,9 +6,9 @@
   "id": "S505",
   "owner": "claude",
   "updated": "2026-11-17",
-  "summary": "S505: fight week day 10. Cross step back measured from the shown body (a boxer stepping in had his place 7-14 cm ahead of his feet: the knock only caught the place up) - cross back 12.9 -> 14.2 cm, head jumps 80 -> 77, worst 27.6 -> 20.8. TRUNKTAP splits head jumps by layer (jabs: PunchReach lean 45%, clip 46%); leanrate 2.5 cuts jumps 77 -> 63 but block_catch/hit_frame get worse - kept 4.0, Qwen LEANRED1 measuring. IDLEIN1 + PUNCHEND3 collected; hands come home in 4-6 frames to ~15 cm (the guard moves after). Ziva COACHNECK2 PR 341 (neck 44.8 -> 19.8 deg) awaits his look. Training: boxer cards hover, Ana's card opens her drill page. C: 6.4 -> 15 GB free. Digest ops/research/S505_DIGEST.md.",
-  "next_action": "FIGHT MOTION WEEK day 11 (S506). Deal: 5+ from BOTH blind critics or 3D leaves the first release. 1) Collect Qwen LEANRED1 (docs/LEANRED1_RESULT.md): fix what the slower lean breaks in block_catch/hit_frame, then leanrate 2.5 as default (s505c: jumps 77 -> 63). 2) Merge Ziva PR 341 once the owner OKs the still pair on /review. 3) Film r11 (--write-movie 1920x1080, film_sheets.py; briefs ready in E:/FightCamp/tmp/fightweek/r11blind - set the sheet times from the r11 film) and two NEW blind critics - only when the owner is not playing. 4) Hands home: on the r11 sheets judge whether a hand ~15 cm off the pre-punch guard reads as 'left out'; if not, PunchEnd's home = the guard after the punch. Base film s505b; tools: trunk_tap (-- trunktap), RingPlace -- placedebug, fight_motion_rulers --compare.",
-  "last_working_commit": "38635eb06",
+  "summary": "S505: fight week day 10. Cross step back measured from the shown body (a boxer stepping in had his place 7-14 cm ahead of his feet: the knock only caught the place up) - cross back 12.9 -> 14.2 cm, head jumps 80 -> 77, worst 27.6 -> 20.8. TRUNKTAP splits head jumps by layer (jabs: PunchReach lean 45%, clip 46%); leanrate 2.5 cuts jumps 77 -> 63 but block_catch/hit_frame get worse - kept 4.0, Qwen LEANRED1 measuring. IDLEIN1 + PUNCHEND3 collected; hands come home in 4-6 frames to ~15 cm (the guard moves after). Ziva COACHNECK2 PR 341 (neck 44.8 -> 19.8 deg) awaits his look. Training: boxer cards hover, Ana's card opens her drill page. C: 6.4 -> 15 GB free. BLIND r11: coach 5, animator 5.0 - both at 5 (r10 5 / 4.5). Digest ops/research/S505_DIGEST.md.",
+  "next_action": "FIGHT MOTION WEEK day 11 (S506). r11: coach 5, animator 5.0 - BOTH at 5 (the deal's bar); next round aims 6. 1) Collect Qwen FREEHAND1 (scripts/rules/FreeHand.gd + probe: does the non-punching glove stay at the chin), then build the fix both critics put first: an arm layer that holds the free glove within 8-10 cm of the chin while the other hand punches (body shots and a 'drops the right' habit excepted); measure with FreeHand on a 180 s film (seed 7) against s505b. 2) Head reactions sized and EASED OUT (peak frame 2-3, back over 8-12 frames; cross 18-25 cm). 3) No upward arm flings after a punch; hooks stop at the head. 4) Merge Ziva PR 341 after the owner's look. Lean rate stays 4.0 (2.5 rejected, docs/LEANRED1_RESULT.md). block_catch/hit_frame are flaky: compare FAIL sets over 2 runs. Never render while the owner plays.",
+  "last_working_commit": "434a94f0c",
   "verified_playable": "Films r3d (new head rule) and r3ctl (control) on today's main; head_clear_test 39 lines green, join_return_test 0 failures; export: see NEXT_SESSION_PROMPT",
   "incomplete_blocked": "Contact-frame trunk snap (found, not fixed); arms home (WIP patch); head jumps 39 -> 49 on today's main unexplained (r3nocam film checks CAMHOLD1); COACHNECK1 not fixed; film_count_test red on 5 chance-prone claims (the finding); no_pronoun_test 6 Training lines (Training K session)",
   "next_acceptance": "Rulers vs r0: head jumps on the contact frame under 4, a head inside the other's body under 5 frames, arm out median under 4 frames with join_return green, then r1 film at two fresh blind critics 5+/10",
@@ -2124,7 +2124,7 @@
   {
    "id": "S505",
    "date": "2026-11-17",
-   "summary": "S505: fight week day 10. Cross step back measured from the shown body (a boxer stepping in had his place 7-14 cm ahead of his feet: the knock only caught the place up) - cross back 12.9 -> 14.2 cm, head jumps 80 -> 77, worst 27.6 -> 20.8. TRUNKTAP splits head jumps by layer (jabs: PunchReach lean 45%, clip 46%); leanrate 2.5 cuts jumps 77 -> 63 but block_catch/hit_frame get worse - kept 4.0, Qwen LEANRED1 measuring. IDLEIN1 + PUNCHEND3 collected; hands come home in 4-6 frames to ~15 cm (the guard moves after). Ziva COACHNECK2 PR 341 (neck 44.8 -> 19.8 deg) awaits his look. Training: boxer cards hover, Ana's card opens her drill page. C: 6.4 -> 15 GB free. Digest ops/research/S505_DIGEST.md."
+   "summary": "S505: fight week day 10. Cross step back measured from the shown body (a boxer stepping in had his place 7-14 cm ahead of his feet: the knock only caught the place up) - cross back 12.9 -> 14.2 cm, head jumps 80 -> 77, worst 27.6 -> 20.8. TRUNKTAP splits head jumps by layer (jabs: PunchReach lean 45%, clip 46%); leanrate 2.5 cuts jumps 77 -> 63 but block_catch/hit_frame get worse - kept 4.0, Qwen LEANRED1 measuring. IDLEIN1 + PUNCHEND3 collected; hands come home in 4-6 frames to ~15 cm (the guard moves after). Ziva COACHNECK2 PR 341 (neck 44.8 -> 19.8 deg) awaits his look. Training: boxer cards hover, Ana's card opens her drill page. C: 6.4 -> 15 GB free. BLIND r11: coach 5, animator 5.0 - both at 5 (r10 5 / 4.5). Digest ops/research/S505_DIGEST.md."
   }
  ],
  "blocked_on_operator": [],
@@ -5043,7 +5043,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-17 09:41 board_sync",
+  "updated": "2026-11-17 11:41 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5194,11 +5194,24 @@
   },
   "working_now": [
    {
-    "title": "TASK COACHNECK2 - the corner coach neck upright in his close-up, round 2",
-    "who": "ziva",
-    "started": "2026-11-17T09:02",
-    "run": "COACHNECK2",
+    "title": "TASK LEANRED1 - why block_catch and hit_frame are red, and why a slower punch lean makes them worse (measure only)",
+    "who": "qwen",
+    "started": "2026-11-17T10:13",
+    "run": "LEANRED1",
     "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK PUNCHEND4 - PunchEnd also reads how fast the hand reaches the guard it SETTLES into after the punch",
+    "who": "qwen",
+    "started": "2026-11-17T11:22",
+    "run": "PUNCHEND4",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK FREEHAND1 - a ruler for the free hand: does the glove that is NOT punching stay at the chin?",
+    "who": "qwen",
+    "started": "2026-11-17T11:39",
+    "run": "FREEHAND1"
    }
   ],
   "next": [
@@ -5966,6 +5979,14 @@
     {
      "text": "Training: switch fighters, Ana",
      "who": "claude"
+    },
+    {
+     "text": "Blind r11: coach 5, anim 5.0",
+     "who": "claude"
+    },
+    {
+     "text": "Qwen seat on qwen4-max",
+     "who": "claude"
     }
    ],
    "now": [
@@ -6038,12 +6059,12 @@
      "who": "claude"
     },
     {
-     "text": "LEANRED1: lean 2.5 reds (Qwen)",
-     "who": "agent"
-    },
-    {
      "text": "Your look: coach neck PR 341",
      "who": "operator"
+    },
+    {
+     "text": "FREEHAND1: free-hand ruler (Qwen)",
+     "who": "agent"
     }
    ],
    "next": [
@@ -6160,11 +6181,11 @@
      "who": "claude"
     },
     {
-     "text": "Film r11 + two blind critics",
+     "text": "Free glove held at the chin",
      "who": "claude"
     },
     {
-     "text": "Lean 2.5 default once reds fixed",
+     "text": "Head reactions eased 8-12 f",
      "who": "claude"
     }
    ],

@@ -26,6 +26,14 @@ Filmed 11:20 on an idle PC (seed 7, 75 s, game camera, 1920x1080), sheets at the
 the camera sits wider than in r10), rulers_raw / rulers_motion, r10 briefs with the folder renamed, two NEW critics.
 Rulers r10 -> r11: reaction peak median 5 -> 3.5 frames, late reactions 8 -> 1, head jumps 37 -> 32 (inside clips
 31 -> 24), arm out after contact median 6 -> 5.5.
+SCORES: coach 5 (r10 5), animator 5.0 (r10 4.5) - BOTH at 5 for the first time: the deal's bar (5+ from both).
+Both critics' shared top fixes: (1) the FREE hand drops to the belt on most punches - keep it within 8-10 cm of the
+chin (Qwen FREEHAND1 builds the ruler first); (2) head reactions sized by punch and EASED OUT (jab 8-12 cm, cross 18-25
+cm + 15-20 deg + half step back, hook 20-30 cm + 30-40 deg; peak frame 2-3, back over 8-12 frames; coach: a cross moved
+the head 12.8 cm and peaked at 1 frame, ex1 #49-52); (3) arms home along their own line, no upward flings (ex4 #20/#34,
+ex5 #35-36), hooks stop at the head; (4) a punch on the guard moves the guard 6-10 cm + nods the head; (5) no dead time
+inside 1 m (wait #13-24, ex3 #37-48) + side steps / pivots every 2-4 s. Also: a hit flash drawn in the crowd (ex5
+#43-46), blue's lead glove straight above his head (ex1 #43-46). Files: critic_*.md, *_10.png (on /review).
 
 ## Operator this session
 - "the game run but its not responding" (Training pin): Training opens in 80 ms on the test club (tools/
@@ -43,7 +51,9 @@ Rulers r10 -> r11: reaction peak median 5 -> 3.5 frames, late reactions 8 -> 1, 
   session after S92 (from his "i do not want this to happen ever again"), not his words. Told him so; offered removal.
 - Q-266 on the board: where did he see "goose could not install godot".
 
-## Next
+## Next (after r11)
+0. FREE HAND: collect Qwen FREEHAND1 (ruler), then an arm layer that holds the non-punching glove at the chin
+   (both critics' #1), measured by it; then head reactions eased out over 8-12 frames.
 1. LEANRED1 (docs/LEANRED1_RESULT.md): 2.5 everywhere adds 4 reds, all crosses/hooks (a left hook carries 31 cm past
    the face, was 7). Built `-- jabrate=` (slower lean on jabs only, default 4.0). Its tests could NOT be judged: with the
    owner playing ArcheAge, block_catch read 9 failures even at the old rate (4 this morning) - frame timing. Measure

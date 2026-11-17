@@ -105,8 +105,8 @@ REM while Qwen behind the tee sat at 272 bytes - one warning line - and looked
 REM dead. Do not reintroduce a pipe here to get a copy of the log; the launcher's
 REM own capture IS the log.
 REM S138: QWEN_MODEL overrides the model for one run (design work needs a VISION model to see its own renders -
-REM qwen3-coder is text-only). Default stays qwen3-coder.
-set "QMODEL=qwen3-coder"
+REM qwen3-coder is text-only). Default qwen4-max since S505 (owner: "can you use qwen 4 max ?"; his Token Plan).
+set "QMODEL=qwen4-max"
 if not "%QWEN_MODEL%"=="" set "QMODEL=%QWEN_MODEL%"
 REM S214: note the model this launch runs, for the model-router live view (127.0.0.1:4101).
 for %%I in ("%~2") do set "FC_WT=%%~nxI"
