@@ -21,6 +21,7 @@ const Bouts := preload("res://scripts/state/Bouts.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const Clock := preload("res://scripts/state/Clock.gd")
 const RosterRow := preload("res://scripts/rules/RosterRow.gd")
+const AskFlow := preload("res://scripts/state/AskFlow.gd")
 const FighterProfile := preload("res://scripts/rules/FighterProfile.gd")
 const Attrs := preload("res://scripts/rules/Attrs.gd")
 const Roster := preload("res://scripts/state/Roster.gd")
@@ -348,7 +349,9 @@ func _press_do_next(c: Career, id: String, offer: Dictionary) -> void:
 	elif not _has_need(c, f) and bjj and (f.get("entered", []) as Array).is_empty():
 		_check(pin.text == "Enter the open", "%s: an open not entered -> Enter the open (%s)" % [id, pin.text])
 	elif not _has_need(c, f) and not bjj and (f.get("bout", {}) as Dictionary).is_empty():
-		_check(pin.text == "Plan the week", "%s: no bout, no offer -> Plan the week (%s)" % [id, pin.text])
+		var asks: bool = bool(AskFlow.open(c, f).get("open", false))   # S513: ask open -> Ask for a bout
+		var want_pin: String = "Ask for a bout" if asks else "Plan the week"
+		_check(pin.text == want_pin, "%s: no bout, no offer -> %s (%s)" % [id, want_pin, pin.text])
 		var nf := row.find_child("Col_next_fight", true, false)
 		var nd: int = NextOffer.day(c, f)
 		_check(nd > c.day and _text(nf, "Word") == "No bout" and _text(nf, "NextOffers") == "next offers " + Clock.fmt(nd),
@@ -366,6 +369,8 @@ func _press_do_next(c: Career, id: String, offer: Dictionary) -> void:
 				"%s: DO NEXT opens the week planner on her (route=%s)" % [id, r])
 		"fighter":
 			_check(str(r.get("fighter", "")) == str(d["arg"]), "%s: DO NEXT opens her page (route=%s)" % [id, r])
+		"ask":
+			_check(str(r.get("area", "")) == "fights" and str(r.get("ask", "")) == id, "%s: DO NEXT opens the Ask panel on her (route=%s)" % [id, r])
 		"go":
 			var want := str(d["arg"]).get_slice(":", 0)
 			_check(str(r.get("area", "")) == want, "%s: DO NEXT opens %s (route=%s)" % [id, want, r])

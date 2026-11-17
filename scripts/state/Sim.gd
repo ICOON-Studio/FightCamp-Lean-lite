@@ -222,6 +222,7 @@ static func step_day(career: Career) -> void:
 			f["camp"]["peak"] = maxf(float(f["camp"].get("peak", 0.0)), float(r["fatigue"]))
 	career.day += 1
 	Injuries.day_tick(career)
+	Injuries.late_spar(career)   # S513: a late fight-week sparring night's cut stop and injury
 	Bouts.day_events(career)
 	ProLadder.day_events(career)   # S397 the pro tables: a month of world bouts, her offers
 	GymSpend.day_events(career)   # S397 money bites: a club show's night

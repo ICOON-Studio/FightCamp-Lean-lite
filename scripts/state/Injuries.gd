@@ -22,6 +22,9 @@ const WeekTwist := preload("res://scripts/rules/WeekTwist.gd")
 const StandDown := preload("res://scripts/rules/StandDown.gd")
 const GymSpend := preload("res://scripts/state/GymSpend.gd")
 const BodyMap := preload("res://scripts/rules/BodyMap.gd")  # S434 RIBHURT1
+const FightWeek := preload("res://scripts/rules/FightWeek.gd")   # S513 the late sparring night's risks
+## S513 ASKPROBE4: one sparring night's hours for its own injury roll (an evening's rounds, warm-up to cool-down).
+const SPAR_NIGHT_HOURS := 2.0
 
 ## The fight model's head damage is one number for the whole bout; InjuryRoll reads the WORST of the body's places. A bout
 ## between equals carries ~22 damage (each loses ~1.5 rounds: 8-18 a lost round, 2 a won one); x2.2 puts its worst place
@@ -244,6 +247,33 @@ static func day_tick(c: Career) -> void:
 		else:
 			f["injury"] = {}
 			c.add_news("%s is cleared to box again." % f["first"])
+
+
+## S513 ASKPROBE4 (INTEGRATE1): a locked fight week's LATE sparring night (FightWeek.SPAR_LATE_MAX_DAYS or fewer days out)
+## carries its own risks, rolled on its day: a cut that stops the bout (FightWeek.SPAR_LATE_CUT_STOP; no doctor clears a
+## fresh cut, as at a real medical) and an injury at x FightWeek.SPAR_LATE_INJURY_X. The night's ordinary share is in the
+## week's training hours already (end_week), so this roll carries only the extra: x (SPAR_LATE_INJURY_X - 1).
+static func late_spar(c: Career) -> void:
+	for f in c.fighters:
+		var b: Dictionary = f.get("bout", {})
+		if b.is_empty() or bool(b.get("done", false)) or not bool(b.get("fw_locked", false)) or out(c, f):
+			continue
+		var days := int(b["day"]) - c.day
+		if days < 1 or days > FightWeek.SPAR_LATE_MAX_DAYS or not (b.get("spar_days", []) as Array).has(days):
+			continue
+		var rng := RandomNumberGenerator.new()
+		rng.seed = _seed(c, f, 17)
+		if rng.randf() < FightWeek.SPAR_LATE_CUT_STOP:
+			_hurt(c, f, {"type": "cut", "days_out": 14}, "in sparring %d days before the bout" % days,
+				"A late sparring night: a fresh cut does not pass the medical.")
+			if not (f.get("bout", {}) as Dictionary).is_empty():
+				pull_out(c, f)
+			continue
+		var extra := FightWeek.SPAR_LATE_INJURY_X - 1.0
+		var roll := InjuryRoll.training_roll(_seed(c, f, 19), SPAR_NIGHT_HOURS, 1.0, float(f.get("week_peak", 0.0)),
+			GymSpend.train_risk(c) * extra)
+		if bool(roll["injured"]):
+			_hurt(c, f, roll, "sparring %d days before the bout" % days, "A late sparring night: the hard rounds came too close to the fight.")
 
 
 static func _hurt(c: Career, f: Dictionary, roll: Dictionary, where: String, why: String = "") -> void:

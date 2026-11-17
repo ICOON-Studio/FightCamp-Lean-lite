@@ -190,6 +190,7 @@ static func read(c: Career, f: Dictionary, plan: Dictionary) -> Dictionary:
 		if bool(ln["unsparred"]):
 			free.append(str(ln["id"]))
 	var fw_days: Array = []
+	var wb_days: Array = []   # S513 ASKPROBE4: the week-before nights (no tank, but each takes a pad night that week)
 	var readied: Array = []
 	var edge := 0.0
 	var rows: Array = []
@@ -202,6 +203,8 @@ static func read(c: Career, f: Dictionary, plan: Dictionary) -> Dictionary:
 		var sn := FightWeek.spar_night(days)
 		if str(sn["when"]) != FightWeek.WHEN_WEEK_BEFORE:
 			fw_days.append(days)
+		else:
+			wb_days.append(days)
 		var pid := str(nights[d])
 		if not by_id.has(pid):
 			missing += 1
@@ -221,7 +224,7 @@ static func read(c: Career, f: Dictionary, plan: Dictionary) -> Dictionary:
 		"round_one": r1, "edge": float(r1["edge"]), "spar_edge": edge,   # S482: the partner apart (rounds 1-2)
 		"nights": rows, "missing": missing, "lines": lns,
 		"readied": readied, "unsparred": left_after, "partners": plist, "weight": weight(f),
-		"spar_days": fw_days}
+		"spar_days": fw_days, "wb_spar_days": wb_days}
 
 
 ## Locks the week. "" when done, else why not (a night with no partner, a partner she cannot pay for).
@@ -248,6 +251,10 @@ static func lock(c: Career, f: Dictionary, plan: Dictionary) -> String:
 		c.pay(-spend, "Sparring partners for %s's fight week" % str(f["first"]))
 	b["load"] = str(r["stop"])
 	b["spar_days"] = r["spar_days"]
+	b["wb_spar_days"] = r["wb_spar_days"]
+	# S513 ASKPROBE4 (3 of 3): the stop banks its share of the fight week's pad work on the moves (FightWeek.banked, BANK_SHARE);
+	# kept on her, not the bout, so the week's drilling (DrillWeek.inputs) still reads it after the bout is fought.
+	f["fw_bank"] = {"share": float(FightWeek.BANK_SHARE[FightWeek.stop_of(str(r["stop"]))]), "day": int(b["day"])}   # S513: FightWeek.spar_night costs_pad_night, read by WeekPlan.evenings_of
 	b["eat_less"] = bool(plan.get("eat_less", false))
 	b["r1_edge"] = float(r["edge"])   # the flat round (Rest up)
 	b["spar_edge"] = float(r["spar_edge"])   # S482 PARTNERPROBE1: the best night's partner edge, rounds 1-2 (BoutRules.spar_edge)

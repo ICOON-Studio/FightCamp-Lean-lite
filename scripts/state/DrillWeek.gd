@@ -20,6 +20,9 @@ const PadReview := preload("res://scripts/rules/PadReview.gd")
 const StyleName := preload("res://scripts/rules/StyleName.gd")
 const MoveTree := preload("res://scripts/rules/MoveTree.gd")
 const StudyWeek := preload("res://scripts/rules/StudyWeek.gd")
+## S513 ASKPROBE4: the fight week's stop banks a share of its pad work (FightWeekPlan.lock writes f.fw_bank). The week it
+## counts in: the bout day within 6 days either side of the drilling's day (the week the bout falls in).
+const FW_BANK_REACH := 6
 
 ## f key: the evenings this week as they ran (note); {"<dow>": {kind, minutes, cards}}.
 const NOTED := "week_nights"
@@ -41,6 +44,8 @@ static func run(career: Career, f: Dictionary) -> Dictionary:
 	var before_own: Dictionary = (f.get("own_combos", {}) as Dictionary).duplicate()
 	var r := PadWeek.run_week(f, nights, week, skill, PadWeek.STATION_TIER, mults, carded)
 	f.erase(NOTED)   # the week ran: next week's board lays its own nights
+	if not (f.get("fw_bank", {}) as Dictionary).is_empty() and int(f["fw_bank"].get("day", 0)) <= career.day:
+		f.erase("fw_bank")   # S513: the fight week's drilling has run
 	var drilled: Dictionary = r["pads"]
 	var rows: Array = []
 	var new_weapon := ""
@@ -124,8 +129,18 @@ static func inputs(career: Career, f: Dictionary) -> Dictionary:
 	var nights := PadWeek.nights_of(f)
 	var week := PadWeek.week_of(f, nights)
 	_lay_noted(f.get(NOTED, {}), nights, week)
-	return {"skill": pad_skill(career), "carded": carded, "nights": nights, "week": week,
-		"mults": {"move": float(tw.get("move_mult", 1.0)), "combo": float(tw.get("combo_mult", 1.0))}}
+	var bank := fw_bank(career, f)
+	return {"skill": pad_skill(career), "carded": carded, "nights": nights, "week": week, "bank": bank,
+		"mults": {"move": float(tw.get("move_mult", 1.0)) * bank, "combo": float(tw.get("combo_mult", 1.0)) * bank}}
+
+
+## The share of this week's pad work that sticks: the fight week's stop (Rest up 0.2, Tick over 0.5, Train through 1.0),
+## else 1.0. FightWeek.banked is the same rule in units.
+static func fw_bank(career: Career, f: Dictionary) -> float:
+	var fb: Dictionary = f.get("fw_bank", {})
+	if fb.is_empty() or absi(int(fb.get("day", -999)) - career.day) > FW_BANK_REACH:
+		return 1.0
+	return float(fb.get("share", 1.0))
 
 
 ## S496 TRAININGK1: the club's boxers on pads that weekday evening, in roster order (the Training screen's coach row).

@@ -3099,7 +3099,8 @@
    "pid": 49188,
    "transcript": "AgentComms/seat_logs/SQ209_dola.txt",
    "answered_at": "2026-11-17 21:17",
-   "answer": "research/FIGHTPLAYER2_CRITIC_S512_DOLA.md"
+   "answer": "research/FIGHTPLAYER2_CRITIC_S512_DOLA.md",
+   "seen_by_claude": true
   },
   {
    "id": "SQ210",
@@ -3116,17 +3117,56 @@
    "seat": "dola",
    "brief": "research/DESIGN_LADDER1_V5_REVISE_KALLI.md",
    "stem": "DESIGN_LADDER1_V6_DOLA",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-17 21:16",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-17 21:40",
+   "pid": 19444,
+   "transcript": "AgentComms/seat_logs/SQ211_dola.txt",
+   "answered_at": "2026-11-17 22:10",
+   "answer": "research/DESIGN_LADDER1_V6_DOLA.md",
+   "seen_by_claude": true
   },
   {
    "id": "SQ212",
    "seat": "dola",
    "brief": "research/DESIGN_COACHSPEC1_R5_REVISE_KALLI.md",
    "stem": "DESIGN_COACHSPEC1_R6_DOLA",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-17 21:16",
+   "tries": 0,
+   "sent_at": "2026-11-17 22:40",
+   "pid": 39596,
+   "transcript": "AgentComms/seat_logs/SQ212_dola.txt",
+   "answered_at": "2026-11-17 23:10",
+   "answer": "research/DESIGN_COACHSPEC1_R6_DOLA.md",
+   "seen_by_claude": true
+  },
+  {
+   "id": "SQ213",
+   "seat": "dola",
+   "brief": "research/DESIGN_LADDER1_V6_CRITIC_DOLA.md",
+   "stem": "DESIGN_LADDER1_V6_CRITIC_DOLA_DOLA",
+   "status": "queued",
+   "queued_at": "2026-11-18 01:14",
+   "tries": 0
+  },
+  {
+   "id": "SQ214",
+   "seat": "dola",
+   "brief": "research/DESIGN_COACHSPEC1_R6_CRITIC_DOLA.md",
+   "stem": "DESIGN_COACHSPEC1_R6_CRITIC_DOLA_DOLA",
+   "status": "queued",
+   "queued_at": "2026-11-18 01:14",
+   "tries": 0
+  },
+  {
+   "id": "SQ215",
+   "seat": "dola",
+   "brief": "research/DESIGN_GUARDDMG1_V1_REVISE_DOLA.md",
+   "stem": "DESIGN_GUARDDMG1_V1_REVISE_DOLA_DOLA",
+   "status": "queued",
+   "queued_at": "2026-11-18 01:19",
    "tries": 0
   }
  ]

@@ -134,7 +134,14 @@ static func evenings_of(f: Dictionary) -> Array:
 				var on := int(b.get("day", 0)) - int(d)
 				if on >= monday and on < monday + 7:
 					n += 1
-			spar = maxi(spar, n)
+			# S513 ASKPROBE4: a week-before night (FightWeek.spar_night costs_pad_night) is an EXTRA spar evening on top of
+			# the week's own: it takes a pad night (a fight-week night replaces the week's spar evenings, maxi above).
+			var wb := 0
+			for d in b.get("wb_spar_days", []):
+				var on := int(b.get("day", 0)) - int(d)
+				if on >= monday and on < monday + 7:
+					wb += 1
+			spar = maxi(spar, n) + wb
 	# S382: the camp's one film night falls in its first week, on the first pad night from the day it was set
 	return evenings_for(spar, WeekPhase.pads(p),
 		WeekPhase.film_night(p, camp, int(f.get("phase_day", -1))), posmod(int(camp.get("start", 0)), 7))

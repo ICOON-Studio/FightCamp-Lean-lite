@@ -1,30 +1,31 @@
-# S513 handover (written 2026-11-18, end of S512 - main line, Opus)
+# S514 handover (written 2026-11-18, end of S513 - main line, Opus)
 
-Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. Digests: `ops/research/S512_DIGEST.md`,
-`ops/research/S510_DIGEST.md`, `ops/research/S510_ANIM_DIGEST.md`.
+Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. Digests: `ops/research/S512_DIGEST.md`; S513 is
+in roadmap `now` and the commits 8c3cd5f5e..ba87ee191.
 
-## BILLING (corrected S512, owner's billing screenshot)
-The "$200" is the Ultra plan's MONTHLY API credit to the linked Console org "Konstantinos's Individual Org" (next credit
-Dec 4, 2026); on Nov 18 that org had $0 usable ("Credit balance too low"). Sessions run on the Ultra plan (weekly reset
-Thu 2026-11-19 14:00 UTC). The credit is used only by the `claude` CLI after `/login` -> Anthropic Console account
-(header "API Usage Billing"). Details: ops/research/API_CREDITS_FALLBACK_S474.md (CORRECTION section).
+## BILLING (S513, from Anthropic's help center - quote it, do not guess)
+support.claude.com/en/articles/17154008: the Ultra plan's $200 monthly API credit covers the Claude API, Managed Agents, and
+in Claude Code ONLY `claude -p` / the Agent SDK run with an API key. Interactive Claude Code (terminal chat, desktop app,
+web) is excluded. Credits land after the plan payment (next: Dec 4) and expire at the cycle's end. S513 test: CLI /login ->
+Console account -> "credit balance is too low". So: once it lands, the owner makes a Console API key and headless
+`claude -p --model ... "<brief>"` jobs spend it (key set for that one process only, never globally). The weekly plan was
+88% at S513's end (reset Thu 2026-11-19 14:00 UTC).
 
 ## GOAL (owner, verbatim, still on): "i want animations fixed (at least 7/10)"
-FIGHTPLAYER2 v2 (the rebuild behind `-- fightplayer2`) was FILMED AND JUDGED BLIND on 2026-11-18: coach 3.5, animator 3.0
-- BELOW the shipped player's 4.5 (cc568034a; scores, both 10/10 lists, the code causes: ANIMATION LOOP STATE, bottom).
-The animation session is now the TERMINAL session "anim S513" (claude CLI on Fable 5.2, Ultra plan, tab in the app's
-Terminal panel; CLI peer name lean-f3): it works on the feet/distance and folds in the coach's list (chest to chest, a
-landed punch moves nothing, stance not held, body whirls). Do not start another animation session while it runs; the
-shipped game is unchanged.
+The ONLY animation session is the terminal CLI session "anim S513" (peer lean-f3, Fable). S513 told it (by message) that
+it stays the animation session and to add the owner's review comments C430-C432 to its loop state (stiff guard + sliding
+feet; shots through heads and hands; no shoulder power). Do not start another animation session while it lives.
 
 ## MAIN LINE - DO FIRST
-1. Collect what lands: Dola SQ211 (season ladder v6 -> ops/research/DESIGN_LADDER1_V6_DOLA.md) and SQ212 (coach spec r6 ->
-   DESIGN_COACHSPEC1_R6_DOLA.md) - each then goes to two fresh critics (Goose + Dola; the Grok bots are out of quota);
-   Qwen MORNINGSPROBE1 (coached mornings: solo vs shared, collect its PR by diff).
-2. Guard damage (GUARDDMG1 v1): Dola 6/7/7, Goose 6/6/7 -> revise the map from both 10/10 lists, another critic round.
-3. Ask for a bout leftovers: the Home DO NEXT line ("<name> has no bout: ask for one"); the three unwired fight-week
-   rules ASKPROBE4 found (week-before pad night, late-night injury/cut, FightWeek.banked) -> INTEGRATE1.
-4. The owner has a new .exe to play (Ask for a bout, WHAT IT TAUGHT, the palette on the Training tab).
+1. Collect as they land: Dola SQ213 (ladder v6 critic) + Goose issue 360; Dola SQ214 (coach spec r6 critic) + Goose
+   issue 361; Dola SQ215 (guard damage map v2 = DESIGN_GUARDDMG1_V1_REVISE_DOLA_DOLA.md) -> then two fresh critics on it.
+   A map reaches his board only at 7+ depth AND 7+ general from both critics.
+2. MORNINGSPROBE2 (Qwen or Goose): MORNINGSPROBE1 (docs/MORNINGSPROBE1_RESULT.md) ran only 2 seeds and its shared policy
+   trained the coach's base-week ability while solo trained the weakest one - two changes at once. Rerun with 20 seeds and
+   shared on the SAME ability as solo; only then move CoachedMornings SOLO 1.25 / SHARED 1.15.
+3. INTEGRATE1 leftovers: AskBout + FightLearn wiring (S511 audit), the stoppage-risk word on the Ask cards.
+4. The owner has a new .exe (Builds/WHAT_TO_TRY.txt S513: DO NEXT asks for bouts; the fight week's late nights, the
+   week-before pad night and the stop's banked pads now count).
 
 ## METHOD (operator S510, CLAUDE.md item 8 - quote this in your first message)
 Fight animation: STOP PATCHING. 14 rounds of correction layers scored 4.5-5/10 while the Undisputed / Boxing Manager /
@@ -151,6 +152,13 @@ control arm; the shipped player is untouched without the switch.
     the step in before a take that steps itself, plan less travel (cause a: head distance, fewer chest-to-chest
     bursts), then film `fp2carry` beside the default and let the eye pick. Tried and dropped (no gain): letting a
     foot the take has in the air ride the body, holding a planted foot's turn when the plan turns the body.
+  * THE OWNER'S OWN REVIEW COMMENTS (relayed by the main session 2026-11-18; critic input, quote them, weigh them
+    with the blind critics' lists): C430 at 43.7 s "the guard is wrong their hands are too stiff and they do not move
+    their feets , they only slide" (= critics' item 5, causes d and the feet block above); C431 at 51.0 s "too many
+    shots go through heads or hands and there is no collision" (= item 4 "the glove stops on what it hits", and
+    blocked punches get no finish yet); C432 at 10.3 s on bought_vs_ours.mp4 "the punches on the first 2 animations
+    have no power behind them , the shoulder movement needs to generate the power" (look at which two takes those
+    are before acting; his S439 note said the same: the torso follows, the shoulder loads).
   * Player2.gd is at 478 lines: the next addition splits it (the facing + follow code into its own file).
   * NEXT for the next animation session, in order: (1) RANGE, cause a (plan in head distance, drop or restrict the
     short takes, a step out after a burst's last punch) - the critics' item 1 and the feet's biggest cause; (2) the

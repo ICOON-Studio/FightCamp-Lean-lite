@@ -342,6 +342,10 @@ static func _do_fallback(c: Career, f: Dictionary) -> Dictionary:
 		var mc: Dictionary = _mat_coach(c, f)
 		return _pin(str(mc.get("tag", "DRILL")).capitalize(), "fighter", id, "Coach: %s. What the classes drill is set on the athlete's page." % str(mc["word"]))
 	if (f.get("bout", {}) as Dictionary).is_empty() and _open_offer(f).is_empty():
+		# S513 ASKFIGHT1 leftover: when asking is open, the thing to do is ask (BoutActs "ask" opens the Ask panel on her).
+		var ask: GDScript = load("res://scripts/state/AskFlow.gd")   # runtime load: AskFlow reaches Bouts, which reaches the UI rows
+		if bool(ask.open(c, f).get("open", false)):
+			return _pin("Ask for a bout", "ask", id, "No bout and no offer: ask the club shows for one. Opens the Ask panel.")
 		return _pin("Plan the week", "planweek", id, "Nothing booked or offered yet: set the week's training while the offers come.")
 	for ch in CoachCheck.rows(c, f):
 		if str(ch["state"]) == "bad":

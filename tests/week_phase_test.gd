@@ -112,6 +112,15 @@ func _initialize() -> void:
 	_check(h_taper < h_tick and h_tick < h_thru, "load stops in order of volume: rest up %.1f < tick over %.1f < train through %.1f h" % [h_taper, h_tick, h_thru])
 	_check(PH.week_for("taper", "technique", {"day": 28, "load": "train_through"}) == taper, "an unmarked (camp) bout ignores a load stop")
 	_check(PH.week_for("build", "technique", {"day": 28, "fight_week": true, "load": "tick_over"}) == build, "the load stop only writes the fight week")
+	# 5. S513 ASKPROBE4: a locked fight week's week-before night is a spar evening in its own week (it costs a pad night),
+	# never in the fight week, and it adds nothing to bout.spar_days (no tank).
+	var fwb := {"id": "wb", "phase": "base", "phase_day": 7, "camp": {},
+		"bout": {"day": 21, "fight_week": true, "fw_locked": true, "spar_days": [], "wb_spar_days": [10]}}
+	var plain: Array = WP.evenings_of({"phase": "base", "phase_day": 7, "camp": {}, "bout": {}})
+	_check(WP.evenings_of(fwb).count("sparring") == plain.count("sparring") + 1 and WP.evenings_of(fwb).count("pads") == plain.count("pads") - 1,
+		"week-before night: one sparring evening in its week, one pad night fewer (%s)" % [WP.evenings_of(fwb)])
+	fwb["phase_day"] = 14
+	_check(WP.evenings_of(fwb).count("sparring") == plain.count("sparring"), "week-before night: not in the next week")
 	print("WEEK_PHASE %s" % ("PASS" if _fails == 0 else "FAIL %d" % _fails))
 	quit(0 if _fails == 0 else 1)
 
