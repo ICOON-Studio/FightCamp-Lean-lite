@@ -865,32 +865,46 @@
     "board": ""
    }
   },
-  "HEADSPLIT3": {
+  "ASKPROBE4": {
    "agent": "qwen",
-   "id": "HEADSPLIT3",
-   "title": "TASK HEADSPLIT3 - the head-jump ruler counts a combo's next punch as \"after a hit\", not \"before\"",
+   "id": "ASKPROBE4",
+   "title": "TASK ASKPROBE4 - QWEN (qwen3-coder) - does the fight week make the show date a real choice?",
    "status": "running",
-   "started": "2026-11-17T15:25",
-   "eta": "2026-11-17T17:15",
-   "branch": "qwen/headsplit3",
-   "worktree": "E:/FightCamp/wt/LEAN_HEADSPLIT3",
-   "wt": "E:/FightCamp/wt/LEAN_HEADSPLIT3",
-   "brief": "ops/research/TASK_HEADSPLIT3.md",
+   "started": "2026-11-17T20:20",
+   "eta": "2026-11-17T22:10",
+   "branch": "qwen/askprobe4",
+   "worktree": "E:/FightCamp/wt/LEAN_ASKPROBE4",
+   "wt": "E:/FightCamp/wt/LEAN_ASKPROBE4",
+   "brief": "ops/research/TASK_ASKPROBE4.md",
    "repo": "FightCamp-Lean",
    "where": "pc",
-   "log": "E:/FightCamp/wt/HEADSPLIT3_dispatch_out.txt",
-   "match": "seat_dispatch.py run headsplit3",
+   "log": "E:/FightCamp/wt/ASKPROBE4_dispatch_out.txt",
+   "match": "seat_dispatch.py run askprobe4",
    "model": "qwen4-max",
    "dispatch": {
-    "prompt": "E:/FightCamp/wt/HEADSPLIT3_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/HEADSPLIT3_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/HEADSPLIT3_dispatch_runner.log",
+    "prompt": "E:/FightCamp/wt/ASKPROBE4_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/ASKPROBE4_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/ASKPROBE4_dispatch_runner.log",
     "source": "command line",
     "brief_copied": true,
-    "runner_pid": 31860,
-    "seat_pid": 7716
+    "runner_pid": 49052,
+    "seat_pid": 26376
    },
    "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
+  },
+  "FP2CHOREO1": {
+   "agent": "goose",
+   "id": "FP2CHOREO1",
+   "title": "Fight animation rebuild, phase 2: the planner that picks each punch by distance and each reaction by size (pure module + tests)",
+   "status": "running",
+   "started": "2026-11-17T21:34",
+   "eta": "2026-11-17T22:34",
+   "branch": "goose/issue-356",
+   "issue": 356,
+   "brief": "ops/research/TASK_FP2CHOREO1.md",
+   "repo": "FightCamp-Lean",
+   "where": "cloud",
+   "owner": "S512 animation session"
   }
  },
  "codex_budget": {

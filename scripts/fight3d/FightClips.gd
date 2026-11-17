@@ -44,6 +44,13 @@ const PRO_PREFIX := "mc_Box1_M3_"
 const TRAVELS := ["idle", "advance", "retreat", "strafe_left", "strafe_right", "mc_knockout", "mc_knockout_count", "mc_win"]
 const SEAT_MOVES := ["af_sit_enter", "af_sit_exit"]
 const TRAVEL_WORDS := ["knock", "ko_", "fall", "win", "walk", "step", "count"]
+## FIGHTPLAYER2 (S512, scope 3b/3c): the v2 player and the clip census load every take as BOUGHT - its own hip travel kept
+## (no hold_root_xz) and the untouched bake (no fixed/ retime: the jab keeps its full 1.07 s tail). The shipped player
+## leaves this off and loads exactly what it loaded before (the control arm). Set it before load_into.
+static var as_bought := false
+## The meta key under which hold_root_xz keeps a pinned clip's own hip travel: PackedVector3Array of (dx, time s, dz)
+## per key, in the Hips' parent space, from the clip's first key.
+const ROOT_PATH_META := "root_path"
 
 
 ## Adds every clip to `ap` (tracks re-pathed onto `skel`). Returns the names added. `corner_only` (S307, the corner
@@ -86,7 +93,7 @@ static func load_into(ap: AnimationPlayer, skel: Skeleton3D, corner_only: bool =
 	for name in baked:
 		var path: String = str(baked[name])
 		var fixed_path: String = path.replace(BAKED_DIR, FIXED_DIR)
-		if fixed_path != path and ResourceLoader.exists(fixed_path):
+		if fixed_path != path and ResourceLoader.exists(fixed_path) and not as_bought:
 			path = fixed_path
 		if _add_baked(lib, skel, prefix, str(name), path):
 			added.append(name)
@@ -147,10 +154,18 @@ static func _add_baked(lib: AnimationLibrary, skel: Skeleton3D, prefix: String, 
 
 ## A move thrown in place: the hips keep their first X/Z, so the boxer stays on her mark.
 static func hold_root_xz(anim: Animation) -> void:
+	if as_bought:
+		return
 	for t in anim.get_track_count():
 		if anim.track_get_type(t) != Animation.TYPE_POSITION_3D or str(anim.track_get_path(t)).get_slice(":", 1) != "Hips":
 			continue
 		var first: Vector3 = anim.track_get_key_value(t, 0)
+		# FIGHTPLAYER2: what the pin takes away is kept beside the clip (v2/RootPath reads it and moves the BODY along
+		# it, so the take travels as bought and the boxer stays where it left him). The shipped player never reads it.
+		var path := PackedVector3Array()
 		for k in anim.track_get_key_count(t):
 			var v: Vector3 = anim.track_get_key_value(t, k)
+			path.append(Vector3(v.x - first.x, anim.track_get_key_time(t, k), v.z - first.z))
 			anim.track_set_key_value(t, k, Vector3(first.x, v.y, first.z))
+		if not anim.has_meta(ROOT_PATH_META):
+			anim.set_meta(ROOT_PATH_META, path)

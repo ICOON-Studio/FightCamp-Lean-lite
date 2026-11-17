@@ -104,54 +104,62 @@ themselves are the limit (owner: "why should i buy more animations if the ones w
   the feet stack squashes the bought upright stance (knees 146-151 -> 125-135) - the v2 foot lock must keep the clip's knee.
   The critic brief now carries the baseline (SQ209/210 not sent yet). Part 3's round-15 edits stay PARKED
   (E:/FightCamp/tmp/fightweek/s512/r15_parked.patch): they are new correction layers, which the METHOD forbids.
+- GROK BOTS OUT OF QUOTA (owner S512: "use arena or ludo or goose grokbots are out of quota"): Kalli/John/Maria queue
+  items PARKED in seat_queue.json (SQ202-207, SQ210). The second critics went to GOOSE instead: issue 353 FP2CRITIC1 ->
+  ops/research/FIGHTPLAYER2_CRITIC_S512_GOOSE.md, issue 354 ASKCRITIC5 -> ops/research/ASKFIGHT_CRITIC_S511_GOOSE.md
+  (each a PR adding one file; collect by diff). Dola (free) still answers: SQ209 FIGHTPLAYER2 critic sent 21:10.
+  Owner "assign them to others": Kalli's revisions -> Dola SQ211 (ladder v6 -> DESIGN_LADDER1_V6_DOLA.md), SQ212 (coach
+  spec r6 -> DESIGN_COACHSPEC1_R6_DOLA.md); John's guard damage critic -> Goose issue 355 (DESIGN_GUARDDMG1_V1_CRITIC_GOOSE.md).
 - RAM: ~10 finished sessions sit idle with Remote Control on (~750 MB each, S491 note); watchdog AMBER on memory.
 
-## ANIMATION LOOP STATE (the animation session's own section; rewritten 2026-11-17 ~21:00, S510 part 2, closed at ~420k tokens)
-Owner S510: the fight animation loops in its own session until both blind critics give 7+. Digest: `ops/research/S510_ANIM_DIGEST.md`
-(sections "ROUND 13 JUDGED" and "ROUND 14"). You are the ONLY animation session; all scripts/fight3d files are yours except
-CornerOverlay's film lines (the supervisor's).
-- SCORES: r12 5.0 / 5.0, r13 4.5 / 4.5 (coach / animator). r14 4.5 / 4.5 (punches up to 5 with both; the whole-fight score did not move).
-  DO FIRST: r14 put a head inside the other body for 3 frames and the men 5 cm nearer (the coach's first item, "bodies never pass
-  through each other"; the animator's third): A/B `-- oldguard` and `hiplag=0` on full 75 s logs (digest "ROUND 14 JUDGED"), fix or
-  revert, THEN the lists there: the animator's "no body pops" (head 6 cm a frame) and "a hit man stops punching", the hand home.
-- ROUND 14 IS COMMITTED (f9089b106) AND FILMED: `E:/FightCamp/tmp/fightweek/r14blind/` (film, 28 sheets at 30 fps, rulers, both
-  briefs, the critics' files when they finish). What it changed: a punch's glove in flight 3-4 frames (ReachDrive.FLIGHT_S),
-  guard gloves 5 cm nearer the face (GuardTuck.GUARD), cross reaction 29 -> 21 cm (BeatClips.REACT), slower recovery out of
-  a hit (FightStage._start), hip pops 68 -> 11 (KneeCalm.HIP_LAG_S). Head jumps over 12 cm 23 -> 14.
-- THE OWNER'S RULE SINCE r13 ("why animations is getting worse?"): a change ships only if it fixes a NAMED defect and adds no
-  new visible one - open the sheets yourself before any critic round, not only the rulers. He watches the sheets: he asked
-  "reds left leg ?" on a stand-up build where the rear leg went straight (not kept).
-- NEXT DEFECTS, in order (from r13's reviews, still open after r14):
-  1. THE ARM HANGS at full stretch 4 frames after it lands (r14 ex1 #37-40; ruler "arm left out" median 4): both critics
-     want 1-2. The carry hold (PunchReach CARRY_S 0.10) + ReachLimit.HOME_S 0.13; CARRY_S 0.07 was rejected on hit_carry.
-  2. BOTH STAND TOO LOW (knees 125, coach wants 150-160). KneeCalm.STAND_* / BoxerFootworkRig._stand is built but ships
-     at standstep=0.10 = no rise. READ digest ROUND 14 item 6 before touching it: every form tried either flattened or
-     doubled the bounce, straightened the rear leg or sat 8 cm into each step (boxer_footwork_test's bar is 6).
-  3. THE LEAD HOOK from the hip with a straight arm (pro_left_hook_v2: the glove drops 27 cm, hand 65 cm from the chest).
-  4. A blocked punch moves nothing (gloves 3-8 cm into the face, head rocks 2-4 cm); slips too small to see.
-  5. Lunging stances to 0.95 m (shorter step pairs were tried and dropped: the body trailed its place).
-  6. The puncher's head 8-14 cm a frame on the way in; waiting inside punching range; both the same boxer on one line.
-  7. Not ours: the coach line in the middle of the picture (CornerOverlay; note left for the supervisor).
-- TOOLS (E:/FightCamp/tmp/fightweek/s511/): hrun.sh <name> <secs> [args] = a headless bout log + stance and knee lines
-  (16 s for 30 s of bout); flight.py (a punch's last four frames), stance.py, punch_trace.py, guard.py; tests.sh <out>
-  <names...> (TARGS="..." for control arms) runs fight tests at --fixed-fps 60 through the slot; film_only.sh <out> films
-  a round (refuses with a game window open), then cut sheets with `python tools/film_sheets.py <mp4> <dir> <name> <start>
-  <secs> --fps 30 --cols 5 --rows 3 --cell 512 --crop 1150:740:385:140` at ex1 13.6 3.0 / ex2 18.9 2.0 / ex3 33.5 2.0 /
-  ex4 37.5 2.5 / ex5 59.9 2.5 / wait 44.0 1.0 / wait2 50.0 1.0 (the fight's events keep their times across builds).
-  A headless log has film_s = 0: its clock is t + 7.134. Compare rulers on the film or on full 75 s logs; n=3 crosses is noise.
-- TEST BASELINES at --fixed-fps 60 after r14: join_return 0, boxer_footwork 0, guard_knee 0, knee_calm 0, ring_feet 0,
-  hit_frame 6, block_meet 12, hit_carry 33 (noisy 21-43), punch_speed 45 (was 39: the slower arrival), block_catch 7,
-  uppercut_tail 2.
-- REJECTED (do not retry blind): PunchReach.CARRY_S 0.07, HeadClear.RISE_MPS 1.6, PunchReachMath.OUT_S 0.12 (retest),
-  RingFeet PAIR_M / QUICK_M 0.28 / 0.36, a stand-up capped by the more stretched leg, a plain +5-7 cm rise.
-- TRAPS: PunchReach.gd = 500 lines, GloveClear.gd 497, FightStage.gd 489 (new arm code goes in ReachLimit / ReachDrive /
-  GuardBox). Edit with exact-string replaces and `assert s.count(old) == 1`. Every Godot run takes --log-file on E: and
-  goes through `ops/Tools/godot_slot.py run`; after a SCRIPT ERROR / Parse Error run list the engine processes and kill
-  your own by PID (the supervisor's UI scripts can be mid-edit: errors in scripts/ui are theirs). Never `cd` out of
-  E:/FightCamp/Lean. Films only with no game window. Weekly usage was 77 % at 20:40 (resets 2026-11-19 16:00).
-- FROM r14's CRITICS, for the next briefs and rulers: (a) fix the brief's render line - tools/render_mockup.py takes only the
-  HTML path and writes the PNG beside it; (b) rulers_motion's reaction LIST names the reaction clip (a jab can play
-  cross_v2_short) while the by-kind table goes by the punch - the coach read them as disagreeing: print the punch in the
-  list too; (c) the animator's own ceiling for one-man clips is "about 7 to 7.5; a true 10 needs exchanges captured with
-  two boxers together" - his items 1-4 (body pops, a hit man stops punching, nothing passes through, the hand home at once)
-  "need nothing new". Mocap packs wait for the end of November (owner S441).
+## ANIMATION LOOP STATE (the animation session's own section; rewritten 2026-11-17 ~22:00, S512 animation session, closed at ~400k tokens)
+Owner: "i want animations fixed (at least 7/10)" = two fresh blind critics (coach + animator) both 7.0+ on one film. You are
+the ONLY animation session; you own `scripts/fight3d` (v2 in `scripts/fight3d/v2/`) and this section. Quote the METHOD line.
+WHERE WE ARE: FIGHTPLAYER2 (the rebuild, `ops/research/FIGHTPLAYER2_SCOPE_S510.md`; its section 8 = the verdict and the
+changes the critics asked for). No patching of today's player; it stays as the control arm (r14 = 4.5 / 4.5).
+- SCOPE CRITICS, round 1, both over 7 -> BUILD: Dola 8 / 9, Goose 7 / 8 (`FIGHTPLAYER2_CRITIC_S512_{DOLA,GOOSE}.md`).
+- PHASE 1 DONE (0b1a1d50d): the clip census. `assets/data/clip_db.json` (183 owned takes measured as bought) by
+  `tools/clip_census.gd` (headless, 20 s: `sh E:/FightCamp/tmp/fightweek/s512b/census.sh [dry]`), rules in
+  `scripts/fight3d/v2/ClipCensus.gd`, `tests/clip_db_test.gd` (goes red when a BeatClips pool or a bar changes without a
+  re-run), tables `python tools/clip_census_report.py`, findings `ops/research/CLIP_CENSUS_S512.md`:
+  every owned punch lands from 0.53-1.03 m and NONE carries a real step (the `_ft` takes travel 2-7 cm) -> the feet must
+  close the distance; the bought hooks pass 9-17 cm under an upright man's chin (plain lead hook dropped; `v2` and
+  `hard_ft` land) -> phase 3 must decide: lower guard for the hit man, a small lift, or only the takes that land;
+  13 light / 8 medium / 5 heavy reactions may play, 7 jab-named ones tip the face up 27-51 deg (dropped; the 15 deg bar is
+  NOT eye-checked yet - phase 4a looks at stills first); gut-shot reactions travel 34-50 cm; one block flinch may play.
+  `FightClips.as_bought` (off by default) = takes with their own travel and no fixed/ retime (the jab's 1.07 s tail).
+- PHASE 2 IN FLIGHT: the choreographer (pure module + tests) is with GOOSE, issue 356, brief
+  `ops/research/TASK_FP2CHOREO1.md` (contract: plan(beats, db, opts) -> beats + tracks + gap plan; rules R1-R12; a 40-seed
+  sweep on real RoundScript beats; mutants). It lands as branch `goose/issue-356` (Goose often cannot open the PR: read
+  the branch). COLLECT BY DIFF: only `scripts/fight3d/v2/Choreographer.gd`, `ChoreoRules.gd` (+ a split file) and
+  `tests/choreographer_test.gd`; run the test yourself (`sh E:/FightCamp/tmp/fightweek/s512b/t.sh choreographer_test`),
+  read that it did not widen FIT_M / IK_MAX_M to pass, check the sweep line (misfit count, worst_ik <= 0.30). live_runs.json
+  has the run (FP2CHOREO1): mark it landed.
+- PHASE 3 STARTED (c98e3b319): `FightClips.hold_root_xz` now keeps what it pins away beside the clip
+  (`ROOT_PATH_META`), `scripts/fight3d/v2/RootPath.gd` plays it on the BODY (`place(body, skel, path, origin, from_s, t)`),
+  `tests/root_path_test.gd` (6 real takes agree with the census within 3 cm). NEXT, in order:
+  1. `scripts/fight3d/v2/Player2.gd` behind `-- fightplayer2`: plays one boxer's track from the choreographer - the take
+     with its RootPath on the body, JoinSmoother with the per-kind join times, nothing else on the skeleton but
+     MetaHumanTwist (the baseline's RAW stack: `tools/human_fight_film.gd ... rawclips=` shows how to switch layers off);
+     the gap plan drives the procedural footwork between punches (keep the clip's knee: the feet stack squashed the
+     bought stance 146-151 -> 125-135 deg).
+  2. One straight-punch arm IK (TwoBoneIK3D trial): at most 0.30 m, full within 0.35 m, straights only.
+  3. Upper-body mask for light / medium reactions (legs stay on the footwork), whole-body + RootPath for the rest.
+  4. FILM it (hidden desktop, no game window open) beside r14 on the same seed 7 bout and run a blind coach + animator
+     round (briefs: `E:/FightCamp/tmp/fightweek/r14blind/`; fix the render line: tools/render_mockup.py takes only the HTML
+     path). Rulers for v2 (scope section 5 + 8): head jumps over 12 cm 0 outside a contact frame, arm at full stretch <= 2
+     frames, head inside the other body 0, rest distance 1.5-1.8 m, foot slide under 1 m a round, hit man cannot punch
+     0.4-0.8 s, reactions ordered jab < cross < hook.
+  THE GATE: v2 must beat 4.5 by a point with the blind critics; then phase 5 deletes the replaced layers.
+- PHASE 4 (after 3; 1-2 weeks by Goose's estimate): 4a stills of every reaction / block / defence take, fix the table's
+  bars by eye; 4b wire the pools from the table (size and direction), block flinch, whole-body stumbles, hurt idles.
+- EXPECT (say it plainly to the owner when asked): Dola expects 6.5-7.0 on owned clips, Goose 5.5-6.5; with the
+  end-of-November purchase 6.5-7.5. Buy order from the census: stepping punches, hooks at head height, straight-back
+  light reactions, longer uppercuts. Money is still his explicit yes, after he sees the motion.
+- TOOLS (E:/FightCamp/tmp/fightweek/s512b/): census.sh, t.sh <tests...> (60 fps through the slot), show.py (punch rows).
+  Older film tools in s511/ (film_only.sh, hrun.sh) and the r14 sheets windows still apply to today's player.
+- TRAPS: a Bash heredoc holding GDScript with apostrophes broke the shell: write patch scripts with the Write tool.
+  `tools/run_tests.sh` prints a 6 KB test list: never cat it. .uid files under scripts/fight3d are untracked on purpose.
+  Every Godot run through `ops/Tools/godot_slot.py run` with `--log-file` on E:. Never `cd` out of E:/FightCamp/Lean.
+  Weekly usage 83 % at 22:00 (resets 2026-11-19 14:00 UTC): delegate code to Goose (cap 3 a day; 4 used today), Arena.
+- r14's parked patch (`E:/FightCamp/tmp/fightweek/s512/r15_parked.patch`) stays parked: correction layers.

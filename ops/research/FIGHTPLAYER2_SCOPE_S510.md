@@ -35,7 +35,7 @@ body only (e.g. the trunk and head) while the legs do something else; a RULER = 
 ### 1b. Where the damage comes from
 | source | evidence | verdict |
 |---|---|---|
-| The clips | Clean at source: raw foot slide 0.11-0.30 m, 0 leg snaps in 6 of 7 tested (`TASK_RETARGET2.md`). But they are bag work: authored at one range (straights reach at 0.91-1.11 m, uppercuts only at 0.61-0.70 m, 65 % of a straight where Undisputed's is 97%) (`scripts/fight3d/RangeTable.gd` header, `REFERENCE_DISTANCES_S439.md`); the glove travels on 0.13 s past contact (`ArmHome.gd` header); 19 of 59 punch files are switched off on score (`BeatClips.gd` OFF_TAKES); one reaction take throws a jab's head to the ceiling (`pro_hit_by_jab_v4_short`, r14 coach). Three jab takes were hand-edited (`assets/anim/baked/fixed/`, CLIPFIX3) and two of them (`pro_left_jab_b`, `_c`) hold r14's worst head jumps "inside clip" (`E:/FightCamp/tmp/fightweek/r14blind/rulers_motion.txt`). | Partly to blame: wrong range, some bad takes, too few takes per family. Not the main cause on present evidence. |
+| The clips | Clean at source: raw foot slide 0.11-0.30 m, 0 leg snaps in 6 of 7 tested (`TASK_RETARGET2.md`). But they are bag work: authored at one range (straights reach at 0.91-1.11 m, uppercuts only at 0.61-0.70 m, 65 % of a straight where Undisputed's is 97%) (`scripts/fight3d/RangeTable.gd` header, `REFERENCE_DISTANCES_S439.md`); the glove travels on 0.13 s past contact (`ArmHome.gd` header); 19 of the 59 Punch PRO punch takes are switched off on score (`BeatClips.gd` OFF_TAKES); one reaction take throws a jab's head to the ceiling (`pro_hit_by_jab_v4_short`, r14 coach). Three jab takes were hand-edited (`assets/anim/baked/fixed/`, CLIPFIX3) and two of them (`pro_left_jab_b`, `_c`) hold r14's worst head jumps "inside clip" (`E:/FightCamp/tmp/fightweek/r14blind/rulers_motion.txt`). | Partly to blame: wrong range, some bad takes, too few takes per family. Not the main cause on present evidence. |
 | Retargeting | RETARGET2B brought the fidelity gate from 46 failures to 0 (`RETARGET2B_RESULT.md`, `tests/retarget_fidelity_test.gd`). Left over: a cross reaches 0.78 m on our body vs 0.94 m raw (hip-relative, same file; that both use one scale is not confirmed); three layers exist only to patch the conversion: KneeTrack (thigh roll caves knees, 57 clips failed), ElbowClear (male clips on narrower bodies), FloorClear (knockouts lie 10 cm under the canvas) (their headers in `scripts/fight3d/`). | Mostly fixed; the proportion faults belong in the bake, not in runtime layers. Unproven how much the shorter reach costs. |
 | Joining | One dead-blending joiner (`JoinSmoother.gd`: 0.3 s, half-life 0.06 s; short punch joins 0.09 / 0.35 in `BeatFire.gd`). r14: only 2 of 14 head jumps happen at a clip change. But reactions replace the whole body so the legs stop (`UNDISPUTED_MIX_S391.md` issue 4); a punch clip held the boxer 0.42-1.4 s after contact against Undisputed's 0.11-0.17 s (`UNDISPUTED_STUDY_S254.md`); three reactions were cut by the hit man's own punch (r14 rulers). | The join itself is sound. The SCHEDULE around it (when control returns, full-body reactions) is wrong. |
 | Aiming and placement | Every punch and reaction is played with the hips pinned in place (`FightClips.gd` hold_root_xz): a landed cross showed 0 cm of body travel against a real 28 cm (`PunchWeight.gd` header). The bodies are then MOVED to the chosen take's distance (`RangeTable.gd`, `RangeBreath.gd`, `PunchRange.gd`), and the glove is pulled onto the face by IK with a chest lean (`PunchReach.gd`, `ReachLimit.gd` up to 0.30 m). Result on film: one distance all bout (1.34 m median), lunges to 0.95 m stances, a head inside the other body for 3 frames (r14 rulers, both critics). | The main cause on present evidence: it is the opposite order of the shipped games (section 2). |
@@ -260,3 +260,29 @@ Total: about 3-4 weeks of sessions to the gate with owned clips; the purchase fi
 - AI critic noise: three crosses in one film are noise (`NEXT_SESSION_PROMPT.md`); decide on rulers and the owner's eye.
 - Budget and collisions: weekly usage was 77 % on S510; the animation-loop session owns `scripts/fight3d`, so v2 goes in its
   own folder; at most 3 PC agents; 500-line files.
+
+## 8. Round 1 verdict and what it changed (S512, 2026-11-17)
+Baseline (`FIGHTPLAYER2_BASELINE_S510.md`): raw clips 4.5 / 4.5 = placement only 4.5 / 4.5 = the full stack 4.5 / 4.5.
+Table 1d row 1: the layers buy nothing, so the plan stands as written; no phase 1b (retargeting keeps the poses).
+Scope critics, both over the 7 bar, so the build goes ahead:
+| critic | will it work | order and size | file |
+|---|---|---|---|
+| Dola | 8 | 9 | `FIGHTPLAYER2_CRITIC_S512_DOLA.md` |
+| Goose | 7 | 8 | `FIGHTPLAYER2_CRITIC_S512_GOOSE.md` |
+Taken from their 10/10 lists (these are now part of the plan):
+1. A foot-slide bar joins the phase 3 rulers: a standing foot travels under 1 m a round (RAW 33-37 m, shipped 0.2-0.4 m).
+2. The choreographer never picks a take that leaves the arm IK more than 0.30 m to do; if no take fits, a visible
+   step comes first.
+3. Phase 4 is 1-2 weeks, not 3-4 days: 4a looks at every reaction, block and defence take on stills and fixes the
+   table; 4b wires the pools.
+4. Phase 1b is out unless a later film blames the conversion.
+5. TiredSag stays until the owned tired idles are wired and judged.
+6. New measures for the phase 3 rulers (Dola): how long a hit man cannot punch (jab 0.4-0.5 s, cross or hook
+   0.6-0.8 s); control back 0.13 s after contact; a light foot hold, not a heavy lock.
+7. What to expect, said plainly (Goose): v2 on owned clips about 5.5-6.5; with the purchase 6.5-7.5; past 7.5 needs
+   two men captured together. Dola expects 6.5-7.0 on owned clips. The owner's bar is 7.0 with both blind critics.
+8. Inside-range punches are no pack's: a later phase (own capture or a Cascadeur edit); the gate does not wait for them.
+Phase 1 is done: `CLIP_CENSUS_S512.md`. Its findings that touch this plan: every owned punch lands from 0.53-1.03 m and
+none carries a real step, so the feet close the distance first; the bought hooks pass under an upright man's chin; the
+reaction pools come from the table by size and direction. Buy order: stepping punches, hooks at head height,
+straight-back light reactions, longer uppercuts.

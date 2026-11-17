@@ -3008,31 +3008,34 @@
    "seat": "kalli",
    "brief": "research/DESIGN_LADDER1_V5_REVISE_KALLI.md",
    "stem": "DESIGN_LADDER1_V5_REVISE_KALLI_KALLI",
-   "status": "sent",
+   "status": "parked",
    "queued_at": "2026-11-16 09:13",
    "tries": 0,
    "sent_at": "2026-11-16 09:40",
-   "sent_ms": 1794814853882
+   "sent_ms": 1794814853882,
+   "note": "S512 owner: \"grokbots are out of quota\" - moved to Dola SQ211"
   },
   {
    "id": "SQ203",
    "seat": "kalli",
    "brief": "research/DESIGN_COACHSPEC1_R5_REVISE_KALLI.md",
    "stem": "DESIGN_COACHSPEC1_R5_REVISE_KALLI_KALLI",
-   "status": "queued",
+   "status": "parked",
    "queued_at": "2026-11-16 09:13",
-   "tries": 0
+   "tries": 0,
+   "note": "S512 owner: \"grokbots are out of quota\" - moved to Dola SQ212"
   },
   {
    "id": "SQ204",
    "seat": "john",
    "brief": "research/DESIGN_GUARDDMG1_V1_CRITIC_JOHN.md",
    "stem": "DESIGN_GUARDDMG1_V1_CRITIC_JOHN_JOHN",
-   "status": "sent",
+   "status": "parked",
    "queued_at": "2026-11-16 15:47",
    "tries": 0,
    "sent_at": "2026-11-16 16:10",
-   "sent_ms": 1794838250269
+   "sent_ms": 1794838250269,
+   "note": "S512 owner: \"grokbots are out of quota\" - moved to Goose issue 355 (GUARDCRITIC1)"
   },
   {
    "id": "SQ205",
@@ -3048,6 +3051,83 @@
    "answered_at": "2026-11-16 16:41",
    "answer": "research/DESIGN_GUARDDMG1_V1_CRITIC_DOLA_DOLA.md",
    "seen_by_claude": true
+  },
+  {
+   "id": "SQ206",
+   "seat": "kalli",
+   "brief": "research/ASKFIGHT_CRITIC_S511_BRIEF.md",
+   "stem": "ASKFIGHT_CRITIC_S511_KALLI",
+   "status": "parked",
+   "queued_at": "2026-11-17 20:04",
+   "tries": 0,
+   "note": "S512 owner: \"grokbots are out of quota\" - covered: Dola SQ208 + Goose issue 354 are the two critics"
+  },
+  {
+   "id": "SQ207",
+   "seat": "john",
+   "brief": "research/ASKFIGHT_CRITIC_S511_BRIEF.md",
+   "stem": "ASKFIGHT_CRITIC_S511_JOHN",
+   "status": "parked",
+   "queued_at": "2026-11-17 20:04",
+   "tries": 0,
+   "note": "S512 owner: \"grokbots are out of quota\" - goose issue 354 (ASKCRITIC5)"
+  },
+  {
+   "id": "SQ208",
+   "seat": "dola",
+   "brief": "research/ASKFIGHT_CRITIC_S511_BRIEF.md",
+   "stem": "ASKFIGHT_CRITIC_S511_DOLA",
+   "status": "answered",
+   "queued_at": "2026-11-17 20:04",
+   "tries": 0,
+   "sent_at": "2026-11-17 20:10",
+   "pid": 24716,
+   "transcript": "AgentComms/seat_logs/SQ208_dola.txt",
+   "answered_at": "2026-11-17 20:40",
+   "answer": "research/ASKFIGHT_CRITIC_S511_DOLA.md",
+   "seen_by_claude": true
+  },
+  {
+   "id": "SQ209",
+   "seat": "dola",
+   "brief": "research/FIGHTPLAYER2_CRITIC_S512_BRIEF.md",
+   "stem": "FIGHTPLAYER2_CRITIC_S512_DOLA",
+   "status": "answered",
+   "queued_at": "2026-11-17 20:57",
+   "tries": 0,
+   "sent_at": "2026-11-17 21:10",
+   "pid": 49188,
+   "transcript": "AgentComms/seat_logs/SQ209_dola.txt",
+   "answered_at": "2026-11-17 21:17",
+   "answer": "research/FIGHTPLAYER2_CRITIC_S512_DOLA.md"
+  },
+  {
+   "id": "SQ210",
+   "seat": "john",
+   "brief": "research/FIGHTPLAYER2_CRITIC_S512_BRIEF.md",
+   "stem": "FIGHTPLAYER2_CRITIC_S512_JOHN",
+   "status": "parked",
+   "queued_at": "2026-11-17 20:57",
+   "tries": 0,
+   "note": "S512 owner: \"grokbots are out of quota\" - goose issue 353 (FP2CRITIC1)"
+  },
+  {
+   "id": "SQ211",
+   "seat": "dola",
+   "brief": "research/DESIGN_LADDER1_V5_REVISE_KALLI.md",
+   "stem": "DESIGN_LADDER1_V6_DOLA",
+   "status": "queued",
+   "queued_at": "2026-11-17 21:16",
+   "tries": 0
+  },
+  {
+   "id": "SQ212",
+   "seat": "dola",
+   "brief": "research/DESIGN_COACHSPEC1_R5_REVISE_KALLI.md",
+   "stem": "DESIGN_COACHSPEC1_R6_DOLA",
+   "status": "queued",
+   "queued_at": "2026-11-17 21:16",
+   "tries": 0
   }
  ]
 }
