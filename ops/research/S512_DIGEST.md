@@ -38,3 +38,14 @@
 - Two briefs pointed at the retired tape_room_test -> film_night_test. LIVEROUNDSPLIT1 found done (439 lines).
 - tests/grapple_fix_test.gd failing 18 = the S399 GRAPPLEFIX1 TARGET test (red on purpose, BJJ parked).
 - Settings "Show the fight log" waits for the live log panel (it only sets that panel's default).
+
+## After the first handover (2026-11-18)
+- FIGHTPLAYER2 v2 filmed and judged blind (part 2, cc568034a): coach 3.5, animator 3.0 - below the shipped 4.5. Coach:
+  every exchange ends chest to chest, a landed punch moves nothing, the stance is not held, body whirls. The animation
+  work continues in the TERMINAL session "anim S513" (claude CLI, Fable 5.2, Ultra plan; peer lean-f3) on the feet and
+  distance; part 2 stopped. Two animation sessions briefly overlapped (part 2 woke on a queued restart message): split
+  by hand - one films/judges, the other edits headless; one windowed render at a time.
+- Billing: the "$200" is the Ultra plan's monthly API credit to the linked Console org (next Dec 4); that org had $0
+  usable on Nov 18. No "$350 bonus" found. Measured cost: a long Opus session ~$23, a Fable animation session ~$15.
+- Desktop sessions can drive a CLI session: run_in_terminal `claude --model ... "<brief>"` in a new tab, read it with
+  read_terminal, steer it with SendMessage to its peer name (ListAgents). Never type into a tab holding a Claude session.

@@ -7,7 +7,7 @@
   "owner": "claude",
   "updated": "2026-11-17 S512",
   "summary": "S512 (main line, Opus): Ask for a bout BUILT and exported (two shows side by side, cards with an Ask per date, picked name keeps the host gate, every amateur bout teaches - WHAT IT TAUGHT); ASKPROBE4 collected (the date is a real choice); palette sweep 73 -> 29; lean CI (only changed files; Actions 28,391/50,000). Animation: FIGHTPLAYER2 baseline (4.5 = 4.5 = 4.5) -> scope passed Dola 8/9 + Goose 7/8 -> clip census done -> choreographer (Goose 356) landed; anim-rebuild-2 (Fable) running. Grok bots out of quota: Goose + Dola instead. Digest ops/research/S512_DIGEST.md.",
-  "next_action": "METHOD (S510, CLAUDE.md 8): fight animation is REBUILT by its own Fable session (anim-rebuild-2, local_9ee8e7a4) - no patch layers in scripts/fight3d. Main line: collect Dola SQ211/SQ212 (ladder v6, coach spec r6) and Qwen MORNINGSPROBE1; guard damage map v2 from both critics (6/7/7, 6/6/7) and another round; Ask leftovers (Home DO NEXT, the three unwired fight-week rules -> INTEGRATE1). Grok bots out of quota: critics = Goose + Dola.",
+  "next_action": "METHOD (S510, CLAUDE.md 8): fight animation is REBUILT, not patched. v2 scored coach 3.5 / animator 3.0 (below 4.5) on 2026-11-18; the terminal session anim S513 (CLI, Fable) works on feet/distance + the coach list. Main line: collect Dola SQ211/SQ212 and Qwen MORNINGSPROBE1; guard damage map v2 + critics; Ask leftovers (Home DO NEXT, 3 unwired fight-week rules). Critics = Goose + Dola (Grok bots out of quota).",
   "incomplete_blocked": "Qwen HOOKPAST2 running (branch qwen/hookpast2) - collect by diff, then use its HOOK_HELD line as the hook-release ruler.",
   "next_acceptance": "On a 180 s seed 7 film vs s507b: no landed punch over 9 m/s after contact and at most 2 over 6; head jumps per punch clip <= 0.13 in the shared part (head_split_probe); FreeHand off_share <= 0.35, HeadEase back_f_p50 >= 8; punch tests keep or better their S507 A/B FAIL sets.",
   "awaiting_operator": "PR 341 look (coach neck still pair on /review). Unity uninstall (his call). Films while he plays: ask each time (S507: yes).",
@@ -5074,7 +5074,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-17 22:41 board_sync",
+  "updated": "2026-11-18 00:11 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5225,17 +5225,11 @@
   },
   "working_now": [
    {
-    "title": "Fight animation rebuild, phase 2: the planner that picks each punch by distance and each reaction by size (pure module + tests)",
-    "who": "goose",
-    "started": "2026-11-17T21:34",
-    "run": "FP2CHOREO1",
-    "state": "LANDED - Claude collects"
-   },
-   {
     "title": "TASK MORNINGSPROBE1 - coached mornings: is solo vs shared a real choice? (probe, no game change)",
     "who": "qwen",
     "started": "2026-11-17T22:12",
-    "run": "MORNINGSPROBE1"
+    "run": "MORNINGSPROBE1",
+    "state": "LANDED - Claude collects"
    }
   ],
   "next": [
@@ -5761,6 +5755,11 @@
   },
   "done_recently": [
    {
+    "title": "Fight animation rebuild, phase 2: the planner that picks each punch by distance and each reaction by size (pure module + tests)",
+    "who": "goose",
+    "when": "2026-11-17"
+   },
+   {
     "title": "TASK ASKPROBE4 - QWEN (qwen3-coder) - does the fight week make the show date a real choice?",
     "who": "qwen",
     "when": "2026-11-17"
@@ -5814,11 +5813,6 @@
    },
    {
     "title": "TASK HEADSPLIT2 - the head-jump ruler says WHEN in the punch each jump falls",
-    "who": "qwen",
-    "when": "2026-11-17"
-   },
-   {
-    "title": "TASK HOOKPAST2 - the fling ruler also reads every held punch, not only the ones that reached 85 % of their reach",
     "who": "qwen",
     "when": "2026-11-17"
    }

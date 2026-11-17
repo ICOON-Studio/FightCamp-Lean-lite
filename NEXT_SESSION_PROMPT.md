@@ -1,20 +1,21 @@
-# S513 handover (written 2026-11-17 ~23:00, end of S512 - main line, Opus)
+# S513 handover (written 2026-11-18, end of S512 - main line, Opus)
 
 Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. Digests: `ops/research/S512_DIGEST.md`,
 `ops/research/S510_DIGEST.md`, `ops/research/S510_ANIM_DIGEST.md`.
 
-## BILLING FOR THIS SESSION: the $350 Console credits (owner S512: "prepare next session to use the bonus 350$")
-Run it in the `claude` CLI logged in to the Anthropic Console account - the desktop Code tab cannot bill credits. Steps,
-prices and a rough per-session cost: ops/research/API_CREDITS_FALLBACK_S474.md (section S512). In your first message say
-which model you run and the rough cost; check `/cost` every ~100k tokens of context; stop at ~$300 spent or at the
-subscription reset (2026-11-19 14:00 UTC = 16:00 his time) and go back to the desktop app. Sub-agents bill too (two at most).
+## BILLING (corrected S512, owner's billing screenshot)
+The "$200" is the Ultra plan's MONTHLY API credit to the linked Console org "Konstantinos's Individual Org" (next credit
+Dec 4, 2026); on Nov 18 that org had $0 usable ("Credit balance too low"). Sessions run on the Ultra plan (weekly reset
+Thu 2026-11-19 14:00 UTC). The credit is used only by the `claude` CLI after `/login` -> Anthropic Console account
+(header "API Usage Billing"). Details: ops/research/API_CREDITS_FALLBACK_S474.md (CORRECTION section).
 
 ## GOAL (owner, verbatim, still on): "i want animations fixed (at least 7/10)"
-The animation is now REBUILT, not patched (METHOD below), by its OWN Fable session: "Fight animation rebuild, part 2
-(Fable)" (local_9ee8e7a4) was running at the hand-over - it collects Goose's choreographer (issue 356) and builds the v2
-player. Do not start another animation session while it runs; if it has stopped, the next one starts from the ANIMATION
-LOOP STATE section (bottom) on Fable (check its model with get_session - start_session ignores the model field).
-The main line (this session's seat) owns everything outside scripts/fight3d.
+FIGHTPLAYER2 v2 (the rebuild behind `-- fightplayer2`) was FILMED AND JUDGED BLIND on 2026-11-18: coach 3.5, animator 3.0
+- BELOW the shipped player's 4.5 (cc568034a; scores, both 10/10 lists, the code causes: ANIMATION LOOP STATE, bottom).
+The animation session is now the TERMINAL session "anim S513" (claude CLI on Fable 5.2, Ultra plan, tab in the app's
+Terminal panel; CLI peer name lean-f3): it works on the feet/distance and folds in the coach's list (chest to chest, a
+landed punch moves nothing, stance not held, body whirls). Do not start another animation session while it runs; the
+shipped game is unchanged.
 
 ## MAIN LINE - DO FIRST
 1. Collect what lands: Dola SQ211 (season ladder v6 -> ops/research/DESIGN_LADDER1_V6_DOLA.md) and SQ212 (coach spec r6 ->
