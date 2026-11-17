@@ -41,6 +41,12 @@ var pre := false
 ## as GloveClear does after its lean) - only while the landed glove lets go (_letting_go). `-- noholdcap` = the S497 exemption.
 ## Film s508c vs s508a (same bout, 180 s): head jumps 91 -> 86, stepping hook 9.7 -> 9.0 m/s, fling p90 6.0 -> 5.8.
 static var hold_cap: bool = not OS.get_cmdline_user_args().has("noholdcap")
+## S509: `-- capwhy` prints every frame a head still travels over 12 cm, with what kept the cap off (films: --log).
+## s509a (180 s, seed 7): 136 such passes - 72 a LANDED punch at full hold (47 the frame after the hit, 20 on it), 43 hit
+## reactions freed on purpose (FREE_HIT_S), 11 blocked / height-only punches (their head rides the body's slide: capping
+## their trunk on the way in changed nothing, one pass 24 -> 33 cm). Rejected S509: the trunk capped after the hit at full
+## hold (hit_carry 31 -> 43, gloves off her on the hit frame) and on the way in of an unlanded punch (shared part 18 -> 20).
+static var why: bool = OS.get_cmdline_user_args().has("capwhy")
 
 var _skel: Skeleton3D
 var _bones: PackedInt32Array = PackedInt32Array()
@@ -101,7 +107,8 @@ func _process_modification() -> void:
 		var cap := HEAD_MAX_MPS * dt
 		if free_s <= 0.0 and d_tot > cap and d_tot < TELEPORT_M and d_rel > 0.001:
 			var held := 0.0 if pre else _holding(skel)
-			var keep := lerpf(clampf(1.0 - (d_tot - cap) / d_rel, 0.0, 1.0), 1.0, 0.0 if hold_cap and _letting_go(skel, held) else held)
+			var capped_held := hold_cap and held > 0.0 and _letting_go(skel, held)
+			var keep := lerpf(clampf(1.0 - (d_tot - cap) / d_rel, 0.0, 1.0), 1.0, 0.0 if capped_held else held)
 			if keep < 0.999:
 				var cur: Array = []
 				for b in _bones:
@@ -113,13 +120,32 @@ func _process_modification() -> void:
 					skel.set_bone_pose_rotation(b, par.inverse() * want)
 				head = skel.get_bone_global_pose(_head).origin - skel.get_bone_global_pose(_hips).origin
 				capped_frames += 1
-				if hold_cap and held > 0.0 and _letting_go(skel, held) and skel.get_node_or_null("PunchReach") != null:
+				if capped_held and skel.get_node_or_null("PunchReach") != null:
 					skel.get_node("PunchReach").settle()   # the glove lands again on the eased shoulder
+		if why and not pre and _abs(skel).distance_to(_ref_abs) > 0.12:
+			_why(skel, d_tot, cap)
 	_last_rot.resize(_bones.size())
 	for k in _bones.size():
 		_last_rot[k] = skel.get_bone_global_pose(_bones[k]).basis.get_rotation_quaternion()
 	_last_head = head
 	_last_abs = _abs(skel)
+
+
+## S509: true while an ARMED punch will not land (blocked: no carry through; or a height-only miss). A landed punch, or a
+## glove only fading out after one (no clip armed), is false: hit_carry 31 -> 40 when a fade counted as not landing.
+func _not_landing(skel: Skeleton3D) -> bool:
+	var pr := skel.get_node_or_null("PunchReach")
+	return pr != null and str(pr.get("_clip")) != "" and (bool(pr.get("_height_only")) or float(pr.get("_thru")) <= 0.002)
+
+
+## S509 `-- capwhy`: one line per frame the drawn head still travelled over 12 cm, with what held the cap off.
+func _why(skel: Skeleton3D, d_tot: float, cap: float) -> void:
+	var held := _holding(skel)
+	var pr := skel.get_node_or_null("PunchReach")
+	print("CAPWHY f=%d who=%s clip=%s pre_cut=%.1f after=%.1f cap=%.1f held=%.2f free=%.2f not_landing=%s letgo=%s hit_f=%d" % [
+		Engine.get_process_frames(), str(skel.get_instance_id() % 1000), str(pr.get("_clip")) if pr != null else "-",
+		d_tot * 100.0, _abs(skel).distance_to(_ref_abs) * 100.0, cap * 100.0, held, free_s, str(_not_landing(skel)),
+		str(_letting_go(skel, held)), int(pr.get("_hit_f")) if pr != null else -1])
 
 
 ## The head where it is drawn: in the world (S504), or in skeleton space with `-- skelpopcap`.

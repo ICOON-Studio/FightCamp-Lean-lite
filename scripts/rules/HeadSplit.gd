@@ -17,19 +17,28 @@ extends RefCounted
 ## A CLIP START is a row whose clip differs from that boxer's previous row. The first row of a boxer has no
 ## previous row, so it is not a start. Starts do not need consecutive frames; jumps do.
 ## Medians are true medians - the mean of the two middle values on an even count, as statistics.median.
+## S508: every jump also says WHEN in the punch it falls. since_contact counts the frames from that boxer's
+## most recent CONTACT START (hold 0 -> 1, as contacts() in tools/fight_motion_rulers.py) to row b, and only
+## while her clip has not changed since it: -1 when the current clip holds no contact. phase is pre / contact /
+## post / late on a punch clip, none on any other kind - the hold runs from the punch's start to ~10 frames
+## after contact, so a post jump is one the held-glove trunk cap can still be blamed for.
 
 const JUMP_CM := 12.0
 const REACT_PREFIXES := ["pro_hit", "react_", "mc_hit"]
 const PUNCH_WORDS := ["jab", "cross", "hook", "uppercut", "body_shot", "kidney"]
 const WORST_N := 5
 const NO_LIMIT := -1
+## Frames after contact still counted as post - mirrors STEP_WINDOW in tools/fight_motion_rulers.py.
+const POST_FRAMES := 12
+const PHASES := ["pre", "contact", "post", "late", "none"]
 
 
 ## "jumps" is the count, "jump_list" holds one dictionary per jump. until_frame (NO_LIMIT = the whole film)
 ## counts only jumps and starts whose row b frame is < until_frame - the shared part of two films.
 static func analyse(rows: Array, until_frame: int = NO_LIMIT) -> Dictionary:
 	var out := {"jumps": 0, "jump_list": [], "by_kind": {}, "starts": {}, "per_punch": 0.0,
-		"per_react": 0.0, "root_p50": 0.0, "hips_p50": 0.0, "trunk_p50": 0.0, "neck_p50": 0.0, "worst": []}
+		"per_react": 0.0, "root_p50": 0.0, "hips_p50": 0.0, "trunk_p50": 0.0, "neck_p50": 0.0, "worst": [],
+		"by_phase": _zero_phases(), "post_p50_frames": 0.0}
 	if rows.is_empty():
 		return out
 	var grouped := _group_by_who(rows)
@@ -40,12 +49,17 @@ static func analyse(rows: Array, until_frame: int = NO_LIMIT) -> Dictionary:
 			continue
 		_bump(starts, _kind(str(s["clip"])))
 	var by_kind := {}
+	var by_phase := _zero_phases()
 	var root_vals: Array = []
 	var hips_vals: Array = []
 	var trunk_vals: Array = []
 	var neck_vals: Array = []
+	var post_vals: Array = []
 	for j in jumps:
 		_bump(by_kind, str(j["kind"]))
+		_bump(by_phase, str(j["phase"]))
+		if str(j["phase"]) == "post":
+			post_vals.append(j["since_contact"])
 		root_vals.append(j["root_cm"])
 		hips_vals.append(j["hips_cm"])
 		trunk_vals.append(j["trunk_cm"])
@@ -63,6 +77,8 @@ static func analyse(rows: Array, until_frame: int = NO_LIMIT) -> Dictionary:
 	out["trunk_p50"] = _median(trunk_vals)
 	out["neck_p50"] = _median(neck_vals)
 	out["worst"] = _worst(jumps)
+	out["by_phase"] = by_phase
+	out["post_p50_frames"] = _median(post_vals)
 	return out
 
 
@@ -110,12 +126,15 @@ static func _group_by_who(rows: Array) -> Dictionary:
 	return by_who
 
 
-## One dictionary per jump: row b's frame, film_s, who, clip, kind and cause, and the five cm numbers.
-## Rows are paired per who and only when frame b = frame a + 1 - a dropped frame is never a jump.
+## One dictionary per jump: row b's frame, film_s, who, clip, kind and cause, the five cm numbers, and
+## since_contact / phase. Rows are paired per who and only when frame b = frame a + 1 - a dropped frame is
+## never a jump. The contact count runs over the boxer's WHOLE film, so a contact before until_frame still
+## dates a jump inside the shared part.
 static func _jumps(grouped: Dictionary, until_frame: int) -> Array:
 	var jumps: Array = []
 	for who in grouped:
 		var rows: Array = grouped[who]
+		var since := _contact_offsets(rows)
 		for i in range(1, rows.size()):
 			var b: Dictionary = rows[i]
 			var frame_b: int = int(b["frame"])
@@ -124,24 +143,71 @@ static func _jumps(grouped: Dictionary, until_frame: int) -> Array:
 			var a: Dictionary = rows[i - 1]
 			if int(a["frame"]) + 1 != frame_b:
 				continue
-			var j := _jump(a, b, who)
+			var j := _jump(a, b, who, since[i])
 			if not j.is_empty():
 				jumps.append(j)
 	return jumps
 
 
-static func _jump(a: Dictionary, b: Dictionary, who: int) -> Dictionary:
+## Per row of ONE boxer in frame order: the frames since her most recent contact start (hold 0 -> 1) while her
+## clip has not changed since it, -1 when the current clip holds none. A clip change clears the count first, so
+## a contact ON the change frame belongs to the new clip. The first row has no previous row and is never a
+## contact start, as contacts() in tools/fight_motion_rulers.py. A row with no hold column reads "0".
+static func _contact_offsets(rows: Array) -> Array:
+	var out: Array = []
+	var contact := -1
+	for i in range(rows.size()):
+		var r: Dictionary = rows[i]
+		var frame: int = int(r["frame"])
+		if i > 0:
+			var prev: Dictionary = rows[i - 1]
+			if str(r["clip"]) != str(prev["clip"]):
+				contact = -1
+			if _hold(r) == "1" and _hold(prev) == "0":
+				contact = frame
+		out.append(frame - contact if contact >= 0 else -1)
+	return out
+
+
+static func _hold(row: Dictionary) -> String:
+	return str(row["hold"]) if row.has("hold") else "0"
+
+
+## WHEN in the punch: pre before her contact, contact on it, post within POST_FRAMES after, late beyond.
+## Only a punch clip has a phase - a reaction or an idle jump is none whatever its since_contact.
+static func _phase(kind: String, since_contact: int) -> String:
+	if kind != "punch":
+		return "none"
+	if since_contact < 0:
+		return "pre"
+	if since_contact == 0:
+		return "contact"
+	return "post" if since_contact <= POST_FRAMES else "late"
+
+
+## by_phase always carries all five words, so a film with no jumps still reports five zeroes.
+static func _zero_phases() -> Dictionary:
+	var out := {}
+	for p in PHASES:
+		out[p] = 0
+	return out
+
+
+static func _jump(a: Dictionary, b: Dictionary, who: int, since_contact: int) -> Dictionary:
 	var head_cm := _pos(b, "Head").distance_to(_pos(a, "Head")) * 100.0
 	if head_cm <= JUMP_CM:
 		return {}
 	var clip_b := str(b["clip"])
+	var kind := _kind(clip_b)
 	return {
 		"frame": int(b["frame"]),
 		"film_s": float(b["film_s"]),
 		"who": who,
 		"clip": clip_b,
-		"kind": _kind(clip_b),
+		"kind": kind,
 		"cause": "change" if str(a["clip"]) != clip_b else "inside",
+		"since_contact": since_contact,
+		"phase": _phase(kind, since_contact),
 		"head_cm": head_cm,
 		"root_cm": _pos(b, "node").distance_to(_pos(a, "node")) * 100.0,
 		"hips_cm": _seg(b, "Hips", "node").distance_to(_seg(a, "Hips", "node")) * 100.0,

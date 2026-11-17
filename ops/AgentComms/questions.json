@@ -8085,6 +8085,21 @@
       "note": null,
       "answered_at": null,
       "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-268",
+      "asked": "2026-11-17T13:28:28.293896+00:00",
+      "session": "S294",
+      "text": "Your video: Claude's default here is Opus at HIGH effort. Medium thinks less and costs about a third per task, for a few points less. Switch the default to medium (you can still pick high for hard sessions)?",
+      "options": [
+        "Yes, medium",
+        "Keep high"
+      ],
+      "attach": [],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
     }
   ]
 }

@@ -22,6 +22,9 @@ func _initialize() -> void:
 	_test_medians_and_worst()
 	_test_worst_tie()
 	_test_two_films_shared()
+	_test_phase_in_the_punch()
+	_test_phase_clip_change_and_boxers()
+	_test_phase_none_and_no_hold()
 	_test_mutants()
 	_test_empty()
 	print("HEAD_SPLIT_TEST failures=%d" % failures)
@@ -286,6 +289,51 @@ func _test_two_films_shared() -> void:
 	_check(int(HS.analyse(a, 6)["jumps"]) == 1, "shared: frame 5 counted once until passes it")
 
 
+## hold 0,0,1,1,0: pre / contact / post. 12 frames after contact is post, 13 and 15 late, a second 0 -> 1 restarts.
+func _test_phase_in_the_punch() -> void:
+	_phase_case(_hold_run(100, 104, "pro_left_jab", "00110", [101, 102, 103, 104]),
+		[[-1, "pre"], [0, "contact"], [1, "post"], [2, "post"]], [1, 1, 2, 0, 0], 1.5, "hold 00110")
+	_phase_case(_hold_run(100, 116, "pro_left_jab", "01", [113, 114, 116]),
+		[[12, "post"], [13, "late"], [15, "late"]], [0, 0, 1, 2, 0], 12.0, "12/13/15 after contact")
+	_phase_case(_hold_run(100, 103, "pro_left_jab", "0101", [101, 102, 103]),
+		[[0, "contact"], [1, "post"], [0, "contact"]], [0, 2, 1, 0, 0], 1.0, "a second contact")
+
+
+## The clip change resets since_contact to -1; a contact ON the change frame is the new clip's. Only who 0 lands.
+func _test_phase_clip_change_and_boxers() -> void:
+	var rows := [_hrow(100, 0, "pro_left_jab", 0.0, "0"), _hrow(101, 0, "pro_left_jab", 15.0, "1"),
+		_hrow(102, 0, "pro_left_jab", 30.0, "1"), _hrow(103, 0, "pro_right_cross", 45.0, "0"),
+		_hrow(104, 0, "pro_right_cross", 60.0, "0")]
+	_phase_case(rows, [[0, "contact"], [1, "post"], [-1, "pre"], [-1, "pre"]], [2, 1, 1, 0, 0], 1.0, "clip change")
+	var on_change := rows.duplicate(true)
+	on_change[2]["hold"] = "0"
+	on_change[3]["hold"] = "1"
+	_phase_case(on_change, [[0, "contact"], [1, "post"], [0, "contact"], [1, "post"]], [0, 2, 2, 0, 0], 1.0,
+		"contact on the change frame")
+	var blind := rows.duplicate(true)
+	for r in blind:
+		r["clip"] = "pro_left_jab"
+	_check(str(HS.analyse(blind)["jump_list"][2]["phase"]) == "post", "mutant clip-blind: the reset assert fails")
+	var interleaved: Array = []
+	for i in range(3):
+		interleaved.append(_hrow(100 + i, 0, "pro_left_jab", 15.0 * i, "0" if i == 0 else "1"))
+		interleaved.append(_hrow(100 + i, 1, "pro_right_cross", 15.0 * i, "0"))
+	var res := _phase_case(interleaved, [[0, "contact"], [1, "post"], [-1, "pre"], [-1, "pre"]],
+		[2, 1, 1, 0, 0], 1.0, "two boxers")
+	_check(int(res["jump_list"][2]["who"]) == 1, "two boxers: the pre jumps are who 1's")
+
+
+## A react or idle jump is none on its own contact frame; no hold column (hold-blind): all pre, no error; empty: 0s.
+func _test_phase_none_and_no_hold() -> void:
+	_phase_case(_hold_run(100, 102, "pro_hit_head_high", "01", [101, 102]),
+		[[0, "none"], [1, "none"]], [0, 0, 0, 0, 2], 0.0, "react")
+	_phase_case(_hold_run(100, 101, "pro_idle", "01", [101]), [[0, "none"]], [0, 0, 0, 0, 1], 0.0, "idle")
+	_phase_case([_row(100, 0, "pro_left_jab", _pose(0, 0, 0, 0)), _row(101, 0, "pro_left_jab", _pose(0, 0, 15, 0)),
+		_row(102, 0, "pro_hit_head_high", _pose(0, 0, 30, 0))],
+		[[-1, "pre"], [-1, "none"]], [1, 0, 0, 0, 1], 0.0, "no hold column")
+	_phase_case([], [], [0, 0, 0, 0, 0], 0.0, "empty")
+
+
 ## MUTANTS: wrong-way copies. Each must break the assert the real fixture passes.
 func _test_mutants() -> void:
 	# 1. who-blind: the interleaved boxers stamped who 0 - the pairs cross boxers and the two jumps are lost.
@@ -366,6 +414,38 @@ func _row(frame: int, who: int, clip: String, pose: Dictionary) -> Dictionary:
 		d[b + "_y"] = str(p.y)
 		d[b + "_z"] = str(p.z)
 	return d
+
+
+## A row with a hold column, its head trunk_cm above the base pose: a 15 cm step is a jump the trunk carried.
+func _hrow(frame: int, who: int, clip: String, trunk_cm: float, hold: String) -> Dictionary:
+	var d := _row(frame, who, clip, _pose(0, 0, trunk_cm, 0))
+	d["hold"] = hold
+	return d
+
+
+## One boxer's frames from..to in one clip: holds one character per frame (the last repeats), 15 cm steps at jump_at.
+func _hold_run(from: int, to: int, clip: String, holds: String, jump_at: Array, who: int = 0) -> Array:
+	var rows: Array = []
+	var trunk := 0.0
+	for f in range(from, to + 1):
+		if jump_at.has(f):
+			trunk += 15.0
+		rows.append(_hrow(f, who, clip, trunk, holds.substr(mini(f - from, holds.length() - 1), 1)))
+	return rows
+
+
+## One phase fixture: every jump's (since_contact, phase) against want, the five by_phase counts, post_p50.
+func _phase_case(rows: Array, want: Array, counts: Array, p50: float, label: String) -> Dictionary:
+	var res := HS.analyse(rows)
+	var bp: Dictionary = res["by_phase"]
+	_check(int(res["jumps"]) == want.size(), "%s: %d jumps" % [label, want.size()])
+	_check([bp["pre"], bp["contact"], bp["post"], bp["late"], bp["none"]] == counts, "%s: by_phase %s" % [label, counts])
+	_near(res["post_p50_frames"], p50, "%s: post_p50" % label)
+	for i in range(mini(want.size(), res["jump_list"].size())):
+		var j: Dictionary = res["jump_list"][i]
+		_check(int(j["since_contact"]) == want[i][0] and str(j["phase"]) == want[i][1],
+			"%s: jump %d since %d phase %s" % [label, i, want[i][0], want[i][1]])
+	return res
 
 
 ## The two films of the shared-part fixture: who 0 idles, jabs (11), idles (21), crosses (31) and throws

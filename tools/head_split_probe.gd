@@ -3,6 +3,8 @@ extends SceneTree
 ## One csv: one line per worst jump, then the HEAD_SPLIT summary line.
 ## Two csvs: HEAD_SPLIT_SHARED until=<frame>, the shared part of each film (A / B), then the whole films
 ## (A_ALL / B_ALL) - S507: a whole-film comparison counts a different bout, not a different layer.
+## S508: every HEAD_SPLIT line is followed by its HEAD_SPLIT_PHASE line - WHEN in the punch each jump falls
+## (pre / contact / post / late / none) and the median frames after contact of the post jumps.
 ## Usage: <godot> --headless --audio-driver Dummy --path . --script res://tools/head_split_probe.gd -- csv=<a> [csv2=<b>]
 
 const HS := preload("res://scripts/rules/HeadSplit.gd")
@@ -27,16 +29,23 @@ func _initialize() -> void:
 				w["film_s"], w["who"], w["clip"], w["head_cm"],
 				w["root_cm"], w["hips_cm"], w["trunk_cm"], w["neck_cm"]])
 		print(_line(res))
+		print(_phase_line(res))
 		quit(0)
 		return
 	var rows_b := _load_csv(csv2)
 	var until := HS.shared_until(rows_a, rows_b)
 	print("HEAD_SPLIT_SHARED until=%d" % until)
-	print("A " + _line(HS.analyse(rows_a, until)))
-	print("B " + _line(HS.analyse(rows_b, until)))
-	print("A_ALL " + _line(HS.analyse(rows_a)))
-	print("B_ALL " + _line(HS.analyse(rows_b)))
+	_pair("A ", HS.analyse(rows_a, until))
+	_pair("B ", HS.analyse(rows_b, until))
+	_pair("A_ALL ", HS.analyse(rows_a))
+	_pair("B_ALL ", HS.analyse(rows_b))
 	quit(0)
+
+
+## A film's two lines: the HEAD_SPLIT summary, then its HEAD_SPLIT_PHASE, under the same prefix.
+func _pair(prefix: String, res: Dictionary) -> void:
+	print(prefix + _line(res))
+	print(prefix + _phase_line(res))
 
 
 func _line(res: Dictionary) -> String:
@@ -44,6 +53,12 @@ func _line(res: Dictionary) -> String:
 		res["jumps"], res["by_kind"].get("punch", 0), res["by_kind"].get("react", 0), res["by_kind"].get("other", 0),
 		res["per_punch"], res["per_react"],
 		res["root_p50"], res["hips_p50"], res["trunk_p50"], res["neck_p50"]]
+
+
+func _phase_line(res: Dictionary) -> String:
+	var bp: Dictionary = res["by_phase"]
+	return "HEAD_SPLIT_PHASE pre=%d contact=%d post=%d late=%d none=%d post_p50=%.1f" % [
+		bp["pre"], bp["contact"], bp["post"], bp["late"], bp["none"], res["post_p50_frames"]]
 
 
 func _arg(k: String, dflt: String) -> String:
