@@ -1,7 +1,8 @@
 extends SceneTree
 ## PUNCH_END_TEST: the ruler that reads where each punch ends and how fast the hand comes home.
-## Hand-built rows (no csv). 10 checks: empty, jab on head, cross above, body shot, southpaw,
-## home in 3, home never (30), short run ignored, skipped frame splits, missing opponent skipped.
+## Hand-built rows (no csv). 14 checks: empty, jab on head, cross above, body shot, southpaw,
+## home in 3, home never (30), short run ignored, skipped frame splits, missing opponent skipped,
+## mid-blend home from guard, no idle before (home_from start), contact_home 4, contact_home -1.
 
 const PE := preload("res://scripts/rules/PunchEnd.gd")
 
@@ -19,6 +20,12 @@ func _initialize() -> void:
 	_test_short_run_ignored()
 	_test_skipped_frame_splits()
 	_test_missing_opponent()
+	_test_mid_blend_home_from_guard()
+	_test_no_idle_before()
+	_test_contact_home_4()
+	_test_contact_home_minus1()
+	_test_home_inside_clip()
+	_test_hold_of_the_other_man()
 	print("PUNCH_END_TEST failures=%d" % failures)
 	quit(1 if failures > 0 else 0)
 
@@ -207,3 +214,141 @@ func _test_missing_opponent() -> void:
 	## No boxer 1 rows at all -> opponent missing at far frame 15.
 	var r := PE.analyse(rows)
 	_check(r["punches"].size() == 0, "missing_opp: 0 punches (opponent missing)")
+
+
+func _test_mid_blend_home_from_guard() -> void:
+	## Mid-blend start: punch run starts 41 cm off guard, but idle frames before show guard position.
+	## OLD RULE (first-frame): home = hand pos at frame 10 = (0.48, 1.7, 0.0) - HIPS0 = (0.48, 0.7, 0.0),
+	##   distance from guard = 0.41m, hand never returns to 41cm-off position -> home_frames = 30.
+	## NEW RULE (guard): home = avg of idle frames 5-9 = RH_GUARD = (0.2, 1.4, 0.0),
+	##   hand returns to guard at frame 18 -> home_frames = 3.
+	var rows: Array = []
+	## Idle frames 5-9 at guard position.
+	for f in range(5, 10):
+		rows.append(_row(f, 0, "idle", HIPS0, HEAD0, LH_GUARD, RH_GUARD))
+	## Punch run frames 10-15, starts 41cm off guard, extends further.
+	for f in range(10, 16):
+		var t: float = float(f - 10) / 5.0
+		var rh := Vector3(0.48, 1.70, 0.0).lerp(Vector3(0.5, 1.7, 0.0), t)
+		rows.append(_row(f, 0, "pro_jab", HIPS0, HEAD0, LH_GUARD, rh))
+	for f in range(5, 16):
+		rows.append(_row(f, 1, "idle", HIPS1, HEAD1, LH_GUARD, RH_GUARD))
+	## Recovery: hand returns to guard at frame 18.
+	rows.append(_row(16, 0, "idle", HIPS0, HEAD0, LH_GUARD, Vector3(0.35, 1.55, 0.0)))
+	rows.append(_row(17, 0, "idle", HIPS0, HEAD0, LH_GUARD, Vector3(0.28, 1.48, 0.0)))
+	rows.append(_row(18, 0, "idle", HIPS0, HEAD0, LH_GUARD, RH_GUARD))
+	var r := PE.analyse(rows)
+	_check(r["punches"].size() == 1, "mid_blend: 1 punch")
+	var p: Dictionary = r["punches"][0]
+	_check(p["home_from"] == "guard", "mid_blend: home_from guard, got %s" % p["home_from"])
+	_check(p["home_frames"] == 3, "mid_blend: home_frames 3 (not 30), got %d" % p["home_frames"])
+
+
+func _test_no_idle_before() -> void:
+	## No idle frame in 45 frames before punch -> home_from "start".
+	var rows: Array = []
+	## Punch starts at frame 100, no idle/guard frames before it for boxer 0.
+	for f in range(100, 106):
+		var t: float = float(f - 100) / 5.0
+		var rh := RH_GUARD.lerp(Vector3(0.48, 1.70, 0.0), t)
+		rows.append(_row(f, 0, "pro_jab", HIPS0, HEAD0, LH_GUARD, rh))
+	for f in range(55, 106):
+		rows.append(_row(f, 1, "idle", HIPS1, HEAD1, LH_GUARD, RH_GUARD))
+	rows.append(_row(106, 0, "idle", HIPS0, HEAD0, LH_GUARD, RH_GUARD))
+	var r := PE.analyse(rows)
+	_check(r["punches"].size() == 1, "no_idle: 1 punch")
+	var p: Dictionary = r["punches"][0]
+	_check(p["home_from"] == "start", "no_idle: home_from start, got %s" % p["home_from"])
+
+
+func _test_contact_home_4() -> void:
+	## Landed punch with hold=1 on 3rd frame, hand home 4 frames after contact.
+	var rows: Array = []
+	for f in range(5, 10):
+		rows.append(_row(f, 0, "idle", HIPS0, HEAD0, LH_GUARD, RH_GUARD))
+	## Punch frames 10-15, hold=1 at frame 12 (3rd frame of run). S504 collect: the hand is at full reach by then (the
+	## contact is where the glove lands; a hold with the hand still near the chin is the other man's, see below).
+	for f in range(10, 16):
+		var t: float = minf(1.0, float(f - 10) / 2.0)
+		var rh := RH_GUARD.lerp(Vector3(0.48, 1.70, 0.0), t)
+		var row := _row(f, 0, "pro_jab", HIPS0, HEAD0, LH_GUARD, rh)
+		row["hold"] = "1" if f == 12 else "0"
+		rows.append(row)
+	for f in range(5, 16):
+		var row := _row(f, 1, "idle", HIPS1, HEAD1, LH_GUARD, RH_GUARD)
+		row["hold"] = "0"
+		rows.append(row)
+	## Hand returns to guard at frame 16 (4 frames after contact at 12).
+	rows.append(_row(16, 0, "idle", HIPS0, HEAD0, LH_GUARD, RH_GUARD))
+	var r := PE.analyse(rows)
+	_check(r["punches"].size() == 1, "contact_home: 1 punch")
+	var p: Dictionary = r["punches"][0]
+	_check(p["contact_home_frames"] == 4, "contact_home: 4, got %d" % p["contact_home_frames"])
+	_check(r["landed_n"] == 1, "contact_home: landed_n 1, got %d" % r["landed_n"])
+	_check(r["contact_home_le4"] == 1, "contact_home: le4 1, got %d" % r["contact_home_le4"])
+
+
+func _test_contact_home_minus1() -> void:
+	## No hold frame -> contact_home_frames = -1, not counted in landed_n.
+	var rows: Array = []
+	for f in range(5, 10):
+		rows.append(_row(f, 0, "idle", HIPS0, HEAD0, LH_GUARD, RH_GUARD))
+	for f in range(10, 16):
+		var t: float = float(f - 10) / 5.0
+		var rh := RH_GUARD.lerp(Vector3(0.48, 1.70, 0.0), t)
+		var row := _row(f, 0, "pro_jab", HIPS0, HEAD0, LH_GUARD, rh)
+		row["hold"] = "0"
+		rows.append(row)
+	for f in range(5, 16):
+		var row := _row(f, 1, "idle", HIPS1, HEAD1, LH_GUARD, RH_GUARD)
+		row["hold"] = "0"
+		rows.append(row)
+	var r := PE.analyse(rows)
+	_check(r["punches"].size() == 1, "no_hold: 1 punch")
+	var p: Dictionary = r["punches"][0]
+	_check(p["contact_home_frames"] == -1, "no_hold: contact_home -1, got %d" % p["contact_home_frames"])
+	_check(r["landed_n"] == 0, "no_hold: landed_n 0, got %d" % r["landed_n"])
+
+
+func _test_home_inside_clip() -> void:
+	## S504 collect: the hand comes home INSIDE the punch clip's own recovery (frame 16; the clip runs to 24). The search
+	## starts after the far point / the contact, not after the run: the old rule read home 12 / contact_home 12 here.
+	var rows: Array = []
+	for f in range(5, 10):
+		rows.append(_row(f, 0, "idle", HIPS0, HEAD0, LH_GUARD, RH_GUARD))
+	for f in range(10, 25):
+		var rh := RH_GUARD.lerp(Vector3(0.48, 1.70, 0.0), float(f - 10) / 3.0) if f <= 13 else RH_GUARD.lerp(Vector3(0.48, 1.70, 0.0), maxf(0.0, float(16 - f) / 3.0))
+		var row := _row(f, 0, "pro_cross", HIPS0, HEAD0, LH_GUARD, rh)
+		row["hold"] = "1" if f == 13 else "0"
+		rows.append(row)
+	for f in range(5, 25):
+		var row := _row(f, 1, "idle", HIPS1, HEAD1, LH_GUARD, RH_GUARD)
+		row["hold"] = "0"
+		rows.append(row)
+	var r := PE.analyse(rows)
+	_check(r["punches"].size() == 1, "inside_clip: 1 punch")
+	if r["punches"].is_empty():
+		return
+	var p: Dictionary = r["punches"][0]
+	_check(p["home_frames"] == 3, "inside_clip: home 3 frames after the far point, got %d" % p["home_frames"])
+	_check(p["contact_home_frames"] == 3, "inside_clip: contact_home 3 (glove lands at the far point, 13), got %d" % p["contact_home_frames"])
+
+
+func _test_hold_of_the_other_man() -> void:
+	## S504 collect: the stage's hold lands on both rows. A hold while this hand is still near the chin (frame 10, the run's
+	## first frame) is the other man's punch landing, not this punch's contact: contact_home -1, not landed.
+	var rows: Array = []
+	for f in range(5, 10):
+		rows.append(_row(f, 0, "idle", HIPS0, HEAD0, LH_GUARD, RH_GUARD))
+	for f in range(10, 16):
+		var row := _row(f, 0, "pro_jab", HIPS0, HEAD0, LH_GUARD, RH_GUARD.lerp(Vector3(0.48, 1.70, 0.0), float(f - 10) / 5.0))
+		row["hold"] = "1" if f == 10 else "0"
+		rows.append(row)
+	for f in range(5, 16):
+		var row := _row(f, 1, "idle", HIPS1, HEAD1, LH_GUARD, RH_GUARD)
+		row["hold"] = "1" if f == 10 else "0"
+		rows.append(row)
+	var r := PE.analyse(rows)
+	_check(r["punches"].size() == 1 and int(r["punches"][0]["contact_home_frames"]) == -1 and int(r["landed_n"]) == 0,
+		"other man's hold: not this punch's contact, got %s" % str(r["punches"][0]["contact_home_frames"] if not r["punches"].is_empty() else "none"))
+

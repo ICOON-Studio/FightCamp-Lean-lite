@@ -16,6 +16,14 @@ const UpperRoom := preload("res://scripts/fight3d/UpperRoom.gd")   # POWER1 step
 ## S320 a glide step's speed eases in and out over this (Footwork.glide).
 const STEP_RAMP_S := 0.07
 ## S311: nobody closes inside this pelvis gap (gloves in guard would meet).
+## S504 HEAD JUMPS (both r10 critics: a head moves at most 8 cm a frame; s504g had 90 frames over 12 cm): the shown body
+## slid up to 13 cm in one 30 fps frame (a jab's or body shot's lunge: the reach plus PunchWeight's carry, ~2.8-3.6 m/s)
+## and PopCap, which eases the trunk, never saw it. The shown body travels at most NODE_MAX_MPS - under PopCap's 2.7 so the
+## trunk keeps room (2.7 left the trunk none: s504i 97 jumps, 1.8 s504k 86, jabs 18 -> 12); what is left carries into the
+## next frames. Over NODE_TELEPORT_M (a director, a reset) is let through. `-- nonodecap`.
+const NODE_MAX_MPS := 1.8
+const NODE_TELEPORT_M := 0.5
+static var node_cap: bool = not OS.get_cmdline_user_args().has("nonodecap")
 const MIN_GAP_M := 0.84   # HUMANFIGHT1: was 0.62 (the stances overlapped: RangeBreath.INSIDE_SPELL_M)
 ## S314: in an inside spell the heads pass each other's shoulder (Footwork.offset), so they may close to this.
 const INSIDE_FLOOR_M := 0.84   # S392: 0.48 sat under the inside range (RangeBreath) and let the chests in; HUMANFIGHT1 0.6 -> 0.78
@@ -176,7 +184,7 @@ static func _place(st: Node, delta: float) -> void:
 		var lunge := lunge_room((float(pr.lunge()) if pr != null else 0.0) + carry, to.length(), keep_m)
 		# S392: the rig's feet already stand off the line (RingFeet.tick); only a body the rig has let go of takes the shift here.
 		var side: Vector3 = feet.offset(to) * (1.0 - float(bx["rig"].w) if RingFeet.on(st, bx) else 1.0)
-		n.position = me + (to.normalized() * lunge if to.length() > 0.01 else Vector3.ZERO) + st.clinch.offset(i, to) + side + rock
+		n.position = travel_cap(bx, me + (to.normalized() * lunge if to.length() > 0.01 else Vector3.ZERO) + st.clinch.offset(i, to) + side + rock, delta)
 		if bx.get("snap") != null:
 			bx["snap"].sway = feet.inside_w   # S315 small head sways inside
 		if bx.get("tuck") != null and not st._no_inguard:
@@ -185,3 +193,16 @@ static func _place(st: Node, delta: float) -> void:
 		if to.length() > 0.01 and not str((bx["ap"] as AnimationPlayer).current_animation).begins_with("rk_loc_"):
 			var yaw := atan2(to.x, to.z)
 			n.rotation = Vector3(0.0, yaw if delta <= 0.0 else lerp_angle(n.rotation.y, yaw, 1.0 - exp(-delta / FACE_S)), 0.0)
+
+
+## The shown body's travel this frame, capped at NODE_MAX_MPS on the ground (S504). Remembers where it drew her.
+static func travel_cap(bx: Dictionary, want: Vector3, delta: float) -> Vector3:
+	var last: Variant = bx.get("node_drawn")
+	var out := want
+	if node_cap and last != null and delta > 0.0:
+		var d := Vector3(want.x - (last as Vector3).x, 0.0, want.z - (last as Vector3).z)
+		var cap := NODE_MAX_MPS * delta
+		if d.length() > cap and d.length() < NODE_TELEPORT_M:
+			out = Vector3((last as Vector3).x, want.y, (last as Vector3).z) + d.normalized() * cap
+	bx["node_drawn"] = out
+	return out

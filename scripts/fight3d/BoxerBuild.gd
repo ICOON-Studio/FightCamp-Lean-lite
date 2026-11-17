@@ -152,6 +152,15 @@ static func build(stage: Node3D, spec: Dictionary, index: int) -> Dictionary:
 		skel.move_child(ah, pr.get_index())
 	else:
 		ah.free()
+	if pr != null and PopCap.pre_on:   # S504: the trunk capped before the reach solves the arm (PopCap.pre)
+		var pre := PopCap.new()
+		pre.name = "PopCapPre"
+		pre.pre = true
+		if pre.setup(skel):
+			skel.add_child(pre)
+			skel.move_child(pre, mini(pr.get_index(), ah.get_index() if is_instance_valid(ah) and ah.is_inside_tree() else pr.get_index()))
+		else:
+			pre.free()
 	var hs := HitSnap.new()
 	hs.name = "HitSnap"
 	hs.sway_seed = absi(hash(str(look.get("name", "")))) + 31   # S471 (FighterLife seeds the same way, + 17)

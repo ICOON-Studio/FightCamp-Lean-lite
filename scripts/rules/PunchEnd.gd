@@ -1,15 +1,18 @@
 extends RefCounted
-## PUNCHEND1: where each punch ends and how fast the hand comes home.
+## PUNCHEND2: where each punch ends and how fast the hand comes home.
 ## Pure static analyser over shown.csv rows. ZERO preloads.
 
 const PUNCH_WORDS := ["jab", "cross", "hook", "uppercut", "body_shot"]
 const EXCLUDE_WORDS := ["hit_by", "dodge", "weave", "idle"]
 const HOME_RADIUS_M := 0.08
 const HOME_SEARCH := 30
+const GUARD_SEARCH_BACK := 45
+const GUARD_AVG_FRAMES := 5
+const CONTACT_REACH := 0.85   # S504 collect: a hold counts as this punch's contact only with the hand this far out
 
 
 static func analyse(rows: Array) -> Dictionary:
-	var empty: Dictionary = {"punches": [], "head_n": 0, "above_10_n": 0, "above_p50": 0.0, "above_p90": 0.0, "home_p50": 0.0, "home_p90": 0.0, "by_clip": {}}
+	var empty: Dictionary = {"punches": [], "head_n": 0, "above_10_n": 0, "above_p50": 0.0, "above_p90": 0.0, "home_p50": 0.0, "home_p90": 0.0, "contact_home_p50": 0.0, "contact_home_p90": 0.0, "contact_home_le4": 0, "landed_n": 0, "by_clip": {}}
 	if rows.is_empty():
 		return empty
 	var by_frame_who: Dictionary = {}
@@ -38,6 +41,9 @@ static func analyse(rows: Array) -> Dictionary:
 	var above_10_n: int = 0
 	var above_vals: Array = []
 	var home_vals: Array = []
+	var contact_home_vals: Array = []
+	var contact_home_le4: int = 0
+	var landed_n: int = 0
 	var by_clip: Dictionary = {}
 	for p in punches:
 		var is_body: bool = p["is_body"]
@@ -47,17 +53,25 @@ static func analyse(rows: Array) -> Dictionary:
 			if p["above_cm"] > 10.0:
 				above_10_n += 1
 		home_vals.append(p["home_frames"])
+		var ch: int = p["contact_home_frames"]
+		if ch >= 0:
+			landed_n += 1
+			contact_home_vals.append(ch)
+			if ch <= 4:
+				contact_home_le4 += 1
 		var clip: String = p["clip"]
 		if not by_clip.has(clip):
-			by_clip[clip] = {"n": 0, "above": [], "home": []}
+			by_clip[clip] = {"n": 0, "above": [], "home": [], "contact_home": []}
 		by_clip[clip]["n"] += 1
 		if not is_body:
 			by_clip[clip]["above"].append(p["above_cm"])
 		by_clip[clip]["home"].append(p["home_frames"])
+		if ch >= 0:
+			by_clip[clip]["contact_home"].append(ch)
 	var by_clip_out: Dictionary = {}
 	for clip in by_clip:
 		var d: Dictionary = by_clip[clip]
-		by_clip_out[clip] = {"n": d["n"], "above_p50": _pct(d["above"], 0.5), "home_p50": _pct(d["home"], 0.5)}
+		by_clip_out[clip] = {"n": d["n"], "above_p50": _pct(d["above"], 0.5), "home_p50": _pct(d["home"], 0.5), "contact_home_p50": _pct(d["contact_home"], 0.5)}
 	return {
 		"punches": punches,
 		"head_n": head_n,
@@ -66,6 +80,10 @@ static func analyse(rows: Array) -> Dictionary:
 		"above_p90": _pct(above_vals, 0.9),
 		"home_p50": _pct(home_vals, 0.5),
 		"home_p90": _pct(home_vals, 0.9),
+		"contact_home_p50": _pct(contact_home_vals, 0.5),
+		"contact_home_p90": _pct(contact_home_vals, 0.9),
+		"contact_home_le4": contact_home_le4,
+		"landed_n": landed_n,
 		"by_clip": by_clip_out,
 	}
 
@@ -141,7 +159,13 @@ static func _analyse_run(run: Array, who: int, by_frame_who: Dictionary, by_who:
 	var above_cm: float = (hand_pos.y - head_pos.y) * 100.0
 	var miss_cm: float = hand_pos.distance_to(head_pos) * 100.0
 	var is_body: bool = clip.contains("body")
-	var home_frames := _compute_home(run, who, hand_name, far_frame, by_who)
+	var guard_home := _find_guard_home(start_frame, who, hand_name, by_who)
+	var home_from: String = "guard" if guard_home != Vector3.ZERO else "start"
+	if guard_home == Vector3.ZERO:
+		guard_home = _local(first_row, hand_name)
+		home_from = "start"
+	var home_frames := _compute_home_from_ref(run, who, hand_name, far_frame, by_who, guard_home)
+	var contact_home := _compute_contact_home(run, who, hand_name, by_who, guard_home)
 	return {
 		"clip": clip,
 		"who": who,
@@ -152,6 +176,8 @@ static func _analyse_run(run: Array, who: int, by_frame_who: Dictionary, by_who:
 		"miss_cm": miss_cm,
 		"is_body": is_body,
 		"home_frames": home_frames,
+		"home_from": home_from,
+		"contact_home_frames": contact_home,
 	}
 
 
@@ -177,15 +203,21 @@ static func _hand_dist(row: Dictionary, hand: String) -> float:
 	return hp.distance_to(hips)
 
 
+## The hand from the hips in ring axes (the brief's rule). S504 collect tried the boxer's own frame (hip line: home
+## median 5 -> 11 frames, the hips turn further than the shoulders) and the glove-to-head distance (an arc keeps the
+## distance: everything read home at once); ring axes stay until the film logs the chest's turn.
+static func _local(row: Dictionary, bone: String) -> Vector3:
+	return _bone_pos(row, bone) - _bone_pos(row, "Hips")
+
+
 static func _bone_pos(row: Dictionary, bone: String) -> Vector3:
 	return Vector3(float(row[bone + "_x"]), float(row[bone + "_y"]), float(row[bone + "_z"]))
 
 
-static func _compute_home(run: Array, who: int, hand_name: String, far_frame: int, by_who: Dictionary) -> int:
-	var first_row: Dictionary = run[0]
-	var ref_hand := _bone_pos(first_row, hand_name) - _bone_pos(first_row, "Hips")
-	var last_frame: int = int(run.back()["frame"])
-	var search_start: int = maxi(last_frame + 1, far_frame + 1)
+static func _compute_home_from_ref(run: Array, who: int, hand_name: String, far_frame: int, by_who: Dictionary, ref_hand: Vector3) -> int:
+	# S504 collect: from the frame after the far point, the punch clip's own recovery included (the brief: "the same
+	# boxer's following rows (any clip)"); starting after the run's last frame never counted a hand home inside its clip.
+	var search_start: int = far_frame + 1
 	var search_end: int = far_frame + HOME_SEARCH
 	var boxer_rows: Array = by_who[who]
 	for r in boxer_rows:
@@ -194,9 +226,60 @@ static func _compute_home(run: Array, who: int, hand_name: String, far_frame: in
 			continue
 		if f > search_end:
 			break
-		var cur_hand := _bone_pos(r, hand_name) - _bone_pos(r, "Hips")
+		var cur_hand := _local(r, hand_name)
 		if cur_hand.distance_to(ref_hand) <= HOME_RADIUS_M:
 			return f - far_frame
+	return HOME_SEARCH
+
+
+static func _find_guard_home(start_frame: int, who: int, hand_name: String, by_who: Dictionary) -> Vector3:
+	var boxer_rows: Array = by_who[who]
+	var search_start: int = start_frame - GUARD_SEARCH_BACK
+	var guard_rows: Array = []
+	for r in boxer_rows:
+		var f: int = int(r["frame"])
+		if f < search_start:
+			continue
+		if f >= start_frame:
+			break
+		var clip: String = str(r["clip"])
+		if clip.contains("idle") or clip.contains("guard"):
+			guard_rows.append(r)
+	if guard_rows.is_empty():
+		return Vector3.ZERO
+	var take_n: int = mini(GUARD_AVG_FRAMES, guard_rows.size())
+	var sum := Vector3.ZERO
+	for i in range(guard_rows.size() - take_n, guard_rows.size()):
+		var r: Dictionary = guard_rows[i]
+		sum += _local(r, hand_name)
+	return sum / float(take_n)
+
+
+static func _compute_contact_home(run: Array, who: int, hand_name: String, by_who: Dictionary, ref_hand: Vector3) -> int:
+	# S504 collect: the film's `hold` is the STAGE's hit-stop, written on both boxers' rows, so a hold inside this run can
+	# be the other man's punch landing. It is this punch's contact only when this hand is out at 85 % of its reach or more.
+	var reach := 0.0
+	for r in run:
+		reach = maxf(reach, _hand_dist(r, hand_name))
+	var contact_frame: int = -1
+	for r in run:
+		if r.has("hold") and str(r["hold"]) == "1" and _hand_dist(r, hand_name) >= CONTACT_REACH * reach:
+			contact_frame = int(r["frame"])
+			break
+	if contact_frame < 0:
+		return -1
+	var search_start: int = contact_frame + 1   # S504 collect: as above, the clip's own recovery counts
+	var search_end: int = contact_frame + HOME_SEARCH
+	var boxer_rows: Array = by_who[who]
+	for r in boxer_rows:
+		var f: int = int(r["frame"])
+		if f < search_start:
+			continue
+		if f > search_end:
+			break
+		var cur_hand := _local(r, hand_name)
+		if cur_hand.distance_to(ref_hand) <= HOME_RADIUS_M:
+			return f - contact_frame
 	return HOME_SEARCH
 
 

@@ -26,6 +26,15 @@ const TELEPORT_M := 0.6
 const CHAIN := ["Head", "...", "Spine"]   # documentation only: the chain is walked head -> hips in setup()
 
 static var on: bool = not OS.get_cmdline_user_args().has("nopopcap")
+## S504 (s504g: 74 of 85 head jumps over 12 cm were the head moving on a body that ALSO slid - a jab's lunge 9 cm a frame
+## plus its trunk 6-12 cm): the head's travel is read in the WORLD, so the body's own slide this frame (RingPlace, capped
+## at the same speed) counts against the cap and the trunk gives it back. `-- skelpopcap` = the old skeleton-space read.
+static var world: bool = not OS.get_cmdline_user_args().has("skelpopcap")
+## S504: a second cap BEFORE the reach (BoxerBuild "PopCapPre"): the reach owns her trunk through the whole punch (held()
+## ramps up from the punch's start), so the cap after it let a jab's trunk jump 6-12 cm a frame on a 9 cm lunge. Capped
+## before the reach, the arm is then solved from the capped shoulder and the glove still lands. `-- noprecap`.
+static var pre_on: bool = not OS.get_cmdline_user_args().has("noprecap")
+var pre := false
 
 var _skel: Skeleton3D
 var _bones: PackedInt32Array = PackedInt32Array()
@@ -81,11 +90,11 @@ func _process_modification() -> void:
 	if _have and _ref_rot.size() == _bones.size():
 		# r1d: capping the trunk's own bend left 13 contact-frame jumps - the hips slide 3-7 cm in the same frame. The cap is on
 		# the head's whole travel; the chain gives back what the hips' slide adds (it leans against it), never more than all.
-		var d_tot := skel.get_bone_global_pose(_head).origin.distance_to(_ref_abs)
+		var d_tot := _abs(skel).distance_to(_ref_abs)
 		var d_rel := head.distance_to(_ref_head)
 		var cap := HEAD_MAX_MPS * dt
 		if free_s <= 0.0 and d_tot > cap and d_tot < TELEPORT_M and d_rel > 0.001:
-			var keep := lerpf(clampf(1.0 - (d_tot - cap) / d_rel, 0.0, 1.0), 1.0, _holding(skel))
+			var keep := lerpf(clampf(1.0 - (d_tot - cap) / d_rel, 0.0, 1.0), 1.0, 0.0 if pre else _holding(skel))
 			if keep < 0.999:
 				var cur: Array = []
 				for b in _bones:
@@ -101,7 +110,13 @@ func _process_modification() -> void:
 	for k in _bones.size():
 		_last_rot[k] = skel.get_bone_global_pose(_bones[k]).basis.get_rotation_quaternion()
 	_last_head = head
-	_last_abs = skel.get_bone_global_pose(_head).origin
+	_last_abs = _abs(skel)
+
+
+## The head where it is drawn: in the world (S504), or in skeleton space with `-- skelpopcap`.
+func _abs(skel: Skeleton3D) -> Vector3:
+	var o := skel.get_bone_global_pose(_head).origin
+	return skel.global_transform * o if world else o
 
 
 ## How much of her trunk the landing reach owns now, 0-1 (the strongest hold among her hands).

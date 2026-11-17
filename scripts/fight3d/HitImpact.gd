@@ -97,9 +97,10 @@ static func hit(st: Node, who: int, clip: String, speed: float, hitter: int, mov
 	# S504: the blow moves her at once - the reaction's own quicker join (the strike join showed ~45 % of it by frame 2).
 	if not slow_react_join and boxers[who].get("js") != null:
 		(boxers[who]["js"] as Node).join(REACT_JOIN.x, REACT_JOIN.y)
-	var free: Node = (boxers[who]["skel"] as Node).get_node_or_null("PopCap")
-	if free != null:
-		free.set("free_s", float(free.get("FREE_HIT_S")))   # S497: the blow moves her head as fast as it does
+	for cap_name in ["PopCap", "PopCapPre"]:   # S504: both caps (PopCap.pre)
+		var free: Node = (boxers[who]["skel"] as Node).get_node_or_null(cap_name)
+		if free != null:
+			free.set("free_s", float(free.get("FREE_HIT_S")))   # S497: the blow moves her head as fast as it does
 	if str((boxers[who]["ap"] as AnimationPlayer).current_animation) == clip:
 		# S311: a plain head shot snaps and lets her fight on; hurt, big and body shots keep the full reaction.
 		var light := not move.contains("body") and not (BeatClips.REACT["hurt"] as Array).has(clip)
