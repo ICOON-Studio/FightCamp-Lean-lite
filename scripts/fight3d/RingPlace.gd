@@ -23,6 +23,7 @@ const STEP_RAMP_S := 0.07
 ## next frames. Over NODE_TELEPORT_M (a director, a reset) is let through. `-- nonodecap`.
 const NODE_MAX_MPS := 1.8
 const NODE_TELEPORT_M := 0.5
+static var _dbg: bool = OS.get_cmdline_user_args().has("placedebug")
 static var node_cap: bool = not OS.get_cmdline_user_args().has("nonodecap")
 const MIN_GAP_M := 0.84   # HUMANFIGHT1: was 0.62 (the stances overlapped: RangeBreath.INSIDE_SPELL_M)
 ## S314: in an inside spell the heads pass each other's shoulder (Footwork.offset), so they may close to this.
@@ -174,7 +175,12 @@ static func _place(st: Node, delta: float) -> void:
 		var n: Node3D = bx["node"]
 		var keep_m: float = st.clinch.floor_m(UpperRoom.keep_m(st, BODY_KEEP_M) + room(_fold(bx), _fold(boxers[1 - i]))) if body_keep else 0.0
 		var rock := HitStep.lean(bx, (bx["pos"] as Vector3) - me)   # S500: her body goes back with the blow before her feet step
+		var me0 := me
 		me = kept(me, other, keep_m)
+		if _dbg and bx.has("knock"):
+			var kd: Vector3 = (bx["knock"] as Dictionary)["dir"]
+			print("PLACEDBG f=%d who=%d place=%.3f feet=%.3f rock=%.3f keep=%.3f other=%.3f keep_m=%.2f w=%.2f" % [Engine.get_frames_drawn(), i,
+				(bx["pos"] as Vector3).dot(kd), me0.dot(kd), rock.dot(kd), (me - me0).dot(kd), other.dot(kd), keep_m, float((bx["knock"] as Dictionary)["w"])])
 		var to := other - me
 		# S302: a landed punch carries her in (shown only; her place on the canvas stays).
 		var pr: Node = bx.get("reach")

@@ -69,7 +69,13 @@ static var old_lean: bool = OS.get_cmdline_user_args().has("oldlean")
 static func lean_max(k: Dictionary) -> float:
 	if old_lean or k.is_empty():
 		return LEAN_MAX_M
-	return maxf(LEAN_MAX_M, float(k.get("m", 0.0)) * LEAN_SHARE)
+	return maxf(LEAN_MAX_M, float(k.get("m0", k.get("m", 0.0))) * LEAN_SHARE)
+## S505 (s505a, 133.3 s: a cross took the place back 14 cm and the shown body 1.8 cm): when a blow lands on a boxer
+## stepping in, her place has run ahead of her shown feet toward the hitter (7-14 cm on 5 of 49 knocks), so the step back
+## only brought the place back to where her body already stood - no lag, no rock, no step. The step is now measured from
+## where she is SHOWN: on the knock's first frame the place's lead over her feet is added to the step (inside the ropes'
+## room). `-- placebase` = the old step from the place.
+static var place_base: bool = OS.get_cmdline_user_args().has("placebase")
 ## S504 (s504k: a cross still read 11.5 cm back in 12 frames): the step is over in 6 frames, the rock then eased out over
 ## the next 8 while the feet had not stepped yet, so the body sank back onto them. The rock now holds until the feet are
 ## under the place (the lag along the blow under ROCK_DONE_M), ROCK_HOLD_MAX_S at most. `-- rockout` = the old ease-out.
@@ -100,7 +106,7 @@ static func start(bx: Dictionary, from: Vector3, move: String, big: bool, edge_m
 	var m: float = back_m(move, big, room(at, dir, edge_m))
 	if m <= 0.0:
 		return
-	bx["knock"] = {"dir": dir, "m": m, "over": over_s(move, big), "t": 0.0, "done": 0.0, "w": 1.0}
+	bx["knock"] = {"dir": dir, "m": m, "m0": m, "room": room(at, dir, edge_m), "over": over_s(move, big), "t": 0.0, "done": 0.0, "w": 1.0}
 	# S504 (s504n: a cross landing on a boxer stepping IN left him 14 cm closer, not 15 cm back - his step outran the
 	# blow): a clean blow stops the part of her own step that goes toward the hitter. `-- nostopin` = the control arm.
 	var v: Variant = bx.get("vel")
@@ -139,5 +145,10 @@ static func lean(bx: Dictionary, lag: Vector3) -> Vector3:
 	if k.is_empty():
 		return Vector3.ZERO
 	var dir: Vector3 = k["dir"]
+	if not place_base and not k.has("based"):
+		k["based"] = true
+		var lead := -lag.dot(dir)   # how far her place is ahead of her shown feet, toward the hitter
+		if lead > 0.0:
+			k["m"] = minf(float(k["m"]) + lead, maxf(float(k.get("room", 99.0)), float(k["m"])))
 	k["lag"] = maxf(0.0, lag.dot(dir))   # tick() holds the rock until the feet have caught up (S504)
 	return dir * clampf(lag.dot(dir), 0.0, lean_max(k)) * float(k["w"])

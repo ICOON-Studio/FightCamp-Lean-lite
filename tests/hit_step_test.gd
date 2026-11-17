@@ -15,6 +15,7 @@ func _initialize() -> void:
 	_check_top_speed()
 	_check_at_zero_over()
 	_check_wire()
+	_check_shown_base()
 	_report()
 
 
@@ -183,3 +184,25 @@ func _check_wire() -> void:
 		HS.tick(rk2, 1.0 / 60.0)
 		HS.lean(rk2, Vector3.ZERO)
 	_check(not rk2.has("knock"), "with the feet arrived the step ends within 0.67 s")
+
+
+## S505: a blow on a boxer stepping in - her place 14 cm ahead of her shown feet toward the hitter. The step back is
+## measured from where she is shown: 15 + 14 cm for the place, so the body still goes 15 cm back. Old rule (placebase):
+## m stays 0.15 and the place only returns to her feet (s505a 133.3 s: body 1.8 cm back).
+func _check_shown_base() -> void:
+	var bx: Dictionary = {"pos": Vector3(0.0, 0.0, 1.0)}
+	HS.start(bx, Vector3(0.0, 0.0, 0.0), "cross", false, 2.69)
+	var feet := Vector3(0.0, 0.0, 1.14)   # her shown feet stand 14 cm further back than her place
+	HS.lean(bx, (bx["pos"] as Vector3) - feet)
+	_check(absf(float(bx["knock"]["m"]) - 0.29) < 0.001, "a place 14 cm ahead of her feet steps 29 cm (%.3f)" % float(bx["knock"]["m"]))
+	_check(absf(HS.lean_max(bx["knock"]) - 0.12) < 0.001, "the rock cap stays sized on the blow's 15 cm (%.3f)" % HS.lean_max(bx["knock"]))
+	HS.lean(bx, Vector3(0.0, 0.0, -0.30))
+	_check(absf(float(bx["knock"]["m"]) - 0.29) < 0.001, "the lead is added once, on the first frame (%.3f)" % float(bx["knock"]["m"]))
+	var behind: Dictionary = {"pos": Vector3(0.0, 0.0, 1.0)}
+	HS.start(behind, Vector3(0.0, 0.0, 0.0), "cross", false, 2.69)
+	HS.lean(behind, Vector3(0.0, 0.0, 0.05))   # place already 5 cm behind her feet: nothing added
+	_check(absf(float(behind["knock"]["m"]) - 0.15) < 0.001, "a place behind her feet keeps the 15 cm step (%.3f)" % float(behind["knock"]["m"]))
+	var roped: Dictionary = {"pos": Vector3(0.0, 0.0, 2.49)}   # 20 cm of room
+	HS.start(roped, Vector3(0.0, 0.0, 1.0), "cross", false, 2.69)
+	HS.lean(roped, Vector3(0.0, 0.0, -0.14))
+	_check(absf(float(roped["knock"]["m"]) - 0.20) < 0.001, "the lead never steps her through the ropes (%.3f)" % float(roped["knock"]["m"]))

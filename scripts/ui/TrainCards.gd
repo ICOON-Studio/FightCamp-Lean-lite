@@ -33,6 +33,10 @@ static func card(cd: Dictionary, on: bool, on_pick: Callable) -> Control:
 	if boxer:
 		var fid := str(cd["id"])
 		b.on_click = func(): on_pick.call(fid)
+		if not on:   # S505 (operator: "why i cannot switch fighter in the training screen"): the card lights up under the mouse
+			b.tooltip_text = "Click to plan this boxer's week"   # names stay in headers (S448)
+			b.mouse_entered.connect(func(): b.add_theme_stylebox_override("panel", B.panel(Palette.HOVER, Palette.CHOSEN, 12, 6, 2)))
+			b.mouse_exited.connect(func(): b.add_theme_stylebox_override("panel", B.panel(Palette.CARD, Palette.LINE, 12, 6, 1)))
 	var h := HBoxContainer.new()
 	h.add_theme_constant_override("separation", 10)
 	h.mouse_filter = Control.MOUSE_FILTER_IGNORE

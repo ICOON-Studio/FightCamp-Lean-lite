@@ -236,6 +236,8 @@ static func build(stage: Node3D, spec: Dictionary, index: int) -> Dictionary:
 	var pcap := skel.find_child("PopCap", false, false)   # S496: the pop cap reads the pose every other layer drew
 	if pcap != null:
 		skel.move_child(pcap, (tw.get_index()) if tw != null else skel.get_child_count() - 1)
+	if OS.get_cmdline_user_args().has("trunktap"):   # S505 debug: which layer moves the trunk on a head-jump frame
+		load("res://tools/trunk_tap.gd").attach_all(skel, ap, index)
 	ap.animation_finished.connect(stage._on_finished.bind(index))
 	return {"node": body, "skel": skel, "ap": ap, "gloves": gl, "joinfeet": jf, "weave": gw, "js": js, "reach": pr, "snap": hs, "gclear": gc, "tuck": gt, "sag": ts, "knee": kt, "feet": fp, "rig": rig, "floor": fc, "stand": fs, "lock": fl, "life": life, "weight": pw, "look": look, "south": south, "front": gl.front_m(),
 		"pos": Vector3.ZERO, "vel": Vector3.ZERO, "move_left": 0.0,

@@ -760,18 +760,19 @@
    "id": "COACHNECK2",
    "title": "TASK COACHNECK2 - the corner coach neck upright in his close-up, round 2",
    "status": "running",
-   "started": "2026-11-16T16:15",
-   "eta": "2026-11-16T18:30",
+   "started": "2026-11-17T09:02",
+   "eta": "2026-11-17T11:00",
    "where": "ziva editor chat Fight Film Analysis",
    "branch": "ziva/coachneck2",
    "brief": "ops/research/TASK_COACHNECK2.md",
-   "repo": "FightCamp-Lean"
+   "repo": "FightCamp-Lean",
+   "note": "S505 re-sent go (it waited for a go since S501); probe fixed, CornerIK edits under way"
   },
   "IDLEIN1": {
    "agent": "qwen",
    "id": "IDLEIN1",
    "title": "TASK IDLEIN1 - StandOff also counts idle time inside 1.0 m (nobody punching, nobody tying up)",
-   "status": "landed",
+   "status": "merged (S505): on main 58adbde4e, phase filter fixed to not-rest; PR 340 closed",
    "started": "2026-11-17T08:19",
    "eta": "2026-11-17T10:09",
    "branch": "qwen/idlein1",
@@ -814,6 +815,16 @@
     "after": {},
     "board": ""
    }
+  },
+  "PUNCHEND3": {
+   "agent": "qwen",
+   "id": "PUNCHEND3",
+   "title": "TASK PUNCHEND3 - PunchEnd reads the hand in her chest's own frame, not the ring's",
+   "status": "queued (seat_dispatch: launches on the next cycle once the render ends)",
+   "started": "2026-11-17T09:04",
+   "eta": "2026-11-17T11:30",
+   "branch": "qwen/punchend3",
+   "brief": "ops/research/TASK_PUNCHEND3.md"
   }
  },
  "codex_budget": {
