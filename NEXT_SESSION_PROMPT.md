@@ -3,6 +3,12 @@
 Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. Digests: `ops/research/S512_DIGEST.md`,
 `ops/research/S510_DIGEST.md`, `ops/research/S510_ANIM_DIGEST.md`.
 
+## BILLING FOR THIS SESSION: the $350 Console credits (owner S512: "prepare next session to use the bonus 350$")
+Run it in the `claude` CLI logged in to the Anthropic Console account - the desktop Code tab cannot bill credits. Steps,
+prices and a rough per-session cost: ops/research/API_CREDITS_FALLBACK_S474.md (section S512). In your first message say
+which model you run and the rough cost; check `/cost` every ~100k tokens of context; stop at ~$300 spent or at the
+subscription reset (2026-11-19 14:00 UTC = 16:00 his time) and go back to the desktop app. Sub-agents bill too (two at most).
+
 ## GOAL (owner, verbatim, still on): "i want animations fixed (at least 7/10)"
 The animation is now REBUILT, not patched (METHOD below), by its OWN Fable session: "Fight animation rebuild, part 2
 (Fable)" (local_9ee8e7a4) was running at the hand-over - it collects Goose's choreographer (issue 356) and builds the v2
