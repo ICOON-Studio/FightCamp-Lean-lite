@@ -27,6 +27,7 @@ const Membership := preload("res://scripts/rules/Membership.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const BjjSide := preload("res://scripts/rules/BjjSide.gd")
 const Promises := preload("res://scripts/rules/Promises.gd")
+const FilmPattern := preload("res://scripts/rules/FilmPattern.gd")
 
 const TABS := [["People", "gym", 1], ["Money", "money", 0], ["Records", "gym", 4]]
 const ROLE_WORD := {"assistant": "Second coach", "strength": "Strength coach", "physio": "Physio", "cutman": "Cutman"}
@@ -266,6 +267,8 @@ static func _facts(coach: Dictionary, show_sign: bool) -> Control:
 	var h := UI.hbox(6)
 	h.name = "CoachTiles"
 	h.add_child(_tile("coach", "%d tactics" % limit, "How many tactics a fight plan can hold", INK, "in a fight plan"))
+	var checks := FilmPattern.checks(int(rating), true, 0, 99)   # S510 FIGHTFILM1 map 6: the coach's film checks a night
+	h.add_child(_tile("coach", "%d checks" % checks, "On a film night this coach checks %d patterns you mark on the opponent's tape" % checks, INK, "film checks a night"))
 	h.add_child(_tile("money", UI.money(salary), "Cost a week", INK, "wage a week"))
 	h.add_child(_tile("members", "+%s" % UI.money(classes), "Evening classes, a week", GREEN, "evening classes"))
 	h.add_child(_tile("runway", UI.money(-net), "Net a week, after evening classes", UI.RED if net > 0 else GREEN, "net a week"))

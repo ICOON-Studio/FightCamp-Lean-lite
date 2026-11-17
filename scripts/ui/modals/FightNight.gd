@@ -217,6 +217,12 @@ func _round(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 		# S323: what worked and what hurt are the numbers above; the coach speaks once, as a quote.
 		v.add_child(Broadcast.quote(coach_says, "YOUR COACH"))
 		advice = str(cc["call"]) if n < total else ""
+	for fc in last.get("film", []):   # S510 FIGHTFILM1: what the film night filed, seen in the ring this round
+		var ok := str(fc["state"]) == "confirmed"
+		var fl := UI.label("From the film: %s - %s" % [str(fc["words"]), "CONFIRMED" if ok else "CLEARED, it is not there: change that line"],
+			16, UI.GREEN if ok else UI.AMBER)
+		fl.name = "FilmMinute"
+		v.add_child(fl)
 	if n < total and stop == "":
 		v.add_child(UI.caps("IN THE CORNER: WHAT DO YOU TELL YOUR BOXER?"))
 		_towel(main, v, m)   # S461 INTEGRATE1 #4 the towel card (TowelWire), only when it comes

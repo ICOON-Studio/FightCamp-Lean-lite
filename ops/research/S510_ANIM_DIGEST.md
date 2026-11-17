@@ -83,3 +83,43 @@ four bursts at 22-37; h9 median 1.5, four at 26-43 - but those now reach the jab
 and then drift out to rest (0.5 m/s). The rest walk-out is the slow part; left for the critics' read.
 Wider tests green (golden_path, fight_feel, fight_flow, knockdown_*, clinch/inside beats, punch_form/start/snap, ring_feet,
 lean_ease, hit_step); head_aim 1 failure (3 with the S510 switches off); human_feet = nightly debt.
+
+12. THE FREE GLOVE, second pass (the first r13 film, kept in E:/FightCamp/tmp/fightweek/r13a_firstfilm): GuardBox read the wrist
+    +3 cm over the head bone (r12 +8) and the picture still had the glove a third of its length over his head (ex1 #40-47):
+    the crown is ~0.13 m over the Head bone, not 0.22, and pulling a pushed glove back down only puts it into the arm that
+    pushed it. Now the PUSH does not go up: GloveClear._clear_arms hands a guard hand's move to GuardBox.cap_up - up only to
+    head-bone height, the rest OUT to the hand's own side (a boxer parries a straight outward). GuardBox.TOP_M 0.12.
+    Headless log h12, the same frames: wrist -2..-4 cm, glove top +14 cm (first film +22, r12 ~+27). Other rulers unchanged.
+    The film and the headless log agree line for line (r13a film = h9 log), so the log is a true stand-in for the rulers.
+
+REJECTED: PunchReachMath.OUT_S 0.16 -> 0.12 (the reach's fade after a punch; r13 film ex5 #31-34, a blocked cross on the glove 4
+frames): arm out median 4 -> 4, worst 7 -> 12, join_return 0 -> 4 failures. Left at 0.16.
+
+13. THE OWNER ON THE FIRST r13 SHEETS (ex5 #25-36: "wtf is the right hand of blue fighter doing"; ex3 #17-24: "same here wtf
+    are you doing ? are you destroying or fixing animations ?"). Measured on his frames in r12 and both r13 films: the free
+    wrist stood at the SAME height in all three (-0.01 .. -0.04 m from the head bone, forearm 0.9-1.0 upright) - not made
+    worse, not fixed. The cause was never the clash push (that is only ex1's extra 8 cm): the S506 free hold PUTS the wrist
+    on the guard point 3-4 cm under the head bone, which sits at eye height, so the glove stands over the forehead to the
+    top of the head. FIX: GuardTuck.FREE_DROP_M 0.11 / FREE_BACK_M 0.03 (the free wrist at the chin while a punch plays; the
+    standing guard unchanged; `-- nofreedrop`), GuardBox.WRIST_UP_M -0.08, TOP_M 0.08. Third r13 film (19:25, the one in
+    r13blind/): his frames read wrist -0.10 .. -0.14, glove top +0.02 .. +0.08 (was +0.16); the cross in ex3 is back after
+    2 frames. Before/after sent to him: r13blind/owner_before_after/.
+    OPEN DEBT FROM THIS: join_return_test 0 -> 4 failures (pro_right_cross 31.7 m/s one frame "from the cut on", 47 frames
+    after the hit; pro_right_uppercut 9.4). `nofreedrop` alone still 34 (so cap_up / GuardBox too), `noguardbox` alone
+    cross 6.3 but uppercut 25. Suspect: a wrist held close to the shoulder (arm fully folded) makes the pole-less two-bone
+    solves in GuardBox / GloveClear flip the elbow. On the film itself glove-front steps over 15 cm outside punches are
+    72 vs 72 (first film vs this one), worst 37 -> 46 cm. FIRST JOB of the next session.
+    Also: OUT_S 0.12 was rejected partly on join_return 4 - that 4 was probably from cap_up, not OUT_S; retest OUT_S later.
+14. INCIDENT (mine): a join_return run at 17:45 started with a parse error in BoxerBuild (PackedStringArray.any), never
+    exited, and wrote script errors to C:/Users/user/AppData/Roaming/Godot/app_userdata/FightCamp/logs for 90 minutes -
+    17 GB, C: down to 4.2 GB (watchdog RED) until its PID was killed at 19:13. After ANY "SCRIPT ERROR / Parse Error" run:
+    list the engine processes and kill your own by PID.
+
+15. THE GLOVE JUMP (join_return 4 failures) SOLVED 20:05. tools/hand_tap.gd on the full test: the hitter's right wrist moved
+    28-45 cm a frame, back and forth, every bit of it in ArmClash - the arm-against-arm clearance in a pinch its passes
+    could not solve (the free glove now held lower; cap_up first sent the cut upward push outward, then only dropped it:
+    still 28.7 m/s, the drawing-in part ran away instead). The same tap showed the OLD defect behind it: a guard wrist
+    left ALL of an overlap in one frame, 12-20 cm, whenever a punch passed. ArmClash.gd now eases what the clearance
+    moves a wrist by: at most STEP_MPS 2.4 m/s of change from the frame before, MAX_M 0.16 in all (`-- noclashease`).
+    join_return 0 failures, block_meet 5 (6), block_catch 5 (5-7), glove_cut green. Bout log h15 vs the r13 film: guard-wrist
+    moves over 10 cm a frame 37 -> 19 (r12 41), every ruler and the owner's frames unchanged.

@@ -259,7 +259,11 @@ static func lock(c: Career, f: Dictionary, plan: Dictionary) -> String:
 	f["sparred"] = sparred
 	if bool(plan.get("film", false)):
 		b["fw_film"] = c.day
-		if film_seat(c, f) == FilmSeats.ALONE:
+		if bool(plan.get("film_self", false)):   # S510 FIGHTFILM1: the player watched it (FilmNight filed what was found)
+			b["fw_film_self"] = true
+			var n := ((b["opp"] as Dictionary).get("filed", []) as Array).size()
+			c.add_news("%s's film night on %s: %d pattern%s filed." % [str(f["first"]), str(b["opp"]["first"]), n, "" if n == 1 else "s"], true, true)
+		elif film_seat(c, f) == FilmSeats.ALONE:
 			b["fw_film_alone"] = true   # S485 CLUBWEEK1 (map 3.4): over the coach's film seats she watches alone - no tell
 			c.add_news("%s watched the tape of %s alone: the coach's film nights were taken, no tell found." % [str(f["first"]), str(b["opp"]["first"])], true, true)
 		else:

@@ -278,6 +278,9 @@ func _start(who: int, clip: String, speed: float, fade: float = BLEND_S) -> void
 
 
 func _process(delta: float) -> void:
+	if camera == null or boxers.size() < 2:   # S510: a ring that failed to build (a parse error in BoxerBuild) threw here EVERY frame - 17 GB of engine log on C: in 90 min from one hung test
+		set_process(false)
+		return
 	for bx in boxers:   # S399 ROKOKO2: a captured Rokoko clip plays pure (RkPure); the legs come back while the rig steps
 		RkPure.tick(bx, delta, RingFeet.on(self, bx) and not ((bx["rig"] as Node).plan.pair as Dictionary).is_empty())
 		RkLoco.tick(bx, scene, delta)   # a captured step / walk moves her by its own hip travel

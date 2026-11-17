@@ -13,6 +13,7 @@ extends SkeletonModifier3D
 const PunchReach := preload("res://scripts/fight3d/PunchReach.gd")
 const BlockCatch := preload("res://scripts/fight3d/BlockCatch.gd")   # S478: RISE_S, when a blocked punch becomes the catch's
 const HeadClear := preload("res://scripts/fight3d/HeadClear.gd")   # S498: the head lean's rule (touch, sides, ease)
+const GuardBox := preload("res://scripts/fight3d/GuardBox.gd")   # S510: cap_up
 
 ## Head ~0.09 m + glove ~0.06 m radius: they touch at ~0.15 m. Kept at the touch: the other head is read before her own sway
 ## and snap move it (up to ~5 cm), so 0.13 left 12 of 571 inside frames deep in a head (36 without this modifier).
@@ -326,6 +327,7 @@ func _clear_arms(skel: Skeleton3D, ids: Array, k: float, rank: int) -> void:
 		var back := s - g_hd.origin
 		var room := clampf((back.length() * k - TUCK_M.x) / (TUCK_M.y - TUCK_M.x), 0.0, 1.0)
 		var move := (aside + back.normalized() * RETRACT * room) * minf(best / lerpf(0.5, 1.0, at), PUSH_MAX_M) / k
+		if rank == 0: move = GuardBox.cap_up(move, g_hd.origin.y, skel.get_bone_global_pose(_head).origin.y, k, s - skel.get_bone_global_pose(int(_arms["Right" if ids == _arms["Left"] else "Left"][0])).origin)   # S510: a guard glove goes out to its own side, never up over her head
 		PunchReach.solve(skel, ids, s, g_hd.origin + move, s.distance_to(g_la.origin), g_la.origin.distance_to(g_hd.origin), g_hd.basis)
 		if n == 0:
 			clash_pushes += 1

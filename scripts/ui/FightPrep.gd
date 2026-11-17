@@ -28,6 +28,7 @@ const WeekBoard := preload("res://scripts/ui/WeekBoard.gd")
 const MatchupCards := preload("res://scripts/ui/MatchupCards.gd")
 const Faces := preload("res://scripts/rules/Faces.gd")
 const TapeRows := preload("res://scripts/rules/TapeRows.gd")
+const FilmNight := preload("res://scripts/state/FilmNight.gd")
 const VersusPanel := preload("res://scripts/ui/VersusPanel.gd")
 
 ## Under this many kg to spare on the scale the forecast is a warning, not a pass.
@@ -187,6 +188,9 @@ static func _camp_card(main: Node, c: Career, f: Dictionary, bout_day: int) -> P
 	var pf := ProReadWire.proof_words(f)   # S466: the pro's season chip, READ-PROOF
 	if str(pf[0]) != "":
 		rows.append(UI.kv("Read-proof", str(pf[0]), UI.GREEN if bool(pf[1]) else UI.AMBER))
+	for fr in FilmNight.prep_rows(f):   # S510 FIGHTFILM1: what the film night filed, what the plan should answer
+		var st := str(fr[2])
+		rows.append(UI.kv("From the film: " + str(fr[0]), str(fr[1]), UI.GREEN if st == "confirmed" else (UI.MUTED if st == "cleared" else UI.AMBER)))
 	UI.add_rows(v, rows)
 	v.add_child(towel_row(main, f))
 	var week := UI.button("Change the week", "Link", main.act.bind("ftab", "3"))

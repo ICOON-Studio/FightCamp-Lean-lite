@@ -8101,6 +8101,23 @@
    "note": "answered in chat (S509); ~/.claude/settings.json effortLevel high -> medium",
    "answered_at": "2026-11-17T13:58:17.939499+00:00",
    "seen_by_claude": true
+  },
+  {
+   "id": "Q-S294-269",
+   "asked": "2026-11-17T16:33:29.097338+00:00",
+   "session": "S294",
+   "text": "Animation round 13 is built and measured (arms come home faster, the free glove stays down, feints on both hands, sized hit reactions). The blind critics need one 75-second film, about 4 minutes of GPU. Film now while you play (ArcheAge may lag for those minutes), or wait until you stop?",
+   "options": [
+    "Film it now",
+    "Wait until I stop playing"
+   ],
+   "attach": [],
+   "answer": "Moot: filmed once he closed the game (S510, supervisor)",
+   "note": null,
+   "answered_at": null,
+   "seen_by_claude": false,
+   "status": "closed",
+   "closed": "2026-11-17T19:31"
   }
  ]
 }

@@ -20,6 +20,7 @@ const Roster := preload("res://scripts/state/Roster.gd")
 const Knockdowns := preload("res://scripts/rules/Knockdowns.gd")
 const ProReadWire := preload("res://scripts/state/ProReadWire.gd")   # S462 INTEGRATE1 #5 pros get read
 const TowelWire := preload("res://scripts/state/TowelWire.gd")   # S461 INTEGRATE1 #4 the towel card
+const FilmNight := preload("res://scripts/state/FilmNight.gd")   # S510 FIGHTFILM1 the corner minute's film claims
 const CrackWire := preload("res://scripts/state/CrackWire.gd")   # S470 LIVERRIBS1 step 4 the crack card
 const RingDuel := preload("res://scripts/state/RingDuel.gd")
 const Attrs := preload("res://scripts/rules/Attrs.gd")
@@ -214,6 +215,7 @@ static func _shout(c: Career, f: Dictionary, m: Dictionary, call: String) -> voi
 		return
 	_lines(c, f, r)
 	(m["rounds"] as Array).append(r)
+	r["film"] = FilmNight.minute(f, r, (m["rounds"] as Array).size())   # S510 FIGHTFILM1: the film's claims in the corner
 	_counts(c, f, m, r)
 	m["towel"] = TowelWire.card(c, f, m, count_sides(f, f["bout"]["opp"]), rounds_of(f))
 

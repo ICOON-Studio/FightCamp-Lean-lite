@@ -1,3 +1,13 @@
+S510 (2026-11-17) - FILM NIGHTS: WATCH THE OPPONENT'S TAPE YOURSELF
+- Fight week > FILM NIGHT ON, then the button beside it: WATCH IT YOURSELF (or LET THE COACH WATCH, as before).
+- Lock the week: the FIGHT ANALYSIS page opens on the opponent's past bouts. Mark a pattern (e.g. their jab -> right
+  hand low), let the coach check it (2 checks a night with a new coach, up to 4 with a top one), File it.
+  A filed pattern carries how sure it is (70% from one film, 85% from two or more). Done for tonight locks the week.
+- Fight prep and the opponent's file card list what you filed. In the corner minute after a round where it came up,
+  the coach says CONFIRMED (it is real) or CLEARED (it was not there: change that line).
+- Club > People: each coach card says how many film checks a night that coach gives.
+- Not yet: the 3D fight's corner overlay, the result page's punch-by-punch tab, the plan line marks.
+
 S508 (2026-11-17) - THE FIGHT: PUNCHES COME HOME SMOOTHER, HEADS POP LESS
 - After a punch lands, the glove now lets go of the other man's face over a few frames instead of snapping home in one
   (on the test bout: 7 fast flings -> 4).

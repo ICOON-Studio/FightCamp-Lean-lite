@@ -14,7 +14,12 @@ extends SkeletonModifier3D
 const PunchReach := preload("res://scripts/fight3d/PunchReach.gd")
 const GuardTuck := preload("res://scripts/fight3d/GuardTuck.gd")
 
-const TOP_M := 0.19        # head bone -> 10 cm over the brow (MetaHuman: the Head bone sits at the base of the skull; the crown is ~0.22)
+const TOP_M := 0.08        # head bone -> the glove's top at about her brow (0.22, 0.19, 0.12 first: the Head bone sits at eye height, the crown ~0.13 over it; the owner on the r13 sheets: the glove still stood over his head)
+## S510 r13: what lifted the free glove was GloveClear's push off the other's punching arm (free_glove_probe: +9 cm).
+## Pulling it back down afterwards puts it into that arm again; the push itself must not go up. A guard hand's wrist is
+## pushed up only as far as WRIST_UP_M over her head bone; the rest of that push's upward part is dropped (its sideways
+## and drawing-in parts stay).
+const WRIST_UP_M := -0.08   # 0.0 first: with the free hold at the chin (GuardTuck.FREE_DROP_M) ex1's glove was still pushed up to the head bone, its top +0.14
 const TOP_ALONG_M := 0.19  # wrist -> the glove's top along the forearm (Gloves.SIZE 1.2: 0.12 behind, 0.19 ahead)
 const SOFT_M := 0.03       # a soft knee: the glove's top may show at most this over the line
 const EASE_S := 0.08
@@ -52,6 +57,20 @@ func _setup(skel: Skeleton3D) -> bool:
 			return false
 		_arms[side + "Hand"] = ids
 	return _head >= 0
+
+
+## `move` (skeleton space, a wrist's push off the other boxer's arm) with its upward part held to the room left under
+## the line (`wrist_y`, `head_y` skeleton space, k the skeleton's scale). `out` is unused (kept for the call's shape).
+static func cap_up(move: Vector3, wrist_y: float, head_y: float, k: float, out: Vector3) -> Vector3:
+	if not on or move.y <= 0.0:
+		return move
+	var room := maxf(0.0, head_y + WRIST_UP_M / k - wrist_y)
+	if move.y <= room:
+		return move
+	# S510 19:55: the part cut is DROPPED, not sent outward (first build: `+ out * lost`). Outward does not clear an arm
+	# that is above or below, so every one of the clash's passes pushed again and the wrist was thrown 30-45 cm and back,
+	# frame after frame (join_return pro_right_cross 31.7 m/s; tools/hand_tap.gd: ArmClash 28-42 cm a frame).
+	return Vector3(move.x, room, move.z)
 
 
 ## How far (skeleton units) the glove's top may stay over the line when it is `over` past it: a soft knee, never SOFT_M.

@@ -11,6 +11,7 @@ const UI := preload("res://scripts/ui/UI.gd")
 const Icons := preload("res://scripts/ui/Icons.gd")
 const OppFile := preload("res://scripts/rules/OppFile.gd")
 const RivalPast := preload("res://scripts/rules/RivalPast.gd")
+const FilmNight := preload("res://scripts/state/FilmNight.gd")
 const RECORD_ROWS := 12
 
 const HOW := {"tape": "tape study in camp finds it"}
@@ -32,6 +33,18 @@ static func build(opp: Dictionary, film_bought := false, history: Array = []) ->
 	box.add_child(head)
 	for t in OppFile.tells(opp):
 		box.add_child(_tell_row(opp, t, film_bought))
+	for fr in FilmNight.rows_of(opp):   # S510 FIGHTFILM1 map 6: what your film nights filed on this opponent, and its state
+		var st := str(fr[2])
+		var row := UI.hbox(8)
+		row.name = "FilmFiled"
+		row.add_child(Icons.icon("circle-check" if st == "confirmed" else "info", 18, UI.GREEN if st == "confirmed" else UI.MUTED, "From the film"))
+		var wl := UI.label("From the film: " + str(fr[0]), UI.SMALL, UI.FG)
+		wl.custom_minimum_size.x = 120
+		row.add_child(wl)
+		var vl := UI.label(str(fr[1]), UI.SMALL, UI.GREEN if st == "confirmed" else (UI.MUTED if st == "cleared" else UI.AMBER), "bold", true)
+		vl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		row.add_child(vl)
+		box.add_child(row)
 	var past := RivalPast.shown(opp, RECORD_ROWS)
 	if not past.is_empty():
 		box.add_child(_record(opp, past))

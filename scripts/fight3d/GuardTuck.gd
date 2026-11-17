@@ -31,6 +31,15 @@ const FREE_BODY_W := 0.5
 ## handed from this hold to the guard's never dips at the crossover.
 const FREE_IN_S := 0.12
 const FREE_OUT_S := 0.45
+## S510 (owner on the r13 sheets, ex5 #25-36 and ex3 #17-24: "wtf is the right hand of blue fighter doing"; r11 and r12
+## critics: "the free glove straight up above his head"): the free hold put the WRIST on the guard point, 3-4 cm under the
+## head bone - which sits at eye height, not at the chin - with the forearm upright, so the 19 cm of glove over the wrist
+## stood over his forehead to the top of his head (the same height in r12 and r13: -0.01 .. -0.04 m, forearm 0.9-1.0 up).
+## While a punch plays the free wrist is held FREE_DROP_M lower (the chin's height: the glove covers the cheek, its top
+## at the brow) and FREE_BACK_M nearer the face; the standing guard is not changed. `-- nofreedrop` = the control arm.
+const FREE_DROP_M := 0.11
+const FREE_BACK_M := 0.03
+static var FREE_DROP: bool = not OS.get_cmdline_user_args().has("nofreedrop")
 ## The same words as scripts/rules/PunchEnd.gd / FreeHand.gd (copied: the rules modules stay preload-free).
 const PUNCH_WORDS := ["jab", "cross", "hook", "uppercut", "body_shot"]
 const EXCLUDE_WORDS := ["hit_by", "dodge", "weave", "idle"]
@@ -162,6 +171,8 @@ func _process_modification() -> void:
 		if iw > 0.0:
 			to = to.lerp(head + (fwd * (IN_FWD_M + pump * 0.5) + out * IN_SIDE_M + Vector3.UP * IN_UP_M) / k, iw)
 		to += Vector3.DOWN * float(TIRED_DROP_M[role]) * float(tired[role]) * (1.0 - 0.5 * iw) / k
+		if FREE_DROP and hand == _free and ef > 0.0:
+			to += (Vector3.DOWN * FREE_DROP_M - fwd * FREE_BACK_M) * ef / k
 		to = g_hd.origin.lerp(to, eh)
 		var s: Vector3 = skel.get_bone_global_pose(int(ids[0])).origin
 		var l1 := s.distance_to(skel.get_bone_global_pose(int(ids[1])).origin)

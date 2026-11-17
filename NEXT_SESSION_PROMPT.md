@@ -42,31 +42,56 @@ Blind r12 (S509): coach 5.0, animator 5.0 - flat vs r11. Reviews: E:/FightCamp/t
 hit_carry 26, block_meet 13, block_catch 10, join_return 3; others from S508 (uppercut_tail 2, block_absorb 11,
 punch_speed 40, hit_frame 4, punch_range 1, guard_knee, human_feet, rokoko_clips off-route) - recheck with the flag.
 
-## ANIMATION LOOP STATE (the animation session's own section; rewritten 2026-11-17 ~18:45, S510)
+## MAIN LINE STATE (supervisor session, S510, 2026-11-17 19:50)
+- FIGHTFILM1 slices 1-5 on main (f7ed02dfc..968eb965d): fight week FILM NIGHT -> WATCH IT YOURSELF / LET THE COACH WATCH;
+  Lock opens the FIGHT ANALYSIS page (FilmNight.films/night/check/file, scripts/state/FilmNight.gd); filed claims show on
+  Fight prep, the opponent's file card (bout page, fighter page, rival pop-up) and the 2D corner minute (FilmNight.minute
+  via BoutNight._shout: CONFIRMED / CLEARED); coach card 'film checks a night'. tests/film_night_test.gd 26 ok.
+  LEFT (map ops/research/FIGHTFILM1_MAP_V3_S495.md 6): Playbook line marks (unconfirmed = Works at best, cleared = change
+  this line), result page Punch by punch + History (FightAnalysis needs an own-bout mode), 3D CornerOverlay line (fight3d
+  = the animation session's files), Tape Room retire, Settings fight-log toggle, map 7b numbers. Not seen on a still yet.
+- Unwired modules (live audit S510): AskBout+FightLearn (Q-209 'fight week first' - fight week is built: next), CoachFit
+  (Q-235 approved: mockup + probes first), ClubDeal + CoachedMornings + Loyalty (Q-241 club week v9 'build after the fight
+  week'), CoachMarket, BoutSheet, Knowledge (stopped S462), MatPrice (waits the BJJ plan screen).
+- Qwen SPLIT500B (grapple trio + MatTreeInfo under 470 lines) launched 18:49, worktree LEAN_SPLIT500B: collect its PR.
+- C: TRAP: a crashing windowed film writes a ~4 GB Godot log in 5 s to %APPDATA%/Godot/app_userdata/FightCamp/logs.
+  Every Godot run takes --log-file E:/FightCamp/tmp/<run>.log.
+
+## ANIMATION LOOP STATE (the animation session's own section; rewritten 2026-11-17 19:35, S510, session closed at 613k tokens)
 Owner S510: the fight animation loops in its own session until both blind critics give 7+. Digest: `ops/research/S510_ANIM_DIGEST.md`.
-- LAST SCORED ROUND: r12 = coach 5.0 / animator 5.0. ROUND 13 IS BUILT AND COMMITTED (f3e41e17a .. 4b5386696) BUT NOT
-  FILMED: the owner is playing (ArcheAge window = no film, Q-267). First act of the next session: check for a game window;
-  none -> `sh E:/FightCamp/tmp/fightweek/film_round.sh E:/FightCamp/tmp/fightweek/r13blind` (film, mp4, rulers, sheets at
-  the r12 times and crop; it refuses with a game open), then two FRESH critics on `r13blind/BRIEF_critic_coach.md` and
-  `BRIEF_critic_animator.md` (already written; general-purpose agents, they read CRITIC_PACK + CRITIC_ACCESS themselves).
-- RULERS WITHOUT A FILM (new): `python ops/Tools/godot_slot.py run --who anim -- <godot> --headless --audio-driver Dummy
-  --fixed-fps 30 --path . --script res://tools/human_fight_film.gd -- <out> secs=75 seed=7 show3d` writes the same
-  shown.csv in ~4 min beside his game; `python tools/fight_motion_rulers.py --compare <a.csv> <b.csv>`. Latest: s510_h8.
-- r12 film -> h8: head jumps 28 -> 20 (worst 21.1 -> 15.8 cm), arm out median 5.5 -> 4 frames, free glove over the crown
-  26/41 -> 0/0 frames, paws/feints lead/rear 37/1 + 35/2 -> 14/8 + 15/8, head inside a body 2 -> 0, reactions jab 10.6 /
-  cross 29.1 / hook 20.0 cm (r12 9.8 / 14.6 / 14.4).
-- WHAT ROUND 13 CHANGED: both-hand wait beats + weaves in the waits (GuardLife); ArmHome on every punch, on a real clock;
-  GuardBox (free glove under 10 cm over the brow); reach lean eases out and never drops (ReachLimit.lean_out, no fold lean
-  in the let-go, fades do not lean raw); hit reactions capped 11.3 cm a frame (PopCap.HIT_MAX_MPS) and sized by pools
-  sorted by clip size (BeatClips.REACT); a finished burst steps out at once (RangeBreath); ReachLimit.HOME_S 0.13.
-- NEXT DEFECTS after r13's critics speak (my own list if they do not reorder it): (1) the puncher's head on the way in,
-  12-14 cm a frame (body 6-8 + trunk 6; S509: no trunk lever - look at the body's slide speed); (2) one combo start
-  (jab -> hook) 15.8 cm = the join into the next punch; (3) arm out on landed punches still 3 frames at reach (CARRY_S 0.07
-  REJECTED: hit_carry 31 -> 53); (4) cross reaction a little over its bar (29 cm; cross_v3 33.6, 6 frames to peak);
-  (5) feet in every exchange, real exit steps/pivots; (6) the body-shot arm (worst arm out 12 frames).
-- TRAPS: PunchReach.gd is at exactly 500 lines (put new reach code in ReachLimit.gd, 459). Edit scripts with exact-string
-  replaces and `assert s.count(old) == 1` (a slice by index mangled BeatClips.gd once; `git checkout -- <that file>` fixed
-  it). hit_carry_test is noisy across changes (it runs the guard life's clocks): 26 -> 43 today with rows flipping both
-  ways; hit_frame's true baseline at --fixed-fps 60 is 7. Every Godot job goes through `ops/Tools/godot_slot.py run`
-  (rule_guard); RED = it waits. Never `cd` out of E:/FightCamp/Lean in a Bash call (the session folder moves).
-  `tools/hand_tap.gd` (`-- handtap=RightHand`) and `-- trunktap` name the layer behind a wrist / head jump.
+- LAST SCORED ROUND: r12 = coach 5.0 / animator 5.0. ROUND 13 IS BUILT, COMMITTED AND FILMED, NOT YET JUDGED.
+  Film + sheets + rulers + both briefs are ready in `E:/FightCamp/tmp/fightweek/r13blind/` (third film, 19:25, no game open).
+- DO FIRST (in this order):
+  1. DONE 20:05 (join_return_test passes again): the glove jump was the arm-clash clearance thrown into a runaway by the
+     lower free glove and by my cap_up - a guard wrist moved 28-45 cm a frame, back and forth. ArmClash.gd now EASES what
+     the clearance moves a wrist by (at most 2.4 m/s of change, 16 cm in all; `-- noclashease`), GuardBox.cap_up only stops
+     the upward part. Bout log: guard-wrist moves over 10 cm a frame 37 -> 19 (r12 41), the owner's frames unchanged.
+     The film in r13blind was shot BEFORE this easing (same poses, a few more glove pops): re-film only if a critic names them.
+  2. (LAUNCHED 19:55 from the old session, results in r13blind/critic_*.md if they finished; else relaunch.) Launch the two FRESH blind critics on r13blind (general-purpose agents, one each for BRIEF_critic_coach.md and
+     BRIEF_critic_animator.md; they must not see any critic_* file or earlier score). Record scores in the digest.
+  3. The owner watched the first r13 sheets and was angry ("wtf is the right hand of blue fighter doing", "are you
+     destroying or fixing animations ?"): the free glove over the head. It is fixed in the third film (before/after sent,
+     r13blind/owner_before_after/); his reaction to that is the real gate - read the conversation / the board first.
+     Q-S294-269 ("film now or wait") is moot: filmed when he closed the game.
+- RULERS WITHOUT A FILM: `python ops/Tools/godot_slot.py run --who anim -- <godot> --headless --audio-driver Dummy
+  --fixed-fps 30 --path . --script res://tools/human_fight_film.gd -- <out> secs=75 seed=7 show3d` = the same shown.csv in
+  ~4 min, no window (film and headless log agree line for line). `python tools/fight_motion_rulers.py --compare a.csv b.csv`.
+- r12 film -> r13 film: head jumps 28 -> 23 (worst 21.1 -> 18.1 cm), arm out median 5.5 -> 4 frames (worst 12 -> 7), free
+  glove over the crown 26/41 -> 0/0 frames, paws/feints lead/rear 37/1 + 35/2 -> 20/8 + 21/5, head inside a body 2 -> 0,
+  hit head travel 15.0 -> 21.5 cm (jab ~10-14, cross ~29, hook ~19).
+- WHAT ROUND 13 CHANGED: both-hand wait beats + occasional weaves (GuardLife); ArmHome on every punch on a real clock;
+  the free glove held at the chin while the other hand punches (GuardTuck.FREE_DROP_M) + GuardBox + the clash push going
+  outward, never up (GloveClear -> GuardBox.cap_up); the reach's chest lean eases out and never drops (ReachLimit.lean_out,
+  no fold lean in the let-go, fades do not lean raw); hit reactions capped 11.3 cm a frame and sized by pools sorted by
+  clip size (BeatClips.REACT); a finished burst steps out at once (RangeBreath); ReachLimit.HOME_S 0.13.
+- REJECTED TODAY (do not retry blind): PunchReach.CARRY_S 0.07 (hit_carry 31 -> 53), HeadClear.RISE_MPS 1.6 (no gain),
+  PunchReachMath.OUT_S 0.12 (retest once join_return is clean: its 4 failures were probably from cap_up).
+- NEXT DEFECTS (after the critics speak): a blocked cross still sits on the glove ~4 frames (ex5 #31-34); the puncher's
+  head on the way in 12-14 cm a frame; cross reaction a little big (29 cm); the rest walk-out after a burst is slow
+  (1.2 m reached in ~10 frames, 1.35 m in ~40); the near rope across the shins (RopeFade.SEE_ALPHA, needs a still).
+- TRAPS: PunchReach.gd = 500 lines, GloveClear.gd = 497 (new arm code goes in ReachLimit.gd / GuardBox.gd). Edit with
+  exact-string replaces and `assert s.count(old) == 1`. After ANY run that prints SCRIPT ERROR / Parse Error, list the
+  engine processes and kill your own by PID: a hung test wrote 17 GB of errors to C: for 90 min today (C: 4.2 GB, RED).
+  hit_carry_test is noisy across changes (26 -> 30-43); hit_frame's baseline at --fixed-fps 60 is 7. Every Godot job goes
+  through `ops/Tools/godot_slot.py run`. Never `cd` out of E:/FightCamp/Lean. Films only with no game window (Q-267): he
+  reopened ArcheAge mid-film once and the supervisor had to stop it. Weekly usage was at 74 % at 19:30.

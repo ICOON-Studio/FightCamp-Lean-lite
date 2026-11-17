@@ -94,8 +94,16 @@ func _week_before(main: Node, c: Career, f: Dictionary, m: Dictionary, r: Dictio
 		main.act.bind("fwfilm", ""), not can_film, "no film of the opponent left to watch"))
 	var alone := FightWeekPlan.film_line(c, f) if can_film else ""
 	var film_word := alone if alone != "" else ("opens one new tell, costs one pad night" if can_film else "no film of the opponent left to watch")
-	var fl := UI.label(film_word, 16, UI.AMBER if alone != "" else UI.MUTED)
+	var self_on := film_on and bool(plan.get("film_self", false))
+	if self_on:   # S510 FIGHTFILM1 map 3.1: watched yourself, the whole evening on the analysis page
+		film_word = "you watch the tape when the week locks: mark what you see, the coach checks it, file what holds"
+	var fl := UI.label(film_word, 16, UI.AMBER if alone != "" and not self_on else UI.MUTED)
 	fl.name = "FilmSeatLine"
+	if film_on:
+		var sb := UI.button("WATCH IT YOURSELF" if self_on else "LET THE COACH WATCH", "BtnSolid" if self_on else "BtnQuiet",
+			main.act.bind("fwfilmself", ""))
+		sb.name = "FilmSelfBtn"
+		row.add_child(sb)
 	row.add_child(fl)
 	return row
 

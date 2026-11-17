@@ -5,6 +5,8 @@ extends RefCounted
 
 const FightWeekPlan := preload("res://scripts/state/FightWeekPlan.gd")
 const FightWeek := preload("res://scripts/rules/FightWeek.gd")
+const FilmNight := preload("res://scripts/state/FilmNight.gd")
+const FightAnalysis := preload("res://scripts/ui/FightAnalysis.gd")
 
 
 static func act(main: Node, name: String, arg: String) -> bool:
@@ -46,6 +48,9 @@ static func act(main: Node, name: String, arg: String) -> bool:
 		"fwfilm":
 			_plan(main)["film"] = not bool(_plan(main).get("film", false))
 			main.redraw_modal()
+		"fwfilmself":   # S510 FIGHTFILM1: watch the tape yourself (the analysis page) or let the coach watch
+			_plan(main)["film_self"] = not bool(_plan(main).get("film_self", false))
+			main.redraw_modal()
 		"fwpick":
 			var f := c.fighter_by_id(str(main.modal["fid"]))
 			var pick := FightWeekPlan.draft(c, f)   # map v9 4.6: "Use the pick" applies the stops, never a partner
@@ -54,7 +59,11 @@ static func act(main: Node, name: String, arg: String) -> bool:
 			main.redraw_modal()
 		"fwlock":
 			var f := c.fighter_by_id(str(main.modal["fid"]))
-			var why := FightWeekPlan.lock(c, f, _plan(main))
+			var plan := _plan(main)
+			if bool(plan.get("film", false)) and bool(plan.get("film_self", false)) and not bool(plan.get("film_done", false)):
+				_film_night(main, c, f, plan)   # the night first; its Done locks the week
+				return true
+			var why := FightWeekPlan.lock(c, f, plan)
 			if why != "":
 				main.toast("Not yet: %s." % why)
 				return true
@@ -67,3 +76,18 @@ static func act(main: Node, name: String, arg: String) -> bool:
 
 static func _plan(main: Node) -> Dictionary:
 	return main.modal["plan"]
+
+
+## S510 FIGHTFILM1: the film evening watched by the player - the FIGHT ANALYSIS page over her films (FilmNight); Done
+## marks the night watched and locks the week.
+static func _film_night(main: Node, c: Career, f: Dictionary, plan: Dictionary) -> void:
+	var films := FilmNight.films(c, f)
+	var page := FightAnalysis.new()
+	page.name = "FightAnalysis"
+	var on_check := func(claim: Dictionary, seen: Array) -> Dictionary: return FilmNight.check(f, claim, seen)
+	var on_file := func(claim: Dictionary, word: String, n: int) -> void: FilmNight.file(f, claim, word, n)
+	var on_done := func() -> void:
+		plan["film_done"] = true
+		act(main, "fwlock", "")
+	page.for_tape(f["bout"]["opp"], films, FilmNight.night(c, f, films.size()), on_check, on_file, on_done)
+	main.add_child(page)
