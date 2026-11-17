@@ -5,13 +5,13 @@
  "now": {
   "id": "S509",
   "owner": "claude",
-  "updated": "2026-11-17",
-  "summary": "S509: fight week day 14. Collected Qwen HEADSPLIT2 (PR 350): head jumps by phase - s508c 39 of 49 punch jumps 'pre'. PopCap -- capwhy (why a >12 cm head frame got past the cap) on s509a: 136 passes = 72 landed punch at full hold (47 frame after the hit, 20 on it), 43 hit reactions freed on purpose, 11 blocked/height-only. Rejected and removed: trunk capped after the hit (hit_carry 31 -> 43) and on the way in of unlanded punches (shared part 18 -> 20). The trunk cap has no lever left: next is the source (range at throw, jab lunge). hit_carry 29-33 and join_return 2-4 are run-to-run noise. Owner's usage video -> .claude/agents/Explore.md on Haiku. Qwen HEADSPLIT3 (combo phase) running. Digest ops/research/S509_DIGEST.md. After the first wrap: HEADSPLIT3 collected (combo phase: pre 39 -> 33 + combo 6). Range at the throw is normal (jab closes 14 cm in 6 frames): punches are not thrown from too far. Hook recovery 1.5x fine (p90 4.8 m/s). join_return cross 18-20 m/s = a wait-beat paw starting mid-ease back to guard: GuardLife._joining holds paws/feints/fidgets until the guard join has run (cc1f9476f, -- nojoinwait). Exported. Blind r12 (his 'Film it now'): coach 5.0, animator 5.0 - flat vs r11; head jumps 32 -> 28, arm-out worst 16 -> 29. Both critics: blue's free glove above his head (named in r11 too), arms home in 3-4 frames.",
-  "next_action": "METHOD (S510, CLAUDE.md 8): fight animation STOPS PATCHING. FIGHTPLAYER2: baseline diagnosis (part 3, FIGHTPLAYER2_BASELINE_S510.md) + full scope (FIGHTPLAYER2_SCOPE_S510.md) -> two fresh critics judge the scope (7+) -> his board approval -> build by phases. No new fix layer in scripts/fight3d; no animation purchase until the baseline says the clips are the limit. FIGHT MOTION WEEK day 15 (S510). Blind r12 = 5 / 5 (flat). 0) OWNER S509 'why they only throw puches with one hand ?': each boxer ~35 lead-hand paws/feints in 75 s (GuardLife WAIT_JAB), real punches use both - give feints both hands (rear cross feint, body feint, level change), paw every 3-4 s, mix by style. 1) Blue's FREE glove shoots above his head after punches (r11 AND r12 critics: ex1 #40-47, ex2 #27-30, ex4 #25-32 in E:/FightCamp/tmp/fightweek/r12blind/sheets_close): find the clip/layer, keep it in a guard box (chin to 10 cm over the brow). 2) Arm out after contact worst 29 frames (red's",
+  "updated": "2026-11-17 S512",
+  "summary": "S512 (main line, Opus): Ask for a bout BUILT and exported (two shows side by side, cards with an Ask per date, picked name keeps the host gate, every amateur bout teaches - WHAT IT TAUGHT); ASKPROBE4 collected (the date is a real choice); palette sweep 73 -> 29; lean CI (only changed files; Actions 28,391/50,000). Animation: FIGHTPLAYER2 baseline (4.5 = 4.5 = 4.5) -> scope passed Dola 8/9 + Goose 7/8 -> clip census done -> choreographer (Goose 356) landed; anim-rebuild-2 (Fable) running. Grok bots out of quota: Goose + Dola instead. Digest ops/research/S512_DIGEST.md.",
+  "next_action": "METHOD (S510, CLAUDE.md 8): fight animation is REBUILT by its own Fable session (anim-rebuild-2, local_9ee8e7a4) - no patch layers in scripts/fight3d. Main line: collect Dola SQ211/SQ212 (ladder v6, coach spec r6) and Qwen MORNINGSPROBE1; guard damage map v2 from both critics (6/7/7, 6/6/7) and another round; Ask leftovers (Home DO NEXT, the three unwired fight-week rules -> INTEGRATE1). Grok bots out of quota: critics = Goose + Dola.",
   "incomplete_blocked": "Qwen HOOKPAST2 running (branch qwen/hookpast2) - collect by diff, then use its HOOK_HELD line as the hook-release ruler.",
   "next_acceptance": "On a 180 s seed 7 film vs s507b: no landed punch over 9 m/s after contact and at most 2 over 6; head jumps per punch clip <= 0.13 in the shared part (head_split_probe); FreeHand off_share <= 0.35, HeadEase back_f_p50 >= 8; punch tests keep or better their S507 A/B FAIL sets.",
   "awaiting_operator": "PR 341 look (coach neck still pair on /review). Unity uninstall (his call). Films while he plays: ask each time (S507: yes).",
-  "last_working_commit": "bc6023516",
+  "last_working_commit": "79b9dee65",
   "verified_playable": "Build exported 2026-11-17 14:04 (Builds/FightCamp.exe, WHAT_TO_TRY S507: hooks stop at the head). Verified on films s507a/s507b + headless A/B on 12 punch tests; not played by the owner yet."
  },
  "next": "S496: 0) get_usage; where_we_are roll S496; quote board answers (Q-259 Training K v6c; build WeekCards v6c on Yes - WeekCards.gd 552 lines is split first). 1) Collect as they land, by diff + their test: Qwen ONELOOK2 (fight HUD palette, ETA ~11:00 11-16; render before/after fight stills on the hidden desktop, his OK before merge), Goose FILMCOUNT1 (#326, branch goose/issue-326 - Goose's PR step failed twice: collect from the branch; read its FINDS table and noise numbers, retune FilmBout rates if a floor missed), Grok Dev FIGHTPAGE1 (branch grok/fightpage1, ETA ~13:30; render at 1920x1080 text 1.0 and 1.3, judge against fight_analysis_v3.png, then his board). 2) Kalli SQ202 LADDER1 v6 + SQ203 COACHSPEC1 r6 -> two fresh critics each (Dola + John; Dola refused COACHSPEC1 r5 - resend). 3) Wire after FIGHTPAGE1+FILMCOUNT1: the film-night stop in the fight week (FightWeekPlan film night -> FightAnalysis.for_tape with FilmCount.check, FilmPattern.checks by coach rating), FilmEdge pays at the figure, the result page's Punch by punch tab over m['tape'] (BoutTape), History keeps 20 tapes (~400 lines a bout). 4) Live fight log panel brief to Grok Dev once FIGHTPAGE1 lands. 5) ONELOOK1 sweep after ONELOOK2: RosterCards, ReadPanel, MatMap (UI.gd/WoodKit/WeekCards first need a split).",
@@ -2155,7 +2155,7 @@
    "id": "S512",
    "date": "2026-11-17",
    "model": "Opus 5.5",
-   "summary": "Side session beside animation part 3: Dola's Ask critic 7/7 committed, two briefs fixed (tape_room_test -> film_night_test), palette sweep 73 -> 29 (Training tab), own-bout game words without a subject; grapple_fix_test = S399 target test (red on purpose, parked BJJ)."
+   "summary": "Main line beside the animation sessions: Ask for a bout built + exported (Goose ASKDATES1 collected), ASKPROBE4 collected, palette 73->29, lean CI (owner: only changed files), Grok bots out of quota -> Goose/Dola, FIGHTPLAYER2 scope critics (Dola 8/9, Goose 7/8) + baseline read, two Fable animation sessions started (model forced to Fable)."
   }
  ],
  "blocked_on_operator": [],
@@ -5074,7 +5074,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-17 22:12 board_sync",
+  "updated": "2026-11-17 22:41 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5224,13 +5224,6 @@
    "FIGHTFILM1": "Fight analysis page: every punch of a fight, and film nights where you find the opponent's tells yourself"
   },
   "working_now": [
-   {
-    "title": "TASK ASKPROBE4 - QWEN (qwen3-coder) - does the fight week make the show date a real choice?",
-    "who": "qwen",
-    "started": "2026-11-17T20:20",
-    "run": "ASKPROBE4",
-    "state": "LANDED - Claude collects"
-   },
    {
     "title": "Fight animation rebuild, phase 2: the planner that picks each punch by distance and each reaction by size (pure module + tests)",
     "who": "goose",
@@ -5768,6 +5761,11 @@
   },
   "done_recently": [
    {
+    "title": "TASK ASKPROBE4 - QWEN (qwen3-coder) - does the fight week make the show date a real choice?",
+    "who": "qwen",
+    "when": "2026-11-17"
+   },
+   {
     "id": "ASKFIGHT1",
     "who": "claude",
     "title": "Ask for a bout BUILT (S512): two shows side by side, cards with an Ask per date, picked name keeps the host's gate, every amateur bout teaches (WHAT IT TAUGHT). Left: Home DO NEXT line, stoppage-risk word",
@@ -5823,24 +5821,6 @@
     "title": "TASK HOOKPAST2 - the fling ruler also reads every held punch, not only the ones that reached 85 % of their reach",
     "who": "qwen",
     "when": "2026-11-17"
-   },
-   {
-    "id": "COACHNECK2",
-    "who": "ziva",
-    "title": "Coach neck on the chest line in his close-up (PR 341 merged, your ok)",
-    "after": ""
-   },
-   {
-    "id": "HOOKREL1",
-    "who": "claude",
-    "title": "Punch let-go on real time: flings 7 -> 4 on the same bout",
-    "after": ""
-   },
-   {
-    "id": "HEADJUMP1a",
-    "who": "claude",
-    "title": "Head jumps 91 -> 86: trunk capped while the landed glove lets go",
-    "after": ""
    }
   ],
   "scope_note": "S294: lean restart (E:\\FightCamp\\Lean\\docs\\RESTART_PLAN.md). Old roadmap items are parked until the weekly builds reach them.",
@@ -6041,6 +6021,14 @@
     {
      "text": "Ask for a bout: built",
      "who": "claude"
+    },
+    {
+     "text": "Lean CI: changed files only",
+     "who": "claude"
+    },
+    {
+     "text": "ASKPROBE4: date is a real choice",
+     "who": "claude"
     }
    ],
    "now": [
@@ -6235,7 +6223,11 @@
      "who": "claude"
     },
     {
-     "text": "Ask for a fight: critics round 4",
+     "text": "Guard damage map v2 + critics",
+     "who": "claude"
+    },
+    {
+     "text": "Ask: Home line + 3 week rules",
      "who": "claude"
     }
    ],

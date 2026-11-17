@@ -1,28 +1,23 @@
-# S511 handover (written 2026-11-17, end of S510 - supervisor session)
+# S513 handover (written 2026-11-17 ~23:00, end of S512 - main line, Opus)
 
-Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. Digests: `ops/research/S510_DIGEST.md`,
-`ops/research/S510_ANIM_DIGEST.md`.
+Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. Digests: `ops/research/S512_DIGEST.md`,
+`ops/research/S510_DIGEST.md`, `ops/research/S510_ANIM_DIGEST.md`.
 
-## GOAL OF THIS SESSION (owner, verbatim): "i want animations fixed (at least 7/10) in the next session"
-Two fresh blind critics (coach + animator, the r12-r14 briefs) both at 7.0+ on one film, by REBUILDING the fight animation
-system the way the studies say (METHOD below), not by patching. Order:
-1. Collect what is in flight (they ran past the end of S510):
-   - `ops/research/FIGHTPLAYER2_BASELINE_S510.md` (part-3 animation session): bought clips on their ORIGINAL skeleton vs on
-     our boxer, and the bout filmed raw / placement-only / full with blind scores. If missing, run it first - it decides
-     whether the damage is the clips, the retargeting or our correction layers.
-   - `ops/research/FIGHTPLAYER2_SCOPE_S510.md` - WRITTEN (262 lines, end of S510): the bought clips score 7.0 alone on our
-     body (RETARGET2B_RESULT.md); the damage is placement (hips pinned per punch) + ~25 layers per boxer; v2 = a planning
-     module that picks takes by distance + a small clip player; phases 0-7, a gate (v2 beats today by 1+ point). Its six
-     'owner decisions' are Claude's except the LICENCE and the purchase: rebuild is decided (standing approval).
-   - LICENCE: ANSWERED - owner, verbatim: "i have permission go on" (MoCap Online AI use): blind AI critics may judge films
-     of the pro_/mc_ clips.
-2. Two fresh critics judge the scope (owner: "have that judged"); 7+ or another round. No owner approval needed (standing).
-3. Build the phases that need no purchase first (strip the layers the baseline shows cost points, fix retargeting if it
-   damages clips, pick punches by distance from what we own, captured reactions only, smooth blending), filming a blind
-   round after each phase. Keep the rules: --log-file E:/..., films only with no game window, watchdog, godot_slot.
-4. If the baseline/scope show the owned clips cap below 7 (the r14 animator put one-man clips at "about 7 to 7.5"), say so
-   in plain words with the exact clips to buy and their price - money is still his explicit yes, after he sees the motion.
-Model: Fable 5.2 at high effort (owner chose "Keep Fable"). Hand over at ~420k context with the loop state written down.
+## GOAL (owner, verbatim, still on): "i want animations fixed (at least 7/10)"
+The animation is now REBUILT, not patched (METHOD below), by its OWN Fable session: "Fight animation rebuild, part 2
+(Fable)" (local_9ee8e7a4) was running at the hand-over - it collects Goose's choreographer (issue 356) and builds the v2
+player. Do not start another animation session while it runs; if it has stopped, the next one starts from the ANIMATION
+LOOP STATE section (bottom) on Fable (check its model with get_session - start_session ignores the model field).
+The main line (this session's seat) owns everything outside scripts/fight3d.
+
+## MAIN LINE - DO FIRST
+1. Collect what lands: Dola SQ211 (season ladder v6 -> ops/research/DESIGN_LADDER1_V6_DOLA.md) and SQ212 (coach spec r6 ->
+   DESIGN_COACHSPEC1_R6_DOLA.md) - each then goes to two fresh critics (Goose + Dola; the Grok bots are out of quota);
+   Qwen MORNINGSPROBE1 (coached mornings: solo vs shared, collect its PR by diff).
+2. Guard damage (GUARDDMG1 v1): Dola 6/7/7, Goose 6/6/7 -> revise the map from both 10/10 lists, another critic round.
+3. Ask for a bout leftovers: the Home DO NEXT line ("<name> has no bout: ask for one"); the three unwired fight-week
+   rules ASKPROBE4 found (week-before pad night, late-night injury/cut, FightWeek.banked) -> INTEGRATE1.
+4. The owner has a new .exe to play (Ask for a bout, WHAT IT TAUGHT, the palette on the Training tab).
 
 ## METHOD (operator S510, CLAUDE.md item 8 - quote this in your first message)
 Fight animation: STOP PATCHING. 14 rounds of correction layers scored 4.5-5/10 while the Undisputed / Boxing Manager /
@@ -114,12 +109,9 @@ themselves are the limit (owner: "why should i buy more animations if the ones w
   ci.yml now runs tools/ci_pick.py: ONLY changed files (owner: "i do not want checks on things that were not change") -
   changed tests (+ the brief's own RED_TEST on a PR) and a parse check of changed scripts; anything else passes at once; full suite = the PC's 05:00 run or `gh workflow run ci.yml
   -f full=true`. There is NO nightly suite on GitHub (no workflow has a schedule).
-- ASK FOR A FIGHT BUILD (owner "Yes, build it", S512) - UNCOMMITTED until Goose's ASKDATES1 (issue 357) lands:
-  scripts/state/AskFlow.gd, scripts/ui/AskPanel.gd, tests/ask_wire_test.gd + edits in BoutFinish.gd (host gate, FightLearn
-  teaching on every amateur bout), ResultPage.gd (WHAT IT TAUGHT cell), BoutActs.gd (ask/askbout), Fights.gd (route ask +
-  Ask for a bout), RosterRow.gd (Find a bout -> ask). Collect AskDates.gd by diff, run ask_wire_test + ask_bout_test +
-  fight_learn_test + roster_row_test + roster_slate_test + coach_check_test + golden_path_test, add ask_wire_test and
-  ask_dates_test to run_tests.sh, export. Left: Home DO NEXT line, the stoppage-risk word (no chance figure exists).
+- ASK FOR A FIGHT BUILT (S512, d1fa334c3; owner "Yes, build it"): AskDates (Goose ASKDATES1, collected by diff), AskFlow,
+  AskPanel, BoutFinish (host gate, every amateur bout teaches), ResultPage (WHAT IT TAUGHT), Main.nav keeps "ask";
+  tests/ask_wire_test.gd + ask_dates_test in run_tests.sh. Exported. Left: Home DO NEXT, the stoppage-risk word.
 - RAM: ~10 finished sessions sit idle with Remote Control on (~750 MB each, S491 note); watchdog AMBER on memory.
 
 ## ANIMATION LOOP STATE (the animation session's own section; rewritten 2026-11-17 ~22:00, S512 animation session, closed at ~400k tokens)
