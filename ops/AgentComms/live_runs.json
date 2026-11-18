@@ -882,88 +882,11 @@
    "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/367",
    "reconciled": "2026-11-18 10:40 board_reconcile: run finished (success), branch goose/issue-367 pushed"
   },
-  "RIVALOFFER1": {
-   "agent": "goose",
-   "id": "RIVALOFFER1",
-   "title": "offers from rival gyms and the DUCKED / OWED flags (pure rules + test, ladder v6 R9 + R6)",
-   "status": "collected",
-   "started": "2026-11-18T16:08",
-   "where": "cloud",
-   "repo": "FightCamp-Lean",
-   "brief": "ops/research/TASK_RIVALOFFER1.md",
-   "model": "Goose + Qwen token plan (GitHub Actions)",
-   "eta": "2026-11-18T17:08",
-   "note": "S380 seat_dispatch: pure rule module routed to Goose instead of a PC worktree (command line)",
-   "issue": "372",
-   "branch": "goose/issue-372",
-   "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/372",
-   "reconciled": "2026-11-18 16:40 board_reconcile: run finished (success), branch goose/issue-372 pushed"
-  },
-  "LADDERPROBE4": {
-   "agent": "qwen",
-   "id": "LADDERPROBE4",
-   "title": "TASK LADDERPROBE4 - how often rival gyms ring, and what each answer does to the table (probe only)",
-   "status": "collected",
-   "started": "2026-11-18T19:17",
-   "eta": "2026-11-18T21:07",
-   "branch": "qwen/ladderprobe4",
-   "worktree": "E:/FightCamp/wt/LEAN_LADDERPROBE4",
-   "wt": "E:/FightCamp/wt/LEAN_LADDERPROBE4",
-   "brief": "ops/research/TASK_LADDERPROBE4.md",
-   "repo": "FightCamp-Lean",
-   "where": "pc",
-   "log": "E:/FightCamp/wt/LADDERPROBE4_dispatch_out.txt",
-   "match": "seat_dispatch.py run ladderprobe4",
-   "model": "qwen4-max",
-   "dispatch": {
-    "prompt": "E:/FightCamp/wt/LADDERPROBE4_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/LADDERPROBE4_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/LADDERPROBE4_dispatch_runner.log",
-    "source": "command line",
-    "brief_copied": true,
-    "runner_pid": 50996,
-    "seat_pid": 28040
-   },
-   "note": "S368 seat_dispatch: qwen exit 124; 1 commit(s); checks 3/4 PASS; PR #374",
-   "finished": "2026-11-18T22:11",
-   "pr": 374,
-   "checks": [
-    {
-     "kind": "RED_TEST",
-     "script": "tools/ladder_probe.gd",
-     "ok": false,
-     "last": null
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/rival_offer_test.gd",
-     "ok": true,
-     "last": "RIVAL_OFFER failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/rival_offer_wire_test.gd",
-     "ok": true,
-     "last": "RIVAL_OFFER_WIRE failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/ladder_season_test.gd",
-     "ok": true,
-     "last": "LADDER_SEASON failures=0"
-    }
-   ],
-   "films": {
-    "before": {},
-    "after": {},
-    "board": ""
-   }
-  },
   "STREAKPROBE1": {
    "agent": "qwen",
    "id": "STREAKPROBE1",
    "title": "TASK STREAKPROBE1 - how often a boxer is ON A RUN, and how often corners DUCK her or come to OWE her (probe only)",
-   "status": "running",
+   "status": "done",
    "started": "2026-11-18T22:13",
    "eta": "2026-11-19T00:03",
    "branch": "qwen/streakprobe1",
@@ -984,7 +907,8 @@
     "runner_pid": 41452,
     "seat_pid": 34220
    },
-   "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
+   "note": "S519 collected: docs/STREAKPROBE1_RESULT.md, HotStreak.POINTS 15->8 (a6713760d)",
+   "landed": "2026-11-18T22:52"
   }
  },
  "codex_budget": {

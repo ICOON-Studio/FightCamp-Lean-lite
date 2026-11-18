@@ -104,7 +104,7 @@ static func mornings(model: Dictionary) -> PanelContainer:
 	return bx[0]
 
 
-static func evening(model: Dictionary, on_day: Callable) -> PanelContainer:
+static func evening(model: Dictionary, on_day: Callable, on_class: Callable = Callable()) -> PanelContainer:
 	var n: Dictionary = model.get("night", {"dow": 0, "cell": {"kind": "none", "boxers": []}, "sides": []})
 	var dow := int(n["dow"])
 	var cell: Dictionary = n["cell"]
@@ -115,10 +115,15 @@ static func evening(model: Dictionary, on_day: Callable) -> PanelContainer:
 	var bar := TrainCoach.cell(cell, dow, str(model["sel"]), on_day, true)
 	bar.name = "EveningCoach"
 	v.add_child(bar)
+	_class_button(v, str(cell["kind"]), dow, on_class)
 	if not pads:
 		v.add_child(B.lab({"spar": "Sparring night: your coach referees. Moves already usable get ring time.",
-			"corner": "Bout night: your coach works the corner.", "closed": "Sunday: the gym is closed in the evening."}.get(
+			"corner": "Bout night: your coach works the corner.", "closed": "Sunday: the gym is closed in the evening.",
+			"class": "Class night: +$117 this week and new members over time; the boxers drill on the bag at half the rate."}.get(
 			str(cell["kind"]), "No coached evening: rest."), 16, Palette.MUTED, "body"))
+		var note := v.get_child(v.get_child_count() - 1) as Label
+		note.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART   # S519: a long note wraps, never widens the panel
+		note.custom_minimum_size = Vector2(1, 0)
 		return bx[0]
 	var row := GridContainer.new()
 	row.columns = mini(3, maxi(1, (n["sides"] as Array).size()))
@@ -213,3 +218,17 @@ static func bout(model: Dictionary) -> VBoxContainer:
 			(c as Label).autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 			(c as Label).custom_minimum_size = Vector2(160, 0)
 	return v
+
+
+## S519 club week 3.2: a weekday pad evening can be a class night (+$117, boxers on the bag) and back. Mon-Fri only.
+static func _class_button(v: VBoxContainer, kind: String, dow: int, on_class: Callable) -> void:
+	if not on_class.is_valid() or dow > 4 or not (kind in ["pads", "class"]):
+		return
+	var b := Button.new()
+	b.name = "ClassNight"
+	b.text = "Back to pads tonight" if kind == "class" else "Teach a class tonight: +$117"
+	b.tooltip_text = "A paying class instead of pads: +$117 a week and new members over time. The boxers drill on the bag at half the rate that evening." if kind == "pads" else "The coach holds pads again this evening: full drilling, no class money."
+	b.focus_mode = Control.FOCUS_NONE
+	b.add_theme_font_size_override("font_size", 16)
+	b.pressed.connect(func(): on_class.call(dow))
+	v.add_child(b)

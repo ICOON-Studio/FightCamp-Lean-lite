@@ -93,7 +93,7 @@ static func _spend(main: Node, c: Career, name: String, arg: String) -> void:
 		"stipend":
 			var sp := arg.split("|")
 			var sf := c.fighter_by_id(sp[0])
-			why = "no such fighter" if sf.is_empty() else GymSpend.set_stipend(c, sf, sp.size() > 1 and sp[1] == "on")
+			why = "no such fighter" if sf.is_empty() else (GymSpend.set_half(c, sf) if sp.size() > 1 and sp[1] == "half" else GymSpend.set_stipend(c, sf, sp.size() > 1 and sp[1] == "on"))
 			done = "Stipend changed for %s." % str(sf.get("first", ""))
 		"talks":
 			var parts := arg.split("|")

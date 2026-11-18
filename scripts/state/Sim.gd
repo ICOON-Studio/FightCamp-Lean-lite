@@ -2,6 +2,7 @@ extends RefCounted
 ## What happens in a day and at a week's end, and the player's roster moves (sign, hire, plan).
 
 const Attrs := preload("res://scripts/rules/Attrs.gd")
+const MorningWire := preload("res://scripts/state/MorningWire.gd")   # S519 club week 3.3 coached mornings
 const FirstWeek := preload("res://scripts/rules/FirstWeek.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const TrainingPreview := preload("res://scripts/rules/TrainingPreview.gd")
@@ -114,7 +115,7 @@ static func plan_of(career: Career, f: Dictionary) -> Dictionary:
 	return TrainingPlan.plan_of(f.get("week_plan"), focus, partner)
 
 ## The day's morning and evening: stat gains, weight and fatigue. CUT while over the limit, else HOLD.
-static func week_ctx(career: Career, f: Dictionary) -> Dictionary:
+static func week_ctx(career: Career, f: Dictionary, dow := -1) -> Dictionary:
 	# S481 FIGHTWEEK2: a fight-week bout has no camp but cuts while over the limit as a camp does
 	var cutting := (str(f["diet"]) == "cut" or not (f["camp"] as Dictionary).is_empty() or WeekPhase.amateur(f.get("bout", {}))) 		and float(f["weight"]) > float(f["limit"]) - 0.15
 	var ev := BoutRules.camp_evening(f.get("camp", {}))   # S380: the protocol sets the camp's evenings
@@ -123,7 +124,7 @@ static func week_ctx(career: Career, f: Dictionary) -> Dictionary:
 		"recovery": float(Attrs.of(f).get("recovery", 55.0)),
 		"twist_kg": float(WeekTwist.active(f).get("kg_day", 0.0)), "twist_fat": float(WeekTwist.active(f).get("fat_day", 0.0)),
 		"camp_stat": str(ev["stat"]), "eve_drill": float(ev["drill"]), "eve_load": float(ev["load"]), "camp_on": PadWeek.in_camp(f),
-		"camp_mult": BoutRules.camp_gain_mult(f.get("camp", {}), str(ev["stat"]))}.merged(HeadCoach.ctx(career.head))
+		"camp_mult": BoutRules.camp_gain_mult(f.get("camp", {}), str(ev["stat"])), "dow": dow, "coached": MorningWire.of(career, f)}.merged(HeadCoach.ctx(career.head))
 
 
 ## S373 (Danny 61.6 kg missed 60.0 on his first offer, ~17 days out, with no warning on the offer): her weight on the
@@ -200,7 +201,7 @@ static func step_day(career: Career) -> void:
 			(f.get_or_add("week_log", []) as Array).append(WeekActual.log_entry(dow, planned_days[dow], days[dow], "changed"))
 		var m: Array = ["rest", "normal"] if resting else (days[dow] as Array)
 		var r := WeekPlan.full_day(str(m[0]), str(m[1]), "rest" if resting else str(evs[dow]),
-			week_ctx(career, f), float(f.get("week_fatigue", 20.0)))
+			week_ctx(career, f, dow), float(f.get("week_fatigue", 20.0)))
 		SkillAwards.count_session(f, str(r["evening"]))   # S370 GOALTESTS1: a coached evening toward her next award
 		var by: Array = [str(WeekPlan.session(str(m[0]))["name"]), str((WeekPlan.EVENINGS.get(str(r["evening"]), {}) as Dictionary).get("name", ""))]
 		for k in [["stat", "gain", 0], ["stat2", "gain2", 1]]:
@@ -279,7 +280,7 @@ static func _with_bjj(career: Career, income: Dictionary) -> Dictionary:
 	income["bjj"] = int(bjj_money(career)["dues"])
 	var spend := GymSpend.income(career)
 	income["fitness"] = int(spend["fitness"])
-	income["juniors"] = int(spend["juniors"])
+	for k in ["juniors", "class_nights"]: income[k] = int(spend[k])   # S519 class nights (ClubClasses)
 	income["total"] = int(income["total"]) + int(income["bjj"]) + int(spend["total"])
 	return income
 

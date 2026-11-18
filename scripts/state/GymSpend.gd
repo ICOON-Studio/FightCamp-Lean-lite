@@ -5,6 +5,7 @@ extends RefCounted
 ## read by Sim (weekly lines, gains), Injuries (risk, days out), Membership (the cap) and Roster (places).
 
 const GymUpgrades := preload("res://scripts/rules/GymUpgrades.gd")
+const ClubClasses := preload("res://scripts/rules/ClubClasses.gd")
 const StaffRoles := preload("res://scripts/rules/StaffRoles.gd")
 const ClubShow := preload("res://scripts/rules/ClubShow.gd")
 const GymBonus := preload("res://scripts/rules/GymBonus.gd")
@@ -19,6 +20,7 @@ const Membership := preload("res://scripts/rules/Membership.gd")
 const Leaving := preload("res://scripts/state/Leaving.gd")
 const Grants := preload("res://scripts/rules/Grants.gd")
 const LoyaltyWire := preload("res://scripts/state/LoyaltyWire.gd")
+const Loyalty := preload("res://scripts/rules/Loyalty.gd")   # S519 half sponsorship moves
 const ApproachWire := preload("res://scripts/state/ApproachWire.gd")   # S487 R58 APPROACHWIRE1
 const PullOutWire := preload("res://scripts/state/PullOutWire.gd")   # S490 FIGHTWEEK3
 const LateAskWire := preload("res://scripts/state/LateAskWire.gd")   # S514 FIGHTWEEK3 favours earned
@@ -71,8 +73,8 @@ static func costs(c: Career) -> Dictionary:
 ## The income lines a week: {fitness, juniors, total}.
 static func income(c: Career) -> Dictionary:
 	var out := {"fitness": int(GymUpgrades.item("fitkit")["value"]) if fitness_on(c) else 0,
-		"juniors": juniors_dues() if youth_on(c) else 0}
-	out["total"] = int(out["fitness"]) + int(out["juniors"])
+		"juniors": juniors_dues() if youth_on(c) else 0, "class_nights": ClubClasses.cash(c.coach)}   # S519 club week 3.2
+	out["total"] = int(out["fitness"]) + int(out["juniors"]) + int(out["class_nights"])
 	return out
 
 
@@ -94,7 +96,7 @@ static func days_out(c: Career) -> float:
 
 
 static func gain(c: Career, stat: String, f: Dictionary = {}) -> float:
-	var m := GymUpgrades.gain_mult(c.upgrades, stat, c.day) * (DAY_JOB_GAIN if bool(f.get("day_job", false)) else 1.0) * GymBonus.training(c.gym_plan, stat) * ApproachWire.train_mult(c, f)   # S487 HALF EACH x0.925 to its end day
+	var m := GymUpgrades.gain_mult(c.upgrades, stat, c.day) * (float(DayJob.WEEK_DAYS - DayJob.count_of(f)) / DayJob.WEEK_DAYS if not f.is_empty() else 1.0) * GymBonus.training(c.gym_plan, stat) * ApproachWire.train_mult(c, f)   # S487 HALF EACH x0.925 to its end day
 	if kit_gain_on:
 		m *= GymKinds.gain_mult(c.gym_slots, c.day, stat)
 	return m
@@ -113,15 +115,42 @@ static func stipend_held(c: Career, f: Dictionary) -> String:
 static func set_stipend(c: Career, f: Dictionary, on: bool) -> String:
 	if bool(f.get("pro", false)):
 		return "a pro lives on purses"
-	if on == not bool(f.get("day_job", false)):
+	if on == not bool(f.get("day_job", false)) and not bool(f.get("half_job", false)):
 		return "already so"
 	if ApproachWire.stipend_locked(c, f):   # S487 R58: an answer to Eastside holds the stipend to its end day
 		return "held to %s (the answer to %s)" % [Clock.fmt(int(f["stipend_lock"])), ApproachWire.CLUB]
+	if bool(f.get("half_job", false)) and not on:   # S519: half -> none is the smaller step down
+		f.erase("half_job")
+		f["weekly_salary"] = 0
+		Loyalty.apply(f, "sponsor_half_down", c.day)
+		c.add_news("%s comes off the half sponsorship: working 2 mornings a week." % f["first"])
+		return ""
 	f["day_job"] = not on
+	f.erase("half_job")
 	LoyaltyWire.stipend(c, f, on)   # S485 CLUBWEEK1: sponsorship given +5 / pulled -8
 	var home := bool(f.get("home", false)) and int(f.get("home_until", 0)) > c.day
 	f["weekly_salary"] = (roundi(GameMoney.FIGHTER_STIPEND * HomeJuniors.HALF) if home else GameMoney.FIGHTER_STIPEND) if on else 0
 	c.add_news("%s %s." % [f["first"], "is back on the club stipend and trains full time" if on else "takes a day job: off the gym sponsorship, working 2 mornings a week"])
+	return ""
+
+
+## S519 club week v11 3.5: half the gym sponsorship - half the stipend, one work morning (Tue). Up from nothing +3
+## loyalty, down from the full stipend -4 (Loyalty sponsor_half_up / _down).
+static func set_half(c: Career, f: Dictionary) -> String:
+	if bool(f.get("pro", false)):
+		return "a pro lives on purses"
+	if bool(f.get("half_job", false)):
+		return "already so"
+	if ApproachWire.stipend_locked(c, f):
+		return "held to %s (the answer to %s)" % [Clock.fmt(int(f["stipend_lock"])), ApproachWire.CLUB]
+	var was_full := not bool(f.get("day_job", false))
+	f["day_job"] = true
+	f["half_job"] = true
+	Loyalty.apply(f, "sponsor_half_down" if was_full else "sponsor_half_up", c.day)
+	var home := bool(f.get("home", false)) and int(f.get("home_until", 0)) > c.day
+	var full := roundi(GameMoney.FIGHTER_STIPEND * HomeJuniors.HALF) if home else GameMoney.FIGHTER_STIPEND
+	f["weekly_salary"] = roundi(full * 0.5)
+	c.add_news("%s goes on half the gym sponsorship (%s a week): working 1 morning a week." % [f["first"], GameMoney.text(int(f["weekly_salary"]))])
 	return ""
 
 
@@ -302,6 +331,7 @@ static func day_events(c: Career) -> void:
 	grant_day(c)
 	if c.day % 7 == 0:
 		LoyaltyWire.week(c)   # S485 CLUBWEEK1: the weekly loyalty drift and wants_sponsor
+		_class_members(c)   # S519 club week 3.2: last week's class nights bring members in slowly
 		ApproachWire.monday(c)   # S487 R58 APPROACHWIRE1: an approach ends unanswered (the boxer leaves) or a new one opens
 		Leaving.monday(c)   # S486 R58 LEAVE1: a farewell bout boxed, or loyalty under 25 after two words: the boxer leaves
 	ApproachWire.HomeBout.sweep(c)   # S488 HOMEBOUT1: a promised show night passed with no bout boxed breaks the promise
@@ -435,3 +465,16 @@ static func end_week(c: Career) -> void:
 			answer_talks(c, f, false)
 	if c.dues_band_next != "" and _dues_month(c):
 		set_dues(c, str(c.dues_band_next))
+
+
+## S519: the class nights' new members (ClubClasses.members; the fraction carries in coach["class_carry"]), under the cap.
+static func _class_members(c: Career) -> void:
+	var n := ClubClasses.nights(c.coach).size()
+	if n == 0:
+		return
+	var r := ClubClasses.members(float(c.coach.get("class_carry", 0.0)), n)
+	c.coach["class_carry"] = float(r["carry"])
+	var joined := mini(int(r["joined"]), maxi(0, member_cap(c) - c.members))
+	if joined > 0:
+		c.members += joined
+		c.add_news("The evening classes brought %d new member%s in." % [joined, "" if joined == 1 else "s"])

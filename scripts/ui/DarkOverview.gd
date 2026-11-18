@@ -174,7 +174,7 @@ static func _boxer(f: Dictionary, c: Career = null) -> Control:
 		standing.add_theme_color_override("font_color", SOFT)
 		col.add_child(standing)
 	col.add_child(condition(f))
-	col.add_child(loyalty(f))
+	col.add_child(loyalty(f, c.day if c != null else -1))
 	var holder := Control.new()
 	# S430 (operator: "this screen on the bottom is clipped"): 690 pushed the goal and body row off a 1080 screen.
 	holder.custom_minimum_size = Vector2(LEFT_W, 560)
@@ -221,7 +221,7 @@ static func condition(f: Dictionary) -> Control:
 
 
 ## Loyalty as his S484 pick (Q-245): a 0-100 bar with its word beside it ("62 - Settled"); hover = the last three moves.
-static func loyalty(f: Dictionary) -> Control:
+static func loyalty(f: Dictionary, day := -1) -> Control:
 	var v: int = Loyalty.value(f)
 	var word: String = Loyalty.band(v, int(f.get("known", 0)))
 	var tone: Color = TONE["green"] if v >= Loyalty.SETTLED_AT else (TONE["amber"] if v >= Loyalty.LEAVES_UNDER else TONE["red"])
@@ -242,7 +242,12 @@ static func loyalty(f: Dictionary) -> Control:
 	bar.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	bar.custom_minimum_size = Vector2(120, 22)
 	row.add_child(bar)
-	var words := UI.label("%d - %s" % [v, word], UI.BODY, INK, "semi")
+	var tr: Dictionary = Loyalty.trend(f, day) if day >= 0 else {}   # S519 club week 3.6: the 4-week trend
+	if not tr.is_empty():
+		tip += "
+Last 4 weeks: %+d (%s)" % [int(tr["n"]), str(tr["word"])]
+		row.tooltip_text = tip
+	var words := UI.label("%d - %s" % [v, word] + ("  %s %s" % [tr["arrow"], tr["word"]] if not tr.is_empty() else ""), UI.BODY, INK, "semi")
 	words.name = "LoyaltyWords"
 	row.add_child(words)
 	return row

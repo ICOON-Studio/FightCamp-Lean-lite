@@ -14,7 +14,7 @@ extends RefCounted
 const RivalOffer := preload("res://scripts/rules/RivalOffer.gd")
 const RankLine := preload("res://scripts/rules/RankLine.gd")
 const WINS := 3
-const POINTS := 15
+const POINTS := 8   # S519 STREAKPROBE1: 15 read ON A RUN 1.2% of active weeks; 8 reads 11.6%, 1.4 runs a season (target 10-30%)
 const WEEKS := 8
 const GAP := 8
 

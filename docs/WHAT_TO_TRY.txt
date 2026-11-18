@@ -1,3 +1,19 @@
+S519 (2026-11-18) - THE CLUB WEEK: COACHED MORNINGS, CLASS NIGHTS, HALF SPONSORSHIP, THE 4-WEEK FORECAST
+Easiest with the TEST CLUB (create screen) - it needs two boxers or more. With one boxer nothing changes.
+- Training: the coach now deals the club's coached mornings (You 4 + your coach 2, 3 if full time). A morning tile reads
+  1-TO-1 x1.25 (x1.40 on a weak spot) or SHARED x1.15 - two boxers training the same thing that morning, aimed at the
+  ability they are BOTH weakest in. The gain on the tile already counts it.
+- Training: click a weekday evening, then "Teach a class tonight: +$117". That evening is a paying class - the coach row
+  says CLASS NIGHT, every boxer on pads that night drills on the bag at half the rate. Club > Money shows "Class nights".
+  It adds a member now and then. Your coach's usual $350 of evening classes is still there.
+- Club > Money, Fighters and money: "Half $125" - half the gym sponsorship. The boxer works 1 morning (Tuesday) instead
+  of 2. From the full stipend it costs 4 loyalty; from nothing it gives 3.
+- Training, at the top: the next 4 weeks. A week with more boxers fighting than your coach has film nights turns amber.
+  A bout offer in such a week says so under Accept.
+- Film watched ALONE (the coach's film nights full) is half a read now; a second film of her finds the tell.
+- A boxer's Overview: Loyalty shows its last-4-weeks trend: rising / steady / falling.
+- ON A RUN (the hot streak on the Ask card) now needs 3 wins and +8 ladder points in 8 weeks (was +15): it comes up.
+
 S517b (2026-11-18) - RIVAL GYMS RING FOR A BOUT, ANA'S PLAN IN PLAIN WORDS, IDLE RIVALS LEAVE THE TABLE
 - Once a boxer of yours is ranked (4 wins), a rival BELOW on the ladder may ring on a Monday for a bout at the next show:
   a red NEEDS YOU and a card on the boxer's Overview with three answers - Accept (books that show; the card shows the

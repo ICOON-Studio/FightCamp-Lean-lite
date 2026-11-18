@@ -46,6 +46,7 @@ const MOVES := {
 	"short": -3, "short_running": -6, "full_week": 1,
 	"promise_kept": 5, "promise_broken": -12,
 	"sponsor_given": 5, "sponsor_pulled": -8, "sponsor_renewed": 2, "sponsor_passed_to": 5,
+	"sponsor_half_up": 3, "sponsor_half_down": -4,   # S519 club week 3.5: half the sponsorship (ESTIMATE, LOYAL1)
 	"held_pads": 3, "sheet_passed_ready": -2,
 	"target_to_ambition": 5, "target_against": -5, "target_met": 10, "target_missed": -5,
 	"overtime_refused": -2,
@@ -291,3 +292,23 @@ static func week(f: Dictionary, from_day: int, to_day: int) -> Dictionary:
 		text += " " + said.substr(0, 1).to_upper() + said.substr(1) + "."
 	return {"kind": kind, "before": before, "after": after, "band_before": bb, "band_after": ba, "crossed": bb != ba,
 		"causes": causes, "text": text}
+
+
+## S519 club week v11 3.6: the 4-week trend beside the band word (no raw number needed): the log's moves in the
+## TREND_DAYS before `day` summed; +TREND_AT or more = rising, -TREND_AT or less = falling, else steady.
+## {n, word, arrow}.
+const TREND_DAYS := 28
+const TREND_AT := 3
+
+
+static func trend(f: Dictionary, day: int) -> Dictionary:
+	var n := 0
+	for e in log_of(f):
+		var d := int(e.get("d", 0))
+		if d >= day - TREND_DAYS and d < day + 1:
+			n += int(e.get("n", 0))
+	if n >= TREND_AT:
+		return {"n": n, "word": "rising", "arrow": "↑"}
+	if n <= -TREND_AT:
+		return {"n": n, "word": "falling", "arrow": "↘"}
+	return {"n": n, "word": "steady", "arrow": "→"}

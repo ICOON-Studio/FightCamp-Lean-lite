@@ -20,6 +20,7 @@ const PadReview := preload("res://scripts/rules/PadReview.gd")
 const StyleName := preload("res://scripts/rules/StyleName.gd")
 const MoveTree := preload("res://scripts/rules/MoveTree.gd")
 const StudyWeek := preload("res://scripts/rules/StudyWeek.gd")
+const ClubClasses := preload("res://scripts/rules/ClubClasses.gd")   # S519 class nights: boxers on the bag
 ## S513 ASKPROBE4: the fight week's stop banks a share of its pad work (FightWeekPlan.lock writes f.fw_bank). The week it
 ## counts in: the bout day within 6 days either side of the drilling's day (the week the bout falls in).
 const FW_BANK_REACH := 6
@@ -129,6 +130,7 @@ static func inputs(career: Career, f: Dictionary) -> Dictionary:
 	var nights := PadWeek.nights_of(f)
 	var week := PadWeek.week_of(f, nights)
 	_lay_noted(f.get(NOTED, {}), nights, week)
+	_class_bag(career, f, nights)
 	var bank := fw_bank(career, f)
 	return {"skill": pad_skill(career), "carded": carded, "nights": nights, "week": week, "bank": bank,
 		"mults": {"move": float(tw.get("move_mult", 1.0)) * bank, "combo": float(tw.get("combo_mult", 1.0)) * bank}}
@@ -180,6 +182,15 @@ static func note(career: Career, f: Dictionary, dow: int) -> void:
 	var kind := "pads" if (n["pads"] as Array).has(dow) else ("spar" if (n["spar"] as Array).has(dow) else "")
 	(f.get_or_add(NOTED, {}) as Dictionary)[str(dow)] = {"kind": kind, "minutes": PadWeek.night_minutes(n, dow),
 		"cards": ((inp["week"] as Dictionary).get(PadWeek.DAYS[dow], []) as Array).duplicate(true)}
+
+
+## S519 club week 3.2: a class night puts every boxer on pads that evening on the bag - half the minutes. An evening
+## already noted carries its own minutes (noted after this ran), so it is not halved twice.
+static func _class_bag(career: Career, f: Dictionary, nights: Dictionary) -> void:
+	var noted: Dictionary = f.get(NOTED, {})
+	for d in ClubClasses.nights(career.coach):
+		if (nights.get("pads", []) as Array).has(int(d)) and not noted.has(str(d)):
+			(nights.get_or_add("per", {}) as Dictionary)[int(d)] = PadWeek.night_minutes(nights, int(d)) * ClubClasses.BAG_SHARE
 
 
 static func _lay_noted(noted: Dictionary, nights: Dictionary, week: Dictionary) -> void:

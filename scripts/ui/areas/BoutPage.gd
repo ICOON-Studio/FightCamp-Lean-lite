@@ -12,6 +12,7 @@ const OppFileCard := preload("res://scripts/ui/OppFileCard.gd")
 const Sim := preload("res://scripts/state/Sim.gd")
 const BoutCompare := preload("res://scripts/ui/BoutCompare.gd")
 const BoutRead := preload("res://scripts/rules/BoutRead.gd")
+const ClubForecast := preload("res://scripts/state/ClubForecast.gd")
 const VersusPanel := preload("res://scripts/ui/VersusPanel.gd")
 const MenuFx := preload("res://scripts/ui/MenuFx.gd")
 
@@ -149,4 +150,12 @@ func _answer_row(main: Node, f: Dictionary, o: Dictionary, offer_id: String, wf:
 		heavy.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		heavy.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		foot.add_child(heavy)
+	if open and not bool(o["mismatch"]):
+		var cl := ClubForecast.clash(main.career, f, int(o["day"]))   # S519 club week 3.7: the week's film nights run short
+		if cl != "":
+			var cw := UI.label(cl, UI.SMALL, UI.AMBER, "body", true)
+			cw.name = "ClashLine"
+			cw.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+			cw.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			foot.add_child(cw)
 	return foot

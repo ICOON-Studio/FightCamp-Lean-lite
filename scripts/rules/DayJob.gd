@@ -29,7 +29,23 @@ static func lost(day_job: bool) -> int:
 	return LOST if day_job else 0
 
 
-static func lost_days(day_job: bool, rest_days: Array = []) -> Array:
+## S519 club week v11 3.5: HALF the gym sponsorship ($125) - the boxer works HALF_LOST morning (Tue). f["half_job"] with
+## f["day_job"]; a pro never works.
+const HALF_LOST := 1
+
+
+static func count_of(f: Dictionary) -> int:
+	if bool(f.get("pro", false)) or not bool(f.get("day_job", false)):
+		return 0
+	return HALF_LOST if bool(f.get("half_job", false)) else LOST
+
+
+static func lost_days_of(f: Dictionary, rest_days: Array = []) -> Array:
+	var n := count_of(f)
+	return lost_days(n > 0, rest_days, n)
+
+
+static func lost_days(day_job: bool, rest_days: Array = [], count: int = LOST) -> Array:
 	if not day_job:
 		return []
 	var rest := {}
@@ -37,7 +53,7 @@ static func lost_days(day_job: bool, rest_days: Array = []) -> Array:
 		rest[str(d)] = true
 	var taken := {}
 	var result: Array = []
-	for d in LOST_DAYS:
+	for d in LOST_DAYS.slice(0, count):
 		var day: int = int(d)
 		var tried := 0
 		while tried < WEEK_DAYS and (rest.has(str(day)) or taken.has(str(day))):

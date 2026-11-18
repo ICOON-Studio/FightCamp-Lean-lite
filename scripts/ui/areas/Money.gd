@@ -276,6 +276,8 @@ func _in_lines(inc: Dictionary) -> Array:
 		lines.append(["No-gi classes", int(inc["bjj"])])
 	if int(inc.get("juniors", 0)) > 0:
 		lines.append(["Juniors' dues", int(inc["juniors"])])
+	if int(inc.get("class_nights", 0)) > 0:   # S519 club week 3.2: the extra class nights on the Training screen
+		lines.append(["Class nights", int(inc["class_nights"])])
 	return lines
 
 

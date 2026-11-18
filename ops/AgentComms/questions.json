@@ -8170,8 +8170,26 @@
       "answer": "Yes, build it",
       "note": null,
       "answered_at": "2026-11-18T20:19:41Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "comment_only": false
+    },
+    {
+      "id": "Q-S294-273",
+      "asked": "2026-11-18T20:23:12.382783+00:00",
+      "session": "S294",
+      "text": "Club week v11 is built on pad TURNS: one boxer per 20-min turn, so with 4 boxers someone goes SHORT and a class night costs turns. On 16 Nov you said 'full pads, no sharing'. Which stands for the build?",
+      "options": [
+        "Full pads stay: every boxer on a pad night gets the full session; only a class night (or no coach) takes pads away",
+        "v11 as written: pad turns are scarce, boxers can go short, hiring a coach fixes it"
+      ],
+      "attach": [
+        "research/DESIGN_CLUBWEEK1_V11.md"
+      ],
+      "answer": "what do you think ?",
+      "note": null,
+      "answered_at": "2026-11-18T20:24:24Z",
+      "seen_by_claude": false,
+      "comment_only": true
     }
   ]
 }

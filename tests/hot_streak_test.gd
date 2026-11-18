@@ -1,5 +1,5 @@
 extends SceneTree
-## S518 LADDERWIRE R6 (map DESIGN_LADDER1_V6_DOLA.md R6): the hot streak (3 wins in a row + 15 ladder points in 8 weeks),
+## S518 LADDERWIRE R6 (map DESIGN_LADDER1_V6_DOLA.md R6): the hot streak (3 wins in a row + 8 ladder points in 8 weeks since S519 STREAKPROBE1; was 15),
 ## its -20 on a rival corner 0-8 points above (Leans No - your boxer is on a run), DUCKED on such a No (once a week at
 ## most), OWED after two ducks in 8 weeks (the next ask to that rival is a Yes, and booking it clears the slate).
 ## Population: a quick-start club with Lucy against the region's own named rivals (different records, ratings, clubs).
@@ -40,10 +40,10 @@ func _initialize() -> void:
 	_win(c, 10, 6)
 	_check(HotStreak.hot(c, f) and HotStreak.words(c, f).begins_with("On a run: 3 wins, +17 points"), "3 wins, +17 in 8 weeks: %s" % HotStreak.words(c, f))
 	var cold := _club()
-	_win(cold, 40, 4)
-	_win(cold, 25, 4)
-	_win(cold, 10, 4)
-	_check(not HotStreak.hot(cold, cold.fighters[0]), "3 wins but +12 points: not on a run")
+	_win(cold, 40, 2)
+	_win(cold, 25, 2)
+	_win(cold, 10, 2)
+	_check(not HotStreak.hot(cold, cold.fighters[0]), "3 wins but +6 points: not on a run (S519: the bar is 8)")
 	var broke := _club()
 	_win(broke, 40, 9)
 	_win(broke, 25, 9, false)

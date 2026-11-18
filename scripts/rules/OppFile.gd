@@ -137,6 +137,19 @@ static func tape(opp: Dictionary) -> String:
 	return id
 
 
+## S519 club week v11 3.4: film watched ALONE is half a tape session - never a dead end. The first half is kept on her
+## file ("half_tape"); a second (alone again, a rematch's film night, or any later tape) completes it and opens the next
+## hidden tell. Returns the tell opened, "" while it is half done (or nothing is left to find).
+static func half_tape(opp: Dictionary) -> String:
+	if hidden(opp).is_empty():
+		return ""
+	if bool(opp.get("half_tape", false)):
+		opp.erase("half_tape")
+		return tape(opp)
+	opp["half_tape"] = true
+	return ""
+
+
 ## S343 opens one tell (the tape room: watching her film finds what it shows). False when it was already known.
 static func open(opp: Dictionary, id: String) -> bool:
 	if known(opp, id):

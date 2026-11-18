@@ -326,8 +326,11 @@ static func lock(c: Career, f: Dictionary, plan: Dictionary) -> String:
 			var n := ((b["opp"] as Dictionary).get("filed", []) as Array).size()
 			c.add_news("%s's film night on %s: %d pattern%s filed." % [str(f["first"]), str(b["opp"]["first"]), n, "" if n == 1 else "s"], true, true)
 		elif film_seat(c, f) == FilmSeats.ALONE:
-			b["fw_film_alone"] = true   # S485 CLUBWEEK1 (map 3.4): over the coach's film seats she watches alone - no tell
-			c.add_news("%s watched the tape of %s alone: the coach's film nights were taken, no tell found." % [str(f["first"]), str(b["opp"]["first"])], true, true)
+			b["fw_film_alone"] = true   # S485 CLUBWEEK1 (map 3.4): over the coach's film seats she watches alone
+			# S519 v11 3.4: half a read, never a dead end - the second half (alone again or any later tape) opens a tell
+			var got := OppFile.half_tape(b["opp"])
+			c.add_news(("%s watched the tape of %s alone and finished the read: a new tell found." if got != "" else
+				"%s watched the tape of %s alone: half a read - the next film of her opens a tell.") % [str(f["first"]), str(b["opp"]["first"])], true, true)
 		else:
 			var id := OppFile.tape(b["opp"])
 			if id != "":
@@ -358,7 +361,7 @@ static func film_taken(c: Career, f: Dictionary) -> int:
 static func film_line(c: Career, f: Dictionary) -> String:
 	if film_seat(c, f) == FilmSeats.COACHED:
 		return ""
-	return "Film: %d boxers this week, %d coached film nights - the boxer watches alone, no tell" % [film_taken(c, f) + 1, FilmSeats.owned(coach_kind(c))]
+	return "Film: %d boxers this week, %d coached film nights - the boxer watches alone: half a read" % [film_taken(c, f) + 1, FilmSeats.owned(coach_kind(c))]
 
 
 static func coach_kind(c: Career) -> String:

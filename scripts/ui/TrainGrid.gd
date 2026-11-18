@@ -107,9 +107,10 @@ static func _morning(d: Dictionary, cb: Dictionary) -> Control:
 		why.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		why.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		v.add_child(why)
-		t.tooltip_text = "Day job: two mornings a week at work, off the gym sponsorship."
+		t.tooltip_text = "Day job: a work morning, off the full gym sponsorship (half the sponsorship: 1 a week, none: 2)."
 		return t
-	var pic := B.icon(str(am["id"]), 58, Palette.WARN if bool(am["red"]) else Palette.LINE)
+	var tag: Dictionary = am.get("coach", {})   # S519 club week 3.3: a coached morning (1-to-1 or shared)
+	var pic := B.icon(str(am["id"]), 40 if not tag.is_empty() else 58, Palette.WARN if bool(am["red"]) else Palette.LINE)
 	pic.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	v.add_child(pic)
 	var name := str(WeekPlan.session(str(am["id"]))["name"])
@@ -155,6 +156,13 @@ static func _morning(d: Dictionary, cb: Dictionary) -> Control:
 	gl.tooltip_text = gl.text
 	v.add_child(gl)
 	t.tooltip_text = "%s, %s: %s, %+.2f kg." % [name, str(am["intensity"]).capitalize(), gl.text, float(am["kg"])]
+	if not tag.is_empty():
+		var ct := B.lab(str(tag["short"]), 15, Palette.GOOD, "caps")
+		ct.name = "Coached_%d" % i
+		ct.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		v.add_child(ct)
+		t.tooltip_text += "
+" + str(tag["long"])
 	return t
 
 
@@ -180,7 +188,8 @@ static func _evening(d: Dictionary, cb: Dictionary, sel_day: int, f: Dictionary)
 		"pads":
 			var top := HBoxContainer.new()
 			top.mouse_filter = Control.MOUSE_FILTER_IGNORE
-			var mins := B.lab("%d min" % roundi(_coach_min(d, f)), 16, Palette.TEXT, "bold")
+			var bag := str((d["coach"] as Dictionary)["kind"]) == "class"   # S519 a class night: on the bag
+			var mins := B.lab("BAG · class night" if bag else "%d min" % roundi(_coach_min(d, f)), 16, Palette.GOOD if bag else Palette.TEXT, "bold")
 			mins.name = "Mins_%d" % i
 			top.add_child(mins)
 			v.add_child(top)

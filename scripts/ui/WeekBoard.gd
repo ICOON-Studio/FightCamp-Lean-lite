@@ -197,7 +197,7 @@ func _strip(main: Node, c: Career, f: Dictionary, pl: Dictionary, pack: Dictiona
 	grid.name = "Week"
 	# S485 CLUBWEEK1 (his Q-243): off the gym sponsorship she works 2 mornings; the morning gains count 4 of 6.
 	var rest_days: Array = range(7).filter(func(k): return str((days[k] as Array)[0]) == "rest")
-	var work: Array = DayJob.lost_days(bool(f.get("day_job", false)) and not bool(f.get("pro", false)), rest_days)
+	var work: Array = DayJob.lost_days_of(f, rest_days)
 	for i in 7:
 		var col := UI.vbox(8)
 		col.size_flags_horizontal = Control.SIZE_EXPAND_FILL

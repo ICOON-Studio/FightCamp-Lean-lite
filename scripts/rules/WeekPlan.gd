@@ -23,6 +23,7 @@ extends RefCounted
 ##   light / normal / hard x 0.6 / 1.0 / 1.3 (TrainingLoad's settings). A morning started at 80+ fatigue trains at 0.6.
 
 const TrainingPreview := preload("res://scripts/rules/TrainingPreview.gd")
+const CoachedMornings := preload("res://scripts/rules/CoachedMornings.gd")
 const WeekPhase := preload("res://scripts/rules/WeekPhase.gd")
 const CoachAreas := preload("res://scripts/rules/CoachAreas.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
@@ -275,6 +276,7 @@ static func day(id: String, intensity: String, ctx: Dictionary, fatigue: float) 
 		gain = float(TrainingPreview.preview_gain(stats, int(ctx.get("pot", 70)), {"training_modifiers": [stat]},
 			coach_for(ctx, id), 1.0, share).get(stat, 0.0))
 		gain *= float((ctx.get("head_gain", {}) as Dictionary).get(stat, 1.0))   # S397 HeadCoach: the strength coach
+		gain *= CoachedMornings.day_mult(ctx.get("coached", {}), int(ctx.get("dow", -1)), stat)   # S519 club week 3.3
 	# Rest and mobility train recovery / flexibility without moving an old stat (gain stays 0).
 	var attr_gain := 0.0
 	if stat == "" and (id == "rest" or id == "mobility") and stats.has("conditioning"):
@@ -311,6 +313,7 @@ static func week(days: Array, ctx: Dictionary, evenings: Array = []) -> Dictiona
 		var c := ctx.duplicate()
 		c["stats"] = stats
 		c["weight"] = weight
+		c["dow"] = i   # S519: the coached morning dealt on this day (CoachedMornings.day_mult)
 		var r := day(str(d[0]), str(d[1]), c, fat) if evenings.is_empty() else full_day(str(d[0]), str(d[1]), str(evenings[i]), c, fat)
 		for k in [["stat", "gain"], ["stat2", "gain2"]]:
 			var st := str(r.get(k[0], ""))

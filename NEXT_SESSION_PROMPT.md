@@ -1,34 +1,35 @@
-# S519 handover (written 2026-11-18, end of S518 - three stages in one session, handed over at ~400k context; weekly plan resets Thu 19 Nov 14:00 UTC)
+# S520 handover (written 2026-11-18, end of S519 - Opus)
 
-Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. S518 is in roadmap `now`.
-Owner S518: "work normally do not worry about the 10%" (usage was 90% of the week at start).
+Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. S519 is in roadmap `now`.
 
-## BILLING (S513, from Anthropic's help center - quote it, do not guess)
-support.claude.com/en/articles/17154008: the Ultra plan's $200 monthly API credit covers the Claude API, Managed Agents, and
-in Claude Code ONLY `claude -p` / the Agent SDK run with an API key. Interactive Claude Code (terminal chat, desktop app,
-web) is excluded. Credits land after the plan payment (next: Dec 4) and expire at the cycle's end. S513 test: CLI /login ->
-Console account -> "credit balance is too low". So: once it lands, the owner makes a Console API key and headless
-`claude -p --model ... "<brief>"` jobs spend it (key set for that one process only, never globally). The weekly plan was
-88% at S513's end (reset Thu 2026-11-19 14:00 UTC).
+## BILLING (S513) - unchanged, see S518's block in git history (support.claude.com/en/articles/17154008; claude -p only).
 
 ## GOAL (owner, verbatim, still on): "i want animations fixed (at least 7/10)"
-The ONLY animation session is the terminal CLI session "anim S513" (peer lean-f3, Fable). S513 told it (by message) that
-it stays the animation session and to add the owner's review comments C430-C432 to its loop state (stiff guard + sliding
-feet; shots through heads and hands; no shoulder power). Do not start another animation session while it lives.
+The ONLY animation session is the terminal CLI session "anim S513" (peer lean-f3, Fable). Do not start another.
 
 ## MAIN LINE - DO FIRST
-WORK RULE (owner S518): keep working stage after stage; after `ship`, `start` again. Hand over ONLY at ~420k context.
-1. Collect STREAKPROBE1 (Qwen, qwen/streakprobe1, brief ops/research/TASK_STREAKPROBE1.md): share of active weeks ON A
-   RUN (target 10-30%), ducks a season, does OWED fire. Tune HotStreak's 3 wins / 15 points / 8 weeks only on it.
-2. Q-S294-272 (club week v11, Dola 8/8/7 + Goose 7/8/6): on his Yes, plan the build from
-   ops/research/DESIGN_CLUBWEEK1_V11.md (scripts/rules/ClubDeal.gd is on main, unwired - R73DEAL1).
-3. Dola SQ225 = guard damage v4 -> two fresh critics: Goose (design_loop.py critic, goose issue) + Dola. John, Kalli and
-   Maria are Grok bots: OUT since S512 ("listAgents 404") - never queue them.
-4. TREEVALUE2 (queued for Qwen after STREAKPROBE1): each step's worth by style -> tune scripts/rules/StepEffect.gd.
-5. LADDERPROBE4 rerun on the fix (docs/LADDERPROBE4_RESULT.md): median 5 rival calls a season (max 11), 10.8% of ranked
-   weeks; Accept adds ~1.5 bouts a season; Pass is nearly always free in the probe because it answers the sheet first
-   (booked = free pass). Watch whether players use "accept the sheet, then pass free" - a later design point.
-6. His mat plan note (C433) still open on the review board.
+1. His look at the CLUB WEEK (built S519, ops/research/CLUBWEEK1_BUILD_S519.md; stills ops/previews/s519 on the review
+   board; WHAT_TO_TRY S519 on top). Quote any review comment and act.
+2. ASKGAP1 (design point from STREAKPROBE1, docs/STREAKPROBE1_RESULT.md): the sheet's next offer lands the day the
+   post-bout rest ends (Bouts.AFTER_FIGHT 10 = AskBout's due), so a gym that answers its sheet never has a free Monday to
+   ask on - ducks/OWED never fire (0 in 240 boxer-seasons). Pick: next_offer gap 17 (rest + a week), or an ask that
+   replaces the waiting sheet offer. Then rerun tools/streak_probe.gd (its doc has the command).
+3. Collect TREEVALUE2 (Qwen, queued in dispatch_queue.json; it launches once the old qwen pid exits) -> tune StepEffect.
+4. Dola SQ225 guard v4 -> two fresh critics (Goose + Dola). John/Kalli/Maria (Grok bots) are OUT.
+5. MORNINGSPROBE2 + MONEYFOUR2 on the BUILT club week: each morning policy should win 30-70%; class nights' money vs the
+   mastery lost on the bag. Numbers marked ESTIMATE in CLUBWEEK1_BUILD_S519.md.
+6. His mat plan note C433.
+
+## DONE IN S519
+- Q-S294-272 "Yes, build it" -> club week v11 BUILT with pads FULL (Q-S294-273: he asked "what do you think ?" -> full
+  pads, his Q-260 ruling). Coached mornings (CoachedMornings.week_deal + MorningWire, read by WeekPlan.day via
+  Sim.week_ctx dow/coached), class nights (ClubClasses; the coach's $350 untouched), half sponsorship (DayJob.count_of,
+  GymSpend.set_half), loyalty trend (Loyalty.trend), film alone = half a read (OppFile.half_tape), forecast + clash
+  (ClubForecast), second-signing note. Tests: morning_deal, class_nights, loyalty_trend, half_tape, half_sponsor,
+  club_forecast, club_week_walk (golden path). Sim.gd is at 500 lines: the next line there needs a split first.
+- STREAKPROBE1 collected: HotStreak.POINTS 15 -> 8 (1.2% -> 11.6% of active weeks).
+- Side task: a Steamworks status email drafted for him. Steam: tax/identity file RECEIVED, up to 45 business days from
+  ~2 Oct (~8 Dec). The 2 Oct "No tax information on record" note was stale - corrected in memory.
 
 ## DONE IN S518b (second stage, same session - owner: "one stage per session ... there is no such thing, you invented it")
 - Rule fix: WORKFLOW s3's "ONE stage per session" line (written by an earlier session, never his) removed; `ship` now

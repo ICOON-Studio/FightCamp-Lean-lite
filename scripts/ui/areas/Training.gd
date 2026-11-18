@@ -9,6 +9,8 @@ extends VBoxContainer
 ##   build(main)   act(main, name, arg) -> bool   static sel_day (the evening opened on the right)
 
 const UI := preload("res://scripts/ui/UI.gd")
+const ClubForecast := preload("res://scripts/state/ClubForecast.gd")
+const ClubClasses := preload("res://scripts/rules/ClubClasses.gd")
 const Palette := preload("res://scripts/ui/Palette.gd")
 const B := preload("res://scripts/ui/TrainBits.gd")
 const ClubWeek := preload("res://scripts/state/ClubWeek.gd")
@@ -50,6 +52,8 @@ func build(main: Node) -> void:
 	when.name = "WeekWhen"
 	when.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	head.add_child(when)
+	if c.fighters.size() >= 2 and not c.coach.is_empty():   # S519 club week 3.7: the next 4 weeks of coach time
+		head.add_child(_forecast(c))
 	var body := HBoxContainer.new()
 	body.add_theme_constant_override("separation", 14)
 	add_child(body)
@@ -77,7 +81,7 @@ func build(main: Node) -> void:
 	body.add_child(right)
 	right.add_child(TrainSide.this_week(model))
 	right.add_child(TrainSide.mornings(model))
-	right.add_child(TrainSide.evening(model, cb["day"]))
+	right.add_child(TrainSide.evening(model, cb["day"], func(dow: int): main.act("tkclass", str(dow))))
 	right.add_child(TrainSide.pick(model, func(): main.act("tkfix", fid)))
 	var go := UI.button2("START THE WEEK", "play the days", "BtnSolid", main.act.bind("go_btn", ""), Vector2(TrainSide.W, 64),
 		Palette.TEXT, Palette.TEXT, false, 26, 16)
@@ -106,6 +110,12 @@ static func act(main: Node, name: String, arg: String) -> bool:
 		"tkday":
 			sel_day = clampi(int(arg), 0, 6)
 			main.render()
+		"tkclass":   # S519 club week 3.2: a weekday evening to a class night and back
+			if not c.coach.is_empty():
+				var was := ClubClasses.on(c.coach, int(arg))
+				ClubClasses.toggle(c.coach, int(arg))
+				c.add_news(("Back to pads on %s evenings." if was else "The coach teaches a class on %s evenings: +$117 a week, the boxers on the bag.") % ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"][clampi(int(arg), 0, 4)])
+			main.render()
 		"tkam", "tklevel":
 			# "fid|dow|session" (a session dropped on a morning, its effort kept) or "fid|dow|light|normal|hard"
 			var p := arg.split("|")
@@ -130,3 +140,26 @@ static func act(main: Node, name: String, arg: String) -> bool:
 		_:
 			return false
 	return true
+
+
+## S519: four small blocks, one a coming week - fight weeks, the coach's film nights, class nights; amber when a boxer
+## would watch film alone.
+static func _forecast(c: Career) -> Control:
+	var row := HBoxContainer.new()
+	row.name = "Forecast"
+	row.add_theme_constant_override("separation", 6)
+	row.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	var gap := Control.new()
+	gap.custom_minimum_size = Vector2(18, 0)
+	row.add_child(gap)
+	for w in ClubForecast.weeks(c, 4):
+		var tone: Color = Palette.WARN if bool(w["risk"]) else (Palette.TEXT if int(w["fights"]) > 0 else Palette.MUTED)
+		var p := PanelContainer.new()
+		p.name = "Week_%d" % int(w["monday"])
+		p.add_theme_stylebox_override("panel", B.panel(Palette.CARD, Palette.WARN if bool(w["risk"]) else Palette.LINE, 6, 6, 1))
+		var l := B.lab("%s: %s" % [w["date"], w["words"]], 14, tone, "bold")
+		l.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		p.add_child(l)
+		p.tooltip_text = "Week of %s: %s.%s" % [w["date"], w["words"], (" %d boxer%s watch the tape alone (half a read)." % [int(w["alone"]), "" if int(w["alone"]) == 1 else "s"]) if bool(w["risk"]) else ""]
+		row.add_child(p)
+	return row

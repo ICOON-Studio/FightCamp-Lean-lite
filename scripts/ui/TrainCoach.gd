@@ -12,7 +12,7 @@ const UI := preload("res://scripts/ui/UI.gd")
 
 const H := 42.0
 const WORDS := {"spar": ["SPARRING", "night - referee only"], "corner": ["IN THE CORNER", "fight day"], "closed": ["CLOSED", "Sunday"],
-	"none": ["NO COACHING", "rest evening"]}
+	"none": ["NO COACHING", "rest evening"], "class": ["CLASS NIGHT", "boxers on the bag"]}
 
 
 static func cell(c: Dictionary, dow: int, sel: String, on_day: Callable, wide: bool = false) -> Control:
@@ -71,7 +71,7 @@ static func _note(kind: String, dow: int) -> PanelContainer:
 	var p := PanelContainer.new()
 	p.name = "Coach_%d" % dow
 	p.custom_minimum_size = Vector2(0, H)
-	var col := Palette.BAD if kind == "corner" else (Palette.ELITE if kind == "spar" else Palette.MUTED)
+	var col := Palette.BAD if kind == "corner" else (Palette.ELITE if kind == "spar" else (Palette.GOOD if kind == "class" else Palette.MUTED))
 	p.add_theme_stylebox_override("panel", UI.box(Palette.PAGE, Palette.alpha(col, 0.8), 7, 2, 2, 0))
 	var v := VBoxContainer.new()
 	v.add_theme_constant_override("separation", -4)
@@ -85,5 +85,5 @@ static func _note(kind: String, dow: int) -> PanelContainer:
 		l.tooltip_text = "%s: %s" % [str(w[0]).capitalize(), str(w[1])]
 		v.add_child(l)
 	p.tooltip_text = {"spar": "Sparring night: your coach referees, no pads.", "corner": "A bout tonight: your coach works the corner.",
-		"closed": "The gym is closed on Sunday evening."}.get(kind, "No coached evening.")
+		"closed": "The gym is closed on Sunday evening.", "class": "Class night: your coach teaches a paying class (+$117); the boxers drill on the bag at half the rate."}.get(kind, "No coached evening.")
 	return p

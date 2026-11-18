@@ -16,7 +16,9 @@ const WeekPhase := preload("res://scripts/rules/WeekPhase.gd")
 const WeekCoach := preload("res://scripts/rules/WeekCoach.gd")
 const PadWeek := preload("res://scripts/rules/PadWeek.gd")
 const PadEdit := preload("res://scripts/rules/PadEdit.gd")
-const CoachedMornings := preload("res://scripts/rules/CoachedMornings.gd")   # S511 club week 3.3: the WEAK SPOT line
+const CoachedMornings := preload("res://scripts/rules/CoachedMornings.gd")
+const MorningWire := preload("res://scripts/state/MorningWire.gd")
+const ClubClasses := preload("res://scripts/rules/ClubClasses.gd")   # S519 the coach deals the coached mornings   # S511 club week 3.3: the WEAK SPOT line
 const DayJob := preload("res://scripts/rules/DayJob.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const MoveMastery := preload("res://scripts/rules/MoveMastery.gd")
@@ -57,8 +59,9 @@ static func model(c: Career, sel_id: String, sel_day: int) -> Dictionary:
 	var fdow := WeekData.fight_dow(c, g, goal)
 	var wk: Dictionary = pl["wk"]
 	var rest_days: Array = range(7).filter(func(k): return str((pl["days"][k] as Array)[0]) == "rest")
-	var work: Array = DayJob.lost_days(bool(f.get("day_job", false)) and not bool(f.get("pro", false)), rest_days)
+	var work: Array = DayJob.lost_days_of(f, rest_days)
 	var changed: Dictionary = WeekPhase.edits(g).get("days", {})
+	var coached: Dictionary = {} if out.get("ahead", false) else MorningWire.of(c, f)   # next week is not dealt yet
 	var rows := PadEdit.night_rows(g, pack["projs"])
 	var nights: Dictionary = (pack["inp"] as Dictionary)["nights"]
 	for i in 7:
@@ -66,7 +69,8 @@ static func model(c: Career, sel_id: String, sel_day: int) -> Dictionary:
 		var m: Array = pl["days"][i]
 		var am := {"id": str(m[0]), "intensity": str(m[1]), "stat": str(r.get("stat", "")), "gain": float(r.get("gain", 0.0)),
 			"kg": float(r.get("kg", 0.0)), "rest": str(m[0]) == "rest", "work": work.has(i), "changed": changed.has(str(i)),
-			"drop": float(tired[i][0]) - float(tired[i][1]) if i > 0 else 0.0, "red": (wk["red"] as Array).has(i)}
+			"drop": float(tired[i][0]) - float(tired[i][1]) if i > 0 else 0.0, "red": (wk["red"] as Array).has(i),
+			"coach": _coached(coached, i, str(r.get("stat", "")))}   # S519 club week 3.3: the coach's morning deal
 		if str(m[0]) == "rest" and i > 0:
 			am["drop"] = float(tired[i - 1][1]) - float(tired[i][1])
 		out["days"].append({"dow": i, "date": "%s %d" % [SHORT[i], _date_n(int(out["monday"]) + i)],
@@ -120,7 +124,9 @@ static func card(c: Career, f: Dictionary) -> Dictionary:
 		tag = "FIGHT WEEK" if phase == "taper" or int(b["day"]) - c.day <= 7 else str((WeekPhase.PHASES.get(phase, WeekPhase.PHASES["base"]) as Dictionary)["name"]).to_upper()
 		if tag == "FIGHT WEEK":
 			kind = "fight"
-	var mins := PAD_MIN * float((PadWeek.nights_of(f).get("pads", []) as Array).size())
+	var mins := 0.0
+	for d in PadWeek.nights_of(f).get("pads", []):
+		mins += PAD_MIN * (ClubClasses.BAG_SHARE if ClubClasses.on(c.coach, int(d)) else 1.0)
 	var spark: Array = []
 	var pl := WeekData.plan_of(c, f)
 	for t in WeekData.tired_days(pl):
@@ -158,9 +164,10 @@ static func coach_cell(c: Career, dow: int, fdow: int) -> Dictionary:
 	var ids := DrillWeek.on_pads(c, dow)
 	if not ids.is_empty():
 		var bx: Array = []
+		var cls := ClubClasses.on(c.coach, dow)   # S519 club week 3.2: a class night puts them on the bag
 		for id in ids:
-			bx.append({"fid": str(id), "stem": Faces.stem(c.fighter_by_id(str(id))), "min": PAD_MIN})
-		return {"kind": "pads", "boxers": bx}
+			bx.append({"fid": str(id), "stem": Faces.stem(c.fighter_by_id(str(id))), "min": PAD_MIN * (ClubClasses.BAG_SHARE if cls else 1.0)})
+		return {"kind": "class" if cls else "pads", "boxers": bx}
 	for f in c.fighters:
 		if (PadWeek.nights_of(f).get("spar", []) as Array).has(dow):
 			return {"kind": "spar", "boxers": []}
@@ -264,3 +271,12 @@ static func night(c: Career, dow: int, fdow: int) -> Dictionary:
 			when = "fights tomorrow" if left == 1 else "fights in %d days" % left
 		sides.append({"fid": str(s["fid"]), "stem": str(s["stem"]), "min": float(s["min"]), "when": when, "card": best})
 	return {"dow": dow, "cell": cell, "sides": sides}
+
+
+## S519: the morning's coach tag {short, long} when the deal coached this day on the stat the tile trains, else {}.
+static func _coached(coached: Dictionary, dow: int, stat: String) -> Dictionary:
+	var m: Dictionary = coached.get(str(dow), {})
+	if m.is_empty() or str(m.get("ability", "")) != stat:
+		return {}
+	return {"short": ("SHARED x%.2f" if str(m["use"]) == "shared" else "1-TO-1 x%.2f") % float(m["mult"]),
+		"long": CoachedMornings.tile_word(m)}
