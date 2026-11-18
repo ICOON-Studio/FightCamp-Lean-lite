@@ -11,7 +11,7 @@ const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 
 const H := 42.0
-const WORDS := {"spar": ["SPARRING NIGHT", "referee only"], "corner": ["IN THE CORNER", "fight day"], "closed": ["CLOSED", "Sunday"],
+const WORDS := {"spar": ["SPARRING", "night - referee only"], "corner": ["IN THE CORNER", "fight day"], "closed": ["CLOSED", "Sunday"],
 	"none": ["NO COACHING", "rest evening"]}
 
 

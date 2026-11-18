@@ -15,13 +15,13 @@ const Shapes := preload("res://scripts/ui/PlanChartShapes.gd")   # the wires and
 
 const COL_L := 380.0
 const COL_R := 320.0
-const BELL_W := 360.0
+const BELL_W := 420.0   # S518 ONELOOK1: 360 cut "Pivot off the ropes" to "Pivot off t" beside its LEARNING stamp
 const BELL_ROW := 34.0
 const DIA := Vector2(220, 100)
 const ANS := Vector2(320, 92)
 const ROW_H := 122.0
-const X_DIA := 420.0
-const X_ANS := 680.0
+const X_DIA := 480.0
+const X_ANS := 740.0
 const POP_W := 570.0
 const POP_MAX := 520.0
 const INK := Palette.TEXT

@@ -47,7 +47,7 @@ static func shout_row(offers: Array, grades: Dictionary, coach: String, names: A
 		b.tooltip_text = Exchanges.named(str(c["expect"]), names)
 		row.add_child(b)
 	var quiet := UI.button2("Say nothing", "Your boxer sticks to the plan\nNo shout used", "BtnQuiet",
-		pick.bind(""), Vector2(0, 80), UI.FG, UI.MUTED, false, UI.BODY, UI.SMALL)
+		pick.bind(""), Vector2(140, 80), UI.FG, UI.MUTED, false, UI.BODY, UI.SMALL)   # S518: 112 px cut "Say nothing"
 	quiet.name = "SayNothing"
 	quiet.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	row.add_child(quiet)

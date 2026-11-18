@@ -174,8 +174,10 @@ o_popups.ps1` (started by
 ## 3. Session start and end
 - CLAUDE USAGE BUDGET (operator 2026-10-02, Pro plan, "switch to the cheaper mode"): default model Sonnet at medium
   effort (~/.claude/settings.json); the operator picks Opus in the model menu only for a hard problem. Run `start` ONCE.
-  ONE stage per session: hand over when the stage ships or the context passes ~420k tokens (get_usage; operator S400: "do it 420k", was 330k since S201 - a session already starts at ~90k), whichever
-  comes first. Connectors Higgsfield, Higgsfield Blender and Claude Docs are OFF by default; enable one only for a task
+  A session keeps working stage after stage (after `ship`, `start` again and take the next item) and hands over ONLY when
+  the context passes ~420k tokens (get_usage; operator S400: "do it 420k") or every queue item needs his money/taste/scope.
+  (S518 operator: "one stage per session - there is no such thing, you invented it": the old "ONE stage per session" line
+  was written by an earlier session, never his rule; removed.) Connectors Higgsfield, Higgsfield Blender and Claude Docs are OFF by default; enable one only for a task
   that needs it. Read big files in windows, never whole.
 - ROUTED START (operator S215: desktop sessions bypass the Jev router; he wants no approval clicks): open a terminal tab running `jev` (ops/Tools/jev_claude.ps1) and continue the work there with `run_in_terminal`; the desktop session only reads/answers. Never type into a tab that holds a Claude session.
 - START: `git pull && python ops/Tools/agent_comms.py start` from the repo root - the whole orientation. State the queue to the

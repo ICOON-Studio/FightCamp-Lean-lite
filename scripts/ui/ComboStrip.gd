@@ -139,8 +139,9 @@ static func _join(st: Dictionary) -> Control:
 static func totals(f: Dictionary, chain: Array, rated: Dictionary, bid: String) -> Control:
 	var g := GridContainer.new()
 	g.name = "Verdict"
-	g.columns = 6
+	g.columns = 3   # S518 ONELOOK1: six in a row pushed the page to 2055 px (Menu off screen, the 3D preview cut) - two rows of three
 	g.add_theme_constant_override("h_separation", 10)
+	g.add_theme_constant_override("v_separation", 10)
 	var word := str(rated["word"])
 	var col: Color = {"flows": UI.GREEN, "workable": UI.AMBER}.get(word, UI.RED)
 	g.add_child(_tile("STRENGTH", "%s %d" % [word.capitalize(), int(rated["score"])], "out of 100: how each punch sets up the next", col,
@@ -217,6 +218,7 @@ static func _tile(caps: String, big: String, small: String, col: Color, tip: Dic
 	var p := PanelContainer.new()
 	p.add_theme_stylebox_override("panel", UI.box(UI.PANEL, UI.LINE, 10, 1, 12, 8))
 	p.custom_minimum_size = Vector2(128, 0)
+	p.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	var v := UI.vbox(2)
 	p.add_child(v)
 	v.add_child(UI.caps(caps))

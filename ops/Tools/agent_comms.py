@@ -2077,15 +2077,11 @@ def ship(args):
     print("  " + delegated_why)
     import stage_gate
     session_id = stage_gate.mark_shipped()
-    print("STAGE SHIPPED - session %s is finished." % session_id)
-    print("  The parse gate and the suite now REFUSE further build work in this")
-    print("  session. That is deliberate: a NEW stage is a NEW session.")
-    print()
-    print("  Hand the operator the block and stop:")
-    print("    git pull && python ops/Tools/agent_comms.py start")
-    print()
-    print("  Work genuinely part of the SHIPPED stage - a red test you caused, a")
-    print("  review reply - proceeds with FIGHTCAMP_STAGE_GATE=off, said out loud.")
+    print("STAGE SHIPPED - stage %s is done." % session_id)
+    print("  KEEP WORKING (operator S518: 'one stage per session - there is no such thing, you invented it'):")
+    print("  run `python ops/Tools/agent_comms.py start` again (it mints the next stage id) and take the next item.")
+    print("  Hand over ONLY at ~420k context (get_usage) or when every queue item needs his money/taste/scope;")
+    print("  then the last message ends with:  git pull && python ops/Tools/agent_comms.py start")
     return 0
 
 
@@ -2463,7 +2459,7 @@ def start(args: argparse.Namespace) -> int:
         print("     read the LFS line it prints: animation and clip work cannot")
         print("     be done here at all.")
 
-    ## ONE SESSION, ONE STAGE. Minting the id here is what lets the gate tell
+    ## Each `start` mints a NEW stage id (S518: many stages a session). It lets the gate tell
     ## "THIS session already shipped" from "SOME session shipped today" - a
     ## date check would refuse the fresh session we actually want.
     try:
@@ -2754,7 +2750,7 @@ def main() -> int:
     do = commands.add_parser("done", help="run the parse gate on a task's own '## Owned files' .gd list and record pass/fail")
     do.add_argument("--task", required=True); do.set_defaults(handler=done)
 
-    sh = commands.add_parser("ship", help="mark THIS session as having shipped its stage - the build tools refuse afterwards (one session, one stage)")
+    sh = commands.add_parser("ship", help="mark this stage shipped; then `start` again for the next stage (hand over only at ~420k context)")
     sh.set_defaults(handler=ship)
 
     args = parser.parse_args()
