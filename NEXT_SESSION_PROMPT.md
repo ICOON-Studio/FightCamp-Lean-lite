@@ -1,6 +1,7 @@
-# S518 handover (written 2026-11-18, end of S517 - main line, Opus; weekly plan resets Thu 19 Nov 14:00 UTC)
+# S519 handover (written 2026-11-18, end of S518 - main line, Opus; weekly plan resets Thu 19 Nov 14:00 UTC)
 
-Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. S517 is in roadmap `now`.
+Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. S518 is in roadmap `now`.
+Owner S518: "work normally do not worry about the 10%" (usage was 90% of the week at start).
 
 ## BILLING (S513, from Anthropic's help center - quote it, do not guess)
 support.claude.com/en/articles/17154008: the Ultra plan's $200 monthly API credit covers the Claude API, Managed Agents, and
@@ -16,14 +17,29 @@ it stays the animation session and to add the owner's review comments C430-C432 
 feet; shots through heads and hands; no shoulder power). Do not start another animation session while it lives.
 
 ## MAIN LINE - DO FIRST
-1. Play-check the rival offers (S517b): a ranked boxer gets "<CLUB> WANTS <NAME>" on a Monday - read the card on the real
-   screen (render: the Overview still with a seeded offer) and look at how often it comes in a long run (one more probe
-   column: rival offers a season, answered how, by TestJump's not_this_show).
-2. DUCKED / OWED (R6) still not built: the game has no hot streak (3 wins or +15 points in 8 weeks). Add the streak on the
-   fighter (Career.results), then RivalOffer.ducked/owed/owed_answer (already on main, rival_offer_test) from AskFlow.book's No.
-3. Critics in flight: guard damage v3 (John SQ221, Goose #369), club week v11 (John SQ222, Goose #371). Board only at 7+/7+.
-4. Mat plan (owner C433, S517b plain-word pass on the review board): his next comment decides if the panel needs a redraw.
+1. Collect LADDERPROBE4 (Qwen, branch qwen/ladderprobe4, brief ops/research/TASK_LADDERPROBE4.md): rival calls a
+   boxer-season by answer policy (accept / not this show / pass), bouts booked from them, points at 365/730 vs
+   LADDERPROBE3. Change RivalOfferWire.OFFER_GAP_WEEKS only on its numbers (target: a few a season, never weekly).
+2. John SQ221 (guard damage v3) + SQ222 (club week v11) answers. Goose collected S518: guard v3 7/6/5 (BELOW 7 -> v4:
+   Dola revises with Goose's + John's 10/10 lists; Goose wants ring generalship to wear the guard and a gentler
+   transmission curve), club week v11 7/8/6 (Goose passes) -> the board if John is 7+/7+.
+3. A real still of the Ask card with a boxer on a run (green "On a run" line, DUCKED chip): tools/rival_offer_still.gd
+   is the pattern (Main scene, seeded state, hidden desktop via godot_slot).
+4. Mat plan (owner C433): his next comment on the review board decides if the panel needs a redraw.
 5. Coach r6 R14/R15 stay GATED on COACHFIT1 + a drawn page.
+
+## DONE IN S518
+- Rival gym offer (R9) checked on the real screens: tools/rival_offer_still.gd -> ops/previews/s518 (Overview card +
+  Home red need), on the review board. Reads right.
+- HOT STREAK + DUCKED/OWED (map R6) wired: scripts/state/HotStreak.gd - on a run = won the last 3 AND +15 ladder points
+  in 8 weeks (c.results rows now carry "pts", BoutFinish); AskLadder passes the streak and the points gap to
+  LadderRep.yes_score (-20 when the rival is 0-8 points above); AskFlow.book: a No while on a run from a rival 0-8 above
+  = DUCKED (f["ducks"][name] = [weeks], once a week), news line; two inside 8 weeks = OWED: AskLadder scores 95 (Leans
+  Yes - they owe you this bout), booking clears the ducks. AskPanel: "On a run: 3 wins, +17 points in 8 weeks." (green)
+  and the DUCKED / OWED chip. tests/hot_streak_test.gd (19 checks; in tools/run_tests.sh). ask_wire, ask_bout,
+  ask_dates, ladder_table, rival_offer_wire, golden_path green. Exported; WHAT_TO_TRY S518 on top.
+- R6 note: OWED's "a No pays +3" (RivalOffer.owed_answer) never fires - our yes score is deterministic and 95 is a Yes.
+- Goose critics #369/#371 pushed but could not open PRs: files copied to main by hand, issues closed.
 
 ## DONE IN S517b (second stage of S517)
 - RIVALOFFER1 collected (Goose #372: scripts/rules/RivalOffer.gd + rival_offer_test). WIRED: scripts/state/RivalOfferWire.gd

@@ -34,6 +34,11 @@ static func build(main: Node, parent: Control, fid: String) -> void:
 			card[1].add_child(UI.muted("It opens on %s." % Clock.fmt(int(gate["opens_day"])), UI.SMALL))
 		parent.add_child(card[0])
 		return
+	var run := AskFlow.HotStreak.words(c, f)   # S518 R6: once, under the title - a boxer on a run scares corners 0-8 points above
+	if run != "":
+		var rl := UI.label(run + " Corners up to 8 points above lean No; a No from one of them is a duck.", UI.BODY, Palette.GOOD, "semi", true)
+		rl.name = "AskRun"
+		parent.add_child(rl)
 	var shows := AskFlow.shows(c, f)
 	parent.add_child(_dates(shows))
 	var ans := AskFlow.answers(c, f)
@@ -122,6 +127,10 @@ static func _answer(main: Node, c: Career, f: Dictionary, a: Dictionary, shows: 
 				Palette.WARN if not bool(lad["askable"]) or not bool(lad["yes"]) else Palette.TEXT, "semi", true)
 			ll.name = "AskLean"
 			who.add_child(ll)
+			if str(lad.get("chip", "")) != "":   # S518 R6 DUCKED / OWED
+				var dc := UI.label(str(lad["chip"]), UI.SMALL, Palette.HEADER if bool(lad.get("owed", false)) else Palette.WARN, "bold", true)
+				dc.name = "AskDuck"
+				who.add_child(dc)
 		else:
 			lad = {}
 	h.add_child(who)

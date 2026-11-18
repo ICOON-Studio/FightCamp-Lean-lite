@@ -7,6 +7,7 @@ extends RefCounted
 
 const Newcomers := preload("res://scripts/state/Newcomers.gd")   # S517 the sheet refills with novices
 const AskLadder := preload("res://scripts/state/AskLadder.gd")   # S516 LADDERWIRE stage 2
+const HotStreak := preload("res://scripts/state/HotStreak.gd")   # S518 R6 DUCKED / OWED
 const AskBout := preload("res://scripts/rules/AskBout.gd")
 const AskDates := preload("res://scripts/rules/AskDates.gd")
 const FightLearn := preload("res://scripts/rules/FightLearn.gd")
@@ -137,6 +138,12 @@ static func book(c: Career, f: Dictionary, kind: String, opp_name: String, day: 
 	if kind != "sheet" and (not bool(lad["askable"]) or not bool(lad["yes"])):
 		f["ask_no"] = {"name": opp_name, "words": str(lad["reach"]) if not bool(lad["askable"]) else
 			"Their corner said No - %s." % str(lad["reason"])}   # names only in headers (S448)
+		if bool(lad["askable"]) and HotStreak.would_duck(c, f, opp, true):   # S518 R6: a No to a boxer on a run = DUCKED
+			HotStreak.duck(c, f, opp_name)
+			var owed := HotStreak.is_owed(c, f, opp_name)
+			f["ask_no"]["words"] = str(f["ask_no"]["words"]) + (" DUCKED twice: next time they owe you the bout." if owed
+				else " DUCKED: one more No in %d weeks and they owe you the bout." % HotStreak.RivalOffer.DUCK_WINDOW)
+			c.add_news("%s duck %s: %s's corner says No to a boxer on a run." % [opp.get("club", "Their club"), f["first"], opp_name])
 		return false
 	var bouts: GDScript = load("res://scripts/state/Bouts.gd")
 	var own := AmateurBooking.bouts_of(int(f["w"]), int(f["l"]))
@@ -146,6 +153,8 @@ static func book(c: Career, f: Dictionary, kind: String, opp_name: String, day: 
 	f["offers"] = [o]
 	if not bouts.accept(c, str(o["id"])):
 		return false
+	if bool(lad.get("owed", false)):
+		HotStreak.clear(f, opp_name)   # the owed bout is booked: the slate is clean
 	f["bout"]["ask_kind"] = kind
 	f["bout"]["host_gate"] = kind == "name"
 	if kind == "sheet":

@@ -150,7 +150,8 @@ static func run(c: Career, f: Dictionary, m: Dictionary) -> void:
 	var card_text := ", ".join(cards) if stop == "" else "%s round %d" % [stop, rounds.size()]
 	f["last_bout_day"] = c.day   # S434 the Tank's last bout, read by the bout page too (BoutRules.tank_read)
 	c.results.push_front({"d": c.day, "fid": f["id"], "who": f["first"], "opp": opp["name"], "win": win, "outcome": outcome, "pro": pro, "cards": card_text,
-		"why": why[0] if not why.is_empty() else "", "plan_rec": PlanRecord.summary(rounds)})
+		"why": why[0] if not why.is_empty() else "", "plan_rec": PlanRecord.summary(rounds),
+		"pts": int((m.get("ladder_pts", {}) as Dictionary).get("a_delta", 0))})   # S518 HotStreak reads the points a bout moved
 	# S341 three rounds show everything: her whole file opens, and the career's record of her keeps it.
 	OppFile.open_all(opp)
 	OppFile.remember(c.rival(str(opp["name"])), opp)
