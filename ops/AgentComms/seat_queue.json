@@ -3229,7 +3229,8 @@
    "pid": 44880,
    "transcript": "AgentComms/seat_logs/SQ218_dola.txt",
    "answered_at": "2026-11-18 11:40",
-   "answer": "research/DESIGN_CLUBWEEK1_V10_CRITIC_DOLA_DOLA.md"
+   "answer": "research/DESIGN_CLUBWEEK1_V10_CRITIC_DOLA_DOLA.md",
+   "seen_by_claude": true
   },
   {
    "id": "SQ219",
@@ -3243,16 +3244,23 @@
    "pid": 47208,
    "transcript": "AgentComms/seat_logs/SQ219_dola.txt",
    "answered_at": "2026-11-18 12:40",
-   "answer": "research/DESIGN_GUARDDMG1_V2_REVISE_DOLA_DOLA.md"
+   "answer": "research/DESIGN_GUARDDMG1_V2_REVISE_DOLA_DOLA.md",
+   "seen_by_claude": true
   },
   {
    "id": "SQ220",
    "seat": "dola",
    "brief": "research/DESIGN_CLUBWEEK1_V10_REVISE_DOLA.md",
    "stem": "DESIGN_CLUBWEEK1_V10_REVISE_DOLA_DOLA",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-18 11:46",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-18 13:10",
+   "pid": 46548,
+   "transcript": "AgentComms/seat_logs/SQ220_dola.txt",
+   "answered_at": "2026-11-18 13:40",
+   "answer": "research/DESIGN_CLUBWEEK1_V10_REVISE_DOLA_DOLA_2.md",
+   "seen_by_claude": true
   },
   {
    "id": "SQ221",
@@ -3261,6 +3269,17 @@
    "stem": "DESIGN_GUARDDMG1_V3_CRITIC_JOHN_JOHN",
    "status": "queued",
    "queued_at": "2026-11-18 12:44",
+   "tries": 0,
+   "skips": 6,
+   "last_error": "2026-11-18 15:40 gbot send rc=1: ['GROKBOT FAIL listAgents 404  The request could not be routed']"
+  },
+  {
+   "id": "SQ222",
+   "seat": "john",
+   "brief": "research/DESIGN_CLUBWEEK1_V11_CRITIC_JOHN.md",
+   "stem": "DESIGN_CLUBWEEK1_V11_CRITIC_JOHN_JOHN",
+   "status": "queued",
+   "queued_at": "2026-11-18 16:05",
    "tries": 0
   }
  ]
