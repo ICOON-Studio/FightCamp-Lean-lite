@@ -20866,6 +20866,136 @@
    },
    "reconciled": "2026-11-18 03:40 board_reconcile: PR #362 closed",
    "archived": "2026-11-18 03:41 board_sync"
+  },
+  {
+   "agent": "qwen",
+   "id": "FAVOURPROBE1",
+   "title": "TASK FAVOURPROBE1 - where favours with the hosts sit after a year of real play (probe only, no rule change)",
+   "status": "closed",
+   "started": "2026-11-18T03:23",
+   "eta": "2026-11-18T05:13",
+   "branch": "qwen/favourprobe1",
+   "worktree": "E:/FightCamp/wt/LEAN_FAVOURPROBE1",
+   "wt": "E:/FightCamp/wt/LEAN_FAVOURPROBE1",
+   "brief": "ops/research/TASK_FAVOURPROBE1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/FAVOURPROBE1_dispatch_out.txt",
+   "match": "seat_dispatch.py run favourprobe1",
+   "model": "qwen4-max",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/FAVOURPROBE1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/FAVOURPROBE1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/FAVOURPROBE1_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 32272,
+    "seat_pid": 15412
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 3/3 PASS; PR #363",
+   "finished": "2026-11-18T04:18",
+   "pr": 363,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tools/favour_probe.gd",
+     "ok": true,
+     "last": "FAVOURPROBE1 done"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/late_ask_test.gd",
+     "ok": true,
+     "last": "LATE_ASK PASS fails=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/pull_out_wire_test.gd",
+     "ok": true,
+     "last": "PULL_OUT_WIRE PASS fails=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "reconciled": "2026-11-18 10:04 board_reconcile: PR #363 closed",
+   "archived": "2026-11-18 10:04 board_sync"
+  },
+  {
+   "agent": "qwen",
+   "id": "COACHROLES1",
+   "title": "TASK COACHROLES1 - coach roles r6, the pure rules: class nights vs pad minutes, hire runway, belt ceiling, held night",
+   "status": "closed",
+   "started": "2026-11-18T09:59",
+   "eta": "2026-11-18T11:49",
+   "branch": "qwen/coachroles1",
+   "worktree": "E:/FightCamp/wt/LEAN_COACHROLES1",
+   "wt": "E:/FightCamp/wt/LEAN_COACHROLES1",
+   "brief": "ops/research/TASK_COACHROLES1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/COACHROLES1_dispatch_out.txt",
+   "match": "seat_dispatch.py run coachroles1",
+   "model": "qwen4-max",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/COACHROLES1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/COACHROLES1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/COACHROLES1_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 10080,
+    "seat_pid": 11020
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 3/3 PASS; PR #368",
+   "finished": "2026-11-18T10:22",
+   "pr": 368,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/coach_roles_test.gd",
+     "ok": true,
+     "last": "COACH_ROLES PASS"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/coach_fit_test.gd",
+     "ok": true,
+     "last": "COACH_FIT checks=92 failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/coached_mornings_test.gd",
+     "ok": true,
+     "last": "COACHED_MORNINGS PASS fails=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "reconciled": "2026-11-18 10:40 board_reconcile: PR #368 closed",
+   "archived": "2026-11-18 10:41 board_sync"
+  },
+  {
+   "agent": "goose",
+   "id": "LADDERREP1",
+   "title": "the season ladder's pure rules: reach, points won/lost, greyed rows, \"will they say yes\", the clock",
+   "status": "closed",
+   "started": "2026-11-18T09:59",
+   "where": "cloud",
+   "repo": "FightCamp-Lean",
+   "brief": "ops/research/TASK_LADDERREP1.md",
+   "model": "Goose + Qwen token plan (GitHub Actions)",
+   "eta": "2026-11-18T10:59",
+   "note": "S380 seat_dispatch: pure rule module routed to Goose instead of a PC worktree (dispatch_queue.json)",
+   "issue": "366",
+   "branch": "goose/issue-366",
+   "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/366",
+   "reconciled": "2026-11-18 11:00 board_reconcile: issue 366 closed",
+   "archived": "2026-11-18 11:00 board_sync"
   }
  ]
 }
