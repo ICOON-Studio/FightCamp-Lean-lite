@@ -86,6 +86,23 @@ func _initialize() -> void:
 	var asked := AskFlow.book(c, f, "name", target, c.day + 14)
 	_check(not bool(low["yes"]) and not asked and str((f.get("ask_no", {}) as Dictionary).get("words", "")).contains("said No - they rate your boxer too highly"),
 		"a No is refused with its biggest reason: %s" % str(f.get("ask_no", {})))
+	# Stage 3 (R8): the idle clock - nothing for 8 free weeks, then -1 every 2 weeks; a 55+ boxer every 4.
+	var idle := {"w": 3, "l": 1, "rep": 30, "clock_from": 0}
+	var lost := 0
+	for wk in range(1, 15):
+		lost += LadderPoints.clock_tick(idle, wk * 7)
+	_check(lost == -3 and int(idle["rep"]) == 27, "14 free weeks at 30 points cost 3 (weeks 10, 12, 14): lost %d" % lost)
+	var top := {"w": 9, "l": 0, "rep": 60, "clock_from": 0}
+	var tl := 0
+	for wk in range(1, 17):
+		tl += LadderPoints.clock_tick(top, wk * 7)
+	_check(tl == -2, "a 60-point boxer loses 1 every 4 weeks after 8 (weeks 12, 16): lost %d" % tl)
+	var fresh := {"w": 0, "l": 0}
+	_check(LadderPoints.clock_tick(fresh, 70) == 0 and int(fresh["clock_from"]) == 70, "no clock yet: it starts today, nothing lost")
+	var hi2 := {"w": 6, "l": 0, "rep": 50, "clock_from": 0}
+	var lo2 := {"w": 1, "l": 3, "rep": 20, "clock_from": 0}
+	LadderPoints.settle(hi2, lo2, "win", "ud", 63)
+	_check(int(hi2["clock_from"]) == 0 and int(lo2["clock_from"]) == 63, "a bout 20+ below does not restart the higher boxer's clock; the lower one's does")
 	print("LADDER_TABLE failures=%d" % _fails)
 	quit(1 if _fails > 0 else 0)
 

@@ -1,4 +1,4 @@
-# S516 handover (written 2026-11-18, end of S515 - main line, Opus; ran on to ~450k context at the owner's word; weekly plan 89%, resets Thu 19 Nov 14:00 UTC)
+# S517 handover (written 2026-11-18, end of S516 - main line, Opus, ~360k context; weekly plan 89%, resets Thu 19 Nov 14:00 UTC)
 
 Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. S515 is in roadmap `now`.
 
@@ -15,18 +15,38 @@ The ONLY animation session is the terminal CLI session "anim S513" (peer lean-f3
 it stays the animation session and to add the owner's review comments C430-C432 to its loop state (stiff guard + sliding
 feet; shots through heads and hands; no shoulder power). Do not start another animation session while it lives.
 
-## MAIN LINE - DO FIRST (after the weekly reset, Thu 19 Nov 14:00 UTC)
-1. LADDERWIRE stage 2 (plan: ops/research/LADDERWIRE_SCOPE_S515.md): Region.rankings sorted by ladder points (rep) then
-   net wins - first grep every test that reads rank order (rank_line, world_ladder_rules, bout_read, matchmaking) and run
-   them; then the Ask card's rows: points, reach greyed (LadderRep.grey), price (LadderRep.price), "Leans Yes / Leans No -
-   <biggest reason>" (LadderRep.yes_score). Stage 1 is built: scripts/state/LadderPoints.gd moves rep on every amateur bout.
-2. Collect Goose #367 MATRECEIPT1 (scripts/rules/MatReceipt.gd) by diff + parse + test; wire the per-line receipt on the
-   open's result (OpenNight._done) and the week review; the season book on the plan rows (works / fails).
-3. Critics on guard damage v2 (DESIGN_GUARDDMG1_V2.md) and club week v10 (DESIGN_CLUBWEEK1_V10.md): Dola SQ217/SQ218 +
-   Goose #364/#365. Board (`ask --attach`) only at 7+/7+; else a revise round.
-4. Coach r6 left: the Week Priority switch (R14: Stats / Moves / Freshness steers CoachedMornings' deal and the board shows
-   what a drag gave up), the half-held night (R15, CoachRoles.held_night "half"), the BJJ belt ceiling + Academy Month once a
-   coach has a belt (no coach belt in the game yet).
+## MAIN LINE - DO FIRST
+1. LADDERWIRE stage 3 rest (ops/research/LADDERWIRE_SCOPE_S515.md): the season on 1 Jan (points carry over; last season's
+   final table in Records) and R9 offers from rival gyms (Accept / Not this show - once a season / Pass = -2 points to
+   the challenger); DUCKED / OWED flags on the rival after a No (R6). The idle clock is built (S516).
+2. Collect Qwen LADDERPROBE1 (branch qwen/ladderprobe1, worktree E:/FightCamp/wt/LEAN_LADDERPROBE1) by diff + parse + run.
+   It started BEFORE the clock commit 177e49437: if its table shows nobody drifting, rerun on a new id (LADDERPROBE2).
+3. Guard damage v3 landed (Dola SQ219 -> ops/research/DESIGN_GUARDDMG1_V3.md); its critics are queued: John SQ221 and
+   Goose issue #369 (GUARDCRITIC3). Club week v11 (Dola SQ220) lands via the 30-min reconcile: save it the same way, then
+   John + Goose critics. Board (ask --attach) only at 7+/7+ from both.
+4. Mat plan finding (mat_book_test, S516): a white belt tried her plan lines ONCE in four opens (hand of 3, out early).
+   Put the number in front of the next mat-plan critic; a week-review line for the receipt is still open.
+5. Coach r6 R14 (Week Priority) and R15 (half-held night) are GATED: CoachedMornings' deal and the held night are not in
+   the game - they wait on COACHFIT1 (critics 6/5, 6/6) and a drawn page. Do not build them before that.
+
+## DONE IN S516 (on main, exported, WHAT_TO_TRY S516 at the top)
+- MATRECEIPT1 collected (Goose #367, MatReceipt.gd). Wired: the open's result YOUR PLAN, LINE BY LINE (OpenNight._done);
+  every open adds to her season book (Grapplers._close -> f["mat_book"]); the Playbook plan rows show "this season N of M:
+  works / fails / too early" (MatPlanPanel). mat_book_test new.
+- LADDERWIRE stage 2: one order rule (RankLine._before: points, then net wins, wins, rating; a row without "rep" reads at
+  LadderPoints.seed_of, so old tables keep their order); Region.before delegates; BoutRead.rank_move moves both sides'
+  points. World > Rankings: Points column on the amateur table (WorldLadder 499 -> 473: lookups in WorldLadderPick.gd).
+  Ask card (AskLadder.gd): points + price in points; for step up / a picked name: OUT OF REACH (needs N) and Leans Yes/No
+  with the biggest reason (LadderRep.yes_score; inputs the game lacks - protecting, hot streak - stay neutral). A No or
+  out-of-reach ask is refused with the reason (AskFlow.book -> f["ask_no"], BoutActs toast); the sheet's name is never
+  refused. ladder_table_test new; ask_wire_test picks a Yes card and seeds the 4-3 boxer's points.
+- Stage 3 part 1: the idle clock (LadderPoints.clock_tick every Monday from Region.day_events; settle(..., day) sets
+  clock_from unless the bout was 20+ below); news line for our boxers.
+- Stills: tools/ladder_still.gd (TEST CLUB, hidden desktop) -> ops/previews/s516, on the review board.
+- Critics: guard damage v2 Dola 8/8/8, Goose 5/6/5; club week v10 Dola 7/8/8, Goose 6/7/6 -> revise SQ219/SQ220.
+- Traps: CI's full list runs past the 32-min timeout (cancelled, no results) - for a branch check push a CI-only commit
+  that cuts run_tests.sh's TESTS list; run_tests prints PASS/FAIL only at the end. Local Godot goes through godot_slot.
+  The PC was RED on memory (a game, 7 GB) for the first hour: no local Godot then.
 
 ## DONE IN S515 (on main, exported twice, WHAT_TO_TRY S515 + S515b at the top)
 - FAVOURPROBE1 collected; LateAskWire.ready_for needs a legal experience match.

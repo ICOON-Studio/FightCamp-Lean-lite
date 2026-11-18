@@ -91,6 +91,12 @@ static func next_shows(day: int, n: int) -> Array:
 
 ## After each day: on a show day the rivals fight. Sim.step_day calls it.
 static func day_events(c: Career) -> void:
+	if c.day > 0 and c.day % 7 == 0:   # S516 LADDERWIRE stage 3: every Monday the idle clock on every amateur
+		for x in c.rivals + c.fighters:
+			var lost: int = load("res://scripts/state/LadderPoints.gd").clock_tick(x, c.day)
+			if lost < 0 and c.fighters.has(x):
+				c.add_news("%s loses %d ladder point%s: no bout for %d weeks." % [x["first"], -lost, "" if lost == -1 else "s",
+					int((c.day - int(x["clock_from"])) / 7)])
 	if is_show_day(c.day + SHOW_NOTICE_DAYS):
 		c.add_news(line("show", subs_for(c, {"show": show_name(c.day + SHOW_NOTICE_DAYS)}), c.day), false)
 	if c.day > 0 and c.day % GYM_NEWS_EVERY_DAYS == GYM_NEWS_DAY:
@@ -142,7 +148,7 @@ static func _rival_bout(c: Career, a: Dictionary, b: Dictionary, show: String, r
 	var winner := a if a_won else b
 	var loser := b if a_won else a
 	var stop := bool(r["stopped"])
-	load("res://scripts/state/LadderPoints.gd").settle(winner, loser, "win", "stop" if stop else "ud")   # S515 LADDERWIRE1
+	load("res://scripts/state/LadderPoints.gd").settle(winner, loser, "win", "stop" if stop else "ud", c.day)   # S515 LADDERWIRE1
 	record(winner, true)
 	record(loser, false)
 	# S341 both records keep the bout (RivalPast): who, where, how.

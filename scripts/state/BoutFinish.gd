@@ -136,7 +136,7 @@ static func run(c: Career, f: Dictionary, m: Dictionary) -> void:
 		var r := c.rival(str(opp["name"]))
 		if not r.is_empty():   # S515 LADDERWIRE1: both sides' ladder points move on the bout (LadderPoints, the map's R3 table)
 			m["ladder_pts"] = load("res://scripts/state/LadderPoints.gd").settle(f, r, outcome,
-				load("res://scripts/state/LadderPoints.gd").method_of(cards, stop, win))
+				load("res://scripts/state/LadderPoints.gd").method_of(cards, stop, win), c.day)
 		if not r.is_empty() and outcome != "draw":
 			Region.record(r, not win)
 		# S341 her record keeps the bout against us (RivalPast), as her own result - a draw too.

@@ -3236,12 +3236,14 @@
    "seat": "dola",
    "brief": "research/DESIGN_GUARDDMG1_V2_REVISE_DOLA.md",
    "stem": "DESIGN_GUARDDMG1_V2_REVISE_DOLA_DOLA",
-   "status": "sent",
+   "status": "answered",
    "queued_at": "2026-11-18 11:46",
    "tries": 0,
    "sent_at": "2026-11-18 12:10",
    "pid": 47208,
-   "transcript": "AgentComms/seat_logs/SQ219_dola.txt"
+   "transcript": "AgentComms/seat_logs/SQ219_dola.txt",
+   "answered_at": "2026-11-18 12:40",
+   "answer": "research/DESIGN_GUARDDMG1_V2_REVISE_DOLA_DOLA.md"
   },
   {
    "id": "SQ220",
@@ -3250,6 +3252,15 @@
    "stem": "DESIGN_CLUBWEEK1_V10_REVISE_DOLA_DOLA",
    "status": "queued",
    "queued_at": "2026-11-18 11:46",
+   "tries": 0
+  },
+  {
+   "id": "SQ221",
+   "seat": "john",
+   "brief": "research/DESIGN_GUARDDMG1_V3_CRITIC_JOHN.md",
+   "stem": "DESIGN_GUARDDMG1_V3_CRITIC_JOHN_JOHN",
+   "status": "queued",
+   "queued_at": "2026-11-18 12:44",
    "tries": 0
   }
  ]

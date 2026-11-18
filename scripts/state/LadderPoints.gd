@@ -5,7 +5,7 @@ extends RefCounted
 ## points yet is seeded from the record: max(0, 8 + 4 x net wins + bouts), at most 65 (R10). Stage 1 only moves and shows
 ## the points (result page); the ladder table, the Ask card's reach / will-they-say-yes and the clock come next.
 ##   rep_of(x) -> int (seeds and stores)   method_of(cards, stop, won) -> "ud" / "split" / "majority" / "stop"
-##   settle(a, b, outcome, method) -> {a_delta, b_delta, a_rep, b_rep}   (outcome is a's: "win" / "loss" / "draw")
+##   settle(a, b, outcome, method, day) -> {a_delta, b_delta, a_rep, b_rep}   clock_tick(x, day) -> points lost this week   (outcome is a's: "win" / "loss" / "draw")
 
 const LadderRep := preload("res://scripts/rules/LadderRep.gd")
 const AmateurBooking := preload("res://scripts/rules/AmateurBooking.gd")
@@ -49,12 +49,34 @@ static func method_of(cards: Array, stop: String, won: bool) -> String:
 
 
 ## Both sides move on the same bout: a's change from a's side of the table, b's from b's.
-static func settle(a: Dictionary, b: Dictionary, outcome: String, method: String) -> Dictionary:
+static func settle(a: Dictionary, b: Dictionary, outcome: String, method: String, day := -1) -> Dictionary:
 	var ra := rep_of(a)
 	var rb := rep_of(b)
+	if day >= 0:   # S516 stage 3 (R8): a bout restarts the idle clock, unless it was 20+ points below you
+		if not LadderRep.far_below(ra, rb):
+			a["clock_from"] = day
+		if not LadderRep.far_below(rb, ra):
+			b["clock_from"] = day
 	var b_out := {"win": "loss", "loss": "win"}.get(outcome, "draw") as String
 	var da := LadderRep.change(ra, rb, outcome, method)
 	var db := LadderRep.change(rb, ra, b_out, method)
 	a["rep"] = LadderRep.apply(ra, da)
 	b["rep"] = LadderRep.apply(rb, db)
 	return {"a_delta": int(a["rep"]) - ra, "b_delta": int(b["rep"]) - rb, "a_rep": int(a["rep"]), "b_rep": int(b["rep"])}
+
+
+## S516 LADDERWIRE stage 3 (R8, LadderRep.clock): once a week, an amateur's idle clock - nothing for 8 free weeks, then
+## -1 every 2 weeks (a 55+ boxer: every 4). The clock runs from her last bout that was not 20+ points below her
+## ("clock_from"); a boxer with none yet starts counting today. Returns the points lost this week (0 or negative).
+static func clock_tick(x: Dictionary, day: int) -> int:
+	if bool(x.get("pro", false)):
+		return 0
+	if not x.has("clock_from"):
+		x["clock_from"] = day
+		return 0
+	var rep := rep_of(x)
+	var weeks := int((day - int(x["clock_from"])) / 7)
+	var d := LadderRep.clock(weeks, rep) - LadderRep.clock(weeks - 1, rep)
+	if d != 0:
+		x["rep"] = LadderRep.apply(rep, d)
+	return d
