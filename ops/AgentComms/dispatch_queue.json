@@ -1689,6 +1689,12 @@
    "status": "launched",
    "queued": "2026-11-18T11:30",
    "launched": "2026-11-18T10:16"
+  },
+  {
+   "task": "TREEVALUE2",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-18T22:15"
   }
  ]
 }

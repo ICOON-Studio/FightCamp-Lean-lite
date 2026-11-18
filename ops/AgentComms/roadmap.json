@@ -3,11 +3,11 @@
  "updated": "2026-11-18",
  "author": "claude S294",
  "now": {
-  "id": "S518",
+  "id": "S518c",
   "owner": "claude",
   "updated": "2026-11-18",
-  "summary": "S518 (Opus): rival offer card checked on the real Overview (reads right, ops/previews/s518 on the review board); HOT STREAK + DUCKED/OWED wired (map R6): scripts/state/HotStreak.gd (3 wins in a row + 15 ladder points in 8 weeks; results carry 'pts'), AskLadder feeds yes_score's hot streak (-20 from corners 0-8 points above), a No to a boxer on a run = DUCKED (once a week), two in 8 weeks = OWED (next ask a Yes, booking clears it); Ask card: On a run line + chip. tests/hot_streak_test.gd (19 checks, in the nightly list). LADDERPROBE4 on Qwen (rival calls a season, by answer). Goose critics collected: guard v3 7/6/5 (below 7: v4 after John SQ221), club week v11 7/8/6 (passes Goose; John SQ222 pending).",
-  "next_action": "S519 main line: 1) collect LADDERPROBE4 (Qwen, qwen/ladderprobe4): offers a season and what Pass/Accept do to points - tune OFFER_GAP_WEEKS only on its numbers; 2) John SQ221 + SQ222 answers: guard damage v4 (Dola revise with Goose's + John's 10/10 lists) and club week v11 to the board if John is 7+/7+; 3) his next note on the mat plan; 4) duck/owed on a real still (Ask card with a boxer on a run). Coach R14/R15 wait on COACHFIT1. Animation: lean-f3 only (METHOD S510).",
+  "summary": "S518 (Opus): rival offer card checked on the real Overview (reads right, ops/previews/s518 on the review board); HOT STREAK + DUCKED/OWED wired (map R6): scripts/state/HotStreak.gd (3 wins in a row + 15 ladder points in 8 weeks; results carry 'pts'), AskLadder feeds yes_score's hot streak (-20 from corners 0-8 points above), a No to a boxer on a run = DUCKED (once a week), two in 8 weeks = OWED (next ask a Yes, booking clears it); Ask card: On a run line + chip. tests/hot_streak_test.gd (19 checks, in the nightly list). LADDERPROBE4 on Qwen (rival calls a season, by answer). Goose critics collected: guard v3 7/6/5 (below 7: v4 after John SQ221), club week v11 7/8/6 (passes Goose; John SQ222 pending). | S518b: invented one-stage rule removed; critics moved to Dola (club week v11 8/8/7 + 7/8/6 -> board Q-S294-272; guard v3 -> v4 SQ225); screens fixed from a real render (Combos 2055 px, bell box names, Say nothing, SPARRING); rival calls fixed (0 -> median 5 a season, LADDERPROBE4 rerun); step Why lines; STREAKPROBE1 on Qwen, TREEVALUE2 queued.",
+  "next_action": "S519 main line: 1) collect STREAKPROBE1 (Qwen, qwen/streakprobe1): is ON A RUN 10-30% of active weeks, do ducks/owed fire - tune HotStreak only on its numbers; 2) Q-S294-272 club week v11: on his Yes, build from DESIGN_CLUBWEEK1_V11 (ClubDeal.gd already on main); 3) Dola SQ225 guard v4 -> two fresh critics (Goose + Dola; John is OUT, Grok down); 4) TREEVALUE2 (Qwen, queued) -> tune StepEffect; 5) his mat plan note. Animation: lean-f3 only (METHOD S510).",
   "incomplete_blocked": "Qwen LADDERPROBE1 running (branch qwen/ladderprobe1, worktree E:/FightCamp/wt/LEAN_LADDERPROBE1) - collect by diff.",
   "next_acceptance": "On a 180 s seed 7 film vs s507b: no landed punch over 9 m/s after contact and at most 2 over 6; head jumps per punch clip <= 0.13 in the shared part (head_split_probe); FreeHand off_share <= 0.35, HeadEase back_f_p50 >= 8; punch tests keep or better their S507 A/B FAIL sets.",
   "awaiting_operator": "PR 341 look (coach neck still pair on /review). Unity uninstall (his call). Films while he plays: ask each time (S507: yes).",
@@ -2198,6 +2198,12 @@
    "date": "2026-11-18",
    "model": "opus",
    "summary": "S518 (Opus): rival offer card checked on the real Overview (reads right, ops/previews/s518 on the review board); HOT STREAK + DUCKED/OWED wired (map R6): scripts/state/HotStreak.gd (3 wins in a row + 15 ladder points in 8 weeks; results carry 'pts'), AskLadder feeds yes_score's hot streak (-20 from corners 0-8 points above), a No to a boxer on a run = DUCKED (once a week), two in 8 weeks = OWED (next ask a Yes, booking clears it); Ask card: On a run line + chip. tests/hot_streak_test.gd (19 checks, in the nightly list). LADDERPROBE4 on Qwen (rival calls a season, by answer). Goose critics collected: guard v3 7/6/5 (below 7: v4 after John SQ221), club week v11 7/8/6 (passes Goose; John SQ222 pending)."
+  },
+  {
+   "id": "S518b",
+   "date": "2026-11-18",
+   "model": "opus",
+   "summary": "second stage: see now.summary"
   }
  ],
  "blocked_on_operator": [],
@@ -5116,7 +5122,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-18",
+  "updated": "2026-11-18 22:17 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5267,11 +5273,18 @@
   },
   "working_now": [
    {
-    "title": "how often rival gyms ring, and what Accept / Pass do to the ladder (probe only)",
+    "title": "how often a boxer is on a run, and how often corners duck her or owe her (probe only)",
     "who": "qwen",
-    "started": "2026-11-18T19:16",
-    "run": "LADDERPROBE4",
+    "started": "2026-11-18T22:20",
+    "run": "STREAKPROBE1",
     "state": "running"
+   },
+   {
+    "title": "guard damage map v4 from both critics' 10/10 lists",
+    "who": "dola",
+    "started": "2026-11-18T22:25",
+    "run": "SQ225",
+    "state": "queued"
    }
   ],
   "next": [
@@ -5308,7 +5321,7 @@
    {
     "id": "STEPVALUE1",
     "who": "claude",
-    "title": "Footwork worth learning: ropes count live + step worth on the learn card (S489). Left: the Why/corner lines, then probes s9 before DENY/OPEN/DRAIN sizes",
+    "title": "Footwork worth learning: ropes count live + step worth on the learn card (S489); the Why lines DONE S518 (step worth by style, ropes, learn Pivot). Left: probes s9 before DENY/OPEN/DRAIN sizes, corner card line",
     "after": "AMATEURWEEK1"
    },
    {
@@ -5320,7 +5333,7 @@
    {
     "id": "PLANFLOW1",
     "who": "claude",
-    "title": "Plan flowchart: stage 1 built S482, mode tells wired S483 (OFTEN/SOME/RARE). Left: main bet, uses lines (probe 6), Save/Load; his look first | S492 WHYGRADE1: a line with no WHEN fires on every situation at its place - show it on the plan",
+    "title": "Plan flowchart: stage 1 built S482, mode tells S483, WHYGRADE1 shown S493 (a line with no WHEN). Left: main bet, uses lines (probe 6), Save/Load; his look first",
     "after": ""
    },
    {
@@ -5356,7 +5369,7 @@
    {
     "id": "PROGBUILD1",
     "who": "claude",
-    "title": "Progression plan build (his Q-211 'Yes, go ahead'): PROGRESSION_MAP_S448 v4.1 section 10 - the six named styles are BUILT AND WIRED (S459: LiveRound plan_mult/pressure, RingDuel range_open, BoutNight knock_power/combo_energy, GamePlan line limit); S477: STYLE1 probe on Arena (does a style dominate, is each worth 1.5-4 in 100; TASK_STYLE1.md); next probes HOLD1, READ1, COACHMARKET1",
+    "title": "Progression plan build (his Q-211 'Yes, go ahead'): the six named styles BUILT AND WIRED (S459); CoachMarket on main, READ1 measured (docs/READ1_RESULT.md). Left: HOLD1 probe (no brief yet) and wiring CoachMarket per COACHFIT1",
     "after": ""
    },
    {
@@ -5995,6 +6008,18 @@
     {
      "text": "DUCKED/OWED: hot streak wired",
      "who": "claude"
+    },
+    {
+     "text": "Rival calls: 0 -> 5 a season",
+     "who": "claude"
+    },
+    {
+     "text": "Screens off the edge fixed",
+     "who": "claude"
+    },
+    {
+     "text": "Step worth on the Why",
+     "who": "claude"
     }
    ],
    "now": [
@@ -6202,6 +6227,14 @@
     },
     {
      "text": "Guard damage v4 after John",
+     "who": "claude"
+    },
+    {
+     "text": "STREAKPROBE1: on a run, ducks",
+     "who": "claude"
+    },
+    {
+     "text": "Club week v11: his yes (Q-272)",
      "who": "claude"
     }
    ],

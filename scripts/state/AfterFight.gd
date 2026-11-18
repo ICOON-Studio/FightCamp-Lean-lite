@@ -60,7 +60,8 @@ static func book(c: Career, f: Dictionary, m: Dictionary, before: Dictionary, ba
 const TAPE_KEEP := 20
 static func keep_tape(c: Career, f: Dictionary, m: Dictionary) -> void:
 	var opp: Dictionary = (f["bout"] as Dictionary).get("opp", {})
-	var read := FightWhy.read(m.get("rounds", []), str(f["first"]), str(opp.get("first", "")))
+	m["opp_style"] = str(opp.get("style", ""))   # S518 STEPVALUE1: the Why weighs a step against her style (ResultCause reads it too)
+	var read := FightWhy.read(m.get("rounds", []), str(f["first"]), str(opp.get("first", "")), str(m["opp_style"]))
 	m["why3"] = [str(read.get("plan", "")), str(read.get("against", "")), str(read.get("next", ""))]
 	if c.results.is_empty() or int(c.results[0].get("d", -1)) != c.day or str(c.results[0].get("fid", "")) != str(f["id"]):
 		return
@@ -83,7 +84,7 @@ static func night_facts(c: Career, f: Dictionary, m: Dictionary, before: Diction
 		"stopped": str(m.get("stopped", "")), "pro": pro, "rounds": int(m.get("total", rounds.size())), "cards": m.get("cards", []),
 		"won": rounds.map(func(r): return bool((r as Dictionary).get("won", false))),
 		"won_n": rounds.map(func(r): return int((r as Dictionary).get("won_n", 0))), "flip": BoutRules.flip_round(rounds),
-		"per_round": Exchanges.EXCHANGES, "against": str(FightWhy.read(rounds, str(f["first"]), str(opp.get("first", "")))["against"]),
+		"per_round": Exchanges.EXCHANGES, "against": str(FightWhy.read(rounds, str(f["first"]), str(opp.get("first", "")), str(opp.get("style", "")))["against"]),
 		"date": Clock.fmt(c.day), "weight": str(f.get("wc", "")),
 		"rec_before": before.get("rec", []), "rec_after": _record(f, pro), "opp_rec_before": ob, "opp_rec_after": o_after,
 		"rank_before": int(before.get("rank", 0)), "rank_after": Region.our_rank(c, f),

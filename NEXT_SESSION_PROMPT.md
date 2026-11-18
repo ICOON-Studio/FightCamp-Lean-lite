@@ -1,4 +1,4 @@
-# S519 handover (written 2026-11-18, end of S518 - main line, Opus; weekly plan resets Thu 19 Nov 14:00 UTC)
+# S519 handover (written 2026-11-18, end of S518 - three stages in one session, handed over at ~400k context; weekly plan resets Thu 19 Nov 14:00 UTC)
 
 Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. S518 is in roadmap `now`.
 Owner S518: "work normally do not worry about the 10%" (usage was 90% of the week at start).
@@ -17,16 +17,18 @@ it stays the animation session and to add the owner's review comments C430-C432 
 feet; shots through heads and hands; no shoulder power). Do not start another animation session while it lives.
 
 ## MAIN LINE - DO FIRST
-1. Collect LADDERPROBE4 (Qwen, branch qwen/ladderprobe4, brief ops/research/TASK_LADDERPROBE4.md): rival calls a
-   boxer-season by answer policy (accept / not this show / pass), bouts booked from them, points at 365/730 vs
-   LADDERPROBE3. Change RivalOfferWire.OFFER_GAP_WEEKS only on its numbers (target: a few a season, never weekly).
-2. John SQ221 (guard damage v3) + SQ222 (club week v11) answers. Goose collected S518: guard v3 7/6/5 (BELOW 7 -> v4:
-   Dola revises with Goose's + John's 10/10 lists; Goose wants ring generalship to wear the guard and a gentler
-   transmission curve), club week v11 7/8/6 (Goose passes) -> the board if John is 7+/7+.
-3. A real still of the Ask card with a boxer on a run (green "On a run" line, DUCKED chip): tools/rival_offer_still.gd
-   is the pattern (Main scene, seeded state, hidden desktop via godot_slot).
-4. Mat plan (owner C433): his next comment on the review board decides if the panel needs a redraw.
-5. Coach r6 R14/R15 stay GATED on COACHFIT1 + a drawn page.
+WORK RULE (owner S518): keep working stage after stage; after `ship`, `start` again. Hand over ONLY at ~420k context.
+1. Collect STREAKPROBE1 (Qwen, qwen/streakprobe1, brief ops/research/TASK_STREAKPROBE1.md): share of active weeks ON A
+   RUN (target 10-30%), ducks a season, does OWED fire. Tune HotStreak's 3 wins / 15 points / 8 weeks only on it.
+2. Q-S294-272 (club week v11, Dola 8/8/7 + Goose 7/8/6): on his Yes, plan the build from
+   ops/research/DESIGN_CLUBWEEK1_V11.md (scripts/rules/ClubDeal.gd is on main, unwired - R73DEAL1).
+3. Dola SQ225 = guard damage v4 -> two fresh critics: Goose (design_loop.py critic, goose issue) + Dola. John, Kalli and
+   Maria are Grok bots: OUT since S512 ("listAgents 404") - never queue them.
+4. TREEVALUE2 (queued for Qwen after STREAKPROBE1): each step's worth by style -> tune scripts/rules/StepEffect.gd.
+5. LADDERPROBE4 rerun on the fix (docs/LADDERPROBE4_RESULT.md): median 5 rival calls a season (max 11), 10.8% of ranked
+   weeks; Accept adds ~1.5 bouts a season; Pass is nearly always free in the probe because it answers the sheet first
+   (booked = free pass). Watch whether players use "accept the sheet, then pass free" - a later design point.
+6. His mat plan note (C433) still open on the review board.
 
 ## DONE IN S518b (second stage, same session - owner: "one stage per session ... there is no such thing, you invented it")
 - Rule fix: WORKFLOW s3's "ONE stage per session" line (written by an earlier session, never his) removed; `ship` now

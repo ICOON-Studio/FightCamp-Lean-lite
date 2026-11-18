@@ -40,7 +40,7 @@ static func cause_card(main: Node, m: Dictionary, f: Dictionary, names: Array) -
 	var v: VBoxContainer = p.get_child(0)
 	var lab: Dictionary = m.get("fixlab", {})
 	var ch: Dictionary = lab.get("changes", {})
-	var read := FightWhy.read(m["rounds"], str(names[0]), str(names[1]))
+	var read := FightWhy.read(m["rounds"], str(names[0]), str(names[1]), str(m.get("opp_style", "")))
 	if not bool(lab.get("ok", false)) or ch.is_empty():
 		v.add_child(_headline(str(read["against"]), UI.RED if not win else UI.FG))
 		v.add_child(UI.label(str(read["next"]), TEXT, UI.FG, "body", true))

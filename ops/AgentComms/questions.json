@@ -8154,6 +8154,24 @@
       "answered_at": "2026-11-18T07:51:24Z",
       "seen_by_claude": true,
       "comment_only": false
+    },
+    {
+      "id": "Q-S294-272",
+      "asked": "2026-11-18T20:10:46.415727+00:00",
+      "session": "S294",
+      "text": "Club week v11 passed two fresh critics (Dola 8/8/7, Goose 7/8/6: depth / general / play). Build it after the current ladder work?",
+      "options": [
+        "Yes, build it",
+        "Not yet"
+      ],
+      "attach": [
+        "research/DESIGN_CLUBWEEK1_V11.md"
+      ],
+      "answer": "Yes, build it",
+      "note": null,
+      "answered_at": "2026-11-18T20:19:41Z",
+      "seen_by_claude": false,
+      "comment_only": false
     }
   ]
 }

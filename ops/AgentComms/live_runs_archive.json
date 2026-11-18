@@ -20996,6 +20996,130 @@
    "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/366",
    "reconciled": "2026-11-18 11:00 board_reconcile: issue 366 closed",
    "archived": "2026-11-18 11:00 board_sync"
+  },
+  {
+   "agent": "qwen",
+   "id": "LADDERPROBE1",
+   "title": "TASK LADDERPROBE1 - does the season ladder's table stay sane over two years of real play? (probe only, no rule change)",
+   "status": "closed",
+   "started": "2026-11-18T12:31",
+   "eta": "2026-11-18T14:21",
+   "branch": "qwen/ladderprobe1",
+   "worktree": "E:/FightCamp/wt/LEAN_LADDERPROBE1",
+   "wt": "E:/FightCamp/wt/LEAN_LADDERPROBE1",
+   "brief": "ops/research/TASK_LADDERPROBE1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/LADDERPROBE1_dispatch_out.txt",
+   "match": "seat_dispatch.py run ladderprobe1",
+   "model": "qwen4-max",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/LADDERPROBE1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/LADDERPROBE1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/LADDERPROBE1_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 34208,
+    "seat_pid": 33968
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 3/3 PASS; PR #370",
+   "finished": "2026-11-18T13:23",
+   "pr": 370,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tools/ladder_probe.gd",
+     "ok": true,
+     "last": "LADDERPROBE1 done"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/ladder_points_test.gd",
+     "ok": true,
+     "last": "LADDER_POINTS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/ladder_table_test.gd",
+     "ok": true,
+     "last": "LADDER_TABLE failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "reconciled": "2026-11-18 17:10 board_reconcile: PR #370 closed",
+   "archived": "2026-11-18 17:11 board_sync"
+  },
+  {
+   "agent": "qwen",
+   "id": "LADDERPROBE3",
+   "title": "TASK LADDERPROBE3 - the ladder table over two years with newcomers, the R8 free week and the season close (probe only)",
+   "status": "collected",
+   "started": "2026-11-18T16:18",
+   "eta": "2026-11-18T18:08",
+   "branch": "qwen/ladderprobe3",
+   "worktree": "E:/FightCamp/wt/LEAN_LADDERPROBE3",
+   "wt": "E:/FightCamp/wt/LEAN_LADDERPROBE3",
+   "brief": "ops/research/TASK_LADDERPROBE3.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/LADDERPROBE3_dispatch_out.txt",
+   "match": "seat_dispatch.py run ladderprobe3",
+   "model": "qwen4-max",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/LADDERPROBE3_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/LADDERPROBE3_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/LADDERPROBE3_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 32944,
+    "seat_pid": 36288
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 5/5 PASS; PR #373",
+   "finished": "2026-11-18T17:23",
+   "pr": 373,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tools/ladder_probe.gd",
+     "ok": true,
+     "last": "LADDERPROBE3 done"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/ladder_points_test.gd",
+     "ok": true,
+     "last": "LADDER_POINTS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/ladder_table_test.gd",
+     "ok": true,
+     "last": "LADDER_TABLE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/newcomers_test.gd",
+     "ok": true,
+     "last": "NEWCOMERS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/ladder_season_test.gd",
+     "ok": true,
+     "last": "LADDER_SEASON failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "reconciled": "2026-11-18 17:40 board_reconcile: branch qwen/ladderprobe3 commits are on master",
+   "archived": "2026-11-18 17:41 board_sync"
   }
  ]
 }

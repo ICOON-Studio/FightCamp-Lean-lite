@@ -8,6 +8,7 @@ const StrikeMap := preload("res://scripts/rules/StrikeMap.gd")
 const LiveRound := preload("res://scripts/state/LiveRound.gd")
 const PlanFight := preload("res://scripts/rules/PlanFight.gd")
 const PlanPressure := preload("res://scripts/rules/PlanPressure.gd")
+const StepValue := preload("res://scripts/rules/StepValue.gd")   # S518 STEPVALUE1 map s7: a step's worth on the Why
 
 const GRADES := {"good": "GOOD PLAN", "mixed": "MIXED PLAN", "wrong": "WRONG PLAN", "none": "NO PLAN"}
 ## The grade is the plan against no plan at all: the mean edge per exchange. Below zero it did worse than improvising.
@@ -22,7 +23,7 @@ const SIT_WORDS := {"press": "pressure", "range": "a boxer at range", "counter":
 	"she_tired": "%s tiring", "she_hurt": "%s being hurt"}
 
 
-static func read(rounds: Array, first: String, opp: String) -> Dictionary:
+static func read(rounds: Array, first: String, opp: String, opp_style := "") -> Dictionary:
 	# S448 operator ("names are only mentioned on the header"): the read says the role, whatever names come in.
 	first = "your boxer" if first != "" else first
 	opp = "the opponent"
@@ -101,6 +102,7 @@ static func read(rounds: Array, first: String, opp: String) -> Dictionary:
 		ropes += int((r as Dictionary).get("ropes", 0))
 	if ropes > 0:
 		out["against"] = str(out["against"]) + " On the ropes %s with no way off." % ("once" if ropes == 1 else _n(ropes, "time"))
+	_step_lines(out, rounds, opp_style, ropes)
 	# R11C: a standing count on the cards says what it cost. Names the round(s) where a boxer took a count.
 	var count_text := _count_line(rounds, first, opp)
 	if count_text != "":
@@ -298,3 +300,31 @@ static func _rounds_phrase(round_nums: Array) -> String:
 	var last: String = str(round_nums[-1])
 	var rest: Array = round_nums.slice(0, -1)
 	return "rounds %s and %s" % [", ".join(PackedStringArray(rest)), last]
+
+
+## S518 STEPVALUE1 (map s7, the Why): the planned step that fired most (3+ times) and what it is worth in 100 against the
+## opponent's style (StepValue.TARGET, the map's estimate at Sharp / OK) - on YOUR PLAN when it helps, on AGAINST YOU
+## when it walks into her game; NEXT says learn Pivot off the ropes when the count put your boxer there and no way off fired.
+const STEP_MIN := 3
+static func _step_lines(out: Dictionary, rounds: Array, opp_style: String, ropes: int) -> void:
+	var fired := {}
+	for r in rounds:
+		var moves: Dictionary = ((r as Dictionary).get("arrows", {}) as Dictionary).get("moves", {})
+		for id in moves:
+			var step := PlanFight.base_id(str(id))
+			if StepValue.TARGET.has(step):
+				fired[step] = int(fired.get(step, 0)) + int((moves[id] as Array)[1])
+	var top := ""
+	for k in fired:
+		if int(fired[k]) >= STEP_MIN and (top == "" or int(fired[k]) > int(fired[top])):
+			top = str(k)
+	if top != "" and opp_style != "":
+		var w := float((StepValue.TARGET[top] as Dictionary).get(opp_style, 0.0))
+		if w > 0.0:
+			out["plan"] = str(out["plan"]) + " %s fired %s against a %s: worth about +%s in 100 against that style." % [
+				name_of(top), _n(int(fired[top]), "time"), opp_style.to_lower(), str(snappedf(w, 0.5))]
+		elif w < 0.0:
+			out["against"] = str(out["against"]) + " %s fired %s against a %s: it walks into that style (about %s in 100)." % [
+				name_of(top), _n(int(fired[top]), "time"), opp_style.to_lower(), str(snappedf(w, 0.5))]
+	if ropes > 0 and int(fired.get("pivot_out", 0)) + int(fired.get("step_out", 0)) == 0:
+		out["next"] = str(out["next"]) + " Learn %s: a way off the ropes." % name_of("pivot_out")
