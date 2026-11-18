@@ -3147,26 +3147,77 @@
    "seat": "dola",
    "brief": "research/DESIGN_LADDER1_V6_CRITIC_DOLA.md",
    "stem": "DESIGN_LADDER1_V6_CRITIC_DOLA_DOLA",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-18 01:14",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-18 01:40",
+   "pid": 43972,
+   "transcript": "AgentComms/seat_logs/SQ213_dola.txt",
+   "answered_at": "2026-11-18 02:10",
+   "answer": "research/DESIGN_LADDER1_V6_CRITIC_DOLA_DOLA.md",
+   "seen_by_claude": true
   },
   {
    "id": "SQ214",
    "seat": "dola",
    "brief": "research/DESIGN_COACHSPEC1_R6_CRITIC_DOLA.md",
    "stem": "DESIGN_COACHSPEC1_R6_CRITIC_DOLA_DOLA",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-18 01:14",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-18 02:40",
+   "pid": 20912,
+   "transcript": "AgentComms/seat_logs/SQ214_dola.txt",
+   "answered_at": "2026-11-18 03:10",
+   "answer": "research/DESIGN_COACHSPEC1_R6_CRITIC_DOLA_DOLA.md",
+   "seen_by_claude": true
   },
   {
    "id": "SQ215",
    "seat": "dola",
    "brief": "research/DESIGN_GUARDDMG1_V1_REVISE_DOLA.md",
    "stem": "DESIGN_GUARDDMG1_V1_REVISE_DOLA_DOLA",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-18 01:19",
+   "tries": 0,
+   "sent_at": "2026-11-18 03:40",
+   "pid": 32924,
+   "transcript": "AgentComms/seat_logs/SQ215_dola.txt",
+   "answered_at": "2026-11-18 04:10",
+   "answer": "research/DESIGN_GUARDDMG1_V1_REVISE_DOLA_DOLA.md",
+   "seen_by_claude": true
+  },
+  {
+   "id": "SQ216",
+   "seat": "dola",
+   "brief": "research/DESIGN_CLUBWEEK1_V10_REVISE_DOLA.md",
+   "stem": "DESIGN_CLUBWEEK1_V10_REVISE_DOLA_DOLA",
+   "status": "answered",
+   "queued_at": "2026-11-18 01:52",
+   "tries": 0,
+   "sent_at": "2026-11-18 04:40",
+   "pid": 28152,
+   "transcript": "AgentComms/seat_logs/SQ216_dola.txt",
+   "answered_at": "2026-11-18 05:10",
+   "answer": "research/DESIGN_CLUBWEEK1_V10_REVISE_DOLA_DOLA.md",
+   "seen_by_claude": true
+  },
+  {
+   "id": "SQ217",
+   "seat": "dola",
+   "brief": "research/DESIGN_GUARDDMG1_V2_CRITIC_DOLA.md",
+   "stem": "DESIGN_GUARDDMG1_V2_CRITIC_DOLA_DOLA",
+   "status": "queued",
+   "queued_at": "2026-11-18 09:56",
+   "tries": 0
+  },
+  {
+   "id": "SQ218",
+   "seat": "dola",
+   "brief": "research/DESIGN_CLUBWEEK1_V10_CRITIC_DOLA.md",
+   "stem": "DESIGN_CLUBWEEK1_V10_CRITIC_DOLA_DOLA",
+   "status": "queued",
+   "queued_at": "2026-11-18 09:56",
    "tries": 0
   }
  ]

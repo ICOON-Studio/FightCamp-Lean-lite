@@ -865,65 +865,11 @@
     "board": ""
    }
   },
-  "STOPWORD1": {
-   "agent": "qwen",
-   "id": "STOPWORD1",
-   "title": "TASK STOPWORD1 - the Ask card's stoppage word: measure the risk, then the pure rule (probe + rule, no screen)",
-   "status": "landed",
-   "started": "2026-11-18T01:42",
-   "eta": "2026-11-18T03:32",
-   "branch": "qwen/stopword1",
-   "worktree": "E:/FightCamp/wt/LEAN_STOPWORD1",
-   "wt": "E:/FightCamp/wt/LEAN_STOPWORD1",
-   "brief": "ops/research/TASK_STOPWORD1.md",
-   "repo": "FightCamp-Lean",
-   "where": "pc",
-   "log": "E:/FightCamp/wt/STOPWORD1_dispatch_out.txt",
-   "match": "seat_dispatch.py run stopword1",
-   "model": "qwen4-max",
-   "dispatch": {
-    "prompt": "E:/FightCamp/wt/STOPWORD1_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/STOPWORD1_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/STOPWORD1_dispatch_runner.log",
-    "source": "dispatch_queue.json",
-    "brief_copied": true,
-    "runner_pid": 41568,
-    "seat_pid": 20352
-   },
-   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 3/3 PASS; PR #362",
-   "finished": "2026-11-18T02:21",
-   "pr": 362,
-   "checks": [
-    {
-     "kind": "RED_TEST",
-     "script": "tests/stop_word_test.gd",
-     "ok": true,
-     "last": "STOP_WORD PASS"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/ask_bout_test.gd",
-     "ok": true,
-     "last": "ASK_BOUT failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/ask_wire_test.gd",
-     "ok": true,
-     "last": "ASK_WIRE failures=0"
-    }
-   ],
-   "films": {
-    "before": {},
-    "after": {},
-    "board": ""
-   }
-  },
   "FAVOURPROBE1": {
    "agent": "qwen",
    "id": "FAVOURPROBE1",
    "title": "TASK FAVOURPROBE1 - where favours with the hosts sit after a year of real play (probe only, no rule change)",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-18T03:23",
    "eta": "2026-11-18T05:13",
    "branch": "qwen/favourprobe1",
@@ -944,7 +890,77 @@
     "runner_pid": 32272,
     "seat_pid": 15412
    },
-   "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 3/3 PASS; PR #363",
+   "finished": "2026-11-18T04:18",
+   "pr": 363,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tools/favour_probe.gd",
+     "ok": true,
+     "last": "FAVOURPROBE1 done"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/late_ask_test.gd",
+     "ok": true,
+     "last": "LATE_ASK PASS fails=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/pull_out_wire_test.gd",
+     "ok": true,
+     "last": "PULL_OUT_WIRE PASS fails=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "LADDERREP1": {
+   "agent": "goose",
+   "id": "LADDERREP1",
+   "title": "the season ladder's pure rules: reach, points won/lost, greyed rows, \"will they say yes\", the clock",
+   "status": "running",
+   "started": "2026-11-18T09:59",
+   "where": "cloud",
+   "repo": "FightCamp-Lean",
+   "brief": "ops/research/TASK_LADDERREP1.md",
+   "model": "Goose + Qwen token plan (GitHub Actions)",
+   "eta": "2026-11-18T10:59",
+   "note": "S380 seat_dispatch: pure rule module routed to Goose instead of a PC worktree (dispatch_queue.json)",
+   "issue": "366",
+   "branch": "goose/issue-366",
+   "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/366"
+  },
+  "COACHROLES1": {
+   "agent": "qwen",
+   "id": "COACHROLES1",
+   "title": "TASK COACHROLES1 - coach roles r6, the pure rules: class nights vs pad minutes, hire runway, belt ceiling, held night",
+   "status": "running",
+   "started": "2026-11-18T09:59",
+   "eta": "2026-11-18T11:49",
+   "branch": "qwen/coachroles1",
+   "worktree": "E:/FightCamp/wt/LEAN_COACHROLES1",
+   "wt": "E:/FightCamp/wt/LEAN_COACHROLES1",
+   "brief": "ops/research/TASK_COACHROLES1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/COACHROLES1_dispatch_out.txt",
+   "match": "seat_dispatch.py run coachroles1",
+   "model": "qwen4-max",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/COACHROLES1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/COACHROLES1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/COACHROLES1_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 10080,
+    "seat_pid": 11020
+   },
+   "note": "S368 seat_dispatch: launched unattended (dispatch_queue.json); merging stays off"
   }
  },
  "codex_budget": {

@@ -1,7 +1,6 @@
-# S515 handover (written 2026-11-18, end of S514 - main line, Opus; ended early to save the weekly plan: 88%, resets Thu 19 Nov 14:00 UTC)
+# S516 handover (written 2026-11-18, end of S515 - main line, Opus; a short session to spare the weekly plan: 88%, resets Thu 19 Nov 14:00 UTC)
 
-Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. S514 is in roadmap `now` and commits
-after f0ef9963e.
+Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. S515 is in roadmap `now`.
 
 ## BILLING (S513, from Anthropic's help center - quote it, do not guess)
 support.claude.com/en/articles/17154008: the Ultra plan's $200 monthly API credit covers the Claude API, Managed Agents, and
@@ -16,18 +15,30 @@ The ONLY animation session is the terminal CLI session "anim S513" (peer lean-f3
 it stays the animation session and to add the owner's review comments C430-C432 to its loop state (stiff guard + sliding
 feet; shots through heads and hands; no shoulder power). Do not start another animation session while it lives.
 
-## MAIN LINE - DO FIRST
-1. Collect Qwen FAVOURPROBE1 (ops/research/TASK_FAVOURPROBE1.md; PR from qwen/favourprobe1): favours with each host
-   after a year, THRIFTY (yes to late asks) vs EAGER (no). Map target: an average club sits at 1-2. Report only; if the
-   THRIFTY club misses, the levers are LateAskWire's ask chance (FightWeekEvents.ASK_CHANCE) and FightWeekPlan.FAVOURS_START.
-2. His answers on the board: Q-270 (season ladder v6, critics Dola 9/9 + Goose 8/7: build after the week?) and Q-271
-   (coach roles r6, critics 8/8 + 7/7: build?). Summaries: ops/research/APPROVE_LADDER1_V6_S514.md / APPROVE_COACHSPEC1_R6_S514.md.
-   A yes = write the build briefs (pure rules to Qwen/Arena, Claude wires screens).
-3. Dola SQ215 (guard damage map v2) and SQ216 (club week v10, input docs/MORNINGSPROBE1_RESULT.md): collect, then two
-   fresh critics each (Dola + Goose issue); the board only at 7+/7+ from both.
-4. INTEGRATE1 next build: the BJJ mat plan screen. MatLines (scripts/rules/MatLines.gd) and MatPrice
-   (scripts/rules/MatPrice.gd) are built and tested since S439 but NO screen uses them. Spec: ops/research/MATPLAN_MAP_S433.md
-   sections 4.2-4.3 (lines, chips CHANCE/POINTS/MISS/TANK/READ/TIME, the grade). Start it after the weekly reset.
+## MAIN LINE - DO FIRST (after the weekly reset)
+1. Collect the two build tasks from his yes on Q-270 / Q-271 (both "Yes, build it"):
+   - LADDERREP1 (Goose issue #366, brief ops/research/TASK_LADDERREP1.md): scripts/rules/LadderRep.gd - reach, points
+     won/lost (the map's R3 table is the truth), price card lines, greyed rows, "will they say yes" score, the idle clock.
+   - COACHROLES1 (Qwen, worktree E:/FightCamp/wt/LEAN_COACHROLES1, brief TASK_COACHROLES1.md): scripts/rules/CoachRoles.gd -
+     class nights vs pad minutes, hire runway line, BJJ belt ceiling + Academy Month, held/half-held night.
+   Diff + parse + test, then Claude wires: the ladder table + card on Fights > Who do we fight? (DESIGN_LADDER1_V6_DOLA.md
+   lines 1165-1271), the coach pieces on Staff / Week board / no-gi page (DESIGN_COACHSPEC1_R6_DOLA.md section 5, lines
+   1184-1208). The Week Priority switch (R14) is Claude's: it changes CoachedMornings' deal. Each menu shown in the .exe +
+   one golden-path walk (owner S425).
+2. Critics on guard damage v2 (ops/research/DESIGN_GUARDDMG1_V2.md) and club week v10 (DESIGN_CLUBWEEK1_V10.md): Dola
+   SQ217/SQ218 (seat queue) + Goose #364/#365. Board (`ask --attach`) only at 7+/7+ from both; else revise round.
+3. FAVOURS2 - the favour economy misses its target (docs/FAVOURPROBE1_RESULT.md, 160 runs): an average club sits at 0.24
+   favours a host, not 1-2; it earns 0.3 a year (late asks only) against 4.4 spends (outside partners 2.0, next-month slot
+   2.4); the kilo and missed weight never fire. Raising ASK_CHANCE alone cannot close that. Decide the earning channel
+   (e.g. a favour for filling a host's card on short notice / for a bout that went ahead after their pull-out), keep
+   FAVOURS_MAX 3, re-run tools/favour_probe.gd (seeds=40) to 1-2. Fixed S515: a late ask no longer reaches a boxer the
+   show cannot legally match (LateAskWire.ready_for).
+4. INTEGRATE1: the BJJ mat plan screen (MatLines + MatPrice built, no screen; MATPLAN_MAP_S433 sections 4.2-4.3).
+
+## DONE IN S515 (on main, exported, WHAT_TO_TRY S515 at the top)
+- FAVOURPROBE1 collected (tools/favour_probe.gd, docs/FAVOURPROBE1_RESULT.md); PR 363 closed.
+- LateAskWire.ready_for: the sheet's name must be a legal experience match (late_ask, pull_out_wire, ask_wire green).
+- Dola guard damage v2 + club week v10 extracted and sent to critics; build briefs LADDERREP1 + COACHROLES1 dispatched.
 
 ## DONE IN S514 (all on main, exported, WHAT_TO_TRY S514 at the top)
 - STOPWORD1 collected (Qwen, 960 bouts: gap < 0 unlikely, 0-8 possible, 8+ a real risk); AskFlow.gap_of feeds both the

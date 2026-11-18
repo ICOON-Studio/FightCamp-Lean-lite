@@ -1,3 +1,8 @@
+S515 (2026-11-18) - A HOST ONLY ASKS FOR A BOXER WHO CAN TAKE THE BOUT
+- A host's late ask now only reaches a boxer the show could legally match (a novice is never asked for a show whose
+  next opponent has too many bouts). Before, a TAKE THE BOUT could fail with nothing booked.
+
+S514 (2026-11-18) - A HOST ASKS FOR YOUR BOXER, THE WIN CHANCE ON THE FIGHT WEEK, GETTING STOPPED ON THE ASK CARD
 S514 (2026-11-18) - A HOST ASKS FOR YOUR BOXER, THE WIN CHANCE ON THE FIGHT WEEK, GETTING STOPPED ON THE ASK CARD
 - Sometimes on a Monday a club show 5 days away is one boxer short and the host asks for one of yours (about 1 show in
   6, only a boxer with no bout who is ready and close enough in weight). The top bar says HOST ASKS; the boxer's

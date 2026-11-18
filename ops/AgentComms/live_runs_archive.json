@@ -20498,6 +20498,374 @@
    },
    "reconciled": "2026-11-17 15:10 board_reconcile: PR #350 closed",
    "archived": "2026-11-17 15:11 board_sync"
+  },
+  {
+   "agent": "qwen",
+   "id": "HEADSPLIT3",
+   "title": "TASK HEADSPLIT3 - the head-jump ruler counts a combo's next punch as \"after a hit\", not \"before\"",
+   "status": "closed",
+   "started": "2026-11-17T15:25",
+   "eta": "2026-11-17T17:15",
+   "branch": "qwen/headsplit3",
+   "worktree": "E:/FightCamp/wt/LEAN_HEADSPLIT3",
+   "wt": "E:/FightCamp/wt/LEAN_HEADSPLIT3",
+   "brief": "ops/research/TASK_HEADSPLIT3.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/HEADSPLIT3_dispatch_out.txt",
+   "match": "seat_dispatch.py run headsplit3",
+   "model": "qwen4-max",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/HEADSPLIT3_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/HEADSPLIT3_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/HEADSPLIT3_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 31860,
+    "seat_pid": 7716
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 2/2 PASS; PR #351",
+   "finished": "2026-11-17T15:55",
+   "pr": 351,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/head_split_test.gd",
+     "ok": true,
+     "last": "HEAD_SPLIT_TEST failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/file_limits_test.gd",
+     "ok": true,
+     "last": "FILE_LIMITS failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "reconciled": "2026-11-17 16:40 board_reconcile: PR #351 closed",
+   "archived": "2026-11-17 16:42 board_sync"
+  },
+  {
+   "agent": "qwen",
+   "id": "SPLIT500B",
+   "title": "TASK SPLIT500B - QWEN (qwen3-coder) - bring the three grapple files and MatTreeInfo under the 500-line limit",
+   "status": "closed",
+   "started": "2026-11-17T18:51",
+   "eta": "2026-11-17T20:41",
+   "branch": "qwen/split500b",
+   "worktree": "E:/FightCamp/wt/LEAN_SPLIT500B",
+   "wt": "E:/FightCamp/wt/LEAN_SPLIT500B",
+   "brief": "ops/research/TASK_SPLIT500B.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/SPLIT500B_dispatch_out.txt",
+   "match": "seat_dispatch.py run split500b",
+   "model": "qwen4-max",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/SPLIT500B_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/SPLIT500B_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/SPLIT500B_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 48856,
+    "seat_pid": 17528
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 13/15 PASS; PR #352",
+   "finished": "2026-11-17T19:32",
+   "pr": 352,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/file_limits_test.gd",
+     "ok": true,
+     "last": "FILE_LIMITS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/bjj_clash_test.gd",
+     "ok": true,
+     "last": "BJJ_CLASH PASS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/bjj_coach_test.gd",
+     "ok": true,
+     "last": "BJJ_COACH failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/bjj_finish_test.gd",
+     "ok": true,
+     "last": "BJJ_FINISH failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/bjj_mat_test.gd",
+     "ok": true,
+     "last": "BJJ_MAT failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/bjj_match_test.gd",
+     "ok": true,
+     "last": "BJJ_MATCH failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/bjj_tree_ui_test.gd",
+     "ok": true,
+     "last": "BJJ_TREE_UI failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/grapple_attacker_test.gd",
+     "ok": true,
+     "last": "GRAPPLE_ATTACKER failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/grapple_contact_test.gd",
+     "ok": true,
+     "last": "PASS grapple_contact_test"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/grapple_fix_test.gd",
+     "ok": false,
+     "last": "GRAPPLE_FIX failures=18"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/grapple_pose_test.gd",
+     "ok": true,
+     "last": "PASS grapple_pose_test"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/grapple_timing_test.gd",
+     "ok": true,
+     "last": "PASS grapple_timing_test"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/theatre_test.gd",
+     "ok": true,
+     "last": "THEATRE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/move_tip_test.gd",
+     "ok": false,
+     "last": "   at: clear (core/io/resource.cpp:822)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/halo_test.gd",
+     "ok": true,
+     "last": "HALO failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "reconciled": "2026-11-17 20:40 board_reconcile: PR #352 closed",
+   "archived": "2026-11-17 20:41 board_sync"
+  },
+  {
+   "agent": "qwen",
+   "id": "ASKPROBE4",
+   "title": "TASK ASKPROBE4 - QWEN (qwen3-coder) - does the fight week make the show date a real choice?",
+   "status": "closed",
+   "started": "2026-11-17T20:20",
+   "eta": "2026-11-17T22:10",
+   "branch": "qwen/askprobe4",
+   "worktree": "E:/FightCamp/wt/LEAN_ASKPROBE4",
+   "wt": "E:/FightCamp/wt/LEAN_ASKPROBE4",
+   "brief": "ops/research/TASK_ASKPROBE4.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/ASKPROBE4_dispatch_out.txt",
+   "match": "seat_dispatch.py run askprobe4",
+   "model": "qwen4-max",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/ASKPROBE4_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/ASKPROBE4_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/ASKPROBE4_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 49052,
+    "seat_pid": 26376
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 4/4 PASS; PR #358",
+   "finished": "2026-11-17T21:44",
+   "pr": 358,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tools/ask_probe4.gd",
+     "ok": true,
+     "last": "ASKPROBE4 done"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/ask_bout_test.gd",
+     "ok": true,
+     "last": "ASK_BOUT failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/fight_learn_test.gd",
+     "ok": true,
+     "last": "FIGHT_LEARN failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/fight_week_test.gd",
+     "ok": true,
+     "last": "FIGHT_WEEK checks=90 failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "reconciled": "2026-11-17 22:40 board_reconcile: PR #358 closed",
+   "archived": "2026-11-17 22:41 board_sync"
+  },
+  {
+   "agent": "goose",
+   "id": "FP2CHOREO1",
+   "title": "Fight animation rebuild, phase 2: the planner that picks each punch by distance and each reaction by size (pure module + tests)",
+   "status": "closed",
+   "started": "2026-11-17T21:34",
+   "eta": "2026-11-17T22:34",
+   "branch": "goose/issue-356",
+   "issue": 356,
+   "brief": "ops/research/TASK_FP2CHOREO1.md",
+   "repo": "FightCamp-Lean",
+   "where": "cloud",
+   "owner": "S512 animation session",
+   "reconciled": "2026-11-17 23:10 board_reconcile: issue 356 closed",
+   "archived": "2026-11-17 23:11 board_sync"
+  },
+  {
+   "agent": "qwen",
+   "id": "MORNINGSPROBE1",
+   "title": "TASK MORNINGSPROBE1 - coached mornings: is solo vs shared a real choice? (probe, no game change)",
+   "status": "closed",
+   "started": "2026-11-17T22:12",
+   "eta": "2026-11-18T00:02",
+   "branch": "qwen/morningsprobe1",
+   "worktree": "E:/FightCamp/wt/LEAN_MORNINGSPROBE1",
+   "wt": "E:/FightCamp/wt/LEAN_MORNINGSPROBE1",
+   "brief": "ops/research/TASK_MORNINGSPROBE1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/MORNINGSPROBE1_dispatch_out.txt",
+   "match": "seat_dispatch.py run morningsprobe1",
+   "model": "qwen4-max",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/MORNINGSPROBE1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/MORNINGSPROBE1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/MORNINGSPROBE1_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 25616,
+    "seat_pid": 37192
+   },
+   "note": "S368 seat_dispatch: qwen exit 124; 1 commit(s); checks 3/3 PASS; PR #359",
+   "finished": "2026-11-18T00:02",
+   "pr": 359,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tools/mornings_probe1.gd",
+     "ok": true,
+     "last": "MORNINGSPROBE1 done"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/coached_mornings_test.gd",
+     "ok": true,
+     "last": "COACHED_MORNINGS PASS fails=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/training_k_test.gd",
+     "ok": true,
+     "last": "   at: clear (core/io/resource.cpp:822)"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "reconciled": "2026-11-18 01:40 board_reconcile: PR #359 closed",
+   "archived": "2026-11-18 01:42 board_sync"
+  },
+  {
+   "agent": "qwen",
+   "id": "STOPWORD1",
+   "title": "TASK STOPWORD1 - the Ask card's stoppage word: measure the risk, then the pure rule (probe + rule, no screen)",
+   "status": "closed",
+   "started": "2026-11-18T01:42",
+   "eta": "2026-11-18T03:32",
+   "branch": "qwen/stopword1",
+   "worktree": "E:/FightCamp/wt/LEAN_STOPWORD1",
+   "wt": "E:/FightCamp/wt/LEAN_STOPWORD1",
+   "brief": "ops/research/TASK_STOPWORD1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/STOPWORD1_dispatch_out.txt",
+   "match": "seat_dispatch.py run stopword1",
+   "model": "qwen4-max",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/STOPWORD1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/STOPWORD1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/STOPWORD1_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 41568,
+    "seat_pid": 20352
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 3/3 PASS; PR #362",
+   "finished": "2026-11-18T02:21",
+   "pr": 362,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/stop_word_test.gd",
+     "ok": true,
+     "last": "STOP_WORD PASS"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/ask_bout_test.gd",
+     "ok": true,
+     "last": "ASK_BOUT failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/ask_wire_test.gd",
+     "ok": true,
+     "last": "ASK_WIRE failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "reconciled": "2026-11-18 03:40 board_reconcile: PR #362 closed",
+   "archived": "2026-11-18 03:41 board_sync"
   }
  ]
 }

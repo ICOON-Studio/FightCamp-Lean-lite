@@ -5,13 +5,13 @@
  "now": {
   "id": "S509",
   "owner": "claude",
-  "updated": "2026-11-18 S513",
-  "summary": "S514 (main line, Opus, weekly plan 88%): STOPWORD1 collected + on every Ask card ('Getting stopped: unlikely/possible/a real risk'); ladder v6 (Dola 9/9, Goose 8/7) and coach roles r6 (Dola 8/8, Goose 7/7) passed -> his board Q-270/Q-271; FIGHTWEEK3 DONE: a host one boxer short asks the club on the show week's Monday (LateAskWire + LateAskCard, +1 favour on a yes, the only way to earn one), the win band on ON FIGHT NIGHT (FightWeekPlan.band); fix: Ask dates no longer greyed 'Weight at risk' inside the club-show gap; R58 still checked. Qwen FAVOURPROBE1 running (favours after a year). Exported. Animation: lean-f3 (anim S513, Fable) stays the only animation session.",
-  "next_action": "S515 main line: 1) collect Qwen FAVOURPROBE1 (is the THRIFTY club inside 1-2 favours? report, no rule change unless it misses); 2) read his answers Q-270/Q-271 (ladder v6 / coach r6 build); 3) collect Dola SQ215 guard damage v2 + SQ216 club week v10 -> two fresh critics each; 4) INTEGRATE1: the BJJ mat plan screen (MATPLAN_MAP_S433 4.2-4.3; MatLines + MatPrice built, no screen yet) - after the weekly reset (Thu 19 Nov 14:00 UTC). Animation: lean-f3 only (METHOD S510).",
+  "updated": "2026-11-18 S515",
+  "summary": "S515 (main line, Opus, short - weekly plan 88%, resets Thu 19 Nov 14:00 UTC): FAVOURPROBE1 collected (160 runs: a THRIFTY club sits at 0.24 favours a touched host, below the map's 1-2; earns 0.3/yr vs 4.4 spends; kilo/missed-weight never fire); fix: LateAskWire.ready_for also needs a legal experience match (38 unbookable yeses gone). His yes on Q-270/Q-271 -> LADDERREP1 (ladder v6 pure rules, Goose #366) + COACHROLES1 (coach r6 pure rules, Qwen running). Dola guard damage v2 + club week v10 collected -> critics Dola SQ217/SQ218 + Goose #364/#365. Exported.",
+  "next_action": "S516 main line (after the weekly reset): 1) collect Goose #366 LADDERREP1 and Qwen COACHROLES1 by diff+parse+test, then wire: ladder -> Fights > Who do we fight? (map DESIGN_LADDER1_V6_DOLA.md Part 2), coach -> Staff cards runway line, class-night pill, no-gi Academy Month; 2) critics on guard damage v2 / club week v10 (SQ217/218, Goose #364/#365): board only at 7+/7+; 3) FAVOURS2: the favour economy misses its 1-2 target (docs/FAVOURPROBE1_RESULT.md) - decide the earning channel (a design question, Claude decides; probe again); 4) INTEGRATE1: the BJJ mat plan screen (MATPLAN_MAP_S433 4.2-4.3). Animation: lean-f3 only (METHOD S510).",
   "incomplete_blocked": "Qwen HOOKPAST2 running (branch qwen/hookpast2) - collect by diff, then use its HOOK_HELD line as the hook-release ruler.",
   "next_acceptance": "On a 180 s seed 7 film vs s507b: no landed punch over 9 m/s after contact and at most 2 over 6; head jumps per punch clip <= 0.13 in the shared part (head_split_probe); FreeHand off_share <= 0.35, HeadEase back_f_p50 >= 8; punch tests keep or better their S507 A/B FAIL sets.",
   "awaiting_operator": "PR 341 look (coach neck still pair on /review). Unity uninstall (his call). Films while he plays: ask each time (S507: yes).",
-  "last_working_commit": "79b9dee65",
+  "last_working_commit": "HEAD",
   "verified_playable": "Build exported 2026-11-17 14:04 (Builds/FightCamp.exe, WHAT_TO_TRY S507: hooks stop at the head). Verified on films s507a/s507b + headless A/B on 12 punch tests; not played by the owner yet."
  },
  "next": "S496: 0) get_usage; where_we_are roll S496; quote board answers (Q-259 Training K v6c; build WeekCards v6c on Yes - WeekCards.gd 552 lines is split first). 1) Collect as they land, by diff + their test: Qwen ONELOOK2 (fight HUD palette, ETA ~11:00 11-16; render before/after fight stills on the hidden desktop, his OK before merge), Goose FILMCOUNT1 (#326, branch goose/issue-326 - Goose's PR step failed twice: collect from the branch; read its FINDS table and noise numbers, retune FilmBout rates if a floor missed), Grok Dev FIGHTPAGE1 (branch grok/fightpage1, ETA ~13:30; render at 1920x1080 text 1.0 and 1.3, judge against fight_analysis_v3.png, then his board). 2) Kalli SQ202 LADDER1 v6 + SQ203 COACHSPEC1 r6 -> two fresh critics each (Dola + John; Dola refused COACHSPEC1 r5 - resend). 3) Wire after FIGHTPAGE1+FILMCOUNT1: the film-night stop in the fight week (FightWeekPlan film night -> FightAnalysis.for_tape with FilmCount.check, FilmPattern.checks by coach rating), FilmEdge pays at the figure, the result page's Punch by punch tab over m['tape'] (BoutTape), History keeps 20 tapes (~400 lines a bout). 4) Live fight log panel brief to Grok Dev once FIGHTPAGE1 lands. 5) ONELOOK1 sweep after ONELOOK2: RosterCards, ReadPanel, MatMap (UI.gd/WoodKit/WeekCards first need a split).",
@@ -2168,6 +2168,12 @@
    "date": "2026-11-18",
    "model": "opus",
    "summary": "S514 (main line, Opus, weekly plan 88%): STOPWORD1 collected + on every Ask card ('Getting stopped: unlikely/possible/a real risk'); ladder v6 (Dola 9/9, Goose 8/7) and coach roles r6 (Dola 8/8, Goose 7/7) passed -> his board Q-270/Q-271; FIGHTWEEK3 DONE: a host one boxer short asks the club on the show week's Monday (LateAskWire + LateAskCard, +1 favour on a yes, the only way to earn one), the win band on ON FIGHT NIGHT (FightWeekPlan.band); fix: Ask dates no longer greyed 'Weight at risk' inside the club-show gap; R58 still checked. Qwen FAVOURPROBE1 running (favours after a year). Exported. Animation: lean-f3 (anim S513, Fable) stays the only animation session."
+  },
+  {
+   "id": "S515",
+   "date": "2026-11-18",
+   "model": "opus",
+   "summary": "S515 (main line, Opus, short - weekly plan 88%, resets Thu 19 Nov 14:00 UTC): FAVOURPROBE1 collected (160 runs: a THRIFTY club sits at 0.24 favours a touched host, below the map's 1-2; earns 0.3/yr vs 4.4 spends; kilo/missed-weight never fire); fix: LateAskWire.ready_for also needs a legal experience match (38 unbookable yeses gone). His yes on Q-270/Q-271 -> LADDERREP1 (ladder v6 pure rules, Goose #366) + COACHROLES1 (coach r6 pure rules, Qwen running). Dola guard damage v2 + club week v10 collected -> critics Dola SQ217/SQ218 + Goose #364/#365. Exported."
   }
  ],
  "blocked_on_operator": [],
@@ -5086,7 +5092,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-18 02:41 board_sync",
+  "updated": "2026-11-18 04:41 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5237,13 +5243,33 @@
   },
   "working_now": [
    {
-    "id": "FAVOURPROBE1",
+    "title": "TASK COACHROLES1 - coach roles r6 pure rules (class nights vs pads, hire runway, belt ceiling, held night)",
     "who": "qwen",
-    "title": "TASK FAVOURPROBE1 - where favours with the hosts sit after a year of real play (probe only)",
-    "after": ""
+    "started": "2026-11-18T10:00",
+    "run": "COACHROLES1",
+    "state": "running"
+   },
+   {
+    "title": "TASK LADDERREP1 - season ladder v6 pure rules (reach, points, greyed rows, will they say yes, the clock)",
+    "who": "goose",
+    "started": "2026-11-18T10:00",
+    "run": "LADDERREP1",
+    "state": "running (issue 366)"
+   },
+   {
+    "title": "Critics: guard damage v2 + club week v10 (Dola SQ217/SQ218, Goose 364/365)",
+    "who": "dola",
+    "started": "2026-11-18T10:00",
+    "state": "queued"
    }
   ],
   "next": [
+   {
+    "id": "FAVOURS2",
+    "who": "claude",
+    "title": "Favours with hosts: earning channel too thin (0.3 a year vs 4.4 spends, FAVOURPROBE1) - decide how a club earns favours, probe to 1-2",
+    "after": ""
+   },
    {
     "id": "HEADJUMP1",
     "who": "claude",
@@ -5265,7 +5291,7 @@
    {
     "id": "LADDER1",
     "who": "kalli",
-    "title": "Season ladder v6 passed critics (Dola 9/9, Goose 8/7) -> his board Q-270 (build after the week?); coach roles r6 passed (8/8, 7/7) -> Q-271",
+    "title": "Season ladder v6 + coach roles r6: his yes (Q-270/271); pure rules building (LADDERREP1 Goose, COACHROLES1 Qwen); Claude wires the screens next",
     "after": ""
    },
    {
@@ -5754,6 +5780,16 @@
   },
   "done_recently": [
    {
+    "title": "TASK FAVOURPROBE1 - favours after a year: 0.24 a host, below the 1-2 target; unbookable late asks fixed",
+    "who": "qwen",
+    "when": "2026-11-18"
+   },
+   {
+    "title": "TASK STOPWORD1 - the Ask card's stoppage word: measure the risk, then the pure rule (probe + rule, no screen)",
+    "who": "qwen",
+    "when": "2026-11-18"
+   },
+   {
     "id": "FIGHTWEEK3",
     "who": "claude",
     "title": "Fight week leftovers DONE S514: a host one boxer short asks the club (+1 favour on a yes, the only way to earn one), the win band on ON FIGHT NIGHT",
@@ -5805,32 +5841,6 @@
     "who": "claude",
     "title": "Ask for a bout BUILT (S512): two shows side by side, cards with an Ask per date, picked name keeps the host's gate, every amateur bout teaches (WHAT IT TAUGHT). Left: Home DO NEXT line, stoppage-risk word",
     "after": ""
-   },
-   {
-    "id": "LIVEROUNDSPLIT1",
-    "who": "claude",
-    "title": "LiveRound.gd under its limit (439 lines, found done S512)",
-    "after": ""
-   },
-   {
-    "title": "TASK SPLIT500B - QWEN (qwen3-coder) - bring the three grapple files and MatTreeInfo under the 500-line limit",
-    "who": "qwen",
-    "when": "2026-11-17"
-   },
-   {
-    "title": "Blind round 12: coach 5, animator 5 (flat vs r11)",
-    "who": "claude",
-    "when": "2026-11-17"
-   },
-   {
-    "title": "HEADSPLIT3 collected: combo phase",
-    "who": "qwen",
-    "when": "2026-11-17"
-   },
-   {
-    "title": "No glove snap when a paw starts mid-return to guard",
-    "who": "claude",
-    "when": "2026-11-17"
    }
   ],
   "scope_note": "S294: lean restart (E:\\FightCamp\\Lean\\docs\\RESTART_PLAN.md). Old roadmap items are parked until the weekly builds reach them.",
@@ -5919,6 +5929,30 @@
   "map": {
    "done_earlier": [
     {
+     "text": "STOPWORD1 on the Ask card",
+     "who": "claude"
+    },
+    {
+     "text": "Ladder v6 + Coach r6 pass 7+",
+     "who": "claude"
+    },
+    {
+     "text": "Host asks: favours earned",
+     "who": "claude"
+    },
+    {
+     "text": "Ask: weight gap fix",
+     "who": "claude"
+    },
+    {
+     "text": "Fight week: win band",
+     "who": "claude"
+    },
+    {
+     "text": "R58 approach still checked",
+     "who": "claude"
+    },
+    {
      "text": "HEADSPLIT2 collected",
      "who": "claude"
     },
@@ -5949,55 +5983,11 @@
     {
      "text": "Animation to Fable loop session",
      "who": "claude"
-    },
-    {
-     "text": "Fight analysis: your own bouts",
-     "who": "claude"
-    },
-    {
-     "text": "Plan marks + Tape Room moved in",
-     "who": "claude"
-    },
-    {
-     "text": "Workflow: findings drive the queue",
-     "who": "claude"
-    },
-    {
-     "text": "Palette: Training tab on it",
-     "who": "claude"
-    },
-    {
-     "text": "Ask critic: Dola 7/7",
-     "who": "claude"
-    },
-    {
-     "text": "Ask for a bout: built",
-     "who": "claude"
     }
    ],
    "done_session": [
     {
-     "text": "STOPWORD1 on the Ask card",
-     "who": "claude"
-    },
-    {
-     "text": "Ladder v6 + Coach r6 pass 7+",
-     "who": "claude"
-    },
-    {
-     "text": "Host asks: favours earned",
-     "who": "claude"
-    },
-    {
-     "text": "Ask: weight gap fix",
-     "who": "claude"
-    },
-    {
-     "text": "Fight week: win band",
-     "who": "claude"
-    },
-    {
-     "text": "R58 approach still checked",
+     "text": "Favours probe: 0.24, asks fixed",
      "who": "claude"
     }
    ],
@@ -6063,12 +6053,16 @@
      "who": "claude"
     },
     {
-     "text": "Your call: ladder v6, coach r6",
-     "who": "operator"
+     "text": "Ladder v6 rules (Goose)",
+     "who": "claude"
     },
     {
-     "text": "FAVOURPROBE1 (Qwen)",
-     "who": "agent"
+     "text": "Coach r6 rules (Qwen)",
+     "who": "claude"
+    },
+    {
+     "text": "Critics: guard v2, club week v10",
+     "who": "claude"
     }
    ],
    "next": [
@@ -6199,9 +6193,13 @@
     {
      "text": "MORNINGSPROBE2: 20 seeds",
      "who": "claude"
+    },
+    {
+     "text": "Favours: earning too thin",
+     "who": "claude"
     }
    ],
-   "session": "S514"
+   "session": "S515"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",

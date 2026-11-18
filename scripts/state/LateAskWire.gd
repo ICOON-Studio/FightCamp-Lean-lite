@@ -61,7 +61,13 @@ static func ready_for(c: Career, f: Dictionary, show_day: int) -> bool:
 	var bouts: GDScript = load("res://scripts/state/Bouts.gd")
 	if not bool(AskBout.open(a, c.day, int(bouts.AFTER_FIGHT))["open"]):
 		return false
-	return bool(_flow().in_gap(c, f, float(f["weight"])))   # a club show matches walking weights within a gap (WeighGap)
+	if not bool(_flow().in_gap(c, f, float(f["weight"]))):   # a club show matches walking weights within a gap (WeighGap)
+		return false
+	# FAVOURPROBE1: the sheet's name must be a legal experience match, or AskFlow.book refuses the yes (38 in 160 years).
+	var ab: GDScript = load("res://scripts/rules/AmateurBooking.gd")
+	var opp := c.rival(str(_flow().sheet_name(c, f)))
+	return not opp.is_empty() and ab.experience_match_ok(
+		ab.bouts_of(int(f["w"]), int(f["l"])), ab.bouts_of(int(opp["w"]), int(opp["l"])))
 
 
 ## The boxers who could fill the host's gap at `show_day`, in roster order.
