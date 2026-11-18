@@ -10,7 +10,7 @@ Updated 2026-11-18 by claude S294.
 
 **S509 — ?** *(claude)*
 
-S513 (main line, Opus, plan at 88%): MORNINGSPROBE1 collected (solo out-gains shared on points 64 vs 58, wins flat, 2 seeds - MORNINGSPROBE2 with 20 seeds and the same ability both ways before any number moves); ladder v6 + coach spec r6 at critics (Dola SQ213/SQ214, Goose 360/361); guard damage v2 at Dola (SQ215); DO NEXT 'Ask for a bout'; ASKPROBE4's three unwired fight-week rules wired (week-before pad night, late night cut stop + injury, stop banks the week's pads). Exported. Monthly API credit: interactive Claude Code cannot use it (help center); only claude -p with an API key, from Dec 4. Animation: lean-f3 (anim S513, Fable) stays the only animation session.
+S513 (main line, Opus, plan at 88%): MORNINGSPROBE1 collected (solo out-gains shared on points 64 vs 58, wins flat, 2 seeds - MORNINGSPROBE2 with 20 seeds and the same ability both ways before any number moves); ladder v6 + coach spec r6 at critics (Dola SQ213/SQ214, Goose 360/361); guard damage v2 at Dola (SQ215); DO NEXT 'Ask for a bout'; ASKPROBE4's three unwired fight-week rules wired (week-before pad night, late night cut stop + injury, stop banks the week's pads). Exported. Monthly API credit: interactive Claude Code cannot use it (help center); only claude -p with an API key, from Dec 4. Animation: lean-f3 (anim S513, Fable) stays the only animation session. Later in S513: coached mornings 40 seeds (multiplier not the lever -> club week v10 at Dola SQ216); STOPWORD1 queued (Qwen); FIGHTWEEK3 weigh-in ways wired (weigh_day_test).
 
 ## Next
 

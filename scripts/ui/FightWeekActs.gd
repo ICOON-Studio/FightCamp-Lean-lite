@@ -45,6 +45,12 @@ static func act(main: Node, name: String, arg: String) -> bool:
 		"fweat":
 			_plan(main)["eat_less"] = not bool(_plan(main).get("eat_less", false))
 			main.redraw_modal()
+		"fwtrainoff":   # S513 FIGHTWEEK3: the two ways to make the gap besides eating less
+			_plan(main)["train_off"] = not bool(_plan(main).get("train_off", false))
+			main.redraw_modal()
+		"fwkilo":
+			_plan(main)["ask_kilo"] = not bool(_plan(main).get("ask_kilo", false))
+			main.redraw_modal()
 		"fwfilm":
 			_plan(main)["film"] = not bool(_plan(main).get("film", false))
 			main.redraw_modal()

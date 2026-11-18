@@ -313,7 +313,7 @@ static func start_camp(c: Career, f: Dictionary, focus: String, protocol: int, f
 	if (f["bout"] as Dictionary).is_empty() or not (f["camp"] as Dictionary).is_empty():
 		return 0
 	# S481: a camp set on a club-show bout (a test, TestJump) makes it a camp bout - the fight week's keys go
-	for k in ["fight_week", "load", "fw_locked", "spar_days", "eat_less", "unsparred", "fw_film", "spar_edge", "wb_spar_days"]:
+	for k in ["fight_week", "load", "fw_locked", "spar_days", "eat_less", "unsparred", "fw_film", "spar_edge", "wb_spar_days", "train_off", "ask_kilo"]:
 		(f["bout"] as Dictionary).erase(k)
 	var cost := BoutRules.camp_cost(protocol, partner)
 	if cost > 0:
@@ -361,7 +361,14 @@ static func weigh(c: Career, f: Dictionary) -> bool:
 	# S481 FIGHTWEEK2: a club show matches walking weights within the gap (England Boxing 7.1.3, WeighGap)
 	if not made and WeekPhase.amateur(f["bout"]):
 		var lim := float(f["limit"])
-		made = WeighGap.in_gap(float(f["weight"]), float((f["bout"]["opp"] as Dictionary).get("weight", lim)), lim)
+		var bb: Dictionary = f["bout"]
+		if bool(bb.get("train_off", false)):   # S513 FIGHTWEEK3: trained off on the day: 0.3 kg for +8 tiredness
+			f["weight"] = float(f["weight"]) - WeighGap.TRAIN_OFF_KG
+			f["week_fatigue"] = float(f.get("week_fatigue", f.get("fatigue", 20.0))) + WeighGap.TRAIN_OFF_TIRED
+		made = FightWeekPlan.day_margin(float(f["weight"]), float((bb["opp"] as Dictionary).get("weight", lim)), lim,
+			false, bool(bb.get("ask_kilo", false))) >= 0.0
+		if not made:   # S513 FIGHTWEEK3: the host re-matches 1 in 3 on the night, else off + a favour (PullOutWire.weigh_miss)
+			made = load("res://scripts/state/PullOutWire.gd").weigh_miss(c, f)
 	f["bout"]["made"] = made
 	if not made and f["bout"].has("champ"):
 		# S328 a championship has no empty slot to pay for: she is out of the draw.

@@ -30,6 +30,7 @@ const FighterProfile := preload("res://scripts/rules/FighterProfile.gd")
 const WeekPhase := preload("res://scripts/rules/WeekPhase.gd")
 const FightWeekPlan := preload("res://scripts/state/FightWeekPlan.gd")
 const Data := preload("res://scripts/state/Data.gd")
+const WeighGap := preload("res://scripts/rules/WeighGap.gd")
 
 ## The replacement is a step up: its rating at least the old opponent's + 5 (rating points, BoutRules' fight_power scale).
 const RATING_UP := 5.0
@@ -184,3 +185,27 @@ static func answer(c: Career, fid: String, id: String) -> String:
 			WeekPhase.sync(f, c.day)
 			c.add_news("%s gives %s next month's slot: %s, %s. One favour spent." % [host, f["first"], b["opp"]["name"], Clock.fmt(int(nb["day"]))])
 	return ""
+
+
+## S513 FIGHTWEEK3 (map AMATEURWEEK1 v6 s6, WeighGap.miss): a club-show boxer outside the gap on the scale. The host
+## re-matches on the night when a spare of her walking weight is on the card (WeighGap.REMATCH_CHANCE, 1 in 3: the spare
+## is the class's next boxer up, at her weight); else the bout is off and the host takes a favour (Bouts.weigh pays
+## the empty slot). True = re-matched (the bout goes on with the spare).
+static func weigh_miss(c: Career, f: Dictionary) -> bool:
+	var b: Dictionary = f["bout"]
+	var host := str(b.get("host", ""))
+	var rng := RandomNumberGenerator.new()
+	rng.seed = c.seed * 6151 + int(b.get("day", c.day)) * 31 + absi(hash(str(f.get("id", "")) + "|weigh"))
+	var rep := replacement(c, f)
+	var res := WeighGap.miss(rng.randf(), not rep.is_empty())
+	if bool(res["rematched"]):
+		rep["weight"] = float(f["weight"])
+		b["was_opp"] = str((b["opp"] as Dictionary).get("name", ""))
+		b["opp"] = rep
+		c.add_news("%s is outside the gap with %s. %s has a spare at the weight: %s boxes instead." % [f["first"],
+			b["was_opp"], host if host != "" else "The host", str(rep.get("name", "a spare"))])
+		return true
+	if host != "":
+		c.favours[host] = maxi(0, FightWeekPlan.favours(c, host) - int(res["favours"]))
+		c.add_news("%s has no spare at the weight: the bout is off and the club owes the host a favour." % host)
+	return false

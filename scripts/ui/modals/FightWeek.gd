@@ -131,6 +131,18 @@ func _left(main: Node, f: Dictionary, plan: Dictionary, r: Dictionary) -> Contro
 	var eat := bool(plan.get("eat_less", false))
 	col.add_child(UI.button("Eat less: %s  (%d off the tank)" % ["ON" if eat else "OFF", FightWeek.EAT_LESS_TANK],
 		"BtnSolid" if eat else "BtnQuiet", main.act.bind("fweat", "")))
+	var ways: Array = r["ways"]
+	var off := bool(plan.get("train_off", false))
+	col.add_child(UI.button("Train it off: %s  (%.1f kg for +%d tired)" % ["ON" if off else "OFF", float(ways[1]["kg"]), int(ways[1]["tired"])],
+		"BtnSolid" if off else "BtnQuiet", main.act.bind("fwtrainoff", "")))
+	var kilo := bool(plan.get("ask_kilo", false))
+	var kb := UI.button("Ask for a kilo: %s  (1 favour with the host)" % ("ON" if kilo else "OFF"), "BtnSolid" if kilo else "BtnQuiet",
+		main.act.bind("fwkilo", ""))
+	kb.name = "AskKilo"
+	if not bool(ways[2]["ok"]) and not kilo:
+		kb.disabled = true
+		kb.tooltip_text = "Not now: %s." % str(ways[2]["why"])
+	col.add_child(kb)
 	col.add_child(UI.label("Your boxer's tiredness now: %d" % FightWeekPlan.tired(f), 17, UI.MUTED))
 	return col
 

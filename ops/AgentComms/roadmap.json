@@ -6,7 +6,7 @@
   "id": "S509",
   "owner": "claude",
   "updated": "2026-11-18 S513",
-  "summary": "S513 (main line, Opus, plan at 88%): MORNINGSPROBE1 collected (solo out-gains shared on points 64 vs 58, wins flat, 2 seeds - MORNINGSPROBE2 with 20 seeds and the same ability both ways before any number moves); ladder v6 + coach spec r6 at critics (Dola SQ213/SQ214, Goose 360/361); guard damage v2 at Dola (SQ215); DO NEXT 'Ask for a bout'; ASKPROBE4's three unwired fight-week rules wired (week-before pad night, late night cut stop + injury, stop banks the week's pads). Exported. Monthly API credit: interactive Claude Code cannot use it (help center); only claude -p with an API key, from Dec 4. Animation: lean-f3 (anim S513, Fable) stays the only animation session.",
+  "summary": "S513 (main line, Opus, plan at 88%): MORNINGSPROBE1 collected (solo out-gains shared on points 64 vs 58, wins flat, 2 seeds - MORNINGSPROBE2 with 20 seeds and the same ability both ways before any number moves); ladder v6 + coach spec r6 at critics (Dola SQ213/SQ214, Goose 360/361); guard damage v2 at Dola (SQ215); DO NEXT 'Ask for a bout'; ASKPROBE4's three unwired fight-week rules wired (week-before pad night, late night cut stop + injury, stop banks the week's pads). Exported. Monthly API credit: interactive Claude Code cannot use it (help center); only claude -p with an API key, from Dec 4. Animation: lean-f3 (anim S513, Fable) stays the only animation session. Later in S513: coached mornings 40 seeds (multiplier not the lever -> club week v10 at Dola SQ216); STOPWORD1 queued (Qwen); FIGHTWEEK3 weigh-in ways wired (weigh_day_test).",
   "next_action": "METHOD (S510, CLAUDE.md 8): fight animation is REBUILT, not patched. v2 scored coach 3.5 / animator 3.0 (below 4.5) on 2026-11-18; the terminal session anim S513 (CLI, Fable) works on feet/distance + the coach list. Main line: collect Dola SQ211/SQ212 and Qwen MORNINGSPROBE1; guard damage map v2 + critics; Ask leftovers (Home DO NEXT, 3 unwired fight-week rules). Critics = Goose + Dola (Grok bots out of quota).",
   "incomplete_blocked": "Qwen HOOKPAST2 running (branch qwen/hookpast2) - collect by diff, then use its HOOK_HELD line as the hook-release ruler.",
   "next_acceptance": "On a 180 s seed 7 film vs s507b: no landed punch over 9 m/s after contact and at most 2 over 6; head jumps per punch clip <= 0.13 in the shared part (head_split_probe); FreeHand off_share <= 0.35, HeadEase back_f_p50 >= 8; punch tests keep or better their S507 A/B FAIL sets.",
@@ -5080,7 +5080,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-18 S513",
+  "updated": "2026-11-18 01:42 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5231,24 +5231,16 @@
   },
   "working_now": [
    {
-    "title": "Critics on the season ladder v6 (Dola SQ213 + Goose issue 360)",
-    "who": "dola",
-    "started": "2026-11-18",
-    "run": "SQ213",
-    "state": "queued"
+    "title": "TASK STOPWORD1 - the Ask card's stoppage word: measure the risk, then the pure rule (probe + rule, no screen)",
+    "who": "qwen",
+    "started": "2026-11-18T01:42",
+    "run": "STOPWORD1"
    },
    {
-    "title": "Critics on the coach spec r6 (Dola SQ214 + Goose issue 361)",
-    "who": "goose",
+    "title": "TASK STOPWORD1 - the Ask card's stoppage word: measure the risk by level gap, then the rule",
+    "who": "qwen",
     "started": "2026-11-18",
-    "run": "361",
-    "state": "queued"
-   },
-   {
-    "title": "Guard damage map v2: Dola rewrites it from both critics' 10/10 lists (SQ215)",
-    "who": "dola",
-    "started": "2026-11-18",
-    "run": "SQ215",
+    "run": "STOPWORD1",
     "state": "queued"
    }
   ],
@@ -5280,7 +5272,7 @@
    {
     "id": "FIGHTWEEK3",
     "who": "claude",
-    "title": "Fight week leftovers: pull-out roll + fall-through card, Train it off / Ask a kilo, favours earned, win band",
+    "title": "Fight week leftovers: favours earned (the host gives one back?), win band. DONE S513: weigh-in Train it off / Ask a kilo / a miss re-matched 1 in 3",
     "after": "his play of the fight week"
    },
    {
@@ -5775,6 +5767,16 @@
   },
   "done_recently": [
    {
+    "title": "Weigh-in: Train it off, Ask for a kilo, a miss re-matched 1 in 3 (fight week screen)",
+    "who": "claude",
+    "when": "2026-11-18"
+   },
+   {
+    "title": "TASK MORNINGSPROBE1 - coached mornings: is solo vs shared a real choice? (probe, no game change)",
+    "who": "qwen",
+    "when": "2026-11-18"
+   },
+   {
     "title": "Fight week rules now in the game: week-before night takes a pad night, late night cut stop + injury, the stop banks the week's pads",
     "who": "claude",
     "when": "2026-11-18"
@@ -5829,26 +5831,6 @@
    {
     "title": "No glove snap when a paw starts mid-return to guard",
     "who": "claude",
-    "when": "2026-11-17"
-   },
-   {
-    "title": "TASK HEADSPLIT3 - the head-jump ruler counts a combo's next punch as \"after a hit\", not \"before\"",
-    "who": "qwen",
-    "when": "2026-11-17"
-   },
-   {
-    "title": "Search helpers on Haiku (Explore agent) after the owner's usage video",
-    "who": "claude",
-    "when": "2026-11-17"
-   },
-   {
-    "title": "HEADSPLIT2 collected + capwhy: why head jumps pass the cap",
-    "who": "claude",
-    "when": "2026-11-17"
-   },
-   {
-    "title": "TASK HEADSPLIT2 - the head-jump ruler says WHEN in the punch each jump falls",
-    "who": "qwen",
     "when": "2026-11-17"
    }
   ],
@@ -6278,6 +6260,6 @@
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
  "last_working_commit": "ba87ee191",
- "next_action": "S514 main line: 1) collect Dola SQ213/SQ214/SQ215 and Goose 360/361 as they land (design_loop tracker); 2) MORNINGSPROBE2 brief (20 seeds, shared on the same ability as solo); 3) guard damage v2 -> critics; 4) INTEGRATE1 leftovers: AskBout+FightLearn wiring, the stoppage-risk word. Animation: lean-f3 only (METHOD S510).",
+ "next_action": "S514 main line: 1) collect Dola SQ213/SQ214/SQ215 and Goose 360/361 as they land; 2) coached mornings: design point to the club-week loop (40 seeds: the multiplier is not the lever); 3) Qwen STOPWORD1 -> wire StopWord into AskFlow's card; 4) guard damage v2 -> critics. Animation: lean-f3 only (METHOD S510).",
  "next_acceptance": "Rulers vs r0: head jumps on the contact frame under 4, a head inside the other's body under 5 frames, arm out median under 4 frames with join_return green, then r1 film at two fresh blind critics 5+/10"
 }

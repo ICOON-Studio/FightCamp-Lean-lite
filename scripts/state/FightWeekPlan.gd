@@ -165,13 +165,30 @@ static func tired(f: Dictionary) -> int:
 
 
 ## The scale: {now, opp, gap, margin, in_gap}. Walking weights at a club show are matched within a gap (WeighGap).
-static func weight(f: Dictionary) -> Dictionary:
+## S513 FIGHTWEEK3 (map v6 s6): with a plan, the day's scale counts TRAIN IT OFF (0.3 kg off her) and ASK FOR A KILO
+## (1 kg more of gap, one favour with the host): margin/in_gap are then the day's; base_margin is the scale today.
+static func weight(f: Dictionary, plan: Dictionary = {}) -> Dictionary:
 	var lim := float(f.get("limit", 60.0))
 	var own := float(f.get("weight", lim))
 	var o: Dictionary = f["bout"]["opp"]
 	var opp := float(o.get("weight", lim))
-	return {"now": own, "opp": opp, "gap": WeighGap.gap_kg(lim), "margin": WeighGap.margin(own, opp, lim),
-		"in_gap": WeighGap.in_gap(own, opp, lim)}
+	var base := WeighGap.margin(own, opp, lim)
+	var day := day_margin(own, opp, lim, bool(plan.get("train_off", false)), bool(plan.get("ask_kilo", false)))
+	return {"now": own, "opp": opp, "gap": WeighGap.gap_kg(lim), "margin": day, "in_gap": day >= 0.0, "base_margin": base}
+
+
+## The margin on the scale on the day: train_off takes WeighGap.TRAIN_OFF_KG off her walking weight, ask_kilo adds
+## WeighGap.KILO_EDGE_KG of gap. >= 0 = inside the gap.
+static func day_margin(own: float, opp: float, lim: float, train_off: bool, ask_kilo: bool) -> float:
+	var m := WeighGap.margin(own - (WeighGap.TRAIN_OFF_KG if train_off else 0.0), opp, lim)
+	return m + (WeighGap.KILO_EDGE_KG if ask_kilo else 0.0)
+
+
+## WeighGap.ways for her bout today: eat_less, train_off, ask_kilo (ok + why: a favour with the host, within 1 kg).
+static func weigh_ways(c: Career, f: Dictionary) -> Array:
+	var w := weight(f)
+	return WeighGap.ways(float(w["now"]), float(w["opp"]), float(f.get("limit", 60.0)),
+		favours(c, str(f["bout"].get("host", ""))), tired(f))
 
 
 ## Everything the two screens show for a plan: tank, round one, each night's match, the lines readied, the r1 edge.
@@ -223,7 +240,7 @@ static func read(c: Career, f: Dictionary, plan: Dictionary) -> Dictionary:
 	return {"stop": stop, "tank": FightWeek.tank(tired(f), stop, fw_days, bool(plan.get("eat_less", false))),
 		"round_one": r1, "edge": float(r1["edge"]), "spar_edge": edge,   # S482: the partner apart (rounds 1-2)
 		"nights": rows, "missing": missing, "lines": lns,
-		"readied": readied, "unsparred": left_after, "partners": plist, "weight": weight(f),
+		"readied": readied, "unsparred": left_after, "partners": plist, "weight": weight(f, plan), "ways": weigh_ways(c, f),
 		"spar_days": fw_days, "wb_spar_days": wb_days}
 
 
@@ -247,8 +264,16 @@ static func lock(c: Career, f: Dictionary, plan: Dictionary) -> String:
 			c.favours[str(p["club"])] = favours(c, str(p["club"])) - 1
 		else:
 			spend += int(cost["cash"])
+	var kilo := bool(plan.get("ask_kilo", false))
+	if kilo and not bool((r["ways"] as Array)[2]["ok"]):
+		return "a kilo cannot be asked: %s" % str((r["ways"] as Array)[2]["why"])
 	if spend > 0:
 		c.pay(-spend, "Sparring partners for %s's fight week" % str(f["first"]))
+	if kilo:   # S513: the kilo costs one favour with the host (WeighGap.MISS_FAVOUR)
+		var host := str(b.get("host", ""))
+		c.favours[host] = favours(c, host) - WeighGap.MISS_FAVOUR
+	b["train_off"] = bool(plan.get("train_off", false))
+	b["ask_kilo"] = kilo
 	b["load"] = str(r["stop"])
 	b["spar_days"] = r["spar_days"]
 	b["wb_spar_days"] = r["wb_spar_days"]
