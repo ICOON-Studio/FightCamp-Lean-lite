@@ -266,6 +266,9 @@ static func _tidy(main: Node, c: Career) -> void:
 	for f in c.fighters:
 		if PullOutWire.is_open(f) and PullOutWire.answer(c, str(f["id"]), "take_replacement") != "":   # S490 a fall-through never stalls a jump
 			PullOutWire.answer(c, str(f["id"]), "go_home")
+		if load("res://scripts/state/RivalOfferWire.gd").is_open(f):   # S517b a rival gym's offer never stalls a jump: no booking
+			if load("res://scripts/state/RivalOfferWire.gd").answer(c, str(f["id"]), "not_this_show") != "":
+				load("res://scripts/state/RivalOfferWire.gd").answer(c, str(f["id"]), "pass")
 		if LateAskWire.is_open(f):   # S514 a host's late ask never stalls a jump
 			LateAskWire.answer(c, str(f["id"]), false)
 		if bool(f["goal_talk"]):

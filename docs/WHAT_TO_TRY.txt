@@ -1,3 +1,12 @@
+S517b (2026-11-18) - RIVAL GYMS RING FOR A BOUT, ANA'S PLAN IN PLAIN WORDS, IDLE RIVALS LEAVE THE TABLE
+- Once a boxer of yours is ranked (4 wins), a rival BELOW on the ladder may ring on a Monday for a bout at the next show:
+  a red NEEDS YOU and a card on the boxer's Overview with three answers - Accept (books that show; the card shows the
+  ladder points a win or a loss would move), Not this show (free, once a season with that rival), Pass (the challenger
+  takes 2 ladder points; free while hurt or booked). At most one such call every 4 weeks a boxer.
+- Ana's Playbook, THE PLAN ON THE MAT (your note C433): a "What to do" line on top, each plan line now says in one
+  sentence how often it works, what a miss does and what it costs in Tank; the scoreboard says what Push / Steady / Save do.
+- World > Rankings: a rival who has not boxed for 52 weeks drops off the table until she boxes again.
+
 S517 (2026-11-18) - NEW NOVICES ON THE SHEET, THE SEASON ENDS ON 1 JANUARY, MISSED WEIGHT BY KILOS
 - A novice (10 bouts or fewer) whose whole sheet has outgrown her no longer waits forever: a new novice from a club in
   her division joins the sheet (a news line names her) and the next offer is a legal match. Play a long career with one

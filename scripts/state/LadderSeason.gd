@@ -40,6 +40,7 @@ static func close(c: Career) -> Array:
 					year, f.get("first", r["name"]), ordinal(int(r["pos"])), rows.size(), Data.DIVISIONS[div]["short"],
 					int(r["rep"]), rows[0]["name"], int(rows[0]["rep"])])
 	c.seasons.append_array(tables)
+	load("res://scripts/state/RivalOfferWire.gd").season_reset(c)   # S517b R9: "Not this show" is free again
 	return tables
 
 

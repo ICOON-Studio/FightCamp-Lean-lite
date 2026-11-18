@@ -16,19 +16,25 @@ it stays the animation session and to add the owner's review comments C430-C432 
 feet; shots through heads and hands; no shoulder power). Do not start another animation session while it lives.
 
 ## MAIN LINE - DO FIRST
-1. Collect Goose RIVALOFFER1 (issue #372, branch goose/issue-372: scripts/rules/RivalOffer.gd + tests/rival_offer_test.gd,
-   brief ops/research/TASK_RIVALOFFER1.md) by diff + its test. Then WIRE R9: each Monday Region asks RivalOffer.who_offers
-   for each free amateur of ours (rivals carry last_offer_week); the offer is a NEEDS YOU card (Accept books the date /
-   Not this show once a season / Pass -2 points to the challenger, free while hurt, booked or too heavy); 1 Jan:
-   LadderSeason.close also runs RivalOffer.season_reset; AskFlow's No feeds ducked/owed (flags on the rival). Golden path
-   walks one offer.
-2. Launch Qwen LADDERPROBE3 (brief ready: `python ops/Tools/seat_dispatch.py --task LADDERPROBE3 --seat qwen --act`) and read
-   it: novices never frozen, newcomers a division, season tables at day 365/730.
-3. Critics in flight: guard damage v3 (John SQ221, Goose #369) and club week v11 (John SQ222, Goose #371,
-   ops/research/DESIGN_CLUBWEEK1_V11.md). Board (ask --attach) only at 7+/7+ from both; else a Dola revise round.
-4. Render a still of World > Rankings after 1 Jan (tools/ladder_still.gd stepped past day 361) to see the LAST SEASON line
-   under the table on the real screen (built S517, checked by test only).
+1. Play-check the rival offers (S517b): a ranked boxer gets "<CLUB> WANTS <NAME>" on a Monday - read the card on the real
+   screen (render: the Overview still with a seeded offer) and look at how often it comes in a long run (one more probe
+   column: rival offers a season, answered how, by TestJump's not_this_show).
+2. DUCKED / OWED (R6) still not built: the game has no hot streak (3 wins or +15 points in 8 weeks). Add the streak on the
+   fighter (Career.results), then RivalOffer.ducked/owed/owed_answer (already on main, rival_offer_test) from AskFlow.book's No.
+3. Critics in flight: guard damage v3 (John SQ221, Goose #369), club week v11 (John SQ222, Goose #371). Board only at 7+/7+.
+4. Mat plan (owner C433, S517b plain-word pass on the review board): his next comment decides if the panel needs a redraw.
 5. Coach r6 R14/R15 stay GATED on COACHFIT1 + a drawn page.
+
+## DONE IN S517b (second stage of S517)
+- RIVALOFFER1 collected (Goose #372: scripts/rules/RivalOffer.gd + rival_offer_test). WIRED: scripts/state/RivalOfferWire.gd
+  (monday from GymSpend.day_events beside LateAskWire; only ranked boxers, 4 weeks between calls a boxer, the rival's own
+  8 weeks; Accept books through AskFlow.book keeping the sheet's turn; Not this show / Pass with points; lapses as a pass;
+  1 Jan season_reset from LadderSeason.close), scripts/ui/RivalOfferCard.gd (Overview card, Needs row + blocker, Main act
+  chain), TestJump._tidy answers Not this show. tests/rival_offer_wire_test.gd.
+- LADDERPROBE3 collected (Qwen): no frozen novice in 60 runs; Lucy 43 -> 59 points; ~26% rows at 0 = idle rivals ->
+  Region._inactive: no bout in 52 weeks = off the table (map R8). ladder_season_test checks it.
+- C433 (owner: Ana's mat plan "too confusing"): MatPlanPanel says what to do, each line one sentence (MatPlanPanel.say),
+  the scoreboard explains its calls; still ops/previews/s517/matplan_plain_words.png on the review board.
 
 ## DONE IN S517 (tests green, see the commit; WHAT_TO_TRY S517 at the top)
 - LADDERPROBE1 collected (Qwen #370: tools/ladder_probe.gd + docs/LADDERPROBE1_RESULT.md); it ran before the clock, so

@@ -141,6 +141,8 @@ static func make(page: Container, main: Node, c: Career, f: Dictionary, g: Dicti
 		right.add_child(ApproachCard.fill(panel(), main, c, f))
 	if FallThroughCard.PullOutWire.is_open(f):   # S490 FIGHTWEEK3: the bout fell through - on top until it is answered
 		right.add_child(FallThroughCard.fill(panel(), main, c, f))
+	if load("res://scripts/state/RivalOfferWire.gd").is_open(f):   # S517b R9: a rival gym's offer waits for an answer
+		right.add_child(load("res://scripts/ui/RivalOfferCard.gd").fill(panel(), main, c, f))
 	if LateAskCard.LateAskWire.is_open(f):   # S514 FIGHTWEEK3: a host asks for this boxer - on top until it is answered
 		right.add_child(LateAskCard.fill(panel(), main, c, f))
 	var top := UI.hbox(14)

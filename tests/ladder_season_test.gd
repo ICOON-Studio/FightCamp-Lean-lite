@@ -59,6 +59,16 @@ func _initialize() -> void:
 	var n := c.seasons.size()
 	Region.day_events(c)
 	_check(c.seasons.size() == n, "2 Jan closes nothing")
+	# R8 (S517b): a rival with no bout in 52 weeks is off the table; a bout puts her back.
+	var c5 := Career.quick_start()
+	var idle: Dictionary = c5.rivals.filter(func(x): return str(x["div"]) == "wlw")[0]
+	idle["bouts"] = [{"d": -10, "vs": "x", "vs_club": "y", "win": true, "how": "ud", "ours": false}]
+	c5.day = 300
+	_check(Region.rankings(c5, "wlw").any(func(r): return str(r["name"]) == str(idle["name"])), "boxed 310 days ago: still on the table")
+	c5.day = 400
+	_check(not Region.rankings(c5, "wlw").any(func(r): return str(r["name"]) == str(idle["name"])), "410 days without a bout: off the table")
+	(idle["bouts"] as Array).push_front({"d": 395, "vs": "x", "vs_club": "y", "win": false, "how": "ud", "ours": false})
+	_check(Region.rankings(c5, "wlw").any(func(r): return str(r["name"]) == str(idle["name"])), "a bout puts her back")
 	print("LADDER_SEASON failures=%d" % _fails)
 	quit(1 if _fails > 0 else 0)
 

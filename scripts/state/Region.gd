@@ -18,6 +18,7 @@ const SHOW_BOUTS := 2
 ## She enters the regional rankings at this many wins (the prototype's line).
 const RANK_MIN_WINS := 4
 const RANK_ROWS := 8
+const INACTIVE_DAYS := 364   # S517b R8: off the table after 52 weeks without a bout
 const ROUND_SPREAD := 6.0
 ## A clear win (score gap over this) is a stoppage on a low roll.
 const STOPPAGE_GAP := 4.0
@@ -199,7 +200,7 @@ static func record(r: Dictionary, won: bool) -> void:
 static func rankings(c: Career, div: String = "wlw") -> Array:
 	var rows: Array = []
 	for r in c.rivals:
-		if str(r["div"]) == div:
+		if str(r["div"]) == div and not _inactive(c, r):
 			rows.append({"name": r["name"], "club": r["club"], "w": int(r["w"]), "l": int(r["l"]), "rating": float(r["rating"]),
 				"ours": false, "fid": "", "rep": RankLine.rep(r)})
 	for f in c.fighters:
@@ -208,6 +209,14 @@ static func rankings(c: Career, div: String = "wlw") -> Array:
 				"fid": f["id"], "rep": RankLine.rep(f)})
 	rows.sort_custom(before)
 	return rows
+
+
+## S517b map R8 ("inactive rivals leave the rankings after 52w"; LADDERPROBE3: ~26% of rows sat at 0 by year two, idle
+## rivals drained by the clock): a rival with no bout in the last 52 weeks is off the table until she boxes again.
+static func _inactive(c: Career, r: Dictionary) -> bool:
+	var b: Array = r.get("bouts", [])
+	var last := int(b[0].get("d", 0)) if not b.is_empty() else int(r.get("joined", 0))   # no bout yet: counted from the start
+	return c.day - last > INACTIVE_DAYS
 
 
 ## S488 APPROACHUI2 (R58 map s7): a rival who boxed for us and left - "(left us Apr 2026)" beside the name; else "".

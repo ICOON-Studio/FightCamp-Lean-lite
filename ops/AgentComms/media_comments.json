@@ -3305,6 +3305,41 @@
       "at": "2026-11-17T11:54:29Z",
       "seen_by_claude": true,
       "id": "C429"
+    },
+    {
+      "path": "_sent/2026-11-17_2107_baseline_the_same_bout_with_the_bought_c/men_720.mp4",
+      "text": "the guard is wrong their hands are too stiff and they do not move their feets , they only slide",
+      "at": "2026-11-17T19:37:48Z",
+      "seen_by_claude": true,
+      "at_s": 43.7,
+      "id": "C430",
+      "addressed": "cited by 27b10e841 2026-11-18"
+    },
+    {
+      "path": "_sent/2026-11-17_2107_baseline_the_same_bout_with_the_bought_c/men_720_1.mp4",
+      "text": "too many shots go through heads or hands and there is no collision",
+      "at": "2026-11-17T19:38:41Z",
+      "seen_by_claude": true,
+      "at_s": 51.0,
+      "id": "C431",
+      "addressed": "cited by 27b10e841 2026-11-18"
+    },
+    {
+      "path": "_sent/2026-11-17_2107_bought_clips_on_the_vendor_s_character_b/bought_vs_ours.mp4",
+      "text": "the punches on the first 2 animations have no power behind them , the shoulder movement needs to generate the power",
+      "at": "2026-11-17T19:40:23Z",
+      "seen_by_claude": true,
+      "at_s": 10.3,
+      "id": "C432",
+      "addressed": "cited by 27b10e841 2026-11-18"
+    },
+    {
+      "path": "_sent/2026-11-18_1028_ana_s_plan_on_the_mat_lines_scoreboard_p/mp_1_lines.png",
+      "text": "too confusing , needs to be clearer for the player what to do and what it affects.",
+      "at": "2026-11-18T13:46:43Z",
+      "seen_by_claude": true,
+      "id": "C433",
+      "addressed": "S517b: plain-word pass - a What to do line, each plan line as one sentence (works N in 100, what a miss does, the Tank), the scoreboard explains Push/Steady/Save; new still on the review board 2026-11-18 17:10"
     }
   ]
 }

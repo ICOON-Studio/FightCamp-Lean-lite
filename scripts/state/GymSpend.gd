@@ -306,6 +306,8 @@ static func day_events(c: Career) -> void:
 		Leaving.monday(c)   # S486 R58 LEAVE1: a farewell bout boxed, or loyalty under 25 after two words: the boxer leaves
 	ApproachWire.HomeBout.sweep(c)   # S488 HOMEBOUT1: a promised show night passed with no bout boxed breaks the promise
 	PullOutWire.day(c)   # S490 FIGHTWEEK3: fight week's Monday, 5 days out: the opponent may pull out (one stop)
+	load("res://scripts/state/RivalOfferWire.gd").monday(c)   # S517b R9: a rival gym may ring for a bout
+	load("res://scripts/state/RivalOfferWire.gd").lapse(c)
 	LateAskWire.monday(c)   # S514 FIGHTWEEK3: the same Monday a host one boxer short may ask the club (+1 favour on a yes)
 	if int(c.show.get("day", -1)) != c.day:
 		return

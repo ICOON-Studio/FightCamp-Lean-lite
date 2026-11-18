@@ -91,6 +91,9 @@ func refresh() -> void:
 	draft.name = "CoachDraft"
 	head.add_child(draft)
 	_body.add_child(head)
+	var how := UI.label("What to do: for each bad spot (ESCAPE) and the finish (FINISH), pick the move - click it for the next one - and when to go: click the timing. The match plays these lines; each one says how often it works and what a miss costs.", UI.SMALL, UI.FG, "semi", true)
+	how.name = "PlanHow"
+	_body.add_child(how)
 	var brought := MatLines.brought(f, plan, rl)
 	var vs := "vs %s (%s)" % [str(opp.get("name", "")), str(opp.get("style", ""))] if not opp.is_empty() else "vs the field (no open entered)"
 	_body.add_child(UI.muted("%s brings %d lines at %s belt - %d written. Chances %s. %s" % [str(f["first"]), hand,
@@ -131,19 +134,14 @@ func _row(line: Dictionary, opp: Dictionary, rl: Dictionary, on: bool) -> Contro
 		"sit_tight": "No try: frame and wait.", "set_up": "Two beats winning the hands first (+chance); the bottom gets 22 s to escape."}.get(t, "")
 	row.add_child(tb)
 	var pr := MatPrice.price(f, opp, line, rl)
+	var said := ""
 	if not pr.is_empty():
 		var big := UI.label("%d in 100" % roundi(float(pr["chance_timed"]) * 100.0) if t != "sit_tight" else "no try", UI.BODY, UI.GOLD if on else UI.MUTED, "bold")
 		big.custom_minimum_size = Vector2(100, 0)
 		row.add_child(big)
 		if not on:
 			row.add_child(UI.chip("NOT BROUGHT", "red"))
-		var chips: Array = pr["chips"]
-		for i in range(1, chips.size()):
-			if (i == 1 and int(pr["points"]) == 0) or (i == 4 and opp.is_empty()):
-				continue   # no points on an escape; the read needs a named opponent
-			row.add_child(UI.chip(str(chips[i]), ""))
-		row.add_child(UI.chip("does it: %s" % str(pr["grade"]), str(GRADE_COL.get(str(pr["grade"]), ""))))
-		row.add_child(UI.chip("%s %d" % [str(pr["level_word"]), roundi(float(pr["level"]))], ""))
+		said = say(pr, t, not opp.is_empty())   # S517b C433 ("too confusing"): one plain sentence, not six chips
 	var book: Array = (f.get("mat_book", {}) as Dictionary).get(str(line.get("edge", "")), [])
 	if not book.is_empty():   # S516 MATRECEIPT1: the season book - tried, worked, and the coach's verdict
 		var vd := MatReceipt.verdict_of(f["mat_book"], str(line.get("edge", "")))
@@ -154,7 +152,38 @@ func _row(line: Dictionary, opp: Dictionary, rl: Dictionary, on: bool) -> Contro
 	var drop := UI.button("Drop", "Btn", _drop.bind(at))
 	drop.name = "Drop_" + at
 	row.add_child(drop)
-	return row
+	var box := UI.vbox(2)
+	box.name = "LineBox_" + at
+	box.add_child(row)
+	if said != "":
+		var sl := UI.label(said, UI.SMALL, UI.FG, "body", true)   # FG, not muted: it reads over the gym backdrop
+		sl.name = "Says_" + at
+		box.add_child(sl)
+	return box
+
+
+## S517b (owner C433: "needs to be clearer for the player what to do and what it affects"): a line's price in one sentence -
+## how often it works, what it scores, what a miss costs, the Tank, the time, the read, how well it is known. No pronouns.
+static func say(pr: Dictionary, timing: String, named: bool) -> String:
+	if timing == "sit_tight":
+		return "No try here: frame and wait for the referee to reset the match. Costs no Tank."
+	var parts: Array = []
+	var pts := int(pr["points"])
+	parts.append("Works %d times in 100%s." % [roundi(float(pr["chance_timed"]) * 100.0),
+		", scores %d and lands in %s" % [pts, MatPrice._place_name(str(pr["lands_at"])).to_lower()] if pts > 0 else ""])
+	if str(pr["miss_at"]) == "" or float(pr["miss_slides"]) <= 0.001:
+		parts.append("If it fails, nothing changes.")
+	else:
+		var gives := int(pr["miss_gives"])
+		parts.append("If it fails: %d times in 10 your athlete ends up in %s%s." % [roundi(float(pr["miss_slides"]) * 10.0),
+			MatPrice._place_name(str(pr["miss_at"])).to_lower(), " and the opponent scores %d" % gives if gives > 0 else ""])
+	parts.append("Each try costs %d Tank, %d if it fails." % [roundi(float(pr["tank"])), roundi(float(pr["tank"]) + float(pr["tank_miss"]))])
+	if float(pr["time_s"]) > 0.0:
+		parts.append("%d s %s first." % [roundi(float(pr["time_s"])), "framing" if timing == "frame_first" else "fighting the hands"])
+	if named and float(pr["read_mult"]) < 0.995:
+		parts.append("This opponent reads it by the 3rd try: the chance x%.2f." % float(pr["read_mult"]))
+	parts.append("Known: %s %d; suits the body: %s." % [str(pr["level_word"]), roundi(float(pr["level"])), str(pr["grade"])])
+	return " ".join(parts)
 
 
 ## The bad positions with no line where she has a usable escape: one click adds the best.
@@ -180,6 +209,9 @@ func _board() -> Control:
 	var v := UI.vbox(4)
 	v.name = "Scoreboard"
 	v.add_child(UI.caps("THE SCOREBOARD - THE PACE FROM THE SCORE"))
+	var how := UI.label("How hard to go when the score is level, ahead or behind. Push: tries about 1.3 times as often and burns more Tank. Steady: the athlete's own pace. Save: tries less and holds a lead from 2:00 left.", UI.SMALL, UI.FG, "body", true)
+	how.name = "BoardHow"
+	v.add_child(how)
 	var board: Dictionary = _plan().get("board", {"level": "steady", "ahead": "save", "behind": "push"})
 	for r in ROWS:
 		var h := UI.hbox(6)

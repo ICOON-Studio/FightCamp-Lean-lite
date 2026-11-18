@@ -73,6 +73,10 @@ answer by %s, or lose the boxer" % [f["approach"]["line"], Clock.fmt(int(f["appr
 		n.append({"red": true, "t": "FELL THROUGH: %s's bout" % f["first"],
 			"s": "the opponent pulled out of the show at %s; take the replacement, go home, or ask for next month" % f["bout"]["fell"]["host"],
 			"act": "fellthrough", "arg": f["id"], "label": "Decide"})
+	for f in load("res://scripts/state/RivalOfferWire.gd").open_for(career):   # S517b R9: a rival gym asks for a bout
+		n.append({"red": true, "t": "%s WANTS %s" % [str(f["rival_offer"]["club"]).to_upper(), str(f["first"]).to_upper()],
+			"s": "%s asks for the bout on %s; accept, not this show, or pass" % [f["rival_offer"]["name"], Clock.fmt(int(f["rival_offer"]["show"]))],
+			"act": "rivaloffer", "arg": f["id"], "label": "Decide"})
 	for f in LateAskWire.open_for(career):   # S514 FIGHTWEEK3: a host one boxer short asks on the show week's Monday
 		n.append({"red": true, "t": "A HOST ASKS FOR %s" % str(f["first"]).to_upper(),
 			"s": "%s is one boxer short for %s; yes earns a favour with the host" % [f["late_ask"]["host"], Clock.fmt(int(f["late_ask"]["show"]))],
@@ -153,6 +157,8 @@ static func flags(career: Career) -> Array:
 		out.append({"t": "FELL THROUGH", "act": "fellthrough", "arg": f["id"], "red": true})
 	for f in LateAskWire.open_for(career):
 		out.append({"t": "HOST ASKS", "act": "lateask", "arg": f["id"], "red": true})
+	for f in load("res://scripts/state/RivalOfferWire.gd").open_for(career):   # S517b R9
+		out.append({"t": "RIVAL OFFER", "act": "rivaloffer", "arg": f["id"], "red": true})
 	if not career.pro_offer.is_empty():
 		out.append({"t": "PRO OFFER", "act": "prooffer", "arg": career.pro_offer["fid"], "red": true})
 	for f in career.fighters:
