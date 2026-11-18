@@ -103,6 +103,11 @@ static func _ladder(main: Node, c: Career, f: Dictionary, rows: Array, chosen: S
 		var row: Dictionary = rows[i]
 		list.add_child(_row(main, f, row, chosen, line if bool(row["ours"]) and int(row["rank"]) <= 0 else "", trend, ko, i, pts))
 	v.add_child(list)
+	var last: String = load("res://scripts/state/LadderSeason.gd").last_line(c, str(f["div"])) if not bool(f.get("pro", false)) else ""
+	if last != "":   # S517 LADDERWIRE stage 3: last season's final table (LadderSeason, c.seasons)
+		var ls := UI.muted(last, UI.SMALL)
+		ls.name = "LastSeason"
+		v.add_child(ls)
 	board.resized.connect(func(): Compare.align_columns(head, list))
 	return board
 

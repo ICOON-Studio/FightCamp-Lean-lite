@@ -9,6 +9,8 @@ const RankLine := preload("res://scripts/rules/RankLine.gd")
 const FightWords := preload("res://scripts/state/FightWords.gd")
 const RivalPast := preload("res://scripts/rules/RivalPast.gd")
 const WorldBout := preload("res://scripts/world/WorldBout.gd")
+const Newcomers := preload("res://scripts/state/Newcomers.gd")   # S517
+const LadderRep := preload("res://scripts/rules/LadderRep.gd")
 
 const NEWS_PATH := "res://assets/data/world_news.json"
 ## Bouts between rivals at each club show.
@@ -89,10 +91,31 @@ static func next_shows(day: int, n: int) -> Array:
 	return out
 
 
+## S517 (LADDERPROBE2: frozen novices drained to 0 points) the map's R8 free week: not booked, not injured, and at
+## least one legal name on her sheet within reach. Any other week the idle clock waits a week.
+static func _free_week(c: Career, f: Dictionary) -> bool:
+	if not (f.get("bout", {}) as Dictionary).is_empty() or not (f.get("injury", {}) as Dictionary).is_empty():
+		return false
+	var own := int(f.get("w", 0)) + int(f.get("l", 0))
+	var lp: GDScript = load("res://scripts/state/LadderPoints.gd")
+	var mine: int = lp.rep_of(f)
+	for n in Newcomers.sheet(c, str(f.get("div", ""))):
+		var r := c.rival(str(n))
+		if not r.is_empty() and AmateurBooking.experience_match_ok(own, int(r["w"]) + int(r["l"])) 				and LadderRep.in_reach(mine, int(lp.rep_of(r))):
+			return true
+	return false
+
+
 ## After each day: on a show day the rivals fight. Sim.step_day calls it.
 static func day_events(c: Career) -> void:
+	if load("res://scripts/state/LadderSeason.gd").is_season_end(c.day):   # S517 stage 3: 1 January closes the season
+		load("res://scripts/state/LadderSeason.gd").close(c)
 	if c.day > 0 and c.day % 7 == 0:   # S516 LADDERWIRE stage 3: every Monday the idle clock on every amateur
 		for x in c.rivals + c.fighters:
+			if c.fighters.has(x) and not _free_week(c, x):   # S517 R8: not a free week - the clock waits
+				if x.has("clock_from"):
+					x["clock_from"] = int(x["clock_from"]) + 7
+				continue
 			var lost: int = load("res://scripts/state/LadderPoints.gd").clock_tick(x, c.day)
 			if lost < 0 and c.fighters.has(x):
 				c.add_news("%s loses %d ladder point%s: no bout for %d weeks." % [x["first"], -lost, "" if lost == -1 else "s",

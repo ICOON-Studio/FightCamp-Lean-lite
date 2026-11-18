@@ -13,6 +13,7 @@ extends RefCounted
 const AmateurBooking := preload("res://scripts/rules/AmateurBooking.gd")
 const Promises := preload("res://scripts/rules/Promises.gd")
 const Loyalty := preload("res://scripts/rules/Loyalty.gd")
+const Newcomers := preload("res://scripts/state/Newcomers.gd")   # S517 the sheet refills with novices
 const Data := preload("res://scripts/state/Data.gd")
 
 const BOUTS := "res://scripts/state/Bouts.gd"
@@ -22,7 +23,7 @@ const BOUTS := "res://scripts/state/Bouts.gd"
 static func opponent(c: Career, f: Dictionary) -> Dictionary:
 	if not Data.DIVISIONS.has(str(f.get("div", ""))):
 		return {}
-	var names: Array = Data.DIVISIONS[f["div"]]["opponents"]
+	var names: Array = Newcomers.sheet(c, str(f["div"]))
 	if names.is_empty():
 		return {}
 	var own := AmateurBooking.bouts_of(int(f["w"]), int(f["l"]))

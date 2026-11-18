@@ -1,3 +1,14 @@
+S517 (2026-11-18) - NEW NOVICES ON THE SHEET, THE SEASON ENDS ON 1 JANUARY, MISSED WEIGHT BY KILOS
+- A novice (10 bouts or fewer) whose whole sheet has outgrown her no longer waits forever: a new novice from a club in
+  her division joins the sheet (a news line names her) and the next offer is a legal match. Play a long career with one
+  boxer: offers keep coming in her second year.
+- Ladder points no longer drain while a boxer is booked, injured, or has nobody legal within reach.
+- 1 January: the season ends. Each ranked boxer of yours gets a line in Club > Records: "Season 2026 ends: ... finishes
+  2nd of 12 ... on 44 ladder points (top: ...)". Points carry over into the new season. World > Rankings shows
+  LAST SEASON under each amateur table: the top 3 and where your boxer finished.
+- Missing weight by more than the class gap (2.5 kg up to 65 kg, 5 kg above) at a club show: no spare can match her, the
+  bout is off.
+
 S515b (2026-11-18) - ANA'S PLAN ON THE MAT, FAVOURS FOR BOXING ON A HOST'S SHOW, LADDER POINTS, MONEY LEFT ON A HIRE
 - Ana's Playbook page, below her map: THE PLAN ON THE MAT. The coach drafts what she brings (3 lines at white belt):
   her escapes from the worst positions and a finish. Click a move to swap it, click the timing (At once / Frame first /

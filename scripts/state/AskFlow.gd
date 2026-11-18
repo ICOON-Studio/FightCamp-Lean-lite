@@ -5,6 +5,7 @@ extends RefCounted
 ## read), and applies what an amateur fight teaches (FightLearn, every fight ability, as ASKPROBE2 measured it).
 ## Game text never says he, she, her or him.
 
+const Newcomers := preload("res://scripts/state/Newcomers.gd")   # S517 the sheet refills with novices
 const AskLadder := preload("res://scripts/state/AskLadder.gd")   # S516 LADDERWIRE stage 2
 const AskBout := preload("res://scripts/rules/AskBout.gd")
 const AskDates := preload("res://scripts/rules/AskDates.gd")
@@ -84,7 +85,7 @@ static func in_gap(c: Career, f: Dictionary, own_kg: float) -> bool:
 ## The name the sheet would send next (the matchmaker's own rule, Bouts.legal_index).
 static func sheet_name(c: Career, f: Dictionary) -> String:
 	var bouts: GDScript = load("res://scripts/state/Bouts.gd")
-	var names: Array = Data.DIVISIONS[f["div"]]["opponents"]
+	var names: Array = Newcomers.sheet(c, str(f["div"]))
 	var own := AmateurBooking.bouts_of(int(f["w"]), int(f["l"]))
 	return str(names[bouts.legal_index(c, names, int(f["opp_index"]), own)])
 

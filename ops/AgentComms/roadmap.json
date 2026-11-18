@@ -3,11 +3,11 @@
  "updated": "2026-11-18",
  "author": "claude S294",
  "now": {
-  "id": "S509",
+  "id": "S517",
   "owner": "claude",
-  "updated": "2026-11-18 S516",
-  "summary": "S516 (main line, Opus, weekly plan 89%): MATRECEIPT1 collected (Goose #367) and wired - YOUR PLAN, LINE BY LINE on the open's result, the season book (mat_book) and 'this season N of M: works/fails' on each plan row; LADDERWIRE stage 2 - the table sorts by ladder points (one rule in RankLine; rows without points read at their seed), rank_move moves points, World > Rankings Points column (WorldLadder split to WorldLadderPick), the Ask card's points + price, and for a step up / picked name: OUT OF REACH (needs N) and Leans Yes/No with the biggest reason (AskLadder, never random); a No or out-of-reach ask is refused with the reason (the sheet's name always yes); stage 3 part 1 - the idle clock (R8) every Monday, a bout 20+ below does not restart it. Critics in: guard damage v2 Dola 8/8/8, Goose 5/6/5; club week v10 Dola 7/8/8, Goose 6/7/6 -> revise rounds SQ219/SQ220 to Dola. Qwen LADDERPROBE1 running (started before the clock commit). Coach r6 R14/R15 found GATED (CoachedMornings and the held night are not in the game: they wait on COACHFIT1 + a drawn page). Stills on the review board. Exported.",
-  "next_action": "S517 main line: 1) LADDERWIRE stage 3 rest (ops/research/LADDERWIRE_SCOPE_S515.md): season 1 Jan (points carry over, the final table in Records) and R9 offers from rival gyms (Accept / Not this show once a season / Pass -2 to the challenger), DUCKED/OWED flags; 2) collect Qwen LADDERPROBE1 (qwen/ladderprobe1) by diff; if it ran without the clock, rerun on a new id; 3) Dola revise answers SQ219 (guard v3) and SQ220 (club week v11) -> two fresh critics each (Goose + John), board only at 7+/7+; 4) mat plan finding: a white belt tried her plan lines once in four opens (hand 3, early losses) - give the critics the number, consider the week review line. Coach r6 R14/R15 wait on COACHFIT1. Animation: lean-f3 only (METHOD S510).",
+  "updated": "2026-11-18",
+  "summary": "S517 (main line, Opus): LADDERPROBE1 collected (Qwen #370, tool + doc) - it ran before the idle clock; rerun on main as LADDERPROBE2 (docs/LADDERPROBE2_RESULT.md): with the clock our novices drained to ~1 point because in 23 of 30 runs her whole sheet had graduated past 10 bouts (no legal name, no bout ever again). FIXED: scripts/state/Newcomers.gd - a newcomer novice from a club in the division joins the sheet when a novice has nobody legal (max 3 a sheet; every sheet reader goes through Newcomers.sheet); Region._free_week - the idle clock waits while booked, injured or with nobody legal in reach (map R8); LADDERWIRE stage 3 season: scripts/state/LadderSeason.gd, 1 Jan keeps each division's final table in c.seasons and writes our boxers' 'Season N ends: ... finishes Kth of M ...' line into Records (points carry over). Seen defect fixed: home_bout_test red since S513 - a missed weight 6 kg over could still be re-matched on the night; PullOutWire.weigh_miss now finds no spare past the class gap. golden_path answers the other boxer's open offer before the debut (a newcomer's legal offer is a NEEDS YOU blocker). Club week v11 (Dola SQ220) saved, critics John SQ222 + Goose #371; RIVALOFFER1 (R9 offers + DUCKED/OWED pure rules) at Goose #372; LADDERPROBE3 brief ready for Qwen. Critic pack carries the mat plan number (1 try in 4 opens).",
+  "next_action": "S518 main line: 1) collect Goose RIVALOFFER1 (#372, scripts/rules/RivalOffer.gd + test) by diff, then wire R9: Region rolls who_offers each Monday for our free amateurs, an offer card on the Overview / NEEDS YOU (Accept / Not this show / Pass), season_reset on 1 Jan (LadderSeason.close), DUCKED/OWED flags from AskFlow's No; 2) launch Qwen LADDERPROBE3 (brief ready) and read it: no frozen novices, newcomers per division, season tables; 3) critics: guard v3 (John SQ221, Goose #369) and club week v11 (John SQ222, Goose #371) - board only at 7+/7+; 4) last season's table on World > Rankings (c.seasons is saved; only the Records line shows it today). Coach r6 R14/R15 wait on COACHFIT1. Animation: lean-f3 only (METHOD S510).",
   "incomplete_blocked": "Qwen LADDERPROBE1 running (branch qwen/ladderprobe1, worktree E:/FightCamp/wt/LEAN_LADDERPROBE1) - collect by diff.",
   "next_acceptance": "On a 180 s seed 7 film vs s507b: no landed punch over 9 m/s after contact and at most 2 over 6; head jumps per punch clip <= 0.13 in the shared part (head_split_probe); FreeHand off_share <= 0.35, HeadEase back_f_p50 >= 8; punch tests keep or better their S507 A/B FAIL sets.",
   "awaiting_operator": "PR 341 look (coach neck still pair on /review). Unity uninstall (his call). Films while he plays: ask each time (S507: yes).",
@@ -2180,6 +2180,12 @@
    "date": "2026-11-18",
    "model": "opus",
    "summary": "S516 (main line, Opus, weekly plan 89%): MATRECEIPT1 collected (Goose #367) and wired - YOUR PLAN, LINE BY LINE on the open's result, the season book (mat_book) and 'this season N of M: works/fails' on each plan row; LADDERWIRE stage 2 - the table sorts by ladder points (one rule in RankLine; rows without points read at their seed), rank_move moves points, World > Rankings Points column (WorldLadder split to WorldLadderPick), the Ask card's points + price, and for a step up / picked name: OUT OF REACH (needs N) and Leans Yes/No with the biggest reason (AskLadder, never random); a No or out-of-reach ask is refused with the reason (the sheet's name always yes); stage 3 part 1 - the idle clock (R8) every Monday, a bout 20+ below does not restart it. Critics in: guard damage v2 Dola 8/8/8, Goose 5/6/5; club week v10 Dola 7/8/8, Goose 6/7/6 -> revise rounds SQ219/SQ220 to Dola. Qwen LADDERPROBE1 running (started before the clock commit). Coach r6 R14/R15 found GATED (CoachedMornings and the held night are not in the game: they wait on COACHFIT1 + a drawn page). Stills on the review board. Exported."
+  },
+  {
+   "id": "S517",
+   "date": "2026-11-18",
+   "model": "opus",
+   "summary": "S517 (main line, Opus): LADDERPROBE1 collected (Qwen #370, tool + doc) - it ran before the idle clock; rerun on main as LADDERPROBE2 (docs/LADDERPROBE2_RESULT.md): with the clock our novices drained to ~1 point because in 23 of 30 runs her whole sheet had graduated past 10 bouts (no legal name, no bout ever again). FIXED: scripts/state/Newcomers.gd - a newcomer novice from a club in the division joins the sheet when a novice has nobody legal (max 3 a sheet; every sheet reader goes through Newcomers.sheet); Region._free_week - the idle clock waits while booked, injured or with nobody legal in reach (map R8); LADDERWIRE stage 3 season: scripts/state/LadderSeason.gd, 1 Jan keeps each division's final table in c.seasons and writes our boxers' 'Season N ends: ... finishes Kth of M ...' line into Records (points carry over). Seen defect fixed: home_bout_test red since S513 - a missed weight 6 kg over could still be re-matched on the night; PullOutWire.weigh_miss now finds no spare past the class gap. golden_path answers the other boxer's open offer before the debut (a newcomer's legal offer is a NEEDS YOU blocker). Club week v11 (Dola SQ220) saved, critics John SQ222 + Goose #371; RIVALOFFER1 (R9 offers + DUCKED/OWED pure rules) at Goose #372; LADDERPROBE3 brief ready for Qwen. Critic pack carries the mat plan number (1 try in 4 opens)."
   }
  ],
  "blocked_on_operator": [],
@@ -5098,7 +5104,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-18 12:41 board_sync",
+  "updated": "2026-11-18 16:11 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5252,7 +5258,14 @@
     "title": "TASK LADDERPROBE1 - does the season ladder's table stay sane over two years of real play? (probe only, no rule change)",
     "who": "qwen",
     "started": "2026-11-18T12:31",
-    "run": "LADDERPROBE1"
+    "run": "LADDERPROBE1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "offers from rival gyms and the DUCKED / OWED flags (pure rules + test, ladder v6 R9 + R6)",
+    "who": "goose",
+    "started": "2026-11-18T16:08",
+    "run": "RIVALOFFER1"
    }
   ],
   "next": [
@@ -5913,6 +5926,22 @@
   "map": {
    "done_earlier": [
     {
+     "text": "Mat receipt rules collected",
+     "who": "claude"
+    },
+    {
+     "text": "Ladder table + Ask lean (built)",
+     "who": "claude"
+    },
+    {
+     "text": "Mat receipt + season book",
+     "who": "claude"
+    },
+    {
+     "text": "Ladder idle clock",
+     "who": "claude"
+    },
+    {
      "text": "Favours probe: 0.24, asks fixed",
      "who": "claude"
     },
@@ -5951,39 +5980,27 @@
     {
      "text": "Fight week: win band",
      "who": "claude"
-    },
-    {
-     "text": "R58 approach still checked",
-     "who": "claude"
-    },
-    {
-     "text": "HEADSPLIT2 collected",
-     "who": "claude"
-    },
-    {
-     "text": "capwhy: why heads pass the cap",
-     "who": "claude"
-    },
-    {
-     "text": "Search helpers on Haiku",
-     "who": "claude"
     }
    ],
    "done_session": [
     {
-     "text": "Mat receipt rules collected",
+     "text": "Ladder probe collected + rerun",
      "who": "claude"
     },
     {
-     "text": "Ladder table + Ask lean (built)",
+     "text": "Novices: newcomers join sheet",
      "who": "claude"
     },
     {
-     "text": "Mat receipt + season book",
+     "text": "Ladder clock waits (R8 free week)",
      "who": "claude"
     },
     {
-     "text": "Ladder idle clock",
+     "text": "Season ends 1 Jan, in Records",
+     "who": "claude"
+    },
+    {
+     "text": "Missed weight by kilos: no spare",
      "who": "claude"
     }
    ],
@@ -6183,15 +6200,19 @@
      "who": "claude"
     },
     {
-     "text": "Ladder: season reset + R9 offers",
+     "text": "LADDERPROBE3: ladder with fixes",
      "who": "claude"
     },
     {
-     "text": "Ladder probe (Qwen) collect",
+     "text": "Critics: club week v11",
+     "who": "claude"
+    },
+    {
+     "text": "Ladder R9 offers: wire (Goose)",
      "who": "claude"
     }
    ],
-   "session": "S516"
+   "session": "S517"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",

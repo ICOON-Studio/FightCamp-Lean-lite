@@ -5,6 +5,7 @@ extends RefCounted
 ## her next goal. Rules live in BoutRules / AmateurBooking / FighterGoal; this file moves the career's data.
 ## Offer ids carry the fighter: "lucy:o8". Sim.step_day calls day_events after each day.
 
+const Newcomers := preload("res://scripts/state/Newcomers.gd")   # S517 the sheet refills with novices
 const Data := preload("res://scripts/state/Data.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const AmateurBooking := preload("res://scripts/rules/AmateurBooking.gd")
@@ -125,7 +126,8 @@ static func day_events(c: Career) -> void:
 		if (f["bout"] as Dictionary).is_empty() and c.day >= int(f["next_offer_day"]) and offers_settled(f) \
 				and not Promises.blocks_offer(c.promises, str(f["id"]), c.day):   # S487 promised the top of our show
 			var div: Dictionary = Data.DIVISIONS[f["div"]]
-			var names: Array = div["opponents"]
+			Newcomers.arrive(c, f)
+			var names: Array = Newcomers.sheet(c, str(f["div"]))
 			var own := AmateurBooking.bouts_of(int(f["w"]), int(f["l"]))
 			var opp: Dictionary = c.rival(str(names[legal_index(c, names, int(f["opp_index"]), own)])).duplicate(true)
 			var id := "%s:o%d" % [f["id"], c.day]
@@ -264,7 +266,7 @@ static func can_swap(c: Career, f: Dictionary) -> bool:
 static func tougher_opp(c: Career, f: Dictionary) -> Dictionary:
 	var cur: Dictionary = (f.get("bout", {}) as Dictionary).get("opp", {})
 	var best := {}
-	for n in (Data.DIVISIONS[f["div"]]["opponents"] as Array):
+	for n in Newcomers.sheet(c, str(f["div"])):
 		var r := c.rival(str(n))
 		if r.is_empty() or str(n) == str(cur.get("name", "")) or float(r.get("rating", 0.0)) <= float(cur.get("rating", 0.0)):
 			continue

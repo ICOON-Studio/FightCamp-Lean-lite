@@ -567,6 +567,12 @@ func _week_four(c: Career) -> void:
 	main.act("doWeigh")
 	_check(bool(lucy["bout"].get("made", false)), "she made weight for her debut")
 	_play_until(func(): return Bouts.fight_day(c, lucy), "her debut night comes")
+	# S517: a newcomer's legal offer for the other boxer is a NEEDS YOU blocker before fight night: answer it (no).
+	for o2 in c.fighters:
+		if str(o2["id"]) != "lucy":
+			for o in (o2.get("offers", []) as Array).duplicate():
+				if not bool(o["answered"]):
+					Bouts.decline(c, str(o["id"]))
 	main.act("go", "home:0")
 	main.act("go_btn")
 	_check(main.modal.get("type", "") == "fight" and int(main.modal.get("total", 0)) == 4, "fight night: four rounds")

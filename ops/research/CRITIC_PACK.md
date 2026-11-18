@@ -248,6 +248,9 @@ BUILT today (what screens show):
   mount 4, back 4. A BJJ athlete costs a roster place and a no-gi coach by the class.
 - The match runs on two-sided beats of about 11 seconds (S405): each side either acts on its pick or works its grips, and a holding lead can draw the referee's 20-second stall count.
   Measured over 1,000 bouts: white belts finish about 34% of matches, the first to score keeps the bout about 80% of the time, and a one-belt gap wins about 74%.
+  Her mat plan (BUILT S515-S516): a hand of plan lines (a white belt holds 3), shown line by line on the open's result and counted in a season
+  book ("this season N of M: works / fails"). Measured (mat_book_test, S516): a white belt tried her plan lines ONCE in four opens - with a hand
+  of 3 and early losses, most opens end before a line comes up.
 
 ### 4.16 Perks - BUILT (listed in section 3).
 

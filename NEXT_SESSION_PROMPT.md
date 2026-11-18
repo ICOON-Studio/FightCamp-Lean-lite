@@ -1,6 +1,6 @@
-# S517 handover (written 2026-11-18, end of S516 - main line, Opus, ~360k context; weekly plan 89%, resets Thu 19 Nov 14:00 UTC)
+# S518 handover (written 2026-11-18, end of S517 - main line, Opus; weekly plan resets Thu 19 Nov 14:00 UTC)
 
-Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. S515 is in roadmap `now`.
+Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. S517 is in roadmap `now`.
 
 ## BILLING (S513, from Anthropic's help center - quote it, do not guess)
 support.claude.com/en/articles/17154008: the Ultra plan's $200 monthly API credit covers the Claude API, Managed Agents, and
@@ -16,18 +16,37 @@ it stays the animation session and to add the owner's review comments C430-C432 
 feet; shots through heads and hands; no shoulder power). Do not start another animation session while it lives.
 
 ## MAIN LINE - DO FIRST
-1. LADDERWIRE stage 3 rest (ops/research/LADDERWIRE_SCOPE_S515.md): the season on 1 Jan (points carry over; last season's
-   final table in Records) and R9 offers from rival gyms (Accept / Not this show - once a season / Pass = -2 points to
-   the challenger); DUCKED / OWED flags on the rival after a No (R6). The idle clock is built (S516).
-2. Collect Qwen LADDERPROBE1 (branch qwen/ladderprobe1, worktree E:/FightCamp/wt/LEAN_LADDERPROBE1) by diff + parse + run.
-   It started BEFORE the clock commit 177e49437: if its table shows nobody drifting, rerun on a new id (LADDERPROBE2).
-3. Guard damage v3 landed (Dola SQ219 -> ops/research/DESIGN_GUARDDMG1_V3.md); its critics are queued: John SQ221 and
-   Goose issue #369 (GUARDCRITIC3). Club week v11 (Dola SQ220) lands via the 30-min reconcile: save it the same way, then
-   John + Goose critics. Board (ask --attach) only at 7+/7+ from both.
-4. Mat plan finding (mat_book_test, S516): a white belt tried her plan lines ONCE in four opens (hand of 3, out early).
-   Put the number in front of the next mat-plan critic; a week-review line for the receipt is still open.
-5. Coach r6 R14 (Week Priority) and R15 (half-held night) are GATED: CoachedMornings' deal and the held night are not in
-   the game - they wait on COACHFIT1 (critics 6/5, 6/6) and a drawn page. Do not build them before that.
+1. Collect Goose RIVALOFFER1 (issue #372, branch goose/issue-372: scripts/rules/RivalOffer.gd + tests/rival_offer_test.gd,
+   brief ops/research/TASK_RIVALOFFER1.md) by diff + its test. Then WIRE R9: each Monday Region asks RivalOffer.who_offers
+   for each free amateur of ours (rivals carry last_offer_week); the offer is a NEEDS YOU card (Accept books the date /
+   Not this show once a season / Pass -2 points to the challenger, free while hurt, booked or too heavy); 1 Jan:
+   LadderSeason.close also runs RivalOffer.season_reset; AskFlow's No feeds ducked/owed (flags on the rival). Golden path
+   walks one offer.
+2. Launch Qwen LADDERPROBE3 (brief ready: `python ops/Tools/seat_dispatch.py --task LADDERPROBE3 --seat qwen --act`) and read
+   it: novices never frozen, newcomers a division, season tables at day 365/730.
+3. Critics in flight: guard damage v3 (John SQ221, Goose #369) and club week v11 (John SQ222, Goose #371,
+   ops/research/DESIGN_CLUBWEEK1_V11.md). Board (ask --attach) only at 7+/7+ from both; else a Dola revise round.
+4. Render a still of World > Rankings after 1 Jan (tools/ladder_still.gd stepped past day 361) to see the LAST SEASON line
+   under the table on the real screen (built S517, checked by test only).
+5. Coach r6 R14/R15 stay GATED on COACHFIT1 + a drawn page.
+
+## DONE IN S517 (tests green, see the commit; WHAT_TO_TRY S517 at the top)
+- LADDERPROBE1 collected (Qwen #370: tools/ladder_probe.gd + docs/LADDERPROBE1_RESULT.md); it ran before the clock, so
+  rerun on main: docs/LADDERPROBE2_RESULT.md - with the clock our novices drained to ~1 point: in 23 of 30 runs every name
+  on her sheet had passed 10 bouts (no legal name, never another bout).
+- FIX scripts/state/Newcomers.gd: a novice with nobody legal gets a newcomer novice on her sheet (0-2 bouts, a club of the
+  division, a news line; at most 3 a sheet, the oldest graduated leaves the sheet). Every sheet reader (Bouts, AskFlow,
+  HomeBout, PullOutWire) goes through Newcomers.sheet. tests/newcomers_test.gd.
+- Region._free_week (map R8): the idle clock waits while our boxer is booked, injured or has nobody legal in reach.
+- LADDERWIRE stage 3 season: scripts/state/LadderSeason.gd - 1 Jan keeps each division's final table (c.seasons, saved)
+  and writes "Season N ends: <first> finishes Kth of M ... on P ladder points (top: ...)" into Records (Honours).
+  World > Rankings shows "LAST SEASON (2026): 1 ... 54 · 2 ... · Lucy 5th, 40" under each amateur table
+  (LadderSeason.last_line). tests/ladder_season_test.gd.
+- Seen defect: home_bout_test red since S513 - a boxer 6 kg over could be re-matched on the night. PullOutWire.weigh_miss:
+  no spare past the class gap (WeighGap.gap_kg).
+- golden_path: a newcomer's legal offer for the other boxer is a NEEDS YOU blocker before Lucy's debut: the test answers it.
+- Club week v11 saved (Dola SQ220 -> DESIGN_CLUBWEEK1_V11.md); critics queued. CRITIC_PACK carries the mat plan number.
+- Trap: a background test batch keeps running while you edit; files edited mid-run may or may not be in it - rerun.
 
 ## DONE IN S516 (on main, exported, WHAT_TO_TRY S516 at the top)
 - MATRECEIPT1 collected (Goose #367, MatReceipt.gd). Wired: the open's result YOUR PLAN, LINE BY LINE (OpenNight._done);

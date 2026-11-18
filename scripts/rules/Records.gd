@@ -11,7 +11,7 @@ const COACH := "coach"
 ## First match wins, top down. "joined the" sits first so a medal's new members read as People, not Honours.
 const WORDS := [
 	["People", ["joined the", "left the", "leaves for", ": let go", "kept: top of", "broken: missed our show", "You promise"]],   # S488 R58
-	["Honours", [" award", " medal", "regional champion", " belt.", "Nationals 2", "Signature:", "met the goal", " rankings"]],
+	["Honours", [" award", " medal", "regional champion", " belt.", "Nationals 2", "Signature:", "met the goal", " rankings", "Season "]],
 	["Training", ["the goal:", "missed the goal", "new goal"]],   # before Fights: a goal's own title can say "bout"
 	["Fights", ["Tape on"]],   # S396 blind review: a tape note naming what hurts her read as Health
 	["Health", ["hurt", "injury", "suspended", "cleared to box", "doctor"]],

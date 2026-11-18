@@ -29,6 +29,7 @@ const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const FighterProfile := preload("res://scripts/rules/FighterProfile.gd")
 const WeekPhase := preload("res://scripts/rules/WeekPhase.gd")
 const FightWeekPlan := preload("res://scripts/state/FightWeekPlan.gd")
+const Newcomers := preload("res://scripts/state/Newcomers.gd")   # S517 the sheet refills with novices
 const Data := preload("res://scripts/state/Data.gd")
 const WeighGap := preload("res://scripts/rules/WeighGap.gd")
 
@@ -93,7 +94,7 @@ static func replacement(c: Career, f: Dictionary) -> Dictionary:
 	var own := AmateurBooking.bouts_of(int(f.get("w", 0)), int(f.get("l", 0)))
 	var above: Dictionary = {}
 	var top: Dictionary = {}
-	for n in (Data.DIVISIONS[f["div"]]["opponents"] as Array):
+	for n in Newcomers.sheet(c, str(f["div"])):
 		var r := c.rival(str(n))
 		if r.is_empty() or str(n) == was or str(n) == str(cur.get("name", "")):
 			continue
@@ -197,6 +198,10 @@ static func weigh_miss(c: Career, f: Dictionary) -> bool:
 	var rng := RandomNumberGenerator.new()
 	rng.seed = c.seed * 6151 + int(b.get("day", c.day)) * 31 + absi(hash(str(f.get("id", "")) + "|weigh"))
 	var rep := replacement(c, f)
+	# S517 (home_bout_test red since S513): a spare in her division walks near its limit, so one exists only while she is
+	# within the class gap over it; 6 kg over a 60 kg limit is another class and nobody on the card matches her.
+	if float(f["weight"]) - float(f["limit"]) > WeighGap.gap_kg(float(f["limit"])):
+		rep = {}
 	var res := WeighGap.miss(rng.randf(), not rep.is_empty())
 	if bool(res["rematched"]):
 		rep["weight"] = float(f["weight"])

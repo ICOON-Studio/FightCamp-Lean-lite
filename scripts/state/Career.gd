@@ -37,6 +37,7 @@ const GymSlots := preload("res://scripts/rules/GymSlots.gd")
 @export var results: Array = []
 ## Week 3: the region's other amateurs (records move at club shows), sponsors, the kit, one-off money, her ranking.
 @export var rivals: Array = []
+@export var seasons: Array = []   # S517 LadderSeason: each amateur season's final table, one entry a division
 @export var deals: Array = []
 @export var facilities: Array = []
 @export var ledger: Array = []
