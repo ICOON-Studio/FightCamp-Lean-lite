@@ -1695,6 +1695,18 @@
    "seat": "qwen",
    "status": "queued",
    "queued": "2026-11-18T22:15"
+  },
+  {
+   "task": "MORNINGSPROBE2",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-18T23:28"
+  },
+  {
+   "task": "MONEYFOUR2",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-18T23:28"
   }
  ]
 }

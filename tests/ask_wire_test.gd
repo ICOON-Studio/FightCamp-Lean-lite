@@ -47,11 +47,15 @@ func _initialize() -> void:
 	var g := AskFlow.open(c, f)
 	_check(not bool(g["open"]) and str(g["why"]).contains("first bout comes from the sheet"), "1a closed before the first bout (%s)" % g["why"])
 	f["w"] = 1
-	f["last_bout_day"] = c.day - 3
+	f["last_bout_day"] = c.day
 	g = AskFlow.open(c, f)
-	_check(not bool(g["open"]) and int(g["opens_day"]) == c.day - 3 + Bouts.AFTER_FIGHT, "1b too soon after the last bout, opens on day+7 (%s, %d)" % [g["why"], int(g["opens_day"])])
+	_check(not bool(g["open"]) and int(g["opens_day"]) == c.day + 1, "1b shut on the bout's day, opens the next day (%s, %d)" % [g["why"], int(g["opens_day"])])
+	# ASKGAP1: 3 days into the rest the door is open, and every show it offers falls after the rest.
+	f["last_bout_day"] = c.day - 3
+	var resting := AskFlow.shows(c, f)
+	_check(bool(AskFlow.open(c, f)["open"]) and resting.all(func(s): return int(s["day"]) >= c.day - 3 + Bouts.AFTER_FIGHT),
+		"1c open 3 days after a bout, every show after the rest (%s)" % str(resting.map(func(s): return int(s["day"]))))
 	f["last_bout_day"] = c.day - Bouts.AFTER_FIGHT
-	_check(bool(AskFlow.open(c, f)["open"]), "1c open 10 days after a bout")
 	# 2. the panel.
 	var shows := AskFlow.shows(c, f)
 	_check(shows.size() == 2 and int(shows[0]["days_away"]) >= BoutRules.CAMP_MIN_DAYS

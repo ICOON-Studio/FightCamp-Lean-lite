@@ -1,24 +1,35 @@
-# S520 handover (written 2026-11-18, end of S519 - Opus)
+# S521 handover (written 2026-11-18, end of S520 - Opus)
 
-Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. S519 is in roadmap `now`.
+Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. S520 is in roadmap `now`.
 
 ## BILLING (S513) - unchanged, see S518's block in git history (support.claude.com/en/articles/17154008; claude -p only).
 
 ## GOAL (owner, verbatim, still on): "i want animations fixed (at least 7/10)"
-The ONLY animation session is the terminal CLI session "anim S513" (peer lean-f3, Fable). Do not start another.
+The ONLY animation session is the terminal CLI session "anim S513" (peer lean-f3, Fable; pid 26484 was alive at S520
+start). Do not start another. METHOD line below (S510) - quote it in the first message.
 
 ## MAIN LINE - DO FIRST
-1. His look at the CLUB WEEK (built S519, ops/research/CLUBWEEK1_BUILD_S519.md; stills ops/previews/s519 on the review
-   board; WHAT_TO_TRY S519 on top). Quote any review comment and act.
-2. ASKGAP1 (design point from STREAKPROBE1, docs/STREAKPROBE1_RESULT.md): the sheet's next offer lands the day the
-   post-bout rest ends (Bouts.AFTER_FIGHT 10 = AskBout's due), so a gym that answers its sheet never has a free Monday to
-   ask on - ducks/OWED never fire (0 in 240 boxer-seasons). Pick: next_offer gap 17 (rest + a week), or an ask that
-   replaces the waiting sheet offer. Then rerun tools/streak_probe.gd (its doc has the command).
-3. Collect TREEVALUE2 (Qwen, queued in dispatch_queue.json; it launches once the old qwen pid exits) -> tune StepEffect.
-4. Dola SQ225 guard v4 -> two fresh critics (Goose + Dola). John/Kalli/Maria (Grok bots) are OUT.
-5. MORNINGSPROBE2 + MONEYFOUR2 on the BUILT club week: each morning policy should win 30-70%; class nights' money vs the
-   mastery lost on the bag. Numbers marked ESTIMATE in CLUBWEEK1_BUILD_S519.md.
-6. His mat plan note C433.
+1. His look at the club week + the Ask door (WHAT_TO_TRY S520 and S519 on top; stills ops/previews/s519 on the review board).
+2. Collect TREEVALUE2 (Qwen) -> tune StepEffect. TRAP: the STREAKPROBE1 qwen process (pid 25840, started 22:13 on 18 Nov)
+   never exited after its work was collected, and seat_dispatch waits for the old qwen pid - S520's Stop-Process was
+   refused by the permission check. If it is still alive, ask the owner to end it (or let the reconcile do it).
+3. Then MORNINGSPROBE2 + MONEYFOUR2 (queued for Qwen, briefs ops/research/TASK_*.md): tune CoachedMornings SOLO/SHARED and
+   ClubClasses ($117, BAG_SHARE, MEMBER_A_NIGHT) from them.
+4. Guard damage v4 (ops/research/DESIGN_GUARDDMG1_V4.md, from Dola SQ225) is at two fresh critics: Dola SQ226
+   (-> DESIGN_GUARDDMG1_V4_CRITIC_DOLA_DOLA.md) and Goose issue #375 (-> DESIGN_GUARDDMG1_V4_CRITIC_GOOSE.md). Collect;
+   7+ depth and general from both = his board (Q with --attach); lower = design_loop.py revise. Grok bots are OUT.
+5. His mat plan note C433.
+6. Probe policy (not a rule): streak_probe asks the highest name 0-8 above, never the corner that OWES her - Josh reached
+   OWED 10 times and booked 0. Let the probe ask an owing corner first, then read owed w-l.
+
+## DONE IN S520
+- Q-S294-273 ("what do you think ?"): full pads, his Q-260 ruling; nothing to change.
+- ASKGAP1: the Ask door opens the day after a bout (AskBout.rest_gap / ASK_AFTER_DAYS 1). The 10-day rest gates the bout,
+  not the call: AskFlow.rest_end drops show nights before the rest ends (AskFlow.shows) and book refuses them; the host's
+  late ask (LateAskWire.ready_for) still waits the whole rest. Rerun: docs/ASKGAP1_RESULT.md - door open 671 of 1377 hot
+  Mondays (was 0), 187 asks, 64 booked, 123 ducks, 48 OWED, 18 owed bouts booked; points at day 728 within a few.
+  Tests: ask_bout (cases + a mutant), ask_wire 1b/1c, rival_offer_wire; 12 touched tests green. CRITIC_PACK Ask line current.
+- PRs #373 / #374 closed (collected in S517b / S518b). Exported, WHAT_TO_TRY S520 on top.
 
 ## DONE IN S519
 - Q-S294-272 "Yes, build it" -> club week v11 BUILT with pads FULL (Q-S294-273: he asked "what do you think ?" -> full

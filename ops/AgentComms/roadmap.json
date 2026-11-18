@@ -3,16 +3,16 @@
  "updated": "2026-11-18",
  "author": "claude S294",
  "now": {
-  "id": "S519",
+  "id": "S520",
   "owner": "claude",
   "updated": "2026-11-18",
-  "summary": "S519 (Opus): CLUB WEEK v11 BUILT (his Q-S294-272 'Yes, build it'; pads stay FULL per Q-260 - Q-273 'what do you think?' -> full pads): coached mornings dealt (1-TO-1 x1.25/1.40, SHARED x1.15 on the pair's shared focus; MorningWire -> WeekPlan/Sim), class nights (+$117, boxers on the bag, members slowly; the coach's $350 untouched), half sponsorship ($125, 1 work morning), loyalty 4-week trend, film alone = half a read, 4-week forecast strip + clash line under Accept, second-signing note; club_week_walk_test + 6 tests; map ops/research/CLUBWEEK1_BUILD_S519.md; stills ops/previews/s519. STREAKPROBE1 collected: ON A RUN 1.2% -> HotStreak.POINTS 15->8 (11.6%); ducks/OWED never fire because the Ask door is never open on a hot Monday (next sheet offer lands the day the rest ends) - design point queued. TREEVALUE2 queued for Qwen.",
-  "next_action": "S520: 1) his look at the club week (review board s519 stills, his play of the build); 2) ASKGAP1 design: the Ask door and the sheet's next offer open the same day (STREAKPROBE1) - give a free Monday or let an ask replace the sheet offer, then rerun streak_probe; 3) collect TREEVALUE2 (Qwen) -> tune StepEffect; 4) Dola SQ225 guard v4 -> two fresh critics (Goose + Dola); 5) MORNINGSPROBE2 / MONEYFOUR2 on the built club week (each morning policy 30-70%, class money vs mastery lost); 6) mat plan note C433. Animation: lean-f3 only (METHOD S510).",
+  "summary": "S520 (Opus): ASKGAP1 DONE - the Ask door opens the day after a bout (AskBout.rest_gap/ASK_AFTER_DAYS 1; AskFlow.rest_end keeps the asked show after the 10-day rest in shows + book; LateAskWire still waits the rest). Rerun docs/ASKGAP1_RESULT.md: door open 671 of 1377 hot Mondays (was 0), 187 asks, 123 ducks, 48 OWED, 18 owed bouts booked; points at day 728 within a few. 12 touched tests green, exported. Q-273 answered: full pads. MORNINGSPROBE2 + MONEYFOUR2 briefed and queued for Qwen (after TREEVALUE2). PRs #373/#374 closed (collected S517b/S518b). TRAP: the STREAKPROBE1 qwen process (pid 25840, started 22:13) never exited, so TREEVALUE2 waits; stopping it was refused by the permission check - the owner can end it or the reconcile will. Guard damage v4 map saved (DESIGN_GUARDDMG1_V4.md) and sent to two fresh critics: Dola SQ226, Goose #375.",
+  "next_action": "S521: 1) his look at the club week + the Ask door (WHAT_TO_TRY S519/S520); 2) collect TREEVALUE2 -> tune StepEffect, then MORNINGSPROBE2 / MONEYFOUR2 (Qwen queue) -> tune the club week ESTIMATES; 3) collect guard v4 critics: Dola SQ226 + Goose #375 (7+/7+ = his board); 4) mat plan note C433; 5) probe policy: an OWED corner asked first (Josh reached OWED 10x, booked 0 - the probe asks the highest name). Animation: lean-f3 only (METHOD S510).",
   "verified_playable": "Builds/FightCamp.exe S519: club week v11 on Training/Money/Overview/bout offer (hidden-desktop renders ops/previews/s519; club_week_walk_test through Main's acts). Not yet played by him.",
   "incomplete_blocked": "ASKGAP1 design open (ask door shut on hot Mondays); TREEVALUE2 waits on Qwen's old pid; MORNINGSPROBE2/MONEYFOUR2 not briefed.",
   "next_acceptance": "ASKGAP1: tools/streak_probe.gd rerun shows asks made on hot Mondays and ducks a few times a season (not 0, not weekly).",
   "awaiting_operator": "His look at the club week (review board s519); Steam: wait to 8 Dec.",
-  "last_working_commit": "5ad59501e"
+  "last_working_commit": "27fe90ca3"
  },
  "next": "S496: 0) get_usage; where_we_are roll S496; quote board answers (Q-259 Training K v6c; build WeekCards v6c on Yes - WeekCards.gd 552 lines is split first). 1) Collect as they land, by diff + their test: Qwen ONELOOK2 (fight HUD palette, ETA ~11:00 11-16; render before/after fight stills on the hidden desktop, his OK before merge), Goose FILMCOUNT1 (#326, branch goose/issue-326 - Goose's PR step failed twice: collect from the branch; read its FINDS table and noise numbers, retune FilmBout rates if a floor missed), Grok Dev FIGHTPAGE1 (branch grok/fightpage1, ETA ~13:30; render at 1920x1080 text 1.0 and 1.3, judge against fight_analysis_v3.png, then his board). 2) Kalli SQ202 LADDER1 v6 + SQ203 COACHSPEC1 r6 -> two fresh critics each (Dola + John; Dola refused COACHSPEC1 r5 - resend). 3) Wire after FIGHTPAGE1+FILMCOUNT1: the film-night stop in the fight week (FightWeekPlan film night -> FightAnalysis.for_tape with FilmCount.check, FilmPattern.checks by coach rating), FilmEdge pays at the figure, the result page's Punch by punch tab over m['tape'] (BoutTape), History keeps 20 tapes (~400 lines a bout). 4) Live fight log panel brief to Grok Dev once FIGHTPAGE1 lands. 5) ONELOOK1 sweep after ONELOOK2: RosterCards, ReadPanel, MatMap (UI.gd/WoodKit/WeekCards first need a split).",
  "assessment": {
@@ -2210,6 +2210,12 @@
    "date": "2026-11-18",
    "model": "opus",
    "summary": "S519 (Opus): CLUB WEEK v11 BUILT (his Q-S294-272 'Yes, build it'; pads stay FULL per Q-260 - Q-273 'what do you think?' -> full pads): coached mornings dealt (1-TO-1 x1.25/1.40, SHARED x1.15 on the pair's shared focus; MorningWire -> WeekPlan/Sim), class nights (+$117, boxers on the bag, members slowly; the coach's $350 untouched), half sponsorship ($125, 1 work morning), loyalty 4-week trend, film alone = half a read, 4-week forecast strip + clash line under Accept, second-signing note; club_week_walk_test + 6 tests; map ops/research/CLUBWEEK1_BUILD_S519.md; stills ops/previews/s519. STREAKPROBE1 collected: ON A RUN 1.2% -> HotStreak.POINTS 15->8 (11.6%); ducks/OWED never fire because the Ask door is never open on a hot Monday (next sheet offer lands the day the rest ends) - design point queued. TREEVALUE2 queued for Qwen."
+  },
+  {
+   "id": "S520",
+   "date": "2026-11-18",
+   "model": "opus",
+   "summary": "S520 (Opus): ASKGAP1 DONE - the Ask door opens the day after a bout (AskBout.rest_gap/ASK_AFTER_DAYS 1; AskFlow.rest_end keeps the asked show after the 10-day rest in shows + book; LateAskWire still waits the rest). Rerun docs/ASKGAP1_RESULT.md: door open 671 of 1377 hot Mondays (was 0), 187 asks, 123 ducks, 48 OWED, 18 owed bouts booked; points at day 728 within a few. 12 touched tests green, exported. Q-273 answered: full pads. MORNINGSPROBE2 + MONEYFOUR2 briefed and queued for Qwen (after TREEVALUE2). PRs #373/#374 closed (collected S517b/S518b). TRAP: the STREAKPROBE1 qwen process (pid 25840, started 22:13) never exited, so TREEVALUE2 waits; stopping it was refused by the permission check - the owner can end it or the reconcile will. Guard damage v4 map saved (DESIGN_GUARDDMG1_V4.md) and sent to two fresh critics: Dola SQ226, Goose #375."
   }
  ],
  "blocked_on_operator": [],
@@ -5128,7 +5134,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-18 22:21 board_sync",
+  "updated": "2026-11-18",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5277,21 +5283,8 @@
    "INTROCORNER2": "Fight intro from the corners: each name call shown, never alike",
    "FIGHTFILM1": "Fight analysis page: every punch of a fight, and film nights where you find the opponent's tells yourself"
   },
-  "working_now": [
-   {
-    "title": "TREEVALUE2 - each step's worth by style (probe, queued until Qwen's last run exits)",
-    "who": "qwen",
-    "started": "2026-11-18T22:55",
-    "run": "TREEVALUE2"
-   }
-  ],
+  "working_now": [],
   "next": [
-   {
-    "id": "ASKGAP1",
-    "who": "claude",
-    "title": "Ask door vs the sheet: the next offer lands the day the rest ends, so no free Monday to ask (STREAKPROBE1) - design the gap, rerun streak_probe",
-    "after": ""
-   },
    {
     "id": "HEADJUMP1",
     "who": "claude",
@@ -5802,6 +5795,17 @@
   },
   "done_recently": [
    {
+    "id": "ASKGAP1",
+    "who": "claude",
+    "title": "Ask door opens the day after a bout: 0 -> 123 ducks, 48 OWED (S520)",
+    "after": ""
+   },
+   {
+    "title": "TASK STREAKPROBE1 - how often a boxer is ON A RUN, and how often corners DUCK her or come to OWE her (probe only)",
+    "who": "qwen",
+    "when": "2026-11-18"
+   },
+   {
     "title": "Club week v11 built: coached mornings, class nights, half sponsorship, forecast",
     "who": "claude",
     "id": "S519"
@@ -5938,6 +5942,26 @@
   "map": {
    "done_earlier": [
     {
+     "text": "Club week v11 built",
+     "who": "claude"
+    },
+    {
+     "text": "Coached mornings dealt",
+     "who": "claude"
+    },
+    {
+     "text": "Class nights + half sponsor",
+     "who": "claude"
+    },
+    {
+     "text": "4-week forecast + clash line",
+     "who": "claude"
+    },
+    {
+     "text": "ON A RUN tuned: 15 -> 8 pts",
+     "who": "claude"
+    },
+    {
      "text": "Rival offer card: real still",
      "who": "claude"
     },
@@ -5972,47 +5996,11 @@
     {
      "text": "Season ends 1 Jan, in Records",
      "who": "claude"
-    },
-    {
-     "text": "Missed weight by kilos: no spare",
-     "who": "claude"
-    },
-    {
-     "text": "Rival gyms ring (R9) wired",
-     "who": "claude"
-    },
-    {
-     "text": "Mat plan in plain words (C433)",
-     "who": "claude"
-    },
-    {
-     "text": "Idle rivals leave the table",
-     "who": "claude"
-    },
-    {
-     "text": "LADDERPROBE3: no frozen novice",
-     "who": "claude"
     }
    ],
    "done_session": [
     {
-     "text": "Club week v11 built",
-     "who": "claude"
-    },
-    {
-     "text": "Coached mornings dealt",
-     "who": "claude"
-    },
-    {
-     "text": "Class nights + half sponsor",
-     "who": "claude"
-    },
-    {
-     "text": "4-week forecast + clash line",
-     "who": "claude"
-    },
-    {
-     "text": "ON A RUN tuned: 15 -> 8 pts",
+     "text": "Ask door opens the day after bout",
      "who": "claude"
     }
    ],
@@ -6232,11 +6220,15 @@
      "who": "claude"
     },
     {
-     "text": "Ask door vs sheet: free Monday",
-     "who": "claude"
+     "text": "Probes: mornings + class nights",
+     "who": "agent"
+    },
+    {
+     "text": "Critics: guard damage v4",
+     "who": "agent"
     }
    ],
-   "session": "S519"
+   "session": "S520"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",

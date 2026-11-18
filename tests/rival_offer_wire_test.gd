@@ -98,7 +98,7 @@ func _initialize() -> void:
 	f = c.fighters[0]
 	var rest_end := c.day - 3 + Bouts.AFTER_FIGHT
 	f["last_bout_day"] = c.day - 3
-	_check(not bool(AskFlow.open(c, f)["open"]), "3 days after a bout the Ask door is shut today")
+	_check(bool(AskFlow.open(c, f)["open"]), "3 days after a bout the Ask door is open (ASKGAP1)")
 	var lines2 := RivalOfferWire.monday(c)
 	_check(RivalOfferWire.is_open(f) and int(f["rival_offer"]["show"]) >= rest_end, "resting: a rival rings for a show after the rest (%s)" % str(lines2))
 	if RivalOfferWire.is_open(f):

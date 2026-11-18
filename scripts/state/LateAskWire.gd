@@ -61,6 +61,8 @@ static func ready_for(c: Career, f: Dictionary, show_day: int) -> bool:
 	var bouts: GDScript = load("res://scripts/state/Bouts.gd")
 	if not bool(AskBout.open(a, c.day, int(bouts.AFTER_FIGHT))["open"]):
 		return false
+	if c.day < int(f.get("last_bout_day", -9999)) + int(bouts.AFTER_FIGHT):
+		return false   # ASKGAP1 opened the Ask door the day after a bout; the host's short-notice ask still waits out the rest
 	if not bool(_flow().in_gap(c, f, float(f["weight"]))):   # a club show matches walking weights within a gap (WeighGap)
 		return false
 	# FAVOURPROBE1: the sheet's name must be a legal experience match, or AskFlow.book refuses the yes (38 in 160 years).

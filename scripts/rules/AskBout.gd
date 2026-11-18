@@ -24,6 +24,17 @@ const CAMP_WEEKS := 3
 const SHOW_GAP_DAYS := 14
 
 
+## ASKGAP1 (S520, STREAKPROBE1: 0 asks in 240 boxer-seasons - the sheet's next offer landed the day the rest ended, so the
+## door was never open on a free day): the rest after a bout gates the BOUT, not the phone call. The door opens this many
+## days after a bout; the shows it offers and books still fall after the rest (AskFlow.shows / AskFlow.book drop a night
+## before last_bout_day + after_fight). Nothing asked: the sheet's offer comes when the rest ends, as before.
+const ASK_AFTER_DAYS := 1
+
+
+static func rest_gap(after_fight: int) -> int:
+	return mini(ASK_AFTER_DAYS, after_fight)
+
+
 ## Map s5: when the ask is open. {open, why, opens_day}; opens_day -1 = no day known (or never).
 static func open(f: Dictionary, day: int, after_fight: int) -> Dictionary:
 	var nm := str(f.get("name", "This fighter"))
@@ -37,7 +48,7 @@ static func open(f: Dictionary, day: int, after_fight: int) -> Dictionary:
 		return _closed("%s's first bout comes from the sheet; asking opens after it is fought." % nm, -1)
 	if bool(f.get("booked", false)):
 		var bd := int(f.get("bout_day", -1))
-		return _closed("%s already has a bout booked." % nm, bd + after_fight if bd >= 0 else -1)
+		return _closed("%s already has a bout booked." % nm, bd + rest_gap(after_fight) if bd >= 0 else -1)
 	if bool(f.get("offer_waiting", false)):
 		var ex := int(f.get("offer_expires", -1))
 		return _closed("A bout offer for %s still waits for an answer." % nm, ex + 1 if ex >= 0 else -1)
@@ -46,9 +57,10 @@ static func open(f: Dictionary, day: int, after_fight: int) -> Dictionary:
 		if heal < 0:
 			return _closed("%s is not fit, and no heal day is known yet." % nm, -1)
 		return _closed("%s is not fit: injured or suspended." % nm, heal)
-	var due := int(f.get("last_bout_day", -9999)) + after_fight
+	var gap := rest_gap(after_fight)
+	var due := int(f.get("last_bout_day", -9999)) + gap
 	if day < due:
-		return _closed("Too soon after the last bout: %d days must pass." % after_fight, due)
+		return _closed("%s fought too recently: asking opens %d day%s after the bout." % [nm, gap, "" if gap == 1 else "s"], due)
 	return {"open": true, "why": "", "opens_day": -1}
 
 

@@ -62,10 +62,18 @@ static func taken(c: Career, f: Dictionary) -> Array:
 	return out
 
 
+## The first day a bout may fall after her last one (Bouts.AFTER_FIGHT); -1 before any bout.
+static func rest_end(f: Dictionary) -> int:
+	var lb := int(f.get("last_bout_day", -1))
+	return lb + int(load("res://scripts/state/Bouts.gd").AFTER_FIGHT) if lb >= 0 else -1
+
+
 ## The panel's two dates, each with its scale forecast: AskDates.shows + Sim.weigh_forecast.
 static func shows(c: Career, f: Dictionary) -> Array:
 	var sim: GDScript = load("res://scripts/state/Sim.gd")
-	var out: Array = AskDates.shows(c.day, Region.next_shows(c.day, 8), taken(c, f), Callable(Clock, "fmt"), SHOWS)
+	var rest := rest_end(f)   # ASKGAP1: asked during the rest, the nights before it ends are not offered
+	var out: Array = AskDates.shows(c.day, Region.next_shows(c.day, 8).filter(func(d): return int(d) >= rest), taken(c, f),
+		Callable(Clock, "fmt"), SHOWS)
 	for s in out:
 		var fc: Dictionary = sim.weigh_forecast(c, f, int(s["day"]))
 		s["forecast"] = fc
@@ -127,7 +135,7 @@ static func teach_word(c: Career, f: Dictionary, opp: Dictionary, kind: String) 
 
 ## Book the ask through the sheet's own accept path. kind "name" = the host keeps the gate (no ticket cut for the club).
 static func book(c: Career, f: Dictionary, kind: String, opp_name: String, day: int, at_day := -1) -> bool:
-	if not bool(open(c, f, at_day)["open"]):
+	if not bool(open(c, f, at_day)["open"]) or day < rest_end(f):
 		return false
 	var opp := c.rival(opp_name)
 	if opp.is_empty():
