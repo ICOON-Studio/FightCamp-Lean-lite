@@ -3,11 +3,11 @@
  "updated": "2026-11-18",
  "author": "claude S294",
  "now": {
-  "id": "S520",
+  "id": "S521",
   "owner": "claude",
-  "updated": "2026-11-18",
-  "summary": "S520 (Opus): ASKGAP1 DONE - the Ask door opens the day after a bout (AskBout.rest_gap/ASK_AFTER_DAYS 1; AskFlow.rest_end keeps the asked show after the 10-day rest in shows + book; LateAskWire still waits the rest). Rerun docs/ASKGAP1_RESULT.md: door open 671 of 1377 hot Mondays (was 0), 187 asks, 123 ducks, 48 OWED, 18 owed bouts booked; points at day 728 within a few. 12 touched tests green, exported. Q-273 answered: full pads. MORNINGSPROBE2 + MONEYFOUR2 briefed and queued for Qwen (after TREEVALUE2). PRs #373/#374 closed (collected S517b/S518b). TRAP: the STREAKPROBE1 qwen process (pid 25840, started 22:13) never exited, so TREEVALUE2 waits; stopping it was refused by the permission check - the owner can end it or the reconcile will. Guard damage v4 map saved (DESIGN_GUARDDMG1_V4.md) and sent to two fresh critics: Dola SQ226, Goose #375.",
-  "next_action": "S521: 1) his look at the club week + the Ask door (WHAT_TO_TRY S519/S520); 2) collect TREEVALUE2 -> tune StepEffect, then MORNINGSPROBE2 / MONEYFOUR2 (Qwen queue) -> tune the club week ESTIMATES; 3) collect guard v4 critics: Dola SQ226 + Goose #375 (7+/7+ = his board); 4) mat plan note C433; 5) probe policy: an OWED corner asked first (Josh reached OWED 10x, booked 0 - the probe asks the highest name). Animation: lean-f3 only (METHOD S510).",
+  "updated": "2026-11-19",
+  "summary": "S521 (Opus, same session as S520): owner 'whyh did you stop using ludo ?' - Ludo unused S474-S520; back at work: 12 painted concepts of 4 real screens in two looks (~6 credits), map frame + review board, Q-S294-274 which look; start prints a LUDO line (ops/Tools/ludo_line.py). Dola critic guard v4 8/8/7; Goose #375 pending. streak_probe asks an owing corner first (not run: his game open). Stuck qwen pid gone; Qwen queue TREEVALUE2 / MORNINGSPROBE2 / MONEYFOUR2 waits for GREEN.",
+  "next_action": "S522: 1) Q-S294-274 his look -> Ludo paints each new screen; 2) Goose #375 -> guard v4 to his board if 7+/7+; 3) collect TREEVALUE2, MORNINGSPROBE2, MONEYFOUR2 (Qwen) -> tune; 4) run streak_probe (owing corner first) when GREEN; 5) mat plan note C433. Animation: lean-f3 only (METHOD S510).",
   "verified_playable": "Builds/FightCamp.exe S519: club week v11 on Training/Money/Overview/bout offer (hidden-desktop renders ops/previews/s519; club_week_walk_test through Main's acts). Not yet played by him.",
   "incomplete_blocked": "ASKGAP1 design open (ask door shut on hot Mondays); TREEVALUE2 waits on Qwen's old pid; MORNINGSPROBE2/MONEYFOUR2 not briefed.",
   "next_acceptance": "ASKGAP1: tools/streak_probe.gd rerun shows asks made on hot Mondays and ducks a few times a season (not 0, not weekly).",
@@ -2216,6 +2216,12 @@
    "date": "2026-11-18",
    "model": "opus",
    "summary": "S520 (Opus): ASKGAP1 DONE - the Ask door opens the day after a bout (AskBout.rest_gap/ASK_AFTER_DAYS 1; AskFlow.rest_end keeps the asked show after the 10-day rest in shows + book; LateAskWire still waits the rest). Rerun docs/ASKGAP1_RESULT.md: door open 671 of 1377 hot Mondays (was 0), 187 asks, 123 ducks, 48 OWED, 18 owed bouts booked; points at day 728 within a few. 12 touched tests green, exported. Q-273 answered: full pads. MORNINGSPROBE2 + MONEYFOUR2 briefed and queued for Qwen (after TREEVALUE2). PRs #373/#374 closed (collected S517b/S518b). TRAP: the STREAKPROBE1 qwen process (pid 25840, started 22:13) never exited, so TREEVALUE2 waits; stopping it was refused by the permission check - the owner can end it or the reconcile will. Guard damage v4 map saved (DESIGN_GUARDDMG1_V4.md) and sent to two fresh critics: Dola SQ226, Goose #375."
+  },
+  {
+   "id": "S521",
+   "date": "2026-11-19",
+   "model": "opus",
+   "summary": "S521 (Opus, same session as S520): owner 'whyh did you stop using ludo ?' - Ludo unused S474-S520; back at work: 12 painted concepts of 4 real screens in two looks (~6 credits), map frame + review board, Q-S294-274 which look; start prints a LUDO line (ops/Tools/ludo_line.py). Dola critic guard v4 8/8/7; Goose #375 pending. streak_probe asks an owing corner first (not run: his game open). Stuck qwen pid gone; Qwen queue TREEVALUE2 / MORNINGSPROBE2 / MONEYFOUR2 waits for GREEN."
   }
  ],
  "blocked_on_operator": [],
@@ -6002,6 +6008,10 @@
     {
      "text": "Ask door opens the day after bout",
      "who": "claude"
+    },
+    {
+     "text": "Ludo paints the new screens",
+     "who": "agent"
     }
    ],
    "now": [
@@ -6226,6 +6236,10 @@
     {
      "text": "Critics: guard damage v4",
      "who": "agent"
+    },
+    {
+     "text": "Your look: Ludo paintovers (274)",
+     "who": "operator"
     }
    ],
    "session": "S520"

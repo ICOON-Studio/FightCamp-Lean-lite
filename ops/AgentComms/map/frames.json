@@ -140,6 +140,20 @@
      ]
     }
    ]
+  },
+  {
+   "title": "Look",
+   "frames": [
+    {
+     "id": "s521_ludo",
+     "title": "Ludo paintovers: real screens, own look vs whiteboard (S521)",
+     "kind": "gallery",
+     "globs": [
+      "ops/previews/s521_ludo/*.jpg"
+     ],
+     "cols": 4
+    }
+   ]
   }
  ]
 }

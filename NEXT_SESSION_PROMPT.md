@@ -1,4 +1,4 @@
-# S521 handover (written 2026-11-18, end of S520 - Opus)
+# S522 handover (written 2026-11-19, end of S521 - Opus; S520 + S521 in one session)
 
 Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. S520 is in roadmap `now`.
 
@@ -19,7 +19,14 @@ start). Do not start another. METHOD line below (S510) - quote it in the first m
    (-> DESIGN_GUARDDMG1_V4_CRITIC_DOLA_DOLA.md) and Goose issue #375 (-> DESIGN_GUARDDMG1_V4_CRITIC_GOOSE.md). Collect;
    7+ depth and general from both = his board (Q with --attach); lower = design_loop.py revise. Grok bots are OUT.
 5. His mat plan note C433.
-6. Probe policy (not a rule): streak_probe asks the highest name 0-8 above, never the corner that OWES her - Josh reached
+6. LUDO EVERY SESSION (owner S521: "whyh did you stop using ludo ?" - unused S474-S520): `start` prints a LUDO line
+   (credits ~777, paid to ~11 Dec). S521 painted 4 real screens x 2 looks (ops/previews/s521_ludo, map frame s521_ludo,
+   review board); Q-S294-274 asks which look. On his pick: Ludo paints every new screen before it is built, then makes
+   the real pieces. Sounds stay Qwen's.
+7. Guard damage v4: Dola SQ226 scored 8/8/7 (passes). Goose #375 pending; if Goose also 7+/7+ -> his board with --attach.
+8. Probe policy (S521 edit committed, NOT RUN - his game was open, PC AMBER/RED): tools/streak_probe.gd now asks an
+   owing corner first. Run it when GREEN and no game window (Q-267); save as docs/ASKGAP1_RESULT.md rerun 2, restore
+   docs/STREAKPROBE1_RESULT.md. Older note: streak_probe asks the highest name 0-8 above, never the corner that OWES her - Josh reached
    OWED 10 times and booked 0. Let the probe ask an owing corner first, then read owed w-l.
 
 ## DONE IN S520

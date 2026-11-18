@@ -2331,6 +2331,11 @@ def start(args: argparse.Namespace) -> int:
     except Exception as exc:  # never breaks start
         print("NIGHTLY_FETCH failed: %s" % exc)
     print("AVAILABLE AGENTS (operator ticks): " + (", ".join(available) if available else "none"))
+    try:  # S521 (owner: "whyh did you stop using ludo ?"): credits left + last use, so the sweep never forgets it
+        import ludo_line
+        print(ludo_line.line())
+    except Exception as exc:  # never breaks start
+        print("LUDO line failed: %s" % exc)
     ## S180 (operator: "fix it once and for all"): the Grok Bot app parks its cloud pod when its window is unfocused,
     ## and bare gbot then fails "417 Expectation Failed" (pod_hibernated). Wake it here so Kalli/John/Maria are
     ## reachable from the first minute; drive them with `python Tools/gbot.py ...` (wakes + retries on a parked pod).

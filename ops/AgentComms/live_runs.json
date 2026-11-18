@@ -881,34 +881,6 @@
    "branch": "goose/issue-367",
    "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/367",
    "reconciled": "2026-11-18 10:40 board_reconcile: run finished (success), branch goose/issue-367 pushed"
-  },
-  "STREAKPROBE1": {
-   "agent": "qwen",
-   "id": "STREAKPROBE1",
-   "title": "TASK STREAKPROBE1 - how often a boxer is ON A RUN, and how often corners DUCK her or come to OWE her (probe only)",
-   "status": "done",
-   "started": "2026-11-18T22:13",
-   "eta": "2026-11-19T00:03",
-   "branch": "qwen/streakprobe1",
-   "worktree": "E:/FightCamp/wt/LEAN_STREAKPROBE1",
-   "wt": "E:/FightCamp/wt/LEAN_STREAKPROBE1",
-   "brief": "ops/research/TASK_STREAKPROBE1.md",
-   "repo": "FightCamp-Lean",
-   "where": "pc",
-   "log": "E:/FightCamp/wt/STREAKPROBE1_dispatch_out.txt",
-   "match": "seat_dispatch.py run streakprobe1",
-   "model": "qwen4-max",
-   "dispatch": {
-    "prompt": "E:/FightCamp/wt/STREAKPROBE1_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/STREAKPROBE1_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/STREAKPROBE1_dispatch_runner.log",
-    "source": "command line",
-    "brief_copied": true,
-    "runner_pid": 41452,
-    "seat_pid": 34220
-   },
-   "note": "S519 collected: docs/STREAKPROBE1_RESULT.md, HotStreak.POINTS 15->8 (a6713760d)",
-   "landed": "2026-11-18T22:52"
   }
  },
  "codex_budget": {

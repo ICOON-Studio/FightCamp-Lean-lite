@@ -8188,8 +8188,26 @@
       "answer": "what do you think ?",
       "note": null,
       "answered_at": "2026-11-18T20:24:24Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "comment_only": true
+    },
+    {
+      "id": "Q-S294-274",
+      "asked": "2026-11-18T22:30:07.514949+00:00",
+      "session": "S294",
+      "text": "Ludo painted the new screens two ways (Training week, bout clash, loyalty, Ask card). Which look should every screen move towards?",
+      "options": [
+        "The game's own dark look, with texture",
+        "The S400 whiteboard look",
+        "Neither - keep today's screens"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-274_0_training_deal_board-v1.jpg"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
     }
   ]
 }
