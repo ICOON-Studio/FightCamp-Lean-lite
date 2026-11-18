@@ -865,46 +865,86 @@
     "board": ""
    }
   },
-  "ASKPROBE4": {
+  "STOPWORD1": {
    "agent": "qwen",
-   "id": "ASKPROBE4",
-   "title": "TASK ASKPROBE4 - QWEN (qwen3-coder) - does the fight week make the show date a real choice?",
-   "status": "running",
-   "started": "2026-11-17T20:20",
-   "eta": "2026-11-17T22:10",
-   "branch": "qwen/askprobe4",
-   "worktree": "E:/FightCamp/wt/LEAN_ASKPROBE4",
-   "wt": "E:/FightCamp/wt/LEAN_ASKPROBE4",
-   "brief": "ops/research/TASK_ASKPROBE4.md",
+   "id": "STOPWORD1",
+   "title": "TASK STOPWORD1 - the Ask card's stoppage word: measure the risk, then the pure rule (probe + rule, no screen)",
+   "status": "landed",
+   "started": "2026-11-18T01:42",
+   "eta": "2026-11-18T03:32",
+   "branch": "qwen/stopword1",
+   "worktree": "E:/FightCamp/wt/LEAN_STOPWORD1",
+   "wt": "E:/FightCamp/wt/LEAN_STOPWORD1",
+   "brief": "ops/research/TASK_STOPWORD1.md",
    "repo": "FightCamp-Lean",
    "where": "pc",
-   "log": "E:/FightCamp/wt/ASKPROBE4_dispatch_out.txt",
-   "match": "seat_dispatch.py run askprobe4",
+   "log": "E:/FightCamp/wt/STOPWORD1_dispatch_out.txt",
+   "match": "seat_dispatch.py run stopword1",
    "model": "qwen4-max",
    "dispatch": {
-    "prompt": "E:/FightCamp/wt/ASKPROBE4_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/ASKPROBE4_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/ASKPROBE4_dispatch_runner.log",
+    "prompt": "E:/FightCamp/wt/STOPWORD1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/STOPWORD1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/STOPWORD1_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 41568,
+    "seat_pid": 20352
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 3/3 PASS; PR #362",
+   "finished": "2026-11-18T02:21",
+   "pr": 362,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/stop_word_test.gd",
+     "ok": true,
+     "last": "STOP_WORD PASS"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/ask_bout_test.gd",
+     "ok": true,
+     "last": "ASK_BOUT failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/ask_wire_test.gd",
+     "ok": true,
+     "last": "ASK_WIRE failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "FAVOURPROBE1": {
+   "agent": "qwen",
+   "id": "FAVOURPROBE1",
+   "title": "TASK FAVOURPROBE1 - where favours with the hosts sit after a year of real play (probe only, no rule change)",
+   "status": "running",
+   "started": "2026-11-18T03:23",
+   "eta": "2026-11-18T05:13",
+   "branch": "qwen/favourprobe1",
+   "worktree": "E:/FightCamp/wt/LEAN_FAVOURPROBE1",
+   "wt": "E:/FightCamp/wt/LEAN_FAVOURPROBE1",
+   "brief": "ops/research/TASK_FAVOURPROBE1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/FAVOURPROBE1_dispatch_out.txt",
+   "match": "seat_dispatch.py run favourprobe1",
+   "model": "qwen4-max",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/FAVOURPROBE1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/FAVOURPROBE1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/FAVOURPROBE1_dispatch_runner.log",
     "source": "command line",
     "brief_copied": true,
-    "runner_pid": 49052,
-    "seat_pid": 26376
+    "runner_pid": 32272,
+    "seat_pid": 15412
    },
    "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
-  },
-  "FP2CHOREO1": {
-   "agent": "goose",
-   "id": "FP2CHOREO1",
-   "title": "Fight animation rebuild, phase 2: the planner that picks each punch by distance and each reaction by size (pure module + tests)",
-   "status": "running",
-   "started": "2026-11-17T21:34",
-   "eta": "2026-11-17T22:34",
-   "branch": "goose/issue-356",
-   "issue": 356,
-   "brief": "ops/research/TASK_FP2CHOREO1.md",
-   "repo": "FightCamp-Lean",
-   "where": "cloud",
-   "owner": "S512 animation session"
   }
  },
  "codex_budget": {

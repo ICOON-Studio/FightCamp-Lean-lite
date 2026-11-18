@@ -25,6 +25,7 @@ const ApproachCard := preload("res://scripts/ui/ApproachCard.gd")   # S487 R58 A
 const TextScale := preload("res://scripts/ui/TextScale.gd")   # S494 TextScale.fit for the name
 const ApproachWire := preload("res://scripts/state/ApproachWire.gd")
 const FallThroughCard := preload("res://scripts/ui/FallThroughCard.gd")   # S490 FIGHTWEEK3
+const LateAskCard := preload("res://scripts/ui/LateAskCard.gd")   # S514 FIGHTWEEK3
 
 const PANEL_BG := Color(Palette.PAGE, 0.94)
 const INSET := Color(Palette.PAGE, 0.9)
@@ -140,6 +141,8 @@ static func make(page: Container, main: Node, c: Career, f: Dictionary, g: Dicti
 		right.add_child(ApproachCard.fill(panel(), main, c, f))
 	if FallThroughCard.PullOutWire.is_open(f):   # S490 FIGHTWEEK3: the bout fell through - on top until it is answered
 		right.add_child(FallThroughCard.fill(panel(), main, c, f))
+	if LateAskCard.LateAskWire.is_open(f):   # S514 FIGHTWEEK3: a host asks for this boxer - on top until it is answered
+		right.add_child(LateAskCard.fill(panel(), main, c, f))
 	var top := UI.hbox(14)
 	top.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	top.add_child(_attributes(f))

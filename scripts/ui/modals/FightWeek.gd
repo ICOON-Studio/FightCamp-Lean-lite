@@ -36,7 +36,7 @@ func build(main: Node, m: Dictionary) -> void:
 	v.add_child(cols)
 	cols.add_child(_left(main, f, plan, r))
 	cols.add_child(_middle(main, c, f, plan, r))
-	cols.add_child(_right(r))
+	cols.add_child(_right(r, FightWeekPlan.band(c, f, r)))
 	v.add_child(UI.sep())
 	v.add_child(_footer(main, plan, r))
 
@@ -231,7 +231,7 @@ func _stop_card(main: Node, f: Dictionary, s: String, on: bool) -> Control:
 	return b
 
 
-func _right(r: Dictionary) -> Control:
+func _right(r: Dictionary, band: Dictionary) -> Control:
 	var col := UI.vbox(8)
 	col.custom_minimum_size = Vector2(440, 0)
 	col.add_child(UI.label("ON FIGHT NIGHT", 18, UI.MUTED, "caps"))
@@ -254,6 +254,14 @@ func _right(r: Dictionary) -> Control:
 	var w: Dictionary = r["weight"]
 	col.add_child(UI.kv("Scale on the day", "inside the gap" if bool(w["in_gap"]) else "outside the gap",
 		UI.GREEN if bool(w["in_gap"]) else UI.RED))
+	if not band.is_empty():   # S514 FIGHTWEEK3: the win band on this plan (FightWeekPlan.band)
+		var lo := roundi(float(band["lo"]) * 100.0)
+		var hi := roundi(float(band["hi"]) * 100.0)
+		var wb := UI.kv("Win chance on this plan", "%d%% to %d%%" % [lo, hi], UI.GREEN if lo >= 50 else (UI.RED if hi <= 50 else UI.FG))
+		wb.name = "FwWinBand"
+		col.add_child(wb)
+		if hi - lo >= 30:   # as OfferCard._band: a band this wide is still a rough guess
+			col.add_child(UI.muted("  Wide: the film night narrows it", UI.SMALL, true))
 	var after := FightWeek.tired_after(str(r["stop"]))
 	col.add_child(UI.kv("Tiredness after the bell", "+%d" % after))
 	return col

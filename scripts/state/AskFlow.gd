@@ -8,6 +8,8 @@ extends RefCounted
 const AskBout := preload("res://scripts/rules/AskBout.gd")
 const AskDates := preload("res://scripts/rules/AskDates.gd")
 const FightLearn := preload("res://scripts/rules/FightLearn.gd")
+const StopWord := preload("res://scripts/rules/StopWord.gd")
+const WeighGap := preload("res://scripts/rules/WeighGap.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const AmateurBooking := preload("res://scripts/rules/AmateurBooking.gd")
 const BoutRead := preload("res://scripts/rules/BoutRead.gd")
@@ -63,9 +65,19 @@ static func shows(c: Career, f: Dictionary) -> Array:
 	for s in out:
 		var fc: Dictionary = sim.weigh_forecast(c, f, int(s["day"]))
 		s["forecast"] = fc
-		s["weight_ok"] = bool(fc.get("ok", true))
+		# S514: a club show matches walking weights within a gap (Bouts.weigh, WeighGap): over the class limit but inside the
+		# gap with the boxer the sheet would send still boxes - the date was greyed "Weight at risk" before.
+		s["in_gap"] = not bool(fc.get("ok", true)) and in_gap(c, f, float(fc.get("day", f["weight"])))
+		s["weight_ok"] = bool(fc.get("ok", true)) or bool(s["in_gap"])
 		s["can_ask"] = bool(s["weight_ok"]) and str(s.get("holder", "")) == ""
 	return out
+
+
+## A club show's scale: `own_kg` inside the walking-weight gap (WeighGap) with the boxer the sheet would send.
+static func in_gap(c: Career, f: Dictionary, own_kg: float) -> bool:
+	var opp := c.rival(sheet_name(c, f))
+	var lim := float(f["limit"])
+	return not opp.is_empty() and WeighGap.in_gap(own_kg, float(opp.get("weight", lim)), lim)
 
 
 ## The name the sheet would send next (the matchmaker's own rule, Bouts.legal_index).
@@ -89,14 +101,20 @@ static func answers(c: Career, f: Dictionary) -> Dictionary:
 			if opp.is_empty():
 				continue
 			var teach := teach_word(c, f, opp, str(a["kind"]))
-			out.append({"kind": str(a["kind"]), "opp": opp, "teaches": teach,
-				"card": AskBout.card(opp, str(a["kind"]), rows, Region.RANK_MIN_WINS, teach, "", ranked)})
+			var stop := StopWord.word(gap_of(f, opp))
+			out.append({"kind": str(a["kind"]), "opp": opp, "teaches": teach, "stoppage": stop,
+				"card": AskBout.card(opp, str(a["kind"]), rows, Region.RANK_MIN_WINS, teach, stop, ranked)})
 	return {"cards": out, "absent": AskDates.absent(me, rows, sheet, Region.RANK_MIN_WINS)}
+
+
+## The rating gap the card's words read (STOPWORD1, docs/STOPWORD1_RESULT.md): the opponent's rating minus our fight power.
+static func gap_of(f: Dictionary, opp: Dictionary) -> float:
+	return float(opp["rating"]) - BoutRules.fight_power(f["stats"], {}, 0, "")
 
 
 ## The card's teaching word: the expected growth at the middle of the win band (FightLearn's own arithmetic).
 static func teach_word(c: Career, f: Dictionary, opp: Dictionary, kind: String) -> String:
-	var gap := float(opp["rating"]) - BoutRules.fight_power(f["stats"], {}, 0, "")
+	var gap := gap_of(f, opp)
 	var band := BoutRead.band(f, opp, BoutRead.camp_for(f, 14), c.seed, float(c.coach.get("rating", 0.0)))
 	var p := clampf((float(band["lo"]) + float(band["hi"])) * 0.5, 0.0, 1.0)
 	var e := p * FightLearn.teach_for(kind, gap, true, false) + (1.0 - p) * FightLearn.teach_for(kind, gap, false, false)

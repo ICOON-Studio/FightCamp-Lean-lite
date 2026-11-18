@@ -1,7 +1,7 @@
-# S514 handover (written 2026-11-18, end of S513 - main line, Opus; ended at ~320k context by the owner's "handover around 400k")
+# S515 handover (written 2026-11-18, end of S514 - main line, Opus; ended early to save the weekly plan: 88%, resets Thu 19 Nov 14:00 UTC)
 
-Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. Digests: `ops/research/S512_DIGEST.md`; S513 is
-in roadmap `now` and the commits 8c3cd5f5e..ba87ee191.
+Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. S514 is in roadmap `now` and commits
+after f0ef9963e.
 
 ## BILLING (S513, from Anthropic's help center - quote it, do not guess)
 support.claude.com/en/articles/17154008: the Ultra plan's $200 monthly API credit covers the Claude API, Managed Agents, and
@@ -17,28 +17,31 @@ it stays the animation session and to add the owner's review comments C430-C432 
 feet; shots through heads and hands; no shoulder power). Do not start another animation session while it lives.
 
 ## MAIN LINE - DO FIRST
-1. Collect as they land: Dola SQ213 (ladder v6 critic) + Goose issue 360; Dola SQ214 (coach spec r6 critic) + Goose
-   issue 361; Dola SQ215 (guard damage map v2 = DESIGN_GUARDDMG1_V1_REVISE_DOLA_DOLA.md) -> then two fresh critics on it.
-   A map reaches his board only at 7+ depth AND 7+ general from both critics.
-2. Coached mornings (docs/MORNINGSPROBE1_RESULT.md, S513 reading): at 40 seeds solo is best far more often than shared,
-   and a SHARED x1.35 control raised shared's points but not its record - the multiplier is not the lever, which ability
-   a morning trains is. Sent to the club-week design loop: Dola SQ216 writes DESIGN_CLUBWEEK1_V10 with the probe as input (collect, then two critics) (a shared pair on the
-   pair's common hole, or shared buys something solo cannot); CoachedMornings stays unwired, numbers unchanged.
-3. Ask card stoppage word: Qwen STOPWORD1 queued (ops/research/TASK_STOPWORD1.md: probe our-boxer-stopped % by rating gap,
-   pure scripts/rules/StopWord.gd + test). When it lands: collect by diff, then wire StopWord.word(gap) into
-   AskFlow.gd line 93 (the card's stop_words slot) and show it on the Ask card.
-4. The owner has a new .exe (Builds/WHAT_TO_TRY.txt S513: DO NEXT asks for bouts; the fight week's late nights, the
-   week-before pad night and the stop's banked pads now count).
+1. Collect Qwen FAVOURPROBE1 (ops/research/TASK_FAVOURPROBE1.md; PR from qwen/favourprobe1): favours with each host
+   after a year, THRIFTY (yes to late asks) vs EAGER (no). Map target: an average club sits at 1-2. Report only; if the
+   THRIFTY club misses, the levers are LateAskWire's ask chance (FightWeekEvents.ASK_CHANCE) and FightWeekPlan.FAVOURS_START.
+2. His answers on the board: Q-270 (season ladder v6, critics Dola 9/9 + Goose 8/7: build after the week?) and Q-271
+   (coach roles r6, critics 8/8 + 7/7: build?). Summaries: ops/research/APPROVE_LADDER1_V6_S514.md / APPROVE_COACHSPEC1_R6_S514.md.
+   A yes = write the build briefs (pure rules to Qwen/Arena, Claude wires screens).
+3. Dola SQ215 (guard damage map v2) and SQ216 (club week v10, input docs/MORNINGSPROBE1_RESULT.md): collect, then two
+   fresh critics each (Dola + Goose issue); the board only at 7+/7+ from both.
+4. INTEGRATE1 next build: the BJJ mat plan screen. MatLines (scripts/rules/MatLines.gd) and MatPrice
+   (scripts/rules/MatPrice.gd) are built and tested since S439 but NO screen uses them. Spec: ops/research/MATPLAN_MAP_S433.md
+   sections 4.2-4.3 (lines, chips CHANCE/POINTS/MISS/TANK/READ/TIME, the grade). Start it after the weekly reset.
 
-5. FIGHTWEEK3 next piece - FAVOURS EARNED (map ops/research/AMATEURWEEK1_MAP_V6_S455.md s7-8; rules already pure in
-   scripts/rules/FightWeekEvents.gd: asks(roll, fits_gap, ready, asked_this_show) at ASK_CHANCE 1/6, fill_gap(favours)
-   = +1 capped at FAVOURS_MAX 3): a host short of a boxer asks the club, at most once per show, only for a boxer with no
-   bout who fits the gap and is READY; the ask waits for Monday and stops the clock once as ONE need (like the
-   fall-through card: scripts/state/PullOutWire.gd + scripts/ui/FallThroughCard.gd + Needs). Yes = the bout on that
-   show (a fight week, short notice) and +1 favour with that host; No = nothing. Today favours only fall (partners,
-   the kilo, a miss) - this is the only way to earn them. Test: a probe that an average club sits at 1-2 favours
-   (map's favour test). DONE in S513 from FIGHTWEEK3: weigh-in Train it off / Ask a kilo / a miss re-matched 1 in 3.
-   Not seen on screen yet (ArcheAge open: no renders) - render the fight week screen's THE WEIGHT column once.
+## DONE IN S514 (all on main, exported, WHAT_TO_TRY S514 at the top)
+- STOPWORD1 collected (Qwen, 960 bouts: gap < 0 unlikely, 0-8 possible, 8+ a real risk); AskFlow.gap_of feeds both the
+  teaching word and StopWord; every Ask card says "Getting stopped: <word>." (ask_wire 2g, stop_word_test).
+- FIGHTWEEK3 favours earned: scripts/state/LateAskWire.gd + scripts/ui/LateAskCard.gd. On the Monday 5 days before a
+  show, the host rolls once (1 in 6); a ready boxer (Ask door open ignoring a waiting sheet offer, inside the club-show
+  weight gap with the sheet's boxer, none of ours already on that show) gets the ask: red need HOST ASKS, a card on the
+  Overview. Yes = short-notice fight week at that host, x2 reputation on a win, +1 favour (cap 3), never rolled for a
+  pull-out; no = nothing. tests/late_ask_test.gd (14 checks); still tools/late_ask_still.gd.
+- Win band on the fight week's ON FIGHT NIGHT: FightWeekPlan.band (BoutRead.band on a copy with the plan's r1 edge,
+  partner edge, tank) - Rest up reads better than Train through (fight_week_screen 2b). Still checked: THE WEIGHT renders.
+- FIX: Ask for a bout greyed dates "Weight at risk" on the class-limit forecast though club shows box inside the
+  walking-weight gap (Bouts.weigh): AskFlow.in_gap keeps such a date askable and says so (ask_wire 2h).
+- R58 approach card still checked (reads right).
 
 ## METHOD (operator S510, CLAUDE.md item 8 - quote this in your first message)
 Fight animation: STOP PATCHING. 14 rounds of correction layers scored 4.5-5/10 while the Undisputed / Boxing Manager /
@@ -58,6 +61,10 @@ themselves are the limit (owner: "why should i buy more animations if the ones w
   other rule for us: do not split small jobs across helpers (briefing + re-reading costs more than doing it).
 
 ## Traps seen this session
+- S514: a club show matches WALKING weights within a gap (WeighGap, Bouts.weigh), not the class limit - any "will she make
+  weight" gate for a club show reads AskFlow.in_gap, not Sim.weigh_forecast alone (that one is for camps / titles).
+- S514: a Bash heredoc that writes a .gd and then starts Godot is blocked whole by rule_guard: write the file with the
+  Write tool, start Godot through `python ops/Tools/godot_slot.py run --who S<n> -- ...`.
 - EVERY in-session Godot test takes `--fixed-fps 60` (tools/run_tests.sh passes it, S470). Without it hit_carry read 29-33
   and join_return 2-4 run to run, and older debt numbers (block_meet 3) were measured that way.
 - A capped trunk cannot give back the body's own slide: a head that rides the root/hips needs the slide fixed, not PopCap.

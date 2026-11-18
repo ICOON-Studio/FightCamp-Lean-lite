@@ -1673,9 +1673,17 @@
   {
    "task": "MORNINGSPROBE1",
    "seat": "qwen",
-   "status": "queued",
+   "status": "launched",
    "queued": "2026-11-17T21:50",
-   "note": "S511: after ASKPROBE4 lands"
+   "note": "S511: after ASKPROBE4 lands",
+   "launched": "2026-11-17T22:12"
+  },
+  {
+   "task": "STOPWORD1",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-18T01:37",
+   "launched": "2026-11-18T01:42"
   }
  ]
 }

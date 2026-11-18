@@ -34,6 +34,7 @@ const SPAR_FIRST := 6
 const SPAR_LAST := 2
 const WEEK_BEFORE := 8
 const FilmSeats := preload("res://scripts/rules/FilmSeats.gd")
+const BoutRead := preload("res://scripts/rules/BoutRead.gd")
 
 
 ## Called the day an amateur bout is booked (Bouts.accept): marks it a fight week (no camp), names the show's host and
@@ -245,6 +246,22 @@ static func read(c: Career, f: Dictionary, plan: Dictionary) -> Dictionary:
 
 
 ## Locks the week. "" when done, else why not (a night with no partner, a partner she cannot pay for).
+## S514 FIGHTWEEK3 (map FIGHTWEEK_SCREEN_V1 s9 ON FIGHT NIGHT: "the win band"): BoutRead.band on a copy of her with this
+## plan's round-1 edge, partner edge (rounds 1-2) and tank at the first bell written into the bout, as lock() would -
+## so the band moves with the plan. {lo, hi} in [0, 1]; {} without an opponent.
+static func band(c: Career, f: Dictionary, r: Dictionary) -> Dictionary:
+	var b: Dictionary = f.get("bout", {})
+	if (b.get("opp", {}) as Dictionary).is_empty():
+		return {}
+	var fx := f.duplicate(true)
+	var bx: Dictionary = fx["bout"]
+	bx["r1_edge"] = float(r["edge"])
+	bx["spar_edge"] = float(r["spar_edge"])
+	bx["tank_ahead"] = float((r["tank"] as Dictionary).get("off", 0.0))
+	bx.erase("stale")
+	return BoutRead.band(fx, b["opp"], BoutRead.camp_for(fx, int(b.get("day", c.day)) - c.day), c.seed, float(c.coach.get("rating", 0.0)))
+
+
 static func lock(c: Career, f: Dictionary, plan: Dictionary) -> String:
 	if not is_open(f):
 		return "the week is already set"

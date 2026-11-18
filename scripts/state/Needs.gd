@@ -16,6 +16,7 @@ const Grapplers := preload("res://scripts/state/Grapplers.gd")
 const ProLadder := preload("res://scripts/state/ProLadder.gd")
 const ApproachWire := preload("res://scripts/state/ApproachWire.gd")
 const PullOutWire := preload("res://scripts/state/PullOutWire.gd")   # S490 FIGHTWEEK3
+const LateAskWire := preload("res://scripts/state/LateAskWire.gd")   # S514 FIGHTWEEK3
 
 
 ## S324 update 27: GymBills' read of the gym's money now: "ok" | "warn" (runway under 8 weeks) | "red" (below $0) | "closed".
@@ -72,6 +73,10 @@ answer by %s, or lose the boxer" % [f["approach"]["line"], Clock.fmt(int(f["appr
 		n.append({"red": true, "t": "FELL THROUGH: %s's bout" % f["first"],
 			"s": "the opponent pulled out of the show at %s; take the replacement, go home, or ask for next month" % f["bout"]["fell"]["host"],
 			"act": "fellthrough", "arg": f["id"], "label": "Decide"})
+	for f in LateAskWire.open_for(career):   # S514 FIGHTWEEK3: a host one boxer short asks on the show week's Monday
+		n.append({"red": true, "t": "A HOST ASKS FOR %s" % str(f["first"]).to_upper(),
+			"s": "%s is one boxer short for %s; yes earns a favour with the host" % [f["late_ask"]["host"], Clock.fmt(int(f["late_ask"]["show"]))],
+			"act": "lateask", "arg": f["id"], "label": "Decide"})
 	for f in career.fighters:
 		if Injuries.pending(f):
 			n.append({"red": true, "t": "%s is hurt before the bout" % f["first"], "s": Injuries.line(career, f) + "; pull out or fight hurt",
@@ -146,6 +151,8 @@ static func flags(career: Career) -> Array:
 		out.append({"t": "APPROACHED", "act": "approach", "arg": f["id"], "red": true})
 	for f in PullOutWire.open_for(career):
 		out.append({"t": "FELL THROUGH", "act": "fellthrough", "arg": f["id"], "red": true})
+	for f in LateAskWire.open_for(career):
+		out.append({"t": "HOST ASKS", "act": "lateask", "arg": f["id"], "red": true})
 	if not career.pro_offer.is_empty():
 		out.append({"t": "PRO OFFER", "act": "prooffer", "arg": career.pro_offer["fid"], "red": true})
 	for f in career.fighters:

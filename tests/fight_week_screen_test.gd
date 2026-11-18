@@ -51,6 +51,16 @@ func _initialize() -> void:
 	main.act("fightweek", fid)
 	_check(str(main.modal.get("type", "")) == "fightweek", "the fight week screen opens")
 	_check(_drawn(), "Frame A is drawn")
+	# 2b (S514): ON FIGHT NIGHT shows the win band on this plan, and the plan moves it (Rest up vs Train through).
+	_check(main.find_child("FwWinBand", true, false) != null, "the win band is on ON FIGHT NIGHT")
+	var p_rest: Dictionary = (main.modal["plan"] as Dictionary).duplicate(true)
+	p_rest["stop"] = "rest_up"
+	var p_hard: Dictionary = p_rest.duplicate(true)
+	p_hard["stop"] = "train_through"
+	var b_rest := FightWeekPlan.band(c, f, FightWeekPlan.read(c, f, p_rest))
+	var b_hard := FightWeekPlan.band(c, f, FightWeekPlan.read(c, f, p_hard))
+	_check(float(b_rest["hi"]) > float(b_hard["hi"]) or float(b_rest["lo"]) > float(b_hard["lo"]),
+		"Rest up reads a better band than Train through (%s vs %s)" % [str(b_rest), str(b_hard)])
 	# 3. a night with no partner
 	main.modal["plan"]["nights"] = {}
 	main.act("fwnight", "6")

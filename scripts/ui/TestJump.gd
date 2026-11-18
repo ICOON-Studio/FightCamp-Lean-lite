@@ -37,6 +37,7 @@ extends RefCounted
 ##                                        camera + free orbit; `chain=<id>` opens one (TheatreChains ids, e.g. fifty_fifty)
 
 const PullOutWire := preload("res://scripts/state/PullOutWire.gd")
+const LateAskWire := preload("res://scripts/state/LateAskWire.gd")
 const FirstWeek := preload("res://scripts/rules/FirstWeek.gd")
 const Bouts := preload("res://scripts/state/Bouts.gd")
 const Injuries := preload("res://scripts/state/Injuries.gd")
@@ -265,6 +266,8 @@ static func _tidy(main: Node, c: Career) -> void:
 	for f in c.fighters:
 		if PullOutWire.is_open(f) and PullOutWire.answer(c, str(f["id"]), "take_replacement") != "":   # S490 a fall-through never stalls a jump
 			PullOutWire.answer(c, str(f["id"]), "go_home")
+		if LateAskWire.is_open(f):   # S514 a host's late ask never stalls a jump
+			LateAskWire.answer(c, str(f["id"]), false)
 		if bool(f["goal_talk"]):
 			main.act("goaltalk", f["id"])
 			main.act("pickgoal", "five_round_engine")

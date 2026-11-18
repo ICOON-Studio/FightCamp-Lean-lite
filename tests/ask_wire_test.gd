@@ -15,6 +15,7 @@ const AskFlow := preload("res://scripts/state/AskFlow.gd")
 const LiveRound := preload("res://scripts/state/LiveRound.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const FightLearn := preload("res://scripts/rules/FightLearn.gd")
+const StopWord := preload("res://scripts/rules/StopWord.gd")
 const Region := preload("res://scripts/state/Region.gd")
 const ResultPage := preload("res://scripts/ui/ResultPage.gd")
 
@@ -72,6 +73,22 @@ func _initialize() -> void:
 	_check(card != null and card.find_child("AskBtn_%d" % int(shows[0]["day"]), true, false) != null
 		and card.find_child("AskBtn_%d" % int(shows[1]["day"]), true, false) != null, "2e the step-up card has an Ask per date")
 	_check(_has_text(panel, "Wait for the sheet"), "2f the Wait line")
+	# 2h (S514): over the class limit but inside the club-show gap with the sheet's boxer, a date stays askable (Bouts.weigh).
+	var keep_kg := float(f["weight"])
+	f["weight"] = float(f["limit"]) + 1.8
+	var gap_dates := 0
+	var bad := 0
+	for s in AskFlow.shows(c, f):
+		if bool(s["in_gap"]):
+			gap_dates += 1
+			if not bool(s["weight_ok"]) or bool(s["forecast"].get("ok", true)):
+				bad += 1
+	f["weight"] = keep_kg
+	_check(gap_dates > 0 and bad == 0, "2h 1.8 kg over the limit inside the gap: %d date(s) stay askable" % gap_dates)
+	var sw := StopWord.word(AskFlow.gap_of(f, step["opp"]))
+	var stop_lbl: Node = card.find_child("AskStop", true, false) if card != null else null
+	_check(str(step["card"]["stoppage"]) == sw and stop_lbl != null and str(stop_lbl.text) == "Getting stopped: %s." % sw,
+		"2g the step-up card says the stoppage word from the rating gap (STOPWORD1: %s)" % sw)
 	# 3. ask the step up for the far show.
 	var opp_name := str(step["opp"]["name"])
 	main.act("askbout", "%s|step_up|%s|%d" % [f["id"], opp_name, int(shows[1]["day"])])

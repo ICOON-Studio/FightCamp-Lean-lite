@@ -416,7 +416,7 @@ func act(name: String, arg: String = "") -> void:
 			Grapplers.close_open(career, career.grappler_by_id(arg))
 			close_modal()
 		_:
-			if not (GymActs.act(self, name, arg) or BoutActs.act(self, name, arg) or FightWeekActs.act(self, name, arg) or RosterActs.act(self, name, arg) or GrapplerPage.act(self, name, arg) or ApproachCard.act(self, name, arg) or load("res://scripts/ui/FallThroughCard.gd").act(self, name, arg) or load("res://scripts/ui/areas/Training.gd").act(self, name, arg)):
+			if not (GymActs.act(self, name, arg) or BoutActs.act(self, name, arg) or FightWeekActs.act(self, name, arg) or RosterActs.act(self, name, arg) or GrapplerPage.act(self, name, arg) or ApproachCard.act(self, name, arg) or load("res://scripts/ui/FallThroughCard.gd").act(self, name, arg) or load("res://scripts/ui/LateAskCard.gd").act(self, name, arg) or load("res://scripts/ui/areas/Training.gd").act(self, name, arg)):
 				push_warning("unknown action " + name)
 
 

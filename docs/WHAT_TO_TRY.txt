@@ -1,3 +1,14 @@
+S514 (2026-11-18) - A HOST ASKS FOR YOUR BOXER, THE WIN CHANCE ON THE FIGHT WEEK, GETTING STOPPED ON THE ASK CARD
+- Sometimes on a Monday a club show 5 days away is one boxer short and the host asks for one of yours (about 1 show in
+  6, only a boxer with no bout who is ready and close enough in weight). The top bar says HOST ASKS; the boxer's
+  Overview shows the card: TAKE THE BOUT = a short-notice fight week at that show, twice the reputation on a win and
+  one favour back with that host (the only way to earn favours); SAY NO = nothing changes.
+- Fight week screen, ON FIGHT NIGHT: "Win chance on this plan" - change the week's load (Rest up / Tick over / Train
+  through) or the sparring nights and watch it move. A very wide range means the opponent is not filmed yet.
+- Ask for a bout: every card now says "Getting stopped: unlikely / possible / a real risk" (measured over 960 bouts).
+- Fixed: Ask for a bout greyed a date "Weight at risk" for a boxer a little over the class limit, though club shows
+  match walking weights within a gap and that bout would go ahead. Now the date stays open and says why.
+
 S511 (2026-11-17) - FIGHT ANALYSIS: YOUR OWN BOUTS, THE PLAN MARKS, THE TAPE ROOM MOVED IN
 - After a bout, the result page has a new tab: PUNCH BY PUNCH. It opens the FIGHT ANALYSIS page on the whole fight:
   every punch of both corners, You / The opponent, the rounds strip, the report. Bottom left: WHAT DECIDED IT and

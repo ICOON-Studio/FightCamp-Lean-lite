@@ -73,6 +73,8 @@ static func _dates(shows: Array) -> Control:
 		var fc: Dictionary = s["forecast"]
 		v.add_child(UI.label("Scale on the day: %.1f kg for %.1f kg" % [float(fc.get("day", 0.0)), float(fc.get("limit", 0.0))],
 			UI.SMALL, Palette.TEXT if bool(s["weight_ok"]) else Palette.BAD, "body", true))
+		if bool(s.get("in_gap", false)):
+			v.add_child(UI.label("Over the class limit, but inside the club-show weight gap: it boxes.", UI.SMALL, Palette.TEXT, "body", true))
 		if not bool(s["weight_ok"]):
 			v.add_child(UI.label("Weight at risk: no ask on this date.", UI.SMALL, Palette.BAD, "semi", true))
 		if str(s.get("holder", "")) != "":
@@ -102,6 +104,11 @@ static func _answer(main: Node, c: Career, f: Dictionary, a: Dictionary, shows: 
 	who.add_child(UI.label(OfferCard._bio(opp), UI.SMALL, Palette.MUTED, "body", true))
 	who.add_child(UI.label(OfferCard._read(opp), UI.SMALL, Palette.TEXT, "body", true))
 	who.add_child(UI.label("This fight %s." % str(a["teaches"]), UI.SMALL, Palette.TEXT, "semi", true))
+	var stop := str(cd.get("stoppage", ""))
+	if stop != "":
+		var sl := UI.label("Getting stopped: %s." % stop, UI.SMALL, Palette.WARN if stop == "a real risk" else Palette.TEXT, "semi", true)
+		sl.name = "AskStop"
+		who.add_child(sl)
 	who.add_child(UI.label("Win: %s. Loss: %s. Stopped: %s." % [", ".join(AskDates.trade("win")), ", ".join(AskDates.trade("loss")),
 		", ".join(AskDates.trade("stopped"))], UI.SMALL, Palette.MUTED, "body", true))
 	who.add_child(UI.label(str(cd["gate"]), UI.SMALL, Palette.WARN if str(a["kind"]) == "name" else Palette.MUTED, "body", true))
