@@ -83,6 +83,8 @@ const GymSlots := preload("res://scripts/rules/GymSlots.gd")
 @export var gym_slots: Array = []
 ## S481 FIGHTWEEK2 favours with each host club ({club: n}, FightWeekPlan.favours: a club not here starts at 1).
 @export var favours: Dictionary = {}
+## S515 FAVOURS2 our bouts boxed on each host's show since its last favour ({club: n}, FightWeekEvents.card_bout).
+@export var host_bouts: Dictionary = {}
 ## S514 FIGHTWEEK3 the shows a host already rolled a late ask for ({"<show day>": true}, LateAskWire: once per show).
 @export var late_asks: Dictionary = {}
 ## S489 FOURSTART1 the TEST CLUB (TestClub): four fighters to see every menu full; never the normal start.

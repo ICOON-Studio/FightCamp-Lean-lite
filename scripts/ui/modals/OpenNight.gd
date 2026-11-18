@@ -8,6 +8,9 @@ const BjjOpen := preload("res://scripts/rules/BjjOpen.gd")
 const BjjMatch := preload("res://scripts/rules/BjjMatch.gd")
 const BeltRoad := preload("res://scripts/rules/BeltRoad.gd")
 const FightView := preload("res://scripts/fight3d/FightView.gd")
+const BjjTree := preload("res://scripts/rules/BjjTree.gd")
+const MatLines := preload("res://scripts/rules/MatLines.gd")
+const MatPrice := preload("res://scripts/rules/MatPrice.gd")
 
 const ROUND_NAMES := ["QUARTER-FINAL", "SEMI-FINAL", "FINAL"]
 
@@ -38,6 +41,7 @@ func _next(main: Node, v: VBoxContainer, c: Career, f: Dictionary, bout: int) ->
 	var minutes := BeltRoad.match_minutes(str(f.get("belt", "white")))
 	v.add_child(UI.muted("%d minutes. Takedown 2, sweep 2, pass 3, mount or back 4. A submission ends it." % minutes, UI.BODY, true))
 	v.add_child(_compare(f, o))
+	_plan_line(v, f, opp)
 	var foot := UI.hbox(10)
 	foot.add_child(UI.spacer())
 	var sim := UI.button("Simulate this bout", "BtnQuiet", main.act.bind("opensim", str(f["id"])))
@@ -48,6 +52,29 @@ func _next(main: Node, v: VBoxContainer, c: Career, f: Dictionary, bout: int) ->
 	live.name = "OpenLive"
 	foot.add_child(live)
 	v.add_child(foot)
+
+
+## S515 MATPLANUI1 (MATPLAN_MAP_S433 section 6, Open night): YOUR PLAN in one line - the route, each brought line with its
+## chance against this opponent, the scoreboard. Set on the Playbook page; the simulated bout plays it (BjjBeat).
+func _plan_line(v: VBoxContainer, f: Dictionary, opp: Dictionary) -> void:
+	var plan: Dictionary = f.get("bjj_plan", {})
+	var rl := BjjTree.rules_for(str(f.get("belt", "white")))
+	var parts: Array = []
+	for l in MatLines.brought(f, plan, rl):
+		var pr := MatPrice.price(f, opp, l, rl)
+		var mv := BjjTree.move_name(str(BjjTree.edge(str(l["edge"])).get("move", "")))
+		parts.append("%s (%s%s)" % [mv, str(MatLines.TIMING_WORDS.get(str(l["timing"]), "")).to_lower(),
+			"" if pr.is_empty() or str(l["timing"]) == "sit_tight" else ", %d in 100" % roundi(float(pr["chance_timed"]) * 100.0)])
+	var board: Dictionary = plan.get("board", {})
+	var line := "YOUR PLAN: %s." % str(plan.get("name", "the coach's route"))
+	if not parts.is_empty():
+		line += " Lines: %s." % ", ".join(parts)
+	if not board.is_empty():
+		line += " Level %s, ahead %s, behind %s." % [str(board.get("level", "steady")).capitalize(), str(board.get("ahead", "save")).capitalize(),
+			str(board.get("behind", "push")).capitalize()]
+	var lb := UI.label(line, UI.BODY, UI.GOLD, "semi", true)
+	lb.name = "OpenPlan"
+	v.add_child(lb)
 
 
 ## The three numbers the match reads, side by side.

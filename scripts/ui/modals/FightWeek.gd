@@ -12,6 +12,7 @@ const FightWeek := preload("res://scripts/rules/FightWeek.gd")
 const FightWeekPlan := preload("res://scripts/state/FightWeekPlan.gd")
 const FightWeekPartner := preload("res://scripts/ui/FightWeekPartner.gd")
 const OppFile := preload("res://scripts/rules/OppFile.gd")
+const FightWeekEvents := preload("res://scripts/rules/FightWeekEvents.gd")
 
 const W := 1640.0
 const DOW := ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
@@ -53,7 +54,9 @@ func _header(c: Career, f: Dictionary, r: Dictionary) -> Control:
 		str(o["name"]), int(o.get("w", 0)), int(o.get("l", 0)), roundi(float(f.get("limit", 60.0)))], 19, UI.MUTED))
 	var host := str(b.get("host", ""))
 	top.add_child(UI.chip("AWAY at %s" % host, "gold"))
-	top.add_child(UI.chip("Favours with the host %s" % _dots(FightWeekPlan.favours(c, host)), ""))
+	var toward := FightWeekEvents.BOUTS_PER_FAVOUR - int(c.host_bouts.get(host, 0))   # S515 FAVOURS2: this bout counts toward the next
+	var next_word := "this bout earns one" if toward <= 1 else "one more every %d bouts here (%d to go)" % [FightWeekEvents.BOUTS_PER_FAVOUR, toward]
+	top.add_child(UI.chip("Favours with the host %s · %s" % [_dots(FightWeekPlan.favours(c, host)), next_word], ""))
 	var w: Dictionary = r["weight"]
 	top.add_child(UI.chip("Scale: %.1f now · %s the %.1f kg gap by %.1f" % [float(w["now"]), "inside" if bool(w["in_gap"]) else "outside",
 		float(w["gap"]), absf(float(w["margin"]))], "green" if bool(w["in_gap"]) else "red"))

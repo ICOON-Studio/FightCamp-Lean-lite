@@ -30,6 +30,7 @@ const VERDICT := {"unanimous": "unanimous decision", "split": "split decision", 
 const TABS := [["summary", "SUMMARY"], ["scorecard", "SCORECARD"], ["exchanges", "THE EXCHANGES"], ["numbers", "THE NUMBERS"], ["plan", "THE PLAN"],
 	["punches", "PUNCH BY PUNCH"]]   # S511 FIGHTFILM1 map 5: opens the FIGHT ANALYSIS page on the whole fight
 const FightAnalysisOwn := preload("res://scripts/ui/FightAnalysisOwn.gd")
+const FightWeekEvents := preload("res://scripts/rules/FightWeekEvents.gd")
 const WIDE := 1800.0
 const TEXT := 20
 
@@ -338,6 +339,15 @@ static func footer(main: Node, m: Dictionary, f: Dictionary, opp: Dictionary) ->
 			var g := float(m["taught"].get("grow", 0.0))
 			take.append([("+%.1f" % g) if g > 0.0 else "NOTHING", "WHAT IT TAUGHT, EVERY ABILITY" + (" (A STEP UP)" if str(m["taught"].get("kind", "")) == "step_up" else ""),
 				UI.GREEN if g > 0.0 else UI.MUTED])
+		var lp: Dictionary = m.get("ladder_pts", {})
+		if not lp.is_empty():   # S515 LADDERWIRE1: the ladder points this bout moved (season ladder v6)
+			var dl := int(lp["a_delta"])
+			take.append([("+%d" % dl) if dl > 0 else ("%d" % dl if dl < 0 else "NO CHANGE"), "LADDER POINTS, NOW %d" % int(lp["a_rep"]),
+				UI.GREEN if dl > 0 else (UI.RED if dl < 0 else UI.MUTED)])
+		var hf: Dictionary = m.get("host_favour", {})
+		if not hf.is_empty():   # S515 FAVOURS2: the host's favour count, on every bout boxed on a host's show
+			take.append(["+1 FAVOUR" if bool(hf["earned"]) else "%d OF %d" % [int(hf["count"]), FightWeekEvents.BOUTS_PER_FAVOUR],
+				"THE HOST OWES YOU ONE" if bool(hf["earned"]) else "BOUTS FOR THE HOST TOWARD A FAVOUR", UI.GREEN if bool(hf["earned"]) else UI.MUTED])
 	var lost := int(m.get("members_lost", 0))
 	var win := bool(m["win"])
 	take.append(["+%d" % BoutRules.WIN_MEMBERS if win else ("-%d" % lost if lost > 0 else "NO CHANGE"), "MEMBERS AFTER THE NEWS", UI.GOLD if lost == 0 else UI.RED])

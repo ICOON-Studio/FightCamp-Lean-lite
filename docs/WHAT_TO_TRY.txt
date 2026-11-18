@@ -1,3 +1,15 @@
+S515b (2026-11-18) - ANA'S PLAN ON THE MAT, FAVOURS FOR BOXING ON A HOST'S SHOW, LADDER POINTS, MONEY LEFT ON A HIRE
+- Ana's Playbook page, below her map: THE PLAN ON THE MAT. The coach drafts what she brings (3 lines at white belt):
+  her escapes from the worst positions and a finish. Click a move to swap it, click the timing (At once / Frame first /
+  Sit tight / Set it up), Drop a line, or + add an escape. Each line shows its chance in 100, where a miss lands, what it
+  costs the Tank. THE SCOREBOARD: her pace when level, ahead and behind (Push / Steady / Save). The match now plays these.
+- On the open's day the bout card says YOUR PLAN with each line's chance against that opponent.
+- Favours with a host: every second bout your club boxes on a host's show, the host owes you one (the fight week shows
+  "one more every 2 bouts here", the result page "+1 FAVOUR").
+- Every amateur now has LADDER POINTS: the result page shows how many the bout won or lost (beating a better boxer pays
+  more). The ladder table itself comes next.
+- Club > People: a coach you have not hired says "Money lasts N -> M weeks" (amber under 8, red under 6).
+
 S515 (2026-11-18) - A HOST ONLY ASKS FOR A BOXER WHO CAN TAKE THE BOUT
 - A host's late ask now only reaches a boxer the show could legally match (a novice is never asked for a show whose
   next opponent has too many bouts). Before, a TAKE THE BOUT could fail with nothing booked.

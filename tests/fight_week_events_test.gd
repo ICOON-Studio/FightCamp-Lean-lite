@@ -14,6 +14,7 @@ func _initialize() -> void:
 	_test_kept_on_pull_out()
 	_test_asks()
 	_test_fill_gap()
+	_test_card_bout()
 	_test_spend()
 	_test_one_stop()
 	_test_seeded_rolls()
@@ -97,6 +98,15 @@ func _test_asks() -> void:
 	_check(not FightWeekEvents.asks(0.2, true, true, false), "asks not ok at 0.2 (above 1/6)")
 	_check(FightWeekEvents.asks(0.0, true, true, false), "asks ok at 0.0")
 	_check(not FightWeekEvents.asks(0.17, true, true, false), "asks not ok at 0.17 (above 1/6)")
+
+
+func _test_card_bout() -> void:   # S515 FAVOURS2
+	var a: Dictionary = FightWeekEvents.card_bout(0, 1)
+	_check(int(a["count"]) == 1 and int(a["favours"]) == 1 and not bool(a["earned"]), "card_bout: first bout counts, no favour yet")
+	var b: Dictionary = FightWeekEvents.card_bout(FightWeekEvents.BOUTS_PER_FAVOUR - 1, 1)
+	_check(int(b["count"]) == 0 and int(b["favours"]) == 2 and bool(b["earned"]), "card_bout: the third bout earns one, count restarts")
+	var c: Dictionary = FightWeekEvents.card_bout(FightWeekEvents.BOUTS_PER_FAVOUR - 1, FightWeekEvents.FAVOURS_MAX)
+	_check(int(c["favours"]) == FightWeekEvents.FAVOURS_MAX and not bool(c["earned"]) and int(c["count"]) == 0, "card_bout: at the cap nothing is earned")
 
 
 func _test_fill_gap() -> void:

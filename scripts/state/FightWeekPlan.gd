@@ -35,6 +35,7 @@ const SPAR_LAST := 2
 const WEEK_BEFORE := 8
 const FilmSeats := preload("res://scripts/rules/FilmSeats.gd")
 const BoutRead := preload("res://scripts/rules/BoutRead.gd")
+const FightWeekEvents := preload("res://scripts/rules/FightWeekEvents.gd")
 
 
 ## Called the day an amateur bout is booked (Bouts.accept): marks it a fight week (no camp), names the show's host and
@@ -135,6 +136,18 @@ static func rating_of(f: Dictionary) -> float:
 
 static func favours(c: Career, club: String) -> int:
 	return int(c.favours.get(club, FAVOURS_START))
+
+
+## S515 FAVOURS2: the bout just boxed on a host's show counts toward a favour with that host. {} when the bout had no host.
+static func boxed_for_host(c: Career, f: Dictionary) -> Dictionary:
+	var host := str((f.get("bout", {}) as Dictionary).get("host", ""))
+	if host.is_empty():
+		return {}
+	var r := FightWeekEvents.card_bout(int(c.host_bouts.get(host, 0)), favours(c, host))
+	c.host_bouts[host] = int(r["count"])
+	c.favours[host] = int(r["favours"])
+	r["host"] = host
+	return r
 
 
 ## The assistant's week: {stop, nights: {days_out: partner_id}, eat_less, film, line, fact}. Its night takes the best match.

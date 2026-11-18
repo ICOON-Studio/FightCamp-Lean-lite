@@ -127,11 +127,16 @@ static func run(c: Career, f: Dictionary, m: Dictionary) -> void:
 			m["gate_line"] = "$0: the host kept the gate (a name you picked)."
 		# S512 ASKFIGHT1: what an amateur fight teaches (FightLearn; a step up a quarter more) - the result page says it.
 		m["taught"] = AskFlow.teach_after(f, opp, win, not win and stop != "")
+		if not no_cut or bool(f["bout"].get("host_gate", false)):
+			m["host_favour"] = load("res://scripts/state/FightWeekPlan.gd").boxed_for_host(c, f)   # S515 FAVOURS2: every third bout on a host's show earns a favour
 		if HomeBout.is_home(f):
 			HomeBout.boxed(c, f)   # S488 HOMEBOUT1: the promised top of our show is kept by boxing it
 		if not no_cut:
 			c.pay(BoutRules.TICKET_CUT, "Ticket cut: %s vs %s" % [f["first"], opp["name"]])
 		var r := c.rival(str(opp["name"]))
+		if not r.is_empty():   # S515 LADDERWIRE1: both sides' ladder points move on the bout (LadderPoints, the map's R3 table)
+			m["ladder_pts"] = load("res://scripts/state/LadderPoints.gd").settle(f, r, outcome,
+				load("res://scripts/state/LadderPoints.gd").method_of(cards, stop, win))
 		if not r.is_empty() and outcome != "draw":
 			Region.record(r, not win)
 		# S341 her record keeps the bout against us (RivalPast), as her own result - a draw too.

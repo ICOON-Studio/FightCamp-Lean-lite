@@ -265,7 +265,7 @@ static func attempt(ctx: Dictionary, st: Dictionary, s: int, pick: Dictionary, r
 	var is_plan: bool = pick["why"] == "plan"
 	var chain: bool = is_plan and bool(st["plan_hit"][s])
 	var read := 0.0
-	if is_plan and not base:
+	if (is_plan or pick["why"] == "line") and not base:   # S515 MATWALK1: a mat plan line is read like a plan step (3 looks), no CHAIN
 		read = minf(1.0, float(st["looks"][1 - s]) / TheRead.looks_needed(float(ctx["iq"][1 - s]), false))
 		st["looks"][1 - s] = float(st["looks"][1 - s]) + TheRead.LOOKS_PER_EXCHANGE
 		st["seen"][1 - s] = int(st["seen"][1 - s]) + 1

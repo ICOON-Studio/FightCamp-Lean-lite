@@ -28,6 +28,7 @@ const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const BjjSide := preload("res://scripts/rules/BjjSide.gd")
 const Promises := preload("res://scripts/rules/Promises.gd")
 const FilmPattern := preload("res://scripts/rules/FilmPattern.gd")
+const HireRunway := preload("res://scripts/ui/HireRunway.gd")   # S515 COACHROLES1: the runway line on a hire
 
 const TABS := [["People", "gym", 1], ["Money", "money", 0], ["Records", "gym", 4]]
 const ROLE_WORD := {"assistant": "Second coach", "strength": "Strength coach", "physio": "Physio", "cutman": "Cutman"}
@@ -156,6 +157,9 @@ static func _coach(main: Node, c: Career, coach: Dictionary, wide: bool) -> Cont
 		var b := UI.button("Hire", "BtnSolid", main.act.bind("hire", str(who.get("id", ""))))
 		b.name = "Hire_" + str(who.get("id", ""))
 		b.tooltip_text = "Hire this coach. %s to sign." % UI.money(GameMoney.COACH_SIGNING_FEE)
+		var cur := 0 if c.coach.is_empty() else int(c.coach.get("salary", 0))
+		var gain := 0 if not c.coach.is_empty() else GameMoney.CLASSES_WITH_COACH   # a first coach brings the evening classes
+		v.add_child(HireRunway.line(c, int(who.get("salary", 0)) - cur, gain, str(who.get("id", ""))))
 		v.add_child(b)
 	h.add_child(v)
 	return p
@@ -266,9 +270,9 @@ static func _facts(coach: Dictionary, show_sign: bool) -> Control:
 	var net := salary - classes
 	var h := UI.hbox(6)
 	h.name = "CoachTiles"
-	h.add_child(_tile("coach", "%d tactics" % limit, "How many tactics a fight plan can hold", INK, "in a fight plan"))
+	h.add_child(_tile("coach", "%d tactics" % limit, "How many tactics a fight plan can hold", INK, "in a plan"))
 	var checks := FilmPattern.checks(int(rating), true, 0, 99)   # S510 FIGHTFILM1 map 6: the coach's film checks a night
-	h.add_child(_tile("coach", "%d checks" % checks, "On a film night this coach checks %d patterns you mark on the opponent's tape" % checks, INK, "film checks a night"))
+	h.add_child(_tile("coach", "%d checks" % checks, "On a film night this coach checks %d patterns you mark on the opponent's tape" % checks, INK, "on film nights"))
 	h.add_child(_tile("money", UI.money(salary), "Cost a week", INK, "wage a week"))
 	h.add_child(_tile("members", "+%s" % UI.money(classes), "Evening classes, a week", GREEN, "evening classes"))
 	h.add_child(_tile("runway", UI.money(-net), "Net a week, after evening classes", UI.RED if net > 0 else GREEN, "net a week"))
@@ -319,6 +323,8 @@ static func _role(main: Node, c: Career, r: Dictionary) -> Control:
 		b.tooltip_text = "Let go."
 	else:
 		b.tooltip_text = "Hire. %s." % pay
+	if not on and int(r["per_bout"]) <= 0:
+		b.tooltip_text += " " + HireRunway.text_for(c, int(r["wage"]), 0)
 	v.add_child(b)
 	h.add_child(v)
 	return p
@@ -327,7 +333,7 @@ static func _role(main: Node, c: Career, r: Dictionary) -> Control:
 static func _figure(id: String) -> String:
 	match id:
 		"assistant":
-			return "%d more boxer on the roster, 40 more members" % StaffRoles.places(["assistant"])
+			return "%d more boxer, 40 more members" % StaffRoles.places(["assistant"])
 		"strength":
 			return "%d%% fewer training injuries" % roundi((1.0 - StaffRoles.STRENGTH_RISK) * 100.0)
 		"physio":

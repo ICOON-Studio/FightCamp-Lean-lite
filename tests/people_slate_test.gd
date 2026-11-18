@@ -40,6 +40,8 @@ func _initialize() -> void:
 		if page.find_child("Assistant_" + id, true, false) != null:
 			coach = true
 	_check(coach, "a coach card is on the page")
+	var rw: Array = page.find_children("Runway_*", "Label", true, false)   # S515 COACHROLES1: a hire card says how long the money lasts
+	_check(not rw.is_empty() and (rw[0] as Label).text.begins_with("Money lasts"), "an unhired coach card shows the runway line (%s)" % ((rw[0] as Label).text if not rw.is_empty() else "none"))
 	for id in ["assistant", "strength", "physio", "cutman"]:
 		_check(page.find_child("Role_" + id, true, false) != null, "hire tile Role_%s is on the page" % id)
 	var last := _last_card(page)

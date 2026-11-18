@@ -208,7 +208,12 @@ static func set_plan(f: Dictionary, goal: String, steps: Array) -> void:
 	for rid in BjjTree.data()["routes"]:
 		if BjjTree.route(rid)["steps"] == steps:
 			name = str(BjjTree.route(rid)["name"])
-	f["bjj_plan"] = {"goal": goal, "steps": steps.duplicate(), "name": name}
+	var old: Dictionary = f.get("bjj_plan", {})
+	var plan := {"goal": goal, "steps": steps.duplicate(), "name": name}
+	for k in ["lines", "board", "drafted", "opening"]:   # S515 MATPLANUI1: a new route keeps the plan's lines and scoreboard
+		if old.has(k):
+			plan[k] = old[k]
+	f["bjj_plan"] = plan
 
 
 ## A preset route's card line: "4 steps - 2 owned - long: gets read" (+ the IBJJF line when it is not legal at her belt).

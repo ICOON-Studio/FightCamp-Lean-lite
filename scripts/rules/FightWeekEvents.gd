@@ -6,6 +6,7 @@ const PULL_OUT_CHANCE := 0.35
 const ROLL_DAYS_OUT := 5
 const ASK_CHANCE := 1.0 / 6.0
 const FAVOURS_MAX := 3
+const BOUTS_PER_FAVOUR := 2   # S515 FAVOURS2: every third bout a club boxes on a host's show, the host owes it one (FAVOURPROBE1: late asks alone left 0.24)
 const GO_HOME_MOOD := -6
 const REPLACEMENT_REP_X := 2
 
@@ -76,6 +77,15 @@ static func asks(roll: float, fits_gap: bool, ready: bool, asked_this_show: bool
 ## Favours after filling a late gap: min(favours + 1, 3).
 static func fill_gap(favours: int) -> int:
 	return mini(favours + 1, FAVOURS_MAX)
+
+
+## S515 FAVOURS2: one more of our bouts boxed on a host's show. Every BOUTS_PER_FAVOUR-th earns a favour (cap FAVOURS_MAX;
+## at the cap the count still restarts). Returns {count, favours, earned}.
+static func card_bout(count: int, favours: int) -> Dictionary:
+	var n := count + 1
+	if n < BOUTS_PER_FAVOUR:
+		return {"count": n, "favours": favours, "earned": false}
+	return {"count": 0, "favours": mini(favours + 1, FAVOURS_MAX), "earned": favours < FAVOURS_MAX}
 
 
 ## Spend favours: ok when favours >= n.

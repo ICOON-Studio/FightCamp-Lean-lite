@@ -25,6 +25,7 @@ const MoveTip := preload("res://scripts/ui/MoveTip.gd")
 const BjjTree := preload("res://scripts/rules/BjjTree.gd")
 const MatTree := preload("res://scripts/ui/MatTree.gd")
 const MatTreeInfo := preload("res://scripts/ui/MatTreeInfo.gd")
+const MatPlanPanel := preload("res://scripts/ui/MatPlanPanel.gd")   # S515 MATPLANUI1: the plan lines under the A-game
 
 ## S359 (operator still: the player covered the plan panel - "remove the player or make it smaller?"): 400 x 440 beside
 ## the map (was 560 x 600), so the map and its side panel get the width; the Combos tab keeps its own bigger player.
@@ -63,6 +64,7 @@ func build(main: Node) -> void:
 	# S384 GAMETREE1: ONE page, no tab row (S387: the fighter page carries the name).
 	if str(f.get("sport", "")) == "bjj":
 		add_child(_mat_book(main, c, f))
+		add_child(MatPlanPanel.make(main, f, c.day, BOOK_W + TREE_W + PLAYER.x + 32.0))
 		return
 	add_child(_tabs(main))
 	match int(main.route.get("ptab", 0)):

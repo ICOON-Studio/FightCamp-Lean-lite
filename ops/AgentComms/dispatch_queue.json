@@ -1682,6 +1682,13 @@
    "task": "COACHROLES1",
    "queued": "2026-11-18T10:00",
    "launched": "2026-11-18T09:59"
+  },
+  {
+   "task": "MATRECEIPT1",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-18T11:30",
+   "launched": "2026-11-18T10:16"
   }
  ]
 }

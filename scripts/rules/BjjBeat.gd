@@ -18,6 +18,7 @@ const BjjWalk := preload("res://scripts/rules/BjjWalk.gd")
 const BjjTree := preload("res://scripts/rules/BjjTree.gd")
 const BjjBody := preload("res://scripts/rules/BjjBody.gd")
 const BjjRef := preload("res://scripts/rules/BjjRef.gd")
+const MatLines := preload("res://scripts/rules/MatLines.gd")
 
 ## The 33-s beat the per-beat amounts (breath, the referee's top time) were sized on.
 const OLD_BEAT := 33.0
@@ -40,7 +41,9 @@ static func walk(ana: Dictionary, opp: Dictionary, plans: Array, minutes: int, r
 	var st := BjjWalk.start(ana, minutes, rules, rng, extra)
 	st["idle"] = [0, 0]
 	st["works"] = [0, 0]
+	var raw := _raw_aggr(ctx)
 	while float(st["t"]) < float(st["end"]):
+		_board(ctx, st, raw)
 		var first := int(st["init"])
 		var at_before: String = st["at"]
 		var vis := BjjWalk.visit(st)
@@ -125,6 +128,27 @@ static func walk(ana: Dictionary, opp: Dictionary, plans: Array, minutes: int, r
 	return w
 
 
+## S515 MATWALK1: each side's aggression without its mat_call (BjjBody.attrs added CALLS[mat_call]).
+static func _raw_aggr(ctx: Dictionary) -> Array:
+	var out: Array = []
+	for s in 2:
+		var f: Dictionary = ctx["f"][s]
+		out.append(float(ctx["body"][s]["aggression"]) - float(BjjBody.CALLS.get(str(f.get("mat_call", "steady")), 0.0)))
+	return out
+
+
+## S515 MATWALK1: THE SCOREBOARD - a plan with board rows sets the side's pace from the score every beat (Push / Steady /
+## Save = BjjBody.CALLS hunt / steady / hold), so act_p, aggr_bias and the late hold follow it. No board = unchanged.
+static func _board(ctx: Dictionary, st: Dictionary, raw: Array) -> void:
+	for s in 2:
+		var f: Dictionary = ctx["f"][s]
+		var plan: Dictionary = f.get("bjj_plan", {})
+		if (plan.get("board", {}) as Dictionary).is_empty():
+			continue
+		var call := MatLines.board_call(plan, int(st["score"][s]), int(st["score"][1 - s]), f)
+		ctx["body"][s]["aggression"] = clampf(float(raw[s]) + float(BjjBody.CALLS.get(call, 0.0)), 0.0, 100.0)
+
+
 ## How hard a trailing side's score is cut. Even, or only a level behind: T.SUB_TRAIL, so a lead stands.
 ## Further behind than T.TRAIL_GAP (a lower belt chasing a much higher one): no cut, so a mismatch can still upset.
 static func _trail_cut(ctx: Dictionary, st: Dictionary, s: int) -> float:
@@ -139,6 +163,13 @@ static func _trail_cut(ctx: Dictionary, st: Dictionary, s: int) -> float:
 
 ## The side's pick. A trailer rates every scoring edge at the trail cut and steps past a scoring plan step.
 static func _choose(ctx: Dictionary, st: Dictionary, s: int, rng: RandomNumberGenerator) -> Dictionary:
+	# S515 MATWALK1 (MATPLAN_MAP_S433 4.5): a mat plan line on this position is the pick. FRAME FIRST / SET IT UP work the
+	# hands until the stack is 2 (an empty pick = WORK); SIT TIGHT works every beat. No lines = today's path, seed for seed.
+	var lp := MatLines.pick(ctx, st, s)
+	if not lp.is_empty():
+		if bool(lp.get("wait", false)) or bool(lp.get("sit", false)):
+			return {"e": {}, "why": "line"}
+		return lp
 	var cut := _trail_cut(ctx, st, s)
 	var hunt := float(BjjTree.T.get("SUB_HUNT", 1.0))
 	if hunt != 1.0:

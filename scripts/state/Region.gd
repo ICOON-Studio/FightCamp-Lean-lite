@@ -140,9 +140,10 @@ static func _rival_bout(c: Career, a: Dictionary, b: Dictionary, show: String, r
 	var a_won := str(r["winner"]) == "a" or (str(r["winner"]) == "" and rng.randf() < 0.5)
 	var winner := a if a_won else b
 	var loser := b if a_won else a
+	var stop := bool(r["stopped"])
+	load("res://scripts/state/LadderPoints.gd").settle(winner, loser, "win", "stop" if stop else "ud")   # S515 LADDERWIRE1
 	record(winner, true)
 	record(loser, false)
-	var stop := bool(r["stopped"])
 	# S341 both records keep the bout (RivalPast): who, where, how.
 	var how := "stopped in round %d" % int(r["round"]) if stop else "on points at the %s" % show
 	RivalPast.add(winner, c.day, str(loser["name"]), str(loser["club"]), true, how)

@@ -6,8 +6,8 @@
   "id": "S509",
   "owner": "claude",
   "updated": "2026-11-18 S515",
-  "summary": "S515 (main line, Opus, short - weekly plan 88%, resets Thu 19 Nov 14:00 UTC): FAVOURPROBE1 collected (160 runs: a THRIFTY club sits at 0.24 favours a touched host, below the map's 1-2; earns 0.3/yr vs 4.4 spends; kilo/missed-weight never fire); fix: LateAskWire.ready_for also needs a legal experience match (38 unbookable yeses gone). His yes on Q-270/Q-271 -> LADDERREP1 (ladder v6 pure rules, Goose #366) + COACHROLES1 (coach r6 pure rules, Qwen running). Dola guard damage v2 + club week v10 collected -> critics Dola SQ217/SQ218 + Goose #364/#365. Exported.",
-  "next_action": "S516 main line (after the weekly reset): 1) collect Goose #366 LADDERREP1 and Qwen COACHROLES1 by diff+parse+test, then wire: ladder -> Fights > Who do we fight? (map DESIGN_LADDER1_V6_DOLA.md Part 2), coach -> Staff cards runway line, class-night pill, no-gi Academy Month; 2) critics on guard damage v2 / club week v10 (SQ217/218, Goose #364/#365): board only at 7+/7+; 3) FAVOURS2: the favour economy misses its 1-2 target (docs/FAVOURPROBE1_RESULT.md) - decide the earning channel (a design question, Claude decides; probe again); 4) INTEGRATE1: the BJJ mat plan screen (MATPLAN_MAP_S433 4.2-4.3). Animation: lean-f3 only (METHOD S510).",
+  "summary": "S515 part 2 (owner: 'keep going until context around 500k'): FAVOURS2 - favours earned by boxing on a host's show (every 2nd bout; probe 0.24 -> 0.77 a host for a club that spends at once); MATWALK1 - the mat plan's lines + scoreboard reach the match (BjjBeat), MATPLANUI1 - Ana's plan lines panel on the Playbook + YOUR PLAN on the open night; COACHROLES1 + LADDERREP1 collected; coach hire cards say 'Money lasts N -> M weeks'; LADDERWIRE1 stage 1 - ladder points move on every amateur bout (ours + rivals), shown on the result page; People page back under its word cap; MATRECEIPT1 to Goose #367. Exported.",
+  "next_action": "S516 main line (after the weekly reset): 1) LADDERWIRE stage 2 (ops/research/LADDERWIRE_SCOPE_S515.md): the table sorted by ladder points + the Ask card's reach, price and Leans Yes/No; 2) collect Goose #367 MATRECEIPT1 and wire the per-line receipt on the open result + week review; 3) critics on guard damage v2 / club week v10 (Dola SQ217/218, Goose #364/#365): board only at 7+/7+; 4) coach r6 left: the Week Priority switch (R14, CoachedMornings deal), half-held night, BJJ belt ceiling once a coach has a belt. Animation: lean-f3 only (METHOD S510).",
   "incomplete_blocked": "Qwen HOOKPAST2 running (branch qwen/hookpast2) - collect by diff, then use its HOOK_HELD line as the hook-release ruler.",
   "next_acceptance": "On a 180 s seed 7 film vs s507b: no landed punch over 9 m/s after contact and at most 2 over 6; head jumps per punch clip <= 0.13 in the shared part (head_split_probe); FreeHand off_share <= 0.35, HeadEase back_f_p50 >= 8; punch tests keep or better their S507 A/B FAIL sets.",
   "awaiting_operator": "PR 341 look (coach neck still pair on /review). Unity uninstall (his call). Films while he plays: ask each time (S507: yes).",
@@ -2173,7 +2173,7 @@
    "id": "S515",
    "date": "2026-11-18",
    "model": "opus",
-   "summary": "S515 (main line, Opus, short - weekly plan 88%, resets Thu 19 Nov 14:00 UTC): FAVOURPROBE1 collected (160 runs: a THRIFTY club sits at 0.24 favours a touched host, below the map's 1-2; earns 0.3/yr vs 4.4 spends; kilo/missed-weight never fire); fix: LateAskWire.ready_for also needs a legal experience match (38 unbookable yeses gone). His yes on Q-270/Q-271 -> LADDERREP1 (ladder v6 pure rules, Goose #366) + COACHROLES1 (coach r6 pure rules, Qwen running). Dola guard damage v2 + club week v10 collected -> critics Dola SQ217/SQ218 + Goose #364/#365. Exported."
+   "summary": "S515 (main line, Opus, short - weekly plan 88%, resets Thu 19 Nov 14:00 UTC): FAVOURPROBE1 collected (160 runs: a THRIFTY club sits at 0.24 favours a touched host, below the map's 1-2; earns 0.3/yr vs 4.4 spends; kilo/missed-weight never fire); fix: LateAskWire.ready_for also needs a legal experience match (38 unbookable yeses gone). His yes on Q-270/Q-271 -> LADDERREP1 (ladder v6 pure rules, Goose #366) + COACHROLES1 (coach r6 pure rules, Qwen running). Dola guard damage v2 + club week v10 collected -> critics Dola SQ217/SQ218 + Goose #364/#365. Exported. | part 2: S515 part 2 (owner: 'keep going until context around 500k'): FAVOURS2 - favours earned by boxing on a host's show (every 2nd bout; probe 0.24 -> 0.77 a host for a club that spends at once); MATWALK1 - the mat plan's lines + scoreboard reach the match (BjjBeat), MATPLANUI1 - Ana's plan lines panel on the Playbook + YOUR PLAN on the open night; COACHROLES1 + LADDERREP1 collected; coach hire cards say 'Money lasts N -> M weeks'; LADDERWIRE1 stage 1 - ladder points move on every amateur bout (ours + rivals), shown on the result page; People page back under its word cap; MATRECEIPT1 to Goose #367. Exported."
   }
  ],
  "blocked_on_operator": [],
@@ -5092,7 +5092,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-18 04:41 board_sync",
+  "updated": "2026-11-18 10:04 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5243,18 +5243,11 @@
   },
   "working_now": [
    {
-    "title": "TASK COACHROLES1 - coach roles r6 pure rules (class nights vs pads, hire runway, belt ceiling, held night)",
-    "who": "qwen",
-    "started": "2026-11-18T10:00",
-    "run": "COACHROLES1",
-    "state": "running"
-   },
-   {
-    "title": "TASK LADDERREP1 - season ladder v6 pure rules (reach, points, greyed rows, will they say yes, the clock)",
+    "title": "TASK MATRECEIPT1 - the mat plan receipt per line after an open (pure rule)",
     "who": "goose",
-    "started": "2026-11-18T10:00",
-    "run": "LADDERREP1",
-    "state": "running (issue 366)"
+    "started": "2026-11-18T11:30",
+    "run": "MATRECEIPT1",
+    "state": "running (issue 367)"
    },
    {
     "title": "Critics: guard damage v2 + club week v10 (Dola SQ217/SQ218, Goose 364/365)",
@@ -5264,12 +5257,6 @@
    }
   ],
   "next": [
-   {
-    "id": "FAVOURS2",
-    "who": "claude",
-    "title": "Favours with hosts: earning channel too thin (0.3 a year vs 4.4 spends, FAVOURPROBE1) - decide how a club earns favours, probe to 1-2",
-    "after": ""
-   },
    {
     "id": "HEADJUMP1",
     "who": "claude",
@@ -5291,7 +5278,7 @@
    {
     "id": "LADDER1",
     "who": "kalli",
-    "title": "Season ladder v6 + coach roles r6: his yes (Q-270/271); pure rules building (LADDERREP1 Goose, COACHROLES1 Qwen); Claude wires the screens next",
+    "title": "Season ladder v6: stage 1 built (points move); stage 2 = the table + Ask card reach / Leans Yes-No (LADDERWIRE_SCOPE_S515)",
     "after": ""
    },
    {
@@ -5321,7 +5308,7 @@
    {
     "id": "INTEGRATE1",
     "who": "claude",
-    "title": "Integrate built mechanics: NEXT the BJJ mat plan screen (MatLines + MatPrice built S439, no screen; map MATPLAN_MAP_S433 4.2-4.3); then ClubDeal/CoachedMornings/CoachMarket after Q-271; TapeClips",
+    "title": "Integrate built mechanics: BJJ mat plan lines DONE S515 (panel + match + open night); next the receipt (MATRECEIPT1) and the between-bouts change",
     "after": ""
    },
    {
@@ -5780,6 +5767,31 @@
   },
   "done_recently": [
    {
+    "title": "FAVOURS2 - favours for boxing on a host show (0.24 -> 0.77)",
+    "who": "claude",
+    "when": "2026-11-18"
+   },
+   {
+    "title": "MATWALK1 + MATPLANUI1 - Ana plan lines reach the match, panel + open night",
+    "who": "claude",
+    "when": "2026-11-18"
+   },
+   {
+    "title": "COACHROLES1 (Qwen) + LADDERREP1 (Goose) collected; hire runway line wired",
+    "who": "claude",
+    "when": "2026-11-18"
+   },
+   {
+    "title": "LADDERWIRE1 stage 1 - ladder points on every amateur bout",
+    "who": "claude",
+    "when": "2026-11-18"
+   },
+   {
+    "title": "TASK FAVOURPROBE1 - where favours with the hosts sit after a year of real play (probe only, no rule change)",
+    "who": "qwen",
+    "when": "2026-11-18"
+   },
+   {
     "title": "TASK FAVOURPROBE1 - favours after a year: 0.24 a host, below the 1-2 target; unbookable late asks fixed",
     "who": "qwen",
     "when": "2026-11-18"
@@ -5815,32 +5827,6 @@
     "title": "Fight week rules now in the game: week-before night takes a pad night, late night cut stop + injury, the stop banks the week's pads",
     "who": "claude",
     "when": "2026-11-18"
-   },
-   {
-    "title": "DO NEXT says 'Ask for a bout' when a boxer can ask",
-    "who": "claude",
-    "when": "2026-11-18"
-   },
-   {
-    "title": "TASK MORNINGSPROBE1 - coached mornings: solo beats shared on points, wins flat (2 seeds; no number changed)",
-    "who": "qwen",
-    "when": "2026-11-18"
-   },
-   {
-    "title": "Fight animation rebuild, phase 2: the planner that picks each punch by distance and each reaction by size (pure module + tests)",
-    "who": "goose",
-    "when": "2026-11-17"
-   },
-   {
-    "title": "TASK ASKPROBE4 - QWEN (qwen3-coder) - does the fight week make the show date a real choice?",
-    "who": "qwen",
-    "when": "2026-11-17"
-   },
-   {
-    "id": "ASKFIGHT1",
-    "who": "claude",
-    "title": "Ask for a bout BUILT (S512): two shows side by side, cards with an Ask per date, picked name keeps the host's gate, every amateur bout teaches (WHAT IT TAUGHT). Left: Home DO NEXT line, stoppage-risk word",
-    "after": ""
    }
   ],
   "scope_note": "S294: lean restart (E:\\FightCamp\\Lean\\docs\\RESTART_PLAN.md). Old roadmap items are parked until the weekly builds reach them.",
@@ -5989,6 +5975,22 @@
     {
      "text": "Favours probe: 0.24, asks fixed",
      "who": "claude"
+    },
+    {
+     "text": "Favours: 2nd bout earns one",
+     "who": "claude"
+    },
+    {
+     "text": "Mat plan lines: panel+match",
+     "who": "claude"
+    },
+    {
+     "text": "Ladder points move (stage 1)",
+     "who": "claude"
+    },
+    {
+     "text": "Hire card: money lasts",
+     "who": "claude"
     }
    ],
    "now": [
@@ -6053,15 +6055,11 @@
      "who": "claude"
     },
     {
-     "text": "Ladder v6 rules (Goose)",
-     "who": "claude"
-    },
-    {
-     "text": "Coach r6 rules (Qwen)",
-     "who": "claude"
-    },
-    {
      "text": "Critics: guard v2, club week v10",
+     "who": "claude"
+    },
+    {
+     "text": "Mat receipt rules (Goose)",
      "who": "claude"
     }
    ],
@@ -6195,7 +6193,7 @@
      "who": "claude"
     },
     {
-     "text": "Favours: earning too thin",
+     "text": "Ladder table + Ask reach",
      "who": "claude"
     }
    ],
