@@ -21,10 +21,12 @@ func _initialize() -> void:
 		var consistent := true
 		var c := Career.quick_start()
 		c.fighters.append(Data.fighter_state(Data.lucy(), c.day))   # the walk-in, signed
+		var base: Dictionary = (c.fighter()["stats"] as Dictionary).duplicate()
 		for i in NIGHTS:
 			c.day = 20 + i
 			c.news.clear()
 			var f: Dictionary = c.fighter()
+			f["stats"] = base.duplicate()   # S514: a bout teaches (AskFlow.teach_after); each night starts at the same stats
 			var opp: Dictionary = (Data.OPPONENTS[opp_i] as Dictionary).duplicate(true)
 			f["bout"] = {"opp": opp, "day": c.day, "weighed": true, "made": true, "done": false, "film": 1}
 			f["camp"] = {}
@@ -58,11 +60,13 @@ func _initialize() -> void:
 	for weak in ["Leaves her chin open", "Slow to start"]:
 		var c := Career.quick_start()
 		c.fighters.append(Data.fighter_state(Data.lucy(), c.day))
+		var base: Dictionary = (c.fighter()["stats"] as Dictionary).duplicate()
 		var down := 0
 		for i in NIGHTS:
 			c.day = 20 + i
 			c.news.clear()
 			var f: Dictionary = c.fighter()
+			f["stats"] = base.duplicate()   # S514: a bout teaches (AskFlow.teach_after); each night starts at the same stats
 			var opp: Dictionary = (Data.OPPONENTS[0] as Dictionary).duplicate(true)
 			opp["rating"] = 54.0
 			opp["weak"] = weak

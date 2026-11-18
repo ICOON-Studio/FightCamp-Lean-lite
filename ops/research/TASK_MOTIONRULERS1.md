@@ -31,3 +31,12 @@ An animator would scrub the strafe and the lifted step frame by frame where the 
 
 ## Prefab check
 None: these are our own foot-lock and guard-idle layers.
+
+## Added 2026-11-18 (nightly review, suite_2026-11-18.log, commit 902d6948d)
+- head_aim_test now red too: `A_A_lv jab depth flat_diff=0.236 > 0.200` (aimed flat 0.405 vs no-aim 0.169; the other 11 rows pass).
+  Green on 2026-11-17. Most likely f9089b106 (S510 anim loop r14: "gloves nearer the face", glove in flight 3-4 frames) - the
+  no-aim jab's flat reach dropped, the aimed one did not. Not bisected.
+- rokoko_clips: now only the planted slide row (0.309 m <= raw 0.209 + 0.05); the leg-snap and travel rows pass. human_feet still red.
+  guard_knee is green again.
+- Still HELD: CLAUDE.md item 8 METHOD - fight animation is FIGHTPLAYER2; no new fix layer in scripts/fight3d until it is built.
+  These rulers measure the old player; decide with the FIGHTPLAYER2 work whether they are fixed, moved to v2 or retired.

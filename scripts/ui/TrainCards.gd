@@ -85,7 +85,7 @@ static func card(cd: Dictionary, on: bool, on_pick: Callable) -> Control:
 		sv.add_child(B.lab("tiredness", 16, Palette.MUTED, "body"))
 		h.add_child(sv)
 	b.tooltip_text = ("Tiredness by the end of each day: %s" % ", ".join((cd["spark"] as Array).map(func(x): return "%d" % roundi(float(x))))
-		+ ("" if on else "\nClick to plan this boxer's week.")) if boxer else "The mat coach runs her classes. Click to choose what they drill."
+		+ ("" if on else "\nClick to plan this boxer's week.")) if boxer else "The mat coach runs the mat classes. Click to choose what they drill."
 	return b
 
 

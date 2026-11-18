@@ -55,9 +55,13 @@ static func share(edge: float, pol: String, film: int, habits: Variant = null, s
 	var c := Career.quick_start()
 	c.fighters.append(Data.fighter_state(Data.lucy(), c.day))
 	var wins := 0
+	var base: Dictionary = (c.fighter()["stats"] as Dictionary).duplicate()
 	for i in n:
 		c.day = 20 + i
 		var f: Dictionary = c.fighter()
+		# S514 ASKFIGHT1: every amateur bout teaches (AskFlow.teach_after, every fight ability up); measured bouts on one
+		# fighter would compound it over thousands of nights - each starts at the same stats, as morale and tiredness do
+		f["stats"] = base.duplicate()
 		f["camp"] = {}
 		f["morale"] = 60.0   # S401 CornerTrust: morale now carries between bouts; each measured bout starts level
 		# S433 NOCAMP1: the Tank is on every bout now - a bout a day would carry the last bout (-8) and the fight's own
