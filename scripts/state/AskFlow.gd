@@ -46,10 +46,11 @@ static func input(c: Career, f: Dictionary) -> Dictionary:
 
 
 ## Open or closed, with the reason and the day it opens (AskBout.open).
-static func open(c: Career, f: Dictionary) -> Dictionary:
+## at_day: read the door on a later day (S518 R9: a rival's call during the rest after a bout is for a show after it).
+static func open(c: Career, f: Dictionary, at_day := -1) -> Dictionary:
 	var a := input(c, f)
 	var bouts: GDScript = load("res://scripts/state/Bouts.gd")   # Bouts preloads this module's callers: a runtime load
-	return AskBout.open(a, c.day, int(bouts.AFTER_FIGHT))
+	return AskBout.open(a, at_day if at_day >= 0 else c.day, int(bouts.AFTER_FIGHT))
 
 
 ## Our other fighters' nights: [{name, day}] (one slot a show).
@@ -125,8 +126,8 @@ static func teach_word(c: Career, f: Dictionary, opp: Dictionary, kind: String) 
 
 
 ## Book the ask through the sheet's own accept path. kind "name" = the host keeps the gate (no ticket cut for the club).
-static func book(c: Career, f: Dictionary, kind: String, opp_name: String, day: int) -> bool:
-	if not bool(open(c, f)["open"]):
+static func book(c: Career, f: Dictionary, kind: String, opp_name: String, day: int, at_day := -1) -> bool:
+	if not bool(open(c, f, at_day)["open"]):
 		return false
 	var opp := c.rival(opp_name)
 	if opp.is_empty():

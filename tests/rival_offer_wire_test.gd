@@ -11,6 +11,8 @@ const RivalOfferCard := preload("res://scripts/ui/RivalOfferCard.gd")
 const Needs := preload("res://scripts/state/Needs.gd")
 const Region := preload("res://scripts/state/Region.gd")
 const LadderPoints := preload("res://scripts/state/LadderPoints.gd")
+const Bouts := preload("res://scripts/state/Bouts.gd")
+const AskFlow := preload("res://scripts/state/AskFlow.gd")
 
 var _fails := 0
 
@@ -90,6 +92,18 @@ func _initialize() -> void:
 	f = c.fighters[0]
 	f["bout"] = {"opp": {"name": "x"}, "day": c.day + 10, "weighed": false, "made": false, "done": false}
 	_check(RivalOfferWire.monday(c).is_empty(), "already booked: nobody rings")
+	# S518 LADDERPROBE4 (no call in 60 runs: the door was read today, shut by the rest after a bout): resting 3 days after a
+	# bout, a rival rings for a show after the rest, and Accept books it.
+	c = _club()
+	f = c.fighters[0]
+	var rest_end := c.day - 3 + Bouts.AFTER_FIGHT
+	f["last_bout_day"] = c.day - 3
+	_check(not bool(AskFlow.open(c, f)["open"]), "3 days after a bout the Ask door is shut today")
+	var lines2 := RivalOfferWire.monday(c)
+	_check(RivalOfferWire.is_open(f) and int(f["rival_offer"]["show"]) >= rest_end, "resting: a rival rings for a show after the rest (%s)" % str(lines2))
+	if RivalOfferWire.is_open(f):
+		var show := int(f["rival_offer"]["show"])
+		_check(RivalOfferWire.answer(c, "lucy", "accept") == "" and int((f["bout"] as Dictionary).get("day", -1)) == show, "Accept books it while resting")
 	print("RIVAL_OFFER_WIRE failures=%d" % _fails)
 	quit(1 if _fails > 0 else 0)
 

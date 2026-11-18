@@ -1,6 +1,7 @@
 extends SceneTree
-## LADDERPROBE3 (S517, ops/research/TASK_LADDERPROBE3.md): the ladder table over two years with the S517 fixes in - the
-## newcomer sheet (Newcomers), the R8 free week (Region._free_week) and the 1 January season close (LadderSeason). A
+## LADDERPROBE4 (S518, ops/research/TASK_LADDERPROBE4.md): LADDERPROBE3's tables plus R9 - the rival gyms' calls answered
+## the day they open by the run seed's policy (tools/ladder_probe_offers.gd). The ladder table over two years with the S517
+## fixes in - the newcomer sheet (Newcomers), the R8 free week (Region._free_week) and the 1 January season close (LadderSeason). A
 ## measurement only: no rule or constant is changed. 30 seeds x 2 clubs (a quick-start club with Lucy, and the TEST CLUB
 ## scripts/state/TestClub.gd), each stepped 735 days through Sim.step_day so both season ends (day 361, 726) fall inside;
 ## every sheet offer accepted, every other open need answered in code as TestJump._tidy / _to_nationals answer them (no
@@ -8,8 +9,8 @@ extends SceneTree
 ## LADDERPROBE1/2/3 compare. The brief's trap: a row with no "rep" yet reads at its seed (RankLine.rep), so "stuck" is
 ## counted ONLY for rows with a bout in the last 84 days (RivalPast, newest first; ours from Career.results), and
 ## never-boxing rivals are reported separately. A newcomer's invented past is before her joined day: it is not her bout.
-## Usage: python ops/Tools/godot_slot.py run --who ladderprobe3 -- <godot> --headless --audio-driver Dummy --fixed-fps 60
-##          --path . --log-file E:/FightCamp/tmp/ladderprobe3.log --script res://tools/ladder_probe.gd -- [seeds=30] [seed=4421] [days=735]
+## Usage: python ops/Tools/godot_slot.py run --who ladderprobe4 -- <godot> --headless --audio-driver Dummy --fixed-fps 60
+##          --path . --log-file E:/FightCamp/tmp/ladderprobe4.log --script res://tools/ladder_probe.gd -- [seeds=30] [seed=4421] [days=735]
 
 const Sim := preload("res://scripts/state/Sim.gd")
 const Bouts := preload("res://scripts/state/Bouts.gd")
@@ -29,11 +30,12 @@ const Data := preload("res://scripts/state/Data.gd")
 const AmateurBooking := preload("res://scripts/rules/AmateurBooking.gd")
 const Newcomers := preload("res://scripts/state/Newcomers.gd")
 const LadderSeason := preload("res://scripts/state/LadderSeason.gd")
+const Offers := preload("res://tools/ladder_probe_offers.gd")
 
 const CLUBS := ["QUICK", "TEST"]
 const CASH_FLOOR := 20000
 const PICKS := ["Jab and move", "Pad rounds", "Hill sprints"]
-const DOC := "res://docs/LADDERPROBE3_RESULT.md"
+const DOC := "res://docs/LADDERPROBE4_RESULT.md"
 const EVERY := 28
 const WINDOW := 84
 const TOP := 3
@@ -60,7 +62,7 @@ func _initialize() -> void:
 	var n_snap := int(n_days / EVERY) + 1
 	marks = [0, EVERY * int(n_snap / 2), EVERY * (n_snap - 1)]
 	var t0 := Time.get_ticks_msec()
-	print("LADDERPROBE3 %d seeds x 2 clubs, %d days a run, seeds %d..%d; the table read every %d days (days %s)" % [
+	print("LADDERPROBE4 %d seeds x 2 clubs, %d days a run, seeds %d..%d; the table read every %d days (days %s); rival calls answered by seed %% 3 (accept / not_this_show / pass)" % [
 		n_seeds, n_days, base_seed, base_seed + n_seeds - 1, EVERY, str(marks)])
 	for club in CLUBS:
 		for s in n_seeds:
@@ -73,7 +75,7 @@ func _initialize() -> void:
 		print("WARNING: could not write %s" % DOC)
 	else:
 		fh.store_string("\n".join(L) + "\n"); fh.close(); print("wrote %s" % DOC)
-	print("LADDERPROBE3 done")
+	print("LADDERPROBE4 done")
 	quit(0)
 
 ## One club: quick-start with Lucy signed and Reid hired, or the TEST CLUB (Lucy, Kira, Josh + Ana, Reid). Past the
@@ -99,20 +101,20 @@ func _run(club: String, seed_n: int) -> void:
 	for dv2 in divs:
 		(r["snap"] as Dictionary)[dv2] = []; (r["top3"] as Dictionary)[dv2] = {}
 		(r["stuck"] as Dictionary)[dv2] = {}; (r["never"] as Dictionary)[dv2] = 0
-	_sample(c, r)
+	_sample(c, r); Offers.begin(c, r, seed_n)
 	for _d in n_days:
 		if c.closed:
 			r["closed"] = true; break
 		c.cash = maxi(c.cash, CASH_FLOOR)
 		Sim.step_day(c)
 		r["days"] = c.day
-		_answer(c, r)
+		Offers.gates(c, r); _answer(c, r); Offers.observe(c, r)
 		if c.day % EVERY == 0:
 			_sample(c, r)
-	_finish(c, r)
+	_finish(c, r); Offers.collect(c, r)
 	runs.append(r)
-	print("  %s seed %d: day %d, %d divisions, %d offers taken, %d bouts fought%s" % [club, seed_n, int(r["days"]),
-		divs.size(), int(r["booked"]), int(r["fought"]), " CLOSED" if bool(r["closed"]) else ""])
+	print("  %s seed %d (%s): day %d, %d divisions, %d offers taken, %d rival calls, %d bouts fought%s" % [club, seed_n,
+		Offers.policy(seed_n), int(r["days"]), divs.size(), int(r["booked"]), Offers.calls(r), int(r["fought"]), " CLOSED" if bool(r["closed"]) else ""])
 
 ## The table as the game sorts it (Region.rankings: ladder points first, RankLine._before). A snapshot is the ordered
 ## [name, rep, fid] rows; fid "" is a rival, else one of ours. Top-3 names are kept for the turnover read.
@@ -241,6 +243,8 @@ func _answer(c: Career, r: Dictionary) -> void:
 				ApproachWire.answer(c, str(f["id"]), "match"); did = true
 			if LateAskWire.is_open(f):
 				LateAskWire.answer(c, str(f["id"]), false); did = true
+			if Offers.answer(c, f, r):
+				did = true
 			if PullOutWire.is_open(f):
 				if PullOutWire.answer(c, str(f["id"]), "take_replacement") != "":
 					PullOutWire.answer(c, str(f["id"]), "go_home")
@@ -435,16 +439,16 @@ func _verdicts() -> Array:
 func _lines(secs: int) -> Array:
 	var L: Array = []
 	var last := int(marks[marks.size() - 1])
-	L.append("# LADDERPROBE3 result - the ladder table over two years with newcomers, the R8 free week and the season close")
+	L.append("# LADDERPROBE4 result - the ladder table over two years with newcomers, the R8 free week, the season close and the rival gyms' calls (R9)")
 	L.append("")
 	L.append("Probe run: %s. %d seeds x 2 clubs = %d runs of %d days (seeds %d..%d), %ds. A measurement only: no rule or constant was changed." % [Time.get_datetime_string_from_system(), n_seeds, n_seeds * 2, n_days, base_seed, base_seed + n_seeds - 1, secs])
 	L.append("")
-	L.append("The scope (LADDERWIRE_SCOPE_S515) asks of every ladder stage: **a season's table stays sane - points spread 0-100, no boxer stuck at a cap, ranked top 3 turns over.** This probe plays two seasons and reads the table the game sorts (Region.rankings, ladder points first since S516) every %d days. LADDERPROBE1 (S516) and LADDERPROBE2 (S517, before these fixes) printed the same tables at the same marks %s, so the three compare. The S517 fixes measured here: the newcomer sheet (Newcomers - a novice with nobody legal on her sheet gets a newcomer novice on it), the R8 free week (Region._free_week - the idle clock waits while our boxer is booked, injured or has no legal name in reach) and the season close (LadderSeason - 1 January keeps each division's final table). The run is %d days so both closes (day 361 = 1 Jan 2027, day 726 = 1 Jan 2028) fall inside it; the last mark stays %d." % [EVERY, str(marks), n_days, last])
+	L.append("The scope (LADDERWIRE_SCOPE_S515) asks of every ladder stage: **a season's table stays sane - points spread 0-100, no boxer stuck at a cap, ranked top 3 turns over.** This probe plays two seasons and reads the table the game sorts (Region.rankings, ladder points first since S516) every %d days. LADDERPROBE1 (S516) and LADDERPROBE2 (S517, before these fixes) printed the same tables at the same marks %s, so the three compare. LADDERPROBE4 (S518) keeps every one of those tables and adds R9: the rival gyms' calls are answered here (the run seed's policy, tools/ladder_probe_offers.gd) instead of lapsing as a pass, so the numbers below differ from LADDERPROBE3's wherever a call took a night or paid points - the R9 section at the end reads the two side by side. The S517 fixes measured here: the newcomer sheet (Newcomers - a novice with nobody legal on her sheet gets a newcomer novice on it), the R8 free week (Region._free_week - the idle clock waits while our boxer is booked, injured or has no legal name in reach) and the season close (LadderSeason - 1 January keeps each division's final table). The run is %d days so both closes (day 361 = 1 Jan 2027, day 726 = 1 Jan 2028) fall inside it; the last mark stays %d." % [EVERY, str(marks), n_days, last])
 	L.append("## Population")
 	L.append("")
 	L.append("- **QUICK**: a quick-start career, Lucy signed at reception (Sim.sign, the interview's three cards), Reid hired. One boxer (wlw). **TEST**: the TEST CLUB (scripts/state/TestClub.gd): Lucy (wlw), Kira (wfw), Josh (mww) and Ana on the mats, Reid hired. Three boxers, three classes.")
 	L.append("- Both past the first-week guide and the first hour. Rivals' invented pasts re-seeded to the run seed, so a replay agrees. No fighter is synthesized or copied: the clubs' own distinct boxers against the game's own named rivals; no two fighters in a measurement are identical. %d seeds a club, %d days each through Sim.step_day - the real day loop: offers, camps, fight weeks, weigh-ins, the game's own bout sim, injuries, pull-outs, late asks, the region's own club shows (Region._rival_bout moves both rivals' points), the newcomers' own shows and the season close. Cash floored at $%d as two_boxers_two_years_test does; money is not the measurement." % [n_seeds, n_days, CASH_FLOOR])
-	L.append("- Decisions in code, every open need answered as TestJump._tidy / _to_nationals answer them: every sheet offer accepted (Bouts.accept; the unsafe mismatch pair is left as the game leaves it), the fight week drafted and locked on the best-ranked free partners, the camp started, the weigh-in taken, the bout fought by the sim, the week review closed, the office goal five_round_engine, an injury past the bell pulled out, a fall-through answered with the replacement (else go home), a host's late ask declined (_tidy's NO), a rival club's approach matched so the boxer stays. Pro offers declined (Roster.decline_pro): the two years stay on the amateur ladder the probe measures. The nationals are never entered.")
+	L.append("- Decisions in code, every open need answered as TestJump._tidy / _to_nationals answer them: every sheet offer accepted (Bouts.accept; the unsafe mismatch pair is left as the game leaves it), the fight week drafted and locked on the best-ranked free partners, the camp started, the weigh-in taken, the bout fought by the sim, the week review closed, the office goal five_round_engine, an injury past the bell pulled out, a fall-through answered with the replacement (else go home), a host's late ask declined (_tidy's NO), a rival club's approach matched so the boxer stays, a rival gym's call answered the day it opens by the run seed's policy (seed % 3: accept / not_this_show / pass, tools/ladder_probe_offers.gd). Pro offers declined (Roster.decline_pro): the two years stay on the amateur ladder the probe measures. The nationals are never entered.")
 	L.append("## How the table is read")
 	L.append("")
 	L.append("- Every %d days, for every division that has rivals, Region.rankings(c, div) is read and each row's points recorded (a row with no \"rep\" yet reads at its seed, RankLine.rep). Our boxers enter the table at %d wins (Region.RANK_MIN_WINS) and leave it if they turn pro. **Top-3 turnover** = the different names that held a top-3 place at any sample over the two years; **bottom half** = a day-0 rank below the middle of that day's table (rank > rows/2); **new** = not in the day-0 table at all; **kept** = of the day-0 top 3, still in the top 3 at the last sample." % [EVERY, Region.RANK_MIN_WINS])
@@ -489,6 +493,6 @@ func _lines(secs: int) -> Array:
 		_pct(int(allwin["stuck"]), int(allwin["active"])), int(allwin["cap"]), int(allwin["idle"]), int(allwin["rows"]),
 		float(t_all["never"]) / nrun, last, float(capd[0][0]), str(capd[0][1]), float(capd[capd.size() - 1][0]), str(capd[capd.size() - 1][1]),
 		nc_n, runs.size(), nc_boxed, blocked, frozen, lock_refused, runs.filter(func(x): return bool(x["closed"])).size()])
-	L.append("")
-	L.append("Reproduce: `python ops/Tools/godot_slot.py run --who ladderprobe3 -- \"$LOCALAPPDATA/Programs/Godot/Godot_v4.7.2-stable_win64.exe\" --headless --audio-driver Dummy --fixed-fps 60 --log-file E:/FightCamp/tmp/ladderprobe3.log --path . --script res://tools/ladder_probe.gd -- seeds=%d seed=%d days=%d`" % [n_seeds, base_seed, n_days])
+	L.append(""); Offers.lines(L, runs, marks)
+	L.append("Reproduce: `python ops/Tools/godot_slot.py run --who ladderprobe4 -- \"$LOCALAPPDATA/Programs/Godot/Godot_v4.7.2-stable_win64.exe\" --headless --audio-driver Dummy --fixed-fps 60 --log-file E:/FightCamp/tmp/ladderprobe4.log --path . --script res://tools/ladder_probe.gd -- seeds=%d seed=%d days=%d`" % [n_seeds, base_seed, n_days])
 	return L

@@ -36,9 +36,10 @@ static func open_for(c: Career) -> Array:
 	return c.fighters.filter(func(f): return is_open(f))
 
 
-static func _show_after(day: int) -> int:
+## The first region show 7-21 days out, and never inside the rest after her last bout (rest_end, -1 = none).
+static func _show_after(day: int, rest_end := -1) -> int:
 	var region: GDScript = load("res://scripts/state/Region.gd")
-	for d in range(day + 7, day + 22):
+	for d in range(maxi(day + 7, rest_end), day + 22):
 		if region.is_show_day(d):
 			return d
 	return -1
@@ -68,9 +69,12 @@ static func monday(c: Career) -> Array:
 				or not (f.get("late_ask", {}) as Dictionary).is_empty() or week < int(f.get("ro_next", 0)) \
 				or int(f["w"]) < int(load("res://scripts/state/Region.gd").RANK_MIN_WINS):   # a challenge needs her on the table
 			continue
-		if not bool(_flow().open(c, f)["open"]):
+		# S518 LADDERPROBE4: with the door read today no rival rang in 60 two-year runs (shut 99.7% of ranked Mondays:
+		# booked 60%, resting 34%). A call in the rest after a bout is for a show after the rest: the door is read then.
+		var rest_end := _rest_end(f)
+		if not bool(_flow().open(c, f, maxi(c.day, rest_end))["open"]):
 			continue
-		var show := _show_after(c.day)
+		var show := _show_after(c.day, rest_end)
 		if show < 0:
 			continue
 		var who := RivalOffer.who_offers({"rep": int(_lp().rep_of(f)), "free": true}, _cands(c, f), week)
@@ -84,6 +88,11 @@ static func monday(c: Career) -> Array:
 		c.add_news(line)
 		out.append(line)
 	return out
+
+
+static func _rest_end(f: Dictionary) -> int:
+	var lb := int(f.get("last_bout_day", -1))
+	return lb + int(load("res://scripts/state/Bouts.gd").AFTER_FIGHT) if lb >= 0 else -1
 
 
 ## Free to turn it down at no cost: hurt or already booked (map R9).
@@ -117,7 +126,7 @@ static func answer(c: Career, fid: String, choice: String) -> String:
 		for x in f.get("offers", []):   # the rival's bout replaces a sheet offer still waiting (book needs the Ask door open)
 			if not bool(x["answered"]):
 				x["answered"] = true
-		if not _flow().book(c, f, "sheet", str(r["name"]), int(o["show"])):
+		if not _flow().book(c, f, "sheet", str(r["name"]), int(o["show"]), maxi(c.day, _rest_end(f))):
 			return "the bout could not be booked"
 		f["opp_index"] = idx   # the sheet's turn was not used
 		f["bout"]["rival_offer"] = str(o["club"])

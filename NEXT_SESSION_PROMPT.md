@@ -28,6 +28,27 @@ feet; shots through heads and hands; no shoulder power). Do not start another an
 4. Mat plan (owner C433): his next comment on the review board decides if the panel needs a redraw.
 5. Coach r6 R14/R15 stay GATED on COACHFIT1 + a drawn page.
 
+## DONE IN S518b (second stage, same session - owner: "one stage per session ... there is no such thing, you invented it")
+- Rule fix: WORKFLOW s3's "ONE stage per session" line (written by an earlier session, never his) removed; `ship` now
+  says start again and keep working; hand over only at ~420k context.
+- Critics moved off John (Grok bot, out since S512; 14 failed sends "listAgents 404") to Dola: SQ223 guard v3, SQ224
+  club week v11.
+- ONELOOK1 real render (layout_snapshot on the hidden desktop): Playbook > Combos pushed the page to 2055 px (Menu off
+  screen, 3D preview cut) -> ComboStrip tiles two rows of three; Game plan bell box cut move names -> BELL_W 420;
+  "Say nothing" min 140 px; the sparring day reads SPARRING / night - referee only. The headless OFF FRAME on the
+  guide bubble is a headless window artefact (real render fine).
+- LADDERPROBE4 (Qwen) collected: NO rival call in 60 two-year runs - the Ask door was read today and was shut on 99.7%
+  of ranked Mondays (booked 60%, resting after a bout 34%). FIX: RivalOfferWire reads the door on the day the rest ends
+  (AskFlow.open/book take at_day) and names a show after the rest; rival_offer_wire_test checks it. Rerun the probe on
+  the fix (tools/ladder_probe.gd, its own doc) before tuning OFFER_GAP_WEEKS.
+
+- STEPVALUE1 the Why (map s7) CODED, NOT YET RUN (PC RED: the owner was playing, Godot blocked): FightWhy._step_lines -
+  the step fired 3+ times weighed against the opponent's style (StepValue.TARGET) on YOUR PLAN / AGAINST YOU, and
+  "Learn Pivot off the ropes" on NEXT when the ropes count fired and no way off did; AfterFight stores m["opp_style"],
+  ResultCause passes it. FIRST: run tests/step_why_test.gd + fight_why_test + result_tabs_test, then commit
+  (scripts/rules/FightWhy.gd, scripts/state/AfterFight.gd, scripts/ui/ResultCause.gd, tests/step_why_test.gd, add the
+  test to tools/run_tests.sh). Then rerun tools/ladder_probe.gd on the rival-call fix.
+
 ## DONE IN S518
 - Rival gym offer (R9) checked on the real screens: tools/rival_offer_still.gd -> ops/previews/s518 (Overview card +
   Home red need), on the review board. Reads right.
