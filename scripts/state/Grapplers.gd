@@ -12,6 +12,7 @@ const BjjSide := preload("res://scripts/rules/BjjSide.gd")
 const BjjTree := preload("res://scripts/rules/BjjTree.gd")
 const BjjOpen := preload("res://scripts/rules/BjjOpen.gd")
 const BjjOpp := preload("res://scripts/rules/BjjOpp.gd")
+const MatReceipt := preload("res://scripts/rules/MatReceipt.gd")   # S516 MATRECEIPT1: the plan's season book
 
 
 ## S389 with a picture on screen (Main) an open waits for the player, bout by bout; headless it plays itself on the walk.
@@ -97,6 +98,9 @@ static func close_open(c: Career, f: Dictionary) -> void:
 
 static func _close(c: Career, f: Dictionary, o: Dictionary, res: Dictionary) -> void:
 	BjjOpen.note_stats(f, res)
+	# S516 MATRECEIPT1 (map 4.6): each brought plan line's tries and wins go into her season book ({edge: [tried, worked]}).
+	f["mat_book"] = MatReceipt.season_add(f.get("mat_book", {}), MatReceipt.receipt(f.get("bjj_plan", {}), f, res["matches"],
+		BjjTree.rules_for(str(f.get("belt", "white")))))
 	f.erase("tough_next")
 	(f.get("field", {}) as Dictionary).erase(c.day)
 	var rows: Array = res["matches"]

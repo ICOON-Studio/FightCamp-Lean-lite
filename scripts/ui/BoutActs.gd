@@ -222,7 +222,7 @@ static func act(main: Node, name: String, arg: String) -> bool:
 				main.toast("Bout booked: %s, %s. Next: set the fight week." % [parts[2], Clock.fmt(int(parts[3]))])
 				main.show_poster(parts[0])
 			else:
-				main.toast("The host cannot book that now.")
+				main.toast(str((g.get("ask_no", {}) as Dictionary).get("words", "The host cannot book that now.")))
 				main.render()
 		"declineOffer":
 			Bouts.decline(c, arg)

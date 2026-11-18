@@ -290,6 +290,13 @@ func _layout() -> void:
 	var head := _header_box(rows)
 	var cells := _cells(rows.get_child(0))
 	_check(head != null and cells != null and head.get_child_count() == cells.get_child_count(), "header and the first row share columns")
+	# S516 LADDERWIRE stage 2: ladder points are the amateur table's; the pro table (this one) has none (stage 4: ProLadder).
+	var pi := -1
+	if head != null:
+		for i in head.get_child_count():
+			if head.get_child(i) is Label and str((head.get_child(i) as Label).text).to_lower() == "points":
+				pi = i
+	_check(pi == -1, "the pro table has no Points column (column %d)" % pi)
 	if head != null and cells != null:
 		var n := mini(head.get_child_count(), cells.get_child_count())
 		for i in n:

@@ -17,7 +17,8 @@ const OppFile := preload("res://scripts/rules/OppFile.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const Faces := preload("res://scripts/rules/Faces.gd")
 const PromoShot := preload("res://scripts/ui/PromoShot.gd")
-const RivalPast := preload("res://scripts/rules/RivalPast.gd")
+const Pick := preload("res://scripts/ui/WorldLadderPick.gd")   # S516: the pure lookups (500-line rule)
+const RankLine := preload("res://scripts/rules/RankLine.gd")
 
 static var pick_fid := ""
 static var pick_opp := ""
@@ -48,8 +49,8 @@ static func build(main: Node, c: Career) -> Control:
 	body.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	var left := UI.vbox(4)
 	left.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	for div in _gym_divs(c):
-		var who := _fighter_in(c, div)
+	for div in Pick.gym_divs(c):
+		var who := Pick.fighter_in(c, div)
 		var on: bool = str(f["div"]) == str(div)
 		var use: Dictionary = f if on else who
 		var use_rows: Array = rows if on else _rows_for(c, use)
@@ -67,11 +68,11 @@ static func build(main: Node, c: Career) -> Control:
 	foot.add_child(route_p)
 	foot.add_child(key_p)
 	left.add_child(Compare.bed(foot))
-	left.add_child(Compare.region_files(main, c, _gym_divs(c)))
+	left.add_child(Compare.region_files(main, c, Pick.gym_divs(c)))
 	body.add_child(left)
 	var right := UI.vbox(8)
 	right.custom_minimum_size = Vector2(400, 0)
-	right.add_child(Compare.build(main, c, f, _row_by_id(rows, chosen)))
+	right.add_child(Compare.build(main, c, f, Pick.row_by_id(rows, chosen)))
 	right.add_child(Compare.news_box(main, c))
 	body.add_child(right)
 	page.add_child(body)
@@ -90,7 +91,8 @@ static func _ladder(main: Node, c: Career, f: Dictionary, rows: Array, chosen: S
 	# S408 (S398 rule: nothing the player cannot act on): the amateur tables have no rank history or stoppage count, so a column no row fills is left out.
 	var trend := rows.any(func(r): return str(r.get("trend", "")) != "")
 	var ko := rows.any(func(r): return bool(r.get("has_ko", false)) and int(r["w"]) > 0)
-	var head := _header(trend, ko)
+	var pts := rows.any(func(r): return (r as Dictionary).has("rep"))   # S516 LADDERWIRE stage 2: the amateur table's points
+	var head := _header(trend, ko, pts)
 	head.name = "LadderHead"
 	v.add_child(head)
 	var list := UI.vbox(1)
@@ -99,7 +101,7 @@ static func _ladder(main: Node, c: Career, f: Dictionary, rows: Array, chosen: S
 	var line := str(route["line"])
 	for i in rows.size():
 		var row: Dictionary = rows[i]
-		list.add_child(_row(main, f, row, chosen, line if bool(row["ours"]) and int(row["rank"]) <= 0 else "", trend, ko, i))
+		list.add_child(_row(main, f, row, chosen, line if bool(row["ours"]) and int(row["rank"]) <= 0 else "", trend, ko, i, pts))
 	v.add_child(list)
 	board.resized.connect(func(): Compare.align_columns(head, list))
 	return board
@@ -109,13 +111,13 @@ static func _caption(c: Career, f: Dictionary) -> String:
 		return "BOXING, %s, PRO" % _weight(ProLadder.division_for(f)).to_upper()
 	return "BOXING, %s" % str(Data.DIVISIONS[str(f["div"])]["name"]).to_upper()
 
-static func _header(trend: bool, ko: bool) -> HBoxContainer:
+static func _header(trend: bool, ko: bool, pts := false) -> HBoxContainer:
 	var h := UI.hbox(4)
 	h.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	# Compare.align_columns sets each column to its text, then shares the board's spare width by the third number.
-	var specs := [["#", 40, 0], ["Fighter", 220, 2], ["Record", 64, 1], ["Age", 40, 0], ["Win chance", 240, 5], ["Scout", 52, 1], ["Trend", 52, 1], ["Finishes", 80, 1], ["Style", 150, 1], ["", 150, 2]]
+	var specs := [["#", 40, 0], ["Fighter", 220, 2], ["Record", 64, 1], ["Points", 76, 1], ["Age", 40, 0], ["Win chance", 240, 5], ["Scout", 52, 1], ["Trend", 52, 1], ["Finishes", 80, 1], ["Style", 150, 1], ["", 150, 2]]
 	for pair in specs:
-		if (pair[0] == "Trend" and not trend) or (pair[0] == "Finishes" and not ko):
+		if (pair[0] == "Trend" and not trend) or (pair[0] == "Finishes" and not ko) or (pair[0] == "Points" and not pts):
 			continue
 		var lab := UI.caps(str(pair[0]))
 		lab.custom_minimum_size = Vector2(int(pair[1]), 0)
@@ -123,7 +125,7 @@ static func _header(trend: bool, ko: bool) -> HBoxContainer:
 		h.add_child(lab)
 	return h
 
-static func _row(main: Node, f: Dictionary, row: Dictionary, chosen: String, line: String, trend: bool, ko: bool, stripe: int) -> Control:
+static func _row(main: Node, f: Dictionary, row: Dictionary, chosen: String, line: String, trend: bool, ko: bool, stripe: int, pts := false) -> Control:
 	var p := PanelContainer.new()
 	p.name = "LadderRow_" + str(row["id"]).replace(" ", "_")
 	var mine := bool(row["ours"])
@@ -149,6 +151,8 @@ static func _row(main: Node, f: Dictionary, row: Dictionary, chosen: String, lin
 	h.add_child(_w(UI.mono(rk, UI.SMALL, UI.GOLD if mine else UI.FG), 40))
 	h.add_child(_name(main, f, row))
 	h.add_child(_w(UI.mono(_rec(int(row["w"]), int(row["l"]), int(row["d"])), UI.SMALL), 64))
+	if pts:
+		h.add_child(_w(UI.mono(str(int(row.get("rep", 0))), UI.SMALL, UI.GOLD if mine else UI.FG), 76))
 	h.add_child(_w(UI.label(str(int(row["age"])), UI.SMALL), 40))
 	var chance := _chance(row, line)
 	if fade:
@@ -249,7 +253,7 @@ static func _finishes(row: Dictionary) -> Control:
 static func _action(main: Node, f: Dictionary, row: Dictionary) -> Control:
 	var v := UI.vbox(1)
 	v.custom_minimum_size = Vector2(120, 0)
-	var day := _booked_day(f)
+	var day := Pick.booked_day(f)
 	if day > 0 and (bool(row["ours"]) or bool(row.get("booked_opp", false))):
 		v.add_child(UI.label(Clock.fmt(day), UI.TINY, UI.GOLD, "bold"))
 	var ask: Dictionary = row.get("ask", {})
@@ -285,7 +289,7 @@ static func _pro_rows(c: Career, f: Dictionary) -> Array:
 			continue
 		if int(b.get("rank", 0)) > 0:
 			light.append(_boxer(b))
-	if _ours_missing(light):
+	if Pick.ours_missing(light):
 		light.append(_ours(f, int(entry.get("rank", 0)), true))
 	var champ := WR.champion_of(table, "world")
 	var chall: Dictionary = WR.mandatory_challenger(table, champ) if not champ.is_empty() else {}
@@ -329,10 +333,13 @@ static func _amateur_rows(c: Career, f: Dictionary) -> Array:
 			if str(src["fid"]) == str(f["id"]):
 				seen = true
 				light.append(_ours(f, i + 1, false))
+				light.back()["rep"] = int(src["rep"])
 			continue
 		light.append(_rival(c, src, i + 1))
+		light.back()["rep"] = int(src["rep"])
 	if not seen:
 		light.append(_ours(f, 0, false))
+		light.back()["rep"] = RankLine.rep(f)
 	var bout: Dictionary = f.get("bout", {})
 	var booked := bout.has("opp")
 	var next_name := str(bout["opp"]["name"]) if booked else ""
@@ -356,7 +363,7 @@ static func _amateur_rows(c: Career, f: Dictionary) -> Array:
 		row["marks"] = Rules.marks(who, -1, next_name)
 		row["booked_opp"] = booked and str(who.get("name", "")) == next_name
 		row["opp"] = who
-		row["tip"] = _tip(who, str(row.get("club", "")))
+		row["tip"] = Pick.tip(who, str(row.get("club", "")))
 		out.append(row)
 	return out
 
@@ -415,29 +422,9 @@ static func _chosen(rows: Array) -> String:
 		return reach
 	return first
 
-static func _row_by_id(rows: Array, id: String) -> Dictionary:
-	for r in rows:
-		var row: Dictionary = r
-		if str(row["id"]) == id:
-			return row
-	return {}
 
-static func _ours_missing(rows: Array) -> bool:
-	for r in rows:
-		if bool((r as Dictionary).get("ours", false)):
-			return false
-	return true
 
-static func _tip(who: Dictionary, club: String) -> String:
-	var last: Array = RivalPast.shown(who, 1)
-	if last.is_empty():
-		return club
-	var bit := "%s %s" % ["beat" if bool(last[0]["win"]) else "lost to", str(last[0]["vs"])]
-	return bit if club == "" else "%s. %s" % [club, bit]
 
-static func _booked_day(f: Dictionary) -> int:
-	var bout: Dictionary = f.get("bout", {})
-	return int(bout["day"]) if bout.has("opp") and bout.has("day") else 0
 
 static func _fighter(c: Career) -> Dictionary:
 	if pick_fid != "":
@@ -450,20 +437,7 @@ static func _sel(c: Career) -> String:
 	var f := _fighter(c)
 	return "" if f.is_empty() else str(f["id"])
 
-static func _fighter_in(c: Career, div: String) -> Dictionary:
-	for f in c.fighters:
-		if str(f["div"]) == div:
-			return f
-	return {}
 
-static func _gym_divs(c: Career) -> Array:
-	var divs: Array = []
-	for f in c.fighters:
-		if not divs.has(str(f["div"])):
-			divs.append(str(f["div"]))
-	if divs.is_empty():
-		divs.append("wlw")
-	return divs
 
 static func _weight(id: String) -> String:
 	return ProLadder.weight_of(id)

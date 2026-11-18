@@ -4,6 +4,8 @@ extends RefCounted
 ## across all seven stats, and a hidden tell moves nothing. coach is the gym coach's rating. salt is the career seed.
 
 const StyleName := preload("res://scripts/rules/StyleName.gd")
+const RankLine := preload("res://scripts/rules/RankLine.gd")
+const LadderRep := preload("res://scripts/rules/LadderRep.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const PlanFile := preload("res://scripts/rules/PlanFile.gd")   # S460 PlanPhase lines by round
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
@@ -484,10 +486,15 @@ static func _after(rows: Array, f: Dictionary, opp_name: String, won: bool, orde
 	if w < min_wins:
 		return 0
 	var table: Array = rows.filter(func(r): return str(r["name"]) != str(f["name"])).map(func(r): return (r as Dictionary).duplicate())
-	for r in table:
-		if str(r["name"]) == opp_name:
-			r["w"] = int(r["w"]) + int(not won)
-			r["l"] = int(r["l"]) + int(won)
-	table.append({"name": f["name"], "w": w, "l": int(f["l"]) + int(not won), "rating": 0.0})
+	# S516 LADDERWIRE 2: the table sorts by ladder points first, so the bout moves both sides' points (a unanimous decision)
+	var mine := RankLine.rep(f)
+	var opp_rows: Array = table.filter(func(r): return str(r["name"]) == opp_name)
+	var theirs := RankLine.rep(opp_rows[0]) if opp_rows.size() > 0 else mine
+	var mine_after := LadderRep.apply(mine, LadderRep.change(mine, theirs, "win" if won else "loss", "ud"))
+	for r in opp_rows:
+		r["rep"] = LadderRep.apply(theirs, LadderRep.change(theirs, mine, "loss" if won else "win", "ud"))
+		r["w"] = int(r["w"]) + int(not won)
+		r["l"] = int(r["l"]) + int(won)
+	table.append({"name": f["name"], "w": w, "l": int(f["l"]) + int(not won), "rating": 0.0, "rep": mine_after})
 	table.sort_custom(order)
 	return rank_of(table, str(f["name"]))

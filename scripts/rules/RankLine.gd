@@ -1,17 +1,32 @@
 extends RefCounted
 ## RANKSHOW1 - RankLine: the rank a fight earned, as a plain line.
 ## Pure rule module. Takes rows of {name, w, l, rating} for all fighters in a division.
-## Ranked fighters are those with w >= min_wins, sorted by net wins, wins, rating (Region.before order).
+## Ranked fighters are those with w >= min_wins, sorted by ladder points, then net wins, wins, rating (Region.before order).
 
-## The table's order: net wins, then wins, then rating (same as Region.before).
+const LadderPoints := preload("res://scripts/state/LadderPoints.gd")
+
+
+## S516 LADDERWIRE stage 2 (R1): a row's ladder points; a row without them is read at its seed from the record
+## (LadderPoints.seed_of), which rises with net wins and, at equal net wins, with bouts - the old order where no points moved.
+static func rep(x: Dictionary) -> int:
+	if x.has("rep"):
+		return int(x["rep"])
+	return LadderPoints.seed_of(int(x.get("w", 0)), int(x.get("l", 0)))
+
+
+## The table's order: ladder points, then net wins, then wins, then rating (Region.before calls this).
 static func _before(x: Dictionary, y: Dictionary) -> bool:
+	var px := rep(x)
+	var py := rep(y)
+	if px != py:
+		return px > py
 	var nx: int = int(x["w"]) - int(x["l"])
 	var ny: int = int(y["w"]) - int(y["l"])
 	if nx != ny:
 		return nx > ny
 	if int(x["w"]) != int(y["w"]):
 		return int(x["w"]) > int(y["w"])
-	return float(x["rating"]) > float(y["rating"])
+	return float(x.get("rating", 0.0)) > float(y.get("rating", 0.0))
 
 
 ## Filter rows to ranked fighters (w >= min_wins) and sort.

@@ -114,12 +114,22 @@ func _initialize() -> void:
 	f["bout"] = {}
 	f["w"] = 4   # on the ladder (4 wins) with names above to pick
 	f["l"] = 3
+	f["rep"] = 19   # S516: the ladder points a 4-3 record seeds (LadderPoints.seed_of), so the names above are in reach
 	f["injury"] = {}
 	f["last_bout_day"] = c.day - Bouts.AFTER_FIGHT
 	var pick := {}
+	var no_pick := {}
 	for a in AskFlow.answers(c, f)["cards"]:
-		if str(a["kind"]) == "name" and pick.is_empty():
+		# S516 LADDERWIRE stage 2: a picked name can lean No (refused) - book one that leans Yes
+		var lad: Dictionary = a.get("ladder", {})
+		if str(a["kind"]) == "name" and bool(lad.get("askable", false)) and bool(lad.get("yes", false)) and pick.is_empty():
 			pick = a
+		elif str(a["kind"]) == "name" and not bool(lad.get("yes", true)) and no_pick.is_empty():
+			no_pick = a
+	if not no_pick.is_empty():
+		var s0 := AskFlow.shows(c, f)
+		_check(not AskFlow.book(c, f, "name", str(no_pick["opp"]["name"]), int(s0[0]["day"])) and str(f.get("ask_no", {}).get("words", "")).contains("said No"),
+			"5n a name that leans No is refused with the reason: %s" % str(f.get("ask_no", {})))
 	if pick.is_empty():
 		_check(false, "5 a 4-3 on the ladder has a name to pick")
 	else:

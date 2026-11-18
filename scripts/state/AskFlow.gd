@@ -5,6 +5,7 @@ extends RefCounted
 ## read), and applies what an amateur fight teaches (FightLearn, every fight ability, as ASKPROBE2 measured it).
 ## Game text never says he, she, her or him.
 
+const AskLadder := preload("res://scripts/state/AskLadder.gd")   # S516 LADDERWIRE stage 2
 const AskBout := preload("res://scripts/rules/AskBout.gd")
 const AskDates := preload("res://scripts/rules/AskDates.gd")
 const FightLearn := preload("res://scripts/rules/FightLearn.gd")
@@ -102,7 +103,7 @@ static func answers(c: Career, f: Dictionary) -> Dictionary:
 				continue
 			var teach := teach_word(c, f, opp, str(a["kind"]))
 			var stop := StopWord.word(gap_of(f, opp))
-			out.append({"kind": str(a["kind"]), "opp": opp, "teaches": teach, "stoppage": stop,
+			out.append({"kind": str(a["kind"]), "opp": opp, "teaches": teach, "stoppage": stop, "ladder": AskLadder.lines(c, f, opp),
 				"card": AskBout.card(opp, str(a["kind"]), rows, Region.RANK_MIN_WINS, teach, stop, ranked)})
 	return {"cards": out, "absent": AskDates.absent(me, rows, sheet, Region.RANK_MIN_WINS)}
 
@@ -127,6 +128,14 @@ static func book(c: Career, f: Dictionary, kind: String, opp_name: String, day: 
 		return false
 	var opp := c.rival(opp_name)
 	if opp.is_empty():
+		return false
+	# S516 LADDERWIRE stage 2: an ask for a name (a step up, a name you pick) can be out of reach or refused, with the reason;
+	# the sheet's name is the host's own offer - already agreed.
+	var lad := AskLadder.lines(c, f, opp)
+	f.erase("ask_no")
+	if kind != "sheet" and (not bool(lad["askable"]) or not bool(lad["yes"])):
+		f["ask_no"] = {"name": opp_name, "words": str(lad["reach"]) if not bool(lad["askable"]) else
+			"Their corner said No - %s." % str(lad["reason"])}   # names only in headers (S448)
 		return false
 	var bouts: GDScript = load("res://scripts/state/Bouts.gd")
 	var own := AmateurBooking.bouts_of(int(f["w"]), int(f["l"]))

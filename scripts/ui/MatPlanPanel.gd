@@ -13,6 +13,7 @@ extends VBoxContainer
 const UI := preload("res://scripts/ui/UI.gd")
 const BjjTree := preload("res://scripts/rules/BjjTree.gd")
 const MatLines := preload("res://scripts/rules/MatLines.gd")
+const MatReceipt := preload("res://scripts/rules/MatReceipt.gd")
 const MatPrice := preload("res://scripts/rules/MatPrice.gd")
 const Info := preload("res://scripts/ui/MatTreeInfo.gd")
 
@@ -143,6 +144,12 @@ func _row(line: Dictionary, opp: Dictionary, rl: Dictionary, on: bool) -> Contro
 			row.add_child(UI.chip(str(chips[i]), ""))
 		row.add_child(UI.chip("does it: %s" % str(pr["grade"]), str(GRADE_COL.get(str(pr["grade"]), ""))))
 		row.add_child(UI.chip("%s %d" % [str(pr["level_word"]), roundi(float(pr["level"]))], ""))
+	var book: Array = (f.get("mat_book", {}) as Dictionary).get(str(line.get("edge", "")), [])
+	if not book.is_empty():   # S516 MATRECEIPT1: the season book - tried, worked, and the coach's verdict
+		var vd := MatReceipt.verdict_of(f["mat_book"], str(line.get("edge", "")))
+		var sb := UI.chip("this season %d of %d: %s" % [int(book[1]), int(book[0]), vd], {"works": "gold", "fails": "red"}.get(vd, ""))
+		sb.name = "Book_" + at
+		row.add_child(sb)
 	row.add_child(UI.spacer())
 	var drop := UI.button("Drop", "Btn", _drop.bind(at))
 	drop.name = "Drop_" + at

@@ -112,6 +112,18 @@ static func _answer(main: Node, c: Career, f: Dictionary, a: Dictionary, shows: 
 	who.add_child(UI.label("Win: %s. Loss: %s. Stopped: %s." % [", ".join(AskDates.trade("win")), ", ".join(AskDates.trade("loss")),
 		", ".join(AskDates.trade("stopped"))], UI.SMALL, Palette.MUTED, "body", true))
 	who.add_child(UI.label(str(cd["gate"]), UI.SMALL, Palette.WARN if str(a["kind"]) == "name" else Palette.MUTED, "body", true))
+	var lad: Dictionary = a.get("ladder", {})
+	if not lad.is_empty():   # S516 LADDERWIRE stage 2: points, the price in points, the reach, will they say yes
+		var lp := UI.label("%s %s" % [str(lad["points"]), str(lad["price"])], UI.SMALL, Palette.TEXT, "semi", true)
+		lp.name = "AskLadder"
+		who.add_child(lp)
+		if str(a["kind"]) != "sheet":   # the sheet's name is the host's own offer: no lean, never out of reach
+			var ll := UI.label(str(lad["reach"]) if not bool(lad["askable"]) else str(lad["lean"]), UI.SMALL,
+				Palette.WARN if not bool(lad["askable"]) or not bool(lad["yes"]) else Palette.TEXT, "semi", true)
+			ll.name = "AskLean"
+			who.add_child(ll)
+		else:
+			lad = {}
 	h.add_child(who)
 	var o := {"opp": opp, "day": int(shows[0]["day"]) if not shows.is_empty() else c.day + 14}
 	h.add_child(OfferCard._band(c, f, o))
@@ -120,8 +132,11 @@ static func _answer(main: Node, c: Career, f: Dictionary, a: Dictionary, shows: 
 	for s in shows:
 		var arg := "%s|%s|%s|%d" % [f["id"], a["kind"], opp["name"], int(s["day"])]
 		var why := "" if bool(s["can_ask"]) else ("Weight at risk on this date." if not bool(s["weight_ok"]) else "One of ours holds this show.")
-		var b := UI.button("Ask for %s" % str(s["date_words"]), "BtnSolid" if bool(s["can_ask"]) else "Btn", main.act.bind("askbout", arg),
-			not bool(s["can_ask"]), why)
+		var can := bool(s["can_ask"]) and bool(lad.get("askable", true))
+		if bool(s["can_ask"]) and not can:
+			why = str(lad["reach"])
+		var b := UI.button("Ask for %s" % str(s["date_words"]), "BtnSolid" if can else "Btn", main.act.bind("askbout", arg),
+			not can, why)
 		b.name = "AskBtn_%d" % int(s["day"])
 		btns.add_child(b)
 	h.add_child(btns)

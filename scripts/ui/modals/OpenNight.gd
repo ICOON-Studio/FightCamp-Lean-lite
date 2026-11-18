@@ -11,6 +11,7 @@ const FightView := preload("res://scripts/fight3d/FightView.gd")
 const BjjTree := preload("res://scripts/rules/BjjTree.gd")
 const MatLines := preload("res://scripts/rules/MatLines.gd")
 const MatPrice := preload("res://scripts/rules/MatPrice.gd")
+const MatReceipt := preload("res://scripts/rules/MatReceipt.gd")   # S516 MATRECEIPT1
 
 const ROUND_NAMES := ["QUARTER-FINAL", "SEMI-FINAL", "FINAL"]
 
@@ -108,6 +109,14 @@ func _done(main: Node, v: VBoxContainer, c: Career, f: Dictionary, run: Dictiona
 	if nxt != "":
 		v.add_child(UI.muted("%d bouts count as %d classes towards %s belt: %d of %d after today." % [bouts, credit, nxt,
 			int(r["mat"][0]) + credit, int(r["mat"][1])], UI.BODY, true))
+	# S516 MATRECEIPT1 (map 4.6): the coach goes down the plan - each brought line, tried and worked, or never reached.
+	var rec := MatReceipt.receipt(f.get("bjj_plan", {}), f, run["rows"], BjjTree.rules_for(str(f.get("belt", "white"))))
+	if not rec.is_empty():
+		v.add_child(UI.caps("YOUR PLAN, LINE BY LINE"))
+		for x in rec:
+			var l := UI.muted(str(x["words"]) + ("" if int(x["tried"]) == 0 else " worked"), UI.BODY, true)
+			l.name = "Receipt_%s" % str(x["edge"])
+			v.add_child(l)
 	var foot := UI.hbox(10)
 	foot.add_child(UI.spacer())
 	var done := UI.button("Back to the gym", "BtnSolid", main.act.bind("openclose", str(f["id"])))

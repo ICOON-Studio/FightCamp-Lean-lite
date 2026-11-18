@@ -5,6 +5,7 @@ extends RefCounted
 
 const Data := preload("res://scripts/state/Data.gd")
 const AmateurBooking := preload("res://scripts/rules/AmateurBooking.gd")
+const RankLine := preload("res://scripts/rules/RankLine.gd")
 const FightWords := preload("res://scripts/state/FightWords.gd")
 const RivalPast := preload("res://scripts/rules/RivalPast.gd")
 const WorldBout := preload("res://scripts/world/WorldBout.gd")
@@ -164,18 +165,18 @@ static func record(r: Dictionary, won: bool) -> void:
 		r["rating"] = float(r["rating"]) + LOSS_RATING
 
 
-## A division's amateurs, best first: net wins, then wins, then rating. Our amateur fighters in it are ranked from
+## A division's amateurs, best first: ladder points, then net wins, then wins, then rating. Our amateur fighters in it are ranked from
 ## RANK_MIN_WINS wins (a pro leaves the amateur rankings). [{name, club, w, l, ours, fid}]
 static func rankings(c: Career, div: String = "wlw") -> Array:
 	var rows: Array = []
 	for r in c.rivals:
 		if str(r["div"]) == div:
 			rows.append({"name": r["name"], "club": r["club"], "w": int(r["w"]), "l": int(r["l"]), "rating": float(r["rating"]),
-				"ours": false, "fid": ""})
+				"ours": false, "fid": "", "rep": RankLine.rep(r)})
 	for f in c.fighters:
 		if str(f["div"]) == div and int(f["w"]) >= RANK_MIN_WINS and not bool(f.get("pro", false)):
 			rows.append({"name": f["name"], "club": c.gym_name, "w": int(f["w"]), "l": int(f["l"]), "rating": 0.0, "ours": true,
-				"fid": f["id"]})
+				"fid": f["id"], "rep": RankLine.rep(f)})
 	rows.sort_custom(before)
 	return rows
 
@@ -189,15 +190,9 @@ static func left_tag(r: Dictionary) -> String:
 	return "(left us %s %d)" % [clock.MONTHS[int(d["month"]) - 1], int(d["year"])]
 
 
-## The table's order: net wins, then wins, then rating (S387: its own function, BoutRead.rank_move sorts by the same rule).
+## The table's order: ladder points, then net wins, wins, rating (S516 LADDERWIRE stage 2; one rule, in RankLine).
 static func before(x: Dictionary, y: Dictionary) -> bool:
-	var nx := int(x["w"]) - int(x["l"])
-	var ny := int(y["w"]) - int(y["l"])
-	if nx != ny:
-		return nx > ny
-	if int(x["w"]) != int(y["w"]):
-		return int(x["w"]) > int(y["w"])
-	return float(x["rating"]) > float(y["rating"])
+	return RankLine._before(x, y)
 
 
 ## Her place (1-based) in her division, 0 when unranked.
