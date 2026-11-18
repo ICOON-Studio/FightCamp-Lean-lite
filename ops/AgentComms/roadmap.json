@@ -3,11 +3,11 @@
  "updated": "2026-11-18",
  "author": "claude S294",
  "now": {
-  "id": "S521",
+  "id": "S522",
   "owner": "claude",
   "updated": "2026-11-19",
-  "summary": "S521 (Opus, same session as S520): owner 'whyh did you stop using ludo ?' - Ludo unused S474-S520; back at work: 12 painted concepts of 4 real screens in two looks (~6 credits), map frame + review board, Q-S294-274 which look; start prints a LUDO line (ops/Tools/ludo_line.py). Dola critic guard v4 8/8/7; Goose #375 pending. streak_probe asks an owing corner first (not run: his game open). Stuck qwen pid gone; Qwen queue TREEVALUE2 / MORNINGSPROBE2 / MONEYFOUR2 waits for GREEN.",
-  "next_action": "S522: 1) Q-S294-274 his look -> Ludo paints each new screen; 2) Goose #375 -> guard v4 to his board if 7+/7+; 3) collect TREEVALUE2, MORNINGSPROBE2, MONEYFOUR2 (Qwen) -> tune; 4) run streak_probe (owing corner first) when GREEN; 5) mat plan note C433. Animation: lean-f3 only (METHOD S510).",
+  "summary": "S522 (Opus): TURNPRO1 build started - TURNPRO1A pure rules (ProCall.gd + test) briefed to Goose #376; CHECKs settled from code (gym 25% on purse + ticket share; no 'turn pro' ambition on the signing card). Stopped at 91% weekly usage to leave room for the animation session. PC RED all stage (his game, memory 99%): no Godot.",
+  "next_action": "S523: 1) Q-S294-274 his look; 2) collect Goose #376 TURNPRO1A -> wire into Roster + offer card, then probes; 3) Goose #375 guard v4 critic (Dola 8/8/7) -> his board if 7+/7+; 4) Qwen TREEVALUE2 / MORNINGSPROBE2 / MONEYFOUR2 -> tune; 5) streak_probe rerun (owing corner first) when GREEN; 6) KNOWLEDGE1 build next. Animation: lean-f3 only (METHOD S510).",
   "verified_playable": "Builds/FightCamp.exe S519: club week v11 on Training/Money/Overview/bout offer (hidden-desktop renders ops/previews/s519; club_week_walk_test through Main's acts). Not yet played by him.",
   "incomplete_blocked": "ASKGAP1 design open (ask door shut on hot Mondays); TREEVALUE2 waits on Qwen's old pid; MORNINGSPROBE2/MONEYFOUR2 not briefed.",
   "next_acceptance": "ASKGAP1: tools/streak_probe.gd rerun shows asks made on hot Mondays and ducks a few times a season (not 0, not weekly).",
@@ -2222,6 +2222,12 @@
    "date": "2026-11-19",
    "model": "opus",
    "summary": "S521 (Opus, same session as S520): owner 'whyh did you stop using ludo ?' - Ludo unused S474-S520; back at work: 12 painted concepts of 4 real screens in two looks (~6 credits), map frame + review board, Q-S294-274 which look; start prints a LUDO line (ops/Tools/ludo_line.py). Dola critic guard v4 8/8/7; Goose #375 pending. streak_probe asks an owing corner first (not run: his game open). Stuck qwen pid gone; Qwen queue TREEVALUE2 / MORNINGSPROBE2 / MONEYFOUR2 waits for GREEN."
+  },
+  {
+   "id": "S522",
+   "date": "2026-11-19",
+   "model": "opus",
+   "summary": "S522 (Opus): TURNPRO1 build started - TURNPRO1A pure rules (ProCall.gd + test) briefed to Goose #376; CHECKs settled from code (gym 25% on purse + ticket share; no 'turn pro' ambition on the signing card). Stopped at 91% weekly usage to leave room for the animation session. PC RED all stage (his game, memory 99%): no Godot."
   }
  ],
  "blocked_on_operator": [],
@@ -5420,7 +5426,7 @@
    {
     "id": "TURNPRO1",
     "who": "claude",
-    "title": "Turning pro: design v2 APPROVED (his 'Yes, both', S471) - build after the fight week",
+    "title": "Turning pro: v2 APPROVED (Q-227); S522 TURNPRO1A pure rules at Goose #376 -> wire Roster + offer card -> probes",
     "after": "FOUNDATION"
    },
    {
@@ -6082,6 +6088,10 @@
     {
      "text": "Club week v11: build (his yes)",
      "who": "claude"
+    },
+    {
+     "text": "Turning pro rules (Goose #376)",
+     "who": "agent"
     }
    ],
    "next": [

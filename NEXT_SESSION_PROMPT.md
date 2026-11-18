@@ -1,4 +1,4 @@
-# S522 handover (written 2026-11-19, end of S521 - Opus; S520 + S521 in one session)
+# S523 handover (written 2026-11-19, end of S522 - Opus; S520-S522 in one session, stopped at 91% weekly usage)
 
 Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. S520 is in roadmap `now`.
 
@@ -28,6 +28,19 @@ start). Do not start another. METHOD line below (S510) - quote it in the first m
    owing corner first. Run it when GREEN and no game window (Q-267); save as docs/ASKGAP1_RESULT.md rerun 2, restore
    docs/STREAKPROBE1_RESULT.md. Older note: streak_probe asks the highest name 0-8 above, never the corner that OWES her - Josh reached
    OWED 10 times and booked 0. Let the probe ask an owing corner first, then read owed w-l.
+
+## DONE IN S522
+- TURNPRO1 (approved Q-227, the fight week is built) is now being built: TURNPRO1A brief (ops/research/TASK_TURNPRO1A.md,
+  pure scripts/rules/ProCall.gd + tests/pro_call_test.gd: who calls by ticket forecast, the two houses' terms, one ask
+  with a counter, the gym's and the boxer's money apart, morale, age 32, the 14-day window) -> Goose issue #376. CHECKs
+  settled from code: the gym's 25% (Roster.GYM_SHARE) is taken from the purse and from the ticket share (ProDebut.night);
+  the signing card's ambitions (Recruit.ambition) never say "turn pro" - "A regional title within a year" = the title
+  ambition, the pro row waits for an ambition that says it. NEXT after #376 lands: collect, then wire into Roster
+  check_pro / turn_pro / decline_pro (two offers side by side in the band, the ask on the offer card, the pays-back line),
+  then the map's probes (section 7) with a bot per policy.
+- The design loop tracker is stale: TURNPRO1, KNOWLEDGE1, WEIGHT1, STEPVALUE1 all passed critics AND his board
+  (Q-227/228/230/232). KNOWLEDGE1 (v3, approved) is the next build after TURNPRO1 (scripts/rules/Knowledge.gd exists:
+  diff it against DESIGN_KNOWLEDGE_V3 first).
 
 ## DONE IN S520
 - Q-S294-273 ("what do you think ?"): full pads, his Q-260 ruling; nothing to change.

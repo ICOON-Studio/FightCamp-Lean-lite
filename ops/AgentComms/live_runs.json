@@ -881,6 +881,30 @@
    "branch": "goose/issue-367",
    "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/367",
    "reconciled": "2026-11-18 10:40 board_reconcile: run finished (success), branch goose/issue-367 pushed"
+  },
+  "TURNPRO1A": {
+   "agent": "goose",
+   "id": "TURNPRO1A",
+   "title": "Turning pro, the pure rules (who calls, two promoters, one ask, the money)",
+   "status": "running",
+   "started": "2026-11-19T00:48",
+   "eta": "2026-11-19T02:18",
+   "issue": 376,
+   "repo": "FightCamp-Lean",
+   "where": "cloud",
+   "brief": "ops/research/TASK_TURNPRO1A.md"
+  },
+  "GUARDCRITIC4": {
+   "agent": "goose",
+   "id": "GUARDCRITIC4",
+   "title": "Critic: guard damage v4 design",
+   "status": "running",
+   "started": "2026-11-19T00:48",
+   "eta": "2026-11-19T01:48",
+   "issue": 375,
+   "repo": "FightCamp-Lean",
+   "where": "cloud",
+   "brief": "ops/research/DESIGN_GUARDDMG1_V4_CRITIC_DOLA.md"
   }
  },
  "codex_budget": {
