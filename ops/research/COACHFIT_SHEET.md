@@ -22,6 +22,25 @@ k 2.0); Sharp sooner +1.5 / +1.7 / +4.8 / +4.8 weeks. **tired=fail** (fit 80 ahe
 reason on the coached-morning tile ("suits her: learns a little faster") and the coach card; no fit grid, no fit words
 on the roster. Questions 2-4 (choice, mode, bond) are not run. Phase 3 critics judge THIS verdict + the hover design.
 
+## 0c. Phase 3b verdict + DECISION (S530, Goose COACHFITPROBE3 #405, docs/COACHFITPROBE3_RESULT.md; Arena critic 4/6)
+The critic (DESIGN_COACHFIT_SHEET_CRITIC_ARENA.md) said probe 2 measured the wrong places. Probe 3 re-measured where s11 wires:
+- ON THE WIRED LEVER (coached mornings x fit, through capped()): TOP +0.07 of a stat in 26 weeks over AVERAGE (3.721 ->
+  3.791), Sharp no sooner, wins +0.08 in 100 at k 1.0; k 1.5 / 2.0 no better. Coached mornings are few, and none at all with
+  one boxer (MorningWire: one boxer = no deal), so fit has almost nothing to multiply.
+- DOSE: +5 on ONE stat = +2.6 wins in 100 (the harness's untouched arm won 29.6, not the asked 45-55, a probe slip). This is
+  the game, not a blind harness: the pack's rule "5 points better in stats wins about 72%" is 5 points on ALL six; one
+  stat +5 is ~0.8 of that. So +0.95 on one stat is worth ~half a win in 100 - fit cannot reach a fight.
+- CAMP: a Hard camp peaks 63-69 fatigue whatever the fit, no morning past 80, fatigue_mult 1.00 for all three arms: the
+  tiredness channel has nothing to bite (its cut in s11 holds). (PeakCamp.met read 0/20 in every arm: the probe passed it
+  fewer than its three rows - a probe slip, not a game defect.)
+**DECISION (Claude, S530): coach fit is CUT as a mechanic** - never approved, never built, and three probes (FITPROBE1/2,
+COACHFITPROBE2/3) found nothing a player can feel on any lever it touches. CoachFit.gd stays in the repo unread by the game
+(tests keep it honest) so a later design can reuse its numbers. KEPT, as its OWN small rule (the critic's item 7, "the single
+most actionable thing ... it does not need the fit to exist"): **THE COACH'S CEILING** - morning_ceiling(area) = 55 + 0.35 x
+area; at or past it a coached ability gains at half speed; shown once in the week review the week she reaches it, with the
+press (raise the area / a better coach). Next: a one-page map of the ceiling rule, two critics, then build. s11 below is
+superseded except its H3 row.
+
 ## 1. The fit number: fit = clamp(50 + temper + bond + taught + focus, 10, 90)
 | Row | Value | Code | When |
 |---|---|---|---|

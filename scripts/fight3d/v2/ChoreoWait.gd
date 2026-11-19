@@ -18,7 +18,9 @@ const BEFORE_S := 0.30                 # a wait thing is over this long before h
 const CLEAR_S := Vector2(0.35, 0.55)   # no paw or feint from this long before any contact to this long after it
 const WINDOW_S := Vector2(1.0, 1.7)    # how much of a long fidget take plays
 ## The fidgets (one actor, one stance; the census drops none of them). Short ones play whole.
-const FIDGETS := ["pro_idle_fidget_v2", "pro_idle_fidget_v3", "pro_idle_fidget_v6", "pro_idle_fidget_v7",
+## S530: pro_idle_fidget_v6 is out - a deep squat (film 7, the animator: "drops under a punch nobody threw, 1.2 m out:
+## a defensive move with no cause reads as a glitch").
+const FIDGETS := ["pro_idle_fidget_v2", "pro_idle_fidget_v3", "pro_idle_fidget_v7",
 	"pro_idle_fidget_v1", "pro_idle_fidget_v8"]
 const LONG_S := 2.6                    # a fidget longer than this plays as a window
 ## The lead hand measures, the rear hand threatens: [clip, to_s, speed] (GuardLife's S503 measures, the old player's).

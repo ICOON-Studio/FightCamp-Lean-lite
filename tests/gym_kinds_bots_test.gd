@@ -108,7 +108,7 @@ func _make_fighter(seed: int, day: int) -> Dictionary:
 	var rng := RandomNumberGenerator.new()
 	rng.seed = seed
 	var base := 60.0
-	var raw := {"first": "Test", "name": "Test Boxer", "style": "Out-boxer", "stats": {
+	var raw := {"id": "gk_test", "div": "wlw", "sex": "f", "limit": 60.0, "first": "Test", "name": "Test Boxer", "style": "Out-boxer", "stats": {   # S530: no id/div = 39k script errors on the weekly pass
 		"power": base, "speed": base, "technique": base,
 		"defense": base, "conditioning": base, "fight_iq": base, "chin": base},
 		"pot": 80, "w": 0, "l": 0, "weight": 70.0,

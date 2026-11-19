@@ -6,8 +6,8 @@ FIRST: `python ops/Tools/godot_slot.py status` (TREEVALUE5's probe holds one slo
 ## METHOD lines - quote all four in your first message
 - Fight animation (owner S510): no new correction layer in scripts/fight3d until v2 is built (the OWNER'S Fable session
   is the animation item; film 7 waits for no game window; do not start another).
-- COACH FIT (S528, S530): sheet + hover design done; Arena critic 4/6 found COACHFITPROBE2 blind (no dose control, tiredness
-  read at the bell, slope on the wrong morning). Nothing is built until Goose COACHFITPROBE3 #405 is read.
+- COACH FIT (S530): CUT - three probes, nothing felt (COACHFIT_SHEET s0c). Kept: the coach's ceiling as its own rule:
+  a one-page map + two critics before any build.
 - TURNING PRO (S530): Arena v4 critic 5/5 - rerun the nine lines on today's code first (Goose TURNPROBE3 #406); no v5 map before.
 - FOOTWORK STEPS (S528): no StepEffect.TABLE tuning until TREEVALUE5 is read. Then STEPTUNE3.
 
@@ -25,6 +25,10 @@ FIRST: `python ops/Tools/godot_slot.py status` (TREEVALUE5's probe holds one slo
 4. Dola SQ237 (ledger v3 critic, sent), SQ239 (knowledge stakes v2), SQ240 (turning pro v4 critic). SQ238 DROPPED.
 5. Open defect for turning pro v4: ProCall.ambition_kind's "pro" path never fires (Recruit.ambition has no pro ambition).
    Build with v4's preference line once its critics pass.
+6. TESTS NEVER RUN NIGHTLY (S530): 84 test files were missing from tools/run_tests.sh. 68 passed and joined it; weekend_plan_test was red (a real defect: Do it on a weekend read this week - fixed) and joined it. RED, fight3d rulers - for
+   the ANIMATION session (not a main-line fix: METHOD), most measure the v1 player: block_absorb, block_catch,
+   fighter_model_speed, grapple_fix, hit_carry, hit_frame, punch_range (needs the hidden desktop), punch_speed,
+   punch_weight, uppercut_tail. Over 3 min headless: bjj_beat_on, dues_levers, film_count, gym_kinds_bots (rerun S530).
 
 # S530 handover (written 2026-11-19, S529 - Opus)
 
@@ -469,7 +473,8 @@ themselves are the limit (owner: "why should i buy more animations if the ones w
   tests/ask_wire_test.gd + ask_dates_test in run_tests.sh. Exported. Left: Home DO NEXT, the stoppage-risk word.
 - RAM: ~10 finished sessions sit idle with Remote Control on (~750 MB each, S491 note); watchdog AMBER on memory.
 
-## ANIMATION LOOP STATE (the animation session's own section; newest block S529, 2026-11-19 evening; the blocks under it are older)
+## ANIMATION LOOP STATE (the animation session's own section; newest block S530, 2026-11-19 night; the blocks under it are older)
+(Main session S530 note: 10 fight3d ruler tests had never run nightly and are RED headless - list in MAIN LINE item 6 above. They are yours to judge: keep, retarget to v2, or retire.)
 Owner: "i want animations fixed (at least 7/10)" = two fresh blind critics (coach + animator) both 7.0+ on one film. You are
 the ONLY animation session; you own `scripts/fight3d` (v2 in `scripts/fight3d/v2/`) and this section. Quote the METHOD line.
 WHERE WE ARE: FIGHTPLAYER2 (the rebuild, `ops/research/FIGHTPLAYER2_SCOPE_S510.md`, section 8 = the critics' changes).
@@ -477,7 +482,68 @@ The v2 player EXISTS and plays the real bout behind `-- fightplayer2`. FIRST BLI
 BELOW the old player (see FIRST FILM below). When this section was first written it had not been filmed: the owner's
 game (ArcheAge) was open the whole session and films run only when no game window is open (Q-267). r14 = 4.5 / 4.5 is the
 control arm; the shipped player is untouched without the switch.
-- S529 (2026-11-19 evening, a NEW animation session on Fable, stopped at ~520k of context). READ THIS FIRST, it is the newest:
+- S530 (2026-11-19 night, a NEW animation session on Fable). READ THIS FIRST, it is the newest:
+  * FILM 7 = 5.0 (coach) / 5.0 (animator). THE SAME AS FILM 6; the gate is 7 + 7. Folder `E:/FightCamp/tmp/fightweek/v2r11/`
+    (`critic_coach.md`, `critic_animator.md`, `men_720.mp4`, 64 sheets; critics on Opus, blind). Areas coach / animator:
+    punches 5.5 / 5.5, defence + reactions 5.0 / 4.5, footwork 4.0 / 4.5, transitions 5.0 / 5.0, waiting 4.5 / 4.0.
+  * WHAT THAT SAYS ABOUT THE METHOD OF THIS LOOP (three films at 5: 5.0 / 4.5, 5.0 / 5.0, 5.0 / 5.0). S529 and S530 moved
+    every ruler the critics had quoted (stance spread, glove on its target, head jumps, the edge of range, angles) and
+    the score did not move. Both critics now put first what the men DO, not how clean a take is joined:
+    (1) THE FEET DO NOT MOVE THE MAN: "in the whole set I see two real steps", "the rulers say 110-125 steps a minute
+    but the feet look parked - tiny shuffles; make them real steps or take them out", nobody steps out after punching,
+    the distance never crosses the jab edge (coach: in range 0.9-1.1 m hips, out 1.4-1.7, crossing 3-5 times between
+    exchanges; steps 15-25 cm, one or two every 1-1.5 s). My circle steps (17 deg) were NOT SEEN by either critic.
+    (2) THE WAIT IS DEAD: "two men standing still, gloves at the face, 1.2 m apart", they want a 2-4 cm bounce about
+    twice a second, the lead hand working every 1-2 s, never both still over 0.5 s. NOTE: `-- fp2bounce` (the steps'
+    own bouncing idle, built S529) was left off because the STANCE RULER counted its bob as a defect - the critics
+    ask for exactly that bob. The ruler was the wrong judge. (3) HITS WITH NO VISIBLE ANSWER (animator: fail any hit
+    whose head moves under 6 cm in 5 frames: wait #63-#70, #75-#78, def2 #33-#36) and hurt beats too long / theatrical
+    (ex1 #43-#56 lean-back, ex2 #19-#28 folds ONTO the other man). (4) ARMS HANG OUT after a punch (def3 #13-#27: 11-14
+    frames; bar 4-6) and gloves fly out to the side in reaction takes. (5) No clinch / body through body at close
+    range; red goes square, heels together (ex2 #37-#56, ex4 #25-#60); a deep duck with no punch thrown (wait2 #37-#48).
+    SO: stop polishing rulers. The next film is ONE bundle of behaviour, in this order, then one round:
+    a) the wait: `fp2bounce` on by default (or the Pro guard with a real bounce) + a lead-hand paw every 1-2 s;
+    b) IN-AND-OUT: ring steps that CHANGE the distance (one man steps in to ~1.05, out to ~1.5; today ChoreoDrift
+    holds the distance and StepPlay.ALONG_M / SIDE_M are 0.20-0.35) and a step OUT or off the line by the man who
+    punched last (the plan has HURT_OUT_M for the hit man only); bigger circle (30-45 deg, SLACK_DEG with it);
+    c) arms home: find why a cross hangs 11-14 frames (def3 #13-#27: `Player2` hands the punch back at
+    contact + arm_home_s - check a MISSED / slipped punch gets it too); d) a ruler for "a hit with no answer"
+    (under 6 cm in 5 frames) in `fight_motion_rulers.py`, then size the light jab takes up.
+  * WHAT WAS BUILT (all on main; commits 5850816da, 577a45d0b, 977651ef8; headless bout `sh
+    E:/FightCamp/tmp/fightweek/s530/bout.sh <name> 75 fightplayer2 fp2log`, tests `s530/t.sh <test> <tag>`):
+    | ruler (the bout, 75 s, seed 7) | S529 end | S530 (film 7) | the critics' bar |
+    |---|---|---|---|
+    | head jumps over 12 cm a picture / worst | 20 / 20.7 cm | 11 / 13.8 cm | none over 10 |
+    | landed glove off its target, median / worst (15 hits) | 0.9 / 12.4 cm | 0.9 / 4.8 cm | 3-5 cm |
+    | a head inside the other man | 4 frames | 0 | none |
+    | reaction: frames to the head's furthest (median) | 3 | 4 (jab 3, cross 4, hook 7, body 8) | 2-3, a fold 6-8 |
+    | circle steps / the line off side-on | 0 / 0 | 10 in 75 s / within 17 deg | a pivot every few exchanges |
+    | slip, knees, stance spread, front feet p50 | 4.8 / 5.1 m, ~70 / 55, 17 / 23 %, 0.87 m | the same | - |
+    - NO HEAD THROWN IN ONE PICTURE. The census (`tools/clip_census.gd`; rerun = 1 min headless, `--fixed-fps 60`) now
+      writes for every punch / reaction / defence take `head_g` (the head's distance from where the GUARD holds it over
+      the hips) and `hips_g` (the hips' way), 30 a second. Finding: no bought take moves a head over 6 cm a picture;
+      every jump was a take joined part-way in (the join put 0.44-0.5 of a 28-40 cm way into one picture).
+      `ChoreoReact.start_s`: a reaction starts as late as keeps each picture's step under `HEAD_STEP_MAX_M` 0.085
+      (the join's way picture by picture is `ChoreoRules.JOIN_WAY` - CHANGE A JOIN AND ITS WAY TOGETHER); a heavy take
+      gets `Player2.JOIN_SOFT`, a body shot `JOIN_FOLD` + `REACT_FOLD_S` 0.17; the take is picked on the hit man's size.
+      A free defence starts its take up to `DEF_EARLY_S` sooner; a combination's next punch never starts so deep
+      that the join throws his own head (`CUT_STEP_MAX_M`, it lands up to `CUT_SLIDE_S` 0.10 later).
+    - ANGLES: `StepPlay` circle step (half the ring steps: both men side-step to the same hand, the pair turns 17 deg),
+      `PairPlace.SLACK_DEG` 18 (square leaves the pair alone inside it), `-- fp2nocircle` = off. Too small to be seen.
+    - DUCKS: a straight is slipped with `pro_quick_weave` (only by a free man), a weave is handed back to the guard
+      `DEF_UP_S` 0.20 after its lowest point. The coach calls def1 / def2 "the two best defensive frames in the film".
+  * HEAD JUMPS LEFT (11, all 12-14 cm): `pro_left_weave` joined part-way by a man still held (3), the dodges' own
+    sidestep 8.5 cm a picture + head (3), `pro_right_uppercut` / `pro_left_jab` whose BODY goes 11-12 cm a picture
+    (2: the take's lunge / the step under a punch), a cut-in hard cross and hard jab (2), one guard join.
+  * KNEE JERKS (not worked on; `s530/kneeby.py <dir>`): 126 over 8 deg, 81 of them in the first 0.2 s after a take
+    STARTS (the legs at a join), 25 with the foot planted, 20 lifted. Worst per picture on screen: `pro_right_cross_ft`
+    and `pro_left_jab_hard` (32 per 100), `pro_right_uppercut` 19, `pro_left_dodge` 15; `st_out_m` 11 at its start.
+  * TRAPS: the game closed at 20:35 and film 7 ran at once (`film_round.sh`, 3.5 min; `s530/wait_game.sh` watches the
+    window in the background); `film_round.sh` cuts its own default sets - `round.py` then leaves stale `ex5_*` sheets
+    in `sheets_close` (delete them before the critics count); a Python patch with tabs goes in a FILE written with the
+    Write tool (three here-docs failed on quotes or lost `\n`); read a file's real indent before a text replace;
+    `cd` in Bash moved the session folder four times - use `cd /e/FightCamp/Lean &&` at the head of every call.
+- S529 (2026-11-19 evening, a NEW animation session on Fable, stopped at ~520k of context). (the block before S530):
   * NOT FILMED, NOT JUDGED. The owner's game (ArcheAge) was open the whole session (Q-267: no film while a game window
     is open). Film 6 = 5.0 / 5.0 is still the last score; the gate is 7 + 7. Everything below is HEADLESS: the real
     bout, 75 s, seed 7 (`sh E:/FightCamp/tmp/fightweek/s529/bout.sh <name> 75 fightplayer2 fp2log`), `s529/base` =

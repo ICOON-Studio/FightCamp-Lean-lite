@@ -1071,25 +1071,27 @@
    "agent": "goose",
    "id": "COACHFITPROBE3",
    "title": "Coach fit: re-measure with a dose control, the coached-morning lever and camp tiredness",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-19T20:01",
    "where": "cloud",
    "brief": "ops/research/TASK_COACHFITPROBE3.md",
    "issue": 405,
    "eta": "2026-11-19T21:00",
-   "note": "S530; goose/issue-405"
+   "note": "S530 collected (goose/issue-405, 2 files by hand; branch was cut from an older main): dose +5 one stat = +2.6 wins (the game: the pack's 72% is all six stats); wired lever +0.07 stat; camp never past 80 -> coach fit CUT, the ceiling kept as its own rule",
+   "finished": "2026-11-19T22:00"
   },
   "TURNPROBE3": {
    "agent": "goose",
    "id": "TURNPROBE3",
    "title": "Turning pro: rerun all nine lines on today's code",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-19T20:01",
    "where": "cloud",
    "brief": "ops/research/TASK_TURNPROBE3.md",
    "issue": 406,
    "eta": "2026-11-19T21:00",
-   "note": "S530; goose/issue-406"
+   "note": "S530 collected (goose/issue-406, 3 files by hand): line 6 void (probe never saw the debut finish; fixed), line 7 horizon defect, door never shuts, day-job careers never sign - ops/research/TURNPROBE3_READ_S530.md",
+   "finished": "2026-11-19T22:30"
   },
   "DEALBLIND1": {
    "agent": "arena",
@@ -1118,6 +1120,69 @@
    "eta": "2026-11-19T22:00",
    "note": "S530 collected (lite PR 29): hot_contract_test PASS on main; mutant POINTS 8->15 -> 5 checks FAIL; in run_tests.sh",
    "finished": "2026-11-19T21:40"
+  },
+  "HOLD1": {
+   "agent": "qwen",
+   "id": "HOLD1",
+   "title": "TASK HOLD1 - the specialty: four ways to hold moves over two seasons, and the hold minutes that make it a choice (probe)",
+   "status": "running",
+   "started": "2026-11-19T20:12",
+   "eta": "2026-11-19T22:02",
+   "branch": "qwen/hold1",
+   "worktree": "E:/FightCamp/wt/LEAN_HOLD1",
+   "wt": "E:/FightCamp/wt/LEAN_HOLD1",
+   "brief": "ops/research/TASK_HOLD1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/HOLD1_dispatch_out.txt",
+   "match": "seat_dispatch.py run hold1",
+   "model": "qwen4-max",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/HOLD1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/HOLD1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/HOLD1_dispatch_runner.log",
+    "source": "roadmap plan.next",
+    "brief_copied": true,
+    "runner_pid": 45064,
+    "seat_pid": 36828
+   },
+   "note": "S368 seat_dispatch: launched unattended (roadmap plan.next); merging stays off"
+  },
+  "LEDGERREV4": {
+   "agent": "goose",
+   "id": "LEDGERREV4",
+   "title": "Contracts map v4 from the code",
+   "status": "running",
+   "started": "2026-11-19T22:10",
+   "where": "cloud",
+   "brief": "ops/research/TASK_LEDGERREV4.md",
+   "issue": 408,
+   "eta": "2026-11-19T23:10",
+   "note": "S530; goose/issue-408"
+  },
+  "KNOWREV3": {
+   "agent": "goose",
+   "id": "KNOWREV3",
+   "title": "Knowledge stakes map v3 from the code",
+   "status": "running",
+   "started": "2026-11-19T22:10",
+   "where": "cloud",
+   "brief": "ops/research/TASK_KNOWREV3.md",
+   "issue": 409,
+   "eta": "2026-11-19T23:10",
+   "note": "S530; goose/issue-409"
+  },
+  "TURNPROBE3B": {
+   "agent": "goose",
+   "id": "TURNPROBE3B",
+   "title": "Turning pro rerun: fork fixes + the day-job question",
+   "status": "running",
+   "started": "2026-11-19T22:35",
+   "where": "cloud",
+   "brief": "ops/research/TASK_TURNPROBE3B.md",
+   "issue": 410,
+   "eta": "2026-11-19T23:30",
+   "note": "S530; goose/issue-410"
   }
  },
  "codex_budget": {

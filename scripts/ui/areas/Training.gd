@@ -130,7 +130,8 @@ static func act(main: Node, name: String, arg: String) -> bool:
 		"tkfix":
 			# the coach's pick applied (WeekCoach.advice's fix: one morning, or the cut)
 			var f := c.fighter_by_id(arg)
-			var pl := WeekData.plan_of(c, f)
+			# S530: on a weekend the board and its coach line read NEXT week (ClubWeek.model: ahead_view) - so must Do it
+			var pl := WeekData.plan_of(c, WeekPhase.ahead_view(f, c.day) if WeekPhase.weekend(c.day) else f)
 			var said: Array = pl["lines"] if WeekData.booked(pl["goal"]) else (pl["lines"] as Array).filter(func(l): return str(l["id"]) != "weight")
 			var fix: Dictionary = load("res://scripts/rules/WeekCoach.gd").advice(pl["days"], pl["wk"], said, str((pl["ctx"] as Dictionary).get("diet", "hold")))["fix"]
 			if fix.has("diet"):

@@ -119,6 +119,15 @@ const LEGS := [["LeftUpperLeg", "LeftLowerLeg", "LeftFoot"], ["RightUpperLeg", "
 ## picture the first refit left the lead leg at its reach until its foot lifted, then bent it 13 deg in one picture.
 const REACH := 0.97
 const SINK_F := 6
+## S530 A STANDING FOOT IS FLAT (the owner on film 7: "blues shoes are not stepping normal he is mostly on his toes").
+## The bought boxing steps hold the LEAD heel 3-6 cm off the canvas through the whole take (the actor's bouncing
+## stance); the Punch PRO guard stands flat, so every step popped the front boot onto its toes for 0.8 s. While a
+## foot's toes are on the canvas the refit turns the boot down flat about its ball (the ankle comes down by the heel's
+## rise, the toes' own bend goes back to the guard's); it keeps the take's own boot once the toes are TOE_AIR_M up
+## (a foot in the air swings as it was captured).
+const TOES := ["LeftToes", "RightToes"]
+const TOE_DOWN_M := 0.015
+const TOE_AIR_M := 0.06
 
 
 ## The hips and both ankles of `clip` at `t` (skeleton space).
@@ -126,7 +135,8 @@ func _stance(clip: String, t: float) -> Dictionary:
 	ap.play(clip)
 	ap.seek(t, true)
 	return {"hips": skel.get_bone_global_pose(skel.find_bone("Hips")).origin,
-		"feet": [skel.get_bone_global_pose(skel.find_bone("LeftFoot")).origin, skel.get_bone_global_pose(skel.find_bone("RightFoot")).origin]}
+		"feet": [skel.get_bone_global_pose(skel.find_bone("LeftFoot")).origin, skel.get_bone_global_pose(skel.find_bone("RightFoot")).origin],
+		"toes": [skel.get_bone_global_pose(skel.find_bone("LeftToes")).origin, skel.get_bone_global_pose(skel.find_bone("RightToes")).origin]}
 
 
 ## `raw` (bare tracks, the hips carrying the floor travel) on the guard's stance, its travel x `stride`.
@@ -142,6 +152,18 @@ func _refit(raw: Animation, lib: AnimationLibrary, prefix: String, stride: float
 	for leg in LEGS:
 		ids.append((leg as Array).map(func(b): return skel.find_bone(str(b))))
 		drop.append_array(leg)
+	drop.append_array(TOES)
+	var toe_ids: Array = TOES.map(func(b): return skel.find_bone(str(b)))
+	# the guard's flat boot: how high the ankle rides over the toes, where the toes rest, how the toes are bent
+	var gs := _stance(GUARD, 0.0)
+	var flat: Array = []
+	var toe_floor: Array = []
+	var toe_rest: Array = []
+	for i in 2:
+		flat.append((gs["feet"][i] as Vector3).y - (gs["toes"][i] as Vector3).y)
+		toe_floor.append((gs["toes"][i] as Vector3).y)
+		toe_rest.append(skel.get_bone_pose_rotation(int(toe_ids[i])))
+	var flattened := 0.0
 	var out := raw.duplicate(true) as Animation
 	for t in range(out.get_track_count() - 1, -1, -1):
 		var bone := str(out.track_get_path(t))
@@ -154,6 +176,9 @@ func _refit(raw: Animation, lib: AnimationLibrary, prefix: String, stride: float
 		for b in leg:
 			rot_t[b] = out.add_track(Animation.TYPE_ROTATION_3D)
 			out.track_set_path(rot_t[b], NodePath(skel.get_bone_name(int(b))))
+	for b in toe_ids:
+		rot_t[b] = out.add_track(Animation.TYPE_ROTATION_3D)
+		out.track_set_path(rot_t[b], NodePath(skel.get_bone_name(int(b))))
 	var s0 := _stance("_probe", 0.0)
 	var h0: Vector3 = s0["hips"]
 	var gh: Vector3 = guard["hips"]
@@ -174,11 +199,17 @@ func _refit(raw: Animation, lib: AnimationLibrary, prefix: String, stride: float
 		var h: Vector3 = st["hips"]
 		var hn := Vector3(h0.x + stride * (h.x - h0.x), h0.y + up + dip * (h.y - h0.y), h0.z + stride * (h.z - h0.z))
 		var to: Array = []
+		var heel: Array = []   # per foot: how much of the heel's rise comes off this picture (m)
 		for i in 2:
 			var a: Vector3 = st["feet"][i]
 			var gi: Vector3 = g[i]
 			var oi: Vector3 = o[i]
-			to.append(Vector3(h0.x + gi.x + stride * (a.x - h0.x - oi.x), a.y, h0.z + gi.z + stride * (a.z - h0.z - oi.z)))
+			var tip: Vector3 = st["toes"][i]
+			var rise := maxf((a.y - tip.y) - float(flat[i]), 0.0)
+			var w := 1.0 - smoothstep(TOE_DOWN_M, TOE_AIR_M, tip.y - float(toe_floor[i]))
+			heel.append(rise * w)
+			flattened = maxf(flattened, rise * w)
+			to.append(Vector3(h0.x + gi.x + stride * (a.x - h0.x - oi.x), a.y - rise * w, h0.z + gi.z + stride * (a.z - h0.z - oi.z)))
 		var f0: Vector3 = st["feet"][0]
 		var f1: Vector3 = st["feet"][1]
 		spread.x = maxf(spread.x, Vector2(f0.x - f1.x, f0.z - f1.z).length())
@@ -195,7 +226,7 @@ func _refit(raw: Animation, lib: AnimationLibrary, prefix: String, stride: float
 			if far <= 0.0:
 				break
 			need += far + 0.002
-		frames.append({"t": t, "hips": hn, "to": to})
+		frames.append({"t": t, "hips": hn, "to": to, "heel": heel})
 		sink.append(need)
 	# the sink as a smooth curve that covers every picture's need (the widest need nearby, then averaged)
 	var wide: Array = []
@@ -220,15 +251,39 @@ func _refit(raw: Animation, lib: AnimationLibrary, prefix: String, stride: float
 		skel.set_bone_pose_position(hips, pinv * hn)
 		for i in 2:
 			_solve(ids[i], fr["to"][i])
+			_flatten(ids[i], int(toe_ids[i]), float(fr["heel"][i]), toe_rest[i])
 		out.position_track_insert_key(pos_t, float(fr["t"]), pinv * hn)
+		for b in toe_ids:
+			out.rotation_track_insert_key(rot_t[b], float(fr["t"]), skel.get_bone_pose_rotation(int(b)))
 		for leg in ids:
 			for b in leg:
 				out.rotation_track_insert_key(rot_t[b], float(fr["t"]), skel.get_bone_pose_rotation(int(b)))
 	lib.remove_animation("_probe")
 	var gspread := Vector2((g[0] as Vector3).x - (g[1] as Vector3).x, (g[0] as Vector3).z - (g[1] as Vector3).z).length()
-	print("STEPBAKE   refit: hips %+.3f m, feet apart at most %.2f -> %.2f m (the guard %.2f), hips lowered for reach at most %.3f m, %d frames" % [
-		up, spread.x, spread.y, gspread, lowered, n + 1])
+	print("STEPBAKE   refit: hips %+.3f m, feet apart at most %.2f -> %.2f m (the guard %.2f), hips lowered for reach at most %.3f m, a standing heel brought down at most %.3f m, %d frames" % [
+		up, spread.x, spread.y, gspread, lowered, flattened, n + 1])
 	return out
+
+
+## The boot of a solved leg turned down about its ball until its heel is `down` m lower (the ankle is already there:
+## the leg was solved onto the lowered ankle), the toes' bend eased to the guard's by the same share.
+func _flatten(leg: Array, toes: int, down: float, toe_rest: Quaternion) -> void:
+	if down < 0.001:
+		return
+	var foot := skel.get_bone_global_pose(int(leg[2]))
+	var v := skel.get_bone_global_pose(toes).origin - foot.origin
+	var ln := v.length()
+	var head := Vector3(v.x, 0.0, v.z)
+	if ln < 0.01 or head.length() < 0.01:
+		return
+	var axis := head.normalized().cross(Vector3.UP).normalized()
+	var ang := asin(clampf((v.y + down) / ln, -1.0, 1.0)) - asin(clampf(v.y / ln, -1.0, 1.0))
+	var turn := Quaternion(axis, ang)
+	if absf((turn * v).y - (v.y + down)) > absf((turn.inverse() * v).y - (v.y + down)):
+		turn = turn.inverse()
+	var shin := skel.get_bone_global_pose(int(leg[1])).basis.get_rotation_quaternion()
+	skel.set_bone_pose_rotation(int(leg[2]), (shin.inverse() * (turn * foot.basis.get_rotation_quaternion())).normalized())
+	skel.set_bone_pose_rotation(toes, skel.get_bone_pose_rotation(toes).slerp(toe_rest, clampf(down / 0.03, 0.0, 1.0)))
 
 
 ## Two-bone IK in the skeleton's space (FootPlant._solve): the ankle onto `t`, the knee bending in the plane it bends in

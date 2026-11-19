@@ -3490,12 +3490,15 @@
    "seat": "dola",
    "brief": "research/DESIGN_LEDGER1_V3_CRITIC_DOLA.md",
    "stem": "DESIGN_LEDGER1_V3_CRITIC_DOLA_DOLA",
-   "status": "sent",
+   "status": "answered",
    "queued_at": "2026-11-19 17:55",
    "tries": 0,
    "sent_at": "2026-11-19 19:13",
    "pid": 14376,
-   "transcript": "AgentComms/seat_logs/SQ237_dola.txt"
+   "transcript": "AgentComms/seat_logs/SQ237_dola.txt",
+   "answered_at": "2026-11-19 19:40",
+   "answer": "research/DESIGN_LEDGER1_V3_CRITIC_DOLA_DOLA.md",
+   "seen_by_claude": true
   },
   {
    "id": "SQ238",
@@ -3512,9 +3515,14 @@
    "seat": "dola",
    "brief": "research/DESIGN_KNOW_STAKES1_V2_REVISE_DOLA.md",
    "stem": "DESIGN_KNOW_STAKES1_V2_REVISE_DOLA_DOLA",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-19 19:12",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-19 20:10",
+   "pid": 17576,
+   "transcript": "AgentComms/seat_logs/SQ239_dola.txt",
+   "answered_at": "2026-11-19 20:40",
+   "answer": "research/DESIGN_KNOW_STAKES1_V2_REVISE_DOLA_DOLA.md"
   },
   {
    "id": "SQ240",
@@ -3530,9 +3538,10 @@
    "seat": "dola",
    "brief": "research/DESIGN_COACHFIT_SHEET_CRITIC_DOLA.md",
    "stem": "DESIGN_COACHFIT_SHEET_CRITIC_DOLA_DOLA",
-   "status": "queued",
+   "status": "dropped",
    "queued_at": "2026-11-19 19:32",
-   "tries": 0
+   "tries": 0,
+   "note": "S530: coach fit cut after COACHFITPROBE3 (sheet s0c)"
   }
  ]
 }
