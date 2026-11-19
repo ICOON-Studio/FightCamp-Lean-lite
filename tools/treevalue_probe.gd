@@ -1,28 +1,40 @@
 extends SceneTree
-## TREEVALUE1: is every move-tree node worth drilling against at least one style?
-## For each of 16 nodes: 60 generated fighters x 4 style opponents, at 0/45/70.
-## VALUE = win% at 70 minus win% at 0. Pass: VALUE >= 1.5 against at least one style.
-## Usage: python ops/Tools/godot_slot.py run --who treevalue1 -- <godot> --headless --audio-driver Dummy --path . --script res://tools/treevalue_probe.gd
+## TREEVALUE2 (S522): is each footwork / defence step worth 1.5-5 in 100 against its own style?
+## Map ops/research/DESIGN_STEPVALUE1_V1_KALLI_KALLI.md section 9 gate 2. For each of StepValue.STEPS x StepValue.STYLES:
+## 400 bouts a cell x 3 seed sets (the S427 convention), amateur 3x3, the step at Sharp mastery (StepMastery 60) and OK grade,
+## the plan WITH its line against the SAME plan without that line. Win difference in 100 per cell; fires/bout beside it.
+## Keeps TREEVALUE1's tables (OPPS, PLAN, the fighter factory, _plan_for's S464 plan surgery); cells live in treevalue_cells.gd.
+## No fire_level key on the bout (absent = FireLevel.GAME_SHARES). Gate FAILs are findings, not a failed run: the probe
+## quits 0 when it measured and its controls hold, 1 only when a control breaks.
+## Usage: python ops/Tools/godot_slot.py run --who treevalue2 -- <godot> --headless --audio-driver Dummy --fixed-fps 60 --path . --script res://tools/treevalue_probe.gd
 
 const Data := preload("res://scripts/state/Data.gd")
-const Bouts := preload("res://scripts/state/Bouts.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
-const LiveRound := preload("res://scripts/state/LiveRound.gd")
 const MoveTree := preload("res://scripts/rules/MoveTree.gd")
-const FireLevel := preload("res://scripts/rules/FireLevel.gd")
-const PlanFight := preload("res://scripts/rules/PlanFight.gd")
 const AttrGen := preload("res://scripts/rules/AttrGen.gd")
-const PunchStart := preload("res://scripts/rules/PunchStart.gd")
 const StepMastery := preload("res://scripts/rules/StepMastery.gd")
+const StepValue := preload("res://scripts/rules/StepValue.gd")
+const LineGrade := preload("res://scripts/rules/LineGrade.gd")
+const Attrs := preload("res://scripts/rules/Attrs.gd")
+const Cells := preload("res://tools/treevalue_cells.gd")
 
-## Four opponents of different styles.
+## TREEVALUE1's four opponents (kept); TREEVALUE2 adds the two RIVALS below for the six styles of StepValue.STYLES.
 const OPPS := [
 	{"name": "Maria Ortega", "style": "Pressure fighter"},
 	{"name": "Priya Nair", "style": "Counter-puncher"},
 	{"name": "Erin Doyle", "style": "Volume puncher"},
 	{"name": "Dana Whitfield", "style": "Boxer-puncher"},
 ]
-## Plan: arrows covering every punch via combos, plus every step/defence in the situation table.
+## One shipped opponent per style: OPPS + MISMATCH + RIVALS (Holly Price, Jade Cooper).
+const STYLE_OPP := {
+	"Pressure fighter": "Maria Ortega",
+	"Slugger": "Jade Cooper",
+	"Out-boxer": "Holly Price",
+	"Counter-puncher": "Priya Nair",
+	"Volume puncher": "Erin Doyle",
+	"Boxer-puncher": "Dana Whitfield",
+}
+## TREEVALUE1's plan: arrows covering every punch via combos, plus every step/defence in the situation table.
 const PLAN := [
 	{"move": "step_back"},
 	{"move": "pivot_out"},
@@ -45,13 +57,13 @@ const PLAN := [
 const BASE_VAL := 45.0
 const N_FIGHTERS := 60
 const SEED_START := 7100
-var mutant_ok := false
-## S464 Claude: each style's rating is CALIBRATED so the BASE plan wins about half its bouts (the shipped opponents beat
-## these fighters 83-100% of the time - a floor no drill can show a value against). Style, threat and plan stay the opponent's.
+## TREEVALUE2: 400 bouts a cell per arm, three seed sets (day offsets; 10000 % 60 shifts the fighter phase too).
+const N_BOUTS := 400
+const SEED_SETS := [0, 10000, 20000]
+const SHARP := 60.0
+## Each style's rating is CALIBRATED so the full BASE plan wins about half its bouts (TREEVALUE1's S464 rule: a floor
+## no step can show a value against). Style, threat and plan stay the opponent's.
 var opp_rating := {}
-## S464 Claude: the plan a cell fights on. In a node's sweep every OTHER arrow on that node's situation ("when") is left out,
-## so the node is the line the bout reads there (first run: step_in at "range" sat behind 2-3 and 1-2-3b and was never read).
-var cur_plan: Array = PLAN.duplicate(true)
 
 
 func _plan_for(nid: String) -> Array:
@@ -77,10 +89,13 @@ func _find_opp(name: String) -> Dictionary:
 			return (opp as Dictionary).duplicate(true)
 	if Data.MISMATCH["name"] == name:
 		return (Data.MISMATCH as Dictionary).duplicate(true)
+	for opp in Data.RIVALS:
+		if str(opp["name"]) == name:
+			return (opp as Dictionary).duplicate(true)
 	return {}
 
 
-## Generate a varied fighter from a seed. Returns a fighter_state dict.
+## Generate a varied fighter from a seed (TREEVALUE1's factory, kept). Returns a fighter_state dict.
 func _make_fighter(seed_val: int) -> Dictionary:
 	var rng := RandomNumberGenerator.new()
 	rng.seed = seed_val
@@ -138,42 +153,6 @@ func _make_fighter(seed_val: int) -> Dictionary:
 	return Data.fighter_state(f, 40 + (seed_val - SEED_START))
 
 
-func _run_bout(seed_offset: int, opp_name: String, moves: Dictionary, steps: Dictionary, combos: Dictionary) -> Dictionary:
-	var c := Career.quick_start()
-	c.fighters.append(_make_fighter(SEED_START + (seed_offset % N_FIGHTERS)))
-	c.day = 40 + seed_offset
-	var f: Dictionary = c.fighter()
-	f["camp"] = {}
-	f["morale"] = 60.0
-	f["moves"] = moves.duplicate()
-	f["steps"] = steps.duplicate()
-	f["combos"] = combos.duplicate()
-	f["arrows"] = cur_plan.duplicate(true)
-	c.coach = {}
-	var opp: Dictionary = _find_opp(opp_name)
-	if opp_rating.has(opp_name):
-		opp["rating"] = float(opp_rating[opp_name])
-	f["bout"] = {"opp": opp, "day": c.day, "weighed": true, "made": true, "done": false, "film": 0, "rounds": 3}
-	var m := {"fid": f["id"], "step": "tape", "total": 3}
-	Bouts.fight_step(c, f, m, "start")
-	while true:
-		while not LiveRound.live(m).is_empty():
-			Bouts.fight_step(c, f, m, "shout:")
-		if int(m["round"]) >= Bouts.rounds_of(f) or Bouts.stopped(m) != "":
-			break
-		Bouts.fight_step(c, f, m, "corner:" + BoutRules.auto_corner(f["stats"]))
-	Bouts.fight_step(c, f, m, "end")
-	return {"outcome": str(m.get("outcome", ""))}
-
-
-func _run_cell(opp_name: String, moves: Dictionary, steps: Dictionary, combos: Dictionary, n: int) -> Dictionary:
-	var wins := 0
-	for i in n * N_FIGHTERS:
-		var r := _run_bout(i, opp_name, moves, steps, combos)
-		wins += int(str(r["outcome"]) == "win")
-	return {"wins": wins}
-
-
 func _base_dict() -> Dictionary:
 	var moves := {}; var steps := {}; var combos := {}
 	for k in Data.MOVES:
@@ -185,284 +164,167 @@ func _base_dict() -> Dictionary:
 	return {"moves": moves, "steps": steps, "combos": combos}
 
 
+## The cell's opponent with its calibrated rating.
+func _opp_for(style: String) -> Dictionary:
+	var opp := _find_opp(str(STYLE_OPP[style]))
+	if opp_rating.has(str(opp["name"])):
+		opp["rating"] = float(opp_rating[str(opp["name"])])
+	return opp
+
+
+func _cell(plan: Array, opp: Dictionary, base: Dictionary, step: String, seed_base: int, n: int) -> Dictionary:
+	var steps: Dictionary = (base["steps"] as Dictionary).duplicate()
+	if step != "":
+		steps[step] = SHARP
+	return Cells.run_cell(Callable(self, "_make_fighter"), SEED_START, N_FIGHTERS, seed_base, n, opp, plan,
+		base["moves"], steps, base["combos"], step)
+
+
 func _initialize() -> void:
-	print("=== TREEVALUE1: is every node worth drilling against at least one style? ===")
-	print("fire_level key absent: GAME_SHARES")
-	print("Nodes: %d, Fighters: %d, Opponents: %d" % [MoveTree.NODES.size(), N_FIGHTERS, OPPS.size()])
-	print("Plan: %s" % str(PLAN.map(func(a): return str(a["move"]) + (":" + str(a["when"]) if a.has("when") else ""))))
-	# Print 5 sample fighters
-	print("--- Sample fighters (5 of %d) ---" % N_FIGHTERS)
-	for si in 5:
-		var f := _make_fighter(SEED_START + si * 10)
-		var st: Dictionary = f["stats"]
-		print("  %s: technique=%.1f fight_iq=%.1f footwork=%.1f rating=%.1f" % [
-			f["name"], float(st["technique"]), float(st["fight_iq"]), float(f.get("footwork", 50.0)), float(f.get("pot", 60.0))])
-	# PILOT: 10 bouts a cell, project time
-	var pilot_n := 10
 	var t0 := Time.get_ticks_msec()
+	print("TREEVALUE2: is each footwork / defence step worth 1.5-5 in 100 against its own style?")
+	print("fire_level key absent: GAME_SHARES")
+	print("Steps: %d, Styles: %d, bouts a cell per arm: %d, seed sets: %s, amateur 3x3, Sharp %.0f, OK grade" % [
+		StepValue.STEPS.size(), StepValue.STYLES.size(), N_BOUTS, str(SEED_SETS), SHARP])
 	var base := _base_dict()
+	var factory := Callable(self, "_make_fighter")
+	# CONTROL: the forced grade really is OK on every step (LineGrade's rule, the one the live round reads).
+	print("--- CONTROL: OK grade on every swept step (DONE_WITH pair mean %.0f) ---" % Cells.OK_PAIR)
+	var grade_ok := true
+	for step in StepValue.STEPS:
+		var sid: String = str(step)
+		var gf := _make_fighter(SEED_START)
+		gf["moves"] = base["moves"]
+		var ga := Attrs.of(gf)
+		var pair: Array = LineGrade.DONE_WITH[sid]
+		ga[str(pair[0])] = Cells.OK_PAIR
+		ga[str(pair[1])] = Cells.OK_PAIR
+		Attrs.sync(gf)
+		var gw := LineGrade.grade(sid, Attrs.of(gf))
+		print("  %s: %s (%s)" % [sid, str(gw["word"]), str(pair)])
+		if str(gw["word"]) != "OK":
+			grade_ok = false
+	if not grade_ok:
+		print("CONTROL FAILED: a swept step does not grade OK")
+		quit(1)
+		return
+	# PILOT: 10 bouts, project the full run.
+	var pilot_n := 10
+	var tp := Time.get_ticks_msec()
 	for pi in pilot_n:
-		_run_bout(pi, str(OPPS[0]["name"]), base["moves"], base["steps"], base["combos"])
-	var pilot_ms := Time.get_ticks_msec() - t0
-	var n_cells := 1 + 2 + MoveTree.NODES.size() * 2
-	var total_cells := n_cells * OPPS.size()
-	var proj_min := float(pilot_ms) / float(pilot_n) * float((total_cells + 80) * N_FIGHTERS) / 60000.0
-	print("Pilot: %d ms for %d bouts -> projected %.1f min for full run" % [pilot_ms, pilot_n, proj_min])
-	var n := 2  # bouts per fighter per cell: a cell = every one of the 60 fighters twice (120 bouts, 0.83 in 100 a bout)
-	print("--- CALIBRATE: each style's rating so BASE wins about 50 in 100 (bisect, 7 steps, 60 bouts each) ---")
-	for opp in OPPS:
-		var on: String = str(opp["name"])
+		Cells.run_bout(factory, SEED_START, N_FIGHTERS, pi, _opp_for("Pressure fighter"), PLAN, base["moves"], base["steps"], base["combos"], "")
+	var pilot_ms := Time.get_ticks_msec() - tp
+	var total_bouts := StepValue.STEPS.size() * StepValue.STYLES.size() * SEED_SETS.size() * 2 * N_BOUTS \
+		+ StepValue.STYLES.size() * 8 * 2 * N_FIGHTERS + 2 * N_BOUTS
+	print("Pilot: %d ms for %d bouts -> projected %.1f min for %d bouts" % [pilot_ms, pilot_n, float(pilot_ms) / float(pilot_n) * float(total_bouts) / 60000.0, total_bouts])
+	# CALIBRATE: each style's opponent so the full BASE plan wins about half (bisect, 7 steps, 120 bouts each).
+	print("--- CALIBRATE: each style's rating so BASE wins about 50 in 100 ---")
+	var calib_wins := {}
+	for style in StepValue.STYLES:
+		var s: String = str(style)
+		var on: String = str(STYLE_OPP[s])
+		var shipped := float(_find_opp(on)["rating"])
 		var lo := 30.0
-		var hi := float(_find_opp(on)["rating"])
+		var hi := shipped
 		for _k in 7:
 			opp_rating[on] = (lo + hi) / 2.0
-			var w := int(_run_cell(on, base["moves"], base["steps"], base["combos"], 1)["wins"])
-			if w > N_FIGHTERS / 2:
+			var w := int(_cell(PLAN, _opp_for(s), base, "", 0, 2 * N_FIGHTERS)["wins"])
+			if w > N_FIGHTERS:
 				lo = float(opp_rating[on])
 			else:
 				hi = float(opp_rating[on])
-		print("  %s (%s): shipped rating %.1f -> calibrated %.2f" % [on, str(opp["style"]), float(_find_opp(on)["rating"]), float(opp_rating[on])])
-	print("Using %d bouts a cell, %d cells, %d opponents -> %d total bouts" % [n, n_cells, OPPS.size(), n * total_cells])
-	# CONTROL 1: BASE run twice must give identical win count (determinism)
-	print("--- CONTROL 1: determinism ---")
-	var ctrl_a := _run_cell(str(OPPS[0]["name"]), base["moves"], base["steps"], base["combos"], n)
-	var ctrl_b := _run_cell(str(OPPS[0]["name"]), base["moves"], base["steps"], base["combos"], n)
-	if ctrl_a["wins"] != ctrl_b["wins"]:
-		print("DETERMINISM FAILED: ctrl_a wins=%d ctrl_b wins=%d" % [int(ctrl_a["wins"]), int(ctrl_b["wins"])])
-		_write_result_doc({}, [], [], [], 0, 0, 0, 0, true)
+		var cw := int(_cell(PLAN, _opp_for(s), base, "", 0, 2 * N_FIGHTERS)["wins"])
+		calib_wins[on] = "%d/%d" % [cw, 2 * N_FIGHTERS]
+		print("  %s (%s): shipped %.1f -> calibrated %.2f, BASE wins %s" % [on, s, shipped, float(opp_rating[on]), str(calib_wins[on])])
+	# CONTROL: determinism - the same cell twice, same wins and fires.
+	print("--- CONTROL: determinism (step_back vs Pressure fighter, with-arm, %d bouts twice) ---" % N_BOUTS)
+	var det_plan := _plan_for("step_back")
+	var det_a := _cell(det_plan, _opp_for("Pressure fighter"), base, "step_back", int(SEED_SETS[0]), N_BOUTS)
+	var det_b := _cell(det_plan, _opp_for("Pressure fighter"), base, "step_back", int(SEED_SETS[0]), N_BOUTS)
+	if int(det_a["wins"]) != int(det_b["wins"]) or int(det_a["fires"]) != int(det_b["fires"]):
+		print("DETERMINISM FAILED: a=%d/%d b=%d/%d" % [int(det_a["wins"]), int(det_a["fires"]), int(det_b["wins"]), int(det_b["fires"])])
 		quit(1)
 		return
-	print("CONTROL OK: %d wins both runs" % int(ctrl_a["wins"]))
-	# CONTROL 2: mutant arm - simplified check
-	print("--- CONTROL 2: mutant arm (FireLevel.probe_off = true, every line fires) ---")
-	FireLevel.probe_off = true
-	var mut_max := 0.0
-	for sid in MoveTree.STEP_IDS + MoveTree.DEFENCE_IDS:
-		var mw := {}
-		for val in [0, 70]:
-			var s_m: Dictionary = (base["steps"] as Dictionary).duplicate()
-			s_m[sid] = float(val)
-			mw[val] = int(_run_cell(str(OPPS[0]["name"]), base["moves"], s_m, base["combos"], n)["wins"])
-		var mv := float(int(mw[70]) - int(mw[0])) * 100.0 / float(n * N_FIGHTERS)
-		mut_max = maxf(mut_max, absf(mv))
-		print("  mutant %s: %d -> %d (VALUE %+.1f)" % [sid, int(mw[0]), int(mw[70]), mv])
-	FireLevel.probe_off = false
-	mutant_ok = mut_max <= 0.5
-	print("Mutant arm every step/defence VALUE within +-0.5: %s (max |VALUE| %.1f)" % ["yes" if mutant_ok else "NO", mut_max])
-	# BASE: all 16 nodes at 45, per opponent
-	print("--- BASE: all nodes at 45 ---")
-	var base_results := {}
-	for opp in OPPS:
-		var opp_name: String = str(opp["name"])
-		var moves_d: Dictionary = (base["moves"] as Dictionary).duplicate()
-		var steps_d: Dictionary = (base["steps"] as Dictionary).duplicate()
-		var combos_d: Dictionary = (base["combos"] as Dictionary).duplicate()
-		var res := _run_cell(opp_name, moves_d, steps_d, combos_d, n)
-		base_results[opp_name] = res
-		print("  %s (%s): %d wins (%.1f%%)" % [opp_name, str(opp["style"]), int(res["wins"]), 100.0 * int(res["wins"]) / float(n * N_FIGHTERS)])
-	# SWEEP: for each node, at 0, 45, 70
-	print("--- SWEEP: each node at 0, 45, 70 ---")
-	var node_results := {}
-	for node in MoveTree.NODES:
-		var nid: String = str(node["id"])
-		var branch: String = str(node["branch"])
-		var combo_note := ""
-		if MoveTree.PUNCH_IDS.has(nid):
-			combo_note = "combos containing %s also set" % nid
-		print("  %s (%s): %s" % [nid, branch, combo_note if combo_note != "" else "step/defence"])
-		var wins_at := {0: [], 70: []}
-		cur_plan = _plan_for(nid)
-		print("    plan: %s" % str(cur_plan.map(func(x): return str(x["move"]) + (":" + str(x["when"]) if x.has("when") else ""))))
-		for val in [0, 70]:
-			for opp in OPPS:
-				var m0: Dictionary = (base["moves"] as Dictionary).duplicate()
-				var s0: Dictionary = (base["steps"] as Dictionary).duplicate()
-				var c0: Dictionary = (base["combos"] as Dictionary).duplicate()
-				if MoveTree.PUNCH_IDS.has(nid):
-					m0[nid] = float(val)
-					for cid in MoveTree.COMBO_PUNCHES:
-						if (MoveTree.COMBO_PUNCHES[cid] as Array).has(nid):
-							c0[cid] = float(val)
-				else:
-					s0[nid] = float(val)
-				var res := _run_cell(str(opp["name"]), m0, s0, c0, n)
-				(wins_at[val] as Array).append(int(res["wins"]))
-		node_results[nid] = {"branch": branch, "wins_at": wins_at}
-	cur_plan = PLAN.duplicate(true)
-	# Calculate VALUE per node per style
-	print("")
-	print("=== RESULTS ===")
-	var header := "%-12s %-8s" % ["node", "branch"]
-	for opp in OPPS:
-		header += " %14s" % (str(opp["name"]).left(14))
-	header += " %8s" % "VALUE"
-	print(header)
-	var pass_nodes: Array = []
-	var fail_nodes: Array = []
-	var best_by_style := {}
-	for node in MoveTree.NODES:
-		var nid: String = str(node["id"])
-		var nr: Dictionary = node_results[nid]
-		var line := "%-12s %-8s" % [nid, str(nr["branch"])]
-		var max_value := -999.0
-		var max_style := ""
-		for oi in OPPS.size():
-			var opp: Dictionary = OPPS[oi] as Dictionary
-			var w0: int = int((nr["wins_at"] as Dictionary)[0][oi])
-			var w70: int = int((nr["wins_at"] as Dictionary)[70][oi])
-			var total := n * N_FIGHTERS
-			var value := float(w70 - w0) * 100.0 / float(total)
-			line += " %5d->%5d" % [w0, w70]
-			if value > max_value:
-				max_value = value
-				max_style = str(opp["style"])
-		line += " %+.1f" % max_value
-		if max_value >= 1.5:
-			pass_nodes.append(nid)
-			if max_style != "":
-				if not best_by_style.has(max_style):
-					best_by_style[max_style] = nid
-				elif best_by_style[max_style] != nid:
-					best_by_style[max_style] = "MULTI"
-		else:
-			fail_nodes.append(nid)
-		print(line)
-	# Check if any node is best against all four styles
-	var best_everywhere := "none"
-	for opp in OPPS:
-		var opp_style: String = str(opp["style"])
-		var best_node := ""
-		var best_val := -999.0
-		for node in MoveTree.NODES:
-			var nid: String = str(node["id"])
-			var nr: Dictionary = node_results[nid]
-			var oi: int = OPPS.find(opp)
-			var w0: int = int((nr["wins_at"] as Dictionary)[0][oi])
-			var w70: int = int((nr["wins_at"] as Dictionary)[70][oi])
-			var total := n * N_FIGHTERS
-			var value := float(w70 - w0) * 100.0 / float(total)
-			if value > best_val:
-				best_val = value
-				best_node = nid
-		if best_everywhere == "none":
-			best_everywhere = best_node
-		elif best_everywhere != best_node:
-			best_everywhere = "none"
-			break
-	# ANSWERS curve: fighters with 6 and 9 Usable answer nodes
-	print("")
-	print("--- ANSWERS curve: 6 vs 9 Usable answer nodes ---")
-	var answer_nodes_6 := _pick_answer_nodes(6)
-	var answer_nodes_9 := _pick_answer_nodes(9)
-	print("6 Usable: %s" % ", ".join(answer_nodes_6))
-	print("9 Usable: %s" % ", ".join(answer_nodes_9))
-	var answers_6_wins := 0
-	var answers_9_wins := 0
-	for opp in OPPS:
-		var m6: Dictionary = (base["moves"] as Dictionary).duplicate()
-		var s6: Dictionary = (base["steps"] as Dictionary).duplicate()
-		var c6: Dictionary = (base["combos"] as Dictionary).duplicate()
-		var m9: Dictionary = (base["moves"] as Dictionary).duplicate()
-		var s9: Dictionary = (base["steps"] as Dictionary).duplicate()
-		var c9: Dictionary = (base["combos"] as Dictionary).duplicate()
-		for nid in MoveTree.NODES:   # S464: punches stay at BASE; only the answer steps/defences vary (6 vs 9 Usable)
-			var id_str: String = str(nid["id"])
-			if MoveTree.PUNCH_IDS.has(id_str):
-				continue
-			if not answer_nodes_6.has(id_str):
-				s6[id_str] = 0.0
-			if not answer_nodes_9.has(id_str):
-				s9[id_str] = 0.0
-		var r6 := _run_cell(str(opp["name"]), m6, s6, c6, n)
-		var r9 := _run_cell(str(opp["name"]), m9, s9, c9, n)
-		answers_6_wins += int(r6["wins"])
-		answers_9_wins += int(r9["wins"])
-		print("  %s: 6 Usable=%d wins, 9 Usable=%d wins" % [str(opp["name"]), int(r6["wins"]), int(r9["wins"])])
-	var answers_rise := answers_9_wins > answers_6_wins
-	print("Answers rise from 6 to 9: %s" % ("yes" if answers_rise else "NO"))
-	# Final summary
-	print("")
-	print("every node VALUE >= 1.5 vs one style: %s" % ("yes" if fail_nodes.is_empty() else "NO"))
-	print("no node best against all four styles: %s" % ("yes" if best_everywhere == "none" else "NO"))
-	print("wins rise from 6 to 9 Usable answers: %s" % ("yes" if answers_rise else "NO"))
-	print("TREEVALUE pass=%d fail=%s best_everywhere=%s answers6=%d answers9=%d mutant_ok=%s" % [
-		pass_nodes.size(), ",".join(fail_nodes) if not fail_nodes.is_empty() else "none",
-		best_everywhere, answers_6_wins, answers_9_wins, "yes" if mutant_ok else "NO"])
-	_write_result_doc(node_results, pass_nodes, fail_nodes, OPPS, answers_6_wins, answers_9_wins, n, N_FIGHTERS, false)
-	quit(0 if fail_nodes.is_empty() and best_everywhere == "none" and answers_rise else 1)
-
-
-func _pick_answer_nodes(target_count: int) -> Array:
-	var answer_ids: Array = []
-	for sit in PlanFight.ANSWERS:
-		var row: Dictionary = PlanFight.ANSWERS[sit]
-		for cat in ["best", "ok"]:
-			for move_id in row.get(cat, []):
-				var node_ok := MoveTree.NODES.any(func(nd): return str(nd["id"]) == str(move_id))
-				if node_ok and not answer_ids.has(move_id):   # S464: nodes only (combo ids are not nodes)
-					answer_ids.append(move_id)
-	if answer_ids.size() <= target_count:
-		return answer_ids
-	var out: Array = []
-	for i in target_count:
-		out.append(answer_ids[i])
-	return out
-
-
-func _write_result_doc(node_results: Dictionary, pass_nodes: Array, fail_nodes: Array, opps: Array,
-		answers_6: int, answers_9: int, n: int, n_fighters: int, control_failed: bool) -> void:
-	var f := FileAccess.open("res://docs/TREEVALUE1_RESULT.md", FileAccess.WRITE)
-	if f == null:
-		print("WARNING: could not write result doc")
+	print("CONTROL OK: %d wins, %d fires both runs" % [int(det_a["wins"]), int(det_a["fires"])])
+	# SWEEP: each step x each style, with-arm vs the same plan without the line, 3 seed sets.
+	print("--- SWEEP: each step at Sharp and OK grade, plan with its line vs the same plan without it ---")
+	var results := {}
+	var without_fires := 0
+	for step in StepValue.STEPS:
+		var sid: String = str(step)
+		var with_plan := _plan_for(sid)
+		var without_plan: Array = with_plan.filter(func(a): return str(a["move"]) != sid)
+		print("  %s plan: %s" % [sid, str(with_plan.map(func(x): return str(x["move"]) + (":" + str(x["when"]) if x.has("when") else "")))])
+		var cells := {}
+		for style in StepValue.STYLES:
+			var s: String = str(style)
+			var opp := _opp_for(s)
+			var deltas: Array = []
+			var wins_with := 0
+			var wins_without := 0
+			var fires := 0
+			var uses := 0
+			var n_total := 0
+			for sb in SEED_SETS:
+				var w := _cell(with_plan, opp, base, sid, int(sb), N_BOUTS)
+				var wo := _cell(without_plan, opp, base, sid, int(sb), N_BOUTS)
+				deltas.append(float(int(w["wins"]) - int(wo["wins"])) * 100.0 / float(N_BOUTS))
+				wins_with += int(w["wins"])
+				wins_without += int(wo["wins"])
+				fires += int(w["fires"])
+				uses += int(w["uses"])
+				without_fires += int(wo["fires"])
+				n_total += N_BOUTS
+			var mean := 0.0
+			for d in deltas:
+				mean += float(d)
+			mean /= float(deltas.size())
+			cells[s] = {"delta": mean, "seeds": deltas, "fires": fires, "uses": uses, "with": wins_with, "without": wins_without, "n": n_total}
+			print("CELL step=%s style=%s with=%d without=%d delta=%+.2f fires/bout=%.2f uses/bout=%.2f seeds=%s" % [
+				sid, s, wins_with, wins_without, mean, float(fires) / float(n_total), float(uses) / float(n_total), str(deltas)])
+		results[sid] = {"cells": cells}
+	if without_fires != 0:
+		print("CONTROL FAILED: the swept step fired %d times as planned in the without-arm (its line is out)" % without_fires)
+		quit(1)
 		return
-	var dt := Time.get_datetime_string_from_system()
-	f.store_line("# TREEVALUE1 Result")
-	f.store_line("")
-	f.store_line("Probe run: %s. n=%d bout(s) per fighter per cell, %d fighters, %d opponents." % [dt, n, n_fighters, opps.size()])
-	f.store_line("")
-	f.store_line("## Question")
-	f.store_line("")
-	f.store_line("Is every move-tree node worth drilling against at least one style?")
-	f.store_line("VALUE = win% at 70 (Sharp) minus win% at 0. Pass: VALUE >= 1.5 against at least one style.")
-	f.store_line("")
-	f.store_line("## Method")
-	f.store_line("")
-	f.store_line("60 generated fighters (seeds 7100-7159), 4 style opponents.")
-	f.store_line("BASE: all 16 nodes at 45 (Usable). For each node: same seeds at 0 and 70 (45 = BASE).")
-	f.store_line("For punches, combos containing that punch are also set.")
-	f.store_line("fire_level key ABSENT (game shares: Usable 0.5, Sharp 0.75, Signature 1.0).")
-	f.store_line("Opponent ratings CALIBRATED so BASE wins about 50 in 100: %s." % str(opp_rating))
-	f.store_line("")
-	f.store_line("## Result")
-	f.store_line("")
-	if control_failed:
-		f.store_line("**CONTROL FAILED: determinism broken**")
-	else:
-		f.store_line("**TREEVALUE pass=%d fail=%s**" % [pass_nodes.size(), ",".join(fail_nodes) if not fail_nodes.is_empty() else "none"])
-	f.store_line("")
-	f.store_line("| Node | Branch | VALUE per style | Max VALUE |")
-	f.store_line("|------|--------|-----------------|-----------|")
-	for node in MoveTree.NODES:
-		var nid: String = str(node["id"])
-		if not node_results.has(nid):
-			continue
-		var nr: Dictionary = node_results[nid]
-		var values_str := ""
-		var max_val := -999.0
-		for oi in opps.size():
-			var w0: int = nr["wins_at"][0][oi]
-			var w70: int = nr["wins_at"][70][oi]
-			var total := n * n_fighters
-			var value := float(w70 - w0) * 100.0 / float(total)
-			values_str += "%s:%.1f " % [opps[oi]["style"].left(10), value]
-			if value > max_val:
-				max_val = value
-		f.store_line("| %s | %s | %s | %.1f |" % [nid, str(nr["branch"]), values_str.strip_edges(), max_val])
-	f.store_line("")
-	f.store_line("## Answers curve")
-	f.store_line("")
-	f.store_line("6 Usable answer nodes: %d wins" % answers_6)
-	f.store_line("9 Usable answer nodes: %d wins" % answers_9)
-	f.store_line("Rises: %s" % ("yes" if answers_9 > answers_6 else "NO"))
-	f.close()
-	print("Result doc written to docs/TREEVALUE1_RESULT.md")
+	# SUMMARY: the gate's three legs per step, the count, one line per FAIL.
+	print("")
+	print("=== RESULTS: measured win difference in 100 (TARGET beside it) ===")
+	var header := "%-10s" % "step"
+	for style in StepValue.STYLES:
+		header += " %18s" % str(style).left(16)
+	header += " %6s" % "gate"
+	print(header)
+	var pass_count := 0
+	var fail_lines: Array = []
+	for step in StepValue.STEPS:
+		var sid: String = str(step)
+		var cells: Dictionary = results[sid]["cells"]
+		var lg := Cells.legs(sid, cells)
+		var line := "%-10s" % sid
+		for style in StepValue.STYLES:
+			var s: String = str(style)
+			line += " %+6.1f (t%+5.1f)" % [float(cells[s]["delta"]), float(StepValue.TARGET[sid][s])]
+		line += " %6s" % ("PASS" if bool(lg["pass"]) else "FAIL")
+		print(line)
+		print("  %s: best %s %+.1f in 1.5-5: %s; wrong %s %+.1f negative: %s; others 0 to +1: %s" % [
+			sid, str(lg["best"]), float(cells[str(lg["best"])]["delta"]), "yes" if bool(lg["best_ok"]) else "NO",
+			str(lg["wrong"]), float(cells[str(lg["wrong"])]["delta"]), "yes" if bool(lg["wrong_ok"]) else "NO",
+			"yes" if bool(lg["others_ok"]) else "NO"])
+		if bool(lg["pass"]):
+			pass_count += 1
+		else:
+			var fl := Cells.fail_line(sid, cells, lg)
+			fail_lines.append(fl)
+			print(fl)
+	print("")
+	for fl in fail_lines:
+		print(fl)
+	print("Without-arm planned fires of the swept steps: %d (must be 0)" % without_fires)
+	var elapsed := float(Time.get_ticks_msec() - t0) / 1000.0
+	Cells.write_doc({"dt": Time.get_datetime_string_from_system(), "results": results, "n_bouts": N_BOUTS,
+		"seed_sets": SEED_SETS, "n_fighters": N_FIGHTERS, "seed_start": SEED_START, "opp_rating": opp_rating,
+		"calib_wins": calib_wins, "det": {"a": int(det_a["wins"]), "b": int(det_b["wins"]), "fa": int(det_a["fires"]), "fb": int(det_b["fires"])},
+		"grade_ok": grade_ok, "without_fires": without_fires, "elapsed_s": elapsed})
+	print("TREEVALUE2 done pass=%d/10" % pass_count)
+	quit(0)

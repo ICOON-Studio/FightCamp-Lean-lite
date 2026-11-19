@@ -49,7 +49,15 @@ static func is_open(f: Dictionary) -> bool:
 
 
 static func open_for(c: Career) -> Array:
-	return c.fighters.filter(func(f): return is_open(f))
+	return c.fighters.filter(func(f): return is_open(f) and not stale(c, f))
+
+
+## An ask nobody can answer any more: its show day has passed, or the boxer holds a bout another way (a sheet offer taken
+## the same week). The nightly review 2026-11-19: such an ask stayed a red need for good and took the Go button on fight night.
+static func stale(c: Career, f: Dictionary) -> bool:
+	if not is_open(f):
+		return false
+	return int(f["late_ask"]["show"]) < c.day or not (f.get("bout", {}) as Dictionary).is_empty()
 
 
 ## Ready for a show: the Ask door open and inside the club-show weight gap with the boxer the sheet would send.
@@ -82,6 +90,9 @@ static func candidates(c: Career, show_day: int) -> Array:
 
 static func monday(c: Career) -> Array:
 	var out: Array = []
+	for g in c.fighters:   # a stale ask closes quietly (no favour, no news)
+		if stale(c, g):
+			g["late_ask"] = {}
 	var show := c.day + FightWeekEvents.ROLL_DAYS_OUT
 	var region: GDScript = load("res://scripts/state/Region.gd")
 	if not region.is_show_day(show):

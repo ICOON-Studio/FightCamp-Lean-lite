@@ -20,7 +20,13 @@ METHOD line below (S510) - quote it in the first message.
 3. TURNING PRO: all of the design's s6 wired (M11 week review lines S524). Collect TURNPROBE1 (Goose #380) -> size the
    ESTIMATEs in scripts/rules/ProCall.gd. Collect PROCONTRACT1 (Arena, lite branch arena/4ab4ee7f-fightcamp-lean-lite;
    chat https://arena.ai/agent/01a1f1a9-8a2a-711e-a9ce-0dc74ab4ee7f): a failing check is a finding - fix the code or the contract.
-4. TREEVALUE2: Qwen timed out (exit 124) after writing tools/treevalue_probe.gd + tools/treevalue_cells.gd (copied to main,
+4. TREEVALUE2 RESULT (PC run finished after the handover, committed with docs/TREEVALUE2_RESULT.md): 0 of 10 steps pass
+   the 1.5-5-in-100 gate. step_back (+3.8 v Pressure, -2.7 v Out-boxer) and feint (+3.5 v Counter-puncher) are near; roll_out
+   and push_off read EXACTLY 0 against every style (likely not reaching the fight at all - check the wire before tuning);
+   cut_off / herd negative everywhere; tie_up +1 to +3 everywhere (no style dependence). Read the doc, run
+   `python ops/Tools/prior_research.py step value`, decide whether this is tuning (StepEffect.TABLE rows) or a method finding
+   (CLAUDE.md item 8: METHOD line + scope plan). Close PR #382 after.
+   (old note) TREEVALUE2: Qwen timed out (exit 124) after writing tools/treevalue_probe.gd + tools/treevalue_cells.gd (copied to main,
    uncommitted until the result). Claude ran it on the PC (~2 h, 150k bouts, output in $TEMP/treevalue2.txt of S524; if lost,
    rerun: `python ops/Tools/godot_slot.py run --who treevalue2 -- <godot> --headless --audio-driver Dummy --fixed-fps 60 --path .
    --script res://tools/treevalue_probe.gd`). Then commit both files + docs/TREEVALUE2_RESULT.md, tune StepEffect, close PR #382.

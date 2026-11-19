@@ -330,7 +330,7 @@ static func lock(c: Career, f: Dictionary, plan: Dictionary) -> String:
 			# S519 v11 3.4: half a read, never a dead end - the second half (alone again or any later tape) opens a tell
 			var got := OppFile.half_tape(b["opp"])
 			c.add_news(("%s watched the tape of %s alone and finished the read: a new tell found." if got != "" else
-				"%s watched the tape of %s alone: half a read - the next film of her opens a tell.") % [str(f["first"]), str(b["opp"]["first"])], true, true)
+				"%s watched the tape of %s alone: half a read - the next film of that opponent opens a tell.") % [str(f["first"]), str(b["opp"]["first"])], true, true)
 		else:
 			var id := OppFile.tape(b["opp"])
 			if id != "":
