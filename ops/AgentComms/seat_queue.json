@@ -3363,17 +3363,45 @@
    "seat": "dola",
    "brief": "research/DESIGN_LEDGER1_V1_CRITIC_DOLA.md",
    "stem": "DESIGN_LEDGER1_V1_CRITIC_DOLA_DOLA",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-19 11:14",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-19 11:40",
+   "pid": 35048,
+   "transcript": "AgentComms/seat_logs/SQ228_dola.txt",
+   "answered_at": "2026-11-19 12:10",
+   "answer": "research/DESIGN_LEDGER1_V1_CRITIC_DOLA_DOLA.md",
+   "seen_by_claude": true
   },
   {
    "id": "SQ229",
    "seat": "maria",
    "brief": "research/DESIGN_LEDGER1_V1_CRITIC_MARIA.md",
    "stem": "DESIGN_LEDGER1_V1_CRITIC_MARIA_MARIA",
-   "status": "queued",
+   "status": "cancelled",
    "queued_at": "2026-11-19 11:14",
+   "tries": 0,
+   "skips": 4,
+   "last_error": "2026-11-19 13:11 gbot send rc=1: ['GROKBOT FAIL listAgents 404  The request could not be routed']",
+   "note": "S526: Grok bots unreachable (404, out since S512) - moved (SQ229 -> Goose critic, SQ230 -> Dola)"
+  },
+  {
+   "id": "SQ230",
+   "seat": "kalli",
+   "brief": "research/DESIGN_COACHFIT1_V9_REVISE_KALLI.md",
+   "stem": "DESIGN_COACHFIT1_V9_REVISE_KALLI_KALLI",
+   "status": "cancelled",
+   "queued_at": "2026-11-19 13:12",
+   "tries": 0,
+   "note": "S526: Grok bots unreachable (404, out since S512) - moved (SQ229 -> Goose critic, SQ230 -> Dola)"
+  },
+  {
+   "id": "SQ231",
+   "seat": "dola",
+   "brief": "research/DESIGN_COACHFIT1_V9_REVISE_DOLA.md",
+   "stem": "DESIGN_COACHFIT1_V9_REVISE_DOLA_DOLA",
+   "status": "queued",
+   "queued_at": "2026-11-19 13:15",
    "tries": 0
   }
  ]

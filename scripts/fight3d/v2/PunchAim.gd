@@ -20,6 +20,7 @@ var _contact_s := 0.0
 var _offset: Callable         # () -> Vector3: target - where the take will put the glove front, world
 var _latched := Vector3.ZERO
 var _has_latch := false
+var _out_t := -1.0            # seconds past the contact (>= 0 once it has landed); counted here when the take is cut
 var last_m := 0.0
 var left_m := 0.0             # what the solve could not close (m): the arm is at its reach
 var front_rel := Vector3.ZERO  # wrist -> glove front, skeleton space, as the take holds it at its contact
@@ -46,6 +47,7 @@ func arm(clip: String, hand: String, contact_s: float, offset_fn: Callable, wris
 	_contact_s = contact_s
 	_offset = offset_fn
 	_has_latch = false
+	_out_t = -1.0
 	last_m = 0.0
 
 
@@ -54,10 +56,21 @@ func disarm() -> void:
 
 
 func _process_modification() -> void:
-	if _clip == "" or ap == null or str(ap.current_animation) != _clip:
+	if _clip == "" or ap == null:
 		_clip = ""
 		return
-	var ct := ap.current_animation_position - _contact_s
+	var ct := 0.0
+	if str(ap.current_animation) != _clip:
+		# S526: the take was handed back to the guard after its contact (the arm comes home): the finish eases out
+		# on its own clock instead of letting go in one frame (up to 18 cm of the hand). Cut BEFORE the contact: gone.
+		if _out_t < 0.0:
+			_clip = ""
+			return
+		_out_t += get_process_delta_time()
+		ct = _out_t
+	else:
+		ct = ap.current_animation_position - _contact_s
+		_out_t = ct if ct >= 0.0 else -1.0
 	if ct < -IN_S:
 		return
 	if ct > HOLD_S + OUT_S:

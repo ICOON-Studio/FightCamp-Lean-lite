@@ -1,0 +1,67 @@
+# TREEVALUE3 PARTIAL (S526 copy at 13:17; the PC run was still going - feint/tie_up/roll_out/push_off not yet measured here)
+
+TREEVALUE2: is each footwork / defence step worth 1.5-5 in 100 against its own style?
+fire_level key absent: GAME_SHARES
+Steps: 10, Styles: 6, bouts a cell per arm: 400, seed sets: [0, 10000, 20000], amateur 3x3, Sharp 60, OK grade
+--- CONTROL: OK grade on every swept step (DONE_WITH pair mean 56) ---
+  step_in: OK (["footwork", "explosiveness"])
+  step_out: OK (["footwork", "speed"])
+  step_back: OK (["footwork", "speed"])
+  pivot_out: OK (["footwork", "composure"])
+  cut_off: OK (["footwork", "fight_iq"])
+  herd: OK (["footwork", "fight_iq"])
+  feint: OK (["fight_iq", "timing"])
+  tie_up: OK (["inside", "strength"])
+  roll_out: OK (["defence", "flexibility"])
+  push_off: OK (["strength", "durability"])
+Pilot: 519 ms for 10 bouts -> projected 130.2 min for 150560 bouts
+--- CALIBRATE: each style's rating so BASE wins about 50 in 100 ---
+  Maria Ortega (Pressure fighter): shipped 61.5 -> calibrated 52.89, BASE wins 60/120
+  Jade Cooper (Slugger): shipped 57.0 -> calibrated 55.95, BASE wins 59/120
+  Holly Price (Out-boxer): shipped 59.0 -> calibrated 54.24, BASE wins 64/120
+  Priya Nair (Counter-puncher): shipped 63.5 -> calibrated 53.29, BASE wins 63/120
+  Erin Doyle (Volume puncher): shipped 65.5 -> calibrated 53.02, BASE wins 60/120
+  Dana Whitfield (Boxer-puncher): shipped 72.0 -> calibrated 52.64, BASE wins 60/120
+--- CONTROL: determinism (step_back vs Pressure fighter, with-arm, 400 bouts twice) ---
+CONTROL OK: 204 wins, 861 fires both runs
+--- SWEEP: each step at Sharp and OK grade, plan with its line vs the same plan without it ---
+  step_in plan: ["step_back", "pivot_out", "tie_up", "roll_out:loadup", "push_off:press", "1-1-2:press", "1-6-3:counter", "slip 2-3:loadup", "3b-3:tiring", "step_in", "feint:counter", "cut_off:tiring", "herd:hurt", "step_out:she_tired"]
+CELL step=step_in style=Pressure fighter with=549 without=548 delta=+0.08 fires/bout=0.48 uses/bout=0.65 seeds=[0.0, 0.25, 0.0]
+CELL step=step_in style=Slugger with=540 without=540 delta=+0.00 fires/bout=0.40 uses/bout=0.55 seeds=[0.25, 0.25, -0.5]
+CELL step=step_in style=Out-boxer with=542 without=534 delta=+0.67 fires/bout=1.11 uses/bout=1.49 seeds=[0.25, 0.75, 1.0]
+CELL step=step_in style=Counter-puncher with=589 without=584 delta=+0.42 fires/bout=1.83 uses/bout=2.48 seeds=[0.0, 0.25, 1.0]
+CELL step=step_in style=Volume puncher with=547 without=544 delta=+0.25 fires/bout=0.42 uses/bout=0.59 seeds=[0.25, 0.0, 0.5]
+CELL step=step_in style=Boxer-puncher with=541 without=537 delta=+0.33 fires/bout=0.77 uses/bout=1.04 seeds=[0.25, 0.5, 0.25]
+  step_out plan: ["step_back", "pivot_out", "tie_up", "roll_out:loadup", "push_off:press", "1-1-2:press", "2-3:range", "1-2-3b:range", "1-6-3:counter", "slip 2-3:loadup", "3b-3:tiring", "step_in:range", "feint:counter", "cut_off:tiring", "herd:hurt", "step_out"]
+CELL step=step_out style=Pressure fighter with=563 without=554 delta=+0.75 fires/bout=1.37 uses/bout=1.85 seeds=[0.5, 0.5, 1.25]
+CELL step=step_out style=Slugger with=555 without=552 delta=+0.25 fires/bout=1.38 uses/bout=1.84 seeds=[0.5, -0.75, 1.0]
+CELL step=step_out style=Out-boxer with=589 without=572 delta=+1.42 fires/bout=1.60 uses/bout=2.17 seeds=[1.25, 1.5, 1.5]
+CELL step=step_out style=Counter-puncher with=612 without=602 delta=+0.83 fires/bout=1.35 uses/bout=1.82 seeds=[0.5, 0.75, 1.25]
+CELL step=step_out style=Volume puncher with=583 without=577 delta=+0.50 fires/bout=1.66 uses/bout=2.22 seeds=[0.25, 0.5, 0.75]
+CELL step=step_out style=Boxer-puncher with=577 without=557 delta=+1.67 fires/bout=1.51 uses/bout=2.07 seeds=[2.0, 1.25, 1.75]
+  step_back plan: ["step_back", "pivot_out", "tie_up", "roll_out:loadup", "push_off:press", "1-1-2:press", "2-3:range", "1-2-3b:range", "1-6-3:counter", "slip 2-3:loadup", "3b-3:tiring", "step_in:range", "feint:counter", "cut_off:tiring", "herd:hurt", "step_out:she_tired"]
+CELL step=step_back style=Pressure fighter with=573 without=529 delta=+3.67 fires/bout=2.16 uses/bout=2.88 seeds=[4.75, 2.5, 3.75]
+CELL step=step_back style=Slugger with=566 without=526 delta=+3.33 fires/bout=2.16 uses/bout=2.85 seeds=[3.75, 2.25, 4.0]
+CELL step=step_back style=Out-boxer with=576 without=595 delta=-1.58 fires/bout=1.49 uses/bout=2.06 seeds=[-2.75, -1.25, -0.75]
+CELL step=step_back style=Counter-puncher with=603 without=613 delta=-0.83 fires/bout=0.85 uses/bout=1.15 seeds=[-0.25, -1.75, -0.5]
+CELL step=step_back style=Volume puncher with=595 without=566 delta=+2.42 fires/bout=2.53 uses/bout=3.40 seeds=[1.75, 0.25, 5.25]
+CELL step=step_back style=Boxer-puncher with=572 without=582 delta=-0.83 fires/bout=1.86 uses/bout=2.50 seeds=[-1.25, 0.25, -1.5]
+  pivot_out plan: ["step_back", "pivot_out", "tie_up", "roll_out:loadup", "push_off:press", "1-1-2:press", "2-3:range", "1-2-3b:range", "1-6-3:counter", "slip 2-3:loadup", "3b-3:tiring", "step_in:range", "feint:counter", "cut_off:tiring", "herd:hurt", "step_out:she_tired"]
+CELL step=pivot_out style=Pressure fighter with=565 without=549 delta=+1.33 fires/bout=2.83 uses/bout=3.76 seeds=[1.75, 0.25, 2.0]
+CELL step=pivot_out style=Slugger with=560 without=544 delta=+1.33 fires/bout=3.40 uses/bout=4.51 seeds=[0.75, 1.5, 1.75]
+CELL step=pivot_out style=Out-boxer with=580 without=580 delta=+0.00 fires/bout=0.95 uses/bout=1.27 seeds=[0.0, -0.5, 0.5]
+CELL step=pivot_out style=Counter-puncher with=613 without=611 delta=+0.17 fires/bout=1.01 uses/bout=1.36 seeds=[0.25, 0.5, -0.25]
+CELL step=pivot_out style=Volume puncher with=586 without=573 delta=+1.08 fires/bout=2.24 uses/bout=2.98 seeds=[1.5, 1.0, 0.75]
+CELL step=pivot_out style=Boxer-puncher with=572 without=570 delta=+0.17 fires/bout=1.89 uses/bout=2.54 seeds=[0.25, 0.25, 0.0]
+  cut_off plan: ["step_back", "pivot_out", "tie_up", "roll_out:loadup", "push_off:press", "1-1-2:press", "2-3:range", "1-2-3b:range", "1-6-3:counter", "slip 2-3:loadup", "step_in:range", "feint:counter", "cut_off", "herd:hurt", "step_out:she_tired"]
+CELL step=cut_off style=Pressure fighter with=583 without=605 delta=-1.83 fires/bout=0.89 uses/bout=1.22 seeds=[-1.75, -1.75, -2.0]
+CELL step=cut_off style=Slugger with=578 without=588 delta=-0.83 fires/bout=0.96 uses/bout=1.31 seeds=[-0.25, -1.75, -0.5]
+CELL step=cut_off style=Out-boxer with=620 without=623 delta=-0.25 fires/bout=1.13 uses/bout=1.53 seeds=[-0.5, -0.75, 0.5]
+CELL step=cut_off style=Counter-puncher with=644 without=639 delta=+0.42 fires/bout=0.99 uses/bout=1.35 seeds=[0.25, 0.75, 0.25]
+CELL step=cut_off style=Volume puncher with=587 without=619 delta=-2.67 fires/bout=1.19 uses/bout=1.60 seeds=[-3.25, -2.75, -2.0]
+CELL step=cut_off style=Boxer-puncher with=592 without=603 delta=-0.92 fires/bout=1.10 uses/bout=1.49 seeds=[0.0, -2.0, -0.75]
+  herd plan: ["step_back", "pivot_out", "tie_up", "roll_out:loadup", "push_off:press", "1-1-2:press", "2-3:range", "1-2-3b:range", "1-6-3:counter", "slip 2-3:loadup", "3b-3:tiring", "step_in:range", "feint:counter", "cut_off:tiring", "herd", "step_out:she_tired"]
+CELL step=herd style=Pressure fighter with=604 without=607 delta=-0.25 fires/bout=0.18 uses/bout=0.25 seeds=[-0.25, -0.25, -0.25]
+CELL step=herd style=Slugger with=591 without=593 delta=-0.17 fires/bout=0.13 uses/bout=0.18 seeds=[-0.25, -0.25, 0.0]
+CELL step=herd style=Out-boxer with=632 without=634 delta=-0.17 fires/bout=0.20 uses/bout=0.27 seeds=[0.25, -0.25, -0.5]
+CELL step=herd style=Counter-puncher with=642 without=646 delta=-0.33 fires/bout=0.22 uses/bout=0.30 seeds=[-0.75, 0.0, -0.25]

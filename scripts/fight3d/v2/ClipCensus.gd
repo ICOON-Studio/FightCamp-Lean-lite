@@ -63,7 +63,7 @@ const ROW_KEYS := ["kind", "length_s", "hips_fwd_m", "hips_side_m", "hips_end_m"
 	"face_up_deg", "over_crown_frames", "turn_deg", "pelvis_turn_deg", "knee_deg", "drop", "flags", "played"]
 const PUNCH_KEYS := ["family", "form", "hand", "contact_gap_m", "miss_m", "side_m", "up_m", "contact_s",
 	"glove_y_m", "own_head_y_m", "hips_at_contact_m", "head_fwd_m", "start_s", "home_s"]
-const REACT_KEYS := ["head_peak_m", "head_peak_s", "head_dir", "head_rel_m", "back_s", "size"]
+const REACT_KEYS := ["head_peak_m", "head_peak_s", "head_dir", "head_rel_m", "head_rel_s", "back_s", "size"]
 
 
 static func kind(clip: String) -> String:

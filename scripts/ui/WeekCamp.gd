@@ -22,6 +22,7 @@ const WeekPhase := preload("res://scripts/rules/WeekPhase.gd")
 const WeekTwist := preload("res://scripts/rules/WeekTwist.gd")
 const WeekOpp := preload("res://scripts/rules/WeekOpp.gd")
 const OppFile := preload("res://scripts/rules/OppFile.gd")
+const GuardNotes := preload("res://scripts/rules/GuardNotes.gd")
 const CampForecast := preload("res://scripts/state/CampForecast.gd")
 const GaugeRow := preload("res://scripts/ui/GaugeRow.gd")
 
@@ -240,9 +241,16 @@ func _line_under(main: Node, fid: String, f: Dictionary, id: String, ln: Diction
 		h.add_child(WB.ink("this week %d; rest days and Light mornings bring it down" % int(round(float(ln["week"]))), UI.SMALL, "hand", WB.PENCIL, true))
 	elif id == "opp":
 		var who := str(ln["label"]).trim_prefix("vs ")
-		h.add_child(WB.ink("%s %s: %d %s morning%s a week. The coach's week ignores the opponent - you watched the tape." % [who,
+		var v := UI.vbox(2)
+		v.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		h.add_child(v)
+		v.add_child(WB.ink("%s %s: %d %s morning%s a week. The coach's week ignores the opponent - you watched the tape." % [who,
 			str(OppFile.GAME_WORDS.get(str(ln["game"]), "")), int(ln["target"]), str(WeekOpp.WORDS.get(str(ln["session"]), "")),
 			"" if int(ln["target"]) == 1 else "s"], UI.SMALL, "hand", WB.PENCIL, true))
+		for s in GuardNotes.lines(str(ln["game"]), not bool(f.get("pro", false))):   # S526 guard v4 step 6 (design s3 camp)
+			var g := WB.ink(str(s), UI.SMALL, "hand", WB.PENCIL, true)
+			g.name = "GuardNote"
+			v.add_child(g)
 	else:
 		var builders := PackedStringArray()
 		for s in WeekPlan.ORDER:

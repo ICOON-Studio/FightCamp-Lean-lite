@@ -30,6 +30,21 @@ const WIND_MIN_S := 0.12      # a take never starts later than this before its c
 ## combination started 0.12 s before its contact, so the take's whole hip turn - 80-110 deg - was joined in three
 ## frames: "blue spins and shows his back"). It cuts the first punch's way home a little sooner instead.
 const WIND_TURN_S := 0.26
+## S526 a defence starts this long before the punch it answers lands, part-way into its take (its head still off the
+## line on the blow). The dodge and weave takes take 0.43-0.93 s to their furthest point: started from their first
+## frame the man ducked before the punch was thrown at all, which reads as bobbing, not as a read (both critics on
+## film 4: "each starts 4-6 frames before the punch lands"; 10 frames here - the owned takes travel 30-70 cm).
+const DEF_LEAD_S := 0.33
+## S526 THE ARM COMES HOME (both critics on films 3 and 4: "the glove leaves the target in 1-2 frames and is back at
+## the chin by frame 6"; it stayed out 8-15 frames). The bought takes bring the hand back 0.3-0.5 s after the contact
+## (a hook 0.6-1.4 s: clip_db home_s). A punch take is handed back to the guard this long after its contact - a
+## straight at once, a hook, an uppercut or a body shot after its follow-through - and the join brings the hand home.
+const ARM_HOME_S := 0.07
+const ARM_HOME_TURN_S := 0.14
+
+
+static func arm_home_s(move: String) -> float:
+	return ARM_HOME_S if is_straight(move) else ARM_HOME_TURN_S
 
 
 # --- Stun durations by reaction size (scope 3d) ---
@@ -119,7 +134,26 @@ static func impact_s_for(move: String) -> float:
 ## part-way in, so the head is furthest REACT_PEAK_S after the glove lands (the join smoother makes the snap).
 const REACT_PEAK_S := 0.13
 const REACT_VARY_SCORE := 0.30
-const REACT_MIN_PEAK_M := {"light": 0.11, "medium": 0.21}   # the critics' floors: a jab 8-14 cm, a cross or a hook 18-30
+## S526 SIZED TO THE PUNCH (four films, both critics, item 1 every time): how far the hit head should travel against
+## his own body, by the punch (their asks: jab 10-12 cm, cross 20-25, hook 25-30, uppercut 15-20, a body shot a fold
+## of 30-50). The reaction take whose own head travel (clip_db head_rel_m) is nearest plays; a big shot asks more.
+## (The film's ruler reads about 0.8 of a take's head_rel_m, so the asks sit a little over the critics' numbers.)
+const REACT_HEAD_M := {"jab": 0.15, "cross": 0.24, "lead_hook": 0.24, "rear_hook": 0.24, "lead_uppercut": 0.18,
+	"rear_uppercut": 0.18, "body_hook": 0.30}
+const REACT_BIG := 1.4
+const REACT_VARY_M := 0.045       # takes this near the best fit share the punch (variety)
+## The census drops a reaction whose face tips up over 15 deg ("face to the lights", r14). A head snapped back by a
+## cross, a hook or an uppercut tips up by its nature: for those punches a take dropped ONLY for that, up to this, plays.
+const REACT_FACE_UP_OK_DEG := 30.0
+## Takes that build too slowly to read as a hit: the head is furthest 9 frames after the blow wherever the take is
+## started from (measured on the bout, s525/h; the critics' bar is 2-3). They play only when nothing else fits.
+const REACT_SLOW := ["pro_hit_by_jab_v1"]
+const REACT_TAIL_S := 0.45        # a reaction hands back to the guard this long after its head's furthest point
+const REACT_STAGGER_S := 1.0      # ... a body shot's after its stagger, this long at most
+
+
+static func react_head_m(move: String, big: bool) -> float:
+	return float(REACT_HEAD_M.get(move, 0.15)) * (REACT_BIG if big else 1.0)
 
 
 static func react_size_for(move: String, big: bool) -> String:

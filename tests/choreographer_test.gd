@@ -205,6 +205,12 @@ func _r8_def() -> void:
 	var plan2 := Choreo.plan([_beat("a", "jab", "misses", 5.0, {"def": "slip"})], db, _opts())
 	var defs: Array = plan2["tracks"]["b"].filter(func(e): return str(e["kind"]) == "defence")
 	_check(defs.size() == 1, "R8: slipped jab gives b a defence take")
+	if defs.size() == 1:
+		var dfe: Dictionary = defs[0]
+		var d_ct: float = float(plan2["beats"][0]["contact_t"])
+		var d_peak: float = float(db["rows"][str(dfe["clip"])].get("head_peak_s", 0.3))
+		_check(d_ct - float(dfe["t"]) <= R.DEF_LEAD_S + 0.001, "R8: the slip starts no earlier than DEF_LEAD_S before the punch lands (%.2f s)" % (d_ct - float(dfe["t"])))
+		_check(absf(float(dfe["t"]) + d_peak - float(dfe["from_s"]) - d_ct) < 0.01, "R8: ... and its head is furthest off the line as the punch arrives")
 	# Miss: planned SHORT
 	var plan3 := Choreo.plan([_beat("a", "jab", "misses", 5.0)], db, _opts())
 	var ob: Dictionary = plan3["beats"][0]
@@ -304,7 +310,7 @@ func _r14_waits() -> void:
 			for e in evs:
 				var k := str(e["kind"])
 				if k in Wait.BUSY:
-					var left: float = float((rows.get(str(e.get("clip", "")), {}) as Dictionary).get("length_s", 1.2)) - float(e.get("from_s", 0.0))
+					var left: float = float(e.get("until_s", (rows.get(str(e.get("clip", "")), {}) as Dictionary).get("length_s", 1.2))) - float(e.get("from_s", 0.0))
 					busy.append([float(e["t"]), maxf(float(e["control_t"]), float(e["t"]) + (left if k != "pass" else 2.0))])
 					spans.append(busy[-1])
 				elif k in ["fidget", "feint"]:

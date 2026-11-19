@@ -128,6 +128,7 @@ static func plan(beats: Array, db: Dictionary, opts: Dictionary) -> Dictionary:
 		marks.append({"t": contact_t, "gap": pgap, "who": who, "kind": "contact"})
 		ev[who].append({"t": t_play, "clip": take_name, "kind": "punch", "part": "whole", "from_s": from_s,
 			"join_s": R.join_for("punch"), "control_t": contact_t + R.CONTROL_S, "contact_t": contact_t, "move": move,
+			"until_s": contact_s + R.arm_home_s(move) + 0.25,   # his hand is home (Player2 hands the take back to the guard): a wait thing may start
 			"result": result, "big": big, "ik_m": ik_m})
 		ctrl_until[who] = contact_t + R.CONTROL_S
 		prev_ct = contact_t
@@ -147,7 +148,19 @@ static func plan(beats: Array, db: Dictionary, opts: Dictionary) -> Dictionary:
 			var gives: bool = str(ri[2]) == "whole"
 			react_part = "whole"
 			var rt: float = contact_t
-			ev[other].append({"t": rt, "clip": react_name, "kind": "reaction", "part": "?", "from_s": maxf(float(rrow.get("head_peak_s", 0.0)) - R.REACT_PEAK_S, 0.0),
+			# S526: a reaction starts so the head's FIRST peak against his own body (clip_db head_rel_s) is on the
+			# blow. It used to start at the head's furthest point WITH the body's travel: on a gut shot that is the end
+			# of the stagger, 0.5-0.8 s after the fold, so a man hit to the ribs stood tall (8.9 cm measured, the take
+			# folds 27-35); on a combination take it is the third hit, and the first snap never played. A head
+			# reaction hands back to the guard REACT_TAIL_S later (a combination take went on reacting to punches
+			# nobody threw); a body shot's plays its stagger out.
+			var r_peak: float = float(rrow.get("head_peak_s", 0.0))
+			var r_at: float = minf(r_peak, float(rrow.get("head_rel_s", r_peak)))
+			var r_from: float = maxf(r_at - R.REACT_PEAK_S, 0.0)
+			var r_until: float = minf(r_peak + 0.15, r_at + R.REACT_STAGGER_S) if move == "body_hook" else r_at + R.REACT_TAIL_S
+			r_until = minf(r_until, float(rrow.get("length_s", r_until)))
+			ev[other].append({"t": rt, "clip": react_name, "kind": "reaction", "part": "?", "from_s": r_from,
+				"until_s": r_until,
 				"join_s": R.join_for("reaction"), "control_t": rt + R.stun_for(str(ri[3])), "size": str(ri[3]), "move": move})
 			ctrl_until[other] = maxf(float(ctrl_until[other]), rt + R.stun_for(str(ri[3])))
 			stun_until[other] = maxf(float(stun_until[other]), contact_t + R.stun_for(str(ri[3])))
@@ -155,7 +168,7 @@ static func plan(beats: Array, db: Dictionary, opts: Dictionary) -> Dictionary:
 			# combination", so most reactions inside a burst were pinned and a cross moved nobody): a follow-up due
 			# inside KNOCK_FREE_S keeps him on the spot only when the feet could not cover his travel in that time.
 			var give_m: float = float(rrow.get("hips_max_m", 0.0)) * float(scale.get(other, 1.0))
-			var give_s: float = maxf(0.18, give_m / 2.0)   # how long the knock takes (Player2.LEAD_MPS)
+			var give_s: float = maxf(maxf(0.18, give_m / 2.0), r_peak - r_from - R.REACT_PEAK_S)   # how long the knock takes (Player2.LEAD_MPS; a gut shot's stagger takes its own time)
 			var k_at: int = keys.find(key)
 			for kk in range(k_at + 1, keys.size()):
 				var nb: Dictionary = beats[int(keys[kk][1])]
@@ -165,7 +178,7 @@ static func plan(beats: Array, db: Dictionary, opts: Dictionary) -> Dictionary:
 						react_part = "upper"
 					break
 			(ev[other][-1] as Dictionary)["part"] = react_part
-			if react_part == "whole" and gives:
+			if react_part == "whole" and gives and r_peak <= r_until + 0.05:   # the take's travel plays out before it hands back
 				var travel: float = float(rrow.get("hips_max_m", 0.0)) * float(scale.get(other, 1.0))
 				marks.append({"t": contact_t + give_s, "gap": pgap + travel, "who": other, "kind": "knock"})   # S525: he gives the ground on the blow (Player2 lead), was +0.3
 				prev_gap = pgap + travel
@@ -182,12 +195,13 @@ static func plan(beats: Array, db: Dictionary, opts: Dictionary) -> Dictionary:
 			if defence_name != "":
 				var drow: Dictionary = di[1]
 				var peak_s: float = float(drow.get("head_peak_s", 0.3))
-				var dt: float = contact_t - peak_s
+				var lead_in: float = minf(peak_s, R.DEF_LEAD_S)
+				var dt: float = contact_t - lead_in
 				# S525: while a take of his own still has him (a punch planned earlier in the burst) the defence waits and
 				# starts part-way in, so its head is still off the line on time (it used to start on schedule and be cut).
-				var d_from := 0.0
+				var d_from := peak_s - lead_in
 				if dt < float(ctrl_until[other]):
-					d_from = clampf(float(ctrl_until[other]) - dt, 0.0, maxf(peak_s - 0.12, 0.0))
+					d_from = clampf(d_from + float(ctrl_until[other]) - dt, 0.0, maxf(peak_s - 0.12, 0.0))
 					dt = contact_t - (peak_s - d_from)
 				ev[other].append({"t": dt, "clip": defence_name, "kind": "defence", "part": "whole", "from_s": d_from,
 					"join_s": R.join_for("defence"), "control_t": contact_t + float(drow.get("back_s", 0.4))})

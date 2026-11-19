@@ -28,5 +28,13 @@ never earn more than ORACLE's edge, so v3's prices cannot pay whatever they cost
      ambition leaving). Pick one, probe it, then rerun K1.
 3. Only after K1 passes: knowledge step 3 (bands on the week review) per the design's section 14.
 
+## Phase 2 decision (S526, Claude, from docs/KNOWBOTS5_RESULT.md)
+Pool not flat (rating spread best-median 20, best-worst 30.5). ORACLE vs BLIND top-10s +11.1 / +9.8 / +7.3% (VOID by a
+hair); ORACLE-POT and ORACLE-BOTH LOSE to BLIND (to -18.8%): potential is not the missing truth - no v3 revise toward
+potential. Mean |shown - true| on the rating is 0.83: cause 3 holds. Why: Knowledge._offset is independent per attribute,
+so ~20 errors cancel in the rating. A real first look misreads the whole kid. Next: KNOWBOTS6 (Goose, TASK_KNOWBOTS6.md)
+adds a shared per-prospect misread (rho 0 / 0.5 / 0.8 / 1.0). A rho that passes 8% -> Knowledge gets the shared term
+(a code change Claude makes, test red first), then K1 reruns. None passes -> the "no stakes" levers above go to Kalli.
+
 ## Until then
 KnowWire step 2 stays (it counts what we see; nothing shown). No new knowledge screen, no price tuning.

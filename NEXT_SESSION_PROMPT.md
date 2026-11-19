@@ -1,33 +1,31 @@
-# S526 handover (written 2026-11-19, S525 - Opus)
+# S527 handover (written 2026-11-19, S526 - Opus)
 
-Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. S525 is in roadmap `now`.
+Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. S526 is in roadmap `now`.
 
 ## GOAL (owner, verbatim, still on): "i want animations fixed (at least 7/10)"
 The ONLY animation session is now "anim-range" (Claude Desktop, Fable, local_ffb51673; lean-f3 stopped at the owner's
 $60 cap). Do not start another while it runs. Its state: the ANIMATION LOOP STATE section below (third v2 film 4.0 / 4.5).
 METHOD line below (S510) - quote it in the first message.
 
-## MAIN LINE - DO FIRST (S525 left four runs going; collect each)
-1. TREEVALUE3 (PC, started ~11:15, ~2 h): tools/treevalue_probe.gd rerun AFTER the S525 step-lever wiring (StepWire
-   levers / open_edge: DENY / DRAIN / OPEN / own tank now reach the exchange - TREEVALUE2 read roll_out / push_off at exactly
-   0 because only the ropes count was wired). Output E:/FightCamp/tmp/treevalue3.txt (+ the probe's own result page; if it
-   overwrote docs/TREEVALUE2_RESULT.md, save it as docs/TREEVALUE3_RESULT.md and restore the old one from git). Then size
-   StepEffect.TABLE rows (deny / open / drain) toward 1.5-5 in 100 against each step's own style; rerun; then STEPVALUE1's
-   "step worth on the learn card".
-2. Goose #388 KNOWBOTS5 (ops/research/KNOWLEDGE_SCOPE_S525.md phase 1): which truth decides a career - rating, potential or
-   neither. Decide per the scope's phase 2. NO knowledge screen until K1 passes.
-3. Goose #389 TURNTUNE1: ProCall ESTIMATEs sized on TURNPROBE1's pass lines (2 of 9 pass today; "costs" ask best 81%).
-   Collect by diff (constants only), rerun pro_call / pro_offer_wire / pro_contract / golden_path.
-4. Qwen FITPROBE2 (running, E:/FightCamp/wt/LEAN_FITPROBE2): coach fit on the EVENINGS. Then decide the fit numbers (the
-   +3..+5 stat bar cannot be met by x1.32 on today's +3.5 base gain - Claude's call) and wire COACHFIT1. Qwen SPLIT500C
-   (GymSpend 492 -> GymDeals.gd) is queued behind it.
-5. Critics SQ228 Dola + SQ229 Maria on LEDGER1 v1 (ops/research/DESIGN_LEDGER1_V1.md, checked against the code: signing
-   bonus and per-bout entry fee are NOT in the code). 7+/7+ -> his board with `ask --attach`; lower -> revise round.
-6. Guard v4 left: step 5's HUD pieces live in scripts/fight3d (HudBars hover transmission %, icon on the bar) - the
-   animation session's files: do them when it is idle, or brief it. Step 6 menus: fight plan defence tab, camp/fight-week
-   amateur note, opponent style warning (design s3 table). Step 3 is DECIDED not built (the leak is the feedback).
-7. Ludo (paid to ~11 Dec, one asset job a session): S525 gave it none. The 5 missing step cards (step_out, pivot_out,
-   cut_off, roll_out, push_off in assets/ui/moves) are baked from the game's clips (tools/bake_move_pics.gd), not Ludo.
+## MAIN LINE - DO FIRST (S526 state; S526 is in roadmap `now`)
+1. STEPTUNE1 (Goose #394, TASK_STEPTUNE1.md): sizes StepEffect.TABLE toward StepValue.TARGET on the 20 best / wrong
+   cells, from a PARTIAL TREEVALUE3 (docs/TREEVALUE3_RESULT.txt). The PC run's full file is E:/FightCamp/tmp/treevalue3.txt
+   (feint / tie_up / roll_out / push_off rows came after the copy): read it beside Goose's result. Collect by diff (TABLE
+   numbers only), rerun the step_* tests + golden_path; then STEPVALUE1's "step worth on the learn card".
+2. Goose #391 KNOWBOTS6 (TASK_KNOWBOTS6.md): a shared per-prospect misread rho 0/0.5/0.8/1.0. Decision rule is in
+   KNOWLEDGE_SCOPE_S525.md "Phase 2 decision (S526)". KNOWBOTS5 said: potential readers LOSE, shown rating off 0.83 only.
+3. Goose #392 TURNPROBE2 (TASK_TURNPROBE2.md): turning pro lines 2/4/7 measured as the design means them (debut's own
+   money, each ask played forward from one snapshot, paired PREP-YES). TURNTUNE1: no constant moved them; none taken.
+4. COACHFIT1 v9 revise at Dola SQ231 (FITPROBE2: TOP fit = Sharp 1.53 weeks sooner, +0.08 wins in 100, FOCUS +0.95:
+   no stakes as a multiplier). Then two fresh critics (Goose + Dola chat), 7+/7+. COACHFIT1 is NOT wired until then.
+5. LEDGER1 v1: Dola 8 / 8 (SQ228). Second critic Goose #393. Both 7+ -> his board with `ask --attach`.
+6. Guard v4: step 6 camp notes DONE S526 (GuardNotes under THIS CAMP's vs line; not rendered yet - render it on the
+   hidden desktop when no game is open). Left: step 5 HUD (scripts/fight3d = the animation session's files) and the
+   fight plan defence tab - posture (GuardWear.POSTURE_*) is not wired into GuardState: design call first (a new choice
+   needs a probe), not a menu alone.
+7. GROK CHAT SEATS ARE DOWN (gbot 404): Kalli / Maria / John queue items fail. Use Dola (chat) and Goose (critic issues).
+8. Ludo (paid to ~11 Dec): no asset job in S525/S526 (S526 ran at 98% weekly usage and saved it for the animation session).
+9. Qwen SPLIT500C running (GymSpend -> GymDeals, E:/FightCamp/wt/LEAN_SPLIT500C): collect by diff.
 
 ## DONE IN S525 (Opus; all on main, tests named in each commit green)
 - Collected 7 probes: GUARDPROBE1, MORNINGSPROBE2, MONEYFOUR2, FITPROBE1 (Qwen), KNOWBOTS4 (Goose #379), TURNPROBE1 (Goose
@@ -368,7 +366,40 @@ The v2 player EXISTS and plays the real bout behind `-- fightplayer2`. FIRST BLI
 BELOW the old player (see FIRST FILM below). When this section was first written it had not been filmed: the owner's
 game (ArcheAge) was open the whole session and films run only when no game window is open (Q-267). r14 = 4.5 / 4.5 is the
 control arm; the shipped player is untouched without the switch.
-- S525b (2026-11-19 ~12:00, the same session's second stage). READ THIS FIRST, it is the newest:
+- S526 (2026-11-19 ~13:30, the same animation session, HEADLESS: the owner's game was open all stage, so NOTHING
+  below is filmed or judged). READ THIS FIRST, it is the newest. Commits 541bf1ea5, c2c61cbfa, 4f4cb2a59:
+  * REACTIONS SIZED TO THE PUNCH (541bf1ea5; film-4 list item 1). Cause found: a reaction was started at the head's
+    furthest point WITH the body's travel - on a gut shot the end of the stagger, 0.5-0.8 s after the fold, on a
+    combination take the third hit - so the snap itself never played. clip_db now carries `head_rel_s` (the head's
+    first peak against the hips; `tools/clip_census.gd`, the table otherwise unchanged) and a reaction starts so
+    that peak is on the blow. `ChoreoReact` picks the take whose own head travel (`head_rel_m`) is nearest what the
+    punch should do (`ChoreoRules.REACT_HEAD_M`: jab 0.15, cross 0.24, hooks 0.24, uppercuts 0.18, body 0.30 m; a
+    big shot x1.4). A take dropped ONLY for a face tipped up to 30 deg plays for a cross / hook / uppercut
+    (`pro_hit_by_cross_v3`, the one owned reaction that is a cross landing flush). A head reaction hands back to
+    the guard 0.45 s after its peak; `pro_hit_by_jab_v1` (peaks 9 frames late) plays only when nothing else fits.
+    Headless, seed 7 (`s525/h`), against film 4: the hit head 7.3 -> 14.4 cm at the median; body 8.9 -> 28.1 cm
+    (33 in the ring), cross 9.2 -> 17.3 (the flush take 25), hook 10.5 -> 19.4, jab 6.3 -> 8.7 (12 in the ring);
+    reactions peaking later than 4 frames 1 -> 0. Head jumps 11 -> 16: the bigger snaps themselves.
+  * DEFENCE (c2c61cbfa; list item 2). TWO findings. (a) THE CRITICS WERE NEVER SHOWN ONE: the five sheet sets are
+    cut round the landed punches and none contains a defence (8 play in 75 s: film s 18.6, 22.4, 23.3, 30.6, 40.1,
+    47.3, 47.9, 68.6). On film 4's own frames the duck under the jab at 23.0-23.2 s reads (`s525/look_def/`).
+    THE NEXT BRIEFS MUST ADD TWO DEFENCE SETS (e.g. 22.4-24.0 s and 46.8-48.8 s; check the times on the new film).
+    (b) Timing: the dodge / weave takes take 0.43-0.93 s to their furthest point and were started from their first
+    frame, so the man ducked before the punch was thrown. A defence now starts `DEF_LEAD_S` 0.33 s before the
+    contact, part-way into its take, its head still furthest off the line on the blow (test R8).
+  * THE ARM COMES HOME (4f4cb2a59; list item 3). The bought takes bring the hand back 0.3-0.5 s after the contact
+    (hooks 0.6-1.4 s: clip_db `home_s` is a DURATION after the contact). A punch take is handed to the guard 0.07 s
+    after its contact (a hook, an uppercut or a body shot 0.14 s) with a 0.22 s join; PunchAim eases its finish
+    out on its own clock when the take is cut. Headless (`s525/j`): arm left out after the contact 3 -> 2 frames
+    at the median, 15 -> 8 at worst; frames with the chest over 70 deg off the line to him 38 / 26 -> 23 / 10;
+    all 15 landed gloves unchanged (2-18 cm); slip 7.9 / 7.5 -> 7.0 / 7.5 m. Watch on film: does a punch cut this
+    soon still show its weight (the owner's C432: "the shoulder movement needs to generate the power")?
+  * NEXT: (1) FILM the moment no game window is listed (this film carries SEVEN unfilmed commits: e56c96814,
+    6a4f9ffea, 541bf1ea5, c2c61cbfa, 4f4cb2a59 and the main session's caption dfb6ee2c1) and LOOK: the spins, the
+    cross reaction with the face tipped up, the fold, the arm home, the caption under the clock; (2) cut the
+    sheets WITH two defence sets, briefs from `s525/BRIEF_critic_*.tmpl` (they carry the press-flash line; add the
+    new sets to the list), blind round on Opus; (3) then feet (list item 4) and the waits' second half (item 5).
+- S525b (2026-11-19 ~12:00, the same session's second stage; film 4):
   * FOURTH FILM + BLIND ROUND (`E:/FightCamp/tmp/fightweek/v2r7/`, film = commit 06f2dc3a9, seed 7, 75 s):
     coach 4.5, animator 4.5. Film 3 was 4.0 / 4.5, film 2 3.5 / 3.5, the old player r14 4.5 / 4.5: v2 now EQUALS
     the old player. THE GATE (7 + 7) IS NOT MET; v2 stays behind its switch.

@@ -1,0 +1,27 @@
+# KNOWBOTS5 Result: Which truth decides a career?
+
+Status: PROBE COMPLETE. Discipline: boxing.
+Red Test: `tools/knowbots5_probe.gd -> KNOWBOTS5 done`
+
+## Part 1: The Pool (seeds 7000-7059)
+Prospects: 512
+True rating spread (best-median): 20.0 | (best-worst): 30.5
+Potential spread (best-median): 14 | (best-worst): 25
+Mean |shown - true|: 0.83
+
+## Part 2: Four Signers
+Measure: top10
+
+### ORACLE (highest true rating)
+Pcts vs BLIND: [11.1111111111111, 1.03626943005181, 1.17406074638838, 0.5603774856071, 9.78260869565217, -1.81194906953967, -0.95734942561449, 0.64601743601296, 7.29166666666667, 2.19724067450179, 1.12070468913572, 0.63234996248376]
+
+### ORACLE-POT (highest potential)
+Pcts vs BLIND: [3.33333333333333, 1.34715025906736, 2.5573820518833, -2.83658540871142, -1.08695652173913, -1.17531831537708, -0.76810013651842, -2.51140114690833, -18.75, -2.35053653551354, -2.23724848858447, -3.65532946806263]
+
+### ORACLE-BOTH (highest projected rating after 4 years)
+Projection: 208 weeks x 1.0 x headroom + WorldAge._rise_per_year
+Pcts vs BLIND: [2.22222222222222, 0.82901554404145, 2.21093093018473, -3.24706151287735, -4.34782608695652, -1.22428991185113, -0.61760597072631, -2.50861494648306, -14.5833333333333, -0.45988758303526, -1.49883284527575, -2.18810775308757]
+
+## Timing
+Pilot: 63.50 s
+Projected: 2857.68 s (47.63 min)

@@ -8,101 +8,66 @@ const BeatClips := preload("res://scripts/fight3d/BeatClips.gd")
 
 static func react(db: Dictionary, rows: Dictionary, move: String, big: bool, from_left: bool, rng: RandomNumberGenerator, hfh: float, log: Array) -> Array:
 	var size: String = R.react_size_for(move, big)
+	var want: float = R.react_head_m(move, big)
 	# Direction: straight -> back (x >= 0.6); hook from left -> his left (y >= 0.5); hook from right -> his right (y <= -0.5)
 	var want_back: bool = R.is_straight(move) or move.contains("uppercut")
-	var want_side: int = 0  # 0 = no side preference, 1 = his left, -1 = his right
-	if move.contains("hook"):
-		want_side = 1 if from_left else -1
 	var is_body: bool = move == "body_hook"
-	var best: String = ""
-	var best_row: Dictionary = {}
-	var best_score: float = 999.0
-	var size_order: Array = _size_order(size)
-	var pool: Array = []   # S513: every take of the best size that goes the right way ([score, name])
-	for sz in size_order:
-		if not pool.is_empty():
-			break
-		for n in rows:
-			var r: Dictionary = rows[n]
-			if str(r.get("kind", "")) != "reaction":
+	var want_side: int = 0  # 0 = no side preference, 1 = his left, -1 = his right
+	if move.contains("hook") and not is_body:
+		want_side = 1 if from_left else -1
+	var pool: Array = []    # [score, name]: the takes that go the right way, by how near their head travel is to the ask
+	var any: Array = []     # ... and every take of the right kind, for when none goes the right way
+	for n in rows:
+		var r: Dictionary = rows[n]
+		if str(r.get("kind", "")) != "reaction" or not may_play(r, move != "jab"):
+			continue
+		if is_body != str(n).contains("gutshot"):
+			continue
+		var hd: Array = r.get("head_dir", [])
+		if hd.size() < 3:
+			continue
+		var score: float = absf(float(r.get("head_rel_m", 0.0)) - want) + (0.0 if str(n).begins_with("pro_") else 0.05) + (0.2 if str(n) in R.REACT_SLOW else 0.0)
+		any.append([score, str(n)])
+		var dx: float = float(hd[0])
+		var dy: float = float(hd[1])
+		if want_back and not is_body:
+			if dx < 0.6:
 				continue
-			if (r.get("drop", []) as Array).size() > 0:
+			score += absf(dx - 0.8) * 0.05
+		if want_side != 0:
+			if (want_side > 0 and dy < 0.5) or (want_side < 0 and dy > -0.5):
 				continue
-			if str(r.get("size", "")) != sz:
-				continue
-			if is_body and not str(n).contains("gutshot"):
-				continue
-			if not is_body and str(n).contains("gutshot"):
-				continue
-			var hd: Array = r.get("head_dir", [])
-			if hd.size() < 3:
-				continue
-			var dx: float = float(hd[0])
-			var dy: float = float(hd[1])
-			var ok := true
-			var score: float = 0.0
-			if want_back and not is_body:
-				if dx < 0.6:
-					ok = false
-				else:
-					score += absf(dx - 0.8)
-			if want_side != 0 and not is_body:
-				if want_side > 0 and dy < 0.5:
-					ok = false
-				elif want_side < 0 and dy > -0.5:
-					ok = false
-				else:
-					score += absf(dy - float(want_side) * 0.7)
-			if not ok:
-				continue
-			pool.append([score, str(n)])
-			if score < best_score:
-				best_score = score
-				best = str(n)
-				best_row = r
-	# S525 (three films, both critics: a counted hit moves the head 7.5 cm at the median): of the takes that go the
-	# right way, the ones whose head travels under REACT_MIN_PEAK_M for their size play only when nothing bigger does.
-	var big_enough: Array = pool.filter(func(c): return float(rows[str(c[1])].get("head_peak_m", 0.0)) >= float(R.REACT_MIN_PEAK_M.get(str(rows[str(c[1])].get("size", "")), 0.0)))
-	if not big_enough.is_empty() and big_enough.size() < pool.size():
-		pool = big_enough
-		best_score = 999.0
-		for c in pool:
-			if float(c[0]) < best_score:
-				best_score = float(c[0])
-				best = str(c[1])
-				best_row = rows[best]
-	# S513 (the first v2 film: nearly every head punch played ONE take, pro_hit_by_hook_v3): any take within
-	# VARY_SCORE of the best may play, drawn by the plan's own seed.
-	var near: Array = pool.filter(func(c): return float(c[0]) <= best_score + R.REACT_VARY_SCORE)
-	if near.size() > 1:
-		near.sort_custom(func(x, y): return str(x[1]) < str(y[1]))
-		best = str(near[rng.randi_range(0, near.size() - 1)][1])
+			score += absf(dy - float(want_side) * 0.7) * 0.05
+		pool.append([score, str(n)])
+	if pool.is_empty() and not any.is_empty():
+		pool = any
+		log.append("react: %s no take goes the right way" % move)
+	var best: String = "react_head"
+	var best_row: Dictionary = rows.get("react_head", {})
+	if not pool.is_empty():
+		pool.sort_custom(func(x, y): return float(x[0]) < float(y[0]) if float(x[0]) != float(y[0]) else str(x[1]) < str(y[1]))
+		# S513: nearly every head punch played ONE take; any take within REACT_VARY_M of the best fit may play.
+		var near: Array = pool.filter(func(c): return float(c[0]) <= float(pool[0][0]) + R.REACT_VARY_M)
+		best = str(near[rng.randi_range(0, near.size() - 1)][1]) if near.size() > 1 else str(pool[0][1])
 		best_row = rows[best]
-	if best == "":
-		# Fallback: nearest size with any direction
-		for sz in size_order:
-			for n in rows:
-				var r: Dictionary = rows[n]
-				if str(r.get("kind", "")) != "reaction" or (r.get("drop", []) as Array).size() > 0:
-					continue
-				if str(r.get("size", "")) != sz:
-					continue
-				if is_body and not str(n).contains("gutshot"):
-					continue
-				if not is_body and str(n).contains("gutshot"):
-					continue
-				best = str(n)
-				best_row = r
-				break
-			if best != "":
-				log.append("react: %s fallback size %s" % [move, sz])
-				break
-	if best == "":
-		best = "react_head"
-		best_row = rows.get("react_head", {})
 	var hips: float = float(best_row.get("hips_max_m", 0.0))
 	var rpart: String = "whole" if hips >= R.WHOLE_BODY_HIPS_M else "upper"
 	return [best, best_row, rpart, size]
+
+
+## A reaction take may play when the census dropped nothing on it, or - for a power punch - dropped it only for a face
+## tipped up no more than R.REACT_FACE_UP_OK_DEG.
+static func may_play(r: Dictionary, power: bool) -> bool:
+	var drops: Array = r.get("drop", [])
+	if drops.is_empty():
+		return true
+	if not power:
+		return false
+	for d in drops:
+		var txt := str(d)
+		if not txt.begins_with("face tips up ") or float(txt.trim_prefix("face tips up ").get_slice(" ", 0)) > R.REACT_FACE_UP_OK_DEG:
+			return false
+	return true
 
 
 static func _size_order(size: String) -> Array:

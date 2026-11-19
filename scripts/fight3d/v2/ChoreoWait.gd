@@ -43,7 +43,7 @@ static func add(tracks: Dictionary, db: Dictionary, t0: float, t1: float, contac
 			if not (str(e["kind"]) in BUSY):
 				continue
 			var row: Dictionary = rows.get(str(e.get("clip", "")), {})
-			var left: float = float(row.get("length_s", 1.2)) - float(e.get("from_s", 0.0))
+			var left: float = float(e.get("until_s", row.get("length_s", 1.2))) - float(e.get("from_s", 0.0))
 			busy.append([float(e["t"]), maxf(float(e["control_t"]), float(e["t"]) + (left if str(e["kind"]) != "pass" else 2.0))])
 		busy.sort_custom(func(x, y): return float(x[0]) < float(y[0]))
 		var free_from := t0 + 0.2

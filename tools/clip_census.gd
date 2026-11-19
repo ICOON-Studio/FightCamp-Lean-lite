@@ -198,6 +198,7 @@ func _measure(clip: String) -> Dictionary:
 	var head_max := 0.0
 	var head_i := 0
 	var rel_max := 0.0
+	var rels := PackedFloat32Array()   # S526: the head against the hips, frame by frame (head_rel_s)
 	var face_up := 0.0
 	var crown := 0
 	var turn := 0.0
@@ -213,7 +214,8 @@ func _measure(clip: String) -> Dictionary:
 		if hd.length() > head_max:
 			head_max = hd.length()
 			head_i = i
-		rel_max = maxf(rel_max, (hd - ((p["Hips"] as Vector3) - (p0["Hips"] as Vector3))).length())
+		rels.append((hd - ((p["Hips"] as Vector3) - (p0["Hips"] as Vector3))).length())
+		rel_max = maxf(rel_max, rels[i])
 		face_up = maxf(face_up, rad_to_deg(asin(clampf(((p["head_basis"] as Basis) * face_local).normalized().y, -1.0, 1.0))))
 		var top: float = (p["Head"] as Vector3).y + Census.OVER_CROWN_M * scale
 		if (p["LeftHand"] as Vector3).y > top or (p["RightHand"] as Vector3).y > top:
@@ -251,8 +253,28 @@ func _measure(clip: String) -> Dictionary:
 				break
 		row.merge({"head_peak_m": _r(head_max), "head_peak_s": _r(head_i / HZ), "size": Census.react_size(head_max),
 			"head_dir": [snappedf(-dir.dot(fwd), 0.01), snappedf(dir.dot(side), 0.01), snappedf(dir.y, 0.01)],
-			"head_rel_m": _r(rel_max), "back_s": _r(back)})
+			"head_rel_m": _r(rel_max), "head_rel_s": _r(_first_peak(rels, rel_max) / HZ), "back_s": _r(back)})
 	return row
+
+
+## S526 the frame of the head's FIRST peak against the hips: the first frame within 85 % of the take's most, walked on
+## to the top of that rise. (head_peak_s is the head's furthest point WITH the body's travel: on a gut shot that is the
+## end of the stagger, 0.5-1 s after the fold; a reaction started there never shows the fold.)
+func _first_peak(rels: PackedFloat32Array, most: float) -> int:
+	var i := 0
+	while i < rels.size() and rels[i] < most * 0.85:
+		i += 1
+	# ... to the top of that rise: on while anything in the next 0.15 s is higher (a 1-frame dip is not the top)
+	var look := int(HZ * 0.15)
+	var moved := true
+	while moved:
+		moved = false
+		for k in range(i + 1, mini(i + look + 1, rels.size())):
+			if rels[k] > rels[i]:
+				i = k
+				moved = true
+				break
+	return mini(i, maxi(rels.size() - 1, 0))
 
 
 ## The punch measures (see the header) for the hand the take throws: by its name, or the nearer of the two.

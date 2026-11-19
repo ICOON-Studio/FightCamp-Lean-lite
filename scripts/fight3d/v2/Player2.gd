@@ -35,6 +35,7 @@ const JOIN := {"punch": Vector2(0.05, 0.15), "reaction": Vector2(0.035, 0.11), "
 	"defence": Vector2(0.05, 0.15), "guard": Vector2(0.10, 0.30), "pass": Vector2(0.10, 0.30),
 	"fidget": Vector2(0.10, 0.30), "feint": Vector2(0.05, 0.15)}
 const JOIN_TURN := Vector2(0.08, 0.24)
+const JOIN_HOME := Vector2(0.06, 0.22)   # the punching hand back to the guard (ChoreoRules.ARM_HOME_S)
 const LEAD_MPS := 2.0         # a reaction's lost travel is given at most this fast (0.19 m in 0.11 s, 0.5 m in 0.25 s)
 const WAITING := ["", "guard", "fidget", "feint"]   # what a wait thing (ChoreoWait) may take over
 const DOWN := ["knock", "fall", "countdown", "win", "ko_"]
@@ -58,6 +59,7 @@ var _drawn: Array = [{}, {}]        # per boxer: Head and Chest as drawn last fr
 var _sampled := false
 var _feet: Array = [null, null]      # per boxer: FootCarry (the legs in the fight)
 var _moved: Array = [Transform3D.IDENTITY, Transform3D.IDENTITY]   # per boxer: the plan's own motion of his body since FootCarry last asked
+var _join_next := Vector2.ZERO       # the next _play joins with this instead of its kind's join (the arm home)
 var hit_until := -1.0         # a landed punch is on screen until this clock time (the film's rulers find contacts by it)
 var pair: PairPlace = PairPlace.new(self)   # where the pair stands and faces (follow, side-on, facing)
 var contacts: Array = []      # every contact as played: {t, who, move, result, gap, take} (the rulers read it)
@@ -225,6 +227,10 @@ func _event(i: int, e: Dictionary) -> void:
 		_wait(i, e)
 		return
 	_play(i, clip, float(e["from_s"]), kind, kind == "punch" or str(e.get("part", "whole")) == "whole")
+	if kind == "reaction" and e.has("until_s"):   # S526: back to the guard once the reaction has shown (ChoreoRules.REACT_TAIL_S)
+		_due.append([t + maxf(float(e["until_s"]) - float(e["from_s"]), 0.2), func() -> void:
+			if str(_take[i].get("clip", "")) == clip and str(_take[i].get("kind", "")) == "reaction" and not _down(i):
+				guard(i)])
 	if kind != "punch":
 		return
 	var who := "a" if i == 0 else "b"
@@ -248,6 +254,10 @@ func _event(i: int, e: Dictionary) -> void:
 			FightSfx.blocked()
 		else:
 			FightSfx.missed(0.0, move, "")])
+	_due.append([ct + R.arm_home_s(move), func() -> void:   # S526: the arm comes home (after the contact's own entry: same tick, this order)
+		if str(_take[i].get("clip", "")) == clip and str(_take[i].get("kind", "")) == "punch":
+			_join_next = JOIN_HOME
+			guard(i)])
 
 
 ## A wait thing (ChoreoWait): a fidget take or a window of one, a paw or a feint (a punch take to `until_s` and back).
@@ -345,6 +355,9 @@ func _play(i: int, clip: String, from_s: float, kind: String, travel: bool) -> v
 	if str(ap.current_animation) == clip:
 		ap.stop()
 	var j: Vector2 = JOIN.get(kind, JOIN["punch"])
+	if _join_next != Vector2.ZERO:
+		j = _join_next
+		_join_next = Vector2.ZERO
 	# S525: a hook, an uppercut or a body shot thrown straight out of his own punch joins slower. The jab before it
 	# ends with the trunk turned 65-80 deg and the next take starts square: at the punch join that turn came back in
 	# three frames (50 deg in one). The wind such a punch now gets (ChoreoRules.WIND_TURN_S) has the room.

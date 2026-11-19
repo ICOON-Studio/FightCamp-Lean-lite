@@ -20,7 +20,7 @@ const Sim := preload("res://scripts/state/Sim.gd")
 
 const BOTS := ["YES", "RANK", "PREP", "NEVER", "AMB"]
 const SEED_SETS := [4421, 9001]
-const N := 30
+var N := 30
 const WEEKS := 104
 const PICKS := ["Jab and move", "Pad rounds", "Hill sprints"]
 const DOC := "res://docs/TURNPROBE1_RESULT.md"
@@ -29,6 +29,13 @@ var results: Array = []
 
 
 func _initialize() -> void:
+	var args := OS.get_cmdline_args()
+	for i in range(args.size()):
+		if args[i] == "--" and i + 1 < args.size():
+			var narg := args[i + 1]
+			if narg.is_valid_int():
+				N = int(narg)
+			break
 	var t0 := Time.get_ticks_msec()
 	print("TURNPROBE1 %d careers/bot x %d bots x %d seed sets, %d weeks; seeds %s" % [N, BOTS.size(), SEED_SETS.size(), WEEKS, str(SEED_SETS)])
 	for ss in SEED_SETS:
