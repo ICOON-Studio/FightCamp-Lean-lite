@@ -25,7 +25,7 @@ const FOCUS_MORNING := 10
 const FOCUS_OTHER_MORNING := -3
 const TEMPER_SUITS := 6
 const TEMPER_CLASH := -8
-const STEADY_ALWAYS := 2
+const STEADY_ALWAYS := 0   # S529 COACHFIT_SHEET 6: a temper that is +2 for everyone is not a choice
 const MODE_RIGHT := 4
 const MODE_WRONG := -4
 const STACK_CAP := 1.6
@@ -148,8 +148,13 @@ static func gain_mult(fit: int) -> float:
 	return 0.5 + float(fit) / 100.0
 
 
+## S529 COACHFIT_SHEET 3: held inside 0.92..1.08 (Arena v9 item 3); multiplies the load a session adds, never recovery.
+const TIRED_LO := 0.92
+const TIRED_HI := 1.08
+
+
 static func tired_mult(fit: int) -> float:
-	return 1.125 - 0.0025 * float(fit)
+	return clampf(1.125 - 0.0025 * float(fit), TIRED_LO, TIRED_HI)
 
 
 static func ceiling_mult(value: float, ceiling: float) -> float:
@@ -158,10 +163,13 @@ static func ceiling_mult(value: float, ceiling: float) -> float:
 	return 1.0
 
 
-static func capped(gain_mult: float, camp_mult: float) -> Dictionary:
-	var prod: float = gain_mult * camp_mult
-	var limited: float = minf(prod, STACK_CAP)
-	var capped_flag: bool = prod > STACK_CAP
+## S529 COACHFIT_SHEET 4: today = what the gain already gets with no fit (coached morning x camp). The fit is held at
+## max(STACK_CAP, today): it never lifts past 1.6, and never cuts a product the game already gives (x1.89) at fit 50.
+static func capped(gain_mult: float, today: float) -> Dictionary:
+	var prod: float = gain_mult * today
+	var top: float = maxf(STACK_CAP, today)
+	var limited: float = minf(prod, top)
+	var capped_flag: bool = prod > top
 	return {"mult": limited, "capped": capped_flag}
 
 
