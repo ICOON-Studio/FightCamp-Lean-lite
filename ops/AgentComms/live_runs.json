@@ -1104,6 +1104,20 @@
    "eta": "2026-11-19T21:30",
    "note": "S530 collected (lite PR 28): deal_contract_test PASS on main; mutant 1 (shared costs two slots) -> fails=4; in run_tests.sh",
    "finished": "2026-11-19T21:00"
+  },
+  "HOTBLIND1": {
+   "agent": "arena",
+   "id": "HOTBLIND1",
+   "title": "Blind contract test of on-a-run + ducked/owed",
+   "status": "landed",
+   "started": "2026-11-19T21:10",
+   "where": "cloud",
+   "repo": "FightCamp-Lean-lite",
+   "brief": "ops/research/TASK_HOTBLIND1.md",
+   "chat": "https://arena.ai/agent/01a1f4f9-c256-7f72-9c01-4d6369174de7",
+   "eta": "2026-11-19T22:00",
+   "note": "S530 collected (lite PR 29): hot_contract_test PASS on main; mutant POINTS 8->15 -> 5 checks FAIL; in run_tests.sh",
+   "finished": "2026-11-19T21:40"
   }
  },
  "codex_budget": {
