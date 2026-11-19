@@ -40,6 +40,9 @@ static func add(tracks: Dictionary, db: Dictionary, t0: float, t1: float, contac
 		var evs: Array = tracks[w]
 		var busy: Array = []   # [from, to] of his own takes
 		for e in evs:
+			if e.has("drift"):   # S528: a ring step is his (ChoreoDrift): no fidget or paw over it
+				busy.append([float(e["t"]), float(e["end_t"])])
+				continue
 			if not (str(e["kind"]) in BUSY):
 				continue
 			var row: Dictionary = rows.get(str(e.get("clip", "")), {})

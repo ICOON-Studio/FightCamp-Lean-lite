@@ -275,7 +275,7 @@ func _r13_range() -> void:
 			out_m = d
 			out_end = float(gap[i][0])
 	_check(absf(step_in - Gap.STEP_IN_M) < 0.02, "R13: the step in on the punch is one step (%.2f m)" % step_in)
-	_check(out_by == "a" and absf(out_m - Gap.STEP_OUT_M) < 0.02 and out_end - ct <= 0.6, "R13: the man who punched steps out %.2f m within 0.6 s (%s, %.2f m, %.2f s)" % [Gap.STEP_OUT_M, out_by, out_m, out_end - ct])
+	_check(out_by == "a" and absf(out_m - Gap.STEP_OUT_M) < 0.02 and out_end - ct <= 0.7, "R13: the man who punched steps out %.2f m within 0.7 s, one whole step (%s, %.2f m, %.2f s)" % [Gap.STEP_OUT_M, out_by, out_m, out_end - ct])
 	_check(absf(_gap_at_plan(gap, ct + R.LEAVE_S) - R.REST_M) < 0.10, "R13: back at rest within LEAVE_S (%.2f m; the rest breathes 5-9 cm)" % _gap_at_plan(gap, ct + R.LEAVE_S))
 	# two punches 1.0 s apart: the pair does not stay in the pocket of the first one's distance
 	var p2 := Choreo.plan([_beat("a", "cross", "lands", 5.0), _beat("b", "jab", "lands", 6.0)], db, _opts())
@@ -318,6 +318,8 @@ func _r14_waits() -> void:
 					spans.append(busy[-1])
 				elif k in ["fidget", "feint"]:
 					kinds[str(e.get("what", k))] = int(kinds.get(str(e.get("what", k)), 0)) + 1
+					spans.append([float(e["t"]), float(e["end_t"])])
+				elif e.has("drift"):   # S528: a ring step is not the plain guard
 					spans.append([float(e["t"]), float(e["end_t"])])
 			for e in evs:
 				if not (str(e["kind"]) in ["fidget", "feint"]):

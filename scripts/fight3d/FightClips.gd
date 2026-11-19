@@ -5,6 +5,7 @@ extends RefCounted
 
 const NativeClip := preload("res://scripts/fight3d/NativeClip.gd")
 const RkClips := preload("res://scripts/fight3d/RkClips.gd")
+const StepClips := preload("res://scripts/fight3d/v2/StepClips.gd")
 
 ## Native MetaHuman punches (20 frames at 30 fps, contact at frame 8).
 const CLIPS := {
@@ -109,6 +110,12 @@ static func load_into(ap: AnimationPlayer, skel: Skeleton3D, corner_only: bool =
 	# S399 ROKOKO2: the Rokoko captured jab, cross and guard, built on this body (RkClips; `-- norokoko` = off).
 	if not corner_only:
 		added.append_array(RkClips.load_into(lib, skel, prefix, ap.get_node(ap.root_node) as Node3D))
+	# S528 FIGHTPLAYER2 (C434): the captured boxing steps, for the v2 player and its census only (the shipped player
+	# loads what it loaded before).
+	if not corner_only and (untouched or as_bought):
+		for name in StepClips.load_into(lib, skel, prefix):
+			hold_root_xz(lib.get_animation(name))
+			added.append(name)
 	return added
 
 

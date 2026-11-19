@@ -60,3 +60,17 @@ choice only through the adaptation rule (real boxing: a high guard gets dug to t
 adaptation, not the multipliers - "same posture N rounds -> the opponent shifts S of her punches to the open target".
 Amateur 3 rounds: little time to adapt, HIGH may stay the safe default (fine: the choice lives in the pro fights);
 pro 6+ rounds: WHEN to switch at the corner minute is the decision. GUARDPROBE3 (Goose, TASK_GUARDPROBE3.md) sizes N and S.
+
+## S528 - GUARDPROBE3 (Goose #398) + GUARDPROBE4 (Claude) and the DECISION: posture is the corner's existing change
+GUARDPROBE3: NONE of six (N, S) arms passed - but its opponent snapped back to her baseline aim the moment our boxer
+changed posture, so a switch never met the shift it answers (SWITCH could not win). Re-modelled in tools/guard_probe4.gd
+(her aim persists: HIGH held N full rounds -> +S to the body and it stays until LOW is held N rounds). 200 bouts a cell,
+65 s on the PC (docs/GUARDPROBE4_RESULT.md). N=2 S=0.25: HIGH best in the five non-pressure amateur cells (3 rounds:
+too short to adapt); SWITCH best in every pro6 cell (~ -11% vs HIGH's -6%) and against the amateur pressure fighter.
+N=3 makes HIGH dominant again (11/12). So the choice is real only if posture can be CHANGED between rounds.
+DECISION (Claude, S528): the game already has that control - S406 ONE CHANGE (scripts/rules/Adaptation.gd, live in the
+corner minute, 3D and words): "Gloves high" moves her punches head -> body, "Elbows in" body -> head, one round each, the
+same change twice running holds x0.7 (she has seen it). That IS posture High / Low with adaptation. Guard v4 does NOT
+add a posture dropdown, a defence tab or posture multipliers on the through-guard leak (the leak is 7-11% of a bout's
+damage; x0.80/x1.15 on it moves ~1%). The fight plan defence tab is DROPPED from the guard line. What stays of v4: the
+guard bar, wear, leak, clinch / Hands up, habits, corner guard line, result rows (all built S524-S525).

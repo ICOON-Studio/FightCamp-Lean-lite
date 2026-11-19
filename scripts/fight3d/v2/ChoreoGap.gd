@@ -31,6 +31,10 @@ const POCKET_M := 1.2          # just past the jab: where the pair waits between
 const POCKET_WAIT_S := 0.9    # a wait this long inside a burst is spent at the pocket, not chest to chest
 const POCKET_MIN_M := 0.10    # a step out to the pocket shorter than this is not worth taking
 const MIN_RAMP_S := 0.12      # no move is shorter than this
+## S528 (C434: "why the fighter do not walk ?"): a move a viewer counts as a step is played as a captured step take
+## (StepPlay), and a boxing step takes its time: the foot leaves, travels, lands. The step out and the ease back to
+## rest are never quicker than this (they were 0.27 s and 0.25 s ramps: a third of a step).
+const STEP_S := 0.42
 const STEP_COUNT_M := 0.12    # a segment that covers this much is a step the viewer can count
 
 
@@ -52,9 +56,9 @@ static func build(marks: Array, t0: float, t1: float, gap0: float, log: Array) -
 			cur_g = mg
 		elif kind == "step_in" or kind == "step_out":
 			var next_c := _next_contact(marks, i)
-			if cur_g < R.CREEP_M - 0.05 or (next_c >= 0.0 and next_c - mt < 1.0) or mt - 0.4 < cur_t:
+			if cur_g < R.CREEP_M - 0.05 or (next_c >= 0.0 and next_c - mt < 1.0) or mt - STEP_S < cur_t:
 				continue   # in range already, or a punch is about to make the distance itself
-			_to(out, mt - 0.4, cur_g, "")
+			_to(out, mt - STEP_S, cur_g, "")
 			_to(out, mt, R.CREEP_M if kind == "step_in" else R.REST_M, mover)
 			cur_t = mt
 			cur_g = float(out[-1][1])
@@ -128,8 +132,8 @@ static func _after(out: Array, marks: Array, i: int, mt: float, t1: float) -> vo
 		if g >= R.REST_M - 0.05:
 			return
 		var s1 := g if knocked else minf(g + STEP_OUT_M, R.REST_M)
-		var d1 := maxf((s1 - g) / LEAVE_MPS, MIN_RAMP_S) if s1 > g + 0.005 else 0.0
-		var d2 := maxf((R.REST_M - s1) / EASE_OUT_MPS, MIN_RAMP_S) if s1 < R.REST_M - 0.005 else 0.0
+		var d1 := maxf((s1 - g) / LEAVE_MPS, _whole(s1 - g)) if s1 > g + 0.005 else 0.0
+		var d2 := maxf((R.REST_M - s1) / EASE_OUT_MPS, _whole(R.REST_M - s1)) if s1 < R.REST_M - 0.005 else 0.0
 		if ls + d1 + EASE_OUT_WAIT_S + d2 > t1:
 			return
 		_to(out, ls, g, "")
@@ -146,13 +150,18 @@ static func _after(out: Array, marks: Array, i: int, mt: float, t1: float) -> vo
 		var to := minf(POCKET_M, (avail - 0.02 + g / LEAVE_MPS + gn / R.GAP_SPEED_MPS) / (1.0 / LEAVE_MPS + 1.0 / R.GAP_SPEED_MPS))
 		if to - g >= POCKET_MIN_M:
 			_to(out, ls, g, "")
-			_to(out, ls + maxf((to - g) / LEAVE_MPS, MIN_RAMP_S), to, hitter)
+			_to(out, ls + maxf((to - g) / LEAVE_MPS, MIN_RAMP_S if avail < STEP_S + 0.3 else _whole(to - g)), to, hitter)
 			return
 	# a quick follow-up: hold only as long as the shift to its distance allows
 	var need := absf(gn - g) / R.GAP_SPEED_MPS
 	var hold_end := clampf(float(nxt["t"]) - LEAD_S - need, mt, mt + HOLD_S)
 	if hold_end > mt + 0.03:
 		_to(out, hold_end, g, "")
+
+
+## The shortest a move of `m` metres may take: a whole step when a viewer can count it as one.
+static func _whole(m: float) -> float:
+	return STEP_S if absf(m) >= STEP_COUNT_M else MIN_RAMP_S
 
 
 ## The next punch contact after mark i (its time), -1 when there is none.

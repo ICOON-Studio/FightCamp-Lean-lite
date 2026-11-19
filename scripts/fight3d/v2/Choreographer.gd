@@ -9,6 +9,7 @@ const BeatClips := preload("res://scripts/fight3d/BeatClips.gd")
 const Gap := preload("res://scripts/fight3d/v2/ChoreoGap.gd")
 const React := preload("res://scripts/fight3d/v2/ChoreoReact.gd")
 const Wait := preload("res://scripts/fight3d/v2/ChoreoWait.gd")
+const Drift := preload("res://scripts/fight3d/v2/ChoreoDrift.gd")
 
 
 ## Plan one exchange. beats: time-ordered input (never mutated). db: parsed clip_db.json.
@@ -224,6 +225,12 @@ static func plan(beats: Array, db: Dictionary, opts: Dictionary) -> Dictionary:
 	# S525 the waits, drawn last (the punches' own draws stay what they were): fidgets, paws and feints on each man's
 	# own clock, and a distance at rest that is never a still line. `waits: false` = the plan without them.
 	if bool(opts.get("waits", true)):
+		# S528 ring steps (ChoreoDrift): between exchanges the pair moves, on its own draws (the punches' and the
+		# waits' own stay what they were where no ring step is). `drift: false` = the plan without them.
+		if bool(opts.get("drift", true)):
+			var drng := RandomNumberGenerator.new()
+			drng.seed = int(opts.get("seed", 0)) * 7919 + 13
+			counts["ring_steps"] = Drift.plan(ev, gap, db, t0, t1, drng)
 		Wait.add(ev, db, t0, t1, marks.filter(func(m): return str(m.get("kind", "contact")) == "contact").map(func(m): return float(m["t"])), rng)
 		gap = Wait.breathe(gap, rng)
 	for w in ["a", "b"]:

@@ -42,7 +42,7 @@ const DRIVE_SHARE := 0.5
 const LINE_M := 0.03
 const ZONE_TIE_M := 0.02
 ## Not fight takes: the corner team, the ring entry, the clinch pair, the long corner warm-up bakes.
-const SKIP := ["af_", "entry_", "clinch_", "cmu_", "rk_"]
+const SKIP := ["af_", "entry_", "clinch_", "cmu_", "rk_", "st_"]   # st_: the step takes have their own census (tools/step_census.gd)
 const BONES := ["Hips", "Head", "Chest", "LeftHand", "RightHand", "LeftLowerArm", "RightLowerArm", "LeftUpperArm",
 	"RightUpperArm", "LeftMiddleProximal", "RightMiddleProximal", "LeftUpperLeg", "RightUpperLeg", "LeftLowerLeg",
 	"RightLowerLeg", "LeftFoot", "RightFoot"]

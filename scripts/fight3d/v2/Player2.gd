@@ -26,9 +26,12 @@ const HitImpact := preload("res://scripts/fight3d/HitImpact.gd")
 const PunchAim := preload("res://scripts/fight3d/v2/PunchAim.gd")
 const FootCarry := preload("res://scripts/fight3d/v2/FootCarry.gd")
 const PairPlace := preload("res://scripts/fight3d/v2/PairPlace.gd")
+const FootTake := preload("res://scripts/fight3d/v2/FootTake.gd")
+const StepPlay := preload("res://scripts/fight3d/v2/StepPlay.gd")
 
 static var KEEP: Array = _keep()
 const GUARD := "pro_idle"
+const FOOT_DB := "res://assets/data/foot_db.json"
 ## The join into each kind of take: [half-life, length] s (scope 3e: into a punch 0.15, a reaction 0.05, a slip 0.15,
 ## back to the guard 0.30).
 const JOIN := {"punch": Vector2(0.05, 0.15), "reaction": Vector2(0.035, 0.11), "block": Vector2(0.02, 0.06),
@@ -38,18 +41,10 @@ const JOIN_TURN := Vector2(0.08, 0.24)
 const JOIN_HOME := Vector2(0.06, 0.22)   # the punching hand back to the guard (ChoreoRules.ARM_HOME_S)
 const LEAD_MPS := 2.0         # a reaction's lost travel is given at most this fast (0.19 m in 0.11 s, 0.5 m in 0.25 s)
 const WAITING := ["", "guard", "fidget", "feint", "step"]   # what a wait thing (ChoreoWait) may take over
-## S527 (the owner on film 5, C434: "why the fighter do not walk ?"): v2 plays NO step take. The plan moves a body
-## while the guard take plays and the leg layer (FootPlant) drags each foot after it, so he glides. First try, built
-## and MEASURED WORSE, so it is off unless `-- fp2steps`: a planned step plays the owned step take (advance /
-## retreat: in-place cycles, stride STEP_MPS at 1x) at the rate of the ground the plan covers. Headless, seed 7
-## (s525/m): support-foot slip 7.0 / 7.5 -> 20.6 / 27.9 m, knee jerks up. Why: FootPlant still owns the feet and
-## fights the take's own steps, and the step takes are another actor's stance (knees 122 deg, the guard 141-150).
-## To finish it: hand the feet to the take while it plays (FootPlant off and re-planted after), start the cycle
-## on the right foot, and plan whole steps (0.4-0.5 s each) instead of 0.2 s ramps.
-const STEP_MPS := 1.74
-const STEP_RATE := Vector2(0.55, 1.3)
-const STEP_MIN_S := 0.18
-static var steps_on: bool = OS.get_cmdline_user_args().has("fp2steps")
+## S528 (the owner on film 5, C434: "why the fighter do not walk ?"): every move of a body is a captured boxing step
+## (StepClips; StepPlay picks and times it) and the feet belong to the take (FootTake). `-- fp2nosteps` = the plan moves
+## the guard pose as it did (the control arm).
+static var steps_on: bool = not OS.get_cmdline_user_args().has("fp2nosteps")
 const DOWN := ["knock", "fall", "countdown", "win", "ko_"]
 
 var st: Node = null
@@ -74,16 +69,19 @@ var _moved: Array = [Transform3D.IDENTITY, Transform3D.IDENTITY]   # per boxer: 
 var _join_next := Vector2.ZERO       # the next _play joins with this instead of its kind's join (the arm home)
 var hit_until := -1.0         # a landed punch is on screen until this clock time (the film's rulers find contacts by it)
 var pair: PairPlace = PairPlace.new(self)   # where the pair stands and faces (follow, side-on, facing)
+var walk: StepPlay = StepPlay.new(self)       # the planned steps and the ring steps (S528)
+var _ft: Array = [null, null]        # per boxer: FootTake (the legs in the fight)
 var contacts: Array = []      # every contact as played: {t, who, move, result, gap, take} (the rulers read it)
 
 
-## The layers left on. The legs: FootPlant (each foot holds its spot and steps when the body has moved off it) +
-## FloorStand. `-- fp2carry` = FootCarry instead (S513: the take's own footwork shown as captured, the plan's travel
+## The layers left on. The legs: FootTake (S528: a foot is pinned while its take stands on it and follows the take's own
+## steps; FootPlant's own step only where no take steps) + FloorStand. `-- fp2plant` = FootPlant (each foot holds its
+## spot and steps when the body has moved off it: the legs of films 1-5). `-- fp2carry` = FootCarry instead (S513: the take's own footwork shown as captured, the plan's travel
 ## stepped from the plan; headless it reads equal on slip, 4x less in the guard, knees shakier - the film decides which
 ## is the default). `-- fp2lock` = FootLock (a spring: it let a standing foot creep at every start).
 static func _keep() -> Array:
 	var args := OS.get_cmdline_user_args()
-	var legs := ["FootLock", "FloorStand"] if args.has("fp2lock") else (["FootCarry", "FloorStand"] if args.has("fp2carry") else ["FootPlant", "FloorStand"])
+	var legs := ["FootLock", "FloorStand"] if args.has("fp2lock") else (["FootCarry", "FloorStand"] if args.has("fp2carry") else (["FootPlant", "FloorStand"] if args.has("fp2plant") else ["FootTake", "FloorStand"]))
 	return ["JoinSmoother", "MetaHumanTwist", "TiredSag", "PunchAim"] + legs
 
 
@@ -98,8 +96,13 @@ func setup(stage: Node) -> void:
 	st = stage
 	var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(ClipCensus.DB_PATH))
 	db = parsed if parsed is Dictionary else {}
+	var fparsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(FOOT_DB))
+	var fdb: Dictionary = fparsed if fparsed is Dictionary else {}
+	walk.steps = fdb.get("steps", {})
 	for i in 2:
 		var skel: Skeleton3D = st.boxers[i]["skel"]
+		if KEEP.has("FootTake") and st.boxers[i].get("feet") != null:
+			_ft[i] = FootTake.add(skel, st.boxers[i]["ap"], st.boxers[i]["feet"], fdb.get("feet", {}), bool(st.boxers[i].get("south", false)))
 		_aim[i] = PunchAim.attach(skel, st.boxers[i]["ap"], st.boxers[i].get("js"))
 		if KEEP.has("FootCarry") and st.boxers[i].get("feet") != null:
 			_feet[i] = FootCarry.add(skel, st.boxers[i]["ap"], st.boxers[i]["feet"])
@@ -128,6 +131,8 @@ func _layers(on_again: bool) -> void:
 		if _feet[i] != null:
 			(_feet[i] as SkeletonModifier3D).active = not on_again
 			_feet[i].reset()
+		if _ft[i] != null:
+			(_ft[i] as SkeletonModifier3D).active = not on_again
 		if on_again:
 			for m in _off[i]:
 				if is_instance_valid(m):
@@ -166,6 +171,7 @@ func queue(beats: Array, t0: float, t1: float) -> void:
 		"scale": {"a": _scale(0), "b": _scale(1)}}
 	plan = Choreo.plan(beats, db, opts)
 	_next = [0, 0]
+	walk.reset()
 	if log_on:
 		print("FP2 plan %.0f-%.0f gap0 %.2f counts %s log %d" % [t0, t1, float(opts["gap0"]), str(plan["counts"]), (plan["log"] as Array).size()])
 		for l in plan["log"]:
@@ -217,11 +223,15 @@ func tick(delta: float) -> void:
 			else:
 				k += 1
 		pair.follow(delta)
+		walk.follow()
 		pair.square(delta)
 		if log_on and int(t / 15.0) != int((t - delta) / 15.0):
 			for i in 2:
 				if _feet[i] != null:
 					print("FP2 feet %s t %.0f steps %d slip by cause %s" % ["ab"[i], t, int(_feet[i].steps), str(_feet[i].tally)])
+				if _ft[i] != null:
+					print("FP2 feet %s t %.0f steps from a take %d, FootPlant's own %d | step takes %d, the pair walked %.1f m" % ["ab"[i], t, int(_ft[i].took), int(_ft[i].own), walk.played, walk.walked])
+					print("FP2 feet %s   a low foot moved, by what ruled it: %s" % ["ab"[i], str(_ft[i].tally)])
 	pair.place()
 	pair.face(delta)
 
@@ -231,7 +241,8 @@ func _event(i: int, e: Dictionary) -> void:
 	if _down(i):
 		return
 	if kind == "step":
-		_step(i, e)
+		if steps_on:
+			walk.start(i, e)
 		return
 	if kind in ["pivot", "pass"]:
 		return   # the distance plan moves the body
@@ -272,21 +283,6 @@ func _event(i: int, e: Dictionary) -> void:
 	_due.append([ct + R.arm_home_s(move), func() -> void:   # S526: the arm comes home (after the contact's own entry: same tick, this order)
 		if str(_take[i].get("clip", "")) == clip and str(_take[i].get("kind", "")) == "punch":
 			_join_next = JOIN_HOME
-			guard(i)])
-
-
-## A planned step (ChoreoGap.steps): the step take for as long as the plan moves him, then the guard.
-func _step(i: int, e: Dictionary) -> void:
-	var dur := float(e["end_t"]) - float(e["t"])
-	if not steps_on or dur < STEP_MIN_S or not (str(_take[i].get("kind", "")) in WAITING):
-		return
-	var clip := "advance" if float(e["m"]) < 0.0 else "retreat"
-	if not _has(i, clip):
-		return
-	_play(i, clip, 0.0, "step", false)
-	(st.boxers[i]["ap"] as AnimationPlayer).speed_scale = clampf(absf(float(e["m"])) * float(e.get("share", 1.0)) / dur / STEP_MPS, STEP_RATE.x, STEP_RATE.y)
-	_due.append([t + dur, func() -> void:
-		if str(_take[i].get("clip", "")) == clip and str(_take[i].get("kind", "")) == "step":
 			guard(i)])
 
 
