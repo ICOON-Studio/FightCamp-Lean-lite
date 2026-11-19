@@ -5194,7 +5194,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-19 20:12 board_sync",
+  "updated": "2026-11-19 21:17 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5415,18 +5415,6 @@
     "state": "LANDED - Claude collects"
    },
    {
-    "title": "Coach fit: re-measure with a dose control, the coached-morning lever and camp tiredness",
-    "who": "goose",
-    "started": "2026-11-19T20:01",
-    "run": "COACHFITPROBE3"
-   },
-   {
-    "title": "Turning pro: rerun all nine lines on today's code",
-    "who": "goose",
-    "started": "2026-11-19T20:01",
-    "run": "TURNPROBE3"
-   },
-   {
     "title": "Blind contract test of the coached-morning deal",
     "who": "arena",
     "started": "2026-11-19T20:30",
@@ -5445,13 +5433,33 @@
     "who": "qwen",
     "started": "2026-11-19T20:12",
     "run": "HOLD1"
+   },
+   {
+    "title": "Contracts map v4 from the code",
+    "who": "goose",
+    "started": "2026-11-19T22:10",
+    "run": "LEDGERREV4",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "Knowledge stakes map v3 from the code",
+    "who": "goose",
+    "started": "2026-11-19T22:10",
+    "run": "KNOWREV3",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "Turning pro rerun: fork fixes + the day-job question",
+    "who": "goose",
+    "started": "2026-11-19T22:35",
+    "run": "TURNPROBE3B"
    }
   ],
   "next": [
    {
     "id": "STEPSCOPE1",
     "who": "claude",
-    "title": "Footwork steps scope (S528, STEPTUNE2 method finding): phases 1 + 3 DONE (opening passes through steps, wrong step costs, learn card follows the fight); phase 2 = Qwen TREEVALUE5; then STEPTUNE3 sizes TABLE",
+    "title": "Footwork steps scope: phases 1 + 3 DONE S528, phase 2 TREEVALUE5 collected S530 (0/10 in the gate; docs/TREEVALUE5_RESULT.md). Phase 4 = Qwen STEPTUNE3 after HOLD1.",
     "after": ""
    },
    {
@@ -5465,6 +5473,12 @@
     "who": "qwen",
     "title": "HOLD1 - the specialty: four ways to hold moves over two seasons, and the hold minutes that make it a choice (probe, ops/research/TASK_HOLD1.md)",
     "after": "TREEVALUE5"
+   },
+   {
+    "id": "STEPTUNE3",
+    "who": "qwen",
+    "title": "STEPTUNE3 - size the footwork steps on the phase-1 code from TREEVALUE5's board (tuning, ops/research/TASK_STEPTUNE3.md)",
+    "after": "HOLD1"
    },
    {
     "id": "GUARDV4",
@@ -5975,6 +5989,16 @@
   },
   "done_recently": [
    {
+    "title": "Turning pro: rerun all nine lines on today's code",
+    "who": "goose",
+    "when": "2026-11-19"
+   },
+   {
+    "title": "Coach fit: re-measure with a dose control, the coached-morning lever and camp tiredness",
+    "who": "goose",
+    "when": "2026-11-19"
+   },
+   {
     "title": "Blind contract test of the guard through a bout",
     "who": "arena",
     "when": "2026-11-19"
@@ -6019,16 +6043,6 @@
    },
    {
     "title": "TASK SPLIT500C - GymSpend.gd under the 500-line rule with room to grow (pure move, no behaviour change)",
-    "who": "qwen",
-    "when": "2026-11-19"
-   },
-   {
-    "title": "TASK FITPROBE1 - coach fit: is a TOP fit worth having, and is it not too much? (FITPROBE1 + TRAINBALANCE, probe only)",
-    "who": "qwen",
-    "when": "2026-11-19"
-   },
-   {
-    "title": "TASK MONEYFOUR2 - class nights on the BUILT club week: is the money worth the pad time lost? (probe)",
     "who": "qwen",
     "when": "2026-11-19"
    }

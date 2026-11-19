@@ -1067,32 +1067,6 @@
    "note": "S530; PR relays to an arena/* PR on FightCamp-Lean; collected S530 (scores 5/5 and 4/6 - both: re-measure first)",
    "finished": "2026-11-19T20:00"
   },
-  "COACHFITPROBE3": {
-   "agent": "goose",
-   "id": "COACHFITPROBE3",
-   "title": "Coach fit: re-measure with a dose control, the coached-morning lever and camp tiredness",
-   "status": "landed",
-   "started": "2026-11-19T20:01",
-   "where": "cloud",
-   "brief": "ops/research/TASK_COACHFITPROBE3.md",
-   "issue": 405,
-   "eta": "2026-11-19T21:00",
-   "note": "S530 collected (goose/issue-405, 2 files by hand; branch was cut from an older main): dose +5 one stat = +2.6 wins (the game: the pack's 72% is all six stats); wired lever +0.07 stat; camp never past 80 -> coach fit CUT, the ceiling kept as its own rule",
-   "finished": "2026-11-19T22:00"
-  },
-  "TURNPROBE3": {
-   "agent": "goose",
-   "id": "TURNPROBE3",
-   "title": "Turning pro: rerun all nine lines on today's code",
-   "status": "landed",
-   "started": "2026-11-19T20:01",
-   "where": "cloud",
-   "brief": "ops/research/TASK_TURNPROBE3.md",
-   "issue": 406,
-   "eta": "2026-11-19T21:00",
-   "note": "S530 collected (goose/issue-406, 3 files by hand): line 6 void (probe never saw the debut finish; fixed), line 7 horizon defect, door never shuts, day-job careers never sign - ops/research/TURNPROBE3_READ_S530.md",
-   "finished": "2026-11-19T22:30"
-  },
   "DEALBLIND1": {
    "agent": "arena",
    "id": "DEALBLIND1",
@@ -1152,25 +1126,29 @@
    "agent": "goose",
    "id": "LEDGERREV4",
    "title": "Contracts map v4 from the code",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-19T22:10",
    "where": "cloud",
    "brief": "ops/research/TASK_LEDGERREV4.md",
    "issue": 408,
    "eta": "2026-11-19T23:10",
-   "note": "S530; goose/issue-408"
+   "note": "S530; goose/issue-408",
+   "reconciled": "2026-11-19 21:17 board_reconcile: run finished (success), branch goose/issue-408 pushed",
+   "finished": "2026-11-19T22:45"
   },
   "KNOWREV3": {
    "agent": "goose",
    "id": "KNOWREV3",
    "title": "Knowledge stakes map v3 from the code",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-19T22:10",
    "where": "cloud",
    "brief": "ops/research/TASK_KNOWREV3.md",
    "issue": 409,
    "eta": "2026-11-19T23:10",
-   "note": "S530; goose/issue-409"
+   "note": "S530; goose/issue-409",
+   "reconciled": "2026-11-19 21:17 board_reconcile: run finished (success), branch goose/issue-409 pushed",
+   "finished": "2026-11-19T22:45"
   },
   "TURNPROBE3B": {
    "agent": "goose",
@@ -1183,6 +1161,34 @@
    "issue": 410,
    "eta": "2026-11-19T23:30",
    "note": "S530; goose/issue-410"
+  },
+  "LEDGERCRITIC5A": {
+   "agent": "arena",
+   "id": "LEDGERCRITIC5A",
+   "title": "Fresh critic: contracts map v4",
+   "status": "landed",
+   "started": "2026-11-19T22:50",
+   "where": "cloud",
+   "repo": "FightCamp-Lean-lite",
+   "brief": "ops/research/TASK_LEDGERCRITIC5A.md",
+   "chat": "https://arena.ai/agent/01a1f53d-1dea-72b1-9c10-780fc062fa54",
+   "eta": "2026-11-19T23:40",
+   "note": "S530 collected: 6/5 - release fee is money IN (Leaving.gd), pay() needs a boxer id + kind",
+   "finished": "2026-11-19T23:30"
+  },
+  "KNOWCRITIC3A": {
+   "agent": "arena",
+   "id": "KNOWCRITIC3A",
+   "title": "Fresh critic: knowledge stakes map v3",
+   "status": "landed",
+   "started": "2026-11-19T22:50",
+   "where": "cloud",
+   "repo": "FightCamp-Lean-lite",
+   "brief": "ops/research/TASK_KNOWCRITIC3A.md",
+   "chat": "https://arena.ai/agent/01a1f53d-ee6b-7438-a764-8c16293bb5b5",
+   "eta": "2026-11-19T23:40",
+   "note": "S530 collected: 6/6 - a read must change a decision; evidence at the offer",
+   "finished": "2026-11-19T23:30"
   }
  },
  "codex_budget": {

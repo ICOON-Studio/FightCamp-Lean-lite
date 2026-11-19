@@ -17,6 +17,8 @@ const StepValue := preload("res://scripts/rules/StepValue.gd")
 const LineGrade := preload("res://scripts/rules/LineGrade.gd")
 const Attrs := preload("res://scripts/rules/Attrs.gd")
 const Cells := preload("res://tools/treevalue_cells.gd")
+const StrikeMap := preload("res://scripts/rules/StrikeMap.gd")
+const PlanFight := preload("res://scripts/rules/PlanFight.gd")
 
 ## TREEVALUE1's four opponents (kept); TREEVALUE2 adds the two RIVALS below for the six styles of StepValue.STYLES.
 const OPPS := [
@@ -61,6 +63,14 @@ const SEED_START := 7100
 const N_BOUTS := 400
 const SEED_SETS := [0, 10000, 20000]
 const SHARP := 60.0
+## STEPTUNE2's per-fire invariant I(best,wrong) and gate-leg count (docs/STEPTUNE2_RESULT.md s4-s5), the baseline this run
+## compares against: which three-leg windows opened once phase 1 wired the wrong cost and the opening rides on to a punch.
+const ST2 := {
+	"step_in": {"i": 0.415, "legs": 1}, "step_out": {"i": -0.598, "legs": 0}, "step_back": {"i": 5.960, "legs": 2},
+	"pivot_out": {"i": 1.330, "legs": 0}, "cut_off": {"i": 2.073, "legs": 1}, "herd": {"i": 0.361, "legs": 1},
+	"feint": {"i": -1.422, "legs": 1}, "tie_up": {"i": -0.038, "legs": 1}, "roll_out": {"i": 0.070, "legs": 1},
+	"push_off": {"i": 0.128, "legs": 2},
+}
 ## Each style's rating is CALIBRATED so the full BASE plan wins about half its bouts (TREEVALUE1's S464 rule: a floor
 ## no step can show a value against). Style, threat and plan stay the opponent's.
 var opp_rating := {}
@@ -71,16 +81,77 @@ func _plan_for(nid: String) -> Array:
 	for a in PLAN:
 		if str(a["move"]) == nid:
 			mine = str(a.get("when", ""))
-	if mine == "":
-		return _swept_first(PLAN.duplicate(true), nid)
 	# S464 second fix: an arrow fires only on its OWN card (StrikeMap "from") at its when (PlanBoard.pick); "range" is fought on
 	# the long card while step_in starts from outside, so a planned "step_in:range" can never fire. The swept node is planned
 	# ANY TIME here (its when dropped), like step_back / pivot_out / tie_up, so it fires whenever the bout reaches its card.
-	var out: Array = PLAN.filter(func(a): return str(a["move"]) == nid or str(a.get("when", "")) != mine).duplicate(true)
-	for a in out:
-		if str(a["move"]) == nid:
-			a.erase("when")
-	return _swept_first(out, nid)
+	var out: Array = PLAN.duplicate(true)
+	if mine != "":
+		out = PLAN.filter(func(a): return str(a["move"]) == nid or str(a.get("when", "")) != mine).duplicate(true)
+		for a in out:
+			if str(a["move"]) == nid:
+				a.erase("when")
+	out = _swept_first(out, nid)
+	_keep_dest_punch(out, nid)   # S528 TREEVALUE5: the destination card keeps a planned punch to spend the step's opening
+	return out
+
+
+## S528 TREEVALUE5 (STEPTUNE2 s3): the swept step's DESTINATION card must hold one planned PUNCH, or its opening is spent on
+## another step / an unplanned pick for nothing. Keep the punch already there; else put back the base PLAN's punch on that card
+## (the one the surgery removed), ANY TIME; else the map's own punch there (the @card variant). It answers the game most played
+## on the card (PlanFight.GAME_CARD's situation that lands there). Returns the punch kept, "" when the card has no punch move
+## (clinch: only break / push_off leave it, so tie_up's opening rides push_off on to mid - phase 1 passes it through a step).
+func _keep_dest_punch(plan: Array, nid: String) -> String:
+	var dest := str(StrikeMap.move(nid).get("to", ""))
+	var have := _punch_on(plan, dest)
+	if have != "":
+		return have
+	var sit := "press"
+	for k in PlanFight.GAME_CARD:
+		if str(PlanFight.GAME_CARD[k]) == dest:
+			sit = str(k)
+			break
+	if dest == "corner":
+		sit = "hurt"
+	var rank := {"best": 3, "ok": 2, "none": 1, "wrong": 0}
+	var pick_id := ""
+	var pick_fit := -1
+	for a in PLAN:
+		var id := str(a["move"])
+		var r := StrikeMap.move(id)
+		if str(r.get("kind", "")) == "combo" and str(r.get("from", "")) == dest:
+			var f := int(rank.get(PlanFight.fit(id, sit), 0))
+			if f > pick_fit:
+				pick_fit = f
+				pick_id = id
+	if pick_id == "":
+		for m in StrikeMap.outs(dest):
+			if str(m.get("kind", "")) == "combo":
+				var f := int(rank.get(PlanFight.fit(str(m["id"]), sit), 0))
+				if f > pick_fit:
+					pick_fit = f
+					pick_id = str(m["id"])
+	if pick_id != "":
+		plan.append({"move": pick_id})
+	return pick_id
+
+
+## The first planned PUNCH (combo) whose StrikeMap "from" is this card, "" if none.
+func _punch_on(plan: Array, card: String) -> String:
+	for a in plan:
+		var r := StrikeMap.move(str(a["move"]))
+		if str(r.get("kind", "")) == "combo" and str(r.get("from", "")) == card:
+			return str(a["move"])
+	return ""
+
+
+## STEPTUNE2 s4's per-fire invariant: cell_a - (F_a / F_b) x cell_b, F = fires/bout. The per-fire lever package L cancels,
+## so no StepEffect.TABLE number moves it; the gate needs I(best,wrong) > 1.5 for the best and wrong legs to coexist.
+## NAN when the reference style never fires (F_b = 0): the invariant is undefined there, the cell is pure fit.
+func _invariant(cells: Dictionary, a: String, b: String) -> float:
+	var fb := float(cells[b]["fires"]) / float(cells[b]["n"])
+	if fb <= 0.0:
+		return NAN
+	return float(cells[a]["delta"]) - (float(cells[a]["fires"]) / float(cells[a]["n"])) / fb * float(cells[b]["delta"])
 
 
 ## S527: PlanBoard.pick takes the FIRST any-time arrow on a card, and tie_up (any time, inside) came before roll_out, so
@@ -270,7 +341,11 @@ func _initialize() -> void:
 		var sid: String = str(step)
 		var with_plan := _plan_for(sid)
 		var without_plan: Array = with_plan.filter(func(a): return str(a["move"]) != sid)
-		print("  %s plan: %s" % [sid, str(with_plan.map(func(x): return str(x["move"]) + (":" + str(x["when"]) if x.has("when") else "")))])
+		var plan_str := str(with_plan.map(func(x): return str(x["move"]) + (":" + str(x["when"]) if x.has("when") else "")))
+		var dest := str(StrikeMap.move(sid).get("to", ""))
+		var dest_punch := _punch_on(with_plan, dest)
+		print("  %s plan: %s" % [sid, plan_str])
+		print("    -> %s keeps punch: %s" % [dest, dest_punch if dest_punch != "" else "NONE (no punch move leaves that card)"])
 		var cells := {}
 		for style in StepValue.STYLES:
 			var s: String = str(style)
@@ -298,7 +373,7 @@ func _initialize() -> void:
 			cells[s] = {"delta": mean, "seeds": deltas, "fires": fires, "uses": uses, "with": wins_with, "without": wins_without, "n": n_total}
 			print("CELL step=%s style=%s with=%d without=%d delta=%+.2f fires/bout=%.2f uses/bout=%.2f seeds=%s" % [
 				sid, s, wins_with, wins_without, mean, float(fires) / float(n_total), float(uses) / float(n_total), str(deltas)])
-		results[sid] = {"cells": cells}
+		results[sid] = {"cells": cells, "plan": plan_str, "dest": dest, "dest_punch": dest_punch}
 	if without_fires != 0:
 		print("CONTROL FAILED: the swept step fired %d times as planned in the without-arm (its line is out)" % without_fires)
 		quit(1)
@@ -339,9 +414,79 @@ func _initialize() -> void:
 	print("Without-arm planned fires of the swept steps: %d (must be 0)" % without_fires)
 	var elapsed := float(Time.get_ticks_msec() - t0) / 1000.0
 	if _sweep_steps().size() == StepValue.STEPS.size():   # S527: a filtered run prints only, the full doc stays whole
-		Cells.write_doc({"dt": Time.get_datetime_string_from_system(), "results": results, "n_bouts": N_BOUTS,
+		_write_doc({"dt": Time.get_datetime_string_from_system(), "results": results, "n_bouts": N_BOUTS,
 			"seed_sets": SEED_SETS, "n_fighters": N_FIGHTERS, "seed_start": SEED_START, "opp_rating": opp_rating,
 			"calib_wins": calib_wins, "det": {"a": int(det_a["wins"]), "b": int(det_b["wins"]), "fa": int(det_a["fires"]), "fb": int(det_b["fires"])},
-			"grade_ok": grade_ok, "without_fires": without_fires, "elapsed_s": elapsed})
+			"grade_ok": grade_ok, "without_fires": without_fires, "elapsed_s": elapsed, "pass": pass_count})
 	print("TREEVALUE2 done pass=%d/10" % pass_count)
 	quit(0)
+
+
+## docs/TREEVALUE5_RESULT.md: the cells (with / without wins, fires a bout), the per-fire invariant I(best,wrong) against
+## STEPTUNE2, and which three-leg windows opened. Written here (not Cells.write_doc) so only this brief's OWNS files change.
+func _write_doc(report: Dictionary) -> void:
+	var f := FileAccess.open("res://docs/TREEVALUE5_RESULT.md", FileAccess.WRITE)
+	if f == null:
+		print("WARNING: could not write docs/TREEVALUE5_RESULT.md")
+		return
+	var results: Dictionary = report["results"]
+	var sets: Array = report["seed_sets"]
+	f.store_line("# TREEVALUE5 Result\n")
+	f.store_line("Probe run: %s. Phase 2 of STEPS_SCOPE_S528 on the phase-1 fight: StepWire.open_edge passes a step's opening on to the punch after it; a wrong-fit step lets WRONG_COST more of her punches land. %d bouts a cell per arm per seed set, %d sets, amateur 3x3, %d fighters, Sharp %.0f, OK grade.\n" % [str(report["dt"]), int(report["n_bouts"]), sets.size(), int(report["n_fighters"]), SHARP])
+	f.store_line("## The probe fix (STEPTUNE2 s3)\n")
+	f.store_line("_plan_for keeps one planned PUNCH on the swept step's destination card (StrikeMap.move(step).to): the punch already there, else the base PLAN punch the surgery removed (ANY TIME), else the map's own punch there, answering the game most played on the card. It is in BOTH arms, so the delta isolates the step. Per step:\n")
+	for step in StepValue.STEPS:
+		var sid: String = str(step)
+		var dp: String = str(results[sid]["dest_punch"])
+		f.store_line("- %s -> %s: %s" % [sid, str(results[sid]["dest"]), dp if dp != "" else "NO punch move leaves this card (clinch); the opening rides push_off on to mid"])
+	f.store_line("\n## Controls\n")
+	f.store_line("- OK grade on every swept step: %s. Determinism: %d / %d wins (fires %d / %d). Without-arm planned fires: %d (must be 0)." % ["yes" if bool(report["grade_ok"]) else "NO", int(report["det"]["a"]), int(report["det"]["b"]), int(report["det"]["fa"]), int(report["det"]["fb"]), int(report["without_fires"])])
+	f.store_line("- Calibration (full BASE plan, 120 bouts): %s. Ratings: %s.\n" % [str(report["calib_wins"]), str(report["opp_rating"])])
+	f.store_line("## Cells: win difference in 100 [with / without wins] fires/bout (TARGET beside it)\n")
+	var header := "| Step |"
+	var sep := "|------|"
+	for style in StepValue.STYLES:
+		header += " %s |" % str(style)
+		sep += "------|"
+	f.store_line(header)
+	f.store_line(sep)
+	for step in StepValue.STEPS:
+		var sid: String = str(step)
+		var line := "| %s |" % sid
+		for style in StepValue.STYLES:
+			var c: Dictionary = results[sid]["cells"][str(style)]
+			line += " %+.1f (t%+.1f) [%d/%d] f%.2f |" % [float(c["delta"]), float(StepValue.TARGET[sid][str(style)]), int(c["with"]), int(c["without"]), float(c["fires"]) / float(c["n"])]
+		f.store_line(line)
+	f.store_line("\n## The gate's three legs and the per-fire invariant I(best,wrong) vs STEPTUNE2\n")
+	f.store_line("I(best,wrong) = cell_best - (F_best/F_wrong) x cell_wrong (F = fires/bout): no TABLE number moves it; the gate needs I > 1.5 for the best (1.5..5) and wrong (<0) legs to coexist. 'Window' = the leg count that can pass.\n")
+	f.store_line("| Step | best | wrong | I now | I ST2 | I>1.5 | legs now | legs ST2 | window |")
+	f.store_line("|------|------|-------|-------|-------|-------|----------|----------|--------|")
+	var pass_count := 0
+	var opened: Array = []
+	for step in StepValue.STEPS:
+		var sid: String = str(step)
+		var cells: Dictionary = results[sid]["cells"]
+		var lg: Dictionary = Cells.legs(sid, cells)
+		var legs_now := int(lg["best_ok"]) + int(lg["wrong_ok"]) + int(lg["others_ok"])
+		var iv := _invariant(cells, str(lg["best"]), str(lg["wrong"]))
+		var st2: Dictionary = ST2[sid]
+		if bool(lg["pass"]):
+			pass_count += 1
+		if legs_now > int(st2["legs"]) or bool(lg["pass"]):
+			opened.append("%s (%d->%d legs)" % [sid, int(st2["legs"]), legs_now])
+		f.store_line("| %s | %s | %s | %s | %+.3f | %s | %d | %d | %s |" % [sid, str(lg["best"]), str(lg["wrong"]), "n/a" if is_nan(iv) else "%+.3f" % iv, float(st2["i"]), "yes" if (not is_nan(iv) and iv > 1.5) else "no", legs_now, int(st2["legs"]), "PASS" if bool(lg["pass"]) else ("opened" if legs_now > int(st2["legs"]) else "still shut")])
+	f.store_line("\n**TREEVALUE2 done pass=%d/10** (gate legs: best in 1.5..5, wrong < 0, others 0..1).\n" % pass_count)
+	f.store_line("Windows that opened vs STEPTUNE2: %s.\n" % (", ".join(opened) if not opened.is_empty() else "none"))
+	f.store_line("## One line per FAIL (the StepEffect row that would move it; TABLE is NOT changed here)\n")
+	var any_fail := false
+	for step in StepValue.STEPS:
+		var sid: String = str(step)
+		var lg: Dictionary = Cells.legs(sid, results[sid]["cells"])
+		if not bool(lg["pass"]):
+			any_fail = true
+			f.store_line("- %s" % Cells.fail_line(sid, results[sid]["cells"], lg))
+	if not any_fail:
+		f.store_line("- none")
+	f.store_line("\nElapsed: %.0f s. Reproduce: `python ops/Tools/godot_slot.py run --who treevalue5 -- <godot> --headless --audio-driver Dummy --fixed-fps 60 --path . --script res://tools/treevalue_probe.gd`" % float(report["elapsed_s"]))
+	f.close()
+	print("Result doc written to docs/TREEVALUE5_RESULT.md")
