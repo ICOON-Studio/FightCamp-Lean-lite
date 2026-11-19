@@ -19,6 +19,9 @@ Quickest: TEST CLUB, or Test jump "pro" on the create screen. A boxer at the lin
   ("Bow Lane pays from 60 (about 4 wins away)"), the age line from 29, and the declines left.
 - Club > Money, Fighters and money: hover a boxer's stipend button while a pro offer is open - signing stops it for you.
 - A pro's History tab: a "TURNED PRO WITH <promoter>, <date>" line between the pro and the amateur bouts.
+- The offer now shows each promoter's badge (made with Ludo). Topping your own club show adds 10 debut tickets
+  ("Club show crowd" on the offer's ticket bar). The debut's first corner minute has the coach's pro note. The week you
+  sign, two more people train on the gym floor.
 
 S519 (2026-11-18) - THE CLUB WEEK: COACHED MORNINGS, CLASS NIGHTS, HALF SPONSORSHIP, THE 4-WEEK FORECAST
 Easiest with the TEST CLUB (create screen) - it needs two boxers or more. With one boxer nothing changes.

@@ -10,6 +10,7 @@ extends RefCounted
 ##   sweep(c)           an open show_top promise whose night has passed with no bout boxed is broken (the boxer leaves)
 ## Bouts is loaded at run time (Bouts -> BoutNight -> BoutFinish preloads this file: a preload back would be a cycle).
 
+const SHOW_FOLLOWERS := 10   ## ESTIMATE (TURNPRO1 v2 M9): ticket followers for topping our own club show
 const AmateurBooking := preload("res://scripts/rules/AmateurBooking.gd")
 const Promises := preload("res://scripts/rules/Promises.gd")
 const Loyalty := preload("res://scripts/rules/Loyalty.gd")
@@ -65,6 +66,7 @@ static func is_home(f: Dictionary) -> bool:
 
 ## The night's bout is over: the promise for tonight is kept (a boxed bout is fit and made weight by definition).
 static func boxed(c: Career, f: Dictionary) -> void:
+	f["followers"] = int(f.get("followers", 0)) + SHOW_FOLLOWERS   # S523 TURNPRO1 map M9: topping our show sells debut tickets
 	_resolve(c, f, {"day": c.day, "fit": true, "made_weight": true, "boxed": true})
 
 

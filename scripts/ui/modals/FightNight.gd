@@ -2,6 +2,7 @@ extends PanelContainer
 ## Fight night in words: the tale of the tape, three rounds with a corner call between them, then the scorecards and what
 ## decided it. Bouts.fight_step moves it on; this draws whichever step the moment is at.
 
+const DEBUT_NOTE := "First pro round done. Smaller gloves hurt more: keep your hands up, sit down on your shots and let the opponent come to you - nobody wins a debut in round one."   # S523 map M13
 const RoundGraphics := preload("res://scripts/ui/RoundGraphics.gd")
 const Broadcast := preload("res://scripts/ui/Broadcast.gd")
 const UI := preload("res://scripts/ui/UI.gd")
@@ -218,6 +219,11 @@ func _round(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 		# S323: what worked and what hurt are the numbers above; the coach speaks once, as a quote.
 		v.add_child(Broadcast.quote(coach_says, "YOUR COACH"))
 		advice = str(cc["call"]) if n < total else ""
+	var fb: Dictionary = main.career.fighter_by_id(str(m.get("fid", ""))).get("bout", {})
+	if n == 1 and n < total and stop == "" and bool(fb.get("pro", false)) and fb.has("deal"):   # S523 TURNPRO1 map M13: the debut note, once
+		var dn := UI.label(DEBUT_NOTE, 18, UI.GOLD, "body", true)
+		dn.name = "DebutNote"
+		v.add_child(dn)
 	for fc in last.get("film", []):   # S510 FIGHTFILM1: what the film night filed, seen in the ring this round
 		var ok := str(fc["state"]) == "confirmed"
 		var fl := UI.label("From the film: %s - %s" % [str(fc["words"]), "CONFIRMED" if ok else "CLEARED, it is not there: change that line"],

@@ -242,8 +242,8 @@ static func debut_sheet(c: Career, f: Dictionary, terms: float) -> Dictionary:
 static func debut_night(c: Career, f: Dictionary) -> Dictionary:
 	var deal: Dictionary = f["bout"].get("deal", {})
 	if not deal.is_empty():   # S523: the v2 deal pays the purse and the ticket share past the house's break-even
-		return ProOfferWire.night(f, deal, ProDebut.tickets_sold(c.members, int(f["w"]), titles(f)), share_of(f))
-	return ProDebut.night(ProDebut.tickets_sold(c.members, int(f["w"]), titles(f)), float(f["bout"].get("terms", 1.0)))
+		return ProOfferWire.night(f, deal, ProOfferWire.forecast(c, f, titles(f)), share_of(f))
+	return ProDebut.night(ProOfferWire.forecast(c, f, titles(f)), float(f["bout"].get("terms", 1.0)))
 
 
 static func debut_words(f: Dictionary, t: Dictionary) -> String:

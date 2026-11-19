@@ -579,6 +579,8 @@ func _week_four(c: Career) -> void:
 	var debut_gym := int(Roster.debut_night(c, lucy)["gym"])   # S523: the house's deal - the gym's cut of the purse and the ticket share
 	_press(_modal_button("Begin"), "Begin the debut")
 	_shout_round()
+	if BoutNight.stopped(main.modal) == "" and int(main.modal.get("round", 0)) == 1:   # S523 map M13: the debut's corner note, once
+		_check(main.modal_node().find_child("DebutNote", true, false) != null, "the debut's first corner minute has the coach's pro note")
 	# S440: a bout can end inside the distance (PR 211 made a 56-62 call count more): call the corner while it goes on.
 	for k in ["long", "body", "calm"]:
 		if BoutNight.stopped(main.modal) != "" or _modal_button("Corner_" + k) == null:

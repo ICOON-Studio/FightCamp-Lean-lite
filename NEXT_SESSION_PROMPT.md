@@ -11,15 +11,13 @@ METHOD line below (S510) - quote it in the first message.
 ## MAIN LINE - DO FIRST
 1. His board: Q-S294-275 guard damage v4 (critics Dola 8/8/7, Goose 8/7/7; design + both critics attached). His yes =
    build after turning pro. His look at the turning pro offer (review board S523, map frame s523_pro).
-2. TURNPRO1 rest (design ops/research/DESIGN_TURNPRO1_V2_REVISE_KALLI_KALLI.md section 6): (M4 NEXT STEP DONE S523c:
-   NextStep.pro_line - tickets vs each house in WINS away, not weeks: wins are what moves it; age; declines), (M7 stipend
-   hover + M15 History milestone f["pro_signed"] DONE S523d; M16 Records already lists "turns pro with"; M1 = the
-   NEEDS YOU line says "last day to answer"), M7 stipend
-   hover, (M14 ProLadder lean DONE S523b: scripts/state/ProLean.gd, f["pro_house"], tests/pro_lean_test.gd),
-   M15/M16 records "turned pro", M1 top-bar red on the last day. Then the map's probes (section 7: 200 careers, two
-   years, three seed sets, half pay the stipend) with a bot per policy -> size the ESTIMATEs in ProCall.gd.
+2. TURNPRO1 rest: everything in the design's section 6 is wired EXCEPT M11 (the week review's signing / debut ledger
+   line): scripts/ui/modals/WeekReview.gd is at 497 lines - split it first (e.g. the pads block into its own file),
+   then add the line. The probes: TASK_TURNPROBE1.md is queued for Qwen (dispatch_queue, behind MORNINGSPROBE2 and
+   MONEYFOUR2); collect it and size the ESTIMATEs in ProCall.gd from its pass lines.
 3. Collect TREEVALUE2 (Qwen, E:/FightCamp/wt/LEAN_TREEVALUE2) -> tune StepEffect. Then MORNINGSPROBE2 + MONEYFOUR2.
-4. streak_probe rerun (owing corner first, S521 edit) when GREEN and no game window; save docs/ASKGAP1_RESULT.md rerun 2.
+4. (streak_probe rerun DONE S523: docs/ASKGAP1_RESULT.md "Rerun 2" - ON A RUN 13.4% of active weeks, 0.50 ducks a
+   season, 47 OWED reached, 21 owed bouts booked (w-l 8-13). All three lines YES; nothing to tune.)
 5. KNOWLEDGE1 build (v3 approved; scripts/rules/Knowledge.gd exists - diff it against DESIGN_KNOWLEDGE_V3 first).
 6. LUDO: his Q-274 answer "Neither - keep today's screens" -> no repaint of screens. Ludo makes asset pieces only
    (icons, pictures, props); sounds stay Qwen's. Give it one asset job a session while paid (~11 Dec).
@@ -40,6 +38,12 @@ METHOD line below (S510) - quote it in the first message.
 - S523b: M14 the house's lean - ProLean.extra adds the next-nearest tune-up (Harrow & Finch) or step up (Bow Lane) for
   the first 6 pro fights; the softer ask = tune-ups only for pro_tune_ups sets (spent on each booking); Fights line.
   ProLadder 481 lines. pro_lean_test (7 checks), pro_ladder, golden_path green.
+- S523d-h: M7 stipend hover, M15 History milestone (f["pro_signed"]), M13 the debut corner note (FightNight DEBUT_NOTE,
+  golden_path checks it), M9 club show followers (+10, HomeBout.SHOW_FOLLOWERS, in ProOfferWire.forecast), M19 the
+  signing week's two extra people (GymPeople.buzz_members), Ludo promoter badges (assets/ui/art/promoters). M18 was
+  already there (Stamina for five rounds is always offered). CRITIC_PACK item 9 updated.
+- KNOWLEDGE1A pure rules briefed to Goose (issue #378, ops/research/TASK_KNOWLEDGE1A.md). Collect, then wire per the
+  design's build order (section 14).
 - Exported; WHAT_TO_TRY S523 on top. Render: ops/previews/s523/pro_offer.png (review board + map).
 
 ## DONE IN S522

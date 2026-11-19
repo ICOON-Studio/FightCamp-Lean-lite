@@ -17,7 +17,7 @@ const RETURN_WINS := 2   ## mirrors Roster.PRO_RETURN_WINS
 
 ## Tickets the boxer would sell on the debut today.
 static func forecast(c: Career, f: Dictionary, titles: int) -> int:
-	return ProDebut.tickets_sold(c.members, int(f["w"]), titles)
+	return mini(ProDebut.TICKETS, ProDebut.tickets_sold(c.members, int(f["w"]), titles) + int(f.get("followers", 0)))   # + club show followers
 
 
 ## The offer for f, or {} when no first call comes at this age (ProCall.AGE_STOP).

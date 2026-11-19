@@ -335,7 +335,7 @@ static func _road_input(c: Career, f: Dictionary) -> Dictionary:
 	return {"bouts": Champs.bouts(f), "w": int(f["w"]), "reg_days": Champs.club_days(c, f), "age": int(f["age"]),
 		"injured": Injuries.out(c, f), "rank": int(f.get("rank", 0)), "pro_declines": int(f.get("pro_declines", 0)),
 		"nat_final": bool(f.get("nat_final", false)), "nationals": nationals, "pro": bool(f.get("pro", false)),
-		"pro_bouts": pro_bouts, "sold": NextStep.ProDebut.tickets_sold(c.members, int(f["w"]), NextStep.Roster.titles(f))}   # S523 M4
+		"pro_bouts": pro_bouts, "sold": NextStep.Roster.ProOfferWire.forecast(c, f, NextStep.Roster.titles(f))}   # S523 M4
 
 
 func _next_step_card(main: Node, c: Career, f: Dictionary) -> void:

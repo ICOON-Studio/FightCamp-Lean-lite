@@ -74,6 +74,9 @@ func _initialize() -> void:
 	var mile: Node = hist.find_child("TurnedPro", true, false)
 	_check(mile != null and str(mile.text).contains("HARROW & FINCH"), "History shows the milestone: %s" % (str(mile.text) if mile != null else "none"))
 	hist.free()
+	var GP: GDScript = load("res://scripts/rules/GymPeople.gd")
+	_check(GP.buzz_members(c.fighters, c.day) == 10 and GP.buzz_members(c.fighters, c.day + 7) == 0,
+		"the signing week: two more people on the gym floor, gone a week later (map M19)")
 	# 4. The ticket house alone when the forecast is far over its break-even.
 	var c2 := _career(150, 24)
 	Roster.check_pro(c2)
@@ -95,6 +98,12 @@ func _initialize() -> void:
 	f3["w"] = 11
 	Roster.check_pro(c3)
 	_check(not c3.pro_offer.is_empty(), "the call comes back at 11 wins")
+	# 6b. Topping our own club show: +10 ticket followers on the debut forecast (map M9).
+	var c6 := _career(60, 24)
+	var f6: Dictionary = c6.fighter()
+	var before6 := ProOfferWire.forecast(c6, f6, 0)
+	load("res://scripts/state/HomeBout.gd").boxed(c6, f6)
+	_check(ProOfferWire.forecast(c6, f6, 0) == before6 + 10, "topping our club show: debut forecast %d -> %d" % [before6, ProOfferWire.forecast(c6, f6, 0)])
 	# 7. Age: no first call at 32.
 	var c4 := _career(60, 32)
 	Roster.check_pro(c4)

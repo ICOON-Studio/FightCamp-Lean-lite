@@ -72,6 +72,15 @@ static func route(plan: Dictionary, a: Vector2i, b: Vector2i) -> Array:
 	return path
 
 
+## S523 TURNPRO1 map M19: the week a boxer signs pro the gym is busier - two more people on the floor (counted as members).
+static func buzz_members(fighters: Array, day: int) -> int:
+	for f in fighters:
+		var s: Dictionary = f.get("pro_signed", {})
+		if not s.is_empty() and day - int(s["d"]) < 7:
+			return 2 * MEMBERS_EACH
+	return 0
+
+
 ## Who is in: the club's own fighters first, then members; a bigger club is a busier gym.
 static func crowd(members: int, fighter_stems: Array, premises := -1) -> Array:
 	var most: int = MAX_PEOPLE if premises < 0 else int(ON_THE_FLOOR[clampi(premises, 0, ON_THE_FLOOR.size() - 1)])

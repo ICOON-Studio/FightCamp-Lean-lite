@@ -192,6 +192,7 @@ static func ticket_parts(c: Career, f: Dictionary) -> Array:
 		{"t": "Gym members", "n": int(floor(maxi(0, c.members) * ProDebut.PER_MEMBER)), "col": UI.GOLD},
 		{"t": "%d wins" % int(f["w"]), "n": ProDebut.PER_WIN * maxi(0, int(f["w"])), "col": Palette.ACCENT},
 		{"t": "Titles", "n": ProDebut.PER_TITLE * Roster.titles(f), "col": UI.GREEN},
+		{"t": "Club show crowd", "n": int(f.get("followers", 0)), "col": UI.AMBER},   # S523 map M9: topping our own show
 	]
 	var left := ProDebut.TICKETS
 	var out: Array = []

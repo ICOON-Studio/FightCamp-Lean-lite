@@ -56,7 +56,7 @@ func _arm() -> void:
 func _place(stems: Array) -> void:
 	spots = _read()
 	_pins = GymFloorSpots.pin_rects(self, _corner, _k)
-	var crowd: Array = GymPeople.crowd(_career.members, stems, _career.premises)
+	var crowd: Array = GymPeople.crowd(_career.members + GymPeople.buzz_members(_career.fighters, _career.day), stems, _career.premises)
 	var n: int = mini(crowd.size(), spots.size())
 	_rng.seed = _seed()
 	people = []

@@ -6,10 +6,10 @@
   "id": "S523",
   "owner": "claude",
   "updated": "2026-11-19",
-  "summary": "S523 (Opus): collected Goose #376 TURNPRO1A (ProCall) and #375 guard v4 critic (8/7/7; Dola 8/8/7) -> Q-S294-275 on his board. TURNPRO1B WIRED: ProOfferWire - two houses side by side by ticket forecast, one ask per house with answers shown, gym and boxer money apart, pays-back line, morale on buttons, 14-day window (lapse = no decline, next call after 2 wins), no first call at 32; debut night pays the purse cut. ProOffer modal fits 1080 (ops/previews/s523). Q-274 answered 'Neither - keep today's screens': no repaint; Ludo = assets only. Exported. S523b: M14 the house's lean on the first 6 pro offer sets + softer ask = tune-ups only (ProLean.gd). S523c: M4 NEXT STEP pro line (tickets vs each house in wins, age, declines).",
-  "next_action": "S524: 1) his look at the turning pro offer (review board S523) + Q-275 guard v4; 2) TURNPRO1 rest of the menus (map M7 stipend hover, M15/16 records) then the map's probes (section 7, 200 careers per bot policy) to size the ESTIMATEs; 3) collect Qwen TREEVALUE2 -> tune StepEffect; MORNINGSPROBE2 / MONEYFOUR2; 4) streak_probe rerun (owing corner first) when GREEN; 5) KNOWLEDGE1 build. Animation: lean-f3 only (METHOD S510).",
+  "summary": "S523 (Opus): collected Goose #376 TURNPRO1A (ProCall) and #375 guard v4 critic (8/7/7; Dola 8/8/7) -> Q-S294-275 on his board. TURNPRO1B WIRED: ProOfferWire - two houses side by side by ticket forecast, one ask per house with answers shown, gym and boxer money apart, pays-back line, morale on buttons, 14-day window (lapse = no decline, next call after 2 wins), no first call at 32; debut night pays the purse cut. ProOffer modal fits 1080 (ops/previews/s523). Q-274 answered 'Neither - keep today's screens': no repaint; Ludo = assets only. Exported. S523b: M14 the house's lean on the first 6 pro offer sets + softer ask = tune-ups only (ProLean.gd). S523c: M4 NEXT STEP pro line (tickets vs each house in wins, age, declines). S523d-h: TURNPRO1 M7/M9/M13/M15/M19 wired + Ludo promoter badges; TURNPROBE1 queued (Qwen); KNOWLEDGE1A at Goose #378; streak probe rerun 2: OWED 47, owed bouts booked 21 - all lines YES.",
+  "next_action": "S524: 1) his look at the turning pro offer (review board S523) + Q-275 guard v4; 2) TURNPRO1 M11 week review line (split WeekReview.gd first, 497 lines); collect TURNPROBE1 (Qwen) and size ProCall ESTIMATEs; 3) collect Goose #378 KNOWLEDGE1A, wire per design build order; 4) collect Qwen TREEVALUE2 -> tune StepEffect; MORNINGSPROBE2 / MONEYFOUR2. Animation: lean-f3 only (METHOD S510).",
   "verified_playable": "Builds/FightCamp.exe S523: turning pro offer with two houses (hidden-desktop render ops/previews/s523/pro_offer.png; golden_path signs through the modal). Not yet played by him.",
-  "incomplete_blocked": "TURNPRO1: menus M1 (top bar red last day), M7 stipend hover, M15-M19 and the probes not done. TREEVALUE2 running (Qwen).",
+  "incomplete_blocked": "TURNPRO1 M11 (WeekReview at 497 lines) and the probes (TURNPROBE1 queued). TREEVALUE2 running (Qwen), KNOWLEDGE1A at Goose #378.",
   "next_acceptance": "TURNPRO1 probes: both houses call in some careers, asks used, gym even-week matches the pays-back line within a week.",
   "awaiting_operator": "Q-S294-275 guard damage v4 (build after turning pro?); his look at the turning pro offer and the club week; Steam: wait to 8 Dec.",
   "last_working_commit": "2e73b00da"
@@ -2233,7 +2233,7 @@
    "id": "S523",
    "date": "2026-11-19",
    "model": "opus",
-   "summary": "S523 (Opus): collected Goose #376 TURNPRO1A (ProCall) and #375 guard v4 critic (8/7/7; Dola 8/8/7) -> Q-S294-275 on his board. TURNPRO1B WIRED: ProOfferWire - two houses side by side by ticket forecast, one ask per house with answers shown, gym and boxer money apart, pays-back line, morale on buttons, 14-day window (lapse = no decline, next call after 2 wins), no first call at 32; debut night pays the purse cut. ProOffer modal fits 1080 (ops/previews/s523). Q-274 answered 'Neither - keep today's screens': no repaint; Ludo = assets only. Exported. S523b: M14 the house's lean on the first 6 pro offer sets + softer ask = tune-ups only (ProLean.gd). S523c: M4 NEXT STEP pro line (tickets vs each house in wins, age, declines)."
+   "summary": "S523 (Opus): collected Goose #376 TURNPRO1A (ProCall) and #375 guard v4 critic (8/7/7; Dola 8/8/7) -> Q-S294-275 on his board. TURNPRO1B WIRED: ProOfferWire - two houses side by side by ticket forecast, one ask per house with answers shown, gym and boxer money apart, pays-back line, morale on buttons, 14-day window (lapse = no decline, next call after 2 wins), no first call at 32; debut night pays the purse cut. ProOffer modal fits 1080 (ops/previews/s523). Q-274 answered 'Neither - keep today's screens': no repaint; Ludo = assets only. Exported. S523b: M14 the house's lean on the first 6 pro offer sets + softer ask = tune-ups only (ProLean.gd). S523c: M4 NEXT STEP pro line (tickets vs each house in wins, age, declines). S523d-h: TURNPRO1 M7/M9/M13/M15/M19 wired + Ludo promoter badges; TURNPROBE1 queued (Qwen); KNOWLEDGE1A at Goose #378; streak probe rerun 2: OWED 47, owed bouts booked 21 - all lines YES."
   }
  ],
  "blocked_on_operator": [],
@@ -5152,7 +5152,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-19 02:49 board_sync",
+  "updated": "2026-11-19 03:11 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5303,17 +5303,16 @@
   },
   "working_now": [
    {
-    "title": "STREAKPROBE1",
-    "who": "",
-    "started": "",
-    "run": "STREAKPROBE1",
-    "state": "LANDED - Claude collects"
-   },
-   {
     "title": "TASK TREEVALUE2 - is each footwork / defence step worth 1.5-5 in 100 against its own style? (probe only)",
     "who": "qwen",
     "started": "2026-11-19T01:42",
     "run": "TREEVALUE2"
+   },
+   {
+    "title": "Knowledge v3: the pure rules (groups, widths, reads and prices, stale, hype, moments)",
+    "who": "goose",
+    "started": "2026-11-19T03:12",
+    "run": "KNOWLEDGE1A"
    }
   ],
   "next": [
@@ -6050,6 +6049,14 @@
     {
      "text": "NEXT STEP: pro tickets line",
      "who": "claude"
+    },
+    {
+     "text": "Turning pro menus + badges",
+     "who": "claude"
+    },
+    {
+     "text": "Streak probe rerun: OWED books",
+     "who": "claude"
     }
    ],
    "now": [
@@ -6124,6 +6131,10 @@
     {
      "text": "Guard v4: your yes (critics 8,7)",
      "who": "operator"
+    },
+    {
+     "text": "Knowledge v3 rules (Goose #378)",
+     "who": "agent"
     }
    ],
    "next": [
@@ -6290,6 +6301,6 @@
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
  "last_working_commit": "ba87ee191",
- "next_action": "S524: 1) his look at the turning pro offer (review board S523) + Q-275 guard v4; 2) TURNPRO1 rest of the menus (map M7 stipend hover, M15/16 records) then the map's probes (section 7, 200 careers per bot policy) to size the ESTIMATEs; 3) collect Qwen TREEVALUE2 -> tune StepEffect; MORNINGSPROBE2 / MONEYFOUR2; 4) streak_probe rerun (owing corner first) when GREEN; 5) KNOWLEDGE1 build. Animation: lean-f3 only (METHOD S510).",
+ "next_action": "S524: 1) his look at the turning pro offer (review board S523) + Q-275 guard v4; 2) TURNPRO1 M11 week review line (split WeekReview.gd first, 497 lines); collect TURNPROBE1 (Qwen) and size ProCall ESTIMATEs; 3) collect Goose #378 KNOWLEDGE1A, wire per design build order; 4) collect Qwen TREEVALUE2 -> tune StepEffect; MORNINGSPROBE2 / MONEYFOUR2. Animation: lean-f3 only (METHOD S510).",
  "next_acceptance": "Rulers vs r0: head jumps on the contact frame under 4, a head inside the other's body under 5 frames, arm out median under 4 frames with join_return green, then r1 film at two fresh blind critics 5+/10"
 }
