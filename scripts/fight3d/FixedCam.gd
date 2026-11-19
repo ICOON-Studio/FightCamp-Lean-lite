@@ -49,6 +49,7 @@ static var on: bool = not OS.get_cmdline_user_args().has("tvcam")
 ## FOLLOW_DEAD_DEG, and never further than FOLLOW_MAX_DEG from where it stood when the round began (one side of the
 ## ring: no corner post crosses the lens, the crowd behind stays the same crowd). No cut, the same framing.
 static var follow := false
+static var lift := 0.0        # S531: the v2 player's tripod stands this much higher (the near bottom rope clears the boots)
 const FOLLOW_DPS := 22.0
 const FOLLOW_GAIN := 1.6
 const FOLLOW_DEAD_DEG := 3.0
@@ -60,7 +61,7 @@ const FOLLOW_MAX_DEG := 32.0
 static func spot_for(a: Vector3, b: Vector3) -> Vector3:
 	var along_x: bool = absf(b.x - a.x) >= absf(b.z - a.z)
 	var out: float = HIGH.x if mode == 1 else OUT_M
-	var up: float = HIGH.y if mode == 1 else UP_M
+	var up: float = HIGH.y if mode == 1 else UP_M + lift
 	return Vector3(0.0, up, out) if along_x else Vector3(-out, up, 0.0)
 
 

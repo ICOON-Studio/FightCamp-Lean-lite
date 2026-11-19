@@ -30,6 +30,14 @@ const HOOK_FIT_M := 0.05      # hooks, uppercuts, body shots get no IK
 # --- Timing (UNDISPUTED_STUDY_S254) ---
 const SLIDE_MAX_S := 0.25     # max contact slide for stun avoidance
 const CONTROL_S := 0.13       # control back after contact (Undisputed 0.11-0.17)
+## S531 NOBODY PUNCHES FROM OUT OF REACH (the owner on film 13: "restrict the fighters to punch when they are too far
+## from each other and there is no chance to reach the opponent"; tools/fight_persist_rulers.py REACH on that film: 22
+## of 39 paws and feints thrown with the hips over 1.30 m apart, 6 of 31 punches never within 0.40 m of the man).
+## A punch that misses with nobody making it miss is thrown from where it could land and falls MISS_SHORT_M short (was
+## 15-30 cm); a paw or a jab feint only from inside BEAT_REACH_M, a cross or body feint only from inside FEINT_REACH_M.
+const MISS_SHORT_M := Vector2(0.06, 0.12)
+const BEAT_REACH_M := 1.30
+const FEINT_REACH_M := 1.18
 const DUCKED_OFF_M := 0.16
 const SAME_HAND_MAX_S := 0.45  # ... and only when that lands it this much later at most
 const SAME_HAND_S := 0.04      # the same hand again starts this long after control is back (S531)
@@ -176,6 +184,7 @@ const REACT_HEAD_M := {"jab": 0.11,   # S531: 0.15 read 16 cm on films 9 and 10 
 	 "cross": 0.24, "lead_hook": 0.24, "rear_hook": 0.24, "lead_uppercut": 0.18,
 	"rear_uppercut": 0.18, "body_hook": 0.30}
 const REACT_BIG := 1.4
+const REACT_FRESH_M := 0.12       # a reaction not yet shown in this exchange may be this much further from the fit (S531)
 const REACT_VARY_M := 0.045       # takes this near the best fit share the punch (variety)
 ## The census drops a reaction whose face tips up over 15 deg ("face to the lights", r14). A head snapped back by a
 ## cross, a hook or an uppercut tips up by its nature: for those punches a take dropped ONLY for that, up to this, plays.

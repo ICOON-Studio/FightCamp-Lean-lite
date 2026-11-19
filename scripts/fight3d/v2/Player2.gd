@@ -286,8 +286,8 @@ func _event(i: int, e: Dictionary) -> void:
 		return
 	if kind == "reaction" and str(e.get("move", "")) == "body_hook":
 		_join_next = JOIN_FOLD
-	elif kind == "reaction" and bool(e.get("soft", false)):
-		_join_next = JOIN_SOFT
+	elif bool(e.get("soft", false)):   # S531: a duck joined part-way in (film 11, def2 #15: 17 cm of head in one picture) takes the fold's join
+		_join_next = JOIN_SOFT if kind == "reaction" else JOIN_FOLD
 	_play(i, clip, float(e["from_s"]) + (t - float(e["late_t"]) if e.has("late_t") else 0.0), kind, kind == "punch" or str(e.get("part", "whole")) == "whole")
 	if kind in ["reaction", "defence"] and e.has("until_s"):   # S526: back to the guard once the reaction has shown (ChoreoRules.REACT_TAIL_S); S530: a weave too (DEF_UP_S)
 		_due.append([t + maxf(float(e["until_s"]) - float(e["from_s"]), 0.2), func() -> void:

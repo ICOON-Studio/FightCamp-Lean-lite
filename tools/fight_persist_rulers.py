@@ -7,6 +7,10 @@
                 never at the hip).
   3 APART       hips never closer than HIPS_M; no ankle within BOOT_M of an ankle of the other man.
   4 STANCE      a man's own ankles never closer than ANKLE_M (knock-kneed, boots touching).
+  5 REACH      (the owner, S531: "restrict the fighters to punch when they are too far from each other and there is no
+                chance to reach the opponent") a thrown punch whose wrist never comes within REACH_M of the other man's
+                head or chest; and a paw or a feint (a punch take shown under 8 frames) started with the hips over
+                FAR_M apart.
 `list` prints the worst cases (film s, who, clip)."""
 import csv
 import math
@@ -19,6 +23,8 @@ FREE_M = 0.12    # the same for the free hand
 HIPS_M = 0.30    # CHEST to chest (hips stay apart while the trunks lean through each other)
 BOOT_M = 0.15
 ANKLE_M = 0.30
+REACH_M = 0.40   # wrist to the other man's head / chest bone at its nearest (the glove is 10-15 cm past the wrist)
+FAR_M = 1.30
 PUNCH_WORDS = ("jab", "cross", "hook", "uppercut", "body_shot", "kidney")
 REACT = ("pro_hit", "react_", "mc_hit")
 
@@ -40,8 +46,9 @@ def measure(d):
     by = defaultdict(list)
     for r in rows:
         by[r["who"]].append(r)
-    out = {"arm": [], "free": [], "hips": [], "boot": [], "stance": []}
+    out = {"arm": [], "free": [], "hips": [], "boot": [], "stance": [], "reach": [], "far_beat": [], "beats": 0}
     for who, rs in by.items():
+        other = {r["frame"]: r for w2, rows2 in by.items() if w2 != who for r in rows2}
         guard = {}
         for h in ("LeftHand", "RightHand"):
             ds = sorted(math.dist(v(r, h), v(r, "Head")) for r in rs if "st_wait" in r["clip"] or r["clip"] == "pro_idle")
@@ -59,7 +66,20 @@ def measure(d):
             hand = hand_of(c)
             free = "LeftHand" if hand == "RightHand" else "RightHand"
             reach = [math.dist(v(r, hand), v(r, "Head")) for r in rs[i:j + 1]]
+            o0 = other.get(rs[i]["frame"])
+            if j - i < 8 and o0 is not None:   # a paw or a feint
+                out["beats"] += 1
+                g0 = math.hypot(float(rs[i]["Hips_x"]) - float(o0["Hips_x"]), float(rs[i]["Hips_z"]) - float(o0["Hips_z"]))
+                if g0 > FAR_M:
+                    out["far_beat"].append((round(g0, 2), float(rs[i]["film_s"]), who, c))
             if j - i >= 8 and max(reach) > 0.45:   # a thrown punch, not a paw
+                near = 9.0
+                for r in rs[i:j + 1]:
+                    o = other.get(r["frame"])
+                    if o is not None:
+                        near = min(near, math.dist(v(r, hand), v(o, "Head")), math.dist(v(r, hand), v(o, "Chest")))
+                if near > REACH_M:
+                    out["reach"].append((round(near, 2), float(rs[i]["film_s"]), who, c))
                 k = reach.index(max(reach))
                 # frames from the furthest reach until the wrist is home (the frames after the take count too)
                 n = 0
@@ -103,7 +123,11 @@ def main():
         HIPS_M, len(m["hips"]), 100.0 * len(m["hips"]) / n, BOOT_M, len(m["boot"]), 100.0 * len(m["boot"]) / n))
     print("  4 STANCE     own ankles under %.2f m apart: %d frames (%.1f %% of both men's)" % (
         ANKLE_M, len(m["stance"]), 50.0 * len(m["stance"]) / n))
+    print("  5 REACH      punches that never come within %.2f m of the other man: %d of %d | paws / feints started over %.2f m apart: %d of %d" % (
+        REACH_M, len(m["reach"]), len(arm), FAR_M, len(m["far_beat"]), m["beats"]))
     if "list" in sys.argv:
+        print("  -- out of reach: %s" % sorted(m["reach"], reverse=True)[:12])
+        print("  -- far paws / feints: %s" % sorted(m["far_beat"], reverse=True)[:8])
         for k, rowsk in (("arm", late[:12]), ("free", off[:12]), ("hips", sorted(m["hips"])[:6]), ("boot", sorted(m["boot"])[:6]),
                          ("stance", sorted(m["stance"])[:8])):
             print("  -- %s" % k)

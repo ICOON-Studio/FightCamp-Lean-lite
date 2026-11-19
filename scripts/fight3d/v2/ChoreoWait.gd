@@ -11,6 +11,7 @@ extends RefCounted
 ## Events: {t, clip, kind: "fidget" | "feint", from_s, until_s, speed, part: "whole", join_s, control_t}.
 
 const R := preload("res://scripts/fight3d/v2/ChoreoRules.gd")
+const Gap := preload("res://scripts/fight3d/v2/ChoreoGap.gd")
 
 const QUIET_S := Vector2(0.35, 0.9)    # plain guard between two things (the critics: never 10 still frames, a feint every 1-3 s)
 const SETTLE_S := 0.25                 # after a take of his ends, before a wait thing starts
@@ -38,7 +39,7 @@ const BUSY := ["punch", "reaction", "block", "defence", "pass"]
 
 
 ## Fills both tracks' quiet stretches. `contacts`: every punch's contact time (either man's).
-static func add(tracks: Dictionary, db: Dictionary, t0: float, t1: float, contacts: Array, rng: RandomNumberGenerator) -> void:
+static func add(tracks: Dictionary, db: Dictionary, t0: float, t1: float, contacts: Array, rng: RandomNumberGenerator, gap: Array = []) -> void:
 	var rows: Dictionary = db.get("rows", {})
 	for w in ["a", "b"]:
 		var evs: Array = tracks[w]
@@ -67,9 +68,15 @@ static func add(tracks: Dictionary, db: Dictionary, t0: float, t1: float, contac
 				var what := _draw(rng)
 				if stepped and what == "fidget" and free_to - at < 1.2:
 					what = "paw"   # between two steps the lead hand measures (a fidget take shuffles the feet he has just set)
+				# S531: nobody paws or feints at a man he cannot reach (ChoreoRules.BEAT_REACH_M): from out there he fidgets, or waits
+				if what != "fidget" and not gap.is_empty() and Gap.at(gap, at) > (R.BEAT_REACH_M if what in ["paw", "jab_feint"] else R.FEINT_REACH_M):
+					if rng.randf() < 0.5:
+						at += _r(rng, QUIET_S)
+						continue
+					what = "fidget"
 				var e := _event(what, at, free_to, rows, rng, last, contacts) if what == "fidget" else _beat(what, at, free_to, rows, contacts)
 				if e.is_empty():   # a punch is landing, or the stretch is too short for it: the other kind
-					e = _beat("paw", at, free_to, rows, contacts) if what == "fidget" else _event(what, at, free_to, rows, rng, last, contacts)
+					e = (_beat("paw", at, free_to, rows, contacts) if gap.is_empty() or Gap.at(gap, at) <= R.BEAT_REACH_M else {}) if what == "fidget" else _event(what, at, free_to, rows, rng, last, contacts)
 				if e.is_empty():
 					at += 0.1
 					continue

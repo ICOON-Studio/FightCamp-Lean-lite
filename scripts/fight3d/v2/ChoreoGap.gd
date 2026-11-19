@@ -17,7 +17,7 @@ extends RefCounted
 const R := preload("res://scripts/fight3d/v2/ChoreoRules.gd")
 
 const LEAD_S := 0.08          # the step in is over this long before the glove lands (the front foot is down)
-const HOLD_S := 0.20          # after a contact the pair stays put this long (the hand comes home, the hit shows)
+const HOLD_S := 0.10          # after a contact the pair stays put this long (the hand comes home, the hit shows)
 const STEP_IN_M := 0.25       # the step in on the punch (the critics: lead foot 15-25 cm, down as the glove lands)
 const CREEP_MPS := 0.6        # the edge in from rest to one step from the punch (calm: both men, half each)
 const CREEP_S := 0.45         # ... and never quicker than this
@@ -37,8 +37,11 @@ const HURT_OUT_M := 0.25
 const HURT_S := 0.60
 const EASE_OUT_WAIT_S := 0.12 # he lands that step, then both ease back to rest ...
 const EASE_OUT_MPS := 0.8     # ... this fast
-const POCKET_M := 1.12         # just past the jab: where the pair waits between the punches of one burst
-const POCKET_WAIT_S := 0.9    # a wait this long inside a burst is spent at the pocket, not chest to chest
+## S531 (film 11, both critics' first fault: inside 1.1 m, nobody punching, "gloves resting on gloves" for up to a
+## second): 1.12 m / 0.9 s -> the man who punched steps out to where the gloves cannot meet whenever the next punch of
+## the burst is a second or more away.
+const POCKET_M := 1.25         # past the jab and the other man's glove: where the pair waits between the punches of one burst
+const POCKET_WAIT_S := 1.0    # (0.55 left no time to step back in: the plan missed the next punch's distance on 6 of 40 seeds) a wait this long inside a burst is spent at the pocket, not chest to chest
 const POCKET_MIN_M := 0.10    # a step out to the pocket shorter than this is not worth taking
 const MIN_RAMP_S := 0.12      # no move is shorter than this
 ## S528 (C434: "why the fighter do not walk ?"): a move a viewer counts as a step is played as a captured step take

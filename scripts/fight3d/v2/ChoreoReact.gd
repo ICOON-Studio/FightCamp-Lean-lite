@@ -6,7 +6,7 @@ const R := preload("res://scripts/fight3d/v2/ChoreoRules.gd")
 const BeatClips := preload("res://scripts/fight3d/BeatClips.gd")
 
 
-static func react(db: Dictionary, rows: Dictionary, move: String, big: bool, from_left: bool, rng: RandomNumberGenerator, hfh: float, log: Array, sc: float = 1.0) -> Array:
+static func react(db: Dictionary, rows: Dictionary, move: String, big: bool, from_left: bool, rng: RandomNumberGenerator, hfh: float, log: Array, sc: float = 1.0, used: Array = []) -> Array:
 	var size: String = R.react_size_for(move, big)
 	var want: float = R.react_head_m(move, big) / maxf(sc, 0.5)   # S530: the takes are measured on the census body; a bigger man shows more
 	# Direction: straight -> back (x >= 0.6); hook from left -> his left (y >= 0.5); hook from right -> his right (y <= -0.5)
@@ -49,6 +49,14 @@ static func react(db: Dictionary, rows: Dictionary, move: String, big: bool, fro
 		# S513: nearly every head punch played ONE take; any take within REACT_VARY_M of the best fit may play.
 		var near: Array = pool.filter(func(c): return float(c[0]) <= float(pool[0][0]) + R.REACT_VARY_M)
 		best = str(near[rng.randi_range(0, near.size() - 1)][1]) if near.size() > 1 else str(pool[0][1])
+		# S531 (film 11, both critics: "the big hit reaction is one canned snap used twice", ex1 #53 = ex3 #45): a take
+		# already shown in this exchange (30 s) is passed over while another that goes the right way is within
+		# REACT_FRESH_M of the best fit - the nearest of those plays.
+		if used.has(best):
+			var fresh: Array = pool.filter(func(c): return not used.has(str(c[1])) and float(c[0]) <= float(pool[0][0]) + R.REACT_FRESH_M)
+			if not fresh.is_empty():
+				best = str(fresh[0][1])
+		used.append(best)
 		best_row = rows[best]
 	var hips: float = float(best_row.get("hips_max_m", 0.0))
 	var rpart: String = "whole" if hips >= R.WHOLE_BODY_HIPS_M else "upper"

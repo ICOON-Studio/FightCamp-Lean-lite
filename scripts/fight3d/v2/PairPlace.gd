@@ -43,6 +43,7 @@ var _want_was := 0.0          # the distance asked for last frame (how fast it c
 func _init(player: Node) -> void:
 	p = player
 	FixedCam.follow = circle_on   # S531: only the v2 player swings the tripod
+	FixedCam.lift = 0.25
 
 
 ## The bodies follow the distance plan.

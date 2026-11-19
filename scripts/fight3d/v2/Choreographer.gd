@@ -33,6 +33,7 @@ static func plan(beats: Array, db: Dictionary, opts: Dictionary) -> Dictionary:
 	var ctrl_until := {"a": -1.0, "b": -1.0}
 	var last_take := {"a": "", "b": ""}
 	var last_hand := {"a": "", "b": ""}
+	var reacts_used: Array = []
 	var prev_ct := -99.0
 	var landed_at := {"a": -99.0, "b": -99.0}   # each man's own last contact as planned
 	var prev_free := -99.0   # from when the feet are free to shift again: the last contact, or the end of the knock it gave
@@ -79,7 +80,7 @@ static func plan(beats: Array, db: Dictionary, opts: Dictionary) -> Dictionary:
 			room = INF   # the pair waited at the pocket: any take's distance is one step away
 		var off: float = 0.0
 		if result == "misses" and def == "":
-			off = _rng_range(rng, 0.15, 0.30)   # planned SHORT: the glove stops in the air in front of him
+			off = _rng_range(rng, R.MISS_SHORT_M.x, R.MISS_SHORT_M.y)   # planned SHORT: the glove stops in the air in front of him
 		elif result != "lands" and result != "blocked" and def != "" and not R.is_straight(move):
 			off = R.DUCKED_OFF_M   # S531: a hook that is ducked is thrown from a little further out (film 10a, def2 #53-#60: the puncher's take carried him into the man going under it - two bodies as one shape)
 		elif result == "blocked":
@@ -167,7 +168,7 @@ static func plan(beats: Array, db: Dictionary, opts: Dictionary) -> Dictionary:
 		var react_part := ""
 		var defence_name := ""
 		if result == "lands":
-			var ri := React.react(db, rows, move, big, R.is_left_hand(move), rng, hfh, log, float(scale.get(other, 1.0)))
+			var ri := React.react(db, rows, move, big, R.is_left_hand(move), rng, hfh, log, float(scale.get(other, 1.0)), reacts_used)
 			react_name = str(ri[0])
 			var rrow: Dictionary = ri[1]
 			# S525: every reaction plays with its take's own travel (a small one was pinned "upper": its feet stepped
@@ -246,6 +247,7 @@ static func plan(beats: Array, db: Dictionary, opts: Dictionary) -> Dictionary:
 				# S525: while a take of his own still has him (a punch planned earlier in the burst) the defence waits and
 				# starts part-way in, so its head is still off the line on time (it used to start on schedule and be cut).
 				var d_from := peak_s - lead_in
+				var d_held: bool = dt < float(ctrl_until[other])   # S531: he joins it part-way in - on the slow join (Player2.JOIN_FOLD)
 				if dt < float(ctrl_until[other]):
 					d_from = clampf(d_from + float(ctrl_until[other]) - dt, 0.0, maxf(peak_s - 0.12, 0.0))
 					dt = contact_t - (peak_s - d_from)
@@ -262,7 +264,7 @@ static func plan(beats: Array, db: Dictionary, opts: Dictionary) -> Dictionary:
 						dt -= cut
 						early += cut
 				ev[other].append({"t": dt, "clip": defence_name, "kind": "defence", "part": "whole", "from_s": d_from,
-					"join_s": R.join_for("defence"), "control_t": contact_t + float(drow.get("back_s", 0.4))})
+					"join_s": R.join_for("defence"), "control_t": contact_t + float(drow.get("back_s", 0.4)), "soft": d_held})
 				if float(drow.get("hips_max_m", 0.0)) < R.WHOLE_BODY_HIPS_M:   # S530: one that does not step comes up at once (DEF_UP_S)
 					(ev[other][-1] as Dictionary)["until_s"] = peak_s + R.DEF_UP_S
 					(ev[other][-1] as Dictionary)["control_t"] = contact_t + minf(float(drow.get("back_s", 0.4)), R.DEF_UP_S + 0.25)
@@ -294,7 +296,7 @@ static func plan(beats: Array, db: Dictionary, opts: Dictionary) -> Dictionary:
 		# waits' own stay what they were where no ring step is). `drift: false` = the plan without them.
 		if bool(opts.get("drift", true)):
 			counts["ring_steps"] = Drift.plan(ev, gap, db, t0, t1, drng)
-		Wait.add(ev, db, t0, t1, marks.filter(func(m): return str(m.get("kind", "contact")) == "contact").map(func(m): return float(m["t"])), rng)
+		Wait.add(ev, db, t0, t1, marks.filter(func(m): return str(m.get("kind", "contact")) == "contact").map(func(m): return float(m["t"])), rng, gap)
 		# S531: the rock in and out at rest (5-9 cm every second or so) is off unless asked for: the wait bounces now, and
 		# under the bounce each rock made the leg layer take a step - 40 foot lifts a man in 75 s that no take stepped
 		# (film 9: "90 steps a minute ... nervous"). `breathe: true` = as before.

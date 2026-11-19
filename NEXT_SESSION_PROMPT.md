@@ -620,6 +620,26 @@ control arm; the shipped player is untouched without the switch.
     to you now": "Yes, looks right" - the guard is CLOSED: do not move GUARD_AT / GuardHold.AT without a note from him. NEXT TIME A POSE IS CHANGED: look at BOTH men in a film
     frame before sending (the orbit still of one body hid it), and place hands in the head's FACING frame, never by
     scaling toward a bone.
+  * THE OWNER AFTER FILM 13 (guard confirmed): "do the cheap fixes and also try to restrict the fighters to punch when
+    they are too far fromeach other and there is no chance to reach the opponent". BUILT, HEADLESS ONLY - NOT FILMED:
+    his game (ArcheAge) was open (Q-267); `s531/wait_game.sh` is watching, then film it as `v2r18/` (`film_round.sh
+    E:/FightCamp/tmp/fightweek/v2r18 fightplayer2 fp2log`), LOOK AT BOTH MEN in a wait strip and an exchange strip,
+    and send it to him (no critic round). Headless bout `s531/b17`, film 13 -> now:
+    - REACH (new ruler 5 in `tools/fight_persist_rulers.py`): paws / feints started over 1.30 m apart 22 of 39 -> 0 of
+      10; punches never within 0.40 m of the man 6 of 31 -> 4 (all four are ducked or pulled from). ChoreoRules
+      BEAT_REACH_M 1.30 (paw, jab feint), FEINT_REACH_M 1.18 (cross / body feint): from further out he fidgets or
+      waits (ChoreoWait.add now takes the gap plan); a plain miss falls MISS_SHORT_M 6-12 cm short (was 15-30).
+      The hands are quieter for it (10 paws in 75 s, was 39; longest plain wait 3.4 s; R14's bar 3 -> 4.2 s).
+    - close and idle (hips under 1.10 m, nobody punching, over 6 frames): 133 -> 90 frames, 55 of them a man already
+      in his step-out take; both men plainly waiting close: 35 frames in 75 s. ChoreoGap.HOLD_S 0.20 -> 0.10 (the step
+      out starts sooner), POCKET_M 1.12 -> 1.25. POCKET_WAIT_S 0.55 was tried: the plan then missed the next punch's
+      distance on 6 of 40 seeds - it is 1.0.
+    - no hit reaction twice in one exchange (ChoreoReact.react `used`, REACT_FRESH_M 0.12): 11 different takes for 16
+      hits in the bout. Head jumps went 9 -> 14 with it (pro_hit_by_cross_v4, pro_hit_by_combo_v2 16-17 cm inside the
+      take): these takes need ChoreoReact.start_s looked at on them, or REACT_FRESH_M pulled in.
+    - a duck joined part-way in by a man still held takes the fold's join (event "soft" -> Player2 JOIN_FOLD).
+    - the v2 tripod stands 25 cm higher (FixedCam.lift, set by PairPlace; the shipped player unchanged).
+    choreographer / player2 (LANDS 14 of 14) / ring_steps / fixed_cam tests green.
   * TRAPS: `off_side()`'s sign - a pair turn of +th takes the line's angle DOWN by th (my first cap flipped circles the
     wrong way: 36 deg off, a back over the punches in ex1; rulers saw nothing, the sheet did - LOOK AT ONE EX SHEET
     BEFORE THE CRITICS); 30 deg circles put a back to the fixed camera whatever the slack; the film's FP2 log is in
