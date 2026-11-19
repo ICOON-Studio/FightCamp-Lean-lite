@@ -368,7 +368,74 @@ The v2 player EXISTS and plays the real bout behind `-- fightplayer2`. FIRST BLI
 BELOW the old player (see FIRST FILM below). When this section was first written it had not been filmed: the owner's
 game (ArcheAge) was open the whole session and films run only when no game window is open (Q-267). r14 = 4.5 / 4.5 is the
 control arm; the shipped player is untouched without the switch.
-- S525 (2026-11-19, commits 5147163fd range + af6b11d7b waits). READ THIS FIRST, it is the newest:
+- S525b (2026-11-19 ~12:00, the same session's second stage). READ THIS FIRST, it is the newest:
+  * FOURTH FILM + BLIND ROUND (`E:/FightCamp/tmp/fightweek/v2r7/`, film = commit 06f2dc3a9, seed 7, 75 s):
+    coach 4.5, animator 4.5. Film 3 was 4.0 / 4.5, film 2 3.5 / 3.5, the old player r14 4.5 / 4.5: v2 now EQUALS
+    the old player. THE GATE (7 + 7) IS NOT MET; v2 stays behind its switch.
+    | critic | whole | punches | defence + reactions | footwork + stance | transitions | waiting |
+    |---|---|---|---|---|---|---|
+    | coach | 4.5 | 5.5 | 3 | 4 | 4.5 | 4.5 |
+    | animator | 4.5 | 5 | 3.5 | 3.5 | 4.5 | 3.5 |
+    Waiting moved most (coach 2.5 -> 4.5, animator 3 -> 3.5); reactions did not (3 / 3.5). Reviews
+    `v2r7/critic_coach.md` (10 items), `critic_animator.md`, pictures `critic_*_10.png`; critics on Opus. The animator
+    wrote "they stand 2 m apart" (the ruler: heads 1.45 m, hips 1.42-1.55) and "14-15 m of slide" (the `slide by
+    clip` lines of rulers_raw; the support-foot slip is 8.1 / 8.0 m): check a number against the ruler before building.
+  * WHAT WAS IN THAT FILM beyond film 3: the waits (af6b11d7b); reactions that give their ground (aa159ef33: the
+    hip travel a reaction's take had made before the point it is started from is given on the blow, every reaction
+    plays with its own travel, inside a burst too when the next punch can follow, takes under 11 cm / 21 cm of head
+    travel passed over); no "back to the other man" take while its family owns another, a defence waits for his own
+    punch, he comes up before he counters (df140cd07); hits.json read after the frame's pose (06f2dc3a9).
+    Rulers film 3 -> film 4: longest wait 5.97 / 5.7 -> 4.5 / 4.3 s; paws and feints 1 / 0 / 0 / 2 -> 7 / 6 / 7 / 5;
+    worst head jump 26.6 -> 17.1 cm (11 jumps both times); a cross: the hit man steps back 2.9 -> 7.0 cm, his head
+    travels 14.6 -> 17.8 cm in the ring; support-foot slip 6.6 / 6.3 -> 8.1 / 8.0 m (the price of the movement).
+  * A RULER WAS WRONG FOR THREE FILMS: hits.json `miss` read the glove one frame BEFORE it lands (the contact fires
+    before that frame's pose is on the skeleton): "10-28 cm short", which both critics of film 3 quoted. Read after
+    the pose: 2-13 cm, median 4-5 (the 60 Hz test said 4 cm all along). Nothing to build for "the glove ends short".
+  * AFTER THE FILM, NOT FILMED (the owner started a game, Q-267): e56c96814 (a hook thrown second in a combination
+    gets 0.26 s of wind, not 0.12) and 6a4f9ffea (it joins over 0.24 s): headless, the fastest chest turn in a frame
+    50 / 36 -> 41 / 28 deg, player2_test head jumps outside a contact 4 -> 0. Ruler: `s525/range.py` prints it.
+  * BOTH LISTS AFTER FILM 4, most important first (they agree on the first four):
+    (1) REACTIONS SIZED, the whole body (both, item 1): jab 10-12 cm, cross 20-25 cm + a 15-20 deg turn + a
+    15-25 cm step back, hook 25-30 cm sideways + 30-40 deg, body a 30-50 cm fold + a step back; keep the 2-3
+    frame peak, hold 2-4 frames, back over 8-12; a flush shot adds a stagger step. MEASURED LIMIT: against his own
+    hips the head moves 7.3 cm at the median whatever the plan does - that is the owned takes (light 8-10 cm,
+    medium 11-17 cm of head from hips; the heavy ones are staggers of 38-59 cm, two of them dropped for a face
+    tipped up 29 deg). What is left inside the method: play a size up (a medium take for a jab, a heavy one for a
+    clean cross), start the reaction further back in its take (REACT_PEAK_S) so more of it plays, or better takes
+    (the owner's mocap buy is his end-of-November call: do not ask, report this limit).
+    (2) DEFENCE THAT SHOWS (both, item 2): one punch in three meets a slip 15-20 cm off the line, a roll 25-30 cm
+    under a hook, a pull back 15 cm or a glove catch, started 4-6 frames BEFORE the contact. Both saw none in 75 s,
+    though the plan plays dodges and weaves: look at why they do not read (timed to the head's peak 0.4-0.9 s after
+    their start, started early and far out; a miss is planned 15-30 cm short, so nothing has to be dodged).
+    (3) THE ARM COMES HOME, NO BACK SHOWN (coach 3, animator 3 + 5): the glove leaves the target in 1-2 frames, at
+    the chin by frame 6 (it stays out 8-15 frames: ex1 #13-#22, #61-#68, ex5 #17-#24); the shoulder turn after a
+    rear hand capped at 45-60 deg (blue's back to the camera at ex1 #57-#68, ex5 #37-#43, #56-#66: the cross takes'
+    own follow-through, pelvis 28-43 deg, the trunk 41-70).
+    (4) FEET (both, item 4): planted feet pinned, every move over 8 cm a real step of 10-30 cm in 6-8 frames, feet
+    never cross (ex4 #19-#20), blue's lean-back waiting shape gone (hips under the shoulders, chin down).
+    (5) WAITING THAT HUNTS (coach 7, animator 5): something changes every 10-20 frames (still 1-1.3 s freezes at
+    ex3 #37-#75, ex4 #49-#75), circling, a feint every 2-3 s, a half step in and out.
+    Also: combinations as drilled with an exit at 45 deg, inside work or a clinch under 0.7 m (no owned take), the
+    hit man answers back in half the exchanges, and - not animation - the habit caption covers the boxers' heads
+    for seconds (coach: bottom third, 1.5 s): told to the main session.
+  * NEXT, in order: (1) film e56c96814 + 6a4f9ffea when no game is open and LOOK (the spin at 62 s and 23.3 s). ON
+    THAT FILM ALSO CHECK THE HABIT CAPTION: the main session moved it to the bottom third and to 1.5 s (FightHud.gd
+    anchors y 1, offsets -170..-112; FightView._say takes secs; ExchangeBeats' habit beat) and asked the animation
+    session to confirm it clears the heads AND the lower HUD on film (it shows at about 61.9 s, seed 7: ex5), and to
+    move it if it collides. No film was possible (the owner in ArcheAge, the watchdog RED on memory), so both boxes
+    were drawn on a 1920x1080 frame of film 4 (`E:/FightCamp/tmp/fightweek/s525/caption_check.jpg`): at -170..-112
+    the box (y 910-968) sits ON the lower HUD (AIM, NEXT EXCHANGE, the counter chip, LANDED; the HUD starts at y ~905,
+    the boots end at ~880: no free band at the bottom). Told the main session, with two free places (under the
+    clock, y 172-220, clock width; or inside the NEXT EXCHANGE box). IT CHOSE UNDER THE CLOCK: offsets (-320, 172,
+    320, 220), 22 px, 1.5 s. On the same frame that box is clear (`s525/caption_check2.jpg`: off both stat blocks,
+    ~80 px above the heads); a caption longer than ~63 characters wraps past the 48 px box. Confirm it on film;
+    (2) reactions a size up + more of the take (list item 1; measure `head in the ring` and the head against the
+    hips per kind before and after); (3) defence that shows (item 2: start it on the punch's start, plan the punch
+    at full reach when a defence is drawn - that is what `def != ""` already does - and check the sheets);
+    (4) the arm home (item 3: `home_s` per take is in clip_db; hand control back and start the guard join at it);
+    (5) the waits' second half (half steps on the edge of range, the answer, circling); then a blind round.
+    The gate is 7 + 7. Each round so far: +0.5 to +1 on the item built.
+- S525 (2026-11-19, commits 5147163fd range + af6b11d7b waits). The first stage of the same session (film 3):
   * THIRD FILM + BLIND ROUND (`E:/FightCamp/tmp/fightweek/v2r3/`, film = commit 5147163fd, seed 7, 75 s):
     coach 4.0, animator 4.5 (second v2 film 3.5 / 3.5; first 3.5 / 3.0; the old player r14 4.5 / 4.5).
     THE GATE (7 + 7) IS NOT MET; v2 stays behind its switch. RANGE is off both top-five lists (animator: "the two men
@@ -426,7 +493,7 @@ control arm; the shipped player is untouched without the switch.
     paws and feints 1 / 0 / 0 / 2 -> 8 / 4 / 8 / 4, slip 6.6 / 6.3 -> 7.5 / 6.5 m, 0 script errors. `waits: false` in
     the plan's opts = without them. It does NOT yet do what both critics now ask on top: the half steps on the edge
     of range, the circle step, the other man's answer.
-  * NEXT, in order: (1) film the waits as they are (seed 7, 75 s: `sh E:/FightCamp/tmp/fightweek/s511/film_only.sh
+  * (SUPERSEDED by the S525b NEXT above; kept for the film commands.) OLD NEXT: (1) film the waits as they are (seed 7, 75 s: `sh E:/FightCamp/tmp/fightweek/s511/film_only.sh
     <out> fightplayer2`, sheets with `--fps 30`, the briefs in `v2r3/BRIEF_critic_*.md`) and LOOK before any round;
     (2) nothing to fix on the "hit flash" (see above); (3) reactions sized (list item 2: start each reaction further back in
     its take or pick the bigger takes by the punch; `REACT_PEAK_S` skips the take's own travel); (4) the facing

@@ -34,6 +34,7 @@ const GUARD := "pro_idle"
 const JOIN := {"punch": Vector2(0.05, 0.15), "reaction": Vector2(0.035, 0.11), "block": Vector2(0.02, 0.06),
 	"defence": Vector2(0.05, 0.15), "guard": Vector2(0.10, 0.30), "pass": Vector2(0.10, 0.30),
 	"fidget": Vector2(0.10, 0.30), "feint": Vector2(0.05, 0.15)}
+const JOIN_TURN := Vector2(0.08, 0.24)
 const LEAD_MPS := 2.0         # a reaction's lost travel is given at most this fast (0.19 m in 0.11 s, 0.5 m in 0.25 s)
 const WAITING := ["", "guard", "fidget", "feint"]   # what a wait thing (ChoreoWait) may take over
 const DOWN := ["knock", "fall", "countdown", "win", "ko_"]
@@ -339,10 +340,16 @@ func _play(i: int, clip: String, from_s: float, kind: String, travel: bool) -> v
 		return
 	var bx: Dictionary = st.boxers[i]
 	var ap: AnimationPlayer = bx["ap"]
+	var was := str(_take[i].get("kind", ""))
 	_settle(i)
 	if str(ap.current_animation) == clip:
 		ap.stop()
 	var j: Vector2 = JOIN.get(kind, JOIN["punch"])
+	# S525: a hook, an uppercut or a body shot thrown straight out of his own punch joins slower. The jab before it
+	# ends with the trunk turned 65-80 deg and the next take starts square: at the punch join that turn came back in
+	# three frames (50 deg in one). The wind such a punch now gets (ChoreoRules.WIND_TURN_S) has the room.
+	if kind == "punch" and was == "punch" and not R.is_straight(str((db["rows"].get(clip, {}) as Dictionary).get("family", "jab"))):
+		j = JOIN_TURN
 	if bx.get("js") != null:
 		(bx["js"] as Node).join(j.x, j.y)
 		(bx["js"] as Node).set_target(ap, clip)
