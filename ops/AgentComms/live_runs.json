@@ -1121,7 +1121,7 @@
    "agent": "qwen",
    "id": "STEPTUNE3",
    "title": "TASK STEPTUNE3 - size the footwork steps' levers on the phase-1 code, from TREEVALUE5 (tuning)",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-19T22:11",
    "eta": "2026-11-20T00:01",
    "branch": "qwen/steptune3",
@@ -1142,7 +1142,28 @@
     "runner_pid": 40880,
     "seat_pid": 48008
    },
-   "note": "S368 seat_dispatch: launched unattended (roadmap plan.next); merging stays off"
+   "note": "S368 seat_dispatch: qwen exit 124; 1 commit(s); checks 2/2 PASS; PR #417",
+   "finished": "2026-11-19T23:53",
+   "pr": 417,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tools/treevalue_probe.gd",
+     "ok": true,
+     "last": "TARGET / ANSWERS mismatch STEPTUNE2 s2 named, still there after phase 3 aligned the wrong styles only."
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/golden_path_test.gd",
+     "ok": true,
+     "last": "GOLDEN_PATH failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
   },
   "TURNCRITIC5A": {
    "agent": "arena",
@@ -1162,37 +1183,52 @@
    "agent": "goose",
    "id": "GYMSURVIVE1",
    "title": "Does a fresh gym survive two years (passive / sensible / lean)",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-20T02:20",
    "where": "cloud",
    "brief": "ops/research/TASK_GYMSURVIVE1.md",
    "issue": 414,
    "eta": "2026-11-20T03:30",
-   "note": "S530; goose/issue-414"
+   "note": "S530; goose/issue-414",
+   "reconciled": "2026-11-19 23:40 board_reconcile: run finished (success), branch goose/issue-414 pushed"
   },
   "TURNGAP1": {
    "agent": "goose",
    "id": "TURNGAP1",
    "title": "Debut gap -> win chance curve on one fixed boxer",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-20T02:45",
    "where": "cloud",
    "brief": "ops/research/TASK_TURNGAP1.md",
    "eta": "2026-11-20T03:45",
    "note": "S530",
-   "issue": 415
+   "issue": 415,
+   "reconciled": "2026-11-19 23:40 board_reconcile: run finished (success), branch goose/issue-415 pushed"
   },
   "LEDGERREV5": {
    "agent": "goose",
    "id": "LEDGERREV5",
    "title": "Contracts map v5 from the code (both v4 critics)",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-20T03:00",
    "where": "cloud",
    "brief": "ops/research/TASK_LEDGERREV5.md",
    "issue": 416,
    "eta": "2026-11-20T04:00",
-   "note": "S530"
+   "note": "S530",
+   "reconciled": "2026-11-19 23:10 board_reconcile: run finished (success), branch goose/issue-416 pushed"
+  },
+  "LEDGERCRITIC6A": {
+   "agent": "arena",
+   "id": "LEDGERCRITIC6A",
+   "title": "Fresh critic: contracts map v5",
+   "status": "running",
+   "started": "2026-11-20T00:25",
+   "where": "cloud",
+   "repo": "FightCamp-Lean-lite",
+   "brief": "ops/research/TASK_LEDGERCRITIC6A.md",
+   "chat": "https://arena.ai/agent/01a1f5e0-6675-76b7-ab7f-c072204b90cc",
+   "eta": "2026-11-20T01:15"
   }
  },
  "codex_budget": {
