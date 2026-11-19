@@ -1,3 +1,20 @@
+S528 build (2026-11-19) - what changed, and what to try
+
+1. INJURY RISK YOU CAN SEE. Training tab, the TIREDNESS row on the left: under "end of each day" it now says "injury risk
+   normal", or "injury risk x2.4" in red with a small wrapped-fist icon when the week runs hot. Hover it for why (hours
+   against the usual, and the day tiredness peaks: from 72 the risk climbs, x2 at 76, x3 from 80). Before, this only
+   lived in a hidden box.
+2. THE COACH PULLS A HOT DAY BACK. If a day ends at 76 tiredness or more, COACH'S PICK no longer says "leave it": it names
+   the day ("Tuesday ends at 77 - from 76 the injury risk doubles. Take the shadow boxing down to Light.") and Do it
+   applies it. Try: load a week with Hard mornings and watch the line change.
+3. FOOTWORK STEPS IN THE FIGHT. A planned step (step in, cut off, pivot...) that makes an opening now carries it to the
+   punch after it, even past a second step - it used to be wasted on the next step. And a step thrown at the wrong moment
+   (stepping in on a presser) now lets more of her punches land that exchange.
+4. WHAT A STEP IS WORTH, TOLD TRUE. The fighter page's learn card: "walks into it" now names the style the fight really
+   punishes - step in walks into the pressure fighter, step out into the out-boxer. Feint, tie up, push off and roll out
+   are no longer marked as walking into anyone.
+5. A BOUT TEACHES, UP TO A POINT. The growth a fight teaches stops at 99 on every ability.
+
 S526 build (2026-11-19) - what changed, and what to try
 
 1. THE WEEK'S WHITEBOARD WARNS ABOUT THE GUARD. With a bout booked, the "vs" line under THIS CAMP now says:

@@ -1,37 +1,52 @@
-# S528 handover (written 2026-11-19, S527 - Opus)
+# S529 handover (written 2026-11-19, S528 - Opus)
 
-Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. S527 is in roadmap `now`.
+Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. S528 is in roadmap `now`.
+
+## METHOD lines - quote both in your first message
+- Fight animation (owner S510): see `## METHOD` below - no new correction layer in scripts/fight3d until v2 is built.
+- COACH FIT (S528, item 8, Arena 5/4 after nine map rounds): no more COACHFIT map rounds on chat seats; phase 1 of
+  ops/research/COACHFIT_SCOPE_S528.md (a numeric sheet joined to the existing levers, written by Claude from the code).
+- FOOTWORK STEPS (S528, CLAUDE.md item 8, Qwen STEPTUNE2's finding): no session tunes StepEffect.TABLE numbers until
+  ops/research/STEPS_SCOPE_S528.md phases 1-3 are done (1 + 3 DONE S528; 2 = Qwen TREEVALUE5 running). Then STEPTUNE3.
 
 ## GOAL (owner, verbatim, still on): "i want animations fixed (at least 7/10)"
-anim-range (local_ffb51673, Fable) hit its context cap after film 5 = 5.0 / 4.5 and asked for a fresh session. S527
-PROPOSED "Fight animation: v2 feet and whole steps (Fable)" (card task_07c23910, name anim-steps; brief = NEXT item 1 of
-the S527 block in ANIMATION LOOP STATE). If the owner has not started it, start it (start_session with that proposal_id,
-or a fresh one with the same brief), then CHECK its model is Fable (get_session; set_session_model if not - S512 trap).
-C434 ("why the fighter do not walk ?") stays open until that work lands. METHOD line below (S510) - quote it.
+The animation session is the OWNER'S own "Fable fight animation loop" (local_2e7857f8, he started it himself in S528:
+"i started it myself"). Do not start another. TRAP: start_session ignores a Fable model and starts Opus - if a new one is
+ever needed, tell the owner and let him start it. anim-film7 (local_b03c2815) was stopped on Opus: idle, archive on his yes.
 
-## MAIN LINE - DO FIRST (S527 state)
-1. Qwen STEPTUNE2 (PC, E:/FightCamp/wt/LEAN_STEPTUNE2, branch qwen/steptune2, TASK_STEPTUNE2.md): sizes StepEffect.TABLE
-   from the CORRECTED probe. Collect by diff (TABLE numbers only + docs/STEPTUNE2_RESULT.md), rerun step_effect /
-   step_levers / golden_path. Then STEPVALUE1's "step worth on the learn card".
-2. LEDGER1 v2 (ops/research/DESIGN_LEDGER1_V2.md, Claude's code check on top: release fee, renegotiation, rival offer were
-   wrong "CODE" claims) -> critics Dola SQ233 + Goose #397 (LEDGERCRITIC3). Both 7+/7+ -> his board with `ask --attach`.
-3. COACHFIT1 v9 was CUT OFF at section 7 in Dola's chat -> Dola SQ234 writes sections 7-16 (brief
-   DESIGN_COACHFIT1_V9B_FINISH_DOLA.md, with the plan-pressure / fatigue code check). Join v9 parts 1+2 into
-   DESIGN_COACHFIT1_V9.md, then two fresh critics.
-4. TURNPRO1 v3 at Dola SQ235 (TURNPROBE2: 8/9 lines fail; "costs" ask best 68%, three asks never; day-job boxers reach pro
-   1 in 150 careers; line 4 passes on the stipend half). Then two critics. No constant tuning (TURNTUNE1).
-5. Guard posture: GUARDPROBE2 said HIGH wins whenever body share < 0.50 (math in GUARDWEAR_WIRE_S524.md bottom). Goose #398
-   GUARDPROBE3 sizes the opponent's adaptation (N rounds, S shift). Then wire posture + adaptation in GuardState, then the
-   fight plan defence tab.
-6. Knowledge: Knowledge.SHARED_MISREAD 0.5 is IN (S527). K1 rerun (docs/KNOWBOTS7_K1_RESULT.md): oracle +4.4/+9.2/+7.9 -
-   still VOID, KNOWBOTS6's pass did not reproduce through the game path. Stakes levers at Dola SQ236
-   (DESIGN_KNOW_STAKES1_DOLA.md). A future knowledge probe needs 150+ worlds a set or paired worlds.
-7. HIDDEN BOX (S527 find): WeekBoard puts THIS CAMP (WeekCamp: goal lines, weight, the opponent line, guard notes) in a
-   hidden "Legacy" Control. S527 moved the guard notes + the tape's prep line under COACH'S PICK (TrainSide, ClubWeek
-   "guard" / "opp_prep"; test guard_notes_shown_test). Audit what else lives only there (ONELOOK1) - tests that find a
-   node without is_visible_in_tree() pass on hidden things.
-8. Grok chat seats still down (gbot 404): Dola (chat) + Goose (issues) for critics. Goose cap 2 in flight (#397, #398).
-9. Ludo (paid to ~11 Dec): no asset job again in S527 - nothing on the queue needs one; LOOK2 waits on his Q-185 pick.
+## MAIN LINE - DO FIRST (S528 state)
+1. Qwen TREEVALUE5 (PC, E:/FightCamp/wt/LEAN_TREEVALUE5, branch qwen/treevalue5): the step probe keeps a punch on the
+   step's card and reruns the ten steps on phase-1 code. Collect by diff (tools/treevalue_probe.gd + docs/TREEVALUE5_RESULT.md),
+   read the windows that opened, then STEPTUNE3 (Qwen) sizes TABLE; the learn card shows MEASURED worth (STEPVALUE1).
+   Then Qwen HOLD1 (TASK_HOLD1.md, roadmap next row after TREEVALUE5).
+2. LEDGER1 v3 (Goose): Arena 7 / 6 (DESIGN_LEDGER1_V3_CRITIC_ARENA.md: cash attribution, ONE warning table, release
+   saving per boxer, eight-week comparison); Dola SQ237 pending. Both in -> v4 revise (Goose read the code well) -> two
+   fresh critics -> 7+/7+ -> his board with `ask --attach`.
+3. COACHFIT1 v9 joined (DESIGN_COACHFIT1_V9.md, s0-12; Dola cut off twice at the build list): Arena 5 / 4
+   (DESIGN_COACHFIT1_V9_CRITIC_ARENA.md, collected) + Dola SQ238 pending. NINE rounds without 7/7 = a method problem
+   (CLAUDE.md item 8 / "audit before more fix rounds"): Arena's #1 is ONE numeric spec sheet against scripts/rules/CoachFit.gd
+   before any UI, each channel joined to one existing lever (no double count), the fatigue drift fixed. Next round: Claude
+   writes that sheet from the code (not another Dola rewrite), then critics.
+4. Arena GUARDBLIND1 (blind contract test of the guard, chat 01a1f476): collect its PR (lite -> relay), run
+   tests/guard_contract_test.gd; a failing check is a FINDING about GuardState - read which bullet before changing code.
+5. Dola SQ235 TURNPRO1 v3 (sent) and SQ236 KNOW_STAKES1 (queued): extract, then two critics each.
+6. ONELOOK1: rerun the text-size audit (`tools/layout_snapshot.gd -- <dir> text=3` on the hidden desktop WITH
+   `--log=<file>` - without it the TEXTFIT lines are lost; S528's try timed out in a busy queue).
+7. Guard v4 is BUILT; posture = the corner's Gloves high / Elbows in (S528 decision, GUARDWEAR_WIRE_S524.md bottom).
+
+## DONE IN S528 (Opus; all on main, pushed; tests named in each commit green)
+- GUARDPROBE3 (Goose #398) collected; GUARDPROBE4 (tools/guard_probe4.gd, her aim persists): switching guard pays in pro
+  fights (N=2 S=0.25) -> DECISION: posture = S406's corner change, no dropdown / defence tab.
+- STEPTUNE2 (Qwen) collected: method finding -> STEPS_SCOPE_S528.md. Phase 1: StepWire.open_edge passes the opening
+  through a step line; a wrong-fit step lets WRONG_COST 0.2 more punches in. Phase 3: StepValue.TARGET follows ANSWERS
+  (step in walks into Pressure, step out into Out-boxer; feint / tie up / push off / roll out punished by none).
+- LEDGER1 v3 (Goose #399) from the code; critics Arena (7/6) + Dola (SQ237).
+- ONELOOK1 audit of the hidden THIS CAMP box: only the week's injury risk lacked a visible home -> Training tiredness row
+  ("injury risk x2.4" + Ludo's wrapped-fist icon, 1.5 credits). The render showed the coach saying "leave it" beside x2.4
+  -> WeekCoach.INJURY_HOT (76): the coach takes that morning to Light or rests it.
+- Nightly: peak_camp green (AskFlow.TEACH_CAP 99; the test reads stats back + what the bout taught). NIGHTLY1 updated.
+- HOLD1 brief (PROGBUILD1). Exported; WHAT_TO_TRY S528 on top.
+- NOT DONE: auto mode refused to stop an obsolete probe (PID on the old LEAN_STEPTUNE2 worktree) - it ends by its timeout.
 
 ## DONE IN S527 (Opus; all on main, tests named in each commit green)
 - KNOWBOTS6 collected -> Knowledge shared misread (knowledge_shared_test red first). K1 rerun: still VOID (see 6).
