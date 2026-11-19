@@ -1,13 +1,17 @@
 # S531 probe reads (Claude, read before trusting)
 
-## GYMSURVIVE1 (Goose #414) - does a fresh gym survive two years?
-Defect: the page said 30 careers x 2 seeds but ran the PILOT (2 per seed: 4 per arm, 12 in all). Fixed (`ran_n`), full
-run on the PC (S531). Pilot reading, to be confirmed by the full run:
-- PASSIVE (touch nothing): closes at week 64-68 every time; costs ~$1,450/week vs income ~$1,040.
-- SENSIBLE (one class night + take the pro offer) and LEAN (+ half stipend): all survive 104 weeks, cash falling
-  ~$3k a year ($13.9k -> $6.5k). A careful gym is slowly bleeding, not closing.
-- The second walk-in was never signed in any career (the arm's condition, cash > 3 months of costs, is never true after
-  week 1): the probe arm, not the game, but it means SENSIBLE ran with one boxer.
+## GYMSURVIVE1 (Goose #414) - does a fresh gym survive two years?  FULL RUN S531 (180 careers, 60 an arm)
+Defect fixed first: the page said 30 careers a seed but ran the pilot (2). Full run on the PC, 86 min:
+- PASSIVE (touch nothing): 60/60 close, median week 64 (all 64-68). Costs ~$1,450/week against ~$1,040 in.
+- SENSIBLE (one class night + take the first pro offer): 0/60 close in two years, but cash falls $13,977 -> median
+  $7,011 at week 104 (p10 $2,401). About -$3.5k a year.
+- LEAN (+ half stipend when cash < 8 weeks of costs): 2/60 close (week ~102), p10 -$3,706 - cutting her pay does not
+  help (worth a look: GymSpend.set_half's cost).
+- MEMBERS ARE FLAT: 66 at week 13 and 66 at week 104 in every arm. Two years of a boxer winning and turning pro add no
+  members. This is the finding: the club cannot grow, so a careful player slowly bleeds instead of building.
+- The second walk-in was never signed (the arm's cash > 3 months condition is never true): SENSIBLE ran one boxer.
+For the owner (money/scope): should a careful gym GROW (members from wins / a pro), or is a slow bleed the intended
+pressure? Asked on the board with this page.
 
 ## TURNGAP1 (Goose #415) - the debut gap -> win curve
 Defect in the probe: `day_offset = run_seed % 7` with `run_seed = ... + seed_j * 7` - every seed of a boxer landed on the
