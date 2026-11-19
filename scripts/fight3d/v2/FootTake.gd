@@ -95,10 +95,13 @@ func _target(i: int, anim: Vector3, vel: Vector3, delta: float, hip: Vector3, le
 	var sw := swing_at((row as Dictionary).get(key, []), t, _ap.current_animation_length)
 	var floor_y := float(_ground[i])
 	if sw.x < 0.0:
-		if not (_lift[i] as Dictionary).is_empty():   # the take has just put it down: it stands there
+		if not (_lift[i] as Dictionary).is_empty():
+			# the take has just put it down: it stands where it is SHOWN (a take cut while its foot was still in the air
+			# - a punch out of a step - has not eased the foot onto its pose yet: pinning the pose there snapped the leg)
 			_lift[i] = {}
-			_plant[i] = anim
-			_pin[i] = anim + off
+			var shown: Vector3 = _out[i] if _out[i] != null else anim
+			_plant[i] = Vector3(shown.x, anim.y, shown.z)
+			_pin[i] = (_plant[i] as Vector3) + off
 		if not (_swing[i] as Dictionary).is_empty():
 			_pin[i] = null
 			_state[i] = "FootPlant's step"

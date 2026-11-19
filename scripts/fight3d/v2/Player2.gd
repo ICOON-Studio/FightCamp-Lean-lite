@@ -45,6 +45,11 @@ const WAITING := ["", "guard", "fidget", "feint", "step"]   # what a wait thing 
 ## (StepClips; StepPlay picks and times it) and the feet belong to the take (FootTake). `-- fp2nosteps` = the plan moves
 ## the guard pose as it did (the control arm).
 static var steps_on: bool = not OS.get_cmdline_user_args().has("fp2nosteps")
+## The step takes are another actor's stance (hips 8 cm lower, feet wider than the Punch PRO guard). `-- fp2bounce`: a
+## man who has stepped waits in THAT stance (the bouncing boxing idle the steps start and end in) until his next punch,
+## defence, reaction or fidget, instead of standing up into the Pro guard between two steps.
+const MOVING_GUARD := "st_bounce"
+static var bounce_on: bool = OS.get_cmdline_user_args().has("fp2bounce")
 const DOWN := ["knock", "fall", "countdown", "win", "ko_"]
 
 var st: Node = null
@@ -69,6 +74,7 @@ var _moved: Array = [Transform3D.IDENTITY, Transform3D.IDENTITY]   # per boxer: 
 var _join_next := Vector2.ZERO       # the next _play joins with this instead of its kind's join (the arm home)
 var hit_until := -1.0         # a landed punch is on screen until this clock time (the film's rulers find contacts by it)
 var pair: PairPlace = PairPlace.new(self)   # where the pair stands and faces (follow, side-on, facing)
+var _moving: Array = [false, false]   # per boxer: his last take was a step (he waits in the steps' stance)
 var walk: StepPlay = StepPlay.new(self)       # the planned steps and the ring steps (S528)
 var _ft: Array = [null, null]        # per boxer: FootTake (the legs in the fight)
 var contacts: Array = []      # every contact as played: {t, who, move, result, gap, take} (the rulers read it)
@@ -377,6 +383,8 @@ func _play(i: int, clip: String, from_s: float, kind: String, travel: bool) -> v
 	var bx: Dictionary = st.boxers[i]
 	var ap: AnimationPlayer = bx["ap"]
 	var was := str(_take[i].get("kind", ""))
+	if kind != "guard":
+		_moving[i] = kind == "step"
 	_settle(i)
 	if str(ap.current_animation) == clip:
 		ap.stop()
@@ -428,9 +436,10 @@ func guard(i: int) -> void:
 	var ap: AnimationPlayer = st.boxers[i]["ap"]
 	if not ap.has_animation(GUARD):
 		return
-	_play(i, GUARD, 0.0, "guard", false)
+	var clip := MOVING_GUARD if bounce_on and bool(_moving[i]) and ap.has_animation(MOVING_GUARD) else GUARD
+	_play(i, clip, 0.0, "guard", false)
 	# each man in his own point of the loop (both started in step read as one man twice)
-	ap.seek(fmod(float(i) * 0.83 + t * 0.37, maxf(ap.get_animation(GUARD).length - 0.05, 0.1)), true)
+	ap.seek(fmod(float(i) * 0.83 + t * 0.37, maxf(ap.get_animation(clip).length - 0.05, 0.1)), true)
 
 
 ## FightStage: boxer i's take has played to its end.

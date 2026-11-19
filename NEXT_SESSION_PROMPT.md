@@ -374,7 +374,7 @@ themselves are the limit (owner: "why should i buy more animations if the ones w
   tests/ask_wire_test.gd + ask_dates_test in run_tests.sh. Exported. Left: Home DO NEXT, the stoppage-risk word.
 - RAM: ~10 finished sessions sit idle with Remote Control on (~750 MB each, S491 note); watchdog AMBER on memory.
 
-## ANIMATION LOOP STATE (the animation session's own section; S525 block added 2026-11-19 ~11:30 by the animation session on Fable; the blocks under it are older)
+## ANIMATION LOOP STATE (the animation session's own section; newest block S528, 2026-11-19 ~17:50; the blocks under it are older)
 Owner: "i want animations fixed (at least 7/10)" = two fresh blind critics (coach + animator) both 7.0+ on one film. You are
 the ONLY animation session; you own `scripts/fight3d` (v2 in `scripts/fight3d/v2/`) and this section. Quote the METHOD line.
 WHERE WE ARE: FIGHTPLAYER2 (the rebuild, `ops/research/FIGHTPLAYER2_SCOPE_S510.md`, section 8 = the critics' changes).
@@ -382,7 +382,89 @@ The v2 player EXISTS and plays the real bout behind `-- fightplayer2`. FIRST BLI
 BELOW the old player (see FIRST FILM below). When this section was first written it had not been filmed: the owner's
 game (ArcheAge) was open the whole session and films run only when no game window is open (Q-267). r14 = 4.5 / 4.5 is the
 control arm; the shipped player is untouched without the switch.
-- S527 (2026-11-19 ~15:50, the same animation session, context near its cap). READ THIS FIRST, it is the newest:
+- S528 (2026-11-19 ~17:50, a NEW animation session on Fable, stopped at 453k of context). READ THIS FIRST, it is the newest:
+  * SIXTH FILM + BLIND ROUND (`E:/FightCamp/tmp/fightweek/v2r10/`, film = commit 88efd64a1 MINUS the ring tuning
+    (ring steps 0.30 / 0.28 m and ~4 per half-minute; the code now has 0.36 / 0.34 m and about twice as many),
+    seed 7, 75 s): coach 5.0, animator 5.0. Film 5 was 5.0 / 4.5. THE GATE (7 + 7) IS NOT MET.
+    | critic | whole | punches | defence + reactions | footwork + stance | transitions | waiting |
+    |---|---|---|---|---|---|---|
+    | coach | 5.0 | 5.5 | 5.0 | 4.5 | 4.5 | 4.5 |
+    | animator | 5.0 | 5.0 | 4.5 | 4.0 | 4.5 | 5.0 |
+    Footwork 4.0 / 3.0 -> 4.5 / 4.0 and waiting 4.0 / 3.5 -> 4.5 / 5.0 (what was built); the coach's transitions
+    5.0 -> 4.5. Reviews `v2r10/critic_coach.md`, `critic_animator.md`, pictures `critic_*_10.png`; 66 sheets
+    (`s525/round.py v2r10 ...`, the film-5 sets + three wait sets: 50.0-52.6, 31.2-33.8, 69.6-72.6); critics on Opus.
+  * WHAT WAS BUILT (the owner's C434 "why the fighter do not walk ?"; commit 88efd64a1 and the one after it):
+    - THE STEP TAKES EXISTED ALL ALONG: the owner's `C:/Users/user/Downloads` holds Mixamo's whole boxing footwork set.
+      23 of them copied to `E:/FightCamp/packs/mixamo_steps` (raw FBX stay out of the repo), baked by
+      `tools/step_bake.gd` (RkRetarget, turned onto the guard's feet line) into `assets/anim/baked/steps/st_*.res`,
+      loaded by FightClips only for v2 and the census (`v2/StepClips.gd`). Each of the 12 steps (fwd / back / left /
+      right x s / m / l) starts and ends in ONE stance, slides ~0 as captured. THAT STANCE IS NOT THE PRO GUARD'S:
+      hips 0.80 m against 0.88, knees 117 deg against 150 / 145, feet 4-9 cm wider.
+    - `assets/data/foot_db.json` (`tools/step_census.gd -- db`): for EVERY fight take when each foot stands
+      ("feet"), and per step take its travel and the time it travels in ("steps"). Re-run it when a take is added.
+    - `v2/FootTake.gd` (the leg layer now; `-- fp2plant` = FootPlant, the legs of films 1-5): a foot is pinned BY ITS
+      BALL while its take stands on it, follows the take's own steps in the air (what the pin held it off by is eased
+      out over the swing, so a step played shorter than captured is a shorter step), FootPlant's own step only where
+      no take steps. THE ANKLE PIN WAS A RULER TRAP: with the ankle held the toes swing round it, and the film ruler
+      reads the toes (2 m of the guard's 2.6 m of "slip").
+    - `v2/StepPlay.gd`: every counted move of the distance plan plays a step take on the spot, timed to the plan's
+      ramp (the plan stays the authority on where a body is); `v2/ChoreoDrift.gd`: RING STEPS in the rest holds
+      (both men, the other answers 0.06-0.14 s later); where a ring step goes is decided at play time
+      (`StepPlay._ring`: back to the middle past 0.9 m, never nearer the ropes than 0.75 m, else by roll).
+      `ChoreoGap.STEP_S` 0.42: the step out and the ease to rest take a whole step's time. `-- fp2nosteps` = off.
+    Rulers film 5 -> film 6: waiting in the plain guard 76 / 72 -> 39 / 38 % of the round, longest wait 5.1 / 4.3
+    -> 2.0 / 2.1 s; the pair's middle walks 0 -> ~3 m (5.2 m with the tuning that came after the film); 66 step
+    takes; support-foot slip 7.0 / 7.5 -> 6.8 / 7.4 m on the film, 5.4 / 6.0 m with the fix after it (a take cut
+    while its foot was still in the air pinned the pose, not the foot shown), frames sliding 20 -> 11 %;
+    KNEE JERKS WORSE: 21-42 -> 65 / 75 (red) and 42 / 43 (blue) - see NEXT 2.
+  * A RULER BOTH CRITICS MISREAD AGAIN: "the step-back clip alone slides 6-7 m", "feet skate 22-25 m" are the
+    PLANTED FOOT SKATE lines of rulers_raw (`slide by clip`): they count any low foot, the stepping one too, and
+    `st_back_s` lifts its feet only 2.6 cm. Its support-foot slip is 0.5 m. DONE for the next round: `s525/round.py`
+    now drops those lines from the `rulers_raw.txt` the critics read (the full file is kept beside the round's
+    folder as `<round>_rulers_raw_full.txt`); the lift is still NEXT 3. `s528/slipwhy.py <dir>` and `s528/knee.py <dir>` split slip
+    and knee jerks by take; FootTake's own `tally` prints with `fp2log` (FP2 feet lines).
+  * BOTH LISTS AFTER FILM 6, most important first:
+    (1) DISTANCE (both, their item 1 / 5): "they wait at a distance nobody fights from". Lead gloves 30-50 cm
+    apart, front feet 0.9-1.1 m apart while waiting (now REST_M 1.55 m hips to hips = front feet ~1.2 m; the
+    animator reads it as 2 m, as on film 4); every lead punch rides a 15-25 cm step that lands on the contact frame.
+    (2) FEET PLANTED, REAL STEPS (both, item 2): slip under 1 m; back up with steps of 6-8 frames, 20-30 cm, 3-6 cm
+    of lift; lock the planted foot through every punch and reaction.
+    (3) THE STANCE (coach 3): shoulder width, side-on; no fencing lunge (wait3 #49-#60, def1 #44-#48: a step take's
+    long stance left pinned under the Pro guard), no square upright stance (wait2 #49-#78).
+    (4) LANDED PUNCHES TOUCH (animator 1, coach 4): within 3-5 cm; f471 is 17.8 cm off, f1858 10+; a long right
+    stops short at ex5 #57-#63; no glove resting on a glove or a head (def2 #17-#19, #31-#36, ex5 #25-#36).
+    (5) HITS MOVE THE MAN, LEGS TOO (both): a cross 18-25 cm of head over 2-3 frames + a 15-25 cm step back (3 cm
+    now), a hook 30-40 deg of head turn, a body shot a 30-50 cm fold; no head over 10 cm in a frame (18 now, worst
+    21.7: ex1 #51, ex3 #19).
+    (6) CLOSE RANGE + THE WAIT TELLS A STORY (both): a clinch or short hooks with the heads side by side (a head
+    inside the other man at def2 #45-#56, boots stacked #53-#56); in every 3 s of waiting one or two feints, one
+    step in or out, one angle step; the two men never bounce in the same rhythm.
+  * BUILT AFTER THE FILM, NOT FILMED: the ring tuning (above); the landing fix in FootTake; `-- fp2bounce` (OFF by
+    default, never seen on film): a man who has stepped waits in the steps' own stance (`st_bounce`, the bouncing
+    boxing idle) until his next punch / defence / reaction / fidget instead of standing up into the Pro guard
+    between two steps. Headless it reads equal (slip 5.6 / 6.2, waiting 33 / 31 %, knee jerks 70 / 69 + 38 / 55).
+  * NEXT, in order: (1) film `fightplayer2 fp2bounce` (35 s is enough) and LOOK at the stance through a wait: if
+    the men stop bobbing between the tall Pro guard and the low step stance, make it the default - it is also the
+    critics' "bounce" and it removes the long pinned stance of list item 3. (2) Knee jerks: 50 of red's 150 are in
+    the step takes - the lead foot catching up 0.43 m in 6 frames at `st_back_s` 0.6-0.8 s (the step out is played
+    0.36 m on a 0.31 m take, and the Pro guard's narrower feet add 7 cm to its first swing), and the join into
+    `st_fwd_s` at 0.2 s. Pick `st_back_m` scaled down for anything over 0.3 m (StepPlay.pick takes the nearest;
+    make it the nearest NOT SHORTER), and start a step take from its first frame when the time allows.
+    (3) Lift: `st_back_s` 2.6 cm, `st_fwd_s` 3.0 cm read as a slide on the sheets; `st_back_m` 6.4, `st_left_m`
+    4.7, `st_right_s` 5.6 do not. (4) DISTANCE, list item 1: REST_M 1.55 -> about 1.35 and CREEP_M with it
+    (ChoreoRules; ChoreoGap.faults and choreographer_test R4 / R13 carry the old numbers as literals), then check
+    the heads-apart floor still holds. (5) The step in ON the punch (list 1, second half): today the plan slides
+    the puncher 0.30 m under his punch take and FootTake / FootPlant makes one procedural step; a jab thrown out
+    of `st_fwd_s` (the punch's arms over the step's legs) would be a split-body blend - the method says no layers,
+    so first look for a Mixamo "Boxing Dodge Advance" / step-jab take in his Downloads. (6) Unused and baked: the
+    pivots (`st_pivot_*`, 57-85 deg: an angle step off the line, list 6), `st_advancing` (an upright shuffle
+    forward, hips 0.88: the Pro guard's own height), `st_dodge_adv / _ret`. (7) Film + round.
+    Each round so far moved the item built by +0.5 to +1.5; the gate is 7 + 7.
+  * TRAPS: a `cd` in Bash moves the session folder (twice this session); a here-doc holding Python with quotes in it
+    failed in this shell - write the script with the Write tool; a film starts when its slot frees and runs the
+    code AS OF THAT MOMENT (film 6 missed two edits made while it queued); `tests/player2_test.gd` runs ~8 min behind
+    other Godot jobs.
+- S527 (2026-11-19 ~15:50, the same animation session, context near its cap). (the block before S528):
   * THE OWNER ON FILM 5 (comment C434 at 82.2 s, the film's last frame, STILL OPEN - not fixed, do not let a commit
     message cite the id or the board closes it): "why the fighter do not walk ?". He is right, and it is the same
     thing as both critics' items 1 and 2: v2 plays NO step take. When the plan moves a boxer (step in, step out,
