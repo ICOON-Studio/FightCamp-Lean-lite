@@ -2,11 +2,13 @@ extends RefCounted
 ## FIGHTPLAYER2 (S512, scope 3b): the DISTANCE PLAN of one exchange, pure. The choreographer hands it the marks it has
 ## decided (each punch's contact time and the gap its take is for, a hit man knocked back, the round script's step in /
 ## step out) and this lays the feet's work between them the way a coach counts it:
-##   REST out of reach (1.7 m) whenever no punch is near;
-##   a CREEP to 1.4 m before an attack when there is time for it (the other man edges in, or both);
-##   the STEP IN that ends as the punch lands (the puncher's, never faster than GAP_SPEED_MPS when there is room);
-##   inside a burst the pair stays in range and only shifts between one take's distance and the next;
-##   the LEAVE: back at rest within LEAVE_S of a burst's last contact.
+##   REST out of reach (R.REST_M) whenever no punch is near;
+##   a CREEP before an attack when there is time for it (both edge in to one step from the punch's distance);
+##   the STEP IN that ends as the punch lands (the puncher's own, STEP_IN_M: one step a viewer can count);
+##   inside a burst the pair shifts between one take's distance and the next only for a quick follow-up; with
+##   POCKET_WAIT_S or more to the next punch the man who punched steps out to the POCKET (where a jab just reaches);
+##   the LEAVE: the man who threw a burst's last punch steps out STEP_OUT_M at once, then both ease back to rest
+##   (S525, both critics on both v2 films: "nobody leaves", "a step out 30-40 cm within 15-30 frames of the last punch").
 ## The plan is piecewise linear: [[t, gap_m, who_moves], ...], t ascending; who_moves names who covers the segment that
 ## ENDS at that point ("a" | "b" | "both" | "" = nobody, a hold).
 ##   build(marks, t0, t1, gap0, log) -> plan      at(plan, t) -> gap      who(plan, t) -> who moves now
@@ -15,14 +17,19 @@ extends RefCounted
 const R := preload("res://scripts/fight3d/v2/ChoreoRules.gd")
 
 const LEAD_S := 0.08          # the step in is over this long before the glove lands (the front foot is down)
-const HOLD_S := 0.22          # after a contact the pair stays put this long (the hand comes home, the hit shows)
-const CREEP_S := 0.55         # the edge in from rest to CREEP_M (one calm step pair)
-const CREEP_GAP_S := 0.15     # between the creep's end and the step in
-const APPROACH_MPS := 1.4     # the step in from the creep line (0.3-0.6 m in 0.25-0.45 s)
+const HOLD_S := 0.20          # after a contact the pair stays put this long (the hand comes home, the hit shows)
+const STEP_IN_M := 0.30       # the step in on the punch (the critics: lead foot 20-35 cm, down as the glove lands)
+const CREEP_MPS := 0.6        # the edge in from rest to one step from the punch (calm: both men, half each)
+const CREEP_S := 0.45         # ... and never quicker than this
+const CREEP_GAP_S := 0.12     # between the creep's end and the step in
+const APPROACH_MPS := 1.4     # the step in from the creep line (0.3 m in about 0.2 s)
 const LEAVE_MPS := 1.3        # the step out
-const LEAVE_WAIT_S := 0.12    # after the hold, before the leave starts
+const STEP_OUT_M := 0.35      # the attacker's step out after a burst's last punch
+const EASE_OUT_WAIT_S := 0.12 # he lands that step, then both ease back to rest ...
+const EASE_OUT_MPS := 0.8     # ... this fast
 const POCKET_M := 1.2          # just past the jab: where the pair waits between the punches of one burst
-const POCKET_WAIT_S := 1.2    # a wait this long inside a burst is spent at the pocket, not chest to chest
+const POCKET_WAIT_S := 0.9    # a wait this long inside a burst is spent at the pocket, not chest to chest
+const POCKET_MIN_M := 0.10    # a step out to the pocket shorter than this is not worth taking
 const MIN_RAMP_S := 0.12      # no move is shorter than this
 const STEP_COUNT_M := 0.12    # a segment that covers this much is a step the viewer can count
 
@@ -53,15 +60,17 @@ static func build(marks: Array, t0: float, t1: float, gap0: float, log: Array) -
 			cur_g = float(out[-1][1])
 		else:
 			var end := mt - LEAD_S
-			if cur_g >= R.CREEP_M - 0.01 and cur_g - mg > 0.05:
+			var line := mg + STEP_IN_M   # one step from the punch's distance
+			if cur_g > line + 0.08:
 				# from out of reach: a creep when there is time, then the step in on the punch
-				var a_dur := maxf((minf(cur_g, R.CREEP_M) - mg) / APPROACH_MPS, MIN_RAMP_S)
+				var a_dur := maxf(STEP_IN_M / APPROACH_MPS, MIN_RAMP_S)
 				var a_start := end - a_dur
-				if cur_g > R.CREEP_M + 0.05 and a_start - CREEP_GAP_S - CREEP_S >= cur_t + 0.1:
+				var c_dur := maxf((cur_g - line) / CREEP_MPS, CREEP_S)
+				if a_start - CREEP_GAP_S - c_dur >= cur_t + 0.1:
 					var c_end := a_start - CREEP_GAP_S
-					_to(out, c_end - CREEP_S, cur_g, "")
-					_to(out, c_end, R.CREEP_M, "both")
-					cur_g = R.CREEP_M
+					_to(out, c_end - c_dur, cur_g, "")
+					_to(out, c_end, line, "both")
+					cur_g = line
 					cur_t = c_end
 				else:
 					a_dur = maxf((cur_g - mg) / R.GAP_SPEED_MPS, MIN_RAMP_S)
@@ -102,28 +111,45 @@ static func build(marks: Array, t0: float, t1: float, gap0: float, log: Array) -
 
 
 ## What the feet do after the contact (or the knock) at mark i: hold while the hit shows, then - by how long until the
-## next punch - stay in range for a quick follow-up, ease out to the POCKET (just past the jab) or leave to REST.
+## next punch - stay in range for a quick follow-up, step out to the POCKET (just past the jab) or leave to REST.
+## The man who punched takes the step out; after a knock the hit man has given the ground already.
 static func _after(out: Array, marks: Array, i: int, mt: float, t1: float) -> void:
 	var g := float(out[-1][1])
+	var knocked := str((marks[i] as Dictionary).get("kind", "contact")) == "knock"
+	var hitter := "both" if knocked else str((marks[i] as Dictionary).get("who", "both"))
 	var nxt := {}
 	for k in range(i + 1, marks.size()):
 		if str((marks[k] as Dictionary).get("kind", "contact")) == "contact":
 			nxt = marks[k]
 			break
 	var wait := INF if nxt.is_empty() else float(nxt["t"]) - mt
+	var ls := mt + HOLD_S
 	if wait >= R.BURST_GAP_S:
-		var ls := mt + HOLD_S + LEAVE_WAIT_S
-		var ld := maxf((R.REST_M - g) / LEAVE_MPS, MIN_RAMP_S)
-		if g < R.REST_M - 0.05 and ls + ld <= t1:
-			_to(out, ls, g, "")
-			_to(out, ls + ld, R.REST_M, "both")
+		if g >= R.REST_M - 0.05:
+			return
+		var s1 := g if knocked else minf(g + STEP_OUT_M, R.REST_M)
+		var d1 := maxf((s1 - g) / LEAVE_MPS, MIN_RAMP_S) if s1 > g + 0.005 else 0.0
+		var d2 := maxf((R.REST_M - s1) / EASE_OUT_MPS, MIN_RAMP_S) if s1 < R.REST_M - 0.005 else 0.0
+		if ls + d1 + EASE_OUT_WAIT_S + d2 > t1:
+			return
+		_to(out, ls, g, "")
+		if d1 > 0.0:
+			_to(out, ls + d1, s1, hitter)
+		if d2 > 0.0:
+			_to(out, ls + d1 + EASE_OUT_WAIT_S, s1, "")
+			_to(out, ls + d1 + EASE_OUT_WAIT_S + d2, R.REST_M, "both")
 		return
+	var gn := maxf(float(nxt["gap"]), R.MIN_GAP_M)
 	if wait >= POCKET_WAIT_S and g < POCKET_M - 0.08:
-		_to(out, mt + HOLD_S, g, "")
-		_to(out, mt + HOLD_S + maxf((POCKET_M - g) / LEAVE_MPS, MIN_RAMP_S), POCKET_M, "both")
-		return
+		# as far out as leaves the next punch its step back in
+		var avail := float(nxt["t"]) - LEAD_S - ls
+		var to := minf(POCKET_M, (avail - 0.02 + g / LEAVE_MPS + gn / R.GAP_SPEED_MPS) / (1.0 / LEAVE_MPS + 1.0 / R.GAP_SPEED_MPS))
+		if to - g >= POCKET_MIN_M:
+			_to(out, ls, g, "")
+			_to(out, ls + maxf((to - g) / LEAVE_MPS, MIN_RAMP_S), to, hitter)
+			return
 	# a quick follow-up: hold only as long as the shift to its distance allows
-	var need := absf(float(nxt["gap"]) - g) / R.GAP_SPEED_MPS
+	var need := absf(gn - g) / R.GAP_SPEED_MPS
 	var hold_end := clampf(float(nxt["t"]) - LEAD_S - need, mt, mt + HOLD_S)
 	if hold_end > mt + 0.03:
 		_to(out, hold_end, g, "")

@@ -6,6 +6,8 @@ extends RefCounted
 
 const GymUpgrades := preload("res://scripts/rules/GymUpgrades.gd")
 const ClubClasses := preload("res://scripts/rules/ClubClasses.gd")
+const PadWeek := preload("res://scripts/rules/PadWeek.gd")
+const ClubDeal := preload("res://scripts/rules/ClubDeal.gd")
 const StaffRoles := preload("res://scripts/rules/StaffRoles.gd")
 const ClubShow := preload("res://scripts/rules/ClubShow.gd")
 const GymBonus := preload("res://scripts/rules/GymBonus.gd")
@@ -73,7 +75,7 @@ static func costs(c: Career) -> Dictionary:
 ## The income lines a week: {fitness, juniors, total}.
 static func income(c: Career) -> Dictionary:
 	var out := {"fitness": int(GymUpgrades.item("fitkit")["value"]) if fitness_on(c) else 0,
-		"juniors": juniors_dues() if youth_on(c) else 0, "class_nights": ClubClasses.cash(c.coach)}   # S519 club week 3.2
+		"juniors": juniors_dues() if youth_on(c) else 0, "class_nights": ClubDeal.class_cash(paying_classes(c))}   # S519 club week 3.2; S525 only nights that replace pads
 	out["total"] = int(out["fitness"]) + int(out["juniors"]) + int(out["class_nights"])
 	return out
 
@@ -467,9 +469,19 @@ static func end_week(c: Career) -> void:
 		set_dues(c, str(c.dues_band_next))
 
 
+## S525 MONEYFOUR2: a class pays only on an evening it takes from pads (some boxer is on pads that night this week); a
+## class left on a night a fight week moved the pads off costs nothing and so earns nothing.
+static func paying_classes(c: Career) -> int:
+	var n := 0
+	for d in ClubClasses.nights(c.coach):
+		if c.fighters.any(func(g): return (PadWeek.nights_of(g).get("pads", []) as Array).has(int(d))):
+			n += 1
+	return n
+
+
 ## S519: the class nights' new members (ClubClasses.members; the fraction carries in coach["class_carry"]), under the cap.
 static func _class_members(c: Career) -> void:
-	var n := ClubClasses.nights(c.coach).size()
+	var n := paying_classes(c)
 	if n == 0:
 		return
 	var r := ClubClasses.members(float(c.coach.get("class_carry", 0.0)), n)

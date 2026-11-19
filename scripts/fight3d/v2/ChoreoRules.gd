@@ -6,8 +6,10 @@ const BeatClips := preload("res://scripts/fight3d/BeatClips.gd")
 const ClipCensus := preload("res://scripts/fight3d/v2/ClipCensus.gd")
 
 # --- Distance (REFERENCE_DISTANCES_S439, scope 8) ---
-const REST_M := 1.7           # rest out of reach (1.6-1.8)
-const CREEP_M := 1.4          # close range, inside punching distance
+## S525 (both blind critics on both v2 films put RANGE first): rest was 1.7 m, heads 1.61 m apart. Their bar: heads
+## 1.3-1.6 m, 40-60 cm of air between the lead gloves, lead feet about 1.1 m apart = 1.55 m between the hips here.
+const REST_M := 1.55          # rest out of reach
+const CREEP_M := 1.4          # the round script's own step in (pressure): still out of reach, a jab and one step from landing
 const MIN_GAP_M := 0.45       # never closer than this
 const GAP_SPEED_MPS := 1.6    # max gap change rate (a step pair is 0.55-0.60 s)
 const BURST_GAP_S := 2.2      # contacts closer than this are one burst: the pair stays in range between them
@@ -30,6 +32,20 @@ const STUN_S := {"light": 0.40, "medium": 0.60, "heavy": 0.80}
 
 # --- Head clearance (scope 3d) ---
 const HEADS_APART_M := 0.25   # min gap - head_fwd_m - head_from_hips at every contact
+
+# --- Range in HEAD distance (S525, cause a of both v2 films' first fault: "they fight at hugging distance") ---
+## The plan's gap is hips to hips from where the puncher STARTS; the heads are closer by the lean of his take
+## (clip_db head_fwd_m: 0-0.26 m) and by the other man's own head, which sits this far in front of his hips in the guard.
+const VICTIM_HEAD_FWD_M := 0.02
+## How far apart the HEADS are at the contact, at least, by the kind of punch (the critics' bars, first film: straights
+## 0.8-1.1 m, hooks 0.5-0.85, uppercuts and body hooks 0.55-0.65; under 0.45 = a tie-up, which we own no take for).
+const HEAD_FLOOR_M := {"straight": 0.80, "hook": 0.58, "upper": 0.60, "body": 0.58}
+## A landed punch may be planned this much further out than its take's own distance to keep that floor: the one arm
+## finish (PunchAim, 0.30 m at most) carries the glove the rest of the way. A take that would need more is SHORT: it
+## plays only when its family owns nothing longer.
+## The body shot reaches furthest: the one fresh take owned dives the puncher's head to the other man's belt (heads
+## 0.34-0.47 m apart on the second film); a straighter arm to the ribs from further out is a real punch.
+const REACH_M := {"straight": 0.10, "hook": 0.06, "upper": 0.08, "body": 0.14}
 
 # --- Join times (scope 3d) ---
 const JOIN_S := {"punch": 0.15, "reaction": 0.05, "defence": 0.15, "block": 0.05, "guard": 0.30}
@@ -58,6 +74,28 @@ static func is_straight(move: String) -> bool:
 
 static func is_left_hand(move: String) -> bool:
 	return move in LEFT_HAND_MOVES
+
+
+static func range_kind(move: String) -> String:
+	if move in STRAIGHTS:
+		return "straight"
+	if move == "body_hook":
+		return "body"
+	return "upper" if move.ends_with("uppercut") else "hook"
+
+
+## How much further out than the take's own distance `own_gap` (hips to hips, its miss or block offset in) a punch is
+## planned so the heads keep their floor. `lands`: capped by the arm's reach; a miss or a block is not.
+static func head_extra(move: String, own_gap: float, head_fwd: float, lands: bool) -> float:
+	var k := range_kind(move)
+	var short := float(HEAD_FLOOR_M[k]) - (own_gap - head_fwd - VICTIM_HEAD_FWD_M)
+	return clampf(short, 0.0, float(REACH_M[k]) if lands else 0.6)
+
+
+## A take is SHORT for a landed punch when even the full reach leaves the heads under the floor.
+static func is_short(move: String, own_gap: float, head_fwd: float) -> bool:
+	var k := range_kind(move)
+	return own_gap - head_fwd - VICTIM_HEAD_FWD_M + float(REACH_M[k]) < float(HEAD_FLOOR_M[k]) - 0.02
 
 
 static func gap_fit_for(move: String) -> float:

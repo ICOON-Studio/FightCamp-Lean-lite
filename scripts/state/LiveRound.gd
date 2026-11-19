@@ -335,7 +335,12 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 		"pace": pace, "aim": aim, "won": s["won"], "margin": s["margin"], "landed": s["landed"], "verdict": Exchanges.verdict(call, sit, bool(s["won"]), names),
 		"habit": habit, "fix": fix, "habit_line": HabitFix.line(habit_name(habit), names, habit == fix, bool(s["won"])) if habit != "" else ""}
 	rec["at"] = at
-	rec["guard"] = GuardState.after(f, s["landed"], at, RingDuel.opp(opp), call)   # S524 GUARDWEAR: blocks wear the guards (shown only)
+	rec["guard"] = GuardState.after(f, s["landed"], at, RingDuel.opp(opp), call)   # S524 GUARDWEAR: blocks wear the guards
+	if GuardState.damage_on:   # S525: what gets through the guard is damage (GUARDPROBE1: +7..11% of a bout's)
+		var gdmg: Dictionary = m.get("damage", {"a": 0.0, "b": 0.0})
+		gdmg["a"] = float(gdmg.get("a", 0.0)) + float(rec["guard"]["through"][0])
+		gdmg["b"] = float(gdmg.get("b", 0.0)) + float(rec["guard"]["through"][1])
+		m["damage"] = gdmg
 	# S442 BUBBLES: the shout she did not take in (CornerTrust.lands false), and the round's shouts before this one (the heard mark).
 	rec["said"] = shout if shout != "" and not shouted and Exchanges.CALLS.has(shout) else ""
 	rec["shouts_before"] = int(lv["shouts"]) - (1 if shouted else 0)

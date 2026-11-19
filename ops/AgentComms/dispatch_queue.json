@@ -1708,14 +1708,16 @@
   {
    "task": "MORNINGSPROBE2",
    "seat": "qwen",
-   "status": "queued",
-   "queued": "2026-11-18T23:28"
+   "status": "launched",
+   "queued": "2026-11-18T23:28",
+   "launched": "2026-11-19T06:12"
   },
   {
    "task": "MONEYFOUR2",
    "seat": "qwen",
-   "status": "queued",
-   "queued": "2026-11-18T23:28"
+   "status": "launched",
+   "queued": "2026-11-18T23:28",
+   "launched": "2026-11-19T07:42"
   },
   {
    "task": "TURNPROBE1",
@@ -1727,9 +1729,17 @@
   {
    "task": "FITPROBE1",
    "seat": "qwen",
-   "status": "queued",
+   "status": "launched",
    "queued": "2026-11-19T04:50",
-   "note": "S524: coach fit probes FITPROBE1 + TRAINBALANCE"
+   "note": "S524: coach fit probes FITPROBE1 + TRAINBALANCE",
+   "launched": "2026-11-19T08:42"
+  },
+  {
+   "task": "FITPROBE2",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-19T11:50",
+   "note": "S525: coach fit on the evenings (FITPROBE1 never scaled drill units)"
   }
  ]
 }

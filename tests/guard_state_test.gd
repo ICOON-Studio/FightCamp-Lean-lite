@@ -97,5 +97,17 @@ func _initialize() -> void:
 		"the result page counts blocks (%s) and the guard left (%s)" % [str(st["blocked"]), str(st["guard"])])
 	var old := FightStats.rows(FightStats.of([{"n": 1, "exchanges": [{"landed": [4, 3], "body": [1, 0], "won": true}]}]))
 	_check(not old.map(func(r): return str(r["label"])).has("Punches blocked"), "an old save's bout shows no guard rows")
+	# S525 damage through the guard (GUARDPROBE1 sizes): a low guard leaks more than a full one on the same blocks (control:
+	# the full guard), no blocks leak nothing, amateurs wear at their own (smaller) scale, and the switch off adds no damage.
+	var full: Array = GuardState.wear_through(10, 100.0, 100.0, "middle", {})
+	var low_g: Array = GuardState.wear_through(10, 20.0, 100.0, "middle", {})
+	_check(float(low_g[1]) > float(full[1]) * 1.3 and float(full[1]) > 0.0, "10 blocks leak more at guard 20 than at 100 (%.2f vs %.2f)" % [float(low_g[1]), float(full[1])])
+	_check(float(GuardState.wear_through(0, 50.0, 100.0, "middle", {})[1]) == 0.0, "no blocks, no damage through")
+	var w_am := float(GuardState.wear_through(10, 70.0, 70.0, "light", {"amateur": true})[0]) / 1.15   # amateur ctx adds +15% wear
+	var w_pro := float(GuardState.wear_through(10, 70.0, 70.0, "light", {})[0])
+	_check(absf(w_am / w_pro - GuardState.AMATEUR_SCALE / GuardState.WEAR_SCALE) < 0.01, "amateurs wear at AMATEUR_SCALE (%.3f of pro)" % (w_am / w_pro))
+	var dm := _f(true, 75.0)
+	GuardState.open(dm, 1)
+	_check(float(GuardState.after(dm, [5, 5], "", {})["through"][0]) > 0.0, "an exchange returns the damage through each guard")
 	print("GUARD_STATE failures=%d" % failures)
 	quit(0 if failures == 0 else 1)

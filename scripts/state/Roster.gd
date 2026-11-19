@@ -35,6 +35,8 @@ const PRO_RANK := 3
 const PRO_WINS_ANY_RANK := 9
 ## A declined offer comes back after this many more amateur wins; the second promoter's terms are 10% worse.
 const PRO_RETURN_WINS := 2
+## S525 PROCONTRACT1 (design TURNPRO1 v2 s1): after 2 declines only a regional number 1 calls; after 3 the door is closed.
+const DECLINE_NEWS := ["The promoters will be back after more wins.", "Only a regional number 1 brings another call.", "No promoter will call."]
 const PRO_SECOND_TERMS := 0.9
 const PROMOTERS: Array[String] = ["Bow Lane Promotions", "Harrow & Finch Boxing"]
 ## Her purse from the second pro bout, rising per pro win to the top; the gym's cut (manager 15% + trainer 10%, John
@@ -288,7 +290,7 @@ static func turn_pro(c: Career, house := "") -> Dictionary:
 	Loyalty.apply(f, "turn_pro", c.day)   # S486 LOYALHOOKS1: after the share is set (the share reads loyalty before it)
 	f["promoter"] = o["promoter"]
 	f["pro_house"] = str(deal.get("key", ""))
-	f["pro_signed"] = {"d": c.day, "house": str(o["promoter"]), "stipend": int(f.get("weekly_salary", 0)),   # S524 M11: the week review's ledger
+	f["pro_signed"] = {"d": c.day, "house": str(o["promoter"]), "key": str(deal.get("key", "")), "stipend": int(f.get("weekly_salary", 0)),   # S524 M11: the week review's ledger
 		"costs": 0 if bool(deal.get("costs_covered", false)) else int(sheet["costs"])}   # S523 map M15: the History tab's milestone   # S523: the house leans the first pro offers (ProLean)
 	f["purse"] = int(o["purse"])
 	f["purse_step"] = int(o["step"])
@@ -321,11 +323,13 @@ static func debut_day(day: int, weeks := PRO_DEBUT_WEEKS) -> int:
 
 ## She stays amateur for now: the offer returns after more wins; the second time the other promoter calls.
 static func decline_pro(c: Career) -> void:
+	if not c.pro_offer.has("fid"):
+		return   # S525 PROCONTRACT1: no offer on the table, nothing to decline
 	var f := c.fighter_by_id(str(c.pro_offer["fid"]))
 	f["pro_declines"] = int(f.get("pro_declines", 0)) + 1
 	ProOfferWire.on_decline(f, c.pro_offer, titles(f))   # S523: the same house calls next time
 	ProOfferWire.apply_morale(f, true, bool(Champs.check(c, f).get("ok", false)))
 	Loyalty.apply(f, "decline_pro", c.day)   # S486 LOYALHOOKS1: kept amateur for the nationals, against the boxer's wish
 	c.add_news("%s stays amateur for now. %s" % [f["first"],
-		"The door is closed short of a number 1 ranking." if int(f["pro_declines"]) >= 3 else "The promoters will be back after more wins."])
+		DECLINE_NEWS[mini(int(f["pro_declines"]), 3) - 1]])
 	c.pro_offer = {}

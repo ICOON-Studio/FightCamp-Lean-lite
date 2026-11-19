@@ -58,13 +58,22 @@ func _initialize() -> void:
 	_check(m1 < m0, "less mastery that week: %.2f -> %.2f" % [m0, m1])
 	var cell := ClubWeek.coach_cell(c, d, -1)
 	_check(str(cell["kind"]) == "class", "the coach row reads CLASS NIGHT: %s" % cell["kind"])
+	# S525 MONEYFOUR2: a class on a weekday no boxer has pads earns nothing (it costs nothing); control: the pad night pays.
+	var free := -1
+	for x in [0, 1, 2, 3, 4]:
+		if not c.fighters.any(func(g): return (PadWeek.nights_of(g).get("pads", []) as Array).has(x)):
+			free = x
+			break
+	if free >= 0:
+		ClubClasses.toggle(c.coach, free)
+		_check(int(Sim.weekly_income(c).get("class_nights", 0)) == 117 and GymSpend.paying_classes(c) == 1,
+			"a class on a no-pads evening earns nothing (%d paying of %d)" % [GymSpend.paying_classes(c), ClubClasses.nights(c.coach).size()])
+		ClubClasses.toggle(c.coach, free)
 	var mem0 := c.members
-	ClubClasses.toggle(c.coach, (d + 1) % 5)
-	ClubClasses.toggle(c.coach, (d + 2) % 5)
-	for w in 6:
+	for w in 16:
 		c.coach["class_carry"] = float(c.coach.get("class_carry", 0.0))
 		GymSpend._class_members(c)
-	_check(c.members >= mem0 + 1, "three class nights for 6 weeks bring a member: %d -> %d" % [mem0, c.members])
+	_check(c.members >= mem0 + 1, "a paying class night for 16 weeks brings a member: %d -> %d" % [mem0, c.members])
 	_done()
 
 

@@ -5,8 +5,8 @@ extends Node
 ##     with the join time of its kind;
 ##   - the take's own hip travel moves the BODY (RootPath), so a punch steps as it was captured and a hit man who
 ##     staggers back has really given ground when the take ends;
-##   - between takes the distance plan moves the bodies (the man it names covers the ground) and FootLock, the one leg
-##     layer left on, steps the feet after the body;
+##   - between takes the distance plan moves the bodies (PairPlace: the man it names covers the ground, the pair stays
+##     side-on to the fixed camera) and the one leg layer left on steps the feet after the body;
 ##   - when a take ends the boxer goes back to the guard take.
 ## Every pose layer of the shipped player is switched off while this plays (the baseline: they buy nothing); the join
 ## smoother, the twist bones, the foot lock, the floor and the tired sag stay. Directors' scenes (walk-in, corner
@@ -25,6 +25,7 @@ const FightSfx := preload("res://scripts/audio/FightSfx.gd")
 const HitImpact := preload("res://scripts/fight3d/HitImpact.gd")
 const PunchAim := preload("res://scripts/fight3d/v2/PunchAim.gd")
 const FootCarry := preload("res://scripts/fight3d/v2/FootCarry.gd")
+const PairPlace := preload("res://scripts/fight3d/v2/PairPlace.gd")
 
 static var KEEP: Array = _keep()
 const GUARD := "pro_idle"
@@ -32,11 +33,6 @@ const GUARD := "pro_idle"
 ## back to the guard 0.30).
 const JOIN := {"punch": Vector2(0.05, 0.15), "reaction": Vector2(0.035, 0.11), "block": Vector2(0.02, 0.06),
 	"defence": Vector2(0.05, 0.15), "guard": Vector2(0.10, 0.30), "pass": Vector2(0.10, 0.30)}
-const FOLLOW_MPS := 2.4       # the bodies follow the plan at most this fast (the plan itself asks 1.6 at most)
-const FACE_S := 0.10          # the turn to face the other man eases over this
-const FACE_MAX_RPS := 3.5     # ... and is never faster than this (S513, the first film: side view to back view in one picture)
-const FACE_HOLD_M := 0.50     # places closer than this give no line to face along (a take's travel carries a body past the other): hold
-const EDGE_IN_M := 0.35       # nobody backs closer to the ropes than this
 const DOWN := ["knock", "fall", "countdown", "win", "ko_"]
 
 var st: Node = null
@@ -59,6 +55,7 @@ var _sampled := false
 var _feet: Array = [null, null]      # per boxer: FootCarry (the legs in the fight)
 var _moved: Array = [Transform3D.IDENTITY, Transform3D.IDENTITY]   # per boxer: the plan's own motion of his body since FootCarry last asked
 var hit_until := -1.0         # a landed punch is on screen until this clock time (the film's rulers find contacts by it)
+var pair: PairPlace = PairPlace.new(self)   # where the pair stands and faces (follow, side-on, facing)
 var contacts: Array = []      # every contact as played: {t, who, move, result, gap, take} (the rulers read it)
 
 
@@ -89,8 +86,8 @@ func setup(stage: Node) -> void:
 		if KEEP.has("FootCarry") and st.boxers[i].get("feet") != null:
 			_feet[i] = FootCarry.add(skel, st.boxers[i]["ap"], st.boxers[i]["feet"])
 			if _feet[i] != null:
-				_feet[i].moved = _take_moved.bind(i)
-				_feet[i].ahead = ahead.bind(i)
+				_feet[i].moved = pair.take_moved.bind(i)
+				_feet[i].ahead = pair.ahead.bind(i)
 		var ids := [skel.find_bone("Head"), skel.find_bone("Chest")]
 		var d: Dictionary = _drawn[i]
 		skel.skeleton_updated.connect(func():
@@ -103,7 +100,7 @@ func setup(stage: Node) -> void:
 		st.boxers[i]["pos"] = _home[i]
 		(st.boxers[i]["node"] as Node3D).position = _home[i]
 		guard(i)
-	_face(0.0)
+	pair.face(0.0)
 
 
 ## The shipped pose layers off (fight) or back on (a director's scene).
@@ -146,7 +143,7 @@ func scene(on_scene: bool) -> void:
 
 ## FightView: exchange k is settled - plan it from where the pair stands now.
 func queue(beats: Array, t0: float, t1: float) -> void:
-	var opts := {"t0": t0, "t1": t1, "gap0": _gap(), "seed": int(t0) * 131 + beats.size(),
+	var opts := {"t0": t0, "t1": t1, "gap0": pair.gap(), "seed": int(t0) * 131 + beats.size(),
 		"south": {"a": bool(st.boxers[0].get("south", false)), "b": bool(st.boxers[1].get("south", false))},
 		"scale": {"a": _scale(0), "b": _scale(1)}}
 	plan = Choreo.plan(beats, db, opts)
@@ -201,13 +198,14 @@ func tick(delta: float) -> void:
 				_due.remove_at(k)
 			else:
 				k += 1
-		_follow(delta)
+		pair.follow(delta)
+		pair.square(delta)
 		if log_on and int(t / 15.0) != int((t - delta) / 15.0):
 			for i in 2:
 				if _feet[i] != null:
 					print("FP2 feet %s t %.0f steps %d slip by cause %s" % ["ab"[i], t, int(_feet[i].steps), str(_feet[i].tally)])
-	_place()
-	_face(delta)
+	pair.place()
+	pair.face(delta)
 
 
 func _event(i: int, e: Dictionary) -> void:
@@ -232,8 +230,8 @@ func _event(i: int, e: Dictionary) -> void:
 	_due.append([ct, func() -> void:
 		if str(_take[i].get("clip", "")) != clip:
 			return   # cut before it arrived: nothing lands, nothing sounds
-		contacts.append({"t": t, "who": who, "move": move, "result": result, "take": clip, "gap": _gap(),
-			"node_gap": _node_gap(), "late_s": (st.boxers[i]["ap"] as AnimationPlayer).current_animation_position - float((db["rows"].get(clip, {}) as Dictionary).get("contact_s", 0.0))})
+		contacts.append({"t": t, "who": who, "move": move, "result": result, "take": clip, "gap": pair.gap(),
+			"node_gap": pair.node_gap(), "late_s": (st.boxers[i]["ap"] as AnimationPlayer).current_animation_position - float((db["rows"].get(clip, {}) as Dictionary).get("contact_s", 0.0))})
 		if result == "lands":
 			_record(i, clip, move)
 			FightSfx.landed(move, big)
@@ -254,7 +252,7 @@ func _record(i: int, clip: String, move: String) -> void:
 	var tp := target(1 - i, move == "body_hook")
 	var d: Vector3 = (st.boxers[i]["node"] as Node3D).global_transform.basis.orthonormalized().inverse() * (g - tp)
 	(st.hit_gaps as Array).append({"now_f": Engine.get_process_frames(), "hitter": i, "move": move, "clip": clip, "miss": g.distance_to(tp),
-		"graze": false, "cut": false, "gap": _gap(), "fwd": d.z, "side": d.x, "up": d.y})
+		"graze": false, "cut": false, "gap": pair.gap(), "fwd": d.z, "side": d.x, "up": d.y})
 
 
 ## The glove front of every take at its contact, read once off each body (the take posed at its contact, no layer on).
@@ -358,116 +356,6 @@ func _down(i: int) -> bool:
 		if clip.contains(w):
 			return true
 	return false
-
-
-## The bodies follow the distance plan: the man the plan names covers the ground; nobody backs into the ropes.
-func _follow(delta: float) -> void:
-	if delta <= 0.0:
-		return
-	var want := Gap.at(plan["gap"], t)
-	var a: Vector3 = _stand(0)
-	var b: Vector3 = _stand(1)
-	var line := Vector3(b.x - a.x, 0.0, b.z - a.z)
-	var dist := line.length()
-	if dist < 0.01:
-		return
-	var axis := line / dist
-	var err := clampf(want - dist, -FOLLOW_MPS * delta, FOLLOW_MPS * delta)
-	if absf(err) < 0.0005:
-		return
-	var mover := Gap.who(plan["gap"], t)
-	var share := [0.5, 0.5]
-	if mover == "a":
-		share = [1.0, 0.0]
-	elif mover == "b":
-		share = [0.0, 1.0]
-	var edge: float = float(st.RING_M) * 0.5 - EDGE_IN_M
-	for i in 2:
-		var back: Vector3 = axis * (-1.0 if i == 0 else 1.0) * err * float(share[i])
-		var to: Vector3 = (_home[i] as Vector3) + back
-		if err > 0.0 and maxf(absf(to.x), absf(to.z)) > edge and float(share[1 - i]) < 1.0:
-			share[1 - i] = float(share[1 - i]) + float(share[i])   # his back is on the ropes: the other man gives the room
-			share[i] = 0.0
-	for i in 2:
-		var by: Vector3 = axis * (-1.0 if i == 0 else 1.0) * err * float(share[i])
-		_home[i] = (_home[i] as Vector3) + by
-		_moved[i] = Transform3D(Basis.IDENTITY, by) * (_moved[i] as Transform3D)
-
-
-## FootCarry: what the plan (not a take) has done to boxer i's body since it last asked.
-func _take_moved(i: int) -> Transform3D:
-	var m: Transform3D = _moved[i]
-	_moved[i] = Transform3D.IDENTITY
-	return m
-
-
-## FootCarry: where the plan carries boxer i's body in the next `secs` (a step lands there).
-func ahead(secs: float, i: int) -> Vector3:
-	if not live or plan.is_empty() or _scene:
-		return Vector3.ZERO
-	var line: Vector3 = _stand(1) - _stand(0)
-	line.y = 0.0
-	var dist := line.length()
-	if dist < 0.01:
-		return Vector3.ZERO
-	var err := clampf(Gap.at(plan["gap"], t + secs) - dist, -FOLLOW_MPS * secs, FOLLOW_MPS * secs)
-	var mover := Gap.who(plan["gap"], t + secs * 0.5)
-	var share := 0.5 if mover in ["both", ""] else (1.0 if mover == "ab"[i] else 0.0)
-	return line / dist * (-1.0 if i == 0 else 1.0) * err * share
-
-
-## Where boxer i stands for the DISTANCE: his place, plus a reaction's or a defence's travel so far (a punch's own
-## travel is inside its take's contact distance already).
-func _stand(i: int) -> Vector3:
-	if str(_take[i].get("kind", "")) == "punch":
-		return _home[i]
-	return (_home[i] as Vector3) + _travel(i)
-
-
-func _travel(i: int) -> Vector3:
-	var tk: Dictionary = _take[i]
-	var path: PackedVector3Array = tk.get("path", PackedVector3Array())
-	if path.is_empty():
-		return Vector3.ZERO
-	var bx: Dictionary = st.boxers[i]
-	var ap: AnimationPlayer = bx["ap"]
-	if str(ap.current_animation) != str(tk["clip"]):
-		return Vector3.ZERO
-	var d := RootPath.at(path, ap.current_animation_position) - RootPath.at(path, float(tk["from_s"]))
-	return RootPath.world((bx["skel"] as Skeleton3D).global_transform.basis, d)
-
-
-func _place() -> void:
-	for i in 2:
-		var bx: Dictionary = st.boxers[i]
-		var at: Vector3 = (_home[i] as Vector3) + _travel(i)
-		(bx["node"] as Node3D).position = Vector3(at.x, (bx["node"] as Node3D).position.y, at.z)
-		bx["pos"] = Vector3(at.x, 0.0, at.z)
-
-
-## Each faces the other man's place (not his travelling hips: a slip must not turn the puncher).
-func _face(delta: float) -> void:
-	for i in 2:
-		var to: Vector3 = (_home[1 - i] as Vector3) - (_home[i] as Vector3)
-		if to.length() < (0.05 if delta <= 0.0 else FACE_HOLD_M):
-			continue
-		var n: Node3D = st.boxers[i]["node"]
-		var yaw := atan2(to.x, to.z)
-		var was := n.rotation.y
-		n.rotation = Vector3(0.0, yaw if delta <= 0.0 else was + clampf(angle_difference(was, lerp_angle(was, yaw, 1.0 - exp(-delta / FACE_S))), -FACE_MAX_RPS * delta, FACE_MAX_RPS * delta), 0.0)
-		if delta > 0.0 and absf(angle_difference(was, n.rotation.y)) > 1e-5:   # a turn is the plan's motion too: about where he stands
-			var c := n.global_position
-			_moved[i] = Transform3D(Basis.IDENTITY, c) * Transform3D(Basis(Vector3.UP, angle_difference(was, n.rotation.y)), Vector3.ZERO) * Transform3D(Basis.IDENTITY, -c) * (_moved[i] as Transform3D)
-
-
-func _gap() -> float:
-	var d: Vector3 = _stand(1) - _stand(0)
-	return Vector2(d.x, d.z).length()
-
-
-func _node_gap() -> float:
-	var d: Vector3 = (st.boxers[1]["node"] as Node3D).position - (st.boxers[0]["node"] as Node3D).position
-	return Vector2(d.x, d.z).length()
 
 
 func _scale(i: int) -> float:

@@ -21,7 +21,10 @@ Not animation: the 3D shows the settled exchange (FIGHTPLAYER2 METHOD stands; no
    moving from RingDuel's place, condition/missed weight from the weigh-in, amateur, shoulder from stamina+strength, trait);
    damage through = GuardWear.transmission(...) x the punch's base -> added to m["damage"] for that side (head/body share
    as the exchange's body shots). In-round recovery from the opponent's thrown (GuardWear.in_round).
-3. The guard feeds back: guard under 50% -> landed[opp] +1 on a won exchange at "Leaking heavily", the edge d -= a small
+3. DECIDED S525 - NOT BUILT (GUARD_EDGE = 0): the leak through the guard (step 2, live since S525) already takes the design's
+   whole budget (tools/guard_onoff.gd: damage +7.3..10.5%, stoppages up to +3.5 points in the 6-round mismatch, the design's
+   limit +-3); an edge or a +1 landed on top would break the stoppage line. The leak IS the feedback. Was:
+   The guard feeds back: guard under 50% -> landed[opp] +1 on a won exchange at "Leaking heavily", the edge d -= a small
    GUARD_EDGE x (1 - g/max) (ESTIMATE, sized by the probe below) - arms dropping let more in, the design's core.
 4. Corner minute (CornerRest / corner calls): GuardWear.corner(calls, cutman, cut) between rounds; the clinch call uses
    GuardWear.clinch. "Protect the lead" and posture switch = the design's s2 calls, after the probe.

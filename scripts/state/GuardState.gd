@@ -4,15 +4,21 @@ extends RefCounted
 ## threw that did not land are part blocked (BLOCK_SHARE); each block, by kind (BoutBurn.MIX), wears the defender's guard
 ## (GuardWear.wear, ctx: ropes, amateur, shoulders), scaled by WEAR_SCALE; a side the opponent barely threw at recovers
 ## (GuardWear.in_round). Between rounds the corner gives back GuardWear.corner([]).
-## NOT YET: damage through the guard and the guard's feedback on the exchange (step 3) - both wait for GUARDPROBE1, which
-## sizes WEAR_SCALE and BLOCK_SHARE. Until then the guard is read and shown, never changes a result.
+## S525 step 2 damage: each blocked punch leaks GuardWear.transmission x its base (BASE) x K_THROUGH into the defender's
+## m["damage"] (LiveRound adds "through" when damage_on). Sized by GUARDPROBE1 (docs/GUARDPROBE1_RESULT.md): no single
+## WEAR_SCALE fits both amateur round 3 (yellow, red under 10%) and pro round 6 (orange) -> amateurs wear at AMATEUR_SCALE.
+## NOT YET: the guard's feedback on the exchange (step 3's GUARD_EDGE / Leaking heavily).
 
 const GuardWear := preload("res://scripts/rules/GuardWear.gd")
 const BoutBurn := preload("res://scripts/rules/BoutBurn.gd")
 const Attrs := preload("res://scripts/rules/Attrs.gd")
 
 const BLOCK_SHARE := 0.6   ## ESTIMATE - of the punches that do not land, the share caught on the guard (the rest miss)
-const WEAR_SCALE := 0.28   ## ESTIMATE - ~28 blocks a round here; 0.28 leaves an amateur yellow after round 3 (S524 render: 0.45 emptied both)
+const WEAR_SCALE := 0.40   ## pro: GUARDPROBE1 sweep - pro6 last round 0.546 at 0.35, 0.265 at 0.45 -> ~0.40 mid-orange, red mostly the mismatch's loser
+const AMATEUR_SCALE := 0.28   ## amateur: sweep 0.25 -> round 3 at 0.646, red 1.3%; 0.35 -> 0.362, red 65% -> 0.28 yellow, red rare
+const K_THROUGH := 0.038   ## GUARDPROBE1: k 0.035-0.040 puts the leak at +7..11% of a bout's damage in every cell
+const BASE := {"jab": 1.0, "power": 2.5, "heavy": 4.0}   ## design s1.1 punch bases (what a clean punch of the kind is worth)
+static var damage_on: bool = true   ## tests turn it off for the control arm (the guard still wears and shows)
 const COMBO_SHARE := 0.25  ## ESTIMATE - of the blocks, the share that are the 3rd punch on of a combination (x1.5)
 const LIGHT_UPTO := 64.0   # class by the weight limit: up to 64 kg light, up to 81 kg middle, then heavy
 const MIDDLE_UPTO := 81.0
@@ -50,12 +56,28 @@ static func blocked_of(landed: int) -> int:
 
 ## Guard points `blocks` cost the defender, the blocks split by BoutBurn.MIX.
 static func wear_of(blocks: int, ctx: Dictionary) -> float:
-	var total := 0.0
-	for mx in BoutBurn.MIX:
-		var n := float(blocks) * float(mx[1])
-		var kind: String = KIND.get(str(mx[0]), "power")
-		total += n * (1.0 - COMBO_SHARE) * GuardWear.wear(kind, 1, ctx) + n * COMBO_SHARE * GuardWear.wear(kind, 3, ctx)
-	return total * WEAR_SCALE
+	return float(wear_through(blocks, 0.0, 0.0, "middle", ctx)[0])
+
+
+## [guard points, damage through] for `blocks` arriving one by one on a guard g of max mx (class wc): each block wears the
+## guard by kind (x the amateur or pro scale) and leaks transmission(kind, guard as it arrives) x BASE x K_THROUGH.
+static func wear_through(blocks: int, g: float, mx: float, wc: String, ctx: Dictionary) -> Array:
+	var scale := AMATEUR_SCALE if bool(ctx.get("amateur", false)) else WEAR_SCALE
+	var wear := 0.0
+	var through := 0.0
+	for mi in BoutBurn.MIX:
+		var kind: String = KIND.get(str(mi[0]), "power")
+		var n := float(blocks) * float(mi[1])
+		for grp in [[n * (1.0 - COMBO_SHARE), 1], [n * COMBO_SHARE, 3]]:
+			var left := float(grp[0])
+			var w := GuardWear.wear(kind, int(grp[1]), ctx) * scale
+			while left > 0.0:
+				var step := minf(1.0, left)
+				if mx > 0.0:
+					through += step * GuardWear.transmission(kind, maxf(0.0, g - wear), mx, wc, int(grp[1])) * float(BASE[kind])
+				wear += step * w
+				left -= step
+	return [wear, through * K_THROUGH]
 
 
 ## After LiveRound settles an exchange: landed [ours, theirs]; at = lv["at"] (StepWire's ropes); opp_attrs from RingDuel.opp.
@@ -75,10 +97,14 @@ static func after(f: Dictionary, landed: Array, at: String, opp_attrs: Dictionar
 		{"ropes": at == "opp_ropes", "amateur": amateur,
 			"shoulder": GuardWear.shoulder(float(opp_attrs.get("stamina", 55.0)), float(opp_attrs.get("strength", 55.0)))}]
 	var keys := ["a", "b"]
+	var wc := wclass(float(f.get("limit", 60.0)))
+	var through := [0.0, 0.0]   # damage into [ours, theirs] through the guard
 	for k in 2:
 		var s: Dictionary = gs[keys[k]]
 		var thrown_at := ceili(float(int(landed[1 - k])) / BoutBurn.LAND_RATE)
-		var g := float(s["g"]) - wear_of(int(blocks[k]), ctxs[k]) + GuardWear.in_round(thrown_at, amateur)
+		var wt := wear_through(int(blocks[k]), float(s["g"]), float(s["max"]), wc, ctxs[k])
+		through[k] = float(wt[1])
+		var g := float(s["g"]) - float(wt[0]) + GuardWear.in_round(thrown_at, amateur)
 		s["g"] = GuardWear.clamp_guard(g, float(s["max"]))
 	var ours: Dictionary = gs["a"]
 	var clinch := {}
@@ -89,7 +115,7 @@ static func after(f: Dictionary, landed: Array, at: String, opp_attrs: Dictionar
 			ours["clinch"] = true
 	elif call == "hands":
 		ours["hands_next"] = true
-	return {"g": [float(gs["a"]["g"]), float(gs["b"]["g"])], "blocked": blocks, "clinch": bool(clinch.get("ok", false)),
+	return {"g": [float(gs["a"]["g"]), float(gs["b"]["g"])], "blocked": blocks, "clinch": bool(clinch.get("ok", false)), "through": through,
 		"share": [float(gs["a"]["g"]) / maxf(1.0, float(gs["a"]["max"])), float(gs["b"]["g"]) / maxf(1.0, float(gs["b"]["max"]))]}
 
 

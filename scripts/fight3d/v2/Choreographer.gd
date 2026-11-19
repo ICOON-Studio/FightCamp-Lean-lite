@@ -76,11 +76,12 @@ static func plan(beats: Array, db: Dictionary, opts: Dictionary) -> Dictionary:
 		if result == "misses" and def == "":
 			off = _rng_range(rng, 0.15, 0.30)   # planned SHORT: the glove stops in the air in front of him
 		elif result == "blocked":
-			off = _rng_range(rng, 0.05, 0.10)   # the glove meets the guard, not the face
-		var pick := _pick(rows, _pool(db, rows, move, big), sc, off, prev_gap, room, str(last_take[who]), rng)
+			off = _rng_range(rng, 0.10, 0.18)   # the glove meets the guard, not the face (S525: the bought guard holds the gloves a forearm out; at 0.05-0.10 a blocked uppercut put the heads 0.43 m apart)
+		var pick := _pick(rows, _pool(db, rows, move, big), sc, off, prev_gap, room, str(last_take[who]), rng, move, result == "lands")
 		var take_name: String = str(pick[0])
 		var take_row: Dictionary = pick[1]
 		var pgap: float = float(pick[2])
+		var reach: float = float(pick[3])   # S525: planned this much past the take's own distance (the heads keep their floor)
 		if take_name == "":
 			log.append("misfit: %s %s no take" % [who, move])
 			pgap = prev_gap if in_burst else R.CREEP_M
@@ -90,7 +91,7 @@ static func plan(beats: Array, db: Dictionary, opts: Dictionary) -> Dictionary:
 		if take_name != "" and pgap < need:
 			log.append("heads: %s %s gap %.2f -> %.2f" % [who, move, pgap, need])
 			pgap = need
-		var dev: float = absf(pgap - (float(take_row.get("contact_gap_m", pgap)) * sc + off))
+		var dev: float = absf(pgap - (float(take_row.get("contact_gap_m", pgap)) * sc + off + reach))
 		if dev > R.gap_fit_for(move) + 0.001:
 			log.append("misfit: %s %s %s is %.2f m off its distance" % [who, move, take_name, dev])
 		var contact_s: float = float(take_row.get("contact_s", R.impact_s_for(move)))
@@ -120,7 +121,7 @@ static func plan(beats: Array, db: Dictionary, opts: Dictionary) -> Dictionary:
 		if t_play < float(ctrl_until[who]):
 			from_s = clampf(from_s + (float(ctrl_until[who]) - t_play), start_s, maxf(start_s, contact_s - R.WIND_MIN_S))
 			t_play = contact_t - (contact_s - from_s)
-		var ik_m: float = minf(dev, R.IK_MAX_M) if R.is_straight(move) else 0.0
+		var ik_m: float = minf((dev if R.is_straight(move) else 0.0) + (reach if result == "lands" else 0.0), R.IK_MAX_M)
 		marks.append({"t": contact_t, "gap": pgap, "who": who, "kind": "contact"})
 		ev[who].append({"t": t_play, "clip": take_name, "kind": "punch", "part": "whole", "from_s": from_s,
 			"join_s": R.join_for("punch"), "control_t": contact_t + R.CONTROL_S, "contact_t": contact_t, "move": move,
@@ -257,33 +258,43 @@ static func _pool(db: Dictionary, rows: Dictionary, move: String, big: bool) -> 
 	return all
 
 
-## [take, row, planned gap]. The take's own distance (x the body's size, + `off` for a miss or a block) is where the
-## plan goes when it can get there: within `room` of `prev_gap` (INF from rest). Among the takes that can be reached the
-## one last thrown is passed over when another fits (variety, R3); among takes that cannot, the nearest.
-static func _pick(rows: Dictionary, pool: Array, sc: float, off: float, prev_gap: float, room: float, last: String, rng: RandomNumberGenerator) -> Array:
+## [take, row, planned gap, reach]. The take's own distance (x the body's size, + `off` for a miss or a block, + the
+## REACH that keeps the heads apart, S525) is where the plan goes when it can get there: within `room` of `prev_gap`
+## (INF from rest). A SHORT take (the heads under their floor even at full reach) is passed over while the family owns
+## a longer one. Among the takes that can be reached the one last thrown is passed over when another fits (variety,
+## R3); among takes that cannot, the nearest.
+static func _pick(rows: Dictionary, pool: Array, sc: float, off: float, prev_gap: float, room: float, last: String, rng: RandomNumberGenerator, move: String = "jab", lands: bool = false) -> Array:
 	if pool.is_empty():
-		return ["", {}, prev_gap]
+		return ["", {}, prev_gap, 0.0]
+	if lands:
+		var long: Array = pool.filter(func(n): return not R.is_short(move, float(rows[n].get("contact_gap_m", 0.9)) * sc, float(rows[n].get("head_fwd_m", 0.0)) * sc))
+		if not long.is_empty():
+			pool = long
 	var fits: Array = []
 	var best := ""
 	var best_dev := INF
 	var best_gap := prev_gap
+	var best_reach := 0.0
 	for n in pool:
-		var want: float = float(rows[n].get("contact_gap_m", 0.9)) * sc + off
+		var own: float = float(rows[n].get("contact_gap_m", 0.9)) * sc + off
+		var reach: float = R.head_extra(move, own, float(rows[n].get("head_fwd_m", 0.0)) * sc, lands)
+		var want: float = own + reach
 		var got: float = want if room == INF else clampf(want, prev_gap - room, prev_gap + room)
 		var dev := absf(got - want)
 		if dev <= 0.03:
-			fits.append([n, got])
+			fits.append([n, got, reach])
 		if dev < best_dev - 0.0001:
 			best_dev = dev
 			best = str(n)
 			best_gap = got
+			best_reach = reach
 	if fits.is_empty():
-		return [best, rows[best], best_gap]
+		return [best, rows[best], best_gap, best_reach]
 	var fresh: Array = fits.filter(func(f): return str(f[0]) != last)
 	if not fresh.is_empty():
 		fits = fresh
 	var f: Array = fits[rng.randi() % fits.size()]
-	return [str(f[0]), rows[str(f[0])], float(f[1])]
+	return [str(f[0]), rows[str(f[0])], float(f[1]), float(f[2])]
 
 
 static func _add_pivots(ev_a: Array, ev_b: Array, anc: Array, t0: float, t1: float, rng: RandomNumberGenerator, ctrl_until: Dictionary) -> void:

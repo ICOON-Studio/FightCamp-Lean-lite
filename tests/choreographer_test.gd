@@ -38,6 +38,8 @@ func _initialize() -> void:
 	_r11_pivots()
 	# R12: deterministic
 	_r12_same()
+	# R13: range (S525)
+	_r13_range()
 	# Sweep
 	_sweep()
 	# Mutants
@@ -141,7 +143,7 @@ func _r4_gap() -> void:
 
 # --- R5 STEP ---
 func _r5_step() -> void:
-	# From rest (1.7 m), a jab at t=5 should get a step event
+	# From rest, a jab at t=5 should get a step event
 	var plan := Choreo.plan([_beat("a", "jab", "lands", 5.0)], db, _opts())
 	var steps: Array = plan["tracks"]["a"].filter(func(e): return str(e["kind"]) == "step")
 	_check(steps.size() >= 1, "R5: jab from rest gets a step event (got %d)" % steps.size())
@@ -221,6 +223,60 @@ func _r9_heads() -> void:
 		_check(heads_gap >= R.HEADS_APART_M - 0.01, "R9: heads apart >= HEADS_APART_M (got %.3f)" % heads_gap)
 
 
+# --- R13 RANGE (S525: the plan in HEAD distance, the short takes passed over, the attacker's step out) ---
+func _heads(ob: Dictionary) -> float:
+	var row: Dictionary = db["rows"].get(str(ob["take"]), {})
+	return float(ob["gap"]) - float(row.get("head_fwd_m", 0.0)) - R.VICTIM_HEAD_FWD_M
+
+
+func _r13_range() -> void:
+	var rows: Dictionary = db["rows"]
+	# the short cross (0.64 m, heads 0.46 m apart) is owned and fresh: it must never be the landed cross from rest
+	var short_seen := 0
+	var low := INF
+	for seed in 30:
+		for move in ["cross", "jab", "lead_hook", "rear_hook", "lead_uppercut", "rear_uppercut"]:
+			var ob: Dictionary = Choreo.plan([_beat("a", move, "lands", 5.0)], db, _opts({"seed": seed}))["beats"][0]
+			var row: Dictionary = rows.get(str(ob["take"]), {})
+			if R.is_short(move, float(row.get("contact_gap_m", 0.9)), float(row.get("head_fwd_m", 0.0))):
+				short_seen += 1
+			low = minf(low, _heads(ob) - float(R.HEAD_FLOOR_M[R.range_kind(move)]))
+	_check(short_seen == 0, "R13: no short take lands while its family owns a longer one (%d)" % short_seen)
+	_check(low >= -0.021, "R13: the heads keep their floor at every landed punch from rest (worst %.3f m under)" % -low)
+	_check(R.is_short("cross", 0.638, 0.16) and not R.is_short("cross", 0.895, 0.084), "R13: is_short tells the 0.64 m cross from the 0.90 m one")
+	_check(absf(R.head_extra("cross", 0.859, 0.119, true) - 0.08) < 0.001 and R.head_extra("jab", 1.031, 0.163, true) == 0.0, "R13: the reach is what the floor is short by, none when the take is long enough")
+	_check(R.head_extra("cross", 0.638, 0.16, true) <= float(R.REACH_M["straight"]) + 0.0001, "R13: a landed punch's reach stays inside the arm's budget")
+	# a lone landed jab: one step in a viewer can count, then the man who punched steps out at once and both go to rest
+	var plan := Choreo.plan([_beat("a", "jab", "lands", 5.0)], db, _opts())
+	var ct: float = float(plan["beats"][0]["contact_t"])
+	var gap: Array = plan["gap"]
+	var step_in := 0.0
+	var out_by := ""
+	var out_m := 0.0
+	var out_end := 0.0
+	for i in range(1, gap.size()):
+		var d: float = float(gap[i][1]) - float(gap[i - 1][1])
+		if d < -0.01 and absf(float(gap[i][0]) - (ct - Gap.LEAD_S)) < 0.03:
+			step_in = -d
+		if d > 0.01 and float(gap[i - 1][0]) >= ct and out_by == "":
+			out_by = str(gap[i][2])
+			out_m = d
+			out_end = float(gap[i][0])
+	_check(absf(step_in - Gap.STEP_IN_M) < 0.02, "R13: the step in on the punch is one step (%.2f m)" % step_in)
+	_check(out_by == "a" and absf(out_m - Gap.STEP_OUT_M) < 0.02 and out_end - ct <= 0.6, "R13: the man who punched steps out %.2f m within 0.6 s (%s, %.2f m, %.2f s)" % [Gap.STEP_OUT_M, out_by, out_m, out_end - ct])
+	_check(absf(_gap_at_plan(gap, ct + R.LEAVE_S) - R.REST_M) < 0.02, "R13: back at rest within LEAVE_S (%.2f m)" % _gap_at_plan(gap, ct + R.LEAVE_S))
+	# two punches 1.0 s apart: the pair does not stay in the pocket of the first one's distance
+	var p2 := Choreo.plan([_beat("a", "cross", "lands", 5.0), _beat("b", "jab", "lands", 6.0)], db, _opts())
+	var c1: float = float(p2["beats"][0]["contact_t"])
+	var c2: float = float(p2["beats"][1]["contact_t"])
+	var widest := 0.0
+	var tt := c1
+	while tt < c2:
+		widest = maxf(widest, Gap.at(p2["gap"], tt))
+		tt += 0.02
+	_check(c2 - c1 < Gap.POCKET_WAIT_S or widest >= float(p2["beats"][0]["gap"]) + Gap.POCKET_MIN_M - 0.01, "R13: with %.2f s to the next punch the puncher steps out between them (widest %.2f m, the punch %.2f m)" % [c2 - c1, widest, float(p2["beats"][0]["gap"])])
+
+
 # --- R10 CONTROL ---
 func _r10_control() -> void:
 	var plan := Choreo.plan([_beat("a", "jab", "lands", 5.0)], db, _opts())
@@ -266,6 +322,8 @@ func _sweep() -> void:
 	var total_misfit := 0
 	var worst_ik := 0.0
 	var gap_faults := 0
+	var heads_n := 0
+	var heads_low := 0
 	var shown := 0
 	var logs := {}
 	for seed in 40:
@@ -315,6 +373,10 @@ func _sweep() -> void:
 				total_cut += 1
 			if float(ob.get("ik_m", 0.0)) > worst_ik:
 				worst_ik = float(ob["ik_m"])
+			if str(ob["result"]) == "lands" and not bool(ob.get("cut", false)) and str(ob["take"]) != "":
+				heads_n += 1
+				if _heads(ob) < float(R.HEAD_FLOOR_M[R.range_kind(str(ob["move"]))]) - 0.021:
+					heads_low += 1
 		# R10
 		for side in ["a", "b"]:
 			var evs: Array = plan["tracks"][side]
@@ -326,6 +388,7 @@ func _sweep() -> void:
 		if JSON.stringify(plan) != JSON.stringify(plan2):
 			_check(false, "sweep seed %d: R12 deterministic" % seed)
 	_check(gap_faults == 0, "sweep: the distance plan has no fault on 40 seeds (%d)" % gap_faults)
+	_check(heads_low <= heads_n / 10, "sweep: at most 1 landed punch in 10 has the heads under their floor (%d of %d: a burst's follow-up, or a family with only short takes)" % [heads_low, heads_n])
 	_check(total_misfit <= total_punches / 20, "sweep: at most 1 punch in 20 is thrown off its take's distance (%d of %d)" % [total_misfit, total_punches])
 	print("CHOREO sweep log lines: ", logs)
 	print("CHOREO sweep seeds=40 punches=%d landed=%d cut=%d slid=%d misfit=%d worst_ik=%.3f" % [total_punches, total_landed, total_cut, total_slid, total_misfit, worst_ik])

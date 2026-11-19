@@ -1,0 +1,22 @@
+GUARD_ONOFF n=200 a cell, seeds 5000.., WEAR_SCALE 0.40 AMATEUR_SCALE 0.28 K_THROUGH 0.038
+| cell | arm | stopped | our wins | damage a+b | guard a | guard b |
+| am3_even | off | 10 | 86 | 12022 | 0.53 | 0.61 |
+| am3_even | ON | 11 | 87 | 13059 | 0.53 | 0.61 |
+  am3_even: damage +8.6%, stoppages +0.5 points, our wins +1
+| am3_miss | off | 13 | 16 | 14492 | 0.37 | 0.76 |
+| am3_miss | ON | 13 | 16 | 15584 | 0.37 | 0.76 |
+  am3_miss: damage +7.5%, stoppages +0.0 points, our wins +0
+| pro4_even | off | 24 | 75 | 17844 | 0.41 | 0.60 |
+| pro4_even | ON | 24 | 75 | 19444 | 0.41 | 0.60 |
+  pro4_even: damage +9.0%, stoppages +0.0 points, our wins +0
+| pro4_miss | off | 26 | 12 | 22644 | 0.24 | 0.76 |
+| pro4_miss | ON | 26 | 12 | 24301 | 0.24 | 0.76 |
+  pro4_miss: damage +7.3%, stoppages +0.0 points, our wins +0
+| pro6_even | off | 30 | 94 | 25112 | 0.32 | 0.48 |
+| pro6_even | ON | 34 | 93 | 27737 | 0.32 | 0.48 |
+  pro6_even: damage +10.5%, stoppages +2.0 points, our wins -1
+| pro6_miss | off | 94 | 33 | 25350 | 0.20 | 0.74 |
+| pro6_miss | ON | 101 | 32 | 27699 | 0.20 | 0.74 |
+  pro6_miss: damage +9.3%, stoppages +3.5 points, our wins -1
+RESULT: tools/guard_onoff.gd -> damage_plus=7.3..10.5% worst_stop_shift=3.5 points
+GUARD_ONOFF done
