@@ -69,7 +69,7 @@ static func plan(beats: Array, db: Dictionary, opts: Dictionary) -> Dictionary:
 		counts[who]["thrown"] = int(counts[who]["thrown"]) + 1
 		if result == "lands":
 			counts[who]["landed"] = int(counts[who]["landed"]) + 1
-		var base_ct: float = maxf(float(key[0]), float(landed_at[who]) + R.OWN_GAP_S)   # S531: a punch of his that slid later is still his earlier one
+		var base_ct: float = maxf(float(key[0]), float(landed_at[who]) + R.WIND_MIN_S + 0.05)   # S531: a punch of his that slid later is still his earlier one (its next starts after it has landed)
 		var sc: float = float(scale.get(who, 1.0))
 		# R3: the take. Inside a burst the pair can only shift so far before this contact; from rest any take is free
 		# (the feet go to its distance, R5).
@@ -123,7 +123,8 @@ static func plan(beats: Array, db: Dictionary, opts: Dictionary) -> Dictionary:
 		contact_t = clampf(contact_t, t0, t1)
 		# R2: when the take starts; a combination's next punch starts part-way in while the last hand comes home
 		var t_play: float = contact_t - (contact_s - from_s)
-		if t_play < float(landed_at[who]) + R.CONTROL_S and take_name != "" and str(take_row.get("hand", "?")) == str(last_hand[who]):
+		# (only while that costs under SAME_HAND_MAX_S: a body hook's long take slid 0.77 s and was cut by the other man's punch)
+		if t_play < float(landed_at[who]) + R.CONTROL_S and take_name != "" and str(take_row.get("hand", "?")) == str(last_hand[who]) and float(landed_at[who]) + R.CONTROL_S + R.SAME_HAND_S + (contact_s - start_s) - contact_t <= R.SAME_HAND_MAX_S:
 			# S531 THE SAME HAND TWICE (film 7, def3 #13-#27, read as "a cross that hangs 14 frames": a double jab whose second
 			# take was cut in 0.11 s deep while the arm was still out - one arm out for 0.4 s). The same hand again plays its
 			# take from the START once the first has landed: the arm comes home in the join, and the punch lands that much later.
@@ -224,7 +225,7 @@ static func plan(beats: Array, db: Dictionary, opts: Dictionary) -> Dictionary:
 			var alone := true
 			for kk in range(keys.find(key) + 1, keys.size()):
 				if R.is_punch(str((beats[int(keys[kk][1])] as Dictionary).get("move", ""))):
-					alone = float(keys[kk][0]) - contact_t > R.PULL_ALONE_S
+					alone = float(keys[kk][0]) - contact_t > R.PULL_ALONE_S   # the next punch of EITHER man: his own would be cut by the pull
 					break
 			if alone:
 				def = "pull" if R.is_straight(move) else "weave"
@@ -292,7 +293,11 @@ static func plan(beats: Array, db: Dictionary, opts: Dictionary) -> Dictionary:
 		if bool(opts.get("drift", true)):
 			counts["ring_steps"] = Drift.plan(ev, gap, db, t0, t1, drng)
 		Wait.add(ev, db, t0, t1, marks.filter(func(m): return str(m.get("kind", "contact")) == "contact").map(func(m): return float(m["t"])), rng)
-		gap = Wait.breathe(gap, rng)
+		# S531: the rock in and out at rest (5-9 cm every second or so) is off unless asked for: the wait bounces now, and
+		# under the bounce each rock made the leg layer take a step - 40 foot lifts a man in 75 s that no take stepped
+		# (film 9: "90 steps a minute ... nervous"). `breathe: true` = as before.
+		if bool(opts.get("breathe", false)):
+			gap = Wait.breathe(gap, rng)
 	for w in ["a", "b"]:
 		_order(ev[w])
 	return {"beats": out_beats, "tracks": ev, "gap": gap, "counts": counts, "log": log}
@@ -365,6 +370,9 @@ static func _pool(db: Dictionary, rows: Dictionary, move: String, big: bool) -> 
 	var front: Array = all.filter(func(n): return not (rows[n].get("flags", []) as Array).any(func(f): return str(f).begins_with("back to the other man")))
 	if not front.is_empty():
 		all = front
+	var tidy: Array = all.filter(func(n): return not (str(n) in R.FREE_HAND_OUT))
+	if not tidy.is_empty():
+		all = tidy
 	if big:
 		var hard: Array = all.filter(func(n): return str(rows[n].get("form", "")) in ["hard", "hard_ft", "special"])
 		if not hard.is_empty():

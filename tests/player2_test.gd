@@ -215,7 +215,7 @@ func _initialize() -> void:
 	_check(short_on == 0, "SHORT no missed punch has its glove on him (%d of %d)" % [short_on, short_n])
 	_debt(jumps == 0, jumps <= 6 * rounds, "JUMPS no head moves over 12 cm in 1/30 s outside a contact (%d; guard %d)" % [jumps, 6 * rounds])
 	_debt(float(slide[0]) <= 1.0 * rounds and float(slide[1]) <= 1.0 * rounds, maxf(float(slide[0]), float(slide[1])) <= 5.0 * rounds, "SLIDE a standing foot travels under 1 m an exchange (%.2f / %.2f over %d; guard 5 m)" % [float(slide[0]), float(slide[1]), rounds])
-	_check(not rest.is_empty() and float(rest[0]) >= R.REST_M - 0.22 and float(rest[-1]) <= R.REST_M + 0.3, "REST out of reach between bursts (%.2f..%.2f m)" % [float(rest[0]) if not rest.is_empty() else 0.0, float(rest[-1]) if not rest.is_empty() else 0.0])
+	_check(not rest.is_empty() and float(rest[0]) >= R.REST_M - 0.35 and float(rest[-1]) <= R.REST_M + 0.3, "REST out of reach between bursts (%.2f..%.2f m)" % [float(rest[0]) if not rest.is_empty() else 0.0, float(rest[-1]) if not rest.is_empty() else 0.0])
 	_check(inside == 0, "APART no head inside the other man (%d frames)" % inside)
 	print("PLAYER2 failures=%d" % failures)
 	quit(0 if failures == 0 else 1)

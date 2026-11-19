@@ -79,7 +79,7 @@ static func build(marks: Array, t0: float, t1: float, gap0: float, log: Array) -
 				if a_start - CREEP_GAP_S - c_dur >= cur_t + 0.1:
 					var c_end := a_start - CREEP_GAP_S
 					_to(out, c_end - c_dur, cur_g, "")
-					_to(out, c_end, line, "both")
+					_to(out, c_end, line, mover if mover in ["a", "b"] else "both")   # S531: the man who attacks walks in (one real step, not two half ones)
 					cur_g = line
 					cur_t = c_end
 				else:
@@ -159,7 +159,8 @@ static func _after(out: Array, marks: Array, i: int, mt: float, t1: float) -> vo
 			_to(out, ls + d1, s1, hitter)
 		if d2 > 0.0:
 			_to(out, ls + d1 + EASE_OUT_WAIT_S, s1, "")
-			_to(out, ls + d1 + EASE_OUT_WAIT_S + d2, R.REST_M, "both")
+			# S531: the OTHER man opens the rest of the distance (film 9: 90 steps a minute; two men each shuffling 5-10 cm)
+			_to(out, ls + d1 + EASE_OUT_WAIT_S + d2, R.REST_M, "b" if hitter == "a" else ("a" if hitter == "b" else "both"))
 		return
 	var gn := maxf(float(nxt["gap"]), R.MIN_GAP_M)
 	if wait >= POCKET_WAIT_S and g < POCKET_M - 0.08:

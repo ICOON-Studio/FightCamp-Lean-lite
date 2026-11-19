@@ -14,7 +14,7 @@ const R := preload("res://scripts/fight3d/v2/ChoreoRules.gd")
 const STEP_S := 0.70                   # one ring step, start to the feet down
 ## Between two ring steps (never a march). S529: was 0.15-0.60 - a step take was on screen 40-44 % of the round and both
 ## critics of film 6 counted 120 steps a minute that "lead nowhere"; a boxer steps, looks, steps.
-const PAUSE_S := Vector2(0.9, 1.6)   # S531: was 0.35-0.7 (film 9: "they never stop", no reading beat)
+const PAUSE_S := Vector2(1.4, 2.4)   # FROZEN S531 with REST_M: 30-45 steps a minute, a reading wait of 0.6-1.5 s. Before:  # S531: was 0.35-0.7 (film 9: "they never stop", no reading beat)
 ## ... every other breath is a long one: room for the hands (ChoreoWait puts a paw or a feint in it)
 const PAUSE_LONG_S := Vector2(1.3, 2.0)
 const FIRST_S := Vector2(0.05, 0.30)   # into a quiet stretch before the first
@@ -27,13 +27,13 @@ const BUSY := ["punch", "reaction", "block", "defence", "pass"]
 ## jab edge"; the coach: in range 0.9-1.1 m, out 1.4-1.7, crossed 3-5 times between exchanges). In a hold at rest one
 ## man steps IN to the jab's edge (a captured step forward: ChoreoGap.steps makes it his step event), stays a breath -
 ## the hands work there (ChoreoWait) - and the distance opens again: he steps back out, or the other man gives the ground.
-const IN_M := Vector2(0.24, 0.33)
+const IN_M := Vector2(0.15, 0.22)   # S531 after film 9: a HALF step (from 1.45 the gloves never meet); was 0.24-0.33
 const IN_S := 0.45
 ## Film 9 (both critics' first item): with a hold of 0.75-1.2 s here the two stood "gloves on gloves at punching range,
 ## nobody throwing". In range a man punches or leaves: the step in is a half step, straight back out.
 const IN_HOLD_S := Vector2(0.10, 0.25)
 const IN_FIRST_S := Vector2(0.25, 0.8)
-const IN_EVERY_S := Vector2(2.6, 4.5)   # film 9: 90 steps a minute read as nervous (the animator: 25-45)
+const IN_EVERY_S := Vector2(4.0, 7.0)   # film 9: 90 steps a minute read as nervous (the animator: 25-45)
 const IN_SAME_OUT := 0.6               # how often the man who stepped in is the one who steps out
 
 

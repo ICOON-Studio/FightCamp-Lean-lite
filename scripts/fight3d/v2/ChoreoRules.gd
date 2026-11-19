@@ -11,7 +11,9 @@ const ClipCensus := preload("res://scripts/fight3d/v2/ClipCensus.gd")
 ## S529 (film 6, both critics' first or fifth item again: "they wait at a distance nobody fights from", lead gloves
 ## "a full body apart"; the stance ruler: nearest wrists 0.82 m, front feet 1.09 m at 1.55): the edge of range is
 ## lead gloves 30-50 cm apart, front feet 0.9-1.1 m = 1.32 m here, one 25 cm step from the longest jab.
-const REST_M := 1.32          # rest: just out of reach
+## S531 FROZEN (the owner: "Yes, that scope"): four films of fresh critics pulled this number both ways (1.55 "nobody
+## fights from there", 1.32 "gloves touching; stand 1.4-2.0 m"). It is 1.45 and is not tuned to a round's words again.
+const REST_M := 1.45          # rest: just out of reach
 const CREEP_M := 1.2          # the round script's own step in (pressure): still out of reach, a jab and half a step from landing
 const MIN_GAP_M := 0.45       # never closer than this
 const GAP_SPEED_MPS := 1.6    # max gap change rate (a step pair is 0.55-0.60 s)
@@ -28,7 +30,12 @@ const HOOK_FIT_M := 0.05      # hooks, uppercuts, body shots get no IK
 # --- Timing (UNDISPUTED_STUDY_S254) ---
 const SLIDE_MAX_S := 0.25     # max contact slide for stun avoidance
 const CONTROL_S := 0.13       # control back after contact (Undisputed 0.11-0.17)
+const SAME_HAND_MAX_S := 0.45  # ... and only when that lands it this much later at most
 const SAME_HAND_S := 0.04      # the same hand again starts this long after control is back (S531)
+## S531 takes whose FREE hand leaves the chin by 13-21 cm more than the guard holds it (fight_persist_rulers FREE HAND on
+## film 9; every film's critics: "the other hand drops to the hip / flies over the head"): they play only when their
+## family owns nothing else.
+const FREE_HAND_OUT := ["pro_left_hook_hard", "pro_left_jab_hard", "pro_right_cross_ft", "pro_right_uppercut"]
 const PULL_ALONE_S := 0.9       # a plain miss is pulled from only when no punch follows inside this (S531)
 const WIND_MIN_S := 0.12      # a take never starts later than this before its contact
 ## ... a hook, an uppercut or a body shot not later than this (S525, film 3 and 4: a hook thrown second in a
@@ -44,12 +51,14 @@ const DEF_LEAD_S := 0.33
 ## the chin by frame 6"; it stayed out 8-15 frames). The bought takes bring the hand back 0.3-0.5 s after the contact
 ## (a hook 0.6-1.4 s: clip_db home_s). A punch take is handed back to the guard this long after its contact - a
 ## straight at once, a hook, an uppercut or a body shot after its follow-through - and the join brings the hand home.
-const ARM_HOME_S := 0.07
-const ARM_HOME_TURN_S := 0.14
+## S531 (fight_persist_rulers ARM HOME on film 9: median 6 frames from full reach, worst 11 on the uppercut and the
+## hard hook; the critics on every film: 4-6 a jab, 6-8 a hook): 0.07 / 0.14 -> 0.03 / 0.08, and Player2.JOIN_HOME quicker.
+const ARM_HOME_S := 0.03
+const ARM_HOME_TURN_S := 0.08
 
 
 static func arm_home_s(move: String) -> float:
-	return ARM_HOME_S if is_straight(move) else ARM_HOME_TURN_S
+	return ARM_HOME_S if is_straight(move) or move.ends_with("uppercut") else ARM_HOME_TURN_S   # S531: the uppercut take holds its fist up 10 frames
 
 
 # --- Stun durations by reaction size (scope 3d) ---

@@ -120,7 +120,9 @@ static func _size_order(size: String) -> Array:
 
 
 static func block(db: Dictionary, rows: Dictionary) -> Array:
-	var pref := ["pro_block_straight_hit_v2", "mc_block_hit", "pro_block_loop", "mc_to_block", "pro_idle_to_block", "mc_block"]
+	# S531: the cover-up first. pro_block_straight_hit_v2 throws the lead glove over his own crown on the fight bodies
+	# (film 9, both critics, def3 #18-#23: "like a man waving"); the census body does not show it.
+	var pref := ["pro_idle_to_block", "pro_block_straight_hit_v2", "mc_block_hit", "pro_block_loop", "mc_to_block", "pro_idle_to_block", "mc_block"]
 	for n in pref:
 		if rows.has(n) and (rows[n].get("drop", []) as Array).is_empty():
 			return [n, rows[n]]
@@ -130,6 +132,12 @@ static func block(db: Dictionary, rows: Dictionary) -> Array:
 static func defence(db: Dictionary, rows: Dictionary, kind: String, move: String, from_left: bool, south: bool, quick: bool = true) -> Array:
 	var has_fn := func(clip: String) -> bool:
 		return rows.has(clip) and (rows[clip].get("drop", []) as Array).is_empty()
+	# S531 NO SIDE DODGE (pro_left_dodge / pro_right_dodge step 0.3-0.6 m ACROSS the line: on the fixed side camera the
+	# dodger lands in front of or behind the other man and the two melt into one shape (film 9, def2 #53-#68, both
+	# critics); they also turned the pair 14-24 deg off side-on and slid the most of any take). A slip is a weave on the
+	# spot - the ducks are what both critics call the best thing in the film.
+	if kind == "slip":
+		kind = "weave"
 	var clip: String = BeatClips.defence(kind, move, from_left, south, has_fn)
 	# S530 (film 6, coach: "ducking is too deep and too long ... his head at the other man's chest"): the deep weaves
 	# (the head 36-41 cm down and round) go under HOOKS; a straight punch is slipped with the quick weave (23 cm, the

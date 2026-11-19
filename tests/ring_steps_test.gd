@@ -79,7 +79,7 @@ func _initialize() -> void:
 	for seed in 12:
 		var round := {"n": 1, "won": true, "mine": 60.0, "theirs": 55.0, "corner": "", "lines": []}
 		var beats: Array = RS.build(round, "Slugger", "Slugger", 30.0, seed)["beats"]
-		var opts := {"t0": 0.0, "t1": 30.0, "gap0": 1.32, "seed": seed, "south": {"a": false, "b": false}, "scale": {"a": 1.0, "b": 1.0}}
+		var opts := {"t0": 0.0, "t1": 30.0, "gap0": 1.45, "seed": seed, "south": {"a": false, "b": false}, "scale": {"a": 1.0, "b": 1.0}}
 		var plan: Dictionary = Choreo.plan(beats, db, opts)
 		var again: Dictionary = Choreo.plan(beats, db, opts)
 		var rows: Dictionary = db["rows"]

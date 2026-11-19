@@ -314,8 +314,9 @@ func _event(i: int, e: Dictionary) -> void:
 			FightSfx.blocked()
 		else:
 			FightSfx.missed(0.0, move, "")])
+	var born: float = float(_take[i].get("at", t))   # S531: THIS take (the same clip thrown twice was handed back by the first one's entry)
 	_due.append([ct + R.arm_home_s(move), func() -> void:   # S526: the arm comes home (after the contact's own entry: same tick, this order)
-		if str(_take[i].get("clip", "")) == clip and str(_take[i].get("kind", "")) == "punch":
+		if str(_take[i].get("clip", "")) == clip and str(_take[i].get("kind", "")) == "punch" and float(_take[i].get("at", -1.0)) == born:
 			_join_next = JOIN_HOME
 			guard(i)])
 

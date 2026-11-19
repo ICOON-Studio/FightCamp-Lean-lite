@@ -27,8 +27,11 @@ const SQUARE_BUSY_DPS := 9.0
 ## 20-45 deg off the line"): the pair circles (StepPlay: a ring step that turns the pair's line with the captured side
 ## steps), so side-on has this much slack either way - inside it nothing turns the pair back; past it the pair is
 ## eased back to the slack's edge. Nobody's back hides the other man inside it. `-- fp2nocircle` = side-on, no circling.
-const SLACK_DEG := 24.0   # S531: 40 and 28 put a back to the camera over the punches (films 9a / 9b, ex1)
-static var circle_on: bool = not OS.get_cmdline_user_args().has("fp2nocircle")
+## S531: the camera is fixed (owner S500) and neither critic of films 7 and 9 saw a circle step; what they saw is two men
+## overlapping in the picture whenever the line is off side-on. The fight is fought on the camera's line: circling is
+## off by default (`-- fp2circle` = on) and the slack is small.
+const SLACK_DEG := 8.0
+static var circle_on: bool = OS.get_cmdline_user_args().has("fp2circle")
 
 var p: Node = null            # Player2
 var _want_was := 0.0          # the distance asked for last frame (how fast it changes is how fast the bodies may follow)

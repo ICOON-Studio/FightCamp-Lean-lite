@@ -213,7 +213,9 @@ def measure(path, fps=30.0):
         # 6 steps + 7 waiting, per boxer
         b = {}
         steps, lift = 0, 0.0
-        for foot in ("LeftFoot", "RightFoot"):
+        # S531: a step = the TOES leave the canvas. Read on the ankle (as it was) a raised heel counted: every jab's
+        # rear heel and every paw's lead heel was "a step" - 90 a minute on film 9, quoted by both critics as nervous feet.
+        for foot in ("LeftToes", "RightToes"):
             ys = [float(q[foot + "_y"]) for q in rows]
             rest = _pct(ys, 0.05)
             run = 0

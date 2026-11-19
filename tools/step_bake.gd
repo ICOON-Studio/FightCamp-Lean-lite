@@ -97,7 +97,7 @@ func _initialize() -> void:
 		lib.remove_animation("_probe")
 		RkClips.turn(raw, skel, yaw)
 		print("STEPBAKE %s <- %s x %.2f" % [name, stem, stride])
-		var anim := _refit(raw, lib, prefix, stride, guard)
+		var anim := _refit(raw, lib, prefix, stride, guard, WAIT_LIFT if str(name) in StepClips.LOOPS else 1.0)
 		for t in anim.get_track_count():
 			if anim.track_get_type(t) == Animation.TYPE_POSITION_3D:
 				for k in anim.track_get_key_count(t):
@@ -128,6 +128,9 @@ const SINK_F := 6
 const TOES := ["LeftToes", "RightToes"]
 const TOE_DOWN_M := 0.015
 const TOE_AIR_M := 0.06
+## S531: the bouncing wait lifts its feet 4-7 cm in its shuffles; on film 9 they counted as 25 steps a minute a man
+## ("nervous"). In the wait loops a foot leaves the canvas by this share of its captured lift: a bounce, not a shuffle.
+const WAIT_LIFT := 0.15
 
 
 ## The hips and both ankles of `clip` at `t` (skeleton space).
@@ -140,7 +143,7 @@ func _stance(clip: String, t: float) -> Dictionary:
 
 
 ## `raw` (bare tracks, the hips carrying the floor travel) on the guard's stance, its travel x `stride`.
-func _refit(raw: Animation, lib: AnimationLibrary, prefix: String, stride: float, guard: Dictionary) -> Animation:
+func _refit(raw: Animation, lib: AnimationLibrary, prefix: String, stride: float, guard: Dictionary, lift: float = 1.0) -> Animation:
 	var probe := raw.duplicate(true) as Animation
 	for t in probe.get_track_count():
 		probe.track_set_path(t, NodePath("%s:%s" % [prefix, str(probe.track_get_path(t))]))
@@ -209,7 +212,9 @@ func _refit(raw: Animation, lib: AnimationLibrary, prefix: String, stride: float
 			var w := 1.0 - smoothstep(TOE_DOWN_M, TOE_AIR_M, tip.y - float(toe_floor[i]))
 			heel.append(rise * w)
 			flattened = maxf(flattened, rise * w)
-			to.append(Vector3(h0.x + gi.x + stride * (a.x - h0.x - oi.x), a.y - rise * w, h0.z + gi.z + stride * (a.z - h0.z - oi.z)))
+			var fy0: float = (s0["feet"][i] as Vector3).y
+			var fs: float = stride if lift >= 1.0 else 0.0   # a wait loop keeps its feet on their spots (its shuffles read as steps)
+			to.append(Vector3(h0.x + gi.x + fs * (a.x - h0.x - oi.x), fy0 + lift * (a.y - rise * w - fy0), h0.z + gi.z + fs * (a.z - h0.z - oi.z)))
 		var f0: Vector3 = st["feet"][0]
 		var f1: Vector3 = st["feet"][1]
 		spread.x = maxf(spread.x, Vector2(f0.x - f1.x, f0.z - f1.z).length())

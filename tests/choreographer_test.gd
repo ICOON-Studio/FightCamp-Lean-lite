@@ -369,7 +369,7 @@ func _r14_waits() -> void:
 	_check(through == 0, "R14: no paw or feint goes through a landing punch (%d)" % through)
 	_check(fidget_through == 0, "R14: no fidget plays into a punch of either man (%d)" % fidget_through)
 	_check(longest <= 3.0, "R14: nobody stands in the plain guard longer than 3 s (S531: was 2; the guard bounces now and film 9's critics ask a reading beat) (longest %.2f s, %s)" % [longest, longest_at])
-	_check(still <= 2.2, "R14: the distance never holds still longer than 2.2 s (longest %.2f s)" % still)
+	_check(still <= 4.5, "R14: the distance never holds still longer than 4.5 s (S531: was 2.2; the rock at rest is off, the wait bounces, a half step in every 4-7 s) (longest %.2f s)" % still)
 	_check(int(kinds.get("fidget", 0)) > 0 and int(kinds.get("paw", 0)) > 0 and int(kinds.get("cross_feint", 0)) > 0, "R14: fidgets, paws and feints are all planned (%s)" % str(kinds))
 	var plain := Choreo.plan([_beat("a", "jab", "lands", 5.0)], db, _opts({"waits": false}))
 	_check((plain["tracks"]["a"] as Array).filter(func(e): return str(e["kind"]) in ["fidget", "feint"]).is_empty(), "R14: waits off = the plan without them")
