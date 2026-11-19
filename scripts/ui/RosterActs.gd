@@ -7,6 +7,9 @@ const Recruit := preload("res://scripts/rules/Recruit.gd")
 const Roster := preload("res://scripts/state/Roster.gd")
 const FirstHour := preload("res://scripts/rules/FirstHour.gd")
 const UI := preload("res://scripts/ui/UI.gd")
+const ProOfferWire := preload("res://scripts/state/ProOfferWire.gd")
+const GymBills := preload("res://scripts/rules/GymBills.gd")
+const Needs := preload("res://scripts/state/Needs.gd")
 const STRIKE := preload("res://scenes/dev/StrikeBrowser.tscn")
 const TAPE := preload("res://scripts/ui/FightAnalysisTape.gd")   # S511: the Tape Room retired into FIGHT ANALYSIS
 
@@ -68,11 +71,20 @@ static func act(main: Node, name: String, arg: String) -> bool:
 			if not c.pro_offer.is_empty():
 				main.open_modal({"type": "prooffer", "fid": c.pro_offer["fid"]})
 		"turnpro":
-			var f := Roster.turn_pro(c)
+			var f := Roster.turn_pro(c, arg)   # S523: arg = the house signed with ("" = the first)
 			main.close_modal()
 			if f.is_empty():
 				return true
 			main.toast("%s is a pro. Debut on %s." % [f["first"], Clock.fmt(int(f["bout"]["day"]))])
+		"proask":   # S523 TURNPRO1B: the one ask on a house's offer ("house|kind"); the offer redraws with the answer
+			var parts := arg.split("|")
+			var said := ProOfferWire.ask(c, parts[0], parts[1], GymBills.runway_weeks(c.cash, Needs.money_net(c)))
+			if said != "":
+				main.toast(said)
+			main.open_modal({"type": "prooffer", "fid": c.pro_offer["fid"]})
+		"proplain":
+			ProOfferWire.back_to_plain(c, arg)
+			main.open_modal({"type": "prooffer", "fid": c.pro_offer["fid"]})
 		"declinepro":
 			Roster.decline_pro(c)
 			main.close_modal()

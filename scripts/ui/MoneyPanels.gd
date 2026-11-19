@@ -261,6 +261,8 @@ static func _fighter(main: Node, c: Career, f: Dictionary) -> Control:
 		b.name = "Stipend_" + str(f["id"])
 		if held == "":
 			b.tooltip_text = "Off the sponsorship the boxer works 2 mornings a week (Tue, Thu): 4 of the 6 training mornings. Stopping it costs 8 loyalty, starting it gives 5."
+			if str(main.career.pro_offer.get("fid", "")) == str(f["id"]):   # S523 TURNPRO1 map M7: signing ends it anyway
+				b.tooltip_text += " A pro offer is open: signing it stops the stipend for you - %s a week back." % UI.money(GameMoney.FIGHTER_STIPEND)
 		_short_button(b)
 		stipend.add_child(b)
 		if held == "":

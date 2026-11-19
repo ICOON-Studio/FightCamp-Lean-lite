@@ -7,6 +7,7 @@ extends RefCounted
 ## `ladder` = the opponent's world id, so camp, weigh-in and fight night run unchanged; BoutNight._finish calls result().
 ## Screens: Fights (offers, ask, the road). Rules: scripts/rules/Matchmaking.gd. Bars: tests/pro_ladder_test.gd.
 
+const ProLean := preload("res://scripts/state/ProLean.gd")
 const WG := preload("res://scripts/world/WorldGen.gd")
 const WS := preload("res://scripts/world/WorldSim.gd")
 const WR := preload("res://scripts/world/WorldRank.gd")
@@ -180,6 +181,8 @@ static func _make_offers(c: Career, f: Dictionary) -> void:
 	var tune := {}
 	var step := {}
 	var pay := {}
+	var tunes: Array = []   # S523: every tune-up / step-up candidate, for the promoter's lean (lean_extra)
+	var steps: Array = []
 	for b in table(c, f):
 		if b.get("player", false) or b.get("retired", false):
 			continue
@@ -187,9 +190,12 @@ static func _make_offers(c: Career, f: Dictionary) -> void:
 		var mid := float(read(c, f, bout_opp(f, b, PUBLIC_TAPE))["mid"])
 		var above := r > 0 and (you == 0 or r < you)
 		if not above:
+			if mid >= TUNE_READ.x and mid <= TUNE_READ.y:
+				tunes.append({"b": b, "mid": mid})
 			if mid >= TUNE_READ.x and mid <= TUNE_READ.y and (tune.is_empty() or absf(mid - TUNE_AIM) < absf(float(tune["mid"]) - TUNE_AIM)):
 				tune = {"b": b, "mid": mid}
 		elif r >= reach and bool(MM.ask(e, b)["ok"]):
+			steps.append({"b": b, "mid": mid})
 			if step.is_empty() or absf(mid - STEP_READ) < absf(float(step["mid"]) - STEP_READ):
 				step = {"b": b, "mid": mid}
 		elif r <= PAYDAY_TOP and mid >= PAYDAY_READ.x and mid <= PAYDAY_READ.y:
@@ -204,7 +210,8 @@ static func _make_offers(c: Career, f: Dictionary) -> void:
 			continue
 		out.append({"id": int(pick["b"]["id"]), "kind": kv[0], "file_found": PUBLIC_TAPE.duplicate(), "scouted": false,
 			"until": c.day + OFFER_DAYS})
-	f["pro_offers"] = _drop_dominated(c, f, out)
+	f["pro_offers"] = ProLean.extra(f, _drop_dominated(c, f, out), tunes, steps,   # S523: the house's lean, the softer ask
+		int(e.get("ducks", 0)) >= MM.DUCKS_BLOCK or e.get("rebuild", false), c.day + OFFER_DAYS, PUBLIC_TAPE, TUNE_AIM, STEP_READ)
 	if not (f["pro_offers"] as Array).is_empty():
 		c.add_news("%s's promoter has %d fights on the table (Fights)." % [f["first"], (f["pro_offers"] as Array).size()])
 
@@ -331,6 +338,8 @@ static func book(c: Career, f: Dictionary, opp_id: int, asked: bool) -> Dictiona
 	var opp := by_id(c, f, opp_id)
 	if opp.is_empty() or not (f["bout"] as Dictionary).is_empty():
 		return {"ok": false, "reason": "Not available"}
+	if int(f.get("pro_tune_ups", 0)) > 0:
+		f["pro_tune_ups"] = int(f["pro_tune_ups"]) - 1   # S523: one of the softer ask's tune-up sets is used
 	if asked:
 		var answer := MM.ask(e, opp)
 		if not bool(answer["ok"]):

@@ -1,33 +1,46 @@
-# S523 handover (written 2026-11-19, end of S522 - Opus; S520-S522 in one session, stopped at 91% weekly usage)
+# S524 handover (written 2026-11-19, end of S523 - Opus; weekly usage was 91% at start, resets 19 Nov 14:00)
 
-Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. S520 is in roadmap `now`.
+Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. S523 is in roadmap `now`.
 
 ## BILLING (S513) - unchanged, see S518's block in git history (support.claude.com/en/articles/17154008; claude -p only).
 
 ## GOAL (owner, verbatim, still on): "i want animations fixed (at least 7/10)"
-The ONLY animation session is the terminal CLI session "anim S513" (peer lean-f3, Fable; pid 26484 was alive at S520
-start). Do not start another. METHOD line below (S510) - quote it in the first message.
+The ONLY animation session is the terminal CLI session "anim S513" (peer lean-f3, Fable). Do not start another.
+METHOD line below (S510) - quote it in the first message.
 
 ## MAIN LINE - DO FIRST
-1. His look at the club week + the Ask door (WHAT_TO_TRY S520 and S519 on top; stills ops/previews/s519 on the review board).
-2. Collect TREEVALUE2 (Qwen) -> tune StepEffect. TRAP: the STREAKPROBE1 qwen process (pid 25840, started 22:13 on 18 Nov)
-   never exited after its work was collected, and seat_dispatch waits for the old qwen pid - S520's Stop-Process was
-   refused by the permission check. If it is still alive, ask the owner to end it (or let the reconcile do it).
-3. Then MORNINGSPROBE2 + MONEYFOUR2 (queued for Qwen, briefs ops/research/TASK_*.md): tune CoachedMornings SOLO/SHARED and
-   ClubClasses ($117, BAG_SHARE, MEMBER_A_NIGHT) from them.
-4. Guard damage v4 (ops/research/DESIGN_GUARDDMG1_V4.md, from Dola SQ225) is at two fresh critics: Dola SQ226
-   (-> DESIGN_GUARDDMG1_V4_CRITIC_DOLA_DOLA.md) and Goose issue #375 (-> DESIGN_GUARDDMG1_V4_CRITIC_GOOSE.md). Collect;
-   7+ depth and general from both = his board (Q with --attach); lower = design_loop.py revise. Grok bots are OUT.
-5. His mat plan note C433.
-6. LUDO EVERY SESSION (owner S521: "whyh did you stop using ludo ?" - unused S474-S520): `start` prints a LUDO line
-   (credits ~777, paid to ~11 Dec). S521 painted 4 real screens x 2 looks (ops/previews/s521_ludo, map frame s521_ludo,
-   review board); Q-S294-274 asks which look. On his pick: Ludo paints every new screen before it is built, then makes
-   the real pieces. Sounds stay Qwen's.
-7. Guard damage v4: Dola SQ226 scored 8/8/7 (passes). Goose #375 pending; if Goose also 7+/7+ -> his board with --attach.
-8. Probe policy (S521 edit committed, NOT RUN - his game was open, PC AMBER/RED): tools/streak_probe.gd now asks an
-   owing corner first. Run it when GREEN and no game window (Q-267); save as docs/ASKGAP1_RESULT.md rerun 2, restore
-   docs/STREAKPROBE1_RESULT.md. Older note: streak_probe asks the highest name 0-8 above, never the corner that OWES her - Josh reached
-   OWED 10 times and booked 0. Let the probe ask an owing corner first, then read owed w-l.
+1. His board: Q-S294-275 guard damage v4 (critics Dola 8/8/7, Goose 8/7/7; design + both critics attached). His yes =
+   build after turning pro. His look at the turning pro offer (review board S523, map frame s523_pro).
+2. TURNPRO1 rest (design ops/research/DESIGN_TURNPRO1_V2_REVISE_KALLI_KALLI.md section 6): (M4 NEXT STEP DONE S523c:
+   NextStep.pro_line - tickets vs each house in WINS away, not weeks: wins are what moves it; age; declines), (M7 stipend
+   hover + M15 History milestone f["pro_signed"] DONE S523d; M16 Records already lists "turns pro with"; M1 = the
+   NEEDS YOU line says "last day to answer"), M7 stipend
+   hover, (M14 ProLadder lean DONE S523b: scripts/state/ProLean.gd, f["pro_house"], tests/pro_lean_test.gd),
+   M15/M16 records "turned pro", M1 top-bar red on the last day. Then the map's probes (section 7: 200 careers, two
+   years, three seed sets, half pay the stipend) with a bot per policy -> size the ESTIMATEs in ProCall.gd.
+3. Collect TREEVALUE2 (Qwen, E:/FightCamp/wt/LEAN_TREEVALUE2) -> tune StepEffect. Then MORNINGSPROBE2 + MONEYFOUR2.
+4. streak_probe rerun (owing corner first, S521 edit) when GREEN and no game window; save docs/ASKGAP1_RESULT.md rerun 2.
+5. KNOWLEDGE1 build (v3 approved; scripts/rules/Knowledge.gd exists - diff it against DESIGN_KNOWLEDGE_V3 first).
+6. LUDO: his Q-274 answer "Neither - keep today's screens" -> no repaint of screens. Ludo makes asset pieces only
+   (icons, pictures, props); sounds stay Qwen's. Give it one asset job a session while paid (~11 Dec).
+
+## DONE IN S523
+- Collected Goose #376 TURNPRO1A (scripts/rules/ProCall.gd + tests/pro_call_test.gd, PRO_CALL failures=0) and Goose #375
+  guard v4 critic (ops/research/DESIGN_GUARDDMG1_V4_CRITIC_GOOSE.md, 8/7/7). Issues closed; stale PR #377 closed.
+- TURNPRO1B WIRED: scripts/state/ProOfferWire.gd (c.pro_offer keeps its old keys = first house; adds offers, forecast,
+  expires, asked, plain). Roster.check_pro builds it (lapse check, waited, age gate), turn_pro(c, house) signs on the
+  house's deal (debut weeks, opp gap, costs from the purse, morale), decline_pro (same house next time, titles at
+  decline, morale), debut_night pays the purse cut + ticket share under a deal (old saves keep the S329 night).
+  ProOffer modal: two columns, one ask grid each (won't = disabled), Back to the plain offer after a counter, gym and
+  boxer money, pays-back line, morale on buttons, days left, age line, declines left; costs and what ends as one line
+  each (fits 1080). Needs: both houses + days to answer. Acts: turnpro <house>, proask house|kind, proplain.
+  DECIDED: the window running out is not a decline - the promoter waits 2 more wins, no morale or loyalty change.
+- Tests: pro_offer_wire_test (21 checks, in run_tests.sh), pro_call, loyal_pro_share, loyalty_hooks, pro_ladder,
+  promises, pro_debut, golden_path (its debut check now reads Roster.debut_night), test_jump, world_slate, menu_world.
+- S523b: M14 the house's lean - ProLean.extra adds the next-nearest tune-up (Harrow & Finch) or step up (Bow Lane) for
+  the first 6 pro fights; the softer ask = tune-ups only for pro_tune_ups sets (spent on each booking); Fights line.
+  ProLadder 481 lines. pro_lean_test (7 checks), pro_ladder, golden_path green.
+- Exported; WHAT_TO_TRY S523 on top. Render: ops/previews/s523/pro_offer.png (review board + map).
 
 ## DONE IN S522
 - TURNPRO1 (approved Q-227, the fight week is built) is now being built: TURNPRO1A brief (ops/research/TASK_TURNPRO1A.md,

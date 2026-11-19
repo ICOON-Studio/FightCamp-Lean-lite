@@ -21228,6 +21228,34 @@
    "note": "S519 collected: docs/STREAKPROBE1_RESULT.md, HotStreak.POINTS 15->8 (a6713760d)",
    "landed": "2026-11-18T22:52",
    "archived": "2026-11-18 22:58 board_sync"
+  },
+  {
+   "agent": "goose",
+   "id": "TURNPRO1A",
+   "title": "Turning pro, the pure rules (who calls, two promoters, one ask, the money)",
+   "status": "closed",
+   "started": "2026-11-19T00:48",
+   "eta": "2026-11-19T02:18",
+   "issue": 376,
+   "repo": "FightCamp-Lean",
+   "where": "cloud",
+   "brief": "ops/research/TASK_TURNPRO1A.md",
+   "reconciled": "2026-11-19 02:40 board_reconcile: issue 376 closed",
+   "archived": "2026-11-19 02:41 board_sync"
+  },
+  {
+   "agent": "goose",
+   "id": "GUARDCRITIC4",
+   "title": "Critic: guard damage v4 design",
+   "status": "closed",
+   "started": "2026-11-19T00:48",
+   "eta": "2026-11-19T01:48",
+   "issue": 375,
+   "repo": "FightCamp-Lean",
+   "where": "cloud",
+   "brief": "ops/research/DESIGN_GUARDDMG1_V4_CRITIC_DOLA.md",
+   "reconciled": "2026-11-19 02:40 board_reconcile: issue 375 closed",
+   "archived": "2026-11-19 02:41 board_sync"
   }
  ]
 }

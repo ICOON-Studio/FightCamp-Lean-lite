@@ -335,7 +335,7 @@ static func _road_input(c: Career, f: Dictionary) -> Dictionary:
 	return {"bouts": Champs.bouts(f), "w": int(f["w"]), "reg_days": Champs.club_days(c, f), "age": int(f["age"]),
 		"injured": Injuries.out(c, f), "rank": int(f.get("rank", 0)), "pro_declines": int(f.get("pro_declines", 0)),
 		"nat_final": bool(f.get("nat_final", false)), "nationals": nationals, "pro": bool(f.get("pro", false)),
-		"pro_bouts": pro_bouts}
+		"pro_bouts": pro_bouts, "sold": NextStep.ProDebut.tickets_sold(c.members, int(f["w"]), NextStep.Roster.titles(f))}   # S523 M4
 
 
 func _next_step_card(main: Node, c: Career, f: Dictionary) -> void:
@@ -351,6 +351,10 @@ func _next_step_card(main: Node, c: Career, f: Dictionary) -> void:
 	now.mouse_filter = Control.MOUSE_FILTER_STOP
 	now.tooltip_text = " > ".join((road["steps"] as Array).map(func(st): return ("done: " if bool(st["done"]) else "") + str(st["name"])))
 	card.add_child(now)
+	if str(road.get("pro_line", "")) != "":   # S523 TURNPRO1 map M4: tickets vs each house, age, declines left
+		var pl := UI.label(str(road["pro_line"]), UI.SMALL, UI.MUTED, "body", true)
+		pl.name = "NextStepPro"
+		card.add_child(pl)
 	var enter := NationalsView.enter_button(main, c, f)   # S397 blind round 3: one main action per state
 	if enter != null:
 		if _dark:

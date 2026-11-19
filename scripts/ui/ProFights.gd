@@ -8,6 +8,7 @@ extends RefCounted
 ##   THE ROAD: the champions and the places around her; refusals in one line each
 ## Rules: scripts/rules/Matchmaking.gd; state: scripts/state/ProLadder.gd; acts proscout / probook (BoutActs).
 
+const ProLean := preload("res://scripts/state/ProLean.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const ProLadder := preload("res://scripts/state/ProLadder.gd")
 const MM := preload("res://scripts/rules/Matchmaking.gd")
@@ -112,6 +113,9 @@ static func _table_card(main: Node, c: Career, f: Dictionary) -> Control:
 		v.add_child(UI.label("Until then: set the training on Fighters, then the Training tab. %s" % ("After a loss the next pick is a rebuild fight: a win clears it." if
 			bool(ProLadder.entry(c, f).get("rebuild", false)) else "The road is on the right."), UI.SMALL, UI.MUTED, "body", true))
 		return card[0]
+	var lean := ProLean.line(f)   # S523 TURNPRO1: the house's lean (map M14)
+	if lean != "":
+		v.add_child(UI.label(lean, UI.SMALL, UI.MUTED, "body", true))
 	v.add_child(_head_row())
 	var offered: Array = offers.filter(func(x): return str(x["kind"]) == "above").map(func(x): return x["opp"])   # a duck passes the step up
 	for r in offers:

@@ -4,6 +4,8 @@ extends RefCounted
 
 const SeasonPath := preload("res://scripts/rules/SeasonPath.gd")
 const Roster := preload("res://scripts/state/Roster.gd")
+const ProCall := preload("res://scripts/rules/ProCall.gd")
+const ProDebut := preload("res://scripts/rules/ProDebut.gd")
 
 const STEPS := ["First bout", "Nationals ready", "The nationals", "Pro offer", "Pro debut"]
 
@@ -63,7 +65,28 @@ static func road(f: Dictionary, day: int) -> Dictionary:
 	if lit >= 0:
 		need = _need_for(lit, f, day, elig)
 
-	return {"steps": steps, "lit": lit, "need": need}
+	return {"steps": steps, "lit": lit, "need": need, "pro_line": pro_line(f) if lit == 3 else ""}
+
+
+## S523 TURNPRO1 map M4: under the Pro offer step - the age line, declines left, and the debut tickets against each
+## house's break-even (f["sold"] = ProDebut.tickets_sold today; each win sells PER_WIN more).
+static func pro_line(f: Dictionary) -> String:
+	var parts: Array = []
+	if f.has("sold"):
+		var sold := int(f["sold"])
+		var houses: Array = []
+		for k in ["bow", "hf"]:
+			var t: Dictionary = ProCall.promoters()[k]
+			var be := int(t["break_even"])
+			var gap := be - sold
+			houses.append("%s pays from %d (%s)" % [{"bow": "Bow Lane", "hf": "Harrow & Finch"}[k], be,
+				"past it" if gap <= 0 else "about %d wins away" % ceili(float(gap) / ProDebut.PER_WIN)])
+		parts.append("Debut tickets today: %d. %s." % [sold, "; ".join(houses)])
+	var age := ProCall.age_line(int(f.get("age", 0)))
+	if age != "":
+		parts.append(age)
+	parts.append("Declines left: %d." % maxi(0, 3 - int(f.get("pro_declines", 0))))
+	return " ".join(parts)
 
 
 ## What the lit step needs.

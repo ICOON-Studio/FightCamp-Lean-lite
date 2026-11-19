@@ -42,7 +42,14 @@ static func make(main: Node, c: Career, f: Dictionary) -> Control:
 		return v
 	t.add_child(_line(["WHEN", "OPPONENT", "RESULT", "METHOD", "NOTE"], true))   # S398: the method says the rounds
 	var divided := false
+	var signed: Dictionary = f.get("pro_signed", {})   # S523 TURNPRO1 map M15: the turning-pro milestone between the records
+	var pro_n := mine.filter(func(r): return bool(r.get("pro", false))).size()
+	var i := 0
 	for r in rows:
+		if not signed.is_empty() and i == pro_n:
+			t.add_child(_milestone(signed))
+			signed = {}
+		i += 1
 		if bool(r["old"]) and not divided:   # S397 blind round 4: one divider, not "before the club" on every row
 			divided = true
 			var d := UI.caps("BEFORE %s" % c.gym_name.to_upper())
@@ -52,7 +59,16 @@ static func make(main: Node, c: Career, f: Dictionary) -> Control:
 		if not bool(r["old"]):
 			_analysis(main, f, line, r["rec"])
 		t.add_child(line)
+	if not signed.is_empty():
+		t.add_child(_milestone(signed))
 	return v
+
+
+static func _milestone(signed: Dictionary) -> Control:
+	var m := UI.caps("TURNED PRO WITH %s, %s" % [str(signed["house"]).to_upper(), Clock.fmt(int(signed["d"])).to_upper()])
+	m.name = "TurnedPro"
+	m.add_theme_color_override("font_color", UI.GOLD)
+	return m
 
 
 ## Analysis on a club bout's row: the FIGHT ANALYSIS page on its kept tape; the gym keeps the last AfterFight.TAPE_KEEP.

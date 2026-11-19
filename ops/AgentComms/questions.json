@@ -8204,6 +8204,26 @@
       "attach": [
         "AgentComms/board_attach/Q-S294-274_0_training_deal_board-v1.jpg"
       ],
+      "answer": "Neither - keep today's screens",
+      "note": null,
+      "answered_at": "2026-11-18T23:46:18Z",
+      "seen_by_claude": true,
+      "comment_only": false
+    },
+    {
+      "id": "Q-S294-275",
+      "asked": "2026-11-19T00:32:29.201189+00:00",
+      "session": "S294",
+      "text": "Guard damage v4: a blocked punch still wears the arms down; tired arms let more of each punch through (green -> red guard bar), a 3rd punch in a row wears 1.5x, being trapped on the ropes wears faster. Two fresh critics passed it (Dola 8/8/7, Goose 8/7/7). Build it after turning pro?",
+      "options": [
+        "Yes, build it after turning pro",
+        "Not yet - change something (write what)"
+      ],
+      "attach": [
+        "research/DESIGN_GUARDDMG1_V4.md",
+        "research/DESIGN_GUARDDMG1_V4_CRITIC_GOOSE.md",
+        "research/DESIGN_GUARDDMG1_V4_CRITIC_DOLA_DOLA.md"
+      ],
       "answer": null,
       "note": null,
       "answered_at": null,

@@ -61,7 +61,7 @@ static func needs(career: Career) -> Array:
 				"act": "trial", "arg": p["id"], "label": "Watch the trial"})
 	if not career.pro_offer.is_empty():
 		var pf := career.fighter_by_id(str(career.pro_offer["fid"]))
-		n.append({"red": true, "t": "A promoter wants to sign %s" % pf["name"], "s": "%s: a pro contract" % career.pro_offer["promoter"],
+		n.append({"red": true, "t": "A promoter wants to sign %s" % pf["name"], "s": _pro_line(career),
 			"act": "prooffer", "arg": pf["id"], "label": "Hear it"})
 	# S487 R58 APPROACHWIRE1 (map section 7): a rival club's approach blocks time until it is answered (unanswered = gone).
 	for f in ApproachWire.open_for(career):
@@ -188,3 +188,14 @@ static func go_state(career: Career, running: bool) -> Dictionary:
 		return {"cls": "Go", "t": "RUNNING", "s": "click to pause"}
 	var stop: Dictionary = Clock.next_stop(career)
 	return {"cls": "Go", "t": "CONTINUE", "s": "to %s, %s" % [Clock.fmt(int(stop["d"])), stop["r"]]}
+
+
+## S523 TURNPRO1B: one note even with two houses calling, and the days the offer still stands.
+static func _pro_line(career: Career) -> String:
+	var o := career.pro_offer
+	var names: Array = (o.get("offers", []) as Array).map(func(t): return str(t["name"]))
+	var who := " and ".join(names) if not names.is_empty() else str(o.get("promoter", ""))
+	if not o.has("expires"):
+		return "%s: a pro contract" % who
+	var left := maxi(0, int(o["expires"]) - career.day)
+	return "%s: a pro contract, %s" % [who, "last day to answer" if left <= 1 else "%d days to answer" % left]

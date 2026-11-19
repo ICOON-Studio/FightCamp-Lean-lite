@@ -154,6 +154,19 @@
      "cols": 4
     }
    ]
+  },
+  {
+   "title": "Your look",
+   "frames": [
+    {
+     "id": "s523_pro",
+     "title": "Turning pro offer (S523)",
+     "kind": "gallery",
+     "globs": [
+      "ops/previews/s523/pro_offer.png"
+     ]
+    }
+   ]
   }
  ]
 }

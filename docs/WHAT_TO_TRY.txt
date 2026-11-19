@@ -1,3 +1,25 @@
+S523 (2026-11-19) - TURNING PRO: TWO PROMOTERS, ONE ASK, THE GYM'S MONEY AND THE BOXER'S APART
+Quickest: TEST CLUB, or Test jump "pro" on the create screen. A boxer at the line (7 wins + top 3, or 9 wins) gets the call.
+- Who calls depends on the tickets your boxer would sell. Near the ticket house's 60, BOTH call the same week and the
+  offer shows them side by side: Bow Lane (the ticket house: $1,500, less $25 a ticket short of 60, half of every ticket
+  past 60, debut in 4 weeks) and Harrow & Finch (the guarantee house: $1,800 guaranteed, 30% past 70, debut in 6 weeks,
+  an easier first opponent). Far over 60: Bow Lane alone. Far under: Harrow & Finch alone.
+- Each column shows the gym at signing, the gym each week after, the boxer's own money, and when the gym is even again.
+- ONE ASK per promoter, its answer on the button before you press it: later debut (+2 / +4 weeks for less purse), a
+  softer opponent, a better split, your own ticket price (Bow Lane), the signing costs from the purse (Harrow & Finch,
+  a counter). A counter can be undone with Back to the plain offer; the ask stays spent.
+- The buttons show the morale change (a boxer chasing a title before the nationals minds being signed).
+- The offer stands 14 days (NEEDS YOU counts them down). Letting it run out is not a No: the promoters call again after
+  2 more wins. Stay amateur: the same promoter calls next time. No first call at 32 or older.
+- The debut night now pays the gym its cut of the purse AND of the ticket share.
+- After the debut, Fights > NEXT FIGHT: for the first 6 pro fights the promoter leans - Harrow & Finch puts a second
+  tune-up on the table, Bow Lane a second step up (a line under NEXT FIGHT says so). Took the softer-opponent ask? The
+  next 2 offer sets are tune-ups only.
+- A boxer's Overview > NEXT STEP at the Pro offer step: the debut tickets today against each promoter's break-even
+  ("Bow Lane pays from 60 (about 4 wins away)"), the age line from 29, and the declines left.
+- Club > Money, Fighters and money: hover a boxer's stipend button while a pro offer is open - signing stops it for you.
+- A pro's History tab: a "TURNED PRO WITH <promoter>, <date>" line between the pro and the amateur bouts.
+
 S519 (2026-11-18) - THE CLUB WEEK: COACHED MORNINGS, CLASS NIGHTS, HALF SPONSORSHIP, THE 4-WEEK FORECAST
 Easiest with the TEST CLUB (create screen) - it needs two boxers or more. With one boxer nothing changes.
 - Training: the coach now deals the club's coached mornings (You 4 + your coach 2, 3 if full time). A morning tile reads

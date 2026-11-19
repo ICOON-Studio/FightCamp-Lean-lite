@@ -1,18 +1,18 @@
 {
  "_note": "SINGLE SOURCE OF TRUTH for the roadmap. The ops board reads this file directly and ROADMAP.md is GENERATED from it by Tools/render_roadmap.py. Do not hand-maintain a second copy anywhere - that is the defect R136/U62 named and it has cost this project eight times.",
- "updated": "2026-11-18",
+ "updated": "2026-11-19",
  "author": "claude S294",
  "now": {
-  "id": "S522",
+  "id": "S523",
   "owner": "claude",
   "updated": "2026-11-19",
-  "summary": "S522 (Opus): TURNPRO1 build started - TURNPRO1A pure rules (ProCall.gd + test) briefed to Goose #376; CHECKs settled from code (gym 25% on purse + ticket share; no 'turn pro' ambition on the signing card). Stopped at 91% weekly usage to leave room for the animation session. PC RED all stage (his game, memory 99%): no Godot.",
-  "next_action": "S523: 1) Q-S294-274 his look; 2) collect Goose #376 TURNPRO1A -> wire into Roster + offer card, then probes; 3) Goose #375 guard v4 critic (Dola 8/8/7) -> his board if 7+/7+; 4) Qwen TREEVALUE2 / MORNINGSPROBE2 / MONEYFOUR2 -> tune; 5) streak_probe rerun (owing corner first) when GREEN; 6) KNOWLEDGE1 build next. Animation: lean-f3 only (METHOD S510).",
-  "verified_playable": "Builds/FightCamp.exe S519: club week v11 on Training/Money/Overview/bout offer (hidden-desktop renders ops/previews/s519; club_week_walk_test through Main's acts). Not yet played by him.",
-  "incomplete_blocked": "ASKGAP1 design open (ask door shut on hot Mondays); TREEVALUE2 waits on Qwen's old pid; MORNINGSPROBE2/MONEYFOUR2 not briefed.",
-  "next_acceptance": "ASKGAP1: tools/streak_probe.gd rerun shows asks made on hot Mondays and ducks a few times a season (not 0, not weekly).",
-  "awaiting_operator": "His look at the club week (review board s519); Steam: wait to 8 Dec.",
-  "last_working_commit": "27fe90ca3"
+  "summary": "S523 (Opus): collected Goose #376 TURNPRO1A (ProCall) and #375 guard v4 critic (8/7/7; Dola 8/8/7) -> Q-S294-275 on his board. TURNPRO1B WIRED: ProOfferWire - two houses side by side by ticket forecast, one ask per house with answers shown, gym and boxer money apart, pays-back line, morale on buttons, 14-day window (lapse = no decline, next call after 2 wins), no first call at 32; debut night pays the purse cut. ProOffer modal fits 1080 (ops/previews/s523). Q-274 answered 'Neither - keep today's screens': no repaint; Ludo = assets only. Exported. S523b: M14 the house's lean on the first 6 pro offer sets + softer ask = tune-ups only (ProLean.gd). S523c: M4 NEXT STEP pro line (tickets vs each house in wins, age, declines).",
+  "next_action": "S524: 1) his look at the turning pro offer (review board S523) + Q-275 guard v4; 2) TURNPRO1 rest of the menus (map M7 stipend hover, M15/16 records) then the map's probes (section 7, 200 careers per bot policy) to size the ESTIMATEs; 3) collect Qwen TREEVALUE2 -> tune StepEffect; MORNINGSPROBE2 / MONEYFOUR2; 4) streak_probe rerun (owing corner first) when GREEN; 5) KNOWLEDGE1 build. Animation: lean-f3 only (METHOD S510).",
+  "verified_playable": "Builds/FightCamp.exe S523: turning pro offer with two houses (hidden-desktop render ops/previews/s523/pro_offer.png; golden_path signs through the modal). Not yet played by him.",
+  "incomplete_blocked": "TURNPRO1: menus M1 (top bar red last day), M7 stipend hover, M15-M19 and the probes not done. TREEVALUE2 running (Qwen).",
+  "next_acceptance": "TURNPRO1 probes: both houses call in some careers, asks used, gym even-week matches the pays-back line within a week.",
+  "awaiting_operator": "Q-S294-275 guard damage v4 (build after turning pro?); his look at the turning pro offer and the club week; Steam: wait to 8 Dec.",
+  "last_working_commit": "2e73b00da"
  },
  "next": "S496: 0) get_usage; where_we_are roll S496; quote board answers (Q-259 Training K v6c; build WeekCards v6c on Yes - WeekCards.gd 552 lines is split first). 1) Collect as they land, by diff + their test: Qwen ONELOOK2 (fight HUD palette, ETA ~11:00 11-16; render before/after fight stills on the hidden desktop, his OK before merge), Goose FILMCOUNT1 (#326, branch goose/issue-326 - Goose's PR step failed twice: collect from the branch; read its FINDS table and noise numbers, retune FilmBout rates if a floor missed), Grok Dev FIGHTPAGE1 (branch grok/fightpage1, ETA ~13:30; render at 1920x1080 text 1.0 and 1.3, judge against fight_analysis_v3.png, then his board). 2) Kalli SQ202 LADDER1 v6 + SQ203 COACHSPEC1 r6 -> two fresh critics each (Dola + John; Dola refused COACHSPEC1 r5 - resend). 3) Wire after FIGHTPAGE1+FILMCOUNT1: the film-night stop in the fight week (FightWeekPlan film night -> FightAnalysis.for_tape with FilmCount.check, FilmPattern.checks by coach rating), FilmEdge pays at the figure, the result page's Punch by punch tab over m['tape'] (BoutTape), History keeps 20 tapes (~400 lines a bout). 4) Live fight log panel brief to Grok Dev once FIGHTPAGE1 lands. 5) ONELOOK1 sweep after ONELOOK2: RosterCards, ReadPanel, MatMap (UI.gd/WoodKit/WeekCards first need a split).",
  "assessment": {
@@ -2228,6 +2228,12 @@
    "date": "2026-11-19",
    "model": "opus",
    "summary": "S522 (Opus): TURNPRO1 build started - TURNPRO1A pure rules (ProCall.gd + test) briefed to Goose #376; CHECKs settled from code (gym 25% on purse + ticket share; no 'turn pro' ambition on the signing card). Stopped at 91% weekly usage to leave room for the animation session. PC RED all stage (his game, memory 99%): no Godot."
+  },
+  {
+   "id": "S523",
+   "date": "2026-11-19",
+   "model": "opus",
+   "summary": "S523 (Opus): collected Goose #376 TURNPRO1A (ProCall) and #375 guard v4 critic (8/7/7; Dola 8/8/7) -> Q-S294-275 on his board. TURNPRO1B WIRED: ProOfferWire - two houses side by side by ticket forecast, one ask per house with answers shown, gym and boxer money apart, pays-back line, morale on buttons, 14-day window (lapse = no decline, next call after 2 wins), no first call at 32; debut night pays the purse cut. ProOffer modal fits 1080 (ops/previews/s523). Q-274 answered 'Neither - keep today's screens': no repaint; Ludo = assets only. Exported. S523b: M14 the house's lean on the first 6 pro offer sets + softer ask = tune-ups only (ProLean.gd). S523c: M4 NEXT STEP pro line (tickets vs each house in wins, age, declines)."
   }
  ],
  "blocked_on_operator": [],
@@ -5146,7 +5152,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-18",
+  "updated": "2026-11-19 02:49 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5295,7 +5301,21 @@
    "INTROCORNER2": "Fight intro from the corners: each name call shown, never alike",
    "FIGHTFILM1": "Fight analysis page: every punch of a fight, and film nights where you find the opponent's tells yourself"
   },
-  "working_now": [],
+  "working_now": [
+   {
+    "title": "STREAKPROBE1",
+    "who": "",
+    "started": "",
+    "run": "STREAKPROBE1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK TREEVALUE2 - is each footwork / defence step worth 1.5-5 in 100 against its own style? (probe only)",
+    "who": "qwen",
+    "started": "2026-11-19T01:42",
+    "run": "TREEVALUE2"
+   }
+  ],
   "next": [
    {
     "id": "HEADJUMP1",
@@ -5807,6 +5827,20 @@
   },
   "done_recently": [
    {
+    "title": "Turning pro wired: two promoters side by side, one ask each, money apart (S523)",
+    "who": "claude"
+   },
+   {
+    "title": "Critic: guard damage v4 design",
+    "who": "goose",
+    "when": "2026-11-19"
+   },
+   {
+    "title": "Turning pro, the pure rules (who calls, two promoters, one ask, the money)",
+    "who": "goose",
+    "when": "2026-11-19"
+   },
+   {
     "id": "ASKGAP1",
     "who": "claude",
     "title": "Ask door opens the day after a bout: 0 -> 123 ducks, 48 OWED (S520)",
@@ -5856,16 +5890,6 @@
     "title": "TASK LADDERPROBE1 - does the season ladder's table stay sane over two years of real play? (probe only, no rule change)",
     "who": "qwen",
     "when": "2026-11-18"
-   },
-   {
-    "id": "MATRECEIPT1",
-    "who": "goose",
-    "title": "Mat plan receipt line by line + season book (S516)"
-   },
-   {
-    "id": "LADDERWIRE2",
-    "who": "claude",
-    "title": "Season ladder table by points, Ask card lean + reach, idle clock (S516)"
    }
   ],
   "scope_note": "S294: lean restart (E:\\FightCamp\\Lean\\docs\\RESTART_PLAN.md). Old roadmap items are parked until the weekly builds reach them.",
@@ -5954,6 +5978,14 @@
   "map": {
    "done_earlier": [
     {
+     "text": "Ask door opens the day after bout",
+     "who": "claude"
+    },
+    {
+     "text": "Ludo paints the new screens",
+     "who": "agent"
+    },
+    {
      "text": "Club week v11 built",
      "who": "claude"
     },
@@ -6000,24 +6032,24 @@
     {
      "text": "Novices: newcomers join sheet",
      "who": "claude"
-    },
-    {
-     "text": "Ladder clock waits (R8 free week)",
-     "who": "claude"
-    },
-    {
-     "text": "Season ends 1 Jan, in Records",
-     "who": "claude"
     }
    ],
    "done_session": [
     {
-     "text": "Ask door opens the day after bout",
+     "text": "Turning pro rules collected",
      "who": "claude"
     },
     {
-     "text": "Ludo paints the new screens",
-     "who": "agent"
+     "text": "Turning pro wired: 2 houses, 1 ask",
+     "who": "claude"
+    },
+    {
+     "text": "Pro offers: the house's lean",
+     "who": "claude"
+    },
+    {
+     "text": "NEXT STEP: pro tickets line",
+     "who": "claude"
     }
    ],
    "now": [
@@ -6090,8 +6122,8 @@
      "who": "claude"
     },
     {
-     "text": "Turning pro rules (Goose #376)",
-     "who": "agent"
+     "text": "Guard v4: your yes (critics 8,7)",
+     "who": "operator"
     }
    ],
    "next": [
@@ -6244,20 +6276,20 @@
      "who": "agent"
     },
     {
-     "text": "Critics: guard damage v4",
-     "who": "agent"
+     "text": "Turning pro: probes + ladder lean",
+     "who": "claude"
     },
     {
-     "text": "Your look: Ludo paintovers (274)",
-     "who": "operator"
+     "text": "Your look: turning pro offer",
+     "who": "claude"
     }
    ],
-   "session": "S520"
+   "session": "S523"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
  "last_working_commit": "ba87ee191",
- "next_action": "S520: 1) his look at the club week (review board s519 stills, his play of the build); 2) ASKGAP1 design: the Ask door and the sheet's next offer open the same day (STREAKPROBE1) - give a free Monday or let an ask replace the sheet offer, then rerun streak_probe; 3) collect TREEVALUE2 (Qwen) -> tune StepEffect; 4) Dola SQ225 guard v4 -> two fresh critics (Goose + Dola); 5) MORNINGSPROBE2 / MONEYFOUR2 on the built club week (each morning policy 30-70%, class money vs mastery lost); 6) mat plan note C433. Animation: lean-f3 only (METHOD S510).",
+ "next_action": "S524: 1) his look at the turning pro offer (review board S523) + Q-275 guard v4; 2) TURNPRO1 rest of the menus (map M7 stipend hover, M15/16 records) then the map's probes (section 7, 200 careers per bot policy) to size the ESTIMATEs; 3) collect Qwen TREEVALUE2 -> tune StepEffect; MORNINGSPROBE2 / MONEYFOUR2; 4) streak_probe rerun (owing corner first) when GREEN; 5) KNOWLEDGE1 build. Animation: lean-f3 only (METHOD S510).",
  "next_acceptance": "Rulers vs r0: head jumps on the contact frame under 4, a head inside the other's body under 5 frames, arm out median under 4 frames with join_return green, then r1 film at two fresh blind critics 5+/10"
 }

@@ -21,6 +21,7 @@ const GymSpend := preload("res://scripts/state/GymSpend.gd")
 const HomeJuniors := preload("res://scripts/state/HomeJuniors.gd")
 const StarDeal := preload("res://scripts/rules/StarDeal.gd")
 const Loyalty := preload("res://scripts/rules/Loyalty.gd")
+const ProOfferWire := preload("res://scripts/state/ProOfferWire.gd")   # S523 TURNPRO1B: two houses, one ask, 14 days
 
 ## The goal a new signing brings: a booked bout and her engine up inside a month - her debut, or her next bout when she
 ## already has bouts on her card (S352).
@@ -193,15 +194,18 @@ static func pro_ready(f: Dictionary) -> bool:
 ## Checked after her bouts and at the week's end: a promoter calls when she is at the line.
 static func check_pro(c: Career) -> void:
 	if not c.pro_offer.is_empty():
+		var lapsed := ProOfferWire.lapse_if_due(c)   # S523: the offer stands 14 days
+		if lapsed != "":
+			c.add_news(lapsed)
 		return
 	for f in c.fighters:
-		if pro_ready(f) and (f["bout"] as Dictionary).is_empty() and not Champs.active(f):
-			var declines := int(f.get("pro_declines", 0))
-			var terms := 1.0 if declines == 0 else PRO_SECOND_TERMS
-			var purse := int(round(PRO_PURSE * terms))
-			c.pro_offer = {"fid": f["id"], "promoter": PROMOTERS[mini(declines, 1)], "purse": purse, "terms": terms,
-				"step": int(round(PRO_PURSE_STEP * terms)), "top": int(round(PRO_PURSE_TOP * terms))}
-			c.add_news(words("pro_offer", {"her": f["name"], "promoter": c.pro_offer["promoter"], "purse": GameMoney.text(purse)}, c.day))
+		if pro_ready(f) and ProOfferWire.waited(f) and (f["bout"] as Dictionary).is_empty() and not Champs.active(f):
+			# S523 TURNPRO1B: who calls by the ticket forecast (one house, or both side by side), no first call at 32+
+			var o := ProOfferWire.make(c, f, titles(f))
+			if o.is_empty():
+				continue
+			c.pro_offer = o
+			c.add_news(words("pro_offer", {"her": f["name"], "promoter": c.pro_offer["promoter"], "purse": GameMoney.text(int(o["purse"]))}, c.day))
 			return
 
 
@@ -236,10 +240,15 @@ static func debut_sheet(c: Career, f: Dictionary, terms: float) -> Dictionary:
 
 ## The debut night's tickets, sold from the gym's members and her amateur record as they are on the night.
 static func debut_night(c: Career, f: Dictionary) -> Dictionary:
+	var deal: Dictionary = f["bout"].get("deal", {})
+	if not deal.is_empty():   # S523: the v2 deal pays the purse and the ticket share past the house's break-even
+		return ProOfferWire.night(f, deal, ProDebut.tickets_sold(c.members, int(f["w"]), titles(f)), share_of(f))
 	return ProDebut.night(ProDebut.tickets_sold(c.members, int(f["w"]), titles(f)), float(f["bout"].get("terms", 1.0)))
 
 
 static func debut_words(f: Dictionary, t: Dictionary) -> String:
+	if t.has("purse"):
+		return ProOfferWire.night_words(f, t)
 	if int(t["above"]) == 0:
 		return "%s sold %d of %d debut tickets - not past the promoter's %d, so the debut paid nothing. More members, more tickets." % [
 			f["first"], int(t["sold"]), ProDebut.TICKETS, ProDebut.BREAK_EVEN]
@@ -248,14 +257,23 @@ static func debut_words(f: Dictionary, t: Dictionary) -> String:
 
 
 ## She signs pro: the stipend and the amateur career end, the debut is booked.
-static func turn_pro(c: Career) -> Dictionary:
+static func turn_pro(c: Career, house := "") -> Dictionary:
 	var o := c.pro_offer
 	if o.is_empty():   # S491: a second TURN PRO press (or a stale modal) after the offer was taken crashed here
 		return {}
 	var f := c.fighter_by_id(str(o["fid"]))
+	# S523 TURNPRO1B: sign with the house picked (the first when only one called or none is named)
+	if house == "" and o.has("offers"):
+		house = str(o["offers"][0]["key"])
+	var deal: Dictionary = {}
 	# S329 update 31: the gym pays her licence and brain scans (and the trainer's licence) now.
 	var sheet := debut_sheet(c, f, float(o["terms"]))
-	if int(sheet["costs"]) > 0:
+	if o.has("offers"):
+		deal = ProOfferWire.signed(o, house, int(sheet["costs"]))
+		ProOfferWire.apply_morale(f, false, bool(Champs.check(c, f).get("ok", false)))
+	if int(sheet["costs"]) > 0 and bool(deal.get("costs_covered", false)):
+		c.add_news("%s pays the licence and scans; it comes off the debut purse." % str(deal["name"]))
+	elif int(sheet["costs"]) > 0:
 		c.pay(-int(sheet["costs"]), "BBBofC licence and brain scans: %s" % f["first"])
 	f["licensed"] = true
 	if not c.coach.is_empty():
@@ -267,6 +285,8 @@ static func turn_pro(c: Career) -> Dictionary:
 		c.add_news("An outside manager signs %s: the club keeps only the trainer's %d%%." % [f["first"], int(round(Loyalty.pro_share(f) * 100))])
 	Loyalty.apply(f, "turn_pro", c.day)   # S486 LOYALHOOKS1: after the share is set (the share reads loyalty before it)
 	f["promoter"] = o["promoter"]
+	f["pro_house"] = str(deal.get("key", ""))
+	f["pro_signed"] = {"d": c.day, "house": str(o["promoter"])}   # S523 map M15: the History tab's milestone   # S523: the house leans the first pro offers (ProLean)
 	f["purse"] = int(o["purse"])
 	f["purse_step"] = int(o["step"])
 	f["purse_top"] = int(o["top"])
@@ -278,11 +298,12 @@ static func turn_pro(c: Career) -> Dictionary:
 	var opp_name: String = PRO_OPP_NAMES[posmod(c.day, PRO_OPP_NAMES.size())]
 	var night := BoutRules.fight_power(f["stats"], {}, 0, "", true)   # a professional with no camp yet (NO_CAMP_EDGE)
 	var opp := {"name": opp_name, "first": opp_name.split(" ")[0], "club": "%s stable" % o["promoter"], "age": 24,
-		"stance": "orthodox", "style": "Boxer-puncher", "w": 0, "l": 0, "rating": snappedf(night - PRO_OPP_GAP, 0.1),
+		"stance": "orthodox", "style": "Boxer-puncher", "w": 0, "l": 0, "rating": snappedf(night - float(deal.get("opp_gap", PRO_OPP_GAP)), 0.1),
 		"threat": "Heavy right hand", "weak": "Fades after round 3", "div": f["div"], "pro": true}
-	f["bout"] = {"opp": opp, "day": debut_day(c.day), "weighed": false, "made": false, "done": false,
+	f["bout"] = {"opp": opp, "day": debut_day(c.day, int(deal.get("debut_weeks", PRO_DEBUT_WEEKS))), "weighed": false, "made": false, "done": false,
 		"film": BoutRules.FILM_DEPTH_DEFAULT, "pro": true, "rounds": PRO_ROUNDS, "purse": int(o["purse"]),
-		"tickets": true, "terms": float(o["terms"])}
+		"tickets": true, "terms": float(o["terms"]), "deal": deal}
+	f["pro_tune_ups"] = int(deal.get("tune_ups", 0))   # the softer-opponent ask: the next pro offers lean tune-up
 	f["booked_fight"] = true
 	c.add_news("%s turns pro with %s." % [f["name"], o["promoter"]])
 	c.add_news(words("pro_debut", {"her": f["name"], "opp": opp_name}, c.day + 1))
@@ -291,14 +312,16 @@ static func turn_pro(c: Career) -> Dictionary:
 
 
 ## The Saturday PRO_DEBUT_WEEKS weeks out.
-static func debut_day(day: int) -> int:
-	return day - posmod(day, 7) + 5 + PRO_DEBUT_WEEKS * 7
+static func debut_day(day: int, weeks := PRO_DEBUT_WEEKS) -> int:
+	return day - posmod(day, 7) + 5 + weeks * 7
 
 
 ## She stays amateur for now: the offer returns after more wins; the second time the other promoter calls.
 static func decline_pro(c: Career) -> void:
 	var f := c.fighter_by_id(str(c.pro_offer["fid"]))
 	f["pro_declines"] = int(f.get("pro_declines", 0)) + 1
+	ProOfferWire.on_decline(f, c.pro_offer, titles(f))   # S523: the same house calls next time
+	ProOfferWire.apply_morale(f, true, bool(Champs.check(c, f).get("ok", false)))
 	Loyalty.apply(f, "decline_pro", c.day)   # S486 LOYALHOOKS1: kept amateur for the nationals, against the boxer's wish
 	c.add_news("%s stays amateur for now. %s" % [f["first"],
 		"The door is closed short of a number 1 ranking." if int(f["pro_declines"]) >= 3 else "The promoters will be back after more wins."])

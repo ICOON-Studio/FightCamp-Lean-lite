@@ -882,29 +882,69 @@
    "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/367",
    "reconciled": "2026-11-18 10:40 board_reconcile: run finished (success), branch goose/issue-367 pushed"
   },
-  "TURNPRO1A": {
-   "agent": "goose",
-   "id": "TURNPRO1A",
-   "title": "Turning pro, the pure rules (who calls, two promoters, one ask, the money)",
-   "status": "running",
-   "started": "2026-11-19T00:48",
-   "eta": "2026-11-19T02:18",
-   "issue": 376,
-   "repo": "FightCamp-Lean",
-   "where": "cloud",
-   "brief": "ops/research/TASK_TURNPRO1A.md"
+  "STREAKPROBE1": {
+   "status": "landed",
+   "finished": "2026-11-19T00:53",
+   "pr": 377,
+   "note": "S368 seat_dispatch: qwen exit 124; 1 commit(s); checks 3/4 PASS; PR #377",
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tools/streak_probe.gd",
+     "ok": false,
+     "last": null
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/hot_streak_test.gd",
+     "ok": true,
+     "last": "HOT_STREAK failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/ask_wire_test.gd",
+     "ok": true,
+     "last": "ASK_WIRE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/ladder_table_test.gd",
+     "ok": true,
+     "last": "LADDER_TABLE failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
   },
-  "GUARDCRITIC4": {
-   "agent": "goose",
-   "id": "GUARDCRITIC4",
-   "title": "Critic: guard damage v4 design",
+  "TREEVALUE2": {
+   "agent": "qwen",
+   "id": "TREEVALUE2",
+   "title": "TASK TREEVALUE2 - is each footwork / defence step worth 1.5-5 in 100 against its own style? (probe only)",
    "status": "running",
-   "started": "2026-11-19T00:48",
-   "eta": "2026-11-19T01:48",
-   "issue": 375,
+   "started": "2026-11-19T01:42",
+   "eta": "2026-11-19T03:32",
+   "branch": "qwen/treevalue2",
+   "worktree": "E:/FightCamp/wt/LEAN_TREEVALUE2",
+   "wt": "E:/FightCamp/wt/LEAN_TREEVALUE2",
+   "brief": "ops/research/TASK_TREEVALUE2.md",
    "repo": "FightCamp-Lean",
-   "where": "cloud",
-   "brief": "ops/research/DESIGN_GUARDDMG1_V4_CRITIC_DOLA.md"
+   "where": "pc",
+   "log": "E:/FightCamp/wt/TREEVALUE2_dispatch_out.txt",
+   "match": "seat_dispatch.py run treevalue2",
+   "model": "qwen4-max",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/TREEVALUE2_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/TREEVALUE2_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/TREEVALUE2_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 29124,
+    "seat_pid": 52428
+   },
+   "note": "S368 seat_dispatch: launched unattended (dispatch_queue.json); merging stays off"
   }
  },
  "codex_budget": {

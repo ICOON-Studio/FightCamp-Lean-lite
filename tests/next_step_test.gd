@@ -17,6 +17,7 @@ func _initialize() -> void:
 	_test7()
 	_test8()
 	_test9()
+	_test10()
 	print("NEXT_STEP failures=%d" % failures)
 	quit(1 if failures > 0 else 0)
 
@@ -186,3 +187,15 @@ func _test9() -> void:
 		if lit_count > 1:
 			ok = false
 	_check(ok, "test 9: steps 0..lit-1 done, never more than one step lit")
+
+
+## 10. S523 TURNPRO1 map M4: at the Pro offer step the card names the debut tickets against each house, the age line and
+## the declines left; off that step there is no pro line (control).
+func _test10() -> void:
+	var f := {"bouts": 8, "w": 6, "rank": 2, "reg_days": 120, "age": 30, "nationals": "Lost in the regional final", "sold": 52}
+	var r: Dictionary = NS.road(f, 20)
+	var pl := str(r.get("pro_line", ""))
+	_check(int(r["lit"]) == 3 and pl.contains("Debut tickets today: 52") and pl.contains("Bow Lane pays from 60 (about 4 wins away)")
+		and pl.contains("Harrow & Finch pays from 70 (about 9 wins away)") and pl.contains("Age 30") and pl.contains("Declines left: 3"),
+		"test 10: the pro line - '%s'" % pl)
+	_check(str(NS.road({}, 20).get("pro_line", "")) == "", "test 10: no pro line before the Pro offer step")
