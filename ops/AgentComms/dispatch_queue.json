@@ -1745,9 +1745,16 @@
   {
    "task": "SPLIT500C",
    "seat": "qwen",
-   "status": "queued",
+   "status": "launched",
    "queued": "2026-11-19T12:20",
-   "note": "S525: GymSpend 492 lines -> GymDeals.gd (talks + grants)"
+   "note": "S525: GymSpend 492 lines -> GymDeals.gd (talks + grants)",
+   "launched": "2026-11-19T13:12"
+  },
+  {
+   "task": "TREEVALUE6",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-20T00:35"
   }
  ]
 }

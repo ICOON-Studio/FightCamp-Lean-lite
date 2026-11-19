@@ -154,7 +154,8 @@ func _run_one(snap: Dictionary, gap: float, run_seed: int) -> bool:
 	for t2 in c.pro_offer.get("offers", []):
 		t2["opp_gap"] = gap
 	# Vary the day slightly to get different fight outcomes (BoutNight seeds from c.day)
-	var day_offset: int = run_seed % 7
+	# S531: was run_seed % 7, and run_seed steps by seed_j * 7 - every seed landed on the same day (the same night 10 times)
+	var day_offset: int = int(run_seed / 7) % 10   # seed_j moves it by one day: 10 seeds = 10 nights
 	c.day = c.day + day_offset
 	Roster.turn_pro(c, key)
 	var guard := 0

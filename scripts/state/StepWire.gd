@@ -59,6 +59,17 @@ static func open_edge(lv: Dictionary, arrow: String, planned: bool) -> float:
 	return e * float(Exchanges.EDGE["best"])
 
 
+## S531 STEPTUNE3 s3c: DENY cut her landed punches only AFTER Exchanges.settle had fixed the exchange (won + margin), so it
+## could never win a round on the cards. The share it denies now also reaches the duel BEFORE settle, as an edge on the
+## same scale as open_edge: denied share x EDGE.best (ESTIMATE, sized by the next TREEVALUE round). levers() still cuts the
+## landed punches after (body shots, guard wear). A wrong-fit step already loses margin through its plan line's grade.
+static func deny_edge(arrow: String, planned: bool, grade: String) -> float:
+	var step := PlanFight.base_id(arrow)
+	if not levers_on or not planned or not StepEffect.TABLE.has(step):
+		return 0.0
+	var row := StepEffect.scaled(step, grade)
+	return float(row["deny"]) * float(DENY_SHARE.get(str(row["deny_on"]), 0.0)) * float(Exchanges.EDGE["best"])
+
 ## fit = PlanFight.fit for this exchange (LiveRound's fit_now). S528 phase 1 (STEPTUNE2 s2: no step ever cost anything
 ## when it was the wrong answer): a step on a "wrong" fit lets WRONG_COST more of her punches land (the row's
 ## wrong_extra_damage when it has one). out["extra"] = the punches it let in.

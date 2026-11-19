@@ -69,8 +69,16 @@ func _initialize() -> void:
 	# Unplanned or a punch line: no lever.
 	_check(StepWire.levers(_lv(), {"landed": [3, 6]}, "roll_out", false, "ok", rng).is_empty(), "an unplanned step does nothing")
 	_check(StepWire.levers(_lv(), {"landed": [3, 6]}, "1-2", true, "ok", rng).is_empty(), "a punch line is not a step")
+	# S531 STEPTUNE3 s3c: the deny reaches the duel BEFORE settle (an edge), bigger for a step that denies every kind.
+	var e_back := StepWire.deny_edge("step_back", true, "ok")
+	var e_roll := StepWire.deny_edge("roll_out", true, "ok")
+	_check(e_roll > 0.0 and e_back > e_roll, "deny reaches the score: step back %.2f > roll out %.2f > 0" % [e_back, e_roll])
+	_check(StepWire.deny_edge("step_back", false, "ok") == 0.0 and StepWire.deny_edge("1-2", true, "ok") == 0.0,
+		"no deny edge unplanned or on a punch line")
+	_check(e_back < Exchanges.EDGE["best"], "a step's deny edge stays under a best call's whole edge (%.2f)" % e_back)
 	# Control arm.
 	StepWire.levers_on = false
+	_check(StepWire.deny_edge("step_back", true, "ok") == 0.0, "levers off: no deny edge")
 	var sc := {"landed": [2, 6]}
 	var lc := _lv()
 	_check(StepWire.levers(lc, sc, "roll_out", true, "ok", rng).is_empty() and int(sc["landed"][1]) == 6 and float(lc["cost"]) == 0.0,

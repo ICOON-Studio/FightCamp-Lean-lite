@@ -1041,54 +1041,6 @@
    "note": "S530 collected (lite PR 29): hot_contract_test PASS on main; mutant POINTS 8->15 -> 5 checks FAIL; in run_tests.sh",
    "finished": "2026-11-19T21:40"
   },
-  "HOLD1": {
-   "agent": "qwen",
-   "id": "HOLD1",
-   "title": "TASK HOLD1 - the specialty: four ways to hold moves over two seasons, and the hold minutes that make it a choice (probe)",
-   "status": "landed",
-   "started": "2026-11-19T20:12",
-   "eta": "2026-11-19T22:02",
-   "branch": "qwen/hold1",
-   "worktree": "E:/FightCamp/wt/LEAN_HOLD1",
-   "wt": "E:/FightCamp/wt/LEAN_HOLD1",
-   "brief": "ops/research/TASK_HOLD1.md",
-   "repo": "FightCamp-Lean",
-   "where": "pc",
-   "log": "E:/FightCamp/wt/HOLD1_dispatch_out.txt",
-   "match": "seat_dispatch.py run hold1",
-   "model": "qwen4-max",
-   "dispatch": {
-    "prompt": "E:/FightCamp/wt/HOLD1_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/HOLD1_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/HOLD1_dispatch_runner.log",
-    "source": "roadmap plan.next",
-    "brief_copied": true,
-    "runner_pid": 45064,
-    "seat_pid": 36828
-   },
-   "note": "S530 collected: Qwen delivered the pilot only; Claude ran the full sweep (660 s) - no arm passes, 20/40@2n the only choice arm, no held Signature",
-   "finished": "2026-11-20T00:10",
-   "pr": 411,
-   "checks": [
-    {
-     "kind": "RED_TEST",
-     "script": "tools/hold1_probe.gd",
-     "ok": true,
-     "last": "RESULT: tools/hold1_probe.gd -> HOLD1 done pass=NONE closest=10/20@3n"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tools/prog_probe.gd",
-     "ok": true,
-     "last": "PROG_PROBE done cells=40560 (18.8s)"
-    }
-   ],
-   "films": {
-    "before": {},
-    "after": {},
-    "board": ""
-   }
-  },
   "LEDGERCRITIC5A": {
    "agent": "arena",
    "id": "LEDGERCRITIC5A",
@@ -1116,54 +1068,6 @@
    "eta": "2026-11-19T23:40",
    "note": "S530 collected: 6/6 - a read must change a decision; evidence at the offer",
    "finished": "2026-11-19T23:30"
-  },
-  "STEPTUNE3": {
-   "agent": "qwen",
-   "id": "STEPTUNE3",
-   "title": "TASK STEPTUNE3 - size the footwork steps' levers on the phase-1 code, from TREEVALUE5 (tuning)",
-   "status": "landed",
-   "started": "2026-11-19T22:11",
-   "eta": "2026-11-20T00:01",
-   "branch": "qwen/steptune3",
-   "worktree": "E:/FightCamp/wt/LEAN_STEPTUNE3",
-   "wt": "E:/FightCamp/wt/LEAN_STEPTUNE3",
-   "brief": "ops/research/TASK_STEPTUNE3.md",
-   "repo": "FightCamp-Lean",
-   "where": "pc",
-   "log": "E:/FightCamp/wt/STEPTUNE3_dispatch_out.txt",
-   "match": "seat_dispatch.py run steptune3",
-   "model": "qwen4-max",
-   "dispatch": {
-    "prompt": "E:/FightCamp/wt/STEPTUNE3_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/STEPTUNE3_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/STEPTUNE3_dispatch_runner.log",
-    "source": "roadmap plan.next",
-    "brief_copied": false,
-    "runner_pid": 40880,
-    "seat_pid": 48008
-   },
-   "note": "S368 seat_dispatch: qwen exit 124; 1 commit(s); checks 2/2 PASS; PR #417",
-   "finished": "2026-11-19T23:53",
-   "pr": 417,
-   "checks": [
-    {
-     "kind": "RED_TEST",
-     "script": "tools/treevalue_probe.gd",
-     "ok": true,
-     "last": "TARGET / ANSWERS mismatch STEPTUNE2 s2 named, still there after phase 3 aligned the wrong styles only."
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/golden_path_test.gd",
-     "ok": true,
-     "last": "GOLDEN_PATH failures=0"
-    }
-   ],
-   "films": {
-    "before": {},
-    "after": {},
-    "board": ""
-   }
   },
   "TURNCRITIC5A": {
    "agent": "arena",
@@ -1229,6 +1133,29 @@
    "brief": "ops/research/TASK_LEDGERCRITIC6A.md",
    "chat": "https://arena.ai/agent/01a1f5e0-6675-76b7-ab7f-c072204b90cc",
    "eta": "2026-11-20T01:15"
+  },
+  "KNOWREV4": {
+   "agent": "goose",
+   "id": "KNOWREV4",
+   "title": "Knowledge stakes map v4 from the code",
+   "status": "stale",
+   "started": "2026-11-20T00:35",
+   "where": "cloud",
+   "issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/418",
+   "brief": "ops/research/TASK_KNOWREV4.md",
+   "eta": "2026-11-20T01:30",
+   "reconciled": "2026-11-20 00:40 board_reconcile: Actions run 44626920380 finished success, nothing pushed"
+  },
+  "TURNREV6": {
+   "agent": "goose",
+   "id": "TURNREV6",
+   "title": "Turning pro map v6: debut gaps from the measured curve",
+   "status": "running",
+   "started": "2026-11-20T01:20",
+   "where": "cloud",
+   "issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/420",
+   "brief": "ops/research/TASK_TURNREV6.md",
+   "eta": "2026-11-20T02:15"
   }
  },
  "codex_budget": {

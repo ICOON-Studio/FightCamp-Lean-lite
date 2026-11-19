@@ -1,6 +1,6 @@
 {
  "_note": "SINGLE SOURCE OF TRUTH for the roadmap. The ops board reads this file directly and ROADMAP.md is GENERATED from it by Tools/render_roadmap.py. Do not hand-maintain a second copy anywhere - that is the defect R136/U62 named and it has cost this project eight times.",
- "updated": "2026-11-19",
+ "updated": "2026-11-20",
  "author": "claude S294",
  "now": {
   "id": "S530",
@@ -5194,7 +5194,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-19 22:41 board_sync",
+  "updated": "2026-11-20 00:10 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5446,7 +5446,8 @@
     "title": "TASK STEPTUNE3 - size the footwork steps' levers on the phase-1 code, from TREEVALUE5 (tuning)",
     "who": "qwen",
     "started": "2026-11-19T22:11",
-    "run": "STEPTUNE3"
+    "run": "STEPTUNE3",
+    "state": "LANDED - Claude collects"
    },
    {
     "title": "Fresh critic: turning pro map v5",
@@ -5459,33 +5460,42 @@
     "title": "Does a fresh gym survive two years (passive / sensible / lean)",
     "who": "goose",
     "started": "2026-11-20T02:20",
-    "run": "GYMSURVIVE1"
+    "run": "GYMSURVIVE1",
+    "state": "LANDED - Claude collects"
    },
    {
     "title": "Debut gap -> win chance curve on one fixed boxer",
     "who": "goose",
     "started": "2026-11-20T02:45",
-    "run": "TURNGAP1"
+    "run": "TURNGAP1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "Contracts map v5 from the code (both v4 critics)",
+    "who": "goose",
+    "started": "2026-11-20T03:00",
+    "run": "LEDGERREV5",
+    "state": "LANDED - Claude collects"
    }
   ],
   "next": [
    {
     "id": "STEPSCOPE1",
     "who": "claude",
-    "title": "Footwork steps scope: phases 1 + 3 DONE S528, phase 2 TREEVALUE5 collected S530 (0/10 in the gate; docs/TREEVALUE5_RESULT.md). Phase 4 = Qwen STEPTUNE3 after HOLD1.",
+    "title": "Footwork steps: STEPTUNE3 (S531) found the levers could not reach the score - phase 5a DONE (deny reaches the duel before it is settled), 5c DONE (probe crash). Next: 5b grade a step on where it walks into (Claude design), then TREEVALUE6 (Qwen).",
     "after": ""
    },
    {
-    "id": "HOLD1",
-    "who": "qwen",
-    "title": "HOLD1 DONE S530 (full sweep by Claude): no arm passes; 20/40 on 2 pad nights is the only arm where holding is a choice; no held Signature on any arm (mastery cap < 85 by season 2). Next: a progression-pace probe WITH camps before holding is built.",
-    "after": "TREEVALUE5"
+    "id": "TURNPRO6",
+    "who": "claude",
+    "title": "Turning pro v6: set the debut gaps from TURNGAP1's curve (rerun S531 after a seed bug: every seed was the same night). Today's gaps give ~75-80% wins.",
+    "after": ""
    },
    {
-    "id": "STEPTUNE3",
-    "who": "qwen",
-    "title": "STEPTUNE3 - size the footwork steps on the phase-1 code from TREEVALUE5's board (tuning, ops/research/TASK_STEPTUNE3.md)",
-    "after": "HOLD1"
+    "id": "GYMMONEY1",
+    "who": "claude",
+    "title": "Gym money over two years (GYMSURVIVE1, full rerun S531): a passive gym closes ~week 64; a careful one survives but loses ~$3k a year. Read the full run, then a money call for the owner if it holds.",
+    "after": ""
    },
    {
     "id": "GUARDV4",
@@ -6143,64 +6153,6 @@
   "map": {
    "done_earlier": [
     {
-     "text": "Coach fit: numeric sheet (phase 1)",
-     "who": "claude"
-    },
-    {
-     "text": "Blind guard test collected",
-     "who": "claude"
-    },
-    {
-     "text": "Turning pro v3 extracted (Dola)",
-     "who": "claude"
-    },
-    {
-     "text": "Largest text: 3 screens fixed",
-     "who": "claude"
-    },
-    {
-     "text": "Turning pro v3 critics: 7/7, 5/4",
-     "who": "claude"
-    },
-    {
-     "text": "Turning pro v4 + ticket price fix",
-     "who": "claude"
-    },
-    {
-     "text": "Guard probe: switching pays (pro)",
-     "who": "claude"
-    },
-    {
-     "text": "Posture = corner change (no 2nd)",
-     "who": "claude"
-    },
-    {
-     "text": "Ledger v2 critics: 8/8 and 6/5",
-     "who": "agent"
-    },
-    {
-     "text": "Bout teaching capped at 99",
-     "who": "claude"
-    },
-    {
-     "text": "Steps: opening + wrong cost wired",
-     "who": "claude"
-    },
-    {
-     "text": "Learn card follows the fight",
-     "who": "claude"
-    },
-    {
-     "text": "Injury risk visible + coach",
-     "who": "claude"
-    },
-    {
-     "text": "Ledger v3 from the code",
-     "who": "agent"
-    }
-   ],
-   "done_session": [
-    {
      "text": "Coach fit: hover design (s11)",
      "who": "claude"
     },
@@ -6231,8 +6183,33 @@
     {
      "text": "Camera follows the turn",
      "who": "claude"
+    },
+    {
+     "text": "Coach fit: numeric sheet (phase 1)",
+     "who": "claude"
+    },
+    {
+     "text": "Blind guard test collected",
+     "who": "claude"
+    },
+    {
+     "text": "Turning pro v3 extracted (Dola)",
+     "who": "claude"
+    },
+    {
+     "text": "Largest text: 3 screens fixed",
+     "who": "claude"
+    },
+    {
+     "text": "Turning pro v3 critics: 7/7, 5/4",
+     "who": "claude"
+    },
+    {
+     "text": "Turning pro v4 + ticket price fix",
+     "who": "claude"
     }
    ],
+   "done_session": [],
    "now": [
     {
      "text": "Between-rounds voices: your ear",
@@ -6317,6 +6294,22 @@
     {
      "text": "Blind step test (Arena)",
      "who": "agent"
+    },
+    {
+     "text": "Steps: deny reaches the score (5a)",
+     "who": "claude"
+    },
+    {
+     "text": "Probe reruns: gym + debut gap",
+     "who": "claude"
+    },
+    {
+     "text": "Critics: ledger v5 (Arena+Dola)",
+     "who": "claude"
+    },
+    {
+     "text": "Knowledge v4 from code (Goose)",
+     "who": "claude"
     }
    ],
    "next": [
@@ -6529,7 +6522,7 @@
      "who": "claude"
     }
    ],
-   "session": "S530"
+   "session": "S531"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",

@@ -50,3 +50,19 @@ Roadmap plan: STEPSCOPE1 (claude, phases 1 + 3), TREEVALUE5 (qwen, phase 2), STE
   step_value_test updated to the fight's truth; step_why, study_pick_walk green.
 - The unread TABLE keys reach no screen (grep: only StepEffect.gd), so nothing misleads the player; they are left as
   data until TREEVALUE5 says whether any needs wiring. Phase 2 = Qwen TREEVALUE5 (launched S528).
+
+## Phase 5 - the levers reach the score (S531, from STEPTUNE3 `docs/STEPTUNE3_RESULT.md` s3b + s3c)
+STEPTUNE3 measured the phase-1 levers and found two DESIGN faults, not numbers (every sized row went back):
+- 5a DONE S531 (Claude): DENY cut her landed punches only after `Exchanges.settle` had fixed the exchange, so it never
+  reached the cards. `StepWire.deny_edge` now adds denied share x EDGE.best to the duel BEFORE settle (ESTIMATE);
+  `levers` still cuts the landed punches after (body shots, guard). A wrong-fit step already loses margin through its plan
+  line's grade (LineGrade), so WRONG_COST stays a landed-punch cost only.
+- 5b OPEN, MEASURE FIRST: STEPTUNE3 s3b says a step fires on the card that grades it right. Claude's read (S531): since
+  CARDFIX1 the card (`lv["at"]`) persists and the situation (`sit`) is the opponent's game rolled each exchange
+  (LiveRound ~line 235), so a step CAN fire while she plays the game that grades it wrong (step_in at outside vs a
+  presser). Grading on the destination card does NOT help (step_in lands at long = range, where it is best). Next: count,
+  per step and per opponent style, the share of fires with fit "wrong" (a counter in StepWire.levers' out + the probe).
+  If that share is near zero for a step whose wrong style is real, grade its wrong cost on her style's main game instead.
+- 5c DONE S531 (probe tool): `tools/treevalue_cells.gd:78` errors when `StepValue.wrong_style` is "" (feint, tie_up, roll_out,
+  push_off since phase 3) and the summary never prints: now the missing leg passes and the two that exist decide.
+Then TREEVALUE6 (Qwen) re-reads the board on 5a(+5b); sizing only after it.

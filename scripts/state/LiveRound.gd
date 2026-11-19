@@ -270,11 +270,13 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	d += float(duel["edge"])
 	d += StyleLevers.points(f, int(duel["place"]), prev_mode, pace, arrow)   # S488 STYLE5
 	d += StepWire.open_edge(lv, arrow, bool(pick.get("planned", false)))   # S525: the last exchange's step opened this line
+	var step_grade := StepEffect.grade_for(PlanFight.base_id(arrow), vals, RingDuel.opp(opp))
+	d += StepWire.deny_edge(arrow, bool(pick.get("planned", false)), step_grade)   # S531: a step's deny reaches the score
 	var rng := _rng(c, f, n, i + 1)
 	var roll_a := rng.randf()
 	var roll_b := rng.randf()
 	var s := Exchanges.settle(d, roll_a, roll_b)
-	var lev := StepWire.levers(lv, s, arrow, bool(pick.get("planned", false)), StepEffect.grade_for(PlanFight.base_id(arrow), vals, RingDuel.opp(opp)), _rng(c, f, n, i + 211), fit_now)
+	var lev := StepWire.levers(lv, s, arrow, bool(pick.get("planned", false)), step_grade, _rng(c, f, n, i + 211), fit_now)
 	# S388 the plan's true effect: the same dice without its edge. +1 it won this exchange, -1 it lost it (FightWhy).
 	var swing := int(bool(s["won"])) - int(bool(Exchanges.settle(d - plan_edge - read_edge, roll_a, roll_b)["won"]))
 	lv["reads"] = PlanRead.after(int(lv.get("reads", 0)), fit_now, bool(pick.get("planned", false)), bool(s["won"]))

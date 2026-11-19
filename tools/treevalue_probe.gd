@@ -148,6 +148,8 @@ func _punch_on(plan: Array, card: String) -> String:
 ## so no StepEffect.TABLE number moves it; the gate needs I(best,wrong) > 1.5 for the best and wrong legs to coexist.
 ## NAN when the reference style never fires (F_b = 0): the invariant is undefined there, the cell is pure fit.
 func _invariant(cells: Dictionary, a: String, b: String) -> float:
+	if not cells.has(b) or not cells.has(a):
+		return NAN   # S531: a step with no wrong style has no pair to read
 	var fb := float(cells[b]["fires"]) / float(cells[b]["n"])
 	if fb <= 0.0:
 		return NAN
@@ -400,7 +402,7 @@ func _initialize() -> void:
 		print(line)
 		print("  %s: best %s %+.1f in 1.5-5: %s; wrong %s %+.1f negative: %s; others 0 to +1: %s" % [
 			sid, str(lg["best"]), float(cells[str(lg["best"])]["delta"]), "yes" if bool(lg["best_ok"]) else "NO",
-			str(lg["wrong"]), float(cells[str(lg["wrong"])]["delta"]), "yes" if bool(lg["wrong_ok"]) else "NO",
+			"none" if str(lg["wrong"]) == "" else str(lg["wrong"]), float(cells.get(str(lg["wrong"]), {"delta": 0.0})["delta"]), "yes" if bool(lg["wrong_ok"]) else "NO",
 			"yes" if bool(lg["others_ok"]) else "NO"])
 		if bool(lg["pass"]):
 			pass_count += 1

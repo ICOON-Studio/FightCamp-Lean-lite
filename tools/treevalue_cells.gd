@@ -75,7 +75,9 @@ static func legs(step: String, cells: Dictionary) -> Dictionary:
 	var best: String = StepValue.best_style(step)
 	var wrong: String = StepValue.wrong_style(step)
 	var bv: float = float(cells[best]["delta"])
-	var wv: float = float(cells[wrong]["delta"])
+	# S531 (STEPTUNE3 s2): since phase 3 four steps have no wrong style (feint, tie_up, roll_out, push_off); their wrong
+	# leg does not exist - it passes, and the two legs that exist decide (it used to read cells[""] and abort the summary).
+	var wv: float = float(cells[wrong]["delta"]) if wrong != "" and cells.has(wrong) else -1.0
 	var best_ok: bool = bv >= 1.5 and bv <= 5.0
 	var wrong_ok: bool = wv < 0.0
 	var others_ok: bool = true
