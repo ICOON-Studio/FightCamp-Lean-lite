@@ -37,7 +37,7 @@ const FOOT_DB := "res://assets/data/foot_db.json"
 ## S529 a reaction: was 0.035 / 0.11 - the snap onto a take started part-way in covered 40 % of the way in ONE picture
 ## (film 6, both critics: 18-19 head jumps over 12 cm, all inside a reaction or a dodge, worst 21.6 cm; their bar is the
 ## head's travel spread over 2-3 pictures, none over 10 cm).
-const JOIN := {"punch": Vector2(0.05, 0.15), "reaction": Vector2(0.045, 0.14), "block": Vector2(0.02, 0.06),
+const JOIN := {"punch": Vector2(0.05, 0.15), "reaction": Vector2(0.04, 0.12), "block": Vector2(0.02, 0.06),
 	"defence": Vector2(0.05, 0.15), "guard": Vector2(0.10, 0.30), "pass": Vector2(0.10, 0.30),
 	"fidget": Vector2(0.10, 0.30), "feint": Vector2(0.05, 0.15), "step": Vector2(0.07, 0.22)}
 const JOIN_TURN := Vector2(0.08, 0.24)
@@ -462,7 +462,8 @@ func guard(i: int) -> void:
 		return
 	var clip := MOVING_GUARD if bounce_on and bool(_moving[i]) and ap.has_animation(MOVING_GUARD) else GUARD
 	_play(i, clip, 0.0, "guard", false)
-	# each man in his own point of the loop (both started in step read as one man twice)
+	# each man in his own point of the loop and at his own pace (S529: film 6, both critics still saw "two copies of one clip")
+	ap.speed_scale = 0.88 if i == 0 else 1.13
 	ap.seek(fmod(float(i) * 0.83 + t * 0.37, maxf(ap.get_animation(clip).length - 0.05, 0.1)), true)
 
 

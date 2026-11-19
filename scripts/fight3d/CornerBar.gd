@@ -191,7 +191,7 @@ func _rebuild(pv: Dictionary, wide: int) -> void:
 	# the right of the bar is the live round board.
 	var offers: Array = pv.get("offers", [])
 	var right := float(wide) - 156.0
-	var say_w := 112.0
+	var say_w := 140.0   # S529 ONELOOK1: "Say nothing" at 20 px needs 119 + the plate (TEXTFIT); CallButtons is 140 too
 	var gaps := 8.0 * float(offers.size())
 	var each := maxf(150.0, (x - 8.0 - say_w - gaps) / float(maxi(offers.size(), 1)))
 	_calls = Control.new()

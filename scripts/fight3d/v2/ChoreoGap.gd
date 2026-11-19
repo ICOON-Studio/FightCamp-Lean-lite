@@ -127,18 +127,29 @@ static func _after(out: Array, marks: Array, i: int, mt: float, t1: float) -> vo
 	var g := float(out[-1][1])
 	var knocked := str((marks[i] as Dictionary).get("kind", "contact")) == "knock"
 	var hurt := "" if knocked else str((marks[i] as Dictionary).get("hurt", ""))
-	var hitter := "both" if knocked else (hurt if hurt != "" else str((marks[i] as Dictionary).get("who", "both")))
+	var from := g   # where his step back is counted from
+	if knocked:
+		# a reaction take that travels only a little (a cross answered by a take that gives 6 cm): he still gives a
+		# step's ground, counted from where he was hit
+		for k in range(i - 1, -1, -1):
+			if str((marks[k] as Dictionary).get("kind", "contact")) == "contact":
+				var at_hit := maxf(float(marks[k]["gap"]), R.MIN_GAP_M)
+				if str((marks[k] as Dictionary).get("hurt", "")) != "" and g - at_hit < HURT_OUT_M - 0.06:
+					hurt = str(marks[k]["hurt"])
+					from = at_hit
+				break
+	var hitter := hurt if hurt != "" else ("both" if knocked else str((marks[i] as Dictionary).get("who", "both")))
 	var nxt := {}
 	for k in range(i + 1, marks.size()):
 		if str((marks[k] as Dictionary).get("kind", "contact")) == "contact":
 			nxt = marks[k]
 			break
 	var wait := INF if nxt.is_empty() else float(nxt["t"]) - mt
-	var ls := mt + (HURT_S if hurt != "" else HOLD_S)
+	var ls := maxf(mt + (HURT_S if hurt != "" else HOLD_S), float(out[-1][0]))
 	if wait >= R.BURST_GAP_S:
 		if g >= R.REST_M - 0.05:
 			return
-		var s1 := g if knocked else minf(g + (HURT_OUT_M if hurt != "" else STEP_OUT_M), R.REST_M)
+		var s1 := g if knocked and hurt == "" else maxf(minf(from + (HURT_OUT_M if hurt != "" else STEP_OUT_M), R.REST_M), g)
 		var d1 := maxf((s1 - g) / LEAVE_MPS, _whole(s1 - g)) if s1 > g + 0.005 else 0.0
 		var d2 := maxf((R.REST_M - s1) / EASE_OUT_MPS, _whole(R.REST_M - s1)) if s1 < R.REST_M - 0.005 else 0.0
 		if ls + d1 + EASE_OUT_WAIT_S + d2 > t1:

@@ -16,7 +16,7 @@ const QUIET_S := Vector2(0.35, 0.9)    # plain guard between two things (the cri
 const SETTLE_S := 0.25                 # after a take of his ends, before a wait thing starts
 const BEFORE_S := 0.30                 # a wait thing is over this long before his own next take starts
 const CLEAR_S := Vector2(0.35, 0.55)   # no paw or feint from this long before any contact to this long after it
-const WINDOW_S := Vector2(1.4, 2.4)    # how much of a long fidget take plays
+const WINDOW_S := Vector2(1.0, 1.7)    # how much of a long fidget take plays
 ## The fidgets (one actor, one stance; the census drops none of them). Short ones play whole.
 const FIDGETS := ["pro_idle_fidget_v2", "pro_idle_fidget_v3", "pro_idle_fidget_v6", "pro_idle_fidget_v7",
 	"pro_idle_fidget_v1", "pro_idle_fidget_v8"]
@@ -24,7 +24,9 @@ const LONG_S := 2.6                    # a fidget longer than this plays as a wi
 ## The lead hand measures, the rear hand threatens: [clip, to_s, speed] (GuardLife's S503 measures, the old player's).
 const BEATS := {"paw": ["pro_left_jab_b", 0.20, 1.0], "jab_feint": ["pro_left_jab_b", 0.12, 1.2],
 	"cross_feint": ["pro_right_cross", 0.15, 1.15], "body_feint": ["pro_body_shot", 0.24, 1.3]}
-const SHARE := [["fidget", 0.45], ["paw", 0.25], ["jab_feint", 0.08], ["cross_feint", 0.14], ["body_feint", 0.08]]
+## S529 (film 6, both critics: "nothing happens in the wait", 6+3 and 5+4 short paws in 75 s where "you need several
+## every 10 s"): the lead hand works more and the fidgets are shorter (was fidget 0.45, paw 0.25, feints 0.30).
+const SHARE := [["fidget", 0.28], ["paw", 0.34], ["jab_feint", 0.12], ["cross_feint", 0.16], ["body_feint", 0.10]]
 const BREATH_M := Vector2(0.05, 0.09)  # the rock in at rest (under FootPlant's step: the feet hold, the weight shifts)
 const BREATH_FROM_M := 1.05            # holds at rest and at the pocket breathe; closer in the pair is mid-burst
 const BREATH_S := 0.26                 # in, and the same back out
@@ -41,7 +43,7 @@ static func add(tracks: Dictionary, db: Dictionary, t0: float, t1: float, contac
 		var busy: Array = []   # [from, to] of his own takes
 		for e in evs:
 			if e.has("drift"):   # S528: a ring step is his (ChoreoDrift): no fidget or paw over it
-				busy.append([float(e["t"]), float(e["end_t"])])
+				busy.append([float(e["t"]), float(e["end_t"]), true])
 				continue
 			if not (str(e["kind"]) in BUSY):
 				continue
@@ -54,7 +56,10 @@ static func add(tracks: Dictionary, db: Dictionary, t0: float, t1: float, contac
 		var made: Array = []
 		for k in busy.size() + 1:
 			var free_to: float = (float(busy[k][0]) if k < busy.size() else t1) - BEFORE_S
-			var at := free_from + _r(rng, QUIET_S)
+			# S529: out of a ring step the hands go to work at once (step, paw, step): with a full breath of plain guard
+			# after every step no paw or feint ever fitted between two ring steps (12 in 75 s, both men together)
+			var stepped: bool = k > 0 and (busy[k - 1] as Array).size() > 2
+			var at := free_from + _r(rng, QUIET_S) * (0.3 if stepped else 1.0)
 			while at + 0.5 < free_to:
 				var what := _draw(rng)
 				var e := _event(what, at, free_to, rows, rng, last, contacts) if what == "fidget" else _beat(what, at, free_to, rows, contacts)
@@ -67,7 +72,7 @@ static func add(tracks: Dictionary, db: Dictionary, t0: float, t1: float, contac
 				last = str(e["clip"])
 				at = float(e["end_t"]) + _r(rng, QUIET_S)
 			if k < busy.size():
-				free_from = maxf(free_from, float(busy[k][1]) + SETTLE_S)
+				free_from = maxf(free_from, float(busy[k][1]) + (SETTLE_S * 0.4 if (busy[k] as Array).size() > 2 else SETTLE_S))
 		evs.append_array(made)
 
 

@@ -132,3 +132,12 @@ static func overflow(root: Node, slack: float = 2.0) -> Array:
 			out.append({"name": str(c.name), "text": text, "need": need, "have": have})
 	out.sort_custom(func(a, b): return float(a["need"]) - float(a["have"]) > float(b["need"]) - float(b["have"]))
 	return out
+
+
+## S529 ONELOOK1: a control in an expanding slot fits its text each time the slot is laid out (fit() above), from the
+## theme size read once - a later fit never shrinks an already-shrunk size.
+static func fit_on_resize(c: Control, min_px: int = 14) -> void:
+	c.resized.connect(func():
+		if not c.has_meta("fit_px0"):
+			c.set_meta("fit_px0", c.get_theme_font_size("font_size"))
+		fit(c, c.size.x, int(c.get_meta("fit_px0")), min_px))

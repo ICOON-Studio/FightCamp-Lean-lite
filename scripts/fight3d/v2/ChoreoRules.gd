@@ -136,8 +136,8 @@ static func impact_s_for(move: String) -> float:
 ## point 15+ frames after the contact): a bought reaction takes 0.2-1.3 s to reach its furthest point. It starts
 ## part-way in, so the head is furthest REACT_PEAK_S after the glove lands (the join smoother makes the snap).
 ## S529: 0.13 -> 0.10 - the reaction now starts one picture after the contact (Player2._late) and joins a little slower:
-## the head is still furthest 3 pictures after the glove lands.
-const REACT_PEAK_S := 0.10
+## the head is still furthest 3 pictures after the glove lands (0.10 read 4 on the 30-a-second film).
+const REACT_PEAK_S := 0.08
 const REACT_VARY_SCORE := 0.30
 ## S526 SIZED TO THE PUNCH (four films, both critics, item 1 every time): how far the hit head should travel against
 ## his own body, by the punch (their asks: jab 10-12 cm, cross 20-25, hook 25-30, uppercut 15-20, a body shot a fold
@@ -153,7 +153,9 @@ const REACT_FACE_UP_OK_DEG := 30.0
 ## Takes that build too slowly to read as a hit: the head is furthest 9 frames after the blow wherever the take is
 ## started from (measured on the bout, s525/h; the critics' bar is 2-3). They play only when nothing else fits.
 const REACT_SLOW := ["pro_hit_by_jab_v1"]
-const REACT_TAIL_S := 0.45        # a reaction hands back to the guard this long after its head's furthest point
+## S529: 0.45 -> 0.32 (film 6, both critics: after the hit both gloves "drop and splay to his chest and hip for 6
+## frames" - the reaction takes' own tails; their bar: the guard back up in 6-10 pictures).
+const REACT_TAIL_S := 0.32        # a reaction hands back to the guard this long after its head's furthest point
 const REACT_STAGGER_S := 1.0      # ... a body shot's after its stagger, this long at most
 
 

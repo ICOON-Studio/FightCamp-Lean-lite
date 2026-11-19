@@ -14,7 +14,9 @@ const R := preload("res://scripts/fight3d/v2/ChoreoRules.gd")
 const STEP_S := 0.70                   # one ring step, start to the feet down
 ## Between two ring steps (never a march). S529: was 0.15-0.60 - a step take was on screen 40-44 % of the round and both
 ## critics of film 6 counted 120 steps a minute that "lead nowhere"; a boxer steps, looks, steps.
-const PAUSE_S := Vector2(0.5, 1.3)
+const PAUSE_S := Vector2(0.35, 0.7)
+## ... every other breath is a long one: room for the hands (ChoreoWait puts a paw or a feint in it)
+const PAUSE_LONG_S := Vector2(1.3, 2.0)
 const FIRST_S := Vector2(0.05, 0.30)   # into a quiet stretch before the first
 const ANSWER_S := Vector2(0.06, 0.14)  # the other man starts this long after the leader
 const HOLD_FROM_M := 1.05              # only while the pair holds at rest or at the pocket
@@ -61,7 +63,7 @@ static func plan(tracks: Dictionary, gap: Array, db: Dictionary, t0: float, t1: 
 			n += 1
 			if rng.randf() < 0.5:
 				lead = "b" if lead == "a" else "a"
-			at += STEP_S + _r(rng, PAUSE_S)
+			at += STEP_S + _r(rng, PAUSE_LONG_S if n % 2 == 1 else PAUSE_S)
 	return n
 
 

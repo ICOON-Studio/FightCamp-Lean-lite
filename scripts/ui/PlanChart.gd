@@ -15,7 +15,8 @@ const Shapes := preload("res://scripts/ui/PlanChartShapes.gd")   # the wires and
 
 const COL_L := 380.0
 const COL_R := 320.0
-const BELL_W := 420.0   # S518 ONELOOK1: 360 cut "Pivot off the ropes" to "Pivot off t" beside its LEARNING stamp
+const TextScale := preload("res://scripts/ui/TextScale.gd")
+const BELL_W := 450.0   # S518 ONELOOK1: 360 cut "Pivot off t"; S529: 420 left it 140 px at Largest (needs 159)
 const BELL_ROW := 34.0
 const DIA := Vector2(220, 100)
 const ANS := Vector2(320, 92)
@@ -292,6 +293,7 @@ func _bell() -> Control:
 		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		b.alignment = HORIZONTAL_ALIGNMENT_LEFT
 		b.clip_text = true
+		TextScale.fit_on_resize(b, 16)   # S529 ONELOOK1: a long move shrinks to 16 px at most, then "..." + hover
 		row.add_child(b)
 		var st := Shapes.stamp(f, mid)
 		if st != null:
