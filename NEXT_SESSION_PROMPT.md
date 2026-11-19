@@ -18,11 +18,13 @@ METHOD line below (S510) - quote it in the first message.
    money, each ask played forward from one snapshot, paired PREP-YES). TURNTUNE1: no constant moved them; none taken.
 4. COACHFIT1 v9 revise at Dola SQ231 (FITPROBE2: TOP fit = Sharp 1.53 weeks sooner, +0.08 wins in 100, FOCUS +0.95:
    no stakes as a multiplier). Then two fresh critics (Goose + Dola chat), 7+/7+. COACHFIT1 is NOT wired until then.
-5. LEDGER1 v1: Dola 8 / 8 (SQ228). Second critic Goose #393. Both 7+ -> his board with `ask --attach`.
+5. LEDGER1 v1: Dola 8 / 8, Goose 7 / 6 (#393) -> v2 revise at Dola SQ232 (both critics + Claude's code check); then two
+   fresh critics, 7+/7+ -> his board with `ask --attach`.
 6. Guard v4: step 6 camp notes DONE S526 (GuardNotes under THIS CAMP's vs line; not rendered yet - render it on the
    hidden desktop when no game is open). Left: step 5 HUD (scripts/fight3d = the animation session's files) and the
    fight plan defence tab - posture (GuardWear.POSTURE_*) is not wired into GuardState: design call first (a new choice
-   needs a probe), not a menu alone.
+   needs a probe), not a menu alone. S526b: written up in GUARDWEAR_WIRE_S524.md bottom (HIGH dominates while body
+   punches are 6% of the mix) -> GUARDPROBE2 brief next.
 7. GROK CHAT SEATS ARE DOWN (gbot 404): Kalli / Maria / John queue items fail. Use Dola (chat) and Goose (critic issues).
 8. Ludo (paid to ~11 Dec): no asset job in S525/S526 (S526 ran at 98% weekly usage and saved it for the animation session).
 9. Qwen SPLIT500C running (GymSpend -> GymDeals, E:/FightCamp/wt/LEAN_SPLIT500C): collect by diff.
@@ -366,8 +368,55 @@ The v2 player EXISTS and plays the real bout behind `-- fightplayer2`. FIRST BLI
 BELOW the old player (see FIRST FILM below). When this section was first written it had not been filmed: the owner's
 game (ArcheAge) was open the whole session and films run only when no game window is open (Q-267). r14 = 4.5 / 4.5 is the
 control arm; the shipped player is untouched without the switch.
-- S526 (2026-11-19 ~13:30, the same animation session, HEADLESS: the owner's game was open all stage, so NOTHING
-  below is filmed or judged). READ THIS FIRST, it is the newest. Commits 541bf1ea5, c2c61cbfa, 4f4cb2a59:
+- S526b (2026-11-19 ~14:15, the same animation session). READ THIS FIRST, it is the newest:
+  * FIFTH FILM + BLIND ROUND (`E:/FightCamp/tmp/fightweek/v2r9/`, film = commit fc9c17ecc, seed 7, 75 s):
+    coach 5.0, animator 4.5. Film 4 was 4.5 / 4.5, film 3 4.0 / 4.5, film 2 3.5 / 3.5; the old player r14
+    4.5 / 4.5. v2 is ABOVE the old player on the coach's seat for the first time. THE GATE (7 + 7) IS NOT MET.
+    | critic | whole | punches | defence + reactions | footwork + stance | transitions | waiting |
+    |---|---|---|---|---|---|---|
+    | coach | 5.0 | 5.5 | 5.0 | 4.0 | 5.0 | 4.0 |
+    | animator | 4.5 | 5.5 | 4.5 | 3.0 | 4.5 | 3.5 |
+    Defence + reactions moved most (3 / 3.5 -> 5.0 / 4.5: the three S526 items below + two defence sheet sets);
+    footwork is now the lowest area on both seats. Reviews `v2r9/critic_coach.md`, `critic_animator.md`, pictures
+    `critic_*_10.png`; 54 sheets cut by `s525/round.py`; critics on Opus.
+    Rulers film 4 -> film 5: the hit head 7.3 -> 14.3 cm at the median (body 8.9 -> 28.1, cross 9.2 -> 17.5, hook
+    10.5 -> 19.4, jab 6.3 -> 8.8); arm left out after the contact 3 -> 2 frames, worst 15 -> 8; chest over 70 deg
+    off the line 38 / 26 -> 23 / 10 frames; slip 8.1 / 8.0 -> 7.0 / 7.5 m; head jumps 11 -> 16 (the snaps);
+    waiting in the guard 62 / 60 -> 76 / 72 % of the round (the arm home hands punches back sooner), longest wait
+    4.5 / 4.3 -> 5.1 / 4.3 s. The habit caption under the clock is CONFIRMED on this film (`s525/caption_film.jpg`).
+  * BOTH LISTS AFTER FILM 5, most important first (they agree on the first four):
+    (1) THE WAIT IS A LIVE FIGHT, WITH RING MOVEMENT (both, item 1): each man does one thing every 0.5-1.2 s (a head
+    move 8-12 cm off the line, a step in and out, a side step 20-30 cm, a pivot, a feint, a 10 cm dip); never over
+    1-1.5 s with feet and head still (72-76 % of the round reads frozen: ex3 #49-#75, wait2 #1-#48); the man on
+    the ropes circles out in 3-5 steps, the other cuts him off; blue's back is on the same corner post from ex2
+    to ex5; both reset to the centre after a big shot.
+    (2) FEET (both, item 2): planted feet pinned, real steps, a 2-4 cm bounce every 0.4-0.6 s; slip 7-7.5 m now,
+    under 1-1.5 m asked; over a third of it in the guard take (measured: see the feet block below).
+    (3) THE FREE GLOVE STAYS HOME (coach 3, animator 5): within 10-15 cm of the chin during every punch; it swings
+    wide or behind at ex1 #54-#56, ex5 #53-#56, def1 #25, def2 #42 and winds up at the hip before the uppercut
+    (ex4 #9-#12). The punching arm: back in the guard within 8 frames hit or miss (the missed jab at def1
+    #14-#21 stays out 8).
+    (4) HITS MOVE THE MAN, FEET INCLUDED, AND NEVER INTO THE OTHER MAN (coach 4 + 5, animator 3): a cross a 15-25 cm
+    step back (3 cm now), the feet stop 6-8 frames on a jab; a body shot folds to the SIDE - after it the heads
+    and arms pass through each other (ex3 #17-#24, def2 #45-#52: he folds onto the puncher, who is ducked at his
+    belt); no head over 12-15 cm in a frame inside a clip (16 now, worst 21.8: the cross and gut-shot snaps).
+    (5) CLOSE RANGE AND COMBINATIONS (coach 5, animator 4): the body shot as a 20-25 cm drop of the hips, not the
+    take's near-metre lunge; inside 0.6 m short punches or a tie-up and a push off in 1-2 s, no glove-touching
+    standoff (ex5 #25-#34); the next punch of a combination starts 2-4 frames before the last arm is home, half
+    the exchanges with two or more punches.
+    Also: slips / rolls / parries in a third of the exchanges (they were shown two and scored it up; more), the
+    waits repeat (red's one fidget twice in 20 s), knee and hip twitching, ropes that give.
+  * AFTER THE FILM, NOT FILMED: a dodge started late keeps its sidestep (the hip travel its take made before the
+    start point; on film 5 the jab passed at head height at def1 #14-#20) - the last S526 commit on Player2.
+  * NEXT, in order: (1) the wait's second half: half steps on the edge of range, a circle step, the other man's
+    answer, off the ropes to the centre (list item 1; ChoreoWait + ChoreoGap, planned like the rest);
+    (2) feet for the plan's own moves (item 2; FootPlant stays, see the feet block); (3) the free glove (item 3:
+    which takes drop it - a census flag `free hand off the chin` per punch take, then pass over them like the
+    back-turning ones); (4) the body shot's fold onto the puncher (item 4: pick the gut-shot take by its head
+    direction against where the puncher's head is, or plan the body shot from further out); (5) film + round.
+    Each round this session moved the item built by +0.5 to +2; the gate is 7 + 7.
+- S526 (2026-11-19 ~13:30, the same animation session; built HEADLESS while the owner's game was open, then filmed
+  and judged as film 5 above). Commits 541bf1ea5, c2c61cbfa, 4f4cb2a59:
   * REACTIONS SIZED TO THE PUNCH (541bf1ea5; film-4 list item 1). Cause found: a reaction was started at the head's
     furthest point WITH the body's travel - on a gut shot the end of the stagger, 0.5-0.8 s after the fold, on a
     combination take the third hit - so the snap itself never played. clip_db now carries `head_rel_s` (the head's
@@ -394,7 +443,13 @@ control arm; the shipped player is untouched without the switch.
     at the median, 15 -> 8 at worst; frames with the chest over 70 deg off the line to him 38 / 26 -> 23 / 10;
     all 15 landed gloves unchanged (2-18 cm); slip 7.9 / 7.5 -> 7.0 / 7.5 m. Watch on film: does a punch cut this
     soon still show its weight (the owner's C432: "the shoulder movement needs to generate the power")?
-  * NEXT: (1) FILM the moment no game window is listed (this film carries SEVEN unfilmed commits: e56c96814,
+  * FEET, MEASURED FOR THE NEXT ITEM (no code): with the arm home the slip sits mostly in the GUARD take (2.5-2.9 of
+    ~7 m a boxer, `s525/j/rulers_raw.txt`): about half while the plan moves the body (creep, step out, the ease to
+    rest, the breath, the side-on turn), a third in the 0.3 s after a clip change (the join into the guard), the
+    rest standing. `fp2carry` (FootCarry) is WORSE with today's code: 9.6 / 10.6 m against 7.0 / 7.5, knee jerks
+    21-42 -> 37-54: keep FootPlant, plan the feet's steps for the plan's own moves instead.
+    Tests: choreographer_test R15 (reactions sized, started at the snap, the arm home), fc9c17ecc.
+  * (DONE: filmed and judged as film 5, see S526b.) OLD NEXT: (1) FILM the moment no game window is listed (this film carries SEVEN unfilmed commits: e56c96814,
     6a4f9ffea, 541bf1ea5, c2c61cbfa, 4f4cb2a59 and the main session's caption dfb6ee2c1) and LOOK: the spins, the
     cross reaction with the face tipped up, the fold, the arm home, the caption under the clock; (2) cut the
     sheets WITH two defence sets, briefs from `s525/BRIEF_critic_*.tmpl` (they carry the press-flash line; add the

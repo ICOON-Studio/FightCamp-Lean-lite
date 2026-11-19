@@ -937,20 +937,6 @@
    "where": "cloud",
    "brief": "ops/research/TASK_TURNPROBE2.md"
   },
-  "LEDGERCRITIC2": {
-   "agent": "goose",
-   "id": "LEDGERCRITIC2",
-   "title": "Contracts map: second fresh critic (research)",
-   "status": "running",
-   "started": "2026-11-19T13:30",
-   "eta": "2026-11-19T16:00",
-   "issue": 393,
-   "gh_issue": 393,
-   "branch": "goose/issue-393",
-   "repo": "FightCamp-Lean",
-   "where": "cloud",
-   "brief": "ops/research/TASK_LEDGERCRITIC2.md"
-  },
   "STEPTUNE1": {
    "agent": "goose",
    "id": "STEPTUNE1",
@@ -964,6 +950,20 @@
    "repo": "FightCamp-Lean",
    "where": "cloud",
    "brief": "ops/research/TASK_STEPTUNE1.md"
+  },
+  "GUARDPROBE2": {
+   "agent": "goose",
+   "id": "GUARDPROBE2",
+   "title": "Guard: where do the punches go, by opponent? (probe before posture)",
+   "status": "running",
+   "started": "2026-11-19T14:00",
+   "eta": "2026-11-19T16:30",
+   "issue": 395,
+   "gh_issue": 395,
+   "branch": "goose/issue-395",
+   "repo": "FightCamp-Lean",
+   "where": "cloud",
+   "brief": "ops/research/TASK_GUARDPROBE2.md"
   }
  },
  "codex_budget": {

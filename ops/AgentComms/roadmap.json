@@ -6,8 +6,8 @@
   "id": "S526",
   "owner": "claude",
   "updated": "2026-11-19",
-  "summary": "S526 (Opus): collected KNOWBOTS5 (Goose #388: potential readers LOSE; shown rating off only 0.83 because per-attribute offsets cancel -> KNOWBOTS6 #391 shared misread), TURNTUNE1 (Goose #389: no constant fixes lines 2/4/7; none taken -> TURNPROBE2 #392 measures them as the design means), FITPROBE2 (Qwen PR 390: TOP fit Sharp 1.53 weeks sooner, +0.08 wins -> COACHFIT1 v9 revise at Dola SQ231). LEDGER1 v1 Dola 8/8, second critic Goose #393. Grok chat seats down (404). Animation: anim-range (Fable) resumed headless (reactions sized, defence that shows). Guard v4 step 6: GuardNotes under THIS CAMP (rope wear vs pressers/loaders, amateur note). STEPTUNE1 Goose #394 from a partial TREEVALUE3.",
-  "next_action": "S527: 1) collect Goose #391 KNOWBOTS6 / #392 TURNPROBE2 / #393 LEDGERCRITIC2 / #394 STEPTUNE1 and Qwen SPLIT500C; 2) TREEVALUE3 full file E:/FightCamp/tmp/treevalue3.txt (feint/tie_up/roll_out/push_off rows) vs STEPTUNE1; 3) Dola SQ231 COACHFIT1 v9 -> two critics; 4) LEDGER1 at 7+/7+ -> his board; 5) guard v4 step 6 left: fight plan defence tab (posture is not wired - design first), render the camp guard notes. Animation: anim-range only (METHOD S510).",
+  "summary": "S526 (Opus): collected KNOWBOTS5 (Goose #388: potential readers LOSE; shown rating off only 0.83 because per-attribute offsets cancel -> KNOWBOTS6 #391 shared misread), TURNTUNE1 (Goose #389: no constant fixes lines 2/4/7; none taken -> TURNPROBE2 #392 measures them as the design means), FITPROBE2 (Qwen PR 390: TOP fit Sharp 1.53 weeks sooner, +0.08 wins -> COACHFIT1 v9 revise at Dola SQ231). LEDGER1 v1 Dola 8/8, second critic Goose #393. Grok chat seats down (404). Animation: anim-range (Fable) resumed headless (reactions sized, defence that shows). Guard v4 step 6: GuardNotes under THIS CAMP (rope wear vs pressers/loaders, amateur note). STEPTUNE1 Goose #394 from a partial TREEVALUE3. S526b: LEDGER1 Goose critic 7/6 -> v2 revise at Dola SQ232; guard posture is a dominant pick while body punches are 6% of the mix -> GUARDPROBE2 (Goose #395) before the defence tab.",
+  "next_action": "S527: 1) collect Goose #391 KNOWBOTS6 / #392 TURNPROBE2 / #394 STEPTUNE1 and Qwen SPLIT500C; 2) TREEVALUE3 full file E:/FightCamp/tmp/treevalue3.txt (feint/tie_up/roll_out/push_off rows) vs STEPTUNE1; 3) Dola SQ231 COACHFIT1 v9 -> two critics; 4) Dola SQ232 LEDGER1 v2 -> two critics -> his board at 7+/7+; 5) Goose #395 GUARDPROBE2 -> size posture + adaptation, then the defence tab; render the camp guard notes. Animation: anim-range only (METHOD S510).",
   "verified_playable": "Builds/FightCamp.exe S523: turning pro offer with two houses (hidden-desktop render ops/previews/s523/pro_offer.png; golden_path signs through the modal). Not yet played by him.",
   "incomplete_blocked": "TURNPRO1 M11 (WeekReview at 497 lines) and the probes (TURNPROBE1 queued). TREEVALUE2 running (Qwen), KNOWLEDGE1A at Goose #378.",
   "next_acceptance": "TURNPRO1 probes: both houses call in some careers, asks used, gym even-week matches the pays-back line within a week.",
@@ -2251,7 +2251,7 @@
    "id": "S526",
    "date": "2026-11-19",
    "model": "opus",
-   "summary": "S526 (Opus): collected KNOWBOTS5 (Goose #388: potential readers LOSE; shown rating off only 0.83 because per-attribute offsets cancel -> KNOWBOTS6 #391 shared misread), TURNTUNE1 (Goose #389: no constant fixes lines 2/4/7; none taken -> TURNPROBE2 #392 measures them as the design means), FITPROBE2 (Qwen PR 390: TOP fit Sharp 1.53 weeks sooner, +0.08 wins -> COACHFIT1 v9 revise at Dola SQ231). LEDGER1 v1 Dola 8/8, second critic Goose #393. Grok chat seats down (404). Animation: anim-range (Fable) resumed headless (reactions sized, defence that shows). Guard v4 step 6: GuardNotes under THIS CAMP (rope wear vs pressers/loaders, amateur note). STEPTUNE1 Goose #394 from a partial TREEVALUE3."
+   "summary": "S526 (Opus): collected KNOWBOTS5 (Goose #388: potential readers LOSE; shown rating off only 0.83 because per-attribute offsets cancel -> KNOWBOTS6 #391 shared misread), TURNTUNE1 (Goose #389: no constant fixes lines 2/4/7; none taken -> TURNPROBE2 #392 measures them as the design means), FITPROBE2 (Qwen PR 390: TOP fit Sharp 1.53 weeks sooner, +0.08 wins -> COACHFIT1 v9 revise at Dola SQ231). LEDGER1 v1 Dola 8/8, second critic Goose #393. Grok chat seats down (404). Animation: anim-range (Fable) resumed headless (reactions sized, defence that shows). Guard v4 step 6: GuardNotes under THIS CAMP (rope wear vs pressers/loaders, amateur note). STEPTUNE1 Goose #394 from a partial TREEVALUE3. S526b: LEDGER1 Goose critic 7/6 -> v2 revise at Dola SQ232; guard posture is a dominant pick while body punches are 6% of the mix -> GUARDPROBE2 (Goose #395) before the defence tab."
   }
  ],
  "blocked_on_operator": [],
@@ -5170,7 +5170,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-19 13:12 board_sync",
+  "updated": "2026-11-19 13:41 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5321,31 +5321,35 @@
   },
   "working_now": [
    {
-    "title": "Knowledge: which truth decides a career - rating, potential or neither (probe)",
-    "who": "goose",
-    "started": "2026-11-19T11:05",
-    "run": "KNOWBOTS5",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "Turning pro: size the offer numbers until the choice is real (tuning)",
-    "who": "goose",
-    "started": "2026-11-19T11:05",
-    "run": "TURNTUNE1",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK FITPROBE2 - coach fit on the EVENINGS: does a TOP fit bring moves to Sharp sooner? (probe only)",
-    "who": "qwen",
-    "started": "2026-11-19T11:10",
-    "run": "FITPROBE2",
-    "state": "LANDED - Claude collects"
-   },
-   {
     "title": "TASK SPLIT500C - GymSpend.gd under the 500-line rule with room to grow (pure move, no behaviour change)",
     "who": "qwen",
     "started": "2026-11-19T13:12",
     "run": "SPLIT500C"
+   },
+   {
+    "title": "Knowledge: does a shared misread make knowing a boxer pay? (probe)",
+    "who": "goose",
+    "started": "2026-11-19T13:30",
+    "run": "KNOWBOTS6"
+   },
+   {
+    "title": "Turning pro: measure the three failing lines the right way (probe)",
+    "who": "goose",
+    "started": "2026-11-19T13:30",
+    "run": "TURNPROBE2"
+   },
+   {
+    "title": "Contracts map: second fresh critic (research)",
+    "who": "goose",
+    "started": "2026-11-19T13:30",
+    "run": "LEDGERCRITIC2",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "Footwork steps: size the levers until each is worth its target (tuning)",
+    "who": "goose",
+    "started": "2026-11-19T13:30",
+    "run": "STEPTUNE1"
    }
   ],
   "next": [
@@ -6081,6 +6085,10 @@
     {
      "text": "Guard notes on the camp board",
      "who": "claude"
+    },
+    {
+     "text": "LEDGER1 critics 8/8, 7/6 -> v2",
+     "who": "claude"
     }
    ],
    "now": [
@@ -6173,7 +6181,7 @@
      "who": "agent"
     },
     {
-     "text": "LEDGER1 2nd critic (Goose)",
+     "text": "Guard posture probe (Goose)",
      "who": "agent"
     }
    ],

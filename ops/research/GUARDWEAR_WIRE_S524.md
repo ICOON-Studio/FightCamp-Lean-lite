@@ -42,3 +42,12 @@ fighter, a dry fighter. Size GUARD_EDGE and BLOCK_SHARE from it; nothing ships O
 ## Tests (each step its own)
 guard_state_test (step 1-2: wear by kind, combo x1.5, ropes, recovery), guard_feedback_test (step 3, a control arm with the
 feedback off), golden_path (a bout still finishes; the guard bar draws from GuardState), fight_meters_test.
+
+## S526 - posture (the fight plan defence tab) is a design call before a menu
+GuardWear has posture (high: wear +8%, head leak x0.80, body x1.15; low: head x1.15, body x0.80) but GuardState never reads
+it. Wired as-is it is a dominant pick: BoutBurn.MIX sends 94% of punches to the head (body hook 0.06), so HIGH always
+leaks less. It becomes a choice only when the body share moves: an opponent who digs the body (style, the
+digs_body_when_hurt habit) and the design's s1 adaptation ("same posture 3+ rounds -> the opponent shifts target").
+Next: a probe (GUARDPROBE2): per opponent style, the head / body share of landed punches today; then the adaptation rule
+sized so HIGH and LOW each win in 30-70% of matchups; then the defence tab. Until then the camp notes (GuardNotes) carry
+the guard into the menus.

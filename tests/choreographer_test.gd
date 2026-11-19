@@ -5,6 +5,7 @@ const Choreo := preload("res://scripts/fight3d/v2/Choreographer.gd")
 const R := preload("res://scripts/fight3d/v2/ChoreoRules.gd")
 const Gap := preload("res://scripts/fight3d/v2/ChoreoGap.gd")
 const Wait := preload("res://scripts/fight3d/v2/ChoreoWait.gd")
+const React := preload("res://scripts/fight3d/v2/ChoreoReact.gd")
 const ClipCensus := preload("res://scripts/fight3d/v2/ClipCensus.gd")
 const RS := preload("res://scripts/rules/RoundScript.gd")
 
@@ -43,6 +44,8 @@ func _initialize() -> void:
 	_r13_range()
 	# R14: the waits (S525)
 	_r14_waits()
+	# R15: reactions sized, the arm home (S526)
+	_r15_sized()
 	# Sweep
 	_sweep()
 	# Mutants
@@ -346,6 +349,60 @@ func _r14_waits() -> void:
 	_check(int(kinds.get("fidget", 0)) > 0 and int(kinds.get("paw", 0)) > 0 and int(kinds.get("cross_feint", 0)) > 0, "R14: fidgets, paws and feints are all planned (%s)" % str(kinds))
 	var plain := Choreo.plan([_beat("a", "jab", "lands", 5.0)], db, _opts({"waits": false}))
 	_check((plain["tracks"]["a"] as Array).filter(func(e): return str(e["kind"]) in ["fidget", "feint"]).is_empty(), "R14: waits off = the plan without them")
+
+
+# --- R15 REACTIONS SIZED TO THE PUNCH, THE ARM HOME (S526) ---
+func _react_of(move: String, seed: int, big: bool = false) -> Dictionary:
+	var plan := Choreo.plan([_beat("a", move, "lands", 5.0, {"big": big})], db, _opts({"seed": seed}))
+	var evs: Array = plan["tracks"]["b"].filter(func(e): return str(e["kind"]) == "reaction")
+	return evs[0] if evs.size() == 1 else {}
+
+
+func _r15_sized() -> void:
+	var rows: Dictionary = db["rows"]
+	# the take is the one whose own head travel is nearest what the punch should do, among the ones that go the right way
+	var mean := {}
+	var flagged := 0
+	var jab_dropped := 0
+	for move in ["jab", "cross", "lead_hook", "body_hook"]:
+		var sum := 0.0
+		for seed in 20:
+			var e := _react_of(move, seed)
+			var row: Dictionary = rows.get(str(e.get("clip", "")), {})
+			sum += float(row.get("head_rel_m", 0.0))
+			if not (row.get("drop", []) as Array).is_empty():
+				flagged += 1
+				if move == "jab":
+					jab_dropped += 1
+				_check(React.may_play(row, true), "R15: a dropped take plays only for a face tipped up within the allowance (%s)" % str(e.get("clip", "")))
+		mean[move] = sum / 20.0
+	_check(float(mean["jab"]) < float(mean["cross"]) and float(mean["cross"]) <= float(mean["lead_hook"]) + 0.03 and float(mean["body_hook"]) > float(mean["cross"]),
+		"R15: the hit head travels by the punch - jab %.2f < cross %.2f, hook %.2f, body %.2f m" % [float(mean["jab"]), float(mean["cross"]), float(mean["lead_hook"]), float(mean["body_hook"])])
+	_check(float(mean["jab"]) >= 0.09 and float(mean["cross"]) >= 0.17 and float(mean["body_hook"]) >= 0.26, "R15: ... and no punch gets a take under its floor")
+	_check(jab_dropped == 0, "R15: a jab never plays a take the census dropped (%d)" % jab_dropped)
+	_check(not React.may_play({"drop": ["face tips up 34 deg"]}, true) and React.may_play({"drop": ["face tips up 29 deg"]}, true)
+		and not React.may_play({"drop": ["face tips up 29 deg"]}, false) and not React.may_play({"drop": ["face tips up 20 deg", "glove over the crown 9 frames"]}, true),
+		"R15: the face-up allowance is 30 deg, power punches only, and only when it is the one reason")
+	# the reaction starts so the head's first peak against the hips is on the blow, and hands back to the guard
+	for move in ["cross", "body_hook"]:
+		var e := _react_of(move, 3)
+		var row: Dictionary = rows.get(str(e.get("clip", "")), {})
+		var snap: float = minf(float(row.get("head_peak_s", 0.0)), float(row.get("head_rel_s", 99.0)))
+		_check(absf(float(e.get("from_s", -1.0)) - maxf(snap - R.REACT_PEAK_S, 0.0)) < 0.001, "R15: a %s's reaction starts REACT_PEAK_S before its snap (%s from %.2f, snap %.2f)" % [move, str(e.get("clip", "")), float(e.get("from_s", -1.0)), snap])
+		_check(e.has("until_s") and float(e["until_s"]) > float(e["from_s"]) + 0.3 and float(e["until_s"]) <= float(row.get("length_s", 9.0)) + 0.001, "R15: ... and hands back to the guard inside the take (%.2f)" % float(e.get("until_s", -1.0)))
+	var body := _react_of("body_hook", 3)
+	var brow: Dictionary = rows.get(str(body.get("clip", "")), {})
+	_check(float(body.get("from_s", 9.0)) < float(brow.get("head_peak_s", 0.0)) - R.REACT_PEAK_S - 0.1 or absf(float(brow.get("head_rel_s", 0.0)) - float(brow.get("head_peak_s", 0.0))) < 0.15,
+		"R15: a body shot's reaction starts at the fold, not at the end of the stagger (%s from %.2f, stagger ends %.2f)" % [str(body.get("clip", "")), float(body.get("from_s", 9.0)), float(brow.get("head_peak_s", 0.0))])
+	# the arm comes home: a punch's event says when the hand is back, a straight sooner than a hook
+	var pj := Choreo.plan([_beat("a", "jab", "lands", 5.0)], db, _opts())
+	var ph := Choreo.plan([_beat("a", "lead_hook", "lands", 5.0)], db, _opts())
+	var ej: Dictionary = (pj["tracks"]["a"] as Array).filter(func(e): return str(e["kind"]) == "punch")[0]
+	var eh: Dictionary = (ph["tracks"]["a"] as Array).filter(func(e): return str(e["kind"]) == "punch")[0]
+	var cj: float = float(rows[str(ej["clip"])]["contact_s"])
+	var ch: float = float(rows[str(eh["clip"])]["contact_s"])
+	_check(absf(float(ej["until_s"]) - cj - R.ARM_HOME_S - 0.25) < 0.001 and absf(float(eh["until_s"]) - ch - R.ARM_HOME_TURN_S - 0.25) < 0.001 and R.arm_home_s("jab") < R.arm_home_s("lead_hook"),
+		"R15: the arm is home %.2f s after a straight's contact, %.2f s after a hook's" % [R.ARM_HOME_S, R.ARM_HOME_TURN_S])
 
 
 # --- R10 CONTROL ---

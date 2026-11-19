@@ -377,13 +377,18 @@ func _play(i: int, clip: String, from_s: float, kind: String, travel: bool) -> v
 	# its take so the head is furthest on the blow (REACT_PEAK_S), and the take's hip travel up to that point was simply
 	# lost (the body only followed the path from there on: a cross's 19 cm step back, a gut shot's 34-50 cm fold never
 	# showed). The body now covers that ground too, on the blow (LEAD_MPS at most): the captured size of the reaction.
+	# S526 (film 5, def1 #14-#20: a dodge started 0.33 s before the punch, part-way into its take, had lost the
+	# 0.3-0.5 m its take steps aside before that point - the head stayed on the jab's line): a defence gets it too.
 	var lead := Vector2.ZERO
-	if kind == "reaction" and not path.is_empty() and from_s > 0.0:
+	if kind in ["reaction", "defence"] and not path.is_empty() and from_s > 0.0:
 		lead = RootPath.at(path, from_s) - RootPath.at(path, 0.0)
-	_take[i] = {"clip": clip, "kind": kind, "from_s": from_s, "origin": _home[i], "path": path, "at": t, "lead": lead,
-		"lead_s": maxf((JOIN["reaction"] as Vector2).y, lead.length() / LEAD_MPS)}
+	# a reaction gives it on the blow; a defence over the whole time it has until the punch arrives (its head's peak)
+	var lead_s: float = maxf((JOIN["reaction"] as Vector2).y, lead.length() / LEAD_MPS)
+	if kind == "defence":
+		lead_s = maxf(float((db["rows"].get(clip, {}) as Dictionary).get("head_peak_s", from_s + 0.3)) - from_s, 0.15)
+	_take[i] = {"clip": clip, "kind": kind, "from_s": from_s, "origin": _home[i], "path": path, "at": t, "lead": lead, "lead_s": lead_s}
 	if log_on:
-		print("FP2 %6.2f %s %-9s %s from %.2f%s" % [t, "ab"[i], kind, clip, from_s, "" if kind != "reaction" else (" on the spot" if path.is_empty() else " gives %.2f m" % lead.length())])
+		print("FP2 %6.2f %s %-9s %s from %.2f%s" % [t, "ab"[i], kind, clip, from_s, "" if not (kind in ["reaction", "defence"]) else (" on the spot" if path.is_empty() else " gives %.2f m" % lead.length())])
 
 
 ## The body stays where the take that ends has carried it.
