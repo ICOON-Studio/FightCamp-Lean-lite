@@ -1,6 +1,6 @@
 extends RefCounted
 ## S518 LADDERWIRE R6 (map ops/research/DESIGN_LADDER1_V6_DOLA.md R6): "your heat" - a boxer who has won her last 3 bouts
-## and gained 15+ ladder points in the last 8 weeks is ON A RUN. A rival corner 0-8 points above her leans No (-20 on the
+## and gained POINTS (8, S519; was 15) ladder points in the last 8 weeks is ON A RUN. A rival corner 0-8 points above her leans No (-20 on the
 ## yes score); such a No marks the rival DUCKED; two ducks inside 8 weeks make the next ask to that rival OWED (they must
 ## say yes - RivalOffer.owed / owed_answer). Reads c.results (newest first, BoutFinish), whose "pts" is the ladder points
 ## the bout moved for our boxer.

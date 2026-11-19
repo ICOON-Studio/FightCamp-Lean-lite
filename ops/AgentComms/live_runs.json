@@ -913,7 +913,7 @@
    "agent": "qwen",
    "id": "TREEVALUE5",
    "title": "TASK TREEVALUE5 - the step probe keeps a punch on the step's destination card, then reruns the ten steps",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-19T17:52",
    "eta": "2026-11-19T19:42",
    "branch": "qwen/treevalue5",
@@ -934,7 +934,34 @@
     "runner_pid": 17152,
     "seat_pid": 44584
    },
-   "note": "S368 seat_dispatch: launched unattended (S528 main); merging stays off | S529: ~28 min a step, 10 steps ~4.7 h > the 4 h timeout (~22:05): if cut, rerun the missing steps with -- only=<ids>"
+   "note": "S368 seat_dispatch: qwen exit 124; 1 commit(s); checks 2/3 PASS; PR #407; NOT committed (outside OWNS): nul",
+   "finished": "2026-11-19T20:00",
+   "pr": 407,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tools/treevalue_probe.gd",
+     "ok": false,
+     "last": "CELL step=step_in style=Slugger with=539 without=540 delta=-0.08 fires/bout=0.40 uses/bout=0.54 seeds=[0.0, 0.25, -0.5]"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/step_levers_test.gd",
+     "ok": true,
+     "last": "STEP_LEVERS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/step_effect_test.gd",
+     "ok": true,
+     "last": "STEP_EFFECT PASS fails=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
   },
   "LEDGERCRITIC4": {
    "agent": "arena",
@@ -1063,6 +1090,20 @@
    "issue": 406,
    "eta": "2026-11-19T21:00",
    "note": "S530; goose/issue-406"
+  },
+  "DEALBLIND1": {
+   "agent": "arena",
+   "id": "DEALBLIND1",
+   "title": "Blind contract test of the coached-morning deal",
+   "status": "landed",
+   "started": "2026-11-19T20:30",
+   "where": "cloud",
+   "repo": "FightCamp-Lean-lite",
+   "brief": "ops/research/TASK_DEALBLIND1.md",
+   "chat": "https://arena.ai/agent/01a1f4f6-6a28-7d10-8fa4-3ddb854886ea",
+   "eta": "2026-11-19T21:30",
+   "note": "S530 collected (lite PR 28): deal_contract_test PASS on main; mutant 1 (shared costs two slots) -> fails=4; in run_tests.sh",
+   "finished": "2026-11-19T21:00"
   }
  },
  "codex_budget": {

@@ -648,6 +648,28 @@ def repair_prompt(task: str, errs: list[str]) -> str:
             "Do not start new work.")
 
 
+def probe_page_check(wt: Path, contract: dict) -> dict | None:
+    """S530: TREEVALUE5's check re-ran the agent's whole 4.7 h probe beside the agent's own run (both Godot slots, the owner's
+    animation queued). A RED_TEST under tools/ is a PROBE: its evidence is the result page the brief owns (docs/*_RESULT.md),
+    so the check reads that page instead of running the probe again. None = not a probe (run it as before)."""
+    red = contract.get("red_test", {})
+    if not str(red.get("test", "")).startswith("tools/"):
+        return None
+    pages = [o["path"] for o in contract.get("owns", []) if str(o["path"]).startswith("docs/") and str(o["path"]).endswith(".md")]
+    if not pages:
+        return None
+    line = str(red.get("pass_line", ""))
+    for rel in pages:
+        f = Path(wt) / rel
+        if f.is_file():
+            text = f.read_text(encoding="utf-8", errors="replace")
+            found = (line in text) if (line and _literal(line)) else None
+            return {"kind": "RED_TEST", "script": red["test"], "ok": found is not False and text.strip() != "",
+                    "pass_line": line, "found": found, "why": "probe: read from " + rel + " (not re-run)",
+                    "last": next((l for l in reversed(text.splitlines()) if l.strip()), "(empty page)")[:200]}
+    return {"kind": "RED_TEST", "script": red["test"], "ok": False, "why": "probe: no result page " + ", ".join(pages)}
+
+
 def run_checks(wt: Path, contract: dict) -> list[dict]:
     """RED_TEST then every REGRESSION item, headless on the branch (imported by compile_errors); the watchdog gates each."""
     owns = [o["path"] for o in contract["owns"]]
@@ -662,6 +684,10 @@ def run_checks(wt: Path, contract: dict) -> list[dict]:
         elif r["kind"] == "suite":
             jobs.append(("SUITE", "tools/run_tests.sh", "", ""))
     results = []
+    page = probe_page_check(wt, contract)
+    if page is not None:   # S530: a tools/ probe is read from its own result page, never re-run (it ran for hours beside itself)
+        results.append(page)
+        jobs = jobs[1:]
     for kind, script, args, line in jobs:
         red_line = wait_not_red(f"test {script}", 30, beside_render=True)
         if red_line:
@@ -1218,6 +1244,12 @@ def selftest() -> int:
          ["--resolution", "1920x1080", "--script", "res://tools/fight3d_film.gd"]),
         ("film: a test RED_TEST has no film", film_args(dict(contract, red_test={"test": "tests/x_test.gd"})) == []),
         ("film: VISUAL no -> none", not needs_film(dict(contract, visual=False))),
+        ("probe check: a tools/ RED_TEST with no page owned is run as before",
+         probe_page_check(Path("."), {"red_test": {"test": "tools/x.gd"}, "owns": []}) is None),
+        ("probe check: a tests/ RED_TEST is run as before",
+         probe_page_check(Path("."), {"red_test": {"test": "tests/x_test.gd"}, "owns": [{"path": "docs/X_RESULT.md"}]}) is None),
+        ("probe check: a missing page fails, never re-runs",
+         probe_page_check(Path("."), {"red_test": {"test": "tools/x.gd"}, "owns": [{"path": "docs/NO_SUCH_S530_RESULT.md"}]})["ok"] is False),
         ("owned: folder", owned("docs/agy/X.md", ["docs/agy/"]) and not owned("docs/x.md", ["docs/agy/"])),
         ("literal pass line", _literal("GYM_BILLS failures=0") and not _literal("OURS <= 250/min")),
         ("title: brief prefix dropped", short_title("RIVALPAST1", "TASK RIVALPAST1 - QWEN - a test for X (Lean)") == "a test for X"),
