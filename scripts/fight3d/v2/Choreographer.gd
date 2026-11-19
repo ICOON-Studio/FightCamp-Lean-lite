@@ -80,6 +80,8 @@ static func plan(beats: Array, db: Dictionary, opts: Dictionary) -> Dictionary:
 		var off: float = 0.0
 		if result == "misses" and def == "":
 			off = _rng_range(rng, 0.15, 0.30)   # planned SHORT: the glove stops in the air in front of him
+		elif result != "lands" and result != "blocked" and def != "" and not R.is_straight(move):
+			off = R.DUCKED_OFF_M   # S531: a hook that is ducked is thrown from a little further out (film 10a, def2 #53-#60: the puncher's take carried him into the man going under it - two bodies as one shape)
 		elif result == "blocked":
 			off = _rng_range(rng, 0.10, 0.18)   # the glove meets the guard, not the face (S525: the bought guard holds the gloves a forearm out; at 0.05-0.10 a blocked uppercut put the heads 0.43 m apart)
 		var pick := _pick(rows, _pool(db, rows, move, big), sc, off, prev_gap, room, str(last_take[who]), rng, move, result == "lands")

@@ -34,11 +34,11 @@ const CENTRE_M := 0.9              # the pair's middle further than this from th
 ## S530 ANGLES: this share of the ring steps CIRCLE - both men take the side step to the same hand (each man's own
 ## right, or each man's own left), so the pair's line turns about its middle; each foot covers CIRCLE_M of arc (17 deg
 ## at the rest distance). Past CIRCLE_BACK_DEG off side-on the next circle goes back the other way (PairPlace.SLACK_DEG).
-const CIRCLE_SHARE := 0.5
+const CIRCLE_SHARE := 0.8   # S531: 0.5 gave 4 circles in 75 s once the ring steps were slowed
 ## S531: 0.20 / 8 (17 deg) was seen by neither critic of film 7; their bar is a pivot of 30-45 deg. Tried 0.34 (30 deg,
 ## slack 40 and 28): the fixed camera then looks at one man's back through a whole exchange (film 9a / 9b, ex1). So: the
 ## medium side step (a step a viewer can count), 20 deg, and no circle takes the line past CIRCLE_MAX_DEG off side-on.
-const CIRCLE_M := 0.23
+const CIRCLE_M := 0.34   # S531 with the following camera: 30 deg a circle step (0.23 = 20 deg while the tripod stood still)
 const CIRCLE_BACK_DEG := 12.0
 const CIRCLE_MAX_DEG := 22.0
 const EDGE_M := 0.75               # no ring step puts a man closer to the ropes than this
@@ -246,7 +246,8 @@ func _ring(e: Dictionary) -> Vector3:
 		# S530 a circle: when the pair is not on its way back to the middle, and both men keep their room
 		if p.pair.circle_on and mid.length() <= CENTRE_M and fmod(float(e.get("roll", 0.0)) * 13.0, 1.0) < CIRCLE_SHARE:
 			var off: float = p.pair.off_side()
-			var way := signf(off) if absf(off) > deg_to_rad(CIRCLE_BACK_DEG) else (1.0 if fmod(float(e.get("roll", 0.0)) * 29.0, 1.0) < 0.5 else -1.0)
+			# S531: one way for a whole exchange (the pair goes ROUND, the camera after it), not a coin a step
+			var way := signf(off) if absf(off) > deg_to_rad(CIRCLE_BACK_DEG) else (1.0 if (id / 30000) % 2 == 0 else -1.0)
 			var th := way * CIRCLE_M / maxf(line.length() * 0.5, 0.3)
 			if absf(off - th) > deg_to_rad(CIRCLE_MAX_DEG) and absf(off + th) < absf(off - th):
 				th = -th   # a turn of +th takes the line's angle DOWN by th (off_side's sign)

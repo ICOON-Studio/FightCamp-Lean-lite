@@ -30,7 +30,11 @@ const STEP_OUT_M := 0.35      # the attacker's step out after a burst's last pun
 ## takes the step out (his rear foot first, under his reaction), starting HURT_S after the blow. A jab moves nobody; a
 ## body shot's own stagger travels (a knock).
 const HURT_OUT_M := 0.25
-const HURT_S := 0.08
+## S531 (film 10, both critics: a landed cross moves the head 31 cm and the feet 1.5 - "a doll on a fixed stand"): the
+## step back used to start 0.08 s after the blow, INSIDE his reaction take, where no step take can play (a foot was
+## kicked and the body slid). It starts as the reaction hands back to the guard: he is hit, then steps away (a captured
+## step back, his guard up: the recovery beat).
+const HURT_S := 0.60
 const EASE_OUT_WAIT_S := 0.12 # he lands that step, then both ease back to rest ...
 const EASE_OUT_MPS := 0.8     # ... this fast
 const POCKET_M := 1.12         # just past the jab: where the pair waits between the punches of one burst

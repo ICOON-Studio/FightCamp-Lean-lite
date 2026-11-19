@@ -30,8 +30,11 @@ const SQUARE_BUSY_DPS := 9.0
 ## S531: the camera is fixed (owner S500) and neither critic of films 7 and 9 saw a circle step; what they saw is two men
 ## overlapping in the picture whenever the line is off side-on. The fight is fought on the camera's line: circling is
 ## off by default (`-- fp2circle` = on) and the slack is small.
-const SLACK_DEG := 8.0
-static var circle_on: bool = OS.get_cmdline_user_args().has("fp2circle")
+## S531 (later the same day, owner Q-S294-276: "Let the camera follow the turn"): FixedCam.follow - the tripod swings
+## after the pair, circling is back ON (`-- fp2nocircle` = off, the tripod then never needs to move). The slack is how
+## far the pair may be off the lens while the tripod catches up (or stands at the end of its swing).
+const SLACK_DEG := 24.0
+static var circle_on: bool = not OS.get_cmdline_user_args().has("fp2nocircle")
 
 var p: Node = null            # Player2
 var _want_was := 0.0          # the distance asked for last frame (how fast it changes is how fast the bodies may follow)
@@ -39,6 +42,7 @@ var _want_was := 0.0          # the distance asked for last frame (how fast it c
 
 func _init(player: Node) -> void:
 	p = player
+	FixedCam.follow = circle_on   # S531: only the v2 player swings the tripod
 
 
 ## The bodies follow the distance plan.

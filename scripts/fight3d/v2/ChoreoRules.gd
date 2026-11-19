@@ -30,6 +30,7 @@ const HOOK_FIT_M := 0.05      # hooks, uppercuts, body shots get no IK
 # --- Timing (UNDISPUTED_STUDY_S254) ---
 const SLIDE_MAX_S := 0.25     # max contact slide for stun avoidance
 const CONTROL_S := 0.13       # control back after contact (Undisputed 0.11-0.17)
+const DUCKED_OFF_M := 0.16
 const SAME_HAND_MAX_S := 0.45  # ... and only when that lands it this much later at most
 const SAME_HAND_S := 0.04      # the same hand again starts this long after control is back (S531)
 ## S531 takes whose FREE hand leaves the chin by 13-21 cm more than the guard holds it (fight_persist_rulers FREE HAND on
@@ -171,7 +172,8 @@ const REACT_VARY_SCORE := 0.30
 ## his own body, by the punch (their asks: jab 10-12 cm, cross 20-25, hook 25-30, uppercut 15-20, a body shot a fold
 ## of 30-50). The reaction take whose own head travel (clip_db head_rel_m) is nearest plays; a big shot asks more.
 ## (The film's ruler reads about 0.8 of a take's head_rel_m, so the asks sit a little over the critics' numbers.)
-const REACT_HEAD_M := {"jab": 0.15, "cross": 0.24, "lead_hook": 0.24, "rear_hook": 0.24, "lead_uppercut": 0.18,
+const REACT_HEAD_M := {"jab": 0.11,   # S531: 0.15 read 16 cm on films 9 and 10 (bar 8-12; "a jab knocks the head back further than a cross")
+	 "cross": 0.24, "lead_hook": 0.24, "rear_hook": 0.24, "lead_uppercut": 0.18,
 	"rear_uppercut": 0.18, "body_hook": 0.30}
 const REACT_BIG := 1.4
 const REACT_VARY_M := 0.045       # takes this near the best fit share the punch (variety)

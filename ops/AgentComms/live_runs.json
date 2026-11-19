@@ -1089,19 +1089,6 @@
     "board": ""
    }
   },
-  "TURNPROBE3B": {
-   "agent": "goose",
-   "id": "TURNPROBE3B",
-   "title": "Turning pro rerun: fork fixes + the day-job question",
-   "status": "landed",
-   "started": "2026-11-19T22:35",
-   "where": "cloud",
-   "brief": "ops/research/TASK_TURNPROBE3B.md",
-   "issue": 410,
-   "eta": "2026-11-19T23:30",
-   "note": "S530; goose/issue-410",
-   "finished": "2026-11-20T00:05"
-  },
   "LEDGERCRITIC5A": {
    "agent": "arena",
    "id": "LEDGERCRITIC5A",
@@ -1134,25 +1121,91 @@
    "agent": "goose",
    "id": "TURNREV5",
    "title": "Turning pro map v5 from the code, against the measured lines",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-20T00:05",
    "where": "cloud",
    "brief": "ops/research/TASK_TURNREV5.md",
    "issue": 412,
    "eta": "2026-11-20T01:00",
-   "note": "S530; goose/issue-412"
+   "note": "S530; goose/issue-412",
+   "finished": "2026-11-20T01:00"
   },
   "SIGPACE1": {
    "agent": "goose",
    "id": "SIGPACE1",
    "title": "Signature pace on the real career loop (camps, better pads coach)",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-20T00:30",
    "where": "cloud",
    "brief": "ops/research/TASK_SIGPACE1.md",
    "issue": 413,
    "eta": "2026-11-20T01:45",
-   "note": "S530; goose/issue-413"
+   "note": "S530 collected: coach 58 = 0% Signature, coach 75 = 15-20% by w52; the careers end ~year 1 (gym closes) - read at the bottom of docs/SIGPACE1_RESULT.md",
+   "finished": "2026-11-20T02:00"
+  },
+  "STEPTUNE3": {
+   "agent": "qwen",
+   "id": "STEPTUNE3",
+   "title": "TASK STEPTUNE3 - size the footwork steps' levers on the phase-1 code, from TREEVALUE5 (tuning)",
+   "status": "running",
+   "started": "2026-11-19T22:11",
+   "eta": "2026-11-20T00:01",
+   "branch": "qwen/steptune3",
+   "worktree": "E:/FightCamp/wt/LEAN_STEPTUNE3",
+   "wt": "E:/FightCamp/wt/LEAN_STEPTUNE3",
+   "brief": "ops/research/TASK_STEPTUNE3.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/STEPTUNE3_dispatch_out.txt",
+   "match": "seat_dispatch.py run steptune3",
+   "model": "qwen4-max",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/STEPTUNE3_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/STEPTUNE3_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/STEPTUNE3_dispatch_runner.log",
+    "source": "roadmap plan.next",
+    "brief_copied": false,
+    "runner_pid": 40880,
+    "seat_pid": 48008
+   },
+   "note": "S368 seat_dispatch: launched unattended (roadmap plan.next); merging stays off"
+  },
+  "TURNCRITIC5A": {
+   "agent": "arena",
+   "id": "TURNCRITIC5A",
+   "title": "Fresh critic: turning pro map v5",
+   "status": "landed",
+   "started": "2026-11-20T01:05",
+   "where": "cloud",
+   "repo": "FightCamp-Lean-lite",
+   "brief": "ops/research/TASK_TURNCRITIC5A.md",
+   "chat": "https://arena.ai/agent/01a1f572-ba3e-7593-ae0e-bd37eaa037b9",
+   "eta": "2026-11-20T01:50",
+   "note": "S530 collected: 5/5 - v5's gap change has the wrong sign (bigger gap = weaker opponent); measure a curve -> TURNGAP1",
+   "finished": "2026-11-20T02:40"
+  },
+  "GYMSURVIVE1": {
+   "agent": "goose",
+   "id": "GYMSURVIVE1",
+   "title": "Does a fresh gym survive two years (passive / sensible / lean)",
+   "status": "running",
+   "started": "2026-11-20T02:20",
+   "where": "cloud",
+   "brief": "ops/research/TASK_GYMSURVIVE1.md",
+   "issue": 414,
+   "eta": "2026-11-20T03:30",
+   "note": "S530; goose/issue-414"
+  },
+  "TURNGAP1": {
+   "agent": "goose",
+   "id": "TURNGAP1",
+   "title": "Debut gap -> win chance curve on one fixed boxer",
+   "status": "running",
+   "started": "2026-11-20T02:45",
+   "where": "cloud",
+   "brief": "ops/research/TASK_TURNGAP1.md",
+   "eta": "2026-11-20T03:45",
+   "note": "S530"
   }
  },
  "codex_budget": {

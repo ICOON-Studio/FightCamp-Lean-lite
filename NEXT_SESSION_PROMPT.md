@@ -526,6 +526,38 @@ control arm; the shipped player is untouched without the switch.
     each that reads red on film 9 first (arm out worst <= 6; free glove within 15 cm of the chin; hips never under
     0.45 m / no boot within 15 cm of a boot; ankles never under 0.30 m apart). If 1-4 green still films at 5, the
     takes are the limit and the mocap-pack question (owner: end of November) is the next step, with this as evidence.
+  * FILM 10 (the owner: "Yes, that scope"; `v2r14/`, commits 07bff4cbb + 81712129b) = 5.0 (coach) / 5.0 (animator).
+    Areas coach / animator: punches 5.0 / 5.5, defence + reactions 5.0 / 4.5, footwork 4.5 / 4.5, transitions 5.0 / 5.0,
+    WAITING 5.5 / 5.0 (film 9: 3.5 / 4.0 - the only area that moved). SEVEN FILMS, ALL 4.5-5.0.
+    BUILT: range / tempo FROZEN (ChoreoRules.REST_M 1.45, a half step in every 4-7 s, ring-step pause 1.4-2.4 s, the
+    rock at rest off: do not tune these to a round's words again); `tools/fight_persist_rulers.py <dir> [list]` (arm
+    home / free hand / apart / stance, each man against his own guard) - film 9 -> film 10: arm home median 6 -> 5
+    frames (late 5 -> 3), free hand out 4 of 35 -> 1 of 31, chests never within 0.30 m on either, stance under 0.30 m
+    0.3 %: BY THE RULERS THE "SIX FAULTS" WERE A HANDFUL OF TAKES, and fixing them did not move the score. Also: arm
+    handed back 0.03 / 0.08 s after contact; FREE_HAND_OUT takes play last; NO SIDE DODGE (a slip = a weave on the
+    spot); circling OFF (`-- fp2circle`), the pair on the camera's line (5 deg off, was 16); block = `pro_idle_to_block`;
+    the attacker alone walks in; a ducked hook thrown 16 cm further out; st_wait rebaked with planted feet. THE STEP
+    RULER WAS WRONG: it counted a raised HEEL (ankle y) - "90 steps a minute" was 56 real ones; it reads the toes now
+    (film 10: 46). TWO REAL BUGS (player2_test LANDS 12 -> 14 of 14): a punch thrown twice with one take was handed
+    back to the guard by the FIRST one's entry (Player2 `born`), and a follow-up started before the punch before it
+    had landed (Choreographer base_ct floor = landed + WIND_MIN_S + 0.05).
+    WHAT FILM 10'S CRITICS SAY (the faults of films 6-9 are mostly gone from their lists: "arms come home fast", "the
+    range is right", "the wait is alive", "46 steps a minute is a sensible number"): (1) THE RING: "they never leave
+    one straight line", pivots of 45-70 deg, the pair turning 60-120 deg in 30 s, a man walked to the ropes - this
+    fights the fixed side camera (30 deg puts a back over the punches; S530's 17 deg and S531's 20 deg were seen by
+    nobody). It is a CAMERA decision, the owner's (S500: "camera is fixed always"), not a tuning one. (2) A HIT MOVES
+    ONLY THE HEAD: "a cross 30.9 cm of head, 1.5 cm of back step" - ChoreoGap.HURT_OUT_M is planned but the hit man is
+    in his reaction take, so StepPlay only kicks a foot: BUILDABLE (a reaction take with travel, or the step out as
+    the take after the reaction). (3) Jab reaction 16 cm (bar 8-12): REACT_HEAD_M jab 0.15 -> ~0.10. (4) Punches
+    "start from a dead stance", combinations of 3-4 as one motion, counters after a slip, a miss answered, a real
+    clinch, a catch / parry, hooks "reach round, not through": mostly TAKES WE DO NOT OWN. (5) `pro_left_weave` pops
+    17 cm inside the take when joined part-way (def2 #18-#19); the long lunge in `pro_back_dodge` and the hard hook.
+    VERDICT FOR THE OWNER: tuning and take-picking is spent at 5. What is left is (a) the hit man's step + jab size +
+    weave join (buildable, maybe +0.5), (b) a camera that lets the pair turn (his call), (c) takes for clinch, catch,
+    counters, combinations (the mocap pack, end of November). Put (b) and (c) to him; do (a) meanwhile.
+    CRITIC TRAP: both film-10 critics wrote that the ex1-ex4 pictures "dropped out of my context" (66 sheets is too
+    many): they scored the exchanges from the rulers. Next round: 36-40 sheets (3 ex, 2 def, 2 wait), or one critic
+    per half.
   * TRAPS: `off_side()`'s sign - a pair turn of +th takes the line's angle DOWN by th (my first cap flipped circles the
     wrong way: 36 deg off, a back over the punches in ex1; rulers saw nothing, the sheet did - LOOK AT ONE EX SHEET
     BEFORE THE CRITICS); 30 deg circles put a back to the fixed camera whatever the slack; the film's FP2 log is in

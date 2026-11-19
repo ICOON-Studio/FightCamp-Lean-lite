@@ -41,6 +41,18 @@ static func zoom_by(steps: int) -> float:
 	return zoom
 
 static var on: bool = not OS.get_cmdline_user_args().has("tvcam")
+## S531 THE CAMERA FOLLOWS THE TURN (owner, board Q-S294-276, asked "allow a camera that follows the pair as they turn (a
+## slow swing, still one broadcast view)": "Let the camera follow the turn"; seven films at 5/10, every critic: "they
+## never leave one straight line" - and a pair that circles in front of a tripod that cannot move shows a back over the
+## punches). Only the v2 fight player switches it on (Player2.setup); the shipped player keeps the S500 tripod. The
+## tripod walks round the ring's middle to stay square to the pair's line: at most FOLLOW_DPS, nothing inside
+## FOLLOW_DEAD_DEG, and never further than FOLLOW_MAX_DEG from where it stood when the round began (one side of the
+## ring: no corner post crosses the lens, the crowd behind stays the same crowd). No cut, the same framing.
+static var follow := false
+const FOLLOW_DPS := 22.0
+const FOLLOW_GAIN := 1.6
+const FOLLOW_DEAD_DEG := 3.0
+const FOLLOW_MAX_DEG := 32.0
 
 
 ## Where the tripod stands for a round: on the side of the ring that sees the pair side-on (their line `b - a` runs
@@ -92,6 +104,29 @@ static func keep_square(boxers: Array, cam: Variant, delta: float) -> void:
 	boxers[1]["pos"] = mid + (b - mid).rotated(Vector3.UP, turn)
 
 
+## The tripod at `pos` one frame on: walked round the ring's middle toward square-on to the pair a -> b (pure).
+static func swing(pos: Vector3, home: Vector3, a: Vector3, b: Vector3, dt: float) -> Vector3:
+	var d := Vector3(b.x - a.x, 0.0, b.z - a.z)
+	var mid := (a + b) * 0.5
+	var to_cam := Vector3(pos.x - mid.x, 0.0, pos.z - mid.z)
+	if d.length() < 0.05 or to_cam.length() < 0.05:
+		return pos
+	var line := Vector3.UP.cross(to_cam.normalized())
+	if d.dot(line) < 0.0:
+		line = -line
+	var ang: float = atan2(d.cross(line).y, d.dot(line))   # the turn that would square the PAIR: the tripod goes the other way
+	if absf(ang) < deg_to_rad(FOLLOW_DEAD_DEG):
+		return pos
+	var most: float = deg_to_rad(FOLLOW_DPS) * dt
+	var step: float = clampf(-ang * FOLLOW_GAIN * dt, -most, most)
+	var flat := Vector3(pos.x, 0.0, pos.z).rotated(Vector3.UP, step)
+	var h := Vector3(home.x, 0.0, home.z)
+	var away: float = h.signed_angle_to(flat, Vector3.UP)
+	if absf(away) > deg_to_rad(FOLLOW_MAX_DEG):
+		flat = h.rotated(Vector3.UP, signf(away) * deg_to_rad(FOLLOW_MAX_DEG))
+	return Vector3(flat.x, pos.y, flat.z)
+
+
 static func look_for(a: Vector3, b: Vector3) -> Vector3:
 	return Vector3((a.x + b.x) * 0.5, LOOK_H, (a.z + b.z) * 0.5)
 
@@ -107,7 +142,11 @@ static func show(cam: Camera3D, a: Vector3, b: Vector3, snap: bool, dt: float) -
 	var want: Vector3 = look_for(a, b)
 	if not cam.has_meta("fixed_pos"):   # once: the pair is kept side-on to it (keep_square), so it never needs moving
 		cam.set_meta("fixed_pos", spot_for(a, b))
+		cam.set_meta("fixed_home", cam.get_meta("fixed_pos"))
 	var POS: Vector3 = cam.get_meta("fixed_pos")
+	if follow and dt > 0.0:
+		POS = swing(POS, cam.get_meta("fixed_home", POS), a, b, dt)
+		cam.set_meta("fixed_pos", POS)
 	var to_cam := Vector3(POS.x - want.x, 0.0, POS.z - want.z).normalized()
 	var across: float = absf(Vector3(b.x - a.x, 0.0, b.z - a.z).dot(Vector3.UP.cross(to_cam)))
 	var size: Vector2 = cam.get_viewport().get_visible_rect().size if cam.is_inside_tree() else Vector2(16.0, 9.0)

@@ -58,4 +58,24 @@ func _initialize() -> void:
 	FC.pick(0, null)
 	_check(FC.on and FC.mode == 0, "and Side brings it back")
 	print("FIXED_CAM failures=%d" % failures)
+	# S531 the tripod follows the turn (owner Q-S294-276; v2 player only)
+	_check(not FC.follow, "the shipped player's tripod stands still (follow is off until the v2 player asks)")
+	var home := Vector3(0.0, FC.UP_M, FC.OUT_M)
+	var c := home
+	var ta := Vector3(-0.6, 0.0, 0.0).rotated(Vector3.UP, deg_to_rad(20.0))
+	var tb := Vector3(0.6, 0.0, 0.0).rotated(Vector3.UP, deg_to_rad(20.0))
+	_check(FC.swing(home, home, Vector3(-0.6, 0.0, 0.0), Vector3(0.6, 0.0, 0.0), 1.0 / 30.0) == home, "a pair side-on to it: it does not move")
+	var fastest := 0.0
+	for k in 300:
+		var n := FC.swing(c, home, ta, tb, 1.0 / 30.0)
+		fastest = maxf(fastest, rad_to_deg(Vector3(c.x, 0.0, c.z).angle_to(Vector3(n.x, 0.0, n.z))) * 30.0)
+		c = n
+	_check(absf(rad_to_deg(FC.square(ta, tb, c, 1.0 / 30.0))) < 0.01 and absf(Vector3(c.x, 0.0, c.z).length() - FC.OUT_M) < 0.001 and absf(c.y - FC.UP_M) < 0.001, "a pair turned 20 deg: in 10 s it stands square to them again, as far out and as high")
+	_check(fastest <= FC.FOLLOW_DPS + 0.01, "it never swings faster than %.0f deg a second (%.1f)" % [FC.FOLLOW_DPS, fastest])
+	ta = Vector3(-0.6, 0.0, 0.0).rotated(Vector3.UP, deg_to_rad(70.0))
+	tb = Vector3(0.6, 0.0, 0.0).rotated(Vector3.UP, deg_to_rad(70.0))
+	for k in 600:
+		c = FC.swing(c, home, ta, tb, 1.0 / 30.0)
+	var gone := rad_to_deg(Vector3(home.x, 0.0, home.z).angle_to(Vector3(c.x, 0.0, c.z)))
+	_check(gone <= FC.FOLLOW_MAX_DEG + 0.01 and gone > FC.FOLLOW_MAX_DEG - 1.0, "a pair turned 70 deg: it stops %.0f deg from where it began (%.1f)" % [FC.FOLLOW_MAX_DEG, gone])
 	quit(1 if failures > 0 else 0)
