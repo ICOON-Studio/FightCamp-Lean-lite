@@ -2,12 +2,15 @@ extends RefCounted
 ## S356 the coach's one line on the whiteboard (operator Q-S294-84 "Yes, build it", the Miro "Whiteboard planner" mockup:
 ## "Thursday's in the red. Swap the bag for pads and still makes weight."): the most urgent change to this week, in his
 ## words, from the numbers the board already shows. Order: a day in the red (fatigue 80+ or two Hard mornings in a row), the
-## weight line, the camp's stat line; else the week lands and he says leave it.
+## weight line, a day at the injury band (S528, 76+), the camp's stat line; else the week lands and he says leave it.
 ##   line(days, wk, lines, diet) -> String   (days = the week shown; wk = WeekPlan.week; lines = WeekPlan.goal_lines)
 ##   advice(days, wk, lines, diet) -> {say, fix, short}   fix = {dow, card} (one morning), {diet} or {} (S397: the board's Apply)
 ## Pure static.
 
 const WeekPlan := preload("res://scripts/rules/WeekPlan.gd")
+const InjuryRoll := preload("res://scripts/rules/InjuryRoll.gd")
+## S528: from this tiredness the week-end injury roll is doubled (InjuryRoll.fatigue_mult: x2 at 76) - he pulls it back.
+const INJURY_HOT := InjuryRoll.FATIGUE_RISK_FROM + InjuryRoll.FATIGUE_RISK_SPAN
 
 const DAY_NAMES := ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 ## The session that builds each stat (the one he names when a line falls short).
@@ -42,6 +45,14 @@ static func advice(days: Array, wk: Dictionary, lines: Array, diet: String) -> D
 				return {"say": "This week ends %.1f kg over the limit. Switch the diet to Cut." % kg, "fix": {"diet": "cut"}, "short": kg}
 			var hd := harder(days, "conditioning")
 			return {"say": "Still %.1f kg over on a cut. %s." % [kg, _do(days, hd, "roadwork")], "fix": hd, "short": kg}
+	# S528 (render of the Training tab: "injury risk x2.4" beside "The week lands on every line. Leave it."): a day at
+	# INJURY_HOT or over doubles the week's injury risk - he takes that morning down before pushing any goal harder.
+	for i in (wk.get("days", []) as Array).size():
+		if float(wk["days"][i]["fatigue"]) >= INJURY_HOT and str(days[i][0]) != "rest":
+			var s2 := str(WeekPlan.session(str(days[i][0]))["name"]).to_lower()
+			var card: Array = [str(days[i][0]), "light"] if str(days[i][1]) != "light" else ["rest", "light"]
+			return {"say": "%s ends at %d - from %d the injury risk doubles. %s." % [DAY_NAMES[i], roundi(float(wk["days"][i]["fatigue"])),
+				roundi(INJURY_HOT), ("Take the %s down to Light" % s2) if card[0] != "rest" else "Rest it"], "fix": {"dow": i, "card": card}, "short": 0.0}
 	for ln in lines:
 		var id := str(ln["id"])
 		if id != "weight" and id != "fatigue" and id != "opp" and not bool(ln["ok"]):

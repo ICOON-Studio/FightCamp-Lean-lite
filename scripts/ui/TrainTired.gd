@@ -9,6 +9,7 @@ const B := preload("res://scripts/ui/TrainBits.gd")
 const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const TextScale := preload("res://scripts/ui/TextScale.gd")
+const INJURY_ICON := preload("res://assets/ui/art/injury/injury_risk.png")   # S528 Ludo (1.5 credits, 3 tries)
 
 const H := 130.0
 
@@ -25,7 +26,7 @@ static func make(model: Dictionary, left_w: float, col_w: float, gap: float, on_
 	var sub := B.lab("end of each day", 16, Palette.MUTED, "body")
 	sub.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	lab.add_child(sub)
-	lab.add_child(_risk(model["tired"]))
+	lab.add_child(_risk_row(model["tired"]))
 	row.add_child(lab)
 	var ch := Chart.new()
 	ch.name = "TiredChart"
@@ -82,6 +83,26 @@ static func _diet(model: Dictionary, on_diet: Callable) -> PanelContainer:
 	p.custom_minimum_size = Vector2(170, 0)
 	p.size_flags_vertical = Control.SIZE_SHRINK_END
 	return p
+
+
+## S528: the risk line, with Ludo's wrapped-fist icon in front when the risk is raised (x1.05 and up).
+static func _risk_row(t: Dictionary) -> HBoxContainer:
+	var h := HBoxContainer.new()
+	h.name = "InjuryRiskRow"
+	h.add_theme_constant_override("separation", 4)
+	if float(t.get("injury_x", 1.0)) >= 1.05:
+		var ic := TextureRect.new()
+		ic.name = "InjuryIcon"
+		ic.texture = INJURY_ICON
+		ic.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		ic.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		ic.custom_minimum_size = Vector2(22, 22)
+		ic.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		h.add_child(ic)
+	var l := _risk(t)
+	l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	h.add_child(l)
+	return h
 
 
 ## S528: the week's injury risk (Injuries' week-end roll): hours against her usual x the week's peak tiredness.

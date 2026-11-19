@@ -76,6 +76,12 @@ func _initialize() -> void:
 	# S528 ONELOOK1: the week's injury risk was only in the hidden THIS CAMP box - it shows (visible) beside the tiredness line
 	var risk := page.find_child("InjuryRisk", true, false) as Label
 	_check(risk != null and risk.is_visible_in_tree() and risk.text.begins_with("injury risk"), "the tiredness row shows the injury risk (%s)" % (risk.text if risk != null else "none"))
+	var hot_row: HBoxContainer = load("res://scripts/ui/TrainTired.gd")._risk_row({"injury_x": 2.0, "load": 1.5, "peak": 77.0})
+	var calm_row: HBoxContainer = load("res://scripts/ui/TrainTired.gd")._risk_row({"injury_x": 1.0})
+	_check(hot_row.find_child("InjuryIcon", false, false) != null and calm_row.find_child("InjuryIcon", false, false) == null
+		and (hot_row.find_child("InjuryRisk", false, false) as Label).text == "injury risk x2.0", "a raised risk gets Ludo's icon, a normal week none")
+	hot_row.free()
+	calm_row.free()
 	# S511 club week 3.3 WEAK SPOT: a boxer 3+ under level on Defence reads the hole and who finds it in MORNINGS
 	var fw: Dictionary = c.fighter_by_id(str(m["sel"]))
 	var st: Dictionary = fw.get("stats", {})

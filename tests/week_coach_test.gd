@@ -47,6 +47,14 @@ func _initialize() -> void:
 	_check(not (rad["fix"] as Dictionary).is_empty() and str(rad["fix"]["card"][1]) == "light", "the red day's fix takes it to Light")
 	var wad := WC.advice(easy, WP.week(easy, _ctx("hold", 20.0), WP.evenings_for(1)), [{"id": "weight", "ok": false, "short": 0.4}], "hold")
 	_check(wad["fix"] == {"diet": "cut"}, "over the limit: the fix is the Cut diet")
+	# S528: a day at 76+ doubles the week's injury risk (InjuryRoll) - the coach takes it down before saying leave it.
+	var tues_hot := {"days": [{"fatigue": 60.0}, {"fatigue": 77.0}, {"fatigue": 70.0}, {"fatigue": 65.0}, {"fatigue": 60.0}, {"fatigue": 55.0}, {"fatigue": 50.0}], "red": []}
+	var hot := WC.advice(easy, tues_hot, [], "hold")
+	_check(str(hot["say"]).begins_with("Tuesday ends at 77 - from 76 the injury risk doubles.") and int(hot["fix"].get("dow", -1)) == 1
+		and (str(hot["fix"]["card"][1]) == "light" or str(hot["fix"]["card"][0]) == "rest"), "a day at 76+: the coach takes it down (%s)" % str(hot["say"]))
+	var tues_ok := tues_hot.duplicate(true)
+	tues_ok["days"][1]["fatigue"] = 75.0
+	_check(str(WC.advice(easy, tues_ok, [], "hold")["say"]) == "The week lands on every line. Leave it.", "75 at the top: he leaves it")
 	print("WEEK_COACH %s" % ("PASS" if _fails == 0 else "FAIL %d" % _fails))
 	quit(0 if _fails == 0 else 1)
 
