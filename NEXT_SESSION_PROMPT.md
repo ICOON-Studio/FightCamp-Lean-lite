@@ -539,7 +539,7 @@ control arm; the shipped player is untouched without the switch.
     step pictures over my 3 cm line, 70 % of blue's; the same 3-6 cm). FIX in the bake (`tools/step_bake.gd`
     `_flatten`, commit 54d727cfc): while a foot's toes are on the canvas the refit turns the boot flat about its ball
     (ankle lowered by the heel's rise, the toes' bend back to the guard's), the take's own boot once the toes are 6 cm
-    up. Lead heel up in a step: 1 % / 1 % on film 8. Rebake = `step_bake.gd -- E:/FightCamp/packs/mixamo_steps refit`
+    up. Lead heel up in a step: 1 % / 1 % on film 8. THE OWNER CONFIRMED IT ("Yes, boots are fine"): closed. Rebake = `step_bake.gd -- E:/FightCamp/packs/mixamo_steps refit`
     then `step_census.gd -- db`. RULERS: `s530/toes.py <dir>` (heels by kind of take), `tools/foot_pitch_probe.gd`
     (any take raw on both bodies). CAREFUL with `st_bounce` for the living wait: its lead heel is up in 71 % of its
     pictures - refit it through `_flatten` (add it to `StepClips.REFIT`) before it goes on screen, or he will say it again.
