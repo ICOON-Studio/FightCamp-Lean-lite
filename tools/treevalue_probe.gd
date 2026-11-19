@@ -72,7 +72,7 @@ func _plan_for(nid: String) -> Array:
 		if str(a["move"]) == nid:
 			mine = str(a.get("when", ""))
 	if mine == "":
-		return PLAN.duplicate(true)
+		return _swept_first(PLAN.duplicate(true), nid)
 	# S464 second fix: an arrow fires only on its OWN card (StrikeMap "from") at its when (PlanBoard.pick); "range" is fought on
 	# the long card while step_in starts from outside, so a planned "step_in:range" can never fire. The swept node is planned
 	# ANY TIME here (its when dropped), like step_back / pivot_out / tie_up, so it fires whenever the bout reaches its card.
@@ -80,7 +80,23 @@ func _plan_for(nid: String) -> Array:
 	for a in out:
 		if str(a["move"]) == nid:
 			a.erase("when")
-	return out
+	return _swept_first(out, nid)
+
+
+## S527: PlanBoard.pick takes the FIRST any-time arrow on a card, and tie_up (any time, inside) came before roll_out, so
+## TREEVALUE3's roll_out never fired (0 uses in every style). The swept arrow goes first: the with-arm plays it where it
+## starts, the without-arm falls back to whatever the plan had there (a player's real choice between the two).
+## S527: `-- only=roll_out,push_off` sweeps just those steps (default: every step).
+func _sweep_steps() -> Array:
+	for a in OS.get_cmdline_user_args():
+		if str(a).begins_with("only="):
+			return str(a).substr(5).split(",")
+	return StepValue.STEPS
+
+
+func _swept_first(plan: Array, nid: String) -> Array:
+	var head: Array = plan.filter(func(a): return str(a["move"]) == nid)
+	return head + plan.filter(func(a): return str(a["move"]) != nid)
 
 
 func _find_opp(name: String) -> Dictionary:
@@ -250,7 +266,7 @@ func _initialize() -> void:
 	print("--- SWEEP: each step at Sharp and OK grade, plan with its line vs the same plan without it ---")
 	var results := {}
 	var without_fires := 0
-	for step in StepValue.STEPS:
+	for step in _sweep_steps():
 		var sid: String = str(step)
 		var with_plan := _plan_for(sid)
 		var without_plan: Array = with_plan.filter(func(a): return str(a["move"]) != sid)
@@ -297,7 +313,7 @@ func _initialize() -> void:
 	print(header)
 	var pass_count := 0
 	var fail_lines: Array = []
-	for step in StepValue.STEPS:
+	for step in _sweep_steps():
 		var sid: String = str(step)
 		var cells: Dictionary = results[sid]["cells"]
 		var lg := Cells.legs(sid, cells)
@@ -322,9 +338,10 @@ func _initialize() -> void:
 		print(fl)
 	print("Without-arm planned fires of the swept steps: %d (must be 0)" % without_fires)
 	var elapsed := float(Time.get_ticks_msec() - t0) / 1000.0
-	Cells.write_doc({"dt": Time.get_datetime_string_from_system(), "results": results, "n_bouts": N_BOUTS,
-		"seed_sets": SEED_SETS, "n_fighters": N_FIGHTERS, "seed_start": SEED_START, "opp_rating": opp_rating,
-		"calib_wins": calib_wins, "det": {"a": int(det_a["wins"]), "b": int(det_b["wins"]), "fa": int(det_a["fires"]), "fb": int(det_b["fires"])},
-		"grade_ok": grade_ok, "without_fires": without_fires, "elapsed_s": elapsed})
+	if _sweep_steps().size() == StepValue.STEPS.size():   # S527: a filtered run prints only, the full doc stays whole
+		Cells.write_doc({"dt": Time.get_datetime_string_from_system(), "results": results, "n_bouts": N_BOUTS,
+			"seed_sets": SEED_SETS, "n_fighters": N_FIGHTERS, "seed_start": SEED_START, "opp_rating": opp_rating,
+			"calib_wins": calib_wins, "det": {"a": int(det_a["wins"]), "b": int(det_b["wins"]), "fa": int(det_a["fires"]), "fb": int(det_b["fires"])},
+			"grade_ok": grade_ok, "without_fires": without_fires, "elapsed_s": elapsed})
 	print("TREEVALUE2 done pass=%d/10" % pass_count)
 	quit(0)

@@ -3400,20 +3400,56 @@
    "seat": "dola",
    "brief": "research/DESIGN_COACHFIT1_V9_REVISE_DOLA.md",
    "stem": "DESIGN_COACHFIT1_V9_REVISE_DOLA_DOLA",
-   "status": "sent",
+   "status": "answered",
    "queued_at": "2026-11-19 13:15",
    "tries": 0,
    "sent_at": "2026-11-19 13:40",
    "pid": 26088,
-   "transcript": "AgentComms/seat_logs/SQ231_dola.txt"
+   "transcript": "AgentComms/seat_logs/SQ231_dola.txt",
+   "answered_at": "2026-11-19 14:10",
+   "answer": "research/DESIGN_COACHFIT1_V9_REVISE_DOLA_DOLA.md",
+   "seen_by_claude": true
   },
   {
    "id": "SQ232",
    "seat": "dola",
    "brief": "research/DESIGN_LEDGER1_V2_REVISE_DOLA.md",
    "stem": "DESIGN_LEDGER1_V2_REVISE_DOLA_DOLA",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-19 13:51",
+   "tries": 0,
+   "sent_at": "2026-11-19 14:40",
+   "pid": 34028,
+   "transcript": "AgentComms/seat_logs/SQ232_dola.txt",
+   "answered_at": "2026-11-19 15:10",
+   "answer": "research/DESIGN_LEDGER1_V2_REVISE_DOLA_DOLA.md",
+   "seen_by_claude": true
+  },
+  {
+   "id": "SQ233",
+   "seat": "dola",
+   "brief": "research/DESIGN_LEDGER1_V2_CRITIC_DOLA.md",
+   "stem": "DESIGN_LEDGER1_V2_CRITIC_DOLA_DOLA",
+   "status": "queued",
+   "queued_at": "2026-11-19 15:53",
+   "tries": 0
+  },
+  {
+   "id": "SQ234",
+   "seat": "dola",
+   "brief": "research/DESIGN_COACHFIT1_V9B_FINISH_DOLA.md",
+   "stem": "DESIGN_COACHFIT1_V9B_FINISH_DOLA_DOLA",
+   "status": "queued",
+   "queued_at": "2026-11-19 15:53",
+   "tries": 0
+  },
+  {
+   "id": "SQ235",
+   "seat": "dola",
+   "brief": "research/DESIGN_TURNPRO1_V3_REVISE_DOLA.md",
+   "stem": "DESIGN_TURNPRO1_V3_REVISE_DOLA_DOLA",
+   "status": "queued",
+   "queued_at": "2026-11-19 15:54",
    "tries": 0
   }
  ]

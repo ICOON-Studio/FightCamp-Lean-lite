@@ -32,7 +32,7 @@ const Promises := preload("res://scripts/rules/Promises.gd")   # S487 R58 M5: a 
 const Champs := preload("res://scripts/state/Champs.gd")
 const PeakCamp := preload("res://scripts/rules/PeakCamp.gd")
 const WeekPhase := preload("res://scripts/rules/WeekPhase.gd")
-const GymSpend := preload("res://scripts/state/GymSpend.gd")
+const GymDeals := preload("res://scripts/state/GymDeals.gd")   # S525 SPLIT500C: the pro camp's bill moved out of GymSpend
 const FirstHour := preload("res://scripts/rules/FirstHour.gd")
 const HeadCoach := preload("res://scripts/rules/HeadCoach.gd")
 const ClubStart := preload("res://scripts/rules/ClubStart.gd")
@@ -328,7 +328,7 @@ static func start_camp(c: Career, f: Dictionary, focus: String, protocol: int, f
 	f["load_setting"] = BoutRules.camp_level(protocol)
 	if film:
 		tape_days(c, f)
-	return cost + GymSpend.pro_camp(c, f)   # S397 a pro camp's bill and the cutman's night
+	return cost + GymDeals.pro_camp(c, f)   # S397 a pro camp's bill and the cutman's night
 
 
 ## S341 tape study (OppFile): the camp's sessions so far open her file one tell each (weapon first, weakness last); each

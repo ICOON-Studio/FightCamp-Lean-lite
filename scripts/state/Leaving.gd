@@ -46,7 +46,7 @@ static func ranked(c: Career, f: Dictionary) -> bool:
 static func release_fee(c: Career, f: Dictionary) -> int:
 	if not bool(f.get("pro", false)):
 		return 0
-	var take := int(load("res://scripts/state/GymSpend.gd").year_take(c, f))   # load(): GymSpend preloads this file
+	var take := int(load("res://scripts/state/GymDeals.gd").year_take(c, f))   # load(): GymDeals preloads GymSpend, which preloads this file
 	return maxi(FEE_MIN, roundi(float(take) * StarDeal.YEAR_BONUS / 100.0) * 100)
 
 

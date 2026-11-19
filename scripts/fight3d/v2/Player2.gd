@@ -33,11 +33,23 @@ const GUARD := "pro_idle"
 ## back to the guard 0.30).
 const JOIN := {"punch": Vector2(0.05, 0.15), "reaction": Vector2(0.035, 0.11), "block": Vector2(0.02, 0.06),
 	"defence": Vector2(0.05, 0.15), "guard": Vector2(0.10, 0.30), "pass": Vector2(0.10, 0.30),
-	"fidget": Vector2(0.10, 0.30), "feint": Vector2(0.05, 0.15)}
+	"fidget": Vector2(0.10, 0.30), "feint": Vector2(0.05, 0.15), "step": Vector2(0.07, 0.22)}
 const JOIN_TURN := Vector2(0.08, 0.24)
 const JOIN_HOME := Vector2(0.06, 0.22)   # the punching hand back to the guard (ChoreoRules.ARM_HOME_S)
 const LEAD_MPS := 2.0         # a reaction's lost travel is given at most this fast (0.19 m in 0.11 s, 0.5 m in 0.25 s)
-const WAITING := ["", "guard", "fidget", "feint"]   # what a wait thing (ChoreoWait) may take over
+const WAITING := ["", "guard", "fidget", "feint", "step"]   # what a wait thing (ChoreoWait) may take over
+## S527 (the owner on film 5, C434: "why the fighter do not walk ?"): v2 plays NO step take. The plan moves a body
+## while the guard take plays and the leg layer (FootPlant) drags each foot after it, so he glides. First try, built
+## and MEASURED WORSE, so it is off unless `-- fp2steps`: a planned step plays the owned step take (advance /
+## retreat: in-place cycles, stride STEP_MPS at 1x) at the rate of the ground the plan covers. Headless, seed 7
+## (s525/m): support-foot slip 7.0 / 7.5 -> 20.6 / 27.9 m, knee jerks up. Why: FootPlant still owns the feet and
+## fights the take's own steps, and the step takes are another actor's stance (knees 122 deg, the guard 141-150).
+## To finish it: hand the feet to the take while it plays (FootPlant off and re-planted after), start the cycle
+## on the right foot, and plan whole steps (0.4-0.5 s each) instead of 0.2 s ramps.
+const STEP_MPS := 1.74
+const STEP_RATE := Vector2(0.55, 1.3)
+const STEP_MIN_S := 0.18
+static var steps_on: bool = OS.get_cmdline_user_args().has("fp2steps")
 const DOWN := ["knock", "fall", "countdown", "win", "ko_"]
 
 var st: Node = null
@@ -218,8 +230,11 @@ func _event(i: int, e: Dictionary) -> void:
 	var kind := str(e["kind"])
 	if _down(i):
 		return
-	if kind in ["step", "pivot", "pass"]:
-		return   # the distance plan moves the body; FootLock steps the feet
+	if kind == "step":
+		_step(i, e)
+		return
+	if kind in ["pivot", "pass"]:
+		return   # the distance plan moves the body
 	var clip := str(e["clip"])
 	if clip == "" or not _has(i, clip):
 		return
@@ -257,6 +272,21 @@ func _event(i: int, e: Dictionary) -> void:
 	_due.append([ct + R.arm_home_s(move), func() -> void:   # S526: the arm comes home (after the contact's own entry: same tick, this order)
 		if str(_take[i].get("clip", "")) == clip and str(_take[i].get("kind", "")) == "punch":
 			_join_next = JOIN_HOME
+			guard(i)])
+
+
+## A planned step (ChoreoGap.steps): the step take for as long as the plan moves him, then the guard.
+func _step(i: int, e: Dictionary) -> void:
+	var dur := float(e["end_t"]) - float(e["t"])
+	if not steps_on or dur < STEP_MIN_S or not (str(_take[i].get("kind", "")) in WAITING):
+		return
+	var clip := "advance" if float(e["m"]) < 0.0 else "retreat"
+	if not _has(i, clip):
+		return
+	_play(i, clip, 0.0, "step", false)
+	(st.boxers[i]["ap"] as AnimationPlayer).speed_scale = clampf(absf(float(e["m"])) * float(e.get("share", 1.0)) / dur / STEP_MPS, STEP_RATE.x, STEP_RATE.y)
+	_due.append([t + dur, func() -> void:
+		if str(_take[i].get("clip", "")) == clip and str(_take[i].get("kind", "")) == "step":
 			guard(i)])
 
 

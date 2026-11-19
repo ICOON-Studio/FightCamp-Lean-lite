@@ -51,3 +51,12 @@ digs_body_when_hurt habit) and the design's s1 adaptation ("same posture 3+ roun
 Next: a probe (GUARDPROBE2): per opponent style, the head / body share of landed punches today; then the adaptation rule
 sized so HIGH and LOW each win in 30-70% of matchups; then the defence tab. Until then the camp notes (GuardNotes) carry
 the guard into the menus.
+
+## S527 - GUARDPROBE2 read (docs/GUARDPROBE2_RESULT.md) and the sizing rule
+Body share of what lands on us is 0.21-0.40 by style (not 6%: BodyMap/Exchanges body share, pressure fighters ~0.40).
+HIGH still wins 12 of 12 cells. The math says why: with head x0.80 / body x1.15 HIGH beats LOW whenever the body share is
+under 0.50, and beats NEUTRAL under 0.57 - no style reaches that, and the +8% wear is too small to matter. So posture is a
+choice only through the adaptation rule (real boxing: a high guard gets dug to the body). DECISION (Claude): size the
+adaptation, not the multipliers - "same posture N rounds -> the opponent shifts S of her punches to the open target".
+Amateur 3 rounds: little time to adapt, HIGH may stay the safe default (fine: the choice lives in the pro fights);
+pro 6+ rounds: WHEN to switch at the corner minute is the decision. GUARDPROBE3 (Goose, TASK_GUARDPROBE3.md) sizes N and S.

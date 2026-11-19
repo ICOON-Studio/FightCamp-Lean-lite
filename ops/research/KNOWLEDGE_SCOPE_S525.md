@@ -38,3 +38,12 @@ adds a shared per-prospect misread (rho 0 / 0.5 / 0.8 / 1.0). A rho that passes 
 
 ## Until then
 KnowWire step 2 stays (it counts what we see; nothing shown). No new knowledge screen, no price tuning.
+
+## Phase 2 outcome (S527, Claude, from docs/KNOWBOTS6_RESULT.md)
+KNOWBOTS6 (Goose #391): a shared per-prospect misread makes knowing a boxer pay. Smallest passing rho = 0.5: ORACLE beats
+BLIND on top-10 finishes by 8.7 / 9.8 / 14.4% on the three seed sets (8% bar on every set). Mean |shown - true| on the rating
+0.86 -> 1.77 (rho 0.5). Note: the probe's "control match" line is hard-coded true; at rho 0 its formula IS Knowledge's, so
+the arm is the control by construction. BUILT: Knowledge.SHARED_MISREAD 0.5 (_offset = 0.5 x one per-prospect misread +
+0.5 x the attribute's own; same hash as the probe, band unchanged so the truth stays inside every range);
+tests/knowledge_shared_test.gd red before (correlation 0.00, rating off 0.84), green after with knowledge / keep / reads /
+wire / golden_path. NEXT: K1 reruns on the real Knowledge (the potential readers / reads worth), then knowledge step 3.

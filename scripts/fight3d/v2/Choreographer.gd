@@ -219,7 +219,7 @@ static func plan(beats: Array, db: Dictionary, opts: Dictionary) -> Dictionary:
 	for s in Gap.steps(gap):
 		for w in (["a", "b"] if str(s["who"]) == "both" else [str(s["who"])]):
 			ev[w].append({"t": float(s["t"]), "clip": "", "kind": "step", "part": "legs", "from_s": 0.0, "join_s": 0.0,
-				"control_t": float(s["t"]), "end_t": float(s["end_t"]), "m": float(s["m"])})
+				"control_t": float(s["t"]), "end_t": float(s["end_t"]), "m": float(s["m"]), "share": 0.5 if str(s["who"]) == "both" else 1.0})
 	_add_pivots(ev["a"], ev["b"], gap, t0, t1, rng, ctrl_until)
 	# S525 the waits, drawn last (the punches' own draws stay what they were): fidgets, paws and feints on each man's
 	# own clock, and a distance at rest that is never a still line. `waits: false` = the plan without them.

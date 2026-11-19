@@ -368,7 +368,28 @@ The v2 player EXISTS and plays the real bout behind `-- fightplayer2`. FIRST BLI
 BELOW the old player (see FIRST FILM below). When this section was first written it had not been filmed: the owner's
 game (ArcheAge) was open the whole session and films run only when no game window is open (Q-267). r14 = 4.5 / 4.5 is the
 control arm; the shipped player is untouched without the switch.
-- S526b (2026-11-19 ~14:15, the same animation session). READ THIS FIRST, it is the newest:
+- S527 (2026-11-19 ~15:50, the same animation session, context near its cap). READ THIS FIRST, it is the newest:
+  * THE OWNER ON FILM 5 (comment C434 at 82.2 s, the film's last frame, STILL OPEN - not fixed, do not let a commit
+    message cite the id or the board closes it): "why the fighter do not walk ?". He is right, and it is the same
+    thing as both critics' items 1 and 2: v2 plays NO step take. When the plan moves a boxer (step in, step out,
+    the ease to rest) his body is moved while the guard take plays and FootPlant drags each foot after it (the end
+    of film 5: blue backs off 0.6 m in 0.7 s on the guard pose); and the plan only sets the DISTANCE between the
+    two men, never a place in the ring, so the pair stays on one spot (blue's back on one corner post from ex2 to
+    ex5). Answered on the board in plain words (`2026-11-19_1545_answer_to_your_comment...`, "not fixed yet").
+  * FIRST TRY, MEASURED WORSE, OFF (`-- fp2steps` turns it on; Player2._step): a planned step plays the owned step
+    take (advance / retreat, in-place cycles, stride 1.74 m/s at 1x) at the rate of the ground the plan covers.
+    Headless, seed 7 (`s525/m`): support-foot slip 7.0 / 7.5 -> 20.6 / 27.9 m, knee jerks 21-42 -> 27-59.
+    Why: FootPlant still owns the feet and fights the take's own steps; the step takes are another actor's stance
+    (knees 122 deg, the guard 141-150); a 0.2 s ramp is a fifth of a step cycle.
+    TO FINISH IT (this is NEXT item 1 now, before the waits): (a) hand the feet to the take while a step plays
+    (FootPlant off for that boxer, re-planted where the feet land); (b) plan WHOLE steps - ChoreoGap segments of
+    0.4-0.5 s a step, lead foot first going in, rear foot first going out, the step in still ending as the glove
+    lands; (c) start the cycle on the right foot (find each take's foot-down times: a census column); (d) then a
+    place in the ring: the pair's middle walks (off the ropes, toward the centre) between exchanges, the side-on
+    turn becomes circling steps; (e) film it, look at the feet, then a round. The Rokoko step takes
+    (`rk_step_in`, `rk_step_back`, `rk_loc_*` in RkClips) are captured with their own travel: try them before
+    the in-place ones (v2 already moves a body along a take's own path: RootPath).
+- S526b (2026-11-19 ~14:15, the same animation session; film 5):
   * FIFTH FILM + BLIND ROUND (`E:/FightCamp/tmp/fightweek/v2r9/`, film = commit fc9c17ecc, seed 7, 75 s):
     coach 5.0, animator 4.5. Film 4 was 4.5 / 4.5, film 3 4.0 / 4.5, film 2 3.5 / 3.5; the old player r14
     4.5 / 4.5. v2 is ABOVE the old player on the coach's seat for the first time. THE GATE (7 + 7) IS NOT MET.

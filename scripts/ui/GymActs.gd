@@ -6,6 +6,7 @@ const SaveGame := preload("res://scripts/state/SaveGame.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const GymSpend := preload("res://scripts/state/GymSpend.gd")
+const GymDeals := preload("res://scripts/state/GymDeals.gd")   # S525 SPLIT500C: the talks and the grant bid
 const GymUpgrades := preload("res://scripts/rules/GymUpgrades.gd")
 const StaffRoles := preload("res://scripts/rules/StaffRoles.gd")
 const GymSlots := preload("res://scripts/rules/GymSlots.gd")
@@ -88,7 +89,7 @@ static func _spend(main: Node, c: Career, name: String, arg: String) -> void:
 			why = GymSpend.evening_coach(c, 1 if arg == "add" else -1)
 			done = "Evening coaches: %d." % c.extra_coaches
 		"grantbid":
-			why = GymSpend.grant_bid(c)
+			why = GymDeals.grant_bid(c)
 			done = "Grant bid sent."
 		"stipend":
 			var sp := arg.split("|")
@@ -98,7 +99,7 @@ static func _spend(main: Node, c: Career, name: String, arg: String) -> void:
 		"talks":
 			var parts := arg.split("|")
 			var f := c.fighter_by_id(parts[0])
-			why = "no such fighter" if f.is_empty() else GymSpend.answer_talks(c, f, parts.size() > 1 and parts[1] == "keep")
+			why = "no such fighter" if f.is_empty() else GymDeals.answer_talks(c, f, parts.size() > 1 and parts[1] == "keep")
 			done = "Contract settled."
 	main.toast(done if why == "" else "Not now: %s." % why)
 	main.render()

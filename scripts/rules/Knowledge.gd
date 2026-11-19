@@ -35,6 +35,7 @@ const GOAL_NARROW := 3.0  ## ESTIMATE
 # --- Offset bounds ---
 const OFFSET_LO := -0.6
 const OFFSET_HI := 0.6
+const SHARED_MISREAD := 0.5  ## KNOWBOTS6 (S527)
 const HYPE_MAX_LIFT := 0.3
 const HYPE_CEIL := 0.9
 
@@ -366,8 +367,14 @@ static func _attr_width(k: Dictionary, attr: String) -> float:
 		return 0.0
 	return width(k, g)
 
+## S527 KNOWBOTS6: a first look misreads the whole kid - SHARED_MISREAD of every attribute's offset is one per-prospect
+## misread, the rest the attribute's own (0.5 = the smallest share where knowing a boxer pays 8%+ on every seed set).
 static func _offset(k: Dictionary, attr: String) -> float:
 	var seed: int = int(k.get("seed", 0))
-	var h: int = hash([seed, attr])
+	var own: float = _hash_offset(hash([seed, attr]))
+	var shared: float = _hash_offset(hash([seed, "shared_k6"]))
+	return SHARED_MISREAD * shared + (1.0 - SHARED_MISREAD) * own
+
+static func _hash_offset(h: int) -> float:
 	var bucket: int = absi(h) % 10001
 	return float(bucket) / 10000.0 * (OFFSET_HI - OFFSET_LO) + OFFSET_LO

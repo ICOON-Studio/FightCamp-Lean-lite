@@ -11,6 +11,7 @@ const GymBills := preload("res://scripts/rules/GymBills.gd")
 const Membership := preload("res://scripts/rules/Membership.gd")
 const InjuryRoll := preload("res://scripts/rules/InjuryRoll.gd")
 const GymSpend := preload("res://scripts/state/GymSpend.gd")
+const GymDeals := preload("res://scripts/state/GymDeals.gd")   # S525 SPLIT500C: the talks and the grants moved out of GymSpend
 const HomeJuniors := preload("res://scripts/state/HomeJuniors.gd")
 const Roster := preload("res://scripts/state/Roster.gd")
 const Sim := preload("res://scripts/state/Sim.gd")
@@ -170,12 +171,12 @@ func _career() -> void:
 	# Contract talks: keep the share for the bonus, or take the lower one.
 	var f := {"id": "p", "first": "Lucy", "pro": true}
 	c.fighters = [f]
-	GymSpend.check_talks(c, f, 8, "")
+	GymDeals.check_talks(c, f, 8, "")
 	_check(not (f["talks"] as Dictionary).is_empty(), "a top-10 pro opens talks")
 	var pre := c.cash
-	_check(GymSpend.answer_talks(c, f, true) == "" and c.cash == pre - 2500 and is_equal_approx(StarDeal.share(f), 0.25), "keep: the bonus is paid, the share stays")
-	GymSpend.check_talks(c, f, 2, "wbc")
-	_check(GymSpend.answer_talks(c, f, false) == "" and is_equal_approx(StarDeal.share(f), 0.17) and Roster.gym_cut(10000, f) == 1700, "lower: the belt share is 17% of the purse")
+	_check(GymDeals.answer_talks(c, f, true) == "" and c.cash == pre - 2500 and is_equal_approx(StarDeal.share(f), 0.25), "keep: the bonus is paid, the share stays")
+	GymDeals.check_talks(c, f, 2, "wbc")
+	_check(GymDeals.answer_talks(c, f, false) == "" and is_equal_approx(StarDeal.share(f), 0.17) and Roster.gym_cut(10000, f) == 1700, "lower: the belt share is 17% of the purse")
 	_check(Roster.gym_cut(10000) == 2500, "control: without a fighter the cut is the start share")
 
 
@@ -193,7 +194,7 @@ func _dues_and_grants() -> void:
 	c.staff_roles = ["assistant"]
 	c.upgrades = [{"id": "youth", "day": -30}]
 	var cash := c.cash
-	_check(GymSpend.grant_bid(c) == "" and c.cash == cash and c.grant.has("due"), "a bid goes in, free")
+	_check(GymDeals.grant_bid(c) == "" and c.cash == cash and c.grant.has("due"), "a bid goes in, free")
 	c.day = int(c.grant["due"])
 	var won := bool(c.grant["won"])
 	GymSpend.day_events(c)
