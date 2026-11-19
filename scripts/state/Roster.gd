@@ -6,6 +6,7 @@ extends RefCounted
 ## pays her BBBofC licence and brain scans when she signs, she sells tickets, and the debut pays her half of what she sells
 ## above the promoter's break-even (ProDebut); the flat purse starts from her second pro bout.
 
+const KnowWire := preload("res://scripts/state/KnowWire.gd")
 const Recruit := preload("res://scripts/rules/Recruit.gd")
 const PerkRoad := preload("res://scripts/rules/PerkRoad.gd")
 const Data := preload("res://scripts/state/Data.gd")
@@ -136,6 +137,7 @@ static func sign_prospect(c: Career, id: String, picks: Array) -> Dictionary:
 ## Signs a fighter (the walk-in, or a prospect after her trial) on the club stipend with her signing goal.
 static func sign_fighter(c: Career, raw: Dictionary, picks: Array) -> Dictionary:
 	var f := Data.fighter_state(raw.duplicate(true), c.day)
+	KnowWire.start(f)   # S524 KNOWLEDGE1: a new signing starts with day-one ranges (old saves stay exact)
 	var focus := ""
 	for p in picks:
 		if Recruit.FOCUS.has(str(p)):
@@ -286,7 +288,8 @@ static func turn_pro(c: Career, house := "") -> Dictionary:
 	Loyalty.apply(f, "turn_pro", c.day)   # S486 LOYALHOOKS1: after the share is set (the share reads loyalty before it)
 	f["promoter"] = o["promoter"]
 	f["pro_house"] = str(deal.get("key", ""))
-	f["pro_signed"] = {"d": c.day, "house": str(o["promoter"])}   # S523 map M15: the History tab's milestone   # S523: the house leans the first pro offers (ProLean)
+	f["pro_signed"] = {"d": c.day, "house": str(o["promoter"]), "stipend": int(f.get("weekly_salary", 0)),   # S524 M11: the week review's ledger
+		"costs": 0 if bool(deal.get("costs_covered", false)) else int(sheet["costs"])}   # S523 map M15: the History tab's milestone   # S523: the house leans the first pro offers (ProLean)
 	f["purse"] = int(o["purse"])
 	f["purse_step"] = int(o["step"])
 	f["purse_top"] = int(o["top"])

@@ -22,6 +22,8 @@ const Bar := preload("res://scripts/ui/Bar.gd")
 const PadReview := preload("res://scripts/rules/PadReview.gd")
 const FlipCard := preload("res://scripts/ui/FlipCard.gd")
 const DuesWire := preload("res://scripts/ui/DuesWire.gd")
+const WeekPlanBlock := preload("res://scripts/ui/WeekPlanBlock.gd")   # S524 split (the file was at 497 lines)
+const ProWeekLines := preload("res://scripts/ui/ProWeekLines.gd")
 ## S382 CARDFLIP1: a crossed card turns gold this long after its row lands (its bar has grown first), and the next row waits.
 const FLIP_AT := 0.75
 const FLIP_HOLD := 0.5
@@ -136,7 +138,7 @@ func build(main: Node, m: Dictionary) -> void:
 			pk.name = "Peak_" + str(fr["id"])
 			t = _land(v, pk, t, step)
 		if not (fr.get("plan", {}) as Dictionary).is_empty():
-			t = _land(v, _plan_block(fr, fr["plan"]), t, step)
+			t = _land(v, WeekPlanBlock.build(fr, fr["plan"]), t, step)
 		if head["kind"] != "":
 			var hl := _headline(head)
 			hl.name = "Headline_" + str(fr["id"])
@@ -147,6 +149,8 @@ func build(main: Node, m: Dictionary) -> void:
 			t = _land(v, TwistCard.build(main, nf, "NEXT WEEK'S TWIST"), t, step)
 	for gr in r.get("grapplers", []):
 		t = _grappler(main, c, v, gr, t, step)
+	for pl in ProWeekLines.rows(c):   # S524 TURNPRO1 map M11: the 4 weeks after signing, the debut ledger and its NEXT line
+		t = _land_read(v, pl, t, step)
 	if (r["money"] as Dictionary).has("runway"):
 		t = _land_read(v, WeekReadRows.runway(r["money"]["runway"]), t, step)
 	var grid := UI.hbox(16)
@@ -385,39 +389,6 @@ func _stripe_done(res: Dictionary, call: String, hold: VBoxContainer) -> void:
 	hold.add_child(l)
 	if str(res["news"]) != "":
 		hold.add_child(UI.label(str(res["news"]), UI.SMALL, UI.RED, "body", true))
-
-
-## S355 CORE3 step 2 (WeekActual): Monday's plan against the week she ran, the reason, and the coach's one change.
-## S387 only what went off plan gets a row: a week on plan says so in the heading (six rows of decimals told nothing).
-func _plan_block(fr: Dictionary, plan: Dictionary) -> VBoxContainer:
-	var box := UI.vbox(4)
-	box.name = "Plan_" + str(fr["id"])
-	var tw := str(plan.get("twist", ""))
-	var off: Array = (plan["rows"] as Array).filter(func(r): return not bool(r["ok"]))
-	box.add_child(UI.caps("PLANNED VS ACTUAL: " + ("ALL %d ON PLAN" % (plan["rows"] as Array).size() if off.is_empty() else "%d OFF PLAN" % off.size())
-		+ ("   (THE TWIST: %s)" % tw.to_upper() if tw != "" else "")))
-	if not off.is_empty():
-		var g := GridContainer.new()
-		g.columns = 4
-		g.add_theme_constant_override("h_separation", 28)
-		for r in off:
-			g.add_child(UI.label(str(r["label"]), UI.BODY, UI.FG, "bold"))
-			g.add_child(UI.label("planned " + _num(r, float(r["plan"])), UI.BODY, UI.MUTED, "mono"))
-			g.add_child(UI.label("actual " + _num(r, float(r["actual"])), UI.BODY, UI.AMBER, "mono"))
-			g.add_child(UI.label("off plan", UI.SMALL, UI.AMBER, "body"))
-		box.add_child(g)
-	box.add_child(UI.label(str(plan["reason"]), UI.SMALL, UI.MUTED, "body", true))
-	box.add_child(UI.label("Coach: \"%s\"" % str(plan["change"]), UI.SMALL, UI.GOLD, "italic", true))
-	return box
-
-
-static func _num(r: Dictionary, x: float) -> String:
-	match str(r["unit"]):
-		"kg":
-			return "%+.2f kg" % x
-		"fatigue":
-			return "%d" % int(round(x))
-	return "%+.2f" % x
 
 
 ## S384 GAMETREE1: the tree's week - every arrow that crossed a band tweens and pulses (felt 15, owned 30, signature 50),

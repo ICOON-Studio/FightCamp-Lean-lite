@@ -3,6 +3,7 @@ extends RefCounted
 ## From the last bell to the scorecards, the record, money, members, morale, goals, injury roll and coach's notes.
 ## BoutNight._finish delegates here; every external caller (Bouts, PlanTest, FixLab) still goes through BoutNight.
 
+const KnowWire := preload("res://scripts/state/KnowWire.gd")
 const AskFlow := preload("res://scripts/state/AskFlow.gd")
 const JudgeNight := preload("res://scripts/state/JudgeNight.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
@@ -119,7 +120,9 @@ static func run(c: Career, f: Dictionary, m: Dictionary) -> void:
 		c.pay(Roster.gym_cut(purse, f), "Purse share (%d%%): %s vs %s" % [roundi(Roster.share_of(f) * 100), f["first"], opp["name"]])
 		if win:
 			f["purse"] = mini(int(f["purse_top"]), int(f["purse"]) + int(f["purse_step"]))
-	else:
+	if pro and m.has("gym_cut") and f.has("pro_signed") and not (f["pro_signed"] as Dictionary).has("debut"):
+		f["pro_signed"]["debut"] = {"d": c.day, "gym": int(m["gym_cut"])}   # S524 M11: the week review's debut ledger
+	if not pro:
 		# S328 a championship is England Boxing's show: no ticket cut for the club. S488 our own show: the gate is ours.
 		var no_cut: bool = f["bout"].has("champ") or HomeBout.is_home(f) or bool(f["bout"].get("host_gate", false))   # S512 a picked name: the host keeps the gate
 		m["club_cut"] = 0 if no_cut else BoutRules.TICKET_CUT
@@ -168,11 +171,15 @@ static func run(c: Career, f: Dictionary, m: Dictionary) -> void:
 	if outcome != "draw":   # S486 LOYALHOOKS1 (map M1): win +2, loss -1, stopped -3 (a Loyal boxer takes losses at half)
 		Loyalty.apply(f, "bout_won" if outcome == "win" else ("stopped" if stop != "" else "bout_lost"), c.day)
 	CornerTrust.settle(f, opp["name"])
+	KnowWire.bout(f, outcome == "loss" and stop != "", pro and int(f.get("pro_w", 0)) + int(f.get("pro_l", 0)) + int(f.get("pro_d", 0)) == 1
+		or f["bout"].has("champ"), c.day)   # S524 KNOWLEDGE1: a bout reads under fire; a stoppage loss / step up widen it
 	coach_note(c, f, "fight")
 	var goal: Dictionary = f.get("goal", {})
 	if not goal.is_empty():
 		var status := str(FighterGoal.progress(goal, f, c.day, {})["status"])
 		var met := status == "MET"
+		if met:
+			KnowWire.goal_met(f, goal.get("targets", {}))   # S524 KNOWLEDGE1: meeting the goal narrows its attributes by 3
 		(f["history"] as Array).append({"title": goal["title"], "met": met, "d": c.day})
 		# The defect FighterGoal reported: its morale move now lands on the fighter.
 		FighterProfile.apply_morale(f, "goal_met" if met else "goal_missed", "%s %s" % [goal["title"], "met" if met else "missed"])

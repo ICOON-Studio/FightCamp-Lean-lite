@@ -7,6 +7,8 @@ const FirstWeek := preload("res://scripts/rules/FirstWeek.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const TrainingPreview := preload("res://scripts/rules/TrainingPreview.gd")
 const FighterGoal := preload("res://scripts/rules/FighterGoal.gd")
+const KnowWire := preload("res://scripts/state/KnowWire.gd")
+const SimGoal := preload("res://scripts/state/SimGoal.gd")
 const Membership := preload("res://scripts/rules/Membership.gd")
 const GymBills := preload("res://scripts/rules/GymBills.gd")
 const GymSpend := preload("res://scripts/state/GymSpend.gd")
@@ -202,6 +204,7 @@ static func step_day(career: Career) -> void:
 		var m: Array = ["rest", "normal"] if resting else (days[dow] as Array)
 		var r := WeekPlan.full_day(str(m[0]), str(m[1]), "rest" if resting else str(evs[dow]),
 			week_ctx(career, f, dow), float(f.get("week_fatigue", 20.0)))
+		KnowWire.day(f, str(m[0]), str(r["evening"]), resting)   # S524 KNOWLEDGE1 step 2: what the week showed of her
 		SkillAwards.count_session(f, str(r["evening"]))   # S370 GOALTESTS1: a coached evening toward her next award
 		var by: Array = [str(WeekPlan.session(str(m[0]))["name"]), str((WeekPlan.EVENINGS.get(str(r["evening"]), {}) as Dictionary).get("name", ""))]
 		for k in [["stat", "gain", 0], ["stat2", "gain2", 1]]:
@@ -288,6 +291,7 @@ static func _with_bjj(career: Career, income: Dictionary) -> Dictionary:
 static func end_week(career: Career) -> void:
 	var week := int(floor((career.day - 1) / 7.0)) + 1
 	for f in career.fighters:
+		KnowWire.week_end(f, career.day)   # S524 KNOWLEDGE1: 12+ weeks without a bout widens under fire
 		# S354 the RPG layer: the starting focus's habit fix comes due; the perk road opens perks as training lands.
 		var hf: Dictionary = f.get("habit_fix", {})
 		if not hf.is_empty() and career.day >= int(hf["until"]):
@@ -476,25 +480,4 @@ static func hire(career: Career, coach_id: String) -> Dictionary:
 static func goal_read(career: Career, f: Dictionary) -> Dictionary:
 	if f.is_empty() or (f.get("goal", {}) as Dictionary).is_empty():
 		return {}
-	var goal: Dictionary = f["goal"]
-	var rate := daily_gain(career, f, true)
-	var p: Dictionary = FighterGoal.progress(goal, f, career.day, rate)
-	var card: Dictionary = FighterGoal.card(goal, p)
-	# The bar shows the share of the climb from her start to the target, not current / target.
-	var share := 0.0
-	var n := 0
-	for row in p["per_target"]:
-		var key := str(row["key"])
-		if key == "booked_fight":
-			share += float(row["current"])
-		else:
-			var start := float((goal["start_stats"] as Dictionary).get(key, 0.0))
-			share += clampf((float(row["current"]) - start) / maxf(0.001, float(row["target"]) - start), 0.0, 1.0)
-		n += 1
-	var chip := {"MET": "green", "ON_TRACK": "green", "AT_RISK": "amber"}
-	return {
-		"title": goal["title"], "status": card["status"], "cls": chip.get(card["status_code"], "red"),
-		"left": maxi(0, int(p["days_left"])), "share": share / maxf(1.0, float(n)), "row": ", ".join(card["targets"]).to_lower(),
-		"line": goal.get("persona_line", ""),
-		"code": card["status_code"], "days_left": int(p["days_left"]), "targets": p["per_target"], "rate": rate,   # S387 WeekRead.goal
-	}
+	return SimGoal.read(career, f, daily_gain(career, f, true))   # S524 split: the goal card's numbers live in SimGoal.gd

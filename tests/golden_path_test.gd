@@ -8,6 +8,7 @@
 ## Then a second career where she misses weight.
 ## Every area and tab draws, mid-camp and at the end.
 
+const ProWeekLines := preload("res://scripts/ui/ProWeekLines.gd")
 const BoutNight := preload("res://scripts/state/BoutNight.gd")
 const GoldenDues := preload("res://tests/golden_dues_step.gd")
 const Data := preload("res://scripts/state/Data.gd")
@@ -599,6 +600,9 @@ func _week_four(c: Career) -> void:
 	_check(c.ledger.any(func(e): return str(e["t"]).begins_with("Debut tickets") and int(e["amount"]) == debut_gym),
 		"the debut pays the gym its cut of the purse and the tickets: %s" % UI.money(debut_gym))
 	_check(not c.ledger.any(func(e): return str(e["t"]).begins_with("Purse share")), "no flat purse on the debut")
+	var deb: Dictionary = (lucy.get("pro_signed", {}) as Dictionary).get("debut", {})   # S524 map M11: the week review's debut ledger
+	_check(int(deb.get("gym", -1)) == debut_gym and ProWeekLines.lines_for(lucy, c.day + 1).any(func(l): return str(l["kind"]) == "ledger"),
+		"the debut is on the ledger the week review reads (gym %s)" % UI.money(int(deb.get("gym", 0))))
 	_press(_modal_button("BackHome"), "Back home")
 	_check(c.news.any(func(x): return str(x["t"]).contains("turns pro")), "the news: she turns pro")
 	# S443 R85: the pro year end becomes World > News (the names) and one Mail line; arrivals carry the new-face mark.
