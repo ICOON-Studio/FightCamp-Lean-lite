@@ -1,0 +1,56 @@
+GODOT_SLOT start after 0 s (S527)
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+TREEVALUE2: is each footwork / defence step worth 1.5-5 in 100 against its own style?
+fire_level key absent: GAME_SHARES
+Steps: 10, Styles: 6, bouts a cell per arm: 400, seed sets: [0, 10000, 20000], amateur 3x3, Sharp 60, OK grade
+--- CONTROL: OK grade on every swept step (DONE_WITH pair mean 56) ---
+  step_in: OK (["footwork", "explosiveness"])
+  step_out: OK (["footwork", "speed"])
+  step_back: OK (["footwork", "speed"])
+  pivot_out: OK (["footwork", "composure"])
+  cut_off: OK (["footwork", "fight_iq"])
+  herd: OK (["footwork", "fight_iq"])
+  feint: OK (["fight_iq", "timing"])
+  tie_up: OK (["inside", "strength"])
+  roll_out: OK (["defence", "flexibility"])
+  push_off: OK (["strength", "durability"])
+Pilot: 503 ms for 10 bouts -> projected 126.2 min for 150560 bouts
+--- CALIBRATE: each style's rating so BASE wins about 50 in 100 ---
+  Maria Ortega (Pressure fighter): shipped 61.5 -> calibrated 52.89, BASE wins 60/120
+  Jade Cooper (Slugger): shipped 57.0 -> calibrated 55.95, BASE wins 59/120
+  Holly Price (Out-boxer): shipped 59.0 -> calibrated 54.24, BASE wins 64/120
+  Priya Nair (Counter-puncher): shipped 63.5 -> calibrated 53.29, BASE wins 63/120
+  Erin Doyle (Volume puncher): shipped 65.5 -> calibrated 53.02, BASE wins 60/120
+  Dana Whitfield (Boxer-puncher): shipped 72.0 -> calibrated 52.64, BASE wins 60/120
+--- CONTROL: determinism (step_back vs Pressure fighter, with-arm, 400 bouts twice) ---
+CONTROL OK: 204 wins, 861 fires both runs
+--- SWEEP: each step at Sharp and OK grade, plan with its line vs the same plan without it ---
+  roll_out plan: ["roll_out", "step_back", "pivot_out", "tie_up", "push_off:press", "1-1-2:press", "2-3:range", "1-2-3b:range", "1-6-3:counter", "3b-3:tiring", "step_in:range", "feint:counter", "cut_off:tiring", "herd:hurt", "step_out:she_tired"]
+CELL step=roll_out style=Pressure fighter with=559 without=549 delta=+0.83 fires/bout=2.43 uses/bout=3.26 seeds=[1.75, 1.0, -0.25]
+CELL step=roll_out style=Slugger with=536 without=539 delta=-0.25 fires/bout=1.22 uses/bout=1.66 seeds=[-1.0, 0.0, 0.25]
+CELL step=roll_out style=Out-boxer with=545 without=554 delta=-0.75 fires/bout=1.79 uses/bout=2.38 seeds=[-1.0, -0.75, -0.5]
+CELL step=roll_out style=Counter-puncher with=571 without=574 delta=-0.25 fires/bout=1.54 uses/bout=2.06 seeds=[0.0, -0.25, -0.5]
+CELL step=roll_out style=Volume puncher with=572 without=577 delta=-0.42 fires/bout=1.60 uses/bout=2.14 seeds=[-0.75, -0.5, 0.0]
+CELL step=roll_out style=Boxer-puncher with=554 without=563 delta=-0.75 fires/bout=1.62 uses/bout=2.16 seeds=[-1.0, 0.0, -1.25]
+  push_off plan: ["push_off", "step_back", "pivot_out", "tie_up", "roll_out:loadup", "2-3:range", "1-2-3b:range", "1-6-3:counter", "slip 2-3:loadup", "3b-3:tiring", "step_in:range", "feint:counter", "cut_off:tiring", "herd:hurt", "step_out:she_tired"]
+CELL step=push_off style=Pressure fighter with=544 without=544 delta=+0.00 fires/bout=0.83 uses/bout=1.10 seeds=[0.0, 0.0, 0.0]
+CELL step=push_off style=Slugger with=553 without=553 delta=+0.00 fires/bout=0.41 uses/bout=0.54 seeds=[0.0, 0.0, 0.0]
+CELL step=push_off style=Out-boxer with=531 without=532 delta=-0.08 fires/bout=0.52 uses/bout=0.70 seeds=[0.0, -0.25, 0.0]
+CELL step=push_off style=Counter-puncher with=565 without=564 delta=+0.08 fires/bout=0.46 uses/bout=0.61 seeds=[0.25, 0.0, 0.0]
+CELL step=push_off style=Volume puncher with=568 without=568 delta=+0.00 fires/bout=0.45 uses/bout=0.60 seeds=[0.0, 0.0, 0.0]
+CELL step=push_off style=Boxer-puncher with=538 without=538 delta=+0.00 fires/bout=0.48 uses/bout=0.65 seeds=[0.0, 0.0, 0.0]
+
+=== RESULTS: measured win difference in 100 (TARGET beside it) ===
+step         Pressure fighter            Slugger          Out-boxer    Counter-puncher     Volume puncher      Boxer-puncher   gate
+roll_out     +0.8 (t +1.0)   -0.3 (t +3.0)   -0.8 (t +1.0)   -0.3 (t +1.0)   -0.4 (t -1.0)   -0.8 (t +1.0)   FAIL
+  roll_out: best Slugger -0.3 in 1.5-5: NO; wrong Volume puncher -0.4 negative: yes; others 0 to +1: NO
+FAIL roll_out: StepEffect.TABLE.roll_out (deny 0.40, open 0.10, tank 0.30, deny_on head_hooks, open_on counter) is the row that would move it - best cell Slugger -0.3 outside 1.5-5; other styles outside 0 to +1 (first: Out-boxer). Only its ropes count is wired today (StepWire); the deny/open/drain sizes are not in the exchange yet.
+push_off     +0.0 (t +1.5)   +0.0 (t +0.0)   -0.1 (t -0.5)   +0.1 (t +0.0)   +0.0 (t +0.0)   +0.0 (t +0.0)   FAIL
+  push_off: best Pressure fighter +0.0 in 1.5-5: NO; wrong Out-boxer -0.1 negative: yes; others 0 to +1: yes
+FAIL push_off: StepEffect.TABLE.push_off (drain 0.30, tank 0.40, distance mid) is the row that would move it - best cell Pressure fighter +0.0 outside 1.5-5. Only its ropes count is wired today (StepWire); the deny/open/drain sizes are not in the exchange yet.
+
+FAIL roll_out: StepEffect.TABLE.roll_out (deny 0.40, open 0.10, tank 0.30, deny_on head_hooks, open_on counter) is the row that would move it - best cell Slugger -0.3 outside 1.5-5; other styles outside 0 to +1 (first: Out-boxer). Only its ropes count is wired today (StepWire); the deny/open/drain sizes are not in the exchange yet.
+FAIL push_off: StepEffect.TABLE.push_off (drain 0.30, tank 0.40, distance mid) is the row that would move it - best cell Pressure fighter +0.0 outside 1.5-5. Only its ropes count is wired today (StepWire); the deny/open/drain sizes are not in the exchange yet.
+Without-arm planned fires of the swept steps: 0 (must be 0)
+TREEVALUE2 done pass=0/10

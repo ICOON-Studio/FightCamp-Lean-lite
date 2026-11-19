@@ -47,3 +47,13 @@ the arm is the control by construction. BUILT: Knowledge.SHARED_MISREAD 0.5 (_of
 0.5 x the attribute's own; same hash as the probe, band unchanged so the truth stays inside every range);
 tests/knowledge_shared_test.gd red before (correlation 0.00, rating off 0.84), green after with knowledge / keep / reads /
 wire / golden_path. NEXT: K1 reruns on the real Knowledge (the potential readers / reads worth), then knowledge step 3.
+
+## K1 rerun on the real Knowledge (S527, docs/KNOWBOTS7_K1_RESULT.md = tools/knowbots5_probe.gd after the shared misread)
+ORACLE vs BLIND top-10s: +4.4 / +9.2 / +7.9% (KNOWBOTS5 before the change: +11.1 / +9.8 / +7.3). Shown rating error 0.83
+-> 1.70, so the misread is real now, but the oracle's edge did NOT grow: KNOWBOTS6's +8.7 / +9.8 / +14.4 came from its own
+probe-side formula and does not reproduce through the game's path; set-to-set swings of ~5 points on top-10 counts of ~90
+are noise at 60 worlds a set. VERDICT: K1 still VOID. The shared misread STAYS (a first look misreads the whole kid; it
+makes the reads' words honest, costs nothing), but it is not the lever. Per phase 2: the "no stakes" levers go to design
+(Kalli is down, so Dola SQ, then two critics): a wider walk-in spread, hidden flaws that decide bouts (chin, cuts,
+temperament), the cost of a wrong signing (stipend weeks, the boxer's ambition leaving). Brief: DESIGN_KNOW_STAKES1_DOLA.md.
+A future probe needs 150+ worlds a set or a paired design (same world, both bots) before an 8% bar means anything.

@@ -3,16 +3,16 @@
  "updated": "2026-11-19",
  "author": "claude S294",
  "now": {
-  "id": "S526",
+  "id": "S527",
   "owner": "claude",
   "updated": "2026-11-19",
-  "summary": "S526 (Opus): collected KNOWBOTS5 (Goose #388: potential readers LOSE; shown rating off only 0.83 because per-attribute offsets cancel -> KNOWBOTS6 #391 shared misread), TURNTUNE1 (Goose #389: no constant fixes lines 2/4/7; none taken -> TURNPROBE2 #392 measures them as the design means), FITPROBE2 (Qwen PR 390: TOP fit Sharp 1.53 weeks sooner, +0.08 wins -> COACHFIT1 v9 revise at Dola SQ231). LEDGER1 v1 Dola 8/8, second critic Goose #393. Grok chat seats down (404). Animation: anim-range (Fable) resumed headless (reactions sized, defence that shows). Guard v4 step 6: GuardNotes under THIS CAMP (rope wear vs pressers/loaders, amateur note). STEPTUNE1 Goose #394 from a partial TREEVALUE3. S526b: LEDGER1 Goose critic 7/6 -> v2 revise at Dola SQ232; guard posture is a dominant pick while body punches are 6% of the mix -> GUARDPROBE2 (Goose #395) before the defence tab.",
-  "next_action": "S527: 1) collect Goose #391 KNOWBOTS6 / #392 TURNPROBE2 / #394 STEPTUNE1 and Qwen SPLIT500C; 2) TREEVALUE3 full file E:/FightCamp/tmp/treevalue3.txt (feint/tie_up/roll_out/push_off rows) vs STEPTUNE1; 3) Dola SQ231 COACHFIT1 v9 -> two critics; 4) Dola SQ232 LEDGER1 v2 -> two critics -> his board at 7+/7+; 5) Goose #395 GUARDPROBE2 -> size posture + adaptation, then the defence tab; render the camp guard notes. Animation: anim-range only (METHOD S510).",
-  "verified_playable": "Builds/FightCamp.exe S523: turning pro offer with two houses (hidden-desktop render ops/previews/s523/pro_offer.png; golden_path signs through the modal). Not yet played by him.",
-  "incomplete_blocked": "TURNPRO1 M11 (WeekReview at 497 lines) and the probes (TURNPROBE1 queued). TREEVALUE2 running (Qwen), KNOWLEDGE1A at Goose #378.",
-  "next_acceptance": "TURNPRO1 probes: both houses call in some careers, asks used, gym even-week matches the pays-back line within a week.",
-  "awaiting_operator": "Q-S294-275 guard damage v4 (build after turning pro?); his look at the turning pro offer and the club week; Steam: wait to 8 Dec.",
-  "last_working_commit": "db50ba83a"
+  "summary": "S527 (Opus): collected KNOWBOTS6 (#391: shared misread passed in its own probe) -> Knowledge.SHARED_MISREAD 0.5 (test red first); K1 rerun on the real path: oracle +4.4/+9.2/+7.9 = still VOID (KNOWBOTS6 did not reproduce) -> stakes levers at Dola SQ236. SPLIT500C merged (GymDeals). TURNPROBE2 (#392): 8/9 lines fail, day-job boxers never reach pro -> TURNPRO1 v3 at Dola SQ235. GUARDPROBE2 (#395): HIGH guard wins whenever body share < 0.50 -> GUARDPROBE3 (Goose #398) sizes the opponent's adaptation. STEPTUNE1 (#394) not taken: roll_out never fired = probe defect (tie_up any-time first); probe fixed, roll_out fires, push_off sized at nothing -> STEPTUNE2 on Qwen (PC). LEDGER1 v2 extracted + 3 wrong CODE claims -> critics Dola SQ233 + Goose #397; COACHFIT1 v9 cut off at s7 -> Dola SQ234 finishes. Fixes: camp card text overflow; guard notes + the tape's prep line were in the Training tab's hidden THIS CAMP box -> now under COACH'S PICK. Budget3D / MotionBricks read: not useful now. Animation: anim-range hit its cap; fresh Fable session proposed (feet on the take, whole steps).",
+  "next_action": "S528: 1) collect Qwen STEPTUNE2 (E:/FightCamp/wt/LEAN_STEPTUNE2, TABLE numbers by diff, step tests + golden_path); 2) Goose #397 LEDGERCRITIC3 + Dola SQ233 -> LEDGER1 v2 at 7+/7+ -> his board (ask --attach); 3) Dola SQ234 COACHFIT1 v9 part 2 -> two critics; 4) Dola SQ235 TURNPRO1 v3 -> two critics; 5) Goose #398 GUARDPROBE3 -> wire posture + adaptation, then the defence tab; 6) Dola SQ236 KNOW_STAKES1; 7) the rest of THIS CAMP is hidden (WeekCamp in WeekBoard's Legacy box): audit what else lives only there (ONELOOK1). Animation: the Fable session 'anim-steps' (feet on the take) - start it if the owner has not.",
+  "last_working_commit": "42feebb38",
+  "verified_playable": "Builds/FightCamp.exe exported S527 (golden_path green); WHAT_TO_TRY S527: guard notes + tape prep line under COACH'S PICK, camp card text fits",
+  "incomplete_blocked": "STEPTUNE2 (Qwen, running), GUARDPROBE3 (#398) and LEDGERCRITIC3 (#397) at Goose, Dola SQ233-236 queued; animation fresh session proposed (card task_07c23910)",
+  "next_acceptance": "StepEffect TABLE collected with step tests + golden_path green; LEDGER1 v2 at 7+/7+ on two fresh critics; COACHFIT1 v9 complete",
+  "awaiting_operator": "Start the proposed animation session card 'Fight animation: v2 feet and whole steps (Fable)' (standing approval for animation work)"
  },
  "next": "S496: 0) get_usage; where_we_are roll S496; quote board answers (Q-259 Training K v6c; build WeekCards v6c on Yes - WeekCards.gd 552 lines is split first). 1) Collect as they land, by diff + their test: Qwen ONELOOK2 (fight HUD palette, ETA ~11:00 11-16; render before/after fight stills on the hidden desktop, his OK before merge), Goose FILMCOUNT1 (#326, branch goose/issue-326 - Goose's PR step failed twice: collect from the branch; read its FINDS table and noise numbers, retune FilmBout rates if a floor missed), Grok Dev FIGHTPAGE1 (branch grok/fightpage1, ETA ~13:30; render at 1920x1080 text 1.0 and 1.3, judge against fight_analysis_v3.png, then his board). 2) Kalli SQ202 LADDER1 v6 + SQ203 COACHSPEC1 r6 -> two fresh critics each (Dola + John; Dola refused COACHSPEC1 r5 - resend). 3) Wire after FIGHTPAGE1+FILMCOUNT1: the film-night stop in the fight week (FightWeekPlan film night -> FightAnalysis.for_tape with FilmCount.check, FilmPattern.checks by coach rating), FilmEdge pays at the figure, the result page's Punch by punch tab over m['tape'] (BoutTape), History keeps 20 tapes (~400 lines a bout). 4) Live fight log panel brief to Grok Dev once FIGHTPAGE1 lands. 5) ONELOOK1 sweep after ONELOOK2: RosterCards, ReadPanel, MatMap (UI.gd/WoodKit/WeekCards first need a split).",
  "assessment": {
@@ -2252,6 +2252,12 @@
    "date": "2026-11-19",
    "model": "opus",
    "summary": "S526 (Opus): collected KNOWBOTS5 (Goose #388: potential readers LOSE; shown rating off only 0.83 because per-attribute offsets cancel -> KNOWBOTS6 #391 shared misread), TURNTUNE1 (Goose #389: no constant fixes lines 2/4/7; none taken -> TURNPROBE2 #392 measures them as the design means), FITPROBE2 (Qwen PR 390: TOP fit Sharp 1.53 weeks sooner, +0.08 wins -> COACHFIT1 v9 revise at Dola SQ231). LEDGER1 v1 Dola 8/8, second critic Goose #393. Grok chat seats down (404). Animation: anim-range (Fable) resumed headless (reactions sized, defence that shows). Guard v4 step 6: GuardNotes under THIS CAMP (rope wear vs pressers/loaders, amateur note). STEPTUNE1 Goose #394 from a partial TREEVALUE3. S526b: LEDGER1 Goose critic 7/6 -> v2 revise at Dola SQ232; guard posture is a dominant pick while body punches are 6% of the mix -> GUARDPROBE2 (Goose #395) before the defence tab."
+  },
+  {
+   "id": "S527",
+   "date": "2026-11-19",
+   "model": "opus",
+   "summary": "S527 (Opus): collected KNOWBOTS6 (#391: shared misread passed in its own probe) -> Knowledge.SHARED_MISREAD 0.5 (test red first); K1 rerun on the real path: oracle +4.4/+9.2/+7.9 = still VOID (KNOWBOTS6 did not reproduce) -> stakes levers at Dola SQ236. SPLIT500C merged (GymDeals). TURNPROBE2 (#392): 8/9 lines fail, day-job boxers never reach pro -> TURNPRO1 v3 at Dola SQ235. GUARDPROBE2 (#395): HIGH guard wins whenever body share < 0.50 -> GUARDPROBE3 (Goose #398) sizes the opponent's adaptation. STEPTUNE1 (#394) not taken: roll_out never fired = probe defect (tie_up any-time first); probe fixed, roll_out fires, push_off sized at nothing -> STEPTUNE2 on Qwen (PC). LEDGER1 v2 extracted + 3 wrong CODE claims -> critics Dola SQ233 + Goose #397; COACHFIT1 v9 cut off at s7 -> Dola SQ234 finishes. Fixes: camp card text overflow; guard notes + the tape's prep line were in the Training tab's hidden THIS CAMP box -> now under COACH'S PICK. Budget3D / MotionBricks read: not useful now. Animation: anim-range hit its cap; fresh Fable session proposed (feet on the take, whole steps)."
   }
  ],
  "blocked_on_operator": [],
@@ -5170,7 +5176,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-19 13:41 board_sync",
+  "updated": "2026-11-19 16:11 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5321,35 +5327,28 @@
   },
   "working_now": [
    {
-    "title": "TASK SPLIT500C - GymSpend.gd under the 500-line rule with room to grow (pure move, no behaviour change)",
+    "id": "STEPTUNE2",
     "who": "qwen",
-    "started": "2026-11-19T13:12",
-    "run": "SPLIT500C"
+    "title": "Footwork steps: size the levers from the corrected probe (PC)",
+    "after": ""
    },
    {
-    "title": "Knowledge: does a shared misread make knowing a boxer pay? (probe)",
+    "id": "GUARDPROBE3",
     "who": "goose",
-    "started": "2026-11-19T13:30",
-    "run": "KNOWBOTS6"
+    "title": "Guard posture: how fast the opponent adapts (probe)",
+    "after": ""
    },
    {
-    "title": "Turning pro: measure the three failing lines the right way (probe)",
+    "id": "LEDGERCRITIC3",
     "who": "goose",
-    "started": "2026-11-19T13:30",
-    "run": "TURNPROBE2"
+    "title": "Contracts map v2: fresh critic",
+    "after": ""
    },
    {
-    "title": "Contracts map: second fresh critic (research)",
-    "who": "goose",
-    "started": "2026-11-19T13:30",
-    "run": "LEDGERCRITIC2",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "Footwork steps: size the levers until each is worth its target (tuning)",
-    "who": "goose",
-    "started": "2026-11-19T13:30",
-    "run": "STEPTUNE1"
+    "id": "DOLA_S527",
+    "who": "dola",
+    "title": "Dola: ledger v2 critic, coach fit v9 part 2, turning pro v3, knowledge stakes",
+    "after": ""
    }
   ],
   "next": [
@@ -5380,12 +5379,6 @@
     "id": "LADDER1",
     "who": "kalli",
     "title": "Season ladder v6: stages 1-2 built + the idle clock (S516); left: season 1 Jan + final table, R9 rival offers (LADDERWIRE_SCOPE_S515)",
-    "after": ""
-   },
-   {
-    "id": "SPLIT500B",
-    "who": "qwen",
-    "title": "Grapple files + MatTreeInfo under 500 lines (S510, queued; STYLE5 finished S490)",
     "after": ""
    },
    {
@@ -5868,6 +5861,35 @@
   },
   "done_recently": [
    {
+    "id": "S527",
+    "title": "Knowledge misread wired; guard notes + tape prep line visible; camp card text fits; SPLIT500C merged"
+   },
+   {
+    "title": "Guard: where do the punches go, by opponent? (probe before posture)",
+    "who": "goose",
+    "when": "2026-11-19"
+   },
+   {
+    "title": "Footwork steps: size the levers until each is worth its target (tuning)",
+    "who": "goose",
+    "when": "2026-11-19"
+   },
+   {
+    "title": "Turning pro: measure the three failing lines the right way (probe)",
+    "who": "goose",
+    "when": "2026-11-19"
+   },
+   {
+    "title": "Knowledge: does a shared misread make knowing a boxer pay? (probe)",
+    "who": "goose",
+    "when": "2026-11-19"
+   },
+   {
+    "title": "TASK SPLIT500C - GymSpend.gd under the 500-line rule with room to grow (pure move, no behaviour change)",
+    "who": "qwen",
+    "when": "2026-11-19"
+   },
+   {
     "title": "TASK FITPROBE1 - coach fit: is a TOP fit worth having, and is it not too much? (FITPROBE1 + TRAINBALANCE, probe only)",
     "who": "qwen",
     "when": "2026-11-19"
@@ -5901,30 +5923,6 @@
     "title": "TASK TREEVALUE2 - is each footwork / defence step worth 1.5-5 in 100 against its own style? (probe only)",
     "who": "qwen",
     "when": "2026-11-19"
-   },
-   {
-    "title": "TASK GUARDPROBE1 - guard damage v4: size the guard's wear and the damage through it before anything changes a result",
-    "who": "qwen",
-    "when": "2026-11-19"
-   },
-   {
-    "id": "S524",
-    "who": "claude",
-    "title": "Turning pro week-review lines; knowledge counts; guard v4 rules, guard bar, result rows; 4 Ludo guard icons"
-   },
-   {
-    "title": "Guard damage v4: the pure rules (wear, leak, combo, ropes, recovery)",
-    "who": "arena",
-    "when": "2026-11-19"
-   },
-   {
-    "title": "Knowledge v3: the pure rules (groups, widths, reads and prices, stale, hype, moments)",
-    "who": "goose",
-    "when": "2026-11-19"
-   },
-   {
-    "title": "Turning pro wired: two promoters side by side, one ask each, money apart (S523)",
-    "who": "claude"
    }
   ],
   "scope_note": "S294: lean restart (E:\\FightCamp\\Lean\\docs\\RESTART_PLAN.md). Old roadmap items are parked until the weekly builds reach them.",
@@ -6013,6 +6011,26 @@
   "map": {
    "done_earlier": [
     {
+     "text": "KNOWBOTS5: potential no; misread",
+     "who": "claude"
+    },
+    {
+     "text": "TURNTUNE1: numbers can't fix it",
+     "who": "claude"
+    },
+    {
+     "text": "FITPROBE2: fit wins +0 in 100",
+     "who": "claude"
+    },
+    {
+     "text": "Guard notes on the camp board",
+     "who": "claude"
+    },
+    {
+     "text": "LEDGER1 critics 8/8, 7/6 -> v2",
+     "who": "claude"
+    },
+    {
      "text": "Guard leak is live damage",
      "who": "claude"
     },
@@ -6047,47 +6065,31 @@
     {
      "text": "Pro lines in the week review",
      "who": "claude"
-    },
-    {
-     "text": "Knowledge counts what we see",
-     "who": "claude"
-    },
-    {
-     "text": "Guard icons by Ludo",
-     "who": "agent"
-    },
-    {
-     "text": "Guard: clinch, hands up, corner",
-     "who": "claude"
-    },
-    {
-     "text": "Turning pro rules collected",
-     "who": "claude"
-    },
-    {
-     "text": "Turning pro wired: 2 houses, 1 ask",
-     "who": "claude"
     }
    ],
    "done_session": [
     {
-     "text": "KNOWBOTS5: potential no; misread",
+     "text": "Knowledge: whole-kid misread",
      "who": "claude"
     },
     {
-     "text": "TURNTUNE1: numbers can't fix it",
+     "text": "SPLIT500C GymDeals merged",
      "who": "claude"
     },
     {
-     "text": "FITPROBE2: fit wins +0 in 100",
+     "text": "Guard notes visible (coach pick)",
      "who": "claude"
     },
     {
-     "text": "Guard notes on the camp board",
+     "text": "Tape prep line visible",
      "who": "claude"
     },
     {
-     "text": "LEDGER1 critics 8/8, 7/6 -> v2",
+     "text": "Camp card text fits",
+     "who": "claude"
+    },
+    {
+     "text": "roll_out probe defect fixed",
      "who": "claude"
     }
    ],
@@ -6163,26 +6165,6 @@
     {
      "text": "Anim: v2 range fix (Fable)",
      "who": "claude"
-    },
-    {
-     "text": "KNOWBOTS6 shared misread (Goose)",
-     "who": "agent"
-    },
-    {
-     "text": "TURNPROBE2 lines 2/4/7 (Goose)",
-     "who": "agent"
-    },
-    {
-     "text": "Coach fit v9 (Kalli)",
-     "who": "agent"
-    },
-    {
-     "text": "STEPTUNE1 size steps (Goose)",
-     "who": "agent"
-    },
-    {
-     "text": "Guard posture probe (Goose)",
-     "who": "agent"
     }
    ],
    "next": [
@@ -6355,20 +6337,48 @@
      "who": "agent"
     },
     {
-     "text": "Size step levers (TREEVALUE3)",
+     "text": "Guard HUD hover (fight3d)",
      "who": "claude"
     },
     {
-     "text": "Guard HUD hover (fight3d)",
+     "text": "STEPTUNE2 steps sizing (Qwen)",
+     "who": "claude"
+    },
+    {
+     "text": "GUARDPROBE3 adaptation (Goose)",
+     "who": "claude"
+    },
+    {
+     "text": "Ledger v2 critics (Dola+Goose)",
+     "who": "claude"
+    },
+    {
+     "text": "Coach fit v9 part 2 (Dola)",
+     "who": "claude"
+    },
+    {
+     "text": "Turning pro v3 (Dola)",
+     "who": "claude"
+    },
+    {
+     "text": "Knowledge stakes design (Dola)",
+     "who": "claude"
+    },
+    {
+     "text": "Audit hidden THIS CAMP box",
+     "who": "claude"
+    },
+    {
+     "text": "Anim: feet on the take (Fable)",
      "who": "claude"
     }
    ],
-   "session": "S526"
+   "session": "S527"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
- "last_working_commit": "ba87ee191",
- "next_action": "S524: 1) his look at the turning pro offer (review board S523) + Q-275 guard v4; 2) TURNPRO1 M11 week review line (split WeekReview.gd first, 497 lines); collect TURNPROBE1 (Qwen) and size ProCall ESTIMATEs; 3) collect Goose #378 KNOWLEDGE1A, wire per design build order; 4) collect Qwen TREEVALUE2 -> tune StepEffect; MORNINGSPROBE2 / MONEYFOUR2. Animation: lean-f3 only (METHOD S510).",
+ "last_working_commit": "42feebb38",
+ "next_action": "S528: 1) collect Qwen STEPTUNE2 (E:/FightCamp/wt/LEAN_STEPTUNE2, TABLE numbers by diff, step tests + golden_path); 2) Goose #397 LEDGERCRITIC3 + Dola SQ233 -> LEDGER1 v2 at 7+/7+ -> his board (ask --attach); 3) Dola SQ234 COACHFIT1 v9 part 2 -> two critics; 4) Dola SQ235 TURNPRO1 v3 -> two critics; 5) Goose #398 GUARDPROBE3 -> wire posture + adaptation, then the defence tab; 6) Dola SQ236 KNOW_STAKES1; 7) the rest of THIS CAMP is hidden (WeekCamp in WeekBoard's Legacy box): audit what else lives only there (ONELOOK1). Animation: the Fable session 'anim-steps' (feet on the take) - start it if the owner has not.",
  "next_acceptance": "Rulers vs r0: head jumps on the contact frame under 4, a head inside the other's body under 5 frames, arm out median under 4 frames with join_return green, then r1 film at two fresh blind critics 5+/10"
 }

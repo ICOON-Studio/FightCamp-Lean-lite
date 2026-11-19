@@ -24,6 +24,9 @@ const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const MoveMastery := preload("res://scripts/rules/MoveMastery.gd")
 const NoGi := preload("res://scripts/rules/NoGi.gd")
 const Gauges := preload("res://scripts/rules/Gauges.gd")
+const GuardNotes := preload("res://scripts/rules/GuardNotes.gd")
+const OppFile := preload("res://scripts/rules/OppFile.gd")
+const WeekOpp := preload("res://scripts/rules/WeekOpp.gd")
 
 const SHORT := ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"]
 const USABLE := 30.0
@@ -89,6 +92,12 @@ static func model(c: Career, sel_id: String, sel_day: int) -> Dictionary:
 	var said: Array = pl["lines"] if bool(out["bout"]["booked"]) else (pl["lines"] as Array).filter(func(l): return str(l["id"]) != "weight")
 	out["pick"] = WeekCoach.advice(pl["days"], wk, said, str((pl["ctx"] as Dictionary).get("diet", "hold")))
 	var opp: Dictionary = (goal["bout"] as Dictionary).get("opp", {})
+	# S527: the guard notes (S526) lived in THIS CAMP, a hidden box on this screen; they show under COACH'S PICK instead.
+	out["guard"] = GuardNotes.lines(OppFile.main_game(opp), not bool(f.get("pro", false))) if bool(out["bout"]["booked"]) and not opp.is_empty() else []
+	out["opp_prep"] = ""
+	for ln in pl["lines"]:
+		if str(ln["id"]) == "opp":
+			out["opp_prep"] = WeekOpp.words(ln)
 	var oname := str(opp.get("name", ""))
 	if oname != "":   # S448 names only in headers: the coach says "the opponent"
 		out["pick"]["say"] = str(out["pick"]["say"]).replace(oname, "the opponent").replace(oname.get_slice(" ", 0), "the opponent")

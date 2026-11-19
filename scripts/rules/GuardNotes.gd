@@ -3,7 +3,8 @@ extends RefCounted
 ## Only what the settled fight really does (GuardState / GuardWear): a presser or a loader who wins an exchange leaves
 ## you on your own ropes (PlanFight.LOST_CARD), where every block wears the guard WEAR_ROPES more; an amateur bout wears
 ## each block WEAR_AMATEUR more and a quiet exchange gives back RECOVER_QUIET_AMATEUR (pro RECOVER_QUIET).
-## The habit lines live in OppFile.GUARD_NOTE (her file). Shown under the THIS CAMP "vs" line (WeekCamp).
+## The habit lines live in OppFile.GUARD_NOTE (her file). Shown under COACH'S PICK on the Training tab (ClubWeek "guard" -> TrainSide;
+## S527: THIS CAMP / WeekCamp sits in that tab's hidden Legacy box, so its copy is never seen).
 ##   style_warning(game) -> "" or one sentence    amateur_note(amateur) -> "" or one sentence    lines(game, amateur) -> Array
 
 const GuardWear := preload("res://scripts/rules/GuardWear.gd")

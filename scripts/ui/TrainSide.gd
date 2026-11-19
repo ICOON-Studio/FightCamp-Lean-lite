@@ -172,9 +172,17 @@ static func pick(model: Dictionary, on_fix: Callable) -> PanelContainer:
 	var say := WB.ink(str(ad["say"]), 22, "hand", Palette.PAGE, true)
 	say.name = "CoachLine"
 	words.add_child(say)
+	if str(model.get("opp_prep", "")) != "":   # S527: what "your call" asks for (the tape's line, was only in a hidden box)
+		var op := WB.ink(str(model["opp_prep"]), 18, "hand", Palette.PAGE, true)
+		op.name = "OppPrep"
+		words.add_child(op)
 	h.add_child(words)
 	v.add_child(h)
 	v.add_child(B.lab("YOUR COACH", 16, Palette.WOOD, "bold"))
+	for g in model.get("guard", []):   # S527: the camp's guard lines (GuardNotes), with a bout booked
+		var gl := WB.ink(str(g), 16, "hand", Palette.PAGE, true)
+		gl.name = "GuardNote"
+		v.add_child(gl)
 	if not (ad["fix"] as Dictionary).is_empty():
 		var b := UI.button("Do it", "BtnSolid", on_fix)
 		b.name = "CoachApply"

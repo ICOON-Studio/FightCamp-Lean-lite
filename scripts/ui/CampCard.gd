@@ -16,7 +16,7 @@ const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const NightBar := preload("res://scripts/ui/NightBar.gd")
 const Attrs := preload("res://scripts/rules/Attrs.gd")
 
-const CARD_H := 340.0
+const CARD_H := 372.0   # S527: room for a wrapped forecast + a wrapped caption (the Stamina card)
 const PIC_H := 178.0
 const INSET := 6
 ## The quiet line Camp.gd still asks for. On the slate that is the quiet chalk, not the old grey.
@@ -66,7 +66,7 @@ static func card(main: Node, f: Dictionary, key: String, chosen: bool, now: floa
 	words.add_child(w)
 	w.add_child(UI.label(str(Data.LABEL[key]), 23, UI.FG, "marker"))
 	w.add_child(UI.label("%s ++" % Data.LABEL[key], 17, UI.GREEN, "bold"))
-	var fc := UI.label("", 16, UI.FG, "body")
+	var fc := UI.label("", 16, UI.FG, "body", true)   # S527: wraps inside the card (the Stamina line pushed past its edge)
 	fc.name = "Forecast"
 	var ln_now := float(ln["now"])
 	count(fc, float(ln["from"]), float(ln["end"]), func(x: float) -> String: return "%s%.1f -> %.1f by fight night" % [nm, ln_now, x])
@@ -76,14 +76,14 @@ static func card(main: Node, f: Dictionary, key: String, chosen: bool, now: floa
 	w.add_child(bar)
 	var words_at := BoutRules.night_line_words(str(ln["key"]))
 	if words_at != "":
-		var cap := UI.label(words_at, 15, UI.GOLD if BoutRules.clears_night_line(str(ln["key"]), float(ln["end"])) else UI.MUTED, "bold")
+		var cap := UI.label(words_at, 15, UI.GOLD if BoutRules.clears_night_line(str(ln["key"]), float(ln["end"])) else UI.MUTED, "bold", true)
 		cap.name = "NightLine"
 		# The line's colour is checked as the paper ink, so it sits on a light chip (a piece the look keeps) and the
 		# ink pass leaves it. Chalk fill, not the old cream. The rest of the card is chalk words on the slate.
 		var hold := PanelContainer.new()
 		hold.theme_type_variation = "Chip"
 		hold.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		hold.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+		hold.size_flags_horizontal = Control.SIZE_FILL   # S527: a wrapping caption needs the card's width (SHRINK collapsed it)
 		hold.add_theme_stylebox_override("panel", UI.box(WoodKit.INK, Color(WoodKit.SOFT, 0.45), 4, 1, 6, 1))
 		hold.add_child(cap)
 		w.add_child(hold)

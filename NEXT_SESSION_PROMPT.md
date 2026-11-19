@@ -1,33 +1,47 @@
-# S527 handover (written 2026-11-19, S526 - Opus)
+# S528 handover (written 2026-11-19, S527 - Opus)
 
-Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. S526 is in roadmap `now`.
+Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. S527 is in roadmap `now`.
 
 ## GOAL (owner, verbatim, still on): "i want animations fixed (at least 7/10)"
-The ONLY animation session is now "anim-range" (Claude Desktop, Fable, local_ffb51673; lean-f3 stopped at the owner's
-$60 cap). Do not start another while it runs. Its state: the ANIMATION LOOP STATE section below (third v2 film 4.0 / 4.5).
-METHOD line below (S510) - quote it in the first message.
+anim-range (local_ffb51673, Fable) hit its context cap after film 5 = 5.0 / 4.5 and asked for a fresh session. S527
+PROPOSED "Fight animation: v2 feet and whole steps (Fable)" (card task_07c23910, name anim-steps; brief = NEXT item 1 of
+the S527 block in ANIMATION LOOP STATE). If the owner has not started it, start it (start_session with that proposal_id,
+or a fresh one with the same brief), then CHECK its model is Fable (get_session; set_session_model if not - S512 trap).
+C434 ("why the fighter do not walk ?") stays open until that work lands. METHOD line below (S510) - quote it.
 
-## MAIN LINE - DO FIRST (S526 state; S526 is in roadmap `now`)
-1. STEPTUNE1 (Goose #394, TASK_STEPTUNE1.md): sizes StepEffect.TABLE toward StepValue.TARGET on the 20 best / wrong
-   cells, from a PARTIAL TREEVALUE3 (docs/TREEVALUE3_RESULT.txt). The PC run's full file is E:/FightCamp/tmp/treevalue3.txt
-   (feint / tie_up / roll_out / push_off rows came after the copy): read it beside Goose's result. Collect by diff (TABLE
-   numbers only), rerun the step_* tests + golden_path; then STEPVALUE1's "step worth on the learn card".
-2. Goose #391 KNOWBOTS6 (TASK_KNOWBOTS6.md): a shared per-prospect misread rho 0/0.5/0.8/1.0. Decision rule is in
-   KNOWLEDGE_SCOPE_S525.md "Phase 2 decision (S526)". KNOWBOTS5 said: potential readers LOSE, shown rating off 0.83 only.
-3. Goose #392 TURNPROBE2 (TASK_TURNPROBE2.md): turning pro lines 2/4/7 measured as the design means them (debut's own
-   money, each ask played forward from one snapshot, paired PREP-YES). TURNTUNE1: no constant moved them; none taken.
-4. COACHFIT1 v9 revise at Dola SQ231 (FITPROBE2: TOP fit = Sharp 1.53 weeks sooner, +0.08 wins in 100, FOCUS +0.95:
-   no stakes as a multiplier). Then two fresh critics (Goose + Dola chat), 7+/7+. COACHFIT1 is NOT wired until then.
-5. LEDGER1 v1: Dola 8 / 8, Goose 7 / 6 (#393) -> v2 revise at Dola SQ232 (both critics + Claude's code check); then two
-   fresh critics, 7+/7+ -> his board with `ask --attach`.
-6. Guard v4: step 6 camp notes DONE S526 (GuardNotes under THIS CAMP's vs line; not rendered yet - render it on the
-   hidden desktop when no game is open). Left: step 5 HUD (scripts/fight3d = the animation session's files) and the
-   fight plan defence tab - posture (GuardWear.POSTURE_*) is not wired into GuardState: design call first (a new choice
-   needs a probe), not a menu alone. S526b: written up in GUARDWEAR_WIRE_S524.md bottom (HIGH dominates while body
-   punches are 6% of the mix) -> GUARDPROBE2 brief next.
-7. GROK CHAT SEATS ARE DOWN (gbot 404): Kalli / Maria / John queue items fail. Use Dola (chat) and Goose (critic issues).
-8. Ludo (paid to ~11 Dec): no asset job in S525/S526 (S526 ran at 98% weekly usage and saved it for the animation session).
-9. Qwen SPLIT500C running (GymSpend -> GymDeals, E:/FightCamp/wt/LEAN_SPLIT500C): collect by diff.
+## MAIN LINE - DO FIRST (S527 state)
+1. Qwen STEPTUNE2 (PC, E:/FightCamp/wt/LEAN_STEPTUNE2, branch qwen/steptune2, TASK_STEPTUNE2.md): sizes StepEffect.TABLE
+   from the CORRECTED probe. Collect by diff (TABLE numbers only + docs/STEPTUNE2_RESULT.md), rerun step_effect /
+   step_levers / golden_path. Then STEPVALUE1's "step worth on the learn card".
+2. LEDGER1 v2 (ops/research/DESIGN_LEDGER1_V2.md, Claude's code check on top: release fee, renegotiation, rival offer were
+   wrong "CODE" claims) -> critics Dola SQ233 + Goose #397 (LEDGERCRITIC3). Both 7+/7+ -> his board with `ask --attach`.
+3. COACHFIT1 v9 was CUT OFF at section 7 in Dola's chat -> Dola SQ234 writes sections 7-16 (brief
+   DESIGN_COACHFIT1_V9B_FINISH_DOLA.md, with the plan-pressure / fatigue code check). Join v9 parts 1+2 into
+   DESIGN_COACHFIT1_V9.md, then two fresh critics.
+4. TURNPRO1 v3 at Dola SQ235 (TURNPROBE2: 8/9 lines fail; "costs" ask best 68%, three asks never; day-job boxers reach pro
+   1 in 150 careers; line 4 passes on the stipend half). Then two critics. No constant tuning (TURNTUNE1).
+5. Guard posture: GUARDPROBE2 said HIGH wins whenever body share < 0.50 (math in GUARDWEAR_WIRE_S524.md bottom). Goose #398
+   GUARDPROBE3 sizes the opponent's adaptation (N rounds, S shift). Then wire posture + adaptation in GuardState, then the
+   fight plan defence tab.
+6. Knowledge: Knowledge.SHARED_MISREAD 0.5 is IN (S527). K1 rerun (docs/KNOWBOTS7_K1_RESULT.md): oracle +4.4/+9.2/+7.9 -
+   still VOID, KNOWBOTS6's pass did not reproduce through the game path. Stakes levers at Dola SQ236
+   (DESIGN_KNOW_STAKES1_DOLA.md). A future knowledge probe needs 150+ worlds a set or paired worlds.
+7. HIDDEN BOX (S527 find): WeekBoard puts THIS CAMP (WeekCamp: goal lines, weight, the opponent line, guard notes) in a
+   hidden "Legacy" Control. S527 moved the guard notes + the tape's prep line under COACH'S PICK (TrainSide, ClubWeek
+   "guard" / "opp_prep"; test guard_notes_shown_test). Audit what else lives only there (ONELOOK1) - tests that find a
+   node without is_visible_in_tree() pass on hidden things.
+8. Grok chat seats still down (gbot 404): Dola (chat) + Goose (issues) for critics. Goose cap 2 in flight (#397, #398).
+9. Ludo (paid to ~11 Dec): no asset job again in S527 - nothing on the queue needs one; LOOK2 waits on his Q-185 pick.
+
+## DONE IN S527 (Opus; all on main, tests named in each commit green)
+- KNOWBOTS6 collected -> Knowledge shared misread (knowledge_shared_test red first). K1 rerun: still VOID (see 6).
+- SPLIT500C (Qwen PR 396): GymSpend -> GymDeals, 397 + 109 lines; 20 tests green.
+- TURNPROBE2 / GUARDPROBE2 verdicts: ops/research/S527_PROBES.md. STEPTUNE1 not taken (timed out; sized from a probe defect).
+- tools/treevalue_probe.gd: the swept arrow goes first (PlanBoard.pick takes the first any-time arrow on a card; tie_up hid
+  roll_out), `-- only=a,b`. TREEVALUE4: roll_out fires 1.2-2.4 a bout, worth -0.8..+0.8; push_off wired, sized at nothing.
+- Fixes seen on renders: CampCard forecast + night-line tag wrap (card 340 -> 372); guard notes + tape prep line visible.
+- Owner asked about Budget3D / MotionBricks: not useful now (TOOLS_BUDGET3D_MOTIONBRICKS_S527.md).
+- Exported; WHAT_TO_TRY S527 corrects S526's "see it under THIS CAMP".
 
 ## DONE IN S525 (Opus; all on main, tests named in each commit green)
 - Collected 7 probes: GUARDPROBE1, MORNINGSPROBE2, MONEYFOUR2, FITPROBE1 (Qwen), KNOWBOTS4 (Goose #379), TURNPROBE1 (Goose

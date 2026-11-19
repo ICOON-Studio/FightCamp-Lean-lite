@@ -25,3 +25,13 @@
   tie_up (any time, inside) came before roll_out. Fixed in tools/treevalue_probe.gd (_swept_first; `-- only=` filter).
   push_off fires 0.4-0.8 a bout and its DRAIN is read (RingDuel.opp_energy): a size case, not a wire.
 - Next: the roll_out / push_off rerun (E:/FightCamp/tmp/treevalue4_rollout.txt), then STEPTUNE2 sizes from the full table.
+
+## TREEVALUE4 rerun (S527 PC, docs/TREEVALUE4_ROLLOUT_PUSHOFF.txt) - roll_out fixed, push_off a size case
+- roll_out now fires 1.2-2.4 a bout (was 0): the probe fix holds; without-arm fires 0; determinism control OK.
+  Its worth is -0.8..+0.8 in 100 (targets: Slugger +3.0, Pressure +1.0, others ~+1): deny 0.40 on head hooks = ~7.6% of
+  her landed punches, open 0.10, against its own tank 0.30. Too small, not miswired.
+- push_off fires 0.4-0.8 a bout from the clinch card and changes nothing (wins equal in 4 of 6 styles over 1,200 bouts):
+  its only lever is DRAIN 0.3 x 0.85 x BODY_COST 1.2 = ~0.31 of her 100-point tank a fire, against its own tank 0.4. Wired
+  (RingDuel.opp_energy reads opp_drain), sized at nothing. A real push-off makes space on your own terms: an OPEN on the
+  next exchange is the lever it lacks (Claude's call for STEPTUNE2: give it open, open_on "any").
+- STEPTUNE2 (TASK_STEPTUNE2.md) sizes all ten rows from the full corrected table.

@@ -64,3 +64,13 @@ static func edge(bout: Dictionary, sit: String) -> float:
 static func say(ln: Dictionary) -> String:
 	return "%s %s: put %d more %s morning%s in." % [str(ln["label"]).trim_prefix("vs "), str(OppFile.GAME_WORDS.get(str(ln["game"]), "")),
 		int(ln["short"]), str(WORDS.get(str(ln["session"]), ln["session"])), "" if int(ln["short"]) == 1 else "s"]
+
+
+## S527: the line in words for the Training tab's COACH'S PICK (THIS CAMP, where it was printed, is a hidden box there):
+## "The opponent walks you down: 2 slip rope mornings a week (this week 1)." ("" for no line). Names only in headers.
+static func words(ln: Dictionary) -> String:
+	if ln.is_empty():
+		return ""
+	var t := int(ln["target"])
+	return "The opponent %s: %d %s morning%s a week (this week %d)." % [str(OppFile.GAME_WORDS.get(str(ln["game"]), "fights her way")),
+		t, str(WORDS.get(str(ln["session"]), ln["session"])), "" if t == 1 else "s", int(ln["now"])]
