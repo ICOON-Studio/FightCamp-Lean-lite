@@ -13,6 +13,9 @@ const TapeVersus := preload("res://scripts/ui/TapeVersus.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const ComboWords := preload("res://scripts/rules/ComboWords.gd")
 const CornerCard := preload("res://scripts/rules/CornerCard.gd")
+const GuardWear := preload("res://scripts/rules/GuardWear.gd")
+const GUARD_ICON := {"green": "res://assets/ui/art/guard/guard_holding.png", "yellow": "res://assets/ui/art/guard/guard_tiring.png",
+	"orange": "res://assets/ui/art/guard/guard_leaking.png", "red": "res://assets/ui/art/guard/guard_dropping.png"}   # Ludo, S524
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 const LiveRound := preload("res://scripts/state/LiveRound.gd")
 const ReadPanel := preload("res://scripts/ui/ReadPanel.gd")
@@ -222,7 +225,19 @@ func _round(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 		if gl != "":
 			var gll := UI.label(gl, 16, UI.AMBER, "body", true)
 			gll.name = "GuardLine"
-			v.add_child(gll)
+			gll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			var grow := HBoxContainer.new()   # S525 guard v4 step 5: Ludo's guard state icon beside the line
+			grow.name = "GuardRow"
+			grow.add_theme_constant_override("separation", 10)
+			var gi := TextureRect.new()
+			gi.name = "GuardIcon"
+			gi.texture = load(GUARD_ICON[GuardWear.colour(float(last.get("guard", 0.0)), 1.0)])
+			gi.custom_minimum_size = Vector2(40, 40)
+			gi.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+			gi.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+			grow.add_child(gi)
+			grow.add_child(gll)
+			v.add_child(grow)
 		advice = str(cc["call"]) if n < total else ""
 	var fb: Dictionary = main.career.fighter_by_id(str(m.get("fid", ""))).get("bout", {})
 	if n == 1 and n < total and stop == "" and bool(fb.get("pro", false)) and fb.has("deal"):   # S523 TURNPRO1 map M13: the debut note, once

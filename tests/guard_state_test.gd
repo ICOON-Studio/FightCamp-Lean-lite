@@ -95,6 +95,45 @@ func _initialize() -> void:
 	var labels: Array = FightStats.rows(st).map(func(r): return str(r["label"]))
 	_check(st["blocked"] == [12, 9] and labels.has("Punches blocked") and labels.has("Guard left at the last bell"),
 		"the result page counts blocks (%s) and the guard left (%s)" % [str(st["blocked"]), str(st["guard"])])
+	_check(not labels.has("Got through the guard (in punches)"), "no leak recorded (S524 rounds): no got-through row")
+	var ex3 := {"landed": [3, 4], "body": [0, 0], "won": false, "guard": {"blocked": [6, 4], "share": [0.5, 0.7], "through": [0.70, 0.14]}}
+	var st3 := FightStats.of([{"n": 1, "exchanges": [ex3]}])
+	var thr: Array = FightStats.rows(st3).filter(func(r): return str(r["label"]) == "Got through the guard (in punches)")
+	_check(thr.size() == 1 and str(thr[0]["a"]) == "10" and str(thr[0]["b"]) == "2" and int(thr[0]["lead"]) == 1,
+		"the result page shows what got through each guard, fewer leads: %s" % str(thr))
+	# S525 guard habits (design s1.3): a slow starter's guard wears 12% less in round 1 (control: no habit, same exchange);
+	# a fader recovers less after round 4 (quiet exchanges); without a round number (old callers) habits are ignored.
+	var plain := _f(true, 75.0)
+	var slow := _f(true, 75.0)
+	slow["habits"] = ["slow_starter"]
+	GuardState.open(plain, 1)
+	GuardState.open(slow, 1)
+	var gp := float(GuardState.after(plain, [2, 6], "", {}, "", 1)["g"][0])
+	var gsl := float(GuardState.after(slow, [2, 6], "", {}, "", 1)["g"][0])
+	_check(gsl > gp, "a slow starter keeps more guard in round 1 (%.1f vs %.1f)" % [gsl, gp])
+	var fader := _f(true, 75.0)
+	var steady := _f(true, 75.0)
+	fader["habits"] = ["fades_late"]
+	for b in [fader, steady]:
+		GuardState.open(b, 1)
+		b["bout"]["guard"]["a"]["g"] = 40.0
+	var rf := float(GuardState.after(fader, [3, 0], "", {}, "", 5)["g"][0])
+	var rs := float(GuardState.after(steady, [3, 0], "", {}, "", 5)["g"][0])
+	_check(rf < rs and rf > 40.0, "a fader recovers less in round 5 on a quiet exchange (%.2f vs %.2f)" % [rf, rs])
+	var old_f := _f(true, 75.0)
+	old_f["habits"] = ["slow_starter"]
+	GuardState.open(old_f, 1)
+	_check(absf(float(GuardState.after(old_f, [2, 6], "", {})["g"][0]) - gp) < 0.001, "no round number: the habit is ignored")
+	_check(GuardState.guard_habit(["lunges_with_jab", "fades_late"]) == "fades_late" and GuardState.guard_habit([]) == "", "guard_habit picks the guard habit")
+	var OF: GDScript = load("res://scripts/rules/OppFile.gd")
+	_check(OF.GUARD_NOTE.keys().all(func(h): return GuardState.GUARD_HABITS.has(h)) and GuardState.GUARD_HABITS.all(func(h): return OF.GUARD_NOTE.has(h)),
+		"the opponent file names the guard effect of every guard habit the fight reads")
+	var FN: GDScript = load("res://scripts/ui/modals/FightNight.gd")
+	var icons_ok := FN != null
+	for col in ["green", "yellow", "orange", "red"]:
+		icons_ok = icons_ok and FN.GUARD_ICON.has(col) and load(str(FN.GUARD_ICON[col])) is Texture2D
+	_check(icons_ok and GuardWear.colour(0.4, 1.0) == "orange" and str(FN.GUARD_ICON["orange"]).ends_with("guard_leaking.png"),
+		"the corner guard line carries Ludo's icon for each colour (40% = leaking)")
 	var old := FightStats.rows(FightStats.of([{"n": 1, "exchanges": [{"landed": [4, 3], "body": [1, 0], "won": true}]}]))
 	_check(not old.map(func(r): return str(r["label"])).has("Punches blocked"), "an old save's bout shows no guard rows")
 	# S525 damage through the guard (GUARDPROBE1 sizes): a low guard leaks more than a full one on the same blocks (control:

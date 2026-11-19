@@ -11,9 +11,14 @@ extends RefCounted
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 
 
+## S525: a blocked punch's leak in whole punches - GuardState.K_THROUGH x the mean punch base over BoutBurn.MIX (jab .5 x 1,
+## cross + hooks .44 x 2.5, uppercut .06 x 4 = 1.84): the leak of one clean punch.
+const PUNCH_WORTH := 0.038 * 1.84
+
+
 static func of(rounds: Array) -> Dictionary:
 	var out := {"rounds": [], "landed": [0, 0], "body": [0, 0], "head": [0, 0], "xwon": [0, 0], "tank": [100.0, 100.0],
-		"calls": [], "games": [], "pace": {}, "blocked": [0, 0], "guard": []}   # S524 GUARDWEAR: guard [] = no guard (old saves)
+		"calls": [], "games": [], "pace": {}, "blocked": [0, 0], "through": [0.0, 0.0], "guard": []}   # S524 GUARDWEAR: guard [] = no guard (old saves)
 	var calls := {}
 	var games := {}
 	for r in rounds:
@@ -29,6 +34,7 @@ static func of(rounds: Array) -> Dictionary:
 			if not gd.is_empty():   # S524 GUARDWEAR: blocks each side made, and the guard after the exchange (0..1)
 				for k in 2:
 					out["blocked"][k] = int(out["blocked"][k]) + int(gd["blocked"][k])
+					out["through"][k] = float(out["through"][k]) + float((gd.get("through", [0.0, 0.0]) as Array)[k])   # S525 into side k
 				out["guard"] = (gd["share"] as Array).duplicate()
 			var won := bool(x.get("won", false))
 			row["xwon"][0 if won else 1] = int(row["xwon"][0 if won else 1]) + 1
@@ -59,6 +65,11 @@ static func rows(st: Dictionary) -> Array:
 	out.append(_pair("Exchanges won", st["xwon"]))
 	if not (st.get("guard", []) as Array).is_empty():   # S524 GUARDWEAR (design s2 result screen): blocks and the guard left
 		out.append(_pair("Punches blocked", st["blocked"]))
+		if float(st["through"][0]) + float(st["through"][1]) > 0.0:   # S525 guard v4 step 5: what the guard let through
+			var th := [roundi(float(st["through"][0]) / PUNCH_WORTH), roundi(float(st["through"][1]) / PUNCH_WORTH)]
+			var row := _pair("Got through the guard (in punches)", th)
+			row["lead"] = 0 if th[0] < th[1] else (1 if th[1] < th[0] else -1)   # fewer through is better
+			out.append(row)
 		var g: Array = st["guard"]
 		out.append({"label": "Guard left at the last bell", "a": "%d%%" % roundi(float(g[0]) * 100.0), "b": "%d%%" % roundi(float(g[1]) * 100.0),
 			"fa": clampf(float(g[0]), 0.0, 1.0), "fb": clampf(float(g[1]), 0.0, 1.0),

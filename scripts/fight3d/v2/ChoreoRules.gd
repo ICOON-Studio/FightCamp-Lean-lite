@@ -14,7 +14,7 @@ const MIN_GAP_M := 0.45       # never closer than this
 const GAP_SPEED_MPS := 1.6    # max gap change rate (a step pair is 0.55-0.60 s)
 const BURST_GAP_S := 2.2      # contacts closer than this are one burst: the pair stays in range between them
 const OWN_GAP_S := 0.12        # one boxer's own contacts are at least this far apart (two hands, one body)
-const KNOCK_FREE_S := 1.0      # a reaction travels only when no other punch is due within this (the last of a combination)
+const KNOCK_FREE_S := 0.5      # a reaction travels unless another punch is due within this (S525: was 1.0 - with the step out and the pocket planned, a follow-up half a second later steps back in)
 const LEAVE_S := 1.5          # back at rest within this after a burst's last contact
 
 # --- Fit (scope 3c, ClipCensus) ---
@@ -26,6 +26,11 @@ const HOOK_FIT_M := 0.05      # hooks, uppercuts, body shots get no IK
 const SLIDE_MAX_S := 0.25     # max contact slide for stun avoidance
 const CONTROL_S := 0.13       # control back after contact (Undisputed 0.11-0.17)
 const WIND_MIN_S := 0.12      # a take never starts later than this before its contact
+## ... a hook, an uppercut or a body shot not later than this (S525, film 3 and 4: a hook thrown second in a
+## combination started 0.12 s before its contact, so the take's whole hip turn - 80-110 deg - was joined in three
+## frames: "blue spins and shows his back"). It cuts the first punch's way home a little sooner instead.
+const WIND_TURN_S := 0.26
+
 
 # --- Stun durations by reaction size (scope 3d) ---
 const STUN_S := {"light": 0.40, "medium": 0.60, "heavy": 0.80}
@@ -114,6 +119,7 @@ static func impact_s_for(move: String) -> float:
 ## part-way in, so the head is furthest REACT_PEAK_S after the glove lands (the join smoother makes the snap).
 const REACT_PEAK_S := 0.13
 const REACT_VARY_SCORE := 0.30
+const REACT_MIN_PEAK_M := {"light": 0.11, "medium": 0.21}   # the critics' floors: a jab 8-14 cm, a cross or a hook 18-30
 
 
 static func react_size_for(move: String, big: bool) -> String:

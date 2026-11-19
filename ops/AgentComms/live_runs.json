@@ -882,125 +882,58 @@
    "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/367",
    "reconciled": "2026-11-18 10:40 board_reconcile: run finished (success), branch goose/issue-367 pushed"
   },
-  "TREEVALUE2": {
-   "agent": "qwen",
-   "id": "TREEVALUE2",
-   "title": "TASK TREEVALUE2 - is each footwork / defence step worth 1.5-5 in 100 against its own style? (probe only)",
+  "KNOWBOTS5": {
+   "agent": "goose",
+   "id": "KNOWBOTS5",
+   "title": "Knowledge: which truth decides a career - rating, potential or neither (probe)",
    "status": "running",
-   "started": "2026-11-19T01:42",
-   "eta": "2026-11-19T03:32",
-   "branch": "qwen/treevalue2",
-   "worktree": "E:/FightCamp/wt/LEAN_TREEVALUE2",
-   "wt": "E:/FightCamp/wt/LEAN_TREEVALUE2",
-   "brief": "ops/research/TASK_TREEVALUE2.md",
+   "started": "2026-11-19T11:05",
+   "eta": "2026-11-19T13:30",
+   "issue": 388,
+   "brief": "ops/research/TASK_KNOWBOTS5.md",
+   "repo": "FightCamp-Lean",
+   "where": "cloud",
+   "branch": "goose/issue-388"
+  },
+  "TURNTUNE1": {
+   "agent": "goose",
+   "id": "TURNTUNE1",
+   "title": "Turning pro: size the offer numbers until the choice is real (tuning)",
+   "status": "running",
+   "started": "2026-11-19T11:05",
+   "eta": "2026-11-19T13:30",
+   "issue": 389,
+   "brief": "ops/research/TASK_TURNTUNE1.md",
+   "repo": "FightCamp-Lean",
+   "where": "cloud",
+   "branch": "goose/issue-389"
+  },
+  "FITPROBE2": {
+   "agent": "qwen",
+   "id": "FITPROBE2",
+   "title": "TASK FITPROBE2 - coach fit on the EVENINGS: does a TOP fit bring moves to Sharp sooner? (probe only)",
+   "status": "running",
+   "started": "2026-11-19T11:10",
+   "eta": "2026-11-19T13:00",
+   "branch": "qwen/fitprobe2",
+   "worktree": "E:/FightCamp/wt/LEAN_FITPROBE2",
+   "wt": "E:/FightCamp/wt/LEAN_FITPROBE2",
+   "brief": "ops/research/TASK_FITPROBE2.md",
    "repo": "FightCamp-Lean",
    "where": "pc",
-   "log": "E:/FightCamp/wt/TREEVALUE2_dispatch_out.txt",
-   "match": "seat_dispatch.py run treevalue2",
+   "log": "E:/FightCamp/wt/FITPROBE2_dispatch_out.txt",
+   "match": "seat_dispatch.py run fitprobe2",
    "model": "qwen4-max",
    "dispatch": {
-    "prompt": "E:/FightCamp/wt/TREEVALUE2_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/TREEVALUE2_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/TREEVALUE2_dispatch_runner.log",
+    "prompt": "E:/FightCamp/wt/FITPROBE2_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/FITPROBE2_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/FITPROBE2_dispatch_runner.log",
     "source": "dispatch_queue.json",
     "brief_copied": true,
-    "runner_pid": 29124,
-    "seat_pid": 52428
-   },
-   "note": "S524: Qwen timed out (124) after writing the probe; Claude runs it on the PC (~2 h, 150k bouts)",
-   "finished": "2026-11-19T04:31",
-   "pr": 382,
-   "checks": [
-    {
-     "kind": "RED_TEST",
-     "script": "tools/treevalue_probe.gd",
-     "ok": false,
-     "last": "timeout"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/step_effect_test.gd",
-     "ok": true,
-     "last": "STEP_EFFECT PASS fails=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/fire_level_test.gd",
-     "ok": true,
-     "last": "FIRE_LEVEL failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/plan_bout_test.gd",
-     "ok": true,
-     "last": "PLAN_BOUT failures=0"
-    }
-   ],
-   "films": {
-    "before": {},
-    "after": {},
-    "board": ""
-   }
-  },
-  "KNOWBOTS4": {
-   "agent": "goose",
-   "id": "KNOWBOTS4",
-   "title": "Knowledge v3 probes: does reading a boxer pay (K1/K3/K4), yardstick first",
-   "status": "running",
-   "started": "2026-11-19T04:40",
-   "eta": "2026-11-19T06:30",
-   "issue": 379,
-   "branch": "goose/issue-379",
-   "brief": "ops/research/TASK_KNOWBOTS4.md"
-  },
-  "TURNPROBE1": {
-   "agent": "goose",
-   "id": "TURNPROBE1",
-   "title": "Turning pro probes: do two promoters, one ask and timing make a real choice?",
-   "status": "running",
-   "started": "2026-11-19T04:45",
-   "eta": "2026-11-19T06:30",
-   "issue": 380,
-   "branch": "goose/issue-380",
-   "brief": "ops/research/TASK_TURNPROBE1.md"
-  },
-  "GUARDPROBE1": {
-   "agent": "qwen",
-   "id": "GUARDPROBE1",
-   "title": "TASK GUARDPROBE1 - guard damage v4: size the guard's wear and the damage through it before anything changes a result",
-   "status": "running",
-   "started": "2026-11-19T04:34",
-   "eta": "2026-11-19T06:24",
-   "branch": "qwen/guardprobe1",
-   "worktree": "E:/FightCamp/wt/LEAN_GUARDPROBE1",
-   "wt": "E:/FightCamp/wt/LEAN_GUARDPROBE1",
-   "brief": "ops/research/TASK_GUARDPROBE1.md",
-   "repo": "FightCamp-Lean",
-   "where": "pc",
-   "log": "E:/FightCamp/wt/GUARDPROBE1_dispatch_out.txt",
-   "match": "seat_dispatch.py run guardprobe1",
-   "model": "qwen4-max",
-   "dispatch": {
-    "prompt": "E:/FightCamp/wt/GUARDPROBE1_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/GUARDPROBE1_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/GUARDPROBE1_dispatch_runner.log",
-    "source": "dispatch_queue.json",
-    "brief_copied": true,
-    "runner_pid": 49032,
-    "seat_pid": 41104
+    "runner_pid": 44516,
+    "seat_pid": 47892
    },
    "note": "S368 seat_dispatch: launched unattended (dispatch_queue.json); merging stays off"
-  },
-  "PROCONTRACT1": {
-   "agent": "arena",
-   "id": "PROCONTRACT1",
-   "title": "Turning pro: a blind contract test from the design only (with mutants)",
-   "status": "running",
-   "started": "2026-11-19T04:55",
-   "eta": "2026-11-19T06:00",
-   "branch": "arena/4ab4ee7f-fightcamp-lean-lite",
-   "chat": "https://arena.ai/agent/01a1f1a9-8a2a-711e-a9ce-0dc74ab4ee7f",
-   "brief": "ops/research/TASK_PROCONTRACT1.md"
   }
  },
  "codex_budget": {

@@ -4,6 +4,7 @@ extends SceneTree
 const Choreo := preload("res://scripts/fight3d/v2/Choreographer.gd")
 const R := preload("res://scripts/fight3d/v2/ChoreoRules.gd")
 const Gap := preload("res://scripts/fight3d/v2/ChoreoGap.gd")
+const Wait := preload("res://scripts/fight3d/v2/ChoreoWait.gd")
 const ClipCensus := preload("res://scripts/fight3d/v2/ClipCensus.gd")
 const RS := preload("res://scripts/rules/RoundScript.gd")
 
@@ -40,6 +41,8 @@ func _initialize() -> void:
 	_r12_same()
 	# R13: range (S525)
 	_r13_range()
+	# R14: the waits (S525)
+	_r14_waits()
 	# Sweep
 	_sweep()
 	# Mutants
@@ -264,7 +267,7 @@ func _r13_range() -> void:
 			out_end = float(gap[i][0])
 	_check(absf(step_in - Gap.STEP_IN_M) < 0.02, "R13: the step in on the punch is one step (%.2f m)" % step_in)
 	_check(out_by == "a" and absf(out_m - Gap.STEP_OUT_M) < 0.02 and out_end - ct <= 0.6, "R13: the man who punched steps out %.2f m within 0.6 s (%s, %.2f m, %.2f s)" % [Gap.STEP_OUT_M, out_by, out_m, out_end - ct])
-	_check(absf(_gap_at_plan(gap, ct + R.LEAVE_S) - R.REST_M) < 0.02, "R13: back at rest within LEAVE_S (%.2f m)" % _gap_at_plan(gap, ct + R.LEAVE_S))
+	_check(absf(_gap_at_plan(gap, ct + R.LEAVE_S) - R.REST_M) < 0.10, "R13: back at rest within LEAVE_S (%.2f m; the rest breathes 5-9 cm)" % _gap_at_plan(gap, ct + R.LEAVE_S))
 	# two punches 1.0 s apart: the pair does not stay in the pocket of the first one's distance
 	var p2 := Choreo.plan([_beat("a", "cross", "lands", 5.0), _beat("b", "jab", "lands", 6.0)], db, _opts())
 	var c1: float = float(p2["beats"][0]["contact_t"])
@@ -275,6 +278,68 @@ func _r13_range() -> void:
 		widest = maxf(widest, Gap.at(p2["gap"], tt))
 		tt += 0.02
 	_check(c2 - c1 < Gap.POCKET_WAIT_S or widest >= float(p2["beats"][0]["gap"]) + Gap.POCKET_MIN_M - 0.01, "R13: with %.2f s to the next punch the puncher steps out between them (widest %.2f m, the punch %.2f m)" % [c2 - c1, widest, float(p2["beats"][0]["gap"])])
+
+
+# --- R14 THE WAITS (S525: fidgets, paws and feints planned into every quiet stretch; the distance at rest breathes) ---
+func _r14_waits() -> void:
+	var rows: Dictionary = db["rows"]
+	var overlaps := 0
+	var through := 0
+	var longest := 0.0
+	var kinds := {}
+	var still := 0.0
+	var longest_at := ""
+	for seed in 12:
+		var round := {"n": 1, "won": true, "mine": 60.0, "theirs": 55.0, "corner": "", "lines": []}
+		var beats: Array = RS.build(round, "Slugger", "Slugger", 30.0, seed)["beats"]
+		var plan := Choreo.plan(beats, db, _opts({"t0": 0.0, "t1": 30.0, "seed": seed}))
+		var cts: Array = []
+		for ob in plan["beats"]:
+			if R.is_punch(str(ob["move"])) and not bool(ob.get("cut", false)):
+				cts.append(float(ob["contact_t"]))
+		for side in ["a", "b"]:
+			var evs: Array = plan["tracks"][side]
+			var busy: Array = []
+			var spans: Array = []   # everything of his that plays: what is left between two spans is the plain guard
+			for e in evs:
+				var k := str(e["kind"])
+				if k in Wait.BUSY:
+					var left: float = float((rows.get(str(e.get("clip", "")), {}) as Dictionary).get("length_s", 1.2)) - float(e.get("from_s", 0.0))
+					busy.append([float(e["t"]), maxf(float(e["control_t"]), float(e["t"]) + (left if k != "pass" else 2.0))])
+					spans.append(busy[-1])
+				elif k in ["fidget", "feint"]:
+					kinds[str(e.get("what", k))] = int(kinds.get(str(e.get("what", k)), 0)) + 1
+					spans.append([float(e["t"]), float(e["end_t"])])
+			for e in evs:
+				if not (str(e["kind"]) in ["fidget", "feint"]):
+					continue
+				for b in busy:
+					if float(e["t"]) < float(b[1]) and float(e["end_t"]) > float(b[0]) + 0.001:
+						overlaps += 1
+				if str(e["kind"]) == "feint":
+					for c in cts:
+						if float(c) > float(e["t"]) - 0.3 and float(c) < float(e["end_t"]) - 0.25 + 0.3:
+							through += 1
+			spans.sort_custom(func(x, y): return float(x[0]) < float(y[0]))
+			var upto := 0.0
+			for sp in spans + [[30.0, 30.0]]:
+				if float(sp[0]) - upto > longest:
+					longest = float(sp[0]) - upto
+					longest_at = "seed %d %s %.2f-%.2f" % [seed, side, upto, float(sp[0])]
+				upto = maxf(upto, float(sp[1]))
+		# the distance: the longest stretch in which the gap does not change at all
+		var gap: Array = plan["gap"]
+		for i in range(1, gap.size()):
+			if absf(float(gap[i][1]) - float(gap[i - 1][1])) < 0.001:
+				still = maxf(still, float(gap[i][0]) - float(gap[i - 1][0]))
+		_check(Gap.faults(gap, cts, 30.0).is_empty(), "R14 seed %d: the breathing distance plan has no fault" % seed)
+	_check(overlaps == 0, "R14: no wait thing plays over a take of the same man (%d)" % overlaps)
+	_check(through == 0, "R14: no paw or feint goes through a landing punch (%d)" % through)
+	_check(longest <= 2.0, "R14: nobody stands in the plain guard longer than 2 s (longest %.2f s, %s)" % [longest, longest_at])
+	_check(still <= 2.2, "R14: the distance never holds still longer than 2.2 s (longest %.2f s)" % still)
+	_check(int(kinds.get("fidget", 0)) > 0 and int(kinds.get("paw", 0)) > 0 and int(kinds.get("cross_feint", 0)) > 0, "R14: fidgets, paws and feints are all planned (%s)" % str(kinds))
+	var plain := Choreo.plan([_beat("a", "jab", "lands", 5.0)], db, _opts({"waits": false}))
+	_check((plain["tracks"]["a"] as Array).filter(func(e): return str(e["kind"]) in ["fidget", "feint"]).is_empty(), "R14: waits off = the plan without them")
 
 
 # --- R10 CONTROL ---

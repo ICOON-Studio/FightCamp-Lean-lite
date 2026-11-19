@@ -61,6 +61,10 @@ const HABIT_WORDS := {"fades_late": "Hands drop late in a round", "slow_starter"
 	"drops_right_after_jab": "Drops the right after the jab", "lunges_with_jab": "Lunges in behind the jab",
 	"admires_her_work": "Stands and admires after a combination", "digs_body_when_hurt": "Goes to the body when hurt",
 	"loads_up_when_hurt": "Loads up wild when hurt"}
+## S525 guard v4 (design s3, opponent file): what the habit does to the guard (GuardWear.trait_wear_pct /
+## trait_recovery_pct, read live by GuardState) - the when-to-press half of the read.
+const GUARD_NOTE := {"slow_starter": "guard holds early, wears faster from round 3",
+	"fades_late": "guard comes back slower after round 4", "chases_stoppage": "guard recovers less while hunting the finish"}
 
 
 ## Every tell in her file, free ones first, then the hidden ones in the order tape study opens them.
@@ -84,7 +88,7 @@ static func tells(opp: Dictionary) -> Array:
 		var sid := str(id)
 		if sid.begins_with("habit:"):
 			var h := sid.trim_prefix("habit:")
-			out.append({"id": sid, "what": "Habit", "how": "tape", "value": str(HABIT_WORDS.get(h, h)),
+			out.append({"id": sid, "what": "Habit", "how": "tape", "value": str(HABIT_WORDS.get(h, h)) + (" - " + str(GUARD_NOTE[h]) if GUARD_NOTE.has(h) else ""),
 				"counter": "The read: the corner shouts the counter when it comes", "call": "", "when": ""})
 		elif sid.begins_with("mode:") and int(shown.get(sid.trim_prefix("mode:"), 0)) > 0:   # never on her films: no tell
 			out.append(mode_tell(sid.trim_prefix("mode:"), films, int(shown.get(sid.trim_prefix("mode:"), 0))))

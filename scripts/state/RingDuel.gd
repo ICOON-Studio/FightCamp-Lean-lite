@@ -317,7 +317,7 @@ static func her_energy(lv: Dictionary, i: int) -> float:
 static func opp_energy(lv: Dictionary, i: int) -> float:
 	var e: Dictionary = lv["e"]
 	return lerpf(float(e.get("b", 100.0)), float(e.get("b_end", 100.0)), float(i) / Exchanges.EXCHANGES) \
-		- body_units(lv, "b") * float(lv.get("body_cost_b", Exchanges.BODY_COST))
+		- body_units(lv, "b") * float(lv.get("body_cost_b", Exchanges.BODY_COST)) - float(lv.get("opp_drain", 0.0))   # S525 step DRAIN
 
 
 ## S467 LIVERRIBS1: body shots taken as drain units - a liver shot LiverRibs.LIVER_DRAIN, a rib shot RIB_DRAIN, an

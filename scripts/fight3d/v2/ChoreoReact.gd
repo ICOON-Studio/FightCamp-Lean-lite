@@ -60,6 +60,17 @@ static func react(db: Dictionary, rows: Dictionary, move: String, big: bool, fro
 				best_score = score
 				best = str(n)
 				best_row = r
+	# S525 (three films, both critics: a counted hit moves the head 7.5 cm at the median): of the takes that go the
+	# right way, the ones whose head travels under REACT_MIN_PEAK_M for their size play only when nothing bigger does.
+	var big_enough: Array = pool.filter(func(c): return float(rows[str(c[1])].get("head_peak_m", 0.0)) >= float(R.REACT_MIN_PEAK_M.get(str(rows[str(c[1])].get("size", "")), 0.0)))
+	if not big_enough.is_empty() and big_enough.size() < pool.size():
+		pool = big_enough
+		best_score = 999.0
+		for c in pool:
+			if float(c[0]) < best_score:
+				best_score = float(c[0])
+				best = str(c[1])
+				best_row = rows[best]
 	# S513 (the first v2 film: nearly every head punch played ONE take, pro_hit_by_hook_v3): any take within
 	# VARY_SCORE of the best may play, drawn by the plan's own seed.
 	var near: Array = pool.filter(func(c): return float(c[0]) <= best_score + R.REACT_VARY_SCORE)

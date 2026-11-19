@@ -74,7 +74,7 @@ func square(delta: float) -> void:
 	var b: Vector3 = p._home[1]
 	var busy := false
 	for i in 2:
-		busy = busy or str(p._take[i].get("kind", "guard")) != "guard"
+		busy = busy or not (str(p._take[i].get("kind", "")) in p.WAITING)
 	var most := deg_to_rad(SQUARE_BUSY_DPS if busy else SQUARE_WAIT_DPS) * delta
 	var turn := clampf(FixedCam.square(a, b, (cam as Node).get_meta("fixed_pos") as Vector3, delta), -most, most)
 	if turn == 0.0:
@@ -130,6 +130,10 @@ func travel(i: int) -> Vector3:
 	if str(ap.current_animation) != str(tk["clip"]):
 		return Vector3.ZERO
 	var d := RootPath.at(path, ap.current_animation_position) - RootPath.at(path, float(tk["from_s"]))
+	var lead: Vector2 = tk.get("lead", Vector2.ZERO)
+	if lead != Vector2.ZERO:   # a reaction started part-way in: the ground its take had given by then, given on the blow
+		var k := clampf((p.t - float(tk["at"])) / maxf(float(tk["lead_s"]), 0.01), 0.0, 1.0)
+		d += lead * (k * k * (3.0 - 2.0 * k))
 	return RootPath.world((bx["skel"] as Skeleton3D).global_transform.basis, d)
 
 

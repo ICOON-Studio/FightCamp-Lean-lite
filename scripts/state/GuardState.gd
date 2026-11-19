@@ -23,6 +23,7 @@ const COMBO_SHARE := 0.25  ## ESTIMATE - of the blocks, the share that are the 3
 const LIGHT_UPTO := 64.0   # class by the weight limit: up to 64 kg light, up to 81 kg middle, then heavy
 const MIDDLE_UPTO := 81.0
 
+const GUARD_HABITS := ["slow_starter", "fades_late", "chases_stoppage"]   ## the habits GuardWear reads (design s1.3)
 const KIND := {"jab": "jab", "cross": "power", "lead_hook": "power", "body_hook": "power", "rear_uppercut": "heavy"}
 
 
@@ -84,7 +85,10 @@ static func wear_through(blocks: int, g: float, mx: float, wc: String, ctx: Dict
 ## Returns {"g": [ours, theirs], "blocked": [by ours on theirs.. i.e. blocks WE made, blocks THEY made]}.
 ## call = the exchange's shout (Exchanges.CALLS id): "tie" is the design's clinch (+10 under half guard, once a round,
 ## GuardWear.clinch), "hands" earns the corner's Hands up (+5 at the next minute).
-static func after(f: Dictionary, landed: Array, at: String, opp_attrs: Dictionary, call := "") -> Dictionary:
+## S525 n = the round, opp_habits = RoundStyle.opponent_habits(opp): a guard habit (GUARD_HABITS) changes the wear
+## (GuardWear.trait_wear_pct: slow starter) and the in-round recovery (trait_recovery_pct: fades late, chases the
+## stoppage; our morale under 40 too). n 0 = no round known (old callers): habits ignored.
+static func after(f: Dictionary, landed: Array, at: String, opp_attrs: Dictionary, call := "", n := 0, opp_habits: Array = []) -> Dictionary:
 	if not f["bout"].has("guard"):
 		open(f, 1)
 	var gs: Dictionary = f["bout"]["guard"]
@@ -96,6 +100,13 @@ static func after(f: Dictionary, landed: Array, at: String, opp_attrs: Dictionar
 			"shoulder": GuardWear.shoulder(float(own.get("stamina", 55.0)), float(own.get("strength", 55.0)))},
 		{"ropes": at == "opp_ropes", "amateur": amateur,
 			"shoulder": GuardWear.shoulder(float(opp_attrs.get("stamina", 55.0)), float(opp_attrs.get("strength", 55.0)))}]
+	var habits := [guard_habit(f.get("habits", [])), guard_habit(opp_habits)]
+	var morale := [float(f.get("morale", 60.0)), 60.0]
+	if n > 0:
+		for k in 2:
+			if habits[k] != "":
+				ctxs[k]["trait"] = habits[k]
+				ctxs[k]["round_n"] = n
 	var keys := ["a", "b"]
 	var wc := wclass(float(f.get("limit", 60.0)))
 	var through := [0.0, 0.0]   # damage into [ours, theirs] through the guard
@@ -104,7 +115,10 @@ static func after(f: Dictionary, landed: Array, at: String, opp_attrs: Dictionar
 		var thrown_at := ceili(float(int(landed[1 - k])) / BoutBurn.LAND_RATE)
 		var wt := wear_through(int(blocks[k]), float(s["g"]), float(s["max"]), wc, ctxs[k])
 		through[k] = float(wt[1])
-		var g := float(s["g"]) - float(wt[0]) + GuardWear.in_round(thrown_at, amateur)
+		var rec := GuardWear.in_round(thrown_at, amateur)
+		if n > 0:
+			rec *= maxf(0.0, 1.0 + GuardWear.trait_recovery_pct(str(habits[k]), n, float(morale[k])))
+		var g := float(s["g"]) - float(wt[0]) + rec
 		s["g"] = GuardWear.clamp_guard(g, float(s["max"]))
 	var ours: Dictionary = gs["a"]
 	var clinch := {}
@@ -117,6 +131,14 @@ static func after(f: Dictionary, landed: Array, at: String, opp_attrs: Dictionar
 		ours["hands_next"] = true
 	return {"g": [float(gs["a"]["g"]), float(gs["b"]["g"])], "blocked": blocks, "clinch": bool(clinch.get("ok", false)), "through": through,
 		"share": [float(gs["a"]["g"]) / maxf(1.0, float(gs["a"]["max"])), float(gs["b"]["g"]) / maxf(1.0, float(gs["b"]["max"]))]}
+
+
+## The first guard habit a boxer has (FighterProfile habits / RoundStyle.opponent_habits), "" when none.
+static func guard_habit(habits: Array) -> String:
+	for h in GUARD_HABITS:
+		if habits.has(h):
+			return h
+	return ""
 
 
 ## 0..1 for the HUD's guard bar ("a" ours, "b" theirs); -1 when the bout has no guard yet (old saves, before the bell).

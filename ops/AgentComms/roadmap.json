@@ -3,16 +3,16 @@
  "updated": "2026-11-19",
  "author": "claude S294",
  "now": {
-  "id": "S524",
+  "id": "S525",
   "owner": "claude",
   "updated": "2026-11-19",
-  "summary": "S524 (Opus): Q-275 'Yes, build it after turning pro' acted on. Collected Goose #378 KNOWLEDGE1A (+ under-fire open fix, 7 dropped checks kept in knowledge_keep_test). TURNPRO1 M11 DONE: week review signing + debut ledger lines (WeekReview split, ProWeekLines). KNOWLEDGE1 step 2 wired (KnowWire: signings start fresh, mornings/nights/bouts/goals/stale feed it; nothing shown) - STOP before step 3: knowbots_probe VOID (ORACLE-BLIND +4; ORACLE fell 101->94 on the same seeds = the world changed since S463) -> KNOWBOTS4 at Goose #379. GUARDWEAR1 collected (Arena lite PR 19: caught the design's 0.5-vs-1.0 multiplier error; trait->trait_id fix). Guard v4 steps 1-2 + part of 5 wired: GuardState (blocks wear the guard, corner +15), HUD guard bar, result page blocks + guard left (render caught WEAR_SCALE 0.45 emptying both guards -> 0.28, amateur ends yellow). Ludo: 4 guard icons. TURNPROBE1 moved to Goose #380; GUARDPROBE1 on Qwen; TREEVALUE2 (Qwen timed out) running on the PC (~2 h); PROCONTRACT1 blind test at Arena; FITPROBE1 queued. ONELOOK1 guide bubble: fine in the real render. Exported. S524b: guard step 4 (Tie up = clinch, Hands up +5) + corner GuardLine + shoulder hover; LEDGER1 v1 map -> Dola SQ227; lean-f3 woken. Stopped at 509k context.",
-  "next_action": "S525: 1) collect GUARDPROBE1 (Qwen) -> set WEAR_SCALE / BLOCK_SHARE, then guard step 3 (damage through + feedback) per GUARDWEAR_WIRE_S524.md; 2) collect KNOWBOTS4 (Goose #379): K1 pass -> knowledge step 3 (bands in the week review), fail -> back to design; 3) collect TURNPROBE1 (Goose #380) -> size ProCall ESTIMATEs; 4) TREEVALUE2 result (PC run, $TEMP) -> tune StepEffect; 5) PROCONTRACT1 (Arena) -> merge test, fix findings; FITPROBE1 when a seat frees. Animation: lean-f3 only (METHOD S510).",
+  "summary": "S525 (Opus): collected 7 probes (GUARDPROBE1, MORNINGSPROBE2, MONEYFOUR2, FITPROBE1, KNOWBOTS4, TURNPROBE1, PROCONTRACT1). Guard v4 damage LIVE (amateur 0.28 / pro 0.40 wear, K_THROUGH 0.038: damage +7.3..10.5%, stoppages within +3.5), step 3 decided not built, got-through row + Ludo icon on the corner line, guard habits wired + named in the opponent file. Turning pro: Arena's contract test found the 3rd-decline news wrong (fixed). Knowledge VOID twice -> KNOWLEDGE_SCOPE_S525 + KNOWBOTS5 (Goose #388). TREEVALUE2: step levers were unwired -> DENY/DRAIN/OPEN wired (StepWire), TREEVALUE3 running on the PC. Class nights pay only on pad evenings. FITPROBE2 + SPLIT500C at Qwen, TURNTUNE1 Goose #389, LEDGER1 v1 critics SQ228/229. Animation: anim-range (Fable) third v2 film 4.0/4.5.",
+  "next_action": "S526: 1) TREEVALUE3 result (E:/FightCamp/tmp/treevalue3.txt) -> size StepEffect deny/open/drain to 1.5-5 in 100; 2) Goose #388 KNOWBOTS5 -> KNOWLEDGE_SCOPE_S525 phase 2; 3) Goose #389 TURNTUNE1 -> collect constants, rerun pro tests; 4) Qwen FITPROBE2 -> decide fit numbers, wire COACHFIT1; SPLIT500C after; 5) LEDGER1 critics SQ228/229 -> board at 7+; 6) guard v4 step 5 HUD (fight3d, when anim idle) + step 6 menus. Animation: anim-range only (METHOD S510).",
   "verified_playable": "Builds/FightCamp.exe S523: turning pro offer with two houses (hidden-desktop render ops/previews/s523/pro_offer.png; golden_path signs through the modal). Not yet played by him.",
   "incomplete_blocked": "TURNPRO1 M11 (WeekReview at 497 lines) and the probes (TURNPROBE1 queued). TREEVALUE2 running (Qwen), KNOWLEDGE1A at Goose #378.",
   "next_acceptance": "TURNPRO1 probes: both houses call in some careers, asks used, gym even-week matches the pays-back line within a week.",
   "awaiting_operator": "Q-S294-275 guard damage v4 (build after turning pro?); his look at the turning pro offer and the club week; Steam: wait to 8 Dec.",
-  "last_working_commit": "2e73b00da"
+  "last_working_commit": "db50ba83a"
  },
  "next": "S496: 0) get_usage; where_we_are roll S496; quote board answers (Q-259 Training K v6c; build WeekCards v6c on Yes - WeekCards.gd 552 lines is split first). 1) Collect as they land, by diff + their test: Qwen ONELOOK2 (fight HUD palette, ETA ~11:00 11-16; render before/after fight stills on the hidden desktop, his OK before merge), Goose FILMCOUNT1 (#326, branch goose/issue-326 - Goose's PR step failed twice: collect from the branch; read its FINDS table and noise numbers, retune FilmBout rates if a floor missed), Grok Dev FIGHTPAGE1 (branch grok/fightpage1, ETA ~13:30; render at 1920x1080 text 1.0 and 1.3, judge against fight_analysis_v3.png, then his board). 2) Kalli SQ202 LADDER1 v6 + SQ203 COACHSPEC1 r6 -> two fresh critics each (Dola + John; Dola refused COACHSPEC1 r5 - resend). 3) Wire after FIGHTPAGE1+FILMCOUNT1: the film-night stop in the fight week (FightWeekPlan film night -> FightAnalysis.for_tape with FilmCount.check, FilmPattern.checks by coach rating), FilmEdge pays at the figure, the result page's Punch by punch tab over m['tape'] (BoutTape), History keeps 20 tapes (~400 lines a bout). 4) Live fight log panel brief to Grok Dev once FIGHTPAGE1 lands. 5) ONELOOK1 sweep after ONELOOK2: RosterCards, ReadPanel, MatMap (UI.gd/WoodKit/WeekCards first need a split).",
  "assessment": {
@@ -2240,6 +2240,12 @@
    "date": "2026-11-19",
    "model": "opus",
    "summary": "S524 (Opus): Q-275 'Yes, build it after turning pro' acted on. Collected Goose #378 KNOWLEDGE1A (+ under-fire open fix, 7 dropped checks kept in knowledge_keep_test). TURNPRO1 M11 DONE: week review signing + debut ledger lines (WeekReview split, ProWeekLines). KNOWLEDGE1 step 2 wired (KnowWire: signings start fresh, mornings/nights/bouts/goals/stale feed it; nothing shown) - STOP before step 3: knowbots_probe VOID (ORACLE-BLIND +4; ORACLE fell 101->94 on the same seeds = the world changed since S463) -> KNOWBOTS4 at Goose #379. GUARDWEAR1 collected (Arena lite PR 19: caught the design's 0.5-vs-1.0 multiplier error; trait->trait_id fix). Guard v4 steps 1-2 + part of 5 wired: GuardState (blocks wear the guard, corner +15), HUD guard bar, result page blocks + guard left (render caught WEAR_SCALE 0.45 emptying both guards -> 0.28, amateur ends yellow). Ludo: 4 guard icons. TURNPROBE1 moved to Goose #380; GUARDPROBE1 on Qwen; TREEVALUE2 (Qwen timed out) running on the PC (~2 h); PROCONTRACT1 blind test at Arena; FITPROBE1 queued. ONELOOK1 guide bubble: fine in the real render. Exported."
+  },
+  {
+   "id": "S525",
+   "date": "2026-11-19",
+   "model": "opus",
+   "summary": "S525 (Opus): collected 7 probes (GUARDPROBE1, MORNINGSPROBE2, MONEYFOUR2, FITPROBE1, KNOWBOTS4, TURNPROBE1, PROCONTRACT1). Guard v4 damage LIVE (amateur 0.28 / pro 0.40 wear, K_THROUGH 0.038: damage +7.3..10.5%, stoppages within +3.5), step 3 decided not built, got-through row + Ludo icon on the corner line, guard habits wired + named in the opponent file. Turning pro: Arena's contract test found the 3rd-decline news wrong (fixed). Knowledge VOID twice -> KNOWLEDGE_SCOPE_S525 + KNOWBOTS5 (Goose #388). TREEVALUE2: step levers were unwired -> DENY/DRAIN/OPEN wired (StepWire), TREEVALUE3 running on the PC. Class nights pay only on pad evenings. FITPROBE2 + SPLIT500C at Qwen, TURNTUNE1 Goose #389, LEDGER1 v1 critics SQ228/229. Animation: anim-range (Fable) third v2 film 4.0/4.5."
   }
  ],
  "blocked_on_operator": [],
@@ -5158,7 +5164,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-19 04:45 board_sync",
+  "updated": "2026-11-19 11:11 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5309,34 +5315,22 @@
   },
   "working_now": [
    {
-    "title": "TASK TREEVALUE2 - is each footwork / defence step worth 1.5-5 in 100 against its own style? (probe only)",
-    "who": "qwen",
-    "started": "2026-11-19T01:42",
-    "run": "TREEVALUE2"
-   },
-   {
-    "title": "Knowledge v3 probes: does reading a boxer pay (K1/K3/K4), yardstick first",
+    "title": "Knowledge: which truth decides a career - rating, potential or neither (probe)",
     "who": "goose",
-    "started": "2026-11-19T04:40",
-    "run": "KNOWBOTS4"
+    "started": "2026-11-19T11:05",
+    "run": "KNOWBOTS5"
    },
    {
-    "title": "Turning pro probes: do two promoters, one ask and timing make a real choice?",
+    "title": "Turning pro: size the offer numbers until the choice is real (tuning)",
     "who": "goose",
-    "started": "2026-11-19T04:45",
-    "run": "TURNPROBE1"
+    "started": "2026-11-19T11:05",
+    "run": "TURNTUNE1"
    },
    {
-    "title": "TASK GUARDPROBE1 - guard damage v4: size the guard's wear and the damage through it before anything changes a result",
+    "title": "TASK FITPROBE2 - coach fit on the EVENINGS: does a TOP fit bring moves to Sharp sooner? (probe only)",
     "who": "qwen",
-    "started": "2026-11-19T04:34",
-    "run": "GUARDPROBE1"
-   },
-   {
-    "title": "Turning pro: a blind contract test from the design only (with mutants)",
-    "who": "arena",
-    "started": "2026-11-19T04:55",
-    "run": "PROCONTRACT1"
+    "started": "2026-11-19T11:10",
+    "run": "FITPROBE2"
    }
   ],
   "next": [
@@ -5855,6 +5849,46 @@
   },
   "done_recently": [
    {
+    "title": "TASK FITPROBE1 - coach fit: is a TOP fit worth having, and is it not too much? (FITPROBE1 + TRAINBALANCE, probe only)",
+    "who": "qwen",
+    "when": "2026-11-19"
+   },
+   {
+    "title": "TASK MONEYFOUR2 - class nights on the BUILT club week: is the money worth the pad time lost? (probe)",
+    "who": "qwen",
+    "when": "2026-11-19"
+   },
+   {
+    "title": "TASK MORNINGSPROBE2 - coached mornings on the BUILT club week: does the week plan make a real choice? (probe)",
+    "who": "qwen",
+    "when": "2026-11-19"
+   },
+   {
+    "title": "Turning pro: a blind contract test from the design only (with mutants)",
+    "who": "arena",
+    "when": "2026-11-19"
+   },
+   {
+    "title": "Turning pro probes: do two promoters, one ask and timing make a real choice?",
+    "who": "goose",
+    "when": "2026-11-19"
+   },
+   {
+    "title": "Knowledge v3 probes: does reading a boxer pay (K1/K3/K4), yardstick first",
+    "who": "goose",
+    "when": "2026-11-19"
+   },
+   {
+    "title": "TASK TREEVALUE2 - is each footwork / defence step worth 1.5-5 in 100 against its own style? (probe only)",
+    "who": "qwen",
+    "when": "2026-11-19"
+   },
+   {
+    "title": "TASK GUARDPROBE1 - guard damage v4: size the guard's wear and the damage through it before anything changes a result",
+    "who": "qwen",
+    "when": "2026-11-19"
+   },
+   {
     "id": "S524",
     "who": "claude",
     "title": "Turning pro week-review lines; knowledge counts; guard v4 rules, guard bar, result rows; 4 Ludo guard icons"
@@ -5872,52 +5906,6 @@
    {
     "title": "Turning pro wired: two promoters side by side, one ask each, money apart (S523)",
     "who": "claude"
-   },
-   {
-    "title": "Critic: guard damage v4 design",
-    "who": "goose",
-    "when": "2026-11-19"
-   },
-   {
-    "title": "Turning pro, the pure rules (who calls, two promoters, one ask, the money)",
-    "who": "goose",
-    "when": "2026-11-19"
-   },
-   {
-    "id": "ASKGAP1",
-    "who": "claude",
-    "title": "Ask door opens the day after a bout: 0 -> 123 ducks, 48 OWED (S520)",
-    "after": ""
-   },
-   {
-    "title": "TASK STREAKPROBE1 - how often a boxer is ON A RUN, and how often corners DUCK her or come to OWE her (probe only)",
-    "who": "qwen",
-    "when": "2026-11-18"
-   },
-   {
-    "title": "Club week v11 built: coached mornings, class nights, half sponsorship, forecast",
-    "who": "claude",
-    "id": "S519"
-   },
-   {
-    "title": "TASK STREAKPROBE1 - how often a boxer is ON A RUN (probe)",
-    "who": "qwen",
-    "when": "2026-11-18"
-   },
-   {
-    "title": "TASK LADDERPROBE4 - how often rival gyms ring, and what each answer does to the table (probe only)",
-    "who": "qwen",
-    "when": "2026-11-18"
-   },
-   {
-    "title": "offers from rival gyms and the DUCKED / OWED flags (pure rules + test, ladder v6 R9 + R6)",
-    "who": "goose",
-    "when": "2026-11-18"
-   },
-   {
-    "title": "Hot streak + DUCKED / OWED on the Ask card (R6)",
-    "who": "claude",
-    "id": "S518"
    }
   ],
   "scope_note": "S294: lean restart (E:\\FightCamp\\Lean\\docs\\RESTART_PLAN.md). Old roadmap items are parked until the weekly builds reach them.",
@@ -6006,6 +5994,26 @@
   "map": {
    "done_earlier": [
     {
+     "text": "Knowledge v3 rules collected",
+     "who": "agent"
+    },
+    {
+     "text": "Pro lines in the week review",
+     "who": "claude"
+    },
+    {
+     "text": "Knowledge counts what we see",
+     "who": "claude"
+    },
+    {
+     "text": "Guard icons by Ludo",
+     "who": "agent"
+    },
+    {
+     "text": "Guard: clinch, hands up, corner",
+     "who": "claude"
+    },
+    {
      "text": "Turning pro rules collected",
      "who": "claude"
     },
@@ -6040,47 +6048,35 @@
     {
      "text": "Club week v11 built",
      "who": "claude"
-    },
-    {
-     "text": "Coached mornings dealt",
-     "who": "claude"
-    },
-    {
-     "text": "Class nights + half sponsor",
-     "who": "claude"
-    },
-    {
-     "text": "4-week forecast + clash line",
-     "who": "claude"
-    },
-    {
-     "text": "ON A RUN tuned: 15 -> 8 pts",
-     "who": "claude"
-    },
-    {
-     "text": "Rival offer card: real still",
-     "who": "claude"
     }
    ],
    "done_session": [
     {
-     "text": "Knowledge v3 rules collected",
-     "who": "agent"
-    },
-    {
-     "text": "Pro lines in the week review",
+     "text": "Guard leak is live damage",
      "who": "claude"
     },
     {
-     "text": "Knowledge counts what we see",
+     "text": "Pro contract test + news fix",
      "who": "claude"
     },
     {
-     "text": "Guard icons by Ludo",
-     "who": "agent"
+     "text": "Class pays only on pad nights",
+     "who": "claude"
     },
     {
-     "text": "Guard: clinch, hands up, corner",
+     "text": "Steps' levers reach the fight",
+     "who": "claude"
+    },
+    {
+     "text": "Guard: got-through row",
+     "who": "claude"
+    },
+    {
+     "text": "Guard habits + opp file line",
+     "who": "claude"
+    },
+    {
+     "text": "LEDGER1 map to critics",
      "who": "claude"
     }
    ],
@@ -6154,16 +6150,24 @@
      "who": "claude"
     },
     {
-     "text": "Guard v4 rules (Arena)",
+     "text": "Which truth: KNOWBOTS5 (Goose)",
      "who": "agent"
     },
     {
-     "text": "Knowledge probe K1 (Goose #379)",
+     "text": "Turning pro numbers (Goose)",
      "who": "agent"
     },
     {
-     "text": "Turning pro probes (Goose #380)",
+     "text": "Coach fit evenings (Qwen)",
      "who": "agent"
+    },
+    {
+     "text": "Step worth rerun (PC)",
+     "who": "claude"
+    },
+    {
+     "text": "Anim: v2 range fix (Fable)",
+     "who": "claude"
     }
    ],
    "next": [
@@ -6334,9 +6338,17 @@
     {
      "text": "Contract tab map (Dola)",
      "who": "agent"
+    },
+    {
+     "text": "Size step levers (TREEVALUE3)",
+     "who": "claude"
+    },
+    {
+     "text": "Guard HUD hover (fight3d)",
+     "who": "claude"
     }
    ],
-   "session": "S524"
+   "session": "S525"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",

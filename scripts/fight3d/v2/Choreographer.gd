@@ -8,6 +8,7 @@ const ClipCensus := preload("res://scripts/fight3d/v2/ClipCensus.gd")
 const BeatClips := preload("res://scripts/fight3d/BeatClips.gd")
 const Gap := preload("res://scripts/fight3d/v2/ChoreoGap.gd")
 const React := preload("res://scripts/fight3d/v2/ChoreoReact.gd")
+const Wait := preload("res://scripts/fight3d/v2/ChoreoWait.gd")
 
 
 ## Plan one exchange. beats: time-ordered input (never mutated). db: parsed clip_db.json.
@@ -31,6 +32,8 @@ static func plan(beats: Array, db: Dictionary, opts: Dictionary) -> Dictionary:
 	var ctrl_until := {"a": -1.0, "b": -1.0}
 	var last_take := {"a": "", "b": ""}
 	var prev_ct := -99.0
+	var landed_at := {"a": -99.0, "b": -99.0}   # each man's own last contact as planned
+	var prev_free := -99.0   # from when the feet are free to shift again: the last contact, or the end of the knock it gave
 	var prev_gap := gap0
 	# Punches are planned in the order they LAND (a slow body hook thrown first lands after a quick jab thrown later);
 	# one boxer's own punches never overtake each other (R2). The output keeps the input's order.
@@ -69,7 +72,7 @@ static func plan(beats: Array, db: Dictionary, opts: Dictionary) -> Dictionary:
 		# R3: the take. Inside a burst the pair can only shift so far before this contact; from rest any take is free
 		# (the feet go to its distance, R5).
 		var in_burst: bool = prev_ct > -90.0 and base_ct - prev_ct < R.BURST_GAP_S
-		var room: float = R.GAP_SPEED_MPS * maxf(base_ct - Gap.LEAD_S - prev_ct, 0.0) if in_burst else INF
+		var room: float = R.GAP_SPEED_MPS * maxf(base_ct - Gap.LEAD_S - prev_free, 0.0) if in_burst else INF
 		if base_ct - prev_ct >= Gap.POCKET_WAIT_S:
 			room = INF   # the pair waited at the pocket: any take's distance is one step away
 		var off: float = 0.0
@@ -119,7 +122,7 @@ static func plan(beats: Array, db: Dictionary, opts: Dictionary) -> Dictionary:
 		# R2: when the take starts; a combination's next punch starts part-way in while the last hand comes home
 		var t_play: float = contact_t - (contact_s - from_s)
 		if t_play < float(ctrl_until[who]):
-			from_s = clampf(from_s + (float(ctrl_until[who]) - t_play), start_s, maxf(start_s, contact_s - R.WIND_MIN_S))
+			from_s = clampf(from_s + (float(ctrl_until[who]) - t_play), start_s, maxf(start_s, contact_s - (R.WIND_MIN_S if R.is_straight(move) else clampf(contact_t - float(landed_at[who]) - 0.03, R.WIND_MIN_S, R.WIND_TURN_S))))   # never from before his own last punch has landed
 			t_play = contact_t - (contact_s - from_s)
 		var ik_m: float = minf((dev if R.is_straight(move) else 0.0) + (reach if result == "lands" else 0.0), R.IK_MAX_M)
 		marks.append({"t": contact_t, "gap": pgap, "who": who, "kind": "contact"})
@@ -128,6 +131,8 @@ static func plan(beats: Array, db: Dictionary, opts: Dictionary) -> Dictionary:
 			"result": result, "big": big, "ik_m": ik_m})
 		ctrl_until[who] = contact_t + R.CONTROL_S
 		prev_ct = contact_t
+		prev_free = contact_t
+		landed_at[who] = contact_t
 		prev_gap = pgap
 		# R6 / R8: what the other man does with it. It CUTS what he was doing (a hit interrupts).
 		var react_name := ""
@@ -137,26 +142,34 @@ static func plan(beats: Array, db: Dictionary, opts: Dictionary) -> Dictionary:
 			var ri := React.react(db, rows, move, big, R.is_left_hand(move), rng, hfh, log)
 			react_name = str(ri[0])
 			var rrow: Dictionary = ri[1]
-			react_part = str(ri[2])
+			# S525: every reaction plays with its take's own travel (a small one was pinned "upper": its feet stepped
+			# under held hips, and the 4-9 cm the take gives never showed); only a big one moves the distance plan.
+			var gives: bool = str(ri[2]) == "whole"
+			react_part = "whole"
 			var rt: float = contact_t
 			ev[other].append({"t": rt, "clip": react_name, "kind": "reaction", "part": "?", "from_s": maxf(float(rrow.get("head_peak_s", 0.0)) - R.REACT_PEAK_S, 0.0),
 				"join_s": R.join_for("reaction"), "control_t": rt + R.stun_for(str(ri[3])), "size": str(ri[3]), "move": move})
 			ctrl_until[other] = maxf(float(ctrl_until[other]), rt + R.stun_for(str(ri[3])))
 			stun_until[other] = maxf(float(stun_until[other]), contact_t + R.stun_for(str(ri[3])))
-			# He gives ground on the LAST punch of a combination: while another punch is due within KNOCK_FREE_S the
-			# reaction stays on the spot, or the follow-up would have to chase a man staggering half a metre.
+			# He gives ground whenever the next punch can follow him there (S525: was "only on the last punch of a
+			# combination", so most reactions inside a burst were pinned and a cross moved nobody): a follow-up due
+			# inside KNOCK_FREE_S keeps him on the spot only when the feet could not cover his travel in that time.
+			var give_m: float = float(rrow.get("hips_max_m", 0.0)) * float(scale.get(other, 1.0))
+			var give_s: float = maxf(0.18, give_m / 2.0)   # how long the knock takes (Player2.LEAD_MPS)
 			var k_at: int = keys.find(key)
 			for kk in range(k_at + 1, keys.size()):
 				var nb: Dictionary = beats[int(keys[kk][1])]
 				if R.is_punch(str(nb.get("move", ""))):
-					if float(keys[kk][0]) - contact_t < R.KNOCK_FREE_S:
+					var due: float = float(keys[kk][0]) - contact_t
+					if gives and due < R.KNOCK_FREE_S and due - Gap.LEAD_S - give_s < 0.15:
 						react_part = "upper"
 					break
 			(ev[other][-1] as Dictionary)["part"] = react_part
-			if react_part == "whole":
+			if react_part == "whole" and gives:
 				var travel: float = float(rrow.get("hips_max_m", 0.0)) * float(scale.get(other, 1.0))
-				marks.append({"t": contact_t + 0.3, "gap": pgap + travel, "who": other, "kind": "knock"})
+				marks.append({"t": contact_t + give_s, "gap": pgap + travel, "who": other, "kind": "knock"})   # S525: he gives the ground on the blow (Player2 lead), was +0.3
 				prev_gap = pgap + travel
+				prev_free = contact_t + give_s
 		elif result == "blocked":
 			var bi := React.block(db, rows)
 			defence_name = str(bi[0])
@@ -168,10 +181,21 @@ static func plan(beats: Array, db: Dictionary, opts: Dictionary) -> Dictionary:
 			defence_name = str(di[0])
 			if defence_name != "":
 				var drow: Dictionary = di[1]
-				var dt: float = contact_t - float(drow.get("head_peak_s", 0.3))
-				ev[other].append({"t": dt, "clip": defence_name, "kind": "defence", "part": "whole", "from_s": 0.0,
+				var peak_s: float = float(drow.get("head_peak_s", 0.3))
+				var dt: float = contact_t - peak_s
+				# S525: while a take of his own still has him (a punch planned earlier in the burst) the defence waits and
+				# starts part-way in, so its head is still off the line on time (it used to start on schedule and be cut).
+				var d_from := 0.0
+				if dt < float(ctrl_until[other]):
+					d_from = clampf(float(ctrl_until[other]) - dt, 0.0, maxf(peak_s - 0.12, 0.0))
+					dt = contact_t - (peak_s - d_from)
+				ev[other].append({"t": dt, "clip": defence_name, "kind": "defence", "part": "whole", "from_s": d_from,
 					"join_s": R.join_for("defence"), "control_t": contact_t + float(drow.get("back_s", 0.4))})
 				ctrl_until[other] = maxf(float(ctrl_until[other]), contact_t + 0.15)
+				# S525 (the worst head jump of three films, 25 cm in a frame: a jab thrown 0.07 s after the hook he had
+				# weaved under, started 0.12 s before its own contact from the bottom of the weave): he comes up before
+				# he counters. Like a stun: his next punch slides, or is cut when it was not going to land.
+				stun_until[other] = maxf(float(stun_until[other]), contact_t + clampf(float(drow.get("back_s", peak_s + 0.2)) - peak_s, 0.12, 0.30))
 		last_take[who] = take_name
 		_fill_ob(ob, t_play, take_name, from_s, contact_t, pgap, ik_m, false, react_name, react_part, defence_name, _why(result, def, take_name))
 		out_beats[at_i] = ob
@@ -183,6 +207,11 @@ static func plan(beats: Array, db: Dictionary, opts: Dictionary) -> Dictionary:
 			ev[w].append({"t": float(s["t"]), "clip": "", "kind": "step", "part": "legs", "from_s": 0.0, "join_s": 0.0,
 				"control_t": float(s["t"]), "end_t": float(s["end_t"]), "m": float(s["m"])})
 	_add_pivots(ev["a"], ev["b"], gap, t0, t1, rng, ctrl_until)
+	# S525 the waits, drawn last (the punches' own draws stay what they were): fidgets, paws and feints on each man's
+	# own clock, and a distance at rest that is never a still line. `waits: false` = the plan without them.
+	if bool(opts.get("waits", true)):
+		Wait.add(ev, db, t0, t1, marks.filter(func(m): return str(m.get("kind", "contact")) == "contact").map(func(m): return float(m["t"])), rng)
+		gap = Wait.breathe(gap, rng)
 	for w in ["a", "b"]:
 		_order(ev[w])
 	return {"beats": out_beats, "tracks": ev, "gap": gap, "counts": counts, "log": log}
@@ -192,7 +221,7 @@ static func plan(beats: Array, db: Dictionary, opts: Dictionary) -> Dictionary:
 
 ## Time order; a later event takes control from the one before it (R10: a hit cuts a punch, a punch cuts a guard).
 static func _order(evs: Array) -> void:
-	var rank := {"step": 0, "pivot": 0, "pass": 1, "punch": 2, "defence": 3, "block": 4, "reaction": 5}
+	var rank := {"step": 0, "pivot": 0, "fidget": 0, "feint": 0, "pass": 1, "punch": 2, "defence": 3, "block": 4, "reaction": 5}
 	evs.sort_custom(func(x, y):
 		if absf(float(x["t"]) - float(y["t"])) > 0.0005:
 			return float(x["t"]) < float(y["t"])
@@ -250,6 +279,11 @@ static func _pool(db: Dictionary, rows: Dictionary, move: String, big: bool) -> 
 	var fresh: Array = all.filter(func(n): return not str(rows[n].get("form", "")).begins_with("hurt"))
 	if not fresh.is_empty():
 		all = fresh
+	# S525 (third film, both critics: "blue spins in 1-3 frames and shows his back", ex5 = pro_left_hook_ft): a take the
+	# census flags "back to the other man" (the pelvis turns 100 deg or more) plays only when its family owns no other.
+	var front: Array = all.filter(func(n): return not (rows[n].get("flags", []) as Array).any(func(f): return str(f).begins_with("back to the other man")))
+	if not front.is_empty():
+		all = front
 	if big:
 		var hard: Array = all.filter(func(n): return str(rows[n].get("form", "")) in ["hard", "hard_ft", "special"])
 		if not hard.is_empty():

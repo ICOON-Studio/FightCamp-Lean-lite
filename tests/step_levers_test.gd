@@ -1,0 +1,65 @@
+extends SceneTree
+## S525 STEPLEVERS: a planned step that fires does its StepEffect row in the exchange (StepWire.levers / open_edge).
+## Control arm: levers_on false returns nothing and changes nothing (the TREEVALUE2 state, where roll_out read 0).
+
+const StepWire := preload("res://scripts/state/StepWire.gd")
+const Exchanges := preload("res://scripts/rules/Exchanges.gd")
+
+var failures := 0
+
+
+func _check(ok: bool, what: String) -> void:
+	print("%s %s" % ["ok  " if ok else "FAIL", what])
+	if not ok:
+		failures += 1
+
+
+func _lv() -> Dictionary:
+	return {"cost": 0.0}
+
+
+func _initialize() -> void:
+	var rng := RandomNumberGenerator.new()
+	rng.seed = 7
+	# DENY: roll_out takes head hooks out of the opponent's landed punches; over 200 exchanges of 6 landed, ~0.4 x 0.19 x 6.
+	var denied := 0
+	for k in 200:
+		var s := {"landed": [2, 6]}
+		denied += int(StepWire.levers(_lv(), s, "roll_out", true, "ok", rng).get("denied", 0))
+	var want := 200.0 * 6.0 * 0.4 * 0.85 * 0.19
+	_check(absf(float(denied) - want) < want * 0.35, "roll_out denies ~%.0f of 1200 landed head hooks (%d)" % [want, denied])
+	# Step back denies every kind, more than roll_out's hooks only.
+	var s2 := {"landed": [2, 6]}
+	var sb := 0
+	for k in 200:
+		s2 = {"landed": [2, 6]}
+		sb += int(StepWire.levers(_lv(), s2, "step_back", true, "ok", rng).get("denied", 0))
+	_check(sb > denied, "step back (all punches) denies more than roll out (head hooks) (%d vs %d)" % [sb, denied])
+	# DRAIN + the step's own tank: push off drains the opponent and costs us its tank; tie up costs nothing here.
+	var lv := _lv()
+	var r := StepWire.levers(lv, {"landed": [3, 3]}, "push_off", true, "good", rng)
+	_check(float(lv.get("opp_drain", 0.0)) > 0.0 and float(r["drain"]) > 0.0, "push off drains the opponent's tank (%.2f)" % float(lv.get("opp_drain", 0.0)))
+	_check(float(lv["cost"]) > 0.0, "push off costs our tank (%.2f)" % float(lv["cost"]))
+	var lt := _lv()
+	StepWire.levers(lt, {"landed": [3, 3]}, "tie_up", true, "ok", rng)
+	_check(float(lt["cost"]) == 0.0, "tie up's refill stays ClinchRest's (no tank change here)")
+	# OPEN: roll_out opens the next planned punch line; a step line or an unplanned punch gets nothing; spent either way.
+	var lo := _lv()
+	StepWire.levers(lo, {"landed": [3, 3]}, "roll_out", true, "ok", rng)
+	var e1 := StepWire.open_edge(lo, "1-2", true)
+	_check(e1 > 0.0 and absf(e1 - 0.1 * 0.85 * float(Exchanges.EDGE["best"])) < 0.01, "roll out opens the next 1-2 (+%.2f)" % e1)
+	_check(StepWire.open_edge(lo, "1-2", true) == 0.0, "the open is spent after one line")
+	StepWire.levers(lo, {"landed": [3, 3]}, "roll_out", true, "ok", rng)
+	_check(StepWire.open_edge(lo, "step_back", true) == 0.0, "a step line takes no open")
+	# Unplanned or a punch line: no lever.
+	_check(StepWire.levers(_lv(), {"landed": [3, 6]}, "roll_out", false, "ok", rng).is_empty(), "an unplanned step does nothing")
+	_check(StepWire.levers(_lv(), {"landed": [3, 6]}, "1-2", true, "ok", rng).is_empty(), "a punch line is not a step")
+	# Control arm.
+	StepWire.levers_on = false
+	var sc := {"landed": [2, 6]}
+	var lc := _lv()
+	_check(StepWire.levers(lc, sc, "roll_out", true, "ok", rng).is_empty() and int(sc["landed"][1]) == 6 and float(lc["cost"]) == 0.0,
+		"levers off: nothing denied, nothing spent")
+	StepWire.levers_on = true
+	print("STEP_LEVERS failures=%d" % failures)
+	quit(0 if failures == 0 else 1)

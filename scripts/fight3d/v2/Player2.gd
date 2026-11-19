@@ -32,7 +32,10 @@ const GUARD := "pro_idle"
 ## The join into each kind of take: [half-life, length] s (scope 3e: into a punch 0.15, a reaction 0.05, a slip 0.15,
 ## back to the guard 0.30).
 const JOIN := {"punch": Vector2(0.05, 0.15), "reaction": Vector2(0.035, 0.11), "block": Vector2(0.02, 0.06),
-	"defence": Vector2(0.05, 0.15), "guard": Vector2(0.10, 0.30), "pass": Vector2(0.10, 0.30)}
+	"defence": Vector2(0.05, 0.15), "guard": Vector2(0.10, 0.30), "pass": Vector2(0.10, 0.30),
+	"fidget": Vector2(0.10, 0.30), "feint": Vector2(0.05, 0.15)}
+const LEAD_MPS := 2.0         # a reaction's lost travel is given at most this fast (0.19 m in 0.11 s, 0.5 m in 0.25 s)
+const WAITING := ["", "guard", "fidget", "feint"]   # what a wait thing (ChoreoWait) may take over
 const DOWN := ["knock", "fall", "countdown", "win", "ko_"]
 
 var st: Node = null
@@ -217,6 +220,9 @@ func _event(i: int, e: Dictionary) -> void:
 	var clip := str(e["clip"])
 	if clip == "" or not _has(i, clip):
 		return
+	if kind in ["fidget", "feint"]:
+		_wait(i, e)
+		return
 	_play(i, clip, float(e["from_s"]), kind, kind == "punch" or str(e.get("part", "whole")) == "whole")
 	if kind != "punch":
 		return
@@ -243,16 +249,41 @@ func _event(i: int, e: Dictionary) -> void:
 			FightSfx.missed(0.0, move, "")])
 
 
+## A wait thing (ChoreoWait): a fidget take or a window of one, a paw or a feint (a punch take to `until_s` and back).
+## It never takes over a punch, a reaction or a defence still playing; it hands back to the guard when it is done.
+func _wait(i: int, e: Dictionary) -> void:
+	if not (str(_take[i].get("kind", "")) in WAITING):
+		return
+	var clip := str(e["clip"])
+	var kind := str(e["kind"])
+	var speed := maxf(float(e.get("speed", 1.0)), 0.1)
+	_play(i, clip, float(e["from_s"]), kind, true)
+	(st.boxers[i]["ap"] as AnimationPlayer).speed_scale = speed
+	_due.append([t + (float(e["until_s"]) - float(e["from_s"])) / speed, func() -> void:
+		if str(_take[i].get("clip", "")) == clip and str(_take[i].get("kind", "")) == kind:
+			guard(i)])
+
+
 ## A landed punch as shown, for the film's rulers and hits.json (FightStage.hit_gaps, the shipped player's row).
 func _record(i: int, clip: String, move: String) -> void:
 	hit_until = t + 0.07
+	# S525: read AFTER this frame's pose is on the skeleton. The contact fires in the stage's _process, before the
+	# animation and PunchAim have moved the arm this frame, so the glove was read where it stood one frame EARLIER:
+	# a glove at 6-8 m/s is 20-27 cm short of where it lands (hits.json said 10-28 cm on three films, and both critics
+	# quoted it; the 60 Hz test, which reads after the frame, said 4 cm).
+	var now_f := Engine.get_process_frames()
+	var gap := pair.gap()
+	(st.boxers[i]["skel"] as Skeleton3D).skeleton_updated.connect(func() -> void: _measure(i, clip, move, now_f, gap), CONNECT_ONE_SHOT)
+
+
+func _measure(i: int, clip: String, move: String, now_f: int, gap: float) -> void:
 	var hand: String = st.hand_of(i, str((db["rows"].get(clip, {}) as Dictionary).get("hand", "LeftHand")))
 	(st.boxers[i]["gloves"] as Node)._follow()
 	var g: Vector3 = st.glove_front(i, hand)
 	var tp := target(1 - i, move == "body_hook")
 	var d: Vector3 = (st.boxers[i]["node"] as Node3D).global_transform.basis.orthonormalized().inverse() * (g - tp)
-	(st.hit_gaps as Array).append({"now_f": Engine.get_process_frames(), "hitter": i, "move": move, "clip": clip, "miss": g.distance_to(tp),
-		"graze": false, "cut": false, "gap": pair.gap(), "fwd": d.z, "side": d.x, "up": d.y})
+	(st.hit_gaps as Array).append({"now_f": now_f, "hitter": i, "move": move, "clip": clip, "miss": g.distance_to(tp),
+		"graze": false, "cut": false, "gap": gap, "fwd": d.z, "side": d.x, "up": d.y})
 
 
 ## The glove front of every take at its contact, read once off each body (the take posed at its contact, no layer on).
@@ -321,10 +352,18 @@ func _play(i: int, clip: String, from_s: float, kind: String, travel: bool) -> v
 		ap.seek(from_s, true)
 	if _feet[i] != null:
 		_feet[i].hold = not travel and kind in ["reaction", "block", "defence"]   # played on the spot: its feet keep the canvas
-	_take[i] = {"clip": clip, "kind": kind, "from_s": from_s, "origin": _home[i],
-		"path": RootPath.of(ap.get_animation(clip)) if travel else PackedVector3Array()}
+	var path: PackedVector3Array = RootPath.of(ap.get_animation(clip)) if travel else PackedVector3Array()
+	# S525 (three films, both critics every time: "the man who is hit barely moves"): a reaction starts part-way into
+	# its take so the head is furthest on the blow (REACT_PEAK_S), and the take's hip travel up to that point was simply
+	# lost (the body only followed the path from there on: a cross's 19 cm step back, a gut shot's 34-50 cm fold never
+	# showed). The body now covers that ground too, on the blow (LEAD_MPS at most): the captured size of the reaction.
+	var lead := Vector2.ZERO
+	if kind == "reaction" and not path.is_empty() and from_s > 0.0:
+		lead = RootPath.at(path, from_s) - RootPath.at(path, 0.0)
+	_take[i] = {"clip": clip, "kind": kind, "from_s": from_s, "origin": _home[i], "path": path, "at": t, "lead": lead,
+		"lead_s": maxf((JOIN["reaction"] as Vector2).y, lead.length() / LEAD_MPS)}
 	if log_on:
-		print("FP2 %6.2f %s %-9s %s from %.2f" % [t, "ab"[i], kind, clip, from_s])
+		print("FP2 %6.2f %s %-9s %s from %.2f%s" % [t, "ab"[i], kind, clip, from_s, "" if kind != "reaction" else (" on the spot" if path.is_empty() else " gives %.2f m" % lead.length())])
 
 
 ## The body stays where the take that ends has carried it.

@@ -46,8 +46,8 @@ static func build(marks: Array, t0: float, t1: float, gap0: float, log: Array) -
 		var mg := maxf(float(m["gap"]), R.MIN_GAP_M)
 		var mover := str(m.get("who", ""))
 		if kind == "knock":
-			# a hit man driven back by his reaction's own travel: the plan follows the take
-			_to(out, maxf(mt, cur_t + 0.02), mg, mover)
+			# a hit man driven back by his reaction's own travel: the plan follows the take (not a step: no speed bar)
+			_to(out, maxf(mt, cur_t + 0.02), mg, "knock_" + mover)
 			cur_t = float(out[-1][0])
 			cur_g = mg
 		elif kind == "step_in" or kind == "step_out":
@@ -187,11 +187,11 @@ static func at(plan: Array, t: float) -> float:
 	return float(plan[-1][1])
 
 
-## Who covers the ground at time t ("" in a hold).
+## Who covers the ground at time t ("" in a hold). A knocked man covers his own knock.
 static func who(plan: Array, t: float) -> String:
 	for i in range(1, plan.size()):
 		if t <= float(plan[i][0]):
-			return str(plan[i][2]) if absf(float(plan[i][1]) - float(plan[i - 1][1])) > 0.0005 else ""
+			return str(plan[i][2]).trim_prefix("knock_") if absf(float(plan[i][1]) - float(plan[i - 1][1])) > 0.0005 else ""
 	return ""
 
 
@@ -200,7 +200,7 @@ static func steps(plan: Array) -> Array:
 	var got: Array = []
 	for i in range(1, plan.size()):
 		var d := float(plan[i][1]) - float(plan[i - 1][1])
-		if absf(d) >= STEP_COUNT_M and str(plan[i][2]) != "":
+		if absf(d) >= STEP_COUNT_M and str(plan[i][2]) != "" and not str(plan[i][2]).begins_with("knock"):
 			got.append({"t": float(plan[i - 1][0]), "end_t": float(plan[i][0]), "who": str(plan[i][2]), "m": d})
 	return got
 

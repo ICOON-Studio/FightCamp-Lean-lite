@@ -1,3 +1,21 @@
+S525 build (2026-11-19) - what changed, and what to try
+
+1. A BLOCKED PUNCH STILL HURTS A LITTLE. Blocks wear the guard (the bar), and the more worn the guard, the more
+   of each blocked punch gets through. Watch a long fight: the side whose guard empties takes more damage late.
+   Result page: a new row, "Got through the guard (in punches)".
+   Amateurs' guards wear slower than before; a 3-round amateur bout should end with the guard yellow, not empty.
+2. THE CORNER'S GUARD LINE HAS ITS PICTURE. When the guard is under half at the bell, the corner's line
+   ("Guard down to 40% ...") shows Ludo's guard icon beside it (leaking / dropping).
+3. HABITS NOW TOUCH THE GUARD. A slow starter's guard holds early and wears faster from round 3; a fader's comes
+   back slower after round 4. The opponent file says it on the habit read
+   ("Takes a round to get going - guard holds early, wears faster from round 3").
+4. FOOTWORK AND DEFENCE STEPS DO SOMETHING. Step back, roll out, push off and the rest now take punches away,
+   tire the opponent or open your next combination when they fire from your plan. Before this build only the
+   "driven to the ropes" count used them. Sizes are first guesses; tell me if one feels too strong.
+5. TURNING PRO: after the third "Stay amateur" the news now says no promoter will call (it wrongly said a number 1
+   ranking would bring one back).
+6. CLASS NIGHTS: a class left on an evening that is no longer a pad night that week no longer pays.
+
 S523 (2026-11-19) - TURNING PRO: TWO PROMOTERS, ONE ASK, THE GYM'S MONEY AND THE BOXER'S APART
 Quickest: TEST CLUB, or Test jump "pro" on the create screen. A boxer at the line (7 wins + top 3, or 9 wins) gets the call.
 - Who calls depends on the tickets your boxer would sell. Near the ticket house's 60, BOTH call the same week and the

@@ -26,6 +26,8 @@ const FighterProfile := preload("res://scripts/rules/FighterProfile.gd")
 const FilmEdge := preload("res://scripts/rules/FilmEdge.gd")
 const LiveRead := preload("res://scripts/state/LiveRead.gd")
 const RingDuel := preload("res://scripts/state/RingDuel.gd")
+const StepWire := preload("res://scripts/state/StepWire.gd")
+const StepEffect := preload("res://scripts/rules/StepEffect.gd")
 const Attrs := preload("res://scripts/rules/Attrs.gd")
 const CornerTrust := preload("res://scripts/rules/CornerTrust.gd")
 const Adaptation := preload("res://scripts/rules/Adaptation.gd")
@@ -267,10 +269,12 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	var duel := RingDuel.step(f, opp, lv, call, prev_mode, her_energy(lv, i), opp_energy(lv, i), _rng(c, f, n, i + 91))
 	d += float(duel["edge"])
 	d += StyleLevers.points(f, int(duel["place"]), prev_mode, pace, arrow)   # S488 STYLE5
+	d += StepWire.open_edge(lv, arrow, bool(pick.get("planned", false)))   # S525: the last exchange's step opened this line
 	var rng := _rng(c, f, n, i + 1)
 	var roll_a := rng.randf()
 	var roll_b := rng.randf()
 	var s := Exchanges.settle(d, roll_a, roll_b)
+	var lev := StepWire.levers(lv, s, arrow, bool(pick.get("planned", false)), StepEffect.grade_for(PlanFight.base_id(arrow), vals, RingDuel.opp(opp)), _rng(c, f, n, i + 211))
 	# S388 the plan's true effect: the same dice without its edge. +1 it won this exchange, -1 it lost it (FightWhy).
 	var swing := int(bool(s["won"])) - int(bool(Exchanges.settle(d - plan_edge - read_edge, roll_a, roll_b)["won"]))
 	lv["reads"] = PlanRead.after(int(lv.get("reads", 0)), fit_now, bool(pick.get("planned", false)), bool(s["won"]))
@@ -335,7 +339,8 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 		"pace": pace, "aim": aim, "won": s["won"], "margin": s["margin"], "landed": s["landed"], "verdict": Exchanges.verdict(call, sit, bool(s["won"]), names),
 		"habit": habit, "fix": fix, "habit_line": HabitFix.line(habit_name(habit), names, habit == fix, bool(s["won"])) if habit != "" else ""}
 	rec["at"] = at
-	rec["guard"] = GuardState.after(f, s["landed"], at, RingDuel.opp(opp), call)   # S524 GUARDWEAR: blocks wear the guards
+	rec["levers"] = lev   # S525 STEPLEVERS: {denied, drain} the planned step did this exchange
+	rec["guard"] = GuardState.after(f, s["landed"], at, RingDuel.opp(opp), call, n, RoundStyle.opponent_habits(opp))   # S524 GUARDWEAR: blocks wear the guards
 	if GuardState.damage_on:   # S525: what gets through the guard is damage (GUARDPROBE1: +7..11% of a bout's)
 		var gdmg: Dictionary = m.get("damage", {"a": 0.0, "b": 0.0})
 		gdmg["a"] = float(gdmg.get("a", 0.0)) + float(rec["guard"]["through"][0])

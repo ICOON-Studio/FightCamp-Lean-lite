@@ -7,9 +7,20 @@ extends RefCounted
 ## DENY / OPEN / DRAIN sizes wait for the map's probes (s9), so no unmeasured edge enters the fight.
 ##   after(lv, rec, arrow, planned) - updates lv["at"], lv["ropes"], lv["opp_ropes"], lv["ropes_times"], rec["ropes_put"]
 ##   times(lv) -> int   (how often this round your boxer was put on the ropes by the count)
+## S525 STEPLEVERS (TREEVALUE2: roll_out / push_off read exactly 0 - their DENY / OPEN / DRAIN never reached the fight):
+## a planned step that fires now does its StepEffect row, graded (StepEffect.scaled): DENY takes that share of the
+## opponent's landed punches of its kind this exchange (DENY_SHARE = the kind's part of BoutBurn.MIX), DRAIN costs the
+## opponent's tank n body units, the step's own "tank" costs ours (tie_up's refill stays ClinchRest's), OPEN gives the
+## next planned PUNCH line +n x Exchanges.EDGE best. Every size an ESTIMATE until TREEVALUE3 reads 1.5-5 in 100.
+##   open_edge(lv, arrow, planned) -> float   (before settle; spends the open either way)
+##   levers(lv, s, arrow, planned, grade, rng) -> {denied, drain}   (after settle; edits s["landed"][1], lv cost / opp_drain / open)
 
 const StepEffect := preload("res://scripts/rules/StepEffect.gd")
 const PlanFight := preload("res://scripts/rules/PlanFight.gd")
+const Exchanges := preload("res://scripts/rules/Exchanges.gd")
+
+const DENY_SHARE := {"all": 1.0, "power": 0.5, "head_hooks": 0.19}   ## BoutBurn.MIX: cross .25 + hooks .19 + uppercut .06; lead hook .13 + uppercut .06
+static var levers_on: bool = true   ## tests turn it off for the control arm (the ropes count stays)
 
 
 static func after(lv: Dictionary, rec: Dictionary, arrow: String, planned: bool) -> void:
@@ -33,3 +44,32 @@ static func after(lv: Dictionary, rec: Dictionary, arrow: String, planned: bool)
 
 static func times(lv: Dictionary) -> int:
 	return int(lv.get("ropes_times", 0))
+
+
+static func open_edge(lv: Dictionary, arrow: String, planned: bool) -> float:
+	var e := float(lv.get("open", 0.0))
+	lv["open"] = 0.0
+	if not levers_on or not planned or StepEffect.TABLE.has(PlanFight.base_id(arrow)):
+		return 0.0
+	return e * float(Exchanges.EDGE["best"])
+
+
+static func levers(lv: Dictionary, s: Dictionary, arrow: String, planned: bool, grade: String, rng: RandomNumberGenerator) -> Dictionary:
+	var step := PlanFight.base_id(arrow)
+	if not levers_on or not planned or not StepEffect.TABLE.has(step):
+		return {}
+	var row := StepEffect.scaled(step, grade)
+	var out := {"denied": 0, "drain": 0.0}
+	var deny := float(row["deny"]) * float(DENY_SHARE.get(str(row["deny_on"]), 0.0))
+	if deny > 0.0:
+		var theirs := int(s["landed"][1])
+		var cut := mini(theirs, floori(float(theirs) * deny + rng.randf()))
+		s["landed"][1] = theirs - cut
+		out["denied"] = cut
+	if float(row["drain"]) > 0.0:
+		out["drain"] = float(row["drain"]) * Exchanges.BODY_COST
+		lv["opp_drain"] = float(lv.get("opp_drain", 0.0)) + float(out["drain"])
+	if step != "tie_up":
+		lv["cost"] = float(lv.get("cost", 0.0)) + float(row["tank"])
+	lv["open"] = float(row["open"])
+	return out
