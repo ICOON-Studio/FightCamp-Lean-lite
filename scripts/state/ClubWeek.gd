@@ -27,6 +27,8 @@ const Gauges := preload("res://scripts/rules/Gauges.gd")
 const GuardNotes := preload("res://scripts/rules/GuardNotes.gd")
 const OppFile := preload("res://scripts/rules/OppFile.gd")
 const WeekOpp := preload("res://scripts/rules/WeekOpp.gd")
+const Injuries := preload("res://scripts/state/Injuries.gd")
+const InjuryRoll := preload("res://scripts/rules/InjuryRoll.gd")
 
 const SHORT := ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"]
 const USABLE := 30.0
@@ -81,6 +83,11 @@ static func model(c: Career, sel_id: String, sel_day: int) -> Dictionary:
 			"am": am, "pm": evening(g, i, nights, rows, r, fdow), "tired": float(tired[i][1])})
 	out["tired"] = {"start": float((pl["ctx"] as Dictionary).get("fatigue", 20.0)), "ends": tired.map(func(t): return float(t[1])),
 		"limit": WeekPlan.OVERREACHED, "fresh": BoutRules.FRESH_FATIGUE, "peak": float(wk["peak"])}
+	# S528 ONELOOK1 audit: the week-end injury roll (Injuries, InjuryRoll.training_chance) reads the hours against her usual
+	# and the week's peak; outside a camp it was shown only in THIS CAMP, a hidden box. The Training row shows it now.
+	var load := Injuries.ratio(g)
+	out["tired"]["load"] = load
+	out["tired"]["injury_x"] = InjuryRoll.load_mult(load) * InjuryRoll.fatigue_mult(float(wk["peak"]))
 	out["moves"] = moves(g, rows)
 	out["totals"] = totals(wk, out["days"])
 	out["weak"] = CoachedMornings.weak_line(f.get("stats", {}))   # S511: the hole the fight finds, "" when none

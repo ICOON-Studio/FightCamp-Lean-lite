@@ -73,6 +73,9 @@ func _initialize() -> void:
 			"the coach row: one face each, nothing to drag")
 	for n in ["ThisWeek", "Mornings", "Evening", "CoachPick", "StartWeek", "SessionTray", "TiredChart", "Diet", "BoutPanel", "WeekWhen"]:
 		_check(page.find_child(n, true, false) != null, "the screen shows %s" % n)
+	# S528 ONELOOK1: the week's injury risk was only in the hidden THIS CAMP box - it shows (visible) beside the tiredness line
+	var risk := page.find_child("InjuryRisk", true, false) as Label
+	_check(risk != null and risk.is_visible_in_tree() and risk.text.begins_with("injury risk"), "the tiredness row shows the injury risk (%s)" % (risk.text if risk != null else "none"))
 	# S511 club week 3.3 WEAK SPOT: a boxer 3+ under level on Defence reads the hole and who finds it in MORNINGS
 	var fw: Dictionary = c.fighter_by_id(str(m["sel"]))
 	var st: Dictionary = fw.get("stats", {})

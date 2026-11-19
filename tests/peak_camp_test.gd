@@ -11,6 +11,7 @@ const Data := preload("res://scripts/state/Data.gd")
 const PeakCamp := preload("res://scripts/rules/PeakCamp.gd")
 const BoutNight := preload("res://scripts/state/BoutNight.gd")
 const LiveRound := preload("res://scripts/state/LiveRound.gd")
+const AskFlow := preload("res://scripts/state/AskFlow.gd")
 
 var _fails := 0
 
@@ -60,9 +61,11 @@ func _bout(peak: float) -> Dictionary:
 		boosted = boosted and is_equal_approx(float(f["stats"][k]), minf(PeakCamp.CAP, float(before[k]) + PeakCamp.BONUS))
 	var during := "technique %.1f -> %.1f" % [float(before["technique"]), float(f["stats"]["technique"])]
 	BoutNight.fight_step(c, f, m, "rest")
-	var back := true
+	var back := true   # S528: the bout now teaches (AskFlow.teach_after, m["taught"]) - back to her own stats plus what it taught
+	var grow := float((m.get("taught", {}) as Dictionary).get("grow", 0.0))
 	for k in before:
-		back = back and is_equal_approx(float(f["stats"][k]), float(before[k]))
+		var want := minf(AskFlow.TEACH_CAP, float(before[k]) + grow) if AskFlow.TAUGHT.has(k) else float(before[k])
+		back = back and is_equal_approx(float(f["stats"][k]), maxf(float(before[k]), want))
 	return {"boosted": boosted, "during": during, "back": back, "why0": str((m["why"] as Array)[0]) if not (m["why"] as Array).is_empty() else "",
 		"review": str(f.get("peak_line", ""))}
 

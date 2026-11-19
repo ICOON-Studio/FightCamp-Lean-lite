@@ -25,6 +25,7 @@ static func make(model: Dictionary, left_w: float, col_w: float, gap: float, on_
 	var sub := B.lab("end of each day", 16, Palette.MUTED, "body")
 	sub.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	lab.add_child(sub)
+	lab.add_child(_risk(model["tired"]))
 	row.add_child(lab)
 	var ch := Chart.new()
 	ch.name = "TiredChart"
@@ -81,6 +82,19 @@ static func _diet(model: Dictionary, on_diet: Callable) -> PanelContainer:
 	p.custom_minimum_size = Vector2(170, 0)
 	p.size_flags_vertical = Control.SIZE_SHRINK_END
 	return p
+
+
+## S528: the week's injury risk (Injuries' week-end roll): hours against her usual x the week's peak tiredness.
+static func _risk(t: Dictionary) -> Label:
+	var x := float(t.get("injury_x", 1.0))
+	var words := "injury risk normal" if x < 1.05 else "injury risk x%.1f" % x
+	var l := B.lab(words, 16, Palette.GOOD if x < 1.05 else (Palette.WARN if x < 2.0 else Palette.BAD), "bold")
+	l.name = "InjuryRisk"
+	l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	l.mouse_filter = Control.MOUSE_FILTER_STOP
+	l.tooltip_text = "This week's hours are %.1fx the usual and tiredness peaks at %d. The week-end injury roll climbs from 1.3x the usual hours and from 72 tiredness: x2 at 76, x3 from 80." % [
+		float(t.get("load", 1.0)), roundi(float(t.get("peak", 0.0)))]
+	return l
 
 
 ## The line: a hollow dot for the tiredness carried in, a dot and its number at each day's end (over each day's column),

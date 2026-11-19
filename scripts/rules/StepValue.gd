@@ -25,6 +25,9 @@ const STEPS: Array = [
 ## Ten steps x six styles = 60 numbers, at Sharp and OK grade (map section 5).
 ## Each row: the step's BEST style (its target), its WRONG style (negative), every other style the
 ## "against other styles" value, taken at the HIGH end of the map's range.
+## S528 STEPS_SCOPE phase 3 (STEPTUNE2 s2): each wrong style is one whose main game lists the step WRONG in
+## PlanFight.ANSWERS (the fight's own grading) - six rows said otherwise; feint / tie_up / push_off have no style that
+## punishes them in the fight, so no negative cell. Estimates still, until TREEVALUE5 measures the cells.
 const TARGET: Dictionary = {
 	"step_back": {
 		"Boxer-puncher": 1.0,
@@ -36,8 +39,8 @@ const TARGET: Dictionary = {
 	},
 	"step_out": {
 		"Boxer-puncher": 1.0,
-		"Counter-puncher": -1.0,
-		"Out-boxer": 1.0,
+		"Counter-puncher": 1.0,
+		"Out-boxer": -1.0,
 		"Pressure fighter": 1.0,
 		"Slugger": 2.5,
 		"Volume puncher": 1.0,
@@ -52,9 +55,9 @@ const TARGET: Dictionary = {
 	},
 	"step_in": {
 		"Boxer-puncher": 0.5,
-		"Counter-puncher": -2.5,
+		"Counter-puncher": 0.5,
 		"Out-boxer": 3.0,
-		"Pressure fighter": 0.5,
+		"Pressure fighter": -2.5,
 		"Slugger": 0.5,
 		"Volume puncher": 0.5,
 	},
@@ -78,14 +81,14 @@ const TARGET: Dictionary = {
 		"Boxer-puncher": 0.5,
 		"Counter-puncher": 4.0,
 		"Out-boxer": 0.5,
-		"Pressure fighter": -1.0,
+		"Pressure fighter": 0.5,
 		"Slugger": 0.5,
 		"Volume puncher": 0.5,
 	},
 	"tie_up": {
 		"Boxer-puncher": 0.0,
 		"Counter-puncher": 0.0,
-		"Out-boxer": -1.0,
+		"Out-boxer": 0.0,
 		"Pressure fighter": 0.0,
 		"Slugger": 3.0,
 		"Volume puncher": 0.0,
@@ -96,12 +99,12 @@ const TARGET: Dictionary = {
 		"Out-boxer": 1.0,
 		"Pressure fighter": 1.0,
 		"Slugger": 3.0,
-		"Volume puncher": -1.0,
+		"Volume puncher": 1.0,
 	},
 	"push_off": {
 		"Boxer-puncher": 0.0,
 		"Counter-puncher": 0.0,
-		"Out-boxer": -0.5,
+		"Out-boxer": 0.0,
 		"Pressure fighter": 1.5,
 		"Slugger": 0.0,
 		"Volume puncher": 0.0,
@@ -168,9 +171,11 @@ static func best_style(step: String) -> String:
 	return _style_at(step, true)
 
 
-## The style the step walks into (lowest target), "" for an unknown step.
+## The style the step walks into (lowest target), "" for an unknown step - and "" when no style punishes it (S528: feint,
+## tie_up, push_off have no negative cell once TARGET follows the fight's ANSWERS).
 static func wrong_style(step: String) -> String:
-	return _style_at(step, false)
+	var s := _style_at(step, false)
+	return s if s != "" and float((TARGET[step] as Dictionary)[s]) < 0.0 else ""
 
 
 ## The learn card's one line. Game words, never jargon, no names.

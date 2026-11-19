@@ -274,7 +274,7 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	var roll_a := rng.randf()
 	var roll_b := rng.randf()
 	var s := Exchanges.settle(d, roll_a, roll_b)
-	var lev := StepWire.levers(lv, s, arrow, bool(pick.get("planned", false)), StepEffect.grade_for(PlanFight.base_id(arrow), vals, RingDuel.opp(opp)), _rng(c, f, n, i + 211))
+	var lev := StepWire.levers(lv, s, arrow, bool(pick.get("planned", false)), StepEffect.grade_for(PlanFight.base_id(arrow), vals, RingDuel.opp(opp)), _rng(c, f, n, i + 211), fit_now)
 	# S388 the plan's true effect: the same dice without its edge. +1 it won this exchange, -1 it lost it (FightWhy).
 	var swing := int(bool(s["won"])) - int(bool(Exchanges.settle(d - plan_edge - read_edge, roll_a, roll_b)["won"]))
 	lv["reads"] = PlanRead.after(int(lv.get("reads", 0)), fit_now, bool(pick.get("planned", false)), bool(s["won"]))

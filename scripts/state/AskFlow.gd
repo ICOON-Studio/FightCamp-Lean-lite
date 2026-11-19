@@ -22,6 +22,7 @@ const Champs := preload("res://scripts/state/Champs.gd")
 
 ## The abilities a fight teaches (ASKPROBE2's STATS: the growth is added to each, as measured).
 const TAUGHT := ["power", "speed", "technique", "defense", "conditioning", "fight_iq"]
+const TEACH_CAP := 99.0   ## a bout never teaches an ability past this (the stat scale's top, PeakCamp.CAP)
 ## The next club shows the panel offers side by side (round-4 critics: the soonest and the one after).
 const SHOWS := 2
 
@@ -177,9 +178,9 @@ static func teach_after(f: Dictionary, opp: Dictionary, won: bool, stopped: bool
 	var kind := str((f.get("bout", {}) as Dictionary).get("ask_kind", "sheet"))
 	var gap := float(opp.get("rating", 0.0)) - BoutRules.fight_power(f["stats"], {}, 0, "")
 	var grow := maxf(0.0, FightLearn.teach_for(kind, gap, won, stopped))
-	for k in TAUGHT:
+	for k in TAUGHT:   # S528 (05:00 review): capped at the stat scale's top, as PeakCamp.CAP - it had no ceiling
 		if (f["stats"] as Dictionary).has(k):
-			f["stats"][k] = float(f["stats"][k]) + grow
+			f["stats"][k] = maxf(float(f["stats"][k]), minf(TEACH_CAP, float(f["stats"][k]) + grow))
 	return {"grow": grow, "kind": kind}
 
 

@@ -116,7 +116,7 @@ func _check_worth() -> void:
 func _check_negatives_ignore_grade() -> void:
 	_check(_near(SV.worth("step_back", "Out-boxer", 60.0, "good"), -1.5), "step back vs out-boxer good is -1.5 (got %.4f)" % SV.worth("step_back", "Out-boxer", 60.0, "good"))
 	_check(_near(SV.worth("step_back", "Out-boxer", 60.0, "poor"), -1.5), "step back vs out-boxer poor is still -1.5 (got %.4f)" % SV.worth("step_back", "Out-boxer", 60.0, "poor"))
-	_check(_near(SV.worth("step_in", "Counter-puncher", 85.0, "good"), -2.5 * SIGNATURE_WORTH), "step in vs counter at signature is -2.5 x 4/3 (got %.4f)" % SV.worth("step_in", "Counter-puncher", 85.0, "good"))
+	_check(_near(SV.worth("step_in", "Pressure fighter", 85.0, "good"), -2.5 * SIGNATURE_WORTH), "step in vs pressure at signature is -2.5 x 4/3 (got %.4f)" % SV.worth("step_in", "Pressure fighter", 85.0, "good"))
 	_check(_near(SV.worth("step_in", "Counter-puncher", 29.0, "ok"), 0.0), "step in vs counter under 30 is 0 (got %.4f)" % SV.worth("step_in", "Counter-puncher", 29.0, "ok"))
 
 
@@ -125,13 +125,15 @@ func _check_stack() -> void:
 	var capped: float = SV.stack({"step_out": 60.0, "roll_out": 60.0, "tie_up": 60.0}, "Slugger", {})
 	_check(_near(capped, 5.0), "stack 2.5+3.0+3.0 vs slugger caps at 5.0 (got %.4f)" % capped)
 	var cap_then_negative: float = SV.stack({"step_back": 60.0, "pivot_out": 60.0, "push_off": 60.0, "step_in": 60.0}, "Out-boxer", {})
-	_check(_near(cap_then_negative, 0.5), "stack -1.5-0.5-0.5+3.0 vs out-boxer is 0.5 (got %.4f)" % cap_then_negative)
+	_check(_near(cap_then_negative, 1.0), "stack -1.5-0.5+0.0+3.0 vs out-boxer is 1.0 (S528: push off no longer wrong there; got %.4f)" % cap_then_negative)
 	# The brief's own table row for step_out puts Counter-puncher at -1.0 (step_out's wrong style),
 	# so this stack is -1.0+1.0+0.0-2.5 = -2.5. The brief's expected -0.5 reads step_out as +1.0,
 	# which its table contradicts; the table is the 60 numbers, so the table wins.
-	_check(_near(SV.worth("step_out", "Counter-puncher", 60.0, "ok"), -1.0), "step out vs counter is -1.0 (its wrong style, got %.4f)" % SV.worth("step_out", "Counter-puncher", 60.0, "ok"))
-	var no_cap: float = SV.stack({"step_out": 60.0, "roll_out": 60.0, "tie_up": 60.0, "step_in": 60.0}, "Counter-puncher", {})
-	_check(_near(no_cap, -2.5), "stack -1.0+1.0+0.0-2.5 vs counter is -2.5, no cap hit (got %.4f)" % no_cap)
+	# S528 STEPS_SCOPE phase 3: TARGET's wrong styles follow the fight's ANSWERS (step out walks into the out-boxer's range
+	# game, step in into the pressure fighter's press).
+	_check(_near(SV.worth("step_out", "Out-boxer", 60.0, "ok"), -1.0), "step out vs out-boxer is -1.0 (its wrong style, got %.4f)" % SV.worth("step_out", "Out-boxer", 60.0, "ok"))
+	var no_cap: float = SV.stack({"step_out": 60.0, "roll_out": 60.0, "tie_up": 60.0, "step_in": 60.0}, "Pressure fighter", {})
+	_check(_near(no_cap, -0.5), "stack 1.0+1.0+0.0-2.5 vs pressure is -0.5, no cap hit (got %.4f)" % no_cap)
 	var single: float = SV.stack({"step_back": 60.0}, "Pressure fighter", {})
 	_check(_near(single, 3.5), "stack of one step with no grades reads ok (got %.4f)" % single)
 	var graded: float = SV.stack({"step_back": 60.0}, "Pressure fighter", {"step_back": "good"})
@@ -152,7 +154,7 @@ func _check_stack() -> void:
 ## Each step's target style and the style it walks into, from the map's table.
 func _check_best_and_wrong() -> void:
 	_check(SV.best_style("feint") == "Counter-puncher", "feint's best style is counter-puncher (got '%s')" % SV.best_style("feint"))
-	_check(SV.wrong_style("step_in") == "Counter-puncher", "step in's wrong style is counter-puncher (got '%s')" % SV.wrong_style("step_in"))
+	_check(SV.wrong_style("step_in") == "Pressure fighter", "step in's wrong style is pressure fighter (got '%s')" % SV.wrong_style("step_in"))
 	var bests: Dictionary = {
 		"step_back": "Pressure fighter",
 		"step_out": "Slugger",
@@ -167,15 +169,15 @@ func _check_best_and_wrong() -> void:
 	}
 	var wrongs: Dictionary = {
 		"step_back": "Out-boxer",
-		"step_out": "Counter-puncher",
+		"step_out": "Out-boxer",
 		"pivot_out": "Out-boxer",
-		"step_in": "Counter-puncher",
+		"step_in": "Pressure fighter",
 		"cut_off": "Pressure fighter",
 		"herd": "Pressure fighter",
-		"feint": "Pressure fighter",
-		"tie_up": "Out-boxer",
-		"roll_out": "Volume puncher",
-		"push_off": "Out-boxer",
+		"feint": "",   # S528: no style punishes these in the fight (PlanFight.ANSWERS)
+		"tie_up": "",
+		"roll_out": "",
+		"push_off": "",
 	}
 	for key in SV.STEPS:
 		var step: String = str(key)
@@ -189,14 +191,14 @@ func _check_best_and_wrong() -> void:
 func _check_learn_line() -> void:
 	var gain: String = SV.learn_line("step_back", "Pressure fighter", 60.0, "ok")
 	_check(_same(gain, "Worth about +3.5 in 100 against a pressure fighter"), "learn line for a gain (got '%s')" % gain)
-	var wrong: String = SV.learn_line("step_in", "Counter-puncher", 60.0, "ok")
-	_check(_same(wrong, "Walks into it against a counter-puncher: about -2.5 in 100"), "learn line for walking into it (got '%s')" % wrong)
+	var wrong: String = SV.learn_line("step_in", "Pressure fighter", 60.0, "ok")
+	_check(_same(wrong, "Walks into it against a pressure fighter: about -2.5 in 100"), "learn line for walking into it (got '%s')" % wrong)
 	var little: String = SV.learn_line("pivot_out", "Slugger", 60.0, "ok")
 	_check(_same(little, "Little use against a slugger"), "learn line for little use (got '%s')" % little)
 	var once: String = SV.learn_line("step_back", "Pressure fighter", 10.0, "ok")
 	_check(_same(once, "Worth about +2.3 in 100 against a pressure fighter (once usable)"), "learn line under 30 says once usable (got '%s')" % once)
-	var once_negative: String = SV.learn_line("step_in", "Counter-puncher", 10.0, "ok")
-	_check(_same(once_negative, "Walks into it against a counter-puncher: about -1.7 in 100 (once usable)"), "learn line under 30 on a wrong style uses the usable worth (got '%s')" % once_negative)
+	var once_negative: String = SV.learn_line("step_in", "Pressure fighter", 10.0, "ok")
+	_check(_same(once_negative, "Walks into it against a pressure fighter: about -1.7 in 100 (once usable)"), "learn line under 30 on a wrong style uses the usable worth (got '%s')" % once_negative)
 	var once_little: String = SV.learn_line("pivot_out", "Slugger", 0.0, "ok")
 	_check(_same(once_little, "Little use against a slugger (once usable)"), "learn line under 30 with no use says once usable (got '%s')" % once_little)
 	var signature: String = SV.learn_line("step_back", "Pressure fighter", 90.0, "ok")

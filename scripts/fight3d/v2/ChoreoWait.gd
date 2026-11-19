@@ -57,11 +57,11 @@ static func add(tracks: Dictionary, db: Dictionary, t0: float, t1: float, contac
 			var at := free_from + _r(rng, QUIET_S)
 			while at + 0.5 < free_to:
 				var what := _draw(rng)
-				var e := _event(what, at, free_to, rows, rng, last) if what == "fidget" else _beat(what, at, free_to, rows, contacts)
+				var e := _event(what, at, free_to, rows, rng, last, contacts) if what == "fidget" else _beat(what, at, free_to, rows, contacts)
 				if e.is_empty():   # a punch is landing, or the stretch is too short for it: the other kind
-					e = _beat("paw", at, free_to, rows, contacts) if what == "fidget" else _event(what, at, free_to, rows, rng, last)
+					e = _beat("paw", at, free_to, rows, contacts) if what == "fidget" else _event(what, at, free_to, rows, rng, last, contacts)
 				if e.is_empty():
-					at += 0.2
+					at += 0.1
 					continue
 				made.append(e)
 				last = str(e["clip"])
@@ -80,7 +80,7 @@ static func _draw(rng: RandomNumberGenerator) -> String:
 	return "fidget"
 
 
-static func _event(_what: String, at: float, free_to: float, rows: Dictionary, rng: RandomNumberGenerator, last: String) -> Dictionary:
+static func _event(_what: String, at: float, free_to: float, rows: Dictionary, rng: RandomNumberGenerator, last: String, contacts: Array = []) -> Dictionary:
 	var pool: Array = FIDGETS.filter(func(n): return rows.has(n) and n != last and (rows[n].get("drop", []) as Array).is_empty())
 	if pool.is_empty():
 		return {}
@@ -92,6 +92,12 @@ static func _event(_what: String, at: float, free_to: float, rows: Dictionary, r
 		dur = _r(rng, WINDOW_S)
 		from_s = rng.randf() * (length - dur)
 	dur = minf(dur, free_to - at)
+	# S529: nobody fidgets into a punch. A fidget take shuffles its man up to 14 cm, and a man with no take of his own
+	# against a punch thrown short (a miss with no defence) was still free to start one: the glove planned 17 cm short
+	# was on his face (player2_test SHORT). The fidget is over CLEAR_S.x before any contact, or is not played.
+	for c in contacts:
+		if float(c) > at - 0.05 and float(c) < at + dur + CLEAR_S.x:
+			dur = minf(dur, float(c) - CLEAR_S.x - at)
 	if dur < 0.45:
 		return {}
 	return {"t": at, "clip": clip, "kind": "fidget", "part": "whole", "from_s": from_s, "until_s": from_s + dur, "speed": 1.0,

@@ -294,6 +294,7 @@ func _r14_waits() -> void:
 	var rows: Dictionary = db["rows"]
 	var overlaps := 0
 	var through := 0
+	var fidget_through := 0
 	var longest := 0.0
 	var kinds := {}
 	var still := 0.0
@@ -331,6 +332,12 @@ func _r14_waits() -> void:
 					for c in cts:
 						if float(c) > float(e["t"]) - 0.3 and float(c) < float(e["end_t"]) - 0.25 + 0.3:
 							through += 1
+				else:
+					for c in cts:   # S529: a fidget take shuffles its man up to 14 cm; one played into a punch thrown short at him put the glove on his face
+						if float(c) > float(e["t"]) - 0.05 and float(c) < float(e["end_t"]) + 0.30:
+							fidget_through += 1
+			for c in cts:   # S529: a man a punch is being thrown at is not idle (no fidget is planned into it)
+				spans.append([float(c) - 0.35, float(c) + 0.05])
 			spans.sort_custom(func(x, y): return float(x[0]) < float(y[0]))
 			var upto := 0.0
 			for sp in spans + [[30.0, 30.0]]:
@@ -346,6 +353,7 @@ func _r14_waits() -> void:
 		_check(Gap.faults(gap, cts, 30.0).is_empty(), "R14 seed %d: the breathing distance plan has no fault" % seed)
 	_check(overlaps == 0, "R14: no wait thing plays over a take of the same man (%d)" % overlaps)
 	_check(through == 0, "R14: no paw or feint goes through a landing punch (%d)" % through)
+	_check(fidget_through == 0, "R14: no fidget plays into a punch of either man (%d)" % fidget_through)
 	_check(longest <= 2.0, "R14: nobody stands in the plain guard longer than 2 s (longest %.2f s, %s)" % [longest, longest_at])
 	_check(still <= 2.2, "R14: the distance never holds still longer than 2.2 s (longest %.2f s)" % still)
 	_check(int(kinds.get("fidget", 0)) > 0 and int(kinds.get("paw", 0)) > 0 and int(kinds.get("cross_feint", 0)) > 0, "R14: fidgets, paws and feints are all planned (%s)" % str(kinds))

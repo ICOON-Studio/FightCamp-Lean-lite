@@ -51,6 +51,21 @@ func _initialize() -> void:
 	_check(StepWire.open_edge(lo, "1-2", true) == 0.0, "the open is spent after one line")
 	StepWire.levers(lo, {"landed": [3, 3]}, "roll_out", true, "ok", rng)
 	_check(StepWire.open_edge(lo, "step_back", true) == 0.0, "a step line takes no open")
+	# S528 STEPS_SCOPE phase 1: the step line passes the opening on to the punch after it (it was spent there - STEPTUNE2 s3).
+	_check(StepWire.open_edge(lo, "1-2", true) > 0.0, "the punch after a step line still gets the opening")
+	StepWire.levers(lo, {"landed": [3, 3]}, "roll_out", true, "ok", rng)
+	_check(StepWire.open_edge(lo, "1-2", false) == 0.0 and StepWire.open_edge(lo, "1-2", true) == 0.0, "an unplanned pick wastes the opening")
+	# S528 phase 1: a step on a wrong fit lets more of her punches land; on an ok fit it lets none in.
+	var extra := 0
+	var same := true
+	for k in 200:
+		var sw := {"landed": [3, 5]}
+		extra += int(StepWire.levers(_lv(), sw, "step_back", true, "ok", rng, "wrong").get("extra", 0))
+		var so := {"landed": [3, 5]}
+		StepWire.levers(_lv(), so, "step_back", true, "ok", rng, "ok")
+		same = same and int(so["landed"][1]) <= 5
+	_check(extra >= 150 and extra <= 250, "a wrong step lets ~1 more punch in of 5 (%d over 200)" % extra)
+	_check(same, "an ok step lets none in")
 	# Unplanned or a punch line: no lever.
 	_check(StepWire.levers(_lv(), {"landed": [3, 6]}, "roll_out", false, "ok", rng).is_empty(), "an unplanned step does nothing")
 	_check(StepWire.levers(_lv(), {"landed": [3, 6]}, "1-2", true, "ok", rng).is_empty(), "a punch line is not a step")
