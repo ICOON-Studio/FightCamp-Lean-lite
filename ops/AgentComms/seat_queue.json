@@ -3529,9 +3529,12 @@
    "seat": "dola",
    "brief": "research/DESIGN_TURNPRO1_V4_CRITIC_DOLA.md",
    "stem": "DESIGN_TURNPRO1_V4_CRITIC_DOLA_DOLA",
-   "status": "queued",
+   "status": "sent",
    "queued_at": "2026-11-19 19:23",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-19 21:10",
+   "pid": 7956,
+   "transcript": "AgentComms/seat_logs/SQ240_dola.txt"
   },
   {
    "id": "SQ241",
@@ -3542,6 +3545,15 @@
    "queued_at": "2026-11-19 19:32",
    "tries": 0,
    "note": "S530: coach fit cut after COACHFITPROBE3 (sheet s0c)"
+  },
+  {
+   "id": "SQ242",
+   "seat": "dola",
+   "brief": "research/DESIGN_LEDGER1_V4_CRITIC_DOLA.md",
+   "stem": "DESIGN_LEDGER1_V4_CRITIC_DOLA_DOLA",
+   "status": "queued",
+   "queued_at": "2026-11-19 21:15",
+   "tries": 0
   }
  ]
 }

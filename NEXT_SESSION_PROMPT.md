@@ -532,6 +532,23 @@ control arm; the shipped player is untouched without the switch.
       `PairPlace.SLACK_DEG` 18 (square leaves the pair alone inside it), `-- fp2nocircle` = off. Too small to be seen.
     - DUCKS: a straight is slipped with `pro_quick_weave` (only by a free man), a weave is handed back to the guard
       `DEF_UP_S` 0.20 after its lowest point. The coach calls def1 / def2 "the two best defensive frames in the film".
+  * FILM 8 (`v2r12/`, NOT JUDGED - no behaviour bundle in it yet) = film 7 + THE OWNER'S NOTE ON FILM 7: "blues shoes
+    are not stepping normal he is mostly on his toes" (his crop: the front boot on its toe). Cause: every bought boxing
+    step holds the LEAD heel 3-6 cm off the canvas for the whole take (the actor's bouncing stance) while the Pro
+    guard stands flat - each step popped the front boot onto its toes for 0.8 s, on BOTH men (film 7: 32 % of red's
+    step pictures over my 3 cm line, 70 % of blue's; the same 3-6 cm). FIX in the bake (`tools/step_bake.gd`
+    `_flatten`, commit 54d727cfc): while a foot's toes are on the canvas the refit turns the boot flat about its ball
+    (ankle lowered by the heel's rise, the toes' bend back to the guard's), the take's own boot once the toes are 6 cm
+    up. Lead heel up in a step: 1 % / 1 % on film 8. Rebake = `step_bake.gd -- E:/FightCamp/packs/mixamo_steps refit`
+    then `step_census.gd -- db`. RULERS: `s530/toes.py <dir>` (heels by kind of take), `tools/foot_pitch_probe.gd`
+    (any take raw on both bodies). CAREFUL with `st_bounce` for the living wait: its lead heel is up in 71 % of its
+    pictures - refit it through `_flatten` (add it to `StepClips.REFIT`) before it goes on screen, or he will say it again.
+    Also out: `pro_idle_fidget_v6` (the deep squat with no punch thrown). The rear heel is up 10-20 % in the guard:
+    that is the Pro guard's own stance, untouched.
+  * THE "CROSS THAT HANGS 14 FRAMES" (def3 #13-#27) IS A DOUBLE JAB: red's left arm stays out from 61.87 to 62.27
+    (`pro_left_jab` then `pro_left_jab_c` from 0.11, 0.3 s apart) - the second punch of the SAME hand starts part-way
+    in while the arm is still out. Rule to build: the same hand again starts its take from the start (the arm comes
+    home in the join) and lands that much later (slide), never a cut-in.
   * HEAD JUMPS LEFT (11, all 12-14 cm): `pro_left_weave` joined part-way by a man still held (3), the dodges' own
     sidestep 8.5 cm a picture + head (3), `pro_right_uppercut` / `pro_left_jab` whose BODY goes 11-12 cm a picture
     (2: the take's lunge / the step under a punch), a cut-in hard cross and hard jab (2), one guard join.
