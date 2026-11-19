@@ -942,18 +942,6 @@
     "board": ""
    }
   },
-  "GUARDWEAR1": {
-   "agent": "arena",
-   "id": "GUARDWEAR1",
-   "title": "Guard damage v4: the pure rules (wear, leak, combo, ropes, recovery)",
-   "status": "merged",
-   "started": "2026-11-19T04:20",
-   "eta": "2026-11-19T05:30",
-   "branch": "arena/6823f7ff-fightcamp-lean-lite",
-   "chat": "https://arena.ai/agent/01a1f184-c42a-7b1c-bcc7-8028682317ff",
-   "brief": "ops/research/TASK_GUARDWEAR1.md",
-   "note": "S524 collected on main (lite PR 19); trait -> trait_id parse fix"
-  },
   "KNOWBOTS4": {
    "agent": "goose",
    "id": "KNOWBOTS4",

@@ -64,7 +64,7 @@ static func corner(view: Node) -> bool:
 	var f: Dictionary = view.main.career.fighter_by_id(str(view.fid))
 	var names := [str(f["first"]), str(f["bout"]["opp"]["first"])]
 	var en: Dictionary = r.get("energy", {})
-	var card := CornerCard.card(r.get("card", CornerCard.summarize([])), float(en.get("a_end", 100.0)), names, int(r.get("ropes", 0)))
+	var card := CornerCard.card(r.get("card", CornerCard.summarize([])), float(en.get("a_end", 100.0)), names, int(r.get("ropes", 0)), float(r.get("guard", -1.0)))   # S524 guard line (text only)
 	# S308: the coach's call reads the round's exchanges (the game the opponent ended it on).
 	if r.has("exchanges"):
 		card.merge(Exchanges.read(r["exchanges"], names), true)

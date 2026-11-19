@@ -3342,6 +3342,15 @@
    "answered_at": "2026-11-19 00:10",
    "answer": "research/DESIGN_GUARDDMG1_V4_CRITIC_DOLA_DOLA.md",
    "seen_by_claude": true
+  },
+  {
+   "id": "SQ227",
+   "seat": "dola",
+   "brief": "research/DESIGN_LEDGER1_V1_WRITE_DOLA.md",
+   "stem": "DESIGN_LEDGER1_V1_WRITE_DOLA_DOLA",
+   "status": "queued",
+   "queued_at": "2026-11-19 05:06",
+   "tries": 0
   }
  ]
 }

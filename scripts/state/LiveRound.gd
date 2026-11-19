@@ -335,7 +335,7 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 		"pace": pace, "aim": aim, "won": s["won"], "margin": s["margin"], "landed": s["landed"], "verdict": Exchanges.verdict(call, sit, bool(s["won"]), names),
 		"habit": habit, "fix": fix, "habit_line": HabitFix.line(habit_name(habit), names, habit == fix, bool(s["won"])) if habit != "" else ""}
 	rec["at"] = at
-	rec["guard"] = GuardState.after(f, s["landed"], at, RingDuel.opp(opp))   # S524 GUARDWEAR: blocks wear the guards (shown only)
+	rec["guard"] = GuardState.after(f, s["landed"], at, RingDuel.opp(opp), call)   # S524 GUARDWEAR: blocks wear the guards (shown only)
 	# S442 BUBBLES: the shout she did not take in (CornerTrust.lands false), and the round's shouts before this one (the heard mark).
 	rec["said"] = shout if shout != "" and not shouted and Exchanges.CALLS.has(shout) else ""
 	rec["shouts_before"] = int(lv["shouts"]) - (1 if shouted else 0)
@@ -418,7 +418,7 @@ static func close(f: Dictionary, m: Dictionary) -> Dictionary:
 	CornerTrust.tally(f["bout"], exs)
 	m.erase("live")
 	return {"n": int(lv["n"]), "won": ro["won"], "won_n": ro["won_n"], "mine": ro["mine"], "theirs": ro["theirs"],
-		"corner": str(lv["plan"]), "energy": e, "exchanges": exs, "landed": ro["landed"], "calls": calls, "worked": worked,
+		"corner": str(lv["plan"]), "energy": e, "exchanges": exs, "guard": GuardState.share(f, "a"), "landed": ro["landed"], "calls": calls, "worked": worked,
 		"fix": str(lv.get("fix", "")), "habits_paid": paid, "fix_came": fix_came, "adapt": lv.get("adapt", {}),
 		"fix_hold": Exchanges.uptake(float((f.get("personality", {}) as Dictionary).get("coachability", 55.0)), 0) * FighterProfile.trust(f), "start": lv.get("start", {}),
 		"talk": str(lv.get("talk_kind", "")), "setup": (lv.get("setup", {}) as Dictionary).duplicate(),

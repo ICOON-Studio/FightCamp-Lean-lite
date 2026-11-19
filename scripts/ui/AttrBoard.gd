@@ -7,6 +7,7 @@ extends RefCounted
 ##   rows(f) -> [{title, rows: [{key, name, value, delta, band, why}]}]   glance(f) -> {best, work, fight_avg, pot, hot, ...}
 ##   build(f) -> card (PanelContainer)
 
+const GuardWear := preload("res://scripts/rules/GuardWear.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const Icons := preload("res://scripts/ui/Icons.gd")
 const StatBar := preload("res://scripts/ui/StatBar.gd")
@@ -96,6 +97,13 @@ static func rows(f: Dictionary) -> Array:
 				var tl := trait_lines(str(key), v)
 				line = str(tl[0])
 				why += str(tl[1])
+			if key == "stamina" or key == "strength":   # S524 GUARDWEAR (design 1.2): the two that make the shoulders
+				var shl := "
+" + shoulder_line(value(f, "stamina"), value(f, "strength"))
+				why = why.replace("
+In a bout: ", shl + "
+In a bout: ") if why.contains("
+In a bout: ") else why + shl   # the fade line stays last
 			list.append({"key": key, "name": label_of(str(key)), "value": v, "delta": d, "band": band(str(key), v), "why": why, "line": line})
 		out.append({"title": g["title"], "rows": list})
 	return out
@@ -268,3 +276,12 @@ Now: " + "; ".join(said)
 Each point: " + hv
 	var line := str(said[0]) if not said.is_empty() else next_words
 	return [line, tip]
+
+
+## Shoulder endurance (guard damage v4, design 1.2): Stamina x 0.7 + Strength x 0.3; 50 or less = the guard wears as
+## usual, 65 = 12% slower, 80 = 20% slower (GuardWear.shoulder_wear_pct).
+static func shoulder_line(stamina: float, strength: float) -> String:
+	var sh := GuardWear.shoulder(stamina, strength)
+	var pct := roundi(-GuardWear.shoulder_wear_pct(sh) * 100.0)
+	return "Shoulders %d (Stamina and Strength): %s" % [roundi(sh),
+		"the guard wears as usual when blocking." if pct <= 0 else "the guard wears %d%% slower when blocking." % pct]

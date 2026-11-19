@@ -7,6 +7,7 @@ const GuardState := preload("res://scripts/state/GuardState.gd")
 const GuardWear := preload("res://scripts/rules/GuardWear.gd")
 const FightMeters := preload("res://scripts/rules/FightMeters.gd")
 const FightStats := preload("res://scripts/rules/FightStats.gd")
+const CornerCard := preload("res://scripts/rules/CornerCard.gd")
 
 var failures := 0
 
@@ -59,6 +60,34 @@ func _initialize() -> void:
 	src["guard_v4"] = 0.4
 	_check(absf(float(FightMeters.bars(src)["guard"]["fill"]) - 0.4) < 0.001 and before == 1.0, "the guard bar reads the worn guard (1.0 -> 0.4)")
 	_check(GuardState.share({"bout": {}}, "a") == -1.0, "no guard yet (an old save): -1, the bar keeps its old reading")
+	# Step 4: Tie up is the clinch (+10 under half guard, once a round); Hands up gives +5 at the next corner.
+	var cl := _f(false, 60.0)
+	GuardState.open(cl, 1)
+	cl["bout"]["guard"]["a"]["g"] = 30.0
+	var t1 := GuardState.after(cl, [0, 0], "", {}, "tie")
+	var t2 := GuardState.after(cl, [0, 0], "", {}, "tie")
+	_check(bool(t1["clinch"]) and absf(float(t1["g"][0]) - 44.0) < 0.001 and not bool(t2["clinch"]),
+		"Tie up under half guard: +10 (+4 amateur quiet) once, refused the second time (%.1f)" % float(t1["g"][0]))
+	var hi := _f(false, 60.0)
+	GuardState.open(hi, 1)
+	_check(not bool(GuardState.after(hi, [0, 0], "", {}, "tie")["clinch"]), "Tie up at full guard: no clinch")
+	var hu := _f(false, 60.0)
+	GuardState.open(hu, 1)
+	hu["bout"]["guard"]["a"]["g"] = 20.0
+	hu["bout"]["guard"]["b"]["g"] = 20.0
+	GuardState.after(hu, [0, 0], "", {}, "hands")
+	GuardState.open(hu, 2)
+	_check(absf(float(hu["bout"]["guard"]["a"]["g"]) - (24.0 + 20.0)) < 0.001 and absf(float(hu["bout"]["guard"]["b"]["g"]) - 39.0) < 0.001,
+		"Hands up: our corner gives 20, theirs 15 (%.1f / %.1f)" % [float(hu["bout"]["guard"]["a"]["g"]), float(hu["bout"]["guard"]["b"]["g"])])
+	# The corner minute: under half guard the hurt row says it and names the calls; a bout without the guard says nothing.
+	var sm := CornerCard.summarize([])
+	var low := str(CornerCard.card(sm, 80.0, ["A", "B"], 0, 0.4)["hurt"])
+	_check(low.contains("Guard down to 40% (leaking)") and low.contains("Hands up"), "corner card, guard 40%%: %s" % low)
+	_check(not str(CornerCard.card(sm, 80.0, ["A", "B"], 0, 0.6)["hurt"]).contains("Guard") and not str(CornerCard.card(sm, 80.0, ["A", "B"])["hurt"]).contains("Guard"),
+		"guard 60% or no guard: no guard line")
+	var AttrBoard: GDScript = load("res://scripts/ui/AttrBoard.gd")
+	_check(str(AttrBoard.shoulder_line(65.0, 65.0)).contains("12% slower") and str(AttrBoard.shoulder_line(50.0, 40.0)).contains("as usual"),
+		"the Stamina / Strength hover names the shoulders: %s" % str(AttrBoard.shoulder_line(65.0, 65.0)))
 	# The result page's stats: blocks and the guard left, only for a bout that has a guard (control: an old save's rounds).
 	var ex1 := {"landed": [4, 3], "body": [1, 0], "won": true, "guard": {"blocked": [5, 6], "share": [0.8, 0.7]}}
 	var ex2 := {"landed": [2, 5], "body": [0, 1], "won": false, "guard": {"blocked": [7, 3], "share": [0.6, 0.65]}}

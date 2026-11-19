@@ -35,8 +35,10 @@ static func open(f: Dictionary, n: int) -> Dictionary:
 	else:
 		for k in ["a", "b"]:
 			var s: Dictionary = f["bout"]["guard"][k]
-			s["g"] = GuardWear.clamp_guard(float(s["g"]) + GuardWear.corner([], false, false), float(s["max"]))
+			var calls: Array = ["hands_up"] if bool(s.get("hands_next", false)) else []   # design s2: Hands up +5 at the corner
+			s["g"] = GuardWear.clamp_guard(float(s["g"]) + GuardWear.corner(calls, false, false), float(s["max"]))
 			s["clinch"] = false
+			s["hands_next"] = false
 	return f["bout"]["guard"]
 
 
@@ -58,7 +60,9 @@ static func wear_of(blocks: int, ctx: Dictionary) -> float:
 
 ## After LiveRound settles an exchange: landed [ours, theirs]; at = lv["at"] (StepWire's ropes); opp_attrs from RingDuel.opp.
 ## Returns {"g": [ours, theirs], "blocked": [by ours on theirs.. i.e. blocks WE made, blocks THEY made]}.
-static func after(f: Dictionary, landed: Array, at: String, opp_attrs: Dictionary) -> Dictionary:
+## call = the exchange's shout (Exchanges.CALLS id): "tie" is the design's clinch (+10 under half guard, once a round,
+## GuardWear.clinch), "hands" earns the corner's Hands up (+5 at the next minute).
+static func after(f: Dictionary, landed: Array, at: String, opp_attrs: Dictionary, call := "") -> Dictionary:
 	if not f["bout"].has("guard"):
 		open(f, 1)
 	var gs: Dictionary = f["bout"]["guard"]
@@ -76,7 +80,16 @@ static func after(f: Dictionary, landed: Array, at: String, opp_attrs: Dictionar
 		var thrown_at := ceili(float(int(landed[1 - k])) / BoutBurn.LAND_RATE)
 		var g := float(s["g"]) - wear_of(int(blocks[k]), ctxs[k]) + GuardWear.in_round(thrown_at, amateur)
 		s["g"] = GuardWear.clamp_guard(g, float(s["max"]))
-	return {"g": [float(gs["a"]["g"]), float(gs["b"]["g"])], "blocked": blocks,
+	var ours: Dictionary = gs["a"]
+	var clinch := {}
+	if call == "tie":
+		clinch = GuardWear.clinch(false, float(ours["g"]), float(ours["max"]), bool(ours.get("clinch", false)))
+		if bool(clinch["ok"]):
+			ours["g"] = GuardWear.clamp_guard(float(ours["g"]) + float(clinch["guard"]), float(ours["max"]))
+			ours["clinch"] = true
+	elif call == "hands":
+		ours["hands_next"] = true
+	return {"g": [float(gs["a"]["g"]), float(gs["b"]["g"])], "blocked": blocks, "clinch": bool(clinch.get("ok", false)),
 		"share": [float(gs["a"]["g"]) / maxf(1.0, float(gs["a"]["max"])), float(gs["b"]["g"]) / maxf(1.0, float(gs["b"]["max"]))]}
 
 

@@ -1,6 +1,59 @@
-# S524 handover (written 2026-11-19, end of S523 - Opus; weekly usage was 91% at start, resets 19 Nov 14:00)
+# S525 handover (written 2026-11-19, S524 - Opus)
 
-Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. S523 is in roadmap `now`.
+Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. S524 is in roadmap `now`.
+
+## GOAL (owner, verbatim, still on): "i want animations fixed (at least 7/10)"
+The ONLY animation session is the terminal CLI session "anim S513" (peer lean-f3, Fable). Do not start another.
+METHOD line below (S510) - quote it in the first message.
+
+## MAIN LINE - DO FIRST (every item waits on a probe that was running at the end of S524)
+1. GUARD DAMAGE v4 (his yes, Q-275). Built: scripts/rules/GuardWear.gd (Arena), scripts/state/GuardState.gd (each side's
+   guard, LiveRound.open/exchange), HUD guard bar (FightMeters guard_v4, HudBars), result page rows (FightStats: Punches
+   blocked, Guard left). Shown only - nothing changes a result yet. Collect GUARDPROBE1 (Qwen, E:/FightCamp/wt/LEAN_GUARDPROBE1,
+   brief ops/research/TASK_GUARDPROBE1.md) -> set WEAR_SCALE (today 0.28) / BLOCK_SHARE (0.6) + the transmission scale k,
+   then step 3 (damage through the guard into m["damage"], low guard lets more land) per ops/research/GUARDWEAR_WIRE_S524.md,
+   each step with its test and a control arm. Ludo's 4 guard icons: assets/ui/art/guard/ (for the bar, step 5).
+2. KNOWLEDGE v3: rules collected (Goose #378) + step 2 wired (scripts/state/KnowWire.gd; signings start fresh, old saves
+   exact; nothing shown). STOPPED before the screens per the design's s14: the old probe read VOID. Collect KNOWBOTS4
+   (Goose #379, ops/research/TASK_KNOWBOTS4.md - yardstick first: ORACLE fell 101 -> 94 on the same seeds, likely the S516
+   ladder-by-points). K1 pass on all 3 sets -> step 3 (band week review); fail -> back to design (CLAUDE.md item 8).
+3. TURNING PRO: all of the design's s6 wired (M11 week review lines S524). Collect TURNPROBE1 (Goose #380) -> size the
+   ESTIMATEs in scripts/rules/ProCall.gd. Collect PROCONTRACT1 (Arena, lite branch arena/4ab4ee7f-fightcamp-lean-lite;
+   chat https://arena.ai/agent/01a1f1a9-8a2a-711e-a9ce-0dc74ab4ee7f): a failing check is a finding - fix the code or the contract.
+4. TREEVALUE2: Qwen timed out (exit 124) after writing tools/treevalue_probe.gd + tools/treevalue_cells.gd (copied to main,
+   uncommitted until the result). Claude ran it on the PC (~2 h, 150k bouts, output in $TEMP/treevalue2.txt of S524; if lost,
+   rerun: `python ops/Tools/godot_slot.py run --who treevalue2 -- <godot> --headless --audio-driver Dummy --fixed-fps 60 --path .
+   --script res://tools/treevalue_probe.gd`). Then commit both files + docs/TREEVALUE2_RESULT.md, tune StepEffect, close PR #382.
+5. COACH FIT (v8 approved Q-235; CoachFit.gd built, unwired): FITPROBE1 brief queued (Qwen dispatch) - give it to the first
+   free seat. MORNINGSPROBE2 / MONEYFOUR2 still queued behind it.
+6. LUDO: paid to ~11 Dec; one asset job a session (S524: guard icons). His Q-274: keep today's screens, no repaint.
+
+## DONE IN S524b (second stage, after `ship`)
+- Guard step 4: the "Tie up" shout is the clinch (+10 under half guard, once a round), "Hands up" gives +5 at the next
+  corner (GuardState.after(.., call)). Corner minute: CornerCard.guard_line - "Guard down to 40% (leaking): Hands up or a
+  tie-up buys it back." (words fight night: FightNight GuardLine; 3D cast card text). Stamina / Strength hovers name the
+  shoulders (AttrBoard.shoulder_line). guard_state_test 19 checks. NOT rendered: the corner GuardLine (shows only under half).
+- LEDGER1 (contracts, Q-210's 4th) v1 design map brief -> Dola SQ227 (ops/research/DESIGN_LEDGER1_V1_WRITE_DOLA.md);
+  then two fresh critics (design_loop.py critic), his board at 7+/7+.
+- lean-f3 (the anim session) was idle a day: S524 sent it a resume message (film + blind round of the S513 fixes).
+  Check it moved; if it did not answer, the next session starts the animation item first (CLAUDE.md "ANIMATION PROGRESSES").
+- PR #381 closed (collected). Stopped at 509k context; weekly usage 92% (resets 19 Nov 14:00).
+
+## DONE IN S524
+- Collected Goose #378 KNOWLEDGE1A. Fixes on collect: legacy expose() of a spar/bout opens under fire; potential never
+  "known". Goose dropped 7 old checks -> tests/knowledge_keep_test.gd (13 checks, red before the fix).
+- TURNPRO1 M11: scripts/ui/ProWeekLines.gd + WeekReview split (WeekPlanBlock.gd); turn_pro records stipend + costs,
+  BoutFinish the debut's gym cut; tests/pro_week_lines_test.gd; golden_path checks the ledger.
+- KNOWLEDGE1 step 2: KnowWire (+ Sim.gd split: goal_read -> SimGoal.gd), tests/know_wire_test.gd.
+- GUARDWEAR1 collected (Arena lite PR 19): Arena caught the design's multiplier error (0.5 + .. vs the table's 1.0 + ..);
+  'trait' is reserved in GDScript 4.7 -> trait_id. Mutant cap 0.85 -> 4 checks red.
+- Guard v4 steps 1-2 + result rows: tests/guard_state_test.gd (13 checks). Render ops/previews/s524/result_numbers.png
+  (review board): WEAR_SCALE 0.45 emptied both guards -> 0.28 (Lucy 52%, Priya 62% after 3 amateur rounds).
+- Seen defects fixed: file_limits red (BoutRead 501, Main 471).
+- Briefs: TASK_GUARDWEAR1, TASK_KNOWBOTS4, TASK_GUARDPROBE1, TASK_PROCONTRACT1, TASK_FITPROBE1. Plans: GUARDWEAR_WIRE_S524.md.
+- Exported (WHAT_TO_TRY S524 on top). ONELOOK1: GuideBubble OFF FRAME is headless-only (real render fine).
+- TRAP: a `cd` into a worktree in Bash moves the session's folder - use `git -C` or a subshell.
+- TRAP: ops/Tools/lite_mirror.py `push` still targets the deleted old repo; Lean-lite is synced by board_reconcile (fine).
 
 ## BILLING (S513) - unchanged, see S518's block in git history (support.claude.com/en/articles/17154008; claude -p only).
 

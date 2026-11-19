@@ -57,7 +57,9 @@ static func top(landed: Dictionary) -> String:
 
 ## {worked, hurt, call (BoutRules.CORNER key), why}. _names = [hers, the opponent's] (unused since S448); energy = hers at the bell.
 ## S490 STEPVALUE1: ropes = how often the ropes count put your boxer on the ropes this round (round "ropes"); HURT names it.
-static func card(summary: Dictionary, energy: float, _names: Array, ropes: int = 0) -> Dictionary:
+## guard = our guard left at the bell, 0..1 (GuardState.share; -1 = a bout without the guard): under half, the hurt row
+## says it and names the two calls that buy it back (S524 GUARDWEAR, design s2 corner minute).
+static func card(summary: Dictionary, energy: float, _names: Array, ropes: int = 0, guard := -1.0) -> Dictionary:
 	var mine: Dictionary = summary.get("a", {}).get("landed", {})
 	var theirs: Dictionary = summary.get("b", {}).get("landed", {})
 	var whole: Array = summary.get("a", {}).get("whole", [])
@@ -71,6 +73,8 @@ static func card(summary: Dictionary, energy: float, _names: Array, ropes: int =
 	var hurt := "The opponent landed nothing clean." if bad == "" else "The opponent landed %s." % landed(int(theirs[bad]), bad)
 	if ropes > 0:
 		hurt += " Put on the ropes %s: a pivot out or a step out gets your boxer off." % ("once" if ropes == 1 else "%d times" % ropes)
+	if guard_line(guard) != "":
+		hurt += " " + guard_line(guard)
 	var call := "long"
 	var why := "Keep the opponent behind your jab."
 	if energy < WEARY_AT:
@@ -97,3 +101,10 @@ static func landed(n: int, move: String) -> String:
 	if n != 1:
 		w = "hooks to the body" if move == "body_hook" else w + "s"
 	return "%d clean %s" % [n, w]
+
+
+## "" at half guard or more (or no guard); else the line the corner minute shows.
+static func guard_line(guard: float) -> String:
+	if guard < 0.0 or guard >= 0.5:
+		return ""
+	return "Guard down to %d%% (%s): Hands up or a tie-up buys it back." % [roundi(guard * 100.0), "arms dropping" if guard < 0.25 else "leaking"]

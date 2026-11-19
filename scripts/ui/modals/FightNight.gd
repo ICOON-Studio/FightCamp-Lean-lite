@@ -203,7 +203,7 @@ func _round(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 	# S303 corner card (watched rounds only: the 3D view reads it off the beats it played).
 	var advice := ""
 	if (last.has("card") or last.has("exchanges")) and stop == "":
-		var cc := CornerCard.card(last.get("card", CornerCard.summarize([])), float(en.get("a_end", 100.0)), [fname, oname], int(last.get("ropes", 0)))
+		var cc := CornerCard.card(last.get("card", CornerCard.summarize([])), float(en.get("a_end", 100.0)), [fname, oname], int(last.get("ropes", 0)), float(last.get("guard", -1.0)))
 		# S309: the exchanges' read already says the call in the coach's words.
 		if not last.has("card") and not exs.is_empty():
 			# S320: a skipped round has no punch-by-punch card - say what its exchanges landed (it read "nothing clean").
@@ -218,6 +218,11 @@ func _round(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 			coach_says = "\"%s. %s\"" % [BoutRules.CORNER[cc["call"]], cc["why"]]
 		# S323: what worked and what hurt are the numbers above; the coach speaks once, as a quote.
 		v.add_child(Broadcast.quote(coach_says, "YOUR COACH"))
+		var gl := CornerCard.guard_line(float(last.get("guard", -1.0)))   # S524 GUARDWEAR: the guard under half, and its answer
+		if gl != "":
+			var gll := UI.label(gl, 16, UI.AMBER, "body", true)
+			gll.name = "GuardLine"
+			v.add_child(gll)
 		advice = str(cc["call"]) if n < total else ""
 	var fb: Dictionary = main.career.fighter_by_id(str(m.get("fid", ""))).get("bout", {})
 	if n == 1 and n < total and stop == "" and bool(fb.get("pro", false)) and fb.has("deal"):   # S523 TURNPRO1 map M13: the debut note, once

@@ -1723,6 +1723,13 @@
    "status": "superseded",
    "queued": "2026-11-19T03:05",
    "superseded_note": "S524: moved to Goose (cloud), Qwen busy on TREEVALUE2"
+  },
+  {
+   "task": "FITPROBE1",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-19T04:50",
+   "note": "S524: coach fit probes FITPROBE1 + TRAINBALANCE"
   }
  ]
 }
