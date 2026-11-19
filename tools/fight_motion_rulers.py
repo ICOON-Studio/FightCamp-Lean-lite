@@ -132,8 +132,12 @@ def measure(path, fps=30.0):
                 worst_jumps.append((d, float(rows[i]["film_s"]), who, rows[i]["clip"], cause))
         for i in sorted(cs):
             r = rows[i]
-            # 1 + 2: this boxer was hit
-            if is_react(r["clip"]):
+            # 1 + 2: this boxer was hit. S529: the v2 player starts the reaction one picture AFTER the contact picture (the
+            # glove is on the face before the head leaves), so the reaction clip is looked for on the next two frames too;
+            # the delay is still counted from the contact.
+            ri = next((j for j in (i + 1, i, i + 2) if j < len(rows) and rows[j]["_f"] - r["_f"] == j - i and is_react(rows[j]["clip"])), None)
+            if ri is not None:
+                rc = rows[ri]["clip"]
                 n_react += 1
                 rel0 = _sub(_v(r, "Head"), _v(r, "Hips"))
                 best, best_k = 0.0, 0
@@ -142,21 +146,23 @@ def measure(path, fps=30.0):
                     if j is None:
                         break
                     q = rows[j]
-                    if q["clip"] != r["clip"]:
+                    if q["clip"] != rc:
+                        if j < ri:
+                            continue   # not started yet
                         break   # the reaction ended (cut by her own punch, a new hit, guard): its peak is what it reached
                     d = math.dist(_sub(_v(q, "Head"), _v(q, "Hips")), rel0)
                     if d > best:
                         best, best_k = d, k
                 delays.append(best_k)
                 peaks.append(best)
-                react_rows.append((float(r["film_s"]), who, r["clip"], round(best * 100, 1), best_k))
+                react_rows.append((float(r["film_s"]), who, rc, round(best * 100, 1), best_k))
                 # S504: the same reaction's kind, its step back (hips away from the hitter over STEP_WINDOW frames) and its
                 # turn (the hip line's yaw at its largest inside the window), for the per-kind rows.
                 other = by_frame.get(r["_f"], {})
                 hitter = next((o for w2, o in other.items() if w2 != who), None)
                 # S510: the kind is the PUNCH that hit (the hitter's clip on the contact frame), not the reaction clip's name:
                 # the reaction pools are sorted by size now (a cross can play pro_hit_by_jab_v2_short).
-                kind = react_kind(hitter["clip"]) if hitter is not None and is_punch(hitter["clip"]) else react_kind(r["clip"])
+                kind = react_kind(hitter["clip"]) if hitter is not None and is_punch(hitter["clip"]) else react_kind(rc)
                 back, turn, world = 0.0, 0.0, 0.0
                 if hitter is not None:
                     h0, o0 = _v(r, "Hips"), _v(hitter, "Hips")

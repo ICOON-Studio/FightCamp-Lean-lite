@@ -1,6 +1,6 @@
 # TASK GUARDPROBE3 - size the opponent's adaptation so guard posture is a real choice (probe, headless)
 
-Status: OPEN (S527, Claude main). Discipline: boxing. Model: Goose (cloud), default.
+Status: DONE (collected; S529 marked) (S527, Claude main). Discipline: boxing. Model: Goose (cloud), default.
 
 ## Why
 GUARDPROBE2 (docs/GUARDPROBE2_RESULT.md, tools/guard_probe2.gd): HIGH guard leaves the least damage in 12 of 12 cells. The

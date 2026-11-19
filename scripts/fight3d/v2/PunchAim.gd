@@ -6,12 +6,20 @@ extends SkeletonModifier3D
 ## IN_S before the contact and out after it, never more than MAX_M: the swing keeps its shape, the arm finishes on
 ## the target. Two-bone IK on the punching arm only (the elbow keeps its bend plane); nothing else is touched.
 ## Not for a miss (it stays short) or a blocked punch (it stops on the guard's line).
-##   attach(skel, after) -> PunchAim     arm(clip, hand, contact_s, offset_fn)     disarm()     last_m: the offset used
+## S529 THE FINISH IS CLOSED ON THE TARGET (film 6, the animator's first item: "a landed punch must touch"; hits.json:
+## every rear-hand punch 8-18 cm off, the lead hand 1-8). The offset above is a PREDICTION from the take posed alone at
+## its contact; what is drawn also carries the join, the tired sag and the floor stand, and this layer ran before the
+## last two. It now runs after them (Player2.setup) and, over the last CLOSE_S before the contact, goes over from the
+## predicted offset to what puts the glove front ON the target as both men are drawn (`target_fn`), still within MAX_M.
+##   attach(skel, after) -> PunchAim     arm(clip, hand, contact_s, offset_fn, wrist_to_front, target_fn)     disarm()
+##   last_m: the offset used     left_m: what the arm could not close
 
 const MAX_M := 0.30
 const IN_S := 0.22            # the offset eases in over this before the contact
 const HOLD_S := 0.04          # ... is whole this long after it
 const OUT_S := 0.22           # ... and is gone this long after that
+const CLOSE_S := 0.10         # the finish closes on the drawn target over this before the contact (3 pictures)
+static var close_on: bool = not OS.get_cmdline_user_args().has("fp2noclose")
 
 var ap: AnimationPlayer
 var _clip := ""
@@ -19,11 +27,15 @@ var _ids: Array = []          # [upper arm, lower arm, hand]
 var _contact_s := 0.0
 var _offset: Callable         # () -> Vector3: target - where the take will put the glove front, world
 var _latched := Vector3.ZERO
+var _target: Callable         # () -> Vector3: the target point as drawn, world (invalid: the prediction alone)
+var _tgt := Vector3.ZERO      # ... as last followed
+var _closed := Vector3.ZERO   # the closing move at the contact, skeleton space (held and eased out after it)
+var _has_closed := false
 var _has_latch := false
 var _out_t := -1.0            # seconds past the contact (>= 0 once it has landed); counted here when the take is cut
 var last_m := 0.0
 var left_m := 0.0             # what the solve could not close (m): the arm is at its reach
-var front_rel := Vector3.ZERO  # wrist -> glove front, skeleton space, as the take holds it at its contact
+var front_rel := Vector3.ZERO  # wrist -> glove front in the HAND's own frame (the glove is rigid with the hand: true at any point of the swing)
 
 
 static func attach(skel: Skeleton3D, player: AnimationPlayer, after: Node) -> Node:
@@ -35,8 +47,10 @@ static func attach(skel: Skeleton3D, player: AnimationPlayer, after: Node) -> No
 	return m
 
 
-func arm(clip: String, hand: String, contact_s: float, offset_fn: Callable, wrist_to_front: Vector3 = Vector3.ZERO) -> void:
+func arm(clip: String, hand: String, contact_s: float, offset_fn: Callable, wrist_to_front: Vector3 = Vector3.ZERO, target_fn: Callable = Callable()) -> void:
 	front_rel = wrist_to_front
+	_target = target_fn
+	_has_closed = false
 	var skel := get_skeleton()
 	var side := hand.trim_suffix("Hand")
 	_ids = [skel.find_bone(side + "UpperArm"), skel.find_bone(side + "LowerArm"), skel.find_bone(hand)]
@@ -83,11 +97,14 @@ func _process_modification() -> void:
 		w = 1.0 - (ct - HOLD_S) / OUT_S
 	w = w * w * (3.0 - 2.0 * w)
 	# the target is followed until the glove is nearly there, then held (a head that snaps on the hit must not drag it)
+	var closing := close_on and _target.is_valid()
 	if ct < -0.03 or not _has_latch:
 		_latched = (_offset.call() as Vector3).limit_length(MAX_M)
 		_has_latch = true
+	if closing and ct <= 0.0:
+		_tgt = _target.call()   # followed up to the contact itself: his reaction starts one picture after it (Player2._late)
 	last_m = _latched.length()
-	if last_m < 0.005:
+	if last_m < 0.005 and not closing:
 		return
 	var skel := get_skeleton()
 	var inv := skel.global_transform.affine_inverse()
@@ -97,7 +114,21 @@ func _process_modification() -> void:
 	# The glove front sits past the wrist, rigid with the forearm: moving the wrist turns the forearm and the front with
 	# it. Solve for the FRONT (three passes: the wrist goal is corrected by what the turn of the forearm adds).
 	var want: Vector3 = inv.basis * _latched * w
-	var rel: Vector3 = pb.basis.inverse() * front_rel
+	var fr: Vector3 = pc.basis * front_rel   # wrist -> glove front now, skeleton space
+	if closing and ct > -CLOSE_S:
+		if ct <= HOLD_S or not _has_closed:
+			# what puts the glove front on the target as drawn now. Through HOLD_S after the contact too: the picture of
+			# the contact is the first one AT or after it, and by then a hook's take has swept the glove up to 25 cm on
+			# (30 pictures a second): the glove stays on the spot it hit for that picture, then eases out with the take.
+			_closed = ((inv * _tgt) - (pc.origin + fr)).limit_length(MAX_M)
+			_has_closed = true
+		var s := clampf((ct + CLOSE_S) / CLOSE_S, 0.0, 1.0)
+		s = s * s * (3.0 - 2.0 * s)
+		want = want.lerp(_closed, s) if ct <= 0.0 else _closed * w
+		last_m = maxf(last_m, _closed.length())
+	if want.length() < 0.003:
+		return
+	var rel: Vector3 = pb.basis.inverse() * fr
 	var goal: Vector3 = pc.origin + want
 	var got: Array = []
 	var best := INF
@@ -107,7 +138,7 @@ func _process_modification() -> void:
 		if try.is_empty():
 			break
 		var nb: Transform3D = try[1]
-		var miss: Vector3 = (pc.origin + front_rel + want) - (nb.origin + nb.basis * (hand_rel + rel))
+		var miss: Vector3 = (pc.origin + fr + want) - (nb.origin + nb.basis * (hand_rel + rel))
 		if miss.length() < best:
 			best = miss.length()
 			got = try

@@ -122,7 +122,8 @@ func _initialize() -> void:
 		var hf := FileAccess.open(out_dir.path_join("hits.json"), FileAccess.WRITE)
 		hf.store_string(JSON.stringify((view.stage.hit_gaps as Array).map(func(h: Dictionary) -> Dictionary:
 			return {"f": int(h["now_f"]), "hitter": int(h["hitter"]), "move": str(h["move"]), "clip": str(h["clip"]), "miss": snappedf(float(h["miss"]), 0.001), "graze": bool(h["graze"]),
-				"cut": bool(h["cut"]), "gap": snappedf(float(h["gap"]), 0.01), "fwd": snappedf(float(h["fwd"]), 0.001), "side": snappedf(float(h["side"]), 0.001), "up": snappedf(float(h["up"]), 0.001)})))
+				"cut": bool(h["cut"]), "gap": snappedf(float(h["gap"]), 0.01), "fwd": snappedf(float(h["fwd"]), 0.001), "side": snappedf(float(h["side"]), 0.001), "up": snappedf(float(h["up"]), 0.001),
+				"aim": snappedf(float(h.get("aim", 0.0)), 0.001), "left": snappedf(float(h.get("left", 0.0)), 0.001), "t": snappedf(float(h.get("t", 0.0)), 0.01)})))   # S529: the arm finish asked for and what it could not close (v2)
 		hf.close()
 	print(BeatTally.line())   # S435: what the punch beats of this bout really got
 	print(BeatTally.fallback_line())

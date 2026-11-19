@@ -1,6 +1,6 @@
 # TASK FP2CHOREO1 - the choreographer: plan one exchange of the 3D fight before it plays (FIGHTPLAYER2 phase 2)
 
-Status: OPEN (S512, Claude animation session). Discipline: boxing (demo path). Model: Goose (cloud), default.
+Status: DONE (collected; S529 marked) (S512, Claude animation session). Discipline: boxing (demo path). Model: Goose (cloud), default.
 A PURE module + its test. No scene, no node, no Godot window. Do not edit any existing file.
 
 ## Why

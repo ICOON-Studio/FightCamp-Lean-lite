@@ -277,6 +277,20 @@ func _r13_range() -> void:
 	_check(absf(step_in - Gap.STEP_IN_M) < 0.02, "R13: the step in on the punch is one step (%.2f m)" % step_in)
 	_check(out_by == "a" and absf(out_m - Gap.STEP_OUT_M) < 0.02 and out_end - ct <= 0.7, "R13: the man who punched steps out %.2f m within 0.7 s, one whole step (%s, %.2f m, %.2f s)" % [Gap.STEP_OUT_M, out_by, out_m, out_end - ct])
 	_check(absf(_gap_at_plan(gap, ct + R.LEAVE_S) - R.REST_M) < 0.10, "R13: back at rest within LEAVE_S (%.2f m; the rest breathes 5-9 cm)" % _gap_at_plan(gap, ct + R.LEAVE_S))
+	# S529 a lone landed cross: the man who is HIT gives the ground, at once (film 6, both critics: "the cross snaps the
+	# head but the feet do not answer", 3 cm where a stiff cross moves a man 15-25)
+	var pc := Choreo.plan([_beat("a", "cross", "lands", 5.0)], db, _opts())
+	var cct: float = float(pc["beats"][0]["contact_t"])
+	var hurt_by := ""
+	var hurt_m := 0.0
+	var hurt_t := 0.0
+	for i in range(1, (pc["gap"] as Array).size()):
+		var dc: float = float(pc["gap"][i][1]) - float(pc["gap"][i - 1][1])
+		if dc > 0.01 and float(pc["gap"][i][0]) > cct + 0.01 and hurt_by == "":   # his reaction's own travel (a knock) counts
+			hurt_by = str(pc["gap"][i][2]).trim_prefix("knock_")
+			hurt_m = dc
+			hurt_t = maxf(float(pc["gap"][i - 1][0]), cct)
+	_check(hurt_by == "b" and hurt_m >= 0.15 and hurt_t - cct <= 0.2, "R13: a landed cross moves the man it hit: he steps back 15 cm or more, starting within 0.2 s (%s, %.2f m, %.2f s after)" % [hurt_by, hurt_m, hurt_t - cct])
 	# two punches 1.0 s apart: the pair does not stay in the pocket of the first one's distance
 	var p2 := Choreo.plan([_beat("a", "cross", "lands", 5.0), _beat("b", "jab", "lands", 6.0)], db, _opts())
 	var c1: float = float(p2["beats"][0]["contact_t"])

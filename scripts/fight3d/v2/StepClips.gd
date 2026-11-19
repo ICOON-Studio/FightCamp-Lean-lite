@@ -24,6 +24,15 @@ const SOURCES := {
 	"Boxing_Advancing_Forward": "st_advancing", "Bouncing_Boxing_Idle": "st_bounce", "Bouncing_Fight_Idle_With_Guard_Up": "st_bounce_guard",
 	"Boxing_Idle": "st_idle", "Male_Boxing_Idle": "st_idle_male", "Boxing_Dodge_Advance": "st_dodge_adv", "Boxing_Dodge_Retreat": "st_dodge_ret",
 }
+## S529 the WALKING takes, refitted onto the Punch PRO guard's own stance by the bake (tools/step_bake.gd, THE REFIT):
+## take -> [source stem, stride]. The stride scales the captured travel to a boxing step (the actor's "short" step
+## forward is 0.51 m; the critics' bar is 15-30 cm): in 0.23 / 0.36, out 0.23 / 0.35, left 0.20 / 0.34, right 0.21 / 0.34.
+const REFIT := {
+	"st_in_s": ["Short_Boxing_Step_Forward", 0.45], "st_in_m": ["Short_Boxing_Step_Forward", 0.70],
+	"st_out_s": ["Short_Boxing_Step_Backward", 0.75], "st_out_m": ["Medium_Boxing_Step_Backward", 0.63],
+	"st_l_s": ["Short_Left_Boxing_Side_Step", 1.0], "st_l_m": ["Medium_Left_Boxing_Side_Step", 1.0],
+	"st_r_s": ["Short_Right_Boxing_Side_Step", 0.85], "st_r_m": ["Medium_Right_Boxing_Side_Step", 0.80],
+}
 
 
 static func names() -> Array:

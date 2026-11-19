@@ -135,6 +135,19 @@ func _target(i: int, anim: Vector3, vel: Vector3, delta: float, hip: Vector3, le
 	return Vector3(at.x, maxf(anim.y, floor_y), at.z)
 
 
+## StepPlay: the plan is about to move his body under the take he is in - foot i steps now (FootPlant's own step: it
+## lands under the pose as the body arrives) instead of when it has been left behind. Not while its take has it in the
+## air, nor while a step of either foot is under way.
+func kick(i: int) -> void:
+	if i < 0 or i >= _swing.size() or _plant[i] == null or not (_lift[i] as Dictionary).is_empty():
+		return
+	if not (_swing[0] as Dictionary).is_empty() or not (_swing[1] as Dictionary).is_empty():
+		return
+	_swing[i] = {"from": _plant[i], "t": 0.0}
+	_pin[i] = null
+	own += 1
+
+
 func _wake() -> void:
 	super()
 	_lift = [{}, {}]

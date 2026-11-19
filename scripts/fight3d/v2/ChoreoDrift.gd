@@ -12,10 +12,12 @@ extends RefCounted
 const R := preload("res://scripts/fight3d/v2/ChoreoRules.gd")
 
 const STEP_S := 0.70                   # one ring step, start to the feet down
-const PAUSE_S := Vector2(0.15, 0.60)   # between two ring steps (never a march)
+## Between two ring steps (never a march). S529: was 0.15-0.60 - a step take was on screen 40-44 % of the round and both
+## critics of film 6 counted 120 steps a minute that "lead nowhere"; a boxer steps, looks, steps.
+const PAUSE_S := Vector2(0.5, 1.3)
 const FIRST_S := Vector2(0.05, 0.30)   # into a quiet stretch before the first
 const ANSWER_S := Vector2(0.06, 0.14)  # the other man starts this long after the leader
-const HOLD_FROM_M := 1.15              # only while the pair holds at rest or at the pocket
+const HOLD_FROM_M := 1.05              # only while the pair holds at rest or at the pocket
 const SETTLE_S := 0.20                 # after a take of either man ends
 const BEFORE_S := 0.25                 # a ring step is down this long before either man's next take
 const BUSY := ["punch", "reaction", "block", "defence", "pass"]

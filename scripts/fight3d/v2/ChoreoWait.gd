@@ -26,7 +26,7 @@ const BEATS := {"paw": ["pro_left_jab_b", 0.20, 1.0], "jab_feint": ["pro_left_ja
 	"cross_feint": ["pro_right_cross", 0.15, 1.15], "body_feint": ["pro_body_shot", 0.24, 1.3]}
 const SHARE := [["fidget", 0.45], ["paw", 0.25], ["jab_feint", 0.08], ["cross_feint", 0.14], ["body_feint", 0.08]]
 const BREATH_M := Vector2(0.05, 0.09)  # the rock in at rest (under FootPlant's step: the feet hold, the weight shifts)
-const BREATH_FROM_M := 1.15            # holds at rest and at the pocket breathe; closer in the pair is mid-burst
+const BREATH_FROM_M := 1.05            # holds at rest and at the pocket breathe; closer in the pair is mid-burst
 const BREATH_S := 0.26                 # in, and the same back out
 const BREATH_HOLD_S := Vector2(0.25, 0.7)
 const BREATH_EVERY_S := Vector2(0.5, 1.1)

@@ -1,6 +1,6 @@
 # TASK LEDGERREV3 - write the contracts map v3 (LEDGER1_V3) from the code, answering both v2 critics
 
-Status: OPEN (S528, Claude main). Discipline: boxing. Model: Goose (cloud), default. RESEARCH ONLY - no game code changes.
+Status: DONE (collected; S529 marked) (S528, Claude main). Discipline: boxing. Model: Goose (cloud), default. RESEARCH ONLY - no game code changes.
 
 ## Why
 LEDGER1 v2 (`ops/research/DESIGN_LEDGER1_V2.md`, Claude's code check at its top) scored Dola 8/8, Goose 6/5

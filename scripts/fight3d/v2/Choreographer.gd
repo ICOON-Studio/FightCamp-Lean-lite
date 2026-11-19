@@ -126,7 +126,8 @@ static func plan(beats: Array, db: Dictionary, opts: Dictionary) -> Dictionary:
 			from_s = clampf(from_s + (float(ctrl_until[who]) - t_play), start_s, maxf(start_s, contact_s - (R.WIND_MIN_S if R.is_straight(move) else clampf(contact_t - float(landed_at[who]) - 0.03, R.WIND_MIN_S, R.WIND_TURN_S))))   # never from before his own last punch has landed
 			t_play = contact_t - (contact_s - from_s)
 		var ik_m: float = minf((dev if R.is_straight(move) else 0.0) + (reach if result == "lands" else 0.0), R.IK_MAX_M)
-		marks.append({"t": contact_t, "gap": pgap, "who": who, "kind": "contact"})
+		# S529: a landed cross, hook or uppercut moves the man it hit (ChoreoGap.HURT_OUT_M: HE takes the step back)
+		marks.append({"t": contact_t, "gap": pgap, "who": who, "kind": "contact", "hurt": other if result == "lands" and not (move in ["jab", "body_hook"]) else ""})
 		ev[who].append({"t": t_play, "clip": take_name, "kind": "punch", "part": "whole", "from_s": from_s,
 			"join_s": R.join_for("punch"), "control_t": contact_t + R.CONTROL_S, "contact_t": contact_t, "move": move,
 			"until_s": contact_s + R.arm_home_s(move) + 0.25,   # his hand is home (Player2 hands the take back to the guard): a wait thing may start

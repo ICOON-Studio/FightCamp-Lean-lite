@@ -1,5 +1,6 @@
 # TASK TURNCRITIC3A - judge the turning pro map (TURNPRO1_V3) design, fresh critic
 
+Kind: research
 Status: OPEN (S529, Claude main). Discipline: boxing. Model: Arena (cloud). Work on FightCamp-Lean-lite main, your own arena/ branch, a PR into main there; never merge. RESEARCH ONLY - no game code changes.
 
 ## Your job

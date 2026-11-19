@@ -1,5 +1,6 @@
 # TASK TURNCRITIC3G - judge the turning pro map (TURNPRO1_V3) design, fresh critic
 
+Kind: research
 Status: OPEN (S529, Claude main). Discipline: boxing. Model: Goose (cloud), default. One PR into main. RESEARCH ONLY - no game code changes.
 
 ## Your job

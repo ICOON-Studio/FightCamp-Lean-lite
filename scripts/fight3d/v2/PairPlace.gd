@@ -25,6 +25,7 @@ const SQUARE_WAIT_DPS := 28.0
 const SQUARE_BUSY_DPS := 9.0
 
 var p: Node = null            # Player2
+var _want_was := 0.0          # the distance asked for last frame (how fast it changes is how fast the bodies may follow)
 
 
 func _init(player: Node) -> void:
@@ -36,7 +37,7 @@ func follow(delta: float) -> void:
 	if delta <= 0.0:
 		return
 	var gap: Array = p.plan["gap"]
-	var want := Gap.at(gap, p.t)
+	var want: float = p.walk.want(Gap.at(gap, p.t))   # a step under way goes by its take's own hips (StepPlay)
 	var a: Vector3 = stand(0)
 	var b: Vector3 = stand(1)
 	var line := Vector3(b.x - a.x, 0.0, b.z - a.z)
@@ -44,11 +45,12 @@ func follow(delta: float) -> void:
 	if dist < 0.01:
 		return
 	var axis := line / dist
-	var most := (absf(want - Gap.at(gap, p.t - delta)) / delta + CATCH_MPS) * delta
+	var most := (maxf(absf(Gap.at(gap, p.t) - Gap.at(gap, p.t - delta)), absf(want - _want_was)) / delta + CATCH_MPS) * delta
+	_want_was = want
 	var err := clampf(want - dist, -most, most)
 	if absf(err) < 0.0005:
 		return
-	var mover := Gap.who(gap, p.t)
+	var mover: String = p.walk.mover(Gap.who(gap, p.t))
 	var share := [0.5, 0.5]
 	if mover == "a":
 		share = [1.0, 0.0]

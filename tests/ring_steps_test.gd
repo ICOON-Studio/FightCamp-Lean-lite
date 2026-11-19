@@ -48,8 +48,18 @@ func _initialize() -> void:
 	var walk := StepPlay.new(null)
 	walk.steps = steps
 	var any := func(_c: String) -> bool: return true
-	_check(walk.pick("back", 0.30, any) == "st_back_s" and walk.pick("back", 0.60, any) == "st_back_m", "TAKES a short step back and a longer one pick different takes")
-	_check(walk.pick("left", 0.20, any) == "st_left_s" and walk.pick("left", 0.50, any) == "st_left_l" and walk.pick("fwd", 0.2, any) == "st_fwd_s", "TAKES the nearest take in length is picked")
+	_check(walk.pick("back", 0.20, any) == "st_out_s" and walk.pick("back", 0.33, any) == "st_out_m", "TAKES a short step back and a longer one pick different takes")
+	_check(walk.pick("left", 0.20, any) == "st_l_s" and walk.pick("left", 0.25, any) == "st_l_m" and walk.pick("fwd", 0.2, any) == "st_in_s", "TAKES the shortest take that covers the move is picked (never a shorter one stretched)")
+	_check(walk.pick("back", 0.60, any) == "st_out_m", "TAKES a move longer than every take gets the longest")
+	# S529 one stance per man: the walking takes are refitted onto the guard's stance (tools/step_bake.gd)
+	var low: Array = []
+	for dir in StepPlay.TAKES:
+		for c in StepPlay.TAKES[dir]:
+			var hy: Array = (steps.get(c, {}) as Dictionary).get("hips_y", [0, 0])
+			var tr2: Array = (steps.get(c, {}) as Dictionary).get("travel", [9, 9])
+			if float(hy[0]) < 0.82 or Vector2(float(tr2[0]), float(tr2[1])).length() > 0.40:
+				low.append(c)
+	_check(low.is_empty(), "STANCE each walking take rides at the guard's height (hips never under 0.82 m, the guard 0.88) and is a boxing step (40 cm at most) (%s)" % str(low))
 	_check(walk.pick("fwd", 0.3, func(_c: String) -> bool: return false) == "", "TAKES a take the boxer does not have is never picked")
 	# SWING
 	var st: Array = [[0.0, 0.2], [0.5, 1.0]]
@@ -69,7 +79,7 @@ func _initialize() -> void:
 	for seed in 12:
 		var round := {"n": 1, "won": true, "mine": 60.0, "theirs": 55.0, "corner": "", "lines": []}
 		var beats: Array = RS.build(round, "Slugger", "Slugger", 30.0, seed)["beats"]
-		var opts := {"t0": 0.0, "t1": 30.0, "gap0": 1.55, "seed": seed, "south": {"a": false, "b": false}, "scale": {"a": 1.0, "b": 1.0}}
+		var opts := {"t0": 0.0, "t1": 30.0, "gap0": 1.32, "seed": seed, "south": {"a": false, "b": false}, "scale": {"a": 1.0, "b": 1.0}}
 		var plan: Dictionary = Choreo.plan(beats, db, opts)
 		var again: Dictionary = Choreo.plan(beats, db, opts)
 		var rows: Dictionary = db["rows"]

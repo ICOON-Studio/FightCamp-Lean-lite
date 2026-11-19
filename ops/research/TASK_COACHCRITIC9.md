@@ -1,6 +1,6 @@
 # TASK COACHCRITIC9 - judge the coach fit map (COACHFIT1_V9) design, fresh critic
 
-Status: OPEN (S528, Claude main). Discipline: boxing. Model: Arena (cloud). Work on FightCamp-Lean-lite main, your own arena/ branch, a PR into main there; never merge. RESEARCH ONLY - no game code changes.
+Status: DONE (collected; S529 marked) (S528, Claude main). Discipline: boxing. Model: Arena (cloud). Work on FightCamp-Lean-lite main, your own arena/ branch, a PR into main there; never merge. RESEARCH ONLY - no game code changes.
 
 ## Your job
 You are a fresh, independent critic: a sports management-sim designer. Read the whole brief

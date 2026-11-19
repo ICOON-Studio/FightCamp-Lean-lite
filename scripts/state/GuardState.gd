@@ -83,6 +83,8 @@ static func wear_through(blocks: int, g: float, mx: float, wc: String, ctx: Dict
 
 ## After LiveRound settles an exchange: landed [ours, theirs]; at = lv["at"] (StepWire's ropes); opp_attrs from RingDuel.opp.
 ## Returns {"g": [ours, theirs], "blocked": [by ours on theirs.. i.e. blocks WE made, blocks THEY made]}.
+## "Under half" reads our guard AFTER this exchange's wear and recovery: the clinch answers the blows just taken (S529,
+## GUARDBLIND1 collect).
 ## call = the exchange's shout (Exchanges.CALLS id): "tie" is the design's clinch (+10 under half guard, once a round,
 ## GuardWear.clinch), "hands" earns the corner's Hands up (+5 at the next minute).
 ## S525 n = the round, opp_habits = RoundStyle.opponent_habits(opp): a guard habit (GUARD_HABITS) changes the wear

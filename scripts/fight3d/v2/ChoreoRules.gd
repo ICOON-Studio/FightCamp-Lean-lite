@@ -8,8 +8,11 @@ const ClipCensus := preload("res://scripts/fight3d/v2/ClipCensus.gd")
 # --- Distance (REFERENCE_DISTANCES_S439, scope 8) ---
 ## S525 (both blind critics on both v2 films put RANGE first): rest was 1.7 m, heads 1.61 m apart. Their bar: heads
 ## 1.3-1.6 m, 40-60 cm of air between the lead gloves, lead feet about 1.1 m apart = 1.55 m between the hips here.
-const REST_M := 1.55          # rest out of reach
-const CREEP_M := 1.4          # the round script's own step in (pressure): still out of reach, a jab and one step from landing
+## S529 (film 6, both critics' first or fifth item again: "they wait at a distance nobody fights from", lead gloves
+## "a full body apart"; the stance ruler: nearest wrists 0.82 m, front feet 1.09 m at 1.55): the edge of range is
+## lead gloves 30-50 cm apart, front feet 0.9-1.1 m = 1.32 m here, one 25 cm step from the longest jab.
+const REST_M := 1.32          # rest: just out of reach
+const CREEP_M := 1.2          # the round script's own step in (pressure): still out of reach, a jab and half a step from landing
 const MIN_GAP_M := 0.45       # never closer than this
 const GAP_SPEED_MPS := 1.6    # max gap change rate (a step pair is 0.55-0.60 s)
 const BURST_GAP_S := 2.2      # contacts closer than this are one burst: the pair stays in range between them
@@ -132,7 +135,9 @@ static func impact_s_for(move: String) -> float:
 ## S513 (the first v2 film, both blind critics: "the man who is hit barely moves"; the rulers: the head's furthest
 ## point 15+ frames after the contact): a bought reaction takes 0.2-1.3 s to reach its furthest point. It starts
 ## part-way in, so the head is furthest REACT_PEAK_S after the glove lands (the join smoother makes the snap).
-const REACT_PEAK_S := 0.13
+## S529: 0.13 -> 0.10 - the reaction now starts one picture after the contact (Player2._late) and joins a little slower:
+## the head is still furthest 3 pictures after the glove lands.
+const REACT_PEAK_S := 0.10
 const REACT_VARY_SCORE := 0.30
 ## S526 SIZED TO THE PUNCH (four films, both critics, item 1 every time): how far the hit head should travel against
 ## his own body, by the punch (their asks: jab 10-12 cm, cross 20-25, hook 25-30, uppercut 15-20, a body shot a fold

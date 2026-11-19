@@ -18,16 +18,22 @@ const R := preload("res://scripts/fight3d/v2/ChoreoRules.gd")
 
 const LEAD_S := 0.08          # the step in is over this long before the glove lands (the front foot is down)
 const HOLD_S := 0.20          # after a contact the pair stays put this long (the hand comes home, the hit shows)
-const STEP_IN_M := 0.30       # the step in on the punch (the critics: lead foot 20-35 cm, down as the glove lands)
+const STEP_IN_M := 0.25       # the step in on the punch (the critics: lead foot 15-25 cm, down as the glove lands)
 const CREEP_MPS := 0.6        # the edge in from rest to one step from the punch (calm: both men, half each)
 const CREEP_S := 0.45         # ... and never quicker than this
 const CREEP_GAP_S := 0.12     # between the creep's end and the step in
-const APPROACH_MPS := 1.4     # the step in from the creep line (0.3 m in about 0.2 s)
+const APPROACH_MPS := 1.1     # the step in from the creep line (0.25 m in 0.23 s: a step of 6-8 pictures)
 const LEAVE_MPS := 1.3        # the step out
 const STEP_OUT_M := 0.35      # the attacker's step out after a burst's last punch
+## S529 HITS MOVE THE MAN, LEGS TOO (film 6, both critics: a cross's "head jerks on a body that stays nailed down", a
+## step back of 3 cm where a stiff cross moves a man 15-25): after a landed cross, hook or uppercut the man who was HIT
+## takes the step out (his rear foot first, under his reaction), starting HURT_S after the blow. A jab moves nobody; a
+## body shot's own stagger travels (a knock).
+const HURT_OUT_M := 0.25
+const HURT_S := 0.08
 const EASE_OUT_WAIT_S := 0.12 # he lands that step, then both ease back to rest ...
 const EASE_OUT_MPS := 0.8     # ... this fast
-const POCKET_M := 1.2          # just past the jab: where the pair waits between the punches of one burst
+const POCKET_M := 1.12         # just past the jab: where the pair waits between the punches of one burst
 const POCKET_WAIT_S := 0.9    # a wait this long inside a burst is spent at the pocket, not chest to chest
 const POCKET_MIN_M := 0.10    # a step out to the pocket shorter than this is not worth taking
 const MIN_RAMP_S := 0.12      # no move is shorter than this
@@ -120,18 +126,19 @@ static func build(marks: Array, t0: float, t1: float, gap0: float, log: Array) -
 static func _after(out: Array, marks: Array, i: int, mt: float, t1: float) -> void:
 	var g := float(out[-1][1])
 	var knocked := str((marks[i] as Dictionary).get("kind", "contact")) == "knock"
-	var hitter := "both" if knocked else str((marks[i] as Dictionary).get("who", "both"))
+	var hurt := "" if knocked else str((marks[i] as Dictionary).get("hurt", ""))
+	var hitter := "both" if knocked else (hurt if hurt != "" else str((marks[i] as Dictionary).get("who", "both")))
 	var nxt := {}
 	for k in range(i + 1, marks.size()):
 		if str((marks[k] as Dictionary).get("kind", "contact")) == "contact":
 			nxt = marks[k]
 			break
 	var wait := INF if nxt.is_empty() else float(nxt["t"]) - mt
-	var ls := mt + HOLD_S
+	var ls := mt + (HURT_S if hurt != "" else HOLD_S)
 	if wait >= R.BURST_GAP_S:
 		if g >= R.REST_M - 0.05:
 			return
-		var s1 := g if knocked else minf(g + STEP_OUT_M, R.REST_M)
+		var s1 := g if knocked else minf(g + (HURT_OUT_M if hurt != "" else STEP_OUT_M), R.REST_M)
 		var d1 := maxf((s1 - g) / LEAVE_MPS, _whole(s1 - g)) if s1 > g + 0.005 else 0.0
 		var d2 := maxf((R.REST_M - s1) / EASE_OUT_MPS, _whole(R.REST_M - s1)) if s1 < R.REST_M - 0.005 else 0.0
 		if ls + d1 + EASE_OUT_WAIT_S + d2 > t1:
@@ -234,7 +241,7 @@ static func faults(plan: Array, contacts: Array, t1: float) -> Array:
 			if absf(float(c) - t) < 1.5 + R.BURST_GAP_S * 0.5:
 				near = true
 		var g := at(plan, t)
-		if not near and (g < 1.35 or g > 1.85):
+		if not near and (g < R.REST_M - 0.2 or g > R.REST_M + 0.3):
 			bad.append("not at rest at %.2f (%.2f m)" % [t, g])
 		t += 0.25
 	return bad

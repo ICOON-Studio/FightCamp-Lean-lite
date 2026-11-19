@@ -34,7 +34,10 @@ const GUARD := "pro_idle"
 const FOOT_DB := "res://assets/data/foot_db.json"
 ## The join into each kind of take: [half-life, length] s (scope 3e: into a punch 0.15, a reaction 0.05, a slip 0.15,
 ## back to the guard 0.30).
-const JOIN := {"punch": Vector2(0.05, 0.15), "reaction": Vector2(0.035, 0.11), "block": Vector2(0.02, 0.06),
+## S529 a reaction: was 0.035 / 0.11 - the snap onto a take started part-way in covered 40 % of the way in ONE picture
+## (film 6, both critics: 18-19 head jumps over 12 cm, all inside a reaction or a dodge, worst 21.6 cm; their bar is the
+## head's travel spread over 2-3 pictures, none over 10 cm).
+const JOIN := {"punch": Vector2(0.05, 0.15), "reaction": Vector2(0.045, 0.14), "block": Vector2(0.02, 0.06),
 	"defence": Vector2(0.05, 0.15), "guard": Vector2(0.10, 0.30), "pass": Vector2(0.10, 0.30),
 	"fidget": Vector2(0.10, 0.30), "feint": Vector2(0.05, 0.15), "step": Vector2(0.07, 0.22)}
 const JOIN_TURN := Vector2(0.08, 0.24)
@@ -62,6 +65,7 @@ var _take: Array = [{}, {}]   # per boxer: {clip, kind, origin, from_s, path, tr
 var _home: Array = [Vector3.ZERO, Vector3.ZERO]   # where each body stands on the canvas, the take's travel aside
 var _off: Array = [[], []]
 var _due: Array = []          # [t, Callable]: sounds and camera on the contact
+var _late: Array = []         # [boxer, event]: reactions that start on the next tick (one picture after the contact)
 var _scene := false
 var log_on: bool = OS.get_cmdline_user_args().has("fp2log")
 var _aim: Array = [null, null]       # per boxer: PunchAim
@@ -109,7 +113,13 @@ func setup(stage: Node) -> void:
 		var skel: Skeleton3D = st.boxers[i]["skel"]
 		if KEEP.has("FootTake") and st.boxers[i].get("feet") != null:
 			_ft[i] = FootTake.add(skel, st.boxers[i]["ap"], st.boxers[i]["feet"], fdb.get("feet", {}), bool(st.boxers[i].get("south", false)))
-		_aim[i] = PunchAim.attach(skel, st.boxers[i]["ap"], st.boxers[i].get("js"))
+		# S529: the arm finish runs after everything that moves the body (the tired sag, the legs, the floor stand): it
+		# closes on the target as drawn. Before the twist bones, which follow the arm.
+		var last: Node = st.boxers[i].get("js")
+		for c in skel.get_children():
+			if c is SkeletonModifier3D and str(c.name) in ["TiredSag", "FootTake", "FootPlant", "FootCarry", "FootLock", "FloorStand"] and (last == null or c.get_index() > last.get_index()):
+				last = c
+		_aim[i] = PunchAim.attach(skel, st.boxers[i]["ap"], last)
 		if KEEP.has("FootCarry") and st.boxers[i].get("feet") != null:
 			_feet[i] = FootCarry.add(skel, st.boxers[i]["ap"], st.boxers[i]["feet"])
 			if _feet[i] != null:
@@ -216,6 +226,10 @@ func tick(delta: float) -> void:
 	if not _sampled:
 		_sample()
 	if live and not plan.is_empty():
+		var late: Array = _late
+		_late = []
+		for l in late:
+			_event(int(l[0]), l[1])
 		for i in 2:
 			var track: Array = plan["tracks"]["a" if i == 0 else "b"]
 			while int(_next[i]) < track.size() and float(track[int(_next[i])]["t"]) <= t:
@@ -236,7 +250,7 @@ func tick(delta: float) -> void:
 				if _feet[i] != null:
 					print("FP2 feet %s t %.0f steps %d slip by cause %s" % ["ab"[i], t, int(_feet[i].steps), str(_feet[i].tally)])
 				if _ft[i] != null:
-					print("FP2 feet %s t %.0f steps from a take %d, FootPlant's own %d | step takes %d, the pair walked %.1f m" % ["ab"[i], t, int(_ft[i].took), int(_ft[i].own), walk.played, walk.walked])
+					print("FP2 feet %s t %.0f steps from a take %d, FootPlant's own %d | step takes %d, steps under a take %d, the pair walked %.1f m" % ["ab"[i], t, int(_ft[i].took), int(_ft[i].own), walk.played, walk.kicked, walk.walked])
 					print("FP2 feet %s   a low foot moved, by what ruled it: %s" % ["ab"[i], str(_ft[i].tally)])
 	pair.place()
 	pair.face(delta)
@@ -255,10 +269,16 @@ func _event(i: int, e: Dictionary) -> void:
 	var clip := str(e["clip"])
 	if clip == "" or not _has(i, clip):
 		return
+	# S529 THE HIT SHOWS ONE PICTURE AFTER THE GLOVE ARRIVES: the reaction used to start on the contact's own tick, before
+	# the picture of the contact was drawn - the head had already left when the glove got there (hits.json: a cross
+	# 18 cm beside the head on its contact picture, on every film). It starts on the next tick, as far into its take.
+	if kind == "reaction" and not e.has("late_t"):
+		_late.append([i, e.merged({"late_t": t})])
+		return
 	if kind in ["fidget", "feint"]:
 		_wait(i, e)
 		return
-	_play(i, clip, float(e["from_s"]), kind, kind == "punch" or str(e.get("part", "whole")) == "whole")
+	_play(i, clip, float(e["from_s"]) + (t - float(e["late_t"]) if e.has("late_t") else 0.0), kind, kind == "punch" or str(e.get("part", "whole")) == "whole")
 	if kind == "reaction" and e.has("until_s"):   # S526: back to the guard once the reaction has shown (ChoreoRules.REACT_TAIL_S)
 		_due.append([t + maxf(float(e["until_s"]) - float(e["from_s"]), 0.2), func() -> void:
 			if str(_take[i].get("clip", "")) == clip and str(_take[i].get("kind", "")) == "reaction" and not _down(i):
@@ -326,7 +346,8 @@ func _measure(i: int, clip: String, move: String, now_f: int, gap: float) -> voi
 	var tp := target(1 - i, move == "body_hook")
 	var d: Vector3 = (st.boxers[i]["node"] as Node3D).global_transform.basis.orthonormalized().inverse() * (g - tp)
 	(st.hit_gaps as Array).append({"now_f": now_f, "hitter": i, "move": move, "clip": clip, "miss": g.distance_to(tp),
-		"graze": false, "cut": false, "gap": gap, "fwd": d.z, "side": d.x, "up": d.y})
+		"graze": false, "cut": false, "gap": gap, "fwd": d.z, "side": d.x, "up": d.y,
+		"aim": float((_aim[i] as Node).last_m), "left": float((_aim[i] as Node).left_m), "t": t})   # the arm finish asked for, and what it could not close
 
 
 ## The glove front of every take at its contact, read once off each body (the take posed at its contact, no layer on).
@@ -348,8 +369,10 @@ func _sample() -> void:
 			ap.seek(float(r.get("contact_s", 0.3)), true)
 			(bx["gloves"] as Node)._follow()   # the glove onto the sampled hand (it follows the skeleton a frame later otherwise)
 			_fronts[i][str(n)] = body_inv * (st.glove_front(i, hand) as Vector3)
-			# wrist -> glove front in the skeleton's space at the contact (PunchAim solves for the front, not the wrist)
-			_rels[i][str(n)] = skel.global_transform.basis.inverse() * ((st.glove_front(i, hand) as Vector3) - skel.global_transform * skel.get_bone_global_pose(skel.find_bone(hand)).origin)
+			# wrist -> glove front in the HAND's own frame (PunchAim solves for the front, not the wrist; S529: it was kept in
+			# the skeleton's space at the contact, which is only right on that one picture)
+			var hp := skel.get_bone_global_pose(skel.find_bone(hand))
+			_rels[i][str(n)] = (skel.global_transform.basis * hp.basis).inverse() * ((st.glove_front(i, hand) as Vector3) - skel.global_transform * hp.origin)
 		guard(i)
 
 
@@ -373,7 +396,8 @@ func _arm(i: int, clip: String, body: bool) -> void:
 		var path: PackedVector3Array = _take[i].get("path", PackedVector3Array())
 		var ap: AnimationPlayer = bx["ap"]
 		var rest := RootPath.world((bx["skel"] as Skeleton3D).global_transform.basis, RootPath.at(path, cs) - RootPath.at(path, ap.current_animation_position)) if not path.is_empty() else Vector3.ZERO
-		return target(1 - i, body) - ((bx["node"] as Node3D).global_transform * front + rest), _rels[i].get(clip, Vector3.ZERO))
+		return target(1 - i, body) - ((bx["node"] as Node3D).global_transform * front + rest), _rels[i].get(clip, Vector3.ZERO),
+		func() -> Vector3: return target(1 - i, body))
 
 
 ## Starts `clip` on boxer i through the join smoother. `travel`: the take's own hip travel moves his body.

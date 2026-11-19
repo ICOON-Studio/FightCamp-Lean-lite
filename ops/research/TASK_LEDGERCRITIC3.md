@@ -1,6 +1,6 @@
 # TASK LEDGERCRITIC3 - judge the contracts map (LEDGER1_V2) design, fresh critic
 
-Status: OPEN (S527, Claude main). Discipline: boxing. Model: Goose (cloud), default. RESEARCH ONLY - no game code changes.
+Status: DONE (collected; S529 marked) (S527, Claude main). Discipline: boxing. Model: Goose (cloud), default. RESEARCH ONLY - no game code changes.
 
 ## Your job
 You are a fresh, independent critic: a sports management-sim designer. Read the whole brief
