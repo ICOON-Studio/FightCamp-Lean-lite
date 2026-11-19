@@ -378,7 +378,6 @@ static func _round_edges(f: Dictionary, opp: Dictionary, camp: Dictionary, coach
 	return out
 
 
-
 ## The chance she wins this bout: two rounds of three (a 3-round card has no draw).
 static func chance(f: Dictionary, opp: Dictionary, camp: Dictionary, coach := 0.0) -> float:
 	var e := round_edges(f, opp, camp, coach)

@@ -26,6 +26,7 @@ const RINGS_PX := 300.0
 const RINGS_ALPHA := 0.82
 const ICON_PX := 16
 const Arc := preload("res://scripts/fight3d/HudArc.gd")
+const SidePanel := preload("res://scripts/fight3d/SidePanel.gd")
 const SIDE_COLOUR := Arc.SIDE_COLOUR
 const IVORY := Arc.IVORY
 const ICON := {"head": "user", "body": "shirt", "legs": "footprints", "stamina": "zap", "guard": "shield", "heart": "heart"}
@@ -248,6 +249,8 @@ func _source(side: int) -> Dictionary:
 	var src := {"energy": float(_snap.get(who, 100.0)), "body_taken": int((_snap.get("body", [0, 0]) as Array)[side]),
 		"guard_known": bool(_known[side]["guard"]), "heart_known": bool(_known[side]["heart"])}
 	src["energy_start"] = float(_start.get(who, src["energy"]))
+	if not _scored.is_empty() and (_scored[-1] as Dictionary).has("guard"):   # S524 GUARDWEAR: HUD data only, no motion
+		src["guard_v4"] = float((_scored[-1]["guard"]["share"] as Array)[side])
 	var live: Node = view.get("body")
 	if live != null:
 		var places := {}
@@ -256,12 +259,7 @@ func _source(side: int) -> Dictionary:
 		src["places"] = places
 	var burn: Node = view.get("burn")
 	if burn != null:
-		var shown: Dictionary = (burn.get("_shown") as Array)[side]
-		var parts := {}
-		for part in BodyLoad.PARTS:
-			parts[part] = float(shown.get("b_" + part, 0.0))
-		src["burn"] = parts
-		src["drop"] = {"lead": float(shown.get("lead", 0.0)), "rear": float(shown.get("rear", 0.0))}
+		SidePanel._burn_into(src, (burn.get("_shown") as Array)[side])   # S524: one burn reader (was a copy of it)
 	var main: Node = view.get("main")
 	if main != null:
 		src["counts"] = int((main.modal.get("counts", {}) as Dictionary).get(who, 0))

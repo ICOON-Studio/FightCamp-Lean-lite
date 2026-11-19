@@ -1,1719 +1,1728 @@
 {
-  "_doc": "Tasks for the CLI seats, drained by ops/Tools/seat_dispatch.py (30-min reconcile).",
-  "items": [
-    {
-      "task": "ASKPROBE1",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-12T12:58",
-      "launched": "2026-11-12T13:31"
-    },
-    {
-      "seat": "qwen",
-      "brief": "HITREACT4",
-      "status": "superseded",
-      "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)",
-      "task": "HITREACT4",
-      "queued": "2026-11-18T10:00"
-    },
-    {
-      "task": "KNEETRACK1",
-      "seat": "agy",
-      "status": "launched",
-      "queued": "2026-11-03T00:26",
-      "launched": "2026-11-03T01:11"
-    },
-    {
-      "task": "NOREF1",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-03T00:27",
-      "launched": "2026-11-03T01:36"
-    },
-    {
-      "task": "FIGHT9R1",
-      "seat": "agy",
-      "status": "superseded",
-      "queued": "2026-11-03T01:55",
-      "note": "S379: stale queue row (rounds 2-7 ran since)"
-    },
-    {
-      "task": "FIGHT9R2",
-      "seat": "agy",
-      "status": "launched",
-      "queued": "2026-11-03T03:09",
-      "loop": "FIGHT9",
-      "launched": "2026-11-03T03:41"
-    },
-    {
-      "task": "FIGHT9R3",
-      "seat": "agy",
-      "status": "failed",
-      "queued": "2026-11-03T05:13",
-      "loop": "FIGHT9",
-      "launched": "2026-11-03T05:41",
-      "note": "S375: agy 429 individual quota (resets ~11-10); moved to cursor as FIGHT9R4"
-    },
-    {
-      "task": "PASSEDSTAMP1",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-03T05:29",
-      "launched": "2026-11-03T06:10"
-    },
-    {
-      "task": "FIGHT9R4",
-      "seat": "cursor",
-      "status": "launched",
-      "queued": "2026-11-03T10:11",
-      "loop": "FIGHT9",
-      "launched": "2026-11-03T10:41"
-    },
-    {
-      "task": "KALLINUMS1",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-03T11:19",
-      "launched": "2026-11-03T11:21"
-    },
-    {
-      "task": "FIGHT9R5",
-      "seat": "cursor",
-      "status": "launched",
-      "queued": "2026-11-03T12:35",
-      "loop": "FIGHT9",
-      "launched": "2026-11-03T12:41"
-    },
-    {
-      "task": "FIGHT9R6",
-      "seat": "agy",
-      "status": "launched",
-      "queued": "2026-11-03T13:54",
-      "loop": "FIGHT9",
-      "launched": "2026-11-03T13:59"
-    },
-    {
-      "task": "FIGHT9R7",
-      "seat": "agy",
-      "status": "launched",
-      "queued": "2026-11-03T16:03",
-      "loop": "FIGHT9",
-      "launched": "2026-11-03T17:36"
-    },
-    {
-      "task": "LOCOWALK1",
-      "seat": "cursor",
-      "status": "launched",
-      "queued": "2026-11-03T16:31",
-      "launched": "2026-11-03T16:53",
-      "note": "S377: launched by hand (--task --act), runner pid 41164"
-    },
-    {
-      "task": "LOCOWALK2",
-      "seat": "cursor",
-      "status": "launched",
-      "queued": "2026-11-03T17:36",
-      "launched": "2026-11-03T18:41"
-    },
-    {
-      "task": "FIGHT9R8",
-      "seat": "agy",
-      "status": "failed",
-      "queued": "2026-11-03T18:36",
-      "loop": "FIGHT9",
-      "launched": "2026-11-03T20:41",
-      "note": "S379: runner crashed - agy.exe missing for 10 min at launch (21:01), agy never ran; superseded by FIGHT9R9 on BASE claude/fight9base = round 7 kept"
-    },
-    {
-      "task": "BJJ9R11",
-      "seat": "agy",
-      "status": "superseded",
-      "queued": "2026-11-04T03:41",
-      "launched": "2026-11-04T05:01",
-      "note": "S380: R11 never ran (agy.exe missing from the scheduled reconcile, fixed 3bf18542); redone as BJJ9R12 on bjj9base 405c0989 (main merged)"
-    },
-    {
-      "task": "FIGHT9R10",
-      "seat": "agy",
-      "status": "launched",
-      "queued": "2026-11-04T05:59",
-      "loop": "FIGHT9",
-      "note": "S379: released after the TV camera + corner-start films landed on claude/fight9base",
-      "launched": "2026-11-04T08:41"
-    },
-    {
-      "task": "BJJ9R12",
-      "seat": "agy",
-      "status": "launched",
-      "queued": "2026-11-04T06:38",
-      "loop": "BJJ9",
-      "launched": "2026-11-04T06:38",
-      "note": "S380: launched by hand (--task --act) on the merged base"
-    },
-    {
-      "task": "LOCOWALK4",
-      "seat": "cursor",
-      "status": "launched",
-      "queued": "2026-11-04T06:44",
-      "launched": "2026-11-04T07:41"
-    },
-    {
-      "task": "BJJ9R13",
-      "seat": "agy",
-      "status": "launched",
-      "queued": "2026-11-04T09:40",
-      "loop": "BJJ9",
-      "launched": "2026-11-04T10:11"
-    },
-    {
-      "task": "FIGHT9R10",
-      "seat": "agy",
-      "status": "launched",
-      "queued": "2026-11-04T10:11",
-      "launched": "2026-11-04T18:40"
-    },
-    {
-      "task": "BJJ9R14",
-      "seat": "agy",
-      "status": "launched",
-      "queued": "2026-11-04T11:09",
-      "loop": "BJJ9",
-      "launched": "2026-11-04T15:41"
-    },
-    {
-      "task": "BJJ9R14",
-      "seat": "cursor",
-      "status": "launched",
-      "queued": "2026-11-04T18:53",
-      "launched": "2026-11-04T19:10"
-    },
-    {
-      "task": "FIGHT9R11",
-      "seat": "agy",
-      "status": "launched",
-      "queued": "2026-11-04T19:46",
-      "loop": "FIGHT9",
-      "launched": "2026-11-04T20:10"
-    },
-    {
-      "task": "BJJ9R15",
-      "seat": "cursor",
-      "status": "launched",
-      "queued": "2026-11-04T20:59",
-      "loop": "BJJ9",
-      "launched": "2026-11-04T22:45"
-    },
-    {
-      "task": "FIGHT9R12",
-      "seat": "agy",
-      "status": "launched",
-      "queued": "2026-11-04T22:03",
-      "loop": "FIGHT9",
-      "launched": "2026-11-04T23:11"
-    },
-    {
-      "task": "FIGHT9R13",
-      "seat": "agy",
-      "status": "launched",
-      "queued": "2026-11-05T00:24",
-      "loop": "FIGHT9",
-      "launched": "2026-11-05T02:11"
-    },
-    {
-      "task": "BJJ9R16",
-      "seat": "cursor",
-      "status": "launched",
-      "queued": "2026-11-05T00:59",
-      "loop": "BJJ9",
-      "launched": "2026-11-05T02:40"
-    },
-    {
-      "task": "FIGHT9R14",
-      "seat": "agy",
-      "status": "launched",
-      "queued": "2026-11-05T18:51",
-      "loop": "FIGHT9",
-      "launched": "2026-11-05T19:10"
-    },
-    {
-      "task": "BJJ9R17",
-      "seat": "cursor",
-      "status": "launched",
-      "queued": "2026-11-05T18:53",
-      "loop": "BJJ9",
-      "launched": "2026-11-05T19:41"
-    },
-    {
-      "task": "FIGHT9R15",
-      "seat": "agy",
-      "status": "launched",
-      "queued": "2026-11-05T20:25",
-      "loop": "FIGHT9",
-      "launched": "2026-11-05T22:11"
-    },
-    {
-      "task": "SOUND1R2",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-05T21:26",
-      "note": "S386: round 1 rework - Ludo not synthetic, restore 13 round-0 rows + crowd loop",
-      "launched": "2026-11-05T23:11"
-    },
-    {
-      "task": "BJJ9R18",
-      "seat": "cursor",
-      "status": "launched",
-      "queued": "2026-11-05T21:32",
-      "loop": "BJJ9",
-      "launched": "2026-11-06T01:11"
-    },
-    {
-      "task": "FIGHT9R16",
-      "seat": "agy",
-      "status": "launched",
-      "queued": "2026-11-05T22:59",
-      "loop": "FIGHT9",
-      "launched": "2026-11-06T00:11"
-    },
-    {
-      "task": "FIGHT9R17",
-      "seat": "agy",
-      "status": "launched",
-      "queued": "2026-11-06T01:27",
-      "loop": "FIGHT9",
-      "launched": "2026-11-06T03:11"
-    },
-    {
-      "task": "BJJ9R19",
-      "seat": "cursor",
-      "status": "held",
-      "queued": "2026-11-06T02:58",
-      "loop": "BJJ9",
-      "note": "S389: held by Claude. Operator: BJJ clips look fine, wire training, belts and the match instead. Set back to queued to run it."
-    },
-    {
-      "task": "FIGHT9R18",
-      "seat": "agy",
-      "status": "launched",
-      "queued": "2026-11-06T04:26",
-      "loop": "FIGHT9",
-      "launched": "2026-11-06T05:11"
-    },
-    {
-      "task": "FIGHT9R19",
-      "seat": "agy",
-      "status": "launched",
-      "queued": "2026-11-06T06:15",
-      "loop": "FIGHT9",
-      "launched": "2026-11-06T06:41"
-    },
-    {
-      "task": "FIGHT9R20",
-      "seat": "agy",
-      "status": "held",
-      "queued": "2026-11-06T07:46",
-      "loop": "FIGHT9",
-      "launched": "2026-11-06T08:11",
-      "note": "S390: never started; R17-R19 under R16; R16 merged by hand"
-    },
-    {
-      "task": "SOUND2",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-07T08:52",
-      "launched": "2026-11-07T09:40"
-    },
-    {
-      "task": "SOUND3",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-07T09:46",
-      "launched": "2026-11-07T10:40"
-    },
-    {
-      "task": "WORLD1",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-07T11:23",
-      "launched": "2026-11-07T12:14"
-    },
-    {
-      "task": "FIGHTWALK1",
-      "seat": "cursor",
-      "status": "launched",
-      "queued": "2026-11-07T13:57",
-      "launched": "2026-11-07T14:11"
-    },
-    {
-      "task": "HITSELL1",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-07T13:59",
-      "launched": "2026-11-07T14:40"
-    },
-    {
-      "task": "HITSELL2",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-07T15:08",
-      "launched": "2026-11-07T15:41"
-    },
-    {
-      "task": "FIGHTWALK2",
-      "seat": "cursor",
-      "status": "done",
-      "queued": "2026-11-07T15:51"
-    },
-    {
-      "task": "CORNERCAM1",
-      "seat": "qwen",
-      "status": "moved_goose",
-      "queued": "2026-11-07T15:53"
-    },
-    {
-      "task": "INSIDE2",
-      "seat": "cursor",
-      "status": "moved_goose",
-      "queued": "2026-11-07T15:55"
-    },
-    {
-      "task": "HITSELL3",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-07T16:19",
-      "launched": "2026-11-07T16:41"
-    },
-    {
-      "task": "HITSELL4",
-      "seat": "qwen",
-      "status": "done",
-      "queued": "2026-11-07T17:11"
-    },
-    {
-      "task": "FIGHTWALK3",
-      "seat": "cursor",
-      "status": "done",
-      "queued": "2026-11-07T17:11"
-    },
-    {
-      "task": "INSIDE4",
-      "seat": "qwen",
-      "status": "done",
-      "queued": "2026-11-07T18:06"
-    },
-    {
-      "task": "HITSELL5",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-07T18:26",
-      "launched": "2026-11-07T20:41"
-    },
-    {
-      "task": "SOUTHPAW1",
-      "seat": "cursor",
-      "status": "done",
-      "queued": "2026-11-07T19:03",
-      "note": "S399: ran, PR #74 closed not merged; rework SOUTHPAW2"
-    },
-    {
-      "task": "SOUTHPAW2",
-      "seat": "cursor",
-      "status": "launched",
-      "queued": "2026-11-07T20:49",
-      "launched": "2026-11-07T21:21"
-    },
-    {
-      "task": "ANIMREBUILD1",
-      "seat": "agy",
-      "status": "launched",
-      "queued": "2026-11-07T20:51",
-      "launched": "2026-11-07T22:09"
-    },
-    {
-      "task": "RETARGET1",
-      "seat": "cursor",
-      "status": "launched",
-      "queued": "2026-11-07T22:53",
-      "launched": "2026-11-07T22:53"
-    },
-    {
-      "task": "WALK1",
-      "seat": "cursor",
-      "status": "held",
-      "queued": "2026-11-07T22:18",
-      "note": "S399 operator \"then why you kept working on the flaws ?\": no layer work until RETARGET1 + rokoko-back prove the clips clean against the source"
-    },
-    {
-      "task": "MONEYOD1",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-07T21:22",
-      "launched": "2026-11-07T22:41"
-    },
-    {
-      "task": "FIGHTERMODEL3",
-      "seat": "cursor",
-      "status": "launched",
-      "queued": "2026-11-07T21:28",
-      "launched": "2026-11-08T00:43"
-    },
-    {
-      "task": "BJJBEAT1",
-      "seat": "cursor",
-      "status": "moved_goose",
-      "queued": "2026-11-07T21:23",
-      "note": "S399: Goose cloud (operator: use other free agents)"
-    },
-    {
-      "task": "MONEYLAYOUT1",
-      "seat": "agy",
-      "status": "launched",
-      "queued": "2026-11-07T21:29",
-      "launched": "2026-11-07T23:11"
-    },
-    {
-      "task": "GRAPPLEFIX1",
-      "seat": "qwen",
-      "status": "moved_session",
-      "queued": "2026-11-07T23:30",
-      "note": "S399 operator: \"assign it to new session\" - grappling-rater Claude session"
-    },
-    {
-      "task": "RETARGET2",
-      "seat": "cursor",
-      "status": "launched",
-      "queued": "2026-11-08T03:00",
-      "launched": "2026-11-08T03:00"
-    },
-    {
-      "task": "FIGHTERMODEL3B",
-      "seat": "cursor",
-      "status": "launched",
-      "queued": "2026-11-08T07:54",
-      "launched": "2026-11-08T09:11"
-    },
-    {
-      "task": "MONEYOD2",
-      "seat": "qwen",
-      "status": "superseded",
-      "queued": "2026-11-08T07:56",
-      "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
-    },
-    {
-      "task": "RETARGET2B",
-      "seat": "cursor",
-      "status": "superseded",
-      "queued": "2026-11-08T09:12",
-      "note": "S401: operator \"assign free seats or open new sessions\": taken by a Claude side session while Cursor is held"
-    },
-    {
-      "task": "CORNERTRUST1",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-08T10:01",
-      "launched": "2026-11-08T10:16"
-    },
-    {
-      "task": "OFFERGONE1",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-08T11:02",
-      "launched": "2026-11-08T11:03"
-    },
-    {
-      "seat": "qwen",
-      "brief": "GUIDEFLAG1",
-      "task": "GUIDEFLAG1",
-      "queued": "2026-11-18T10:00"
-    },
-    {
-      "seat": "cursor",
-      "brief": "BJJBEAT1",
-      "task": "BJJBEAT1",
-      "queued": "2026-11-18T10:00"
-    },
-    {
-      "seat": "agy",
-      "brief": "SWINGCENSUS1",
-      "task": "SWINGCENSUS1",
-      "queued": "2026-11-18T10:00"
-    },
-    {
-      "seat": "cursor",
-      "brief": "FIGHTERMODEL3C",
-      "status": "superseded",
-      "held_why": "S404 operator agreed the 10 attributes and \"Ok 12\" skills: replaced by FIGHTERMODEL4A, the audit returns as 4B",
-      "task": "FIGHTERMODEL3C",
-      "queued": "2026-11-18T10:00"
-    },
-    {
-      "seat": "qwen",
-      "brief": "GUIDEFLAG2",
-      "task": "GUIDEFLAG2",
-      "queued": "2026-11-18T10:00"
-    },
-    {
-      "seat": "qwen",
-      "brief": "R11A",
-      "task": "R11A",
-      "queued": "2026-11-18T10:00"
-    },
-    {
-      "seat": "cursor",
-      "brief": "BJJBEAT2",
-      "task": "BJJBEAT2",
-      "queued": "2026-11-18T10:00"
-    },
-    {
-      "seat": "cursor",
-      "brief": "MENUMONEY1",
-      "task": "MENUMONEY1",
-      "queued": "2026-11-18T10:00"
-    },
-    {
-      "seat": "cursor",
-      "brief": "MENUWORLD1",
-      "task": "MENUWORLD1",
-      "queued": "2026-11-18T10:00"
-    },
-    {
-      "seat": "cursor",
-      "brief": "MENUPLAYBOOK1",
-      "task": "MENUPLAYBOOK1",
-      "queued": "2026-11-18T10:00"
-    },
-    {
-      "seat": "cursor",
-      "brief": "FIGHTERMODEL4A",
-      "task": "FIGHTERMODEL4A",
-      "queued": "2026-11-18T10:00"
-    },
-    {
-      "seat": "qwen",
-      "brief": "R11C",
-      "task": "R11C",
-      "queued": "2026-11-18T10:00"
-    },
-    {
-      "seat": "cursor",
-      "brief": "MENUHOME1",
-      "task": "MENUHOME1",
-      "queued": "2026-11-18T10:00"
-    },
-    {
-      "seat": "cursor",
-      "brief": "MENUWEEK1",
-      "task": "MENUWEEK1",
-      "queued": "2026-11-18T10:00"
-    },
-    {
-      "seat": "cursor",
-      "brief": "MENUFIGHT1",
-      "status": "superseded",
-      "task": "MENUFIGHT1",
-      "queued": "2026-11-18T10:00"
-    },
-    {
-      "seat": "qwen",
-      "brief": "R11D",
-      "task": "R11D",
-      "queued": "2026-11-18T10:00"
-    },
-    {
-      "seat": "qwen",
-      "brief": "R11E",
-      "task": "R11E",
-      "queued": "2026-11-18T10:00"
-    },
-    {
-      "seat": "cursor",
-      "brief": "MENUMONEY2",
-      "task": "MENUMONEY2",
-      "queued": "2026-11-18T10:00"
-    },
-    {
-      "seat": "cursor",
-      "brief": "MENUWORLD2",
-      "task": "MENUWORLD2",
-      "queued": "2026-11-18T10:00"
-    },
-    {
-      "seat": "qwen",
-      "brief": "R11F",
-      "status": "superseded",
-      "note": "S405: cancelled at launch; the result page already shows the member drop (census row 9 wrong). Claude made the label name the cause.",
-      "task": "R11F",
-      "queued": "2026-11-18T10:00"
-    },
-    {
-      "seat": "qwen",
-      "brief": "SPLIT500",
-      "task": "SPLIT500",
-      "queued": "2026-11-18T10:00"
-    },
-    {
-      "seat": "qwen",
-      "brief": "SOUTHPAW3",
-      "task": "SOUTHPAW3",
-      "queued": "2026-11-18T10:00"
-    },
-    {
-      "seat": "qwen",
-      "brief": "KNEERAW1",
-      "task": "KNEERAW1",
-      "queued": "2026-11-18T10:00"
-    },
-    {
-      "seat": "qwen",
-      "brief": "KNEERAW2",
-      "task": "KNEERAW2",
-      "queued": "2026-11-18T10:00"
-    },
-    {
-      "seat": "qwen",
-      "brief": "LOCOKNEE1",
-      "task": "LOCOKNEE1",
-      "queued": "2026-11-18T10:00"
-    },
-    {
-      "seat": "cursor",
-      "brief": "FIGHTERMODEL4C",
-      "task": "FIGHTERMODEL4C",
-      "queued": "2026-11-18T10:00"
-    },
-    {
-      "seat": "cursor",
-      "brief": "MENUPLAYBOOK2",
-      "status": "superseded",
-      "task": "MENUPLAYBOOK2",
-      "queued": "2026-11-18T10:00"
-    },
-    {
-      "seat": "cursor",
-      "brief": "MENUHOME2",
-      "status": "superseded",
-      "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)",
-      "task": "MENUHOME2",
-      "queued": "2026-11-18T10:00"
-    },
-    {
-      "seat": "cursor",
-      "brief": "FIGHTERMODEL4F",
-      "status": "superseded",
-      "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)",
-      "task": "FIGHTERMODEL4F",
-      "queued": "2026-11-18T10:00"
-    },
-    {
-      "seat": "cursor",
-      "brief": "COACH1",
-      "status": "superseded",
-      "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)",
-      "task": "COACH1",
-      "queued": "2026-11-18T10:00"
-    },
-    {
-      "seat": "cursor",
-      "brief": "MENUWEEK2",
-      "status": "superseded",
-      "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)",
-      "task": "MENUWEEK2",
-      "queued": "2026-11-18T10:00"
-    },
-    {
-      "task": "FIGHTERMODEL4H",
-      "seat": "cursor",
-      "status": "launched",
-      "queued": "2026-11-09T15:20",
-      "launched": "2026-11-09T16:13"
-    },
-    {
-      "task": "FIGHTERMODEL4B",
-      "seat": "cursor",
-      "status": "launched",
-      "queued": "2026-11-09T14:28",
-      "launched": "2026-11-09T17:13"
-    },
-    {
-      "seat": "cursor",
-      "brief": "MENUPLAYBOOK2B",
-      "status": "held",
-      "note": "S415: held until Q-S294-146 (dark or cream); re-run under a new id",
-      "task": "MENUPLAYBOOK2B",
-      "queued": "2026-11-18T10:00"
-    },
-    {
-      "seat": "cursor",
-      "brief": "MENUFIGHT1B",
-      "status": "held",
-      "note": "S415: held until Q-S294-146 (dark or cream); re-run under a new id",
-      "task": "MENUFIGHT1B",
-      "queued": "2026-11-18T10:00"
-    },
-    {
-      "seat": "qwen",
-      "brief": "LOCOSLIDE2",
-      "task": "LOCOSLIDE2",
-      "queued": "2026-11-18T10:00"
-    },
-    {
-      "seat": "qwen",
-      "brief": "BOXERLEAN1",
-      "task": "BOXERLEAN1",
-      "queued": "2026-11-18T10:00"
-    },
-    {
-      "seat": "qwen",
-      "brief": "HUBSPRITES1",
-      "status": "landed",
-      "task": "HUBSPRITES1",
-      "queued": "2026-11-18T10:00"
-    },
-    {
-      "task": "CLIPRESCORE1",
-      "seat": "qwen",
-      "status": "superseded",
-      "queued": "2026-11-09T14:06",
-      "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
-    },
-    {
-      "task": "FIGHTERMODEL4G",
-      "seat": "cursor",
-      "status": "superseded",
-      "queued": "2026-11-09T14:28",
-      "note": "S413: cut off by the PC restart; re-run as FIGHTERMODEL4H"
-    },
-    {
-      "task": "FLOOR2",
-      "seat": "qwen",
-      "status": "superseded",
-      "queued": "2026-11-09T14:48",
-      "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
-    },
-    {
-      "task": "CLIPFULL1",
-      "seat": "qwen",
-      "status": "superseded",
-      "queued": "2026-11-09T15:20",
-      "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
-    },
-    {
-      "task": "REARHAND2",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-09T16:27",
-      "launched": "2026-11-09T16:32"
-    },
-    {
-      "task": "REARHAND3",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-09T18:40",
-      "launched": "2026-11-09T18:42"
-    },
-    {
-      "task": "FIGHTERMODEL4I",
-      "seat": "cursor",
-      "status": "superseded",
-      "queued": "2026-11-09T18:53",
-      "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
-    },
-    {
-      "task": "GYMKIND1",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-09T19:05",
-      "launched": "2026-11-09T21:42"
-    },
-    {
-      "task": "LOOKSLATE3",
-      "seat": "cursor",
-      "status": "launched",
-      "queued": "2026-11-10T05:25",
-      "launched": "2026-11-10T06:12"
-    },
-    {
-      "task": "LOOKSLATE4",
-      "seat": "cursor",
-      "status": "launched",
-      "queued": "2026-11-10T05:25",
-      "launched": "2026-11-10T07:12"
-    },
-    {
-      "task": "LOOKSLATE5",
-      "seat": "cursor",
-      "status": "launched",
-      "queued": "2026-11-10T05:25",
-      "launched": "2026-11-10T08:12"
-    },
-    {
-      "task": "TAPEVERSUS1",
-      "seat": "cursor",
-      "status": "launched",
-      "queued": "2026-11-10T10:40",
-      "launched": "2026-11-10T08:59"
-    },
-    {
-      "task": "LOOKSLATE7",
-      "seat": "cursor",
-      "status": "collected",
-      "queued": "2026-11-10T05:32",
-      "launched": "2026-11-10T09:42",
-      "collected": "S421 2ac030a7"
-    },
-    {
-      "task": "LOOKSLATE6",
-      "seat": "cursor",
-      "status": "collected",
-      "queued": "2026-11-10T05:25"
-    },
-    {
-      "task": "BLOCKMEET2",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-10T08:40",
-      "launched": "2026-11-10T08:21"
-    },
-    {
-      "task": "LEGTREMBLE1",
-      "seat": "agy",
-      "status": "launched",
-      "queued": "2026-11-10T09:30",
-      "launched": "2026-11-10T08:37"
-    },
-    {
-      "task": "FIGHTSLIDE1",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-10T11:10",
-      "launched": "2026-11-10T08:59"
-    },
-    {
-      "task": "KDFIX1",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-10T11:40",
-      "launched": "2026-11-10T10:11"
-    },
-    {
-      "seat": "agy",
-      "brief": "LEGTREMBLE2",
-      "status": "failed",
-      "launched": "2026-11-10T10:28",
-      "task": "LEGTREMBLE2",
-      "queued": "2026-11-18T10:00"
-    },
-    {
-      "seat": "qwen",
-      "brief": "FIGHTSLIDE2",
-      "status": "landed",
-      "task": "FIGHTSLIDE2",
-      "queued": "2026-11-18T10:00"
-    },
-    {
-      "task": "KDFIX2",
-      "seat": "qwen",
-      "status": "superseded",
-      "queued": "2026-11-10T10:56",
-      "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
-    },
-    {
-      "task": "LEGTREMBLE3",
-      "seat": "cursor",
-      "status": "superseded",
-      "queued": "2026-11-10T11:01",
-      "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
-    },
-    {
-      "task": "FIGHTSLIDE3",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-10T11:32",
-      "launched": "2026-11-10T12:11"
-    },
-    {
-      "task": "TRAININGB1",
-      "seat": "cursor",
-      "status": "launched",
-      "queued": "2026-11-10T11:35",
-      "launched": "2026-11-10T17:13"
-    },
-    {
-      "task": "KDFIX3",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-10T11:43",
-      "launched": "2026-11-10T12:54"
-    },
-    {
-      "task": "DUESBAND1",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-10T13:07",
-      "launched": "2026-11-11T14:41"
-    },
-    {
-      "task": "LEGTREMBLE4",
-      "seat": "qwen",
-      "status": "superseded",
-      "queued": "2026-11-10T13:09",
-      "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
-    },
-    {
-      "task": "KDFIX4",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-10T13:15",
-      "launched": "2026-11-11T15:42"
-    },
-    {
-      "task": "DUESCARD1",
-      "seat": "cursor",
-      "status": "launched",
-      "queued": "2026-11-10T13:51",
-      "launched": "2026-11-10T14:37"
-    },
-    {
-      "seat": "qwen",
-      "brief": "KDFIX5",
-      "status": "superseded",
-      "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)",
-      "task": "KDFIX5",
-      "queued": "2026-11-18T10:00"
-    },
-    {
-      "seat": "qwen",
-      "brief": "BLOCKMEET3",
-      "status": "superseded",
-      "note": "S426: Claude fixed it directly (FightStage CROSS_STANDOFF_M 0.015); block_meet_test failures=0 3 of 3",
-      "task": "BLOCKMEET3",
-      "queued": "2026-11-18T10:00"
-    },
-    {
-      "seat": "qwen",
-      "brief": "THURSDAY2",
-      "status": "superseded",
-      "queued": "2026-11-18T10:00",
-      "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)",
-      "task": "THURSDAY2"
-    },
-    {
-      "seat": "cursor",
-      "brief": "HALOSWEEP1",
-      "status": "superseded",
-      "queued": "2026-11-18T10:00",
-      "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)",
-      "task": "HALOSWEEP1"
-    },
-    {
-      "seat": "cursor",
-      "brief": "FIGHTDISPLAY3",
-      "status": "superseded",
-      "queued": "2026-11-18T10:00",
-      "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)",
-      "task": "FIGHTDISPLAY3"
-    },
-    {
-      "seat": "qwen",
-      "brief": "MOODHABIT1",
-      "status": "superseded",
-      "queued": "2026-11-18T10:00",
-      "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)",
-      "task": "MOODHABIT1"
-    },
-    {
-      "seat": "qwen",
-      "brief": "HANDSPROBE1",
-      "status": "superseded",
-      "queued": "2026-11-18T10:00",
-      "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)",
-      "task": "HANDSPROBE1"
-    },
-    {
-      "seat": "cursor",
-      "brief": "BARGUARD1",
-      "status": "superseded",
-      "queued": "2026-11-18T10:00",
-      "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)",
-      "task": "BARGUARD1"
-    },
-    {
-      "seat": "cursor",
-      "brief": "WEEKTESTS1",
-      "status": "superseded",
-      "queued": "2026-11-18T10:00",
-      "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)",
-      "task": "WEEKTESTS1"
-    },
-    {
-      "seat": "qwen",
-      "brief": "RANKSHOW1",
-      "status": "superseded",
-      "queued": "2026-11-18T10:00",
-      "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)",
-      "task": "RANKSHOW1"
-    },
-    {
-      "seat": "cursor",
-      "brief": "FIGHTDISPLAY4",
-      "status": "superseded",
-      "queued": "2026-11-18T10:00",
-      "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)",
-      "task": "FIGHTDISPLAY4"
-    },
-    {
-      "seat": "cursor",
-      "brief": "TRAININGB2",
-      "status": "superseded",
-      "queued": "2026-11-18T10:00",
-      "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)",
-      "task": "TRAININGB2"
-    },
-    {
-      "seat": "cursor",
-      "brief": "GYMLIFE1",
-      "status": "superseded",
-      "queued": "2026-11-18T10:00",
-      "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)",
-      "task": "GYMLIFE1"
-    },
-    {
-      "seat": "qwen",
-      "brief": "CAMLINE1",
-      "status": "superseded",
-      "queued": "2026-11-18T10:00",
-      "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)",
-      "task": "CAMLINE1"
-    },
-    {
-      "seat": "qwen",
-      "brief": "AIMWIRE1",
-      "status": "superseded",
-      "queued": "2026-11-18T10:00",
-      "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)",
-      "task": "AIMWIRE1"
-    },
-    {
-      "seat": "cursor",
-      "brief": "DUESWIRE1",
-      "status": "superseded",
-      "queued": "2026-11-18T10:00",
-      "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)",
-      "task": "DUESWIRE1"
-    },
-    {
-      "seat": "cursor",
-      "brief": "FACEFRAME1",
-      "status": "superseded",
-      "queued": "2026-11-18T10:00",
-      "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)",
-      "task": "FACEFRAME1"
-    },
-    {
-      "seat": "qwen",
-      "brief": "CORNERFACE1",
-      "status": "superseded",
-      "queued": "2026-11-18T10:00",
-      "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)",
-      "task": "CORNERFACE1"
-    },
-    {
-      "task": "DUESSUMS1",
-      "seat": "qwen",
-      "status": "closed",
-      "queued": "2026-11-11T10:50",
-      "launched": "2026-11-11T18:11",
-      "note": "S434: done by Goose in S431 (issue 193); the qwen re-run was stopped"
-    },
-    {
-      "task": "DUESSUMS2",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-11T11:45",
-      "launched": "2026-11-11T12:12"
-    },
-    {
-      "task": "HUMANFIGHT2B",
-      "seat": "cursor",
-      "status": "superseded",
-      "queued": "2026-11-11T17:02",
-      "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
-    },
-    {
-      "task": "CORNERFACE2",
-      "seat": "qwen",
-      "status": "superseded",
-      "queued": "2026-11-11T17:02",
-      "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
-    },
-    {
-      "task": "DUESSUMS3B",
-      "seat": "qwen",
-      "status": "superseded",
-      "queued": "2026-11-11T17:02",
-      "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
-    },
-    {
-      "seat": "qwen",
-      "brief": "RIBHURT1",
-      "status": "superseded",
-      "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)",
-      "task": "RIBHURT1",
-      "queued": "2026-11-18T10:00"
-    },
-    {
-      "seat": "qwen",
-      "brief": "INTROCORNER1",
-      "status": "superseded",
-      "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)",
-      "task": "INTROCORNER1",
-      "queued": "2026-11-18T10:00"
-    },
-    {
-      "task": "DUESSUMS3C",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-11T21:14",
-      "launched": "2026-11-11T22:11"
-    },
-    {
-      "task": "INTROCORNER2",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-11T21:32",
-      "launched": "2026-11-11T21:41"
-    },
-    {
-      "task": "VOICEWIRE1",
-      "seat": "qwen",
-      "status": "superseded",
-      "queued": "2026-11-11T23:21",
-      "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
-    },
-    {
-      "task": "R26TOWEL1",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-12T10:36",
-      "launched": "2026-11-12T10:38"
-    },
-    {
-      "task": "R26SWAP1",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-12T10:36",
-      "launched": "2026-11-12T11:12"
-    },
-    {
-      "task": "R50TRAIT1",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-12T10:36",
-      "launched": "2026-11-12T11:41"
-    },
-    {
-      "task": "R58LOYAL1",
-      "seat": "agy",
-      "status": "launched",
-      "queued": "2026-11-12T10:36",
-      "launched": "2026-11-12T10:42"
-    },
-    {
-      "task": "R17PHASE1",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-12T10:36",
-      "launched": "2026-11-12T12:11"
-    },
-    {
-      "task": "R24GRADE1",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-12T10:36",
-      "launched": "2026-11-12T12:30"
-    },
-    {
-      "task": "R73DEAL1",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-12T10:36",
-      "launched": "2026-11-12T13:11"
-    },
-    {
-      "task": "R19WORTH1",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-12T10:36",
-      "launched": "2026-11-12T14:42"
-    },
-    {
-      "task": "MATPRICE1",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-12T10:59",
-      "launched": "2026-11-12T15:42"
-    },
-    {
-      "task": "R29JUDGES1",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-12T16:25",
-      "launched": "2026-11-12T17:11"
-    },
-    {
-      "task": "R85NEWS1",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-12T16:25",
-      "launched": "2026-11-12T17:41"
-    },
-    {
-      "task": "ASKPROBE2",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-12T21:40",
-      "launched": "2026-11-12T22:23"
-    },
-    {
-      "task": "ASKPROBE3",
-      "seat": "qwen",
-      "status": "superseded",
-      "queued": "2026-11-13T09:17",
-      "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
-    },
-    {
-      "task": "SOUND4",
-      "seat": "qwen",
-      "status": "superseded",
-      "queued": "2026-11-13T09:46",
-      "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
-    },
-    {
-      "task": "BODYFACTS1",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-13T12:44",
-      "launched": "2026-11-13T13:11"
-    },
-    {
-      "task": "MOVETREE1",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-13T12:44",
-      "launched": "2026-11-13T12:46"
-    },
-    {
-      "task": "POWER1C",
-      "seat": "agy",
-      "title": "The lead uppercut's tail: short follow-through, back to guard, never over her head (his C353/C354/C359)",
-      "brief": "POWER1C",
-      "status": "failed",
-      "queued": "2026-11-13T13:55",
-      "note": "S450: agy exit 3, credit balance; moved to qwen"
-    },
-    {
-      "task": "SLOTS1",
-      "seat": "qwen",
-      "title": "One move in learning: slots, the coach's three cards, learning speed (progression M2)",
-      "brief": "SLOTS1",
-      "status": "superseded",
-      "queued": "2026-11-13T14:20",
-      "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
-    },
-    {
-      "task": "POWER1C",
-      "seat": "qwen",
-      "title": "The lead uppercut's tail: short follow-through, back to guard, never over her head (his C353/C354/C359)",
-      "brief": "POWER1C",
-      "status": "superseded",
-      "queued": "2026-11-13T14:15",
-      "note": "S457: superseded by POWER1D (in-house, contract widened)"
-    },
-    {
-      "task": "STYLENAME1",
-      "seat": "qwen",
-      "title": "The named style: which one, when it goes, what it changes, the extra plan line (map M4)",
-      "brief": "STYLENAME1",
-      "status": "done",
-      "queued": "2026-11-13T19:10",
-      "launched": "2026-11-13T19:11"
-    },
-    {
-      "task": "LOYAL1",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-13T22:15",
-      "launched": "2026-11-13T22:41"
-    },
-    {
-      "task": "KNOWBOTS1",
-      "seat": "agy",
-      "status": "queued",
-      "queued": "2026-11-13T22:18"
-    },
-    {
-      "task": "KNOWBOTS3",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-14T01:10",
-      "launched": "2026-11-14T02:42"
-    },
-    {
-      "task": "STEPPLAN1",
-      "seat": "qwen",
-      "status": "held",
-      "queued": "2026-11-14T07:40",
-      "note": "nightly review: design call first (a coach plan is worth nothing for a new fighter since the step gate)"
-    },
-    {
-      "task": "LANDREACH1",
-      "seat": "grok",
-      "status": "held",
-      "queued": "2026-11-14T07:40",
-      "note": "nightly review: animation, goes in the animation order; Cursor replaced (S446)"
-    },
-    {
-      "task": "CARDVISIT1",
-      "seat": "qwen",
-      "status": "landed",
-      "queued": "2026-11-14T09:15",
-      "note": "S464: which cards bouts reach; launches when the watchdog leaves RED | S465 landed 899b294d, Claude rerun on main",
-      "launched": "2026-11-14T09:43"
-    },
-    {
-      "task": "CARDFIX1",
-      "seat": "qwen",
-      "status": "landed",
-      "queued": "2026-11-14T10:00",
-      "note": "S465: four card-table arms; which lets every best answer fire without breaking win balance | S466 collected (docs/CARDFIX1_RESULT.md): no arm passes; she_* fixed cards were the cause -> LiveRound fix 3fd32033 + CARDFIX2",
-      "launched": "2026-11-14T10:05"
-    },
-    {
-      "task": "CARDFIX2",
-      "seat": "qwen",
-      "status": "landed",
-      "queued": "2026-11-14T10:55",
-      "note": "S466: rerun the card probe on main after the she_* + counter->outside fix (3fd32033); reach counts @card variants | S466 landed adecfea3: never_best 0, cards_never 0, wins 61-67/120, bars sensitive; Claude rerun on main",
-      "launched": "2026-11-14T10:42"
-    },
-    {
-      "task": "LIVERRIBS2",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-14T11:20",
-      "note": "S466: LiverRibs.gd pure module + test from the passing v2 map (his Q-219 yes)",
-      "launched": "2026-11-14T10:53"
-    },
-    {
-      "task": "NIGHTLYTRIAGE1",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-14T11:45",
-      "note": "S466: re-run each nightly red test on main; first FAIL line; last green nightly",
-      "launched": "2026-11-14T11:13"
-    },
-    {
-      "task": "LANDREACH3",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-14T12:15",
-      "launched": "2026-11-14T12:17"
-    },
-    {
-      "task": "GUARDKNEE2",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-14T12:28",
-      "launched": "2026-11-14T12:58"
-    },
-    {
-      "task": "LIVERPROBE1",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-14T12:43",
-      "launched": "2026-11-14T14:11"
-    },
-    {
-      "task": "GUARDKNEE3",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-14T14:23",
-      "launched": "2026-11-14T14:41"
-    },
-    {
-      "task": "SPEEDFLIP1",
-      "seat": "qwen",
-      "status": "queued",
-      "queued": "2026-11-14T15:20"
-    },
-    {
-      "task": "SPLIT471",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-14T16:20",
-      "launched": "2026-11-14T16:34"
-    },
-    {
-      "task": "PELVIS1",
-      "seat": "qwen",
-      "status": "queued",
-      "queued": "2026-11-14T18:21"
-    },
-    {
-      "task": "SPEEDRULER1",
-      "seat": "qwen",
-      "status": "queued",
-      "queued": "2026-11-14T18:30"
-    },
-    {
-      "task": "KNEESWEEP1",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-14T20:23",
-      "launched": "2026-11-14T20:41"
-    },
-    {
-      "task": "WEIGHGAP1",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-14T21:15",
-      "launched": "2026-11-14T21:16"
-    },
-    {
-      "task": "BOUTSHEET1",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-14T21:15",
-      "launched": "2026-11-14T21:16"
-    },
-    {
-      "task": "SOUNDWIRE2",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-14T21:34",
-      "launched": "2026-11-14T21:38"
-    },
-    {
-      "task": "KNEERULER1",
-      "seat": "qwen",
-      "status": "queued",
-      "queued": "2026-11-14T21:40"
-    },
-    {
-      "task": "FILMTRUTH1",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-14T21:41",
-      "note": "S474: filed to Goose by hand (dispatcher waits on the busy Qwen seat)"
-    },
-    {
-      "task": "FWTRIPS1",
-      "seat": "qwen",
-      "status": "moved_arena",
-      "queued": "2026-11-14T22:08"
-    },
-    {
-      "task": "OWNGLOVE1",
-      "seat": "qwen",
-      "status": "queued",
-      "queued": "2026-11-15T00:35"
-    },
-    {
-      "task": "FOURMONEY1",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-15T11:00",
-      "launched": "2026-11-15T10:59"
-    },
-    {
-      "task": "CLASH7",
-      "seat": "qwen",
-      "status": "failed",
-      "queued": "2026-11-15T12:10",
-      "launched": "2026-11-15T11:54",
-      "note": "S486: depths unchanged (0.054/0.057 m); order now right; kept as base of CLASH8"
-    },
-    {
-      "task": "CLASH8",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-15T13:00",
-      "launched": "2026-11-15T13:04"
-    },
-    {
-      "task": "STYLE4",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-15T12:57",
-      "launched": "2026-11-15T13:59"
-    },
-    {
-      "task": "CLASH9",
-      "seat": "qwen",
-      "status": "done",
-      "queued": "2026-11-15T14:05",
-      "note": "S493: result on qwen/clash9 (diagnosis c); fix briefed as CLASH10"
-    },
-    {
-      "task": "WHYGRADE1",
-      "seat": "qwen",
-      "status": "queued",
-      "queued": "2026-11-15T14:40"
-    },
-    {
-      "task": "STYLE5",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-15T15:00",
-      "launched": "2026-11-15T15:12"
-    },
-    {
-      "task": "WHYGRADE1",
-      "seat": "qwen",
-      "status": "queued",
-      "queued": "2026-11-15T16:28"
-    },
-    {
-      "task": "PALETTEGUARD1",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-15T19:46",
-      "launched": "2026-11-15T20:12"
-    },
-    {
-      "task": "CLASH10",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-15T20:01",
-      "launched": "2026-11-15T20:42"
-    },
-    {
-      "task": "CAMHOLD1",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-16T10:42",
-      "launched": "2026-11-16T11:12"
-    },
-    {
-      "task": "BODYSTEP1",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-16T12:52",
-      "title": "TASK BODYSTEP1 - a landed punch moves the hit boxer back a little (the rule only)",
-      "launched": "2026-11-16T12:54"
-    },
-    {
-      "task": "FILMBAR1",
-      "seat": "qwen",
-      "queued": "2026-11-16T13:54",
-      "title": "TASK FILMBAR1 - a film-night pattern never passes by luck (an exact test for small counts)",
-      "status": "launched",
-      "launched": "2026-11-16T14:12"
-    },
-    {
-      "task": "PRESSFLASH1",
-      "seat": "qwen",
-      "status": "queued",
-      "queued": "2026-11-16T16:11"
-    },
-    {
-      "task": "PUNCHEND2",
-      "seat": "qwen",
-      "status": "queued",
-      "queued": "2026-11-16T21:51"
-    },
-    {
-      "task": "MOTIONRULERS1",
-      "seat": "grok",
-      "status": "held",
-      "queued": "2026-11-17T06:30",
-      "note": "nightly review: rokoko_clips, human_feet red after S503 step lift; head_aim red 11-18 (likely S510 r14); guard_knee green again; held under the FIGHTPLAYER2 METHOD line, main session decides"
-    },
-    {
-      "task": "PUNCHEND3",
-      "seat": "qwen",
-      "status": "queued",
-      "queued": "2026-11-17T09:04"
-    },
-    {
-      "task": "HEADEASE1",
-      "seat": "qwen",
-      "status": "queued",
-      "queued": "2026-11-17T11:53"
-    },
-    {
-      "seat": "qwen",
-      "task": "HEADSPLIT2",
-      "title": "Head-jump ruler: when in the punch each jump falls",
-      "status": "launched",
-      "launched": "2026-11-17T14:04"
-    },
-    {
-      "task": "SPLIT500B",
-      "seat": "qwen",
-      "status": "queued",
-      "queued": "2026-11-17T18:37"
-    },
-    {
-      "task": "MORNINGSPROBE1",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-17T21:50",
-      "note": "S511: after ASKPROBE4 lands",
-      "launched": "2026-11-17T22:12"
-    },
-    {
-      "task": "STOPWORD1",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-18T01:37",
-      "launched": "2026-11-18T01:42"
-    },
-    {
-      "seat": "qwen",
-      "status": "launched",
-      "task": "LADDERREP1",
-      "queued": "2026-11-18T10:00",
-      "launched": "2026-11-18T09:59"
-    },
-    {
-      "seat": "qwen",
-      "status": "launched",
-      "task": "COACHROLES1",
-      "queued": "2026-11-18T10:00",
-      "launched": "2026-11-18T09:59"
-    },
-    {
-      "task": "MATRECEIPT1",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-18T11:30",
-      "launched": "2026-11-18T10:16"
-    },
-    {
-      "task": "TREEVALUE2",
-      "seat": "qwen",
-      "status": "launched",
-      "queued": "2026-11-18T22:15",
-      "launched": "2026-11-19T01:42"
-    },
-    {
-      "task": "MORNINGSPROBE2",
-      "seat": "qwen",
-      "status": "queued",
-      "queued": "2026-11-18T23:28"
-    },
-    {
-      "task": "MONEYFOUR2",
-      "seat": "qwen",
-      "status": "queued",
-      "queued": "2026-11-18T23:28"
-    },
-    {
-      "task": "TURNPROBE1",
-      "seat": "qwen",
-      "status": "queued",
-      "queued": "2026-11-19T03:05"
-    }
-  ]
+ "_doc": "Tasks for the CLI seats, drained by ops/Tools/seat_dispatch.py (30-min reconcile).",
+ "items": [
+  {
+   "task": "ASKPROBE1",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-12T12:58",
+   "launched": "2026-11-12T13:31"
+  },
+  {
+   "seat": "qwen",
+   "brief": "HITREACT4",
+   "status": "superseded",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)",
+   "task": "HITREACT4",
+   "queued": "2026-11-18T10:00"
+  },
+  {
+   "task": "KNEETRACK1",
+   "seat": "agy",
+   "status": "launched",
+   "queued": "2026-11-03T00:26",
+   "launched": "2026-11-03T01:11"
+  },
+  {
+   "task": "NOREF1",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-03T00:27",
+   "launched": "2026-11-03T01:36"
+  },
+  {
+   "task": "FIGHT9R1",
+   "seat": "agy",
+   "status": "superseded",
+   "queued": "2026-11-03T01:55",
+   "note": "S379: stale queue row (rounds 2-7 ran since)"
+  },
+  {
+   "task": "FIGHT9R2",
+   "seat": "agy",
+   "status": "launched",
+   "queued": "2026-11-03T03:09",
+   "loop": "FIGHT9",
+   "launched": "2026-11-03T03:41"
+  },
+  {
+   "task": "FIGHT9R3",
+   "seat": "agy",
+   "status": "failed",
+   "queued": "2026-11-03T05:13",
+   "loop": "FIGHT9",
+   "launched": "2026-11-03T05:41",
+   "note": "S375: agy 429 individual quota (resets ~11-10); moved to cursor as FIGHT9R4"
+  },
+  {
+   "task": "PASSEDSTAMP1",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-03T05:29",
+   "launched": "2026-11-03T06:10"
+  },
+  {
+   "task": "FIGHT9R4",
+   "seat": "cursor",
+   "status": "launched",
+   "queued": "2026-11-03T10:11",
+   "loop": "FIGHT9",
+   "launched": "2026-11-03T10:41"
+  },
+  {
+   "task": "KALLINUMS1",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-03T11:19",
+   "launched": "2026-11-03T11:21"
+  },
+  {
+   "task": "FIGHT9R5",
+   "seat": "cursor",
+   "status": "launched",
+   "queued": "2026-11-03T12:35",
+   "loop": "FIGHT9",
+   "launched": "2026-11-03T12:41"
+  },
+  {
+   "task": "FIGHT9R6",
+   "seat": "agy",
+   "status": "launched",
+   "queued": "2026-11-03T13:54",
+   "loop": "FIGHT9",
+   "launched": "2026-11-03T13:59"
+  },
+  {
+   "task": "FIGHT9R7",
+   "seat": "agy",
+   "status": "launched",
+   "queued": "2026-11-03T16:03",
+   "loop": "FIGHT9",
+   "launched": "2026-11-03T17:36"
+  },
+  {
+   "task": "LOCOWALK1",
+   "seat": "cursor",
+   "status": "launched",
+   "queued": "2026-11-03T16:31",
+   "launched": "2026-11-03T16:53",
+   "note": "S377: launched by hand (--task --act), runner pid 41164"
+  },
+  {
+   "task": "LOCOWALK2",
+   "seat": "cursor",
+   "status": "launched",
+   "queued": "2026-11-03T17:36",
+   "launched": "2026-11-03T18:41"
+  },
+  {
+   "task": "FIGHT9R8",
+   "seat": "agy",
+   "status": "failed",
+   "queued": "2026-11-03T18:36",
+   "loop": "FIGHT9",
+   "launched": "2026-11-03T20:41",
+   "note": "S379: runner crashed - agy.exe missing for 10 min at launch (21:01), agy never ran; superseded by FIGHT9R9 on BASE claude/fight9base = round 7 kept"
+  },
+  {
+   "task": "BJJ9R11",
+   "seat": "agy",
+   "status": "superseded",
+   "queued": "2026-11-04T03:41",
+   "launched": "2026-11-04T05:01",
+   "note": "S380: R11 never ran (agy.exe missing from the scheduled reconcile, fixed 3bf18542); redone as BJJ9R12 on bjj9base 405c0989 (main merged)"
+  },
+  {
+   "task": "FIGHT9R10",
+   "seat": "agy",
+   "status": "launched",
+   "queued": "2026-11-04T05:59",
+   "loop": "FIGHT9",
+   "note": "S379: released after the TV camera + corner-start films landed on claude/fight9base",
+   "launched": "2026-11-04T08:41"
+  },
+  {
+   "task": "BJJ9R12",
+   "seat": "agy",
+   "status": "launched",
+   "queued": "2026-11-04T06:38",
+   "loop": "BJJ9",
+   "launched": "2026-11-04T06:38",
+   "note": "S380: launched by hand (--task --act) on the merged base"
+  },
+  {
+   "task": "LOCOWALK4",
+   "seat": "cursor",
+   "status": "launched",
+   "queued": "2026-11-04T06:44",
+   "launched": "2026-11-04T07:41"
+  },
+  {
+   "task": "BJJ9R13",
+   "seat": "agy",
+   "status": "launched",
+   "queued": "2026-11-04T09:40",
+   "loop": "BJJ9",
+   "launched": "2026-11-04T10:11"
+  },
+  {
+   "task": "FIGHT9R10",
+   "seat": "agy",
+   "status": "launched",
+   "queued": "2026-11-04T10:11",
+   "launched": "2026-11-04T18:40"
+  },
+  {
+   "task": "BJJ9R14",
+   "seat": "agy",
+   "status": "launched",
+   "queued": "2026-11-04T11:09",
+   "loop": "BJJ9",
+   "launched": "2026-11-04T15:41"
+  },
+  {
+   "task": "BJJ9R14",
+   "seat": "cursor",
+   "status": "launched",
+   "queued": "2026-11-04T18:53",
+   "launched": "2026-11-04T19:10"
+  },
+  {
+   "task": "FIGHT9R11",
+   "seat": "agy",
+   "status": "launched",
+   "queued": "2026-11-04T19:46",
+   "loop": "FIGHT9",
+   "launched": "2026-11-04T20:10"
+  },
+  {
+   "task": "BJJ9R15",
+   "seat": "cursor",
+   "status": "launched",
+   "queued": "2026-11-04T20:59",
+   "loop": "BJJ9",
+   "launched": "2026-11-04T22:45"
+  },
+  {
+   "task": "FIGHT9R12",
+   "seat": "agy",
+   "status": "launched",
+   "queued": "2026-11-04T22:03",
+   "loop": "FIGHT9",
+   "launched": "2026-11-04T23:11"
+  },
+  {
+   "task": "FIGHT9R13",
+   "seat": "agy",
+   "status": "launched",
+   "queued": "2026-11-05T00:24",
+   "loop": "FIGHT9",
+   "launched": "2026-11-05T02:11"
+  },
+  {
+   "task": "BJJ9R16",
+   "seat": "cursor",
+   "status": "launched",
+   "queued": "2026-11-05T00:59",
+   "loop": "BJJ9",
+   "launched": "2026-11-05T02:40"
+  },
+  {
+   "task": "FIGHT9R14",
+   "seat": "agy",
+   "status": "launched",
+   "queued": "2026-11-05T18:51",
+   "loop": "FIGHT9",
+   "launched": "2026-11-05T19:10"
+  },
+  {
+   "task": "BJJ9R17",
+   "seat": "cursor",
+   "status": "launched",
+   "queued": "2026-11-05T18:53",
+   "loop": "BJJ9",
+   "launched": "2026-11-05T19:41"
+  },
+  {
+   "task": "FIGHT9R15",
+   "seat": "agy",
+   "status": "launched",
+   "queued": "2026-11-05T20:25",
+   "loop": "FIGHT9",
+   "launched": "2026-11-05T22:11"
+  },
+  {
+   "task": "SOUND1R2",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-05T21:26",
+   "note": "S386: round 1 rework - Ludo not synthetic, restore 13 round-0 rows + crowd loop",
+   "launched": "2026-11-05T23:11"
+  },
+  {
+   "task": "BJJ9R18",
+   "seat": "cursor",
+   "status": "launched",
+   "queued": "2026-11-05T21:32",
+   "loop": "BJJ9",
+   "launched": "2026-11-06T01:11"
+  },
+  {
+   "task": "FIGHT9R16",
+   "seat": "agy",
+   "status": "launched",
+   "queued": "2026-11-05T22:59",
+   "loop": "FIGHT9",
+   "launched": "2026-11-06T00:11"
+  },
+  {
+   "task": "FIGHT9R17",
+   "seat": "agy",
+   "status": "launched",
+   "queued": "2026-11-06T01:27",
+   "loop": "FIGHT9",
+   "launched": "2026-11-06T03:11"
+  },
+  {
+   "task": "BJJ9R19",
+   "seat": "cursor",
+   "status": "held",
+   "queued": "2026-11-06T02:58",
+   "loop": "BJJ9",
+   "note": "S389: held by Claude. Operator: BJJ clips look fine, wire training, belts and the match instead. Set back to queued to run it."
+  },
+  {
+   "task": "FIGHT9R18",
+   "seat": "agy",
+   "status": "launched",
+   "queued": "2026-11-06T04:26",
+   "loop": "FIGHT9",
+   "launched": "2026-11-06T05:11"
+  },
+  {
+   "task": "FIGHT9R19",
+   "seat": "agy",
+   "status": "launched",
+   "queued": "2026-11-06T06:15",
+   "loop": "FIGHT9",
+   "launched": "2026-11-06T06:41"
+  },
+  {
+   "task": "FIGHT9R20",
+   "seat": "agy",
+   "status": "held",
+   "queued": "2026-11-06T07:46",
+   "loop": "FIGHT9",
+   "launched": "2026-11-06T08:11",
+   "note": "S390: never started; R17-R19 under R16; R16 merged by hand"
+  },
+  {
+   "task": "SOUND2",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-07T08:52",
+   "launched": "2026-11-07T09:40"
+  },
+  {
+   "task": "SOUND3",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-07T09:46",
+   "launched": "2026-11-07T10:40"
+  },
+  {
+   "task": "WORLD1",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-07T11:23",
+   "launched": "2026-11-07T12:14"
+  },
+  {
+   "task": "FIGHTWALK1",
+   "seat": "cursor",
+   "status": "launched",
+   "queued": "2026-11-07T13:57",
+   "launched": "2026-11-07T14:11"
+  },
+  {
+   "task": "HITSELL1",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-07T13:59",
+   "launched": "2026-11-07T14:40"
+  },
+  {
+   "task": "HITSELL2",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-07T15:08",
+   "launched": "2026-11-07T15:41"
+  },
+  {
+   "task": "FIGHTWALK2",
+   "seat": "cursor",
+   "status": "done",
+   "queued": "2026-11-07T15:51"
+  },
+  {
+   "task": "CORNERCAM1",
+   "seat": "qwen",
+   "status": "moved_goose",
+   "queued": "2026-11-07T15:53"
+  },
+  {
+   "task": "INSIDE2",
+   "seat": "cursor",
+   "status": "moved_goose",
+   "queued": "2026-11-07T15:55"
+  },
+  {
+   "task": "HITSELL3",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-07T16:19",
+   "launched": "2026-11-07T16:41"
+  },
+  {
+   "task": "HITSELL4",
+   "seat": "qwen",
+   "status": "done",
+   "queued": "2026-11-07T17:11"
+  },
+  {
+   "task": "FIGHTWALK3",
+   "seat": "cursor",
+   "status": "done",
+   "queued": "2026-11-07T17:11"
+  },
+  {
+   "task": "INSIDE4",
+   "seat": "qwen",
+   "status": "done",
+   "queued": "2026-11-07T18:06"
+  },
+  {
+   "task": "HITSELL5",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-07T18:26",
+   "launched": "2026-11-07T20:41"
+  },
+  {
+   "task": "SOUTHPAW1",
+   "seat": "cursor",
+   "status": "done",
+   "queued": "2026-11-07T19:03",
+   "note": "S399: ran, PR #74 closed not merged; rework SOUTHPAW2"
+  },
+  {
+   "task": "SOUTHPAW2",
+   "seat": "cursor",
+   "status": "launched",
+   "queued": "2026-11-07T20:49",
+   "launched": "2026-11-07T21:21"
+  },
+  {
+   "task": "ANIMREBUILD1",
+   "seat": "agy",
+   "status": "launched",
+   "queued": "2026-11-07T20:51",
+   "launched": "2026-11-07T22:09"
+  },
+  {
+   "task": "RETARGET1",
+   "seat": "cursor",
+   "status": "launched",
+   "queued": "2026-11-07T22:53",
+   "launched": "2026-11-07T22:53"
+  },
+  {
+   "task": "WALK1",
+   "seat": "cursor",
+   "status": "held",
+   "queued": "2026-11-07T22:18",
+   "note": "S399 operator \"then why you kept working on the flaws ?\": no layer work until RETARGET1 + rokoko-back prove the clips clean against the source"
+  },
+  {
+   "task": "MONEYOD1",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-07T21:22",
+   "launched": "2026-11-07T22:41"
+  },
+  {
+   "task": "FIGHTERMODEL3",
+   "seat": "cursor",
+   "status": "launched",
+   "queued": "2026-11-07T21:28",
+   "launched": "2026-11-08T00:43"
+  },
+  {
+   "task": "BJJBEAT1",
+   "seat": "cursor",
+   "status": "moved_goose",
+   "queued": "2026-11-07T21:23",
+   "note": "S399: Goose cloud (operator: use other free agents)"
+  },
+  {
+   "task": "MONEYLAYOUT1",
+   "seat": "agy",
+   "status": "launched",
+   "queued": "2026-11-07T21:29",
+   "launched": "2026-11-07T23:11"
+  },
+  {
+   "task": "GRAPPLEFIX1",
+   "seat": "qwen",
+   "status": "moved_session",
+   "queued": "2026-11-07T23:30",
+   "note": "S399 operator: \"assign it to new session\" - grappling-rater Claude session"
+  },
+  {
+   "task": "RETARGET2",
+   "seat": "cursor",
+   "status": "launched",
+   "queued": "2026-11-08T03:00",
+   "launched": "2026-11-08T03:00"
+  },
+  {
+   "task": "FIGHTERMODEL3B",
+   "seat": "cursor",
+   "status": "launched",
+   "queued": "2026-11-08T07:54",
+   "launched": "2026-11-08T09:11"
+  },
+  {
+   "task": "MONEYOD2",
+   "seat": "qwen",
+   "status": "superseded",
+   "queued": "2026-11-08T07:56",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
+  },
+  {
+   "task": "RETARGET2B",
+   "seat": "cursor",
+   "status": "superseded",
+   "queued": "2026-11-08T09:12",
+   "note": "S401: operator \"assign free seats or open new sessions\": taken by a Claude side session while Cursor is held"
+  },
+  {
+   "task": "CORNERTRUST1",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-08T10:01",
+   "launched": "2026-11-08T10:16"
+  },
+  {
+   "task": "OFFERGONE1",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-08T11:02",
+   "launched": "2026-11-08T11:03"
+  },
+  {
+   "seat": "qwen",
+   "brief": "GUIDEFLAG1",
+   "task": "GUIDEFLAG1",
+   "queued": "2026-11-18T10:00"
+  },
+  {
+   "seat": "cursor",
+   "brief": "BJJBEAT1",
+   "task": "BJJBEAT1",
+   "queued": "2026-11-18T10:00"
+  },
+  {
+   "seat": "agy",
+   "brief": "SWINGCENSUS1",
+   "task": "SWINGCENSUS1",
+   "queued": "2026-11-18T10:00"
+  },
+  {
+   "seat": "cursor",
+   "brief": "FIGHTERMODEL3C",
+   "status": "superseded",
+   "held_why": "S404 operator agreed the 10 attributes and \"Ok 12\" skills: replaced by FIGHTERMODEL4A, the audit returns as 4B",
+   "task": "FIGHTERMODEL3C",
+   "queued": "2026-11-18T10:00"
+  },
+  {
+   "seat": "qwen",
+   "brief": "GUIDEFLAG2",
+   "task": "GUIDEFLAG2",
+   "queued": "2026-11-18T10:00"
+  },
+  {
+   "seat": "qwen",
+   "brief": "R11A",
+   "task": "R11A",
+   "queued": "2026-11-18T10:00"
+  },
+  {
+   "seat": "cursor",
+   "brief": "BJJBEAT2",
+   "task": "BJJBEAT2",
+   "queued": "2026-11-18T10:00"
+  },
+  {
+   "seat": "cursor",
+   "brief": "MENUMONEY1",
+   "task": "MENUMONEY1",
+   "queued": "2026-11-18T10:00"
+  },
+  {
+   "seat": "cursor",
+   "brief": "MENUWORLD1",
+   "task": "MENUWORLD1",
+   "queued": "2026-11-18T10:00"
+  },
+  {
+   "seat": "cursor",
+   "brief": "MENUPLAYBOOK1",
+   "task": "MENUPLAYBOOK1",
+   "queued": "2026-11-18T10:00"
+  },
+  {
+   "seat": "cursor",
+   "brief": "FIGHTERMODEL4A",
+   "task": "FIGHTERMODEL4A",
+   "queued": "2026-11-18T10:00"
+  },
+  {
+   "seat": "qwen",
+   "brief": "R11C",
+   "task": "R11C",
+   "queued": "2026-11-18T10:00"
+  },
+  {
+   "seat": "cursor",
+   "brief": "MENUHOME1",
+   "task": "MENUHOME1",
+   "queued": "2026-11-18T10:00"
+  },
+  {
+   "seat": "cursor",
+   "brief": "MENUWEEK1",
+   "task": "MENUWEEK1",
+   "queued": "2026-11-18T10:00"
+  },
+  {
+   "seat": "cursor",
+   "brief": "MENUFIGHT1",
+   "status": "superseded",
+   "task": "MENUFIGHT1",
+   "queued": "2026-11-18T10:00"
+  },
+  {
+   "seat": "qwen",
+   "brief": "R11D",
+   "task": "R11D",
+   "queued": "2026-11-18T10:00"
+  },
+  {
+   "seat": "qwen",
+   "brief": "R11E",
+   "task": "R11E",
+   "queued": "2026-11-18T10:00"
+  },
+  {
+   "seat": "cursor",
+   "brief": "MENUMONEY2",
+   "task": "MENUMONEY2",
+   "queued": "2026-11-18T10:00"
+  },
+  {
+   "seat": "cursor",
+   "brief": "MENUWORLD2",
+   "task": "MENUWORLD2",
+   "queued": "2026-11-18T10:00"
+  },
+  {
+   "seat": "qwen",
+   "brief": "R11F",
+   "status": "superseded",
+   "note": "S405: cancelled at launch; the result page already shows the member drop (census row 9 wrong). Claude made the label name the cause.",
+   "task": "R11F",
+   "queued": "2026-11-18T10:00"
+  },
+  {
+   "seat": "qwen",
+   "brief": "SPLIT500",
+   "task": "SPLIT500",
+   "queued": "2026-11-18T10:00"
+  },
+  {
+   "seat": "qwen",
+   "brief": "SOUTHPAW3",
+   "task": "SOUTHPAW3",
+   "queued": "2026-11-18T10:00"
+  },
+  {
+   "seat": "qwen",
+   "brief": "KNEERAW1",
+   "task": "KNEERAW1",
+   "queued": "2026-11-18T10:00"
+  },
+  {
+   "seat": "qwen",
+   "brief": "KNEERAW2",
+   "task": "KNEERAW2",
+   "queued": "2026-11-18T10:00"
+  },
+  {
+   "seat": "qwen",
+   "brief": "LOCOKNEE1",
+   "task": "LOCOKNEE1",
+   "queued": "2026-11-18T10:00"
+  },
+  {
+   "seat": "cursor",
+   "brief": "FIGHTERMODEL4C",
+   "task": "FIGHTERMODEL4C",
+   "queued": "2026-11-18T10:00"
+  },
+  {
+   "seat": "cursor",
+   "brief": "MENUPLAYBOOK2",
+   "status": "superseded",
+   "task": "MENUPLAYBOOK2",
+   "queued": "2026-11-18T10:00"
+  },
+  {
+   "seat": "cursor",
+   "brief": "MENUHOME2",
+   "status": "superseded",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)",
+   "task": "MENUHOME2",
+   "queued": "2026-11-18T10:00"
+  },
+  {
+   "seat": "cursor",
+   "brief": "FIGHTERMODEL4F",
+   "status": "superseded",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)",
+   "task": "FIGHTERMODEL4F",
+   "queued": "2026-11-18T10:00"
+  },
+  {
+   "seat": "cursor",
+   "brief": "COACH1",
+   "status": "superseded",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)",
+   "task": "COACH1",
+   "queued": "2026-11-18T10:00"
+  },
+  {
+   "seat": "cursor",
+   "brief": "MENUWEEK2",
+   "status": "superseded",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)",
+   "task": "MENUWEEK2",
+   "queued": "2026-11-18T10:00"
+  },
+  {
+   "task": "FIGHTERMODEL4H",
+   "seat": "cursor",
+   "status": "launched",
+   "queued": "2026-11-09T15:20",
+   "launched": "2026-11-09T16:13"
+  },
+  {
+   "task": "FIGHTERMODEL4B",
+   "seat": "cursor",
+   "status": "launched",
+   "queued": "2026-11-09T14:28",
+   "launched": "2026-11-09T17:13"
+  },
+  {
+   "seat": "cursor",
+   "brief": "MENUPLAYBOOK2B",
+   "status": "held",
+   "note": "S415: held until Q-S294-146 (dark or cream); re-run under a new id",
+   "task": "MENUPLAYBOOK2B",
+   "queued": "2026-11-18T10:00"
+  },
+  {
+   "seat": "cursor",
+   "brief": "MENUFIGHT1B",
+   "status": "held",
+   "note": "S415: held until Q-S294-146 (dark or cream); re-run under a new id",
+   "task": "MENUFIGHT1B",
+   "queued": "2026-11-18T10:00"
+  },
+  {
+   "seat": "qwen",
+   "brief": "LOCOSLIDE2",
+   "task": "LOCOSLIDE2",
+   "queued": "2026-11-18T10:00"
+  },
+  {
+   "seat": "qwen",
+   "brief": "BOXERLEAN1",
+   "task": "BOXERLEAN1",
+   "queued": "2026-11-18T10:00"
+  },
+  {
+   "seat": "qwen",
+   "brief": "HUBSPRITES1",
+   "status": "landed",
+   "task": "HUBSPRITES1",
+   "queued": "2026-11-18T10:00"
+  },
+  {
+   "task": "CLIPRESCORE1",
+   "seat": "qwen",
+   "status": "superseded",
+   "queued": "2026-11-09T14:06",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
+  },
+  {
+   "task": "FIGHTERMODEL4G",
+   "seat": "cursor",
+   "status": "superseded",
+   "queued": "2026-11-09T14:28",
+   "note": "S413: cut off by the PC restart; re-run as FIGHTERMODEL4H"
+  },
+  {
+   "task": "FLOOR2",
+   "seat": "qwen",
+   "status": "superseded",
+   "queued": "2026-11-09T14:48",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
+  },
+  {
+   "task": "CLIPFULL1",
+   "seat": "qwen",
+   "status": "superseded",
+   "queued": "2026-11-09T15:20",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
+  },
+  {
+   "task": "REARHAND2",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-09T16:27",
+   "launched": "2026-11-09T16:32"
+  },
+  {
+   "task": "REARHAND3",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-09T18:40",
+   "launched": "2026-11-09T18:42"
+  },
+  {
+   "task": "FIGHTERMODEL4I",
+   "seat": "cursor",
+   "status": "superseded",
+   "queued": "2026-11-09T18:53",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
+  },
+  {
+   "task": "GYMKIND1",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-09T19:05",
+   "launched": "2026-11-09T21:42"
+  },
+  {
+   "task": "LOOKSLATE3",
+   "seat": "cursor",
+   "status": "launched",
+   "queued": "2026-11-10T05:25",
+   "launched": "2026-11-10T06:12"
+  },
+  {
+   "task": "LOOKSLATE4",
+   "seat": "cursor",
+   "status": "launched",
+   "queued": "2026-11-10T05:25",
+   "launched": "2026-11-10T07:12"
+  },
+  {
+   "task": "LOOKSLATE5",
+   "seat": "cursor",
+   "status": "launched",
+   "queued": "2026-11-10T05:25",
+   "launched": "2026-11-10T08:12"
+  },
+  {
+   "task": "TAPEVERSUS1",
+   "seat": "cursor",
+   "status": "launched",
+   "queued": "2026-11-10T10:40",
+   "launched": "2026-11-10T08:59"
+  },
+  {
+   "task": "LOOKSLATE7",
+   "seat": "cursor",
+   "status": "collected",
+   "queued": "2026-11-10T05:32",
+   "launched": "2026-11-10T09:42",
+   "collected": "S421 2ac030a7"
+  },
+  {
+   "task": "LOOKSLATE6",
+   "seat": "cursor",
+   "status": "collected",
+   "queued": "2026-11-10T05:25"
+  },
+  {
+   "task": "BLOCKMEET2",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-10T08:40",
+   "launched": "2026-11-10T08:21"
+  },
+  {
+   "task": "LEGTREMBLE1",
+   "seat": "agy",
+   "status": "launched",
+   "queued": "2026-11-10T09:30",
+   "launched": "2026-11-10T08:37"
+  },
+  {
+   "task": "FIGHTSLIDE1",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-10T11:10",
+   "launched": "2026-11-10T08:59"
+  },
+  {
+   "task": "KDFIX1",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-10T11:40",
+   "launched": "2026-11-10T10:11"
+  },
+  {
+   "seat": "agy",
+   "brief": "LEGTREMBLE2",
+   "status": "failed",
+   "launched": "2026-11-10T10:28",
+   "task": "LEGTREMBLE2",
+   "queued": "2026-11-18T10:00"
+  },
+  {
+   "seat": "qwen",
+   "brief": "FIGHTSLIDE2",
+   "status": "landed",
+   "task": "FIGHTSLIDE2",
+   "queued": "2026-11-18T10:00"
+  },
+  {
+   "task": "KDFIX2",
+   "seat": "qwen",
+   "status": "superseded",
+   "queued": "2026-11-10T10:56",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
+  },
+  {
+   "task": "LEGTREMBLE3",
+   "seat": "cursor",
+   "status": "superseded",
+   "queued": "2026-11-10T11:01",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
+  },
+  {
+   "task": "FIGHTSLIDE3",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-10T11:32",
+   "launched": "2026-11-10T12:11"
+  },
+  {
+   "task": "TRAININGB1",
+   "seat": "cursor",
+   "status": "launched",
+   "queued": "2026-11-10T11:35",
+   "launched": "2026-11-10T17:13"
+  },
+  {
+   "task": "KDFIX3",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-10T11:43",
+   "launched": "2026-11-10T12:54"
+  },
+  {
+   "task": "DUESBAND1",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-10T13:07",
+   "launched": "2026-11-11T14:41"
+  },
+  {
+   "task": "LEGTREMBLE4",
+   "seat": "qwen",
+   "status": "superseded",
+   "queued": "2026-11-10T13:09",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
+  },
+  {
+   "task": "KDFIX4",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-10T13:15",
+   "launched": "2026-11-11T15:42"
+  },
+  {
+   "task": "DUESCARD1",
+   "seat": "cursor",
+   "status": "launched",
+   "queued": "2026-11-10T13:51",
+   "launched": "2026-11-10T14:37"
+  },
+  {
+   "seat": "qwen",
+   "brief": "KDFIX5",
+   "status": "superseded",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)",
+   "task": "KDFIX5",
+   "queued": "2026-11-18T10:00"
+  },
+  {
+   "seat": "qwen",
+   "brief": "BLOCKMEET3",
+   "status": "superseded",
+   "note": "S426: Claude fixed it directly (FightStage CROSS_STANDOFF_M 0.015); block_meet_test failures=0 3 of 3",
+   "task": "BLOCKMEET3",
+   "queued": "2026-11-18T10:00"
+  },
+  {
+   "seat": "qwen",
+   "brief": "THURSDAY2",
+   "status": "superseded",
+   "queued": "2026-11-18T10:00",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)",
+   "task": "THURSDAY2"
+  },
+  {
+   "seat": "cursor",
+   "brief": "HALOSWEEP1",
+   "status": "superseded",
+   "queued": "2026-11-18T10:00",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)",
+   "task": "HALOSWEEP1"
+  },
+  {
+   "seat": "cursor",
+   "brief": "FIGHTDISPLAY3",
+   "status": "superseded",
+   "queued": "2026-11-18T10:00",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)",
+   "task": "FIGHTDISPLAY3"
+  },
+  {
+   "seat": "qwen",
+   "brief": "MOODHABIT1",
+   "status": "superseded",
+   "queued": "2026-11-18T10:00",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)",
+   "task": "MOODHABIT1"
+  },
+  {
+   "seat": "qwen",
+   "brief": "HANDSPROBE1",
+   "status": "superseded",
+   "queued": "2026-11-18T10:00",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)",
+   "task": "HANDSPROBE1"
+  },
+  {
+   "seat": "cursor",
+   "brief": "BARGUARD1",
+   "status": "superseded",
+   "queued": "2026-11-18T10:00",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)",
+   "task": "BARGUARD1"
+  },
+  {
+   "seat": "cursor",
+   "brief": "WEEKTESTS1",
+   "status": "superseded",
+   "queued": "2026-11-18T10:00",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)",
+   "task": "WEEKTESTS1"
+  },
+  {
+   "seat": "qwen",
+   "brief": "RANKSHOW1",
+   "status": "superseded",
+   "queued": "2026-11-18T10:00",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)",
+   "task": "RANKSHOW1"
+  },
+  {
+   "seat": "cursor",
+   "brief": "FIGHTDISPLAY4",
+   "status": "superseded",
+   "queued": "2026-11-18T10:00",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)",
+   "task": "FIGHTDISPLAY4"
+  },
+  {
+   "seat": "cursor",
+   "brief": "TRAININGB2",
+   "status": "superseded",
+   "queued": "2026-11-18T10:00",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)",
+   "task": "TRAININGB2"
+  },
+  {
+   "seat": "cursor",
+   "brief": "GYMLIFE1",
+   "status": "superseded",
+   "queued": "2026-11-18T10:00",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)",
+   "task": "GYMLIFE1"
+  },
+  {
+   "seat": "qwen",
+   "brief": "CAMLINE1",
+   "status": "superseded",
+   "queued": "2026-11-18T10:00",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)",
+   "task": "CAMLINE1"
+  },
+  {
+   "seat": "qwen",
+   "brief": "AIMWIRE1",
+   "status": "superseded",
+   "queued": "2026-11-18T10:00",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)",
+   "task": "AIMWIRE1"
+  },
+  {
+   "seat": "cursor",
+   "brief": "DUESWIRE1",
+   "status": "superseded",
+   "queued": "2026-11-18T10:00",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)",
+   "task": "DUESWIRE1"
+  },
+  {
+   "seat": "cursor",
+   "brief": "FACEFRAME1",
+   "status": "superseded",
+   "queued": "2026-11-18T10:00",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)",
+   "task": "FACEFRAME1"
+  },
+  {
+   "seat": "qwen",
+   "brief": "CORNERFACE1",
+   "status": "superseded",
+   "queued": "2026-11-18T10:00",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)",
+   "task": "CORNERFACE1"
+  },
+  {
+   "task": "DUESSUMS1",
+   "seat": "qwen",
+   "status": "closed",
+   "queued": "2026-11-11T10:50",
+   "launched": "2026-11-11T18:11",
+   "note": "S434: done by Goose in S431 (issue 193); the qwen re-run was stopped"
+  },
+  {
+   "task": "DUESSUMS2",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-11T11:45",
+   "launched": "2026-11-11T12:12"
+  },
+  {
+   "task": "HUMANFIGHT2B",
+   "seat": "cursor",
+   "status": "superseded",
+   "queued": "2026-11-11T17:02",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
+  },
+  {
+   "task": "CORNERFACE2",
+   "seat": "qwen",
+   "status": "superseded",
+   "queued": "2026-11-11T17:02",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
+  },
+  {
+   "task": "DUESSUMS3B",
+   "seat": "qwen",
+   "status": "superseded",
+   "queued": "2026-11-11T17:02",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
+  },
+  {
+   "seat": "qwen",
+   "brief": "RIBHURT1",
+   "status": "superseded",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)",
+   "task": "RIBHURT1",
+   "queued": "2026-11-18T10:00"
+  },
+  {
+   "seat": "qwen",
+   "brief": "INTROCORNER1",
+   "status": "superseded",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)",
+   "task": "INTROCORNER1",
+   "queued": "2026-11-18T10:00"
+  },
+  {
+   "task": "DUESSUMS3C",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-11T21:14",
+   "launched": "2026-11-11T22:11"
+  },
+  {
+   "task": "INTROCORNER2",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-11T21:32",
+   "launched": "2026-11-11T21:41"
+  },
+  {
+   "task": "VOICEWIRE1",
+   "seat": "qwen",
+   "status": "superseded",
+   "queued": "2026-11-11T23:21",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
+  },
+  {
+   "task": "R26TOWEL1",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-12T10:36",
+   "launched": "2026-11-12T10:38"
+  },
+  {
+   "task": "R26SWAP1",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-12T10:36",
+   "launched": "2026-11-12T11:12"
+  },
+  {
+   "task": "R50TRAIT1",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-12T10:36",
+   "launched": "2026-11-12T11:41"
+  },
+  {
+   "task": "R58LOYAL1",
+   "seat": "agy",
+   "status": "launched",
+   "queued": "2026-11-12T10:36",
+   "launched": "2026-11-12T10:42"
+  },
+  {
+   "task": "R17PHASE1",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-12T10:36",
+   "launched": "2026-11-12T12:11"
+  },
+  {
+   "task": "R24GRADE1",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-12T10:36",
+   "launched": "2026-11-12T12:30"
+  },
+  {
+   "task": "R73DEAL1",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-12T10:36",
+   "launched": "2026-11-12T13:11"
+  },
+  {
+   "task": "R19WORTH1",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-12T10:36",
+   "launched": "2026-11-12T14:42"
+  },
+  {
+   "task": "MATPRICE1",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-12T10:59",
+   "launched": "2026-11-12T15:42"
+  },
+  {
+   "task": "R29JUDGES1",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-12T16:25",
+   "launched": "2026-11-12T17:11"
+  },
+  {
+   "task": "R85NEWS1",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-12T16:25",
+   "launched": "2026-11-12T17:41"
+  },
+  {
+   "task": "ASKPROBE2",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-12T21:40",
+   "launched": "2026-11-12T22:23"
+  },
+  {
+   "task": "ASKPROBE3",
+   "seat": "qwen",
+   "status": "superseded",
+   "queued": "2026-11-13T09:17",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
+  },
+  {
+   "task": "SOUND4",
+   "seat": "qwen",
+   "status": "superseded",
+   "queued": "2026-11-13T09:46",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
+  },
+  {
+   "task": "BODYFACTS1",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-13T12:44",
+   "launched": "2026-11-13T13:11"
+  },
+  {
+   "task": "MOVETREE1",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-13T12:44",
+   "launched": "2026-11-13T12:46"
+  },
+  {
+   "task": "POWER1C",
+   "seat": "agy",
+   "title": "The lead uppercut's tail: short follow-through, back to guard, never over her head (his C353/C354/C359)",
+   "brief": "POWER1C",
+   "status": "failed",
+   "queued": "2026-11-13T13:55",
+   "note": "S450: agy exit 3, credit balance; moved to qwen"
+  },
+  {
+   "task": "SLOTS1",
+   "seat": "qwen",
+   "title": "One move in learning: slots, the coach's three cards, learning speed (progression M2)",
+   "brief": "SLOTS1",
+   "status": "superseded",
+   "queued": "2026-11-13T14:20",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
+  },
+  {
+   "task": "POWER1C",
+   "seat": "qwen",
+   "title": "The lead uppercut's tail: short follow-through, back to guard, never over her head (his C353/C354/C359)",
+   "brief": "POWER1C",
+   "status": "superseded",
+   "queued": "2026-11-13T14:15",
+   "note": "S457: superseded by POWER1D (in-house, contract widened)"
+  },
+  {
+   "task": "STYLENAME1",
+   "seat": "qwen",
+   "title": "The named style: which one, when it goes, what it changes, the extra plan line (map M4)",
+   "brief": "STYLENAME1",
+   "status": "done",
+   "queued": "2026-11-13T19:10",
+   "launched": "2026-11-13T19:11"
+  },
+  {
+   "task": "LOYAL1",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-13T22:15",
+   "launched": "2026-11-13T22:41"
+  },
+  {
+   "task": "KNOWBOTS1",
+   "seat": "agy",
+   "status": "queued",
+   "queued": "2026-11-13T22:18"
+  },
+  {
+   "task": "KNOWBOTS3",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-14T01:10",
+   "launched": "2026-11-14T02:42"
+  },
+  {
+   "task": "STEPPLAN1",
+   "seat": "qwen",
+   "status": "held",
+   "queued": "2026-11-14T07:40",
+   "note": "nightly review: design call first (a coach plan is worth nothing for a new fighter since the step gate)"
+  },
+  {
+   "task": "LANDREACH1",
+   "seat": "grok",
+   "status": "held",
+   "queued": "2026-11-14T07:40",
+   "note": "nightly review: animation, goes in the animation order; Cursor replaced (S446)"
+  },
+  {
+   "task": "CARDVISIT1",
+   "seat": "qwen",
+   "status": "landed",
+   "queued": "2026-11-14T09:15",
+   "note": "S464: which cards bouts reach; launches when the watchdog leaves RED | S465 landed 899b294d, Claude rerun on main",
+   "launched": "2026-11-14T09:43"
+  },
+  {
+   "task": "CARDFIX1",
+   "seat": "qwen",
+   "status": "landed",
+   "queued": "2026-11-14T10:00",
+   "note": "S465: four card-table arms; which lets every best answer fire without breaking win balance | S466 collected (docs/CARDFIX1_RESULT.md): no arm passes; she_* fixed cards were the cause -> LiveRound fix 3fd32033 + CARDFIX2",
+   "launched": "2026-11-14T10:05"
+  },
+  {
+   "task": "CARDFIX2",
+   "seat": "qwen",
+   "status": "landed",
+   "queued": "2026-11-14T10:55",
+   "note": "S466: rerun the card probe on main after the she_* + counter->outside fix (3fd32033); reach counts @card variants | S466 landed adecfea3: never_best 0, cards_never 0, wins 61-67/120, bars sensitive; Claude rerun on main",
+   "launched": "2026-11-14T10:42"
+  },
+  {
+   "task": "LIVERRIBS2",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-14T11:20",
+   "note": "S466: LiverRibs.gd pure module + test from the passing v2 map (his Q-219 yes)",
+   "launched": "2026-11-14T10:53"
+  },
+  {
+   "task": "NIGHTLYTRIAGE1",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-14T11:45",
+   "note": "S466: re-run each nightly red test on main; first FAIL line; last green nightly",
+   "launched": "2026-11-14T11:13"
+  },
+  {
+   "task": "LANDREACH3",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-14T12:15",
+   "launched": "2026-11-14T12:17"
+  },
+  {
+   "task": "GUARDKNEE2",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-14T12:28",
+   "launched": "2026-11-14T12:58"
+  },
+  {
+   "task": "LIVERPROBE1",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-14T12:43",
+   "launched": "2026-11-14T14:11"
+  },
+  {
+   "task": "GUARDKNEE3",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-14T14:23",
+   "launched": "2026-11-14T14:41"
+  },
+  {
+   "task": "SPEEDFLIP1",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-14T15:20"
+  },
+  {
+   "task": "SPLIT471",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-14T16:20",
+   "launched": "2026-11-14T16:34"
+  },
+  {
+   "task": "PELVIS1",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-14T18:21"
+  },
+  {
+   "task": "SPEEDRULER1",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-14T18:30"
+  },
+  {
+   "task": "KNEESWEEP1",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-14T20:23",
+   "launched": "2026-11-14T20:41"
+  },
+  {
+   "task": "WEIGHGAP1",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-14T21:15",
+   "launched": "2026-11-14T21:16"
+  },
+  {
+   "task": "BOUTSHEET1",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-14T21:15",
+   "launched": "2026-11-14T21:16"
+  },
+  {
+   "task": "SOUNDWIRE2",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-14T21:34",
+   "launched": "2026-11-14T21:38"
+  },
+  {
+   "task": "KNEERULER1",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-14T21:40"
+  },
+  {
+   "task": "FILMTRUTH1",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-14T21:41",
+   "note": "S474: filed to Goose by hand (dispatcher waits on the busy Qwen seat)"
+  },
+  {
+   "task": "FWTRIPS1",
+   "seat": "qwen",
+   "status": "moved_arena",
+   "queued": "2026-11-14T22:08"
+  },
+  {
+   "task": "OWNGLOVE1",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-15T00:35"
+  },
+  {
+   "task": "FOURMONEY1",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-15T11:00",
+   "launched": "2026-11-15T10:59"
+  },
+  {
+   "task": "CLASH7",
+   "seat": "qwen",
+   "status": "failed",
+   "queued": "2026-11-15T12:10",
+   "launched": "2026-11-15T11:54",
+   "note": "S486: depths unchanged (0.054/0.057 m); order now right; kept as base of CLASH8"
+  },
+  {
+   "task": "CLASH8",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-15T13:00",
+   "launched": "2026-11-15T13:04"
+  },
+  {
+   "task": "STYLE4",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-15T12:57",
+   "launched": "2026-11-15T13:59"
+  },
+  {
+   "task": "CLASH9",
+   "seat": "qwen",
+   "status": "done",
+   "queued": "2026-11-15T14:05",
+   "note": "S493: result on qwen/clash9 (diagnosis c); fix briefed as CLASH10"
+  },
+  {
+   "task": "WHYGRADE1",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-15T14:40"
+  },
+  {
+   "task": "STYLE5",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-15T15:00",
+   "launched": "2026-11-15T15:12"
+  },
+  {
+   "task": "WHYGRADE1",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-15T16:28"
+  },
+  {
+   "task": "PALETTEGUARD1",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-15T19:46",
+   "launched": "2026-11-15T20:12"
+  },
+  {
+   "task": "CLASH10",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-15T20:01",
+   "launched": "2026-11-15T20:42"
+  },
+  {
+   "task": "CAMHOLD1",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-16T10:42",
+   "launched": "2026-11-16T11:12"
+  },
+  {
+   "task": "BODYSTEP1",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-16T12:52",
+   "title": "TASK BODYSTEP1 - a landed punch moves the hit boxer back a little (the rule only)",
+   "launched": "2026-11-16T12:54"
+  },
+  {
+   "task": "FILMBAR1",
+   "seat": "qwen",
+   "queued": "2026-11-16T13:54",
+   "title": "TASK FILMBAR1 - a film-night pattern never passes by luck (an exact test for small counts)",
+   "status": "launched",
+   "launched": "2026-11-16T14:12"
+  },
+  {
+   "task": "PRESSFLASH1",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-16T16:11"
+  },
+  {
+   "task": "PUNCHEND2",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-16T21:51"
+  },
+  {
+   "task": "MOTIONRULERS1",
+   "seat": "grok",
+   "status": "held",
+   "queued": "2026-11-17T06:30",
+   "note": "nightly review: rokoko_clips, human_feet red after S503 step lift; head_aim red 11-18 (likely S510 r14); guard_knee green again; held under the FIGHTPLAYER2 METHOD line, main session decides"
+  },
+  {
+   "task": "PUNCHEND3",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-17T09:04"
+  },
+  {
+   "task": "HEADEASE1",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-17T11:53"
+  },
+  {
+   "seat": "qwen",
+   "task": "HEADSPLIT2",
+   "title": "Head-jump ruler: when in the punch each jump falls",
+   "status": "launched",
+   "launched": "2026-11-17T14:04"
+  },
+  {
+   "task": "SPLIT500B",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-17T18:37"
+  },
+  {
+   "task": "MORNINGSPROBE1",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-17T21:50",
+   "note": "S511: after ASKPROBE4 lands",
+   "launched": "2026-11-17T22:12"
+  },
+  {
+   "task": "STOPWORD1",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-18T01:37",
+   "launched": "2026-11-18T01:42"
+  },
+  {
+   "seat": "qwen",
+   "status": "launched",
+   "task": "LADDERREP1",
+   "queued": "2026-11-18T10:00",
+   "launched": "2026-11-18T09:59"
+  },
+  {
+   "seat": "qwen",
+   "status": "launched",
+   "task": "COACHROLES1",
+   "queued": "2026-11-18T10:00",
+   "launched": "2026-11-18T09:59"
+  },
+  {
+   "task": "MATRECEIPT1",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-18T11:30",
+   "launched": "2026-11-18T10:16"
+  },
+  {
+   "task": "TREEVALUE2",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-18T22:15",
+   "launched": "2026-11-19T01:42"
+  },
+  {
+   "task": "GUARDPROBE1",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-19T04:40",
+   "note": "S524: guard v4 sizing probe (tools/guard_probe.gd)",
+   "launched": "2026-11-19T04:34"
+  },
+  {
+   "task": "MORNINGSPROBE2",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-18T23:28"
+  },
+  {
+   "task": "MONEYFOUR2",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-18T23:28"
+  },
+  {
+   "task": "TURNPROBE1",
+   "seat": "qwen",
+   "status": "superseded",
+   "queued": "2026-11-19T03:05",
+   "superseded_note": "S524: moved to Goose (cloud), Qwen busy on TREEVALUE2"
+  }
+ ]
 }

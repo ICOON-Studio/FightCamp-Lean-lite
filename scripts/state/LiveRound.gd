@@ -4,6 +4,7 @@ extends RefCounted
 ## closes it into the round dict Bouts has always kept ({n, won, mine, theirs, corner, energy, ...} + exchanges).
 ## Lives in the fight moment as m["live"]. No preload of Bouts (Bouts preloads this).
 
+const GuardState := preload("res://scripts/state/GuardState.gd")
 const LiverRibs := preload("res://scripts/rules/LiverRibs.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
@@ -112,6 +113,7 @@ static func open(c: Career, f: Dictionary, m: Dictionary, n: int, plan: String, 
 		"body_cost_b": PerkFight.body_cost(f) * Exchanges.body_cost(float(opp_attrs.get("body", 55.0))) / Exchanges.BODY_COST}
 	m["live"]["start"] = state(m["live"], 0)
 	RingDuel.open(m["live"])
+	GuardState.open(f, n)   # S524 GUARDWEAR: both guards full at the first bell, the corner's minute after
 
 
 ## S310 what the fight display shows after i exchanges: {a, b (energy), body [taken by her, by the opponent], hurt [hers,
@@ -333,6 +335,7 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 		"pace": pace, "aim": aim, "won": s["won"], "margin": s["margin"], "landed": s["landed"], "verdict": Exchanges.verdict(call, sit, bool(s["won"]), names),
 		"habit": habit, "fix": fix, "habit_line": HabitFix.line(habit_name(habit), names, habit == fix, bool(s["won"])) if habit != "" else ""}
 	rec["at"] = at
+	rec["guard"] = GuardState.after(f, s["landed"], at, RingDuel.opp(opp))   # S524 GUARDWEAR: blocks wear the guards (shown only)
 	# S442 BUBBLES: the shout she did not take in (CornerTrust.lands false), and the round's shouts before this one (the heard mark).
 	rec["said"] = shout if shout != "" and not shouted and Exchanges.CALLS.has(shout) else ""
 	rec["shouts_before"] = int(lv["shouts"]) - (1 if shouted else 0)

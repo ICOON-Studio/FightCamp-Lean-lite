@@ -403,8 +403,7 @@ func act(name: String, arg: String = "") -> void:
 			close_modal()
 		"closedgym":
 			open_modal(closed_modal(career))
-		"quit":
-			get_tree().quit()
+		"quit": get_tree().quit()
 		"opennight":
 			open_modal({"type": "open", "fid": arg})
 		"opensim":

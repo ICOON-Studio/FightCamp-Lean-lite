@@ -43,6 +43,8 @@ static func bars(src: Dictionary) -> Dictionary:
 	var tire := (float(burn.get("lead_shoulder", 0.0)) + float(burn.get("rear_shoulder", 0.0))) / 200.0
 	var sink := (float(drop.get("lead", 0.0)) + float(drop.get("rear", 0.0))) / 2.0
 	var guard := clampf(1.0 - maxf(tire * TIRE_SHOW, sink), 0.0, 1.0)
+	if src.has("guard_v4"):   # S524 GUARDWEAR: the guard the blocked punches wore (GuardState), after the watched exchange
+		guard = minf(guard, clampf(float(src["guard_v4"]), 0.0, 1.0))
 	var will := heart(float(src.get("heart_attr", 55.0)), int(src.get("counts", 0)), int(src.get("hurts", 0)))
 	return {
 		"head": _bar(head, head, true),

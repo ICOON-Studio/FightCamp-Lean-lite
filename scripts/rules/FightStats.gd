@@ -13,7 +13,7 @@ const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 
 static func of(rounds: Array) -> Dictionary:
 	var out := {"rounds": [], "landed": [0, 0], "body": [0, 0], "head": [0, 0], "xwon": [0, 0], "tank": [100.0, 100.0],
-		"calls": [], "games": [], "pace": {}}
+		"calls": [], "games": [], "pace": {}, "blocked": [0, 0], "guard": []}   # S524 GUARDWEAR: guard [] = no guard (old saves)
 	var calls := {}
 	var games := {}
 	for r in rounds:
@@ -25,6 +25,11 @@ static func of(rounds: Array) -> Dictionary:
 			for k in 2:
 				row["landed"][k] = int(row["landed"][k]) + (int(l[k]) if l.size() > k else 0)
 				row["body"][k] = int(row["body"][k]) + (int(b[k]) if b.size() > k else 0)
+			var gd: Dictionary = x.get("guard", {})
+			if not gd.is_empty():   # S524 GUARDWEAR: blocks each side made, and the guard after the exchange (0..1)
+				for k in 2:
+					out["blocked"][k] = int(out["blocked"][k]) + int(gd["blocked"][k])
+				out["guard"] = (gd["share"] as Array).duplicate()
 			var won := bool(x.get("won", false))
 			row["xwon"][0 if won else 1] = int(row["xwon"][0 if won else 1]) + 1
 			_count(calls, str(x.get("call", "")), won)
@@ -52,6 +57,12 @@ static func rows(st: Dictionary) -> Array:
 	out.append(_pair("To the head", st["head"]))
 	out.append(_pair("To the body", st["body"]))
 	out.append(_pair("Exchanges won", st["xwon"]))
+	if not (st.get("guard", []) as Array).is_empty():   # S524 GUARDWEAR (design s2 result screen): blocks and the guard left
+		out.append(_pair("Punches blocked", st["blocked"]))
+		var g: Array = st["guard"]
+		out.append({"label": "Guard left at the last bell", "a": "%d%%" % roundi(float(g[0]) * 100.0), "b": "%d%%" % roundi(float(g[1]) * 100.0),
+			"fa": clampf(float(g[0]), 0.0, 1.0), "fb": clampf(float(g[1]), 0.0, 1.0),
+			"lead": 0 if float(g[0]) > float(g[1]) + 0.005 else (1 if float(g[1]) > float(g[0]) + 0.005 else -1)})
 	var t: Array = st["tank"]
 	out.append({"label": "Energy left at the last bell",   # DEFECTS1: "Tank" was jargon
 		"a": "%d" % int(round(float(t[0]))), "b": "%d" % int(round(float(t[1]))),

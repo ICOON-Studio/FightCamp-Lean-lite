@@ -907,17 +907,112 @@
     "runner_pid": 29124,
     "seat_pid": 52428
    },
+   "note": "S524: Qwen timed out (124) after writing the probe; Claude runs it on the PC (~2 h, 150k bouts)",
+   "finished": "2026-11-19T04:31",
+   "pr": 382,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tools/treevalue_probe.gd",
+     "ok": false,
+     "last": "timeout"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/step_effect_test.gd",
+     "ok": true,
+     "last": "STEP_EFFECT PASS fails=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/fire_level_test.gd",
+     "ok": true,
+     "last": "FIRE_LEVEL failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/plan_bout_test.gd",
+     "ok": true,
+     "last": "PLAN_BOUT failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "GUARDWEAR1": {
+   "agent": "arena",
+   "id": "GUARDWEAR1",
+   "title": "Guard damage v4: the pure rules (wear, leak, combo, ropes, recovery)",
+   "status": "merged",
+   "started": "2026-11-19T04:20",
+   "eta": "2026-11-19T05:30",
+   "branch": "arena/6823f7ff-fightcamp-lean-lite",
+   "chat": "https://arena.ai/agent/01a1f184-c42a-7b1c-bcc7-8028682317ff",
+   "brief": "ops/research/TASK_GUARDWEAR1.md",
+   "note": "S524 collected on main (lite PR 19); trait -> trait_id parse fix"
+  },
+  "KNOWBOTS4": {
+   "agent": "goose",
+   "id": "KNOWBOTS4",
+   "title": "Knowledge v3 probes: does reading a boxer pay (K1/K3/K4), yardstick first",
+   "status": "running",
+   "started": "2026-11-19T04:40",
+   "eta": "2026-11-19T06:30",
+   "issue": 379,
+   "branch": "goose/issue-379",
+   "brief": "ops/research/TASK_KNOWBOTS4.md"
+  },
+  "TURNPROBE1": {
+   "agent": "goose",
+   "id": "TURNPROBE1",
+   "title": "Turning pro probes: do two promoters, one ask and timing make a real choice?",
+   "status": "running",
+   "started": "2026-11-19T04:45",
+   "eta": "2026-11-19T06:30",
+   "issue": 380,
+   "branch": "goose/issue-380",
+   "brief": "ops/research/TASK_TURNPROBE1.md"
+  },
+  "GUARDPROBE1": {
+   "agent": "qwen",
+   "id": "GUARDPROBE1",
+   "title": "TASK GUARDPROBE1 - guard damage v4: size the guard's wear and the damage through it before anything changes a result",
+   "status": "running",
+   "started": "2026-11-19T04:34",
+   "eta": "2026-11-19T06:24",
+   "branch": "qwen/guardprobe1",
+   "worktree": "E:/FightCamp/wt/LEAN_GUARDPROBE1",
+   "wt": "E:/FightCamp/wt/LEAN_GUARDPROBE1",
+   "brief": "ops/research/TASK_GUARDPROBE1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/GUARDPROBE1_dispatch_out.txt",
+   "match": "seat_dispatch.py run guardprobe1",
+   "model": "qwen4-max",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/GUARDPROBE1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/GUARDPROBE1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/GUARDPROBE1_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 49032,
+    "seat_pid": 41104
+   },
    "note": "S368 seat_dispatch: launched unattended (dispatch_queue.json); merging stays off"
   },
-  "KNOWLEDGE1A": {
-   "agent": "goose",
-   "id": "KNOWLEDGE1A",
-   "title": "Knowledge v3: the pure rules (groups, widths, reads and prices, stale, hype, moments)",
+  "PROCONTRACT1": {
+   "agent": "arena",
+   "id": "PROCONTRACT1",
+   "title": "Turning pro: a blind contract test from the design only (with mutants)",
    "status": "running",
-   "started": "2026-11-19T03:12",
-   "eta": "2026-11-19T04:30",
-   "issue": 378,
-   "branch": "goose/issue-378"
+   "started": "2026-11-19T04:55",
+   "eta": "2026-11-19T06:00",
+   "branch": "arena/4ab4ee7f-fightcamp-lean-lite",
+   "chat": "https://arena.ai/agent/01a1f1a9-8a2a-711e-a9ce-0dc74ab4ee7f",
+   "brief": "ops/research/TASK_PROCONTRACT1.md"
   }
  },
  "codex_budget": {
