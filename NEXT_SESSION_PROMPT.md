@@ -13,19 +13,23 @@ FIRST: `python ops/Tools/godot_slot.py status` (TREEVALUE5's probe holds one slo
 - FOOTWORK STEPS (S528): TREEVALUE5 read S530 (0/10 in the gate) - STEPTUNE3 (Qwen) sizes TABLE; an empty window = a design change.
 
 ## MAIN LINE - DO FIRST (S530 end state; S530_DIGEST.md has the whole session)
-1. Goose TURNREV5 #412 (turning pro v5 from the code against TURNPROBE3/3B - read ops/research/TURNPROBE3_READ_S530.md):
-   collect the map, Claude's code check on top, then two fresh critics (Dola + a NEW Arena chat).
-2. Dola SQ242 (ledger v4) + SQ243 (knowledge v3): with Arena's 6/5 and 6/6 already in, Goose writes ledger v5 and knowledge
-   v4 from the code answering both lists. Ledger: the release fee is money IN (the code is right, the map was wrong);
-   per-boxer cash needs Career.pay() to carry a boxer id - a build change named in v4's top note.
-3. Qwen STEPTUNE3 (ops/research/TASK_STEPTUNE3.md, after HOLD1 - now landed): sizes StepEffect.TABLE from TREEVALUE5's
-   board; a step with an empty window is written down as a design change, not forced.
-4. A progression-pace probe WITH camps (HOLD1 G1: no held Signature by season 2; mastery cap < 85). Brief it for Qwen.
-5. Coach fit is CLOSED (COACHFIT_SHEET s0c, s0d) - nothing to build.
-6. TESTS (S530): 71 never-run tests joined tools/run_tests.sh. RED headless, for the ANIMATION session to keep, retarget
-   to v2 or retire: block_absorb, block_catch, fighter_model_speed, grapple_fix, hit_carry, hit_frame, punch_range (needs
-   the hidden desktop), punch_speed, punch_weight, uppercut_tail. dues_levers is a search probe, not a test.
-7. Open defect for turning pro: ProCall.ambition_kind's "pro" path never fires - v5 decides the ambition line.
+Running at handover (collect each, read its page before trusting it - S530 caught 4 probe defects on reading):
+- Goose GYMSURVIVE1 #414: does a fresh gym survive two years (passive / sensible / lean)? SIGPACE1 and TURNPROBE3/3B
+  careers all ended around year one (gym closed). If a sensible gym closes inside two years, that is a money-balance
+  finding for the owner (scope), not a tuning job.
+- Goose TURNGAP1 #415: the debut gap -> win curve on one fixed boxer (the debutant's rating is night - opp_gap: a BIGGER gap
+  is a WEAKER opponent; v5 had it backwards). Then v6 of turning pro sets the gaps from the curve.
+- Goose LEDGERREV5 #416: contracts map v5 from the code (release fee is money IN; Career.pay() needs a boxer id first).
+  Then two fresh critics (Dola + a NEW Arena chat, brief like TASK_LEDGERCRITIC5A).
+- Dola SQ243 (knowledge v3 critic; Arena gave 6/6) and SQ244 (turning pro v5 critic; Arena 5/5). Knowledge v4 from the
+  code (Goose) once SQ243 is in.
+- Qwen STEPTUNE3 (ops/research/TASK_STEPTUNE3.md): sizes StepEffect.TABLE from TREEVALUE5's board.
+Decided S530: coach fit CLOSED (nothing built); HOLD1: holding is a choice only at 20/40 on 2 pad nights, no held
+Signature on any arm; SIGPACE1: a 75 pads coach gives 15-20% a Signature in year one, today's 58 none.
+Animation (owner's Fable session, local_e70955bc): films 9-11 all 5.0 (eight films at 5). The camera now follows the turn
+(owner Q-S294-276 'Let it follow'). The session will not shoot a 12th film on tuning: the next step is the mocap pack -
+the owner's money call at the END OF NOVEMBER (do not ask before). The 10 red fight3d ruler tests are that session's.
+Open defect for turning pro: ProCall.ambition_kind's "pro" path never fires - v5 adds a pro ambition (not built yet).
 
 # S530 handover (written 2026-11-19, S529 - Opus)
 
@@ -558,6 +562,64 @@ control arm; the shipped player is untouched without the switch.
     CRITIC TRAP: both film-10 critics wrote that the ex1-ex4 pictures "dropped out of my context" (66 sheets is too
     many): they scored the exchanges from the rulers. Next round: 36-40 sheets (3 ex, 2 def, 2 wait), or one critic
     per half.
+  * FILM 11 (`v2r15/`, commit 756638b46) = 5.0 (coach) / 5.0 (animator). EIGHT FILMS AT 4.5-5.0. Areas coach / animator:
+    punches 5.0 / 6.0, defence + reactions 4.5 / 4.5, footwork 5.0 / 4.0, transitions 5.5 / 5.0, waiting 5.0 / 4.5.
+    THE OWNER'S CAMERA RULING (board Q-S294-276, asked "allow a camera that follows the pair as they turn (a slow
+    swing, still one broadcast view)": "Let the camera follow the turn" - it REPLACES S500 "camera is fixed always" for
+    the v2 player only; head-to-feet framing stays): BUILT - `FixedCam.follow` (set by PairPlace._init, v2 only): the
+    tripod walks round the ring's middle to stay square to the pair, 22 deg/s at most, never past 32 deg from where the
+    round began (`FixedCam.swing`, fixed_cam_test); circling back ON (`-- fp2nocircle` = off): 30 deg a circle step, 8
+    ring steps in 10, one way per exchange, SLACK_DEG 24. It works on film (6 circles in 75 s, both men side-on, the
+    ropes turn behind them) - AND IT DID NOT MOVE THE SCORE: a camera that keeps the pair square HIDES the circling;
+    the coach: "the camera already swings round; give it angles to show", "no pivots, no circling; everything happens
+    on one straight line". Angles a viewer sees need a camera that LAGS the pair (smaller FOLLOW_GAIN / a wide dead
+    band of 15-20 deg), which brings backs over punches again: a trade, not a fix. Also built: the hit man's step back
+    starts as his reaction ends (ChoreoGap.HURT_S 0.60; only when the landed power punch is the burst's LAST - on this
+    bout both crosses were followed by another punch, so "cross back 1.8 cm" still reads); jab reaction 0.11 (film 11:
+    12.8 cm, was 16). 45 sheets and "write notes set by set" worked: neither critic lost pictures.
+    FILM 11'S FIRST FAULTS: (1) GLOVE ON GLOVE INSIDE AN EXCHANGE (ex1 #19-#48, ex3 #25-#34, def2 #25-#36: inside
+    1.1 m nobody punching for over 6 frames - ChoreoGap's POCKET 1.12 m and the in-burst holds; their rule: step out on
+    an angle, clinch, or keep punching); (2) ONE CANNED REACTION TWICE (ex1 #53-#68 = ex3 #45-#64: `pro_hit_by_cross_v3`
+    then the same follow-up over a man leaning away; "at least 3 versions, none replayed within 30 s" - React's variety
+    draw only looks at near-fit takes); (3) hands at the belt after a punch (the takes' own: ex1 #58-#63, def2
+    #45-#50), red's feet together (ex2 #45-#52), blue square-on; (4) `pro_left_weave` drops 17 cm in one frame (def2 #15);
+    (5) no counter off a miss, no answer to a feint; the near bottom rope crosses the boots (coach: raise the lens
+    20-30 cm).
+    WHERE THIS LEAVES THE LOOP (say it to the owner plainly): three films in one session, each built on the last
+    round's first fault, each 5.0. Every round's fresh critics find a NEW first fault at the same score: the films are
+    at the level these takes and this planner reach. Do NOT film a 12th on tuning. What can still change the picture:
+    (a) takes we do not own - clinch, catch / parry, counters, 3-4 punch combinations, more hit reactions (the mocap
+    pack, his end-of-November call; this section is the evidence); (b) cheap and worth doing while waiting, WITHOUT a
+    critic round each: the in-burst hold (step out or punch inside 1.1 m), no reaction take twice inside 30 s, the
+    weave's part-way join, the lens 25 cm higher; (c) ask him whether 5 ("clearly a game, but reads as boxing and is
+    watchable" on the critics' own scale) is enough to ship the fight view for now and spend the sessions elsewhere.
+  * THE OWNER ON FILM 11 (his words): "one of the big issues is that the guard is supposed to protect the head , your
+    fighters holding their hands away from their heads and they look like robots". MEASURED on film 11: in st_wait the
+    lead wrist rides 41 cm from the head bone (31 cm out in front, 14 cm under it), the rear 30 cm; every walking
+    step take the same (0.42 / 0.30) - 72 % of the round. No critic of eight films named it; he saw it at once.
+    FIXED IN THE BAKE (`tools/step_bake.gd` `_guard_up`, GUARD_IN 0.55 / GUARD_UP 0.50 / GUARD_LIVE 0.6): in every
+    refitted take both wrists come in to the face (lead ~0.20 m, rear ~0.16 m), arms solved again, the take's own hand
+    motion kept at 0.6. Film 12 = `v2r16/` (NOT judged by critics; sent to him with before / after strips). LEFT, AND
+    HIS NOTE COVERS IT: (1) the PUNCH takes are the Punch PRO actor's long guard - during a punch the free wrist is
+    26-30 cm from the head (`fight_persist_rulers` FREE HAND now reads 21 of 31 against the tight guard): next = the
+    free hand held at the cheek through a punch (an arm solve on the free arm inside the v2 player, like PunchAim), and
+    the same `_guard_up` idea for the paw / feint window and the fidget takes; (2) "ROBOTS": both men bounce one loop
+    at 0.88x / 1.13x speed - two more wait loops (st_wait_g is baked and unused; a third from Boxing_Idle), each man
+    his own, and a guard that differs by style. Ask him to look at film 12 before anything else is tuned.
+  * THE OWNER ON FILM 12: "you put the blues hands way to back now, its not that hard , watch a video or findpictures
+    for right guard get it from our research". CAUSE: `_guard_up` drew each wrist toward the HEAD BONE, which sits at
+    the back of the skull - the gloves ended beside the ears. FIXED FROM THE RESEARCH (ops/research/D64_GUARD_STYLES.md,
+    orthodox classic: lead hand at the cheek ~15 cm in front of the face, rear at the jaw, elbows tucked;
+    ZIVA_GUARD_S274.md: a tucked guard's wrist 0.21-0.23 m from the head bone, in the head's frame): the wrist's mean
+    place goes to GUARD_AT = [in front, out to its own side, up] from the head bone - lead 0.21 / 0.06 / -0.11, rear
+    0.15 / 0.08 / -0.13 (step_bake.gd; all ten refitted takes rebaked: wrist 0.25 / 0.21 m from the head, IN FRONT).
+    ALSO BUILT ("Yes, do both"): `scripts/fight3d/v2/GuardHold.gd` - a punch, a paw or a feint holds the FREE hand at
+    the same place, a fidget both hands (`-- fp2nohold` = off; persist ruler FREE HAND 21 of 31 -> 1 of 31); and each
+    man his own wait (Player2.WAITS: red st_wait, blue st_wait_g; Boxing_Idle refitted stands knock-kneed: not used).
+    Film 13 = `v2r17/` (not judged by critics; sent to him). THE OWNER ON FILM 13, asked "Does the guard look right
+    to you now": "Yes, looks right" - the guard is CLOSED: do not move GUARD_AT / GuardHold.AT without a note from him. NEXT TIME A POSE IS CHANGED: look at BOTH men in a film
+    frame before sending (the orbit still of one body hid it), and place hands in the head's FACING frame, never by
+    scaling toward a bone.
   * TRAPS: `off_side()`'s sign - a pair turn of +th takes the line's angle DOWN by th (my first cap flipped circles the
     wrong way: 36 deg off, a back over the punches in ex1; rulers saw nothing, the sheet did - LOOK AT ONE EX SHEET
     BEFORE THE CRITICS); 30 deg circles put a back to the fixed camera whatever the slack; the film's FP2 log is in

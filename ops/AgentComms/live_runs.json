@@ -1117,32 +1117,6 @@
    "note": "S530 collected: 6/6 - a read must change a decision; evidence at the offer",
    "finished": "2026-11-19T23:30"
   },
-  "TURNREV5": {
-   "agent": "goose",
-   "id": "TURNREV5",
-   "title": "Turning pro map v5 from the code, against the measured lines",
-   "status": "landed",
-   "started": "2026-11-20T00:05",
-   "where": "cloud",
-   "brief": "ops/research/TASK_TURNREV5.md",
-   "issue": 412,
-   "eta": "2026-11-20T01:00",
-   "note": "S530; goose/issue-412",
-   "finished": "2026-11-20T01:00"
-  },
-  "SIGPACE1": {
-   "agent": "goose",
-   "id": "SIGPACE1",
-   "title": "Signature pace on the real career loop (camps, better pads coach)",
-   "status": "landed",
-   "started": "2026-11-20T00:30",
-   "where": "cloud",
-   "brief": "ops/research/TASK_SIGPACE1.md",
-   "issue": 413,
-   "eta": "2026-11-20T01:45",
-   "note": "S530 collected: coach 58 = 0% Signature, coach 75 = 15-20% by w52; the careers end ~year 1 (gym closes) - read at the bottom of docs/SIGPACE1_RESULT.md",
-   "finished": "2026-11-20T02:00"
-  },
   "STEPTUNE3": {
    "agent": "qwen",
    "id": "STEPTUNE3",
@@ -1205,6 +1179,19 @@
    "where": "cloud",
    "brief": "ops/research/TASK_TURNGAP1.md",
    "eta": "2026-11-20T03:45",
+   "note": "S530",
+   "issue": 415
+  },
+  "LEDGERREV5": {
+   "agent": "goose",
+   "id": "LEDGERREV5",
+   "title": "Contracts map v5 from the code (both v4 critics)",
+   "status": "running",
+   "started": "2026-11-20T03:00",
+   "where": "cloud",
+   "brief": "ops/research/TASK_LEDGERREV5.md",
+   "issue": 416,
+   "eta": "2026-11-20T04:00",
    "note": "S530"
   }
  },

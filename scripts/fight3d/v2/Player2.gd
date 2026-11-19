@@ -28,6 +28,7 @@ const FootCarry := preload("res://scripts/fight3d/v2/FootCarry.gd")
 const PairPlace := preload("res://scripts/fight3d/v2/PairPlace.gd")
 const FootTake := preload("res://scripts/fight3d/v2/FootTake.gd")
 const StepPlay := preload("res://scripts/fight3d/v2/StepPlay.gd")
+const GuardHold := preload("res://scripts/fight3d/v2/GuardHold.gd")
 
 static var KEEP: Array = _keep()
 const GUARD := "pro_idle"
@@ -56,6 +57,7 @@ static var steps_on: bool = not OS.get_cmdline_user_args().has("fp2nosteps")
 ## boxing idle refitted onto the Pro guard's stance, heels flat (StepClips.REFIT st_wait). `-- fp2nobounce` = the still
 ## Pro guard (films 1-8).
 const MOVING_GUARD := "st_wait"
+const WAITS := ["st_wait", "st_wait_g"]   # S531 "they look like robots": each man his own loop (red, blue), not one loop at two speeds
 static var bounce_on: bool = not OS.get_cmdline_user_args().has("fp2nobounce")
 const DOWN := ["knock", "fall", "countdown", "win", "ko_"]
 
@@ -82,7 +84,6 @@ var _moved: Array = [Transform3D.IDENTITY, Transform3D.IDENTITY]   # per boxer: 
 var _join_next := Vector2.ZERO       # the next _play joins with this instead of its kind's join (the arm home)
 var hit_until := -1.0         # a landed punch is on screen until this clock time (the film's rulers find contacts by it)
 var pair: PairPlace = PairPlace.new(self)   # where the pair stands and faces (follow, side-on, facing)
-var _moving: Array = [false, false]   # per boxer: his last take was a step (he waits in the steps' stance)
 var walk: StepPlay = StepPlay.new(self)       # the planned steps and the ring steps (S528)
 var _ft: Array = [null, null]        # per boxer: FootTake (the legs in the fight)
 var contacts: Array = []      # every contact as played: {t, who, move, result, gap, take} (the rulers read it)
@@ -96,7 +97,7 @@ var contacts: Array = []      # every contact as played: {t, who, move, result, 
 static func _keep() -> Array:
 	var args := OS.get_cmdline_user_args()
 	var legs := ["FootLock", "FloorStand"] if args.has("fp2lock") else (["FootCarry", "FloorStand"] if args.has("fp2carry") else (["FootPlant", "FloorStand"] if args.has("fp2plant") else ["FootTake", "FloorStand"]))
-	return ["JoinSmoother", "MetaHumanTwist", "TiredSag", "PunchAim"] + legs
+	return ["JoinSmoother", "MetaHumanTwist", "TiredSag", "PunchAim", "GuardHold"] + legs
 
 
 static var force := false   # a test switches v2 on without the command line (set FightClips.untouched with it)
@@ -124,6 +125,7 @@ func setup(stage: Node) -> void:
 			if c is SkeletonModifier3D and str(c.name) in ["TiredSag", "FootTake", "FootPlant", "FootCarry", "FootLock", "FloorStand"] and (last == null or c.get_index() > last.get_index()):
 				last = c
 		_aim[i] = PunchAim.attach(skel, st.boxers[i]["ap"], last)
+		GuardHold.add(skel, self, i, st.boxers[i].get("js"))   # S531: the hand that is not working stays at the face
 		if KEEP.has("FootCarry") and st.boxers[i].get("feet") != null:
 			_feet[i] = FootCarry.add(skel, st.boxers[i]["ap"], st.boxers[i]["feet"])
 			if _feet[i] != null:
@@ -416,8 +418,6 @@ func _play(i: int, clip: String, from_s: float, kind: String, travel: bool) -> v
 	var bx: Dictionary = st.boxers[i]
 	var ap: AnimationPlayer = bx["ap"]
 	var was := str(_take[i].get("kind", ""))
-	if kind != "guard":
-		_moving[i] = kind == "step"
 	_settle(i)
 	if str(ap.current_animation) == clip:
 		ap.stop()
@@ -469,7 +469,7 @@ func guard(i: int) -> void:
 	var ap: AnimationPlayer = st.boxers[i]["ap"]
 	if not ap.has_animation(GUARD):
 		return
-	var clip := MOVING_GUARD if bounce_on and ap.has_animation(MOVING_GUARD) else GUARD
+	var clip := (str(WAITS[i]) if ap.has_animation(str(WAITS[i])) else MOVING_GUARD) if bounce_on and ap.has_animation(MOVING_GUARD) else GUARD
 	_play(i, clip, 0.0, "guard", false)
 	# each man in his own point of the loop and at his own pace (S529: film 6, both critics still saw "two copies of one clip")
 	ap.speed_scale = 0.88 if i == 0 else 1.13

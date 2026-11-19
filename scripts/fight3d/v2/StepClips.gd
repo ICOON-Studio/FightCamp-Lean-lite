@@ -38,6 +38,8 @@ const REFIT := {
 	# (6.8 cm as bought). These two LOOP (load_into).
 	"st_wait": ["Bouncing_Boxing_Idle", 0.55], "st_wait_g": ["Bouncing_Fight_Idle_With_Guard_Up", 1.0],
 }
+## S531 (the owner: "they look like robots" - both men bounced ONE loop): red waits in st_wait, blue in st_wait_g
+## (Player2.WAITS). Boxing_Idle was tried as a third: refitted it stands knock-kneed (the hips come down 7 cm for reach).
 const LOOPS := ["st_wait", "st_wait_g"]
 
 

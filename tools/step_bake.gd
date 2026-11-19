@@ -264,10 +264,77 @@ func _refit(raw: Animation, lib: AnimationLibrary, prefix: String, stride: float
 			for b in leg:
 				out.rotation_track_insert_key(rot_t[b], float(fr["t"]), skel.get_bone_pose_rotation(int(b)))
 	lib.remove_animation("_probe")
+	_guard_up(out, lib, prefix)   # every refitted take: the walking steps carried the same long guard (25 % of the round)
 	var gspread := Vector2((g[0] as Vector3).x - (g[1] as Vector3).x, (g[0] as Vector3).z - (g[1] as Vector3).z).length()
 	print("STEPBAKE   refit: hips %+.3f m, feet apart at most %.2f -> %.2f m (the guard %.2f), hips lowered for reach at most %.3f m, a standing heel brought down at most %.3f m, %d frames" % [
 		up, spread.x, spread.y, gspread, lowered, flattened, n + 1])
 	return out
+
+
+## S531 THE GUARD PROTECTS THE HEAD (the owner on film 11: "the guard is supposed to protect the head, your fighters
+## holding their hands away from their heads and they look like robots"). Measured on film 11: in the wait the lead
+## wrist rides 41 cm from the head bone (31 cm out in front, 14 cm under it), the rear one 31 cm - the bought idle's
+## long, low guard. In every refitted take (the wait loops and the walking steps) both wrists come in: their mean place
+## over the loop goes to GUARD_AT, the take's own hand motion about that place kept at GUARD_LIVE. The arms are solved again (two-bone IK, the elbow in the plane it
+## bends in), the hand keeps its own turn.
+const ARMS := [["LeftUpperArm", "LeftLowerArm", "LeftHand"], ["RightUpperArm", "RightLowerArm", "RightHand"]]
+## S531 b (the owner on film 12: "you put the blues hands way to back now ... get it from our research"): the first
+## version drew each wrist toward the HEAD BONE, which sits at the back of the skull - the gloves ended beside the ears.
+## The research (ops/research/D64_GUARD_STYLES.md, the orthodox classic: lead hand at the cheek about 15 cm in front of
+## the face, rear hand at the jaw, elbows tucked; ZIVA_GUARD_S274.md: a tucked guard's wrist is 0.21-0.23 m from the
+## head bone, measured in the head's frame - in front of, out to the side of, under) puts the gloves IN FRONT of the
+## face. GUARD_AT = where each wrist's mean place over the take goes, from the head bone: [in front, out to its own
+## side, up] (the wrist rides under its glove: the glove is at the cheek / the jaw). ChoreoRules.GUARD_AT is the same table.
+const GUARD_AT := [Vector3(0.21, 0.06, -0.11), Vector3(0.15, 0.08, -0.13)]   # lead (left), rear (right)
+const GUARD_LIVE := 0.6
+
+
+func _guard_up(out: Animation, lib: AnimationLibrary, prefix: String) -> void:
+	var probe := out.duplicate(true) as Animation
+	for t in probe.get_track_count():
+		probe.track_set_path(t, NodePath("%s:%s" % [prefix, str(probe.track_get_path(t))]))
+	lib.add_animation("_probe2", probe)
+	var head := skel.find_bone("Head")
+	var arms: Array = []
+	for arm in ARMS:
+		arms.append((arm as Array).map(func(b): return skel.find_bone(str(b))))
+	var n := int(round(out.length * 60.0))
+	var mean: Array = [Vector3.ZERO, Vector3.ZERO]
+	for k in n + 1:
+		_stance("_probe2", minf(float(k) / 60.0, out.length))
+		var h := skel.get_bone_global_pose(head).origin
+		for i in 2:
+			mean[i] = (mean[i] as Vector3) + (skel.get_bone_global_pose(int(arms[i][2])).origin - h) / float(n + 1)
+	for t in range(out.get_track_count() - 1, -1, -1):
+		if out.track_get_type(t) == Animation.TYPE_ROTATION_3D and (ARMS[0] + ARMS[1]).has(str(out.track_get_path(t))):
+			out.remove_track(t)
+	var rot_t := {}
+	for arm in arms:
+		for b in arm:
+			rot_t[b] = out.add_track(Animation.TYPE_ROTATION_3D)
+			out.track_set_path(rot_t[b], NodePath(skel.get_bone_name(int(b))))
+	# in front = where the take holds its hands from the head, on the canvas (both wrists' mean); his right = fwd x up
+	var fwd := Vector3((mean[0] as Vector3).x + (mean[1] as Vector3).x, 0.0, (mean[0] as Vector3).z + (mean[1] as Vector3).z).normalized()
+	var right := fwd.cross(Vector3.UP)
+	print("STEPBAKE   guard up: the hands are held %.0f deg off the skeleton's +Z" % rad_to_deg(Vector3(0, 0, 1).signed_angle_to(fwd, Vector3.UP)))
+	var was := [0.0, 0.0]
+	var now := [0.0, 0.0]
+	for k in n + 1:
+		var t := minf(float(k) / 60.0, out.length)
+		_stance("_probe2", t)
+		var h := skel.get_bone_global_pose(head).origin
+		for i in 2:
+			var m: Vector3 = mean[i]
+			var d := skel.get_bone_global_pose(int(arms[i][2])).origin - h
+			var at: Vector3 = GUARD_AT[i]
+			var to := h + fwd * at.x + right * at.y * (-1.0 if i == 0 else 1.0) + Vector3.UP * at.z + (d - m) * GUARD_LIVE
+			was[i] = float(was[i]) + d.length() / float(n + 1)
+			_solve(arms[i], to)
+			now[i] = float(now[i]) + (skel.get_bone_global_pose(int(arms[i][2])).origin - h).length() / float(n + 1)
+			for b in arms[i]:
+				out.rotation_track_insert_key(rot_t[b], t, skel.get_bone_pose_rotation(int(b)))
+	lib.remove_animation("_probe2")
+	print("STEPBAKE   guard up: wrist from the head, lead %.2f -> %.2f m, rear %.2f -> %.2f m" % [float(was[0]), float(now[0]), float(was[1]), float(now[1])])
 
 
 ## The boot of a solved leg turned down about its ball until its heel is `down` m lower (the ankle is already there:

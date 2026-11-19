@@ -30,3 +30,15 @@ SQ242), knowledge v3 (Arena 6/6; Dola SQ243).
 Film 9 = 4.5 / 5.0 (films 6, 7, 9 all ~5). Its METHOD finding: the fresh critics' asks swing round to round; fix range /
 tempo / wait once to written numbers, then the never-moved faults (arm hangs out, free hand, bodies through each other,
 stance breaks), one film after all of it; still 5 -> the mocap packs (end of November).
+
+## Later in S530 (to the handover)
+- SIGPACE1 (Goose #413): no Signature with today's pads coach (58); a 75 pads coach gives 15-20% by week 52. Every career
+  froze at ~week 52 = the gym closed -> GYMSURVIVE1 #414 (two years, passive / sensible / lean).
+- TURNPRO1 v5 (Goose #412, Arena 5/5): v5 raised the debut gap to make debuts harder, but the debutant is rated
+  night - opp_gap (bigger gap = weaker). TURNGAP1 #415 measures the curve on one fixed boxer.
+- LEDGER1 v4 both critics (Dola 8/8, Arena 6/5) -> LEDGERREV5 #416. KNOW_STAKES1 v3 Arena 6/6 (Dola SQ243 pending).
+- Owner Q-S294-276 "Let it follow": the v2 fight camera follows the turn (replaces S500's fixed camera for v2). Films 10
+  and 11 = 5.0 / 5.0 - eight films at 5; the animation session stops tuning; the mocap pack is the owner's call at the
+  end of November.
+- Slips caught: a brief overwrote S429's TASK_GYMLIFE1 (restored; the probe is GYMSURVIVE1); a handover edit cut the older
+  block (restored from git, redone).
