@@ -3,10 +3,12 @@
 Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. S530 is in roadmap `now`.
 FIRST: `python ops/Tools/godot_slot.py status` (TREEVALUE5's probe holds one slot; it is OURS - let it finish).
 
-## METHOD lines - quote all three in your first message
+## METHOD lines - quote all four in your first message
 - Fight animation (owner S510): no new correction layer in scripts/fight3d until v2 is built (the OWNER'S Fable session
   is the animation item; film 7 waits for no game window; do not start another).
-- COACH FIT (S528): sheet + probe + hover design DONE (COACHFIT_SHEET s11). Now only the two critics, then build s11.
+- COACH FIT (S528, S530): sheet + hover design done; Arena critic 4/6 found COACHFITPROBE2 blind (no dose control, tiredness
+  read at the bell, slope on the wrong morning). Nothing is built until Goose COACHFITPROBE3 #405 is read.
+- TURNING PRO (S530): Arena v4 critic 5/5 - rerun the nine lines on today's code first (Goose TURNPROBE3 #406); no v5 map before.
 - FOOTWORK STEPS (S528): no StepEffect.TABLE tuning until TREEVALUE5 is read. Then STEPTUNE3.
 
 ## MAIN LINE - DO FIRST

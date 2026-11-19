@@ -990,14 +990,15 @@
    "agent": "arena",
    "id": "STEPBLIND1",
    "title": "Blind contract test of the footwork steps (StepWire)",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-19T18:58",
    "where": "cloud",
    "repo": "FightCamp-Lean-lite",
    "brief": "ops/research/TASK_STEPBLIND1.md",
    "chat": "https://arena.ai/agent/01a1f4c4-6cd6-72c6-8ab9-755b652aefea",
    "eta": "2026-11-19T19:45",
-   "note": "S529; PR relays to an arena/* PR on FightCamp-Lean"
+   "note": "S530 collected (lite PR 27): step_contract_test PASS on main; mutant 3 (open summed) -> FAIL fails=3; in run_tests.sh",
+   "finished": "2026-11-19T20:20"
   },
   "TURNREV4": {
    "agent": "goose",
@@ -1010,6 +1011,58 @@
    "brief": "ops/research/TASK_TURNREV4.md",
    "eta": "2026-11-19T19:40",
    "note": "S529 collected from goose/issue-404; price-ask bug fixed; critics Dola SQ240 + Arena TURNCRITIC4A next"
+  },
+  "TURNCRITIC4A": {
+   "agent": "arena",
+   "id": "TURNCRITIC4A",
+   "title": "Fresh critic: turning pro map v4",
+   "status": "landed",
+   "started": "2026-11-19T19:50",
+   "where": "cloud",
+   "repo": "FightCamp-Lean-lite",
+   "brief": "ops/research/TASK_TURNCRITIC4A.md",
+   "chat": "https://arena.ai/agent/01a1f4e8-95e3-7afe-a529-623a194e9010",
+   "eta": "2026-11-19T20:40",
+   "note": "S530; PR relays to an arena/* PR on FightCamp-Lean; collected S530 (scores 5/5 and 4/6 - both: re-measure first)",
+   "finished": "2026-11-19T20:00"
+  },
+  "COACHCRITIC10A": {
+   "agent": "arena",
+   "id": "COACHCRITIC10A",
+   "title": "Fresh critic: coach fit sheet (hover design)",
+   "status": "landed",
+   "started": "2026-11-19T19:50",
+   "where": "cloud",
+   "repo": "FightCamp-Lean-lite",
+   "brief": "ops/research/TASK_COACHCRITIC10A.md",
+   "chat": "https://arena.ai/agent/01a1f4e8-f396-79f3-bc1d-111621397a9b",
+   "eta": "2026-11-19T20:40",
+   "note": "S530; PR relays to an arena/* PR on FightCamp-Lean; collected S530 (scores 5/5 and 4/6 - both: re-measure first)",
+   "finished": "2026-11-19T20:00"
+  },
+  "COACHFITPROBE3": {
+   "agent": "goose",
+   "id": "COACHFITPROBE3",
+   "title": "Coach fit: re-measure with a dose control, the coached-morning lever and camp tiredness",
+   "status": "running",
+   "started": "2026-11-19T20:01",
+   "where": "cloud",
+   "brief": "ops/research/TASK_COACHFITPROBE3.md",
+   "issue": 405,
+   "eta": "2026-11-19T21:00",
+   "note": "S530; goose/issue-405"
+  },
+  "TURNPROBE3": {
+   "agent": "goose",
+   "id": "TURNPROBE3",
+   "title": "Turning pro: rerun all nine lines on today's code",
+   "status": "running",
+   "started": "2026-11-19T20:01",
+   "where": "cloud",
+   "brief": "ops/research/TASK_TURNPROBE3.md",
+   "issue": 406,
+   "eta": "2026-11-19T21:00",
+   "note": "S530; goose/issue-406"
   }
  },
  "codex_budget": {
