@@ -377,6 +377,29 @@ control arm; the shipped player is untouched without the switch.
     blocked punches get no finish yet); C432 at 10.3 s on bought_vs_ours.mp4 "the punches on the first 2 animations
     have no power behind them , the shoulder movement needs to generate the power" (look at which two takes those
     are before acting; his S439 note said the same: the torso follows, the shoulder loads).
+  * SECOND FILM + BLIND ROUND (2026-11-19 ~03:10-03:25 UTC, `E:/FightCamp/tmp/fightweek/v2r2/`, the S513 fixes:
+    reactions on the blow, varied takes, no whirls): coach 3.5, animator 3.5 (first v2 film 3.5 / 3.0; the old
+    player r14 4.5 / 4.5). THE GATE IS NOT MET; v2 stays behind its switch.
+    | critic | whole | punches | defence + reactions | footwork + stance | transitions | waiting |
+    |---|---|---|---|---|---|---|
+    | coach | 3.5 | 3.5 | 3 | 4 | 3.5 | 2 |
+    | animator | 3.5 | 4 | 3.5 | 3.5 | 4 | 2.5 |
+    Rulers on this film: the hit head peaks 2 frames after the contact (was 15+), moves 6.6 cm (jab) / 12.9 cm
+    (cross) / 8.7 cm (body); head jumps 10, none on a contact; slip 9.2 / 7.2 m (FootPlant, the default).
+    BOTH LISTS, most important first (they agree on all five): (1) RANGE - 40-60 cm of air between the lead gloves at
+    rest (today 0: they wait with gloves touching), a 20-25 cm step in that lands with the glove, a step out 30-40 cm
+    within 15-30 frames of the last punch, chests under 35-45 cm = a tie-up and push off; (2) SOLID BODIES - a glove
+    stops on the surface, never through or round the back (ex3 #9-#19, ex5 #47-#49); move the hitter's feet instead
+    of bending the arm round him; (3) REACTIONS SIZED AND LASTING - now on time but a 2-frame twitch: jab 8-12 cm,
+    cross 18-25 cm + 15-20 deg turn + a 15-25 cm half step back, hook a 30-40 deg head turn, body shot a 30-50 cm
+    fold over 8-12 frames, recovery 10-20 frames (REACT_PEAK_S skips the take's own travel: start further back, or
+    pick the bigger takes, and check the ruler's 2-frame reading against the sheets); (4) WAITING ALIVE - never 6-10
+    still frames, weight shift, an 8-15 cm step every 0.5-1 s, a feint every 1-3 s (wait and wait2 are a second of
+    identical pictures); (5) READABLE FROM THE FIXED CAMERA - keep the line between them within 35 deg of side-on
+    (red's back hides blue through ex4, the waits and half of ex5; half the landed punches cannot be seen). Also:
+    the straight-arm hook (ex5 #5-#10), 10 head jumps inside takes, planted feet, 4-6 frame blends.
+    Reviews: `v2r2/critic_coach.md`, `critic_animator.md`, pictures `critic_*_10.png`. The animator wrote "40 sheets"
+    (there are 30): check a frame reference before building on it.
   * Player2.gd is at 478 lines: the next addition splits it (the facing + follow code into its own file).
   * NEXT for the next animation session, in order: (1) RANGE, cause a (plan in head distance, drop or restrict the
     short takes, a step out after a burst's last punch) - the critics' item 1 and the feet's biggest cause; (2) the
