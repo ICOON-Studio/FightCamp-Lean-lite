@@ -41,8 +41,11 @@ static func build(view: Control) -> void:
 	view.add_child(view._cap_box)
 	# S501 both blind critics: the line under the ring hid the boxers' boots on the fixed camera (ex3, ex5): it sits under
 	# the clock and the skip buttons now, above the boxers' heads.
-	pin(view._cap_box, Vector4(0.5, 0, 0.5, 0), Vector4(-620, 224, 620, 282))
-	view._caption = UI.label("", 26, UI.FG, "body", true)
+	# S525 (v2 film 4, both critics: the habit line covered the heads): directly under the clock, as wide as its panel,
+	# 55 px higher than before. The bottom third has no free band (the lower HUD starts at y ~905, the boots end ~880);
+	# the top button row it shares is hidden in the game's fight (the corner bar draws speed / skip).
+	pin(view._cap_box, Vector4(0.5, 0, 0.5, 0), Vector4(-320, 172, 320, 220))
+	view._caption = UI.label("", 22, UI.FG, "body", true)
 	view._caption.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	view._caption.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	view._caption.add_theme_constant_override("outline_size", 8)

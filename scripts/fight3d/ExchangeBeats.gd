@@ -104,7 +104,7 @@ static func build(x: Dictionary, k: int, r: Dictionary, ctx: Dictionary) -> Arra
 			out.append(Bubbles.mark({"t": at + Exchanges.EX_SECONDS - 2.5, "who": "a", "move": "say", "result": "none", "caption": plan_tally_caption(x)}, "plan_end", x, ctx))
 	# S309: a habit punished (or the corner's fix holding) gets its own caption before the verdict.
 	if str(x.get("habit_line", "")) != "":
-		out.append({"t": at + Exchanges.EX_SECONDS - 6.0, "who": "a", "move": "say", "result": "none", "caption": str(x["habit_line"])})
+		out.append({"t": at + Exchanges.EX_SECONDS - 6.0, "who": "a", "move": "say", "result": "none", "caption": str(x["habit_line"]), "secs": 1.5})   # S525 coach: the habit line holds 1.5 s
 	elif str(x.get("perk_line", "")) != "":   # S355 Counter sense: the free counter gets its caption
 		out.append({"t": at + Exchanges.EX_SECONDS - 6.0, "who": "a", "move": "say", "result": "none", "caption": str(x["perk_line"])})
 	out.append(Bubbles.mark({"t": at + Exchanges.EX_SECONDS - VERDICT_LEAD_S, "who": "a", "move": "say", "result": "none", "caption": str(x["verdict"])}, "coach", x, ctx))

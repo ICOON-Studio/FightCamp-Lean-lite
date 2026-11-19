@@ -355,7 +355,7 @@ func _process(delta: float) -> void:
 
 func _fire(b: Dictionary) -> void:
 	if not ReactionBubbles.take(self, b) and str(b["caption"]) != "":   # S442: a bubble's words leave the line under the ring
-		_say(str(b["caption"]))
+		_say(str(b["caption"]), float(b.get("secs", 3.2)))
 	_quiet = 0.0
 	_beat.fire(self, b)
 
@@ -382,10 +382,10 @@ func _floored() -> bool:
 	return false
 
 
-func _say(text: String) -> void:
+func _say(text: String, secs := 3.2) -> void:
 	_caption.text = text
 	_cap_box.visible = text != ""
-	_caption_left = 3.2 if text != "" else 0.0
+	_caption_left = secs if text != "" else 0.0
 
 
 func _bell() -> void:
