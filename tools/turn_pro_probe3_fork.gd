@@ -11,6 +11,8 @@ const ProCall := preload("res://scripts/rules/ProCall.gd")
 const ProDebut := preload("res://scripts/rules/ProDebut.gd")
 const ProLadder := preload("res://scripts/state/ProLadder.gd")
 const ProOfferWire := preload("res://scripts/state/ProOfferWire.gd")
+const Recruit := preload("res://scripts/rules/Recruit.gd")
+const Region := preload("res://scripts/state/Region.gd")
 const Roster := preload("res://scripts/state/Roster.gd")
 const Sim := preload("res://scripts/state/Sim.gd")
 
@@ -43,7 +45,8 @@ static func _one_fork(snap: Dictionary, offer: Dictionary, ask_kind: String) -> 
 	var fid: String = str(snap["fighter_id"])
 	var f: Dictionary = c.fighter_by_id(fid)
 	if f.is_empty():
-		return {"gym_cash": 0, "boxer_purse": 0, "total": 0, "debut_done": -1}
+		return {"gym_cash": 0, "boxer_purse": 0, "total": 0, "debut_done": -1, "debut_day": -1}
+	var results_before: int = c.results.size()   # TURNPROBE3B: same results-based debut detection as _one_gap_fork
 	c.pro_offer = offer.duplicate(true)
 	var key := str((offer.get("offers", [{}]) as Array)[0].get("key", ""))
 	if offer.get("offers", []).size() > 1:
@@ -60,16 +63,19 @@ static func _one_fork(snap: Dictionary, offer: Dictionary, ask_kind: String) -> 
 		var runway: int = GymBills.runway_weeks(c.cash, 0)
 		ProOfferWire.ask(c, key, ask_kind, runway)
 	Roster.turn_pro(c, key)
-	var purse: int = int(f.get("purse", 0))
 	var guard := 0
-	var debut_done := false
-	while c.day < snap["day"] + MAX_DAYS and not c.closed and guard < 2000 and not debut_done:
+	var debut_day: int = -1
+	var stop_day: int = -1
+	while c.day < snap["day"] + MAX_DAYS and not c.closed and guard < 2000:
 		guard += 1
 		_answer_open(c, f)
 		Sim.step_day(c)
-		var bout: Dictionary = f.get("bout", {})
-		if not bout.is_empty() and bool(bout.get("done", false)):
-			debut_done = true
+		if debut_day < 0 and c.results.size() > results_before:
+			for r in c.results.slice(0, c.results.size() - results_before):
+				if str(r.get("fid", "")) == fid and bool(r.get("pro", false)):
+					debut_day = c.day; stop_day = c.day + 7; break
+		if debut_day >= 0 and c.day >= stop_day:
+			break
 	var gym_cash: int = c.cash
 	var deal: Dictionary = f.get("bout", {}).get("deal", {})
 	var share_rate: float = Roster.share_of(f)
@@ -77,7 +83,7 @@ static func _one_fork(snap: Dictionary, offer: Dictionary, ask_kind: String) -> 
 	var night_m: Dictionary = ProOfferWire.night(f, deal, sold, share_rate)
 	var boxer_purse: int = int(night_m.get("her", 0))
 	return {"gym_cash": gym_cash, "boxer_purse": boxer_purse, "total": gym_cash + boxer_purse,
-		"debut_done": c.day if debut_done else -1}
+		"debut_done": debut_day >= 0, "debut_day": debut_day}
 
 
 static func _run_gap_forks(snap: Dictionary, offer: Dictionary) -> Dictionary:
@@ -121,6 +127,82 @@ static func _one_gap_fork(snap: Dictionary, offer: Dictionary, gap: float) -> bo
 				if str(r.get("fid", "")) == fid and bool(r.get("pro", false)):
 					return bool(r.get("win", false))
 	return false
+
+
+## TURNPROBE3B: moved from main probe to keep it under 500 lines.
+static func best_house(c: Career, f: Dictionary, offers: Array) -> String:
+	if offers.size() == 1:
+		return str(offers[0]["key"])
+	var costs: int = int(Roster.debut_sheet(c, f, 1.0)["costs"])
+	var share: float = Roster.signing_share(f)
+	var best_key := ""; var best_bd := -999999
+	for t in offers:
+		var m: Dictionary = ProOfferWire.money(c, f, t, costs, share)
+		var bd: int = int(m.get("by_debut", 0))
+		if bd > best_bd:
+			best_bd = bd; best_key = str(t["key"])
+	return best_key
+
+
+static func try_best_ask(c: Career, f: Dictionary, key: String, asks_made: Array) -> void:
+	var runway: int = GymBills.runway_weeks(c.cash, 0)
+	var entries: Array = ProOfferWire.answers(c, key, runway)
+	var best_kind := ""; var best_bd := -999999
+	var costs: int = int(Roster.debut_sheet(c, f, 1.0)["costs"])
+	var share: float = Roster.signing_share(f)
+	for e in entries:
+		var ans: String = str(e.get("answer", "wont"))
+		if ans == "wont":
+			continue
+		var after: Dictionary = e.get("after", {}).duplicate()
+		var sold: int = mini(ProDebut.TICKETS, int(c.pro_offer.get("forecast", 0)) + int(after.get("extra_tickets", 0)))
+		var pay_now: int = 0 if bool(after.get("costs_covered", false)) else costs
+		var m: Dictionary = ProCall.money(after, sold, pay_now, share, int(f.get("weekly_salary", 0)) > 0, maxi(0, int(f.get("weekly_salary", 0))))
+		var bd: int = int(m.get("by_debut", 0))
+		if bd > best_bd:
+			best_bd = bd; best_kind = str(e.get("kind", ""))
+	if best_kind != "":
+		var said := ProOfferWire.ask(c, key, best_kind, runway)
+		if said != "":
+			asks_made.append(best_kind)
+
+
+## TURNPROBE3B: utility functions moved from main probe to keep it under 500 lines.
+static func median(vals: Array) -> float:
+	if vals.is_empty():
+		return 0.0
+	var v: Array = vals.duplicate(); v.sort()
+	var mid := int(v.size() / 2)
+	return float(v[mid]) if v.size() % 2 == 1 else (float(v[mid - 1]) + float(v[mid])) / 2.0
+
+
+static func group_best(results: Array, ss: int, stip: bool, bots: Array, n: int) -> Dictionary:
+	var bc := {}; for bot in bots: bc[bot] = 0
+	var sub := results.filter(func(r): return r["seed_set"] == ss and r["stipend"] == stip)
+	for i in n:
+		var grp := sub.filter(func(r): return int(r["idx"]) == i)
+		if grp.is_empty():
+			continue
+		var best_c := -999999; var best_b := ""
+		for r in grp:
+			if int(r["cash_w104"]) > best_c:
+				best_c = int(r["cash_w104"]); best_b = str(r["bot"])
+		if best_b != "":
+			bc[best_b] = int(bc[best_b]) + 1
+	return bc
+
+
+static func cash_at_day(history: Array, day: int) -> int:
+	if history.is_empty():
+		return 0
+	var week := int(floor(day / 7.0)) + 1
+	var best_cash: int = int(history[0].get("c", 0))
+	for h in history:
+		if int(h.get("w", 0)) <= week:
+			best_cash = int(h.get("c", best_cash))
+		else:
+			break
+	return best_cash
 
 
 static func _answer_open(c: Career, f: Dictionary) -> void:

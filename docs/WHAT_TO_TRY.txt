@@ -1,3 +1,11 @@
+S530 build (2026-11-19) - what changed, and what to try
+
+1. THE COACH'S PICK ON A WEEKEND. On a Saturday or Sunday open Training: the board shows NEXT week and the coach's line
+   names a change for it. Press "Do it" - the change now lands on next week (it used to read this week and do nothing).
+2. WHO IS PRESSING. Fight analysis on your own bout: each round divider now says whose game it is - "Round 2 - the
+   opponent pressing forward" (it used to say only "pressing forward").
+3. Fight animation: the new player's work this evening is the animation session's (film 9); the shipped fight is unchanged.
+
 S529 build (2026-11-19) - what changed, and what to try
 
 1. LARGEST TEXT FITS. Settings > Text size > Largest, then look at:

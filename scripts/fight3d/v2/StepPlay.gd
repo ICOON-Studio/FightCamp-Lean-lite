@@ -35,8 +35,12 @@ const CENTRE_M := 0.9              # the pair's middle further than this from th
 ## right, or each man's own left), so the pair's line turns about its middle; each foot covers CIRCLE_M of arc (17 deg
 ## at the rest distance). Past CIRCLE_BACK_DEG off side-on the next circle goes back the other way (PairPlace.SLACK_DEG).
 const CIRCLE_SHARE := 0.5
-const CIRCLE_M := 0.20
-const CIRCLE_BACK_DEG := 8.0
+## S531: 0.20 / 8 (17 deg) was seen by neither critic of film 7; their bar is a pivot of 30-45 deg. Tried 0.34 (30 deg,
+## slack 40 and 28): the fixed camera then looks at one man's back through a whole exchange (film 9a / 9b, ex1). So: the
+## medium side step (a step a viewer can count), 20 deg, and no circle takes the line past CIRCLE_MAX_DEG off side-on.
+const CIRCLE_M := 0.23
+const CIRCLE_BACK_DEG := 12.0
+const CIRCLE_MAX_DEG := 22.0
 const EDGE_M := 0.75               # no ring step puts a man closer to the ropes than this
 const BUSY := ["punch", "reaction", "block", "defence", "pass"]
 
@@ -244,6 +248,8 @@ func _ring(e: Dictionary) -> Vector3:
 			var off: float = p.pair.off_side()
 			var way := signf(off) if absf(off) > deg_to_rad(CIRCLE_BACK_DEG) else (1.0 if fmod(float(e.get("roll", 0.0)) * 29.0, 1.0) < 0.5 else -1.0)
 			var th := way * CIRCLE_M / maxf(line.length() * 0.5, 0.3)
+			if absf(off - th) > deg_to_rad(CIRCLE_MAX_DEG) and absf(off + th) < absf(off - th):
+				th = -th   # a turn of +th takes the line's angle DOWN by th (off_side's sign)
 			var room := true
 			for h in [a, b]:
 				var to2: Vector3 = mid + (Vector3(h.x, 0.0, h.z) - mid).rotated(Vector3.UP, th)

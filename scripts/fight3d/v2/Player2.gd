@@ -52,11 +52,11 @@ const WAITING := ["", "guard", "fidget", "feint", "step"]   # what a wait thing 
 ## (StepClips; StepPlay picks and times it) and the feet belong to the take (FootTake). `-- fp2nosteps` = the plan moves
 ## the guard pose as it did (the control arm).
 static var steps_on: bool = not OS.get_cmdline_user_args().has("fp2nosteps")
-## The step takes are another actor's stance (hips 8 cm lower, feet wider than the Punch PRO guard). `-- fp2bounce`: a
-## man who has stepped waits in THAT stance (the bouncing boxing idle the steps start and end in) until his next punch,
-## defence, reaction or fidget, instead of standing up into the Pro guard between two steps.
-const MOVING_GUARD := "st_bounce"
-static var bounce_on: bool = OS.get_cmdline_user_args().has("fp2bounce")
+## S531 THE LIVING WAIT (films 6 and 7, both critics: "two men standing still"): a man who waits BOUNCES - the bouncing
+## boxing idle refitted onto the Pro guard's stance, heels flat (StepClips.REFIT st_wait). `-- fp2nobounce` = the still
+## Pro guard (films 1-8).
+const MOVING_GUARD := "st_wait"
+static var bounce_on: bool = not OS.get_cmdline_user_args().has("fp2nobounce")
 const DOWN := ["knock", "fall", "countdown", "win", "ko_"]
 
 var st: Node = null
@@ -468,7 +468,7 @@ func guard(i: int) -> void:
 	var ap: AnimationPlayer = st.boxers[i]["ap"]
 	if not ap.has_animation(GUARD):
 		return
-	var clip := MOVING_GUARD if bounce_on and bool(_moving[i]) and ap.has_animation(MOVING_GUARD) else GUARD
+	var clip := MOVING_GUARD if bounce_on and ap.has_animation(MOVING_GUARD) else GUARD
 	_play(i, clip, 0.0, "guard", false)
 	# each man in his own point of the loop and at his own pace (S529: film 6, both critics still saw "two copies of one clip")
 	ap.speed_scale = 0.88 if i == 0 else 1.13

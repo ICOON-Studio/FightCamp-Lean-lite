@@ -32,7 +32,13 @@ const REFIT := {
 	"st_out_s": ["Short_Boxing_Step_Backward", 0.75], "st_out_m": ["Medium_Boxing_Step_Backward", 0.63],
 	"st_l_s": ["Short_Left_Boxing_Side_Step", 1.0], "st_l_m": ["Medium_Left_Boxing_Side_Step", 1.0],
 	"st_r_s": ["Short_Right_Boxing_Side_Step", 0.85], "st_r_m": ["Medium_Right_Boxing_Side_Step", 0.80],
+	# S531 THE LIVING WAIT (films 6 and 7, both critics: "two men standing still"; their bar a 2-4 cm bounce about twice a
+	# second): the bouncing boxing idles on the guard's own stance, a standing heel flat (the owner on film 7: "mostly on
+	# his toes" - as bought st_bounce holds its lead heel up in 71 % of its pictures). The stride scales the bob too
+	# (6.8 cm as bought). These two LOOP (load_into).
+	"st_wait": ["Bouncing_Boxing_Idle", 0.55], "st_wait_g": ["Bouncing_Fight_Idle_With_Guard_Up", 1.0],
 }
+const LOOPS := ["st_wait", "st_wait_g"]
 
 
 static func names() -> Array:
@@ -58,7 +64,7 @@ static func load_into(lib: AnimationLibrary, skel: Skeleton3D, prefix: String) -
 			if anim.track_get_type(t) == Animation.TYPE_POSITION_3D:
 				for k in anim.track_get_key_count(t):
 					anim.track_set_key_value(t, k, rest + (anim.track_get_key_value(t, k) as Vector3))
-		anim.loop_mode = Animation.LOOP_NONE
+		anim.loop_mode = Animation.LOOP_LINEAR if str(name) in LOOPS else Animation.LOOP_NONE
 		lib.add_animation(name, anim)
 		added.append(name)
 	return added

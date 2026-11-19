@@ -17,6 +17,8 @@ import statistics
 import sys
 
 JUMP_M = 0.12            # a head moving more than this in one 30 fps frame is a jump (3.6 m/s)
+ANSWER_F = 5             # S531: a landed punch moves the hit head at least ANSWER_CM in this many frames, or nobody saw it land
+ANSWER_CM = 6
 REACT_WINDOW = 15        # frames after contact searched for the reaction's furthest point
 REACT_LATE = 4           # a reaction whose furthest point comes later than this many frames reads unrelated to the punch
 CUT_WINDOW = 6           # the hit boxer throwing within this many frames cuts his reaction off
@@ -30,7 +32,7 @@ STEP_LIFT_M = 0.03
 STEP_MIN_FRAMES = 3
 PUNCH_WORDS = ("jab", "cross", "hook", "uppercut", "body_shot", "kidney")
 REACT_PREFIX = ("pro_hit", "react_", "mc_hit")
-WAIT_WORDS = ("idle", "fidget", "bounce")
+WAIT_WORDS = ("idle", "fidget", "bounce", "st_wait")   # S531: st_wait IS the guard now (film 9 read "waiting 1 %" and both critics quoted it)
 
 
 def _v(r, bone):
@@ -116,6 +118,7 @@ def measure(path, fps=30.0):
     jumps = {"contact": 0, "clip change": 0, "inside clip": 0}
     worst_jumps, head_steps = [], []
     react_rows = []
+    answers = []
     kinds = {}
     for who, rows in by_who.items():
         idx = {r["_f"]: i for i, r in enumerate(rows)}
@@ -135,6 +138,16 @@ def measure(path, fps=30.0):
             # 1 + 2: this boxer was hit. S529: the v2 player starts the reaction one picture AFTER the contact picture (the
             # glove is on the face before the head leaves), so the reaction clip is looked for on the next two frames too;
             # the delay is still counted from the contact.
+            # S531 A HIT WITH NO VISIBLE ANSWER (film 7, the animator: "fail any hit whose head moves under 6 cm in 5
+            # frames"): the hit man's head, in the ring, over the ANSWER_F pictures after the contact picture.
+            hit_by = next((o for w2, o in by_frame.get(r["_f"], {}).items() if w2 != who), None)
+            if hit_by is not None and is_punch(hit_by["clip"]) and not is_punch(r["clip"]):
+                w5 = 0.0
+                for k in range(1, ANSWER_F + 1):
+                    j = idx.get(r["_f"] + k)
+                    if j is not None:
+                        w5 = max(w5, math.dist(_v(rows[j], "Head"), _v(r, "Head")))
+                answers.append((round(w5 * 100, 1), float(r["film_s"]), who, hit_by["clip"]))
             ri = next((j for j in (i + 1, i, i + 2) if j < len(rows) and rows[j]["_f"] - r["_f"] == j - i and is_react(rows[j]["clip"])), None)
             if ri is not None:
                 rc = rows[ri]["clip"]
@@ -281,6 +294,9 @@ def measure(path, fps=30.0):
         "react_peak_median_cm": round(statistics.median(peaks) * 100, 1) if peaks else 0.0,
         "react_cut_count": cuts,
         "react_list": react_rows,
+        "hits_no_answer": sum(1 for a in answers if a[0] < ANSWER_CM),
+        "hits_seen": len(answers),
+        "answers": sorted(answers)[:8],
         "react_by_kind": {k: {"n": len(v), "cm": round(statistics.median(x[0] for x in v) * 100, 1),
                               "frames": statistics.median(x[1] for x in v),
                               "back_cm": round(statistics.median(x[2] for x in v) * 100, 1),
@@ -340,6 +356,8 @@ def report(m):
             k, d["n"], d["cm"], d["frames"], d["back_cm"], d["turn_deg"], d["world_cm"], REACT_TARGET.get(k, "-")))
     lines.append("  reactions (film s, who, clip, cm, frames to peak):")
     lines += ["    %s" % (r,) for r in m["react_list"]]
+    lines.append("  hits with no visible answer (the hit head under %d cm in %d frames): %d of %d; the smallest (cm, film s, who, the punch):" % (ANSWER_CM, ANSWER_F, m["hits_no_answer"], m["hits_seen"]))
+    lines += ["    %s" % (a,) for a in m["answers"]]
     lines.append("  worst head jumps (cm, film s, who, clip, cause):")
     lines += ["    %s" % (j,) for j in m["worst_jumps"]]
     return "\n".join(lines)

@@ -27,7 +27,7 @@ const SQUARE_BUSY_DPS := 9.0
 ## 20-45 deg off the line"): the pair circles (StepPlay: a ring step that turns the pair's line with the captured side
 ## steps), so side-on has this much slack either way - inside it nothing turns the pair back; past it the pair is
 ## eased back to the slack's edge. Nobody's back hides the other man inside it. `-- fp2nocircle` = side-on, no circling.
-const SLACK_DEG := 18.0
+const SLACK_DEG := 24.0   # S531: 40 and 28 put a back to the camera over the punches (films 9a / 9b, ex1)
 static var circle_on: bool = not OS.get_cmdline_user_args().has("fp2nocircle")
 
 var p: Node = null            # Player2

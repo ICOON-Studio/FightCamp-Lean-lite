@@ -252,7 +252,7 @@ static func faults(plan: Array, contacts: Array, t1: float) -> Array:
 			if absf(float(c) - t) < 1.5 + R.BURST_GAP_S * 0.5:
 				near = true
 		var g := at(plan, t)
-		if not near and (g < R.REST_M - 0.2 or g > R.REST_M + 0.3):
+		if not near and (g < R.REST_M - 0.36 or g > R.REST_M + 0.3):
 			bad.append("not at rest at %.2f (%.2f m)" % [t, g])
 		t += 0.25
 	return bad

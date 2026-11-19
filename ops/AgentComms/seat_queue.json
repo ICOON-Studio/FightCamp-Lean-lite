@@ -3522,19 +3522,22 @@
    "pid": 17576,
    "transcript": "AgentComms/seat_logs/SQ239_dola.txt",
    "answered_at": "2026-11-19 20:40",
-   "answer": "research/DESIGN_KNOW_STAKES1_V2_REVISE_DOLA_DOLA.md"
+   "answer": "research/DESIGN_KNOW_STAKES1_V2_REVISE_DOLA_DOLA.md",
+   "seen_by_claude": true
   },
   {
    "id": "SQ240",
    "seat": "dola",
    "brief": "research/DESIGN_TURNPRO1_V4_CRITIC_DOLA.md",
    "stem": "DESIGN_TURNPRO1_V4_CRITIC_DOLA_DOLA",
-   "status": "sent",
+   "status": "answered",
    "queued_at": "2026-11-19 19:23",
    "tries": 0,
    "sent_at": "2026-11-19 21:10",
    "pid": 7956,
-   "transcript": "AgentComms/seat_logs/SQ240_dola.txt"
+   "transcript": "AgentComms/seat_logs/SQ240_dola.txt",
+   "answered_at": "2026-11-19 21:40",
+   "answer": "research/DESIGN_TURNPRO1_V4_CRITIC_DOLA_DOLA.md"
   },
   {
    "id": "SQ241",

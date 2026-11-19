@@ -909,60 +909,6 @@
    },
    "note": "S528 collected on main d69439857: TABLE unchanged, method finding -> STEPS_SCOPE_S528"
   },
-  "TREEVALUE5": {
-   "agent": "qwen",
-   "id": "TREEVALUE5",
-   "title": "TASK TREEVALUE5 - the step probe keeps a punch on the step's destination card, then reruns the ten steps",
-   "status": "landed",
-   "started": "2026-11-19T17:52",
-   "eta": "2026-11-19T19:42",
-   "branch": "qwen/treevalue5",
-   "worktree": "E:/FightCamp/wt/LEAN_TREEVALUE5",
-   "wt": "E:/FightCamp/wt/LEAN_TREEVALUE5",
-   "brief": "ops/research/TASK_TREEVALUE5.md",
-   "repo": "FightCamp-Lean",
-   "where": "pc",
-   "log": "E:/FightCamp/wt/TREEVALUE5_dispatch_out.txt",
-   "match": "seat_dispatch.py run treevalue5",
-   "model": "qwen4-max",
-   "dispatch": {
-    "prompt": "E:/FightCamp/wt/TREEVALUE5_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/TREEVALUE5_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/TREEVALUE5_dispatch_runner.log",
-    "source": "S528 main",
-    "brief_copied": true,
-    "runner_pid": 17152,
-    "seat_pid": 44584
-   },
-   "note": "S368 seat_dispatch: qwen exit 124; 1 commit(s); checks 2/3 PASS; PR #407; NOT committed (outside OWNS): nul",
-   "finished": "2026-11-19T20:00",
-   "pr": 407,
-   "checks": [
-    {
-     "kind": "RED_TEST",
-     "script": "tools/treevalue_probe.gd",
-     "ok": false,
-     "last": "CELL step=step_in style=Slugger with=539 without=540 delta=-0.08 fires/bout=0.40 uses/bout=0.54 seeds=[0.0, 0.25, -0.5]"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/step_levers_test.gd",
-     "ok": true,
-     "last": "STEP_LEVERS failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/step_effect_test.gd",
-     "ok": true,
-     "last": "STEP_EFFECT PASS fails=0"
-    }
-   ],
-   "films": {
-    "before": {},
-    "after": {},
-    "board": ""
-   }
-  },
   "LEDGERCRITIC4": {
    "agent": "arena",
    "id": "LEDGERCRITIC4",
@@ -1099,7 +1045,7 @@
    "agent": "qwen",
    "id": "HOLD1",
    "title": "TASK HOLD1 - the specialty: four ways to hold moves over two seasons, and the hold minutes that make it a choice (probe)",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-19T20:12",
    "eta": "2026-11-19T22:02",
    "branch": "qwen/hold1",
@@ -1120,47 +1066,41 @@
     "runner_pid": 45064,
     "seat_pid": 36828
    },
-   "note": "S368 seat_dispatch: launched unattended (roadmap plan.next); merging stays off"
-  },
-  "LEDGERREV4": {
-   "agent": "goose",
-   "id": "LEDGERREV4",
-   "title": "Contracts map v4 from the code",
-   "status": "landed",
-   "started": "2026-11-19T22:10",
-   "where": "cloud",
-   "brief": "ops/research/TASK_LEDGERREV4.md",
-   "issue": 408,
-   "eta": "2026-11-19T23:10",
-   "note": "S530; goose/issue-408",
-   "reconciled": "2026-11-19 21:17 board_reconcile: run finished (success), branch goose/issue-408 pushed",
-   "finished": "2026-11-19T22:45"
-  },
-  "KNOWREV3": {
-   "agent": "goose",
-   "id": "KNOWREV3",
-   "title": "Knowledge stakes map v3 from the code",
-   "status": "landed",
-   "started": "2026-11-19T22:10",
-   "where": "cloud",
-   "brief": "ops/research/TASK_KNOWREV3.md",
-   "issue": 409,
-   "eta": "2026-11-19T23:10",
-   "note": "S530; goose/issue-409",
-   "reconciled": "2026-11-19 21:17 board_reconcile: run finished (success), branch goose/issue-409 pushed",
-   "finished": "2026-11-19T22:45"
+   "note": "S530 collected: Qwen delivered the pilot only; Claude ran the full sweep (660 s) - no arm passes, 20/40@2n the only choice arm, no held Signature",
+   "finished": "2026-11-20T00:10",
+   "pr": 411,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tools/hold1_probe.gd",
+     "ok": true,
+     "last": "RESULT: tools/hold1_probe.gd -> HOLD1 done pass=NONE closest=10/20@3n"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tools/prog_probe.gd",
+     "ok": true,
+     "last": "PROG_PROBE done cells=40560 (18.8s)"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
   },
   "TURNPROBE3B": {
    "agent": "goose",
    "id": "TURNPROBE3B",
    "title": "Turning pro rerun: fork fixes + the day-job question",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-19T22:35",
    "where": "cloud",
    "brief": "ops/research/TASK_TURNPROBE3B.md",
    "issue": 410,
    "eta": "2026-11-19T23:30",
-   "note": "S530; goose/issue-410"
+   "note": "S530; goose/issue-410",
+   "finished": "2026-11-20T00:05"
   },
   "LEDGERCRITIC5A": {
    "agent": "arena",
@@ -1189,6 +1129,30 @@
    "eta": "2026-11-19T23:40",
    "note": "S530 collected: 6/6 - a read must change a decision; evidence at the offer",
    "finished": "2026-11-19T23:30"
+  },
+  "TURNREV5": {
+   "agent": "goose",
+   "id": "TURNREV5",
+   "title": "Turning pro map v5 from the code, against the measured lines",
+   "status": "running",
+   "started": "2026-11-20T00:05",
+   "where": "cloud",
+   "brief": "ops/research/TASK_TURNREV5.md",
+   "issue": 412,
+   "eta": "2026-11-20T01:00",
+   "note": "S530; goose/issue-412"
+  },
+  "SIGPACE1": {
+   "agent": "goose",
+   "id": "SIGPACE1",
+   "title": "Signature pace on the real career loop (camps, better pads coach)",
+   "status": "running",
+   "started": "2026-11-20T00:30",
+   "where": "cloud",
+   "brief": "ops/research/TASK_SIGPACE1.md",
+   "issue": 413,
+   "eta": "2026-11-20T01:45",
+   "note": "S530; goose/issue-413"
   }
  },
  "codex_budget": {

@@ -32,6 +32,7 @@ static func plan(beats: Array, db: Dictionary, opts: Dictionary) -> Dictionary:
 	var stun_until := {"a": -1.0, "b": -1.0}
 	var ctrl_until := {"a": -1.0, "b": -1.0}
 	var last_take := {"a": "", "b": ""}
+	var last_hand := {"a": "", "b": ""}
 	var prev_ct := -99.0
 	var landed_at := {"a": -99.0, "b": -99.0}   # each man's own last contact as planned
 	var prev_free := -99.0   # from when the feet are free to shift again: the last contact, or the end of the knock it gave
@@ -68,7 +69,7 @@ static func plan(beats: Array, db: Dictionary, opts: Dictionary) -> Dictionary:
 		counts[who]["thrown"] = int(counts[who]["thrown"]) + 1
 		if result == "lands":
 			counts[who]["landed"] = int(counts[who]["landed"]) + 1
-		var base_ct: float = float(key[0])
+		var base_ct: float = maxf(float(key[0]), float(landed_at[who]) + R.OWN_GAP_S)   # S531: a punch of his that slid later is still his earlier one
 		var sc: float = float(scale.get(who, 1.0))
 		# R3: the take. Inside a burst the pair can only shift so far before this contact; from rest any take is free
 		# (the feet go to its distance, R5).
@@ -122,7 +123,14 @@ static func plan(beats: Array, db: Dictionary, opts: Dictionary) -> Dictionary:
 		contact_t = clampf(contact_t, t0, t1)
 		# R2: when the take starts; a combination's next punch starts part-way in while the last hand comes home
 		var t_play: float = contact_t - (contact_s - from_s)
-		if t_play < float(ctrl_until[who]):
+		if t_play < float(landed_at[who]) + R.CONTROL_S and take_name != "" and str(take_row.get("hand", "?")) == str(last_hand[who]):
+			# S531 THE SAME HAND TWICE (film 7, def3 #13-#27, read as "a cross that hangs 14 frames": a double jab whose second
+			# take was cut in 0.11 s deep while the arm was still out - one arm out for 0.4 s). The same hand again plays its
+			# take from the START once the first has landed: the arm comes home in the join, and the punch lands that much later.
+			contact_t = minf(maxf(contact_t, float(landed_at[who]) + R.CONTROL_S + R.SAME_HAND_S + (contact_s - start_s)), t1)
+			t_play = contact_t - (contact_s - start_s)
+			log.append("same hand: %s %s +%.2f (lands later, from its start)" % [who, move, contact_t - base_ct])
+		elif t_play < float(ctrl_until[who]):
 			from_s = clampf(from_s + (float(ctrl_until[who]) - t_play), start_s, maxf(start_s, contact_s - (R.WIND_MIN_S if R.is_straight(move) else clampf(contact_t - float(landed_at[who]) - 0.03, R.WIND_MIN_S, R.WIND_TURN_S))))   # never from before his own last punch has landed
 			# S530 (the S529 bout: a hard cross second in a combination, started 0.26 s into its take, threw his own head
 			# 16 cm in a picture): ... and never so deep that the join throws his head. He starts when his hand is back, as
@@ -207,7 +215,20 @@ static func plan(beats: Array, db: Dictionary, opts: Dictionary) -> Dictionary:
 			ev[other].append({"t": contact_t, "clip": defence_name, "kind": "block", "part": "upper", "from_s": 0.0,
 				"join_s": R.join_for("block"), "control_t": contact_t + minf(float((bi[1] as Dictionary).get("back_s", 0.4)), 0.4)})
 			ctrl_until[other] = maxf(float(ctrl_until[other]), contact_t + 0.2)
-		elif def != "" and def != "block":
+		# S531 A MISS IS MADE BY THE OTHER MAN (film 7, the animator: "hits with no visible answer" - the ruler finds none
+		# among the landed punches: what he saw are punches thrown short at a man who does not move). Most of the time the
+		# man it was thrown at, when nothing holds him, pulls back from a straight or goes under a hook.
+		# Never inside a combination: the next punch would be planned at a man who has just left (the first bout with it:
+		# a cross cut in behind a pulled-from kidney shot was dragged 10 cm in a picture, its head 20).
+		if result == "misses" and def == "" and at_i % 5 < 3 and contact_t - R.DEF_LEAD_S >= float(ctrl_until[other]) and contact_t >= float(stun_until[other]):
+			var alone := true
+			for kk in range(keys.find(key) + 1, keys.size()):
+				if R.is_punch(str((beats[int(keys[kk][1])] as Dictionary).get("move", ""))):
+					alone = float(keys[kk][0]) - contact_t > R.PULL_ALONE_S
+					break
+			if alone:
+				def = "pull" if R.is_straight(move) else "weave"
+		if result != "lands" and result != "blocked" and def != "" and def != "block":
 			var di := React.defence(db, rows, def, move, R.is_left_hand(move), bool(south.get(other, false)))
 			# S530: the quick weave moves late in its take (its head goes in the last 0.2 s before the peak): a man still
 			# held by a take of his own would join it at that point - 18 cm of head in a picture. He takes the side weave.
@@ -248,10 +269,15 @@ static func plan(beats: Array, db: Dictionary, opts: Dictionary) -> Dictionary:
 				# he counters. Like a stun: his next punch slides, or is cut when it was not going to land.
 				stun_until[other] = maxf(float(stun_until[other]), contact_t + clampf(float(drow.get("back_s", peak_s + 0.2)) - peak_s, 0.12, 0.30))
 		last_take[who] = take_name
+		last_hand[who] = str(take_row.get("hand", ""))
 		_fill_ob(ob, t_play, take_name, from_s, contact_t, pgap, ik_m, false, react_name, react_part, defence_name, _why(result, def, take_name))
 		out_beats[at_i] = ob
 	marks.sort_custom(func(x, y): return float(x["t"]) < float(y["t"]))
 	var gap: Array = Gap.build(marks, t0, t1, gap0, log)
+	var drng := RandomNumberGenerator.new()
+	drng.seed = int(opts.get("seed", 0)) * 7919 + 13
+	if bool(opts.get("waits", true)) and bool(opts.get("drift", true)) and bool(opts.get("inout", true)):
+		gap = Drift.inout(gap, t0, t1, drng)   # S531: between exchanges a man steps in to the jab's edge and out again
 	# R5: every stretch of ground a viewer can count is a step event of the man who covers it
 	for s in Gap.steps(gap):
 		for w in (["a", "b"] if str(s["who"]) == "both" else [str(s["who"])]):
@@ -264,8 +290,6 @@ static func plan(beats: Array, db: Dictionary, opts: Dictionary) -> Dictionary:
 		# S528 ring steps (ChoreoDrift): between exchanges the pair moves, on its own draws (the punches' and the
 		# waits' own stay what they were where no ring step is). `drift: false` = the plan without them.
 		if bool(opts.get("drift", true)):
-			var drng := RandomNumberGenerator.new()
-			drng.seed = int(opts.get("seed", 0)) * 7919 + 13
 			counts["ring_steps"] = Drift.plan(ev, gap, db, t0, t1, drng)
 		Wait.add(ev, db, t0, t1, marks.filter(func(m): return str(m.get("kind", "contact")) == "contact").map(func(m): return float(m["t"])), rng)
 		gap = Wait.breathe(gap, rng)

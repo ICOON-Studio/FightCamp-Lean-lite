@@ -7,10 +7,10 @@
   "owner": "claude",
   "updated": "2026-11-19",
   "summary": "S530 (Opus, short - owner's game held RAM at 90-93%, no Godot jobs): COACHSCOPE1 phase 3 - hover design in COACHFIT_SHEET s11 (fit on coached-morning gain at k 1.0 through capped(); one reason line on the tile hover at TOP FIT / RISKY only; taught-out ceiling x0.5 with the area/coach action; bond +1 a coached morning, +5 a corner bout; tiredness channel cut - it failed its pass line). Critics: Dola SQ241 queued, Arena COACHCRITIC10A brief written (launch when RAM allows). SQ238 (coach v9 critic) dropped as superseded. TREEVALUE5 still running (4 of 10 steps at 19:30). Later S530: Arena critics landed - coach fit sheet 4/6, turning pro v4 5/5; both say the probes measured the wrong thing (no dose control in the wins harness, tiredness read at the bell, the slope on the wrong morning; turning pro measured before the price fix). Re-measure first: Goose COACHFITPROBE3 #405 + TURNPROBE3 #406. LADDER1 row was stale (stages 1-3 built S516-S518). Later S530: coach fit CUT (three probes, nothing felt; the coach's ceiling kept as its own rule - map + critics next). TURNPROBE3: 3/9 pass on today's code; line 6 (0% debut wins) was the probe, fixed; the door never shuts; day-job careers almost never sign -> TURNPROBE3B #410. Blind contract tests collected: step, deal, hot (Arena). 68 never-run tests joined the nightly list; weekend Do it defect fixed; own-bout dividers fixed. Goose: LEDGERREV4 #408, KNOWREV3 #409.",
-  "next_action": "S531: quote the METHOD lines; godot_slot status first. 1) Qwen TREEVALUE5 (PR #407; collect from E:/FightCamp/tmp/treevalue5/full.log when the real run ends) -> STEPTUNE3, then HOLD1; 2) Goose TURNPROBE3B #410 -> the turning pro v5 map follows its lines; LEDGERREV4 #408 + KNOWREV3 #409 -> two fresh critics each; 3) coach's ceiling: a one-page map (COACHFIT_SHEET s0c) -> critics; 4) the 10 red fight3d rulers are the animation session's (NEXT_SESSION_PROMPT item 6); 5) Dola SQ240 (turning pro v4 critic) still queued.",
+  "next_action": "S531: quote the METHOD lines; godot_slot status first. 1) Goose TURNREV5 #412 -> code check -> two critics; 2) Dola SQ242/SQ243 -> Goose ledger v5 + knowledge v4 from the code; 3) Qwen STEPTUNE3 (after HOLD1, landed); 4) Goose SIGPACE1 #413 (Signature pace with camps); 5) the 10 red fight3d rulers are the animation session's. Handover: NEXT_SESSION_PROMPT.md S531 block.",
   "last_working_commit": "21b4265a7",
   "verified_playable": "Builds/FightCamp.exe exported S529; WHAT_TO_TRY S529: Largest text fits on roster / Playbook bell box / round-3 Say nothing (rendered at text=3 and looked)",
-  "incomplete_blocked": "Running: Qwen TREEVALUE5 (PC), Goose #408 #409 #410, Dola SQ240. Animation: the owner's Fable session (started S530).",
+  "incomplete_blocked": "Running: Goose #412 #413, Dola SQ242/SQ243, Qwen STEPTUNE3 (dispatcher). Animation: the owner's Fable session (film 9 = 4.5/5.0; method finding).",
   "next_acceptance": "TREEVALUE5 all ten steps collected; coach fit sheet 7+/7+ on two fresh critics; TURNPRO1 v4 7+/7+; step_contract_test run",
   "awaiting_operator": "Start the next Fable animation session from the copy block the animation session gave you (film 7 + blind round), once no game window is open."
  },
@@ -5194,7 +5194,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-19 21:17 board_sync",
+  "updated": "2026-11-19 21:41 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5352,13 +5352,6 @@
     "state": "LANDED - Claude collects"
    },
    {
-    "title": "TASK TREEVALUE5 - the step probe keeps a punch on the step's destination card, then reruns the ten steps",
-    "who": "qwen",
-    "started": "2026-11-19T17:52",
-    "run": "TREEVALUE5",
-    "state": "LANDED - Claude collects"
-   },
-   {
     "title": "Fresh critic: contracts map v3",
     "who": "arena",
     "started": "2026-11-19T17:56",
@@ -5435,24 +5428,24 @@
     "run": "HOLD1"
    },
    {
-    "title": "Contracts map v4 from the code",
-    "who": "goose",
-    "started": "2026-11-19T22:10",
-    "run": "LEDGERREV4",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "Knowledge stakes map v3 from the code",
-    "who": "goose",
-    "started": "2026-11-19T22:10",
-    "run": "KNOWREV3",
-    "state": "LANDED - Claude collects"
-   },
-   {
     "title": "Turning pro rerun: fork fixes + the day-job question",
     "who": "goose",
     "started": "2026-11-19T22:35",
     "run": "TURNPROBE3B"
+   },
+   {
+    "title": "Fresh critic: contracts map v4",
+    "who": "arena",
+    "started": "2026-11-19T22:50",
+    "run": "LEDGERCRITIC5A",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "Fresh critic: knowledge stakes map v3",
+    "who": "arena",
+    "started": "2026-11-19T22:50",
+    "run": "KNOWCRITIC3A",
+    "state": "LANDED - Claude collects"
    }
   ],
   "next": [
@@ -5463,15 +5456,9 @@
     "after": ""
    },
    {
-    "id": "COACHSCOPE1",
-    "who": "claude",
-    "title": "Coach fit CUT (S530, COACHFIT_SHEET s0c): three probes found nothing a player feels (wired lever +0.07 stat in 26 weeks; +5 on one stat = +2.6 wins; camps never past 80). Kept: THE COACH'S CEILING as its own small rule - next a one-page map, two critics, then build.",
-    "after": ""
-   },
-   {
     "id": "HOLD1",
     "who": "qwen",
-    "title": "HOLD1 - the specialty: four ways to hold moves over two seasons, and the hold minutes that make it a choice (probe, ops/research/TASK_HOLD1.md)",
+    "title": "HOLD1 DONE S530 (full sweep by Claude): no arm passes; 20/40 on 2 pad nights is the only arm where holding is a choice; no held Signature on any arm (mastery cap < 85 by season 2). Next: a progression-pace probe WITH camps before holding is built.",
     "after": "TREEVALUE5"
    },
    {
@@ -5989,6 +5976,27 @@
   },
   "done_recently": [
    {
+    "id": "COACHSCOPE1",
+    "who": "claude",
+    "title": "Coach fit CLOSED (S530): three probes found nothing a player feels; the coach's ceiling would duplicate MoveMastery.cap + coach_factor and make Signatures rarer - nothing built (COACHFIT_SHEET s0c, s0d)",
+    "after": ""
+   },
+   {
+    "title": "Knowledge stakes map v3 from the code",
+    "who": "goose",
+    "when": "2026-11-19"
+   },
+   {
+    "title": "Contracts map v4 from the code",
+    "who": "goose",
+    "when": "2026-11-19"
+   },
+   {
+    "title": "TASK TREEVALUE5 - the step probe keeps a punch on the step's destination card, then reruns the ten steps",
+    "who": "qwen",
+    "when": "2026-11-19"
+   },
+   {
     "title": "Turning pro: rerun all nine lines on today's code",
     "who": "goose",
     "when": "2026-11-19"
@@ -6029,21 +6037,6 @@
    {
     "title": "Footwork steps: size the levers until each is worth its target (tuning)",
     "who": "goose",
-    "when": "2026-11-19"
-   },
-   {
-    "title": "Turning pro: measure the three failing lines the right way (probe)",
-    "who": "goose",
-    "when": "2026-11-19"
-   },
-   {
-    "title": "Knowledge: does a shared misread make knowing a boxer pay? (probe)",
-    "who": "goose",
-    "when": "2026-11-19"
-   },
-   {
-    "title": "TASK SPLIT500C - GymSpend.gd under the 500-line rule with room to grow (pure move, no behaviour change)",
-    "who": "qwen",
     "when": "2026-11-19"
    }
   ],

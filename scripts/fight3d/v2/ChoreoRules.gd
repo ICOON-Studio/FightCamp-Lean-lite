@@ -28,6 +28,8 @@ const HOOK_FIT_M := 0.05      # hooks, uppercuts, body shots get no IK
 # --- Timing (UNDISPUTED_STUDY_S254) ---
 const SLIDE_MAX_S := 0.25     # max contact slide for stun avoidance
 const CONTROL_S := 0.13       # control back after contact (Undisputed 0.11-0.17)
+const SAME_HAND_S := 0.04      # the same hand again starts this long after control is back (S531)
+const PULL_ALONE_S := 0.9       # a plain miss is pulled from only when no punch follows inside this (S531)
 const WIND_MIN_S := 0.12      # a take never starts later than this before its contact
 ## ... a hook, an uppercut or a body shot not later than this (S525, film 3 and 4: a hook thrown second in a
 ## combination started 0.12 s before its contact, so the take's whole hip turn - 80-110 deg - was joined in three

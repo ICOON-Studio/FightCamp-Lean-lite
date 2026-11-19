@@ -24,7 +24,7 @@ const SEED_SETS := [4421, 9001]
 var N := 30
 const WEEKS := 104
 const PICKS := ["Jab and move", "Pad rounds", "Hill sprints"]
-const DOC := "res://docs/TURNPROBE3_RESULT.md"
+const DOC := "res://docs/TURNPROBE3B_RESULT.md"
 
 var results: Array = []
 var fork_results: Array = []
@@ -59,7 +59,7 @@ func _initialize() -> void:
 	var fh := FileAccess.open(DOC, FileAccess.WRITE)
 	if fh != null:
 		fh.store_string("\n".join(L) + "\n"); fh.close(); print("wrote %s" % DOC)
-	print("TURNPROBE3 done")
+	print("TURNPROBE3B done")
 	quit(0)
 
 
@@ -86,12 +86,16 @@ func _career(bot: String, seed_n: int, stipend_on: bool, idx: int, seed_set: int
 	var cash_at_sign := 0; var cash_after_debut := 0; var debut_done_day := -1
 	var purse_got := 0; var offer_snapshots: Array = []
 	var declines_count := 0
+	var best_rank: int = 999   # TURNPROBE3B: track best rank reached (lower is better, 0=unranked)
+	var first_pro_call_day: int = -1   # TURNPROBE3B: day of first pro offer
 	while c.day < WEEKS * 7 and not c.closed and guard < 5000:
 		guard += 1
 		if not c.pro_offer.is_empty():
 			var offs: Array = c.pro_offer.get("offers", [])
 			if offs.size() >= 2:
 				offered_with_both += 1
+			if first_pro_call_day < 0:
+				first_pro_call_day = c.day   # TURNPROBE3B: record first pro call day
 		if not c.pro_offer.is_empty() and not signed:
 			if bot == "YES" or bot == "TERMS08":
 				var snap := {"career": c.duplicate(true), "fighter_id": str(f["id"]), "seed": seed_n, "day": c.day,
@@ -111,6 +115,10 @@ func _career(bot: String, seed_n: int, stipend_on: bool, idx: int, seed_set: int
 			if week == 52 and cash_w52 == 0:
 				cash_w52 = c.cash
 			last_week = week
+		# TURNPROBE3B: track best rank (lower is better, 0=unranked so skip it)
+		var cur_rank: int = int(f.get("rank", 0))
+		if cur_rank > 0 and cur_rank < best_rank:
+			best_rank = cur_rank
 		if signed and debut_done_day == -1:
 			var bout: Dictionary = f.get("bout", {})
 			if not bout.is_empty() and bool(bout.get("done", false)):
@@ -138,7 +146,8 @@ func _career(bot: String, seed_n: int, stipend_on: bool, idx: int, seed_set: int
 		"declines": declines_count, "pro": bool(f.get("pro", false)),
 		"w": int(f.get("w", 0)), "l": int(f.get("l", 0)),
 		"cash_at_sign": cash_at_sign, "cash_after_debut": cash_after_debut, "debut_done_day": debut_done_day,
-		"purse_got": purse_got, "cash_history": c.cash_history.duplicate(true)}
+		"purse_got": purse_got, "cash_history": c.cash_history.duplicate(true),
+		"best_rank": best_rank if best_rank < 999 else 0, "first_pro_call_day": first_pro_call_day}
 
 
 func _handle_offer(bot: String, c: Career, f: Dictionary, asks_made: Array) -> void:
@@ -175,47 +184,10 @@ func _handle_offer(bot: String, c: Career, f: Dictionary, asks_made: Array) -> v
 				Roster.decline_pro(c); return
 	if not sign_now:
 		return
-	var pick_key := _best_house(c, f, offers)
+	var pick_key := Fork.best_house(c, f, offers)
 	if bot == "YES":
-		_try_best_ask(c, f, pick_key, asks_made)
+		Fork.try_best_ask(c, f, pick_key, asks_made)
 	Roster.turn_pro(c, pick_key)
-
-
-func _best_house(c: Career, f: Dictionary, offers: Array) -> String:
-	if offers.size() == 1:
-		return str(offers[0]["key"])
-	var costs: int = int(Roster.debut_sheet(c, f, 1.0)["costs"])
-	var share: float = Roster.signing_share(f)
-	var best_key := ""; var best_bd := -999999
-	for t in offers:
-		var m: Dictionary = ProOfferWire.money(c, f, t, costs, share)
-		var bd: int = int(m.get("by_debut", 0))
-		if bd > best_bd:
-			best_bd = bd; best_key = str(t["key"])
-	return best_key
-
-
-func _try_best_ask(c: Career, f: Dictionary, key: String, asks_made: Array) -> void:
-	var runway: int = GymBills.runway_weeks(c.cash, 0)
-	var entries: Array = ProOfferWire.answers(c, key, runway)
-	var best_kind := ""; var best_bd := -999999
-	var costs: int = int(Roster.debut_sheet(c, f, 1.0)["costs"])
-	var share: float = Roster.signing_share(f)
-	for e in entries:
-		var ans: String = str(e.get("answer", "wont"))
-		if ans == "wont":
-			continue
-		var after: Dictionary = e.get("after", {}).duplicate()
-		var sold: int = mini(ProDebut.TICKETS, int(c.pro_offer.get("forecast", 0)) + int(after.get("extra_tickets", 0)))
-		var pay_now: int = 0 if bool(after.get("costs_covered", false)) else costs
-		var m: Dictionary = ProCall.money(after, sold, pay_now, share, int(f.get("weekly_salary", 0)) > 0, maxi(0, int(f.get("weekly_salary", 0))))
-		var bd: int = int(m.get("by_debut", 0))
-		if bd > best_bd:
-			best_bd = bd; best_kind = str(e.get("kind", ""))
-	if best_kind != "":
-		var said := ProOfferWire.ask(c, key, best_kind, runway)
-		if said != "":
-			asks_made.append(best_kind)
 
 
 func _answer_open(c: Career, f: Dictionary) -> void:
@@ -247,46 +219,9 @@ func _answer_open(c: Career, f: Dictionary) -> void:
 				break
 
 
-func _median(vals: Array) -> float:
-	if vals.is_empty():
-		return 0.0
-	var v: Array = vals.duplicate(); v.sort()
-	var mid := int(v.size() / 2)
-	return float(v[mid]) if v.size() % 2 == 1 else (float(v[mid - 1]) + float(v[mid])) / 2.0
-
-
-func _group_best(ss: int, stip: bool) -> Dictionary:
-	var bc := {}; for bot in BOTS: bc[bot] = 0
-	var sub := results.filter(func(r): return r["seed_set"] == ss and r["stipend"] == stip)
-	for i in N:
-		var grp := sub.filter(func(r): return int(r["idx"]) == i)
-		if grp.is_empty():
-			continue
-		var best_c := -999999; var best_b := ""
-		for r in grp:
-			if int(r["cash_w104"]) > best_c:
-				best_c = int(r["cash_w104"]); best_b = str(r["bot"])
-		if best_b != "":
-			bc[best_b] = int(bc[best_b]) + 1
-	return bc
-
-
-func _cash_at_day(history: Array, day: int) -> int:
-	if history.is_empty():
-		return 0
-	var week := int(floor(day / 7.0)) + 1
-	var best_cash: int = int(history[0].get("c", 0))
-	for h in history:
-		if int(h.get("w", 0)) <= week:
-			best_cash = int(h.get("c", best_cash))
-		else:
-			break
-	return best_cash
-
-
 func _report(elapsed: float) -> Array:
 	var L: Array = []
-	L.append("# TURNPROBE3 RESULT - re-measure all nine turning-pro lines on today's main (S529 price fix)")
+	L.append("# TURNPROBE3B RESULT - rerun with fork fixes + day-job question (TURNPROBE3B)")
 	L.append("")
 	L.append("Probe run: %s. %d careers/bot x %d bots x %d seed sets = %d careers, %d weeks each. Wall time: %.1f s." % [
 		Time.get_datetime_string_from_system(), N, BOTS.size(), SEED_SETS.size(), N * BOTS.size() * SEED_SETS.size(), WEEKS, elapsed])
@@ -312,14 +247,14 @@ func _report(elapsed: float) -> Array:
 				var nh: int = sub.filter(func(r): return str(r["signed_house"]) == "hf").size()
 				L.append("| %s | %d | %s | %d | %d | %d | %d | %d | %d |" % [
 					bot, ss, "stip" if stip else "dayj", sub.size(),
-					int(_median(cw52)), int(_median(cw104)), ns, nd, nh])
+					int(Fork.median(cw52)), int(Fork.median(cw104)), ns, nd, nh])
 	L.append("")
 	L.append("## Pass lines (design section 7)")
 	L.append("")
 	_pass_lines(L)
 	L.append("")
 	L.append("Reproduce: `$GODOT_EXE --headless --audio-driver Dummy --path . --script res://tools/turn_pro_probe3.gd`")
-	L.append(""); L.append("TURNPROBE3 done")
+	L.append(""); L.append("TURNPROBE3B done")
 	return L
 
 
@@ -328,7 +263,7 @@ func _pass_lines(L: Array) -> void:
 	var ok1 := true
 	for ss in SEED_SETS:
 		for stip in [true, false]:
-			var bc := _group_best(ss, stip)
+			var bc := Fork.group_best(results, ss, stip, BOTS, N)
 			var total := 0; for bot in BOTS: total += int(bc[bot])
 			for bot in BOTS:
 				if total > 0 and 100.0 * float(bc[bot]) / total > 60.0:
@@ -352,7 +287,7 @@ func _pass_lines(L: Array) -> void:
 				prep_yes_details.append({"ss": ss, "stip": stip, "idx": i, "diff": diff,
 					"prep_signed": int(prep_r[0]["signed_day"]), "prep_purse": int(prep_r[0]["purse_got"]),
 					"yes_signed": int(yes_r[0]["signed_day"]), "yes_purse": int(yes_r[0]["purse_got"])})
-	var line2_median: float = _median(prep_yes_diffs)
+	var line2_median: float = Fork.median(prep_yes_diffs)
 	L.append("- Paired diffs: %d careers, median: $%d" % [prep_yes_diffs.size(), int(line2_median)])
 	for j in mini(3, prep_yes_details.size()):
 		var d: Dictionary = prep_yes_details[j]
@@ -368,10 +303,10 @@ func _pass_lines(L: Array) -> void:
 	var nn104: Array = results.filter(func(r): return r["bot"] == "NEVER" and not r["stipend"]).map(func(r): return int(r["cash_w104"]))
 	L.append("### 3. Stipend timing: YES vs NEVER")
 	L.append("- Population: YES and NEVER bots, stipend and day-job splits. Objective: gym cash at w52 and w104. Seeds: %s." % seeds_str)
-	L.append("- stip w52: YES $%d vs NEVER $%d" % [int(_median(y_stip)), int(_median(n_stip))])
-	L.append("- no-stip w52: NEVER $%d vs YES $%d" % [int(_median(nn52)), int(_median(yn52))])
-	L.append("- no-stip w104: YES $%d vs NEVER $%d" % [int(_median(yn104)), int(_median(nn104))])
-	var ok3: bool = _median(y_stip) > _median(n_stip) and _median(nn52) > _median(yn52) and _median(yn104) > _median(nn104)
+	L.append("- stip w52: YES $%d vs NEVER $%d" % [int(Fork.median(y_stip)), int(Fork.median(n_stip))])
+	L.append("- no-stip w52: NEVER $%d vs YES $%d" % [int(Fork.median(nn52)), int(Fork.median(yn52))])
+	L.append("- no-stip w104: YES $%d vs NEVER $%d" % [int(Fork.median(yn104)), int(Fork.median(nn104))])
+	var ok3: bool = Fork.median(y_stip) > Fork.median(n_stip) and Fork.median(nn52) > Fork.median(yn52) and Fork.median(yn104) > Fork.median(nn104)
 	L.append("- %s (constant: ProCall.LOST_CUT_A_WEEK)" % ("PASS" if ok3 else "FAIL"))
 	L.append("### 4. YES debut loses gym money 40-70% (STIPEND DEBUTS ONLY)")
 	L.append("- Population: YES bot careers with stipend (idx < %d) that signed. Objective: gym cash change from signing to week after debut vs paired NEVER same span. Seeds: %s." % [N / 2, seeds_str])
@@ -392,8 +327,8 @@ func _pass_lines(L: Array) -> void:
 				continue
 			var yes_cash_change: int = int(yr["cash_after_debut"]) - int(yr["cash_at_sign"])
 			var never_history: Array = nr.get("cash_history", [])
-			var never_cash_at_sign: int = _cash_at_day(never_history, yes_sign_day)
-			var never_cash_at_debut: int = _cash_at_day(never_history, yes_debut_done)
+			var never_cash_at_sign: int = Fork.cash_at_day(never_history, yes_sign_day)
+			var never_cash_at_debut: int = Fork.cash_at_day(never_history, yes_debut_done)
 			var never_cash_change: int = never_cash_at_debut - never_cash_at_sign
 			var debut_impact: int = yes_cash_change - never_cash_change
 			total_count += 1
@@ -498,3 +433,52 @@ func _pass_lines(L: Array) -> void:
 	L.append("### Declines (TERMS08 bot: refuses when terms factor < 0.8)")
 	L.append("- Population: TERMS08 bot careers. Objective: how many reach 3 declines (door shut). Seeds: %s." % seeds_str)
 	L.append("- %d/%d careers reached third decline" % [t08_door, t08.size()])
+	# TURNPROBE3B: day-job question
+	L.append("")
+	L.append("## Day-job question (TURNPROBE3B)")
+	L.append("")
+	L.append("For every career at w104: wins, losses, best rank reached, day of first pro call (or none).")
+	L.append("")
+	L.append("| half | n | median_wins | median_losses | best_rank_med | first_call_med | ever_called |")
+	L.append("|---|---|---|---|---|---|---|")
+	for stip in [true, false]:
+		var sub := results.filter(func(r): return r["stipend"] == stip)
+		var wins_arr: Array = sub.map(func(r): return int(r["w"]))
+		var losses_arr: Array = sub.map(func(r): return int(r["l"]))
+		var ranks_arr: Array = []
+		for r in sub:
+			var br: int = int(r["best_rank"])
+			if br > 0:
+				ranks_arr.append(br)
+		var calls_arr: Array = []
+		for r in sub:
+			var cd: int = int(r["first_pro_call_day"])
+			if cd >= 0:
+				calls_arr.append(cd)
+		var ever_called: int = sub.filter(func(r): return int(r["first_pro_call_day"]) >= 0).size()
+		var half_label: String = "stipend" if stip else "day-job"
+		var rank_med_str: String = str(int(Fork.median(ranks_arr))) if not ranks_arr.is_empty() else "none"
+		var call_med_str: String = "d%d" % int(Fork.median(calls_arr)) if not calls_arr.is_empty() else "none"
+		L.append("| %s | %d | %.1f | %.1f | %s | %s | %d/%d |" % [
+			half_label, sub.size(), Fork.median(wins_arr), Fork.median(losses_arr),
+			rank_med_str, call_med_str, ever_called, sub.size()])
+	# One-line summary: median wins and best rank, stipend vs day job
+	var stip_sub := results.filter(func(r): return r["stipend"])
+	var dayj_sub := results.filter(func(r): return not r["stipend"])
+	var stip_wins: Array = stip_sub.map(func(r): return int(r["w"]))
+	var dayj_wins: Array = dayj_sub.map(func(r): return int(r["w"]))
+	var stip_ranks: Array = []
+	for r in stip_sub:
+		var br: int = int(r["best_rank"])
+		if br > 0:
+			stip_ranks.append(br)
+	var dayj_ranks: Array = []
+	for r in dayj_sub:
+		var br: int = int(r["best_rank"])
+		if br > 0:
+			dayj_ranks.append(br)
+	var stip_rank_med: String = str(int(Fork.median(stip_ranks))) if not stip_ranks.is_empty() else "none"
+	var dayj_rank_med: String = str(int(Fork.median(dayj_ranks))) if not dayj_ranks.is_empty() else "none"
+	L.append("")
+	L.append("**Summary**: stipend median wins=%.1f best_rank=%s, day-job median wins=%.1f best_rank=%s" % [
+		Fork.median(stip_wins), stip_rank_med, Fork.median(dayj_wins), dayj_rank_med])

@@ -123,7 +123,8 @@ func _initialize() -> void:
 		if seed == 0:
 			var plain: Dictionary = Choreo.plan(beats, db, opts.merged({"drift": false}))
 			_check((plain["tracks"]["a"] as Array).filter(func(e): return e.has("drift")).is_empty(), "RING drift off = the plan without ring steps")
-	_check(n_ring >= 12 * 4, "RING the pair moves between exchanges (%d ring steps in 12 half-minutes)" % n_ring)
+	_check(n_ring >= 12 * 3,   # S531: was 4 a half-minute; film 9 read 90 steps a minute as nervous (in-and-out steps move the pair too)
+		 "RING the pair moves between exchanges (%d ring steps in 12 half-minutes)" % n_ring)
 	_check(lonely == 0 and late == 0, "RING both men take every ring step, the other answering 0.06-0.14 s later (alone %d, off time %d)" % [lonely, late])
 	_check(over == 0, "RING no ring step plays over a punch, a defence or a reaction (%d)" % over)
 	_check(apart == 0, "RING one ring step at a time (%d overlap)" % apart)

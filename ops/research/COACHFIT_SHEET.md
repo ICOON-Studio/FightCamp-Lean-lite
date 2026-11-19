@@ -41,6 +41,14 @@ area; at or past it a coached ability gains at half speed; shown once in the wee
 press (raise the area / a better coach). Next: a one-page map of the ceiling rule, two critics, then build. s11 below is
 superseded except its H3 row.
 
+## 0d. The ceiling, checked for an existing mechanic (S530, Claude) - CUT too; COACHSCOPE1 CLOSED
+The game already caps a move by HER stats (`MoveMastery.cap` = 40 + 0.4 x Technique + 0.2 x Ring IQ) and speeds every gain
+by the coach's quality (`TrainingPreview.coach_factor` 0.5 + 0.7 x rating/100; CoachMarket shows "pad sessions to top
+pads"). A coach's ceiling of 55 + 0.35 x area (pads 60 -> 76) would bind BEFORE her own cap for most boxers, while HOLD1
+(docs/HOLD1_RESULT.md, S530) shows the median cap by season 2 is already under the 85 a Signature needs. A third cap would
+make Signatures rarer still. DECISION: no coach ceiling. Coach fit closes with nothing built; "outgrowing a coach" is
+already the coach's rating in coach_factor. Signature reach is a progression-pace question (HOLD1's G1) for its own probe.
+
 ## 1. The fit number: fit = clamp(50 + temper + bond + taught + focus, 10, 90)
 | Row | Value | Code | When |
 |---|---|---|---|

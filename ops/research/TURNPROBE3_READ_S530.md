@@ -31,3 +31,17 @@ the 7-wins + top-3 gate? Measure wins and rank at w104 for the day-job half befo
 ## Next
 TURNPROBE3B (Goose): rerun with the gap fix (already in tools/), the ask-fork stop at debut + 7 days, and per-boxer wins /
 rank at w104 for both stipend halves. Then the v5 map answers the lines, not the critics' prose.
+
+## TURNPROBE3B (Goose #410, S530) - the rerun
+- LINE 6 now reads 94% at EVERY gap (29/31 each): the probe's per-offer opp_gap override does not reach the debut (Roster
+  turn_pro builds the deal fresh through ProOfferWire.signed; Roster.gd 306 reads the deal's own opp_gap). So the gap arms
+  are one arm. What it does show, on the game's own gaps (1.0 / 1.5): A DEBUT IS WON 94% OF THE TIME - target 65-80%.
+  The debut is too easy (TURNPROBE2's 80% / 60% came from the broken fork). Lever: Roster.PRO_OPP_GAP / the houses'
+  opp_gap in ProCall.promoters.
+- LINE 7 with forks that stop at the debut: costs 74%, later2 19%, price 6%, later4 / softer / split / no ask 0%. Same
+  shape as before: four asks are never best.
+- DAY JOB answered: day-job careers median 6 wins / 2 losses and best rank 4 at w104 (stipend: 10 / 3, rank 3); 3 of 180
+  ever get the first pro call (stipend 180 / 180). The call's gate (7 wins + top-3, or 9 wins) is out of reach on half the
+  bouts. A design question for v5 (slower is real; NEVER in two years may be too harsh), not a defect.
+- Lines 5 (the door never shuts, 0/60) and 9 (the dead "pro" ambition, 1/30) unchanged.
+NEXT: TURNPRO1 v5 written from the code against THESE lines (Goose), then two fresh critics.

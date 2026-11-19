@@ -44,7 +44,7 @@ static func add(tracks: Dictionary, db: Dictionary, t0: float, t1: float, contac
 		var evs: Array = tracks[w]
 		var busy: Array = []   # [from, to] of his own takes
 		for e in evs:
-			if e.has("drift"):   # S528: a ring step is his (ChoreoDrift): no fidget or paw over it
+			if str(e["kind"]) == "step":   # S528: a ring step is his (ChoreoDrift): no fidget or paw over it; S531: any step
 				busy.append([float(e["t"]), float(e["end_t"]), true])
 				continue
 			if not (str(e["kind"]) in BUSY):
@@ -57,13 +57,16 @@ static func add(tracks: Dictionary, db: Dictionary, t0: float, t1: float, contac
 		var last := ""
 		var made: Array = []
 		for k in busy.size() + 1:
-			var free_to: float = (float(busy[k][0]) if k < busy.size() else t1) - BEFORE_S
+			# S531: before a step of his own the hands may work up to the step (step in, paw, step out)
+			var free_to: float = (float(busy[k][0]) if k < busy.size() else t1) - (0.05 if k < busy.size() and (busy[k] as Array).size() > 2 else BEFORE_S)
 			# S529: out of a ring step the hands go to work at once (step, paw, step): with a full breath of plain guard
 			# after every step no paw or feint ever fitted between two ring steps (12 in 75 s, both men together)
 			var stepped: bool = k > 0 and (busy[k - 1] as Array).size() > 2
 			var at := free_from + _r(rng, QUIET_S) * (0.3 if stepped else 1.0)
-			while at + 0.5 < free_to:
+			while at + 0.44 < free_to:
 				var what := _draw(rng)
+				if stepped and what == "fidget" and free_to - at < 1.2:
+					what = "paw"   # between two steps the lead hand measures (a fidget take shuffles the feet he has just set)
 				var e := _event(what, at, free_to, rows, rng, last, contacts) if what == "fidget" else _beat(what, at, free_to, rows, contacts)
 				if e.is_empty():   # a punch is landing, or the stretch is too short for it: the other kind
 					e = _beat("paw", at, free_to, rows, contacts) if what == "fidget" else _event(what, at, free_to, rows, rng, last, contacts)
