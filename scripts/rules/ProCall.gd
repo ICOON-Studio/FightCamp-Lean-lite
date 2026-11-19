@@ -114,7 +114,7 @@ static func money(t: Dictionary, sold: int, costs: int, gym_share: float, stipen
 	var be: int = int(t.get("break_even", 0))
 	var share_rate: float = float(t.get("share", 0.0))
 	var above: int = maxi(0, sold - be)
-	var ticket_share: int = int(round(float(above) * float(ProDebut.TICKET_PRICE) * share_rate))
+	var ticket_share: int = int(round(float(above) * float(t.get("price", ProDebut.TICKET_PRICE)) * share_rate))   # S529: the deal's own price (the price ask)
 	var gym_purse_cut: int = int(round(float(purse) * gym_share))
 	var gym_ticket_cut: int = int(round(float(ticket_share) * gym_share))
 	var gym_at_signing: int = gym_purse_cut + gym_ticket_cut - costs

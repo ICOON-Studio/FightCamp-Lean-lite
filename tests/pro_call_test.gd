@@ -12,6 +12,7 @@ func _initialize() -> void:
 	_test_money_case_a()
 	_test_money_case_b()
 	_test_money_case_c()
+	_test_money_own_price()
 	_test_pays_back_line()
 	_test_ask_later()
 	_test_ask_softer()
@@ -89,6 +90,14 @@ func _test_money_case_a() -> void:
 	ok = ok and int(m["gym_at_signing"]) == -814 and int(m["weekly_after"]) == 175
 	ok = ok and int(m["even_week"]) == 5 and int(m["boxer"]) == 1294
 	_check(ok, "case A bow stipend: gym=-814 weekly=175 even=5 boxer=1294")
+
+## S529 (Arena + Goose on TURNPRO1 v3): the "own ticket price" ask stores price 40 - the ticket share is earned at it.
+## 9 over break-even x $40 x 50% = 180 (at the old fixed $50 it read 225).
+func _test_money_own_price() -> void:
+	var t: Dictionary = PC.terms("bow", 0, false)
+	t["price"] = 40
+	var m: Dictionary = PC.money(t, 69, 1245, 0.25, true)
+	_check(int(m["ticket_share"]) == 180, "own price $40: ticket share 180 (got %d)" % int(m["ticket_share"]))
 
 ## Case B: Bow Lane, no stipend, costs 1245, sold=69.
 ## weekly_after = -75, even_week = -1

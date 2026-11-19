@@ -16,6 +16,7 @@ const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const MenuFx := preload("res://scripts/ui/MenuFx.gd")
 const RosterRow := preload("res://scripts/rules/RosterRow.gd")
 const Bits := preload("res://scripts/ui/RosterRowBits.gd")
+const TextScale := preload("res://scripts/ui/TextScale.gd")
 const FighterPage := preload("res://scripts/ui/areas/FighterPage.gd")
 
 const ROW_W := 1826.0
@@ -250,8 +251,9 @@ static func _col_coach(d: Dictionary, col: Array) -> Control:
 	var top := HBoxContainer.new()
 	top.add_theme_constant_override("separation", 10)
 	top.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	var said := Bits.ink(str(d.get("word", "")), 20, WoodKit.INK, "bold")
-	said.name = "Said"
+	var said := Bits.ink(str(d.get("word", "")), 20, WoodKit.INK, "bold", true)   # S529 ONELOOK1: unclipped, "Drill the
+	said.name = "Said"   # seatbelt escape" + DRILL widened the column over NEXT FIGHT at Largest text
+	TextScale.fit_on_resize(said, 16)
 	top.add_child(said)
 	var tag := str(d.get("tag", ""))
 	if tag != "":

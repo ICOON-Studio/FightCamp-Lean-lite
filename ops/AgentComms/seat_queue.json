@@ -3430,38 +3430,108 @@
    "seat": "dola",
    "brief": "research/DESIGN_LEDGER1_V2_CRITIC_DOLA.md",
    "stem": "DESIGN_LEDGER1_V2_CRITIC_DOLA_DOLA",
-   "status": "sent",
+   "status": "answered",
    "queued_at": "2026-11-19 15:53",
    "tries": 0,
    "sent_at": "2026-11-19 16:10",
    "pid": 30040,
-   "transcript": "AgentComms/seat_logs/SQ233_dola.txt"
+   "transcript": "AgentComms/seat_logs/SQ233_dola.txt",
+   "answered_at": "2026-11-19 16:40",
+   "answer": "research/DESIGN_LEDGER1_V2_CRITIC_DOLA_DOLA.md",
+   "seen_by_claude": true
   },
   {
    "id": "SQ234",
    "seat": "dola",
    "brief": "research/DESIGN_COACHFIT1_V9B_FINISH_DOLA.md",
    "stem": "DESIGN_COACHFIT1_V9B_FINISH_DOLA_DOLA",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-19 15:53",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-19 17:10",
+   "pid": 19076,
+   "transcript": "AgentComms/seat_logs/SQ234_dola.txt",
+   "answered_at": "2026-11-19 17:40",
+   "answer": "research/DESIGN_COACHFIT1_V9B_FINISH_DOLA_DOLA.md",
+   "seen_by_claude": true
   },
   {
    "id": "SQ235",
    "seat": "dola",
    "brief": "research/DESIGN_TURNPRO1_V3_REVISE_DOLA.md",
    "stem": "DESIGN_TURNPRO1_V3_REVISE_DOLA_DOLA",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-19 15:54",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-19 18:10",
+   "pid": 3312,
+   "transcript": "AgentComms/seat_logs/SQ235_dola.txt",
+   "answered_at": "2026-11-19 18:40",
+   "answer": "research/DESIGN_TURNPRO1_V3_REVISE_DOLA_DOLA.md",
+   "seen_by_claude": true
   },
   {
    "id": "SQ236",
    "seat": "dola",
    "brief": "research/DESIGN_KNOW_STAKES1_DOLA.md",
    "stem": "DESIGN_KNOW_STAKES1_DOLA_DOLA",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-19 16:35",
+   "tries": 0,
+   "sent_at": "2026-11-19 19:10",
+   "pid": 2348,
+   "transcript": "AgentComms/seat_logs/SQ236_dola.txt",
+   "answered_at": "2026-11-19 19:12",
+   "answer": "research/DESIGN_KNOW_STAKES1_DOLA_DOLA.md",
+   "seen_by_claude": true
+  },
+  {
+   "id": "SQ237",
+   "seat": "dola",
+   "brief": "research/DESIGN_LEDGER1_V3_CRITIC_DOLA.md",
+   "stem": "DESIGN_LEDGER1_V3_CRITIC_DOLA_DOLA",
+   "status": "sent",
+   "queued_at": "2026-11-19 17:55",
+   "tries": 0,
+   "sent_at": "2026-11-19 19:13",
+   "pid": 14376,
+   "transcript": "AgentComms/seat_logs/SQ237_dola.txt"
+  },
+  {
+   "id": "SQ238",
+   "seat": "dola",
+   "brief": "research/DESIGN_COACHFIT1_V9_CRITIC_DOLA.md",
+   "stem": "DESIGN_COACHFIT1_V9_CRITIC_DOLA_DOLA",
+   "status": "dropped",
+   "queued_at": "2026-11-19 18:04",
+   "tries": 0,
+   "note": "S530: superseded by COACHFIT_SHEET critic SQ241"
+  },
+  {
+   "id": "SQ239",
+   "seat": "dola",
+   "brief": "research/DESIGN_KNOW_STAKES1_V2_REVISE_DOLA.md",
+   "stem": "DESIGN_KNOW_STAKES1_V2_REVISE_DOLA_DOLA",
+   "status": "queued",
+   "queued_at": "2026-11-19 19:12",
+   "tries": 0
+  },
+  {
+   "id": "SQ240",
+   "seat": "dola",
+   "brief": "research/DESIGN_TURNPRO1_V4_CRITIC_DOLA.md",
+   "stem": "DESIGN_TURNPRO1_V4_CRITIC_DOLA_DOLA",
+   "status": "queued",
+   "queued_at": "2026-11-19 19:23",
+   "tries": 0
+  },
+  {
+   "id": "SQ241",
+   "seat": "dola",
+   "brief": "research/DESIGN_COACHFIT_SHEET_CRITIC_DOLA.md",
+   "stem": "DESIGN_COACHFIT_SHEET_CRITIC_DOLA_DOLA",
+   "status": "queued",
+   "queued_at": "2026-11-19 19:32",
    "tries": 0
   }
  ]

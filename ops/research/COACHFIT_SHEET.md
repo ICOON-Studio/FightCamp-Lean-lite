@@ -15,6 +15,13 @@ levers (gain, tiredness) and leaves the corner exactly as it is, (c) hands phase
 inside the stack cap that makes a TOP fit worth +4..+8 wins in 100? If none, fit stops being a shown number (Arena 10/10
 item 5: "make the fight effect felt or stop showing it").
 
+## 0b. Phase 2 verdict (S529, Goose COACHFITPROBE2, docs/COACHFITPROBE2_RESULT.md, 60 boxers paired, control exact)
+**slope=NONE.** TOP vs AVERAGE wins in 100: k 1.0 +0.08, k 1.5 +1.12, k 2.0 +1.83, k 3.0 +1.83 (the 1.6 cap binds from
+k 2.0); Sharp sooner +1.5 / +1.7 / +4.8 / +4.8 weeks. **tired=fail** (fit 80 ahead 6.6 energy, wanted 8..12; fit 35 down
+6.6 by round 3, wanted 15..20). So, as section 0 decided beforehand: coach fit is NOT a shown number. It becomes a hover
+reason on the coached-morning tile ("suits her: learns a little faster") and the coach card; no fit grid, no fit words
+on the roster. Questions 2-4 (choice, mode, bond) are not run. Phase 3 critics judge THIS verdict + the hover design.
+
 ## 1. The fit number: fit = clamp(50 + temper + bond + taught + focus, 10, 90)
 | Row | Value | Code | When |
 |---|---|---|---|
@@ -116,3 +123,36 @@ Only after probe question 1 passes; otherwise the hover reason on the morning ti
 ## 10. Phase 3
 Two fresh critics on THIS sheet + the probe output (never a prose map), 7+/7+ -> his board with `ask --attach` -> build:
 fit into WeekPlan.day + the drill nights behind GameSwitches, tests red first, golden path walks one coached week.
+
+## 11. The hover design (S530, Claude, after slope=NONE) - what is built, what is cut
+Decided from section 0b: fit is felt in TRAINING (+27% focus-stat gain in 26 weeks at TOP, Sharp 1.5 weeks sooner) but not
+in WINS (+0.08 in 100). So it is shown where training is shown, as a reason, never as a number or a grid.
+
+**Built (each behind GameSwitches, GAME_ON):**
+| # | What | Rule | Where it shows (file) | What the player does with it |
+|---|---|---|---|---|
+| H1 | Fit on coached mornings | gain x gain_mult(fit) at k 1.0 (today's code, x0.78..x1.32) through capped() s4 | the morning's gain number already on the tile moves (TrainGrid._morning `gl`) | nothing new to press: the number is the truth |
+| H2 | The reason line | one line added to the coached tag's hover (`tag["long"]`, TrainGrid line ~165), only when the word is TOP FIT or RISKY (MIXED/GOOD = silent) | Training, morning tile hover | swap the coach on that morning, or move her focus |
+| H3 | Taught out | ceiling_mult: at or past the coach's ceiling the gain halves (x0.5); within 5 of it, fit -6 | hover line "Taught out: the coach's Pads ceiling here is 80 - past it she learns at half speed"; week review line once, the week she reaches it | raise the area (morning_ceiling = 55 + 0.35 x area) or hire the better coach |
+| H4 | Bond | +1 a coached morning together, +5 a bout he works her corner; steps at 8 / 45 / 110 (s1) | coach card: "Trusted with Mara (+6)" and "Corner bond in ~N weeks" | keep the pairing or switch |
+
+Reason line words (game words, no numbers but the stat):
+- TOP FIT: "Suits her: <why> - learns faster." <why> = the biggest positive part: "lifts a flat boxer" (Motivator),
+  "she takes teaching" (Technician, coachability 70+), "her focus this week", "Corner bond".
+- RISKY: "Poor fit: <why> - learns slower." <why> = the biggest negative part: "she will not take teaching"
+  (Technician, coachability < 30), "taught out", "a stranger to her" (evenings).
+- Never both; never on a morning the coach does not take.
+
+**Cut (no felt effect, nothing to choose):**
+- Tiredness channel (s3): failed its own pass line (6.6 energy, wanted 8..12 / 15..20). Raising the constant to pass would
+  make a hidden number decide bouts - the opposite of a hover reason. tired_mult stays in CoachFit.gd, not wired.
+- Fit word on the roster row and the "Coach fit GOOD x1.13" tag (s9): a number with no felt payoff.
+- Mode control (s6) and the coach-time budget (s6): as decided.
+
+**Tests at build (red first):** coach_fit_wire_test - fit 50 = today's WeekPlan.day gain to the digit on every morning
+kind; TOP raises a plain coached morning by x1.32, a 1-to-1 one held at x1.6; the hover carries the reason only at
+TOP FIT / RISKY; past the ceiling the gain halves; bond +1 a coached morning. Golden path walks one coached week and reads
+the line. File budget: TrainGrid.gd is 282 lines (+~12); the reason text lives in CoachFit.reason(p) (pure, +~25).
+
+**Question for the critics (beside depth and general):** with the fight effect at +0.08 wins, is H1-H4 enough of a choice
+to keep, or should coach fit be cut whole and the coach's SKILL (TrainingPreview.coach_factor) carry coaching alone?

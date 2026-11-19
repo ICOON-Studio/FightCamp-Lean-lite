@@ -1,3 +1,15 @@
+S529 build (2026-11-19) - what changed, and what to try
+
+1. LARGEST TEXT FITS. Settings > Text size > Largest, then look at:
+   - Fighters > Roster with a BJJ boxer: the coach's line ("Drill the seatbelt escape") stays in its column; it no longer
+     runs into the next fight's "23 days".
+   - Fighter > Playbook > Game plan, the AT THE BELL box: long moves ("Pivot off the ropes") fit their button; a name too
+     long for it ends in "..." and shows in full on hover.
+   - A live fight from round 3: "Say nothing" fits its button.
+2. TIE UP, RULED. The corner's Tie up works when your boxer's guard is under half AFTER the punches of that exchange - it
+   answers the blows just taken. (A guard at half or above still gets nothing.)
+3. Nothing else to play this build: coach fit is still a design sheet (being measured), turning pro v4 is being written.
+
 S528 build (2026-11-19) - what changed, and what to try
 
 1. INJURY RISK YOU CAN SEE. Training tab, the TIREDNESS row on the left: under "end of each day" it now says "injury risk

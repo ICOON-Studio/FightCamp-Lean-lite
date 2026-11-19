@@ -909,19 +909,6 @@
    },
    "note": "S528 collected on main d69439857: TABLE unchanged, method finding -> STEPS_SCOPE_S528"
   },
-  "GUARDBLIND1": {
-   "agent": "arena",
-   "id": "GUARDBLIND1",
-   "title": "Blind contract test of the guard through a bout",
-   "status": "running",
-   "started": "2026-11-19T17:39",
-   "where": "cloud",
-   "repo": "FightCamp-Lean-lite",
-   "brief": "ops/research/TASK_GUARDBLIND1.md",
-   "chat": "https://arena.ai/agent/01a1f476-54ba-77ec-8c42-59caa7d00a0c",
-   "eta": "2026-11-19T18:30",
-   "note": "S528 launched in the browser pane; PR relays to an arena/* PR on FightCamp-Lean"
-  },
   "TREEVALUE5": {
    "agent": "qwen",
    "id": "TREEVALUE5",
@@ -947,7 +934,7 @@
     "runner_pid": 17152,
     "seat_pid": 44584
    },
-   "note": "S368 seat_dispatch: launched unattended (S528 main); merging stays off"
+   "note": "S368 seat_dispatch: launched unattended (S528 main); merging stays off | S529: ~28 min a step, 10 steps ~4.7 h > the 4 h timeout (~22:05): if cut, rerun the missing steps with -- only=<ids>"
   },
   "LEDGERCRITIC4": {
    "agent": "arena",
@@ -962,18 +949,67 @@
    "eta": "2026-11-19T19:00",
    "note": "S528 collected: 7/6"
   },
-  "COACHCRITIC9": {
-   "agent": "arena",
-   "id": "COACHCRITIC9",
-   "title": "Fresh critic: coach fit map v9",
+  "COACHFITPROBE2": {
+   "agent": "goose",
+   "id": "COACHFITPROBE2",
+   "title": "Coach fit: can a top fit be felt inside the cap? (slope sweep + tiredness)",
    "status": "landed",
-   "started": "2026-11-19T18:05",
+   "started": "2026-11-19T18:52",
+   "where": "cloud",
+   "issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/401",
+   "brief": "ops/research/TASK_COACHFITPROBE2.md",
+   "eta": "2026-11-19T20:30",
+   "note": "S529 collected from goose/issue-401: slope=NONE, tired=fail"
+  },
+  "TURNCRITIC3A": {
+   "agent": "arena",
+   "id": "TURNCRITIC3A",
+   "title": "Fresh critic: turning pro map v3",
+   "status": "landed",
+   "started": "2026-11-19T18:55",
    "where": "cloud",
    "repo": "FightCamp-Lean-lite",
-   "brief": "ops/research/TASK_COACHCRITIC9.md",
-   "chat": "https://arena.ai/agent/01a1f48e-5306-705c-9b3a-12fdd85fc2d3",
+   "brief": "ops/research/TASK_TURNCRITIC3A.md",
+   "chat": "https://arena.ai/agent/01a1f4bc-a672-7b09-a911-158180089b05",
+   "eta": "2026-11-19T19:00",
+   "note": "S529 collected: depth 5 general 4"
+  },
+  "TURNCRITIC3G": {
+   "agent": "goose",
+   "id": "TURNCRITIC3G",
+   "title": "Fresh critic: turning pro map v3",
+   "status": "landed",
+   "started": "2026-11-19T18:54",
+   "where": "cloud",
+   "issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/403",
+   "brief": "ops/research/TASK_TURNCRITIC3G.md",
    "eta": "2026-11-19T19:10",
-   "note": "S528 collected: 5/4"
+   "note": "S529 collected from goose/issue-403: depth 7 general 7"
+  },
+  "STEPBLIND1": {
+   "agent": "arena",
+   "id": "STEPBLIND1",
+   "title": "Blind contract test of the footwork steps (StepWire)",
+   "status": "running",
+   "started": "2026-11-19T18:58",
+   "where": "cloud",
+   "repo": "FightCamp-Lean-lite",
+   "brief": "ops/research/TASK_STEPBLIND1.md",
+   "chat": "https://arena.ai/agent/01a1f4c4-6cd6-72c6-8ab9-755b652aefea",
+   "eta": "2026-11-19T19:45",
+   "note": "S529; PR relays to an arena/* PR on FightCamp-Lean"
+  },
+  "TURNREV4": {
+   "agent": "goose",
+   "id": "TURNREV4",
+   "title": "Turning pro map v4 from the code (answers both v3 critics)",
+   "status": "landed",
+   "started": "2026-11-19T19:09",
+   "where": "cloud",
+   "issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/404",
+   "brief": "ops/research/TASK_TURNREV4.md",
+   "eta": "2026-11-19T19:40",
+   "note": "S529 collected from goose/issue-404; price-ask bug fixed; critics Dola SQ240 + Arena TURNCRITIC4A next"
   }
  },
  "codex_budget": {

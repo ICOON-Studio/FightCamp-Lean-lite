@@ -115,6 +115,11 @@ func _initialize() -> void:
 	Roster.turn_pro(c5)
 	_check(bool(f5.get("pro", false)) and int(f5["bout"]["day"]) == Roster.debut_day(c5.day) and (f5["bout"]["deal"] as Dictionary).is_empty(),
 		"an old save's offer signs on the old terms")
+	# S529: the debut night takes money at the deal's own ticket price (the "own ticket price" ask), not the fixed $50.
+	var deal6 := ProCall.terms("bow", 0, false)
+	deal6["price"] = 40
+	var n6 := ProOfferWire.night({}, deal6, 60, 0.25)
+	_check(int(n6["money"]) == int(n6["sold"]) * 40, "the debut night sells at the deal's own price (%d for %d sold)" % [int(n6["money"]), int(n6["sold"])])
 	var modal: GDScript = load("res://scripts/ui/modals/ProOffer.gd")
 	_check(modal != null and modal.can_instantiate(), "the offer screen's script loads")
 	print("PRO_OFFER_WIRE %s failures=%d" % ["PASS" if failures == 0 else "FAIL", failures])

@@ -1,3 +1,81 @@
+# S531 handover (written 2026-11-19, S530 - Opus, a short session: the owner's game held RAM at 90-93%)
+
+Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. S530 is in roadmap `now`.
+FIRST: `python ops/Tools/godot_slot.py status` (TREEVALUE5's probe holds one slot; it is OURS - let it finish).
+
+## METHOD lines - quote all three in your first message
+- Fight animation (owner S510): no new correction layer in scripts/fight3d until v2 is built (the OWNER'S Fable session
+  is the animation item; film 7 waits for no game window; do not start another).
+- COACH FIT (S528): sheet + probe + hover design DONE (COACHFIT_SHEET s11). Now only the two critics, then build s11.
+- FOOTWORK STEPS (S528): no StepEffect.TABLE tuning until TREEVALUE5 is read. Then STEPTUNE3.
+
+## MAIN LINE - DO FIRST
+1. Qwen TREEVALUE5 (E:/FightCamp/wt/LEAN_TREEVALUE5, log E:/FightCamp/tmp/treevalue5/full.log): at 19:30 it was on
+   step 4 of 10 (pivot_out). If the 4 h timeout cut it, rerun the missing steps with `-- only=<ids>`; collect by diff
+   (tools/treevalue_probe.gd + docs/TREEVALUE5_RESULT.md) -> STEPTUNE3. Then HOLD1 (dispatcher launches it).
+2. Coach fit critics: Dola SQ241 (queued behind SQ237/239/240) + Arena COACHCRITIC10A (ops/research/TASK_COACHCRITIC10A.md,
+   a NEW Arena chat in his Chrome; the brief points at DESIGN_COACHFIT_SHEET_CRITIC_DOLA.md, which carries the critic copy
+   COACHFIT_SHEET_CRITIC_COPY.md - no earlier scores in it). 7+/7+ -> `ask --attach ops/research/COACHFIT_SHEET.md` ->
+   build s11 (coach_fit_wire_test red first; CoachFit.reason(p); TrainGrid tag["long"]).
+   Both critics also answer: keep coach fit as hover reasons, or cut it whole.
+3. Arena: STEPBLIND1 (chat 01a1f4c4) has NO branch on FightCamp-Lean-lite yet - read its chat. Then TURNCRITIC4A.
+   S530 did not open Arena: his Chrome + game at 90-93% RAM.
+4. Dola SQ237 (ledger v3 critic, sent), SQ239 (knowledge stakes v2), SQ240 (turning pro v4 critic). SQ238 DROPPED.
+5. Open defect for turning pro v4: ProCall.ambition_kind's "pro" path never fires (Recruit.ambition has no pro ambition).
+   Build with v4's preference line once its critics pass.
+
+# S530 handover (written 2026-11-19, S529 - Opus)
+
+Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. S529 is in roadmap `now`.
+FIRST: `python ops/Tools/godot_slot.py status` - a collected seat's leftover probe can hold a slot for hours and starve the
+owner's animation session (S529: the old STEPTUNE2 probe did; the owner said stop it). Stop such a probe only on his yes.
+
+## METHOD lines - quote all three in your first message
+- Fight animation (owner S510): no new correction layer in scripts/fight3d until v2 is built (the OWNER'S "Fable fight
+  animation loop" session is the animation item; do not start another).
+- COACH FIT (S528): phases 1+2 DONE S529. COACHFITPROBE2 (Goose, collected): slope=NONE (+1.8 wins in 100 at best),
+  tired=fail -> coach fit is a HOVER REASON, not a shown number (COACHFIT_SHEET s0b). Next: write the small hover design
+  into the sheet, two fresh critics on the sheet + probe (never a prose map round on a chat seat), then build.
+- FOOTWORK STEPS (S528): no StepEffect.TABLE tuning until STEPS_SCOPE_S528 phase 2 (Qwen TREEVALUE5) is read. Then STEPTUNE3.
+
+## ANIMATION (the owner's goal "at least 7/10") - S529 state from the Fable session itself
+Built headless in scripts/fight3d/v2 (behind `-- fightplayer2`, shipped player untouched): feet wider than 1.3x guard
+53/61% -> 17/23% of frames, waiting distance 1.08 -> 0.87 m, landed glove off target 6.1 -> 0.9 cm, knee jerks
+147/75 -> ~70/55. NOT FILMED (a game window was open all session): film 6 = 5.0 / 5.0 is still the last score; the 7+7
+gate is not met. NEXT: film 7 the moment no game window is open, then the blind round with two fresh critics - a NEW
+Fable session the OWNER starts from the copy block he was given (ANIMATION LOOP STATE, S529 block, below). Its peer's
+note: long probes (STEPTUNE2 dispatch, TREEVALUE5) held both Godot slots 20-50 min at a time and the animation queued
+behind them - start a long probe only while no animation session runs, or tell it.
+
+## MAIN LINE - DO FIRST (S529 state)
+1. Qwen TREEVALUE5 (E:/FightCamp/wt/LEAN_TREEVALUE5, log E:/FightCamp/tmp/treevalue5/full.log): ~28 min a step, 10
+   steps ~4.7 h > its 4 h timeout (cut ~22:05, before roll_out / push_off). If cut: rerun the missing steps with
+   `-- only=<ids>`, then collect by diff (tools/treevalue_probe.gd + docs/TREEVALUE5_RESULT.md) -> STEPTUNE3. Then HOLD1
+   (S529: Qwen's CLI had exited while its probe ran on; HOLD1 held at AMBER - RAM 91% with the owner's game open; the
+   dispatcher launches it when TREEVALUE5's runner ends).
+2. COACHFITPROBE2 COLLECTED (slope=NONE, tired=fail): see METHOD line. Coach fit -> hover reason.
+3. TURNPRO1 v4 (Goose, from the code) COLLECTED: ops/research/DESIGN_TURNPRO1_V4.md. Critics: Dola SQ240 (queued) + Arena
+   TURNCRITIC4A (brief written; launch in a NEW Arena chat once STEPBLIND1 lands). 7+/7+ -> his board with `ask --attach`.
+   Seen in v4: the "own ticket price" ask paid at $50 - FIXED S529. Open (design, in v4 s6): ProCall.ambition_kind looks
+   for "pro" but Recruit.ambition never says it, so the eager-to-turn-pro morale path never fires - build v4's preference
+   line once the critics pass it.
+4. Arena STEPBLIND1 (chat 01a1f4c4, lite -> relay): run tests/step_contract_test.gd; a red check is a finding about
+   StepWire - read the body before changing code (GUARDBLIND1's three reds were the TEST's timing).
+5. Dola SQ237 (ledger v3 critic, sent), SQ238 (coach fit v9 critic: read its 10/10 list only), SQ239 (knowledge stakes v2
+   on Claude's code check: habits into knowledge, not new flaws). Then critics / ledger v4.
+
+## DONE IN S529 (Opus; all on main, pushed; tests named in each commit green)
+- COACHSCOPE1 phase 1: COACHFIT_SHEET.md - fit 28..82 in play; joined to WeekPlan gain (capped, never below today's
+  product) + load (tired_mult held 0.92..1.08); corner stays uptake x trust (Q-86); time budget cut to ClubDeal; Steady 0.
+  coach_fit_sheet_test red first (11) -> green. COACHFITPROBE2 brief (Goose #401).
+- GUARDBLIND1 collected: tests/guard_contract_test.gd (in run_tests.sh). Ruled: "under half" reads the guard after the
+  exchange's wear + recovery (GuardState header). Mutant 0.6 caught.
+- TURNPRO1 v3 (Dola) extracted; critics Arena 5/4, Goose 7/7 -> TURNREV4.
+- KNOW_STAKES1 v1 (Dola: hidden flaws) held by a code check (the flaws exist: Durability, the 20 habits) -> v2 SQ239.
+- ONELOOK1 at Largest text: TEXTFIT 2 -> 0 + the roster overlap found on the contact sheet (round-3 Say nothing 140 px;
+  plan chart bell box 450 + TextScale.fit_on_resize; roster coach line clips). Review board: S529 Largest text.
+- start's CONTRACT DEFECT gone (six collected briefs DONE). PR 400 / 402 closed. Digest ops/research/S529_DIGEST.md.
+
 # S529 handover (written 2026-11-19, S528 - Opus)
 
 Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. S528 is in roadmap `now`.
@@ -389,7 +467,7 @@ themselves are the limit (owner: "why should i buy more animations if the ones w
   tests/ask_wire_test.gd + ask_dates_test in run_tests.sh. Exported. Left: Home DO NEXT, the stoppage-risk word.
 - RAM: ~10 finished sessions sit idle with Remote Control on (~750 MB each, S491 note); watchdog AMBER on memory.
 
-## ANIMATION LOOP STATE (the animation session's own section; newest block S528, 2026-11-19 ~17:50; the blocks under it are older)
+## ANIMATION LOOP STATE (the animation session's own section; newest block S529, 2026-11-19 evening; the blocks under it are older)
 Owner: "i want animations fixed (at least 7/10)" = two fresh blind critics (coach + animator) both 7.0+ on one film. You are
 the ONLY animation session; you own `scripts/fight3d` (v2 in `scripts/fight3d/v2/`) and this section. Quote the METHOD line.
 WHERE WE ARE: FIGHTPLAYER2 (the rebuild, `ops/research/FIGHTPLAYER2_SCOPE_S510.md`, section 8 = the critics' changes).
@@ -397,7 +475,73 @@ The v2 player EXISTS and plays the real bout behind `-- fightplayer2`. FIRST BLI
 BELOW the old player (see FIRST FILM below). When this section was first written it had not been filmed: the owner's
 game (ArcheAge) was open the whole session and films run only when no game window is open (Q-267). r14 = 4.5 / 4.5 is the
 control arm; the shipped player is untouched without the switch.
-- S528 (2026-11-19 ~17:50, a NEW animation session on Fable, stopped at 453k of context). READ THIS FIRST, it is the newest:
+- S529 (2026-11-19 evening, a NEW animation session on Fable, stopped at ~520k of context). READ THIS FIRST, it is the newest:
+  * NOT FILMED, NOT JUDGED. The owner's game (ArcheAge) was open the whole session (Q-267: no film while a game window
+    is open). Film 6 = 5.0 / 5.0 is still the last score; the gate is 7 + 7. Everything below is HEADLESS: the real
+    bout, 75 s, seed 7 (`sh E:/FightCamp/tmp/fightweek/s529/bout.sh <name> 75 fightplayer2 fp2log`), `s529/base` =
+    film 6's code + the S528 ring tuning, `s529/all7` = now. Commits d57b34d19, 474e200b0, e4c67d0bd.
+    | ruler (boxer 0 / 1) | base | now | the critics' bar |
+    |---|---|---|---|
+    | feet over 1.3 x the guard's spread, % of frames | 53 / 61 | 17 / 23 | one stance per man |
+    | ... over 1.6 x (a lunge) | 25 / 29 | 3 / 7 | none |
+    | hips change 5 cm in half a second while he waits | 79 / 72 | ~26 / 19 | - |
+    | front feet while both wait, p50 | 1.08 m | 0.87 m | 0.9-1.1 |
+    | nearest wrists, both in guard, p50 | 0.82 m | 0.59 m | gloves 30-50 cm apart |
+    | landed glove off its target, bout (15 hits): median / worst | 6.1 / 17.9 cm | 0.9 / 12.4 cm | 3-5 cm |
+    | support-foot slip in the round | 5.4 / 6.1 m | 4.8 / 5.1 m | under 1 |
+    | knee jerks over 8 deg (s528/knee.py) | 147 / 75 | ~70 / 55 | none planted |
+    | hip pops | 36 / 62 | 22 / 44 | - |
+    | steps a minute / step take on screen | 127 / 118, 44 / 41 % | 113 / 100, ~35 / 32 % | fewer, purposeful |
+    | paws + feints in 75 s (both men) | 14 | 23 | several every 10 s |
+    | head furthest after the contact | 3 pictures | 3 | 2-3 |
+    | cross / hook / jab head travel | 17.5 / 19.4 / 8.7 cm | 21.6 / 24.6 / 10.7 cm | 18-25 / 20-30 / 8-12 |
+    | head jumps over 12 cm a picture, worst | 19, 21.6 cm | 20, 20.7 cm | none over 10 |
+  * WHAT WAS BUILT, all inside `scripts/fight3d/v2/` (+ the bake and the rulers):
+    - THE REFIT (`tools/step_bake.gd`, `StepClips.REFIT`; S528 NEXT 1-3 closed): the bought Mixamo steps stand 25 % wider
+      and 8 cm lower than the Punch PRO guard and the "short" step forward is 0.51 m - THAT was the fencing lunge and
+      the bob, not the pin. Eight walking takes are baked a second time on the guard's own feet spots and hip height
+      with strides of 23 / 35 cm (`st_in_s/m`, `st_out_s/m`, `st_l_s/m`, `st_r_s/m`; legs solved again, hips sink
+      smoothly when a leg would straighten past 0.97). `-- <src> refit` bakes only those; then `tools/step_census.gd
+      -- db`. `fp2bounce` measured no gain (bob 68 / 61): it stays OFF and needs no film.
+    - `StepPlay`: the shortest take that COVERS the move (never a shorter one stretched); a plan step's BODY goes by
+      its take's own hip travel (`want` / `mover`, read by `PairPlace.follow`), a ring step by the leader's take; ring
+      steps are small or medium by the roll; `ChoreoDrift` breathes longer every other step.
+    - THE STEP UNDER A PUNCH (`FootTake.kick`, `-- fp2nokick` = off): when the plan slides a man under a take he is in,
+      the foot a boxer moves first (lead going in, rear going out) steps at once instead of after 17 cm.
+    - DISTANCE: `ChoreoRules.REST_M` 1.55 -> 1.32, `CREEP_M` 1.2, `ChoreoGap.STEP_IN_M` 0.25 (in 0.23 s), `POCKET_M` 1.12.
+    - PUNCHES TOUCH: `PunchAim` now runs AFTER TiredSag / FootTake / FloorStand (they moved the body after the arm was
+      solved: every rear-hand punch 8-18 cm off) and over the last 0.10 s closes on the target as drawn; the glove
+      holds the spot through the contact picture; `-- fp2noclose` = the prediction alone. The hit REACTION starts one
+      tick after the contact (`Player2._late`): the head used to have left before the contact picture was drawn.
+      `tools/fight_motion_rulers.py` looks for the reaction on the next two frames too.
+    - HITS MOVE THE MAN: after a landed cross, hook or uppercut the HIT man takes the step back (`ChoreoGap.HURT_OUT_M`
+      0.25 m from 0.08 s after the blow; 25 cm in 0.4 s measured on a lone cross); inside a combination he stays.
+    - WAITS: nobody fidgets into a punch (a fidget take shuffles 14 cm: it had put a glove planned short on a face -
+      player2_test SHORT was red since S528); out of a ring step the hands go to work at once; shares fidget 0.28,
+      paw 0.34, feints 0.38; each man's guard loop at his own pace (0.88 / 1.13).
+    - NEW RULER `tools/fight_stance_ruler.py <dir>`: feet spread against the guard's, hips bob, the waiting distance.
+      `s529/headjumps.py`, `s529/kneewhen.py` split head jumps and knee jerks by take and take time.
+  * STILL OFF: the worst landed punch (12.4 cm) is a cross inside a combination - the man it hits is still moving
+    from the last hit and the target is read one picture old (`Player2._drawn`); three more sit at 5-6 cm (two at
+    PunchAim's 0.30 m cap: `pro_left_jab` and `pro_body_shot` need more than the cap - pick another take first).
+  * NEXT, in order: (1) FILM 7 the moment no game window is open (75 s, seed 7, `fightplayer2`), LOOK yourself first
+    (a wait: one stance, no bob; a jab with its step; a hit man's step back; a glove ON the face), then the blind
+    round (`s525/round.py`; also give the critics `fight_stance_ruler.py`'s output). (2) Head jumps left: all inside
+    takes - `pro_left_weave` 4, `pro_hit_by_cross_v4`, `pro_hit_by_gutshot_v3` (their own snap; a slower join made
+    the head peak a picture late - 0.04 / 0.12 is the trade), dodges and an uppercut whose take lunges 10-12 cm a
+    picture. (3) ANGLES (both critics): the pivots are baked and unused (`st_pivot_*`, not refitted - the refit
+    assumes the stance does not turn); `PairPlace.square` turns the pair back side-on at 28 deg/s, so a circle step
+    needs it to slack inside about 20 deg first. (4) Ducks go too deep (a head inside the other man 2-4 frames);
+    close range has no take. (5) Knee jerks left: `st_out_m` right leg at 0.1-0.2 s (the cut-in start), the Pro
+    uppercut and jabs themselves; FootPlant's own steps ~57 / 29 a minute. (6) The Pro guard's knees are 150 / 145
+    and the refit rides at that height (bend p50 148): if a critic says "stands tall", sink the fight stance, do
+    not un-refit.
+  * TRAPS: the stop hook refuses a turn that ends on a wait - wait in a blocking loop on a file instead; the main
+    session's long probes hold both Godot slots for 20-50 min (queue early, batch changes behind off-switches);
+    a here-doc with Python holding quotes or `\"` fails in this shell - use the Edit / Write tools; `cd` in Bash
+    moved the session folder twice again; `step_bake` without `refit` rewrites the 23 raw takes (git shows them
+    modified, byte size equal - restore them by name).
+- S528 (2026-11-19 ~17:50, a NEW animation session on Fable, stopped at 453k of context). (the block before S529):
   * SIXTH FILM + BLIND ROUND (`E:/FightCamp/tmp/fightweek/v2r10/`, film = commit 88efd64a1 MINUS the ring tuning
     (ring steps 0.30 / 0.28 m and ~4 per half-minute; the code now has 0.36 / 0.34 m and about twice as many),
     seed 7, 75 s): coach 5.0, animator 5.0. Film 5 was 5.0 / 4.5. THE GATE (7 + 7) IS NOT MET.

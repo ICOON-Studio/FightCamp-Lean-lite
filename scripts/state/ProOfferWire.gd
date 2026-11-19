@@ -136,7 +136,7 @@ static func night(f: Dictionary, deal: Dictionary, sold_today: int, share: float
 	var m := ProCall.money(d, sold, 0, share, false, 0)
 	var gym := int(m["gym_at_signing"])   # costs 0 here, so this is the gym's cut of the purse and the ticket share
 	var be := int(d.get("break_even", ProDebut.BREAK_EVEN))
-	return {"sold": sold, "money": sold * ProDebut.TICKET_PRICE, "above": maxi(0, sold - be), "share": int(m["ticket_share"]),
+	return {"sold": sold, "money": sold * int(d.get("price", ProDebut.TICKET_PRICE)), "above": maxi(0, sold - be), "share": int(m["ticket_share"]),
 		"purse": int(m["purse"]), "gym": gym, "her": int(m["boxer"]), "break_even": be, "house": str(d.get("name", ""))}
 
 
