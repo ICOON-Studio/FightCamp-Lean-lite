@@ -78,6 +78,11 @@ static func clock_words(line: Dictionary) -> String:
 static func game_word(mode: String) -> String:
 	return str(GAME_WORDS.get(mode, mode))
 
+## A round divider. The exchange's mode is the OPPONENT's game (Exchanges.next_mode reads her style), so the line names
+## her by role (S530: "Round 2 - pressing forward" had no subject on your own bout; names stay in the header, S448).
+static func divider(round_n: int, mode: String) -> String:
+	return "Round %d - the opponent %s" % [round_n, game_word(mode)]
+
 ## A filled circle for a corner dot inside a button.
 static func dot_icon(c: Color, px: int) -> ImageTexture:
 	var img := Image.create(px, px, false, Image.FORMAT_RGBA8)
@@ -309,7 +314,7 @@ func _rebuild_items() -> void:
 		var ex_key: int = int(ld["round"]) * 100 + int(ld["ex"])
 		if ex_key != last_ex:
 			last_ex = ex_key
-			var words: String = "Round %d - %s" % [int(ld["round"]), game_word(str(ld["sit"]))]
+			var words: String = divider(int(ld["round"]), str(ld["sit"]))
 			_items.append({"sit": words.to_upper(), "y": y, "h": sh})
 			y += sh
 		_items.append({"i": i, "y": y, "h": rh})

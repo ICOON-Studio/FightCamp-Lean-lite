@@ -124,6 +124,20 @@ static func plan(beats: Array, db: Dictionary, opts: Dictionary) -> Dictionary:
 		var t_play: float = contact_t - (contact_s - from_s)
 		if t_play < float(ctrl_until[who]):
 			from_s = clampf(from_s + (float(ctrl_until[who]) - t_play), start_s, maxf(start_s, contact_s - (R.WIND_MIN_S if R.is_straight(move) else clampf(contact_t - float(landed_at[who]) - 0.03, R.WIND_MIN_S, R.WIND_TURN_S))))   # never from before his own last punch has landed
+			# S530 (the S529 bout: a hard cross second in a combination, started 0.26 s into its take, threw his own head
+			# 16 cm in a picture): ... and never so deep that the join throws his head. He starts when his hand is back, as
+			# before, from earlier in the take, and the punch lands that much later (CUT_SLIDE_S at most). The bar is
+			# tighter than a reaction's: he comes out of his last punch, not out of the guard the curve is read from.
+			var pcurve: Array = take_row.get("head_g", [])
+			var phz: float = float((db.get("meta", {}) as Dictionary).get("curve_hz", 30.0))
+			var slid := 0.0
+			while not pcurve.is_empty() and from_s > start_s + 0.001 and slid < R.CUT_SLIDE_S and contact_t + 1.0 / 60.0 <= t1 and React.worst_step(pcurve, from_s, R.JOIN_WAY["punch"], phz, take_row.get("hips_g", [])) * sc > R.CUT_STEP_MAX_M:
+				var back: float = minf(1.0 / 60.0, from_s - start_s)
+				from_s -= back
+				contact_t += back
+				slid += back
+			if slid > 0.0:
+				log.append("ease: %s %s +%.2f (lands later, starts %.2f into the take)" % [who, move, slid, from_s])
 			t_play = contact_t - (contact_s - from_s)
 		var ik_m: float = minf((dev if R.is_straight(move) else 0.0) + (reach if result == "lands" else 0.0), R.IK_MAX_M)
 		# S529: a landed cross, hook or uppercut moves the man it hit (ChoreoGap.HURT_OUT_M: HE takes the step back)
@@ -142,7 +156,7 @@ static func plan(beats: Array, db: Dictionary, opts: Dictionary) -> Dictionary:
 		var react_part := ""
 		var defence_name := ""
 		if result == "lands":
-			var ri := React.react(db, rows, move, big, R.is_left_hand(move), rng, hfh, log)
+			var ri := React.react(db, rows, move, big, R.is_left_hand(move), rng, hfh, log, float(scale.get(other, 1.0)))
 			react_name = str(ri[0])
 			var rrow: Dictionary = ri[1]
 			# S525: every reaction plays with its take's own travel (a small one was pinned "upper": its feet stepped
@@ -158,11 +172,13 @@ static func plan(beats: Array, db: Dictionary, opts: Dictionary) -> Dictionary:
 			# nobody threw); a body shot's plays its stagger out.
 			var r_peak: float = float(rrow.get("head_peak_s", 0.0))
 			var r_at: float = minf(r_peak, float(rrow.get("head_rel_s", r_peak)))
-			var r_from: float = maxf(r_at - R.REACT_PEAK_S, 0.0)
+			# S530: ... as late as keeps the head's step under the bar in every picture (ChoreoReact.start_s)
+			var r_start: Array = React.start_s(rrow, move, float((db.get("meta", {}) as Dictionary).get("curve_hz", 30.0)), float(scale.get(other, 1.0)))
+			var r_from: float = float(r_start[0])
 			var r_until: float = minf(r_peak + 0.15, r_at + R.REACT_STAGGER_S) if move == "body_hook" else r_at + R.REACT_TAIL_S
 			r_until = minf(r_until, float(rrow.get("length_s", r_until)))
 			ev[other].append({"t": rt, "clip": react_name, "kind": "reaction", "part": "?", "from_s": r_from,
-				"until_s": r_until,
+				"until_s": r_until, "soft": bool(r_start[1]),
 				"join_s": R.join_for("reaction"), "control_t": rt + R.stun_for(str(ri[3])), "size": str(ri[3]), "move": move})
 			ctrl_until[other] = maxf(float(ctrl_until[other]), rt + R.stun_for(str(ri[3])))
 			stun_until[other] = maxf(float(stun_until[other]), contact_t + R.stun_for(str(ri[3])))
@@ -170,7 +186,7 @@ static func plan(beats: Array, db: Dictionary, opts: Dictionary) -> Dictionary:
 			# combination", so most reactions inside a burst were pinned and a cross moved nobody): a follow-up due
 			# inside KNOCK_FREE_S keeps him on the spot only when the feet could not cover his travel in that time.
 			var give_m: float = float(rrow.get("hips_max_m", 0.0)) * float(scale.get(other, 1.0))
-			var give_s: float = maxf(maxf(0.18, give_m / 2.0), r_peak - r_from - R.REACT_PEAK_S)   # how long the knock takes (Player2.LEAD_MPS; a gut shot's stagger takes its own time)
+			var give_s: float = maxf(maxf(0.18, give_m / 2.0), r_peak - maxf(r_at - R.react_peak_s(move), 0.0) - R.react_peak_s(move))   # how long the knock takes (Player2.LEAD_MPS; a gut shot's stagger takes its own time)
 			var k_at: int = keys.find(key)
 			for kk in range(k_at + 1, keys.size()):
 				var nb: Dictionary = beats[int(keys[kk][1])]
@@ -193,6 +209,10 @@ static func plan(beats: Array, db: Dictionary, opts: Dictionary) -> Dictionary:
 			ctrl_until[other] = maxf(float(ctrl_until[other]), contact_t + 0.2)
 		elif def != "" and def != "block":
 			var di := React.defence(db, rows, def, move, R.is_left_hand(move), bool(south.get(other, false)))
+			# S530: the quick weave moves late in its take (its head goes in the last 0.2 s before the peak): a man still
+			# held by a take of his own would join it at that point - 18 cm of head in a picture. He takes the side weave.
+			if str(di[0]) == R.WEAVE_STRAIGHT and contact_t - minf(float((di[1] as Dictionary).get("head_peak_s", 0.3)), R.DEF_LEAD_S) < float(ctrl_until[other]):
+				di = React.defence(db, rows, def, move, R.is_left_hand(move), bool(south.get(other, false)), false)
 			defence_name = str(di[0])
 			if defence_name != "":
 				var drow: Dictionary = di[1]
@@ -205,8 +225,23 @@ static func plan(beats: Array, db: Dictionary, opts: Dictionary) -> Dictionary:
 				if dt < float(ctrl_until[other]):
 					d_from = clampf(d_from + float(ctrl_until[other]) - dt, 0.0, maxf(peak_s - 0.12, 0.0))
 					dt = contact_t - (peak_s - d_from)
+				else:
+					# S530 (the S529 bout: a weave started 0.10 s into its take moved the head 13-14 cm in a picture, the take by
+					# itself 6): where nothing holds him he starts the take earlier - up to DEF_EARLY_S sooner - until no picture's
+					# head step is over the bar. He reads the punch a little sooner; the take is the bought one.
+					var dcurve: Array = drow.get("head_g", [])
+					var dhz: float = float((db.get("meta", {}) as Dictionary).get("curve_hz", 30.0))
+					var early := 0.0
+					while not dcurve.is_empty() and d_from > 0.0 and early < R.DEF_EARLY_S and dt - 1.0 / 60.0 >= float(ctrl_until[other]) and React.worst_step(dcurve, d_from, R.JOIN_WAY["defence"], dhz) * float(scale.get(other, 1.0)) > R.HEAD_STEP_MAX_M:
+						var cut: float = minf(1.0 / 60.0, d_from)
+						d_from -= cut
+						dt -= cut
+						early += cut
 				ev[other].append({"t": dt, "clip": defence_name, "kind": "defence", "part": "whole", "from_s": d_from,
 					"join_s": R.join_for("defence"), "control_t": contact_t + float(drow.get("back_s", 0.4))})
+				if float(drow.get("hips_max_m", 0.0)) < R.WHOLE_BODY_HIPS_M:   # S530: one that does not step comes up at once (DEF_UP_S)
+					(ev[other][-1] as Dictionary)["until_s"] = peak_s + R.DEF_UP_S
+					(ev[other][-1] as Dictionary)["control_t"] = contact_t + minf(float(drow.get("back_s", 0.4)), R.DEF_UP_S + 0.25)
 				ctrl_until[other] = maxf(float(ctrl_until[other]), contact_t + 0.15)
 				# S525 (the worst head jump of three films, 25 cm in a frame: a jab thrown 0.07 s after the hook he had
 				# weaved under, started 0.12 s before its own contact from the bottom of the weave): he comes up before

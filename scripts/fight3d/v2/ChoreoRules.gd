@@ -138,6 +138,23 @@ static func impact_s_for(move: String) -> float:
 ## S529: 0.13 -> 0.10 - the reaction now starts one picture after the contact (Player2._late) and joins a little slower:
 ## the head is still furthest 3 pictures after the glove lands (0.10 read 4 on the 30-a-second film).
 const REACT_PEAK_S := 0.08
+## S530: a body shot FOLDS a man over 5-6 pictures (30-50 cm: at the head's 3 pictures that is 20 cm in one).
+const REACT_FOLD_S := 0.17
+## S530 NO HEAD OVER THE BAR IN ONE PICTURE (ChoreoReact.start_s): the most a hit head may go over the hips in one film
+## picture (the critics' bar is 10 cm with the body's own step back in it), and how much of the way the join has
+## gone after 1, 2, 3 ... pictures, 30 pictures a second: "quick" = Player2.JOIN "reaction" 0.04 / 0.12, "snap" = JOIN_SOFT
+## 0.025 / 0.20, "fold" = JOIN_FOLD 0.05 / 0.22, "defence" = JOIN "defence" 0.05 / 0.15 (change a join and its way together).
+const HEAD_STEP_MAX_M := 0.085
+const FILM_HZ := 30.0
+const JOIN_WAY := {"quick": [0.26, 0.76, 1.0], "snap": [0.26, 0.65, 0.88, 0.98], "fold": [0.10, 0.36, 0.65, 0.86, 0.97],
+	"defence": [0.15, 0.54, 0.875, 1.0], "punch": [0.15, 0.54, 0.875, 1.0]}
+const CUT_STEP_MAX_M := 0.06      # a punch started part-way in (a combination's next): its head's step a picture, at most
+const CUT_SLIDE_S := 0.10         # ... it lands this much later at most to start earlier in its take
+const WEAVE_STRAIGHT := "pro_quick_weave"   # the weave under a jab or a cross (ChoreoReact.defence)
+## S530: a weave or a slip that does not step is a U of 8-12 pictures (the coach's bar; the bought takes come up over
+## 12-14 more): he is handed back to the guard this long after his head's lowest point and the guard's join brings him up.
+const DEF_UP_S := 0.20
+const DEF_EARLY_S := 0.15         # a defence may start this much sooner than DEF_LEAD_S to play more of its take
 const REACT_VARY_SCORE := 0.30
 ## S526 SIZED TO THE PUNCH (four films, both critics, item 1 every time): how far the hit head should travel against
 ## his own body, by the punch (their asks: jab 10-12 cm, cross 20-25, hook 25-30, uppercut 15-20, a body shot a fold
@@ -157,6 +174,10 @@ const REACT_SLOW := ["pro_hit_by_jab_v1"]
 ## frames" - the reaction takes' own tails; their bar: the guard back up in 6-10 pictures).
 const REACT_TAIL_S := 0.32        # a reaction hands back to the guard this long after its head's furthest point
 const REACT_STAGGER_S := 1.0      # ... a body shot's after its stagger, this long at most
+
+
+static func react_peak_s(move: String) -> float:
+	return REACT_FOLD_S if move == "body_hook" else REACT_PEAK_S
 
 
 static func react_head_m(move: String, big: bool) -> float:

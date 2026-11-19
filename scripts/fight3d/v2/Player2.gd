@@ -37,11 +37,15 @@ const FOOT_DB := "res://assets/data/foot_db.json"
 ## S529 a reaction: was 0.035 / 0.11 - the snap onto a take started part-way in covered 40 % of the way in ONE picture
 ## (film 6, both critics: 18-19 head jumps over 12 cm, all inside a reaction or a dodge, worst 21.6 cm; their bar is the
 ## head's travel spread over 2-3 pictures, none over 10 cm).
+## S530: ChoreoRules.JOIN_WAY holds the way of the reaction, soft, fold and defence joins picture by picture - the plan
+## sizes every reaction's and defence's start with it: change them together.
 const JOIN := {"punch": Vector2(0.05, 0.15), "reaction": Vector2(0.04, 0.12), "block": Vector2(0.02, 0.06),
 	"defence": Vector2(0.05, 0.15), "guard": Vector2(0.10, 0.30), "pass": Vector2(0.10, 0.30),
 	"fidget": Vector2(0.10, 0.30), "feint": Vector2(0.05, 0.15), "step": Vector2(0.07, 0.22)}
 const JOIN_TURN := Vector2(0.08, 0.24)
 const JOIN_HOME := Vector2(0.06, 0.22)   # the punching hand back to the guard (ChoreoRules.ARM_HOME_S)
+const JOIN_SOFT := Vector2(0.025, 0.20)   # S530: a heavy reaction (the plan's "soft"): the middle picture carries 0.39 of the way, not 0.5
+const JOIN_FOLD := Vector2(0.05, 0.22)   # S530: a body shot folds a man over 5-6 pictures (36 cm in three was 20 cm in one)
 const LEAD_MPS := 2.0         # a reaction's lost travel is given at most this fast (0.19 m in 0.11 s, 0.5 m in 0.25 s)
 const WAITING := ["", "guard", "fidget", "feint", "step"]   # what a wait thing (ChoreoWait) may take over
 ## S528 (the owner on film 5, C434: "why the fighter do not walk ?"): every move of a body is a captured boxing step
@@ -278,10 +282,14 @@ func _event(i: int, e: Dictionary) -> void:
 	if kind in ["fidget", "feint"]:
 		_wait(i, e)
 		return
+	if kind == "reaction" and str(e.get("move", "")) == "body_hook":
+		_join_next = JOIN_FOLD
+	elif kind == "reaction" and bool(e.get("soft", false)):
+		_join_next = JOIN_SOFT
 	_play(i, clip, float(e["from_s"]) + (t - float(e["late_t"]) if e.has("late_t") else 0.0), kind, kind == "punch" or str(e.get("part", "whole")) == "whole")
-	if kind == "reaction" and e.has("until_s"):   # S526: back to the guard once the reaction has shown (ChoreoRules.REACT_TAIL_S)
+	if kind in ["reaction", "defence"] and e.has("until_s"):   # S526: back to the guard once the reaction has shown (ChoreoRules.REACT_TAIL_S); S530: a weave too (DEF_UP_S)
 		_due.append([t + maxf(float(e["until_s"]) - float(e["from_s"]), 0.2), func() -> void:
-			if str(_take[i].get("clip", "")) == clip and str(_take[i].get("kind", "")) == "reaction" and not _down(i):
+			if str(_take[i].get("clip", "")) == clip and str(_take[i].get("kind", "")) == kind and not _down(i):
 				guard(i)])
 	if kind != "punch":
 		return

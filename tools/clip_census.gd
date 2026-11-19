@@ -22,6 +22,9 @@ extends SceneTree
 ## A REACTION / DEFENCE / BLOCK: head_peak_m and head_peak_s (the head's furthest point from its first frame, with the
 ##   body's travel), head_dir [back, side, up] (unit, in his own frame: back = away from the puncher), head_rel_m (the
 ##   same without the hips' travel: the snap alone), back_s (when the head is back within HOME_M over the hips; -1 never).
+## A PUNCH / REACTION / DEFENCE / BLOCK, S530: head_g = the head's distance from where the fight GUARD holds it over the
+##   hips (meta guard_head_m = that spot: side, up, forward), hips_g = the hips' distance from the take's first frame
+##   along the canvas, both 30 times a second - what a viewer sees picture by picture when the take is joined part-way in.
 
 const Stage := preload("res://scripts/fight3d/FightStage.gd")
 const FightClips := preload("res://scripts/fight3d/FightClips.gd")
@@ -59,6 +62,8 @@ var ribs_off := Vector3.ZERO
 var lat := Vector3.ZERO        # the staged pair's sideways offset, hips to hips
 var contact_rows := {}
 var head_fwd := 0.0            # the defender's head bone in front of his own hips, on the guard's first frame
+var guard_head := Vector3.ZERO  # S530: the head over the hips in the fight guard, the mean of its loop (x, z from the hips; y as it is)
+const CURVE_HZ := 30.0
 
 
 func _initialize() -> void:
@@ -89,6 +94,9 @@ func _initialize() -> void:
 	var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(BeatClips.CONTACT_PATH))
 	contact_rows = parsed if parsed is Dictionary else {}
 	var guard := BeatClips.first(BeatClips.GUARD, ap.has_animation)
+	var gn := maxi(2, int(ap.get_animation(guard).length * CURVE_HZ))
+	for i in gn:
+		guard_head += _over_hips(_pose(guard, i / CURVE_HZ)) / float(gn)
 	var names: Array = []
 	for n in ap.get_animation_list():
 		if not SKIP.any(func(p): return str(n).begins_with(str(p))):
@@ -112,7 +120,8 @@ func _initialize() -> void:
 			"scale": snappedf(scale, 0.001), "glove_front_m": snappedf(front * scale, 0.001),
 			"face_from_hips_m": [_r(face_off.dot(side)), _r(face_off.y), _r(face_off.dot(fwd))],
 			"ribs_from_hips_m": [_r(ribs_off.dot(side)), _r(ribs_off.y), _r(ribs_off.dot(fwd))], "fit_m": Census.FIT_M,
-			"head_from_hips_m": _r(head_fwd)},
+			"head_from_hips_m": _r(head_fwd), "curve_hz": CURVE_HZ,
+			"guard_head_m": [_r(guard_head.dot(side)), _r(guard_head.y), _r(guard_head.dot(fwd))]},
 		"names": names, "played": played, "dropped": dropped, "rows": rows,
 	}
 	var missing: Array = played.filter(func(n): return not rows.has(n))
@@ -174,6 +183,11 @@ func _pose(clip: String, t: float) -> Dictionary:
 			axis = axis.slerp(fore, PR.STRAIGHT).normalized()
 		p[s + "Glove"] = (p[s + "Hand"] as Vector3) + axis * front * scale
 	return p
+
+
+## The head from the hips' spot on the canvas (x, z from the hips; the height as it is).
+static func _over_hips(p: Dictionary) -> Vector3:
+	return Vector3((p["Head"] as Vector3).x - (p["Hips"] as Vector3).x, (p["Head"] as Vector3).y, (p["Head"] as Vector3).z - (p["Hips"] as Vector3).z)
 
 
 static func _flat(v: Vector3) -> Vector3:
@@ -254,6 +268,21 @@ func _measure(clip: String) -> Dictionary:
 		row.merge({"head_peak_m": _r(head_max), "head_peak_s": _r(head_i / HZ), "size": Census.react_size(head_max),
 			"head_dir": [snappedf(-dir.dot(fwd), 0.01), snappedf(dir.dot(side), 0.01), snappedf(dir.y, 0.01)],
 			"head_rel_m": _r(rel_max), "head_rel_s": _r(_first_peak(rels, rel_max) / HZ), "back_s": _r(back)})
+	if row["kind"] in ["reaction", "defence", "block", "punch"]:
+		# S530 THE HEAD'S WAY, PICTURE BY PICTURE. A reaction, a defence and a trimmed punch are started part-way into the
+		# take and joined from the fight guard: the join carries the head to where the take already has it. A 28-36 cm
+		# reaction joined at its peak put half of that into ONE picture (film 6 and the S529 bout: head jumps of 20 cm),
+		# though no bought take moves a head faster than 6 cm a picture by itself. head_g = how far the head is from
+		# where the guard holds it over the hips, hips_g = how far the hips are from the take's first frame along the
+		# canvas, CURVE_HZ times a second: the choreographer picks the start that keeps every picture's step under its bar.
+		var curve: Array = []
+		var hips: Array = []
+		var step := int(HZ / CURVE_HZ)
+		for i in range(0, n, step):
+			curve.append(snappedf((_over_hips(ps[i]) - guard_head).length(), 0.001))
+			hips.append(snappedf(_flat((ps[i]["Hips"] as Vector3) - (p0["Hips"] as Vector3)).length(), 0.001))
+		row["head_g"] = curve
+		row["hips_g"] = hips
 	return row
 
 

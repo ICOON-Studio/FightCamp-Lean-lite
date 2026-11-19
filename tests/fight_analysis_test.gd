@@ -222,6 +222,9 @@ func _run() -> void:
 	_fits(big, "Largest")
 	big.queue_free()
 	TextScale.use(self, 1.0)
+	# S530: a round divider names whose game it is (the exchange's mode is the opponent's: Exchanges.next_mode), by role
+	var dv: String = load("res://scripts/ui/FightAnalysisList.gd").divider(2, "press")
+	_check(dv == "Round 2 - the opponent pressing forward", "divider has a subject, no name: '%s'" % dv)
 	print("FIGHT_ANALYSIS failures=%d" % failures)
 	quit(1 if failures > 0 else 0)
 

@@ -5194,7 +5194,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-19 19:28 board_sync",
+  "updated": "2026-11-19 20:12 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5355,7 +5355,8 @@
     "title": "TASK TREEVALUE5 - the step probe keeps a punch on the step's destination card, then reruns the ten steps",
     "who": "qwen",
     "started": "2026-11-19T17:52",
-    "run": "TREEVALUE5"
+    "run": "TREEVALUE5",
+    "state": "LANDED - Claude collects"
    },
    {
     "title": "Fresh critic: contracts map v3",
@@ -5389,7 +5390,8 @@
     "title": "Blind contract test of the footwork steps (StepWire)",
     "who": "arena",
     "started": "2026-11-19T18:58",
-    "run": "STEPBLIND1"
+    "run": "STEPBLIND1",
+    "state": "LANDED - Claude collects"
    },
    {
     "title": "Turning pro map v4 from the code (answers both v3 critics)",
@@ -5397,6 +5399,52 @@
     "started": "2026-11-19T19:09",
     "run": "TURNREV4",
     "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "Fresh critic: turning pro map v4",
+    "who": "arena",
+    "started": "2026-11-19T19:50",
+    "run": "TURNCRITIC4A",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "Fresh critic: coach fit sheet (hover design)",
+    "who": "arena",
+    "started": "2026-11-19T19:50",
+    "run": "COACHCRITIC10A",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "Coach fit: re-measure with a dose control, the coached-morning lever and camp tiredness",
+    "who": "goose",
+    "started": "2026-11-19T20:01",
+    "run": "COACHFITPROBE3"
+   },
+   {
+    "title": "Turning pro: rerun all nine lines on today's code",
+    "who": "goose",
+    "started": "2026-11-19T20:01",
+    "run": "TURNPROBE3"
+   },
+   {
+    "title": "Blind contract test of the coached-morning deal",
+    "who": "arena",
+    "started": "2026-11-19T20:30",
+    "run": "DEALBLIND1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "Blind contract test of on-a-run + ducked/owed",
+    "who": "arena",
+    "started": "2026-11-19T21:10",
+    "run": "HOTBLIND1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK HOLD1 - the specialty: four ways to hold moves over two seasons, and the hold minutes that make it a choice (probe)",
+    "who": "qwen",
+    "started": "2026-11-19T20:12",
+    "run": "HOLD1"
    }
   ],
   "next": [
@@ -5421,7 +5469,7 @@
    {
     "id": "GUARDV4",
     "who": "claude",
-    "title": "Guard damage v4 (his yes Q-275): BUILT S524-S525 (bar, wear, leak, clinch / Hands up, habits, corner line, result rows). S528: posture = the corner's existing Gloves high / Elbows in (GUARDPROBE4: switching pays in pro) - no dropdown, no defence tab. Left: Arena blind contract test (GUARDBLIND1)"
+    "title": "Guard damage v4 (his yes Q-275): BUILT S524-S525 (bar, wear, leak, clinch / Hands up, habits, corner line, result rows). S528: posture = the corner's existing Gloves high / Elbows in (GUARDPROBE4: switching pays in pro) - no dropdown, no defence tab. Blind contract test GUARDBLIND1 collected S529 (guard_contract_test in the nightly list). Left: his look in the exe"
    },
    {
     "id": "HEADJUMP1",
@@ -5432,7 +5480,7 @@
    {
     "id": "FIGHTFILM1",
     "who": "claude",
-    "title": "Film nights + fight analysis: S510 watch-it-yourself; S511 plan line marks, result PUNCH BY PUNCH + History Analysis + corner The round so far (own-bout mode), Write the answer, Tape Room retired. Left: the 3D film in the page's film slot, the 3D corner overlay, Settings fight-log switch | S512: own-bout dividers read 'pressing forward' (no subject); Settings fight-log On/Off waits for the live log panel (it sets that panel's default)",
+    "title": "Film nights + fight analysis: S510 watch-it-yourself; S511 plan line marks, result PUNCH BY PUNCH + History Analysis + corner The round so far (own-bout mode), Write the answer, Tape Room retired. Left: the 3D film in the page's film slot, the 3D corner overlay, Settings fight-log switch | own-bout dividers FIXED S530 ('the opponent pressing forward'); Settings fight-log On/Off waits for the live log panel (it sets that panel's default)",
     "after": ""
    },
    {

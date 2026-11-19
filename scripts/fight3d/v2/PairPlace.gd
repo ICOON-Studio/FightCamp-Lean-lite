@@ -23,6 +23,12 @@ const EDGE_IN_M := 0.35       # nobody backs closer to the ropes than this
 ## The side-on turn, degrees a second: a calm circle while both wait (0.4 m/s of feet at rest), a drift while a take plays.
 const SQUARE_WAIT_DPS := 28.0
 const SQUARE_BUSY_DPS := 9.0
+## S530 ANGLES (film 6, both critics: "No angles. In 75 seconds nobody pivots off the line", "every 3-5 s one man pivots
+## 20-45 deg off the line"): the pair circles (StepPlay: a ring step that turns the pair's line with the captured side
+## steps), so side-on has this much slack either way - inside it nothing turns the pair back; past it the pair is
+## eased back to the slack's edge. Nobody's back hides the other man inside it. `-- fp2nocircle` = side-on, no circling.
+const SLACK_DEG := 18.0
+static var circle_on: bool = not OS.get_cmdline_user_args().has("fp2nocircle")
 
 var p: Node = null            # Player2
 var _want_was := 0.0          # the distance asked for last frame (how fast it changes is how fast the bodies may follow)
@@ -79,11 +85,43 @@ func square(delta: float) -> void:
 		busy = busy or not (str(p._take[i].get("kind", "")) in p.WAITING)
 	var most := deg_to_rad(SQUARE_BUSY_DPS if busy else SQUARE_WAIT_DPS) * delta
 	var turn := clampf(FixedCam.square(a, b, (cam as Node).get_meta("fixed_pos") as Vector3, delta), -most, most)
+	if circle_on:
+		var off := off_side()
+		turn = clampf(signf(off) * maxf(absf(off) - deg_to_rad(SLACK_DEG), 0.0), -most, most)
 	if turn == 0.0:
 		return
 	var mid := (a + b) * 0.5
 	_shift(0, mid + (a - mid).rotated(Vector3.UP, turn) - a)
 	_shift(1, mid + (b - mid).rotated(Vector3.UP, turn) - b)
+
+
+## How far (radians about +Y) the pair's line is from side-on to the fixed camera: the turn that would square it
+## (0 with no fixed camera).
+func off_side() -> float:
+	var cam: Variant = p.st.get("camera")
+	if not FixedCam.on or not FixedCam.square_on or not (cam is Node) or not (cam as Node).has_meta("fixed_pos"):
+		return 0.0
+	var a: Vector3 = p._home[0]
+	var b: Vector3 = p._home[1]
+	var d := Vector3(b.x - a.x, 0.0, b.z - a.z)
+	var mid := (a + b) * 0.5
+	var cp: Vector3 = (cam as Node).get_meta("fixed_pos")
+	var to_cam := Vector3(cp.x - mid.x, 0.0, cp.z - mid.z)
+	if d.length() < 0.05 or to_cam.length() < 0.05:
+		return 0.0
+	var line := Vector3.UP.cross(to_cam.normalized())
+	if d.dot(line) < 0.0:
+		line = -line
+	return atan2(d.cross(line).y, d.dot(line))
+
+
+## The pair turns about its own middle by `ang` (a circle step under way).
+func turn_pair(ang: float) -> void:
+	var a: Vector3 = p._home[0]
+	var b: Vector3 = p._home[1]
+	var mid := (a + b) * 0.5
+	_shift(0, mid + (a - mid).rotated(Vector3.UP, ang) - a)
+	_shift(1, mid + (b - mid).rotated(Vector3.UP, ang) - b)
 
 
 func _shift(i: int, by: Vector3) -> void:

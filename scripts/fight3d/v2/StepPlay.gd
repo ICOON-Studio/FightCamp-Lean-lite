@@ -31,6 +31,12 @@ const KICK_M := 0.12               # a move under a take this long gets the leg 
 const ALONG_M := Vector2(0.23, 0.35)
 const SIDE_M := Vector2(0.20, 0.34)
 const CENTRE_M := 0.9              # the pair's middle further than this from the ring's: the next ring step heads back
+## S530 ANGLES: this share of the ring steps CIRCLE - both men take the side step to the same hand (each man's own
+## right, or each man's own left), so the pair's line turns about its middle; each foot covers CIRCLE_M of arc (17 deg
+## at the rest distance). Past CIRCLE_BACK_DEG off side-on the next circle goes back the other way (PairPlace.SLACK_DEG).
+const CIRCLE_SHARE := 0.5
+const CIRCLE_M := 0.20
+const CIRCLE_BACK_DEG := 8.0
 const EDGE_M := 0.75               # no ring step puts a man closer to the ropes than this
 const BUSY := ["punch", "reaction", "block", "defence", "pass"]
 
@@ -43,6 +49,8 @@ var kick_on: bool = not OS.get_cmdline_user_args().has("fp2nokick")
 var _seg: Array = []               # ring steps under way: {i, clip, vec, s} (the leader's take carries the pair)
 var _own: Array = []               # plan steps under way: {i, clip, t0, t1, d} (his take carries his share of the move)
 var _vec := {}                     # ring step id -> where it goes (decided when its first man starts)
+var _turn := {}                    # ring step id -> the turn of the pair's line, radians (a circle step; 0 = a straight one)
+var circled := 0                   # circle steps started (probes)
 var _last := Vector3.ZERO
 
 
@@ -53,6 +61,7 @@ func _init(player: Node) -> void:
 func reset() -> void:
 	_seg = []
 	_vec = {}
+	_turn = {}
 	_own = []
 
 
@@ -75,7 +84,8 @@ func start(i: int, e: Dictionary) -> void:
 	if e.has("drift"):
 		fresh = not _vec.has(int(e["drift"]))
 		var v := _ring(e)
-		if v == Vector3.ZERO:
+		var th: float = float(_turn.get(int(e["drift"]), 0.0))
+		if v == Vector3.ZERO and th == 0.0:
 			return
 		var to: Vector3 = (p._home[1 - i] as Vector3) - (p._home[i] as Vector3)
 		to.y = 0.0
@@ -84,7 +94,10 @@ func start(i: int, e: Dictionary) -> void:
 		to = to.normalized()
 		var along := v.dot(to)
 		var across := v.dot(Vector3.UP.cross(to))   # + = to his own left
-		if absf(along) >= absf(across):
+		if th != 0.0:
+			dir = "right" if th > 0.0 else "left"   # a turn about +Y takes both men to their own right
+			dist = CIRCLE_M
+		elif absf(along) >= absf(across):
 			dir = "fwd" if along > 0.0 else "back"
 			dist = absf(along)
 		else:
@@ -108,7 +121,11 @@ func start(i: int, e: Dictionary) -> void:
 		p._play(i, clip, 0.0, "step", false)
 		(p.st.boxers[i]["ap"] as AnimationPlayer).speed_scale = rate
 		if fresh:   # the pair's middle moves as his take's hips travel (the other man answers a few frames later)
-			_seg.append({"i": i, "clip": clip, "vec": _vec[int(e["drift"])], "s": 0.0})
+			_seg.append({"i": i, "clip": clip, "vec": _vec[int(e["drift"])], "s": 0.0, "turn": float(_turn.get(int(e["drift"]), 0.0))})
+			if float(_turn.get(int(e["drift"]), 0.0)) != 0.0:
+				circled += 1
+				if p.log_on:
+					print("FP2 %6.2f circle %+.0f deg (the line is %+.0f deg off side-on)" % [p.t, rad_to_deg(float(_turn[int(e["drift"])])), rad_to_deg(p.pair.off_side())])
 	else:
 		# a step of the distance plan: the take's travel timed onto the plan's ramp; while it plays the BODY goes by the
 		# take's own hips (want), so the feet and the body keep one clock
@@ -222,6 +239,19 @@ func _ring(e: Dictionary) -> Vector3:
 				ok.append(o)
 		var mid := (a + b) * 0.5
 		mid.y = 0.0
+		# S530 a circle: when the pair is not on its way back to the middle, and both men keep their room
+		if p.pair.circle_on and mid.length() <= CENTRE_M and fmod(float(e.get("roll", 0.0)) * 13.0, 1.0) < CIRCLE_SHARE:
+			var off: float = p.pair.off_side()
+			var way := signf(off) if absf(off) > deg_to_rad(CIRCLE_BACK_DEG) else (1.0 if fmod(float(e.get("roll", 0.0)) * 29.0, 1.0) < 0.5 else -1.0)
+			var th := way * CIRCLE_M / maxf(line.length() * 0.5, 0.3)
+			var room := true
+			for h in [a, b]:
+				var to2: Vector3 = mid + (Vector3(h.x, 0.0, h.z) - mid).rotated(Vector3.UP, th)
+				room = room and maxf(absf(to2.x), absf(to2.z)) <= edge
+			if room:
+				_vec[id] = Vector3.ZERO
+				_turn[id] = th
+				return Vector3.ZERO
 		if not ok.is_empty():
 			if mid.length() > CENTRE_M:
 				v = ok[0]
@@ -248,6 +278,9 @@ func follow() -> void:
 			_seg.remove_at(k)   # his take was cut: the ring step stops where it is
 			continue
 		var by: Vector3 = (g["vec"] as Vector3) * maxf(s - float(g["s"]), 0.0)
+		if float(g.get("turn", 0.0)) != 0.0 and s > float(g["s"]):
+			p.pair.turn_pair(float(g["turn"]) * (s - float(g["s"])))
+			walked += CIRCLE_M * (s - float(g["s"]))
 		g["s"] = maxf(s, float(g["s"]))
 		if by != Vector3.ZERO:
 			p.pair._shift(0, by)

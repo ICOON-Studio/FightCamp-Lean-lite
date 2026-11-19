@@ -412,12 +412,59 @@ func _r15_sized() -> void:
 		var e := _react_of(move, 3)
 		var row: Dictionary = rows.get(str(e.get("clip", "")), {})
 		var snap: float = minf(float(row.get("head_peak_s", 0.0)), float(row.get("head_rel_s", 99.0)))
-		_check(absf(float(e.get("from_s", -1.0)) - maxf(snap - R.REACT_PEAK_S, 0.0)) < 0.001, "R15: a %s's reaction starts REACT_PEAK_S before its snap (%s from %.2f, snap %.2f)" % [move, str(e.get("clip", "")), float(e.get("from_s", -1.0)), snap])
+		_check(float(e.get("from_s", -1.0)) <= maxf(snap - R.react_peak_s(move), 0.0) + 0.001 and absf(float(e.get("from_s", -1.0)) - float(React.start_s(row, move, 30.0, 1.0)[0])) < 0.001, "R15: a %s's reaction starts react_peak_s before its snap or earlier (%s from %.2f, snap %.2f)" % [move, str(e.get("clip", "")), float(e.get("from_s", -1.0)), snap])
 		_check(e.has("until_s") and float(e["until_s"]) > float(e["from_s"]) + 0.3 and float(e["until_s"]) <= float(row.get("length_s", 9.0)) + 0.001, "R15: ... and hands back to the guard inside the take (%.2f)" % float(e.get("until_s", -1.0)))
 	var body := _react_of("body_hook", 3)
 	var brow: Dictionary = rows.get(str(body.get("clip", "")), {})
-	_check(float(body.get("from_s", 9.0)) < float(brow.get("head_peak_s", 0.0)) - R.REACT_PEAK_S - 0.1 or absf(float(brow.get("head_rel_s", 0.0)) - float(brow.get("head_peak_s", 0.0))) < 0.15,
+	_check(float(body.get("from_s", 9.0)) < float(brow.get("head_peak_s", 0.0)) - R.REACT_FOLD_S - 0.1 or absf(float(brow.get("head_rel_s", 0.0)) - float(brow.get("head_peak_s", 0.0))) < 0.15,
 		"R15: a body shot's reaction starts at the fold, not at the end of the stagger (%s from %.2f, stagger ends %.2f)" % [str(body.get("clip", "")), float(body.get("from_s", 9.0)), float(brow.get("head_peak_s", 0.0))])
+	# S530 NO HEAD OVER THE BAR IN ONE PICTURE: a reaction joined at its peak put 0.4-0.5 of a 28-36 cm way into one
+	# picture (the head jumps of film 6, 20 cm). It starts as late in its take as keeps every picture's step under the bar.
+	var worst := 0.0
+	var worst_of := ""
+	var early := 0
+	var at_peak := 0
+	for move in ["jab", "cross", "lead_hook", "rear_hook", "lead_uppercut", "body_hook"]:
+		for big in [false, true]:
+			for seed in 20:
+				var e := _react_of(move, seed, big)
+				var row: Dictionary = rows.get(str(e.get("clip", "")), {})
+				var curve: Array = row.get("head_g", [])
+				if curve.is_empty():
+					continue
+				var from: float = float(e.get("from_s", 0.0))
+				var step: float = React.worst_step(curve, from + 1.0 / R.FILM_HZ, R.JOIN_WAY["fold" if move == "body_hook" else ("snap" if bool(e.get("soft", false)) else "quick")], 30.0)
+				if from > 0.0 and step > worst:
+					worst = step
+					worst_of = "%s%s %s %.3f m" % ["big " if big else "", move, str(e.get("clip", "")), step]
+				var peak: float = minf(float(row.get("head_peak_s", 0.0)), float(row.get("head_rel_s", 99.0)))
+				if from < peak - R.react_peak_s(move) - 0.02:
+					early += 1
+				elif from > 0.0:
+					at_peak += 1
+	_check(worst <= R.HEAD_STEP_MAX_M + 0.0005, "R15: no reaction's head goes over the bar in one picture (%s)" % worst_of)
+	_check(early > 0 and at_peak > 0, "R15: ... a heavy take starts earlier for it (%d), a light one still on its peak (%d)" % [early, at_peak])
+	_check(React.worst_step(rows["pro_hit_by_cross_v4"]["head_g"], float(rows["pro_hit_by_cross_v4"]["head_rel_s"]) - R.REACT_PEAK_S + 1.0 / R.FILM_HZ, R.JOIN_WAY["quick"], 30.0) > 0.10,
+		"R15: ... the heavy cross take joined at its peak is over it (the old start: red)")
+	var quick_jabs := 0
+	for seed in 20:
+		if not bool(_react_of("jab", seed).get("soft", true)):
+			quick_jabs += 1
+	_check(quick_jabs >= 10, "R15: ... a jab's light take keeps the quick join (the head furthest three pictures after the glove; %d of 20)" % quick_jabs)
+	# a defence with nothing holding him starts its take earlier rather than joining it part-way at twice its speed
+	var wv := Choreo.plan([_beat("a", "lead_hook", "misses", 5.0, {"def": "weave"})], db, _opts())
+	var wes: Array = (wv["tracks"]["b"] as Array).filter(func(e): return str(e["kind"]) == "defence")
+	if wes.size() == 1 and (rows.get(str(wes[0]["clip"]), {}) as Dictionary).has("head_g"):
+		var wrow: Dictionary = rows[str(wes[0]["clip"])]
+		_check(float(wes[0]["from_s"]) <= 0.001 or React.worst_step(wrow["head_g"], float(wes[0]["from_s"]), R.JOIN_WAY["defence"], 30.0) <= R.HEAD_STEP_MAX_M + 0.0005 or float(wes[0]["from_s"]) <= float(wrow["head_peak_s"]) - R.DEF_LEAD_S - R.DEF_EARLY_S + 0.02,
+			"R15: a free defence starts early enough for its head (%s from %.2f)" % [str(wes[0]["clip"]), float(wes[0]["from_s"])])
+	# S530: a straight is slipped with the quick weave, a hook is ducked under with a deep one; a weave comes up at once
+	var wj := Choreo.plan([_beat("a", "jab", "misses", 5.0, {"def": "weave"})], db, _opts())
+	var wjs: Array = (wj["tracks"]["b"] as Array).filter(func(e): return str(e["kind"]) == "defence")
+	_check(wjs.size() == 1 and str(wjs[0]["clip"]) == R.WEAVE_STRAIGHT, "R15: a jab is slipped with the quick weave (%s)" % (str(wjs[0]["clip"]) if wjs.size() == 1 else "none"))
+	_check(wes.size() == 1 and str(wes[0]["clip"]) != R.WEAVE_STRAIGHT and float(rows[str(wes[0]["clip"])]["head_rel_m"]) >= 0.30, "R15: a hook is ducked under with a deep weave")
+	_check(wes.size() == 1 and wes[0].has("until_s") and absf(float(wes[0]["until_s"]) - float(rows[str(wes[0]["clip"])]["head_peak_s"]) - R.DEF_UP_S) < 0.001, "R15: a weave is handed back to the guard DEF_UP_S after its lowest point")
+	_check(float(rows["pro_hit_by_cross_v4"].get("head_g", [1.0])[0]) < 0.05, "R15: the census reads a take's head from the guard's spot (head_g)")
 	# the arm comes home: a punch's event says when the hand is back, a straight sooner than a hook
 	var pj := Choreo.plan([_beat("a", "jab", "lands", 5.0)], db, _opts())
 	var ph := Choreo.plan([_beat("a", "lead_hook", "lands", 5.0)], db, _opts())
