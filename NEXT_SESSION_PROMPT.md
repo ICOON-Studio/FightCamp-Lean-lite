@@ -621,7 +621,9 @@ control arm; the shipped player is untouched without the switch.
     frame before sending (the orbit still of one body hid it), and place hands in the head's FACING frame, never by
     scaling toward a bone.
   * THE OWNER AFTER FILM 13 (guard confirmed): "do the cheap fixes and also try to restrict the fighters to punch when
-    they are too far fromeach other and there is no chance to reach the opponent". BUILT, HEADLESS ONLY - NOT FILMED:
+    they are too far fromeach other and there is no chance to reach the opponent". FILMED as film 14 = `v2r18/` once his game closed (23:45; sent to him, no critic
+    round; on the film: far paws 0 of 12, out-of-reach punches 4 of 31, head jumps 14, steps 48 / 42 a minute). The
+    rest of this bullet was written before the film: BUILT, HEADLESS ONLY - NOT FILMED:
     his game (ArcheAge) was open (Q-267); `s531/wait_game.sh` is watching, then film it as `v2r18/` (`film_round.sh
     E:/FightCamp/tmp/fightweek/v2r18 fightplayer2 fp2log`), LOOK AT BOTH MEN in a wait strip and an exchange strip,
     and send it to him (no critic round). Headless bout `s531/b17`, film 13 -> now:
@@ -640,6 +642,16 @@ control arm; the shipped player is untouched without the switch.
     - a duck joined part-way in by a man still held takes the fold's join (event "soft" -> Player2 JOIN_FOLD).
     - the v2 tripod stands 25 cm higher (FixedCam.lift, set by PairPlace; the shipped player unchanged).
     choreographer / player2 (LANDS 14 of 14) / ring_steps / fixed_cam tests green.
+  * FILM 15 = `v2r19/` (the owner, asked "Smooth the two rough hit reactions next?": "Yes, smooth them"; sent to him,
+    no critic round). Head jumps over 12 cm: 14 -> 7, worst 16.6 -> 13.5 cm. CAUSE FOUND: no take moves a head over
+    5.5 cm a picture (clip_db head_g); the jumps are the JOIN - `ChoreoReact.start_s` sizes the join's share from
+    head_g, which is read against the still Pro guard, while the man now comes out of the bouncing wait (3-5 cm from
+    it), and the body's knock rode on top in the same pictures (node 3-6 cm a picture). FIX: ChoreoRules
+    HEAD_STEP_MAX_M 0.085 -> 0.065 (the margin), KNOCK_MIN_S 0.30 (a hit man gives his ground over 9 pictures, was
+    5). THE PRICE: the head is furthest 5 pictures after the blow (was 4; 0.075 read 9 jumps and 4.5), "later than 4
+    frames" 7 -> 9. The 7 left: `pro_left_weave` joined part-way (13.5), combo_v2 / combo_v2_short, cross_v4, one
+    `st_out_m`. THE REAL FIX, not done: re-run the census (`tools/clip_census.gd`) with head_g read against st_wait /
+    st_wait_g instead of pro_idle, then HEAD_STEP_MAX_M can go back up. R8's test bar is DEF_LEAD_S + DEF_EARLY_S now.
   * TRAPS: `off_side()`'s sign - a pair turn of +th takes the line's angle DOWN by th (my first cap flipped circles the
     wrong way: 36 deg off, a back over the punches in ex1; rulers saw nothing, the sheet did - LOOK AT ONE EX SHEET
     BEFORE THE CRITICS); 30 deg circles put a back to the fixed camera whatever the slack; the film's FP2 log is in

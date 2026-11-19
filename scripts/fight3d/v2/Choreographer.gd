@@ -198,7 +198,7 @@ static func plan(beats: Array, db: Dictionary, opts: Dictionary) -> Dictionary:
 			# combination", so most reactions inside a burst were pinned and a cross moved nobody): a follow-up due
 			# inside KNOCK_FREE_S keeps him on the spot only when the feet could not cover his travel in that time.
 			var give_m: float = float(rrow.get("hips_max_m", 0.0)) * float(scale.get(other, 1.0))
-			var give_s: float = maxf(maxf(0.18, give_m / 2.0), r_peak - maxf(r_at - R.react_peak_s(move), 0.0) - R.react_peak_s(move))   # how long the knock takes (Player2.LEAD_MPS; a gut shot's stagger takes its own time)
+			var give_s: float = maxf(maxf(R.KNOCK_MIN_S, give_m / 1.2), r_peak - maxf(r_at - R.react_peak_s(move), 0.0) - R.react_peak_s(move))   # how long the knock takes (Player2.LEAD_MPS; a gut shot's stagger takes its own time)
 			var k_at: int = keys.find(key)
 			for kk in range(k_at + 1, keys.size()):
 				var nb: Dictionary = beats[int(keys[kk][1])]

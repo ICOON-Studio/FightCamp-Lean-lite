@@ -212,7 +212,7 @@ func _r8_def() -> void:
 		var dfe: Dictionary = defs[0]
 		var d_ct: float = float(plan2["beats"][0]["contact_t"])
 		var d_peak: float = float(db["rows"][str(dfe["clip"])].get("head_peak_s", 0.3))
-		_check(d_ct - float(dfe["t"]) <= R.DEF_LEAD_S + 0.001, "R8: the slip starts no earlier than DEF_LEAD_S before the punch lands (%.2f s)" % (d_ct - float(dfe["t"])))
+		_check(d_ct - float(dfe["t"]) <= R.DEF_LEAD_S + R.DEF_EARLY_S + 0.001, "R8: the slip starts no earlier than DEF_LEAD_S + DEF_EARLY_S before the punch lands (S530 lets it start early to keep the head's step under the bar; %.2f s)" % (d_ct - float(dfe["t"])))
 		_check(absf(float(dfe["t"]) + d_peak - float(dfe["from_s"]) - d_ct) < 0.01, "R8: ... and its head is furthest off the line as the punch arrives")
 	# Miss: planned SHORT
 	var plan3 := Choreo.plan([_beat("a", "jab", "misses", 5.0)], db, _opts())

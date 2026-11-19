@@ -164,7 +164,10 @@ const REACT_FOLD_S := 0.17
 ## picture (the critics' bar is 10 cm with the body's own step back in it), and how much of the way the join has
 ## gone after 1, 2, 3 ... pictures, 30 pictures a second: "quick" = Player2.JOIN "reaction" 0.04 / 0.12, "snap" = JOIN_SOFT
 ## 0.025 / 0.20, "fold" = JOIN_FOLD 0.05 / 0.22, "defence" = JOIN "defence" 0.05 / 0.15 (change a join and its way together).
-const HEAD_STEP_MAX_M := 0.085
+## S531 (film 14: 14 head jumps over 12 cm, though no take moves a head over 5.5 cm a picture - the join's share is
+## sized from head_g, which is read against the still Pro guard; the man now comes out of the bouncing wait, 3-5 cm
+## from it, and the body's step back rode on top in the same pictures): 0.085 -> 0.065, the margin for both (14 jumps -> 7; the head is furthest 5 pictures after the blow, was 4; 0.075 read 9 and 4.5).
+const HEAD_STEP_MAX_M := 0.065
 const FILM_HZ := 30.0
 const JOIN_WAY := {"quick": [0.26, 0.76, 1.0], "snap": [0.26, 0.65, 0.88, 0.98], "fold": [0.10, 0.36, 0.65, 0.86, 0.97],
 	"defence": [0.15, 0.54, 0.875, 1.0], "punch": [0.15, 0.54, 0.875, 1.0]}
@@ -175,6 +178,7 @@ const WEAVE_STRAIGHT := "pro_quick_weave"   # the weave under a jab or a cross (
 ## 12-14 more): he is handed back to the guard this long after his head's lowest point and the guard's join brings him up.
 const DEF_UP_S := 0.20
 const DEF_EARLY_S := 0.15         # a defence may start this much sooner than DEF_LEAD_S to play more of its take
+const KNOCK_MIN_S := 0.30   # S531: a hit man gives his ground over this long at least (was 0.18: 6 cm a picture under the head's own snap)
 const REACT_VARY_SCORE := 0.30
 ## S526 SIZED TO THE PUNCH (four films, both critics, item 1 every time): how far the hit head should travel against
 ## his own body, by the punch (their asks: jab 10-12 cm, cross 20-25, hook 25-30, uppercut 15-20, a body shot a fold
