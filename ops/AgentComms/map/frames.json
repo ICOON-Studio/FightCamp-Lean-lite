@@ -167,6 +167,19 @@
      ]
     }
    ]
+  },
+  {
+   "title": "Fight view",
+   "frames": [
+    {
+     "id": "s531-topdown",
+     "title": "Top-down fight view sketch (S531)",
+     "kind": "gallery",
+     "globs": [
+      "ops/previews/s531c/topdown_view.png"
+     ]
+    }
+   ]
   }
  ]
 }

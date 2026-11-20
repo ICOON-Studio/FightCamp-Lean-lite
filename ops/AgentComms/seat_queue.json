@@ -3668,8 +3668,8 @@
    "status": "queued",
    "queued_at": "2026-11-20 14:21",
    "tries": 0,
-   "skips": 9,
-   "last_error": "2026-11-20 17:10 gbot send rc=1: ['GROKBOT FAIL listAgents 404  The request could not be routed']"
+   "skips": 10,
+   "last_error": "2026-11-20 17:13 gbot send rc=1: ['GROKBOT FAIL listAgents 404  The request could not be routed']"
   },
   {
    "id": "SQ251",
@@ -3720,9 +3720,12 @@
    "seat": "dola",
    "brief": "research/DESIGN_TURNPRO1_CRITIC_DOLA.md",
    "stem": "DESIGN_TURNPRO1_CRITIC_DOLA_DOLA",
-   "status": "queued",
+   "status": "sent",
    "queued_at": "2026-11-20 17:11",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-20 17:13",
+   "pid": 38000,
+   "transcript": "AgentComms/seat_logs/SQ255_dola.txt"
   },
   {
    "id": "SQ256",
@@ -3731,6 +3734,15 @@
    "stem": "DESIGN_LEDGER1_CRITIC_DOLA_DOLA",
    "status": "queued",
    "queued_at": "2026-11-20 17:11",
+   "tries": 0
+  },
+  {
+   "id": "SQ257",
+   "seat": "dola",
+   "brief": "research/RESEARCH_STOPS_BY_CLASS_SEX_BRIEF.md",
+   "stem": "RESEARCH_STOPS_BY_CLASS_SEX_BRIEF_DOLA",
+   "status": "queued",
+   "queued_at": "2026-11-20 17:34",
    "tries": 0
   }
  ]
