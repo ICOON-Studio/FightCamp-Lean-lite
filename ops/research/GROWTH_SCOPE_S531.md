@@ -55,3 +55,12 @@ moved, their median members >= 85, median cash >= the GROW arm's, and no more cl
   the loan with the sponsor; the clean comparison (GROW vs GROWLOAN, both signing deals and recruiting) runs next.
   Still true with money in: members stop at the room; the room grows only by moving.
   The game does tell the player (Needs.gd ~line 101: 'A sponsor is waiting', S327) - the probe arms skipped it, a player would not.
+
+## RESULT S531 - the clean comparison (120 careers; both arms sign deals, recruit up to 3 boxers, buy kit, fitness, youth)
+| arm | moved | members@104 | cash@104 | closed | reputation |
+|---|---|---|---|---|---|
+| GROW (cash move only) | 1/60 | 75 [72..79] | $4,605 [$3,519..$12,090] | 0/60 | 174 |
+| GROWLOAN ($3,000 down, $750 x 12) | 36/60 | 140 [73..158] | $5,729 [$3,741..$25,299] | 0/60 | 176 |
+All four pass lines hold: 60% moved, median members 140 (>= 85), cash above GROW's, no extra closures.
+With three boxers the name draws ~150 members; the $12,000 lump sum is the only thing between a careful gym and that.
+Next: the owner approves the design above (board question with this page), then the build in "Order" step 3.
