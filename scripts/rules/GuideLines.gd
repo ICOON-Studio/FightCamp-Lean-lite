@@ -8,6 +8,7 @@ extends RefCounted
 
 const FirstHour := preload("res://scripts/rules/FirstHour.gd")
 const Sim := preload("res://scripts/state/Sim.gd")
+const Bouts := preload("res://scripts/state/Bouts.gd")
 
 const MAX_WORDS := 11
 
@@ -30,7 +31,7 @@ static func line(c: Career) -> String:
 				return "Your boxer won't make weight. Your call on the show."
 			return "The show has asked for your boxer. Have a look."
 		"prep":
-			return _prep(f)
+			return _prep(c, f)
 		"fight":
 			# S419 operator: "explain what to do about the weight ?": the line says whether the scales are a problem.
 			if _misses_weight(c, f):
@@ -94,8 +95,8 @@ static func _misses_weight(c: Career, f: Dictionary) -> bool:
 	return not bool(Sim.weigh_forecast(c, f, FirstHour.SHOW_DAY)["ok"])
 
 
-static func _prep(f: Dictionary) -> String:
-	if (f.get("camp", {}) as Dictionary).is_empty():
+static func _prep(c: Career, f: Dictionary) -> String:
+	if not f.is_empty() and Bouts.camp_due(c, f):   # S532 operator on "Camp: no time for one" beside an amateur bout 19 days out: amateur bouts run on a fight week, no camp (S428)
 		return "Your boxer needs a camp before the bout."
 	if (f.get("arrows", []) as Array).is_empty():
 		return "Write one line against the opponent. Your plan, not mine."

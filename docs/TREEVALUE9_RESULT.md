@@ -109,3 +109,31 @@ Windows that opened vs STEPTUNE2: pivot_out (0->1 legs), feint (1->2 legs), tie_
 - FAIL push_off: StepEffect.TABLE.push_off (drain 0.30, tank 0.40, distance mid) is the row that would move it - best cell Pressure fighter +0.0 outside 1.5-5; other styles outside 0 to +1 (first: Slugger). Only its ropes count is wired today (StepWire); the deny/open/drain sizes are not in the exchange yet.
 
 Elapsed: 10731 s. Reproduce: `python ops/Tools/godot_slot.py run --who treevalue5 -- <godot> --headless --audio-driver Dummy --fixed-fps 60 --path . --script res://tools/treevalue_probe.gd`
+
+---
+
+## S532 GATE REVIEW (Claude) - the corrected gate, re-scored on the table above (no new run)
+
+Tool: `python ops/Tools/treevalue_regate.py docs/TREEVALUE9_RESULT.md`. The legs come from the fight's OWN grading, not
+from the cells: fit(step, style) = sum over the style's games (Exchanges.STYLE_MODES share) of the step's grade there
+(PlanFight.ANSWERS best +1 / ok +0.5 / wrong -1). FOR (fit >= 0.40): cell >= +1.0. WRONG (fit <= -0.20): cell <= +0.5.
+OTHER: -1.0..+2.0. Every cell <= +6.0. WORTH: at least one cell >= +1.0. Honest note: the thresholds were set by Claude
+after TREEVALUE9 was read; the per-style FOR/WRONG lists are not (they are the game's own answers table).
+
+**REGATE done pass=2/10** - pivot_out and feint pass. Old gate: 0/10.
+
+| Step | what fails | the defect in plain words |
+|------|-----------|---------------------------|
+| cut_off | Out-boxer -0.7 (FOR), Volume -2.3 | the textbook answer to a mover LOSES bouts against him - the worst one |
+| tie_up | Out-boxer +2.5, Volume +2.4, Boxer-puncher +2.7 (OTHER) | holding pays against everyone: a free win, not an answer to brawlers |
+| step_out | Out-boxer +2.0, Boxer-puncher +2.5 (WRONG) | moving off the line pays most against the styles that want you long |
+| step_in | Out-boxer +0.6 (FOR), worth +0.6 at best | closing on a mover is barely worth anything |
+| roll_out | Slugger +0.8, Volume 0.0, Boxer-puncher -0.4 (FOR) | rolling under hooks does little against the loaders it is for |
+| step_back | Volume +3.6 (OTHER, fit +0.20) | near miss: Volume presses 45% of the time; reasonable, lowest priority |
+| herd, push_off | worth +0.1 at best against every style | situational steps (herd: a tired or hurt opponent; push_off: out of a clinch) - a style sweep cannot see them |
+
+## Decision (S532)
+The gate is now per step and grounded in the fight's answers table; sizing is allowed for the steps that fail it, in this
+order: cut_off, tie_up, step_out, step_in, roll_out (StepEffect TABLE rows, one probe read per change). herd and push_off
+get a SITUATION probe first (opponent tired / hurt; a clinch on the ropes) before any sizing - a 0 in a style sweep is not
+evidence they are worthless. step_back vs Volume puncher is left alone.

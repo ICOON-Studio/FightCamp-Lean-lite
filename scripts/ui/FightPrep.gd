@@ -18,6 +18,7 @@ const UI := preload("res://scripts/ui/UI.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const Sim := preload("res://scripts/state/Sim.gd")
 const Bouts := preload("res://scripts/state/Bouts.gd")
+const WeekPhase := preload("res://scripts/rules/WeekPhase.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const BoutRead := preload("res://scripts/rules/BoutRead.gd")
 const CampForecast := preload("res://scripts/state/CampForecast.gd")
@@ -51,15 +52,36 @@ static func make(main: Node, c: Career, f: Dictionary) -> VBoxContainer:
 	row.add_child(_tale(c, f, opp, bout_day))
 	row.add_child(_camp_card(main, c, f, bout_day))
 	page.add_child(row)
+	page.add_child(_corner_card(main, f))   # S532 owner: "wtf is this doing in the fight camp selection ?" - the towel is fight night's
 	return page
+
+
+## FIGHT NIGHT, YOUR CORNER: when the corner throws the towel. Its own card: it is not training, camp or weight.
+static func _corner_card(main: Node, f: Dictionary) -> PanelContainer:
+	var card := UI.card("FIGHT NIGHT: WHEN YOUR CORNER STOPS IT")
+	card[0].name = "PrepCorner"
+	card[1].add_child(UI.label("Between rounds your corner checks how likely your boxer is to be stopped next round. At this line it offers you the towel.", 16, UI.FG, "body", true))
+	card[1].add_child(towel_row(main, f))
+	return card[0]
 
 
 ## S461 INTEGRATE1 #4 the towel's line: the stop risk (in 100) at which the corner shows the towel card and the coach pulls
 ## on his own (Towel.LINES; TowelWire.line_of reads it).
+const TOWEL_TIP := {
+	"careful": "Careful: the towel comes early.
+Fewer stoppages and injuries, but you give up some fights she could still win.",
+	"normal": "Normal: the towel comes when a stoppage is a real risk.",
+	"brave": "Brave: she fights on longer.
+More comebacks, more stoppages and injuries.",
+}
+
+
 static func towel_row(main: Node, f: Dictionary) -> HBoxContainer:
 	var row := UI.hbox(8)
 	row.name = "TowelLine"
-	var tip := "The towel: your corner offers to pull out when the chance of being stopped next round reaches the line, and pulls on its own when you skip the bout."
+	var tip := "When the corner offers you the towel.
+The number: the chance your boxer is stopped next round.
+If you skip the choice on the night, the corner pulls her out itself."
 	var lab := UI.label("The towel", 16, UI.FG, "bold")
 	lab.tooltip_text = tip
 	lab.mouse_filter = Control.MOUSE_FILTER_PASS
@@ -70,7 +92,7 @@ static func towel_row(main: Node, f: Dictionary) -> HBoxContainer:
 		var b := UI.button("%s (%d in 100)" % [TowelWire.Towel.LINE_WORDS[i], roundi(float(TowelWire.Towel.LINES[key]) * 100.0)],
 			"BtnSolid" if key == now else "Btn", main.act.bind("towelline", "%s|%s" % [str(f["id"]), key]))
 		b.name = "Towel_" + key
-		b.tooltip_text = tip
+		b.tooltip_text = TOWEL_TIP.get(key, tip)
 		row.add_child(b)
 	return row
 
@@ -89,7 +111,7 @@ static func next_step(c: Career, f: Dictionary) -> Array:
 	var days := int(fb.get("day", c.day)) - c.day
 	if Bouts.weigh_in_today(c, f):
 		return ["Step on the scale", "weighin", str(f["id"])]
-	if camp.is_empty() and days >= BoutRules.CAMP_MIN_DAYS:
+	if Bouts.camp_due(c, f):   # S532 operator on "Camp: no time for one" beside an amateur bout 19 days out: amateur bouts run on a fight week, no camp (S428)
 		return ["Set the camp", "camp", str(f["id"])]
 	if (f.get("arrows", []) as Array).is_empty():
 		var sp := _spars(c, f)
@@ -169,8 +191,9 @@ static func _camp_card(main: Node, c: Career, f: Dictionary, bout_day: int) -> P
 	card[0].size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	var v: VBoxContainer = card[1]
 	var camp: Dictionary = f.get("camp", {})
-	if camp.is_empty():
-		v.add_child(UI.label("No camp yet: until one is set the weeks run the base plan.", 16, UI.FG, "body", true))
+	if camp.is_empty():   # S532: an amateur bout has no camp (S428) - say so instead of "no camp yet"
+		var none := "Amateur bout: no camp. The last days before it are a fight week." if WeekPhase.amateur(f.get("bout", {})) else "No camp yet: until one is set the weeks run the base plan."
+		v.add_child(UI.label(none, 16, UI.FG, "body", true))
 	var rows: Array = []
 	for ln in WeekBoard.plan_of(c, f)["lines"]:
 		var id := str(ln.get("id", ""))
@@ -192,7 +215,6 @@ static func _camp_card(main: Node, c: Career, f: Dictionary, bout_day: int) -> P
 		var st := str(fr[2])
 		rows.append(UI.kv("From the film: " + str(fr[0]), str(fr[1]), UI.GREEN if st == "confirmed" else (UI.MUTED if st == "cleared" else UI.AMBER)))
 	UI.add_rows(v, rows)
-	v.add_child(towel_row(main, f))
 	var week := UI.button("Change the week", "Link", main.act.bind("ftab", "3"))
 	week.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	v.add_child(week)

@@ -28,6 +28,7 @@ var _out := "E:/FightCamp/tmp/s409_look/fullbody"
 var _alt := false
 var _poses: Array = []
 var _poseset := false   # S412 each boxer's three FighterPose pictures: <stem>[_alt].png, _p1, _p2
+var _stance := false    # S532 only the plain picture, the FighterPose.STANCE frame: <stem>[_alt].png orthodox + <stem>[_alt]_s.png southpaw
 
 
 func _initialize() -> void:
@@ -42,6 +43,8 @@ func _initialize() -> void:
 				_poses.append(Array(sp.split("@")))
 		if a == "poseset":
 			_poseset = true
+		if a == "stance":
+			_stance = true
 		if a == "alt":   # S410 the other corner's kit, <stem>_alt.png: the versus screen dresses each side in its corner's colour
 			_alt = true
 	DirAccess.make_dir_recursive_absolute(_out)
@@ -72,18 +75,23 @@ func _initialize() -> void:
 		var list: Array = _poses if not _poses.is_empty() else [[CLIP, 0.4]]
 		if _poseset:
 			list = FighterPose.of(str(stem)).map(func(n): return FighterPose.POOL[n])
+		if _stance:   # one frame (a southpaw lead in the clip); the orthodox picture is its exact mirror image
+			list = [FighterPose.STANCE]
 		for i in list.size():
 			var clip := str(list[i][0])
 			if not ap.has_animation(clip):
 				push_error("no clip " + clip)
 				continue
 			ap.play(clip)
-			ap.seek(float(list[i][1]) * (ap.get_animation(clip).length if _poseset or not _poses.is_empty() else 1.0), true)
+			ap.seek(float(list[i][1]) * (ap.get_animation(clip).length if _poseset or _stance or not _poses.is_empty() else 1.0), true)
 			await process_frame
-			if _poseset or not _poses.is_empty():
+			if _poseset or _stance or not _poses.is_empty():
 				_turn_to_three_quarter(body, skel)
+			if _stance and _lead_left(body, skel):
+				push_error("STANCE frame leads with the left foot: the southpaw/orthodox names below would swap")
 			var h := skel.global_transform * skel.get_bone_global_pose(skel.find_bone("Hips"))
 			body.position += Vector3(-h.origin.x, 0.0, -h.origin.z)
+			_print_stance(str(stem), clip, float(list[i][1]), skel)
 			await process_frame
 			await process_frame
 			await RenderingServer.frame_post_draw
@@ -91,7 +99,15 @@ func _initialize() -> void:
 			img.convert(Image.FORMAT_RGBA8)
 			img.fix_alpha_edges()
 			img.resize(W, H, Image.INTERPOLATE_LANCZOS)
-			img.save_png(_out.path_join(str(stem) + ("_alt" if _alt else "") + ("_p%d" % i if (not _poses.is_empty()) or (_poseset and i > 0) else "") + ".png"))
+			var base := _out.path_join(str(stem) + ("_alt" if _alt else ""))
+			if _stance:
+				# S532 a 3D mirror then a three-quarter turn lined the feet up on the lens (they read crossed); a picture
+				# flip is the exact mirror: orthodox, facing the picture's RIGHT (FighterPose.STANCE_FACES_RIGHT).
+				img.save_png(base + "_s.png")
+				img.flip_x()
+				img.save_png(base + ".png")
+			else:
+				img.save_png(base + ("_p%d" % i if (not _poses.is_empty()) or (_poseset and i > 0) else "") + ".png")
 		made += 1
 		body.queue_free()
 		await process_frame
@@ -105,11 +121,34 @@ func _turn_to_three_quarter(body: Node3D, skel: Skeleton3D) -> void:
 	var cam := _vp.get_camera_3d()
 	var l := (skel.global_transform * skel.get_bone_global_pose(skel.find_bone("LeftUpperArm"))).origin
 	var r := (skel.global_transform * skel.get_bone_global_pose(skel.find_bone("RightUpperArm"))).origin
-	var chest := ((l - r) * Vector3(1, 0, 1)).normalized().cross(Vector3.UP)
+	var chest := ((l - r) * Vector3(1, 0, 1)).normalized().cross(Vector3.UP) * signf(body.scale.x)   # mirrored: the bones' left is on the right
 	var to_lens := ((cam.global_position - body.global_position) * Vector3(1, 0, 1)).normalized()
 	var right := (cam.global_basis.x * Vector3(1, 0, 1)).normalized()
 	var want := (to_lens * cos(THREE_QUARTER) - right * sin(THREE_QUARTER)).normalized()
 	body.rotate_y(chest.signed_angle_to(want, Vector3.UP))
+
+
+## S532 owner: "at least pose the fighter at his preferred stance like orthodox": which foot leads (along the chest's facing)
+## and how far apart the feet are, so a pose is picked by numbers, not by eye. Orthodox = the LEFT foot leads.
+func _print_stance(stem: String, clip: String, at: float, skel: Skeleton3D) -> void:
+	var lead := _lead(skel)
+	print("STANCE %s %s@%.2f lead=%s by=%.2fm feet_apart=%.2fm" % [stem, clip, at, "left" if lead.x > 0.0 else "right", absf(lead.x), lead.y])
+
+
+func _lead_left(body: Node3D, skel: Skeleton3D) -> bool:
+	return _lead(skel).x > 0.0
+
+
+## x: how far the picture's LEFT foot is ahead along the chest (m, as seen, a mirror included); y: feet apart (m).
+func _lead(skel: Skeleton3D) -> Vector2:
+	var g := func(b: String) -> Vector3: return (skel.global_transform * skel.get_bone_global_pose(skel.find_bone(b))).origin
+	var m := signf(skel.global_transform.basis.determinant())   # < 0 when mirrored: the bone named Left is the right side
+	var l: Vector3 = g.call("LeftUpperArm")
+	var r: Vector3 = g.call("RightUpperArm")
+	var face := ((l - r) * Vector3(1, 0, 1)).normalized().cross(Vector3.UP) * m
+	var lf: Vector3 = g.call("LeftFoot" if m > 0.0 else "RightFoot")
+	var rf: Vector3 = g.call("RightFoot" if m > 0.0 else "LeftFoot")
+	return Vector2((lf - rf).dot(face), (lf - rf).length())
 
 
 func _setup() -> void:

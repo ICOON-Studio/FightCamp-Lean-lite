@@ -145,7 +145,7 @@ static func evening(model: Dictionary, on_day: Callable, on_class: Callable = Ca
 		if not cd.is_empty():
 			var mv := B.lab(str(cd["title"]), 16, Palette.ELITE if float(cd["after"]) < B.USABLE else Palette.GOOD, "bold")
 			mv.clip_text = true
-			mv.tooltip_text = "%s: mastery %.1f → %.1f tonight" % [str(cd["title"]), float(cd["before"]), float(cd["after"])]
+			mv.tooltip_text = B.bar_tip(str(cd["title"]), float(cd["before"]), float(cd["after"]), false)
 			sv.add_child(mv)
 			var mb := B.MBar.new()
 			mb.had = float(cd["before"])

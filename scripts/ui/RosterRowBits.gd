@@ -78,9 +78,11 @@ static func face_pin(stem: String, needs_you: bool) -> Control:
 	var pic: Control = PromoShot.picture(stem, Vector2(PIN - 8.0, PIN - 8.0))
 	if pic != null:
 		pic.position = Vector2(4, 4)
-		FaceFrame.fit(pic as TextureRect, FaceFrame.box_for((pic as TextureRect).texture), Vector2(PIN - 8.0, PIN - 8.0), true)
-		# Round mask (JPG faces have no alpha for Halo.cutout); chalk ring via Halo.ring on the host.
+		# Round mask (JPG faces have no alpha for Halo.cutout); chalk ring via Halo.ring on the host. S532 operator ("why is
+		# that a circle inside a square ? wtf ?"): the mask went on AFTER the crop and measured the whole photo, so it cut
+		# nothing; now it goes on first and FaceFrame hands it the crop ("region").
 		_circle_mask(pic as TextureRect)
+		FaceFrame.fit(pic as TextureRect, FaceFrame.box_for((pic as TextureRect).texture), Vector2(PIN - 8.0, PIN - 8.0), true)
 		disc.add_child(pic)
 	Halo.ring(host, RIM, PIN * 0.5, 0.45, 0.0)
 	if needs_you:
@@ -101,7 +103,7 @@ static func face_pin(stem: String, needs_you: bool) -> Control:
 
 static func _circle_mask(pic: TextureRect) -> void:
 	var sh := Shader.new()
-	sh.code = "shader_type canvas_item;\nvoid fragment() {\n\tvec2 p = UV - vec2(0.5);\n\tfloat d = length(p);\n\tvec4 c = texture(TEXTURE, UV);\n\tif (d > 0.50) discard;\n\tfloat edge = smoothstep(0.50, 0.46, d);\n\tCOLOR = vec4(c.rgb, c.a * edge);\n}\n"
+	sh.code = "shader_type canvas_item;\nuniform vec4 region = vec4(0.0, 0.0, 1.0, 1.0);\nvoid fragment() {\n\tvec2 p = (UV - region.xy) / region.zw - vec2(0.5);\n\tfloat d = length(p);\n\tvec4 c = texture(TEXTURE, UV);\n\tif (d > 0.50) discard;\n\tfloat edge = smoothstep(0.50, 0.46, d);\n\tCOLOR = vec4(c.rgb, c.a * edge);\n}\n"
 	var mat := ShaderMaterial.new()
 	mat.shader = sh
 	pic.material = mat

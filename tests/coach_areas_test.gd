@@ -150,6 +150,12 @@ func _screen() -> void:
 	_check(wall != null and wall.texture != null and str(wall.texture.resource_path).ends_with("gym_backdrop.jpg"),
 		"painted gym behind People")
 	_check(_fits(), "one coach and four jobs fit, no scroll")
+	# S532 operator: "why you repeat the description in the tooltip ? the tooltip should display explaining information"
+	for box_name in ["CoachTiles", "Members"]:
+		for box in main.find_children(box_name, "", true, false):
+			for tile in box.get_children():
+				var tip := str((tile as Control).tooltip_text)
+				_check(tip.split(" ", false).size() >= 6, "%s tile explains, not repeats: '%s'" % [box_name, tip])
 	var ink: Dictionary = PageInk.read(root)
 	print("STAFF_INK words=%d" % int(ink["words"]))
 	_check(int(ink["words"]) <= 110, "People words %d <= 110 (pictures %.1f%%, tallest %.0f)" % [ink["words"], ink["pic_pct"], ink["tallest"]])

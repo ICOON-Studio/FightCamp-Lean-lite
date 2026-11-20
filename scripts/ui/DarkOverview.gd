@@ -180,7 +180,7 @@ static func _boxer(f: Dictionary, c: Career = null) -> Control:
 	holder.custom_minimum_size = Vector2(LEFT_W, 560)
 	holder.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	holder.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	var pic: Control = RosterCards.body(Faces.stem(f))
+	var pic: Control = RosterCards.stance_body(f)
 	if pic != null:
 		holder.add_child(pic)
 		pic.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)

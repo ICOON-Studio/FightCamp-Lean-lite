@@ -88,7 +88,8 @@ static func side(who: String, sub: String, stem: String, corner: String, tag_tex
 		pic.offset_top = 70
 		pic.offset_bottom = -foot
 		if pic is TextureRect:
-			(pic as TextureRect).flip_h = not right   # S412 the pictures face left: the left side turns, so both face the middle
+			# S412 the pictures face left: the left side turns, so both face the middle. S532: pose 0 (the orthodox stance) faces right.
+			(pic as TextureRect).flip_h = (not right) != (pose == 0 and FighterPose.STANCE_FACES_RIGHT)
 		col.add_child(pic)
 	var words := UI.vbox(0)
 	words.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)

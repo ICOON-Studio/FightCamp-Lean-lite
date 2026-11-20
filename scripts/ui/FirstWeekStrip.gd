@@ -11,6 +11,7 @@ const UI := preload("res://scripts/ui/UI.gd")
 const FirstWeek := preload("res://scripts/rules/FirstWeek.gd")
 const FirstHour := preload("res://scripts/rules/FirstHour.gd")
 const Sim := preload("res://scripts/state/Sim.gd")
+const Bouts := preload("res://scripts/state/Bouts.gd")
 const GuideLines := preload("res://scripts/rules/GuideLines.gd")
 const GuideLight := preload("res://scripts/ui/GuideLight.gd")
 
@@ -154,7 +155,7 @@ static func why(c: Career) -> String:
 		"prep":
 			var b: Dictionary = f.get("bout", {})
 			var bits: Array = []
-			if (f.get("camp", {}) as Dictionary).is_empty():
+			if Bouts.camp_due(c, f):   # S532 operator on "Camp: no time for one" beside an amateur bout 19 days out: amateur bouts run on a fight week, no camp (S428)
 				bits.append("Set the camp on Fight prep.")
 			if (f.get("arrows", []) as Array).is_empty():
 				# S398 round 4: the Playbook shows starting lines before any are saved, so the line asks for one of the player's own.

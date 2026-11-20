@@ -6,6 +6,7 @@ extends RefCounted
 
 const Sim := preload("res://scripts/state/Sim.gd")
 const Bouts := preload("res://scripts/state/Bouts.gd")
+const WeekPhase := preload("res://scripts/rules/WeekPhase.gd")
 const Injuries := preload("res://scripts/state/Injuries.gd")
 const OppFile := preload("res://scripts/rules/OppFile.gd")
 const FighterProfile := preload("res://scripts/rules/FighterProfile.gd")
@@ -94,7 +95,10 @@ static func _camp(c: Career, f: Dictionary) -> Dictionary:
 	if Bouts.camp_due(c, f):
 		return _row("camp", "Camp", "not set", "bad", "camp", str(f["id"]))
 	if (f["camp"] as Dictionary).is_empty():
-		return _row("camp", "Camp", "no time for one", "warn", "ftab", CAMP_TAB)
+		# S532 operator on "Camp: no time for one" beside an amateur bout 19 days out: amateur bouts run on a fight week, no camp (S428)
+		if WeekPhase.amateur(f["bout"]):
+			return _row("camp", "Camp", "none for an amateur bout: a fight week instead", "ok", "ftab", CAMP_TAB)
+		return _row("camp", "Camp", "too late for one: under a week to go", "warn", "ftab", CAMP_TAB)
 	return _row("camp", "Camp", "running", "ok", "ftab", CAMP_TAB)
 
 

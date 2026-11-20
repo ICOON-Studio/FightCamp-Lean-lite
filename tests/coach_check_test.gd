@@ -4,6 +4,7 @@ extends SceneTree
 const CoachCheck := preload("res://scripts/rules/CoachCheck.gd")
 const Sim := preload("res://scripts/state/Sim.gd")
 const Bouts := preload("res://scripts/state/Bouts.gd")
+const FightPrep := preload("res://scripts/ui/FightPrep.gd")
 
 var failures := 0
 
@@ -47,6 +48,16 @@ func _initialize() -> void:
 	f["arrows"] = []
 	r = _by_key(CoachCheck.rows(c, f))
 	_check(_state(r, "plan") == "warn", "a booked bout with no plan warns")
+	# S532 operator, an amateur bout 19 days out read "Camp: no time for one" and the coach said "Set the camp": amateur bouts
+	# run on a fight week (S428), so no camp is asked for anywhere.
+	f["bout"] = {"day": c.day + 19, "opp": (c.rivals[0] as Dictionary).duplicate(true), "done": false, "fight_week": true}
+	r = _by_key(CoachCheck.rows(c, f))
+	_check(_state(r, "camp") == "ok" and str(r["camp"]["word"]).contains("amateur"), "an amateur bout needs no camp: %s" % r["camp"]["word"])
+	_check(not Bouts.camp_due(c, f), "and no camp is due")
+	_check(str(FightPrep.next_step(c, f)[0]) != "Set the camp", "Fight prep does not ask for one")
+	f["bout"] = {"day": c.day + 4, "opp": (c.rivals[0] as Dictionary).duplicate(true), "done": false}
+	r = _by_key(CoachCheck.rows(c, f))
+	_check(_state(r, "camp") == "warn" and str(r["camp"]["word"]).contains("too late"), "a camp bout 4 days out: too late (%s)" % r["camp"]["word"])
 	print("COACH_CHECK failures=%d" % failures)
 	print("PASS coach_check_test" if failures == 0 else "FAIL coach_check_test")
 	quit(failures)

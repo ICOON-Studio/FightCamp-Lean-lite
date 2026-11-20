@@ -145,7 +145,7 @@ static func _art(main: Node, c: Career, f: Dictionary, grappler: bool, rank: Str
 	paint.name = "Paint"
 	paint.modulate = weight_colour(wc) * Color(PAINT_LIFT, PAINT_LIFT, PAINT_LIFT, 1.0)
 	art.add_child(paint)
-	var pic := body(Faces.stem(f), Vector2(CARD.x, ART_H))
+	var pic := stance_body(f, Vector2(CARD.x, ART_H))
 	if pic != null:
 		pic.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 		pic.offset_top = 8
@@ -177,6 +177,15 @@ static func _flag(main: Node, f: Dictionary, flag: Dictionary) -> Button:
 ## The class's colour; a class not seen before still gets a steady one.
 static func weight_colour(wc: String) -> Color:
 	return PALETTE[absi(hash(wc)) % PALETTE.size()]
+
+
+## S532 owner: "at least pose the fighter at his preferred stance like orthodox": a boxer's own picture in her stance
+## (<stem>.png orthodox, <stem>_s.png southpaw; tools/bake_full_body.gd stance).
+static func stance_body(f: Dictionary, size: Vector2 = Vector2.ZERO) -> Control:
+	var stem := Faces.stem(f)
+	if str(f.get("stance", "orthodox")) == "southpaw" and ResourceLoader.exists(BODY_PATH % (stem + "_s")):
+		stem += "_s"
+	return body(stem, size)
 
 
 ## Her full-body picture, or the face shot when the body has not been baked.
@@ -319,7 +328,7 @@ static func _prospect(main: Node, x: Dictionary) -> Button:
 		b.add_theme_stylebox_override(st, UI.box(Color(Palette.TEXT, 0.04), edge, 4, 2 if hot else 1))
 	var h := UI.hbox(10)
 	h.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	var pic := body(Faces.stem(x), Vector2(112, 150))
+	var pic := stance_body(x, Vector2(112, 150))
 	if pic != null:
 		pic.set_anchors_preset(Control.PRESET_TOP_LEFT)
 		h.add_child(pic)

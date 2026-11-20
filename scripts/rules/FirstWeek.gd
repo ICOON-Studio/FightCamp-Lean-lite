@@ -12,6 +12,7 @@ extends RefCounted
 const NoGi := preload("res://scripts/rules/NoGi.gd")
 const FirstHour := preload("res://scripts/rules/FirstHour.gd")
 const Data := preload("res://scripts/state/Data.gd")
+const Bouts := preload("res://scripts/state/Bouts.gd")
 
 const STEPS := ["sign", "coach", "week", "go", "offer", "prep", "fight", "club"]
 const STAGES := [["FIRST WEEK", ["sign", "coach", "week", "go"]], ["FIRST FIGHT", ["offer", "prep", "fight"]], ["THE CLUB", ["club"]]]
@@ -37,7 +38,7 @@ static func sync(c: Career) -> void:
 	var f := c.fighter()
 	if c.guide == "offer" and not f.is_empty() and (not (f.get("bout", {}) as Dictionary).is_empty() or bool(c.first_hour.get("fought", false))):
 		c.guide = "prep"
-	if c.guide == "prep" and (bool(c.first_hour.get("fought", false)) or _prepped(f) or _weighed(f)):
+	if c.guide == "prep" and (bool(c.first_hour.get("fought", false)) or _prepped(c, f) or _weighed(f)):
 		c.guide = "fight"
 	if c.guide == "fight" and bool(c.first_hour.get("fought", false)):
 		c.guide = "club"
@@ -45,8 +46,9 @@ static func sync(c: Career) -> void:
 		c.guide = ""
 
 
-static func _prepped(f: Dictionary) -> bool:
-	return not (f.get("camp", {}) as Dictionary).is_empty() and not (f.get("arrows", []) as Array).is_empty()
+static func _prepped(c: Career, f: Dictionary) -> bool:
+	# S532 operator on "Camp: no time for one" beside an amateur bout 19 days out: amateur bouts run on a fight week, no camp (S428)
+	return not f.is_empty() and not Bouts.camp_due(c, f) and not (f.get("arrows", []) as Array).is_empty()
 
 
 static func _weighed(f: Dictionary) -> bool:
@@ -83,14 +85,14 @@ static func need(c: Career) -> Dictionary:
 	var who := str(f.get("first", "the boxer"))
 	match c.guide:
 		"coach":
-			return {"red": true, "t": "Hire an assistant coach", "s": "first week: %s needs a coach in the gym every session before week 1" % who,
+			return {"red": true, "t": "Hire an assistant coach", "s": "first week: your boxer needs a coach in the gym every session before week 1",
 				"act": "go", "arg": "gym:1", "label": "Staff"}
 		"week":
 			return {"red": true, "t": "Set week 1", "s": "first week: check the plan, then lock it in",
 				"act": "guideweek", "arg": "", "label": "Set the week"}
 		"prep":
 			if not (f.get("bout", {}) as Dictionary).is_empty():
-				return {"red": false, "t": "Prepare %s for the show" % who, "s": "set the camp and write the plan against %s" % str(f["bout"]["opp"].get("first", "the opponent")),
+				return {"red": false, "t": "Prepare %s for the show" % who, "s": "set the camp and write the game plan" if Bouts.camp_due(c, f) else "write the game plan for the bout",
 					"act": "fighter", "arg": str(f.get("id", "")), "label": "Fight prep"}
 	return {}
 

@@ -86,9 +86,9 @@ static func offers_settled(f: Dictionary) -> bool:
 
 
 static func camp_due(c: Career, f: Dictionary) -> bool:
-	var b: Dictionary = f["bout"]
+	var b: Dictionary = f.get("bout", {})   # S532: the guide asks this of a boxer with no bout yet
 	# S359 (grey_reason_test under load: a bout dict with keys but no day crashed here): booked = it has its day.
-	return b.has("day") and (f["camp"] as Dictionary).is_empty() and int(b["day"]) - c.day >= BoutRules.CAMP_MIN_DAYS and not WeekPhase.amateur(b)   # S481: a fight-week bout has no camp (FightWeekPlan)
+	return b.has("day") and (f.get("camp", {}) as Dictionary).is_empty() and int(b["day"]) - c.day >= BoutRules.CAMP_MIN_DAYS and not WeekPhase.amateur(b)   # S481: a fight-week bout has no camp (FightWeekPlan)
 
 
 static func weigh_in_today(c: Career, f: Dictionary) -> bool:

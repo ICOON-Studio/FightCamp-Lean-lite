@@ -215,7 +215,7 @@ static func _evening(d: Dictionary, cb: Dictionary, sel_day: int, f: Dictionary)
 				bar.ghost = minf(B.USABLE + 0.5, float(c0["after"]) + (float(c0["after"]) - float(c0["before"]))) if float(c0["after"]) < B.USABLE else 0.0
 				bar.custom_minimum_size = Vector2(0, 18)
 				v.add_child(bar)
-				t.tooltip_text = "%s: mastery %.1f → %.1f tonight (Usable at 30)." % [str(c0["title"]), float(c0["before"]), float(c0["after"])]
+				t.tooltip_text = B.bar_tip(str(c0["title"]), float(c0["before"]), float(c0["after"]), bar.ghost > bar.now)
 		"sparring":
 			v.add_child(_pic("sparring"))
 			var g := _center("Fight IQ %+.2f" % float(pm["gain2"]), 18, Palette.GOOD)

@@ -272,11 +272,15 @@ static func _facts(coach: Dictionary, show_sign: bool) -> Control:
 	h.add_child(_tile("coach", "%d tactics" % limit, "How many tactics a fight plan can hold", INK, "in a plan"))
 	var checks := FilmPattern.checks(int(rating), true, 0, 99)   # S510 FIGHTFILM1 map 6: the coach's film checks a night
 	h.add_child(_tile("coach", "%d checks" % checks, "On a film night this coach checks %d patterns you mark on the opponent's tape" % checks, INK, "on film nights"))
-	h.add_child(_tile("money", UI.money(salary), "Cost a week", INK, "wage a week"))
-	h.add_child(_tile("members", "+%s" % UI.money(classes), "Evening classes, a week", GREEN, "evening classes"))
-	h.add_child(_tile("runway", UI.money(-net), "Net a week, after evening classes", UI.RED if net > 0 else GREEN, "net a week"))
+	# S532 operator on "$450 wage a week / Cost a week": "what is it for ? cost a week to do what" - say what the money buys.
+	h.add_child(_tile("money", UI.money(salary), "What you pay this coach every week, to run your boxers' sessions and the evening classes",
+		INK, "coach's pay a week"))
+	h.add_child(_tile("members", "+%s" % UI.money(classes), "The evening classes this coach runs bring this much in every week",
+		GREEN, "classes bring in"))
+	h.add_child(_tile("runway", UI.money(-net), "What the coach really costs you a week: the pay minus what the classes bring in",
+		UI.RED if net > 0 else GREEN, "real cost a week"))
 	if show_sign:
-		h.add_child(_tile("contract", UI.money(GameMoney.COACH_SIGNING_FEE), "To sign", INK, "to sign"))
+		h.add_child(_tile("contract", UI.money(GameMoney.COACH_SIGNING_FEE), "Paid once, the day you hire this coach", INK, "to sign"))
 	return h
 
 
@@ -287,7 +291,7 @@ static func _roles(main: Node, c: Career) -> Control:
 		row.add_child(_role(main, c, r))
 	# S421: was a bare icon at the row's end (the number only on hover); now icon + number + caption like the other tiles.
 	var places := _tile("members", "%d / %d" % [GymSpend.used(c), GymSpend.places(c)],
-		"Roster places: %d of %d used" % [GymSpend.used(c), GymSpend.places(c)], INK, "roster places", true)   # the role cards' dark bed
+		"How many boxers the club can sign: %d of %d taken. A second coach makes room for one more." % [GymSpend.used(c), GymSpend.places(c)], INK, "roster places", true)   # the role cards' dark bed
 	places.name = "RosterPlaces"
 	places.size_flags_horizontal = Control.SIZE_SHRINK_END
 	places.custom_minimum_size = Vector2(130, 0)
@@ -366,11 +370,11 @@ static func _members(c: Career) -> Control:
 	var h := UI.hbox(8)
 	h.name = "Members"
 	Tips.card(h, func(): return TopCards.members(c))
-	h.add_child(_tile("members", str(c.members), "On the books: %d, %s." % [c.members, drift], INK, "members", true))
+	h.add_child(_tile("members", str(c.members), "Members pay dues every month: the club's steady income. Now %s; wins, reputation and evening classes bring more." % drift, INK, "members", true))
 	h.add_child(_tile("reputation", rep_word, "Reputation: %s. Grows with wins (+%d each) and a well-kept gym." % [rep, BoutRules.WIN_REPUTATION], INK, "reputation", true))
 	h.add_child(_tile("money", UI.money(Membership.fee(c.dues_band)), "Dues, %s a month each (%s, set on Money)." % [UI.money(Membership.fee(c.dues_band)), band], INK, "dues a month", true))
 	if c.coach.is_empty():
-		h.add_child(_tile("coach", "Need", "Evening classes need a coach.", INK, "a coach for classes", true))
+		h.add_child(_tile("coach", "Need", "Without a coach there are no evening classes and no +%s a week from them. Hire one above." % UI.money(GameMoney.CLASSES_WITH_COACH), INK, "a coach for classes", true))
 	return h
 
 
