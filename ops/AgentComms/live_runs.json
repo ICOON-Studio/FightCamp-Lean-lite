@@ -1122,19 +1122,6 @@
       "note": "S530",
       "reconciled": "2026-11-19 23:10 board_reconcile: run finished (success), branch goose/issue-416 pushed"
     },
-    "LEDGERCRITIC6A": {
-      "agent": "arena",
-      "id": "LEDGERCRITIC6A",
-      "title": "Fresh critic: contracts map v5",
-      "status": "landed",
-      "started": "2026-11-20T00:25",
-      "where": "cloud",
-      "repo": "FightCamp-Lean-lite",
-      "brief": "ops/research/TASK_LEDGERCRITIC6A.md",
-      "chat": "https://arena.ai/agent/01a1f5e0-6675-76b7-ab7f-c072204b90cc",
-      "eta": "2026-11-20T01:15",
-      "reconciled": "2026-11-20 01:10 board_reconcile: PR #419 open - collect it"
-    },
     "KNOWREV4": {
       "agent": "goose",
       "id": "KNOWREV4",
@@ -1189,18 +1176,6 @@
       "note": "S368 seat_dispatch: qwen exit 0, no commit on qwen/treevalue6 (stray: -); output E:\\FightCamp\\wt\\TREEVALUE6_dispatch_out.txt",
       "finished": "2026-11-20T02:46"
     },
-    "LOANCONTRACT1": {
-      "agent": "arena",
-      "id": "LOANCONTRACT1",
-      "title": "Blind contract test of the gym fit-out loan",
-      "status": "landed",
-      "started": "2026-11-20T14:25",
-      "eta": "2026-11-20T15:30",
-      "where": "cloud",
-      "chat": "https://arena.ai/agent/01a1f8e9-fe9b-7462-b01d-59cac6a27bc4",
-      "brief": "ops/research/TASK_LOANCONTRACT1.md",
-      "note": "S531 collected: PASS, mutant 2999 fails 6 checks; Lean-lite PR 34 closed"
-    },
     "SQ248": {
       "agent": "dola",
       "id": "SQ248",
@@ -1247,12 +1222,13 @@
       "agent": "arena",
       "id": "KNOWCRITIC4A",
       "title": "Fresh critic + code check: knowledge stakes map v4",
-      "status": "running",
+      "status": "landed",
       "started": "2026-11-20T15:00",
       "eta": "2026-11-20T15:40",
       "where": "cloud",
       "chat": "https://arena.ai/agent/01a1f904-f344-7070-8304-f264ba1fbb5c",
-      "brief": "ops/research/TASK_KNOWCRITIC4A.md"
+      "brief": "ops/research/TASK_KNOWCRITIC4A.md",
+      "note": "S531: 4/5, 10 false CODE claims; v5 from the code"
     },
     "SQ251": {
       "agent": "dola",
@@ -1276,7 +1252,7 @@
       "agent": "dola",
       "id": "SQ252",
       "title": "Fresh critic: knowledge stakes map v4",
-      "status": "queued",
+      "status": "cancelled",
       "started": "2026-11-20T15:08",
       "brief": "ops/research/DESIGN_KNOW_STAKES1_V4_CRITIC_DOLA.md"
     },
@@ -1288,6 +1264,17 @@
       "started": "2026-11-20T15:10",
       "where": "browser",
       "note": "S531: rounding fixed (last week $177, total $9,000), Money shows what is left; confirm step + sponsor pending wait for the owner"
+    },
+    "KNOWREV5": {
+      "agent": "arena",
+      "id": "KNOWREV5",
+      "title": "Knowledge stakes map v5 from the code",
+      "status": "running",
+      "started": "2026-11-20T15:20",
+      "eta": "2026-11-20T16:00",
+      "where": "cloud",
+      "chat": "https://arena.ai/agent/01a1f915-9c7a-75b9-9531-0e547d44290b",
+      "brief": "ops/research/TASK_KNOWREV5.md"
     }
   },
   "codex_budget": {

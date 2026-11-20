@@ -80,3 +80,7 @@ Then TREEVALUE6 (Qwen) re-reads the board on 5a(+5b); sizing only after it.
   the deny edge follows the fight's OWN grade of the step against her game this exchange (PlanFight.fit = LiveRound's
   fit_now): StepWire.DENY_FIT best 1.0 / ok 0.5 / none 0.15 / wrong 0 (ESTIMATES; wrong pays WRONG_COST in levers).
   step_levers (new fit checks), step_contract, step_effect, golden_path PASS. TREEVALUE7 (PC, same probe) re-reads the board.
+- 5e FIXED S531 (Claude, while looking for cut_off's sign): LiveRoundAfter kept its own copy of her_energy / opp_energy that
+  had drifted from RingDuel's (no step DRAIN on the opponent, no per-bout body cost for her). The duel read the drain; the
+  round's end state and the opponent's next mode did not. Both now call RingDuel's. NOTE: TREEVALUE7 started before this
+  fix, so it measures 5d alone; cut_off / push_off need the run after it (TREEVALUE8) to show whether DRAIN now pays.

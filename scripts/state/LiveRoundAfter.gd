@@ -3,6 +3,7 @@ extends RefCounted
 ## 500-line limit. Called once from exchange after the plan tally; updates lv and rec in place.
 
 const LiverRibs := preload("res://scripts/rules/LiverRibs.gd")
+const RingDuel := preload("res://scripts/state/RingDuel.gd")
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 const PaceAim := preload("res://scripts/rules/PaceAim.gd")
 const Combos := preload("res://scripts/rules/Combos.gd")
@@ -11,17 +12,15 @@ const PlanFight := preload("res://scripts/rules/PlanFight.gd")
 const TheRead := preload("res://scripts/rules/TheRead.gd")
 
 
-## Her energy as exchange i starts (the round's start -> bell, less what the calls spent and the body shots she took).
+## Her / the opponent's energy as exchange i starts. S531: these were a second copy of RingDuel's that had drifted (no step
+## DRAIN on the opponent, no per-bout body cost for her) - the round's end state and the opponent's next mode read them,
+## so a step's drain never reached either. One formula now: RingDuel's.
 static func her_energy(lv: Dictionary, i: int) -> float:
-	var e: Dictionary = lv["e"]
-	return lerpf(float(e.get("a", 100.0)), float(e.get("a_end", 100.0)), float(i) / Exchanges.EXCHANGES) \
-		- float(lv["cost"]) - body_units(lv, "a") * Exchanges.BODY_COST
+	return RingDuel.her_energy(lv, i)
 
 
 static func opp_energy(lv: Dictionary, i: int) -> float:
-	var e: Dictionary = lv["e"]
-	return lerpf(float(e.get("b", 100.0)), float(e.get("b_end", 100.0)), float(i) / Exchanges.EXCHANGES) \
-		- body_units(lv, "b") * float(lv.get("body_cost_b", Exchanges.BODY_COST))
+	return RingDuel.opp_energy(lv, i)
 
 
 static func body_units(lv: Dictionary, who: String) -> float:

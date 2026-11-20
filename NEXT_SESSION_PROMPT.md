@@ -24,9 +24,9 @@ SQ250 retry every 30 min; if still 404 at start, open the Grok Bot app once (it 
    over docs/TREEVALUE5_RESULT.md; the run restores it) -> write docs/TREEVALUE7_RESULT.md with the v6 -> v7 table.
 2. COLLECTED S531: Arena LOANCONTRACT1 (tests/loan_contract_test.gd on main, PASS, a $2,999 mutant fails 6) and
    LEDGERCRITIC6A (contracts v5: Arena 7/5, Dola 8/8 -> Dola writes v6, SQ251 queued).
-3. Running: Dola SQ249 turning pro v6; Arena KNOWCRITIC4A (knowledge v4 critic + code check, chat
-   https://arena.ai/agent/01a1f904-f344-7070-8304-f264ba1fbb5c). Knowledge v4 = ops/research/DESIGN_KNOW_STAKES1_V4.md
-   (Dola SQ248); its second critic = a fresh Dola chat (`design_loop.py critic KNOW_STAKES1_V4 ... --seat dola`).
+3. Running: Dola SQ249 turning pro v6, then SQ251 contracts v6 - CODE-CHECK each (Arena found 10 false CODE claims in
+   Dola's knowledge v4: 4/5) before any critic. Knowledge: v4 failed (Arena 4/5) -> Arena KNOWREV5 writes v5 FROM THE CODE
+   (chat https://arena.ai/agent/01a1f915-9c7a-75b9-9531-0e547d44290b) -> then two fresh critics (Dola + a new Arena chat).
 4. Ludo (S531, ops/research/LUDO_LOAN_SCREENS_S531.md): 6/10 before, 5/10 after; rounding defect FIXED (last week $177),
    Money shows what is left. Left for the owner's look: a confirm step before borrowing, the sponsor marked 'offer pending'.
 5. The .exe was re-exported S531 15:10 (loan, its Money line with what is left, exact $9,000).
