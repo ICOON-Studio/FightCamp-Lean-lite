@@ -130,6 +130,11 @@ func _initialize() -> void:
 	if see != null:
 		see.emit_signal("pressed")
 	await _shot("21_result")
+	if " ".join(OS.get_cmdline_user_args()).contains("21b_result_card_ask"):
+		# S531 still only: the line a won bout can carry (CardAsk), shown on the real result page.
+		main.modal["card_ask"] = "After the bout, the opponent asked about training here. She is at reception this week."
+		main.redraw_modal()
+		await _shot("21b_result_card_ask")
 	main.act("afterfight")
 	main.act("goaltalk", "lucy")
 	main.act("pickgoal", "five_round_engine")

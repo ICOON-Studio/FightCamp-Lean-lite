@@ -44,7 +44,11 @@ static func needs(career: Career) -> Array:
 			"s": "below $0 for %d weeks in a row closes the gym; book bouts, sign sponsors, or cut costs" % GymBills.CLOSE_AFTER_WEEKS,
 			"act": "go", "arg": "money:0", "label": "Money"})
 	var a := career.applicant
-	if not a.is_empty():
+	if not a.is_empty() and bool(a.get("from_card", false)):   # S531 she asked after the bout: she waits a week, time runs on
+		n.append({"red": false, "t": "A boxer from the card asked to train here",
+			"s": "%s, %s, amateur %d-%d - she goes back to her club after %s" % [a["name"], str(a["wc"]).to_lower(), a["w"], a["l"],
+				Clock.fmt(int(a.get("expires", career.day)))], "act": "interview", "arg": "", "label": "Meet her"})
+	elif not a.is_empty():
 		n.append({"red": true, "t": "A fighter is waiting at reception",
 			"s": "%s, %s, amateur %d-%d" % [a["name"], str(a["wc"]).to_lower(), a["w"], a["l"]],
 			"act": "interview", "arg": "", "label": "Meet the walk-in"})
@@ -147,7 +151,7 @@ static func flags(career: Career) -> Array:
 	elif ms == "warn":
 		out.append({"t": "LOW CASH", "act": "go", "arg": "money:0", "red": false})
 	if not career.applicant.is_empty():
-		out.append({"t": "APPLICANT", "act": "interview", "arg": "", "red": true})
+		out.append({"t": "APPLICANT", "act": "interview", "arg": "", "red": not bool(career.applicant.get("from_card", false))})
 	for p in career.prospects:
 		if str(p["state"]) == "invited" and int(p["trial_day"]) <= career.day:
 			out.append({"t": "TRIAL", "act": "trial", "arg": p["id"], "red": true})

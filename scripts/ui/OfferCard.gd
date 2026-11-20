@@ -8,6 +8,11 @@ const PromoShot := preload("res://scripts/ui/PromoShot.gd")
 const BoutRead := preload("res://scripts/rules/BoutRead.gd")
 const BoutCompare := preload("res://scripts/ui/BoutCompare.gd")
 const OppFile := preload("res://scripts/rules/OppFile.gd")
+const CoachRead := preload("res://scripts/rules/CoachRead.gd")
+const Sim := preload("res://scripts/state/Sim.gd")
+const HotStreak := preload("res://scripts/state/HotStreak.gd")
+const Region := preload("res://scripts/state/Region.gd")
+const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 
 const PHOTO := Vector2(96, 120)
 const BAND_W := 170.0
@@ -39,6 +44,7 @@ static func make(main: Node, c: Career, f: Dictionary, o: Dictionary) -> PanelCo
 	for chip in BoutCompare.offer_chips(c, f, o):
 		chips.add_child(chip)
 	who.add_child(chips)
+	who.add_child(coach_read(c, f, o))   # S531 THE COACH'S READ
 	h.add_child(who)
 	h.add_child(_band(c, f, o))
 	var open := UI.button("Open", "BtnSolid" if not unsafe else "Btn", main.act.bind("openBout", o["id"]))
@@ -86,3 +92,25 @@ static func _band(c: Career, f: Dictionary, o: Dictionary) -> Control:
 	if hi - lo >= 30:   # BoutCompare.win_read: a band this wide is still a rough guess
 		v.add_child(UI.muted("Camp film narrows it", UI.TINY))   # S442 UX audit: an amateur offer has no scout button; film in the camp opens the file
 	return v
+
+
+## S531 THE COACH'S READ: the head coach's verdict on this offer with one reason for and one against (CoachRead).
+static func coach_read(c: Career, f: Dictionary, o: Dictionary) -> Label:
+	var r := CoachRead.read(facts(c, f, o))
+	var lab := UI.label(CoachRead.line(r, str(c.coach.get("name", "Coach")) if not c.coach.is_empty() else ""), UI.SMALL,
+		{"go": UI.GREEN, "care": UI.AMBER, "stop": UI.RED}.get(str(r["tone"]), UI.FG), "semi", true)
+	lab.name = "CoachRead_" + str(o["id"])
+	return lab
+
+
+static func facts(c: Career, f: Dictionary, o: Dictionary) -> Dictionary:
+	var opp: Dictionary = o["opp"]
+	var day := int(o["day"])
+	var wf: Dictionary = Sim.weigh_forecast(c, f, day)
+	var rows := Region.rankings(c, str(f["div"]))
+	var g: Dictionary = f.get("goal", {})
+	return {"gap": roundi(BoutRead.mismatch(f, opp, BoutRead.camp_for(f, day - c.day), c.seed)), "unsafe": bool(o["mismatch"]),
+		"rest": BoutRules.days_since_bout(c.results, str(f["id"]), day), "over": 0.0 if bool(wf.get("ok", true)) else float(wf.get("over", 0.0)),
+		"hot": HotStreak.hot(c, f), "streak_words": HotStreak.words(c, f), "her_rank": BoutRead.rank_of(rows, str(f["name"])),
+		"opp_rank": BoutRead.rank_of(rows, str(opp["name"])), "goal": str(g.get("title", "")), "coach": not c.coach.is_empty(),
+		"opp_style": str(opp.get("style", ""))}

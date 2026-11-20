@@ -112,3 +112,33 @@ static func ticks(exs: Array) -> Array:
 			word = str(StrikeMap.card(str(x.get("at", ""))).get("name", ""))
 		out.append({"n": int(x.get("i", out.size())) + 1, "won": bool(x.get("won", false)), "landed": x.get("landed", [0, 0]), "word": word})
 	return out
+
+
+## S531 THE CORNER'S EYE (DESIGN_THREE_FROM_P4P_S531 s3): the plan drawn on the ring. Which way a planned step moves her
+## (back from the opponent, in on her, or round her), and what became of it this exchange: "fired" (she took it),
+## "held" (wrong for the moment, she read it and held it - StepWire phase 6) or "missed" (the plan had it, she did not get
+## it off). {} when this exchange's line was not a step.
+const STEP_DIR := {"step_back": "back", "step_out": "back", "push_off": "back", "step_in": "in", "cut_off": "in", "herd": "in",
+	"tie_up": "in", "feint": "in", "pivot_out": "side", "roll_out": "side"}
+
+
+static func plan_mark(x: Dictionary) -> Dictionary:
+	var arrow := str(x.get("arrow", ""))
+	var base := arrow.split("@")[0] if arrow != "" else ""
+	if not STEP_DIR.has(base):
+		return {}
+	var state := "held" if bool(x.get("held", false)) else ("fired" if bool(x.get("planned", false)) else "missed")
+	return {"dir": str(STEP_DIR[base]), "state": state, "name": str(StrikeMap.move(base).get("name", base))}
+
+
+## Who owns the ring: the side that won the last exchanges in a row and how many (0 her, 1 the opponent).
+static func owner(exs: Array) -> Dictionary:
+	if exs.is_empty():
+		return {"side": -1, "run": 0}
+	var side := 0 if bool((exs[-1] as Dictionary).get("won", false)) else 1
+	var run := 0
+	for k in range(exs.size() - 1, -1, -1):
+		if (0 if bool((exs[k] as Dictionary).get("won", false)) else 1) != side:
+			break
+		run += 1
+	return {"side": side, "run": run}

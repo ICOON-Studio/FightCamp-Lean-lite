@@ -3668,8 +3668,8 @@
    "status": "queued",
    "queued_at": "2026-11-20 14:21",
    "tries": 0,
-   "skips": 10,
-   "last_error": "2026-11-20 17:13 gbot send rc=1: ['GROKBOT FAIL listAgents 404  The request could not be routed']"
+   "skips": 15,
+   "last_error": "2026-11-20 19:40 gbot send rc=1: ['GROKBOT FAIL listAgents 404  The request could not be routed']"
   },
   {
    "id": "SQ251",
@@ -3720,29 +3720,50 @@
    "seat": "dola",
    "brief": "research/DESIGN_TURNPRO1_CRITIC_DOLA.md",
    "stem": "DESIGN_TURNPRO1_CRITIC_DOLA_DOLA",
-   "status": "sent",
+   "status": "answered",
    "queued_at": "2026-11-20 17:11",
    "tries": 0,
    "sent_at": "2026-11-20 17:13",
    "pid": 38000,
-   "transcript": "AgentComms/seat_logs/SQ255_dola.txt"
+   "transcript": "AgentComms/seat_logs/SQ255_dola.txt",
+   "answered_at": "2026-11-20 17:40",
+   "answer": "research/DESIGN_TURNPRO1_CRITIC_DOLA_DOLA.md"
   },
   {
    "id": "SQ256",
    "seat": "dola",
    "brief": "research/DESIGN_LEDGER1_CRITIC_DOLA.md",
    "stem": "DESIGN_LEDGER1_CRITIC_DOLA_DOLA",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-20 17:11",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-20 18:10",
+   "pid": 55208,
+   "transcript": "AgentComms/seat_logs/SQ256_dola.txt",
+   "answered_at": "2026-11-20 18:41",
+   "answer": "research/DESIGN_LEDGER1_CRITIC_DOLA_DOLA.md"
   },
   {
    "id": "SQ257",
    "seat": "dola",
    "brief": "research/RESEARCH_STOPS_BY_CLASS_SEX_BRIEF.md",
    "stem": "RESEARCH_STOPS_BY_CLASS_SEX_BRIEF_DOLA",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-20 17:34",
+   "tries": 0,
+   "sent_at": "2026-11-20 19:10",
+   "pid": 9880,
+   "transcript": "AgentComms/seat_logs/SQ257_dola.txt",
+   "answered_at": "2026-11-20 19:40",
+   "answer": "research/RESEARCH_STOPS_BY_CLASS_SEX_BRIEF_DOLA.md"
+  },
+  {
+   "id": "SQ258",
+   "seat": "dola",
+   "brief": "research/DESIGN_THREEP4P_CRITIC_DOLA.md",
+   "stem": "DESIGN_THREEP4P_CRITIC_DOLA_DOLA",
+   "status": "queued",
+   "queued_at": "2026-11-20 19:59",
    "tries": 0
   }
  ]

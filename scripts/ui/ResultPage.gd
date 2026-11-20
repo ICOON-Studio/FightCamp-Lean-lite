@@ -277,6 +277,10 @@ static func summary(main: Node, m: Dictionary, f: Dictionary, names: Array) -> V
 	cost.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	row.add_child(cost)
 	v.add_child(row)
+	if str(m.get("card_ask", "")) != "":   # S531 "she asked about your gym" (CardAsk): the boxer chose the gym
+		var ask := UI.label(str(m["card_ask"]), 20, UI.GREEN, "semi", true)
+		ask.name = "CardAsk"
+		v.add_child(ask)
 	v.add_child(ResultTabs.round_strip(m, names, (m.get("fixlab", {}) as Dictionary)))
 	return v
 

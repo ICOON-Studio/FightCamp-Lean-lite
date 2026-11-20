@@ -135,6 +135,15 @@ func _draw_frame(f: Dictionary) -> void:
 		var u := (b - a).normalized() if a.distance_to(b) > 0.01 else Vector2.RIGHT
 		a = mid - u * apart * 0.5
 		b = mid + u * apart * 0.5
+	# S531 THE CORNER'S EYE: who owns the ring - a soft wash of the winner's colour behind the boxer being walked back,
+	# deeper with each exchange won in a row.
+	var own := RingMap.owner(exs)
+	if int(own["run"]) > 0:
+		var back_of := b if int(own["side"]) == 0 else a
+		var push := (back_of - (a if int(own["side"]) == 0 else b)).normalized()
+		var wash: Color = HER if int(own["side"]) == 0 else OPP
+		for k in 4:
+			draw_circle(back_of + push * body * 2.0, body * (5.5 - k), Color(wash, 0.035 * mini(int(own["run"]), 4)))
 	var prev := a
 	var trail: Array = f["trail"]
 	for k in range(trail.size() - 1, -1, -1):
@@ -163,8 +172,47 @@ func _draw_frame(f: Dictionary) -> void:
 	var words := ("%s  -  %.1f m apart" % [where, gap_m]) if where != "" else ("%.1f m apart" % gap_m)
 	draw_string(get_theme_default_font(), (a + b) * 0.5 + Vector2(-140.0, body * 2.2 + 20.0), words,
 		HORIZONTAL_ALIGNMENT_CENTER, 280.0, 18, Palette.TEXT)
+	_plan_arrow(RingMap.plan_mark(exs[-1]), a, b, body)
 	_boxer(a, b, HER, float(gas[0]), bool(hurt[0]), body)
 	_boxer(b, a, OPP, float(gas[1]), bool(hurt[1]), body)
+	_tags(a, b, "YOUR BOXER", float(gas[0]), bool(hurt[0]), body)
+	_tags(b, a, "OPPONENT", float(gas[1]), bool(hurt[1]), body)
+
+
+## The plan's step for this exchange, drawn from her: where the coach told her to go. Solid = she took it, a cross = she
+## read it was wrong and held it, dashed = the plan had it and she did not get it off.
+func _plan_arrow(m: Dictionary, a: Vector2, b: Vector2, body: float) -> void:
+	if m.is_empty():
+		return
+	var d := (b - a).normalized()
+	var dir := -d if str(m["dir"]) == "back" else (d if str(m["dir"]) == "in" else Vector2(-d.y, d.x))
+	var from := a + dir * (body + 10.0)
+	var to := a + dir * (body + 0.75 * _scale())
+	var st := str(m["state"])
+	var col := Color(HER, 0.9) if st == "fired" else Color(Palette.MUTED, 0.85)
+	if st == "missed":
+		draw_dashed_line(from, to, col, 4.0, 10.0)
+	else:
+		draw_line(from, to, col, 5.0, true)
+	var s := Vector2(-dir.y, dir.x)
+	draw_colored_polygon(PackedVector2Array([to + dir * 16.0, to + s * 11.0, to - s * 11.0]), col)
+	if st == "held":
+		var mid := (from + to) * 0.5
+		draw_line(mid + Vector2(-12, -12), mid + Vector2(12, 12), Palette.BAD_FILL, 4.0, true)
+		draw_line(mid + Vector2(-12, 12), mid + Vector2(12, -12), Palette.BAD_FILL, 4.0, true)
+	var word: String = str({"fired": "plan: %s", "held": "plan: %s - held", "missed": "plan: %s - not got off"}[st]) % str(m["name"]).to_lower()
+	draw_string(get_theme_default_font(), to + dir * 20.0 + Vector2(-130.0, 34.0), word, HORIZONTAL_ALIGNMENT_CENTER, 260.0, 16, col)
+
+
+## A role word above each boxer; HURT (red) or TIRED (amber, gas under 35) under her - what the corner shouts about.
+func _tags(p: Vector2, other: Vector2, role: String, g: float, is_hurt: bool, body: float) -> void:
+	var font := get_theme_default_font()
+	var away := signf(p.x - other.x) if absf(p.x - other.x) > 1.0 else 1.0   # the role word leans away from the other boxer
+	draw_string(font, p + Vector2(-80.0 + away * 40.0, -body - 22.0), role, HORIZONTAL_ALIGNMENT_CENTER, 160.0, 14, Palette.MUTED)
+	var tag := "HURT" if is_hurt else ("TIRED" if g < 35.0 else "")
+	if tag != "":
+		draw_string(font, p + Vector2(-60.0, body + 40.0), tag, HORIZONTAL_ALIGNMENT_CENTER, 120.0, 20,
+			Palette.BAD_FILL if is_hurt else Palette.WARN)
 
 
 ## The whole ring small in the corner: where in the ring the zoomed view is.

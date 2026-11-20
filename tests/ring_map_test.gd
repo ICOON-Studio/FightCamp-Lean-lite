@@ -63,5 +63,15 @@ func _initialize() -> void:
 	_check(t.size() == exs.size() and str(t[4]["word"]) == "Pivot off the ropes" and str(t[0]["word"]) == "Long range",
 		"ticks name the planned step, else the card (%s / %s)" % [t[4]["word"], t[0]["word"]])
 	_check(RingMap.frame([], 0).is_empty() and RingMap.frame(exs, 99).is_empty(), "no exchange -> no frame")
+	# S531 the corner's eye: the plan's step and what became of it; who owns the ring.
+	var m4 := RingMap.plan_mark(exs[4])
+	_check(str(m4.get("dir")) == "side" and str(m4.get("state")) == "fired", "a fired pivot reads side / fired (%s)" % str(m4))
+	_check(str(RingMap.plan_mark(_ex(9, "mid", false, [0, 1], "step_back", false).merged({"held": true})).get("state")) == "held",
+		"a held step reads held")
+	_check(str(RingMap.plan_mark(_ex(9, "mid", false, [0, 1], "step_back", false)).get("state")) == "missed", "a step not got off reads missed")
+	_check(RingMap.plan_mark(exs[0]).is_empty(), "a punch line has no plan mark")
+	var owns := RingMap.owner(exs.slice(0, 7))
+	_check(int(owns["side"]) == 0 and int(owns["run"]) == 3, "three won in a row: she owns the ring, run 3 (%s)" % str(owns))
+	_check(int(RingMap.owner(exs)["side"]) == 1 and int(RingMap.owner([])["run"]) == 0, "the last loss hands it over; empty = nobody")
 	print("RING_MAP failures=%d" % failures)
 	quit(0 if failures == 0 else 1)

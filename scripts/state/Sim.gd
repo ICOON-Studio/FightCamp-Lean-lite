@@ -173,6 +173,9 @@ static func daily_gain(career: Career, f: Dictionary, goal_keys := false) -> Dic
 
 
 static func step_day(career: Career) -> void:
+	if load("res://scripts/rules/CardAsk.gd").gone(career.applicant, career.day):   # S531 her week at reception is up
+		career.add_news("%s went back to her club." % str(career.applicant.get("name", "The boxer from the card")))
+		career.applicant = {}
 	for f in career.fighters:
 		var mult := Injuries.gain_mult(career, f)   # S325 an injured fighter trains at the rest week's share
 		var dow := posmod(career.day, 7)   # day 0 is a Monday (Clock)
