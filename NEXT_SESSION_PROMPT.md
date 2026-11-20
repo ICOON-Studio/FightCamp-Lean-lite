@@ -1,3 +1,33 @@
+# S532 handover (written 2026-11-20, S531 - Opus, long; the owner's ArcheAge held RAM at 85-97% most of the day)
+
+Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. S531 is in roadmap `now`; digest
+ops/research/S531_DIGEST.md.
+FIRST: `python ops/Tools/godot_slot.py status`.
+
+## METHOD lines - quote all of them in your first message
+- Fight animation (owner S510): no new correction layer in scripts/fight3d until v2 is built (the OWNER'S Fable session
+  is the animation item; next step is the mocap pack, his money call at the END OF NOVEMBER - do not ask before).
+- DESIGN MAPS (S530): each next version is written from the code, with Claude's code check on top, before critics.
+  S531: Goose KNOWREV4 #418 / TURNREV6 #420 pushed nothing -> Dola writes them (SQ248 / SQ249); code-check before critics.
+- FOOTWORK STEPS (S528/S531): phase 5a built (deny reaches the duel before it is settled); TREEVALUE6 re-reads the board.
+- GROWTH (S531): the fit-out loan is BUILT and verified; no more growth work until the owner plays it.
+
+## ASK THE OWNER FIRST
+- Run `cursor-agent login` once in a terminal: S531's C: cleanup (his "Yes, delete them") removed %APPDATA%\Cursor, which
+  held the login gbot_wake.mjs uses to wake the Grok bots. Kalli SQ246, Maria SQ247, John SQ250 are queued behind it.
+
+## MAIN LINE - DO FIRST
+1. TREEVALUE6: if docs/TREEVALUE6_RESULT.md is missing, its output is in S531's scratchpad (treevalue6.txt) or rerun
+   (`tools/treevalue_probe.gd`, ~2.5 h on the PC); write the page per TASK_TREEVALUE6.md + STEPS_SCOPE_S528 phase 5.
+2. Collect Arena LOANCONTRACT1 (chat https://arena.ai/agent/01a1f8e9-fe9b-7462-b01d-59cac6a27bc4, PR on
+   FightCamp-Lean-lite, relayed every 30 min) - read its test is blind (no copy of fitout_loan_test), run it.
+   Arena LEDGERCRITIC6A (contracts v5; Dola gave 8/8 - if Arena 7+/7+ too, LEDGER1 goes to the owner's board).
+3. Dola SQ248 knowledge v4 -> code check -> two fresh critics (Dola + a NEW Arena chat). SQ249 turning pro v6 likewise
+   (its gaps from TURNGAP1: 0..+2 gives ~79%).
+4. Ludo: judge the loan stills (ops/previews/s531/loan_before_real.png, loan_after_real.png) - Chrome dropped at 97% RAM.
+5. Re-export the .exe on a GREEN PC (`sh tools/export.sh`): the S531 export predates the Money "Fit-out loan" line.
+Qwen out of rotation until 2026-12-08 (owner Q-279). Code Mode: ops/Tools/claude_cm.ps1 for read-heavy terminal sessions.
+
 # S531 handover (written 2026-11-20, S530 - Opus, a long session; the owner's game held RAM at 90-93% for the first part)
 
 Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. S530 is in roadmap `now`.
