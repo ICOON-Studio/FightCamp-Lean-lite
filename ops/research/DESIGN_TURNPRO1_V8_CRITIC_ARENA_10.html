@@ -1,0 +1,476 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Turning pro — design study</title>
+<style>
+  :root {
+    color-scheme: light;
+    --wall: #252c28;
+    --ink: #232a25;
+    --ink-soft: #596157;
+    --paper: #f1ecdc;
+    --paper-deep: #e7ddc7;
+    --line: #cfc4ae;
+    --gold: #b17b35;
+    --gold-deep: #73501f;
+    --green: #37644d;
+    --rust: #9b4e38;
+    --sans: system-ui, -apple-system, "Segoe UI", sans-serif;
+    --serif: Georgia, "Times New Roman", serif;
+    --mono: ui-monospace, "SFMono-Regular", Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  body { margin: 0; background: #1d2521; color: var(--ink); font-family: var(--sans); }
+  button { font: inherit; cursor: pointer; }
+  button:focus-visible { outline: 3px solid #c18637; outline-offset: 3px; }
+  button:disabled { cursor: default; }
+  .topbar {
+    position: relative; z-index: 3; height: 70px; display: flex; align-items: center;
+    padding: 0 35px; gap: 26px; color: #eee9db; background: #171e1a;
+    border-bottom: 1px solid #5b5749; box-shadow: 0 3px 12px #090d0a80;
+  }
+  .brand { display: flex; align-items: center; gap: 12px; padding-right: 25px; border-right: 1px solid #596057; }
+  .brand-mark {
+    width: 38px; height: 38px; display: grid; place-items: center; color: #d6af70;
+    border: 1px solid #b38a54; border-radius: 50%; font: 700 16px var(--serif);
+  }
+  .brand-name { font: 700 19px var(--serif); letter-spacing: .09em; white-space: nowrap; }
+  .date { display: flex; flex-direction: column; gap: 2px; min-width: 172px; }
+  .date strong { font-size: 14px; font-weight: 700; }
+  .date span, .top-label { color: #aeb6a9; font-size: 11px; letter-spacing: .07em; text-transform: uppercase; }
+  .top-space { flex: 1; }
+  .top-flag { padding: 9px 13px; border: 1px solid #ae814c; border-radius: 4px; color: #f3d6a2; background: #554329; font-size: 11px; font-weight: 800; letter-spacing: .08em; }
+  .cash { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+  .cash strong { color: #f7f1e1; font: 700 18px var(--mono); }
+  .continue { min-width: 144px; padding: 11px 20px; color: #27271d; background: #d1a45f; border: 1px solid #e6c895; border-radius: 3px; font-size: 12px; letter-spacing: .08em; font-weight: 800; }
+  .topbar .study { color: #9ba397; font-size: 10px; letter-spacing: .10em; text-transform: uppercase; white-space: nowrap; }
+  .stage {
+    position: relative; min-height: calc(100vh - 70px); padding: 70px 8vw;
+    background: radial-gradient(ellipse at 50% 18%, #4a4b3c 0%, transparent 43%),
+      repeating-linear-gradient(92deg, transparent 0 180px, #ffffff06 181px 183px, transparent 184px 360px),
+      linear-gradient(140deg, #333b33, #202a24 68%, #1b2520);
+  }
+  .background-title { color: #e5dfcb; font: 700 39px var(--serif); margin: 0 0 15px; }
+  .background-kicker { color: #d0a468; font-size: 11px; letter-spacing: .17em; font-weight: 800; text-transform: uppercase; }
+  .background-sub { color: #c3caba; font-size: 16px; }
+  .background-cards { display: flex; gap: 20px; margin-top: 35px; max-width: 1120px; }
+  .background-card { width: 340px; min-height: 180px; padding: 23px; color: #d8d6c9; border: 1px solid #7d8878; background: #37423a; border-radius: 3px; }
+  .background-card h3 { color: #d9bd8a; font-size: 12px; letter-spacing: .13em; margin: 0 0 18px; }
+  .background-card p { color: #d6ddcf; line-height: 1.5; }
+  .overlay {
+    position: fixed; z-index: 2; inset: 70px 0 0; padding: 18px 28px 24px;
+    display: grid; place-items: start center; overflow: auto; background: #101811bc;
+  }
+  .offer {
+    width: min(1588px, 100%); max-height: calc(100vh - 112px); overflow: auto;
+    background: linear-gradient(165deg, #efe9da, #e6ddca); border: 1px solid #9c896d;
+    border-radius: 5px; box-shadow: 0 24px 65px #050806b8, inset 0 0 0 1px #fff8e575;
+  }
+  .modal-pad { padding: 19px 25px 20px; }
+  .modal-head { display: flex; align-items: center; gap: 25px; padding: 0 2px 15px; }
+  .head-main { flex: 1; min-width: 0; }
+  .eyebrow { margin: 0 0 5px; color: #85602b; font-size: 11px; font-weight: 900; letter-spacing: .16em; text-transform: uppercase; }
+  .title-row { display: flex; align-items: baseline; gap: 18px; }
+  h1 { margin: 0; font: 700 39px/1.03 var(--serif); letter-spacing: -.025em; color: #222a24; }
+  .identity { margin: 6px 0 0; color: #5c6259; font-size: 13px; font-weight: 650; }
+  .identity b { color: #323a31; }
+  .declines { font-size: 12px; color: #6f6a5d; white-space: nowrap; }
+  .deadline { display: flex; align-items: center; gap: 14px; padding: 10px 16px; border-left: 1px solid #c9bba2; }
+  .deadline .clock { width: 37px; height: 37px; border: 1px solid #b38a54; border-radius: 50%; display: grid; place-items: center; color: #936623; font: 700 15px var(--mono); }
+  .deadline strong { display: block; font-size: 13px; color: #74501e; }
+  .deadline span { display: block; margin-top: 3px; color: #6d6d5f; font-size: 12px; }
+  .close { border: 1px solid #bbb09d; background: #ebe3d2; color: #4b5148; border-radius: 3px; width: 34px; height: 34px; font-size: 22px; line-height: 1; }
+  .sales { display: grid; grid-template-columns: 235px 1fr 240px; align-items: center; gap: 23px; padding: 12px 17px; border: 1px solid #cbbfa8; background: #f7f2e5b5; border-radius: 3px; }
+  .sales-name { color: #745d39; font-size: 10px; font-weight: 850; letter-spacing: .13em; text-transform: uppercase; }
+  .sales-big { margin-top: 3px; font: 700 25px/1.1 var(--serif); color: #29322b; }
+  .sales-big span { color: #72796b; font: 600 13px var(--sans); }
+  .bar-wrap { padding: 4px 0 0; }
+  .bar { position: relative; height: 13px; border-radius: 7px; background: linear-gradient(90deg, #d0c5ae 0 45%, #e6c99b 45% 75%, #c6d1be 75%); box-shadow: inset 0 1px 3px #5d4e362c; }
+  .bar-fill { width: 74%; height: 100%; border-radius: 7px 0 0 7px; background: linear-gradient(90deg, #a47b47, #c6934d); opacity: .84; }
+  .marker { position: absolute; top: -4px; width: 2px; height: 21px; background: #6f6a59; }
+  .marker.sixty { left: 60%; }
+  .marker.seventy-five { left: 75%; }
+  .bar-dot { position: absolute; top: -5px; left: calc(74% - 11px); width: 22px; height: 22px; border: 4px solid #f8f1e1; border-radius: 50%; background: #725025; box-shadow: 0 1px 4px #3c362c70; }
+  .bar-labels { position: relative; height: 17px; margin-top: 8px; color: #666c5e; font-size: 11px; }
+  .bar-labels span { position: absolute; top: 0; transform: translateX(-50%); white-space: nowrap; }
+  .bar-labels span:nth-child(1) { left: 0; transform: none; }
+  .bar-labels span:nth-child(2) { left: 60%; }
+  .bar-labels span:nth-child(3) { left: 75%; }
+  .bar-labels span:nth-child(4) { left: 100%; transform: translateX(-100%); }
+  .bar-labels b { color: #404a3d; }
+  .sales-right { border-left: 1px solid #d4c9b4; padding-left: 18px; color: #585f54; font-size: 11px; line-height: 1.45; }
+  .sales-right strong { display: block; color: #825d27; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; }
+  .houses { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 14px; }
+  .house {
+    min-width: 0; padding: 15px 18px 14px; border: 1px solid #c7b9a1; border-radius: 3px;
+    background: linear-gradient(150deg, #fbf7ec, #f3ecdd); box-shadow: 0 2px 5px #776b4c17;
+    display: flex; flex-direction: column;
+  }
+  .house-head { display: flex; align-items: center; gap: 12px; }
+  .house-number { display: grid; place-items: center; width: 34px; height: 34px; flex: none; border: 1px solid #c6af89; border-radius: 50%; color: #94692f; font: 700 12px var(--mono); }
+  .house h2 { margin: 0; font: 700 24px/1.1 var(--serif); color: #2e362d; }
+  .house-kicker { margin: 3px 0 0; color: #7b786a; font-size: 10px; letter-spacing: .10em; font-weight: 750; text-transform: uppercase; }
+  .house-badge { margin-left: auto; padding: 5px 8px; border: 1px solid #d3c4ab; border-radius: 3px; color: #7b603a; background: #eee5d2; font-size: 10px; font-weight: 800; letter-spacing: .05em; white-space: nowrap; }
+  .fight-line { display: flex; align-items: baseline; gap: 12px; margin-top: 12px; padding: 9px 0; border-top: 1px solid #ded3c1; border-bottom: 1px solid #ded3c1; }
+  .fight-line strong { font: 700 15px var(--sans); white-space: nowrap; }
+  .fight-line span { color: #656b5f; font-size: 12px; }
+  .money-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 12px; }
+  .money-cell { min-width: 0; padding-right: 9px; border-right: 1px solid #e0d6c6; }
+  .money-cell:last-child { border-right: 0; }
+  .money-label { color: #6b6e62; font-size: 10px; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; }
+  .amount { margin: 3px 0 0; color: #293b30; font: 700 23px/1.06 var(--mono); letter-spacing: -.035em; white-space: nowrap; }
+  .amount.out { color: #9b4d38; }
+  .money-detail { min-height: 15px; margin-top: 3px; color: #797a6c; font-size: 11px; }
+  .gross { min-height: 18px; margin: 9px 0 0; color: #676a5e; font-size: 11px; line-height: 1.35; }
+  .asks { margin-top: 10px; padding: 10px 11px; background: #eae5d6; border: 1px solid #d9cfbd; border-radius: 3px; flex: 1; }
+  .ask-title { margin: 0 0 7px; color: #6d6a5c; font-size: 10px; font-weight: 850; letter-spacing: .11em; text-transform: uppercase; }
+  .ask-row { display: flex; flex-wrap: wrap; gap: 7px; }
+  .ask-button { padding: 7px 10px; color: #323d32; background: #faf6ec; border: 1px solid #afa994; border-radius: 3px; font-size: 12px; font-weight: 750; }
+  .ask-button:hover:not(:disabled) { border-color: #9e6f30; background: #fffdf5; }
+  .ask-button:disabled { color: #6a6c60; background: #e2ddcf; border-color: #ccc5b5; }
+  .ask-note { margin: 7px 0 0; color: #65695d; font-size: 11px; line-height: 1.35; }
+  .ask-note strong { color: #754f21; }
+  .sign-row { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
+  .sign { min-width: 145px; padding: 9px 17px; border: 1px solid #365346; border-radius: 3px; color: #f8f3e5; background: #385e48; font-size: 12px; font-weight: 850; letter-spacing: .04em; }
+  .sign:hover { background: #2d4d3c; }
+  .sign-note { color: #707367; font-size: 11px; }
+  .route {
+    display: flex; align-items: center; gap: 15px; margin-top: 13px; padding: 10px 14px;
+    border-left: 3px solid #b4803c; background: #dfd7c4; color: #454d42; font-size: 12px; line-height: 1.35;
+  }
+  .route strong { color: #765221; white-space: nowrap; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
+  .route-sep { height: 30px; width: 1px; flex: none; background: #c5b89f; }
+  .route > div { flex: 1; }
+  .footer { display: grid; grid-template-columns: 1.2fr 1fr auto; gap: 17px; align-items: start; margin-top: 14px; }
+  .footer-action { display: flex; align-items: flex-start; gap: 11px; }
+  .secondary { min-width: 142px; padding: 10px 12px; border: 1px solid #918d7c; border-radius: 3px; color: #2f3a30; background: #f7f2e6; font-size: 12px; font-weight: 850; white-space: nowrap; }
+  .secondary:hover { background: #fffdf7; }
+  .footer-text { color: #5e6559; font-size: 11px; line-height: 1.4; }
+  .footer-text strong { color: #384337; }
+  .week-button { min-width: 125px; border-color: #c1b49e; color: #5e5e4e; background: transparent; }
+  .fineprint { margin: 11px 2px 0; color: #7b7e70; font-size: 10px; }
+  /* Use the 1080-pixel canvas for readable decision text, not empty space. */
+  .modal-pad { padding: 23px 28px 22px; }
+  .modal-head { padding-bottom: 17px; }
+  .eyebrow, .declines { font-size: 12px; }
+  h1 { font-size: 42px; }
+  .identity { font-size: 15px; }
+  .deadline strong { font-size: 15px; }
+  .deadline span { font-size: 13px; }
+  .sales { padding: 14px 18px; }
+  .sales-name, .sales-right strong { font-size: 11px; }
+  .sales-big { font-size: 28px; }
+  .sales-big span, .bar-labels, .sales-right { font-size: 13px; }
+  .billbar { display: flex; align-items: center; gap: 14px; margin-top: 10px; padding: 9px 14px; border: 1px solid #d3c6b0; background: #e8e0cf; color: #535b50; font-size: 13px; line-height: 1.3; }
+  .billbar strong { color: #795523; font-size: 11px; letter-spacing: .09em; text-transform: uppercase; white-space: nowrap; }
+  .billbar span:last-child { margin-left: auto; color: #555e52; font-size: 12px; white-space: nowrap; }
+  .house { padding: 18px 20px 16px; }
+  .house h2 { font-size: 28px; }
+  .house-kicker, .house-badge { font-size: 11px; }
+  .fight-line strong { font-size: 16px; }
+  .fight-line span { font-size: 14px; }
+  .money-label { font-size: 11px; }
+  .amount { font-size: 26px; }
+  .money-detail, .gross, .contract-line, .after-bill { font-size: 13px; }
+  .contract-line { margin: 5px 0 0; color: #646b5e; line-height: 1.3; }
+  .after-bill { margin: 7px 0 0; color: #596254; }
+  .after-bill strong { color: #32463a; }
+  .ask-title { color: #585f53; font-size: 11px; }
+  .ask-button { padding: 8px 11px; font-size: 13px; }
+  .ask-note { color: #525d50; font-size: 13px; line-height: 1.35; }
+  .sign { padding: 10px 17px; font-size: 13px; }
+  .sign-note { font-size: 12px; }
+  .route { padding: 12px 14px; font-size: 13px; }
+  .route strong { font-size: 11px; }
+  .secondary { font-size: 13px; }
+  .footer-text { font-size: 12px; line-height: 1.4; }
+  .fineprint { color: #5d6558; font-size: 11px; }
+  @media (max-width: 1400px) {
+    .bar-labels { height: 34px; }
+    .bar-labels span:nth-child(3) { top: 16px; }
+  }
+  @media (max-width: 1200px) {
+    .topbar { gap: 14px; padding: 0 18px; }
+    .sales { grid-template-columns: 190px 1fr; }
+    .sales-right { grid-column: 1 / -1; border: 0; padding: 0; }
+    .footer { grid-template-columns: 1fr 1fr; }
+    .week-button { justify-self: start; }
+  }
+  @media (max-width: 760px) {
+    .topbar .study, .brand-name, .date, .top-label { display: none; }
+    .topbar { gap: 10px; }
+    .brand { padding-right: 10px; }
+    .overlay { padding: 10px; }
+    .offer { max-height: calc(100vh - 90px); }
+    .modal-pad { padding: 15px; }
+    .modal-head { flex-wrap: wrap; }
+    h1 { font-size: 30px; }
+    .deadline { padding: 5px 10px; }
+    .sales, .houses, .footer { grid-template-columns: 1fr; }
+    .sales-right { grid-column: auto; }
+    .route { align-items: flex-start; flex-direction: column; gap: 5px; }
+    .route-sep { display: none; }
+    .background-cards { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+  <div class="topbar" aria-label="Gym top bar">
+    <div class="brand"><span class="brand-mark" aria-hidden="true">G</span><span class="brand-name">THE GYM</span></div>
+    <div class="date"><strong>Monday 09 March 2026</strong><span>Week 10</span></div>
+    <div class="top-space"></div>
+    <span class="study">Design study · not live</span>
+    <button class="top-flag" id="top-open" type="button">PRO OFFER</button>
+    <div class="cash"><span class="top-label">Cash today</span><strong id="cash-value">$2,400</strong></div>
+    <button class="continue" id="continue" type="button">CONTINUE <span aria-hidden="true">›</span></button>
+  </div>
+  <main class="stage" aria-label="Fights page">
+    <div class="background-kicker" id="board-kicker">Fights · your gym</div>
+    <h2 class="background-title" id="board-title">Fights</h2>
+    <p class="background-sub" id="board-sub">Upcoming bouts, offers and the next step on the road.</p>
+    <div class="background-cards">
+      <section class="background-card" id="offer-note">
+        <h3>NEXT ON THE ROAD</h3>
+        <p>A pro offer is open. Use the amber flag to review it; the amateur calendar is reserved until then.</p>
+      </section>
+      <section class="background-card">
+        <h3>THE WEEK</h3>
+        <p>Training continues. Other boxers can still train and take their bouts.</p>
+      </section>
+    </div>
+  </main>
+
+  <div class="overlay" id="overlay">
+    <section class="offer" role="dialog" aria-modal="true" aria-labelledby="offer-title" aria-describedby="offer-description">
+      <div class="modal-pad">
+        <header class="modal-head">
+          <div class="head-main">
+            <p class="eyebrow">A pro offer · first call</p>
+            <div class="title-row"><h1 id="offer-title">TURN PRO?</h1><span class="declines" title="Staying amateur uses one decline. The door closes after three; an expiry is not a decline.">3 declines left</span></div>
+            <p class="identity" id="offer-description" title="A first call: nine amateur wins, a past title, eligible for the national championship, loyalty 52 and a full stipend with no work mornings."><b>YOUR BOXER</b> · Age 26 · 9–2 amateur · regional #3 · 1 title · loyalty 52 · full stipend</p>
+          </div>
+          <div class="deadline" title="The 14-day offer starts on 9 March. It may be answered while the current day is before 23 March."><span class="clock" aria-hidden="true">14</span><div><strong>Answer by Sun 22 Mar</strong><span>Expires at the start of Mon 23 Mar</span></div></div>
+          <button class="close" id="close" type="button" aria-label="Review the offer later">×</button>
+        </header>
+
+        <section class="sales" aria-label="Debut ticket forecast" title="20 family + 26 from 52 members + 18 from nine wins + 10 from a past title = 74. Capacity is 100.">
+          <div><div class="sales-name">Base sales today</div><div class="sales-big">74 <span>/ 100 seats</span></div></div>
+          <div class="bar-wrap">
+            <div class="bar" role="img" aria-label="74 of 100 base seats; ticket break-even 60; guarantee ticket share starts above 75">
+              <div class="bar-fill"></div><span class="marker sixty"></span><span class="marker seventy-five"></span><span class="bar-dot"></span>
+            </div>
+            <div class="bar-labels"><span>0</span><span><b>60</b> break-even</span><span><b>75</b> share starts</span><span>100</span></div>
+          </div>
+          <div class="sales-right"><strong>Both offers are open</strong>46–74 seats: both call. At 75+, only the ticket deal calls before any refusal.</div>
+        </section>
+        <div class="billbar" title="The example assumes $1,200 already accrued, $950 weekly costs after signing, and $1,000 weekly income. Bill day is after three more weekly settlements.">
+          <strong>Bill check · 30 Mar</strong>
+          <span>$1,200 accrued + 3 × $950 costs = <b>$4,050 due</b>. Expected income before then: 3 × $1,000 = <b>$3,000</b>.</span>
+          <span>Estimate · no other changes</span>
+        </div>
+
+        <div class="houses">
+          <section class="house" aria-labelledby="ticket-head">
+            <div class="house-head">
+              <span class="house-number" aria-hidden="true">01</span>
+              <div><h2 id="ticket-head">Ticket deal</h2><p class="house-kicker">Earlier fight · pay moves with sales</p></div>
+              <span class="house-badge">RETURN HOUSE IF YOU STAY</span>
+            </div>
+            <div class="fight-line" title="The opponent is set against your boxer's strength without a camp at signing; extra training can change the match by fight night."><strong id="ticket-date">SAT 11 APR · 4 WEEKS</strong><span>Opponent starts 1.0 stronger than your boxer.</span></div>
+            <div class="money-grid">
+              <div class="money-cell"><div class="money-label">Cash out today</div><div class="amount out" id="ticket-now" title="$230 boxer licence + $875 first medicals + $140 trainer licence">−$1,245</div><div class="money-detail" id="ticket-left">$1,155 remains</div></div>
+              <div class="money-cell"><div class="money-label">Gym on debut · est.</div><div class="amount" id="ticket-gym" title="The gym's purse and ticket shares are rounded separately">+$463</div><div class="money-detail">25% gym share</div></div>
+              <div class="money-cell"><div class="money-label">Boxer on debut · est.</div><div class="amount" id="ticket-boxer" title="Gross purse and ticket share, less the gym's share">$1,387</div><div class="money-detail">after gym share</div></div>
+            </div>
+            <p class="after-bill" id="ticket-bill">After the 30 Mar bill and expected income: <strong>$105</strong> in the bank.</p>
+            <p class="gross" id="ticket-gross">At 74 base seats: $1,500 purse + $350 ticket share = $1,850 gross.</p>
+            <p class="contract-line" title="Proposed handoff: later purses use this base, plus rank and opponent additions. Wins after the debut add to the base up to the cap.">After debut: $1,500 base · +$500 per post-debut win · $3,000 base cap.</p>
+            <div class="asks">
+              <p class="ask-title">One ask · choose at most one</p>
+              <div class="ask-row">
+                <button class="ask-button" id="price-ask" type="button" title="Candidate fee: 180 times the gym share, rounded. With a 25% share the gym pays $45 on signing.">Set $40 tickets · $45 now</button>
+                <button class="ask-button" id="later-ask" type="button" title="From 11 April to 25 April. Two more Build weeks; the one-off debut base is $100 lower.">Debut +2 weeks · $100 off</button>
+              </div>
+              <p class="ask-note" id="ticket-note" title="Four weeks at up to six members gained or lost per week changes half-member ticket sales by up to 12, if there is room and demand. Other events can change the count too."><strong>Price:</strong> +15 sales; at 74, gym +$57 and boxer +$173. Normal drift alone: 62–86 base sales; at 85+ the gym is worse off after the fee.</p>
+              <p class="ask-note" id="weight-note" title="Illustrative forecasts from the plan after turning pro; actual results must use the shared training simulation."><strong>Weight forecast:</strong> 60.4 kg on the first date; 59.9 kg with +2 weeks. Limit 60.0 kg.</p>
+            </div>
+            <div class="sign-row"><button class="sign" id="sign-ticket" type="button">Sign this deal</button><span class="sign-note" id="ticket-sign-note">Earlier payment; more exposed to the gate.</span></div>
+          </section>
+
+          <section class="house" aria-labelledby="guarantee-head">
+            <div class="house-head">
+              <span class="house-number" aria-hidden="true">02</span>
+              <div><h2 id="guarantee-head">Guarantee deal</h2><p class="house-kicker">More preparation · protected purse</p></div>
+              <span class="house-badge">$1,650 GUARANTEED</span>
+            </div>
+            <div class="fight-line" title="The opponent is set at the same strength as your boxer without a camp at signing; the extra weeks are real preparation, not a hidden bonus."><strong>SAT 25 APR · 6 WEEKS</strong><span>Opponent starts at the same strength as your boxer.</span></div>
+            <div class="money-grid">
+              <div class="money-cell"><div class="money-label">Cash out today</div><div class="amount out" id="guarantee-now" title="$230 boxer licence + $875 first medicals + $140 trainer licence">−$1,245</div><div class="money-detail" id="guarantee-left">$1,155 remains</div></div>
+              <div class="money-cell"><div class="money-label">Gym on debut · est.</div><div class="amount" id="guarantee-gym" title="25% of the purse, rounded; covered costs are repaid from this cut">+$413</div><div class="money-detail" id="guarantee-gym-detail">25% gym share</div></div>
+              <div class="money-cell"><div class="money-label">Boxer on debut · est.</div><div class="amount" id="guarantee-boxer" title="The boxer's purse after the gym's share; cover does not change it">$1,237</div><div class="money-detail">after gym share</div></div>
+            </div>
+            <p class="after-bill" id="guarantee-bill">After the 30 Mar bill and expected income: <strong>$105</strong> in the bank.</p>
+            <p class="gross" title="In six weeks, normal drift alone can change members by up to 36 either way; half of that changes base ticket sales by up to 18. Room, demand and other events also matter.">At 74 base seats: $1,650 purse; ticket share starts above 75. Six-week normal drift alone: 56–92 seats.</p>
+            <p class="contract-line" title="Proposed handoff: later purses use this base, plus rank and opponent additions. Wins after the debut add to the base up to the cap.">After debut: $1,650 base · +$400 per post-debut win · $3,000 base cap.</p>
+            <div class="asks">
+              <p class="ask-title">One ask · answer shown before signing</p>
+              <div class="ask-row">
+                <button class="ask-button" id="cover-ask" type="button" title="Current cash $2,400 ÷ $200 weekly loss = 12 weeks' runway, so the $100 fee tier applies. Under eight weeks the fee is $200.">Cover costs · $100 fee</button>
+                <button class="ask-button" id="plain-again" type="button" hidden>Return to plain</button>
+              </div>
+              <p class="ask-note" id="cover-note"><strong>If covered:</strong> owe $1,345, including the $100 fee at 12 weeks' runway. The $413 gym cut leaves $932 owed after debut; boxer pay stays the same.</p>
+              <p class="ask-note" id="debt-warning">If the boxer leaves or retires, the gym owes the remaining balance; before debut that could be $1,345.</p>
+            </div>
+            <div class="sign-row"><button class="sign" id="sign-guarantee" type="button">Sign this deal</button><span class="sign-note">More time; fight-night money comes later.</span></div>
+          </section>
+        </div>
+
+        <section class="route" aria-label="What changes on signing and waiting">
+          <strong>Before you decide</strong>
+          <div title="Stipend $250/week minus an assumed $75/week amateur cut. The comparison is not a bank transaction.">Signing ends amateur bouts. <b>+$175/week comparison</b>: $250 less accrued, less $75 estimated lost cut. Open national-title goal: <b>−5 morale</b>; loyalty: <b>+5</b>.</div>
+          <span class="route-sep" aria-hidden="true"></span>
+          <div><b>Entries close 16 Mar.</b> While this offer is open, answer it before booking an amateur bout or entering.</div>
+        </section>
+        <footer class="footer">
+          <div class="footer-action">
+            <button class="secondary" id="stay" type="button">Stay amateur</button>
+            <div class="footer-text" title="One refusal adds two to the ordinary seven-win/top-three and nine-win gates. An outside manager signs below loyalty 50."><strong>−8 loyalty: 52 → 44.</strong> Calendar free now. Next gate: 9 wins and top 3, or 11 wins; current record meets the first gate. First card may return with 90% purse, step and cap unless a new title is added. At unchanged loyalty, a later signing gives the gym 10%.</div>
+          </div>
+          <div class="footer-action">
+            <button class="secondary" id="review" type="button">Review later</button>
+            <div class="footer-text" title="An expiry adds a wait of two amateur wins from the expiry record; each win adds two forecast seats. House lock, age and availability still apply."><strong>No refusal.</strong> If the offer expires: 2 more wins, then normal call rules. With other inputs fixed, 74 → 78 seats and only the ticket deal calls.</div>
+          </div>
+          <button class="secondary week-button" id="week" type="button">View week plan</button>
+        </footer>
+        <p class="fineprint">20 family + 26 from members + 18 from wins + 10 from a past title. Fight-night amounts are estimates, not cash today. Bill check excludes future fight income and other changes.</p>
+      </div>
+    </section>
+  </div>
+  <div id="announcement" role="status" aria-live="polite" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)"></div>
+<script>
+(() => {
+  const byId = id => document.getElementById(id);
+  const overlay = byId('overlay');
+  const announcement = byId('announcement');
+  const topbar = document.querySelector('.topbar');
+  const stage = document.querySelector('.stage');
+  let ticketAsk = 'plain';
+  let guaranteeAsk = 'plain';
+  let offerOpen = true;
+  function say(text) { announcement.textContent = text; }
+  function setModal(active) {
+    topbar.inert = active;
+    stage.inert = active;
+    overlay.hidden = !active;
+  }
+  function showOffer() {
+    if (!offerOpen) return;
+    setModal(true);
+    byId('close').focus();
+  }
+  function reviewLater() {
+    setModal(false);
+    byId('top-open').focus();
+    say('Offer kept. The deadline and any asks are unchanged.');
+  }
+  function write(id, text) { byId(id).textContent = text; }
+  function updateTicket() {
+    const price = ticketAsk === 'price';
+    const later = ticketAsk === 'later';
+    byId('price-ask').disabled = ticketAsk !== 'plain';
+    byId('later-ask').disabled = ticketAsk !== 'plain';
+    write('price-ask', price ? 'Ask used · $40 tickets' : 'Set $40 tickets · $45 now');
+    write('later-ask', later ? 'Ask used · +2 weeks' : 'Debut +2 weeks · $100 off');
+    write('ticket-date', later ? 'SAT 25 APR · 6 WEEKS' : 'SAT 11 APR · 4 WEEKS');
+    write('ticket-sign-note', later ? 'Same date as the other deal; pay and risk still differ.' : 'Earlier payment; more exposed to the gate.');
+    write('ticket-now', price ? '−$1,290' : '−$1,245');
+    byId('ticket-now').title = price ? '$230 licence + $875 medicals + $140 trainer licence + $45 price-ask fee' : '$230 licence + $875 medicals + $140 trainer licence';
+    write('ticket-left', price ? '$1,110 remains' : '$1,155 remains');
+    byId('ticket-bill').innerHTML = 'After the 30 Mar bill and expected income: <strong>' + (price ? '$60' : '$105') + '</strong> in the bank.';
+    write('ticket-gym', price ? '+$520' : later ? '+$438' : '+$463');
+    write('ticket-boxer', price ? '$1,560' : later ? '$1,312' : '$1,387');
+    write('ticket-gross', price
+      ? 'At 74 base seats → 89 sold: $1,500 purse + $580 ticket share = $2,080 gross.'
+      : later ? 'At 74 base seats: $1,400 purse + $350 ticket share = $1,750 gross.'
+      : 'At 74 base seats: $1,500 purse + $350 ticket share = $1,850 gross.');
+    byId('ticket-note').innerHTML = price
+      ? '<strong>Ask used:</strong> pay $45 now; at 74 the gym gets $57 more on debut, or $12 more after the fee. Drift alone: 62–86; at 85+ the gym loses.'
+      : later ? '<strong>Ask used:</strong> $100 less debut base; gym forecast −$25. Six-week normal drift alone: 56–92 seats. Later contract base is unchanged.'
+      : '<strong>Price:</strong> +15 sales; at 74, gym +$57 and boxer +$173. Normal drift alone: 62–86 base sales; at 85+ the gym is worse off after the fee.';
+    byId('ticket-note').title = later ? 'The later debut cuts the base from $1,500 to $1,400, not the later contract base. Six weeks of normal drift changes base sales by up to 18.' : 'Normal drift can change members by up to six a week; over four weeks that changes base sales by up to 12 if room and demand allow. Other events can also change sales.';
+    write('weight-note', later
+      ? 'Weight forecast: 59.9 kg for the later weigh-in, against a 60.0 kg limit.'
+      : 'Weight forecast: 60.4 kg on the first date; 59.9 kg with +2 weeks. Limit 60.0 kg.');
+  }
+  function updateGuarantee() {
+    const cover = guaranteeAsk === 'cover';
+    const returned = guaranteeAsk === 'returned';
+    byId('cover-ask').disabled = guaranteeAsk !== 'plain';
+    byId('plain-again').hidden = !cover;
+    write('cover-ask', cover ? 'Ask used · costs covered' : returned ? 'Ask spent · plain offer' : 'Cover costs · $100 fee');
+    write('guarantee-now', cover ? '$0' : '−$1,245');
+    byId('guarantee-now').title = cover ? 'The promoter covers the $1,245 signing bill; the gym owes $1,345 including the fee' : '$230 licence + $875 medicals + $140 trainer licence';
+    write('guarantee-left', cover ? '$2,400 remains' : '$1,155 remains');
+    byId('guarantee-bill').innerHTML = 'After the 30 Mar bill and expected income: <strong>' + (cover ? '$1,350' : '$105') + '</strong> in the bank.';
+    write('guarantee-gym', cover ? '$0' : '+$413');
+    write('guarantee-gym-detail', cover ? '$413 repays balance' : '25% gym share');
+    byId('cover-note').innerHTML = cover
+      ? '<strong>Counter applied:</strong> $1,345 owed. The estimated $413 gym cut repays it; $932 remains after debut. The boxer still gets $1,237.'
+      : returned ? '<strong>Plain restored.</strong> The one ask is spent; costs are paid now and there is no new balance.'
+      : '<strong>If covered:</strong> owe $1,345; the estimated $413 gym cut goes to the balance, leaving $932 after debut. The boxer\'s pay stays the same.';
+    byId('debt-warning').hidden = returned;
+  }
+  function finish(title, detail, cashOut = 0) {
+    offerOpen = false;
+    setModal(false);
+    write('cash-value', '$' + (2400 - cashOut).toLocaleString('en-US'));
+    byId('top-open').hidden = true;
+    byId('offer-note').hidden = true;
+    write('board-kicker', 'Decision recorded · design study');
+    write('board-title', title);
+    byId('board-title').tabIndex = -1;
+    byId('board-title').focus();
+    write('board-sub', detail);
+    say(title + '. ' + detail);
+  }
+  byId('top-open').addEventListener('click', showOffer);
+  byId('close').addEventListener('click', reviewLater);
+  byId('review').addEventListener('click', reviewLater);
+  byId('week').addEventListener('click', () => {
+    reviewLater();
+    write('board-kicker', 'Training · existing week');
+    write('board-title', 'The week plan');
+    write('board-sub', 'Review the plan, then return to the same offer using the amber flag.');
+  });
+  byId('continue').addEventListener('click', () => {
+    if (!overlay.hidden) return;
+    const note = offerOpen ? 'Design study only: the clock is not simulated. Reopen the unchanged offer with the amber flag.' : 'Design study only: the game clock is not simulated.';
+    write('board-sub', note);
+    say(note);
+  });
+  byId('price-ask').addEventListener('click', () => { if (ticketAsk === 'plain') { ticketAsk = 'price'; updateTicket(); say('Ticket-price ask applied. The one ask is spent.'); } });
+  byId('later-ask').addEventListener('click', () => { if (ticketAsk === 'plain') { ticketAsk = 'later'; updateTicket(); say('Later debut applied. The one ask is spent.'); } });
+  byId('cover-ask').addEventListener('click', () => { if (guaranteeAsk === 'plain') { guaranteeAsk = 'cover'; updateGuarantee(); say('Cover counter applied. The one ask is spent.'); } });
+  byId('plain-again').addEventListener('click', () => { if (guaranteeAsk === 'cover') { guaranteeAsk = 'returned'; updateGuarantee(); say('Plain terms restored. The one ask remains spent.'); } });
+  byId('sign-ticket').addEventListener('click', () => finish('Debut booked', ticketAsk === 'later' ? 'Ticket deal signed. Debut on 25 April; the later date and one-off purse change are recorded.' : ticketAsk === 'price' ? 'Ticket deal signed. Debut on 11 April; the $45 fee is paid now and $40 tickets are recorded.' : 'Ticket deal signed. Debut on 11 April; signing costs are paid now.', ticketAsk === 'price' ? 1290 : 1245));
+  byId('sign-guarantee').addEventListener('click', () => finish('Debut booked', guaranteeAsk === 'cover' ? 'Guarantee deal signed. Debut on 25 April; $1,345 is owed before any repayment.' : 'Guarantee deal signed. Debut on 25 April; signing costs are paid now.', guaranteeAsk === 'cover' ? 0 : 1245));
+  byId('stay').addEventListener('click', () => finish('Staying amateur', 'The calendar is free. Loyalty is 44; the next call follows the displayed gate and terms.'));
+  document.addEventListener('keydown', event => {
+    if (overlay.hidden) return;
+    if (event.key === 'Escape') { event.preventDefault(); reviewLater(); return; }
+    if (event.key !== 'Tab') return;
+    const buttons = [...overlay.querySelectorAll('button:not(:disabled)')].filter(button => button.offsetParent !== null);
+    const first = buttons[0], last = buttons[buttons.length - 1];
+    if (!buttons.includes(document.activeElement)) { event.preventDefault(); first.focus(); }
+    else if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+    else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+  });
+  setModal(true);
+  byId('close').focus();
+})();
+</script>
+</body>
+</html>
