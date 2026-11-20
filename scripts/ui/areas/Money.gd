@@ -286,7 +286,7 @@ func _in_lines(inc: Dictionary) -> Array:
 
 
 func _out_lines(cost: Dictionary) -> Array:
-	var other := int(cost.get("fees", 0)) + int(cost.get("power", 0)) + int(cost.get("kit", 0)) + int(cost.get("upgrades", 0)) + int(cost.get("bjj", 0)) + int(cost.get("juniors_coach", 0)) + int(cost.get("loan", 0)) + int(cost.get("fitout", 0))
+	var other := int(cost.get("fees", 0)) + int(cost.get("power", 0)) + int(cost.get("kit", 0)) + int(cost.get("upgrades", 0)) + int(cost.get("bjj", 0)) + int(cost.get("juniors_coach", 0)) + int(cost.get("loan", 0))
 	var lines: Array = [
 		["Coach", int(cost.get("staff", 0))],
 		["Rent", int(cost.get("rent", 0))],
@@ -294,6 +294,8 @@ func _out_lines(cost: Dictionary) -> Array:
 		["Stipends", int(cost.get("fighters", 0))],
 		["Power, kit, fees", other],
 	]
+	if int(cost.get("fitout", 0)) > 0:   # S531 the move's fit-out loan, its own line while it runs
+		lines.append(["Fit-out loan", int(cost["fitout"])])
 	return lines
 
 
