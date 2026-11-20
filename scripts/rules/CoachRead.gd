@@ -24,32 +24,32 @@ static func read(x: Dictionary) -> Dictionary:
 	if bool(x.get("unsafe", false)):
 		cons.append("not safe yet - the experience gap is too wide")
 	if gap <= -UNEVEN:
-		cons.append("she's the weaker by a distance (%d)" % gap)
+		cons.append("your boxer is the weaker by a distance (%d)" % gap)
 	elif gap < -EVEN:
 		cons.append("a real step up: the opponent is the stronger (%d)" % gap)
 	var rest := int(x.get("rest", -1))
 	if rest >= 0 and rest < SHORT_REST:
-		cons.append("only %d days since her last bout" % rest)
+		cons.append("only %d days since the last bout" % rest)
 	var over := float(x.get("over", 0.0))
 	if over >= HEAVY_CUT:
 		cons.append("%.1f kg still to lose by the day" % over)
 	elif over > 0.0:
 		cons.append("a small cut to make (%.1f kg)" % over)
 	if gap >= UNEVEN:
-		cons.append("little for her to learn")
+		cons.append("little to learn from it")
 	# For, best first.
 	var opp_rank := int(x.get("opp_rank", 0))
 	var her_rank := int(x.get("her_rank", 0))
 	if opp_rank > 0 and (her_rank == 0 or opp_rank < her_rank):
-		pros.append("a win over the #%d moves her up the ladder" % opp_rank)
+		pros.append("a win over the #%d moves your boxer up the ladder" % opp_rank)
 	if bool(x.get("hot", false)):
-		pros.append(str(x.get("streak_words", "she's on a run")).to_lower())
+		pros.append(str(x.get("streak_words", "on a run")).to_lower())
 	if str(x.get("goal", "")) != "" and gap > -UNEVEN:
-		pros.append("it counts toward her goal (%s)" % str(x["goal"]).to_lower())
+		pros.append("it counts toward the goal (%s)" % str(x["goal"]).to_lower())
 	if absi(gap) <= EVEN:
 		pros.append("an even fight - the kind that teaches")
 	elif gap > EVEN:
-		pros.append("she should win this (+%d)" % gap)
+		pros.append("your boxer should win this (+%d)" % gap)
 	# The verdict.
 	var verdict := "Take it"
 	var tone := "go"
@@ -75,7 +75,8 @@ static func read(x: Dictionary) -> Dictionary:
 
 ## One line for the card: 'Coach: "Take it, but camp hard." For: ... Against: ...' (or 'Your guess: ...').
 static func line(r: Dictionary, coach_name: String) -> String:
-	var head := ("Your guess: %s." % r["verdict"]) if bool(r["guess"]) else ("%s: \"%s.\"" % [coach_name, r["verdict"]])
+	# S532 (owner S448 "names are only mentioned on the header"; Arena critic: the coach's name in the line): "Coach:", no name.
+	var head := ("Your guess: %s." % r["verdict"]) if bool(r["guess"]) else ("Coach: \"%s.\"" % r["verdict"])
 	var bits: Array = [head]
 	if str(r["for"]) != "":
 		bits.append("For: %s." % r["for"])

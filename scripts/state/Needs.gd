@@ -46,8 +46,8 @@ static func needs(career: Career) -> Array:
 	var a := career.applicant
 	if not a.is_empty() and bool(a.get("from_card", false)):   # S531 she asked after the bout: she waits a week, time runs on
 		n.append({"red": false, "t": "A boxer from the card asked to train here",
-			"s": "%s, %s, amateur %d-%d - she goes back to her club after %s" % [a["name"], str(a["wc"]).to_lower(), a["w"], a["l"],
-				Clock.fmt(int(a.get("expires", career.day)))], "act": "interview", "arg": "", "label": "Meet her"})
+			"s": "%s, amateur %d-%d - back to the old club after %s" % [str(a["wc"]), a["w"], a["l"],
+				Clock.fmt(int(a.get("expires", career.day)))], "act": "interview", "arg": "", "label": "Meet the boxer"})   # S532 no name or she/her in the line (S448)
 	elif not a.is_empty():
 		n.append({"red": true, "t": "A fighter is waiting at reception",
 			"s": "%s, %s, amateur %d-%d" % [a["name"], str(a["wc"]).to_lower(), a["w"], a["l"]],

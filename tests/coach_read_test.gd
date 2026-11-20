@@ -32,7 +32,11 @@ func _initialize() -> void:
 	var guess := CoachRead.read({"gap": 0, "rest": 10, "coach": false})
 	_check(bool(guess["guess"]) and str(guess["for"]) == "" and str(guess["against"]) != "", "no coach: the owner's guess keeps one reason")
 	var ln := CoachRead.line(quick, "Reid")
-	_check(ln.begins_with("Reid: \"Take it, but camp hard.\"") and ln.contains("For: ") and ln.contains("Against: "), "the line: coach, verdict, for, against (%s)" % ln)
+	_check(ln.begins_with("Coach: \"Take it, but camp hard.\"") and ln.contains("For: ") and ln.contains("Against: "), "the line: coach, verdict, for, against (%s)" % ln)
+	# S532 (owner S448: names only in headers): no coach's name and no she/her in the read's text.
+	for r in [quick, guess, weaker, easy, rank]:
+		var t := CoachRead.line(r, "Reid")
+		_check(not t.contains("Reid") and not (" " + t.to_lower() + " ").contains(" her ") and not t.to_lower().contains("she"), "no name or she/her in the read (%s)" % t)
 	_check(CoachRead.line(guess, "").begins_with("Your guess: "), "no coach: 'Your guess'")
 	print("COACH_READ failures=%d" % failures)
 	quit(0 if failures == 0 else 1)

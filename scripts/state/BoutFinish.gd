@@ -235,8 +235,8 @@ static func _card_ask(c: Career, f: Dictionary, m: Dictionary, opp: Dictionary, 
 	var d: Dictionary = CardAsk.walkin(who, f, c.day)
 	d["quote"] = CardAsk.reason(int(pr.get("worked", 0)), int(pr.get("used", 0)), stopped)
 	c.applicant = d
-	m["card_ask"] = "After the bout, the opponent asked about training here. She is at reception this week."
-	c.add_news("After the bout, %s asked about training at your gym. She is at reception (Fighters)." % str(d["name"]))
+	m["card_ask"] = "After the bout, the opponent asked about training here - at reception this week."
+	c.add_news("After the bout, %s asked about training at your gym - waiting at reception (Fighters)." % str(d["name"]))
 
 
 static func coach_note(c: Career, f: Dictionary, source: String) -> void:
