@@ -19,6 +19,9 @@ const FirstWeek := preload("res://scripts/rules/FirstWeek.gd")
 const ClubClasses := preload("res://scripts/rules/ClubClasses.gd")
 const GymBills := preload("res://scripts/rules/GymBills.gd")
 const GymSpend := preload("res://scripts/state/GymSpend.gd")
+const GymSlots := preload("res://scripts/rules/GymSlots.gd")
+const GymUpgrades := preload("res://scripts/rules/GymUpgrades.gd")
+const Membership := preload("res://scripts/rules/Membership.gd")
 const GameMoney := preload("res://scripts/rules/GameMoney.gd")
 const Clock := preload("res://scripts/state/Clock.gd")
 const ProLadder := preload("res://scripts/state/ProLadder.gd")
@@ -29,11 +32,13 @@ const N := 30
 const WEEKS := 104
 const DAYS := 104 * 7
 const PICKS := ["Jab and move", "Pad rounds", "Hill sprints"]
-const ARMS := ["PASSIVE", "SENSIBLE", "LEAN"]
+const ARMS := ["PASSIVE", "SENSIBLE", "LEAN", "GROW", "GROWLOAN"]   # S531 GROW: the owner's "careful gym grows" (Q-277)
 const MARKS := [13, 26, 52, 104]   # weeks to sample
 const DOC := "res://docs/GYMSURVIVE1_RESULT.md"
 
 var results: Array = []
+var run_arms: Array = ARMS   # S531: `-- arms=GROW` runs only those (writes docs/GYMSURVIVE1_<ARMS>_RESULT.md)
+var doc_path: String = DOC
 var ran_n: int = N   # careers per seed actually run (pilot = 2); the page reports this, never N
 
 
@@ -44,17 +49,19 @@ func _initialize() -> void:
 	for a in user_args:
 		if str(a) == "pilot":
 			pilot = true
-			break
+		elif str(a).begins_with("arms="):
+			run_arms = Array(str(a).trim_prefix("arms=").split(","))
+			doc_path = "res://docs/GYMSURVIVE1_%s_RESULT.md" % "_".join(run_arms)
 	var n_careers: int = N
 	if pilot:
 		n_careers = 2
 	ran_n = n_careers
-	print("arms=%s pilot=%s careers=%d seeds=%s weeks=%d" % [str(ARMS), str(pilot), n_careers, str(SEEDS), WEEKS])
+	print("arms=%s pilot=%s careers=%d seeds=%s weeks=%d" % [str(run_arms), str(pilot), n_careers, str(SEEDS), WEEKS])
 	if pilot:
-		print("projected time: ~%d min (pilot)" % (2 * SEEDS.size() * ARMS.size()))
+		print("projected time: ~%d min (pilot)" % (2 * SEEDS.size() * run_arms.size()))
 	else:
-		print("projected time: ~%d min" % (n_careers * SEEDS.size() * ARMS.size() * 2))
-	for arm in ARMS:
+		print("projected time: ~%d min" % (n_careers * SEEDS.size() * run_arms.size() * 2))
+	for arm in run_arms:
 		for ss in SEEDS:
 			for i in n_careers:
 				var seed_n: int = ss + i * 137 + ARMS.find(arm) * 7919
@@ -66,11 +73,11 @@ func _initialize() -> void:
 	var L := _report(elapsed)
 	for line in L:
 		print(line)
-	var fh := FileAccess.open(DOC, FileAccess.WRITE)
+	var fh := FileAccess.open(doc_path, FileAccess.WRITE)
 	if fh != null:
-		fh.store_string("\n".join(L) + "\n"); fh.close(); print("wrote %s" % DOC)
+		fh.store_string("\n".join(L) + "\n"); fh.close(); print("wrote %s" % doc_path)
 	# Pass lines
-	for arm in ARMS:
+	for arm in run_arms:
 		var sub := results.filter(func(r): return str(r["arm"]) == arm)
 		var closed_count: int = sub.filter(func(r): return bool(r["closed"])).size()
 		var closed_share: float = float(closed_count) / float(sub.size())
@@ -92,7 +99,7 @@ func _career(arm: String, seed_n: int, idx: int, seed_set: int) -> Dictionary:
 	Sim.sign(c, PICKS.duplicate()); Sim.hire(c, "reid")
 	var f: Dictionary = c.fighter()
 	# SENSIBLE and LEAN: one class night on Wednesday
-	if arm == "SENSIBLE" or arm == "LEAN":
+	if arm == "SENSIBLE" or arm == "LEAN" or arm == "GROW" or arm == "GROWLOAN":
 		ClubClasses.toggle(c.coach, 2)   # Wednesday
 	var costs0: int = int(Sim.weekly_costs(c)["total"])
 	var three_months: int = int(float(costs0) * GymBills.WEEKS_A_MONTH * 3.0)
@@ -118,7 +125,13 @@ func _career(arm: String, seed_n: int, idx: int, seed_set: int) -> Dictionary:
 				Sim.sign(c, PICKS.duplicate())
 				walkin_signed = true
 		# SENSIBLE/LEAN: accept first pro offer
-		if (arm == "SENSIBLE" or arm == "LEAN") and not pro_signed and not c.pro_offer.is_empty():
+		if (arm == "GROW" or arm == "GROWLOAN") and c.day % 7 == 0:
+			_grow(c, eight_weeks, arm == "GROWLOAN")
+		# GROWLOAN: the candidate design - the move's fit-out paid $750 a month for 12 months after a $3,000 deposit
+		if arm == "GROWLOAN" and c.day % 28 == 0 and int(c.get_meta("loan_left", 0)) > 0:
+			c.pay(-LOAN_MONTH, "Fit-out loan")
+			c.set_meta("loan_left", int(c.get_meta("loan_left", 0)) - 1)
+		if (arm == "SENSIBLE" or arm == "LEAN" or arm == "GROW" or arm == "GROWLOAN") and not pro_signed and not c.pro_offer.is_empty():
 			Roster.turn_pro(c, "")
 			pro_signed = true
 		# LEAN: half stipend when cash < 8 weeks of costs
@@ -149,12 +162,59 @@ func _career(arm: String, seed_n: int, idx: int, seed_set: int) -> Dictionary:
 		if not (snap[w] as Dictionary)["taken"]:
 			(snap[w] as Dictionary)["cash"] = c.cash
 			(snap[w] as Dictionary)["members"] = c.members
-	return {"arm": arm, "seed": seed_n, "idx": idx, "seed_set": seed_set,
+	return {"arm": arm, "seed": seed_n, "idx": idx, "seed_set": seed_set, "rep_end": c.reputation,
+		"cap_end": GymSpend.member_cap(c), "premises_end": c.premises, "fighters_end": c.fighters.size(),
 		"closed": closed, "close_week": close_week, "final_day": final_day,
 		"close_costs": close_costs, "close_income": close_income,
 		"walkin_signed": walkin_signed, "pro_signed": pro_signed, "half_on": half_on,
 		"snap": snap, "cash0": c.cash_history[0]["c"] if not c.cash_history.is_empty() else 0,
 		"cash_end": c.cash, "members_end": c.members}
+
+
+## S531 GROW (owner Q-277 "Careful gym should grow"): what a sensible owner does each Monday - sign a walk-in when 8 weeks of
+## costs are banked (up to 3 boxers), fitness classes + assistant then the youth section when 8 weeks are banked, buy the cheapest piece of kit while the gym's name draws more members than the room
+## holds, and move to the next premises once the name draws 5+ past this one's cap with the move + 8 weeks banked.
+const LOAN_DEPOSIT := 3000
+const LOAN_MONTH := 750
+const LOAN_MONTHS := 12
+
+
+func _grow(c: Career, eight_weeks: int, loan := false) -> void:
+	# The upgrades a careful owner takes first: fitness classes (kit + the assistant who runs them - the one upgrade
+	# GymUpgrades says pays for itself inside a year; the assistant also opens a place), then the youth section.
+	if not GymUpgrades.has(c.upgrades, "fitkit") and c.cash > eight_weeks + 1500 + 4 * 280:
+		GymSpend.buy(c, "fitkit")
+		if not c.staff_roles.has("assistant"):
+			GymSpend.hire(c, "assistant")
+	elif not GymUpgrades.has(c.upgrades, "youth") and c.cash > eight_weeks + 1800:
+		GymSpend.buy(c, "youth")
+	if not c.applicant.is_empty() and c.cash > eight_weeks and c.fighters.size() < 3:
+		Sim.sign(c, PICKS.duplicate())
+	var natural: int = Membership.natural_members(c.reputation, c.dues_band)
+	var prem: Dictionary = GymSpend.premises(c)
+	if natural >= int(prem["cap"]) + 5 and c.premises + 1 < GymUpgrades.PREMISES.size():
+		var price := int(GymUpgrades.premises(c.premises + 1)["move"])
+		if loan and c.cash > eight_weeks + LOAN_DEPOSIT:
+			c.cash += price - LOAN_DEPOSIT   # the probe lends the rest; the arm pays it back by the month
+			GymSpend.move(c)
+			c.set_meta("loan_left", LOAN_MONTHS)
+			return
+		if not loan and GymUpgrades.move_blocked(c.premises, c.cash - eight_weeks) == "":
+			GymSpend.move(c)
+			return
+	if natural > GymSpend.member_cap(c):
+		var best := ""
+		var best_per := 0.0
+		for sl in GymSlots.all():
+			var id := str(sl["id"])
+			if int(sl["price"]) <= 0 or int(sl["places"]) <= 0 or GymSlots.blocked(id, c.gym_slots, c.cash - eight_weeks) != "":
+				continue
+			var per := float(sl["places"]) / float(sl["price"])
+			if per > best_per:
+				best_per = per
+				best = id
+		if best != "":
+			GymSpend.buy_slot(c, best)
 
 
 ## The bout loop from tools/turn_pro_probe3.gd _answer_open: accept sheet offers, camps, weigh-ins,
@@ -218,7 +278,7 @@ func _report(elapsed: float) -> Array:
 	L.append("# GYMSURVIVE1 result - does a fresh gym survive two years?")
 	L.append("")
 	L.append("Probe run: %s. %d careers x %d seeds x %d arms = %d careers, %d weeks each. Wall time: %.1f s." % [
-		Time.get_datetime_string_from_system(), ran_n, SEEDS.size(), ARMS.size(), ran_n * SEEDS.size() * ARMS.size(), WEEKS, elapsed])
+		Time.get_datetime_string_from_system(), ran_n, SEEDS.size(), run_arms.size(), ran_n * SEEDS.size() * run_arms.size(), WEEKS, elapsed])
 	L.append("")
 	L.append("## Population")
 	L.append("")
@@ -234,7 +294,7 @@ func _report(elapsed: float) -> Array:
 	L.append("")
 	L.append("| arm | closed@26 | closed@52 | closed@78 | closed@104 | med_close_week |")
 	L.append("|---|---|---|---|---|---|")
-	for arm in ARMS:
+	for arm in run_arms:
 		var sub := results.filter(func(r): return str(r["arm"]) == arm)
 		var total: int = sub.size()
 		var c26: int = sub.filter(func(r): return bool(r["closed"]) and int(r["close_week"]) <= 26).size()
@@ -259,7 +319,7 @@ func _report(elapsed: float) -> Array:
 	L.append("")
 	L.append("| arm | cash@13 | cash@26 | cash@52 | cash@104 |")
 	L.append("|---|---|---|---|---|")
-	for arm in ARMS:
+	for arm in run_arms:
 		var sub := results.filter(func(r): return str(r["arm"]) == arm)
 		var row := "| %s |" % arm
 		for w in MARKS:
@@ -281,7 +341,7 @@ func _report(elapsed: float) -> Array:
 	L.append("")
 	L.append("| arm | members@13 | members@26 | members@52 | members@104 |")
 	L.append("|---|---|---|---|---|")
-	for arm in ARMS:
+	for arm in run_arms:
 		var sub := results.filter(func(r): return str(r["arm"]) == arm)
 		var row := "| %s |" % arm
 		for w in MARKS:
@@ -303,7 +363,7 @@ func _report(elapsed: float) -> Array:
 	L.append("")
 	L.append("| arm | seed | close_week | final_day | top_costs | top_income |")
 	L.append("|---|---|---|---|---|---|")
-	for arm in ARMS:
+	for arm in run_arms:
 		var sub := results.filter(func(r): return str(r["arm"]) == arm and bool(r["closed"]))
 		for r in sub:
 			var cc: Dictionary = r["close_costs"]
@@ -327,6 +387,19 @@ func _report(elapsed: float) -> Array:
 		L.append("| (none closed) | | | | | |")
 	L.append("")
 	L.append("## Per-career log")
+	L.append("")
+	L.append("## S531 growth at week 104 (median [p10..p90]): reputation, member room, members, boxers")
+	L.append("")
+	L.append("| arm | rep_end | cap_end | members_end | boxers | moved |")
+	L.append("|---|---|---|---|---|---|")
+	for arm in run_arms:
+		var rs: Array = results.filter(func(r): return str(r["arm"]) == arm)
+		var cols: Array = []
+		for k in ["rep_end", "cap_end", "members_end", "fighters_end"]:
+			var v: Array = rs.map(func(r): return float(r[k]))
+			cols.append("%d [%d..%d]" % [int(_median(v)), int(_percentile(v, 0.1)), int(_percentile(v, 0.9))])
+		var moved: int = rs.filter(func(r): return int(r["premises_end"]) > 0).size()
+		L.append("| %s | %s | %d/%d |" % [arm, " | ".join(cols), moved, rs.size()])
 	L.append("")
 	L.append("| arm | seed | closed | final_day | cash_end | members_end | walkin | pro | half |")
 	L.append("|---|---|---|---|---|---|---|---|---|")
