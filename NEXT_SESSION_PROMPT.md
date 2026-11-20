@@ -15,6 +15,17 @@ ops/research/S531_DIGEST.md. FIRST: `python ops/Tools/godot_slot.py status`.
   No StepEffect TABLE sizing until TREEVALUE9 is read.
 - GROWTH (S531): the fit-out loan is BUILT and verified; no more growth work until the owner plays it.
 
+## GUIDETIPS1 (side Fable session, S532) - tooltips and the guide
+- Standard written: ops/research/GUIDETIPS1_STANDARD.md, picture docs/mockups/s532/guidetips1_standard.png. On the board as
+  Q-S294-282 (his yes needed; NOTHING is built yet). Finding: scripts/ui/Tips.gd already is the praised card (wrap, lock,
+  sticky notes) but only 8 files use it; 268 plain tooltip lines have no rule and no test.
+- Critics: Dola round 1 on draft 1 = tooltips 6 / guide 8 / buildable 7 -> draft 2 (SHORT card, game-word guardrails) ->
+  Dola round 2 = 8 / 8 / 8 (ops/research/GUIDETIPS1_V2_CRITIC_DOLA_DOLA.md; same seat, so one pass only). ARENA NOT LAUNCHED
+  (needs a browser seat): a normal session opens a new Arena chat with ops/research/TASK_GUIDETIPSCRITIC1A.md (lite_mirror
+  push first). 7+ on TOOLTIPS and GUIDE from Arena too, else revise and go again.
+- Measured: tools/tooltip_census.gd (run through godot_slot) - 216 of 289 tooltips on the walked pages break the standard.
+- After his yes + both 7+: build in the order of the standard's section 5 (Tip helper, Glossary, the red test, screens, guide).
+
 ## BOARD - ask the owner, act on his answers
 Claude's advice to him (S531, asked "do you think we should build these?"): NOT YET for both - play the current build
 first (6 new things today); knowledge v5 after the footwork settles; the ledger's text-matching fix (GymDeals.year_take)

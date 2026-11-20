@@ -64,11 +64,11 @@ in a STANDARD + a COMPONENT + a TEST + the screens rewritten.
    stay green. Stills of the tooltips via the hidden desktop (`tools/layout_snapshot.gd`), opened and checked, sent to him.
 
 ## Contract
-OWNS: ops/research/GUIDETIPS1_*.md, a new scripts/ui tooltip component, scripts/ui/GuideLight.gd,
-scripts/rules/GuideLines.gd, scripts/ui/FirstWeekStrip.gd, the tooltip lines of the screens it rewrites, a new tooltip test.
-Do NOT touch scripts/fight3d (METHOD line). Run only the tests the change touches (full suite is nightly).
-REGRESSION: guide_person_test, guide_ends_test, first_week_test, first_hour_test, coach_areas_test, coach_check_test,
-training_k_test, roster_rows_page_test.
+OWNS: scripts/ui/Tip.gd, scripts/ui/TipParts.gd, scripts/ui/Tips.gd, scripts/rules/Glossary.gd, scripts/rules/Lessons.gd, scripts/ui/GuideLight.gd, scripts/rules/GuideLines.gd, scripts/ui/FirstWeekStrip.gd, tests/tooltip_standard_test.gd, tests/guide_explore_test.gd
+(also: the tooltip lines of each screen it rewrites, and the GUIDETIPS1 research pages, by the Claude session itself. Not scripts/fight3d: METHOD line. Only the tests the change touches; the full suite is nightly.)
+RED_TEST: tests/tooltip_standard_test.gd
+REGRESSION: guide_person_test, guide_ends_test, first_week_test, first_hour_test, coach_areas_test, coach_check_test, training_k_test, roster_rows_page_test
+VISUAL: yes
 
 ## Prior research
 J52, J90, K84, research/topics/ui_screens.md, S148_SCHEDULE_TUTORIAL_DESIGN.md, TASK_GUIDEFLAG1/2.

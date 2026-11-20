@@ -1,0 +1,54 @@
+<!doctype html><html><head><meta charset="utf-8"><title>GUIDETIPS1 standard</title><style>
+*{box-sizing:border-box}body{margin:0;width:1920px;height:1080px;background:#1a1512;color:#eee2ce;font-family:"Segoe UI",Arial,sans-serif;overflow:hidden}
+h1{font-size:34px;margin:0;color:#e6bd55;letter-spacing:1px}h2{font-size:21px;margin:0 0 10px;color:#e6bd55;text-transform:uppercase;letter-spacing:1.5px}
+.top{padding:22px 40px 10px;display:flex;align-items:baseline;gap:24px}.top span{color:#b1a084;font-size:19px}
+.grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:22px;padding:8px 40px}
+.col{background:#2e3234;border:1px solid #4c4b45;border-radius:10px;padding:18px 20px;height:520px}
+.was{background:#414342;border-radius:6px;padding:9px 12px;font-size:16px;color:#b1a084;margin-bottom:8px}
+.was b{color:#ff7a66;font-weight:600;font-size:13px;letter-spacing:1px;display:block;margin-bottom:3px}
+.quote{font-style:italic;color:#cf9245;font-size:15px;margin:0 0 14px}
+.card{width:362px;background:#2b241d;border:2px solid #4c4b45;border-radius:10px;padding:14px 16px;box-shadow:0 6px 14px rgba(0,0,0,.5);font-size:16.5px;line-height:1.38;margin:0 auto;position:relative}
+.card:before{content:"";position:absolute;top:-9px;left:50%;width:16px;height:16px;border-radius:50%;background:#991d1c;border:2px solid #1a1512}
+.card .t{font-size:20px;font-weight:700;color:#eee2ce;margin-bottom:6px;display:flex;justify-content:space-between}
+.card .t em{font-style:normal;color:#2cb56f}.rows{border-top:1px solid #4c4b45;border-bottom:1px solid #4c4b45;margin:8px 0;padding:6px 0}
+.r{display:flex;justify-content:space-between;color:#b1a084}.r b{color:#eee2ce;font-weight:600}.r.sum{color:#eee2ce;font-weight:700}.g{color:#2cb56f!important}.b{color:#ff7a66!important}
+.k{border-bottom:2px dashed #ff7a66}.do{color:#e6bd55;margin-top:7px;font-weight:600}.mut{color:#b1a084}
+.tag{position:absolute;left:-98px;width:88px;text-align:right;font-size:11.5px;letter-spacing:1px;color:#6fa0e6;font-weight:700}
+.bar{height:16px;background:#1a1512;border-radius:4px;position:relative;margin:8px 0 4px}.bar i{position:absolute;top:0;bottom:0}
+.bot{display:grid;grid-template-columns:1.25fr 1fr;gap:22px;padding:18px 40px}
+.box{background:#2e3234;border:1px solid #4c4b45;border-radius:10px;padding:16px 20px;height:385px}
+table{border-collapse:collapse;width:100%;font-size:16px}td{padding:6px 8px;border-bottom:1px solid #4c4b45;vertical-align:top}td:first-child{color:#b1a084;width:42%}
+.bubble{background:#f2e6c8;color:#241f1a;border-radius:18px;padding:12px 16px;font-size:19px;font-weight:700;display:inline-block;margin:4px 0 8px}
+.btn{display:inline-block;background:#442f24;color:#eee2ce;border-radius:6px;padding:4px 12px;font-size:14px;margin-right:8px;font-weight:600}
+ul{margin:6px 0 0 18px;padding:0;font-size:16px;line-height:1.5}li b{color:#e6bd55}
+</style></head><body>
+<div class="top"><h1>TOOLTIPS AND THE GUIDE - THE STANDARD (draft 2)</h1><span>A tooltip answers four questions in a wrapped card. The guide lets you look around before it points.</span></div>
+<div class="grid">
+<div class="col"><h2>Coach's pay tile</h2><div class="was"><b>WAS</b>"$450 wage a week" &nbsp;/&nbsp; tooltip: "Cost a week"</div><p class="quote">"what is it for ? cost a week to do what"</p>
+<div class="card" style="margin-left:118px"><div class="t">Coach's pay</div>
+<span class="tag" style="top:46px">WHAT</span>Buys a coach in the gym for every session, and the evening classes.
+<span class="tag" style="top:112px">NOW</span><div class="rows"><div class="r"><span>Pay</span><b class="b">-$450 a week</b></div><div class="r"><span>Classes bring in</span><b class="g">+$350 a week</b></div><div class="r sum"><span>Real cost</span><span class="b">-$100 a week</span></div></div>
+<span class="tag" style="top:196px">YOUR MOVE</span><div class="do">With no coach, the sessions you cannot take run at 60% and there are no classes.</div></div></div>
+<div class="col"><h2>Tiredness column</h2><div class="was"><b>WAS - ONE LINE ACROSS THE WHOLE SCREEN</b>"Tiredness 38 of 100. Under 50 is fresh. A fight and hard training raise it; a full rest day takes off about an eighth. Over 80 the next morning's training counts only 60%."</div>
+<div class="card" style="margin-left:118px;margin-top:14px"><div class="t">Tiredness <em>38 - fresh</em></div>
+<span class="tag" style="top:46px">WHAT</span>How worn your boxer is. Tired boxers train worse and get hurt more.
+<span class="tag" style="top:112px">NOW</span><div class="rows"><div class="r"><span>Fresh</span><b>under 50</b></div><div class="r"><span>Tired</span><b>from 70</b></div><div class="r"><span>Next morning counts 60%</span><b class="b">from 80</b></div></div>
+<span class="tag" style="top:176px">MOVES IT</span><span class="mut">Fights and hard sessions raise it. A full rest day takes off about an eighth.</span>
+<span class="tag" style="top:232px">YOUR MOVE</span><div class="do">Give a rest day in the <span class="k">week plan</span> before it reaches 80.</div></div></div>
+<div class="col"><h2>Mastery bar</h2><div class="was"><b>WAS</b>no tooltip: a dark and a light purple strip, a flag, a dashed box</div><p class="quote">"what are the small purple highlighted section on the bars ?"</p>
+<div class="card" style="margin-left:118px"><div class="t">Mastery <em>24 &rarr; 27 Learning</em></div>
+<span class="tag" style="top:46px">WHAT</span>How well your boxer owns this move. Under 30 it is not thrown in a fight.
+<div class="bar"><i style="left:0;width:24%;background:#7b5fc0"></i><i style="left:24%;width:3%;background:#b08eea"></i><i style="left:27%;width:3%;border:2px dashed #b08eea"></i><i style="left:30%;width:3px;background:#e6bd55;top:-5px;bottom:-5px"></i></div>
+<span class="tag" style="top:146px">NOW</span><div class="rows"><div class="r"><span>Learning</span><b>under 30</b></div><div class="r sum"><span><span class="k">Usable</span> (the flag)</span><span>from 30</span></div><div class="r"><span>Sharp</span><b>from 60</b></div><div class="r"><span>Signature</span><b>from 85</b></div></div><span class="mut">Light strip: tonight's gain. Dashed box: one more night like this.</span>
+<span class="tag" style="top:300px">YOUR MOVE</span><div class="do">One more pad night like this reaches the flag.</div></div></div>
+</div>
+<div class="bot">
+<div class="box"><h2>The guide: look around first</h2><table>
+<tr><td>Today: every page dims at once, a ring points at the next click</td><td>No dim, no ring on a first visit. The old trainer says one line: what this page is for.</td></tr>
+<tr><td>Help is pushed</td><td><span class="btn">Show me</span> lights the ring. Stuck 20 seconds: the ring pulses softly, no dim.</td></tr>
+<tr><td>Steps in a fixed order</td><td>Week 1 keeps four jobs, in any order. After that a lesson arrives when its thing happens: the clock, tiredness, the mastery bar, fight week or camp, the towel.</td></tr>
+<tr><td>Said once</td><td><span class="btn">?</span> "Ask the trainer" in the Menu: every lesson again, any time.</td></tr></table>
+<div style="margin-top:10px"><span class="bubble">Continue plays the days, one by one, to the next stop.</span><br><span class="btn">Show me</span><span class="btn">More</span><span class="btn">?</span><span class="btn">Skip the guide</span></div></div>
+<div class="box"><h2>A tooltip must never</h2><ul><li><b>repeat its label</b> ("Feint and draw" / "Feint and draw")</li><li>run as <b>one long line</b>: 330 px wide, wrapped, 45 words at most</li><li><b>pile numbers</b> in a sentence: three or more go into rows</li><li><b>name a person</b>: your boxer, the opponent, your coach</li><li>use a word the game has not taught; game words are <span class="k">underlined</span> and open a short note</li><li>be missing: every number on a screen has a card</li></ul>
+<p style="font-size:15.5px;color:#b1a084;margin:10px 0 8px">A plain value gets a SHORT card (two lines). A test walks every main screen and fails the build on any of these. Today 216 of 289 tooltips fail. Move names show the move playing on a loop.</p><div class="card" style="margin:0;width:330px;font-size:15.5px;padding:10px 14px"><div class="t" style="font-size:17px;margin-bottom:2px">Signing fee <em style="color:#e6bd55">$1,000</em></div>Paid once, the day you hire this coach.</div></div>
+</div></body></html>
