@@ -180,6 +180,24 @@ const LOAN_MONTHS := 12
 
 
 func _grow(c: Career, eight_weeks: int, loan := false) -> void:
+	# S531 recruiting (the route after the first week): invite a scouted prospect when 8 weeks of costs are banked and a
+	# place is free (up to 3 boxers), sign her on her trial day when the trial reads good (potential 80+), else pass.
+	for p in c.prospects:
+		if str(p.get("state", "")) == "invited" and int(p["trial_day"]) <= c.day:
+			if bool(Roster.trial_read(c, p)["good"]) and c.cash > eight_weeks:
+				Roster.sign_prospect(c, str(p["id"]), PICKS.duplicate())
+			else:
+				p["state"] = "passed"
+	var waiting: bool = c.prospects.any(func(p): return str(p.get("state", "")) == "invited")
+	if not waiting and c.fighters.size() < 3 and c.cash > eight_weeks:
+		for p in c.prospects:
+			if str(p.get("state", "")) == "scout" and Roster.invite(c, str(p["id"])):
+				break
+	# A careful owner signs the sponsor a move brings (GymActs "deal": offer -> signed). S531: the first GROWLOAN run
+	# left it on offer, so its movers never saw the $400 a week the move is for.
+	for d in c.deals:
+		if str(d.get("state", "")) == "offer":
+			d["state"] = "signed"
 	# The upgrades a careful owner takes first: fitness classes (kit + the assistant who runs them - the one upgrade
 	# GymUpgrades says pays for itself inside a year; the assistant also opens a place), then the youth section.
 	if not GymUpgrades.has(c.upgrades, "fitkit") and c.cash > eight_weeks + 1500 + 4 * 280:

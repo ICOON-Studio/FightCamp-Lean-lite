@@ -34,3 +34,24 @@ moved, their median members >= 85, median cash >= the GROW arm's, and no more cl
 2. The owner approves the design (board question with this page).
 3. Build: GymUpgrades.move_loan + GymSpend.move(c, loan), the premises card, the forecast and ledger lines, one test that
    walks a move on the loan end to end (golden path stays green).
+
+## Measured S531 (full runs, 60 careers an arm)
+- GROW (every careful lever, cash move only): 0/60 moved; members 70 [70..73]; cash $5,557; reputation 55 [43..67].
+- GROWLOAN run 1: 12/60 moved, members 70 [70..83], cash $5,206 [$933..$6,300] - FAILS the pass lines. Probe defect: the
+  sponsor the move brings was left on offer (never signed), so movers paid the rent and the loan without the $400 a week
+  the move is for. Fixed (the arm signs offered deals as GymActs "deal" does); rerun running.
+- Probe limit for every arm: ONE boxer all career. After the first week, new boxers come only through the recruit route
+  (scout -> invite -> trial -> Roster.sign_prospect), which the probe does not play. With one boxer, reputation reaches
+  ~51-55 in two years (demand ~79-81) - barely past the room. The next GROW round plays recruiting (a second boxer once the
+  money allows) before any number in the design is judged.
+- Recruiting added to GROW/GROWLOAN (invite a scouted prospect when 8 weeks are banked, sign on a good trial, up to 3
+  boxers). Pilot (4 careers, GROW): 3 boxers each, reputation 168 [140..181] = demand ~149, members 75 (room 70 + kit),
+  cash $5,447 - the move is still out of reach. With a full roster the room and the move price are the ONLY wall.
+  Full GROW + GROWLOAN with recruiting runs next.
+- CORRECTION (S531, GROWLOAN run 2): signing offered deals also signed IRONCLAD (Data.DEALS, $250 a week, on offer from
+  day 0, no cost). No earlier arm signed it - PASSIVE / SENSIBLE / LEAN / GROW all ran without the day-one sponsor, so the
+  "careful gym loses ~$3.5k a year" line (and Q-277's framing) was OVERSTATED: $250 a week is ~$13k a year. Run 2
+  (loan + deals, one boxer): cash $39,792 [$26,649..$53,319] at week 104, 53/60 moved, members 83 [71..92]. This mixes
+  the loan with the sponsor; the clean comparison (GROW vs GROWLOAN, both signing deals and recruiting) runs next.
+  Still true with money in: members stop at the room; the room grows only by moving.
+  The game does tell the player (Needs.gd ~line 101: 'A sponsor is waiting', S327) - the probe arms skipped it, a player would not.
