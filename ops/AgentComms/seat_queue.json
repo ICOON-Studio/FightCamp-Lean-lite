@@ -3537,7 +3537,8 @@
    "pid": 7956,
    "transcript": "AgentComms/seat_logs/SQ240_dola.txt",
    "answered_at": "2026-11-19 21:40",
-   "answer": "research/DESIGN_TURNPRO1_V4_CRITIC_DOLA_DOLA.md"
+   "answer": "research/DESIGN_TURNPRO1_V4_CRITIC_DOLA_DOLA.md",
+   "seen_by_claude": true
   },
   {
    "id": "SQ241",
@@ -3554,30 +3555,58 @@
    "seat": "dola",
    "brief": "research/DESIGN_LEDGER1_V4_CRITIC_DOLA.md",
    "stem": "DESIGN_LEDGER1_V4_CRITIC_DOLA_DOLA",
-   "status": "sent",
+   "status": "answered",
    "queued_at": "2026-11-19 21:15",
    "tries": 0,
    "sent_at": "2026-11-19 22:10",
    "pid": 43228,
-   "transcript": "AgentComms/seat_logs/SQ242_dola.txt"
+   "transcript": "AgentComms/seat_logs/SQ242_dola.txt",
+   "answered_at": "2026-11-19 22:40",
+   "answer": "research/DESIGN_LEDGER1_V4_CRITIC_DOLA_DOLA.md",
+   "seen_by_claude": true
   },
   {
    "id": "SQ243",
    "seat": "dola",
    "brief": "research/DESIGN_KNOW_STAKES1_V3_CRITIC_DOLA.md",
    "stem": "DESIGN_KNOW_STAKES1_V3_CRITIC_DOLA_DOLA",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-19 21:16",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-19 23:10",
+   "pid": 47056,
+   "transcript": "AgentComms/seat_logs/SQ243_dola.txt",
+   "answered_at": "2026-11-19 23:40",
+   "answer": "research/DESIGN_KNOW_STAKES1_V3_CRITIC_DOLA_DOLA.md",
+   "seen_by_claude": true
   },
   {
    "id": "SQ244",
    "seat": "dola",
    "brief": "research/DESIGN_TURNPRO1_V5_CRITIC_DOLA.md",
    "stem": "DESIGN_TURNPRO1_V5_CRITIC_DOLA_DOLA",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-19 22:14",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-20 00:10",
+   "pid": 23432,
+   "transcript": "AgentComms/seat_logs/SQ244_dola.txt",
+   "answered_at": "2026-11-20 00:40",
+   "answer": "research/DESIGN_TURNPRO1_V5_CRITIC_DOLA_DOLA.md"
+  },
+  {
+   "id": "SQ245",
+   "seat": "dola",
+   "brief": "research/DESIGN_LEDGER1_V5_CRITIC_DOLA.md",
+   "stem": "DESIGN_LEDGER1_V5_CRITIC_DOLA_DOLA",
+   "status": "answered",
+   "queued_at": "2026-11-20 00:13",
+   "tries": 0,
+   "sent_at": "2026-11-20 01:10",
+   "pid": 52580,
+   "transcript": "AgentComms/seat_logs/SQ245_dola.txt",
+   "answered_at": "2026-11-20 01:40",
+   "answer": "research/DESIGN_LEDGER1_V5_CRITIC_DOLA_DOLA.md"
   }
  ]
 }

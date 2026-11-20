@@ -2063,6 +2063,55 @@
       "at": "2026-11-17 09:23",
       "text": "BOARD ANSWER Q-S294-266 - question: You wrote 'goose could not install godot'. Every Goose run since 11-14 got Godot 4.7.2. Where did you see the failure? | answer: i opened an arena shell and i saw the error | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
       "status": "waiting"
+    },
+    {
+      "id": "P288",
+      "from": "board",
+      "at": "2026-11-17 16:03",
+      "text": "BOARD ANSWER Q-S294-267 - question: May fight films (180 s, hidden desktop, GPU) render while you play a game? | answer: Only when I'm not playing | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P289",
+      "from": "board",
+      "at": "2026-11-18 09:49",
+      "text": "BOARD ANSWER Q-S294-270 - question: Season ladder v6 passed both critics (9/9 and 8/7). Build it after the fight week? | answer: Yes, build it | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P290",
+      "from": "board",
+      "at": "2026-11-18 09:51",
+      "text": "BOARD ANSWER Q-S294-271 - question: Coach roles r6 passed both critics (8/8 and 7/7). Build it? | answer: Yes, build it | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P291",
+      "from": "board",
+      "at": "2026-11-18 22:19",
+      "text": "BOARD ANSWER Q-S294-272 - question: Club week v11 passed two fresh critics (Dola 8/8/7, Goose 7/8/6: depth / general / play). Build it after the current ladder work? | answer: Yes, build it | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P292",
+      "from": "board",
+      "at": "2026-11-18 22:24",
+      "text": "BOARD ANSWER Q-S294-273 - question: Club week v11 is built on pad TURNS: one boxer per 20-min turn, so with 4 boxers someone goes SHORT and a class night costs turns. On 16 Nov you said 'full pads, no sharing'. Which stands for the build? | answer: what do you think ? | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P293",
+      "from": "board",
+      "at": "2026-11-19 01:46",
+      "text": "BOARD ANSWER Q-S294-274 - question: Ludo painted the new screens two ways (Training week, bout clash, loyalty, Ask card). Which look should every screen move towards? | answer: Neither - keep today's screens | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P294",
+      "from": "board",
+      "at": "2026-11-19 03:44",
+      "text": "BOARD ANSWER Q-S294-275 - question: Guard damage v4: a blocked punch still wears the arms down; tired arms let more of each punch through (green -> red guard bar), a 3rd punch in a row wears 1.5x, being trapped on the ropes wears faster. Two fresh critics passed it (Dola 8/8/7, Goose 8/7/7). Build it after turning pro? | answer: Yes, build it after turning pro | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
     }
   ]
 }

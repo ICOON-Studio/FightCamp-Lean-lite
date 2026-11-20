@@ -5194,7 +5194,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-20 00:10 board_sync",
+  "updated": "2026-11-20 01:12 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5422,13 +5422,6 @@
     "state": "LANDED - Claude collects"
    },
    {
-    "title": "TASK HOLD1 - the specialty: four ways to hold moves over two seasons, and the hold minutes that make it a choice (probe)",
-    "who": "qwen",
-    "started": "2026-11-19T20:12",
-    "run": "HOLD1",
-    "state": "LANDED - Claude collects"
-   },
-   {
     "title": "Fresh critic: contracts map v4",
     "who": "arena",
     "started": "2026-11-19T22:50",
@@ -5440,13 +5433,6 @@
     "who": "arena",
     "started": "2026-11-19T22:50",
     "run": "KNOWCRITIC3A",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK STEPTUNE3 - size the footwork steps' levers on the phase-1 code, from TREEVALUE5 (tuning)",
-    "who": "qwen",
-    "started": "2026-11-19T22:11",
-    "run": "STEPTUNE3",
     "state": "LANDED - Claude collects"
    },
    {
@@ -5476,6 +5462,26 @@
     "started": "2026-11-20T03:00",
     "run": "LEDGERREV5",
     "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "Fresh critic: contracts map v5",
+    "who": "arena",
+    "started": "2026-11-20T00:25",
+    "run": "LEDGERCRITIC6A",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "Knowledge stakes map v4 from the code",
+    "who": "goose",
+    "started": "2026-11-20T00:35",
+    "run": "KNOWREV4",
+    "state": "STOPPED - Claude relaunches or closes"
+   },
+   {
+    "title": "Turning pro map v6: debut gaps from the measured curve",
+    "who": "goose",
+    "started": "2026-11-20T01:20",
+    "run": "TURNREV6"
    }
   ],
   "next": [
@@ -6006,6 +6012,16 @@
   },
   "done_recently": [
    {
+    "title": "TASK STEPTUNE3 - size the footwork steps' levers on the phase-1 code, from TREEVALUE5 (tuning)",
+    "who": "qwen",
+    "when": "2026-11-20"
+   },
+   {
+    "title": "TASK HOLD1 - the specialty: four ways to hold moves over two seasons, and the hold minutes that make it a choice (probe)",
+    "who": "qwen",
+    "when": "2026-11-20"
+   },
+   {
     "title": "Signature pace on the real career loop (camps, better pads coach)",
     "who": "goose",
     "when": "2026-11-19"
@@ -6054,16 +6070,6 @@
    {
     "title": "Blind contract test of the guard through a bout",
     "who": "arena",
-    "when": "2026-11-19"
-   },
-   {
-    "title": "Fresh critic: coach fit map v9",
-    "who": "arena",
-    "when": "2026-11-19"
-   },
-   {
-    "title": "write the contracts map v3 (LEDGER1_V3) from the code, answering both v2 critics",
-    "who": "goose",
     "when": "2026-11-19"
    }
   ],
@@ -6209,7 +6215,24 @@
      "who": "claude"
     }
    ],
-   "done_session": [],
+   "done_session": [
+    {
+     "text": "Gym survive: careful gym bleeds",
+     "who": "claude"
+    },
+    {
+     "text": "Debut gap curve measured",
+     "who": "claude"
+    },
+    {
+     "text": "Steps: deny reaches the score",
+     "who": "claude"
+    },
+    {
+     "text": "Probe bugs: seeds, pilot, crash",
+     "who": "claude"
+    }
+   ],
    "now": [
     {
      "text": "Between-rounds voices: your ear",
@@ -6300,15 +6323,19 @@
      "who": "claude"
     },
     {
-     "text": "Probe reruns: gym + debut gap",
-     "who": "claude"
-    },
-    {
      "text": "Critics: ledger v5 (Arena+Dola)",
      "who": "claude"
     },
     {
      "text": "Knowledge v4 from code (Goose)",
+     "who": "claude"
+    },
+    {
+     "text": "TREEVALUE6 steps re-read (Qwen)",
+     "who": "claude"
+    },
+    {
+     "text": "Turning pro v6 (Goose)",
      "who": "claude"
     }
    ],

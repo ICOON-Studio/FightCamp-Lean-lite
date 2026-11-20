@@ -1126,13 +1126,14 @@
    "agent": "arena",
    "id": "LEDGERCRITIC6A",
    "title": "Fresh critic: contracts map v5",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-20T00:25",
    "where": "cloud",
    "repo": "FightCamp-Lean-lite",
    "brief": "ops/research/TASK_LEDGERCRITIC6A.md",
    "chat": "https://arena.ai/agent/01a1f5e0-6675-76b7-ab7f-c072204b90cc",
-   "eta": "2026-11-20T01:15"
+   "eta": "2026-11-20T01:15",
+   "reconciled": "2026-11-20 01:10 board_reconcile: PR #419 open - collect it"
   },
   "KNOWREV4": {
    "agent": "goose",
@@ -1150,12 +1151,40 @@
    "agent": "goose",
    "id": "TURNREV6",
    "title": "Turning pro map v6: debut gaps from the measured curve",
-   "status": "running",
+   "status": "stale",
    "started": "2026-11-20T01:20",
    "where": "cloud",
    "issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/420",
    "brief": "ops/research/TASK_TURNREV6.md",
-   "eta": "2026-11-20T02:15"
+   "eta": "2026-11-20T02:15",
+   "reconciled": "2026-11-20 01:40 board_reconcile: Actions run 44634371653 finished success, nothing pushed"
+  },
+  "TREEVALUE6": {
+   "agent": "qwen",
+   "id": "TREEVALUE6",
+   "title": "TASK TREEVALUE6 - re-read the footwork steps' board now that a step's deny reaches the score (measurement only)",
+   "status": "running",
+   "started": "2026-11-20T01:41",
+   "eta": "2026-11-20T03:31",
+   "branch": "qwen/treevalue6",
+   "worktree": "E:/FightCamp/wt/LEAN_TREEVALUE6",
+   "wt": "E:/FightCamp/wt/LEAN_TREEVALUE6",
+   "brief": "ops/research/TASK_TREEVALUE6.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/TREEVALUE6_dispatch_out.txt",
+   "match": "seat_dispatch.py run treevalue6",
+   "model": "qwen4-max",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/TREEVALUE6_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/TREEVALUE6_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/TREEVALUE6_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 28052,
+    "seat_pid": 13436
+   },
+   "note": "S368 seat_dispatch: launched unattended (dispatch_queue.json); merging stays off"
   }
  },
  "codex_budget": {

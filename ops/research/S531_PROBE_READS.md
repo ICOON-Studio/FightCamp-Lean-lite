@@ -6,7 +6,9 @@ Defect fixed first: the page said 30 careers a seed but ran the pilot (2). Full 
 - SENSIBLE (one class night + take the first pro offer): 0/60 close in two years, but cash falls $13,977 -> median
   $7,011 at week 104 (p10 $2,401). About -$3.5k a year.
 - LEAN (+ half stipend when cash < 8 weeks of costs): 2/60 close (week ~102), p10 -$3,706 - cutting her pay does not
-  help (worth a look: GymSpend.set_half's cost).
+  help. Why (per-career rows): 7/60 LEAN boxers never got a pro offer (SENSIBLE 0/60), and they are most of the
+  negative tail. Half sponsorship = one work morning a week (GymSpend.set_half) -> fewer wins -> no pro purse. The
+  lever works as designed; in this probe the morning lost costs more than the half stipend saves.
 - MEMBERS ARE FLAT: 66 at week 13 and 66 at week 104 in every arm. Two years of a boxer winning and turning pro add no
   members. This is the finding: the club cannot grow, so a careful player slowly bleeds instead of building.
 - The second walk-in was never signed (the arm's cash > 3 months condition is never true): SENSIBLE ran one boxer.
