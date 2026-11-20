@@ -18,13 +18,15 @@ its gateway answers listAgents 404 - the same fault as 2026-11-19 (SQ229), on th
 SQ250 retry every 30 min; if still 404 at start, open the Grok Bot app once (it may re-register the gateway).
 
 ## MAIN LINE - DO FIRST
-1. STEPS: phase 5d BUILT S531 (StepWire.DENY_FIT: the deny edge follows the step's fit vs her game, best 1 / ok .5 /
-   none .15 / wrong 0, ESTIMATES). TREEVALUE7 (PC, started 15:04, ~4 h) re-reads the board: log
-   E:/FightCamp/tmp/treevalue7/full.log, page copied to E:/FightCamp/tmp/treevalue7/TREEVALUE7_RESULT.md (the probe writes
-   over docs/TREEVALUE5_RESULT.md; the run restores it) -> write docs/TREEVALUE7_RESULT.md with the v6 -> v7 table.
+1. STEPS (STEPS_SCOPE_S528 phase 5): built S531 - 5d deny by fit (StepWire.DENY_FIT), 5e LiveRoundAfter's energy = RingDuel's
+   (the step DRAIN now reaches the round's end state), 5b counter (each exchange keeps step_fit; the probe prints wrong %).
+   TREEVALUE8 (PC, started 15:58, ~4 h) re-reads: log E:/FightCamp/tmp/treevalue8/full.log, page copied to
+   E:/FightCamp/tmp/treevalue8/TREEVALUE8_RESULT.md -> write docs/TREEVALUE8_RESULT.md with the v6 -> v8 table + the wrong
+   shares (5b: a step whose wrong style is real but wrong % ~0 -> grade its cost on her style's main game).
 2. COLLECTED S531: Arena LOANCONTRACT1 (tests/loan_contract_test.gd on main, PASS, a $2,999 mutant fails 6) and
    LEDGERCRITIC6A (contracts v5: Arena 7/5, Dola 8/8 -> Dola writes v6, SQ251 queued).
-3. Running: Dola SQ249 turning pro v6, then SQ251 contracts v6 - CODE-CHECK each (Arena found 10 false CODE claims in
+3. Turning pro v6 IN (ops/research/DESIGN_TURNPRO1_V6.md, Dola SQ249); critics running: Dola SQ254 + Arena TURNCRITIC6A
+   (https://arena.ai/agent/01a1f924-842e-7afe-a294-6904ad1f4437, with a code check). Dola SQ251 contracts v6 queued - CODE-CHECK it (Arena found 10 false CODE claims in
    Dola's knowledge v4: 4/5) before any critic. Knowledge: v4 failed (Arena 4/5, 10 false CODE claims) -> v5 FROM THE CODE (Arena, spot-checked,
    ops/research/DESIGN_KNOW_STAKES1_V5.md) -> critics running: Dola SQ253 + Arena KNOWCRITIC5A
    (https://arena.ai/agent/01a1f923-7048-7a84-8a69-63933c7db3c3). 7+/7+ on both = his board.

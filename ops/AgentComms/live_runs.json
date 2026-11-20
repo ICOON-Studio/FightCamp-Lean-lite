@@ -1189,10 +1189,11 @@
       "agent": "dola",
       "id": "SQ249",
       "title": "Turning pro map v6 (both v5 critics + the debut-gap curve)",
-      "status": "running",
+      "status": "landed",
       "started": "2026-11-20T14:15",
       "eta": "2026-11-20T16:30",
-      "brief": "ops/research/DESIGN_TURNPRO1_V6_REVISE_DOLA.md"
+      "brief": "ops/research/DESIGN_TURNPRO1_V6_REVISE_DOLA.md",
+      "note": "S531: turning pro v6 -> ops/research/DESIGN_TURNPRO1_V6.md"
     },
     "SQ246": {
       "agent": "kalli",
@@ -1242,11 +1243,12 @@
       "agent": "claude",
       "id": "TREEVALUE7",
       "title": "Footwork steps re-read after 5d (deny by fit)",
-      "status": "running",
+      "status": "failed",
       "started": "2026-11-20T15:04",
       "eta": "2026-11-20T19:10",
       "where": "pc",
-      "log": "E:/FightCamp/tmp/treevalue7/full.log"
+      "log": "E:/FightCamp/tmp/treevalue7/full.log",
+      "note": "S531: stopped after ~50 min - superseded by TREEVALUE8 (5d + 5e energy fix + 5b counter)"
     },
     "SQ252": {
       "agent": "dola",
@@ -1295,6 +1297,35 @@
       "status": "queued",
       "started": "2026-11-20T15:35",
       "brief": "ops/research/DESIGN_KNOW_STAKES1_V5_CRITIC_DOLA.md"
+    },
+    "TURNCRITIC6A": {
+      "agent": "arena",
+      "id": "TURNCRITIC6A",
+      "title": "Fresh critic + code check: turning pro map v6",
+      "status": "running",
+      "started": "2026-11-20T15:45",
+      "eta": "2026-11-20T16:20",
+      "where": "cloud",
+      "chat": "https://arena.ai/agent/01a1f924-842e-7afe-a294-6904ad1f4437",
+      "brief": "ops/research/TASK_TURNCRITIC6A.md"
+    },
+    "SQ254": {
+      "agent": "dola",
+      "id": "SQ254",
+      "title": "Fresh critic: turning pro map v6",
+      "status": "queued",
+      "started": "2026-11-20T15:45",
+      "brief": "ops/research/DESIGN_TURNPRO1_V6_CRITIC_DOLA.md"
+    },
+    "TREEVALUE8": {
+      "agent": "claude",
+      "id": "TREEVALUE8",
+      "title": "Footwork steps re-read after 5d + 5e + the wrong-fire counter",
+      "status": "running",
+      "started": "2026-11-20T15:58",
+      "eta": "2026-11-20T20:00",
+      "where": "pc",
+      "log": "E:/FightCamp/tmp/treevalue8/full.log"
     }
   },
   "codex_budget": {

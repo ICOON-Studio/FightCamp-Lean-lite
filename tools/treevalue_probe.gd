@@ -357,6 +357,7 @@ func _initialize() -> void:
 			var wins_without := 0
 			var fires := 0
 			var uses := 0
+			var wrong := 0
 			var n_total := 0
 			for sb in SEED_SETS:
 				var w := _cell(with_plan, opp, base, sid, int(sb), N_BOUTS)
@@ -365,6 +366,7 @@ func _initialize() -> void:
 				wins_with += int(w["wins"])
 				wins_without += int(wo["wins"])
 				fires += int(w["fires"])
+				wrong += int(w.get("wrong", 0))
 				uses += int(w["uses"])
 				without_fires += int(wo["fires"])
 				n_total += N_BOUTS
@@ -372,9 +374,9 @@ func _initialize() -> void:
 			for d in deltas:
 				mean += float(d)
 			mean /= float(deltas.size())
-			cells[s] = {"delta": mean, "seeds": deltas, "fires": fires, "uses": uses, "with": wins_with, "without": wins_without, "n": n_total}
-			print("CELL step=%s style=%s with=%d without=%d delta=%+.2f fires/bout=%.2f uses/bout=%.2f seeds=%s" % [
-				sid, s, wins_with, wins_without, mean, float(fires) / float(n_total), float(uses) / float(n_total), str(deltas)])
+			cells[s] = {"delta": mean, "seeds": deltas, "fires": fires, "uses": uses, "with": wins_with, "without": wins_without, "n": n_total, "wrong": wrong}
+			print("CELL step=%s style=%s with=%d without=%d delta=%+.2f fires/bout=%.2f uses/bout=%.2f wrong=%.0f%% seeds=%s" % [
+				sid, s, wins_with, wins_without, mean, float(fires) / float(n_total), float(uses) / float(n_total), 100.0 * float(wrong) / float(maxi(1, fires)), str(deltas)])
 		results[sid] = {"cells": cells, "plan": plan_str, "dest": dest, "dest_punch": dest_punch}
 	if without_fires != 0:
 		print("CONTROL FAILED: the swept step fired %d times as planned in the without-arm (its line is out)" % without_fires)
@@ -457,7 +459,7 @@ func _write_doc(report: Dictionary) -> void:
 		var line := "| %s |" % sid
 		for style in StepValue.STYLES:
 			var c: Dictionary = results[sid]["cells"][str(style)]
-			line += " %+.1f (t%+.1f) [%d/%d] f%.2f |" % [float(c["delta"]), float(StepValue.TARGET[sid][str(style)]), int(c["with"]), int(c["without"]), float(c["fires"]) / float(c["n"])]
+			line += " %+.1f (t%+.1f) [%d/%d] f%.2f w%d%% |" % [float(c["delta"]), float(StepValue.TARGET[sid][str(style)]), int(c["with"]), int(c["without"]), float(c["fires"]) / float(c["n"]), roundi(100.0 * float(c.get("wrong", 0)) / float(maxi(1, int(c["fires"]))))]
 		f.store_line(line)
 	f.store_line("\n## The gate's three legs and the per-fire invariant I(best,wrong) vs STEPTUNE2\n")
 	f.store_line("I(best,wrong) = cell_best - (F_best/F_wrong) x cell_wrong (F = fires/bout): no TABLE number moves it; the gate needs I > 1.5 for the best (1.5..5) and wrong (<0) legs to coexist. 'Window' = the leg count that can pass.\n")

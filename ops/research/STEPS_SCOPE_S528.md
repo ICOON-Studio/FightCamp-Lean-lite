@@ -84,3 +84,6 @@ Then TREEVALUE6 (Qwen) re-reads the board on 5a(+5b); sizing only after it.
   had drifted from RingDuel's (no step DRAIN on the opponent, no per-bout body cost for her). The duel read the drain; the
   round's end state and the opponent's next mode did not. Both now call RingDuel's. NOTE: TREEVALUE7 started before this
   fix, so it measures 5d alone; cut_off / push_off need the run after it (TREEVALUE8) to show whether DRAIN now pays.
+- 5b COUNTER BUILT S531: each exchange record carries "step_fit" (LiveRound's fit_now); tools/treevalue_cells.gd counts the
+  planned fires whose step_fit was "wrong" and tools/treevalue_probe.gd prints it per cell (CELL ... wrong=%, the table's
+  w%). TREEVALUE7 started before it; TREEVALUE8 (after 5d + 5e + this counter) gives the first wrong-share board.

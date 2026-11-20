@@ -46,12 +46,14 @@ static func run_bout(make_fighter: Callable, seed_start: int, n_fighters: int, s
 	Bouts.fight_step(c, f, m, "sim")
 	var fires := 0
 	var uses := 0
+	var wrong := 0   # S531 phase 5b: planned fires whose step fit vs her game this exchange was "wrong"
 	for r in m["rounds"]:
 		for x in (r as Dictionary)["exchanges"]:
 			if PlanFight.base_id(str((x as Dictionary).get("arrow", ""))) == grade_step:
 				uses += 1
 				fires += 1 if bool((x as Dictionary).get("planned", false)) else 0
-	return {"outcome": str(m.get("outcome", "")), "fires": fires, "uses": uses}
+				wrong += 1 if bool((x as Dictionary).get("planned", false)) and str((x as Dictionary).get("step_fit", "")) == "wrong" else 0
+	return {"outcome": str(m.get("outcome", "")), "fires": fires, "uses": uses, "wrong": wrong}
 
 
 ## n bouts from seed_base (the seed set's offset + the bout index). Same seeds in both arms of a cell.
@@ -61,12 +63,14 @@ static func run_cell(make_fighter: Callable, seed_start: int, n_fighters: int, s
 	var wins := 0
 	var fires := 0
 	var uses := 0
+	var wrong := 0
 	for i in n:
 		var r := run_bout(make_fighter, seed_start, n_fighters, seed_base + i, opp, plan, moves, steps, combos, grade_step)
 		wins += 1 if str(r["outcome"]) == "win" else 0
 		fires += int(r["fires"])
 		uses += int(r["uses"])
-	return {"wins": wins, "fires": fires, "uses": uses, "n": n}
+		wrong += int(r.get("wrong", 0))
+	return {"wins": wins, "fires": fires, "uses": uses, "n": n, "wrong": wrong}
 
 
 ## The gate's three legs for one step from its six measured cells: best style in 1.5-5, wrong style negative,
