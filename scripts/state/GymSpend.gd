@@ -192,6 +192,20 @@ static func member_limit(c: Career) -> String:
 	return "coaches" if coaching_cap(c) < building else "premises"
 
 
+## S531 GROWTH_SCOPE: when the room holds the gym back, the two numbers and the fix ("Your name draws 84; the unit holds
+## 70: bigger premises (Club > Money) let them in"); else "".
+const ROOM_FIX := {"premises": ["the unit holds", "bigger premises (Club > Money)"],
+	"equipment": ["the kit takes", "more kit (Home > Equip)"], "coaches": ["your coaches take", "an evening coach (Club > Money)"]}
+
+
+static func room_line(c: Career) -> String:
+	var limit := member_limit(c)
+	var draws := roundi(float(Membership.natural_members(c.reputation, c.dues_band)) * GymBonus.members(c.gym_plan))
+	if limit == "" or draws <= member_cap(c):
+		return ""
+	return "Your name draws %d; %s %d: %s would let them in" % [draws, ROOM_FIX[limit][0], member_cap(c), ROOM_FIX[limit][1]]
+
+
 static func places(c: Career) -> int:
 	return int(premises(c)["places"]) + StaffRoles.places(c.staff_roles)
 
@@ -224,12 +238,19 @@ static func buy(c: Career, id: String) -> String:
 	return ""
 
 
-static func move(c: Career) -> String:
-	var why := GymUpgrades.move_blocked(c.premises, c.cash)
+## `loan` = the fit-out loan (GymUpgrades.LOAN): the deposit now, the rest by the week with the bills (Sim.weekly_costs "fitout").
+static func move(c: Career, loan: bool = false) -> String:
+	var why := GymUpgrades.loan_blocked(c.premises, c.cash, c.fitout_weeks) if loan else GymUpgrades.move_blocked(c.premises, c.cash)
 	if why != "":
 		return why
 	var next := GymUpgrades.premises(c.premises + 1)
-	c.pay(-int(next["move"]), "Moving premises: %s" % str(next["name"]).to_lower())
+	if loan:
+		c.pay(-int(GymUpgrades.LOAN["down"]), "Fit-out loan deposit: %s" % str(next["name"]).to_lower())
+		c.fitout_weeks = int(GymUpgrades.LOAN["weeks"])
+		c.add_news("The bank lends the rest of the fit-out: %s a month for %d months, paid with the bills." % [
+			GameMoney.text(int(GymUpgrades.LOAN["month"])), int(GymUpgrades.LOAN["months"])])
+	else:
+		c.pay(-int(next["move"]), "Moving premises: %s" % str(next["name"]).to_lower())
 	c.premises += 1
 	var sp: Dictionary = GymUpgrades.SPONSORS[c.premises]
 	if not sp.is_empty() and not c.deals.any(func(d): return str(d["id"]) == str(sp["id"])):

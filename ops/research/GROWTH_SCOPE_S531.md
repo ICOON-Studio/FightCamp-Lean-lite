@@ -64,3 +64,15 @@ moved, their median members >= 85, median cash >= the GROW arm's, and no more cl
 All four pass lines hold: 60% moved, median members 140 (>= 85), cash above GROW's, no extra closures.
 With three boxers the name draws ~150 members; the $12,000 lump sum is the only thing between a careful gym and that.
 Next: the owner approves the design above (board question with this page), then the build in "Order" step 3.
+
+## BUILT S531 (owner Q-278: "Yes, build the loan")
+- GymUpgrades.LOAN + loan_blocked; GymSpend.move(c, loan) - the deposit on the ledger ("Fit-out loan deposit"), then
+  $173 a week for 52 weeks ($750 a month x 12) as the "fitout" line of Sim.weekly_costs: it is in the month bill, the
+  cash forecast (CashForecast copies fitout_weeks) and the week's costs card ("Fit-out loan"). Career.fitout_weeks.
+- Club > Money, the premises card: "Move" (cash) and "Move on a loan" (GymActs "moveloan"); the card's text gives both.
+- The members tile on Money says why members stop: GymSpend.room_line ("Your name draws 126; the kit takes 66: more kit
+  (Home > Equip) would let them in") - premises, kit or coaches, whichever holds them.
+- tests/fitout_loan_test.gd walks it end to end (refused cash move, loan move, sponsor, 52 paid weeks through Sim.step_day,
+  line gone, a second loan refused while one runs). The probe's GROWLOAN arm now uses the game's own loan.
+- VERIFIED on the game's own loan (GROWLOAN, 60 careers, after the build): 36/60 moved, members 140 [73..150], cash
+  $6,405 [$3,790..$24,137] at week 104 (GROW $4,605), 0/60 closed, reputation 177. All four pass lines still hold.

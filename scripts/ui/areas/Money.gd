@@ -119,7 +119,11 @@ func _kpis(c: Career, inc: Dictionary, cost: Dictionary, ahead: Array) -> Contro
 	var cap := GymSpend.member_cap(c)
 	Tally.number(members, "money:members:%d" % c.get_instance_id(), c.members, func(n: int) -> String: return "%d / %d" % [n, cap])
 	var even := _break_even(c, inc, cost)
-	row.add_child(_tile("members", "MEMBERS", members, "Break-even: %d of your %d members cover what the other income leaves" % [even, c.members], WoodKit.INK))
+	var tip := "Break-even: %d of your %d members cover what the other income leaves" % [even, c.members]
+	var room := GymSpend.room_line(c)   # S531 the premises say why members stop
+	if room != "":
+		tip += ". %s." % room
+	row.add_child(_tile("members", "MEMBERS", members, tip, WoodKit.INK))
 	return row
 
 
@@ -282,7 +286,7 @@ func _in_lines(inc: Dictionary) -> Array:
 
 
 func _out_lines(cost: Dictionary) -> Array:
-	var other := int(cost.get("fees", 0)) + int(cost.get("power", 0)) + int(cost.get("kit", 0)) + int(cost.get("upgrades", 0)) + int(cost.get("bjj", 0)) + int(cost.get("juniors_coach", 0)) + int(cost.get("loan", 0))
+	var other := int(cost.get("fees", 0)) + int(cost.get("power", 0)) + int(cost.get("kit", 0)) + int(cost.get("upgrades", 0)) + int(cost.get("bjj", 0)) + int(cost.get("juniors_coach", 0)) + int(cost.get("loan", 0)) + int(cost.get("fitout", 0))
 	var lines: Array = [
 		["Coach", int(cost.get("staff", 0))],
 		["Rent", int(cost.get("rent", 0))],

@@ -121,6 +121,21 @@ static func premises(tier: int) -> Dictionary:
 
 
 ## The next premises' move ("" = can move now): the top tier has none, and the move is paid in cash.
+## S531 GROWTH_SCOPE (owner: "Yes, build the loan"): the move on a fit-out loan, $3,000 down then $750 a month for 12
+## months (paid by the week with the bills: $173 a week for 52 weeks). One at a time. Measured: 36/60 careful gyms moved
+## and reached 140 members, against 1/60 paying the lump sum (tools/gym_survive_probe.gd GROWLOAN).
+const LOAN := {"down": 3000, "month": 750, "months": 12, "week": 173, "weeks": 52}
+
+
+static func loan_blocked(tier: int, cash: int, weeks_left: int) -> String:
+	if tier >= PREMISES.size() - 1:
+		return "the biggest premises already"
+	if weeks_left > 0:
+		return "the fit-out loan is still being paid"
+	var down := int(LOAN["down"])
+	return "$%d short of the deposit" % (down - cash) if cash < down else ""
+
+
 static func move_blocked(tier: int, cash: int) -> String:
 	if tier >= PREMISES.size() - 1:
 		return "the biggest premises already"

@@ -33,7 +33,7 @@ static func money(c: Career) -> Dictionary:
 		if int(inc.get(k[0], 0)) > 0:
 			rows.append([k[1], "+" + GameMoney.text(int(inc[k[0]])), "", ""])
 	for k in [["power", "Heating, power, insurance"], ["staff_roles", "Staff jobs"], ["kit", "Kit budget"], ["upgrades", "Upgrades' upkeep"],
-			["juniors_coach", "Juniors' coach"], ["loan", "Loan"]]:
+			["juniors_coach", "Juniors' coach"], ["loan", "Loan"], ["fitout", "Fit-out loan"]]:
 		if int(out.get(k[0], 0)) > 0:
 			rows.append([k[1], "-" + GameMoney.text(int(out[k[0]])), "", ""])
 	var net := int(inc["total"]) - int(out["total"])

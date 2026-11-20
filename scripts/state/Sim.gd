@@ -11,6 +11,7 @@ const KnowWire := preload("res://scripts/state/KnowWire.gd")
 const SimGoal := preload("res://scripts/state/SimGoal.gd")
 const Membership := preload("res://scripts/rules/Membership.gd")
 const GymBills := preload("res://scripts/rules/GymBills.gd")
+const GymUpgrades := preload("res://scripts/rules/GymUpgrades.gd")   # S531 the fit-out loan
 const GymSpend := preload("res://scripts/state/GymSpend.gd")
 const GameMoney := preload("res://scripts/rules/GameMoney.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
@@ -249,7 +250,8 @@ static func weekly_costs(career: Career) -> Dictionary:
 	var spend := GymSpend.costs(career)
 	out.merge(spend)
 	out["loan"] = int(ClubStart.loan(career.start)[0]) if career.loan_weeks > 0 else 0   # S397 the debt start's loan
-	out["total"] = int(out["total"]) + int(out["bjj"]) + int(out["power"]) + int(spend["total"]) + int(out["loan"])
+	out["fitout"] = int(GymUpgrades.LOAN["week"]) if career.fitout_weeks > 0 else 0   # S531 the move's fit-out loan
+	out["total"] = int(out["total"]) + int(out["bjj"]) + int(out["power"]) + int(spend["total"]) + int(out["loan"]) + int(out["fitout"])
 	return out
 
 
@@ -311,6 +313,7 @@ static func end_week(career: Career) -> void:
 			career.add_news("%d left the BJJ classes this week. %d on the mat." % [bjj_left, int(career.bjj_side["members"])], false, true)
 	var money: Dictionary = GameMoney.settle_week(career.cash, career.accrued, int(income["total"]), int(costs["total"]), career.day)
 	career.loan_weeks = maxi(0, career.loan_weeks - 1)
+	career.fitout_weeks = maxi(0, career.fitout_weeks - 1)
 	career.cash = int(money["cash"])
 	career.accrued = int(money["accrued"])
 	career.week_money["in"] = int(career.week_money["in"]) + int(income["total"])

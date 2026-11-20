@@ -128,9 +128,6 @@ func _career(arm: String, seed_n: int, idx: int, seed_set: int) -> Dictionary:
 		if (arm == "GROW" or arm == "GROWLOAN") and c.day % 7 == 0:
 			_grow(c, eight_weeks, arm == "GROWLOAN")
 		# GROWLOAN: the candidate design - the move's fit-out paid $750 a month for 12 months after a $3,000 deposit
-		if arm == "GROWLOAN" and c.day % 28 == 0 and int(c.get_meta("loan_left", 0)) > 0:
-			c.pay(-LOAN_MONTH, "Fit-out loan")
-			c.set_meta("loan_left", int(c.get_meta("loan_left", 0)) - 1)
 		if (arm == "SENSIBLE" or arm == "LEAN" or arm == "GROW" or arm == "GROWLOAN") and not pro_signed and not c.pro_offer.is_empty():
 			Roster.turn_pro(c, "")
 			pro_signed = true
@@ -174,9 +171,7 @@ func _career(arm: String, seed_n: int, idx: int, seed_set: int) -> Dictionary:
 ## S531 GROW (owner Q-277 "Careful gym should grow"): what a sensible owner does each Monday - sign a walk-in when 8 weeks of
 ## costs are banked (up to 3 boxers), fitness classes + assistant then the youth section when 8 weeks are banked, buy the cheapest piece of kit while the gym's name draws more members than the room
 ## holds, and move to the next premises once the name draws 5+ past this one's cap with the move + 8 weeks banked.
-const LOAN_DEPOSIT := 3000
-const LOAN_MONTH := 750
-const LOAN_MONTHS := 12
+const LOAN_DEPOSIT := 3000   # S531 the game's own fit-out loan now (GymUpgrades.LOAN, GymSpend.move(c, true))
 
 
 func _grow(c: Career, eight_weeks: int, loan := false) -> void:
@@ -211,12 +206,9 @@ func _grow(c: Career, eight_weeks: int, loan := false) -> void:
 	var natural: int = Membership.natural_members(c.reputation, c.dues_band)
 	var prem: Dictionary = GymSpend.premises(c)
 	if natural >= int(prem["cap"]) + 5 and c.premises + 1 < GymUpgrades.PREMISES.size():
-		var price := int(GymUpgrades.premises(c.premises + 1)["move"])
 		if loan and c.cash > eight_weeks + LOAN_DEPOSIT:
-			c.cash += price - LOAN_DEPOSIT   # the probe lends the rest; the arm pays it back by the month
-			GymSpend.move(c)
-			c.set_meta("loan_left", LOAN_MONTHS)
-			return
+			if GymSpend.move(c, true) == "":
+				return
 		if not loan and GymUpgrades.move_blocked(c.premises, c.cash - eight_weeks) == "":
 			GymSpend.move(c)
 			return

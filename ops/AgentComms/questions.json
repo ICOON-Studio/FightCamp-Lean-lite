@@ -8280,10 +8280,29 @@
       "attach": [
         "research/GROWTH_SCOPE_S531.md"
       ],
-      "answer": null,
+      "answer": "Yes, build the loan",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-20T08:41:52.465386+00:00",
+      "seen_by_claude": true,
+      "status": "answered",
+      "answered_by": "owner in chat S531"
+    },
+    {
+      "id": "Q-S294-279",
+      "asked": "2026-11-20T08:44:23.022071+00:00",
+      "session": "S294",
+      "text": "Qwen's monthly token plan ran out (its 429 says it resets 8 Dec 16:00 UTC); every Qwen task fails until then. Its work goes to Goose and to me meanwhile. Top up or switch its key now, or wait for 8 Dec?",
+      "options": [
+        "Wait for 8 Dec",
+        "I will top it up"
+      ],
+      "attach": [],
+      "answer": "Wait for 8 Dec",
+      "note": null,
+      "answered_at": "2026-11-20T08:44:46.437875+00:00",
+      "seen_by_claude": true,
+      "status": "answered",
+      "answered_by": "owner in chat S531"
     }
   ]
 }

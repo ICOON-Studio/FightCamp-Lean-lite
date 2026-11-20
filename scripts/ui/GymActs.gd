@@ -47,7 +47,7 @@ static func act(main: Node, name: String, arg: String) -> bool:
 		"scout":
 			main.toast("Scouting trials come in week 4.")
 		# S397 money bites (GymSpend): Club > Money's upgrades, premises, kit budget, club show, contract talks; People's staff.
-		"buyup", "movepremises", "hirerole", "letgorole", "kitbudget", "bookshow", "talks", "stipend", "dues", "eveningcoach", "grantbid", "buyslot":
+		"buyup", "movepremises", "moveloan", "hirerole", "letgorole", "kitbudget", "bookshow", "talks", "stipend", "dues", "eveningcoach", "grantbid", "buyslot":
 			_spend(main, c, name, arg)
 		"equipgym":   # S415 Home's Equip mode: the pieces not yet bought show as ghosts on the picture
 			main.set_meta("gym_equip", arg == "on")
@@ -67,8 +67,8 @@ static func _spend(main: Node, c: Career, name: String, arg: String) -> void:
 		"buyslot":
 			why = GymSpend.buy_slot(c, arg)
 			done = "Bought: %s. Ready in a week." % str(GymSlots.item(arg).get("name", arg)).to_lower()
-		"movepremises":
-			why = GymSpend.move(c)
+		"movepremises", "moveloan":
+			why = GymSpend.move(c, name == "moveloan")
 			done = "Moved: %s." % str(GymSpend.premises(c)["name"]).to_lower()
 		"hirerole":
 			why = GymSpend.hire(c, arg)

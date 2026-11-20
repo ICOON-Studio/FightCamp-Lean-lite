@@ -152,15 +152,21 @@ static func _move(main: Node, c: Career, net: int) -> Dictionary:
 	var nx: Dictionary = GymUpgrades.premises(c.premises + 1)
 	var price := int(nx["move"])
 	var why := GymUpgrades.move_blocked(c.premises, c.cash)
+	var loan_why := GymUpgrades.loan_blocked(c.premises, c.cash, c.fitout_weeks)   # S531 the fit-out loan
 	var helps := GymSpend.member_limit(c) == "premises"
 	var extra := roundi(float(int(nx["rent"]) - int(now["rent"])) / GymBills.WEEKS_A_MONTH)
-	var grey := why != "" or not helps
-	var reason := why_tip(why) if why != "" else "Not needed yet: your gym still has room for more members."
-	var effect := "Holds %d members. Rent up %s a week." % [int(nx["cap"]), UI.money(extra)]
+	var grey := (why != "" and loan_why != "") or not helps
+	var reason := why_tip(loan_why) if why != "" and loan_why != "" else "Not needed yet: your gym still has room for more members."
+	var effect := "Holds %d members. Rent up %s a week. Or %s down and %s a month for %d months." % [int(nx["cap"]), UI.money(extra),
+		UI.money(int(GymUpgrades.LOAN["down"])), UI.money(int(GymUpgrades.LOAN["month"])), int(GymUpgrades.LOAN["months"])]
 	if grey:
 		effect = reason
-	return _pack("move", _no_area(str(nx["name"])), price, UI.money(price), "members", effect, 0, -extra, grey, reason if grey else "",
-		false, false, false, price, [_btn(main, "Move", "MovePremises", "movepremises", "", why)], c, net)
+	var loan_btn := _btn(main, "Move on a loan", "MoveLoan", "moveloan", "", loan_why)
+	var cash_btn := _btn(main, "Move", "MovePremises", "movepremises", "", why)
+	var lump := price if why == "" else int(GymUpgrades.LOAN["down"])
+	var delta := -extra if why == "" else -extra - roundi(float(GymUpgrades.LOAN["week"]))
+	return _pack("move", _no_area(str(nx["name"])), price, UI.money(price), "members", effect, 0, delta, grey, reason if grey else "",
+		false, false, false, lump, [cash_btn, loan_btn], c, net)
 
 
 static func _pack(id: String, title: String, price: int, price_text: String, icon: String, effect: String, added: int, delta: int,

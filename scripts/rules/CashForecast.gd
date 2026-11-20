@@ -48,6 +48,7 @@ static func _project(c: Career, weeks: int) -> Array:
 			BjjSide.week(copy.bjj_side, copy.bjj_teaches())
 		var settled: Dictionary = GameMoney.settle_week(copy.cash, copy.accrued, int(income["total"]), int(costs["total"]), copy.day)
 		copy.loan_weeks = maxi(0, copy.loan_weeks - 1)
+		copy.fitout_weeks = maxi(0, copy.fitout_weeks - 1)
 		copy.cash = int(settled["cash"])
 		copy.accrued = int(settled["accrued"])
 		var extra := 0
@@ -196,6 +197,7 @@ static func _copy(c: Career) -> Career:
 	d.start = c.start
 	d.guide = c.guide
 	d.loan_weeks = c.loan_weeks
+	d.fitout_weeks = c.fitout_weeks
 	d.premises = c.premises
 	d.kit_level = c.kit_level
 	d.extra_coaches = c.extra_coaches
