@@ -147,7 +147,7 @@ static func upright(group: String, value: float, gold_dot: bool, low: bool) -> C
 	c.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
 	c.mouse_filter = Control.MOUSE_FILTER_PASS
 	# S443: whole numbers as the fighter page prints them (floor), so a group reads the same on every screen
-	c.tooltip_text = "%s %d%s" % [group, int(floorf(value)), ", the best of the roster" if gold_dot else ""]
+	c.tooltip_text = "One of the three groups the overall level is measured from.%s" % (" Gold dot: the best of the roster." if gold_dot else "")   # S532 GUIDETIPS1: was "Body 60" on a bar reading 60 Body
 	var num := _word_at(str(int(floorf(value))), 18, c.colour, "bold", BAR_SLOT * 0.5, 0.0)
 	num.name = "Num"
 	c.add_child(num)

@@ -162,7 +162,7 @@ static func _col_fighter(f: Dictionary, needs: bool, col: Array) -> Control:
 
 static func _col_overall(o: Dictionary, best: Dictionary, id: String, col: Array) -> Control:
 	var box := UI.vbox(4)
-	_place(box, "overall", col, "Overall level 0-100, the same number as the fighter page, and the groups it is measured from; a gold dot marks the best of the roster.")
+	_place(box, "overall", col, "Overall level, 0 to 100, measured from the three groups beside it.")   # S532 GUIDETIPS1
 	var top := HBoxContainer.new()
 	top.add_theme_constant_override("separation", 6)
 	top.mouse_filter = Control.MOUSE_FILTER_IGNORE

@@ -174,9 +174,7 @@ func _build_top(main: Node) -> void:
 	for l in go.find_children("*", "Label", true, false):
 		(l as Label).clip_text = true
 		(l as Label).text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
-	go.tooltip_text = "%s: %s" % [g["t"], g["s"]]
-	go.tooltip_text += "
-Click again to pause. How fast the days run: Menu > Settings."
+	Tips.card(go, func(): return TopCards.go(main.career, Needs.go_state(main.career, main.running), main.running))   # S532 GUIDETIPS1: the clock, explained
 	h.add_child(go)
 	var gear := UI.button("Menu", "GhostDark", _open_gear)   # S381 operator on "Gear": "???" - it is save/load/settings, not boxing gear
 	gear.name = "Gear"

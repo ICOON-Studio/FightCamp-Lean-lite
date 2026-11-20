@@ -21,7 +21,7 @@ const TextScale := preload("res://scripts/ui/TextScale.gd")
 const TestJump := preload("res://scripts/ui/TestJump.gd")
 const FightPrep := preload("res://scripts/ui/FightPrep.gd")
 
-const FAULTS_AT_MOST := 54   # lower it as screens are rewritten; never raise it
+const FAULTS_AT_MOST := 42   # lower it as screens are rewritten; never raise it
 
 var _fails := 0
 var main: Node
@@ -136,6 +136,10 @@ func _screens() -> void:
 	main.act("newcareer")
 	main.act("quick")
 	await _page("home_start")
+	var go := main.find_child("Go", true, false) as Control
+	_check(go != null, "the top bar has its Continue button")
+	if go != null:
+		_clean(go, "Continue (a job blocks the days)", "full")
 	main.act("interview")
 	main.act("pickcard", "signature")
 	await _page("reception")
@@ -171,6 +175,11 @@ func _screens() -> void:
 		main.act("close")
 	main.nav({"area": "training"})
 	await _page("training_club")
+	go = main.find_child("Go", true, false) as Control
+	_check(go != null and str(Tip.of(go).get("title", "")) == "Continue", "the test club's week is set: Continue is free")
+	if go != null:
+		_clean(go, "Continue (the days can run)", "full")
+		_check(str(Tip.of(go).get("now", "")).begins_with("Next stop: "), "Continue says where the days will stop: %s" % Tip.of(go).get("now", ""))
 	var bars := main.find_children("Bar_*", "Control", true, false).filter(func(b): return "ghost" in b)   # the pad tiles' own bars
 	_check(not bars.is_empty(), "Training: a pad night shows a mastery bar (%d)" % bars.size())
 	if not bars.is_empty():

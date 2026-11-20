@@ -15,6 +15,7 @@ const GameMoney := preload("res://scripts/rules/GameMoney.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const HomeLook := preload("res://scripts/ui/HomeLook.gd")
 const Faces := preload("res://scripts/rules/Faces.gd")
+const Tip := preload("res://scripts/ui/Tip.gd")
 
 const NAME_W := 130
 const STIPEND_W := 210   # S519: room for the half sponsorship button
@@ -260,16 +261,14 @@ static func _fighter(main: Node, c: Career, f: Dictionary) -> Control:
 			main.act.bind("stipend", "%s|%s" % [f["id"], "on" if job else "off"]), held != "", "The stipend is %s: the answer to the rival club's approach." % held)
 		b.name = "Stipend_" + str(f["id"])
 		if held == "":
-			b.tooltip_text = "Off the sponsorship the boxer works 2 mornings a week (Tue, Thu): 4 of the 6 training mornings. Stopping it costs 8 loyalty, starting it gives 5."
-			if str(main.career.pro_offer.get("fid", "")) == str(f["id"]):   # S523 TURNPRO1 map M7: signing ends it anyway
-				b.tooltip_text += " A pro offer is open: signing it stops the stipend for you - %s a week back." % UI.money(GameMoney.FIGHTER_STIPEND)
+			Tip.explain(b, _stipend_card(str(main.career.pro_offer.get("fid", "")) == str(f["id"])))   # S532 GUIDETIPS1; S523 M7: signing ends it anyway
 		_short_button(b)
 		stipend.add_child(b)
 		if held == "":
 			var h := UI.button("Stop" if half else "Half %s" % UI.money(roundi(GameMoney.FIGHTER_STIPEND * 0.5)), "Btn",
 				main.act.bind("stipend", "%s|%s" % [f["id"], "off" if half else "half"]))
 			h.name = "StipendHalf_" + str(f["id"])
-			h.tooltip_text = "Stop the half sponsorship: 2 work mornings a week." if half else "Half the sponsorship: the boxer works 1 morning a week (Tue), 5 of the 6 training mornings."
+			Tip.explain(h, _stipend_card(false))
 			_short_button(h)
 			stipend.add_child(h)
 	var earns := UI.label(_earns(f), 13, UI.GREEN if _earns(f) != "none" else UI.MUTED, "body")
@@ -355,3 +354,16 @@ static func _tighten(b: Button) -> void:
 			if tex.content_margin_bottom > 10:
 				tex.content_margin_bottom = 10
 			b.add_theme_stylebox_override(state, tex)
+
+
+## S532 GUIDETIPS1: the stipend's two buttons shared one line with seven numbers. What the money buys, as rows.
+static func _stipend_card(pro_offer_open: bool) -> Dictionary:
+	var d := {"title": "The stipend  %s a week" % UI.money(GameMoney.FIGHTER_STIPEND),
+		"what": "Pays your boxer to train instead of working a day job.",
+		"rows": [["Full", "all 6 training mornings", "", "good"], ["Half", "5 mornings, works Tue", "", ""],
+			["Stopped", "4 mornings, works Tue and Thu", "", "bad"]],
+		"moves": "Stopping it costs loyalty. Starting it again wins some back.",
+		"do": "Stop or halve it only when the cash is short."}
+	if pro_offer_open:
+		d["now"] = "A pro offer is open: signing it ends the stipend anyway."
+	return d

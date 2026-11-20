@@ -20,14 +20,15 @@ ops/research/S531_DIGEST.md. FIRST: `python ops/Tools/godot_slot.py status`.
   (Tips.gd takes it over at hover; Main boots it); scripts/ui/Tip.gd = the one way to write a card (explain / short / button)
   and the standard's checks (Tip.faults); TipParts.gd = the drawing; TipCards.gd = shared FULL cards (coach's pay, tiredness,
   mastery, injury risk, a morning tile). Wired: People coach tiles, Fighters TIREDNESS column, Training (mastery bars, tiredness
-  line, injury risk, morning / rest / day-job tiles, boxer cards). Glossary: Tiredness, Mastery, Evening classes, Camp, Fight week.
+  line, injury risk, morning / rest / day-job tiles, boxer cards), Fight prep (the towel and its three lines), the top bar's
+  CONTINUE (what it does, the next stop, pause, where the speed is), Money (cash, net, the next bill as rows, the stipend). Glossary: The towel, Tiredness, Mastery, Evening classes, Camp, Fight week.
 - Guide: explore first. No dim and no ring until SHOW ME on the bubble (GuideLight.show_step); soft pulse after
   GUIDE_IDLE_PULSE_S = 20 s; one line on a first visit saying what the page is for (scripts/rules/Lessons.gd, Career.lessons).
-- Tests: tests/tooltip_standard_test.gd (ratchet FAULTS_AT_MOST = 54 of 174 on the walked pages: only down; `-- list` prints
+- Tests: tests/tooltip_standard_test.gd (ratchet FAULTS_AT_MOST = 42 of 167 on the walked pages: only down; `-- list` prints
   each), tests/guide_explore_test.gd. Stills: tools/tip_stills.gd -> docs/playtest/s532_tips (on his review board).
 - NOT DONE YET (next, in this order): (1) the remaining screens by the `-- list` output: Training evening tiles + the class
-  button + CoachedMornings.tile_word (piles numbers), Money (9), Home, the fighter page, Fight prep (camp line, towel), Fights,
-  Club roles, Result; the top bar money card (too many rows / links), Continue's card, the red flags. (2) Glossary to ~35 words,
+  button + CoachedMornings.tile_word (piles numbers), the rest of Money (upgrade rows, dues pictures), Home, the fighter page, the rest of Fight prep, Fights,
+  Club roles, Result; the top bar money card (too many rows / links), the red flags. (2) Glossary to ~35 words,
   each read from its rule. (3) Guide: the lessons in Lessons.LIST have no triggers yet (clock 1-4, tiredness, mastery, fight
   week, camp, towel); "Ask the trainer" in Menu; the week-1 job list in the corner; the goodbye line; the Settings switch.
   (4) MoveTip on every place a move is named. (5) NO EXPORT was made by this session (the main session had work in flight in
