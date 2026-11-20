@@ -31,6 +31,7 @@ const Faces := preload("res://scripts/rules/Faces.gd")
 const TapeRows := preload("res://scripts/rules/TapeRows.gd")
 const FilmNight := preload("res://scripts/state/FilmNight.gd")
 const VersusPanel := preload("res://scripts/ui/VersusPanel.gd")
+const Tip := preload("res://scripts/ui/Tip.gd")
 
 ## Under this many kg to spare on the scale the forecast is a warning, not a pass.
 const SCALE_MARGIN := 0.5
@@ -66,33 +67,35 @@ static func _corner_card(main: Node, f: Dictionary) -> PanelContainer:
 
 
 ## S461 INTEGRATE1 #4 the towel's line: the stop risk (in 100) at which the corner shows the towel card and the coach pulls
-## on his own (Towel.LINES; TowelWire.line_of reads it).
-const TOWEL_TIP := {
-	"careful": "Careful: the towel comes early.
-Fewer stoppages and injuries, but you give up some fights she could still win.",
-	"normal": "Normal: the towel comes when a stoppage is a real risk.",
-	"brave": "Brave: she fights on longer.
-More comebacks, more stoppages and injuries.",
+## on his own (Towel.LINES; TowelWire.line_of reads it). S532 GUIDETIPS1: each line's card says what it trades (no "she").
+const TOWEL_TRADE := {
+	"careful": "Fewer stoppages and injuries. Some fights still winnable are given up.",
+	"normal": "The towel comes when a stoppage is a real risk.",
+	"brave": "Your boxer fights on longer. More comebacks, more stoppages and injuries.",
 }
 
 
 static func towel_row(main: Node, f: Dictionary) -> HBoxContainer:
 	var row := UI.hbox(8)
 	row.name = "TowelLine"
-	var tip := "When the corner offers you the towel.
-The number: the chance your boxer is stopped next round.
-If you skip the choice on the night, the corner pulls her out itself."
 	var lab := UI.label("The towel", 16, UI.FG, "bold")
-	lab.tooltip_text = tip
 	lab.mouse_filter = Control.MOUSE_FILTER_PASS
+	Tip.explain(lab, {"title": "The towel", "what": "Your corner stopping the fight to protect your boxer.",
+		"now": "Each number is the chance your boxer is stopped next round.",
+		"moves": "Skip the choice on the night and the corner decides itself.",
+		"do": "Pick the line the corner works to: Careful, Normal or Brave."})
 	row.add_child(lab)
 	var now := TowelWire.line_of(f)
 	for i in TowelWire.Towel.LINE_WORDS.size():
 		var key := str(TowelWire.Towel.LINE_WORDS[i]).to_lower()
-		var b := UI.button("%s (%d in 100)" % [TowelWire.Towel.LINE_WORDS[i], roundi(float(TowelWire.Towel.LINES[key]) * 100.0)],
+		var pct := roundi(float(TowelWire.Towel.LINES[key]) * 100.0)
+		var b := UI.button("%s (%d in 100)" % [TowelWire.Towel.LINE_WORDS[i], pct],
 			"BtnSolid" if key == now else "Btn", main.act.bind("towelline", "%s|%s" % [str(f["id"]), key]))
 		b.name = "Towel_" + key
-		b.tooltip_text = TOWEL_TIP.get(key, tip)
+		Tip.explain(b, {"title": "%s  %d in 100" % [TowelWire.Towel.LINE_WORDS[i], pct],
+			"what": "The corner offers you the towel when a stoppage is this likely.",
+			"moves": str(TOWEL_TRADE.get(key, "")), "do": "This is the corner's line now." if key == now else "Click to make this the corner's line.",
+			"keys": ["towel"]})
 		row.add_child(b)
 	return row
 

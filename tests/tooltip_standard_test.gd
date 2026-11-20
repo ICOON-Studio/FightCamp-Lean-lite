@@ -7,6 +7,7 @@ extends SceneTree
 ##   3. The card: a plain tooltip_text is taken over and drawn wrapped, never wider than the standard's column.
 ##   4. The screens: on People the coach's tiles, on Fighters the TIREDNESS column and on Training the mastery bar each
 ##      open a card that says what it is and what to do, and break no rule.
+##      On Fight prep the towel and its three lines do the same.
 ##   5. The ratchet: the tooltips still breaking a rule on the walked screens may only go down (FAULTS_AT_MOST), until
 ##      every screen is rewritten. `-- list` prints each one.
 
@@ -18,6 +19,7 @@ const MoveMastery := preload("res://scripts/rules/MoveMastery.gd")
 const WhiteboardKit := preload("res://scripts/ui/WhiteboardKit.gd")
 const TextScale := preload("res://scripts/ui/TextScale.gd")
 const TestJump := preload("res://scripts/ui/TestJump.gd")
+const FightPrep := preload("res://scripts/ui/FightPrep.gd")
 
 const FAULTS_AT_MOST := 54   # lower it as screens are rewritten; never raise it
 
@@ -178,6 +180,15 @@ func _screens() -> void:
 		_check(n != null, "Training: the mastery bar's tile opens a card")
 		if n != null:
 			_clean(n as Control, "Training mastery bar", "full")
+	# Fight prep: the towel and its three lines (owner: explain the towel; never "she")
+	var towel := FightPrep.towel_row(main, main.career.fighter())
+	root.add_child(towel)
+	await process_frame
+	_check(towel.get_child_count() == 4, "Fight prep: the towel and its three lines (%d)" % towel.get_child_count())
+	for b in towel.get_children():
+		_clean(b as Control, "Towel '%s'" % _label_of(b as Control), "full")
+		_check(not (" " + " ".join(Tip.prose(Tip.of(b as Control))).to_lower() + " ").contains(" she "), "Towel '%s' names nobody" % _label_of(b as Control))
+	towel.queue_free()
 
 
 ## The control opens a card (not a plain line) that breaks no rule.

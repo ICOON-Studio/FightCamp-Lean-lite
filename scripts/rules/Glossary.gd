@@ -46,6 +46,9 @@ const TERMS := {
 	# Bouts.camp_due, WeekPhase.amateur (an amateur bout runs on a fight week, no camp)
 	"camp": {"name": "Camp", "def": "The weeks of planned training before a pro or title bout.",
 		"why": "Amateur bouts need no camp: they get a fight week instead."},
+	# Towel.LINES, FightPrep's corner card
+	"towel": {"name": "The towel", "def": "Your corner stopping the fight to protect your boxer.",
+		"why": "Between rounds the corner reads the chance of a stoppage next round."},
 	"fight_week": {"name": "Fight week", "def": "The light week before an amateur bout, picked on Fight prep.",
 		"why": "It keeps the fighter fresh and on weight for the night."},
 }
