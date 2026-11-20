@@ -68,6 +68,19 @@ static func open_edge(lv: Dictionary, arrow: String, planned: bool) -> float:
 ## step that answers her game denies the punches she is throwing; one that does not denies little; the wrong one nothing
 ## (its cost is WRONG_COST in levers). "" (a caller with no fit) keeps the full edge. DENY_FIT sizes are ESTIMATES.
 const DENY_FIT := {"best": 1.0, "ok": 0.5, "none": 0.15, "wrong": 0.0}
+## S531 STEPS_SCOPE phase 6 (TREEVALUE8: 15% of step fires were on a wrong fit, step_back vs the Out-boxer 62%): a boxer
+## who reads the fight holds a planned step that is wrong for the opponent's game this exchange and fights the card
+## instead. The chance grows with her fight IQ: 0 at 40, HOLD_MAX at 100. The plan stays the player's: a dull boxer still
+## walks into the wrong step and pays WRONG_COST.
+const HOLD_MAX := 0.8
+static func hold_chance(fight_iq: float) -> float:
+	return clampf((fight_iq - 40.0) / 60.0, 0.0, 1.0) * HOLD_MAX if levers_on else 0.0
+
+
+static func holds(fit: String, fight_iq: float, roll: float) -> bool:
+	return fit == "wrong" and roll < hold_chance(fight_iq)
+
+
 static func deny_edge(arrow: String, planned: bool, grade: String, fit := "") -> float:
 	var step := PlanFight.base_id(arrow)
 	if not levers_on or not planned or not StepEffect.TABLE.has(step):

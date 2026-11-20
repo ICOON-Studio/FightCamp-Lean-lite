@@ -4,6 +4,17 @@ Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. S531
 ops/research/S531_DIGEST.md.
 FIRST: `python ops/Tools/godot_slot.py status`.
 
+## S531 late additions (read with the S532 block above)
+- TOP-DOWN FIGHT VIEW built (owner "yes build it"): T / "Top-down (T)" in any 3D round (scripts/rules/RingMap.gd,
+  scripts/ui/RingTopDown.gd, FightOptions). Asked him: zoom in on the boxers, or play it first - act on his answer.
+- Footwork: TREEVALUE8 read in docs/TREEVALUE8_RESULT.md; phase 6 built (fight-IQ hold of a wrong step); TREEVALUE9 running
+  (log E:/FightCamp/tmp/treevalue9/full.log, page copied to E:/FightCamp/tmp/treevalue9/TREEVALUE9_RESULT.md) -> write
+  docs/TREEVALUE9_RESULT.md with the v8 -> v9 table.
+- Design maps: contracts v6 Arena 9/9 (Dola SQ256 pending -> board if 7+); turning pro v7 5/5 -> Arena TURNREV8 running;
+  knowledge v5 Arena 7/7 (Dola SQ253 pending). Fixed the road text after a lapsed pro offer (NextStep).
+- Dola SQ257: real stoppage rates by weight class / sex / amateur-pro (damage is not scaled by either today).
+- Pound for Pound read: ops/research/REF_POUND_FOR_POUND_S531.md (its late-game traps = checks for ours).
+
 ## METHOD lines - quote all of them in your first message
 - DESIGN MAPS ARE WRITTEN BY ARENA FROM THE CODE (S531 evidence): Dola's knowledge v4 and turning pro v6 carried false CODE
   claims (Arena checks: 10 wrong, 4/5; several wrong, 5/4); Arena's code-written knowledge v5 scored 7/7 on its first check.

@@ -251,6 +251,11 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	var rb := ReadBack.factor(f["bout"], arrow, pick, str(lv.get("plan_won_arrow", "")))
 	plan_edge *= float(rb["cov"]) * float(rb["mult"]) * StyleName.plan_mult(f, at, str(lv["mode"])) if plan_edge > 0.0 else 1.0
 	fit_now = "wrong" if bool(rb["wrong"]) else fit_now
+	var held := StepWire.holds(fit_now, float(vals.get("fight_iq", 55.0)), _rng(c, f, n, i + 229).randf())   # S531 phase 6: she reads it
+	if held:
+		pick["planned"] = false
+		fit_now = "none"
+		plan_edge = 0.0
 	# The round's reads move the exchange and count as the plan's effect (swing), but the Why grades the answers themselves.
 	var read_edge := PlanRead.edge(int(lv.get("reads", 0))) + PlanPressure.edge(f["bout"]) * StyleName.effect(f, "pressure_answers")   # S397 + pressure (S459 Pressure fighter x1.2)
 	d += plan_edge + read_edge - ProReadWire.edge(f["bout"], n, arrow, pick, _rng(c, f, n, i + 83).randf())   # S462 the pro read
@@ -361,6 +366,7 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	rec["duel_line"] = RingDuel.duel_line(rec, names)
 	rec["arrow"] = arrow
 	rec["planned"] = bool(pick["planned"])
+	rec["held"] = held   # S531 phase 6: a wrong step she held
 	rec["arrow_fit"] = PlanFight.fit(arrow, psit)
 	rec["psit"] = psit
 	rec["plan_edge"] = plan_edge

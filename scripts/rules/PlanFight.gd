@@ -239,6 +239,8 @@ static func arrow_line(x: Dictionary, _names: Array) -> String:
 	var card := str(StrikeMap.card(str(x.get("at", ""))).get("name", ""))
 	if card == "":
 		return ""
+	if bool(x.get("held", false)):   # S531 phase 6: the plan's step was wrong for this exchange and she read it
+		return "Plan (%s): %s - wrong for what the opponent did, so your boxer held it." % [card, str(StrikeMap.move(id).get("name", id))]
 	if not bool(x.get("planned", false)):
 		return "No arrow on %s: your boxer improvises." % card   # S448: the role, never the name
 	return "Plan (%s): %s - %s." % [card, str(StrikeMap.move(id).get("name", id)),

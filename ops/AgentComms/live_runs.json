@@ -1203,18 +1203,6 @@
    "started": "2026-11-20T14:15",
    "note": "Cursor login restored S531 15:00; the Grok Bot gateway answers 404 (box RUNNING) - same fault as 11-19; the queue retries every 30 min"
   },
-  "KNOWCRITIC4A": {
-   "agent": "arena",
-   "id": "KNOWCRITIC4A",
-   "title": "Fresh critic + code check: knowledge stakes map v4",
-   "status": "landed",
-   "started": "2026-11-20T15:00",
-   "eta": "2026-11-20T15:40",
-   "where": "cloud",
-   "chat": "https://arena.ai/agent/01a1f904-f344-7070-8304-f264ba1fbb5c",
-   "brief": "ops/research/TASK_KNOWCRITIC4A.md",
-   "note": "S531: 4/5, 10 false CODE claims; v5 from the code"
-  },
   "TREEVALUE7": {
    "agent": "claude",
    "id": "TREEVALUE7",
@@ -1283,53 +1271,45 @@
    "agent": "claude",
    "id": "TREEVALUE8",
    "title": "Footwork steps re-read after 5d + 5e + the wrong-fire counter",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-20T15:58",
    "eta": "2026-11-20T20:00",
    "where": "pc",
-   "log": "E:/FightCamp/tmp/treevalue8/full.log"
-  },
-  "TURNREV7": {
-   "agent": "arena",
-   "id": "TURNREV7",
-   "title": "Turning pro map v7 from the code",
-   "status": "landed",
-   "started": "2026-11-20T16:05",
-   "eta": "2026-11-20T16:40",
-   "where": "cloud",
-   "chat": "https://arena.ai/agent/01a1f928-a4e9-797a-b6a3-6360298455ce",
-   "brief": "ops/research/TASK_TURNREV7.md",
-   "reconciled": "2026-11-20 16:40 board_reconcile: PR #423 open - collect it",
-   "landed": "2026-11-20T17:13"
-  },
-  "LEDGERREV6": {
-   "agent": "arena",
-   "id": "LEDGERREV6",
-   "title": "Contracts map v6 from the code",
-   "status": "landed",
-   "started": "2026-11-20T16:08",
-   "eta": "2026-11-20T16:45",
-   "where": "cloud",
-   "chat": "https://arena.ai/agent/01a1f929-748b-72cc-b6b6-a6bace56b08d",
-   "brief": "ops/research/TASK_LEDGERREV6.md",
-   "reconciled": "2026-11-20 16:40 board_reconcile: PR #424 open - collect it",
-   "landed": "2026-11-20T17:13"
+   "log": "E:/FightCamp/tmp/treevalue8/full.log",
+   "landed": "2026-11-20T18:02"
   },
   "TURNCRITIC7A": {
    "seat": "arena",
    "title": "Arena critic: turning pro v7 (with code check)",
    "started": "2026-11-20T17:13",
    "eta": "~18:00",
-   "status": "running",
-   "chat": "https://arena.ai/agent/01a1f984-3b8a-732a-b564-2207ad249c13"
+   "status": "landed",
+   "chat": "https://arena.ai/agent/01a1f984-3b8a-732a-b564-2207ad249c13",
+   "landed": "2026-11-20T18:02"
   },
   "LEDGERCRITIC6A": {
    "seat": "arena",
    "title": "Arena critic: contracts v6 (with code check)",
    "started": "2026-11-20T17:13",
    "eta": "~18:00",
+   "status": "landed",
+   "chat": "https://arena.ai/agent/01a1f984-8a66-77f8-b1fb-1a34e0b94419",
+   "landed": "2026-11-20T18:02"
+  },
+  "TURNREV8": {
+   "seat": "arena",
+   "title": "Arena: turning pro map v8 from the code (fixes the v7 critic's points)",
+   "started": "2026-11-20T18:02",
+   "eta": "~19:00",
    "status": "running",
-   "chat": "https://arena.ai/agent/01a1f984-8a66-77f8-b1fb-1a34e0b94419"
+   "chat": "https://arena.ai/agent/01a1f9a8-cf67-730a-816e-87f747d40f98"
+  },
+  "TREEVALUE9": {
+   "seat": "claude-pc",
+   "title": "Footwork re-read after phase 6 (a sharp boxer holds a wrong step)",
+   "started": "2026-11-20T18:02",
+   "eta": "~20:25",
+   "status": "running"
   }
  },
  "codex_budget": {

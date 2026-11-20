@@ -87,3 +87,10 @@ Then TREEVALUE6 (Qwen) re-reads the board on 5a(+5b); sizing only after it.
 - 5b COUNTER BUILT S531: each exchange record carries "step_fit" (LiveRound's fit_now); tools/treevalue_cells.gd counts the
   planned fires whose step_fit was "wrong" and tools/treevalue_probe.gd prints it per cell (CELL ... wrong=%, the table's
   w%). TREEVALUE7 started before it; TREEVALUE8 (after 5d + 5e + this counter) gives the first wrong-share board.
+
+## S531 TREEVALUE8 read (after 5d, 5e, 5b) - docs/TREEVALUE8_RESULT.md
+5d moved the wrong-fit cells the right way but small (step_back vs Out-boxer -0.5 -> -1.0); the spread across styles
+did not move (step_back +4.9/+5.1/+3.2 vs forward styles) - it is the step's base value, not the deny lever. 5b shows
+15% of fires on a wrong fit (step_back vs Out-boxer 62%, cut_off 50-55%, herd 33-62%). Gate pass=0/10.
+BUILT S531 phase 6 (changed on reflection: holding every wrong step would take the plan out of the player's hands): a boxer holds a wrong-fit step by her FIGHT IQ (StepWire.hold_chance: 0 at 40, 0.8 at 100; a dull boxer still pays WRONG_COST) -
+the words say "your boxer held it". Re-read as TREEVALUE9. No TABLE sizing until that read.

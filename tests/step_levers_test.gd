@@ -83,9 +83,15 @@ func _initialize() -> void:
 	_check(is_equal_approx(f_best, e_back) and f_best > f_ok and f_ok > f_none and f_none > 0.0,
 		"deny by fit: best %.2f > ok %.2f > none %.2f > 0" % [f_best, f_ok, f_none])
 	_check(StepWire.deny_edge("step_back", true, "ok", "wrong") == 0.0, "a wrong-fit step denies nothing (its cost is WRONG_COST)")
+	# S531 phase 6: a sharp boxer holds a wrong-fit step more often than a dull one; never an ok or best one.
+	_check(StepWire.hold_chance(40.0) == 0.0 and is_equal_approx(StepWire.hold_chance(100.0), StepWire.HOLD_MAX) and StepWire.hold_chance(70.0) > 0.3,
+		"hold chance grows with fight IQ: 40 -> 0, 70 -> %.2f, 100 -> %.2f" % [StepWire.hold_chance(70.0), StepWire.hold_chance(100.0)])
+	_check(StepWire.holds("wrong", 90.0, 0.1) and not StepWire.holds("ok", 90.0, 0.0) and not StepWire.holds("best", 100.0, 0.0),
+		"only a wrong-fit step is held")
 	# Control arm.
 	StepWire.levers_on = false
 	_check(StepWire.deny_edge("step_back", true, "ok") == 0.0, "levers off: no deny edge")
+	_check(not StepWire.holds("wrong", 100.0, 0.0), "levers off: no step is held")
 	var sc := {"landed": [2, 6]}
 	var lc := _lv()
 	_check(StepWire.levers(lc, sc, "roll_out", true, "ok", rng).is_empty() and int(sc["landed"][1]) == 6 and float(lc["cost"]) == 0.0,
