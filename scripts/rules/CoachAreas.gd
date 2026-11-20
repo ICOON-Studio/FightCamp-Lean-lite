@@ -93,11 +93,13 @@ static func best(coach: Dictionary) -> String:
 	return "" if rows.is_empty() else str(rows[0]["id"])
 
 
-## "Lucy, pad work: +0.16 → +0.27 a week"
-static func line(who: String, area: String, alone: float, coached: float) -> String:
-	return "%s, %s: %+.2f → %+.2f a week" % [who, label(area), alone, coached]
+## "Pad work: +0.16 → +0.27 a week" - no boxer name (operator S448/S532: names only in headers)
+static func line(area: String, alone: float, coached: float) -> String:
+	var l := label(area)
+	return "%s: %+.2f → %+.2f a week" % [l.left(1).to_upper() + l.substr(1), alone, coached]
 
 
-## "Lucy, pad work: moves +3.1 → +4.0 a week"
-static func move_line(who: String, area: String, alone: float, coached: float) -> String:
-	return "%s, %s: moves %+.1f → %+.1f a week" % [who, label(area), alone, coached]
+## "Pad work: moves +3.1 → +4.0 a week"
+static func move_line(area: String, alone: float, coached: float) -> String:
+	var l := label(area)
+	return "%s: moves %+.1f → %+.1f a week" % [l.left(1).to_upper() + l.substr(1), alone, coached]

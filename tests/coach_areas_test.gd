@@ -131,7 +131,7 @@ func _screen() -> void:
 	var alone := WeekPlan.area_week(WeekPlan.days_of(f), PadWeek.evenings(f), ctx, area)
 	ctx["coach"] = c.coach
 	var coached := WeekPlan.area_week(WeekPlan.days_of(f), PadWeek.evenings(f), ctx, area)
-	var want := CoachAreas.line(str(f["first"]), area, alone, coached)
+	var want := CoachAreas.line(area, alone, coached)
 	if area == "pads":   # S413 pad nights teach moves: the rating reaches the learning and the line counts it
 		var r := float(c.coach["areas"]["pads"])
 		_check(is_equal_approx(float(DrillWeek.inputs(c, f)["skill"]), r), "move learning reads the coach's pad rating")
@@ -139,7 +139,7 @@ func _screen() -> void:
 		coached = DrillWeek.week_moves(c, f, r)
 		_check(alone > 0.0 and coached > alone, "a coach's pad nights teach more than none (%.2f, %.2f)" % [alone, coached])
 		_check(coached / alone <= 1.0 + 0.40 * r / 100.0 + 0.01, "and no more than the page's percent says (%.3f)" % (coached / alone))
-		want = CoachAreas.move_line(str(f["first"]), area, alone, coached)
+		want = CoachAreas.move_line(area, alone, coached)
 	var shown: Node = main.find_child("BoxerLine", true, false)
 	_check(shown != null and str((shown as Label).text) == want, "boxer line equals WeekPlan: %s" % want)
 	_check(main.find_child("Hire_reid", true, false) == null, "a hired coach has no Hire button")

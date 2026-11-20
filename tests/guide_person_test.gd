@@ -5,11 +5,13 @@ const MAIN := preload("res://scenes/Main.tscn")
 const GuideLines := preload("res://scripts/rules/GuideLines.gd")
 const MenuFx := preload("res://scripts/ui/MenuFx.gd")
 const Sim := preload("res://scripts/state/Sim.gd")
+const FirstWeekStrip := preload("res://scripts/ui/FirstWeekStrip.gd")
 const FORBIDDEN := [" he ", " she ", " his ", " her ", " him ", "He ", "She ", "His ", "Her "]
 
 var failures := 0
 var main: Node
 var walkin: Dictionary
+var names: Array = []
 
 
 func _initialize() -> void:
@@ -30,16 +32,23 @@ func _initialize() -> void:
 ## Every step's line, on a boxer over the limit and on one inside it.
 func _lines(c: Career) -> void:
 	var first := c.guide
+	names = [str(c.applicant.get("first", "")), str(c.coach.get("name", "")).get_slice(" ", 0)]
 	for step in ["sign", "coach", "week", "go", "offer", "prep", "fight", "club", ""]:
 		c.guide = str(step)
 		_line_ok(GuideLines.line(c), str(step))
+		_line_ok_long(FirstWeekStrip.what(c) + " " + FirstWeekStrip.why(c), str(step))
 	Sim.sign(c, ["Jab and move", "Pad rounds", "Hill sprints"])
 	var f: Dictionary = c.fighter()
+	names.append(str(f.get("first", "")))
+	var bout: Dictionary = f.get("bout", {})
+	if not bout.is_empty():
+		names.append(str((bout.get("opp", {}) as Dictionary).get("first", "")))
 	for kg in [float(f["limit"]) - 1.0, float(f["limit"]) + 2.5]:
 		f["weight"] = kg
 		for step in ["week", "offer", "prep", "club"]:
 			c.guide = str(step)
 			_line_ok(GuideLines.line(c), "%s at %.1f kg" % [step, kg])
+			_line_ok_long(FirstWeekStrip.what(c) + " " + FirstWeekStrip.why(c), "%s at %.1f kg" % [step, kg])
 	c.guide = first
 
 
@@ -49,6 +58,18 @@ func _line_ok(line: String, what: String) -> void:
 	var padded := " " + line + " "
 	var bad := FORBIDDEN.filter(func(w): return padded.contains(str(w)))
 	_check(bad.is_empty(), "%s: no he or she: %s" % [what, line])
+	_no_names(line, what)
+
+
+## S532 operator: "the guide uses names i specifically told do not use" - names live in headers only (S448).
+func _line_ok_long(line: String, what: String) -> void:
+	_no_names(line, what + " strip")
+
+
+func _no_names(line: String, what: String) -> void:
+	for n in names:
+		if str(n).length() > 1:
+			_check(not line.contains(str(n)), "%s: no name (%s): %s" % [what, n, line])
 
 
 func _on_screen(c: Career) -> void:

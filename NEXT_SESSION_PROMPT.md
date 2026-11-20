@@ -16,21 +16,22 @@ ops/research/S531_DIGEST.md. FIRST: `python ops/Tools/godot_slot.py status`.
 - GROWTH (S531): the fit-out loan is BUILT and verified; no more growth work until the owner plays it.
 
 ## BOARD - ask the owner, act on his answers
+Claude's advice to him (S531, asked "do you think we should build these?"): NOT YET for both - play the current build
+first (6 new things today); knowledge v5 after the footwork settles; the ledger's text-matching fix (GymDeals.year_take)
+is cleanup Claude does quietly when it next gets in the way.
 - Q-S294-280: build the knowledge stakes design v5? (ops/research/DESIGN_KNOW_STAKES1_V5.md; Arena 7/7, Dola 7/8)
 - Q-S294-281: build the contracts / money ledger design v6? (ops/research/DESIGN_LEDGER1_V6.md; Arena 9/9, Dola 8/8)
 If yes: one build at a time, brief per phase from the map's menu table (wired + shown + a golden-path walk).
 
 ## RUNNING AT HANDOVER
-- TREEVALUE9 (PC, started 18:02, ~2.3 h, background shell of S531): log E:/FightCamp/tmp/treevalue9/full.log; the page is
-  copied to E:/FightCamp/tmp/treevalue9/TREEVALUE9_RESULT.md and docs/TREEVALUE5_RESULT.md restored by the same command.
-  If the copy is missing, the probe wrote docs/TREEVALUE5_RESULT.md: copy it out, then `git checkout HEAD -- docs/TREEVALUE5_RESULT.md`.
-  -> write docs/TREEVALUE9_RESULT.md with the v8 -> v9 table (did the fight-IQ hold cut the wrong-fit share and the spread?).
 - Dola SQ258: critic of the three P4P-derived mechanics (ops/research/DESIGN_THREE_FROM_P4P_S531.md). Needs a second fresh
   critic (a new Arena chat with a CODE CHECK, copy TASK_KNOWCRITIC5A.md) - 7+ from both or another round.
+- TREEVALUE9 is DONE and read: docs/TREEVALUE9_RESULT.md (phase 6 small; decision: a GATE review next, no new lever).
 
 ## DO NEXT (in order)
 1. Board answers above.
-2. TREEVALUE9 read (above).
+2. Footwork GATE review (docs/TREEVALUE9_RESULT.md "Decision"): rewrite TREEVALUE2's legs per step from the real best/wrong
+   styles, re-score TREEVALUE9's table against them (no new run); sizing only for steps that still fail.
 3. Turning pro v8 (ops/research/DESIGN_TURNPRO1_V8.md, Arena from the code; v7 scored Arena 5/5, Dola 6/7): spot-check 3-4
    CODE lines, then Dola (design_loop.py critic TURNPRO1 ... --seat dola) + a new Arena critic chat with a code check.
 4. DAMAGE BY WEIGHT CLASS AND SEX (owner asked S531 "how we scale damage vs weight/weightclasses/sexes?"): today it is NOT

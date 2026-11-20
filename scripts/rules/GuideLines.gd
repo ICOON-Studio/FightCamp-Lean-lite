@@ -1,6 +1,8 @@
 extends RefCounted
 ## S413 operator, Q-S294-140 "Yes, build him"; S411 "the guide text is very weak": the first hour's guide as a person. An old trainer
-## says one short line. Every line is under 12 words, uses the boxer's name and never a he or she (operator S412, sandbox).
+## says one short line. Every line is under 12 words and never a he or she (operator S412, sandbox). No names either (operator
+## S448 "names are only mentioned on the header", S532 "the guide uses names i specifically told do not use"): your boxer,
+## the opponent, your assistant.
 ## Pure: reads the career, changes nothing. The numbers behind a line stay in FirstWeekStrip.why (the bubble's tooltip).
 ##   line(c) -> String     target_names(c, weight_ok) -> [node names to ring, first found wins]
 
@@ -12,12 +14,11 @@ const MAX_WORDS := 11
 
 static func line(c: Career) -> String:
 	var f := c.fighter()
-	var who := str(c.applicant.get("first", f.get("first", "the boxer")))
 	match c.guide:
 		"sign":
 			if c.applicant.is_empty():
 				return "Nobody at the desk. Go and find a fighter."
-			return "%s is at the desk. Go and talk." % who
+			return "A boxer is at the desk. Go and talk."
 		"coach":
 			return "You can't hold every pad. Get yourself an assistant."
 		"week":
@@ -26,15 +27,15 @@ static func line(c: Career) -> String:
 			return "Week's set. Press Continue and we go to work."
 		"offer":
 			if _misses_weight(c, f):
-				return "%s won't make weight. Your call on the show." % who
-			return "The show has asked for %s. Have a look." % who
+				return "Your boxer won't make weight. Your call on the show."
+			return "The show has asked for your boxer. Have a look."
 		"prep":
-			return _prep(f, who)
+			return _prep(f)
 		"fight":
 			# S419 operator: "explain what to do about the weight ?": the line says whether the scales are a problem.
 			if _misses_weight(c, f):
-				return "%s is over the limit. Set the diet to Cut." % who
-			return "%s makes weight Friday, fights Saturday. Press Continue." % who
+				return "Your boxer is over the limit. Set the diet to Cut."
+			return "Weigh-in Friday, fight Saturday. Press Continue."
 		"club":
 			var done := FirstHour.tasks(c)
 			for k in FirstHour.TASKS:
@@ -93,11 +94,9 @@ static func _misses_weight(c: Career, f: Dictionary) -> bool:
 	return not bool(Sim.weigh_forecast(c, f, FirstHour.SHOW_DAY)["ok"])
 
 
-static func _prep(f: Dictionary, who: String) -> String:
-	var bout: Dictionary = f.get("bout", {})
-	var opp := str((bout.get("opp", {}) as Dictionary).get("first", "the opponent"))
+static func _prep(f: Dictionary) -> String:
 	if (f.get("camp", {}) as Dictionary).is_empty():
-		return "%s needs a camp before %s." % [who, opp]
+		return "Your boxer needs a camp before the bout."
 	if (f.get("arrows", []) as Array).is_empty():
-		return "Write one line against %s. Your plan, not mine." % opp
+		return "Write one line against the opponent. Your plan, not mine."
 	return "Good. Press Continue and we go to work."

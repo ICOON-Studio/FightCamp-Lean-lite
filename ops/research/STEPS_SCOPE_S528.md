@@ -94,3 +94,8 @@ did not move (step_back +4.9/+5.1/+3.2 vs forward styles) - it is the step's bas
 15% of fires on a wrong fit (step_back vs Out-boxer 62%, cut_off 50-55%, herd 33-62%). Gate pass=0/10.
 BUILT S531 phase 6 (changed on reflection: holding every wrong step would take the plan out of the player's hands): a boxer holds a wrong-fit step by her FIGHT IQ (StepWire.hold_chance: 0 at 40, 0.8 at 100; a dull boxer still pays WRONG_COST) -
 the words say "your boxer held it". Re-read as TREEVALUE9. No TABLE sizing until that read.
+
+## S531 TREEVALUE9 read (phase 6) - docs/TREEVALUE9_RESULT.md
+Phase 6 small at IQ 60 (wrong fires 14.9% -> 13.0%). Five phases moved tenths; step_back's +5 vs forward styles is
+boxing-true. DECIDED: no more lever layers; next = a GATE review (TREEVALUE2 legs per step from the real best/wrong
+styles), re-scored on TREEVALUE9 without a new run; sizing only for steps that still fail the corrected gate.

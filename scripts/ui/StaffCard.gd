@@ -240,11 +240,10 @@ static func _bars(coach: Dictionary) -> Control:
 
 static func _boxer(c: Career, f: Dictionary, coach: Dictionary) -> Control:
 	var area := CoachAreas.best(coach)
-	var pads := area == "pads"   # S413 ("Lucy, pad work: +0.00"): pad nights teach moves, so that is what this line counts
+	var pads := area == "pads"   # S413 ("pad work: +0.00"): pad nights teach moves, so that is what this line counts
 	var alone := DrillWeek.week_moves(c, f, 0.0) if pads else _points(c, f, {}, area)
 	var coached := DrillWeek.week_moves(c, f, CoachAreas.rating_for(coach, "pads")) if pads else _points(c, f, coach, area)
-	var first := str(f.get("first", ""))
-	var text := CoachAreas.move_line(first, area, alone, coached) if pads else CoachAreas.line(first, area, alone, coached)
+	var text := CoachAreas.move_line(area, alone, coached) if pads else CoachAreas.line(area, alone, coached)
 	var l := UI.label(text, 16, INK, "bold")
 	l.name = "BoxerLine"
 	l.clip_text = true

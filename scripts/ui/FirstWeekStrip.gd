@@ -128,7 +128,7 @@ static func what(c: Career) -> String:
 		"offer":
 			return "Take the club show." if _show_offer(c).is_empty() == false else "Answer the show's offer."
 		"prep":
-			return "Prepare %s for %s." % [f.get("first", "the boxer"), _opp(f)]
+			return "Prepare your boxer for the bout."
 		"fight":
 			return "Weigh-in Friday, fight Saturday."
 		"club":
@@ -139,17 +139,16 @@ static func what(c: Career) -> String:
 ## Why it matters and how to do it.
 static func why(c: Career) -> String:
 	var f := c.fighter()
-	var who := str(c.applicant.get("first", f.get("first", "The boxer")))
 	match c.guide:
 		"sign":
 			if c.applicant.is_empty():
 				return "No boxer, no fights, and nobody is at reception now. The Find a fighter tab lists boxers looking for a gym: a trial is free."
-			return "No boxer, no fights. %s is at reception: read the card, pick one starting focus, sign." % who
+			return "No boxer, no fights. A boxer is at reception: read the card, pick one starting focus, sign."
 		"coach":
 			return "You cannot run every session: without an assistant the ones you miss run at 60%, and there are no evening classes."
 		"week":
 			# S416 operator: no fight, no cut talk. The boxer starts nearer the limit, so a cut from the offer makes weight.
-			return "The sessions raise %s's attributes; the days wait until this week is locked." % who
+			return "The sessions raise your boxer's attributes; the days wait until this week is locked."
 		"offer":
 			return _weight_line(c, f, FirstHour.SHOW_DAY)
 		"prep":
@@ -159,8 +158,7 @@ static func why(c: Career) -> String:
 				bits.append("Set the camp on Fight prep.")
 			if (f.get("arrows", []) as Array).is_empty():
 				# S398 round 4: the Playbook shows starting lines before any are saved, so the line asks for one of the player's own.
-				bits.append("In the Playbook, make one line against %s your own; whatever is left to chance, %s fills at the bell." % [
-					_opp(f), str(c.coach.get("name", "your assistant")).get_slice(" ", 0)])
+				bits.append("In the Playbook, make one line against the opponent your own; whatever is left to chance, your assistant fills at the bell.")
 			return " ".join(bits)
 		"fight":
 			return "CONTINUE runs to the weigh-in; between rounds the corner minute is yours, and the result says why."
@@ -169,13 +167,13 @@ static func why(c: Career) -> String:
 	return "CONTINUE plays the days. The review then shows what training gained and where the money went."
 
 
-## "Lucy is 1.4 kg over the 60.0 kg limit. On the coach's weeks the scale reads 60.1 kg on the morning: 0.1 over."
+## "Your boxer is 1.4 kg over the 60.0 kg limit. On the coach's weeks the scale reads 60.1 kg on the morning: 0.1 over."
 static func _weight_line(c: Career, f: Dictionary, day: int) -> String:
 	if f.is_empty():
 		return ""
 	var over := float(f["weight"]) - float(f["limit"])
 	if over <= 0.0:
-		return "%s is inside the %.1f kg limit." % [f["first"], f["limit"]]
+		return "Your boxer is inside the %.1f kg limit." % f["limit"]
 	var fc := Sim.weigh_forecast(c, f, day)
 	# S397 round 1 (blind: "a paragraph of kg arithmetic"): one line - now, the morning, the limit, the verdict.
 	var line := "Weight: %.1f kg now, %.1f kg on the morning, limit %.1f." % [float(f["weight"]), float(fc["day"]), float(f["limit"])]
@@ -183,13 +181,6 @@ static func _weight_line(c: Career, f: Dictionary, day: int) -> String:
 		return line + " Made, %.1f to spare." % maxf(0.0, float(f["limit"]) - float(fc["day"]))
 	# S397 round 2: honest - once the camp cuts from today, nothing in this hour adds more; declining brings another offer.
 	return line + " %.1f kg over even with the camp's cut: take the risk, or decline and wait for the next offer." % float(fc["over"])
-
-
-static func _opp(f: Dictionary) -> String:
-	var b: Dictionary = f.get("bout", {})
-	if not b.is_empty():
-		return str(b["opp"].get("first", "the opponent"))
-	return "the opponent"
 
 
 static func _show_offer(c: Career) -> Dictionary:
