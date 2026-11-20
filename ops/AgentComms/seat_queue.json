@@ -3675,6 +3675,15 @@
    "status": "queued",
    "queued_at": "2026-11-20 14:52",
    "tries": 0
+  },
+  {
+   "id": "SQ252",
+   "seat": "dola",
+   "brief": "research/DESIGN_KNOW_STAKES1_V4_CRITIC_DOLA.md",
+   "stem": "DESIGN_KNOW_STAKES1_V4_CRITIC_DOLA_DOLA",
+   "status": "queued",
+   "queued_at": "2026-11-20 15:04",
+   "tries": 0
   }
  ]
 }

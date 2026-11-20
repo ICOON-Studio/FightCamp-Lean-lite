@@ -271,7 +271,7 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	d += StyleLevers.points(f, int(duel["place"]), prev_mode, pace, arrow)   # S488 STYLE5
 	d += StepWire.open_edge(lv, arrow, bool(pick.get("planned", false)))   # S525: the last exchange's step opened this line
 	var step_grade := StepEffect.grade_for(PlanFight.base_id(arrow), vals, RingDuel.opp(opp))
-	d += StepWire.deny_edge(arrow, bool(pick.get("planned", false)), step_grade)   # S531: a step's deny reaches the score
+	d += StepWire.deny_edge(arrow, bool(pick.get("planned", false)), step_grade, fit_now)   # S531 5a+5d: deny reaches the score, by fit
 	var rng := _rng(c, f, n, i + 1)
 	var roll_a := rng.randf()
 	var roll_b := rng.randf()

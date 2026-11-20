@@ -63,12 +63,18 @@ static func open_edge(lv: Dictionary, arrow: String, planned: bool) -> float:
 ## could never win a round on the cards. The share it denies now also reaches the duel BEFORE settle, as an edge on the
 ## same scale as open_edge: denied share x EDGE.best (ESTIMATE, sized by the next TREEVALUE round). levers() still cuts the
 ## landed punches after (body shots, guard wear). A wrong-fit step already loses margin through its plan line's grade.
-static func deny_edge(arrow: String, planned: bool, grade: String) -> float:
+## S531 phase 5d (TREEVALUE6: the deny rows moved +0.6..+1.3 but helped EVERY style - the edge was style-blind): the edge
+## now follows the fight's own grade of the step against HER game this exchange (PlanFight.fit, LiveRound's fit_now): a
+## step that answers her game denies the punches she is throwing; one that does not denies little; the wrong one nothing
+## (its cost is WRONG_COST in levers). "" (a caller with no fit) keeps the full edge. DENY_FIT sizes are ESTIMATES.
+const DENY_FIT := {"best": 1.0, "ok": 0.5, "none": 0.15, "wrong": 0.0}
+static func deny_edge(arrow: String, planned: bool, grade: String, fit := "") -> float:
 	var step := PlanFight.base_id(arrow)
 	if not levers_on or not planned or not StepEffect.TABLE.has(step):
 		return 0.0
 	var row := StepEffect.scaled(step, grade)
-	return float(row["deny"]) * float(DENY_SHARE.get(str(row["deny_on"]), 0.0)) * float(Exchanges.EDGE["best"])
+	var by_fit := float(DENY_FIT.get(fit, 1.0)) if fit != "" else 1.0
+	return float(row["deny"]) * float(DENY_SHARE.get(str(row["deny_on"]), 0.0)) * float(Exchanges.EDGE["best"]) * by_fit
 
 ## fit = PlanFight.fit for this exchange (LiveRound's fit_now). S528 phase 1 (STEPTUNE2 s2: no step ever cost anything
 ## when it was the wrong answer): a step on a "wrong" fit lets WRONG_COST more of her punches land (the row's

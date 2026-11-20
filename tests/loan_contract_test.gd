@@ -139,17 +139,21 @@ func _charges_52_weeks() -> void:
 	GymSpend.move(c, true)
 	_check(c.fitout_weeks == 52, "the loan starts with 52 weeks to pay")
 	var charged := 0
+	var paid := 0
 	var one_per_week := true
 	for w in 52:
 		var weeks_before := c.fitout_weeks
-		if int(Sim.weekly_costs(c)["fitout"]) == 173:
+		var line := int(Sim.weekly_costs(c)["fitout"])
+		paid += line
+		if line == 173 or (weeks_before == 1 and line == 177):   # S531 contract change: the last week pays the rest
 			charged += 1
 		for d in 7:
 			Sim.step_day(c)
 		if c.fitout_weeks != weeks_before - 1:
 			one_per_week = false
 	_check(one_per_week, "step_day runs the loan down by exactly one week per week played")
-	_check(charged == 52, "the fit-out line reads 173 in each of the 52 weeks")
+	_check(charged == 52, "the fit-out line reads 173 for 51 weeks and 177 in the last")
+	_check(paid == 9000, "the 52 payments total exactly $9,000 ($750 x 12) (%d)" % paid)
 	_check(c.fitout_weeks == 0, "after 52 weeks the loan is paid off (fitout_weeks == 0)")
 	_check(int(Sim.weekly_costs(c)["fitout"]) == 0, "the fit-out line is 0 once the loan is paid")
 	for d in 14:

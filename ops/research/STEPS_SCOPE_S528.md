@@ -76,3 +76,7 @@ Then TREEVALUE6 (Qwen) re-reads the board on 5a(+5b); sizing only after it.
   the rest; then 5b's wrong-fire count; cut_off's sign is its own defect (drain lowers HER output but the step costs his
   own exchange - check which side the drain is applied to). The FAIL lines' "only its ropes count is wired" text in the
   probe is stale since 5a (fix in tools/treevalue_probe.gd with 5d).
+- 5d BUILT S531 (Claude): no per-style punch mix exists in the game (BoutBurn.MIX is one table), so instead of inventing one
+  the deny edge follows the fight's OWN grade of the step against her game this exchange (PlanFight.fit = LiveRound's
+  fit_now): StepWire.DENY_FIT best 1.0 / ok 0.5 / none 0.15 / wrong 0 (ESTIMATES; wrong pays WRONG_COST in levers).
+  step_levers (new fit checks), step_contract, step_effect, golden_path PASS. TREEVALUE7 (PC, same probe) re-reads the board.

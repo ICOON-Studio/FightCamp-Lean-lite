@@ -20,6 +20,7 @@ const WeekRead := preload("res://scripts/rules/WeekRead.gd")
 const GymBills := preload("res://scripts/rules/GymBills.gd")
 const Membership := preload("res://scripts/rules/Membership.gd")
 const GymSpend := preload("res://scripts/state/GymSpend.gd")
+const GymUpgrades := preload("res://scripts/rules/GymUpgrades.gd")
 const DuesWire := preload("res://scripts/ui/DuesWire.gd")
 
 var _books: Control
@@ -189,7 +190,7 @@ func _io(c: Career, inc: Dictionary, cost: Dictionary) -> Control:
 	box.name = "InOut"
 	box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	box.add_child(_col(c, "InWeek", "InLine", _in_lines(inc), true))
-	box.add_child(_col(c, "OutWeek", "OutLine", _out_lines(cost), false))
+	box.add_child(_col(c, "OutWeek", "OutLine", _out_lines(cost, c.fitout_weeks), false))
 	var sums := UI.hbox(8)
 	sums.add_child(UI.spacer())
 	sums.add_child(_sum("In", "InTotal", int(inc["total"]), true))
@@ -285,7 +286,7 @@ func _in_lines(inc: Dictionary) -> Array:
 	return lines
 
 
-func _out_lines(cost: Dictionary) -> Array:
+func _out_lines(cost: Dictionary, loan_weeks := 0) -> Array:
 	var other := int(cost.get("fees", 0)) + int(cost.get("power", 0)) + int(cost.get("kit", 0)) + int(cost.get("upgrades", 0)) + int(cost.get("bjj", 0)) + int(cost.get("juniors_coach", 0)) + int(cost.get("loan", 0))
 	var lines: Array = [
 		["Coach", int(cost.get("staff", 0))],
@@ -295,7 +296,7 @@ func _out_lines(cost: Dictionary) -> Array:
 		["Power, kit, fees", other],
 	]
 	if int(cost.get("fitout", 0)) > 0:   # S531 the move's fit-out loan, its own line while it runs
-		lines.append(["Fit-out loan", int(cost["fitout"])])
+		lines.append(["Fit-out loan (%s left, %d wk)" % [UI.money(GymUpgrades.loan_left(loan_weeks)), loan_weeks], int(cost["fitout"])])
 	return lines
 
 

@@ -127,6 +127,17 @@ static func premises(tier: int) -> Dictionary:
 const LOAN := {"down": 3000, "month": 750, "months": 12, "week": 173, "weeks": 52}
 
 
+## S531 (Ludo on the loan screens: 52 x $173 = $8,996, not the $9,000 promised): the last week pays the rest, so the loan
+## is exactly $750 x 12. loan_left = what is still owed with weeks_left payments to go (this week's included).
+static func loan_week(weeks_left: int) -> int:
+	if weeks_left <= 0:
+		return 0
+	var total := int(LOAN["month"]) * int(LOAN["months"])
+	return total - int(LOAN["week"]) * (int(LOAN["weeks"]) - 1) if weeks_left == 1 else int(LOAN["week"])
+
+static func loan_left(weeks_left: int) -> int:
+	return 0 if weeks_left <= 0 else int(LOAN["week"]) * (weeks_left - 1) + loan_week(1)
+
 static func loan_blocked(tier: int, cash: int, weeks_left: int) -> String:
 	if tier >= PREMISES.size() - 1:
 		return "the biggest premises already"

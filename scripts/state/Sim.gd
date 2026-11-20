@@ -250,7 +250,7 @@ static func weekly_costs(career: Career) -> Dictionary:
 	var spend := GymSpend.costs(career)
 	out.merge(spend)
 	out["loan"] = int(ClubStart.loan(career.start)[0]) if career.loan_weeks > 0 else 0   # S397 the debt start's loan
-	out["fitout"] = int(GymUpgrades.LOAN["week"]) if career.fitout_weeks > 0 else 0   # S531 the move's fit-out loan
+	out["fitout"] = GymUpgrades.loan_week(career.fitout_weeks)   # S531 the move's fit-out loan
 	out["total"] = int(out["total"]) + int(out["bjj"]) + int(out["power"]) + int(spend["total"]) + int(out["loan"]) + int(out["fitout"])
 	return out
 

@@ -76,6 +76,13 @@ func _initialize() -> void:
 	_check(StepWire.deny_edge("step_back", false, "ok") == 0.0 and StepWire.deny_edge("1-2", true, "ok") == 0.0,
 		"no deny edge unplanned or on a punch line")
 	_check(e_back < Exchanges.EDGE["best"], "a step's deny edge stays under a best call's whole edge (%.2f)" % e_back)
+	# S531 phase 5d: the deny follows the step's fit against her game this exchange (TREEVALUE6: it helped every style).
+	var f_best := StepWire.deny_edge("step_back", true, "ok", "best")
+	var f_ok := StepWire.deny_edge("step_back", true, "ok", "ok")
+	var f_none := StepWire.deny_edge("step_back", true, "ok", "none")
+	_check(is_equal_approx(f_best, e_back) and f_best > f_ok and f_ok > f_none and f_none > 0.0,
+		"deny by fit: best %.2f > ok %.2f > none %.2f > 0" % [f_best, f_ok, f_none])
+	_check(StepWire.deny_edge("step_back", true, "ok", "wrong") == 0.0, "a wrong-fit step denies nothing (its cost is WRONG_COST)")
 	# Control arm.
 	StepWire.levers_on = false
 	_check(StepWire.deny_edge("step_back", true, "ok") == 0.0, "levers off: no deny edge")

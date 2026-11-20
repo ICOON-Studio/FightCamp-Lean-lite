@@ -47,5 +47,11 @@ func _initialize() -> void:
 	_check(paid_weeks == 52 and c.fitout_weeks == 0, "52 weeks paid, then the loan is done (%d)" % paid_weeks)
 	_check(int(Sim.weekly_costs(c)["fitout"]) == 0, "no loan line after the last week")
 	_check(GymUpgrades.loan_blocked(c.premises, c.cash, c.fitout_weeks) == "", "a paid-off gym may borrow for the next move")
+	# S531 Ludo: 52 x $173 is $8,996 - the last week pays the rest, so the loan is exactly $750 x 12.
+	var sum := 0
+	for k in range(52, 0, -1):
+		sum += GymUpgrades.loan_week(k)
+	_check(sum == 9000 and GymUpgrades.loan_left(52) == 9000 and GymUpgrades.loan_week(1) == 177 and GymUpgrades.loan_left(0) == 0,
+		"the 52 payments add up to exactly $9,000 (%d)" % sum)
 	print("FITOUT_LOAN failures=%d" % failures)
 	quit(0 if failures == 0 else 1)

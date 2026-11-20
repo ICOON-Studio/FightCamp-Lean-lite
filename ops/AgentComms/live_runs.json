@@ -1225,7 +1225,7 @@
       "title": "Fresh critic: contracts map v5",
       "status": "queued",
       "started": "2026-11-20T14:15",
-      "note": "waits for the Grok bots' Cursor login (cursor-agent login)"
+      "note": "Cursor login restored S531 15:00; the Grok Bot gateway answers 404 (box RUNNING) - same fault as 11-19; the queue retries every 30 min"
     },
     "SQ247": {
       "agent": "maria",
@@ -1233,7 +1233,7 @@
       "title": "Fresh critic: turning pro map v5",
       "status": "queued",
       "started": "2026-11-20T14:15",
-      "note": "waits for the Grok bots' Cursor login (cursor-agent login)"
+      "note": "Cursor login restored S531 15:00; the Grok Bot gateway answers 404 (box RUNNING) - same fault as 11-19; the queue retries every 30 min"
     },
     "SQ250": {
       "agent": "john",
@@ -1241,7 +1241,53 @@
       "title": "Real-world fit-out loan terms for a small UK club",
       "status": "queued",
       "started": "2026-11-20T14:15",
-      "note": "waits for the Grok bots' Cursor login (cursor-agent login)"
+      "note": "Cursor login restored S531 15:00; the Grok Bot gateway answers 404 (box RUNNING) - same fault as 11-19; the queue retries every 30 min"
+    },
+    "KNOWCRITIC4A": {
+      "agent": "arena",
+      "id": "KNOWCRITIC4A",
+      "title": "Fresh critic + code check: knowledge stakes map v4",
+      "status": "running",
+      "started": "2026-11-20T15:00",
+      "eta": "2026-11-20T15:40",
+      "where": "cloud",
+      "chat": "https://arena.ai/agent/01a1f904-f344-7070-8304-f264ba1fbb5c",
+      "brief": "ops/research/TASK_KNOWCRITIC4A.md"
+    },
+    "SQ251": {
+      "agent": "dola",
+      "id": "SQ251",
+      "title": "Contracts map v6 (Dola 8/8, Arena 7/5 on v5)",
+      "status": "queued",
+      "started": "2026-11-20T15:00",
+      "brief": "ops/research/DESIGN_LEDGER1_V6_REVISE_DOLA.md"
+    },
+    "TREEVALUE7": {
+      "agent": "claude",
+      "id": "TREEVALUE7",
+      "title": "Footwork steps re-read after 5d (deny by fit)",
+      "status": "running",
+      "started": "2026-11-20T15:04",
+      "eta": "2026-11-20T19:10",
+      "where": "pc",
+      "log": "E:/FightCamp/tmp/treevalue7/full.log"
+    },
+    "SQ252": {
+      "agent": "dola",
+      "id": "SQ252",
+      "title": "Fresh critic: knowledge stakes map v4",
+      "status": "queued",
+      "started": "2026-11-20T15:08",
+      "brief": "ops/research/DESIGN_KNOW_STAKES1_V4_CRITIC_DOLA.md"
+    },
+    "LUDOLOAN1": {
+      "agent": "ludo",
+      "id": "LUDOLOAN1",
+      "title": "Second eyes on the loan screens (clarity + to-10 list)",
+      "status": "landed",
+      "started": "2026-11-20T15:10",
+      "where": "browser",
+      "note": "S531: rounding fixed (last week $177, total $9,000), Money shows what is left; confirm step + sponsor pending wait for the owner"
     }
   },
   "codex_budget": {
