@@ -1193,18 +1193,19 @@
       "agent": "arena",
       "id": "LOANCONTRACT1",
       "title": "Blind contract test of the gym fit-out loan",
-      "status": "running",
+      "status": "landed",
       "started": "2026-11-20T14:25",
       "eta": "2026-11-20T15:30",
       "where": "cloud",
       "chat": "https://arena.ai/agent/01a1f8e9-fe9b-7462-b01d-59cac6a27bc4",
-      "brief": "ops/research/TASK_LOANCONTRACT1.md"
+      "brief": "ops/research/TASK_LOANCONTRACT1.md",
+      "note": "S531 collected: PASS, mutant 2999 fails 6 checks; Lean-lite PR 34 closed"
     },
     "SQ248": {
       "agent": "dola",
       "id": "SQ248",
       "title": "Knowledge stakes map v4 (answers both v3 critics)",
-      "status": "running",
+      "status": "landed",
       "started": "2026-11-20T14:15",
       "eta": "2026-11-20T15:15",
       "brief": "ops/research/DESIGN_KNOW_STAKES1_V4_REVISE_DOLA.md"
@@ -1213,7 +1214,7 @@
       "agent": "dola",
       "id": "SQ249",
       "title": "Turning pro map v6 (both v5 critics + the debut-gap curve)",
-      "status": "queued",
+      "status": "running",
       "started": "2026-11-20T14:15",
       "eta": "2026-11-20T16:30",
       "brief": "ops/research/DESIGN_TURNPRO1_V6_REVISE_DOLA.md"

@@ -66,3 +66,13 @@ STEPTUNE3 measured the phase-1 levers and found two DESIGN faults, not numbers (
 - 5c DONE S531 (probe tool): `tools/treevalue_cells.gd:78` errors when `StepValue.wrong_style` is "" (feint, tie_up, roll_out,
   push_off since phase 3) and the summary never prints: now the missing leg passes and the two that exist decide.
 Then TREEVALUE6 (Qwen) re-reads the board on 5a(+5b); sizing only after it.
+- TREEVALUE6 READ S531 (`docs/TREEVALUE6_RESULT.md`, PC run, 14,427 s, pass=0/10): 5a WORKS for the deny rows - mean win
+  change per style vs TREEVALUE5: step_back +0.97 -> +2.30, step_out +0.97 -> +1.77, roll_out -0.23 -> +0.40; every
+  non-deny step moved under 0.3. But the deny rows now help ALMOST EVERY style (step_back +5.3 Pressure, +5.6 Slugger,
+  +3.2 Volume; step_out +1.1..+2.8 across all six), so the "others 0..1" and "wrong < 0" legs fail: the deny edge is
+  style-blind. cut_off is still NEGATIVE for every style (-0.1..-2.8) and herd / push_off read ~0 (herd fires 0.2 a bout).
+  NEXT (5d, design, before any sizing): make deny_edge scale with how much of HER game the step denies (deny_on power /
+  head_hooks only against the punches she throws most - her style's punch mix), so it pays against its best style and not
+  the rest; then 5b's wrong-fire count; cut_off's sign is its own defect (drain lowers HER output but the step costs his
+  own exchange - check which side the drain is applied to). The FAIL lines' "only its ropes count is wired" text in the
+  probe is stale since 5a (fix in tools/treevalue_probe.gd with 5d).

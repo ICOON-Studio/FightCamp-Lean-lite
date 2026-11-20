@@ -7,11 +7,11 @@
   "owner": "claude",
   "updated": "2026-11-20",
   "summary": "S531 (Opus, long): the FIT-OUT LOAN built and verified (Move on a loan, $3,000 down + $173/wk x 52; GROWLOAN 36/60 moved, members 140, 0 closed; Money shows its own line). GYMSURVIVE1, TURNGAP1 rerun, steps phase 5a (deny before the duel is settled). Code Mode measured (-23..-44% cost). Disk: E 24->92 GB, C 24->43 GB free. Seats: Dola KNOW v4 + TURNPRO v6, Arena LOANCONTRACT1, Grok bots queued (need cursor-agent login).",
-  "next_action": "S532: quote the METHOD lines; godot_slot status first. Ask the owner to run `cursor-agent login` once (the Grok bots' wake login was deleted with the Cursor data). Collect TREEVALUE6 if S531 did not (docs/TREEVALUE6_RESULT.md), Arena LOANCONTRACT1 + LEDGERCRITIC6A, Dola SQ248/SQ249 (then two fresh critics each). Ludo: judge the loan stills. Re-export the .exe on a GREEN PC.",
+  "next_action": "S532: quote the METHOD lines; godot_slot status first. Grok bots: the new Cursor CLI keeps its login where gbot_wake.mjs / grokbot_direct.mjs cannot read it (they want %APPDATA%\\Cursor\u0007uth.json) - owner signs in to the Cursor app, else rework the wake. Collect Arena LOANCONTRACT1 + LEDGERCRITIC6A, Dola SQ248/SQ249 (code check, then two fresh critics). Steps: phase 5d (deny scaled by her style's punch mix; TREEVALUE6 pass=0/10, deny rows +0.6..+1.3 but style-blind). Ludo: judge the loan stills.",
   "last_working_commit": "966276f6a",
-  "verified_playable": "Builds/FightCamp.exe exported S531 before the Money 'Fit-out loan' line (re-export pending a GREEN PC); WHAT_TO_TRY S531",
-  "incomplete_blocked": "Running: TREEVALUE6 (PC), Arena LOANCONTRACT1 + LEDGERCRITIC6A, Dola SQ248 (SQ249 queued); Grok bots SQ246/247/250 wait on the login. Qwen out until 8 Dec. Animation: mocap pack (owner, end of November).",
-  "next_acceptance": "TREEVALUE6 read; knowledge v4 and turning pro v6 7+/7+ on two fresh critics; loan contract test green on CI",
+  "verified_playable": "Builds/FightCamp.exe exported S531 14:45 (fit-out loan + its own Money line); WHAT_TO_TRY S531",
+  "incomplete_blocked": "Running: Arena LOANCONTRACT1 + LEDGERCRITIC6A, Dola SQ248 (SQ249 queued); Grok bots SQ246/247/250 wait on the login. Qwen out until 8 Dec. Animation: mocap pack (owner, end of November).",
+  "next_acceptance": "Steps 5d built and re-read; knowledge v4 and turning pro v6 7+/7+ on two fresh critics; loan contract test green",
   "awaiting_operator": "cursor-agent login (Grok bots); mocap pack money call at the end of November."
  },
  "next": "S496: 0) get_usage; where_we_are roll S496; quote board answers (Q-259 Training K v6c; build WeekCards v6c on Yes - WeekCards.gd 552 lines is split first). 1) Collect as they land, by diff + their test: Qwen ONELOOK2 (fight HUD palette, ETA ~11:00 11-16; render before/after fight stills on the hidden desktop, his OK before merge), Goose FILMCOUNT1 (#326, branch goose/issue-326 - Goose's PR step failed twice: collect from the branch; read its FINDS table and noise numbers, retune FilmBout rates if a floor missed), Grok Dev FIGHTPAGE1 (branch grok/fightpage1, ETA ~13:30; render at 1920x1080 text 1.0 and 1.3, judge against fight_analysis_v3.png, then his board). 2) Kalli SQ202 LADDER1 v6 + SQ203 COACHSPEC1 r6 -> two fresh critics each (Dola + John; Dola refused COACHSPEC1 r5 - resend). 3) Wire after FIGHTPAGE1+FILMCOUNT1: the film-night stop in the fight week (FightWeekPlan film night -> FightAnalysis.for_tape with FilmCount.check, FilmPattern.checks by coach rating), FilmEdge pays at the figure, the result page's Punch by punch tab over m['tape'] (BoutTape), History keeps 20 tapes (~400 lines a bout). 4) Live fight log panel brief to Grok Dev once FIGHTPAGE1 lands. 5) ONELOOK1 sweep after ONELOOK2: RosterCards, ReadPanel, MatMap (UI.gd/WoodKit/WeekCards first need a split).",
@@ -5200,7 +5200,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-20 03:12 board_sync",
+  "updated": "2026-11-20 14:43 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5477,18 +5477,16 @@
     "state": "LANDED - Claude collects"
    },
    {
-    "title": "Knowledge stakes map v4 from the code",
-    "who": "goose",
-    "started": "2026-11-20T00:35",
-    "run": "KNOWREV4",
-    "state": "STOPPED - Claude relaunches or closes"
+    "title": "Blind contract test of the gym fit-out loan",
+    "who": "arena",
+    "started": "2026-11-20T14:25",
+    "run": "LOANCONTRACT1"
    },
    {
-    "title": "Turning pro map v6: debut gaps from the measured curve",
-    "who": "goose",
-    "started": "2026-11-20T01:20",
-    "run": "TURNREV6",
-    "state": "STOPPED - Claude relaunches or closes"
+    "title": "Knowledge stakes map v4 (answers both v3 critics)",
+    "who": "dola",
+    "started": "2026-11-20T14:15",
+    "run": "SQ248"
    }
   ],
   "next": [
@@ -6250,6 +6248,10 @@
     {
      "text": "Code Mode: 23-44% cheaper reads",
      "who": "claude"
+    },
+    {
+     "text": "Footwork re-read: deny works",
+     "who": "claude"
     }
    ],
    "now": [
@@ -6577,6 +6579,10 @@
     },
     {
      "text": "Collect Arena loan test",
+     "who": "claude"
+    },
+    {
+     "text": "Steps 5d: deny by her style",
      "who": "claude"
     }
    ],

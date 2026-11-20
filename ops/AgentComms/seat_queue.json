@@ -3616,8 +3616,8 @@
    "status": "queued",
    "queued_at": "2026-11-20 14:21",
    "tries": 0,
-   "skips": 1,
-   "last_error": "2026-11-20 14:22 gbot send rc=1: ['GROKBOT FAIL no Cursor login on this PC - run `cursor-agent login` once']"
+   "skips": 3,
+   "last_error": "2026-11-20 14:50 gbot send rc=1: ['GROKBOT FAIL listAgents 404  The request could not be routed']"
   },
   {
    "id": "SQ247",
@@ -3627,29 +3627,34 @@
    "status": "queued",
    "queued_at": "2026-11-20 14:21",
    "tries": 0,
-   "skips": 1,
-   "last_error": "2026-11-20 14:22 gbot send rc=1: ['GROKBOT FAIL no Cursor login on this PC - run `cursor-agent login` once']"
+   "skips": 3,
+   "last_error": "2026-11-20 14:50 gbot send rc=1: ['GROKBOT FAIL listAgents 404  The request could not be routed']"
   },
   {
    "id": "SQ248",
    "seat": "dola",
    "brief": "research/DESIGN_KNOW_STAKES1_V4_REVISE_DOLA.md",
    "stem": "DESIGN_KNOW_STAKES1_V4_REVISE_DOLA_DOLA",
-   "status": "sent",
+   "status": "answered",
    "queued_at": "2026-11-20 14:21",
    "tries": 0,
    "sent_at": "2026-11-20 14:22",
    "pid": 21220,
-   "transcript": "AgentComms/seat_logs/SQ248_dola.txt"
+   "transcript": "AgentComms/seat_logs/SQ248_dola.txt",
+   "answered_at": "2026-11-20 14:42",
+   "answer": "research/DESIGN_KNOW_STAKES1_V4_REVISE_DOLA_DOLA.md"
   },
   {
    "id": "SQ249",
    "seat": "dola",
    "brief": "research/DESIGN_TURNPRO1_V6_REVISE_DOLA.md",
    "stem": "DESIGN_TURNPRO1_V6_REVISE_DOLA_DOLA",
-   "status": "queued",
+   "status": "sent",
    "queued_at": "2026-11-20 14:21",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-20 14:50",
+   "pid": 48608,
+   "transcript": "AgentComms/seat_logs/SQ249_dola.txt"
   },
   {
    "id": "SQ250",
@@ -3659,8 +3664,17 @@
    "status": "queued",
    "queued_at": "2026-11-20 14:21",
    "tries": 0,
-   "skips": 1,
-   "last_error": "2026-11-20 14:22 gbot send rc=1: ['GROKBOT FAIL no Cursor login on this PC - run `cursor-agent login` once']"
+   "skips": 3,
+   "last_error": "2026-11-20 14:50 gbot send rc=1: ['GROKBOT FAIL listAgents 404  The request could not be routed']"
+  },
+  {
+   "id": "SQ251",
+   "seat": "dola",
+   "brief": "research/DESIGN_LEDGER1_V6_REVISE_DOLA.md",
+   "stem": "DESIGN_LEDGER1_V6_REVISE_DOLA_DOLA",
+   "status": "queued",
+   "queued_at": "2026-11-20 14:52",
+   "tries": 0
   }
  ]
 }
