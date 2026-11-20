@@ -973,18 +973,6 @@
    "note": "S530 collected (lite PR 27): step_contract_test PASS on main; mutant 3 (open summed) -> FAIL fails=3; in run_tests.sh",
    "finished": "2026-11-19T20:20"
   },
-  "TURNREV4": {
-   "agent": "goose",
-   "id": "TURNREV4",
-   "title": "Turning pro map v4 from the code (answers both v3 critics)",
-   "status": "landed",
-   "started": "2026-11-19T19:09",
-   "where": "cloud",
-   "issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/404",
-   "brief": "ops/research/TASK_TURNREV4.md",
-   "eta": "2026-11-19T19:40",
-   "note": "S529 collected from goose/issue-404; price-ask bug fixed; critics Dola SQ240 + Arena TURNCRITIC4A next"
-  },
   "TURNCRITIC4A": {
    "agent": "arena",
    "id": "TURNCRITIC4A",
@@ -1301,14 +1289,23 @@
    "title": "Arena: turning pro map v8 from the code (fixes the v7 critic's points)",
    "started": "2026-11-20T18:02",
    "eta": "~19:00",
-   "status": "running",
-   "chat": "https://arena.ai/agent/01a1f9a8-cf67-730a-816e-87f747d40f98"
+   "status": "landed",
+   "chat": "https://arena.ai/agent/01a1f9a8-cf67-730a-816e-87f747d40f98",
+   "reconciled": "2026-11-20 18:41 board_reconcile: PR #427 open - collect it",
+   "landed": "2026-11-20T20:17"
   },
   "TREEVALUE9": {
    "seat": "claude-pc",
    "title": "Footwork re-read after phase 6 (a sharp boxer holds a wrong step)",
    "started": "2026-11-20T18:02",
    "eta": "~20:25",
+   "status": "running"
+  },
+  "SQ258": {
+   "seat": "dola",
+   "title": "Dola critic: the three P4P-derived mechanics",
+   "started": "2026-11-20T20:17",
+   "eta": "~21:00",
    "status": "running"
   }
  },

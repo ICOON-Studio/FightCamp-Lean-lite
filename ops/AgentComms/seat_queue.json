@@ -3668,8 +3668,8 @@
    "status": "queued",
    "queued_at": "2026-11-20 14:21",
    "tries": 0,
-   "skips": 15,
-   "last_error": "2026-11-20 19:40 gbot send rc=1: ['GROKBOT FAIL listAgents 404  The request could not be routed']"
+   "skips": 16,
+   "last_error": "2026-11-20 20:10 gbot send rc=1: ['GROKBOT FAIL listAgents 404  The request could not be routed']"
   },
   {
    "id": "SQ251",
@@ -3762,9 +3762,12 @@
    "seat": "dola",
    "brief": "research/DESIGN_THREEP4P_CRITIC_DOLA.md",
    "stem": "DESIGN_THREEP4P_CRITIC_DOLA_DOLA",
-   "status": "queued",
+   "status": "sent",
    "queued_at": "2026-11-20 19:59",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-20 20:10",
+   "pid": 43304,
+   "transcript": "AgentComms/seat_logs/SQ258_dola.txt"
   }
  ]
 }

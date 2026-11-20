@@ -8303,6 +8303,40 @@
       "seen_by_claude": true,
       "status": "answered",
       "answered_by": "owner in chat S531"
+    },
+    {
+      "id": "Q-S294-280",
+      "asked": "2026-11-20T18:17:41.998629+00:00",
+      "session": "S294",
+      "text": "Build the knowledge stakes design v5? (what knowing an opponent from film, sparring and her fights changes on the night; critics Arena 7/7, Dola 7/8)",
+      "options": [
+        "Yes, build it",
+        "Not yet"
+      ],
+      "attach": [
+        "research/DESIGN_KNOW_STAKES1_V5.md"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-281",
+      "asked": "2026-11-20T18:17:46.374180+00:00",
+      "session": "S294",
+      "text": "Build the contracts and money ledger design v6? (every payment tagged to a boxer and kind, purse shares and contracts read from it; critics Arena 9/9, Dola 8/8)",
+      "options": [
+        "Yes, build it",
+        "Not yet"
+      ],
+      "attach": [
+        "research/DESIGN_LEDGER1_V6.md"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
     }
   ]
 }

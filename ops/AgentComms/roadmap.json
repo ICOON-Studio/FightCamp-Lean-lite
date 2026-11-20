@@ -6,8 +6,8 @@
   "id": "S531",
   "owner": "claude",
   "updated": "2026-11-20",
-  "summary": "S531 (Opus, long): the FIT-OUT LOAN built and verified (Move on a loan, $3,000 down + $173/wk x 52; GROWLOAN 36/60 moved, members 140, 0 closed; Money shows its own line). GYMSURVIVE1, TURNGAP1 rerun, steps phase 5a (deny before the duel is settled). Code Mode measured (-23..-44% cost). Disk: E 24->92 GB, C 24->43 GB free. Seats: Dola KNOW v4 + TURNPRO v6, Arena LOANCONTRACT1, Grok bots queued (need cursor-agent login).",
-  "next_action": "S532: quote the METHOD lines; godot_slot status first. Grok bots: the new Cursor CLI keeps its login where gbot_wake.mjs / grokbot_direct.mjs cannot read it (they want %APPDATA%\\Cursor\u0007uth.json) - owner signs in to the Cursor app, else rework the wake. Collect Arena LOANCONTRACT1 + LEDGERCRITIC6A, Dola SQ248/SQ249 (code check, then two fresh critics). Steps: phase 5d (deny scaled by her style's punch mix; TREEVALUE6 pass=0/10, deny rows +0.6..+1.3 but style-blind). Ludo: judge the loan stills.",
+  "summary": "S531 (Opus, long): FIT-OUT LOAN built (exact $9,000, what is left on Money). TOP-DOWN FIGHT VIEW (T in any round, zoomed on the pair) + THE CORNER'S EYE (plan step taken/held/not got off, who owns the ring, HURT/TIRED). Pound for Pound read + playtest session (7 in-game months) -> THE COACH'S READ on every offer and SHE ASKED ABOUT YOUR GYM (a beaten opponent may ask to train here; waits a week, never stops time). Footwork phases 5d/5e/5b + phase 6 (fight-IQ hold of a wrong step); TREEVALUE8 read. NextStep lapse bug fixed. METHOD: design maps by Arena from the code; knowledge v5 (7/7, 7/8) and contracts v6 (9/9, 8/8) passed -> board Q-280/281.",
+  "next_action": "S532: quote the METHOD lines. 1) Board Q-280/281 answers (build knowledge v5 / contracts v6 if yes). 2) TREEVALUE9 (phase 6) read: docs/TREEVALUE9_RESULT.md from E:/FightCamp/tmp/treevalue9 (v8->v9 table). 3) Turning pro v8 (ops/research/DESIGN_TURNPRO1_V8.md, Arena from the code): spot-check CODE lines, Dola + fresh Arena critic. 4) Dola SQ258 critic of the three P4P-derived mechanics (DESIGN_THREE_FROM_P4P_S531.md) - 7+ needed. 5) Damage by weight/sex: Dola SQ257 numbers (heavy ~1.4x light stoppages, women ~0.45-0.5x men, amateur ~1/5 of pro, early pro x0.85) -> a design for Matchmaking.stop_chance / RingDuel hurt by division and sex (scope: one ruleset per sex, never mixed). 6) Grok bots: gateway 404.",
   "last_working_commit": "966276f6a",
   "verified_playable": "Builds/FightCamp.exe exported S531 14:45 (fit-out loan + its own Money line); WHAT_TO_TRY S531",
   "incomplete_blocked": "Running: Arena LOANCONTRACT1 + LEDGERCRITIC6A, Dola SQ248 (SQ249 queued); Grok bots SQ246/247/250 wait on the login. Qwen out until 8 Dec. Animation: mocap pack (owner, end of November).",
@@ -2281,7 +2281,7 @@
    "id": "S531",
    "date": "2026-11-20",
    "model": "Opus",
-   "summary": "S531 (Opus, long): the FIT-OUT LOAN built and verified (Move on a loan, $3,000 down + $173/wk x 52; GROWLOAN 36/60 moved, members 140, 0 closed; Money shows its own line). GYMSURVIVE1, TURNGAP1 rerun, steps phase 5a (deny before the duel is settled). Code Mode measured (-23..-44% cost). Disk: E 24->92 GB, C 24->43 GB free. Seats: Dola KNOW v4 + TURNPRO v6, Arena LOANCONTRACT1, Grok bots queued (need cursor-agent login)."
+   "summary": "S531 (Opus, long): FIT-OUT LOAN built (exact $9,000, what is left on Money). TOP-DOWN FIGHT VIEW (T in any round, zoomed on the pair) + THE CORNER'S EYE (plan step taken/held/not got off, who owns the ring, HURT/TIRED). Pound for Pound read + playtest session (7 in-game months) -> THE COACH'S READ on every offer and SHE ASKED ABOUT YOUR GYM (a beaten opponent may ask to train here; waits a week, never stops time). Footwork phases 5d/5e/5b + phase 6 (fight-IQ hold of a wrong step); TREEVALUE8 read. NextStep lapse bug fixed. METHOD: design maps by Arena from the code; knowledge v5 (7/7, 7/8) and contracts v6 (9/9, 8/8) passed -> board Q-280/281."
   }
  ],
  "blocked_on_operator": [],
@@ -5200,7 +5200,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-20 14:43 board_sync",
+  "updated": "2026-11-20 18:41 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5393,13 +5393,6 @@
     "state": "LANDED - Claude collects"
    },
    {
-    "title": "Turning pro map v4 from the code (answers both v3 critics)",
-    "who": "goose",
-    "started": "2026-11-19T19:09",
-    "run": "TURNREV4",
-    "state": "LANDED - Claude collects"
-   },
-   {
     "title": "Fresh critic: turning pro map v4",
     "who": "arena",
     "started": "2026-11-19T19:50",
@@ -5470,23 +5463,86 @@
     "state": "LANDED - Claude collects"
    },
    {
-    "title": "Fresh critic: contracts map v5",
+    "title": "Knowledge stakes map v4 (answers both v3 critics)",
+    "who": "dola",
+    "started": "2026-11-20T14:15",
+    "run": "SQ248",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "Turning pro map v6 (both v5 critics + the debut-gap curve)",
+    "who": "dola",
+    "started": "2026-11-20T14:15",
+    "run": "SQ249",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "Second eyes on the loan screens (clarity + to-10 list)",
+    "who": "ludo",
+    "started": "2026-11-20T15:10",
+    "run": "LUDOLOAN1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "Knowledge stakes map v5 from the code",
     "who": "arena",
-    "started": "2026-11-20T00:25",
+    "started": "2026-11-20T15:20",
+    "run": "KNOWREV5",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "Fresh critic + code check: knowledge stakes map v5",
+    "who": "arena",
+    "started": "2026-11-20T15:35",
+    "run": "KNOWCRITIC5A",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "Fresh critic: knowledge stakes map v5",
+    "who": "dola",
+    "started": "2026-11-20T15:35",
+    "run": "SQ253"
+   },
+   {
+    "title": "Fresh critic + code check: turning pro map v6",
+    "who": "arena",
+    "started": "2026-11-20T15:45",
+    "run": "TURNCRITIC6A",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "Footwork steps re-read after 5d + 5e + the wrong-fire counter",
+    "who": "claude",
+    "started": "2026-11-20T15:58",
+    "run": "TREEVALUE8",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "Arena critic: turning pro v7 (with code check)",
+    "who": "",
+    "started": "2026-11-20T17:13",
+    "run": "TURNCRITIC7A",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "Arena critic: contracts v6 (with code check)",
+    "who": "",
+    "started": "2026-11-20T17:13",
     "run": "LEDGERCRITIC6A",
     "state": "LANDED - Claude collects"
    },
    {
-    "title": "Blind contract test of the gym fit-out loan",
-    "who": "arena",
-    "started": "2026-11-20T14:25",
-    "run": "LOANCONTRACT1"
+    "title": "Arena: turning pro map v8 from the code (fixes the v7 critic's points)",
+    "who": "",
+    "started": "2026-11-20T18:02",
+    "run": "TURNREV8",
+    "state": "LANDED - Claude collects"
    },
    {
-    "title": "Knowledge stakes map v4 (answers both v3 critics)",
-    "who": "dola",
-    "started": "2026-11-20T14:15",
-    "run": "SQ248"
+    "title": "Footwork re-read after phase 6 (a sharp boxer holds a wrong step)",
+    "who": "",
+    "started": "2026-11-20T18:02",
+    "run": "TREEVALUE9"
    }
   ],
   "next": [
@@ -6017,6 +6073,56 @@
   },
   "done_recently": [
    {
+    "title": "Turning pro map v4 from the code (answers both v3 critics)",
+    "who": "goose",
+    "when": "2026-11-20"
+   },
+   {
+    "title": "Contracts map v6 from the code",
+    "who": "arena",
+    "when": "2026-11-20"
+   },
+   {
+    "title": "Turning pro map v7 from the code",
+    "who": "arena",
+    "when": "2026-11-20"
+   },
+   {
+    "title": "Fresh critic + code check: knowledge stakes map v4",
+    "who": "arena",
+    "when": "2026-11-20"
+   },
+   {
+    "title": "Fresh critic: turning pro map v6",
+    "who": "dola",
+    "when": "2026-11-20"
+   },
+   {
+    "title": "Fresh critic: knowledge stakes map v4",
+    "who": "dola",
+    "when": "2026-11-20"
+   },
+   {
+    "title": "Contracts map v6 (Dola 8/8, Arena 7/5 on v5)",
+    "who": "dola",
+    "when": "2026-11-20"
+   },
+   {
+    "title": "Fresh critic: turning pro map v5",
+    "who": "maria",
+    "when": "2026-11-20"
+   },
+   {
+    "title": "Fresh critic: contracts map v5",
+    "who": "kalli",
+    "when": "2026-11-20"
+   },
+   {
+    "title": "Blind contract test of the gym fit-out loan",
+    "who": "arena",
+    "when": "2026-11-20"
+   },
+   {
     "title": "TASK STEPTUNE3 - size the footwork steps' levers on the phase-1 code, from TREEVALUE5 (tuning)",
     "who": "qwen",
     "when": "2026-11-20"
@@ -6025,57 +6131,6 @@
     "title": "TASK HOLD1 - the specialty: four ways to hold moves over two seasons, and the hold minutes that make it a choice (probe)",
     "who": "qwen",
     "when": "2026-11-20"
-   },
-   {
-    "title": "Signature pace on the real career loop (camps, better pads coach)",
-    "who": "goose",
-    "when": "2026-11-19"
-   },
-   {
-    "title": "Turning pro map v5 from the code, against the measured lines",
-    "who": "goose",
-    "when": "2026-11-19"
-   },
-   {
-    "title": "Turning pro rerun: fork fixes + the day-job question",
-    "who": "goose",
-    "when": "2026-11-19"
-   },
-   {
-    "id": "COACHSCOPE1",
-    "who": "claude",
-    "title": "Coach fit CLOSED (S530): three probes found nothing a player feels; the coach's ceiling would duplicate MoveMastery.cap + coach_factor and make Signatures rarer - nothing built (COACHFIT_SHEET s0c, s0d)",
-    "after": ""
-   },
-   {
-    "title": "Knowledge stakes map v3 from the code",
-    "who": "goose",
-    "when": "2026-11-19"
-   },
-   {
-    "title": "Contracts map v4 from the code",
-    "who": "goose",
-    "when": "2026-11-19"
-   },
-   {
-    "title": "TASK TREEVALUE5 - the step probe keeps a punch on the step's destination card, then reruns the ten steps",
-    "who": "qwen",
-    "when": "2026-11-19"
-   },
-   {
-    "title": "Turning pro: rerun all nine lines on today's code",
-    "who": "goose",
-    "when": "2026-11-19"
-   },
-   {
-    "title": "Coach fit: re-measure with a dose control, the coached-morning lever and camp tiredness",
-    "who": "goose",
-    "when": "2026-11-19"
-   },
-   {
-    "title": "Blind contract test of the guard through a bout",
-    "who": "arena",
-    "when": "2026-11-19"
    }
   ],
   "scope_note": "S294: lean restart (E:\\FightCamp\\Lean\\docs\\RESTART_PLAN.md). Old roadmap items are parked until the weekly builds reach them.",
@@ -6251,6 +6306,14 @@
     },
     {
      "text": "Footwork re-read: deny works",
+     "who": "claude"
+    },
+    {
+     "text": "Top-down fight view built (T)",
+     "who": "claude"
+    },
+    {
+     "text": "Coach read, card ask, corner eye",
      "who": "claude"
     }
    ],
@@ -6584,6 +6647,14 @@
     {
      "text": "Steps 5d: deny by her style",
      "who": "claude"
+    },
+    {
+     "text": "Board: knowledge v5 / contracts v6",
+     "who": "claude"
+    },
+    {
+     "text": "Damage scaled by class and sex",
+     "who": "claude"
     }
    ],
    "session": "S531"
@@ -6592,6 +6663,6 @@
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
  "last_working_commit": "42feebb38",
- "next_action": "S528: 1) collect Qwen STEPTUNE2 (E:/FightCamp/wt/LEAN_STEPTUNE2, TABLE numbers by diff, step tests + golden_path); 2) Goose #397 LEDGERCRITIC3 + Dola SQ233 -> LEDGER1 v2 at 7+/7+ -> his board (ask --attach); 3) Dola SQ234 COACHFIT1 v9 part 2 -> two critics; 4) Dola SQ235 TURNPRO1 v3 -> two critics; 5) Goose #398 GUARDPROBE3 -> wire posture + adaptation, then the defence tab; 6) Dola SQ236 KNOW_STAKES1; 7) the rest of THIS CAMP is hidden (WeekCamp in WeekBoard's Legacy box): audit what else lives only there (ONELOOK1). Animation: the Fable session 'anim-steps' (feet on the take) - start it if the owner has not.",
+ "next_action": "S532: quote the METHOD lines. 1) Board Q-280/281 answers (build knowledge v5 / contracts v6 if yes). 2) TREEVALUE9 (phase 6) read: docs/TREEVALUE9_RESULT.md from E:/FightCamp/tmp/treevalue9 (v8->v9 table). 3) Turning pro v8 (ops/research/DESIGN_TURNPRO1_V8.md, Arena from the code): spot-check CODE lines, Dola + fresh Arena critic. 4) Dola SQ258 critic of the three P4P-derived mechanics (DESIGN_THREE_FROM_P4P_S531.md) - 7+ needed. 5) Damage by weight/sex: Dola SQ257 numbers (heavy ~1.4x light stoppages, women ~0.45-0.5x men, amateur ~1/5 of pro, early pro x0.85) -> a design for Matchmaking.stop_chance / RingDuel hurt by division and sex (scope: one ruleset per sex, never mixed). 6) Grok bots: gateway 404.",
  "next_acceptance": "Rulers vs r0: head jumps on the contact frame under 4, a head inside the other's body under 5 frames, arm out median under 4 frames with join_return green, then r1 film at two fresh blind critics 5+/10"
 }

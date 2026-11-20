@@ -1,3 +1,57 @@
+# S532 handover (written 2026-11-20 ~20:10, end of S531 - Opus, long)
+
+Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. S531 is in roadmap `now`; digest
+ops/research/S531_DIGEST.md. FIRST: `python ops/Tools/godot_slot.py status`.
+
+## METHOD lines - quote all of them in your first message
+- DESIGN MAPS ARE WRITTEN BY ARENA FROM THE CODE (S531 evidence): Dola's knowledge v4 and turning pro v6 carried false CODE
+  claims (Arena checks: 10 wrong, 4/5; several wrong, 5/4); Arena's code-written knowledge v5 scored 7/7 on its first check.
+  Dola = critic (and research), not the map writer. Every critic brief carries a CODE CHECK.
+- Fight animation (owner S510): no new correction layer in scripts/fight3d until v2 is built (the OWNER'S Fable session
+  is the animation item; next step is the mocap pack, his money call at the END OF NOVEMBER - do not ask before).
+- DESIGN MAPS (S530): each next version is written from the code, with Claude's code check on top, before critics.
+  S531: Goose KNOWREV4 #418 / TURNREV6 #420 pushed nothing -> Dola writes them (SQ248 / SQ249); code-check before critics.
+- FOOTWORK STEPS (S528/S531): phases 5a, 5d, 5e, 5b and 6 built; TREEVALUE8 read; TREEVALUE9 (phase 6) is the next read.
+  No StepEffect TABLE sizing until TREEVALUE9 is read.
+- GROWTH (S531): the fit-out loan is BUILT and verified; no more growth work until the owner plays it.
+
+## BOARD - ask the owner, act on his answers
+- Q-S294-280: build the knowledge stakes design v5? (ops/research/DESIGN_KNOW_STAKES1_V5.md; Arena 7/7, Dola 7/8)
+- Q-S294-281: build the contracts / money ledger design v6? (ops/research/DESIGN_LEDGER1_V6.md; Arena 9/9, Dola 8/8)
+If yes: one build at a time, brief per phase from the map's menu table (wired + shown + a golden-path walk).
+
+## RUNNING AT HANDOVER
+- TREEVALUE9 (PC, started 18:02, ~2.3 h, background shell of S531): log E:/FightCamp/tmp/treevalue9/full.log; the page is
+  copied to E:/FightCamp/tmp/treevalue9/TREEVALUE9_RESULT.md and docs/TREEVALUE5_RESULT.md restored by the same command.
+  If the copy is missing, the probe wrote docs/TREEVALUE5_RESULT.md: copy it out, then `git checkout HEAD -- docs/TREEVALUE5_RESULT.md`.
+  -> write docs/TREEVALUE9_RESULT.md with the v8 -> v9 table (did the fight-IQ hold cut the wrong-fit share and the spread?).
+- Dola SQ258: critic of the three P4P-derived mechanics (ops/research/DESIGN_THREE_FROM_P4P_S531.md). Needs a second fresh
+  critic (a new Arena chat with a CODE CHECK, copy TASK_KNOWCRITIC5A.md) - 7+ from both or another round.
+
+## DO NEXT (in order)
+1. Board answers above.
+2. TREEVALUE9 read (above).
+3. Turning pro v8 (ops/research/DESIGN_TURNPRO1_V8.md, Arena from the code; v7 scored Arena 5/5, Dola 6/7): spot-check 3-4
+   CODE lines, then Dola (design_loop.py critic TURNPRO1 ... --seat dola) + a new Arena critic chat with a code check.
+4. DAMAGE BY WEIGHT CLASS AND SEX (owner asked S531 "how we scale damage vs weight/weightclasses/sexes?"): today it is NOT
+   scaled - power/chin are 0-100 inside the division, bouts never mix sex or division; stop chance = (1 - win) x the
+   opponent's KO share (Matchmaking.stop_chance), hurt = margin + power-chin (RingDuel ~364). Dola SQ257 real numbers
+   (ops/research/RESEARCH_STOPS_BY_CLASS_SEX_BRIEF_DOLA.md; read with design_loop.reply_only): heavier classes stop more
+   (pro heavy ~1.4x pro light), women's pro ~0.45-0.5x the men's rate, amateur ~1/6-1/5 of pro, early pros x0.85,
+   knockdowns/bout light 0.15 / middle 0.20 / heavy 0.24. Write a small design (where the multiplier enters: the generated
+   KO records, the hurt roll, the stop roll), a probe that measures stoppage share per class/sex against those bands, then
+   build. Ask John for a second source when the Grok bots are back.
+5. New S531 features he has not played: the top-down view (T), THE CORNER'S EYE, THE COACH'S READ (offer cards), SHE ASKED
+   ABOUT YOUR GYM (result page, reception). Builds/WHAT_TO_TRY.txt lists them. His play is the gate.
+6. Playtest leftovers (ops/research/PLAYTEST_POUND_FOR_POUND_S531.md s5, items 4-10): one-page result + one "next" button,
+   label tests (no "contender" before the ladder has 8 names), an "available again" date on roster rows, a lived-in region
+   on day 1, a "this week" line on Home. Propose them to him as a list; scope-flag the followers/markets idea.
+
+## GROK BOTS
+Gateway answers listAgents 404 (their side); John SQ250 retries every 30 min. If still 404, open the Grok Bot app once.
+
+---
+## Older S531 notes (superseded where they disagree with the above)
 # S532 handover (written 2026-11-20, S531 - Opus, long; the owner's ArcheAge held RAM at 85-97% most of the day)
 
 Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. S531 is in roadmap `now`; digest

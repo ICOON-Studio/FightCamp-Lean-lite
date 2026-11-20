@@ -30,3 +30,17 @@ owner "Yes, delete them"). SIDE EFFECT: deleting %APPDATA%\Cursor removed the Cu
 - Dola SQ248 knowledge v4, SQ249 turning pro v6 (queued behind it).
 - Grok bots queued (need the login): SQ246 Kalli contracts v5 critic, SQ247 Maria turning pro v5 critic, SQ250 John loan research.
 - Qwen out until 8 Dec (owner Q-279). Ludo: not reached (Chrome extension dropped at 97% RAM) - give it the loan stills next.
+
+## S531 evening (after the loan)
+- Pound for Pound: store/review read (REF_POUND_FOR_POUND_S531.md) + a Sonnet playtest session on the hidden desktop
+  (PLAYTEST_POUND_FOR_POUND_S531.md; 7 in-game months - blind clicks made a show cost 60-100 actions). Scores: theirs 6/7,
+  ours 8 depth / 6 fun "until the build proves the loop".
+- Built (owner "build 1, 2 and 3 but it has to be distinct from theirs"): THE COACH'S READ (CoachRead.gd, every offer card),
+  SHE ASKED ABOUT YOUR GYM (CardAsk.gd, BoutFinish._card_ask, non-blocking reception for a week), THE CORNER'S EYE
+  (RingMap.plan_mark/owner on the top-down view). Golden path caught the ask blocking CONTINUE -> it never stops time.
+- Top-down fight view (T): RingMap (pure, from each exchange's own card) + RingTopDown (zoomed on the pair, whole-ring map).
+- Footwork: TREEVALUE8 read (5d right direction, small; spread is the step's base value; 15% of fires on a wrong fit) ->
+  phase 6 built (fight-IQ hold of a wrong step, StepWire.hold_chance) -> TREEVALUE9 running.
+- NextStep: a lapsed pro offer read "due" while 2 more wins were owed (found by Arena's TURNPRO v7 code check) - fixed.
+- Critics: knowledge v5 Arena 7/7 + Dola 7/8, contracts v6 Arena 9/9 + Dola 8/8 -> board Q-280/281; turning pro v7 5/5 + 6/7
+  -> Arena v8 collected. Dola SQ257 stoppage rates by class/sex/amateur-pro.
