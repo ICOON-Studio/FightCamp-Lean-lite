@@ -278,7 +278,8 @@ static func next_mode(style: String, weak: String, n: int, ex: int, prev: String
 	if w.contains("slow to start") and n == 1 and ex < 2:
 		return "counter"
 	var tired_of := run >= MAX_RUN
-	if prev != "" and prev != "hurt" and prev != "tiring" and not tired_of and rng.randf() < KEEP:
+	# S532: a game whose weight is cut (bias < 1, a cut-off ring on "range") is kept less often too; bias >= 1 keeps KEEP.
+	if prev != "" and prev != "hurt" and prev != "tiring" and not tired_of and rng.randf() < KEEP * minf(1.0, float(bias.get(prev, 1.0))):
 		return prev
 	var style_key := style if MODE_I.has(style) else "Boxer-puncher"
 	var names: Array = MODE_I[style_key]

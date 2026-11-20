@@ -113,6 +113,10 @@ static func levers(lv: Dictionary, s: Dictionary, arrow: String, planned: bool, 
 	if float(row["drain"]) > 0.0:
 		out["drain"] = float(row["drain"]) * Exchanges.BODY_COST
 		lv["opp_drain"] = float(lv.get("opp_drain", 0.0)) + float(out["drain"])
+	# S532 gate review (cut_off lost to the Out-boxer it is for): OPP_STEPS_LESS was in the table and read by nothing. Cutting
+	# off the ring now takes that share off the opponent's RANGE game for the rest of the round (RingDuel.step_bias).
+	if float(row.get("opp_steps_less", 0.0)) > 0.0:
+		lv["ring_cut"] = maxf(float(lv.get("ring_cut", 0.0)), float(row["opp_steps_less"]))
 	if step != "tie_up":
 		lv["cost"] = float(lv.get("cost", 0.0)) + float(row["tank"])
 	lv["open"] = maxf(float(lv.get("open", 0.0)), float(row["open"]))   # two steps in a row: the bigger opening, not the sum

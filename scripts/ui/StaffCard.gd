@@ -11,6 +11,8 @@ const Bar := preload("res://scripts/ui/Bar.gd")
 const KitIcon := preload("res://scripts/ui/KitIcon.gd")
 const PromoShot := preload("res://scripts/ui/PromoShot.gd")
 const Tips := preload("res://scripts/ui/Tips.gd")
+const Tip := preload("res://scripts/ui/Tip.gd")
+const TipCards := preload("res://scripts/ui/TipCards.gd")
 const TopCards := preload("res://scripts/ui/TopCards.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const Sim := preload("res://scripts/state/Sim.gd")
@@ -269,18 +271,24 @@ static func _facts(coach: Dictionary, show_sign: bool) -> Control:
 	var net := salary - classes
 	var h := UI.hbox(6)
 	h.name = "CoachTiles"
-	h.add_child(_tile("coach", "%d tactics" % limit, "How many tactics a fight plan can hold", INK, "in a plan"))
+	# S532 GUIDETIPS1 (operator on "$450 wage a week / Cost a week": "what is it for ? cost a week to do what"): each tile
+	# opens a card - what it is, the sum behind it, what moves it, what to do (TipCards; the standard, section 2f).
+	var tactics := _tile("coach", "%d tactics" % limit, "", INK, "in a plan")
+	Tip.short(tactics, "Tactics in a plan  %d" % limit, "How many tactics one fight plan can hold with this coach.", "A higher-rated coach holds more.")
+	h.add_child(tactics)
 	var checks := FilmPattern.checks(int(rating), true, 0, 99)   # S510 FIGHTFILM1 map 6: the coach's film checks a night
-	h.add_child(_tile("coach", "%d checks" % checks, "On a film night this coach checks %d patterns you mark on the opponent's tape" % checks, INK, "on film nights"))
-	# S532 operator on "$450 wage a week / Cost a week": "what is it for ? cost a week to do what" - say what the money buys.
-	h.add_child(_tile("money", UI.money(salary), "What you pay this coach every week, to run your boxers' sessions and the evening classes",
-		INK, "coach's pay a week"))
-	h.add_child(_tile("members", "+%s" % UI.money(classes), "The evening classes this coach runs bring this much in every week",
-		GREEN, "classes bring in"))
-	h.add_child(_tile("runway", UI.money(-net), "What the coach really costs you a week: the pay minus what the classes bring in",
-		UI.RED if net > 0 else GREEN, "real cost a week"))
+	var film := _tile("coach", "%d checks" % checks, "", INK, "on film nights")
+	Tip.short(film, "Film checks  %d" % checks, "On a film night this coach checks %d patterns you mark on the tape." % checks)
+	h.add_child(film)
+	for m in [["pay", "money", UI.money(salary), INK, "coach's pay a week"], ["classes", "members", "+%s" % UI.money(classes), GREEN, "classes bring in"],
+			["net", "runway", UI.money(-net), UI.RED if net > 0 else GREEN, "real cost a week"]]:
+		var tile := _tile(m[1], m[2], "", m[3], m[4])
+		Tip.explain(tile, TipCards.coach_money(m[0], salary, not show_sign))
+		h.add_child(tile)
 	if show_sign:
-		h.add_child(_tile("contract", UI.money(GameMoney.COACH_SIGNING_FEE), "Paid once, the day you hire this coach", INK, "to sign"))
+		var fee := _tile("contract", UI.money(GameMoney.COACH_SIGNING_FEE), "", INK, "to sign")
+		Tip.short(fee, "Signing fee  %s" % UI.money(GameMoney.COACH_SIGNING_FEE), "Paid once, the day you hire this coach.")
+		h.add_child(fee)
 	return h
 
 

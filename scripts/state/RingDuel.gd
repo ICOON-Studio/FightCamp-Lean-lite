@@ -65,6 +65,17 @@ static func form(f: Dictionary, salt: int) -> Array:
 	return fb["form"]
 
 
+## mode_bias, with a cut-off ring (StepWire, lv.ring_cut) taking that share off the opponent's range game this round.
+static func step_bias(f: Dictionary, o: Dictionary, lv: Dictionary) -> Dictionary:
+	var b := mode_bias(f, o)
+	var cut := float(lv.get("ring_cut", 0.0))
+	if cut <= 0.0:
+		return b
+	b = b.duplicate()
+	b["range"] = float(b.get("range", 1.0)) * (1.0 - cut)
+	return b
+
+
 ## Multipliers on the opponent's game weights: the games of the place they do best at, by ring IQ.
 static func mode_bias(f: Dictionary, o: Dictionary) -> Dictionary:
 	var fb: Dictionary = f.get("bout", {})
@@ -372,6 +383,6 @@ static func settle(lv: Dictionary, rec: Dictionary, s: Dictionary, rng: RandomNu
 			break
 		run += 1
 	lv["mode"] = Exchanges.next_mode(str(opp.get("style", "")), str(opp.get("weak", "")), n, i + 1, str(lv["mode"]),
-		opp_energy(lv, i + 1), bool(lv["opp_hurt"]), rng, run, mode_bias(f, opp))
+		opp_energy(lv, i + 1), bool(lv["opp_hurt"]), rng, run, step_bias(f, opp, lv))
 	if TheRead.dropped(st, str(lv["mode"])):
 		lv["mode"] = TheRead.swap(st, str(lv["mode"]), n + i)

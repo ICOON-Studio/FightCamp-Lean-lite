@@ -11,13 +11,15 @@ extends Node
 ##   yellow sticky note (Glossary: the term, a short definition, Why:) beside the card on the side away from the control.
 ##   Two levels only: a note has no keywords of its own.
 ##   Tips.card(control, spec: Callable)   spec.call() -> {title, rows: [[label, value, delta, tone]], means, keys: [term id],
-##   hint: [[key, words]]}
+##   hint: [[key, words]]}  + what / now / moves / do / lines (S532 GUIDETIPS1, drawn by TipParts; written with Tip.gd)
+## S532: a control's plain tooltip_text is shown as the same wrapped card (the engine's grey box never wraps: one line ran
+## across the whole screen). boot(tree) starts it; the text moves to the control's META_TEXT.
 ##   tone: "good" | "bad" | "watch" | "".   Tips.close_all()   S491 meter: {shift, caption} = TipMeter's odds bar.
 
 const Palette := preload("res://scripts/ui/Palette.gd")   # S493 Q-251 the one palette
 const UI := preload("res://scripts/ui/UI.gd")
 const Glossary := preload("res://scripts/rules/Glossary.gd")
-const TipMeter := preload("res://scripts/ui/TipMeter.gd")
+const Parts := preload("res://scripts/ui/TipParts.gd")
 
 const LOCK_S := 0.7
 const FADE_IN_S := 0.12
@@ -26,30 +28,21 @@ const SLIDE_PX := 6.0
 const CLOSE_S := 0.15
 const CLOSE_LOCKED_S := 0.3
 const SWEEP_S := 0.4
-const MARGIN := 16.0
-const GAP := 10.0
-const TEXT_W := 330.0
-## J90 section 4: text inks that pass 4.5:1 on the card (the house amber / green / red do not).
-const CARD_BG := Palette.HOVER
-const CARD_EDGE := Palette.LINE
-const INK := Palette.TEXT
-const RED := Palette.BAD
-const GOOD := Palette.GOOD
-const BAD := Palette.BAD
-const WATCH := Palette.WARN
-const MUTED := Palette.MUTED
-const RULE := Palette.LINE
-## J90 6c T3 sticky note.
-const NOTE_BG := Palette.TILE
-const NOTE_EDGE := Palette.HEADER
+const MARGIN := Parts.MARGIN
+const GAP := Parts.GAP
+const TEXT_W := Parts.TEXT_W
+const META_TEXT := "tip_text"   # a plain tooltip's words, once Tips has taken it over
+const META_SPEC := "tip_spec"   # a card's spec Callable (tests read what a control says)
+const NOTE_BG := Parts.NOTE_BG
 const NOTE_DELAY := 0.25
-const NOTE_W := 290.0
 
 static var _inst = null   # the one Tips node (untyped: its members are this script's)
+static var _own := {}   # script -> it writes its own tooltip (_get_tooltip / _make_custom_tooltip)
 
 var _layer: CanvasLayer
 var _card: Control
-var _ring: _Magnet
+var _ring: Parts.Magnet
+var _dismissed: Control   # a plain tooltip closed by a click or Esc stays closed until the pointer leaves
 var _trigger: Control
 var _spec: Callable
 var _state := "hidden"   # hidden | pending | shown | locked | pinned
@@ -67,6 +60,7 @@ var _note_t := 0.0
 ## Gives `c` an index card instead of the engine's tooltip.
 static func card(c: Control, spec: Callable) -> void:
 	c.tooltip_text = ""
+	c.set_meta(META_SPEC, spec)
 	if c.mouse_filter == Control.MOUSE_FILTER_IGNORE:
 		c.mouse_filter = Control.MOUSE_FILTER_PASS
 	c.mouse_entered.connect(func(): _one(c).hover(c, spec))
@@ -93,7 +87,8 @@ static func open_card() -> Control:
 static func pin(c: Control, spec: Callable) -> void:
 	var t: Variant = _one(c)
 	t.hover(c, spec)
-	t._show(true)
+	if t._state != "shown":   # S532: a sweep had already shown it - a second _show left the first card on screen for good
+		t._show(true)
 	t._set_state("pinned")
 
 
@@ -104,6 +99,61 @@ static func pin_note(id: String) -> void:
 
 static func open_note() -> Control:
 	return _inst._note if _inst != null and is_instance_valid(_inst) and is_instance_valid(_inst._note) else null
+
+
+## Starts the one Tips node so plain tooltips are shown as cards from the first screen (Main calls it).
+static func boot(tree: SceneTree) -> void:
+	if _inst == null or not is_instance_valid(_inst):
+		_inst = new()
+		_inst.name = "Tips"
+		tree.root.add_child.call_deferred(_inst)
+
+
+## The control whose plain tooltip the pointer is on (itself or a parent, as the engine reads it), its words moved to
+## META_TEXT so the engine's grey box never opens. null over a card of its own, a move card, or a control that writes
+## its tooltip as the pointer moves (_get_tooltip: the body figure) - those keep their own.
+static func plain_under(n: Control) -> Control:
+	while n != null:
+		if n.has_meta(META_SPEC) or n.has_meta("move_tip") or _writes_own(n):
+			return null
+		if n.tooltip_text != "":
+			n.set_meta(META_TEXT, n.tooltip_text)
+			n.tooltip_text = ""
+			return n
+		if n.has_meta(META_TEXT):
+			return n
+		n = n.get_parent() as Control
+	return null
+
+
+## True when the control's script writes its own tooltip (asked of the script itself, once per script).
+static func _writes_own(n: Control) -> bool:
+	var sc: Script = n.get_script()
+	if sc == null:
+		return false
+	if not _own.has(sc):
+		var has := false
+		for m in sc.get_script_method_list():
+			if str(m["name"]) in ["_get_tooltip", "_make_custom_tooltip"]:
+				has = true
+		_own[sc] = has
+	return bool(_own[sc])
+
+
+static func plain_spec(c: Control) -> Dictionary:
+	if not is_instance_valid(c):
+		return {}
+	var t := str(c.get_meta(META_TEXT, c.tooltip_text)).strip_edges()
+	return {} if t == "" else {"lines": Array(t.split("\n", false)), "kind": "plain"}
+
+
+func _adopt() -> void:
+	var c := plain_under(get_viewport().gui_get_hovered_control())
+	if c != _dismissed:
+		_dismissed = null
+	if c == null or c == _dismissed or (c == _trigger and _state != "hidden"):
+		return
+	hover(c, func(): return plain_spec(c))
 
 
 static func _one(c: Control) -> Variant:
@@ -138,6 +188,7 @@ func hover(c: Control, spec: Callable) -> void:
 
 func _process(delta: float) -> void:
 	_clock += delta
+	_adopt()
 	if _state == "hidden":
 		return
 	if not is_instance_valid(_trigger) or not _trigger.is_visible_in_tree():
@@ -175,6 +226,7 @@ func _input(e: InputEvent) -> void:
 		return
 	if e is InputEventKey and e.pressed and not e.echo:
 		if e.keycode == KEY_ESCAPE:
+			_dismissed = _trigger
 			close(false)
 			get_viewport().set_input_as_handled()
 		elif e.keycode == KEY_SHIFT:
@@ -185,6 +237,7 @@ func _input(e: InputEvent) -> void:
 			_set_state("pinned")
 			get_viewport().set_input_as_handled()
 		elif not inside:
+			_dismissed = _trigger
 			close(true)   # a click on the control does its job; the card goes (as the engine's tooltip does)
 
 
@@ -221,7 +274,9 @@ func _show(instant: bool) -> void:
 	if not (s is Dictionary) or (s as Dictionary).is_empty():
 		_state = "hidden"
 		return
-	_card = _build(s)
+	var built := Parts.build(s, _keys)
+	_card = built[0]
+	_ring = built[1]
 	_layer.add_child(_card)
 	# S362: measured once on screen - off the tree its labels measure 0, so the card was placed as a 0-wide box (it ran
 	# off the right edge; a note beside it landed on it).
@@ -244,155 +299,13 @@ func _show(instant: bool) -> void:
 	tw.tween_property(_card, "position", r.position, FADE_IN_S)
 
 
-## Beside the anchor (J90 6d): right or left (whichever has more room) top-aligned, then below, then above; inside the
-## screen less MARGIN and never over the anchor.
+## Beside the anchor, inside the screen, never over it (TipParts).
 static func place(size: Vector2, anchor: Rect2, screen: Rect2) -> Rect2:
-	var room := screen.grow(-MARGIN)
-	var right_free := room.end.x - anchor.end.x
-	var left_free := anchor.position.x - room.position.x
-	var sides := ["right", "left"] if right_free >= left_free else ["left", "right"]
-	sides.append_array(["below", "above"])
-	var r := Rect2()
-	for side in sides:
-		match side:
-			"right": r = Rect2(Vector2(anchor.end.x + GAP, anchor.position.y), size)
-			"left": r = Rect2(Vector2(anchor.position.x - GAP - size.x, anchor.position.y), size)
-			"below": r = Rect2(Vector2(anchor.position.x, anchor.end.y + GAP), size)
-			"above": r = Rect2(Vector2(anchor.position.x, anchor.position.y - GAP - size.y), size)
-		# Slide along the side's free axis to fit.
-		if side in ["right", "left"]:
-			r.position.y = clampf(r.position.y, room.position.y, room.end.y - size.y)
-		else:
-			r.position.x = clampf(r.position.x, room.position.x, room.end.x - size.x)
-		if room.encloses(r) and not r.intersects(anchor.grow(4.0)):
-			return r
-	r.position = r.position.clamp(room.position, room.end - size)
-	return r
+	return Parts.place(size, anchor, screen)
 
 
-func _build(s: Dictionary) -> Control:
-	var root := Control.new()
-	root.name = "TipCard"
-	root.mouse_filter = Control.MOUSE_FILTER_STOP
-	var panel := PanelContainer.new()
-	var st := UI.box(CARD_BG, CARD_EDGE, 4, 1, 18, 14)
-	st.content_margin_top = 22
-	st.shadow_color = Palette.shadow()
-	st.shadow_size = 6
-	st.shadow_offset = Vector2(2, 4)
-	panel.add_theme_stylebox_override("panel", st)
-	panel.position = Vector2(0, 8)
-	panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	root.add_child(panel)
-	var v := VBoxContainer.new()
-	v.add_theme_constant_override("separation", 6)
-	v.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	panel.add_child(v)
-	if str(s.get("title", "")) != "":
-		v.add_child(_text(str(s["title"]), "marker", 22, INK))
-		var rule := ColorRect.new()
-		rule.color = RED
-		rule.custom_minimum_size = Vector2(0, 2)
-		rule.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		v.add_child(rule)
-	var rows: Array = s.get("rows", [])
-	if not rows.is_empty():
-		var g := GridContainer.new()
-		g.columns = 3
-		g.add_theme_constant_override("h_separation", 14)
-		g.add_theme_constant_override("v_separation", 2)
-		g.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		for row in rows:
-			g.add_child(_text(str(row[0]), "hand", 19, INK))
-			var val := _text(str(row[1]), "semi", 19, INK)
-			val.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-			g.add_child(val)
-			var tone := str(row[3]) if row.size() > 3 else ""
-			g.add_child(_text(str(row[2]) if row.size() > 2 else "", "semi", 19,
-				{"good": GOOD, "bad": BAD, "watch": WATCH}.get(tone, MUTED)))
-		v.add_child(g)
-	if s.get("meter") is Dictionary:   # S491: odds drawn, not written
-		v.add_child(TipMeter.make(s["meter"]))
-	if str(s.get("means", "")) != "":
-		v.add_child(_text("Means: " + str(s["means"]), "hand", 19, INK, true))
-	var keys: Array = (s.get("keys", []) as Array).filter(func(k): return not Glossary.term(str(k)).is_empty())
-	if not keys.is_empty():
-		var kh := HBoxContainer.new()
-		kh.add_theme_constant_override("separation", 12)
-		kh.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		kh.add_child(_text("Terms:", "hand", 19, MUTED))
-		for k in keys:
-			var kl := _text(str(Glossary.term(str(k))["name"]), "handbold", 19, INK)
-			kl.name = "Key_" + str(k)
-			var dash := _Dash.new()
-			kl.add_child(dash)
-			kh.add_child(kl)
-			_keys.append([kl, str(k)])
-		v.add_child(kh)
-	var hint: Array = s.get("hint", [])
-	if not hint.is_empty():
-		var sep := ColorRect.new()
-		sep.color = RULE
-		sep.custom_minimum_size = Vector2(0, 1)
-		sep.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		v.add_child(sep)
-		var h := HBoxContainer.new()
-		h.add_theme_constant_override("separation", 6)
-		h.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		for k in hint:
-			var chip := PanelContainer.new()
-			chip.add_theme_stylebox_override("panel", UI.box(Palette.CLEAR, INK, 3, 1, 6, 1))
-			chip.mouse_filter = Control.MOUSE_FILTER_IGNORE
-			chip.add_child(_text(str(k[0]).to_upper(), "semi", 15, INK))
-			h.add_child(chip)
-			h.add_child(_text(str(k[1]) + "   ", "body", 18, MUTED))
-		v.add_child(h)
-	var size := panel.get_combined_minimum_size()
-	_ring = _Magnet.new()
-	_ring.position = Vector2(size.x * 0.5 - 8.0, 0.0)
-	root.add_child(_ring)
-	root.custom_minimum_size = size + Vector2(0, 8)
-	return root
-
-
-## A label on the card. Wrapped text gets a fixed width (an autowrapped Label's minimum width is ~0 - J90 trap 2).
-static func _text(t: String, kind: String, size: int, colour: Color, wrap := false) -> Label:
-	var l := Label.new()
-	l.text = t
-	l.add_theme_font_override("font", UI.font(kind))
-	var px := TipMeter.TextScale.scaled(size, TipMeter.TextScale.factor())   # S491: at the final size, so the card is measured right
-	l.add_theme_font_size_override("font_size", px)
-	l.set_meta(TipMeter.TextScale.META, px)
-	l.add_theme_color_override("font_color", colour)
-	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	if wrap:
-		l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		l.custom_minimum_size = Vector2(TEXT_W * TipMeter.TextScale.factor(), 0)
-	return l
-
-
-## The magnet on the card's top edge: its ring fills while the lock timer runs; solid red once locked; a glint when pinned.
-class _Magnet extends Control:
-	var fill := 0.0
-	var locked := false
-	var pinned := false
-
-	func _init() -> void:
-		custom_minimum_size = Vector2(16, 16)
-		size = Vector2(16, 16)
-		mouse_filter = Control.MOUSE_FILTER_IGNORE
-
-	func _draw() -> void:
-		var c := Vector2(8, 8)
-		if locked:
-			draw_circle(c, 8.0, RED)
-			if pinned:
-				draw_circle(c + Vector2(-2.5, -2.5), 2.0, Palette.TEXT)
-			return
-		draw_circle(c, 8.0, CARD_BG)
-		draw_arc(c, 7.0, 0.0, TAU, 32, INK, 2.0, true)
-		if fill > 0.0:
-			draw_arc(c, 4.0, -PI * 0.5, -PI * 0.5 + TAU * fill, 32, RED, 4.0, true)
+static func place_note(size: Vector2, card: Rect2, screen: Rect2, away_right: bool) -> Rect2:
+	return Parts.place_note(size, card, screen, away_right)
 
 
 ## The keyword under the pointer opens its note after NOTE_DELAY (at once when a note is already open: a sweep); off the
@@ -422,26 +335,7 @@ func _tick_keys(delta: float) -> void:
 
 func _open_note(id: String, _at: Control) -> void:
 	_close_note()
-	var t := Glossary.term(id)
-	var panel := PanelContainer.new()
-	panel.name = "TipNote"
-	var st := UI.box(NOTE_BG, NOTE_EDGE, 2, 1, 16, 12)
-	st.shadow_color = Palette.shadow()
-	st.shadow_size = 5
-	st.shadow_offset = Vector2(2, 4)
-	panel.add_theme_stylebox_override("panel", st)
-	panel.mouse_filter = Control.MOUSE_FILTER_STOP
-	var v := VBoxContainer.new()
-	v.add_theme_constant_override("separation", 4)
-	v.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	panel.add_child(v)
-	v.add_child(_text(str(t["name"]), "marker", 20, INK))
-	var d := _text(str(t["def"]), "hand", 19, INK, true)
-	d.custom_minimum_size.x = NOTE_W
-	v.add_child(d)
-	var w := _text("Why: " + str(t["why"]), "hand", 19, INK, true)
-	w.custom_minimum_size.x = NOTE_W
-	v.add_child(w)
+	var panel := Parts.note(Glossary.term(id))
 	_layer.add_child(panel)
 	var size := panel.get_combined_minimum_size()
 	panel.size = size
@@ -460,37 +354,3 @@ func _close_note() -> void:
 	_note = null
 	_note_key = ""
 	_note_t = 0.0
-
-
-## Beside the card (J90 6d T3): the side away from the control first, then the other side, below, above; never over it.
-static func place_note(size: Vector2, card: Rect2, screen: Rect2, away_right: bool) -> Rect2:
-	var room := screen.grow(-MARGIN)
-	var r := Rect2()
-	for side in (["right", "left"] if away_right else ["left", "right"]) + ["below", "above"]:
-		match side:
-			"right": r = Rect2(Vector2(card.end.x + GAP, card.position.y), size)
-			"left": r = Rect2(Vector2(card.position.x - GAP - size.x, card.position.y), size)
-			"below": r = Rect2(Vector2(card.position.x, card.end.y + GAP), size)
-			"above": r = Rect2(Vector2(card.position.x, card.position.y - GAP - size.y), size)
-		if side in ["right", "left"]:
-			r.position.y = clampf(r.position.y, room.position.y, room.end.y - size.y)
-		else:
-			r.position.x = clampf(r.position.x, room.position.x, room.end.x - size.x)
-		if room.encloses(r) and not r.intersects(card):
-			return r
-	r.position = r.position.clamp(room.position, room.end - size)
-	return r
-
-
-## A keyword's dashed red underline, 3 px under the text (J90 6c).
-class _Dash extends Control:
-	func _init() -> void:
-		mouse_filter = Control.MOUSE_FILTER_IGNORE
-		anchor_top = 1.0
-		anchor_bottom = 1.0
-		anchor_right = 1.0
-		offset_top = -1.0
-		offset_bottom = 2.0
-
-	func _draw() -> void:
-		draw_dashed_line(Vector2(0, 1), Vector2(size.x, 1), RED, 2.0, 5.0)

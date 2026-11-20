@@ -10,6 +10,8 @@ const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const WB := preload("res://scripts/ui/WhiteboardKit.gd")
 const TrainCoach := preload("res://scripts/ui/TrainCoach.gd")
+const Tip := preload("res://scripts/ui/Tip.gd")
+const TipCards := preload("res://scripts/ui/TipCards.gd")
 const DAYS := ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 const SHORT := ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 const W := 440.0
@@ -145,7 +147,7 @@ static func evening(model: Dictionary, on_day: Callable, on_class: Callable = Ca
 		if not cd.is_empty():
 			var mv := B.lab(str(cd["title"]), 16, Palette.ELITE if float(cd["after"]) < B.USABLE else Palette.GOOD, "bold")
 			mv.clip_text = true
-			mv.tooltip_text = B.bar_tip(str(cd["title"]), float(cd["before"]), float(cd["after"]), false)
+			Tip.explain(mv, TipCards.mastery(str(cd["title"]), float(cd["before"]), float(cd["after"])))   # S532 GUIDETIPS1
 			sv.add_child(mv)
 			var mb := B.MBar.new()
 			mb.had = float(cd["before"])

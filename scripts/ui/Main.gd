@@ -62,6 +62,7 @@ var _shown_screen := ""
 
 func _ready() -> void:
 	theme = UI.theme()
+	preload("res://scripts/ui/Tips.gd").boot(get_tree())   # S532 GUIDETIPS1: every tooltip is the wrapped card, never the engine's one-line box
 	Settings.apply(Settings.read(), get_tree())   # S396 P15 text size, window, sound, as the player left them
 	speed = int(Settings.CLOCK[int(Settings.read()["clock"])][1])   # S397 CONTINUE's speed lives in Settings
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)

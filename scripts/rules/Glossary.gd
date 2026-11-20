@@ -6,7 +6,8 @@
 
 const TERMS := {
 	# WhiteboardKit.fatigue_word / AMBER_AT 70 / RED_AT 80
-	"fatigue": {"name": "Fatigue", "def": "How tired the fighter is by night, 0 to 100.",
+	# S532 GUIDETIPS1: the screens say Tiredness (the roster, Training); the note says the same word. The id stays.
+	"fatigue": {"name": "Tiredness", "def": "How worn the fighter is by night, 0 to 100.",
 		"why": "At 80 or more the next morning trains at 60% and a camp that peaks there fails its line."},
 	# Injuries.ratio, WeekCamp LOAD_OVER
 	"load": {"name": "Training load", "def": "This week's training hours against a usual week.",
@@ -35,6 +36,18 @@ const TERMS := {
 	# GameMoney.BILL_EVERY_DAYS
 	"bill": {"name": "Month-end bill", "def": "Wages and upkeep, paid every four weeks.",
 		"why": "Time stops on the bill day so you see it land."},
+	# S532 GUIDETIPS1 (the standard, section 5 step 2: every game word on screen gets a note).
+	# MoveMastery.tier: 30 / 60 / 85
+	"mastery": {"name": "Mastery", "def": "How well a fighter owns one move, 0 to 100.",
+		"why": "Usable from 30, Sharp from 60, Signature from 85. Pad nights raise it."},
+	# GameMoney.CLASSES_WITH_COACH
+	"classes": {"name": "Evening classes", "def": "Classes a coach runs for the members in the evenings.",
+		"why": "They bring money in every week. With no coach there are none."},
+	# Bouts.camp_due, WeekPhase.amateur (an amateur bout runs on a fight week, no camp)
+	"camp": {"name": "Camp", "def": "The weeks of planned training before a pro or title bout.",
+		"why": "Amateur bouts need no camp: they get a fight week instead."},
+	"fight_week": {"name": "Fight week", "def": "The light week before an amateur bout, picked on Fight prep.",
+		"why": "It keeps the fighter fresh and on weight for the night."},
 }
 
 

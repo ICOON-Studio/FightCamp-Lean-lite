@@ -17,6 +17,8 @@ const MenuFx := preload("res://scripts/ui/MenuFx.gd")
 const RosterRow := preload("res://scripts/rules/RosterRow.gd")
 const Bits := preload("res://scripts/ui/RosterRowBits.gd")
 const TextScale := preload("res://scripts/ui/TextScale.gd")
+const Tip := preload("res://scripts/ui/Tip.gd")
+const TipCards := preload("res://scripts/ui/TipCards.gd")
 const FighterPage := preload("res://scripts/ui/areas/FighterPage.gd")
 
 const ROW_W := 1826.0
@@ -99,8 +101,7 @@ static func _row(main: Node, id: String, data: Dictionary, best: Dictionary) -> 
 	b.add_child(host)
 	host.add_child(_col_fighter(data.get("fighter", {}), needs, COLS[0]))
 	host.add_child(_col_overall(data.get("overall", {}), best, id, COLS[1]))
-	host.add_child(_col_meter("tiredness", data.get("tiredness", {}), 80.0, true, COLS[2],
-		"Tiredness 0-100: too tired from 80 (the tick). Rest days bring it down."))
+	host.add_child(_col_meter("tiredness", data.get("tiredness", {}), 80.0, true, COLS[2], ""))   # S532 GUIDETIPS1: a card (below)
 	host.add_child(_col_weight(data.get("weight", {}), COLS[3]))
 	host.add_child(_col_meter("mood", data.get("mood", {}), -1.0, false, COLS[4],
 		"Mood 0-100: Fired up, Steady, Flat or Low."))
@@ -203,6 +204,8 @@ static func _col_meter(key: String, d: Dictionary, tick_at: float, zone: bool, c
 	var word := Bits.ink(str(d.get("word", "")), 18, c if tone != "ok" else WoodKit.SOFT, "body", true)
 	word.name = "Word"
 	box.add_child(word)
+	if key == "tiredness":   # S532 the owner's example of a tooltip that fails: one line across the screen, four numbers
+		Tip.explain(box, TipCards.tiredness(val, str(d.get("word", ""))))
 	return box
 
 

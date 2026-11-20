@@ -76,6 +76,7 @@ const GymSlots := preload("res://scripts/rules/GymSlots.gd")
 @export var loan_weeks: int = 0
 @export var fitout_weeks: int = 0   # S531 the fit-out loan's weeks left (GymUpgrades.LOAN); 0 = none running
 @export var first_hour: Dictionary = {}
+@export var lessons: Dictionary = {}   # S532 GUIDETIPS1 (Lessons): lesson id -> "learned" | "dismissed"
 ## S399 the arranged overdraft (Overdraft): the player switches it on after 12 weeks of trading, the bank charges
 ## 16 % a year on the drawn balance weekly and pulls the facility after 12 consecutive weeks in the red.
 @export var overdraft_on: bool = false

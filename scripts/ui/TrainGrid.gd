@@ -13,6 +13,8 @@ const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const WeekPlan := preload("res://scripts/rules/WeekPlan.gd")
 const DrillCard := preload("res://scripts/ui/DrillCard.gd")
+const Tip := preload("res://scripts/ui/Tip.gd")
+const TipCards := preload("res://scripts/ui/TipCards.gd")
 
 const COL_W := 146.0
 const TILE_H := 124.0
@@ -215,7 +217,7 @@ static func _evening(d: Dictionary, cb: Dictionary, sel_day: int, f: Dictionary)
 				bar.ghost = minf(B.USABLE + 0.5, float(c0["after"]) + (float(c0["after"]) - float(c0["before"]))) if float(c0["after"]) < B.USABLE else 0.0
 				bar.custom_minimum_size = Vector2(0, 18)
 				v.add_child(bar)
-				t.tooltip_text = B.bar_tip(str(c0["title"]), float(c0["before"]), float(c0["after"]), bar.ghost > bar.now)
+				Tip.explain(t, TipCards.mastery(str(c0["title"]), float(c0["before"]), float(c0["after"])))   # S532 "what are the small purple highlighted section on the bars ?"
 		"sparring":
 			v.add_child(_pic("sparring"))
 			var g := _center("Fight IQ %+.2f" % float(pm["gain2"]), 18, Palette.GOOD)

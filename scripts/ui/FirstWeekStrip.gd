@@ -14,6 +14,8 @@ const Sim := preload("res://scripts/state/Sim.gd")
 const Bouts := preload("res://scripts/state/Bouts.gd")
 const GuideLines := preload("res://scripts/rules/GuideLines.gd")
 const GuideLight := preload("res://scripts/ui/GuideLight.gd")
+const Lessons := preload("res://scripts/rules/Lessons.gd")
+const Tip := preload("res://scripts/ui/Tip.gd")
 
 const PORTRAIT := "res://assets/ui/art/guide_trainer.png"
 const PORTRAIT_PX := 190.0
@@ -27,6 +29,9 @@ const PREP_TAB := 5   # FighterPage "Fight prep"
 const PLAYBOOK_TAB := 7
 const PLAN_PTAB := 1   # the Playbook's game plan
 
+static var _page := ""   # the page the strip was last drawn on: leaving it is what teaches its line
+static var _page_career := 0   # ... in this career (another career starts clean)
+
 
 static func make(main: Node) -> Control:
 	var c: Career = main.career
@@ -35,6 +40,14 @@ static func make(main: Node) -> Control:
 	light.name = "FirstWeekStrip"
 	light.main = main
 	light.names = GuideLines.target_names(c)
+	light.step = c.guide   # S532 GUIDETIPS1: explore first - the light waits for SHOW ME (GuideLight.show_step)
+	var page := Lessons.page_id(main.route)
+	if _page_career != c.get_instance_id():
+		_page_career = c.get_instance_id()
+		_page = ""
+	if page != _page:
+		Lessons.left(c.lessons, _page)
+		_page = page
 	var corner := UI.hbox(0)
 	corner.name = "GuideCorner"
 	corner.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -97,6 +110,12 @@ static func _bubble(main: Node, c: Career) -> Control:
 	panel.tooltip_text = what(c) + ("\n" + why_text if why_text != "" else "")
 	var v := UI.vbox(10)
 	panel.add_child(v)
+	var for_page := Lessons.page_line(c.lessons, main.route)   # S532: on a first visit, what this page is FOR
+	if for_page != "":
+		var pg := UI.label(for_page, 19, Palette.MUTED, "hand", true)
+		pg.name = "GuidePage"
+		pg.custom_minimum_size = Vector2(BUBBLE_TEXT_W, 0)
+		v.add_child(pg)
 	var said := UI.label(GuideLines.line(c), 27, BUBBLE_INK, "handbold", true)
 	said.name = "GuideWhat"
 	said.custom_minimum_size = Vector2(BUBBLE_TEXT_W, 0)
@@ -109,6 +128,15 @@ static func _bubble(main: Node, c: Career) -> Control:
 		b.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		row.add_child(b)
 	row.add_child(UI.spacer())
+	if not GuideLines.target_names(c).is_empty():   # S532: help is asked for - the ring and the dim come with this button
+		var step := c.guide
+		var show_me := UI.button("Hide it" if GuideLight.show_step == step else "Show me", "BtnQuiet", func():
+			GuideLight.show_step = "" if GuideLight.show_step == step else step
+			refresh(main))
+		show_me.name = "GuideShow"
+		show_me.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		Tip.button(show_me, "Lights up the thing to click for this job.")
+		row.add_child(show_me)
 	var skip := UI.button("Skip the guide", "BtnQuiet", main.act.bind("guideskip", ""))
 	skip.name = "GuideSkip"
 	skip.size_flags_vertical = Control.SIZE_SHRINK_CENTER

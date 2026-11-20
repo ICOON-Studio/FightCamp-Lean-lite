@@ -77,20 +77,6 @@ static func face(stem: String, px: int, ring: Color = Palette.WOOD) -> PanelCont
 	return p
 
 
-## A drawn mastery bar: deep = mastery she had, bright with a white edge = what this night (or week) adds, a dashed empty
-## block = the night still missing to Usable, the green flag above the bar at 30. Scale 0..span.
-## S532 operator: "what are the small purple highlighted section on the bars ?" - the mastery bar's tooltip names its parts.
-static func bar_tip(title: String, before: float, after: float, ghost: bool) -> String:
-	var t := "%s mastery %.1f → %.1f tonight.
-Dark purple: learned before. Light purple: tonight's pad work." % [title, before, after]
-	t += "
-Flag: usable at %d - from there the move can be thrown in a fight." % int(USABLE)
-	if ghost:
-		t += "
-Dashed box: where one more night like this takes it."
-	return t
-
-
 class MBar extends Control:
 	var had := 0.0
 	var now := 0.0

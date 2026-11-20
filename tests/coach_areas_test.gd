@@ -154,7 +154,7 @@ func _screen() -> void:
 	for box_name in ["CoachTiles", "Members"]:
 		for box in main.find_children(box_name, "", true, false):
 			for tile in box.get_children():
-				var tip := str((tile as Control).tooltip_text)
+				var tip := " ".join(preload("res://scripts/ui/Tip.gd").prose(preload("res://scripts/ui/Tip.gd").of(tile as Control)))   # S532 GUIDETIPS1: cards now
 				_check(tip.split(" ", false).size() >= 6, "%s tile explains, not repeats: '%s'" % [box_name, tip])
 	var ink: Dictionary = PageInk.read(root)
 	print("STAFF_INK words=%d" % int(ink["words"]))
