@@ -19,7 +19,7 @@ const WhiteboardKit := preload("res://scripts/ui/WhiteboardKit.gd")
 const TextScale := preload("res://scripts/ui/TextScale.gd")
 const TestJump := preload("res://scripts/ui/TestJump.gd")
 
-const FAULTS_AT_MOST := 82   # lower it as screens are rewritten; never raise it
+const FAULTS_AT_MOST := 54   # lower it as screens are rewritten; never raise it
 
 var _fails := 0
 var main: Node

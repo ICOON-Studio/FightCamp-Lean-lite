@@ -2,12 +2,14 @@ extends RefCounted
 ## S532 GUIDETIPS1: the FULL cards for the values that show on more than one screen, written once (the standard's worked
 ## examples, section 2f). Each returns a Tip.explain dictionary; every number is read from the rule it describes.
 ##   TipCards.tiredness(value, word)   TipCards.mastery(move, before, after)   TipCards.coach_money(tile, salary, hired)
+##   TipCards.tiredness_week(ends)   TipCards.injury_risk(x, load, peak)   TipCards.morning(name, level, stat, gain, kg, coached)
 
 const WhiteboardKit := preload("res://scripts/ui/WhiteboardKit.gd")
 const MoveMastery := preload("res://scripts/rules/MoveMastery.gd")
 const CoachAreas := preload("res://scripts/rules/CoachAreas.gd")
 const GameMoney := preload("res://scripts/rules/GameMoney.gd")
 const WeekPlan := preload("res://scripts/rules/WeekPlan.gd")
+const InjuryRoll := preload("res://scripts/rules/InjuryRoll.gd")
 
 const OK_AT := 50.0   # WhiteboardKit.fatigue_word: "OK" from 50
 
@@ -61,3 +63,39 @@ static func coach_money(tile: String, salary: int, hired: bool) -> Dictionary:
 	return {"title": h[0], "what": h[1], "rows": rows,
 		"moves": "With no coach a session counts %d%% and there are no classes." % roundi(CoachAreas.ALONE_FACTOR * 100.0),
 		"do": "" if hired else "Press Hire below to take this coach on.", "keys": ["classes"] if tile != "classes" else []}
+
+
+## Training's tiredness line: the same card, read at the week's highest day.
+static func tiredness_week(ends: Array) -> Dictionary:
+	var peak := 0.0
+	for x in ends:
+		peak = maxf(peak, float(x))
+	var d := tiredness(peak)
+	d["title"] = "Tiredness this week  peak %d" % roundi(peak)
+	return d
+
+
+## Was one line with six numbers and "x2 at 76, x3 from 80". The two things that raise it, each against its safe line.
+static func injury_risk(x: float, load: float, peak: float) -> Dictionary:
+	var raised := x >= 1.05
+	return {"title": "Injury risk  %s" % ("%.1f times the usual" % x if raised else "normal"),
+		"what": "The chance your boxer gets hurt in training when the week ends.",
+		"rows": [["This week's hours", "%.1f of a usual week" % load, "over" if load > InjuryRoll.SAFE_RATIO else "", "bad"],
+			["Safe up to", "%.1f of a usual week" % InjuryRoll.SAFE_RATIO, "", ""],
+			["Tiredness peaks at", "%d" % roundi(peak), "over" if peak > InjuryRoll.FATIGUE_RISK_FROM else "", "bad"],
+			["Safe up to", "%d" % int(InjuryRoll.FATIGUE_RISK_FROM), "", ""]],
+		"moves": "More hours than usual and a tired week both raise it.",
+		"do": "Make a Hard morning Light, or add a rest day." if raised else "Nothing to do: this week is safe."}
+
+
+## A morning tile: what the session is for, what it gives today, how to change it.
+static func morning(session: String, level: String, stat: String, gain: float, kg: float, coached: String = "") -> Dictionary:
+	var rows: Array = []
+	if stat != "":
+		rows.append([stat, "%+.2f" % gain, "today", "good" if gain > 0.0 else ""])
+	rows.append(["Weight", "%+.2f kg" % kg, "today", ""])
+	var d := {"title": "%s  %s" % [session, level.capitalize()], "what": "A morning session. It builds one attribute and moves the weight.",
+		"rows": rows, "moves": "Hard gains more and tires more. Light is the other way.", "do": "Click L, N or H to set how hard."}
+	if coached != "":
+		d["now"] = coached
+	return d

@@ -10,6 +10,8 @@ const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const TextScale := preload("res://scripts/ui/TextScale.gd")
 const INJURY_ICON := preload("res://assets/ui/art/injury/injury_risk.png")   # S528 Ludo (1.5 credits, 3 tries)
+const Tip := preload("res://scripts/ui/Tip.gd")
+const TipCards := preload("res://scripts/ui/TipCards.gd")
 
 const H := 130.0
 
@@ -39,8 +41,7 @@ static func make(model: Dictionary, left_w: float, col_w: float, gap: float, on_
 	ch.col_w = col_w
 	ch.gap = gap
 	ch.custom_minimum_size = Vector2(col_w * 7.0 + gap * 6.0, H)
-	ch.tooltip_text = "Tiredness at the end of each day: %s. From %d a morning trains at 60%%." % [
-		", ".join((t["ends"] as Array).map(func(x): return "%d" % roundi(float(x)))), roundi(float(t["limit"]))]
+	Tip.explain(ch, TipCards.tiredness_week(t["ends"]))   # S532 GUIDETIPS1: was seven numbers in one line
 	row.add_child(ch)
 	row.add_child(_diet(model, on_diet))
 	return row
@@ -65,7 +66,7 @@ static func _diet(model: Dictionary, on_diet: Callable) -> PanelContainer:
 		b.add_theme_color_override("font_color", Palette.ON_LIGHT if on else Palette.MUTED)
 		b.add_theme_color_override("font_hover_color", Palette.TEXT)
 		b.add_theme_font_size_override("font_size", 16)
-		b.tooltip_text = "Eats for the training." if pair[1] == "hold" else "500 kcal a day less: about half a kilo a week."
+		b.tooltip_text = "Eats for the training: the weight stays about where it is." if pair[1] == "hold" else "500 kcal a day less: about half a kilo a week."
 		var k := str(pair[1])
 		b.pressed.connect(func(): on_diet.call(k))
 		sw.add_child(b)
@@ -113,8 +114,7 @@ static func _risk(t: Dictionary) -> Label:
 	l.name = "InjuryRisk"
 	l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	l.mouse_filter = Control.MOUSE_FILTER_STOP
-	l.tooltip_text = "This week's hours are %.1fx the usual and tiredness peaks at %d. The week-end injury roll climbs from 1.3x the usual hours and from 72 tiredness: x2 at 76, x3 from 80." % [
-		float(t.get("load", 1.0)), roundi(float(t.get("peak", 0.0)))]
+	Tip.explain(l, TipCards.injury_risk(x, float(t.get("load", 1.0)), float(t.get("peak", 0.0))))   # S532 GUIDETIPS1
 	return l
 
 

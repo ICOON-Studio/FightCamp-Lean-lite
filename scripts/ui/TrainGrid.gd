@@ -109,7 +109,7 @@ static func _morning(d: Dictionary, cb: Dictionary) -> Control:
 		why.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		why.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		v.add_child(why)
-		t.tooltip_text = "Day job: a work morning, off the full gym sponsorship (half the sponsorship: 1 a week, none: 2)."
+		Tip.short(t, "Day job", "Your boxer works this morning, so there is no session.", "Raise the sponsorship on Money to free the morning.")   # S532 GUIDETIPS1
 		return t
 	var tag: Dictionary = am.get("coach", {})   # S519 club week 3.3: a coached morning (1-to-1 or shared)
 	var pic := B.icon(str(am["id"]), 40 if not tag.is_empty() else 58, Palette.WARN if bool(am["red"]) else Palette.LINE)
@@ -124,7 +124,7 @@ static func _morning(d: Dictionary, cb: Dictionary) -> Control:
 		g.name = "Gain_%d" % i
 		g.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		v.add_child(g)
-		t.tooltip_text = "Rest: tiredness %d lower by tonight." % roundi(float(am["drop"]))
+		Tip.short(t, "Day off", "A rest morning: tiredness is %d lower by tonight." % roundi(float(am["drop"])))
 		return t
 	var lv := HBoxContainer.new()
 	lv.add_theme_constant_override("separation", 1)
@@ -145,7 +145,6 @@ static func _morning(d: Dictionary, cb: Dictionary) -> Control:
 		lv.add_child(b)
 	var kg := B.lab("%+.2f kg" % float(am["kg"]), 16, Palette.ACCENT, "bold")
 	kg.clip_text = true
-	kg.tooltip_text = "Weight this morning: %+.2f kg" % float(am["kg"])
 	kg.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	kg.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	lv.add_child(kg)
@@ -155,16 +154,13 @@ static func _morning(d: Dictionary, cb: Dictionary) -> Control:
 	gl.name = "Gain_%d" % i
 	gl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	gl.clip_text = true
-	gl.tooltip_text = gl.text
 	v.add_child(gl)
-	t.tooltip_text = "%s, %s: %s, %+.2f kg." % [name, str(am["intensity"]).capitalize(), gl.text, float(am["kg"])]
 	if not tag.is_empty():
 		var ct := B.lab(str(tag["short"]), 15, Palette.GOOD, "caps")
 		ct.name = "Coached_%d" % i
 		ct.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		v.add_child(ct)
-		t.tooltip_text += "
-" + str(tag["long"])
+	Tip.explain(t, TipCards.morning(name, str(am["intensity"]), B.stat_word(str(am["stat"])) if str(am["stat"]) != "" else "", float(am["gain"]), float(am["kg"]), str(tag.get("long", ""))))
 	return t
 
 

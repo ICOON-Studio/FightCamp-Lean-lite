@@ -1,3 +1,19 @@
+S532 build (2026-11-21) - what changed, and what to try
+
+1. SET THE CAMP (your crash). Book an amateur bout: the Fight prep page now says "Amateur bout: no camp" and its next step
+   is the fight week, not "Set the camp". The coach's camp row says "none for an amateur bout: a fight week instead".
+   Pro, title and nationals bouts still get a camp. If the game crashes anywhere, tell me BEFORE I run anything: the
+   crash log is %APPDATA%\Godot\app_userdata\FightCamp\logs\godot.log and my test runs overwrite it.
+2. NO NAMES IN TEXT. The guide, the coach card lines and the to-do lines say "your boxer" / "the opponent"; only headers
+   and to-do row titles carry a name.
+3. TOOLTIPS THAT EXPLAIN. Club > People, a coach card: "coach's pay a week", "classes bring in", "real cost a week",
+   "to sign" - each tooltip says what the money is for. The mastery bar's tooltip explains the dark and light purple,
+   the flag at usable and the dashed box. (The full tooltip and guide rewrite is being built now; some pages already
+   show the new wrapped cards, the rest come in the next build.)
+4. FIGHTER PICTURES stand in their own stance: orthodox boxers lead with the left foot, southpaws with the right.
+5. The round portrait is a clean circle (no square around it).
+6. THE TOWEL moved out of the camp card into its own "Fight night: when your corner stops it" card on Fight prep.
+
 S530 build (2026-11-19) - what changed, and what to try
 
 1. THE COACH'S PICK ON A WEEKEND. On a Saturday or Sunday open Training: the board shows NEXT week and the coach's line

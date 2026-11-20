@@ -15,16 +15,25 @@ ops/research/S531_DIGEST.md. FIRST: `python ops/Tools/godot_slot.py status`.
   No StepEffect TABLE sizing until TREEVALUE9 is read.
 - GROWTH (S531): the fit-out loan is BUILT and verified; no more growth work until the owner plays it.
 
-## GUIDETIPS1 (side Fable session, S532) - tooltips and the guide
-- Standard written: ops/research/GUIDETIPS1_STANDARD.md, picture docs/mockups/s532/guidetips1_standard.png. On the board as
-  Q-S294-282 (his yes needed; NOTHING is built yet). Finding: scripts/ui/Tips.gd already is the praised card (wrap, lock,
-  sticky notes) but only 8 files use it; 268 plain tooltip lines have no rule and no test.
-- Critics: Dola round 1 on draft 1 = tooltips 6 / guide 8 / buildable 7 -> draft 2 (SHORT card, game-word guardrails) ->
-  Dola round 2 = 8 / 8 / 8 (ops/research/GUIDETIPS1_V2_CRITIC_DOLA_DOLA.md; same seat, so one pass only). ARENA NOT LAUNCHED
-  (needs a browser seat): a normal session opens a new Arena chat with ops/research/TASK_GUIDETIPSCRITIC1A.md (lite_mirror
-  push first). 7+ on TOOLTIPS and GUIDE from Arena too, else revise and go again.
-- Measured: tools/tooltip_census.gd (run through godot_slot) - 216 of 289 tooltips on the walked pages break the standard.
-- After his yes + both 7+: build in the order of the standard's section 5 (Tip helper, Glossary, the red test, screens, guide).
+## GUIDETIPS1 (side Fable session, S532) - tooltips and the guide: BUILD 1 IS IN (his "Yes, build it", Q-S294-282)
+- Built and pushed (496131c, 99713b4, + the Training batch): every plain tooltip_text is now drawn as the wrapped house card
+  (Tips.gd takes it over at hover; Main boots it); scripts/ui/Tip.gd = the one way to write a card (explain / short / button)
+  and the standard's checks (Tip.faults); TipParts.gd = the drawing; TipCards.gd = shared FULL cards (coach's pay, tiredness,
+  mastery, injury risk, a morning tile). Wired: People coach tiles, Fighters TIREDNESS column, Training (mastery bars, tiredness
+  line, injury risk, morning / rest / day-job tiles, boxer cards). Glossary: Tiredness, Mastery, Evening classes, Camp, Fight week.
+- Guide: explore first. No dim and no ring until SHOW ME on the bubble (GuideLight.show_step); soft pulse after
+  GUIDE_IDLE_PULSE_S = 20 s; one line on a first visit saying what the page is for (scripts/rules/Lessons.gd, Career.lessons).
+- Tests: tests/tooltip_standard_test.gd (ratchet FAULTS_AT_MOST = 54 of 174 on the walked pages: only down; `-- list` prints
+  each), tests/guide_explore_test.gd. Stills: tools/tip_stills.gd -> docs/playtest/s532_tips (on his review board).
+- NOT DONE YET (next, in this order): (1) the remaining screens by the `-- list` output: Training evening tiles + the class
+  button + CoachedMornings.tile_word (piles numbers), Money (9), Home, the fighter page, Fight prep (camp line, towel), Fights,
+  Club roles, Result; the top bar money card (too many rows / links), Continue's card, the red flags. (2) Glossary to ~35 words,
+  each read from its rule. (3) Guide: the lessons in Lessons.LIST have no triggers yet (clock 1-4, tiredness, mastery, fight
+  week, camp, towel); "Ask the trainer" in Menu; the week-1 job list in the corner; the goodbye line; the Settings switch.
+  (4) MoveTip on every place a move is named. (5) NO EXPORT was made by this session (the main session had work in flight in
+  the same folder): the next export carries all of this to his .exe - say so in WHAT_TO_TRY.
+- ARENA CRITIC STILL OWED (needs a browser seat): a new Arena chat with ops/research/TASK_GUIDETIPSCRITIC1A.md (lite_mirror
+  push first). Dola passed 8 / 8 / 8 on draft 2 (one seat). He said build, so the build went ahead; Arena's read still counts.
 
 ## BOARD - ask the owner, act on his answers
 Claude's advice to him (S531, asked "do you think we should build these?"): NOT YET for both - play the current build

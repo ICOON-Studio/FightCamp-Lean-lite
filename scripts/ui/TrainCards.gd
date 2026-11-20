@@ -9,6 +9,7 @@ const B := preload("res://scripts/ui/TrainBits.gd")
 const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const KitIcon := preload("res://scripts/ui/KitIcon.gd")
+const Tip := preload("res://scripts/ui/Tip.gd")
 
 const H := 88
 
@@ -50,12 +51,10 @@ static func card(cd: Dictionary, on: bool, on_pick: Callable) -> Control:
 	var nm := B.lab(str(cd["name"]).to_upper(), 19, Palette.TEXT, "caps")
 	nm.name = "Name"
 	nm.clip_text = true
-	nm.tooltip_text = str(cd["name"])
 	v.add_child(nm)
 	for k in ["line1", "line2"]:
 		var l := B.lab(str(cd[k]), 16, Palette.MUTED if k == "line1" else Palette.TEXT, "bold")
 		l.clip_text = true
-		l.tooltip_text = str(cd[k])
 		v.add_child(l)
 	var tags := HBoxContainer.new()
 	tags.add_theme_constant_override("separation", 6)
@@ -84,8 +83,10 @@ static func card(cd: Dictionary, on: bool, on_pick: Callable) -> Control:
 		sv.add_child(sp)
 		sv.add_child(B.lab("tiredness", 16, Palette.MUTED, "body"))
 		h.add_child(sv)
-	b.tooltip_text = ("Tiredness by the end of each day: %s" % ", ".join((cd["spark"] as Array).map(func(x): return "%d" % roundi(float(x))))
-		+ ("" if on else "\nClick to plan this boxer's week.")) if boxer else "The mat coach runs the mat classes. Click to choose what they drill."
+	if boxer:   # S532 GUIDETIPS1: was the week's seven tiredness numbers in a line
+		Tip.short(b, str(cd["name"]), "The small line is tiredness at each day's end this week.", "" if on else "Click to plan this boxer's week.")
+	else:
+		b.tooltip_text = "The mat coach runs the mat classes. Click to choose what they drill."
 	return b
 
 

@@ -241,6 +241,8 @@ static func act(main: Node, name: String, arg: String) -> bool:
 			main.redraw_modal()
 		"startcamp":
 			var m: Dictionary = main.modal
+			if str(m.get("type", "")) != "camp":   # S532: only the camp pop-up starts a camp
+				return true
 			var f := who(main, "")
 			var paid := Bouts.start_camp(c, f, str(m["focus"]), int(m["protocol"]), bool(m["film"]),
 				bool(m.get("partner", false)))
