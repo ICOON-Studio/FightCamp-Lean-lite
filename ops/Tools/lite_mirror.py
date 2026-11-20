@@ -96,6 +96,10 @@ def _save_state(st):
     STATE.write_text(json.dumps(st, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
 
 
+## S532: content that is a token or key (Telegram bot, GitHub, Anthropic, xAI, OpenAI) - such a file is never mirrored.
+SECRET_RE = r"[0-9]{8,10}:AA[A-Za-z0-9_-]{33}|ghp_[A-Za-z0-9]{36}|github_pat_[A-Za-z0-9_]{40,}|sk-ant-[A-Za-z0-9_-]{20,}|xai-[A-Za-z0-9]{40,}|sk-proj-[A-Za-z0-9_-]{20,}"
+
+
 def keep(path: str, size: int) -> bool:
     if path.startswith(SKIP_PREFIX) or any(s in "/" + path for s in SKIP_PART):
         return False
@@ -140,6 +144,15 @@ def build_tree(src: str) -> tuple[str, int]:
     if lfs:
         keep_lines = [ln for ln in keep_lines if ln.split("\t", 1)[1] not in lfs]
         n -= len(lfs)
+    ## S532 (GitGuardian: a Telegram bot token reached the PUBLIC lite mirror in ops/AgentComms/pingerrrr_bot.json):
+    ## any file whose content looks like a token or key never leaves this repo, whatever .gitignore says.
+    p = subprocess.run(["git", "grep", "-l", "-z", "-I", "-E", SECRET_RE, src], cwd=str(ROOT), capture_output=True,
+                       text=True, timeout=600, creationflags=_NO_WINDOW)
+    secret = {s.split(":", 1)[1] for s in p.stdout.split("\0") if ":" in s}
+    if secret:
+        print("LITE_MIRROR held back %d file(s) that look like they carry a secret: %s" % (len(secret), ", ".join(sorted(secret))))
+        keep_lines = [ln for ln in keep_lines if ln.split("\t", 1)[1] not in secret]
+        n -= len([ln for ln in paths if ln in secret])
     readme_sha = _git(["hash-object", "-w", "--stdin"], input_text=LITE_README).strip()
     keep_lines.append("100644 %s\tLITE_README.md" % readme_sha)
     with tempfile.TemporaryDirectory() as td:

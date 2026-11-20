@@ -1266,47 +1266,72 @@
    "log": "E:/FightCamp/tmp/treevalue8/full.log",
    "landed": "2026-11-20T18:02"
   },
-  "TURNCRITIC7A": {
-   "seat": "arena",
-   "title": "Arena critic: turning pro v7 (with code check)",
-   "started": "2026-11-20T17:13",
-   "eta": "~18:00",
-   "status": "landed",
-   "chat": "https://arena.ai/agent/01a1f984-3b8a-732a-b564-2207ad249c13",
-   "landed": "2026-11-20T18:02"
-  },
-  "LEDGERCRITIC6A": {
-   "seat": "arena",
-   "title": "Arena critic: contracts v6 (with code check)",
-   "started": "2026-11-20T17:13",
-   "eta": "~18:00",
-   "status": "landed",
-   "chat": "https://arena.ai/agent/01a1f984-8a66-77f8-b1fb-1a34e0b94419",
-   "landed": "2026-11-20T18:02"
-  },
-  "TURNREV8": {
-   "seat": "arena",
-   "title": "Arena: turning pro map v8 from the code (fixes the v7 critic's points)",
-   "started": "2026-11-20T18:02",
-   "eta": "~19:00",
-   "status": "landed",
-   "chat": "https://arena.ai/agent/01a1f9a8-cf67-730a-816e-87f747d40f98",
-   "reconciled": "2026-11-20 18:41 board_reconcile: PR #427 open - collect it",
-   "landed": "2026-11-20T20:17"
-  },
   "TREEVALUE9": {
    "seat": "claude-pc",
    "title": "Footwork re-read after phase 6 (a sharp boxer holds a wrong step)",
    "started": "2026-11-20T18:02",
    "eta": "~20:25",
-   "status": "running"
+   "status": "running",
+   "agent": "claude-pc"
   },
-  "SQ258": {
+  "SQ261": {
    "seat": "dola",
-   "title": "Dola critic: the three P4P-derived mechanics",
-   "started": "2026-11-20T20:17",
-   "eta": "~21:00",
-   "status": "running"
+   "title": "Dola critic: turning pro v8",
+   "started": "2026-11-21T00:50",
+   "eta": "~02:00 (30-min job sends it)",
+   "status": "queued",
+   "agent": "dola"
+  },
+  "ARC-TP8": {
+   "seat": "arena",
+   "title": "Arena critic: turning pro v8 + code check",
+   "started": "2026-11-21T01:00",
+   "eta": "~01:40",
+   "status": "running",
+   "chat": "https://arena.ai/agent/01a1fb21-a66c-797d-bcc8-271b1e67bb2f",
+   "branch": "arena/1e67bb2f-fightcamp-lean-lite",
+   "agent": "arena"
+  },
+  "TV10": {
+   "seat": "claude",
+   "title": "Footwork: cut off the ring measured (cut_off + feint control, 400 bouts a cell)",
+   "started": "2026-11-21T00:40",
+   "eta": "~01:20",
+   "status": "running",
+   "agent": "claude"
+  },
+  "ARC-DMG2": {
+   "seat": "arena",
+   "title": "Arena: stoppages by weight class and sex, map v2 (the real stoppage roll)",
+   "started": "2026-11-21T01:25",
+   "eta": "~02:15",
+   "status": "done",
+   "chat": "https://arena.ai/agent/01a1fb2a-e068-73d7-9a08-988addf1ca6f",
+   "result": "v2 collected (DESIGN_DMGCLASS1_V2.md, real roll in Knockdowns); critics: SQ263 + Arena after 14:25 (daily limit)",
+   "agent": "arena"
+  },
+  "SQ262": {
+   "seat": "dola",
+   "title": "Dola critic: the three P4P mechanics v2",
+   "started": "2026-11-21T01:45",
+   "eta": "~03:00",
+   "status": "queued",
+   "agent": "dola"
+  },
+  "SQ263": {
+   "seat": "dola",
+   "title": "Dola critic: stoppages by weight class and sex v2",
+   "started": "2026-11-21T02:10",
+   "eta": "~04:00",
+   "status": "queued",
+   "agent": "dola"
+  },
+  "ARC-DMG2C": {
+   "seat": "arena",
+   "title": "Arena critic: stoppage map v2 - WAITS for Arena's daily reset 14:25",
+   "started": "",
+   "eta": "after 14:25",
+   "status": "queued"
   }
  },
  "codex_budget": {

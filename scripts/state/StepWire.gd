@@ -98,7 +98,7 @@ static func levers(lv: Dictionary, s: Dictionary, arrow: String, planned: bool, 
 		return {}
 	var row := StepEffect.scaled(step, grade)
 	var out := {"denied": 0, "drain": 0.0, "extra": 0}
-	if fit == "wrong":
+	if fit == "wrong" and not (StepEffect.probe_off.get(step, []) as Array).has("wrong"):   # "wrong": TREEVALUE10 measurement only
 		var cost := float(StepEffect.effect(step).get("wrong_extra_damage", 0.0))
 		cost = cost if cost > 0.0 else WRONG_COST
 		var theirs0 := int(s["landed"][1])

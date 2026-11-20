@@ -3349,6 +3349,27 @@
       "at_s": 82.2,
       "id": "C434",
       "addressed": "cited by 41210e340 2026-11-19"
+    },
+    {
+      "path": "_sent/2026-11-20_0006_film_15_smoother_hit_reactions/s531_film15_hit.jpg",
+      "text": "reds hands are not moving with the reaction",
+      "at": "2026-11-20T11:39:01Z",
+      "seen_by_claude": true,
+      "id": "C435"
+    },
+    {
+      "path": "_sent/2026-11-20_1735_top_down_fight_view_beside_the_3d_idea_f/topdown_view.png",
+      "text": "not bad",
+      "at": "2026-11-20T16:05:29Z",
+      "seen_by_claude": true,
+      "id": "C436"
+    },
+    {
+      "path": "_sent/2026-11-20_1750_top_down_fight_view_in_the_game_t_in_any/topdown_in_game.png",
+      "text": "ok",
+      "at": "2026-11-20T16:05:44Z",
+      "seen_by_claude": true,
+      "id": "C437"
     }
   ]
 }

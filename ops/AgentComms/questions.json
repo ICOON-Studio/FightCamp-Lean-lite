@@ -8264,7 +8264,7 @@
       "answer": "Careful gym should grow",
       "note": null,
       "answered_at": null,
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "status": "answered",
       "answered_by": "owner in chat S531"
     },
@@ -8316,10 +8316,11 @@
       "attach": [
         "research/DESIGN_KNOW_STAKES1_V5.md"
       ],
-      "answer": null,
+      "answer": "Not yet",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-20T18:51:42Z",
+      "seen_by_claude": true,
+      "comment_only": false
     },
     {
       "id": "Q-S294-281",
@@ -8332,6 +8333,49 @@
       ],
       "attach": [
         "research/DESIGN_LEDGER1_V6.md"
+      ],
+      "answer": "Not yet",
+      "note": null,
+      "answered_at": "2026-11-20T18:51:39Z",
+      "seen_by_claude": true,
+      "comment_only": false
+    },
+    {
+      "id": "Q-S294-282",
+      "asked": "2026-11-20T19:48:43.354101+00:00",
+      "session": "S294",
+      "text": "Tooltips and the guide: build to this standard? Every tooltip becomes a small wrapped card that says what the thing is, why it is this value, what moves it and what you can do. The guide lets you look around first: no dimming, the old trainer says what a page is for, a Show me button, and lessons (the clock, tiredness, the mastery bar, fight week or camp, the towel) that arrive when the thing happens and can be read again from the Menu. The picture shows the three tooltips you asked about, before and after. Two critics are still reading it (Dola queued, Arena next session); I build only after your yes and their 7+.",
+      "options": [
+        "Yes, build it",
+        "Yes, tooltips first, guide later",
+        "Change it (I will say what)",
+        "No"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-282_0_guidetips1_standard.png",
+        "research/GUIDETIPS1_STANDARD.md"
+      ],
+      "answer": "Yes, build it",
+      "note": null,
+      "answered_at": "2026-11-20T21:51:20Z",
+      "seen_by_claude": false,
+      "comment_only": false
+    },
+    {
+      "id": "Q-S294-283",
+      "asked": "2026-11-20T22:50:39.391658+00:00",
+      "session": "S294",
+      "text": "Tooltips, build 1: do the new cards read right to you? The pictures show the coach pay card, the TIREDNESS card, the mastery bar card and the guide before and after \"Show me\". If yes I convert the other screens the same way (about 40 tooltips left on the pages checked) and add the trainer lessons after week 1.",
+      "options": [
+        "Yes, same way on the rest",
+        "Shorter cards",
+        "Change it (I will say what)"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-283_0_03_coach_pay.png",
+        "AgentComms/board_attach/Q-S294-283_1_07_roster_tiredness.png",
+        "AgentComms/board_attach/Q-S294-283_2_08_training_mastery.png",
+        "AgentComms/board_attach/Q-S294-283_3_02_guide_show_me.png"
       ],
       "answer": null,
       "note": null,

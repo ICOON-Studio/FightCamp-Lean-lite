@@ -15,6 +15,18 @@ ops/research/S531_DIGEST.md. FIRST: `python ops/Tools/godot_slot.py status`.
   No StepEffect TABLE sizing until TREEVALUE9 is read.
 - GROWTH (S531): the fit-out loan is BUILT and verified; no more growth work until the owner plays it.
 
+## MAIN SESSION S532 (Opus) - pick up here (roadmap `now` S532, digest ops/research/S532_DIGEST.md)
+- METHOD (footwork, S532): cut_off's ring cut measured = NO effect (it fires ~once a bout). Lever attribution was in flight at
+  ship: four arms `tools/treevalue_probe.gd -- only=cut_off off=wrong|drain|tank|opp_ropes` (StepEffect.probe_off is
+  measurement only). Read them (or rerun), size ONLY the lever measured as the cost, re-score with
+  `python ops/Tools/treevalue_regate.py <result>`; then tie_up, step_out, step_in, roll_out the same way. No guessed numbers.
+- Design loop to collect: Dola SQ261 (turning pro v8), SQ262 (three P4P v2; Arena gave 8/7/7), SQ263 (stoppages by class and
+  sex v2); the Arena turning-pro v8 chat https://arena.ai/agent/01a1fb21-a66c-797d-bcc8-271b1e67bb2f. Arena hit its daily
+  limit at ~02:10 (reset 14:25): then a fresh Arena critic for DESIGN_DMGCLASS1_V2.md and the GUIDETIPS1 critic.
+  A map at 7+/7+ from both goes to the board with `--attach`.
+- Crash reports: read %APPDATA%\Godot\app_userdata\FightCamp\logs\godot.log BEFORE running any test (5-log rotation).
+- Grok bots: still down (gbot_wake hangs, listAgents 404); Dola + Arena cover their work.
+
 ## GUIDETIPS1 (side Fable session, S532) - tooltips and the guide: BUILD 1 IS IN (his "Yes, build it", Q-S294-282)
 - Built and pushed (496131c, 99713b4, + the Training batch): every plain tooltip_text is now drawn as the wrapped house card
   (Tips.gd takes it over at hover; Main boots it); scripts/ui/Tip.gd = the one way to write a card (explain / short / button)

@@ -137,3 +137,22 @@ The gate is now per step and grounded in the fight's answers table; sizing is al
 order: cut_off, tie_up, step_out, step_in, roll_out (StepEffect TABLE rows, one probe read per change). herd and push_off
 get a SITUATION probe first (opponent tired / hurt; a clinch on the ropes) before any sizing - a 0 in a style sweep is not
 evidence they are worthless. step_back vs Volume puncher is left alone.
+
+## S532 TREEVALUE10 - cut_off sizing 1: the opponent's range game cut (no effect)
+Change (commit 0b4f75a7f): StepEffect's `opp_steps_less` (0.3 for cut_off, read by nothing before) now sets lv.ring_cut;
+RingDuel.step_bias takes that share off the opponent's RANGE game for the rest of the round; Exchanges.next_mode's keep
+roll respects the bias. Run: tools/treevalue_probe.gd only=cut_off,feint, 400 bouts a cell x 3 seed sets.
+
+| cut_off vs | Pressure | Slugger | Out-boxer (FOR) | Counter | Volume | Boxer-puncher |
+|---|---|---|---|---|---|---|
+| S531 (TREEVALUE9) | -1.5 | -1.3 | -0.7 | -0.2 | -2.3 | -0.8 |
+| S532 with ring_cut | -1.67 | -1.50 | -0.75 | -0.17 | -2.25 | -1.08 |
+fires/bout 0.82-1.11, uses/bout 1.27-1.63.
+
+READ: no change beyond noise. The step fires about ONCE A BOUT, so (a) its `opp_ropes` +1 never reaches the owner's three
+in a round (Q-S294-231) and (b) a cut that lasts "the rest of the round" touches one round in three. And it costs a little
+against EVERY style, including the ones it is neutral to - some per-fire cost (drain 0.6 / tank 0.5 / the exchange the
+step spends) outweighs what it buys. Sizing by guess from here would be a correction layer (CLAUDE.md item 8).
+NEXT (before any further cut_off number): a LEVER-ATTRIBUTION probe - the same cells with one effect of the row switched
+off at a time (drain, tank, opp_ropes, ring_cut, and "the step only, no effect") so the cost is named by measurement.
+The ring_cut wiring stays (it is the table's own field, now read); its size is not the lever that matters.

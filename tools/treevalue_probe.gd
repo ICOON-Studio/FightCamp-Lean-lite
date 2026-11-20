@@ -8,6 +8,7 @@ extends SceneTree
 ## quits 0 when it measured and its controls hold, 1 only when a control breaks.
 ## Usage: python ops/Tools/godot_slot.py run --who treevalue2 -- <godot> --headless --audio-driver Dummy --fixed-fps 60 --path . --script res://tools/treevalue_probe.gd
 
+const StepEffectOff := preload("res://scripts/rules/StepEffect.gd")   # S532 off= lever attribution
 const Data := preload("res://scripts/state/Data.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const MoveTree := preload("res://scripts/rules/MoveTree.gd")
@@ -275,6 +276,13 @@ func _initialize() -> void:
 	print("fire_level key absent: GAME_SHARES")
 	print("Steps: %d, Styles: %d, bouts a cell per arm: %d, seed sets: %s, amateur 3x3, Sharp %.0f, OK grade" % [
 		StepValue.STEPS.size(), StepValue.STYLES.size(), N_BOUTS, str(SEED_SETS), SHARP])
+	# S532 TREEVALUE10 lever attribution: `-- off=drain,wrong` reads those effects of every swept step as zero (with-arm only:
+	# the without-arm has no such line). Names the arm in the output so a result never hides which arm it is.
+	for a in OS.get_cmdline_user_args():
+		if str(a).begins_with("off="):
+			for st in _sweep_steps():
+				StepEffectOff.probe_off[str(st)] = Array(str(a).substr(4).split(","))
+			print("OFF (lever attribution, measurement only): %s" % str(StepEffectOff.probe_off))
 	var base := _base_dict()
 	var factory := Callable(self, "_make_fighter")
 	# CONTROL: the forced grade really is OK on every step (LineGrade's rule, the one the live round reads).

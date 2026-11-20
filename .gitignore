@@ -39,3 +39,7 @@ ops/AgentComms/map/seen.json
 ops/AgentComms/map/thumbs/
 ops/AgentComms/telegram.json
 ops/AgentComms/telegram.log
+# S532 (GitGuardian: Telegram token exposed on the public lite mirror): no token file is ever tracked
+ops/AgentComms/pingerrrr_bot.json
+ops/AgentComms/*token*
+ops/AgentComms/*secret*
