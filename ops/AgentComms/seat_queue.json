@@ -3696,6 +3696,15 @@
    "status": "queued",
    "queued_at": "2026-11-20 15:26",
    "tries": 0
+  },
+  {
+   "id": "SQ254",
+   "seat": "dola",
+   "brief": "research/DESIGN_TURNPRO1_V6_CRITIC_DOLA.md",
+   "stem": "DESIGN_TURNPRO1_V6_CRITIC_DOLA_DOLA",
+   "status": "queued",
+   "queued_at": "2026-11-20 15:27",
+   "tries": 0
   }
  ]
 }

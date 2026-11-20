@@ -1269,12 +1269,32 @@
       "agent": "arena",
       "id": "KNOWREV5",
       "title": "Knowledge stakes map v5 from the code",
-      "status": "running",
+      "status": "landed",
       "started": "2026-11-20T15:20",
       "eta": "2026-11-20T16:00",
       "where": "cloud",
       "chat": "https://arena.ai/agent/01a1f915-9c7a-75b9-9531-0e547d44290b",
-      "brief": "ops/research/TASK_KNOWREV5.md"
+      "brief": "ops/research/TASK_KNOWREV5.md",
+      "note": "S531: v5 from the code, spot-checked"
+    },
+    "KNOWCRITIC5A": {
+      "agent": "arena",
+      "id": "KNOWCRITIC5A",
+      "title": "Fresh critic + code check: knowledge stakes map v5",
+      "status": "running",
+      "started": "2026-11-20T15:35",
+      "eta": "2026-11-20T16:10",
+      "where": "cloud",
+      "chat": "https://arena.ai/agent/01a1f923-7048-7a84-8a69-63933c7db3c3",
+      "brief": "ops/research/TASK_KNOWCRITIC5A.md"
+    },
+    "SQ253": {
+      "agent": "dola",
+      "id": "SQ253",
+      "title": "Fresh critic: knowledge stakes map v5",
+      "status": "queued",
+      "started": "2026-11-20T15:35",
+      "brief": "ops/research/DESIGN_KNOW_STAKES1_V5_CRITIC_DOLA.md"
     }
   },
   "codex_budget": {
