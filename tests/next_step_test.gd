@@ -18,6 +18,7 @@ func _initialize() -> void:
 	_test8()
 	_test9()
 	_test10()
+	_test_lapse_wait()
 	print("NEXT_STEP failures=%d" % failures)
 	quit(1 if failures > 0 else 0)
 
@@ -199,3 +200,14 @@ func _test10() -> void:
 		and pl.contains("Harrow & Finch pays from 70 (about 9 wins away)") and pl.contains("Age 30") and pl.contains("Declines left: 3"),
 		"test 10: the pro line - '%s'" % pl)
 	_check(str(NS.road({}, 20).get("pro_line", "")) == "", "test 10: no pro line before the Pro offer step")
+
+
+## S531 TURNCRITIC7A: after a lapse (pro_wait_w = wins + 2) the road does not call the offer due; it counts the wins left.
+func _test_lapse_wait() -> void:
+	var f := {"bouts": 12, "w": 9, "rank": 2, "reg_days": 200, "age": 24, "nationals": "Lost in the regional final", "pro_wait_w": 11}
+	var r: Dictionary = NS.road(f, 20)
+	_check(r["lit"] == 3 and str(r["need"]).contains("2 more wins before the promoters call again"),
+		"lapse: step 3 stays lit and says 2 more wins (got lit=%d need='%s')" % [r["lit"], r["need"]])
+	f["w"] = 11
+	var r2: Dictionary = NS.road(f, 20)
+	_check(r2["lit"] == 4, "lapse: once the wins are in, the offer step is done again (got lit=%d)" % r2["lit"])

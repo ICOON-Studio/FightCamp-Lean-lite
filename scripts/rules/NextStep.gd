@@ -47,7 +47,7 @@ static func road(f: Dictionary, day: int) -> Dictionary:
 	# Roster.pro_ready reads f["w"] as a must-have key: hand it a copy with the defaults filled in.
 	var g := f.duplicate()
 	g["w"] = w
-	steps[3]["done"] = pro or Roster.pro_ready(g)
+	steps[3]["done"] = pro or (Roster.pro_ready(g) and w >= int(f.get("pro_wait_w", 0)))   # S531: not while a lapse waits
 
 	# Step 4: Pro debut
 	steps[4]["done"] = pro_bouts >= 1
@@ -117,6 +117,9 @@ static func _need_for(lit: int, f: Dictionary, day: int, elig: Dictionary) -> St
 				return "Injured - cannot enter"
 			return "Enter before entries close in %d days" % n
 		3:
+			var wait_left := int(f.get("pro_wait_w", 0)) - w
+			if wait_left > 0 and not pro:   # S531 TURNCRITIC7A: the offer lapsed; the promoters call again after more wins
+				return "The last offer lapsed: %d more win%s before the promoters call again." % [wait_left, "" if wait_left == 1 else "s"]
 			if pro_declines >= 3:
 				return "No more offers - stays amateur"
 			if pro_declines >= 2:

@@ -8,10 +8,16 @@ extends Node
 ## S501 (owner: "Yes, do all three", after the Boxing Manager / UFC camera study): ZOOM - and + beside them (keys - and =,
 ## the mouse wheel) step FixedCam.zoom on the Side and High cameras; SKIP REPLAY (Space) shows only while a knockdown's
 ## slow-motion replay plays (KnockdownReplay.skip). The replay freezes the tree too: PAUSED shows only for the player's pause.
+## S531 TOPDOWN1 (owner: "yes build it", after the Pound for Pound read): TOP-DOWN (T) lays the round seen from above
+## over the 3D - RingTopDown, fed the exchanges that are over (CornerBar._ex_over) and the energy (LiveRound.state); the
+## same button or key goes back to the 3D. The round plays on underneath either way.
 ##   mount(bar, view)
 
 const FixedCam := preload("res://scripts/fight3d/FixedCam.gd")
 const Palette := preload("res://scripts/ui/Palette.gd")
+const RingTopDown := preload("res://scripts/ui/RingTopDown.gd")
+const LiveRound := preload("res://scripts/state/LiveRound.gd")
+const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 
 var view: Node
 var _pause: Button
@@ -20,6 +26,9 @@ var _note: Label
 var _zin: Button
 var _zout: Button
 var _skip: Button
+var _top: Button
+var _map: Control
+var _shown := -1
 var _mine := false   # the tree is paused by the player's Pause (not by a replay)
 
 
@@ -34,9 +43,23 @@ static func mount(bar: Control, fight_view: Node) -> void:
 	o._zin = bar.call("_btn", "+", "ZoomIn", func(): o.zoom(1))
 	o._zout = bar.call("_btn", "-", "ZoomOut", func(): o.zoom(-1))
 	o._skip = bar.call("_btn", "Skip replay (Space)", "SkipReplay", o.skip_replay)
+	o._top = bar.call("_btn", "Top-down (T)", "TopDown", o.toggle_top)
+	var map: Control = RingTopDown.make([], {}, Exchanges.EXCHANGES)
+	map.backdrop = true
+	map.ring_px = 600.0
+	map.visible = false
+	map.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	map.anchor_left = 0.0
+	map.anchor_right = 1.0
+	map.offset_left = 440.0
+	map.offset_right = -440.0
+	map.offset_top = -730.0
+	map.offset_bottom = -56.0
+	bar.add_child(map)
+	o._map = map
 	var x := -8.0
-	for b: Button in [o._zin, o._zout, o._cam, o._pause, o._skip]:
-		var w := 250.0 if b == o._cam else (56.0 if b == o._zin or b == o._zout else (260.0 if b == o._skip else 160.0))
+	for b: Button in [o._zin, o._zout, o._cam, o._top, o._pause, o._skip]:
+		var w := 250.0 if b == o._cam else (56.0 if b == o._zin or b == o._zout else (260.0 if b == o._skip else (190.0 if b == o._top else 160.0)))
 		bar.add_child(b)
 		b.process_mode = Node.PROCESS_MODE_ALWAYS
 		b.anchor_left = 1.0
@@ -100,6 +123,27 @@ func skip_replay() -> void:
 	draw()
 
 
+func toggle_top() -> void:
+	_map.visible = not _map.visible
+	_shown = -1
+	_refresh_top()
+	draw()
+
+
+func _refresh_top() -> void:
+	if not _map.visible:
+		return
+	var bar := get_parent()
+	var exs: Array = bar.call("_ex_over") if bar != null and bar.has_method("_ex_over") else []
+	if exs.size() == _shown:
+		return
+	_shown = exs.size()
+	var main: Node = view.get("main") if is_instance_valid(view) else null
+	var m: Variant = main.get("modal") if main != null else null
+	var lv: Dictionary = (m as Dictionary).get("live", {}) if m is Dictionary else {}
+	_map.call("set_round", exs, LiveRound.state(lv, exs.size()) if not lv.is_empty() else {})
+
+
 func next_camera() -> void:
 	var stage: Variant = view.get("stage") if is_instance_valid(view) else null
 	var cam: Node = (stage as Node).get("camera") if stage is Node and is_instance_valid(stage) else null
@@ -118,6 +162,7 @@ func draw() -> void:
 	_zin.disabled = FixedCam.zoom <= FixedCam.ZOOM.x + 1e-3
 	_zout.disabled = FixedCam.zoom >= FixedCam.ZOOM.y - 1e-3
 	_skip.visible = _replaying()
+	_top.text = "3D view (T)" if _map.visible else "Top-down (T)"
 
 
 func _process(_delta: float) -> void:
@@ -127,6 +172,7 @@ func _process(_delta: float) -> void:
 		draw()
 	elif _skip.visible != _replaying():
 		draw()   # a replay began or ended
+	_refresh_top()
 
 
 func _exit_tree() -> void:
@@ -140,6 +186,9 @@ func _unhandled_key_input(event: InputEvent) -> void:
 	var key := (event as InputEventKey).keycode
 	if key == KEY_P and (_playing() or get_tree().paused):
 		toggle_pause()
+		get_viewport().set_input_as_handled()
+	elif key == KEY_T and _playing():
+		toggle_top()
 		get_viewport().set_input_as_handled()
 	elif key == KEY_C and _playing():
 		next_camera()

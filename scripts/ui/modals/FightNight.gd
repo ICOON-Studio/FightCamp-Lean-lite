@@ -30,6 +30,7 @@ const FightVoice := preload("res://scripts/audio/FightVoice.gd")
 const HeadlineCard := preload("res://scripts/ui/modals/HeadlineCard.gd")
 const ResultPage := preload("res://scripts/ui/ResultPage.gd")
 const FightAnalysisOwn := preload("res://scripts/ui/FightAnalysisOwn.gd")   # S511 FIGHTFILM1: The round so far
+const RingTopDown := preload("res://scripts/ui/RingTopDown.gd")
 
 
 func build(main: Node, m: Dictionary) -> void:
@@ -106,6 +107,7 @@ func _live(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 		Exchanges.EXCHANGES, int(Exchanges.EX_SECONDS)], UI.SMALL))
 	# S310: both boxers' energy, body shots taken and hurt, as the 3D fight display shows them.
 	var st := LiveRound.state(lv, exs.size())
+	v.add_child(RingTopDown.make(exs, st, Exchanges.EXCHANGES))   # S531 TOPDOWN1: the round from above
 	v.add_child(UI.muted("Punches landed: yours %d, theirs %d." % [la, lb], UI.SMALL))   # S448: names only in the header
 	for side in 2:
 		v.add_child(UI.label("%s: energy %d, body shots taken %d%s" % ["Yours" if side == 0 else "Theirs", int(round(float(st["a" if side == 0 else "b"]))),

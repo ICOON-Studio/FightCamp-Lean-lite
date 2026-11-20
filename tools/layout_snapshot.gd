@@ -117,6 +117,13 @@ func _initialize() -> void:
 	await _shot("19c_corner2")
 	main.act("fightstep", "corner:long")
 	await _shot("20_round3")
+	var top := main.find_child("TopDown", true, false) as Button   # S531 TOPDOWN1: the round from above, 7 exchanges in
+	if top != null:
+		var fv := top.get_parent().get("view") as Node
+		if fv != null and fv.get("t") != null:
+			fv.set("t", 7 * 30.0 + 1.0)
+		top.emit_signal("pressed")
+		await _shot("20b_round3_topdown")
 	main.act("fightstep", "end")
 	await _shot("21a_headline")   # S442 LOOP: the headline card first; See the fight opens the result page
 	var see := main.find_child("HeadlineGo", true, false) as Button
@@ -298,6 +305,9 @@ func _settle(frames: int = 4) -> void:
 
 func _shot(name: String) -> void:
 	await _settle()
+	for a in OS.get_cmdline_user_args():   # S531 `only=19_round1,20_round3`: save just those shots (the walk still plays)
+		if str(a).begins_with("only=") and not (str(a).substr(5).split(",") as PackedStringArray).has(name):
+			return
 	if OS.get_cmdline_user_args().has("noguide"):
 		# S415 operator on the stills: "why do you have the guide on every screen you draw ?" - `-- <out_dir> noguide`
 		var g := main.find_child("FirstWeekStrip", true, false)   # the dim + ring, the trainer and the bubble under it
