@@ -1332,6 +1332,15 @@
    "started": "",
    "eta": "after 14:25",
    "status": "queued"
+  },
+  "GROK-TURNREV9": {
+   "seat": "grokdev",
+   "agent": "grokdev",
+   "title": "Grok Dev: turning pro map v9 from the code (TASK_TURNREV9)",
+   "started": "2026-11-21T03:05",
+   "eta": "~04:30",
+   "status": "running",
+   "branch": "grok/turnrev9"
   }
  },
  "codex_budget": {

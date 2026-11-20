@@ -81,6 +81,8 @@ async function gatewayOk(box) {
   if (!box.gatewayUrl || !box.gatewayToken) return 'no gateway in the reply';
   const headers = { 'content-type': 'application/json', authorization: 'Bearer ' + box.gatewayToken };
   if (box.networkToken) headers['x-anyrun-network-token'] = box.networkToken;
+  // S532: Grok Bot app 1.2.3 - a box with no network token is reached with its port token (the app's x-anyrun-port-token)
+  else if (box.gatewayPortToken) headers['x-anyrun-port-token'] = box.gatewayPortToken;
   try {
     const res = await fetch(String(box.gatewayUrl).replace(/\/$/, '') + '/api/listAgents', {
       method: 'POST', redirect: 'error', headers, body: '{}', signal: AbortSignal.timeout(30000),

@@ -63,6 +63,8 @@ async function ensureSandbox() {
 async function call(box, method, body = {}, timeoutMs = 60000) {
   const headers = { 'content-type': 'application/json', authorization: 'Bearer ' + box.gatewayToken };
   if (box.networkToken) headers['x-anyrun-network-token'] = box.networkToken;
+  // S532: Grok Bot app 1.2.3 - a box with no network token is reached with its port token (the app's x-anyrun-port-token)
+  else if (box.gatewayPortToken) headers['x-anyrun-port-token'] = box.gatewayPortToken;
   const res = await fetch(String(box.gatewayUrl).replace(/\/$/, '') + '/api/' + method, {
     method: 'POST', redirect: 'error', headers, body: JSON.stringify(body), signal: AbortSignal.timeout(timeoutMs),
   });

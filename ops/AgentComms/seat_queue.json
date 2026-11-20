@@ -3837,6 +3837,33 @@
    "status": "queued",
    "queued_at": "2026-11-21 01:13",
    "tries": 0
+  },
+  {
+   "id": "SQ264",
+   "seat": "kalli",
+   "brief": "research/DESIGN_DMGCLASS1_V2_CRITIC_KALLI.md",
+   "stem": "DESIGN_DMGCLASS1_V2_CRITIC_KALLI_KALLI",
+   "status": "queued",
+   "queued_at": "2026-11-21 01:33",
+   "tries": 0
+  },
+  {
+   "id": "SQ265",
+   "seat": "john",
+   "brief": "research/DESIGN_THREEP4P_V2_CRITIC_JOHN.md",
+   "stem": "DESIGN_THREEP4P_V2_CRITIC_JOHN_JOHN",
+   "status": "queued",
+   "queued_at": "2026-11-21 01:33",
+   "tries": 0
+  },
+  {
+   "id": "SQ266",
+   "seat": "maria",
+   "brief": "research/GUIDETIPS1_V2_CRITIC_DOLA.md",
+   "stem": "GUIDETIPS1_V2_CRITIC_DOLA_MARIA",
+   "status": "queued",
+   "queued_at": "2026-11-21 01:33",
+   "tries": 0
   }
  ]
 }

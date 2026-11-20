@@ -25,7 +25,7 @@ ops/research/S531_DIGEST.md. FIRST: `python ops/Tools/godot_slot.py status`.
   limit at ~02:10 (reset 14:25): then a fresh Arena critic for DESIGN_DMGCLASS1_V2.md and the GUIDETIPS1 critic.
   A map at 7+/7+ from both goes to the board with `--attach`.
 - Crash reports: read %APPDATA%\Godot\app_userdata\FightCamp\logs\godot.log BEFORE running any test (5-log rotation).
-- Grok bots: still down (gbot_wake hangs, listAgents 404); Dola + Arena cover their work.
+- Grok bots: FIXED S532 (app 1.2.3 needs x-anyrun-port-token; gbot_wake + grokbot_direct send it). Grok Dev has TURNREV9 - collect its grok/turnrev9 PR.
 
 ## GUIDETIPS1 (side Fable session, S532) - tooltips and the guide: BUILD 1 IS IN (his "Yes, build it", Q-S294-282)
 - Built and pushed (496131c, 99713b4, + the Training batch): every plain tooltip_text is now drawn as the wrapped house card
