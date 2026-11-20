@@ -72,5 +72,5 @@ static func words(ln: Dictionary) -> String:
 	if ln.is_empty():
 		return ""
 	var t := int(ln["target"])
-	return "The opponent %s: %d %s morning%s a week (this week %d)." % [str(OppFile.GAME_WORDS.get(str(ln["game"]), "fights her way")),
+	return "The opponent %s: %d %s morning%s a week (this week %d)." % [str(OppFile.GAME_WORDS.get(str(ln["game"]), "has a game of their own")),
 		t, str(WORDS.get(str(ln["session"]), ln["session"])), "" if t == 1 else "s", int(ln["now"])]

@@ -15,7 +15,7 @@ const PlanFight := preload("res://scripts/rules/PlanFight.gd")
 static func style_warning(game: String) -> String:
 	if str(PlanFight.LOST_CARD.get(game, "")) != "own_ropes":
 		return ""
-	return "Guard: lose an exchange to her and you are on the ropes - there every block wears the guard %d%% more. Pivot or tie up." % roundi(GuardWear.WEAR_ROPES * 100.0)
+	return "Guard: lose an exchange to the opponent and you are on the ropes - there every block wears the guard %d%% more. Pivot or tie up." % roundi(GuardWear.WEAR_ROPES * 100.0)
 
 
 static func amateur_note(amateur: bool) -> String:
