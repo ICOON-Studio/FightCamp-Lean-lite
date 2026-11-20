@@ -3674,9 +3674,10 @@
       "seat": "dola",
       "brief": "research/DESIGN_LEDGER1_V6_REVISE_DOLA.md",
       "stem": "DESIGN_LEDGER1_V6_REVISE_DOLA_DOLA",
-      "status": "queued",
+      "status": "cancelled",
       "queued_at": "2026-11-20 14:52",
-      "tries": 0
+      "tries": 0,
+      "note": "S531: maps are written from the code by Arena now (Dola v4/v6 carried false CODE claims) - Arena LEDGERREV6"
     },
     {
       "id": "SQ252",
