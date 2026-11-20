@@ -1199,7 +1199,7 @@
       "agent": "kalli",
       "id": "SQ246",
       "title": "Fresh critic: contracts map v5",
-      "status": "queued",
+      "status": "cancelled",
       "started": "2026-11-20T14:15",
       "note": "Cursor login restored S531 15:00; the Grok Bot gateway answers 404 (box RUNNING) - same fault as 11-19; the queue retries every 30 min"
     },
@@ -1207,7 +1207,7 @@
       "agent": "maria",
       "id": "SQ247",
       "title": "Fresh critic: turning pro map v5",
-      "status": "queued",
+      "status": "cancelled",
       "started": "2026-11-20T14:15",
       "note": "Cursor login restored S531 15:00; the Grok Bot gateway answers 404 (box RUNNING) - same fault as 11-19; the queue retries every 30 min"
     },
@@ -1235,7 +1235,7 @@
       "agent": "dola",
       "id": "SQ251",
       "title": "Contracts map v6 (Dola 8/8, Arena 7/5 on v5)",
-      "status": "queued",
+      "status": "cancelled",
       "started": "2026-11-20T15:00",
       "brief": "ops/research/DESIGN_LEDGER1_V6_REVISE_DOLA.md"
     },
@@ -1283,18 +1283,19 @@
       "agent": "arena",
       "id": "KNOWCRITIC5A",
       "title": "Fresh critic + code check: knowledge stakes map v5",
-      "status": "running",
+      "status": "landed",
       "started": "2026-11-20T15:35",
       "eta": "2026-11-20T16:10",
       "where": "cloud",
       "chat": "https://arena.ai/agent/01a1f923-7048-7a84-8a69-63933c7db3c3",
-      "brief": "ops/research/TASK_KNOWCRITIC5A.md"
+      "brief": "ops/research/TASK_KNOWCRITIC5A.md",
+      "note": "S531: knowledge v5 7/7"
     },
     "SQ253": {
       "agent": "dola",
       "id": "SQ253",
       "title": "Fresh critic: knowledge stakes map v5",
-      "status": "queued",
+      "status": "running",
       "started": "2026-11-20T15:35",
       "brief": "ops/research/DESIGN_KNOW_STAKES1_V5_CRITIC_DOLA.md"
     },
@@ -1302,18 +1303,19 @@
       "agent": "arena",
       "id": "TURNCRITIC6A",
       "title": "Fresh critic + code check: turning pro map v6",
-      "status": "running",
+      "status": "landed",
       "started": "2026-11-20T15:45",
       "eta": "2026-11-20T16:20",
       "where": "cloud",
       "chat": "https://arena.ai/agent/01a1f924-842e-7afe-a294-6904ad1f4437",
-      "brief": "ops/research/TASK_TURNCRITIC6A.md"
+      "brief": "ops/research/TASK_TURNCRITIC6A.md",
+      "note": "S531: turning pro v6 5/4, wrong CODE claims"
     },
     "SQ254": {
       "agent": "dola",
       "id": "SQ254",
       "title": "Fresh critic: turning pro map v6",
-      "status": "queued",
+      "status": "cancelled",
       "started": "2026-11-20T15:45",
       "brief": "ops/research/DESIGN_TURNPRO1_V6_CRITIC_DOLA.md"
     },
@@ -1326,6 +1328,28 @@
       "eta": "2026-11-20T20:00",
       "where": "pc",
       "log": "E:/FightCamp/tmp/treevalue8/full.log"
+    },
+    "TURNREV7": {
+      "agent": "arena",
+      "id": "TURNREV7",
+      "title": "Turning pro map v7 from the code",
+      "status": "running",
+      "started": "2026-11-20T16:05",
+      "eta": "2026-11-20T16:40",
+      "where": "cloud",
+      "chat": "https://arena.ai/agent/01a1f928-a4e9-797a-b6a3-6360298455ce",
+      "brief": "ops/research/TASK_TURNREV7.md"
+    },
+    "LEDGERREV6": {
+      "agent": "arena",
+      "id": "LEDGERREV6",
+      "title": "Contracts map v6 from the code",
+      "status": "running",
+      "started": "2026-11-20T16:08",
+      "eta": "2026-11-20T16:45",
+      "where": "cloud",
+      "chat": "https://arena.ai/agent/01a1f929-748b-72cc-b6b6-a6bace56b08d",
+      "brief": "ops/research/TASK_LEDGERREV6.md"
     }
   },
   "codex_budget": {

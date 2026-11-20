@@ -5,6 +5,9 @@ ops/research/S531_DIGEST.md.
 FIRST: `python ops/Tools/godot_slot.py status`.
 
 ## METHOD lines - quote all of them in your first message
+- DESIGN MAPS ARE WRITTEN BY ARENA FROM THE CODE (S531 evidence): Dola's knowledge v4 and turning pro v6 carried false CODE
+  claims (Arena checks: 10 wrong, 4/5; several wrong, 5/4); Arena's code-written knowledge v5 scored 7/7 on its first check.
+  Dola = critic (and research), not the map writer. Every critic brief carries a CODE CHECK.
 - Fight animation (owner S510): no new correction layer in scripts/fight3d until v2 is built (the OWNER'S Fable session
   is the animation item; next step is the mocap pack, his money call at the END OF NOVEMBER - do not ask before).
 - DESIGN MAPS (S530): each next version is written from the code, with Claude's code check on top, before critics.
@@ -25,11 +28,11 @@ SQ250 retry every 30 min; if still 404 at start, open the Grok Bot app once (it 
    shares (5b: a step whose wrong style is real but wrong % ~0 -> grade its cost on her style's main game).
 2. COLLECTED S531: Arena LOANCONTRACT1 (tests/loan_contract_test.gd on main, PASS, a $2,999 mutant fails 6) and
    LEDGERCRITIC6A (contracts v5: Arena 7/5, Dola 8/8 -> Dola writes v6, SQ251 queued).
-3. Turning pro v6 IN (ops/research/DESIGN_TURNPRO1_V6.md, Dola SQ249); critics running: Dola SQ254 + Arena TURNCRITIC6A
-   (https://arena.ai/agent/01a1f924-842e-7afe-a294-6904ad1f4437, with a code check). Dola SQ251 contracts v6 queued - CODE-CHECK it (Arena found 10 false CODE claims in
-   Dola's knowledge v4: 4/5) before any critic. Knowledge: v4 failed (Arena 4/5, 10 false CODE claims) -> v5 FROM THE CODE (Arena, spot-checked,
-   ops/research/DESIGN_KNOW_STAKES1_V5.md) -> critics running: Dola SQ253 + Arena KNOWCRITIC5A
-   (https://arena.ai/agent/01a1f923-7048-7a84-8a69-63933c7db3c3). 7+/7+ on both = his board.
+3. Design maps (all from the code by Arena now):
+   - Knowledge v5 (ops/research/DESIGN_KNOW_STAKES1_V5.md): Arena 7/7; Dola SQ253 critic queued. Both 7+ = his board.
+   - Turning pro: v6 (Dola) failed 5/4 on false CODE claims -> Arena TURNREV7 (https://arena.ai/agent/01a1f928-a4e9-797a-b6a3-6360298455ce).
+   - Contracts: v5 Dola 8/8, Arena 7/5 -> Arena LEDGERREV6 (https://arena.ai/agent/01a1f929-748b-72cc-b6b6-a6bace56b08d).
+   Each new map: Claude spot-checks 3-4 CODE lines, then two fresh critics (Dola SQ + a new Arena chat with a code check).
 4. Ludo (S531, ops/research/LUDO_LOAN_SCREENS_S531.md): 6/10 before, 5/10 after; rounding defect FIXED (last week $177),
    Money shows what is left. Left for the owner's look: a confirm step before borrowing, the sponsor marked 'offer pending'.
 5. The .exe was re-exported S531 15:10 (loan, its Money line with what is left, exact $9,000).

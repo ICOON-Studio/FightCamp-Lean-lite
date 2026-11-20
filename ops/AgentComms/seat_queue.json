@@ -3613,22 +3613,24 @@
       "seat": "kalli",
       "brief": "research/DESIGN_LEDGER1_V5K_CRITIC_KALLI.md",
       "stem": "DESIGN_LEDGER1_V5K_CRITIC_KALLI_KALLI",
-      "status": "queued",
+      "status": "cancelled",
       "queued_at": "2026-11-20 14:21",
       "tries": 0,
-      "skips": 4,
-      "last_error": "2026-11-20 15:10 gbot send rc=1: ['GROKBOT FAIL listAgents 404  The request could not be routed']"
+      "skips": 5,
+      "last_error": "2026-11-20 15:34 gbot send rc=1: ['GROKBOT FAIL listAgents 404  The request could not be routed']",
+      "note": "S531: superseded (contracts v6 / turning pro v7 from the code); re-brief on the new maps when the Grok gateway is back"
     },
     {
       "id": "SQ247",
       "seat": "maria",
       "brief": "research/DESIGN_TURNPRO1_V5M_CRITIC_MARIA.md",
       "stem": "DESIGN_TURNPRO1_V5M_CRITIC_MARIA_MARIA",
-      "status": "queued",
+      "status": "cancelled",
       "queued_at": "2026-11-20 14:21",
       "tries": 0,
-      "skips": 4,
-      "last_error": "2026-11-20 15:10 gbot send rc=1: ['GROKBOT FAIL listAgents 404  The request could not be routed']"
+      "skips": 5,
+      "last_error": "2026-11-20 15:34 gbot send rc=1: ['GROKBOT FAIL listAgents 404  The request could not be routed']",
+      "note": "S531: superseded (contracts v6 / turning pro v7 from the code); re-brief on the new maps when the Grok gateway is back"
     },
     {
       "id": "SQ248",
@@ -3666,8 +3668,8 @@
       "status": "queued",
       "queued_at": "2026-11-20 14:21",
       "tries": 0,
-      "skips": 4,
-      "last_error": "2026-11-20 15:10 gbot send rc=1: ['GROKBOT FAIL listAgents 404  The request could not be routed']"
+      "skips": 5,
+      "last_error": "2026-11-20 15:34 gbot send rc=1: ['GROKBOT FAIL listAgents 404  The request could not be routed']"
     },
     {
       "id": "SQ251",
@@ -3694,9 +3696,12 @@
       "seat": "dola",
       "brief": "research/DESIGN_KNOW_STAKES1_V5_CRITIC_DOLA.md",
       "stem": "DESIGN_KNOW_STAKES1_V5_CRITIC_DOLA_DOLA",
-      "status": "queued",
+      "status": "sent",
       "queued_at": "2026-11-20 15:26",
-      "tries": 0
+      "tries": 0,
+      "sent_at": "2026-11-20 15:34",
+      "pid": 32672,
+      "transcript": "AgentComms/seat_logs/SQ253_dola.txt"
     },
     {
       "id": "SQ254",
