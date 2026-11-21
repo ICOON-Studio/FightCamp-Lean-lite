@@ -1,7 +1,7 @@
 # TASK STEPPAY1 - phase 1 of the steps payoff scope: what is each place in the ring worth today? (measure, no game change)
 
 Kind: probe
-Status: OPEN (S533, Claude main). Discipline: boxing. Model: Grok Dev (after TIPFIX1). Branch `grok/steppay1`, a PR; never merge.
+Status: DONE (S533, PR #430 collected: no place is an edge, see docs/STEPPAY1_RESULT.md). Discipline: boxing. Model: Grok Dev (after TIPFIX1). Branch `grok/steppay1`, a PR; never merge.
 
 ## Why
 `ops/research/STEPS_PAYOFF_SCOPE_S533.md` (read it) and `docs/TREEVALUE9_RESULT.md` (S533 TREEVALUE11-13): the footwork step
