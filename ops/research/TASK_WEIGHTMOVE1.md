@@ -68,3 +68,10 @@ Godot only through `python ops/Tools/godot_slot.py run --who weight2 -- <command
 Other sessions have uncommitted edits (LineGrade.gd, LiveRound.gd, StepWire.gd) - never stage them. No file over 500 lines.
 Stage explicit paths, commit to main with the Co-Authored-By line, push, report in two lines (map written; probe PASS/FAIL with
 the cell table), stop.
+
+## Owner answers (S535, on the board) - the next map version must use them
+- Q-S294-292 "Add men's 65 kg" (built on branch s535/dmgfix as "mlm"; merges after the probes).
+- Q-S294-293 "Yes, he can refuse" - a boxer may refuse a class move the player chooses (FighterGoal / morale / loyalty decide).
+- Q-S294-294 "Yes, after the probe" - the 3D body changes with weight, built only once the probe proves the mechanic.
+- John SQ278 (ops/research/JOHN_WEIGHT2_RESEARCH_JOHN.md) replaces the ESTIMATES: a cut costs repeat effort far more than punch
+  power; pros regain ~7% (odds x1.13 per 1%); amateurs box carrying the cut; ~1 class a year of growth at 16-18.

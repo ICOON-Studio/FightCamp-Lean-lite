@@ -216,3 +216,19 @@ opponent's range game on opp_ropes / corner 0% (was 6-36%). Rule off (place=off)
 READ: the place is an edge now and the step loses less, but one exchange a bout at +5 does not make +1.5; no bigger size by
 guess (a size that would do it alone is ~20, above a best call). Side effect measured: the even fight with no calls 26.65% ->
 25.15% (own ropes are far more common than the opponent's). NEXT: phase 3 - the step in its best situation costs no exchange.
+
+## S533 STEPPAY2 phase 3 - a step in its best situation costs no exchange (StepWire.ride); instrument fix when=best
+Full page: docs/STEPPAY2_PHASE3.md. Instrument: the default plan let cut_off fire in a best situation 15% of the time vs the
+Out-boxer (the plan's "when range" punches took the card, 4.1 exchanges a bout) - `when=best` plans the swept step in its
+best situations too. 400 bouts x 3 seed sets, when=best:
+
+| step | arm | Pressure | Slugger | Out-boxer | Counter | Volume | Boxer-puncher |
+|---|---|---|---|---|---|---|---|
+| cut_off | ride off (phase 2's game) | -1.42 | -0.42 | +4.33 | +2.50 | +2.17 | +2.42 |
+| cut_off | ride on | -1.00 | +0.25 | +6.75 | +3.33 | +3.58 | +2.67 |
+| pivot_out | ride off | +0.92 | +1.58 | -0.33 | +0.08 | +1.33 | +0.58 |
+| pivot_out | ride on | +3.83 | +4.58 | +0.08 | +0.75 | +3.08 | +1.92 |
+| step_back | ride off | +6.58 | +6.58 | -0.75 | +0.50 | +3.08 | +2.17 |
+| step_back | ride on | +8.75 | +8.17 | -0.67 | +0.42 | +6.00 | +1.67 |
+READ: cut_off FOR Out-boxer -0.75 -> +4.33 (place pays + planned in its moment) -> +6.75 (ride); pivot_out FOR Pressure
++0.92 -> +3.83 (the ride is its lever); step_back +6.58 -> +8.75 (over before, further over). No size changed. NEXT: phase 4.

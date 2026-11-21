@@ -3355,7 +3355,8 @@
       "text": "reds hands are not moving with the reaction",
       "at": "2026-11-20T11:39:01Z",
       "seen_by_claude": true,
-      "id": "C435"
+      "id": "C435",
+      "addressed": "cited by d3f2bb72d 2026-11-21"
     },
     {
       "path": "_sent/2026-11-20_1735_top_down_fight_view_beside_the_3d_idea_f/topdown_view.png",
@@ -3427,7 +3428,8 @@
       "text": "i still think the tooltip can get improved, and texted more careful",
       "at": "2026-11-21T10:17:35Z",
       "seen_by_claude": true,
-      "id": "C445"
+      "id": "C445",
+      "addressed": "cited by ccbb80f39 2026-11-21"
     },
     {
       "path": "_sent/2026-11-21_1003_tooltip_cards_after_tipfix2_about_25_wor/03_coach_pay.png",
@@ -3436,6 +3438,27 @@
       "seen_by_claude": true,
       "id": "C446",
       "addressed": "cited by 33b43ec83 2026-11-21"
+    },
+    {
+      "id": "C447",
+      "path": "media:_sent/2026-11-21_1513_arms_by_strength_40_vs_80/arms_40_vs_80.png",
+      "text": "MARKUP: 1 marks -> Feedback/2026-11-21-06/README.md",
+      "at": "2026-11-21T15:30:05Z",
+      "seen_by_claude": true
+    },
+    {
+      "path": "_sent/2026-11-21_1502_painted_bodies_everywhere_2d_your_keep_p/12_bout_real.png",
+      "text": "this looks too much like the tale of tape, maybe change it ?",
+      "at": "2026-11-21T15:50:52Z",
+      "seen_by_claude": true,
+      "id": "C448"
+    },
+    {
+      "path": "_sent/2026-11-21_1502_painted_bodies_everywhere_2d_your_keep_p/18_tape_real.png",
+      "text": "ok. maybe add streak/latest results?",
+      "at": "2026-11-21T15:51:42Z",
+      "seen_by_claude": true,
+      "id": "C449"
     }
   ]
 }

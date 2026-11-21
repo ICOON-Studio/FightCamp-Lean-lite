@@ -21,6 +21,7 @@ const Cells := preload("res://tools/treevalue_cells.gd")
 const StrikeMap := preload("res://scripts/rules/StrikeMap.gd")
 const PlanFight := preload("res://scripts/rules/PlanFight.gd")
 const PlaceEdge := preload("res://scripts/rules/PlaceEdge.gd")   # S533 STEPPAY2 place=off / edge=
+const StepWire := preload("res://scripts/state/StepWire.gd")   # S533 STEPPAY2 ride=off / ride=<keep>
 
 ## TREEVALUE1's four opponents (kept); TREEVALUE2 adds the two RIVALS below for the six styles of StepValue.STYLES.
 const OPPS := [
@@ -76,6 +77,11 @@ const ST2 := {
 ## Each style's rating is CALIBRATED so the full BASE plan wins about half its bouts (TREEVALUE1's S464 rule: a floor
 ## no step can show a value against). Style, threat and plan stay the opponent's.
 var opp_rating := {}
+## S533 STEPPAY2 (tools/step_fire_fit_probe.gd: the plan's WHEN punches took the long card in 4.1 exchanges a bout exactly
+## when cut_off was best, so "cut_off FOR the Out-boxer" fired in its best situation 15% of the time): `when=best` also
+## plans the swept step WHEN each situation the fight grades it best in (PlanFight.ANSWERS), ahead of the plan's other
+## lines there. Steps no other line was taking from are unchanged. The without-arm still has none of its lines.
+var when_best := false
 
 
 func _plan_for(nid: String) -> Array:
@@ -92,6 +98,10 @@ func _plan_for(nid: String) -> Array:
 		for a in out:
 			if str(a["move"]) == nid:
 				a.erase("when")
+	if when_best:
+		for sit in ["press", "range", "counter", "loadup", "tiring", "hurt", "she_tired", "she_hurt"]:
+			if PlanFight.fit(nid, str(sit)) == "best":
+				out.append({"move": nid, "when": str(sit)})
 	out = _swept_first(out, nid)
 	_keep_dest_punch(out, nid)   # S528 TREEVALUE5: the destination card keeps a planned punch to spend the step's opening
 	return out
@@ -282,6 +292,13 @@ func _initialize() -> void:
 	for a in OS.get_cmdline_user_args():
 		if str(a) == "place=off":   # S533 STEPPAY2 control arm: the game before PlaceEdge
 			PlaceEdge.on = false
+		if str(a) == "when=best":
+			when_best = true
+			print("WHEN=BEST: the swept step is also planned WHEN each situation it is best in")
+		if str(a) == "ride=off":   # S533 STEPPAY2 phase 3 control arm: every step costs its exchange
+			StepWire.ride_on = false
+		elif str(a).begins_with("ride="):   # measurement only: the share of the step's own answer kept when it rides
+			StepWire.ride_keep = float(str(a).substr(5))
 		if str(a).begins_with("edge="):   # measurement only: another ROPES size
 			PlaceEdge.probe_size = float(str(a).substr(5))
 		if str(a).begins_with("off="):
@@ -292,6 +309,7 @@ func _initialize() -> void:
 			for st in _sweep_steps(): StepEffectOff.probe_scale[str(st)] = float(str(a).substr(6))
 			print("SCALE (sensitivity, measurement only): %s" % str(StepEffectOff.probe_scale))
 	print("PlaceEdge: on=%s ropes=%+.1f corner=%+.1f own_ropes=%+.1f" % [str(PlaceEdge.on), PlaceEdge.edge("opp_ropes"), PlaceEdge.edge("corner"), PlaceEdge.edge("own_ropes")])
+	print("StepWire ride: on=%s keep=%.2f" % [str(StepWire.ride_on), StepWire.ride_keep])
 	var base := _base_dict()
 	var factory := Callable(self, "_make_fighter")
 	# CONTROL: the forced grade really is OK on every step (LineGrade's rule, the one the live round reads).
@@ -375,6 +393,7 @@ func _initialize() -> void:
 			var fires := 0
 			var uses := 0
 			var wrong := 0
+			var rides := 0
 			var n_total := 0
 			for sb in SEED_SETS:
 				var w := _cell(with_plan, opp, base, sid, int(sb), N_BOUTS)
@@ -384,6 +403,7 @@ func _initialize() -> void:
 				wins_without += int(wo["wins"])
 				fires += int(w["fires"])
 				wrong += int(w.get("wrong", 0))
+				rides += int(w.get("rides", 0))
 				uses += int(w["uses"])
 				without_fires += int(wo["fires"])
 				n_total += N_BOUTS
@@ -392,8 +412,8 @@ func _initialize() -> void:
 				mean += float(d)
 			mean /= float(deltas.size())
 			cells[s] = {"delta": mean, "seeds": deltas, "fires": fires, "uses": uses, "with": wins_with, "without": wins_without, "n": n_total, "wrong": wrong}
-			print("CELL step=%s style=%s with=%d without=%d delta=%+.2f fires/bout=%.2f uses/bout=%.2f wrong=%.0f%% seeds=%s" % [
-				sid, s, wins_with, wins_without, mean, float(fires) / float(n_total), float(uses) / float(n_total), 100.0 * float(wrong) / float(maxi(1, fires)), str(deltas)])
+			print("CELL step=%s style=%s with=%d without=%d delta=%+.2f fires/bout=%.2f uses/bout=%.2f wrong=%.0f%% rides=%.0f%% seeds=%s" % [
+				sid, s, wins_with, wins_without, mean, float(fires) / float(n_total), float(uses) / float(n_total), 100.0 * float(wrong) / float(maxi(1, fires)), 100.0 * float(rides) / float(maxi(1, fires)), str(deltas)])
 		results[sid] = {"cells": cells, "plan": plan_str, "dest": dest, "dest_punch": dest_punch}
 	if without_fires != 0:
 		print("CONTROL FAILED: the swept step fired %d times as planned in the without-arm (its line is out)" % without_fires)

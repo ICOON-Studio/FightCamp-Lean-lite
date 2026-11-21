@@ -19,7 +19,7 @@ number, on John's list (`JOHN_WEIGHT2_ASK.md`) and in the probe's MODEL. NEW = n
 3. The last kilos come off as WATER in fight week (three settings). Water is what drains him on the night.
 4. How much water is back by the bell depends on the scale: same day (amateur, a quarter back) or the day before (pro, most back).
 5. What he weighs IN THE RING against the other boxer is a size edge: punch, chin, the inside.
-6. The class is a choice between bouts: stay, move up, move down. (Round 1 also had "walk bigger and cut harder" and a full rank loss: the probe refuted both, section 4.)
+6. The class is a choice between bouts: stay, walk bigger and cut harder, move up, move down. A move costs one rung of rank (round 1's two rungs made staying always best; section 4).
 7. His body has a limit (how much water he tolerates) that the player reads with error, and that shrinks with age.
 8. Bound: three decisions, never more than one screen: a diet per boxer (Monday), water (fight week), class (between bouts).
 
@@ -129,6 +129,8 @@ of what is left comes off as water. None / Light (to 2 % of body weight) / Hard 
 - The gap in ring weight, as a % of body weight, is read where reach and height already are (`Duels.facts` ctx, `Duels.gd:415-425`):
   per 1 % heavier, punch +1.2 and chin +1.0 in the count odds (`RingDuel.side :138-139` -> `Knockdowns.round_counts`, and
   `WorldBout._side` for the world), the inside and the clinch his, hand speed -0.4. Capped at 8 points (ESTIMATE, John 5).
+  It must also reach the exchange odds (a mass term in `Duels._ob` beside `REACH_PER_CM`): with punch and chin alone, giving away
+  5 to 9 % cost nothing in round 1. Round 2 ran it as 0.35 rating points per 1 % (section 4.4).
 - This IS the carry-over on a class move: no separate "power carries up" number. A puncher who moves up meets heavier men and
   his punch is worth less against them; his speed is worth more.
 - 3D: the body should scale with weight, lightly, beside `ArmBuild` (Strength = arms and shoulders; ring weight = torso and neck
@@ -138,8 +140,9 @@ of what is left comes off as water. None / Light (to 2 % of body weight) / Hard 
 
 - On the fighter's Overview BODY card, between bouts only: "Box at 65 kg from the next bout" with the forecast beside it
   (weeks to make it, water left for fight week, size against that class's field, where he lands on the ladder).
-- Amateur: his class is whatever he enters at; the regional ladder is per class, so he joins the new one unranked with half his
-  points. Pro: a table move; rank is lost (he joins at the foot of the ranked ten if he was top 5, else unranked).
+- Amateur: his class is whatever he enters at; the regional ladder is per class, so he joins the new one a place
+  lower than he stood. Pro: a table move one rung down; a top-3 keeps his rung. (Round 1 took the whole rank away and staying
+  was best in 10 of 10 cells; one rung is round 2's measured rule, section 4.4.)
 - Turning pro picks the class on purpose: `limit` is rewritten to the table's row (fixes L2, `ProLadder.gd:43-49`).
 - The class table gets a step above and below every boxer: men's 65 back (the 60 to 70 hole makes "move up" a 10 kg jump),
   and one class under the lightest and over the heaviest per sex (the probe ran on 54 to 81 women, 55 to 86 men).
@@ -181,7 +184,7 @@ slider (three settings), no separate nutritionist hire, no weight for the BJJ fi
 A week asks at most: one diet setting per boxer on Monday (only shown when he is not on Hold or a bout is near), and in a fight
 week one water setting. The class card appears between bouts. One screen.
 
-## 4. The probe (measured before any critic): FAIL on round 1
+## 4. The probe (measured before any critic): round 1 FAIL, round 2 PASS
 
 Run: `tools/weight2_probe.gd` through `godot_slot`, 20 seeds x 6 bouts a run, 9,760 bouts in 721 s, no script error. Full
 output: `docs/WEIGHT2_PROBE.md`. Real: five Data boxers (Samira the puncher, Josh the volume man, Tess the big chin, Kira
@@ -189,7 +192,7 @@ walking 2.5 kg heavier as the drained cutter, Danny as a plain boxer-puncher), t
 (`BoutNight.play_out` on a scratch career, the fight DAY's dice, every choice of a seed on the same nights). Scratch: the
 weight model of section 3 (the probe's MODEL), on a class table with a step above and below everyone.
 
-### 4.1 Result: FAIL
+### 4.1 Round 1 result: FAIL
 
 | Bar | Measured | |
 | :--- | :--- | :--- |
@@ -246,18 +249,60 @@ Win share of the bouts fought (120 bouts a number; about 4 points either way is 
    rated at his own paper strength, so the ladder only ever falls and squeezes against rung 12. The next run fits the opponents
    so that STAY wins about half, or the ladder cannot separate anything.
 
-### 4.3 What round 2 changes before any critic sees this (not yet measured)
+### 4.3 What round 1 said to change
 
 | Change | Why | Section |
 | :--- | :--- | :--- |
 | A class move keeps most of the rank: one rung lost, not two; a top-3 keeps his place | Finding 1 | 3.5 |
 | Size reaches the exchanges: ring-weight gap into `Duels.facts` beside reach (the inside, the clinch, being walked down), not only punch and chin | Finding 2 | 3.4 |
-| CUT harder stops being a choice. Walking bigger is what "Eat free" already does; the choice list is STAY, UP, DOWN | Finding 3 | 3.1, 3.5 |
+| CUT harder stops being a choice (WITHDRAWN after round 2: it is best in two pro cells, 4.4) | Finding 3 | 3.1, 3.5 |
 | The class above pays: a heavier class has a deeper field and bigger tickets (ESTIMATE), so UP has a reason beyond the bouts and DOWN a price | UP must not be free | 3.5, 3.6 |
 | The probe: opponents fitted to 50 % for STAY, 12 bouts a run, the score = ladder place AND the season's money | Finding 7 | probe |
 
-Until round 2 passes, section 3 is a proposal the measurement has partly refuted (3.5's rank rule, 3.4's reach, CUT as a
-choice) and partly supported (3.2 water and the two scales, 3.3 the miss, 3.1 the diet's price).
+### 4.4 Round 2, measured: PASS
+
+The changes of 4.3 that a greybox can hold went into the probe's MODEL: a class move costs ONE rung; the size gap also makes
+the opponent worth 0.35 rating points more or less per 1 % of ring weight (size in the exchanges, ESTIMATE); opponents eased
+(3 points amateur, 6 pro) so the ladder can rise; 12 bouts a run on a 20-rung ladder, everyone starting on 10. Same boxers, same
+nights for every choice of a seed. 15,167 bouts in 650 s, no script error. Full table: `docs/WEIGHT2_PROBE.md` (round 1's is in
+commit 875376421). The money of the class above was NOT modelled.
+
+| Bar | Measured | |
+| :--- | :--- | :--- |
+| Each lever moves the result | size 3.6 points of win share (best choice changes in 5 of 10 cells with it off), drain 2.3 (4), rank 1.7 (3), miss 1.7 (1), diet 1.5 (1) | met |
+| No single choice best in more than 6 of 10 cells | STAY 5, CUT harder 2, UP 2, DOWN 1 | **met** |
+
+Ladder place after twelve bouts (1 is the top; start 10, a class move starts on 11):
+
+| Cell | STAY | CUT harder | UP | DOWN | Best |
+| :--- | ---: | ---: | ---: | ---: | :--- |
+| puncher / amateur | 11.32 | 12.23 | 13.35 | 15.10 | STAY |
+| puncher / pro | 11.93 | 11.30 | 13.45 | 11.43 | CUT |
+| volume / amateur | 10.20 | 10.85 | 11.10 | 12.78 | STAY |
+| volume / pro | 9.82 | 8.78 | 11.90 | 8.85 | DOWN (level with CUT, higher win share) |
+| big chin / amateur | 10.85 | 11.25 | 10.88 | 12.80 | UP (level with STAY, higher win share) |
+| big chin / pro | 10.05 | 10.10 | 11.50 | 11.45 | STAY |
+| drained cutter / amateur | 12.32 | 14.88 | 10.90 | 15.88 | UP |
+| drained cutter / pro | 9.07 | 10.82 | 9.93 | 10.88 | STAY |
+| boxer-puncher / amateur | 10.38 | 11.13 | 11.57 | 14.32 | STAY |
+| boxer-puncher / pro | 9.95 | 9.35 | 10.80 | 9.85 | CUT |
+
+What it says, and how far to trust it:
+
+1. **The scale decides the direction.** On the same-day amateur scale no cut ever pays: STAY or UP in all five cells, DOWN last
+   in all five (5 to 9 missed scales in twelve for the three with the most water). On the day-before pro scale size comes back
+   cheaply, so CUT harder or DOWN is best in three of five. This is the mechanic's spine and it held in both rounds.
+2. **The body decides inside that.** The cutter who has outgrown her class must move up as an amateur (10.90 against 12.32, and
+   3.45 missed scales staying) yet is best staying put as a pro. The big chin can afford to give weight away (UP level with STAY);
+   the puncher cannot (UP is her worst amateur pick by two rungs: her punch is worth less up there).
+3. **CUT harder is alive on the pro scale**, which round 1 called dead. It stays a choice. Its amateur form is still never best.
+4. **Thin margins.** Two cells are decided inside a tenth of a rung, and 240 bouts a number leaves about 3 points of win share
+   as noise. The split 5 / 2 / 2 / 1 is the finding; any single cell's winner is not. STAY at 5 of 10 is also the upper end of
+   healthy: the money of the class above (not modelled) is what should pull one or two cells off it.
+5. **Still estimates.** size_rating 0.35 and the one-rung cost were chosen after round 1, not sourced. John's answers (SQ278)
+   replace the slopes; the probe is re-run on them, on main after the `s535/dmgfix` merge, before the critics.
+
+Section 3 as it now stands for the critics carries round 2: one rung lost on a move (3.5), size in the exchanges (3.4), four choices.
 
 ## 5. Every menu it appears on
 

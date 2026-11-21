@@ -18,14 +18,62 @@ extends RefCounted
 const StepEffect := preload("res://scripts/rules/StepEffect.gd")
 const PlanFight := preload("res://scripts/rules/PlanFight.gd")
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
+const StrikeMap := preload("res://scripts/rules/StrikeMap.gd")
+const FireLevel := preload("res://scripts/rules/FireLevel.gd")
+const LineGrade := preload("res://scripts/rules/LineGrade.gd")
 
 const DENY_SHARE := {"all": 1.0, "power": 0.5, "head_hooks": 0.19}   ## BoutBurn.MIX: cross .25 + hooks .19 + uppercut .06; lead hook .13 + uppercut .06
 const WRONG_COST := 0.2   ## ESTIMATE (step_in's map value, now every step's default) - sized by TREEVALUE5 / STEPTUNE3
 static var levers_on: bool = true   ## tests turn it off for the control arm (the ropes count stays)
+## S533 STEPPAY2 phase 3 (ops/research/STEPS_PAYOFF_SCOPE_S533.md: "the step spends less when it is right"): a planned step
+## in its BEST situation (the fight's own grading, PlanFight.fit) costs no exchange - real footwork is part of the punch.
+## The exchange is fought on the card the step leads to, there and then (so the place pays now: PlaceEdge), the step stays
+## the exchange's line (its answer to her game, its levers, the ropes count, the plan's tally - all as before), and when
+## the plan has a punch line on that card that comes off (FireLevel) its plan points are added: the step and the punch
+## in one exchange. A card with no punch to throw (the clinch), or any other situation: the step costs the exchange.
+## Measured on the way (tools/step_fire_fit_probe.gd): asking for a planned punch that fits the moment let it ride 0-9% of
+## its fires; swapping the exchange's line for the punch dropped the step out of the plan's right answers.
+static var ride_on: bool = true    ## false = the control arm (every step costs its exchange)
+static var ride_keep: float = 1.0  ## share of the step's own answer (its plan points) kept when it rides
+
+
+## The ride, asked by LiveRound.exchange once the step's own fire roll came off: {} = no ride; else {at, pick} - the card
+## this exchange is fought on and the same pick, carrying "ride_edge" (the plan points of the punch line thrown with it,
+## 0 with none; read by LineGrade.edge) and "rode_punch". roll = that punch line's own fire roll.
+static func ride(lv: Dictionary, pick: Dictionary, plan: Array, f: Dictionary, psit: String, sit: String, at: String, roll: float) -> Dictionary:
+	if not levers_on or not ride_on or not bool(pick.get("planned", false)):
+		return {}
+	var arrow := str(pick["move"])
+	if not StepEffect.TABLE.has(PlanFight.base_id(arrow)) or PlanFight.fit(arrow, psit) != "best":
+		return {}
+	var dest := str(StrikeMap.move(arrow).get("to", ""))
+	var moves: Dictionary = f.get("moves", {})
+	if dest == "" or not StrikeMap.outs(dest).any(func(m): return str(m.get("kind", "")) == "combo" and PlanFight.can_do(m, moves)):
+		return {}   # no punch to throw there (the clinch)
+	var out := pick.duplicate()
+	out["ride_edge"] = 0.0
+	out["rode_punch"] = ""
+	var nxt := PlanFight.choose(plan.filter(func(a): return str((a as Dictionary).get("move", "")) != arrow), dest, moves, sit)
+	var punch := str(nxt.get("move", ""))
+	var bout: Dictionary = f.get("bout", {})
+	if bool(nxt.get("planned", false)) and str(StrikeMap.move(punch).get("kind", "")) == "combo" \
+			and FireLevel.fires(FireLevel.shares_for(bout), FireLevel.round_mastery(bout, punch, int(lv.get("n", 1)), FireLevel.mastery_of(f, punch)), roll):
+		var combos: Dictionary = f.get("combos", {})
+		out["rode_punch"] = punch
+		out["ride_edge"] = ride_keep * LineGrade.edge(nxt, psit, PlanFight.rate(punch, combos), PlanFight.card_mean(dest, psit, moves, combos), LineGrade.attrs_for(f))
+	lv["rode_from"] = at
+	lv["rode_punch"] = str(out["rode_punch"])
+	lv["at"] = dest
+	return {"at": dest, "pick": out}
 
 
 static func after(lv: Dictionary, rec: Dictionary, arrow: String, planned: bool) -> void:
 	rec["ropes_put"] = ""
+	if lv.has("rode_from"):   # S533 phase 3: this exchange's step rode (the record keeps where it started and the punch with it)
+		rec["rode"] = arrow
+		rec["rode_from"] = str(lv["rode_from"])
+		rec["rode_punch"] = str(lv.get("rode_punch", ""))
+		lv.erase("rode_from")
 	var step := PlanFight.base_id(arrow)
 	var row := StepEffect.effect(step)
 	if not planned or row.is_empty():

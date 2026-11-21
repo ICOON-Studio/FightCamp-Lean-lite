@@ -24,6 +24,7 @@ const StepValue := preload("res://scripts/rules/StepValue.gd")
 const StrikeMap := preload("res://scripts/rules/StrikeMap.gd")
 const PlanFight := preload("res://scripts/rules/PlanFight.gd")
 const PlaceEdge := preload("res://scripts/rules/PlaceEdge.gd")
+const StepWire := preload("res://scripts/state/StepWire.gd")
 
 ## docs/TREEVALUE3_RESULT.txt: each style's rating so TREEVALUE's base plan wins about half its bouts.
 const RATING := {"Maria Ortega": 52.89, "Jade Cooper": 55.95, "Holly Price": 54.24, "Priya Nair": 53.29,
@@ -76,7 +77,7 @@ func _play(off: int, opp: Dictionary, place: String) -> Array:
 			if int(xd["i"]) == 0:
 				continue
 			var ld: Array = xd["landed"]
-			out.append({"won": bool(xd["won"]), "la": int(ld[0]), "lb": int(ld[1]), "at": str(xd.get("at", "")),
+			out.append({"won": bool(xd["won"]), "la": int(ld[0]), "lb": int(ld[1]), "at": str(xd.get("rode_from", xd.get("at", ""))),   # the card it STARTED on (a step that rode a punch moved it, STEPPAY2 phase 3)
 				"arrow": PlanFight.base_id(str(xd.get("arrow", ""))), "planned": bool(xd.get("planned", false)), "mode": str(xd["mode"])})
 	return out
 
@@ -160,6 +161,8 @@ func _initialize() -> void:
 			n_ex = int(str(a).substr(2))
 		if str(a) == "place=off":   # S533 STEPPAY2 control arm: the game before PlaceEdge (STEPPAY1's table)
 			PlaceEdge.on = false
+		if str(a) == "ride=off":   # S533 STEPPAY2 phase 3 control arm: every step costs its exchange
+			StepWire.ride_on = false
 		if str(a).begins_with("edge="):   # measurement only: another ROPES size
 			PlaceEdge.probe_size = float(str(a).substr(5))
 	print("PlaceEdge: on=%s ropes=%+.1f corner=%+.1f own_ropes=%+.1f" % [str(PlaceEdge.on), PlaceEdge.edge("opp_ropes"), PlaceEdge.edge("corner"), PlaceEdge.edge("own_ropes")])

@@ -5,7 +5,7 @@ extends SceneTree
 ## scratch Career, PlanTest's way: the dice are the fight DAY's, and every choice of one seed fights the same days).
 ## 10 cells = 5 boxers (puncher, volume, big chin, drained cutter, plain boxer-puncher) x 2 scales (amateur: weighed on
 ## the day, 3 rounds; pro: weighed the day before, 6 rounds). 4 choices: STAY, CUT harder (walk 2 kg bigger, same class),
-## UP a class, DOWN a class. Each (cell, choice, seed) is a run of N bouts on a 12-rung ladder.
+## UP a class, DOWN a class. Each (cell, choice, seed) is a run of N bouts on a 20-rung ladder (round 2; round 1 = 875376421).
 ## The scratch model (every number an ESTIMATE, JOHN_WEIGHT2_ASK.md): see MODEL below and _setup().
 ## PASS = each lever moves the result AND no single choice is best in more than 6 of the 10 cells.
 ##   python ops/Tools/godot_slot.py run --who weight2 -- <godot.exe> --headless --audio-driver Dummy --path . \
@@ -26,8 +26,8 @@ const BOXERS := [
 	{"shape": "boxer-puncher", "who": "danny", "over": 0.0},
 ]
 const SCALES := [
-	{"id": "am", "name": "amateur, weighed on the day, 3 rounds", "pro": false, "rounds": 3, "regain": 0.25, "water_ok": 2.0, "opp_regain": 0.005},
-	{"id": "pro", "name": "pro, weighed the day before, 6 rounds", "pro": true, "rounds": 6, "regain": 0.80, "water_ok": 4.0, "opp_regain": 0.045},
+	{"id": "am", "name": "amateur, weighed on the day, 3 rounds", "pro": false, "rounds": 3, "regain": 0.25, "water_ok": 2.0, "opp_regain": 0.005, "opp_off": -3.0},
+	{"id": "pro", "name": "pro, weighed the day before, 6 rounds", "pro": true, "rounds": 6, "regain": 0.80, "water_ok": 4.0, "opp_regain": 0.045, "opp_off": -6.0},
 ]
 const CHOICES := ["STAY", "CUT", "UP", "DOWN"]
 const LEVERS := ["drain", "size", "diet", "miss", "rank"]
@@ -43,7 +43,8 @@ const MODEL := {
 	"drain_tank": 3.0, "tank_max": 25.0, "drain_knee": 3.0,                           # past the knee each % counts twice
 	"grow": 0.33, "diet_cost": 0.12, "grow_min": 0.4,                                 # stat points a bout cycle; x (1 - cost x % held)
 	"miss_slope": 0.20, "miss_max": 0.7,                                               # a % of water past the scale's line, x (1.5 - discipline / 100)
-	"rung0": 8.0, "rung_move": 10.0, "rung_gap": 0.6, "field_grow": 0.15,
+	"rung0": 10.0, "rung_move": 11.0, "rung_gap": 1.2, "rung_max": 20.0, "field_grow": 0.15,   # round 2: a move costs ONE rung
+	"size_rating": 0.35,       # round 2: size reaches the exchanges - rating points the opponent is worth per 1 % he outweighs us
 }
 const PLANS := [
 	{"arrows": [{"move": "1-2"}, {"move": "step_in"}, {"move": "cut_off"}, {"move": "tie_up"}], "combos": {"1-2": 60.0, "1-1": 45.0}},
@@ -59,19 +60,21 @@ var n_bouts := 0
 func _initialize() -> void:
 	t0 = Time.get_ticks_msec()
 	var seeds := 20
-	var bouts := 6
-	var abl := 5
+	var bouts := 12
+	var abl := 3
 	for a in OS.get_cmdline_user_args():
 		var s := str(a)
 		if s.begins_with("seeds="): seeds = int(s.substr(6))
 		if s.begins_with("bouts="): bouts = int(s.substr(6))
 		if s.begins_with("abl="): abl = int(s.substr(4))
 	abl = mini(abl, seeds)
-	_say(["# WEIGHT2 probe - weight as one mechanic, measured on a greybox before any build (S535 WEIGHTMOVE1)", "",
+	_say(["# WEIGHT2 probe, ROUND 2 - weight as one mechanic, measured on a greybox before any build (S535 WEIGHTMOVE1)", "",
+		"Round 1 (commit 875376421) FAILED: STAY best in 10 of 10 cells. Round 2 changes: a class move costs one rung (was two); size also",
+		"makes the opponent worth more or less in the exchanges (size_rating); opponents eased (opp_off) so the ladder can rise; 12 bouts on a 20-rung ladder.", "",
 		"Run: " + "python ops/Tools/godot_slot.py run --who weight2 -- <godot> --headless --audio-driver Dummy --path . --script res://tools/weight2_probe.gd -- seeds=%d bouts=%d abl=%d" % [seeds, bouts, abl], "",
 		"What is real: the five boxers (Data.PROSPECTS), their opponents (Data's region sheets), and every bout (BoutNight.play_out,",
 		"the game's fight night). What is scratch: the weight model below. Every number in it is an ESTIMATE waiting for John.",
-		"Each run = %d bouts on a 12-rung ladder; %d seeds a cell; every choice of a seed fights the same nights (same dice)." % [bouts, seeds], "",
+		"Each run = %d bouts on a 20-rung ladder; %d seeds a cell; every choice of a seed fights the same nights (same dice)." % [bouts, seeds], "",
 		"Model: " + str(MODEL), ""])
 	var cells: Array = []
 	for b in BOXERS:
@@ -94,7 +97,7 @@ func _initialize() -> void:
 			t["stats"]["power"], t["stats"]["speed"], t["stats"]["conditioning"], t["stats"]["chin"], t["personality"]["discipline"]])
 	_say(["", "## 2. The cell table", "",
 		"Win, stopped (won inside / lost inside), late = last third of the rounds won, weeks = weeks lost to the diet and to missed scales,",
-		"missed = scales missed a run, place = ladder rung at the end (1 is the top; every boxer starts on 8, a class move starts on 10).", ""])
+		"missed = scales missed a run, place = ladder rung at the end (1 is the top; every boxer starts on 10, a class move starts on 11).", ""])
 	var best_count := {}
 	for ch in CHOICES:
 		best_count[ch] = 0
@@ -261,7 +264,7 @@ func _run(cell: Dictionary, ch: String, seed_i: int, bouts: int, off: String) ->
 		if u < float(su["p_miss"]):
 			res["missed"] = int(res["missed"]) + 1
 			res["weeks"] = float(res["weeks"]) + 1.0
-			rung = minf(12.0, rung + 0.5)
+			rung = minf(float(MODEL["rung_max"]), rung + 0.5)
 			continue
 		var f := Data.fighter_state(t.duplicate(true), day)
 		for st in ["power", "speed", "technique", "defense", "conditioning", "fight_iq"]:
@@ -273,7 +276,7 @@ func _run(cell: Dictionary, ch: String, seed_i: int, bouts: int, off: String) ->
 			"arrows": (pl["arrows"] as Array).duplicate(true), "combos": (pl["combos"] as Dictionary).duplicate()}, true)
 		f.erase("last_bout_day")
 		var opp: Dictionary = (pool[(seed_i * 7 + k * 3 + int(day)) % pool.size()] as Dictionary).duplicate(true)
-		opp["rating"] = base + float(MODEL["field_grow"]) * float(k) + (float(MODEL["rung0"]) - rung) * float(MODEL["rung_gap"])
+		opp["rating"] = base + float(sc["opp_off"]) + float(MODEL["field_grow"]) * float(k) + (float(MODEL["rung0"]) - rung) * float(MODEL["rung_gap"]) - float(MODEL["size_rating"]) * float(su["gap"])
 		opp.erase("height")
 		opp.erase("reach")
 		f["bout"] = {"opp": opp, "day": day, "weighed": true, "made": true, "done": false, "film": 1, "rounds": int(sc["rounds"]), "stale": float(su["tank"])}
@@ -293,7 +296,7 @@ func _run(cell: Dictionary, ch: String, seed_i: int, bouts: int, off: String) ->
 			rung = maxf(1.0, rung - (1.5 if stop else 1.0))
 			if stop: res["stop_w"] = int(res["stop_w"]) + 1
 		elif outcome == "loss":
-			rung = minf(12.0, rung + 1.0)
+			rung = minf(float(MODEL["rung_max"]), rung + 1.0)
 			if stop: res["stop_l"] = int(res["stop_l"]) + 1
 		var late_from := int(ceil(float(sc["rounds"]) * 2.0 / 3.0)) + 1
 		for r in m["rounds"]:

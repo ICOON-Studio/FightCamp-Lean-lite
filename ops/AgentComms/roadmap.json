@@ -5425,6 +5425,18 @@
   ],
   "next": [
    {
+    "id": "OFFERTAPE1",
+    "who": "claude-fable",
+    "title": "Your notes C448/C449: the bout offer becomes a decision screen (mockup first), the tale of the tape gets Last 5 + streak - starts when a console frees up",
+    "after": "a free console"
+   },
+   {
+    "id": "GLOVEFACE1",
+    "who": "claude-fable",
+    "title": "Your note C447 'is the glove normal looking ?': the guard glove sinks into the cheek and reads tall and narrow side-on, the cuff like a tube - check with the body correctives (MHCORR2), then fix",
+    "after": "MHCORR2"
+   },
+   {
     "id": "DEPTH1",
     "who": "claude",
     "title": "Depth: make existing choices matter (DEPTH_AUDIT_S534 part 4: price every free/solved option, exchange reads place + cover, coach's hands as the club's currency, be wrong about people, one opponent who remembers) - his call Q-S294-291; probe before critics",

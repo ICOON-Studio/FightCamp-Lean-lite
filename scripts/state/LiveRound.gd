@@ -242,6 +242,8 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	if bool(pick.get("planned", false)) and not FireLevel.fires(FireLevel.shares_for(f["bout"]), FireLevel.round_mastery(f["bout"], arrow, n, FireLevel.mastery_of(f, arrow)), _rng(c, f, n, i + 173).randf()): pick["planned"] = false
 	# S342 real plans (Q-S294-67): a hurt opponent who still hits back, a waiter in the round's last exchange.
 	var psit := PlanFight.refine(sit, RoundStyle.opponent_habits(opp), i, Exchanges.EXCHANGES)
+	var rode := StepWire.ride(lv, pick, plan_now, f, psit, sit, at, _rng(c, f, n, i + 251).randf())   # S533 STEPPAY2 phase 3: a step in its best situation costs no exchange - it is fought on the card the step leads to
+	if not rode.is_empty(): at = str(rode["at"]); pick = rode["pick"]
 	var card_mean := PlanFight.card_mean(at, psit, f.get("moves", {}), f.get("combos", {}))
 	var plan_edge := LineGrade.edge(pick, psit, PlanFight.rate(arrow, f.get("combos", {})) * PerkFight.combo_rate(f, arrow), card_mean, LineGrade.attrs_for(f))
 	if plan_edge > LineGrade.edge(pick, psit, PlanFight.rate(arrow, f.get("combos", {})), card_mean, LineGrade.attrs_for(f)): perks.append("hand_speed")

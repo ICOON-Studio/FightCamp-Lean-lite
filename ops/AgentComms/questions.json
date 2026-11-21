@@ -8560,10 +8560,11 @@
       "attach": [
         "research/DESIGN_WEIGHT2.md"
       ],
-      "answer": null,
+      "answer": "Yes, he can refuse",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-21T15:44:34Z",
+      "seen_by_claude": true,
+      "comment_only": false
     },
     {
       "id": "Q-S294-294",
@@ -8576,6 +8577,24 @@
       ],
       "attach": [
         "research/DESIGN_WEIGHT2.md"
+      ],
+      "answer": "Yes, after the probe",
+      "note": null,
+      "answered_at": "2026-11-21T15:46:41Z",
+      "seen_by_claude": true,
+      "comment_only": false
+    },
+    {
+      "id": "Q-S294-295",
+      "asked": "2026-11-21T16:43:32.272121+00:00",
+      "session": "S294",
+      "text": "MetaHuman body maps outside Unreal: can you check Epic's licence page while signed in?",
+      "options": [
+        "I'll check it",
+        "Use them anyway"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-295_0_BODYTEX1_RESULT.md"
       ],
       "answer": null,
       "note": null,

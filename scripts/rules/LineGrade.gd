@@ -83,9 +83,10 @@ static func graded_value(move_id: String, sit: String, rate_mult: float, attrs: 
 static func edge(pick: Dictionary, sit: String, rate_mult: float, base: float, attrs: Dictionary) -> float:
 	if not bool(pick.get("planned", false)):
 		return 0.0
+	var ride := float(pick.get("ride_edge", 0.0))   # S533 STEPPAY2 phase 3: the punch line thrown with a riding step (StepWire.ride)
 	if attrs.is_empty():
-		return PlanFight.edge(pick, sit, rate_mult, base)
-	return graded_value(str(pick["move"]), sit, rate_mult, attrs) - base
+		return PlanFight.edge(pick, sit, rate_mult, base) + ride
+	return graded_value(str(pick["move"]), sit, rate_mult, attrs) - base + ride
 
 
 ## The line's worth a use: fire_share x (graded_value - the no-plan baseline card_mean).
