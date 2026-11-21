@@ -142,7 +142,7 @@ static func mark(band: String, px: int) -> TextureRect:
 	Halo.cutout(pic)
 	# TIPFIX1: was the band's bare name ("Standard"); now what the band charges and where it is changed
 	Tip.short(pic, "Dues band: %s" % str((Membership.DUES.get(band, Membership.DUES["standard"]) as Dictionary)["name"]),
-		"Each member pays %s a month at this band." % UI.money(Membership.fee(band)), "Change the band on the Dues tab.")
+		"Each member pays %s a month." % UI.money(Membership.fee(band)), "Change the band on the Dues tab.")
 	return pic
 
 

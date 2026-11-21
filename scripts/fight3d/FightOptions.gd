@@ -27,6 +27,7 @@ var _zin: Button
 var _zout: Button
 var _skip: Button
 var _top: Button
+var _plan: Button   # S533 the corner's eye: plan lines on the top-down view, or the clean view
 var _map: Control
 var _shown := -1
 var _mine := false   # the tree is paused by the player's Pause (not by a replay)
@@ -44,6 +45,7 @@ static func mount(bar: Control, fight_view: Node) -> void:
 	o._zout = bar.call("_btn", "-", "ZoomOut", func(): o.zoom(-1))
 	o._skip = bar.call("_btn", "Skip replay (Space)", "SkipReplay", o.skip_replay)
 	o._top = bar.call("_btn", "Top-down (T)", "TopDown", o.toggle_top)
+	o._plan = bar.call("_btn", "Plan lines: on (V)", "PlanLines", o.toggle_plan)
 	var map: Control = RingTopDown.make([], {}, Exchanges.EXCHANGES)
 	map.backdrop = true
 	map.ring_px = 600.0
@@ -58,8 +60,8 @@ static func mount(bar: Control, fight_view: Node) -> void:
 	bar.add_child(map)
 	o._map = map
 	var x := -8.0
-	for b: Button in [o._zin, o._zout, o._cam, o._top, o._pause, o._skip]:
-		var w := 250.0 if b == o._cam else (56.0 if b == o._zin or b == o._zout else (260.0 if b == o._skip else (190.0 if b == o._top else 160.0)))
+	for b: Button in [o._zin, o._zout, o._cam, o._top, o._plan, o._pause, o._skip]:
+		var w := 250.0 if b == o._cam else (56.0 if b == o._zin or b == o._zout else (260.0 if b == o._skip else (190.0 if b == o._top else (230.0 if b == o._plan else 160.0))))
 		bar.add_child(b)
 		b.process_mode = Node.PROCESS_MODE_ALWAYS
 		b.anchor_left = 1.0
@@ -130,6 +132,13 @@ func toggle_top() -> void:
 	draw()
 
 
+## S533: Show plan / Clean view on the top-down map. It hides or shows drawn lines only; nothing in the bout reads it.
+func toggle_plan() -> void:
+	_map.set("show_plan", not bool(_map.get("show_plan")))
+	_map.queue_redraw()
+	draw()
+
+
 func _refresh_top() -> void:
 	if not _map.visible:
 		return
@@ -141,7 +150,11 @@ func _refresh_top() -> void:
 	var main: Node = view.get("main") if is_instance_valid(view) else null
 	var m: Variant = main.get("modal") if main != null else null
 	var lv: Dictionary = (m as Dictionary).get("live", {}) if m is Dictionary else {}
-	_map.call("set_round", exs, LiveRound.state(lv, exs.size()) if not lv.is_empty() else {})
+	var st: Dictionary = LiveRound.state(lv, exs.size()) if not lv.is_empty() else {}
+	if not lv.is_empty():   # S533 the next opening's plan line (faint) and the settled rounds (ghosts): read only
+		st["next"] = {"at": str(lv.get("at", "")), "want": str(lv.get("next_want", ""))} if exs.size() < Exchanges.EXCHANGES else {}
+		st["past"] = (m as Dictionary).get("rounds", [])
+	_map.call("set_round", exs, st)
 
 
 func next_camera() -> void:
@@ -163,6 +176,8 @@ func draw() -> void:
 	_zout.disabled = FixedCam.zoom >= FixedCam.ZOOM.y - 1e-3
 	_skip.visible = _replaying()
 	_top.text = "3D view (T)" if _map.visible else "Top-down (T)"
+	_plan.visible = _map.visible
+	_plan.text = "Plan lines: on (V)" if bool(_map.get("show_plan")) else "Clean view (V)"
 
 
 func _process(_delta: float) -> void:
@@ -189,6 +204,9 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 	elif key == KEY_T and _playing():
 		toggle_top()
+		get_viewport().set_input_as_handled()
+	elif key == KEY_V and _playing() and _map.visible:
+		toggle_plan()
 		get_viewport().set_input_as_handled()
 	elif key == KEY_C and _playing():
 		next_camera()

@@ -158,7 +158,11 @@ static func run(c: Career, f: Dictionary, m: Dictionary) -> void:
 	# S341 three rounds show everything: her whole file opens, and the career's record of her keeps it.
 	OppFile.open_all(opp)
 	OppFile.remember(c.rival(str(opp["name"])), opp)
-	_card_ask(c, f, m, opp, win, pro, stop != "", rounds)   # S531 she asked about your gym
+	load("res://scripts/state/VisitWire.gd").after_bout(c, f, m, opp, win, pro, rounds)   # S533 P4PBUILD1: the visit (CardAsk)
+	# S533 the corner's eye: one clue from the plan's recorded lines, watched or skipped alike (PlanRecord.clue).
+	var clue := PlanRecord.clue(rounds)
+	m["clue"] = PlanRecord.clue_text(clue, str(load("res://scripts/rules/StrikeMap.gd").move(str(clue.get("move", "")).split("@")[0]).get("name", str(clue.get("move", "")))).to_lower())
+	c.results[0]["clue"] = m["clue"]
 	var lead := "Pro: " if pro else ""
 	var how := "on points" if stop == "" else "inside the distance"
 	if win:
@@ -216,29 +220,6 @@ static func run(c: Career, f: Dictionary, m: Dictionary) -> void:
 
 ## S302 coach's notes (Qwen COACHNOTES1, Kalli's words): the coach learns one more thing about her from a fight, sometimes
 ## from a week of sparring; each new note is a news line and fills her card (FighterPage).
-## S531 "SHE ASKED ABOUT YOUR GYM" (CardAsk): the opponent your boxer beat may ask to train here; she waits at reception.
-static func _card_ask(c: Career, f: Dictionary, m: Dictionary, opp: Dictionary, win: bool, pro: bool, stopped: bool, rounds: Array) -> void:
-	var CardAsk: GDScript = load("res://scripts/rules/CardAsk.gd")
-	var r: Dictionary = c.rival(str(opp["name"]))
-	var who: Dictionary = r if not r.is_empty() else opp
-	var pr := PlanRecord.summary(rounds)
-	var p: float = CardAsk.chance(int(pr.get("worked", 0)), int(pr.get("used", 0)), c.reputation, int(who.get("w", 0)), int(f.get("w", 0)))
-	var rng := RandomNumberGenerator.new()
-	rng.seed = hash([c.seed, c.day, str(opp["name"]), "card_ask"])
-	# Reception is free only when nobody waits there and the story's own arrivals are done: the first hour's second
-	# walk-in has come, and no scouted prospect is invited or on trial (golden path: the ask must never take their place).
-	var story_due := not c.first_hour.is_empty() and not bool(c.first_hour.get("walkin", false))
-	for pr_row in c.prospects:
-		story_due = story_due or str(pr_row.get("state", "")) in ["invited", "trial"]
-	if not CardAsk.asks(win, pro, c.applicant.is_empty() and not story_due, c.fighters.size(), p, rng.randf()):
-		return
-	var d: Dictionary = CardAsk.walkin(who, f, c.day)
-	d["quote"] = CardAsk.reason(int(pr.get("worked", 0)), int(pr.get("used", 0)), stopped)
-	c.applicant = d
-	m["card_ask"] = "After the bout, the opponent asked about training here - at reception this week."
-	c.add_news("After the bout, %s asked about training at your gym - waiting at reception (Fighters)." % str(d["name"]))
-
-
 static func coach_note(c: Career, f: Dictionary, source: String) -> void:
 	var rng := RandomNumberGenerator.new()
 	rng.seed = c.day * 131 + absi(hash(str(f.get("id", ""))))

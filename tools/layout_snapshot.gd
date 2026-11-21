@@ -117,12 +117,15 @@ func _initialize() -> void:
 	await _shot("19c_corner2")
 	main.act("fightstep", "corner:long")
 	await _shot("20_round3")
-	var top := main.find_child("TopDown", true, false) as Button   # S531 TOPDOWN1: the round from above, 7 exchanges in
+	var top := main.find_child("TopDown", true, false) as Button   # S531 TOPDOWN1: the round from above; S533 the corner's eye: 3 exchanges in, then 7
 	if top != null:
 		var fv := top.get_parent().get("view") as Node
 		if fv != null and fv.get("t") != null:
-			fv.set("t", 7 * 30.0 + 1.0)
+			fv.set("t", 3 * 30.0 + 1.0)
 		top.emit_signal("pressed")
+		await _shot("20c_round3_topdown_early")
+		if fv != null and fv.get("t") != null:
+			fv.set("t", 5 * 30.0 + 1.0)
 		await _shot("20b_round3_topdown")
 	main.act("fightstep", "end")
 	await _shot("21a_headline")   # S442 LOOP: the headline card first; See the fight opens the result page
@@ -132,9 +135,14 @@ func _initialize() -> void:
 	await _shot("21_result")
 	if " ".join(OS.get_cmdline_user_args()).contains("21b_result_card_ask"):
 		# S531 still only: the line a won bout can carry (CardAsk), shown on the real result page.
-		main.modal["card_ask"] = "After the bout, the opponent asked about training here. She is at reception this week."
+		main.modal["card_ask"] = "After the bout, the opponent asked to train here: at reception until %s." % Clock.fmt(main.career.day + 7)
 		main.redraw_modal()
 		await _shot("21b_result_card_ask")
+		# S533 still only: a night whose work was seen though nobody came (VisitWire's visit_note).
+		main.modal.erase("card_ask")
+		main.modal["visit_note"] = "The other corner saw it: pivot off the ropes got your boxer off the ropes 2 times. No visitor this time."
+		main.redraw_modal()
+		await _shot("21c_result_visit_note")
 	main.act("afterfight")
 	main.act("goaltalk", "lucy")
 	main.act("pickgoal", "five_round_engine")

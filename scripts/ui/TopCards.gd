@@ -20,10 +20,10 @@ static func money(c: Career) -> Dictionary:
 	var rows: Array = [["Comes in", "+" + GameMoney.text(inc), "", "good"], ["Goes out", "-" + GameMoney.text(out), "", "bad"],
 		["Net a week", ("+" if net >= 0 else "-") + GameMoney.text(absi(net)), "▲" if net >= 0 else "▼", "good" if net >= 0 else "bad"]]
 	var now := "The cash grows by %s a week." % GameMoney.text(net) if net >= 0 else \
-		"At this net the cash lasts about %d weeks." % GymBills.runway_weeks(c.cash, net)
-	return {"kind": "full", "title": "Money a week", "what": "What the gym takes in and pays out in a normal week.",
-		"rows": rows, "now": now, "moves": "Dues, classes and sponsors bring money in; staff, stipends and bills take it out.",
-		"do": "Open the Club page, Money tab, to see every line.", "keys": ["runway", "dues"]}
+		"Cash lasts about %d weeks at this net." % GymBills.runway_weeks(c.cash, net)
+	# TIPFIX2 (owner Q-283 "Shorter cards"): no MOVES line - the rows already split what comes in from what goes out.
+	return {"kind": "full", "title": "Money a week", "what": "What comes in and goes out in a normal week.",
+		"rows": rows, "now": now, "do": "Open Club, Money tab, for every line.", "keys": ["runway", "dues"]}
 
 
 static func date(c: Career) -> Dictionary:
@@ -60,10 +60,11 @@ static func go(c: Career, g: Dictionary, running: bool) -> Dictionary:
 	var blocked := str(g.get("cls", "")) == "GoBlock"
 	var ns := Clock.next_stop(c)
 	var d := {"kind": "full", "title": "The days wait" if blocked else "Continue",
-		"what": "The days cannot run until this job is done." if blocked else "Plays the days one by one until something needs you.",
-		"moves": "The days stop for week's end, bills, weigh-ins, fights and offers.",
-		"do": "Click to go to the job." if blocked else ("Click to pause. Change anything, then carry on." if running else "Click to start. Click again while it runs to pause."),
+		"what": "The days cannot run until this job is done." if blocked else "Runs the days to week's end, bills, fights or offers.",
+		"do": "Click to go to the job." if blocked else ("Click to pause, change anything, carry on." if running else "Click to start; click again to pause."),
 		"hint": [["Menu", "Settings: how fast the days run"]]}
-	if not blocked:
+	if blocked:
+		d["moves"] = "Days stop for week's end, bills, weigh-ins, fights, offers."
+	else:
 		d["now"] = "Next stop: %s, %s." % [Clock.fmt(int(ns["d"])), str(ns["r"])]
 	return d

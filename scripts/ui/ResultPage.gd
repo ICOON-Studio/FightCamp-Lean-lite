@@ -281,6 +281,14 @@ static func summary(main: Node, m: Dictionary, f: Dictionary, names: Array) -> V
 		var ask := UI.label(str(m["card_ask"]), 20, UI.GREEN, "semi", true)
 		ask.name = "CardAsk"
 		v.add_child(ask)
+	elif str(m.get("visit_note", "")) != "":   # S533 the work was seen though nobody came: coaching and luck told apart
+		var seen := UI.label(str(m["visit_note"]), 18, UI.MUTED, "body", true)
+		seen.name = "VisitNote"
+		v.add_child(seen)
+	# S533 the corner's eye: the bout's one recorded clue (BoutFinish), or the plain word that none was recorded.
+	var clue := UI.label("The plan's clue: " + str(m.get("clue", "No recorded clue: the plan's lines were not tracked in this bout.")), 18, UI.FG, "body", true)
+	clue.name = "PlanClue"
+	v.add_child(clue)
 	v.add_child(ResultTabs.round_strip(m, names, (m.get("fixlab", {}) as Dictionary)))
 	return v
 

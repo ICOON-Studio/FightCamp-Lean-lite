@@ -98,10 +98,10 @@ static func _says(kind: String) -> Array:
 		"spar":
 			return ["Sparring night", "Your coach referees the sparring, so nobody gets pads tonight.", ""]
 		"corner":
-			return ["In the corner", "A bout tonight: your coach works the corner, not the pads.", ""]
+			return ["In the corner", "A bout tonight: the coach works the corner, not pads.", ""]
 		"closed":
-			return ["Closed", "The gym shuts on Sunday evenings, so there is no coaching.", ""]
+			return ["Closed", "The gym shuts Sunday evenings: no coaching.", ""]
 		"class":
-			return ["Class night", "Your coach teaches a paying class for %s; boxers work the bag." % GameMoney.text(ClubDeal.class_cash(1)),
-				"Open this evening to switch back to pads."]
-	return ["No coaching", "Your coach has no session this evening, so the boxers rest.", ""]
+			return ["Class night", "Paying class, %s; boxers work the bag." % GameMoney.text(ClubDeal.class_cash(1)),
+				"Open it to go back to pads."]   # TIPFIX2: 14 words
+	return ["No coaching", "No session for your coach tonight: the boxers rest.", ""]

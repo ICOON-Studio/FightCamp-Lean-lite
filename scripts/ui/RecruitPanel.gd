@@ -69,9 +69,9 @@ static func _attributes(f: Dictionary) -> VBoxContainer:
 		var keys: Array = Attrs.GROUPS[str(gr["key"])]
 		var tip := ", ".join(PackedStringArray(keys.map(func(k): return str(Attrs.LABEL.get(k, k)))))
 		col.add_child(_ceiling_row(str(GROUP_ICON[gr["key"]]), str(gr["name"]), float(gr["value"]), StatBlock.ceiling(f, str(gr["key"])),
-			"This group is built from %s." % tip, "Training raises the green toward the blue ceiling."))
+			"Made of: %s." % tip, "Training fills green toward blue."))   # TIPFIX2: a SHORT card is 14 words
 	col.add_child(_ceiling_row("star", "Overall", float(StatBlock.overall(f)), float(f.get("pot", 70)),
-		"The measured level the fighter page and the roster show.", "The blue ceiling is how high this boxer can go."))
+		"The level the roster and fighter page show.", "Blue is this boxer's ceiling."))
 	col.add_child(UI.muted("A guess until training shows the truth.", UI.SMALL, true))
 	return col
 

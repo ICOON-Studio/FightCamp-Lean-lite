@@ -107,6 +107,8 @@ func _live(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 		Exchanges.EXCHANGES, int(Exchanges.EX_SECONDS)], UI.SMALL))
 	# S310: both boxers' energy, body shots taken and hurt, as the 3D fight display shows them.
 	var st := LiveRound.state(lv, exs.size())
+	st["next"] = {"at": str(lv.get("at", "")), "want": str(lv.get("next_want", ""))}   # S533 the corner's eye: the next opening's line, the rounds behind
+	st["past"] = m.get("rounds", [])
 	v.add_child(RingTopDown.make(exs, st, Exchanges.EXCHANGES))   # S531 TOPDOWN1: the round from above
 	v.add_child(UI.muted("Punches landed: yours %d, theirs %d." % [la, lb], UI.SMALL))   # S448: names only in the header
 	for side in 2:

@@ -430,5 +430,14 @@
   "group": "The club",
   "area": "gym",
   "src": "ClubStart.CARDS, LOAN_WEEK, LOAN_WEEKS, BACKERS_CLAWBACK"
+ },
+ {
+  "id": "visit",
+  "name": "The visit",
+  "def": "A boxer your boxer beat in an amateur bout asks to train at your club, and waits a week at reception.",
+  "why": "It needs evidence from the bout: a call that was heard and fitted on the ropes, followed by an exchange off them, or the same planned line winning twice on the ropes. Then a seeded roll: 5% + 0.1% a reputation point (to 10%) + 3% for the evidence + up to 7% for the share of planned exchanges won, never above 25%. Reception must be empty and a place free. Pass, or let the week run out, and that boxer does not ask again for 120 days.",
+  "group": "The club",
+  "area": "fighters",
+  "src": "CardAsk.evidence, CardAsk.chance, CardAsk.COOLDOWN_DAYS, VisitWire.after_bout (seed: career seed, day, opponent)"
  }
 ]

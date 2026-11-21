@@ -1,7 +1,7 @@
 # TASK GUARDREV5 - write the guard damage map v5 FROM THE CODE, carrying John's 10/10 ideas the owner liked
 
 Kind: research
-Status: OPEN (S533, Claude main). Discipline: boxing. Model: Arena (cloud). Work on FightCamp-Lean-lite main, your own
+Status: RUNNING on Goose (issue #432, S533). Discipline: boxing. Model: Goose (cloud), own goose/ branch, a PR; never merge.
 arena/ branch, a PR into main there; never merge. RESEARCH ONLY - no game code changes. Do not run Godot.
 
 ## Why

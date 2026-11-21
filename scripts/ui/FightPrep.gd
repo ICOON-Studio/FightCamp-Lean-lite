@@ -69,9 +69,9 @@ static func _corner_card(main: Node, f: Dictionary) -> PanelContainer:
 ## S461 INTEGRATE1 #4 the towel's line: the stop risk (in 100) at which the corner shows the towel card and the coach pulls
 ## on his own (Towel.LINES; TowelWire.line_of reads it). S532 GUIDETIPS1: each line's card says what it trades (no "she").
 const TOWEL_TRADE := {
-	"careful": "Fewer stoppages and injuries. Some fights still winnable are given up.",
-	"normal": "The towel comes when a stoppage is a real risk.",
-	"brave": "Your boxer fights on longer. More comebacks, more stoppages and injuries.",
+	"careful": "Fewer stoppages and injuries; some winnable fights given up.",   # TIPFIX2: shorter cards
+	"normal": "Towel only when a stoppage is a real risk.",
+	"brave": "Fights on longer: more comebacks, stoppages and injuries.",
 }
 
 
@@ -81,9 +81,8 @@ static func towel_row(main: Node, f: Dictionary) -> HBoxContainer:
 	var lab := UI.label("The towel", 16, UI.FG, "bold")
 	lab.mouse_filter = Control.MOUSE_FILTER_PASS
 	Tip.explain(lab, {"title": "The towel", "what": "Your corner stopping the fight to protect your boxer.",
-		"now": "Each number is the chance your boxer is stopped next round.",
-		"moves": "Skip the choice on the night and the corner decides itself.",
-		"do": "Pick the line the corner works to: Careful, Normal or Brave."})
+		"now": "Each number: the stoppage chance next round.",
+		"do": "Pick Careful, Normal or Brave, or the corner decides."})   # TIPFIX2: the MOVES line folded into YOUR MOVE
 	row.add_child(lab)
 	var now := TowelWire.line_of(f)
 	for i in TowelWire.Towel.LINE_WORDS.size():
@@ -93,7 +92,7 @@ static func towel_row(main: Node, f: Dictionary) -> HBoxContainer:
 			"BtnSolid" if key == now else "Btn", main.act.bind("towelline", "%s|%s" % [str(f["id"]), key]))
 		b.name = "Towel_" + key
 		Tip.explain(b, {"title": "%s  %d in 100" % [TowelWire.Towel.LINE_WORDS[i], pct],
-			"what": "The corner offers you the towel when a stoppage is this likely.",
+			"what": "The corner offers the towel at this stoppage chance.",
 			"moves": str(TOWEL_TRADE.get(key, "")), "do": "This is the corner's line now." if key == now else "Click to make this the corner's line.",
 			"keys": ["towel"]})
 		row.add_child(b)

@@ -106,8 +106,8 @@ static func choose(plan: Array, at: String, mastery: Dictionary, sit := "") -> D
 			break
 	var id := PlanBoard.pick(plan, StrikeMap.MOVES, at, "", sit)
 	if id != "" and can_do(StrikeMap.move(id), mastery):
-		return {"move": id, "planned": true, "instinct": instinct}
-	return {"move": instinct, "planned": false, "instinct": instinct}
+		return {"move": id, "planned": true, "instinct": instinct, "want": id}
+	return {"move": instinct, "planned": false, "instinct": instinct, "want": id}   # S533: the plan's line here, thrown or not ("" = none)
 
 
 ## 1.0 for a step, a defence or a combination with its pad time (combos = her combination mastery, Combos.LEARN_AT);

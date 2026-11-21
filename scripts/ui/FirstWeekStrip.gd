@@ -171,13 +171,13 @@ static func why(c: Career) -> String:
 	match c.guide:
 		"sign":
 			if c.applicant.is_empty():
-				return "No boxer, no fights, and nobody is at reception now. The Find a fighter tab lists boxers looking for a gym: a trial is free."
-			return "No boxer, no fights. A boxer is at reception: read the card, pick one starting focus, sign."
+				return "No boxer, no fights. Find a fighter tab: trials are free."   # TIPFIX2: the bubble's card, 14 words with what()
+			return "No boxer, no fights. Read the reception card, then sign."
 		"coach":
-			return "You cannot run every session: without an assistant the ones you miss run at 60%, and there are no evening classes."
+			return "Without one, missed sessions run at 60% and no classes."
 		"week":
 			# S416 operator: no fight, no cut talk. The boxer starts nearer the limit, so a cut from the offer makes weight.
-			return "The sessions raise your boxer's attributes; the days wait until this week is locked."
+			return "Sessions raise attributes; the days wait until the week is locked."
 		"offer":
 			return _weight_line(c, f, FirstHour.SHOW_DAY)
 		"prep":
@@ -205,11 +205,12 @@ static func _weight_line(c: Career, f: Dictionary, day: int) -> String:
 		return "Your boxer is inside the %.1f kg limit." % f["limit"]
 	var fc := Sim.weigh_forecast(c, f, day)
 	# S397 round 1 (blind: "a paragraph of kg arithmetic"): one line - now, the morning, the limit, the verdict.
-	var line := "Weight: %.1f kg now, %.1f kg on the morning, limit %.1f." % [float(f["weight"]), float(fc["day"]), float(f["limit"])]
+	# TIPFIX2 (owner Q-283 "Shorter cards"): the morning against the limit, then the verdict - two numbers a sentence.
+	var line := "Morning weight %.1f kg, limit %.1f." % [float(fc["day"]), float(f["limit"])]
 	if bool(fc["ok"]):
 		return line + " Made, %.1f to spare." % maxf(0.0, float(f["limit"]) - float(fc["day"]))
 	# S397 round 2: honest - once the camp cuts from today, nothing in this hour adds more; declining brings another offer.
-	return line + " %.1f kg over even with the camp's cut: take the risk, or decline and wait for the next offer." % float(fc["over"])
+	return line + " Over after the cut: risk it, or decline."
 
 
 static func _show_offer(c: Career) -> Dictionary:

@@ -175,7 +175,7 @@ static func buy_card(it: Dictionary) -> Dictionary:
 	if str(it.get("payback", "")) != "":
 		rows.append(["Pays back in", str(it["payback"]).trim_prefix("payback "), "", "good"])
 	var mine := bool(it.get("owned", false)) or bool(it.get("held", false))
-	return {"kind": "full", "title": str(it.get("title", "")), "what": "What this buy does to the week's money and the cash.",
+	return {"kind": "full", "title": str(it.get("title", "")), "what": "What this buy does to the week's money and cash.",
 		"rows": rows, "do": "" if mine else "Press the button on this line to go ahead."}
 
 
@@ -183,8 +183,12 @@ static func buy_card(it: Dictionary) -> Dictionary:
 static func later_card(it: Dictionary) -> Dictionary:
 	var why := str(it.get("reason", ""))
 	why = why.substr(0, 1).to_upper() + why.substr(1)
-	return {"kind": "full", "title": "%s  %s" % [it.get("title", ""), it.get("price_text", "")], "what": str(it.get("does", it.get("effect", ""))),
-		"now": why if why.begins_with("Not") else "Not yet: " + why, "moves": "It moves up to the list above once the gym can use it."}
+	var d := {"kind": "full", "title": "%s  %s" % [it.get("title", ""), it.get("price_text", "")], "what": str(it.get("does", it.get("effect", ""))),
+		"now": why if why.begins_with("Not") else "Not yet: " + why}
+	var moves := "Moves up once the gym can use it."   # TIPFIX2: kept only while the card stays inside Tip.FULL_WORDS
+	if (str(d["what"]) + " " + str(d["now"]) + " " + moves).split(" ", false).size() <= Tip.FULL_WORDS:
+		d["moves"] = moves
+	return d
 
 
 static func _short_button(b: Button) -> void:

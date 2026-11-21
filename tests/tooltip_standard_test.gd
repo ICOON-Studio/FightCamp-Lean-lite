@@ -21,7 +21,7 @@ const TextScale := preload("res://scripts/ui/TextScale.gd")
 const TestJump := preload("res://scripts/ui/TestJump.gd")
 const FightPrep := preload("res://scripts/ui/FightPrep.gd")
 
-const FAULTS_AT_MOST := 4   # lower it as screens are rewritten; never raise it
+const FAULTS_AT_MOST := 2   # lower it as screens are rewritten; never raise it (TIPFIX2: 4 -> 2 at the shorter limits)
 
 var _fails := 0
 var main: Node
@@ -61,9 +61,10 @@ func _rules() -> void:
 	var tired := TipCards.tiredness(38.0, "Fresh")
 	_check(Tip.faults(Tip.spec(tired), "38 Fresh", ["Reid"]).is_empty(), "the tiredness card passes (%s)" % str(Tip.faults(Tip.spec(tired), "38 Fresh")))
 	_check(str(tired["title"]) == "Fatigue  38 of 100 - fresh" and str(tired["rows"][0][2]) == "now", "it leads with the value and marks the band it is in")
-	_check(str(tired["rows"][2][1]) == "from %d" % int(WhiteboardKit.AMBER_AT) and str(tired["rows"][3][1]) == "from %d" % int(WhiteboardKit.RED_AT),
-		"its bands are the rule's (%s, %s)" % [tired["rows"][2][1], tired["rows"][3][1]])
-	_check(str(TipCards.tiredness(84.0, "Overcooked")["rows"][3][2]) == "now" and str(TipCards.tiredness(84.0)["do"]).begins_with("Give a rest day now"), "over the line it says rest now")
+	# TIPFIX2: three rows (Fresh, Tired, Next day) - the same two rule bands, one row up
+	_check(str(tired["rows"][1][1]) == "from %d" % int(WhiteboardKit.AMBER_AT) and str(tired["rows"][2][1]) == "from %d" % int(WhiteboardKit.RED_AT),
+		"its bands are the rule's (%s, %s)" % [tired["rows"][1][1], tired["rows"][2][1]])
+	_check(str(TipCards.tiredness(84.0, "Overcooked")["rows"][2][2]) == "now" and str(TipCards.tiredness(84.0)["do"]).begins_with("Give a rest day now"), "over the line it says rest now")
 	var bar := TipCards.mastery("Jab", 24.0, 27.0)
 	_check(Tip.faults(Tip.spec(bar), "Jab", ["Reid"]).is_empty(), "the mastery card passes (%s)" % str(Tip.faults(Tip.spec(bar), "Jab")))
 	_check(str(bar["do"]) == "1 more pad night like this reaches the flag.", "24 -> 27: %s" % bar["do"])

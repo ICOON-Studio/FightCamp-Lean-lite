@@ -17,7 +17,7 @@ static func line(c: Career, wage_change: int, income: int, id: String) -> Contro
 	var col := UI.RED if str(rl["band"]) == "red" else (UI.AMBER if str(rl["band"]) == "amber" else UI.FG)
 	var l := UI.label(text(rl), 16, col, "bold")
 	l.name = "Runway_" + id
-	l.tooltip_text = "Weeks of money left at this week's running rate, before and after this hire (members not counted)."
+	l.tooltip_text = "Weeks of cash left, before and after this hire (members not counted)."
 	l.mouse_filter = Control.MOUSE_FILTER_STOP
 	return l
 

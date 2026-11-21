@@ -173,9 +173,7 @@ static func daily_gain(career: Career, f: Dictionary, goal_keys := false) -> Dic
 
 
 static func step_day(career: Career) -> void:
-	if load("res://scripts/rules/CardAsk.gd").gone(career.applicant, career.day):   # S531 her week at reception is up
-		career.add_news("%s went back to the old club." % str(career.applicant.get("name", "The boxer from the card")))
-		career.applicant = {}
+	load("res://scripts/state/VisitWire.gd").day(career)   # S533 the visit's last day, then gone (120-day wait)
 	for f in career.fighters:
 		var mult := Injuries.gain_mult(career, f)   # S325 an injured fighter trains at the rest week's share
 		var dow := posmod(career.day, 7)   # day 0 is a Monday (Clock)
@@ -464,6 +462,9 @@ static func coach_line(career: Career, f: Dictionary) -> String:
 
 ## Signs the walk-in at reception.
 static func sign(career: Career, picks: Array) -> void:
+	if bool(career.applicant.get("from_card", false)):   # S533 the visit signs through its own gate (capacity, the rival moves)
+		load("res://scripts/state/VisitWire.gd").sign(career, picks)
+		return
 	var f := Roster.sign_fighter(career, career.applicant, picks)
 	f["next_offer_day"] = FirstHour.first_offer_day(career, int(f["next_offer_day"]))   # S397 the show's offer: Monday week 2
 	for p in career.prospects:   # S397 a prospect who walked in (FirstHour's second walk-in) is signed, not scouted

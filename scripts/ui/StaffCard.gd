@@ -109,7 +109,7 @@ static func _you(c: Career) -> Control:
 	var cd := HeadCoach.card(HeadCoach.of(c.head))
 	var p := _slate()
 	p.name = "HeadCoachRow"
-	Tip.explain(p, {"title": "Your edge: %s" % cd.get("edge", ""), "what": "What you bring as head coach, from the card you picked.", "now": _no_file(str(cd.get("plain", "")))})   # TIPFIX1
+	Tip.explain(p, {"title": "Your edge: %s" % cd.get("edge", ""), "what": "What you bring as head coach, from your card.", "now": _no_file(str(cd.get("plain", "")))})   # TIPFIX1
 	var h := UI.hbox(12)
 	p.add_child(h)
 	var pic := PromoShot.picture(str(cd.get("photo", "")), Vector2(84, 96))
@@ -251,9 +251,9 @@ static func _boxer(c: Career, f: Dictionary, coach: Dictionary) -> Control:
 	l.clip_text = true
 	l.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	l.mouse_filter = Control.MOUSE_FILTER_STOP
-	l.tooltip_text = text + " From this week's plan, against training alone."
+	l.tooltip_text = text + ". This week's plan, against training alone."   # TIPFIX2: 14 words at most
 	if absf(alone) < 0.0005 and absf(coached) < 0.0005:
-		l.tooltip_text += " No attribute points from this area this week."
+		l.tooltip_text += " No points this week."
 	return l
 
 
@@ -274,11 +274,11 @@ static func _facts(coach: Dictionary, show_sign: bool) -> Control:
 	# S532 GUIDETIPS1 (operator on "$450 wage a week / Cost a week": "what is it for ? cost a week to do what"): each tile
 	# opens a card - what it is, the sum behind it, what moves it, what to do (TipCards; the standard, section 2f).
 	var tactics := _tile("coach", "%d tactics" % limit, "", INK, "in a plan")
-	Tip.short(tactics, "Tactics in a plan  %d" % limit, "How many tactics one fight plan can hold with this coach.", "A higher-rated coach holds more.")
+	Tip.short(tactics, "Tactics in a plan  %d" % limit, "Tactics one fight plan holds with this coach.", "A higher-rated coach holds more.")
 	h.add_child(tactics)
 	var checks := FilmPattern.checks(int(rating), true, 0, 99)   # S510 FIGHTFILM1 map 6: the coach's film checks a night
 	var film := _tile("coach", "%d checks" % checks, "", INK, "on film nights")
-	Tip.short(film, "Film checks  %d" % checks, "On a film night this coach checks %d patterns you mark on the tape." % checks)
+	Tip.short(film, "Film checks  %d" % checks, "Patterns this coach checks per film night, from your marks.")
 	h.add_child(film)
 	for m in [["pay", "money", UI.money(salary), INK, "coach's pay a week"], ["classes", "members", "+%s" % UI.money(classes), GREEN, "classes bring in"],
 			["net", "runway", UI.money(-net), UI.RED if net > 0 else GREEN, "real cost a week"]]:
@@ -299,7 +299,7 @@ static func _roles(main: Node, c: Career) -> Control:
 		row.add_child(_role(main, c, r))
 	# S421: was a bare icon at the row's end (the number only on hover); now icon + number + caption like the other tiles.
 	var places := _tile("members", "%d / %d" % [GymSpend.used(c), GymSpend.places(c)],
-		"How many boxers the club can sign: %d of %d taken. A second coach makes room for one more." % [GymSpend.used(c), GymSpend.places(c)], INK, "roster places", true)   # the role cards' dark bed
+		"Boxers the club can sign: %d of %d taken. A second coach adds one." % [GymSpend.used(c), GymSpend.places(c)], INK, "roster places", true)   # the role cards' dark bed
 	places.name = "RosterPlaces"
 	places.size_flags_horizontal = Control.SIZE_SHRINK_END
 	places.custom_minimum_size = Vector2(130, 0)
@@ -313,7 +313,10 @@ static func _role(main: Node, c: Career, r: Dictionary) -> Control:
 	var p := _chip(on, 14, 12, true)
 	p.name = "Role_" + id
 	var pay := "%s a pro night" % UI.money(int(r["per_bout"])) if int(r["per_bout"]) > 0 else "%s a week" % UI.money(int(r["wage"]))
-	Tip.short(p, "%s  %s" % [r["name"], pay], "%s." % r["effect"])   # TIPFIX1: a card, not one 23-word line
+	var said := PackedStringArray()   # TIPFIX2: the rule's "a; b; c" read as short sentences (10 words a sentence)
+	for part in str(r["effect"]).split("; ", false):
+		said.append(part.left(1).to_upper() + part.substr(1))
+	Tip.short(p, "%s  %s" % [r["name"], pay], "%s." % ". ".join(said))   # TIPFIX1: a card, not one 23-word line
 	var h := UI.hbox(8)
 	_host(p).add_child(h)
 	var ic := _icon(str(ROLE_ICON.get(id, "coach")), 36, GREEN if on else INK, "")
@@ -334,7 +337,7 @@ static func _role(main: Node, c: Career, r: Dictionary) -> Control:
 	elif on:
 		b.tooltip_text = "Takes this person off the staff; the pay stops."
 	else:
-		b.tooltip_text = "Puts this person on the staff for %s." % pay
+		b.tooltip_text = "Hires this person for %s." % pay
 	if not on and int(r["per_bout"]) <= 0:
 		b.tooltip_text += " " + HireRunway.text_for(c, int(r["wage"]), 0)
 	v.add_child(b)
@@ -379,11 +382,11 @@ static func _members(c: Career) -> Control:
 	var h := UI.hbox(8)
 	h.name = "Members"
 	Tips.card(h, func(): return TopCards.members(c))
-	h.add_child(_tile("members", str(c.members), "Members pay dues every month: the club's steady income. Now %s; wins, reputation and evening classes bring more." % drift, INK, "members", true))
+	h.add_child(_tile("members", str(c.members), "Members pay dues monthly. Now %s. Wins, reputation and classes bring more." % drift, INK, "members", true))
 	h.add_child(_tile("reputation", rep_word, "Reputation: %s. Grows with wins (+%d each) and a well-kept gym." % [rep, BoutRules.WIN_REPUTATION], INK, "reputation", true))
 	h.add_child(_tile("money", UI.money(Membership.fee(c.dues_band)), "Dues, %s a month each (%s, set on Money)." % [UI.money(Membership.fee(c.dues_band)), band], INK, "dues a month", true))
 	if c.coach.is_empty():
-		h.add_child(_tile("coach", "Need", "Without a coach there are no evening classes and no +%s a week from them. Hire one above." % UI.money(GameMoney.CLASSES_WITH_COACH), INK, "a coach for classes", true))
+		h.add_child(_tile("coach", "Need", "No coach, no evening classes: +%s a week lost. Hire one above." % UI.money(GameMoney.CLASSES_WITH_COACH), INK, "a coach for classes", true))
 	return h
 
 

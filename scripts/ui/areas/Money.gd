@@ -105,12 +105,12 @@ func _kpis(c: Career, inc: Dictionary, cost: Dictionary, ahead: Array) -> Contro
 	cash.name = "PageCash"
 	Tally.number(cash, "money:cash:%d" % c.get_instance_id(), c.cash, UI.money)   # S442: numbers that change roll to their new value
 	row.add_child(_tile("money", "CASH", cash, {"title": "Cash", "what": "The money your gym has today.",
-		"moves": "Dues and bouts bring it in. The bill takes it out.", "do": "Keep enough for the next bill, on the right.", "keys": ["bill"]}, cash_col))   # S532 GUIDETIPS1
+		"moves": "Dues and bouts bring it in. The bill takes it out.", "do": "Keep enough for the bill on the right.", "keys": ["bill"]}, cash_col))   # S532 GUIDETIPS1
 	var net_col := UI.GREEN if net >= 0 else UI.RED
 	var net_lab := UI.label(UI.signed(net), 26, net_col, "bold")
 	Tally.number(net_lab, "money:net:%d" % c.get_instance_id(), net, UI.signed)
 	row.add_child(_tile("money", "NET A WEEK", net_lab, {"title": "Net a week", "what": "What is left each week after every cost.",
-		"moves": "Members and classes raise it. Staff and stipends lower it.", "do": "Read the lists below to see each line.", "keys": ["dues"]}, net_col))
+		"moves": "Members and classes raise it. Staff and stipends lower it.", "do": "Read the lists below for each line.", "keys": ["dues"]}, net_col))
 	var runway_col := UI.AMBER if weeks >= 0 and weeks < GymBills.WARN_RUNWAY_WEEKS else WoodKit.INK
 	var runway := UI.label(hand, 26, runway_col, "bold")
 	row.add_child(_tile("runway", "MONEY LASTS", runway, "Runway: weeks of costs the tin covers. Under 8 weeks warns. " + GymBills.line(c.cash, net, c.weeks_below), runway_col))
@@ -343,9 +343,9 @@ func _tile(icon: String, caption: String, lab: Control, said: Variant, col: Colo
 
 ## What the next bill is made of (the old bills card, now the tile's hover).
 func _bill_tip(c: Career, split: Dictionary) -> Dictionary:
-	var rows: Array = []   # S532 GUIDETIPS1: was one line with five sums; four rows at most, so coach and staff share one
-	for pair in [["Coaches and staff", int(split.get("coach", 0)) + int(split.get("staff", 0))], ["Rent", int(split.get("rent", 0))],
-			["Power, kit, fees", int(split.get("other", 0))], ["Stipends", int(split.get("stipends", 0))]]:
+	var rows: Array = []   # S532 GUIDETIPS1: was one line with five sums. TIPFIX2: three rows at most, so rent and running costs share one
+	for pair in [["Coaches and staff", int(split.get("coach", 0)) + int(split.get("staff", 0))],
+			["Rent, power, kit, fees", int(split.get("rent", 0)) + int(split.get("other", 0))], ["Stipends", int(split.get("stipends", 0))]]:
 		if int(pair[1]) > 0:
 			rows.append([pair[0], "-" + UI.money(int(pair[1])), "", ""])
 	return {"title": "Next bill  %s" % UI.money(int(split["amount"])), "what": "Wages, rent and the rest, paid together every %d days." % GameMoney.BILL_EVERY_DAYS,

@@ -130,7 +130,7 @@ static func _col_fighter(f: Dictionary, needs: bool, col: Array) -> Control:
 		road = "Next: " + road
 	_place(box, "fighter", col)
 	if road != "":   # TIPFIX1: was "<name>: Next: Nationals ready" - the name again, and no word on what the road is
-		Tip.short(box, road, "Where your boxer stands on the road from club bouts to pro.", "Click the row to open the boxer.")
+		Tip.short(box, road, "Your boxer's step from club bouts to pro.", "Click to open the boxer.")   # TIPFIX2
 	box.add_theme_constant_override("separation", 12)
 	box.add_child(Bits.face_pin(str(f.get("face", "")), needs))
 	var who := UI.vbox(2)
@@ -312,7 +312,7 @@ static func _col_next(d: Dictionary, col: Array) -> Control:
 	var days := int(d.get("days", -1))
 	if days < 0:
 		var nxt := str(d.get("next_word", ""))
-		_place(box, "next_fight", col, "Nothing booked. The next pair of offers comes on %s; answer it on the Fights page." % 			nxt.trim_prefix("next offers ") if nxt != "" else "Nothing booked: offers come in on the Fights page.")
+		_place(box, "next_fight", col, "Nothing booked. Next offers come %s, on the Fights page." % 			nxt.trim_prefix("next offers ") if nxt != "" else "Nothing booked: offers come in on the Fights page.")
 		var none := Bits.ink(str(d.get("word", "")), 22, WoodKit.SOFT, "bold", true)
 		none.name = "Word"
 		box.add_child(none)

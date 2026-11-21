@@ -18,25 +18,26 @@ const OK_AT := 50.0   # WhiteboardKit.fatigue_word: "OK" from 50
 static func tiredness(value: float, word: String = "") -> Dictionary:
 	var amber := WhiteboardKit.AMBER_AT
 	var red := WhiteboardKit.RED_AT
-	var at := 0 if value < OK_AT else (1 if value < amber else (2 if value < red else 3))
-	var rows: Array = [["Fresh", "under %d" % int(OK_AT), "", ""], ["OK", "from %d" % int(OK_AT), "", ""],
-		["Tired", "from %d" % int(amber), "", "watch"], ["Next morning counts %d%%" % roundi(WeekPlan.TIRED_GAIN * 100.0), "from %d" % int(red), "", "bad"]]
-	rows[at][2] = "now"
-	var todo := "Give a rest day in the week plan before it reaches %d." % int(red)
+	# TIPFIX2 (owner Q-283 "Shorter cards"): three rows; the OK band (50 up to amber) is the title's word, no row of its own.
+	var rows: Array = [["Fresh", "under %d" % int(OK_AT), "", ""], ["Tired", "from %d" % int(amber), "", "watch"],
+		["Next day counts %d%%" % roundi(WeekPlan.TIRED_GAIN * 100.0), "from %d" % int(red), "", "bad"]]
+	var at := 0 if value < OK_AT else (-1 if value < amber else (1 if value < red else 2))
+	if at >= 0:
+		rows[at][2] = "now"
+	var todo := "Plan a rest day before it reaches %d." % int(red)
 	if value >= red:
-		todo = "Give a rest day now: the next morning's training is mostly lost."
+		todo = "Give a rest day now: tomorrow's training is mostly lost."
 	return {"title": "Fatigue  %d of 100%s" % [roundi(value), (" - " + word.to_lower()) if word != "" else ""],
-		"what": "How worn your fighter is. Tired fighters train worse and get hurt more.",
-		"rows": rows, "moves": "Fights and hard sessions raise it. Rest days bring it down.", "do": todo}
+		"what": "How worn your boxer is.",
+		"rows": rows, "moves": "Training and fights raise it; rest days bring it down.", "do": todo}
 
 
 ## "what are the small purple highlighted section on the bars ?" - the levels first, then the bar's parts.
 static func mastery(move: String, before: float, after: float) -> Dictionary:
-	var edges := [[30.0, "Usable", "from 30 (the flag)"], [60.0, "Sharp", "from 60"], [85.0, "Signature", "from 85"]]
-	var rows: Array = [["Learning", "under 30", "now" if after < 30.0 else "", ""]]
-	for i in edges.size():
-		var top: float = edges[i + 1][0] if i + 1 < edges.size() else 101.0
-		rows.append([edges[i][1], edges[i][2], "now" if after >= float(edges[i][0]) and after < top else "", "good" if i == 0 else ""])
+	# TIPFIX2: three rows - Sharp and Signature share the top one; "never thrown" moved from WHAT into the Learning row.
+	var rows: Array = [["Learning", "under 30, never thrown", "now" if after < 30.0 else "", ""],
+		["Usable", "from 30 (the flag)", "now" if after >= 30.0 and after < 60.0 else "", "good"],
+		["Sharp, then Signature", "from 60, then 85", "now" if after >= 60.0 else "", ""]]
 	var gain := after - before
 	var todo := "Put it on a pad night to raise it."
 	var nxt := MoveMastery.next_word(after)
@@ -44,8 +45,8 @@ static func mastery(move: String, before: float, after: float) -> Dictionary:
 		var nights := ceili((float(nxt[1]) - after) / gain)
 		todo = "%d more pad night%s like this %s %s." % [nights, "" if nights == 1 else "s", "reaches" if nights == 1 else "reach", "the flag" if float(nxt[1]) == 30.0 else str(nxt[0])]
 	var title := "%s  %d → %d  %s" % [move, roundi(before), roundi(after), MoveMastery.word(after)] if gain > 0.05 else "%s  %d  %s" % [move, roundi(after), MoveMastery.word(after)]
-	return {"title": title, "what": "How well your boxer owns this move. Under 30 it is not thrown in a fight.",
-		"rows": rows, "moves": "Light strip: tonight's gain. Dashed box: one more night like this.", "do": todo}
+	return {"title": title, "what": "How well your boxer owns this move.",
+		"rows": rows, "moves": "Light strip: tonight's gain. Dashed box: one more night.", "do": todo}
 
 
 ## "$450 wage a week" / "Cost a week": "what is it for ? cost a week to do what". One sum on all three money tiles.
@@ -56,13 +57,13 @@ static func coach_money(tile: String, salary: int, hired: bool) -> Dictionary:
 	var rows: Array = [["Pay", "-" + GameMoney.text(salary), "a week", ""], ["Classes bring in", "+" + GameMoney.text(classes), "a week", "good"],
 		["Real cost" if net < 0 else "Left over", ("-" if net < 0 else "+") + GameMoney.text(absi(net)), "a week", "bad" if net < 0 else "good"]]
 	var head: Dictionary = {
-		"pay": ["Coach's pay", "Buys a coach in the gym for every session, and the evening classes."],
-		"classes": ["Evening classes", "Classes this coach runs for members in the evenings. They pay every week."],
-		"net": ["Real cost a week", "The coach's pay less what the evening classes bring in."]}
+		"pay": ["Coach's pay", "A coach for every session, plus the evening classes."],
+		"classes": ["Evening classes", "Classes this coach runs for members, paid every week."],
+		"net": ["Real cost a week", "Coach's pay less what the evening classes bring in."]}
 	var h: Array = head.get(tile, head["pay"])
 	return {"title": h[0], "what": h[1], "rows": rows,
-		"moves": "With no coach a session counts %d%% and there are no classes." % roundi(CoachAreas.ALONE_FACTOR * 100.0),
-		"do": "" if hired else "Press Hire below to take this coach on.", "keys": ["classes"] if tile != "classes" else []}
+		"moves": "No coach: sessions count %d%% and no classes." % roundi(CoachAreas.ALONE_FACTOR * 100.0),
+		"do": "" if hired else "Press Hire below to hire this coach.", "keys": ["classes"] if tile != "classes" else []}
 
 
 ## Training's tiredness line: the same card, read at the week's highest day.
@@ -79,13 +80,11 @@ static func tiredness_week(ends: Array) -> Dictionary:
 static func injury_risk(x: float, load: float, peak: float) -> Dictionary:
 	var raised := x >= 1.05
 	return {"title": "Injury risk  %s" % ("%.1f times the usual" % x if raised else "normal"),
-		"what": "The chance your boxer gets hurt in training when the week ends.",
-		"rows": [["This week's hours", "%.1f of a usual week" % load, "over" if load > InjuryRoll.SAFE_RATIO else "", "bad"],
-			["Safe up to", "%.1f of a usual week" % InjuryRoll.SAFE_RATIO, "", ""],
-			["Fatigue peaks at", "%d" % roundi(peak), "over" if peak > InjuryRoll.FATIGUE_RISK_FROM else "", "bad"],
-			["Safe up to", "%d" % int(InjuryRoll.FATIGUE_RISK_FROM), "", ""]],
-		"moves": "More hours than usual and a tired week both raise it.",
-		"do": "Make a Hard morning Light, or add a rest day." if raised else "Nothing to do: this week is safe."}
+		"what": "Chance of a training injury at week's end.",
+		"rows": [["Hours, of a usual week", "%.1f, safe to %.1f" % [load, InjuryRoll.SAFE_RATIO], "over" if load > InjuryRoll.SAFE_RATIO else "", "bad"],
+			["Fatigue peak", "%d, safe to %d" % [roundi(peak), int(InjuryRoll.FATIGUE_RISK_FROM)], "over" if peak > InjuryRoll.FATIGUE_RISK_FROM else "", "bad"]],
+		"moves": "More hours and a tired week raise it.",
+		"do": "Make a Hard morning Light, or rest a day." if raised else "Nothing to do: this week is safe."}
 
 
 ## A morning tile: what the session is for, what it gives today, how to change it.
@@ -94,8 +93,7 @@ static func morning(session: String, level: String, stat: String, gain: float, k
 	if stat != "":
 		rows.append([stat, "%+.2f" % gain, "today", "good" if gain > 0.0 else ""])
 	rows.append(["Weight", "%+.2f kg" % kg, "today", ""])
-	var d := {"title": "%s  %s" % [session, level.capitalize()], "what": "A morning session. It builds one attribute and moves the weight.",
-		"rows": rows, "moves": "Hard gains more and tires more. Light is the other way.", "do": "Click L, N or H to set how hard."}
 	if coached != "":
-		d["now"] = coached
-	return d
+		rows.append(["Coached", coached, "", "good"])   # TIPFIX2: a row, not a sentence (was a NOW line)
+	return {"title": "%s  %s" % [session, level.capitalize()], "what": "Builds one attribute and moves the weight.",
+		"rows": rows, "moves": "Hard gains and tires more; Light the reverse.", "do": "Click L, N or H to set how hard."}

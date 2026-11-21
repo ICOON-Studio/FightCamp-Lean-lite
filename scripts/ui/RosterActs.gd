@@ -10,6 +10,7 @@ const UI := preload("res://scripts/ui/UI.gd")
 const ProOfferWire := preload("res://scripts/state/ProOfferWire.gd")
 const GymBills := preload("res://scripts/rules/GymBills.gd")
 const Needs := preload("res://scripts/state/Needs.gd")
+const VisitWire := preload("res://scripts/state/VisitWire.gd")
 const STRIKE := preload("res://scenes/dev/StrikeBrowser.tscn")
 const TAPE := preload("res://scripts/ui/FightAnalysisTape.gd")   # S511: the Tape Room retired into FIGHT ANALYSIS
 
@@ -67,6 +68,22 @@ static func act(main: Node, name: String, arg: String) -> bool:
 			c.applicant = {}
 			main.close_modal()
 			main.toast("%s thanks you and leaves." % who)
+		"signvisit":   # S533 P4PBUILD1 the visit: capacity and the last day are read again now (VisitWire.sign)
+			var res: Dictionary = VisitWire.sign(c, main.modal.get("picks", []))
+			if bool(res["ok"]):
+				main.close_modal()
+				main.toast("%s signed. Goal on the card: %s." % [res["f"]["first"], str(res["f"]["goal"]["title"]).to_lower()])
+			else:
+				main.toast("Not signed: %s." % str(res["why"]))
+				main.redraw_modal()
+		"passvisit":
+			VisitWire.pass_visit(c)
+			main.close_modal()
+			main.toast("The boxer goes back to the old club. No new ask for %d days." % VisitWire.CardAsk.COOLDOWN_DAYS)
+		"trialvisit":
+			if VisitWire.trial(c):
+				main.close_modal()
+				main.toast("Trial on %s. The answer is due by %s." % [Clock.fmt(int(c.applicant["trial_day"])), Clock.fmt(int(c.applicant["expires"]))])
 		"prooffer":
 			if not c.pro_offer.is_empty():
 				main.open_modal({"type": "prooffer", "fid": c.pro_offer["fid"]})

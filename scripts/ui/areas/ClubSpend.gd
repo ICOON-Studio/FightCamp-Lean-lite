@@ -68,7 +68,7 @@ static func _upgrade(main: Node, c: Career, u: Dictionary, net: int) -> Dictiona
 		delta = added - upkeep
 		if not owned and not c.staff_roles.has("assistant"):
 			grey = true
-			reason = "Needs a second club coach before these classes bring any money."
+			reason = "Needs a second club coach to earn anything."
 	var why := "" if owned else GymUpgrades.blocked(id, c.upgrades, c.cash)
 	if not owned and why != "":
 		grey = true
@@ -77,7 +77,7 @@ static func _upgrade(main: Node, c: Career, u: Dictionary, net: int) -> Dictiona
 	if id == "youth":
 		effect = "20 juniors bring %s a week. The juniors' coach is %s." % [UI.money(GymSpend.juniors_dues()), UI.money(GymSpend.JUNIORS_COACH)]
 	elif id == "fitkit" and not owned:
-		effect = "Fitness classes, %s a week, once a second club coach runs them." % UI.money(int(u["value"]))
+		effect = "Fitness classes: %s a week with a second club coach." % UI.money(int(u["value"]))
 	if owned:
 		effect = "Ours. " + effect
 	var does := effect   # TIPFIX1: what it buys, kept for the NOT YET card when the reason takes the line
@@ -93,7 +93,7 @@ static func _upgrade(main: Node, c: Career, u: Dictionary, net: int) -> Dictiona
 static func _evening(main: Node, c: Career, net: int) -> Dictionary:
 	var helps := GymSpend.member_limit(c) == "coaches"
 	var grey := not helps
-	var reason := "The coaches already have room, so another coach carries nobody yet." if grey else ""
+	var reason := "The coaches have room: another would carry nobody yet." if grey else ""
 	var added := 0
 	var delta := -StaffRoles.EVENING_WAGE
 	if helps:
@@ -159,7 +159,7 @@ static func _move(main: Node, c: Career, net: int) -> Dictionary:
 	var helps := GymSpend.member_limit(c) == "premises"
 	var extra := roundi(float(int(nx["rent"]) - int(now["rent"])) / GymBills.WEEKS_A_MONTH)
 	var grey := (why != "" and loan_why != "") or not helps
-	var reason := why_tip(loan_why) if why != "" and loan_why != "" else "Not needed yet: your gym still has room for more members."
+	var reason := why_tip(loan_why) if why != "" and loan_why != "" else "Not needed yet: the gym still has room."
 	var effect := "Holds %d members. Rent up %s a week. Or %s down and %s a month for %d months." % [int(nx["cap"]), UI.money(extra),
 		UI.money(int(GymUpgrades.LOAN["down"])), UI.money(int(GymUpgrades.LOAN["month"])), int(GymUpgrades.LOAN["months"])]
 	var does := "Holds %d members. Rent goes up %s a week." % [int(nx["cap"]), UI.money(extra)]

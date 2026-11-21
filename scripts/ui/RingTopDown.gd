@@ -10,6 +10,7 @@ extends Control
 const RingMap := preload("res://scripts/rules/RingMap.gd")
 const Palette := preload("res://scripts/ui/Palette.gd")
 const StrikeMap := preload("res://scripts/rules/StrikeMap.gd")
+const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 
 const RING_PX := 360.0      # the view's height on the words page
 const STRIP_H := 54.0
@@ -27,6 +28,12 @@ var hurt := [false, false]
 var total_ex := 12
 var ring_px := RING_PX
 var backdrop := false   # true over the 3D fight: a solid page behind the ring
+## S533 P4PBUILD1 the corner's eye (DESIGN_THREEP4P_V2 section 4). show_plan = false is the clean view: it hides the plan
+## lines, their legend and the ghosts, nothing else. next = {at, want} the plan's line for the next opening ({} = the
+## bell); past = the bout's settled rounds (their attempted lines are the dim ghosts). Read only: nothing here decides.
+var show_plan := true
+var next := {}
+var past: Array = []
 var _centre := Vector2.ZERO   # the ring point at the middle of the view (metres)
 
 
@@ -36,6 +43,8 @@ static func make(round_ex: Array, state: Dictionary, exchanges: int) -> Control:
 	n.exs = round_ex
 	n.gas = [float(state.get("a", 100.0)), float(state.get("b", 100.0))]
 	n.hurt = state.get("hurt", [false, false])
+	n.next = state.get("next", {})
+	n.past = state.get("past", [])
 	n.total_ex = exchanges
 	n.custom_minimum_size = Vector2(0, RING_PX + STRIP_H + 40.0)
 	n.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -47,11 +56,13 @@ func set_round(round_ex: Array, state: Dictionary) -> void:
 	exs = round_ex
 	gas = [float(state.get("a", 100.0)), float(state.get("b", 100.0))]
 	hurt = state.get("hurt", [false, false])
+	next = state.get("next", {})
+	past = state.get("past", [])
 	queue_redraw()
 
 
 func _ring_rect() -> Rect2:   # the on-screen view box
-	var top := 52.0 if backdrop else 8.0
+	var top := 98.0 if backdrop else 8.0
 	var h := (size.y - STRIP_H - top - 30.0) if backdrop else ring_px
 	return Rect2(16.0, top, size.x - 32.0, h)
 
@@ -110,6 +121,15 @@ func _draw() -> void:
 		if backdrop and said != "":
 			draw_string(get_theme_default_font(), Vector2(12.0, 32.0), "Exchange %d: %s" % [exs.size(), said],
 				HORIZONTAL_ALIGNMENT_CENTER, size.x - 24.0, 20, Palette.TEXT)
+		if backdrop:   # what is settled, and when the corner can next act (the calls and the bell keep their own timing)
+			draw_string(get_theme_default_font(), Vector2(12.0, 60.0), settled_line(exs.size(), total_ex), HORIZONTAL_ALIGNMENT_CENTER,
+				size.x - 24.0, 16, Palette.MUTED)
+			var tip := hint_line(RingMap.hint(exs, next, total_ex))
+			if tip != "":
+				draw_string(get_theme_default_font(), Vector2(12.0, 84.0), tip, HORIZONTAL_ALIGNMENT_CENTER, size.x - 24.0, 16, Palette.WARN)
+		if show_plan:
+			_draw_legend(r)
+			_draw_ghosts(r)
 	_draw_strip(Rect2(16.0, r.end.y + 16.0, size.x - 32.0, STRIP_H))
 
 
@@ -135,15 +155,11 @@ func _draw_frame(f: Dictionary) -> void:
 		var u := (b - a).normalized() if a.distance_to(b) > 0.01 else Vector2.RIGHT
 		a = mid - u * apart * 0.5
 		b = mid + u * apart * 0.5
-	# S531 THE CORNER'S EYE: who owns the ring - a soft wash of the winner's colour behind the boxer being walked back,
-	# deeper with each exchange won in a row.
-	var own := RingMap.owner(exs)
-	if int(own["run"]) > 0:
-		var back_of := b if int(own["side"]) == 0 else a
-		var push := (back_of - (a if int(own["side"]) == 0 else b)).normalized()
-		var wash: Color = HER if int(own["side"]) == 0 else OPP
-		for k in 4:
-			draw_circle(back_of + push * body * 2.0, body * (5.5 - k), Color(wash, 0.035 * mini(int(own["run"]), 4)))
+	# S533: only the side the record has pinned is marked (the win-streak wash is gone: it showed a walk-down nobody
+	# recorded). In the open ring nothing is claimed.
+	var pin := RingMap.pinned(exs)
+	if pin >= 0:
+		draw_arc(a if pin == 0 else b, body + 26.0, 0.0, TAU, 48, Color(Palette.WARN, 0.7), 3.0, true)
 	var prev := a
 	var trail: Array = f["trail"]
 	for k in range(trail.size() - 1, -1, -1):
@@ -170,49 +186,145 @@ func _draw_frame(f: Dictionary) -> void:
 	var where := str(StrikeMap.card(str(f.get("at", ""))).get("name", ""))
 	var gap_m := (f["a"] as Vector2).distance_to(f["b"])
 	var words := ("%s  -  %.1f m apart" % [where, gap_m]) if where != "" else ("%.1f m apart" % gap_m)
-	draw_string(get_theme_default_font(), (a + b) * 0.5 + Vector2(-140.0, body * 2.2 + 20.0), words,
+	var tag_rows := maxi(tags_for(float(gas[0]), bool(hurt[0]), pin == 0).size(), tags_for(float(gas[1]), bool(hurt[1]), pin == 1).size())
+	draw_string(get_theme_default_font(), (a + b) * 0.5 + Vector2(-140.0, maxf(body * 2.2 + 20.0, body + 46.0 + 22.0 * tag_rows)), words,   # under the tags, never on them
 		HORIZONTAL_ALIGNMENT_CENTER, 280.0, 18, Palette.TEXT)
-	_plan_arrow(RingMap.plan_mark(exs[-1]), a, b, body)
+	if show_plan:
+		_plan_arrow(RingMap.plan_mark(exs[-1]), a, b, body, 0.0)
+		_plan_arrow(RingMap.next_mark(next), a, b, body, 22.0)
 	_boxer(a, b, HER, float(gas[0]), bool(hurt[0]), body)
 	_boxer(b, a, OPP, float(gas[1]), bool(hurt[1]), body)
-	_tags(a, b, "YOUR BOXER", float(gas[0]), bool(hurt[0]), body)
-	_tags(b, a, "OPPONENT", float(gas[1]), bool(hurt[1]), body)
+	_tags(a, b, "YOUR BOXER", float(gas[0]), bool(hurt[0]), body, pin == 0)
+	_tags(b, a, "OPPONENT", float(gas[1]), bool(hurt[1]), body, pin == 1)
 
 
-## The plan's step for this exchange, drawn from her: where the coach told her to go. Solid = she took it, a cross = she
-## read it was wrong and held it, dashed = the plan had it and she did not get it off.
-func _plan_arrow(m: Dictionary, a: Vector2, b: Vector2, body: float) -> void:
+## What is settled and when the corner can act next. The overlay offers nothing itself: the shout bar and the corner
+## minute keep their own buttons and timing.
+static func settled_line(done: int, total: int) -> String:
+	if done >= total:
+		return "Exchange %d of %d settled. Next: the bell, and the corner minute." % [done, total]
+	return "Exchange %d of %d settled. Next: exchange %d - a call can go in before it." % [done, total, done + 1]
+
+
+## RingMap.hint in words: the existing control, its real price, and that silence stays an answer.
+static func hint_line(kind: String) -> String:
+	if kind == "bell":
+		return "At the bell: the corner minute can swap one plan line (its old answer is given up), or keep the plan."
+	if kind == "tie":
+		var tie: Dictionary = Exchanges.CALLS.get("tie", {})
+		return "On the ropes with no ready exit: %s on the shout bar (one call, energy %+d), or say nothing and keep the call." % [
+			str(tie.get("label", "Tie up")), -roundi(float(tie.get("cost", 0.0)))]
+	return ""
+
+
+## The tags under a boxer: HURT and TIRED (gas under 35) can both show, and ON THE ROPES for the pinned side.
+static func tags_for(g: float, is_hurt: bool, is_pinned: bool) -> Array:
+	var out: Array = []
+	if is_hurt:
+		out.append("HURT")
+	if g < 35.0:
+		out.append("TIRED")
+	if is_pinned:
+		out.append("ON THE ROPES")
+	return out
+
+
+## The plan's line, drawn from your boxer, by what the exchange recorded (RingMap.LEGEND): solid = thrown and won, a
+## cross = thrown and lost, hollow = held, dotted = not ready, faint = the plan's line for the next opening. A punch
+## line (no direction) is said, not drawn. drop = the label's extra offset, so two marks never sit on each other.
+func _plan_arrow(m: Dictionary, a: Vector2, b: Vector2, body: float, drop: float) -> void:
 	if m.is_empty():
+		return
+	var st := str(m["state"])
+	var col := Color(HER, 0.95) if st == "worked" else (Color(HER, 0.35) if st == "faint" else Color(Palette.MUTED, 0.9))
+	var word := ("next: the plan has %s here" if st == "faint" else "plan: %s - " + str(RingMap.STATE_WORDS.get(st, st))) % str(m["name"]).to_lower()
+	var font := get_theme_default_font()
+	if str(m["dir"]) == "":
+		draw_string(font, _word_at(Vector2(a.x - 150.0, minf(a.y, b.y) - body - 46.0 - drop)), word, HORIZONTAL_ALIGNMENT_CENTER, 300.0, 16, col)
 		return
 	var d := (b - a).normalized()
 	var dir := -d if str(m["dir"]) == "back" else (d if str(m["dir"]) == "in" else Vector2(-d.y, d.x))
 	var from := a + dir * (body + 10.0)
-	var to := a + dir * (body + 0.75 * _scale())
-	var st := str(m["state"])
-	var col := Color(HER, 0.9) if st == "fired" else Color(Palette.MUTED, 0.85)
-	if st == "missed":
-		draw_dashed_line(from, to, col, 4.0, 10.0)
-	else:
-		draw_line(from, to, col, 5.0, true)
+	var reach := body + 0.75 * _scale()
+	if str(m["dir"]) == "in":   # never drawn through the other boxer
+		reach = clampf(a.distance_to(b) - body - 22.0, body + 14.0, reach)
+	var to := a + dir * reach
+	_mark_line(from, to, st, col)
+	draw_string(font, _word_at(Vector2(a.x - 150.0, minf(a.y, b.y) - body - 46.0 - drop)), word, HORIZONTAL_ALIGNMENT_CENTER, 300.0, 16, col)   # above the pair: never under a boxer
+
+
+## A plan label's place (300 px wide), kept inside the view and clear of the small ring in its top right corner.
+func _word_at(p: Vector2) -> Vector2:
+	var r := _ring_rect()
+	p.x = clampf(p.x, r.position.x + 6.0, r.end.x - 306.0)
+	p.y = clampf(p.y, r.position.y + 20.0, r.end.y - 8.0)
+	if p.x + 300.0 > r.end.x - MINI - 16.0 and p.y < r.position.y + MINI + 34.0:
+		p.y = r.position.y + MINI + 34.0
+	return p
+
+
+## One mark in its state's stroke (also the legend's samples).
+func _mark_line(from: Vector2, to: Vector2, st: String, col: Color) -> void:
+	var dir := (to - from).normalized()
 	var s := Vector2(-dir.y, dir.x)
-	draw_colored_polygon(PackedVector2Array([to + dir * 16.0, to + s * 11.0, to - s * 11.0]), col)
-	if st == "held":
+	var k := clampf(from.distance_to(to) / 60.0, 0.45, 1.0)
+	var head := PackedVector2Array([to + dir * 16.0 * k, to + s * 11.0 * k, to - s * 11.0 * k])
+	if st == "not_ready":
+		draw_dashed_line(from, to, col, 4.0 * k, 5.0)
+	elif st == "held":
+		draw_line(from + s * 4.0 * k, to + s * 4.0 * k, col, 2.0, true)
+		draw_line(from - s * 4.0 * k, to - s * 4.0 * k, col, 2.0, true)
+	else:
+		draw_line(from, to, col, (3.0 if st == "faint" else 5.0) * k, true)
+	if st == "held" or st == "not_ready":
+		draw_polyline(PackedVector2Array([head[0], head[1], head[2], head[0]]), col, 2.0, true)
+	else:
+		draw_colored_polygon(head, col)
+	if st == "lost":
 		var mid := (from + to) * 0.5
-		draw_line(mid + Vector2(-12, -12), mid + Vector2(12, 12), Palette.BAD_FILL, 4.0, true)
-		draw_line(mid + Vector2(-12, 12), mid + Vector2(12, -12), Palette.BAD_FILL, 4.0, true)
-	var word: String = str({"fired": "plan: %s", "held": "plan: %s - held", "missed": "plan: %s - not got off"}[st]) % str(m["name"]).to_lower()
-	draw_string(get_theme_default_font(), to + dir * 20.0 + Vector2(-130.0, 34.0), word, HORIZONTAL_ALIGNMENT_CENTER, 260.0, 16, col)
+		draw_line(mid + Vector2(-12, -12) * k, mid + Vector2(12, 12) * k, Palette.BAD_FILL, 4.0 * k, true)
+		draw_line(mid + Vector2(-12, 12) * k, mid + Vector2(12, -12) * k, Palette.BAD_FILL, 4.0 * k, true)
 
 
-## A role word above each boxer; HURT (red) or TIRED (amber, gas under 35) under her - what the corner shouts about.
-func _tags(p: Vector2, other: Vector2, role: String, g: float, is_hurt: bool, body: float) -> void:
+## The legend, bottom left of the view: one sample stroke and its words per state.
+func _draw_legend(r: Rect2) -> void:
+	var font := get_theme_default_font()
+	var rows: Array = RingMap.LEGEND
+	var box := Rect2(r.position.x + 10.0, r.end.y - 24.0 * rows.size() - 16.0, 300.0, 24.0 * rows.size() + 10.0)
+	draw_rect(box, Color(Palette.PAGE, 0.85))
+	for k in rows.size():
+		var y := box.position.y + 18.0 + 24.0 * k
+		var st := str(rows[k][0])
+		var col := Color(HER, 0.95) if st == "worked" else (Color(HER, 0.35) if st == "faint" else Color(Palette.MUTED, 0.9))
+		_mark_line(Vector2(box.position.x + 10.0, y - 5.0), Vector2(box.position.x + 44.0, y - 5.0), st, col)
+		draw_string(font, Vector2(box.position.x + 66.0, y), str(rows[k][2]), HORIZONTAL_ALIGNMENT_LEFT, 230.0, 14, Palette.TEXT)
+
+
+## The last two settled rounds' attempted lines, dim, top left, each under its round's label.
+func _draw_ghosts(r: Rect2) -> void:
+	var font := get_theme_default_font()
+	var y := r.position.y + 24.0
+	for g in RingMap.ghosts(past):
+		draw_string(font, Vector2(r.position.x + 12.0, y), "ROUND %d" % int(g["n"]), HORIZONTAL_ALIGNMENT_LEFT, 300.0, 13, Color(Palette.MUTED, 0.9))
+		y += 18.0
+		for row in g["rows"]:
+			draw_string(font, Vector2(r.position.x + 12.0, y), "%s: worked %d, lost %d" % [str(row["name"]).to_lower(), int(row["worked"]), int(row["lost"])],
+				HORIZONTAL_ALIGNMENT_LEFT, 320.0, 14, Color(Palette.TEXT, 0.55))
+			y += 18.0
+		y += 6.0
+
+
+## A role word above each boxer; under it HURT (red), TIRED (amber) and ON THE ROPES, each on its own line - together
+## when they are true together. Static: nothing pulses, so nothing is lost with motion turned down.
+func _tags(p: Vector2, other: Vector2, role: String, g: float, is_hurt: bool, body: float, is_pinned: bool) -> void:
 	var font := get_theme_default_font()
 	var away := signf(p.x - other.x) if absf(p.x - other.x) > 1.0 else 1.0   # the role word leans away from the other boxer
 	draw_string(font, p + Vector2(-80.0 + away * 40.0, -body - 22.0), role, HORIZONTAL_ALIGNMENT_CENTER, 160.0, 14, Palette.MUTED)
-	var tag := "HURT" if is_hurt else ("TIRED" if g < 35.0 else "")
-	if tag != "":
-		draw_string(font, p + Vector2(-60.0, body + 40.0), tag, HORIZONTAL_ALIGNMENT_CENTER, 120.0, 20,
-			Palette.BAD_FILL if is_hurt else Palette.WARN)
+	var y := body + 40.0
+	for tag in tags_for(g, is_hurt, is_pinned):
+		draw_string(font, p + Vector2(-90.0, y), tag, HORIZONTAL_ALIGNMENT_CENTER, 180.0, 20 if tag != "ON THE ROPES" else 15,
+			Palette.BAD_FILL if tag == "HURT" else Palette.WARN)
+		y += 22.0
 
 
 ## The whole ring small in the corner: where in the ring the zoomed view is.

@@ -16,6 +16,7 @@ const TheRead := preload("res://scripts/rules/TheRead.gd")
 const PlanRead := preload("res://scripts/rules/PlanRead.gd")
 const PlanPressure := preload("res://scripts/rules/PlanPressure.gd")
 const PlanFight := preload("res://scripts/rules/PlanFight.gd")
+const PlanRecord := preload("res://scripts/rules/PlanRecord.gd")
 const ClinchRest := preload("res://scripts/rules/ClinchRest.gd")
 const RoundStyle := preload("res://scripts/rules/RoundStyle.gd")
 const PlanFile := preload("res://scripts/rules/PlanFile.gd")
@@ -235,7 +236,8 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	if str(lv.get("at", "")) == "":
 		lv["at"] = str(PlanFight.GAME_CARD.get(sit, "long"))
 	var at := str(lv["at"])
-	var pick := PlanFight.choose(PlanFile.arrows_for(f["bout"].get("arrows", []), f["bout"].get("late", f.get("late", {})), n, int(f["bout"].get("rounds", BoutRules.ROUNDS)), m.get("rounds", [])), at, f.get("moves", {}), sit)   # S460 PlanPhase
+	var plan_now: Array = PlanFile.arrows_for(f["bout"].get("arrows", []), f["bout"].get("late", f.get("late", {})), n, int(f["bout"].get("rounds", BoutRules.ROUNDS)), m.get("rounds", []))   # S460 PlanPhase
+	var pick := PlanFight.choose(plan_now, at, f.get("moves", {}), sit)
 	var arrow := str(pick["move"])
 	if bool(pick.get("planned", false)) and not FireLevel.fires(FireLevel.shares_for(f["bout"]), FireLevel.round_mastery(f["bout"], arrow, n, FireLevel.mastery_of(f, arrow)), _rng(c, f, n, i + 173).randf()): pick["planned"] = false
 	# S342 real plans (Q-S294-67): a hurt opponent who still hits back, a waiter in the round's last exchange.
@@ -367,6 +369,8 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	rec["arrow"] = arrow
 	rec["planned"] = bool(pick["planned"])
 	rec["held"] = held   # S531 phase 6: a wrong step she held
+	rec["want"] = str(pick.get("want", ""))   # S533 the corner's eye: the plan's line here, and what became of it (read only)
+	rec["line"] = PlanRecord.line_state(str(rec["want"]), bool(pick["planned"]), held, bool(s["won"]))
 	rec["arrow_fit"] = PlanFight.fit(arrow, psit)
 	rec["psit"] = psit
 	rec["plan_edge"] = plan_edge
@@ -381,6 +385,7 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 		f["bout"]["plan_tally"] = tally
 		rec["plan_tally"] = tally[arrow]
 	RingDuel.settle(lv, rec, s, rng, vals, opp, f, call, pace, fire, cl, st, n, i, perks, names, arrow, sit, rd)
+	lv["next_want"] = str(PlanFight.choose(plan_now, str(lv.get("at", "")), f.get("moves", {})).get("want", ""))   # S533 the next opening's line (shown faint)
 	if exs.size() < Exchanges.EXCHANGES:
 		return {}
 	return close(f, m)

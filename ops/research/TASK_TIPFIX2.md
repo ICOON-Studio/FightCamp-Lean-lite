@@ -1,7 +1,7 @@
 # TASK TIPFIX2 - shorter cards: tighten the tooltip limits, then rewrite every card that breaks them
 
 Kind: code
-Status: OPEN (S533, Claude main). Discipline: boxing. Model: Grok Dev. Branch `grok/tipfix2`, a PR into main; never merge.
+Status: DONE (S533, PR #431 collected: broken 4 -> 2, cards ~25 words). Discipline: boxing. Model: Grok Dev. Branch `grok/tipfix2`, a PR into main; never merge.
 
 ## Why
 The owner looked at the build-1 cards (coach pay, the Fatigue card, the mastery bar, the guide) and answered on the board

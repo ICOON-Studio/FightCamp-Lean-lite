@@ -45,9 +45,10 @@ static func needs(career: Career) -> Array:
 			"act": "go", "arg": "money:0", "label": "Money"})
 	var a := career.applicant
 	if not a.is_empty() and bool(a.get("from_card", false)):   # S531 she asked after the bout: she waits a week, time runs on
-		n.append({"red": false, "t": "A boxer from the card asked to train here",
-			"s": "%s, amateur %d-%d - back to the old club after %s" % [str(a["wc"]), a["w"], a["l"],
-				Clock.fmt(int(a.get("expires", career.day)))], "act": "interview", "arg": "", "label": "Meet the boxer"})   # S532 no name or she/her in the line (S448)
+		var last := int(a.get("expires", career.day))   # S533 the visit: the last day (inclusive), said plainly on that day
+		n.append({"red": false, "t": "A boxer your boxer beat asked to train here",
+			"s": "%s, amateur %d-%d - at reception until %s%s" % [str(a["wc"]), a["w"], a["l"], Clock.fmt(last),
+				" (last day: sign or pass today)" if last == career.day else ""], "act": "interview", "arg": "", "label": "Meet the boxer"})   # S532 no name or she/her in the line (S448)
 	elif not a.is_empty():
 		n.append({"red": true, "t": "A fighter is waiting at reception",
 			"s": "%s, %s, amateur %d-%d" % [a["name"], str(a["wc"]).to_lower(), a["w"], a["l"]],

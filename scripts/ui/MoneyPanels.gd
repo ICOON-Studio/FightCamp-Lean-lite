@@ -72,7 +72,7 @@ static func chalk(main: Node, c: Career, _inc: Dictionary) -> Control:
 
 
 static func _talks(main: Node, c: Career) -> Control:
-	var card := _paper("Contract talks", "contract", "A contract or offer is answered on the fighter page. The keep or drop choice is on Cashbook.")
+	var card := _paper("Contract talks", "contract", "Answer contracts and offers on the fighter page; keep or drop on Cashbook.")
 	card[0].name = "ContractTalks"
 	var any := false
 	for f in c.fighters:
@@ -359,11 +359,12 @@ static func _tighten(b: Button) -> void:
 ## S532 GUIDETIPS1: the stipend's two buttons shared one line with seven numbers. What the money buys, as rows.
 static func _stipend_card(pro_offer_open: bool) -> Dictionary:
 	var d := {"title": "The stipend  %s a week" % UI.money(GameMoney.FIGHTER_STIPEND),
-		"what": "Pays your boxer to train instead of working a day job.",
+		"what": "Pays your boxer to train, not work a day job.",
 		"rows": [["Full", "all 6 training mornings", "", "good"], ["Half", "5 mornings, works Tue", "", ""],
 			["Stopped", "4 mornings, works Tue and Thu", "", "bad"]],
-		"moves": "Stopping it costs loyalty. Starting it again wins some back.",
-		"do": "Stop or halve it only when the cash is short."}
-	if pro_offer_open:
-		d["now"] = "A pro offer is open: signing it ends the stipend anyway."
+		"moves": "Stopping costs loyalty; restarting wins some back.",
+		"do": "Cut it only when cash is short."}
+	if pro_offer_open:   # TIPFIX2: signing ends it anyway, so the loyalty line gives way to this one
+		d.erase("moves")
+		d["now"] = "Signing the open pro offer ends it anyway."
 	return d

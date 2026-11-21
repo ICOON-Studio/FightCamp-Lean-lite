@@ -5,7 +5,8 @@ extends RefCounted
 ##                            {title, what, now | rows: [[label, value, delta, tone]], moves, do, keys: [Glossary id]}
 ##                            what = what it is or what the money buys; now / rows = why it has this value; moves = what
 ##                            makes it go up and down; do = what the player can do here, starting with a verb.
-##   Tip.short(c, title, what, do)   SHORT card: a plain value nothing this week moves. Two lines, 20 words.
+##                            S533 TIPFIX2 (owner Q-283 "Shorter cards"): moves may be left out when do already says it.
+##   Tip.short(c, title, what, do)   SHORT card: a plain value nothing this week moves. Two lines, 14 words.
 ##   Tip.button(c, text)      BUTTON line: one sentence saying what the click does (and what it costs).
 ##   MoveTip.attach           MOVE card (its own file: plays the move).
 ##   Tip.of(c) -> the spec a control shows today ({} = none; kind "plain" = an old tooltip_text line)
@@ -16,10 +17,10 @@ const Tips := preload("res://scripts/ui/Tips.gd")
 const Glossary := preload("res://scripts/rules/Glossary.gd")
 
 const MIN_WORDS := 6       # a tooltip under six words only says the label again
-const LINE_WORDS := 14     # WHAT and MOVES IT: one sentence each
-const SHORT_WORDS := 20    # a SHORT card, and a BUTTON line
-const FULL_WORDS := 45     # a FULL card's sentences, rows not counted: a ceiling, not a target
-const MAX_ROWS := 4
+const LINE_WORDS := 10     # WHAT and MOVES IT: one sentence each (S533 TIPFIX2, owner Q-283 "Shorter cards": was 14)
+const SHORT_WORDS := 14    # a SHORT card, and a BUTTON line (was 20)
+const FULL_WORDS := 25     # a FULL card's sentences, rows not counted: a ceiling, not a target (was 45)
+const MAX_ROWS := 3        # was 4; a card may drop MOVES IT when YOUR MOVE already says it
 const MAX_KEYS := 2
 
 

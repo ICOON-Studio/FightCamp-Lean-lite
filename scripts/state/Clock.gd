@@ -60,6 +60,8 @@ static func next_stop(career: Career) -> Dictionary:
 	for p in career.prospects:
 		if str(p["state"]) == "invited":
 			cands.append({"d": int(p["trial_day"]), "r": "%s's trial" % p["first"]})
+	if bool(career.applicant.get("from_card", false)):   # S533 the visit's last day
+		cands.append({"d": int(career.applicant.get("expires", -1)), "r": "the last day of the boxer at reception"})
 	var best: Dictionary = {}
 	for c in cands:
 		if int(c["d"]) > career.day and (best.is_empty() or int(c["d"]) < int(best["d"])):
@@ -83,4 +85,6 @@ static func stop_now(career: Career) -> bool:
 		return true
 	if GameMoney.is_bill_day(career.day):
 		return true
+	if bool(career.applicant.get("from_card", false)) and int(career.applicant.get("expires", -1)) == career.day:
+		return true   # S533 the visit's last day: time stops once (not a blocker), so the answer is never lost unseen
 	return false

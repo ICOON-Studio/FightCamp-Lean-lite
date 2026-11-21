@@ -164,7 +164,7 @@ static func _morning(d: Dictionary, cb: Dictionary) -> Control:
 	return t
 
 
-## TIPFIX1: the coached morning in one plain sentence, one number (was "Coached 1-to-1: Power (x1.25)", three numbers and
+## TIPFIX1/TIPFIX2: the coached morning as the card's Coached row, one number (was "Coached 1-to-1: Power (x1.25)", three numbers and
 ## "x1.25"). The bonus is the dealt multiplier the tile's own tag carries ({short: "1-TO-1 x1.25" | "SHARED x1.15"}).
 static func _coached_line(tag: Dictionary) -> String:
 	if tag.is_empty():
@@ -172,8 +172,8 @@ static func _coached_line(tag: Dictionary) -> String:
 	var short := str(tag.get("short", ""))
 	var more := roundi((float(short.get_slice("x", short.get_slice_count("x") - 1)) - 1.0) * 100.0)
 	if short.begins_with("SHARED"):
-		return "Your coach shares this morning with a teammate: the gain counts %d%% more." % more
-	return "Your coach takes this morning one to one: the gain counts %d%% more." % more
+		return "shared, gain +%d%%" % more   # TIPFIX2: the morning card's Coached row
+	return "one to one, gain +%d%%" % more
 
 
 static func _evening(d: Dictionary, cb: Dictionary, sel_day: int, f: Dictionary) -> Control:
@@ -243,7 +243,7 @@ static func _evening(d: Dictionary, cb: Dictionary, sel_day: int, f: Dictionary)
 		_:
 			v.add_child(_pic("rest_night"))
 			v.add_child(_center("Rest", 18, Palette.MUTED))
-			Tip.short(t, "Rest night", "No evening session: your boxer recovers for the next morning.", "Click the evening to set it on the right.")   # TIPFIX1
+			Tip.short(t, "Rest night", "No evening session: your boxer recovers.", "Click it to set the evening.")   # TIPFIX1/2
 	return t
 
 

@@ -63,15 +63,45 @@ func _initialize() -> void:
 	_check(t.size() == exs.size() and str(t[4]["word"]) == "Pivot off the ropes" and str(t[0]["word"]) == "Long range",
 		"ticks name the planned step, else the card (%s / %s)" % [t[4]["word"], t[0]["word"]])
 	_check(RingMap.frame([], 0).is_empty() and RingMap.frame(exs, 99).is_empty(), "no exchange -> no frame")
-	# S531 the corner's eye: the plan's step and what became of it; who owns the ring.
+	# S533 the corner's eye: the plan's line and what became of it, from the record; who is pinned; no invented walk-down.
 	var m4 := RingMap.plan_mark(exs[4])
-	_check(str(m4.get("dir")) == "side" and str(m4.get("state")) == "fired", "a fired pivot reads side / fired (%s)" % str(m4))
-	_check(str(RingMap.plan_mark(_ex(9, "mid", false, [0, 1], "step_back", false).merged({"held": true})).get("state")) == "held",
-		"a held step reads held")
-	_check(str(RingMap.plan_mark(_ex(9, "mid", false, [0, 1], "step_back", false)).get("state")) == "missed", "a step not got off reads missed")
-	_check(RingMap.plan_mark(exs[0]).is_empty(), "a punch line has no plan mark")
-	var owns := RingMap.owner(exs.slice(0, 7))
-	_check(int(owns["side"]) == 0 and int(owns["run"]) == 3, "three won in a row: she owns the ring, run 3 (%s)" % str(owns))
-	_check(int(RingMap.owner(exs)["side"]) == 1 and int(RingMap.owner([])["run"]) == 0, "the last loss hands it over; empty = nobody")
+	_check(str(m4.get("dir")) == "side" and str(m4.get("state")) == "worked", "an old exchange: a thrown pivot that won reads side / worked (%s)" % str(m4))
+	_check(RingMap.plan_mark(_ex(9, "mid", false, [0, 1], "step_back", false)).is_empty(), "an old exchange with an instinct move claims no missed plan")
+	var held := _ex(9, "mid", false, [0, 1], "1-2", false).merged({"want": "step_back", "line": "held", "held": true})
+	_check(str(RingMap.plan_mark(held).get("state")) == "held" and str(RingMap.plan_mark(held).get("name")) == str(RingMap.plan_mark(_ex(0, "mid", true, [1, 0], "step_back", true)).get("name")),
+		"a held step reads held, and names the line the plan wanted, not the punch thrown instead")
+	var unready := _ex(9, "own_ropes", false, [0, 2], "tie_up", false).merged({"want": "pivot_out", "line": "not_ready"})
+	_check(str(RingMap.plan_mark(unready).get("state")) == "not_ready" and not RingMap.fired(unready), "a line that did not get off reads not ready")
+	_check(str(RingMap.plan_mark(_ex(9, "mid", false, [0, 1], "step_back", true).merged({"want": "step_back", "line": "lost"})).get("state")) == "lost", "thrown and lost reads lost, not held")
+	var punch := RingMap.plan_mark(_ex(9, "long", true, [2, 0], "1-2", true).merged({"want": "1-2", "line": "worked"}))
+	_check(str(punch.get("dir", "x")) == "" and str(punch.get("state")) == "worked", "a punch line is said, with no arrow")
+	_check(RingMap.plan_mark(_ex(9, "long", true, [2, 0], "1-2", false).merged({"want": "", "line": "none"})).is_empty(), "no line in the plan here: no mark")
+	_check(str(RingMap.next_mark({"at": "own_ropes", "want": "pivot_out"}).get("state")) == "faint" and RingMap.next_mark({"at": "mid", "want": ""}).is_empty(),
+		"the next opening's line is faint; none when the plan has nothing there")
+	# Only a step that was taken turns the map.
+	var base := [_ex(0, "mid", true, [1, 0]), _ex(1, "mid", true, [1, 0], "pivot_out", false).merged({"want": "pivot_out", "line": "not_ready"})]
+	var took := [_ex(0, "mid", true, [1, 0]), _ex(1, "mid", true, [1, 0], "pivot_out", true).merged({"want": "pivot_out", "line": "worked"})]
+	var plain := [_ex(0, "mid", true, [1, 0]), _ex(1, "mid", true, [1, 0])]
+	_check(is_equal_approx(RingMap.angle_at(base, 1), RingMap.angle_at(plain, 1)) and not is_equal_approx(RingMap.angle_at(took, 1), RingMap.angle_at(plain, 1)),
+		"an unfired pivot does not turn the map; a taken one does")
+	# The open ring claims no walk-down: winning in the open does not move the pair toward a rope.
+	var wins: Array = []
+	for k in 9:
+		wins.append(_ex(k, "mid", true, [2, 0]))
+	var w8 := RingMap.frame(wins, 8)
+	_check((((w8["a"] as Vector2) + (w8["b"] as Vector2)) * 0.5).length() < 0.01, "nine won exchanges in the open: the pair is still round the middle")
+	_check(RingMap.pinned(exs.slice(0, 4)) == 0 and RingMap.pinned(exs.slice(0, 6)) == 1 and RingMap.pinned(exs.slice(0, 7)) == 1 and RingMap.pinned(exs.slice(0, 3)) == -1
+		and RingMap.pinned([]) == -1, "pinned: your boxer on the own ropes, the opponent on the ropes or in a corner, nobody in the open")
+	_check(RingMap.pinned([_ex(0, "mid", true, [1, 0]).merged({"pinned": true})]) == 0, "the duel's pin counts as pinned")
+	# Ghosts: the last two settled rounds' attempted lines, by round; old rounds give none.
+	var r1 := {"n": 1, "exchanges": [took[1], took[1].duplicate(), unready, _ex(3, "mid", false, [0, 1], "step_back", true).merged({"want": "step_back", "line": "lost"})]}
+	var r2 := {"n": 2, "exchanges": [held]}
+	var r3 := {"n": 3, "exchanges": [took[1]]}
+	var gh := RingMap.ghosts([r1, r2, r3])
+	_check(gh.size() == 1 and int(gh[0]["n"]) == 3, "ghosts keep the last two rounds, and a round with nothing attempted gives no row (%s)" % str(gh))
+	var gh2 := RingMap.ghosts([r1])
+	_check(int(gh2[0]["rows"][0]["worked"]) == 2 and int(gh2[0]["rows"][1]["lost"]) == 1 and gh2[0]["rows"].size() == 2, "a ghost row counts each attempted line: worked 2, lost 1; held and not ready are not attempts")
+	_check(RingMap.ghosts([{"n": 1, "exchanges": exs}]).is_empty(), "an old round with no recorded lines has no ghost")
+	_check(RingMap.LEGEND.size() == 5, "the legend names the five states")
 	print("RING_MAP failures=%d" % failures)
 	quit(0 if failures == 0 else 1)

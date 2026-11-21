@@ -239,7 +239,7 @@ static func _class_button(v: VBoxContainer, kind: String, dow: int, on_class: Ca
 	var b := Button.new()
 	b.name = "ClassNight"
 	b.text = "Back to pads tonight" if kind == "class" else "Teach a class tonight: +$117"
-	Tip.button(b, ("Swaps tonight's pads for a paying class: +%s a week, the boxers drill at %d%% on the bag." % [GameMoney.text(ClubDeal.class_cash(1)),
+	Tip.button(b, ("Swaps pads for a paying class (+%s a week); bag drills at %d%%." % [GameMoney.text(ClubDeal.class_cash(1)),
 		roundi(ClubClasses.BAG_SHARE * 100.0)]) if kind == "pads" else "The coach holds pads again this evening: full drilling, no class money.")   # TIPFIX1
 	b.focus_mode = Control.FOCUS_NONE
 	b.add_theme_font_size_override("font_size", 16)

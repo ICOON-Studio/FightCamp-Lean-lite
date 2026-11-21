@@ -12,6 +12,11 @@ const Recruit := preload("res://scripts/rules/Recruit.gd")
 const PromoShot := preload("res://scripts/ui/PromoShot.gd")
 const Faces := preload("res://scripts/rules/Faces.gd")
 const MenuFx := preload("res://scripts/ui/MenuFx.gd")
+const VisitWire := preload("res://scripts/state/VisitWire.gd")
+const CardAsk := preload("res://scripts/rules/CardAsk.gd")
+const Roster := preload("res://scripts/state/Roster.gd")
+const Region := preload("res://scripts/state/Region.gd")
+const Tip := preload("res://scripts/ui/Tip.gd")
 
 
 func build(main: Node, m: Dictionary) -> void:
@@ -37,37 +42,75 @@ func build(main: Node, m: Dictionary) -> void:
 	row.add_child(card)
 	var v := UI.vbox(12)
 	card.add_child(v)
-	v.add_child(UI.caps("AT RECEPTION"))
+	# S533 P4PBUILD1 the visit: a boxer your boxer beat (CardAsk) - the last day in the header, the known club and place
+	# on the ladder, what the trial told, and the three answers with their real cost (_visit_foot).
+	var visit := bool(a.get("from_card", false))
+	var t: Dictionary = VisitWire.terms(main.career) if visit else {}
+	var head := UI.caps("ASKED AFTER THE BOUT - AT RECEPTION UNTIL %s" % Clock.fmt(int(t["expires"])).to_upper() if visit else "AT RECEPTION")
+	head.name = "VisitUntil"
+	v.add_child(head)
 	v.add_child(UI.display(str(a["name"]).to_upper(), 58))
-	v.add_child(UI.label("%d, %s, %s, amateur %d-%d, %s" % [a["age"], str(a["wc"]).to_lower(), a["stance"], a["w"], a["l"],
-		str(a["style"]).to_lower()], UI.BODY + 2, UI.MUTED))
+	v.add_child(UI.label("%d, %s, %s, amateur %d-%d, %s%s" % [a["age"], str(a["wc"]).to_lower(), a["stance"], a["w"], a["l"],
+		str(a["style"]).to_lower(), _known(main.career, a) if visit else ""], UI.BODY + 2, UI.MUTED, "body", true))
 	# S397 rank 5: each walk-in speaks for themself (FirstHour.walkin's quote); the first one's line stays.
 	v.add_child(UI.label(str(a.get("quote", "\"I've had four fights at a church hall. I want a proper gym and a proper coach.\"")), UI.BODY + 2, UI.FG, "italic", true))
 	# S354 the reception as an RPG recruit (operator: "get it more rpg elements to this"): RecruitPanel.
+	if visit and bool(t["trial_seen"]):
+		var said := UI.label("Your coach, after the trial: \"%s\"" % str(Roster.trial_read(main.career, a)["verdict"]), UI.BODY + 2, UI.GOLD, "italic", true)
+		said.name = "TrialSaid"
+		v.add_child(said)
+	elif visit and int(t["trial_booked"]) >= 0:
+		v.add_child(UI.label("Trial on %s: your coach watches a morning. No place is held until you sign." % Clock.fmt(int(t["trial_booked"])), UI.BODY + 2, UI.MUTED, "body", true))
 	v.add_child(RecruitPanel.build(main, main.career, a, picks, "pickcard"))
 	var foot := UI.hbox(12)
-	foot.add_child(UI.label("Club stipend, $250 a week", UI.BODY + 2, UI.FG, "bold"))
+	var blocked := str(t.get("blocked", ""))
+	var terms := UI.label("Club stipend, $250 a week", UI.BODY + 2, UI.FG, "bold")
+	if visit:
+		terms.text = ("No place free: %s. The visit stays open until %s." % [blocked, Clock.fmt(int(t["expires"]))]) if blocked != "" else (
+			"Sign now: place %d of %d, club stipend %s a week, training starts this week." % [int(t["used"]) + 1, int(t["places"]), UI.money(int(t["stipend"]))])
+		terms.name = "VisitTerms"
+	foot.add_child(terms)
 	foot.add_child(UI.spacer())
 	# S397 a later walk-in can be turned away (the first one is the club's only boxer: Pass keeps them waiting).
 	var first: bool = main.career.fighters.is_empty()
-	var pass_b := UI.button("Pass", "BtnQuiet", main.act.bind("decline" if first else "passwalkin", ""))
+	var pass_b := UI.button("Pass", "BtnQuiet", main.act.bind("passvisit" if visit else ("decline" if first else "passwalkin"), ""))
 	pass_b.name = "Pass"
 	foot.add_child(pass_b)
+	if visit:
+		Tip.button(pass_b, "Back to the old club: no place used, no stipend, and no new ask for %d days." % CardAsk.COOLDOWN_DAYS)
+	if visit and int(t["trial_day"]) >= 0:
+		var trial_b := UI.button("Trial first - %s" % Clock.fmt(int(t["trial_day"])), "Btn", main.act.bind("trialvisit", ""))
+		trial_b.name = "Trial"
+		Tip.button(trial_b, "Your coach watches one morning that Monday; no place is held, and the answer is due the day after.")
+		foot.add_child(trial_b)
 	var focus := RecruitPanel.focus_of(picks)
-	var ready := focus != "" or picks.size() == 3
+	var ready := (focus != "" or picks.size() == 3) and blocked == ""
 	var sign := UI.button("Sign - %s" % str(Recruit.FOCUS[focus]["name"]).to_lower() if focus != "" else
 		("Sign" if ready else "Sign: choose a starting focus"), "BtnSolid",
-		main.act.bind("sign", ""), not ready, "Choose one starting focus first" if not ready else "")
+		main.act.bind("signvisit" if visit else "sign", ""), not ready, (blocked if blocked != "" else "Choose one starting focus first") if not ready else "")
 	sign.name = "Sign"
 	sign.custom_minimum_size = Vector2(0, 52)
 	if ready:
 		MenuFx.hover_grow(sign)
+		if visit:
+			Tip.button(sign, "Takes place %d of %d and adds %s a week to the stipends; training starts this week." % [int(t["used"]) + 1, int(t["places"]), UI.money(int(t["stipend"]))])
 	foot.add_child(sign)
 	v.add_child(foot)
 	if not m.get("shown", false):   # a pick rebuilds this modal: the entrance plays once
 		m["shown"] = true
 		MenuFx.pop(photo, 0.05)
 		MenuFx.arrive([card], 0.12)
+
+
+## What is known of a visitor beyond the card: the club the boxer comes from and the place on the regional ladder.
+func _known(c: Career, a: Dictionary) -> String:
+	var club := str(a.get("club_before", ""))
+	var rows: Array = Region.rankings(c, str(a.get("div", "")))
+	var at := -1
+	for i in rows.size():
+		if str(rows[i]["name"]) == str(a.get("rival", a.get("name", ""))):
+			at = i
+	return "; from %s, %s" % [club if club != "" else "a club not known", ("no. %d of %d on the regional ladder" % [at + 1, rows.size()]) if at >= 0 else "not on the regional ladder"]
 
 
 ## The fighter's photo, pinned up slightly crooked, with the name written under it.
