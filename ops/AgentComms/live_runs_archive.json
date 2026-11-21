@@ -23843,6 +23843,15 @@
    "title": "Fable critic + code check: damage classes v2 (Arena skipped, owner: dont wait)",
    "seat": "claude",
    "agent": "claude-fable"
+  },
+  {
+   "id": "DMGCLASS3",
+   "status": "landed S534: bef9f3896; critics queued",
+   "started": "2026-11-21T14:10",
+   "title": "Stoppages by class map v3 from the code (class becomes a decision)",
+   "seat": "claude",
+   "agent": "claude-fable",
+   "eta": "about 30 min"
   }
  ]
 }

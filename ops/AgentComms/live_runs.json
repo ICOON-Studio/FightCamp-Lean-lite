@@ -41,15 +41,6 @@
    "title": "John critic: guard damage map v6",
    "seat": "john",
    "agent": "john"
-  },
-  "DMGCLASS3": {
-   "id": "DMGCLASS3",
-   "status": "running",
-   "started": "2026-11-21T14:10",
-   "title": "Stoppages by class map v3 from the code (class becomes a decision)",
-   "seat": "claude",
-   "agent": "claude-fable",
-   "eta": "about 30 min"
   }
  },
  "codex_budget": {

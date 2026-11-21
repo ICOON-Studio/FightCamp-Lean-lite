@@ -8474,6 +8474,23 @@
       "answered_at": "2026-11-21T09:56:45Z",
       "seen_by_claude": true,
       "comment_only": true
+    },
+    {
+      "id": "Q-S294-289",
+      "asked": "2026-11-21T12:13:40.333230+00:00",
+      "session": "S294",
+      "text": "Portraits: keep painted, or MetaHuman photos to match the 3D bodies?",
+      "options": [
+        "Painted",
+        "MetaHuman photos"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-289_0_s532_art_36_roster.png"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
     }
   ]
 }

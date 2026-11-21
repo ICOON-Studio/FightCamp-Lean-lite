@@ -3941,11 +3941,12 @@
    "seat": "dola",
    "brief": "research/DESIGN_GUARDDMG1_V5_CRITIC_DOLA.md",
    "stem": "DESIGN_GUARDDMG1_V5_CRITIC_DOLA_DOLA",
-   "status": "queued",
+   "status": "dropped",
    "queued_at": "2026-11-21 12:13",
    "tries": 0,
-   "skips": 4,
-   "last_error": "2026-11-21 13:40 no CDP on 9333 (the app runs without its debug port or is closed; never launched from here - it opens a window)"
+   "skips": 6,
+   "last_error": "2026-11-21 14:10 no CDP on 9333 (the app runs without its debug port or is closed; never launched from here - it opens a window)",
+   "note": "S534: v5 superseded by v6 (Kalli 6/7/5); Dola app closed"
   },
   {
    "id": "SQ270",
@@ -3967,18 +3968,22 @@
    "seat": "john",
    "brief": "research/DESIGN_TURNPRO1_V10_CRITIC_JOHN.md",
    "stem": "DESIGN_TURNPRO1_V10_CRITIC_JOHN_JOHN",
-   "status": "queued",
+   "status": "sent",
    "queued_at": "2026-11-21 13:52",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-21 14:10",
+   "sent_ms": 1795263028824
   },
   {
    "id": "SQ272",
    "seat": "kalli",
    "brief": "research/DESIGN_TURNPRO1_V10_CRITIC_KALLI.md",
    "stem": "DESIGN_TURNPRO1_V10_CRITIC_KALLI_KALLI",
-   "status": "queued",
+   "status": "sent",
    "queued_at": "2026-11-21 13:52",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-21 14:10",
+   "sent_ms": 1795263032339
   },
   {
    "id": "SQ273",
@@ -3996,6 +4001,24 @@
    "stem": "DESIGN_GUARDDMG1_V6_CRITIC_JOHN_JOHN",
    "status": "queued",
    "queued_at": "2026-11-21 13:56",
+   "tries": 0
+  },
+  {
+   "id": "SQ275",
+   "seat": "kalli",
+   "brief": "research/DESIGN_DMGCLASS1_V3_CRITIC_KALLI.md",
+   "stem": "DESIGN_DMGCLASS1_V3_CRITIC_KALLI_KALLI",
+   "status": "queued",
+   "queued_at": "2026-11-21 14:33",
+   "tries": 0
+  },
+  {
+   "id": "SQ276",
+   "seat": "john",
+   "brief": "research/DESIGN_DMGCLASS1_V3_CRITIC_JOHN.md",
+   "stem": "DESIGN_DMGCLASS1_V3_CRITIC_JOHN_JOHN",
+   "status": "queued",
+   "queued_at": "2026-11-21 14:33",
    "tries": 0
   }
  ]
