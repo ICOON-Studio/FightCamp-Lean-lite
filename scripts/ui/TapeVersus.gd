@@ -8,6 +8,7 @@ const UI := preload("res://scripts/ui/UI.gd")
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const VersusPanel := preload("res://scripts/ui/VersusPanel.gd")
 const TapeRows := preload("res://scripts/rules/TapeRows.gd")
+const TapeForm := preload("res://scripts/state/TapeForm.gd")   # S535 OFFERTAPE1: the last five and the streak
 const Faces := preload("res://scripts/rules/Faces.gd")
 const FighterPose := preload("res://scripts/rules/FighterPose.gd")
 const ClubCrest := preload("res://scripts/rules/ClubCrest.gd")
@@ -19,8 +20,9 @@ const KitIcon := preload("res://scripts/ui/KitIcon.gd")
 
 ## The figure stops this far above the bottom. The tag's top sits 16 px under that, clear of the feet.
 const FOOT := 72.0
-const SHOW := ["Record", "Age", "Weight", "Height", "Reach", "Stance"]
-const TITLE := {"Record": "RECORD", "Age": "AGE", "Weight": "ON THE SCALES", "Height": "HEIGHT", "Reach": "REACH", "Stance": "STANCE"}
+const SHOW := ["Record", "Last 5", "Streak", "Age", "Weight", "Height", "Reach", "Stance"]
+const FORM := ["Last 5", "Streak"]   # words, not numbers: drawn at 20 px so "2 losses in a row" stays inside the card
+const TITLE := {"Record": "RECORD", "Last 5": "LAST 5", "Streak": "STREAK", "Age": "AGE", "Weight": "ON THE SCALES", "Height": "HEIGHT", "Reach": "REACH", "Stance": "STANCE"}
 
 
 static func tape_rows(f: Dictionary, opp: Dictionary, her_cm: float = 0.0) -> Array:
@@ -87,12 +89,13 @@ static func _card(main: Node, c: Career, f: Dictionary, opp: Dictionary, m: Dict
 	v.add_child(_centre(UI.label("%d x 3 min" % total, 22, UI.FG, "bold")))
 	v.add_child(VersusPanel.gap(8))
 	var cm := Faces.cm(Faces.stem(f))
+	TapeForm.fill(c, f)
 	for r in tape_rows(f, opp, cm):
 		var row: Dictionary = r
 		var key := str(row["label"])
 		if not SHOW.has(key):
 			continue
-		VersusPanel.draw_fact(v, row, str(TITLE[key]), 20, 25, 190.0)
+		VersusPanel.draw_fact(v, row, str(TITLE[key]), 20, 20 if FORM.has(key) else 25, 190.0)
 	v.add_child(VersusPanel.gap(8))
 	v.add_child(_camp_line(f))
 	v.add_child(VersusPanel.gap(4))
@@ -108,7 +111,7 @@ static func _card(main: Node, c: Career, f: Dictionary, opp: Dictionary, m: Dict
 ## see-through dark band a fact - the fact's name in the middle, each corner's value beside it, a red edge on the left
 ## and a blue one on the right - with the two walls showing through. A fact a corner lacks is a dash and the row stays.
 ## The camp and scouting lines belong to the decision before the fight and stay on fight night's own page.
-const BROADCAST := ["Record", "Age", "Weight", "Height", "Reach", "Stance", "Style"]
+const BROADCAST := ["Record", "Last 5", "Streak", "Age", "Weight", "Height", "Reach", "Stance", "Style"]
 const DASH := "-"
 const BAND := Color(Palette.PAGE, 0.42)
 const BAND_H := 54.0
@@ -137,6 +140,7 @@ static func _broadcast(c: Career, f: Dictionary, opp: Dictionary, m: Dictionary)
 	v.add_child(bout)
 	v.add_child(VersusPanel.gap(10))
 	var cm := Faces.cm(Faces.stem(f))
+	TapeForm.fill(c, f)
 	for row in broadcast_rows(c.gym_name, f, opp, cm):
 		v.add_child(_band(row))
 	return v

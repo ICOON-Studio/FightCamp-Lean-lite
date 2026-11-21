@@ -29,6 +29,7 @@ const WeekBoard := preload("res://scripts/ui/WeekBoard.gd")
 const MatchupCards := preload("res://scripts/ui/MatchupCards.gd")
 const Faces := preload("res://scripts/rules/Faces.gd")
 const TapeRows := preload("res://scripts/rules/TapeRows.gd")
+const TapeForm := preload("res://scripts/state/TapeForm.gd")
 const FilmNight := preload("res://scripts/state/FilmNight.gd")
 const VersusPanel := preload("res://scripts/ui/VersusPanel.gd")
 const Tip := preload("res://scripts/ui/Tip.gd")
@@ -171,6 +172,7 @@ static func _tale(c: Career, f: Dictionary, opp: Dictionary, bout_day: int) -> P
 	var card := UI.card("THE TALE OF THE TAPE")
 	card[0].name = "PrepTale"
 	card[0].size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	TapeForm.fill(c, f)   # S535 OFFERTAPE1: the last five and the streak
 	for r in tape_rows(f, opp, Faces.cm(Faces.stem(f))):
 		var row: Dictionary = r
 		VersusPanel.draw_fact(card[1], row, str(row["label"]).to_upper())

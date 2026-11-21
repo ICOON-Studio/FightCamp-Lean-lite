@@ -17,7 +17,7 @@ func _initialize() -> void:
 	var opp := {"name": "Ned Cole", "w": 3, "l": 2, "age": 27, "weight": 60.0, "height": 165.0, "reach": 166.0,
 		"stance": "southpaw", "style": "Pressure fighter"}
 	var rows: Array = TapeRows.rows(f, opp, 169.0)
-	_check(_labels(rows) == ["Record", "Age", "Weight", "Height", "Reach", "Stance", "Style"], "order is Record, Age, Weight, Height, Reach, Stance, Style")
+	_check(_labels(rows) == ["Record", "Last 5", "Age", "Weight", "Height", "Reach", "Stance", "Style"], "order is Record, Last 5 (S535: form, not on tape here), Age, Weight, Height, Reach, Stance, Style")
 	var by := _by(rows)
 	_check(str(by["Record"]["better"]) == "left", "the longer record is better (8-1 over 3-2)")
 	_check(str(by["Height"]["better"]) == "left" and str(by["Height"]["left"]) == "172 cm", "the taller boxer is better on height")

@@ -21,6 +21,7 @@ const BoutRead := preload("res://scripts/rules/BoutRead.gd")
 const WB := preload("res://scripts/world/WorldBout.gd")
 const AttrGen := preload("res://scripts/rules/AttrGen.gd")
 const Attrs := preload("res://scripts/rules/Attrs.gd")
+const TapeRows := preload("res://scripts/rules/TapeRows.gd")
 const ROUNDS := 6
 
 const GAP_MONTHS := 2          # a pro camp is 6-8 weeks: 4-6 bouts a year early on (assets/data/world/SOURCES.md)
@@ -255,6 +256,8 @@ static func apply_result(p: Dictionary, opp: Dictionary, boxers: Array, won: boo
 		if stop:
 			WA.record_stoppage_loss(p)
 			pass
+	TapeRows.push_form(p, won, stop)   # S535 OFFERTAPE1: both corners' last five, read by the tale of the tape
+	TapeRows.push_form(opp, not won, stop)
 	p["next_weeks"] = next_weeks(gap, stop and not won)
 	_record_floor(p, boxers)
 	WA.record_bout(p, absf(gap))

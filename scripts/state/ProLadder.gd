@@ -258,7 +258,8 @@ static func bout_opp(f: Dictionary, opp: Dictionary, found: Array) -> Dictionary
 		# S398 the world boxer's own profile comes to the bout (AttrGen reads it there: the same person on the night).
 		"shape": (opp.get("shape", {}) as Dictionary).duplicate(), "pace": opp.get("pace", 50.0), "forward": opp.get("forward", 50.0),
 		"heart": opp.get("heart", 55.0), "height": opp.get("height", 170), "reach": opp.get("reach", 173),
-		"peak_age": opp.get("peak_age", 28), "damage_ledger": (opp.get("damage_ledger", {}) as Dictionary).duplicate()}
+		"peak_age": opp.get("peak_age", 28), "damage_ledger": (opp.get("damage_ledger", {}) as Dictionary).duplicate(),
+		"form": ((opp.get("form", []) as Array).duplicate() if opp.get("form") is Array else [])}   # S535 the last five, when the ladder has them
 
 
 ## Her chance as the bout page reads it (BoutRead.band: the rating range and every hidden tell's worst and best), with the
@@ -381,6 +382,8 @@ static func result(c: Career, f: Dictionary, outcome: String, stopped: bool) -> 
 	if outcome == "draw":   # a draw moves nobody: both records take it
 		e["d"] = int(e.get("d", 0)) + 1
 		opp["d"] = int(opp.get("d", 0)) + 1
+		MM.TapeRows.push_form(e, false, false, true)   # S535 OFFERTAPE1: a draw is on both forms
+		MM.TapeRows.push_form(opp, false, false, true)
 		_review_streak(e, table(c, f))
 		f["pro_next"] = c.day + MM.NEXT_WEEKS * 7 - LEAD_DAYS
 		return {"draw": true, "rank_before": int(e["rank"]), "rank_after": int(e["rank"])}

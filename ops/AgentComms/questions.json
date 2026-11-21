@@ -8600,6 +8600,23 @@
       "note": "answered in the session chat S535",
       "answered_at": null,
       "seen_by_claude": true
+    },
+    {
+      "id": "Q-S294-296",
+      "asked": "2026-11-21T18:48:11.073641+00:00",
+      "session": "S294",
+      "text": "Bout offer as a letter (mockup): build it?",
+      "options": [
+        "Yes, build it",
+        "Change something"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-296_0_offer.png"
+      ],
+      "answer": "Yes, build it",
+      "note": "answered in the session chat S535",
+      "answered_at": null,
+      "seen_by_claude": true
     }
   ]
 }

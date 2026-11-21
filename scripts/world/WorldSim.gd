@@ -8,6 +8,7 @@ const WA := preload("res://scripts/world/WorldAge.gd")
 const WR := preload("res://scripts/world/WorldRank.gd")
 const WG := preload("res://scripts/world/WorldGen.gd")
 const WB := preload("res://scripts/world/WorldBout.gd")
+const TapeRows := preload("res://scripts/rules/TapeRows.gd")
 
 const LUCK_SPREAD := 8.0
 const STOPPAGE_GAP_THRESHOLD := 6.0
@@ -182,6 +183,8 @@ static func _apply_bout_result(winner: Dictionary, loser: Dictionary, stoppage: 
 	if stoppage:
 		winner["ko"] = int(winner.get("ko", 0)) + 1
 	loser["l"] = int(loser.get("l", 0)) + 1
+	TapeRows.push_form(winner, true, stoppage)   # S535 OFFERTAPE1: the last five on the tale of the tape
+	TapeRows.push_form(loser, false, stoppage)
 	var gap := absf(float(winner["rating"]) - float(loser["rating"]))
 	WA.record_bout(winner, gap)
 	WA.record_bout(loser, gap)

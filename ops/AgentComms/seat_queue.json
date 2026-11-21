@@ -4066,8 +4066,22 @@
    "seat": "john",
    "brief": "research/JOHN_WEIGHT2_RESEARCH.md",
    "stem": "JOHN_WEIGHT2_RESEARCH_JOHN",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-21 16:41",
+   "tries": 0,
+   "sent_at": "2026-11-21 17:10",
+   "sent_ms": 1795273821764,
+   "answered_at": "2026-11-21 18:10",
+   "answer": "research/JOHN_WEIGHT2_RESEARCH_JOHN.md",
+   "chars": 9020
+  },
+  {
+   "id": "SQ279",
+   "seat": "kalli",
+   "brief": "research/DESIGN_WEIGHT2_V2_CRITIC_KALLI.md",
+   "stem": "DESIGN_WEIGHT2_V2_CRITIC_KALLI_KALLI",
+   "status": "queued",
+   "queued_at": "2026-11-21 21:08",
    "tries": 0
   }
  ]

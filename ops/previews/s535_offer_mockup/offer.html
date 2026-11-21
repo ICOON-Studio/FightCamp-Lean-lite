@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>S535 OFFERTAPE1 - the bout offer as a decision (mockup)</title>
+<style>
+@font-face{font-family:Marker;src:url(../../../assets/fonts/PermanentMarker-Regular.ttf)}
+@font-face{font-family:Barlow;font-weight:400;src:url(../../../assets/fonts/Barlow-Regular.ttf)}
+@font-face{font-family:Barlow;font-weight:500;src:url(../../../assets/fonts/Barlow-Medium.ttf)}
+@font-face{font-family:Barlow;font-weight:600;src:url(../../../assets/fonts/Barlow-SemiBold.ttf)}
+@font-face{font-family:Barlow;font-weight:700;src:url(../../../assets/fonts/Barlow-Bold.ttf)}
+@font-face{font-family:Kalam;font-weight:400;src:url(../../../assets/fonts/Kalam-Regular.ttf)}
+@font-face{font-family:Kalam;font-weight:700;src:url(../../../assets/fonts/Kalam-Bold.ttf)}
+@font-face{font-family:Mono;src:url(../../../assets/fonts/IBMPlexMono-Medium.ttf)}
+:root{--page:#1a1512;--card:#2e3234;--tile:#414342;--line:#4c4b45;--text:#eee2ce;--muted:#b1a084;--header:#e6bd55;
+ --accent:#6fa0e6;--good:#2cb56f;--bad:#ff7a66;--warn:#cf9245;--action:#991d1c;--second:#442f24;--wood:#4c362a;
+ --ink:#241f1a;--ink2:#5d5243;--inkblue:#27589e;--paper:#f4efe2}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;overflow:hidden;background:var(--page);color:var(--text);font-family:Barlow,sans-serif;font-weight:500}
+.bar{position:absolute;left:0;top:0;width:1920px;height:78px;background:var(--page);border-bottom:1px solid #000;display:flex;align-items:center;padding:0 18px;gap:14px}
+.bar .nav{width:36px;height:42px;background:#3a3a38;border-radius:4px;display:grid;place-items:center;font-weight:700;font-size:18px}
+.bar .gym{font-family:Marker;font-size:30px;color:var(--accent);letter-spacing:1px;margin-left:8px}
+.bar .date{font-size:19px;font-weight:600;line-height:1.15}.bar .date small{display:block;font-size:15px;color:var(--muted);font-weight:500}
+.bar .tab{background:#3a3a38;border-radius:4px;padding:10px 22px;font-weight:700;font-size:18px}
+.bar .sp{flex:1}
+.bar .cash{text-align:right;font-size:24px;font-weight:700;color:var(--header);line-height:1.1}.bar .cash small{display:block;font-size:15px;color:var(--muted);font-weight:500}
+.bar .needs{background:var(--action);border-radius:4px;padding:8px 16px;width:270px;font-weight:700;font-size:18px;line-height:1.2}.bar .needs small{display:block;font-size:15px;font-weight:500}
+.wall{position:absolute;left:0;top:78px;width:1920px;height:1002px;background:url(../../../assets/ui/art/gym_backdrop.jpg) center/cover}
+.wall::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(26,21,18,.62),rgba(26,21,18,.78))}
+.crumb{position:absolute;left:40px;top:92px;font-size:16px;color:var(--muted);letter-spacing:.5px}
+.slate{position:absolute;background:var(--card);border:1px solid #1c1f20;border-radius:6px;box-shadow:0 6px 18px rgba(0,0,0,.55), inset 0 0 0 5px #23272a}
+.slate h2{font-family:Marker;font-weight:400;font-size:34px;line-height:1;color:var(--text);letter-spacing:.5px}
+.slate .sub{font-size:17px;color:var(--muted);margin-top:4px}
+.cap{font-size:15px;font-weight:700;letter-spacing:2px;color:var(--header);text-transform:uppercase}
+/* --- left: your boxer --------------------------------------------------- */
+#mine{left:40px;top:124px;width:400px;height:916px;padding:24px 24px 20px;overflow:hidden}
+#mine .body{position:absolute;left:8px;top:92px;width:384px;height:548px;background:url(../../../assets/ui/style_b/fullbody/mh_boxer_11.png) center top/contain no-repeat}
+#mine .crest{position:absolute;left:60px;top:150px;width:280px;height:280px;background:url(../../../assets/ui/art/crests/anvil.png) center/contain no-repeat;opacity:.10}
+#mine .facts{position:absolute;left:24px;right:24px;top:632px}
+.kv{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid rgba(177,160,132,.28);padding:9px 0;font-size:18px}
+.kv > span:first-child{color:var(--muted);font-size:15px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase}
+.kv b{font-weight:700}
+.form{font-family:Mono;font-size:19px;letter-spacing:1px}
+.form .w{color:var(--good)}.form .l{color:var(--bad)}.form .d{color:var(--muted)}
+.good{color:var(--good)}.bad{color:var(--bad)}.warn{color:var(--warn)}.mut{color:var(--muted)}
+/* --- centre: the letter -------------------------------------------------- */
+#letter{position:absolute;left:478px;top:120px;width:880px;height:808px;background:#f4efe2 url(../../../assets/ui/art/menu_paper.jpg) center/cover;color:var(--ink);
+ border-radius:3px;box-shadow:0 14px 34px rgba(0,0,0,.6), 0 2px 0 #cfc6b2;transform:rotate(-.5deg);padding:38px 54px 30px}
+#letter::before{content:"";position:absolute;left:50%;top:-14px;width:150px;height:34px;margin-left:-75px;background:rgba(200,165,133,.82);box-shadow:0 2px 4px rgba(0,0,0,.25);transform:rotate(1.2deg)}
+.head{display:flex;align-items:center;gap:20px;border-bottom:3px double var(--ink2);padding-bottom:16px}
+.head .cr{width:92px;height:92px;border-radius:50%;background:#27589e url(../../../assets/ui/art/crests/bulldog.png) center/72% no-repeat;flex:none}
+.head .who{flex:1}.head .who b{display:block;font-size:30px;font-weight:700;letter-spacing:1px;line-height:1.05}
+.head .who span{font-size:17px;color:var(--ink2);font-weight:600}
+.head .dt{text-align:right;font-size:17px;color:var(--ink2);font-weight:600;line-height:1.3}
+.title{font-family:Marker;font-size:54px;line-height:1;margin:22px 0 4px;color:var(--ink)}
+.lede{font-family:Kalam;font-size:23px;line-height:1.3;color:var(--ink);margin-bottom:14px}
+.terms{display:grid;grid-template-columns:1fr 1fr;gap:0 38px}
+.term{border-top:1px solid rgba(93,82,67,.45);padding:11px 0 10px}
+.term .k{font-size:14px;font-weight:700;letter-spacing:2px;color:var(--ink2);text-transform:uppercase}
+.term .v{font-size:27px;font-weight:700;line-height:1.15}
+.term .n{font-size:17px;color:var(--ink2);font-weight:600}
+.ifs{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:14px}
+.if{border:2px solid;border-radius:4px;padding:12px 16px 12px;background:rgba(255,255,255,.35)}
+.if.win{border-color:#239058}.if.loss{border-color:#b3372c}
+.if h3{font-size:15px;letter-spacing:2px;font-weight:700;text-transform:uppercase}
+.if.win h3{color:#1b7a49}.if.loss h3{color:#b3372c}
+.if .big{font-size:25px;font-weight:700;line-height:1.15;margin:3px 0 5px}
+.if li{list-style:none;font-size:17px;font-weight:600;color:var(--ink);line-height:1.38}
+.if li::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;margin:0 9px 2px 0;background:currentColor;opacity:.55}
+.sign{display:flex;justify-content:space-between;align-items:flex-end;margin-top:18px}
+.sign .hand{font-family:Kalam;font-size:22px;line-height:1.25;color:var(--inkblue)}
+.sign .hand small{display:block;font-family:Barlow;font-size:15px;color:var(--ink2);font-weight:600}
+.stamp{border:3px solid #b3372c;color:#b3372c;border-radius:6px;padding:7px 16px;font-weight:700;font-size:19px;letter-spacing:2px;text-transform:uppercase;transform:rotate(-4deg);opacity:.9;text-align:center;line-height:1.2}
+.stamp small{display:block;font-size:14px;letter-spacing:1.5px}
+/* --- the answer ----------------------------------------------------------- */
+#answer{position:absolute;left:478px;top:952px;width:880px;display:flex;gap:14px}
+.btn{height:60px;border-radius:5px;display:grid;place-items:center;font-size:21px;font-weight:700;box-shadow:0 3px 0 rgba(0,0,0,.45)}
+.btn small{display:block;font-size:15px;font-weight:600;opacity:.85;text-align:center;line-height:1.1}
+.btn.pass{flex:1;background:#3a3a38;color:var(--muted)}
+.btn.rep{flex:1;background:var(--second);color:var(--text);border:1px solid #6a4a38}
+.btn.acc{flex:1.5;background:var(--action);color:#fff}
+/* --- right: the read and the opponent ----------------------------------- */
+#read{left:1396px;top:124px;width:484px;height:296px;padding:22px 24px}
+.quote{font-family:Kalam;font-size:23px;line-height:1.25;color:var(--warn);margin:8px 0 12px}
+.chance{display:flex;align-items:center;gap:16px}
+.chance .num{font-family:Mono;font-size:50px;line-height:1;color:var(--text)}
+.chance .w{flex:1}
+.rng{position:relative;height:14px;background:var(--page);border:1px solid var(--line);border-radius:7px;margin:6px 0 5px}
+.rng i{position:absolute;top:1px;bottom:1px;left:5%;width:75%;background:linear-gradient(90deg,#df4639,#cf9245 50%,#239058);border-radius:6px;opacity:.75}
+.rng u{position:absolute;top:-5px;left:43%;width:4px;height:22px;background:var(--text);border-radius:2px;margin-left:-2px}
+.rng em{position:absolute;top:-3px;left:50%;width:1px;height:18px;background:var(--muted)}
+.small{font-size:16px;color:var(--muted);line-height:1.3}
+.gc{margin-top:12px;font-size:17px;line-height:1.38;font-weight:600}
+.gc b{font-size:14px;letter-spacing:1.8px;text-transform:uppercase;margin-right:8px}
+#opp{left:1396px;top:440px;width:484px;height:600px;padding:22px 24px;overflow:hidden}
+#opp .pic{position:absolute;right:6px;top:14px;width:190px;height:292px;overflow:hidden}
+#opp .pic i{position:absolute;left:-70px;top:-6px;width:330px;height:640px;background:url(../../../assets/ui/style_b/fullbody/mh_boxer_14.png) center top/contain no-repeat}
+#opp .pic::after{content:"";position:absolute;left:0;right:0;bottom:0;height:70px;background:linear-gradient(180deg,rgba(46,50,52,0),var(--card))}
+#opp .top{width:262px}
+#opp .top .kv{font-size:18px}
+#opp .dec{position:absolute;left:24px;right:24px;top:330px}
+.cmp{display:grid;grid-template-columns:1fr 150px 1fr;align-items:center;border-top:1px solid rgba(177,160,132,.28);height:46px;font-size:21px;font-weight:700;text-align:center}
+.cmp span{font-size:14px;letter-spacing:1.8px;color:var(--muted);text-transform:uppercase}
+.cmp.hd{height:30px;border-top:0;font-size:14px;letter-spacing:1.8px;text-transform:uppercase}
+.cmp.hd b:first-child{color:var(--bad)}.cmp.hd b:last-child{color:var(--accent)}
+.note{position:absolute;left:24px;right:24px;bottom:18px;font-size:16px;color:var(--muted);line-height:1.3}
+.note b{color:var(--warn)}
+</style></head><body>
+<div class="bar"><div class="nav">&lt;</div><div class="nav" style="opacity:.5">&gt;</div><div class="gym">Anvil Street Gym</div>
+ <div class="date">Mon 12 Jan 2026<small>Week 2</small></div><div style="width:90px"></div><div class="tab">Gym</div><div class="tab">Mail (5 new)</div><div class="sp"></div>
+ <div class="cash">$16,841<small>running -$680 a week</small></div><div class="needs">NEEDS YOU (1)<small>Answer the bout offer</small></div><div class="tab" style="font-size:16px;padding:10px 12px">Menu</div></div>
+<div class="wall"></div>
+<div class="crumb">FIGHTS / Offers / the offer from Leicester ABC</div>
+
+<div class="slate" id="mine">
+ <h2>Lucy Jackson</h2><div class="sub">Lightweight · your fighter</div>
+ <div class="crest"></div><div class="body"></div>
+ <div class="facts">
+  <div class="kv"><span>Record</span><b>3-1</b></div>
+  <div class="kv"><span>Last 5</span><b class="form"><span class="w">W</span> <span class="l">L</span> <span class="w">W(KO)</span> <span class="w">W(KO)</span></b></div>
+  <div class="kv"><span>Streak</span><b>won the last bout</b></div>
+  <div class="kv"><span>Shape · Mood</span><b>Fresh · Steady</b></div>
+  <div class="kv"><span>On the scale</span><b class="good">59.8 kg of 60: makes it</b></div>
+  <div class="kv"><span>If you pass</span><b class="warn">loyalty -3: wants this fight</b></div>
+ </div>
+</div>
+
+<div id="letter">
+ <div class="head"><div class="cr"></div><div class="who"><b>LEICESTER ABC</b><span>Club show · the matchmaker's offer</span></div>
+  <div class="dt">Sent Mon 12 Jan<br>Lightweight, 60 kg</div></div>
+ <div class="title">Bout offer</div>
+ <div class="lede">"We have a lightweight on our show who needs an opponent. Three rounds, fair match. Can your boxer make it?"</div>
+ <div class="terms">
+  <div class="term"><div class="k">The night</div><div class="v">Sat 31 Jan</div><div class="n">3 x 3 min, at their club show</div></div>
+  <div class="term"><div class="k">Time to prepare</div><div class="v">2 weeks</div><div class="n">No camp needed: a fight week</div></div>
+  <div class="term"><div class="k">To the club</div><div class="v">$450 <span style="font-size:18px;font-weight:600">ticket cut</span></div><div class="n">Purse: none, amateur</div></div>
+  <div class="term"><div class="k">Sanction</div><div class="v" style="color:#1b7a49">Legal, even match</div><div class="n">4 bouts against 6: both novices</div></div>
+ </div>
+ <div class="ifs">
+  <div class="if win"><h3>If your boxer wins</h3><div class="big">Enters the ladder at #4</div>
+   <ul><li>+8 members sign up</li><li>Record 4-1, two wins in a row</li><li>Loyalty +2</li></ul></div>
+  <div class="if loss"><h3>If your boxer loses</h3><div class="big">Stays unranked</div>
+   <ul><li>1 member leaves (2 if stopped)</li><li>Record 3-2</li><li>Loyalty -1 (stopped: -3)</li></ul></div>
+ </div>
+ <div class="sign"><div class="hand">Reply by Thursday and the slot is yours.<small>The matchmaker, Leicester ABC</small></div>
+  <div class="stamp">Answer by Thu 15 Jan<small>3 days left</small></div></div>
+</div>
+
+<div id="answer"><div class="btn pass"><div>Pass<small>loyalty -3</small></div></div><div class="btn rep">Full report</div><div class="btn acc"><div>Accept the bout<small>Sat 31 Jan, $450 to the club</small></div></div></div>
+
+<div class="slate" id="read">
+ <div class="cap">The coach's read</div>
+ <div class="quote">"A step up: take it knowing the risk."</div>
+ <div class="chance"><div class="num">43%</div><div class="w"><div class="small" style="color:var(--text);font-weight:700;font-size:17px">Win chance: a rough guess</div>
+  <div class="rng"><i></i><em></em><u></u></div><div class="small">Anywhere from 5% to 80%. Scouting narrows it.</div></div></div>
+ <div class="gc"><div><b class="good">Gain</b>a win takes place 4 on the ladder.</div>
+  <div><b class="bad">Risk</b>the opponent is the stronger, by about 5.</div>
+  <div><b class="mut">How sure</b>1 of 3: nothing of the opponent is on tape yet.</div></div>
+</div>
+
+<div class="slate" id="opp">
+ <div class="pic"><i></i></div>
+ <div class="top"><h2>Priya Nair</h2><div class="sub">Lightweight · Leicester ABC</div>
+  <div style="height:12px"></div>
+  <div class="kv"><span>Last 5</span><b class="form"><span class="w">W</span> <span class="w">W</span> <span class="l">L</span> <span class="w">W</span> <span class="w">W(KO)</span></b></div>
+  <div class="kv"><span>Streak</span><b>2 wins in a row</b></div>
+  <div class="kv"><span>Style</span><b>Counter-puncher</b></div>
+  <div class="kv"><span>Best punch</span><b class="mut">not on tape</b></div>
+ </div>
+ <div class="dec"><div class="cap" style="margin-bottom:6px">What decides it</div>
+  <div class="cmp hd"><b>Your boxer</b><span></span><b>The opponent</b></div>
+  <div class="cmp"><b>3-1</b><span>Record</span><b class="good">5-1</b></div>
+  <div class="cmp"><b>169 cm</b><span>Reach</span><b class="good">172 cm</b></div>
+  <div class="cmp"><b>4 bouts</b><span>Experience</span><b class="good">6 bouts</b></div>
+ </div>
+ <div class="note"><b>Scouting: 0 of 5 found.</b> The whole file is in the Full report.</div>
+</div>
+</body></html>

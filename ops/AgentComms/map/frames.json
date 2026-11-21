@@ -165,6 +165,17 @@
      "globs": [
       "ops/previews/s523/pro_offer.png"
      ]
+    },
+    {
+     "id": "s535_offer",
+     "title": "Bout offer as a decision: mockup for your OK, beside the tape with form (S535)",
+     "kind": "gallery",
+     "note": "C448: the offer is a letter, not a stat table (mockup, not built). C449: Last 5 and Streak are on the tape (built).",
+     "globs": [
+      "ops/previews/s535_offer_mockup/offer.png",
+      "ops/previews/s535_offer_mockup/tape_with_form.png"
+     ],
+     "cols": 2
     }
    ]
   },

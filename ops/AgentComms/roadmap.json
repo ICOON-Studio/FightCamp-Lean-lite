@@ -5375,58 +5375,52 @@
   },
   "working_now": [
    {
-    "title": "Footwork: the place pays (done), the right step costs no exchange, re-gate 10 steps",
+    "run": "WEIGHT2R3",
     "who": "claude-fable",
-    "started": "2026-11-21",
-    "run": "STEPPAY2"
+    "title": "Weight v2: your answers + John's numbers, probe round 3, then critics",
+    "started": "2026-11-21"
    },
    {
-    "title": "Arena code-checked critic: guard damage map v6",
-    "who": "arena",
-    "started": "2026-11-21T14:36",
-    "run": "GUARD6CRIT"
-   },
-   {
-    "title": "3D fight: arms and shoulders follow Strength (your Q-290)",
+    "run": "BODYTEX2",
     "who": "claude-fable",
-    "started": "2026-11-21T15:20",
-    "run": "ARMBUILD1"
+    "title": "Bodies: muscle skin on every boxer, fitter shape where the stomach caves, shoulder seam",
+    "started": "2026-11-21"
    },
    {
-    "title": "Repaint 152 bodies with athletic arms (Ludo)",
-    "who": "ludo",
-    "started": "2026-11-21T15:20",
-    "run": "ARMPAINT1"
-   },
-   {
-    "title": "Probe turning pro v11 before critics",
+    "run": "OFFERBUILD1",
     "who": "claude-fable",
-    "started": "2026-11-21T15:35",
-    "run": "TURNPROBE11"
+    "title": "Build the bout offer as a letter (your Q-296 'Yes, build it')",
+    "started": "2026-11-21"
    },
    {
-    "title": "Price the solved fight-night choices (probe)",
+    "run": "GUARDPROBE8",
     "who": "claude-fable",
-    "started": "2026-11-21T15:35",
-    "run": "DEPTHPRICE1A"
+    "title": "Guard v7: does a guard line cost a punch line? (before critics)",
+    "started": "2026-11-21"
    },
    {
-    "title": "Price the solved club choices (probe)",
+    "run": "TURNPRO12",
     "who": "claude-fable",
-    "started": "2026-11-21T15:35",
-    "run": "DEPTHPRICE1B"
+    "title": "Turning pro v12: built on the debut and the first six fights, probe again",
+    "started": "2026-11-21"
    },
    {
-    "title": "Probe guard v6: Hands before settle",
+    "run": "STEPPAY2",
     "who": "claude-fable",
-    "started": "2026-11-21T15:35",
-    "run": "GUARDPROBE6"
+    "title": "Footwork: re-test all 10 steps (phase 4)",
+    "started": "2026-11-21"
    },
    {
+    "run": "DEPTHPRICE1B",
+    "who": "claude-fable",
+    "title": "Club choices: stipend and loan, second prices",
+    "started": "2026-11-21"
+   },
+   {
+    "run": "KNOWMISREAD1",
+    "who": "claude-fable",
     "title": "Be wrong about people: a shared misread (build)",
-    "who": "claude-fable",
-    "started": "2026-11-21T15:35",
-    "run": "KNOWMISREAD1"
+    "started": "2026-11-21"
    }
   ],
   "next": [
@@ -6265,63 +6259,35 @@
      "who": "operator"
     },
     {
-     "text": "Your look: result page tabs",
+     "text": "Your play: the S535 build",
      "who": "operator"
     },
     {
-     "text": "Your look: office desktop",
+     "text": "Your look: body stills (review)",
      "who": "operator"
     },
     {
-     "text": "Your look: block reel S455",
-     "who": "operator"
-    },
-    {
-     "text": "Your look: match strip, clinch",
-     "who": "operator"
-    },
-    {
-     "text": "Your look: rear knee + uppercut",
-     "who": "operator"
-    },
-    {
-     "text": "Your look: own gloves, cross",
-     "who": "operator"
-    },
-    {
-     "text": "Your play: the fight week",
-     "who": "claude"
-    },
-    {
-     "text": "Your look: Game plan chart",
-     "who": "claude"
-    },
-    {
-     "text": "One colour palette (gym look)",
-     "who": "claude"
-    },
-    {
-     "text": "One look: wood panels out",
-     "who": "claude"
-    },
-    {
-     "text": "Your play: the S533 build",
-     "who": "operator"
-    },
-    {
-     "text": "Pro v10 critics: John, Kalli",
+     "text": "Weight v2 + probe 3 (Fable)",
      "who": "agent"
     },
     {
-     "text": "Guard v6 critics: Kalli, John",
+     "text": "Bodies phase 2: skin+shape",
      "who": "agent"
     },
     {
-     "text": "Depth plan: probes on Fable x5",
+     "text": "Offer letter: build (Fable)",
      "who": "agent"
     },
     {
-     "text": "Change weight class: map+probe",
+     "text": "Guard v7: trade probe",
+     "who": "agent"
+    },
+    {
+     "text": "Turning pro v12 probe",
+     "who": "agent"
+    },
+    {
+     "text": "Merge branch: 65 kg, towel, ice",
      "who": "claude"
     }
    ],

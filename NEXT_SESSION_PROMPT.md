@@ -16,9 +16,21 @@ Close every Fable console the moment its result is collected (10 GB of claude pr
 - Fight animation: fight player v2 only. The mocap pack is his money call at the END OF NOVEMBER.
 - BOARD QUESTIONS: 20 words max, options 5 words; detail in --attach. NAMES ONLY IN HEADERS.
 
-## Running when this was written - collect, do not relaunch
-Fable consoles (terminal tabs of the S535 session): WEIGHT2R3, TURNPRO12, GUARDREV7, BODYTEX2, OFFERTAPE1, STEPPAY2 (from S533);
-S534's DEPTHPRICE1B (re-sizes) and KNOWMISREAD1. Export of the S535 build queued (bodies correctives + boxer 01 skin + arms).
+## Running when S535 ended - collect, do not relaunch (each commits to main and stops)
+Fable consoles (terminal tabs of the S535 session; they keep running): WEIGHT2R3 (weight map v2 with Q-292..294 + John, probe
+round 3 - the first PROBE3 file was a 2-seed smoke run, wait for the committed one), BODYTEX2 (muscle skin on every body, shape
+re-export where the stomach caves, shoulder seam), OFFERBUILD1 (owner Q-296 "Yes, build it": the bout offer as a letter, spec =
+ops/previews/s535_offer_mockup/offer.png), GUARDPROBE8 (guard v7 PASSED; does a guard line cost a punch line? then critic briefs),
+TURNPRO12, STEPPAY2 (phase 4); S534's DEPTHPRICE1B (stipend / loan second prices) and KNOWMISREAD1.
+Export of the S535 build queued (correctives + boxer 01 skin + arms by Strength + Last 5 on the tape).
+Close each console's tab once its result is collected (RAM starves the Godot queue).
+
+## Landed after the handover
+- WEIGHT2R3 (41a932360): map v2 + probe round 3 on John's numbers "PASS, weak": CUT 4, STAY 2, UP 2, DOWN 2, but 0 of 10 cells
+  clear of the noise and CUT harder is in the leading group of ALL 10 - with real numbers the weight choices barely differ and
+  cutting harder is never worse. Kalli critic queued (SQ279). DO NOT launch the code-checked critic (TASK_WEIGHT2V2CRIT.md) yet:
+  first re-size so the amateur same-day scale makes a hard cut clearly cost (John: amateurs box carrying the cut) and cells
+  clear the noise; then critics.
 
 ## Next, in order
 1. Collect as they land; WEIGHT2R3 PASS -> launch its code-checked critic (TASK_WEIGHT2V2CRIT.md) + the queued chat critic.

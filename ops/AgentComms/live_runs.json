@@ -141,7 +141,7 @@
  },
  "GUARDREV7": {
   "id": "GUARDREV7",
-  "status": "running",
+  "status": "landed",
   "started": "2026-11-21T17:40",
   "title": "Guard v7: hands high/loose as a fight-plan reaction, not a setting (v6 probe: Normal best 12 of 12)",
   "seat": "claude",
@@ -165,5 +165,41 @@
   "seat": "claude",
   "agent": "claude-fable",
   "eta": "about 2-3 h"
+ },
+ "WEIGHT2R3": {
+  "id": "WEIGHT2R3",
+  "status": "running",
+  "started": "2026-11-21T20:00",
+  "title": "Weight v2 + probe round 3",
+  "seat": "claude",
+  "agent": "claude-fable",
+  "eta": "1-3 h (Godot queue)"
+ },
+ "BODYTEX2": {
+  "id": "BODYTEX2",
+  "status": "running",
+  "started": "2026-11-21T20:00",
+  "title": "Bodies phase 2: skin + shape",
+  "seat": "claude",
+  "agent": "claude-fable",
+  "eta": "1-3 h (Godot queue)"
+ },
+ "OFFERBUILD1": {
+  "id": "OFFERBUILD1",
+  "status": "running",
+  "started": "2026-11-21T20:00",
+  "title": "Build the bout offer letter",
+  "seat": "claude",
+  "agent": "claude-fable",
+  "eta": "1-3 h (Godot queue)"
+ },
+ "GUARDPROBE8": {
+  "id": "GUARDPROBE8",
+  "status": "running",
+  "started": "2026-11-21T20:00",
+  "title": "Guard v7 trade probe",
+  "seat": "claude",
+  "agent": "claude-fable",
+  "eta": "1-3 h (Godot queue)"
  }
 }
