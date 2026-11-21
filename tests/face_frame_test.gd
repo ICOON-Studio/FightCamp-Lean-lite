@@ -295,6 +295,8 @@ func _head(set_name: String, stem: String) -> Rect2:
 
 
 func _set_of(path: String) -> String:
+	if path.contains("/style_b/fullbody/"):
+		return "fullbody"   # S534: the painted full bodies are fitted to the renders' canvas (FaceFrame._set_of)
 	if path.contains("/style_b/"):
 		return "style_b"
 	if path.contains("/face/studio/"):

@@ -11,6 +11,9 @@ S534 build (2026-11-21) - what changed, and what to try (your review notes C442-
 6. TOWEL: retiring your boxer on the stool (towel, or a cracked rib) no longer wears the chin - it was charging it.
 7. Tooltips: the last 3 broken cards fixed (Ask for a bout, the MMA chip); every card checked is now within the rules.
 8. FOOTWORK: still half-built in this build (the right step costing no exchange); the footwork session is still measuring it.
+9. PAINTED BODIES (your 'Keep painted' + 'on the fight too'): every full-body picture is now painted like the portraits -
+   the fighter page, the roster cards, the bout offer and the fight's tale of the tape (the live 3D boxer there is now
+   the painted one). The 3D fight itself stays 3D; the fight poster keeps its halftone press-photo look.
 
 S533 build (2026-11-21, 12:40) - what changed, and what to try
 

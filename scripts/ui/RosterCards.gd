@@ -20,6 +20,7 @@ const Injuries := preload("res://scripts/state/Injuries.gd")
 const BACKDROP := "res://assets/ui/art/gym_backdrop.jpg"
 const CARD_PAINT := "res://assets/ui/art/card_paint.jpg"
 const BODY_PATH := "res://assets/ui/art/fullbody/%s.png"
+const PAINTED_PATH := "res://assets/ui/style_b/fullbody/%s.png"   # S534 owner "Keep painted" (Q-S294-289): Ludo paintovers of BODY_PATH
 
 const CARD := Vector2(226, 524)
 const ART_H := 330.0
@@ -188,9 +189,17 @@ static func stance_body(f: Dictionary, size: Vector2 = Vector2.ZERO) -> Control:
 	return body(stem, size)
 
 
+## The full-body file for a stem: the painted one when the menus are painted (PromoShot.ui_art "b", owner S534 "Keep
+## painted" and "switch them on the fight too") and it exists, else the MetaHuman render.
+static func body_path(stem: String) -> String:
+	if PromoShot.ui_art() == "b" and ResourceLoader.exists(PAINTED_PATH % stem):
+		return PAINTED_PATH % stem
+	return BODY_PATH % stem
+
+
 ## Her full-body picture, or the face shot when the body has not been baked.
 static func body(stem: String, size: Vector2 = Vector2.ZERO) -> Control:
-	var path := BODY_PATH % stem
+	var path := body_path(stem)
 	if ResourceLoader.exists(path):
 		var pic := _picture(path, TextureRect.STRETCH_KEEP_ASPECT_CENTERED)
 		pic.name = "Body"

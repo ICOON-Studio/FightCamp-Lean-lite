@@ -155,6 +155,8 @@ static func _circle_holds(safe: Rect2, frame: Rect2, slot: Vector2) -> bool:
 
 
 static func _set_of(path: String) -> String:
+	if path.contains("/style_b/fullbody/"):
+		return "fullbody"   # S534: a Ludo paintover keeps the render's size and pose, so the render's head box holds
 	if path.contains("/style_b/"):
 		return "style_b"
 	if path.contains("/face/studio/"):

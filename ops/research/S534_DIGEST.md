@@ -39,3 +39,16 @@ Owner mid-session: "keep going dont wait on arena".
 ## Left for S535
 STEPPAY2 phases 3-4 (uncommitted, gate run in flight) + its BoutRead recalibration (debut_read_test 2 lines); DMGCLASS v3 ->
 critics; act on the v10 / v6 scores; the owner plays the S534 build.
+
+## Stage 2 (14:15 -> 15:05): painted bodies (owner Q-S294-289 "Keep painted", then "can you switch them on the fight too ?")
+- His question "is it good choice?": yes for every 2D screen (one style ends the photo-next-to-painting mix); the 3D fight
+  stays MetaHuman; told him the two risks (face drift, the live 3D shadowboxing becomes a painted still).
+- Ludo image edit x152 (76 credits; two prompt tests 3 credits): each body's own render + its own painted portrait as the
+  reference. First prompt came out semi-3D (gloss) -> the "flat matte, thick ink" prompt matched. Upload rate limit 60/5 min:
+  four chunks of 45. tools/fit_painted_bodies.py fits each onto the render canvas (Ludo returns 576x800 and shifts the figure).
+  Glove colour vs render checked on all 152 (one false alarm: red shorts in the crop). Contact sheets read by Claude.
+- Wired: RosterCards.body_path (painted when ui_art "b"), VersusPanel (painted pose instead of VersusLive), FaceFrame +
+  face_frame_test (style_b/fullbody uses the fullbody head boxes). 7 screen tests PASS. Build 15:02.
+- Tried and reverted: painted portraits on the fight poster - the halftone turned their grey backdrop to dots and lost
+  dark-skinned faces; the poster keeps its keyed press photos.
+- Also: DMGCLASS v3 landed (Fable) + critics queued; Arena GUARD6CRIT (code-checked guard v6 critic) running.

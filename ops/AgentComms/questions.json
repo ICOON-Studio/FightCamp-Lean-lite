@@ -8487,10 +8487,29 @@
       "attach": [
         "AgentComms/board_attach/Q-S294-289_0_s532_art_36_roster.png"
       ],
-      "answer": null,
+      "answer": "Keep painted",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-21T12:16:11Z",
+      "seen_by_claude": true,
+      "answered_via": "chat S534"
+    },
+    {
+      "id": "Q-S294-290",
+      "asked": "2026-11-21T13:06:01.378233+00:00",
+      "session": "S294",
+      "text": "Fighter arms: thickness follows Strength (3D + one toned repaint), or thicker for all?",
+      "options": [
+        "Follow Strength",
+        "Thicker for all"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-290_0_s534_paint_flat_check.png"
+      ],
+      "answer": "Follow Strength",
+      "note": null,
+      "answered_at": "2026-11-21T13:20:00Z",
+      "seen_by_claude": false,
+      "answered_via": "chat S534"
     }
   ]
 }

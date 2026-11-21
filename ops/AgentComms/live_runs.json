@@ -51,14 +51,41 @@
    "agent": "arena",
    "eta": "about 30 min"
   },
-  "PAINTBODY1": {
-   "id": "PAINTBODY1",
+  "ARMBUILD1": {
+   "id": "ARMBUILD1",
    "status": "running",
-   "started": "2026-11-21T14:20",
-   "title": "Ludo paints the 152 full-body pictures (owner: Keep painted, also on the fight)",
+   "started": "2026-11-21T15:20",
+   "title": "3D fight: arms and shoulders follow Strength (your Q-290)",
+   "seat": "claude",
+   "agent": "claude-fable",
+   "eta": "about 30 min"
+  },
+  "ARMPAINT1": {
+   "id": "ARMPAINT1",
+   "status": "running",
+   "started": "2026-11-21T15:20",
+   "title": "Repaint 152 bodies with athletic arms (Ludo)",
    "seat": "ludo",
    "agent": "ludo",
-   "eta": "about 25 min"
+   "eta": "about 30 min"
+  },
+  "DEPTHAUDIT1": {
+   "id": "DEPTHAUDIT1",
+   "status": "running",
+   "started": "2026-11-21T15:20",
+   "title": "How strategically deep is the game? (your question)",
+   "seat": "claude",
+   "agent": "claude-fable",
+   "eta": "about 30 min"
+  },
+  "TURNPRO11": {
+   "id": "TURNPRO11",
+   "status": "running",
+   "started": "2026-11-21T15:20",
+   "title": "Turning pro map v11 from the code",
+   "seat": "claude",
+   "agent": "claude-fable",
+   "eta": "about 30 min"
   }
  },
  "codex_budget": {

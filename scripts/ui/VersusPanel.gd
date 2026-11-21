@@ -80,7 +80,9 @@ static func side(who: String, sub: String, stem: String, corner: String, tag_tex
 	col.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	if crest != "":   # S412 "behind the maybe the lgoos of each gym ?"
 		col.add_child(_crest(crest, right, bleed))
-	var pic: Control = VersusLive.make(stem, corner, right, key)   # S412 shadowboxing, live; no picture (a test): the baked pose
+	# S534 owner "switch them on the fight too": painted menus show the painted pose, not the live 3D shadowboxing
+	var painted := RosterCards.body_path(FighterPose.picture(kit_stem(stem, corner), pose)).contains("/style_b/")
+	var pic: Control = null if painted else VersusLive.make(stem, corner, right, key)   # S412 shadowboxing, live; no picture (a test): the baked pose
 	if pic == null:
 		pic = RosterCards.body(FighterPose.picture(kit_stem(stem, corner), pose))
 	if pic != null:
