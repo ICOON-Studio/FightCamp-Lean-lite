@@ -1,6 +1,7 @@
 # TASK TURNREV5 - write the turning pro map v5 (TURNPRO1_V5) from the code, against the measured lines
 
-Status: OPEN (S530, Claude main). Discipline: boxing. Model: Goose (cloud), default. RESEARCH ONLY - no game code changes.
+Kind: research
+Status: DONE (S533: map delivered, later versions on main) - was OPEN (S530, Claude main). Discipline: boxing. Model: Goose (cloud), default. RESEARCH ONLY - no game code changes.
 
 ## Why
 v4 (`ops/research/DESIGN_TURNPRO1_V4.md`) was critiqued against numbers measured before the S529 price fix. Two reruns on

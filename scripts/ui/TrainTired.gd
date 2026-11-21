@@ -24,7 +24,7 @@ static func make(model: Dictionary, left_w: float, col_w: float, gap: float, on_
 	lab.custom_minimum_size = Vector2(left_w, H)
 	lab.add_theme_constant_override("separation", 0)
 	lab.alignment = BoxContainer.ALIGNMENT_CENTER
-	lab.add_child(B.lab("TIREDNESS", 17, Palette.HEADER, "caps"))
+	lab.add_child(B.lab("FATIGUE", 17, Palette.HEADER, "caps"))
 	var sub := B.lab("end of each day", 16, Palette.MUTED, "body")
 	sub.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	lab.add_child(sub)

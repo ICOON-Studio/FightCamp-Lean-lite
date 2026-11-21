@@ -81,10 +81,10 @@ static func card(cd: Dictionary, on: bool, on_pick: Callable) -> Control:
 		sp.pts = cd["spark"]
 		sp.custom_minimum_size = Vector2(60, 30)
 		sv.add_child(sp)
-		sv.add_child(B.lab("tiredness", 16, Palette.MUTED, "body"))
+		sv.add_child(B.lab("fatigue", 16, Palette.MUTED, "body"))
 		h.add_child(sv)
 	if boxer:   # S532 GUIDETIPS1: was the week's seven tiredness numbers in a line
-		Tip.short(b, str(cd["name"]), "The small line is tiredness at each day's end this week.", "" if on else "Click to plan this boxer's week.")
+		Tip.short(b, str(cd["name"]), "The small line is fatigue at each day's end this week.", "" if on else "Click to plan this boxer's week.")
 	else:
 		b.tooltip_text = "The mat coach runs the mat classes. Click to choose what they drill."
 	return b

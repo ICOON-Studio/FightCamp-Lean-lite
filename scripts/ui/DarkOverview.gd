@@ -204,8 +204,8 @@ static func condition(f: Dictionary) -> Control:
 	var row := UI.hbox(10)
 	row.name = "Condition"
 	row.mouse_filter = Control.MOUSE_FILTER_PASS
-	row.tooltip_text = "Tiredness %d of 100. Under 50 is fresh. A fight and hard training raise it; a full rest day takes off about an eighth. Over 80 the next morning's training counts only 60%%." % int(round(v))
-	row.add_child(UI.label("TIREDNESS", UI.BODY, SOFT, "bold"))
+	row.tooltip_text = "Fatigue %d of 100. Under 50 is fresh. A fight and hard training raise it; a full rest day takes off about an eighth. Over 80 the next morning's training counts only 60%%." % int(round(v))
+	row.add_child(UI.label("FATIGUE", UI.BODY, SOFT, "bold"))
 	var bar := Bar.new()
 	bar.frac = v / 100.0
 	bar.tick = Aftermath.FRESH_UNDER / 100.0

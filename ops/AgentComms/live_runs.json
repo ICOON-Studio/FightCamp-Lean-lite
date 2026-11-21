@@ -1292,24 +1292,6 @@
    "branch": "arena/1e67bb2f-fightcamp-lean-lite",
    "agent": "arena"
   },
-  "TV10": {
-   "seat": "claude",
-   "title": "Footwork: cut off the ring measured (cut_off + feint control, 400 bouts a cell)",
-   "started": "2026-11-21T00:40",
-   "eta": "~01:20",
-   "status": "running",
-   "agent": "claude"
-  },
-  "ARC-DMG2": {
-   "seat": "arena",
-   "title": "Arena: stoppages by weight class and sex, map v2 (the real stoppage roll)",
-   "started": "2026-11-21T01:25",
-   "eta": "~02:15",
-   "status": "done",
-   "chat": "https://arena.ai/agent/01a1fb2a-e068-73d7-9a08-988addf1ca6f",
-   "result": "v2 collected (DESIGN_DMGCLASS1_V2.md, real roll in Knockdowns); critics: SQ263 + Arena after 14:25 (daily limit)",
-   "agent": "arena"
-  },
   "SQ262": {
    "seat": "dola",
    "title": "Dola critic: the three P4P mechanics v2",
@@ -1339,8 +1321,45 @@
    "title": "Grok Dev: turning pro map v9 from the code (TASK_TURNREV9)",
    "started": "2026-11-21T03:05",
    "eta": "~04:30",
-   "status": "running",
-   "branch": "grok/turnrev9"
+   "status": "landed",
+   "branch": "grok/turnrev9",
+   "reconciled": "2026-11-21 01:43 board_reconcile: PR #428 open - collect it"
+  },
+  "TV11_WRONG": {
+   "seat": "claude",
+   "agent": "claude",
+   "title": "Footwork: which cut_off lever costs (arm off=wrong, 400 bouts a cell)",
+   "started": "2026-11-21T01:14",
+   "eta": "~02:30",
+   "status": "stale",
+   "reconciled": "2026-11-21 01:43 board_reconcile: no process and no write for ? min (no worktree for branch '')"
+  },
+  "TV11_DRAIN": {
+   "seat": "claude",
+   "agent": "claude",
+   "title": "Footwork: which cut_off lever costs (arm off=drain, 400 bouts a cell)",
+   "started": "2026-11-21T01:40",
+   "eta": "~02:30",
+   "status": "stale",
+   "reconciled": "2026-11-21 01:43 board_reconcile: no process and no write for ? min (no worktree for branch '')"
+  },
+  "TV11_TANK": {
+   "seat": "claude",
+   "agent": "claude",
+   "title": "Footwork: which cut_off lever costs (arm off=tank, 400 bouts a cell)",
+   "started": "2026-11-21T01:40",
+   "eta": "~02:30",
+   "status": "stale",
+   "reconciled": "2026-11-21 01:43 board_reconcile: no process and no write for ? min (no worktree for branch '')"
+  },
+  "TV11_OPP_ROPES": {
+   "seat": "claude",
+   "agent": "claude",
+   "title": "Footwork: which cut_off lever costs (arm off=opp_ropes, 400 bouts a cell)",
+   "started": "2026-11-21T01:40",
+   "eta": "~02:30",
+   "status": "stale",
+   "reconciled": "2026-11-21 01:43 board_reconcile: no process and no write for ? min (no worktree for branch '')"
   }
  },
  "codex_budget": {

@@ -32,7 +32,7 @@ static func view(c: Career, f: Dictionary) -> Dictionary:
 				rows.append({"text": "Same night, the fight week stays", "kind": "", "on": 0, "of": 0})
 			"go_home":
 				rows.append({"text": "Your boxer's mood %d" % int(col["mood"]), "kind": "bar", "on": -int(col["mood"]), "of": 10})
-				rows.append({"text": "Tiredness carries; no bout", "kind": "", "on": 0, "of": 0})
+				rows.append({"text": "Fatigue carries; no bout", "kind": "", "on": 0, "of": 0})
 			"next_month":
 				var now := int(col["favours_now"])
 				rows.append({"text": "Favours with the host: %d -> %d" % [now, now + int(col["favours"])], "kind": "pips",
@@ -129,7 +129,7 @@ static func _confirm_text(id: String) -> String:
 		"take_replacement":
 			return "a tougher opponent on the same night, twice the reputation on a win"
 		"go_home":
-			return "no bout this week; your boxer's mood drops and the tiredness carries"
+			return "no bout this week; your boxer's mood drops and the fatigue carries"
 		"next_month":
 			return "spend a favour with the host for the same show a month on"
 	return ""

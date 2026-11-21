@@ -28,7 +28,7 @@ const NUM := 40
 const COLS := [
 	["fighter", "FIGHTER", 18.0, 370.0],
 	["overall", "OVERALL", 402.0, 300.0],
-	["tiredness", "TIREDNESS", 716.0, 120.0],
+	["tiredness", "FATIGUE", 716.0, 120.0],
 	["weight", "WEIGHT", 844.0, 120.0],
 	["mood", "MOOD", 974.0, 120.0],
 	["coach", "COACH SAYS, THIS WEEK", 1104.0, 310.0],

@@ -122,7 +122,7 @@ func _test_tank() -> void:
 ## The tank bar's rows: tiredness, the stop, each night, Eat less - in that order, and no row for a zero part.
 func _test_parts() -> void:
 	var full := FightWeek.tank(75, "train_through", [5, 4], true)
-	_check(_parts(full) == [["Tiredness", 25], ["Train through", 12], ["Sparring, 5 days out", 5],
+	_check(_parts(full) == [["Fatigue", 25], ["Train through", 12], ["Sparring, 5 days out", 5],
 		["Sparring, 4 days out", 5], ["Eat less", 4]], "the parts in order: %s" % str(_parts(full)))
 	_check(_parts(FightWeek.tank(75, "rest_up", EMPTY, false)) == [], "Rest up at 75 with no choices: no parts at all")
 	_check(_parts(FightWeek.tank(30, "tick_over", EMPTY, false)) == [["Tick over", 6]],
@@ -133,7 +133,7 @@ func _test_parts() -> void:
 		"the night's row names the days out: %s" % str(_parts(FightWeek.tank(75, "rest_up", [7], false))))
 	_check(_parts_sum(_parts(full)) == _off(full), "the parts add up to the tank (%d)" % _off(full))
 	var tick := FightWeek.tank(60, "tick_over", [6], false)
-	_check(_parts(tick) == [["Tiredness", 10], ["Tick over", 6], ["Sparring, 6 days out", 3]]
+	_check(_parts(tick) == [["Fatigue", 10], ["Tick over", 6], ["Sparring, 6 days out", 3]]
 		and _parts_sum(_parts(tick)) == _off(tick), "a Tick over week with one early night: %s" % str(_parts(tick)))
 
 
@@ -179,7 +179,7 @@ func _test_stop_lines() -> void:
 	_check(FightWeek.tired_after("train_through") == 6, "Train through: +6 tiredness after the bell")
 	_check(FightWeek.tired_after("tick_over") == 0 and FightWeek.tired_after("rest_up") == 0,
 		"Tick over and Rest up add nothing after the bell")
-	_check(FightWeek.best_when("rest_up") == "start tiredness 65+, or a heavy cut",
+	_check(FightWeek.best_when("rest_up") == "start fatigue 65+, or a heavy cut",
 		"Rest up's printed line: '%s'" % FightWeek.best_when("rest_up"))
 	_check(FightWeek.best_when("tick_over") == "most weeks under 65",
 		"Tick over's printed line: '%s'" % FightWeek.best_when("tick_over"))

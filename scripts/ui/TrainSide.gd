@@ -94,7 +94,7 @@ static func mornings(model: Dictionary) -> PanelContainer:
 	v.add_child(g)
 	var foot := "Week total %+.2f" % float(t["sum"])
 	if float(t["rest_drop"]) > 0.5:
-		foot += " · rest day -%d tiredness" % roundi(float(t["rest_drop"]))
+		foot += " · rest day -%d fatigue" % roundi(float(t["rest_drop"]))
 	var fl := B.lab(foot, 16, Palette.TEXT, "bold")
 	fl.name = "WeekTotal"
 	v.add_child(fl)

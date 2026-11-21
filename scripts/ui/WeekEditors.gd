@@ -96,7 +96,7 @@ static func _morning(v: Node, main: Node, f: Dictionary, pl: Dictionary, tired: 
 		var cost := UI.label("+%d" % roundi(float(r["load"]) / WeekPlan.LOAD_PER_FATIGUE), 22, UI.RED, "bold")
 		cost.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		cost.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		cost.tooltip_text = "Tiredness this morning adds."
+		cost.tooltip_text = "Fatigue this morning adds."
 		costs.add_child(cost)
 		var gv := float(r["gain"]) if str(r["stat"]) != "" else 0.0
 		var gl := UI.label("%+.2f" % gv, 22, UI.GREEN, "bold")

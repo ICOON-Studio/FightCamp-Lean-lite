@@ -16,7 +16,7 @@ ops/research/S531_DIGEST.md. FIRST: `python ops/Tools/godot_slot.py status`.
 - GROWTH (S531): the fit-out loan is BUILT and verified; no more growth work until the owner plays it.
 
 ## MAIN SESSION S532 (Opus) - pick up here (roadmap `now` S532, digest ops/research/S532_DIGEST.md)
-- METHOD (footwork, S532): cut_off's ring cut measured = NO effect (it fires ~once a bout). Lever attribution was in flight at
+- METHOD (footwork, S532): arm off=wrong READ (small, not the cost; docs/TREEVALUE9_RESULT.md TREEVALUE11); drain/tank/opp_ropes + all-off arms still to run. Lever attribution was in flight at
   ship: four arms `tools/treevalue_probe.gd -- only=cut_off off=wrong|drain|tank|opp_ropes` (StepEffect.probe_off is
   measurement only). Read them (or rerun), size ONLY the lever measured as the cost, re-score with
   `python ops/Tools/treevalue_regate.py <result>`; then tie_up, step_out, step_in, roll_out the same way. No guessed numbers.

@@ -25,7 +25,7 @@ static func tiredness(value: float, word: String = "") -> Dictionary:
 	var todo := "Give a rest day in the week plan before it reaches %d." % int(red)
 	if value >= red:
 		todo = "Give a rest day now: the next morning's training is mostly lost."
-	return {"title": "Tiredness  %d of 100%s" % [roundi(value), (" - " + word.to_lower()) if word != "" else ""],
+	return {"title": "Fatigue  %d of 100%s" % [roundi(value), (" - " + word.to_lower()) if word != "" else ""],
 		"what": "How worn your fighter is. Tired fighters train worse and get hurt more.",
 		"rows": rows, "moves": "Fights and hard sessions raise it. Rest days bring it down.", "do": todo}
 
@@ -71,7 +71,7 @@ static func tiredness_week(ends: Array) -> Dictionary:
 	for x in ends:
 		peak = maxf(peak, float(x))
 	var d := tiredness(peak)
-	d["title"] = "Tiredness this week  peak %d" % roundi(peak)
+	d["title"] = "Fatigue this week  peak %d" % roundi(peak)
 	return d
 
 
@@ -82,7 +82,7 @@ static func injury_risk(x: float, load: float, peak: float) -> Dictionary:
 		"what": "The chance your boxer gets hurt in training when the week ends.",
 		"rows": [["This week's hours", "%.1f of a usual week" % load, "over" if load > InjuryRoll.SAFE_RATIO else "", "bad"],
 			["Safe up to", "%.1f of a usual week" % InjuryRoll.SAFE_RATIO, "", ""],
-			["Tiredness peaks at", "%d" % roundi(peak), "over" if peak > InjuryRoll.FATIGUE_RISK_FROM else "", "bad"],
+			["Fatigue peaks at", "%d" % roundi(peak), "over" if peak > InjuryRoll.FATIGUE_RISK_FROM else "", "bad"],
 			["Safe up to", "%d" % int(InjuryRoll.FATIGUE_RISK_FROM), "", ""]],
 		"moves": "More hours than usual and a tired week both raise it.",
 		"do": "Make a Hard morning Light, or add a rest day." if raised else "Nothing to do: this week is safe."}

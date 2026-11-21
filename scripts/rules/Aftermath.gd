@@ -68,7 +68,7 @@ static func tired(after: Dictionary, facts: Dictionary) -> Dictionary:
 	else:
 		lines.append("About %d rest day%s until %s is fresh." % [days, "" if days == 1 else "s", first])
 		lines.append("Hard training before that counts for less and risks an injury. Set the week on the Training tab.")
-	return {"id": "tired", "title": "TIREDNESS", "big": "%d of 100" % int(round(v)), "small": str(lines[0]),
+	return {"id": "tired", "title": "FATIGUE", "big": "%d of 100" % int(round(v)), "small": str(lines[0]),
 		"tone": "good" if days == 0 else ("bad" if v >= 80.0 else "flat"), "lines": lines, "word": tired_word(v)}
 
 

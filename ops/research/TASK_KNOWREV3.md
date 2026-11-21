@@ -1,6 +1,7 @@
 # TASK KNOWREV3 - write the knowledge stakes map v3 (KNOW_STAKES1_V3) from the code
 
-Status: OPEN (S530, Claude main). Discipline: boxing. Model: Goose (cloud), default. RESEARCH ONLY - no game code changes.
+Kind: research
+Status: DONE (S533: map delivered, later versions on main) - was OPEN (S530, Claude main). Discipline: boxing. Model: Goose (cloud), default. RESEARCH ONLY - no game code changes.
 
 ## Why
 KNOW_STAKES1 asks: what does knowing a boxer's hidden habits change? v1 (Dola) invented new flaws that already exist; v2

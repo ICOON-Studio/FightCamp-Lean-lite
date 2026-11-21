@@ -1,7 +1,7 @@
 # TASK LOANCONTRACT1 - blind contract test of the gym fit-out loan
 
 Kind: test
-Status: OPEN (S531, Claude main). Discipline: boxing. Model: Arena (cloud). Work on ICOON-Studio/FightCamp-Lean-lite main,
+Status: DONE (S533: tests/loan_contract_test.gd on main) - was OPEN (S531, Claude main). Discipline: boxing. Model: Arena (cloud). Work on ICOON-Studio/FightCamp-Lean-lite main,
 your own arena/ branch, a PR into main there; never merge. Do NOT run Godot (it does not install in your shell): the
 mirror's CI runs the test.
 

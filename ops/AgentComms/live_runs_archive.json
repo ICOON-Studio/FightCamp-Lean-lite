@@ -22382,6 +22382,29 @@
    "result": "8/7/7 - passes; waiting on Dola SQ262",
    "archived": "2026-11-21 01:11 board_sync",
    "id": "ARC-P4P2C"
+  },
+  {
+   "seat": "arena",
+   "title": "Arena: stoppages by weight class and sex, map v2 (the real stoppage roll)",
+   "started": "2026-11-21T01:25",
+   "eta": "~02:15",
+   "status": "done",
+   "chat": "https://arena.ai/agent/01a1fb2a-e068-73d7-9a08-988addf1ca6f",
+   "result": "v2 collected (DESIGN_DMGCLASS1_V2.md, real roll in Knockdowns); critics: SQ263 + Arena after 14:25 (daily limit)",
+   "agent": "arena",
+   "archived": "2026-11-21 01:37 board_sync",
+   "id": "ARC-DMG2"
+  },
+  {
+   "seat": "claude",
+   "title": "Footwork: cut off the ring measured (cut_off + feint control, 400 bouts a cell)",
+   "started": "2026-11-21T00:40",
+   "eta": "~01:20",
+   "status": "done",
+   "agent": "claude",
+   "reconciled": "2026-11-21 01:37 board_reconcile: no process and no write for ? min (no worktree for branch '')",
+   "id": "TV10",
+   "note": "S533: read in docs/TREEVALUE9_RESULT.md S532 TREEVALUE10 (ring_cut no effect)"
   }
  ]
 }

@@ -156,3 +156,13 @@ step spends) outweighs what it buys. Sizing by guess from here would be a correc
 NEXT (before any further cut_off number): a LEVER-ATTRIBUTION probe - the same cells with one effect of the row switched
 off at a time (drain, tank, opp_ropes, ring_cut, and "the step only, no effect") so the cost is named by measurement.
 The ring_cut wiring stays (it is the table's own field, now read); its size is not the lever that matters.
+
+### S532 TREEVALUE11 lever attribution, arm 1 of 4 (off=wrong)
+| cut_off vs | Pressure | Slugger | Out-boxer (FOR) | Counter | Volume | Boxer-puncher |
+|---|---|---|---|---|---|---|
+| all on (TREEVALUE10) | -1.67 | -1.50 | -0.75 | -0.17 | -2.25 | -1.08 |
+| off=wrong (no wrong-fit penalty) | -1.33 | -1.33 | -0.67 | -0.08 | -1.92 | -1.08 |
+READ: the wrong-fit penalty is a small part (~0.1-0.3) of the loss - not the cost. Arms off=drain / tank / opp_ropes did
+not run (the chain's second launch exited 127). NEXT: run them (`tools/treevalue_probe.gd -- only=cut_off off=<arm>`), and
+one more arm with the line kept but EVERY effect off (off=drain,tank,opp_ropes,opp_steps_less,wrong): if that still loses,
+the cost is the exchange the step spends, not any lever.

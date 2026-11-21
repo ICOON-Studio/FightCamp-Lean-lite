@@ -74,7 +74,7 @@ static func run(c: Career, f: Dictionary, m: Dictionary) -> void:
 	var peak := PeakCamp.line(str(f["first"]), f["bout"].get("peak_rows", []))
 	if float(f["bout"].get("stale", 0.0)) > 0.0:
 		why.push_front("The Tank: %s started %d down at the first bell (%s)." % [f["first"], int(round(float(f["bout"]["stale"]))),
-			str(f["bout"].get("tank_why", "tiredness"))])
+			str(f["bout"].get("tank_why", "fatigue"))])
 	if not rounds.is_empty() and not bool(rounds[0]["won"]) and BoutRules.never_faced(str(f.get("stance", "orthodox")), opp,
 			camp, bool(f["bout"].get("lefty", false))):
 		why.push_front("Round 1: %s had never faced a southpaw." % f["first"])

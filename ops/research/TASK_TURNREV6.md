@@ -1,6 +1,7 @@
 # TASK TURNREV6 - write the turning pro map v6 (TURNPRO1_V6) from the code: debut gaps from the measured curve, both v5 critics answered
 
-Status: OPEN (S531, Claude main). Discipline: boxing. Model: Goose (cloud), default. RESEARCH ONLY - no game code changes.
+Kind: research
+Status: DONE (S533: map delivered, later versions on main) - was OPEN (S531, Claude main). Discipline: boxing. Model: Goose (cloud), default. RESEARCH ONLY - no game code changes.
 
 ## Why
 v5 (`ops/research/DESIGN_TURNPRO1_V5.md`) scored Arena 5/5 (`ops/research/DESIGN_TURNPRO1_V5_CRITIC_ARENA.md`, its main

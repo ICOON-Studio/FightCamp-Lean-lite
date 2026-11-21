@@ -265,7 +265,7 @@ static func tank_read(f: Dictionary) -> float:
 ## The parts that cost something, in words: "tiredness 20, the last bout 8" ("" when nothing).
 static func tank_words(parts: Dictionary) -> String:
 	var out: Array = []
-	for k in [["tired", "tiredness"], ["weight", "the scale"], ["bout", "the last bout"], ["week", "the fight week"]]:
+	for k in [["tired", "fatigue"], ["weight", "the scale"], ["bout", "the last bout"], ["week", "the fight week"]]:
 		if float(parts.get(k[0], 0.0)) >= 0.5:
 			out.append("%s %d" % [k[1], int(round(float(parts[k[0]])))])
 	return ", ".join(out)

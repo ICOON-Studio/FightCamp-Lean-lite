@@ -8358,7 +8358,7 @@
       "answer": "Yes, build it",
       "note": null,
       "answered_at": "2026-11-20T21:51:20Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "comment_only": false
     },
     {
@@ -8376,6 +8376,23 @@
         "AgentComms/board_attach/Q-S294-283_1_07_roster_tiredness.png",
         "AgentComms/board_attach/Q-S294-283_2_08_training_mastery.png",
         "AgentComms/board_attach/Q-S294-283_3_02_guide_show_me.png"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-284",
+      "asked": "2026-11-21T00:04:32.843919+00:00",
+      "session": "S294",
+      "text": "Your three P4P ideas (coach's read, the beaten opponent's visit, the corner's eye) passed both critics: Arena 8/7/7, Dola 7/8/8. Build them? Coach's read: before you accept a bout the coach says the one reason it suits or not, with how sure he is (1-3 marks, never a win %), and later you see how often he was right. The visit: a beaten amateur may come asking to join; the better your plan worked in that bout the likelier, but never certain. Corner's eye: the corner spots a clue in a settled round and you choose what to do at the next opening. The map is attached.",
+      "options": [
+        "Yes, build them",
+        "Not yet"
+      ],
+      "attach": [
+        "research/DESIGN_THREEP4P_V2.md"
       ],
       "answer": null,
       "note": null,

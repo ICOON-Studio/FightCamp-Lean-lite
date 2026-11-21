@@ -136,7 +136,7 @@ func _left(main: Node, f: Dictionary, plan: Dictionary, r: Dictionary) -> Contro
 		"BtnSolid" if eat else "BtnQuiet", main.act.bind("fweat", "")))
 	var ways: Array = r["ways"]
 	var off := bool(plan.get("train_off", false))
-	col.add_child(UI.button("Train it off: %s  (%.1f kg for +%d tired)" % ["ON" if off else "OFF", float(ways[1]["kg"]), int(ways[1]["tired"])],
+	col.add_child(UI.button("Train it off: %s  (%.1f kg for +%d fatigue)" % ["ON" if off else "OFF", float(ways[1]["kg"]), int(ways[1]["tired"])],
 		"BtnSolid" if off else "BtnQuiet", main.act.bind("fwtrainoff", "")))
 	var kilo := bool(plan.get("ask_kilo", false))
 	var kb := UI.button("Ask for a kilo: %s  (1 favour with the host)" % ("ON" if kilo else "OFF"), "BtnSolid" if kilo else "BtnQuiet",
@@ -146,7 +146,7 @@ func _left(main: Node, f: Dictionary, plan: Dictionary, r: Dictionary) -> Contro
 		kb.disabled = true
 		kb.tooltip_text = "Not now: %s." % str(ways[2]["why"])
 	col.add_child(kb)
-	col.add_child(UI.label("Your boxer's tiredness now: %d" % FightWeekPlan.tired(f), 17, UI.MUTED))
+	col.add_child(UI.label("Your boxer's fatigue now: %d" % FightWeekPlan.tired(f), 17, UI.MUTED))
 	return col
 
 
@@ -266,7 +266,7 @@ func _right(r: Dictionary, band: Dictionary) -> Control:
 		if hi - lo >= 30:   # as OfferCard._band: a band this wide is still a rough guess
 			col.add_child(UI.muted("  Wide: the film night narrows it", UI.SMALL, true))
 	var after := FightWeek.tired_after(str(r["stop"]))
-	col.add_child(UI.kv("Tiredness after the bell", "+%d" % after))
+	col.add_child(UI.kv("Fatigue after the bell", "+%d" % after))
 	return col
 
 

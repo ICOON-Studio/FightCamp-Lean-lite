@@ -347,7 +347,7 @@ func _bottom(main: Node, c: Career, f: Dictionary, pl: Dictionary, goal: Diction
 		wlab.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		var fc := WeekCamp.forecast(c, f, goal)
 		var d := GaugeRow.read(fc, f, c.day)
-		wlab.tooltip_text = "Tiredness %.0f, %s. Tank %.0f at the first bell. Scale %.1f kg. Risk %.1f%%." % [float(d["legs"]),
+		wlab.tooltip_text = "Fatigue %.0f, %s. Tank %.0f at the first bell. Scale %.1f kg. Risk %.1f%%." % [float(d["legs"]),
 			str((d["legs_band"] as Dictionary)["tired"]), float(d["tank"]), float(d["kg"]), float(d["injury"]) * 100.0]
 		h.add_child(wlab)
 		var diet := str(f.get("diet", "hold"))

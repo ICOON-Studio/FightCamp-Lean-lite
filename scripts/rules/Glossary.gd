@@ -6,8 +6,8 @@
 
 const TERMS := {
 	# WhiteboardKit.fatigue_word / AMBER_AT 70 / RED_AT 80
-	# S532 GUIDETIPS1: the screens say Tiredness (the roster, Training); the note says the same word. The id stays.
-	"fatigue": {"name": "Tiredness", "def": "How worn the fighter is by night, 0 to 100.",
+	# S533 owner: "change it to fatigue" - the screens say Fatigue (the roster, Training, the week); the id is "fatigue" too.
+	"fatigue": {"name": "Fatigue", "def": "How worn the fighter is by night, 0 to 100.",
 		"why": "At 80 or more the next morning trains at 60% and a camp that peaks there fails its line."},
 	# Injuries.ratio, WeekCamp LOAD_OVER
 	"load": {"name": "Training load", "def": "This week's training hours against a usual week.",

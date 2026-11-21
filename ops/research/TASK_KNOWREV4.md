@@ -1,6 +1,7 @@
 # TASK KNOWREV4 - write the knowledge stakes map v4 (KNOW_STAKES1_V4) from the code, answering both v3 critics
 
-Status: OPEN (S531, Claude main). Discipline: boxing. Model: Goose (cloud), default. RESEARCH ONLY - no game code changes.
+Kind: research
+Status: DONE (S533: map delivered, later versions on main) - was OPEN (S531, Claude main). Discipline: boxing. Model: Goose (cloud), default. RESEARCH ONLY - no game code changes.
 
 ## Why
 KNOW_STAKES1 v3 (`ops/research/DESIGN_KNOW_STAKES1_V3.md`) scored Arena 6/6 (`ops/research/DESIGN_KNOW_STAKES1_V3_CRITIC_ARENA.md`)

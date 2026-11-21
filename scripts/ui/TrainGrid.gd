@@ -120,11 +120,11 @@ static func _morning(d: Dictionary, cb: Dictionary) -> Control:
 		var off := B.lab("day off", 16, Palette.MUTED, "body")
 		off.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		v.add_child(off)
-		var g := B.lab("-%d Tiredness" % roundi(float(am["drop"])), 20, Palette.GOOD, "bold")
+		var g := B.lab("-%d Fatigue" % roundi(float(am["drop"])), 20, Palette.GOOD, "bold")
 		g.name = "Gain_%d" % i
 		g.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		v.add_child(g)
-		Tip.short(t, "Day off", "A rest morning: tiredness is %d lower by tonight." % roundi(float(am["drop"])))
+		Tip.short(t, "Day off", "A rest morning: fatigue is %d lower by tonight." % roundi(float(am["drop"])))
 		return t
 	var lv := HBoxContainer.new()
 	lv.add_theme_constant_override("separation", 1)

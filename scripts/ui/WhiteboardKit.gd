@@ -57,7 +57,7 @@ static func fatigue_word(v: float, red: bool) -> Array:
 	if v >= AMBER_AT:
 		return ["TIRED", "Tired (fatigue %d of 100): near the line. Over 80 the next morning's training counts only 60%%." % n, UI.AMBER]
 	if v >= 50.0:
-		return ["OK", "OK (fatigue %d of 100): normal camp tiredness." % n, PENCIL]
+		return ["OK", "OK (fatigue %d of 100): normal for a camp." % n, PENCIL]
 	return ["FRESH", "Fresh (fatigue %d of 100): room for a Hard morning." % n, UI.GREEN]
 
 

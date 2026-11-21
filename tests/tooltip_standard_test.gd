@@ -60,7 +60,7 @@ func _rules() -> void:
 	_check(Tip.faults({"title": "Runway 6 weeks", "what": "What it is.", "keys": ["runway"]}).has("key_title"), "a card never links its own word")
 	var tired := TipCards.tiredness(38.0, "Fresh")
 	_check(Tip.faults(Tip.spec(tired), "38 Fresh", ["Reid"]).is_empty(), "the tiredness card passes (%s)" % str(Tip.faults(Tip.spec(tired), "38 Fresh")))
-	_check(str(tired["title"]) == "Tiredness  38 of 100 - fresh" and str(tired["rows"][0][2]) == "now", "it leads with the value and marks the band it is in")
+	_check(str(tired["title"]) == "Fatigue  38 of 100 - fresh" and str(tired["rows"][0][2]) == "now", "it leads with the value and marks the band it is in")
 	_check(str(tired["rows"][2][1]) == "from %d" % int(WhiteboardKit.AMBER_AT) and str(tired["rows"][3][1]) == "from %d" % int(WhiteboardKit.RED_AT),
 		"its bands are the rule's (%s, %s)" % [tired["rows"][2][1], tired["rows"][3][1]])
 	_check(str(TipCards.tiredness(84.0, "Overcooked")["rows"][3][2]) == "now" and str(TipCards.tiredness(84.0)["do"]).begins_with("Give a rest day now"), "over the line it says rest now")
@@ -82,7 +82,7 @@ func _words() -> void:
 		var t := Glossary.term(id)
 		_check(str(t.get("name", "")) != "" and str(t.get("why", "")) != "" and str(t.get("def", "")).split(" ", false).size() <= 15,
 			"note %s: a word, a definition of 15 words or fewer, a Why" % id)
-	_check(str(Glossary.term("fatigue")["name"]) == "Tiredness", "one word for it everywhere: Tiredness")
+	_check(str(Glossary.term("fatigue")["name"]) == "Fatigue", "one word for it everywhere: Fatigue")
 	_check(MoveMastery.word(29.9) == "Learning" and MoveMastery.word(30.0) == "Usable" and MoveMastery.word(60.0) == "Sharp" and MoveMastery.word(85.0) == "Signature",
 		"the levels the mastery card quotes are the rule's")
 

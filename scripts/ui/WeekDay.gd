@@ -80,7 +80,7 @@ static func magnet_card(m: Array, planned: Array, r: Dictionary, red: bool, mine
 	rows.append(["Weight", "%+.2f kg" % float(r.get("kg", 0.0)), "", ""])
 	var fat := float(r.get("fatigue", 0.0))
 	var fw := WB.fatigue_word(fat, red)
-	rows.append(["Tired by night", "%d / 100" % int(round(fat)), str(fw[0]),
+	rows.append(["Fatigue by night", "%d / 100" % int(round(fat)), str(fw[0]),
 		"bad" if fat >= WB.RED_AT or red else ("watch" if fat >= WB.AMBER_AT else "")])
 	var means := "a %s day; %s" % [kind(m), str(fw[1]).get_slice(": ", 1).to_lower() if str(fw[1]).contains(": ") else ""]
 	if m != planned:

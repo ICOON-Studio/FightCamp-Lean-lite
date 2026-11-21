@@ -65,12 +65,12 @@ const ASSISTANT_NIGHT := 7
 const NO_NIGHT := 0
 ## The line printed on each stop: the state it is best in (4.3).
 const BEST_WHEN := {
-	"rest_up": "start tiredness 65+, or a heavy cut",
+	"rest_up": "start fatigue 65+, or a heavy cut",
 	"tick_over": "most weeks under 65",
 	"train_through": "a plan move is within a week of Usable, or the opponent is 5+ below",
 }
 ## The tank bar's printed part labels: the tiredness layer in grey, then each choice stacked in colour after it (4.2).
-const LABEL_TIRED := "Tiredness"
+const LABEL_TIRED := "Fatigue"
 const LABEL_EAT_LESS := "Eat less"
 const LABEL_SPAR := "Sparring, %d days out"
 

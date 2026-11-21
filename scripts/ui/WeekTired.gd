@@ -74,7 +74,7 @@ func _ready() -> void:
 	if custom_minimum_size.y < 2.0:
 		custom_minimum_size.y = 220
 	custom_minimum_size.y = minf(custom_minimum_size.y, 230)
-	_title = _lab("Tiredness this week", 28, WoodKit.HEAD, "TiredTitle")
+	_title = _lab("Fatigue this week", 28, WoodKit.HEAD, "TiredTitle")
 	_peak = _lab("", 26, WoodKit.INK, "TiredPeak")
 	_danger = _lab("%d: too tired, injuries rise" % int(LINE), 22, UI.RED, "DangerLine")
 	_under = _lab("", 22, WoodKit.SOFT, "UnderLine")

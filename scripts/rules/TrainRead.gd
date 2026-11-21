@@ -42,7 +42,7 @@ static func read(f: Dictionary, day: int, hurt: bool = false) -> Dictionary:
 	# 2. rest: hurt or fatigue >= REST_FATIGUE
 	if hurt or fatigue >= REST_FATIGUE:
 		var say_r: String = "%s is worn out. A rest morning first." % first
-		var why_r: String = "Tiredness %d: rest before more work." % roundi(fatigue)
+		var why_r: String = "Fatigue %d: rest before more work." % roundi(fatigue)
 		return {"kind": "rest", "stat": "", "session": "", "session_name": "",
 			"say": say_r, "why": why_r, "pace": 0.0, "alt": {}}
 
