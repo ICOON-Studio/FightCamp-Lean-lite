@@ -202,12 +202,12 @@
  },
  "TURNPRO13": {
   "id": "TURNPRO13",
-  "status": "running",
+  "status": "landed",
   "started": "2026-11-21T22:05",
-  "title": "Turning pro v13: Softer ask dropped (right nowhere), the name lasts, probe 13",
+  "title": "Turning pro v13 probe",
   "seat": "claude",
   "agent": "claude-fable",
-  "eta": "about 1.5 h (probe in the Godot queue)"
+  "note": "S536: e0ffcc725 PASS 14/15"
  },
  "WEIGHT2V2CRIT": {
   "id": "WEIGHT2V2CRIT",
@@ -265,5 +265,16 @@
   "seat": "dola",
   "agent": "dola",
   "eta": "next 30-min send"
+ },
+ "TURNPRO13CRIT": {
+  "id": "TURNPRO13CRIT",
+  "status": "running",
+  "started": "2026-11-21T23:12",
+  "title": "Code-checked critic of turning pro v13 (Arena, free) + John SQ283",
+  "seat": "arena",
+  "agent": "arena",
+  "branch": "arena/b9596b1d-fightcamp-lean-lite",
+  "chat": "https://arena.ai/agent/01a1ffef-04c3-7cb1-9cf7-5d85b9596b1d",
+  "eta": "about 30-60 min"
  }
 }
