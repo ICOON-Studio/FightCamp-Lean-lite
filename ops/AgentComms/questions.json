@@ -8412,10 +8412,11 @@
       "attach": [
         "research/STEPS_PAYOFF_SCOPE_S533.md"
       ],
-      "answer": null,
+      "answer": "Yes, that plan",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-21T07:37:18Z",
+      "seen_by_claude": false,
+      "comment_only": false
     },
     {
       "id": "Q-S294-286",
@@ -8429,10 +8430,50 @@
       "attach": [
         "AgentComms/board_attach/Q-S294-286_0_TURNPRO6_RESULT.md"
       ],
-      "answer": null,
+      "answer": "Pick to each boxer",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-21T07:41:53Z",
+      "seen_by_claude": false,
+      "comment_only": false
+    },
+    {
+      "id": "Q-S294-287",
+      "asked": "2026-11-21T08:16:26.129268+00:00",
+      "session": "S294",
+      "text": "Guide (your mark 3 'something more fancy'): which style? A = coach medallion card + spotlight on the button, B = a note pinned to the thing it explains, C = the coach's clipboard with week-1 jobs ticked off.",
+      "options": [
+        "A medallion + spotlight",
+        "B pinned note",
+        "C clipboard",
+        "Mix (I will say)"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-287_0_guide_c.png"
+      ],
+      "answer": "C clipboard",
+      "note": null,
+      "answered_at": "2026-11-21T08:50:07Z",
+      "seen_by_claude": false,
+      "comment_only": false
+    },
+    {
+      "id": "Q-S294-288",
+      "asked": "2026-11-21T09:24:15.155558+00:00",
+      "session": "S294",
+      "text": "Pro offer, win chance for a newcomer: the card reads a boxer who is only weeks into the gym about 10 points too low (Tess: card says 57 in 100, the bout is really 68), because the camp before the debut builds the tank, a new punch and a combination. So the safer promoter's debut is won about 78 in 100 instead of the 75 it aims at (still inside your 70 to 80). Should the promoter's call play the camp ahead so the card is right, or leave it?",
+      "options": [
+        "Leave it, 78 is fine",
+        "Build it: the card counts the camp to come",
+        "Lower the safer promoter aim to 72 instead"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-288_0_DEBUTPICK1_RESULT.md"
+      ],
+      "answer": "i leave this to you pick wahtever you think is right",
+      "note": null,
+      "answered_at": "2026-11-21T09:56:45Z",
+      "seen_by_claude": false,
+      "comment_only": true
     }
   ]
 }

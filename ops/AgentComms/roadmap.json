@@ -3,22 +3,11 @@
  "updated": "2026-11-21",
  "author": "claude S294",
  "now": {
-  "id": "S532",
+  "id": "S533",
   "owner": "claude",
   "updated": "2026-11-21",
-  "summary": "S532 (Opus, long, owner playtest): names out of text; tooltips that explain (coach pay, mastery bar); amateur bouts = fight week everywhere; 'set the camp' crash not reproduced - amateur camp offer fixed at the buttons, startcamp guarded; portrait mask; stance pictures; towel card; coach read / walk-in / ask news without names or she/her (no_pronoun_test green). GUIDETIPS1 (side Fable session, his yes Q-282) building. Footwork: gate review 2/10; cut_off ring cut = no effect (fires once a bout) -> lever attribution runs in flight. Design loop: P4P v2 Arena 8/7/7 (Dola SQ262), turning pro v8 critics (SQ261 + Arena chat), stoppages-by-class v2 from the code (SQ263; Arena critic after its 14:25 reset).",
-  "next_action": "S533: quote the METHOD lines. 0) SECURITY: the Telegram token leaked to the public lite mirror (GitGuardian); file untracked + mirror guard built; token REVOKED and replaced (S532, getMe ok). 0b) GROK BOTS: the Grok Bot app updated to 1.2.3 (2026-11-20 14:57); gbot_wake/gbot speak the old gateway -> listAgents 404 'could not be routed'. FIXED S532 (port token header): gbot list/send work; Grok Dev has TURNREV9 (branch grok/turnrev9) - collect its PR. Turning pro v8: Arena 6/6/7 -> v9 brief ops/research/TASK_TURNREV9.md (sent to Grok Dev). 1) Read the four cut_off lever-attribution arms (S532 task output / scratchpad tv11_*.log; else rerun tools/treevalue_probe.gd -- only=cut_off off=<wrong|drain|tank|opp_ropes>) and size ONLY the lever that measures as the cost (docs/TREEVALUE9_RESULT.md 'S532 TREEVALUE10'); then tie_up, step_out, step_in, roll_out the same way. 2) Collect Grok bots Kalli SQ264 (stoppages v2), John SQ265 (P4P v2), Maria SQ266 (tooltip standard) and Dola SQ261 (turning pro v8), SQ262 (P4P v2), SQ263 (stoppages v2) and the Arena turning-pro v8 chat (01a1fb21); after 14:25 Arena critics for stoppages v2 and GUIDETIPS1 (TASK_GUIDETIPSCRITIC1A.md). A map with 7+/7+ from both goes on the board with --attach. 3) GUIDETIPS1 side session: its own list in NEXT_SESSION_PROMPT. 4) If the owner reports a crash: read %APPDATA%/Godot/app_userdata/FightCamp/logs/godot.log BEFORE any test.",
-  "in_flight": [
-   "cut_off lever attribution x4 (PC)",
-   "Arena turning pro v8 critic",
-   "Dola SQ261/262/263",
-   "GUIDETIPS1 Fable session (terminal c2)"
-  ],
-  "last_working_commit": "7b73878b0",
-  "verified_playable": "Builds/FightCamp.exe exported S532 2026-11-21 00:39 (camp fix, names, tooltips, stance pictures; golden_path green before export); WHAT_TO_TRY S532",
-  "incomplete_blocked": "Running: cut_off lever attribution x4 (PC), Arena turning pro v8 critic (chat 01a1fb21), Dola SQ261/262/263, GUIDETIPS1 Fable session (terminal c2). Arena daily limit until 14:25 (stoppages v2 + GUIDETIPS1 critics owed). Grok Dev: TURNREV9 running (bots fixed S532). Qwen out until 8 Dec. Animation: mocap pack (owner, end of November).",
-  "next_acceptance": "cut_off: the measured cost lever named and sized, regate shows the Out-boxer cell >= +1.0; turning pro v8, P4P v2 and stoppages v2 each 7+/7+ from Dola and a fresh Arena critic, then on the board with --attach",
-  "awaiting_operator": "Art pick: realistic vs painted (ui_art A/B on his board). Mocap pack money call at the end of November. Play the S532 .exe (WHAT_TO_TRY)."
+  "summary": "S533 (Opus, long): Tiredness -> Fatigue everywhere (keys kept); tooltips short (25 words, 3 rows; TIPFIX1-3, broken 43 -> 2 + rest of game 64 -> 1) and redesigned to 'reach 10' (Barlow body, receipt rows, action band, Fatigue bar); guide = the coach's clipboard (Q-287 C); coach card marks fixed; board questions capped 20 words; stills waiting for review highlighted on the board. Fable sessions: TURNPRO6 (read fixed, gaps 3.0/6.0), P4PBUILD1 stages 1-3 (visit, corner's eye, coach's read), DEBUTPICK1 (opponent picked to each boxer, Q-286), STEPPAY2 phase 2 (place pays: ropes +5, corner +6.5, own ropes -5; phase 3 in flight), GUARDREV5 map v5 from code. STEPPAY1 (Grok Dev): no place was an edge. Build exported 12:40.",
+  "next_action": "S534: quote the METHOD lines. 1) Collect STEPPAY2 phases 3-4 (Fable session, its own commits) and check it fixed debut_read_test (Lucy gap -2 read 0.618 vs played 0.553 since PlaceEdge - BoutRead must be recalibrated to the final exchange rules). 2) Collect Grok Dev LOANPROBE1 (60 careers per arm, fit-out loan verdict). 3) Guard v5 critics: Kalli SQ270 sent, Dola SQ269 (app was closed; retries every 30 min); both 7+ -> build plan, else v6 from code. 4) Arena (after its 14:25 reset): DMGCLASS v2 code-checked critic (Goose failed #433; split Dola 9/9 vs Kalli 6/6/5). 5) Turning pro v10 map from the code (John 6/6/7, Dola 7/8/7 on v9; the debut pick changed the offer). 6) The owner plays the S533 build: act on his notes."
  },
  "next": "S496: 0) get_usage; where_we_are roll S496; quote board answers (Q-259 Training K v6c; build WeekCards v6c on Yes - WeekCards.gd 552 lines is split first). 1) Collect as they land, by diff + their test: Qwen ONELOOK2 (fight HUD palette, ETA ~11:00 11-16; render before/after fight stills on the hidden desktop, his OK before merge), Goose FILMCOUNT1 (#326, branch goose/issue-326 - Goose's PR step failed twice: collect from the branch; read its FINDS table and noise numbers, retune FilmBout rates if a floor missed), Grok Dev FIGHTPAGE1 (branch grok/fightpage1, ETA ~13:30; render at 1920x1080 text 1.0 and 1.3, judge against fight_analysis_v3.png, then his board). 2) Kalli SQ202 LADDER1 v6 + SQ203 COACHSPEC1 r6 -> two fresh critics each (Dola + John; Dola refused COACHSPEC1 r5 - resend). 3) Wire after FIGHTPAGE1+FILMCOUNT1: the film-night stop in the fight week (FightWeekPlan film night -> FightAnalysis.for_tape with FilmCount.check, FilmPattern.checks by coach rating), FilmEdge pays at the figure, the result page's Punch by punch tab over m['tape'] (BoutTape), History keeps 20 tapes (~400 lines a bout). 4) Live fight log panel brief to Grok Dev once FIGHTPAGE1 lands. 5) ONELOOK1 sweep after ONELOOK2: RosterCards, ReadPanel, MatMap (UI.gd/WoodKit/WeekCards first need a split).",
  "assessment": {
@@ -2294,6 +2283,12 @@
    "date": "2026-11-21",
    "model": "Opus",
    "summary": "S532 (Opus, long, owner playtest): names out of text; tooltips that explain (coach pay, mastery bar); amateur bouts = fight week everywhere; 'set the camp' crash not reproduced - amateur camp offer fixed at the buttons, startcamp guarded; portrait mask; stance pictures; towel card; coach read / walk-in / ask news without names or she/her (no_pronoun_test green). GUIDETIPS1 (side Fable session, his yes Q-282) building. Footwork: gate review 2/10; cut_off ring cut = no effect (fires once a bout) -> lever attribution runs in flight. Design loop: P4P v2 Arena 8/7/7 (Dola SQ262), turning pro v8 critics (SQ261 + Arena chat), stoppages-by-class v2 from the code (SQ263; Arena critic after its 14:25 reset)."
+  },
+  {
+   "id": "S533",
+   "date": "2026-11-21",
+   "model": "Opus",
+   "summary": "S533 (Opus, long): Tiredness -> Fatigue everywhere (keys kept); tooltips short (25 words, 3 rows; TIPFIX1-3, broken 43 -> 2 + rest of game 64 -> 1) and redesigned to 'reach 10' (Barlow body, receipt rows, action band, Fatigue bar); guide = the coach's clipboard (Q-287 C); coach card marks fixed; board questions capped 20 words; stills waiting for review highlighted on the board. Fable sessions: TURNPRO6 (read fixed, gaps 3.0/6.0), P4PBUILD1 stages 1-3 (visit, corner's eye, coach's read), DEBUTPICK1 (opponent picked to each boxer, Q-286), STEPPAY2 phase 2 (place pays: ropes +5, corner +6.5, own ropes -5; phase 3 in flight), GUARDREV5 map v5 from code. STEPPAY1 (Grok Dev): no place was an edge. Build exported 12:40."
   }
  ],
  "blocked_on_operator": [],
@@ -5212,7 +5207,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-21 02:41 board_sync",
+  "updated": "2026-11-21 11:11 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5363,223 +5358,20 @@
   },
   "working_now": [
    {
-    "title": "TASK STEPTUNE2 - size the footwork steps' levers to their targets, from the CORRECTED probe (tuning)",
-    "who": "qwen",
-    "started": "2026-11-19T16:32",
-    "run": "STEPTUNE2",
-    "state": "LANDED - Claude collects"
+    "title": "Footwork: the right step costs no exchange, then all 10 steps re-gated (STEPPAY2 phases 3-4)",
+    "who": "fable"
    },
    {
-    "title": "Fresh critic: contracts map v3",
-    "who": "arena",
-    "started": "2026-11-19T17:56",
-    "run": "LEDGERCRITIC4",
-    "state": "LANDED - Claude collects"
+    "title": "Fit-out loan: two years x 60 careers with and without the loan (LOANPROBE1)",
+    "who": "grokdev"
    },
    {
-    "title": "Coach fit: can a top fit be felt inside the cap? (slope sweep + tiredness)",
-    "who": "goose",
-    "started": "2026-11-19T18:52",
-    "run": "COACHFITPROBE2",
-    "state": "LANDED - Claude collects"
+    "title": "Fresh critics: guard damage map v5",
+    "who": "kalli"
    },
    {
-    "title": "Fresh critic: turning pro map v3",
-    "who": "arena",
-    "started": "2026-11-19T18:55",
-    "run": "TURNCRITIC3A",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "Fresh critic: turning pro map v3",
-    "who": "goose",
-    "started": "2026-11-19T18:54",
-    "run": "TURNCRITIC3G",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "Blind contract test of the footwork steps (StepWire)",
-    "who": "arena",
-    "started": "2026-11-19T18:58",
-    "run": "STEPBLIND1",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "Fresh critic: turning pro map v4",
-    "who": "arena",
-    "started": "2026-11-19T19:50",
-    "run": "TURNCRITIC4A",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "Fresh critic: coach fit sheet (hover design)",
-    "who": "arena",
-    "started": "2026-11-19T19:50",
-    "run": "COACHCRITIC10A",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "Blind contract test of the coached-morning deal",
-    "who": "arena",
-    "started": "2026-11-19T20:30",
-    "run": "DEALBLIND1",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "Blind contract test of on-a-run + ducked/owed",
-    "who": "arena",
-    "started": "2026-11-19T21:10",
-    "run": "HOTBLIND1",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "Fresh critic: contracts map v4",
-    "who": "arena",
-    "started": "2026-11-19T22:50",
-    "run": "LEDGERCRITIC5A",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "Fresh critic: knowledge stakes map v3",
-    "who": "arena",
-    "started": "2026-11-19T22:50",
-    "run": "KNOWCRITIC3A",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "Fresh critic: turning pro map v5",
-    "who": "arena",
-    "started": "2026-11-20T01:05",
-    "run": "TURNCRITIC5A",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "Does a fresh gym survive two years (passive / sensible / lean)",
-    "who": "goose",
-    "started": "2026-11-20T02:20",
-    "run": "GYMSURVIVE1",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "Debut gap -> win chance curve on one fixed boxer",
-    "who": "goose",
-    "started": "2026-11-20T02:45",
-    "run": "TURNGAP1",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "Contracts map v5 from the code (both v4 critics)",
-    "who": "goose",
-    "started": "2026-11-20T03:00",
-    "run": "LEDGERREV5",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "Knowledge stakes map v4 (answers both v3 critics)",
-    "who": "dola",
-    "started": "2026-11-20T14:15",
-    "run": "SQ248",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "Turning pro map v6 (both v5 critics + the debut-gap curve)",
-    "who": "dola",
-    "started": "2026-11-20T14:15",
-    "run": "SQ249",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "Second eyes on the loan screens (clarity + to-10 list)",
-    "who": "ludo",
-    "started": "2026-11-20T15:10",
-    "run": "LUDOLOAN1",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "Knowledge stakes map v5 from the code",
-    "who": "arena",
-    "started": "2026-11-20T15:20",
-    "run": "KNOWREV5",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "Fresh critic + code check: knowledge stakes map v5",
-    "who": "arena",
-    "started": "2026-11-20T15:35",
-    "run": "KNOWCRITIC5A",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "Fresh critic: knowledge stakes map v5",
-    "who": "dola",
-    "started": "2026-11-20T15:35",
-    "run": "SQ253"
-   },
-   {
-    "title": "Fresh critic + code check: turning pro map v6",
-    "who": "arena",
-    "started": "2026-11-20T15:45",
-    "run": "TURNCRITIC6A",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "Footwork steps re-read after 5d + 5e + the wrong-fire counter",
-    "who": "claude",
-    "started": "2026-11-20T15:58",
-    "run": "TREEVALUE8",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "Footwork re-read after phase 6 (a sharp boxer holds a wrong step)",
-    "who": "claude-pc",
-    "started": "2026-11-20T18:02",
-    "run": "TREEVALUE9"
-   },
-   {
-    "title": "Arena critic: turning pro v8 + code check",
-    "who": "arena",
-    "started": "2026-11-21T01:00",
-    "run": "ARC-TP8"
-   },
-   {
-    "title": "Footwork: which cut_off lever costs (arm off=wrong, 400 bouts a cell)",
-    "who": "claude",
-    "started": "2026-11-21T01:14",
-    "run": "TV11_WRONG",
-    "state": "STOPPED - Claude relaunches or closes"
-   },
-   {
-    "title": "Footwork: which cut_off lever costs (arm off=drain, 400 bouts a cell)",
-    "who": "claude",
-    "started": "2026-11-21T01:40",
-    "run": "TV11_DRAIN",
-    "state": "STOPPED - Claude relaunches or closes"
-   },
-   {
-    "title": "Footwork: which cut_off lever costs (arm off=tank, 400 bouts a cell)",
-    "who": "claude",
-    "started": "2026-11-21T01:40",
-    "run": "TV11_TANK",
-    "state": "STOPPED - Claude relaunches or closes"
-   },
-   {
-    "title": "Footwork: which cut_off lever costs (arm off=opp_ropes, 400 bouts a cell)",
-    "who": "claude",
-    "started": "2026-11-21T01:40",
-    "run": "TV11_OPP_ROPES",
-    "state": "STOPPED - Claude relaunches or closes"
-   },
-   {
-    "title": "Pro debut gap: why the win curve jumps, the offer's read told true, then the gaps (Fable console)",
-    "who": "claude-fable",
-    "started": "2026-11-21T02:00",
-    "run": "TURNPRO6"
-   },
-   {
-    "title": "P4PBUILD1 DONE S533: the three coaching moments are built and on main - the visit, the corner's eye, the coach's read (docs/P4PBUILD1_STAGE1-3.md); his play is the gate",
-    "who": "claude-fable",
-    "started": "2026-11-21T02:20",
-    "run": "P4PBUILD1"
+    "title": "Fresh critics: guard damage map v5",
+    "who": "dola"
    }
   ],
   "next": [
@@ -6116,6 +5908,46 @@
   },
   "done_recently": [
    {
+    "title": "Tooltips: short cards and a new card design (TIPFIX1-3 + reach-10 redesign)",
+    "who": "grokdev",
+    "when": "2026-11-21"
+   },
+   {
+    "title": "Guide as the coach's clipboard (his pick C)",
+    "who": "claude",
+    "when": "2026-11-21"
+   },
+   {
+    "title": "Three coaching moments built: visit, corner's eye, coach's read (P4PBUILD1)",
+    "who": "fable",
+    "when": "2026-11-21"
+   },
+   {
+    "title": "Pro debut: opponent picked to each boxer (DEBUTPICK1, his Q-286)",
+    "who": "fable",
+    "when": "2026-11-21"
+   },
+   {
+    "title": "Pro debut win read fixed, gaps set (TURNPRO6)",
+    "who": "fable",
+    "when": "2026-11-21"
+   },
+   {
+    "title": "Footwork: the place pays on the ropes and in the corner (STEPPAY2 phase 2)",
+    "who": "fable",
+    "when": "2026-11-21"
+   },
+   {
+    "title": "What each ring place is worth: none was an edge (STEPPAY1)",
+    "who": "grokdev",
+    "when": "2026-11-21"
+   },
+   {
+    "title": "Guard damage map v5 from the code (GUARDREV5)",
+    "who": "fable",
+    "when": "2026-11-21"
+   },
+   {
     "title": "Grok Dev: turning pro map v9 from the code (TASK_TURNREV9)",
     "who": "grokdev",
     "when": "2026-11-21"
@@ -6163,16 +5995,6 @@
    {
     "title": "Arena critic: turning pro v7 (with code check)",
     "who": "",
-    "when": "2026-11-20"
-   },
-   {
-    "title": "Turning pro map v4 from the code (answers both v3 critics)",
-    "who": "goose",
-    "when": "2026-11-20"
-   },
-   {
-    "title": "Contracts map v6 from the code",
-    "who": "arena",
     "when": "2026-11-20"
    }
   ],
@@ -6262,64 +6084,6 @@
   "map": {
    "done_earlier": [
     {
-     "text": "Gym survive: careful gym bleeds",
-     "who": "claude"
-    },
-    {
-     "text": "Debut gap curve measured",
-     "who": "claude"
-    },
-    {
-     "text": "Steps: deny reaches the score",
-     "who": "claude"
-    },
-    {
-     "text": "Probe bugs: seeds, pilot, crash",
-     "who": "claude"
-    },
-    {
-     "text": "Fit-out loan built + verified",
-     "who": "claude"
-    },
-    {
-     "text": "Disk freed: E 92 GB, C 43 GB",
-     "who": "claude"
-    },
-    {
-     "text": "Code Mode: 23-44% cheaper reads",
-     "who": "claude"
-    },
-    {
-     "text": "Footwork re-read: deny works",
-     "who": "claude"
-    },
-    {
-     "text": "Top-down fight view built (T)",
-     "who": "claude"
-    },
-    {
-     "text": "Coach read, card ask, corner eye",
-     "who": "claude"
-    },
-    {
-     "text": "Coach fit: hover design (s11)",
-     "who": "claude"
-    },
-    {
-     "text": "Coach fit closed (3 probes)",
-     "who": "claude"
-    },
-    {
-     "text": "71 tests joined nightly",
-     "who": "claude"
-    },
-    {
-     "text": "Weekend Do it fixed",
-     "who": "claude"
-    }
-   ],
-   "done_session": [
-    {
      "text": "Names out of guide and cards",
      "who": "claude"
     },
@@ -6350,6 +6114,72 @@
     {
      "text": "Amateur = fight week everywhere",
      "who": "claude"
+    },
+    {
+     "text": "Tooltip cards redesigned",
+     "who": "claude"
+    },
+    {
+     "text": "Guide = coach's clipboard",
+     "who": "claude"
+    },
+    {
+     "text": "P4P visit, eye, read built",
+     "who": "claude"
+    },
+    {
+     "text": "Gym survive: careful gym bleeds",
+     "who": "claude"
+    },
+    {
+     "text": "Debut gap curve measured",
+     "who": "claude"
+    },
+    {
+     "text": "Steps: deny reaches the score",
+     "who": "claude"
+    }
+   ],
+   "done_session": [
+    {
+     "text": "Fatigue replaces Tiredness",
+     "who": "claude"
+    },
+    {
+     "text": "Tooltips short: 25 words, 3 rows",
+     "who": "claude"
+    },
+    {
+     "text": "Tooltip cards redesigned",
+     "who": "claude"
+    },
+    {
+     "text": "Guide = coach's clipboard",
+     "who": "claude"
+    },
+    {
+     "text": "P4P visit, eye, read built",
+     "who": "claude"
+    },
+    {
+     "text": "Debut opponent fits each boxer",
+     "who": "claude"
+    },
+    {
+     "text": "Debut win read fixed (TURNPRO6)",
+     "who": "claude"
+    },
+    {
+     "text": "Ropes and corner now pay",
+     "who": "claude"
+    },
+    {
+     "text": "Guard map v5 from the code",
+     "who": "claude"
+    },
+    {
+     "text": "Board: stills to review lit",
+     "who": "claude"
     }
    ],
    "now": [
@@ -6372,10 +6202,6 @@
     {
      "text": "Your look: block reel S455",
      "who": "operator"
-    },
-    {
-     "text": "Critics: TURNPRO1 v2, 2 seats",
-     "who": "claude"
     },
     {
      "text": "Your look: match strip, clinch",
@@ -6406,76 +6232,16 @@
      "who": "claude"
     },
     {
-     "text": "Guard damage: critics on draft 1",
-     "who": "claude"
-    },
-    {
-     "text": "",
-     "who": "claude"
-    },
-    {
-     "text": "Revise: guard v3, club week v11",
-     "who": "claude"
-    },
-    {
-     "text": "Club week v11: build (his yes)",
-     "who": "claude"
-    },
-    {
      "text": "Anim: v2 range fix (Fable)",
      "who": "claude"
     },
     {
-     "text": "TREEVALUE5 step probe (Qwen)",
-     "who": "agent"
-    },
-    {
-     "text": "COACHFITPROBE2 slope probe (Goose)",
-     "who": "agent"
-    },
-    {
-     "text": "Blind step test (Arena)",
-     "who": "agent"
-    },
-    {
-     "text": "Steps: deny reaches the score (5a)",
+     "text": "Guard v5 critics: Kalli, Dola",
      "who": "claude"
     },
     {
-     "text": "Critics: ledger v5 (Arena+Dola)",
-     "who": "claude"
-    },
-    {
-     "text": "Knowledge v4 from code (Goose)",
-     "who": "claude"
-    },
-    {
-     "text": "TREEVALUE6 steps re-read (Qwen)",
-     "who": "claude"
-    },
-    {
-     "text": "Turning pro v6 (Goose)",
-     "who": "claude"
-    },
-    {
-     "text": "Tooltip + guide standard: your yes",
+     "text": "Your play: the S533 build",
      "who": "operator"
-    },
-    {
-     "text": "cut_off lever attribution x4",
-     "who": "claude"
-    },
-    {
-     "text": "Tooltips + guide build (Fable)",
-     "who": "agent"
-    },
-    {
-     "text": "P4P build: visit, eye, read",
-     "who": "claude"
-    },
-    {
-     "text": "Steps payoff phases 2-4 (Fable)",
-     "who": "claude"
     }
    ],
    "next": [
@@ -6726,14 +6492,22 @@
     {
      "text": "Guard v5: John's 10/10 (Arena)",
      "who": "claude"
+    },
+    {
+     "text": "Turning pro v10 from the code",
+     "who": "claude"
+    },
+    {
+     "text": "Damage classes: Arena critic",
+     "who": "claude"
     }
    ],
-   "session": "S532"
+   "session": "S533"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
  "last_working_commit": "42feebb38",
- "next_action": "S533: quote the METHOD lines. 0) SECURITY: the Telegram token leaked to the public lite mirror (GitGuardian); file untracked + mirror guard built; token REVOKED and replaced (S532, getMe ok). 0b) GROK BOTS: the Grok Bot app updated to 1.2.3 (2026-11-20 14:57); gbot_wake/gbot speak the old gateway -> listAgents 404 'could not be routed'. FIXED S532 (port token header): gbot list/send work; Grok Dev has TURNREV9 (branch grok/turnrev9) - collect its PR. Turning pro v8: Arena 6/6/7 -> v9 brief ops/research/TASK_TURNREV9.md (sent to Grok Dev). 1) Read the four cut_off lever-attribution arms (S532 task output / scratchpad tv11_*.log; else rerun tools/treevalue_probe.gd -- only=cut_off off=<wrong|drain|tank|opp_ropes>) and size ONLY the lever that measures as the cost (docs/TREEVALUE9_RESULT.md 'S532 TREEVALUE10'); then tie_up, step_out, step_in, roll_out the same way. 2) Collect Grok bots Kalli SQ264 (stoppages v2), John SQ265 (P4P v2), Maria SQ266 (tooltip standard) and Dola SQ261 (turning pro v8), SQ262 (P4P v2), SQ263 (stoppages v2) and the Arena turning-pro v8 chat (01a1fb21); after 14:25 Arena critics for stoppages v2 and GUIDETIPS1 (TASK_GUIDETIPSCRITIC1A.md). A map with 7+/7+ from both goes on the board with --attach. 3) GUIDETIPS1 side session: its own list in NEXT_SESSION_PROMPT. 4) If the owner reports a crash: read %APPDATA%/Godot/app_userdata/FightCamp/logs/godot.log BEFORE any test.",
+ "next_action": "S534: quote the METHOD lines. 1) Collect STEPPAY2 phases 3-4 (Fable session, its own commits) and check it fixed debut_read_test (Lucy gap -2 read 0.618 vs played 0.553 since PlaceEdge - BoutRead must be recalibrated to the final exchange rules). 2) Collect Grok Dev LOANPROBE1 (60 careers per arm, fit-out loan verdict). 3) Guard v5 critics: Kalli SQ270 sent, Dola SQ269 (app was closed; retries every 30 min); both 7+ -> build plan, else v6 from code. 4) Arena (after its 14:25 reset): DMGCLASS v2 code-checked critic (Goose failed #433; split Dola 9/9 vs Kalli 6/6/5). 5) Turning pro v10 map from the code (John 6/6/7, Dola 7/8/7 on v9; the debut pick changed the offer). 6) The owner plays the S533 build: act on his notes.",
  "next_acceptance": "Rulers vs r0: head jumps on the contact frame under 4, a head inside the other's body under 5 frames, arm out median under 4 frames with join_return green, then r1 film at two fresh blind critics 5+/10"
 }
