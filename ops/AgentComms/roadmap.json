@@ -5564,7 +5564,7 @@
    {
     "id": "TURNPRO6",
     "who": "claude",
-    "title": "Turning pro v6: set the debut gaps from TURNGAP1's curve (rerun S531 after a seed bug: every seed was the same night). Today's gaps give ~75-80% wins.",
+    "title": "Pro debut gaps DONE S533 (docs/TURNPRO6_RESULT.md): TURNGAP1 was 1 boxer on 3 fight nights; the read fixed (walks the 4 rounds, the corner call's energy, Second wind) and shown on the offer; gaps set from 66,000 played bouts: Bow Lane 3.0 (won 60%), Harrow and Finch 6.0 (won 75%). Open: one gap spreads 40 points across boxers - match the opponent to the boxer by target chance?",
     "after": ""
    },
    {

@@ -24,6 +24,7 @@ const SkillAwards := preload("res://scripts/rules/SkillAwards.gd")
 const CoachPlan := preload("res://scripts/rules/CoachPlan.gd")
 const RingDuel := preload("res://scripts/state/RingDuel.gd")
 const WorldBout := preload("res://scripts/world/WorldBout.gd")
+const CardOdds := preload("res://scripts/rules/CardOdds.gd")   # TURNPRO6 a card of any length
 
 ## The range's full width in rating points: nothing found, her whole file open (design values; the file never gives the
 ## exact number). The truth starts at least EDGE_KEEP of the width from either end.
@@ -189,7 +190,7 @@ static func camp_for(f: Dictionary, days: int) -> Dictionary:
 
 ## BoutNight._energy, read only, on the coach's calls: per round {edge (her combination edge and both tired penalties),
 ## a, a_end, b, b_end (the tanks at the first and last bell)}.
-static func _energy(f: Dictionary, opp: Dictionary, off := 0.0) -> Array:
+static func _energy(f: Dictionary, opp: Dictionary, off := 0.0, rounds := BoutRules.ROUNDS) -> Array:
 	var op := RoundStyle.from_opponent(opp)
 	var mine: Dictionary = OwnCombos.all_mastery(f)
 	var own := RingDuel.Attrs.of(f)   # S433 CARDIO1: the cost reads Stamina, the minute's refill Recovery
@@ -197,20 +198,19 @@ static func _energy(f: Dictionary, opp: Dictionary, off := 0.0) -> Array:
 	var econ := SkillAwards.bout_economy(f, RoundStyle.SHARE) * StyleName.effect(f, "combo_energy")   # S459 as BoutNight
 	var a := Combos.TANK - off   # S434 the played Tank: hurt and the scale (BoutRules.tank_read), as BoutNight._energy
 	var b := Combos.TANK
-	var qa := 0.0
-	var qb := 0.0
+	var qa := 0.0; var qb := 0.0
 	var out: Array = []
-	for n in range(1, BoutRules.ROUNDS + 1):
+	for n in range(1, rounds + 1):
+		a = PerkFight.second_wind(f, n, a)   # TURNPRO6: the perk's energy back, as BoutNight._energy
+		var spent := float(Exchanges.EXCHANGES) * float((Exchanges.CALLS.get(_call(f, n), {}) as Dictionary).get("cost", 0.0))   # TURNPRO6: the call's own cost each exchange (LiveRound's lv.cost; "Go to the body" 9 a round)
 		var ra := Combos.after_round(a, qa, Combos.round_spend(mine, _call(f, n), float(own["stamina"]), econ), float(own["recovery"]))
 		var rb := Combos.after_round(b, qb, Combos.round_spend(op["combos"], "", cond_b), cond_b)
 		var a_end := float(ra["bell"])
 		var b_end := float(rb["bell"])
 		out.append({"edge": Combos.edge(mine, a) + OwnCombos.ring_edge(f, a, (a + a_end) / 2.0) - Combos.tired_penalty(a_end) + Combos.tired_penalty(b_end),
-			"a": a, "a_end": a_end, "b": b, "b_end": b_end})
-		a = float(ra["next"])
-		b = float(rb["next"])
-		qa = float(ra["debt"])
-		qb = float(rb["debt"])
+			"a": a, "a_end": a_end - spent, "b": b, "b_end": b_end})
+		a = maxf(0.0, float(ra["next"]) - spent); b = float(rb["next"])
+		qa = float(ra["debt"]); qb = float(rb["debt"])
 	return out
 
 
@@ -305,7 +305,7 @@ static func _tiring(opp: Dictionary, n: int, energy: float) -> float:
 
 ## Her mean edge in power points in each round against this opponent, on this camp.
 static func _re_key(f: Dictionary, o: Dictionary, camp: Dictionary, coach: float) -> String:
-	return RingDuel.stat_bucket(f) + str(f.get("moves")) + str(f.get("combos")) + str(f.get("steps")) + str(f.get("arrows")) + str(f.get("personality")) + str(f.get("perks")) + str(f.get("habits")) + str(f.get("style")) + str(f.get("stance")) + str(f.get("style_dials")) + str(f.get("durability_cap")) + str(camp) + str(coach) + str(o.get("rating")) + str(o.get("weak")) + str(o.get("threat")) + str(o.get("style")) + str(o.get("shape")) + str(o.get("age")) + str(o.get("peak_age")) + str(o.get("pace")) + str(o.get("forward")) + str(o.get("heart")) + str(o.get("stance")) + str(o.get("height")) + str(o.get("reach")) + str(o.get("name")) + str(o.get("damage_ledger")) + str(o.get("sex")) + str(BoutRules.tank_read(f)) + "|r%s-%s-%s-%s" % [o.get("w"), o.get("l"), o.get("d"), o.get("pro")] + "|e%s|s%s" % [(f.get("bout", {}) as Dictionary).get("r1_edge", 0.0), (f.get("bout", {}) as Dictionary).get("spar_edge", 0.0)]   # S434 PUNCHSTART1: her punches grow with her record
+	return RingDuel.stat_bucket(f) + str(f.get("moves")) + str(f.get("combos")) + str(f.get("steps")) + str(f.get("arrows")) + str(f.get("personality")) + str(f.get("perks")) + str(f.get("habits")) + str(f.get("style")) + str(f.get("stance")) + str(f.get("style_dials")) + str(f.get("durability_cap")) + str(camp) + str(coach) + str(o.get("rating")) + str(o.get("weak")) + str(o.get("threat")) + str(o.get("style")) + str(o.get("shape")) + str(o.get("age")) + str(o.get("peak_age")) + str(o.get("pace")) + str(o.get("forward")) + str(o.get("heart")) + str(o.get("stance")) + str(o.get("height")) + str(o.get("reach")) + str(o.get("name")) + str(o.get("damage_ledger")) + str(o.get("sex")) + str(BoutRules.tank_read(f)) + "|r%s-%s-%s-%s" % [o.get("w"), o.get("l"), o.get("d"), o.get("pro")] + "|e%s|s%s|n%s" % [(f.get("bout", {}) as Dictionary).get("r1_edge", 0.0), (f.get("bout", {}) as Dictionary).get("spar_edge", 0.0), (f.get("bout", {}) as Dictionary).get("rounds", 0)]   # S434 PUNCHSTART1: her punches grow with her record
 
 
 static func round_edges(f: Dictionary, opp: Dictionary, camp: Dictionary, coach := 0.0) -> Array:
@@ -320,7 +320,7 @@ static func round_edges(f: Dictionary, opp: Dictionary, camp: Dictionary, coach 
 static func _round_edges(f: Dictionary, opp: Dictionary, camp: Dictionary, coach := 0.0) -> Array:
 	var fx := _read_copy(f, opp, camp, coach)
 	var base := ComboOdds.night_gap(fx)   # S398 who is better is the duels below, exchange by exchange
-	var tanks := _energy(fx, opp, BoutRules.tank_read(f))
+	var tanks := _energy(fx, opp, BoutRules.tank_read(f), int((f.get("bout", {}) as Dictionary).get("rounds", BoutRules.ROUNDS)))   # TURNPRO6: the booked card's rounds (a pro debut is 4)
 	var mix := _games(opp, RingDuel.mode_bias(fx, opp))
 	var own_attrs := RingDuel.Attrs.of(fx)
 	var opp_attrs := RingDuel.opp(opp)
@@ -328,7 +328,7 @@ static func _round_edges(f: Dictionary, opp: Dictionary, camp: Dictionary, coach
 		* (Exchanges.BODY_THREAT_SHARE if str(opp.get("threat", "")).to_lower().contains("body") else Exchanges.BODY_SHARE)
 	var out: Array = []
 	var states: Dictionary = {}
-	for n in range(1, BoutRules.ROUNDS + 1):
+	for n in range(1, tanks.size() + 1):
 		var t: Dictionary = tanks[n - 1]
 		var e := base + float(t["edge"]) + BoutRules.stance_edge(n, str(f.get("stance", "orthodox")), opp, camp)
 		e += BoutRules.first_round_edge(n, f.get("bout", {})) + BoutRules.spar_edge(n, f.get("bout", {}))   # S474 round 1 / rust; S482 partner
@@ -381,6 +381,7 @@ static func _round_edges(f: Dictionary, opp: Dictionary, camp: Dictionary, coach
 ## The chance she wins this bout: two rounds of three (a 3-round card has no draw).
 static func chance(f: Dictionary, opp: Dictionary, camp: Dictionary, coach := 0.0) -> float:
 	var e := round_edges(f, opp, camp, coach)
+	if e.size() != BoutRules.ROUNDS: return CardOdds.win(e, RingDuel.FORM_SD)   # TURNPRO6: a longer card (a pro debut's 4 rounds: level cards draw, stoppages)
 	# S398 integrated over the form both bring on the night (RingDuel.form), as the bout rolls it.
 	var out := 0.0
 	var sd := RingDuel.FORM_SD * sqrt(2.0)
@@ -437,10 +438,8 @@ static func _candidates(f: Dictionary, opp: Dictionary, field: String) -> Array:
 	base["weak"] = ""
 	base["threat"] = ""
 	base.erase("shape")
-	var lo := ""
-	var hi := ""
-	var lo_e := INF
-	var hi_e := -INF
+	var lo := ""; var hi := ""
+	var lo_e := INF; var hi_e := -INF
 	for row in rows:
 		var w := str(row.get(field, ""))
 		var e := RingDuel.mean_edge(f, base.merged({field: w}, true))

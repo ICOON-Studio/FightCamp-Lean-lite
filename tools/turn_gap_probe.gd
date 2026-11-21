@@ -1,199 +1,219 @@
 extends SceneTree
-## TURNGAP1 (issue #415): the debut's opponent gap -> win chance curve, on one fixed boxer.
-## Population: 20 boxers at the moment of their first pro offer, taken from Career.quick_start()
-## careers played forward with turn_pro_probe3's loop. For EACH boxer, deep-copy the career once
-## per gap and sign the plain deal through Roster.turn_pro after setting the gap WHERE THE DEAL
-## READS IT (the offer's opp_gap, which ProOfferWire.signed duplicates into the deal).
-## Gaps: -4, -2, -1, 0, 1, 2, 4, 8. Play to the debut's result row. 10 seeds a boxer a gap.
+## TURNPRO6 (S533, replaces TURNGAP1's probe): the pro debut's win share against the opponent gap, house by house.
+## WHY IT WAS REBUILT: TURNGAP1's "20 boxers x 10 seeds" was ONE boxer on THREE nights. Career.quick_start signs the same
+## walk-in whatever the seed (the seed only moves injuries), and its 10 "seeds" moved the signing day by 0..9 days, which
+## lands on three Saturdays (1 / 7 / 2 seeds); a bout's dice are the fight day's (LiveRound._rng), so 7 of 10 "seeds"
+## were the same bout.
+## POPULATION (printed with every run): the six people the game can sign (Data.lucy + Data.PROSPECTS: four women, two men,
+## five styles, both stances) x two sets of training picks, each played from signing to the first pro offer. Each boxer
+## then signs EACH house's plain deal through Roster.turn_pro and is played by the game's own days to the morning of
+## fight night (camp started when due, weighed in). CONTROL ARM: from that one fight-night boxer only the opponent's
+## rating moves (night - gap, DebutOpp, as turn_pro sets it), and every gap is fought on the same independent nights:
+## PlanTest's scratch career, bout k on day DICE_DAY + k * 7 (BoutNight.play_out, nothing booked) - the game's own way
+## to roll a bout again. The scratch bout on the real day's dice is checked against the real booked bout (same_dice).
+## Beside each share: the chance the offer shows at signing (DebutRead.card) and the amateur read (BoutRead.chance).
+## Args (after --): nights=250 boxers=12 first=0 gaps=-2,0,2 out=<jsonl path>. Prints JSON lines; docs/TURNPRO6_RESULT.md is written from them.
 
 const Bouts := preload("res://scripts/state/Bouts.gd")
+const BoutNight := preload("res://scripts/state/BoutNight.gd")
 const BoutRead := preload("res://scripts/rules/BoutRead.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
+const Data := preload("res://scripts/state/Data.gd")
+const DebutOpp := preload("res://scripts/rules/DebutOpp.gd")
+const DebutRead := preload("res://scripts/rules/DebutRead.gd")
 const FirstWeek := preload("res://scripts/rules/FirstWeek.gd")
 const OppFile := preload("res://scripts/rules/OppFile.gd")
-const ProLadder := preload("res://scripts/state/ProLadder.gd")
-const ProOfferWire := preload("res://scripts/state/ProOfferWire.gd")
-const Region := preload("res://scripts/state/Region.gd")
+const ProCall := preload("res://scripts/rules/ProCall.gd")
 const Roster := preload("res://scripts/state/Roster.gd")
 const Sim := preload("res://scripts/state/Sim.gd")
 
-const GAPS := [-4.0, -2.0, -1.0, 0.0, 1.0, 2.0, 4.0, 8.0]
-const SEEDS_PER := 10
-const N_BOXERS := 20
-const PICKS := ["Jab and move", "Pad rounds", "Hill sprints"]
-const MAX_DAYS := 120
-const DOC := "res://docs/TURNGAP1_RESULT.md"
+var GAPS: Array = [-4.0, -2.0, -1.0, 0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0]   ## gaps=3,5,6 on the command line reads other points of the curve
+const PICK_SETS := [["Jab and move", "Pad rounds", "Hill sprints"], ["Body work", "Defence drills", "Film study"]]
+const HOUSES := ["bow", "hf"]
+const DICE_DAY := 50000   ## PlanTest.DICE_DAY: far from any real fight night's dice
+const MAX_WEEKS := 156
+var out_lines: Array = []
+var seen := {}
+var t0 := 0
 
-## {boxer_idx: {gap: [wins, total]}}
-var wins_by_boxer_gap := {}
-## {gap: [wins, total]}
-var wins_by_gap := {}
-## {boxer_idx: {gap: win_share}}
-var boxer_win_shares := {}
-## One boxer's override proof per gap
-var override_proof := []
+
+func _arg(key: String, def: String) -> String:
+	for a in OS.get_cmdline_user_args():
+		if str(a).begins_with(key + "="):
+			return str(a).trim_prefix(key + "=")
+	return def
+
+
+func _say(tag: String, d: Dictionary) -> void:
+	d["tag"] = tag
+	d["t"] = snappedf((Time.get_ticks_msec() - t0) / 1000.0, 0.1)
+	var s := JSON.stringify(d)
+	out_lines.append(s)
+	print(s)
 
 
 func _initialize() -> void:
-	var t0 := Time.get_ticks_msec()
-	print("TURNGAP1 %d boxers x %d gaps x %d seeds" % [N_BOXERS, GAPS.size(), SEEDS_PER])
-	# Build 20 boxers at pro_ready
-	var pro_ready_snapshots: Array = []
-	for boxer_idx in N_BOXERS:
-		var seed_n: int = 7000 + boxer_idx * 137
-		var snap := _build_pro_ready(seed_n, boxer_idx)
+	t0 = Time.get_ticks_msec()
+	var nights := int(_arg("nights", "250"))
+	var n_boxers := int(_arg("boxers", "12"))
+	var first := int(_arg("first", "0"))
+	if _arg("gaps", "") != "":
+		GAPS = Array(_arg("gaps", "").split(",")).map(func(s): return float(s))
+	var people: Array = [Data.lucy()] + Data.PROSPECTS
+	_say("run", {"nights": nights, "gaps": GAPS, "houses": HOUSES, "dice": "day %d + k * 7, k < nights" % DICE_DAY,
+		"people": people.map(func(p): return "%s (%s, %s, %s)" % [p["name"], p["style"], p["stance"], p["div"]]), "picks": PICK_SETS})
+	for bi in range(first, mini(first + n_boxers, people.size() * PICK_SETS.size())):
+		var who: Dictionary = people[bi % people.size()]
+		var picks: Array = PICK_SETS[int(bi / people.size())]
+		var snap := _build_pro_ready(who, picks, 7000 + bi * 137)
 		if snap.is_empty():
-			print("WARN: boxer %d did not reach pro_ready" % boxer_idx)
+			_say("noready", {"b": bi, "who": str(who["name"]), "picks": picks})
 			continue
-		pro_ready_snapshots.append({"idx": boxer_idx, "snap": snap})
-	print("Built %d pro-ready boxers" % pro_ready_snapshots.size())
-	# Override proof: one boxer per gap, print debutant rating and gap used
-	if not pro_ready_snapshots.is_empty():
-		var proof_snap: Dictionary = pro_ready_snapshots[0]["snap"]
-		for gap in GAPS:
-			var proof := _override_check(proof_snap, gap)
-			override_proof.append(proof)
-	# For each boxer, for each gap, run SEEDS_PER seeds
-	for entry in pro_ready_snapshots:
-		var boxer_idx: int = entry["idx"]
-		var snap: Dictionary = entry["snap"]
-		wins_by_boxer_gap[boxer_idx] = {}
-		boxer_win_shares[boxer_idx] = {}
-		for gap in GAPS:
-			wins_by_boxer_gap[boxer_idx][gap] = [0, 0]
-			var total_wins: int = 0
-			var total_runs: int = 0
-			for seed_j in SEEDS_PER:
-				var full_seed: int = 10000 + boxer_idx * 1000 + seed_j * 7 + int(gap * 100)
-				var won: bool = _run_one(snap, gap, full_seed)
-				total_runs += 1
-				if won:
-					total_wins += 1
-			wins_by_boxer_gap[boxer_idx][gap] = [total_wins, total_runs]
-			boxer_win_shares[boxer_idx][gap] = float(total_wins) / float(maxi(1, total_runs))
-	# Aggregate by gap
-	for gap in GAPS:
-		wins_by_gap[gap] = [0, 0]
-	for boxer_idx in wins_by_boxer_gap:
-		for gap in GAPS:
-			var wt: Array = wins_by_boxer_gap[boxer_idx][gap]
-			wins_by_gap[gap][0] += int(wt[0])
-			wins_by_gap[gap][1] += int(wt[1])
-	var elapsed := (Time.get_ticks_msec() - t0) / 1000.0
-	print("TURNGAP1 wall time: %.1f s" % elapsed)
-	# Print results
-	var L: Array = _report(elapsed)
-	for line in L:
-		print(line)
-	var fh := FileAccess.open(DOC, FileAccess.WRITE)
-	if fh != null:
-		fh.store_string("\n".join(L) + "\n"); fh.close(); print("wrote %s" % DOC)
-	# Pass line
-	var gap6580 := _find_gap_for_range(65.0, 80.0)
-	var gap7085 := _find_gap_for_range(70.0, 85.0)
-	var override_ok := _check_override()
-	print("TURNGAP1 done gap6580=%s gap7085=%s override_ok=%s" % [gap6580, gap7085, override_ok])
+		var sc: Career = snap["career"]
+		var sf: Dictionary = sc.fighter_by_id(str(snap["fighter_id"]))
+		var stamp := "%s|%d|%s" % [str(sf["name"]), int(snap["day"]), str(sf["stats"])]
+		if seen.has(stamp):
+			_say("same", {"b": bi, "who": str(sf["name"]), "as": seen[stamp], "why": "the picks changed nothing before the offer: the same boxer, not counted twice"})
+			continue
+		seen[stamp] = bi
+		_say("boxer", {"b": bi, "who": str(sf["name"]), "style": str(sf.get("style", "")), "stance": str(sf.get("stance", "")), "div": str(sf["div"]),
+			"picks": picks, "offer_day": int(snap["day"]), "w": int(sf["w"]), "l": int(sf["l"]), "night": DebutOpp.night(sf["stats"]),
+			"called": ((snap["offer"] as Dictionary).get("offers", []) as Array).map(func(t): return str(t["key"]))})
+		for house in HOUSES:
+			_house(bi, snap, str(house), nights)
+	var path := _arg("out", "")
+	if path != "":
+		var fh := FileAccess.open(path, FileAccess.WRITE)
+		if fh != null:
+			fh.store_string("\n".join(out_lines) + "\n"); fh.close()
+	print("TURNPRO6 probe done %.1f s" % ((Time.get_ticks_msec() - t0) / 1000.0))
 	quit(0)
 
 
-func _build_pro_ready(seed_n: int, boxer_idx: int) -> Dictionary:
+func _house(bi: int, snap: Dictionary, house: String, nights: int) -> void:
+	var sc: Career = snap["career"]
+	var sf: Dictionary = sc.fighter_by_id(str(snap["fighter_id"]))
+	var coach := float(sc.coach.get("rating", 0.0))
+	var terms: Dictionary = ProCall.terms(house, 0, false)
+	# what the offer shows at signing, gap by gap
+	var signing := {}
+	for g in GAPS:
+		var t2: Dictionary = terms.merged({"opp_gap": g}, true)
+		var card := DebutRead.card(sf, t2, sc.day, coach)
+		var fx0: Dictionary = sf.duplicate()
+		fx0["pro"] = true
+		fx0["bout"] = {"tank_ahead": 0.0, "pro": true, "rounds": DebutRead.ROUNDS}
+		var raw0 := BoutRead.CardOdds.card(BoutRead.round_edges(fx0, card["opp"], {"protocol": BoutRead.USUAL_CAMP}, coach), BoutRead.RingDuel.FORM_SD)
+		signing[g] = [float(card["win"]), float(card["draw"]), float(raw0["win"]), float(raw0["draw"])]
+	var fd := _to_fight_day(snap, house, float(terms["opp_gap"]))
+	if fd.is_empty():
+		_say("house", {"b": bi, "house": house, "none": true})
+		return
+	var c: Career = fd["c"]
+	var f: Dictionary = fd["f"]
+	var six := 0.0
+	for k in ["power", "speed", "technique", "defense", "conditioning", "fight_iq"]:
+		six += float(f["stats"].get(k, 55.0)) / 6.0
+	var tp := BoutRules.tank_parts_for(c.results, f, float(f.get("week_fatigue", 20.0)), int(f["bout"].get("day", c.day)))
+	# the control arm plays the game's bout: the scratch bout on the real day's dice against the booked one
+	var scratch := _one(c, f, c.day, {}, float(tp["off"]))
+	var c2: Career = c.duplicate(true)
+	var f2: Dictionary = c2.fighter_by_id(str(f["id"]))
+	Bouts.fight_step(c2, f2, Bouts.fight_modal(f2), "sim")
+	_say("house", {"b": bi, "house": house, "weeks": int(terms["debut_weeks"]), "deal_gap": float(terms["opp_gap"]), "fight_day": c.day,
+		"night_signing": float(fd["night0"]), "six_signing": float(fd["night0"]) - BoutRules.NO_CAMP_EDGE, "six_fight": six,
+		"camp": int((f.get("camp", {}) as Dictionary).get("protocol", -1)), "tank_off": float(tp["off"]), "opp": str(f["bout"]["opp"]["name"]),
+		"same_dice": [scratch.get_slice(":", 0), str((c2.results[0] as Dictionary).get("outcome", "?"))]})
+	for g in GAPS:
+		var opp2: Dictionary = (f["bout"]["opp"] as Dictionary).duplicate(true)
+		opp2["rating"] = snappedf(float(fd["night0"]) - float(g), 0.1)
+		var res := _nights(c, f, nights, opp2, float(tp["off"]))
+		var fx: Dictionary = f.duplicate(true)
+		fx["bout"]["opp"] = opp2
+		var edges: Array = BoutRead.round_edges(fx, opp2, fx.get("camp", {}), coach)
+		var raw := BoutRead.CardOdds.card(edges, BoutRead.RingDuel.FORM_SD)
+		var fit := BoutRead.CardOdds.result(edges, BoutRead.RingDuel.FORM_SD)
+		var f3: Dictionary = fx.duplicate(true)
+		f3["bout"].erase("rounds")   # the amateur card's read of the same night (2 rounds of 3), for the comparison
+		res.merge({"b": bi, "house": house, "g": g, "opp_rating": float(opp2["rating"]), "offer_win": signing[g][0], "offer_draw": signing[g][1],
+			"offer_raw_win": signing[g][2], "offer_raw_draw": signing[g][3], "night_win": float(fit["win"]), "night_draw": float(fit["draw"]),
+			"night_raw_win": float(raw["win"]), "night_raw_draw": float(raw["draw"]), "edges": edges,
+			"amateur_read": BoutRead.chance(f3, opp2, f3.get("camp", {}), coach)})
+		_say("gap", res)
+
+
+func _one(c: Career, f: Dictionary, day: int, opp2: Dictionary, tank_off: float) -> String:
+	var sc := Career.new()
+	sc.day = day
+	sc.coach = c.coach.duplicate(true)
+	sc.seed = c.seed
+	var sf: Dictionary = f.duplicate(true)
+	if not opp2.is_empty():
+		sf["bout"]["opp"] = opp2.duplicate(true)
+	sf["bout"]["stale"] = tank_off
+	sf["bout"]["tank_why"] = ""
+	sc.fighters = [sf]
+	var m := BoutNight.fight_modal(sf)
+	BoutNight.play_out(sc, sf, m)
+	var rw := ""
+	for r in m["rounds"]:
+		rw += "1" if bool(r["won"]) else "0"
+	return BoutNight.outcome_of(sf, m) + ":" + rw + ":" + BoutNight.stopped(m)
+
+
+func _nights(c: Career, f: Dictionary, k_n: int, opp2: Dictionary, tank_off: float) -> Dictionary:
+	var win := 0; var draw := 0; var loss := 0; var stop_w := 0; var stop_l := 0
+	for k in k_n:
+		var parts := _one(c, f, DICE_DAY + k * 7, opp2, tank_off).split(":")
+		match parts[0]:
+			"win": win += 1
+			"draw": draw += 1
+			_: loss += 1
+		if parts[2] != "":
+			if parts[0] == "win": stop_w += 1
+			else: stop_l += 1
+	return {"n": k_n, "win": win, "draw": draw, "loss": loss, "stop_w": stop_w, "stop_l": stop_l}
+
+
+func _build_pro_ready(who: Dictionary, picks: Array, seed_n: int) -> Dictionary:
 	var c := Career.quick_start()
 	c.seed = seed_n; c.first_hour = {}; FirstWeek.skip(c)
-	Sim.sign(c, PICKS.duplicate()); Sim.hire(c, "reid")
+	c.applicant = who.duplicate(true)
+	Sim.sign(c, picks.duplicate()); Sim.hire(c, "reid")
 	var f: Dictionary = c.fighter()
-	var rng := RandomNumberGenerator.new(); rng.seed = seed_n
-	var amb_roll: float = rng.randf()
-	if amb_roll < 0.33:
-		f["ambition"] = "Turn pro as soon as the call comes"
-	elif amb_roll < 0.66:
-		f["ambition"] = "A regional title within a year"
-	else:
-		f["ambition"] = "A winning record by the summer"
+	f["ambition"] = "Turn pro as soon as the call comes"
 	var guard := 0
-	while c.day < 104 * 7 and not c.closed and guard < 5000:
+	while c.day < MAX_WEEKS * 7 and not c.closed and guard < 5000:
 		guard += 1
 		if not c.pro_offer.is_empty():
-			# Snapshot at the moment of first pro offer
-			return {"career": c.duplicate(true), "fighter_id": str(f["id"]),
-				"offer": c.pro_offer.duplicate(true), "day": c.day, "seed": seed_n}
-		_answer_open(c, f)
+			return {"career": c.duplicate(true), "fighter_id": str(f["id"]), "offer": c.pro_offer.duplicate(true), "day": c.day}
+		_pre(c, f, true)
 		Sim.step_day(c)
 	return {}
 
 
-func _override_check(snap: Dictionary, gap: float) -> Dictionary:
-	var c: Career = snap["career"].duplicate(true)
-	var fid: String = str(snap["fighter_id"])
-	var f: Dictionary = c.fighter_by_id(fid)
-	if f.is_empty():
-		return {"gap": gap, "night": -1.0, "opp_rating": -1.0, "deal_gap": -1.0, "ok": false}
-	c.pro_offer = snap["offer"].duplicate(true)
-	var key := str((c.pro_offer.get("offers", [{}]) as Array)[0].get("key", ""))
-	# Set opp_gap on the offer terms WHERE THE DEAL READS IT
-	for t2 in c.pro_offer.get("offers", []):
-		t2["opp_gap"] = gap
-	var night: float = BoutRules.fight_power(f["stats"], {}, 0, "", true)
-	Roster.turn_pro(c, key)
-	var deal: Dictionary = f.get("bout", {}).get("deal", {})
-	var deal_gap: float = float(deal.get("opp_gap", -999.0))
-	var opp_rating: float = float(f.get("bout", {}).get("opp", {}).get("rating", -1.0))
-	return {"gap": gap, "night": night, "opp_rating": opp_rating, "deal_gap": deal_gap,
-		"expected_opp_rating": snappedf(night - gap, 0.1), "ok": absf(deal_gap - gap) < 0.01}
-
-
-func _run_one(snap: Dictionary, gap: float, run_seed: int) -> bool:
-	var c: Career = snap["career"].duplicate(true)
-	var fid: String = str(snap["fighter_id"])
-	var f: Dictionary = c.fighter_by_id(fid)
-	if f.is_empty():
-		return false
-	var results_before: int = c.results.size()
-	c.pro_offer = snap["offer"].duplicate(true)
-	var key := str((c.pro_offer.get("offers", [{}]) as Array)[0].get("key", ""))
-	# Set opp_gap on the offer terms WHERE THE DEAL READS IT
-	for t2 in c.pro_offer.get("offers", []):
-		t2["opp_gap"] = gap
-	# Vary the day slightly to get different fight outcomes (BoutNight seeds from c.day)
-	# S531: was run_seed % 7, and run_seed steps by seed_j * 7 - every seed landed on the same day (the same night 10 times)
-	var day_offset: int = int(run_seed / 7) % 10   # seed_j moves it by one day: 10 seeds = 10 nights
-	c.day = c.day + day_offset
-	Roster.turn_pro(c, key)
+## Signs this house's plain deal (its own weeks) on the offer day and plays to the morning of fight night (weighed, not fought).
+func _to_fight_day(snap: Dictionary, house: String, gap: float) -> Dictionary:
+	var c: Career = (snap["career"] as Career).duplicate(true)
+	var f: Dictionary = c.fighter_by_id(str(snap["fighter_id"]))
+	c.pro_offer = (snap["offer"] as Dictionary).duplicate(true)
+	c.pro_offer["offers"] = [ProCall.terms(house, 0, false).merged({"opp_gap": gap}, true)]
+	var night0 := DebutOpp.night(f["stats"])
+	Roster.turn_pro(c, house)
 	var guard := 0
-	while c.day < snap["day"] + MAX_DAYS and not c.closed and guard < 2000:
+	while guard < 200 and not c.closed:
 		guard += 1
-		_answer_open(c, f)
+		_pre(c, f, false)
+		if (f["bout"] as Dictionary).is_empty():
+			return {}
+		if Bouts.fight_day(c, f):
+			return {"c": c, "f": f, "night0": night0}
 		Sim.step_day(c)
-		if c.results.size() > results_before:
-			for r in c.results.slice(0, c.results.size() - results_before):
-				if str(r.get("fid", "")) == fid and bool(r.get("pro", false)):
-					return bool(r.get("win", false))
-	return false
+	return {}
 
 
-func _bout_read_at_signing(snap: Dictionary, gap: float) -> Dictionary:
-	var c: Career = snap["career"].duplicate(true)
-	var fid: String = str(snap["fighter_id"])
-	var f: Dictionary = c.fighter_by_id(fid)
-	if f.is_empty():
-		return {}
-	c.pro_offer = snap["offer"].duplicate(true)
-	var key := str((c.pro_offer.get("offers", [{}]) as Array)[0].get("key", ""))
-	for t2 in c.pro_offer.get("offers", []):
-		t2["opp_gap"] = gap
-	var night: float = BoutRules.fight_power(f["stats"], {}, 0, "", true)
-	var opp_rating: float = snappedf(night - gap, 0.1)
-	var opp := {"name": "Test Opponent", "rating": opp_rating, "w": 0, "l": 0, "pro": true,
-		"style": "Boxer-puncher", "stance": "orthodox", "threat": "Heavy right hand",
-		"weak": "Fades after round 3", "div": f.get("div", "wlw"), "age": 24}
-	var camp := {}
-	var salt: int = 0
-	var coach: float = 0.0
-	var lik: float = BoutRead.likely(f, opp, camp, salt, coach)
-	var b := BoutRead.band(f, opp, camp, salt, coach)
-	return {"likely": lik, "band_lo": float(b.get("lo", 0.0)), "band_hi": float(b.get("hi", 0.0))}
-
-
-func _answer_open(c: Career, f: Dictionary) -> void:
+## A day's answers before the clock moves: take the offered bouts, start the camp when due, weigh in, fight (amateur road).
+func _pre(c: Career, f: Dictionary, fight: bool) -> void:
 	for o2 in (f["offers"] as Array).duplicate():
 		if bool(o2["answered"]) or bool(o2["mismatch"]):
 			continue
@@ -208,133 +228,8 @@ func _answer_open(c: Career, f: Dictionary) -> void:
 		Bouts.start_camp(c, f, Sim.focus_of(c, f), 2, OppFile.has_tape((f["bout"] as Dictionary).get("opp", {})), false)
 	if Bouts.weigh_in_today(c, f):
 		Bouts.weigh(c, f)
-	if Bouts.fight_day(c, f):
+	if fight and Bouts.fight_day(c, f):
 		Bouts.fight_step(c, f, Bouts.fight_modal(f), "sim")
 		Bouts.after_fight(c, f)
 	if bool(f.get("goal_talk", false)):
 		Bouts.set_goal(c, f, "five_round_engine")
-	if bool(f.get("pro", false)) and ProLadder.on_ladder(c, f) and (f["bout"] as Dictionary).is_empty():
-		var rows := ProLadder.offer_rows(c, f)
-		for kind in ["above", "tune", "payday"]:
-			var pick := rows.filter(func(r): return str(r["kind"]) == kind)
-			if not pick.is_empty():
-				ProLadder.book(c, f, int(pick[0]["opp"]["id"]), false)
-				break
-
-
-func _percentile(sorted_vals: Array, p: float) -> float:
-	if sorted_vals.is_empty():
-		return 0.0
-	var idx: float = p * float(sorted_vals.size() - 1)
-	var lo: int = int(floor(idx))
-	var hi: int = int(ceil(idx))
-	if lo == hi:
-		return float(sorted_vals[lo])
-	var frac: float = idx - float(lo)
-	return lerpf(float(sorted_vals[lo]), float(sorted_vals[hi]), frac)
-
-
-func _report(elapsed: float) -> Array:
-	var L: Array = []
-	L.append("# TURNGAP1 RESULT - the debut's opponent gap -> win chance curve")
-	L.append("")
-	L.append("Probe run: %s. %d boxers x %d gaps x %d seeds. Wall time: %.1f s." % [
-		Time.get_datetime_string_from_system(), N_BOXERS, GAPS.size(), SEEDS_PER, elapsed])
-	L.append("")
-	L.append("## Override proof (one boxer, each gap)")
-	L.append("")
-	L.append("| gap | night | deal_gap | opp_rating | expected_opp_rating | ok |")
-	L.append("|---|---|---|---|---|---|")
-	for p in override_proof:
-		L.append("| %.1f | %.1f | %.1f | %.1f | %.1f | %s |" % [
-			float(p["gap"]), float(p["night"]), float(p["deal_gap"]),
-			float(p["opp_rating"]), float(p["expected_opp_rating"]),
-			"YES" if bool(p["ok"]) else "NO"])
-	L.append("")
-	L.append("## Per-gap win share (all boxers)")
-	L.append("")
-	L.append("| gap | wins | total | win_share |")
-	L.append("|---|---|---|---|")
-	for gap in GAPS:
-		var wt: Array = wins_by_gap[gap]
-		var w: int = int(wt[0]); var t: int = int(wt[1])
-		var share: float = 100.0 * float(w) / float(maxi(1, t))
-		L.append("| %.1f | %d | %d | %.1f%% |" % [gap, w, t, share])
-	L.append("")
-	L.append("## Per-boxer win share median [p10..p90]")
-	L.append("")
-	L.append("| gap | median | p10 | p90 |")
-	L.append("|---|---|---|---|")
-	for gap in GAPS:
-		var shares: Array = []
-		for boxer_idx in boxer_win_shares:
-			shares.append(boxer_win_shares[boxer_idx][gap])
-		shares.sort()
-		var med: float = _percentile(shares, 0.5)
-		var p10: float = _percentile(shares, 0.1)
-		var p90: float = _percentile(shares, 0.9)
-		L.append("| %.1f | %.1f%% | %.1f%% | %.1f%% |" % [gap, med * 100.0, p10 * 100.0, p90 * 100.0])
-	L.append("")
-	L.append("## BoutRead at signing (what the offer would say)")
-	L.append("")
-	if not override_proof.is_empty():
-		var proof_snap: Dictionary = {}
-		# Rebuild the first boxer's snapshot for BoutRead
-		var seed_n: int = 7000
-		var c := Career.quick_start()
-		c.seed = seed_n; c.first_hour = {}; FirstWeek.skip(c)
-		Sim.sign(c, PICKS.duplicate()); Sim.hire(c, "reid")
-		var f: Dictionary = c.fighter()
-		var guard := 0
-		while c.day < 104 * 7 and not c.closed and guard < 5000:
-			guard += 1
-			if not c.pro_offer.is_empty():
-				proof_snap = {"career": c.duplicate(true), "fighter_id": str(f["id"]),
-					"offer": c.pro_offer.duplicate(true), "day": c.day}
-				break
-			_answer_open(c, f)
-			Sim.step_day(c)
-		if not proof_snap.is_empty():
-			L.append("| gap | likely | band_lo | band_hi |")
-			L.append("|---|---|---|---|")
-			for gap in GAPS:
-				var br := _bout_read_at_signing(proof_snap, gap)
-				if br.is_empty():
-					continue
-				L.append("| %.1f | %.1f%% | %.1f%% | %.1f%% |" % [
-					gap, float(br["likely"]) * 100.0, float(br["band_lo"]) * 100.0, float(br["band_hi"]) * 100.0])
-	L.append("")
-	L.append("## Gap targets")
-	L.append("")
-	var gap6580 := _find_gap_for_range(65.0, 80.0)
-	var gap7085 := _find_gap_for_range(70.0, 85.0)
-	L.append("- Gap for 65-80%% win share: %s" % gap6580)
-	L.append("- Gap for 70-85%% win share: %s" % gap7085)
-	L.append("")
-	L.append("Reproduce: `$GODOT_EXE --headless --audio-driver Dummy --path . --script res://tools/turn_gap_probe.gd`")
-	L.append("")
-	L.append("TURNGAP1 done")
-	return L
-
-
-func _find_gap_for_range(lo: float, hi: float) -> String:
-	var best_gap: String = "none"
-	var best_dist: float = INF
-	for gap in GAPS:
-		var wt: Array = wins_by_gap[gap]
-		var w: int = int(wt[0]); var t: int = int(wt[1])
-		var share: float = 100.0 * float(w) / float(maxi(1, t))
-		if share >= lo and share <= hi:
-			var mid: float = (lo + hi) / 2.0
-			var dist: float = absf(share - mid)
-			if dist < best_dist:
-				best_dist = dist; best_gap = "%.1f" % gap
-	return best_gap
-
-
-func _check_override() -> String:
-	var all_ok := true
-	for p in override_proof:
-		if not bool(p["ok"]):
-			all_ok = false; break
-	return "yes" if all_ok else "no"

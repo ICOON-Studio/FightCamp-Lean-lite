@@ -188,3 +188,17 @@ DECISION (METHOD): no TABLE number is sized - none measures as the cost, so any 
 NEXT (measurement): a sensitivity arm `scale=5` (S533: StepEffect.probe_scale, every number of the row x5, measurement only):
 if the out-boxer cell still does not move, the row's effects are not read by the round (a wiring defect to trace); if it moves,
 they are too small for a step that fires ~once a bout and the design question is how often it fires, not the size.
+
+## S533 TREEVALUE12/13 - sensitivity: cut_off's payoffs do not reach the result
+| cut_off vs | Pressure | Slugger | Out-boxer (FOR) | Counter | Volume | Boxer-puncher |
+|---|---|---|---|---|---|---|
+| x1 (S532) | -1.67 | -1.50 | -0.75 | -0.17 | -2.25 | -1.08 |
+| scale=5 (every number x5) | -1.75 | -2.42 | -1.08 | +0.17 | -2.17 | -1.83 |
+| scale=5 off=tank,wrong (pure benefit x5, no own cost) | -1.67 | -1.75 | -0.42 | +0.17 | -1.25 | -1.17 |
+(Out-boxer's without-arm moved 616 -> 644 under scale: that opponent's own plan holds cut_off, and x5 made it WORSE for her -
+the same reading from the other side.) step_effect_test PASS with probe_scale added (game path unchanged).
+READ: five times the drain, ring cut and ropes count, with the step's own cost and the wrong-step cost removed, still loses.
+The step's payoffs do not convert into wins; what is left is the exchange the step spends (a step instead of a punch). In the
+code the place reaches the exchange only through which line fires, PlanFight.card_mean at that place and StyleName.plan_mult;
+"opponent on the ropes" is never an edge by itself (LiveRound.gd ~L234-280).
+DECISION: no TABLE sizing for any step until the payoff is wired - see ops/research/STEPS_PAYOFF_SCOPE_S533.md.

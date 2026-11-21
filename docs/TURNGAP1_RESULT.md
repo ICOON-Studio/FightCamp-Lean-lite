@@ -1,3 +1,6 @@
+> SUPERSEDED (S533, TURNPRO6): these numbers are ONE boxer on THREE fight nights, not 20 boxers x 10 seeds, and the
+> "BoutRead at signing" table was never what the offer showed. Read docs/TURNPRO6_RESULT.md instead.
+
 # TURNGAP1 RESULT - the debut's opponent gap -> win chance curve
 
 Probe run: 2026-11-20T01:02:16. 20 boxers x 8 gaps x 10 seeds. Wall time: 823.5 s.

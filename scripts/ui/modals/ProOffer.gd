@@ -13,6 +13,7 @@ const GameMoney := preload("res://scripts/rules/GameMoney.gd")
 const ProDebut := preload("res://scripts/rules/ProDebut.gd")
 const ProCall := preload("res://scripts/rules/ProCall.gd")
 const ProOfferWire := preload("res://scripts/state/ProOfferWire.gd")
+const DebutRead := preload("res://scripts/rules/DebutRead.gd")
 const GymBills := preload("res://scripts/rules/GymBills.gd")
 const Needs := preload("res://scripts/state/Needs.gd")
 const Champs := preload("res://scripts/state/Champs.gd")
@@ -121,11 +122,13 @@ func _house(main: Node, c: Career, f: Dictionary, t: Dictionary, costs: int, run
 	head.add_child(name_l)
 	b.add_child(head)
 	var be := int(t["break_even"])
+	var read := DebutRead.card(f, t, c.day, float(c.coach.get("rating", 0.0)))
 	var purse_v := UI.money(int(t["purse"])) + (" guaranteed" if bool(t["guaranteed"]) else ", $%d less a ticket under %d (floor %s)" % [ProCall.SHORT_TICKET, be, UI.money(ProCall.PURSE_FLOOR)])
 	UI.add_rows(b, [
 		UI.kv("Debut purse", purse_v),
 		UI.kv("Ticket share past %d sold" % be, "%d%% (%d sold today)" % [int(round(float(t["share"]) * 100)), int(ProOfferWire.money(c, f, t, costs, Roster.signing_share(f))["sold"])]),
-		UI.kv("Debut", "%d weeks out, a debutant %.1f under" % [int(t["debut_weeks"]), float(t["opp_gap"])]),
+		UI.kv("Debut", "%d weeks out, %s" % [int(t["debut_weeks"]), DebutRead.words(t)]),
+		UI.kv("Win chance", "about %d%%, a draw %d%%" % [roundi(float(read["win"]) * 100.0), roundi(float(read["draw"]) * 100.0)], UI.GREEN if float(read["win"]) >= 0.5 else UI.FG),   # TURNPRO6: the debut as the bout will be fought (DebutRead)
 		UI.kv("After the debut", "+%s a win, up to %s" % [UI.money(int(t["step"])), UI.money(int(t["top"]))]),
 	])
 	if float(t.get("factor", 1.0)) < 1.0:

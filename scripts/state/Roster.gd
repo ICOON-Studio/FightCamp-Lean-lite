@@ -22,6 +22,7 @@ const GymSpend := preload("res://scripts/state/GymSpend.gd")
 const HomeJuniors := preload("res://scripts/state/HomeJuniors.gd")
 const StarDeal := preload("res://scripts/rules/StarDeal.gd")
 const Loyalty := preload("res://scripts/rules/Loyalty.gd")
+const DebutOpp := preload("res://scripts/rules/DebutOpp.gd")   # TURNPRO6: the debut opponent, shared with the offer's read
 const ProOfferWire := preload("res://scripts/state/ProOfferWire.gd")   # S523 TURNPRO1B: two houses, one ask, 14 days
 
 ## The goal a new signing brings: a booked bout and her engine up inside a month - her debut, or her next bout when she
@@ -50,7 +51,7 @@ const PRO_ROUNDS := 4
 const PRO_DEBUT_WEEKS := 4
 ## Her pro debut opponent: a fellow debutant at about her level (rating = her night's strength minus this).
 const PRO_OPP_GAP := 1.0
-const PRO_OPP_NAMES := ["Kayleigh Doran", "Stacey Mills", "Jodie Kerr", "Paige Whitlow"]
+const PRO_OPP_NAMES := DebutOpp.NAMES_F   # TURNPRO6: the names live with the opponent's rule (men have their own list there)
 
 const TRIAL_FALLBACK := {
 	"trial_open": ["{name} is in for a trial at {gym}."],
@@ -300,11 +301,9 @@ static func turn_pro(c: Career, house := "") -> Dictionary:
 	f["weekly_salary"] = 0
 	for x in f["offers"]:
 		x["answered"] = true
-	var opp_name: String = PRO_OPP_NAMES[posmod(c.day, PRO_OPP_NAMES.size())]
-	var night := BoutRules.fight_power(f["stats"], {}, 0, "", true)   # a professional with no camp yet (NO_CAMP_EDGE)
-	var opp := {"name": opp_name, "first": opp_name.split(" ")[0], "club": "%s stable" % o["promoter"], "age": 24,
-		"stance": "orthodox", "style": "Boxer-puncher", "w": 0, "l": 0, "rating": snappedf(night - float(deal.get("opp_gap", PRO_OPP_GAP)), 0.1),
-		"threat": "Heavy right hand", "weak": "Fades after round 3", "div": f["div"], "pro": true}
+	# TURNPRO6 (S533): the opponent comes from DebutOpp, the one rule the offer's shown chance (DebutRead) also reads.
+	var opp := DebutOpp.make(f, float(deal.get("opp_gap", PRO_OPP_GAP)), c.day, str(o["promoter"]))
+	var opp_name: String = opp["name"]
 	f["bout"] = {"opp": opp, "day": debut_day(c.day, int(deal.get("debut_weeks", PRO_DEBUT_WEEKS))), "weighed": false, "made": false, "done": false,
 		"film": BoutRules.FILM_DEPTH_DEFAULT, "pro": true, "rounds": PRO_ROUNDS, "purse": int(o["purse"]),
 		"tickets": true, "terms": float(o["terms"]), "deal": deal}

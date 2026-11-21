@@ -42,7 +42,7 @@ static func promoters() -> Dictionary:
 			"break_even": ProDebut.BREAK_EVEN,
 			"share": ProDebut.HER_SHARE,
 			"debut_weeks": 4,
-			"opp_gap": 1.0,
+			"opp_gap": 3.0,   ## TURNPRO6 (S533, docs/TURNPRO6_RESULT.md): the bigger gate, a debut won about 60 in 100 (10 boxers, played bouts)
 			"guaranteed": false,
 		},
 		"hf": {
@@ -53,7 +53,7 @@ static func promoters() -> Dictionary:
 			"break_even": 70,
 			"share": 0.3,
 			"debut_weeks": 6,
-			"opp_gap": 1.5,
+			"opp_gap": 6.0,   ## TURNPRO6: the safer house, won about 75 in 100
 			"guaranteed": true,
 		},
 	}

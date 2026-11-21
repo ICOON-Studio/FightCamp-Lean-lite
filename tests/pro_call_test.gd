@@ -46,7 +46,7 @@ func _test_promoters() -> void:
 	ok = ok and float(bow["share"]) == PD.HER_SHARE and float(hf["share"]) == 0.3
 	ok = ok and bool(hf["guaranteed"]) and not bool(bow["guaranteed"])
 	ok = ok and int(bow["debut_weeks"]) == 4 and int(hf["debut_weeks"]) == 6
-	ok = ok and float(bow["opp_gap"]) == 1.0 and float(hf["opp_gap"]) == 1.5
+	ok = ok and float(bow["opp_gap"]) == 3.0 and float(hf["opp_gap"]) == 6.0   # TURNPRO6: set from played bouts (docs/TURNPRO6_RESULT.md)
 	_check(ok, "promoters structure and values")
 
 func _test_who_calls() -> void:
@@ -142,7 +142,7 @@ func _test_ask_softer() -> void:
 	for entry in aa:
 		var e: Dictionary = entry
 		if str(e["kind"]) == "softer":
-			ok = str(e["answer"]) == "take" and is_equal_approx(float(e["after"]["opp_gap"]), 1.5) and int(e["after"].get("tune_ups", 0)) == 2
+			ok = str(e["answer"]) == "take" and is_equal_approx(float(e["after"]["opp_gap"]), 3.5) and int(e["after"].get("tune_ups", 0)) == 2
 	_check(ok, "ask_answers softer always take")
 
 ## Split at band edges (bow break_even=60): 80 (20 over)=take, 65 (5 over)=counter, 64 (4 over)=wont.
@@ -157,7 +157,7 @@ func _test_ask_split() -> void:
 			found80 = true
 			ok = ok and str(e["answer"]) == "take"
 			ok = ok and is_equal_approx(float(e["after"]["share"]), 0.6)
-			ok = ok and is_equal_approx(float(e["after"]["opp_gap"]), 0.5)
+			ok = ok and is_equal_approx(float(e["after"]["opp_gap"]), 2.5)
 	var aa65: Array = PC.ask_answers(t, 65, 10)
 	var found65 := false
 	for entry in aa65:
