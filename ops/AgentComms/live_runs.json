@@ -79,6 +79,17 @@
    "agent": "claude-fable",
    "eta": "about 40 min",
    "note": "S536: 7b6ca1efe, docs/KNOWMISREAD1_RESULT.md"
+  },
+  "CARDPROTO1_CRITICS": {
+   "id": "CARDPROTO1_CRITICS",
+   "status": "running",
+   "started": "2026-11-21T23:40",
+   "title": "Card game round 1 critics: Arena code-checked + Kalli chat (SQ284)",
+   "seat": "arena",
+   "agent": "arena",
+   "branch": "arena/763077b5-fightcamp-lean-lite",
+   "chat": "https://arena.ai/agent/01a1fff7-0efb-7027-b3c3-0c82763077b5",
+   "eta": "about 30-60 min"
   }
  },
  "codex_budget": {
@@ -248,9 +259,9 @@
  },
  "CARDPROTO1": {
   "id": "CARDPROTO1",
-  "status": "running",
+  "status": "merged",
   "started": "2026-11-21T22:55",
-  "title": "Your ask: a card-game version of FightCamp, boxing first - playable browser prototype (Arena)",
+  "title": "Your ask: a card-game version of FightCamp, boxing first - playable browser prototype (Arena) - round 1 merged (PR 437), critics running",
   "seat": "arena",
   "agent": "arena",
   "branch": "arena/05f6e5d3-fightcamp-lean-lite",
