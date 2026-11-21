@@ -109,7 +109,7 @@ static func _you(c: Career) -> Control:
 	var cd := HeadCoach.card(HeadCoach.of(c.head))
 	var p := _slate()
 	p.name = "HeadCoachRow"
-	p.tooltip_text = "%s. %s %s" % [cd.get("edge", ""), _no_file(str(cd.get("chip", ""))), _no_file(str(cd.get("plain", "")))]
+	Tip.explain(p, {"title": "Your edge: %s" % cd.get("edge", ""), "what": "What you bring as head coach, from the card you picked.", "now": _no_file(str(cd.get("plain", "")))})   # TIPFIX1
 	var h := UI.hbox(12)
 	p.add_child(h)
 	var pic := PromoShot.picture(str(cd.get("photo", "")), Vector2(84, 96))
@@ -313,10 +313,11 @@ static func _role(main: Node, c: Career, r: Dictionary) -> Control:
 	var p := _chip(on, 14, 12, true)
 	p.name = "Role_" + id
 	var pay := "%s a pro night" % UI.money(int(r["per_bout"])) if int(r["per_bout"]) > 0 else "%s a week" % UI.money(int(r["wage"]))
-	p.tooltip_text = "%s. %s. %s." % [r["name"], r["effect"], pay]
+	Tip.short(p, "%s  %s" % [r["name"], pay], "%s." % r["effect"])   # TIPFIX1: a card, not one 23-word line
 	var h := UI.hbox(8)
 	_host(p).add_child(h)
-	var ic := _icon(str(ROLE_ICON.get(id, "coach")), 36, GREEN if on else INK, p.tooltip_text)
+	var ic := _icon(str(ROLE_ICON.get(id, "coach")), 36, GREEN if on else INK, "")
+	ic.tooltip_text = ""   # the role's card speaks for its icon
 	ic.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	h.add_child(ic)
 	var v := UI.vbox(2)
@@ -329,11 +330,11 @@ static func _role(main: Node, c: Career, r: Dictionary) -> Control:
 	var b := UI.button("Let go" if on else "Hire", "Btn", main.act.bind("letgorole" if on else "hirerole", id))
 	b.name = ("LetGo_" if on else "Hire_") + id
 	if on and StaffRoles.notice(id) > 0:
-		b.tooltip_text = "Let go. A week's pay, %s." % UI.money(StaffRoles.notice(id))
+		b.tooltip_text = "Takes this person off the staff; a week's notice costs %s." % UI.money(StaffRoles.notice(id))
 	elif on:
-		b.tooltip_text = "Let go."
+		b.tooltip_text = "Takes this person off the staff; the pay stops."
 	else:
-		b.tooltip_text = "Hire. %s." % pay
+		b.tooltip_text = "Puts this person on the staff for %s." % pay
 	if not on and int(r["per_bout"]) <= 0:
 		b.tooltip_text += " " + HireRunway.text_for(c, int(r["wage"]), 0)
 	v.add_child(b)

@@ -21,7 +21,7 @@ const TextScale := preload("res://scripts/ui/TextScale.gd")
 const TestJump := preload("res://scripts/ui/TestJump.gd")
 const FightPrep := preload("res://scripts/ui/FightPrep.gd")
 
-const FAULTS_AT_MOST := 42   # lower it as screens are rewritten; never raise it
+const FAULTS_AT_MOST := 4   # lower it as screens are rewritten; never raise it
 
 var _fails := 0
 var main: Node

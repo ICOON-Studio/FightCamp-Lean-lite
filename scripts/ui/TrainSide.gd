@@ -12,6 +12,9 @@ const WB := preload("res://scripts/ui/WhiteboardKit.gd")
 const TrainCoach := preload("res://scripts/ui/TrainCoach.gd")
 const Tip := preload("res://scripts/ui/Tip.gd")
 const TipCards := preload("res://scripts/ui/TipCards.gd")
+const GameMoney := preload("res://scripts/rules/GameMoney.gd")
+const ClubDeal := preload("res://scripts/rules/ClubDeal.gd")
+const ClubClasses := preload("res://scripts/rules/ClubClasses.gd")
 const DAYS := ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 const SHORT := ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 const W := 440.0
@@ -139,8 +142,7 @@ static func evening(model: Dictionary, on_day: Callable, on_class: Callable = Ca
 		h.add_child(B.face(str(s["stem"]), 26, Palette.CHOSEN if str(s["fid"]) == str(model["sel"]) else Palette.WOOD))
 		var cd: Dictionary = s["card"]
 		var top := B.lab("%d min" % roundi(float(s["min"])) + ("" if str(s["when"]) == "no bout booked" else " · " + str(s["when"])), 16, Palette.TEXT, "bold")
-		top.clip_text = true
-		top.tooltip_text = top.text
+		top.clip_text = true   # TIPFIX1: B.lab ignores the mouse; the old copy of the text never opened
 		top.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		h.add_child(top)
 		sv.add_child(h)
@@ -237,7 +239,8 @@ static func _class_button(v: VBoxContainer, kind: String, dow: int, on_class: Ca
 	var b := Button.new()
 	b.name = "ClassNight"
 	b.text = "Back to pads tonight" if kind == "class" else "Teach a class tonight: +$117"
-	b.tooltip_text = "A paying class instead of pads: +$117 a week and new members over time. The boxers drill on the bag at half the rate that evening." if kind == "pads" else "The coach holds pads again this evening: full drilling, no class money."
+	Tip.button(b, ("Swaps tonight's pads for a paying class: +%s a week, the boxers drill at %d%% on the bag." % [GameMoney.text(ClubDeal.class_cash(1)),
+		roundi(ClubClasses.BAG_SHARE * 100.0)]) if kind == "pads" else "The coach holds pads again this evening: full drilling, no class money.")   # TIPFIX1
 	b.focus_mode = Control.FOCUS_NONE
 	b.add_theme_font_size_override("font_size", 16)
 	b.pressed.connect(func(): on_class.call(dow))

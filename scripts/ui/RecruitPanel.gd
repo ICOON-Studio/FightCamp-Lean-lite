@@ -28,6 +28,8 @@ const KitIcon := preload("res://scripts/ui/KitIcon.gd")
 const GROUP_ICON := {"physical": "roadwork", "skill": "pads", "mind": "film"}
 const StatBlock := preload("res://scripts/rules/StatBlock.gd")
 const Attrs := preload("res://scripts/rules/Attrs.gd")
+const Tip := preload("res://scripts/ui/Tip.gd")
+const TipCards := preload("res://scripts/ui/TipCards.gd")
 
 
 static func build(main: Node, c: Career, a: Dictionary, picks: Array, act: String) -> VBoxContainer:
@@ -66,18 +68,19 @@ static func _attributes(f: Dictionary) -> VBoxContainer:
 	for gr in StatBlock.groups(f):
 		var keys: Array = Attrs.GROUPS[str(gr["key"])]
 		var tip := ", ".join(PackedStringArray(keys.map(func(k): return str(Attrs.LABEL.get(k, k)))))
-		col.add_child(_ceiling_row(str(GROUP_ICON[gr["key"]]), str(gr["name"]), float(gr["value"]), StatBlock.ceiling(f, str(gr["key"])), tip))
+		col.add_child(_ceiling_row(str(GROUP_ICON[gr["key"]]), str(gr["name"]), float(gr["value"]), StatBlock.ceiling(f, str(gr["key"])),
+			"This group is built from %s." % tip, "Training raises the green toward the blue ceiling."))
 	col.add_child(_ceiling_row("star", "Overall", float(StatBlock.overall(f)), float(f.get("pot", 70)),
-		"The measured level the fighter page and the roster show; the ceiling is the potential."))
+		"The measured level the fighter page and the roster show.", "The blue ceiling is how high this boxer can go."))
 	col.add_child(UI.muted("A guess until training shows the truth.", UI.SMALL, true))
 	return col
 
 
-static func _ceiling_row(icon: String, name: String, now: float, cap: float, tip: String) -> HBoxContainer:
+## TIPFIX1: each row is a SHORT card (was the group's three attribute names, under six words).
+static func _ceiling_row(icon: String, name: String, now: float, cap: float, what: String, todo: String) -> HBoxContainer:
 	var row := UI.hbox(8)
-	row.tooltip_text = tip
 	row.mouse_filter = Control.MOUSE_FILTER_PASS
-	row.add_child(KitIcon.icon(icon, 24, WoodKit.HEAD, tip))
+	row.add_child(KitIcon.icon(icon, 24, WoodKit.HEAD, what))
 	var l := UI.label(name, UI.BODY)
 	l.custom_minimum_size = Vector2(130, 0)
 	row.add_child(l)
@@ -99,6 +102,7 @@ static func _ceiling_row(icon: String, name: String, now: float, cap: float, tip
 	stack.add_child(now_bar)
 	row.add_child(stack)
 	row.add_child(UI.label("%d  up to %d" % [StatBlock.shown(now), StatBlock.shown(cap)], UI.BODY, UI.FG, "bold"))
+	Tip.short(row, name, what, todo)   # after the children: the card speaks for the icon too
 	return row
 
 
@@ -115,7 +119,9 @@ static func _who(main: Node, f: Dictionary, picks: Array, act: String) -> VBoxCo
 		col.add_child(_line("HABIT", "amber", str(h.get("name", hs[0])), str(h.get("effect", "")) + " Can be trained out."))
 	var sig := Recruit.signature(f)
 	if sig != "":
-		col.add_child(_line("SIGNATURE", "", sig, "mastery %d%s" % [int(float(f["moves"][sig])), " - already usable" if float(f["moves"][sig]) >= 30.0 else ""]))
+		var sl := _line("SIGNATURE", "", sig, "")
+		Tip.explain(sl, TipCards.mastery(sig, float(f["moves"][sig]), float(f["moves"][sig])))   # TIPFIX1: was "mastery 51 - already usable"
+		col.add_child(sl)
 	# S396 truth pass: the AMBITION line promised "met: morale up; missed: loyalty drops" and nothing did that. It comes back
 	# with P8 (promises and loyalty, docs/STRUCTURE_DESIGN_S395.md), when keeping it does something.
 	col.add_child(UI.caps("CHOOSE ONE STARTING FOCUS - IT SETS THE FIRST MONTH"))

@@ -1,5 +1,8 @@
 # Turning pro — design map v9 (written from the code at main 55fa5a15)
 
+> S533 NOTE (main session): every number quoted here from TURNGAP1 (the debut gap curve, e.g. lines ~81, 114-118, 165) is WRONG - that probe ran one boxer on three nights. The measured curve, the fixed read and the new gaps (ticket house 3.0 = ~60 % wins, guarantee house 6.0 = ~75 %) are in docs/TURNPRO6_RESULT.md; critics judge against that page.
+
+
 Scope: the pro offer, from the call to the debut ledger: the two houses side by side, the debut opponent gap, the purse, ticket and costs asks, Stay amateur and the lapse. The ladder after the debut is a handoff only. Method (owner S530): section 1 is written only from code opened for this map at main `55fa5a15c898741fe9bda9f1cb6051d59d8aab3e`. Every **CODE** line names the file, the function and the lines, and is true at that commit. **ESTIMATE** means a proposal, a sum worked on paper or a measured result that is not code. **CUT** means do not build or show it. Inputs: map v8, its critic (6/6/7), the critic from the earlier review (6/7/6; the v8 review queued as SQ261 has not landed, so `DESIGN_TURNPRO1_V8_CRITIC_DOLA.md` holds only the brief), `docs/TURNGAP1_RESULT.md` and `ops/research/CRITIC_PACK.md`. Godot was not run.
 
 Words used in this map: the **ticket house** is the house that pays from the gate. The **guarantee house** pays a fixed purse. **Base sales** means the debut ticket forecast. A **gap** is the number taken off the opponent's rating, so a higher gap means an easier opponent.

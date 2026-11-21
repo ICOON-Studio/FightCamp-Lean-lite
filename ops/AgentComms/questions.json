@@ -8416,6 +8416,23 @@
       "note": null,
       "answered_at": null,
       "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-286",
+      "asked": "2026-11-21T03:13:55.628466+00:00",
+      "session": "S294",
+      "text": "Pro debut opponents: one fixed strength per promoter, or picked to each boxer? Measured on 10 boxers, the same opponent strength gives anywhere from about 30 to 90 in 100 wins depending on the boxer. Today each promoter has one fixed gap (the bigger-gate house about 60 in 100 on average, the safer house about 75), so a weak boxer can get a debut he mostly loses and a strong one a walkover. A real matchmaker picks the opponent to the boxer. Option: each house aims at its chance (about 60 or 75 in 100) and the game picks the opponent to fit, using the win estimate we just fixed.",
+      "options": [
+        "Pick to each boxer",
+        "Keep one fixed strength"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-286_0_TURNPRO6_RESULT.md"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
     }
   ]
 }

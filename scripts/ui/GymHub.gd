@@ -208,6 +208,7 @@ static func _pin(icon: String, count: int) -> Control:
 	var mark := KitIcon.icon(icon, 34, Palette.TEXT)
 	mark.position = Vector2(PIN - 34.0, PIN - 34.0) * 0.5
 	mark.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	mark.tooltip_text = ""   # TIPFIX1: the pin ignores the mouse, so its icon's name never opened; the plate names the place
 	pin.add_child(mark)
 	if count > 0 and not MenuFx.instant:
 		pin.ready.connect(func():

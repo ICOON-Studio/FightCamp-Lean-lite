@@ -12,6 +12,7 @@ const Membership := preload("res://scripts/rules/Membership.gd")
 const GymSpend := preload("res://scripts/state/GymSpend.gd")
 const GymBonus := preload("res://scripts/rules/GymBonus.gd")
 const HomeJuniors := preload("res://scripts/state/HomeJuniors.gd")
+const Tip := preload("res://scripts/ui/Tip.gd")
 
 const PAINT := "res://assets/ui/dues/dues_%s_cut.png"
 const MONTHS := ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
@@ -138,8 +139,10 @@ static func mark(band: String, px: int) -> TextureRect:
 	pic.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	pic.texture = _paint(band)
 	pic.mouse_filter = Control.MOUSE_FILTER_STOP
-	pic.tooltip_text = str((Membership.DUES.get(band, Membership.DUES["standard"]) as Dictionary)["name"])
 	Halo.cutout(pic)
+	# TIPFIX1: was the band's bare name ("Standard"); now what the band charges and where it is changed
+	Tip.short(pic, "Dues band: %s" % str((Membership.DUES.get(band, Membership.DUES["standard"]) as Dictionary)["name"]),
+		"Each member pays %s a month at this band." % UI.money(Membership.fee(band)), "Change the band on the Dues tab.")
 	return pic
 
 

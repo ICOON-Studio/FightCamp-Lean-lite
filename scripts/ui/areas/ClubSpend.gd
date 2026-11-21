@@ -80,13 +80,14 @@ static func _upgrade(main: Node, c: Career, u: Dictionary, net: int) -> Dictiona
 		effect = "Fitness classes, %s a week, once a second club coach runs them." % UI.money(int(u["value"]))
 	if owned:
 		effect = "Ours. " + effect
+	var does := effect   # TIPFIX1: what it buys, kept for the NOT YET card when the reason takes the line
 	if grey and reason != "":
 		effect = reason
 	var buttons: Array = []
 	if not owned:
 		buttons.append(_btn(main, "Buy", "Buy_" + id, "buyup", id, why))
 	return _pack(id, str(SHORT.get(id, u["name"])), price, "ours" if owned else UI.money(price), str(ICONS.get(id, "money")),
-		effect, added, delta, grey, reason, owned, false, false, price, buttons, c, net)
+		effect, added, delta, grey, reason, owned, false, false, price, buttons, c, net, does)
 
 
 static func _evening(main: Node, c: Career, net: int) -> Dictionary:
@@ -99,13 +100,14 @@ static func _evening(main: Node, c: Career, net: int) -> Dictionary:
 		added = StaffRoles.COACH_MEMBERS * roundi(float(Membership.fee(c.dues_band)) / GymBills.WEEKS_A_MONTH)
 		delta = added - StaffRoles.EVENING_WAGE
 	var effect := "Carries %d more members, %s a week." % [StaffRoles.COACH_MEMBERS, UI.money(StaffRoles.EVENING_WAGE)]
+	var does := effect
 	if grey:
 		effect = reason
 	var buttons: Array = [_btn(main, "Hire", "EveningAdd", "eveningcoach", "add", "")]
 	if c.extra_coaches > 0:
 		buttons.append(_btn(main, "Let one go", "EveningLess", "eveningcoach", "less", ""))
 	return _pack("evening", "Second evening coach", StaffRoles.EVENING_WAGE, "%s a week" % UI.money(StaffRoles.EVENING_WAGE),
-		"coach", effect, added, delta, grey, reason, false, false, false, 0, buttons, c, net)
+		"coach", effect, added, delta, grey, reason, false, false, false, 0, buttons, c, net, does)
 
 
 static func _show(main: Node, c: Career, net: int) -> Dictionary:
@@ -121,13 +123,14 @@ static func _show(main: Node, c: Career, net: int) -> Dictionary:
 	var pv := GymSpend.show_preview(c)
 	var effect := "The night: %s to %s. One show every %d weeks." % [UI.signed(int(pv["net_lo"])), UI.signed(int(pv["net_hi"])), ClubShow.EVERY_DAYS / 7]
 	var grey := why != ""
+	var does := effect
 	if grey:
 		effect = why_tip(why)
 	var label := "Book"
 	if why != "" and why != "not enough cash":
 		label = Clock.fmt(int(c.show.get("last", 0)) + ClubShow.EVERY_DAYS - ClubShow.LEAD_DAYS)
 	return _pack("show", "Club show", ClubShow.COST, UI.money(ClubShow.COST), "booked", effect, 0, 0, grey, effect if grey else "",
-		false, false, false, ClubShow.COST, [_btn(main, label, "BookShow", "bookshow", "", why)], c, net)
+		false, false, false, ClubShow.COST, [_btn(main, label, "BookShow", "bookshow", "", why)], c, net, does)
 
 
 static func _grant(main: Node, c: Career, net: int) -> Dictionary:
@@ -142,7 +145,7 @@ static func _grant(main: Node, c: Career, net: int) -> Dictionary:
 		effect = "Once a year. Odds follow the gym's name." if why == "" else why_tip(why)
 	var grey := why != "" and not held
 	return _pack("grant", "Club grant bid", 0, "free", "money", effect, 0, 0, grey, effect if grey else "",
-		false, false, held, 0, [_btn(main, "Bid", "GrantBid", "grantbid", "", why)], c, net)
+		false, false, held, 0, [_btn(main, "Bid", "GrantBid", "grantbid", "", why)], c, net, "Once a year. Odds follow the gym's name.")
 
 
 static func _move(main: Node, c: Career, net: int) -> Dictionary:
@@ -159,6 +162,7 @@ static func _move(main: Node, c: Career, net: int) -> Dictionary:
 	var reason := why_tip(loan_why) if why != "" and loan_why != "" else "Not needed yet: your gym still has room for more members."
 	var effect := "Holds %d members. Rent up %s a week. Or %s down and %s a month for %d months." % [int(nx["cap"]), UI.money(extra),
 		UI.money(int(GymUpgrades.LOAN["down"])), UI.money(int(GymUpgrades.LOAN["month"])), int(GymUpgrades.LOAN["months"])]
+	var does := "Holds %d members. Rent goes up %s a week." % [int(nx["cap"]), UI.money(extra)]
 	if grey:
 		effect = reason
 	var loan_btn := _btn(main, "Move on a loan", "MoveLoan", "moveloan", "", loan_why)
@@ -166,11 +170,11 @@ static func _move(main: Node, c: Career, net: int) -> Dictionary:
 	var lump := price if why == "" else int(GymUpgrades.LOAN["down"])
 	var delta := -extra if why == "" else -extra - roundi(float(GymUpgrades.LOAN["week"]))
 	return _pack("move", _no_area(str(nx["name"])), price, UI.money(price), "members", effect, 0, delta, grey, reason if grey else "",
-		false, false, false, lump, [cash_btn, loan_btn], c, net)
+		false, false, false, lump, [cash_btn, loan_btn], c, net, does)
 
 
 static func _pack(id: String, title: String, price: int, price_text: String, icon: String, effect: String, added: int, delta: int,
-		grey: bool, reason: String, owned: bool, unbuilt: bool, held: bool, lump: int, buttons: Array, c: Career, net: int) -> Dictionary:
+		grey: bool, reason: String, owned: bool, unbuilt: bool, held: bool, lump: int, buttons: Array, c: Career, net: int, does: String = "") -> Dictionary:
 	var afford := not grey and not owned and not unbuilt and not held and (lump <= 0 or c.cash >= lump)
 	var earn := added if afford else 0
 	var payback := ""
@@ -180,7 +184,7 @@ static func _pack(id: String, title: String, price: int, price_text: String, ico
 	return {
 		"id": id, "title": title, "price": price, "price_text": price_text, "icon": icon, "effect": effect,
 		"runway": runway, "payback": payback, "net_from": net, "net_to": net + delta if delta != 0 and not owned and not held else net, "earn": earn, "grey": grey, "reason": reason, "owned": owned,
-		"unbuilt": unbuilt, "held": held, "affordable": afford, "buttons": buttons,
+		"unbuilt": unbuilt, "held": held, "affordable": afford, "buttons": buttons, "does": does if does != "" else effect,
 	}
 
 

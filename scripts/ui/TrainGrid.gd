@@ -160,8 +160,20 @@ static func _morning(d: Dictionary, cb: Dictionary) -> Control:
 		ct.name = "Coached_%d" % i
 		ct.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		v.add_child(ct)
-	Tip.explain(t, TipCards.morning(name, str(am["intensity"]), B.stat_word(str(am["stat"])) if str(am["stat"]) != "" else "", float(am["gain"]), float(am["kg"]), str(tag.get("long", ""))))
+	Tip.explain(t, TipCards.morning(name, str(am["intensity"]), B.stat_word(str(am["stat"])) if str(am["stat"]) != "" else "", float(am["gain"]), float(am["kg"]), _coached_line(tag)))
 	return t
+
+
+## TIPFIX1: the coached morning in one plain sentence, one number (was "Coached 1-to-1: Power (x1.25)", three numbers and
+## "x1.25"). The bonus is the dealt multiplier the tile's own tag carries ({short: "1-TO-1 x1.25" | "SHARED x1.15"}).
+static func _coached_line(tag: Dictionary) -> String:
+	if tag.is_empty():
+		return ""
+	var short := str(tag.get("short", ""))
+	var more := roundi((float(short.get_slice("x", short.get_slice_count("x") - 1)) - 1.0) * 100.0)
+	if short.begins_with("SHARED"):
+		return "Your coach shares this morning with a teammate: the gain counts %d%% more." % more
+	return "Your coach takes this morning one to one: the gain counts %d%% more." % more
 
 
 static func _evening(d: Dictionary, cb: Dictionary, sel_day: int, f: Dictionary) -> Control:
@@ -231,6 +243,7 @@ static func _evening(d: Dictionary, cb: Dictionary, sel_day: int, f: Dictionary)
 		_:
 			v.add_child(_pic("rest_night"))
 			v.add_child(_center("Rest", 18, Palette.MUTED))
+			Tip.short(t, "Rest night", "No evening session: your boxer recovers for the next morning.", "Click the evening to set it on the right.")   # TIPFIX1
 	return t
 
 
@@ -243,8 +256,7 @@ static func _pic(id: String) -> Control:
 static func _center(text: String, px: int, col: Color) -> Label:
 	var l := B.lab(text, px, col, "bold")
 	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	l.clip_text = true
-	l.tooltip_text = text
+	l.clip_text = true   # TIPFIX1: no tooltip: B.lab ignores the mouse, so the old copy of the text never opened
 	return l
 
 

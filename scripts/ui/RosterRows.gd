@@ -128,7 +128,9 @@ static func _col_fighter(f: Dictionary, needs: bool, col: Array) -> Control:
 	# S442 UX audit: the road word is the step being worked on, not one reached ("3-1 Nationals ready" read as ready).
 	if road != "" and road != "Pro" and not road.ends_with(" belt"):
 		road = "Next: " + road
-	_place(box, "fighter", col, "%s: %s" % [str(f.get("name", "")), road] if road != "" else "")
+	_place(box, "fighter", col)
+	if road != "":   # TIPFIX1: was "<name>: Next: Nationals ready" - the name again, and no word on what the road is
+		Tip.short(box, road, "Where your boxer stands on the road from club bouts to pro.", "Click the row to open the boxer.")
 	box.add_theme_constant_override("separation", 12)
 	box.add_child(Bits.face_pin(str(f.get("face", "")), needs))
 	var who := UI.vbox(2)
@@ -250,7 +252,9 @@ static func _col_weight(d: Dictionary, col: Array) -> Control:
 
 static func _col_coach(d: Dictionary, col: Array) -> Control:
 	var box := UI.vbox(10)
-	_place(box, "coach", col, str(d.get("why", "")))
+	_place(box, "coach", col)
+	if str(d.get("why", "")) != "":   # TIPFIX1: was the bare reason ("Goal: at risk, 28 days")
+		Tip.explain(box, {"title": "Coach's read", "what": "What your coach would work on next with this boxer.", "now": str(d["why"]) + "."})
 	var top := HBoxContainer.new()
 	top.add_theme_constant_override("separation", 10)
 	top.mouse_filter = Control.MOUSE_FILTER_IGNORE

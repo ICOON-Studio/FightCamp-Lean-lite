@@ -68,7 +68,7 @@ static func card(cd: Dictionary, on: bool, on_pick: Callable) -> Control:
 	note.name = "CoachMin"
 	note.clip_text = true
 	note.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	note.tooltip_text = ("Pads with your coach this week: %s (75 minutes a night)." % str(cd["note"])) if boxer else str(cd["note"])
+	# TIPFIX1: no tooltip: B.lab ignores the mouse, so this line's old copy never opened
 	tags.add_child(note)
 	v.add_child(tags)
 	if not (cd["spark"] as Array).is_empty():

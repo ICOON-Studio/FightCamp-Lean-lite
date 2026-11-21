@@ -11,36 +11,19 @@ const Membership := preload("res://scripts/rules/Membership.gd")
 const Data := preload("res://scripts/state/Data.gd")
 
 
+## TIPFIX1 (the standard, section 2: at most four rows, two linked words): the week's money in, out and the net; the
+## Club page's Money tab keeps every line.
 static func money(c: Career) -> Dictionary:
-	var inc := Sim.weekly_income(c)
-	var out := Sim.weekly_costs(c)
-	var rows: Array = [["Dues", "+" + GameMoney.text(int(inc["dues"])), "", ""]]
-	if int(inc["classes"]) > 0:
-		rows.append(["Evening classes", "+" + GameMoney.text(int(inc["classes"])), "", ""])
-	if int(inc["sponsors"]) > 0:
-		rows.append(["Sponsors", "+" + GameMoney.text(int(inc["sponsors"])), "", ""])
-	if int(inc.get("bjj", 0)) > 0:
-		rows.append(["BJJ dues", "+" + GameMoney.text(int(inc["bjj"])), "", ""])
-	rows.append(["Rent and fees", "-" + GameMoney.text(int(out["upkeep"])), "", ""])
-	if int(out["staff"]) > 0:
-		rows.append(["Coach", "-" + GameMoney.text(int(out["staff"])), "", ""])
-	if int(out["fighters"]) > 0:
-		rows.append(["Stipends", "-" + GameMoney.text(int(out["fighters"])), "", ""])
-	if int(out.get("bjj", 0)) > 0:
-		rows.append(["No-gi classes' coach", "-" + GameMoney.text(int(out["bjj"])), "", ""])
-	# S397 money bites (GymSpend / GymBills): the new lines, so the rows still add up to the net; rank 5's loan too.
-	for k in [["fitness", "Fitness classes"], ["juniors", "Juniors' dues"]]:
-		if int(inc.get(k[0], 0)) > 0:
-			rows.append([k[1], "+" + GameMoney.text(int(inc[k[0]])), "", ""])
-	for k in [["power", "Heating, power, insurance"], ["staff_roles", "Staff jobs"], ["kit", "Kit budget"], ["upgrades", "Upgrades' upkeep"],
-			["juniors_coach", "Juniors' coach"], ["loan", "Loan"], ["fitout", "Fit-out loan"]]:
-		if int(out.get(k[0], 0)) > 0:
-			rows.append([k[1], "-" + GameMoney.text(int(out[k[0]])), "", ""])
-	var net := int(inc["total"]) - int(out["total"])
-	rows.append(["Net a week", ("+" if net >= 0 else "-") + GameMoney.text(absi(net)), "▲" if net >= 0 else "▼", "good" if net >= 0 else "bad"])
-	var means := "the cash grows by %s a week." % GameMoney.text(net) if net >= 0 else \
-		"the cash lasts about %d weeks at this net." % GymBills.runway_weeks(c.cash, net)
-	return {"title": "Money a week", "rows": rows, "means": means, "keys": ["runway", "dues", "bill"]}
+	var inc := int(Sim.weekly_income(c)["total"])
+	var out := int(Sim.weekly_costs(c)["total"])
+	var net := inc - out
+	var rows: Array = [["Comes in", "+" + GameMoney.text(inc), "", "good"], ["Goes out", "-" + GameMoney.text(out), "", "bad"],
+		["Net a week", ("+" if net >= 0 else "-") + GameMoney.text(absi(net)), "▲" if net >= 0 else "▼", "good" if net >= 0 else "bad"]]
+	var now := "The cash grows by %s a week." % GameMoney.text(net) if net >= 0 else \
+		"At this net the cash lasts about %d weeks." % GymBills.runway_weeks(c.cash, net)
+	return {"kind": "full", "title": "Money a week", "what": "What the gym takes in and pays out in a normal week.",
+		"rows": rows, "now": now, "moves": "Dues, classes and sponsors bring money in; staff, stipends and bills take it out.",
+		"do": "Open the Club page, Money tab, to see every line.", "keys": ["runway", "dues"]}
 
 
 static func date(c: Career) -> Dictionary:

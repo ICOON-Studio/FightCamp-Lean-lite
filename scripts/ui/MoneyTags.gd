@@ -8,6 +8,7 @@ const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const KitIcon := preload("res://scripts/ui/KitIcon.gd")
+const Tip := preload("res://scripts/ui/Tip.gd")
 
 
 static func rank(items: Array) -> Array:
@@ -83,11 +84,14 @@ static func _row(it: Dictionary) -> PanelContainer:
 
 static func _tag(it: Dictionary) -> Control:
 	var tag := _row(it)
+	tag.tooltip_text = ""
+	Tip.explain(tag, buy_card(it))   # TIPFIX1: before the row's children, so the buttons keep their own reasons
 	var row := UI.hbox(10)
 	tag.add_child(row)
 	var icon := str(it.get("icon", "money"))
 	if KitIcon.has_icon(icon):
 		var mark := KitIcon.icon(icon, 26, WoodKit.INK)
+		mark.tooltip_text = ""   # TIPFIX1: the icon's bare name ("Weights") hid the row's card
 		mark.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		row.add_child(mark)
 	var text := UI.vbox(0)
@@ -133,7 +137,8 @@ static func _tag(it: Dictionary) -> Control:
 static func _later(it: Dictionary) -> Control:
 	var tag := _row(it)
 	if str(it.get("reason", "")) != "":
-		tag.tooltip_text = str(it.get("reason", ""))
+		tag.tooltip_text = ""
+		Tip.explain(tag, later_card(it))   # TIPFIX1: the line shows the reason; the card adds what it would buy
 	var row := UI.hbox(10)
 	tag.add_child(row)
 	var text := UI.vbox(0)
@@ -155,6 +160,31 @@ static func _later(it: Dictionary) -> Control:
 			(b as Button).custom_minimum_size = Vector2(96, 0)
 			row.add_child(b)
 	return tag
+
+
+## TIPFIX1: a buy's FULL card. The line already prints what it does; the card says what it does to the money.
+static func buy_card(it: Dictionary) -> Dictionary:
+	var rows: Array = []
+	var from_net := int(it.get("net_from", 0))
+	var to_net := int(it.get("net_to", from_net))
+	if to_net != from_net:
+		rows.append(["Net a week now", UI.signed(from_net), "", ""])
+		rows.append(["After this", UI.signed(to_net), "", "good" if to_net > from_net else "bad"])
+	if str(it.get("runway", "")) != "":
+		rows.append(["Cash", str(it["runway"]), "", ""])
+	if str(it.get("payback", "")) != "":
+		rows.append(["Pays back in", str(it["payback"]).trim_prefix("payback "), "", "good"])
+	var mine := bool(it.get("owned", false)) or bool(it.get("held", false))
+	return {"kind": "full", "title": str(it.get("title", "")), "what": "What this buy does to the week's money and the cash.",
+		"rows": rows, "do": "" if mine else "Press the button on this line to go ahead."}
+
+
+## TIPFIX1: a NOT YET line's card: what it would buy, and why it waits (the line shows only the reason).
+static func later_card(it: Dictionary) -> Dictionary:
+	var why := str(it.get("reason", ""))
+	why = why.substr(0, 1).to_upper() + why.substr(1)
+	return {"kind": "full", "title": "%s  %s" % [it.get("title", ""), it.get("price_text", "")], "what": str(it.get("does", it.get("effect", ""))),
+		"now": why if why.begins_with("Not") else "Not yet: " + why, "moves": "It moves up to the list above once the gym can use it."}
 
 
 static func _short_button(b: Button) -> void:

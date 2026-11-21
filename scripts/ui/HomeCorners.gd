@@ -7,6 +7,7 @@ extends RefCounted
 
 const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
+const Tips := preload("res://scripts/ui/Tips.gd")
 const HomeMatch := preload("res://scripts/ui/HomeMatch.gd")
 const HomeSide := preload("res://scripts/ui/HomeSide.gd")
 const FirstHour := preload("res://scripts/rules/FirstHour.gd")
@@ -67,7 +68,9 @@ static func _job(main: Node, c: Career) -> Control:
 	said.name = "JobWords"
 	said.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	row.add_child(said)
-	plate.tooltip_text = str(words[1])
+	# TIPFIX1: was the plate's own sentence again. A narrow window hides the sentence, so then the card carries it.
+	Tips.card(plate, func(): return {"kind": "button", "lines": ["Opens Fights, where this bout or job is settled."] if said.is_visible_in_tree()
+		else [str(words[1]), "Click to open Fights, where it is settled."]})
 	return plate
 
 

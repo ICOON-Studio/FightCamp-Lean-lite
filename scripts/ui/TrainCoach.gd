@@ -9,6 +9,9 @@ extends RefCounted
 const B := preload("res://scripts/ui/TrainBits.gd")
 const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
+const Tip := preload("res://scripts/ui/Tip.gd")
+const GameMoney := preload("res://scripts/rules/GameMoney.gd")
+const ClubDeal := preload("res://scripts/rules/ClubDeal.gd")
 
 const H := 42.0
 const WORDS := {"spar": ["SPARRING", "night - referee only"], "corner": ["IN THE CORNER", "fight day"], "closed": ["CLOSED", "Sunday"],
@@ -81,9 +84,24 @@ static func _note(kind: String, dow: int) -> PanelContainer:
 	for k in 2:
 		var l := B.lab(str(w[k]), 16, col if k == 0 else Palette.MUTED, "caps" if k == 0 else "bold")
 		l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		l.clip_text = true
-		l.tooltip_text = "%s: %s" % [str(w[0]).capitalize(), str(w[1])]
+		l.clip_text = true   # TIPFIX1: no tooltip on the words: B.lab ignores the mouse, so it never opened
 		v.add_child(l)
-	p.tooltip_text = {"spar": "Sparring night: your coach referees, no pads.", "corner": "A bout tonight: your coach works the corner.",
-		"closed": "The gym is closed on Sunday evening.", "class": "Class night: your coach teaches a paying class (+$117); the boxers drill on the bag at half the rate."}.get(kind, "No coached evening.")
+	var card: Array = _says(kind)
+	Tip.short(p, str(card[0]), str(card[1]), str(card[2]))
 	return p
+
+
+## TIPFIX1: the evening's SHORT card [title, what, your move] (was "No coached evening.", "Closed: Sunday"). Nothing on these
+## nights is the player's to change except a class night, so most have no move.
+static func _says(kind: String) -> Array:
+	match kind:
+		"spar":
+			return ["Sparring night", "Your coach referees the sparring, so nobody gets pads tonight.", ""]
+		"corner":
+			return ["In the corner", "A bout tonight: your coach works the corner, not the pads.", ""]
+		"closed":
+			return ["Closed", "The gym shuts on Sunday evenings, so there is no coaching.", ""]
+		"class":
+			return ["Class night", "Your coach teaches a paying class for %s; boxers work the bag." % GameMoney.text(ClubDeal.class_cash(1)),
+				"Open this evening to switch back to pads."]
+	return ["No coaching", "Your coach has no session this evening, so the boxers rest.", ""]
