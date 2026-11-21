@@ -11,11 +11,9 @@
     screenEl.textContent = 'rules.js did not load next to index.html';
     return;
   }
-
-  var S = { screen: 'pick', game: null, fight: null, busy: false, reveal: null, pending: null };
+  var S = { screen: 'pick', game: null, fight: null, busy: false, reveal: null, pending: null, mode: 'react' };
   var STAT_KEYS = ['power', 'speed', 'stamina', 'chin', 'technique', 'defence'];
   var seedCount = 0;
-
   /* ---------- little helpers ------------------------------------------- */
   function h(tag, cls, text) {
     var el = document.createElement(tag);
@@ -39,8 +37,8 @@
     var r = side.stamina / side.maxStamina;
     return side.stamina <= 0 ? 'empty' : r < 0.2 ? 'reeling' : r < 0.45 ? 'breathing hard' : r < 0.75 ? 'working' : 'fresh';
   }
-  function headWord(side) { return side.head >= 70 ? 'out on his feet' : side.head >= 40 ? 'hurt' : side.head >= 18 ? 'marked up' : 'clean'; }
-  function bodyWord(side) { return side.body >= 60 ? 'holding on' : side.body >= 30 ? 'sore' : side.body >= 10 ? 'working' : 'fresh'; }
+  function headWord(side) { return side.head >= 70 ? 'badly hurt' : side.head >= 40 ? 'hurt' : side.head >= 18 ? 'marked up' : 'clean'; }
+  function bodyWord(side) { return side.body >= 60 ? 'body badly hurt' : side.body >= 30 ? 'sore' : side.body >= 10 ? 'working' : 'fresh'; }
   function statWords(key, v) {
     var bands = {
       power: ['feather-fisted', 'ordinary', 'heavy hands', 'one-punch power'],
@@ -90,16 +88,14 @@
     return b;
   }
   function setWhere(text) { whereEl.textContent = text; }
-
   /* ---------- the pick screen ------------------------------------------- */
   var PICKABLE = ['ada', 'mara'];
-
   function renderPick() {
     setWhere('step 1 of 4 - pick your boxer');
     clear(screenEl);
     add(screenEl,
       h('h1', null, 'Pick your boxer'),
-      h('p', 'lead muted', 'You are the coach. Your boxer does the fighting; you pick the camp, read the other man, and shout the corners. Two fighters are free this month.'));
+      h('p', 'lead muted', 'You are the coach. Your boxer does the fighting; you pick the camp, read the opponent, and shout the corners. Two fighters are free this month.'));
     var grid = h('div', 'pick');
     PICKABLE.forEach(function (id) {
       var b = R.boxerById(id);
@@ -118,10 +114,9 @@
     add(screenEl, grid);
     var how = h('div', 'sheet');
     add(how, h('div', 'tiny', 'How it plays'));
-    add(how, h('p', 'muted', 'Camp: four weeks, one drill a week - the drills decide which cards he brings. Scouting: you see his style and some of his habits. Fight: three rounds of six exchanges, both corners play one card face down and turn them over together. Corner: one card between rounds, and each one costs something. Every card is a trade: what it is worth depends on his card, the distance, and what you know about him.')); 
+    add(how, h('p', 'muted', 'Camp: four weeks, one drill a week - the drills decide which cards your boxer brings. Scouting: you see the opponent’s style and some habits. Fight: three rounds of six exchanges, both corners play one card face down and turn them over together. Corner: one card between rounds, and each one costs something. Every card is a trade: what it is worth depends on the opponent’s card, the distance, and what you know from film.'));
     add(screenEl, how);
   }
-
   function startGame(boxerId) {
     seedCount += 1;
     var seed = (Date.now() % 100000) * 100 + seedCount;
@@ -131,7 +126,6 @@
     S.screen = 'camp';
     render();
   }
-
   /* ---------- camp ------------------------------------------------------- */
   function renderCamp() {
     var g = S.game;
@@ -140,7 +134,6 @@
     var boxer = R.boxerById(g.playerBoxerId);
     add(screenEl, h('h1', null, 'Camp - week ' + (g.week + 1) + ' of 4'),
       h('p', 'lead muted', 'Four weeks, one drill a week. Training does not make you better at everything: it decides which cards your boxer brings to the fight.'));
-
     var layout = h('div', 'camp');
     var offers = h('div', 'offers');
     g.offers[g.week].forEach(function (id) {
@@ -159,7 +152,6 @@
       });
       offers.appendChild(el);
     });
-
     var side = h('aside', 'side');
     add(side, h('div', 'tiny', boxer.name + ' - ' + R.STYLES[boxer.style].name));
     var statGrid = h('div', 'stats');
@@ -189,15 +181,13 @@
     add(layout, offers, side);
     add(screenEl, layout);
   }
-
   /* ---------- scouting file --------------------------------------------- */
   function renderScout() {
     var g = S.game, sc = g.scouting;
     setWhere('step 3 of 4 - the scouting file');
     clear(screenEl);
     add(screenEl, h('h1', null, 'The scouting file'),
-      h('p', 'lead muted', sc.summary + ' A habit is not a weakness by itself: it tells you what he will do next in one situation, and that is where your money is.'));
-
+      h('p', 'lead muted', sc.summary + ' A habit is not a weakness by itself: it forecasts the opponent’s choice in one situation.'));
     var layout = h('div', 'file');
     var sheet = h('div', 'sheet');
     add(sheet, h('h2', null, sc.name), h('div', 'stl muted', sc.styleName + ' - ' + (R.STYLES[sc.style].blurb)));
@@ -209,11 +199,10 @@
     add(sheet, stats);
     add(sheet, h('div', 'tiny', 'On film (' + sc.known.length + ' of ' + (sc.known.length + sc.fleeting) + ')'));
     var habits = h('div', 'habits');
-    if (!sc.known.length) habits.appendChild(h('div', 'habit blank', 'Nothing. You will have to read him live.'));
+    if (!sc.known.length) habits.appendChild(h('div', 'habit blank', 'Nothing on film. Read the opponent live.'));
     sc.known.forEach(function (k) { habits.appendChild(h('div', 'habit', k.text)); });
     if (sc.fleeting) habits.appendChild(h('div', 'habit blank', sc.fleeting === 1 ? 'One habit nobody has put on film for you.' : sc.fleeting + ' habits nobody has put on film for you.'));
     add(sheet, habits);
-
     var right = h('div', 'sheet');
     add(right, h('h2', null, 'Your corner'), h('div', 'muted', 'What camp built:'));
     var stats2 = h('div', 'stats');
@@ -225,7 +214,6 @@
     add(right, stats2, h('div', 'tiny', 'Your fight deck'), deckPeek(deckWithMods(me.deck, g.mods.add)));
     add(right, h('div', 'tiny', 'The plan'));
     add(right, h('p', 'muted', 'Three rounds, six exchanges a round. Slip the straight punches, roll the hooks, do not hook a man who is holding. Win the exchanges that suit you and stay off the ropes.'));
-
     add(layout, sheet, right);
     add(screenEl, layout);
     var start = h('div', 'row');
@@ -234,6 +222,7 @@
       onClick: function () {
         S.fight = R.startFight(S.game);
         S.reveal = null;
+        S.mode = 'react';
         S.screen = 'fight';
         render();
       }
@@ -245,14 +234,19 @@
     for (var id in (add || {})) for (var i = 0; i < add[id]; i++) out.push(id);
     return out;
   }
-
+  function conditionWords(condition) {
+    var labels = { exchange: 'at the opening of a round', lastSelfCard: 'after the opponent’s own ' + R.CARDS[condition.lastSelfCard].name,
+      selfHurt: 'when hurt', lastTookClean: 'after taking a clean hit', selfLowStamina: 'when wind is low',
+      inFightRange: 'at ' + condition.inFightRange + ' range', selfAhead: 'when ahead on damage', lastOppCard: 'after your ' + R.CARDS[condition.lastOppCard].name };
+    var key = Object.keys(condition)[0];
+    return labels[key] || 'when the film condition is true';
+  }
   /* ---------- the fight -------------------------------------------------- */
   function renderFight() {
     var f = S.fight, me = f.player, foe = f.opponent;
     var ex = f.phase === 'corner' || f.phase === 'over' ? 6 : Math.min(f.exchange + 1, 6);
     setWhere('step 4 of 4 - round ' + f.round + ' of 3, exchange ' + ex + ' of 6');
     clear(screenEl);
-
     var strip = h('div', 'scorestrip');
     add(strip, h('span', null, 'Round ' + f.round));
     var roundPips = h('div', 'pips');
@@ -267,14 +261,12 @@
     }
     add(strip, h('span', 'spacer'));
     if (f.range !== 'mid') add(strip, h('span', null, f.range === 'out' ? 'Fighting at range' : 'Fighting inside'));
-
     var arena = h('div', 'arena');
     arena.appendChild(panel(me, false, f));
     var stage = h('div', 'stage');
     buildStage(stage, f);
     arena.appendChild(stage);
     arena.appendChild(panel(foe, true, f));
-
     var logWrap = h('div', 'logwrap');
     var hd = h('div', 'hd');
     add(hd, h('span', null, 'The corner'), h('span', 'spacer'));
@@ -284,15 +276,18 @@
     if (S.busy && S.pending) shown = shown.slice(0, -1);
     shown.forEach(function (ev) {
       var row = h('div');
-      add(row, h('span', 'r', 'R' + ev.round + ' E' + (ev.exchange + 1)), h('span', ev.knockdowns.length ? 'kd' : null, ev.text));
+      add(row, h('span', 'r', 'R' + ev.round + ' E' + (ev.exchange + 1)), h('span', 'tiny', 'Tell: ' + ev.tell.text), h('span', ev.knockdowns.length ? 'kd' : null, ev.text));
       log.appendChild(row);
     });
     add(logWrap, hd, log);
-
     var handWrap = h('div', 'handwrap');
     var handHd = h('div', 'handhd');
     add(handHd, h('span', null, 'Your hand'), h('span', 'spacer'), h('span', null, 'Wind ' + me.stamina + ' of ' + me.maxStamina),
       h('span', null, 'Keys 1-5 play a card'));
+    var modeBar = h('div', 'row modebar');
+    modeBar.appendChild(button('React — safe; Speed 65+ adds accuracy', { primary: S.mode === 'react', onClick: function () { S.mode = 'react'; renderFight(); } }));
+    modeBar.appendChild(button('Predict — costs 2 wind; right read wins clean, wrong read exposes you', { primary: S.mode === 'predict', onClick: function () { S.mode = 'predict'; renderFight(); } }));
+    modeBar.appendChild(h('span', 'small-note', 'Film forecasts: ' + R.CARDS[R.predictedCard(f)].name + ' (estimate only; no hidden hand is shown).'));
     var hand = h('div', 'hand');
     me.hand.forEach(function (id, i) {
       var cost = R.cardCost(me, id);
@@ -304,14 +299,22 @@
       el.appendChild(key);
       hand.appendChild(el);
     });
-    add(handWrap, handHd, hand);
-
+    add(handWrap, handHd, modeBar, hand);
     var fit = h('div', 'fight');
-    add(fit, strip, arena, logWrap, handWrap);
+    var reads = R.scoutingPrediction(f);
+    var readBox = h('div', 'sheet reads');
+    add(readBox, h('div', 'tiny', 'Opponent tell: ' + f.tell.text + ' (' + Math.round(f.tell.accuracy * 100) + '% reliable)'));
+    if (reads.length) {
+      add(readBox, h('div', 'tiny', 'Film read for this exchange'));
+      reads.forEach(function (read) {
+        add(readBox, h('div', 'readline', (read.active ? 'NOW: ' : 'IF: ') + 'Film says the opponent looks for ' + read.cardName +
+          ' ' + conditionWords(read.condition) + ' — about ' + Math.round(read.chance * 100) + '% chance it is in the five-card hand.'));
+      });
+    } else add(readBox, h('div', 'muted', 'No habits on film; read the opponent from the exchanges.'));
+    add(fit, strip, readBox, arena, logWrap, handWrap);
     add(screenEl, fit);
     log.scrollTop = log.scrollHeight;
   }
-
   function panel(side, isFoe, f) {
     var box = h('div', 'cornerbox' + (isFoe ? ' foe' : ''));
     add(box, h('div', 'nm', side.name), h('div', 'stl', side.styleName));
@@ -325,7 +328,6 @@
     add(box, hits);
     return box;
   }
-
   function buildStage(stage, f) {
     var slots = h('div', 'slots');
     var line = h('div', 'line'), verdict = h('div', 'verdict'), action = h('div', 'row');
@@ -333,18 +335,18 @@
       var ev = S.reveal;
       slots.appendChild(cardFace(ev.player.card, { small: true, tag: 'div' }));
       slots.appendChild(cardFace(ev.opponent.card, { small: true, tag: 'div' }));
-      line.textContent = ev.text;
+      line.textContent = ev.text + (ev.player.code === 'l' && ev.player.hit || ev.opponent.code === 'l' && ev.opponent.hit ? ' (a losing card can still land 30% chip damage)' : '') + (ev.mode === 'predict' ? (ev.correctRead ? ' — read right: clean win' : ' — read wrong: exposed') : '');
       if (ev.knockdowns.length) verdict.textContent = 'knockdown';
       else if (ev.stoppage) verdict.textContent = 'the referee steps in';
       else if (ev.player.dealt > ev.opponent.dealt) { verdict.textContent = 'you take the exchange'; verdict.className = 'verdict good'; }
-      else if (ev.player.dealt < ev.opponent.dealt) { verdict.textContent = 'he takes the exchange'; verdict.className = 'verdict bad'; }
+      else if (ev.player.dealt < ev.opponent.dealt) { verdict.textContent = 'the opponent takes the exchange'; verdict.className = 'verdict bad'; }
       else { verdict.textContent = 'nothing in it'; verdict.className = 'verdict'; }
       if (ev.stoppage || f.phase === 'over') action.appendChild(button('See the result', { primary: true, onClick: function () { S.screen = 'result'; S.reveal = null; render(); } }));
       else if (f.phase === 'corner') action.appendChild(button('To the corner', { primary: true, onClick: function () { S.screen = 'corner'; S.reveal = null; render(); } }));
       else action.appendChild(h('span', 'small-note', 'Pick your next card below.'));
     } else {
       add(slots, add(h('div', 'slot'), h('div', 'card facedown', 'FACE DOWN')),
-        add(h('div', 'slot'), h('div', 'card facedown', 'HIS')));
+        add(h('div', 'slot'), h('div', 'card facedown', 'OPPONENT')));
       line.textContent = 'Both corners choose blind, then the cards turn over together.';
       verdict.textContent = 'exchange ' + Math.min(f.exchange + 1, 6);
     }
@@ -356,8 +358,9 @@
     var f = S.fight;
     S.busy = true;
     S.reveal = null;
-    var ev = R.playExchange(S.game, id);       // the rules resolve at once...
+    var ev = R.playExchange(S.game, id, S.mode); // the rules resolve at once...
     S.pending = ev;
+    S.mode = 'react';
     renderFight();                              // ...the cards stay face down for a beat
     setTimeout(function () {                    // then they turn over together
       S.busy = false;
@@ -367,17 +370,15 @@
       else renderFight();
     }, 520);
   }
-
   /* ---------- the corner ------------------------------------------------- */
   function renderCorner() {
     var f = S.fight, r = f.rounds[f.rounds.length - 1];
     setWhere('between rounds - your corner');
     clear(screenEl);
     add(screenEl, h('h1', null, 'Back to the corner'),
-      h('p', 'lead muted', 'Round ' + r.round + ': you landed ' + r.player.landed + ' and he landed ' + r.opponent.landed +
+      h('p', 'lead muted', 'Round ' + r.round + ': you landed ' + r.player.landed + ' and the opponent landed ' + r.opponent.landed +
         '. The judges gave it ' + r.scores.map(function (s) { return s[0] + '-' + s[1]; }).join(', ') +
         '. Pick one thing for the next round. Every one of them costs something.'));
-
     var row = h('div', 'corner');
     f.corner.forEach(function (id) {
       var c = null;
@@ -388,6 +389,7 @@
       el.addEventListener('click', function () {
         R.pickCorner(S.game, id);
         S.reveal = null;
+        S.mode = 'react';
         S.screen = 'fight';
         render();
       });
@@ -395,29 +397,25 @@
     });
     add(screenEl, row);
     if (f.foeCornerPick) {
-      var his = R.CORNER_CARDS.filter(function (c) { return c.id === f.foeCornerPick; })[0];
-      add(screenEl, h('p', 'small-note', 'His corner is going with: ' + his.name + ' - ' + his.text));
+      var cornerPick = R.CORNER_CARDS.filter(function (c) { return c.id === f.foeCornerPick; })[0];
+      add(screenEl, h('p', 'small-note', 'The opponent’s corner is going with: ' + cornerPick.name + ' - ' + cornerPick.text));
     }
   }
-
   /* ---------- the result ------------------------------------------------- */
   function renderResult() {
     var f = S.fight, res = f.result;
     setWhere('the verdict');
     clear(screenEl);
     var win = res.winner === 'player', draw = res.winner === 'draw';
-    var foeName = f.opponent.name;
-    var foePronoun = f.opponent.pronoun.charAt(0).toUpperCase() + f.opponent.pronoun.slice(1);
-    add(screenEl, h('div', 'verdictline', win ? 'You win' : draw ? 'A draw' : foePronoun + ' wins'),
+    add(screenEl, h('div', 'verdictline', win ? 'You win' : draw ? 'A draw' : 'The opponent wins'),
       h('h2', null, res.text),
       h('p', 'lead muted', res.method === 'stoppage' ? 'Stopped in round ' + res.round + '.' : 'Three rounds, three judges.'));
-
     var layout = h('div', 'result');
     var left = h('div', 'sheet');
     add(left, h('div', 'tiny', 'The cards'));
     var table = h('table', 'cards');
     var head = h('tr');
-    add(head, h('th', null, 'Judge'), h('th', null, 'You'), h('th', null, foeName.split(' ')[0]));
+    add(head, h('th', null, 'Judge'), h('th', null, 'You'), h('th', null, 'Opponent'));
     table.appendChild(head);
     if (res.scorecards) {
       res.scorecards.forEach(function (c) {
@@ -433,7 +431,7 @@
     add(left, table, h('div', 'tiny', 'Round by round'));
     var table2 = h('table', 'cards');
     var head2 = h('tr');
-    add(head2, h('th', null, 'Round'), h('th', null, 'Judges (you-him)'), h('th', null, 'Landed'), h('th', null, 'Damage'));
+    add(head2, h('th', null, 'Round'), h('th', null, 'Judges (you-opponent)'), h('th', null, 'Landed'), h('th', null, 'Damage'));
     table2.appendChild(head2);
     f.rounds.forEach(function (rd) {
       var tr = h('tr');
@@ -444,7 +442,6 @@
       table2.appendChild(tr);
     });
     add(left, table2);
-
     var right = h('div', 'sheet');
     add(right, h('div', 'tiny', 'The fight in numbers'));
     var sum = h('table', 'cards');
@@ -458,10 +455,9 @@
     });
     add(right, sum, h('div', 'tiny', 'What you saw'));
     var seen = h('div', 'habits');
-    if (!f.scouting.known.length) seen.appendChild(h('div', 'habit blank', 'You fought him cold. Next time, watch the film.'));
+    if (!f.scouting.known.length) seen.appendChild(h('div', 'habit blank', 'You fought without film. Next time, scout the opponent.'));
     f.scouting.known.forEach(function (k) { seen.appendChild(h('div', 'habit', k.text)); });
     add(right, seen);
-
     add(layout, left, right);
     add(screenEl, layout);
     var again = h('div', 'row');
@@ -470,7 +466,6 @@
       button('Pick another boxer', { onClick: function () { S.screen = 'pick'; S.fight = null; S.game = null; render(); } }));
     add(screenEl, again);
   }
-
   /* ---------- router ------------------------------------------------------ */
   function render() {
     if (S.screen === 'pick') return renderPick();
@@ -480,7 +475,6 @@
     if (S.screen === 'result') return renderResult();
     return renderFight();
   }
-
   document.addEventListener('keydown', function (e) {
     if (S.screen === 'fight' && S.fight && S.fight.phase === 'fight' && !S.busy && /^[1-5]$/.test(e.key)) {
       var id = S.fight.player.hand[Number(e.key) - 1];
@@ -492,6 +486,5 @@
       if (gold && !gold.disabled) { e.preventDefault(); gold.click(); }
     }
   });
-
   render();
 })();

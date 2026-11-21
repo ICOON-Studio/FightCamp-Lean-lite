@@ -22,9 +22,8 @@ function bump(pair, key) { if (!pair[key]) pair[key] = { bouts: 0, wins: 0, loss
 for (let i = 0; i < N; i++) {
   const seed = rules.hashSeed('balance', i);
   const a = rules.BOXERS[i % rules.BOXERS.length];
-  let b = rules.BOXERS[(rules.hashSeed('pair', i) >>> 0) % rules.BOXERS.length];
-  if (b.id === a.id) b = rules.BOXERS[(rules.BOXERS.indexOf(b) + 1 + (i % 3)) % rules.BOXERS.length];
-  if (b.id === a.id) continue; // never two identical boxers
+  const pool = rules.BOXERS.filter(x => x.pronoun === a.pronoun && x.id !== a.id);
+  const b = pool[(rules.hashSeed('pair', i) >>> 0) % pool.length];
 
   // both corners get the camp the AI would run for its own boxer: this table is
   // about style against style, not about who was prepared and who was not
@@ -51,9 +50,53 @@ for (let i = 0; i < N; i++) {
     const oWon = ev.opponent.dealt > ev.player.dealt;
     card[ev.player.card].plays++; card[ev.player.card].dmg += ev.player.dealt;
     card[ev.opponent.card].plays++; card[ev.opponent.card].dmg += ev.opponent.dealt;
-    if (pWon) card[ev.player.card].wins++;
-    if (oWon) card[ev.opponent.card].wins++;
+    if (['W', 'w'].includes(ev.player.code)) card[ev.player.card].wins++;
+    if (['W', 'w'].includes(ev.opponent.code)) card[ev.opponent.card].wins++;
   }
+}
+
+function policyBouts(count, policy) {
+  let score = 0;
+  for (let i = 0; i < count; i++) {
+    const seed = rules.hashSeed('reading-v-random', i);
+    const a = rules.BOXERS[i % rules.BOXERS.length];
+    const pool = rules.BOXERS.filter(x => x.pronoun === a.pronoun && x.id !== a.id);
+    const b = pool[rules.hashSeed('read-pair', i) % pool.length];
+    const game = rules.createGame({ seed, playerBoxerId: a.id, opponentBoxerId: b.id });
+    while (game.phase === 'camp') rules.pickCampCard(game, rules.aiCampPick(game));
+    const fight = rules.startFight(game);
+    rules.applyCampTo(fight.opponent, rules.campModsFor(b.id, seed));
+    const playerRng = rules.makeRng(rules.hashSeed(seed, 'random-player'));
+    while (!rules.isOver(fight)) {
+      if (fight.phase === 'corner') { rules.pickCorner(game, rules.aiCornerPick(game)); continue; }
+      const card = policy === 'reading' ? rules.chooseAiCard(fight, 'player') : fight.player.hand[playerRng.int(fight.player.hand.length)];
+      rules.playExchange(game, card);
+    }
+    score += fight.result.winner === 'player' ? 1 : fight.result.winner === 'draw' ? 0.5 : 0;
+  }
+  return score / count;
+}
+
+function priorityBouts(count, preferred) {
+  let wins = 0, losses = 0;
+  for (let i = 0; i < count; i++) {
+    const seed = rules.hashSeed('one-card', preferred, i);
+    const a = rules.BOXERS[i % rules.BOXERS.length];
+    const pool = rules.BOXERS.filter(x => x.pronoun === a.pronoun && x.id !== a.id);
+    const b = pool[rules.hashSeed('priority-pair', i) % pool.length];
+    const game = rules.createGame({ seed, playerBoxerId: a.id, opponentBoxerId: b.id });
+    while (game.phase === 'camp') rules.pickCampCard(game, rules.aiCampPick(game));
+    const fight = rules.startFight(game);
+    rules.applyCampTo(fight.opponent, rules.campModsFor(b.id, seed));
+    while (!rules.isOver(fight)) {
+      if (fight.phase === 'corner') { rules.pickCorner(game, rules.aiCornerPick(game)); continue; }
+      const card = fight.player.hand.includes(preferred) ? preferred : fight.player.hand[0];
+      rules.playExchange(game, card);
+    }
+    if (fight.result.winner === 'player') wins++;
+    else if (fight.result.winner === 'opponent') losses++;
+  }
+  return wins / (wins + losses || 1);
 }
 
 function pct(n, d) { return d ? (100 * n / d).toFixed(1) + '%' : '-'; }
@@ -71,7 +114,7 @@ for (const [key, s] of pairs) {
 }
 
 console.log('');
-console.log('Cards: how often played (share of all exchanges, both corners) and win rate when played');
+console.log('Cards: share of all exchanges and exchange wins (W/w) when played; defence deals zero damage');
 console.log('  ' + pad('card', 18) + pad('kind', 10) + lpad('plays', 8) + lpad('share', 9) + lpad('win when played', 16) + lpad('avg dmg', 9));
 const defects = [];
 for (const id of ORDER) {
@@ -93,6 +136,29 @@ console.log('  ' + pad('draws', 22) + lpad(stats.draws, 6) + lpad(pct(stats.draw
 console.log('  ' + pad('knockdowns / bout', 22) + lpad((stats.knockdowns / stats.bouts).toFixed(2), 6));
 console.log('  ' + pad('exchanges / bout', 22) + lpad((stats.exchanges / stats.bouts).toFixed(1), 6));
 console.log('');
+console.log('Reading policy vs random policy: 5,000 bouts each, both against the same engine AI');
+const readingRate = policyBouts(5000, 'reading');
+const randomRate = policyBouts(5000, 'random');
+const readingEdge = (readingRate - randomRate) * 100;
+console.log('  ' + pad('reading player', 22) + pct(readingRate, 1));
+console.log('  ' + pad('random player', 22) + pct(randomRate, 1));
+console.log('  ' + pad('reading edge', 22) + (readingEdge >= 0 ? '+' : '') + readingEdge.toFixed(1) + ' pp');
+if (readingEdge < 15) defects.push('reading policy edge is ' + readingEdge.toFixed(1) + ' pp (target 15 pp)');
+console.log('');
+console.log('Single-card priority strategies: each policy prefers one card when held, otherwise hand[0]');
+let topPriority = { id: null, rate: 0 };
+for (const id of ORDER) {
+  const rate = priorityBouts(300, id);
+  console.log('  ' + pad(CARDS[id].name, 18) + pct(rate, 1));
+  if (rate > topPriority.rate) topPriority = { id, rate };
+}
+console.log('  best one-card strategy: ' + CARDS[topPriority.id].name + ' at ' + pct(topPriority.rate, 1));
+if (topPriority.rate > 0.45) defects.push('one-card strategy ' + CARDS[topPriority.id].name + ' wins ' + pct(topPriority.rate, 1) + ' (target <=45%)');
+const stopRate = stats.stoppage / stats.bouts;
+if (stopRate < 0.10 || stopRate > 0.20) defects.push('stoppages are ' + pct(stats.stoppage, stats.bouts) + ' (target 10-20%)');
+const blockShare = card.block.plays / stats.exchanges;
+if (blockShare < 0.08) defects.push('Block is played in ' + pct(card.block.plays, stats.exchanges) + ' of exchanges (target 8%)');
+
 if (defects.length) {
   for (const d of defects) console.log('DEFECT: ' + d);
   console.log('RESULT: FAIL - ' + defects.length + ' design defect(s) above');
