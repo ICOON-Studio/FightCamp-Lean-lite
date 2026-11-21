@@ -1410,10 +1410,22 @@ def _consume_media_comments(path: Path = ROOT / "AgentComms" / "media_comments.j
     _write_json_atomic(path, data)
 
 
+ASK_WORDS = 20          # S533 operator: board questions short and to the point
+ASK_OPTION_WORDS = 5
+
+
 def _ask_cmd(args: argparse.Namespace) -> int:
     ## S191 operator rule: an approval he cannot see on the board is not askable.
     if re.search(r"approv", args.text + " " + args.options, re.IGNORECASE) and not args.attach.strip():
         print("REFUSED: an approval question needs --attach <the doc/still he approves> (operator S191: 'i want to be able to see it on the opsboard')")
+        return 2
+    ## S533 operator: "your questions on the board need to be shorter and on to the point, i cannot waste 2 hours reading
+    ## your tomes of text". The question is one short sentence; the detail lives in the attachment, never in the question.
+    words = len(args.text.split())
+    long_opts = [o for o in args.options.split("|") if len(o.split()) > ASK_OPTION_WORDS]
+    if words > ASK_WORDS or long_opts:
+        print("REFUSED: a board question is at most %d words (this one %d) and each option at most %d words%s. Put the detail in --attach (operator S533: 'shorter and on to the point')."
+              % (ASK_WORDS, words, ASK_OPTION_WORDS, (" (too long: %s)" % long_opts) if long_opts else ""))
         return 2
     print("Added " + ask_question(args.text, args.options, attach=args.attach))
     return 0

@@ -95,6 +95,7 @@ table.waitt td{border-left:4px solid var(--wait)}
      rows of /api/launch (AgentComms/launch_targets.json, ids fightcamp_*). The button posts a target NAME only. -->
 <section class="qbox" id="playbox"><h2>Play the game</h2><div id="playList">Checking the build…</div><div class="meta" id="playState"></div></section>
 
+<div id="reviewWait" style="margin:10px 0"></div>
 <section class="qbox" id="qbox"><h2>Questions for you</h2><div id="questions">Loading…</div></section>
 
 <!-- S231 operator: "how can i see the new bot" - Paul (xAI API, Tools/pm_bot.py); his newest review is AgentComms/pm/latest.md -->
@@ -427,5 +428,9 @@ async function pmSend(){
 
 load(); loadQuestions(); loadPm();
 </script>
+<script>/* S533 operator: highlight the stills waiting for his review */
+fetch("/api/review_waiting",{cache:"no-store"}).then(r=>r.json()).then(j=>{const n=j.waiting||0;if(!n)return;
+document.querySelectorAll('a[href="/review"]').forEach(a=>{const b=document.createElement("span");b.textContent=" "+n+" to review";b.style.cssText="background:#e3b341;color:#1b1610;border-radius:10px;padding:1px 8px;margin-left:6px;font-weight:700;font-size:.85em";a.appendChild(b);});
+const host=document.getElementById("reviewWait");if(host){host.innerHTML='<a href="/review" style="display:block;background:#e3b341;color:#1b1610;font-weight:700;padding:10px 14px;border-radius:8px;text-decoration:none">'+n+' still post'+(n>1?'s wait':' waits')+' for your review →</a>';}}).catch(()=>{});</script>
 </body>
 </html>

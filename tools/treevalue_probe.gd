@@ -20,6 +20,7 @@ const Attrs := preload("res://scripts/rules/Attrs.gd")
 const Cells := preload("res://tools/treevalue_cells.gd")
 const StrikeMap := preload("res://scripts/rules/StrikeMap.gd")
 const PlanFight := preload("res://scripts/rules/PlanFight.gd")
+const PlaceEdge := preload("res://scripts/rules/PlaceEdge.gd")   # S533 STEPPAY2 place=off / edge=
 
 ## TREEVALUE1's four opponents (kept); TREEVALUE2 adds the two RIVALS below for the six styles of StepValue.STYLES.
 const OPPS := [
@@ -279,6 +280,10 @@ func _initialize() -> void:
 	# S532 TREEVALUE10 lever attribution: `-- off=drain,wrong` reads those effects of every swept step as zero (with-arm only:
 	# the without-arm has no such line). Names the arm in the output so a result never hides which arm it is.
 	for a in OS.get_cmdline_user_args():
+		if str(a) == "place=off":   # S533 STEPPAY2 control arm: the game before PlaceEdge
+			PlaceEdge.on = false
+		if str(a).begins_with("edge="):   # measurement only: another ROPES size
+			PlaceEdge.probe_size = float(str(a).substr(5))
 		if str(a).begins_with("off="):
 			for st in _sweep_steps():
 				StepEffectOff.probe_off[str(st)] = Array(str(a).substr(4).split(","))
@@ -286,6 +291,7 @@ func _initialize() -> void:
 		if str(a).begins_with("scale="):   # S533: every number of the swept steps' rows x factor (measurement only)
 			for st in _sweep_steps(): StepEffectOff.probe_scale[str(st)] = float(str(a).substr(6))
 			print("SCALE (sensitivity, measurement only): %s" % str(StepEffectOff.probe_scale))
+	print("PlaceEdge: on=%s ropes=%+.1f corner=%+.1f own_ropes=%+.1f" % [str(PlaceEdge.on), PlaceEdge.edge("opp_ropes"), PlaceEdge.edge("corner"), PlaceEdge.edge("own_ropes")])
 	var base := _base_dict()
 	var factory := Callable(self, "_make_fighter")
 	# CONTROL: the forced grade really is OK on every step (LineGrade's rule, the one the live round reads).

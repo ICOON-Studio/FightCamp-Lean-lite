@@ -148,7 +148,9 @@ def _posts_in(base: Path, notes: dict[str, list[dict[str, Any]]]) -> list[dict[s
         if files:
             posts.append({"batch": batch.name, "title": str(man.get("title", batch.name)), "stage": str(man.get("stage", "")),
                           "rating": str(man.get("rating", "")), "at": str(man.get("at", "")), "mtime": batch.stat().st_mtime, "files": files,
-                          "superseded_by": str(man.get("superseded_by", "")), "removed_at": str(man.get("removed_at", ""))})
+                          "superseded_by": str(man.get("superseded_by", "")), "removed_at": str(man.get("removed_at", "")),
+                          ## S533 operator: "i want to know which stills waiting my review, find a way to highlight it"
+                          "waiting": not man.get("superseded_by") and not any(f["comments"] for f in files)})
     posts.sort(key=lambda p: (p["at"] or "", p["mtime"]), reverse=True)
     return posts
 
@@ -183,6 +185,11 @@ def auto_clear(now: datetime | None = None) -> list[str]:
 def sent_posts(root: Path) -> list[dict[str, Any]]:
     auto_clear()
     return _posts_in(review_root(), _by_path(root))
+
+
+def waiting_count(root: Path) -> int:
+    """Posts on the board he has not commented on yet (S533: the nav badge and the main page's banner)."""
+    return sum(1 for p in sent_posts(root) if p.get("waiting"))
 
 
 def removed_posts(root: Path) -> list[dict[str, Any]]:

@@ -181,7 +181,11 @@ func _initialize() -> void:
 	var none_n := XB.share(0.0, "none", 1, null, {}, 2000)
 	var wrong_n := XB.share(0.0, "wrong", 1, null, {}, 2000)
 	print("  even fight on 2,000 bouts: none %.4f, wrong %.4f" % [none_n, wrong_n])
-	_check(wrong_n <= none_n - 0.15, "wrong calls lose clearly more (%.4f vs %.4f, 2,000 bouts)" % [wrong_n, none_n])
+	# S533 STEPPAY2 phase 2 (PlaceEdge: her own ropes cost -5 an exchange, and she is there far more than the opponent):
+	# tools/place_edge_exch_probe.gd, 2,000 bouts - rule off none 0.2665 wrong 0.1145 gap 0.1520; rule on none 0.2515 wrong
+	# 0.1090 gap 0.1425. Wrong calls lose in the same proportion (0.43 of saying nothing, both arms); the absolute gap moved
+	# with the baseline, so the bar moves with it: 0.15 -> 0.135. It still reads red if the gap shrinks below it.
+	_check(wrong_n <= none_n - 0.135, "wrong calls lose clearly more (%.4f vs %.4f, 2,000 bouts)" % [wrong_n, none_n])
 	_check(behind < 0.4, "no call beats a fighter 10 points better")
 	# 10. S310: with film study, reading the clue beats following the coach's pick blindly; the pick still helps.
 	var f_none := XB.share(0.0, "none", 3)

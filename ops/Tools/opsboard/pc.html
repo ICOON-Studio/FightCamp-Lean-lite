@@ -37,5 +37,9 @@ tiles every 2 s, the parts below every 6 s, folder sizes once an hour. The pill 
 </main>
 <script src="/pc_metrics.js"></script>
 <script src="/pc_detail.js"></script>
+<script>/* S533 operator: highlight the stills waiting for his review */
+fetch("/api/review_waiting",{cache:"no-store"}).then(r=>r.json()).then(j=>{const n=j.waiting||0;if(!n)return;
+document.querySelectorAll('a[href="/review"]').forEach(a=>{const b=document.createElement("span");b.textContent=" "+n+" to review";b.style.cssText="background:#e3b341;color:#1b1610;border-radius:10px;padding:1px 8px;margin-left:6px;font-weight:700;font-size:.85em";a.appendChild(b);});
+const host=document.getElementById("reviewWait");if(host){host.innerHTML='<a href="/review" style="display:block;background:#e3b341;color:#1b1610;font-weight:700;padding:10px 14px;border-radius:8px;text-decoration:none">'+n+' still post'+(n>1?'s wait':' waits')+' for your review →</a>';}}).catch(()=>{});</script>
 </body>
 </html>

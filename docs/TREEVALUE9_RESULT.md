@@ -202,3 +202,17 @@ The step's payoffs do not convert into wins; what is left is the exchange the st
 code the place reaches the exchange only through which line fires, PlanFight.card_mean at that place and StyleName.plan_mult;
 "opponent on the ropes" is never an edge by itself (LiveRound.gd ~L234-280).
 DECISION: no TABLE sizing for any step until the payoff is wired - see ops/research/STEPS_PAYOFF_SCOPE_S533.md.
+
+## S533 STEPPAY2 phase 2 - the place pays (PlaceEdge.gd): the exchange reads the ropes now, cut_off still short
+Rule: opponent on the ropes +5.0 on the exchange (an OK corner call), corner +6.5, your own ropes -5.0; a trapped opponent's
+range game gets weight 0. Read once, in RingDuel.step. Full tables: docs/STEPPAY2_PHASE2.md.
+place_value_probe (rule on): opp_ropes 50.0 (CONTROL 44.7: +5.3), corner 51.8 (+7.1), own_ropes 38.0 (-6.6);
+opponent's range game on opp_ropes / corner 0% (was 6-36%). Rule off (place=off) reproduces STEPPAY1 (CONTROL 46.2).
+
+| cut_off vs | Pressure | Slugger | Out-boxer (FOR) | Counter | Volume | Boxer-puncher |
+|---|---|---|---|---|---|---|
+| S533 base | -1.67 | -1.50 | -0.75 | -0.17 | -2.25 | -1.08 |
+| phase 2 (place pays) | -1.8 | -0.8 | -0.2 | +0.7 | -0.7 | -0.5 |
+READ: the place is an edge now and the step loses less, but one exchange a bout at +5 does not make +1.5; no bigger size by
+guess (a size that would do it alone is ~20, above a best call). Side effect measured: the even fight with no calls 26.65% ->
+25.15% (own ropes are far more common than the opponent's). NEXT: phase 3 - the step in its best situation costs no exchange.

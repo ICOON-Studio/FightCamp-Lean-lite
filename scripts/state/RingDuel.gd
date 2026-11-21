@@ -17,6 +17,7 @@ const WorldBout := preload("res://scripts/world/WorldBout.gd")
 const PlanFight := preload("res://scripts/rules/PlanFight.gd")
 const TheRead := preload("res://scripts/rules/TheRead.gd")
 const StepWire := preload("res://scripts/state/StepWire.gd")
+const PlaceEdge := preload("res://scripts/rules/PlaceEdge.gd")
 
 ## Form on the night (GV). Narrower than WorldBout's: the wide off-night was swallowing a good plan.
 const FORM_SD := 5.0   # watched bout. World bouts stay at 8 so a big gap is never a sure win.
@@ -66,8 +67,9 @@ static func form(f: Dictionary, salt: int) -> Array:
 
 
 ## mode_bias, with a cut-off ring (StepWire, lv.ring_cut) taking that share off the opponent's range game this round.
+## S533 STEPPAY2: an opponent on the ropes / in the corner has no range game at all (PlaceEdge.bias).
 static func step_bias(f: Dictionary, o: Dictionary, lv: Dictionary) -> Dictionary:
-	var b := mode_bias(f, o)
+	var b := PlaceEdge.bias(mode_bias(f, o), str(lv.get("at", "")))
 	var cut := float(lv.get("ring_cut", 0.0))
 	if cut <= 0.0:
 		return b
@@ -109,8 +111,9 @@ static func step(f: Dictionary, o: Dictionary, lv: Dictionary, call: String, mod
 	var b := Duels.effective(opp(o), eb, bool(lv.get("opp_hurt", false)), n >= 3)
 	var ctx := facts(f, o)
 	var place := int(lv.get("place", Duels.LONG))
-	var fa := int(CALL_PLACE.get(call, -1))
-	var fb := int(MODE_PLACE.get(mode, -1))
+	var at := str(lv.get("at", ""))   # S533 STEPPAY2: the card this exchange starts on
+	var fa := PlaceEdge.call_place(at, int(CALL_PLACE.get(call, -1)))
+	var fb := PlaceEdge.mode_place(at, int(MODE_PLACE.get(mode, -1)))
 	var pins: Array = lv.get("pins", [0, 0])
 	var st := Duels.step(a, b, place, ctx, fa, fb, pins, rng.randf(), rng.randf(), rng.randf())
 	lv["place"] = int(st["place"])
@@ -119,7 +122,8 @@ static func step(f: Dictionary, o: Dictionary, lv: Dictionary, call: String, mod
 	c["stepin"] = int(st["stepin"])
 	var d := Duels.at(a, b, int(st["place"]), c)
 	var fm: Array = f["bout"].get("form", [0.0, 0.0])
-	d["edge"] = float(d["edge"]) + float(fm[0]) - float(fm[1])
+	lv["place_edge"] = PlaceEdge.edge(at)   # the ONE read of the place in the exchange odds
+	d["edge"] = float(d["edge"]) + float(fm[0]) - float(fm[1]) + float(lv["place_edge"])
 	d["place"] = int(st["place"])
 	d["stepin"] = int(st["stepin"])
 	d["pinned"] = int(lv["pins"][0]) >= Duels.PINNED_AFTER
@@ -357,6 +361,10 @@ static func settle(lv: Dictionary, rec: Dictionary, s: Dictionary, rng: RandomNu
 	rec["clinch_line"] = ClinchRest.line(cl, names, ClinchRest.why(str(opp.get("style", "")), float(opp.get("rating", 60.0)), float(vals.get("technique", 55.0))))
 	rec["perks"] = perks
 	rec["perk_line"] = "Your boxer makes the opponent miss and counters - Counter sense." if perks.has("counter_sense") else ""
+	if rec.has("duel_edge") and float(lv.get("place_edge", 0.0)) != 0.0:   # S533 STEPPAY2: the place's points are not the duel's
+		rec["place_edge"] = float(lv["place_edge"])
+		rec["duel_edge"] = float(rec["duel_edge"]) - float(rec["place_edge"])
+		rec["duel_line"] = duel_line(rec, names)
 	lv["at"] = PlanFight.where_next(arrow, bool(s["won"]), sit)
 	StepWire.after(lv, rec, arrow, bool(rec.get("planned", false)))   # S489 STEPVALUE1: the ropes count can override the place
 	exs.append(rec)
@@ -386,3 +394,4 @@ static func settle(lv: Dictionary, rec: Dictionary, s: Dictionary, rng: RandomNu
 		opp_energy(lv, i + 1), bool(lv["opp_hurt"]), rng, run, step_bias(f, opp, lv))
 	if TheRead.dropped(st, str(lv["mode"])):
 		lv["mode"] = TheRead.swap(st, str(lv["mode"]), n + i)
+	lv["mode"] = PlaceEdge.mode_at(str(lv["at"]), str(lv["mode"]))

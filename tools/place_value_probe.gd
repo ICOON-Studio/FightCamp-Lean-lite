@@ -23,6 +23,7 @@ const PlanLines := preload("res://scripts/rules/PlanLines.gd")
 const StepValue := preload("res://scripts/rules/StepValue.gd")
 const StrikeMap := preload("res://scripts/rules/StrikeMap.gd")
 const PlanFight := preload("res://scripts/rules/PlanFight.gd")
+const PlaceEdge := preload("res://scripts/rules/PlaceEdge.gd")
 
 ## docs/TREEVALUE3_RESULT.txt: each style's rating so TREEVALUE's base plan wins about half its bouts.
 const RATING := {"Maria Ortega": 52.89, "Jade Cooper": 55.95, "Holly Price": 54.24, "Priya Nair": 53.29,
@@ -85,6 +86,9 @@ func _rest(c: Career, f: Dictionary, m: Dictionary, place: String) -> void:
 	while not LiveRound.live(m).is_empty():
 		if place != "":
 			LiveRound.live(m)["at"] = place
+			# S533 STEPPAY2: the game sets the card in RingDuel.settle, where a trapped opponent loses her range game; a
+			# forced card gets the same rule (no change with the rule off).
+			LiveRound.live(m)["mode"] = PlaceEdge.mode_at(place, str(LiveRound.live(m)["mode"]))
 		BoutNight.fight_step(c, f, m, "shout:")
 
 
@@ -154,6 +158,11 @@ func _initialize() -> void:
 	for a in OS.get_cmdline_user_args():
 		if str(a).begins_with("n="):
 			n_ex = int(str(a).substr(2))
+		if str(a) == "place=off":   # S533 STEPPAY2 control arm: the game before PlaceEdge (STEPPAY1's table)
+			PlaceEdge.on = false
+		if str(a).begins_with("edge="):   # measurement only: another ROPES size
+			PlaceEdge.probe_size = float(str(a).substr(5))
+	print("PlaceEdge: on=%s ropes=%+.1f corner=%+.1f own_ropes=%+.1f" % [str(PlaceEdge.on), PlaceEdge.edge("opp_ropes"), PlaceEdge.edge("corner"), PlaceEdge.edge("own_ropes")])
 	tv = TV.new()
 	print("PLACE_VALUE (STEPPAY1): exchange win share for your boxer by the place the exchange starts at")
 	print("Population: TREEVALUE1's %d generated boxers (seeds %d..%d, plan = TREEVALUE PLAN, moves/steps/combos %.0f) vs one shipped opponent per style at the TREEVALUE3 calibrated rating: %s" % [

@@ -2277,6 +2277,13 @@ class Handler(BaseHTTPRequestHandler):
             except Exception as exc:
                 self._json(500, {"error": str(exc), "trace": traceback.format_exc()})
             return
+        if path == "/api/review_waiting":   # S533: how many posts wait for his review
+            import media_review
+            try:
+                self._json(200, {"waiting": media_review.waiting_count(ROOT)})
+            except Exception as exc:
+                self._json(500, {"error": str(exc)})
+            return
         if path == "/api/media":
             import media_review
             from urllib.parse import parse_qs

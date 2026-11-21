@@ -1,7 +1,7 @@
 # TASK GUARDREV5 - write the guard damage map v5 FROM THE CODE, carrying John's 10/10 ideas the owner liked
 
 Kind: research
-Status: RUNNING on Goose (issue #432, S533). Discipline: boxing. Model: Goose (cloud), own goose/ branch, a PR; never merge.
+Status: OPEN (S533): Goose #432 failed (1h48, no file); now the DEBUTPICK1 Fable session. Discipline: boxing. Model: Fable session in this checkout.
 arena/ branch, a PR into main there; never merge. RESEARCH ONLY - no game code changes. Do not run Godot.
 
 ## Why

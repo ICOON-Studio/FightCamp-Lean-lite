@@ -69,6 +69,10 @@
   #zoom { position: fixed; inset: 0; background: rgba(0,0,0,.92); display: none; align-items: center; justify-content: center; z-index: 9; cursor: zoom-out; }
   #zoom img { max-width: 100vw; max-height: 100vh; }
   @media (max-width: 480px) { .grid { grid-template-columns: 1fr; } }
+.post.waiting{border:2px solid #e3b341;border-radius:10px;padding:8px;box-shadow:0 0 0 3px #e3b34133}
+.wait{background:#e3b341;color:#1b1610;font-size:.6em;font-weight:800;padding:2px 8px;border-radius:10px;margin-left:10px;vertical-align:middle}
+.okbtn{background:#2e7d32;color:#fff;border:0;border-radius:8px;padding:6px 14px;font-weight:700;cursor:pointer;margin-left:8px}
+.waitline{border-color:#e3b341}
 </style>
 </head>
 <body>
@@ -111,7 +115,8 @@ async function load() {
 }
 function postHtml(p, removed) {
   const old = !removed && p.superseded_by;
-  return `<section class="post ${old ? "superseded" : ""}"><div class="posthead"><h2>${esc(p.title)}<span class="rating">${esc(p.rating || "Not rated")}</span>${old ? `<span class="old" title="replaced by ${esc(p.superseded_by)}">Older version</span>` : ""}</h2>
+  return `<section class="post ${old ? "superseded" : ""} ${!removed && p.waiting ? "waiting" : ""}"><div class="posthead"><h2>${esc(p.title)}<span class="rating">${esc(p.rating || "Not rated")}</span>${old ? `<span class="old" title="replaced by ${esc(p.superseded_by)}">Older version</span>` : ""}${!removed && p.waiting ? `<span class="wait">WAITING FOR YOU</span>` : ""}</h2>
+    ${!removed && p.waiting ? `<button class="okbtn" data-act="lgtm" data-key="${esc(p.files[0].key)}" title="Marks this post reviewed (a comment 'Looks fine')">Looks fine</button>` : ""}
     <button class="ghost ${removed ? "restore" : ""}" data-act="${removed ? "restore" : "remove"}" data-batch="${esc(p.batch)}">${removed ? "Restore post" : "Remove post"}</button></div>
     <div class="meta">${esc(p.stage)} ${esc((p.at||"").replace("T"," "))} · ${p.files.length} file${p.files.length>1?"s":""}${removed && p.removed_at ? " · removed " + esc(p.removed_at.replace("T"," ")) : ""}</div>
     <div class="grid">${p.files.map(f => cardHtml({...f, batch: p.batch}, removed)).join("")}</div></section>`;
@@ -123,7 +128,8 @@ function render() {
   if (tab === "sent") {
     const olds = data.sent.filter(p => p.superseded_by).length;
     m.innerHTML = (olds ? `<div class="bulk"><span>${olds} post${olds>1?"s are":" is"} an older version of a newer post.</span><button data-act="older">Remove all ${olds} older versions</button></div>` : "")
-      + (data.sent.length ? data.sent.map(p => postHtml(p, false)).join("") : `<div class="empty">Nothing sent yet.</div>`);
+      + (data.sent.filter(p => p.waiting).length ? `<div class="bulk waitline"><span>${data.sent.filter(p => p.waiting).length} post(s) wait for your review - shown first. Comment, mark areas, or press Looks fine.</span></div>` : `<div class="bulk"><span>Nothing waits for your review.</span></div>`)
+      + (data.sent.length ? [...data.sent.filter(p => p.waiting), ...data.sent.filter(p => !p.waiting)].map(p => postHtml(p, false)).join("") : `<div class="empty">Nothing sent yet.</div>`);
   } else if (tab === "removed") {
     m.innerHTML = (data.removed||[]).length ? data.removed.map(p => postHtml(p, true)).join("") : `<div class="empty">Nothing removed.</div>`;
   } else {
@@ -144,6 +150,15 @@ document.getElementById("main").addEventListener("click", async e => {
   if (e.target.tagName !== "BUTTON") return;
   const act = e.target.dataset.act;
   if (act === "open") { const c = e.target.closest(".card"); c.classList.toggle("open"); if (c.classList.contains("open")) c.querySelector("textarea").focus(); return; }
+  if (act === "lgtm") {
+    e.target.disabled = true;
+    try {
+      const r = await fetch("/api/media_comment", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({path: e.target.dataset.key, text: "Looks fine"})});
+      if (!r.ok) throw new Error((await r.json()).error || r.status);
+      await load();
+    } catch (err) { e.target.disabled = false; alert("Not saved: " + err.message); }
+    return;
+  }
   if (act === "remove" || act === "restore" || act === "older") {
     const b = e.target, what = act === "older" ? "every post marked Older version" : (b.dataset.file ? "this picture" : "this whole post");
     if (act !== "restore" && !confirm("Remove " + what + " from the board? It moves to the Removed tab (nothing is deleted).")) return;
@@ -179,5 +194,9 @@ for (const [id, t] of TABS) document.getElementById(id).addEventListener("click"
 });
 load();
 </script>
+<script>/* S533 operator: highlight the stills waiting for his review */
+fetch("/api/review_waiting",{cache:"no-store"}).then(r=>r.json()).then(j=>{const n=j.waiting||0;if(!n)return;
+document.querySelectorAll('a[href="/review"]').forEach(a=>{const b=document.createElement("span");b.textContent=" "+n+" to review";b.style.cssText="background:#e3b341;color:#1b1610;border-radius:10px;padding:1px 8px;margin-left:6px;font-weight:700;font-size:.85em";a.appendChild(b);});
+const host=document.getElementById("reviewWait");if(host){host.innerHTML='<a href="/review" style="display:block;background:#e3b341;color:#1b1610;font-weight:700;padding:10px 14px;border-radius:8px;text-decoration:none">'+n+' still post'+(n>1?'s wait':' waits')+' for your review →</a>';}}).catch(()=>{});</script>
 </body>
 </html>
