@@ -283,7 +283,7 @@ func _show(instant: bool) -> void:
 	var size := (_card.get_child(0) as Control).get_combined_minimum_size() + Vector2(0, 8)
 	_card.custom_minimum_size = size
 	_card.size = size
-	_ring.position = Vector2(size.x * 0.5 - 8.0, 0.0)
+	_ring.position = Vector2(size.x - 26.0, 0.0)   # S533 "reach 10": the corner, not the middle of the title
 	var r := place(size, _trigger.get_global_rect(), Rect2(Vector2.ZERO, get_viewport().get_visible_rect().size))
 	_card.position = r.position
 	_state = "shown"

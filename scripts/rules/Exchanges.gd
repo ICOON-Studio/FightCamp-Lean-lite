@@ -77,7 +77,7 @@ const CALLS := {
 		"when": "When they wait to counter", "expect": "{opp}'s counters dry up; a quiet 30 seconds",
 		"tell": "Feint and draw the lead: take the counters away."},
 	"hands": {"label": "Hands up, move your head", "shout": "Hands up! Move your head!", "needs": ["guard", "head_movement"], "cost": 0.0,
-		"when": "When they load up", "expect": "{opp}'s big shots miss; {her} throws less",
+		"when": "When they load up", "expect": "{opp}'s big shots miss",   # S533 GUARDREV5: "throws less" was never true (nothing cuts output)
 		"tell": "Hands up and move your head: make the big shots miss."},
 	"let_go": {"label": "Let your hands go", "shout": "Let your hands go!", "needs": ["engine", "hand_speed"], "cost": 3.0,
 		"when": "When they tire", "expect": "{her}'s busiest 30 seconds; it costs energy",

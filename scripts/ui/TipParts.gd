@@ -6,6 +6,10 @@ extends RefCounted
 ##   TipParts.build(spec, keys_out) -> [card, magnet]   spec = {title, what, now, rows: [[label, value, delta, tone]],
 ##       meter, means, moves, do, lines: [plain wrapped lines], keys: [term id], hint: [[key, words]]}
 ##   TipParts.note(term) -> the sticky note   place(size, anchor, screen)   place_note(size, card, screen, away_right)
+## S533 owner "fix the tooltip design to reach 10" (Claude rated it 6/10): the body reads in Barlow (the hand font only for the
+## title), rows are a receipt (label left, value right-aligned in one column, unit after), YOUR MOVE sits on its own band with a
+## red edge, a spec "band" draws a 0-100 value as a bar with its limits instead of rows, the magnet sits in the top-right
+## corner, and the "What is" link is a chip.
 
 const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
@@ -28,6 +32,46 @@ const MUTED := Palette.MUTED
 const RULE := Palette.LINE
 const NOTE_BG := Palette.TILE
 const NOTE_EDGE := Palette.HEADER
+const HEAD := Palette.HEADER   # S533: the title in the house title colour
+const DO_BG := Palette.CARD    # YOUR MOVE's band
+const RED_EDGE := Palette.ACTION
+
+
+## S533: a 0-100 value drawn as a bar - the zones coloured, the limits marked, a tick at the value. spec {value, max = 100,
+## zones: [[from, to, tone, word]]}; tone good / watch / bad.
+class Band extends Control:
+	var value := 0.0
+	var top := 100.0
+	var zones: Array = []
+
+	static func make(spec: Dictionary) -> Band:
+		var b := Band.new()
+		b.value = float(spec.get("value", 0.0))
+		b.top = float(spec.get("max", 100.0))
+		b.zones = spec.get("zones", [])
+		b.name = "Band"
+		var fx := TipMeter.TextScale.factor()
+		b.custom_minimum_size = Vector2(TEXT_W * fx, 52.0 * fx)
+		b.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		return b
+
+	func _draw() -> void:
+		var fx := TipMeter.TextScale.factor()
+		var bar_y := 8.0 * fx
+		var bar_h := 12.0 * fx
+		var font := UI.font("body")
+		var fs := int(14 * fx)
+		for z in zones:
+			var x0 := size.x * float(z[0]) / top
+			var x1 := size.x * float(z[1]) / top
+			var col: Color = {"good": Palette.GOOD, "watch": Palette.WARN, "bad": Palette.BAD}.get(str(z[2]), Palette.MUTED)
+			draw_rect(Rect2(x0, bar_y, x1 - x0, bar_h), Color(col, 0.55))
+			draw_string(font, Vector2(x0 + 2.0, bar_y + bar_h + 17.0 * fx), str(z[3]), HORIZONTAL_ALIGNMENT_LEFT, x1 - x0 - 2.0, fs, Palette.TEXT)
+			if float(z[0]) > 0.0:
+				draw_line(Vector2(x0, bar_y), Vector2(x0, bar_y + bar_h + 4.0 * fx), Palette.TEXT, 1.0)
+				draw_string(font, Vector2(x0 - 7.0 * fx, bar_y - 1.0), str(int(z[0])), HORIZONTAL_ALIGNMENT_LEFT, -1, int(12 * fx), Palette.MUTED)
+		var vx := clampf(size.x * value / top, 2.0, size.x - 2.0)
+		draw_rect(Rect2(vx - 2.0, bar_y - 4.0 * fx, 4.0, bar_h + 8.0 * fx), Palette.TEXT)
 
 
 ## Beside the anchor (J90 6d): right or left (whichever has more room) top-aligned, then below, then above; inside the
@@ -72,11 +116,11 @@ static func build(s: Dictionary, keys_out: Array) -> Array:
 	panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	root.add_child(panel)
 	var v := VBoxContainer.new()
-	v.add_theme_constant_override("separation", 6)
+	v.add_theme_constant_override("separation", 7)
 	v.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	panel.add_child(v)
 	if str(s.get("title", "")) != "":
-		var head := _text(str(s["title"]), "marker", 22, INK, true)
+		var head := _text(str(s["title"]), "marker", 22, HEAD, true)
 		head.name = "Title"
 		v.add_child(head)
 		var rule := ColorRect.new()
@@ -86,51 +130,70 @@ static func build(s: Dictionary, keys_out: Array) -> Array:
 		v.add_child(rule)
 	for k in ["what", "now"]:   # WHAT it is, then why it has this value (one cause; more causes are rows)
 		if str(s.get(k, "")) != "":
-			var l := _text(str(s[k]), "hand", 19, INK, true)
+			var l := _text(str(s[k]), "body", 18, INK, true)
 			l.name = k.capitalize()
 			v.add_child(l)
 	var rows: Array = s.get("rows", [])
+	if s.get("band") is Dictionary:   # S533: a 0-100 value drawn with its limits; the rows stay in the spec for the checks
+		v.add_child(Band.make(s["band"]))
+		rows = []
 	if not rows.is_empty():
 		var g := GridContainer.new()
 		g.columns = 3
-		g.add_theme_constant_override("h_separation", 14)
-		g.add_theme_constant_override("v_separation", 2)
+		g.add_theme_constant_override("h_separation", 12)
+		g.add_theme_constant_override("v_separation", 3)
 		g.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		for row in rows:
-			g.add_child(_text(str(row[0]), "hand", 19, INK))
-			var val := _text(str(row[1]), "semi", 19, INK)
-			val.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-			g.add_child(val)
+		var fx := TipMeter.TextScale.factor()
+		for row in rows:   # a receipt: the label takes the room, the value is right-aligned in one column
 			var tone := str(row[3]) if row.size() > 3 else ""
-			g.add_child(_text(str(row[2]) if row.size() > 2 else "", "semi", 19,
-				{"good": GOOD, "bad": BAD, "watch": WATCH}.get(tone, MUTED)))
+			var ink: Color = {"good": GOOD, "bad": BAD, "watch": WATCH}.get(tone, INK)
+			var lab := _text(str(row[0]), "body", 18, MUTED)
+			lab.custom_minimum_size = Vector2((TEXT_W - 170.0) * fx, 0)
+			g.add_child(lab)
+			var val := _text(str(row[1]), "semi", 18, ink)
+			val.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+			val.custom_minimum_size = Vector2(95.0 * fx, 0)
+			g.add_child(val)
+			var unit_word := str(row[2]) if row.size() > 2 else ""
+			var unit := _text(unit_word, "body", 16, ink if unit_word == "now" else MUTED)
+			unit.custom_minimum_size = Vector2(60.0 * fx, 0)
+			g.add_child(unit)
 		v.add_child(g)
 	if s.get("meter") is Dictionary:   # S491: odds drawn, not written
 		v.add_child(TipMeter.make(s["meter"]))
 	if str(s.get("means", "")) != "":
-		v.add_child(_text("Means: " + str(s["means"]), "hand", 19, INK, true))
+		v.add_child(_text("Means: " + str(s["means"]), "body", 18, INK, true))
 	if str(s.get("moves", "")) != "":   # what makes it go up and down, quiet
-		var mv := _text(str(s["moves"]), "hand", 19, MUTED, true)
+		var mv := _text(str(s["moves"]), "body", 17, MUTED, true)
 		mv.name = "Moves"
 		v.add_child(mv)
 	if str(s.get("do", "")) != "":   # YOUR MOVE, in the title's ink and weight
-		var d := _text(str(s["do"]), "handbold", 19, INK, true)
+		var d := _text(str(s["do"]), "semi", 18, INK, true)
 		d.name = "Do"
-		v.add_child(d)
+		d.custom_minimum_size.x -= 18.0
+		var band := PanelContainer.new()   # S533: the action stands apart - its own band with a red edge
+		var bst := UI.box(DO_BG, Palette.CLEAR, 3, 0, 10, 6)
+		bst.border_width_left = 4
+		bst.border_color = RED_EDGE
+		band.add_theme_stylebox_override("panel", bst)
+		band.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		band.add_child(d)
+		v.add_child(band)
 	for line in s.get("lines", []):   # a plain tooltip: the same card, its sentences wrapped
-		v.add_child(_text(str(line), "hand", 19, INK, true))
+		v.add_child(_text(str(line), "body", 18, INK, true))
 	var keys: Array = (s.get("keys", []) as Array).filter(func(k): return not Glossary.term(str(k)).is_empty())
 	if not keys.is_empty():
 		var kh := HBoxContainer.new()
 		kh.add_theme_constant_override("separation", 12)
 		kh.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		kh.add_child(_text("What is", "hand", 19, MUTED))   # S533 owner mark "whats is this for?": the link says what it does
-		for k in keys:
-			var kl := _text(str(Glossary.term(str(k))["name"]) + "?", "handbold", 19, INK)
+		for k in keys:   # S533: a chip that says what it does (owner mark "whats is this for?"); rest on it for the note
+			var chip := PanelContainer.new()
+			chip.add_theme_stylebox_override("panel", UI.box(Palette.CLEAR, MUTED, 10, 1, 8, 1))
+			chip.mouse_filter = Control.MOUSE_FILTER_IGNORE
+			var kl := _text("What is %s?" % str(Glossary.term(str(k))["name"]), "body", 15, MUTED)
 			kl.name = "Key_" + str(k)
-			var dash := Dash.new()
-			kl.add_child(dash)
-			kh.add_child(kl)
+			chip.add_child(kl)
+			kh.add_child(chip)
 			keys_out.append([kl, str(k)])
 		v.add_child(kh)
 	var hint: Array = s.get("hint", [])
@@ -153,7 +216,7 @@ static func build(s: Dictionary, keys_out: Array) -> Array:
 		v.add_child(h)
 	var size := panel.get_combined_minimum_size()
 	var ring := Magnet.new()
-	ring.position = Vector2(size.x * 0.5 - 8.0, 0.0)
+	ring.position = Vector2(size.x - 26.0, 0.0)   # S533: the corner, not the middle of the title
 	root.add_child(ring)
 	root.custom_minimum_size = size + Vector2(0, 8)
 	return [root, ring]

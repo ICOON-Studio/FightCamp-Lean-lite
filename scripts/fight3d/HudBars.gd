@@ -35,7 +35,7 @@ const WORDS := {
 	"body": "Body: the ribs. Every body shot also greys the end of the stamina bar.",
 	"legs": "Legs: tired legs take shorter, slower steps - no cutting the ring off.",
 	"stamina": "Stamina: the tank. The minute's rest gives some back; the grey end is gone for the fight.",
-	"guard": "Guard: how high the hands stay. It sinks as the shoulders tire.",
+	"guard": "Guard: how high the hands stay. Blocked punches wear it down.",   # S533 GUARDREV5: the bar is the worn guard since S524
 	"heart": "Heart: how far from quitting. Standing counts and hurt moments wear it down.",
 }
 const UNKNOWN := {

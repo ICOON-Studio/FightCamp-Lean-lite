@@ -24,12 +24,15 @@ static func tiredness(value: float, word: String = "") -> Dictionary:
 	var at := 0 if value < OK_AT else (-1 if value < amber else (1 if value < red else 2))
 	if at >= 0:
 		rows[at][2] = "now"
-	var todo := "Plan a rest day before it reaches %d." % int(red)
+	var todo := "Plan a rest day before %d." % int(red)
 	if value >= red:
-		todo = "Give a rest day now: tomorrow's training is mostly lost."
+		todo = "Give a rest day now."
 	return {"title": "Fatigue  %d of 100%s" % [roundi(value), (" - " + word.to_lower()) if word != "" else ""],
-		"what": "How worn your boxer is.",
-		"rows": rows, "moves": "Training and fights raise it; rest days bring it down.", "do": todo}
+		"what": "How worn your boxer is. Spent: next day trains at %d%%." % roundi(WeekPlan.TIRED_GAIN * 100.0),
+		"rows": rows, "moves": "Training raises it; rest days bring it down.", "do": todo,
+		# S533 "reach 10": the bands drawn as a bar with a tick at the value (the rows stay in the spec for the checks)
+		"band": {"value": value, "zones": [[0, OK_AT, "good", "Fresh"], [OK_AT, amber, "", "OK"], [amber, red, "watch", "Tired"],
+			[red, 100, "bad", "Spent"]]}}
 
 
 ## "what are the small purple highlighted section on the bars ?" - the levels first, then the bar's parts.

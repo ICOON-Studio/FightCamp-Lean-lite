@@ -23,7 +23,7 @@ func _initialize() -> void:
 	for g in PlanFight.LOST_CARD:
 		_check((GuardNotes.style_warning(str(g)) != "") == (str(PlanFight.LOST_CARD[g]) == "own_ropes"), "warning follows LOST_CARD for " + str(g))
 	var am := GuardNotes.amateur_note(true)
-	_check(am.contains("%d%%" % roundi(GuardWear.WEAR_AMATEUR * 100.0)) and am.contains("back %d" % roundi(GuardWear.RECOVER_QUIET_AMATEUR)),
+	_check(am.contains("%d%%" % roundi(GuardWear.WEAR_AMATEUR * 100.0)) and am.contains("+%d" % roundi(GuardWear.RECOVER_QUIET_AMATEUR)),
 		"amateur note quotes WEAR_AMATEUR and RECOVER_QUIET_AMATEUR: " + am)
 	_check(GuardNotes.amateur_note(false) == "", "pro: no amateur note")
 	_check(GuardNotes.lines("press", true).size() == 2 and GuardNotes.lines("range", false).is_empty(), "lines() joins both, skips empties")

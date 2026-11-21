@@ -3913,6 +3913,42 @@
    "transcript": "AgentComms/seat_logs/SQ267_dola.txt",
    "answered_at": "2026-11-21 03:25",
    "answer": "research/DESIGN_TURNPRO1_V9_CRITIC_DOLA_DOLA.md"
+  },
+  {
+   "id": "SQ268",
+   "seat": "john",
+   "brief": "research/DESIGN_TURNPRO1_V9_CRITIC_JOHN.md",
+   "stem": "DESIGN_TURNPRO1_V9_CRITIC_JOHN_JOHN",
+   "status": "answered",
+   "queued_at": "2026-11-21 09:54",
+   "tries": 0,
+   "sent_at": "2026-11-21 09:54",
+   "sent_ms": 1795247643418,
+   "answered_at": "2026-11-21 10:40",
+   "answer": "research/DESIGN_TURNPRO1_V9_CRITIC_JOHN_JOHN.md",
+   "chars": 11518
+  },
+  {
+   "id": "SQ269",
+   "seat": "dola",
+   "brief": "research/DESIGN_GUARDDMG1_V5_CRITIC_DOLA.md",
+   "stem": "DESIGN_GUARDDMG1_V5_CRITIC_DOLA_DOLA",
+   "status": "queued",
+   "queued_at": "2026-11-21 12:13",
+   "tries": 0,
+   "skips": 1,
+   "last_error": "2026-11-21 12:13 no CDP on 9333 (the app runs without its debug port or is closed; never launched from here - it opens a window)"
+  },
+  {
+   "id": "SQ270",
+   "seat": "kalli",
+   "brief": "research/DESIGN_GUARDDMG1_V5_CRITIC_KALLI.md",
+   "stem": "DESIGN_GUARDDMG1_V5_CRITIC_KALLI_KALLI",
+   "status": "sent",
+   "queued_at": "2026-11-21 12:13",
+   "tries": 0,
+   "sent_at": "2026-11-21 12:13",
+   "sent_ms": 1795256016184
   }
  ]
 }

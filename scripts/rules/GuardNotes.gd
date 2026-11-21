@@ -21,7 +21,8 @@ static func style_warning(game: String) -> String:
 static func amateur_note(amateur: bool) -> String:
 	if not amateur:
 		return ""
-	return "Amateur guard: each block wears it %d%% more; a quiet exchange gives back %d (pro %d)." % [
+	# S533 GUARDREV5: was "a quiet exchange gives back", which one landed punch already stops.
+	return "Amateur guard: each block wears it %d%% more; it comes back only when the opponent lands nothing (+%d, pro +%d)." % [
 		roundi(GuardWear.WEAR_AMATEUR * 100.0), roundi(GuardWear.RECOVER_QUIET_AMATEUR), roundi(GuardWear.RECOVER_QUIET)]
 
 
