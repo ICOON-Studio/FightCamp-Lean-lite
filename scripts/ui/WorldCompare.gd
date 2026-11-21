@@ -19,6 +19,8 @@ const Injuries := preload("res://scripts/state/Injuries.gd")
 const Faces := preload("res://scripts/rules/Faces.gd")
 const PromoShot := preload("res://scripts/ui/PromoShot.gd")
 const NameLinks := preload("res://scripts/ui/NameLinks.gd")
+const IconCards := preload("res://scripts/ui/IconCards.gd")
+const Pick := preload("res://scripts/ui/WorldLadderPick.gd")
 
 const LO := 35.0
 const HI := 95.0
@@ -155,7 +157,7 @@ static func _acts(main: Node, c: Career, f: Dictionary, row: Dictionary) -> Cont
 	var scout_on := pro and not bool(row.get("scouted", false)) and c.cash >= MM.SCOUT_COST
 	var scout_why := ""
 	if not pro:
-		scout_why = "The pro debut comes first."
+		scout_why = Pick.DEBUT_FIRST
 	elif bool(row.get("scouted", false)):
 		scout_why = "Already scouted"
 	elif c.cash < MM.SCOUT_COST:
@@ -183,6 +185,8 @@ static func _noop() -> Callable:
 static func icon(id: String, px: int, colour: Color, why: String = "") -> TextureRect:
 	var r := KitIcon.icon(id, px, colour, why)
 	r.set_meta("icon", id)
+	if why == "":
+		IconCards.attach(r, id)   # S533 TIPFIX3: what the mark means, not its bare name
 	return r
 
 
@@ -202,6 +206,7 @@ static func sports() -> Control:
 	row.add_child(UI.label("MMA", UI.SMALL, UI.FG, "bold"))
 	var warn := icon("warn", 16, Palette.HEADER, "Not built yet")
 	warn.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	warn.tooltip_text = ""   # S533 TIPFIX3: it ignores the mouse; the chip's own tooltip speaks
 	row.add_child(warn)
 	mma.add_child(row)
 	h.add_child(mma)

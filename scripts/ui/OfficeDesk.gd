@@ -70,39 +70,54 @@ static func calendar(c: Career) -> Array:
 		if fb.has("day") and not bool(fb.get("done", false)):
 			var bd := int(fb["day"])
 			var word := _class_word(str(f["wc"])).to_lower()
-			_chip(cells, monday, bd, "bout", "Bout: %s" % word, "%s bout, %s" % [str(f["wc"]), Clock.fmt(bd)])
+			_chip(cells, monday, bd, "bout", "Bout: %s" % word, "Bout day: the %s bout." % str(f["wc"]), str(f["wc"]))
 			for k in range(bd - 7, bd):
-				_chip(cells, monday, k, "fight_week", "fight week", "Fight week: the bout is %s" % Clock.fmt(bd))
+				_chip(cells, monday, k, "fight_week", "fight week", "Fight week: the bout is %s." % Clock.fmt(bd), Clock.fmt(bd))
 		for o in f["offers"]:
 			if not bool(o["answered"]) and not bool(o["mismatch"]):
-				_chip(cells, monday, int(o["expires"]), "offer_ends", "offer ends", "%s bout offer: answer by %s" % [str(f["wc"]), Clock.fmt(int(o["expires"]))])
+				_chip(cells, monday, int(o["expires"]), "offer_ends", "offer ends", "Last day to answer a %s bout offer." % str(f["wc"]), "answer today")
 	for g in c.grapplers:
 		for d in g.get("entered", []):
-			_chip(cells, monday, int(d), "open", "no-gi open", "No-gi open, %s" % Clock.fmt(int(d)))
+			_chip(cells, monday, int(d), "open", "no-gi open", "No-gi open: an entered tournament day.", "entered")
 	for e in Champs.calendar(c):
-		_chip(cells, monday, int(e["d"]), "champs", "nationals", str(e["t"]))
+		_chip(cells, monday, int(e["d"]), "champs", "nationals", "Nationals: a date on the road to the title.")
 	if int(c.show.get("day", -1)) >= 0:
-		_chip(cells, monday, int(c.show["day"]), "show", "club show", "Our club show, %s" % Clock.fmt(int(c.show["day"])))
+		_chip(cells, monday, int(c.show["day"]), "show", "club show", "Our club show: the gym hosts the bouts.")
 	var ahead: Array = CashForecast.project(c, WEEKS)
 	var split: Dictionary = CashForecast.bill_split(ahead)
 	var bill := GameMoney.next_bill_day(c.day)
-	_chip(cells, monday, bill, "bills", "bills due", "Month bill %s: %s. Rent, coaches and England Boxing fees are paid here." % [Clock.fmt(bill), GameMoney.text(int(split["amount"]))])
+	_chip(cells, monday, bill, "bills", "bills due", "Month bill of %s: rent, coaches and England Boxing fees." % GameMoney.text(int(split["amount"])),
+		GameMoney.text(int(split["amount"])))
 	for w in ahead:
 		var close := int(w["day"]) - 1   # the week closes overnight Sunday into Monday: dues land on its Sunday
-		_chip(cells, monday, close, "dues", "dues in", "Week %d income in: %s" % [int(w["w"]) - 1, GameMoney.text(int(w["income"]))])
+		_chip(cells, monday, close, "dues", "dues in", "Week %d income lands: %s." % [int(w["w"]) - 1, GameMoney.text(int(w["income"]))], GameMoney.text(int(w["income"])))
 	for cell in cells:
 		(cell["chips"] as Array).sort_custom(func(a, b): return CHIP_ORDER.find(str(a["kind"])) < CHIP_ORDER.find(str(b["kind"])))
 	return cells
 
 
-static func _chip(cells: Array, monday: int, d: int, kind: String, t: String, tip: String) -> void:
+static func _chip(cells: Array, monday: int, d: int, kind: String, t: String, tip: String, v: String = "") -> void:
 	var i := d - monday
 	if i < 0 or i >= cells.size():
 		return
 	var chips: Array = cells[i]["chips"]
 	if chips.any(func(x): return str(x["kind"]) == kind):
 		return
-	chips.append({"kind": kind, "t": t, "tip": tip})
+	chips.append({"kind": kind, "t": t, "tip": tip, "v": v})
+
+
+## S533 TIPFIX3: a calendar day's card - the date, the first chip's sentence, the other chips as rows ({} = an empty day).
+static func day_card(cell: Dictionary) -> Dictionary:
+	var chips: Array = cell["chips"]
+	if chips.is_empty():
+		return {}
+	var rows: Array = []
+	for x in chips.slice(1, 4):
+		rows.append([str(x["t"]).capitalize(), str(x["v"]), "", ""])
+	var out := {"title": Clock.fmt(int(cell["d"])), "what": str(chips[0]["tip"])}
+	if not rows.is_empty():
+		out["rows"] = rows
+	return out
 
 
 ## [{sender, line, unread, d}]: the newest first, unread before read. News carries no sender: the club's own mail reads

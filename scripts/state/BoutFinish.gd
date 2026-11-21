@@ -158,6 +158,7 @@ static func run(c: Career, f: Dictionary, m: Dictionary) -> void:
 	# S341 three rounds show everything: her whole file opens, and the career's record of her keeps it.
 	OppFile.open_all(opp)
 	OppFile.remember(c.rival(str(opp["name"])), opp)
+	load("res://scripts/state/CoachReadWire.gd").settle(c, f, outcome)   # S533 the coach's read: its call, right or wrong
 	load("res://scripts/state/VisitWire.gd").after_bout(c, f, m, opp, win, pro, rounds)   # S533 P4PBUILD1: the visit (CardAsk)
 	# S533 the corner's eye: one clue from the plan's recorded lines, watched or skipped alike (PlanRecord.clue).
 	var clue := PlanRecord.clue(rounds)

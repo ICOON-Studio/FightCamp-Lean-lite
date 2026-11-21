@@ -61,6 +61,13 @@ const ON_LIGHT := PAGE
 const PAPER_INK := Color("#241f1a")
 const PAPER_MUTED := Color("#5d5243")
 const PAPER_BLUE := Color("#27589e")
+## S533 Q-S294-287 "C clipboard": the guide's clipboard (GuideClipboard) - warm paper on a wooden board, the job now on a band.
+const CLIP_PAPER := Color("#f4efe2")
+const CLIP_BOARD := Color("#8a5a2b")
+const CLIP_BAND := Color("#ffe39a")
+const CLIP_METAL := Color("#a9a9b0")
+const CLIP_METAL_EDGE := Color("#6e6e76")
+const CLIP_TITLE := Color("#c8312b")
 
 # --- the fight's two corners (one each, family J) --------------------------------------------------------------------
 const RED_CORNER := BAD_FILL

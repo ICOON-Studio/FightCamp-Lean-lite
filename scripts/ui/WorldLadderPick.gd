@@ -3,6 +3,10 @@ extends RefCounted
 ## rival's hover line, the booked day, our fighter in a division, the gym's divisions.
 
 const RivalPast := preload("res://scripts/rules/RivalPast.gd")
+const Tip := preload("res://scripts/ui/Tip.gd")
+
+## S533 TIPFIX3: why Ask and Scout are grey for an amateur (was "The pro debut comes first.", too short to say it).
+const DEBUT_FIRST := "Box the pro debut first; then ask a ranked rival."
 
 
 static func row_by_id(rows: Array, id: String) -> Dictionary:
@@ -18,12 +22,24 @@ static func ours_missing(rows: Array) -> bool:
 			return false
 	return true
 
-static func tip(who: Dictionary, club: String) -> String:
+## A rival's hover, as a SHORT card (S533 TIPFIX3: was "Club. beat <name>"; a card names nobody): the club, the last bout.
+static func tip(who: Dictionary, club: String) -> Dictionary:
 	var last: Array = RivalPast.shown(who, 1)
-	if last.is_empty():
-		return club
-	var bit := "%s %s" % ["beat" if bool(last[0]["win"]) else "lost to", str(last[0]["vs"])]
-	return bit if club == "" else "%s. %s" % [club, bit]
+	if last.is_empty() and club == "":
+		return {}
+	var what := "The club this boxer fights for." if last.is_empty() else \
+		("Won the last bout on record." if bool(last[0]["win"]) else "Lost the last bout on record.")
+	return {"title": club if club != "" else "Last bout", "what": what, "do": "Click to set this boxer side by side."}
+
+## The row name's card (row "tip" from tip(); {} = none).
+static func attach_tip(b: Control, spec: Variant) -> void:
+	if spec is Dictionary and not (spec as Dictionary).is_empty():
+		Tip.short(b, str(spec["title"]), str(spec["what"]), str(spec["do"]))
+
+## The win band's card: the range, what it is, and what narrows it (scouted 0 none, 1 the weapon, 2 the weakness).
+static func band_card(bar: Control, lo: float, hi: float, scouted: int) -> void:
+	var todo: String = ["A scout narrows the range.", "A full scout narrows it more.", ""][clampi(scouted, 0, 2)]
+	Tip.short(bar, "Win chance %d-%d%%" % [roundi(lo * 100.0), roundi(hi * 100.0)], "The chance to win this bout, as a range.", todo)
 
 static func booked_day(f: Dictionary) -> int:
 	var bout: Dictionary = f.get("bout", {})

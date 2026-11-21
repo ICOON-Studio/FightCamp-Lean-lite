@@ -14,6 +14,7 @@ const PromoShot := preload("res://scripts/ui/PromoShot.gd")
 const OfficeDesk := preload("res://scripts/ui/OfficeDesk.gd")
 const CashChart := preload("res://scripts/ui/CashChart.gd")
 const Clock := preload("res://scripts/state/Clock.gd")
+const Tip := preload("res://scripts/ui/Tip.gd")
 
 const BG := Palette.PAGE
 const PANEL := Palette.CARD
@@ -152,7 +153,7 @@ func _needs(main: Node, c: Career) -> Control:
 		var tone: Color = [RED, AMBER, BLUE][clampi(int(x["level"]), 0, 2)]
 		var ic := _panel("Icon", UI.box(Palette.alpha(tone, 0.18), Palette.CLEAR, 9, 0, 8, 8))
 		ic.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-		ic.add_child(KitIcon.icon(str(x["icon"]), 26, tone))
+		ic.add_child(_mute(KitIcon.icon(str(x["icon"]), 26, tone)))   # S533 TIPFIX3: the row's words say it; the icon's name was all
 		h.add_child(ic)
 		var tx := UI.vbox(2)
 		tx.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -194,7 +195,7 @@ func _calendar(c: Career) -> Control:
 			var chip := _panel("Chip", UI.box(cols[0], Palette.CLEAR, 4, 0, 4, 0))
 			chip.add_child(_clip(UI.label(str(ch["t"]), 16, cols[1], "bold")))
 			cv.add_child(chip)
-			p.tooltip_text = "\n".join(chips.map(func(x): return str(x["tip"])))
+			Tip.explain(p, OfficeDesk.day_card(cell))   # S533 TIPFIX3: the day's card (was every chip's line, piled)
 		g.add_child(p)
 	return card[0]
 
@@ -208,10 +209,9 @@ func _mail(c: Career) -> Control:
 		var tx := UI.vbox(0)
 		tx.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		tx.add_child(UI.label(str(m["sender"]), 16, INK, "bold"))
-		var line := _clip(UI.label(str(m["line"]), 16, DIM))
+		# S533 TIPFIX3: the whole line, wrapped (was cut, with the news itself, names and all, as its hover)
+		var line := UI.label(str(m["line"]), 16, DIM, "body", true)
 		line.custom_minimum_size = Vector2(340, 0)
-		line.tooltip_text = "%s: %s" % [Clock.fmt(int(m["d"])), str(m["line"])]
-		line.mouse_filter = Control.MOUSE_FILTER_PASS
 		tx.add_child(line)
 		h.add_child(tx)
 		card[1].add_child(h)
@@ -353,7 +353,7 @@ func _staff(c: Career) -> Control:
 		if str(r["face"]) != "":
 			ph.add_child(_tex(str(r["face"]), Vector2.ZERO, TextureRect.STRETCH_KEEP_ASPECT_COVERED))
 		elif not bool(r["empty"]):
-			ph.add_child(KitIcon.icon("coach", 44, DIM))
+			ph.add_child(_mute(KitIcon.icon("coach", 44, DIM)))
 		st.add_child(ph)
 		var tx := UI.vbox(0)
 		tx.add_child(UI.label(str(r["role"]), 17, INK, "bold"))
@@ -416,6 +416,10 @@ func _tag(text: String, bg: Color, ink: Color) -> Control:
 func _nm(n: Control, node_name: String) -> Control:
 	n.name = node_name
 	return n
+
+func _mute(c: Control) -> Control:
+	c.tooltip_text = ""
+	return c
 
 func _clip(l: Label) -> Label:
 	l.clip_text = true

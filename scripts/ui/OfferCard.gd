@@ -9,6 +9,7 @@ const BoutRead := preload("res://scripts/rules/BoutRead.gd")
 const BoutCompare := preload("res://scripts/ui/BoutCompare.gd")
 const OppFile := preload("res://scripts/rules/OppFile.gd")
 const CoachRead := preload("res://scripts/rules/CoachRead.gd")
+const CoachReadWire := preload("res://scripts/state/CoachReadWire.gd")
 const Sim := preload("res://scripts/state/Sim.gd")
 const HotStreak := preload("res://scripts/state/HotStreak.gd")
 const Region := preload("res://scripts/state/Region.gd")
@@ -94,23 +95,34 @@ static func _band(c: Career, f: Dictionary, o: Dictionary) -> Control:
 	return v
 
 
-## S531 THE COACH'S READ: the head coach's verdict on this offer with one reason for and one against (CoachRead).
-static func coach_read(c: Career, f: Dictionary, o: Dictionary) -> Label:
+## THE COACH'S READ (S531; S533 P4PBUILD1 stage 3): the verdict with its checked gain and cost, how much is known, the read's
+## record, and the three answers with their prices (CoachRead, facts from CoachReadWire). One builder for every screen.
+static func coach_read(c: Career, f: Dictionary, o: Dictionary, full: bool = true) -> VBoxContainer:
 	var r := CoachRead.read(facts(c, f, o))
-	var lab := UI.label(CoachRead.line(r, str(c.coach.get("name", "Coach")) if not c.coach.is_empty() else ""), UI.SMALL,
-		{"go": UI.GREEN, "care": UI.AMBER, "stop": UI.RED}.get(str(r["tone"]), UI.FG), "semi", true)
+	var box := UI.vbox(2)
+	box.name = "CoachReadBox_" + str(o["id"])
+	var lab := UI.label(CoachRead.line(r), UI.SMALL, {"go": UI.GREEN, "care": UI.AMBER, "stop": UI.RED}.get(str(r["tone"]), UI.FG), "semi", true)
 	lab.name = "CoachRead_" + str(o["id"])
+	box.add_child(lab)
+	var known := UI.muted(str(r["sure_words"]) + (".  %s." % r["record"] if str(r["record"]) != "" else "."), UI.TINY, true)
+	known.name = "CoachSure"
+	box.add_child(known)
+	if full:
+		for ch in r["choices"]:
+			var row := UI.label("%s%s: %s." % ["Coach's pick - " if bool(ch["pick"]) and not bool(r["guess"]) else ("Your pick - " if bool(ch["pick"]) else ""),
+				ch["label"], ch["price"]], UI.TINY, UI.FG if bool(ch["pick"]) else UI.MUTED, "bold" if bool(ch["pick"]) else "body", true)
+			row.name = "CoachChoice_" + str(ch["id"])
+			box.add_child(row)
+	return box
+
+
+## The read as one label (the bout's versus keeps only labels beside its buttons): the line and how sure.
+static func coach_line(c: Career, f: Dictionary, o: Dictionary) -> Label:
+	var r := CoachRead.read(facts(c, f, o))
+	var lab := UI.label("%s  %s." % [CoachRead.line(r), r["sure_words"]], UI.SMALL, {"go": UI.GREEN, "care": UI.AMBER, "stop": UI.RED}.get(str(r["tone"]), UI.FG), "semi", true)
+	lab.name = "CoachLine_" + str(o["id"])
 	return lab
 
 
 static func facts(c: Career, f: Dictionary, o: Dictionary) -> Dictionary:
-	var opp: Dictionary = o["opp"]
-	var day := int(o["day"])
-	var wf: Dictionary = Sim.weigh_forecast(c, f, day)
-	var rows := Region.rankings(c, str(f["div"]))
-	var g: Dictionary = f.get("goal", {})
-	return {"gap": roundi(BoutRead.mismatch(f, opp, BoutRead.camp_for(f, day - c.day), c.seed)), "unsafe": bool(o["mismatch"]),
-		"rest": BoutRules.days_since_bout(c.results, str(f["id"]), day), "over": 0.0 if bool(wf.get("ok", true)) else float(wf.get("over", 0.0)),
-		"hot": HotStreak.hot(c, f), "streak_words": HotStreak.words(c, f), "her_rank": BoutRead.rank_of(rows, str(f["name"])),
-		"opp_rank": BoutRead.rank_of(rows, str(opp["name"])), "goal": str(g.get("title", "")), "coach": not c.coach.is_empty(),
-		"opp_style": str(opp.get("style", ""))}
+	return CoachReadWire.facts(c, f, o)

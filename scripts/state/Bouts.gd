@@ -207,6 +207,7 @@ static func accept(c: Career, id: String) -> bool:
 	FighterProfile.apply_morale(f, "booked", "A fight booked: %s" % o["opp"]["name"])
 	c.add_news("Booked: %s vs %s, %s." % [f["name"], o["opp"]["name"], Clock.fmt(int(o["day"]))])
 	read_on_booking(c, f)
+	load("res://scripts/state/CoachReadWire.gd").snapshot(c, f, o)   # S533 the coach's read keeps its call for the record
 	return true
 
 

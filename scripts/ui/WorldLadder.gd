@@ -187,7 +187,7 @@ static func _name(main: Node, f: Dictionary, row: Dictionary) -> Control:
 		h.add_child(shot)
 	var call: Callable = main.act.bind("fighter", str(f["id"])) if bool(row["ours"]) else _choose.bind(main, str(row["id"]))
 	var b := UI.button(str(row["name"]), "Link", call)
-	b.tooltip_text = str(row.get("tip", ""))
+	Pick.attach_tip(b, row.get("tip", {}))
 	Compare.wide_button(b, 120.0)
 	b.alignment = HORIZONTAL_ALIGNMENT_LEFT
 	b.size_flags_horizontal = Control.SIZE_FILL   # the marks sit right after the name
@@ -213,7 +213,7 @@ static func _chance(row: Dictionary, line: String) -> Control:
 	bar.hi = hi
 	bar.scouted = 2 if bool(row.get("scouted", false)) else (1 if bool(row.get("partial", false)) else 0)
 	bar.set_meta("span", hi - lo)
-	bar.tooltip_text = "%d-%d%%" % [roundi(lo * 100.0), roundi(hi * 100.0)]
+	Pick.band_card(bar, lo, hi, bar.scouted)
 	bar.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	bar.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	h.add_child(bar)
@@ -324,7 +324,7 @@ static func _pro_rows(c: Career, f: Dictionary) -> Array:
 		row["trend"] = Rules.trend(box)
 		row["booked_opp"] = booked and str(box.get("name", "")) == next_name
 		row["opp"] = bo
-		row["tip"] = str(box.get("club", ""))
+		row["tip"] = Pick.tip({}, str(box.get("club", "")))
 		out.append(row)
 	return out
 
@@ -361,7 +361,7 @@ static func _amateur_rows(c: Career, f: Dictionary) -> Array:
 		var who: Dictionary = row["boxer"]
 		var band: Dictionary = BoutRead.band(fr, who, camp, c.seed, coach)
 		row["band"] = {"lo": float(band["lo"]), "hi": float(band["hi"])}
-		row["ask"] = {"show": false, "on": false, "why": "The pro debut comes first."}
+		row["ask"] = {"show": false, "on": false, "why": Pick.DEBUT_FIRST}
 		row["reach"] = false
 		row["scouted"] = OppFile.known(who, "weakness")
 		row["partial"] = OppFile.known(who, "weapon") and not bool(row["scouted"])
@@ -379,14 +379,14 @@ static func _ours(f: Dictionary, rank: int, pro: bool) -> Dictionary:
 	return {"id": "you", "oid": 0, "name": str(f["name"]), "ours": true, "rank": rank, "w": w, "l": l, "d": d,
 		"age": int(f.get("age", 0)), "style": str(f.get("style", "")), "ko": 0, "has_ko": false, "pro": pro,
 		"reach": false, "booked_opp": false, "marks": [], "trend": "", "band": {}, "ask": {}, "scouted": false,
-		"partial": false, "opp": {}, "tip": "", "boxer": {}}
+		"partial": false, "opp": {}, "tip": {}, "boxer": {}}
 
 static func _boxer(b: Dictionary) -> Dictionary:
 	return {"id": str(int(b["id"])), "oid": int(b["id"]), "name": str(b["name"]), "ours": false, "rank": int(b.get("rank", 0)),
 		"w": int(b.get("w", 0)), "l": int(b.get("l", 0)), "d": int(b.get("d", 0)), "age": int(b.get("age", 0)),
 		"style": str(b.get("style", "")), "ko": int(b.get("ko", 0)), "has_ko": b.has("ko"), "pro": true, "reach": false,
 		"booked_opp": false, "marks": [], "trend": "", "band": {}, "ask": {}, "scouted": false, "partial": false,
-		"opp": {}, "tip": "", "boxer": b}
+		"opp": {}, "tip": {}, "boxer": b}
 
 static func _rival(c: Career, r: Dictionary, rank: int) -> Dictionary:
 	var who := c.rival(str(r["name"]))
@@ -395,7 +395,7 @@ static func _rival(c: Career, r: Dictionary, rank: int) -> Dictionary:
 	return {"id": str(r["name"]), "oid": 0, "name": str(r["name"]), "ours": false, "rank": rank, "w": int(r["w"]),
 		"l": int(r["l"]), "d": 0, "age": int(who.get("age", 0)), "style": str(who.get("style", "")), "ko": 0,
 		"has_ko": false, "pro": false, "reach": false, "booked_opp": false, "marks": [], "trend": "", "band": {},
-		"ask": {}, "scouted": false, "partial": false, "opp": {}, "tip": "", "boxer": who, "club": str(r.get("club", "")), "left_tag": Region.left_tag(who)}
+		"ask": {}, "scouted": false, "partial": false, "opp": {}, "tip": {}, "boxer": who, "club": str(r.get("club", "")), "left_tag": Region.left_tag(who)}
 
 static func _route_of(c: Career, f: Dictionary) -> Dictionary:
 	if ProLadder.on_ladder(c, f):

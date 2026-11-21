@@ -1,7 +1,7 @@
 # TASK TIPFIX3 - the rest of the game's tooltips to the short house card (the screens the check does not walk yet)
 
 Kind: code
-Status: OPEN (S533, Claude main). Discipline: boxing. Model: Grok Dev. Branch `grok/tipfix3`, a PR into main; never merge.
+Status: DONE (S533, PR #434 collected: rest of the game 64 -> 1 broken). Discipline: boxing. Model: Grok Dev. Branch `grok/tipfix3`, a PR into main; never merge.
 
 ## Why
 Q-S294-283 asked the owner: "If yes I convert the other screens the same way". He answered "Shorter cards"; TIPFIX2 (your PR

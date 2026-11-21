@@ -8,6 +8,7 @@ extends RefCounted
 ##   THE ROAD: the champions and the places around her; refusals in one line each
 ## Rules: scripts/rules/Matchmaking.gd; state: scripts/state/ProLadder.gd; acts proscout / probook (BoutActs).
 
+const CoachRead := preload("res://scripts/rules/CoachRead.gd")
 const ProLean := preload("res://scripts/state/ProLean.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const ProLadder := preload("res://scripts/state/ProLadder.gd")
@@ -177,6 +178,13 @@ static func _row(main: Node, c: Career, f: Dictionary, r: Dictionary, offered: A
 			UI.RED if ko_share >= 0.4 else (UI.AMBER if ko_share >= 0.2 else UI.MUTED), "bold" if ko_share >= 0.4 else "body"))
 	for ln in _tape_lines(r["bout_opp"]):
 		who.add_child(UI.label(str(ln[0]), UI.SMALL, ln[1], str(ln[2]), true))
+	# S533 the coach's read on a pro row: the same shape as the amateur card, the pro game's own stakes (CoachRead.pro_read).
+	var pr := CoachRead.pro_read({"mid": mid0, "lo": float(r["chance"]["lo"]), "hi": float(r["chance"]["hi"]), "scouted": scouted,
+		"duck": str(ProLadder.stakes(c, f, opp, [] if ask else offered)["duck"]) != "", "stop": MM.stop_chance(mid0, opp),
+		"takes": _win_short(c, f, opp), "guess": c.coach.is_empty()})
+	var pr_lab := UI.label("%s  %s." % [CoachRead.line(pr), pr["sure_words"]], UI.SMALL, {"go": UI.GREEN, "care": UI.AMBER, "stop": UI.RED}.get(str(pr["tone"]), UI.FG), "semi", true)
+	pr_lab.name = "ProCoachRead"
+	who.add_child(pr_lab)
 	h.add_child(who)
 	var ch: Dictionary = r["chance"]
 	var mid := float(ch["mid"])

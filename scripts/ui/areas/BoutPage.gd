@@ -15,6 +15,7 @@ const BoutRead := preload("res://scripts/rules/BoutRead.gd")
 const ClubForecast := preload("res://scripts/state/ClubForecast.gd")
 const VersusPanel := preload("res://scripts/ui/VersusPanel.gd")
 const MenuFx := preload("res://scripts/ui/MenuFx.gd")
+const OfferCard := preload("res://scripts/ui/OfferCard.gd")
 
 
 func build(main: Node, offer_id: String) -> void:
@@ -45,6 +46,10 @@ func build(main: Node, offer_id: String) -> void:
 	# S373 the weigh-in forecast: her weight now and on the scale after a camp cut from tomorrow (Sim.weigh_forecast).
 	var wf := Sim.weigh_forecast(c, f, int(o["day"]))
 	var foot := _answer_row(main, f, o, offer_id, wf)
+	if not bool(o["answered"]):   # S533 the coach's read, the same one as the offer card: short on the versus, whole in the report
+		var short_read := OfferCard.coach_line(c, f, o)
+		short_read.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		foot.add_child(short_read)
 	if VersusPanel.report_for != offer_id:   # S410 Q-S294-134: the offer opens as a versus screen; this page is its full report
 		MenuFx.set_wall(main, VersusPanel.BACKDROP)
 		remove_child(crumb)
@@ -76,6 +81,11 @@ func build(main: Node, offer_id: String) -> void:
 	compare.add_child(BoutCompare.stats_card(f, opp, c.seed))
 	compare.add_child(BoutCompare.read_card(c, f, opp, BoutRead.camp_for(f, int(o["day"]) - c.day)))
 	add_child(compare)
+	if not bool(o["answered"]):
+		var read_card := UI.card("THE COACH'S READ" if not c.coach.is_empty() else "YOUR ESTIMATE")
+		read_card[0].name = "CoachReadCard"
+		read_card[1].add_child(OfferCard.coach_read(c, f, o, true))
+		add_child(read_card[0])
 	# S341 scouting in stages: her threat and weakness are no longer handed over - they are in her file, found on tape.
 	var report := UI.card("SCOUTING")
 	report[0].size_flags_horizontal = Control.SIZE_EXPAND_FILL

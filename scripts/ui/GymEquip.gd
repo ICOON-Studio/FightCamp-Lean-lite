@@ -11,6 +11,7 @@ const UI := preload("res://scripts/ui/UI.gd")
 const GymSlots := preload("res://scripts/rules/GymSlots.gd")
 const GymPlaces := preload("res://scripts/rules/GymPlaces.gd")
 const GymSpend := preload("res://scripts/state/GymSpend.gd")
+const Tip := preload("res://scripts/ui/Tip.gd")
 
 const DIR := "res://assets/ui/art/gym_slots/%s.png"
 const NAVY := Color(Palette.CARD, 0.92)
@@ -110,9 +111,9 @@ static func _ghost(main: Node, c: Career, s: Dictionary, coming: bool) -> Button
 	b.add_child(pic)
 	b.add_child(_price(s, why, coming))
 	var more := int(s["places"])
-	b.tooltip_text = "%s: %d more place%s, room for %d more members. The fitters take a week." % [s["name"], more, "" if more == 1 else "s", more * GymPlaces.MEMBERS_PER_PLACE]
-	if why != "":
-		b.tooltip_text += "\nNot now: %s." % why
+	# S533 TIPFIX3: a SHORT card - what it adds, then buy it or why not now (was one 16-word line)
+	Tip.short(b, str(s["name"]), "Adds %d place%s, room for %d more members." % [more, "" if more == 1 else "s", more * GymPlaces.MEMBERS_PER_PLACE],
+		"Buy it; fitters take a week." if why == "" else "Not now: %s." % why)
 	b.mouse_entered.connect(func(): pic.modulate.a = GHOST_HOT)
 	b.mouse_exited.connect(func(): pic.modulate.a = GHOST)
 	return b

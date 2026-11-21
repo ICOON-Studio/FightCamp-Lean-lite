@@ -1,5 +1,5 @@
 extends RefCounted
-## S413 operator, Q-S294-140 "Yes, build him": the guide is a person. An old trainer in the corner says one short line (GuideLines),
+## S413 operator, Q-S294-140 "Yes, build him": the guide is a person. Since S533 (Q-S294-287 "C clipboard") his clipboard: the stage's jobs ticked off (GuideClipboard), his line (GuideLines),
 ## its button beside it, and a warm light marks the thing to touch (GuideLight). The what and the why stay as the bubble's tooltip.
 ## It shows only while Career.guide is set; Skip ends the guide for this career.
 ## S397 rank 5 (ops/research/RANK5_FIRST_HOUR_S397.md): three stages - FIRST WEEK, FIRST FIGHT, THE CLUB (FirstWeek.STAGES).
@@ -16,14 +16,14 @@ const GuideLines := preload("res://scripts/rules/GuideLines.gd")
 const GuideLight := preload("res://scripts/ui/GuideLight.gd")
 const Lessons := preload("res://scripts/rules/Lessons.gd")
 const Tip := preload("res://scripts/ui/Tip.gd")
+const Board := preload("res://scripts/ui/GuideClipboard.gd")   # S533 Q-287 "C clipboard"
 
 const PORTRAIT := "res://assets/ui/art/guide_trainer.png"
-const PORTRAIT_PX := 190.0
-const TAIL_W := 24.0
+const FACE_PX := 92.0   # S533 clipboard: a small round face on the board (was a 190 px portrait beside a bubble)
 const BUBBLE_TEXT_W := 400.0
-const BUBBLE := Palette.CARD       # S419 slate (operator: "the white ... doesn blend with the art style of other menus"); was cream
-const BUBBLE_EDGE := Palette.CHOSEN  # worn brass
-const BUBBLE_INK := Palette.TEXT   # chalk (WoodKit.INK)
+
+
+
 
 const PREP_TAB := 5   # FighterPage "Fight prep"
 const PLAYBOOK_TAB := 7
@@ -56,9 +56,13 @@ static func make(main: Node) -> Control:
 	corner.offset_bottom = -14.0
 	corner.grow_vertical = Control.GROW_DIRECTION_BEGIN
 	light.add_child(corner)
-	corner.add_child(_portrait())
-	corner.add_child(_tail())
-	corner.add_child(_bubble(main, c))
+	var board := UI.vbox(-16)   # S533 Q-287: the trainer's clipboard - the clip sits over the top edge
+	board.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	board.size_flags_vertical = Control.SIZE_SHRINK_END
+	board.add_child(_bubble(main, c))
+	board.add_child(Board.clip())
+	board.move_child(board.get_child(1), 0)
+	corner.add_child(board)
 	return light
 
 
@@ -73,50 +77,38 @@ static func refresh(main: Node) -> void:
 	parent.add_child(make(main))
 
 
-static func _portrait() -> Control:
-	var t := TextureRect.new()
-	t.name = "GuideFace"
-	t.texture = load(PORTRAIT)
-	t.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	t.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	t.custom_minimum_size = Vector2(PORTRAIT_PX, PORTRAIT_PX)
-	t.size_flags_vertical = Control.SIZE_SHRINK_END
-	t.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	return t
-
-
-## The speech bubble's point, aimed at the old trainer.
-static func _tail() -> Control:
-	var slot := Control.new()
-	slot.custom_minimum_size = Vector2(TAIL_W, 40)
-	slot.size_flags_vertical = Control.SIZE_SHRINK_END
-	slot.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	for layer in [[BUBBLE_EDGE, 4.0], [BUBBLE, 0.0]]:
-		var p := Polygon2D.new()
-		var g := float(layer[1])
-		p.polygon = PackedVector2Array([Vector2(-2.0 - g, 22.0), Vector2(TAIL_W + 3.0, 2.0 - g), Vector2(TAIL_W + 3.0, 38.0 + g)])
-		p.color = layer[0]
-		slot.add_child(p)
-	return slot
-
-
 static func _bubble(main: Node, c: Career) -> Control:
 	var panel := PanelContainer.new()
 	panel.name = "GuideBubble"
 	panel.size_flags_vertical = Control.SIZE_SHRINK_END
-	panel.add_theme_stylebox_override("panel", UI.box(BUBBLE, BUBBLE_EDGE, 24, 3, 22, 14))
+	panel.add_theme_stylebox_override("panel", Board.paper())
 	panel.mouse_filter = Control.MOUSE_FILTER_STOP
 	var why_text := why(c)
 	panel.tooltip_text = what(c) + ("\n" + why_text if why_text != "" else "")
 	var v := UI.vbox(10)
 	panel.add_child(v)
+	var head := UI.hbox(12)
+	head.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	v.add_child(head)
+	var t := UI.label(Board.title(c), 34, Board.RED, "marker")
+	t.name = "GuideTitle"
+	t.size_flags_vertical = Control.SIZE_SHRINK_END
+	head.add_child(t)
+	head.add_child(UI.spacer())
+	head.add_child(Board.face(PORTRAIT, FACE_PX))
+	v.add_child(Board.job_list(c))
+	var rule := ColorRect.new()
+	rule.color = Board.FADED
+	rule.custom_minimum_size = Vector2(0, 2)
+	rule.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	v.add_child(rule)
 	var for_page := Lessons.page_line(c.lessons, main.route)   # S532: on a first visit, what this page is FOR
 	if for_page != "":
-		var pg := UI.label(for_page, 19, Palette.MUTED, "hand", true)
+		var pg := UI.label(for_page, 19, Board.FADED, "hand", true)
 		pg.name = "GuidePage"
 		pg.custom_minimum_size = Vector2(BUBBLE_TEXT_W, 0)
 		v.add_child(pg)
-	var said := UI.label(GuideLines.line(c), 27, BUBBLE_INK, "handbold", true)
+	var said := UI.label(GuideLines.line(c), 25, Board.INK, "handbold", true)
 	said.name = "GuideWhat"
 	said.custom_minimum_size = Vector2(BUBBLE_TEXT_W, 0)
 	v.add_child(said)

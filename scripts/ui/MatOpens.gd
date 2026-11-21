@@ -8,6 +8,7 @@ const UI := preload("res://scripts/ui/UI.gd")
 const Clock := preload("res://scripts/state/Clock.gd")
 const NoGi := preload("res://scripts/rules/NoGi.gd")
 const BeltRoad := preload("res://scripts/rules/BeltRoad.gd")
+const Tip := preload("res://scripts/ui/Tip.gd")
 
 
 ## S397 blind round 3 ("Ana's card three times"): the full card lives on Fights; Rankings and Championships carry this
@@ -41,7 +42,9 @@ static func card(main: Node, c: Career, g: Dictionary, title: String = "") -> Co
 	if nxt != "":
 		var road := UI.label("Next belt: %s, %d%% of the way." % [nxt, int(round(float(r["share"]) * 100.0))], UI.SMALL, UI.MUTED, "body", true)
 		road.mouse_filter = Control.MOUSE_FILTER_PASS   # S397: the counts stay on hover, not in the line
-		road.tooltip_text = "Classes %d of %d, moves %d of %d." % [int(r["mat"][0]), int(r["mat"][1]), int(r["moves"][0]), int(r["moves"][1])]
+		Tip.explain(road, {"title": "Road to %s belt" % nxt, "what": "The lower of the two counts sets the share.",   # S533 TIPFIX3
+			"rows": [["Mat classes", "%d of %d" % [int(r["mat"][0]), int(r["mat"][1])], "", ""],
+				["Moves owned", "%d of %d" % [int(r["moves"][0]), int(r["moves"][1])], "", ""]], "do": "Raise the lower count to move the belt."})
 		v.add_child(road)
 	var entered: Array = g.get("entered", [])
 	for o in NoGi.opens_after(c.day + 1, 2):

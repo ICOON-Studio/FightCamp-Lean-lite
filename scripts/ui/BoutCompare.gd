@@ -14,6 +14,7 @@ const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const CampForecast := preload("res://scripts/state/CampForecast.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const Region := preload("res://scripts/state/Region.gd")
+const Tip := preload("res://scripts/ui/Tip.gd")
 
 ## The stat bars' scale: every number on a stat row sits on this one ruler.
 const STAT_MIN := 35.0
@@ -186,5 +187,6 @@ static func offer_chips(c: Career, f: Dictionary, o: Dictionary) -> Array:
 	rank.name = "OppRank_" + str(o["id"])
 	var cut := UI.chip("Ticket cut %s" % UI.money(BoutRules.TICKET_CUT), "green")
 	cut.name = "Cut_" + str(o["id"])
-	return [Icons.tip(mis, "Your boxer's strength against the estimate of the opponent. Minus: the opponent is the stronger."),
+	Tip.short(mis, "Strength gap", "Your boxer's strength minus the opponent's estimate. Minus means the opponent is stronger.")   # S533 TIPFIX3
+	return [mis,
 		Icons.tip(rank, "The opponent's place in the division."), Icons.tip(cut, "The club's ticket cut for the bout.")]

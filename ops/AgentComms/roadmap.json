@@ -5212,7 +5212,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-21",
+  "updated": "2026-11-21 02:41 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5531,27 +5531,55 @@
    },
    {
     "title": "Footwork re-read after phase 6 (a sharp boxer holds a wrong step)",
-    "who": "",
+    "who": "claude-pc",
     "started": "2026-11-20T18:02",
     "run": "TREEVALUE9"
    },
    {
     "title": "Arena critic: turning pro v8 + code check",
-    "who": "",
+    "who": "arena",
     "started": "2026-11-21T01:00",
     "run": "ARC-TP8"
    },
    {
-    "title": "Footwork: cut off the ring measured (cut_off + feint control, 400 bouts a cell)",
-    "who": "",
-    "started": "2026-11-21T00:40",
-    "run": "TV10"
+    "title": "Footwork: which cut_off lever costs (arm off=wrong, 400 bouts a cell)",
+    "who": "claude",
+    "started": "2026-11-21T01:14",
+    "run": "TV11_WRONG",
+    "state": "STOPPED - Claude relaunches or closes"
    },
    {
-    "title": "Arena: stoppages by weight class and sex, map v2 (the real stoppage roll)",
-    "who": "",
-    "started": "2026-11-21T01:25",
-    "run": "ARC-DMG2"
+    "title": "Footwork: which cut_off lever costs (arm off=drain, 400 bouts a cell)",
+    "who": "claude",
+    "started": "2026-11-21T01:40",
+    "run": "TV11_DRAIN",
+    "state": "STOPPED - Claude relaunches or closes"
+   },
+   {
+    "title": "Footwork: which cut_off lever costs (arm off=tank, 400 bouts a cell)",
+    "who": "claude",
+    "started": "2026-11-21T01:40",
+    "run": "TV11_TANK",
+    "state": "STOPPED - Claude relaunches or closes"
+   },
+   {
+    "title": "Footwork: which cut_off lever costs (arm off=opp_ropes, 400 bouts a cell)",
+    "who": "claude",
+    "started": "2026-11-21T01:40",
+    "run": "TV11_OPP_ROPES",
+    "state": "STOPPED - Claude relaunches or closes"
+   },
+   {
+    "title": "Pro debut gap: why the win curve jumps, the offer's read told true, then the gaps (Fable console)",
+    "who": "claude-fable",
+    "started": "2026-11-21T02:00",
+    "run": "TURNPRO6"
+   },
+   {
+    "title": "P4PBUILD1 DONE S533: the three coaching moments are built and on main - the visit, the corner's eye, the coach's read (docs/P4PBUILD1_STAGE1-3.md); his play is the gate",
+    "who": "claude-fable",
+    "started": "2026-11-21T02:20",
+    "run": "P4PBUILD1"
    }
   ],
   "next": [
@@ -6082,6 +6110,16 @@
   },
   "done_recently": [
    {
+    "title": "Grok Dev: turning pro map v9 from the code (TASK_TURNREV9)",
+    "who": "grokdev",
+    "when": "2026-11-21"
+   },
+   {
+    "title": "Arena: stoppages by weight class and sex, map v2 (the real stoppage roll)",
+    "who": "arena",
+    "when": "2026-11-21"
+   },
+   {
     "title": "Arena critic: the three P4P mechanics v2 + code check",
     "who": "",
     "when": "2026-11-21"
@@ -6128,16 +6166,6 @@
    },
    {
     "title": "Contracts map v6 from the code",
-    "who": "arena",
-    "when": "2026-11-20"
-   },
-   {
-    "title": "Turning pro map v7 from the code",
-    "who": "arena",
-    "when": "2026-11-20"
-   },
-   {
-    "title": "Fresh critic + code check: knowledge stakes map v4",
     "who": "arena",
     "when": "2026-11-20"
    }
@@ -6434,6 +6462,14 @@
     {
      "text": "Tooltips + guide build (Fable)",
      "who": "agent"
+    },
+    {
+     "text": "P4P build: visit, eye, read",
+     "who": "claude"
+    },
+    {
+     "text": "Steps payoff phases 2-4 (Fable)",
+     "who": "claude"
     }
    ],
    "next": [
@@ -6676,6 +6712,14 @@
     {
      "text": "Critics: pro v8, P4P v2, stops v2",
      "who": "agent"
+    },
+    {
+     "text": "Guard v5 map: John's 10/10 (Arena)",
+     "who": "claude"
+    },
+    {
+     "text": "Guard v5: John's 10/10 (Arena)",
+     "who": "claude"
     }
    ],
    "session": "S532"
