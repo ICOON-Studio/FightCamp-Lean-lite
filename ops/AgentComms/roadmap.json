@@ -6,8 +6,8 @@
   "id": "S534",
   "owner": "claude",
   "updated": "2026-11-21",
-  "summary": "S534 (Opus): the owner's review notes acted on - pro offer names each house's debutant on its header (VS ...), the row says why it was picked, no rating gap or aim number (C442/C443), morale off the buttons into one MORALE line with the boxer's goal; tooltip card 86% see-through (C446); clipboard face removed (mark 05-1); last 3 broken tooltips fixed, both tooltip tests ratcheted to 0; towel/cracked-rib retirement no longer wears the chin (F13, found by the code-checked critic). Fable consoles: ANIMHANDS1 (film 16: the hit man's gloves stay at the face, his C435), TURNPRO10 (map v10, critics John SQ271 + Kalli SQ272), GUARDREV6 (map v6: Hands High/Normal/Loose joins the edge before settle; critics Kalli SQ273 + John SQ274), DMGCLASS v2 critic (5/6/4) -> v3 in flight. LOANPROBE1 collected (loan grows the gym, never a trap). Board: 70 landed runs archived. Build exported 14:09 (STEPPAY2 phase 3 WIP inside). Stage 2: all 152 full-body pictures painted (Ludo, owner 'Keep painted' + 'on the fight too'), wired into the fighter page, cards, bout offer and the fight's tale of the tape; build 15:02.",
-  "next_action": "S535: quote the METHOD lines. 1) Collect STEPPAY2 phases 3-4 (Fable, its own commits; BoutRead recalibration fixes debut_read_test's 2 Lucy gap -2 lines). 2) Collect DMGCLASS v3 (Fable) -> two critics via design_loop.py. 3) Seat answers: turning pro v10 (SQ271 John, SQ272 Kalli), guard v6 (SQ273 Kalli, SQ274 John): both 7+ -> the owner's board with the menu table; else the next version from the code on Fable. 4) The owner plays the S534 build: act on his notes and review comments.",
+  "summary": "S534 (Opus): the owner's review notes acted on - pro offer names each house's debutant on its header (VS ...), the row says why it was picked, no rating gap or aim number (C442/C443), morale off the buttons into one MORALE line with the boxer's goal; tooltip card 86% see-through (C446); clipboard face removed (mark 05-1); last 3 broken tooltips fixed, both tooltip tests ratcheted to 0; towel/cracked-rib retirement no longer wears the chin (F13, found by the code-checked critic). Fable consoles: ANIMHANDS1 (film 16: the hit man's gloves stay at the face, his C435), TURNPRO10 (map v10, critics John SQ271 + Kalli SQ272), GUARDREV6 (map v6: Hands High/Normal/Loose joins the edge before settle; critics Kalli SQ273 + John SQ274), DMGCLASS v2 critic (5/6/4) -> v3 in flight. LOANPROBE1 collected (loan grows the gym, never a trap). Board: 70 landed runs archived. Build exported 14:09 (STEPPAY2 phase 3 WIP inside). Stage 2: all 152 full-body pictures painted (Ludo, owner 'Keep painted' + 'on the fight too'), wired into the fighter page, cards, bout offer and the fight's tale of the tape; build 15:02. Stage 3: depth audit (5 of 23 measured decisions real) -> owner 'Yes, that plan' (DEPTH_SCOPE_S534), new bar 8+ DEPTH and PLAY ('mechanics need an 8 critic's to stay'), FREE HAND to remove/add/interconnect; probes before critics. Arms follow Strength in 3D (stronger), 152 bodies repainted with athletic arms. Tie-up guard defect fixed (Arena). Godot slots GREEN 4.",
+  "next_action": "S535: quote the METHOD lines (DEPTH, MECHANICS NEED 8, FREE HAND). Collect the six Fable runs (STEPPAY2, TURNPROBE11, DEPTHPRICE1A/1B, GUARDPROBE6, KNOWMISREAD1); passing probes -> two critics at 8+; build passing prices; DMGCLASS decide under FREE HAND; re-render the arms 40/80 stills; export and let the owner play.",
   "last_working_commit": "17886db38",
   "verified_playable": "Builds/FightCamp.exe 15:02; tale of the tape, bout offer, fighter page stills opened with both corners painted; face_frame, versus, roster_cards, intro_style tests PASS",
   "incomplete_blocked": "STEPPAY2 phases 3-4 uncommitted in the checkout (Fable, gate run in flight); debut_read_test 2 Lucy gap -2 lines wait on its BoutRead recalibration; DMGCLASS v3 in flight",
@@ -5218,7 +5218,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-21 15:11 board_sync",
+  "updated": "2026-11-21 15:41 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5394,31 +5394,31 @@
    },
    {
     "title": "Probe turning pro v11 before critics",
-    "who": "fable",
+    "who": "claude-fable",
     "started": "2026-11-21T15:35",
     "run": "TURNPROBE11"
    },
    {
-    "title": "Price the solved fight-night choices",
-    "who": "fable",
+    "title": "Price the solved fight-night choices (probe)",
+    "who": "claude-fable",
     "started": "2026-11-21T15:35",
     "run": "DEPTHPRICE1A"
    },
    {
-    "title": "Price the solved club choices",
-    "who": "fable",
+    "title": "Price the solved club choices (probe)",
+    "who": "claude-fable",
     "started": "2026-11-21T15:35",
     "run": "DEPTHPRICE1B"
    },
    {
     "title": "Probe guard v6: Hands before settle",
-    "who": "fable",
+    "who": "claude-fable",
     "started": "2026-11-21T15:35",
     "run": "GUARDPROBE6"
    },
    {
-    "title": "Be wrong about people: shared misread",
-    "who": "fable",
+    "title": "Be wrong about people: a shared misread (build)",
+    "who": "claude-fable",
     "started": "2026-11-21T15:35",
     "run": "KNOWMISREAD1"
    }

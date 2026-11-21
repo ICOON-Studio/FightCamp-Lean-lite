@@ -52,3 +52,14 @@ critics; act on the v10 / v6 scores; the owner plays the S534 build.
 - Tried and reverted: painted portraits on the fight poster - the halftone turned their grey backdrop to dots and lost
   dark-skinned faces; the poster keeps its keyed press photos.
 - Also: DMGCLASS v3 landed (Fable) + critics queued; Arena GUARD6CRIT (code-checked guard v6 critic) running.
+
+## Stage 3 (15:05 -> 16:00): depth (owner "how strategically deep is our game")
+- DEPTH_AUDIT_S534 (Fable): wide not deep, 5 of 23 measured decisions real. Owner: "Yes, that plan" (DEPTH_SCOPE_S534);
+  "mechanics need an 8 critic's to stay in the game for depth and fun" (bar 8+ DEPTH and PLAY); "you can remove,add from
+  scratch or interconnect current and current with needed mechanics" (FREE HAND). All three in CLAUDE.md + METHOD lines.
+- Probes before critics: TURNPROBE11, DEPTHPRICE1A/1B, GUARDPROBE6 running; KNOWMISREAD1 building (Fable consoles).
+- Critics in: turning pro v10 John 6/7/7, Kalli 6/7/6 (v11 written); guard v6 Arena 6/7/5 + live defect FIXED (tie-up
+  guard on all three routes, Sharp +13); DMGCLASS v3 code-checked 6 (class never a choice).
+- Arms: owner "too skiny" -> Q-290 "Follow Strength" -> ArmBuild.gd (3D, width only), then "make it stronger" (80 -> 1.24);
+  152 bodies repainted with athletic arms (76 credits), import + commit in flight at the handover.
+- Godot slots GREEN 3 -> 4 (owner). Handover at 680k context.

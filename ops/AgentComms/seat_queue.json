@@ -3998,22 +3998,28 @@
    "seat": "kalli",
    "brief": "research/DESIGN_GUARDDMG1_V6_CRITIC_KALLI.md",
    "stem": "DESIGN_GUARDDMG1_V6_CRITIC_KALLI_KALLI",
-   "status": "sent",
+   "status": "answered",
    "queued_at": "2026-11-21 13:56",
    "tries": 0,
    "sent_at": "2026-11-21 15:10",
-   "sent_ms": 1795266622741
+   "sent_ms": 1795266622741,
+   "answered_at": "2026-11-21 15:40",
+   "answer": "research/DESIGN_GUARDDMG1_V6_CRITIC_KALLI_KALLI.md",
+   "chars": 15974
   },
   {
    "id": "SQ274",
    "seat": "john",
    "brief": "research/DESIGN_GUARDDMG1_V6_CRITIC_JOHN.md",
    "stem": "DESIGN_GUARDDMG1_V6_CRITIC_JOHN_JOHN",
-   "status": "sent",
+   "status": "answered",
    "queued_at": "2026-11-21 13:56",
    "tries": 0,
    "sent_at": "2026-11-21 15:10",
-   "sent_ms": 1795266625336
+   "sent_ms": 1795266625336,
+   "answered_at": "2026-11-21 15:40",
+   "answer": "research/DESIGN_GUARDDMG1_V6_CRITIC_JOHN_JOHN.md",
+   "chars": 11663
   },
   {
    "id": "SQ275",

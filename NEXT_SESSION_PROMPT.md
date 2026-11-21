@@ -1,4 +1,4 @@
-# S535 handover (written 2026-11-21 ~14:15, end of S534 - Opus)
+# S535 handover (written 2026-11-21 ~16:00, end of S534 - Opus, 680k context)
 
 Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. S534 is in roadmap `now`.
 FIRST: `python ops/Tools/godot_slot.py status` (the owner may be playing a game - RAM was 86% at 14:09).
@@ -21,15 +21,34 @@ FIRST: `python ops/Tools/godot_slot.py status` (the owner may be playing a game 
 - NAMES ONLY IN HEADERS (owner S448): S534 almost broke it (the debutant's name in a row) - the name goes on the card's
   header / versus line, rows say why.
 
-## Running when S534 ended - collect, do not relaunch
-- Fable STEPPAY2 (its own terminal from S533): phase 3 code UNCOMMITTED in LineGrade.gd, LiveRound.gd, StepWire.gd (+ tools
-  place_value_probe / treevalue_*); a treevalue_probe gate run was 95 min in at 14:05. Then phase 4 (re-gate 10 steps) and
-  the BoutRead recalibration: tests/debut_read_test.gd fails 2 Lucy gap -2 lines (read 0.617 vs played 0.540).
-  NEVER stage those files; never `git pull --rebase --autostash` while they are dirty (S534 did once - it applied clean).
-- Fable DMGCLASS v3 (terminal "Fable DMGCLASS v3"): writes ops/research/DESIGN_DMGCLASS1_V3.md; then two critics
-  (`python ops/Tools/design_loop.py critic DMGCLASS1_V3 <map> --seat kalli|john`).
-- Seat queue: SQ271 John + SQ272 Kalli on turning pro v10; SQ273 Kalli + SQ274 John on guard v6 (the 30-min job sends them).
-  Dola's app is closed (no CDP on 9333): she gets nothing until it is open.
+## Running when S534 ended (~16:00) - collect, do not relaunch
+- Fable consoles (terminal tabs in the S534 session; each commits its own file to main and stops):
+  STEPPAY2 (from S533: phase 3 code UNCOMMITTED in LineGrade.gd / LiveRound.gd / StepWire.gd; gate run for cut_off,
+  pivot_out, step_back then the other seven; then BoutRead recalibration -> debut_read_test's 2 Lucy lines);
+  TURNPROBE11 (probe turning pro v11 before critics -> docs/TURNPROBE11_RESULT.md);
+  DEPTHPRICE1A (price pace / ice / fight-week load / partner -> docs/DEPTHPRICE1A_RESULT.md);
+  DEPTHPRICE1B (price class nights / stipend / loan / diet -> docs/DEPTHPRICE1B_RESULT.md);
+  GUARDPROBE6 (guard v6 Hands before settle -> docs/GUARDPROBE6_RESULT.md);
+  KNOWMISREAD1 (BUILD: shared misread in Knowledge.gd + tests/know_misread_test.gd).
+  The Godot queue was jammed at 16:00 (PC RED on CPU 96% from 3 probe runs; 10+ waiting): slow, not stuck.
+- A background job in S534 imports and commits the ATHLETIC-ARMS REPAINT of the 152 painted bodies (assets/ui/style_b/
+  fullbody, already fitted and checked - glove colours 152/152, contact sheet read). If `git status` still shows them
+  modified, run the import (`python ops/Tools/godot_slot.py run --who s535 -- <godot> --headless --path . --import`) and
+  commit them with assets/ui/style_b/SOURCE.md.
+- Arms by Strength in 3D is committed STRONGER (owner "make it stronger": 40 -> 1.00, 60 -> 1.12, 80 -> 1.24); its 40 vs 80
+  stills were NOT re-rendered (queue timeout): `tools/fight3d_still.gd -- <out> armstr=40,40` and `armstr=80,80` on the
+  hidden desktop, then post to the review board and send.
+- Seat queue (chat critics, the 30-min job): SQ273 Kalli + SQ274 John on guard v6; SQ275 Kalli + SQ276 John on DMGCLASS v3.
+  DMGCLASS v3 code-checked (Fable): depth 6 - class is never a choice (comes with the boxer). Guard v6 Arena: 6/7/5.
+  Turning pro v10: John 6/7/7, Kalli 6/7/6 -> v11 written, probe first.
+- Board questions all answered (Q-289 Keep painted, Q-290 Follow Strength, Q-291 Yes, that plan).
+
+## Next, in order
+1. Collect the six Fable results above as they land (read each RESULT; a probe that PASSES goes to two fresh critics -
+   one code-checked - at the 8+ bar; a FAIL is re-sized or dropped under the FREE HAND).
+2. Build the passing prices (DEPTHPRICE1A/1B) with red-first tests; then DEPTH_SCOPE_S534 changes 3 and 5 (maps from code).
+3. DMGCLASS: under FREE HAND decide - a weight-class choice at the turn-pro call (its critic's #1), merge, or cut; tell him.
+4. The owner plays the latest build (export after the repaint lands): painted bodies with athletic arms, arms by Strength.
 
 ## Built in S534 (all on main, build exported 14:09)
 - Pro offer: VS <debutant> on each house header (each house its own name), the Debut row = why picked, no rating gap; hover =
