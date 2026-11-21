@@ -72,7 +72,7 @@ var CARDS = {
     dmg: { head: 11, body: 3 }, acc: 0.64, ranges: ['mid', 'inside'],
     effect: 'Comes around the guard; catches a man coming in.' },
   body_hook: { id: 'body_hook', art: 'boxing', name: 'Body hook', say: 'body hook', kind: 'punch', cost: 5, tags: ['hook', 'body'],
-    dmg: { head: 2, body: 11 }, acc: 0.66, ranges: ['inside'],
+    dmg: { head: 2, body: 10 }, acc: 0.66, ranges: ['inside'],
     effect: 'Digs the body: costs him wind as well as points.' },
   uppercut: { id: 'uppercut', art: 'boxing', name: 'Uppercut', say: 'uppercut', kind: 'punch', cost: 7, tags: ['uppercut'],
     dmg: { head: 14, body: 3 }, acc: 0.58, ranges: ['inside'],
@@ -92,8 +92,8 @@ var CARDS = {
   step_back: { id: 'step_back', art: 'boxing', name: 'Step back', say: 'step back', kind: 'footwork', cost: 3, tags: ['escape'],
     counter: { head: 2, body: 0 }, guard: 0.32, acc: 0.9, ranges: ['out', 'mid'], rangeAfter: 'out',
     effect: 'Out of range; he punches air.' },
-  pivot_out: { id: 'pivot_out', art: 'boxing', name: 'Pivot out', say: 'pivot out', kind: 'footwork', cost: 4, tags: ['escape'],
-    counter: { head: 2, body: 0 }, guard: 0.45, acc: 0.9, ranges: ['out', 'mid', 'inside'], rangeAfter: 'mid',
+  pivot_out: { id: 'pivot_out', art: 'boxing', name: 'Pivot out', say: 'pivot out', kind: 'footwork', cost: 5, tags: ['escape'],
+    counter: { head: 1, body: 0 }, guard: 0.4, acc: 0.9, ranges: ['out', 'mid', 'inside'], rangeAfter: 'mid',
     effect: 'Spin off the ropes and reset the angle.' },
   cut_off: { id: 'cut_off', art: 'boxing', name: 'Cut off the ring', say: 'cut off the ring', kind: 'footwork', cost: 4, tags: ['close'],
     counter: { head: 1, body: 3 }, guard: 0.1, acc: 0.9, ranges: ['mid', 'inside'], rangeAfter: 'inside',
@@ -195,36 +195,36 @@ var CORNER_CARDS = [
 /* --- the roster (prototype: boxing only) --------------------------------- */
 var BOXERS = [
   { id: 'ada', name: 'Ada Nowak', pronoun: 'she', poss: 'her', style: 'out', blurb: 'Schooled amateur. Best feet in the gym.',
-    stats: { power: 54, speed: 82, stamina: 68, chin: 55, technique: 80, defence: 72 },
-    deck: ['jab', 'jab', 'cross', 'cross', 'lead_hook', 'uppercut', 'slip', 'slip', 'block', 'step_back', 'pivot_out', 'cut_off'],
+    stats: { power: 54, speed: 82, stamina: 68, chin: 55, technique: 80, defence: 68 },
+    deck: ['jab', 'jab', 'cross', 'lead_hook', 'uppercut', 'slip', 'slip', 'block', 'step_back', 'pivot_out', 'cut_off', 'cut_off'],
     habits: ['jab_to_open', 'cut_the_ring'] },
   { id: 'mara', name: 'Mara Okafor', pronoun: 'she', poss: 'her', style: 'pressure', blurb: 'Never takes a step back. Body first.',
     stats: { power: 74, speed: 58, stamina: 84, chin: 76, technique: 60, defence: 58 },
-    deck: ['jab', 'body_hook', 'body_hook', 'lead_hook', 'uppercut', 'slip', 'roll', 'clinch', 'cut_off', 'cut_off', 'block', 'pivot_out'],
+    deck: ['jab', 'body_hook', 'body_hook', 'lead_hook', 'uppercut', 'slip', 'roll', 'clinch', 'clinch', 'cut_off', 'cut_off', 'pivot_out'],
     habits: ['body_when_tired', 'clinch_when_hurt'] },
   { id: 'tomas', name: 'Tomas Reiner', pronoun: 'he', poss: 'his', style: 'counter', blurb: 'Won the nationals by making people miss.',
     stats: { power: 62, speed: 74, stamina: 60, chin: 66, technique: 78, defence: 76 },
-    deck: ['jab', 'cross', 'cross', 'uppercut', 'lead_hook', 'slip', 'slip', 'roll', 'roll', 'step_back', 'pivot_out', 'block'],
+    deck: ['jab', 'cross', 'cross', 'uppercut', 'lead_hook', 'slip', 'slip', 'roll', 'clinch', 'clinch', 'step_back', 'pivot_out'],
     habits: ['slip_the_cross', 'hold_when_ahead'] },
   { id: 'ines', name: 'Ines Duarte', pronoun: 'she', poss: 'her', style: 'volume', blurb: 'Throws thirty a round and never sits down.',
-    stats: { power: 56, speed: 70, stamina: 80, chin: 62, technique: 66, defence: 60 },
-    deck: ['jab', 'jab', 'lead_hook', 'lead_hook', 'body_hook', 'uppercut', 'block', 'block', 'slip', 'roll', 'step_back', 'pivot_out'],
+    stats: { power: 60, speed: 70, stamina: 80, chin: 62, technique: 70, defence: 60 },
+    deck: ['jab', 'jab', 'cross', 'cross', 'lead_hook', 'body_hook', 'uppercut', 'block', 'slip', 'roll', 'step_back', 'cut_off'],
     habits: ['right_after_jab', 'cut_the_ring'] },
   { id: 'kwame', name: 'Kwame Boateng', pronoun: 'he', poss: 'his', style: 'pressure', blurb: 'A cruiserweight who fights like a middleweight.',
     stats: { power: 86, speed: 48, stamina: 70, chin: 80, technique: 54, defence: 50 },
-    deck: ['jab', 'body_hook', 'body_hook', 'cross', 'uppercut', 'slip', 'roll', 'clinch', 'cut_off', 'cut_off', 'block', 'step_back'],
+    deck: ['jab', 'body_hook', 'body_hook', 'uppercut', 'uppercut', 'slip', 'roll', 'clinch', 'clinch', 'cut_off', 'cut_off', 'step_back'],
     habits: ['uppercut_when_crowded', 'clinch_when_hurt'] },
   { id: 'lena', name: 'Lena Voss', pronoun: 'she', poss: 'her', style: 'out', blurb: 'Tall, awkward, walks onto a right hand now and then.',
-    stats: { power: 64, speed: 72, stamina: 64, chin: 88, technique: 70, defence: 66 },
-    deck: ['jab', 'cross', 'cross', 'lead_hook', 'uppercut', 'slip', 'slip', 'block', 'step_back', 'pivot_out', 'pivot_out', 'cut_off'],
+    stats: { power: 64, speed: 72, stamina: 64, chin: 82, technique: 70, defence: 66 },
+    deck: ['jab', 'jab', 'cross', 'lead_hook', 'uppercut', 'slip', 'roll', 'roll', 'step_back', 'pivot_out', 'pivot_out', 'block'],
     habits: ['jab_to_open', 'roll_the_hooks'] },
   { id: 'rio', name: 'Rio Tanaka', pronoun: 'he', poss: 'his', style: 'counter', blurb: 'Fast hands, slower feet. Loves the check hook.',
     stats: { power: 58, speed: 88, stamina: 62, chin: 58, technique: 76, defence: 70 },
-    deck: ['jab', 'cross', 'cross', 'uppercut', 'body_hook', 'slip', 'slip', 'roll', 'block', 'step_back', 'pivot_out', 'pivot_out'],
+    deck: ['jab', 'cross', 'cross', 'uppercut', 'body_hook', 'slip', 'roll', 'roll', 'clinch', 'clinch', 'step_back', 'pivot_out'],
     habits: ['roll_the_hooks', 'hold_when_ahead'] },
   { id: 'piotr', name: 'Piotr Zawada', pronoun: 'he', poss: 'his', style: 'volume', blurb: 'Tough as a boot. Wins the last round every time.',
-    stats: { power: 66, speed: 62, stamina: 90, chin: 72, technique: 58, defence: 54 },
-    deck: ['jab', 'jab', 'cross', 'lead_hook', 'body_hook', 'uppercut', 'block', 'slip', 'clinch', 'step_back', 'cut_off', 'cut_off'],
+    stats: { power: 68, speed: 62, stamina: 90, chin: 72, technique: 58, defence: 54 },
+    deck: ['jab', 'jab', 'lead_hook', 'body_hook', 'body_hook', 'uppercut', 'block', 'slip', 'clinch', 'step_back', 'step_back', 'cut_off'],
     habits: ['body_when_tired', 'step_back_when_hit'] }
 ];
 
@@ -392,8 +392,8 @@ function contextOf(fight, key) {
     lastOppHook: !!(lastOpp && lastOpp.tags.indexOf('hook') >= 0),
     lastTookClean: me.lastTookClean, lastLandedClean: me.lastLandedClean,
     selfHurt: isHurt(me), foeHurt: isHurt(foe),
-    selfLowStamina: me.stamina < me.maxStamina * 0.3,
-    foeLowStamina: foe.stamina < foe.maxStamina * 0.3,
+    selfLowStamina: me.stamina < me.maxStamina * 0.5,
+    foeLowStamina: foe.stamina < foe.maxStamina * 0.5,
     selfAhead: totalDamage(me) > totalDamage(foe) + 6,
     gassed: me.stamina < 5, combo: !!me.combo
   };
@@ -720,10 +720,28 @@ function decision(fight) {
 }
 
 /* --- a whole AI-vs-AI bout, used by balance.mjs -------------------------- */
+/* A camp run for a boxer the player is not controlling, so a harness can have
+   both corners prepared and measure style against style, not camp against camp. */
+function campModsFor(boxerId, seed) {
+  var g = createGame({ seed: hashSeed(seed, 'foeCamp', boxerId), playerBoxerId: boxerId });
+  while (g.phase === 'camp') pickCampCard(g, aiCampPick(g));
+  return g.mods;
+}
+function applyCampTo(side, mods) {
+  var k;
+  for (k in mods.stat) side.stats[k] = clamp(side.stats[k] + mods.stat[k], 1, 99);
+  var was = side.maxStamina;
+  side.maxStamina = maxStamina(side.stats);
+  side.stamina = clamp(side.stamina + (side.maxStamina - was), 0, side.maxStamina);
+  for (k in mods.add) {
+    for (var i = 0; i < mods.add[k]; i++) { side.deck.push(k); side.draw.push(k); }
+  }
+}
 function simulateAiBout(opts) {
   var game = createGame(opts);
   while (game.phase === 'camp') pickCampCard(game, aiCampPick(game));
   var fight = startFight(game);
+  if (opts.opponentCamp) applyCampTo(fight.opponent, campModsFor(game.opponentBoxerId, game.seed));
   while (!isOver(fight)) {
     if (fight.phase === 'corner') { pickCorner(game, aiCornerPick(game)); continue; }
     var card = chooseAiCard(fight, 'player');
@@ -744,6 +762,7 @@ return {
   cardCost: cardCost, playExchange: playExchange, pickCorner: pickCorner,
   chooseAiCard: chooseAiCard, contextOf: contextOf, aiCampPick: aiCampPick,
   aiCornerPick: aiCornerPick, isOver: isOver, judgeRound: judgeRound,
+  campModsFor: campModsFor, applyCampTo: applyCampTo,
   scoreRound: scoreRound, simulateAiBout: simulateAiBout, boxerById: boxerById,
   checkStoppage: checkStoppage, rangeAfter: rangeAfter, expectedSwing: expectedSwing,
   maxStamina: maxStamina, isHurt: isHurt, knock: knockdownChance

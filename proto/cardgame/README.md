@@ -34,8 +34,8 @@ Keys: `1`-`5` play a card from your hand, `Enter` presses the gold button.
    cards in your fight deck (two more jabs, a roll, a cut-off the ring) or raises a stat a little.
    The camp is the manager layer: it decides which 16-20 cards your boxer brings and what they are worth.
 3. **The scouting file.** Before the bell you see his style and **0, 1 or 2 of his habits** - sometimes
-   nothing at all, which is the point. A habit is a promise: in one stated situation he plays that card,
-   every time. Reading pays.
+   nothing at all, which is the point. A habit is a promise with a condition: in one stated situation
+   that is the card he looks for first. Reading pays, and pays best when you know when to commit.
 4. **The fight.** Three rounds, six exchanges a round. Both corners play one card face down and turn
    them over together. One line per exchange ("Your cross lands; her slip is mostly smothered").
 5. **The corner.** Between rounds you pick one of three corner cards. Each one costs something -
@@ -76,8 +76,10 @@ why the cheap card is not the nothing card.
 
 **Habits (the read).** Each opponent has two. They fire when their situation is true and the card is
 in his hand: hurt, he clinches; crowd him and he fires the uppercut; after his own jab he sits down on
-the right hand; hit him clean and he gives ground. Every habit is shown to you as a sentence, never as
-a number, and only the ones on film.
+the right hand; hit him clean and he gives ground. A habit card is drilled into his deck twice - it is
+his signature, not a rare accident - but it is still one card of twelve, so the read is a judgement
+about when to commit, not a button. Every habit is shown to you as a sentence, never as a number, and
+only the ones on film.
 
 **A knockdown** comes from a big clean head shot to a tired or hurt man. Chin raises the bar, a low
 tank and existing head damage lower it.
@@ -146,6 +148,21 @@ The harness plays the same AI the game uses, so the table is what the game actua
 win share per style pair, how often every card is played and its win rate when played, and how the
 bouts end. It fails (exit 1) on a **design defect**: a card that wins more than 65% of the time it is
 played, or a card that is effectively never played (under 1% of exchanges).
+
+Both corners get a camp in the harness - the AI runs a camp for the other boxer as well - because
+otherwise the table measures *prepared against unprepared*, and camp picks are style-flavoured, which
+bends every cell. In the game itself only you prepare; the opponent is the puzzle.
+
+What the numbers said when this was written (8,000 bouts): every card inside the limits (highest
+win-when-played: **Lead hook** and **Uppercut**, 55.4%; least played: **Block**, 6.6%); style pairs
+between **38% and 56%**, with the widest gap **Pressure v Counter-puncher**, about 16 points to
+Pressure; stoppages **12%** of bouts, 1.7 knockdowns a bout.
+
+**Does the read pay?** Measured, not asserted: over 4,000 AI-vs-AI bouts where the left corner plays
+the scouting file it was dealt, it wins **46.9%**, against **44.4%** for the same AI ignoring the file.
+Knowing both habits instead of the 0-2 you are dealt is worth about **47.8%**. So the file is worth a
+couple of points and a large edge only when you have studied him - which is the size this wants to be.
+A prototype where one revealed habit won you the fight would have made the cards irrelevant.
 
 ## Why the page does not use an ES module import
 

@@ -26,7 +26,9 @@ for (let i = 0; i < N; i++) {
   if (b.id === a.id) b = rules.BOXERS[(rules.BOXERS.indexOf(b) + 1 + (i % 3)) % rules.BOXERS.length];
   if (b.id === a.id) continue; // never two identical boxers
 
-  const { fight } = rules.simulateAiBout({ seed, playerBoxerId: a.id, opponentBoxerId: b.id });
+  // both corners get the camp the AI would run for its own boxer: this table is
+  // about style against style, not about who was prepared and who was not
+  const { fight } = rules.simulateAiBout({ seed, playerBoxerId: a.id, opponentBoxerId: b.id, opponentCamp: true });
   stats.bouts++;
   const res = fight.result;
 

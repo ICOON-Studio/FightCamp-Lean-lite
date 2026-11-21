@@ -226,9 +226,17 @@ check('fight: the hand is only ever real cards, and a card cannot be played twic
     R.playExchange(game, card);
     for (const c of fight.player.hand) ok(deck.has(c), 'hand card ' + c + ' came from a deck');
     for (const c of fight.opponent.hand) ok(deck.has(c), 'his hand card ' + c + ' came from a deck');
+    const stillInHand = fight.player.hand.indexOf(card) >= 0, wasFight = fight.phase === 'fight';
     let threw = false;
     try { R.playExchange(game, card); } catch (e) { threw = true; }
-    if (fight.player.hand.indexOf(card) < 0 && fight.phase === 'fight') ok(threw, 'a card not in hand is refused');
+    if (!stillInHand && wasFight) ok(threw, 'a card not in hand is refused');
+    if (fight.phase === 'fight') {
+      const absent = R.CARD_ORDER.find((c) => fight.player.hand.indexOf(c) < 0);
+      ok(!!absent, 'some card is not in the hand');
+      let threw2 = false;
+      try { R.playExchange(game, absent); } catch (e) { threw2 = true; }
+      ok(threw2, 'a card that is definitely not in the hand is refused: ' + absent);
+    }
   }
 });
 check('fight: stamina never goes below zero, in any exchange of many bouts', () => {
