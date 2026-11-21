@@ -157,6 +157,19 @@ static func morale(f: Dictionary, stay: bool, before_nationals: bool) -> int:
 	return ProCall.morale(Recruit.ambition(f), stay, before_nationals)
 
 
+## The offer's morale line: why turning pro or staying amateur moves the boxer's morale ("" = neither does). S534 (owner
+## C442 "i do not understand why morale drops"): the reason in words, from the goal the boxer signed with (Recruit.ambition).
+static func morale_line(f: Dictionary, before_nationals: bool) -> String:
+	var go := morale(f, false, before_nationals)
+	var stay := morale(f, true, before_nationals)
+	if go == 0 and stay == 0:
+		return ""
+	var goal := Recruit.ambition(f).to_lower()
+	if go < 0:
+		return "MORALE: your boxer's goal is %s. Turning pro now gives it up: morale %d." % [goal, go]
+	return "MORALE: your boxer's goal is to box for money. Turning pro: morale %+d. Staying amateur: morale %+d." % [go, stay]
+
+
 static func apply_morale(f: Dictionary, stay: bool, before_nationals: bool) -> int:
 	var d := morale(f, stay, before_nationals)
 	if d != 0 and f.has("morale"):

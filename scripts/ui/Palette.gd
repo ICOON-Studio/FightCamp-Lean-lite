@@ -68,6 +68,9 @@ const CLIP_BAND := Color("#ffe39a")
 const CLIP_METAL := Color("#a9a9b0")
 const CLIP_METAL_EDGE := Color("#6e6e76")
 const CLIP_TITLE := Color("#c8312b")
+## The corner's eye ring map (RingTopDown, P4P S531): the canvas and the ropes seen from above.
+const RING_CANVAS := Color("#3b4a57")
+const RING_ROPE := Color("#cfd6dd")
 
 # --- the fight's two corners (one each, family J) --------------------------------------------------------------------
 const RED_CORNER := BAD_FILL

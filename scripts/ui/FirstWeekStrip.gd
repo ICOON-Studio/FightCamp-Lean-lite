@@ -18,8 +18,6 @@ const Lessons := preload("res://scripts/rules/Lessons.gd")
 const Tip := preload("res://scripts/ui/Tip.gd")
 const Board := preload("res://scripts/ui/GuideClipboard.gd")   # S533 Q-287 "C clipboard"
 
-const PORTRAIT := "res://assets/ui/art/guide_trainer.png"
-const FACE_PX := 92.0   # S533 clipboard: a small round face on the board (was a 190 px portrait beside a bubble)
 const BUBBLE_TEXT_W := 400.0
 
 
@@ -94,8 +92,7 @@ static func _bubble(main: Node, c: Career) -> Control:
 	t.name = "GuideTitle"
 	t.size_flags_vertical = Control.SIZE_SHRINK_END
 	head.add_child(t)
-	head.add_child(UI.spacer())
-	head.add_child(Board.face(PORTRAIT, FACE_PX))
+	head.add_child(UI.spacer())   # S534 owner mark (Feedback 2026-11-21-05, "remove"): no face on the clipboard
 	v.add_child(Board.job_list(c))
 	var rule := ColorRect.new()
 	rule.color = Board.FADED

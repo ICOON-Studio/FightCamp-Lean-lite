@@ -83,17 +83,18 @@ static func safe(t: Dictionary) -> bool:
 	return aim(str(t.get("key", ""))) >= 0.70
 
 
-## The offer's line on a picked opponent ("" = an old offer with a fixed gap: the screen keeps its old words).
+## The offer's line on a picked opponent, after the debutant's name ("" = an old offer with a fixed gap: the screen keeps its
+## old words). S534 (owner C442 "what opponent was picked"): the card names the debutant, this says why the house chose them.
 static func line(t: Dictionary) -> String:
 	if not bool(t.get("opp_picked", false)):
 		return ""
-	return "Picked to give your boxer a winnable first night" if safe(t) else "Picked to test your boxer"
+	return "picked as a winnable first night" if safe(t) else "picked to test your boxer"
 
 
-## The hover card on that line (Tip.explain: what it is, why it has this value, what the player can do; 25 words).
-static func tip(t: Dictionary) -> Dictionary:
-	var n := roundi(aim(str(t.get("key", ""))) * 100.0)
+## The hover card on the opponent row (Tip.explain: what it is, what it brings, what the player can do; 25 words). S534 (owner
+## C443 "can he do anything about them?"): no aim, no rating - only what the player can act on.
+static func tip(_t: Dictionary) -> Dictionary:
 	return {"title": "The debut opponent",
-		"what": "The promoter picked this debutant to fit your boxer.",
-		"now": "Aimed at about %d wins in 100, give or take." % n,
-		"do": "Spend the ask to change it."}
+		"what": "A first-time pro the promoter picked to fit your boxer.",
+		"now": "%s, %s." % [DebutRead.DebutOpp.THREAT, DebutRead.DebutOpp.WEAK.to_lower()],
+		"do": "Spend the ask on a softer opponent."}

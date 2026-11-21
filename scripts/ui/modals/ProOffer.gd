@@ -50,9 +50,8 @@ func build(main: Node, m: Dictionary) -> void:
 		var row := UI.hbox(16)
 		v.add_child(row)
 		var runway := GymBills.runway_weeks(c.cash, Needs.money_net(c))
-		var nat := bool(Champs.check(c, f).get("ok", false))
 		for i in offers.size():
-			row.add_child(_house(main, c, f, offers[i], int(sheet["costs"]), runway, nat, i == 0))
+			row.add_child(_house(main, c, f, offers[i], int(sheet["costs"]), runway, i == 0))
 	# S523: one line each (two houses side by side left no room for two cards on a 1080 screen)
 	var pays := UI.hbox(8)
 	pays.name = "PaysNow"
@@ -70,8 +69,13 @@ func build(main: Node, m: Dictionary) -> void:
 		v.add_child(UI.muted("Loyalty under 50: an outside manager signs the boxer and the club keeps only the trainer's %d%%." % int(round(Roster.signing_share(f) * 100)), UI.SMALL, true))
 	var foot := UI.hbox(10)
 	foot.add_child(UI.spacer())
-	var stay_d := ProOfferWire.morale(f, true, bool(Champs.check(c, f).get("ok", false)))
-	var stay := UI.button("Stay amateur" + _mood(stay_d), "BtnQuiet", main.act.bind("declinepro", ""))
+	var nat := bool(Champs.check(c, f).get("ok", false))
+	var why := ProOfferWire.morale_line(f, nat)   # S534 (owner C442 "why morale drops"): the reason, once, not a bare number on a button
+	if why != "":
+		var ml := UI.label(why, UI.SMALL, UI.RED, "bold", true)
+		ml.name = "ProMorale"
+		v.add_child(ml)
+	var stay := UI.button("Stay amateur", "BtnQuiet", main.act.bind("declinepro", ""))
 	stay.name = "DeclinePro"
 	stay.tooltip_text = "The same house calls again after %d more wins, on 0.9x terms unless a title comes first." % Roster.PRO_RETURN_WINS
 	foot.add_child(stay)
@@ -103,7 +107,7 @@ func _tickets(v: VBoxContainer, c: Career, f: Dictionary) -> void:
 
 
 ## One house's column: terms, the ask, the money apart, the pays-back line, sign.
-func _house(main: Node, c: Career, f: Dictionary, t: Dictionary, costs: int, runway: int, nat: bool, first: bool) -> Control:
+func _house(main: Node, c: Career, f: Dictionary, t: Dictionary, costs: int, runway: int, first: bool) -> Control:
 	var key := str(t["key"])
 	var card := UI.card()
 	card[0].name = "House_" + key
@@ -128,8 +132,16 @@ func _house(main: Node, c: Career, f: Dictionary, t: Dictionary, costs: int, run
 	var read := DebutRead.card(f, t, c.day, float(c.coach.get("rating", 0.0)))
 	# DEBUTPICK1 (owner Q-286): the promoter picked the debutant for this boxer - the Debut row says why, its hover says how
 	var picked := DebutPick.line(t)
-	var debut_row := UI.kv("Debut", "%d weeks out, %s" % [int(t["debut_weeks"]), DebutRead.words(t)]) if picked == "" else UI.kv("Debut, %d weeks out" % int(t["debut_weeks"]), picked)
-	var rated := "" if picked == "" else " (%s)" % DebutRead.words(t).trim_prefix("a debutant ")
+	# S534 (owner C442 "what opponent was picked", C443 "can he do anything about them?"): the header names the debutant, the
+	# row says why the house chose them; no rating gap on the card (the player cannot act on it - the ask can)
+	# The debutant's name is the card's versus line (owner S448: names only in headers); the row says who in roles.
+	if picked != "":
+		var vs := UI.caps("VS %s" % str((read["opp"] as Dictionary)["name"]).to_upper())
+		vs.name = "Versus_" + key
+		vs.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		head.add_child(UI.spacer())
+		head.add_child(vs)
+	var debut_row := UI.kv("Debut", "%d weeks out, %s" % [int(t["debut_weeks"]), DebutRead.words(t)]) if picked == "" else UI.kv("Debut, %d weeks out" % int(t["debut_weeks"]), picked.left(1).to_upper() + picked.substr(1))
 	if picked != "":
 		debut_row.name = "Picked_" + key
 		debut_row.mouse_filter = Control.MOUSE_FILTER_STOP
@@ -139,7 +151,7 @@ func _house(main: Node, c: Career, f: Dictionary, t: Dictionary, costs: int, run
 		UI.kv("Debut purse", purse_v),
 		UI.kv("Ticket share past %d sold" % be, "%d%% (%d sold today)" % [int(round(float(t["share"]) * 100)), int(ProOfferWire.money(c, f, t, costs, Roster.signing_share(f))["sold"])]),
 		debut_row,
-		UI.kv("Win chance", "about %d%%, a draw %d%%%s" % [roundi(float(read["win"]) * 100.0), roundi(float(read["draw"]) * 100.0), rated], UI.GREEN if float(read["win"]) >= 0.5 else UI.FG),   # TURNPRO6: the debut as the bout will be fought (DebutRead)
+		UI.kv("Win chance", "about %d%%, a draw %d%%" % [roundi(float(read["win"]) * 100.0), roundi(float(read["draw"]) * 100.0)], UI.GREEN if float(read["win"]) >= 0.5 else UI.FG),   # TURNPRO6: the debut as the bout will be fought (DebutRead)
 		UI.kv("After the debut", "+%s a win, up to %s" % [UI.money(int(t["step"])), UI.money(int(t["top"]))]),
 	])
 	if float(t.get("factor", 1.0)) < 1.0:
@@ -152,8 +164,7 @@ func _house(main: Node, c: Career, f: Dictionary, t: Dictionary, costs: int, run
 	])
 	b.add_child(UI.label(ProCall.pays_back_line(mon), UI.SMALL, UI.FG, "body", true))
 	_ask(main, c, b, key, runway)
-	var d := ProOfferWire.morale(f, false, nat)
-	var go := UI.button("Turn pro with %s%s" % [str(t["name"]), _mood(d)], "BtnSolid", main.act.bind("turnpro", key))
+	var go := UI.button("Turn pro with %s" % str(t["name"]), "BtnSolid", main.act.bind("turnpro", key))
 	go.name = "TurnPro" if first else "TurnPro_" + key
 	b.add_child(go)
 	return card[0]
@@ -183,9 +194,6 @@ func _ask(main: Node, c: Career, b: VBoxContainer, key: String, runway: int) -> 
 		grid.add_child(btn)
 	b.add_child(grid)
 
-
-static func _mood(d: int) -> String:
-	return "" if d == 0 else " (morale %+d)" % d
 
 
 ## No v2 offer (an old save): the S329 sheet.

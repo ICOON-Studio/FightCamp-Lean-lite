@@ -61,6 +61,7 @@ func _opp_rule() -> void:
 		ok = ok and DebutOpp.NAMES_F.has(DebutOpp.name_for(woman, day)) and DebutOpp.NAMES_M.has(DebutOpp.name_for(man, day))
 	_check(ok, "a woman debuts against a woman, a man against a man")
 	_check(str(DebutOpp.make(man, 0.0, 3, "Bow Lane Promotions")["sex"]) == "m", "the opponent carries the boxer's sex")
+	_check(DebutOpp.name_for(woman, 3, "Bow Lane Promotions") != DebutOpp.name_for(woman, 3, "Harrow & Finch Boxing"), "two houses on one day put up two different debutants (S534 owner C442)")
 
 
 func _card_shape() -> void:
@@ -105,7 +106,7 @@ func _read_against_bouts(who: Dictionary, label: String) -> void:
 	var c: Career = fd["c"]
 	var f: Dictionary = fd["f"]
 	var booked: Dictionary = f["bout"]["opp"]
-	_check(is_equal_approx(float(booked["rating"]), DebutOpp.rating(sf["stats"], float(terms["opp_gap"]))) and str(booked["name"]) == DebutOpp.name_for(sf, signed_on),
+	_check(is_equal_approx(float(booked["rating"]), DebutOpp.rating(sf["stats"], float(terms["opp_gap"]))) and str(booked["name"]) == DebutOpp.name_for(sf, signed_on, str(booked["club"]).trim_suffix(" stable")),
 		"%s: turn_pro books the opponent the offer read (DebutOpp)" % label)
 	_check(BoutRead.round_edges(f, booked, f.get("camp", {}), coach).size() == 4, "%s: the read walks the debut's 4 rounds" % label)
 	var tank := float(BoutRules.tank_parts_for(c.results, f, float(f.get("week_fatigue", 20.0)), int(f["bout"].get("day", c.day)))["off"])

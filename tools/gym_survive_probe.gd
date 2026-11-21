@@ -40,6 +40,7 @@ var results: Array = []
 var run_arms: Array = ARMS   # S531: `-- arms=GROW` runs only those (writes docs/GYMSURVIVE1_<ARMS>_RESULT.md)
 var doc_path: String = DOC
 var ran_n: int = N   # careers per seed actually run (pilot = 2); the page reports this, never N
+var seeds: Array = SEEDS   # LOANPROBE1: `-- careers=15 seeds=a,b,c,d out=<path>` (defaults: N, SEEDS, the doc above)
 
 
 func _initialize() -> void:
@@ -52,22 +53,30 @@ func _initialize() -> void:
 		elif str(a).begins_with("arms="):
 			run_arms = Array(str(a).trim_prefix("arms=").split(","))
 			doc_path = "res://docs/GYMSURVIVE1_%s_RESULT.md" % "_".join(run_arms)
+		elif str(a).begins_with("seeds="):
+			seeds = Array(str(a).trim_prefix("seeds=").split(",")).map(func(x): return int(x))
 	var n_careers: int = N
+	for a in user_args:
+		if str(a).begins_with("careers="):
+			n_careers = int(str(a).trim_prefix("careers="))
+		elif str(a).begins_with("out="):
+			doc_path = str(a).trim_prefix("out=")
 	if pilot:
 		n_careers = 2
 	ran_n = n_careers
-	print("arms=%s pilot=%s careers=%d seeds=%s weeks=%d" % [str(run_arms), str(pilot), n_careers, str(SEEDS), WEEKS])
+	print("arms=%s pilot=%s careers=%d seeds=%s weeks=%d" % [str(run_arms), str(pilot), n_careers, str(seeds), WEEKS])
 	if pilot:
-		print("projected time: ~%d min (pilot)" % (2 * SEEDS.size() * run_arms.size()))
+		print("projected time: ~%d min (pilot)" % (2 * seeds.size() * run_arms.size()))
 	else:
-		print("projected time: ~%d min" % (n_careers * SEEDS.size() * run_arms.size() * 2))
+		print("projected time: ~%d min" % (n_careers * seeds.size() * run_arms.size() * 2))
 	for arm in run_arms:
-		for ss in SEEDS:
+		for ss in seeds:
 			for i in n_careers:
 				var seed_n: int = ss + i * 137 + ARMS.find(arm) * 7919
 				var r := _career(str(arm), seed_n, i, ss)
 				results.append(r)
-		print("GYMSURVIVE1 arm=%s done (%d careers)" % [arm, n_careers * SEEDS.size()])
+				print("CAREER " + JSON.stringify(_flat(r)))   # LOANPROBE1: one line per career, so a cut run can be read
+		print("GYMSURVIVE1 arm=%s done (%d careers)" % [arm, n_careers * seeds.size()])
 	var elapsed := (Time.get_ticks_msec() - t0) / 1000.0
 	print("GYMSURVIVE1 wall time: %.1f s" % elapsed)
 	var L := _report(elapsed)
@@ -90,6 +99,7 @@ func _initialize() -> void:
 			med_str = str(int(_median(close_weeks)))
 		print("GYMSURVIVE1 done arm=%s closed104=%.0f%% med_close_week=%s" % [arm, closed_share * 100.0, med_str])
 	print("GYMSURVIVE1 done")
+	print("GYMSURVIVE arms=%s careers=%d done" % [",".join(run_arms), n_careers * seeds.size()])
 	quit(0)
 
 
@@ -116,6 +126,12 @@ func _career(arm: String, seed_n: int, idx: int, seed_set: int) -> Dictionary:
 	var close_income := {}
 	var final_day := 0
 	var guard := 0
+	var moves: Array = []   # LOANPROBE1: the weeks the gym moved premises
+	var loans: Array = []   # the weeks a fit-out loan was taken (GymSpend.move(c, true))
+	var loan_min := 1 << 30   # lowest week-end cash while a loan was being paid
+	var loan_neg := 0   # week ends below $0 while a loan was being paid
+	var loan_close := false   # closed while a loan was being paid
+	var prem0: int = c.premises
 	while c.day < DAYS and not c.closed and guard < 10000:
 		guard += 1
 		var week: int = Clock.week_of(c.day)
@@ -138,9 +154,20 @@ func _career(arm: String, seed_n: int, idx: int, seed_set: int) -> Dictionary:
 					GymSpend.set_half(c, ff)
 					half_on = true
 					break
+		if c.premises > prem0:
+			moves.append(week)
+			if c.fitout_weeks == int(GymUpgrades.LOAN["weeks"]):
+				loans.append(week)
+			prem0 = c.premises
 		_answer_open(c)
+		var paying: bool = c.fitout_weeks > 0
 		Sim.step_day(c)
 		final_day = c.day
+		if paying and c.day % 7 == 0:
+			loan_min = mini(loan_min, c.cash)
+			loan_neg += 1 if c.cash < 0 else 0
+		if paying and c.closed:
+			loan_close = true
 		# Sample at week boundaries
 		if c.day % 7 == 0 and not c.closed:
 			for w in MARKS:
@@ -165,7 +192,19 @@ func _career(arm: String, seed_n: int, idx: int, seed_set: int) -> Dictionary:
 		"close_costs": close_costs, "close_income": close_income,
 		"walkin_signed": walkin_signed, "pro_signed": pro_signed, "half_on": half_on,
 		"snap": snap, "cash0": c.cash_history[0]["c"] if not c.cash_history.is_empty() else 0,
-		"cash_end": c.cash, "members_end": c.members}
+		"cash_end": c.cash, "members_end": c.members, "moves": moves, "loans": loans,
+		"loan_min": loan_min if not loans.is_empty() else 0, "loan_neg": loan_neg, "loan_close": loan_close}
+
+
+func _flat(r: Dictionary) -> Dictionary:
+	var out: Dictionary = {}
+	for k in ["arm", "seed_set", "seed", "closed", "close_week", "final_day", "cash_end", "members_end", "premises_end",
+			"cap_end", "rep_end", "fighters_end", "moves", "loans", "loan_min", "loan_neg", "loan_close"]:
+		out[k] = r[k]
+	for w in MARKS:
+		out["cash%d" % w] = int((r["snap"] as Dictionary)[w]["cash"])
+		out["members%d" % w] = int((r["snap"] as Dictionary)[w]["members"])
+	return out
 
 
 ## S531 GROW (owner Q-277 "Careful gym should grow"): what a sensible owner does each Monday - sign a walk-in when 8 weeks of
@@ -288,12 +327,12 @@ func _report(elapsed: float) -> Array:
 	L.append("# GYMSURVIVE1 result - does a fresh gym survive two years?")
 	L.append("")
 	L.append("Probe run: %s. %d careers x %d seeds x %d arms = %d careers, %d weeks each. Wall time: %.1f s." % [
-		Time.get_datetime_string_from_system(), ran_n, SEEDS.size(), run_arms.size(), ran_n * SEEDS.size() * run_arms.size(), WEEKS, elapsed])
+		Time.get_datetime_string_from_system(), ran_n, seeds.size(), run_arms.size(), ran_n * seeds.size() * run_arms.size(), WEEKS, elapsed])
 	L.append("")
 	L.append("## Population")
 	L.append("")
 	L.append("- Career.quick_start(): one walk-in boxer signed (Lucy), Reid sessional coach hired, the shipped cash and members.")
-	L.append("- %d careers x %d seeds (%s) = %d careers per arm, 104 weeks each." % [ran_n, SEEDS.size(), str(SEEDS), ran_n * SEEDS.size()])
+	L.append("- %d careers x %d seeds (%s) = %d careers per arm, 104 weeks each." % [ran_n, seeds.size(), str(seeds), ran_n * seeds.size()])
 	L.append("- Arms:")
 	L.append("  - **PASSIVE**: touch nothing (today's probes).")
 	L.append("  - **SENSIBLE**: one class night (ClubClasses, Wed), sign a second walk-in when one arrives and cash > 3 months of costs, accept the first pro offer (Roster.turn_pro with the plain deal).")

@@ -11,9 +11,17 @@ const NAMES_F := ["Kayleigh Doran", "Stacey Mills", "Jodie Kerr", "Paige Whitlow
 const NAMES_M := ["Callum Reyes", "Darren Platt", "Jamal Otieno", "Lewis Hardcastle"]
 
 
-static func name_for(f: Dictionary, day: int) -> String:
+## What the debutant brings, as the offer's hover and the fight card say it.
+const STYLE := "Boxer-puncher"
+const THREAT := "Heavy right hand"
+const WEAK := "Fades after round 3"
+
+
+## promoter = the house's name: two houses calling on the same day put up two different debutants (S534, owner C442: one
+## name on both offers read as one opponent).
+static func name_for(f: Dictionary, day: int, promoter: String = "") -> String:
 	var names: Array = NAMES_M if str(f.get("sex", "f")) == "m" else NAMES_F
-	return str(names[posmod(day, names.size())])
+	return str(names[posmod(day + promoter.length(), names.size())])
 
 
 ## The boxer's strength the gap is taken from: today's six fighting stats, a professional with no camp yet.
@@ -27,7 +35,7 @@ static func rating(stats: Dictionary, gap: float) -> float:
 
 ## The opponent's dict as the bout carries it. promoter = the house's name (the opponent boxes out of its stable).
 static func make(f: Dictionary, gap: float, day: int, promoter: String) -> Dictionary:
-	var name := name_for(f, day)
+	var name := name_for(f, day, promoter)
 	return {"name": name, "first": name.split(" ")[0], "club": "%s stable" % promoter, "age": 24,
-		"stance": "orthodox", "style": "Boxer-puncher", "w": 0, "l": 0, "rating": rating(f["stats"], gap),
-		"threat": "Heavy right hand", "weak": "Fades after round 3", "div": f["div"], "pro": true, "sex": str(f.get("sex", "f"))}
+		"stance": "orthodox", "style": STYLE, "w": 0, "l": 0, "rating": rating(f["stats"], gap),
+		"threat": THREAT, "weak": WEAK, "div": f["div"], "pro": true, "sex": str(f.get("sex", "f"))}

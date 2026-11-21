@@ -86,8 +86,7 @@ func _on_screen(c: Career) -> void:
 	await process_frame
 	var light: Node = main.find_child("FirstWeekStrip", true, false)
 	_check(light != null, "the guide is on screen")
-	var face := main.find_child("GuideFace", true, false) as TextureRect
-	_check(face != null and face.texture != null, "the old trainer has a face")
+	_check(main.find_child("GuideFace", true, false) == null, "no face on the clipboard (owner S534: remove)")
 	var said := main.find_child("GuideWhat", true, false) as Label
 	_check(said != null and said.text == GuideLines.line(c), "the bubble says the line")
 	_check(main.find_children("*", "Label", true, false).filter(func(l): return (l as Label).text.begins_with("1  ")).is_empty(), "no numbered chips")

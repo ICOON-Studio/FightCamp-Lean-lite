@@ -3370,6 +3370,72 @@
       "at": "2026-11-20T16:05:44Z",
       "seen_by_claude": true,
       "id": "C437"
+    },
+    {
+      "id": "C438",
+      "path": "AgentComms/board_attach/Q-S294-283_0_03_coach_pay.png",
+      "text": "MARKUP for Q-S294-283: 1 marks -> Feedback/2026-11-21-01/README.md",
+      "at": "2026-11-20T23:40:04Z",
+      "seen_by_claude": true
+    },
+    {
+      "id": "C439",
+      "path": "AgentComms/board_attach/Q-S294-283_0_03_coach_pay.png",
+      "text": "MARKUP for Q-S294-283: 2 marks -> Feedback/2026-11-21-02/README.md",
+      "at": "2026-11-20T23:40:23Z",
+      "seen_by_claude": true
+    },
+    {
+      "id": "C440",
+      "path": "AgentComms/board_attach/Q-S294-283_0_03_coach_pay.png",
+      "text": "MARKUP for Q-S294-283: 3 marks -> Feedback/2026-11-21-03/README.md",
+      "at": "2026-11-20T23:41:21Z",
+      "seen_by_claude": true
+    },
+    {
+      "id": "C441",
+      "path": "AgentComms/board_attach/Q-S294-283_0_03_coach_pay.png",
+      "text": "MARKUP for Q-S294-283: 3 marks -> Feedback/2026-11-21-04/README.md",
+      "at": "2026-11-21T01:26:29Z",
+      "seen_by_claude": true
+    },
+    {
+      "path": "_sent/2026-11-21_1122_debutpick1_the_pro_offer_each_promoter_p/prooffer_picked.png",
+      "text": "i do not understand why morale drops . what oppomnent was picked , it is so confusing",
+      "at": "2026-11-21T10:14:17Z",
+      "seen_by_claude": true,
+      "id": "C442",
+      "addressed": "cited by 33b43ec83 2026-11-21"
+    },
+    {
+      "path": "_sent/2026-11-21_1122_debutpick1_the_pro_offer_each_promoter_p/prooffer_picked_tip.png",
+      "text": "idonot understand why these stats should be know to theplayer, can he do anything about them ?",
+      "at": "2026-11-21T10:15:42Z",
+      "seen_by_claude": true,
+      "id": "C443",
+      "addressed": "cited by 33b43ec83 2026-11-21"
+    },
+    {
+      "id": "C444",
+      "path": "media:_sent/2026-11-21_1056_guide_as_the_coach_s_clipboard_in_the_ga/02_guide_show_me.png",
+      "text": "MARKUP: 1 marks -> Feedback/2026-11-21-05/README.md",
+      "at": "2026-11-21T10:16:09Z",
+      "seen_by_claude": true
+    },
+    {
+      "path": "_sent/2026-11-21_1056_guide_as_the_coach_s_clipboard_in_the_ga/03_coach_pay.png",
+      "text": "i still think the tooltip can get improved, and texted more careful",
+      "at": "2026-11-21T10:17:35Z",
+      "seen_by_claude": true,
+      "id": "C445"
+    },
+    {
+      "path": "_sent/2026-11-21_1003_tooltip_cards_after_tipfix2_about_25_wor/03_coach_pay.png",
+      "text": "can be improved, can the background be transparent ?",
+      "at": "2026-11-21T10:18:04Z",
+      "seen_by_claude": true,
+      "id": "C446",
+      "addressed": "cited by 33b43ec83 2026-11-21"
     }
   ]
 }

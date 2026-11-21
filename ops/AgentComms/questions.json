@@ -8380,7 +8380,7 @@
       "answer": "Shorter cards",
       "note": null,
       "answered_at": "2026-11-21T00:05:01Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "comment_only": false
     },
     {
@@ -8415,7 +8415,7 @@
       "answer": "Yes, that plan",
       "note": null,
       "answered_at": "2026-11-21T07:37:18Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "comment_only": false
     },
     {
@@ -8433,7 +8433,7 @@
       "answer": "Pick to each boxer",
       "note": null,
       "answered_at": "2026-11-21T07:41:53Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "comment_only": false
     },
     {
@@ -8453,7 +8453,7 @@
       "answer": "C clipboard",
       "note": null,
       "answered_at": "2026-11-21T08:50:07Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "comment_only": false
     },
     {
@@ -8472,7 +8472,7 @@
       "answer": "i leave this to you pick wahtever you think is right",
       "note": null,
       "answered_at": "2026-11-21T09:56:45Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "comment_only": true
     }
   ]

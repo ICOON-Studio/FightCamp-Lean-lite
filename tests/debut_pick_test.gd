@@ -111,7 +111,7 @@ func _picks() -> void:
 func _words() -> void:
 	var bow := DebutPick.apply(_people()[0], ProCall.terms("bow", 0, false), 120, COACH)
 	var hf := DebutPick.apply(_people()[0], ProCall.terms("hf", 0, false), 120, COACH)
-	_check(DebutPick.line(hf) == "Picked to give your boxer a winnable first night" and DebutPick.line(bow) == "Picked to test your boxer", "each house says why it picked the opponent")
+	_check(DebutPick.line(hf) == "picked as a winnable first night" and DebutPick.line(bow) == "picked to test your boxer", "each house says why it picked the opponent")
 	_check(DebutPick.line(ProCall.terms("bow", 0, false)) == "", "an old offer with a fixed gap keeps its old words")
 	var ok := true
 	for t in [bow, hf]:
@@ -123,6 +123,10 @@ func _words() -> void:
 		if not faults.is_empty():
 			print("  tip faults: %s" % str(faults))
 	_check(ok, "the hover card: the tooltip standard's rules, 25 words, no name, no pronoun")
+	var goal := {"w": 9, "l": 1, "pot": 80}   # S534 owner C442: the morale drop says why
+	var why := ProOfferWire.morale_line(goal, true)
+	_check(why.contains("a regional title") and why.contains("morale -5"), "a title-minded boxer's offer says why turning pro costs morale: %s" % why)
+	_check(ProOfferWire.morale_line(goal, false) == "" and ProOfferWire.morale_line({"w": 0, "l": 0}, true) == "", "no morale line when neither choice moves it")
 
 
 ## The offer carries the pick, the asks move it, a save keeps it, turn_pro books it.

@@ -5207,7 +5207,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-21 11:11 board_sync",
+  "updated": "2026-11-21 13:29 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5359,19 +5359,33 @@
   "working_now": [
    {
     "title": "Footwork: the right step costs no exchange, then all 10 steps re-gated (STEPPAY2 phases 3-4)",
-    "who": "fable"
+    "who": "fable",
+    "started": "2026-11-21",
+    "run": "STEPPAY2"
    },
    {
-    "title": "Fit-out loan: two years x 60 careers with and without the loan (LOANPROBE1)",
-    "who": "grokdev"
+    "title": "Animation: the hit man's hands move with his reaction (your film 15 note)",
+    "who": "fable",
+    "started": "2026-11-21T13:45",
+    "run": "ANIMHANDS1"
    },
    {
-    "title": "Fresh critics: guard damage map v5",
-    "who": "kalli"
+    "title": "Turning pro map v10 from the code",
+    "who": "fable",
+    "started": "2026-11-21T13:45",
+    "run": "TURNPRO10"
    },
    {
-    "title": "Fresh critics: guard damage map v5",
-    "who": "dola"
+    "title": "Guard damage map v6 from the code: covering must change who wins",
+    "who": "fable",
+    "started": "2026-11-21T13:50",
+    "run": "GUARDREV6"
+   },
+   {
+    "title": "Code-checked critic: damage classes map v2 (after Arena's 14:25 reset)",
+    "who": "arena",
+    "started": "2026-11-21",
+    "run": "DMG2CRIT"
    }
   ],
   "next": [
@@ -6084,64 +6098,6 @@
   "map": {
    "done_earlier": [
     {
-     "text": "Names out of guide and cards",
-     "who": "claude"
-    },
-    {
-     "text": "Set-the-camp crash path closed",
-     "who": "claude"
-    },
-    {
-     "text": "Stance pictures + round portrait",
-     "who": "claude"
-    },
-    {
-     "text": "No names/she in coach read, ask",
-     "who": "claude"
-    },
-    {
-     "text": "Footwork gate review 2/10",
-     "who": "claude"
-    },
-    {
-     "text": "cut_off ring cut: no effect",
-     "who": "claude"
-    },
-    {
-     "text": "Tooltips explain: pay, mastery",
-     "who": "claude"
-    },
-    {
-     "text": "Amateur = fight week everywhere",
-     "who": "claude"
-    },
-    {
-     "text": "Tooltip cards redesigned",
-     "who": "claude"
-    },
-    {
-     "text": "Guide = coach's clipboard",
-     "who": "claude"
-    },
-    {
-     "text": "P4P visit, eye, read built",
-     "who": "claude"
-    },
-    {
-     "text": "Gym survive: careful gym bleeds",
-     "who": "claude"
-    },
-    {
-     "text": "Debut gap curve measured",
-     "who": "claude"
-    },
-    {
-     "text": "Steps: deny reaches the score",
-     "who": "claude"
-    }
-   ],
-   "done_session": [
-    {
      "text": "Fatigue replaces Tiredness",
      "who": "claude"
     },
@@ -6179,6 +6135,48 @@
     },
     {
      "text": "Board: stills to review lit",
+     "who": "claude"
+    },
+    {
+     "text": "Names out of guide and cards",
+     "who": "claude"
+    },
+    {
+     "text": "Set-the-camp crash path closed",
+     "who": "claude"
+    },
+    {
+     "text": "Stance pictures + round portrait",
+     "who": "claude"
+    },
+    {
+     "text": "No names/she in coach read, ask",
+     "who": "claude"
+    }
+   ],
+   "done_session": [
+    {
+     "text": "Pro offer: opponent named",
+     "who": "claude"
+    },
+    {
+     "text": "Morale drop says why",
+     "who": "claude"
+    },
+    {
+     "text": "Tooltip card see-through",
+     "who": "claude"
+    },
+    {
+     "text": "Clipboard: no face",
+     "who": "claude"
+    },
+    {
+     "text": "Loan probe: grows, no trap",
+     "who": "agent"
+    },
+    {
+     "text": "Palette guard green",
      "who": "claude"
     }
    ],
@@ -6232,16 +6230,20 @@
      "who": "claude"
     },
     {
-     "text": "Anim: v2 range fix (Fable)",
-     "who": "claude"
-    },
-    {
      "text": "Guard v5 critics: Kalli, Dola",
      "who": "claude"
     },
     {
      "text": "Your play: the S533 build",
      "who": "operator"
+    },
+    {
+     "text": "Anim: hands move with hit (Fable)",
+     "who": "claude"
+    },
+    {
+     "text": "Turning pro v10 from code (Fable)",
+     "who": "claude"
     }
    ],
    "next": [
@@ -6494,15 +6496,11 @@
      "who": "claude"
     },
     {
-     "text": "Turning pro v10 from the code",
-     "who": "claude"
-    },
-    {
      "text": "Damage classes: Arena critic",
      "who": "claude"
     }
    ],
-   "session": "S533"
+   "session": "S534"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",

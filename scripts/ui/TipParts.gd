@@ -21,7 +21,7 @@ const GAP := 10.0
 const TEXT_W := 330.0
 const NOTE_W := 290.0
 ## J90 section 4: text inks that pass 4.5:1 on the card (the house amber / green / red do not).
-const CARD_BG := Palette.HOVER
+const CARD_BG := Color(Palette.HOVER, 0.86)   # S534 owner C446 "can the background be transparent?": the page shows through, text still reads
 const CARD_EDGE := Palette.LINE
 const INK := Palette.TEXT
 const RED := Palette.BAD

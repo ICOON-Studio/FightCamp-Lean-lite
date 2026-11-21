@@ -17,10 +17,10 @@ const STRIP_H := 54.0
 const VIEW_M := 3.4         # metres the zoomed view shows top to bottom
 const BODY_M := 0.24        # a boxer's drawn radius in metres (shoulders ~0.5 m)
 const MINI := 120.0         # the whole-ring map's side in px
-const HER := Color("#df4639")   # the red corner, as the 3D fight dresses her
-const OPP := Color("#6fa0e6")
-const CANVAS := Color("#3b4a57")
-const ROPE := Color("#cfd6dd")
+const HER := Palette.BAD_FILL   # the red corner, as the 3D fight dresses her
+const OPP := Palette.ACCENT
+const CANVAS := Palette.RING_CANVAS
+const ROPE := Palette.RING_ROPE
 
 var exs: Array = []
 var gas := [100.0, 100.0]

@@ -3678,7 +3678,8 @@
    "sent_ms": 1795218034105,
    "answered_at": "2026-11-21 02:10",
    "answer": "research/RESEARCH_FITOUT_LOAN_JOHN_JOHN.md",
-   "chars": 21652
+   "chars": 21652,
+   "seen_by_claude": true
   },
   {
    "id": "SQ251",
@@ -3842,7 +3843,8 @@
    "pid": 5908,
    "transcript": "AgentComms/seat_logs/SQ262_dola.txt",
    "answered_at": "2026-11-21 02:04",
-   "answer": "research/DESIGN_THREEP4P_V2_CRITIC_DOLA_DOLA.md"
+   "answer": "research/DESIGN_THREEP4P_V2_CRITIC_DOLA_DOLA.md",
+   "seen_by_claude": true
   },
   {
    "id": "SQ263",
@@ -3856,7 +3858,8 @@
    "pid": 20384,
    "transcript": "AgentComms/seat_logs/SQ263_dola.txt",
    "answered_at": "2026-11-21 02:40",
-   "answer": "research/DESIGN_DMGCLASS1_V2_CRITIC_DOLA_DOLA.md"
+   "answer": "research/DESIGN_DMGCLASS1_V2_CRITIC_DOLA_DOLA.md",
+   "seen_by_claude": true
   },
   {
    "id": "SQ264",
@@ -3870,7 +3873,8 @@
    "sent_ms": 1795218036535,
    "answered_at": "2026-11-21 02:10",
    "answer": "research/DESIGN_DMGCLASS1_V2_CRITIC_KALLI_KALLI.md",
-   "chars": 60489
+   "chars": 60489,
+   "seen_by_claude": true
   },
   {
    "id": "SQ265",
@@ -3884,7 +3888,8 @@
    "sent_ms": 1795221643028,
    "answered_at": "2026-11-21 03:10",
    "answer": "research/DESIGN_THREEP4P_V2_CRITIC_JOHN_JOHN.md",
-   "chars": 11662
+   "chars": 11662,
+   "seen_by_claude": true
   },
   {
    "id": "SQ266",
@@ -3898,7 +3903,8 @@
    "sent_ms": 1795218039078,
    "answered_at": "2026-11-21 01:57",
    "answer": "research/GUIDETIPS1_V2_CRITIC_DOLA_MARIA.md",
-   "chars": 16267
+   "chars": 16267,
+   "seen_by_claude": true
   },
   {
    "id": "SQ267",
@@ -3912,7 +3918,8 @@
    "pid": 48752,
    "transcript": "AgentComms/seat_logs/SQ267_dola.txt",
    "answered_at": "2026-11-21 03:25",
-   "answer": "research/DESIGN_TURNPRO1_V9_CRITIC_DOLA_DOLA.md"
+   "answer": "research/DESIGN_TURNPRO1_V9_CRITIC_DOLA_DOLA.md",
+   "seen_by_claude": true
   },
   {
    "id": "SQ268",
@@ -3926,7 +3933,8 @@
    "sent_ms": 1795247643418,
    "answered_at": "2026-11-21 10:40",
    "answer": "research/DESIGN_TURNPRO1_V9_CRITIC_JOHN_JOHN.md",
-   "chars": 11518
+   "chars": 11518,
+   "seen_by_claude": true
   },
   {
    "id": "SQ269",
@@ -3936,19 +3944,23 @@
    "status": "queued",
    "queued_at": "2026-11-21 12:13",
    "tries": 0,
-   "skips": 1,
-   "last_error": "2026-11-21 12:13 no CDP on 9333 (the app runs without its debug port or is closed; never launched from here - it opens a window)"
+   "skips": 4,
+   "last_error": "2026-11-21 13:40 no CDP on 9333 (the app runs without its debug port or is closed; never launched from here - it opens a window)"
   },
   {
    "id": "SQ270",
    "seat": "kalli",
    "brief": "research/DESIGN_GUARDDMG1_V5_CRITIC_KALLI.md",
    "stem": "DESIGN_GUARDDMG1_V5_CRITIC_KALLI_KALLI",
-   "status": "sent",
+   "status": "answered",
    "queued_at": "2026-11-21 12:13",
    "tries": 0,
    "sent_at": "2026-11-21 12:13",
-   "sent_ms": 1795256016184
+   "sent_ms": 1795256016184,
+   "answered_at": "2026-11-21 12:41",
+   "answer": "research/DESIGN_GUARDDMG1_V5_CRITIC_KALLI_KALLI.md",
+   "chars": 15284,
+   "seen_by_claude": true
   }
  ]
 }
