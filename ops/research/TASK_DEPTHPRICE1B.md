@@ -22,7 +22,9 @@ difference), and no option best in more than 6 of 10 cells (gym kinds x seeds). 
 
 ## Contract
 OWNS: tools/depthprice1b_probe.gd (or the extended probes), docs/DEPTHPRICE1B_RESULT.md
-RED_TEST: none (measurement). REGRESSION: none (nothing under scripts/). VISUAL: no
+RED_TEST: tools/depthprice1b_probe.gd (a measurement probe)
+REGRESSION: tests/golden_path_test.gd (unchanged: nothing under scripts/ is touched)
+VISUAL: no
 
 ## Rules
 Godot only through `python ops/Tools/godot_slot.py run --who depthprice1b -- <command>`. Other sessions have uncommitted edits

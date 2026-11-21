@@ -31,10 +31,7 @@ FIRST: `python ops/Tools/godot_slot.py status` (the owner may be playing a game 
   GUARDPROBE6 (guard v6 Hands before settle -> docs/GUARDPROBE6_RESULT.md);
   KNOWMISREAD1 (BUILD: shared misread in Knowledge.gd + tests/know_misread_test.gd).
   The Godot queue was jammed at 16:00 (PC RED on CPU 96% from 3 probe runs; 10+ waiting): slow, not stuck.
-- A background job in S534 imports and commits the ATHLETIC-ARMS REPAINT of the 152 painted bodies (assets/ui/style_b/
-  fullbody, already fitted and checked - glove colours 152/152, contact sheet read). If `git status` still shows them
-  modified, run the import (`python ops/Tools/godot_slot.py run --who s535 -- <godot> --headless --path . --import`) and
-  commit them with assets/ui/style_b/SOURCE.md.
+- The ATHLETIC-ARMS REPAINT of the 152 painted bodies is imported and committed (f3e86aab8); not yet in an exported build.
 - Arms by Strength in 3D is committed STRONGER (owner "make it stronger": 40 -> 1.00, 60 -> 1.12, 80 -> 1.24); its 40 vs 80
   stills were NOT re-rendered (queue timeout): `tools/fight3d_still.gd -- <out> armstr=40,40` and `armstr=80,80` on the
   hidden desktop, then post to the review board and send.

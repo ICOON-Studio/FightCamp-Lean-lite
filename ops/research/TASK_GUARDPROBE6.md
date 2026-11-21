@@ -19,7 +19,9 @@ against all four; each setting best against at least one; High against a tiring 
 
 ## Contract
 OWNS: tools/guardprobe6.gd, docs/GUARDPROBE6_RESULT.md
-RED_TEST: none (measurement). REGRESSION: none. VISUAL: no
+RED_TEST: tools/guardprobe6.gd (a measurement probe)
+REGRESSION: tests/golden_path_test.gd (unchanged: nothing under scripts/ is touched)
+VISUAL: no
 
 ## Rules
 Godot only through `python ops/Tools/godot_slot.py run --who guardprobe6 -- <command>`. Other sessions have uncommitted edits

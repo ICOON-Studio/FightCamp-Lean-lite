@@ -22,7 +22,9 @@ If a price fails, try one re-size, then report.
 
 ## Contract
 OWNS: tools/depthprice1a_probe.gd (or the extended probes), docs/DEPTHPRICE1A_RESULT.md
-RED_TEST: none (measurement). REGRESSION: none (nothing under scripts/). VISUAL: no
+RED_TEST: tools/depthprice1a_probe.gd (a measurement probe)
+REGRESSION: tests/golden_path_test.gd (unchanged: nothing under scripts/ is touched)
+VISUAL: no
 
 ## Rules
 Godot only through `python ops/Tools/godot_slot.py run --who depthprice1a -- <command>`. Other sessions have uncommitted edits

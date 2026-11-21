@@ -16,3 +16,7 @@ Switch: PromoShot.ui_art() - `ui_art=b` user arg or `ui_art` in user://settings.
   reference. Same face, same pose, same stance and guard; keep the gloves, shorts, wraps and boots in exactly their colours."
   Then tools/fit_painted_bodies.py fits each onto its render's 600x800 canvas (same height, foot line, centre), so FaceFrame's
   "fullbody" head boxes and the versus layout hold. Read through RosterCards.body_path() when PromoShot.ui_art() is "b".
+- fullbody/ REPAINTED S534 (owner "the fighter's arms are too skiny", then Q-S294-290 "Follow Strength"): the same 152 with an
+  athlete's build - "toned, defined arms, shoulders and forearms of a trained fighter ... not skinny, not bulky" and "keep the
+  ... shorts, top ... in exactly their colours and their cut" added to the prompt (76 credits). The 3D fight thickens the arms
+  by Strength on top (scripts/fight3d/v2/ArmBuild.gd); the paintings are one toned build for everyone.

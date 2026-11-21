@@ -58,9 +58,9 @@ Per phase: the commit, the result doc, a line in roadmap.json `plan` (row STEPPA
 gate numbers, the tests run with their pass lines.
 
 ## Contract
-OWNS: listed above
+OWNS: scripts/rules/LineGrade.gd, scripts/state/LiveRound.gd, scripts/state/StepWire.gd, tests/place_edge_test.gd, tools/place_value_probe.gd (and the other files listed above)
 RED_TEST: tests/place_edge_test.gd (phase 2), red on main
-REGRESSION: tests of every module touched + golden_path_test + step_effect_test + plan_fight tests
+REGRESSION: tests/golden_path_test.gd, tests/step_effect_test.gd (plus the tests of every module touched and the plan_fight tests)
 VISUAL: no (the ring map already shows places; Claude checks a still after phase 2)
 
 ## Prior research

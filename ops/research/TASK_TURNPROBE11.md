@@ -16,7 +16,7 @@ applied INSIDE the probe tool (a local copy of the rule, flagged), never in scri
 
 ## Contract
 OWNS: tools/turnprobe11.gd (or the extended probe), docs/TURNPROBE11_RESULT.md
-RED_TEST: none (measurement)
+RED_TEST: tools/turnprobe11.gd (a measurement probe)
 REGRESSION: tests/debut_pick_test.gd (unchanged: nothing under scripts/ is touched)
 VISUAL: no
 
