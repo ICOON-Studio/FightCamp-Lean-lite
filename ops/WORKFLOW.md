@@ -11,7 +11,7 @@ Where this page and older text disagree, this page wins. Order (S218, operator P
 
 
 ## 0. Gates at a glance (S218 order: gates first, then how to work, history last; section numbers are stable IDs)
-- PC: watchdog `ops\Tools\pc_watchdog.ps1 -Once` before every heavy job; RED (84 C held 2 min, 88 C at once, 80% CPU, commit < 4 GB) = do not start (s4). rule_guard + heat_governor enforce it.
+- PC: watchdog `ops\Tools\pc_watchdog.ps1 -Once` before every heavy job; RED (84 C held 2 min, 88 C at once, 92% CPU (owner S536 "92%"), commit < 4 GB) = do not start (s4). rule_guard + heat_governor enforce it.
 - SCREENS: nothing opens on the operator's monitors - file tools only, windowed Godot only via `ops\Tools\godot_hidden.ps1` (s4).
 - VISUAL: `.claude/skills/visual-gate/SKILL.md` - red on the shipped clip first, game-camera stills via still_framing, gap/noses/wrists/feet per still, the operator closes it (s2).
 - TESTS: parse gate first; `run_tests.py` only with `--jobs 2|3|4` (4 = idle GREEN PC); never the full suite in a session; exit code alone is not a pass (s6).
@@ -21,7 +21,7 @@ Where this page and older text disagree, this page wins. Order (S218, operator P
 
 ## 4. Safety (PC, processes, disk)
 - PC LIMITS (operator 2026-10-02): CPU temperature never above 84 C (raised from 80 the same day: "you can go upt to 84C"); CPU load low enough that he can use the PC. The
-  watchdog goes RED at 84 C HELD 2 MIN or 88 C at once (operator S249: "RED at 84 C only when held 2 minutes, instant stop at 88 C", to let more work run), 80% CPU or commit < 4 GB (amber 74 C / 60%); live meters on the ops board top strip (/api/pc).
+  watchdog goes RED at 84 C HELD 2 MIN or 88 C at once (operator S249: "RED at 84 C only when held 2 minutes, instant stop at 88 C", to let more work run), 92% (owner S536, was 80%) CPU or commit < 4 GB (amber 74 C / 60%); live meters on the ops board top strip (/api/pc).
 - PC LIVE (S379, operator: "can i have this metrics on board"): Task Manager's CPU / memory / each disk / network / GPU tiles with a
   2-min trail at the top of the board and on /pc (/api/pc_metrics), from `ops/Tools/pc_metrics.ps1` - scheduled task
   "FightCamp PC Metrics", one hidden Get-Counter loop (~1% of one core), git-ignored `ops/AgentComms/pc_metrics.json`. Colours = the

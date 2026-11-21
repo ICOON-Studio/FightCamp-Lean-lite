@@ -21,7 +21,8 @@ $RAM_HARD_PCT = 97;   $RAM_CRIT_ROOM_GB = 12;   $RAM_WARN_ROOM_GB = 16
 $COMMIT_WARN_GB = 8;  $COMMIT_CRIT_GB = 4
 # Operator 2026-10-02: "I do not want the temperature to go above 80" and CPU load low enough that
 # "I can use the computer without problems" - RED here blocks every new agent / test / render start.
-$CPU_WARN_PCT = 60;   $CPU_CRIT_PCT = 80      # sustained: averaged over the sample window
+# S536 owner, asked to raise the CPU line from 80 (the governor paused 2 of 3 Godot jobs at 50 C): "92%".
+$CPU_WARN_PCT = 60;   $CPU_CRIT_PCT = 92      # sustained: averaged over the sample window
 # Operator 2026-10-02 (S144, later): "you can go upt to 84C" - RED at 84; AMBER 10 below.
 $TEMP_WARN_C = 74;    $TEMP_CRIT_C = 84
 # Operator S249 (to let more work run): "RED at 84 C only when held 2 minutes, instant stop at 88 C" - the governor log showed
@@ -134,8 +135,9 @@ function Get-Reading {
     [pscustomobject]@{ CommitFreeGB = $commitFree; RamPct = $ramPct; CFreeGB = $cFree; EFreeGB = $eFree; EFreePct = $ePct; EWriteMs = $eWriteMs; EIdle = $eIdle; Packers = $packers; CpuPct = $cpu; TempC = $temp; TempPeak = $tempPeak; TempSrc = $tempSrc; Top = $procs }
 }
 
-# Governor settings: 6 of 16 logical CPUs (0x3F = CPUs 0-5). Raise to 0xFF for 8 if runs are too slow and temps allow.
-$HEAVY_CORES = 6; $HEAVY_MASK = [IntPtr]0x3F
+# Governor settings. S536 owner "Yes, use 8" (queue slow at 50 C): 8 of 16 logical CPUs, 0xFF0 = CPUs 4-11 (cores 2-5),
+# the SAME set as heat_governor.ps1's $CapMask - before, this loop pinned 0-5 every 5 s while the governor pinned 4-9.
+$HEAVY_CORES = 8; $HEAVY_MASK = [IntPtr]0xFF0
 $HEAVY_NAMES = '^(Godot_v.*|godot|blender)$'
 function Set-HeavyAffinity {
     foreach ($p in Get-Process -ErrorAction SilentlyContinue | Where-Object { $_.ProcessName -match $HEAVY_NAMES }) {

@@ -5224,7 +5224,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-21 16:41 board_sync",
+  "updated": "2026-11-21 21:11 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5375,52 +5375,58 @@
   },
   "working_now": [
    {
-    "run": "WEIGHT2R3",
+    "title": "Footwork: the place pays (done), the right step costs no exchange, re-gate 10 steps",
     "who": "claude-fable",
-    "title": "Weight v2: your answers + John's numbers, probe round 3, then critics",
-    "started": "2026-11-21"
+    "started": "2026-11-21",
+    "run": "STEPPAY2"
    },
    {
-    "run": "BODYTEX2",
-    "who": "claude-fable",
-    "title": "Bodies: muscle skin on every boxer, fitter shape where the stomach caves, shoulder seam",
-    "started": "2026-11-21"
+    "title": "Arena code-checked critic: guard damage map v6",
+    "who": "arena",
+    "started": "2026-11-21T14:36",
+    "run": "GUARD6CRIT"
    },
    {
-    "run": "OFFERBUILD1",
+    "title": "3D fight: arms and shoulders follow Strength (your Q-290)",
     "who": "claude-fable",
-    "title": "Build the bout offer as a letter (your Q-296 'Yes, build it')",
-    "started": "2026-11-21"
+    "started": "2026-11-21T15:20",
+    "run": "ARMBUILD1"
    },
    {
-    "run": "GUARDPROBE8",
-    "who": "claude-fable",
-    "title": "Guard v7: does a guard line cost a punch line? (before critics)",
-    "started": "2026-11-21"
+    "title": "Repaint 152 bodies with athletic arms (Ludo)",
+    "who": "ludo",
+    "started": "2026-11-21T15:20",
+    "run": "ARMPAINT1"
    },
    {
-    "run": "TURNPRO12",
+    "title": "Probe turning pro v11 before critics",
     "who": "claude-fable",
-    "title": "Turning pro v12: built on the debut and the first six fights, probe again",
-    "started": "2026-11-21"
+    "started": "2026-11-21T15:35",
+    "run": "TURNPROBE11"
    },
    {
-    "run": "STEPPAY2",
+    "title": "Price the solved fight-night choices (probe)",
     "who": "claude-fable",
-    "title": "Footwork: re-test all 10 steps (phase 4)",
-    "started": "2026-11-21"
+    "started": "2026-11-21T15:35",
+    "run": "DEPTHPRICE1A"
    },
    {
-    "run": "DEPTHPRICE1B",
+    "title": "Price the solved club choices (probe)",
     "who": "claude-fable",
-    "title": "Club choices: stipend and loan, second prices",
-    "started": "2026-11-21"
+    "started": "2026-11-21T15:35",
+    "run": "DEPTHPRICE1B"
    },
    {
-    "run": "KNOWMISREAD1",
+    "title": "Probe guard v6: Hands before settle",
     "who": "claude-fable",
+    "started": "2026-11-21T15:35",
+    "run": "GUARDPROBE6"
+   },
+   {
     "title": "Be wrong about people: a shared misread (build)",
-    "started": "2026-11-21"
+    "who": "claude-fable",
+    "started": "2026-11-21T15:35",
+    "run": "KNOWMISREAD1"
    }
   ],
   "next": [
@@ -6163,64 +6169,6 @@
   "map": {
    "done_earlier": [
     {
-     "text": "Pro offer: opponent named",
-     "who": "claude"
-    },
-    {
-     "text": "Morale drop says why",
-     "who": "claude"
-    },
-    {
-     "text": "Tooltip card see-through",
-     "who": "claude"
-    },
-    {
-     "text": "Clipboard: no face",
-     "who": "claude"
-    },
-    {
-     "text": "Loan probe: grows, no trap",
-     "who": "agent"
-    },
-    {
-     "text": "Palette guard green",
-     "who": "claude"
-    },
-    {
-     "text": "Film 16: hands move with hit",
-     "who": "claude"
-    },
-    {
-     "text": "Turning pro v10 map from code",
-     "who": "claude"
-    },
-    {
-     "text": "Guard map v6 from the code",
-     "who": "claude"
-    },
-    {
-     "text": "Towel no longer wears the chin",
-     "who": "claude"
-    },
-    {
-     "text": "Tooltips: 0 broken (was 3)",
-     "who": "claude"
-    },
-    {
-     "text": "Painted bodies on every 2D screen",
-     "who": "claude"
-    },
-    {
-     "text": "Arms follow Strength (3D)",
-     "who": "claude"
-    },
-    {
-     "text": "Depth audit: 5 of 23 real",
-     "who": "claude"
-    }
-   ],
-   "done_session": [
-    {
      "text": "Wrong about people: misread",
      "who": "claude"
     },
@@ -6247,6 +6195,44 @@
     {
      "text": "Pro count rule + towel (branch)",
      "who": "claude"
+    },
+    {
+     "text": "Pro offer: opponent named",
+     "who": "claude"
+    },
+    {
+     "text": "Morale drop says why",
+     "who": "claude"
+    },
+    {
+     "text": "Tooltip card see-through",
+     "who": "claude"
+    },
+    {
+     "text": "Clipboard: no face",
+     "who": "claude"
+    },
+    {
+     "text": "Loan probe: grows, no trap",
+     "who": "agent"
+    },
+    {
+     "text": "Palette guard green",
+     "who": "claude"
+    },
+    {
+     "text": "Film 16: hands move with hit",
+     "who": "claude"
+    }
+   ],
+   "done_session": [
+    {
+     "text": "Godot: 92% CPU, 8 threads, 6 slots",
+     "who": "claude"
+    },
+    {
+     "text": "Arms by Strength stills to review",
+     "who": "claude"
     }
    ],
    "now": [
@@ -6261,14 +6247,6 @@
     {
      "text": "Your play: the S535 build",
      "who": "operator"
-    },
-    {
-     "text": "Your look: body stills (review)",
-     "who": "operator"
-    },
-    {
-     "text": "Weight v2 + probe 3 (Fable)",
-     "who": "agent"
     },
     {
      "text": "Bodies phase 2: skin+shape",
@@ -6289,6 +6267,10 @@
     {
      "text": "Merge branch: 65 kg, towel, ice",
      "who": "claude"
+    },
+    {
+     "text": "Weight probe 4 (Fable)",
+     "who": "agent"
     }
    ],
    "next": [
@@ -6545,7 +6527,7 @@
      "who": "claude"
     }
    ],
-   "session": "S535"
+   "session": "S536"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",

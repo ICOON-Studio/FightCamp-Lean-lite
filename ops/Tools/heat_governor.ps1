@@ -45,7 +45,8 @@ function State {
 # afternoon. When the PC is not GREEN, every scripted job (Godot --script/--headless, the eyes video indexer and its ffmpeg)
 # is pinned to 6 of the 16 threads (cores 2-4, both SMT threads; cores 0-1 stay free for Windows and his apps). A pinned
 # job keeps its cap for life (jobs are short; no flapping). His own Godot (editor, no --script) is never touched.
-$CapMask = [IntPtr]0x3F0
+# S536 owner "Yes, use 8": 8 threads, 0xFF0 = CPUs 4-11 (cores 2-5); cores 0-1 stay free. Same set as pc_watchdog's $HEAVY_MASK.
+$CapMask = [IntPtr]0xFF0
 $capped = @{}
 function CapJobs {
     Get-CimInstance Win32_Process -Filter "Name LIKE 'Godot%' OR Name='python.exe' OR Name='ffmpeg.exe'" | ForEach-Object {
@@ -56,7 +57,7 @@ function CapJobs {
                (($n -eq 'ffmpeg.exe') -and $capped.ContainsKey([int]$_.ParentProcessId))   # only the indexer's ffmpeg, never his
         if (-not $job) { return }
         $p = Get-Process -Id $id
-        if ($p) { try { $p.ProcessorAffinity = $CapMask; $capped[$id] = $true; Log "CAP 6 threads pid=$id $n" } catch {} }
+        if ($p) { try { $p.ProcessorAffinity = $CapMask; $capped[$id] = $true; Log "CAP 8 threads pid=$id $n" } catch {} }
     }
     foreach ($id in @($capped.Keys)) { if (-not (Get-Process -Id $id)) { $capped.Remove($id) } }
 }

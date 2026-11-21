@@ -12,80 +12,89 @@
   },
   "SQ271": {
    "id": "SQ271",
-   "status": "queued",
+   "status": "superseded",
    "started": "2026-11-21T13:52",
    "title": "John critic: turning pro map v10",
    "seat": "john",
-   "agent": "john"
+   "agent": "john",
+   "note": "S536: turning pro v10 -> v12"
   },
   "SQ272": {
    "id": "SQ272",
-   "status": "queued",
+   "status": "superseded",
    "started": "2026-11-21T13:52",
    "title": "Kalli critic: turning pro map v10",
    "seat": "kalli",
-   "agent": "kalli"
+   "agent": "kalli",
+   "note": "S536: turning pro v10 -> v12"
   },
   "SQ273": {
    "id": "SQ273",
-   "status": "queued",
+   "status": "superseded",
    "started": "2026-11-21T13:58",
    "title": "Kalli critic: guard damage map v6",
    "seat": "kalli",
-   "agent": "kalli"
+   "agent": "kalli",
+   "note": "S536: guard v6 -> v7"
   },
   "SQ274": {
    "id": "SQ274",
-   "status": "queued",
+   "status": "superseded",
    "started": "2026-11-21T13:58",
    "title": "John critic: guard damage map v6",
    "seat": "john",
-   "agent": "john"
+   "agent": "john",
+   "note": "S536: guard v6 -> v7"
   },
   "GUARD6CRIT": {
    "id": "GUARD6CRIT",
-   "status": "running",
+   "status": "superseded",
    "started": "2026-11-21T14:36",
    "title": "Arena code-checked critic: guard damage map v6",
    "seat": "arena",
    "agent": "arena",
-   "eta": "about 30 min"
+   "eta": "about 30 min",
+   "note": "S536: v6 scored 6/7/5 (S534); guard is now v7 (GUARDREV7)"
   },
   "ARMBUILD1": {
    "id": "ARMBUILD1",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-21T15:20",
    "title": "3D fight: arms and shoulders follow Strength (your Q-290)",
    "seat": "claude",
    "agent": "claude-fable",
-   "eta": "about 30 min"
+   "eta": "about 30 min",
+   "note": "S536: arms by Strength committed (stronger); 40 vs 80 stills still to render"
   },
   "ARMPAINT1": {
    "id": "ARMPAINT1",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-21T15:20",
    "title": "Repaint 152 bodies with athletic arms (Ludo)",
    "seat": "ludo",
    "agent": "ludo",
-   "eta": "about 30 min"
+   "eta": "about 30 min",
+   "note": "S536: f3e86aab8 repaint imported"
   },
   "TURNPROBE11": {
    "id": "TURNPROBE11",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-21T15:35",
    "title": "Probe turning pro v11 before critics",
    "seat": "claude",
    "agent": "claude-fable",
-   "eta": "about 40 min"
+   "eta": "about 40 min",
+   "note": "S536: docs/TURNPROBE11_RESULT.md (FAIL) -> TURNPRO12"
   },
   "DEPTHPRICE1A": {
    "id": "DEPTHPRICE1A",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-21T15:35",
    "title": "Price the solved fight-night choices (probe)",
    "seat": "claude",
    "agent": "claude-fable",
-   "eta": "about 40 min"
+   "eta": "about 40 min",
+   "note": "S536: docs/DEPTHPRICE1A_RESULT.md, d7d79e083"
   },
   "DEPTHPRICE1B": {
    "id": "DEPTHPRICE1B",
@@ -98,21 +107,23 @@
   },
   "GUARDPROBE6": {
    "id": "GUARDPROBE6",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-21T15:35",
    "title": "Probe guard v6: Hands before settle",
    "seat": "claude",
    "agent": "claude-fable",
-   "eta": "about 40 min"
+   "eta": "about 40 min",
+   "note": "S536: docs/GUARDPROBE6_RESULT.md (FAIL) -> GUARDREV7 v7"
   },
   "KNOWMISREAD1": {
    "id": "KNOWMISREAD1",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-21T15:35",
    "title": "Be wrong about people: a shared misread (build)",
    "seat": "claude",
    "agent": "claude-fable",
-   "eta": "about 40 min"
+   "eta": "about 40 min",
+   "note": "S536: 7b6ca1efe, docs/KNOWMISREAD1_RESULT.md"
   }
  },
  "codex_budget": {
@@ -168,7 +179,7 @@
  },
  "WEIGHT2R3": {
   "id": "WEIGHT2R3",
-  "status": "running",
+  "status": "landed",
   "started": "2026-11-21T20:00",
   "title": "Weight v2 + probe round 3",
   "seat": "claude",
@@ -201,5 +212,14 @@
   "seat": "claude",
   "agent": "claude-fable",
   "eta": "1-3 h (Godot queue)"
+ },
+ "WEIGHT2R4": {
+  "id": "WEIGHT2R4",
+  "status": "running",
+  "started": "2026-11-21T21:25",
+  "title": "Weight probe round 4: a hard cut must be able to cost (sized by body share), pro regain tied to the cut, 40 seeds",
+  "seat": "claude",
+  "agent": "claude-fable",
+  "eta": "about 1.5-2 h (probe waits in the Godot queue)"
  }
 }

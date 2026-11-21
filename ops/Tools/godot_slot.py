@@ -9,7 +9,7 @@ every agent Godot job takes a ticket and starts in arrival order when a slot is 
     python ops/Tools/godot_slot.py status        # the queue: running, waiting, and the slots the PC allows now
 
 Slots come from the PC watchdog's verdict (AgentComms/pc_detail.json, written every few seconds by pc_metrics):
-GREEN 4 (owner S534), AMBER 2, RED 0, and 0 whenever commit memory is under MIN_COMMIT_GB free. A ticket whose process died is dropped.
+GREEN 6 (owner S536, was 4), AMBER 2, RED 0, and 0 whenever commit memory is under MIN_COMMIT_GB free. A ticket whose process died is dropped.
 The job's own exit code is returned, its output is not touched (stdout/stderr pass through). The heat governor still
 suspends and pins running jobs; the queue only decides who STARTS. The operator's own Godot (editor or game, no
 --script/--headless) never goes through here, and rule_guard refuses a direct agent Godot launch that skips it.
@@ -32,7 +32,7 @@ ROOT = Path(__file__).resolve().parents[1]                 # ops/
 DETAIL = Path(os.environ.get("GODOT_SLOT_DETAIL", r"E:\FightCamp\Lean\ops\AgentComms\pc_detail.json"))
 QUEUE = Path(os.environ.get("GODOT_SLOT_DIR", r"E:\FightCamp\tmp\godot_queue"))
 LOCK = QUEUE / ".lock"
-SLOTS = {"GREEN": 4, "AMBER": 2, "RED": 0}   # owner S534 "yes raise it to 4" (GREEN only; AMBER stays 2)
+SLOTS = {"GREEN": 6, "AMBER": 2, "RED": 0}   # owner S536 "can you get more going in parallel ?" (was 4, S534); jobs share 8 threads
 MIN_COMMIT_GB = 4.0
 POLL_S = 5.0
 STALE_DETAIL_S = 120     # a verdict older than this is not trusted: one slot, so work still moves if pc_metrics is down
@@ -51,6 +51,16 @@ def _alive(pid: int) -> bool:
     return bool(ok) and code.value == 259     # STILL_ACTIVE
 
 
+def live_slots() -> dict:
+    """S536: a waiter imported SLOTS once, so raising it (4 -> 6) never reached jobs already in line. Read this file's own
+    SLOTS line on every poll instead; fall back to the imported value."""
+    try:
+        m = re.search(r'^SLOTS = (\{[^}]*\})', Path(__file__).read_text(encoding="utf-8"), re.M)
+        return json.loads(m.group(1)) if m else SLOTS
+    except Exception:
+        return SLOTS
+
+
 def pc_slots() -> tuple[int, str]:
     try:
         d = json.loads(DETAIL.read_text(encoding="utf-8"))
@@ -63,7 +73,7 @@ def pc_slots() -> tuple[int, str]:
         commit = float(m.group(1)) if m else 99.0
         if commit < MIN_COMMIT_GB:
             return 0, f"{state}, commit {commit:.1f} GB free < {MIN_COMMIT_GB:.0f}"
-        return SLOTS.get(state, 1), f"{state}, commit {commit:.1f} GB free"
+        return live_slots().get(state, 1), f"{state}, commit {commit:.1f} GB free"
     except Exception as exc:  # no detail file: one slot, never a deadlock
         return 1, f"no watchdog detail ({exc.__class__.__name__}) - 1 slot"
 
