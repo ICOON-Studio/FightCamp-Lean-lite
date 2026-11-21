@@ -8,7 +8,12 @@ extends "res://scripts/fight3d/v2/PunchAim.gd"
 ##   - a punch, a paw or a feint: the free hand;      - a fidget take: both hands.
 ## Its wrist goes to the guard's own place in front of the face (AT, below), the arm
 ## solved again (two-bone IK, the elbow in its own plane), eased in and out over EASE_S so nothing snaps. The punching
-## arm, a reaction, a defence and the baked takes are left alone.
+## arm, a defence and the baked takes are left alone.
+## S534 A HIT MAN TOO (the owner on film 15, C435: "reds hands are not moving with the reaction"): the reaction takes
+## are the same actor's long guard - the head and trunk snap back and both wrists stay out where they were, 16-28 cm
+## further from the head than his guard keeps them (player2_test HANDS; the same with this layer off, so nothing pinned
+## them: nothing held them). Both hands are held through a reaction: the place is measured from the head as drawn, so
+## the guard goes back WITH the head and comes home with it.
 ##   add(skel, player, i, after) -> GuardHold
 
 ## S531 b (the owner on film 12: "you put the blues hands way to back now"): the held wrist goes to its place IN FRONT
@@ -16,7 +21,7 @@ extends "res://scripts/fight3d/v2/PunchAim.gd"
 ## the head bone), not toward the head bone (the back of the skull).
 const AT := {"lead": Vector3(0.21, 0.06, -0.11), "rear": Vector3(0.15, 0.08, -0.13)}
 const EASE_S := 0.10
-const HELD := {"punch": 1, "feint": 1, "fidget": 2}   # 1 = the free hand, 2 = both
+const HELD := {"punch": 1, "feint": 1, "fidget": 2, "reaction": 2}   # 1 = the free hand, 2 = both
 static var hold_on: bool = not OS.get_cmdline_user_args().has("fp2nohold")
 
 var p: Node = null            # Player2

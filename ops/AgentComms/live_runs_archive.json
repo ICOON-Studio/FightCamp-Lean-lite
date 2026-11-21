@@ -23808,6 +23808,41 @@
    "eta": "~05:00",
    "status": "merged (S533, docs/TURNPRO6_RESULT.md)",
    "brief": "research/TASK_TURNPRO6.md"
+  },
+  {
+   "id": "ANIMHANDS1",
+   "status": "landed S534: 5ada21ed4, film 16 on the board",
+   "started": "2026-11-21T13:45",
+   "title": "Animation: the hit man's hands move with his reaction (your film 15 note)",
+   "seat": "claude",
+   "agent": "claude-fable",
+   "eta": "about 1 h"
+  },
+  {
+   "id": "TURNPRO10",
+   "status": "landed S534: cc5f67341; critics SQ271/SQ272",
+   "started": "2026-11-21T13:45",
+   "title": "Turning pro map v10 from the code",
+   "seat": "claude",
+   "agent": "claude-fable",
+   "eta": "about 1 h"
+  },
+  {
+   "id": "GUARDREV6",
+   "status": "landed S534: b471c59f4; critics SQ273/SQ274",
+   "started": "2026-11-21T13:45",
+   "title": "Guard damage map v6 from the code (covering must change who wins)",
+   "seat": "claude",
+   "agent": "claude-fable",
+   "eta": "about 1 h"
+  },
+  {
+   "id": "DMG2CRIT",
+   "status": "landed S534: 5/6/4, F13 towel chin bug fixed on main",
+   "started": "2026-11-21T13:58",
+   "title": "Fable critic + code check: damage classes v2 (Arena skipped, owner: dont wait)",
+   "seat": "claude",
+   "agent": "claude-fable"
   }
  ]
 }

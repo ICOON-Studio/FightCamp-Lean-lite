@@ -1,7 +1,7 @@
 # TASK LOANPROBE1 - does the careful gym grow with the fit-out loan? The 60-career probe on the game's own loan
 
 Kind: probe
-Status: OPEN (S533, Claude main). Discipline: boxing. Model: Grok Dev (your own box: the run is long). Branch `grok/loanprobe1`, a PR; never merge.
+Status: DONE (S534 check: on main)
 
 ## Why
 Roadmap GYMMONEY1: the owner asked for "Careful gym grows" (Q-S294-277) and "Yes, build the loan" (Q-278). The fit-out loan is

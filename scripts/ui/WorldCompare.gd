@@ -199,7 +199,7 @@ static func sports() -> Control:
 	h.add_child(live)
 	var mma := _panel(false)
 	mma.name = "ChipMma"
-	mma.tooltip_text = "Not built yet"
+	mma.tooltip_text = "MMA rankings come in a later update; boxing only for now."
 	mma.mouse_filter = Control.MOUSE_FILTER_STOP
 	var row := UI.hbox(6)
 	row.mouse_filter = Control.MOUSE_FILTER_IGNORE

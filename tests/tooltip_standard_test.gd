@@ -21,7 +21,7 @@ const TextScale := preload("res://scripts/ui/TextScale.gd")
 const TestJump := preload("res://scripts/ui/TestJump.gd")
 const FightPrep := preload("res://scripts/ui/FightPrep.gd")
 
-const FAULTS_AT_MOST := 2   # lower it as screens are rewritten; never raise it (TIPFIX2: 4 -> 2 at the shorter limits)
+const FAULTS_AT_MOST := 0   # S534: 2 -> 0. lower it as screens are rewritten; never raise it (TIPFIX2: 4 -> 2 at the shorter limits)
 
 var _fails := 0
 var main: Node
@@ -219,6 +219,8 @@ func _page(page: String) -> void:
 		var s := Tip.of(c)
 		if s.is_empty():
 			continue
+		if c.get("clip_text") == true and c.tooltip_text == str(c.get("text")):
+			continue   # S534: a line cut with "..." shows its whole text on hover (TextScale.fit) - not a repeat to the player
 		var key := str(s.get("title", "")) + "|" + " ".join(Tip.prose(s))
 		if _seen.has(key):
 			continue

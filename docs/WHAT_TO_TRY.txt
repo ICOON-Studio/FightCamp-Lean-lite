@@ -1,3 +1,31 @@
+S534 build (2026-11-21) - what changed, and what to try (your review notes C442-C446)
+
+1. PRO OFFER: each promoter's card header says who the debut is against ("VS PAIGE WHITLOW"); the two promoters no longer
+   put up the same name. The Debut row says why that opponent was picked. Hover it: what the opponent brings and the ask
+   that changes it - no rating gap, no "aimed at 75 in 100".
+2. MORALE on the pro offer: the buttons no longer say "(morale -5)". One red MORALE line under the costs says why:
+   your boxer's goal (from the signing card) and what turning pro now costs.
+3. TOOLTIPS are see-through (86%): the page shows behind the card. Say if you want it lighter or darker.
+4. THE GUIDE clipboard has no face (your "remove").
+5. FIGHT (the new player): a boxer who is hit keeps his gloves at his face as his head goes back (your film 15 note).
+6. TOWEL: retiring your boxer on the stool (towel, or a cracked rib) no longer wears the chin - it was charging it.
+7. Tooltips: the last 3 broken cards fixed (Ask for a bout, the MMA chip); every card checked is now within the rules.
+8. FOOTWORK: still half-built in this build (the right step costing no exchange); the footwork session is still measuring it.
+
+S533 build (2026-11-21, 12:40) - what changed, and what to try
+
+1. TOOLTIPS: every card is short (about 25 words) and redesigned - plain font, money rows like a receipt, the thing to
+   do on a band with a red edge. Hover Fatigue on Fighters: a bar with Fresh / OK / Tired / Spent and a tick at your boxer.
+2. THE GUIDE is the coach's clipboard: this stage's jobs, ticked as you do them.
+3. COACH CARDS (People): "What is Evening classes?" chip; the "Money lasts" line is gone.
+4. A BEATEN AMATEUR OPPONENT may ask to train here (the visit): Sign now / Trial first / Pass, each with its price.
+5. THE CORNER'S EYE: after a fight the ring map shows what your plan wanted and what became of it, and why a line failed.
+6. THE COACH'S READ on every offer: the win chance and what Accept / Pass / Later costs.
+7. PRO DEBUT: each promoter now picks the opponent for YOUR boxer (safe promoter ~75 in 100, bigger gate ~60).
+8. FOOTWORK: an opponent on the ropes or in the corner now gives you an edge; you on the ropes cost you one.
+   (Still being built: a step in its right moment costing no exchange - half-built pieces are in this build.)
+9. Corner call "Hands up" no longer claims your boxer throws less; the guard hover says blocked punches wear it.
+
 S532 build (2026-11-21) - what changed, and what to try
 
 1. SET THE CAMP (your crash). Book an amateur bout: the Fight prep page now says "Amateur bout: no camp" and its next step

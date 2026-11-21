@@ -1,7 +1,7 @@
 # TASK TURNPRO6 - the pro debut's opponent gap: a curve we can trust, a read that tells the truth, then the gaps
 
 Kind: code + probe
-Status: OPEN (S533, Claude main; the owner asked for a hard task for the Fable side console). Discipline: boxing.
+Status: DONE (S534 check: on main)
 Model: Fable (claude-fable-5-2), Code Mode terminal session. No browser.
 
 ## Why

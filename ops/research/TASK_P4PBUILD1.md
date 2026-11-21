@@ -1,7 +1,7 @@
 # TASK P4PBUILD1 - build the three coaching moments: the visit, then the corner's eye, then the coach's read
 
 Kind: code
-Status: OPEN (S533, Claude main). Owner's yes: Q-S294-284 "Yes, build them", and in chat "ok build them in that order , can
+Status: DONE (S534 check: on main)
 you use another console for that , fable if required ?". Discipline: boxing. Model: Fable (claude-fable-5-2), Code Mode
 terminal session.
 

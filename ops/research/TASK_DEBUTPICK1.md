@@ -1,7 +1,7 @@
 # TASK DEBUTPICK1 - the promoter picks the debut opponent to fit each boxer (owner Q-S294-286 "Pick to each boxer")
 
 Kind: code
-Status: OPEN (S533, Claude main). Discipline: boxing. Model: Fable (claude-fable-5-2), Code Mode terminal session.
+Status: DONE (S534 check: on main)
 
 ## Why
 `docs/TURNPRO6_RESULT.md` (read it whole): with one fixed opponent strength per promoter (the gap: Bow Lane 3.0, Harrow & Finch

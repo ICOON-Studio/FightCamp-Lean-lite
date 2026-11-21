@@ -98,7 +98,7 @@ static func run(c: Career, f: Dictionary, m: Dictionary) -> void:
 		c.reputation += BoutRules.WIN_REPUTATION * (2 if bool(f["bout"].get("short_notice", false)) else 1)
 	elif outcome == "loss":
 		f[rec + "l"] = int(f.get(rec + "l", 0)) + 1
-		if stop != "":
+		if stop != "" and stop != "RTD":   # S534 F13: a corner retirement (towel, cracked rib) wears no chin - Towel "wear": false
 			Attrs.wear_stoppage(f)
 		var gone := mini(c.members, BoutRules.STOPPED_LOSS_MEMBERS if stop != "" else BoutRules.LOSS_MEMBERS)
 		c.members -= gone

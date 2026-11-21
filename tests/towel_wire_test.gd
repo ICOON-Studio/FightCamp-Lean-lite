@@ -62,6 +62,7 @@ func _pull() -> void:
 	var sf: Dictionary = b[1]
 	var m: Dictionary = b[2]
 	var morale := float(sf.get("morale", 60.0))
+	var cap := float(sf.get("durability_cap", 100.0))
 	BoutNight.fight_step(b[0], sf, m, "corner:hands|towel=pull")
 	_check(BoutNight.stopped(m) == "RTD" and (m["rounds"] as Array).size() == 1, "2 pulled: RTD after round 1 (%s, %d rounds)" % [
 		BoutNight.stopped(m), (m["rounds"] as Array).size()])
@@ -70,6 +71,7 @@ func _pull() -> void:
 	_check(int((sf.get("injury", {}) as Dictionary).get("days_out", 0)) == 14, "2 14 days out (%s)" % str(sf.get("injury", {})))
 	_check(float(sf.get("morale", 60.0)) < morale, "2 morale down (%.1f -> %.1f)" % [morale, float(sf.get("morale", 60.0))])
 	_check(Loyalty.log_of(sf).any(func(e): return str(e.get("why", "")).begins_with("towel")), "2 loyalty logged")
+	_check(is_equal_approx(float(sf.get("durability_cap", 100.0)), cap), "2 no chin wear on a towel (Towel 'wear': false; S534 F13): cap %.1f -> %.1f" % [cap, float(sf.get("durability_cap", 100.0))])
 	var c := _bout(1)
 	BoutNight.fight_step(c[0], c[1], c[2], "corner:hands")
 	_check(BoutNight.stopped(c[2]) == "" and int(c[2]["round"]) == 2, "2 control: no towel, round 2 boxes")

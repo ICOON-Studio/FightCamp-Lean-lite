@@ -1,42 +1,41 @@
-# S534 handover (written 2026-11-21 ~12:50, end of S533 - Opus, long)
+# S535 handover (written 2026-11-21 ~14:15, end of S534 - Opus)
 
-Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. S533 is in roadmap `now`.
-FIRST: `python ops/Tools/godot_slot.py status` (the PC runs Fable sessions; the owner may be playing a game - RAM).
+Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. S534 is in roadmap `now`.
+FIRST: `python ops/Tools/godot_slot.py status` (the owner may be playing a game - RAM was 86% at 14:09).
 
 ## METHOD lines - quote all of them in your first message
-- FOOTWORK (S533, STEPS_PAYOFF_SCOPE_S533.md, owner Q-285 "Yes"): a step must pay where it takes you. STEPPAY1 measured that no
-  place was an edge; STEPPAY2 phase 2 built PlaceEdge (ropes +5.0, corner +6.5, own ropes -5.0). No StepEffect TABLE sizing
-  until phase 4's re-gate of all 10 steps is read.
-- DESIGN MAPS are written FROM THE CODE (Arena or a Fable session), never by a chat seat; every critic brief carries a CODE
-  CHECK. Goose failed both S533 research jobs (no file in 1h48): do not send Goose research maps.
-- Fight animation (owner S510): no new correction layer in scripts/fight3d until fight player v2 is built (the owner's Fable
-  session; the mocap pack is his money call at the END OF NOVEMBER - do not ask before).
-- BOARD QUESTIONS (owner S533 "i cannot waste 2 hours reading your tomes of text"): 20 words max, options 5 words; the tool
-  refuses longer. Detail goes in --attach.
+- FOOTWORK (S533, STEPS_PAYOFF_SCOPE_S533.md, owner Q-285 "Yes"): a step must pay where it takes you. STEPPAY2 phase 2 built
+  PlaceEdge (ropes +5.0, corner +6.5, own ropes -5.0). No StepEffect TABLE sizing until phase 4's re-gate of all 10 steps is read.
+- GUARD (S534, Kalli on v5): every guard rule acted AFTER the exchange was settled, so covering never changed who wins a round.
+  Map v6 puts Hands High / Normal / Loose into the exchange edge BEFORE settle. No guard build until v6 passes 7+ and its probe.
+- DESIGN MAPS are written FROM THE CODE (a Fable console in this checkout - Arena only when it is free; owner S534 "dont wait
+  on arena"), never by a chat seat; a code-checked critic finds real defects (S534: the towel chin bug, F13).
+- Fight animation (owner S510): fight player v2 only (scripts/fight3d/v2). The mocap pack is his money call at the END OF
+  NOVEMBER - do not ask before.
+- BOARD QUESTIONS (owner S533): 20 words max, options 5 words; detail goes in --attach.
+- NAMES ONLY IN HEADERS (owner S448): S534 almost broke it (the debutant's name in a row) - the name goes on the card's
+  header / versus line, rows say why.
 
-## Running when S533 ended - collect, do not relaunch
-- Fable session STEPPAY2 (terminal "Fable STEPPAY2"): phase 3 (the right step costs no exchange) has UNCOMMITTED edits in
-  LineGrade.gd, LiveRound.gd, StepWire.gd; then phase 4 (re-gate 10 steps). It was told (cross-session message) to recalibrate
-  BoutRead at the end: tests/debut_read_test.gd fails ONE line since phase 2 (Lucy gap -2: read 0.618 vs played 0.553).
-- Grok Dev: LOANPROBE1 (60 careers x SENSIBLE/GROW/GROWLOAN, fit-out loan verdict) -> PR grok/loanprobe1.
-- Guard map v5 critics: Kalli SQ270 sent; Dola SQ269 queued (its app was closed - retries every 30 min).
-- Arena (after its daily 14:25 reset): the DMGCLASS v2 code-checked critic (brief ops/research/DESIGN_DMGCLASS1_V2_CRITIC_KALLI.md
-  + a CODE CHECK; Goose #433 failed). Scores so far: Dola 9/9, Kalli 6/6/5.
+## Running when S534 ended - collect, do not relaunch
+- Fable STEPPAY2 (its own terminal from S533): phase 3 code UNCOMMITTED in LineGrade.gd, LiveRound.gd, StepWire.gd (+ tools
+  place_value_probe / treevalue_*); a treevalue_probe gate run was 95 min in at 14:05. Then phase 4 (re-gate 10 steps) and
+  the BoutRead recalibration: tests/debut_read_test.gd fails 2 Lucy gap -2 lines (read 0.617 vs played 0.540).
+  NEVER stage those files; never `git pull --rebase --autostash` while they are dirty (S534 did once - it applied clean).
+- Fable DMGCLASS v3 (terminal "Fable DMGCLASS v3"): writes ops/research/DESIGN_DMGCLASS1_V3.md; then two critics
+  (`python ops/Tools/design_loop.py critic DMGCLASS1_V3 <map> --seat kalli|john`).
+- Seat queue: SQ271 John + SQ272 Kalli on turning pro v10; SQ273 Kalli + SQ274 John on guard v6 (the 30-min job sends them).
+  Dola's app is closed (no CDP on 9333): she gets nothing until it is open.
+
+## Built in S534 (all on main, build exported 14:09)
+- Pro offer: VS <debutant> on each house header (each house its own name), the Debut row = why picked, no rating gap; hover =
+  what the debutant brings + the softer-opponent ask; MORALE line (ProOfferWire.morale_line) instead of "(morale -5)".
+- Tooltip card 86% opaque (TipParts.CARD_BG); clipboard face removed; tooltip tests at 0 broken (ratchets locked at 0).
+- BoutFinish: an RTD (towel / cracked rib) wears no chin (towel_wire_test red -> green).
+- Fight player v2: GuardHold holds both hands through a reaction (film 16, player2_test HANDS 336/710 -> 0/710).
+- LOANPROBE1 collected (docs/LOANPROBE1_RESULT.md): the loan grows the gym, never a trap; the "8 weeks banked" bar was the
+  probe's player, not a game rule.
+- Palette guard green (RingTopDown colours into Palette).
 
 ## Next, in order
-1. Collect the above. 2. Turning pro v10 map FROM THE CODE (v9: John 6/6/7, Dola 7/8/7; the debut pick changed the offer;
-   John's file DESIGN_TURNPRO1_V9_CRITIC_JOHN_JOHN.md has the 10/10 list). 3. Guard v5: if both critics 7+, the build plan
-   (its proposals are ESTIMATE - a probe first). 4. The owner plays the S533 build (Builds/FightCamp.exe, WHAT_TO_TRY.txt top
-   section): act on his notes and his review-board comments (stills waiting are highlighted at 8787/review).
-
-## Built in S533 (all on main)
-- Fatigue (was Tiredness) on every screen; data keys still "tiredness".
-- Tooltips: limits 25 words / 10 a line / 3 rows (Tip.gd); tooltip_standard_test (broken 2) + tooltip_rest_test (broken 1);
-  card design v2 in TipParts.gd: Barlow body, receipt rows, YOUR MOVE band, spec "band" = a 0-100 bar (Fatigue uses it),
-  What-is chip, magnet in the corner. Owner marks on the coach card: "What is <word>?" chip, runway line removed.
-- Guide = the coach's clipboard (GuideClipboard.gd; owner Q-287 "C clipboard").
-- P4PBUILD1 stages 1-3 (docs/P4PBUILD1_STAGE1-3.md), DEBUTPICK1 (docs/DEBUTPICK1_RESULT.md; owner "Leave it, 78 is fine"),
-  TURNPRO6 (docs/TURNPRO6_RESULT.md), STEPPAY1 (docs/STEPPAY1_RESULT.md), STEPPAY2 phase 2, GUARDREV5
-  (ops/research/DESIGN_GUARDDMG1_V5.md) + its three untrue screen lines made true.
-- Ops board: "N to review" badge + banner + Looks fine button; ask refuses long questions.
-- Known red: palette_guard (P4P's RingTopDown.gd, 4 raw colours - move them to Palette); debut_read_test (above).
+1. Collect STEPPAY2 + DMGCLASS v3. 2. Act on the critics' scores (v10 pro, v6 guard). 3. The owner plays the S534 build
+   (Builds/FightCamp.exe, WHAT_TO_TRY.txt top section): act on his notes and review-board comments.

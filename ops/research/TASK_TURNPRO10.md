@@ -1,5 +1,7 @@
 # TASK TURNPRO10 - write the turning pro map v10 FROM THE CODE
 
+Status: DONE (S534 check: on main)
+
 Kind: research. Discipline: boxing. Model: Fable console in this checkout (design maps come from the code, never a chat seat).
 RESEARCH ONLY - no game code changes. Do not run Godot.
 

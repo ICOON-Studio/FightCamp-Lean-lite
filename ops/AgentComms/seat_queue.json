@@ -3961,6 +3961,42 @@
    "answer": "research/DESIGN_GUARDDMG1_V5_CRITIC_KALLI_KALLI.md",
    "chars": 15284,
    "seen_by_claude": true
+  },
+  {
+   "id": "SQ271",
+   "seat": "john",
+   "brief": "research/DESIGN_TURNPRO1_V10_CRITIC_JOHN.md",
+   "stem": "DESIGN_TURNPRO1_V10_CRITIC_JOHN_JOHN",
+   "status": "queued",
+   "queued_at": "2026-11-21 13:52",
+   "tries": 0
+  },
+  {
+   "id": "SQ272",
+   "seat": "kalli",
+   "brief": "research/DESIGN_TURNPRO1_V10_CRITIC_KALLI.md",
+   "stem": "DESIGN_TURNPRO1_V10_CRITIC_KALLI_KALLI",
+   "status": "queued",
+   "queued_at": "2026-11-21 13:52",
+   "tries": 0
+  },
+  {
+   "id": "SQ273",
+   "seat": "kalli",
+   "brief": "research/DESIGN_GUARDDMG1_V6_CRITIC_KALLI.md",
+   "stem": "DESIGN_GUARDDMG1_V6_CRITIC_KALLI_KALLI",
+   "status": "queued",
+   "queued_at": "2026-11-21 13:56",
+   "tries": 0
+  },
+  {
+   "id": "SQ274",
+   "seat": "john",
+   "brief": "research/DESIGN_GUARDDMG1_V6_CRITIC_JOHN.md",
+   "stem": "DESIGN_GUARDDMG1_V6_CRITIC_JOHN_JOHN",
+   "status": "queued",
+   "queued_at": "2026-11-21 13:56",
+   "tries": 0
   }
  ]
 }

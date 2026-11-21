@@ -9,6 +9,7 @@ extends SceneTree
 ##   REST     with no punch within 1.5 s the pelvises are at the edge of range (ChoreoRules.REST_M - 0.22 .. + 0.3: past the longest jab's 1.04 m)
 ##   APART    no head inside the other man's head or chest
 ##   COUNTS   the plan lands what the round landed
+##   HANDS    while a man is hit his wrists stay near their guard distance to his head (the guard goes with the head)
 ## A bar v2 does not hold YET prints as DEBT with its number and fails only past a guard (it may not get worse).
 ## Run: <godot> --headless --audio-driver Dummy --fixed-fps 60 --path . --script res://tests/player2_test.gd [-- seed=7 rounds=2 show]
 
@@ -19,6 +20,7 @@ const Player2 := preload("res://scripts/fight3d/v2/Player2.gd")
 const FightClips := preload("res://scripts/fight3d/FightClips.gd")
 const HZ := 60.0
 const ON_M := 0.12
+const HANDS_M := 0.12        # a hit man's wrist may be this much further from his head than in his guard
 const BONES := ["Hips", "Head", "Chest", "LeftToes", "RightToes", "LeftHand", "RightHand", "LeftLowerLeg", "RightLowerLeg", "LeftFoot", "RightFoot"]
 
 var failures := 0
@@ -106,6 +108,8 @@ func _initialize() -> void:
 	var prev_head: Array = [[], []]
 	var prev_ball: Array = [[null, null], [null, null]]
 	var floor_y := [[0.0, 0.0], [0.0, 0.0]]
+	var guard_d: Array = [{"LeftHand": [], "RightHand": []}, {"LeftHand": [], "RightHand": []}]   # wrist to head in the guard
+	var react_d: Array = []     # [boxer, hand, take, wrist to head, seconds into the reaction]
 	for i in 2:
 		var sk2: Skeleton3D = st.boxers[i]["skel"]
 		for k in 2:
@@ -170,6 +174,14 @@ func _initialize() -> void:
 					glove_at[i][hand] = st.glove_front(i, hand)
 					glove_was[i][hand] = [st.glove_front(i, hand).distance_to(_target(1 - i, false)), st.glove_front(i, hand).distance_to(_target(1 - i, true))]
 			for i in 2:
+				var tk: Dictionary = p2._take[i]
+				for hand in ["LeftHand", "RightHand"]:
+					var dh: float = (shown[i][hand] as Vector3).distance_to(shown[i]["Head"])
+					if str(tk.get("kind", "")) == "guard":
+						(guard_d[i][hand] as Array).append(dh)
+					elif str(tk.get("kind", "")) == "reaction":
+						react_d.append([i, hand, str(tk.get("clip", "")), dh, t - float(tk.get("at", t))])
+			for i in 2:
 				var head := _w(i, "Head")
 				var hist: Array = prev_head[i]
 				hist.append(head)
@@ -203,6 +215,27 @@ func _initialize() -> void:
 		keys.sort_custom(func(x, y): return float(slide_by[x]) > float(slide_by[y]))
 		for k in keys.slice(0, 12):
 			print("  slide %-30s %.2f m" % [k, float(slide_by[k])])
+	# HANDS (owner C435 on film 15: "reds hands are not moving with the reaction"): while a man is hit each wrist stays
+	# within HANDS_M of where his guard keeps it from his head - the guard goes with the head that was hit.
+	var away_worst := 0.0
+	var away_n := 0
+	var away_by := {}
+	for i in 2:
+		for hand in ["LeftHand", "RightHand"]:
+			(guard_d[i][hand] as Array).sort()
+	for rd in react_d:
+		var gd: Array = guard_d[int(rd[0])][str(rd[1])]
+		var away: float = float(rd[3]) - (float(gd[gd.size() / 2]) if not gd.is_empty() else 0.25)
+		away_worst = maxf(away_worst, away)
+		away_n += 1 if away > HANDS_M else 0
+		away_by[str(rd[2])] = maxf(float(away_by.get(str(rd[2]), 0.0)), away)
+	if show:
+		for k in away_by:
+			print("  hands %-30s a wrist up to %+.2f m further from the head than in the guard" % [k, float(away_by[k])])
+		for i in 2:
+			for hand in ["LeftHand", "RightHand"]:
+				var gd2: Array = guard_d[i][hand]
+				print("  guard boxer %d %s wrist to head %.2f m (median of %d frames)" % [i, hand, float(gd2[gd2.size() / 2]) if not gd2.is_empty() else 0.0, gd2.size()])
 	var med: float = float(miss[miss.size() / 2]) if not miss.is_empty() else 9.0
 	var on_n := miss.filter(func(m): return float(m) <= ON_M).size()
 	print("PLAYER2 frames %d landed %d: glove off the target median %.3f m, worst %.3f m, within %.2f m %d of %d" % [frames, miss.size(), med, float(miss[-1]) if not miss.is_empty() else 9.0, ON_M, on_n, miss.size()])
@@ -216,6 +249,7 @@ func _initialize() -> void:
 	_debt(jumps == 0, jumps <= 6 * rounds, "JUMPS no head moves over 12 cm in 1/30 s outside a contact (%d; guard %d)" % [jumps, 6 * rounds])
 	_debt(float(slide[0]) <= 1.0 * rounds and float(slide[1]) <= 1.0 * rounds, maxf(float(slide[0]), float(slide[1])) <= 5.0 * rounds, "SLIDE a standing foot travels under 1 m an exchange (%.2f / %.2f over %d; guard 5 m)" % [float(slide[0]), float(slide[1]), rounds])
 	_check(not rest.is_empty() and float(rest[0]) >= R.REST_M - 0.35 and float(rest[-1]) <= R.REST_M + 0.3, "REST out of reach between bursts (%.2f..%.2f m)" % [float(rest[0]) if not rest.is_empty() else 0.0, float(rest[-1]) if not rest.is_empty() else 0.0])
+	_check(not react_d.is_empty() and away_n == 0, "HANDS a hit man's wrists stay within %.2f m of their guard distance to his head (%d of %d frames over, worst %+.2f m)" % [HANDS_M, away_n, react_d.size(), away_worst])
 	_check(inside == 0, "APART no head inside the other man (%d frames)" % inside)
 	print("PLAYER2 failures=%d" % failures)
 	quit(0 if failures == 0 else 1)

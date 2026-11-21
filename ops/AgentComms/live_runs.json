@@ -10,40 +10,46 @@
    "seat": "claude",
    "agent": "claude-fable"
   },
-  "DMG2CRIT": {
-   "id": "DMG2CRIT",
+  "SQ271": {
+   "id": "SQ271",
    "status": "queued",
-   "started": "2026-11-21",
-   "title": "Arena critic + code check: damage classes v2 (after the 14:25 reset)",
-   "seat": "arena",
-   "agent": "arena"
+   "started": "2026-11-21T13:52",
+   "title": "John critic: turning pro map v10",
+   "seat": "john",
+   "agent": "john"
   },
-  "ANIMHANDS1": {
-   "id": "ANIMHANDS1",
+  "SQ272": {
+   "id": "SQ272",
+   "status": "queued",
+   "started": "2026-11-21T13:52",
+   "title": "Kalli critic: turning pro map v10",
+   "seat": "kalli",
+   "agent": "kalli"
+  },
+  "SQ273": {
+   "id": "SQ273",
+   "status": "queued",
+   "started": "2026-11-21T13:58",
+   "title": "Kalli critic: guard damage map v6",
+   "seat": "kalli",
+   "agent": "kalli"
+  },
+  "SQ274": {
+   "id": "SQ274",
+   "status": "queued",
+   "started": "2026-11-21T13:58",
+   "title": "John critic: guard damage map v6",
+   "seat": "john",
+   "agent": "john"
+  },
+  "DMGCLASS3": {
+   "id": "DMGCLASS3",
    "status": "running",
-   "started": "2026-11-21T13:45",
-   "title": "Animation: the hit man's hands move with his reaction (your film 15 note)",
+   "started": "2026-11-21T14:10",
+   "title": "Stoppages by class map v3 from the code (class becomes a decision)",
    "seat": "claude",
    "agent": "claude-fable",
-   "eta": "about 1 h"
-  },
-  "TURNPRO10": {
-   "id": "TURNPRO10",
-   "status": "running",
-   "started": "2026-11-21T13:45",
-   "title": "Turning pro map v10 from the code",
-   "seat": "claude",
-   "agent": "claude-fable",
-   "eta": "about 1 h"
-  },
-  "GUARDREV6": {
-   "id": "GUARDREV6",
-   "status": "running",
-   "started": "2026-11-21T13:45",
-   "title": "Guard damage map v6 from the code (covering must change who wins)",
-   "seat": "claude",
-   "agent": "claude-fable",
-   "eta": "about 1 h"
+   "eta": "about 30 min"
   }
  },
  "codex_budget": {

@@ -32,7 +32,7 @@ func _initialize() -> void:
 	_check(_node("FighterRow") != null, "fighter row")
 	_check(_node("SportChips") != null and _node("ChipBoxing") != null, "boxing chip")
 	var mma := _node("ChipMma")
-	_check(mma != null and str(mma.tooltip_text) == "Not built yet", "MMA is marked not built")
+	_check(mma != null and str(mma.tooltip_text).begins_with("MMA rankings come in a later update"), "MMA is marked not built")
 	_check(mma != null and _icon_under(mma, "warn"), "MMA carries the warn icon")
 	_check(_node("TitleRoute") != null, "title route")
 	_check(_node("SideBySide") != null, "side by side")

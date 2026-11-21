@@ -15,7 +15,7 @@ const Tips := preload("res://scripts/ui/Tips.gd")
 const TestJump := preload("res://scripts/ui/TestJump.gd")
 const PlanTemplates := preload("res://scripts/rules/PlanTemplates.gd")
 
-const FAULTS_AT_MOST := 1   # lower it as cards are rewritten, never raise it (S533 TIPFIX3: 64 of 140 on main -> 1: the MMA chip, pinned)
+const FAULTS_AT_MOST := 0   # S534: 1 -> 0 (MMA chip rewritten). lower it as cards are rewritten, never raise it (S533 TIPFIX3: 64 of 140 on main -> 1: the MMA chip, pinned)
 
 var _fails := 0
 var main: Node
