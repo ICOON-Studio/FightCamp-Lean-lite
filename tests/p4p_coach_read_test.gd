@@ -1,6 +1,6 @@
 extends SceneTree
 ## S533 P4PBUILD1 stage 3, THE COACH'S READ (DESIGN_THREEP4P_V2 section 2), end to end on the real screens: a quick-start
-## club signs its walk-in and hires a coach; the first real offer carries the read on the offer card, on the bout's versus
+## club signs its walk-in and hires a coach; the first real offer carries the read on the offer card, on the bout's letter
 ## and in its report (one builder); the three answers are priced; Accept keeps the read's call on the bout; the bout
 ## settles it into the coach's record; save and load keep the record; the read changes nothing in the career.
 ## Then a pro after the debut (TestJump "proladder"): each pro row carries its own read. Prints P4P_COACH_READ failures=N.
@@ -86,9 +86,14 @@ func _walk() -> void:
 		and card.find_child("CoachChoice_later", true, false) != null, "the offer card shows the read, how sure, and the three answers")
 	main.act("openBout", id)
 	await process_frame
-	var short := main.find_child("CoachLine_" + nid, true, false) as Label
-	_check(short != null and short.text.begins_with(CoachRead.line(r)) and short.text.contains("How sure") and main.find_child("Accept", true, false) != null
-		and main.find_child("Pass", true, false) != null, "the versus shows the same read, short, with Accept and Pass")
+	# S535 OFFERBUILD1: the offer opens as a letter; the read is its own slate (verdict, gain, risk, how sure), same CoachRead.
+	var quote := main.find_child("ReadQuote", true, false) as Label
+	var gain := main.find_child("ReadGain", true, false)
+	var sure := main.find_child("ReadSure", true, false)
+	var said_gain := str((gain.get_child(1) as Label).text) if gain != null else ""
+	var said_sure := str((sure.get_child(1) as Label).text) if sure != null else ""
+	_check(quote != null and quote.text.contains(str(r["verdict"])) and said_gain.contains(str(r["gain"])) and said_sure.contains("%d of 3" % int(r["sure"]))
+		and main.find_child("Accept", true, false) != null and main.find_child("Pass", true, false) != null, "the offer letter shows the same read, short, with Accept and Pass")
 	VersusPanel.show_report(main, id)
 	await process_frame
 	var rc := main.find_child("CoachReadCard", true, false)

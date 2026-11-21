@@ -75,8 +75,9 @@ func _offer() -> void:
 	f["offers"].append(Bouts._offer("lucy:t1", (Data.OPPONENTS[0] as Dictionary).duplicate(true), c.day + 30, c.day + 6, 4))
 	main.act("openBout", "lucy:t1")
 	await _settle(4)
-	var card := main.find_child("VersusCard", true, false) as Control
-	_check(card != null, "the offer opens on the centre card")
+	# S535 OFFERBUILD1: the offer's centre is a paper letter now; the house slates are the boxer, the read and the opponent.
+	var card := main.find_child("OfferRead", true, false) as Control
+	_check(card != null, "the offer opens with the coach's read on a slate")
 	if card == null:
 		return
 	root.size = Vector2i(1920, 1080)
@@ -85,7 +86,7 @@ func _offer() -> void:
 	for fault in SlateWalk.faults(card):
 		_check(false, str(fault))
 	var accept := main.find_child("Accept", true, false)
-	_check(accept != null, "Accept is still on the centre card")
+	_check(accept != null, "Accept is still on the offer")
 	var sb := card.get_theme_stylebox("panel")
 	print("CAMP_SLATE centre card style %s" % sb.get_class())
 	_check(WoodKit.is_panel(sb), "the centre card is the house panel (%s)" % sb.get_class())

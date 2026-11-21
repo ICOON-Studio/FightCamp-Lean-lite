@@ -1,3 +1,11 @@
+S536 build (2026-11-21, late evening) - what changed, and what to try
+
+1. THE BOUT OFFER IS A LETTER (your Q-296 "Yes, build it"): open a bout offer - the host club's letter in the middle
+   (the night, time to prepare, money, sanction, if your boxer wins / loses, answer by), your boxer on the left, the
+   coach's read and the opponent on the right, Pass / Full report / Accept under it.
+2. THE TALE OF THE TAPE (your C451-C453): before a fight, the line "0 of 5 Stamina, Standard ..." is gone; Last 5 and
+   Streak go green on the side with the edge, like Record, Height and Reach.
+Everything from S535 below is in this build too.
 S535 build (2026-11-21, evening) - what changed, and what to try
 
 1. BODIES IN THE FIGHT: the MetaHuman "correctives" are back (lost in the lean restart): in the guard and mid-punch the

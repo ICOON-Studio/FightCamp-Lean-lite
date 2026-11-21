@@ -16,6 +16,10 @@ white cuff is a straight tube the width of the glove. MHCORR2 (body correctives)
    never inside it - reuse GloveClear/guard placement; the guard must still protect the head, owner S531).
    Keep reach and punch targets honest: front_m() follows the mesh, so check `tests/glove_cut_test.gd`, `tests/own_gloves_test.gd`,
    `tests/player2_test.gd`, `tests/choreographer_test.gd` stay green.
+2b. Owner C456 (S536, on the body stills): "this black fighters do not look good on dark background it is so dark i cant tell
+   the difference in the pictures". Measure the boxers' mean luminance against the crowd behind them on the broadcast camera;
+   lift them with the ring's own lights (a key over the ring and a cool rim from behind, as TV boxing lights a ring), never
+   by lightening skin. Pass: every body (dark and light skin) separates from the crowd by a luminance gap you print.
 3. Before/after stills of the SAME frames (guard, jab contact, close guard) side-on and broadcast; open them yourself; post with
    `python ops/Tools/review_add.py --stage S536 --rating "<your read>" --title "Glove: before / after (your C447)" <files>`
    and reply on the map note if one exists. The owner closes it, not a test.
@@ -33,7 +37,8 @@ The glove mesh is assets/models/gloves/boxing_glove.glb (CC BY 4.0). If its shap
 and name a CC0 / CC BY glove (Fab, Sketchfab, Poly Haven) with its licence - do not download a paid one.
 
 ## Contract
-OWNS: scripts/fight3d/Gloves.gd, docs/GLOVEFACE1_RESULT.md, ops/previews/s536_gloveface/ (stills)
+OWNS: scripts/fight3d/Gloves.gd, the ring lights (find their file; name it in the result), docs/GLOVEFACE1_RESULT.md,
+ops/previews/s536_gloveface/ (stills)
 RED_TEST: a glove-to-cheek gap check added to tests/own_gloves_test.gd (red on today's guard if the gap is negative)
 REGRESSION: tests/glove_cut_test.gd tests/own_gloves_test.gd tests/player2_test.gd tests/choreographer_test.gd
 VISUAL: yes - game camera stills, before / after, opened by you

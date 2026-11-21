@@ -4035,7 +4035,8 @@
    "sent_ms": 1795270221484,
    "answered_at": "2026-11-21 16:40",
    "answer": "research/DESIGN_DMGCLASS1_V3_CRITIC_KALLI_KALLI.md",
-   "chars": 15441
+   "chars": 15441,
+   "seen_by_claude": true
   },
   {
    "id": "SQ276",
@@ -4049,7 +4050,8 @@
    "sent_ms": 1795270223917,
    "answered_at": "2026-11-21 16:40",
    "answer": "research/DESIGN_DMGCLASS1_V3_CRITIC_JOHN_JOHN.md",
-   "chars": 11728
+   "chars": 11728,
+   "seen_by_claude": true
   },
   {
    "id": "SQ277",
@@ -4073,15 +4075,31 @@
    "sent_ms": 1795273821764,
    "answered_at": "2026-11-21 18:10",
    "answer": "research/JOHN_WEIGHT2_RESEARCH_JOHN.md",
-   "chars": 9020
+   "chars": 9020,
+   "seen_by_claude": true
   },
   {
    "id": "SQ279",
    "seat": "kalli",
    "brief": "research/DESIGN_WEIGHT2_V2_CRITIC_KALLI.md",
    "stem": "DESIGN_WEIGHT2_V2_CRITIC_KALLI_KALLI",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-21 21:08",
+   "tries": 0,
+   "sent_at": "2026-11-21 21:10",
+   "sent_ms": 1795288224967,
+   "answered_at": "2026-11-21 21:40",
+   "answer": "research/DESIGN_WEIGHT2_V2_CRITIC_KALLI_KALLI.md",
+   "chars": 13707,
+   "seen_by_claude": true
+  },
+  {
+   "id": "SQ280",
+   "seat": "john",
+   "brief": "research/DESIGN_WEIGHT2_V2_CRITIC_JOHN.md",
+   "stem": "DESIGN_WEIGHT2_V2_CRITIC_JOHN_JOHN",
+   "status": "queued",
+   "queued_at": "2026-11-21 22:07",
    "tries": 0
   }
  ]

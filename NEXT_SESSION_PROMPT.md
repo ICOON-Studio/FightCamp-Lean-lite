@@ -34,8 +34,9 @@ Close each console's tab once its result is collected (RAM starves the Godot que
 
 ## Next, in order
 1. Collect as they land; WEIGHT2R3 PASS -> launch its code-checked critic (TASK_WEIGHT2V2CRIT.md) + the queued chat critic.
-2. Branch s535/dmgfix: already PASS on it - knockdowns, crack_wire, debut_pick, golden_path. Still to run: towel_wire (its run hit
-   the queue lock), ladder_season, region_shows, liver_ribs, corner_jobs, fight_week, fight_week_screen, male_boxer once the probes are done; merge into main; export.
+2. Branch s535/dmgfix: PASS on it - knockdowns, crack_wire, debut_pick, golden_path, towel_wire, male_boxer, ladder_season,
+   region_shows (76 checks). Still to read: liver_ribs, corner_jobs, fight_week, fight_week_screen (queued in S535,
+   E:/FightCamp/wt/s535_out/*.out). Merge into main once the fight probes stop; export.
 3. Bodies: BODYTEX2 stills to the owner; then GLOVEFACE1 (his C447: the guard glove sinks into the cheek).
 4. OFFERTAPE1: the form row built; the offer mockup to the owner before any build.
 

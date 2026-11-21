@@ -162,9 +162,11 @@ func _career(kind: String, seed_set: int, idx: int, rule: String, arm: String, w
 		if dow == 0:
 			# every arm signs a sponsor on offer; row 17 size 2: the sponsor a move brings signs only once the new room is half full
 			var half_full: int = (int(GymUpgrades.premises(maxi(0, c.premises - 1))["cap"]) + int(GymSpend.premises(c)["cap"])) / 2
-			var sponsor_waits: bool = priced and row == "17" and size >= 2 and c.members < half_full
+			var waits_id := ""   # only the sponsor the move brought waits, and only after a move
+			if priced and row == "17" and size >= 2 and c.premises > 0 and c.members < half_full:
+				waits_id = str((GymUpgrades.SPONSORS[c.premises] as Dictionary).get("id", ""))
 			for d in c.deals:
-				if str(d.get("state", "")) == "offer" and not sponsor_waits:
+				if str(d.get("state", "")) == "offer" and str(d.get("id", "")) != waits_id:
 					d["state"] = "signed"
 		if row == "15":
 			# a rival club comes for an unhappy boxer (ApproachWire): the owner keeps her the cheapest way - the promised

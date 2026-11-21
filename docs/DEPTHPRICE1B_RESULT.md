@@ -9,14 +9,14 @@ Nothing under `scripts/` was changed.
 | Row | Price tried | Does the choice move the result? | Best option by cell (of 10) | Verdict |
 |---|---|---|---|---|
 | 14 Class nights | The class takes the coach's whole evening: a boxer on pads that night drills nothing (today: half) | Yes: three class nights cost 10.8 wins in 100 and 17 of 45 pro calls, and pay $13,650 | none 5, one night 5, three nights 0 | **PASS** |
-| 15 Stipend or day job | 1st: the stipend grows $50 a week per win. 2nd: the job takes pad evenings | Money only, and the other way round: today the DAY JOB ends $9,800 richer with the same record | today: day job 6, half 3, stipend 1. 1st price: day job 7 | **1st price FAIL; 2nd price queued, not yet run** |
-| 17 Fit-out loan | 1st: a week below $0 while paying = a late fee ($173) and 4 reputation. Re-size: a fifth of the members do not follow the move and the sponsor waits for a half-full room | Yes, but one way: moving early ends $16,800 ahead of never moving | move early 10, with or without the 1st price | **1st price FAIL; re-size queued, not yet run** |
+| 15 Stipend or day job | 1st: the stipend grows $50 a week per win. 2nd: the job takes pad evenings | Yes: with the 2nd price the day job ends $8,700 richer for 2.9 fewer wins in 100 (today: $9,800 richer for nothing) | today: day job 6, half 3, stipend 1. 2nd price: day job 4, half 3, stipend 3 | **1st price FAIL; 2nd price PASS (thin on the record)** |
+| 17 Fit-out loan | 1st: a week below $0 while paying = a late fee ($173) and 4 reputation. Re-size: a fifth of the members do not follow the move and the sponsor waits for a half-full room | Yes: today moving early ends $16,800 ahead; at the re-size 20 of 30 early movers close | today and 1st price: move early 10. Re-size: never 7, late 1, tie 2 | **FAIL at both sizes** (too small, then too big) |
 | 7 Diet Hold or Cut | 1st: a day on the cut builds 0.6 of the day's stat gains. Re-size: and 4 more fatigue | Barely: 3.0 wins in 100 at the re-size (0.9 today), inside the noise | Cut 5, Hold 2, tie 3 (the same today) | **FAIL as a price; the switch itself is the problem** |
 
 Two findings matter more than the prices:
-1. **Row 15's "one answer" was a probe fault, not the game.** The 3-of-180 number came from bots that never answered the
-   rival club's approach, so the day-job boxer simply left (here: HALF 42 of 56 boxers on HALF and 43 of 56 on the day job
-   left when unanswered; 0 on the stipend). With the approach answered, the day job wins as many bouts, gets the same pro
+1. **Row 15's "one answer" was a probe fault, not the game.** The 3-of-180 number (TURNPROBE3B) came from bots that never answered the
+   rival club's approach, so the day-job boxer simply left (here, unanswered: 42 of 56 boxers on HALF and 43 of 56 on the day job
+   left; 0 on the stipend). With the approach answered, the day job wins as many bouts, gets the same pro
    calls and ends with $9,800 more cash. Today the weak option is the full STIPEND.
 2. **Row 7's switch does almost nothing.** The camp and the amateur fight week already cut for the player: 97 cut days a
    career with the diet on Cut, 95 on Hold. No price on "a day on the cut" can separate two options that cut the same days.
@@ -87,7 +87,7 @@ Priced, by cell (wins per 100 of bouts, cash):
 **Constant to build:** `ClubClasses.BAG_SHARE` 0.5 -> 0.0 (a class night on a pad evening: no pad work, no bag drill
 for the boxers that evening). The class money (`ClubDeal.class_cash`, $117 a night a week) stays.
 
-## Row 15 - stipend or day job. **1st price FAIL; 2nd price queued, not yet run**
+## Row 15 - stipend or day job. **1st price FAIL; 2nd price PASS (thin on the record)**
 
 Options (every amateur boxer of the club): FULL the $250 stipend, HALF $125 and one work morning, JOB no stipend and two
 work mornings. When the rival club comes for an unhappy boxer the owner keeps her the cheapest way the game allows:
@@ -132,9 +132,51 @@ Today, by cell:
 | test/4421 | JOB | 56.5% of 138, $22,856 | 57.7% of 142, $35,604 | 60.1% of 148, $45,266 |
 | test/9001 | FULL | 57.6% of 144, $21,388 | 53.6% of 151, $33,393 | 52.7% of 150, $43,102 |
 
-**Second price** (the job takes evenings: a boxer on a day job misses Monday's and Wednesday's pads, on the half sponsorship Wednesday's; the stipend stays flat): QUEUED behind other sessions' Godot jobs when this page was written - not yet run.
+**Second price** (the first pointed the wrong way, so this is a different price, not a bigger one): the stipend stays flat
+and the JOB takes evenings. A boxer on a day job misses Monday's and Wednesday's pads (2, `DayJob.LOST`), on the half
+sponsorship Wednesday's (1, `DayJob.HALF_LOST`), on top of the work mornings the game already takes. FULL is untouched,
+so its line is today's.
 
-## Row 17 - the fit-out loan. **1st price FAIL; re-size queued, not yet run**
+| rule | option | stipend paid | mastery gained | stat points gained | wins per 100 bouts (bouts) | pro calls | cash at the end, net of the loan | closed | best in cells (of 10) |
+|---|---|---|---|---|---|---|---|---|---|
+| today | FULL | $14,188 | 453 | 107.6 | 65.6 (672) | 56 | $29,314 | 0/40 | 1 |
+| today | HALF | $7,481 | 448 | 105.3 | 64.4 (679) | 56 | $35,508 | 0/40 | 3 |
+| today | JOB | $3,650 | 447 | 101.5 | 65.2 (687) | 56 | $39,098 | 0/40 | 6 |
+| 2nd price | FULL | $14,188 | 453 | 107.6 | 65.6 (672) | 56 | $29,314 | 0/40 | 3 |
+| 2nd price | HALF | $7,409 | 471 | 105.1 | 63.1 (680) | 56 | $34,868 | 0/40 | 3 |
+| 2nd price | JOB | $3,925 | 446 | 103.3 | 62.7 (705) | 56 | $37,984 | 0/40 | 4 |
+| today | (no best: a tie) |  |  |  |  |  |  |  | 0 |
+| 2nd price | (no best: a tie) |  |  |  |  |  |  |  | 0 |
+
+- The record now leans to the stipend: 65.6 / 63.1 / 62.7 wins per 100. The 2.9 gap is at the edge of the noise; the
+  money gap ($5,600 for HALF, $8,700 for JOB) is solid. Pro calls stay 56 / 56 / 56 and nobody left or closed.
+- By cell: FULL 3, HALF 3, JOB 4. No option above 6. PASS on both bars; the record half of it is thin.
+- A day-job boxer lost 100 pad nights a career and a half-sponsored one 39, yet pad mastery did not fall (446 and 471
+  against 453): the coach's drill plan absorbs one or two lost nights of three (row 14 shows the same: one class night
+  costs 14 mastery points, three cost 409). So this price is close to its floor; a real record cost needs the third night.
+- TOP1 in the test club under the 2nd price: 55.3 wins per 100 (300 bouts), stipend $18,781, cash $30,899, 0/8 closed.
+
+2nd price, by cell:
+
+| club / seed set | best | FULL | HALF | JOB |
+|---|---|---|---|---|
+| fresh/4421 | JOB | 68.6% of 51, $35,090 | 66.7% of 51, $39,618 | 71.2% of 52, $41,799 |
+| fresh/9001 | HALF | 68.6% of 51, $33,342 | 70.0% of 50, $39,192 | 65.4% of 52, $40,971 |
+| debt/4421 | FULL | 88.1% of 42, $29,968 | 74.4% of 43, $29,936 | 66.7% of 45, $26,725 |
+| debt/9001 | FULL | 78.6% of 42, $21,646 | 65.9% of 44, $22,635 | 68.1% of 47, $25,663 |
+| backed/4421 | JOB | 68.6% of 51, $42,000 | 66.7% of 51, $46,528 | 71.2% of 52, $48,709 |
+| backed/9001 | HALF | 68.6% of 51, $40,252 | 70.0% of 50, $46,102 | 65.4% of 52, $47,881 |
+| short/4421 | JOB | 68.6% of 51, $24,174 | 66.7% of 51, $28,702 | 71.2% of 52, $30,883 |
+| short/9001 | HALF | 68.6% of 51, $22,426 | 70.0% of 50, $28,276 | 65.4% of 52, $30,055 |
+| test/4421 | JOB | 56.5% of 138, $22,856 | 57.4% of 141, $35,584 | 58.0% of 150, $45,218 |
+| test/9001 | FULL | 57.6% of 144, $21,388 | 53.7% of 149, $32,103 | 53.0% of 151, $41,934 |
+
+**Constants to build:** a boxer on a day job misses 2 pad evenings a week (Monday, Wednesday), on the half sponsorship 1
+(Wednesday): the evening's noted minutes are 0 for her (`DrillWeek.note`). The stipend stays $250 / $125. And the fix
+that matters more than the price: nothing here is a choice unless the rival club's approach is answered, so the build
+must make that approach impossible to miss (today an unanswered one silently takes the boxer).
+
+## Row 17 - the fit-out loan. **FAIL at both sizes** (too small, then too big)
 
 Options: NEVER move; EARLY (move on the loan when the name draws 5 past the room and the $3,000 deposit + 2 weeks of
 costs are banked); LATE (35 past the room, deposit + 8 weeks banked). Every arm grows the same way otherwise (recruits to
@@ -176,7 +218,48 @@ Priced, by cell:
 | test/4421 | EARLY | 56.5% of 131, $18,668 | 56.6% of 129, $31,928 | 56.6% of 129, $17,884 |
 | test/9001 | EARLY | 59.5% of 131, $14,955 | 59.5% of 131, $36,264 | 59.5% of 131, $19,366 |
 
-**Re-size** (a fifth of the members do not follow the move; the sponsor signs only once the new room is half full): QUEUED behind other sessions' Godot jobs when this page was written - not yet run.
+**Re-size:** the late fee stays; a fifth of the members do not follow the move (they come back by the weekly walk); and
+the sponsor the move brings signs only once the new room is half full (105 members for the bigger unit).
+
+| rule | option | moved | members at the end | wins per 100 bouts (bouts) | cash at the end, net of the loan | week ends below $0 | late fees | closed | best in cells (of 10) |
+|---|---|---|---|---|---|---|---|---|---|
+| today | NEVER | 0/30 | 73 | 62.2 (1084) | $12,273 | 0.1 | 0 | 0/30 | 0 |
+| today | EARLY | 30/30 | 112 | 62.4 (1050) | $29,085 | 0.6 | 0 | 0/30 | 10 |
+| today | LATE | 18/30 | 99 | 62.2 (1082) | $11,928 | 0.1 | 0 | 0/30 | 0 |
+| re-size | NEVER | 0/30 | 73 | 62.2 (1084) | $12,273 | 0.1 | 0 | 0/30 | 7 |
+| re-size | EARLY | 30/30 | 78 | 60.6 (891) | $521 | 11.7 | 348 | 20/30 | 0 |
+| re-size | LATE | 19/30 | 97 | 62.4 (1083) | $9,751 | 0.1 | 0 | 0/30 | 1 |
+| today | (no best: a tie) |  |  |  |  |  |  |  | 0 |
+| re-size | (no best: a tie) |  |  |  |  |  |  |  | 2 |
+
+- **The answer flips instead of opening up.** Moving early now closes 20 of 30 clubs (weeks 48-100): without the
+  sponsor an early mover carries $542 a week of rent and loan on a room its name cannot yet fill, the late fees take
+  its reputation (348 fees), and the members fall further. Never moving is best in 7 cells, late in 1, 2 ties. FAIL the
+  other way: over 6 for "never".
+- Moving late is safe (0 closed, 97 members against 73) but moves in week 80-103, so its payback falls outside the two
+  years measured: it ends $2,500 behind never moving.
+- What this does show: the lever is the **sponsor's timing**, not a fee. With the sponsor at the door the move pays at
+  once whatever the draw; with the sponsor waiting for a half-full room, when to move is a real bet on the club's name.
+
+Re-size, by cell:
+
+| club / seed set | best | NEVER | EARLY | LATE |
+|---|---|---|---|---|
+| fresh/4421 | NEVER | 59.5% of 131, $13,517 | 2 closed, 54.3% of 105, -$2,595 | 59.5% of 131, $9,468 |
+| fresh/9001 | tie | 59.1% of 132, $9,125 | 2 closed, 57.6% of 118, -$920 | 59.1% of 132, $9,758 |
+| debt/4421 | NEVER | 77.2% of 79, $12,842 | 2 closed, 89.5% of 38, $8,069 | 77.2% of 79, $11,155 |
+| debt/9001 | tie | 67.6% of 68, $9,562 | 2 closed, 70.7% of 41, -$5,201 | 67.6% of 68, $9,562 |
+| backed/4421 | NEVER | 59.5% of 131, $12,640 | 2 closed, 56.0% of 116, $1,393 | 59.5% of 131, $6,181 |
+| backed/9001 | NEVER | 59.1% of 132, $8,516 | 2 closed, 59.4% of 128, $6,152 | 59.1% of 132, $3,319 |
+| short/4421 | LATE | 68.8% of 80, $9,642 | 1 closed, 67.5% of 77, $7,928 | 68.8% of 80, $11,081 |
+| short/9001 | NEVER | 69.6% of 69, $13,266 | 2 closed, 68.3% of 63, -$3,515 | 70.0% of 70, $5,804 |
+| test/4421 | NEVER | 56.5% of 131, $18,668 | 3 closed, 56.2% of 89, -$6,812 | 59.2% of 130, $17,651 |
+| test/9001 | NEVER | 59.5% of 131, $14,955 | 2 closed, 56.9% of 116, $707 | 58.5% of 130, $13,535 |
+
+**Constants:** none to build yet. The next size to probe (not run - the task allows one re-size): keep
+`GymUpgrades.LOAN` as it is, drop the member loss and the reputation hit, keep only "the move's sponsor
+(`GymUpgrades.SPONSORS`) signs at half the new room's members", add a middle timing (draw 20 past the room), and run
+three years so a late move can pay back.
 
 ## Row 7 - diet Hold or Cut. FAIL as a price
 
@@ -249,7 +332,7 @@ design change for the critics, not a number.
 
 ## Probe
 
-`tools/depthprice1b_probe.gd` (391 lines). One row a run:
+`tools/depthprice1b_probe.gd` (393 lines). One row a run:
 `-- row=14|15|17|7 [kinds=..] [seeds=..] [careers=n] [weeks=n] [rules=control,priced] [size=1|2] [arms=..]`.
 It prints one `DP1B {json}` line a career; the tables above are built from those lines.
 

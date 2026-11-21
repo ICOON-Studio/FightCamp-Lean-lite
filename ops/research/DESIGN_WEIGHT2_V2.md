@@ -1,4 +1,4 @@
-# DESIGN WEIGHT2 v2 - weight as one mechanic: the owner's answers, John's numbers, probe round 3
+# DESIGN WEIGHT2 v2 - weight as one mechanic: the owner's answers, John's numbers, probe rounds 3 and 4
 
 Kind: design map + a greybox measurement. No game code changed (nothing under `scripts/`). Written by a Fable console in the
 checkout (S535, task `ops/research/TASK_WEIGHT2R3.md`). Code read at commit 31d42481e on 2026-11-21; `LineGrade.gd`, `LiveRound.gd`,
@@ -20,12 +20,17 @@ What changed from v1: section 2 (ten estimates answered), 3.2 and 3.3 (the drain
 (size fitted to a counted number; the 3D body read), 3.5 (men's 65 kg; the refusal), 3.6 (a miss by bout type), 3.7 (growth by
 age and sex), section 4.5 (round 3), and five CODE lines of v1 that were wrong or loose (marked "v1 corrected").
 
+ROUND 4 (S536, task `ops/research/TASK_WEIGHT2R4.md`, a Fable console): the probe's sizes are now SHARES of body weight and a
+pro's regain is a share of the water he took off. Changed for it: 3.1 (the diet in weeks), 3.2 (the regain rule), 3.5 (what
+"cut harder" is), section 4 (4.6 is round 4: PASS, 7 of 10 cells clear), questions and risks 8 to 10. No CODE line was touched.
+
 ## 0. The mechanic in eight lines
 
 1. Every boxer has a NATURAL weight (where the body settles; it grows while he is young) and a WALKING weight (today's scale).
 2. The player holds the walking weight under the natural one with a DIET (three settings). Holding costs training gain.
 3. The last kilos come off as WATER in fight week (three settings). The first 2 % is free; past it water costs his engine.
-4. How much is back by the bell depends on the scale: an hour before (club show), three hours (championship), the day before (pro).
+4. How much is back by the bell depends on the scale: an hour before (club show), three hours (championship), the day before (pro:
+   about nine tenths of the water he took off, so a very big cut is never all back).
 5. What he weighs IN THE RING against the other boxer is a size edge: about 3 wins in 100 for each 1 % of body weight.
 6. The class is a choice between bouts: stay, walk bigger and cut harder, move up, move down. A move costs one rung. He may say no.
 7. His body has a limit (how much water he can make) that the player reads with error, and that shrinks with age.
@@ -142,6 +147,11 @@ day-before regain. None of the three is used here.
 | Lean | as far as 2.5 % under natural, never faster than 0.7 % of body weight a week (SOURCED, Garthe 2011: that pace keeps lean mass; the game's 0.45 kg a week is 0.6 to 0.8 %) | training gain x (1 - 0.12 per 1 % held under) (ESTIMATE: John found the pace line, no number for a standing deficit) | The line is close on fight week; he learns slower all camp |
 | Strip (only on a class move down) | as far as 5 % under, at 1 % a week | the same slope, twice as far; at 1 % a week lean mass goes (SOURCED direction, Garthe 2011) | A new body: weeks of it before the first bout |
 
+The diet in WEEKS (round 4): at the 0.7 % pace, holding 2.5 % of body off is 3.6 weeks of dieting and he keeps 70 % of his
+training gain while he holds it; 5 % (Strip) is 7.1 weeks and 40 %; a boxer already 1.5 to 2 % over his class (all five Data
+boxers) is 2 to 3 weeks and 76 to 84 %; moving up is 0 weeks and 100 %. The same ESTIMATE as the table (0.12 per 1 % held =
+0.084 of the gain per diet week), shown as time because a camp is counted in weeks.
+
 The morning sessions still burn what they burn (`WeekPlan.day`, `WeekPlan.gd:268-269`): a hard week pulls the scale down faster
 and a rest week lets it climb. What changes is that the player owns the setting and it costs the gain he is planning that week.
 
@@ -163,9 +173,17 @@ what is left comes off as water. None / Light (to 2 % of body weight) / Hard (to
 - v1's chin and hand-speed drops are REMOVED: no study links dehydration to stoppages (NOT FOUND) and reaction time does not
   move (SOURCED, Wittbrodt 2018). The stoppage risk of a cut arrives through size (3.4): the boxer who cut and did not get it
   back is the lighter one.
-- What is back by the bell is a share of body mass set by the hours, never more than he took off: +0.5 % an hour before
-  (a club show; ESTIMATE 0.3 to 1), +1.9 % with three hours or more (a championship day; SOURCED basis: men 2.1, women 1.5),
-  +7.2 % the day before (pro; SOURCED). The game weighs everyone the day before today (`Sim.gd:142`): the amateur's same-day
+- What is back by the bell, same-day scales: a share of body mass set by the hours, never more than he took off: +0.5 % an
+  hour before (a club show; ESTIMATE 0.3 to 1), +1.9 % with three hours or more (a championship day; SOURCED basis: men 2.1,
+  women 1.5).
+- What is back by the bell, the day before (pro; round 4, replaces the flat +7.2 %): a SHARE OF THE WATER HE TOOK OFF. 0.9 on
+  average, as four nights in five 0.81 and one night in five 1.25 (he comes back heavier than he dried). Where the numbers come
+  from: the field regains 7.2 % of body mass on average and one in five 10 % or more (SOURCED, Murugappan and Reale 2022);
+  7.2 over the 8 % guidance cut is 0.9 and 10 over 8 is 1.25 (DERIVED by me; the divisor is my ESTIMATE: John's note does not
+  give those 399 boxers' own cuts, so the 8 % is the guidance cap, not a measured cut). So a pro who took off 4 % boxes 0.4 %
+  short on the average night and one who took off 8 % boxes 0.8 % short (1.5 % on a usual night); the opponent rings 7.2 % over.
+  The night's share is a roll the player sees only at the bell. John's per-1 % costs (the table above) stay on the size of the
+  CUT, as he gives them. The game weighs everyone the day before today (`Sim.gd:142`): the amateur's same-day
   scale is NEW, and it is the round-5 board plan's "one amateur scale, weighed an hour before".
 - Where it lands in code: the tank share is `bout["stale"]`, which `BoutNight._energy` already takes off at the first bell
   (`BoutNight.gd:324`); Stamina is what the fade from round 3 reads (`BoutRules.own_fade :330`, the 60-Stamina line at
@@ -215,6 +233,11 @@ what is left comes off as water. None / Light (to 2 % of body weight) / Hard (to
 
 - On the fighter's Overview BODY card, between bouts only: "Box at 65 kg from the next bout" with the forecast beside it
   (weeks to make it, water left for fight week, size against that class's field, where he lands on the ladder).
+- "Walk bigger and cut harder" is sized as a SHARE of body, not kilos (round 4): he carries enough that 4 % of body weight is
+  left for water at his own class line after a Lean diet (about 7 % over the line: 69.5 kg for a 65). That is above the free
+  2 %, past the same-day safe line of 3 % and inside the same-day cap of 5 %; on the day-before scale it is half the 8 % cap.
+  A boxer already that far over (the cutter) has nothing more to choose: for her it is STAY. Getting there takes the body time
+  (Eat free, growth): the probe treats it as a standing policy, not a switch (risk 9).
 - Amateur: his class is whatever he enters at; the regional ladder is per class (`Region.rankings :200`, `our_rank :237`), so he
   joins the new one a place lower than he stood. Pro: a table move one rung down; a top-3 keeps his rung. (Round 1 took two
   rungs and staying was best in 10 of 10 cells; one rung is round 2's measured rule.)
@@ -281,13 +304,15 @@ week one water setting. The class card appears between bouts. One screen.
 chin, Kira walking 2.5 kg heavier as the drained cutter, Danny as a plain boxer-puncher), their region opponents, and every
 bout (`BoutNight.play_out`, `BoutNight.gd:102`, on a scratch career; every choice of a seed on the same nights). Scratch: the weight
 model of section 3, on a class table with a step above and below everyone. 10 cells = 5 boxers x 2 scales; 4 choices.
-Bars: each lever moves the result; no single choice best in more than 6 of 10 cells.
+Bars: each lever moves the result; no single choice best in more than 6 of 10 cells. From round 4 also: 4 or more cells clear
+of the noise; CUT harder in the leading group of at most 6 cells; at least one amateur cell where CUT is clearly worse than STAY.
 
 | Round | Model | Result | Best counts |
 | :--- | :--- | :--- | :--- |
 | 1 (875376421) | estimates; a move costs two rungs; 6 bouts | FAIL | STAY 10 of 10 |
 | 2 (ddc061494, `docs/WEIGHT2_PROBE.md`) | estimates; one rung; size in the exchanges at 0.35 rating points a 1 %; 12 bouts | PASS | STAY 5, CUT 2, UP 2, DOWN 1 |
-| 3 (this map, `docs/WEIGHT2_PROBE3.md`) | John's numbers; the refusal; an error per cell | PASS (weak: no cell clear of the noise) | CUT 4, STAY 2, UP 2, DOWN 2 |
+| 3 (`docs/WEIGHT2_PROBE3.md`) | John's numbers; the refusal; an error per cell | PASS (weak: no cell clear of the noise) | CUT 4, STAY 2, UP 2, DOWN 2 |
+| 4 (S536, `docs/WEIGHT2_PROBE4.md`) | sizes as shares of body; a pro's regain as a share of the cut; the diet in weeks; 40 seeds | **PASS: 7 of 10 cells clear** | STAY 4, CUT 4, UP 2, DOWN 0 |
 
 Rounds 1 and 2 in full: `DESIGN_WEIGHT2.md` sections 4.1 to 4.4.
 
@@ -361,6 +386,90 @@ What it says, and how far to trust it:
 Not resized: the bars are met, so the model stands as run. The two things above that I would change before a build (a price
 for walking bigger, a clock on "wait") are design changes for the critics to rule on, not number fixes.
 
+### 4.6 Round 4 (S536): the sizes as shares, the regain as a share of the cut
+
+Run: 40 seeds x 12 bouts a run, 3 seeds for the lever check, 10 seeds for the fit; 32,885 bouts in 932 s, no script error.
+Full output: `docs/WEIGHT2_PROBE4.md`. One smoke run before it (2 seeds x 4 bouts, to catch script errors; its numbers were
+not read for tuning). The first full run met every bar, so nothing was resized after seeing a result.
+
+**What changed in the model** (all in `tools/weight2_probe.gd`; nothing under `scripts/`):
+
+| | Round 3 | Round 4 | Tag |
+| :--- | :--- | :--- | :--- |
+| CUT harder | walks 2 kg bigger (1.5 to 2.4 % by water: under or at the free 2 %) | walks big enough that 4 % of body is left as water at his own line after the 2.5 % diet (`_walk`: limit / 0.935) | the 4 % is the task's size; free 2 %, safe 3 %, cap 5 % are John's (SOURCED, Reale 2018) |
+| UP fills out | 1 kg | 1.5 % of body | ESTIMATE (round 3's kilo as a share) |
+| Pro regain | 7.2 % of body, capped at the water taken off: every pro cell 0.0 % dry | a share of the water: 0.8125 four nights in five, 1.25 one in five, 0.9 on average (3.2) | DERIVED by me from John's SOURCED 7.2 % and "one in five 10 %"; the divisor 8 % is an ESTIMATE |
+| The diet's price | applied, never printed | the same slope, printed as two columns: diet weeks at 0.7 % a week (SOURCED pace) and training kept | the slope stays an ESTIMATE |
+| Seeds a cell | 20 | 40 | |
+| Kept as round 3 | John's cost table, the knee at 5 %, caps 5 % and 8 %, the miss rule, the refusal, one rung a move, the fit | | |
+
+The diet IS applied in the cell runs (`_run`: growth a bout x `keep`; `_setup`: keep = 1 - 0.12 per 1 % held, floor 0.4), in
+the pro cells as in the amateur ones: STAY keeps 76 to 84 %, CUT 70 %, DOWN 40 %, UP 100 %. With the lever off the mean win
+share moves 2.4 points (3 seeds).
+
+**Step 0, the fit:** unchanged from round 3 (same seeds, no cut in it): 1.10 wins in 100 per 1 % from the stat split, 4.75 a
+rating point, 0.40 rating points per 1 % in the exchanges, field offsets -5.3 amateur and -10.9 pro.
+
+| Bar | Measured | |
+| :--- | :--- | :--- |
+| Each lever moves the result | size 4.6 points of win share (best choice changes in 6 of 10 cells with it off), diet 2.4 (2), drain 2.0 (4), rank 1.9 (4), miss 1.8 (0), refuse 0.6 (0) | met |
+| No single choice best in more than 6 of 10 cells | STAY 4, CUT harder 4, UP 2, DOWN 0 | met |
+| 4 or more cells clear of the noise | **7 of 10** (STAY 3, CUT 3, UP 1) | met |
+| CUT harder in the leading group of at most 6 cells | 5 (the five pro cells; none amateur) | met |
+| An amateur cell where CUT is clearly worse than STAY | 5 of 5 (+0.28 to +3.19 rungs, seed by seed) | met |
+
+**RESULT: PASS.** Ladder place after twelve bouts (1 is the top; +- one standard error; the last column is CUT minus STAY seed
+by seed, + is worse):
+
+| Cell | STAY | CUT harder | UP | DOWN | Best | Inside the noise of it | CUT against STAY |
+| :--- | ---: | ---: | ---: | ---: | :--- | :--- | ---: |
+| puncher / amateur | 9.31 +- 0.36 | 12.50 +- 0.37 | 11.64 +- 0.36 | 12.20 +- 0.34 | STAY | - | +3.19 +- 0.23 |
+| puncher / pro | 9.90 +- 0.33 | 8.66 +- 0.32 | 11.10 +- 0.28 | 9.36 +- 0.35 | CUT | - | -1.24 +- 0.21 |
+| volume / amateur | 8.66 +- 0.40 | 10.68 +- 0.38 | 9.94 +- 0.40 | 11.06 +- 0.37 | STAY | - | +2.01 +- 0.23 |
+| volume / pro | 8.43 +- 0.29 | 6.14 +- 0.24 | 8.90 +- 0.29 | 6.59 +- 0.31 | CUT | DOWN | -2.29 +- 0.25 |
+| big chin / amateur | 9.03 +- 0.33 | 11.35 +- 0.43 | 9.09 +- 0.35 | 10.41 +- 0.35 | UP | STAY | +2.33 +- 0.29 |
+| big chin / pro | 7.58 +- 0.29 | 7.09 +- 0.30 | 8.64 +- 0.29 | 7.81 +- 0.34 | CUT | - | -0.49 +- 0.15 |
+| drained cutter / amateur | 9.84 +- 0.34 | 10.11 +- 0.37 | 8.86 +- 0.37 | 11.95 +- 0.33 | UP | - | +0.28 +- 0.13 |
+| drained cutter / pro | 6.01 +- 0.28 | 5.99 +- 0.29 | 7.15 +- 0.29 | 6.33 +- 0.29 | STAY | CUT | -0.03 +- 0.04 |
+| boxer-puncher / amateur | 8.40 +- 0.36 | 10.53 +- 0.42 | 9.61 +- 0.37 | 10.68 +- 0.38 | STAY | - | +2.13 +- 0.24 |
+| boxer-puncher / pro | 6.99 +- 0.29 | 6.39 +- 0.28 | 7.88 +- 0.26 | 6.67 +- 0.28 | CUT | - | -0.60 +- 0.17 |
+
+What it says, and how far to trust it:
+
+1. **A hard cut now costs, and the cells separate.** Seven cells have a winner no other choice is within two standard errors
+   of (round 3: none). The standard error of a place fell from about 0.5 to about 0.33 rungs with 40 seeds.
+2. **On the same-day scale a hard cut is clearly a mistake, in every cell** (2.0 to 3.2 rungs worse for the four boxers who had
+   a choice). But read HOW it loses: of the bouts actually boxed, CUT wins as many as STAY (48 to 56 % against 50 to 55 %). It
+   loses on the SCALE: 1.55 to 1.8 scales missed in twelve, each a walkover loss, and 63 to 83 % of the runs end with the
+   boxer moved up a class by two misses. The -8 % Stamina and -3 % power do not show in the win share over three rounds. So
+   the amateur result stands on the miss slope past the safe line (20 points a 1 %, by Discipline), which is still my
+   ESTIMATE (section 2), not on John's stamina table. A human coach would recognise the direction ("he boxes with the cut");
+   the size of it is not sourced.
+3. **On the day-before scale a hard cut clearly pays, in four cells of five** (0.5 to 2.3 rungs better than STAY; the fifth is
+   the cutter, for whom CUT is STAY). It pays most for the volume man (wins inside the distance 18 % -> 37 % of bouts) and
+   least for the big chin. Part of this is built in: the pro field rings 7.2 % over the line and STAY rings on it, so CUT is
+   mostly "be the size the others are" (risk 7).
+4. **So CUT harder is a real choice across scales and nearly a rule inside one:** never on a club scale, almost always as a
+   pro. Its value depends on the moment only where the scale changes (turning pro, and a championship's three-hour scale,
+   which the probe does not run). A critic should press this: inside one scale the player learns the answer once.
+5. **Moving DOWN is best in no cell** and in the leading group of one (volume / pro, 0.45 rungs behind CUT). Against CUT in
+   the boxer's own class it gives the same ring-weight gap (-3.1 % both, puncher and volume) for a rung, a 27 to 68 % chance
+   he refuses, and 40 % of his training kept against 70 %. On the same-day scale it misses 1.4 to 3.1 scales in twelve in four cells of five. As
+   sized, DOWN is a dominated option: a design question (what does the class below offer that walking bigger does not?), not
+   a number to nudge.
+6. **Moving UP is the answer for two boxers on the same-day scale:** the cutter (clear: 8.86 against 9.84 staying) and the big
+   chin (level with STAY, 9.09 against 9.03). As a pro it is last in all five cells (6.5 to 11 % lighter than the field).
+7. **A pro who cut does box short of it, a little:** 0.4 % of body dry at the bell on the average night after a 4 % cut, 0.6 %
+   for the cutter moved down (6.2 % cut, past the knee: -8.1 % Stamina). No pro cell cuts 8 %, so the far end of the regain
+   rule ("the day cannot give it back") is in the model and NOT exercised by these five boxers.
+8. **The levers.** Drain moved more than in round 3 (2.0 points against 0.9; best choice changes in 4 cells) because CUT now
+   sits past the free 2 %. Miss, diet, rank and refuse are measured on 3 seeds and are the size of the noise, as in round 3;
+   refuse again barely moves the ladder (0.6 points, 0 cells).
+9. **Moving up, against John.** One class up, pooled: knockout share of the wins 29 % -> 27 % (x 0.92), stopped 5.6 -> 6.5 in
+   100 (x 1.16). John's ESTIMATE for two classes: x 0.88 and x 1.5.
+10. **Not established:** the two remaining ties (volume / pro CUT or DOWN; big chin / amateur UP or STAY) and the cutter's pro
+    cell, where STAY and CUT are the same boxer; anything over seasons (risk 4); the regain rule past a 6 % cut (point 7).
+
 ## 5. Every menu it appears on
 
 | Menu (file) | Shows | Wired to |
@@ -385,7 +494,9 @@ Why, ask for 65 on the BODY card, hear no, make the promise, box at the new clas
 Answered by the owner: men's 65 kg (Q-292), the refusal (Q-293), the 3D body (Q-294). Answered by John: nine of v1's ten.
 Open, for the owner (scope only): one class under the lightest and over the heaviest per sex, so the end boxers have somewhere
 to go. Open, for the critics: is the same-day amateur scale worth a new weigh-in time; is "wait" too cheap a way round a
-refusal; should the tolerance-with-age line (no evidence) stay.
+refusal; should the tolerance-with-age line (no evidence) stay. From round 4: inside one scale "cut harder" has one answer
+(never on a club scale, nearly always as a pro) - what makes it depend on the boxer and the bout; moving DOWN is best in no
+cell - what should the class below offer, or should it go.
 
 ## 7. Risks and what is not proven
 
@@ -403,3 +514,10 @@ refusal; should the tolerance-with-age line (no evidence) stay.
    mass alone (the probe strips the opponent's height and reach).
 7. The Data boxers walk 1.5 to 2.3 % over their class; real amateurs 3 to 5 % (ESTIMATE) and pros ring 7 % over (SOURCED). On a
    pro table our boxers are the small ones until the diet and the class move are built. The probe's pro cells show exactly that.
+8. Round 4's amateur result (a hard cut is clearly worse in 5 of 5 cells) comes through missed scales, not through the fight:
+   it rests on the miss slope past the safe line, my ESTIMATE. With a gentler slope the amateur CUT would sit nearer STAY.
+9. "Cut harder" assumes the boxer can carry 5 % more body than the Data boxers walk at (69.5 kg for Samira's 65.9). The probe
+   gives it to him as a standing policy at no price but the diet; the build has to say where the mass comes from (Eat free
+   over weeks, growth) and what it costs while he gets there.
+10. A pro's regain share (0.9; 0.81 / 1.25) divides John's SOURCED regain by the 8 % guidance cut, which is not the measured cut
+    of those boxers. No cell cuts past 6.2 %, so the rule's far end is untested.

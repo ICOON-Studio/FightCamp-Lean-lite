@@ -34,6 +34,7 @@ QUEUE = Path(os.environ.get("GODOT_SLOT_DIR", r"E:\FightCamp\tmp\godot_queue"))
 LOCK = QUEUE / ".lock"
 SLOTS = {"GREEN": 6, "AMBER": 2, "RED": 0}   # owner S536 "can you get more going in parallel ?" (was 4, S534); jobs share 8 threads
 MIN_COMMIT_GB = 4.0
+OLD_SLOTS_GREEN = 4   # the limit a pre-S536 waiter imported (no "v" in its ticket)
 POLL_S = 5.0
 STALE_DETAIL_S = 120     # a verdict older than this is not trusted: one slot, so work still moves if pc_metrics is down
 
@@ -119,7 +120,7 @@ def run(who: str, cmd: list[str], max_wait: float) -> int:
     QUEUE.mkdir(parents=True, exist_ok=True)
     me = QUEUE / f"{time.time_ns()}_{os.getpid()}.json"
     me.write_text(json.dumps({"pid": os.getpid(), "who": who, "cmd": " ".join(cmd)[:300], "queued": time.time(),
-                              "state": "waiting"}), encoding="utf-8")
+                              "state": "waiting", "v": 2}), encoding="utf-8")
     t0, said = time.time(), ""
     try:
         while True:
@@ -130,6 +131,12 @@ def run(who: str, cmd: list[str], max_wait: float) -> int:
                 slots, why = pc_slots()
                 free = slots - len(running)
                 pos = next((i for i, t in enumerate(waiting) if t["_path"] == me), 0)
+                # S536: a waiter queued before live_slots() kept the 4 it imported and never takes a slot above 4, so the
+                # extra slots sat empty behind it (4 running, 10 waiting at 6 slots). Old tickets (no "v") ahead of me can
+                # only use what their own limit leaves; count just those, then every newer ticket ahead.
+                ahead = waiting[:pos]
+                old = sum(1 for t in ahead if "v" not in t)
+                pos = (len(ahead) - old) + min(old, max(0, OLD_SLOTS_GREEN - len(running)))
                 if pos < free:
                     data = json.loads(me.read_text(encoding="utf-8"))
                     data.update(state="running", started=time.time())

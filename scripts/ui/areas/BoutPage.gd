@@ -1,6 +1,8 @@
 extends VBoxContainer
-## One bout offer: the tale of the tape, the opponent report, the terms, accept or decline. An unsafe mismatch shows why
-## the federation would not sanction it, and cannot be accepted.
+## One bout offer. It opens as the host club's letter (S535 OFFERBUILD1, OfferLetter: the letter, our boxer, the coach's
+## read, the opponent, Pass / Full report / Accept); the Full report is this page's own body: the matchup, the win chance
+## and ranks, the scouting file, the terms. An unsafe mismatch shows why the federation would not sanction it, and cannot
+## be accepted.
 
 const UI := preload("res://scripts/ui/UI.gd")
 const Faces := preload("res://scripts/rules/Faces.gd")
@@ -14,7 +16,7 @@ const BoutCompare := preload("res://scripts/ui/BoutCompare.gd")
 const BoutRead := preload("res://scripts/rules/BoutRead.gd")
 const ClubForecast := preload("res://scripts/state/ClubForecast.gd")
 const VersusPanel := preload("res://scripts/ui/VersusPanel.gd")
-const MenuFx := preload("res://scripts/ui/MenuFx.gd")
+const OfferLetter := preload("res://scripts/ui/OfferLetter.gd")
 const OfferCard := preload("res://scripts/ui/OfferCard.gd")
 
 
@@ -45,17 +47,13 @@ func build(main: Node, offer_id: String) -> void:
 	add_child(crumb)
 	# S373 the weigh-in forecast: her weight now and on the scale after a camp cut from tomorrow (Sim.weigh_forecast).
 	var wf := Sim.weigh_forecast(c, f, int(o["day"]))
-	var foot := _answer_row(main, f, o, offer_id, wf)
-	if not bool(o["answered"]):   # S533 the coach's read, the same one as the offer card: short on the versus, whole in the report
-		var short_read := OfferCard.coach_line(c, f, o)
-		short_read.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-		foot.add_child(short_read)
-	if VersusPanel.report_for != offer_id:   # S410 Q-S294-134: the offer opens as a versus screen; this page is its full report
-		MenuFx.set_wall(main, VersusPanel.BACKDROP)
-		remove_child(crumb)
-		crumb.queue_free()
-		add_child(VersusPanel.build(main, c, f, o, opp, offer_id, wf, foot))
+	# S535 OFFERBUILD1 (owner C448 "this looks too much like the tale of tape", Q-S294-296 "Yes, build it"): the offer opens
+	# as the host club's letter; this page is its full report (VersusPanel.report_for, one click away and back).
+	if VersusPanel.report_for != offer_id:
+		crumb.text = "FIGHTS / Offers / the offer from %s" % str(opp["club"])
+		add_child(OfferLetter.build(main, c, f, o, opp, offer_id, wf))
 		return
+	var foot := _answer_row(main, f, o, offer_id, wf)
 	var head := UI.hbox(16)
 	head.add_child(UI.display("THE BOUT", 52))
 	# S398 menus (first-hour critics: "Legal, even match" stayed green while the weight missed): the chip says the worst.
@@ -63,7 +61,7 @@ func build(main: Node, offer_id: String) -> void:
 		"red" if bool(o["mismatch"]) else ("amber" if not bool(wf["ok"]) else "green"))
 	chip.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	head.add_child(chip)
-	var back := UI.button("Back to the versus", "Btn", VersusPanel.show_report.bind(main, ""))
+	var back := UI.button("Back to the offer", "Btn", VersusPanel.show_report.bind(main, ""))
 	back.name = "BackToVersus"
 	back.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	head.add_child(back)

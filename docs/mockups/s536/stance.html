@@ -1,0 +1,132 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Stance mockup</title>
+<style>
+:root{--page:#1a1512;--card:#2e3234;--tile:#414342;--line:#4c4b45;--text:#eee2ce;--muted:#b1a084;--header:#e6bd55;--accent:#6fa0e6;--good:#2cb56f;--bad:#ff7a66;--warn:#cf9245;--action:#991d1c;--second:#442f24;--chosen:#c8a585;--goodf:#239058;--badf:#df4639}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;background:radial-gradient(ellipse at 50% 30%,#3a2c22 0%,#1a1512 75%);color:var(--text);font-family:"Barlow","Segoe UI",sans-serif;overflow:hidden}
+.top{height:78px;background:#141110;display:flex;align-items:center;padding:0 28px;gap:18px;border-bottom:1px solid #000}
+.gym{font-family:"Permanent Marker","Segoe Print",cursive;color:var(--accent);font-size:30px}
+.date{font-size:18px;line-height:1.2}.date small{color:var(--muted);font-size:15px;display:block}
+.crumb{position:absolute;top:100px;left:28px;color:var(--muted);font-size:16px;letter-spacing:.5px}
+.card{position:absolute;background:var(--card);border:1px solid #000;border-radius:6px;padding:22px 24px;box-shadow:0 6px 18px rgba(0,0,0,.5)}
+.h{font-family:"Permanent Marker","Segoe Print",cursive;font-size:30px}
+.sub{color:var(--muted);font-size:17px;margin-top:4px}
+.cap{color:var(--header);font-size:15px;letter-spacing:2px;font-weight:700;text-transform:uppercase}
+.row{display:flex;justify-content:space-between;align-items:baseline;padding:10px 0;border-top:1px solid var(--line);font-size:18px}
+.row .k{color:var(--muted);font-size:14px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700}
+.row .v{font-weight:700}
+.note{font-size:15px;color:var(--muted);line-height:1.4;margin-top:12px}
+.g{color:var(--good)}.b{color:var(--bad)}.w{color:var(--warn)}.a{color:var(--accent)}
+/* centre */
+.pad{display:grid;grid-template-columns:110px repeat(3,190px);grid-template-rows:repeat(3,128px) 34px;gap:8px;margin-top:16px}
+.axis{color:var(--muted);font-size:14px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;display:flex;align-items:center}
+.axisb{justify-content:center}
+.cell{background:var(--tile);border-radius:6px;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:10px;border:2px solid transparent}
+.cell .nm{font-size:15px;font-weight:700}
+.cell .tg{font-size:13px;color:var(--muted)}
+.cell.nat{border:2px dashed var(--chosen)}
+.cell.trained::after{content:"trained";position:absolute;top:6px;right:8px;font-size:11px;color:var(--chosen);letter-spacing:1px;text-transform:uppercase}
+.cell.sel{border:3px solid var(--accent);background:#2b3a4f}
+.cell.far{opacity:.55}
+.cell svg{position:absolute;top:6px;left:50%;transform:translateX(-50%)}
+.lean{display:flex;gap:10px;margin-top:10px;align-items:center}
+.btn{background:var(--second);border:1px solid #000;border-radius:5px;padding:10px 18px;font-size:16px;font-weight:700;color:var(--text);text-align:center}
+.btn.on{background:#2b3a4f;border:2px solid var(--accent)}
+.btn.act{background:var(--action)}
+.btn small{display:block;font-weight:400;font-size:13px;color:#e7cfc0}
+/* right */
+.bar{display:grid;grid-template-columns:200px 1fr 60px;align-items:center;gap:12px;padding:7px 0;font-size:17px}
+.track{height:10px;background:var(--page);border-radius:5px;position:relative;border:1px solid var(--line)}
+.track i{position:absolute;top:0;bottom:0;border-radius:5px}
+.track .mid{position:absolute;left:50%;top:-3px;bottom:-3px;width:2px;background:var(--muted)}
+.chip{display:inline-block;padding:6px 10px;border-radius:4px;background:var(--tile);font-size:15px;margin:4px 6px 0 0}
+.chip.ok{border-left:4px solid var(--goodf)}.chip.no{border-left:4px solid var(--badf)}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.tile{background:var(--tile);border-radius:6px;padding:14px 16px;font-size:16px;line-height:1.4}
+.tile b{color:var(--header);font-size:13px;letter-spacing:1.5px;display:block;margin-bottom:4px}
+.quote{font-family:"Segoe Print",cursive;color:var(--header);font-size:19px;margin-top:8px}
+</style></head><body>
+<div class="top"><span class="gym">Anvil Street Gym</span><span class="date">Mon 12 Jan 2026<small>Week 2</small></span>
+<span style="flex:1"></span><span class="btn">Gym</span><span class="btn">Mail (2 new)</span><span style="flex:1"></span>
+<span style="color:var(--header);font-size:22px;font-weight:700">$16,841</span><span class="btn">Menu</span></div>
+<div class="crumb">FIGHTERS / Training / the stance</div>
+
+<!-- LEFT: who he is -->
+<div class="card" style="left:28px;top:136px;width:400px;height:780px">
+ <div class="h">Josh Harper</div><div class="sub">Light middleweight · your fighter</div>
+ <svg width="350" height="250" viewBox="0 0 350 250" style="margin:14px 0 4px">
+  <rect x="0" y="0" width="350" height="250" rx="6" fill="#1a1512"/>
+  <text x="175" y="24" fill="#b1a084" font-size="13" text-anchor="middle" letter-spacing="1.5">FROM ABOVE · HIS NATURAL FEET</text>
+  <line x1="40" y1="200" x2="310" y2="200" stroke="#4c4b45" stroke-dasharray="4 4"/>
+  <text x="175" y="232" fill="#b1a084" font-size="12" text-anchor="middle">shoulder width</text>
+  <g transform="translate(130,120) rotate(-28)"><ellipse rx="20" ry="44" fill="#6fa0e6" opacity=".85"/><text y="5" fill="#1a1512" font-size="12" text-anchor="middle" font-weight="700">LEAD</text></g>
+  <g transform="translate(225,160) rotate(-55)"><ellipse rx="20" ry="44" fill="#6fa0e6" opacity=".55"/><text y="5" fill="#1a1512" font-size="12" text-anchor="middle" font-weight="700">REAR</text></g>
+  <text x="300" y="60" fill="#e6bd55" font-size="14" text-anchor="end">opponent ↑</text>
+ </svg>
+ <div class="row"><span class="k">Natural stance</span><span class="v">Shoulder · half-bladed</span></div>
+ <div class="row"><span class="k">Why</span><span class="v" style="font-weight:400;font-size:16px">183 cm, long legs, a jabber</span></div>
+ <div class="row"><span class="k">Trained stances</span><span class="v">2 of 9</span></div>
+ <div class="row"><span class="k">Style</span><span class="v">Volume puncher</span></div>
+ <div class="row"><span class="k">Legs</span><span class="v g">Fresh</span></div>
+ <div class="row"><span class="k">Next fight</span><span class="v">Sat 31 Jan · out-boxer</span></div>
+ <div class="note">Every boxer has a natural stance from his frame. Others take pad weeks to make his own; until then they cost stamina and step speed.</div>
+</div>
+
+<!-- CENTRE: the pad -->
+<div class="card" style="left:448px;top:136px;width:780px;height:780px">
+ <div class="cap">The stance - his feet, set in camp</div>
+ <div class="sub">Pick one of nine. Wider = planted and strong; narrower = quick on his feet. Squared = both hands; bladed = the jab.</div>
+ <div class="pad">
+  <div class="axis">Squared</div>
+  <div class="cell far"><svg width="120" height="80"><ellipse cx="45" cy="40" rx="12" ry="26" fill="#eee2ce" opacity=".7"/><ellipse cx="75" cy="40" rx="12" ry="26" fill="#eee2ce" opacity=".5"/></svg><span class="nm">Narrow square</span><span class="tg">rare: no strength</span></div>
+  <div class="cell"><svg width="120" height="80"><ellipse cx="38" cy="40" rx="12" ry="26" fill="#eee2ce" opacity=".7"/><ellipse cx="82" cy="40" rx="12" ry="26" fill="#eee2ce" opacity=".5"/></svg><span class="nm">Square</span><span class="tg">hooks, inside work</span></div>
+  <div class="cell"><svg width="120" height="80"><ellipse cx="25" cy="40" rx="12" ry="26" fill="#eee2ce" opacity=".7"/><ellipse cx="95" cy="40" rx="12" ry="26" fill="#eee2ce" opacity=".5"/></svg><span class="nm">Wide square</span><span class="tg">pressure brawler</span></div>
+  <div class="axis">Half</div>
+  <div class="cell"><svg width="120" height="80"><ellipse cx="50" cy="34" rx="12" ry="26" fill="#eee2ce" opacity=".7" transform="rotate(-25 50 34)"/><ellipse cx="72" cy="50" rx="12" ry="26" fill="#eee2ce" opacity=".5" transform="rotate(-45 72 50)"/></svg><span class="nm">Narrow</span><span class="tg">in-and-out</span></div>
+  <div class="cell nat trained"><svg width="120" height="80"><ellipse cx="40" cy="30" rx="12" ry="26" fill="#eee2ce" opacity=".7" transform="rotate(-25 40 30)"/><ellipse cx="82" cy="52" rx="12" ry="26" fill="#eee2ce" opacity=".5" transform="rotate(-45 82 52)"/></svg><span class="nm">Balanced</span><span class="tg">his natural</span></div>
+  <div class="cell sel trained"><svg width="120" height="80"><ellipse cx="28" cy="28" rx="12" ry="26" fill="#6fa0e6" transform="rotate(-25 28 28)"/><ellipse cx="94" cy="54" rx="12" ry="26" fill="#6fa0e6" opacity=".7" transform="rotate(-45 94 54)"/></svg><span class="nm">Wide</span><span class="tg">slip and counter</span></div>
+  <div class="axis">Bladed</div>
+  <div class="cell"><svg width="120" height="80"><ellipse cx="52" cy="28" rx="12" ry="26" fill="#eee2ce" opacity=".7" transform="rotate(-50 52 28)"/><ellipse cx="70" cy="54" rx="12" ry="26" fill="#eee2ce" opacity=".5" transform="rotate(-70 70 54)"/></svg><span class="nm">Narrow bladed</span><span class="tg">long jab, mover</span></div>
+  <div class="cell"><svg width="120" height="80"><ellipse cx="42" cy="26" rx="12" ry="26" fill="#eee2ce" opacity=".7" transform="rotate(-50 42 26)"/><ellipse cx="80" cy="56" rx="12" ry="26" fill="#eee2ce" opacity=".5" transform="rotate(-70 80 56)"/></svg><span class="nm">Bladed</span><span class="tg">shoulder roll</span></div>
+  <div class="cell far"><svg width="120" height="80"><ellipse cx="30" cy="24" rx="12" ry="26" fill="#eee2ce" opacity=".7" transform="rotate(-50 30 24)"/><ellipse cx="92" cy="58" rx="12" ry="26" fill="#eee2ce" opacity=".5" transform="rotate(-70 92 58)"/></svg><span class="nm">Wide bladed</span><span class="tg">rare: slow, stiff</span></div>
+  <div></div><div class="axis axisb">Narrow</div><div class="axis axisb">Shoulder width</div><div class="axis axisb">Wide</div>
+ </div>
+ <div class="lean"><span class="cap" style="width:200px">Weight - the corner's call</span>
+  <span class="btn">Back foot<small>counters, pull-backs</small></span>
+  <span class="btn on">Centred<small>as he stands</small></span>
+  <span class="btn">Front foot<small>pressure, lead hook</small></span></div>
+ <div class="note" style="margin-top:10px">Weight is set in the fight plan and changed in the corner between rounds, like Gloves high. Feet are set in camp.</div>
+ <div style="display:flex;gap:14px;margin-top:14px">
+  <span class="btn" style="flex:1">Keep his natural<small>Balanced, free</small></span>
+  <span class="btn act" style="flex:1.4">Train Wide for this fight<small>trained: costs nothing extra</small></span></div>
+</div>
+
+<!-- RIGHT: what it changes -->
+<div class="card" style="left:1248px;top:136px;width:644px;height:780px">
+ <div class="cap">What Wide changes - against his Balanced</div>
+ <div style="margin-top:10px">
+  <div class="bar"><span>Rear-hand power</span><span class="track"><span class="mid"></span><i style="left:50%;width:14%;background:var(--goodf)"></i></span><span class="g">+7%</span></div>
+  <div class="bar"><span>Slips and rolls</span><span class="track"><span class="mid"></span><i style="left:50%;width:18%;background:var(--goodf)"></i></span><span class="g">+9%</span></div>
+  <div class="bar"><span>Stays up when hit</span><span class="track"><span class="mid"></span><i style="left:50%;width:20%;background:var(--goodf)"></i></span><span class="g">+10%</span></div>
+  <div class="bar"><span>Step speed</span><span class="track"><span class="mid"></span><i style="left:36%;width:14%;background:var(--badf)"></i></span><span class="b">-7%</span></div>
+  <div class="bar"><span>Turning (pivots)</span><span class="track"><span class="mid"></span><i style="left:32%;width:18%;background:var(--badf)"></i></span><span class="b">-9%</span></div>
+  <div class="bar"><span>Legs drain a round</span><span class="track"><span class="mid"></span><i style="left:26%;width:24%;background:var(--badf)"></i></span><span class="b">+12%</span></div>
+ </div>
+ <div class="cap" style="margin-top:18px">His moves in this stance</div>
+ <div style="margin-top:6px">
+  <span class="chip ok">Slip and counter: faster</span><span class="chip ok">Body hook: +power</span><span class="chip ok">Cut off the ring: fits</span>
+  <span class="chip no">Pivot out: 0.2 s slower</span><span class="chip no">Step back: costs legs</span><span class="chip no">Double jab: shorter</span>
+ </div>
+ <div class="cap" style="margin-top:22px">Against an out-boxer (scouting 3 of 5)</div>
+ <div class="quote">"Wide plants him. She jabs and leaves - he waits all night. Wide only if we cut the ring; if not, Balanced."</div>
+ <div class="note">Coach's read - from the film. A stance is only right against someone: the same Wide that beats a brawler loses to a mover.</div>
+ <div class="cap" style="margin-top:22px">In the fight</div>
+ <div class="tiles" style="margin-top:8px">
+  <div class="tile"><b>CORNER</b>One notch of weight a minute; feet only one step toward his natural.</div>
+  <div class="tile"><b>TIRED LEGS</b>Body shots and a heavy drain pull a wide stance in: by round 3 Wide is Balanced.</div>
+  <div class="tile"><b>THE FILM</b>Keep one stance every fight and rivals read it on tape - his edge shrinks.</div>
+ </div>
+</div>
+
+<div style="position:absolute;left:28px;top:1000px;width:1864px;font-size:16px;color:var(--muted)">MOCKUP S536 - stance pad (owner's idea). Numbers are placeholders to be set by a probe, not tuned. Not built.</div>
+</body></html>

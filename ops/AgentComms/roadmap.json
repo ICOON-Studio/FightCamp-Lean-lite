@@ -3,16 +3,16 @@
  "updated": "2026-11-21",
  "author": "claude S294",
  "now": {
-  "id": "S535",
+  "id": "S536",
   "owner": "claude",
   "updated": "2026-11-21",
-  "summary": "S535 (Opus): owner asks - weight classes, then weight as a deep mechanic (WEIGHT2: map from code, probe r2 PASS, John's numbers, Q-292..294 answered; r3 + critics running); the bodies (MetaHuman correctives ported into v2, boxer 01 athletic skin, Q-295 'Use them anyway', BODYTEX2 running); watchdog counts the pagefile. TURNPROBE11 + GUARDPROBE6 FAIL -> TURNPRO12, GUARDREV7 (guard as a plan-line reaction). DEPTHPRICE1A/1B read: flat prices make no choices; class nights PASS. Branch s535/dmgfix: pro count rule, towel price, men's 65 kg, ice, Tick over text. Digest ops/research/S535_DIGEST.md.",
-  "next_action": "Collect WEIGHT2R3 (map v2 + probe 3 -> launch the code-checked critic + the queued chat critic, 8+ bar), TURNPRO12, GUARDREV7, BODYTEX2 (stills to the owner), OFFERTAPE1 (form row + offer mockup to the owner), DEPTHPRICE1B re-sizes, STEPPAY2, KNOWMISREAD1. When the probes stop: finish the s535/dmgfix tests (towel, debut_pick, ladder, region, golden, liver_ribs, corner_jobs, fight_week) and merge it into main. Then GLOVEFACE1 (C447).",
+  "summary": "S536 (Opus): the Godot queue sped up on the owner's word (CPU line 92 %, 8 threads, GREEN 6 slots read live; watchdog and governor had pinned different cores); 3 finished Fable consoles closed (RAM). WEIGHT2R3 read: amateur CUT sat under the free 2 % and the pro regain erased every cut -> WEIGHT2R4 (cuts as body share, 40 seeds). His 9 review notes: tape loses the camp/film line, Last 5 + Streak show the edge (tests running); FP2POSE1 (blue cross legs + gaze, guard stance) and GLOVEFACE1 (glove + ring light for dark skin) on Fable. dmgfix branch tests running in its worktree.",
+  "next_action": "Collect as they land: tape tests (then export), dmgfix tests (merge once the probes stop), WEIGHT2R4 (PASS -> launch TASK_WEIGHT2V2CRIT code-checked critic), FP2POSE1 + GLOVEFACE1 stills (review board), BODYTEX2, OFFERBUILD1, TURNPRO12, GUARDPROBE8, STEPPAY2, DEPTHPRICE1B. Then DEPTH_SCOPE changes 3 and 5 once 1-2 are read.",
   "last_working_commit": "f2efb845c",
   "verified_playable": "Export queued at the end of S535 (bodies correctives + boxer 01 skin + arms by Strength); not yet played.",
-  "incomplete_blocked": "s535/dmgfix not merged (probes read the fight code). Godot queue slow: the owner's game + consoles keep the PC AMBER.",
+  "incomplete_blocked": "s535/dmgfix not merged (probes read the fight code).",
   "next_acceptance": "WEIGHT2 v2 scored 8+/8+ by two fresh critics or resized; bodies stills OK'd by the owner; dmgfix merged with its tests green.",
-  "awaiting_operator": "Play the S535 build when it lands; body stills on the review board; the offer mockup (OFFERTAPE1) when it lands."
+  "awaiting_operator": "Play the S535 build (exported 21:23); the arm stills (review board)."
  },
  "next": "S496: 0) get_usage; where_we_are roll S496; quote board answers (Q-259 Training K v6c; build WeekCards v6c on Yes - WeekCards.gd 552 lines is split first). 1) Collect as they land, by diff + their test: Qwen ONELOOK2 (fight HUD palette, ETA ~11:00 11-16; render before/after fight stills on the hidden desktop, his OK before merge), Goose FILMCOUNT1 (#326, branch goose/issue-326 - Goose's PR step failed twice: collect from the branch; read its FINDS table and noise numbers, retune FilmBout rates if a floor missed), Grok Dev FIGHTPAGE1 (branch grok/fightpage1, ETA ~13:30; render at 1920x1080 text 1.0 and 1.3, judge against fight_analysis_v3.png, then his board). 2) Kalli SQ202 LADDER1 v6 + SQ203 COACHSPEC1 r6 -> two fresh critics each (Dola + John; Dola refused COACHSPEC1 r5 - resend). 3) Wire after FIGHTPAGE1+FILMCOUNT1: the film-night stop in the fight week (FightWeekPlan film night -> FightAnalysis.for_tape with FilmCount.check, FilmPattern.checks by coach rating), FilmEdge pays at the figure, the result page's Punch by punch tab over m['tape'] (BoutTape), History keeps 20 tapes (~400 lines a bout). 4) Live fight log panel brief to Grok Dev once FIGHTPAGE1 lands. 5) ONELOOK1 sweep after ONELOOK2: RosterCards, ReadPanel, MatMap (UI.gd/WoodKit/WeekCards first need a split).",
  "assessment": {
@@ -5224,7 +5224,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-21 21:11 board_sync",
+  "updated": "2026-11-21 21:41 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5381,34 +5381,32 @@
     "run": "STEPPAY2"
    },
    {
-    "title": "Arena code-checked critic: guard damage map v6",
-    "who": "arena",
-    "started": "2026-11-21T14:36",
-    "run": "GUARD6CRIT"
-   },
-   {
     "title": "3D fight: arms and shoulders follow Strength (your Q-290)",
     "who": "claude-fable",
     "started": "2026-11-21T15:20",
-    "run": "ARMBUILD1"
+    "run": "ARMBUILD1",
+    "state": "LANDED - Claude collects"
    },
    {
     "title": "Repaint 152 bodies with athletic arms (Ludo)",
     "who": "ludo",
     "started": "2026-11-21T15:20",
-    "run": "ARMPAINT1"
+    "run": "ARMPAINT1",
+    "state": "LANDED - Claude collects"
    },
    {
     "title": "Probe turning pro v11 before critics",
     "who": "claude-fable",
     "started": "2026-11-21T15:35",
-    "run": "TURNPROBE11"
+    "run": "TURNPROBE11",
+    "state": "LANDED - Claude collects"
    },
    {
     "title": "Price the solved fight-night choices (probe)",
     "who": "claude-fable",
     "started": "2026-11-21T15:35",
-    "run": "DEPTHPRICE1A"
+    "run": "DEPTHPRICE1A",
+    "state": "LANDED - Claude collects"
    },
    {
     "title": "Price the solved club choices (probe)",
@@ -5420,13 +5418,15 @@
     "title": "Probe guard v6: Hands before settle",
     "who": "claude-fable",
     "started": "2026-11-21T15:35",
-    "run": "GUARDPROBE6"
+    "run": "GUARDPROBE6",
+    "state": "LANDED - Claude collects"
    },
    {
     "title": "Be wrong about people: a shared misread (build)",
     "who": "claude-fable",
     "started": "2026-11-21T15:35",
-    "run": "KNOWMISREAD1"
+    "run": "KNOWMISREAD1",
+    "state": "LANDED - Claude collects"
    }
   ],
   "next": [
@@ -5993,6 +5993,31 @@
   },
   "done_recently": [
    {
+    "title": "Arena code-checked critic: guard damage map v6",
+    "who": "arena",
+    "when": "2026-11-21"
+   },
+   {
+    "title": "John critic: guard damage map v6",
+    "who": "john",
+    "when": "2026-11-21"
+   },
+   {
+    "title": "Kalli critic: guard damage map v6",
+    "who": "kalli",
+    "when": "2026-11-21"
+   },
+   {
+    "title": "Kalli critic: turning pro map v10",
+    "who": "kalli",
+    "when": "2026-11-21"
+   },
+   {
+    "title": "John critic: turning pro map v10",
+    "who": "john",
+    "when": "2026-11-21"
+   },
+   {
     "title": "Tooltips: short cards and a new card design (TIPFIX1-3 + reach-10 redesign)",
     "who": "grokdev",
     "when": "2026-11-21"
@@ -6026,61 +6051,6 @@
     "title": "What each ring place is worth: none was an edge (STEPPAY1)",
     "who": "grokdev",
     "when": "2026-11-21"
-   },
-   {
-    "title": "Guard damage map v5 from the code (GUARDREV5)",
-    "who": "fable",
-    "when": "2026-11-21"
-   },
-   {
-    "title": "Grok Dev: turning pro map v9 from the code (TASK_TURNREV9)",
-    "who": "grokdev",
-    "when": "2026-11-21"
-   },
-   {
-    "title": "Arena: stoppages by weight class and sex, map v2 (the real stoppage roll)",
-    "who": "arena",
-    "when": "2026-11-21"
-   },
-   {
-    "title": "Arena critic: the three P4P mechanics v2 + code check",
-    "who": "",
-    "when": "2026-11-21"
-   },
-   {
-    "title": "Arena: the three P4P mechanics, map v2 from the code",
-    "who": "",
-    "when": "2026-11-21"
-   },
-   {
-    "title": "Arena: stoppages by weight class and sex, design map v1 from the code",
-    "who": "",
-    "when": "2026-11-21"
-   },
-   {
-    "title": "Arena critic: the three P4P mechanics + code check",
-    "who": "",
-    "when": "2026-11-21"
-   },
-   {
-    "title": "Dola critic: the three P4P-derived mechanics",
-    "who": "",
-    "when": "2026-11-21"
-   },
-   {
-    "title": "Arena: turning pro map v8 from the code (fixes the v7 critic's points)",
-    "who": "",
-    "when": "2026-11-20"
-   },
-   {
-    "title": "Arena critic: contracts v6 (with code check)",
-    "who": "",
-    "when": "2026-11-20"
-   },
-   {
-    "title": "Arena critic: turning pro v7 (with code check)",
-    "who": "",
-    "when": "2026-11-20"
    }
   ],
   "scope_note": "S294: lean restart (E:\\FightCamp\\Lean\\docs\\RESTART_PLAN.md). Old roadmap items are parked until the weekly builds reach them.",
@@ -6233,6 +6203,18 @@
     {
      "text": "Arms by Strength stills to review",
      "who": "claude"
+    },
+    {
+     "text": "Tape: film line off, form edge",
+     "who": "claude"
+    },
+    {
+     "text": "dmgfix tests 10/10 green",
+     "who": "claude"
+    },
+    {
+     "text": "Offer letter built (Q-296)",
+     "who": "claude"
     }
    ],
    "now": [
@@ -6253,15 +6235,7 @@
      "who": "agent"
     },
     {
-     "text": "Offer letter: build (Fable)",
-     "who": "agent"
-    },
-    {
      "text": "Guard v7: trade probe",
-     "who": "agent"
-    },
-    {
-     "text": "Turning pro v12 probe",
      "who": "agent"
     },
     {
@@ -6270,6 +6244,10 @@
     },
     {
      "text": "Weight probe 4 (Fable)",
+     "who": "agent"
+    },
+    {
+     "text": "Turning pro v13 probe (Fable)",
      "who": "agent"
     }
    ],
@@ -6524,6 +6502,10 @@
     },
     {
      "text": "Damage classes: Arena critic",
+     "who": "claude"
+    },
+    {
+     "text": "Tape: stray grey bar left side",
      "who": "claude"
     }
    ],

@@ -69,13 +69,9 @@ func _picture() -> void:
 				texts.append((c as Label).text)
 		_check(texts.size() == 3 and str(texts[0]) == str(row["left"]) and str(texts[2]) == str(row["right"]),
 			"%s shows %s and %s" % [key, str(row["left"]), str(row["right"])])
-	var threat := card.find_child("TapeThreat", true, false) as Label
-	_check(threat != null and threat.text == "unknown: not on tape", "an unknown threat reads \"unknown: not on tape\" (%s)" % ("?" if threat == null else threat.text))
-	_check(not OppFile.known(opp, "weapon"), "the weapon was not on tape")
-	var film := card.find_child("FilmMark", true, false) as Control
-	_check(film != null and film.custom_minimum_size.x >= 20.0 and film.custom_minimum_size.y >= 20.0, "the film mark is at least 20 px")
-	var camp := card.find_child("TapeCamp", true, false) as Control
-	_check(camp != null and _blob(camp).find(" of ") >= 0, "film tells read as a count beside the icon")
+	# S536 owner C451-C453: the camp / film / scouting lines left the tape ("i do not even understand what it means").
+	for gone in ["TapeCamp", "TapeFacts", "TapeThreat", "FilmMark"]:
+		_check(card.find_child(gone, true, false) == null, "the tape has no %s line (owner C451)" % gone)
 	for n in _walk(page):
 		if not (n is Label or n is Button):
 			continue

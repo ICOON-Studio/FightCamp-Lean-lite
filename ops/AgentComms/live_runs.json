@@ -10,52 +10,6 @@
    "seat": "claude",
    "agent": "claude-fable"
   },
-  "SQ271": {
-   "id": "SQ271",
-   "status": "superseded",
-   "started": "2026-11-21T13:52",
-   "title": "John critic: turning pro map v10",
-   "seat": "john",
-   "agent": "john",
-   "note": "S536: turning pro v10 -> v12"
-  },
-  "SQ272": {
-   "id": "SQ272",
-   "status": "superseded",
-   "started": "2026-11-21T13:52",
-   "title": "Kalli critic: turning pro map v10",
-   "seat": "kalli",
-   "agent": "kalli",
-   "note": "S536: turning pro v10 -> v12"
-  },
-  "SQ273": {
-   "id": "SQ273",
-   "status": "superseded",
-   "started": "2026-11-21T13:58",
-   "title": "Kalli critic: guard damage map v6",
-   "seat": "kalli",
-   "agent": "kalli",
-   "note": "S536: guard v6 -> v7"
-  },
-  "SQ274": {
-   "id": "SQ274",
-   "status": "superseded",
-   "started": "2026-11-21T13:58",
-   "title": "John critic: guard damage map v6",
-   "seat": "john",
-   "agent": "john",
-   "note": "S536: guard v6 -> v7"
-  },
-  "GUARD6CRIT": {
-   "id": "GUARD6CRIT",
-   "status": "superseded",
-   "started": "2026-11-21T14:36",
-   "title": "Arena code-checked critic: guard damage map v6",
-   "seat": "arena",
-   "agent": "arena",
-   "eta": "about 30 min",
-   "note": "S536: v6 scored 6/7/5 (S534); guard is now v7 (GUARDREV7)"
-  },
   "ARMBUILD1": {
    "id": "ARMBUILD1",
    "status": "landed",
@@ -98,12 +52,13 @@
   },
   "DEPTHPRICE1B": {
    "id": "DEPTHPRICE1B",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-21T15:35",
    "title": "Price the solved club choices (probe)",
    "seat": "claude",
    "agent": "claude-fable",
-   "eta": "about 40 min"
+   "eta": "about 40 min",
+   "note": "S536: 36ed76a9f class nights PASS, stipend PASS thin, loan FAIL (sponsor timing), diet no-op -> WEIGHT2 diet"
   },
   "GUARDPROBE6": {
    "id": "GUARDPROBE6",
@@ -143,12 +98,13 @@
  },
  "TURNPRO12": {
   "id": "TURNPRO12",
-  "status": "running",
+  "status": "landed",
   "started": "2026-11-21T16:55",
   "title": "Turning pro v12: built on the debut and the first six fights (v11 probe failed 4/15), then probe again",
   "seat": "claude",
   "agent": "claude-fable",
-  "eta": "about 2 h"
+  "eta": "about 2 h",
+  "note": "S536: 66833a990 TURNPROBE12 FAIL 10/15 -> TURNPRO13"
  },
  "GUARDREV7": {
   "id": "GUARDREV7",
@@ -197,12 +153,13 @@
  },
  "OFFERBUILD1": {
   "id": "OFFERBUILD1",
-  "status": "running",
+  "status": "landed",
   "started": "2026-11-21T20:00",
   "title": "Build the bout offer letter",
   "seat": "claude",
   "agent": "claude-fable",
-  "eta": "1-3 h (Godot queue)"
+  "eta": "1-3 h (Godot queue)",
+  "note": "S536: b81ae44c4, still on the review board, in the S536 export"
  },
  "GUARDPROBE8": {
   "id": "GUARDPROBE8",
@@ -215,11 +172,48 @@
  },
  "WEIGHT2R4": {
   "id": "WEIGHT2R4",
-  "status": "running",
+  "status": "landed",
   "started": "2026-11-21T21:25",
   "title": "Weight probe round 4: a hard cut must be able to cost (sized by body share), pro regain tied to the cut, 40 seeds",
   "seat": "claude",
   "agent": "claude-fable",
-  "eta": "about 1.5-2 h (probe waits in the Godot queue)"
+  "eta": "about 1.5-2 h (probe waits in the Godot queue)",
+  "note": "S536: cd9a84dbe PASS 7/10 clear"
+ },
+ "FP2POSE1": {
+  "id": "FP2POSE1",
+  "status": "running",
+  "started": "2026-11-21T21:50",
+  "title": "Your C454 + C458: the blue cross crosses its legs and looks away; the guard stance reads weak (fight player v2)",
+  "seat": "claude",
+  "agent": "claude-fable",
+  "eta": "about 2 h (stills wait in the Godot queue)"
+ },
+ "GLOVEFACE1": {
+  "id": "GLOVEFACE1",
+  "status": "running",
+  "started": "2026-11-21T21:50",
+  "title": "Your C447 + C456: the guard glove (shape, cuff, into the cheek) and ring light so dark skin reads",
+  "seat": "claude",
+  "agent": "claude-fable",
+  "eta": "about 2 h (stills wait in the Godot queue)"
+ },
+ "TURNPRO13": {
+  "id": "TURNPRO13",
+  "status": "running",
+  "started": "2026-11-21T22:05",
+  "title": "Turning pro v13: Softer ask dropped (right nowhere), the name lasts, probe 13",
+  "seat": "claude",
+  "agent": "claude-fable",
+  "eta": "about 1.5 h (probe in the Godot queue)"
+ },
+ "WEIGHT2V2CRIT": {
+  "id": "WEIGHT2V2CRIT",
+  "status": "running",
+  "started": "2026-11-21T22:15",
+  "title": "Code-checked critic of weight v2 (probe 4 PASS): checks every code claim, scores depth and play",
+  "seat": "claude",
+  "agent": "claude-fable",
+  "eta": "about 40 min"
  }
 }

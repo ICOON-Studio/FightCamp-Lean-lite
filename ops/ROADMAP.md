@@ -8,9 +8,9 @@ Updated 2026-11-21 by claude S294.
 
 ## Now
 
-**S535 — ?** *(claude)*
+**S536 — ?** *(claude)*
 
-S535 (Opus): owner asks - weight classes, then weight as a deep mechanic (WEIGHT2: map from code, probe r2 PASS, John's numbers, Q-292..294 answered; r3 + critics running); the bodies (MetaHuman correctives ported into v2, boxer 01 athletic skin, Q-295 'Use them anyway', BODYTEX2 running); watchdog counts the pagefile. TURNPROBE11 + GUARDPROBE6 FAIL -> TURNPRO12, GUARDREV7 (guard as a plan-line reaction). DEPTHPRICE1A/1B read: flat prices make no choices; class nights PASS. Branch s535/dmgfix: pro count rule, towel price, men's 65 kg, ice, Tick over text. Digest ops/research/S535_DIGEST.md.
+S536 (Opus): the Godot queue sped up on the owner's word (CPU line 92 %, 8 threads, GREEN 6 slots read live; watchdog and governor had pinned different cores); 3 finished Fable consoles closed (RAM). WEIGHT2R3 read: amateur CUT sat under the free 2 % and the pro regain erased every cut -> WEIGHT2R4 (cuts as body share, 40 seeds). His 9 review notes: tape loses the camp/film line, Last 5 + Streak show the edge (tests running); FP2POSE1 (blue cross legs + gaze, guard stance) and GLOVEFACE1 (glove + ring light for dark skin) on Fable. dmgfix branch tests running in its worktree.
 
 ## Next
 

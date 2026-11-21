@@ -184,10 +184,48 @@ static func _form_rows(f: Dictionary, opp: Dictionary) -> Array:
 		why = WHY
 	elif (b["marks"] as Array).is_empty():
 		why = NO_BOUTS
-	var out: Array = [{"label": "Last 5", "left": _form_text(a, false), "right": _form_text(b, false), "better": "", "why": why}]
+	# S536 owner C453 on the form rows: "use some colours ? maybe highlight who has the edge in each" - the better side goes
+	# green as on Record, Height and Reach. Only when both forms are known and both corners have boxed.
+	var both := bool(a["known"]) and bool(b["known"]) and not (a["marks"] as Array).is_empty() and not (b["marks"] as Array).is_empty()
+	var out: Array = [{"label": "Last 5", "left": _form_text(a, false), "right": _form_text(b, false),
+		"better": _form_better(a["marks"], b["marks"]) if both else "", "why": why}]
 	if not (a["marks"] as Array).is_empty() or not (b["marks"] as Array).is_empty():
-		out.append({"label": "Streak", "left": _form_text(a, true), "right": _form_text(b, true), "better": "", "why": why})
+		out.append({"label": "Streak", "left": _form_text(a, true), "right": _form_text(b, true),
+			"better": _run_better(a["marks"], b["marks"]) if both else "", "why": why})
 	return out
+
+
+## Last 5: more wins in the marks shown; equal = no edge.
+static func _form_better(a: Array, b: Array) -> String:
+	var wa := _wins(a)
+	var wb := _wins(b)
+	return "left" if wa > wb else ("right" if wb > wa else "")
+
+
+static func _wins(m: Array) -> int:
+	var n := 0
+	for x in m:
+		if str(x).left(1) == "W":
+			n += 1
+	return n
+
+
+## Streak: a win run beats anything else; between two win runs the longer, between two losing runs the shorter.
+static func _run_better(a: Array, b: Array) -> String:
+	var sa := _run(a)
+	var sb := _run(b)
+	return "left" if sa > sb else ("right" if sb > sa else "")
+
+
+## +n for n wins in a row, -n for n losses, 0 for a draw at the top.
+static func _run(m: Array) -> int:
+	var kind := str(m[0]).left(1)
+	var n := 0
+	for x in m:
+		if str(x).left(1) != kind:
+			break
+		n += 1
+	return n if kind == "W" else (-n if kind == "L" else 0)
 
 
 static func _form_text(form: Dictionary, as_streak: bool) -> String:
