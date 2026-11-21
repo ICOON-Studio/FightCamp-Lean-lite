@@ -4098,11 +4098,14 @@
    "seat": "john",
    "brief": "research/DESIGN_WEIGHT2_V2_CRITIC_JOHN.md",
    "stem": "DESIGN_WEIGHT2_V2_CRITIC_JOHN_JOHN",
-   "status": "sent",
+   "status": "answered",
    "queued_at": "2026-11-21 22:07",
    "tries": 0,
    "sent_at": "2026-11-21 22:10",
-   "sent_ms": 1795291826553
+   "sent_ms": 1795291826553,
+   "answered_at": "2026-11-21 22:40",
+   "answer": "research/DESIGN_WEIGHT2_V2_CRITIC_JOHN_JOHN.md",
+   "chars": 9193
   },
   {
    "id": "SQ281",
@@ -4111,6 +4114,15 @@
    "stem": "JOHN_CARDGAMES_RESEARCH_JOHN",
    "status": "queued",
    "queued_at": "2026-11-21 22:17",
+   "tries": 0
+  },
+  {
+   "id": "SQ282",
+   "seat": "dola",
+   "brief": "research/DOLA_CARDSET_IDEAS.md",
+   "stem": "DOLA_CARDSET_IDEAS_DOLA",
+   "status": "queued",
+   "queued_at": "2026-11-21 22:45",
    "tries": 0
   }
  ]
