@@ -43,8 +43,7 @@ var ahead: Array = []
 var running := false
 var speed := 2
 var modal: Dictionary = {}
-## The save slot (tests point it elsewhere).
-var save_path := SaveGame.PATH
+var save_path := SaveGame.PATH   # the save slot (tests point it elsewhere)
 ## S311: a scene can start at a test part without command-line args (Ziva's run_scene passes none): scenes/dev/Jump*.tscn.
 @export var jump_override := ""
 
