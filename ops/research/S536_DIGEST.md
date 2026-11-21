@@ -55,3 +55,6 @@ Top fault = WEIGHT2R4's target (water free under 2 %: always Light). After R4: p
 - WEIGHT2V2CRIT (71e1175f0, code-checked): 6/7/6 - code claims sound (1 false); the probe never ran diet against water; frame erased so DOWN can never win; the hybrid scale; drained cutter's CUT = her STAY. -> WEIGHT2R5 (Fable) on its items 1-4 + Kalli's Monday point.
 
 - HIGGSFIELD PILOT (owner yes; 75 of ~1,000 credits, Seedance 2.5 Flash 5 s 1:1 720p, 25 each; start frames = our painted boxers on slate): jab-cross USABLE (style drifts toward 3D shading), slip HALF (the slip barely shows, the counter is clean), body hook FAIL (she turns to camera, stance flips, the glove is placed not thrown). Read: AI video does straight punches; lateral and defensive moves fail. Clips: ops/previews/s536_higgs/, review board.
+
+- STANCEPROBE1 FAIL twice (41b4589d3): the 9-cell pad's choices are too close (1 of 10 cells clear). Owner S536 'Yes, merge it': the stance merges into the guard (the feet pay for a guard WHEN-line - also fixes GUARDPROBE8's free slot), natural stance kept as a trait. -> TASK_GUARDREV8 (map v8 + probe 9), waits for memory (RAM RED: ArcheAge 8.1 GB).
+- STEPPAY2 done (a3a219220): all ten steps gated; STEPPAY3 next (the five steps with no moment).
