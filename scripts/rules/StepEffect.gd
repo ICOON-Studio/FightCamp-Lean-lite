@@ -268,12 +268,19 @@ const TABLE := {
 ## S532 TREEVALUE10 MEASUREMENT ONLY (tools/treevalue_probe.gd `off=`): {step: [row keys]} read as zero, so a probe can
 ## name which effect of a step costs or pays. Empty in the game; nothing in scripts/ writes it.
 static var probe_off: Dictionary = {}
+## S533 MEASUREMENT ONLY (`scale=`): {step: factor} multiplies every number of the row, so a probe can tell an effect that
+## is too small from one the round never reads. Empty in the game.
+static var probe_scale: Dictionary = {}
 
 
 static func effect(step: String) -> Dictionary:
 	if not TABLE.has(step):
 		return {}
 	var row: Dictionary = (TABLE[step] as Dictionary).duplicate(true)
+	if probe_scale.has(step):
+		for k in row:
+			if typeof(row[k]) in [TYPE_INT, TYPE_FLOAT]:
+				row[k] = type_convert(row[k] * float(probe_scale[step]), typeof(row[k]))
 	for k in probe_off.get(step, []):
 		if row.has(k):
 			row[k] = type_convert(0, typeof(row[k])) if typeof(row[k]) != TYPE_STRING else ""

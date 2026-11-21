@@ -166,3 +166,25 @@ READ: the wrong-fit penalty is a small part (~0.1-0.3) of the loss - not the cos
 not run (the chain's second launch exited 127). NEXT: run them (`tools/treevalue_probe.gd -- only=cut_off off=<arm>`), and
 one more arm with the line kept but EVERY effect off (off=drain,tank,opp_ropes,opp_steps_less,wrong): if that still loses,
 the cost is the exchange the step spends, not any lever.
+
+## S533 TREEVALUE11 - cut_off lever attribution: NO effect of the row is the cost
+Run: tools/treevalue_probe.gd only=cut_off off=<lever>, 400 bouts a cell x 3 seed sets (same seeds as S532). Delta = wins in
+100, with-arm minus without-arm.
+
+| cut_off vs | Pressure | Slugger | Out-boxer (FOR) | Counter | Volume | Boxer-puncher | wrong % (Pr/Sl/OB/Co/Vo/BP) |
+|---|---|---|---|---|---|---|---|
+| S532 base (ring_cut on) | -1.67 | -1.50 | -0.75 | -0.17 | -2.25 | -1.08 | 48/45/8/10/48/23 |
+| off=wrong | -1.33 | -1.33 | -0.67 | -0.08 | -1.92 | -1.08 | same |
+| off=drain | -1.67 | -1.50 | -0.67 | -0.17 | -2.33 | -1.08 | same |
+| off=tank | -1.75 | -1.17 | -0.50 | +0.00 | -2.33 | -1.08 | same |
+| off=opp_ropes | -1.67 | -1.50 | -0.75 | -0.17 | -2.25 | -1.08 | same |
+
+READ: drain, tank and opp_ropes switched off change nothing beyond noise (<= 0.35, inside one seed set's spread). Only the
+wrong-step cost moves the result (~0.3 back on the three forward styles). The cost follows WHERE the step fires: against
+Pressure / Slugger / Volume the probe's line (cut_off WHEN tiring) fires 45-48 % of the time while the opponent still presses,
+and PlanFight.ANSWERS lists cut_off as WRONG against `press` (real boxing: you do not cut the ring on a man walking at you).
+Against the movers it is wrong 8-10 % and still costs ~0.1-0.75: the exchange the step spends buys nothing measurable.
+DECISION (METHOD): no TABLE number is sized - none measures as the cost, so any size would be a guess.
+NEXT (measurement): a sensitivity arm `scale=5` (S533: StepEffect.probe_scale, every number of the row x5, measurement only):
+if the out-boxer cell still does not move, the row's effects are not read by the round (a wiring defect to trace); if it moves,
+they are too small for a step that fires ~once a bout and the design question is how often it fires, not the size.

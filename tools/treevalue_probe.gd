@@ -283,6 +283,9 @@ func _initialize() -> void:
 			for st in _sweep_steps():
 				StepEffectOff.probe_off[str(st)] = Array(str(a).substr(4).split(","))
 			print("OFF (lever attribution, measurement only): %s" % str(StepEffectOff.probe_off))
+		if str(a).begins_with("scale="):   # S533: every number of the swept steps' rows x factor (measurement only)
+			for st in _sweep_steps(): StepEffectOff.probe_scale[str(st)] = float(str(a).substr(6))
+			print("SCALE (sensitivity, measurement only): %s" % str(StepEffectOff.probe_scale))
 	var base := _base_dict()
 	var factory := Callable(self, "_make_fighter")
 	# CONTROL: the forced grade really is OK on every step (LineGrade's rule, the one the live round reads).
