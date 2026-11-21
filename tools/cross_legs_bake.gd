@@ -9,7 +9,17 @@ extends SceneTree
 ##   - the foot is pitched up about the ball, PITCH_DEG at the contact: the heel comes up. Only what the take does not
 ##     do itself by that picture is added (the actor lifts his heel 2-5 cm AFTER the contact: that is kept);
 ##   - the leg is solved again onto the raised, swung ankle (two-bone IK, the knee in the plane it bends in), under the
-##     take's own hips: the knee bends; the toes stay flat on the canvas, turned with the foot.
+##     take's own hips: the knee bends; the toes stay flat on the canvas, turned with the foot;
+##   - FP2POSE3 (S537, the owner on the FP2POSE2 film: "blue fighter twists knee unnaturally outwards when he throws",
+##     "the power does not come from twisting the knee use our research/clips"): THE KNEE GOES WITH THE HIPS. The solve
+##     above keeps the knee in the plane the flat-footed actor bent it in while the foot under it turns in: the knee
+##     ended OUTSIDE the toes (+1 to +14 deg on 6 of 9 takes; the captured crosses hold it 24-51 deg INSIDE) and
+##     further out of the hip-foot line than in the stance. In every captured cross with a leg drive (Mixamo Cross_Punch,
+##     Cross_Punch__A; our own pro_right_cross and _hard) the knee keeps its direction against the PELVIS within 9 deg
+##     from the stance to the contact: the thigh is carried round by the hip, nothing twists at the knee. So the leg is
+##     swung about its own hip-ankle line until the knee points where it pointed against the pelvis at the start.
+##   - and the foot turns FOOT_PER_HIP of the hips' turn, the captured ratio (Cross_Punch: foot 20 deg, hips 54), no
+##     longer to a fixed 12 deg off the line (K46: no study gives a pivot angle; none is invented).
 ## A take whose hips turn little gets less (x the turn / FULL_TURN_DEG, at least LEAST). Saved: the rear leg's four
 ## rotation tracks only, CrossLegs.DIR/<take file>.res.
 ## <godot> --headless --audio-driver Dummy --path . --script res://tools/cross_legs_bake.gd -- [dry] [body=01] [show=<take>]
@@ -19,7 +29,8 @@ const FightClips := preload("res://scripts/fight3d/FightClips.gd")
 const CrossLegs := preload("res://scripts/fight3d/v2/CrossLegs.gd")
 const Orbit := preload("res://tools/clip_orbit.gd")
 const LEG := ["RightUpperLeg", "RightLowerLeg", "RightFoot", "RightToes"]
-const YAW_TO := -12.0
+const YAW_TO := -12.0           # the foot never turns past this (toes nearly at the target)
+const FOOT_PER_HIP := 0.37     # the rear foot's turn for each degree the hips turn (captured: Mixamo Cross_Punch 20 / 54)
 const PITCH_DEG := 28.0
 const FULL_TURN_DEG := 35.0
 const LEAST := 0.7
@@ -122,6 +133,12 @@ func _bake(clip: String) -> Animation:
 	var axis := _ang(reach - hips0.origin)
 	var yaw0 := rad_to_deg(angle_difference(axis, _ang(-v0)))
 	var amp := clampf(most / FULL_TURN_DEG, LEAST, 1.0)
+	var yaw_to := minf(yaw0 + FOOT_PER_HIP * most, maxf(YAW_TO, yaw0))
+	var khip0 := _khip()          # (the skeleton stands on the take's first picture: pass 1 ended, seek again)
+	_seek(clip, 0.0)
+	khip0 = _khip()
+	var kfoot_was := 0.0
+	var kfoot_now := 0.0
 	var yaw_p := 0.0
 	var yaw_now := 0.0
 	var pitch_p := 0.0
@@ -147,11 +164,13 @@ func _bake(clip: String) -> Animation:
 		var d := smoothstep(0.15, 0.85, float(turn[k]) / most)
 		d *= 1.0 - smoothstep(AIR_LO, AIR_HI, ball.y - ball0.y)
 		d *= smoothstep(0.0, EDGE_S, t) * smoothstep(0.0, EDGE_S, src.length - t)
+		var w := d                # how far into the drive this picture is
+		var khip_own := _khip()
 		# what the take does not do itself by this picture is added (its own late lift after the contact is kept)
 		var v_own := foot.origin - ball
 		var own_yaw := rad_to_deg(angle_difference(axis, _ang(-v_own)))
 		var own_pitch := rad_to_deg(asin(clampf(v_own.y / v_own.length(), -1.0, 1.0)) - pitch0)
-		var add_yaw := maxf(lerpf(yaw0, maxf(YAW_TO, yaw0), d * amp) - own_yaw, 0.0) if d > 0.0 else 0.0
+		var add_yaw := maxf(lerpf(yaw0, yaw_to, d) - own_yaw, 0.0) if d > 0.0 else 0.0
 		var add_pitch := maxf(PITCH_DEG * amp * d - own_pitch, 0.0) if d > 0.0 else 0.0
 		d = 1.0 if add_yaw > 0.01 or add_pitch > 0.01 else 0.0
 		if k == kp:
@@ -162,7 +181,8 @@ func _bake(clip: String) -> Animation:
 		if k == kp:
 			var kn := _g(int(ids[1])).origin
 			knee_was = rad_to_deg((_g(int(ids[0])).origin - kn).angle_to(foot.origin - kn))
-		if d > 0.0005:
+			kfoot_was = _kfoot()
+		if d > 0.0005 or w > 0.0005:
 			var yaw := Quaternion(Vector3.UP, deg_to_rad(add_yaw * d))
 			var v := yaw * (foot.origin - ball)
 			var flat := Vector3(v.x, 0.0, v.z)
@@ -176,6 +196,7 @@ func _bake(clip: String) -> Animation:
 			var ankle := ball + lift * v
 			var foot_q := (lift * yaw * foot.basis.get_rotation_quaternion()).normalized()
 			_solve(ids, ankle)
+			_swivel(khip_own + angle_difference(deg_to_rad(khip_own), deg_to_rad(khip0)) * w * 57.29578)
 			var shin := _g(int(ids[1])).basis.get_rotation_quaternion()
 			skel.set_bone_pose_rotation(int(ids[2]), (shin.inverse() * foot_q).normalized())
 			skel.set_bone_pose_rotation(int(ids[3]), (foot_q.inverse() * (yaw * toes_q)).normalized())
@@ -183,13 +204,63 @@ func _bake(clip: String) -> Animation:
 			var kn2 := _g(int(ids[1])).origin
 			knee_now = rad_to_deg((_g(int(ids[0])).origin - kn2).angle_to(_g(int(ids[2])).origin - kn2))
 			rise = _g(int(ids[2])).origin.y - foot.origin.y
+			kfoot_now = _kfoot()
 		if _arg("show", "") == clip:
 			print("CROSSLEGS   %.3f turn %+.0f d %.2f ankle up %+.1f cm, ball off %.1f mm" % [t, turn[k], d, (_g(int(ids[2])).origin.y - foot.origin.y) * 100.0, (_g(int(ids[3])).origin - ball).length() * 1000.0])
 		for i in 4:
 			out.rotation_track_insert_key(int(tr[i]), t, skel.get_bone_pose_rotation(int(ids[i])))
-	print("CROSSLEGS %-26s %.2f s | at the contact %.2f s: hips turned %.0f deg (x %.2f) | rear foot %+.0f in the stance, %+.0f -> %+.0f deg off the punch line | foot pitched up %.0f -> %.0f deg, ankle %+.1f cm | rear knee %.0f -> %.0f deg" % [
-		clip, src.length, float(kp) / 60.0, most, amp, yaw0, yaw_p, yaw_now, pitch_p, pitch_now, rise * 100.0, knee_was, knee_now])
+	print("CROSSLEGS %-26s %.2f s | at the contact %.2f s: hips turned %.0f deg (x %.2f) | rear foot %+.0f in the stance, %+.0f -> %+.0f deg off the punch line | foot pitched up %.0f -> %.0f deg, ankle %+.1f cm | rear knee %.0f -> %.0f deg, turned %+.0f -> %+.0f deg from the toes (- = inside)" % [
+		clip, src.length, float(kp) / 60.0, most, amp, yaw0, yaw_p, yaw_now, pitch_p, pitch_now, rise * 100.0, knee_was, knee_now, kfoot_was, kfoot_now])
 	return out
+
+
+## Where the rear knee points, seen from above (the knee off the hip-ankle line), in degrees: against `from`
+## (+ = turned OUT, away from the other leg).
+func _knee_yaw(from: Vector3, a: Vector3, b: Vector3, c: Vector3) -> float:
+	var ax := (c - a).normalized()
+	var pole := (b - a) - ax * (b - a).dot(ax)
+	var outw := _g(int(ids[0])).origin - _g(skel.find_bone("LeftUpperLeg")).origin
+	var f := Vector3(from.x, 0.0, from.z)
+	var s := 1.0 if f.signed_angle_to(Vector3(outw.x, 0.0, outw.z), Vector3.UP) >= 0.0 else -1.0
+	return s * rad_to_deg(f.signed_angle_to(Vector3(pole.x, 0.0, pole.z), Vector3.UP))
+
+
+## ... against the pelvis (the hips' own side axis: the knee points roughly along it turned 75 deg, a constant that
+## drops out - only the CHANGE from the take's start is used).
+func _khip() -> float:
+	return _knee_yaw(_g(skel.find_bone("Hips")).basis.z, _g(int(ids[0])).origin, _g(int(ids[1])).origin, _g(int(ids[2])).origin)
+
+
+## ... against the toes of its own foot (- = the knee inside the toes).
+func _kfoot() -> float:
+	return _knee_yaw(_g(int(ids[3])).origin - _g(int(ids[2])).origin, _g(int(ids[0])).origin, _g(int(ids[1])).origin, _g(int(ids[2])).origin)
+
+
+## Swings the solved leg about its hip-ankle line (the ankle stays) until the knee points `want` degrees against the pelvis.
+func _swivel(want: float) -> void:
+	var ga := _g(int(ids[0]))
+	var gb := _g(int(ids[1]))
+	var a := ga.origin
+	var c := _g(int(ids[2])).origin
+	var ax := (c - a).normalized()
+	var hz := _g(skel.find_bone("Hips")).basis.z
+	var best := 0.0
+	var err := 1e9
+	for i in range(-240, 241):
+		var phi := deg_to_rad(float(i) * 0.25)
+		var e := absf(angle_difference(deg_to_rad(_knee_yaw(hz, a, a + Quaternion(ax, phi) * (gb.origin - a), c)), deg_to_rad(want)))
+		if e < err - 1e-6 or (absf(e - err) <= 1e-6 and absf(phi) < absf(best)):
+			err = e
+			best = phi
+	if absf(best) < 1e-5:
+		return
+	var r := Quaternion(ax, best)
+	var qa1 := (r * ga.basis.get_rotation_quaternion()).normalized()
+	var qb1 := (r * gb.basis.get_rotation_quaternion()).normalized()
+	var par := skel.get_bone_parent(int(ids[0]))
+	var qp := _g(par).basis.get_rotation_quaternion() if par >= 0 else Quaternion.IDENTITY
+	skel.set_bone_pose_rotation(int(ids[0]), (qp.inverse() * qa1).normalized())
+	skel.set_bone_pose_rotation(int(ids[1]), (qa1.inverse() * qb1).normalized())
 
 
 ## Two-bone IK in the skeleton's space (tools/step_bake.gd _solve): the ankle onto `t`, the knee in the plane it bends in.

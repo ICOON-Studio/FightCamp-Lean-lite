@@ -8647,10 +8647,10 @@
       "attach": [
         "AgentComms/board_attach/Q-S294-298_0_stance.png"
       ],
-      "answer": null,
-      "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answer": "Close it (already probed, merged into guard v8)",
+      "note": "Owner S537: \"Yes, close it\"",
+      "answered_at": "2026-11-21T23:09:43.009162+00:00",
+      "seen_by_claude": true
     }
   ]
 }

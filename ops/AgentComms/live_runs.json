@@ -311,9 +311,9 @@
  },
  "FP2POSE2": {
   "id": "FP2POSE2",
-  "status": "running",
+  "status": "landed",
   "started": "2026-11-22T01:00",
-  "title": "Your C454 round 2: the cross legs - rear heel lifts, feet never cross (fight player v2)",
+  "title": "Your C454 round 2: the cross legs - rear heel lifts, feet never cross (fight player v2) - landed 6/10 (d667061c8), film sent S537",
   "seat": "claude",
   "agent": "claude-fable",
   "eta": "about 2 h"
@@ -335,6 +335,15 @@
   "seat": "claude",
   "agent": "claude-fable",
   "branch": "s537/steppay3",
+  "eta": "about 2-3 h"
+ },
+ "FP2POSE3": {
+  "id": "FP2POSE3",
+  "status": "running",
+  "started": "2026-11-22T01:15",
+  "title": "Fight player v2: a proper stance length + rear heel on hooks/uppercuts (your C458)",
+  "seat": "claude",
+  "agent": "claude-fable",
   "eta": "about 2-3 h"
  }
 }

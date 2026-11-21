@@ -4105,16 +4105,23 @@
    "sent_ms": 1795291826553,
    "answered_at": "2026-11-21 22:40",
    "answer": "research/DESIGN_WEIGHT2_V2_CRITIC_JOHN_JOHN.md",
-   "chars": 9193
+   "chars": 9193,
+   "seen_by_claude": true
   },
   {
    "id": "SQ281",
    "seat": "john",
    "brief": "research/JOHN_CARDGAMES_RESEARCH.md",
    "stem": "JOHN_CARDGAMES_RESEARCH_JOHN",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-21 22:17",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-21 23:10",
+   "sent_ms": 1795295422687,
+   "answered_at": "2026-11-21 23:40",
+   "answer": "research/JOHN_CARDGAMES_RESEARCH_JOHN.md",
+   "chars": 9774,
+   "seen_by_claude": true
   },
   {
    "id": "SQ282",
@@ -4123,15 +4130,67 @@
    "stem": "DOLA_CARDSET_IDEAS_DOLA",
    "status": "queued",
    "queued_at": "2026-11-21 22:45",
-   "tries": 0
+   "tries": 0,
+   "skips": 5,
+   "last_error": "2026-11-22 01:10 no CDP on 9333 (the app runs without its debug port or is closed; never launched from here - it opens a window)"
   },
   {
    "id": "SQ283",
    "seat": "john",
    "brief": "research/DESIGN_TURNPRO1_V13_CRITIC_JOHN.md",
    "stem": "DESIGN_TURNPRO1_V13_CRITIC_JOHN_JOHN",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-21 23:05",
+   "tries": 0,
+   "sent_at": "2026-11-22 00:10",
+   "sent_ms": 1795299031869,
+   "answered_at": "2026-11-22 00:40",
+   "answer": "research/DESIGN_TURNPRO1_V13_CRITIC_JOHN_JOHN.md",
+   "chars": 6784,
+   "seen_by_claude": true
+  },
+  {
+   "id": "SQ284",
+   "seat": "kalli",
+   "brief": "research/CARDPROTO1_CRITIC_KALLI.md",
+   "stem": "CARDPROTO1_CRITIC_KALLI_KALLI",
+   "status": "answered",
+   "queued_at": "2026-11-21 23:14",
+   "tries": 0,
+   "sent_at": "2026-11-21 23:40",
+   "sent_ms": 1795297229216,
+   "answered_at": "2026-11-22 00:10",
+   "answer": "research/CARDPROTO1_CRITIC_KALLI_KALLI.md",
+   "chars": 9822,
+   "seen_by_claude": true
+  },
+  {
+   "id": "SQ285",
+   "seat": "kalli",
+   "brief": "research/CARDPROTO2_CRITIC_KALLI.md",
+   "stem": "CARDPROTO2_CRITIC_KALLI_KALLI",
+   "status": "sent",
+   "queued_at": "2026-11-22 00:43",
+   "tries": 0,
+   "sent_at": "2026-11-22 01:10",
+   "sent_ms": 1795302626352
+  },
+  {
+   "id": "SQ286",
+   "seat": "john",
+   "brief": "research/JOHN_TWOBOXER_MOCAP_S537.md",
+   "stem": "JOHN_TWOBOXER_MOCAP_S537_JOHN",
+   "status": "queued",
+   "queued_at": "2026-11-22 01:18",
+   "tries": 0
+  },
+  {
+   "id": "SQ287",
+   "seat": "dola",
+   "brief": "research/DOLA_TWOBOXER_MOCAP_S537.md",
+   "stem": "DOLA_TWOBOXER_MOCAP_S537_DOLA",
+   "status": "queued",
+   "queued_at": "2026-11-22 01:18",
    "tries": 0
   }
  ]
