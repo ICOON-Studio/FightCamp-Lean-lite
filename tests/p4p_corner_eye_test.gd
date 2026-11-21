@@ -41,6 +41,15 @@ func _rules() -> void:
 	_check(PlanRecord.line_state("", false, false, true) == "none" and PlanRecord.line_state("pivot_out", false, false, true) == "not_ready"
 		and PlanRecord.line_state("pivot_out", false, true, false) == "held" and PlanRecord.line_state("pivot_out", true, false, true) == "worked"
 		and PlanRecord.line_state("pivot_out", true, false, false) == "lost", "the five states: no line, not ready, held, worked, lost")
+	_check(PlanRecord.line_why("lost", true, "wrong", true) == "read" and PlanRecord.line_why("lost", false, "wrong", true) == "wrong_answer"
+		and PlanRecord.line_why("lost", false, "ok", true) == "tired" and PlanRecord.line_why("lost", false, "best", false) == "beaten"
+		and PlanRecord.line_why("not_ready", true, "", true) == "not_ready" and PlanRecord.line_why("held", false, "", false) == "wrong_moment"
+		and PlanRecord.line_why("worked", true, "wrong", true) == "", "a failed line has one cause: read, wrong answer, tired legs or beaten; a line that worked has none")
+	var tired_x := _x("step_back", "lost")
+	tired_x["line_why"] = "tired"
+	var tired_clue := PlanRecord.clue([{"n": 1, "exchanges": [tired_x, tired_x.duplicate(), _x("step_back", "worked")]}])
+	_check(tired_clue.get("why") == "tired" and PlanRecord.clue_text(tired_clue, "step back").contains("tired legs") and PlanRecord.clue_text(tired_clue, "step back").contains("Ease the pace"),
+		"the clue names the cause and its answer: %s" % PlanRecord.clue_text(tired_clue, "step back"))
 	var unready := [{"n": 1, "exchanges": [_x("pivot_out", "not_ready"), _x("pivot_out", "not_ready"), _x("1-2", "worked")]}]
 	var cu := PlanRecord.clue(unready)
 	_check(cu.get("kind") == "not_ready" and cu.get("move") == "pivot_out" and int(cu["n"]) == 2, "a line that never got off twice is the clue, ahead of one that worked: %s" % str(cu))
@@ -148,6 +157,7 @@ func _bouts() -> void:
 	var states := {}
 	var consistent := true
 	var with_clue := 0
+	var whys := {}
 	for s in range(301, 307):
 		var a := _play(s, false)
 		var b := _play(s, true)
@@ -167,12 +177,15 @@ func _bouts() -> void:
 				consistent = consistent and (st == "none") == (want == "") and st in ["none", "not_ready", "held", "worked", "lost"]
 				if st in ["worked", "lost"]:
 					consistent = consistent and bool(x["planned"]) and str(x["arrow"]) == want and (st == "worked") == bool(x["won"])
+				var why := str(x.get("line_why", "?"))
+				whys[why] = int(whys.get(why, 0)) + 1
+				consistent = consistent and (why == "") == (st in ["none", "worked"]) and (st != "lost" or why in ["read", "wrong_answer", "tired", "beaten"])
 				if st == "held":
 					consistent = consistent and bool(x["held"]) and not bool(x["planned"])
 				if st == "not_ready":
 					consistent = consistent and not bool(x["planned"]) and not bool(x["held"])
 		with_clue += 1 if str(ma.get("clue", "")) != "" and str(a["c"].results[0].get("clue", "")) == str(ma["clue"]) else 0
-	print("  P4P_CORNER_EYE bouts=%d overlay_reads=%d line_states=%s" % [played, _looks, str(states)])
+	print("  P4P_CORNER_EYE bouts=%d overlay_reads=%d line_states=%s causes=%s" % [played, _looks, str(states), str(whys)])
 	_check(played >= 4 and same == played, "the same seed gives the same rounds, cards, record and cash with the overlay read at every exchange or never (%d of %d)" % [same, played])
 	_check(_looks >= 40, "the overlay was read through the bouts (%d reads), plan shown and clean view both" % _looks)
 	_check(consistent, "every exchange's line state agrees with what was thrown, held and won")

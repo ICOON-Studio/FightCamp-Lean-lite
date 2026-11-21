@@ -23,6 +23,7 @@ const CAP := 0.25
 const WAIT_DAYS := 7           # at reception through day + 7, gone the day after (time never stops for a visitor)
 const COOLDOWN_DAYS := 120     # after a pass or an expiry that boxer does not ask again
 const TRIAL_DECIDE_DAYS := 1   # after the trial: one more day to sign or pass
+const TRIAL_LOSS := 0.25       # the price of Trial first: 1 in 4 the old club talks the boxer round before that Monday
 const REPEAT_MIN := 2          # the same planned line, on the ropes, on this many different exchanges
 const FITS := ["best", "ok"]
 
@@ -129,6 +130,11 @@ static func trial_day_for(applicant: Dictionary, day: int) -> int:
 	if int(applicant.get("trial_day", -1)) >= 0 or monday > int(applicant.get("expires", -1)):
 		return -1
 	return monday
+
+
+## Trial first is not free: on the trial's morning the seeded roll may find the boxer gone back to the old club.
+static func trial_lost(roll: float) -> bool:
+	return roll < TRIAL_LOSS
 
 
 static func trial_seen(applicant: Dictionary, day: int) -> bool:

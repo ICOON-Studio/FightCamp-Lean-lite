@@ -21,7 +21,7 @@ const Roster := preload("res://scripts/state/Roster.gd")
 const FirstHour := preload("res://scripts/rules/FirstHour.gd")
 const GameMoney := preload("res://scripts/rules/GameMoney.gd")
 
-const TRANSIENT := ["quote", "expires", "met_day", "from_card", "trial_day", "rival", "evidence"]
+const TRANSIENT := ["quote", "expires", "met_day", "from_card", "trial_day", "trial_came", "rival", "evidence"]
 
 
 ## The call's or the plan line's own name, as the screens say it.
@@ -143,6 +143,17 @@ static func day(c: Career) -> void:
 	var a := c.applicant
 	if a.is_empty() or not bool(a.get("from_card", false)):
 		return
+	if c.day == int(a.get("trial_day", -1)) and not a.has("trial_came"):   # the price of Trial first (CardAsk.TRIAL_LOSS)
+		var rng := RandomNumberGenerator.new()
+		rng.seed = hash([c.seed, c.day, str(a.get("rival", a.get("name", ""))), "trial_loss"])
+		a["trial_came"] = not CardAsk.trial_lost(rng.randf())
+		if not bool(a["trial_came"]):
+			var r := rival_of(c, a)
+			if not r.is_empty():
+				r["visit_cool"] = c.day + CardAsk.COOLDOWN_DAYS
+			c.add_news("%s did not come to the trial: the old club talked the boxer round." % str(a.get("name", "The boxer")))
+			c.applicant = {}
+			return
 	if CardAsk.gone(a, c.day):
 		pass_visit(c, true)
 	elif c.day == int(a.get("expires", -1)):

@@ -124,9 +124,9 @@ static func build(s: Dictionary, keys_out: Array) -> Array:
 		var kh := HBoxContainer.new()
 		kh.add_theme_constant_override("separation", 12)
 		kh.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		kh.add_child(_text("Terms:", "hand", 19, MUTED))
+		kh.add_child(_text("What is", "hand", 19, MUTED))   # S533 owner mark "whats is this for?": the link says what it does
 		for k in keys:
-			var kl := _text(str(Glossary.term(str(k))["name"]), "handbold", 19, INK)
+			var kl := _text(str(Glossary.term(str(k))["name"]) + "?", "handbold", 19, INK)
 			kl.name = "Key_" + str(k)
 			var dash := Dash.new()
 			kl.add_child(dash)

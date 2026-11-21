@@ -41,3 +41,11 @@ distance caption. Seen and left: at clinch range the line's arrow is too short t
 - ring_map_test -> RING_MAP failures=0; plan_record_test -> PLAN_RECORD failures=0; plan_fight_test -> PLAN_FIGHT failures=0
 - fight_options_test, plan_record_ui_test, fight_flow_test, exchanges_test, plan_bout_test, ropes_contract_test,
   corner_bar_test, side_panel_test, result_tabs_test, golden_path_test, file_limits_test, tooltip_standard_test -> all green
+
+## Addendum (third critic, John): say why a line failed
+Every exchange also records the cause ("line_why"): not sharp enough to get off; held, wrong for the moment; the opponent
+was waiting for it (ReadBack); the wrong answer to what the opponent did; thrown on tired legs (energy under 35); or thrown
+right and beaten. The map's label says the cause on a lost line, and the result's clue says the cause and its answer
+(drill it / set it up or swap it at the corner minute / ease the pace or recover / keep it, training closes the gap).
+Test: p4p_corner_eye_test -> causes={not_ready 60, beaten 20, tired 10, wrong_answer 2}, P4P_CORNER_EYE failures=0.
+Refused from John's list: dropping the legend and the clean-view toggle (the brief asks for the marked states to be readable).

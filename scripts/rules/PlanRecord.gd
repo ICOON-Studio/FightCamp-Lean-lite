@@ -14,6 +14,13 @@ extends RefCounted
 const MIN_USED := 6
 ## S533 P4PBUILD1 the corner's eye: what became of the plan's line in one exchange (LiveRound writes it as rec["line"]).
 const ATTEMPTED := ["worked", "lost"]
+## Why a planned line did not win its exchange (LiveRound writes rec["line_why"]), and the answer each cause asks for.
+const TIRED_AT := 35.0
+const WHY_WORDS := {"not_ready": "not sharp enough to get off", "wrong_moment": "held, wrong for the moment", "read": "the opponent was waiting for it",
+	"wrong_answer": "the wrong answer to what the opponent did", "tired": "thrown on tired legs", "beaten": "thrown right and beaten"}
+const WHY_ANSWER := {"not_ready": "Drill it, or plan a line that is ready.", "wrong_moment": "Plan it for another moment.",
+	"read": "Set it up with another line first, or swap it at the corner minute.", "wrong_answer": "Swap it at the corner minute for a line that fits.",
+	"tired": "Ease the pace, or recover at the corner minute.", "beaten": "Keep the line: the plan was right, training has to close the gap."}
 const WORKS_RATE := 0.55
 const FAILS_RATE := 0.35
 
@@ -124,6 +131,37 @@ static func line_state(want: String, fired: bool, held: bool, won: bool) -> Stri
 	return "worked" if won else "lost"
 
 
+## The cause behind a line's state: "" when it worked or there was none. covered = the opponent had read this line
+## (ReadBack); fit = the line against the moment (PlanFight.fit); tired = the boxer's energy under TIRED_AT.
+static func line_why(state: String, covered: bool, fit: String, tired: bool) -> String:
+	if state == "not_ready":
+		return "not_ready"
+	if state == "held":
+		return "wrong_moment"
+	if state != "lost":
+		return ""
+	if covered:
+		return "read"
+	if fit == "wrong":
+		return "wrong_answer"
+	return "tired" if tired else "beaten"
+
+
+## The cause seen most often when this line lost ("" = none recorded).
+static func main_why(rounds: Array, move: String) -> String:
+	var seen := {}
+	for r in rounds:
+		if r is Dictionary:
+			for x in r.get("exchanges", []):
+				if str((x as Dictionary).get("want", "")) == move and str(x.get("line", "")) == "lost" and str(x.get("line_why", "")) != "":
+					seen[str(x["line_why"])] = int(seen.get(str(x["line_why"]), 0)) + 1
+	var best := ""
+	for k in ["read", "wrong_answer", "tired", "beaten"]:
+		if int(seen.get(k, 0)) > int(seen.get(best, 0)):
+			best = k
+	return best
+
+
 ## Every planned line of a bout by what became of it: {move: {worked, lost, held, not_ready}} from the exchanges that
 ## carry "line" (a bout from before S533 carries none: {}).
 static func line_counts(rounds: Array) -> Dictionary:
@@ -162,6 +200,8 @@ static func clue(rounds: Array) -> Dictionary:
 		if not cand.is_empty() and (best.is_empty() or int(cand["rank"]) > int(best["rank"])):
 			best = cand
 	best.erase("rank")
+	if str(best.get("kind", "")) == "lost":
+		best["why"] = main_why(rounds, str(best["move"]))
 	return best
 
 
@@ -171,6 +211,9 @@ static func clue_text(c: Dictionary, move_words: String) -> String:
 		"not_ready":
 			return "The plan had %s %d times and it never got off: not sharp enough yet. Drill it, or plan a line that is ready." % [move_words, int(c["n"])]
 		"lost":
+			var why := str(c.get("why", ""))
+			if WHY_WORDS.has(why):
+				return "%s was thrown %d times and lost %d: %s. %s" % [move_words.capitalize(), int(c["of"]), int(c["n"]), str(WHY_WORDS[why]), str(WHY_ANSWER[why])]
 			return "%s was thrown %d times and lost %d: the wrong answer for this opponent, or the wrong place for it." % [move_words.capitalize(), int(c["of"]), int(c["n"])]
 		"worked":
 			return "%s was thrown %d times and won %d: keep it in the plan." % [move_words.capitalize(), int(c["of"]), int(c["n"])]

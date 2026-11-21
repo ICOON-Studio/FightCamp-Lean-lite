@@ -40,3 +40,11 @@ ask after a loss); on Home the need sits under "More below" when other needs com
 - refuse_walkin_test, first_hour_test, first_hour_walk_test, recruit_test, newcomers_test, rival_offer_wire_test,
   offer_gone_test, result_tabs_test, file_limits_test, tooltip_standard_test, no_pronoun_test, plain_words_test,
   words_on_screens_test -> all failures=0 / PASS
+
+## Addendum (third critic, John): no dominant pick
+"Trial first" was free knowledge. It now has a price in the game's own terms: on the trial's morning a seeded roll (1 in 4,
+CardAsk.TRIAL_LOSS) finds the boxer talked round by the old club: no read, no visitor, and the 120-day wait runs. "Sign now"
+pays the stipend and the place on a guess of the potential. The card and the Trial button's tip say both.
+Test: p4p_visit_test -> "trial mornings=200 lost=51", P4P_VISIT failures=0.
+Refused from John's list: a plain win qualifying without evidence (the design's point is that the plan earns the visit);
+signing without the stipend and "train here for one camp" (new contract kinds: scope, the owner's call).

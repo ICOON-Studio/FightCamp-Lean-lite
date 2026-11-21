@@ -370,7 +370,7 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	rec["planned"] = bool(pick["planned"])
 	rec["held"] = held   # S531 phase 6: a wrong step she held
 	rec["want"] = str(pick.get("want", ""))   # S533 the corner's eye: the plan's line here, and what became of it (read only)
-	rec["line"] = PlanRecord.line_state(str(rec["want"]), bool(pick["planned"]), held, bool(s["won"]))
+	rec["line"] = PlanRecord.line_state(str(rec["want"]), bool(pick["planned"]), held, bool(s["won"])); rec["line_why"] = PlanRecord.line_why(str(rec["line"]), float(rb["cov"]) < 1.0, fit_now, her_energy(lv, i) < PlanRecord.TIRED_AT)
 	rec["arrow_fit"] = PlanFight.fit(arrow, psit)
 	rec["psit"] = psit
 	rec["plan_edge"] = plan_edge

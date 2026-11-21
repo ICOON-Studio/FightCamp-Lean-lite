@@ -169,6 +169,23 @@ func _wire() -> void:
 	_check(VisitWire.trial(c) and int(a["trial_day"]) == monday and int(a["expires"]) == monday + CardAsk.TRIAL_DECIDE_DAYS and not VisitWire.trial(c),
 		"Trial first books the one Monday and leaves one day after it to decide; there is no second trial")
 	_check(c.fighters.size() == 1 and not CardAsk.trial_seen(a, c.day) and CardAsk.trial_seen(a, monday), "the trial holds no place and is seen on its day")
+	# Trial first has a price: on the trial's morning the old club may have won the boxer back (seeded, about 1 in 4).
+	var lost := 0
+	var lost_ok := true
+	var came_ok := true
+	for s in range(1, 201):
+		var ct: Career = SaveGame.from_dict(JSON.parse_string(JSON.stringify(SaveGame.to_dict(c))))
+		ct.seed = s
+		ct.day = monday
+		VisitWire.day(ct)
+		if ct.applicant.is_empty():
+			lost += 1
+			lost_ok = lost_ok and int(ct.rival(name).get("visit_cool", -1)) == monday + CardAsk.COOLDOWN_DAYS and ct.fighters.size() == 1
+		else:
+			VisitWire.day(ct)   # the same morning again rolls nothing new
+			came_ok = came_ok and bool(ct.applicant.get("trial_came", false)) and CardAsk.trial_seen(ct.applicant, ct.day)
+	print("  P4P_VISIT trial mornings=200 lost=%d" % lost)
+	_check(lost >= 30 and lost <= 70 and lost_ok and came_ok, "Trial first costs something: on about 1 morning in 4 the boxer has gone back (%d of 200), the wait runs; else the read is there" % lost)
 	# Expiry: here through the last day, gone the day after, and the wait starts.
 	var c2: Career = SaveGame.from_dict(JSON.parse_string(JSON.stringify(SaveGame.to_dict(c))))
 	c2.day = int(c2.applicant["expires"])

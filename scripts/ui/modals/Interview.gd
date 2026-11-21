@@ -67,7 +67,8 @@ func build(main: Node, m: Dictionary) -> void:
 	var terms := UI.label("Club stipend, $250 a week", UI.BODY + 2, UI.FG, "bold")
 	if visit:
 		terms.text = ("No place free: %s. The visit stays open until %s." % [blocked, Clock.fmt(int(t["expires"]))]) if blocked != "" else (
-			"Sign now: place %d of %d, club stipend %s a week, training starts this week." % [int(t["used"]) + 1, int(t["places"]), UI.money(int(t["stipend"]))])
+			"Sign now: place %d of %d, club stipend %s a week, training starts this week.%s" % [int(t["used"]) + 1, int(t["places"]), UI.money(int(t["stipend"])),
+				" Trial first: your coach's read before you pay, but 1 time in 4 the old club talks the boxer round first." if int(t["trial_day"]) >= 0 else ""])
 		terms.name = "VisitTerms"
 	foot.add_child(terms)
 	foot.add_child(UI.spacer())
@@ -81,7 +82,7 @@ func build(main: Node, m: Dictionary) -> void:
 	if visit and int(t["trial_day"]) >= 0:
 		var trial_b := UI.button("Trial first - %s" % Clock.fmt(int(t["trial_day"])), "Btn", main.act.bind("trialvisit", ""))
 		trial_b.name = "Trial"
-		Tip.button(trial_b, "Your coach watches one morning that Monday; no place is held, and the answer is due the day after.")
+		Tip.button(trial_b, "Your coach watches a morning that Monday; 1 time in 4 the old club wins the boxer back first.")
 		foot.add_child(trial_b)
 	var focus := RecruitPanel.focus_of(picks)
 	var ready := (focus != "" or picks.size() == 3) and blocked == ""

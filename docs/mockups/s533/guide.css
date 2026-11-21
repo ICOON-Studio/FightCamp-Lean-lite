@@ -1,0 +1,8 @@
+@font-face{font-family:Kalam;src:url(../../../assets/fonts/Kalam-Regular.ttf)}
+@font-face{font-family:KalamB;src:url(../../../assets/fonts/Kalam-Bold.ttf)}
+@font-face{font-family:Barlow;src:url(../../../assets/fonts/Barlow-SemiBold.ttf)}
+@font-face{font-family:Marker;src:url(../../../assets/fonts/PermanentMarker-Regular.ttf)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;overflow:hidden;position:relative;background:#1c1d20 url(../../../ops/Feedback/2026-11-21-04/original.png) 0 0/1920px 1080px;font-family:Barlow;color:#f3ead8}
+.cover{position:absolute;left:0;top:842px;width:690px;height:238px;backdrop-filter:blur(14px) brightness(.55);-webkit-backdrop-filter:blur(14px) brightness(.55)}
+.tag{position:absolute;right:24px;bottom:18px;font:22px Barlow;color:#fff;background:#0009;padding:8px 16px;border-radius:6px}

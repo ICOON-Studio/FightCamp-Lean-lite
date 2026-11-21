@@ -159,9 +159,7 @@ static func _coach(main: Node, c: Career, coach: Dictionary, wide: bool) -> Cont
 		var b := UI.button("Hire", "BtnSolid", main.act.bind("hire", str(who.get("id", ""))))
 		b.name = "Hire_" + str(who.get("id", ""))
 		b.tooltip_text = "Hire this coach. %s to sign." % UI.money(GameMoney.COACH_SIGNING_FEE)
-		var cur := 0 if c.coach.is_empty() else int(c.coach.get("salary", 0))
-		var gain := 0 if not c.coach.is_empty() else GameMoney.CLASSES_WITH_COACH   # a first coach brings the evening classes
-		v.add_child(HireRunway.line(c, int(who.get("salary", 0)) - cur, gain, str(who.get("id", ""))))
+		# S533 owner mark "why do you need to show this?": the runway line is gone; the coach pay card's real cost says it.
 		v.add_child(b)
 	h.add_child(v)
 	return p

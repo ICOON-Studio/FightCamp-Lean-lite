@@ -238,6 +238,8 @@ func _plan_arrow(m: Dictionary, a: Vector2, b: Vector2, body: float, drop: float
 	var st := str(m["state"])
 	var col := Color(HER, 0.95) if st == "worked" else (Color(HER, 0.35) if st == "faint" else Color(Palette.MUTED, 0.9))
 	var word := ("next: the plan has %s here" if st == "faint" else "plan: %s - " + str(RingMap.STATE_WORDS.get(st, st))) % str(m["name"]).to_lower()
+	if str(m.get("why", "")) != "":
+		word += ": " + str(m["why"])
 	var font := get_theme_default_font()
 	if str(m["dir"]) == "":
 		draw_string(font, _word_at(Vector2(a.x - 150.0, minf(a.y, b.y) - body - 46.0 - drop)), word, HORIZONTAL_ALIGNMENT_CENTER, 300.0, 16, col)

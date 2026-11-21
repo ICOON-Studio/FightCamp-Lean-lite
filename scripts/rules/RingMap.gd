@@ -8,6 +8,7 @@ extends RefCounted
 ##   dashed miss for a side that lost the exchange and landed nothing.
 
 const StrikeMap := preload("res://scripts/rules/StrikeMap.gd")
+const PlanRecord := preload("res://scripts/rules/PlanRecord.gd")
 
 const HALF := 2.75          # half the ring inside the ropes (a 5.5 m amateur ring)
 const ROPE_IN := 0.35       # a trapped boxer's back is this far inside the rope line
@@ -148,7 +149,8 @@ static func plan_mark(x: Dictionary) -> Dictionary:
 	if st == "none" or id == "":
 		return {}
 	var base := id.split("@")[0]
-	return {"dir": str(STEP_DIR.get(base, "")), "state": st, "name": str(StrikeMap.move(base).get("name", base))}
+	return {"dir": str(STEP_DIR.get(base, "")), "state": st, "name": str(StrikeMap.move(base).get("name", base)),
+		"why": str(PlanRecord.WHY_WORDS.get(str(x.get("line_why", "")), "")) if st == "lost" else ""}   # the cause, in words (lost lines only)
 
 
 ## The plan's line for the next opening ({at, want}), not attempted yet: drawn faint. {} = none, or the bell.
