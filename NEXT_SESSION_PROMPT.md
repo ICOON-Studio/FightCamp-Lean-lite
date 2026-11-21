@@ -1,3 +1,51 @@
+# S537 handover (written 2026-11-22 ~01:10, end of S536 - Opus)
+
+Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. S536 is in roadmap `now`; digest ops/research/S536_DIGEST.md.
+FIRST: `python ops/Tools/godot_slot.py status` and the watchdog. RAM, not heat, is what stalls the queue (the owner's game
+ArcheAge holds ~8 GB; S536 went RED at 93 %). Close each Fable console the moment its result is collected (by PID, with his OK).
+
+## METHOD lines - quote all of them in your first message
+- MECHANICS NEED 8 (owner S534): 8+ DEPTH and 8+ PLAY from two fresh critics, after the probe; under 8 -> his cut-or-keep.
+- FREE HAND (owner S534): remove / add / interconnect to reach 8, then report.
+- DEPTH: a choice is real when its VALUE depends on the moment; flat prices make no choices.
+- GUARD + STANCE (owner S536 "Yes, merge it"): the stance pad failed twice alone; the feet now pay for the guard WHEN-lines
+  (guard v8), each boxer's natural stance is a trait. GUARDREV8 (map v8 + probe 9) is running.
+- WEIGHT: three decisions, one screen; r4 PASS, critics 6/7/6 (code-checked) + 6/7/5 (Kalli) -> r5 (diet vs water vs up, frame on,
+  the field cuts) is running.
+- FIGHT ANIMATION: fight player v2 only. Mocap pack = his money call at the END OF NOVEMBER.
+- COST (owner S536 "we only using free agents ?"): code-checked critics on ARENA (free); Fable consoles for builds/probes only;
+  Dola is the fallback critic, never Fable; Ludo assets only.
+- GIT: commit ONLY your paths - `git add -- <new>` then `git commit -m ... -- <paths>` (S536 swept BODYTEX2's staged work).
+- BOARD QUESTIONS: 20 words max. NAMES ONLY IN HEADERS.
+
+## Running at the handover - collect, do not relaunch
+- Fable consoles (terminal tabs of S536): WEIGHT2R5, GUARDREV8, FP2POSE2 (the cross legs: rear heel, foot spacing; film to the owner).
+- Arena: TURNPRO13CRIT (code-checked critic of turning pro v13, PASS 14/15) - its PR relays every 30 min; John SQ283 queued.
+- CARD GAME: a separate Sonnet session "Card game coordinator: loop to 8 for fun" (local_116951ce-...) drives it: Arena builds
+  proto/cardgame/, Arena + Kalli critique, up to 6 rounds, then the owner. Round 2 merged (#440), its critics running. It reports
+  to the S536 session; message it with SendMessage to its id. Higgsfield (~925 credits): only the card game's straight-punch
+  card faces, on the owner's OK (pilot: straights usable, hooks/slips fail).
+- Seat queue: Dola SQ282 (card set ideas), John SQ281 (card-game study), SQ280 (weight v2 John), SQ283.
+
+## Critics that landed at the handover
+- John on weight v2: 6/6/6 (with code-checked 6/7/6 and Kalli 6/7/5) - round 5 already answers the main points.
+- John on turning pro v13: 5/7/5 - 'one number, the room in the gym, solves the fork'; after the signing the road plays itself. With the Arena critic (TURNPRO13CRIT) -> v14 or his cut-or-keep (third round under 8).
+
+## Next, in order
+1. Collect the runs above as they land (PASS -> two fresh critics, one code-checked on Arena; FAIL -> resize or his cut-or-keep).
+2. Merge branch s535/dmgfix (worktree E:/FightCamp/wt/s535_dmgfix; tests 10/10 PASS in S536) in a gap when no probe reads fight
+   code; export.
+3. STEPPAY3 (the five footwork steps with no moment yet). 4. The tape's stray grey bar over the left boxer (x185-330, y665-693 on
+   the 1920 tape still; not in the paintings, not a Label - dump the controls at that rect). 5. DEPTH_SCOPE changes 3 and 5.
+
+## Built / decided in S536
+Queue: CPU RED 92 %, Godot on 8 threads (watchdog + governor pin the same 0xFF0), GREEN 6 slots read live, newer waiters pass
+old ones. Tape: film/camp line off, Last 5 + Streak edge green. Offer letter (OFFERBUILD1). Glove off the cheek + ring lights for
+dark skin (GLOVEFACE1). Blue cross gaze (FP2POSE1). DEPTHPRICE1B: class nights PASS, stipend thin, loan FAIL (timing), diet no-op.
+Reference: ops/research/REF_MMC_DEMO_S536.md (a fighting deckbuilder demo, read-only + played hidden).
+
+---
+Previous handover (S536 start) below, for reference.
 # S536 handover (written 2026-11-21 evening, during S535 - Opus)
 
 Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. S535 is in roadmap `now`; digest ops/research/S535_DIGEST.md.
@@ -110,3 +158,4 @@ FIRST: `python ops/Tools/godot_slot.py status` (the owner may be playing a game 
 ## Next, in order
 1. Collect STEPPAY2 + DMGCLASS v3. 2. Act on the critics' scores (v10 pro, v6 guard). 3. The owner plays the S534 build
    (Builds/FightCamp.exe, WHAT_TO_TRY.txt top section): act on his notes and review-board comments.
+

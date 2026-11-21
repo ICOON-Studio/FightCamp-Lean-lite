@@ -5,6 +5,9 @@ S536 build (2026-11-21, late evening) - what changed, and what to try
    coach's read and the opponent on the right, Pass / Full report / Accept under it.
 2. THE TALE OF THE TAPE (your C451-C453): before a fight, the line "0 of 5 Stamina, Standard ..." is gone; Last 5 and
    Streak go green on the side with the edge, like Record, Height and Reach.
+3. THE GUARD GLOVE (your C447): in the 3D fight the guard glove rests on the cheekbone instead of sinking in; a rounder
+   fist and a flared cuff. RING LIGHT (your C456): dark-skinned boxers stand out from the crowd (no skin lightened).
+4. THE BLUE CROSS (your C454, round 1): the boxer looks at his opponent, not the camera. The legs are round 2 (next build).
 Everything from S535 below is in this build too.
 S535 build (2026-11-21, evening) - what changed, and what to try
 

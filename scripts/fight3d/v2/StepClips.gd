@@ -11,6 +11,7 @@ extends RefCounted
 ## What each take does (travel, the time it travels in, when each foot stands) is in assets/data/foot_db.json
 ## (tools/step_census.gd db).
 
+const CrossLegs := preload("res://scripts/fight3d/v2/CrossLegs.gd")
 const DIR := "res://assets/anim/baked/steps/"
 const PREFIX := "st_"
 ## file stem (E:/FightCamp/packs/mixamo_steps) -> take name
@@ -57,6 +58,7 @@ static func names() -> Array:
 static func load_into(lib: AnimationLibrary, skel: Skeleton3D, prefix: String) -> Array:
 	var rest: Vector3 = skel.get_bone_rest(skel.find_bone("Hips")).origin
 	var added: Array = []
+	CrossLegs.load_into(lib, prefix)   # S536 FP2POSE2: the cross takes' re-baked rear leg (v2 and its census only, like the steps)
 	for name in names():
 		if lib.has_animation(name):
 			continue

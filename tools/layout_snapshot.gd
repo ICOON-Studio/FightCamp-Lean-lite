@@ -341,6 +341,20 @@ func _shot(name: String) -> void:
 			TextScale.use(self, float(load("res://scripts/state/Settings.gd").TEXT_SIZES[int(str(a).substr(5))][1]))
 	for o in TextScale.overflow(main):   # S491: text wider than its box (cut, or spilling onto a neighbour)
 		print("TEXTFIT %s %s \"%s\" needs %.0f has %.0f" % [name, o["name"], o["text"], o["need"], o["have"]])
+	for a in OS.get_cmdline_user_args():   # S537 `dump=x,y,w,h`: every visible Control over that rect, whole tree (windows too)
+		if str(a).begins_with("dump="):
+			var n: PackedFloat64Array = str(a).substr(5).split_floats(",")
+			_dump_at(name, root, Rect2(n[0], n[1], n[2], n[3]))
+
+
+func _dump_at(shot: String, node: Node, rect: Rect2) -> void:
+	if node is CanvasItem and not (node as CanvasItem).is_visible_in_tree():
+		return
+	if node is Control and (node as Control).get_global_rect().intersects(rect):
+		var c := node as Control
+		print("DUMP %s %s %s rect=%s" % [shot, c.get_class(), str(c.get_path()), str(c.get_global_rect())])
+	for k in node.get_children():
+		_dump_at(shot, k, rect)
 
 
 func _draw_tree(img: Image, node: Node) -> void:

@@ -58,3 +58,7 @@ Top fault = WEIGHT2R4's target (water free under 2 %: always Light). After R4: p
 
 - STANCEPROBE1 FAIL twice (41b4589d3): the 9-cell pad's choices are too close (1 of 10 cells clear). Owner S536 'Yes, merge it': the stance merges into the guard (the feet pay for a guard WHEN-line - also fixes GUARDPROBE8's free slot), natural stance kept as a trait. -> TASK_GUARDREV8 (map v8 + probe 9), waits for memory (RAM RED: ArcheAge 8.1 GB).
 - STEPPAY2 done (a3a219220): all ten steps gated; STEPPAY3 next (the five steps with no moment).
+
+- GLOVEFACE1 (df973de5e, owner C447 + C456): v2 guard glove worst gap -2.5 -> -0.3 cm, rounder fist, bell cuff; four cool ring lights lift dark upper bodies off the crowd (+17..23 -> +35..41 luma), no skin lightened. Open: old player still clips; dark faces in close-up; cuff edge jagged; 2D glove pictures need a rebake. file_limits_test red on v2/Player2.gd 501 lines -> FP2POSE1 asked to trim.
+
+- Handover critics: John weight v2 6/6/6; John turning pro v13 5/7/5 (gym room alone decides the house). Build exported at the handover (glove, ring light, gaze).

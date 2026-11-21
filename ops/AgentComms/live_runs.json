@@ -184,21 +184,23 @@
  },
  "FP2POSE1": {
   "id": "FP2POSE1",
-  "status": "running",
+  "status": "landed",
   "started": "2026-11-21T21:50",
   "title": "Your C454 + C458: the blue cross crosses its legs and looks away; the guard stance reads weak (fight player v2)",
   "seat": "claude",
   "agent": "claude-fable",
-  "eta": "about 2 h (stills wait in the Godot queue)"
+  "eta": "about 2 h (stills wait in the Godot queue)",
+  "note": "S536: 905a7465c+92df2ae12 gaze 86->9 deg; legs open -> FP2POSE2"
  },
  "GLOVEFACE1": {
   "id": "GLOVEFACE1",
-  "status": "running",
+  "status": "landed",
   "started": "2026-11-21T21:50",
   "title": "Your C447 + C456: the guard glove (shape, cuff, into the cheek) and ring light so dark skin reads",
   "seat": "claude",
   "agent": "claude-fable",
-  "eta": "about 2 h (stills wait in the Godot queue)"
+  "eta": "about 2 h (stills wait in the Godot queue)",
+  "note": "S536: df973de5e glove -2.5 -> -0.3 cm into the face, bell cuff, ring lights lift dark skin +17..23 -> +35..41 luma; old player still clips, close-up dark faces open"
  },
  "TURNPRO13": {
   "id": "TURNPRO13",
@@ -267,9 +269,9 @@
  },
  "TURNPRO13CRIT": {
   "id": "TURNPRO13CRIT",
-  "status": "running",
+  "status": "landed",
   "started": "2026-11-21T23:12",
-  "title": "Code-checked critic of turning pro v13 (Arena, free) + John SQ283",
+  "title": "Code-checked critic of turning pro v13 (Arena, free) + John SQ283 - landed: 5/7/5 (S537 collected)",
   "seat": "arena",
   "agent": "arena",
   "branch": "arena/b9596b1d-fightcamp-lean-lite",
@@ -278,9 +280,9 @@
  },
  "CARDPROTO2": {
   "id": "CARDPROTO2",
-  "status": "running",
+  "status": "merged",
   "started": "2026-11-22T00:20",
-  "title": "Card game round 2 (Arena): defence pays, tells, combos, scouting real - after critics 5/6 and 4/4",
+  "title": "Card game round 2 (Arena): defence pays, tells, combos, scouting real - after critics 5/6 and 4/4 - merged (PR 440) + ui fix",
   "seat": "arena",
   "agent": "arena",
   "branch": "arena/d836e066-fightcamp-lean-lite",
@@ -289,11 +291,50 @@
  },
  "GUARDREV8": {
   "id": "GUARDREV8",
-  "status": "queued",
+  "status": "running",
   "started": "2026-11-22T00:20",
   "title": "Guard v8: your stance merged into the guard lines; natural stance a trait (map + probe 9)",
   "seat": "claude",
   "agent": "claude-fable",
   "eta": "starts when RAM leaves RED"
+ },
+ "CARDPROTO2_CRITICS": {
+  "id": "CARDPROTO2_CRITICS",
+  "status": "running",
+  "started": "2026-11-22T01:05",
+  "title": "Card game round 2 critics: Arena code-checked + Kalli (SQ285)",
+  "seat": "arena",
+  "agent": "arena",
+  "branch": "arena/7c87ca87-fightcamp-lean-lite",
+  "chat": "https://arena.ai/agent/01a20048-7add-779b-9d0c-753e7c87ca87",
+  "eta": "about 30-60 min"
+ },
+ "FP2POSE2": {
+  "id": "FP2POSE2",
+  "status": "running",
+  "started": "2026-11-22T01:00",
+  "title": "Your C454 round 2: the cross legs - rear heel lifts, feet never cross (fight player v2)",
+  "seat": "claude",
+  "agent": "claude-fable",
+  "eta": "about 2 h"
+ },
+ "TURNPRO14": {
+  "id": "TURNPRO14",
+  "status": "running",
+  "started": "2026-11-22T01:10",
+  "title": "Turning pro v14: you book each fight's kind, house favour, pick the debut night (map + probe 14)",
+  "seat": "claude",
+  "agent": "claude-fable",
+  "eta": "about 1-2 h"
+ },
+ "STEPPAY3": {
+  "id": "STEPPAY3",
+  "status": "running",
+  "started": "2026-11-22T01:35",
+  "title": "Footwork: give the five steps with no moment a moment (branch s537/steppay3)",
+  "seat": "claude",
+  "agent": "claude-fable",
+  "branch": "s537/steppay3",
+  "eta": "about 2-3 h"
  }
 }

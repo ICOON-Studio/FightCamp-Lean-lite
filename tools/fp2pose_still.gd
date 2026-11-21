@@ -4,6 +4,8 @@ extends SceneTree
 ## head to feet, or the still is refused. The same frames every run (fixed 60 Hz): a before and an after are comparable.
 ##   python tools/hidden_desktop.py run --timeout=300 --log=<file> <godot.exe> --path . --windowed --resolution 1920x1080 \
 ##       --audio-driver Dummy --fixed-fps 60 --script res://tools/fp2pose_still.gd -- <out_dir> tag=after [red=02 blue=01] [cross=<take>]
+##   loop=<take,take>  (FP2POSE2) also films blue from his guard through each take and back, 30 pictures a second:
+##                     <tag>_loop_<take>_NNN.jpg (every picture framed head to feet, or the loop is refused)
 
 const W := 1920
 const H := 1080
@@ -86,8 +88,39 @@ func _initialize() -> void:
 		for f in 50:
 			await process_frame
 		_freeze(who)
+	for take in _arg("loop", "").split(",", false):
+		await _loop(str(take))
 	print("FP2POSE_STILL done")
 	quit(0)
+
+
+## Blue alone: half a second of his guard, the take whole, and his guard again; every second frame saved.
+func _loop(take: String) -> void:
+	var ap: AnimationPlayer = stage.boxers[1]["ap"]
+	if not ap.has_animation(take):
+		print("FP2POSE_STILL no take %s" % take)
+		return
+	(stage.boxers[0]["ap"] as AnimationPlayer).speed_scale = 1.0
+	ap.speed_scale = 1.0
+	stage.v2.guard(0)
+	stage.v2.guard(1)
+	for f in 60:
+		await process_frame
+	var total := 30 + int(ap.get_animation(take).length * 60.0) + 50
+	var n := 0
+	for f in total:
+		if f == 30:
+			stage.v2._play(1, take, 0.0, "punch", true)
+		await process_frame
+		if f % 2 == 1:
+			continue
+		if not _framed().is_empty():
+			print("STILL_FRAMING FAIL loop %s frame %d: %s" % [take, f, "; ".join(PackedStringArray(_framed()))])
+			return
+		await RenderingServer.frame_post_draw
+		root.get_texture().get_image().save_jpg(out_dir.path_join("%s_loop_%s_%03d.jpg" % [tag, take, n]), 0.92)
+		n += 1
+	print("STILL_FRAMING ok loop %s -> %d pictures" % [take, n])
 
 
 func _freeze(i: int) -> void:
@@ -111,11 +144,9 @@ func _world(i: int, bone: String, up: float = 0.0) -> Vector3:
 	return sk.global_transform * g.origin + Vector3.UP * up
 
 
-func _shot(name: String) -> void:
+## Who is not in the picture head to feet (empty = both men are).
+func _framed() -> Array:
 	var cam: Camera3D = stage.camera
-	cam.make_current()
-	for f in 6:
-		await process_frame
 	var bad: Array = []
 	for i in 2:
 		for p in [["Head", 0.14], ["LeftToes", -0.06], ["RightToes", -0.06], ["LeftHand", 0.0], ["RightHand", 0.0]]:
@@ -123,6 +154,15 @@ func _shot(name: String) -> void:
 			var s := cam.unproject_position(w)
 			if cam.is_position_behind(w) or s.x < 8.0 or s.x > W - 8.0 or s.y < 8.0 or s.y > H - 8.0:
 				bad.append("%s %s at %s" % ["red" if i == 0 else "blue", str(p[0]), str(s.round())])
+	return bad
+
+
+func _shot(name: String) -> void:
+	var cam: Camera3D = stage.camera
+	cam.make_current()
+	for f in 6:
+		await process_frame
+	var bad := _framed()
 	if not bad.is_empty():
 		print("STILL_FRAMING FAIL %s: %s" % [name, "; ".join(PackedStringArray(bad))])
 		return

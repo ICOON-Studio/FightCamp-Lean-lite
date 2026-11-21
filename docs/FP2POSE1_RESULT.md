@@ -65,13 +65,14 @@ pose.** Three causes, by size:
    against the hips, the feet are 4 cm narrower - and it STAYS so (the same 1.5 s later): rounded shoulders, hips back.
    A pose the v2 fight never shows. Fixed: the tool refuses to run under v2 and names `tools/fp2pose_still.gd`, which
    plays v2's own takes.
-2. **Why it stays (found, fix written, NOT yet measured).** A bone the last clip keyed and the next clip does not key
-   stays where it was left. Punches, reactions and every Punch PRO take key 26 bones; v2's waiting and step takes key 23
-   (not spine_02, spine_04, neck_02 - their bake takes those joints to stand at rest); the corner-minute clips key 49-55.
-   So a man back in his waiting take can stand on the in-between trunk joints of whatever played before, until his next
-   punch resets them. How big that is inside a fight is not measured: the PC ran out of memory (98 %) and the batch was
-   stopped. The fix (the step takes key those three joints at rest, in `StepClips.load_into`, switch `fp2nofold`) is
-   below as a patch, NOT in the tree, because nothing has run it.
+2. **Why it stays (measured: only after a shipped-player clip).** A bone the last clip keyed and the next does not key
+   stays where it was left; v2's waiting and step takes do not key spine_02, spine_04, neck_02. Measured
+   (`fp2pose_probe.gd only=stuck`, blue plays a take, goes back to the guard, read a second later): after every take
+   the v2 fight plays (pro_right_cross, pro_left_hook_ft, pro_hit_by_hook_v3, pro_idle_tired, af_sit_idle, af_walk) the
+   three joints are 0 deg off rest - those takes key them AT rest, nothing is left behind. After the shipped player's
+   `cross` they stay 25 and 7 deg off (trunk 13 deg sideways, chest 23 deg further round). So it is the same cause as 1,
+   not a second fault of the fight, and no change to the step takes is made: the still tool was the only thing found
+   playing a shipped clip under v2, and it now refuses.
 3. **Body shape (BODYTEX2's, not touched).** mh_boxer_10 reads slight whatever she does: shoulder joints 27 cm apart
    against the men's 36 (three quarters), thin upper arms and thighs. For her to read as a fighter the body needs wider
    shoulders (about 30-31 cm between the joints), fuller deltoids and thighs. Pose cannot give that.
@@ -89,42 +90,5 @@ when their turn came. Measure head and rear-foot pivot with the Blender script b
 (left foot 10 cm or more left of the right). With `fp2nogaze` (today's take): **FAIL GAZE worst 86 deg, pro_right_cross**;
 with the gaze: PASS, worst 20 deg. FEET passes both ways (least 23 cm) - the feet never crossed.
 Regression with the gaze on: player2_test failures=0 (landed gloves median 0.006 m, 14 of 14; JUMPS 1 and SLIDE 6.67 / 6.92 m
-are the same DEBT with and without it), choreographer_test failures=0, arm_build_test failures=0.
-
-## The patch that waits for a run (step takes key the folded joints)
-```diff
-diff --git a/scripts/fight3d/v2/StepClips.gd b/scripts/fight3d/v2/StepClips.gd
-index 2eabeea20..d89b96606 100644
---- a/scripts/fight3d/v2/StepClips.gd
-+++ b/scripts/fight3d/v2/StepClips.gd
-@@ -41,6 +41,13 @@ const REFIT := {
- ## S531 (the owner: "they look like robots" - both men bounced ONE loop): red waits in st_wait, blue in st_wait_g
- ## (Player2.WAITS). Boxing_Idle was tried as a third: refitted it stands knock-kneed (the hips come down 7 cm for reach).
- const LOOPS := ["st_wait", "st_wait_g"]
-+## S536 FP2POSE1 (the owner on a guard still, C458: "legs are weird and looks like a weak 12 year old kid"): the step
-+## takes are baked through three MetaHuman joints they do not key (RkRetarget folds them: they are taken to stand at
-+## their rest), but every other take keys them - and a joint the last take moved and the next does not key STAYS where
-+## it was left. A man back in his waiting take stood on the trunk and neck of whatever played before (tools/
-+## fp2pose_probe.gd only=stuck). Every step take now keys them, at the rest it was baked on. `-- fp2nofold` = as it was.
-+const FOLDED := ["spine_02", "spine_04", "neck_02"]
-+static var fold_on: bool = not OS.get_cmdline_user_args().has("fp2nofold")
- 
- 
- static func names() -> Array:
-@@ -66,6 +73,13 @@ static func load_into(lib: AnimationLibrary, skel: Skeleton3D, prefix: String) -
- 			if anim.track_get_type(t) == Animation.TYPE_POSITION_3D:
- 				for k in anim.track_get_key_count(t):
- 					anim.track_set_key_value(t, k, rest + (anim.track_get_key_value(t, k) as Vector3))
-+		for joint in (FOLDED if fold_on else []):
-+			var jb := skel.find_bone(str(joint))
-+			var jp := NodePath("%s:%s" % [prefix, str(joint)])
-+			if jb >= 0 and anim.find_track(jp, Animation.TYPE_ROTATION_3D) < 0:
-+				var jt := anim.add_track(Animation.TYPE_ROTATION_3D)
-+				anim.track_set_path(jt, jp)
-+				anim.rotation_track_insert_key(jt, 0.0, skel.get_bone_rest(jb).basis.get_rotation_quaternion())
- 		anim.loop_mode = Animation.LOOP_LINEAR if str(name) in LOOPS else Animation.LOOP_NONE
- 		lib.add_animation(name, anim)
- 		added.append(name)
-```
-Check with a probe that plays a take, returns to the guard and prints those joints' angle off rest, with and without
-`fp2nofold`; then player2_test, choreographer_test, arm_build_test and the stills again.
+are the same DEBT with and without it), choreographer_test failures=0, arm_build_test failures=0, file_limits_test
+failures=0 (Player2.gd back to 500 lines by the test's count: one comment shortened).

@@ -15,7 +15,7 @@ const FightClips := preload("res://scripts/fight3d/FightClips.gd")
 const BONES := ["Hips", "Chest", "UpperChest", "Neck", "Head", "LeftUpperLeg", "RightUpperLeg", "LeftLowerLeg", "RightLowerLeg",
 	"LeftFoot", "RightFoot", "LeftToes", "RightToes", "LeftUpperArm", "RightUpperArm", "LeftHand", "RightHand"]
 const KEYS := ["feet_side", "feet_fwd", "feet_apart", "toes_side", "shoulders", "knee_l", "knee_r", "cave_l", "cave_r", "knees_apart",
-	"lean_fwd", "lean_side", "hips_back", "head_yaw", "head_pitch", "head_off", "chest_yaw", "pelvis_yaw", "toe_l", "toe_r", "hips_y", "hand_l", "hand_r"]
+	"lean_fwd", "lean_side", "hips_back", "head_yaw", "head_pitch", "head_off", "chest_yaw", "pelvis_yaw", "toe_l", "toe_r", "hips_y", "hand_l", "hand_r", "heel_l", "heel_r"]
 
 var st: Node3D
 var drawn: Array = [{}, {}]
@@ -101,15 +101,17 @@ func _read(i: int) -> Dictionary:
 	out["toe_l"] = _yaw(_flat(_w(i, "LeftToes") - lf), axis, side) * sgn
 	out["toe_r"] = _yaw(_flat(_w(i, "RightToes") - rf), axis, side) * sgn
 	out["hips_y"] = (_w(i, "Hips").y - minf(_w(i, "LeftToes").y, _w(i, "RightToes").y)) * 100.0 / s
+	out["heel_l"] = (lf.y - _w(i, "LeftToes").y) * 100.0 / s   # the ankle over the ball of the foot: it rises as the heel lifts
+	out["heel_r"] = (rf.y - _w(i, "RightToes").y) * 100.0 / s
 	out["hand_l"] = (_w(i, "LeftHand") - _w(i, "Head")).length() * 100.0 / s
 	out["hand_r"] = (_w(i, "RightHand") - _w(i, "Head")).length() * 100.0 / s
 	return out
 
 
 func _line(d: Dictionary) -> String:
-	return "feet side %+.0f fwd %+.0f apart %.0f (toes side %+.0f; shoulders %.0f) | knees L %.0f R %.0f deg, cave L %+.1f R %+.1f, apart %.0f | trunk fwd %+.0f side %+.0f deg, chest over hips %+.0f cm | head off %.0f (yaw %+.0f pitch %+.0f) chest yaw %+.0f pelvis yaw %+.0f | toes L %+.0f R %+.0f deg | hips %.0f cm up | hands L %.0f R %.0f cm from head" % [
+	return "feet side %+.0f fwd %+.0f apart %.0f (toes side %+.0f; shoulders %.0f) | knees L %.0f R %.0f deg, cave L %+.1f R %+.1f, apart %.0f | trunk fwd %+.0f side %+.0f deg, chest over hips %+.0f cm | head off %.0f (yaw %+.0f pitch %+.0f) chest yaw %+.0f pelvis yaw %+.0f | toes L %+.0f R %+.0f deg | hips %.0f cm up | hands L %.0f R %.0f cm from head | ankle over ball L %.1f R %.1f cm" % [
 		d["feet_side"], d["feet_fwd"], d["feet_apart"], d["toes_side"], d["shoulders"], d["knee_l"], d["knee_r"], d["cave_l"], d["cave_r"], d["knees_apart"],
-		d["lean_fwd"], d["lean_side"], d["hips_back"], d["head_off"], d["head_yaw"], d["head_pitch"], d["chest_yaw"], d["pelvis_yaw"], d["toe_l"], d["toe_r"], d["hips_y"], d["hand_l"], d["hand_r"]]
+		d["lean_fwd"], d["lean_side"], d["hips_back"], d["head_off"], d["head_yaw"], d["head_pitch"], d["chest_yaw"], d["pelvis_yaw"], d["toe_l"], d["toe_r"], d["hips_y"], d["hand_l"], d["hand_r"], d["heel_l"], d["heel_r"]]
 
 
 func _who(i: int) -> String:
@@ -134,6 +136,44 @@ func _span(i: int, label: String, frames: int) -> void:
 	print("POSE GUARD %s | %s | %s" % [_who(i), label, _line(mean)])
 	print("POSE GUARD %s | %s | spread: feet apart %.0f..%.0f, feet side %+.0f..%+.0f, knees L %.0f..%.0f R %.0f..%.0f, cave L %+.1f..%+.1f R %+.1f..%+.1f, head off %.0f..%.0f, hips %.0f..%.0f cm up" % [_who(i), label,
 		lo["feet_apart"], hi["feet_apart"], lo["feet_side"], hi["feet_side"], lo["knee_l"], hi["knee_l"], lo["knee_r"], hi["knee_r"], lo["cave_l"], hi["cave_l"], lo["cave_r"], hi["cave_r"], lo["head_off"], hi["head_off"], lo["hips_y"], hi["hips_y"]])
+
+
+## The three joints the waiting takes did not key (spine_02, spine_04, neck_02), degrees off their rest, as animated.
+func _joints(i: int) -> String:
+	var sk: Skeleton3D = st.boxers[i]["skel"]
+	var out: Array = []
+	for n in ["spine_02", "spine_04", "neck_02"]:
+		var b := sk.find_bone(n)
+		out.append("%s %.0f" % [n, rad_to_deg(sk.get_bone_pose_rotation(b).angle_to(sk.get_bone_rest(b).basis.get_rotation_quaternion())) if b >= 0 else -1.0])
+	return ", ".join(PackedStringArray(out))
+
+
+## What a take leaves behind in the guard: blue plays it, goes back to his waiting take, and is read a second later.
+func _stuck() -> void:
+	var p2: Node = st.v2
+	var ap: AnimationPlayer = st.boxers[1]["ap"]
+	for f in 60:
+		await process_frame
+	var d0 := _read(1)
+	print("POSE STUCK %s | the guard before anything | joints off rest: %s | trunk fwd %+.0f side %+.0f, chest yaw %+.0f pelvis yaw %+.0f, hips %.0f cm up" % [_who(1), _joints(1), d0["lean_fwd"], d0["lean_side"], d0["chest_yaw"], d0["pelvis_yaw"], d0["hips_y"]])
+	for take in ["pro_right_cross", "pro_left_hook_ft", "pro_hit_by_hook_v3", "pro_idle_tired", "af_sit_idle", "af_walk", "win", "cross"]:
+		if not ap.has_animation(take):
+			print("POSE STUCK no take %s" % take)
+			continue
+		if str(take).begins_with("pro_"):
+			p2._play(1, take, 0.0, "punch", true)
+		else:
+			ap.play(take)   # behind v2's back, as a director's scene plays its clips
+		for f in 24:
+			await process_frame
+		var mid := _joints(1)
+		p2.guard(1)
+		for f in 60:
+			await process_frame
+		var d := _read(1)
+		print("POSE STUCK %s | after %s (in it: %s) | back in the guard, joints off rest: %s | trunk fwd %+.0f side %+.0f, chest yaw %+.0f pelvis yaw %+.0f, hips %.0f cm up" % [_who(1), take, mid, _joints(1), d["lean_fwd"], d["lean_side"], d["chest_yaw"], d["pelvis_yaw"], d["hips_y"]])
+	print("POSE done")
+	quit(0)
 
 
 ## Which bones each clip keys: a bone one clip keys and the next does not stays where the first left it.
@@ -226,6 +266,9 @@ func _initialize() -> void:
 	if _arg("only", "") == "tracks":
 		_tracks()
 		return
+	if _arg("only", "") == "stuck":
+		await _stuck()
+		return
 	for f in 60:
 		await process_frame
 	for i in 2:
@@ -301,7 +344,7 @@ func _initialize() -> void:
 				if at.is_empty():
 					print("POSE CROSS %s | %s never reached its contact" % [_who(who), str(n)])
 					continue
-				print("POSE PUNCH %s | %s (%s) contact %.2f s | guard before: feet side %+.0f fwd %+.0f, head off %.0f" % [_who(who), str(n), fam, cs, g["feet_side"], g["feet_fwd"], g["head_off"]])
+				print("POSE PUNCH %s | %s (%s) contact %.2f s | guard before: feet side %+.0f fwd %+.0f apart %.0f, head off %.0f, toes L %+.0f R %+.0f deg, ankle over ball L %.1f R %.1f cm, knee R %.0f" % [_who(who), str(n), fam, cs, g["feet_side"], g["feet_fwd"], g["feet_apart"], g["head_off"], g["toe_l"], g["toe_r"], g["heel_l"], g["heel_r"], g["knee_r"]])
 				print("POSE PUNCH %s | %s | AT CONTACT %s" % [_who(who), str(n), _line(at)])
 				print("POSE PUNCH %s | %s | WORST feet side %+.0f cm at %.2f s (toes %+.0f), head off %.0f deg at %.2f s, trunk side lean %.0f deg" % [_who(who), str(n), worst_side, worst_side_t, worst_toes, worst_head, worst_head_t, worst_lean])
 			p2.guard(who)

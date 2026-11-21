@@ -12,6 +12,8 @@ extends SceneTree
 ##   HANDS    while a man is hit his wrists stay near their guard distance to his head (the guard goes with the head)
 ##   GAZE     on every cross take v2 plays, blue's face is within GAZE_DEG of red's head around the contact (FP2POSE1)
 ##   FEET     ... and his feet never cross: the left foot stays FEET_M to the left of the right, across the fight's line
+##   HEEL     ... and at the contact his rear heel is up: the rear ankle rides HEEL_M higher over the ball of the foot
+##            than in his guard, on every take (FP2POSE2; `-- fp2nocrosslegs` = the takes as bought: red)
 ## A bar v2 does not hold YET prints as DEBT with its number and fails only past a guard (it may not get worse).
 ## Run: <godot> --headless --audio-driver Dummy --fixed-fps 60 --path . --script res://tests/player2_test.gd [-- seed=7 rounds=2 show]
 
@@ -27,6 +29,9 @@ const HANDS_M := 0.12        # a hit man's wrist may be this much further from h
 ## behind the punching shoulder - the face a few degrees off the other man, not riding the shoulders (the raw take: 76).
 const GAZE_DEG := 25.0
 const FEET_M := 0.10
+## FP2POSE2 (owner C454: "wtf is that legs doing"): a cross is driven off the ball of the rear foot - the heel comes up
+## and the foot turns in with the hips. As bought the rear ankle rises 0-3 cm at the contact (the actor is flat-footed).
+const HEEL_M := 0.025
 const BONES := ["Hips", "Head", "Chest", "LeftToes", "RightToes", "LeftHand", "RightHand", "LeftLowerLeg", "RightLowerLeg", "LeftFoot", "RightFoot"]
 
 var failures := 0
@@ -74,6 +79,8 @@ func _pose(p2: Node) -> void:
 	var worst_take := ""
 	var feet := 9.0
 	var feet_take := ""
+	var heel := 9.0
+	var heel_take := ""
 	var n := 0
 	for name in rows:
 		var r: Dictionary = rows[name]
@@ -83,6 +90,10 @@ func _pose(p2: Node) -> void:
 		p2.guard(1)
 		for f in 40:
 			await process_frame
+		var to0: Vector3 = (st.boxers[0]["node"] as Node3D).global_position - node.global_position
+		var rear := "Right" if to0.dot(_w(1, "RightFoot") - _w(1, "LeftFoot")) < 0.0 else "Left"
+		var flat_h := _w(1, rear + "Foot").y - _w(1, rear + "Toes").y
+		var up := -9.0
 		p2._play(1, str(name), 0.0, "punch", true)
 		var cs := float(r.get("contact_s", 0.3))
 		for f in int((cs + 0.2) * HZ):
@@ -96,6 +107,8 @@ func _pose(p2: Node) -> void:
 			if across < feet:
 				feet = across
 				feet_take = str(name)
+			if absf(tt - cs) <= 0.04:
+				up = maxf(up, (_w(1, rear + "Foot").y - _w(1, rear + "Toes").y - flat_h) / node.scale.x)
 			if tt < cs - 0.10 or tt > cs + 0.05:
 				continue
 			sb = sk.global_transform.basis.orthonormalized()
@@ -105,11 +118,15 @@ func _pose(p2: Node) -> void:
 			if off > worst:
 				worst = off
 				worst_take = str(name)
+		if up < heel:
+			heel = up
+			heel_take = str(name)
 	p2.guard(1)
 	for f in 40:
 		await process_frame
 	_check(n > 0 and worst <= GAZE_DEG, "GAZE on a cross blue's face stays within %.0f deg of red's head around the contact (worst %.0f deg, %s; %d takes)" % [GAZE_DEG, worst, worst_take, n])
 	_check(n > 0 and feet >= FEET_M, "FEET on a cross blue's feet never cross: the left stays %.0f cm to the left of the right (least %.0f cm, %s)" % [FEET_M * 100.0, feet * 100.0, feet_take])
+	_check(n > 0 and heel >= HEEL_M, "HEEL on a cross blue's rear heel is up at the contact: the ankle %.1f cm or more higher over the ball than in his guard (least %.1f cm, %s)" % [HEEL_M * 100.0, heel * 100.0, heel_take])
 
 
 func _initialize() -> void:

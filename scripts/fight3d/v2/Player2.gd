@@ -117,8 +117,7 @@ func setup(stage: Node) -> void:
 		var skel: Skeleton3D = st.boxers[i]["skel"]
 		if KEEP.has("FootTake") and st.boxers[i].get("feet") != null:
 			_ft[i] = FootTake.add(skel, st.boxers[i]["ap"], st.boxers[i]["feet"], fdb.get("feet", {}), bool(st.boxers[i].get("south", false)))
-		# S529: the arm finish runs after everything that moves the body (the tired sag, the legs, the floor stand): it
-		# closes on the target as drawn. Before the twist bones, which follow the arm.
+		# S529: the arm finish runs after all that moves the body (tired sag, legs, floor stand), before the twist bones.
 		var last: Node = st.boxers[i].get("js")
 		for c in skel.get_children():
 			if c is SkeletonModifier3D and str(c.name) in ["TiredSag", "FootTake", "FootPlant", "FootCarry", "FootLock", "FloorStand"] and (last == null or c.get_index() > last.get_index()):
