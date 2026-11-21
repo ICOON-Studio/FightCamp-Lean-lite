@@ -47,3 +47,9 @@ Top fault = WEIGHT2R4's target (water free under 2 %: always Light). After R4: p
 - DEPTHPRICE1B (36ed76a9f): class nights PASS; stipend 2nd price PASS thin; loan FAIL at both sizes (the sponsor's timing is the lever - next a timing probe, not a price); diet switch a no-op -> folded into WEIGHT2's Monday diet. Passing prices go to two critics at 8 before any build (DEPTH_SCOPE step 2).
 
 - WEIGHT2R4 PASS (cd9a84dbe): 7 of 10 cells clear (r3: 0); STAY 4 CUT 4 UP 2 DOWN 0; CUT leads 5; CUT clearly worse than STAY in all 5 amateur cells - but through missed scales (miss slope = estimate), DOWN never best, inside one scale CUT has one answer. Critics: WEIGHT2V2CRIT (Fable, code-checked) + SQ280 John.
+
+- BODYTEX2 landed (in 33d0f8d0d by accident, note e0384940e): Epic muscle skin on all 19 boxers (Chr0023 men, 0035 man 03, 0012 women; dark skin relief x1.25), the shoulder seam (NeckSeam.gd); shape measured, not changed.
+- GUARDPROBE8 (9c7d18540) FAIL: a guard WHEN-line costs no punch line - the slot is free, so guard v7's lines are never a trade. Under FREE HAND this goes to STANCEPROBE1's merge question (stance + guard = how he stands).
+- Owner 'yes both': STANCEPROBE1 (Fable) + SQ281 John card-game study. Weight critics running (Fable code-checked + SQ280).
+
+- WEIGHT2V2CRIT (71e1175f0, code-checked): 6/7/6 - code claims sound (1 false); the probe never ran diet against water; frame erased so DOWN can never win; the hybrid scale; drained cutter's CUT = her STAY. -> WEIGHT2R5 (Fable) on its items 1-4 + Kalli's Monday point.

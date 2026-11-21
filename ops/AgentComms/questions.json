@@ -8617,6 +8617,40 @@
       "note": "answered in the session chat S535",
       "answered_at": null,
       "seen_by_claude": true
+    },
+    {
+      "id": "Q-S294-297",
+      "asked": "2026-11-21T19:50:15.719136+00:00",
+      "session": "S294",
+      "text": "Pro offer: cut every ask (softer, ticket price, costs, split) except Later +2? Two probes found none a real choice.",
+      "options": [
+        "Yes, cut them",
+        "Keep them"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-297_0_TURNPROBE12_RESULT.md"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-298",
+      "asked": "2026-11-21T20:00:06.783381+00:00",
+      "session": "S294",
+      "text": "Stance pad: probe it on a greybox before anything is built?",
+      "options": [
+        "Yes, probe it",
+        "Not now"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-298_0_stance.png"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
     }
   ]
 }

@@ -491,7 +491,6 @@ func _down(i: int) -> bool:
 			return true
 	return false
 
-
 func _scale(i: int) -> float:
 	return (st.boxers[i]["node"] as Node3D).scale.x
 

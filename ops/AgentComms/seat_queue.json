@@ -4098,8 +4098,19 @@
    "seat": "john",
    "brief": "research/DESIGN_WEIGHT2_V2_CRITIC_JOHN.md",
    "stem": "DESIGN_WEIGHT2_V2_CRITIC_JOHN_JOHN",
-   "status": "queued",
+   "status": "sent",
    "queued_at": "2026-11-21 22:07",
+   "tries": 0,
+   "sent_at": "2026-11-21 22:10",
+   "sent_ms": 1795291826553
+  },
+  {
+   "id": "SQ281",
+   "seat": "john",
+   "brief": "research/JOHN_CARDGAMES_RESEARCH.md",
+   "stem": "JOHN_CARDGAMES_RESEARCH_JOHN",
+   "status": "queued",
+   "queued_at": "2026-11-21 22:17",
    "tries": 0
   }
  ]

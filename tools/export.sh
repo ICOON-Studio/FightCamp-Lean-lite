@@ -27,7 +27,7 @@ cp "$ROOT"/assets/anim/rokoko_combat/*.fbx "$OUT/assets/anim/rokoko_combat/"
 # S312: MHRig.dress reads the skin micro-normal raw too (MICRO_NORMAL); every build before shipped skin without it.
 cp "$ROOT"/assets/models/metahuman/mh_skin_micro_normal.png "$OUT/assets/models/metahuman/"
 # S535 BODYTEX1: the 2K body skin maps are read raw the same way (MHRig._png_cached); a body without them keeps its .glb maps.
-cp "$ROOT"/assets/models/metahuman/mh_*_mh02_body_*_2k.png "$OUT/assets/models/metahuman/" 2>/dev/null || true
+cp "$ROOT"/assets/models/metahuman/mh_*_mh02_body_*_2k.jpg "$OUT/assets/models/metahuman/" 2>/dev/null || true
 # S319: the motion blur compiles its shaders from their .glsl source at run time (addons/easy-compositor); an export
 # packs only the imported copies, so the sources ship beside the exe too (every build since update 20 had no blur).
 ( cd "$ROOT" && find addons -name "*.glsl" | while read -r g; do mkdir -p "$OUT/$(dirname "$g")"; cp "$g" "$OUT/$g"; done )

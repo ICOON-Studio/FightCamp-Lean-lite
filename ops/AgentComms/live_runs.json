@@ -144,12 +144,13 @@
  },
  "BODYTEX2": {
   "id": "BODYTEX2",
-  "status": "running",
+  "status": "landed",
   "started": "2026-11-21T20:00",
   "title": "Bodies phase 2: skin + shape",
   "seat": "claude",
   "agent": "claude-fable",
-  "eta": "1-3 h (Godot queue)"
+  "eta": "1-3 h (Godot queue)",
+  "note": "S536: 33d0f8d0d (swept into a Claude commit) - skin on all 19, seam fixed, shape unchanged"
  },
  "OFFERBUILD1": {
   "id": "OFFERBUILD1",
@@ -163,12 +164,13 @@
  },
  "GUARDPROBE8": {
   "id": "GUARDPROBE8",
-  "status": "running",
+  "status": "landed",
   "started": "2026-11-21T20:00",
   "title": "Guard v7 trade probe",
   "seat": "claude",
   "agent": "claude-fable",
-  "eta": "1-3 h (Godot queue)"
+  "eta": "1-3 h (Godot queue)",
+  "note": "S536: 9c7d18540 FAIL - a guard line costs no punch line (the slot is free) -> STANCEPROBE1 merge question"
  },
  "WEIGHT2R4": {
   "id": "WEIGHT2R4",
@@ -209,11 +211,39 @@
  },
  "WEIGHT2V2CRIT": {
   "id": "WEIGHT2V2CRIT",
-  "status": "running",
+  "status": "landed",
   "started": "2026-11-21T22:15",
   "title": "Code-checked critic of weight v2 (probe 4 PASS): checks every code claim, scores depth and play",
   "seat": "claude",
   "agent": "claude-fable",
-  "eta": "about 40 min"
+  "eta": "about 40 min",
+  "note": "S536: 71e1175f0 6/7/6"
+ },
+ "STANCEPROBE1": {
+  "id": "STANCEPROBE1",
+  "status": "running",
+  "started": "2026-11-21T22:25",
+  "title": "Your stance-pad idea: greybox probe + map from code (merge with guard?) + what the fight would show",
+  "seat": "claude",
+  "agent": "claude-fable",
+  "eta": "about 1.5-2 h"
+ },
+ "SQ281": {
+  "id": "SQ281",
+  "status": "queued",
+  "started": "2026-11-21T22:25",
+  "title": "John: what boxing card games do well (your links)",
+  "seat": "john",
+  "agent": "john",
+  "eta": "next 30-min send"
+ },
+ "WEIGHT2R5": {
+  "id": "WEIGHT2R5",
+  "status": "running",
+  "started": "2026-11-21T22:30",
+  "title": "Weight probe round 5: diet vs water vs up inside one scale, height and reach on, opponents cut too",
+  "seat": "claude",
+  "agent": "claude-fable",
+  "eta": "about 1.5 h"
  }
 }

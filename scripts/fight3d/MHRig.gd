@@ -8,6 +8,7 @@ const Twist := preload("res://scripts/fight3d/MetaHumanTwist.gd")
 const Look := preload("res://scripts/rules/MetaHumanLook.gd")
 const ClothMask := preload("res://scripts/fight3d/ClothMask.gd")
 const StaffCollar := preload("res://scripts/fight3d/StaffCollar.gd")
+const NeckSeam := preload("res://scripts/fight3d/NeckSeam.gd")
 
 const UE5_TO_OURS := {
 	"pelvis": "Hips",
@@ -52,10 +53,12 @@ const UE5_FINGERS := {
 ## borders - ClothMask.gd says why. `-- nobodylook` = the bodies as exported: the control arm of the before/after stills
 ## and probes (tests/body_look_test.gd flips it for its own two arms).
 static var body_look := not OS.get_cmdline_user_args().has("nobodylook")
-## BODYTEX1 (S535, owner: "there are no abs weird shaped bodies"): a body with <glb name>_mh02_body_albedo_2k.png /
-## _normal_2k.png beside it wears those instead of the 1K maps inside its .glb (the Creator's flattest body detail, halved).
+## BODYTEX1 (S535, owner: "there are no abs weird shaped bodies"): a body with <glb name>_mh02_body_albedo_2k.jpg /
+## _normal_2k.jpg beside it wears those instead of the 1K maps inside its .glb (the Creator's flattest body detail, halved).
 ## They are MetaHuman's own athletic body detail (ops/Tools/metahuman/bodytex1_make.py). `-- nobodytex` = the control arm.
+## BODYTEX2: every boxer has them, as JPEG (1.2 MB a body against 5.4 MB as PNG).
 static var body_tex := not OS.get_cmdline_user_args().has("nobodytex")
+## BODYTEX2 (S535): the head's skin is welded to the body's at the neck (NeckSeam.gd; `-- noseamfix` = as exported).
 static var _tex_cache := {}
 
 const SKIN_SHADER := "res://assets/models/metahuman/mh_skin.gdshader"
@@ -91,6 +94,8 @@ static func load_fighter(glb_path: String) -> Node3D:
 	seat_brows(fighter)
 	if body_look:
 		StaffCollar.add(fighter, ClothMask.apply(fighter)["collar"])
+	if NeckSeam.on and body_look:   # `-- nobodylook` stays the body as exported
+		NeckSeam.weld(fighter)
 	dress(fighter, glb_path)
 	return fighter
 
@@ -184,7 +189,7 @@ static func dress(fighter: Node, glb_path: String = "") -> void:
 					skin.set_shader_parameter("normal_tex", src.normal_texture)
 				if body_tex and mname.begins_with("MH_Skin_Body") and not glb_path.is_empty():
 					var stem: String = glb_path.get_basename() + "_mh02_body_"
-					for pair in [["albedo_tex", "albedo_2k.png"], ["normal_tex", "normal_2k.png"]]:
+					for pair in [["albedo_tex", "albedo_2k.jpg"], ["normal_tex", "normal_2k.jpg"]]:
 						var tex: Texture2D = _png_cached(stem + str(pair[1]))
 						if tex != null:
 							skin.set_shader_parameter(str(pair[0]), tex)
@@ -255,7 +260,8 @@ static func _png_cached(res_path: String) -> Texture2D:
 
 static func _png(res_path: String) -> Texture2D:
 	var img := Image.new()
-	if img.load_png_from_buffer(RawAsset.read(res_path)) != OK:
+	var bytes: PackedByteArray = RawAsset.read(res_path)
+	if (img.load_jpg_from_buffer(bytes) if res_path.get_extension().to_lower() == "jpg" else img.load_png_from_buffer(bytes)) != OK:
 		return null
 	img.generate_mipmaps()
 	return ImageTexture.create_from_image(img)
