@@ -120,5 +120,50 @@
   "resets": "2026-10-07T04:42",
   "read_at": "2026-10-02T18:10",
   "rule": "max 2 Codex seats, luna/medium, stop new launches at 85%"
+ },
+ "WEIGHT2": {
+  "id": "WEIGHT2",
+  "status": "running",
+  "started": "2026-11-21T16:45",
+  "title": "Weight, deep (your ask): manage it to a point; moves performance, size match-ups, classes, the week, the career - map from code, then a probe",
+  "seat": "claude",
+  "agent": "claude-fable",
+  "eta": "about 2 h (probe waits in the Godot queue)"
+ },
+ "TURNPRO12": {
+  "id": "TURNPRO12",
+  "status": "running",
+  "started": "2026-11-21T16:55",
+  "title": "Turning pro v12: built on the debut and the first six fights (v11 probe failed 4/15), then probe again",
+  "seat": "claude",
+  "agent": "claude-fable",
+  "eta": "about 2 h"
+ },
+ "GUARDREV7": {
+  "id": "GUARDREV7",
+  "status": "running",
+  "started": "2026-11-21T17:40",
+  "title": "Guard v7: hands high/loose as a fight-plan reaction, not a setting (v6 probe: Normal best 12 of 12)",
+  "seat": "claude",
+  "agent": "claude-fable",
+  "eta": "about 2 h"
+ },
+ "MHCORR2": {
+  "id": "MHCORR2",
+  "status": "running",
+  "started": "2026-11-21T18:05",
+  "title": "Bodies: bring back the MetaHuman correctives (chest and shoulders fold in the guard) + the stomach",
+  "seat": "claude",
+  "agent": "claude-fable",
+  "eta": "about 2 h (stills wait in the Godot queue)"
+ },
+ "BODYTEX1": {
+  "id": "BODYTEX1",
+  "status": "running",
+  "started": "2026-11-21T18:10",
+  "title": "Bodies: real MetaHuman body maps (abs, muscle) instead of the flat 1024 ones - one body first",
+  "seat": "claude",
+  "agent": "claude-fable",
+  "eta": "about 2-3 h"
  }
 }

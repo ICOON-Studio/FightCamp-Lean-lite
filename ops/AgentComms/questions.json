@@ -8487,11 +8487,12 @@
       "attach": [
         "AgentComms/board_attach/Q-S294-289_0_s532_art_36_roster.png"
       ],
-      "answer": "Keep painted",
+      "answer": "Painted",
       "note": null,
-      "answered_at": "2026-11-21T12:16:11Z",
+      "answered_at": "2026-11-21T13:33:04Z",
       "seen_by_claude": true,
-      "answered_via": "chat S534"
+      "answered_via": "chat S534",
+      "comment_only": false
     },
     {
       "id": "Q-S294-290",
@@ -8508,7 +8509,7 @@
       "answer": "Follow Strength",
       "note": null,
       "answered_at": "2026-11-21T13:20:00Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "answered_via": "chat S534"
     },
     {
@@ -8526,8 +8527,60 @@
       "answer": "Yes, that plan",
       "note": null,
       "answered_at": "2026-11-21T13:40:00Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "answered_via": "chat S534"
+    },
+    {
+      "id": "Q-S294-292",
+      "asked": "2026-11-21T14:43:59.179934+00:00",
+      "session": "S294",
+      "text": "Add men's 65 kg? Without it a 60 kg man moving up jumps 10 kg (you said women only, Q-233).",
+      "options": [
+        "Add men's 65 kg",
+        "Keep women only"
+      ],
+      "attach": [
+        "research/BOARD_WEIGHT1_R5_S478.md"
+      ],
+      "answer": "Add men's 65 kg",
+      "note": null,
+      "answered_at": "2026-11-21T15:28:40Z",
+      "seen_by_claude": true,
+      "comment_only": false
+    },
+    {
+      "id": "Q-S294-293",
+      "asked": "2026-11-21T15:36:16.553992+00:00",
+      "session": "S294",
+      "text": "Weight: may a boxer refuse a class move you choose?",
+      "options": [
+        "Yes, he can refuse",
+        "No, you decide"
+      ],
+      "attach": [
+        "research/DESIGN_WEIGHT2.md"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-294",
+      "asked": "2026-11-21T15:36:17.173350+00:00",
+      "session": "S294",
+      "text": "Should the 3D body look heavier or lighter with his weight?",
+      "options": [
+        "Yes, after the probe",
+        "No, keep one body"
+      ],
+      "attach": [
+        "research/DESIGN_WEIGHT2.md"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
     }
   ]
 }

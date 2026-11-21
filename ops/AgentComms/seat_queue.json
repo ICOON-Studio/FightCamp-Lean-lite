@@ -4005,7 +4005,8 @@
    "sent_ms": 1795266622741,
    "answered_at": "2026-11-21 15:40",
    "answer": "research/DESIGN_GUARDDMG1_V6_CRITIC_KALLI_KALLI.md",
-   "chars": 15974
+   "chars": 15974,
+   "seen_by_claude": true
   },
   {
    "id": "SQ274",
@@ -4019,25 +4020,36 @@
    "sent_ms": 1795266625336,
    "answered_at": "2026-11-21 15:40",
    "answer": "research/DESIGN_GUARDDMG1_V6_CRITIC_JOHN_JOHN.md",
-   "chars": 11663
+   "chars": 11663,
+   "seen_by_claude": true
   },
   {
    "id": "SQ275",
    "seat": "kalli",
    "brief": "research/DESIGN_DMGCLASS1_V3_CRITIC_KALLI.md",
    "stem": "DESIGN_DMGCLASS1_V3_CRITIC_KALLI_KALLI",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-21 14:33",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-21 16:10",
+   "sent_ms": 1795270221484,
+   "answered_at": "2026-11-21 16:40",
+   "answer": "research/DESIGN_DMGCLASS1_V3_CRITIC_KALLI_KALLI.md",
+   "chars": 15441
   },
   {
    "id": "SQ276",
    "seat": "john",
    "brief": "research/DESIGN_DMGCLASS1_V3_CRITIC_JOHN.md",
    "stem": "DESIGN_DMGCLASS1_V3_CRITIC_JOHN_JOHN",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-21 14:33",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-21 16:10",
+   "sent_ms": 1795270223917,
+   "answered_at": "2026-11-21 16:40",
+   "answer": "research/DESIGN_DMGCLASS1_V3_CRITIC_JOHN_JOHN.md",
+   "chars": 11728
   },
   {
    "id": "SQ277",
@@ -4048,6 +4060,15 @@
    "queued_at": "2026-11-21 15:21",
    "tries": 0,
    "note": "S534 DEPTH_AUDIT: probe the lever before critics score the map"
+  },
+  {
+   "id": "SQ278",
+   "seat": "john",
+   "brief": "research/JOHN_WEIGHT2_RESEARCH.md",
+   "stem": "JOHN_WEIGHT2_RESEARCH_JOHN",
+   "status": "queued",
+   "queued_at": "2026-11-21 16:41",
+   "tries": 0
   }
  ]
 }

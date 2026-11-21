@@ -12,6 +12,10 @@ param([switch]$Once, [int]$Every = 60)
 # Thresholds (warn = amber toast, crit = red toast; -Once exits 1 on any red).
 $C_FREE_WARN_GB = 15; $C_FREE_CRIT_GB = 6
 $RAM_WARN_PCT = 85;   $RAM_CRIT_PCT = 93
+# S535 (operator: "can you make the memory checker also consider the free pagefile ?"): RAM % alone went RED at 93% with
+# 28 GB of commit (RAM + the NVMe pagefile on C:) still free, and cut the Godot slots to 0. RAM % now counts only when the
+# commit headroom is short; above RAM_HARD_PCT it stays RED regardless, so the operator's PC stays usable.
+$RAM_HARD_PCT = 97;   $RAM_CRIT_ROOM_GB = 12;   $RAM_WARN_ROOM_GB = 16
 # S207: commit (RAM + pagefile) ran out at 4.3 GB free of 54.6 GB while RAM read only 76% - browsers held ~20 GB committed -
 # and two Godot jobs died on "Parameter mem is null" / signal 11. Godot needs commit headroom, not just free RAM.
 $COMMIT_WARN_GB = 8;  $COMMIT_CRIT_GB = 4
@@ -175,8 +179,10 @@ function Get-Problems($r) {
     if ($r.Top | Where-Object { $_.Name -match 'brave|chrome|msedge|firefox|opera' -and $_.MB -gt 1500 }) { $tabs = ' Close some browser tabs.' }
     if ($r.CommitFreeGB -ne $null -and $r.CommitFreeGB -lt $COMMIT_CRIT_GB) { $p += [pscustomobject]@{ Key='commit'; Red=$true;  Text="Commit memory nearly full: $($r.CommitFreeGB) GB free (RAM + pagefile, with its room to grow). Godot jobs crash here - close browser tabs. Biggest: $top" } }
     elseif ($r.CommitFreeGB -ne $null -and $r.CommitFreeGB -lt $COMMIT_WARN_GB) { $p += [pscustomobject]@{ Key='commit'; Red=$false; Text="Commit memory low: $($r.CommitFreeGB) GB free (RAM + pagefile, with its room to grow)." } }
-    if ($r.RamPct -ge $RAM_CRIT_PCT) { $p += [pscustomobject]@{ Key='ram'; Red=$true;  Text="Memory $($r.RamPct)% used. Biggest: $top.$tabs" } }
-    elseif ($r.RamPct -ge $RAM_WARN_PCT) { $p += [pscustomobject]@{ Key='ram'; Red=$false; Text="Memory $($r.RamPct)% used. Biggest: $top.$tabs" } }
+    $room = if ($r.CommitFreeGB -ne $null) { [double]$r.CommitFreeGB } else { 0.0 }
+    $roomTxt = " ($room GB free with the pagefile)"
+    if ($r.RamPct -ge $RAM_HARD_PCT -or ($r.RamPct -ge $RAM_CRIT_PCT -and $room -lt $RAM_CRIT_ROOM_GB)) { $p += [pscustomobject]@{ Key='ram'; Red=$true;  Text="Memory $($r.RamPct)% used$roomTxt. Biggest: $top.$tabs" } }
+    elseif ($r.RamPct -ge $RAM_CRIT_PCT -or ($r.RamPct -ge $RAM_WARN_PCT -and $room -lt $RAM_WARN_ROOM_GB)) { $p += [pscustomobject]@{ Key='ram'; Red=$false; Text="Memory $($r.RamPct)% used$roomTxt. Biggest: $top.$tabs" } }
     if ($r.CpuPct -ge $CPU_CRIT_PCT) { $p += [pscustomobject]@{ Key='cpu'; Red=$true;  Text="CPU at $($r.CpuPct)% - pause an agent or a test run." } }
     elseif ($r.CpuPct -ge $CPU_WARN_PCT) { $p += [pscustomobject]@{ Key='cpu'; Red=$false; Text="CPU at $($r.CpuPct)%." } }
     if ($r.TempC -ne $null) {
