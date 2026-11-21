@@ -22,7 +22,10 @@ const ProCall := preload("res://scripts/rules/ProCall.gd")
 const Roster := preload("res://scripts/state/Roster.gd")
 const Sim := preload("res://scripts/state/Sim.gd")
 
-const NIGHTS := 300
+## S533 STEPPAY2 phase 4: 300 nights is +-0.029 a cell (one standard error) against a 0.05 band - Lucy gap -2 drew 0.540 on
+## 300 and 0.573 on 1,200 (read 0.593). 1,200 nights is +-0.014. Read / played on 1,200 after the place read (PlaceEdge.read):
+## Lucy 0.593 / 0.573, 0.686 / 0.673, 0.762 / 0.762.
+const NIGHTS := 1200
 const DICE_DAY := 50000
 const BAND := 0.05          ## the brief's bound: the read within 5 points of the played share
 const OFFER_LOW := 0.10     ## the offer reads the boxer as today (weeks of training still to come): it may err LOW by this much

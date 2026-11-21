@@ -21,7 +21,7 @@ Fable consoles (terminal tabs of the S535 session; they keep running): WEIGHT2R3
 round 3 - the first PROBE3 file was a 2-seed smoke run, wait for the committed one), BODYTEX2 (muscle skin on every body, shape
 re-export where the stomach caves, shoulder seam), OFFERBUILD1 (owner Q-296 "Yes, build it": the bout offer as a letter, spec =
 ops/previews/s535_offer_mockup/offer.png), GUARDPROBE8 (guard v7 PASSED; does a guard line cost a punch line? then critic briefs),
-TURNPRO12, STEPPAY2 (phase 4); S534's DEPTHPRICE1B (stipend / loan second prices) and KNOWMISREAD1.
+TURNPRO12; S534's DEPTHPRICE1B (stipend / loan second prices) and KNOWMISREAD1.
 Export of the S535 build queued (correctives + boxer 01 skin + arms by Strength + Last 5 on the tape).
 Close each console's tab once its result is collected (RAM starves the Godot queue).
 
@@ -56,7 +56,11 @@ FIRST: `python ops/Tools/godot_slot.py status` (the owner may be playing a game 
   greybox BEFORE critics score its map (pass: moves the result, no pick best in more than 6 of 10 cells); no new system
   until the five changes in the audit's part 4 are on the owner's board. Turning pro v11 waits for its probe, not critics.
 - FOOTWORK (S533, STEPS_PAYOFF_SCOPE_S533.md, owner Q-285 "Yes"): a step must pay where it takes you. STEPPAY2 phase 2 built
-  PlaceEdge (ropes +5.0, corner +6.5, own ropes -5.0). No StepEffect TABLE sizing until phase 4's re-gate of all 10 steps is read.
+  PlaceEdge (ropes +5.0, corner +6.5, own ropes -5.0). STEPPAY2 DONE (a3a219220, docs/STEPPAY2_PHASE4.md): in band pivot_out,
+  feint, tie_up; over cut_off +6.75, step_back +8.75; UNDER step_in, step_out, herd, roll_out, push_off (no moment that pays them,
+  PlanFight.ANSWERS) -> STEPPAY3 next. No StepEffect number changed (three sizing arms, none the lever). debut_read_test NIGHTS 1200.
+  rec carries place_edge / rode / rode_from / rode_punch: no screen shows them yet (P4PBUILD1's files).
+  file_limits_test RED: scripts/fight3d/v2/Player2.gd is 501 lines - split it.
 - GUARD (S534, Kalli on v5): every guard rule acted AFTER the exchange was settled, so covering never changed who wins a round.
   Map v6 puts Hands High / Normal / Loose into the exchange edge BEFORE settle. No guard build until v6 passes 7+ and its probe.
 - DESIGN MAPS are written FROM THE CODE (a Fable console in this checkout - Arena only when it is free; owner S534 "dont wait

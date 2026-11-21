@@ -20,6 +20,13 @@ const LONG := 0   ## Duels.LONG, the ladder's long range
 static var on: bool = true
 ## MEASUREMENT ONLY (tools/place_value_probe.gd / treevalue_probe.gd `edge=`): another ROPES size, CORNER in proportion.
 static var probe_size: float = -1.0
+## The win read (BoutRead walks the duel in expectation and has no card): what the ropes cost on an average exchange after a
+## round's first = -ROPES x her pressing + loading share x the share of exchanges your boxer loses x READ_KEEP.
+## Measured, tools/place_read_probe.gd (150 bouts x 6 styles, STEPPAY2 phase 4): the played mean was 0.49-0.74 of that
+## forecast with no pivot-out line in the plan (mean 0.60) and 0.36-0.58 with one (mean 0.45: she turns off the ropes).
+const READ_KEEP := 0.60
+const READ_KEEP_PIVOT := 0.45
+const SPREAD := 66.0   ## Exchanges.EX_SPREAD: each side rolls +/- half of it
 
 
 static func edge(at: String) -> float:
@@ -34,6 +41,18 @@ static func edge(at: String) -> float:
 		"own_ropes":
 			return -r
 	return 0.0
+
+
+## The share of exchanges lost at an edge of d points (two rolls of +/- SPREAD / 2).
+static func lose_share(d: float) -> float:
+	var t := 1.0 - minf(absf(d), SPREAD) / SPREAD
+	return t * t / 2.0 if d >= 0.0 else 1.0 - t * t / 2.0
+
+
+static func read(trap_share: float, lose: float, pivot_planned: bool) -> float:
+	if not on:
+		return 0.0
+	return -ROPES * trap_share * lose * (READ_KEEP_PIVOT if pivot_planned else READ_KEEP)
 
 
 static func pins_opp(at: String) -> bool:

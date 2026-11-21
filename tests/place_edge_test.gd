@@ -72,6 +72,16 @@ func _initialize() -> void:
 	_check(not RingDuel.step_bias(f, o, {"at": "long"}).has("range") or float(RingDuel.step_bias(f, o, {"at": "long"})["range"]) > 0.0,
 		"at long range her range game is hers")
 	_check(float(RingDuel.step_bias(f, o, {"at": "corner"})["range"]) == 0.0, "RingDuel.step_bias takes the range game away in the corner")
+	# The win read: the ropes cost more against a presser, less with a pivot line planned, nothing with the rule off.
+	_check(absf(PlaceEdge.lose_share(0.0) - 0.5) < 0.001 and PlaceEdge.lose_share(10.0) < 0.5 and PlaceEdge.lose_share(-10.0) > 0.5 and PlaceEdge.lose_share(80.0) == 0.0,
+		"an even exchange is lost half the time, a better boxer loses fewer")
+	_check(PlaceEdge.read(0.75, 0.5, false) < PlaceEdge.read(0.15, 0.5, false) and PlaceEdge.read(0.15, 0.5, false) < 0.0
+		and PlaceEdge.read(0.75, 0.5, true) > PlaceEdge.read(0.75, 0.5, false),
+		"the read: a presser costs more ropes than a mover (%+.2f / %+.2f), a pivot line saves some (%+.2f)" % [PlaceEdge.read(0.75, 0.5, false), PlaceEdge.read(0.15, 0.5, false), PlaceEdge.read(0.75, 0.5, true)])
+	var full: Array = [100.0, 100.0, 100.0, 100.0, 100.0, 100.0]
+	var plain: Array = RingDuel.mean_edges(f, o, 1, full, full, "", [0.2, 0.3, 0.5])["edges"]
+	var placed: Array = RingDuel.mean_edges(f, o, 1, full, full, "", [0.2, 0.3, 0.5], {}, true)["edges"]
+	_check(float(placed[0]) == float(plain[0]) and float(placed[3]) < float(plain[3]), "RingDuel.mean_edges with the place read: the first exchange as it was, the later ones carry the ropes (%+.2f -> %+.2f)" % [float(plain[3]), float(placed[3])])
 	# Control arm: the rule off is the game before it.
 	PlaceEdge.on = false
 	var off := _edge(f, o, "corner", "", "press")

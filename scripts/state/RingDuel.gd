@@ -141,8 +141,9 @@ static func side(a: Dictionary) -> Dictionary:
 
 ## The expected duel edge of each exchange of round n (BoutRead): her energies ea / theirs eb per exchange (Arrays of 6),
 ## her call's place (-1 = her choice), the opponent's place chances (from the game mix). Returns {edges, share}.
+## place_read (S533 STEPPAY2, the win read only): each exchange after the first also carries what her ropes cost on average.
 static func mean_edges(f: Dictionary, o: Dictionary, n: int, ea: Array, eb: Array, call: String, opp_wants: Array,
-		start_states: Dictionary = {}) -> Dictionary:
+		start_states: Dictionary = {}, place_read := false) -> Dictionary:
 	var a0 := Attrs.of(f)
 	var b0 := opp(o)
 	var ctx := facts(f, o)
@@ -179,9 +180,14 @@ static func mean_edges(f: Dictionary, o: Dictionary, n: int, ea: Array, eb: Arra
 	var edges: Array = []
 	var share := [0.0, 0.0, 0.0]
 	var nn := float(Exchanges.EXCHANGES)
+	var gm: Dictionary = Exchanges.STYLE_MODES.get(str(o.get("style", "")), Exchanges.STYLE_MODES["Boxer-puncher"])
+	var trap := float(gm.get("press", 0.0)) + float(gm.get("loadup", 0.0))
+	var pivot: bool = ((f.get("bout", {}) as Dictionary).get("arrows", f.get("arrows", [])) as Array).any(func(a): return str((a as Dictionary).get("move", "")) == "pivot_out")
+	var duel_prev := 0.0
 	for i in Exchanges.EXCHANGES:
 		var e := float(v[0]) * float(ev[0]) + float(v[1]) * float(ev[1]) + float(v[2]) * float(ev[2])
-		edges.append(e)
+		edges.append(e + (PlaceEdge.read(trap, PlaceEdge.lose_share(duel_prev), pivot) if place_read and i > 0 else 0.0))
+		duel_prev = e
 		for p in 3:
 			share[p] += float(v[p]) / nn
 		var nv := [0.0, 0.0, 0.0]

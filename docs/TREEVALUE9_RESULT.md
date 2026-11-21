@@ -232,3 +232,23 @@ best situations too. 400 bouts x 3 seed sets, when=best:
 | step_back | ride on | +8.75 | +8.17 | -0.67 | +0.42 | +6.00 | +1.67 |
 READ: cut_off FOR Out-boxer -0.75 -> +4.33 (place pays + planned in its moment) -> +6.75 (ride); pivot_out FOR Pressure
 +0.92 -> +3.83 (the ride is its lever); step_back +6.58 -> +8.75 (over before, further over). No size changed. NEXT: phase 4.
+
+## S533 STEPPAY2 phase 4 - the gate, all ten steps (when=best, 400 x 3), and three sizing measurements
+Full page: docs/STEPPAY2_PHASE4.md. Delta, FOR style in brackets after the row.
+
+| step | Pressure | Slugger | Out-boxer | Counter | Volume | Boxer-puncher |
+|---|---|---|---|---|---|---|
+| step_in (FOR Out-boxer: under) | +0.58 | +0.17 | +0.83 | +1.00 | +0.17 | +0.67 |
+| step_out (FOR Slugger: under) | +1.00 | +1.08 | +2.75 | +1.17 | +1.50 | +2.25 |
+| step_back (FOR Pressure: OVER) | +8.75 | +8.17 | -0.67 | +0.42 | +6.00 | +1.67 |
+| pivot_out (FOR Pressure: in the band) | +3.83 | +4.58 | +0.08 | +0.75 | +3.08 | +1.92 |
+| cut_off (FOR Out-boxer: OVER) | -1.00 | +0.25 | +6.75 | +3.33 | +3.58 | +2.67 |
+| herd (FOR Volume: under) | -0.08 | -0.25 | -0.33 | -0.25 | +0.17 | -0.33 |
+| feint (FOR Counter: in the band) | +0.50 | +0.42 | +1.08 | +4.17 | +0.58 | +0.92 |
+| tie_up (FOR Slugger: in the band) | +3.17 | +2.00 | +2.25 | +1.17 | +2.00 | +2.75 |
+| roll_out (FOR Slugger: under) | +1.58 | +0.75 | +0.17 | +0.58 | +0.17 | -0.33 |
+| push_off (FOR Pressure: under) | +0.00 | +0.00 | -0.08 | +0.08 | +0.00 | +0.00 |
+Three legs: 0/10. FOR leg in the band 3 (pivot_out, feint, tie_up), over 2 (step_back, cut_off), under 5 (step_in, step_out, herd, roll_out, push_off).
+Sizing arms: ride=0.0 (no punch points on the ride) cut_off +6.25, step_back +8.83; scale=0.5 on step_back's row +7.83; ride off
+cut_off +4.33, step_back +6.58, pivot_out +0.92. READ: no StepEffect number is the lever - step_back's size is its answer points
+(over the band before the scope too), the under-band steps lack a moment (step_fire_fit_probe). No TABLE number changed.

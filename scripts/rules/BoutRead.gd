@@ -352,7 +352,7 @@ static func _round_edges(f: Dictionary, opp: Dictionary, camp: Dictionary, coach
 			ebs.append(eb)
 			var tr := _tiring(opp, n, eb)
 			wbs.append([(1.0 - tr) * float(mixw[0]) + tr, (1.0 - tr) * float(mixw[1]), (1.0 - tr) * float(mixw[2])])
-		var duel_read := RingDuel.mean_edges(fx, opp, n, eas, ebs, _call(f, n), wbs, states)
+		var duel_read := RingDuel.mean_edges(fx, opp, n, eas, ebs, _call(f, n), wbs, states, true)
 		states = duel_read["states"]
 		var duels: Array = duel_read["edges"]
 		for i in Exchanges.EXCHANGES:

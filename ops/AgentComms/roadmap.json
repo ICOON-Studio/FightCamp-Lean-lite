@@ -5224,7 +5224,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-21 22:11 board_sync",
+  "updated": "2026-11-21 23:41 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5375,12 +5375,6 @@
   },
   "working_now": [
    {
-    "title": "Footwork: the place pays (done), the right step costs no exchange, re-gate 10 steps",
-    "who": "claude-fable",
-    "started": "2026-11-21",
-    "run": "STEPPAY2"
-   },
-   {
     "title": "3D fight: arms and shoulders follow Strength (your Q-290)",
     "who": "claude-fable",
     "started": "2026-11-21T15:20",
@@ -5428,9 +5422,21 @@
     "started": "2026-11-21T15:35",
     "run": "KNOWMISREAD1",
     "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "Card game round 1 critics: Arena code-checked + Kalli chat (SQ284)",
+    "who": "arena",
+    "started": "2026-11-21T23:40",
+    "run": "CARDPROTO1_CRITICS"
    }
   ],
   "next": [
+   {
+    "id": "STEPPAY3",
+    "who": "claude",
+    "title": "Footwork: give the five steps with no moment a moment (step in, step out, herd, roll out, push off)",
+    "after": "STEPPAY2"
+   },
    {
     "id": "BODYTEX2",
     "who": "claude-fable",
@@ -5993,6 +5999,11 @@
    }
   },
   "done_recently": [
+   {
+    "title": "Footwork: all ten steps re-gated, the debut read follows the place (STEPPAY2 phases 3-4; no step number changed)",
+    "who": "fable",
+    "when": "2026-11-21"
+   },
    {
     "title": "Arena code-checked critic: guard damage map v6",
     "who": "arena",
