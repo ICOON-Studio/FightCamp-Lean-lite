@@ -5373,6 +5373,18 @@
     "who": "claude-fable",
     "started": "2026-11-21",
     "run": "STEPPAY2"
+   },
+   {
+    "title": "Code-checked critic: guard damage map v6",
+    "who": "arena",
+    "started": "2026-11-21T14:36",
+    "run": "GUARD6CRIT"
+   },
+   {
+    "title": "Painted full-body pictures for menus and the fight intro (your 'Keep painted')",
+    "who": "ludo",
+    "started": "2026-11-21T14:20",
+    "run": "PAINTBODY1"
    }
   ],
   "next": [
@@ -6246,6 +6258,10 @@
     },
     {
      "text": "Guard v6 critics: Kalli, John",
+     "who": "agent"
+    },
+    {
+     "text": "Painted full bodies (Ludo, 152)",
      "who": "agent"
     }
    ],

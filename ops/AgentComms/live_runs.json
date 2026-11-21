@@ -41,6 +41,24 @@
    "title": "John critic: guard damage map v6",
    "seat": "john",
    "agent": "john"
+  },
+  "GUARD6CRIT": {
+   "id": "GUARD6CRIT",
+   "status": "running",
+   "started": "2026-11-21T14:36",
+   "title": "Arena code-checked critic: guard damage map v6",
+   "seat": "arena",
+   "agent": "arena",
+   "eta": "about 30 min"
+  },
+  "PAINTBODY1": {
+   "id": "PAINTBODY1",
+   "status": "running",
+   "started": "2026-11-21T14:20",
+   "title": "Ludo paints the 152 full-body pictures (owner: Keep painted, also on the fight)",
+   "seat": "ludo",
+   "agent": "ludo",
+   "eta": "about 25 min"
   }
  },
  "codex_budget": {
