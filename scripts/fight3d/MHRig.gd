@@ -52,6 +52,11 @@ const UE5_FINGERS := {
 ## borders - ClothMask.gd says why. `-- nobodylook` = the bodies as exported: the control arm of the before/after stills
 ## and probes (tests/body_look_test.gd flips it for its own two arms).
 static var body_look := not OS.get_cmdline_user_args().has("nobodylook")
+## BODYTEX1 (S535, owner: "there are no abs weird shaped bodies"): a body with <glb name>_mh02_body_albedo_2k.png /
+## _normal_2k.png beside it wears those instead of the 1K maps inside its .glb (the Creator's flattest body detail, halved).
+## They are MetaHuman's own athletic body detail (ops/Tools/metahuman/bodytex1_make.py). `-- nobodytex` = the control arm.
+static var body_tex := not OS.get_cmdline_user_args().has("nobodytex")
+static var _tex_cache := {}
 
 const SKIN_SHADER := "res://assets/models/metahuman/mh_skin.gdshader"
 const MICRO_NORMAL := "res://assets/models/metahuman/mh_skin_micro_normal.png"
@@ -177,6 +182,12 @@ static func dress(fighter: Node, glb_path: String = "") -> void:
 				skin.set_shader_parameter("albedo_tex", src.albedo_texture)
 				if src.normal_enabled and src.normal_texture != null:   # mh_pilot_02: the synthesized face / body normal
 					skin.set_shader_parameter("normal_tex", src.normal_texture)
+				if body_tex and mname.begins_with("MH_Skin_Body") and not glb_path.is_empty():
+					var stem: String = glb_path.get_basename() + "_mh02_body_"
+					for pair in [["albedo_tex", "albedo_2k.png"], ["normal_tex", "normal_2k.png"]]:
+						var tex: Texture2D = _png_cached(stem + str(pair[1]))
+						if tex != null:
+							skin.set_shader_parameter(str(pair[0]), tex)
 				skin.set_shader_parameter("micro_normal", micro)
 				for key in skin_u:
 					skin.set_shader_parameter(key, skin_u[key])
@@ -233,6 +244,13 @@ static func _skin_tone(glb_path: String) -> Color:
 	if data is Dictionary and str((data as Dictionary).get("skin", "")).begins_with("#"):
 		return Color(str((data as Dictionary)["skin"]))
 	return fallback
+
+
+## One decode per file for the whole run (2K maps: every fight would pay it again). Null when the body has none.
+static func _png_cached(res_path: String) -> Texture2D:
+	if not _tex_cache.has(res_path):
+		_tex_cache[res_path] = _png(res_path) if RawAsset.exists(res_path) else null
+	return _tex_cache[res_path] as Texture2D
 
 
 static func _png(res_path: String) -> Texture2D:

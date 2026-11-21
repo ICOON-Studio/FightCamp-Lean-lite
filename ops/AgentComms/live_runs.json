@@ -123,7 +123,7 @@
  },
  "WEIGHT2": {
   "id": "WEIGHT2",
-  "status": "running",
+  "status": "landed",
   "started": "2026-11-21T16:45",
   "title": "Weight, deep (your ask): manage it to a point; moves performance, size match-ups, classes, the week, the career - map from code, then a probe",
   "seat": "claude",
@@ -150,7 +150,7 @@
  },
  "MHCORR2": {
   "id": "MHCORR2",
-  "status": "running",
+  "status": "landed",
   "started": "2026-11-21T18:05",
   "title": "Bodies: bring back the MetaHuman correctives (chest and shoulders fold in the guard) + the stomach",
   "seat": "claude",
@@ -159,7 +159,7 @@
  },
  "BODYTEX1": {
   "id": "BODYTEX1",
-  "status": "running",
+  "status": "landed",
   "started": "2026-11-21T18:10",
   "title": "Bodies: real MetaHuman body maps (abs, muscle) instead of the flat 1024 ones - one body first",
   "seat": "claude",

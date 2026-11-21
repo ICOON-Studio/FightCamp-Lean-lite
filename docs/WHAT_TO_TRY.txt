@@ -1,3 +1,15 @@
+S535 build (2026-11-21, evening) - what changed, and what to try
+
+1. BODIES IN THE FIGHT: the MetaHuman "correctives" are back (lost in the lean restart): in the guard and mid-punch the
+   shoulders and upper chest fill out instead of folding. Look at the chest and shoulders of a boxer in guard.
+2. BOXER 01's SKIN has real muscle detail (abs, chest line). The other bodies get theirs next (in progress), and the
+   bodies whose stomach caves in get a fitter shape. The thin dark line on top of the shoulder is known, being fixed.
+3. ARMS FOLLOW STRENGTH in the 3D fight (your Q-290): a strong boxer's arms and shoulders are visibly thicker; arm
+   length, reach and gloves unchanged.
+4. FOOTWORK: a step taken in its best moment now costs no exchange (phase 3).
+NOT in this build yet (tests still running, merged after): men's 65 kg class, pro bouts without the four-count limit,
+the towel priced as an ordinary loss, ice that really helps the ribs, the weight mechanic, the new offer screen.
+
 S534 build (2026-11-21) - what changed, and what to try (your review notes C442-C446)
 
 1. PRO OFFER: each promoter's card header says who the debut is against ("VS PAIGE WHITLOW"); the two promoters no longer

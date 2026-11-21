@@ -1,3 +1,36 @@
+# S536 handover (written 2026-11-21 evening, during S535 - Opus)
+
+Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. S535 is in roadmap `now`; digest ops/research/S535_DIGEST.md.
+FIRST: `python ops/Tools/godot_slot.py status` - the owner plays games on this PC (ArcheAge ~5 GB); RAM, not CPU, starves the queue.
+Close every Fable console the moment its result is collected (10 GB of claude processes at one point in S535).
+
+## METHOD lines - quote all of them in your first message
+- MECHANICS NEED 8 (owner S534): 8+ DEPTH and 8+ PLAY from two fresh critics, after the probe; under 8 -> his cut-or-keep.
+- FREE HAND (owner S534): remove / add / interconnect to reach 8, then report.
+- DEPTH (S534 + S535): flat prices do not make choices (DEPTHPRICE1A); a choice is real when its VALUE depends on the moment.
+- WEIGHT (owner S535 "Go deep with weight mechanic for 10/10 ... manageable to a certain point"): one mechanic, three decisions,
+  one screen (diet Monday, water in fight week, class between bouts); natural vs walking weight; a cut costs stamina far more than
+  power (John SQ278); men's 65 kg; a boxer may refuse a move; the 3D body shows his weight after the critics pass.
+- GUARD (S535): a fixed Hands setting is never right (GUARDPROBE6) -> the guard is a fight-plan WHEN-line reaction (GUARDREV7).
+- FIGHT CODE WHILE PROBES RUN: edit on a worktree branch (s535/dmgfix), merge after the probes stop.
+- Fight animation: fight player v2 only. The mocap pack is his money call at the END OF NOVEMBER.
+- BOARD QUESTIONS: 20 words max, options 5 words; detail in --attach. NAMES ONLY IN HEADERS.
+
+## Running when this was written - collect, do not relaunch
+Fable consoles (terminal tabs of the S535 session): WEIGHT2R3, TURNPRO12, GUARDREV7, BODYTEX2, OFFERTAPE1, STEPPAY2 (from S533);
+S534's DEPTHPRICE1B (re-sizes) and KNOWMISREAD1. Export of the S535 build queued (bodies correctives + boxer 01 skin + arms).
+
+## Next, in order
+1. Collect as they land; WEIGHT2R3 PASS -> launch its code-checked critic (TASK_WEIGHT2V2CRIT.md) + the queued chat critic.
+2. Branch s535/dmgfix: run its tests (towel_wire, debut_pick, ladder_season, region_shows, golden_path, liver_ribs, corner_jobs,
+   fight_week, fight_week_screen, male_boxer) once the probes are done; merge into main; export.
+3. Bodies: BODYTEX2 stills to the owner; then GLOVEFACE1 (his C447: the guard glove sinks into the cheek).
+4. OFFERTAPE1: the form row built; the offer mockup to the owner before any build.
+
+
+---
+Previous handover (S535 start) below, for reference.
+
 # S535 handover (written 2026-11-21 ~16:00, end of S534 - Opus, 680k context)
 
 Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. S534 is in roadmap `now`.

@@ -33,8 +33,7 @@ const GuardHold := preload("res://scripts/fight3d/v2/GuardHold.gd")
 static var KEEP: Array = _keep()
 const GUARD := "pro_idle"
 const FOOT_DB := "res://assets/data/foot_db.json"
-## The join into each kind of take: [half-life, length] s (scope 3e: into a punch 0.15, a reaction 0.05, a slip 0.15,
-## back to the guard 0.30).
+## The join into each kind of take: [half-life, length] s (scope 3e: into a punch 0.15, a reaction 0.05, a slip 0.15, back to the guard 0.30).
 ## S529 a reaction: was 0.035 / 0.11 - the snap onto a take started part-way in covered 40 % of the way in ONE picture
 ## (film 6, both critics: 18-19 head jumps over 12 cm, all inside a reaction or a dodge, worst 21.6 cm; their bar is the
 ## head's travel spread over 2-3 pictures, none over 10 cm).
@@ -97,7 +96,7 @@ var contacts: Array = []      # every contact as played: {t, who, move, result, 
 static func _keep() -> Array:
 	var args := OS.get_cmdline_user_args()
 	var legs := ["FootLock", "FloorStand"] if args.has("fp2lock") else (["FootCarry", "FloorStand"] if args.has("fp2carry") else (["FootPlant", "FloorStand"] if args.has("fp2plant") else ["FootTake", "FloorStand"]))
-	return ["JoinSmoother", "MetaHumanTwist", "TiredSag", "PunchAim", "GuardHold"] + legs
+	return ["JoinSmoother", "MetaHumanTwist", "MetaHumanCorrectiveRBF", "TiredSag", "PunchAim", "GuardHold"] + legs
 
 
 static var force := false   # a test switches v2 on without the command line (set FightClips.untouched with it)
@@ -137,6 +136,7 @@ func setup(stage: Node) -> void:
 			d["Head"] = skel.get_bone_global_pose(int(ids[0])).origin
 			d["Chest"] = skel.get_bone_global_pose(int(ids[1])).origin)
 	preload("res://scripts/fight3d/v2/ArmBuild.gd").setup(st)   # ARMBUILD1: arms and shoulders as thick as his Strength
+	preload("res://scripts/fight3d/v2/MetaHumanCorrectiveRBF.gd").setup_stage(st)   # MHCORR2: the body's corrective joints follow the limbs (last layer; `-- nomhcorr` = off)
 	_layers(false)
 	for i in 2:
 		var z: float = R.REST_M * (0.5 if i == 1 else -0.5)
