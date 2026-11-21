@@ -4,6 +4,11 @@ Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. S534
 FIRST: `python ops/Tools/godot_slot.py status` (the owner may be playing a game - RAM was 86% at 14:09).
 
 ## METHOD lines - quote all of them in your first message
+- MECHANICS NEED 8 (owner S534: "mechanics need an 8 critic's to stay in the game for depth and fun"): 8+ DEPTH and 8+ PLAY from critics, after the probe; a built mechanic under 8 goes to him as cut-or-keep. Plan: ops/research/DEPTH_SCOPE_S534.md (his "Yes, that plan").
+- DEPTH (S534, ops/research/DEPTH_AUDIT_S534.md): the game is WIDE, not deep - of 23 measured decisions 5 are real, 10
+  one-answer, 8 faint. Five maps passed critics at 7+ and then failed in the game. So: a mechanic's lever is PROBED on a
+  greybox BEFORE critics score its map (pass: moves the result, no pick best in more than 6 of 10 cells); no new system
+  until the five changes in the audit's part 4 are on the owner's board. Turning pro v11 waits for its probe, not critics.
 - FOOTWORK (S533, STEPS_PAYOFF_SCOPE_S533.md, owner Q-285 "Yes"): a step must pay where it takes you. STEPPAY2 phase 2 built
   PlaceEdge (ropes +5.0, corner +6.5, own ropes -5.0). No StepEffect TABLE sizing until phase 4's re-gate of all 10 steps is read.
 - GUARD (S534, Kalli on v5): every guard rule acted AFTER the exchange was settled, so covering never changed who wins a round.

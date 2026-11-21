@@ -71,6 +71,20 @@ func _initialize() -> void:
 	var hi := _f(false, 60.0)
 	GuardState.open(hi, 1)
 	_check(not bool(GuardState.after(hi, [0, 0], "", {}, "tie")["clinch"]), "Tie up at full guard: no clinch")
+	# S534 (Arena GUARD6CRIT live defect): a tie-up is any of ClinchRest.tied's routes, and a Sharp tie-up earns +13.
+	for route in [["", "", "clinch"], ["", "tie_up@inside", ""]]:
+		var rt := _f(false, 60.0)
+		GuardState.open(rt, 1)
+		rt["bout"]["guard"]["a"]["g"] = 30.0
+		var tr := GuardState.after(rt, [0, 0], str(route[2]), {}, str(route[0]), 0, [], str(route[1]))
+		_check(bool(tr["clinch"]) and absf(float(tr["g"][0]) - 44.0) < 0.001, "a tie-up by %s rests the guard like the corner's call (%.1f)" % [
+			"the clinch card" if route[2] == "clinch" else "the plan's arrow", float(tr["g"][0])])
+	var sk := _f(false, 60.0)
+	sk["steps"] = {"tie_up": 70.0}
+	GuardState.open(sk, 1)
+	sk["bout"]["guard"]["a"]["g"] = 30.0
+	var ts := GuardState.after(sk, [0, 0], "", {}, "tie")
+	_check(bool(ts["clinch"]) and absf(float(ts["g"][0]) - 47.0) < 0.001, "a Sharp tie-up (70) earns the skilled +13 (%.1f)" % float(ts["g"][0]))
 	var hu := _f(false, 60.0)
 	GuardState.open(hu, 1)
 	hu["bout"]["guard"]["a"]["g"] = 20.0

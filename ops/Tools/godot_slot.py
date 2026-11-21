@@ -9,7 +9,7 @@ every agent Godot job takes a ticket and starts in arrival order when a slot is 
     python ops/Tools/godot_slot.py status        # the queue: running, waiting, and the slots the PC allows now
 
 Slots come from the PC watchdog's verdict (AgentComms/pc_detail.json, written every few seconds by pc_metrics):
-GREEN 3, AMBER 2, RED 0, and 0 whenever commit memory is under MIN_COMMIT_GB free. A ticket whose process died is dropped.
+GREEN 4 (owner S534), AMBER 2, RED 0, and 0 whenever commit memory is under MIN_COMMIT_GB free. A ticket whose process died is dropped.
 The job's own exit code is returned, its output is not touched (stdout/stderr pass through). The heat governor still
 suspends and pins running jobs; the queue only decides who STARTS. The operator's own Godot (editor or game, no
 --script/--headless) never goes through here, and rule_guard refuses a direct agent Godot launch that skips it.
@@ -32,7 +32,7 @@ ROOT = Path(__file__).resolve().parents[1]                 # ops/
 DETAIL = Path(os.environ.get("GODOT_SLOT_DETAIL", r"E:\FightCamp\Lean\ops\AgentComms\pc_detail.json"))
 QUEUE = Path(os.environ.get("GODOT_SLOT_DIR", r"E:\FightCamp\tmp\godot_queue"))
 LOCK = QUEUE / ".lock"
-SLOTS = {"GREEN": 3, "AMBER": 2, "RED": 0}
+SLOTS = {"GREEN": 4, "AMBER": 2, "RED": 0}   # owner S534 "yes raise it to 4" (GREEN only; AMBER stays 2)
 MIN_COMMIT_GB = 4.0
 POLL_S = 5.0
 STALE_DETAIL_S = 120     # a verdict older than this is not trusted: one slot, so work still moves if pc_metrics is down

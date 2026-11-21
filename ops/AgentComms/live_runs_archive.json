@@ -23861,6 +23861,24 @@
    "seat": "ludo",
    "agent": "ludo",
    "eta": "about 25 min"
+  },
+  {
+   "id": "DEPTHAUDIT1",
+   "status": "landed S534: DEPTH_AUDIT_S534.md (5 of 23 real)",
+   "started": "2026-11-21T15:20",
+   "title": "How strategically deep is the game? (your question)",
+   "seat": "claude",
+   "agent": "claude-fable",
+   "eta": "about 30 min"
+  },
+  {
+   "id": "TURNPRO11",
+   "status": "landed S534: v11 map; probe TURNPROBE11 first",
+   "started": "2026-11-21T15:20",
+   "title": "Turning pro map v11 from the code",
+   "seat": "claude",
+   "agent": "claude-fable",
+   "eta": "about 30 min"
   }
  ]
 }

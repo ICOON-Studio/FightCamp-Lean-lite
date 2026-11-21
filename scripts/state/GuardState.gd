@@ -12,6 +12,8 @@ extends RefCounted
 const GuardWear := preload("res://scripts/rules/GuardWear.gd")
 const BoutBurn := preload("res://scripts/rules/BoutBurn.gd")
 const Attrs := preload("res://scripts/rules/Attrs.gd")
+const ClinchRest := preload("res://scripts/rules/ClinchRest.gd")
+const MoveTree := preload("res://scripts/rules/MoveTree.gd")
 
 const BLOCK_SHARE := 0.6   ## ESTIMATE - of the punches that do not land, the share caught on the guard (the rest miss)
 const WEAR_SCALE := 0.40   ## pro: GUARDPROBE1 sweep - pro6 last round 0.546 at 0.35, 0.265 at 0.45 -> ~0.40 mid-orange, red mostly the mismatch's loser
@@ -90,7 +92,7 @@ static func wear_through(blocks: int, g: float, mx: float, wc: String, ctx: Dict
 ## S525 n = the round, opp_habits = RoundStyle.opponent_habits(opp): a guard habit (GUARD_HABITS) changes the wear
 ## (GuardWear.trait_wear_pct: slow starter) and the in-round recovery (trait_recovery_pct: fades late, chases the
 ## stoppage; our morale under 40 too). n 0 = no round known (old callers): habits ignored.
-static func after(f: Dictionary, landed: Array, at: String, opp_attrs: Dictionary, call := "", n := 0, opp_habits: Array = []) -> Dictionary:
+static func after(f: Dictionary, landed: Array, at: String, opp_attrs: Dictionary, call := "", n := 0, opp_habits: Array = [], arrow := "") -> Dictionary:
 	if not f["bout"].has("guard"):
 		open(f, 1)
 	var gs: Dictionary = f["bout"]["guard"]
@@ -124,12 +126,15 @@ static func after(f: Dictionary, landed: Array, at: String, opp_attrs: Dictionar
 		s["g"] = GuardWear.clamp_guard(g, float(s["max"]))
 	var ours: Dictionary = gs["a"]
 	var clinch := {}
-	if call == "tie":
-		clinch = GuardWear.clinch(false, float(ours["g"]), float(ours["max"]), bool(ours.get("clinch", false)))
+	# S534 (Arena GUARD6CRIT live defect): a tie-up is ClinchRest.tied's three routes - the corner's call, her tie-up arrow,
+	# or the clinch card - not the call alone; and a Sharp+ tie-up (MoveMastery tier, 60) earns the skilled guard back.
+	if ClinchRest.tied(call, arrow, at):
+		var skilled := MoveTree.mastery(f, "tie_up") >= 60.0
+		clinch = GuardWear.clinch(skilled, float(ours["g"]), float(ours["max"]), bool(ours.get("clinch", false)))
 		if bool(clinch["ok"]):
 			ours["g"] = GuardWear.clamp_guard(float(ours["g"]) + float(clinch["guard"]), float(ours["max"]))
 			ours["clinch"] = true
-	elif call == "hands":
+	if call == "hands":
 		ours["hands_next"] = true
 	return {"g": [float(gs["a"]["g"]), float(gs["b"]["g"])], "blocked": blocks, "clinch": bool(clinch.get("ok", false)), "through": through,
 		"share": [float(gs["a"]["g"]) / maxf(1.0, float(gs["a"]["max"])), float(gs["b"]["g"]) / maxf(1.0, float(gs["b"]["max"]))]}

@@ -5218,7 +5218,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-21 14:41 board_sync",
+  "updated": "2026-11-21 15:11 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5381,31 +5381,55 @@
     "run": "GUARD6CRIT"
    },
    {
-    "title": "3D fight: arms and shoulders follow Strength",
-    "who": "fable",
+    "title": "3D fight: arms and shoulders follow Strength (your Q-290)",
+    "who": "claude-fable",
     "started": "2026-11-21T15:20",
     "run": "ARMBUILD1"
    },
    {
-    "title": "Repaint 152 bodies with athletic arms",
+    "title": "Repaint 152 bodies with athletic arms (Ludo)",
     "who": "ludo",
     "started": "2026-11-21T15:20",
     "run": "ARMPAINT1"
    },
    {
-    "title": "How strategically deep is the game?",
+    "title": "Probe turning pro v11 before critics",
     "who": "fable",
-    "started": "2026-11-21T15:20",
-    "run": "DEPTHAUDIT1"
+    "started": "2026-11-21T15:35",
+    "run": "TURNPROBE11"
    },
    {
-    "title": "Turning pro map v11 from the code",
+    "title": "Price the solved fight-night choices",
     "who": "fable",
-    "started": "2026-11-21T15:20",
-    "run": "TURNPRO11"
+    "started": "2026-11-21T15:35",
+    "run": "DEPTHPRICE1A"
+   },
+   {
+    "title": "Price the solved club choices",
+    "who": "fable",
+    "started": "2026-11-21T15:35",
+    "run": "DEPTHPRICE1B"
+   },
+   {
+    "title": "Probe guard v6: Hands before settle",
+    "who": "fable",
+    "started": "2026-11-21T15:35",
+    "run": "GUARDPROBE6"
+   },
+   {
+    "title": "Be wrong about people: shared misread",
+    "who": "fable",
+    "started": "2026-11-21T15:35",
+    "run": "KNOWMISREAD1"
    }
   ],
   "next": [
+   {
+    "id": "DEPTH1",
+    "who": "claude",
+    "title": "Depth: make existing choices matter (DEPTH_AUDIT_S534 part 4: price every free/solved option, exchange reads place + cover, coach's hands as the club's currency, be wrong about people, one opponent who remembers) - his call Q-S294-291; probe before critics",
+    "after": ""
+   },
    {
     "id": "STEPSCOPE1",
     "who": "claude",
@@ -6219,6 +6243,14 @@
     {
      "text": "Painted bodies on every 2D screen",
      "who": "claude"
+    },
+    {
+     "text": "Arms follow Strength (3D)",
+     "who": "claude"
+    },
+    {
+     "text": "Depth audit: 5 of 23 real",
+     "who": "claude"
     }
    ],
    "now": [
@@ -6280,6 +6312,10 @@
     },
     {
      "text": "Guard v6 critics: Kalli, John",
+     "who": "agent"
+    },
+    {
+     "text": "Depth plan: probes on Fable x5",
      "who": "agent"
     }
    ],

@@ -136,6 +136,7 @@ func setup(stage: Node) -> void:
 		skel.skeleton_updated.connect(func():
 			d["Head"] = skel.get_bone_global_pose(int(ids[0])).origin
 			d["Chest"] = skel.get_bone_global_pose(int(ids[1])).origin)
+	preload("res://scripts/fight3d/v2/ArmBuild.gd").setup(st)   # ARMBUILD1: arms and shoulders as thick as his Strength
 	_layers(false)
 	for i in 2:
 		var z: float = R.REST_M * (0.5 if i == 1 else -0.5)

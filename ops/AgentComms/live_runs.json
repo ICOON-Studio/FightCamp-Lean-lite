@@ -69,23 +69,50 @@
    "agent": "ludo",
    "eta": "about 30 min"
   },
-  "DEPTHAUDIT1": {
-   "id": "DEPTHAUDIT1",
+  "TURNPROBE11": {
+   "id": "TURNPROBE11",
    "status": "running",
-   "started": "2026-11-21T15:20",
-   "title": "How strategically deep is the game? (your question)",
+   "started": "2026-11-21T15:35",
+   "title": "Probe turning pro v11 before critics",
    "seat": "claude",
    "agent": "claude-fable",
-   "eta": "about 30 min"
+   "eta": "about 40 min"
   },
-  "TURNPRO11": {
-   "id": "TURNPRO11",
+  "DEPTHPRICE1A": {
+   "id": "DEPTHPRICE1A",
    "status": "running",
-   "started": "2026-11-21T15:20",
-   "title": "Turning pro map v11 from the code",
+   "started": "2026-11-21T15:35",
+   "title": "Price the solved fight-night choices (probe)",
    "seat": "claude",
    "agent": "claude-fable",
-   "eta": "about 30 min"
+   "eta": "about 40 min"
+  },
+  "DEPTHPRICE1B": {
+   "id": "DEPTHPRICE1B",
+   "status": "running",
+   "started": "2026-11-21T15:35",
+   "title": "Price the solved club choices (probe)",
+   "seat": "claude",
+   "agent": "claude-fable",
+   "eta": "about 40 min"
+  },
+  "GUARDPROBE6": {
+   "id": "GUARDPROBE6",
+   "status": "running",
+   "started": "2026-11-21T15:35",
+   "title": "Probe guard v6: Hands before settle",
+   "seat": "claude",
+   "agent": "claude-fable",
+   "eta": "about 40 min"
+  },
+  "KNOWMISREAD1": {
+   "id": "KNOWMISREAD1",
+   "status": "running",
+   "started": "2026-11-21T15:35",
+   "title": "Be wrong about people: a shared misread (build)",
+   "seat": "claude",
+   "agent": "claude-fable",
+   "eta": "about 40 min"
   }
  },
  "codex_budget": {

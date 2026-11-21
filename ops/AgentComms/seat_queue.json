@@ -3975,7 +3975,8 @@
    "sent_ms": 1795263028824,
    "answered_at": "2026-11-21 14:40",
    "answer": "research/DESIGN_TURNPRO1_V10_CRITIC_JOHN_JOHN.md",
-   "chars": 11615
+   "chars": 11615,
+   "seen_by_claude": true
   },
   {
    "id": "SQ272",
@@ -3989,25 +3990,30 @@
    "sent_ms": 1795263032339,
    "answered_at": "2026-11-21 14:40",
    "answer": "research/DESIGN_TURNPRO1_V10_CRITIC_KALLI_KALLI.md",
-   "chars": 17256
+   "chars": 17256,
+   "seen_by_claude": true
   },
   {
    "id": "SQ273",
    "seat": "kalli",
    "brief": "research/DESIGN_GUARDDMG1_V6_CRITIC_KALLI.md",
    "stem": "DESIGN_GUARDDMG1_V6_CRITIC_KALLI_KALLI",
-   "status": "queued",
+   "status": "sent",
    "queued_at": "2026-11-21 13:56",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-21 15:10",
+   "sent_ms": 1795266622741
   },
   {
    "id": "SQ274",
    "seat": "john",
    "brief": "research/DESIGN_GUARDDMG1_V6_CRITIC_JOHN.md",
    "stem": "DESIGN_GUARDDMG1_V6_CRITIC_JOHN_JOHN",
-   "status": "queued",
+   "status": "sent",
    "queued_at": "2026-11-21 13:56",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-21 15:10",
+   "sent_ms": 1795266625336
   },
   {
    "id": "SQ275",
@@ -4026,6 +4032,16 @@
    "status": "queued",
    "queued_at": "2026-11-21 14:33",
    "tries": 0
+  },
+  {
+   "id": "SQ277",
+   "seat": "kalli",
+   "brief": "research/DESIGN_TURNPRO1_V11_CRITIC_KALLI.md",
+   "stem": "DESIGN_TURNPRO1_V11_CRITIC_KALLI_KALLI",
+   "status": "dropped",
+   "queued_at": "2026-11-21 15:21",
+   "tries": 0,
+   "note": "S534 DEPTH_AUDIT: probe the lever before critics score the map"
   }
  ]
 }

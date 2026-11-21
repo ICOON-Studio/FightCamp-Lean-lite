@@ -28,7 +28,7 @@ Score, each out of 10, with the reasons:
 1. DEPTH - real choices with trade-offs that change outcomes; no dominant pick; it interacts with the rest of the game.
 2. GENERAL DESIGN - clear, consistent with the game's rules and words, buildable from what the game has, nothing useless.
 3. PLAY - fun week to week: anticipation, a reason to come back, a reward the player feels.
-The bar (owner S459): the mechanic is DESIGNED when critics give it 7+ on DEPTH and 7+ on GENERAL DESIGN (owner S425).
+The bar (owner S534, raised from 7): the mechanic STAYS in the game only when critics give it 8+ on DEPTH and 8+ on PLAY (fun).
 
 Also answer: which options are missing, which are useless, and what each option changes (owner S403).
 End with **To reach 10/10**: the concrete changes that would take it to 10, most important first, each specific enough to

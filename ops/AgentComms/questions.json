@@ -8510,6 +8510,24 @@
       "answered_at": "2026-11-21T13:20:00Z",
       "seen_by_claude": false,
       "answered_via": "chat S534"
+    },
+    {
+      "id": "Q-S294-291",
+      "asked": "2026-11-21T13:21:55.582280+00:00",
+      "session": "S294",
+      "text": "Depth plan: make existing choices matter (5 changes), no new systems until then?",
+      "options": [
+        "Yes, that plan",
+        "Show me more"
+      ],
+      "attach": [
+        "research/DEPTH_AUDIT_S534.md"
+      ],
+      "answer": "Yes, that plan",
+      "note": null,
+      "answered_at": "2026-11-21T13:40:00Z",
+      "seen_by_claude": false,
+      "answered_via": "chat S534"
     }
   ]
 }
