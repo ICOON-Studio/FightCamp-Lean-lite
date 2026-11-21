@@ -154,7 +154,7 @@ BUILT today (what screens show):
   that fight. A southpaw partner removes a round-1 penalty for an orthodox boxer who never faced one.
 
 ### 4.4 Weight - BUILT
-- Each fighter has a class limit (women's 57/60/65/75 kg, men's 57.5/60/70/75 kg). Weigh-in is the day before. Diet Hold/Cut and training burn move weight;
+- Each fighter has a class limit (amateur, from Data.gd: women's 57/60/65/70/75 kg, men's 55/60/70/75 kg; the pro ladder groups them by ProLadder.division_for). Weigh-in is the day before. Diet Hold/Cut and training burn move weight;
   the bout page and Fight prep forecast "now / on the day". Missing weight calls the bout off and the club pays $300 for the empty slot. A boxer over his
   class can get a bout he can make (a later date). The Old hand head coach makes cuts easier (120 kcal a day more).
 

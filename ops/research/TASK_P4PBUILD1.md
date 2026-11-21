@@ -59,3 +59,13 @@ DESIGN_THREEP4P_V1/V2 + critics; the owner's P4P playtest notes (S531, memory pr
 A coach watches the tape with the beaten kid's dad in the room, and only then says "he'd do well here".
 ## Prefab check
 None (our own mechanics).
+
+## S533 ADDENDUM - a third critic (John, 5/6/6, pack only) found dominant picks: fix them while building
+Read `ops/research/DESIGN_THREEP4P_V2_CRITIC_JOHN_JOHN.md` before each stage. Build-time fixes (no owner question needed -
+they make the approved mechanics deeper, not different):
+- THE VISIT: no dominant pick. "Sign now" must not be always right when a place is free, and "Trial first" must not beat it
+  for free: give each a real price in the game's own numbers (stipend, a place, the visitor's interest cooling, a rival club).
+- THE CORNER'S EYE: say WHY a line failed (not ready / read by the opponent / wrong situation / tired legs) - each cause has a
+  different answer, and that answer is the choice.
+- THE COACH'S READ (stage 3): price Accept / Pass / Later in the game's terms (morale for a booked bout and a month without
+  one, the goal deadline, ducked/owed, rest days).

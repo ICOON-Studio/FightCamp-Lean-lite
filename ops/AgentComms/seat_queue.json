@@ -3669,13 +3669,16 @@
    "seat": "john",
    "brief": "research/RESEARCH_FITOUT_LOAN_JOHN.md",
    "stem": "RESEARCH_FITOUT_LOAN_JOHN_JOHN",
-   "status": "sent",
+   "status": "answered",
    "queued_at": "2026-11-20 14:21",
    "tries": 0,
    "skips": 29,
    "last_error": "2026-11-21 01:10 gbot send rc=1: ['GROKBOT FAIL listAgents 404  The request could not be routed']",
    "sent_at": "2026-11-21 01:40",
-   "sent_ms": 1795218034105
+   "sent_ms": 1795218034105,
+   "answered_at": "2026-11-21 02:10",
+   "answer": "research/RESEARCH_FITOUT_LOAN_JOHN_JOHN.md",
+   "chars": 21652
   },
   {
    "id": "SQ251",
@@ -3846,29 +3849,42 @@
    "seat": "dola",
    "brief": "research/DESIGN_DMGCLASS1_V2_CRITIC_DOLA.md",
    "stem": "DESIGN_DMGCLASS1_V2_CRITIC_DOLA_DOLA",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-21 01:13",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-21 02:10",
+   "pid": 20384,
+   "transcript": "AgentComms/seat_logs/SQ263_dola.txt",
+   "answered_at": "2026-11-21 02:40",
+   "answer": "research/DESIGN_DMGCLASS1_V2_CRITIC_DOLA_DOLA.md"
   },
   {
    "id": "SQ264",
    "seat": "kalli",
    "brief": "research/DESIGN_DMGCLASS1_V2_CRITIC_KALLI.md",
    "stem": "DESIGN_DMGCLASS1_V2_CRITIC_KALLI_KALLI",
-   "status": "sent",
+   "status": "answered",
    "queued_at": "2026-11-21 01:33",
    "tries": 0,
    "sent_at": "2026-11-21 01:40",
-   "sent_ms": 1795218036535
+   "sent_ms": 1795218036535,
+   "answered_at": "2026-11-21 02:10",
+   "answer": "research/DESIGN_DMGCLASS1_V2_CRITIC_KALLI_KALLI.md",
+   "chars": 60489
   },
   {
    "id": "SQ265",
    "seat": "john",
    "brief": "research/DESIGN_THREEP4P_V2_CRITIC_JOHN.md",
    "stem": "DESIGN_THREEP4P_V2_CRITIC_JOHN_JOHN",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-21 01:33",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-21 02:40",
+   "sent_ms": 1795221643028,
+   "answered_at": "2026-11-21 03:10",
+   "answer": "research/DESIGN_THREEP4P_V2_CRITIC_JOHN_JOHN.md",
+   "chars": 11662
   },
   {
    "id": "SQ266",
@@ -3889,9 +3905,14 @@
    "seat": "dola",
    "brief": "research/DESIGN_TURNPRO1_V9_CRITIC_DOLA.md",
    "stem": "DESIGN_TURNPRO1_V9_CRITIC_DOLA_DOLA",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-21 01:59",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-21 03:10",
+   "pid": 48752,
+   "transcript": "AgentComms/seat_logs/SQ267_dola.txt",
+   "answered_at": "2026-11-21 03:25",
+   "answer": "research/DESIGN_TURNPRO1_V9_CRITIC_DOLA_DOLA.md"
   }
  ]
 }
