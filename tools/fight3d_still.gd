@@ -24,6 +24,12 @@ func _initialize() -> void:
 	stage.setup({"glb": "res://assets/models/metahuman/mh_boxer_11.glb", "corner": "red"},
 		{"glb": "res://assets/models/metahuman/mh_boxer_10.glb", "corner": "blue"})
 	print("FIGHT3D gap_m=%.3f" % stage.gap_m)
+	if stage.v2 != null:
+		# FP2POSE1 (S536, owner C458): this tool freezes the SHIPPED player's clips behind v2's back and shoots 0.1 s into
+		# v2's join out of them - a pose the fight never shows. v2 stills: tools/fp2pose_still.gd (v2's own takes).
+		print("FIGHT3D_STILL refused: the v2 player is on - use res://tools/fp2pose_still.gd")
+		quit(2)
+		return
 	await _shot("f01_guard")
 	Stage.IdleMatch.freeze(stage.boxers[0], "jab", Stage.CONTACT_S)
 	await _shot("f02_red_jab_contact")

@@ -6258,6 +6258,10 @@
     {
      "text": "Card games study (John)",
      "who": "agent"
+    },
+    {
+     "text": "Card game prototype (Arena)",
+     "who": "agent"
     }
    ],
    "next": [

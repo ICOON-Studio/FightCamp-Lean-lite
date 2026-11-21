@@ -96,7 +96,7 @@ var contacts: Array = []      # every contact as played: {t, who, move, result, 
 static func _keep() -> Array:
 	var args := OS.get_cmdline_user_args()
 	var legs := ["FootLock", "FloorStand"] if args.has("fp2lock") else (["FootCarry", "FloorStand"] if args.has("fp2carry") else (["FootPlant", "FloorStand"] if args.has("fp2plant") else ["FootTake", "FloorStand"]))
-	return ["JoinSmoother", "MetaHumanTwist", "MetaHumanCorrectiveRBF", "TiredSag", "PunchAim", "GuardHold"] + legs
+	return ["JoinSmoother", "MetaHumanTwist", "MetaHumanCorrectiveRBF", "TiredSag", "PunchAim", "GuardHold", "Gaze"] + legs
 
 
 static var force := false   # a test switches v2 on without the command line (set FightClips.untouched with it)
@@ -125,6 +125,7 @@ func setup(stage: Node) -> void:
 				last = c
 		_aim[i] = PunchAim.attach(skel, st.boxers[i]["ap"], last)
 		GuardHold.add(skel, self, i, st.boxers[i].get("js"))   # S531: the hand that is not working stays at the face
+		preload("res://scripts/fight3d/v2/Gaze.gd").add(skel, self, i, st.boxers[i].get("js"))   # S536: the eyes stay on the other man (before GuardHold)
 		if KEEP.has("FootCarry") and st.boxers[i].get("feet") != null:
 			_feet[i] = FootCarry.add(skel, st.boxers[i]["ap"], st.boxers[i]["feet"])
 			if _feet[i] != null:

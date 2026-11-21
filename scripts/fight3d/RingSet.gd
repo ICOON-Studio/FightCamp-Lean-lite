@@ -11,6 +11,17 @@ var APRON_M := 0.6
 var ring_side: Array = []
 var ropes: Node3D = null    # RingRopes (S311)
 var flashes: Node3D = null  # CrowdFlashes (S447): camera flashes on the crowd's seats
+## S536 GLOVEFACE1 (owner C456 on the body stills: "this black fighters do not look good on dark background it is so dark i
+## cant tell the difference in the pictures"). Measured on the broadcast camera (tools/gloveface_probe.gd LUMA, the same
+## pixels with the boxers drawn and hidden): a dark-skinned boxer's upper body stood 17-23 luma points over the crowd
+## behind, a light one 42-44. The ring's own light lifts them, never the skin: a truss on each side of the ring throws a
+## cool light across it at head height - from the camera's side it fills the bodies' shaded fronts, from the far side it
+## rims their outlines - and it dies before the far seats (RIM_RANGE). `-- oldlights` = the control arm.
+const RIM_AT := Vector2(6.4, 4.3)   # out from the ring's middle, up
+const RIM_RANGE := 10.5
+const RIM_ENERGY := 2.4
+const RIM_COLOUR := Color(0.78, 0.87, 1.0)
+static var old_lights: bool = OS.get_cmdline_user_args().has("oldlights")
 
 
 func build(ring_m: float, apron_m: float) -> void:
@@ -102,6 +113,18 @@ func _build_lights() -> void:
 		spot.shadow_enabled = true
 		spot.light_size = 0.35
 		spot.shadow_blur = 1.5
+	if not old_lights:
+		for side in 4:
+			var rim := SpotLight3D.new()
+			rim.name = "Rim%d" % side
+			add_child(rim)
+			rim.look_at_from_position(Basis(Vector3.UP, side * PI * 0.5) * Vector3(0.0, RIM_AT.y, RIM_AT.x), Vector3(0, 1.25, 0), Vector3.UP)
+			rim.spot_range = RIM_RANGE
+			rim.spot_angle = 24.0
+			rim.spot_attenuation = 0.6
+			rim.light_energy = RIM_ENERGY
+			rim.light_color = RIM_COLOUR
+			rim.light_specular = 0.5
 	# The hall: a dim warm wash over the crowd.
 	for x in [-7.0, 7.0]:
 		for z in [-7.0, 7.0]:

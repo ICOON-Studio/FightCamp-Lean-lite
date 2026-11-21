@@ -10,6 +10,8 @@ extends SceneTree
 ##   APART    no head inside the other man's head or chest
 ##   COUNTS   the plan lands what the round landed
 ##   HANDS    while a man is hit his wrists stay near their guard distance to his head (the guard goes with the head)
+##   GAZE     on every cross take v2 plays, blue's face is within GAZE_DEG of red's head around the contact (FP2POSE1)
+##   FEET     ... and his feet never cross: the left foot stays FEET_M to the left of the right, across the fight's line
 ## A bar v2 does not hold YET prints as DEBT with its number and fails only past a guard (it may not get worse).
 ## Run: <godot> --headless --audio-driver Dummy --fixed-fps 60 --path . --script res://tests/player2_test.gd [-- seed=7 rounds=2 show]
 
@@ -21,11 +23,16 @@ const FightClips := preload("res://scripts/fight3d/FightClips.gd")
 const HZ := 60.0
 const ON_M := 0.12
 const HANDS_M := 0.12        # a hit man's wrist may be this much further from his head than in his guard
+## FP2POSE1 (owner C454: "where the fuck is he looking at"): a boxer's eyes stay on the target through a cross, the chin
+## behind the punching shoulder - the face a few degrees off the other man, not riding the shoulders (the raw take: 76).
+const GAZE_DEG := 25.0
+const FEET_M := 0.10
 const BONES := ["Hips", "Head", "Chest", "LeftToes", "RightToes", "LeftHand", "RightHand", "LeftLowerLeg", "RightLowerLeg", "LeftFoot", "RightFoot"]
 
 var failures := 0
 var st: Node3D
 var shown: Array = [{}, {}]
+var heads: Array = [Basis.IDENTITY, Basis.IDENTITY]   # each head as drawn (skeleton space)
 
 
 func _check(ok: bool, what: String) -> void:
@@ -51,6 +58,58 @@ func _target(i: int, body: bool) -> Vector3:
 	if body:
 		return _w(i, "Chest") + (fwd * 0.11 + Vector3.DOWN * 0.14) * s
 	return _w(i, "Head") + (fwd * 0.09 + Vector3.UP * 0.02) * s
+
+
+## GAZE and FEET: blue throws every cross take v2 plays, alone, from his guard (no plan: the take as the player shows it).
+func _pose(p2: Node) -> void:
+	var rows: Dictionary = p2.db.get("rows", {})
+	var ap: AnimationPlayer = st.boxers[1]["ap"]
+	var sk: Skeleton3D = st.boxers[1]["skel"]
+	var node: Node3D = st.boxers[1]["node"]
+	var sb := sk.global_transform.basis.orthonormalized()
+	var rest_inv := sk.get_bone_global_rest(sk.find_bone("Head")).basis.orthonormalized().inverse()
+	var rl: Vector3 = sb * (sk.get_bone_global_rest(sk.find_bone("LeftFoot")).origin - sk.get_bone_global_rest(sk.find_bone("RightFoot")).origin)
+	var sgn := 1.0 if rl.dot(node.global_transform.basis.x) >= 0.0 else -1.0
+	var worst := 0.0
+	var worst_take := ""
+	var feet := 9.0
+	var feet_take := ""
+	var n := 0
+	for name in rows:
+		var r: Dictionary = rows[name]
+		if str(r.get("family", "")) != "cross" or not bool(r.get("played", false)) or not (r.get("drop", []) as Array).is_empty() or not ap.has_animation(str(name)):
+			continue
+		n += 1
+		p2.guard(1)
+		for f in 40:
+			await process_frame
+		p2._play(1, str(name), 0.0, "punch", true)
+		var cs := float(r.get("contact_s", 0.3))
+		for f in int((cs + 0.2) * HZ):
+			await process_frame
+			if str(ap.current_animation) != str(name):
+				break
+			var tt := ap.current_animation_position
+			var axis: Vector3 = (st.boxers[0]["node"] as Node3D).global_position - node.global_position
+			axis = Vector3(axis.x, 0.0, axis.z).normalized()
+			var across := sgn * Vector3.UP.cross(axis).dot(_w(1, "LeftFoot") - _w(1, "RightFoot"))
+			if across < feet:
+				feet = across
+				feet_take = str(name)
+			if tt < cs - 0.10 or tt > cs + 0.05:
+				continue
+			sb = sk.global_transform.basis.orthonormalized()
+			var face: Vector3 = sb * ((heads[1] as Basis) * rest_inv * (sb.inverse() * node.global_transform.basis.orthonormalized().z))
+			var to := _w(0, "Head") - _w(1, "Head")
+			var off := absf(rad_to_deg(Vector3(to.x, 0.0, to.z).signed_angle_to(Vector3(face.x, 0.0, face.z), Vector3.UP)))
+			if off > worst:
+				worst = off
+				worst_take = str(name)
+	p2.guard(1)
+	for f in 40:
+		await process_frame
+	_check(n > 0 and worst <= GAZE_DEG, "GAZE on a cross blue's face stays within %.0f deg of red's head around the contact (worst %.0f deg, %s; %d takes)" % [GAZE_DEG, worst, worst_take, n])
+	_check(n > 0 and feet >= FEET_M, "FEET on a cross blue's feet never cross: the left stays %.0f cm to the left of the right (least %.0f cm, %s)" % [FEET_M * 100.0, feet * 100.0, feet_take])
 
 
 func _initialize() -> void:
@@ -80,6 +139,7 @@ func _initialize() -> void:
 		var ids: Array = BONES.map(func(b): return sk.find_bone(str(b)))
 		var d: Dictionary = shown[i]
 		sk.skeleton_updated.connect(func():
+			heads[i] = sk.get_bone_global_pose(sk.find_bone("Head")).basis.orthonormalized()
 			for k in BONES.size():
 				d[BONES[k]] = sk.get_bone_global_pose(int(ids[k])).origin)
 		var names: Array = []
@@ -90,6 +150,7 @@ func _initialize() -> void:
 	for i in 30:
 		await process_frame
 	var p2: Node = st.v2
+	await _pose(p2)
 	var miss: Array = []        # landed: glove front to target (m)
 	var short_on := 0           # missed punches whose glove is on him
 	var short_n := 0

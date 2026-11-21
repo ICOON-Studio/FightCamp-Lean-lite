@@ -4124,6 +4124,15 @@
    "status": "queued",
    "queued_at": "2026-11-21 22:45",
    "tries": 0
+  },
+  {
+   "id": "SQ283",
+   "seat": "john",
+   "brief": "research/DESIGN_TURNPRO1_V13_CRITIC_JOHN.md",
+   "stem": "DESIGN_TURNPRO1_V13_CRITIC_JOHN_JOHN",
+   "status": "queued",
+   "queued_at": "2026-11-21 23:05",
+   "tries": 0
   }
  ]
 }

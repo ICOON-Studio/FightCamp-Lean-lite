@@ -245,5 +245,25 @@
   "seat": "claude",
   "agent": "claude-fable",
   "eta": "about 1.5 h"
+ },
+ "CARDPROTO1": {
+  "id": "CARDPROTO1",
+  "status": "running",
+  "started": "2026-11-21T22:55",
+  "title": "Your ask: a card-game version of FightCamp, boxing first - playable browser prototype (Arena)",
+  "seat": "arena",
+  "agent": "arena",
+  "branch": "arena/05f6e5d3-fightcamp-lean-lite",
+  "chat": "https://arena.ai/agent/01a1ffdc-b9fd-7f68-9911-3e9705f6e5d3",
+  "eta": "about 1-2 h, then Claude plays it before merge"
+ },
+ "SQ282": {
+  "id": "SQ282",
+  "status": "queued",
+  "started": "2026-11-21T22:55",
+  "title": "Dola: card set ideas for the card game",
+  "seat": "dola",
+  "agent": "dola",
+  "eta": "next 30-min send"
  }
 }
