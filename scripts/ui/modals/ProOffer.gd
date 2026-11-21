@@ -14,6 +14,8 @@ const ProDebut := preload("res://scripts/rules/ProDebut.gd")
 const ProCall := preload("res://scripts/rules/ProCall.gd")
 const ProOfferWire := preload("res://scripts/state/ProOfferWire.gd")
 const DebutRead := preload("res://scripts/rules/DebutRead.gd")
+const DebutPick := preload("res://scripts/rules/DebutPick.gd")
+const Tip := preload("res://scripts/ui/Tip.gd")
 const GymBills := preload("res://scripts/rules/GymBills.gd")
 const Needs := preload("res://scripts/state/Needs.gd")
 const Champs := preload("res://scripts/state/Champs.gd")
@@ -28,7 +30,7 @@ func build(main: Node, m: Dictionary) -> void:
 	var offers: Array = o.get("offers", [])
 	custom_minimum_size = Vector2(1240 if offers.size() > 1 else 960, 0)
 	var sheet := Roster.debut_sheet(c, f, float(o["terms"]))
-	var v := UI.vbox(8)
+	var v := UI.vbox(6)
 	add_child(v)
 	v.add_child(UI.caps("A CALL FROM %s" % (" AND ".join(offers.map(func(t): return str(t["name"]).to_upper())) if not offers.is_empty() else str(o["promoter"]).to_upper())))
 	v.add_child(UI.display("TURN %s PRO?" % str(f["first"]).to_upper(), 40 if not offers.is_empty() else 48))
@@ -107,6 +109,7 @@ func _house(main: Node, c: Career, f: Dictionary, t: Dictionary, costs: int, run
 	card[0].name = "House_" + key
 	card[0].size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	var b: VBoxContainer = card[1]
+	b.add_theme_constant_override("separation", 5)   # DEBUTPICK1: two houses and the foot fit a 1080 screen (the still ran 63 px under it)
 	var head := UI.hbox(12)   # S523: the house's badge (Ludo, assets/ui/art/promoters) beside its name
 	var logo_path := "res://assets/ui/art/promoters/%s.png" % key
 	if ResourceLoader.exists(logo_path):
@@ -123,12 +126,20 @@ func _house(main: Node, c: Career, f: Dictionary, t: Dictionary, costs: int, run
 	b.add_child(head)
 	var be := int(t["break_even"])
 	var read := DebutRead.card(f, t, c.day, float(c.coach.get("rating", 0.0)))
+	# DEBUTPICK1 (owner Q-286): the promoter picked the debutant for this boxer - the Debut row says why, its hover says how
+	var picked := DebutPick.line(t)
+	var debut_row := UI.kv("Debut", "%d weeks out, %s" % [int(t["debut_weeks"]), DebutRead.words(t)]) if picked == "" else UI.kv("Debut, %d weeks out" % int(t["debut_weeks"]), picked)
+	var rated := "" if picked == "" else " (%s)" % DebutRead.words(t).trim_prefix("a debutant ")
+	if picked != "":
+		debut_row.name = "Picked_" + key
+		debut_row.mouse_filter = Control.MOUSE_FILTER_STOP
+		Tip.explain(debut_row, DebutPick.tip(t))
 	var purse_v := UI.money(int(t["purse"])) + (" guaranteed" if bool(t["guaranteed"]) else ", $%d less a ticket under %d (floor %s)" % [ProCall.SHORT_TICKET, be, UI.money(ProCall.PURSE_FLOOR)])
 	UI.add_rows(b, [
 		UI.kv("Debut purse", purse_v),
 		UI.kv("Ticket share past %d sold" % be, "%d%% (%d sold today)" % [int(round(float(t["share"]) * 100)), int(ProOfferWire.money(c, f, t, costs, Roster.signing_share(f))["sold"])]),
-		UI.kv("Debut", "%d weeks out, %s" % [int(t["debut_weeks"]), DebutRead.words(t)]),
-		UI.kv("Win chance", "about %d%%, a draw %d%%" % [roundi(float(read["win"]) * 100.0), roundi(float(read["draw"]) * 100.0)], UI.GREEN if float(read["win"]) >= 0.5 else UI.FG),   # TURNPRO6: the debut as the bout will be fought (DebutRead)
+		debut_row,
+		UI.kv("Win chance", "about %d%%, a draw %d%%%s" % [roundi(float(read["win"]) * 100.0), roundi(float(read["draw"]) * 100.0), rated], UI.GREEN if float(read["win"]) >= 0.5 else UI.FG),   # TURNPRO6: the debut as the bout will be fought (DebutRead)
 		UI.kv("After the debut", "+%s a win, up to %s" % [UI.money(int(t["step"])), UI.money(int(t["top"]))]),
 	])
 	if float(t.get("factor", 1.0)) < 1.0:

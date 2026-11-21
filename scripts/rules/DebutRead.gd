@@ -15,7 +15,7 @@ const ROUNDS := 4   ## mirrors Roster.PRO_ROUNDS
 
 ## f = the boxer today; t = one house's terms (ProCall.terms: opp_gap, name); day = the signing day; coach = his rating.
 static func card(f: Dictionary, t: Dictionary, day: int, coach: float) -> Dictionary:
-	var opp := DebutOpp.make(f, float(t.get("opp_gap", 0.0)), day, str(t.get("name", "")))
+	var opp := DebutOpp.make(f, float(t.get("opp_gap", 0.0)), int(t.get("opp_day", day)), str(t.get("name", "")))   # DEBUTPICK1: a picked offer names its debutant on the offer's day
 	var fx := f.duplicate()
 	fx["pro"] = true
 	fx["bout"] = {"tank_ahead": 0.0, "pro": true, "rounds": ROUNDS}

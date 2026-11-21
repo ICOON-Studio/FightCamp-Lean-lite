@@ -12,7 +12,10 @@ extends SceneTree
 ## PlanTest's scratch career, bout k on day DICE_DAY + k * 7 (BoutNight.play_out, nothing booked) - the game's own way
 ## to roll a bout again. The scratch bout on the real day's dice is checked against the real booked bout (same_dice).
 ## Beside each share: the chance the offer shows at signing (DebutRead.card) and the amateur read (BoutRead.chance).
-## Args (after --): nights=250 boxers=12 first=0 gaps=-2,0,2 out=<jsonl path>. Prints JSON lines; docs/TURNPRO6_RESULT.md is written from them.
+## DEBUTPICK1 (S533) pick=1: two arms a house on the same fight-night boxer and the same nights - "fixed" = the house's
+## old one gap for everybody (ProCall.promoters: the control arm, it reads the old spread) and "picked" = the gap
+## DebutPick finds for THIS boxer at the offer (what ProOfferWire.make now books). docs/DEBUTPICK1_RESULT.md.
+## Args (after --): pick=1 nights=250 boxers=12 first=0 gaps=-2,0,2 out=<jsonl path>. Prints JSON lines; docs/TURNPRO6_RESULT.md is written from them.
 
 const Bouts := preload("res://scripts/state/Bouts.gd")
 const BoutNight := preload("res://scripts/state/BoutNight.gd")
@@ -21,6 +24,7 @@ const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const DebutOpp := preload("res://scripts/rules/DebutOpp.gd")
 const DebutRead := preload("res://scripts/rules/DebutRead.gd")
+const DebutPick := preload("res://scripts/rules/DebutPick.gd")
 const FirstWeek := preload("res://scripts/rules/FirstWeek.gd")
 const OppFile := preload("res://scripts/rules/OppFile.gd")
 const ProCall := preload("res://scripts/rules/ProCall.gd")
@@ -34,6 +38,7 @@ const DICE_DAY := 50000   ## PlanTest.DICE_DAY: far from any real fight night's 
 const MAX_WEEKS := 156
 var out_lines: Array = []
 var seen := {}
+var pick_mode := false
 var t0 := 0
 
 
@@ -57,10 +62,11 @@ func _initialize() -> void:
 	var nights := int(_arg("nights", "250"))
 	var n_boxers := int(_arg("boxers", "12"))
 	var first := int(_arg("first", "0"))
+	pick_mode = _arg("pick", "0") == "1"
 	if _arg("gaps", "") != "":
 		GAPS = Array(_arg("gaps", "").split(",")).map(func(s): return float(s))
 	var people: Array = [Data.lucy()] + Data.PROSPECTS
-	_say("run", {"nights": nights, "gaps": GAPS, "houses": HOUSES, "dice": "day %d + k * 7, k < nights" % DICE_DAY,
+	_say("run", {"nights": nights, "gaps": GAPS, "pick": pick_mode, "houses": HOUSES, "dice": "day %d + k * 7, k < nights" % DICE_DAY,
 		"people": people.map(func(p): return "%s (%s, %s, %s)" % [p["name"], p["style"], p["stance"], p["div"]]), "picks": PICK_SETS})
 	for bi in range(first, mini(first + n_boxers, people.size() * PICK_SETS.size())):
 		var who: Dictionary = people[bi % people.size()]
@@ -95,9 +101,15 @@ func _house(bi: int, snap: Dictionary, house: String, nights: int) -> void:
 	var sf: Dictionary = sc.fighter_by_id(str(snap["fighter_id"]))
 	var coach := float(sc.coach.get("rating", 0.0))
 	var terms: Dictionary = ProCall.terms(house, 0, false)
+	# DEBUTPICK1: the two arms - the house's fixed gap (control) and the gap picked for this boxer on the offer day
+	var gaps: Array = GAPS
+	var picked := {}
+	if pick_mode:
+		picked = DebutPick.pick(sf, terms, sc.day, coach)
+		gaps = [float(terms["opp_gap"]), float(picked["gap"])]
 	# what the offer shows at signing, gap by gap
 	var signing := {}
-	for g in GAPS:
+	for g in gaps:
 		var t2: Dictionary = terms.merged({"opp_gap": g}, true)
 		var card := DebutRead.card(sf, t2, sc.day, coach)
 		var fx0: Dictionary = sf.duplicate()
@@ -105,7 +117,7 @@ func _house(bi: int, snap: Dictionary, house: String, nights: int) -> void:
 		fx0["bout"] = {"tank_ahead": 0.0, "pro": true, "rounds": DebutRead.ROUNDS}
 		var raw0 := BoutRead.CardOdds.card(BoutRead.round_edges(fx0, card["opp"], {"protocol": BoutRead.USUAL_CAMP}, coach), BoutRead.RingDuel.FORM_SD)
 		signing[g] = [float(card["win"]), float(card["draw"]), float(raw0["win"]), float(raw0["draw"])]
-	var fd := _to_fight_day(snap, house, float(terms["opp_gap"]))
+	var fd := _to_fight_day(snap, house, float(gaps[1]) if pick_mode else float(terms["opp_gap"]))
 	if fd.is_empty():
 		_say("house", {"b": bi, "house": house, "none": true})
 		return
@@ -120,11 +132,12 @@ func _house(bi: int, snap: Dictionary, house: String, nights: int) -> void:
 	var c2: Career = c.duplicate(true)
 	var f2: Dictionary = c2.fighter_by_id(str(f["id"]))
 	Bouts.fight_step(c2, f2, Bouts.fight_modal(f2), "sim")
-	_say("house", {"b": bi, "house": house, "weeks": int(terms["debut_weeks"]), "deal_gap": float(terms["opp_gap"]), "fight_day": c.day,
+	_say("house", {"b": bi, "house": house, "weeks": int(terms["debut_weeks"]), "deal_gap": float(gaps[1]) if pick_mode else float(terms["opp_gap"]), "pick": picked, "fight_day": c.day,
 		"night_signing": float(fd["night0"]), "six_signing": float(fd["night0"]) - BoutRules.NO_CAMP_EDGE, "six_fight": six,
 		"camp": int((f.get("camp", {}) as Dictionary).get("protocol", -1)), "tank_off": float(tp["off"]), "opp": str(f["bout"]["opp"]["name"]),
 		"same_dice": [scratch.get_slice(":", 0), str((c2.results[0] as Dictionary).get("outcome", "?"))]})
-	for g in GAPS:
+	for gi in gaps.size():
+		var g: float = gaps[gi]
 		var opp2: Dictionary = (f["bout"]["opp"] as Dictionary).duplicate(true)
 		opp2["rating"] = snappedf(float(fd["night0"]) - float(g), 0.1)
 		var res := _nights(c, f, nights, opp2, float(tp["off"]))
@@ -135,6 +148,9 @@ func _house(bi: int, snap: Dictionary, house: String, nights: int) -> void:
 		var fit := BoutRead.CardOdds.result(edges, BoutRead.RingDuel.FORM_SD)
 		var f3: Dictionary = fx.duplicate(true)
 		f3["bout"].erase("rounds")   # the amateur card's read of the same night (2 rounds of 3), for the comparison
+		if pick_mode:
+			res["arm"] = "fixed" if gi == 0 else "picked"
+			res["target"] = float(picked["target"])
 		res.merge({"b": bi, "house": house, "g": g, "opp_rating": float(opp2["rating"]), "offer_win": signing[g][0], "offer_draw": signing[g][1],
 			"offer_raw_win": signing[g][2], "offer_raw_draw": signing[g][3], "night_win": float(fit["win"]), "night_draw": float(fit["draw"]),
 			"night_raw_win": float(raw["win"]), "night_raw_draw": float(raw["draw"]), "edges": edges,

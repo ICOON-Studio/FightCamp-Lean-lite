@@ -11,6 +11,7 @@ extends RefCounted
 const ProCall := preload("res://scripts/rules/ProCall.gd")
 const ProDebut := preload("res://scripts/rules/ProDebut.gd")
 const Recruit := preload("res://scripts/rules/Recruit.gd")
+const DebutPick := preload("res://scripts/rules/DebutPick.gd")   # DEBUTPICK1: the opponent picked to fit the boxer
 
 const RETURN_WINS := 2   ## mirrors Roster.PRO_RETURN_WINS
 
@@ -33,7 +34,8 @@ static func make(c: Career, f: Dictionary, titles: int) -> Dictionary:
 	var title_since := titles > int(f.get("pro_titles_at_decline", 0))
 	var offers: Array = []
 	for k in keys:
-		offers.append(ProCall.terms(str(k), declines, title_since))
+		# DEBUTPICK1 (owner Q-286 "Pick to each boxer"): each house picks its debutant to its own target chance for THIS boxer
+		offers.append(DebutPick.apply(f, ProCall.terms(str(k), declines, title_since), c.day, float(c.coach.get("rating", 0.0))))
 	var o := {"fid": f["id"], "offers": offers, "forecast": fc, "expires": ProCall.expires(c.day), "asked": {}, "plain": {}}
 	sync(o, str(offers[0]["key"]))
 	return o

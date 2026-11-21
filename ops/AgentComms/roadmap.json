@@ -5596,6 +5596,12 @@
     "after": ""
    },
    {
+    "id": "DEBUTPICK1",
+    "who": "claude",
+    "title": "Debut opponent picked to each boxer DONE S533 (docs/DEBUTPICK1_RESULT.md, owner Q-286): each promoter aims at a win chance (Bow Lane 60 in 100, Harrow and Finch 75, misjudged by up to 4) and finds the debutant for THIS boxer; 11 boxers x 300 played debuts: the spread fell from 41 to 17 points (Bow Lane) and 31 to 13 (Harrow and Finch); the offer says why the opponent was picked and now fits the screen. Open: the safer house plays 3.5 over its aim (the offer reads a growing boxer low); debut_read_test's Lucy bound drifted with the fight edits",
+    "after": ""
+   },
+   {
     "id": "GYMMONEY1",
     "who": "claude",
     "title": "Careful gym grows (owner Q-277, Q-278 \"Yes, build the loan\"): fit-out loan BUILT S531 - Move / Move on a loan ($3,000 down, $750 a month x 12, paid with the bills), members tile says what holds members back; tests/fitout_loan_test.gd green. Next: the 60-career probe on the game's own loan, then the .exe.",

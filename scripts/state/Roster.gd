@@ -302,7 +302,7 @@ static func turn_pro(c: Career, house := "") -> Dictionary:
 	for x in f["offers"]:
 		x["answered"] = true
 	# TURNPRO6 (S533): the opponent comes from DebutOpp, the one rule the offer's shown chance (DebutRead) also reads.
-	var opp := DebutOpp.make(f, float(deal.get("opp_gap", PRO_OPP_GAP)), c.day, str(o["promoter"]))
+	var opp := DebutOpp.make(f, float(deal.get("opp_gap", PRO_OPP_GAP)), int(deal.get("opp_day", c.day)), str(o["promoter"]))   # DEBUTPICK1: the debutant picked on the offer's day
 	var opp_name: String = opp["name"]
 	f["bout"] = {"opp": opp, "day": debut_day(c.day, int(deal.get("debut_weeks", PRO_DEBUT_WEEKS))), "weighed": false, "made": false, "done": false,
 		"film": BoutRules.FILM_DEPTH_DEFAULT, "pro": true, "rounds": PRO_ROUNDS, "purse": int(o["purse"]),
