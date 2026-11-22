@@ -13,6 +13,7 @@ extends RefCounted
 const StrikeMap := preload("res://scripts/rules/StrikeMap.gd")
 const PlanBoard := preload("res://scripts/rules/PlanBoard.gd")
 const Combos := preload("res://scripts/rules/Combos.gd")
+const StepMoment := preload("res://scripts/rules/StepMoment.gd")   # S537 STEPPAY3: deals the five steps' moments (LiveRound reads it here)
 
 ## Power points a move is worth in its exchange. Under a best shout's 15 (Exchanges.EDGE): the plan is her habit, the
 ## corner's shout the moment. A wrong move costs in full, drilled or not (she does the wrong thing well).
@@ -38,6 +39,13 @@ const LOST_CARD := {"press": "own_ropes", "loadup": "own_ropes"}
 ## Ali); counter: body combinations work on a waiter (1-2-3b ok, Lopez), and a flurry steals her round in its last
 ## exchange (counter_late: Taylor-Ochigava); hurt_danger - she is hurt but still hits back (a "when she is hurt" habit):
 ## straight punches and cut the ring before herding, wide combinations wrong (Joshua-Ruiz I).
+## S537 STEPPAY3 the five steps' MOMENTS (rules/StepMoment.gd deals them inside her game, at a real rate; the WHEN arrows and
+## the corner calls keep the plain situation): short - her jab falls short: step in behind it (feinting or stepping out
+## wastes the opening); landed - your boxer just landed on a hitter and stands at the end of her punches: step out before the
+## return (a long combination stays for it); flurry - hooks on your ropes: roll under and out, or tie her up (rolling out
+## also leaves the ropes; trading hooks is wrong); smother - a presser
+## chest to chest: push off and make room; drift - she slides off the ropes to the open side: herd her back.
+## Rolling out or pushing off a tiring opponent gives her the rest she wants (wrong), like every step away from her.
 const ANSWERS := {
 	"press": {"best": ["step_back", "pivot_out", "slip 2-3", "roll_out", "1-1"], "ok": ["3b-3", "1-2-3b", "tie_up", "push_off"],
 		"wrong": ["step_in", "1-2-3-2", "cut_off", "herd"]},
@@ -50,15 +58,20 @@ const ANSWERS := {
 	"loadup": {"best": ["slip 2-3", "roll_out", "step_back", "1-1", "tie_up"], "ok": ["1-2", "pivot_out", "step_in"],
 		"wrong": ["3b-3", "1-6-3", "1-2-3b"]},
 	"tiring": {"best": ["1-2-3-2", "1-2-3", "3b-3", "cut_off", "herd"], "ok": ["1-2", "1-2-3b", "1-1-2", "step_in"],
-		"wrong": ["step_out", "feint", "tie_up", "step_back"]},
+		"wrong": ["step_out", "feint", "tie_up", "step_back", "roll_out", "push_off"]},
 	"hurt": {"best": ["herd", "1-6-3", "3b-3", "1-2-3-2", "cut_off"], "ok": ["1-2", "1-2-3", "2-3"],
-		"wrong": ["step_out", "feint", "tie_up", "step_back"]},
+		"wrong": ["step_out", "feint", "tie_up", "step_back", "roll_out"]},
 	"hurt_danger": {"best": ["1-2", "cut_off", "1-1-2"], "ok": ["herd", "1-6-3", "3b-3", "1-2-3"],
-		"wrong": ["1-2-3-2", "2-3", "step_out", "feint", "tie_up", "step_back"]},
+		"wrong": ["1-2-3-2", "2-3", "step_out", "feint", "tie_up", "step_back", "roll_out"]},
 	"she_tired": {"best": ["tie_up", "step_back", "step_out", "1-1"], "ok": ["roll_out", "pivot_out", "push_off"],
 		"wrong": ["1-2-3-2", "1-6-3", "herd", "cut_off"]},
 	"she_hurt": {"best": ["tie_up", "pivot_out", "roll_out", "step_out"], "ok": ["step_back", "1-1", "push_off"],
 		"wrong": ["1-2-3-2", "1-6-3", "3b-3", "herd", "step_in", "slip 2-3"]},
+	"short": {"best": ["step_in", "1-1-2"], "ok": ["1-2", "2-3", "1-1"], "wrong": ["feint", "step_out"]},
+	"landed": {"best": ["step_out"], "ok": ["1-1", "1-2"], "wrong": ["1-2-3-2", "1-2-3"]},
+	"flurry": {"best": ["roll_out", "tie_up"], "ok": ["push_off", "slip 2-3"], "wrong": ["3b-3"]},
+	"smother": {"best": ["push_off"], "ok": ["tie_up", "3b-3", "1-6-3"], "wrong": []},
+	"drift": {"best": ["herd"], "ok": ["1-2"], "wrong": []},
 }
 ## Her habits that mean a hurt opponent still fights back (OppFile.HABIT_WORDS / RoundStyle.opponent_habits).
 const HITS_BACK_HURT := ["loads_up_when_hurt", "digs_body_when_hurt"]

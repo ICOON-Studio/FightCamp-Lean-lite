@@ -13,6 +13,7 @@ func _initialize() -> void:
 	_test_drain()
 	_test_liver_fold_chance()
 	_test_ribs_penalty()
+	_test_ice()
 	_test_crack_chance()
 	_test_corner_retires()
 	_test_injury_split()
@@ -278,3 +279,16 @@ func _test_side_tally() -> void:
 	_check(int(cn["liver"]) == 6 and int(cn["ribs"]) == 6, "side tally counts: 10 free + 2 ribs -> liver 6, ribs 6 (got %s)" % str(cn))
 	# CONTROL: a swapped drain (liver cheap) must read differently.
 	_check(not _near(LR.drain_units(liv), LR.drain_units(rib), 1e-3), "CONTROL: liver and ribs drain differ")
+
+
+## S535 DEPTHPRICE1A defect 1: ice takes shots off the tally the drain reads - ribs first, then free, then liver; never below 0.
+## Control: the same tally without ice keeps its drain.
+func _test_ice() -> void:
+	var sides := {"free": 2, "liver": 3, "ribs": 1}
+	var before := LR.drain_units(sides.duplicate())
+	LR.ice(sides, 2)
+	_check(int(sides["ribs"]) == 0 and int(sides["free"]) == 1 and int(sides["liver"]) == 3, "ice: ribs first, then free (%s)" % str(sides))
+	_check(LR.drain_units(sides) < before, "ice: the drain falls (%.2f -> %.2f)" % [before, LR.drain_units(sides)])
+	var few := {"ribs": 1}
+	LR.ice(few, 5)
+	_check(int(few["ribs"]) == 0, "ice: never below zero (%s)" % str(few))

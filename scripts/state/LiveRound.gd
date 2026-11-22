@@ -235,13 +235,14 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	# teleports her - she is tired or hurt where she stands; losing the exchange moves her (PlanFight.where_next).
 	if str(lv.get("at", "")) == "":
 		lv["at"] = str(PlanFight.GAME_CARD.get(sit, "long"))
+	var mo := PlanFight.StepMoment.deal_on(lv, sit, i > 0 and bool((exs[i - 1] as Dictionary)["won"]), _rng(c, f, n, i + 263).randf())   # S537 STEPPAY3: a step's moment, fought on its card (lv["at"])
 	var at := str(lv["at"])
 	var plan_now: Array = PlanFile.arrows_for(f["bout"].get("arrows", []), f["bout"].get("late", f.get("late", {})), n, int(f["bout"].get("rounds", BoutRules.ROUNDS)), m.get("rounds", []))   # S460 PlanPhase
 	var pick := PlanFight.choose(plan_now, at, f.get("moves", {}), sit)
 	var arrow := str(pick["move"])
 	if bool(pick.get("planned", false)) and not FireLevel.fires(FireLevel.shares_for(f["bout"]), FireLevel.round_mastery(f["bout"], arrow, n, FireLevel.mastery_of(f, arrow)), _rng(c, f, n, i + 173).randf()): pick["planned"] = false
 	# S342 real plans (Q-S294-67): a hurt opponent who still hits back, a waiter in the round's last exchange.
-	var psit := PlanFight.refine(sit, RoundStyle.opponent_habits(opp), i, Exchanges.EXCHANGES)
+	var psit := str(mo.get("id", PlanFight.refine(sit, RoundStyle.opponent_habits(opp), i, Exchanges.EXCHANGES)))   # the answer table's row: the moment when one is dealt
 	var rode := StepWire.ride(lv, pick, plan_now, f, psit, sit, at, _rng(c, f, n, i + 251).randf())   # S533 STEPPAY2 phase 3: a step in its best situation costs no exchange - it is fought on the card the step leads to
 	if not rode.is_empty(): at = str(rode["at"]); pick = rode["pick"]
 	var card_mean := PlanFight.card_mean(at, psit, f.get("moves", {}), f.get("combos", {}))
@@ -374,7 +375,7 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	rec["want"] = str(pick.get("want", ""))   # S533 the corner's eye: the plan's line here, and what became of it (read only)
 	rec["line"] = PlanRecord.line_state(str(rec["want"]), bool(pick["planned"]), held, bool(s["won"])); rec["line_why"] = PlanRecord.line_why(str(rec["line"]), float(rb["cov"]) < 1.0, fit_now, her_energy(lv, i) < PlanRecord.TIRED_AT)
 	rec["arrow_fit"] = PlanFight.fit(arrow, psit)
-	rec["psit"] = psit
+	rec["psit"] = psit if mo.is_empty() else PlanFight.refine(sit, RoundStyle.opponent_habits(opp), i, Exchanges.EXCHANGES); rec["moment"] = str(mo.get("id", ""))   # the screens' situation words stay her game
 	rec["plan_edge"] = plan_edge
 	rec["read_edge"] = read_edge
 	rec["plan_swing"] = swing

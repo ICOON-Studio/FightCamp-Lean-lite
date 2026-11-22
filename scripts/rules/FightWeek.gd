@@ -51,7 +51,8 @@ const TRAIN_THROUGH_TIRED_AFTER := 6
 ## Rest up's round 1, as [start tiredness under, edge] bands read in order; past the last band the boxer is Sharp and
 ## gets no boost (ESTIMATE).
 const REST_UP_EDGE := [[40, -2.0], [65, -1.0]]
-## Round 1 reads: FLAT costs edge; Tick over's ONE chosen plan line fires one level up in rounds 1 and 2 (4.3).
+## Round 1 reads: FLAT costs edge. Tick over's "boost" flag (one plan line a level up, rounds 1-2) is NOT wired into the bout
+## (S535 DEPTHPRICE1A): no screen promises it; DEPTH1 decides whether Tick over gets a real reward of its own.
 const STATE_FLAT := "flat"
 const STATE_SHARP := "sharp"
 const FIRST_ROUND := 1
@@ -120,7 +121,7 @@ static func tank(start_tired: int, stop: String, spar_nights: Array, eat_less: b
 
 ## Round 1 at the bell (4.3): {"state": "sharp" or "flat", "edge": float, "boost": bool}.
 ## Rest up: start tiredness under 40 reads FLAT at -2.0 edge, 40 to 64 FLAT at -1.0, and 65+ Sharp with no boost.
-## Tick over: Sharp, and ONE chosen plan line fires one level up in rounds 1 and 2. Train through: Sharp, no boost.
+## Tick over: Sharp, boost true (not wired: see above). Train through: Sharp, no boost.
 static func round_one(start_tired: int, stop: String) -> Dictionary:
 	var s := stop_of(stop)
 	if s == "rest_up":

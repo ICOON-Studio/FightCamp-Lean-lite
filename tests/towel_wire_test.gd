@@ -17,6 +17,7 @@ const TV := preload("res://scripts/ui/TV.gd")
 const CornerOverlay := preload("res://scripts/fight3d/CornerOverlay.gd")
 const FightPrep := preload("res://scripts/ui/FightPrep.gd")
 const TowelWire := preload("res://scripts/state/TowelWire.gd")
+const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 
 var failures := 0
 
@@ -63,6 +64,8 @@ func _pull() -> void:
 	var m: Dictionary = b[2]
 	var morale := float(sf.get("morale", 60.0))
 	var cap := float(sf.get("durability_cap", 100.0))
+	b[0].members = 40
+	b[0].reputation = 30
 	BoutNight.fight_step(b[0], sf, m, "corner:hands|towel=pull")
 	_check(BoutNight.stopped(m) == "RTD" and (m["rounds"] as Array).size() == 1, "2 pulled: RTD after round 1 (%s, %d rounds)" % [
 		BoutNight.stopped(m), (m["rounds"] as Array).size()])
@@ -72,6 +75,10 @@ func _pull() -> void:
 	_check(float(sf.get("morale", 60.0)) < morale, "2 morale down (%.1f -> %.1f)" % [morale, float(sf.get("morale", 60.0))])
 	_check(Loyalty.log_of(sf).any(func(e): return str(e.get("why", "")).begins_with("towel")), "2 loyalty logged")
 	_check(is_equal_approx(float(sf.get("durability_cap", 100.0)), cap), "2 no chin wear on a towel (Towel 'wear': false; S534 F13): cap %.1f -> %.1f" % [cap, float(sf.get("durability_cap", 100.0))])
+	# S535 DMGCLASS2 (L3): the towel is priced as an ordinary loss, never as being stopped (1 member, 2 reputation, not 2 and 4).
+	_check(b[0].members == 40 - BoutRules.LOSS_MEMBERS and b[0].reputation == 30 - BoutRules.LOSS_REPUTATION,
+		"2 a towel costs an ordinary loss: members 40 -> %d, reputation 30 -> %d" % [b[0].members, b[0].reputation])
+	_check(not Loyalty.log_of(sf).any(func(e): return str(e.get("why", "")) == "stopped"), "2 no 'stopped' loyalty on top of the towel's own")
 	var c := _bout(1)
 	BoutNight.fight_step(c[0], c[1], c[2], "corner:hands")
 	_check(BoutNight.stopped(c[2]) == "" and int(c[2]["round"]) == 2, "2 control: no towel, round 2 boxes")

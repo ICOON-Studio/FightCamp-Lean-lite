@@ -39,11 +39,11 @@ func _rival(name: String) -> Dictionary:
 	return {}
 
 
-## Four men's divisions on England Boxing men's limits; every name they offer is a man of that division, and every
+## Five men's divisions on England Boxing men's limits (S535: 65 kg added); every name they offer is a man of that division, and every
 ## weakness reads as one the opponent file can answer.
 func _divisions() -> void:
 	var men: Array = Data.divisions_for("m")
-	_check(men.size() == 4 and Data.divisions_for("f").size() == 5, "four men's and five women's divisions (S482 Q-233: 70 kg, women only) (%d / %d)" % [men.size(), Data.divisions_for("f").size()])
+	_check(men.size() == 5 and Data.divisions_for("f").size() == 5, "five men's and five women's divisions (S482 Q-233 women's 70 kg; S535 Q-292 men's 65 kg) (%d / %d)" % [men.size(), Data.divisions_for("f").size()])
 	for d in men:
 		var div: Dictionary = Data.DIVISIONS[d]
 		_check([55.0, 60.0, 65.0, 70.0, 75.0].has(float(div["limit"])), "%s limit %.1f kg is a men's class" % [d, float(div["limit"])])
@@ -61,7 +61,8 @@ func _career_has_men() -> void:
 	var c := Career.quick_start()
 	FirstWeek.ana_joins(c)
 	var men := c.rivals.filter(func(r): return str(Data.DIVISIONS[str(r["div"])]["sex"]) == "m")
-	_check(men.size() == 16, "the region holds 16 men (%d)" % men.size())
+	var want := Data.DIVISION_RIVALS.filter(func(r): return str(Data.DIVISIONS[str(r["div"])]["sex"]) == "m").size()   # S535: 22 with the 65 kg class
+	_check(men.size() == want and want == 22, "the region holds every men's rival (%d of %d)" % [men.size(), want])
 	_check(men.all(func(r): return (r.get("bouts", []) as Array).size() == int(r["w"]) + int(r["l"])), "each man has a past that matches his record")
 	var ids: Array = c.prospects.map(func(p): return str(p["id"]))
 	_check(ids.has("danny") and ids.has("josh"), "scouting can bring in Danny and Josh")
@@ -110,6 +111,6 @@ func _old_save() -> void:
 	var back := SaveGame.from_dict(SaveGame.to_dict(c))
 	_check(Data.sex_of(back.fighters[0]) == "f", "an old save's fighter reads as a woman")
 	var men := back.rivals.filter(func(r): return str(Data.DIVISIONS[str(r["div"])]["sex"]) == "m")
-	_check(men.size() == 16 and back.prospects.size() == Data.PROSPECTS.size(), "the men and the male prospects arrive on load (%d, %d)" % [men.size(), back.prospects.size()])
+	_check(men.size() == 22 and back.prospects.size() == Data.PROSPECTS.size(), "the men and the male prospects arrive on load (%d, %d)" % [men.size(), back.prospects.size()])
 	var again := SaveGame.from_dict(SaveGame.to_dict(back))
 	_check(again.rivals.size() == back.rivals.size(), "a second load adds nobody twice")

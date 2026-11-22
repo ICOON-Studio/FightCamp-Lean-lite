@@ -15,6 +15,7 @@ func _initialize() -> void:
 	test6_ko_only_at_damage()
 	test7_determinism()
 	test8_damage_grows()
+	test9_pro_rules()
 	print("KNOCKDOWNS failures=%d" % failures)
 	quit(0 if failures == 0 else 1)
 
@@ -192,3 +193,29 @@ func test8_damage_grows() -> void:
 	var expected_winner_dmg: float = 10.0 + float(KD.WINNER_DAMAGE)
 	_check(abs(float(dmg_out["b"]) - expected_loser_dmg) < 0.01, "test8: loser damage grew by DAMAGE_PER_ROUND[dominant] (got %.1f, expected %.1f)" % [float(dmg_out["b"]), expected_loser_dmg])
 	_check(abs(float(dmg_out["a"]) - expected_winner_dmg) < 0.01, "test8: winner damage grew by WINNER_DAMAGE (got %.1f, expected %.1f)" % [float(dmg_out["a"]), expected_winner_dmg])
+
+
+## S535 DMGCLASS2 (L1): pro rules keep three counts in a round but drop the four-in-a-bout total. Same seeds both arms: a
+## seed where the amateur arm stops on the bout total (1-2 counts, not waved) must leave the pro arm on its feet.
+func test9_pro_rules() -> void:
+	var sides := _sides(50, 50, 55, 70, 50, 55)
+	var damage := {"a": 10.0, "b": 10.0}
+	var csf := {"a": 3, "b": 0}
+	var limit_seeds := 0
+	var pro_stopped_on_limit := 0
+	var round_stop_pro := false
+	for i in range(300):
+		var r1 := RandomNumberGenerator.new()
+		r1.seed = i + 900
+		var am := KD.round_counts("dominant", "a", sides, damage, csf, r1)
+		var r2 := RandomNumberGenerator.new()
+		r2.seed = i + 900
+		var pro := KD.round_counts("dominant", "a", sides, damage, csf, r2, true)
+		if int(am["counts"]) in [1, 2] and not bool(am["waved"]) and not bool(am["ko"]):
+			limit_seeds += 1
+			pro_stopped_on_limit += 1 if bool(pro["stopped"]) else 0
+		if int(pro["counts"]) >= 3 and bool(pro["stopped"]):
+			round_stop_pro = true
+	_check(limit_seeds > 0, "test9: control - the amateur arm stops on the bout total (%d seeds)" % limit_seeds)
+	_check(pro_stopped_on_limit == 0, "test9: pro rules - no stop on the bout total (%d of %d stopped)" % [pro_stopped_on_limit, limit_seeds])
+	_check(round_stop_pro, "test9: pro rules keep three counts in one round -> RSC")

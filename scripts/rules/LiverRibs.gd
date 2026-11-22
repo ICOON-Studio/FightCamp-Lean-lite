@@ -159,3 +159,14 @@ static func counts(sides: Dictionary) -> Dictionary:
 static func drain_units(sides: Dictionary) -> float:
 	var free_mean := LIVER_SHARE * LIVER_DRAIN + (1.0 - LIVER_SHARE) * RIB_DRAIN
 	return float(sides.get("free", 0)) * free_mean + float(sides.get("liver", 0)) * LIVER_DRAIN + float(sides.get("ribs", 0)) * RIB_DRAIN
+
+
+## S535 (DEPTHPRICE1A defect 1): the corner's ice takes n body shots off the tally the drain reads (drain_units) - ribs first,
+## then the free shots, then the liver. Before this, ice came off the old bout.body count only and changed nothing.
+static func ice(sides: Dictionary, n: int) -> void:
+	var left := n
+	for k in ["ribs", "free", "liver"]:
+		var take := mini(left, int(sides.get(k, 0)))
+		if take > 0:
+			sides[k] = int(sides[k]) - take
+			left -= take

@@ -14,6 +14,7 @@ const Duels := preload("res://scripts/rules/Duels.gd")
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 const Combos := preload("res://scripts/rules/Combos.gd")
 const Knockdowns := preload("res://scripts/rules/Knockdowns.gd")
+const PRO_FROM := 4   # S535: amateur bouts are 3 rounds (BoutRules.ROUNDS); 4 rounds or more is a pro bout
 const ComboOdds := preload("res://scripts/rules/ComboOdds.gd")
 
 const FORM_SD := 8.0   # world bouts only: wide enough that a +18 rating is not a certain win (bar 4). A watched bout uses RingDuel.FORM_SD.
@@ -154,7 +155,7 @@ static func fight(x: Dictionary, y: Dictionary, rounds: int, rng: RandomNumberGe
 		won[0 if a_round else 1] += 1
 		var loser := "b" if a_round else "a"
 		var band := Exchanges.band(sum / float(Exchanges.EXCHANGES))
-		var k := Knockdowns.round_counts(band, loser, sides, damage, counts, rng)
+		var k := Knockdowns.round_counts(band, loser, sides, damage, counts, rng, rounds >= PRO_FROM)   # S535 DMGCLASS2: pro bouts (4+ rounds) have no bout count limit
 		damage = k["damage"]
 		counts[loser] = int(counts[loser]) + int(k["counts"])
 		if bool(k["stopped"]):
@@ -223,7 +224,7 @@ static func fast(x: Dictionary, y: Dictionary, rounds: int, rng: RandomNumberGen
 		var a_round := wn * 2 > Exchanges.EXCHANGES or (wn * 2 == Exchanges.EXCHANGES and sum >= 0.0)
 		won[0 if a_round else 1] += 1
 		var loser := "b" if a_round else "a"
-		var k := Knockdowns.round_counts(Exchanges.band(sum / float(Exchanges.EXCHANGES)), loser, sides, damage, counts, rng)
+		var k := Knockdowns.round_counts(Exchanges.band(sum / float(Exchanges.EXCHANGES)), loser, sides, damage, counts, rng, rounds >= PRO_FROM)
 		damage = k["damage"]
 		counts[loser] = int(counts[loser]) + int(k["counts"])
 		if bool(k["stopped"]):

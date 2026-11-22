@@ -62,6 +62,9 @@ static func run(c: Career, f: Dictionary, m: Dictionary) -> void:
 	var cards := JudgeNight.cards(f, m)   # S443 R29: m["judges"] always; their cards only when JudgeNight.decides()
 	var stop := _stopped(m)
 	m["stopped"] = stop
+	# S535 DMGCLASS2 (L3): your corner's retirement (RTD: towel, cracked rib) is priced as an ordinary loss - members, reputation,
+	# loyalty, the lesson and the ladder - so protecting her early is never the dearer choice. The page still says how it ended.
+	var beaten := stop != "" and stop != "RTD"
 	ProReadWire.close(f, m)
 	var before := AfterFight.snap(c, f, opp)   # S430 the result page's "what the fight did" tiles read the change
 	var outcome := _outcome_of(f, m)
@@ -98,16 +101,16 @@ static func run(c: Career, f: Dictionary, m: Dictionary) -> void:
 		c.reputation += BoutRules.WIN_REPUTATION * (2 if bool(f["bout"].get("short_notice", false)) else 1)
 	elif outcome == "loss":
 		f[rec + "l"] = int(f.get(rec + "l", 0)) + 1
-		if stop != "" and stop != "RTD":   # S534 F13: a corner retirement (towel, cracked rib) wears no chin - Towel "wear": false
+		if beaten:   # S534 F13: a corner retirement (towel, cracked rib) wears no chin - Towel "wear": false
 			Attrs.wear_stoppage(f)
-		var gone := mini(c.members, BoutRules.STOPPED_LOSS_MEMBERS if stop != "" else BoutRules.LOSS_MEMBERS)
+		var gone := mini(c.members, BoutRules.STOPPED_LOSS_MEMBERS if beaten else BoutRules.LOSS_MEMBERS)
 		c.members -= gone
-		c.reputation = maxi(0, c.reputation - (BoutRules.STOPPED_LOSS_REPUTATION if stop != "" else BoutRules.LOSS_REPUTATION))
+		c.reputation = maxi(0, c.reputation - (BoutRules.STOPPED_LOSS_REPUTATION if beaten else BoutRules.LOSS_REPUTATION))
 		m["members_lost"] = gone
 	else:
 		f[rec + "d"] = int(f.get(rec + "d", 0)) + 1
 	if pro:
-		m["ladder"] = ProLadder.result(c, f, outcome, stop != "")   # S397 the debut puts her on the table; a ladder bout moves it
+		m["ladder"] = ProLadder.result(c, f, outcome, beaten)   # S397 the debut puts her on the table; a ladder bout moves it
 	if not tickets.is_empty():
 		m["tickets"] = tickets
 		m["gym_cut"] = int(tickets["gym"])
@@ -129,7 +132,7 @@ static func run(c: Career, f: Dictionary, m: Dictionary) -> void:
 		if bool(f["bout"].get("host_gate", false)):
 			m["gate_line"] = "$0: the host kept the gate (a name you picked)."
 		# S512 ASKFIGHT1: what an amateur fight teaches (FightLearn; a step up a quarter more) - the result page says it.
-		m["taught"] = AskFlow.teach_after(f, opp, win, not win and stop != "")
+		m["taught"] = AskFlow.teach_after(f, opp, win, not win and beaten)
 		if not no_cut or bool(f["bout"].get("host_gate", false)):
 			m["host_favour"] = load("res://scripts/state/FightWeekPlan.gd").boxed_for_host(c, f)   # S515 FAVOURS2: every third bout on a host's show earns a favour
 		if HomeBout.is_home(f):
@@ -175,9 +178,9 @@ static func run(c: Career, f: Dictionary, m: Dictionary) -> void:
 			int(m.get("members_lost", 0))])
 	FighterProfile.apply_morale(f, outcome, {"win": "Beat %s", "loss": "Lost to %s", "draw": "Drew with %s"}[outcome] % opp["name"])
 	if outcome != "draw":   # S486 LOYALHOOKS1 (map M1): win +2, loss -1, stopped -3 (a Loyal boxer takes losses at half)
-		Loyalty.apply(f, "bout_won" if outcome == "win" else ("stopped" if stop != "" else "bout_lost"), c.day)
+		Loyalty.apply(f, "bout_won" if outcome == "win" else ("stopped" if beaten else "bout_lost"), c.day)
 	CornerTrust.settle(f, opp["name"])
-	KnowWire.bout(f, outcome == "loss" and stop != "", pro and int(f.get("pro_w", 0)) + int(f.get("pro_l", 0)) + int(f.get("pro_d", 0)) == 1
+	KnowWire.bout(f, outcome == "loss" and beaten, pro and int(f.get("pro_w", 0)) + int(f.get("pro_l", 0)) + int(f.get("pro_d", 0)) == 1
 		or f["bout"].has("champ"), c.day)   # S524 KNOWLEDGE1: a bout reads under fire; a stoppage loss / step up widen it
 	coach_note(c, f, "fight")
 	var goal: Dictionary = f.get("goal", {})

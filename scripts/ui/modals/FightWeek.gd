@@ -209,7 +209,7 @@ static func _fw_nights(nights: Dictionary) -> int:
 func _stop_card(main: Node, f: Dictionary, s: String, on: bool) -> Control:
 	var r1 := FightWeek.round_one(FightWeekPlan.tired(f), s)
 	var round_word := "%s %+.1f" % [str(r1["state"]), float(r1["edge"])] if str(r1["state"]) == FightWeek.STATE_FLAT \
-		else ("sharp + 1 line up" if bool(r1["boost"]) else "sharp")
+		else "sharp"   # S535 DEPTHPRICE1A: the "+1 line up" boost was shown but never wired into the bout - not promised now
 	var ink := UI.GOLD_INK if on else UI.FG
 	var soft := UI.GOLD_INK if on else UI.MUTED
 	var b := UI.button("", "BtnSolid" if on else "BtnQuiet", main.act.bind("fwstop", s))

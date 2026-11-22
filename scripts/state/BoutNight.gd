@@ -44,6 +44,7 @@ const PlanRecord := preload("res://scripts/rules/PlanRecord.gd")
 const PerkFight := preload("res://scripts/rules/PerkFight.gd")
 const PeakCamp := preload("res://scripts/rules/PeakCamp.gd")
 const ProLadder := preload("res://scripts/state/ProLadder.gd")
+const LiverRibs := preload("res://scripts/rules/LiverRibs.gd")
 const CornerTrust := preload("res://scripts/rules/CornerTrust.gd")
 const AfterFight := preload("res://scripts/state/AfterFight.gd")
 const JudgeNight := preload("res://scripts/state/JudgeNight.gd")
@@ -184,6 +185,8 @@ static func _open(c: Career, f: Dictionary, m: Dictionary, plan: String, fix: St
 		e["a"] = float(e.get("a", 100.0)) + float(rec["energy"])
 		e["a_end"] = float(e.get("a_end", 100.0)) + float(rec["energy"])
 		body["a"] = int(body.get("a", 0)) - int(rec["body"])
+		if (f["bout"].get("sides", {}) as Dictionary).has("a"):   # S535: the drain reads this tally (LiverRibs.ice)
+			LiverRibs.ice(f["bout"]["sides"]["a"], int(rec["body"]))
 		jobs["hurt"] = bool(rec["hurt"])
 		jobs["did"] = rec
 	LiveRound.open(c, f, m, n, plan, e, fix, jobs)
@@ -251,7 +254,8 @@ static func _counts(c: Career, f: Dictionary, m: Dictionary, r: Dictionary) -> v
 	var rng := RandomNumberGenerator.new()
 	rng.seed = c.day * 53 + int(r["n"]) * 11 + c.fighters.find(f) * 2003
 	var loser := "b" if bool(r["won"]) else "a"
-	var k := Knockdowns.round_counts(RoundScript.margin(r), loser, sides, m.get("damage", {"a": 0.0, "b": 0.0}), so_far, rng)
+	var k := Knockdowns.round_counts(RoundScript.margin(r), loser, sides, m.get("damage", {"a": 0.0, "b": 0.0}), so_far, rng,
+		bool(f["bout"].get("pro", false)))   # S535 DMGCLASS2: a pro bout has no four-count bout limit
 	# S355 Iron chin: her first count of the bout is a stagger - she stays up.
 	var stagger := loser == "a" and int(k["counts"]) > 0 and PerkFight.has(f, "iron_chin") and not bool(f["bout"].get("iron_chin_used", false))
 	if stagger:

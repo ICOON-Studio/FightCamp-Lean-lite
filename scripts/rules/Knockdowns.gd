@@ -2,7 +2,8 @@ extends RefCounted
 ## Standing counts, knockdowns and stoppages (fight model step 2, Qwen KNOCKDOWN1). Pure. Tuned S300 to John J-KDRATES1
 ## (Godot/research/J_KDRATES1_JOHN.md in the old repo): women's club/national amateurs 5-12 bouts in 100 stopped (IBA Worlds
 ## 2018-23 counted), 10-25 with a count (his guess: no source publishes counts), 2-4 counted bouts per stoppage.
-## Amateur rule: three counts in one round or four in the bout and the referee stops it (RSC).
+## Amateur rule: three counts in one round or four in the bout and the referee stops it (RSC). S535 DMGCLASS2 (L1): pro
+## rules (pro_rules) keep the three in a round and have no bout total - the referee and the knockout decide the rest.
 
 const COUNTS_ROUND_STOP := 3
 const COUNTS_BOUT_STOP := 4
@@ -18,7 +19,7 @@ const KO_DAMAGE := 60.0           # head damage from which a count can become a 
 
 
 static func round_counts(margin: String, loser: String, sides: Dictionary, damage: Dictionary, counts_so_far: Dictionary,
-		rng: RandomNumberGenerator) -> Dictionary:
+		rng: RandomNumberGenerator, pro_rules: bool = false) -> Dictionary:
 	var winner := "b" if loser == "a" else "a"
 	var loser_side: Dictionary = sides[loser]
 	var winner_side: Dictionary = sides[winner]
@@ -59,7 +60,7 @@ static func round_counts(margin: String, loser: String, sides: Dictionary, damag
 			waved = not ko
 
 	var total_counts: int = int(counts_so_far[loser]) + counts
-	var rsc := counts >= COUNTS_ROUND_STOP or total_counts >= COUNTS_BOUT_STOP or waved
+	var rsc := counts >= COUNTS_ROUND_STOP or (not pro_rules and total_counts >= COUNTS_BOUT_STOP) or waved
 
 	var how := ""
 	var stopped := false
