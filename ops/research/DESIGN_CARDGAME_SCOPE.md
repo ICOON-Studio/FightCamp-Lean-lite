@@ -315,6 +315,42 @@ Supporting bars:
 Verdict rule: PASS = every core bar passes. Supporting bars that fail are named with their cause and go into the build
 phases as that phase's bar.
 
+### 4b. Round 2 bars (CARDSCOPE2; written and committed before the round 2 run, not loosened afterwards)
+
+Round 2 answers the fresh critic (`CARDSCOPE1_CRITIC_SDK.md`, 6 / 5 / 6), items 1 to 6 and 10 of its list. B1 to B18
+above stay exactly as written and are measured again on the changed greybox. The bars below are added; C1 to C4, C6, C7,
+C8, C9, C11 and C12 are the critic's own numbers, C5 and C10 are ours for the two items the critic left without a
+number ("target mix" and "the table does the sums").
+
+Population as in section 4. Two bots are added to the harness. **Beginner** is the critic's rule-of-thumb player: one
+rule per shown card (a straight punch: cross counter if it is a cross, else slip, else block; a hook: roll, else block;
+a guard: hit round it; nothing shown: jab, cross, hook in order), one fixed answer to the face-down card (block), and
+when it leads it lays jab, cross, hook in order with the last card face down. No counting, no judges, no memory.
+**Table player** is a person helped by the table of section 3.9: it places one card at a time and keeps the placement
+whose printed numbers are best (damage both ways on the shown beats, the middle of the printed range on the face-down
+beat, the three judges' counts for this exchange). No memory, no counting, no plan for the wind, no look past this exchange.
+
+| # | Bar | Pass when |
+|---|---|---|
+| C1 | Equal paper holds (critic item 1) | with the same wind and the same hands on both sides, the reader wins 55 to 65% at regional class |
+| C2 | He tires (item 1) | he starts 5 to 15% of exchanges on 1 wind or less (reader's bouts, regional) |
+| C3 | Nobody is the heavier hitter (item 1) | in the reader's bouts damage dealt and damage taken are within 10% of each other. The critic wrote "for the winner"; read as: the boxer who wins is not hit harder by rule. The share of wins with more head damage taken than given is printed beside it |
+| C4 | You set traps (item 1) | when the reader leads, its face-down card is something other than a punch in 30%+ of leads |
+| C5 | The hidden card is a fork (item 2) | of the cards he lays face down: punches under 55%, guards or the trap 20%+, nothing or a feint 15%+ (critic's target 45 / 30 / 15 / 10; it was 81 / 15 / 2 / 2) |
+| C6 | No fixed answer to the hidden card (item 2) | the reader forced to always block, always jab, always punch or always leave it empty wins 10+ points less than the reader who chooses, each of the four |
+| C7 | The answers spread (item 2) | of the reader's answers to his face-down card no class (punch / block / evade or tie up / nothing / feint) is over 40% (a punch was 62%) |
+| C8 | No breaker deck (item 3) | no legal deck the search finds wins the pro debut over 50% with the reader. The search: the critic's two breaker decks made legal, every card stacked to its limit on the neutral deck cut to 12, then two rounds of one-card swaps from the best of those |
+| C9 | No pair is a key (item 3) | in the card table no added pair lifts any pair-up by more than 25 points (Cross counter was +62 against the out-boxer) |
+| C10 | The table makes the skill a person's (item 4) | the table player closes half or more of the gap between the beginner and the reader, and is 10+ points over the beginner (regional) |
+| C11 | No cliff (item 5) | the beginner wins 70%+ at novice, 45 to 60% at open class, 25 to 40% at regional (it was 72 / 16 / 12) |
+| C12 | Habits rule and flip (item 6) | one of his two habits is on the table in 50%+ of his leads; where a known habit applies, the reader's answer to the face-down card differs from its answer without the habit in 30%+ of those exchanges; B15 as written |
+
+Item 10 (the two code faults) is a test, not a bar: `engine.test.mjs` must show a level judge going to damage, then the
+last exchange, then a coin from the seed that falls both ways, and his corner picking every corner card.
+
+**Round 2 verdict rule: PASS = B1 to B7 and C1 to C12 all pass.** Supporting bars B8 to B18 that fail are named with
+their cause. The brief's run rule stands: the design as written, one resize (numbers only), one design change, stop.
+
 ---
 
 ## 5. Keep and throw away from `proto/cardgame`

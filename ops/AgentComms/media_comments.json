@@ -3599,6 +3599,48 @@
       "at_s": 9.1,
       "id": "C466",
       "addressed": "TASK_KNEEROOT1 (S537): bisect source clip vs game"
+    },
+    {
+      "path": "_sent/2026-11-22_1622_knee_gloves_our_two_stages_off_game_boug/12_red_idle.mp4",
+      "text": "Fine",
+      "at": "2026-11-22T14:57:46Z",
+      "seen_by_claude": true,
+      "at_s": 19.4,
+      "id": "C467",
+      "addressed": "C467 glove fix accepted; rest -> TASK_BOUGHTCLIP1 (S537)"
+    },
+    {
+      "path": "_sent/2026-11-22_1622_knee_gloves_our_two_stages_off_game_boug/3_blue_cross_side.jpg",
+      "text": "They both look weird show me the bought clip",
+      "at": "2026-11-22T14:58:30Z",
+      "seen_by_claude": true,
+      "id": "C468",
+      "addressed": "C467 glove fix accepted; rest -> TASK_BOUGHTCLIP1 (S537)"
+    },
+    {
+      "path": "_sent/2026-11-22_0309_legs_as_recorded_our_leg_fixes_switched_/recorded_blue_cross.png",
+      "text": "Cross can only reach shoulder?",
+      "at": "2026-11-22T15:00:00Z",
+      "seen_by_claude": true,
+      "id": "C469",
+      "addressed": "C467 glove fix accepted; rest -> TASK_BOUGHTCLIP1 (S537)"
+    },
+    {
+      "path": "_sent/2026-11-22_0109_cross_legs_rear_heel_up_foot_turned_in_y/3_loop_cross_before_left_after_right.mp4",
+      "text": "They both look shit",
+      "at": "2026-11-22T15:01:05Z",
+      "seen_by_claude": true,
+      "at_s": 2.2,
+      "id": "C470",
+      "addressed": "C467 glove fix accepted; rest -> TASK_BOUGHTCLIP1 (S537)"
+    },
+    {
+      "id": "C471",
+      "path": "media:_sent/2026-11-22_0108_cross_legs_rear_heel_and_foot_spacing_yo/1_blue_cross_before.jpg",
+      "text": "MARKUP: 1 marks -> Feedback/2026-11-22-05/README.md",
+      "at": "2026-11-22T15:02:57Z",
+      "seen_by_claude": true,
+      "addressed": "C467 glove fix accepted; rest -> TASK_BOUGHTCLIP1 (S537)"
     }
   ]
 }
