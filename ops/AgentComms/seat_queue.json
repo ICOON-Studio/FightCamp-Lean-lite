@@ -4128,11 +4128,16 @@
    "seat": "dola",
    "brief": "research/DOLA_CARDSET_IDEAS.md",
    "stem": "DOLA_CARDSET_IDEAS_DOLA",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-21 22:45",
    "tries": 0,
-   "skips": 29,
-   "last_error": "2026-11-22 13:10 no CDP on 9333 (the app runs without its debug port or is closed; never launched from here - it opens a window)"
+   "skips": 34,
+   "last_error": "2026-11-22 15:35 no CDP on 9333 (the app runs without its debug port or is closed; never launched from here - it opens a window)",
+   "sent_at": "2026-11-22 15:39",
+   "pid": 84400,
+   "transcript": "AgentComms/seat_logs/SQ282_dola.txt",
+   "answered_at": "2026-11-22 15:40",
+   "answer": "research/DOLA_CARDSET_IDEAS_DOLA.md"
   },
   {
    "id": "SQ283",
@@ -4197,9 +4202,14 @@
    "seat": "dola",
    "brief": "research/DOLA_TWOBOXER_MOCAP_S537.md",
    "stem": "DOLA_TWOBOXER_MOCAP_S537_DOLA",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-22 01:18",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-22 15:41",
+   "pid": 60972,
+   "transcript": "AgentComms/seat_logs/SQ287_dola.txt",
+   "answered_at": "2026-11-22 16:10",
+   "answer": "research/DOLA_TWOBOXER_MOCAP_S537_DOLA.md"
   },
   {
    "id": "SQ288",
@@ -4220,8 +4230,57 @@
    "seat": "kalli",
    "brief": "research/DESIGN_GUARDDMG1_V9_CRITIC_KALLI.md",
    "stem": "DESIGN_GUARDDMG1_V9_CRITIC_KALLI_KALLI",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-22 13:35",
+   "tries": 0,
+   "sent_at": "2026-11-22 13:40",
+   "sent_ms": 1795347625437,
+   "answered_at": "2026-11-22 14:10",
+   "answer": "research/DESIGN_GUARDDMG1_V9_CRITIC_KALLI_KALLI.md",
+   "chars": 11429
+  },
+  {
+   "id": "SQ290",
+   "seat": "kalli",
+   "brief": "research/CARDPROTO3_CRITIC_KALLI.md",
+   "stem": "CARDPROTO3_CRITIC_KALLI_KALLI",
+   "status": "answered",
+   "queued_at": "2026-11-22 15:11",
+   "tries": 0,
+   "sent_at": "2026-11-22 15:35",
+   "sent_ms": 1795354507890,
+   "answered_at": "2026-11-22 16:40",
+   "answer": "research/CARDPROTO3_CRITIC_KALLI_KALLI.md",
+   "chars": 9621
+  },
+  {
+   "id": "SQ291",
+   "seat": "dola",
+   "brief": "research/CARDPROTO3_CRITIC_KALLI.md",
+   "stem": "CARDPROTO3_CRITIC_KALLI_DOLA",
+   "status": "sent",
+   "queued_at": "2026-11-22 15:35",
+   "tries": 0,
+   "sent_at": "2026-11-22 16:40",
+   "pid": 268876,
+   "transcript": "AgentComms/seat_logs/SQ291_dola.txt"
+  },
+  {
+   "id": "SQ292",
+   "seat": "kalli",
+   "brief": "research/CARDPROTO4_CRITIC_KALLI.md",
+   "stem": "CARDPROTO4_CRITIC_KALLI_KALLI",
+   "status": "queued",
+   "queued_at": "2026-11-22 16:00",
+   "tries": 0
+  },
+  {
+   "id": "SQ293",
+   "seat": "kalli",
+   "brief": "research/CARDSCOPE1_CRITIC_KALLI.md",
+   "stem": "CARDSCOPE1_CRITIC_KALLI_KALLI",
+   "status": "queued",
+   "queued_at": "2026-11-22 16:57",
    "tries": 0
   }
  ]

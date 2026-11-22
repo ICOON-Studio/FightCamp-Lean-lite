@@ -1,0 +1,120 @@
+{
+ "population": "neutral 12-card deck + 2 copies of one card v each opponent boxer, reader, 3000 bouts a cell",
+ "matrix": {
+  "Jab": {
+   "out": 25.2,
+   "press": 49.4,
+   "counter": 58,
+   "volume": 37.5
+  },
+  "Body jab": {
+   "out": 40,
+   "press": 60.7,
+   "counter": 61.5,
+   "volume": 28.7
+  },
+  "Cross": {
+   "out": 26,
+   "press": 21.4,
+   "counter": 41.6,
+   "volume": 30.7
+  },
+  "Lead hook": {
+   "out": 23.8,
+   "press": 25.3,
+   "counter": 62.2,
+   "volume": 27.4
+  },
+  "Body hook": {
+   "out": 24.4,
+   "press": 19.9,
+   "counter": 57.3,
+   "volume": 5.8
+  },
+  "Uppercut": {
+   "out": 19.7,
+   "press": 15.2,
+   "counter": 47.7,
+   "volume": 18.3
+  },
+  "Cross counter": {
+   "out": 98.3,
+   "press": 48.2,
+   "counter": 94.7,
+   "volume": 80.4
+  },
+  "Block high": {
+   "out": 55.1,
+   "press": 47.6,
+   "counter": 80.4,
+   "volume": 42.2
+  },
+  "Slip": {
+   "out": 59.5,
+   "press": 15.8,
+   "counter": 74.5,
+   "volume": 14.1
+  },
+  "Roll": {
+   "out": 13.3,
+   "press": 30.4,
+   "counter": 48.8,
+   "volume": 8.6
+  },
+  "Step back": {
+   "out": 35.4,
+   "press": 28.4,
+   "counter": 68.9,
+   "volume": 7.7
+  },
+  "Tie up": {
+   "out": 67.7,
+   "press": 60.3,
+   "counter": 83.6,
+   "volume": 71.9
+  },
+  "Feint": {
+   "out": 13.7,
+   "press": 13.4,
+   "counter": 38.9,
+   "volume": 4.7
+  }
+ },
+ "base": {
+  "out": 36.5,
+  "press": 34.1,
+  "counter": 67.6,
+  "volume": 22.2
+ },
+ "run": {
+  "runs": 1200,
+  "arms": {
+   "informed": {
+    "wins": 7118,
+    "bouts": 9259
+   },
+   "random": {
+    "wins": 4688,
+    "bouts": 7955
+   },
+   "noPick": {
+    "wins": 4529,
+    "bouts": 7958
+   }
+  },
+  "winsPerRun": {
+   "informed": 5.93,
+   "random": 3.91,
+   "noPick": 3.77
+  },
+  "winPct": {
+   "informed": 76.9,
+   "random": 58.9,
+   "noPick": 56.9
+  },
+  "wideOffersPerRun": 7.64,
+  "offersPerRun": 7.72,
+  "bestChangesWithOpponentPct": 59.5
+ },
+ "seconds": 413
+}

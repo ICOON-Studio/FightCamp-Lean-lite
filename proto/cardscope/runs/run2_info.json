@@ -1,0 +1,105 @@
+{
+ "population": "16 pairs, 250 bouts a pair a cell",
+ "shown": {
+  "0": {
+   "random": 0.1,
+   "greedy": 5.7,
+   "reader": 15.1,
+   "allSeeing": 80.5
+  },
+  "1": {
+   "random": 0.1,
+   "greedy": 22.8,
+   "reader": 38.9,
+   "allSeeing": 79.4
+  },
+  "2": {
+   "random": 0.1,
+   "greedy": 45.3,
+   "reader": 64.3,
+   "allSeeing": 79.7
+  },
+  "3": {
+   "random": 0.1,
+   "greedy": 67.4,
+   "reader": 78.6,
+   "allSeeing": 78.6
+  }
+ },
+ "tiers": {
+  "1": {
+   "name": "novice",
+   "greedy": 100,
+   "reader": 99.9
+  },
+  "2": {
+   "name": "open class",
+   "greedy": 68.1,
+   "reader": 85.3
+  },
+  "3": {
+   "name": "regional",
+   "greedy": 45.8,
+   "reader": 67.2
+  },
+  "4": {
+   "name": "title",
+   "greedy": 36.7,
+   "reader": 56.1
+  },
+  "5": {
+   "name": "professional",
+   "greedy": 26,
+   "reader": 48.7
+  }
+ },
+ "read": {
+  "full": 66.8,
+  "film": 68.7,
+  "noCount": 67.5,
+  "noLearn": 65.1
+ },
+ "corner": {
+  "informed": {
+   "win": 66.8,
+   "picks": {
+    "water": 1089,
+    "ice": 4574,
+    "eyes": 10320
+   }
+  },
+  "random": {
+   "win": 65,
+   "picks": {
+    "water": 5223,
+    "ice": 5433,
+    "eyes": 5333
+   }
+  },
+  "water": {
+   "win": 63,
+   "picks": {
+    "water": 15984,
+    "ice": 0,
+    "eyes": 0
+   }
+  },
+  "ice": {
+   "win": 65.9,
+   "picks": {
+    "water": 0,
+    "ice": 15988,
+    "eyes": 0
+   }
+  },
+  "eyes": {
+   "win": 66.1,
+   "picks": {
+    "water": 0,
+    "ice": 0,
+    "eyes": 15981
+   }
+  }
+ },
+ "seconds": 510
+}
