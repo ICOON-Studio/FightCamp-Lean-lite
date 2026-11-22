@@ -12,6 +12,7 @@ extends RefCounted
 ## (tools/step_census.gd db).
 
 const CrossLegs := preload("res://scripts/fight3d/v2/CrossLegs.gd")
+const Stance := preload("res://scripts/fight3d/v2/Stance.gd")
 const DIR := "res://assets/anim/baked/steps/"
 const PREFIX := "st_"
 ## file stem (E:/FightCamp/packs/mixamo_steps) -> take name
@@ -71,4 +72,5 @@ static func load_into(lib: AnimationLibrary, skel: Skeleton3D, prefix: String) -
 		anim.loop_mode = Animation.LOOP_LINEAR if str(name) in LOOPS else Animation.LOOP_NONE
 		lib.add_animation(name, anim)
 		added.append(name)
+	Stance.load_into(lib, skel, prefix)   # S537 FP2POSE3: the longer stance, on every standing take (after the cross's legs)
 	return added

@@ -3,7 +3,9 @@ extends RefCounted
 ## LEG. The Punch PRO actor throws every cross flat-footed (docs/FP2POSE2_RESULT.md: at the contact his rear ankle rides
 ## 0-3 cm higher over the ball of the foot than in his stance, the rear foot turns 0-20 deg while the hips turn 31-51,
 ## the rear knee stays at 144-163 deg) - a boxer drives a cross off the ball of the rear foot: the heel comes up, the
-## foot turns in with the hips ("squash the bug"), the knee bends and turns in. That is put into the takes OFFLINE, at
+## foot turns in with the hips ("squash the bug"), the knee bends and turns in. (S537 FP2POSE3, the owner on the film:
+## "twists knee unnaturally outwards", "the power does not come from twisting the knee": the knee now goes WITH the
+## hips and the foot turns only the captured share of the hips' turn - tools/cross_legs_bake.gd.) That is put into the takes OFFLINE, at
 ## the bake (tools/cross_legs_bake.gd, the same kind of work as the S529 step refit; no runtime layer): the rear foot
 ## turned about its ball with the take's own hip turn and its heel lifted, the leg solved again under the take's own
 ## hips. Only the rear leg's four joints change; the hips, the trunk, the arms and the lead leg are the take's own.
@@ -17,6 +19,10 @@ const STEM := "mc_Box1_M3_"
 ## The cross takes the bake re-does (every one v2 plays, and the hard one).
 const TAKES := ["pro_right_cross", "pro_right_cross_a", "pro_right_cross_b", "pro_right_cross_c", "pro_right_cross_ft",
 	"pro_right_cross_hard", "pro_right_cross_hard_ft", "pro_right_cross_hurt", "pro_right_cross_hurt_ft"]
+## S537 FP2POSE3: the rear hooks and rear uppercuts are NOT in the table. Measured with this bake (dry): on all 8 v2
+## plays the actor's own rear foot is already pitched up 17-43 deg at the contact (the crosses: 0-18) and the knee is
+## 6-53 deg inside its toes; the bake had nothing to add to 6 of them and would have turned the foot of 2 by a punch
+## line a hook does not have. tests/player2_test.gd HEEL reads them as drawn.
 
 static var off := false
 

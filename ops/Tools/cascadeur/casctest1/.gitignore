@@ -1,0 +1,10 @@
+# Local only: Cascadeur scenes (free tier = non-commercial), joint dumps derived from the bought take, scratch.
+*.casc
+before.json
+rigged.json
+after.json
+rigid_*.json
+_run.py
+__pycache__/
+_export_test/
+*.bmp

@@ -78,6 +78,10 @@ def main() -> None:
         payload = json.load(sys.stdin)
     except Exception:
         allow()
+    # S537 owner "you are burning tokens too fast": a worker console (claude_cm.ps1 sets this for it alone) finishes one
+    # brief and must stop; the guard kept a done FP2POSE3 console running ($12 for one task).
+    if os.environ.get("CLAUDE_CODE_EXPERIMENTAL_CODE_MODE") == "1":
+        allow()
     cwd = str(payload.get("cwd", ""))
     # S366: the workflow moved into the Lean repo (ops/); the old "ChatGPT"/"Game" check made this guard a no-op since S138
     if "FightCamp" not in cwd or "Lean" not in cwd:

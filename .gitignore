@@ -43,3 +43,4 @@ ops/AgentComms/telegram.log
 ops/AgentComms/pingerrrr_bot.json
 ops/AgentComms/*token*
 ops/AgentComms/*secret*
+ops/AgentComms/credit_runs/
