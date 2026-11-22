@@ -8630,10 +8630,11 @@
       "attach": [
         "AgentComms/board_attach/Q-S294-297_0_TURNPROBE12_RESULT.md"
       ],
-      "answer": null,
+      "answer": "Yes, cut them",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-22T00:58:56Z",
+      "seen_by_claude": false,
+      "comment_only": false
     },
     {
       "id": "Q-S294-298",
@@ -8651,6 +8652,24 @@
       "note": "Owner S537: \"Yes, close it\"",
       "answered_at": "2026-11-21T23:09:43.009162+00:00",
       "seen_by_claude": true
+    },
+    {
+      "id": "Q-S294-299",
+      "asked": "2026-11-22T09:32:17.417208+00:00",
+      "session": "S294",
+      "text": "Guard v8 failed twice: one setup beats every opponent. Cut it, or try v9 opponent-based guards?",
+      "options": [
+        "Try v9",
+        "Cut guard choice"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-299_0_GUARDPROBE9_RESULT.md"
+      ],
+      "answer": "Try v9 (owner in chat S537)",
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false,
+      "status": "answered"
     }
   ]
 }

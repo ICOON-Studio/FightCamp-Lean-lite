@@ -4131,8 +4131,8 @@
    "status": "queued",
    "queued_at": "2026-11-21 22:45",
    "tries": 0,
-   "skips": 5,
-   "last_error": "2026-11-22 01:10 no CDP on 9333 (the app runs without its debug port or is closed; never launched from here - it opens a window)"
+   "skips": 29,
+   "last_error": "2026-11-22 13:10 no CDP on 9333 (the app runs without its debug port or is closed; never launched from here - it opens a window)"
   },
   {
    "id": "SQ283",
@@ -4169,20 +4169,28 @@
    "seat": "kalli",
    "brief": "research/CARDPROTO2_CRITIC_KALLI.md",
    "stem": "CARDPROTO2_CRITIC_KALLI_KALLI",
-   "status": "sent",
+   "status": "answered",
    "queued_at": "2026-11-22 00:43",
    "tries": 0,
    "sent_at": "2026-11-22 01:10",
-   "sent_ms": 1795302626352
+   "sent_ms": 1795302626352,
+   "answered_at": "2026-11-22 01:40",
+   "answer": "research/CARDPROTO2_CRITIC_KALLI_KALLI.md",
+   "chars": 8479
   },
   {
    "id": "SQ286",
    "seat": "john",
    "brief": "research/JOHN_TWOBOXER_MOCAP_S537.md",
    "stem": "JOHN_TWOBOXER_MOCAP_S537_JOHN",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-22 01:18",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-22 01:40",
+   "sent_ms": 1795304430677,
+   "answered_at": "2026-11-22 02:10",
+   "answer": "research/JOHN_TWOBOXER_MOCAP_S537_JOHN.md",
+   "chars": 16132
   },
   {
    "id": "SQ287",
@@ -4191,6 +4199,29 @@
    "stem": "DOLA_TWOBOXER_MOCAP_S537_DOLA",
    "status": "queued",
    "queued_at": "2026-11-22 01:18",
+   "tries": 0
+  },
+  {
+   "id": "SQ288",
+   "seat": "kalli",
+   "brief": "research/DESIGN_TURNPRO1_V14_CRITIC_KALLI.md",
+   "stem": "DESIGN_TURNPRO1_V14_CRITIC_KALLI_KALLI",
+   "status": "answered",
+   "queued_at": "2026-11-22 11:27",
+   "tries": 0,
+   "sent_at": "2026-11-22 11:40",
+   "sent_ms": 1795340424916,
+   "answered_at": "2026-11-22 12:10",
+   "answer": "research/DESIGN_TURNPRO1_V14_CRITIC_KALLI_KALLI.md",
+   "chars": 11703
+  },
+  {
+   "id": "SQ289",
+   "seat": "kalli",
+   "brief": "research/DESIGN_GUARDDMG1_V9_CRITIC_KALLI.md",
+   "stem": "DESIGN_GUARDDMG1_V9_CRITIC_KALLI_KALLI",
+   "status": "queued",
+   "queued_at": "2026-11-22 13:35",
    "tries": 0
   }
  ]
