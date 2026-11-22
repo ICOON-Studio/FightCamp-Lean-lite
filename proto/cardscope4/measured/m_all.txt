@@ -1,0 +1,43 @@
+P1 boxing v wrestling: boxing wins 48.0 | ends: KO 44.2 lead 48.8 tap 0.0 pin 1.4 cards 5.6 | early 94.4 | 3+ ranges 100.0 ground 98.6 | decisions 30.4 (95%: 44) choices 2.9 max 8 | s/turn 14.1 | holds back 3.5 quiet 5.7 | holds on 0.20/bout finish 26.9 end 1.5 of ground bouts
+   [p1: 4 s, per=200, seed=500000000, mode=wind]
+P2 a health only    ends: KO 31.6 lead 0.0 tap 0.0 pin 0.0 cards 68.4 | early 31.6 | 3+ ranges 99.1 ground 93.0 | decisions 34.8 (95%: 45) choices 2.9 max 11 | s/turn 11.7 | holds back 21.6 quiet 8.1 | holds on 0.00/bout finish 0.0 end 0.0 of ground bouts
+P2 b + points lead  ends: KO 24.4 lead 26.9 tap 0.0 pin 0.0 cards 48.7 | early 51.3 | 3+ ranges 99.1 ground 92.9 | decisions 31.9 (95%: 44) choices 2.9 max 10 | s/turn 11.7 | holds back 22.0 quiet 8.2 | holds on 0.00/bout finish 0.0 end 0.0 of ground bouts
+P2 c + the hold     ends: KO 18.8 lead 16.4 tap 23.8 pin 0.9 cards 40.2 | early 59.8 | 3+ ranges 98.5 ground 92.9 | decisions 24.3 (95%: 43) choices 2.8 max 9 | s/turn 12.8 | holds back 4.2 quiet 6.5 | holds on 1.13/bout finish 28.7 end 26.6 of ground bouts
+P2 AI blind to health: 37.2 against the full AI (50 = no loss)
+P2 AI blind to points: 42.0 against the full AI (50 = no loss)
+P2 AI blind to the hold: 41.1 against the full AI (50 = no loss)
+   [p2: 100 s, per=200, seed=500000000, mode=wind]
+P5 visible race: AI answer = the printed rule in 48.9 of 10374 held turns | a hold ends 24.8 of bouts that reach the ground | 27.2 of holds that go on finish | 1.15 holds a bout
+P5 hidden roll (p=27.2): a hold ends 36.0 of ground bouts | AI over impatient 62.6 (visible race: 64.5)
+   [p5: 134 s, per=200, seed=500000000, mode=wind]
+P6 boxing     the turn changes with the mechanic off in 33.5 of 3264 turns
+P6 karate     the turn changes with the mechanic off in 18.0 of 3478 turns
+P6 judo       the turn changes with the mechanic off in 42.9 of 3027 turns
+P6 wrestling  the turn changes with the mechanic off in 19.0 of 3395 turns
+P6 bjj        the turn changes with the mechanic off in 5.2 of 2211 turns
+P6 sambo      the turn changes with the mechanic off in 0.0 of 2552 turns
+P6 blind judge names the style from 10 turns: 52.8 (boxing 47.2, karate 76.6, judo 68.4, wrestling 23.2, bjj 68.6, sambo 32.8)
+   [p6: 156 s, per=200, seed=500000000, mode=wind]
+you \ him    boxing karate   judo wrestl    bjj  sambo     avg
+boxing           -   53.8   48.0   48.0   53.5   50.5    50.8
+karate        46.3      -   52.5   56.8   58.5   41.0    51.0
+judo          52.0   47.5      -   43.3   47.8   50.2    48.2
+wrestling     52.0   43.3   56.8      -   48.0   52.0    50.4
+bjj           46.5   41.5   52.3   52.0      -   45.0    47.4
+sambo         49.5   59.0   49.8   48.0   55.0      -    52.3
+ends: KO 18.0 lead 16.5 tap 22.9 pin 0.8 cards 41.8 | early 58.2 | 3+ ranges 99.0 ground 92.9 | decisions 24.7 (95%: 43) choices 2.8 max 10 | s/turn 12.9 | holds back 4.4 quiet 6.5 | holds on 1.16/bout finish 27.2 end 25.5 of ground bouts
+P4 cells outside 40-60: 0 of 15; worst: karate v sambo 41.0, karate v bjj 58.5, karate v wrestling 56.8, judo v wrestling 43.3, bjj v sambo 45.0
+   [p4: 169 s, per=200, seed=500000000, mode=wind]
+P10 boxing     AI 53.1 | scripted 42.0 | impatient 39.5  (each against the AI pilot flying the other five)
+P10 karate     AI 48.3 | scripted 37.0 | impatient 32.1  (each against the AI pilot flying the other five)
+P10 judo       AI 48.2 | scripted 28.4 | impatient 33.5  (each against the AI pilot flying the other five)
+P10 wrestling  AI 51.6 | scripted 30.7 | impatient 41.7  (each against the AI pilot flying the other five)
+P10 bjj        AI 51.7 | scripted 47.6 | impatient 28.0  (each against the AI pilot flying the other five)
+P10 sambo      AI 51.8 | scripted 47.8 | impatient 35.2  (each against the AI pilot flying the other five)
+R-C11 the impatient line with a style deck against the AI pilot: 35.0
+   [p10: 194 s, per=200, seed=500000000, mode=wind]
+R-C8 cheap boxing  impatient 19.6 | AI 24.3
+R-C8 cheap karate  impatient 25.0 | AI 32.7
+R-C8 cheap mix     impatient 19.3 | AI 22.5
+R-B6 cards with a matchup (top three against one style, bottom half against another): 24 of 42 = 57.1
+   [r3: 236 s, per=200, seed=500000000, mode=wind]

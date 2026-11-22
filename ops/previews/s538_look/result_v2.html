@@ -1,0 +1,180 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Result page v2 (S538 mockup)</title>
+<link rel="stylesheet" href="look.css">
+<style>
+.corner{height:200px;top:24px;width:440px;padding:18px}
+.corner .b{font-size:44px;line-height:1}
+.seg{width:104px;height:30px;border-radius:4px;margin-right:6px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px}
+.seg.red{background:var(--red)}.seg.blue{background:var(--blue)}
+.tab{height:44px;width:200px;background:#33312e;border-radius:4px 4px 0 0;display:flex;align-items:center;justify-content:center;font-weight:700;letter-spacing:1px;color:var(--muted);margin-right:8px}
+.tab.on{color:var(--header);border-bottom:3px solid var(--header);background:#3d3a35}
+.ico{width:76px;height:76px;border-radius:50%;background:#3a1d1a;border:2px solid var(--bad);display:flex;align-items:center;justify-content:center;flex:none}
+.bar{height:22px;background:#15110f;border-radius:3px;position:relative;flex:1;margin:0 14px}
+.bar i{position:absolute;left:0;top:0;bottom:0;border-radius:3px}
+.rd{height:122px;border-top:1px solid #3a342e;display:flex;align-items:center}
+.rd:first-of-type{border-top:0}
+.ex{width:50px;margin-right:6px;text-align:center;font-size:14px;font-weight:700}
+.ex .col{height:56px;position:relative;background:linear-gradient(#0000 27px,#6b6558 27px,#6b6558 29px,#0000 29px)}
+.ex .col i{position:absolute;left:9px;right:9px;border-radius:3px}
+.ex .up{background:var(--red);bottom:29px}.ex .dn{background:var(--blue);top:29px}.ex .ev{background:#8a8272;top:25px;height:6px}
+.en{width:150px}
+.en .track{height:9px;margin:3px 0 7px}
+.dot{display:inline-block;width:13px;height:13px;border-radius:3px;margin-right:4px}
+.tile{position:absolute;top:780px;height:118px;width:294px;background:#231f1c;border:1px solid #3a342e;border-radius:6px;padding:14px 16px;display:flex;align-items:center}
+.tile svg{flex:none;margin-right:14px}
+.tile .b{font-size:40px;line-height:1}
+.tile .cap{font-size:13px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:var(--muted);line-height:1.25;margin-top:2px}
+.count{text-align:center;width:150px}
+.count .b{font-size:46px;line-height:1}
+.count div{font-size:14px;color:var(--muted);line-height:1.2}
+#modal{display:none}
+body.modal #modal{display:block}
+body.modal .hov,body.modal .cursor.c1{display:none}
+body:not(.modal) .cursor.c2{display:none}
+.shade{position:absolute;inset:0;background:#000b;z-index:50}
+.sheet{position:absolute;left:400px;top:150px;width:1120px;height:700px;background:#231f1c;border:2px solid var(--chosen);border-radius:8px;z-index:60;padding:26px 32px;box-shadow:0 20px 60px #000}
+.sheet .sec{display:flex;margin-top:18px;padding-top:16px;border-top:1px solid #3a342e}
+.sheet .sec svg{flex:none;margin-right:18px;margin-top:2px}
+.sheet p{line-height:1.4;font-size:17px}
+</style></head><body>
+
+<!-- top stripe: red corner / blue corner -->
+<div class="abs" style="left:40px;top:10px;width:920px;height:5px;background:var(--badfill)"></div>
+<div class="abs" style="left:960px;top:10px;width:920px;height:5px;background:var(--accent)"></div>
+
+<!-- your boxer -->
+<div class="card corner" style="left:40px;background:#391d19;border-left:5px solid var(--badfill)">
+ <div class="row"><div class="face" style="width:112px;height:112px;background-image:url(../../../assets/ui/style_b/portraits/mh_boxer_11.png);border-color:var(--badfill)"></div>
+ <div style="margin-left:16px"><div class="b">LUCY JACKSON</div><div class="m">Your fighter · Out-boxer · orthodox</div>
+ <div style="font-weight:700;margin-top:6px">Record 3-1 <span class="m">→</span> 3-2</div></div></div>
+ <div class="row" style="margin-top:12px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#b1a084" stroke-width="2"><path d="M4 20h4v-6H4zM10 20h4V8h-4zM16 20h4V3h-4z"/></svg>
+ <span style="margin-left:8px">Unranked</span><span class="m" style="margin-left:8px">1 win from entering</span></div>
+</div>
+
+<!-- the verdict + the judges as a strip -->
+<div class="abs" style="left:504px;top:26px"><div class="b r" style="font-size:132px;line-height:.95">LOST</div>
+ <div style="font-weight:700;font-size:23px;margin-top:2px">On points: unanimous decision</div></div>
+<div class="abs" style="left:870px;top:38px;width:560px">
+ <div class="row m" style="font-size:13px;font-weight:700;letter-spacing:1.5px;margin:0 0 6px 84px"><span style="width:110px">ROUND 1</span><span style="width:110px">ROUND 2</span><span style="width:110px">ROUND 3</span><span>CARD</span></div>
+ <div class="row" style="margin-bottom:7px"><span class="m" style="width:84px">Judge 1</span><div class="seg red">10-9</div><div class="seg blue">9-10</div><div class="seg blue">9-10</div><span class="b a" style="font-size:30px;margin-left:8px">28-29</span></div>
+ <div class="row" style="margin-bottom:7px"><span class="m" style="width:84px">Judge 2</span><div class="seg red">10-9</div><div class="seg blue">9-10</div><div class="seg blue">9-10</div><span class="b a" style="font-size:30px;margin-left:8px">28-29</span></div>
+ <div class="row"><span class="m" style="width:84px">Judge 3</span><div class="seg red">10-9</div><div class="seg blue">9-10</div><div class="seg blue">9-10</div><span class="b a" style="font-size:30px;margin-left:8px">28-29</span></div>
+ <div class="row m" style="font-size:14px;margin:8px 0 0 84px"><span class="dot" style="background:var(--red)"></span>your boxer's round <span class="dot" style="background:var(--blue);margin-left:16px"></span>the opponent's round</div>
+</div>
+
+<!-- the opponent -->
+<div class="card corner" style="left:1440px;background:#1e2a3c;border-right:5px solid var(--accent)">
+ <div class="row" style="justify-content:flex-end"><div style="margin-right:16px;text-align:right"><div class="b">MARIA ORTEGA</div><div class="m">Pressure fighter</div>
+ <div style="font-weight:700;margin-top:6px">Record 5-2</div></div>
+ <div class="face" style="width:112px;height:112px;background-image:url(../../../assets/ui/style_b/portraits/mh_boxer_13.png);border-color:var(--accent)"></div></div>
+</div>
+
+<!-- tabs (unchanged) -->
+<div class="abs row" style="left:40px;top:244px"><div class="tab on">SUMMARY</div><div class="tab">SCORECARD</div><div class="tab">THE EXCHANGES</div><div class="tab">THE NUMBERS</div><div class="tab">THE PLAN</div><div class="tab">PUNCH BY PUNCH</div></div>
+
+<!-- WHY: one headline + an icon, the plan test as a bar pair -->
+<div class="card" style="left:40px;top:300px;width:640px;height:464px">
+ <div class="h">Why it was lost</div>
+ <div class="row" style="margin-top:14px">
+  <div class="ico"><svg width="46" height="46" viewBox="0 0 48 48" fill="none" stroke="#ff7a66" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M10 26c0-10 6-16 15-16 8 0 13 5 13 12v8c0 5-4 8-9 8H18c-5 0-8-4-8-8z"/><path d="M10 26c-4 0-5-8 1-9M18 38v5h12v-5"/><path d="M40 6l4-3M42 12h5M37 3V0" stroke="#e6bd55"/></svg></div>
+  <div style="margin-left:16px"><div style="font-size:27px;font-weight:700;line-height:1.15" class="r">No answer for the big loaded shots</div>
+  <div class="row" style="margin-top:8px"><span class="pip bad"></span><span class="pip bad"></span><span class="pip bad"></span><span style="font-weight:700;margin-left:4px">lost 3 of 3</span></div></div>
+ </div>
+ <div class="h" style="font-size:13px;margin-top:22px">The measured fix <span class="m" style="letter-spacing:1px;text-transform:none;font-weight:600">· changes tried: none beats luck</span></div>
+ <div class="abs row" style="left:18px;top:168px"><div style="border:2px solid var(--header);border-radius:5px;padding:7px 12px;font-weight:700;background:#2b241d">New line E: when the opponent loads up → Step back</div></div>
+ <div class="abs row" style="left:18px;right:18px;top:240px"><span style="width:150px;font-weight:700">The plan as written</span><div class="bar"><i style="width:57.5%;background:var(--badfill)"></i></div><span style="font-weight:700;width:84px">23 of 40</span></div>
+ <div class="abs row" style="left:18px;right:18px;top:270px"><span style="width:150px;font-weight:700" class="m">New line E only</span><div class="bar"><i style="width:57.5%;background:#8a8272"></i></div><span style="font-weight:700;width:84px">23 of 40</span></div>
+ <!-- the even-fight line over both bars (20 of 40) -->
+ <div class="abs" style="left:352px;top:232px;height:66px;border-left:2px dashed var(--text)"></div>
+ <div class="abs m" style="left:322px;top:213px;font-size:13px;font-weight:700">even fight</div>
+</div>
+<!-- the ONE open hover: the long read of the plan test -->
+<div class="tip up hov" style="left:62px;top:612px;width:596px">
+ <div class="h">What the bars say</div>
+ Even the best plan only gets close to an even fight (23 of 40): the opponent was the better boxer. <span class="y">Training closes the rest.</span>
+ <div class="m" style="font-size:14px;margin-top:8px">Measured: 40 more nights against the opponent, the corner's own calls, only the plan changes.</div>
+</div>
+<div class="cursor c1" style="left:300px;top:578px"></div>
+
+<!-- THE ROUNDS: exchanges as up/down bars, energy as gauges, judges as dots -->
+<div class="card" style="left:696px;top:300px;width:620px;height:464px;padding-bottom:6px">
+ <div class="row" style="justify-content:space-between"><div class="h">Round by round</div><div class="m" style="font-size:14px">bar up = your boxer's exchange · down = the opponent's</div></div>
+ <div style="margin-top:4px">
+  <div class="rd"><div style="width:112px"><div class="b" style="font-size:26px">ROUND 1</div><div class="b r" style="font-size:38px;line-height:1">4-2</div>
+    <div title="all 3 judges your boxer"><span class="dot" style="background:var(--red)"></span><span class="dot" style="background:var(--red)"></span><span class="dot" style="background:var(--red)"></span></div></div>
+   <div class="ex"><div class="col"><i class="up" style="height:24px"></i></div>5-2</div><div class="ex"><div class="col"><i class="dn" style="height:8px"></i></div>3-4</div><div class="ex"><div class="col"><i class="dn" style="height:8px"></i></div>3-4</div><div class="ex"><div class="col"><i class="up" style="height:8px"></i></div>4-3</div><div class="ex"><div class="col"><i class="up" style="height:8px"></i></div>4-3</div><div class="ex"><div class="col"><i class="up" style="height:8px"></i></div>4-3</div>
+   <div class="en" style="margin-left:14px"><div class="row" style="justify-content:space-between;font-size:14px"><span class="m">Energy, yours</span><b>66</b></div><div class="track"><i style="width:66%;background:var(--red)"></i></div>
+    <div class="row" style="justify-content:space-between;font-size:14px"><span class="m">theirs</span><b>65</b></div><div class="track"><i style="width:65%;background:var(--blue)"></i></div></div></div>
+  <div class="rd"><div style="width:112px"><div class="b" style="font-size:26px">ROUND 2</div><div class="b a" style="font-size:38px;line-height:1">0-6</div>
+    <div title="all 3 judges the opponent"><span class="dot" style="background:var(--blue)"></span><span class="dot" style="background:var(--blue)"></span><span class="dot" style="background:var(--blue)"></span></div></div>
+   <div class="ex"><div class="col"><i class="dn" style="height:8px"></i></div>3-4</div><div class="ex"><div class="col"><i class="dn" style="height:8px"></i></div>3-4</div><div class="ex"><div class="col"><i class="dn" style="height:24px"></i></div>2-5</div><div class="ex"><div class="col"><i class="ev"></i></div>3-3</div><div class="ex"><div class="col"><i class="dn" style="height:27px"></i></div>1-5</div><div class="ex"><div class="col"><i class="dn" style="height:16px"></i></div>2-4</div>
+   <div class="en" style="margin-left:14px"><div class="row" style="justify-content:space-between;font-size:14px"><span class="m">Energy, yours</span><b>29</b></div><div class="track"><i style="width:29%;background:var(--red)"></i></div>
+    <div class="row" style="justify-content:space-between;font-size:14px"><span class="m">theirs</span><b>34</b></div><div class="track"><i style="width:34%;background:var(--blue)"></i></div></div></div>
+  <div class="rd"><div style="width:112px"><div class="b" style="font-size:26px">ROUND 3</div><div class="b a" style="font-size:38px;line-height:1">1-5</div>
+    <div title="all 3 judges the opponent"><span class="dot" style="background:var(--blue)"></span><span class="dot" style="background:var(--blue)"></span><span class="dot" style="background:var(--blue)"></span></div></div>
+   <div class="ex"><div class="col"><i class="ev"></i></div>3-3</div><div class="ex"><div class="col"><i class="ev"></i></div>3-3</div><div class="ex"><div class="col"><i class="dn" style="height:27px"></i></div>1-5</div><div class="ex"><div class="col"><i class="ev"></i></div>3-3</div><div class="ex"><div class="col"><i class="up" style="height:8px"></i></div>4-3</div><div class="ex"><div class="col"><i class="ev"></i></div>3-3</div>
+   <div class="en" style="margin-left:14px"><div class="row" style="justify-content:space-between;font-size:14px"><span class="m">Energy, yours</span><b>20</b></div><div class="track"><i style="width:20%;background:var(--red)"></i></div>
+    <div class="row" style="justify-content:space-between;font-size:14px"><span class="m">theirs</span><b>15</b></div><div class="track"><i style="width:15%;background:var(--blue)"></i></div></div></div>
+ </div>
+ <div class="m abs" style="left:18px;bottom:10px;font-size:14px"><span class="dot" style="background:var(--red)"></span><span class="dot" style="background:var(--red)"></span><span class="dot" style="background:var(--red)"></span> the three judges' round · hover a round for its words</div>
+</div>
+
+<!-- WHAT IT COST: the body with the marks (ResultMarks) -->
+<div class="card" style="left:1332px;top:300px;width:548px;height:464px">
+ <div class="h">What it cost your boxer</div>
+ <svg class="abs" style="left:176px;top:50px" width="196" height="290" viewBox="0 0 196 290" fill="#5d5548" stroke="#8a8272" stroke-width="2">
+  <circle cx="98" cy="34" r="26"/><path d="M84 60h28v12H84z"/><path d="M56 74h84l10 26-8 70-16 14H70l-16-14-8-70z"/>
+  <path d="M46 78l-22 16-8 62 14 6 16-48zM150 78l22 16 8 62-14 6-16-48z"/><path d="M68 186h28l-4 96H72zM100 186h28l-4 96h-20z"/>
+  <circle cx="20" cy="166" r="13" fill="#b3312b" stroke="#df4639"/><circle cx="176" cy="166" r="13" fill="#b3312b" stroke="#df4639"/>
+ </svg>
+ <!-- hooked lines out of the body, as on the real page -->
+ <svg class="abs" style="left:0;top:0;pointer-events:none" width="548" height="464" fill="none" stroke="#b1a084" stroke-width="2"><path d="M252 84H150V96"/><circle cx="252" cy="84" r="4" fill="#b1a084"/><path d="M300 178H410V190"/><circle cx="300" cy="178" r="4" fill="#b1a084"/></svg>
+ <div class="abs" style="left:24px;top:100px;width:150px"><div class="b" style="font-size:44px;line-height:1">43</div><div class="m" style="font-size:14px;line-height:1.2">punches to the head<br>no cut, no swelling</div></div>
+ <div class="abs" style="left:392px;top:194px;width:140px"><div class="b" style="font-size:44px;line-height:1">21</div><div class="m" style="font-size:14px;line-height:1.2">punches to the body<br>ribs and liver fine</div></div>
+ <div class="abs" style="left:392px;top:52px;width:140px;text-align:right"><div class="b g" style="font-size:26px;line-height:1.05">NOTHING<br>LASTING</div><div class="m" style="font-size:14px">took 64 punches</div></div>
+ <div class="abs row" style="left:18px;right:18px;bottom:14px;border-top:1px solid #3a342e;padding-top:12px;justify-content:space-around">
+  <div class="count"><div class="b g">0</div><div>times hurt</div></div>
+  <div class="count"><div class="b">0</div><div>times the opponent was hurt</div></div>
+  <div class="count"><div class="b g">0</div><div>standing counts</div></div>
+ </div>
+</div>
+
+<!-- what the night paid: icon tiles -->
+<div class="tile" style="left:40px"><svg width="52" height="52" viewBox="0 0 48 48" fill="none" stroke="#2cb56f" stroke-width="3" stroke-linecap="round"><path d="M6 16h36v18H6zM6 22c4 0 6-2 6-6M42 22c-4 0-6-2-6-6M6 28c4 0 6 2 6 6M42 28c-4 0-6 2-6 6"/><circle cx="24" cy="25" r="5"/></svg>
+ <div><div class="b g">+$450</div><div class="cap">club ticket cut</div></div></div>
+<div class="tile" style="left:349px"><svg width="52" height="52" viewBox="0 0 48 48" fill="none" stroke="#ff7a66" stroke-width="3" stroke-linecap="round"><path d="M14 4v40M34 4v40M14 12h20M14 22h20M14 32h20M14 42h20"/><path d="M42 20v12M38 28l4 5 4-5" stroke-width="2.5"/></svg>
+ <div><div class="b r">-7 <span class="m" style="font-size:24px">now 13</span></div><div class="cap">ladder points · unranked,<br>1 win from entering</div></div></div>
+<div class="tile" style="left:658px"><svg width="52" height="52" viewBox="0 0 48 48" fill="none" stroke="#ff7a66" stroke-width="3" stroke-linecap="round"><circle cx="17" cy="16" r="7"/><path d="M4 40c0-9 6-13 13-13s13 4 13 13"/><circle cx="34" cy="18" r="5"/><path d="M36 28c5 1 8 5 8 11"/></svg>
+ <div><div class="b r">-1</div><div class="cap">members after the news</div></div></div>
+<div class="tile" style="left:967px"><svg width="52" height="52" viewBox="0 0 48 48" fill="none" stroke="#2cb56f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 40l12-14 8 8 16-22"/><path d="M32 12h10v10"/></svg>
+ <div><div class="b g">+0.7</div><div class="cap">what it taught,<br>every ability</div></div></div>
+<div class="tile" style="left:1276px"><svg width="52" height="52" viewBox="0 0 48 48" fill="none" stroke="#e6bd55" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 26l8-8 8 4 6-6 8 6 10-2v14l-10 6-10 2-12-6z"/><path d="M20 22l6 6M26 16l8 8"/></svg>
+ <div><div class="row"><span class="pip on" style="width:22px;height:22px;background:var(--header);border-color:var(--header)"></span><span class="pip" style="width:22px;height:22px"></span><span class="b" style="font-size:32px;margin-left:6px">1 OF 2</span></div><div class="cap">bouts for the host<br>toward a favour</div></div></div>
+<div class="tile" style="left:1585px;width:295px;border-color:var(--warn)"><svg width="52" height="52" viewBox="0 0 48 48" fill="none" stroke="#cf9245" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M16 30c-5-3-7-8-7-12a15 15 0 0130 0c0 4-2 9-7 12v6H16z"/><path d="M18 42h12"/></svg>
+ <div><div class="row"><span class="pip"></span><span class="pip"></span><span class="pip"></span><span class="pip"></span><span class="pip"></span><span class="pip"></span></div><div style="font-weight:700;margin-top:3px" class="w">Double jab: 0 of 6</div><div class="cap">the plan's clue</div></div></div>
+
+<!-- buttons -->
+<div class="abs row" style="right:40px;top:922px"><div class="btn" style="height:56px;margin-right:12px">More: the whole read</div><div class="btn" style="height:56px;margin-right:12px">The plan, lit up</div><div class="btn go" style="height:56px;width:240px;font-size:22px">Back home</div></div>
+<div class="abs m" style="left:40px;top:940px;font-size:15px">Every tile and bar has its words one hover away.</div>
+<div class="cursor c2" style="left:1420px;top:966px"></div>
+
+<!-- the MODAL (second still): every long sentence of today's page, in one place -->
+<div id="modal"><div class="shade"></div><div class="sheet">
+ <div class="row" style="justify-content:space-between"><div class="b" style="font-size:40px">THE WHOLE READ</div><div class="btn">Close</div></div>
+ <div class="m">Everything the summary says in pictures, in words.</div>
+ <div class="sec"><svg width="40" height="40" viewBox="0 0 48 48" fill="none" stroke="#ff7a66" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M10 26c0-10 6-16 15-16 8 0 13 5 13 12v8c0 5-4 8-9 8H18c-5 0-8-4-8-8z"/><path d="M10 26c-4 0-5-8 1-9M18 38v5h12v-5"/></svg>
+  <div><div class="h">Why it was lost, and the measured fix</div><p class="r" style="font-weight:700;font-size:20px">Nothing in the plan for big loaded shots: lost 3 of 3.</p>
+  <p>Changes tried (none beats luck): <b>New line E: when the opponent loads up → Step back</b>. The plan as written wins 23 of 40; new line E only, 23 of 40.</p>
+  <p class="y">Even the best plan only gets close to an even fight (23 of 40): the opponent was the better boxer. Training closes the rest.</p>
+  <p class="m" style="font-size:15px">Measured: 40 more nights against the opponent, the corner's own calls, only the plan changes.</p></div></div>
+ <div class="sec"><svg width="40" height="40" viewBox="0 0 48 48" fill="none" stroke="#cf9245" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M16 30c-5-3-7-8-7-12a15 15 0 0130 0c0 4-2 9-7 12v6H16z"/><path d="M18 42h12"/></svg>
+  <div><div class="h">The plan's clue</div><p>The plan had double jab 6 times and it never got off: not sharp enough yet. Drill it, or plan a line that is ready.</p></div></div>
+ <div class="sec"><svg width="40" height="40" viewBox="0 0 48 48" fill="none" stroke="#2cb56f" stroke-width="3" stroke-linecap="round"><circle cx="24" cy="10" r="6"/><path d="M14 20h20l-2 14H16zM18 34v10M30 34v10"/></svg>
+  <div><div class="h">What it cost your boxer</div><p><b class="g">Nothing lasting.</b> Took 64 punches, 21 to the body. 0 times hurt, 0 times the opponent was hurt, 0 standing counts.</p></div></div>
+ <div class="sec"><svg width="40" height="40" viewBox="0 0 48 48" fill="none" stroke="#b1a084" stroke-width="3" stroke-linecap="round"><path d="M14 4v40M34 4v40M14 12h20M14 22h20M14 32h20M14 42h20"/></svg>
+  <div><div class="h">Rank and the club</div><p>Unranked: 1 win from entering. Ladder points -7, now 13. Record 3-1 → 3-2.</p>
+  <p>Club ticket cut +$450. Members after the news -1. What it taught, every ability +0.7. 1 of 2 bouts for the host toward a favour.</p></div></div>
+ <div class="sec"><svg width="40" height="40" viewBox="0 0 48 48" fill="none" stroke="#6fa0e6" stroke-width="3" stroke-linecap="round"><path d="M8 8h32v32H8zM8 18h32M18 18v22"/></svg>
+  <div><div class="h">The cards</div><p>All three judges 28-29: round 1 your boxer 10-9 (exchanges 4-2), round 2 the opponent 9-10 (0-6), round 3 the opponent 9-10 (1-5). Energy at the bell: 66 v 65, 29 v 34, 20 v 15.</p></div></div>
+</div></div>
+<script>if(location.pathname.indexOf('_modal')>0)document.body.classList.add('modal');</script>
+</body></html>

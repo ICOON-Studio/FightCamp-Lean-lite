@@ -2,154 +2,95 @@
  "_doc": "Claude writes one entry per agent run at launch (operator S144: 'make it more clear, who is working on what, ETA'). The ops board /agents page joins it to the live processes. eta = Claude's estimate at launch, local time; status running|waiting|done.",
  "seats": 3,
  "runs": {
-  "STEPPAY2": {
-   "id": "STEPPAY2",
-   "status": "done",
-   "started": "2026-11-21",
-   "title": "Footwork: the place pays (done), the right step costs no exchange, re-gate 10 steps",
-   "seat": "claude",
-   "agent": "claude-fable",
-   "note": "S538: already collected (git log)"
-  },
-  "ARMBUILD1": {
-   "id": "ARMBUILD1",
-   "status": "done",
-   "started": "2026-11-21T15:20",
-   "title": "3D fight: arms and shoulders follow Strength (your Q-290)",
-   "seat": "claude",
-   "agent": "claude-fable",
-   "eta": "about 30 min",
-   "note": "S536: arms by Strength committed (stronger); 40 vs 80 stills still to render | S538: already collected (git log)"
-  },
-  "ARMPAINT1": {
-   "id": "ARMPAINT1",
-   "status": "done",
-   "started": "2026-11-21T15:20",
-   "title": "Repaint 152 bodies with athletic arms (Ludo)",
-   "seat": "ludo",
-   "agent": "ludo",
-   "eta": "about 30 min",
-   "note": "S536: f3e86aab8 repaint imported | S538: already collected (git log)"
-  },
-  "TURNPROBE11": {
-   "id": "TURNPROBE11",
-   "status": "done",
-   "started": "2026-11-21T15:35",
-   "title": "Probe turning pro v11 before critics",
-   "seat": "claude",
-   "agent": "claude-fable",
-   "eta": "about 40 min",
-   "note": "S536: docs/TURNPROBE11_RESULT.md (FAIL) -> TURNPRO12 | S538: already collected (git log)"
-  },
-  "DEPTHPRICE1A": {
-   "id": "DEPTHPRICE1A",
-   "status": "done",
-   "started": "2026-11-21T15:35",
-   "title": "Price the solved fight-night choices (probe)",
-   "seat": "claude",
-   "agent": "claude-fable",
-   "eta": "about 40 min",
-   "note": "S536: docs/DEPTHPRICE1A_RESULT.md, d7d79e083 | S538: already collected (git log)"
-  },
-  "DEPTHPRICE1B": {
-   "id": "DEPTHPRICE1B",
-   "status": "done",
-   "started": "2026-11-21T15:35",
-   "title": "Price the solved club choices (probe)",
-   "seat": "claude",
-   "agent": "claude-fable",
-   "eta": "about 40 min",
-   "note": "S536: 36ed76a9f class nights PASS, stipend PASS thin, loan FAIL (sponsor timing), diet no-op -> WEIGHT2 diet | S538: already collected (git log)"
-  },
-  "GUARDPROBE6": {
-   "id": "GUARDPROBE6",
-   "status": "done",
-   "started": "2026-11-21T15:35",
-   "title": "Probe guard v6: Hands before settle",
-   "seat": "claude",
-   "agent": "claude-fable",
-   "eta": "about 40 min",
-   "note": "S536: docs/GUARDPROBE6_RESULT.md (FAIL) -> GUARDREV7 v7 | S538: already collected (git log)"
-  },
-  "KNOWMISREAD1": {
-   "id": "KNOWMISREAD1",
-   "status": "done",
-   "started": "2026-11-21T15:35",
-   "title": "Be wrong about people: a shared misread (build)",
-   "seat": "claude",
-   "agent": "claude-fable",
-   "eta": "about 40 min",
-   "note": "S536: 7b6ca1efe, docs/KNOWMISREAD1_RESULT.md | S538: already collected (git log)"
-  },
   "TURNPRO15": {
    "id": "TURNPRO15",
-   "status": "running",
+   "status": "paused",
    "started": "2026-11-22T21:00",
    "title": "Turning pro v15: fix the favour, card honesty, name-chaser bars",
    "seat": "claude",
    "agent": "claude-fable (API credit, sdk_run.py)",
    "eta": "about 90 min",
-   "note": "S538 ops/AgentComms/credit_runs/TURNPRO15_s538.out"
-  },
-  "NIGHTFIX537": {
-   "id": "NIGHTFIX537",
-   "status": "done",
-   "started": "2026-11-22T21:00",
-   "title": "Fix the five nightly red tests",
-   "seat": "claude",
-   "agent": "claude-fable (API credit, sdk_run.py)",
-   "eta": "about 60 min",
-   "note": "S538 4184a29c5: tips + words_on_screens green; rokoko_clips, human_feet, head_aim held -> MOTIONRULERS1 bisect; $2.37"
-  },
-  "CARDREF2": {
-   "id": "CARDREF2",
-   "status": "running",
-   "started": "2026-11-22T21:00",
-   "title": "Card game: martial arts, limb points, animation sources (read)",
-   "seat": "claude",
-   "agent": "claude-fable (API credit, sdk_run.py)",
-   "eta": "about 60 min",
-   "note": "S538 ops/AgentComms/credit_runs/CARDREF2_s538.out"
+   "note": "S538 ops/AgentComms/credit_runs/TURNPRO15_s538.out | S538 22:52 stopped: owner game lagging; relaunch from files on disk"
   },
   "STEPPAY4": {
    "id": "STEPPAY4",
-   "status": "running",
+   "status": "paused",
    "started": "2026-11-22T21:00",
    "title": "Footwork: the wrong style punishes the step",
    "seat": "claude",
    "agent": "claude-fable (API credit, sdk_run.py)",
    "eta": "about 2 h",
-   "note": "S538 ops/AgentComms/credit_runs/STEPPAY4_s538.out"
+   "note": "S538 ops/AgentComms/credit_runs/STEPPAY4_s538.out | S538 22:52 stopped: owner game lagging; relaunch from files on disk"
   },
   "KNOWMISREAD2": {
    "id": "KNOWMISREAD2",
-   "status": "running",
+   "status": "done",
    "started": "2026-11-22T21:00",
    "title": "Be wrong about people: size it on a sharper ruler",
    "seat": "claude",
    "agent": "claude-fable (API credit, sdk_run.py)",
    "eta": "about 90 min",
-   "note": "S538 ops/AgentComms/credit_runs/KNOWMISREAD2_s538.out"
+   "note": "S538 370528621: +12.1% [5.3..19.6] at 0.5; share is a weak lever; keep 0.5 (Claude decides: real, in band; interval bar too strict for world variance) -> KNOW_STAKES1 v6 critics; $2.37+"
   },
   "COACHHIRE1": {
    "id": "COACHHIRE1",
-   "status": "running",
+   "status": "paused",
    "started": "2026-11-22T21:05",
    "title": "Coach hire: a real choice? probe, then wire or delete",
    "seat": "claude",
    "agent": "claude-fable (API credit, sdk_run.py)",
    "eta": "about 90 min",
-   "note": "S538 credit_runs/COACHHIRE1_s538.out"
+   "note": "S538 credit_runs/COACHHIRE1_s538.out | S538 22:52 stopped: owner game lagging; relaunch from files on disk"
   },
   "LEDGERPROBE1": {
    "id": "LEDGERPROBE1",
-   "status": "running",
+   "status": "paused",
    "started": "2026-11-22T21:05",
    "title": "Contract tab: keep / cut stipend / release probe",
    "seat": "claude",
    "agent": "claude-fable (API credit, sdk_run.py)",
    "eta": "about 90 min",
-   "note": "S538 credit_runs/LEDGERPROBE1_s538.out"
+   "note": "S538 credit_runs/LEDGERPROBE1_s538.out | S538 22:52 stopped: owner game lagging; relaunch from files on disk"
+  },
+  "CARDSCOPE4": {
+   "id": "CARDSCOPE4",
+   "status": "paused",
+   "started": "2026-11-22T21:18",
+   "title": "Card game scope 4: six martial arts, limb points tested",
+   "seat": "claude",
+   "agent": "claude-fable (API credit, sdk_run.py)",
+   "eta": "about 2 h",
+   "note": "S538 credit_runs/CARDSCOPE4_s538.out | S538 22:52 stopped: owner game lagging; relaunch from files on disk"
+  },
+  "PLANFLOW2": {
+   "id": "PLANFLOW2",
+   "status": "paused",
+   "started": "2026-11-22T22:25",
+   "title": "Plan chart: main bet, uses, save/load + repeat-read probe",
+   "seat": "claude",
+   "agent": "claude-fable (API credit, sdk_run.py)",
+   "eta": "about 2 h",
+   "note": "S538 owner: \"launch the other two jobs too\" | S538 22:52 stopped: owner game lagging; relaunch from files on disk"
+  },
+  "LOOKMOCK538": {
+   "id": "LOOKMOCK538",
+   "status": "done",
+   "started": "2026-11-22T22:25",
+   "title": "Mockups: result page v2 + office goals panel",
+   "seat": "claude",
+   "agent": "claude-fable (API credit, sdk_run.py)",
+   "eta": "about 60 min",
+   "note": "S538 c998c7b17 ops/previews/s538_look; on review board; $4.61"
+  },
+  "KNOWSTAKES6": {
+   "id": "KNOWSTAKES6",
+   "status": "running",
+   "started": "2026-11-22T22:50",
+   "title": "Knowledge stakes map v6 (measured), then critics",
+   "seat": "claude",
+   "agent": "claude-fable (API credit, sdk_run.py)",
+   "eta": "about 40 min",
+   "note": "S538"
   }
  },
  "codex_budget": {

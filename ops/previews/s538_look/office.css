@@ -1,0 +1,22 @@
+/* S538 LOOKMOCK538 - the office desktop's frame, redrawn from docs/previews/office1_desktop_real.png (navy desk on the wood wall). */
+body{background:#17110d url(../../../assets/ui/art/menu_wall.jpg) center/cover}
+.top{position:absolute;left:0;top:0;width:1920px;height:78px;background:linear-gradient(#2a1d15,#1d140f);border-bottom:2px solid #0d0907}
+.top .name{position:absolute;left:118px;top:20px;font-family:Bebas;font-size:40px;color:#5b8fe0;font-style:italic;letter-spacing:2px}
+.wbtn{position:absolute;height:42px;border-radius:5px;background:#3a2a20;border:1px solid #6a4c3a;display:flex;align-items:center;justify-content:center;font-weight:700}
+.desk{position:absolute;left:28px;top:100px;width:1864px;height:958px;background:#0f1622;border:1px solid #263247;border-radius:6px}
+.rail{position:absolute;left:14px;top:66px}
+.ri{width:78px;height:78px;border-radius:10px;background:#1a2333;border:1px solid #2a364b;margin-bottom:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#c9cfdb;position:relative}
+.ri.on{border:2px solid var(--header);color:var(--header)}
+.ri svg{margin-bottom:5px}
+.ri .bad{position:absolute;right:-4px;top:-4px;background:#df4639;color:#fff;border-radius:50%;width:20px;height:20px;font-size:12px;display:flex;align-items:center;justify-content:center}
+.title{position:absolute;left:136px;top:70px;width:1700px;height:44px;background:#1a2638;display:flex;align-items:center;padding-left:18px;font-weight:700;letter-spacing:3px;font-size:20px}
+.p{position:absolute;background:#141c2a;border:1px solid #27324a;border-radius:6px;padding:14px 16px}
+.p .ph{font-weight:700;letter-spacing:3px;font-size:19px;color:#d8dde8}
+.p .ph small{letter-spacing:0;font-weight:600;font-size:15px;color:#9aa3b5;margin-left:8px}
+.sub{font-size:12.5px;font-weight:700;letter-spacing:2px;color:#8b95a9;text-transform:uppercase}
+.chip{display:inline-block;border-radius:4px;padding:2px 8px;font-size:13.5px;font-weight:700;background:#26324a;color:#dfe5f0;white-space:nowrap}
+.chip.g{background:#17472f;color:#6fe0a4}.chip.a{background:#4d3913;color:#f0c067}.chip.r{background:#5a1f1b;color:#ffa494}.chip.bl{background:#1d3a66;color:#9cc2ff}
+.chip.new{background:#f3e6a8;color:#2a2416}
+.sm{font-size:14px;color:#9aa3b5;line-height:1.25}
+.track{background:#0a0f18;border-color:#2c3850}
+.face.z{background-size:200%;background-position:50% 2%}

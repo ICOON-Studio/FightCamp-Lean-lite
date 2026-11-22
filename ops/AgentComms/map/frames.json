@@ -176,6 +176,15 @@
       "ops/previews/s535_offer_mockup/tape_with_form.png"
      ],
      "cols": 2
+    },
+    {
+     "id": "s538_look",
+     "title": "Result page v2 + office goals + office sheets (your look, S538)",
+     "kind": "gallery",
+     "globs": [
+      "ops/previews/s538_look/*.png"
+     ],
+     "cols": 3
     }
    ]
   },

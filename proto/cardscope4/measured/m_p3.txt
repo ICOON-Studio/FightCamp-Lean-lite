@@ -1,0 +1,7 @@
+P3 wind  AI over impatient 65.2 | holds a playable card back 4.2 of turns | s/turn 12.8 | cheap deck (impatient): boxing 17.7, karate 24.3, mix 20.1 | worst cell off 50 by 11.3
+   ends: KO 19.2 lead 16.2 tap 22.7 pin 0.9 cards 41.0 | early 59.0 | 3+ ranges 98.7 ground 92.9 | decisions 24.5 (95%: 42) choices 2.8 max 9 | s/turn 12.8 | holds back 4.2 quiet 6.8 | holds on 1.15/bout finish 27.7 end 25.5 of ground bouts
+P3 limb  AI over impatient 54.1 | holds a playable card back 3.7 of turns | s/turn 9.3 | cheap deck (impatient): boxing 60.6, karate 67.1, mix 34.7 | worst cell off 50 by 50.0
+   ends: KO 21.5 lead 8.7 tap 8.2 pin 0.0 cards 61.6 | early 38.4 | 3+ ranges 98.1 ground 85.9 | decisions 27.6 (95%: 39) choices 2.5 max 8 | s/turn 9.3 | holds back 3.7 quiet 4.3 | holds on 0.45/bout finish 22.3 end 9.5 of ground bouts
+P3 both  AI over impatient 53.9 | holds a playable card back 3.8 of turns | s/turn 12.0 | cheap deck (impatient): boxing 61.2, karate 63.8, mix 36.8 | worst cell off 50 by 50.0
+   ends: KO 18.0 lead 8.6 tap 7.0 pin 0.1 cards 66.3 | early 33.7 | 3+ ranges 98.8 ground 85.9 | decisions 28.0 (95%: 39) choices 2.5 max 8 | s/turn 12.0 | holds back 3.8 quiet 5.5 | holds on 0.47/bout finish 19.7 end 8.2 of ground bouts
+   [p3: 52 s, per=150, seed=500000000, mode=wind]

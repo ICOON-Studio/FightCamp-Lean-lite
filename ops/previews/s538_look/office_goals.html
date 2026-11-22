@@ -1,0 +1,126 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Office goals panel (S538 mockup)</title>
+<link rel="stylesheet" href="look.css"><link rel="stylesheet" href="office.css">
+<style>
+.need{border:1px solid #2c3850;border-radius:6px;padding:9px 12px;margin-top:10px;display:flex;align-items:center;background:#18212f}
+.need.hot{border-color:#b3312b}
+.nic{width:42px;height:42px;border-radius:6px;background:#3b2a12;display:flex;align-items:center;justify-content:center;margin-right:12px;flex:none}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-top:6px}
+.cal div{height:47px;background:#18212f;border-radius:3px;padding:3px 6px;font-size:13px;color:#9aa3b5}
+.cal .hd{height:18px;background:none;text-align:center;font-weight:700}
+.cal span{display:block;background:#26324a;color:#dfe5f0;border-radius:2px;font-size:12.5px;font-weight:700;padding:0 4px;margin-top:2px;white-space:nowrap;overflow:hidden}
+.cal .today{border:2px solid var(--header)}
+.gr{display:flex;align-items:center;height:59px;border-top:1px solid #222c40}
+.gr>div{flex:none;padding-right:12px}
+.gh{display:flex;height:22px;align-items:flex-end}
+.gh>div{flex:none}
+.pend{display:flex;align-items:center;height:44px;border-top:1px solid #222c40}
+.pend svg{flex:none;margin-right:10px}
+.fc{width:194px;margin-right:8px;background:#18212f;border:1px solid #27324a;border-radius:6px;padding:8px 10px;height:92px}
+.mini{display:flex;align-items:center;font-size:13px;color:#9aa3b5;margin-top:3px}
+.mini .track{flex:1;height:6px;margin:0 6px}
+.note{width:372px}
+</style></head><body>
+<script src="frame.js"></script><script>frame("Desktop","THIS WEEK AT THE CLUB")</script>
+
+<!-- row 1: as today -->
+<div class="p" style="left:182px;top:233px;width:600px;height:300px">
+ <div class="ph">NEEDS YOU<small>2 things, most urgent first</small></div>
+ <div class="need hot"><div class="nic" style="background:#4a1c19"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff7a66" stroke-width="2"><path d="M4 5h16v14H4zM4 6l8 7 8-7"/></svg></div>
+  <div style="flex:1"><b>A bout offer is waiting</b><div class="sm">lightweight, a regional show; it ends Fri 20 Feb</div></div><div class="btn go">See the offer</div></div>
+ <div class="need"><div class="nic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#e6bd55" stroke-width="2"><path d="M12 3l3 6 6 1-4.5 4 1 6-5.5-3-5.5 3 1-6L3 10l6-1z"/></svg></div>
+  <div style="flex:1"><b>A goal talk is waiting</b><div class="sm">the welterweight has no goal set</div></div><div class="btn">Goal talk</div></div>
+</div>
+<div class="p" style="left:798px;top:233px;width:612px;height:300px">
+ <div class="ph">NEXT FOUR WEEKS<small>bouts, fight weeks, bills</small></div>
+ <div class="cal">
+  <div class="hd">Mon</div><div class="hd">Tue</div><div class="hd">Wed</div><div class="hd">Thu</div><div class="hd">Fri</div><div class="hd">Sat</div><div class="hd">Sun</div>
+  <div>9</div><div>10</div><div>11</div><div>12</div><div>13</div><div class="today">14</div><div>15<span>dues in</span></div>
+  <div>16</div><div>17</div><div>18</div><div>19</div><div>20<span style="background:#4d3913;color:#f0c067">offer ends</span></div><div>21</div><div>22<span>dues in</span></div>
+  <div>23</div><div>24</div><div>25</div><div>26</div><div>27</div><div>28<span style="background:#1d3a66;color:#9cc2ff">open</span></div><div>1<span>dues in</span></div>
+  <div>2<span>bills due</span></div><div>3</div><div>4</div><div>5</div><div>6</div><div>7<span style="background:#5a1f1b;color:#ffa494">bout</span></div><div>8<span>dues in</span></div>
+ </div>
+</div>
+<div class="p" style="left:1426px;top:233px;width:420px;height:300px">
+ <div class="ph">MAIL<small>5 unread</small></div>
+ <div style="margin-top:8px"><b><span class="a">●</span> Club news</b><div class="sm" style="margin:0 0 9px 18px">A bout offer came in for the lightweight.</div>
+ <b><span class="a">●</span> Club news</b><div class="sm" style="margin:0 0 9px 18px">The featherweight's next bout is set for Sat 7 Mar.</div>
+ <b><span class="a">●</span> Club news</b><div class="sm" style="margin:0 0 9px 18px">Nationals: entries close Mon 16 Mar.</div></div>
+</div>
+
+<!-- row 2: the NEW goals panel + money -->
+<div class="p" style="left:182px;top:549px;width:1228px;height:318px;border:2px solid var(--header)">
+ <div class="ph">GOALS<small>what is pending, and what each fighter wants</small> <span class="chip new" style="margin-left:10px;letter-spacing:1px">NEW PANEL</span></div>
+ <!-- the club, pending -->
+ <div class="abs" style="left:16px;top:50px;width:370px">
+  <div class="sub" style="height:22px;padding-top:6px">The club, pending</div>
+  <div class="pend"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f0c067" stroke-width="2"><path d="M4 5h16v14H4zM4 6l8 7 8-7"/></svg><div style="flex:1"><b>Bout offer ends</b><div class="sm">Fri 20 Feb</div></div><span class="chip a">6 days</span></div>
+  <div class="pend"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9aa3b5" stroke-width="2"><path d="M5 3h14v18l-3-2-2 2-2-2-2 2-2-2-3 2zM9 8h6M9 12h6"/></svg><div style="flex:1"><b>Bills due</b><div class="sm">Mon 2 Mar · rent $1,800</div></div><span class="chip">16 days</span></div>
+  <div class="pend"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9aa3b5" stroke-width="2"><path d="M7 4h10v5a5 5 0 01-10 0zM7 6H4c0 3 1 5 4 5M17 6h3c0 3-1 5-4 5M12 14v4M8 20h8"/></svg><div style="flex:1"><b>Nationals entries close</b><div class="sm">Mon 16 Mar · nobody entered</div></div><span class="chip">30 days</span></div>
+  <div class="pend"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6fe0a4" stroke-width="2"><path d="M4 12l5 5L20 6"/></svg><div style="flex:1"><b>No-gi open</b><div class="sm">Sat 28 Feb · the grappler is entered</div></div><span class="chip g">14 days</span></div>
+  <div class="pend"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffa494" stroke-width="2"><path d="M8 13c0-5 2-8 6-8s5 2 5 6v3c0 2-2 4-4 4h-3c-2 0-4-2-4-4zM11 18v3h6v-3"/></svg><div style="flex:1"><b>Bout, the featherweight</b><div class="sm">Sat 7 Mar · fight week from Mon 2 Mar</div></div><span class="chip r">21 days</span></div>
+ </div>
+ <div class="abs" style="left:400px;top:54px;bottom:14px;border-left:1px solid #27324a"></div>
+ <!-- what each fighter wants -->
+ <div class="abs" style="left:416px;top:50px;width:796px">
+  <div class="gh sub"><div style="width:190px">Fighter</div><div style="width:256px">Wants</div><div style="width:138px">How far</div><div style="width:88px">By</div><div style="width:124px">If it is missed</div></div>
+  <div class="gr"><div style="width:190px" class="row"><div class="face z" style="width:42px;height:42px;background-image:url(../../../assets/ui/style_b/portraits/mh_boxer_11.png)"></div><div style="margin-left:9px"><b>Lucy Jackson</b><div class="sm">Light 60 kg · 3-2</div></div></div>
+   <div style="width:256px"><b>Next bout inside a month</b><div class="sm"><span class="r">✗ no bout</span> · stamina 63.9 / 65.9</div></div>
+   <div style="width:138px"><div class="row"><div class="track" style="flex:1"><i style="width:21%;background:var(--warn)"></i></div><b style="margin-left:8px;width:38px">21%</b></div><span class="chip a" style="margin-top:4px">AT RISK</span></div>
+   <div style="width:88px"><b>12 days</b><div class="sm">Thu 26 Feb</div></div>
+   <div style="width:124px;padding:0"><b class="r">mood -20</b><div class="sm">met: mood +10</div></div></div>
+  <div class="gr"><div style="width:190px" class="row"><div class="face z" style="width:42px;height:42px;background-image:url(../../../assets/ui/style_b/portraits/mh_boxer_19.png)"></div><div style="margin-left:9px"><b>Kira Mensah</b><div class="sm">Feather 57 kg · 1-0</div></div></div>
+   <div style="width:256px"><b>Southpaw answer</b><div class="sm">accuracy 61.6 / 62.5</div></div>
+   <div style="width:138px"><div class="row"><div class="track" style="flex:1"><i style="width:64%;background:var(--goodfill)"></i></div><b style="margin-left:8px;width:38px">64%</b></div><span class="chip g" style="margin-top:4px">ON TRACK</span></div>
+   <div style="width:88px"><b>9 days</b><div class="sm">Mon 23 Feb</div></div>
+   <div style="width:124px;padding:0"><b class="r">mood -20</b><div class="sm">met: mood +10</div></div></div>
+  <div class="gr"><div style="width:190px" class="row"><div class="face z" style="width:42px;height:42px;background-image:url(../../../assets/ui/style_b/portraits/mh_boxer_01.png)"></div><div style="margin-left:9px"><b>Josh Harper</b><div class="sm">Welter 67 kg · 4-2</div></div></div>
+   <div style="width:256px"><b>Promised: top of our show</b><div class="sm">no goal set: <span class="y">goal talk waiting</span></div></div>
+   <div style="width:138px"><div class="row"><span class="pip"></span><b>no show yet</b></div><span class="chip a" style="margin-top:4px">OPEN PROMISE</span></div>
+   <div style="width:88px"><b>28 days</b><div class="sm">Sat 14 Mar</div></div>
+   <div style="width:124px;padding:0"><b class="r">loyalty -12</b><div class="sm">kept: loyalty +10</div></div></div>
+  <div class="gr"><div style="width:190px" class="row"><div class="face z" style="width:42px;height:42px;background-image:url(../../../assets/ui/style_b/portraits/mh_boxer_20.png)"></div><div style="margin-left:9px"><b>Ana Ribeiro</b><div class="sm">No-gi feather · 2-1</div></div></div>
+   <div style="width:256px"><b>Blue belt</b><div class="sm">mat hours and wins count</div></div>
+   <div style="width:138px"><div class="row"><div class="track" style="flex:1"><i style="width:62%;background:#2f5fd0"></i></div><b style="margin-left:8px;width:38px">62%</b></div><span class="chip bl" style="margin-top:4px">BUILDING</span></div>
+   <div style="width:88px"><b class="m">no date</b></div>
+   <div style="width:124px;padding:0"><b class="m">nothing lost</b></div></div>
+ </div>
+</div>
+<div class="p" style="left:1426px;top:549px;width:420px;height:318px">
+ <div class="ph">MONEY<small>8 weeks ahead</small></div>
+ <div style="font-size:38px;font-weight:700;margin-top:4px">$15,298</div>
+ <svg width="388" height="82" viewBox="0 0 388 82" fill="none"><path d="M46 14h336M46 34h336M46 54h336" stroke="#3a4660" stroke-dasharray="4 5"/><path d="M46 74h336" stroke="#df4639" stroke-dasharray="6 5" stroke-width="2"/>
+  <path d="M46 16l40-4 42-2 40 10 42-4 42-2 40-4 42 10 46-2" stroke="#eee2ce" stroke-width="2.5" stroke-dasharray="5 4"/><circle cx="46" cy="16" r="6" stroke="#2cb56f" stroke-width="2"/>
+  <text x="2" y="18" fill="#9aa3b5" font-size="12">$15k</text><text x="2" y="38" fill="#9aa3b5" font-size="12">$10k</text><text x="2" y="58" fill="#9aa3b5" font-size="12">$5k</text><text x="2" y="78" fill="#ff7a66" font-size="12">$0</text></svg>
+ <div class="row" style="justify-content:space-between;margin-top:6px"><span>Dues, next 4 weeks</span><b class="g">+$1,762</b></div>
+ <div class="row" style="justify-content:space-between;margin-top:5px"><span>Ticket cuts (1 booked bout)</span><b class="g">+$450</b></div>
+ <div class="row" style="justify-content:space-between;margin-top:5px"><span>Rent, coaches, stipends</span><b class="r">-$4,348</b></div>
+</div>
+
+<!-- row 3: the fighters as a strip of chips + staff -->
+<div class="p" style="left:182px;top:883px;width:848px;height:156px;padding:10px 14px">
+ <div class="ph" style="font-size:17px">FIGHTERS<small>the flag is the one thing each needs · the Fighters icon opens the sheet</small></div>
+ <div class="row" style="margin-top:6px">
+  <div class="fc"><div class="row"><div class="face z" style="width:36px;height:36px;background-image:url(../../../assets/ui/style_b/portraits/mh_boxer_11.png)"></div><div style="margin-left:8px;font-size:15px"><b>Light 60 kg</b><br><span class="chip a">No bout</span></div></div>
+   <div class="mini">Stamina<div class="track"><i style="width:64%;background:var(--header)"></i></div><b>64</b></div><div class="mini">Mood<div class="track"><i style="width:61%;background:var(--header)"></i></div><b>61</b></div></div>
+  <div class="fc"><div class="row"><div class="face z" style="width:36px;height:36px;background-image:url(../../../assets/ui/style_b/portraits/mh_boxer_19.png)"></div><div style="margin-left:8px;font-size:15px"><b>Feather 57 kg</b><br><span class="chip g">Sharp</span></div></div>
+   <div class="mini">Stamina<div class="track"><i style="width:58%;background:var(--header)"></i></div><b>58</b></div><div class="mini">Mood<div class="track"><i style="width:78%;background:var(--header)"></i></div><b>78</b></div></div>
+  <div class="fc"><div class="row"><div class="face z" style="width:36px;height:36px;background-image:url(../../../assets/ui/style_b/portraits/mh_boxer_01.png)"></div><div style="margin-left:8px;font-size:15px"><b>Welter 67 kg</b><br><span class="chip bl">Building</span></div></div>
+   <div class="mini">Stamina<div class="track"><i style="width:65%;background:var(--header)"></i></div><b>65</b></div><div class="mini">Mood<div class="track"><i style="width:47%;background:var(--warn)"></i></div><b>47</b></div></div>
+  <div class="fc" style="margin-right:0"><div class="row"><div class="face z" style="width:36px;height:36px;background-image:url(../../../assets/ui/style_b/portraits/mh_boxer_20.png)"></div><div style="margin-left:8px;font-size:15px"><b>BJJ feather</b><br><span class="chip bl">Building</span></div></div>
+   <div class="mini">Stamina<div class="track"><i style="width:60%;background:var(--header)"></i></div><b>60</b></div><div class="mini">Mood<div class="track"><i style="width:70%;background:var(--header)"></i></div><b>70</b></div></div>
+ </div>
+</div>
+<div class="p" style="left:1046px;top:883px;width:800px;height:156px;padding:10px 14px">
+ <div class="ph" style="font-size:17px">STAFF</div>
+ <div class="row" style="margin-top:12px;align-items:flex-start">
+  <div class="row" style="width:250px"><div class="face" style="width:48px;height:48px;background-image:url(../../../assets/ui/art/guide_trainer.png)"></div><div style="margin-left:10px"><b>Head coach (you)</b><div class="sm">pad nights 5 of 9 done<br>this week</div></div></div>
+  <div class="row" style="width:250px"><div class="face" style="width:48px;height:48px;background-image:url(../../../assets/ui/style_b/portraits/mh_staff_coach.png)"></div><div style="margin-left:10px"><b>Club coach</b><div class="sm">runs the evening classes<br>$450 a week</div></div></div>
+  <div class="row" style="width:260px"><div class="face" style="width:48px;height:48px;border-style:dashed"></div><div style="margin-left:10px"><b class="m">No second coach yet</b><div class="sm">hire from Staff: one more<br>place on the roster</div></div></div>
+ </div>
+</div>
+
+<!-- side notes (not part of the screen) -->
+<div class="note" style="left:556px;top:160px">NEW: the GOALS panel sits in the dashboard's middle row. Left: dated things the club has pending. Right: one row a fighter.</div>
+<div class="note" style="left:940px;top:160px">SHRINKS: FIGHTERS. The big picture cards become four chips (bottom left); the full list is the Fighters sheet. MONEY loses 27 px.</div>
+<div class="note" style="left:1324px;top:160px;width:522px">WOULD NEED BUILDING: the reasons behind a mood (the game keeps one mood number, no list of why), and a "by" date for the belt. Everything else drawn here the game already tracks.</div>
+</body></html>
