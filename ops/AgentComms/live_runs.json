@@ -93,13 +93,13 @@
   },
   "NIGHTFIX537": {
    "id": "NIGHTFIX537",
-   "status": "running",
+   "status": "done",
    "started": "2026-11-22T21:00",
    "title": "Fix the five nightly red tests",
    "seat": "claude",
    "agent": "claude-fable (API credit, sdk_run.py)",
    "eta": "about 60 min",
-   "note": "S538 ops/AgentComms/credit_runs/NIGHTFIX537_s538.out"
+   "note": "S538 4184a29c5: tips + words_on_screens green; rokoko_clips, human_feet, head_aim held -> MOTIONRULERS1 bisect; $2.37"
   },
   "CARDREF2": {
    "id": "CARDREF2",
