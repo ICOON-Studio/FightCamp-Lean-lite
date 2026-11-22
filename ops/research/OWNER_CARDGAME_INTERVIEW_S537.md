@@ -42,3 +42,7 @@ taste.
   fewer and faster turns, full previews.
 - Phase 8 "the link" leaves the plan; a standalone run is the product.
 - The reference set replaces the brief's list (Slay the Spire, Balatro, ...) as the games to beat.
+
+- **Kickboxing too (S538):** "also include kickboxing for the card game". A seventh art beside boxing, karate, judo, wrestling,
+  BJJ, sambo (MMA = the meeting ground). Its own cards and mechanic, distinct from karate (karate: in-and-out point scoring
+  from kick range; kickboxing: trading punch-kick combinations, leg kicks that wear movement, clinch knees, no takedowns).

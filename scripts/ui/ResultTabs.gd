@@ -20,6 +20,7 @@ const AftermathTiles := preload("res://scripts/ui/AftermathTiles.gd")
 const WhyCard := preload("res://scripts/ui/WhyCard.gd")
 const ResultMarks := preload("res://scripts/ui/ResultMarks.gd")
 const ResultCause := preload("res://scripts/ui/ResultCause.gd")
+const PlanBet := preload("res://scripts/ui/PlanBet.gd")
 
 const TEXT := 20
 const FIT_COL := {"best": Palette.GOOD, "ok": Palette.GOOD, "wrong": Palette.BAD, "none": Palette.MUTED}
@@ -257,6 +258,12 @@ static func plan(m: Dictionary, names: Array) -> HBoxContainer:
 				uses[str(x["arrow"])] = u
 	if arrows.is_empty():
 		lv.add_child(UI.label("No plan was written: the coach boxed it from the tape.", TEXT, UI.MUTED, "body", true))
+	var bet := PlanBet.verdict(arrows, uses)   # S538 PLANFLOW2: the main bet first - did it fire, did it win its exchanges
+	if not bet.is_empty():
+		var bl := UI.label("MAIN BET, line %s (%s). %s" % ["ABCDEFGHI"[int(bet["i"])] if int(bet["i"]) < 9 else "", _move(str(bet["move"])), bet["text"]], TEXT,
+			{"paid": Palette.GOOD, "lost": Palette.BAD}.get(str(bet["word"]), UI.GOLD), "bold", true)
+		bl.name = "MainBet"
+		lv.add_child(bl)
 	for i in arrows.size():
 		var a: Dictionary = arrows[i]
 		var row := StrikeMap.move(str(a["move"]))
@@ -269,6 +276,8 @@ static func plan(m: Dictionary, names: Array) -> HBoxContainer:
 		line.add_child(_tag("ABCDEFGHI"[i] if i < 9 else "", UI.GOLD))
 		var words := UI.label("%s, %s → %s" % [place, cond, _move(str(a["move"]))], TEXT, Palette.TEXT, "body", true)
 		line.add_child(words)
+		if bool(a.get("bet", false)):
+			line.add_child(_tag("MAIN BET", UI.GOLD))
 		line.add_child(UI.label(str(PlanLines.FIT_WORDS.get(fit, "")), TEXT, FIT_COL.get(fit, UI.MUTED), "bold"))
 		var u: Array = uses.get(str(a["move"]), [])
 		var res := UI.label("never used" if u.is_empty() else "won %d of %d" % [u.filter(func(w): return w).size(), u.size()], TEXT,

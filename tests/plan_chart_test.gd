@@ -11,6 +11,10 @@ const FireLevel := preload("res://scripts/rules/FireLevel.gd")
 const OppFile := preload("res://scripts/rules/OppFile.gd")
 const GamePlan := preload("res://scripts/ui/GamePlan.gd")
 const PlanChart := preload("res://scripts/ui/PlanChart.gd")
+const PlanBet := preload("res://scripts/ui/PlanBet.gd")
+const PlanSaves := preload("res://scripts/ui/PlanSaves.gd")
+const ResultTabs := preload("res://scripts/ui/ResultTabs.gd")
+const Dump := preload("res://tools/result_dump.gd")
 
 var _fails := 0
 
@@ -132,7 +136,98 @@ func _initialize() -> void:
 	ifs = main.find_child("GamePlan", true, false).find_child("AddIfList", true, false)
 	var chips := " ".join(ifs.find_children("*", "Label", true, false).map(func(l): return str(l.text))) if ifs != null else ""
 	_check(chips.contains("FOUND: SOME") or chips.contains("FOUND: OFTEN") or chips.contains("FOUND: RARE"), "the IF list names a found mode's band (%s)" % chips.left(200))
+	await _planflow2(main, c, f)
 	_end()
+
+
+## S538 PLANFLOW2 (owner Q-S294-301 "yes add those"): 6) mark the main bet; 7) save the plan under a name; 8) clear the
+## chart; 9) load it back (only the lines this boxer can fire, the dropped ones named); 10) a fought bout: the result
+## page's Plan tab judges the bet, and the chart shows each line's uses.
+func _planflow2(main: Node, c: Career, f: Dictionary) -> void:
+	PlanChart.adding_if = false
+	GamePlan.open = ""
+	PlanSaves.open = false
+	main.act("go", "playbook:1")
+	await _frames(6)
+	var gp := main.find_child("GamePlan", true, false)
+	var bet_b: Button = gp.find_child("Bet_long_", true, false)
+	_check(bet_b != null and bet_b.text == "Bet on it" and bet_b.tooltip_text.length() > 40 and not bet_b.tooltip_text.contains(bet_b.text),
+		"6: a written line offers the bet, and its tooltip explains it")
+	if bet_b != null:
+		bet_b.pressed.emit()
+		await _frames(3)
+	var stamped: Array = (f["arrows"] as Array).filter(func(a): return bool(a.get("bet", false)))
+	_check(str(f.get("plan_bet", "")) == "long|" and stamped.size() == 1 and PlanBet.key_of(stamped[0]) == "long|", "6: the bet is on the boxer's plan, on one line (%s)" % str(f["arrows"]))
+	bet_b = gp.find_child("Bet_long_", true, false)
+	_check(bet_b != null and bet_b.text == "MAIN BET", "6: the chart shows the line as the MAIN BET")
+
+	var before: Array = (f["arrows"] as Array).duplicate(true)
+	(gp.find_child("SavesBtn", true, false) as Button).pressed.emit()
+	await _frames(3)
+	var name_edit: LineEdit = gp.find_child("SaveName", true, false)
+	_check(name_edit != null and gp.find_child("PlanSaves", true, false) != null, "7: Save / Load opens the saved plans")
+	if name_edit == null:
+		return
+	name_edit.text = "Box the counter"
+	(gp.find_child("SaveNow", true, false) as Button).pressed.emit()
+	await _frames(3)
+	_check(c.saved_plans.size() == 1 and str(c.saved_plans[0]["name"]) == "Box the counter" and c.saved_plans[0]["arrows"] == before,
+		"7: the plan is saved with the career under its name, bet and all")
+
+	gp._write([])
+	gp._refresh()
+	await _frames(3)
+	_check((f["arrows"] as Array).is_empty() and not f.has("plan_bet"), "8: the chart is cleared (and the bet with its line)")
+
+	var want := PlanSaves.fit(c.saved_plans[0], f, gp._limit())
+	var load_b: Button = gp.find_child("Load", true, false)
+	_check(load_b != null and load_b.disabled == (want["arrows"] as Array).is_empty() and load_b.tooltip_text.length() > 30, "9: the saved plan has a Load button that says what it will do")
+	if load_b != null and not load_b.disabled:
+		load_b.pressed.emit()
+		await _frames(3)
+		_check(f["arrows"] == want["arrows"] and not (f["arrows"] as Array).is_empty(), "9: the load puts the lines this boxer can fire on the plan (%d of %d)" % [(f["arrows"] as Array).size(), before.size()])
+		_check((str(f.get("plan_bet", "")) == "long|") == (f["arrows"] as Array).any(func(a): return bool(a.get("bet", false))), "9: the bet comes back with its line")
+		var told: Label = gp.find_child("SavesSaid", true, false)
+		var all_named := (want["dropped"] as Array).all(func(d): return told != null and told.text.contains(str(d["name"])) and told.text.contains(str(d["why"])))
+		_check(told != null and told.text.begins_with("Loaded") and all_named, "9: the page says what was loaded and names each dropped line and why (%s)" % (told.text if told else ""))
+	PlanSaves.open = false
+
+	# 10) a bout fought through the game's own fight night (tools/result_dump.gd: Lucy v Priya Nair, the plan A B C), A the bet.
+	var cf: Array = Dump._setup(44)
+	cf[1]["plan_bet"] = "long|"
+	var m: Dictionary = Dump._fight(cf[0], cf[1], PlanBet.stamp(Dump.PLAN.duplicate(true), cf[1]), true)
+	_check(bool(m["rounds"][0]["plan"][0].get("bet", false)), "10: the bout fought the plan with its bet marked")
+	var tab: Control = ResultTabs.plan(m, [str(cf[1]["first"]), "Priya"])
+	var said: Label = tab.find_child("MainBet", true, false)
+	_check(said != null and said.text.begins_with("MAIN BET, line A") and said.text.contains("The bet "), "10: the result's Plan tab judges the bet (%s)" % (said.text if said else ""))
+	tab.free()
+	var rec: Dictionary = (cf[0] as Career).results[0]
+	var lines: Dictionary = rec["plan_rec"]["lines"]
+	print("PLAN_CHART bout record: %s" % str(rec["plan_rec"]))
+	c.results.push_front(rec.merged({"fid": f["id"]}, true))
+	f["arrows"] = Dump.PLAN.duplicate(true)
+	main.act("go", "playbook:1")
+	await _frames(8)
+	gp = main.find_child("GamePlan", true, false)
+	for a in Dump.PLAN:
+		var mid := str(a["move"])
+		var used := int((lines.get(mid, [0, 0]) as Array)[1])
+		var chip := gp.find_child(("InBouts_" if used > 0 else "LastBout_") + mid.replace("@", "_").replace(" ", "_"), true, false)
+		_check(chip != null, "10: after the bout the chart shows %s's uses (%s)" % [mid, "fired %d" % used if used > 0 else "never fired"])
+	c.results.push_back(rec.merged({"fid": f["id"]}, true))   # a second bout on record: the last bout's own count shows beside the sum
+	main.act("go", "playbook:1")
+	await _frames(8)
+	gp = main.find_child("GamePlan", true, false)
+	var fired := 0
+	for a in Dump.PLAN:
+		var mid2 := str(a["move"])
+		var per: Array = lines.get(mid2, [0, 0])
+		if int(per[1]) > 0:
+			fired += 1
+			var last: Node = gp.find_child("LastBout_" + mid2.replace("@", "_").replace(" ", "_"), true, false)
+			var txt := str((last.get_child(0) as Label).text) if last != null else ""
+			_check(txt == "Last bout: fired %d, won %d" % [int(per[1]), int(per[0])], "10: %s shows the last bout's own count (%s)" % [mid2, txt])
+	_check(fired > 0, "10: the bout threw at least one line of the plan")
 
 
 func _first_open(pop: Node) -> Button:

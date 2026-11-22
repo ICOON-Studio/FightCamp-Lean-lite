@@ -3641,6 +3641,47 @@
       "at": "2026-11-22T15:02:57Z",
       "seen_by_claude": true,
       "addressed": "C467 glove fix accepted; rest -> TASK_BOUGHTCLIP1 (S537)"
+    },
+    {
+      "path": "_sent/2026-11-22_1924_cross_legs_actionforge_s_planted_legs_vs/cross_side_legs_slow.mp4",
+      "text": "there is a leg jump during the end of the clip",
+      "at": "2026-11-22T19:16:46Z",
+      "seen_by_claude": true,
+      "at_s": 2.7,
+      "id": "C472",
+      "addressed": "S538: the leg jump goes into the ActionForge batch for the other punches (same retarget route); no more cross rounds"
+    },
+    {
+      "path": "_sent/2026-11-22_2245_result_page_v2_office_goals_office_sheet/office_sheets.png",
+      "text": "fine",
+      "at": "2026-11-22T20:58:10Z",
+      "seen_by_claude": true,
+      "id": "C473",
+      "addressed": "S538: built as drawn - OFFICEV2"
+    },
+    {
+      "path": "_sent/2026-11-22_2245_result_page_v2_office_goals_office_sheet/office_sheets_menu.png",
+      "text": "fine",
+      "at": "2026-11-22T20:58:14Z",
+      "seen_by_claude": true,
+      "id": "C474",
+      "addressed": "S538: built as drawn - OFFICEV2"
+    },
+    {
+      "path": "_sent/2026-11-22_2245_result_page_v2_office_goals_office_sheet/office_goals.png",
+      "text": "fine. tooltip on goals give some tips",
+      "at": "2026-11-22T20:58:58Z",
+      "seen_by_claude": true,
+      "id": "C475",
+      "addressed": "S538: OFFICEV2 - each goal row tooltip gives a tip from the real state (what to do this week)"
+    },
+    {
+      "path": "_sent/2026-11-22_1759_the_cross_as_bought_our_body_the_game/cross_contact.jpg",
+      "text": "ok lets fuckingm ove on with one click we stuck 3 days",
+      "at": "2026-11-22T20:59:16Z",
+      "seen_by_claude": true,
+      "id": "C476",
+      "addressed": "S538: moving on - the cross is CLOSED as shipped (ActionForge legs); next = the other punch takes"
     }
   ]
 }

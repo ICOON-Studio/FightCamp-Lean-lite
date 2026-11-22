@@ -8,6 +8,7 @@ extends RefCounted
 ##   fighter_cards(c)  one card a boxer (and the no-gi athlete): class header, flag word, Stamina, Mood, rank, Next.
 ##                     NAMES ONLY IN HEADERS (S448): no row field carries a name
 ##   money_ahead(c)    the Money page's own 8-week forecast (CashForecast.project) and three rows
+##   fighter_sheet(c) / staff_sheet(c)   OFFICEV2: the rows of the two sheets inside the desktop (OfficeSheet draws them)
 ##   staff(c)          the head coach (you), the club coach and the staff jobs by ROLE (S431), an empty slot says what fills it
 
 const HomeNeeds := preload("res://scripts/ui/HomeNeeds.gd")
@@ -29,6 +30,8 @@ const Champs := preload("res://scripts/state/Champs.gd")
 const Region := preload("res://scripts/state/Region.gd")
 const Clock := preload("res://scripts/state/Clock.gd")
 const Faces := preload("res://scripts/rules/Faces.gd")
+const RosterTable := preload("res://scripts/ui/RosterTable.gd")
+const Data := preload("res://scripts/state/Data.gd")
 
 const SHOWN_NEEDS := 3
 const DAYS := 28
@@ -291,3 +294,93 @@ static func staff(c: Career) -> Array:
 			out.append({"role": "No %s yet" % word, "line": "hire from Staff: %s" % str(r["effect"]).to_lower(), "pay": "", "face": "", "empty": true})
 			break
 	return out
+
+
+## ---------- OFFICEV2 (S538): the sheets ----------
+
+## One row a fighter for the Fighters sheet: {id, grappler, face, cells: {col: [text, sort, tone, sub]}}. The cells the
+## Fighters page already has come from RosterTable.rows (one source); the sheet adds class, stamina, stipend and four more.
+static func fighter_sheet(c: Career) -> Array:
+	var cards := {}
+	for x in fighter_cards(c):
+		cards[str(x["id"])] = x
+	var out: Array = []
+	for r in RosterTable.rows(c):
+		var id := str(r["id"])
+		var is_g := bool(r["grappler"])
+		var f: Dictionary = {}
+		for x in (c.grapplers if is_g else c.fighters):
+			if str(x["id"]) == id:
+				f = x
+		var card: Dictionary = cards.get(id, {})
+		var cells := {}
+		for k in r["cells"]:
+			var cell: Array = r["cells"][k]
+			var words := str(cell[0]).split("\n")
+			cells[k] = [words[0].strip_edges(), cell[1], str(cell[2]), words[1].strip_edges() if words.size() > 1 else ""]   # strip: a CRLF checkout leaves a 
+		cells["fighter"] = [str(f["name"]), str(f["name"]), "ok", "%d · %s" % [int(f.get("age", 0)), "no-gi" if is_g else str(f.get("style", "")).to_lower()]]
+		if str(cells["rank"][0]) == "-":
+			cells["rank"][0] = "Unranked"
+			cells["rank"][2] = "muted"
+		var b: Dictionary = f.get("bout", {})
+		var offer: Dictionary = {} if is_g else RosterRow._open_offer(f)
+		if b.has("day") and b.has("opp"):
+			cells["next"] = ["Bout, %s" % Clock.fmt(int(b["day"])), float(int(b["day"])), "ok", "%s · %s" % [str(b["opp"]["name"]), _in_days(int(b["day"]) - c.day)]]
+		elif not offer.is_empty():
+			cells["next"] = ["Offer open", float(int(offer["expires"])), "watch", "ends %s · %s" % [Clock.fmt(int(offer["expires"])), _in_days(int(offer["expires"]) - c.day)]]
+		cells["mood"][0] = "%s %d" % [str(cells["mood"][0]), roundi(float(cells["mood"][1]))]
+		cells["class"] = [str(card.get("header", "")).replace("BJJ", "No-gi"), float(f.get("limit", 0.0)), "ok", ""]
+		cells["stamina"] = [str(int(card.get("stamina", 0))), float(int(card.get("stamina", 0))), "ok", ""]
+		var pay := int(f.get("weekly_salary", 0))
+		var how := "purses" if bool(f.get("pro", false)) else ("none" if is_g or pay <= 0 else "%s a week" % GameMoney.text(pay))
+		cells["stipend"] = [how, float(pay), "ok" if pay > 0 else "muted", "half, one work morning" if bool(f.get("half_job", false)) else ("day job" if bool(f.get("day_job", false)) else "")]
+		cells["rating"] = [str(int(card.get("rating", 0))), float(int(card.get("rating", 0))), "ok", ""]
+		var ready := int(card.get("ready", -1))
+		cells["ready"] = ["%d%%" % ready if ready >= 0 else "", float(ready), "ok", str(card.get("ready_tip", "")) if ready >= 0 else ""]
+		cells["age"] = [str(int(f.get("age", 0))), float(int(f.get("age", 0))), "ok", ""]
+		cells["style"] = ["No-gi" if is_g else str(f.get("style", "")), "No-gi" if is_g else str(f.get("style", "")), "ok", str(f.get("stance", ""))]
+		out.append({"id": id, "grappler": is_g, "face": str(r.get("face", "")), "cells": cells})
+	return out
+
+
+static func _in_days(n: int) -> String:
+	return "today" if n <= 0 else "%d day%s" % [n, "" if n == 1 else "s"]
+
+
+## One row a person or a job for the Staff sheet: {id, kind (you | coach | hire | role | open | evening), face, areas
+## ({} or the coach's five numbers), cells}. Status sorts at the club, for hire, job open.
+static func staff_sheet(c: Career) -> Array:
+	var out: Array = []
+	var you: Dictionary = staff(c)[0]
+	out.append(_staff_row("you", "you", "You", "Head coach", "At the club", 0, "the owner", 0, str(you["line"]), "Holds the pads for every boxer", {}, str(you["face"])))
+	for co in Data.COACHES:
+		var mine := str(c.coach.get("id", "")) == str(co["id"])
+		var week := "%s a week" % GameMoney.text(int(co["salary"]))
+		var word := "At the club" if mine else ("For hire" if c.coach.is_empty() else "Place taken")
+		out.append(_staff_row(str(co["id"]), "coach" if mine else "hire", str(co["name"]), str(co["kind"]), word, 0 if mine else 1,
+			week if mine else "%s, %s to sign" % [week, GameMoney.text(GameMoney.COACH_SIGNING_FEE)], int(co["salary"]), str(co["note"]),
+			"Best at %s" % str(co["spec"]).to_lower(), co["areas"], ""))
+	for r in StaffRoles.LIST:
+		var id := str(r["id"])
+		var on := c.staff_roles.has(id)
+		var bout := int(r["per_bout"]) > 0
+		out.append(_staff_row(id, "role" if on else "open", str(StaffCard.ROLE_WORD.get(id, "Staff")) if on else "nobody yet", str(r["name"]),
+			"At the club" if on else "Job open", 0 if on else 2, "%s a pro night" % GameMoney.text(int(r["per_bout"])) if bout else "%s a week" % GameMoney.text(int(r["wage"])),
+			int(r["per_bout"]) if bout else int(r["wage"]), "", str(r["effect"]), {}, ""))
+	var n := c.extra_coaches
+	out.append(_staff_row("evening", "evening", "%d evening coach%s" % [n, "" if n == 1 else "es"] if n > 0 else "nobody yet", "Evening coach, 10 hours",
+		"At the club" if n > 0 else "Job open", 0 if n > 0 else 2, "%s a week each" % GameMoney.text(StaffRoles.EVENING_WAGE), StaffRoles.EVENING_WAGE,
+		"the evening classes", "Room for %d more members each" % StaffRoles.COACH_MEMBERS, {}, ""))
+	return out
+
+
+static func _staff_row(id: String, kind: String, who: String, job: String, status: String, rank: int, pay: String, wage: int, runs: String,
+		changes: String, areas: Dictionary, face: String) -> Dictionary:
+	var tone: String = ["good", "watch", "muted"][rank]
+	var best := 0.0
+	for k in areas:
+		best = maxf(best, float(areas[k]))
+	return {"id": id, "kind": kind, "face": face, "areas": areas, "cells": {
+		"name": [who, who if kind != "open" else "~", "muted" if who == "nobody yet" else "ok", ""], "job": [job, job, "ok", ""],
+		"status": [status, float(rank), tone, ""], "pay": [pay, float(wage), "ok", ""], "runs": [runs, runs, "ok", ""],
+		"areas": ["", -best, "ok", ""], "changes": [changes, changes, "muted", ""]}}

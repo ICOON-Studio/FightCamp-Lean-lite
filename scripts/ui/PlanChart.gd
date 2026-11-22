@@ -19,13 +19,12 @@ const TextScale := preload("res://scripts/ui/TextScale.gd")
 const BELL_W := 450.0   # S518 ONELOOK1: 360 cut "Pivot off t"; S529: 420 left it 140 px at Largest (needs 159)
 const BELL_ROW := 34.0
 const DIA := Vector2(220, 100)
-const ANS := Vector2(320, 92)
-const ROW_H := 122.0
+const ANS := Vector2(320, 122)
+const ROW_H := 148.0
 const X_DIA := 480.0
 const X_ANS := 740.0
 const POP_W := 570.0
 const POP_MAX := 520.0
-const INK := Palette.TEXT
 const SOFT := Palette.MUTED
 
 static var adding_if := false   # the "+ Add an IF" list is open
@@ -45,7 +44,6 @@ static func chart(m: Node, fighter: Dictionary, play: Callable) -> Control:
 	return g
 
 
-
 func _build() -> void:
 	UI.clear(self)
 	_bouts = {}
@@ -58,6 +56,7 @@ func _build() -> void:
 	worth.add_child(UI.spacer())
 	worth.add_child(_meter())
 	add_child(worth)
+	PlanSaves.mount(self)   # S538 PLANFLOW2: the saved plans, when open
 	if plans:
 		add_child(_templates())
 	var page := UI.hbox(18)
@@ -97,6 +96,7 @@ func _buttons() -> Control:
 		_write(last["arrows"])
 		_refresh(), not bool(last["ok"]), str(last["why"])))
 	h.add_child(UI.button("Open the move map", "Btn", _map))
+	h.add_child(PlanSaves.button(self))
 	return h
 
 
@@ -273,8 +273,7 @@ func _bell() -> Control:
 	card.add_theme_stylebox_override("panel", UI.box(UI.DARK, UI.DARK_LIP, 10, 2, 14, 10))
 	var v := UI.vbox(2)
 	card.add_child(v)
-	var head := UI.label("AT THE BELL: WHEN NO \"IF\" HOLDS", UI.TINY, Palette.HEADER, "bold")
-	v.add_child(head)
+	v.add_child(UI.label("AT THE BELL: WHEN NO \"IF\" HOLDS", UI.TINY, Palette.HEADER, "bold"))
 	v.add_child(UI.label("Most of the fight runs on these.", UI.TINY, SOFT))
 	for p in PlanLines.PLACES:
 		var place := str(p)
@@ -298,16 +297,14 @@ func _bell() -> Control:
 		var st := Shapes.stamp(f, mid)
 		if st != null:
 			row.add_child(st)
+		PlanBet.mark(self, row, place, "")   # S538 the main bet
 		var spots := PlanLines.blind(arrows, place)   # S493 WHYGRADE1: a line with no IF is thrown whatever happens here
 		if not spots.is_empty():
 			row.add_child(Icons.icon("info", 16, UI.AMBER, "Walks into it when %s.
 With no IF, this line is thrown whatever happens here: add an IF for that." % " or ".join(PackedStringArray(spots.map(func(w): return str(FightFlow.WHEN_WORDS[w]))))))
 		v.add_child(row)
-		if i >= 0 and _bouts.has(mid):   # S373 FLOWBOUT1: how the range's move has done in real bouts, under its row
-			var said := UI.hbox(0)
-			_in_bouts(said, mid)
-			if said.get_child_count() > 0:
-				v.add_child(said)
+		if i >= 0:   # S373 FLOWBOUT1 + S538: how the range's move has done in real bouts, under its row
+			PlanBet.said(self, v, mid)
 	return card
 
 
@@ -342,10 +339,11 @@ func _answer(place: String, when: String) -> Control:
 	var st := Shapes.stamp(f, mid)
 	if st != null:
 		top.add_child(st)
-	var row := UI.hbox(6)
+	var row := PlanBet.flow()   # S538: the chips wrap inside the box instead of running out of it
 	v.add_child(row)
 	_rating(row, GamePlanRows.film_fit(self, _opt(PlanLines.options(place, PlanLines.sit_for(when, _game()), f.get("moves", {}), f.get("combos", {})), mid), when))
 	_in_bouts(row, mid)
+	PlanBet.mark(self, row, place, when)
 	GamePlanRows.phase_tag(self, row, i)
 	return card
 

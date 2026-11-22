@@ -4,6 +4,9 @@ extends VBoxContainer
 ## line, a dock of 7 apps, and the Desktop window "This week at the club" with five panels and the staff strip. Every value
 ## comes from OfficeDesk (a pure read of the career). One pulsing button: the first need (S442). Numbers carry a HoverLabel
 ## saying where they come from. Until their own tasks land, the apps open the pages the game has (section 2).
+## OFFICEV2 (S538, owner Q-S294-302 / Q-304 "Yes, build them"): the dashboard carries the GOALS panel (OfficeGoals) and the
+## fighters shrink to a strip of chips; the Fighters and Staff icons open the two sheets INSIDE the desktop (OfficeSheet,
+## right-click = OfficeMenu). `view` says which of the two the window shows; the hub's pin always lands on the dashboard.
 
 const UI := preload("res://scripts/ui/UI.gd")
 const Palette := preload("res://scripts/ui/Palette.gd")   # S493 Q-251: the gym look, no navy of its own
@@ -15,6 +18,9 @@ const OfficeDesk := preload("res://scripts/ui/OfficeDesk.gd")
 const CashChart := preload("res://scripts/ui/CashChart.gd")
 const Clock := preload("res://scripts/state/Clock.gd")
 const Tip := preload("res://scripts/ui/Tip.gd")
+const Bar := preload("res://scripts/ui/Bar.gd")
+const OfficeGoals := preload("res://scripts/ui/OfficeGoals.gd")
+const OfficeSheet := preload("res://scripts/ui/OfficeSheet.gd")
 
 const BG := Palette.PAGE
 const PANEL := Palette.CARD
@@ -30,17 +36,29 @@ const BLUE := Palette.ACCENT
 const CREST := "res://assets/ui/club_badge.svg"
 ## [label, KitIcon, act, arg]: section 2's routes. Mail is the game's news list (Main's "mail": World > News, read).
 const APPS := [["Desktop", "booked", "go", "office:0"], ["Mail", "offer", "mail", ""], ["Schedule", "calendar", "go", "fights:0"],
-	["Fighters", "hands", "go", "fighters:0"], ["Staff", "coach", "go", "gym:1"], ["Finance", "money", "go", "money:0"],
+	["Fighters", "hands", "sheets", ""], ["Staff", "coach", "sheets", ""], ["Finance", "money", "go", "money:0"],
 	["Records", "contract", "go", "gym:4"]]
+const SHEET_APPS := ["Fighters", "Staff"]
 const TONE := {"r": RED, "a": AMBER, "g": GREEN, "b": BLUE}
 const CHIP := {"bout": [RED, INK], "fight_week": [Palette.SECOND, Palette.HEADER], "show": [RED, INK],
 	"open": [BLUE, BG], "champs": [AMBER, BG]}
-const CARD_W := 232
-const BAR_H := 64
+const CARD_W := 196
+const MAX_CHIPS := 4
+const MAX_STAFF := 3
 const FOOT := "Click an app or any card to open it. The one pulsing button is the decision due first."
+const SHEET_FOOT := "Click a heading to sort. Right-click a name for what you can do."
+
+## "desk" (the dashboard) or "sheets"; `_seen` = how long Main's history was at the last build (a fresh arrival from the
+## gym shows the dashboard; Back from a page the sheet opened returns to the sheet).
+static var view := "desk"
+static var _seen := 0
 
 func build(main: Node) -> void:
 	var c: Career = main.career
+	var trail: Array = main.past
+	if trail.size() > _seen and not trail.is_empty() and str(trail[-1].get("area", "")) != "office":
+		view = "desk"
+	_seen = trail.size()
 	add_theme_constant_override("separation", 0)
 	size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	# S498 ONELOOK1 (operator: "how do you call this consistent ?"): the office sits on the one gym wall like every page -
@@ -55,12 +73,12 @@ func build(main: Node) -> void:
 	v.add_child(body)
 	var cards: Array = OfficeDesk.fighter_cards(c)
 	body.add_child(_dock(main, c, cards))
-	var pad := _margin(28, 24, 28, 10)
+	var pad := _margin(28, 18, 28, 10)
 	pad.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	body.add_child(pad)
 	pad.add_child(_window(main, c, cards))
 	var fm := _margin(136, 0, 0, 10)
-	fm.add_child(_nm(UI.label(FOOT, 16, DIM), "OfficeFoot"))
+	fm.add_child(_nm(UI.label(FOOT if view == "desk" else SHEET_FOOT, 16, DIM), "OfficeFoot"))
 	v.add_child(fm)
 
 ## The OS strip: crest, club name, date and week, cash.
@@ -84,7 +102,7 @@ func _dock(main: Node, c: Career, cards: Array) -> Control:
 	var flagged := cards.filter(func(x): return str(x["tone"]) == "r").size()
 	for a in APPS:
 		var word := str(a[0])
-		var on := word == "Desktop"
+		var on := SHEET_APPS.has(word) if view == "sheets" else word == "Desktop"
 		var b := _button(word, PANEL2, AMBER if on else LINE, 16, 2 if on else 1, AMBER if on else DIM, 2)
 		b.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 		b.name = "App_" + word.to_lower()
@@ -92,7 +110,14 @@ func _dock(main: Node, c: Career, cards: Array) -> Control:
 		b.icon = KitIcon.tex(str(a[1]), 34)
 		b.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		b.vertical_icon_alignment = VERTICAL_ALIGNMENT_TOP
-		b.pressed.connect(main.act.bind(str(a[2]), str(a[3])))
+		if str(a[2]) == "sheets":
+			b.pressed.connect(_show.bind(main, "sheets"))
+		elif word == "Desktop":
+			b.pressed.connect(func():
+				view = "desk"
+				main.act("go", "office:0"))
+		else:
+			b.pressed.connect(main.act.bind(str(a[2]), str(a[3])))
 		var count := c.unread if word == "Mail" else (flagged if word == "Fighters" else 0)
 		if count > 0:
 			b.add_child(_badge(count, RED if word == "Mail" else AMBER, "unread mail" if word == "Mail" else "fighters with a red flag"))
@@ -107,20 +132,31 @@ func _badge(n: int, col: Color, why: String) -> Control:
 	p.add_child(l)
 	return p
 
-## The Desktop window: its bar, then needs | calendar | mail, fighters | money, the staff strip.
+## The Fighters and Staff icons: the sheets inside the desktop (no page change).
+func _show(main: Node, what: String) -> void:
+	view = what
+	main.render()
+
+## The Desktop window: its bar, then needs | calendar | mail, goals | club, fighters | staff - or the two sheets.
 func _window(main: Node, c: Career, cards: Array) -> Control:
 	var sb := UI.WoodKit.slate(0, 0)   # S498 ONELOOK1: the house panel
 	var win := _panel("DesktopWindow", sb, Control.SIZE_EXPAND_FILL)
 	var v := UI.vbox(0)
 	win.add_child(v)
 	var bar := _panel("WindowBar", UI.box(BG, LINE, 0, 0, 18, 6), Control.SIZE_FILL, Vector2(0, 44))
-	bar.add_child(UI.label("THIS WEEK AT THE CLUB", 20, INK, "caps"))
+	var bh := UI.hbox(14)
+	bar.add_child(bh)
+	bh.add_child(UI.label("THIS WEEK AT THE CLUB" if view == "desk" else "FIGHTERS AND STAFF", 20, INK, "caps"))
 	v.add_child(bar)
-	var grid := _margin(18, 18, 18, 18)
+	var grid := _margin(18, 14, 18, 14)
 	v.add_child(grid)
-	var rows := UI.vbox(16)
+	var rows := UI.vbox(14)
 	grid.add_child(rows)
-	for line in [[_needs(main, c), _calendar(c), _mail(c)], [_fighters(main, cards), _money(c)], [_staff(c)]]:
+	if view == "sheets":
+		bh.add_child(UI.label("sheets inside the desktop", 16, DIM, "semi"))
+		rows.add_child(OfficeSheet.build(main))
+		return win
+	for line in [[_needs(main, c), _calendar(c), _mail(c)], [OfficeGoals.panel(main, c), _money(c)], [_fighters(main, cards), _staff(c)]]:
 		var r := UI.hbox(16)
 		rows.add_child(r)
 		for part in line:
@@ -184,7 +220,7 @@ func _calendar(c: Career) -> Control:
 		g.add_child(hl)
 	for cell in OfficeDesk.calendar(c):
 		var today := bool(cell["today"])
-		var p := _panel("Day_%d" % int(cell["d"]), UI.box(PANEL2, Palette.CHOSEN if today else LINE, 6, 2 if today else 1, 4, 2), Control.SIZE_EXPAND_FILL, Vector2(0, 54))
+		var p := _panel("Day_%d" % int(cell["d"]), UI.box(PANEL2, Palette.CHOSEN if today else LINE, 6, 2 if today else 1, 4, 2), Control.SIZE_EXPAND_FILL, Vector2(0, 46))   # OFFICEV2: 54 -> 46, the goals row needs the height
 		var cv := UI.vbox(0)
 		p.add_child(cv)
 		cv.add_child(UI.label(str(cell["n"]), 16, INK if today else DIM))
@@ -218,88 +254,58 @@ func _mail(c: Career) -> Control:
 	return card[0]
 
 func _fighters(main: Node, cards: Array) -> Control:
-	var card := _card("FightersPanel", "Fighters", "the flag is the one thing each needs")
-	var row := UI.hbox(12)
+	var card := _card("FightersPanel", "Fighters", "the flag is the one thing each needs \u00b7 the Fighters icon opens the sheet")
+	var row := UI.hbox(10)
 	card[1].add_child(row)
 	if cards.is_empty():
 		row.add_child(UI.label("No fighters yet: the walk-in waits at reception.", 17, DIM))
-	for x in cards:
+	for x in cards.slice(0, MAX_CHIPS):
 		row.add_child(_fighter(main, x))
+	if cards.size() > MAX_CHIPS:
+		row.add_child(UI.label("+%d more" % (cards.size() - MAX_CHIPS), 16, DIM, "semi"))
 	return card[0]
 
+## OFFICEV2: a fighter as a chip - face, class (S448: names only in headers), the flag, Stamina and Mood. The big picture
+## cards went; the whole list is the Fighters sheet.
 func _fighter(main: Node, x: Dictionary) -> Control:
-	# S453 C367/C368 ("populate it with more fighters", "these are too long use vertical bars and add more useful information"):
-	# a card is a fixed column, so the whole roster stands side by side; its numbers are vertical bars.
-	var p := _panel("Card_" + str(x["id"]), UI.box(PANEL2, LINE, 10, 1, 0, 0), Control.SIZE_SHRINK_BEGIN, Vector2(CARD_W, 0))
+	var p := _panel("Card_" + str(x["id"]), UI.box(PANEL2, LINE, 8, 1, 10, 8), Control.SIZE_SHRINK_BEGIN, Vector2(CARD_W, 0))
 	p.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 	p.gui_input.connect(func(ev: InputEvent):
 		if ev is InputEventMouseButton and (ev as InputEventMouseButton).pressed and (ev as InputEventMouseButton).button_index == MOUSE_BUTTON_LEFT:
 			main.act("fighter", str(x["id"])))
-	var v := UI.vbox(7)
+	var v := UI.vbox(4)
 	p.add_child(v)
-	var pic := Control.new()
-	pic.custom_minimum_size = Vector2(0, 160)
-	pic.clip_contents = true
-	pic.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	v.add_child(pic)
-	var face: TextureRect = PromoShot.picture(str(x["face"]), Vector2(CARD_W, 160))
+	var top := UI.hbox(8)
+	var face: TextureRect = PromoShot.picture(str(x["face"]), Vector2(36, 42))
 	if face != null:
-		pic.add_child(face)
-	var tags := UI.hbox(6)   # the class chip is the card's header (S448: names only in headers); the flag on the right
-	tags.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE, Control.PRESET_MODE_MINSIZE, 8)
-	tags.add_child(_tag(str(x["header"]), Palette.alpha(BG, 0.85), INK))
-	tags.add_child(UI.spacer())
-	tags.add_child(_tag(str(x["flag"]), TONE.get(str(x["tone"]), BLUE), INK if str(x["tone"]) == "r" else BG))
-	pic.add_child(tags)
-	var bd := _margin(12, 0, 12, 12)
-	v.add_child(bd)
-	var b := UI.vbox(7)
-	bd.add_child(b)
-	var rk := UI.hbox(6)
-	rk.add_child(UI.label(str(x["rank"]), 19, INK, "caps"))
-	rk.add_child(UI.label(str(x["rank_sub"]), 16, DIM, "semi"))
-	b.add_child(rk)
-	var bars := UI.hbox(0)
-	bars.add_child(_vbar("Stamina", int(x["stamina"]), "Stamina, 0-100: how long the fighter holds the pace"))
-	bars.add_child(_vbar("Mood", int(x["mood"]), "Mood, 0-100: Fired up, Steady, Flat or Low"))
-	bars.add_child(_vbar("Rating", int(x.get("rating", 0)), "Rating, 0-100: the overall number on the fighter page"))
-	bars.add_child(_vbar("Ready", int(x.get("ready", -1)), str(x.get("ready_tip", ""))))
-	b.add_child(bars)
-	var nx := UI.hbox(6)
-	nx.add_child(UI.label("Next:", 16, INK))
-	nx.add_child(UI.label(str(x["next"]), 16, AMBER, "bold"))
-	b.add_child(nx)
+		top.add_child(face)
+	var tx := UI.vbox(1)
+	tx.add_child(UI.label(str(x["header"]), 16, INK, "bold"))
+	var tag := _tag(str(x["flag"]), TONE.get(str(x["tone"]), BLUE), INK if str(x["tone"]) == "r" else BG)
+	tag.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+	tx.add_child(tag)
+	top.add_child(tx)
+	v.add_child(top)
+	v.add_child(_hbar("Stamina", int(x["stamina"]), "Stamina, 0-100: how long the fighter holds the pace"))
+	v.add_child(_hbar("Mood", int(x["mood"]), "Mood, 0-100: Fired up, Steady, Flat or Low"))
 	return p
 
-## One vertical bar: the value on top, the bar, the word under it; n < 0 = not known yet (a dash, an empty track).
-func _vbar(word: String, n: int, why: String) -> Control:
-	var v := UI.vbox(3)
-	v.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	var num := _num(str(n) if n >= 0 else "-", 16, INK, why)
-	num.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	v.add_child(num)
-	var track := PanelContainer.new()
-	track.custom_minimum_size = Vector2(14, BAR_H)
-	track.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-	track.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	track.add_theme_stylebox_override("panel", UI.box(BG, LINE, 4, 1, 0, 0))
-	if n > 0:
-		var fill := ColorRect.new()
-		fill.color = Palette.GOOD_FILL if n >= 70 else (AMBER if n >= 50 else Palette.BAD_FILL)
-		fill.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		fill.anchor_left = 0.0
-		fill.anchor_right = 1.0
-		fill.anchor_top = 1.0 - clampf(float(n) / 100.0, 0.0, 1.0)
-		fill.anchor_bottom = 1.0
-		var hold := Control.new()
-		hold.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		hold.add_child(fill)
-		track.add_child(hold)
-	v.add_child(track)
-	var w := UI.label(word, 13, DIM)
-	w.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	v.add_child(w)
-	return v
+## One short bar: the word, the bar, the number (its hover says what it is).
+func _hbar(word: String, n: int, why: String) -> Control:
+	var h := UI.hbox(8)
+	var w := UI.label(word, 16, DIM)
+	w.custom_minimum_size = Vector2(64, 0)
+	h.add_child(w)
+	var bar := Bar.new()
+	bar.custom_minimum_size = Vector2(60, 8)
+	bar.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	bar.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	bar.track = BG
+	bar.fill = Palette.GOOD_FILL if n >= 70 else (AMBER if n >= 50 else Palette.BAD_FILL)
+	bar.frac = float(n) / 100.0
+	h.add_child(bar)
+	h.add_child(_num(str(n), 16, INK, why))
+	return h
 
 ## S459 (operator C380: "money is shown top, maybe show something else here"): the club - members now and the room the gym
 ## has, where the Money page's forecast takes them week by week, and the bills coming by date (each one's split on hover).
@@ -340,28 +346,39 @@ func _money(c: Career) -> Control:
 	return card[0]
 
 func _staff(c: Career) -> Control:
-	var p := _panel("StaffPanel", UI.box(PANEL, LINE, 10, 1, 16, 10), Control.SIZE_EXPAND_FILL)
-	var h := UI.hbox(30)
-	p.add_child(h)
-	h.add_child(UI.label("STAFF", 20, HEAD, "caps"))
-	for r in OfficeDesk.staff(c):
-		var st := UI.hbox(12)
+	var p := _panel("StaffPanel", UI.box(PANEL, LINE, 10, 1, 16, 14), Control.SIZE_EXPAND_FILL)
+	var v := UI.vbox(10)
+	p.add_child(v)
+	var all: Array = OfficeDesk.staff(c)
+	var th := UI.hbox(10)
+	th.add_child(UI.label("STAFF", 20, HEAD, "caps"))
+	if all.size() > MAX_STAFF:
+		th.add_child(_nm(UI.label("+%d more on the Staff sheet" % (all.size() - MAX_STAFF), 16, DIM, "semi"), "Sub"))
+	v.add_child(th)
+	var h := UI.hbox(22)
+	v.add_child(h)
+	for r in all.slice(0, MAX_STAFF):
+		var st := UI.hbox(10)
 		st.name = "Staff_%d" % h.get_child_count()
+		st.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		if bool(r["empty"]):
 			st.modulate = Palette.fade(0.55)
-		var ph := _panel("Face", UI.box(PANEL2, Palette.WOOD, 38, 2, 6, 6), Control.SIZE_FILL, Vector2(76, 76))   # S459 C379 bigger
+		var ph := _panel("Face", UI.box(PANEL2, Palette.WOOD, 32, 2, 5, 5), Control.SIZE_FILL, Vector2(64, 64))
+		ph.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		if str(r["face"]) != "":
 			ph.add_child(_tex(str(r["face"]), Vector2.ZERO, TextureRect.STRETCH_KEEP_ASPECT_COVERED))
 		elif not bool(r["empty"]):
-			ph.add_child(_mute(KitIcon.icon("coach", 44, DIM)))
+			ph.add_child(_mute(KitIcon.icon("coach", 38, DIM)))
 		st.add_child(ph)
 		var tx := UI.vbox(0)
+		tx.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		tx.add_child(UI.label(str(r["role"]), 17, INK, "bold"))
-		var sub := UI.hbox(6)
-		sub.add_child(UI.label(str(r["line"]), 16, DIM))
+		var line := UI.label(str(r["line"]), 16, DIM, "body", true)
+		line.max_lines_visible = 2   # the strip stays three lines tall; the Staff sheet has the whole line
+		line.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+		tx.add_child(line)
 		if str(r["pay"]) != "":
-			sub.add_child(_num("\u00b7 " + str(r["pay"]), 16, DIM, "Weekly pay, on the month bill"))
-		tx.add_child(sub)
+			tx.add_child(_num(str(r["pay"]), 16, DIM, "Weekly pay, on the month bill"))
 		st.add_child(tx)
 		h.add_child(st)
 	return p

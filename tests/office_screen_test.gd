@@ -10,8 +10,9 @@ const Pulse := preload("res://scripts/ui/Pulse.gd")
 const APPS := ["Desktop", "Mail", "Schedule", "Fighters", "Staff", "Finance", "Records"]
 ## App -> [area, tab] it opens (Mail: the game's news list, World > News; Staff and Records: the Club pages, where
 ## StaffCard.TABS puts People and Records).
-const GOES := {"Desktop": ["office", 0], "Mail": ["world", 0], "Schedule": ["fights", 0], "Fighters": ["fighters", 0],
-	"Staff": ["gym", 1], "Finance": ["money", 0], "Records": ["gym", 4]}
+## OFFICEV2 (S538, owner Q-S294-302): Fighters and Staff open their sheets INSIDE the desktop, so the route stays the office.
+const GOES := {"Desktop": ["office", 0], "Mail": ["world", 0], "Schedule": ["fights", 0], "Fighters": ["office", 0],
+	"Staff": ["office", 0], "Finance": ["money", 0], "Records": ["gym", 4]}
 
 var failures := 0
 var main: Node

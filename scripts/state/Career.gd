@@ -92,6 +92,8 @@ const GymSlots := preload("res://scripts/rules/GymSlots.gd")
 @export var late_asks: Dictionary = {}
 ## S489 FOURSTART1 the TEST CLUB (TestClub): four fighters to see every menu full; never the normal start.
 @export var test_club: bool = false
+## S538 PLANFLOW2 the plans saved by name (PlanSaves rows {name, arrows, by, day}); any boxer of the gym can load one.
+@export var saved_plans: Array = []
 
 
 static func quick_start(name: String = "Anvil Street Gym", town: String = "London", start_id: String = "fresh",

@@ -1,378 +1,378 @@
 {
- "_doc": "Claude writes one entry per agent run at launch (operator S144: 'make it more clear, who is working on what, ETA'). The ops board /agents page joins it to the live processes. eta = Claude's estimate at launch, local time; status running|waiting|done.",
- "seats": 3,
- "runs": {
-  "TURNPRO15": {
-   "id": "TURNPRO15",
-   "status": "paused",
-   "started": "2026-11-22T21:00",
-   "title": "Turning pro v15: fix the favour, card honesty, name-chaser bars",
-   "seat": "claude",
-   "agent": "claude-fable (API credit, sdk_run.py)",
-   "eta": "about 90 min",
-   "note": "S538 ops/AgentComms/credit_runs/TURNPRO15_s538.out | S538 22:52 stopped: owner game lagging; relaunch from files on disk"
+  "_doc": "Claude writes one entry per agent run at launch (operator S144: 'make it more clear, who is working on what, ETA'). The ops board /agents page joins it to the live processes. eta = Claude's estimate at launch, local time; status running|waiting|done.",
+  "seats": 3,
+  "runs": {
+    "TURNPRO15": {
+      "id": "TURNPRO15",
+      "status": "running",
+      "started": "2026-11-22T21:00",
+      "title": "Turning pro v15: fix the favour, card honesty, name-chaser bars",
+      "seat": "claude",
+      "agent": "claude-fable (API credit, sdk_run.py)",
+      "eta": "about 90 min",
+      "note": "S538 23:35 on the owner's subscription (Fable subagent; credit ran out)"
+    },
+    "STEPPAY4": {
+      "id": "STEPPAY4",
+      "status": "running",
+      "started": "2026-11-22T21:00",
+      "title": "Footwork: the wrong style punishes the step",
+      "seat": "claude",
+      "agent": "claude-fable (API credit, sdk_run.py)",
+      "eta": "about 2 h",
+      "note": "S538 23:35 Code Mode terminal tab, Fable, owner subscription"
+    },
+    "COACHHIRE1": {
+      "id": "COACHHIRE1",
+      "status": "done",
+      "started": "2026-11-22T21:05",
+      "title": "Coach hire: a real choice? probe, then wire or delete",
+      "seat": "claude",
+      "agent": "claude-fable (API credit, sdk_run.py)",
+      "eta": "about 90 min",
+      "note": "S538 cc6a5589f FAIL: 0 wins, 0 members for ~55k; CoachMarket + CoachFit removed (free hand)"
+    },
+    "LEDGERPROBE1": {
+      "id": "LEDGERPROBE1",
+      "status": "running",
+      "started": "2026-11-22T21:05",
+      "title": "Contract tab: keep / cut stipend / release probe",
+      "seat": "claude",
+      "agent": "claude-fable (API credit, sdk_run.py)",
+      "eta": "about 90 min",
+      "note": "S538 23:35 Code Mode terminal tab, Fable, owner subscription"
+    },
+    "CARDSCOPE4": {
+      "id": "CARDSCOPE4",
+      "status": "done",
+      "started": "2026-11-22T21:18",
+      "title": "Card game scope 4: six martial arts, limb points tested",
+      "seat": "claude",
+      "agent": "claude-fable (API credit, sdk_run.py)",
+      "eta": "about 2 h",
+      "note": "S538 e43791485 FAIL 5/7: wind pool beats limb points; P5 hold, P6 own mechanics fail"
+    },
+    "PLANFLOW2": {
+      "id": "PLANFLOW2",
+      "status": "running",
+      "started": "2026-11-22T22:25",
+      "title": "Plan chart: main bet, uses, save/load + repeat-read probe",
+      "seat": "claude",
+      "agent": "claude-fable (API credit, sdk_run.py)",
+      "eta": "about 2 h",
+      "note": "S538 23:35 Code Mode terminal tab, Fable, owner subscription"
+    },
+    "CARDSCOPE5": {
+      "id": "CARDSCOPE5",
+      "status": "running",
+      "started": "2026-11-22T23:20",
+      "title": "Card game round 5: each art plays differently, readable holds",
+      "seat": "claude",
+      "agent": "claude-fable (API credit, sdk_run.py)",
+      "eta": "about 2 h",
+      "note": "S538 23:35 on the owner's subscription (Fable subagent; credit ran out)"
+    },
+    "RESULTV2": {
+      "id": "RESULTV2",
+      "status": "running",
+      "started": "2026-11-22T23:20",
+      "title": "Build the result page v2 (approved mockup)",
+      "seat": "claude",
+      "agent": "claude-fable (API credit, sdk_run.py)",
+      "eta": "about 2 h",
+      "note": "S538 23:35 on the owner's subscription (Fable subagent; credit ran out)"
+    },
+    "OFFICEV2": {
+      "id": "OFFICEV2",
+      "status": "done",
+      "started": "2026-11-22T23:20",
+      "title": "Build office goals + sheets with right-click (approved)",
+      "seat": "claude",
+      "agent": "claude-fable (API credit, sdk_run.py)",
+      "eta": "about 2 h",
+      "note": "S538 b4abaff50 built; goals + sheets + right-click; 8 tests 0 failures; stills docs/previews/officev2; hint fix by Claude"
+    }
   },
-  "STEPPAY4": {
-   "id": "STEPPAY4",
-   "status": "paused",
-   "started": "2026-11-22T21:00",
-   "title": "Footwork: the wrong style punishes the step",
-   "seat": "claude",
-   "agent": "claude-fable (API credit, sdk_run.py)",
-   "eta": "about 2 h",
-   "note": "S538 ops/AgentComms/credit_runs/STEPPAY4_s538.out | S538 22:52 stopped: owner game lagging; relaunch from files on disk"
+  "codex_budget": {
+    "used_percent": 65,
+    "resets": "2026-10-07T04:42",
+    "read_at": "2026-10-02T18:10",
+    "rule": "max 2 Codex seats, luna/medium, stop new launches at 85%"
   },
-  "KNOWMISREAD2": {
-   "id": "KNOWMISREAD2",
-   "status": "done",
-   "started": "2026-11-22T21:00",
-   "title": "Be wrong about people: size it on a sharper ruler",
-   "seat": "claude",
-   "agent": "claude-fable (API credit, sdk_run.py)",
-   "eta": "about 90 min",
-   "note": "S538 370528621: +12.1% [5.3..19.6] at 0.5; share is a weak lever; keep 0.5 (Claude decides: real, in band; interval bar too strict for world variance) -> KNOW_STAKES1 v6 critics; $2.37+"
+  "WEIGHT2": {
+    "id": "WEIGHT2",
+    "status": "landed",
+    "started": "2026-11-21T16:45",
+    "title": "Weight, deep (your ask): manage it to a point; moves performance, size match-ups, classes, the week, the career - map from code, then a probe",
+    "seat": "claude",
+    "agent": "claude-fable",
+    "eta": "about 2 h (probe waits in the Godot queue)"
   },
-  "COACHHIRE1": {
-   "id": "COACHHIRE1",
-   "status": "paused",
-   "started": "2026-11-22T21:05",
-   "title": "Coach hire: a real choice? probe, then wire or delete",
-   "seat": "claude",
-   "agent": "claude-fable (API credit, sdk_run.py)",
-   "eta": "about 90 min",
-   "note": "S538 credit_runs/COACHHIRE1_s538.out | S538 22:52 stopped: owner game lagging; relaunch from files on disk"
+  "TURNPRO12": {
+    "id": "TURNPRO12",
+    "status": "landed",
+    "started": "2026-11-21T16:55",
+    "title": "Turning pro v12: built on the debut and the first six fights (v11 probe failed 4/15), then probe again",
+    "seat": "claude",
+    "agent": "claude-fable",
+    "eta": "about 2 h",
+    "note": "S536: 66833a990 TURNPROBE12 FAIL 10/15 -> TURNPRO13"
   },
-  "LEDGERPROBE1": {
-   "id": "LEDGERPROBE1",
-   "status": "paused",
-   "started": "2026-11-22T21:05",
-   "title": "Contract tab: keep / cut stipend / release probe",
-   "seat": "claude",
-   "agent": "claude-fable (API credit, sdk_run.py)",
-   "eta": "about 90 min",
-   "note": "S538 credit_runs/LEDGERPROBE1_s538.out | S538 22:52 stopped: owner game lagging; relaunch from files on disk"
+  "GUARDREV7": {
+    "id": "GUARDREV7",
+    "status": "landed",
+    "started": "2026-11-21T17:40",
+    "title": "Guard v7: hands high/loose as a fight-plan reaction, not a setting (v6 probe: Normal best 12 of 12)",
+    "seat": "claude",
+    "agent": "claude-fable",
+    "eta": "about 2 h"
   },
-  "CARDSCOPE4": {
-   "id": "CARDSCOPE4",
-   "status": "paused",
-   "started": "2026-11-22T21:18",
-   "title": "Card game scope 4: six martial arts, limb points tested",
-   "seat": "claude",
-   "agent": "claude-fable (API credit, sdk_run.py)",
-   "eta": "about 2 h",
-   "note": "S538 credit_runs/CARDSCOPE4_s538.out | S538 22:52 stopped: owner game lagging; relaunch from files on disk"
+  "MHCORR2": {
+    "id": "MHCORR2",
+    "status": "landed",
+    "started": "2026-11-21T18:05",
+    "title": "Bodies: bring back the MetaHuman correctives (chest and shoulders fold in the guard) + the stomach",
+    "seat": "claude",
+    "agent": "claude-fable",
+    "eta": "about 2 h (stills wait in the Godot queue)"
   },
-  "PLANFLOW2": {
-   "id": "PLANFLOW2",
-   "status": "paused",
-   "started": "2026-11-22T22:25",
-   "title": "Plan chart: main bet, uses, save/load + repeat-read probe",
-   "seat": "claude",
-   "agent": "claude-fable (API credit, sdk_run.py)",
-   "eta": "about 2 h",
-   "note": "S538 owner: \"launch the other two jobs too\" | S538 22:52 stopped: owner game lagging; relaunch from files on disk"
+  "BODYTEX1": {
+    "id": "BODYTEX1",
+    "status": "landed",
+    "started": "2026-11-21T18:10",
+    "title": "Bodies: real MetaHuman body maps (abs, muscle) instead of the flat 1024 ones - one body first",
+    "seat": "claude",
+    "agent": "claude-fable",
+    "eta": "about 2-3 h"
   },
-  "LOOKMOCK538": {
-   "id": "LOOKMOCK538",
-   "status": "done",
-   "started": "2026-11-22T22:25",
-   "title": "Mockups: result page v2 + office goals panel",
-   "seat": "claude",
-   "agent": "claude-fable (API credit, sdk_run.py)",
-   "eta": "about 60 min",
-   "note": "S538 c998c7b17 ops/previews/s538_look; on review board; $4.61"
+  "WEIGHT2R3": {
+    "id": "WEIGHT2R3",
+    "status": "landed",
+    "started": "2026-11-21T20:00",
+    "title": "Weight v2 + probe round 3",
+    "seat": "claude",
+    "agent": "claude-fable",
+    "eta": "1-3 h (Godot queue)"
   },
-  "KNOWSTAKES6": {
-   "id": "KNOWSTAKES6",
-   "status": "running",
-   "started": "2026-11-22T22:50",
-   "title": "Knowledge stakes map v6 (measured), then critics",
-   "seat": "claude",
-   "agent": "claude-fable (API credit, sdk_run.py)",
-   "eta": "about 40 min",
-   "note": "S538"
+  "BODYTEX2": {
+    "id": "BODYTEX2",
+    "status": "landed",
+    "started": "2026-11-21T20:00",
+    "title": "Bodies phase 2: skin + shape",
+    "seat": "claude",
+    "agent": "claude-fable",
+    "eta": "1-3 h (Godot queue)",
+    "note": "S536: 33d0f8d0d (swept into a Claude commit) - skin on all 19, seam fixed, shape unchanged"
+  },
+  "OFFERBUILD1": {
+    "id": "OFFERBUILD1",
+    "status": "landed",
+    "started": "2026-11-21T20:00",
+    "title": "Build the bout offer letter",
+    "seat": "claude",
+    "agent": "claude-fable",
+    "eta": "1-3 h (Godot queue)",
+    "note": "S536: b81ae44c4, still on the review board, in the S536 export"
+  },
+  "GUARDPROBE8": {
+    "id": "GUARDPROBE8",
+    "status": "landed",
+    "started": "2026-11-21T20:00",
+    "title": "Guard v7 trade probe",
+    "seat": "claude",
+    "agent": "claude-fable",
+    "eta": "1-3 h (Godot queue)",
+    "note": "S536: 9c7d18540 FAIL - a guard line costs no punch line (the slot is free) -> STANCEPROBE1 merge question"
+  },
+  "WEIGHT2R4": {
+    "id": "WEIGHT2R4",
+    "status": "landed",
+    "started": "2026-11-21T21:25",
+    "title": "Weight probe round 4: a hard cut must be able to cost (sized by body share), pro regain tied to the cut, 40 seeds",
+    "seat": "claude",
+    "agent": "claude-fable",
+    "eta": "about 1.5-2 h (probe waits in the Godot queue)",
+    "note": "S536: cd9a84dbe PASS 7/10 clear"
+  },
+  "FP2POSE1": {
+    "id": "FP2POSE1",
+    "status": "landed",
+    "started": "2026-11-21T21:50",
+    "title": "Your C454 + C458: the blue cross crosses its legs and looks away; the guard stance reads weak (fight player v2)",
+    "seat": "claude",
+    "agent": "claude-fable",
+    "eta": "about 2 h (stills wait in the Godot queue)",
+    "note": "S536: 905a7465c+92df2ae12 gaze 86->9 deg; legs open -> FP2POSE2"
+  },
+  "GLOVEFACE1": {
+    "id": "GLOVEFACE1",
+    "status": "landed",
+    "started": "2026-11-21T21:50",
+    "title": "Your C447 + C456: the guard glove (shape, cuff, into the cheek) and ring light so dark skin reads",
+    "seat": "claude",
+    "agent": "claude-fable",
+    "eta": "about 2 h (stills wait in the Godot queue)",
+    "note": "S536: df973de5e glove -2.5 -> -0.3 cm into the face, bell cuff, ring lights lift dark skin +17..23 -> +35..41 luma; old player still clips, close-up dark faces open"
+  },
+  "TURNPRO13": {
+    "id": "TURNPRO13",
+    "status": "landed",
+    "started": "2026-11-21T22:05",
+    "title": "Turning pro v13 probe",
+    "seat": "claude",
+    "agent": "claude-fable",
+    "note": "S536: e0ffcc725 PASS 14/15"
+  },
+  "WEIGHT2V2CRIT": {
+    "id": "WEIGHT2V2CRIT",
+    "status": "landed",
+    "started": "2026-11-21T22:15",
+    "title": "Code-checked critic of weight v2 (probe 4 PASS): checks every code claim, scores depth and play",
+    "seat": "claude",
+    "agent": "claude-fable",
+    "eta": "about 40 min",
+    "note": "S536: 71e1175f0 6/7/6"
+  },
+  "STANCEPROBE1": {
+    "id": "STANCEPROBE1",
+    "status": "landed",
+    "title": "Stance pad probe",
+    "seat": "claude",
+    "agent": "claude-fable",
+    "note": "S536: 41b4589d3 FAIL twice -> merged into guard v8 (owner)"
+  },
+  "SQ281": {
+    "id": "SQ281",
+    "status": "queued",
+    "started": "2026-11-21T22:25",
+    "title": "John: what boxing card games do well (your links)",
+    "seat": "john",
+    "agent": "john",
+    "eta": "next 30-min send"
+  },
+  "WEIGHT2R5": {
+    "id": "WEIGHT2R5",
+    "status": "landed",
+    "started": "2026-11-21T22:30",
+    "title": "Weight probe round 5: diet vs water vs up inside one scale, height and reach on, opponents cut too - FAIL (STAY best 10/15; reading the opponent's cut +1 rung)",
+    "seat": "claude",
+    "agent": "claude-fable",
+    "eta": "about 1.5 h"
+  },
+  "CARDPROTO1": {
+    "id": "CARDPROTO1",
+    "status": "merged",
+    "started": "2026-11-21T22:55",
+    "title": "Your ask: a card-game version of FightCamp, boxing first - playable browser prototype (Arena) - round 1 merged (PR 437), critics running",
+    "seat": "arena",
+    "agent": "arena",
+    "branch": "arena/05f6e5d3-fightcamp-lean-lite",
+    "chat": "https://arena.ai/agent/01a1ffdc-b9fd-7f68-9911-3e9705f6e5d3",
+    "eta": "about 1-2 h, then Claude plays it before merge"
+  },
+  "SQ282": {
+    "id": "SQ282",
+    "status": "queued",
+    "started": "2026-11-21T22:55",
+    "title": "Dola: card set ideas for the card game",
+    "seat": "dola",
+    "agent": "dola",
+    "eta": "next 30-min send"
+  },
+  "TURNPRO13CRIT": {
+    "id": "TURNPRO13CRIT",
+    "status": "landed",
+    "started": "2026-11-21T23:12",
+    "title": "Code-checked critic of turning pro v13 (Arena, free) + John SQ283 - landed: 5/7/5 (S537 collected)",
+    "seat": "arena",
+    "agent": "arena",
+    "branch": "arena/b9596b1d-fightcamp-lean-lite",
+    "chat": "https://arena.ai/agent/01a1ffef-04c3-7cb1-9cf7-5d85b9596b1d",
+    "eta": "about 30-60 min"
+  },
+  "CARDPROTO2": {
+    "id": "CARDPROTO2",
+    "status": "merged",
+    "started": "2026-11-22T00:20",
+    "title": "Card game round 2 (Arena): defence pays, tells, combos, scouting real - after critics 5/6 and 4/4 - merged (PR 440) + ui fix",
+    "seat": "arena",
+    "agent": "arena",
+    "branch": "arena/d836e066-fightcamp-lean-lite",
+    "chat": "https://arena.ai/agent/01a2002a-caff-7da7-8ea0-8c76d836e066",
+    "eta": "about 1-3 h, then Claude verifies and merges"
+  },
+  "GUARDREV8": {
+    "id": "GUARDREV8",
+    "status": "landed",
+    "started": "2026-11-22T00:20",
+    "title": "Guard v8: your stance merged into the guard lines; natural stance a trait (map + probe 9) - FAIL twice (price real, trait decides; High lines on own trouble win 6-7/10)",
+    "seat": "claude",
+    "agent": "claude-fable",
+    "eta": "starts when RAM leaves RED"
+  },
+  "CARDPROTO2_CRITICS": {
+    "id": "CARDPROTO2_CRITICS",
+    "status": "done",
+    "started": "2026-11-22T01:05",
+    "title": "Card game round 2 critics: Arena code-checked + Kalli (SQ285)",
+    "seat": "arena",
+    "agent": "arena",
+    "branch": "arena/7c87ca87-fightcamp-lean-lite",
+    "chat": "https://arena.ai/agent/01a20048-7add-779b-9d0c-753e7c87ca87",
+    "eta": "about 30-60 min"
+  },
+  "FP2POSE2": {
+    "id": "FP2POSE2",
+    "status": "landed",
+    "started": "2026-11-22T01:00",
+    "title": "Your C454 round 2: the cross legs - rear heel lifts, feet never cross (fight player v2) - landed 6/10 (d667061c8), film sent S537",
+    "seat": "claude",
+    "agent": "claude-fable",
+    "eta": "about 2 h"
+  },
+  "TURNPRO14": {
+    "id": "TURNPRO14",
+    "status": "running",
+    "started": "2026-11-22T01:10",
+    "title": "Turning pro v14: you book each fight's kind, house favour, pick the debut night (map + probe 14) - rerun on the API credit (low-memory guard stopped the console run)",
+    "seat": "claude",
+    "agent": "claude-fable",
+    "eta": "about 1-2 h"
+  },
+  "STEPPAY3": {
+    "id": "STEPPAY3",
+    "status": "running",
+    "started": "2026-11-22T01:35",
+    "title": "Footwork: give the five steps with no moment a moment (branch s537/steppay3)",
+    "seat": "claude",
+    "agent": "claude-fable",
+    "branch": "s537/steppay3",
+    "eta": "about 2-3 h"
+  },
+  "FP2POSE3": {
+    "id": "FP2POSE3",
+    "status": "running",
+    "started": "2026-11-22T01:15",
+    "title": "Fight player v2: a proper stance length + rear heel on hooks/uppercuts (your C458)",
+    "seat": "claude",
+    "agent": "claude-fable",
+    "eta": "about 2-3 h"
+  },
+  "CARDPROTO3": {
+    "id": "CARDPROTO3",
+    "status": "merged (PR 442)",
+    "started": "2026-11-22T01:42",
+    "title": "Card game round 3 (Arena): the tell costs something, W/X table, combos, wind binds - after round-2 critic 4/5",
+    "seat": "arena",
+    "agent": "arena",
+    "branch": "arena/83ca10f8-fightcamp-lean-lite",
+    "chat": "https://arena.ai/agent/01a2007b-c18e-7f36-b4be-fe6383ca10f8",
+    "eta": "Arena daily limit, resets 14:35 on 2026-11-22; then Continue + open PR"
+  },
+  "CARDPROTO3_CRITICS": {
+    "title": "Card game round 3 critics: Kalli SQ290 queued, Arena code-checked critic chat",
+    "status": "running",
+    "issue": "https://arena.ai/agent/01a20362-68fd-7381-b745-5ef003088e4d",
+    "eta": "Kalli at next 30-min reconcile; Arena ~30-60 min"
   }
- },
- "codex_budget": {
-  "used_percent": 65,
-  "resets": "2026-10-07T04:42",
-  "read_at": "2026-10-02T18:10",
-  "rule": "max 2 Codex seats, luna/medium, stop new launches at 85%"
- },
- "WEIGHT2": {
-  "id": "WEIGHT2",
-  "status": "landed",
-  "started": "2026-11-21T16:45",
-  "title": "Weight, deep (your ask): manage it to a point; moves performance, size match-ups, classes, the week, the career - map from code, then a probe",
-  "seat": "claude",
-  "agent": "claude-fable",
-  "eta": "about 2 h (probe waits in the Godot queue)"
- },
- "TURNPRO12": {
-  "id": "TURNPRO12",
-  "status": "landed",
-  "started": "2026-11-21T16:55",
-  "title": "Turning pro v12: built on the debut and the first six fights (v11 probe failed 4/15), then probe again",
-  "seat": "claude",
-  "agent": "claude-fable",
-  "eta": "about 2 h",
-  "note": "S536: 66833a990 TURNPROBE12 FAIL 10/15 -> TURNPRO13"
- },
- "GUARDREV7": {
-  "id": "GUARDREV7",
-  "status": "landed",
-  "started": "2026-11-21T17:40",
-  "title": "Guard v7: hands high/loose as a fight-plan reaction, not a setting (v6 probe: Normal best 12 of 12)",
-  "seat": "claude",
-  "agent": "claude-fable",
-  "eta": "about 2 h"
- },
- "MHCORR2": {
-  "id": "MHCORR2",
-  "status": "landed",
-  "started": "2026-11-21T18:05",
-  "title": "Bodies: bring back the MetaHuman correctives (chest and shoulders fold in the guard) + the stomach",
-  "seat": "claude",
-  "agent": "claude-fable",
-  "eta": "about 2 h (stills wait in the Godot queue)"
- },
- "BODYTEX1": {
-  "id": "BODYTEX1",
-  "status": "landed",
-  "started": "2026-11-21T18:10",
-  "title": "Bodies: real MetaHuman body maps (abs, muscle) instead of the flat 1024 ones - one body first",
-  "seat": "claude",
-  "agent": "claude-fable",
-  "eta": "about 2-3 h"
- },
- "WEIGHT2R3": {
-  "id": "WEIGHT2R3",
-  "status": "landed",
-  "started": "2026-11-21T20:00",
-  "title": "Weight v2 + probe round 3",
-  "seat": "claude",
-  "agent": "claude-fable",
-  "eta": "1-3 h (Godot queue)"
- },
- "BODYTEX2": {
-  "id": "BODYTEX2",
-  "status": "landed",
-  "started": "2026-11-21T20:00",
-  "title": "Bodies phase 2: skin + shape",
-  "seat": "claude",
-  "agent": "claude-fable",
-  "eta": "1-3 h (Godot queue)",
-  "note": "S536: 33d0f8d0d (swept into a Claude commit) - skin on all 19, seam fixed, shape unchanged"
- },
- "OFFERBUILD1": {
-  "id": "OFFERBUILD1",
-  "status": "landed",
-  "started": "2026-11-21T20:00",
-  "title": "Build the bout offer letter",
-  "seat": "claude",
-  "agent": "claude-fable",
-  "eta": "1-3 h (Godot queue)",
-  "note": "S536: b81ae44c4, still on the review board, in the S536 export"
- },
- "GUARDPROBE8": {
-  "id": "GUARDPROBE8",
-  "status": "landed",
-  "started": "2026-11-21T20:00",
-  "title": "Guard v7 trade probe",
-  "seat": "claude",
-  "agent": "claude-fable",
-  "eta": "1-3 h (Godot queue)",
-  "note": "S536: 9c7d18540 FAIL - a guard line costs no punch line (the slot is free) -> STANCEPROBE1 merge question"
- },
- "WEIGHT2R4": {
-  "id": "WEIGHT2R4",
-  "status": "landed",
-  "started": "2026-11-21T21:25",
-  "title": "Weight probe round 4: a hard cut must be able to cost (sized by body share), pro regain tied to the cut, 40 seeds",
-  "seat": "claude",
-  "agent": "claude-fable",
-  "eta": "about 1.5-2 h (probe waits in the Godot queue)",
-  "note": "S536: cd9a84dbe PASS 7/10 clear"
- },
- "FP2POSE1": {
-  "id": "FP2POSE1",
-  "status": "landed",
-  "started": "2026-11-21T21:50",
-  "title": "Your C454 + C458: the blue cross crosses its legs and looks away; the guard stance reads weak (fight player v2)",
-  "seat": "claude",
-  "agent": "claude-fable",
-  "eta": "about 2 h (stills wait in the Godot queue)",
-  "note": "S536: 905a7465c+92df2ae12 gaze 86->9 deg; legs open -> FP2POSE2"
- },
- "GLOVEFACE1": {
-  "id": "GLOVEFACE1",
-  "status": "landed",
-  "started": "2026-11-21T21:50",
-  "title": "Your C447 + C456: the guard glove (shape, cuff, into the cheek) and ring light so dark skin reads",
-  "seat": "claude",
-  "agent": "claude-fable",
-  "eta": "about 2 h (stills wait in the Godot queue)",
-  "note": "S536: df973de5e glove -2.5 -> -0.3 cm into the face, bell cuff, ring lights lift dark skin +17..23 -> +35..41 luma; old player still clips, close-up dark faces open"
- },
- "TURNPRO13": {
-  "id": "TURNPRO13",
-  "status": "landed",
-  "started": "2026-11-21T22:05",
-  "title": "Turning pro v13 probe",
-  "seat": "claude",
-  "agent": "claude-fable",
-  "note": "S536: e0ffcc725 PASS 14/15"
- },
- "WEIGHT2V2CRIT": {
-  "id": "WEIGHT2V2CRIT",
-  "status": "landed",
-  "started": "2026-11-21T22:15",
-  "title": "Code-checked critic of weight v2 (probe 4 PASS): checks every code claim, scores depth and play",
-  "seat": "claude",
-  "agent": "claude-fable",
-  "eta": "about 40 min",
-  "note": "S536: 71e1175f0 6/7/6"
- },
- "STANCEPROBE1": {
-  "id": "STANCEPROBE1",
-  "status": "landed",
-  "title": "Stance pad probe",
-  "seat": "claude",
-  "agent": "claude-fable",
-  "note": "S536: 41b4589d3 FAIL twice -> merged into guard v8 (owner)"
- },
- "SQ281": {
-  "id": "SQ281",
-  "status": "queued",
-  "started": "2026-11-21T22:25",
-  "title": "John: what boxing card games do well (your links)",
-  "seat": "john",
-  "agent": "john",
-  "eta": "next 30-min send"
- },
- "WEIGHT2R5": {
-  "id": "WEIGHT2R5",
-  "status": "landed",
-  "started": "2026-11-21T22:30",
-  "title": "Weight probe round 5: diet vs water vs up inside one scale, height and reach on, opponents cut too - FAIL (STAY best 10/15; reading the opponent's cut +1 rung)",
-  "seat": "claude",
-  "agent": "claude-fable",
-  "eta": "about 1.5 h"
- },
- "CARDPROTO1": {
-  "id": "CARDPROTO1",
-  "status": "merged",
-  "started": "2026-11-21T22:55",
-  "title": "Your ask: a card-game version of FightCamp, boxing first - playable browser prototype (Arena) - round 1 merged (PR 437), critics running",
-  "seat": "arena",
-  "agent": "arena",
-  "branch": "arena/05f6e5d3-fightcamp-lean-lite",
-  "chat": "https://arena.ai/agent/01a1ffdc-b9fd-7f68-9911-3e9705f6e5d3",
-  "eta": "about 1-2 h, then Claude plays it before merge"
- },
- "SQ282": {
-  "id": "SQ282",
-  "status": "queued",
-  "started": "2026-11-21T22:55",
-  "title": "Dola: card set ideas for the card game",
-  "seat": "dola",
-  "agent": "dola",
-  "eta": "next 30-min send"
- },
- "TURNPRO13CRIT": {
-  "id": "TURNPRO13CRIT",
-  "status": "landed",
-  "started": "2026-11-21T23:12",
-  "title": "Code-checked critic of turning pro v13 (Arena, free) + John SQ283 - landed: 5/7/5 (S537 collected)",
-  "seat": "arena",
-  "agent": "arena",
-  "branch": "arena/b9596b1d-fightcamp-lean-lite",
-  "chat": "https://arena.ai/agent/01a1ffef-04c3-7cb1-9cf7-5d85b9596b1d",
-  "eta": "about 30-60 min"
- },
- "CARDPROTO2": {
-  "id": "CARDPROTO2",
-  "status": "merged",
-  "started": "2026-11-22T00:20",
-  "title": "Card game round 2 (Arena): defence pays, tells, combos, scouting real - after critics 5/6 and 4/4 - merged (PR 440) + ui fix",
-  "seat": "arena",
-  "agent": "arena",
-  "branch": "arena/d836e066-fightcamp-lean-lite",
-  "chat": "https://arena.ai/agent/01a2002a-caff-7da7-8ea0-8c76d836e066",
-  "eta": "about 1-3 h, then Claude verifies and merges"
- },
- "GUARDREV8": {
-  "id": "GUARDREV8",
-  "status": "landed",
-  "started": "2026-11-22T00:20",
-  "title": "Guard v8: your stance merged into the guard lines; natural stance a trait (map + probe 9) - FAIL twice (price real, trait decides; High lines on own trouble win 6-7/10)",
-  "seat": "claude",
-  "agent": "claude-fable",
-  "eta": "starts when RAM leaves RED"
- },
- "CARDPROTO2_CRITICS": {
-  "id": "CARDPROTO2_CRITICS",
-  "status": "done",
-  "started": "2026-11-22T01:05",
-  "title": "Card game round 2 critics: Arena code-checked + Kalli (SQ285)",
-  "seat": "arena",
-  "agent": "arena",
-  "branch": "arena/7c87ca87-fightcamp-lean-lite",
-  "chat": "https://arena.ai/agent/01a20048-7add-779b-9d0c-753e7c87ca87",
-  "eta": "about 30-60 min"
- },
- "FP2POSE2": {
-  "id": "FP2POSE2",
-  "status": "landed",
-  "started": "2026-11-22T01:00",
-  "title": "Your C454 round 2: the cross legs - rear heel lifts, feet never cross (fight player v2) - landed 6/10 (d667061c8), film sent S537",
-  "seat": "claude",
-  "agent": "claude-fable",
-  "eta": "about 2 h"
- },
- "TURNPRO14": {
-  "id": "TURNPRO14",
-  "status": "running",
-  "started": "2026-11-22T01:10",
-  "title": "Turning pro v14: you book each fight's kind, house favour, pick the debut night (map + probe 14) - rerun on the API credit (low-memory guard stopped the console run)",
-  "seat": "claude",
-  "agent": "claude-fable",
-  "eta": "about 1-2 h"
- },
- "STEPPAY3": {
-  "id": "STEPPAY3",
-  "status": "running",
-  "started": "2026-11-22T01:35",
-  "title": "Footwork: give the five steps with no moment a moment (branch s537/steppay3)",
-  "seat": "claude",
-  "agent": "claude-fable",
-  "branch": "s537/steppay3",
-  "eta": "about 2-3 h"
- },
- "FP2POSE3": {
-  "id": "FP2POSE3",
-  "status": "running",
-  "started": "2026-11-22T01:15",
-  "title": "Fight player v2: a proper stance length + rear heel on hooks/uppercuts (your C458)",
-  "seat": "claude",
-  "agent": "claude-fable",
-  "eta": "about 2-3 h"
- },
- "CARDPROTO3": {
-  "id": "CARDPROTO3",
-  "status": "merged (PR 442)",
-  "started": "2026-11-22T01:42",
-  "title": "Card game round 3 (Arena): the tell costs something, W/X table, combos, wind binds - after round-2 critic 4/5",
-  "seat": "arena",
-  "agent": "arena",
-  "branch": "arena/83ca10f8-fightcamp-lean-lite",
-  "chat": "https://arena.ai/agent/01a2007b-c18e-7f36-b4be-fe6383ca10f8",
-  "eta": "Arena daily limit, resets 14:35 on 2026-11-22; then Continue + open PR"
- },
- "CARDPROTO3_CRITICS": {
-  "title": "Card game round 3 critics: Kalli SQ290 queued, Arena code-checked critic chat",
-  "status": "running",
-  "issue": "https://arena.ai/agent/01a20362-68fd-7381-b745-5ef003088e4d",
-  "eta": "Kalli at next 30-min reconcile; Arena ~30-60 min"
- }
 }

@@ -33,6 +33,8 @@ const GamePlanRows := preload("res://scripts/ui/GamePlanRows.gd")
 const FirstWeekStrip := preload("res://scripts/ui/FirstWeekStrip.gd")
 const MoveWords := preload("res://scripts/rules/MoveWords.gd")
 const Halo := preload("res://scripts/ui/Halo.gd")
+const PlanBet := preload("res://scripts/ui/PlanBet.gd")   # S538 PLANFLOW2 the main bet, the last bout's uses
+const PlanSaves := preload("res://scripts/ui/PlanSaves.gd")   # S538 PLANFLOW2 save / load a plan
 
 const PLACE_W := 250.0
 const OPT := Vector2(440, 76)   # S416: wide enough for what the choice does
@@ -141,10 +143,7 @@ func _head() -> Control:
 	var v := UI.vbox(6)
 	var b := _bout()
 	var own := OppFile.main_game(b["opp"]) if not b.is_empty() else ""
-	if not b.is_empty():
-		v.add_child(UI.label("Next opponent: %s" % str(OppFile.GAME_WORDS.get(own, own)), UI.BODY, UI.FG, "bold", true))   # S448: names in the header only
-	else:
-		v.add_child(UI.label("No bout booked: try the plan against each kind of opponent.", UI.BODY, UI.FG, "bold", true))
+	v.add_child(UI.label("Next opponent: %s" % str(OppFile.GAME_WORDS.get(own, own)) if not b.is_empty() else "No bout booked: try the plan against each kind of opponent.", UI.BODY, UI.FG, "bold", true))   # S448: names in the header only
 	var row := UI.hbox(6)
 	row.add_child(UI.caps("RATE AGAINST"))
 	for g in OppFile.GAME_WORDS:
@@ -314,6 +313,7 @@ func _line(place: String, when: String) -> Control:
 ## the Playbook's word on it - "works" / "fails" / "even", or "too early" under PlanRecord.MIN_USED throws.
 func _in_bouts(row: Control, mid: String) -> void:
 	var r: Dictionary = _bouts.get(mid, {})
+	PlanBet.last_bout(self, row, mid, r)   # S538: the last bout's own count, before the all-bouts one
 	if r.is_empty() or int(r["used"]) <= 0:
 		return
 	var word := PlanRecord.verdict(r)
@@ -380,7 +380,7 @@ func _write(next: Array) -> void:
 	arrows = next
 	if PlanBoard.validate(arrows, SM.MOVES, _limit(), FightFlow.WHEN_WORDS)["ok"]:
 		var first := (f.get("arrows", []) as Array).is_empty()
-		f["arrows"] = arrows.duplicate(true)
+		f["arrows"] = PlanBet.stamp(arrows, f).duplicate(true)   # S538 the main bet rides on its arrow
 		if first and main != null and (main.get("career") as Career).guide != "":
 			FirstWeekStrip.refresh(main)
 
