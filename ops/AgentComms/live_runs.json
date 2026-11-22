@@ -291,9 +291,9 @@
  },
  "GUARDREV8": {
   "id": "GUARDREV8",
-  "status": "running",
+  "status": "landed",
   "started": "2026-11-22T00:20",
-  "title": "Guard v8: your stance merged into the guard lines; natural stance a trait (map + probe 9)",
+  "title": "Guard v8: your stance merged into the guard lines; natural stance a trait (map + probe 9) - FAIL twice (price real, trait decides; High lines on own trouble win 6-7/10)",
   "seat": "claude",
   "agent": "claude-fable",
   "eta": "starts when RAM leaves RED"
@@ -322,7 +322,7 @@
   "id": "TURNPRO14",
   "status": "running",
   "started": "2026-11-22T01:10",
-  "title": "Turning pro v14: you book each fight's kind, house favour, pick the debut night (map + probe 14)",
+  "title": "Turning pro v14: you book each fight's kind, house favour, pick the debut night (map + probe 14) - rerun on the API credit (low-memory guard stopped the console run)",
   "seat": "claude",
   "agent": "claude-fable",
   "eta": "about 1-2 h"

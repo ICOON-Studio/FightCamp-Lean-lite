@@ -192,6 +192,7 @@ static func dress(fighter: Node, glb_path: String = "") -> void:
 					for pair in [["albedo_tex", "albedo_2k.jpg"], ["normal_tex", "normal_2k.jpg"]]:
 						var tex: Texture2D = _png_cached(stem + str(pair[1]))
 						if tex != null:
+							tex.resource_name = "mh02_body_" + str(pair[1]).trim_suffix("_2k.jpg")   # the atlas it replaces: ArtStyle's toon painting is found by it
 							skin.set_shader_parameter(str(pair[0]), tex)
 				skin.set_shader_parameter("micro_normal", micro)
 				for key in skin_u:

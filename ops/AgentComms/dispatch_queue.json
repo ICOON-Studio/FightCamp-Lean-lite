@@ -1757,6 +1757,20 @@
       "queued": "2026-11-20T00:35",
       "launched": "2026-11-20T01:41",
       "note": "S531: Qwen token plan out until 2026-12-08 16:00 UTC (429 at launch); Claude runs the probe on the PC"
+    },
+    {
+      "task": "OFFERFACE1",
+      "seat": "grok",
+      "status": "queued",
+      "queued": "2026-11-22T07:40",
+      "note": "nightly 11-22: offer letter's opponent picture cuts boxer 13's chin (face_frame_test, since b81ae44c4)"
+    },
+    {
+      "task": "RIBSTEP1",
+      "seat": "grok",
+      "status": "queued",
+      "queued": "2026-11-22T07:40",
+      "note": "nightly 11-22: rib_damage body-plan rate 59.0 < 60; bisect, likely STEPPAY2 bfe5a9817/7aa64e2e3; measurement only"
     }
   ]
 }
