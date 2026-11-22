@@ -98,7 +98,6 @@ static func _keep() -> Array:
 	var legs := ["FootLock", "FloorStand"] if args.has("fp2lock") else (["FootCarry", "FloorStand"] if args.has("fp2carry") else (["FootPlant", "FloorStand"] if args.has("fp2plant") else ["FootTake", "FloorStand"]))
 	return ["JoinSmoother", "MetaHumanTwist", "MetaHumanCorrectiveRBF", "TiredSag", "PunchAim", "GuardHold", "Gaze"] + legs
 
-
 static var force := false   # a test switches v2 on without the command line (set FightClips.untouched with it)
 
 
@@ -123,6 +122,7 @@ func setup(stage: Node) -> void:
 			if c is SkeletonModifier3D and str(c.name) in ["TiredSag", "FootTake", "FootPlant", "FootCarry", "FootLock", "FloorStand"] and (last == null or c.get_index() > last.get_index()):
 				last = c
 		_aim[i] = PunchAim.attach(skel, st.boxers[i]["ap"], last)
+		(st.boxers[i]["gloves"] as Node).set("face_clear", false)   # S537 KNEEROOT1: the glove stays where the take puts the hand
 		GuardHold.add(skel, self, i, st.boxers[i].get("js"))   # S531: the hand that is not working stays at the face
 		preload("res://scripts/fight3d/v2/Gaze.gd").add(skel, self, i, st.boxers[i].get("js"))   # S536: the eyes stay on the other man (before GuardHold)
 		if KEEP.has("FootCarry") and st.boxers[i].get("feet") != null:
@@ -438,8 +438,8 @@ func _play(i: int, clip: String, from_s: float, kind: String, travel: bool) -> v
 	ap.play(clip, 0.0 if bx.get("js") != null else j.y, 1.0)
 	if from_s > 0.0:
 		ap.seek(from_s, true)
-	if _feet[i] != null:
-		_feet[i].hold = not travel and kind in ["reaction", "block", "defence"]   # played on the spot: its feet keep the canvas
+	if _feet[i] != null: _feet[i].hold = not travel and kind in ["reaction", "block", "defence"]   # played on the spot: its feet keep the canvas
+	if _ft[i] != null: _ft[i].as_recorded = kind in ["punch", "feint"]   # S537 KNEEROOT1: a punch's legs are the take's own
 	var path: PackedVector3Array = RootPath.of(ap.get_animation(clip)) if travel else PackedVector3Array()
 	# S525 (three films, both critics every time: "the man who is hit barely moves"): a reaction starts part-way into
 	# its take so the head is furthest on the blow (REACT_PEAK_S), and the take's hip travel up to that point was simply

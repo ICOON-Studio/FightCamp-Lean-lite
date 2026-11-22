@@ -78,6 +78,11 @@ var gloves := {}
 var idx := {}
 var _balls := {}                       # side -> [[centre in the glove node's frame, radius]]
 var _head := -1
+## S537 KNEEROOT1 (owner C464 "why the gloves doing their own thing ?", C466 "reds gloves move on their own"): in the v2
+## fight's tight guard the move off the face bent the rear glove 14-34 deg off its own forearm and flicked it up to 17 deg
+## in one picture (tools/kneeroot_probe.gd; rigid it stays within 1 deg). Player2 switches it off: the glove is where
+## the take puts the hand. Every other user (the gym, the shipped player) keeps it.
+var face_clear := true
 var _face := PackedVector3Array()      # her face, in the head bone's frame
 var _face_n := PackedVector3Array()
 var _turn := {}                        # side -> the glove's eased turn off the face (its own frame)
@@ -171,7 +176,7 @@ func _follow() -> void:
 		arms[side] = [wrist, p[4]]   # [wrist, elbow]
 	for side in placed:
 		var xf: Transform3D = placed[side]
-		if not _face.is_empty():
+		if (face_clear and not _face.is_empty()):
 			var other: String = "r" if side == "l" else "l"
 			var keep_off: Array = []
 			if placed.has(other):
@@ -186,12 +191,12 @@ func _follow() -> void:
 	# Her own two arms: the move off her face never puts a glove into her other glove or forearm (the shapes
 	# tools/clash_meter.gd draws), or deeper into one than it stood.
 	var share := 1.0
-	if placed.size() == 2 and not _face.is_empty():
+	if placed.size() == 2 and (face_clear and not _face.is_empty()):
 		var need := minf(_own_room(placed, arms, 0.0), OWN_ROOM_M)
 		while share > 0.0 and _own_room(placed, arms, share) < need - 0.0005:
 			share -= 0.25
 	for side in placed:
-		(gloves[side] as Node3D).transform = _moved(placed[side], side, share) if not _face.is_empty() else (placed[side] as Transform3D)
+		(gloves[side] as Node3D).transform = _moved(placed[side], side, share) if (face_clear and not _face.is_empty()) else (placed[side] as Transform3D)
 
 
 ## The glove's place with `share` of its eased move off the face.

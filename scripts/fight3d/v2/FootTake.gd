@@ -15,12 +15,22 @@ extends "res://scripts/fight3d/FootPlant.gd"
 ## A take that never lifts a foot (the guard) while the plan moves the body, or a foot left far behind with no step of
 ## the take coming: FootPlant's own step, as before. The leg IK, the reach limit and the knee's plane are FootPlant's.
 ## `-- fp2plant` = FootPlant alone (the control arm).
+## S537 KNEEROOT1 (owner C462/C463: "why you twist and bend the knee ... the original clip is fine"): A PUNCH PLAYS ITS
+## LEGS AS RECORDED. The pin held each foot where the WAITING take had stood it while the punch take's own hips went
+## where the actor's went - over feet that were somewhere else. The leg IK made up the difference with the knee: on the
+## plain cross the lead knee bent 35 deg where the bought take bends 11 and sat 8-10 cm off its hip-ankle line
+## (tools/kneeroot_probe.gd; with this layer off the game read the bought take to the millimetre). While a punch or a
+## feint plays (`as_recorded`, Player2._play) the layer lets go (FootPlant's own ease, the one a fall uses) and the feet
+## are the take's; when the punch ends the feet stand where they are shown. `-- fp2pinpunch` = pinned as before.
 ##   add(skel, ap, after, feet_db, south) -> FootTake | null
 
 const HOLD_M := 0.17          # a standing foot this far from its pose, with no step of the take coming, steps on its own
 const SOON_S := 0.40          # ... "coming" = the take lifts it within this long
 
 var feet_db: Dictionary = {}  # take -> {"L": [[from_s, to_s], ...], "R": [...]} (the times it stands)
+var as_recorded := false      # S537: a punch is playing - its legs are the take's own (nothing pinned, no leg IK)
+var _rec_was := false
+static var pin_punch: bool = OS.get_cmdline_user_args().has("fp2pinpunch")
 var south := false            # a southpaw's library is mirrored: his left foot plays the take's right
 var _lift: Array = [{}, {}]   # per foot: {} or {"o": Vector3, "k0": float} - a swing the take itself makes
 var _ball: Array = [-1, -1]   # per foot: its toes bone
@@ -69,7 +79,11 @@ func step(skel: Skeleton3D, dt: float, free: bool = false) -> void:
 		var d: Vector3 = xf.basis * (skel.get_bone_global_pose(int(_ball[i])).origin - skel.get_bone_global_pose(_bones[i][2]).origin) if int(_ball[i]) >= 0 else Vector3.ZERO
 		_boff[i] = Vector3(d.x, 0.0, d.z)
 	var was: Array = _state.duplicate()
-	super(skel, dt, free)
+	var rec := as_recorded and not pin_punch
+	if _rec_was and not rec:
+		_wake()   # the punch is over: the feet stand where the take left them
+	_rec_was = rec
+	super(skel, dt, free or rec)
 	# probes: what moved a low foot's ball this frame
 	for i in 2:
 		var ball: Vector3 = (last_target[i] as Vector3) + (_boff[i] as Vector3)

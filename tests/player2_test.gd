@@ -23,6 +23,11 @@ extends SceneTree
 ##   DRIVE    ... and the punch is DRIVEN: by the contact his hips are DRIVE_M or more toward the other man than in his
 ##            guard (cross, rear hook, rear uppercut) and the rear knee has straightened DRIVE_KNEE_DEG from its deepest
 ##            in the load on a cross, DRIVE_KNEE_REAR_DEG on a rear hook or uppercut (FP2POSE4; `-- fp2nodrive`: red)
+##   KNEEMATCH  (S537 KNEEROOT1, owner C462 "the original clip is fine") on the plain cross, once the join is over, each
+##            knee is within KNEE_MATCH_M of where the take ALONE puts it (off its hip-ankle line; every layer off = the
+##            bought take as baked). `-- fp2pinpunch` = the feet pinned through the punch as before: red (8-10 cm)
+##   GLOVEMATCH (C464, C466 "reds gloves move on their own") over 4 s of the waiting guard each glove stays on its own
+##            forearm's line: it swings GLOVE_SWING_DEG at most (with the move off the face it swung 14-34 deg: the control)
 ## A bar v2 does not hold YET prints as DEBT with its number and fails only past a guard (it may not get worse).
 ## Run: <godot> --headless --audio-driver Dummy --fixed-fps 60 --path . --script res://tests/player2_test.gd [-- seed=7 rounds=2 show]
 
@@ -59,7 +64,7 @@ const KNEE_OUT_M := 0.07      # (as drawn: the actor's own 1.5-6.9 cm, the FP2PO
 const DRIVE_M := 0.10
 const DRIVE_KNEE_DEG := 15.0
 const DRIVE_KNEE_REAR_DEG := 5.0   # rear hooks and uppercuts: no study gives theirs; the bar is "it straightens, never bends, into the contact" (as bought 3-32)
-const BONES := ["Hips", "Head", "Chest", "LeftToes", "RightToes", "LeftHand", "RightHand", "LeftLowerLeg", "RightLowerLeg", "LeftFoot", "RightFoot", "LeftUpperLeg", "RightUpperLeg", "UpperChest"]
+const BONES := ["Hips", "Head", "Chest", "LeftToes", "RightToes", "LeftHand", "RightHand", "LeftLowerLeg", "RightLowerLeg", "LeftFoot", "RightFoot", "LeftUpperLeg", "RightUpperLeg", "UpperChest", "LeftLowerArm", "RightLowerArm"]
 
 var failures := 0
 var st: Node3D
@@ -283,6 +288,7 @@ func _initialize() -> void:
 		await process_frame
 	var p2: Node = st.v2
 	await _pose(p2)
+	await load("res://tests/player2_match.gd").run(self, p2)   # KNEEMATCH, GLOVEMATCH
 	var miss: Array = []        # landed: glove front to target (m)
 	var short_on := 0           # missed punches whose glove is on him
 	var short_n := 0
@@ -440,7 +446,7 @@ func _initialize() -> void:
 	_debt(on_n >= miss.size() * 0.9, on_n >= miss.size() * 0.7, "LANDS 9 landed gloves in 10 are within %.2f m (%d of %d; guard 7 in 10)" % [ON_M, on_n, miss.size()])
 	_check(short_on == 0, "SHORT no missed punch has its glove on him (%d of %d)" % [short_on, short_n])
 	_debt(jumps == 0, jumps <= 6 * rounds, "JUMPS no head moves over 12 cm in 1/30 s outside a contact (%d; guard %d)" % [jumps, 6 * rounds])
-	_debt(float(slide[0]) <= 1.0 * rounds and float(slide[1]) <= 1.0 * rounds, maxf(float(slide[0]), float(slide[1])) <= 5.0 * rounds, "SLIDE a standing foot travels under 1 m an exchange (%.2f / %.2f over %d; guard 5 m)" % [float(slide[0]), float(slide[1]), rounds])
+	_debt(float(slide[0]) <= 1.0 * rounds and float(slide[1]) <= 1.0 * rounds, maxf(float(slide[0]), float(slide[1])) <= 6.0 * rounds, "SLIDE a standing foot travels under 1 m an exchange (%.2f / %.2f over %d; guard 6 m: 5 until S537 KNEEROOT1 gave a punch its own feet back, docs/KNEEROOT1_RESULT.md)" % [float(slide[0]), float(slide[1]), rounds])
 	_check(not rest.is_empty() and float(rest[0]) >= R.REST_M - 0.35 and float(rest[-1]) <= R.REST_M + 0.3, "REST out of reach between bursts (%.2f..%.2f m)" % [float(rest[0]) if not rest.is_empty() else 0.0, float(rest[-1]) if not rest.is_empty() else 0.0])
 	_check(not react_d.is_empty() and away_n == 0, "HANDS a hit man's wrists stay within %.2f m of their guard distance to his head (%d of %d frames over, worst %+.2f m)" % [HANDS_M, away_n, react_d.size(), away_worst])
 	_check(inside == 0, "APART no head inside the other man (%d frames)" % inside)
