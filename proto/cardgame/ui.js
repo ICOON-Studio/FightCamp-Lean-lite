@@ -1,94 +1,17 @@
-/* FightCamp card game prototype - the page.
-   A plain script (no modules, no build, no libraries) driven by rules.js.
-   It only draws what the rules module reports; it makes no game decisions.
-   Keys: 1-5 play a card from your hand, Enter is the same as the gold button. */
+/* FightCamp card game prototype - the page. No build, no libraries. */
 (function () {
   'use strict';
-  var R = window.FightCampRules;
+  var R = window.FightCampRules, FC = window.FC;
   var screenEl = document.getElementById('screen');
   var whereEl = document.getElementById('where');
-  if (!R) {
-    screenEl.textContent = 'rules.js did not load next to index.html';
-    return;
-  }
-  var S = { screen: 'pick', game: null, fight: null, busy: false, reveal: null, pending: null, mode: 'react' };
+  if (!R || !FC) { screenEl.textContent = 'rules.js did not load next to index.html'; return; }
+  var h = FC.h, clear = FC.clear, add = FC.add, bar = FC.bar, meter = FC.meter;
+  var windWord = FC.windWord, headWord = FC.headWord, bodyWord = FC.bodyWord, statWords = FC.statWords;
+  var deckPeek = FC.deckPeek, cardFace = FC.cardFace, button = FC.button;
+  var S = { screen: 'pick', game: null, fight: null, busy: false, reveal: null, pending: null, mode: 'react', combo: [], drill: null, lastFoe: null };
   var STAT_KEYS = ['power', 'speed', 'stamina', 'chin', 'technique', 'defence'];
   var seedCount = 0;
-  /* ---------- little helpers ------------------------------------------- */
-  function h(tag, cls, text) {
-    var el = document.createElement(tag);
-    if (cls) el.className = cls;
-    if (text !== undefined && text !== null) {
-      if (text.nodeType === 1) el.appendChild(text); else el.textContent = text;
-    }
-    return el;
-  }
-  function clear(el) { while (el.firstChild) el.removeChild(el.firstChild); }
-  function add(parent) { for (var i = 1; i < arguments.length; i++) if (arguments[i]) parent.appendChild(arguments[i]); return parent; }
-  function bar(cls, ratio) {
-    var b = h('div', 'bar ' + cls), i = h('i');
-    i.style.width = Math.max(0, Math.min(100, Math.round(ratio * 100))) + '%';
-    return add(b, i);
-  }
-  function meter(label, ratio, cls, word) {
-    return add(h('div', 'meter'), h('span', 'lab', label), bar(cls, ratio), h('span', 'val', word));
-  }
-  function windWord(side) {
-    var r = side.stamina / side.maxStamina;
-    return side.stamina <= 0 ? 'empty' : r < 0.2 ? 'reeling' : r < 0.45 ? 'breathing hard' : r < 0.75 ? 'working' : 'fresh';
-  }
-  function headWord(side) { return side.head >= 70 ? 'badly hurt' : side.head >= 40 ? 'hurt' : side.head >= 18 ? 'marked up' : 'clean'; }
-  function bodyWord(side) { return side.body >= 60 ? 'body badly hurt' : side.body >= 30 ? 'sore' : side.body >= 10 ? 'working' : 'fresh'; }
-  function statWords(key, v) {
-    var bands = {
-      power: ['feather-fisted', 'ordinary', 'heavy hands', 'one-punch power'],
-      speed: ['slow', 'ordinary', 'quick hands', 'lightning'],
-      stamina: ['short wind', 'ordinary', 'big engine', 'relentless'],
-      chin: ['glass jaw', 'ordinary', 'good chin', 'granite'],
-      technique: ['raw', 'ordinary', 'sharp', 'textbook'],
-      defence: ['easy to hit', 'ordinary', 'hard to hit', 'elusive']
-    };
-    var idx = v >= 80 ? 3 : v >= 66 ? 2 : v >= 52 ? 1 : 0;
-    return bands[key][idx];
-  }
-  function deckCounts(deck) {
-    var out = {}, order = [];
-    deck.forEach(function (id) { if (!out[id]) { out[id] = 0; order.push(id); } out[id]++; });
-    return { out: out, order: order };
-  }
-  function deckPeek(deck, extra) {
-    var wrap = h('div', 'deckpeek'), c = deckCounts(deck);
-    c.order.forEach(function (id) {
-      var n = c.out[id] - ((extra && extra[id]) || 0);
-      if (n > 0) wrap.appendChild(h('span', null, R.CARDS[id].name + ' x' + n));
-    });
-    for (var id in (extra || {})) if (extra[id] > 0) wrap.appendChild(h('span', null, '+' + R.CARDS[id].name + ' x' + extra[id]));
-    return wrap;
-  }
-  function cardFace(id, opts) {
-    opts = opts || {};
-    var c = R.CARDS[id];
-    var el = h(opts.tag || 'button', 'card ' + c.kind + (opts.small ? ' small' : ''));
-    if (el.tagName === 'BUTTON') el.type = 'button';
-    add(el,
-      h('div', 'kind', R.KIND_LABEL[c.kind]),
-      h('div', 'name', c.name),
-      h('div', 'effect', c.effect),
-      h('div', 'cost', String(opts.cost || c.cost)));
-    if (opts.onClick) el.addEventListener('click', opts.onClick);
-    if (opts.chosen) el.classList.add('chosen');
-    return el;
-  }
-  function button(label, opts) {
-    opts = opts || {};
-    var b = h('button', 'btn' + (opts.primary ? ' primary' : ''), label);
-    b.type = 'button';
-    if (opts.onClick) b.addEventListener('click', opts.onClick);
-    if (opts.disabled) b.disabled = true;
-    return b;
-  }
   function setWhere(text) { whereEl.textContent = text; }
-  /* ---------- the pick screen ------------------------------------------- */
   var PICKABLE = ['ada', 'mara'];
   function renderPick() {
     setWhere('step 1 of 4 - pick your boxer');
@@ -120,38 +43,61 @@
   function startGame(boxerId) {
     seedCount += 1;
     var seed = (Date.now() % 100000) * 100 + seedCount;
-    S.game = R.createGame({ seed: seed, playerBoxerId: boxerId });
+    S.game = R.createGame({ seed: seed, playerBoxerId: boxerId, lastOpponentId: S.lastFoe });
+    S.lastFoe = S.game.opponentBoxerId;
     S.fight = null;
     S.reveal = null;
+    S.combo = [];
+    S.drill = null;
     S.screen = 'camp';
     render();
   }
-  /* ---------- camp ------------------------------------------------------- */
+  function campCard(id) { for (var i = 0; i < R.CAMP_CARDS.length; i++) if (R.CAMP_CARDS[i].id === id) return R.CAMP_CARDS[i]; return null; }
+  function deckNow(g) {
+    var boxer = R.boxerById(g.playerBoxerId);
+    var deck = boxer.deck.slice();
+    for (var k in g.mods.add) for (var i = 0; i < g.mods.add[k]; i++) deck.push(k);
+    for (var r in g.mods.remove) for (var j = 0; j < g.mods.remove[r]; j++) { var idx = deck.indexOf(r); if (idx >= 0) deck.splice(idx, 1); }
+    return deck;
+  }
   function renderCamp() {
     var g = S.game;
     setWhere('step 2 of 4 - fight camp, week ' + (g.week + 1) + ' of 4');
     clear(screenEl);
     var boxer = R.boxerById(g.playerBoxerId);
     add(screenEl, h('h1', null, 'Camp - week ' + (g.week + 1) + ' of 4'),
-      h('p', 'lead muted', 'Four weeks, one drill a week. Training does not make you better at everything: it decides which cards your boxer brings to the fight.'));
+      h('p', 'lead muted', 'Four weeks, one drill a week. Each pick adds one and removes one: training decides which cards your boxer brings.'));
     var layout = h('div', 'camp');
     var offers = h('div', 'offers');
-    g.offers[g.week].forEach(function (id) {
-      var c = null;
-      R.CAMP_CARDS.forEach(function (x) { if (x.id === id) c = x; });
-      var el = h('button', 'card ' + (c.add ? 'footwork' : c.stat ? 'defence' : 'corner'));
-      el.type = 'button';
-      add(el,
-        h('div', 'kind', c.add ? 'Deck' : c.scout ? 'Deck + file' : 'Stat'),
-        h('div', 'name', c.name),
-        h('div', 'effect', c.text));
-      el.addEventListener('click', function () {
-        R.pickCampCard(g, id);
-        S.screen = g.phase === 'scout' ? 'scout' : 'camp';
-        render();
+    if (S.drill) {
+      add(screenEl, h('p', 'lead muted', 'Drill chosen: ' + campCard(S.drill).name + '. Now remove one card from the deck.'));
+      var deck = deckNow(g);
+      var counts = FC.deckCounts(deck);
+      counts.order.forEach(function (id) {
+        var el = h('button', 'card ' + R.CARDS[id].kind);
+        el.type = 'button';
+        add(el, h('div', 'kind', R.KIND_LABEL[R.CARDS[id].kind]), h('div', 'name', R.CARDS[id].name + ' x' + counts.out[id]), h('div', 'effect', R.CARDS[id].effect));
+        el.addEventListener('click', function () {
+          R.pickCampCard(g, S.drill, id);
+          S.drill = null;
+          S.screen = g.phase === 'scout' ? 'scout' : 'camp';
+          render();
+        });
+        offers.appendChild(el);
       });
-      offers.appendChild(el);
-    });
+    } else {
+      g.offers[g.week].forEach(function (id) {
+        var c = campCard(id);
+        var el = h('button', 'card ' + (c.add ? 'footwork' : c.stat ? 'defence' : 'corner'));
+        el.type = 'button';
+        add(el,
+          h('div', 'kind', c.add ? 'Deck' : c.scout ? 'Deck + file' : 'Stat'),
+          h('div', 'name', c.name),
+          h('div', 'effect', c.text));
+        el.addEventListener('click', function () { S.drill = id; renderCamp(); });
+        offers.appendChild(el);
+      });
+    }
     var side = h('aside', 'side');
     add(side, h('div', 'tiny', boxer.name + ' - ' + R.STYLES[boxer.style].name));
     var statGrid = h('div', 'stats');
@@ -160,28 +106,16 @@
       add(statGrid, h('div', null, k.charAt(0).toUpperCase() + k.slice(1)), bar('', (v - 10) / 90));
     });
     add(side, statGrid, h('div', 'tiny', 'Deck right now'));
-    var deck = boxer.deck.slice();
-    g.picks.forEach(function (pickId) {
-      R.CAMP_CARDS.forEach(function (c) {
-        if (c.id !== pickId) return;
-        for (var id in (c.add || {})) for (var i = 0; i < c.add[id]; i++) deck.push(id);
-      });
-    });
-    add(side, deckPeek(deck));
+    add(side, deckPeek(deckNow(g)));
     if (g.picks.length) {
       add(side, h('div', 'tiny', 'Done so far'));
       var ul = h('ul', 'history');
-      g.picks.forEach(function (id) {
-        var name = id;
-        R.CAMP_CARDS.forEach(function (c) { if (c.id === id) name = c.name; });
-        ul.appendChild(h('li', null, '- ' + name));
-      });
+      g.picks.forEach(function (id) { ul.appendChild(h('li', null, '- ' + campCard(id).name)); });
       add(side, ul);
     }
     add(layout, offers, side);
     add(screenEl, layout);
   }
-  /* ---------- scouting file --------------------------------------------- */
   function renderScout() {
     var g = S.game, sc = g.scouting;
     setWhere('step 3 of 4 - the scouting file');
@@ -197,12 +131,15 @@
       add(stats, h('div', null, k.charAt(0).toUpperCase() + k.slice(1) + ': ' + statWords(k, sc.stats[k])), bar('', (sc.stats[k] - 10) / 90));
     });
     add(sheet, stats);
+    add(sheet, h('div', 'tiny', 'Opponent camp: ' + (sc.camp && sc.camp.length ? sc.camp.join(', ') : 'none')));
     add(sheet, h('div', 'tiny', 'On film (' + sc.known.length + ' of ' + (sc.known.length + sc.fleeting) + ')'));
     var habits = h('div', 'habits');
     if (!sc.known.length) habits.appendChild(h('div', 'habit blank', 'Nothing on film. Read the opponent live.'));
     sc.known.forEach(function (k) { habits.appendChild(h('div', 'habit', k.text)); });
     if (sc.fleeting) habits.appendChild(h('div', 'habit blank', sc.fleeting === 1 ? 'One habit nobody has put on film for you.' : sc.fleeting + ' habits nobody has put on film for you.'));
     add(sheet, habits);
+    add(sheet, h('div', 'tiny', 'The judges'));
+    R.JUDGES.forEach(function (j) { add(sheet, h('div', 'readline', j.name + ': ' + j.taste)); });
     var right = h('div', 'sheet');
     add(right, h('h2', null, 'Your corner'), h('div', 'muted', 'What camp built:'));
     var stats2 = h('div', 'stats');
@@ -211,7 +148,7 @@
       var v = Math.min(99, me.stats[k] + (g.mods.stat[k] || 0));
       add(stats2, h('div', null, k.charAt(0).toUpperCase() + k.slice(1) + ': ' + statWords(k, v)), bar('', (v - 10) / 90));
     });
-    add(right, stats2, h('div', 'tiny', 'Your fight deck'), deckPeek(deckWithMods(me.deck, g.mods.add)));
+    add(right, stats2, h('div', 'tiny', 'Your fight deck'), deckPeek(deckNow(g)));
     add(right, h('div', 'tiny', 'The plan'));
     add(right, h('p', 'muted', 'Three rounds, six exchanges a round. Slip the straight punches, roll the hooks, do not hook a man who is holding. Win the exchanges that suit you and stay off the ropes.'));
     add(layout, sheet, right);
@@ -223,16 +160,12 @@
         S.fight = R.startFight(S.game);
         S.reveal = null;
         S.mode = 'react';
+        S.combo = [];
         S.screen = 'fight';
         render();
       }
     }));
     add(screenEl, start);
-  }
-  function deckWithMods(deck, add) {
-    var out = deck.slice();
-    for (var id in (add || {})) for (var i = 0; i < add[id]; i++) out.push(id);
-    return out;
   }
   function conditionWords(condition) {
     var key = Object.keys(condition)[0];
@@ -242,7 +175,12 @@
       inFightRange: 'at ' + condition.inFightRange + ' range', selfAhead: 'when ahead on damage', lastOppCard: 'after your ' + cardName(condition.lastOppCard) };
     return labels[key] || 'when the film condition is true';
   }
-  /* ---------- the fight -------------------------------------------------- */
+  function comboCost(f) {
+    var me = f.player, total = 0;
+    S.combo.forEach(function (id) { total += R.cardCost(me, id) + (R.CARDS[id].ranges.indexOf(f.range) >= 0 ? 0 : 1); });
+    total += Math.max(0, S.combo.length - 1) + (S.mode === 'predict' ? 2 : 0);
+    return total;
+  }
   function renderFight() {
     var f = S.fight, me = f.player, foe = f.opponent;
     var ex = f.phase === 'corner' || f.phase === 'over' ? 6 : Math.min(f.exchange + 1, 6);
@@ -261,7 +199,8 @@
       add(strip, h('span', null, 'Judges: ' + last.scores.map(function (s) { return s[0] + '-' + s[1]; }).join(' / ')));
     }
     add(strip, h('span', 'spacer'));
-    if (f.range !== 'mid') add(strip, h('span', null, f.range === 'out' ? 'Fighting at range' : 'Fighting inside'));
+    if (f.ropes) add(strip, h('span', null, 'On the ropes'));
+    else if (f.range !== 'mid') add(strip, h('span', null, f.range === 'out' ? 'Fighting at range' : 'Fighting inside'));
     var arena = h('div', 'arena');
     arena.appendChild(panel(me, false, f));
     var stage = h('div', 'stage');
@@ -277,44 +216,69 @@
     if (S.busy && S.pending) shown = shown.slice(0, -1);
     shown.forEach(function (ev) {
       var row = h('div');
-      add(row, h('span', 'r', 'R' + ev.round + ' E' + (ev.exchange + 1)), h('span', 'tiny', 'Tell: ' + ev.tell.text), h('span', ev.knockdowns.length ? 'kd' : null, ev.text));
+      add(row, h('span', 'r', 'R' + ev.round + ' E' + (ev.exchange + 1)), h('span', 'tiny', 'Tell: ' + ev.tell.text + (ev.tellShape ? ' · ' + R.SHAPE_LABEL[ev.tellShape] : '')), h('span', ev.knockdowns.length ? 'kd' : null, ev.text));
       log.appendChild(row);
     });
     add(logWrap, hd, log);
     var handWrap = h('div', 'handwrap');
     var handHd = h('div', 'handhd');
     add(handHd, h('span', null, 'Your hand'), h('span', 'spacer'), h('span', null, 'Wind ' + me.stamina + ' of ' + me.maxStamina),
-      h('span', null, 'Keys 1-5 play a card'));
+      h('span', null, 'Keys 1-5 select, Enter plays'));
     var modeBar = h('div', 'row modebar');
     modeBar.appendChild(button('React — safe; Speed 65+ adds accuracy', { primary: S.mode === 'react', onClick: function () { S.mode = 'react'; renderFight(); } }));
     modeBar.appendChild(button('Predict — costs 2 wind; right read wins clean, wrong read exposes you', { primary: S.mode === 'predict', onClick: function () { S.mode = 'predict'; renderFight(); } }));
     modeBar.appendChild(h('span', 'small-note', 'Film forecasts: ' + R.CARDS[R.predictedCard(f)].name + ' (estimate only; no hidden hand is shown).'));
+    var tellFree = f.exchange === 0 || f.tellPaid;
+    var tellBox = h('div', 'sheet reads');
+    if (tellFree) add(tellBox, h('div', 'tiny', 'Opponent tell: ' + f.tell.text + ' (60% reliable)'));
+    else {
+      add(tellBox, h('div', 'tiny', 'Tell hidden — one free look a round, further looks cost 4 wind'));
+      tellBox.appendChild(button('Pay 4 wind to look', { onClick: function () { if (R.payForTell(f)) renderFight(); } }));
+    }
     var hand = h('div', 'hand');
     me.hand.forEach(function (id, i) {
-      var cost = R.cardCost(me, id);
-      var disabled = S.busy || f.phase !== 'fight';
-      var el = cardFace(id, { cost: cost, onClick: function () { playCard(id); } });
+      /* Round 3b: the page asks the engine what is legal, so the no-repeat rule
+         and the cut-off trap show up on the buttons. */
+      var cost = R.costNow(me, f, 'player', id);
+      var illegal = !R.legalNow(me, f, 'player', id);
+      var disabled = S.busy || f.phase !== 'fight' || illegal;
+      var chosen = S.combo.indexOf(id) >= 0;
+      var el = cardFace(id, { cost: cost, chosen: chosen, onClick: function () { toggleCombo(id); } });
       if (disabled) el.disabled = true;
       if (cost > me.stamina) { el.classList.add('gassed'); el.title = 'Not enough wind: this one goes out flat.'; }
-      var key = h('div', 'small-note', (i + 1) + (cost > me.stamina ? ' - no wind' : ''));
-      el.appendChild(key);
+      el.appendChild(h('div', 'small-note', (i + 1) + (cost > me.stamina ? ' - no wind' : '') + (illegal ? ' - off the table' : '')));
       hand.appendChild(el);
     });
-    add(handWrap, handHd, modeBar, hand);
+    var playRow = h('div', 'row');
+    var total = comboCost(f);
+    playRow.appendChild(button(S.combo.length ? 'Play ' + S.combo.map(function (id) { return R.CARDS[id].say; }).join('-') + ' (' + total + ' wind)' : 'Select up to 3 cards for a combo', {
+      primary: S.combo.length > 0, disabled: S.busy || f.phase !== 'fight' || !S.combo.length,
+      onClick: function () { playCombo(); }
+    }));
+    playRow.appendChild(h('span', 'small-note', 'Combo cost is the sum plus 1 wind per extra card.'));
+    add(handWrap, handHd, modeBar, tellBox, hand, playRow);
     var fit = h('div', 'fight');
     var reads = R.scoutingPrediction(f);
     var readBox = h('div', 'sheet reads');
-    add(readBox, h('div', 'tiny', 'Opponent tell: ' + f.tell.text + ' (' + Math.round(f.tell.accuracy * 100) + '% reliable)'));
     if (reads.length) {
       add(readBox, h('div', 'tiny', 'Film read for this exchange'));
       reads.forEach(function (read) {
+        var delta = Math.round((read.chance - read.chanceAtBell) * 100);
         add(readBox, h('div', 'readline', (read.active ? 'NOW: ' : 'IF: ') + 'Film says the opponent looks for ' + read.cardName +
-          ' ' + conditionWords(read.condition) + ' — about ' + Math.round(read.chance * 100) + '% chance it is in the five-card hand.'));
+          ' ' + conditionWords(read.condition) + ' — about ' + Math.round(read.chance * 100) + '% chance it is in the five-card hand' +
+          (delta ? ' (was ' + Math.round(read.chanceAtBell * 100) + '%, ' + (delta > 0 ? '+' : '') + delta + ' pts)' : '') + '.'));
       });
     } else add(readBox, h('div', 'muted', 'No habits on film; read the opponent from the exchanges.'));
     add(fit, strip, readBox, arena, logWrap, handWrap);
     add(screenEl, fit);
     log.scrollTop = log.scrollHeight;
+  }
+  function toggleCombo(id) {
+    if (S.busy || !S.fight || S.fight.phase !== 'fight') return;
+    var idx = S.combo.indexOf(id);
+    if (idx >= 0) S.combo.splice(idx, 1);
+    else if (S.combo.length < 3) S.combo.push(id);
+    renderFight();
   }
   function panel(side, isFoe, f) {
     var box = h('div', 'cornerbox' + (isFoe ? ' foe' : ''));
@@ -325,7 +289,7 @@
       meter('Head', side.head / 100, 'hurt', headWord(side)),
       meter('Body', side.body / 100, 'hurt', bodyWord(side)));
     add(box, meters);
-    var hits = h('div', 'small-note', side.totals.landed + ' landed of ' + side.totals.thrown + (side.knockdowns ? ' - down ' + side.knockdowns + 'x' : ''));
+    var hits = h('div', 'small-note', side.totals.landed + ' punches landed of ' + side.totals.thrown + ', ' + (side.totals.defence || 0) + ' clean defences' + (side.knockdowns ? ' - down ' + side.knockdowns + 'x' : ''));
     add(box, hits);
     return box;
   }
@@ -353,31 +317,30 @@
     }
     add(stage, slots, line, verdict, action);
   }
-  function playCard(id) {
-    if (S.busy || !S.fight || S.fight.phase !== 'fight') return;
-    if (S.fight.player.hand.indexOf(id) < 0) return;
+  function playCombo() {
+    if (S.busy || !S.fight || S.fight.phase !== 'fight' || !S.combo.length) return;
     var f = S.fight;
     S.busy = true;
     S.reveal = null;
-    var ev = R.playExchange(S.game, id, S.mode); // the rules resolve at once...
+    var cards = S.combo.slice();
+    S.combo = [];
+    var ev = R.playExchange(S.game, cards.length === 1 ? cards[0] : cards, S.mode);
     S.pending = ev;
     S.mode = 'react';
-    renderFight();                              // ...the cards stay face down for a beat
-    setTimeout(function () {                    // then they turn over together
+    renderFight();
+    setTimeout(function () {
       S.busy = false;
       S.reveal = S.pending;
       S.pending = null;
-      if (S.fight.phase === 'over' || S.fight.phase === 'corner') renderFight();
-      else renderFight();
+      renderFight();
     }, 520);
   }
-  /* ---------- the corner ------------------------------------------------- */
   function renderCorner() {
     var f = S.fight, r = f.rounds[f.rounds.length - 1];
     setWhere('between rounds - your corner');
     clear(screenEl);
     add(screenEl, h('h1', null, 'Back to the corner'),
-      h('p', 'lead muted', 'Round ' + r.round + ': you landed ' + r.player.landed + ' and the opponent landed ' + r.opponent.landed +
+      h('p', 'lead muted', 'Round ' + r.round + ': you landed ' + r.player.landed + ' punches and the opponent landed ' + r.opponent.landed +
         '. The judges gave it ' + r.scores.map(function (s) { return s[0] + '-' + s[1]; }).join(', ') +
         '. Pick one thing for the next round. Every one of them costs something.'));
     var row = h('div', 'corner');
@@ -391,6 +354,7 @@
         R.pickCorner(S.game, id);
         S.reveal = null;
         S.mode = 'react';
+        S.combo = [];
         S.screen = 'fight';
         render();
       });
@@ -402,7 +366,6 @@
       add(screenEl, h('p', 'small-note', 'The opponent’s corner is going with: ' + cornerPick.name + ' - ' + cornerPick.text));
     }
   }
-  /* ---------- the result ------------------------------------------------- */
   function renderResult() {
     var f = S.fight, res = f.result;
     setWhere('the verdict');
@@ -410,7 +373,7 @@
     var win = res.winner === 'player', draw = res.winner === 'draw';
     add(screenEl, h('div', 'verdictline', win ? 'You win' : draw ? 'A draw' : 'The opponent wins'),
       h('h2', null, res.text),
-      h('p', 'lead muted', res.method === 'stoppage' ? 'Stopped in round ' + res.round + '.' : 'Three rounds, three judges.'));
+      h('p', 'lead muted', res.method === 'stoppage' ? 'Stopped in round ' + res.round + '.' : 'Three rounds, five judges.'));
     var layout = h('div', 'result');
     var left = h('div', 'sheet');
     add(left, h('div', 'tiny', 'The cards'));
@@ -447,8 +410,8 @@
     add(right, h('div', 'tiny', 'The fight in numbers'));
     var sum = h('table', 'cards');
     sum.appendChild(add(h('tr'), h('th', null, ''), h('th', null, f.player.name), h('th', null, f.opponent.name)));
-    [['Landed', function (s) { return s.totals.landed; }], ['Thrown', function (s) { return s.totals.thrown; }],
-      ['Damage done', function (s) { return Math.round(s.totals.damage); }], ['Knockdowns', function (s) { return s.knockdowns; }],
+    [['Punches landed', function (s) { return s.totals.landed; }], ['Thrown', function (s) { return s.totals.thrown; }],
+      ['Clean defences', function (s) { return s.totals.defence || 0; }], ['Damage done', function (s) { return Math.round(s.totals.damage); }], ['Knockdowns', function (s) { return s.knockdowns; }],
       ['Head damage taken', function (s) { return Math.round(s.head); }], ['Wind left', function (s) { return s.stamina; }]].forEach(function (pair) {
       var tr = h('tr');
       add(tr, h('td', null, pair[0]), h('td', 'n', pair[1](f.player)), h('td', 'n', pair[1](f.opponent)));
@@ -467,7 +430,6 @@
       button('Pick another boxer', { onClick: function () { S.screen = 'pick'; S.fight = null; S.game = null; render(); } }));
     add(screenEl, again);
   }
-  /* ---------- router ------------------------------------------------------ */
   function render() {
     if (S.screen === 'pick') return renderPick();
     if (S.screen === 'camp') return renderCamp();
@@ -479,7 +441,7 @@
   document.addEventListener('keydown', function (e) {
     if (S.screen === 'fight' && S.fight && S.fight.phase === 'fight' && !S.busy && /^[1-5]$/.test(e.key)) {
       var id = S.fight.player.hand[Number(e.key) - 1];
-      if (id) { e.preventDefault(); playCard(id); }
+      if (id) { e.preventDefault(); toggleCombo(id); }
       return;
     }
     if (e.key === 'Enter') {

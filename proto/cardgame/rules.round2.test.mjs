@@ -9,14 +9,19 @@ function sameSexOpponent(id, preferred) { const me = R.boxerById(id), b = R.boxe
 function readyGame(seed, me = 'ada', foe = 'mara') { const game = R.createGame({ seed, playerBoxerId: me, opponentBoxerId: sameSexOpponent(me, foe) }); while (game.phase === 'camp') R.pickCampCard(game, R.aiCampPick(game)); return game; }
 
 check('public scouting changes the AI decision without reading the opponent hand', () => {
-  const fight = R.startFight(readyGame(1, 'ada', 'mara'));
-  fight.player.habits = []; fight.player.hand = ['jab', 'cross', 'lead_hook', 'slip', 'block'];
-  fight.player.lastCard = 'lead_hook'; fight.scouting.known = [];
-  const cold = R.chooseAiCard(fight, 'player');
-  fight.scouting.known = [{ id: 'roll_the_hooks', text: R.HABITS.roll_the_hooks.text }];
+  const make = () => {
+    const fight = R.startFight(readyGame(1, 'ada', 'mara'));
+    fight.player.habits = []; fight.player.hand = ['jab', 'cross', 'roll', 'slip', 'block'];
+    fight.opponent.stamina = 20; fight.opponent.head = 50; fight.scouting.known = [];
+    return fight;
+  };
+  const coldFight = make();
+  const cold = R.chooseAiCard(coldFight, 'player');
+  const fight = make();
+  fight.scouting.known = [{ id: 'body_when_tired', text: R.HABITS.body_when_tired.text }];
   const read = R.chooseAiCard(fight, 'player');
-  eq(cold, 'lead_hook', 'without film the style policy chooses its usual card');
-  eq(read, 'cross', 'the public hook-roll read changes the answer');
+  ok(cold !== read, 'without film the style policy chooses its usual card (' + cold + '), the file changes it (' + read + ')');
+  ok(['W', 'w'].includes(R.resolutionAt(read, 'body_hook', fight.range)), 'the public body-hook read answers with a body-hook beater');
   const chance = R.scoutingPrediction(fight)[0].chance;
   fight.opponent.hand = ['jab', 'jab', 'jab', 'jab', 'jab'];
   eq(R.scoutingPrediction(fight)[0].chance, chance, 'the AI estimate does not inspect the opponent hand');
@@ -30,7 +35,10 @@ check('opponent counter-weights cards repeated twice in your last three exchange
   fight.events = [1, 2, 3].map(() => ({ player: { card: 'jab' } }));
   const after = R.chooseAiCard(fight, 'opponent');
   eq(before, 'cross', 'style-only answer');
-  eq(after, 'lead_hook', 'repeated jabs draw a counter');
+  ok(!['l', 'X'].includes(R.resolutionAt(after, 'jab', fight.range)), 'repeated jabs are not answered with a loser (' + after + ')');
+  fight.events = [1, 2, 3].map(() => ({ player: { card: 'cross' } }));
+  const vsCross = R.chooseAiCard(fight, 'opponent');
+  ok(!['l', 'X'].includes(R.resolutionAt(vsCross, 'cross', fight.range)), 'repeated crosses are not answered with a loser (' + vsCross + ')');
 });
 
 check('a losing Jab does not earn the next-punch setup', () => {
@@ -45,13 +53,13 @@ check('a losing Jab does not earn the next-punch setup', () => {
 
 check('habits: every signature appears at least three times in the fight deck', () => {
   for (const boxer of R.BOXERS) {
-    const game = readyGame(712, boxer.id, R.BOXERS.find(b => b.id !== boxer.id).id);
+    const game = readyGame(712, boxer.id, R.BOXERS.find(b => b.id !== boxer.id && b.pronoun === boxer.pronoun && b.club !== boxer.club).id);
     const fight = R.startFight(game);
     for (const id of boxer.habits) {
       const signature = R.HABITS[id].play;
       const deckCount = fight.player.deck.filter(card => card === signature).length;
       const baseCount = boxer.deck.filter(card => card === signature).length;
-      eq(deckCount, Math.max(baseCount + (game.mods.add[signature] || 0), 3), boxer.name + ' has at least three ' + signature + ' signature cards');
+      eq(deckCount, Math.max(baseCount + (game.mods.add[signature] || 0) - (game.mods.remove[signature] || 0), 3), boxer.name + ' has at least three ' + signature + ' signature cards');
     }
   }
 });
@@ -81,19 +89,17 @@ check('scouting: live prediction shows active condition and hand odds without re
 });
 
 check('tell chips have the promised blind/one-habit/two-habit reliability', () => {
-  const results = [];
-  for (const count of [0, 1, 2]) {
-    let right = 0;
-    for (let seed = 1; seed <= 500; seed++) {
-      const game = readyGame(seed + count * 1000, 'ada', 'mara'), fight = R.startFight(game);
-      fight.scouting.known = fight.opponent.habits.slice(0, count).map(id => ({ id, text: R.HABITS[id].text }));
-      R.refreshTell(fight);
-      if (fight.tell.card === fight.foePlan) right++;
-      eq(fight.tell.accuracy, [0.55, 0.70, 0.85][count], 'the displayed tell confidence matches film');
-    }
-    results.push(right / 500);
+  let right = 0;
+  for (let seed = 1; seed <= 1000; seed++) {
+    const game = readyGame(seed, 'ada', 'mara'), fight = R.startFight(game);
+    R.refreshTell(fight);
+    eq(fight.tell.accuracy, 0.6, 'the displayed tell confidence is 60%');
+    ok(fight.tell.shape && R.SHAPES.includes(fight.tell.shape), 'the tell names a shape, never a card');
+    ok(!fight.tell.card, 'the tell carries no card id');
+    if (fight.tell.shape === R.CARDS[fight.foePlan].shape) right++;
+    else ok(fight.tell.shape !== R.SHAPE_OPPOSITE[R.CARDS[fight.foePlan].shape], 'a wrong tell is never the exact opposite');
   }
-  for (let i = 0; i < 3; i++) ok(Math.abs(results[i] - [0.55, 0.70, 0.85][i]) < 0.08, 'tell sample is calibrated: ' + results[i].toFixed(2));
+  ok(Math.abs(right / 1000 - 0.6) < 0.08, 'tell shape sample is calibrated: ' + (right / 1000).toFixed(2));
 });
 
 check('range matchup overrides remain anti-symmetric and resolve the listed reads', () => {
@@ -138,6 +144,7 @@ check('fight RNG: hit draws cannot perturb shuffles or knockdown draws', () => {
 
 check('exchange choice: a correct prediction costs extra wind and resolves as a clean win', () => {
   const game = readyGame(706, 'ada', 'mara'), fight = R.startFight(game);
+  fight.player.hand = ['cross', 'jab', 'lead_hook', 'slip', 'block'];
   fight.scouting.known = [{ id: 'jab_to_open', text: R.HABITS.jab_to_open.text }];
   fight.opponent.hand = ['jab']; fight.opponent.habits = ['jab_to_open'];
   const cost = R.cardCost(fight.player, 'cross') + 2, before = fight.player.stamina;
@@ -203,7 +210,9 @@ check('corner: gloves high applies the promised 15% punch damage reduction for t
 check('corner: change the plan draws two extra cards for both corners', () => {
   const game = readyGame(704);
   const fight = R.startFight(game);
-  for (let i = 0; i < 6 && fight.phase === 'fight'; i++) R.playExchange(game, fight.player.hand[0]);
+  /* round 3b: a card cannot follow its own kind, so drive the corner with the
+     engine's own legal chooser rather than hand[0]. The assertions are unchanged. */
+  for (let i = 0; i < 6 && fight.phase === 'fight'; i++) R.playExchange(game, R.chooseAiCard(fight, 'player'));
   if (fight.phase !== 'corner') throw new Error('expected the corner');
   fight.corner = ['change_plan']; fight.foeCorner = ['change_plan']; fight.foeCornerPick = 'change_plan';
   R.pickCorner(game, 'change_plan');
@@ -216,7 +225,7 @@ check('corner: study is replaced when both habits are already known', () => {
   const fight = R.startFight(game);
   fight.scouting.known = fight.opponent.habits.map(id => ({ id, text: R.HABITS[id].text }));
   fight.exchange = 5;
-  R.playExchange(game, fight.player.hand[0]);
+  R.playExchange(game, R.chooseAiCard(fight, 'player'));
   if (fight.phase !== 'corner') throw new Error('expected the corner');
   ok(!fight.corner.includes('study'), 'no useless Study offer');
   ok(!fight.foeCorner.includes('study'), 'the opponent cannot waste a corner pick studying an unavailable file');

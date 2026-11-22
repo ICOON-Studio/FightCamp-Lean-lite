@@ -1,0 +1,8 @@
+# TASK CARDPROTO3_CRITIC_ARENA - code-checked critic of the card-game prototype (round 3)
+
+Repo FightCamp-Lean-lite, branch main. You are a FRESH critic, not the author. The only file you add: `ops/research/CARDPROTO3_CRITIC_ARENA.md`. Do not edit proto/. Open a PR.
+
+1. Read `proto/cardgame/README.md`, then `rules.js`, `rules-data.js`, `rules-exchange.js`, `rules-ai.js`, `rules-camp.js`, `rules-tell.js`, `rules-judge.js`.
+2. With node, play at least 20 bouts through the real rules (different same-sex boxer pairs; AI-vs-AI, random, "always the same card", "always the largest-damage card", and a reading policy that uses the public tell/film information) against the engine AI. Find out: is there a dominant strategy; how much does smart play beat random; do tells (one free look a round, extra looks cost wind), film reads, React/Predict, camp (add-and-remove deck) and corner cards change decisions or are some inert (check each described effect really changes numbers); are any cards dominated or never worth playing; do combos, pressure and wind binding matter; do bouts feel varied or do transcripts repeat the same lines; are all 16 style pairs fair from both corners.
+3. Write the file: scores 0-10 for DEPTH, PLAY (fun), GENERAL; the evidence (numbers from your own runs); missing cards/options; useless cards; then THE ORDERED LIST "TO REACH 10/10" (most important first, specific: card names, numbers, rules). The bar to keep the mechanic is 8+ on DEPTH and 8+ on PLAY, so be honest, not kind.
+4. Do not delete or weaken any test. Run all `node proto/cardgame/rules*.test.mjs` (rules.test, round2, round3, round3b, round3c); RESULT lines in the PR body.

@@ -15,6 +15,10 @@ $keyFile = Join-Path $env:USERPROFILE ".fightcamp\console_api_key.txt"
 if (-not (Test-Path $keyFile)) { Write-Error "no key file: $keyFile"; exit 2 }
 $env:ANTHROPIC_API_KEY = (Get-Content -Raw $keyFile).Trim()
 $env:CLAUDE_CODE_EXPERIMENTAL_CODE_MODE = "1"   # a worker: idle_guard lets it stop when its brief is done
+# S537 FIX: with the normal config dir the claude.ai login WINS over the key (`claude auth status`: authMethod "claude.ai",
+# Console usage 0 tokens) - the first seven runs billed his subscription. An own config dir has no login: authMethod "api_key".
+$env:CLAUDE_CONFIG_DIR = Join-Path $env:USERPROFILE ".fightcamp\claude_credit_cfg"
+New-Item -ItemType Directory -Force $env:CLAUDE_CONFIG_DIR | Out-Null
 $root = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
 $dir = Join-Path $root "ops\AgentComms\credit_runs"
 New-Item -ItemType Directory -Force $dir | Out-Null
@@ -26,6 +30,7 @@ try {
 } finally {
     Pop-Location
     Remove-Item Env:ANTHROPIC_API_KEY
+    Remove-Item Env:CLAUDE_CONFIG_DIR
 }
 $cost = "?"
 try { $cost = (Get-Content -Raw $out | ConvertFrom-Json).total_cost_usd } catch {}
