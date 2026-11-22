@@ -51,6 +51,11 @@ const TRAVEL_WORDS := ["knock", "ko_", "fall", "win", "walk", "step", "count"]
 static var as_bought := false
 ## The v2 player (`-- fightplayer2`): every take pinned as the shipped player has it (its travel kept beside it, RootPath
 ## plays it on the body) but from the untouched bake - the census measured those, so its contact times hold.
+## S537 AFRETARGET1: `-- afretarget` plays ActionForge's retarget of a take where one exists (tools/afretarget_convert.gd),
+## in place of our bake. SHIPPED ON (owner S537 picked "ActionForge's legs": both feet planted, rear leg straight);
+## `-- noafretarget` plays the actor's legs (the control arm). Only the plain cross has one so far.
+const AF_DIR := "res://assets/anim/af_retarget/"
+static var af_retarget: bool = not OS.get_cmdline_user_args().has("noafretarget")
 static var untouched: bool = OS.get_cmdline_user_args().has("fightplayer2")
 ## The meta key under which hold_root_xz keeps a pinned clip's own hip travel: PackedVector3Array of (dx, time s, dz)
 ## per key, in the Hips' parent space, from the clip's first key.
@@ -99,6 +104,8 @@ static func load_into(ap: AnimationPlayer, skel: Skeleton3D, corner_only: bool =
 		var fixed_path: String = path.replace(BAKED_DIR, FIXED_DIR)
 		if fixed_path != path and ResourceLoader.exists(fixed_path) and not as_bought and not untouched:
 			path = fixed_path
+		if af_retarget and ResourceLoader.exists(path.replace(BAKED_DIR, AF_DIR)):
+			path = path.replace(BAKED_DIR, AF_DIR)
 		if _add_baked(lib, skel, prefix, str(name), path):
 			added.append(name)
 	for name in ([] if corner_only else PAIR):

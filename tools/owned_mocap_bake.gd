@@ -417,6 +417,9 @@ func _bake(src: Dictionary, out: String, glb: String, stem: String) -> int:
 	for side in feet:
 		for i in (feet[side] as Array).size():
 			feet[side][i] = (feet[side][i] as Vector3) + up_t * lift
+	if OS.get_cmdline_user_args().has("raw=1"):   # AFRETARGET1: the rotation copy alone, before any foot stage
+		body.free()
+		return 0 if ResourceSaver.save(anim, out) == OK else 1
 	var punch: Dictionary = Plant.punch_exempt(anim, skel)
 	if _smooth:
 		Smooth.smooth(anim, [], punch)

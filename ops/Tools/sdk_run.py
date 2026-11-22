@@ -32,6 +32,8 @@ async def run(args) -> dict:
         permission_mode=args.mode,
         max_budget_usd=args.budget,
         setting_sources=["project"],
+        max_buffer_size=32 * 1024 * 1024,  # AFRETARGET1 died at the 1 MB default reading a still
+
         system_prompt={"type": "preset", "preset": "claude_code"},
         env={
             "ANTHROPIC_API_KEY": key,

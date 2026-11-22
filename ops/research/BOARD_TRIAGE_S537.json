@@ -1,0 +1,373 @@
+{
+ "_doc": "Board triage S537 (2026-11-22) of roadmap.json plan.next (49 rows). roadmap.json not edited. FIGHTFILM1 is on the board twice: 'FIGHTFILM1' = the claude row, 'FIGHTFILM1#operator' = the operator row.",
+ "_counts": {
+  "DONE": 18,
+  "SUPERSEDED": 12,
+  "OWNER": 4,
+  "LIVE": 15
+ },
+ "_live_queue": [
+  "TURNPRO1",
+  "STEPSCOPE1",
+  "DEPTH1",
+  "KNOWLEDGE1",
+  "HOSTSHOW1",
+  "PUSHTANK1",
+  "PROGBUILD1",
+  "LEDGER1",
+  "FIGHTFILM1",
+  "DAMAGESHOW1",
+  "ONELOOK1",
+  "CAMPLOC1",
+  "GEAR1",
+  "BJJLOOK1",
+  "WRESTLE0"
+ ],
+ "TURNPRO1": {
+  "verdict": "LIVE",
+  "evidence": "Demo path (amateur to first pro fight). S537: map v14 + probe 14 PASS 14 of 17 (c1b5ead25); bars 4, 10, 15 fail (the house favour works backwards); TURNPRO15 brief written (e09b76c23), not run. Critics so far under 8 (v13: 5/7/5 twice).",
+  "next": "Run TURNPRO15 (fix bars 4, 10, 15, re-probe), then two fresh critics (one code-checked) at 8+/8+; under 8 again = his cut-or-keep.",
+  "size_h": 4,
+  "after": ""
+ },
+ "STEPSCOPE1": {
+  "verdict": "LIVE",
+  "evidence": "Footwork umbrella. cut_off wired S532 (0b4f75a7f); STEPPAY2 re-gated ten steps (a3a219220); STEPPAY3 merged S537 (8625bd763, docs/STEPPAY3_RESULT.md): FOR leg 10 of 10 in the band, but only 5 of 10 steps pass all three legs - step_in, step_out, step_back, pivot_out, herd fail the WRONG leg (the style that should punish the step does not).",
+  "next": "STEPPAY4: make the wrong style punish those five steps (probe first), fix treevalue_cells' summary line (still prints the old leg, pass=0/10); then two fresh critics at 8.",
+  "size_h": 5,
+  "after": ""
+ },
+ "DEPTH1": {
+  "verdict": "LIVE",
+  "evidence": "DEPTH_SCOPE_S534 (owner Q-291 'Yes, that plan'). Change 1 measured: DEPTHPRICE1A (docs/DEPTHPRICE1A_RESULT.md), DEPTHPRICE1B (a2ee323f1: class nights PASS, stipend thin, loan FAIL on timing, diet removed by WEIGHTCUT1 653362714). Change 2 = footwork + guard rows. Changes 3 and 5 probed S537 and FAIL (683ac0d77 DEPTH35). Change 4: KNOWMISREAD1 below its bound on 2 of 3 seed sets (7b6ca1efe).",
+  "next": "Build the prices that passed (class nights, fight-night prices from DEPTHPRICE1A), re-size the loan's timing; changes 3 and 5: redesign or drop under FREE HAND and report. Change 4 moves to KNOWLEDGE1.",
+  "size_h": 6,
+  "after": ""
+ },
+ "KNOWLEDGE1": {
+  "verdict": "LIVE",
+  "evidence": "KnowWire wired S524 (4985522f1). The stop is spent: KNOWBOTS4 VOID -> KNOWBOTS5/6/7 ran (docs/KNOWBOTS5..7 results); shared misread built S527 (039578f8d) but worth 4.4/9.2/7.9% vs the 9-14% bound (docs/KNOWMISREAD1_RESULT.md); KNOW_STAKES1 v5 critic Arena 7/7/7 (under the S534 bar 8).",
+  "next": "Size the misread into the 9-14% band (probe), then KNOW_STAKES1 v6 to two fresh critics at 8; the screens only after.",
+  "size_h": 5,
+  "after": "DEPTH1 change 4"
+ },
+ "HOSTSHOW1": {
+  "verdict": "LIVE",
+  "evidence": "In agreed scope (CLAUDE.md item 4: hosted club show after the first three). v4 designed S463 (John 7/7, Dola 8/8, 5b4623909), his Q-224 'Yes, build after the fight week'. Both dependencies done: fight week built (AMATEURWEEK1), RANKSHOW1 collected (d2e8f9276). No HostShow code in scripts/. The 7+ pass predates the S534 bar.",
+  "next": "Greybox probe of the show's choices (S534 order), then two fresh critics at 8, then build.",
+  "size_h": 12,
+  "after": ""
+ },
+ "PUSHTANK1": {
+  "verdict": "LIVE",
+  "evidence": "His Q-225 'Yes, build after the fight week' (fight week now built). Map v2 + critics (ops/research/DESIGN_PUSHTANK_V2_CRITIC_DOLA/MARIA.md, S463); nothing built (scripts/rules/PushBack.gd is the older 'she pushes back' card, not this).",
+  "next": "Greybox probe: does the push switch move the result without one best setting; then critics at 8; then build.",
+  "size_h": 8,
+  "after": ""
+ },
+ "PROGBUILD1": {
+  "verdict": "LIVE",
+  "evidence": "Six styles built and wired (S459). HOLD1 landed (docs/HOLD1_RESULT.md, c6ab5f6d0); SIGPACE1 (868b18f05): no Signature with today's pads coach. Coach fit CLOSED S530 (b5076c24d). Left over: scripts/rules/CoachMarket.gd and CoachFit.gd are referenced by no other script (unwired).",
+  "next": "Decide by probe: hiring a better pads coach as a real choice (SIGPACE1 says it is the only road to a Signature) - wire CoachMarket's hire, or delete both unwired modules.",
+  "size_h": 4,
+  "after": ""
+ },
+ "LEDGER1": {
+  "verdict": "LIVE",
+  "evidence": "Contract tab, design only. v5 (LEDGERREV5 Goose #416, 4f98a37c4) critics: Arena depth 7 general 5 play 6 (ops/research/DESIGN_LEDGER1_V5_CRITIC_ARENA.md) - five rounds, under 8, never probed.",
+  "next": "Greybox probe of the keep / cut-stipend / release choice before any sixth map; FAIL = drop it (FREE HAND), PASS = v6 to critics.",
+  "size_h": 4,
+  "after": "DEPTH1 (stipend price)"
+ },
+ "FIGHTFILM1": {
+  "verdict": "LIVE",
+  "evidence": "Built S510-S511 (f7ed02dfc, 268cb7820), dividers fixed S530 (795f1544e). Left per its own title: the 3D film in the page's film slot, the 3D corner overlay, Settings fight-log switch (waits for the live log panel).",
+  "next": "Put the v2 fight film in the film slot once fight player v2 is settled; add the live log panel + its Settings switch.",
+  "size_h": 5,
+  "after": "fight player v2 (AFRETARGET1)"
+ },
+ "DAMAGESHOW1": {
+  "verdict": "LIVE",
+  "evidence": "Step 1 built S439 (0c86a07fc result page marks; scripts/ui/FaceMarks.gd, fight3d/BoutMarks.gd). Steps 2-3 (3D face in the fight, portraits after) not built; portraits are painted since S534 (524655380, owner 'Keep painted').",
+  "next": "Marks on the painted portraits after a bout (FaceMarks over the painting); the 3D face after the body/skin work settles.",
+  "size_h": 5,
+  "after": "fight player v2"
+ },
+ "ONELOOK1": {
+  "verdict": "LIVE",
+  "evidence": "Merged S498 (972e929f8); palette 73 -> 29 (82979ccc7); text at Largest fixed S529 (bac97a82c, d0fa41ec3); tooltips redesigned S532-S534 (GUIDETIPS1, TIPFIX1-3). Left: playbook step buttons, fight3d colours.",
+  "next": "One sweep: playbook step buttons onto the house kit; fight HUD colours with the v2 fight.",
+  "size_h": 2,
+  "after": ""
+ },
+ "CAMPLOC1": {
+  "verdict": "LIVE",
+  "evidence": "Mockup v2 only (review board); no map, no code, no commit by id. A new system: PARK it (Up next is not its place until turning pro and the depth work reach 8).",
+  "next": "Park. When opened: design map from the code + greybox probe.",
+  "size_h": 8,
+  "after": "TURNPRO1 (camps are pro-only)",
+  "park": true
+ },
+ "GEAR1": {
+  "verdict": "LIVE",
+  "evidence": "His Q-212 'Yes, map it after the fight week, real effects only' (3ef886823). Nothing drawn or built. New system: PARK.",
+  "next": "Park. When opened: design map + greybox probe of one gear want.",
+  "size_h": 8,
+  "after": "DEPTH1",
+  "park": true
+ },
+ "BJJLOOK1": {
+  "verdict": "LIVE",
+  "evidence": "No commit, no brief; waits on the BJJ bout's choices. Off the boxing demo path: PARK.",
+  "next": "Park until the BJJ bout's choices pass a probe.",
+  "size_h": 6,
+  "after": "BJJ choices design",
+  "park": true
+ },
+ "WRESTLE0": {
+  "verdict": "LIVE",
+  "evidence": "His S434 word only (0d383c400); nothing designed. A new sport: PARK (scope: new systems only when the last build feels right).",
+  "next": "Park.",
+  "size_h": 20,
+  "after": "the boxing build feels right",
+  "park": true
+ },
+ "FABPACK": {
+  "verdict": "OWNER",
+  "evidence": "Method line: mocap pack = his money call at the end of November. Not bought.",
+  "next": "Buy the Fab Boxing Animation Pack (EUR 69.23) at month end: yes or no?",
+  "size_h": 0,
+  "after": "end of month"
+ },
+ "PLANFLOW1": {
+  "verdict": "OWNER",
+  "evidence": "Plan chart built S482-S493 (c6477e419, cf4e33dd6); its own title: 'his look first' before main bet / uses lines / Save-Load.",
+  "next": "Play the plan chart: keep building on it (main bet, save and load a plan), or leave it as it is?",
+  "size_h": 0,
+  "after": ""
+ },
+ "RESULTLOOK1": {
+  "verdict": "OWNER",
+  "evidence": "Result page summary + tabs built S443, on the review board since S447; damage marks S439.",
+  "next": "Fight result page as built: keep it, or what should change?",
+  "size_h": 0,
+  "after": ""
+ },
+ "OFFICE2": {
+  "verdict": "OWNER",
+  "evidence": "OFFICE1 built S451 (d7bf61484: the office pin opens a desktop). OFFICE2 waits on 'his look'; no brief, no commit.",
+  "next": "Office desktop: open its six apps as windows (about 8 job hours), or leave the desktop as it is?",
+  "size_h": 0,
+  "after": ""
+ },
+ "STEPPAY3": {
+  "verdict": "DONE",
+  "evidence": "Merged S537: 3a3cb3a08, da4af6772, 77e9d11d7, merge 8625bd763; docs/STEPPAY3_RESULT.md. What it left open is STEPSCOPE1's next step.",
+  "next": "-",
+  "size_h": 0,
+  "after": ""
+ },
+ "BODYTEX2": {
+  "verdict": "DONE",
+  "evidence": "Landed in 33d0f8d0d (records 7be92405f, d94b5a5fd); docs/BODYTEX2_RESULT.md; licence Q-295 'Use them anyway' (699c265d8).",
+  "next": "His look at the stills.",
+  "size_h": 0,
+  "after": ""
+ },
+ "OFFERTAPE1": {
+  "verdict": "DONE",
+  "evidence": "Last 5 + Streak on the tape (292b20a0b); the offer letter built after Q-296 'Yes, build it' (OFFERBUILD1 b81ae44c4, collected 78280ee87); docs/OFFERTAPE1_RESULT.md.",
+  "next": "-",
+  "size_h": 0,
+  "after": ""
+ },
+ "GLOVEFACE1": {
+  "verdict": "DONE",
+  "evidence": "df973de5e, collected f85771ee1; docs/GLOVEFACE1_RESULT.md (glove off the cheek, rounder fist, ring lights).",
+  "next": "He closes the 8 glove stills on the review board.",
+  "size_h": 0,
+  "after": ""
+ },
+ "DMGCLASS2": {
+  "verdict": "DONE",
+  "evidence": "68067e0ba (pro bouts drop the amateur count limit, towel priced as a loss), merged S537 e93158da7 (s535/dmgfix, 12 tests green). 'Pick your pro table' lives in TURNPRO1.",
+  "next": "-",
+  "size_h": 0,
+  "after": ""
+ },
+ "TURNPRO6": {
+  "verdict": "DONE",
+  "evidence": "540ddaa80, collected c9097d274; docs/TURNPRO6_RESULT.md; brief marked DONE 0ad05dc13. Its open question was answered by DEBUTPICK1.",
+  "next": "-",
+  "size_h": 0,
+  "after": ""
+ },
+ "DEBUTPICK1": {
+  "verdict": "DONE",
+  "evidence": "8f51123c6 + addendum 10fae9af7; docs/DEBUTPICK1_RESULT.md. debut_read_test passes on the STEPPAY3 rules (docs/STEPPAY3_RESULT.md line 133).",
+  "next": "-",
+  "size_h": 0,
+  "after": ""
+ },
+ "GYMMONEY1": {
+  "verdict": "DONE",
+  "evidence": "Loan built S531 (2a609e8c1); the open step ran: LOANPROBE1 (537cc83c8, docs/LOANPROBE1_RESULT.md verdict 'Yes, the loan makes a careful gym grow', 26 of 28). The loan's timing as a choice is DEPTH1's.",
+  "next": "-",
+  "size_h": 0,
+  "after": ""
+ },
+ "LADDER1": {
+  "verdict": "DONE",
+  "evidence": "Stages 1-3 built and probed S516-S518 (5fbcf02e8, row fixed d5217d568); approved map ops/research/APPROVE_LADDER1_V6_S514.md. Stage 4 (pro table) is TURNPRO1's.",
+  "next": "-",
+  "size_h": 0,
+  "after": ""
+ },
+ "INTEGRATE1": {
+  "verdict": "DONE",
+  "evidence": "BJJ plan lines + season book S516 (a3a070891); fight-week leftovers S513 (ba87ee191); coached mornings built and blind-tested (DEALBLIND1 e4416e624); coach fit CLOSED S530 (b5076c24d).",
+  "next": "-",
+  "size_h": 0,
+  "after": ""
+ },
+ "LIVERRIBS1": {
+  "verdict": "DONE",
+  "evidence": "Crack card S470 (6859488c6), cracked side's guard S471 (a62ac526c), Liver!/Ribs! labels S475 (596780e7d). Only his play is left.",
+  "next": "Play it in the .exe.",
+  "size_h": 0,
+  "after": ""
+ },
+ "TRAINGAME2": {
+  "verdict": "DONE",
+  "evidence": "Training K went on past v2: v6c approved (Q-259 'Yes, build it') and built S496 as TRAININGK1 (f416dfa56).",
+  "next": "-",
+  "size_h": 0,
+  "after": ""
+ },
+ "TRAINSCENE1": {
+  "verdict": "DONE",
+  "evidence": "Training is its own scene: scenes/areas/Training.tscn, opened from Shell.gd:22 (TRAININGK1 f416dfa56, S496); the old Training tab is gone.",
+  "next": "-",
+  "size_h": 0,
+  "after": ""
+ },
+ "FOUNDATION": {
+  "verdict": "DONE",
+  "evidence": "Merged S440 (30f8c970f, branch claude/foundation-s433: Cardio, no-camp Tank, punch start, ribs); docs/FOUNDATION_R3_RESULT.md, ops/research/FOUNDATION_S434_RESULT.md.",
+  "next": "-",
+  "size_h": 0,
+  "after": ""
+ },
+ "LOOK2": {
+  "verdict": "DONE",
+  "evidence": "Q-185 answered S432 ('this looks nice' on painting 1): both pages built to painting 1 (b142a75ae); one look merged S498 (972e929f8).",
+  "next": "-",
+  "size_h": 0,
+  "after": ""
+ },
+ "AMATEURWEEK1": {
+  "verdict": "DONE",
+  "evidence": "Fight week built S474 (a4b4f74dd, df924dcc6), FIGHTWEEKPROBE3 full run (0c9e4bfd8), FIGHTWEEK3 pieces S490-S514 (7db82c87f, b06fb58b3, f2a012076). Row title is from S450.",
+  "next": "-",
+  "size_h": 0,
+  "after": ""
+ },
+ "BARGUARD1": {
+  "verdict": "DONE",
+  "evidence": "Collected by diff S429 (5064c2f00): boots stay above the corner bar.",
+  "next": "-",
+  "size_h": 0,
+  "after": ""
+ },
+ "FIGHTFILM1#operator": {
+  "verdict": "DONE",
+  "evidence": "Duplicate row. v3 went to his board as Q-256 and was built: S510 f7ed02dfc, S511 268cb7820. What is left is in the FIGHTFILM1 (claude) row.",
+  "next": "-",
+  "size_h": 0,
+  "after": ""
+ },
+ "GUARDV4": {
+  "verdict": "SUPERSEDED",
+  "evidence": "v4 built S524-S529, then redesigned: stance merged into the guard lines (owner S536 'Yes, merge it', 09d7f6d09), v8 probe 9 FAIL twice (4088bfc83), v9 (owner 'try v9', e3210dd66) probe 10 fails one bar, code-checked critic 5/6/5 (3423e2ab7). The live thread is guard v9, not this row.",
+  "next": "Not on the list but live: guard v10 or his cut-or-keep (v9 under 8, 'a wrong guard cannot lose').",
+  "size_h": 0,
+  "after": ""
+ },
+ "STEPVALUE1": {
+  "verdict": "SUPERSEDED",
+  "evidence": "Why lines done S518 (13f96561e). Its left items (probes before DENY/OPEN/DRAIN sizes) were done by TREEVALUE5-9 and STEPPAY2/3 (docs/STEPPAY2_PHASE4.md, docs/STEPPAY3_RESULT.md). Rest = STEPSCOPE1.",
+  "next": "-",
+  "size_h": 0,
+  "after": ""
+ },
+ "COACHFIT1": {
+  "verdict": "SUPERSEDED",
+  "evidence": "Closed S530 (b5076c24d: no third cap; MoveMastery.cap + coach_factor carry it) after v9 critics 5/4 over nine rounds (0261f847c); FITPROBE1/2 and COACHFITPROBE2/3 ran (docs/). The unwired module is PROGBUILD1's step.",
+  "next": "-",
+  "size_h": 0,
+  "after": ""
+ },
+ "DESIGNLOOP1": {
+  "verdict": "SUPERSEDED",
+  "evidence": "The S459 '6+ depth and general' loop is replaced by the S534 rule: probe on a greybox first, then 8+ DEPTH and 8+ PLAY (CLAUDE.md MECHANICS NEED 8). Its four maps: fight week built, coach fit closed, hosted show = HOSTSHOW1, 'a fighter leaves' never built.",
+  "next": "-",
+  "size_h": 0,
+  "after": ""
+ },
+ "WEEK4": {
+  "verdict": "SUPERSEDED",
+  "evidence": "FOURSTART1 became a test club (owner S487 Q-246, 2404d3a3a); fight weeks were built (AMATEURWEEK1); the week design went on as club week v11 (79e512c9e S519) and Training K (f416dfa56).",
+  "next": "-",
+  "size_h": 0,
+  "after": ""
+ },
+ "CRITICMONEY": {
+  "verdict": "SUPERSEDED",
+  "evidence": "Answered by later owner rules: S536 COST (code-checked critics on Arena, free) and the S537 API credit (sdk_run c0df81f8d). No question left to ask.",
+  "next": "-",
+  "size_h": 0,
+  "after": ""
+ },
+ "HEADJUMP1": {
+  "verdict": "SUPERSEDED",
+  "evidence": "PopCap is a correction layer on the old player. S510 METHOD (CLAUDE.md item 8): no new fix layer in scripts/fight3d; fight player v2 only. S537 found the leg/foot faults in our own layers and retarget (KNEEROOT1 07ae5199f, AFRETARGET1 2a389e6a9).",
+  "next": "Re-measure head jumps on v2 after AFRETARGET1; only if still seen.",
+  "size_h": 0,
+  "after": ""
+ },
+ "CLASH3": {
+  "verdict": "SUPERSEDED",
+  "evidence": "Glove clipping push = a correction layer on the old player; CLASH9 was briefed (58d366a0b) and never ran. Barred by the S510 METHOD rule; GLOVEFACE1 fixed the guard glove on v2 (df973de5e).",
+  "next": "-",
+  "size_h": 0,
+  "after": ""
+ },
+ "GLOVECLASH1": {
+  "verdict": "SUPERSEDED",
+  "evidence": "A new contact layer in scripts/fight3d: barred by the S510 METHOD rule. Queue row only (51e7a2dab), never briefed.",
+  "next": "Judge on v2 film after AFRETARGET1.",
+  "size_h": 0,
+  "after": ""
+ },
+ "FEETDIPS1": {
+  "verdict": "SUPERSEDED",
+  "evidence": "Same rule; and S537 KNEEROOT1 (07ae5199f) took FootTake's foot pinning and the Gloves drift OFF, leg bakes off (36505506d): legs play as recorded. Queue row only.",
+  "next": "-",
+  "size_h": 0,
+  "after": ""
+ },
+ "ROPEENTRY2": {
+  "verdict": "SUPERSEDED",
+  "evidence": "Waited on HUMANFIGHT2B, an old-player re-brief that never landed (cc3937e78). The entry is redone inside fight player v2 from bought mocap.",
+  "next": "After FABPACK, if he wants the entry.",
+  "size_h": 0,
+  "after": ""
+ },
+ "HOOKTAKES1": {
+  "verdict": "SUPERSEDED",
+  "evidence": "Same purchase as FABPACK (its title lists the content) and blocked by AFRETARGET1 (our retarget bends the knee); FP2POSE3 measured rear hooks and uppercuts (b13165a94).",
+  "next": "Folds into FABPACK + AFRETARGET1.",
+  "size_h": 0,
+  "after": ""
+ }
+}

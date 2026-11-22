@@ -7,12 +7,13 @@
   "owner": "claude",
   "updated": "2026-11-22",
   "summary": "S536 (Opus): Godot queue sped up on the owner's word (CPU line 92, 8 threads, 6 slots read live, newer waiters jump stuck old ones); his 9 review notes acted on (tape loses the film line + form edge; glove off the cheek + ring light for dark skin GLOVEFACE1; blue cross gaze FP2POSE1); offer letter built (OFFERBUILD1); weight r4 PASS -> critics 6/7/6 + 6/7/5 -> r5 running; turning pro v13 PASS 14/15 -> Arena critic; stance pad idea mocked up, probed (FAIL twice), merged into guard v8 (owner 'Yes, merge it'); card-game prototype (owner ask) on Arena with a Sonnet coordinator looping to 8 (r1 5/6 + 4/4, r2 merged #440, critics running); fighting deckbuilder demo read with REA and played on the hidden desktop; Higgsfield pilot (75 credits): straights usable, hooks/slips fail -> credits kept for card-game straights + trailer.",
-  "next_action": "Collect as they land: WEIGHT2R5 (PASS -> both critics again), GUARDREV8 (map v8 + probe 9), FP2POSE2 (cross legs, film to the owner), TURNPRO13CRIT (Arena) + SQ283 John, card-game round 2 critics (the coordinator session drives it). Then: merge s535/dmgfix (tests 10/10 green) in a gap with no probe reading fight code; STEPPAY3 (five steps with no moment); the tape's stray grey bar (a control dump at x185-330 y665-693); DEPTH_SCOPE changes 3 and 5.",
+  "next_action": "S538: do ops/AgentComms/RESUME_AFTER_RESTART_S537.md (TURNPRO15, NIGHTFIX537, CARDREF2 -> CARDSCOPE4 on the API credit via sdk_run.py), then the 11 Up next items in BOARD_TRIAGE order; ActionForge exports for the other punch takes.",
   "last_working_commit": "0cc0a6a25",
   "verified_playable": "S536 build exported 22:12 (offer letter + tape) and again at the handover (glove, ring light, gaze); not yet played by the owner.",
   "incomplete_blocked": "s535/dmgfix not merged (probes read fight code).",
   "next_acceptance": "Weight v2 and turning pro v13 at 8+/8+ from two fresh critics or resized; guard v8 probe 9 PASS; the owner closes the glove and cross stills; card game 8+ fun or his cut-or-keep after round 6.",
-  "awaiting_operator": "Play the S536 build; close the review-board stills (glove 8 pairs, cross, Higgsfield pilot, arms by Strength, offer letter)."
+  "awaiting_operator": "Play the S536 build; close the review-board stills (glove 8 pairs, cross, Higgsfield pilot, arms by Strength, offer letter).",
+  "session": "S537"
  },
  "next": "S496: 0) get_usage; where_we_are roll S496; quote board answers (Q-259 Training K v6c; build WeekCards v6c on Yes - WeekCards.gd 552 lines is split first). 1) Collect as they land, by diff + their test: Qwen ONELOOK2 (fight HUD palette, ETA ~11:00 11-16; render before/after fight stills on the hidden desktop, his OK before merge), Goose FILMCOUNT1 (#326, branch goose/issue-326 - Goose's PR step failed twice: collect from the branch; read its FINDS table and noise numbers, retune FilmBout rates if a floor missed), Grok Dev FIGHTPAGE1 (branch grok/fightpage1, ETA ~13:30; render at 1920x1080 text 1.0 and 1.3, judge against fight_analysis_v3.png, then his board). 2) Kalli SQ202 LADDER1 v6 + SQ203 COACHSPEC1 r6 -> two fresh critics each (Dola + John; Dola refused COACHSPEC1 r5 - resend). 3) Wire after FIGHTPAGE1+FILMCOUNT1: the film-night stop in the fight week (FightWeekPlan film night -> FightAnalysis.for_tape with FilmCount.check, FilmPattern.checks by coach rating), FilmEdge pays at the figure, the result page's Punch by punch tab over m['tape'] (BoutTape), History keeps 20 tapes (~400 lines a bout). 4) Live fight log panel brief to Grok Dev once FIGHTPAGE1 lands. 5) ONELOOK1 sweep after ONELOOK2: RosterCards, ReadPanel, MatMap (UI.gd/WoodKit/WeekCards first need a split).",
  "assessment": {
@@ -2312,6 +2313,11 @@
    "date": "2026-11-22",
    "model": "opus",
    "summary": "Godot queue 3x faster (92% CPU, 8 threads, 6 slots); owner's notes fixed (tape, glove, ring light, gaze); offer letter; stance idea merged into guard v8; card-game prototype on Arena with a looping coordinator; deckbuilder demo studied; Higgsfield pilot."
+  },
+  {
+   "id": "S537",
+   "date": "2026-11-22",
+   "summary": "Credit jobs via Agent SDK (claude -p billed the subscription); knee bend = our foot pin + glove stage (off), owner picked ActionForge's legs (shipped); card game scope rounds 1-3 + owner interview + reference games read; guard v9 + DEPTH35 dropped; board 49 -> 11; STEPPAY3/DMGFIX merged; weight choices cut."
   }
  ],
  "blocked_on_operator": [],
@@ -5438,237 +5444,86 @@
   ],
   "next": [
    {
-    "id": "STEPPAY3",
+    "id": "TURNPRO1",
     "who": "claude",
-    "title": "Footwork: give the five steps with no moment a moment (step in, step out, herd, roll out, push off)",
-    "after": "STEPPAY2"
-   },
-   {
-    "id": "BODYTEX2",
-    "who": "claude-fable",
-    "title": "Bodies phase 2: every body gets Epic's muscle-detail skin (boxer 13 already reads athletic, 11 is smooth) + more muscularity on the smooth bodies; fix the dark seam line on top of the shoulder - after your licence answer Q-295",
-    "after": "Q-S294-295"
-   },
-   {
-    "id": "OFFERTAPE1",
-    "who": "claude-fable",
-    "title": "Your notes C448/C449: the bout offer becomes a decision screen (mockup first), the tale of the tape gets Last 5 + streak - starts when a console frees up",
-    "after": "a free console"
-   },
-   {
-    "id": "GLOVEFACE1",
-    "who": "claude-fable",
-    "title": "Your note C447 'is the glove normal looking ?': the guard glove sinks into the cheek and reads tall and narrow side-on, the cuff like a tube - check with the body correctives (MHCORR2), then fix",
-    "after": "MHCORR2"
-   },
-   {
-    "id": "DEPTH1",
-    "who": "claude",
-    "title": "Depth: make existing choices matter (DEPTH_AUDIT_S534 part 4: price every free/solved option, exchange reads place + cover, coach's hands as the club's currency, be wrong about people, one opponent who remembers) - his call Q-S294-291; probe before critics",
-    "after": ""
-   },
-   {
-    "id": "DMGCLASS2",
-    "who": "claude",
-    "title": "Damage classes (S535 FREE HAND decision): not its own mechanic (class is never a choice, critics 6/5) - merged into turning pro as 'pick your pro table'. Fix first, after the probes land: pro bouts use the amateur count limit (Knockdowns L1) and the towel is priced as a stoppage (BoutFinish L3)",
-    "after": "DEPTH1 probes"
+    "title": "Turning pro: v2 WIRED (S523) + M11 (S524). v3 (Dola) critics S529: Goose 7/7, Arena 5/4 (m | NEXT: Run TURNPRO15 (fix bars 4, 10, 15, re-probe), then two fresh critics (one code-checked) at 8+/8+; under 8 again = his cu",
+    "after": "FOUNDATION"
    },
    {
     "id": "STEPSCOPE1",
     "who": "claude",
-    "title": "Footwork steps: gate 2/10; cut_off ring cut measured = no effect (fires once a bout); lever attribution (off=wrong/drain/tank/opp_ropes) names the cost, then size only that lever; then tie_up, step_out, step_in, roll_out",
+    "title": "Footwork steps: gate 2/10; cut_off ring cut measured = no effect (fires once a bout); leve | NEXT: STEPPAY4: make the wrong style punish those five steps (probe first), fix treevalue_cells' summary line (still prints th",
     "after": ""
    },
    {
-    "id": "TURNPRO6",
+    "id": "DEPTH1",
     "who": "claude",
-    "title": "Pro debut gaps DONE S533 (docs/TURNPRO6_RESULT.md): TURNGAP1 was 1 boxer on 3 fight nights; the read fixed (walks the 4 rounds, the corner call's energy, Second wind) and shown on the offer; gaps set from 66,000 played bouts: Bow Lane 3.0 (won 60%), Harrow and Finch 6.0 (won 75%). Open: one gap spreads 40 points across boxers - match the opponent to the boxer by target chance?",
+    "title": "Depth: make existing choices matter (DEPTH_AUDIT_S534 part 4: price every free/solved opti | NEXT: Build the prices that passed (class nights, fight-night prices from DEPTHPRICE1A), re-size the loan's timing; changes 3 ",
     "after": ""
    },
    {
-    "id": "DEBUTPICK1",
+    "id": "KNOWLEDGE1",
     "who": "claude",
-    "title": "Debut opponent picked to each boxer DONE S533 (docs/DEBUTPICK1_RESULT.md, owner Q-286): each promoter aims at a win chance (Bow Lane 60 in 100, Harrow and Finch 75, misjudged by up to 4) and finds the debutant for THIS boxer; 11 boxers x 300 played debuts: the spread fell from 41 to 17 points (Bow Lane) and 31 to 13 (Harrow and Finch); the offer says why the opponent was picked and now fits the screen. Open: the safer house plays 3.5 over its aim (the offer reads a growing boxer low); debut_read_test's Lucy bound drifted with the fight edits",
-    "after": ""
-   },
-   {
-    "id": "GYMMONEY1",
-    "who": "claude",
-    "title": "Careful gym grows (owner Q-277, Q-278 \"Yes, build the loan\"): fit-out loan BUILT S531 - Move / Move on a loan ($3,000 down, $750 a month x 12, paid with the bills), members tile says what holds members back; tests/fitout_loan_test.gd green. Next: the 60-career probe on the game's own loan, then the .exe.",
-    "after": ""
-   },
-   {
-    "id": "GUARDV4",
-    "who": "claude",
-    "title": "Guard damage v4 (his yes Q-275): BUILT S524-S525 (bar, wear, leak, clinch / Hands up, habits, corner line, result rows). S528: posture = the corner's existing Gloves high / Elbows in (GUARDPROBE4: switching pays in pro) - no dropdown, no defence tab. Blind contract test GUARDBLIND1 collected S529 (guard_contract_test in the nightly list). Left: his look in the exe"
-   },
-   {
-    "id": "HEADJUMP1",
-    "who": "claude",
-    "title": "Head jumps: PopCap levers spent, range normal (S509); next the contact-frame trunk speed per clip",
-    "after": ""
-   },
-   {
-    "id": "FIGHTFILM1",
-    "who": "claude",
-    "title": "Film nights + fight analysis: S510 watch-it-yourself; S511 plan line marks, result PUNCH BY PUNCH + History Analysis + corner The round so far (own-bout mode), Write the answer, Tape Room retired. Left: the 3D film in the page's film slot, the 3D corner overlay, Settings fight-log switch | own-bout dividers FIXED S530 ('the opponent pressing forward'); Settings fight-log On/Off waits for the live log panel (it sets that panel's default)",
-    "after": ""
-   },
-   {
-    "id": "ONELOOK1",
-    "who": "claude",
-    "title": "One look across every screen (his S491 'we need to have a cohesive interface /hud/ui/ux'): text size, text fits, house hover card done; S512 palette sweep 73 -> 29 loose colours (Training tab, drill cards, scorecard; left: fight3d = animation session, WeekCards' per-ability tile colours on purpose); left: every hover on the house card, playbook step buttons | S524: GuideBubble OFF FRAME is headless-only (real render fine)",
-    "after": ""
-   },
-   {
-    "id": "LADDER1",
-    "who": "kalli",
-    "title": "Season ladder v6: stages 1-3 BUILT and probed (S516-S518: points table, idle clock, season ends 1 Jan with the final table on World > Rankings + Records, R9 rival calls ~5 a season - LADDERPROBE4 rerun). Left: stage 4 pro table stays with ProLadder; reputation 9/10 pass when critics rerun.",
-    "after": ""
-   },
-   {
-    "id": "STEPVALUE1",
-    "who": "claude",
-    "title": "Footwork worth learning: ropes count live + step worth on the learn card (S489); the Why lines DONE S518 (step worth by style, ropes, learn Pivot). Left: probes s9 before DENY/OPEN/DRAIN sizes, corner card line",
+    "title": "Knowledge v3: rules collected + step 2 wired (KnowWire, S524). STOPPED before the screens: | NEXT: Size the misread into the 9-14% band (probe), then KNOW_STAKES1 v6 to two fresh critics at 8; the screens only after.",
     "after": "AMATEURWEEK1"
    },
    {
-    "id": "CLASH3",
+    "id": "HOSTSHOW1",
     "who": "claude",
-    "title": "Clipping: CLASH8 found the guard glove clears along the forearm while the glove is drawn on another axis; CLASH9 (Qwen, after STYLE4) measures why the push leaves it in",
-    "after": ""
+    "title": "Host your own club show (small promotion): design map first, the show is the unit of Ask-f | NEXT: Greybox probe of the show's choices (S534 order), then two fresh critics at 8, then build.",
+    "after": "RANKSHOW1"
    },
    {
-    "id": "PLANFLOW1",
+    "id": "PUSHTANK1",
     "who": "claude",
-    "title": "Plan flowchart: stage 1 built S482, mode tells S483, WHYGRADE1 shown S493 (a line with no WHEN). Left: main bet, uses lines (probe 6), Save/Load; his look first",
-    "after": ""
-   },
-   {
-    "id": "INTEGRATE1",
-    "who": "claude",
-    "title": "Integrate built mechanics: BJJ mat plan lines + receipt + season book DONE S516; next per COACHFIT1 the coached mornings",
-    "after": ""
-   },
-   {
-    "id": "LIVERRIBS1",
-    "who": "claude",
-    "title": "Liver vs ribs: crack card + cracked side's guard (S471), Aim labels Liver!/Ribs! (S475); S476 decided no plan-level aim (live shout only), the forecast stays. Left: play it in the exe",
-    "after": ""
-   },
-   {
-    "id": "DESIGNLOOP1",
-    "who": "kalli",
-    "title": "Design loop on the free seats until every mechanic scores 6+ depth and 6+ general (his S459 rule): fight week v7 (Kalli), coach fit v4 (Dola), hosted show (John), a fighter leaves (Maria) - ops/research/DESIGN_LOOP_S459.md",
-    "after": ""
-   },
-   {
-    "id": "TRAINGAME2",
-    "who": "claude",
-    "title": "Training K: v2 (Kalli, S488) at two fresh critics, Dola SQ179 + Maria SQ180; his board only at 6+ depth and general",
-    "after": ""
-   },
-   {
-    "id": "OFFICE2",
-    "who": "grok",
-    "title": "Office desktop apps: Mail, Schedule, Fighters, Staff, Finance, Records as windows on the desktop (after his look at the desktop)",
-    "after": "his look"
+    "title": "Push switch + tank (race-manager bars beside the fighter): build after the fight week - Q- | NEXT: Greybox probe: does the push switch move the result without one best setting; then critics at 8; then build.",
+    "after": "AMATEURWEEK1"
    },
    {
     "id": "PROGBUILD1",
     "who": "claude",
-    "title": "Progression plan build (his Q-211 'Yes, go ahead'): the six named styles BUILT AND WIRED (S459); CoachMarket on main, READ1 measured (docs/READ1_RESULT.md). Left: HOLD1 probe (brief S528, Qwen after TREEVALUE5) and wiring CoachMarket per COACHFIT1",
-    "after": ""
-   },
-   {
-    "id": "CAMPLOC1",
-    "who": "claude",
-    "title": "Camp locations (home, hills, city club, seaside) with real fight buffs, drill tooltips, sliders, who pays - mockup v2 on the review board; design map next",
-    "after": "AMATEURWEEK1"
-   },
-   {
-    "id": "COACHFIT1",
-    "who": "claude",
-    "title": "Coaches: v8 APPROVED (Q-235), CoachFit.gd built (unwired). Next: probes FITPROBE1+TRAINBALANCE (brief S524, queued), then COACHTIME/BOND; build C1-C15 after",
+    "title": "Progression plan build (his Q-211 'Yes, go ahead'): the six named styles BUILT AND WIRED ( | NEXT: Decide by probe: hiring a better pads coach as a real choice (SIGPACE1 says it is the only road to a Signature) - wire C",
     "after": ""
    },
    {
     "id": "LEDGER1",
     "who": "claude",
-    "title": "Contract tab (what a boxer has been worth): v1 design map at Dola SQ227 (S524), then critics 7+/7+, then his look [Q-210: 4th]",
+    "title": "Contract tab (what a boxer has been worth): v1 design map at Dola SQ227 (S524), then criti | NEXT: Greybox probe of the keep / cut-stipend / release choice before any sixth map; FAIL = drop it (FREE HAND), PASS = v6 to ",
     "after": ""
    },
    {
-    "id": "RESULTLOOK1",
+    "id": "FIGHTFILM1",
     "who": "claude",
-    "title": "Fight result page: the built summary + tabs (S443) are on the review board for his look (S447: the 'even fight' sentence fixed)",
+    "title": "Film nights + fight analysis: S510 watch-it-yourself; S511 plan line marks, result PUNCH B | NEXT: Put the v2 fight film in the film slot once fight player v2 is settled; add the live log panel + its Settings switch.",
     "after": ""
    },
    {
     "id": "DAMAGESHOW1",
     "who": "claude",
-    "title": "Show the damage already in the game, step 2 and 3: the 3D face during the fight, then the portraits afterwards (step 1, the result page, is built and waits for his look)",
+    "title": "Show the damage already in the game, step 2 and 3: the 3D face during the fight, then the  | NEXT: Marks on the painted portraits after a bout (FaceMarks over the painting); the 3D face after the body/skin work settles.",
     "after": ""
    },
    {
-    "id": "TRAINSCENE1",
+    "id": "ONELOOK1",
     "who": "claude",
-    "title": "Training as its own scene, opened from the gym floor's bag area (his Q-S294-217 + S457 'wire it on the gym floor training area'); profile tab read-only + Open in Training",
-    "after": "FOUNDATION"
-   },
-   {
-    "id": "FOUNDATION",
-    "who": "claude",
-    "title": "Step 0: twelve foundation fixes in today's code (rest drains Stamina, ceilings, Cardio average, no-camp Tank, punch start, stop odds, ...)",
-    "after": "CORELOOP"
-   },
-   {
-    "id": "TURNPRO1",
-    "who": "claude",
-    "title": "Turning pro: v2 WIRED (S523) + M11 (S524). v3 (Dola) critics S529: Goose 7/7, Arena 5/4 (map numbers vs the code; no dated money model) -> v4 from the code (Goose TURNREV4) -> two fresh critics -> his board.",
-    "after": "FOUNDATION"
-   },
-   {
-    "id": "ROPEENTRY2",
-    "who": "goose",
-    "title": "The rope entry done properly, later: feet over the middle rope at its real height, ropes that give under the body, a blend from the stance (after HUMANFIGHT2B; only back when it passes his eye)",
-    "after": "HUMANFIGHT2B"
-   },
-   {
-    "id": "LOOK2",
-    "who": "claude",
-    "title": "The matched look: Ludo painted both pages (3 each, on the review board); his pick is Q-185, then one Cursor task a page",
-    "after": "next session"
-   },
-   {
-    "id": "AMATEURWEEK1",
-    "who": "claude",
-    "title": "Fight week: map v4 at critics (SQ60/62); then FIGHTWEEKPROBE3 (season) and build",
+    "title": "One look across every screen (his S491 'we need to have a cohesive interface /hud/ui/ux'): | NEXT: One sweep: playbook step buttons onto the house kit; fight HUD colours with the v2 fight.",
     "after": ""
-   },
+   }
+  ],
+  "waiting_seat": [
    {
-    "id": "HOSTSHOW1",
+    "id": "CHOP4",
+    "who": "codex (after PAD1, FOOTLOCK)",
+    "title": "Hand pops: the S134 fix does not cut them - measure per clip and fix",
+    "why": "G158B finding"
+   }
+  ],
+  "parked": [
+   {
+    "id": "CAMPLOC1",
     "who": "claude",
-    "title": "Host your own club show (small promotion): design map first, the show is the unit of Ask-for-a-fight | Q-224 his 'Yes, build after the fight week' (S466)",
-    "after": "RANKSHOW1"
-   },
-   {
-    "id": "WEEK4",
-    "who": "claude",
-    "title": "Week design v4, re-based on four fighters and fight weeks (answers-by-taper gates apply to pro camps only)",
-    "after": "FOURSTART1"
-   },
-   {
-    "id": "BARGUARD1",
-    "who": "grok",
-    "title": "Feet stay above the corner bar while a shot holds, even at the lens",
-    "after": "HALOSWEEP1"
-   },
-   {
-    "id": "CRITICMONEY",
-    "who": "claude",
-    "title": "Ask you: more critic rounds cost real money (plan at its cap); which design goes on",
-    "after": ""
+    "title": "Camp locations (home, hills, city club, seaside) with real fight buffs, drill tooltips, sliders, who pays - mockup v2 on the review board; design map next",
+    "after": "AMATEURWEEK1"
    },
    {
     "id": "BJJLOOK1",
@@ -5683,63 +5538,11 @@
     "after": "TRAINSCENE1"
    },
    {
-    "id": "FABPACK",
-    "who": "operator",
-    "title": "Fab Boxing Animation Pack (Personal EUR 69.23): he buys it near the end of the month; then parries, body punches, guard styles, head movement into the fight",
-    "after": "end of month"
-   },
-   {
-    "id": "GLOVECLASH1",
-    "who": "grok",
-    "title": "Gloves stop passing through each other after a hit (no glove-on-glove contact anywhere today)",
-    "after": ""
-   },
-   {
-    "id": "FEETDIPS1",
-    "who": "goose",
-    "title": "Heads dip and lead toes cross during dodges and hit reactions (same rate as before punch power)",
-    "after": ""
-   },
-   {
-    "id": "HOOKTAKES1",
-    "who": "claude",
-    "title": "Hooks and uppercuts thrown at a real target, from the mocap packs (end of November): today their own glove ends too far out",
-    "after": "mocap packs"
-   },
-   {
     "id": "GEAR1",
     "who": "claude",
     "title": "Gear (his Q-212 'Yes, map it after the fight week, real effects only'): personal gear from the fighter's savings as a want (look + hand/cut/injury effects), gym equipment deeper, robe/trunks = look + sponsor money; no stat buffs. Design map after AMATEURWEEK1",
     "after": "AMATEURWEEK1"
    },
-   {
-    "id": "PUSHTANK1",
-    "who": "claude",
-    "title": "Push switch + tank (race-manager bars beside the fighter): build after the fight week - Q-225 his 'Yes, build after the fight week' (S466); map ops/research/DESIGN_PUSHTANK_V2*",
-    "after": "AMATEURWEEK1"
-   },
-   {
-    "id": "KNOWLEDGE1",
-    "who": "claude",
-    "title": "Knowledge v3: rules collected + step 2 wired (KnowWire, S524). STOPPED before the screens: K1 probe KNOWBOTS4 (Goose #379) must pass first",
-    "after": "AMATEURWEEK1"
-   },
-   {
-    "id": "FIGHTFILM1",
-    "who": "operator",
-    "title": "Fight analysis page + live fight log + film nights where the player finds the opponent's tells (his S494 ask): v3 passed (Dola 8/9/8, John 7/7/7 after v1 5/6/7 and v2 6/7/7); on his board as Q-S294-256 with the mockup; map ops/research/FIGHTFILM1_MAP_V3_S495.md (7b = what to settle while building)",
-    "after": ""
-   }
-  ],
-  "waiting_seat": [
-   {
-    "id": "CHOP4",
-    "who": "codex (after PAD1, FOOTLOCK)",
-    "title": "Hand pops: the S134 fix does not cut them - measure per clip and fix",
-    "why": "G158B finding"
-   }
-  ],
-  "parked": [
    {
     "id": "GLANCE",
     "who": "held",
@@ -6006,6 +5809,108 @@
   },
   "done_recently": [
    {
+    "id": "STEPPAY3",
+    "who": "claude",
+    "title": "DONE: Footwork: give the five steps with no moment a moment (step in, step out, herd, roll out, push off)",
+    "after": "STEPPAY2"
+   },
+   {
+    "id": "BODYTEX2",
+    "who": "claude-fable",
+    "title": "DONE: Bodies phase 2: every body gets Epic's muscle-detail skin (boxer 13 already reads athletic, 11 is smooth) + more muscularity on the smooth b",
+    "after": "Q-S294-295"
+   },
+   {
+    "id": "OFFERTAPE1",
+    "who": "claude-fable",
+    "title": "DONE: Your notes C448/C449: the bout offer becomes a decision screen (mockup first), the tale of the tape gets Last 5 + streak - starts when a con",
+    "after": "a free console"
+   },
+   {
+    "id": "GLOVEFACE1",
+    "who": "claude-fable",
+    "title": "DONE: Your note C447 'is the glove normal looking ?': the guard glove sinks into the cheek and reads tall and narrow side-on, the cuff like a tube",
+    "after": "MHCORR2"
+   },
+   {
+    "id": "DMGCLASS2",
+    "who": "claude",
+    "title": "DONE: Damage classes (S535 FREE HAND decision): not its own mechanic (class is never a choice, critics 6/5) - merged into turning pro as 'pick you",
+    "after": "DEPTH1 probes"
+   },
+   {
+    "id": "TURNPRO6",
+    "who": "claude",
+    "title": "DONE: Pro debut gaps DONE S533 (docs/TURNPRO6_RESULT.md): TURNGAP1 was 1 boxer on 3 fight nights; the read fixed (walks the 4 rounds, the corner c",
+    "after": ""
+   },
+   {
+    "id": "DEBUTPICK1",
+    "who": "claude",
+    "title": "DONE: Debut opponent picked to each boxer DONE S533 (docs/DEBUTPICK1_RESULT.md, owner Q-286): each promoter aims at a win chance (Bow Lane 60 in 1",
+    "after": ""
+   },
+   {
+    "id": "GYMMONEY1",
+    "who": "claude",
+    "title": "DONE: Careful gym grows (owner Q-277, Q-278 \"Yes, build the loan\"): fit-out loan BUILT S531 - Move / Move on a loan ($3,000 down, $750 a month x 1",
+    "after": ""
+   },
+   {
+    "id": "LADDER1",
+    "who": "kalli",
+    "title": "DONE: Season ladder v6: stages 1-3 BUILT and probed (S516-S518: points table, idle clock, season ends 1 Jan with the final table on World > Rankin",
+    "after": ""
+   },
+   {
+    "id": "INTEGRATE1",
+    "who": "claude",
+    "title": "DONE: Integrate built mechanics: BJJ mat plan lines + receipt + season book DONE S516; next per COACHFIT1 the coached mornings",
+    "after": ""
+   },
+   {
+    "id": "LIVERRIBS1",
+    "who": "claude",
+    "title": "DONE: Liver vs ribs: crack card + cracked side's guard (S471), Aim labels Liver!/Ribs! (S475); S476 decided no plan-level aim (live shout only), t",
+    "after": ""
+   },
+   {
+    "id": "TRAINGAME2",
+    "who": "claude",
+    "title": "DONE: Training K: v2 (Kalli, S488) at two fresh critics, Dola SQ179 + Maria SQ180; his board only at 6+ depth and general",
+    "after": ""
+   },
+   {
+    "id": "TRAINSCENE1",
+    "who": "claude",
+    "title": "DONE: Training as its own scene, opened from the gym floor's bag area (his Q-S294-217 + S457 'wire it on the gym floor training area'); profile ta",
+    "after": "FOUNDATION"
+   },
+   {
+    "id": "FOUNDATION",
+    "who": "claude",
+    "title": "DONE: Step 0: twelve foundation fixes in today's code (rest drains Stamina, ceilings, Cardio average, no-camp Tank, punch start, stop odds, ...)",
+    "after": "CORELOOP"
+   },
+   {
+    "id": "LOOK2",
+    "who": "claude",
+    "title": "DONE: The matched look: Ludo painted both pages (3 each, on the review board); his pick is Q-185, then one Cursor task a page",
+    "after": "next session"
+   },
+   {
+    "id": "AMATEURWEEK1",
+    "who": "claude",
+    "title": "DONE: Fight week: map v4 at critics (SQ60/62); then FIGHTWEEKPROBE3 (season) and build",
+    "after": ""
+   },
+   {
+    "id": "BARGUARD1",
+    "who": "grok",
+    "title": "DONE: Feet stay above the corner bar while a shot holds, even at the lens",
+    "after": "HALOSWEEP1"
+   },
+   {
     "title": "Card game round 1 critics: Arena code-checked + Kalli chat (SQ284)",
     "who": "arena",
     "when": "2026-11-22"
@@ -6152,64 +6057,6 @@
   "map": {
    "done_earlier": [
     {
-     "text": "Wrong about people: misread",
-     "who": "claude"
-    },
-    {
-     "text": "Weight: map + probe r2 PASS",
-     "who": "claude"
-    },
-    {
-     "text": "Men's 65 kg (branch)",
-     "who": "claude"
-    },
-    {
-     "text": "Body correctives back in v2",
-     "who": "claude"
-    },
-    {
-     "text": "Boxer 01 athletic skin",
-     "who": "claude"
-    },
-    {
-     "text": "Watchdog counts the pagefile",
-     "who": "claude"
-    },
-    {
-     "text": "Pro count rule + towel (branch)",
-     "who": "claude"
-    },
-    {
-     "text": "Pro offer: opponent named",
-     "who": "claude"
-    },
-    {
-     "text": "Morale drop says why",
-     "who": "claude"
-    },
-    {
-     "text": "Tooltip card see-through",
-     "who": "claude"
-    },
-    {
-     "text": "Clipboard: no face",
-     "who": "claude"
-    },
-    {
-     "text": "Loan probe: grows, no trap",
-     "who": "agent"
-    },
-    {
-     "text": "Palette guard green",
-     "who": "claude"
-    },
-    {
-     "text": "Film 16: hands move with hit",
-     "who": "claude"
-    }
-   ],
-   "done_session": [
-    {
      "text": "Godot: 92% CPU, 8 threads, 6 slots",
      "who": "claude"
     },
@@ -6259,6 +6106,36 @@
     },
     {
      "text": "Higgsfield pilot (75 cr)",
+     "who": "claude"
+    },
+    {
+     "text": "Wrong about people: misread",
+     "who": "claude"
+    }
+   ],
+   "done_session": [
+    {
+     "text": "Tape grey bar: not reproduced",
+     "who": "claude"
+    },
+    {
+     "text": "Cross legs: heel up (6/10)",
+     "who": "claude"
+    },
+    {
+     "text": "Knee with hips + longer stance",
+     "who": "claude"
+    },
+    {
+     "text": "Weight r5: FAIL",
+     "who": "claude"
+    },
+    {
+     "text": "Hip drive on power punches",
+     "who": "claude"
+    },
+    {
+     "text": "S537: knee fixed, AF legs",
      "who": "claude"
     }
    ],
@@ -6310,6 +6187,18 @@
     {
      "text": "Card game loop to 8",
      "who": "agent"
+    },
+    {
+     "text": "STEPPAY3: five steps (Fable)",
+     "who": "claude"
+    },
+    {
+     "text": "Turning pro v14 (Fable)",
+     "who": "claude"
+    },
+    {
+     "text": "Stance length FP2POSE3 (Fable)",
+     "who": "claude"
     }
    ],
    "next": [
@@ -6580,14 +6469,103 @@
     {
      "text": "Tape: stray grey bar",
      "who": "claude"
+    },
+    {
+     "text": "Weight v3: read the opponent's cut",
+     "who": "claude"
+    },
+    {
+     "text": "Cartwheel test: your trial call",
+     "who": "claude"
+    },
+    {
+     "text": "Card scope 4: six martial arts",
+     "who": "claude"
+    },
+    {
+     "text": "Card scope 4: six arts",
+     "who": "claude"
     }
    ],
-   "session": "S536"
+   "session": "S537"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
  "last_working_commit": "42feebb38",
  "next_action": "S534: quote the METHOD lines. 1) Collect STEPPAY2 phases 3-4 (Fable session, its own commits) and check it fixed debut_read_test (Lucy gap -2 read 0.618 vs played 0.553 since PlaceEdge - BoutRead must be recalibrated to the final exchange rules). 2) Collect Grok Dev LOANPROBE1 (60 careers per arm, fit-out loan verdict). 3) Guard v5 critics: Kalli SQ270 sent, Dola SQ269 (app was closed; retries every 30 min); both 7+ -> build plan, else v6 from code. 4) Arena (after its 14:25 reset): DMGCLASS v2 code-checked critic (Goose failed #433; split Dola 9/9 vs Kalli 6/6/5). 5) Turning pro v10 map from the code (John 6/6/7, Dola 7/8/7 on v9; the debut pick changed the offer). 6) The owner plays the S533 build: act on his notes.",
- "next_acceptance": "Rulers vs r0: head jumps on the contact frame under 4, a head inside the other's body under 5 frames, arm out median under 4 frames with join_return green, then r1 film at two fresh blind critics 5+/10"
+ "next_acceptance": "Rulers vs r0: head jumps on the contact frame under 4, a head inside the other's body under 5 frames, arm out median under 4 frames with join_return green, then r1 film at two fresh blind critics 5+/10",
+ "superseded_archive": [
+  {
+   "id": "GUARDV4",
+   "who": "claude",
+   "title": "Guard damage v4 (his yes Q-275): BUILT S524-S525 (bar, wear, leak, clinch / Hands up, habits, corner line, result rows). S528: posture = the corner's existing Gloves high / Elbows in (GUARDPROBE4: switching pays in pro) - no dropdown, no defence tab. Blind contract test GUARDBLIND1 collected S529 (guard_contract_test in the nightly list). Left: his look in the exe"
+  },
+  {
+   "id": "HEADJUMP1",
+   "who": "claude",
+   "title": "Head jumps: PopCap levers spent, range normal (S509); next the contact-frame trunk speed per clip",
+   "after": ""
+  },
+  {
+   "id": "STEPVALUE1",
+   "who": "claude",
+   "title": "Footwork worth learning: ropes count live + step worth on the learn card (S489); the Why lines DONE S518 (step worth by style, ropes, learn Pivot). Left: probes s9 before DENY/OPEN/DRAIN sizes, corner card line",
+   "after": "AMATEURWEEK1"
+  },
+  {
+   "id": "CLASH3",
+   "who": "claude",
+   "title": "Clipping: CLASH8 found the guard glove clears along the forearm while the glove is drawn on another axis; CLASH9 (Qwen, after STYLE4) measures why the push leaves it in",
+   "after": ""
+  },
+  {
+   "id": "DESIGNLOOP1",
+   "who": "kalli",
+   "title": "Design loop on the free seats until every mechanic scores 6+ depth and 6+ general (his S459 rule): fight week v7 (Kalli), coach fit v4 (Dola), hosted show (John), a fighter leaves (Maria) - ops/research/DESIGN_LOOP_S459.md",
+   "after": ""
+  },
+  {
+   "id": "COACHFIT1",
+   "who": "claude",
+   "title": "Coaches: v8 APPROVED (Q-235), CoachFit.gd built (unwired). Next: probes FITPROBE1+TRAINBALANCE (brief S524, queued), then COACHTIME/BOND; build C1-C15 after",
+   "after": ""
+  },
+  {
+   "id": "ROPEENTRY2",
+   "who": "goose",
+   "title": "The rope entry done properly, later: feet over the middle rope at its real height, ropes that give under the body, a blend from the stance (after HUMANFIGHT2B; only back when it passes his eye)",
+   "after": "HUMANFIGHT2B"
+  },
+  {
+   "id": "WEEK4",
+   "who": "claude",
+   "title": "Week design v4, re-based on four fighters and fight weeks (answers-by-taper gates apply to pro camps only)",
+   "after": "FOURSTART1"
+  },
+  {
+   "id": "CRITICMONEY",
+   "who": "claude",
+   "title": "Ask you: more critic rounds cost real money (plan at its cap); which design goes on",
+   "after": ""
+  },
+  {
+   "id": "GLOVECLASH1",
+   "who": "grok",
+   "title": "Gloves stop passing through each other after a hit (no glove-on-glove contact anywhere today)",
+   "after": ""
+  },
+  {
+   "id": "FEETDIPS1",
+   "who": "goose",
+   "title": "Heads dip and lead toes cross during dodges and hit reactions (same rate as before punch power)",
+   "after": ""
+  },
+  {
+   "id": "HOOKTAKES1",
+   "who": "claude",
+   "title": "Hooks and uppercuts thrown at a real target, from the mocap packs (end of November): today their own glove ends too far out",
+   "after": "mocap packs"
+  }
+ ]
 }

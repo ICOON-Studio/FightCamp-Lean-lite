@@ -14,6 +14,29 @@ taste.
   never the arithmetic.
 - **Form:** any card-game variation, "as long it can reach 10/10" (earlier the same day).
 
+- **More martial arts (later the same day):** "since the card game has no 3d animation requirements for the fight it can use
+  the current things we have for other martial arts, include bjj, wrestling, judo, karate, mma, sambo, this might give enough
+  depth and fun and replayability, however i would like to see animations if possible". So: styles from several disciplines
+  meet in the card game (each with its own cards, range and win conditions - a takedown, a submission, a points throw, a
+  knockout), MMA as the meeting ground; reuse what the repo already has for BJJ/wrestling/MMA (rules, data, clips). And
+  ANIMATION where possible: a short move clip or animated card when a card resolves (our bought/owned clips rendered to
+  sprites or short loops, or Ludo-made animations) - never a blocker for the rules.
+
+- **A direction idea (later the same day):** "use action points for each limb maybe for a turn". Each limb (lead arm, rear
+  arm, lead leg, rear leg; perhaps hips/core for grappling) has its own points a turn; a card spends the limb it uses (a jab
+  the lead arm, a roundhouse the rear leg, a double-leg both arms + legs, a guard pull the hips). It fits the six styles: a
+  boxer is arm-rich, a karateka leg-rich, a grappler spends everything at once. Damage or fatigue could take points off a
+  limb (a hurt lead leg = fewer kicks). CARDSCOPE4 probes it against the single wind pool; his idea, his "maybe" - keep it
+  only if it measures better.
+
+- **Asynchronous battles with other players (end of S537):** "also consider asynchronous battle options with other players for
+  the card game, what do you think ?". Claude's view: a good fit, as a LATER layer, in the "ghost" style (Super Auto Pets,
+  Backpack Battles, The Bazaar): your fighter + deck is saved as a snapshot; other players fight it, an AI plays it for you;
+  you see the results later. Needs: rules an AI pilot plays well (we need that for opponents anyway), a small server or Steam
+  leaderboard/cloud to store snapshots, matchmaking by rank, and a check against tampered decks. CARDSCOPE4 keeps it in mind
+  (an AI that pilots any deck; a deck/fighter that saves as a small file) and puts it in the build plan after the run works;
+  it does not build it now.
+
 ## What this changes in the S537 scope (Claude)
 - CARDSCOPE1's bout (twelve exchanges, 5-8 min, a three-beat puzzle) is too slow for "fast and punchy": a bout of ~5 min,
   fewer and faster turns, full previews.

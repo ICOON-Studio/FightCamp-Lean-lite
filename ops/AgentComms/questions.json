@@ -8670,6 +8670,66 @@
       "answered_at": null,
       "seen_by_claude": false,
       "status": "answered"
+    },
+    {
+      "id": "Q-S294-300",
+      "asked": "2026-11-22T17:18:21.075234+00:00",
+      "session": "S294",
+      "text": "Buy the Fab Boxing Animation Pack (EUR 69.23) at month end?",
+      "options": [
+        "Yes, buy it",
+        "No"
+      ],
+      "attach": [],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-301",
+      "asked": "2026-11-22T17:18:21.646875+00:00",
+      "session": "S294",
+      "text": "Plan chart: keep building it (main bet, save/load plans), or leave it as is?",
+      "options": [
+        "Keep building",
+        "Leave it"
+      ],
+      "attach": [],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-302",
+      "asked": "2026-11-22T17:18:22.210345+00:00",
+      "session": "S294",
+      "text": "Office desktop: open its six apps as windows (about 8 job hours), or leave it?",
+      "options": [
+        "Build the windows",
+        "Leave it"
+      ],
+      "attach": [],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-303",
+      "asked": "2026-11-22T17:18:22.773894+00:00",
+      "session": "S294",
+      "text": "Fight result page as built: keep it, or what should change?",
+      "options": [
+        "Keep it",
+        "Change it (say what)"
+      ],
+      "attach": [],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
     }
   ]
 }
