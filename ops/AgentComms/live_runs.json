@@ -348,13 +348,13 @@
  },
  "CARDPROTO3": {
   "id": "CARDPROTO3",
-  "status": "running",
+  "status": "blocked",
   "started": "2026-11-22T01:42",
   "title": "Card game round 3 (Arena): the tell costs something, W/X table, combos, wind binds - after round-2 critic 4/5",
   "seat": "arena",
   "agent": "arena",
-  "branch": "arena/93ce10f8-fightcamp-lean-lite",
+  "branch": "arena/83ca10f8-fightcamp-lean-lite",
   "chat": "https://arena.ai/agent/01a2007b-c18e-7f36-b4be-fe6383ca10f8",
-  "eta": "about 1-3 h, then Claude verifies and merges"
+  "eta": "Arena daily limit, resets 14:35 on 2026-11-22; then Continue + open PR"
  }
 }
