@@ -164,6 +164,16 @@ kbd{font-family:var(--mono);font-size:11px;border:1px solid var(--line2);border-
   .hand{grid-template-columns:repeat(5,minmax(0,1fr))}
   .card .effect{display:none}
 }
+@media (max-width:640px){
+  .screen{padding:8px;gap:8px}
+  .hand{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .arena{grid-template-columns:1fr}
+  .cornerbox.foe{order:0;text-align:left;align-items:stretch}
+  .offers,.corner{grid-template-columns:1fr}
+  .card{min-height:0}
+  .top{padding:6px 10px}
+  .brand span{display:none}
+}
 </style>
 </head>
 <body>
@@ -176,8 +186,12 @@ kbd{font-family:var(--mono);font-size:11px;border:1px solid var(--line2);border-
 </div>
 <script src="rules-data.js"></script>
 <script src="rules-ai.js"></script>
+<script src="rules-tell.js"></script>
+<script src="rules-judge.js"></script>
 <script src="rules-exchange.js"></script>
+<script src="rules-camp.js"></script>
 <script src="rules.js"></script>
+<script src="ui-helpers.js"></script>
 <script src="ui.js"></script>
 </body>
 </html>
