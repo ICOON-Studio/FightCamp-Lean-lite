@@ -327,8 +327,8 @@ func _bottom(main: Node, c: Career, f: Dictionary, pl: Dictionary, goal: Diction
 	note.tooltip_text = "\"%s\"%s" % [str(ad["say"]), _fix_effect(pl, fix)]
 	h.add_child(note)
 	if not fix.is_empty():
-		var arg := "%s|cut" % fid if fix.has("diet") else "%s|%d|%s|%s" % [fid, int(fix["dow"]), str(fix["card"][0]), str(fix["card"][1])]
-		var apply := _press("Do it", "BtnSolid", 28, main.act.bind("diet" if fix.has("diet") else "wday", arg))
+		var arg := "%s|%d|%s|%s" % [fid, int(fix["dow"]), str(fix["card"][0]), str(fix["card"][1])]
+		var apply := _press("Do it", "BtnSolid", 28, main.act.bind("wday", arg))
 		apply.name = "CoachApply"
 		h.add_child(apply)
 	var mine := not WeekPhase.edits(f).is_empty() and (not (WeekPhase.edits(f).get("days", {}) as Dictionary).is_empty()
@@ -350,14 +350,14 @@ func _bottom(main: Node, c: Career, f: Dictionary, pl: Dictionary, goal: Diction
 		wlab.tooltip_text = "Fatigue %.0f, %s. Tank %.0f at the first bell. Scale %.1f kg. Risk %.1f%%." % [float(d["legs"]),
 			str((d["legs_band"] as Dictionary)["tired"]), float(d["tank"]), float(d["kg"]), float(d["injury"]) * 100.0]
 		h.add_child(wlab)
-		var diet := str(f.get("diet", "hold"))
-		var hold := _press("Hold", "PillOn" if diet == "hold" else "Btn", 26, main.act.bind("diet", "%s|hold" % fid))
-		hold.name = "HoldBtn"
-		h.add_child(hold)
-		var cut := _press("Cut", "PillOn" if diet == "cut" else "Btn", 26, main.act.bind("diet", "%s|cut" % fid))
-		cut.name = "CutBtn"
-		cut.tooltip_text = "Cut 500 kcal a day."
-		h.add_child(cut)
+		# S537 WEIGHTCUT1: the Hold / Cut pills are gone - the diet follows the booking and is said as a fact
+		var fact := WeekPlan.diet_fact(f, c.day)
+		var dl := UI.label(str(fact["line"]), 20, WoodKit.INK, "bold")
+		dl.name = "DietLine"
+		dl.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		dl.mouse_filter = Control.MOUSE_FILTER_STOP
+		dl.tooltip_text = str(fact["tip"])
+		h.add_child(dl)
 	var go := _press("Start week", "BtnSolid", 28, main.act.bind("go_btn", ""))
 	go.name = "StartWeek"
 	go.tooltip_text = "Play the days."
@@ -368,8 +368,6 @@ func _bottom(main: Node, c: Career, f: Dictionary, pl: Dictionary, goal: Diction
 func _coach_short(pl: Dictionary, fix: Dictionary) -> String:
 	if fix.is_empty():
 		return "The week is right as it is"   # S442 UX audit: "Leave it" read as an order to press the Leave button
-	if fix.has("diet"):
-		return "Cut"
 	var dow := int(fix["dow"])
 	var name := str(WeekPlan.session(str(fix["card"][0]))["name"])
 	if str(fix["card"][0]) != "rest":

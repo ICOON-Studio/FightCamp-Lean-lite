@@ -82,11 +82,7 @@ static func suggest(rws: Array, days: Array, ctx: Dictionary, over_limit: bool) 
 			int(round(float(fat["actual"]))), int(round(WeekPlan.TIRED_GAIN * 100.0))]
 	var wt: Dictionary = by.get("weight", {})
 	if over_limit and not wt.is_empty() and not bool(wt["ok"]):
-		# The diet moves the scale far more than one session does (a 500 kcal cut ~0.45 kg a week; a hard run over a light
-		# shadow morning ~0.05 kg), so the coach names the diet first.
-		if str(ctx.get("diet", "hold")) != "cut":
-			return "Switch to the cut diet: about %.2f kg off a week (%d kcal a day under)." % [
-				WeekPlan.CUT_DEFICIT * 7.0 / WeekPlan.KCAL_PER_KG, int(WeekPlan.CUT_DEFICIT)]
+		# S537 WEIGHTCUT1: the diet follows the booking (WeekPlan.diet_of), so he names the one thing the player sets.
 		var fat0 := float(ctx.get("fatigue", 20.0))
 		var more := float(WeekPlan.day("shadow", "light", ctx, fat0)["kg"]) - float(WeekPlan.day("roadwork", "hard", ctx, fat0)["kg"])
 		return "Swap a light morning for HARD roadwork: about %.2f kg more off a week toward the limit." % more

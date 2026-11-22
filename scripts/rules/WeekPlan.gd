@@ -73,6 +73,10 @@ const KCAL_PER_KG := 7700.0
 const TAPER_KG := 0.05
 const ALLOWANCE := 300.0
 const CUT_DEFICIT := 500.0
+## S537 WEIGHTCUT1 (owner, on six failed weight probes: "cut the weight choices and keep weight as plain facts"): the diet
+## is the game's. CUT with a bout booked and the scale above the limit less this margin (0.15 kg of room on the scales).
+const CUT_MARGIN := 0.15
+const DAY_WORDS := ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 const FATIGUE_KEEP := 0.87
 const LOAD_PER_FATIGUE := 44.0
 const OVERREACHED := 80.0
@@ -84,6 +88,42 @@ const HARD_HEAT := 1.5
 ## The coach's week: a camp's opening week that lands NEAR the goal and leaves the player dials to turn.
 const COACH_WEEK := [["roadwork", "normal"], ["heavy_bag", "normal"], ["intervals", "normal"], ["speed_bag", "light"],
 	["roadwork", "normal"], ["strength", "normal"], ["rest", "normal"]]
+
+
+## S537 WEIGHTCUT1: the diet follows the booking - nobody picks it.
+static func diet_for(weight: float, limit: float, booked: bool) -> String:
+	return "cut" if booked and weight > limit - CUT_MARGIN else "hold"
+
+
+## A boxer's diet today: a live bout (or its camp) and the scale decide; the old stored choice f["diet"] is not read.
+static func diet_of(f: Dictionary) -> String:
+	return diet_for(float(f.get("weight", 0.0)), float(f.get("limit", 0.0)), _bout_live(f) or not (f.get("camp", {}) as Dictionary).is_empty())
+
+
+static func _bout_live(f: Dictionary) -> bool:
+	var b: Dictionary = f.get("bout", {})
+	return not b.is_empty() and not bool(b.get("done", false))
+
+
+## The fact the week screens show in place of the old Hold / Cut switch: {diet, booked, line, tip}. The tooltip says what
+## the diet does and why it is on (S532: it explains, never repeats the line).
+static func diet_fact(f: Dictionary, today: int) -> Dictionary:
+	var diet := diet_of(f)
+	var b: Dictionary = f.get("bout", {})
+	var booked := diet == "cut" or _bout_live(f)
+	var kg := ("%.1f" % float(f.get("limit", 0.0))).trim_suffix(".0")
+	var when := "the weigh-in"
+	if _bout_live(f) and b.has("day"):
+		var left := int(b["day"]) - today
+		when = str(DAY_WORDS[posmod(int(b["day"]), 7)]) if left >= 0 and left < 7 else "the bout on %s" % Clock.fmt(int(b["day"]))
+	if diet == "cut":
+		return {"diet": diet, "booked": booked, "line": "Making %s kg for %s: eating light this week" % [kg, when],
+			"tip": "%d kcal a day under what the training burns: about half a kilo off a week. It stops by itself once the scale is %.2f kg under the limit." % [int(CUT_DEFICIT), CUT_MARGIN]}
+	if booked:
+		return {"diet": diet, "booked": booked, "line": "Inside %s kg for %s: eating as normal" % [kg, when],
+			"tip": "Full meals: the weight stays about where it is. If the scale climbs to the limit the lighter meals start by themselves."}
+	return {"diet": diet, "booked": booked, "line": "No bout booked: eating as normal",
+		"tip": "With no weigh-in ahead the meals cover the training. A booking under the walking weight starts the lighter meals by itself."}
 
 
 ## S356 the week she runs: the coach's week for the camp's phase (WeekPhase, f["phase"] - Sim keeps it current) with the

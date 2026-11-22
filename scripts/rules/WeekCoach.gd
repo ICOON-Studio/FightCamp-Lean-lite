@@ -4,7 +4,7 @@ extends RefCounted
 ## words, from the numbers the board already shows. Order: a day in the red (fatigue 80+ or two Hard mornings in a row), the
 ## weight line, a day at the injury band (S528, 76+), the camp's stat line; else the week lands and he says leave it.
 ##   line(days, wk, lines, diet) -> String   (days = the week shown; wk = WeekPlan.week; lines = WeekPlan.goal_lines)
-##   advice(days, wk, lines, diet) -> {say, fix, short}   fix = {dow, card} (one morning), {diet} or {} (S397: the board's Apply)
+##   advice(days, wk, lines, diet) -> {say, fix, short}   fix = {dow, card} (one morning) or {} (S397: the board's Apply; S537: never the diet)
 ## Pure static.
 
 const WeekPlan := preload("res://scripts/rules/WeekPlan.gd")
@@ -40,11 +40,11 @@ static func advice(days: Array, wk: Dictionary, lines: Array, diet: String) -> D
 	for ln in lines:
 		if str(ln["id"]) == "weight" and not bool(ln["ok"]):
 			var kg := float(ln["short"])
-			if diet != "cut":
-				# S396 blind review: a forecast, not a fact - she is under the limit today and the week puts her over it.
-				return {"say": "This week ends %.1f kg over the limit. Switch the diet to Cut." % kg, "fix": {"diet": "cut"}, "short": kg}
+			# S537 WEIGHTCUT1: the diet follows the booking, so he never asks for it - the morning is the player's lever.
+			# S396 blind review: off a cut it is a forecast, not a fact (under the limit today, the week puts her over).
 			var hd := harder(days, "conditioning")
-			return {"say": "Still %.1f kg over on a cut. %s." % [kg, _do(days, hd, "roadwork")], "fix": hd, "short": kg}
+			var lead := ("Still %.1f kg over on a cut" % kg) if diet == "cut" else ("This week ends %.1f kg over the limit" % kg)
+			return {"say": "%s. %s." % [lead, _do(days, hd, "roadwork")], "fix": hd, "short": kg}
 	# S528 (render of the Training tab: "injury risk x2.4" beside "The week lands on every line. Leave it."): a day at
 	# INJURY_HOT or over doubles the week's injury risk - he takes that morning down before pushing any goal harder.
 	for i in (wk.get("days", []) as Array).size():

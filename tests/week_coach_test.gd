@@ -26,7 +26,7 @@ func _initialize() -> void:
 	var easy := WP.COACH_WEEK
 	var goal := {"limit": 61.2, "stat": "conditioning", "target": 58.5}
 	_check(_say(easy, "hold", goal) == "The week lands on every line. Leave it.", "the coach's week on an easy goal: leave it")
-	_check(_say(easy, "hold", {"limit": 60.0, "stat": "conditioning", "target": 58.5}).begins_with("This week ends"), "over the limit on a hold diet: switch to Cut")
+	_check(_say(easy, "hold", {"limit": 60.0, "stat": "conditioning", "target": 58.5}).begins_with("This week ends"), "over the limit on a hold diet: the forecast, then a harder morning (S537: no diet switch)")
 	var short := _say(easy, "hold", {"limit": 61.2, "stat": "conditioning", "target": 61.0})
 	_check(short.begins_with("Conditioning lands") and (short.contains("roadwork Hard") or short.contains("for Hard roadwork")), "the stat short: name its session")
 	# S397: the line names the morning, and advice carries the change the board's Apply makes (a builder, Hard, no Hard beside it)
@@ -46,7 +46,7 @@ func _initialize() -> void:
 	var rad := WC.advice(hard, WP.week(hard, _ctx("hold", 60.0), WP.evenings_for(1)), [], "hold")
 	_check(not (rad["fix"] as Dictionary).is_empty() and str(rad["fix"]["card"][1]) == "light", "the red day's fix takes it to Light")
 	var wad := WC.advice(easy, WP.week(easy, _ctx("hold", 20.0), WP.evenings_for(1)), [{"id": "weight", "ok": false, "short": 0.4}], "hold")
-	_check(wad["fix"] == {"diet": "cut"}, "over the limit: the fix is the Cut diet")
+	_check(not (wad["fix"] as Dictionary).has("diet") and (wad["fix"] as Dictionary).has("dow"), "over the limit: the fix is a morning, never the diet (S537)")
 	# S528: a day at 76+ doubles the week's injury risk (InjuryRoll) - the coach takes it down before saying leave it.
 	var tues_hot := {"days": [{"fatigue": 60.0}, {"fatigue": 77.0}, {"fatigue": 70.0}, {"fatigue": 65.0}, {"fatigue": 60.0}, {"fatigue": 55.0}, {"fatigue": 50.0}], "red": []}
 	var hot := WC.advice(easy, tues_hot, [], "hold")

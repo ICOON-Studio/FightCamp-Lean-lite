@@ -35,7 +35,7 @@ static func line(c: Career) -> String:
 		"fight":
 			# S419 operator: "explain what to do about the weight ?": the line says whether the scales are a problem.
 			if _misses_weight(c, f):
-				return "Your boxer is over the limit. Set the diet to Cut."
+				return "Your boxer is over the limit and eating light. Hard roadwork takes off more."   # S537: no diet switch
 			return "Weigh-in Friday, fight Saturday. Press Continue."
 		"club":
 			var done := FirstHour.tasks(c)
@@ -57,7 +57,7 @@ static func place(c: Career) -> String:
 		"week", "prep":
 			return "training"
 		"fight":
-			return "training" if _misses_weight(c, c.fighter()) else ""   # the diet is on the boxer's week
+			return "training" if _misses_weight(c, c.fighter()) else ""   # the roadwork is on the boxer's week
 		"offer":
 			return "fights"
 	return ""

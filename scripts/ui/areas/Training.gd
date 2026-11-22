@@ -5,7 +5,7 @@ extends VBoxContainer
 ## (Routes.canon sends the fighter page's Training tab here). The fighter strip on top (TrainCards); the selected boxer's
 ## Mon-Sun below (TrainGrid: the coach's evening, the morning, the evening), her tiredness and diet (TrainTired),
 ## the session tray (TrainTray); on the right THIS WEEK, MORNINGS, the selected evening, COACH'S PICK, CONTINUE (TrainSide).
-## Numbers: ClubWeek.model. Edits go through the week's own acts (wday, weve, diet).
+## Numbers: ClubWeek.model. Edits go through the week's own acts (wday, weve); the diet is a fact (S537).
 ##   build(main)   act(main, name, arg) -> bool   static sel_day (the evening opened on the right)
 
 const UI := preload("res://scripts/ui/UI.gd")
@@ -72,7 +72,7 @@ func build(main: Node) -> void:
 	mid.add_child(TrainGrid.make(model, cb, sel_day, f))
 	mid.add_child(TrainSide.bout(model))
 	left.add_child(mid)
-	left.add_child(TrainTired.make(model, TrainGrid.LABEL_W, TrainGrid.COL_W, 8.0, func(k: String): main.act("diet", "%s|%s" % [fid, k])))
+	left.add_child(TrainTired.make(model, TrainGrid.LABEL_W, TrainGrid.COL_W, 8.0))
 	left.add_child(TrainTray.make(Sim.week_ctx(c, f), _pads_night(model), bool((model["bout"] as Dictionary)["booked"])))
 	var right := VBoxContainer.new()
 	right.name = "Side"
@@ -98,7 +98,7 @@ static func _pads_night(m: Dictionary) -> Array:
 	return []
 
 
-## The Training screen's own acts; the week's edits reuse BoutActs' (wday, weve, diet).
+## The Training screen's own acts; the week's edits reuse BoutActs' (wday, weve).
 static func act(main: Node, name: String, arg: String) -> bool:
 	var c: Career = main.career
 	match name:
@@ -128,15 +128,13 @@ static func act(main: Node, name: String, arg: String) -> bool:
 			var lvl := p[2] if name == "tklevel" else (str(now[1]) if str(now[0]) != "rest" else "normal")
 			main.act("wday", "%s|%s|%s|%s" % [p[0], p[1], sess, lvl])
 		"tkfix":
-			# the coach's pick applied (WeekCoach.advice's fix: one morning, or the cut)
+			# the coach's pick applied (WeekCoach.advice's fix: one morning)
 			var f := c.fighter_by_id(arg)
 			# S530: on a weekend the board and its coach line read NEXT week (ClubWeek.model: ahead_view) - so must Do it
 			var pl := WeekData.plan_of(c, WeekPhase.ahead_view(f, c.day) if WeekPhase.weekend(c.day) else f)
 			var said: Array = pl["lines"] if WeekData.booked(pl["goal"]) else (pl["lines"] as Array).filter(func(l): return str(l["id"]) != "weight")
 			var fix: Dictionary = load("res://scripts/rules/WeekCoach.gd").advice(pl["days"], pl["wk"], said, str((pl["ctx"] as Dictionary).get("diet", "hold")))["fix"]
-			if fix.has("diet"):
-				main.act("diet", "%s|cut" % arg)
-			elif fix.has("dow"):
+			if fix.has("dow"):
 				main.act("wday", "%s|%d|%s|%s" % [arg, int(fix["dow"]), str(fix["card"][0]), str(fix["card"][1])])
 		_:
 			return false

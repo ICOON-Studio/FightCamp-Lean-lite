@@ -100,8 +100,7 @@ static func twist_needs(f: Dictionary, career: Career = null) -> Array:
 			out.append("southpaw")
 		if career != null and Bouts.can_swap(career, f):
 			out.append("swap")
-	if float(f["weight"]) > float(f["limit"]) - 0.15 and (str(f["diet"]) == "cut" or not (f["camp"] as Dictionary).is_empty()
-			or WeekPhase.amateur(f.get("bout", {}))):
+	if WeekPlan.diet_of(f) == "cut":   # S537 WEIGHTCUT1: the diet follows the booking
 		out.append("cut")
 	if str(f.get("combo_learning", "")) != "":
 		out.append("combo")
@@ -117,13 +116,13 @@ static func plan_of(career: Career, f: Dictionary) -> Dictionary:
 		return TrainingPlan.default_plan(focus, partner)
 	return TrainingPlan.plan_of(f.get("week_plan"), focus, partner)
 
-## The day's morning and evening: stat gains, weight and fatigue. CUT while over the limit, else HOLD.
+## The day's morning and evening: stat gains, weight and fatigue. CUT while booked and over the limit, else HOLD.
 static func week_ctx(career: Career, f: Dictionary, dow := -1) -> Dictionary:
 	# S481 FIGHTWEEK2: a fight-week bout has no camp but cuts while over the limit as a camp does
-	var cutting := (str(f["diet"]) == "cut" or not (f["camp"] as Dictionary).is_empty() or WeekPhase.amateur(f.get("bout", {}))) 		and float(f["weight"]) > float(f["limit"]) - 0.15
+	# S537 WEIGHTCUT1: the diet follows the booking (WeekPlan.diet_of) - the player sets nothing
 	var ev := BoutRules.camp_evening(f.get("camp", {}))   # S380: the protocol sets the camp's evenings
 	return {"stats": f["stats"], "pot": int(f["pot"]), "coach": career.coach.duplicate(true), "weight": float(f["weight"]),
-		"diet": "cut" if cutting else "hold", "fatigue": float(f.get("week_fatigue", 20.0)), "phase": str(f.get("phase", "base")),
+		"diet": WeekPlan.diet_of(f), "fatigue": float(f.get("week_fatigue", 20.0)), "phase": str(f.get("phase", "base")),
 		"recovery": float(Attrs.of(f).get("recovery", 55.0)),
 		"twist_kg": float(WeekTwist.active(f).get("kg_day", 0.0)), "twist_fat": float(WeekTwist.active(f).get("fat_day", 0.0)),
 		"camp_stat": str(ev["stat"]), "eve_drill": float(ev["drill"]), "eve_load": float(ev["load"]), "camp_on": PadWeek.in_camp(f),

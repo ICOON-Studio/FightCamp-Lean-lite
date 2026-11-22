@@ -34,7 +34,7 @@ const LEGS := ["LeftUpperLeg", "LeftLowerLeg", "LeftFoot", "RightUpperLeg", "Rig
 const KINDS := ["punch", "reaction", "block", "defence", "idle", "other"]
 const REST_META := "rest_y"   # the bake body's hip height: the drop is scaled to the body that plays it
 
-static var off := false
+static var off := true   # S537 owner "ok switch off": legs play as recorded (C461 "terrible knee twist"); false = the S536-S537 leg bakes
 
 
 ## The takes the bake re-does: every standing take the census keeps (not dropped) and the step takes that stand on the

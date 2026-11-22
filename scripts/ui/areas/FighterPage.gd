@@ -131,7 +131,7 @@ func _tab(main: Node, c: Career, f: Dictionary, g: Dictionary, t: int, folded: b
 		2:
 			var card := _card("BODY")
 			UI.add_rows(card, [UI.kv("Weight", "%.1f kg" % f["weight"], UI.FG, "mono"), UI.kv("Class limit", "%.1f kg" % f["limit"], UI.FG, "mono"),
-				UI.kv("Plan", "cutting" if str(f["diet"]) == "cut" else "holding")] + _injury_rows(main.career, f))
+				UI.kv("Plan", "cutting" if str(Sim.week_ctx(main.career, f)["diet"]) == "cut" else "holding")] + _injury_rows(main.career, f))
 		4:
 			# S397 blind round 3 ("History is one row"): every bout, the ones she brought too, as a table (BoutHistory).
 			add_child(BoutHistory.make(main, c, f))

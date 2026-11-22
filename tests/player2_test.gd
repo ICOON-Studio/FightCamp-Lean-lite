@@ -20,6 +20,9 @@ extends SceneTree
 ##            unnaturally outwards"; the captured crosses hold it 24-51 deg inside; `-- fp2nocrosslegs` reads the actor's)
 ##   STANCE   in his guard each man stands STANCE_MIN_M..STANCE_MAX_M long along the line to the other (ankle to ankle), his
 ##            chest within CHEST_M of over his hips (FP2POSE3, owner C458; `-- fp2nostance` = the actor's short stance: red)
+##   DRIVE    ... and the punch is DRIVEN: by the contact his hips are DRIVE_M or more toward the other man than in his
+##            guard (cross, rear hook, rear uppercut) and the rear knee has straightened DRIVE_KNEE_DEG from its deepest
+##            in the load on a cross, DRIVE_KNEE_REAR_DEG on a rear hook or uppercut (FP2POSE4; `-- fp2nodrive`: red)
 ## A bar v2 does not hold YET prints as DEBT with its number and fails only past a guard (it may not get worse).
 ## Run: <godot> --headless --audio-driver Dummy --fixed-fps 60 --path . --script res://tests/player2_test.gd [-- seed=7 rounds=2 show]
 
@@ -28,6 +31,7 @@ const RS := preload("res://scripts/rules/RoundScript.gd")
 const R := preload("res://scripts/fight3d/v2/ChoreoRules.gd")
 const Player2 := preload("res://scripts/fight3d/v2/Player2.gd")
 const FightClips := preload("res://scripts/fight3d/FightClips.gd")
+const RootPath := preload("res://scripts/fight3d/v2/RootPath.gd")
 const HZ := 60.0
 const ON_M := 0.12
 const HANDS_M := 0.12        # a hit man's wrist may be this much further from his head than in his guard
@@ -49,6 +53,12 @@ const STANCE_MAX_M := 0.65
 const CHEST_M := 0.06
 const KNEE_IN_DEG := 8.0
 const KNEE_OUT_M := 0.07      # (as drawn: the actor's own 1.5-6.9 cm, the FP2POSE2 bake 2.5-10.2 with 5 takes over 7, the captured-rule bake 3.0-6.3)
+## FP2POSE4 (owner S537: "the power does not come from twisting the knee use our research/clips"): a real cross is pushed
+## off the rear foot - hips 27.8 +- 6 cm forward by the impact, the rear knee extending ~25 deg through the drive (Cheraghi
+## 2014); CROSS_POWER_S439 fix 3 asks 10-18 cm. As bought: hips 0-3 cm, the knee BENDS 1-16 deg into the contact.
+const DRIVE_M := 0.10
+const DRIVE_KNEE_DEG := 15.0
+const DRIVE_KNEE_REAR_DEG := 5.0   # rear hooks and uppercuts: no study gives theirs; the bar is "it straightens, never bends, into the contact" (as bought 3-32)
 const BONES := ["Hips", "Head", "Chest", "LeftToes", "RightToes", "LeftHand", "RightHand", "LeftLowerLeg", "RightLowerLeg", "LeftFoot", "RightFoot", "LeftUpperLeg", "RightUpperLeg", "UpperChest"]
 
 var failures := 0
@@ -100,6 +110,11 @@ func _knee(i: int, rear: String) -> Array:
 	return [outw.dot(k - on_line) / (st.boxers[i]["node"] as Node3D).scale.x, s * rad_to_deg(toe.signed_angle_to(Vector3(pole.x, 0.0, pole.z), Vector3.UP))]
 
 
+func _bend(i: int, side: String) -> float:
+	var k := _w(i, side + "LowerLeg")
+	return rad_to_deg((_w(i, side + "UpperLeg") - k).angle_to(_w(i, side + "Foot") - k))
+
+
 ## Boxer i's stance as drawn: [its length along the line to the other man (ankle to ankle, m, his own size), how far
 ## his chest is ahead of his hips along it (m)].
 func _stance(i: int) -> Array:
@@ -130,9 +145,11 @@ func _pose(p2: Node) -> void:
 	var knee_in_take := ""
 	var knee_out := -9.0        # the most the rear knee is further out of the hip-foot line than in the guard (m)
 	var knee_out_take := ""
+	var dr := [9.0, "", 999.0, "", 999.0, ""]   # DRIVE: least hips forward, least knee extension on a cross, on the others
 	var lens: Array = [_stance(0)[0]]     # every guard read: red's as the bout opens, blue's before each cross
 	var chest := absf(float(_stance(0)[1]))
 	var n := 0
+	var mark: Vector3 = p2._home[1]
 	for name in rows:
 		var r: Dictionary = rows[name]
 		var fam := str(r.get("family", ""))
@@ -140,13 +157,17 @@ func _pose(p2: Node) -> void:
 			continue
 		n += 1 if fam == "cross" else 0
 		p2.guard(1)
-		for f in 40:
+		for f in 70:                # (a driven take leaves him 10-19 cm on and no plan walks it off here: back to his mark)
+			p2._home[1] = (p2._home[1] as Vector3).lerp(mark, 0.2)
 			await process_frame
 		var to0: Vector3 = (st.boxers[0]["node"] as Node3D).global_position - node.global_position
 		var rear := "Right" if to0.dot(_w(1, "RightFoot") - _w(1, "LeftFoot")) < 0.0 else "Left"
 		var flat_h := _w(1, rear + "Foot").y - _w(1, rear + "Toes").y
 		var up := -9.0
 		var k0 := _knee(1, rear)
+		var hips_g := _w(1, "Hips")
+		var bend := [999.0, 0.0]    # the rear knee at its deepest up to the contact, and at the contact
+		var fw := -9.0
 		if fam == "cross":
 			lens.append(_stance(1)[0])
 		if OS.get_cmdline_user_args().has("show") and fam == "cross":
@@ -156,6 +177,10 @@ func _pose(p2: Node) -> void:
 		var kout := 9.0
 		p2._play(1, str(name), 0.0, "punch", fam == "cross")   # (a hook that steps is read in place: its travel would leave him inside red as the bout opens)
 		var cs := float(r.get("contact_s", 0.3))
+		var own := Vector3.ZERO     # a take read in place: what it travels itself by the contact counts
+		if fam != "cross":
+			var rp := RootPath.of(ap.get_animation(str(name)))
+			own = RootPath.world(sk.global_transform.basis, RootPath.at(rp, cs) - RootPath.at(rp, 0.0))
 		for f in int((cs + 0.2) * HZ):
 			await process_frame
 			if str(ap.current_animation) != str(name):
@@ -164,6 +189,11 @@ func _pose(p2: Node) -> void:
 			var axis: Vector3 = (st.boxers[0]["node"] as Node3D).global_position - node.global_position
 			axis = Vector3(axis.x, 0.0, axis.z).normalized()
 			var across := sgn * Vector3.UP.cross(axis).dot(_w(1, "LeftFoot") - _w(1, "RightFoot"))
+			if tt <= cs + 0.04:
+				bend[0] = minf(float(bend[0]), _bend(1, rear))
+			if absf(tt - cs) <= 0.04:
+				bend[1] = maxf(float(bend[1]), _bend(1, rear))
+				fw = maxf(fw, axis.dot(_w(1, "Hips") + own - hips_g) / node.scale.x)
 			if across < feet and fam == "cross":
 				feet = across
 				feet_take = str(name)
@@ -191,16 +221,27 @@ func _pose(p2: Node) -> void:
 		if kout > knee_out and fam == "cross":
 			knee_out = kout
 			knee_out_take = str(name)
+		var ext := float(bend[1]) - float(bend[0])
+		if fw < float(dr[0]):
+			dr[0] = fw
+			dr[1] = str(name)
+		var di := 2 if fam == "cross" else 4
+		if ext < float(dr[di]):
+			dr[di] = ext
+			dr[di + 1] = str(name)
 		if OS.get_cmdline_user_args().has("show"):
+			print("  drive %-26s hips %+.1f cm forward by the contact, rear knee %.0f at its deepest -> %.0f at the contact (%+.0f deg)" % [name, fw * 100.0, bend[0], bend[1], ext])
 			print("  pose %-26s heel %+.1f cm, rear knee %+.0f deg from its toes, %+.1f cm out of the hip-foot line against the guard's %.1f" % [name, up * 100.0, kin, kout * 100.0, float(k0[0]) * 100.0])
 	p2.guard(1)
-	for f in 40:
+	for f in 70:
+		p2._home[1] = (p2._home[1] as Vector3).lerp(mark, 0.2)
 		await process_frame
-	_check(n > 0 and float(lens.min()) >= STANCE_MIN_M and float(lens.max()) <= STANCE_MAX_M and chest <= CHEST_M, "STANCE in the guard a man stands %.0f-%.0f cm long along the line (%.0f..%.0f cm over %d guards), his chest within %.0f cm of over his hips (%.0f cm at most)" % [STANCE_MIN_M * 100.0, STANCE_MAX_M * 100.0, float(lens.min()) * 100.0, float(lens.max()) * 100.0, lens.size(), CHEST_M * 100.0, chest * 100.0])
+	_layer(not load("res://scripts/fight3d/v2/Stance.gd").off, n > 0 and float(lens.min()) >= STANCE_MIN_M and float(lens.max()) <= STANCE_MAX_M and chest <= CHEST_M, "STANCE in the guard a man stands %.0f-%.0f cm long along the line (%.0f..%.0f cm over %d guards), his chest within %.0f cm of over his hips (%.0f cm at most)" % [STANCE_MIN_M * 100.0, STANCE_MAX_M * 100.0, float(lens.min()) * 100.0, float(lens.max()) * 100.0, lens.size(), CHEST_M * 100.0, chest * 100.0])
 	_check(n > 0 and worst <= GAZE_DEG, "GAZE on a cross blue's face stays within %.0f deg of red's head around the contact (worst %.0f deg, %s; %d takes)" % [GAZE_DEG, worst, worst_take, n])
 	_check(n > 0 and feet >= FEET_M, "FEET on a cross blue's feet never cross: the left stays %.0f cm to the left of the right (least %.0f cm, %s)" % [FEET_M * 100.0, feet * 100.0, feet_take])
-	_check(n > 0 and knee_in <= -KNEE_IN_DEG and knee_out <= KNEE_OUT_M, "KNEE on a cross blue's rear knee goes with his hips: %.0f deg or more inside its toes at the contact (least %+.0f deg, %s) and under %.0f cm further out of the hip-foot line than in his guard (most %+.1f cm, %s)" % [KNEE_IN_DEG, knee_in, knee_in_take, KNEE_OUT_M * 100.0, knee_out * 100.0, knee_out_take])
-	_check(n > 0 and heel >= HEEL_M, "HEEL on a cross, a rear hook and a rear uppercut blue's rear heel is up at the contact: the ankle %.1f cm or more higher over the ball than in his guard (least %.1f cm, %s; %d takes)" % [HEEL_M * 100.0, heel * 100.0, heel_take, heel_n])
+	_layer(not load("res://scripts/fight3d/v2/CrossLegs.gd").off, n > 0 and knee_in <= -KNEE_IN_DEG and knee_out <= KNEE_OUT_M, "KNEE on a cross blue's rear knee goes with his hips: %.0f deg or more inside its toes at the contact (least %+.0f deg, %s) and under %.0f cm further out of the hip-foot line than in his guard (most %+.1f cm, %s)" % [KNEE_IN_DEG, knee_in, knee_in_take, KNEE_OUT_M * 100.0, knee_out * 100.0, knee_out_take])
+	_layer(not load("res://scripts/fight3d/v2/Drive.gd").off, n > 0 and float(dr[0]) >= DRIVE_M and float(dr[2]) >= DRIVE_KNEE_DEG and float(dr[4]) >= DRIVE_KNEE_REAR_DEG, "DRIVE a cross, a rear hook and a rear uppercut are driven: blue's hips %.0f cm or more toward red by the contact (least %+.1f cm, %s), his rear knee straightening %.0f deg from its deepest on a cross (least %+.0f, %s), %.0f on the others (least %+.0f, %s)" % [DRIVE_M * 100.0, float(dr[0]) * 100.0, dr[1], DRIVE_KNEE_DEG, float(dr[2]), dr[3], DRIVE_KNEE_REAR_DEG, float(dr[4]), dr[5]])
+	_layer(not load("res://scripts/fight3d/v2/CrossLegs.gd").off, n > 0 and heel >= HEEL_M, "HEEL on a cross, a rear hook and a rear uppercut blue's rear heel is up at the contact: the ankle %.1f cm or more higher over the ball than in his guard (least %.1f cm, %s; %d takes)" % [HEEL_M * 100.0, heel * 100.0, heel_take, heel_n])
 
 
 func _initialize() -> void:
@@ -405,3 +446,12 @@ func _initialize() -> void:
 	_check(inside == 0, "APART no head inside the other man (%d frames)" % inside)
 	print("PLAYER2 failures=%d" % failures)
 	quit(0 if failures == 0 else 1)
+
+
+## S537 owner "ok switch off" (C461): STANCE / KNEE / DRIVE / HEEL test the leg bakes; with a bake off the legs play as
+## recorded and its check is skipped (said, not hidden). FEET and GAZE still run.
+func _layer(on: bool, ok: bool, msg: String) -> void:
+	if on:
+		_check(ok, msg)
+	else:
+		print("SKIP %s (leg bake off: legs as recorded, owner S537)" % msg.get_slice(" ", 0))

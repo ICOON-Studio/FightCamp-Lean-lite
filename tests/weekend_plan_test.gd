@@ -51,7 +51,7 @@ func _initialize() -> void:
 		await _frames(2)
 		await _frames(2)
 		var ed: Dictionary = (f.get("week_edits_next", {}) as Dictionary).get("days", {})
-		_check(not ed.is_empty() or str(f.get("diet", "")) == "cut", "Do it made the coach's change (%s)" % str(ed))
+		_check(not ed.is_empty(), "Do it made the coach's change (%s)" % str(ed))
 		f.erase("week_edits_next")
 	var before: Dictionary = (f.get("week_edits", {}) as Dictionary).duplicate(true)
 	main.act("wday", "%s|1|intervals|hard" % fid)   # Tuesday

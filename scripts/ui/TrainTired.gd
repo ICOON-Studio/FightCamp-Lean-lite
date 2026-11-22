@@ -2,8 +2,8 @@ extends RefCounted
 ## S496 TRAININGK1: the Training screen's TIREDNESS row - the selected boxer's tiredness at the end of each day (WeekPlan:
 ## a night keeps 87 %, the day's work adds), the carried-in start, the "too tired: gains drop" line (WeekPlan.OVERREACHED: a
 ## morning from there trains at 60 %), the fresh line (BoutRules.FRESH_FATIGUE) and, with a bout, the first bell's estimate;
-## beside it the DIET box (Normal / Cut harder) with the scale's forecast.
-##   make(model, col_x: Array of day-centre x, on_diet: Callable(diet)) -> HBoxContainer
+## beside it the DIET box: a fact (S537 WEIGHTCUT1 - the booking decides, nothing to set) with the scale's forecast.
+##   make(model, left_w, col_w, gap) -> HBoxContainer
 
 const B := preload("res://scripts/ui/TrainBits.gd")
 const Palette := preload("res://scripts/ui/Palette.gd")
@@ -16,7 +16,7 @@ const TipCards := preload("res://scripts/ui/TipCards.gd")
 const H := 130.0
 
 
-static func make(model: Dictionary, left_w: float, col_w: float, gap: float, on_diet: Callable) -> HBoxContainer:
+static func make(model: Dictionary, left_w: float, col_w: float, gap: float) -> HBoxContainer:
 	var row := HBoxContainer.new()
 	row.name = "TrainTired"
 	row.add_theme_constant_override("separation", 8)
@@ -43,46 +43,36 @@ static func make(model: Dictionary, left_w: float, col_w: float, gap: float, on_
 	ch.custom_minimum_size = Vector2(col_w * 7.0 + gap * 6.0, H)
 	Tip.explain(ch, TipCards.tiredness_week(t["ends"]))   # S532 GUIDETIPS1: was seven numbers in one line
 	row.add_child(ch)
-	row.add_child(_diet(model, on_diet))
+	row.add_child(_diet(model))
 	return row
 
 
-static func _diet(model: Dictionary, on_diet: Callable) -> PanelContainer:
+static func _diet(model: Dictionary) -> PanelContainer:
 	var d: Dictionary = model["diet"]
 	var v := VBoxContainer.new()
 	v.add_theme_constant_override("separation", 4)
 	v.add_child(B.lab("DIET", 17, Palette.HEADER, "caps"))
-	var sw := HBoxContainer.new()
-	sw.add_theme_constant_override("separation", 0)
-	for pair in [["Normal", "hold"], ["Cut harder", "cut"]]:
-		var b := Button.new()
-		b.name = "Diet_" + str(pair[1])
-		b.text = str(pair[0])
-		b.focus_mode = Control.FOCUS_NONE
-		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		var on := str(d["diet"]) == str(pair[1])
-		for st in ["normal", "hover", "pressed"]:
-			b.add_theme_stylebox_override(st, UI.box(Palette.ACCENT if on else (Palette.HOVER if st == "hover" else Palette.PAGE), Palette.LINE, 5, 1, 6, 2))
-		b.add_theme_color_override("font_color", Palette.ON_LIGHT if on else Palette.MUTED)
-		b.add_theme_color_override("font_hover_color", Palette.TEXT)
-		b.add_theme_font_size_override("font_size", 16)
-		b.tooltip_text = "Eats for the training: the weight stays about where it is." if pair[1] == "hold" else "500 kcal a day less: about half a kilo a week."
-		var k := str(pair[1])
-		b.pressed.connect(func(): on_diet.call(k))
-		sw.add_child(b)
-	v.add_child(sw)
-	var line := ""
-	if bool(d["booked"]) and d.has("fight_kg"):
-		line = "Fight day %.1f kg est.\nlimit %.1f kg" % [float(d["fight_kg"]), float(d["limit"])]
-	else:
-		line = "Sunday %.1f kg\nlimit %.1f kg" % [float(d["end_kg"]), float(d["limit"])]
-	var l := B.lab(line, 16, Palette.TEXT, "bold")
+	var l := B.lab(str(d.get("line", "")), 16, Palette.TEXT, "bold")
 	l.name = "DietLine"
+	l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	l.custom_minimum_size = Vector2(184, 0)
 	v.add_child(l)
+	var scale := ""
+	if bool(d["booked"]) and d.has("fight_kg"):
+		scale = "Fight day %.1f kg est., limit %.1f" % [float(d["fight_kg"]), float(d["limit"])]
+	else:
+		scale = "Sunday %.1f kg, limit %.1f" % [float(d["end_kg"]), float(d["limit"])]
+	var s := B.lab(scale, 16, Palette.MUTED, "body")
+	s.name = "DietScale"
+	s.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	s.custom_minimum_size = Vector2(184, 0)
+	v.add_child(s)
 	var p := B.wrap(v, Palette.PAGE, Palette.LINE, 8, 8)
 	p.name = "Diet"
-	p.custom_minimum_size = Vector2(170, 0)
+	p.custom_minimum_size = Vector2(200, 0)
 	p.size_flags_vertical = Control.SIZE_SHRINK_END
+	p.mouse_filter = Control.MOUSE_FILTER_STOP
+	p.tooltip_text = str(d.get("tip", ""))
 	return p
 
 

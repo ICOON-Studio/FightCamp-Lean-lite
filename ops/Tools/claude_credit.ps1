@@ -22,7 +22,7 @@ $out = Join-Path $dir "$Id.json"
 $start = Get-Date -Format s
 Push-Location $root
 try {
-    & claude -p $Prompt --model $Model --permission-mode auto --max-budget-usd $Budget --output-format json *> $out
+    & claude -p $Prompt --model $Model --permission-mode auto --max-budget-usd $Budget --output-format json 2>&1 | Out-File -Encoding utf8 $out
 } finally {
     Pop-Location
     Remove-Item Env:ANTHROPIC_API_KEY

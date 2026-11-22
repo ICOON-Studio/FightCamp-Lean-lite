@@ -246,10 +246,11 @@ static func totals(wk: Dictionary, days: Array) -> Dictionary:
 	return {"gains": gains, "sum": sum, "rest_drop": rest_drop}
 
 
-## DIET: hold or cut; with a bout the scale and the legs on fight night (CampForecast + Gauges, est.), else Sunday's weight.
+## DIET (S537 WEIGHTCUT1: a fact, the booking decides - WeekPlan.diet_fact gives the line and its tooltip); with a bout the scale and the legs on fight night (CampForecast + Gauges, est.), else Sunday's weight.
 static func diet(c: Career, f: Dictionary, goal: Dictionary, wk: Dictionary) -> Dictionary:
-	var out := {"diet": str(f.get("diet", "hold")), "end_kg": float(wk["weight_end"]), "limit": float(f.get("limit", 0.0)),
-		"booked": WeekData.booked(goal)}
+	var fact := WeekPlan.diet_fact(f, c.day)
+	var out := {"diet": str(fact["diet"]), "line": str(fact["line"]), "tip": str(fact["tip"]), "end_kg": float(wk["weight_end"]),
+		"limit": float(f.get("limit", 0.0)), "booked": WeekData.booked(goal)}
 	if bool(out["booked"]):
 		var cp: Dictionary = f.get("camp", {})
 		var fc := CampForecast.run(c, f, str(cp.get("focus", goal["stat"])), int(cp.get("protocol", 0)), bool(cp.get("film", false)))

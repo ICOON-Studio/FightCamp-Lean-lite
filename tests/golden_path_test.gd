@@ -302,7 +302,8 @@ func _week_two(c: Career) -> void:
 		_check(str(c.fighter()["offers"][0]["opp"]["name"]) == "Priya Nair", "the next opponent is the next on the list: %s" % c.fighter()["offers"][0]["opp"]["name"])
 
 
-## A second career: she is booked but never cut, so she misses weight and the bout is off.
+## A second career. S537 WEIGHTCUT1: the diet follows the booking, so with no camp she is on weight by herself; a bout
+## the diet could not cover (a kilo over on the morning) still misses weight and the bout is off.
 func _missed_weight() -> void:
 	var c := Career.quick_start()
 	Sim.sign(c, ["Jab and move", "Pad rounds", "Hill sprints"])
@@ -316,8 +317,10 @@ func _missed_weight() -> void:
 		(c.fighter()["bout"] as Dictionary).erase(k)
 	while not Bouts.weigh_in_today(c, c.fighter()):
 		Sim.step_day(c)
+	_check(float(c.fighter()["weight"]) <= float(c.fighter()["limit"]), "booked: the diet ran by itself and she is on weight (%.1f for %.1f)" % [c.fighter()["weight"], c.fighter()["limit"]])
+	c.fighter()["weight"] = float(c.fighter()["limit"]) + 1.0
 	var cash := c.cash
-	_check(not Bouts.weigh(c, c.fighter()), "without a cut she misses weight (%.1f for %.1f)" % [c.fighter()["weight"], c.fighter()["limit"]])
+	_check(not Bouts.weigh(c, c.fighter()), "a kilo over on the morning: she misses weight (%.1f for %.1f)" % [c.fighter()["weight"], c.fighter()["limit"]])
 	_check(c.fighter()["bout"].is_empty() and c.cash == cash - 300, "the bout is off and the club pays $300 for the empty slot")
 	_check(str(c.news[0]["t"]).contains("missed weight"), "the news says so")
 

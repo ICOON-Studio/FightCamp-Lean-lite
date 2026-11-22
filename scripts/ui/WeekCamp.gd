@@ -3,7 +3,7 @@ extends VBoxContainer
 ## line where the camp lands (a line that moved since the last draw pulses with its delta), the injury load, and the week's
 ## twist on a sticky note - hovering an answer previews where the lines would land.
 ## S382 G4 (gym idea 1): with a bout booked, the fight-night gauge row (GaugeRow: LEGS, SCALE, RISK - one CampForecast.run of
-## her camp) heads the column and replaces the weight line, the fatigue-peak line and the injury-risk row; the diet pills
+## her camp) heads the column and replaces the weight line, the fatigue-peak line and the injury-risk row; the diet line
 ## stay under it. A twist answer under the cursor ghosts its forecast on the dials. Without a bout the lines stay.
 ## S382 G5: so does a morning card under the cursor (ghost_day, from WeekDay's magnet picker and its 'undo').
 ##   WeekCamp.make(main, f, goal, lines, teach, replan) -> VBoxContainer "Goal"
@@ -75,7 +75,7 @@ func _build(main: Node, f: Dictionary, goal: Dictionary, lines: Array) -> void:
 		_seen_g[fid] = _gauge.values()
 		for gid in _gauge.deltas:
 			_delta["g_" + gid] = _gauge.deltas[gid]
-		add_child(_diet(main, fid, f, "diet to the weigh-in:"))
+		add_child(_diet(f, _c.day))
 	var before: Dictionary = _seen.get(fid, {})
 	var now := {}
 	for ln in lines:
@@ -236,7 +236,7 @@ func _preview_off() -> void:
 func _line_under(main: Node, fid: String, f: Dictionary, id: String, ln: Dictionary, weeks: int) -> Control:
 	var h := UI.hbox(8)
 	if id == "weight":
-		return _diet(main, fid, f, "limit %.1f at the weigh-in; diet:" % float(ln["target"]))
+		return _diet(f, _c.day)
 	elif id == "fatigue":
 		h.add_child(WB.ink("this week %d; rest days and Light mornings bring it down" % int(round(float(ln["week"]))), UI.SMALL, "hand", WB.PENCIL, true))
 	elif id == "opp":
@@ -261,15 +261,16 @@ func _line_under(main: Node, fid: String, f: Dictionary, id: String, ln: Diction
 	return h
 
 
-## The diet pills (Hold / Cut 500 kcal) after a few words.
-static func _diet(main: Node, fid: String, f: Dictionary, words: String) -> HBoxContainer:
+## S537 WEIGHTCUT1: the diet as a fact (it follows the booking: WeekPlan.diet_fact) - the Hold / Cut pills are gone.
+static func _diet(f: Dictionary, today: int) -> HBoxContainer:
 	var h := UI.hbox(8)
 	h.name = "Diet"
-	h.add_child(WB.ink(words, UI.SMALL, "hand", WB.PENCIL))
-	for d in [["hold", "Hold"], ["cut", "Cut 500 kcal"]]:
-		var b := UI.button(str(d[1]), "PillOn" if str(f["diet"]) == str(d[0]) else "Pill", main.act.bind("diet", "%s|%s" % [fid, d[0]]))
-		b.name = "Diet_" + str(d[0])
-		h.add_child(b)
+	var fact := WeekPlan.diet_fact(f, today)
+	var l := WB.ink(str(fact["line"]), UI.SMALL, "hand", WB.PENCIL, true)
+	l.name = "DietLine"
+	l.mouse_filter = Control.MOUSE_FILTER_STOP
+	l.tooltip_text = str(fact["tip"])
+	h.add_child(l)
 	return h
 
 

@@ -24,7 +24,7 @@ const TAKES := ["pro_right_cross", "pro_right_cross_a", "pro_right_cross_b", "pr
 ## 6-53 deg inside its toes; the bake had nothing to add to 6 of them and would have turned the foot of 2 by a punch
 ## line a hook does not have. tests/player2_test.gd HEEL reads them as drawn.
 
-static var off := false
+static var off := true   # S537 owner "ok switch off": legs play as recorded (C461 "terrible knee twist"); false = the S536-S537 leg bakes
 
 
 static func load_into(lib: AnimationLibrary, prefix: String) -> int:
