@@ -4289,8 +4289,8 @@
    "status": "queued",
    "queued_at": "2026-11-22 16:57",
    "tries": 0,
-   "skips": 1,
-   "last_error": "2026-11-22 18:10 gbot send rc=1: ['GROKBOT FAIL SendGrokBotUserMessage 400 {\"code\":\"invalid_argument\",\"message\":\"Error\",\"details\":[{\"type\":\"aiserver.v1.ErrorDetails\",\"debug\":{\"error\":\"ERROR_BAD_REQUEST\",\"details\":{\"title\":\"Bad Request\",\"detail\":\"text exceeds the maximum leng']"
+   "skips": 2,
+   "last_error": "2026-11-22 18:40 gbot send rc=1: ['GROKBOT FAIL SendGrokBotUserMessage 400 {\"code\":\"invalid_argument\",\"message\":\"Error\",\"details\":[{\"type\":\"aiserver.v1.ErrorDetails\",\"debug\":{\"error\":\"ERROR_BAD_REQUEST\",\"details\":{\"title\":\"Bad Request\",\"detail\":\"text exceeds the maximum leng']"
   },
   {
    "id": "SQ294",
@@ -4299,6 +4299,15 @@
    "stem": "CARDSCOPE2_CRITIC_KALLI_KALLI",
    "status": "queued",
    "queued_at": "2026-11-22 18:13",
+   "tries": 0
+  },
+  {
+   "id": "SQ295",
+   "seat": "kalli",
+   "brief": "research/CARDSCOPE3_CRITIC_KALLI.md",
+   "stem": "CARDSCOPE3_CRITIC_KALLI_KALLI",
+   "status": "queued",
+   "queued_at": "2026-11-22 18:57",
    "tries": 0
   }
  ]
