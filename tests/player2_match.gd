@@ -7,6 +7,18 @@ const GLOVE_SWING_DEG := 3.0  # rigid on the hand a glove reads 0-2 deg (the str
 const MATCH_TO_S := 0.40
 const MATCH_FROM_S := 0.20    # the join into the punch is over (0.15 s) and the pin has let go (0.2 s)
 const KNEE_MATCH_M := 0.02    # KNEEROOT1: the brief's bar
+## S537 BOUGHTCLIP1: the bought jab and cross arrive 99% straight; a plan that stands the men too close for the body
+## that punches makes the arm finish fold the arm (75-84% on a big body: tools/boughtclip_probe.gd).
+const STRAIGHT_MIN := 0.90
+
+
+## How straight boxer i's punching arm is as drawn: shoulder to wrist over upper arm + forearm.
+static func straight(t: SceneTree, i: int, hand: String) -> float:
+	var side := hand.trim_suffix("Hand")
+	var sh: Vector3 = t._w(i, side + "UpperArm")
+	var el: Vector3 = t._w(i, side + "LowerArm")
+	var wr: Vector3 = t._w(i, hand)
+	return sh.distance_to(wr) / maxf(sh.distance_to(el) + el.distance_to(wr), 0.001)
 
 
 static func _pts(t: SceneTree, i: int) -> Dictionary:

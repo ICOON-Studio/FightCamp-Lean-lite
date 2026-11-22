@@ -37,6 +37,7 @@ const R := preload("res://scripts/fight3d/v2/ChoreoRules.gd")
 const Player2 := preload("res://scripts/fight3d/v2/Player2.gd")
 const FightClips := preload("res://scripts/fight3d/FightClips.gd")
 const RootPath := preload("res://scripts/fight3d/v2/RootPath.gd")
+const Match := preload("res://tests/player2_match.gd")
 const HZ := 60.0
 const ON_M := 0.12
 const HANDS_M := 0.12        # a hit man's wrist may be this much further from his head than in his guard
@@ -64,7 +65,7 @@ const KNEE_OUT_M := 0.07      # (as drawn: the actor's own 1.5-6.9 cm, the FP2PO
 const DRIVE_M := 0.10
 const DRIVE_KNEE_DEG := 15.0
 const DRIVE_KNEE_REAR_DEG := 5.0   # rear hooks and uppercuts: no study gives theirs; the bar is "it straightens, never bends, into the contact" (as bought 3-32)
-const BONES := ["Hips", "Head", "Chest", "LeftToes", "RightToes", "LeftHand", "RightHand", "LeftLowerLeg", "RightLowerLeg", "LeftFoot", "RightFoot", "LeftUpperLeg", "RightUpperLeg", "UpperChest", "LeftLowerArm", "RightLowerArm"]
+const BONES := ["Hips", "Head", "Chest", "LeftToes", "RightToes", "LeftHand", "RightHand", "LeftLowerLeg", "RightLowerLeg", "LeftFoot", "RightFoot", "LeftUpperLeg", "RightUpperLeg", "UpperChest", "LeftLowerArm", "RightLowerArm", "LeftUpperArm", "RightUpperArm"]
 
 var failures := 0
 var st: Node3D
@@ -290,6 +291,7 @@ func _initialize() -> void:
 	await _pose(p2)
 	await load("res://tests/player2_match.gd").run(self, p2)   # KNEEMATCH, GLOVEMATCH
 	var miss: Array = []        # landed: glove front to target (m)
+	var straight: Array = []    # landed jabs and crosses: how straight the punching arm is on the contact picture (0..1)
 	var short_on := 0           # missed punches whose glove is on him
 	var short_n := 0
 	var jumps := 0
@@ -348,6 +350,8 @@ func _initialize() -> void:
 				pend.append([3, c, hitter, hand, body, off0])
 			for pd in pend:
 				pd[0] = int(pd[0]) - 1
+				if int(pd[0]) == 2 and str(pd[1]["result"]) == "lands" and R.is_straight(str(pd[1]["move"])):
+					straight.append(Match.straight(self, int(pd[2]), str(pd[3])))   # the picture of the contact
 				var tg: Vector3 = _target(1 - int(pd[2]), bool(pd[4]))
 				var g1: Vector3 = st.glove_front(int(pd[2]), str(pd[3]))
 				var g0: Vector3 = glove_at[int(pd[2])][str(pd[3])]
@@ -444,6 +448,8 @@ func _initialize() -> void:
 	_check(miss.size() >= landed_want * 0.9, "LANDS at least 9 landed punches in 10 reach their contact uncut (%d of %d)" % [miss.size(), landed_want])
 	_check(med <= ON_M, "LANDS the median landed glove is within %.2f m of its target (%.3f)" % [ON_M, med])
 	_debt(on_n >= miss.size() * 0.9, on_n >= miss.size() * 0.7, "LANDS 9 landed gloves in 10 are within %.2f m (%d of %d; guard 7 in 10)" % [ON_M, on_n, miss.size()])
+	straight.sort()
+	_check(not straight.is_empty() and float(straight[straight.size() / 2]) >= Match.STRAIGHT_MIN, "ARMSTRAIGHT a landed jab or cross arrives with its arm out: the median is at least %.0f%% straight (%.0f%%, least %.0f%%, %d punches)" % [Match.STRAIGHT_MIN * 100.0, (float(straight[straight.size() / 2]) if not straight.is_empty() else 0.0) * 100.0, (float(straight[0]) if not straight.is_empty() else 0.0) * 100.0, straight.size()])
 	_check(short_on == 0, "SHORT no missed punch has its glove on him (%d of %d)" % [short_on, short_n])
 	_debt(jumps == 0, jumps <= 6 * rounds, "JUMPS no head moves over 12 cm in 1/30 s outside a contact (%d; guard %d)" % [jumps, 6 * rounds])
 	_debt(float(slide[0]) <= 1.0 * rounds and float(slide[1]) <= 1.0 * rounds, maxf(float(slide[0]), float(slide[1])) <= 6.0 * rounds, "SLIDE a standing foot travels under 1 m an exchange (%.2f / %.2f over %d; guard 6 m: 5 until S537 KNEEROOT1 gave a punch its own feet back, docs/KNEEROOT1_RESULT.md)" % [float(slide[0]), float(slide[1]), rounds])

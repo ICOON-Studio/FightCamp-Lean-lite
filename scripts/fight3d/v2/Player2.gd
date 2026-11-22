@@ -191,7 +191,7 @@ func scene(on_scene: bool) -> void:
 func queue(beats: Array, t0: float, t1: float) -> void:
 	var opts := {"t0": t0, "t1": t1, "gap0": pair.gap(), "seed": int(t0) * 131 + beats.size(),
 		"south": {"a": bool(st.boxers[0].get("south", false)), "b": bool(st.boxers[1].get("south", false))},
-		"scale": {"a": _scale(0), "b": _scale(1)}}
+		"scale": {"a": pair.size(0), "b": pair.size(1)}}   # S537: each BODY against the census body, not the node's 1.0
 	plan = Choreo.plan(beats, db, opts)
 	_next = [0, 0]
 	walk.reset()

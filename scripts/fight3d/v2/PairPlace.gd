@@ -208,6 +208,28 @@ func face(delta: float) -> void:
 			p._moved[i] = Transform3D(Basis.IDENTITY, c) * Transform3D(Basis(Vector3.UP, angle_difference(was, n.rotation.y)), Vector3.ZERO) * Transform3D(Basis.IDENTITY, -c) * (p._moved[i] as Transform3D)
 
 
+## S537 BOUGHTCLIP1 (owner C469 "Cross can only reach shoulder?"): boxer i's size against the body the clip census was
+## measured on. Every distance of the plan (a take's contact gap, its head and hips travel) is in the census body's
+## metres - mh_boxer_10, a small one: its shoulder-to-wrist is CENSUS_ARM_M. The plan was handed the NODE's scale (1.0
+## for every body), so a long-armed body was stood where the small body's glove ends: the plain cross of mh_boxer_01
+## reaches 107 cm ahead of its hips, the census body's 90, the men stood 13-19 cm too close and the arm finish folded
+## the arm to 75-84 % straight to keep the glove on the face (tools/boughtclip_probe.gd). The measure is the arm:
+## 57.5 / 49.4 = 1.16 is what the reach asks of the gap (118 / 102 cm) on that pair.
+const CENSUS_ARM_M := 0.494
+var _size: Array = [0.0, 0.0]
+
+
+func size(i: int) -> float:
+	if float(_size[i]) <= 0.0:
+		var sk: Skeleton3D = p.st.boxers[i]["skel"]
+		var ids := [sk.find_bone("RightUpperArm"), sk.find_bone("RightLowerArm"), sk.find_bone("RightHand")]
+		_size[i] = 1.0
+		if not ids.has(-1):
+			var arm := sk.get_bone_global_rest(ids[0]).origin.distance_to(sk.get_bone_global_rest(ids[1]).origin) + sk.get_bone_global_rest(ids[1]).origin.distance_to(sk.get_bone_global_rest(ids[2]).origin)
+			_size[i] = arm * float(p._scale(i)) / CENSUS_ARM_M
+	return float(_size[i])
+
+
 func gap() -> float:
 	var d: Vector3 = stand(1) - stand(0)
 	return Vector2(d.x, d.z).length()
