@@ -6,6 +6,7 @@
 // arms (engine, reading, tell-follower, largest damage, random) and the camp
 // check, then fails the run on the design limits in the brief.
 import rules from './rules.js';
+import { round4 } from './balance-round4.mjs';
 
 const N = Number(process.argv[2]) || 2000;
 const CARDS = rules.CARDS, ORDER = rules.CARD_ORDER, DATA = rules.SHAPE_MATRIX;
@@ -33,7 +34,6 @@ function campRandom(game, rng) {
   while (game.phase === 'camp') {
     const offer = game.offers[game.week];
     const drill = offer[rng.int(offer.length)];
-    const deck = game.playerBoxerId ? null : null;
     const hand = [];
     const boxer = rules.boxerById(game.playerBoxerId);
     boxer.deck.forEach((id) => hand.push(id));
@@ -365,7 +365,7 @@ function priorityBouts(count, preferred) {
 
 // --- report -----------------------------------------------------------------
 const defects = [];
-console.log('FightCamp card game - round 3 balance: ' + stats.bouts + ' bouts, UI path (camp, bell, corners, cards)');
+console.log('FightCamp card game - round 4 balance: ' + stats.bouts + ' bouts, UI path (camp, bell, corners, cards)');
 console.log('');
 console.log('Style pairs: both corners on style weights, seats swapped every bout (all 16)');
 console.log('  ' + pad('left v right', 24) + lpad('bouts', 7) + lpad('left wins', 11) + lpad('draws', 8));
@@ -477,6 +477,12 @@ for (const [name, a] of [['tell-follower', tell], ['largest damage', damage], ['
   const edge = (a.rate - engine.rate) * 100;
   if (edge > 20) defects.push(name + ' beats the engine by ' + edge.toFixed(1) + ' pp (limit 20)');
 }
+
+/* round 4: fixed combinations, the called forecast, ropes, split cards, corner, chairs */
+const r4 = round4(N);
+console.log('');
+r4.lines.forEach((l) => console.log(l));
+defects.push(...r4.defects);
 
 if (defects.length) {
   for (const d of defects) console.log('DEFECT: ' + d);

@@ -21,8 +21,17 @@ var isHurt = d.isHurt;
 var checkStoppage = d.checkStoppage;
 var finishEarly = d.finishEarly;
 var endRound = d.endRound;
+var SHAPES = d.SHAPES;
+var COMBO_EXTRA = [0, 2, 6];
+var BREATH = 10;
+var SHAPE_BONUS = 1.5;
+var SHAPE_MISS = 1;
 /* A non-punch card cannot follow a non-punch card while a punch is available:
    two men feinting and blocking at each other is not a fight. */
+/* On the ropes there is no room: inside work reaches, range work does not. */
+function reaches(card, range) {
+  return !card.ranges || card.ranges.indexOf(range) >= 0 || (range === 'ropes' && card.ranges.indexOf('inside') >= 0);
+}
 function otherKey(key) { return key === 'player' ? 'opponent' : 'player'; }
 function repeatsNonPunch(side, cardId) {
   /* Two exemptions, both because another rule needs the repeat: the referee's
@@ -40,11 +49,13 @@ function legalNow(side, fight, key, cardId) {
 }
 /* Cost at this moment: price, range, and the cut-off trap on an escape. */
 function costNow(side, fight, key, cardId) {
-  var cost = cardCost(side, cardId) + (CARDS[cardId].ranges.indexOf(fight.range) >= 0 ? 0 : 1);
+  var cost = cardCost(side, cardId) + (reaches(CARDS[cardId], fight.range) ? 0 : 1);
   var trapped = fight.trap && fight.trap.who === key && !!key;
   if (trapped && (cardId === 'step_back' || cardId === 'pivot_out')) cost += 1;
   return cost;
 }
+/* One step better for the man who read the shape right. */
+function stepUp(code) { return ({ X: 'l', l: 't', t: 'w', w: 'W', W: 'W', n: 'w' })[code] || code; }
 function advanceOutcome(code) { return ({ X: 'X', W: 'W', w: 'W', t: 'w', l: 't', n: 'w' })[code] || code; }
 function strike(fight, side, foe, cardId, foeCardId, code, opts) {
   var card = CARDS[cardId], foeCard = CARDS[foeCardId];
@@ -53,14 +64,14 @@ function strike(fight, side, foe, cardId, foeCardId, code, opts) {
   if (factor === 0) return out;
   var punch = card.kind === 'punch';
   var base = punch ? (card.dmg || { head: 0, body: 0 }) : { head: 0, body: 0 };
-  var inRange = !card.ranges || card.ranges.indexOf(fight.range) >= 0;
+  var inRange = reaches(card, fight.range);
   var statMul = punch ? 1 + (side.stats.power - 50) / 150 : 1 + (side.stats.speed - 50) / 150;
   var guardMul = (code === 'l' || code === 'X' || code === 't')
     ? 1 - (foeCard.guard || 0) * (code === 't' ? 0.6 : 1) : 1;
   var defMul = 1 - (foe.stats.defence - 50) / 320;
   var hitChance = card.acc + (side.stats.technique - 50) / 220
     + (factor >= 1 ? 0.05 : factor <= 0.3 ? -0.07 : 0)
-    + (inRange ? 0 : -0.06) + (opts.gassed ? -0.08 : 0) + (punch && opts.setup ? 0.05 : 0)
+    + (inRange ? 0 : -0.06) + (opts.gassed ? -0.20 : 0) + (punch && opts.setup ? 0.05 : 0)
     + (opts.accPenalty || 0)
     + (punch && opts.opening ? 0.15 : 0) + (punch && opts.feint ? 0.15 : 0) + (punch && opts.reactive ? opts.reactive : 0);
   if (cardId === 'uppercut' && fight.range === 'out') hitChance = 0.5;
@@ -70,12 +81,13 @@ function strike(fight, side, foe, cardId, foeCardId, code, opts) {
   out.code = code;
   if (!out.hit) { out.verdict = 'misses'; return out; }
   var punchMod = punch ? 1 + (side.mods.punch || 0) : 1;
-  var mult = factor * statMul * guardMul * defMul * (opts.gassed ? 0.6 : 1) * opts.bonus * punchMod;
+  var mult = factor * statMul * guardMul * defMul * (opts.gassed ? 0.4 : 1) * opts.bonus * punchMod;
 
   if (punch && opts.setup) mult *= 1.15;
   if (punch && opts.opening) mult *= 1.3;
-  out.head = Math.max(0, base.head * mult);
-  out.body = Math.max(0, base.body * mult);
+  /* Corner instructions: go to the body trades head work for body work. */
+  out.head = Math.max(0, base.head * mult * (punch ? 1 + (side.mods.headPunch || 0) : 1));
+  out.body = Math.max(0, base.body * mult * (punch ? 1 + (side.mods.bodyPunch || 0) : 1));
   out.dealt = out.head + out.body;
   out.verdict = code === 'W' ? 'lands flush' : code === 'w' ? 'lands' :
     code === 't' ? 'lands in a trade' : code === 'l' ? 'is mostly smothered' : 'is half-blocked';
@@ -170,7 +182,7 @@ function resolutionAt(a, b, range) {
   if (a === 'pivot_out' && b === 'lead_hook') return 'l';
   return RESOLUTION[a][b];
 }
-function playExchange(game, playerCardId, mode, opponentCardId) {
+function playExchange(game, playerCardId, mode, opponentCardId, call) {
   var fight = game.fight;
   if (!fight || fight.phase !== 'fight') throw new Error('the bell has gone');
   var me = fight.player, foe = fight.opponent;
@@ -181,6 +193,9 @@ function playExchange(game, playerCardId, mode, opponentCardId) {
   mode = mode === 'predict' ? 'predict' : 'react';
   var combo = Array.isArray(playerCardId) ? playerCardId.slice() : [playerCardId];
   if (!combo.length || combo.length > 3) throw new Error('a combo is one to three cards');
+  if (combo.length > 1 && me.stamina <= 0) throw new Error('no wind left for a combination');
+  if (call && !CARDS[call] && SHAPES.indexOf(call) < 0) throw new Error('call a card or a shape: ' + call);
+  var rangeBefore = fight.range;
   combo.forEach(function (id) {
     if (me.hand.indexOf(id) < 0) throw new Error('not in hand: ' + id);
     if (fight.ropes && id === 'step_back') throw new Error('step back is off the table on the ropes');
@@ -196,7 +211,9 @@ function playExchange(game, playerCardId, mode, opponentCardId) {
   var foeCost = costNow(foe, fight, 'opponent', foeCardId);
   var meCost = 0;
   combo.forEach(function (id) { meCost += costNow(me, fight, 'player', id); });
-  meCost += Math.max(0, combo.length - 1);
+  /* A second card is +2 wind and a third +4 more: a three-card flurry is a
+     decision, about twice a round, not a habit. */
+  meCost += COMBO_EXTRA[combo.length - 1];
   var modeCost = mode === 'predict' ? 2 : 0;
   var meGassed = me.stamina < meCost + modeCost, foeGassed = foe.stamina < foeCost;
   me.stamina = Math.max(0, me.stamina - meCost - modeCost);
@@ -207,47 +224,76 @@ function playExchange(game, playerCardId, mode, opponentCardId) {
   if (first && me.mods.takenFirst) bonusB *= 1 + me.mods.takenFirst;
   if (first && foe.mods.takenFirst) bonusA *= 1 + foe.mods.takenFirst;
   if (first) { delete me.mods.firstExchange; delete foe.mods.firstExchange; delete me.mods.takenFirst; delete foe.mods.takenFirst; }
-  var baseCode = resolutionAt(combo[0], foeCardId, fight.range), codeA = baseCode, codeB = FLIP[baseCode];
-  var forecast = mode === 'predict' ? predictedCard(fight) : null;
+  var cellRange = fight.range === 'ropes' ? 'inside' : fight.range;
+  var cells = combo.map(function (id) { return resolutionAt(id, foeCardId, cellRange); });
+  var baseCode = cells[0], codeA = baseCode, codeB = FLIP[baseCode];
+  /* Round 4: the player calls the forecast, a card or a shape. No call = the
+     film's own guess (the old button). Right card: clean win with the card's
+     effect. Right shape: one step better. Wrong: he gets the step and 20%. */
+  var shapeCall = !!call && SHAPES.indexOf(call) >= 0;
+  var forecast = mode === 'predict' ? (call || predictedCard(fight)) : null;
+  if (shapeCall) {
+    /* A shape only one card has (gloves high = Block) is the card itself. */
+    var inShape = Object.keys(CARDS).filter(function (id) { return CARDS[id].shape === call; });
+    if (inShape.length === 1) forecast = inShape[0];
+  }
   var correctRead = mode === 'predict' && forecast === foeCardId;
+  var shapeRead = mode === 'predict' && !correctRead && shapeCall && CARDS[foeCardId].shape === call;
   if (mode === 'predict') {
     if (correctRead) { codeA = 'W'; codeB = 'X'; }
-    else { codeB = advanceOutcome(codeB); codeA = FLIP[codeB]; bonusB *= 1.2; }
+    else if (shapeRead) { codeA = stepUp(codeA); codeB = FLIP[codeA]; bonusA *= SHAPE_BONUS; }
+    else { codeB = advanceOutcome(codeB); codeA = FLIP[codeB]; bonusB *= shapeCall ? SHAPE_MISS : 1.2; }
   }
+  /* Round 4: every card of a combination meets his card. He answers the WORST
+     cell of the combination, not the first, so a cheap defence in front no
+     longer shields the punches behind it. */
+  var metIdx = 0;
+  if (!correctRead) cells.forEach(function (c, i) {
+    if (i > 0 && CODE_FACTOR[FLIP[c]] > CODE_FACTOR[codeB]) { codeB = FLIP[c]; metIdx = i; }
+  });
   var reactive = mode === 'react' && me.stats.speed >= 65 ? clamp((me.stats.speed - 65) / 200, 0, 0.15) : 0;
   var foeReactive = foe.stats.speed >= 65 ? clamp((foe.stats.speed - 65) / 200, 0, 0.15) : 0;
-  var foeAccPenalty = foe.mods.nextPunchAcc || 0;
+  var foeAccPenalty = (foe.mods.nextPunchAcc || 0) + (foe.smother || 0);
+  var meAccPenalty = (me.mods.nextPunchAcc || 0) + (me.smother || 0);
+  /* On the ropes the man doing the pressing hits 15% harder. */
+  if (fight.ropes && fight.ropesWho === 'opponent') bonusA *= 1.15;
+  if (fight.ropes && fight.ropesWho === 'player') bonusB *= 1.15;
   var hitA = makeRng(hashSeed(fight.seed, 'hit', 'player', fight.round, fight.exchange));
   var hitB = makeRng(hashSeed(fight.seed, 'hit', 'opponent', fight.round, fight.exchange));
   var kdA = makeRng(hashSeed(fight.seed, 'kd', 'player', fight.round, fight.exchange));
   var kdB = makeRng(hashSeed(fight.seed, 'kd', 'opponent', fight.round, fight.exchange));
-  var b = strike(fight, foe, me, foeCardId, combo[0], codeB, {
+  var b = strike(fight, foe, me, foeCardId, combo[metIdx], codeB, {
     gassed: foeGassed, setup: foe.combo, opening: foe.opening, feint: foe.feint, reactive: foeReactive, bonus: bonusB,
     trapped: !!(fight.trap && fight.trap.who === 'opponent'), accPenalty: foeAccPenalty, rng: hitB });
   var aList = [];
   var setup = me.combo, opening = me.opening, feint = me.feint;
+  var broken = false;
   combo.forEach(function (id, idx) {
-    var code = idx === 0 ? codeA : resolutionAt(id, foeCardId, fight.range);
+    /* A combination ends on the card that loses: what was behind it never leaves. */
+    if (broken) { aList.push({ card: id, code: 'n', hit: false, head: 0, body: 0, dealt: 0, verdict: 'never leaves' }); return; }
+    var code = idx === 0 ? codeA : cells[idx];
+    if (code === 'l' || code === 'X') broken = true;
     var hit = strike(fight, me, foe, id, foeCardId, code, {
       gassed: meGassed, setup: setup, opening: opening, feint: feint, reactive: reactive, bonus: bonusA,
-      trapped: !!(fight.trap && fight.trap.who === 'player'), accPenalty: me.mods.nextPunchAcc || 0, rng: hitA });
+      trapped: !!(fight.trap && fight.trap.who === 'player'), accPenalty: meAccPenalty, rng: hitA });
     aList.push(hit);
     if (CARDS[id].kind === 'punch') { setup = !!(hit.hit && CARDS[id].setsUp && ['W', 'w'].indexOf(hit.code) >= 0); opening = false; feint = false; }
     if (['slip', 'roll'].indexOf(id) >= 0 && ['W', 'w'].indexOf(hit.code) >= 0) opening = true;
     if (id === 'feint' && ['W', 'w', 't', 'l', 'n'].indexOf(hit.code) >= 0) feint = true;
     if (id === 'block' && ['W', 'w'].indexOf(hit.code) >= 0) me.stamina = Math.min(me.maxStamina, me.stamina + (correctRead ? 2 : 1));
     if (id === 'step_back' && ['W', 'w'].indexOf(hit.code) >= 0) foe.stamina = Math.max(0, foe.stamina - 1);
-    if (id === 'catch_breath') { me.stamina = Math.min(me.maxStamina, me.stamina + 6); me.catchUsed = true; }
+    if (id === 'catch_breath') { me.stamina = Math.min(me.maxStamina, me.stamina + BREATH); me.catchUsed = true; }
   });
   var a = aList[0];
   me.combo = setup; me.opening = opening; me.feint = feint;
   foe.combo = !!(b.hit && CARDS[foeCardId].setsUp && ['W', 'w'].indexOf(b.code) >= 0);
-  if (CARDS[foeCardId].kind === 'punch') foe.opening = false;
+  if (CARDS[foeCardId].kind === 'punch') { foe.opening = false; foe.feint = false; foe.smother = 0; }
+  if (combo.some(function (id) { return CARDS[id].kind === 'punch'; })) me.smother = 0;
   if (['slip', 'roll'].indexOf(foeCardId) >= 0 && ['W', 'w'].indexOf(b.code) >= 0) foe.opening = true;
   if (foeCardId === 'block' && ['W', 'w'].indexOf(b.code) >= 0) foe.stamina = Math.min(foe.maxStamina, foe.stamina + 1);
   if (foeCardId === 'step_back' && ['W', 'w'].indexOf(b.code) >= 0) me.stamina = Math.max(0, me.stamina - 1);
   if (foeCardId === 'feint') foe.feint = true;
-  if (foeCardId === 'catch_breath') { foe.stamina = Math.min(foe.maxStamina, foe.stamina + 6); foe.catchUsed = true; }
+  if (foeCardId === 'catch_breath') { foe.stamina = Math.min(foe.maxStamina, foe.stamina + BREATH); foe.catchUsed = true; }
   if (me.feint && ['W', 'w'].indexOf(b.code) >= 0) me.feint = false;
   if (foe.feint && ['W', 'w'].indexOf(a.code) >= 0) foe.feint = false;
 
@@ -260,7 +306,7 @@ function playExchange(game, playerCardId, mode, opponentCardId) {
   /* React is the hands-up posture: 10% less taken. The opponent is always
      covering; a prediction is the moment you commit and lose that cover. */
   var guard = typeof fight.reactGuard === 'number' ? fight.reactGuard : 0.9;
-  var meGuard = mode === 'react' ? guard : 1;
+  var meGuard = mode === 'react' || shapeRead ? guard : 1;
   b.head *= meGuard; b.body *= meGuard; b.dealt = b.head + b.body;
   a.head *= guard; a.body *= guard; a.dealt = a.head + a.body;
   me.head += b.head; me.body += b.body;
@@ -272,12 +318,12 @@ function playExchange(game, playerCardId, mode, opponentCardId) {
   if (combo.indexOf('clinch') >= 0 && ['W', 'w'].indexOf(a.code) >= 0) {
     foe.stamina = Math.max(0, foe.stamina - 1);
     me.stamina = Math.min(me.maxStamina, me.stamina + 1);
-    foe.mods.nextPunchAcc = -0.15;
+    foe.smother = -0.15;
   }
   if (foeCardId === 'clinch' && ['W', 'w'].indexOf(b.code) >= 0) {
     me.stamina = Math.max(0, me.stamina - 1);
     foe.stamina = Math.min(foe.maxStamina, foe.stamina + 1);
-    me.mods.nextPunchAcc = -0.15;
+    me.smother = -0.15;
   }
   delete me.mods.nextPunchAcc; delete foe.mods.nextPunchAcc;
   /* Two men holding, feinting and stepping: the referee is counting the clock. */
@@ -302,6 +348,7 @@ function playExchange(game, playerCardId, mode, opponentCardId) {
     foe.totals.defence = (foe.totals.defence || 0) + 1; foe.round.defence = (foe.round.defence || 0) + 1;
   }
   me.lastTookClean = b.head >= 5; foe.lastTookClean = a.head >= 5;
+  me.lastLandedClean = a.head >= 5; foe.lastLandedClean = b.head >= 5;
   me.lastCard = combo[combo.length - 1]; foe.lastCard = foeCardId;
   var referee = [];
   [[me, combo[combo.length - 1], 'you'], [foe, foeCardId, 'the opponent']].forEach(function (entry) {
@@ -329,31 +376,46 @@ function playExchange(game, playerCardId, mode, opponentCardId) {
   fight.range = range;
   var cutWinner = a.hit && ['W', 'w'].indexOf(a.code) >= 0 && a.card === 'cut_off' ? 'player' :
     b.hit && ['W', 'w'].indexOf(b.code) >= 0 && b.card === 'cut_off' ? 'opponent' : null;
+  /* Round 4: the ladder is one won cut off and then either a second one or a
+     won punch on the inside by the same man. That puts the other man on the ropes. */
+  var won = function (hit) { return hit.hit && ['W', 'w'].indexOf(hit.code) >= 0 && (CARDS[hit.card].kind === 'punch' || hit.card === 'clinch'); };
+  var pressed = !cutWinner && fight.pressBy && rangeBefore === 'inside' &&
+    (fight.pressBy === 'player' ? aList.some(won) : won(b));
+  /* A cut off won on the inside, or one that catches him stepping back, leaves no room at all. */
+  var walled = cutWinner && (rangeBefore === 'inside' || (cutWinner === 'player' ? a.code : b.code) === 'W');
   if (cutWinner) {
-    fight.cutOffStreak = fight.cutOffBy === cutWinner ? (fight.cutOffStreak || 0) + 1 : 1;
+    fight.cutOffStreak = fight.pressBy === cutWinner ? (fight.cutOffStreak || 0) + 1 : 1;
     fight.cutOffBy = cutWinner;
+    fight.pressBy = cutWinner;
     /* Walled in: his next step out is slower and costs more. */
     fight.trap = { who: otherKey(cutWinner) };
-  } else {
-    fight.cutOffStreak = 0;
+  } else if (!fight.ropes) {
     fight.cutOffBy = null;
     fight.trap = null;
   }
   var pivoted = (a.card === 'pivot_out' && ['W', 'w'].indexOf(a.code) >= 0) ||
     (b.card === 'pivot_out' && ['W', 'w'].indexOf(b.code) >= 0);
-  if (fight.cutOffStreak >= 2) { fight.ropes = true; fight.range = 'ropes'; }
-  else if (fight.ropes && pivoted) { fight.ropes = false; fight.range = 'mid'; }
+  if (fight.ropes && pivoted) {
+    fight.ropes = false; fight.ropesWho = null; fight.pressBy = null; fight.range = 'mid';
+    fight.cutOffStreak = 0; fight.cutOffBy = null; fight.trap = null;
+  } else if (!fight.ropes && (fight.cutOffStreak >= 2 || pressed || walled)) {
+    fight.ropes = true; fight.ropesWho = otherKey(cutWinner || fight.pressBy); fight.range = 'ropes';
+  } else if (fight.ropes) fight.range = 'ropes';
+  else if (fight.range !== 'inside') { fight.pressBy = null; fight.cutOffStreak = 0; }
   var stop = checkStoppage(fight);
   var event = {
     round: fight.round, exchange: fight.exchange, player: a, opponent: b,
-    combo: combo, foeCard: foeCardId,
-    code: codeA, actualCode: baseCode, mode: mode, forecast: forecast, correctRead: correctRead, range: range,
+    combo: combo, comboHits: aList, foeCard: foeCardId,
+    code: codeA, actualCode: baseCode, mode: mode, forecast: forecast, correctRead: correctRead, shapeRead: shapeRead, range: fight.range,
     knockdowns: knockdowns, stoppage: stop, referee: referee, tell: fight.tell, tellSeen: !!fight.tellSeen,
     /* Reacting is the hands-up look: it takes 10% off what lands and it lets the
        boxer see the shape the tell is naming. */
     tellShape: mode === 'react' && fight.tell && fight.tell.shape ? fight.tell.shape : null
   };
-  event.text = exchangeText(fight, a, b, knockdowns, combo, [foeCardId]) + (referee.length ? ' — ' + referee.join('; ') : '');
+  /* The line is written from the cell he actually answered, so a combination's
+     line can never say "beats" while his card landed on the punch behind it. */
+  var lineHit = metIdx > 0 ? { card: combo[metIdx], code: FLIP[codeB] } : a;
+  event.text = exchangeText(fight, lineHit, b, knockdowns, combo, [foeCardId]) + (referee.length ? ' — ' + referee.join('; ') : '');
   fight.events.push(event);
   refill(me, fight.shuffleRng, 5); refill(foe, fight.shuffleRng, 5);
   fight.exchange += 1;

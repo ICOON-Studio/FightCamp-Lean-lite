@@ -194,9 +194,9 @@ var CAMP_CARDS = [
   { id: 'guard_drill', name: 'Guard drill', add: { block: 1 }, stat: { defence: 4 }, text: 'One more block, +4 Defence. Nothing is free.' },
   { id: 'ring_craft', name: 'Ring craft', add: { pivot_out: 1, cut_off: 1 }, stat: { speed: 3 }, text: 'A pivot and a cut-off in the deck, +3 Speed.' },
   { id: 'uppercut_pads', name: 'Uppercut on the pads', add: { uppercut: 1 }, stat: { power: 4 }, text: 'One more uppercut for the inside, +4 Power.' },
-  { id: 'roadwork', name: 'Roadwork', stat: { stamina: 5 }, text: '+5 Stamina: more wind, cheaper cards.' },
-  { id: 'weights', name: 'Weight work', stat: { power: 5 }, text: '+5 Power: every punch hurts more.' },
-  { id: 'ladder', name: 'Speed ladder', stat: { speed: 5 }, text: '+5 Speed: sharper counters, more ties won.' },
+  { id: 'roadwork', name: 'Roadwork', stat: { stamina: 5 }, text: '+5 Stamina: more wind, cheaper cards. One card leaves the deck.' },
+  { id: 'weights', name: 'Weight work', stat: { power: 5 }, text: '+5 Power: every punch hurts more. One card leaves the deck.' },
+  { id: 'ladder', name: 'Speed ladder', stat: { speed: 5 }, text: '+5 Speed: sharper counters, more ties won. One card leaves the deck.' },
   { id: 'sparring', name: 'Hard sparring', stat: { technique: 4, chin: 2 }, text: '+4 Technique, +2 Chin.' },
   { id: 'film', name: 'Film study', stat: { defence: 3 }, scout: 1, text: '+3 Defence and one more habit in the file.' },
   { id: 'feint_work', name: 'Feint work', add: { feint: 1 }, stat: { technique: 4 }, text: 'One feint in the deck, +4 Technique. Set up the next punch.' },
@@ -209,8 +209,8 @@ var CAMP_CARDS = [
 var CORNER_CARDS = [
   { id: 'ice_eye', name: 'Ice the eye', text: 'Take 10 off the head damage you carry. It costs 5 wind.',
     healHead: 10, stamina: -5 },
-  { id: 'breathe', name: 'Breathe', text: '+16 wind, but you feel your way in: your first exchange is light.',
-    stamina: 16, mod: { firstExchange: -0.35 } },
+  { id: 'breathe', name: 'Breathe', text: '+20 wind, but you feel your way in: your first exchange is light.',
+    stamina: 20, mod: { firstExchange: -0.35 } },
   { id: 'gloves_high', name: 'Gloves high', text: 'Block is 1 cheaper next round; your punches land 15% softer.',
     mod: { block_discount: 1, punch: -0.15 } },
   { id: 'change_plan', name: 'Change the plan', text: 'Draw 2 cards now. It costs 6 wind to think.',
@@ -218,7 +218,11 @@ var CORNER_CARDS = [
   { id: 'stool', name: 'Sit on the stool', text: '+10 wind and 6 off the body, but you take 20% more in the first exchange and the opponent draws one extra card.',
     stamina: 10, healBody: 6, mod: { takenFirst: 0.2 }, foeDraw: 1 },
   { id: 'study', name: 'Study the opponent’s corner', text: 'One more habit in the file. 3 wind to study the opponent.',
-    scout: 1, stamina: -3 }
+    scout: 1, stamina: -3 },
+  { id: 'go_body', name: 'Go to the body', text: 'Next round your body punches land 25% harder and your head punches 15% softer.',
+    mod: { bodyPunch: 0.25, headPunch: -0.15 } },
+  { id: 'box_move', name: 'Box and move', text: 'The round opens at range and Step back costs 1 wind; your punches land 10% softer.',
+    mod: { startOut: true, stepCheap: true, punch: -0.10 } }
 ];
 
 /* --- the roster (prototype: boxing only) --------------------------------- */
@@ -259,11 +263,11 @@ var BOXERS = [
 
 /* Judges score landed punches and damage, with a taste and a little noise. */
 var JUDGES = [
-  { name: 'J. Alvarez', landed: 0.55, damage: 1.35, aggression: 0.10, noise: 0.05, defence: 0.20, taste: 'Loves landed punches, forgives damage.' },
-  { name: 'M. Petrov', landed: 0.35, damage: 1.75, aggression: 0.05, noise: 0.03, defence: 0.15, taste: 'Scores damage above all.' },
-  { name: 'S. Boateng', landed: 0.75, damage: 1.00, aggression: 0.20, noise: 0.07, defence: 0.25, taste: 'Rewards volume and defence.' },
-  { name: 'K. Osei', landed: 0.45, damage: 1.50, aggression: 0.08, noise: 0.04, defence: 0.30, taste: 'Scores defence and clean damage.' },
-  { name: 'A. Novak', landed: 0.65, damage: 1.20, aggression: 0.15, noise: 0.05, defence: 0.10, taste: 'Loves volume, ignores defence.' }
+  { name: 'J. Alvarez', landed: 3.2, damage: 0.05, aggression: 0.30, noise: 0.18, defence: 0.10, taste: 'Counts landed punches; hard shots score no more than light ones.' },
+  { name: 'M. Petrov', landed: 0.10, damage: 1.75, aggression: 0.05, noise: 0.06, defence: 0.10, taste: 'Scores damage above all.' },
+  { name: 'S. Boateng', landed: 2.2, damage: 0.30, aggression: 1.60, noise: 0.20, defence: 0.15, taste: 'Rewards the busier boxer: punches thrown and landed.' },
+  { name: 'K. Osei', landed: 0.30, damage: 1.00, aggression: 0.05, noise: 0.12, defence: 0.90, taste: 'Scores defence: making the other one miss counts double.' },
+  { name: 'A. Novak', landed: 1.9, damage: 0.70, aggression: 0.30, noise: 0.16, defence: 0.30, taste: 'Leans to the cleaner, busier work over the single hard shot.' }
 ];
 
 /* Situational nudges for the AI: the same card is not worth the same always. */
@@ -275,7 +279,13 @@ var SITUATION_RULES = [
   { when: { foeHurt: true }, cards: ['cross', 'uppercut', 'lead_hook'], mul: 1.2 },
   { when: { exchange: 0 }, cards: ['jab'], mul: 1.25 },
   { when: { combo: true }, cards: ['cross', 'lead_hook', 'uppercut'], mul: 1.3 },
-  { when: { gassed: true }, cards: ['block', 'step_back', 'clinch'], mul: 1.3 }
+  { when: { gassed: true }, cards: ['block', 'step_back', 'clinch'], mul: 1.3 },
+  /* Round 4: the pressure ladder. A won cut off is followed by work inside; a
+     man on the ropes looks for the pivot, and the other one lets his hands go. */
+  { when: { pressing: true }, cards: ['body_hook', 'uppercut', 'lead_hook', 'cross'], mul: 1.4 },
+  { when: { onRopes: true }, cards: ['pivot_out'], mul: 3.0 },
+  { when: { onRopes: true }, cards: ['clinch'], mul: 1.3 },
+  { when: { foeOnRopes: true }, cards: ['body_hook', 'uppercut', 'lead_hook'], mul: 1.3 }
 ];
 /* Measured over 250 bouts a drill in balance.mjs: how much each camp card moved
    the win rate. The informed corner ranks the week's offers with it. */

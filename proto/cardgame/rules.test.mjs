@@ -6,6 +6,7 @@ import './rules.round2.test.mjs';
 import './rules.round3.test.mjs';
 import './rules.round3b.test.mjs';
 import './rules.round3c.test.mjs';
+import './rules.round4.test.mjs';
 const R = rules;
 let passed = 0, failed = 0;
 const failures = [];

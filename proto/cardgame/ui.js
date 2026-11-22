@@ -8,7 +8,7 @@
   var h = FC.h, clear = FC.clear, add = FC.add, bar = FC.bar, meter = FC.meter;
   var windWord = FC.windWord, headWord = FC.headWord, bodyWord = FC.bodyWord, statWords = FC.statWords;
   var deckPeek = FC.deckPeek, cardFace = FC.cardFace, button = FC.button;
-  var S = { screen: 'pick', game: null, fight: null, busy: false, reveal: null, pending: null, mode: 'react', combo: [], drill: null, lastFoe: null };
+  var S = { screen: 'pick', game: null, fight: null, busy: false, reveal: null, pending: null, mode: 'react', call: null, combo: [], drill: null, lastFoe: null };
   var STAT_KEYS = ['power', 'speed', 'stamina', 'chin', 'technique', 'defence'];
   var seedCount = 0;
   function setWhere(text) { whereEl.textContent = text; }
@@ -178,7 +178,7 @@
   function comboCost(f) {
     var me = f.player, total = 0;
     S.combo.forEach(function (id) { total += R.cardCost(me, id) + (R.CARDS[id].ranges.indexOf(f.range) >= 0 ? 0 : 1); });
-    total += Math.max(0, S.combo.length - 1) + (S.mode === 'predict' ? 2 : 0);
+    total += [0, 0, 2, 6][S.combo.length] + (S.mode === 'predict' ? 2 : 0);
     return total;
   }
   function renderFight() {
@@ -226,8 +226,18 @@
       h('span', null, 'Keys 1-5 select, Enter plays'));
     var modeBar = h('div', 'row modebar');
     modeBar.appendChild(button('React — safe; Speed 65+ adds accuracy', { primary: S.mode === 'react', onClick: function () { S.mode = 'react'; renderFight(); } }));
-    modeBar.appendChild(button('Predict — costs 2 wind; right read wins clean, wrong read exposes you', { primary: S.mode === 'predict', onClick: function () { S.mode = 'predict'; renderFight(); } }));
-    modeBar.appendChild(h('span', 'small-note', 'Film forecasts: ' + R.CARDS[R.predictedCard(f)].name + ' (estimate only; no hidden hand is shown).'));
+    modeBar.appendChild(button('Predict — 2 wind; you call it: right card wins clean, right shape wins a step, wrong exposes you', { primary: S.mode === 'predict', onClick: function () { S.mode = 'predict'; renderFight(); } }));
+    if (S.mode === 'predict') {
+      /* Round 4: the player names the forecast - the film's card, or one of the ten shapes. */
+      var film = R.predictedCard(f);
+      if (!S.call) S.call = film;
+      var callBar = h('div', 'row modebar');
+      callBar.appendChild(h('span', 'small-note', 'Your call:'));
+      [film].concat(R.SHAPES).forEach(function (id) {
+        callBar.appendChild(button(R.CARDS[id] ? 'the ' + R.CARDS[id].say + ' (film)' : id, { primary: S.call === id, onClick: function () { S.call = id; renderFight(); } }));
+      });
+      modeBar.appendChild(callBar);
+    }
     var tellFree = f.exchange === 0 || f.tellPaid;
     var tellBox = h('div', 'sheet reads');
     if (tellFree) add(tellBox, h('div', 'tiny', 'Opponent tell: ' + f.tell.text + ' (60% reliable)'));
@@ -300,7 +310,7 @@
       var ev = S.reveal;
       slots.appendChild(cardFace(ev.player.card, { small: true, tag: 'div' }));
       slots.appendChild(cardFace(ev.opponent.card, { small: true, tag: 'div' }));
-      line.textContent = ev.text + (ev.player.code === 'l' && ev.player.hit || ev.opponent.code === 'l' && ev.opponent.hit ? ' (a losing card can still land 30% chip damage)' : '') + (ev.mode === 'predict' ? (ev.correctRead ? ' — read right: clean win' : ' — read wrong: exposed') : '');
+      line.textContent = ev.text + (ev.player.code === 'l' && ev.player.hit || ev.opponent.code === 'l' && ev.opponent.hit ? ' (a losing card can still land 30% chip damage)' : '') + (ev.mode === 'predict' ? (ev.correctRead ? ' — card called right: clean win' : ev.shapeRead ? ' — shape called right: a step better' : ' — called wrong: exposed') : '');
       if (ev.knockdowns.length) verdict.textContent = 'knockdown';
       else if (ev.stoppage) verdict.textContent = 'the referee steps in';
       else if (ev.player.dealt > ev.opponent.dealt) { verdict.textContent = 'you take the exchange'; verdict.className = 'verdict good'; }
@@ -324,9 +334,9 @@
     S.reveal = null;
     var cards = S.combo.slice();
     S.combo = [];
-    var ev = R.playExchange(S.game, cards.length === 1 ? cards[0] : cards, S.mode);
+    var ev = R.playExchange(S.game, cards.length === 1 ? cards[0] : cards, S.mode, undefined, S.mode === 'predict' ? S.call : undefined);
     S.pending = ev;
-    S.mode = 'react';
+    S.mode = 'react'; S.call = null;
     renderFight();
     setTimeout(function () {
       S.busy = false;

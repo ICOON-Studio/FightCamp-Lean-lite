@@ -78,6 +78,7 @@ function maxStamina(stats) { return Math.round(86 + stats.stamina * 0.5); }
 function cardCost(side, cardId) {
   var cost = CARDS[cardId].cost * (1.26 - side.stats.stamina / 400);
   if (cardId === 'block' && side.mods && side.mods.block_discount) cost -= side.mods.block_discount;
+  if (cardId === 'step_back' && side.mods && side.mods.stepCheap) return 1;
   return Math.max(1, Math.round(cost));
 }
 function isHurt(side) { return side.head >= 40 || side.stamina <= 0; }
@@ -94,7 +95,7 @@ var Tell = TellModule({ CARDS: CARDS, SHAPES: DATA.SHAPES, SHAPE_LABEL: DATA.SHA
 var tellLabel = Tell.tellLabel, refreshTell = Tell.refreshTell, payForTell = Tell.payForTell, tellVisible = Tell.tellVisible;
 var Judge = JudgeModule({ JUDGES: JUDGES });
 var judgeRound = Judge.judgeRound, scoreRound = Judge.scoreRound, decision = Judge.decision;
-var Exchange = ExchangeModule({ CARDS: CARDS, CODE_FACTOR: CODE_FACTOR, FLIP: FLIP, RESOLUTION: RESOLUTION, REASONS: REASONS,
+var Exchange = ExchangeModule({ CARDS: CARDS, CODE_FACTOR: CODE_FACTOR, FLIP: FLIP, RESOLUTION: RESOLUTION, REASONS: REASONS, SHAPES: DATA.SHAPES,
   makeRng: makeRng, hashSeed: hashSeed, clamp: clamp, cardCost: cardCost, chooseAiCard: chooseAiCard, predictedCard: predictedCard,
   refreshTell: refreshTell, refill: refill, isHurt: isHurt,
   checkStoppage: function (f) { return checkStoppage(f); },
@@ -251,6 +252,11 @@ function aiCornerPick(game, key) {
   /* Two extra looks cost six wind, so only a corner that can afford it wants them. */
   if (has('change_plan')) scores.change_plan = side.stamina >= 10 && side.hand.length <= 3 ? 2.2 : 0.3;
   if (has('stool')) scores.stool = side.body >= 25 ? 4 : side.stamina < side.maxStamina * 0.5 ? 2.5 : 0.8;
+  /* Instructions: go downstairs when his tank is the target, box when hurt or behind on damage. */
+  var him = fight[otherKey(key)];
+  var bodyCards = side.deck.filter(function (id) { return id === 'body_hook'; }).length;
+  if (has('go_body')) scores.go_body = bodyCards >= 2 ? (him.stamina < him.maxStamina * 0.6 ? 4.5 : 3.2) : 0.6;
+  if (has('box_move')) scores.box_move = side.deck.indexOf('step_back') >= 0 && (side.style === 'out' || side.style === 'counter') ? (side.head >= 20 ? 4.2 : 2.6) : 0.7;
   if (has('study')) scores.study = key === 'player' && fight.scouting.known.length < fight.opponent.habits.length ? 3 : 0.2;
   var best = offer[0], bestScore = -Infinity;
   offer.forEach(function (id) { if (scores[id] > bestScore) { bestScore = scores[id]; best = id; } });
@@ -314,7 +320,7 @@ function endRound(game) {
   fight.foeCorner = cornerOffer(fight, 'opponent');
   fight.foeCornerPick = aiCornerPick(game, 'opponent');
   [fight.player, fight.opponent].forEach(function (side) {
-    side.mods = {}; side.round = { thrown: 0, landed: 0, damage: 0, kd: 0, deductions: 0, defence: 0, defencePoints: 0 }; side.clinchStreak = 0; side.opening = false; side.feint = false; side.catchUsed = false;
+    side.mods = {}; side.round = { thrown: 0, landed: 0, damage: 0, kd: 0, deductions: 0, defence: 0, defencePoints: 0 }; side.clinchStreak = 0; side.opening = false; side.feint = false; side.catchUsed = false; side.smother = 0;
   });
   fight.exchange = 0;
 }
@@ -345,15 +351,14 @@ function pickCorner(game, cardId) {
     refill(side, fight.shuffleRng, 5);
     side.lastTookClean = false; side.lastLandedClean = false; side.lastCard = null;
   });
-  /* Change the plan is a real corner: two extra looks cost six wind each. */
-  if (cardId === 'change_plan') fight.player.stamina = Math.max(0, fight.player.stamina - 6);
-  if (foeCardId === 'change_plan') fight.opponent.stamina = Math.max(0, fight.opponent.stamina - 6);
+  /* Change the plan costs the six wind printed on the card, once (round 3 charged it twice). */
   fight.corner = null;
   fight.round += 1;
   fight.exchange = 0;
   fight.phase = 'fight';
-  fight.range = 'mid';
-  fight.ropes = false;
+  /* Box and move: the round opens at range for the corner that asked for it. */
+  fight.range = fight.player.mods.startOut || fight.opponent.mods.startOut ? 'out' : 'mid';
+  fight.ropes = false; fight.ropesWho = null; fight.pressBy = null;
   fight.cutOffStreak = 0;
   fight.cutOffBy = null;
   fight.trap = null;

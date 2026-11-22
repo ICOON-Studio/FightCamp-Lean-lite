@@ -18,6 +18,9 @@ var makeRng = d.makeRng;
 var hashSeed = d.hashSeed;
 var clamp = d.clamp;
 var cardCost = d.cardCost;
+function reaches(card, range) {
+  return !card.ranges || card.ranges.indexOf(range) >= 0 || (range === 'ropes' && card.ranges.indexOf('inside') >= 0);
+}
 function contextOf(fight, key) {
   var me = fight[key], foe = fight[otherKey(key)];
   var lastOpp = foe.lastCard ? CARDS[foe.lastCard] : null;
@@ -32,7 +35,9 @@ function contextOf(fight, key) {
     foeLowStamina: foe.stamina < foe.maxStamina * 0.5,
     selfAhead: me.totals.damage > foe.totals.damage + 6,
     gassed: me.stamina < 5, combo: !!me.combo,
-    ropes: fight.range === 'ropes', catchUsed: !!me.catchUsed
+    ropes: fight.range === 'ropes', catchUsed: !!me.catchUsed,
+    pressing: fight.pressBy === key && !fight.ropes, onRopes: !!fight.ropes && fight.ropesWho === key,
+    foeOnRopes: !!fight.ropes && fight.ropesWho === otherKey(key)
   };
 }
 function whenMatches(when, ctx) {
@@ -122,13 +127,14 @@ function expectedSwing(cardId, foeWeights) {
   }
   return wsum ? mine / wsum : 0;
 }
+var HABIT_RATE = 0.7;
 function habitCard(side, ctx, rng) {
   for (var i = 0; i < side.habits.length; i++) {
     var h = HABITS[side.habits[i]];
     if (!h || !whenMatches(h.when, ctx)) continue;
     if (h.play === 'step_back' && ctx.ropes) continue;
     if (h.play === 'catch_breath' && ctx.catchUsed) continue;
-    if (side.hand.indexOf(h.play) >= 0 && rng.chance(0.7)) return h.play;
+    if (side.hand.indexOf(h.play) >= 0 && rng.chance(HABIT_RATE)) return h.play;
   }
   return null;
 }
@@ -137,13 +143,13 @@ function habitCard(side, ctx, rng) {
 function aiLegal(side, fight, key, id) {
   if (id === 'catch_breath' && side.catchUsed) return false;
   if (fight.ropes && id === 'step_back') return false;
-  if (id !== 'clinch' && CARDS[id].kind !== 'punch' && side.lastCard &&
+  if (id !== 'clinch' && id !== 'cut_off' && CARDS[id].kind !== 'punch' && side.lastCard &&
       CARDS[side.lastCard].kind !== 'punch' &&
       side.hand.some(function (x) { return CARDS[x].kind === 'punch'; })) return false;
   return true;
 }
 function aiCost(side, fight, key, id) {
-  var cost = cardCost(side, id) + ((CARDS[id].ranges && CARDS[id].ranges.indexOf(fight.range) >= 0) ? 0 : 1);
+  var cost = cardCost(side, id) + (reaches(CARDS[id], fight.range) ? 0 : 1);
   var trapped = fight.trap && fight.trap.who === key;
   if (trapped && (id === 'step_back' || id === 'pivot_out')) cost += 1;
   return cost;
@@ -158,7 +164,7 @@ function chooseStyleCard(fight, key) {
     var id = side.hand[i];
     if (!aiLegal(side, fight, key, id)) continue;
     var s = style.weights[id] || 1;
-    if (!CARDS[id].ranges || CARDS[id].ranges.indexOf(fight.range) < 0) s *= 0.72;
+    if (!reaches(CARDS[id], fight.range)) s *= 0.72;
     if (side.stamina < aiCost(side, fight, key, id)) s *= 0.55;
     if (s > bestScore) { bestScore = s; best = id; }
   }
@@ -214,17 +220,18 @@ function chooseAiCard(fight, key, publicOnly) {
     if (!aiLegal(side, fight, key, id)) continue;
     var s;
     if (key === 'player' && !publicOnly) {
-      var inRange = card.ranges && card.ranges.indexOf(fight.range) >= 0;
+      var inRange = reaches(card, fight.range);
       var affordable = side.stamina >= aiCost(side, fight, key, id);
       s = expectedSwing(id, foeWeights) * (inRange ? 1 : 0.62) * (affordable ? 1 : 0.6)
         + 0.015 * cardBaseValue(card);
       /* A feint is worth playing when a real punch is behind it. */
       if (id === 'feint') s += side.hand.some(function (x) { return CARDS[x].kind === 'punch' && CARDS[x].cost >= 6; }) ? 8.5 : -0.5;
+      if (id === 'pivot_out' && ctx.onRopes) s += 5;
       if (id === 'catch_breath') s += side.stamina < side.maxStamina * 0.7 ? 6 : 1;
       if (id === 'block') s += ctx.lastOppCard && CARDS[ctx.lastOppCard].kind === 'punch' && (CARDS[ctx.lastOppCard].dmg.head + CARDS[ctx.lastOppCard].dmg.body) >= 7 ? 1.1 : 0.4;
     } else {
       s = (style.weights[id] || 1) * clamp(0.62 + expectedSwing(id, foeWeights) / 10, 0.1, 2.4);
-      if (!card.ranges || card.ranges.indexOf(fight.range) < 0) s *= 0.6;
+      if (!reaches(card, fight.range)) s *= 0.6;
       for (var r = 0; r < SITUATION_RULES.length; r++) {
         var rule = SITUATION_RULES[r];
         if (rule.cards.indexOf(id) >= 0 && whenMatches(rule.when, ctx)) s *= rule.mul;
