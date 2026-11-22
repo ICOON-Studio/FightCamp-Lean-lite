@@ -46,3 +46,10 @@ taste.
 - **Kickboxing too (S538):** "also include kickboxing for the card game". A seventh art beside boxing, karate, judo, wrestling,
   BJJ, sambo (MMA = the meeting ground). Its own cards and mechanic, distinct from karate (karate: in-and-out point scoring
   from kick range; kickboxing: trading punch-kick combinations, leg kicks that wear movement, clinch knees, no takedowns).
+
+- **Progression and a different approach (S538):** "include ladders and championships etc , people love to see how they progress
+  in ladder and learn skills for fighters , take decisions on training , check if any other similar games exist out there if
+  we are missing something out or we could also take a different approach similars to expedition 33". So: the run between
+  bouts carries a LADDER and CHAMPIONSHIPS (rank shown, belts), fighters LEARN SKILLS (new cards / upgrades), and the player
+  makes TRAINING DECISIONS between bouts. A market check of similar games (what we miss), and Clair Obscur: Expedition 33's
+  approach (turn-based with real-time reactions: dodge/parry timing on the enemy's turn) weighed as an alternative form.

@@ -1,3 +1,20 @@
+S538 build (2026-11-23, night) - what changed, and what to try
+
+1. THE RESULT PAGE (your Q-303 + Q-304 "Yes, build them"): after a fight - portraits, the judges' cards as coloured blocks,
+   "why it was lost" as an icon and one headline, each round as up/down bars a exchange with both energy bars, the body
+   figure with head and body counts, the bottom row as icon tiles. Hover any tile or bar for its words; "More: the whole
+   read" opens everything in sentences.
+2. THE OFFICE (your Q-302 + the sheets idea): the dashboard has a GOALS panel - what the club has pending (days left) and
+   one row a fighter (what they want, on track / at risk, by when, what a miss costs). Hover a goal row for a tip.
+   The Fighters and Staff icons open sheets inside the desktop: click a heading to sort, Columns to choose, RIGHT-CLICK a
+   name for what you can do (greyed with the reason when you can't yet).
+3. THE PLAN CHART (your Q-301 "yes add those"): mark a line as the plan's MAIN BET (the result page's Plan tab says if it
+   paid); each line shows how often it fired and won last bout; SAVE a plan by name and LOAD it onto a boxer.
+   Your "repeat a combo and get read" idea: tested - the game already has it (an answer used more than twice in a round
+   pays 30% less), it is just not shown yet. Showing it is next.
+4. Small: the body report under the fight says "The legs went in round 3" (no names in the text); the training page's
+   diet hover is one line.
+Everything from S536 below is in this build too.
 S536 build (2026-11-21, late evening) - what changed, and what to try
 
 1. THE BOUT OFFER IS A LETTER (your Q-296 "Yes, build it"): open a bout offer - the host club's letter in the middle

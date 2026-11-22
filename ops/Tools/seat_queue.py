@@ -40,7 +40,10 @@ RESEARCH = ROOT / "research"
 GBOT_SEATS = {"john": "John Research", "kalli": "Kalli", "maria": "Maria Art Director"}
 SEATS = tuple(GBOT_SEATS) + ("dola",)
 MAX_TRIES = 6
-ANSWER_MIN_CHARS, QUIET_MIN, QUIET_MAX_MIN = 1500, 15, 60
+ANSWER_MIN_CHARS, QUIET_MAX_MIN = 1500, 60
+# S538 owner "why do we have to wait for that ?": a hand drain may take an answer after 3 quiet minutes (SEAT_QUIET_MIN=3);
+# the 30-min job keeps 15 so a long answer still streaming is never cut.
+QUIET_MIN = float(os.environ.get("SEAT_QUIET_MIN", "15"))
 GIVE_UP_H = 24
 _NO_WINDOW = getattr(subprocess, "CREATE_NO_WINDOW", 0)
 _DETACHED = 0x00000008 | 0x00000200  # DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP

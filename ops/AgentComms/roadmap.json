@@ -1,12 +1,12 @@
 {
  "_note": "SINGLE SOURCE OF TRUTH for the roadmap. The ops board reads this file directly and ROADMAP.md is GENERATED from it by Tools/render_roadmap.py. Do not hand-maintain a second copy anywhere - that is the defect R136/U62 named and it has cost this project eight times.",
- "updated": "2026-11-21",
+ "updated": "2026-11-23",
  "author": "claude S294",
  "now": {
-  "id": "S536",
+  "id": "S538",
   "owner": "claude",
-  "updated": "2026-11-22",
-  "summary": "S536 (Opus): Godot queue sped up on the owner's word (CPU line 92, 8 threads, 6 slots read live, newer waiters jump stuck old ones); his 9 review notes acted on (tape loses the film line + form edge; glove off the cheek + ring light for dark skin GLOVEFACE1; blue cross gaze FP2POSE1); offer letter built (OFFERBUILD1); weight r4 PASS -> critics 6/7/6 + 6/7/5 -> r5 running; turning pro v13 PASS 14/15 -> Arena critic; stance pad idea mocked up, probed (FAIL twice), merged into guard v8 (owner 'Yes, merge it'); card-game prototype (owner ask) on Arena with a Sonnet coordinator looping to 8 (r1 5/6 + 4/4, r2 merged #440, critics running); fighting deckbuilder demo read with REA and played on the hidden desktop; Higgsfield pilot (75 credits): straights usable, hooks/slips fail -> credits kept for card-game straights + trailer.",
+  "updated": "2026-11-23",
+  "summary": "S538 (Opus): credit ran out mid-session (log $160+ of $200; jobs moved to the owner's subscription, Code Mode tabs). Built from owner answers: result page v2 (Q-303/304, RESULTV2 4497f9201), office Goals panel + Fighters/Staff sheets with right-click (Q-302/304, OFFICEV2 b4abaff50), plan chart main bet / uses / save-load (Q-301, PLANFLOW2 1b2976832). Repeat-read probe FAIL: the rule exists silently (PlanRead ADJUST) -> PLANREADSHOW1 shows it. Measured: misread real +12.1% (share stays 0.5); coach hire FAIL -> CoachMarket+CoachFit removed; card round 4 FAIL 5/7 (wind beats limb points). Critics: knowledge v6 Dola 7/7/8, Kalli 6/4/5 (rebuild; Q-305 rival deadline). Card game: owner adds kickboxing, ladders/championships, skills, training; John+Dola market research (Cagebound closest; E33 timing as an optional guard bonus). Cross CLOSED as shipped (C476). Nightly reds: tips/words fixed, 3 animation reds -> MOTIONRULERS1.",
   "next_action": "S538: do ops/AgentComms/RESUME_AFTER_RESTART_S537.md (TURNPRO15, NIGHTFIX537, CARDREF2 -> CARDSCOPE4 on the API credit via sdk_run.py), then the 11 Up next items in BOARD_TRIAGE order; ActionForge exports for the other punch takes.",
   "last_working_commit": "0cc0a6a25",
   "verified_playable": "S536 build exported 22:12 (offer letter + tape) and again at the handover (glove, ring light, gaze); not yet played by the owner.",
@@ -2318,6 +2318,11 @@
    "id": "S537",
    "date": "2026-11-22",
    "summary": "Credit jobs via Agent SDK (claude -p billed the subscription); knee bend = our foot pin + glove stage (off), owner picked ActionForge's legs (shipped); card game scope rounds 1-3 + owner interview + reference games read; guard v9 + DEPTH35 dropped; board 49 -> 11; STEPPAY3/DMGFIX merged; weight choices cut."
+  },
+  {
+   "id": "S538",
+   "date": "2026-11-22/23",
+   "summary": "Result page v2, office goals + sheets, plan chart bet/uses/save-load built from owner answers; credit ran out -> Code Mode tabs on the subscription; coach modules removed (probe FAIL); misread sized; card game: kickboxing, ladders/training asked, market research by John/Dola; cross closed as shipped."
   }
  ],
  "blocked_on_operator": [],
@@ -5236,7 +5241,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-22 00:11 board_sync",
+  "updated": "2026-11-23 00:11 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5387,59 +5392,28 @@
   },
   "working_now": [
    {
-    "title": "Footwork: the place pays (done), the right step costs no exchange, re-gate 10 steps",
+    "title": "Turning pro v15: fix the favour, card honesty, name-chaser bars",
     "who": "claude-fable",
-    "started": "2026-11-21",
-    "run": "STEPPAY2"
+    "started": "2026-11-22T23:35",
+    "run": "TURNPRO15"
    },
    {
-    "title": "3D fight: arms and shoulders follow Strength (your Q-290)",
+    "title": "Card game round 5: seven arts play differently, readable holds",
     "who": "claude-fable",
-    "started": "2026-11-21T15:20",
-    "run": "ARMBUILD1",
-    "state": "LANDED - Claude collects"
+    "started": "2026-11-22T23:35",
+    "run": "CARDSCOPE5"
    },
    {
-    "title": "Repaint 152 bodies with athletic arms (Ludo)",
-    "who": "ludo",
-    "started": "2026-11-21T15:20",
-    "run": "ARMPAINT1",
-    "state": "LANDED - Claude collects"
+    "title": "Footwork: the wrong style punishes the step",
+    "who": "claude-fable",
+    "started": "2026-11-22T23:35",
+    "run": "STEPPAY4"
    },
    {
-    "title": "Probe turning pro v11 before critics",
+    "title": "Contract tab: keep / cut stipend / release probe",
     "who": "claude-fable",
-    "started": "2026-11-21T15:35",
-    "run": "TURNPROBE11",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "Price the solved fight-night choices (probe)",
-    "who": "claude-fable",
-    "started": "2026-11-21T15:35",
-    "run": "DEPTHPRICE1A",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "Price the solved club choices (probe)",
-    "who": "claude-fable",
-    "started": "2026-11-21T15:35",
-    "run": "DEPTHPRICE1B",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "Probe guard v6: Hands before settle",
-    "who": "claude-fable",
-    "started": "2026-11-21T15:35",
-    "run": "GUARDPROBE6",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "Be wrong about people: a shared misread (build)",
-    "who": "claude-fable",
-    "started": "2026-11-21T15:35",
-    "run": "KNOWMISREAD1",
-    "state": "LANDED - Claude collects"
+    "started": "2026-11-22T23:35",
+    "run": "LEDGERPROBE1"
    }
   ],
   "next": [
@@ -5809,166 +5783,94 @@
   },
   "done_recently": [
    {
-    "id": "STEPPAY3",
+    "title": "Card round 4: wind pool beats limb points",
     "who": "claude",
-    "title": "DONE: Footwork: give the five steps with no moment a moment (step in, step out, herd, roll out, push off)",
-    "after": "STEPPAY2"
+    "done": "2026-11-23"
    },
    {
-    "id": "BODYTEX2",
-    "who": "claude-fable",
-    "title": "DONE: Bodies phase 2: every body gets Epic's muscle-detail skin (boxer 13 already reads athletic, 11 is smooth) + more muscularity on the smooth b",
-    "after": "Q-S294-295"
-   },
-   {
-    "id": "OFFERTAPE1",
-    "who": "claude-fable",
-    "title": "DONE: Your notes C448/C449: the bout offer becomes a decision screen (mockup first), the tale of the tape gets Last 5 + streak - starts when a con",
-    "after": "a free console"
-   },
-   {
-    "id": "GLOVEFACE1",
-    "who": "claude-fable",
-    "title": "DONE: Your note C447 'is the glove normal looking ?': the guard glove sinks into the cheek and reads tall and narrow side-on, the cuff like a tube",
-    "after": "MHCORR2"
-   },
-   {
-    "id": "DMGCLASS2",
+    "title": "Being wrong about people: sized (+12%)",
     "who": "claude",
-    "title": "DONE: Damage classes (S535 FREE HAND decision): not its own mechanic (class is never a choice, critics 6/5) - merged into turning pro as 'pick you",
-    "after": "DEPTH1 probes"
+    "done": "2026-11-23"
    },
    {
-    "id": "TURNPRO6",
+    "title": "Coach hire probed: FAIL, unused coach modules removed",
     "who": "claude",
-    "title": "DONE: Pro debut gaps DONE S533 (docs/TURNPRO6_RESULT.md): TURNGAP1 was 1 boxer on 3 fight nights; the read fixed (walks the 4 rounds, the corner c",
-    "after": ""
+    "done": "2026-11-23"
    },
    {
-    "id": "DEBUTPICK1",
+    "title": "Plan chart: main bet, uses, save/load (your Q-301)",
     "who": "claude",
-    "title": "DONE: Debut opponent picked to each boxer DONE S533 (docs/DEBUTPICK1_RESULT.md, owner Q-286): each promoter aims at a win chance (Bow Lane 60 in 1",
-    "after": ""
+    "done": "2026-11-23"
    },
    {
-    "id": "GYMMONEY1",
+    "title": "Office goals + sheets with right-click (your Q-304)",
     "who": "claude",
-    "title": "DONE: Careful gym grows (owner Q-277, Q-278 \"Yes, build the loan\"): fit-out loan BUILT S531 - Move / Move on a loan ($3,000 down, $750 a month x 1",
-    "after": ""
+    "done": "2026-11-23"
    },
    {
-    "id": "LADDER1",
-    "who": "kalli",
-    "title": "DONE: Season ladder v6: stages 1-3 BUILT and probed (S516-S518: points table, idle clock, season ends 1 Jan with the final table on World > Rankin",
-    "after": ""
-   },
-   {
-    "id": "INTEGRATE1",
+    "title": "Result page v2 built (your Q-304)",
     "who": "claude",
-    "title": "DONE: Integrate built mechanics: BJJ mat plan lines + receipt + season book DONE S516; next per COACHFIT1 the coached mornings",
-    "after": ""
+    "done": "2026-11-23"
    },
    {
-    "id": "LIVERRIBS1",
-    "who": "claude",
-    "title": "DONE: Liver vs ribs: crack card + cracked side's guard (S471), Aim labels Liver!/Ribs! (S475); S476 decided no plan-level aim (live shout only), t",
-    "after": ""
+    "title": "Build the result page v2 (approved mockup)",
+    "who": "claude-fable (API credit, sdk_run.py)",
+    "when": "2026-11-23"
    },
    {
-    "id": "TRAINGAME2",
-    "who": "claude",
-    "title": "DONE: Training K: v2 (Kalli, S488) at two fresh critics, Dola SQ179 + Maria SQ180; his board only at 6+ depth and general",
-    "after": ""
+    "title": "Plan chart: main bet, uses, save/load + repeat-read probe",
+    "who": "claude-fable (API credit, sdk_run.py)",
+    "when": "2026-11-23"
    },
    {
-    "id": "TRAINSCENE1",
-    "who": "claude",
-    "title": "DONE: Training as its own scene, opened from the gym floor's bag area (his Q-S294-217 + S457 'wire it on the gym floor training area'); profile ta",
-    "after": "FOUNDATION"
-   },
-   {
-    "id": "FOUNDATION",
-    "who": "claude",
-    "title": "DONE: Step 0: twelve foundation fixes in today's code (rest drains Stamina, ceilings, Cardio average, no-camp Tank, punch start, stop odds, ...)",
-    "after": "CORELOOP"
-   },
-   {
-    "id": "LOOK2",
-    "who": "claude",
-    "title": "DONE: The matched look: Ludo painted both pages (3 each, on the review board); his pick is Q-185, then one Cursor task a page",
-    "after": "next session"
-   },
-   {
-    "id": "AMATEURWEEK1",
-    "who": "claude",
-    "title": "DONE: Fight week: map v4 at critics (SQ60/62); then FIGHTWEEKPROBE3 (season) and build",
-    "after": ""
-   },
-   {
-    "id": "BARGUARD1",
-    "who": "grok",
-    "title": "DONE: Feet stay above the corner bar while a shot holds, even at the lens",
-    "after": "HALOSWEEP1"
-   },
-   {
-    "title": "Card game round 1 critics: Arena code-checked + Kalli chat (SQ284)",
-    "who": "arena",
+    "title": "Build office goals + sheets with right-click (approved)",
+    "who": "claude-fable (API credit, sdk_run.py)",
     "when": "2026-11-22"
    },
    {
-    "title": "Footwork: all ten steps re-gated, the debut read follows the place (STEPPAY2 phases 3-4; no step number changed)",
-    "who": "fable",
-    "when": "2026-11-21"
+    "title": "Card game scope 4: six martial arts, limb points tested",
+    "who": "claude-fable (API credit, sdk_run.py)",
+    "when": "2026-11-22"
    },
    {
-    "title": "Arena code-checked critic: guard damage map v6",
-    "who": "arena",
-    "when": "2026-11-21"
+    "title": "Coach hire: a real choice? probe, then wire or delete",
+    "who": "claude-fable (API credit, sdk_run.py)",
+    "when": "2026-11-22"
    },
    {
-    "title": "John critic: guard damage map v6",
-    "who": "john",
-    "when": "2026-11-21"
+    "title": "Knowledge stakes map v6 (measured), then critics",
+    "who": "claude-fable (API credit, sdk_run.py)",
+    "when": "2026-11-22"
    },
    {
-    "title": "Kalli critic: guard damage map v6",
-    "who": "kalli",
-    "when": "2026-11-21"
+    "title": "Mockups: result page v2 + office goals panel",
+    "who": "claude-fable (API credit, sdk_run.py)",
+    "when": "2026-11-22"
    },
    {
-    "title": "Kalli critic: turning pro map v10",
-    "who": "kalli",
-    "when": "2026-11-21"
+    "title": "Be wrong about people: size it on a sharper ruler",
+    "who": "claude-fable (API credit, sdk_run.py)",
+    "when": "2026-11-22"
    },
    {
-    "title": "John critic: turning pro map v10",
-    "who": "john",
-    "when": "2026-11-21"
+    "title": "Card game: martial arts, limb points, animation sources (read)",
+    "who": "claude-fable (API credit, sdk_run.py)",
+    "when": "2026-11-22"
    },
    {
-    "title": "Tooltips: short cards and a new card design (TIPFIX1-3 + reach-10 redesign)",
-    "who": "grokdev",
-    "when": "2026-11-21"
+    "title": "Fix the five nightly red tests",
+    "who": "claude-fable (API credit, sdk_run.py)",
+    "when": "2026-11-22"
    },
    {
-    "title": "Guide as the coach's clipboard (his pick C)",
-    "who": "claude",
-    "when": "2026-11-21"
+    "title": "Be wrong about people: a shared misread (build)",
+    "who": "claude-fable",
+    "when": "2026-11-22"
    },
    {
-    "title": "Three coaching moments built: visit, corner's eye, coach's read (P4PBUILD1)",
-    "who": "fable",
-    "when": "2026-11-21"
-   },
-   {
-    "title": "Pro debut: opponent picked to each boxer (DEBUTPICK1, his Q-286)",
-    "who": "fable",
-    "when": "2026-11-21"
-   },
-   {
-    "title": "Pro debut win read fixed, gaps set (TURNPRO6)",
-    "who": "fable",
-    "when": "2026-11-21"
+    "title": "Probe guard v6: Hands before settle",
+    "who": "claude-fable",
+    "when": "2026-11-22"
    }
   ],
   "scope_note": "S294: lean restart (E:\\FightCamp\\Lean\\docs\\RESTART_PLAN.md). Old roadmap items are parked until the weekly builds reach them.",
@@ -6057,6 +5959,30 @@
   "map": {
    "done_earlier": [
     {
+     "text": "Tape grey bar: not reproduced",
+     "who": "claude"
+    },
+    {
+     "text": "Cross legs: heel up (6/10)",
+     "who": "claude"
+    },
+    {
+     "text": "Knee with hips + longer stance",
+     "who": "claude"
+    },
+    {
+     "text": "Weight r5: FAIL",
+     "who": "claude"
+    },
+    {
+     "text": "Hip drive on power punches",
+     "who": "claude"
+    },
+    {
+     "text": "S537: knee fixed, AF legs",
+     "who": "claude"
+    },
+    {
      "text": "Godot: 92% CPU, 8 threads, 6 slots",
      "who": "claude"
     },
@@ -6087,55 +6013,31 @@
     {
      "text": "Weight probe 4 PASS",
      "who": "claude"
-    },
-    {
-     "text": "Turning pro v13 PASS",
-     "who": "claude"
-    },
-    {
-     "text": "Stance mockup -> guard v8",
-     "who": "claude"
-    },
-    {
-     "text": "Card game r1+r2 merged",
-     "who": "claude"
-    },
-    {
-     "text": "Deckbuilder demo studied",
-     "who": "claude"
-    },
-    {
-     "text": "Higgsfield pilot (75 cr)",
-     "who": "claude"
-    },
-    {
-     "text": "Wrong about people: misread",
-     "who": "claude"
     }
    ],
    "done_session": [
     {
-     "text": "Tape grey bar: not reproduced",
+     "text": "Result page v2 built",
      "who": "claude"
     },
     {
-     "text": "Cross legs: heel up (6/10)",
+     "text": "Office goals + sheets built",
      "who": "claude"
     },
     {
-     "text": "Knee with hips + longer stance",
+     "text": "Plan chart: bet, uses, save",
      "who": "claude"
     },
     {
-     "text": "Weight r5: FAIL",
+     "text": "Coach hire: FAIL, removed",
      "who": "claude"
     },
     {
-     "text": "Hip drive on power punches",
+     "text": "Misread sized: +12%",
      "who": "claude"
     },
     {
-     "text": "S537: knee fixed, AF legs",
+     "text": "Card r4: wind beats limbs",
      "who": "claude"
     }
    ],
@@ -6485,15 +6387,27 @@
     {
      "text": "Card scope 4: six arts",
      "who": "claude"
+    },
+    {
+     "text": "Card r6: ladder, training, E33",
+     "who": "claude"
+    },
+    {
+     "text": "Show 'opponents adjust'",
+     "who": "claude"
+    },
+    {
+     "text": "Knowledge v7 (Kalli+Dola)",
+     "who": "claude"
     }
    ],
-   "session": "S537"
+   "session": "S538"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
  "last_working_commit": "42feebb38",
- "next_action": "S534: quote the METHOD lines. 1) Collect STEPPAY2 phases 3-4 (Fable session, its own commits) and check it fixed debut_read_test (Lucy gap -2 read 0.618 vs played 0.553 since PlaceEdge - BoutRead must be recalibrated to the final exchange rules). 2) Collect Grok Dev LOANPROBE1 (60 careers per arm, fit-out loan verdict). 3) Guard v5 critics: Kalli SQ270 sent, Dola SQ269 (app was closed; retries every 30 min); both 7+ -> build plan, else v6 from code. 4) Arena (after its 14:25 reset): DMGCLASS v2 code-checked critic (Goose failed #433; split Dola 9/9 vs Kalli 6/6/5). 5) Turning pro v10 map from the code (John 6/6/7, Dola 7/8/7 on v9; the debut pick changed the offer). 6) The owner plays the S533 build: act on his notes.",
+ "next_action": "S539: collect TURNPRO15, CARDSCOPE5 (7 arts), STEPPAY4 (worktree s538_steppay4), LEDGERPROBE1 if they landed (else relaunch in Code Mode tabs); launch PLANREADSHOW1; CARDSCOPE6 = round 5 result + JOHN_CARDGAME_MARKET_S538_JOHN.md (ladder, positions, training turn, rivals, optional E33 timing probe); KNOW_STAKES1 v7 from Kalli+Dola lists after Q-305; owner Q-305 rival deadline.",
  "next_acceptance": "Rulers vs r0: head jumps on the contact frame under 4, a head inside the other's body under 5 frames, arm out median under 4 frames with join_return green, then r1 film at two fresh blind critics 5+/10",
  "superseded_archive": [
   {
