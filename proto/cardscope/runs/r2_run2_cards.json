@@ -1,0 +1,126 @@
+{
+ "population": "neutral 12-card deck + 2 copies of one card v each opponent boxer, reader, 3000 bouts a cell",
+ "matrix": {
+  "Jab": {
+   "out": 19.1,
+   "press": 41.6,
+   "counter": 59.3,
+   "volume": 12.5
+  },
+  "Body jab": {
+   "out": 40,
+   "press": 58.2,
+   "counter": 75.3,
+   "volume": 29.6
+  },
+  "Cross": {
+   "out": 19.2,
+   "press": 36.9,
+   "counter": 58.4,
+   "volume": 10.6
+  },
+  "Lead hook": {
+   "out": 30.4,
+   "press": 41.8,
+   "counter": 67,
+   "volume": 13.1
+  },
+  "Body hook": {
+   "out": 50.5,
+   "press": 43.5,
+   "counter": 83.3,
+   "volume": 18.1
+  },
+  "Uppercut": {
+   "out": 24.1,
+   "press": 32.6,
+   "counter": 62.5,
+   "volume": 9.5
+  },
+  "Cross counter": {
+   "out": 26.4,
+   "press": 26.5,
+   "counter": 58.9,
+   "volume": 6.9
+  },
+  "Block high": {
+   "out": 12,
+   "press": 24,
+   "counter": 33.3,
+   "volume": 6.4
+  },
+  "Slip": {
+   "out": 14,
+   "press": 16.6,
+   "counter": 29,
+   "volume": 6.4
+  },
+  "Roll": {
+   "out": 10.1,
+   "press": 27,
+   "counter": 34,
+   "volume": 6.3
+  },
+  "Step back": {
+   "out": 9.1,
+   "press": 22.9,
+   "counter": 31.1,
+   "volume": 5.1
+  },
+  "Tie up": {
+   "out": 22.6,
+   "press": 35.2,
+   "counter": 45.8,
+   "volume": 15.3
+  },
+  "Feint": {
+   "out": 9.2,
+   "press": 18.1,
+   "counter": 30.8,
+   "volume": 4.6
+  },
+  "Check hook": {
+   "out": 71.1,
+   "press": 46.8,
+   "counter": 81.2,
+   "volume": 34.7
+  }
+ },
+ "base": {
+  "out": 20.5,
+  "press": 38.3,
+  "counter": 56.4,
+  "volume": 10.5
+ },
+ "run": {
+  "runs": 1200,
+  "arms": {
+   "informed": {
+    "wins": 6009,
+    "bouts": 8969
+   },
+   "random": {
+    "wins": 4990,
+    "bouts": 8333
+   },
+   "noPick": {
+    "wins": 4834,
+    "bouts": 8277
+   }
+  },
+  "winsPerRun": {
+   "informed": 5.01,
+   "random": 4.16,
+   "noPick": 4.03
+  },
+  "winPct": {
+   "informed": 67,
+   "random": 59.9,
+   "noPick": 58.4
+  },
+  "wideOffersPerRun": 7.23,
+  "offersPerRun": 7.47,
+  "bestChangesWithOpponentPct": 31.2
+ },
+ "seconds": 1201
+}

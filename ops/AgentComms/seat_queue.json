@@ -4258,21 +4258,28 @@
    "seat": "dola",
    "brief": "research/CARDPROTO3_CRITIC_KALLI.md",
    "stem": "CARDPROTO3_CRITIC_KALLI_DOLA",
-   "status": "sent",
+   "status": "answered",
    "queued_at": "2026-11-22 15:35",
    "tries": 0,
    "sent_at": "2026-11-22 16:40",
    "pid": 268876,
-   "transcript": "AgentComms/seat_logs/SQ291_dola.txt"
+   "transcript": "AgentComms/seat_logs/SQ291_dola.txt",
+   "answered_at": "2026-11-22 17:10",
+   "answer": "research/CARDPROTO3_CRITIC_KALLI_DOLA.md"
   },
   {
    "id": "SQ292",
    "seat": "kalli",
    "brief": "research/CARDPROTO4_CRITIC_KALLI.md",
    "stem": "CARDPROTO4_CRITIC_KALLI_KALLI",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-22 16:00",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-22 17:10",
+   "sent_ms": 1795360227250,
+   "answered_at": "2026-11-22 17:40",
+   "answer": "research/CARDPROTO4_CRITIC_KALLI_KALLI.md",
+   "chars": 10924
   },
   {
    "id": "SQ293",
@@ -4281,6 +4288,17 @@
    "stem": "CARDSCOPE1_CRITIC_KALLI_KALLI",
    "status": "queued",
    "queued_at": "2026-11-22 16:57",
+   "tries": 0,
+   "skips": 1,
+   "last_error": "2026-11-22 18:10 gbot send rc=1: ['GROKBOT FAIL SendGrokBotUserMessage 400 {\"code\":\"invalid_argument\",\"message\":\"Error\",\"details\":[{\"type\":\"aiserver.v1.ErrorDetails\",\"debug\":{\"error\":\"ERROR_BAD_REQUEST\",\"details\":{\"title\":\"Bad Request\",\"detail\":\"text exceeds the maximum leng']"
+  },
+  {
+   "id": "SQ294",
+   "seat": "kalli",
+   "brief": "research/CARDSCOPE2_CRITIC_KALLI.md",
+   "stem": "CARDSCOPE2_CRITIC_KALLI_KALLI",
+   "status": "queued",
+   "queued_at": "2026-11-22 18:13",
    "tries": 0
   }
  ]

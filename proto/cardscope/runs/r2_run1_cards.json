@@ -1,0 +1,126 @@
+{
+ "population": "neutral 12-card deck + 2 copies of one card v each opponent boxer, reader, 3000 bouts a cell",
+ "matrix": {
+  "Jab": {
+   "out": 37.2,
+   "press": 18.3,
+   "counter": 64.7,
+   "volume": 22.5
+  },
+  "Body jab": {
+   "out": 62.1,
+   "press": 30.8,
+   "counter": 73.1,
+   "volume": 36.1
+  },
+  "Cross": {
+   "out": 42.7,
+   "press": 17,
+   "counter": 68.8,
+   "volume": 19.7
+  },
+  "Lead hook": {
+   "out": 50.8,
+   "press": 19.3,
+   "counter": 73.1,
+   "volume": 26.1
+  },
+  "Body hook": {
+   "out": 90.8,
+   "press": 46.5,
+   "counter": 88.5,
+   "volume": 55.8
+  },
+  "Uppercut": {
+   "out": 54.9,
+   "press": 15.5,
+   "counter": 73.6,
+   "volume": 23.3
+  },
+  "Cross counter": {
+   "out": 45.9,
+   "press": 7.8,
+   "counter": 62.3,
+   "volume": 14.5
+  },
+  "Block high": {
+   "out": 23.2,
+   "press": 9.6,
+   "counter": 39.6,
+   "volume": 13
+  },
+  "Slip": {
+   "out": 28.7,
+   "press": 6,
+   "counter": 35,
+   "volume": 12.6
+  },
+  "Roll": {
+   "out": 22.1,
+   "press": 11.4,
+   "counter": 39.8,
+   "volume": 12.3
+  },
+  "Step back": {
+   "out": 20.5,
+   "press": 8.3,
+   "counter": 37.7,
+   "volume": 11.1
+  },
+  "Tie up": {
+   "out": 36.5,
+   "press": 17.2,
+   "counter": 51.3,
+   "volume": 24.6
+  },
+  "Feint": {
+   "out": 20.8,
+   "press": 7,
+   "counter": 37.3,
+   "volume": 10.5
+  },
+  "Check hook": {
+   "out": 84,
+   "press": 19.4,
+   "counter": 83.8,
+   "volume": 41.7
+  }
+ },
+ "base": {
+  "out": 43.6,
+  "press": 19.1,
+  "counter": 64,
+  "volume": 24.2
+ },
+ "run": {
+  "runs": 1200,
+  "arms": {
+   "informed": {
+    "wins": 6564,
+    "bouts": 9215
+   },
+   "random": {
+    "wins": 5303,
+    "bouts": 8536
+   },
+   "noPick": {
+    "wins": 5365,
+    "bouts": 8661
+   }
+  },
+  "winsPerRun": {
+   "informed": 5.47,
+   "random": 4.42,
+   "noPick": 4.47
+  },
+  "winPct": {
+   "informed": 71.2,
+   "random": 62.1,
+   "noPick": 61.9
+  },
+  "wideOffersPerRun": 7.34,
+  "offersPerRun": 7.68,
+  "bestChangesWithOpponentPct": 28.6
+ },
+ "seconds": 1136
+}

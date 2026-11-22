@@ -1,11 +1,12 @@
-// CARDSCOPE1 greybox - the measurements. node proto/cardscope/probe.mjs <ladder|info|cards|report|time> [scale]
+// CARDSCOPE greybox (round 2) - the measurements. node proto/cardscope/probe.mjs <fixed|ladder|info|cards|breaker|report|time> [scale]
 // Population (named in every output): 4 player boxers x 4 opponent boxers from other clubs, one of each style, all
 // different in cards and numbers; opponent class "regional" (tier 3) unless a block says otherwise.
 import fs from 'node:fs';
-import { NCODES, NAME, CARDS, PLAYERS, OPPONENTS, BASE_PLAYER, BLOCK, TIERS } from './cards.mjs';
+import { NCODES, NAME, CARDS, PLAYERS, OPPONENTS, BASE_PLAYER, BLOCK, JAB, EMPTY, TIERS, deckLegal } from './cards.mjs';
 import { playBout } from './bout.mjs';
 import { rng } from './rules.mjs';
 import { randomBot, fixedBot, greedyBot, readerBot, allSeeingBot } from './bots.mjs';
+import { beginnerBot, tableBot } from './bots2.mjs';
 
 const OUT = new URL('./out/', import.meta.url);
 fs.mkdirSync(OUT, { recursive: true });
@@ -17,13 +18,18 @@ const scale = Number(process.argv[3] || 1);
 // Play `per` bouts on each of the 16 pairs. mk(seed) makes the bot.
 export function field(mk, per, opts = {}, seed0 = 1000) {
   const a = { n: 0, win: 0, stop: 0, stopR1: 0, kd: 0, ex: 0, noLand: 0, blank: 0, beats: 0, oneSided: 0, split: 0, pts: 0, late: 0,
-    plays: new Array(NCODES).fill(0), corners: { water: 0, ice: 0, eyes: 0 }, pair: {} };
+    plays: new Array(NCODES).fill(0), corners: { water: 0, ice: 0, eyes: 0 }, pair: {}, oppTired: 0, dmgP: 0, dmgO: 0, leadsP: 0, trapsP: 0,
+    hisHid: [0, 0, 0, 0], ansHid: [0, 0, 0, 0, 0], hisLeads: 0, habitLeads: 0, winsHitMore: 0, flipOn: 0, flipDiff: 0 };
   let s = seed0;
   for (const p of PLAYERS) for (const o of OPPONENTS) {
     let w = 0;
     for (let i = 0; i < per; i++) {
       s++;
-      const st = playBout(p, o, mk(s), { ...opts, seed: s });
+      const bot = mk(s), st = playBout(p, o, bot, { ...opts, seed: s });
+      a.oppTired += st.oppTired; a.dmgP += st.dmgP; a.dmgO += st.dmgO; a.leadsP += st.leadsP; a.trapsP += st.trapsP; a.hisLeads += st.hisLeads;
+      a.habitLeads += st.habitLeads; if (st.win && st.headP > st.headO) a.winsHitMore++;
+      for (let k = 0; k < 4; k++) a.hisHid[k] += st.hisHid[k]; for (let k = 0; k < 5; k++) a.ansHid[k] += st.ansHid[k];
+      if (bot.stat) { a.flipOn += bot.stat.applies; a.flipDiff += bot.stat.differs; }
       a.n++; a.win += st.win; w += st.win;
       if (st.method === 'stop') { a.stop++; if (st.stopRound === 1) a.stopR1++; } else { a.pts++; a.split += st.split; }
       a.kd += st.kdP + st.kdO; a.ex += st.exchanges; a.noLand += st.noLand; a.blank += st.blankBeats; a.beats += st.beats;
@@ -37,31 +43,44 @@ export function field(mk, per, opts = {}, seed0 = 1000) {
   return a;
 }
 
-function ladder() {
-  const t0 = Date.now(), per = Math.round(250 * scale);
-  // the best fixed line: every pattern of three cards, screened, then the best re-measured on fresh seeds
+// The best fixed line: every pattern of three cards, screened, then the best re-measured on fresh seeds with each
+// choice of face-down beat for its own leads.
+function fixed() {
+  const t0 = Date.now();
   const pats = [];
   for (let a = 0; a < NCODES; a++) for (let b = 0; b < NCODES; b++) for (let c = 0; c < NCODES; c++) pats.push([a, b, c]);
-  let scored = pats.map((p) => ({ p, w: field(() => fixedBot(p), 3, {}, 5000).winPct }));
+  let scored = pats.map((p) => ({ p, h: 2, w: field(() => fixedBot(p), 3, {}, 5000).winPct }));
   scored.sort((x, y) => y.w - x.w);
-  scored = scored.slice(0, 40).map((x) => ({ p: x.p, w: field(() => fixedBot(x.p), 30, {}, 9000).winPct }));
+  scored = scored.slice(0, 40).map((x) => ({ p: x.p, h: 2, w: field(() => fixedBot(x.p), 30, {}, 9000).winPct }));
   scored.sort((x, y) => y.w - x.w);
-  scored = scored.slice(0, 6).map((x) => ({ p: x.p, w: field(() => fixedBot(x.p), 200, {}, 20000).winPct }));
-  scored.sort((x, y) => y.w - x.w);
-  const bestPat = scored[0].p;
-  const res = { population: '4 player boxers x 4 opponents (16 pairs), regional class, ' + per + ' bouts a pair',
-    bestFixed: bestPat.map((c) => NAME[c]), top6: scored.map((x) => ({ line: x.p.map((c) => NAME[c]).join(' / '), win: x.w })) };
+  const six = [];
+  for (const x of scored.slice(0, 6)) for (const h of [0, 1, 2]) six.push({ p: x.p, h, w: field(() => fixedBot(x.p, h), Math.round(100 * scale), {}, 20000).winPct });
+  six.sort((x, y) => y.w - x.w);
+  const best = six[0], per = Math.round(250 * scale);
+  const res = { bestFixed: best.p.map((c) => NAME[c]), hideAt: best.h + 1, top6: six.slice(0, 6).map((x) => ({ line: x.p.map((c) => NAME[c]).join(' / ') + ' (hides beat ' + (x.h + 1) + ')', win: x.w })) };
+  res.fixed = field(() => fixedBot(best.p, best.h), per, {}, 50000);
+  res.fixedNoAdapt = field(() => fixedBot(best.p, best.h), per, { tierOver: { adapt: 0 } }, 50000);
   res.random = field((s) => randomBot(s), per);
-  res.fixed = field(() => fixedBot(bestPat), per, {}, 50000);
-  res.fixedNoAdapt = field(() => fixedBot(bestPat), per, { tierOver: { adapt: 0 } }, 50000);
+  res.seconds = Math.round((Date.now() - t0) / 1000);
+  save('fixed', res);
+  console.log('fixed done', res.seconds, 's', res.bestFixed.join(' / '), res.fixed.winPct, 'random', res.random.winPct);
+}
+
+function ladder() {
+  const t0 = Date.now(), per = Math.round(250 * scale);
+  const res = { population: '4 player boxers x 4 opponents (16 pairs), regional class, ' + per + ' bouts a pair' };
   res.greedy = field((s) => greedyBot(s), per);
   res.reader = field((s) => readerBot({ seed: s }), per);
   res.allSeeing = field((s) => allSeeingBot(s), per);
-  res.stubborn = field((s) => readerBot({ seed: s, hiddenAnswer: BLOCK }), per);
-  res.stubbornNoAdapt = field((s) => readerBot({ seed: s, hiddenAnswer: BLOCK }), per, { tierOver: { adapt: 0 } });
+  res.beginner = field(() => beginnerBot(), per);
+  res.table = field(() => tableBot(), per);
+  // the reader forced to one answer against every face-down card
+  res.forced = {};
+  for (const [nm, code] of [['block', BLOCK], ['jab', JAB], ['punch', -2], ['empty', EMPTY]]) res.forced[nm] = field((s) => readerBot({ seed: s, hiddenAnswer: code }), per).winPct;
+  res.stubbornNoAdapt = field((s) => readerBot({ seed: s, hiddenAnswer: BLOCK }), per, { tierOver: { adapt: 0 } }).winPct;
   res.seconds = Math.round((Date.now() - t0) / 1000);
   save('ladder', res);
-  console.log('ladder done', res.seconds, 's', res.random.winPct, res.fixed.winPct, res.greedy.winPct, res.reader.winPct, res.allSeeing.winPct);
+  console.log('ladder done', res.seconds, 's', res.greedy.winPct, res.reader.winPct, res.allSeeing.winPct, res.beginner.winPct, res.table.winPct);
 }
 
 function info() {
@@ -75,10 +94,13 @@ function info() {
   res.tiers = {};
   for (const tier of [1, 2, 3, 4, 5]) {
     res.tiers[tier] = { name: TIERS[tier].name,
-      greedy: field((s) => greedyBot(s), per, { tier }).winPct, reader: field((s) => readerBot({ seed: s }), per, { tier }).winPct };
+      greedy: field((s) => greedyBot(s), per, { tier }).winPct, reader: field((s) => readerBot({ seed: s }), per, { tier }).winPct,
+      beginner: field(() => beginnerBot(), per * 2, { tier }).winPct, table: field(() => tableBot(), per, { tier }).winPct };
   }
   const big = per * 2;
-  res.read = { full: field((s) => readerBot({ seed: s }), big).winPct, film: field((s) => readerBot({ seed: s, film: true }), big).winPct,
+  const f2 = field((s) => readerBot({ seed: s, film: 2, flip: true }), big);
+  res.flip = { on: f2.flipOn, differs: f2.flipDiff, hisLeads: f2.hisLeads };
+  res.read = { full: field((s) => readerBot({ seed: s }), big).winPct, film: f2.winPct, film1: field((s) => readerBot({ seed: s, film: 1 }), big).winPct,
     noCount: field((s) => readerBot({ seed: s, count: false }), big).winPct, noLearn: field((s) => readerBot({ seed: s, learn: false }), big).winPct };
   res.corner = {};
   for (const c of ['informed', 'random', 'water', 'ice', 'eyes']) {
@@ -126,8 +148,8 @@ function cards() {
           const vs = offer.map((c) => val(c, opp.style)), bestHere = bestOf(offer, opp.style);
           offers++; if (Math.max(...vs) - Math.min(...vs) >= 4) wide++;
           if (OPPONENTS.some((x) => x !== opp && bestOf(offer, x.style) !== bestHere)) differs++;
-          deck = deck.concat([bestHere]);
-        } else if (arm === 'random') deck = deck.concat([offer[pickR]]);
+          if (deckLegal(deck.concat([bestHere]))) deck = deck.concat([bestHere]);
+        } else if (arm === 'random' && deckLegal(deck.concat([offer[pickR]]))) deck = deck.concat([offer[pickR]]);
         const seed = 900000 + run * 8 + b;
         const st = playBout(BASE_PLAYER, opp, readerBot({ seed }), { seed, tier: tiers[b], playerDeck: deck, rounds: b === 7 ? 4 : 3 });
         arms[arm].wins += st.win; arms[arm].bouts++; if (!st.win) losses++;
@@ -145,10 +167,12 @@ function cards() {
 
 const cmd = process.argv[2];
 if (cmd === 'ladder') ladder();
+else if (cmd === 'fixed') fixed();
+else if (cmd === 'breaker') { const { breaker } = await import('./probe2.mjs'); breaker(scale, save); }
 else if (cmd === 'info') info();
 else if (cmd === 'cards') cards();
 else if (cmd === 'time') {
-  for (const [nm, mk] of [['random', (s) => randomBot(s)], ['greedy', (s) => greedyBot(s)], ['reader', (s) => readerBot({ seed: s })]]) {
+  for (const [nm, mk] of [['random', (s) => randomBot(s)], ['fixed', () => fixedBot([1, 3, 4])], ['greedy', (s) => greedyBot(s)], ['reader', (s) => readerBot({ seed: s })], ['table', () => tableBot()]]) {
     const t = Date.now(), f = field(mk, 5);
     console.log(nm, ((Date.now() - t) / f.n).toFixed(2), 'ms a bout');
   }

@@ -1,0 +1,275 @@
+{
+ "bestFixed": [
+  "-",
+  "-",
+  "-"
+ ],
+ "hideAt": 1,
+ "top6": [
+  {
+   "line": "- / - / - (hides beat 1)",
+   "win": 0
+  },
+  {
+   "line": "- / - / - (hides beat 2)",
+   "win": 0
+  },
+  {
+   "line": "- / - / - (hides beat 3)",
+   "win": 0
+  },
+  {
+   "line": "- / - / Jab (hides beat 1)",
+   "win": 0
+  },
+  {
+   "line": "- / - / Jab (hides beat 2)",
+   "win": 0
+  },
+  {
+   "line": "- / - / Jab (hides beat 3)",
+   "win": 0
+  }
+ ],
+ "fixed": {
+  "n": 8000,
+  "win": 0,
+  "stop": 6338,
+  "stopR1": 0,
+  "kd": 6073,
+  "ex": 77281,
+  "noLand": 464,
+  "blank": 68422,
+  "beats": 231825,
+  "oneSided": 3220,
+  "split": 0,
+  "pts": 1662,
+  "late": 0,
+  "plays": [
+   231843,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  "corners": {
+   "water": 14442,
+   "ice": 0,
+   "eyes": 0
+  },
+  "pair": {
+   "out v out": 0,
+   "out v press": 0,
+   "out v counter": 0,
+   "out v volume": 0,
+   "press v out": 0,
+   "press v press": 0,
+   "press v counter": 0,
+   "press v volume": 0,
+   "counter v out": 0,
+   "counter v press": 0,
+   "counter v counter": 0,
+   "counter v volume": 0,
+   "volume v out": 0,
+   "volume v press": 0,
+   "volume v counter": 0,
+   "volume v volume": 0
+  },
+  "oppTired": 0,
+  "dmgP": 0,
+  "dmgO": 874160,
+  "leadsP": 40639,
+  "trapsP": 31428,
+  "hisHid": [
+   7199,
+   16780,
+   11548,
+   1115
+  ],
+  "ansHid": [
+   0,
+   0,
+   0,
+   36642,
+   0
+  ],
+  "hisLeads": 36642,
+  "habitLeads": 25931,
+  "winsHitMore": 0,
+  "flipOn": 0,
+  "flipDiff": 0,
+  "winPct": 0
+ },
+ "fixedNoAdapt": {
+  "n": 8000,
+  "win": 0,
+  "stop": 6312,
+  "stopR1": 0,
+  "kd": 5927,
+  "ex": 78222,
+  "noLand": 506,
+  "blank": 71220,
+  "beats": 234648,
+  "oneSided": 2979,
+  "split": 0,
+  "pts": 1688,
+  "late": 0,
+  "plays": [
+   234666,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  "corners": {
+   "water": 14709,
+   "ice": 0,
+   "eyes": 0
+  },
+  "pair": {
+   "out v out": 0,
+   "out v press": 0,
+   "out v counter": 0,
+   "out v volume": 0,
+   "press v out": 0,
+   "press v press": 0,
+   "press v counter": 0,
+   "press v volume": 0,
+   "counter v out": 0,
+   "counter v press": 0,
+   "counter v counter": 0,
+   "counter v volume": 0,
+   "volume v out": 0,
+   "volume v press": 0,
+   "volume v counter": 0,
+   "volume v volume": 0
+  },
+  "oppTired": 0,
+  "dmgP": 0,
+  "dmgO": 869168,
+  "leadsP": 41142,
+  "trapsP": 32642,
+  "hisHid": [
+   7107,
+   16561,
+   11962,
+   1450
+  ],
+  "ansHid": [
+   0,
+   0,
+   0,
+   37080,
+   0
+  ],
+  "hisLeads": 37080,
+  "habitLeads": 26371,
+  "winsHitMore": 0,
+  "flipOn": 0,
+  "flipDiff": 0,
+  "winPct": 0
+ },
+ "random": {
+  "n": 8000,
+  "win": 61,
+  "stop": 2757,
+  "stopR1": 0,
+  "kd": 2754,
+  "ex": 90934,
+  "noLand": 2262,
+  "blank": 64024,
+  "beats": 272785,
+  "oneSided": 4655,
+  "split": 77,
+  "pts": 5243,
+  "late": 327,
+  "plays": [
+   90376,
+   38584,
+   8417,
+   24198,
+   21377,
+   8829,
+   2974,
+   2863,
+   19690,
+   19647,
+   10942,
+   10162,
+   3874,
+   3615,
+   0,
+   7254
+  ],
+  "corners": {
+   "water": 5227,
+   "ice": 5340,
+   "eyes": 5163
+  },
+  "pair": {
+   "out v out": 1.2,
+   "out v press": 0.8,
+   "out v counter": 0,
+   "out v volume": 0.4,
+   "press v out": 0.6,
+   "press v press": 1.4,
+   "press v counter": 3,
+   "press v volume": 0.4,
+   "counter v out": 0,
+   "counter v press": 0,
+   "counter v counter": 0.2,
+   "counter v volume": 0,
+   "volume v out": 0.2,
+   "volume v press": 1.2,
+   "volume v counter": 2.6,
+   "volume v volume": 0.2
+  },
+  "oppTired": 2177,
+  "dmgP": 365678,
+  "dmgO": 850686,
+  "leadsP": 46155,
+  "trapsP": 20880,
+  "hisHid": [
+   7278,
+   15013,
+   11314,
+   1207
+  ],
+  "ansHid": [
+   14686,
+   4571,
+   3622,
+   11933,
+   0
+  ],
+  "hisLeads": 34812,
+  "habitLeads": 24517,
+  "winsHitMore": 30,
+  "flipOn": 0,
+  "flipDiff": 0,
+  "winPct": 0.8
+ },
+ "seconds": 285
+}

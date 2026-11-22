@@ -1,20 +1,29 @@
-# The card game - the whole scope (CARDSCOPE1, S537)
+# The card game - the whole scope (CARDSCOPE1 and CARDSCOPE2, S537)
 
 Owner S537: "it can be any variation of a card game as long it can reach 10/10". This page is the design the card game
 is built from. It replaces the patch loop on `proto/cardgame` (four rounds, stuck at 4-5 out of 10). Nothing here is built
 yet except the bot probe in `proto/cardscope/` (result: `docs/CARDSCOPE1_PROBE.md`).
 
-**Status: probed, not yet passed.** 6 of 7 core fun bars pass after three runs; the card pool fails its bar
-(section 6). Sections 1, 2, 4 and 5 stand as written before the probe; section 3 carries the numbers and the two rule
-changes the probe forced.
+**Status: probed twice, not yet passed.** Round 1 (he always led, better on paper): 6 of 7 core bars, critic 6 / 5 / 6.
+Round 2 (the lead changes hands, equal paper, a trap card, habits that rule the hidden card, deck limits): the fight
+itself now stands on equal paper (reader 58% at regional, level damage, a real mix face down, traps on 38% of your
+leads), but the round fails 8 of its 12 new bars in the final run. Section 6b says which and why; the build plan
+(section 8) now starts with a phase 0 for them.
+
+**How to read the round 2 marks.** Text marked **[R2]** was changed or added in round 2 (CARDSCOPE2), after the fresh
+critic's 6 / 5 / 6 (`CARDSCOPE1_CRITIC_SDK.md`); each mark says why. Unmarked text stands from round 1. Round 1's
+result is kept in section 6, round 2's in section 6b.
 
 Follows: `CARDPROTO3_CRITIC_SDK.md` (5/5/5: one no-read line wins 78%, Predict is a trap, five systems change nothing),
 `CARDPROTO2_CRITIC_ARENA.md` (a free tell made the game one lookup: 76.7%), `JOHN_CARDGAMES_RESEARCH_JOHN.md` (take
 shown tendencies, uneven rewards, open discard piles; a read needs something to read).
 
-**The game in one line.** Every exchange is three beats. The opponent lays three cards, two face up and one face down.
-You answer each beat with a card from your hand, paid in wind. You can solve what you see; you must bet on what you
-cannot; and scouting, watching his patterns and wearing him down make the bet easier.
+**The game in one line. [R2]** Every exchange is three beats, and the lead changes hands every exchange. The boxer who
+leads lays three cards, two face up and one face down; the other answers each beat with a card from his hand, paid in
+wind. When he leads you solve what you see and bet on what you cannot. When you lead you choose what he may see and what
+trap lies face down. Both boxers have the same wind and the same hands on paper.
+*(Round 1: he always led and was the better boxer on paper. Changed because the critic showed that one patch was the root
+of most faults: he never tired, he was all punches, you only ever answered.)*
 
 ---
 
@@ -109,12 +118,20 @@ three cards were shown it would be a pure puzzle with no nerve in it; if none we
 
 A bout is rounds of **four exchanges** (amateur: 3 rounds = 12 exchanges; pro debut: 4 rounds). One exchange:
 
-1. **He lays three cards**, one per beat, from his own hand and wind. Two are face up, one is face down. A beat may be
-   left empty (face up or face down: an empty face-down beat is his bluff).
-2. **You answer**: at most one card on each beat from your hand of five, paid in wind. A beat you leave empty gives one
-   wind back (you breathe).
-3. **The beats play out in order.** On each beat your card meets his. Then the face-down card flips where it stands.
-4. Played cards go to the open discard piles. You keep the cards you did not play and draw back up to five.
+0. **[R2] The lead changes hands.** You lead exchanges 1 and 3 of a round, he leads 2 and 4, so you have the last
+   answer before the bell. The rules below are the same whoever leads.
+1. **The leader lays three cards**, one per beat, from his own hand and wind. Two are face up, one is face down, and the
+   leader chooses which. A beat may be left empty (face up or face down: an empty face-down beat is a bluff).
+2. **The other boxer answers**: at most one card on each beat from his hand of five, paid in wind. A beat left empty
+   gives one wind back (a breath).
+3. **The beats play out in order.** On each beat the two cards meet. Then the face-down card flips where it stands.
+4. Played cards go to the open discard piles. Both keep the cards they did not play and draw back up to five.
+
+**[R2] What leading is for.** The answering boxer sees two of three cards, so he wins the exchange more often than not
+(measured in sizing: about 8 damage for 4 when answering, about 7 for 10 when leading, the same for both corners). A round
+is therefore two exchanges where you are hunted and two where you hunt. On your lead the questions are: what do I show
+that he cannot punish cheaply, what do I lay face down (a punch he walks onto, a slip that turns his answer into my
+counter, the check hook behind a shown jab, nothing at all to save wind), and how much wind do I keep for my answer.
 
 **What meets what on a beat** (the whole table; there is no other). Numbers are the ones the probe ran:
 
@@ -124,9 +141,10 @@ A bout is rounds of **four exchanges** (amateur: 3 rounds = 12 exchanges; pro de
 | Block (high or low, chosen as you play it) | Right height: stops 4. Wrong height: it lands. | Nothing. | Nothing. |
 | Slip (beats straight punches) / Roll (beats hooks) | Right shape: it misses and your punch on the next beat is a counter (+4, lands first). Wrong shape: it lands, +2. | Nothing. | Nothing. |
 | Step back | It misses. No counter, no credit from the judges. | Nothing. | Nothing. |
-| Tie up (once a round) | Smothered: nothing lands, and his punch on the next beat loses 4. An uppercut still lands. | Nothing. | Nothing. |
+| Tie up (once a round; **[R2]** costs 2, was 1) | Smothered: nothing lands, and his punch on the next beat loses 4. An uppercut still lands. | Nothing. | Nothing. |
 | Feint (free) | You are hit. | He bites: his guard on the next beat does not work and your punch there does +4. | Nothing. |
-| Cross counter | Against a straight punch: his misses and yours lands 6. Otherwise it is a slow cross. | As a punch. | As a punch. |
+| Cross counter **[R2]** | Against **the cross only**: his misses and yours lands 6. Against anything else it is a slow cross. (Round 1: any straight punch. That made it right against everybody.) | As a punch. | As a punch. |
+| Check hook **[R2, new: the trap]** | Against a jab or a body jab: his misses, yours lands 6 and **his card on the next beat is lost** (paid, does nothing). Against any other punch it is a short hook for 4. | Against a block: goes round it, lands 6, his next beat is lost. A roll makes it miss and counters. | A short hook for 4. |
 | Empty | You are hit clean. | +1 wind. | +1 wind. |
 
 **Combinations.** A punch that lands clean makes your punch on the next beat do +2. Drilled combinations do more:
@@ -143,21 +161,26 @@ chain, so where he puts a guard matters as much as whether he has one.
   also pays a counter but only against one shape, a jab the cheap probe.
 
 There is no accuracy roll and no damage roll anywhere. A card does what it says.
-Measured: a bot that sees the cards but only chases damage wins 38.9%; one that also plays the judges, the wind and his
-patterns wins 63.0%; one that could see the face-down card too would win 80.0%. So most of the skill is in the part you
-can solve, and the bet on the hidden card is the rest.
+Measured in round 1 (he always led): a bot that sees the cards but only chases damage wins 38.9%; one that also plays the
+judges, the wind and his patterns wins 63.0%; one that could see the face-down card too would win 80.0%. Round 2's
+numbers on equal paper are in section 6b.
 
 ### 3.2 Wind, damage, knockdowns
 
 - **Wind** pays for cards. It tops out at 7, comes back 3 after each exchange, +1 for each beat you left empty, +2 more on
-  the stool. Unspent wind is kept, so one quiet exchange buys one loud one. A body hook that lands takes 1 wind from him
-  at once; every 8 body damage lowers his top wind by 1 for the rest of the bout. **A boxer on 1 wind or less cannot
-  hide a card**: everything he lays is face up.
-- **Head.** 112 points (105 to 122 by boxer). At 70 taken a boxer is *hurt*.
-- **Knockdown.** 24 head damage in one exchange (18 when hurt) puts a boxer down: the exchange ends, the round is 10-8 on
-  every card, he loses 2 wind and his next exchange is laid face up. Three knockdowns or a full head track stop the bout.
-  Sized from play: a normal exchange does about 10, one in twenty does 20; the loser of a full bout takes 75 to 110.
-- Measured: 10.8% of bouts stopped, none in round 1, 0.52 knockdowns a bout.
+  the stool. Unspent wind is kept, so one quiet exchange buys one loud one. The same numbers for both boxers **[R2]**.
+- **[R2] Body work takes wind, now and later.** A body hook that lands takes 2 wind out of what he gets back after the
+  exchange (was 1, taken at once), and every 6 body damage taken is 1 wind less back each exchange for the rest of the
+  bout, never under 1 (was: every 8 lowered his top wind). Why: with 3 wind back nobody could ever be found on 1 wind, so
+  "tired" never happened (critic: 0.0% of exchanges). Wind turned out to be the strongest currency on equal paper (one
+  extra wind an exchange for a round was worth about 25 points of win rate in sizing), so body work is now a real plan.
+- **A boxer on 1 wind or less cannot hide a card**: his lead is laid face up. A floored boxer's next lead is face up too.
+- **Head. [R2]** 95 points (89 to 104 by boxer; was 112). At 59 taken a boxer is *hurt*. Sized down because on equal paper
+  nobody is hit twice as hard as the other any more.
+- **Knockdown.** 24 head damage in one exchange (18 when hurt) puts a boxer down: the exchange ends, the
+  round is 10-8 on every card, he gets 2 wind less back and his next lead is laid face up. Three knockdowns or a full
+  head track stop the bout.
+- Round 1 measured 10.8% of bouts stopped and 0.52 knockdowns a bout; round 2: section 6b.
 
 ### 3.3 The judges (how close fights and comebacks happen)
 
@@ -167,7 +190,8 @@ Three judges sit, shown before the bell. **Every judge counts clean punches (2 p
 - **likes craft**: a point for each punch of his you blocked, slipped or rolled, and for each counter you landed.
 
 Each judge gives each round 10-9 to whoever has more of his points (10-8 after a knockdown). A level round goes to
-damage, then to the boxer who won the round's last exchange. A bout is never drawn. The three counts are on screen all
+damage, then to the boxer who won the last exchange, then **[R2]** to a coin from the bout's seed (in the greybox a level
+judge fell to the opponent by default: a code fault the critic found). A bout is never drawn. The three counts are on screen all
 round as three small scales. On the last exchange of a round the player can see exactly what steals a judge.
 
 *Changed after run 2:* the first version gave each judge one thing only (clean punches / damage / defence). The boxer who
@@ -182,33 +206,40 @@ falls for a hurt boxer, so the man behind has a live finish late; body work done
 
 | Source | What it gives | When |
 |---|---|---|
-| The two face-up cards | The solvable part of the exchange. Measured: worth 44 points of win rate over seeing none. | Always (novices show all three; professionals hide two in the first two exchanges of a round). |
-| His patterns | What the face-down card usually is after what he has shown: "follows the jab with the cross", "finishes with the hook", "goes to the body first". Watching him alone names the hidden card 4 times in 10 (2 in 10 without watching). | Learned exchange by exchange; the screen keeps the tally so the player does not have to. |
-| His habits on film | The same patterns known before the first bell, printed on the face-down card when they apply. | Found in camp. |
+| The two face-up cards | The solvable part of the exchange. Round 1 measured: worth 44 points of win rate over seeing none. | Whenever he leads (novices show all three; professionals hide two on their first lead of a round). |
+| **[R2] His two habits** | Each opponent has two habits that rule his face-down card: a trigger you can see and the card that then lies face down. One ends on a punch, one does not, so knowing which applies changes the answer. Out-boxer: *follows the jab with the cross* / *covers up behind the cross*. Pressure fighter: *goes to the body first* / *rolls under after his hook*. Counter-puncher: *slips, then the cross* / *opens with the check hook*. Volume puncher: *follows the jab with the cross* / *takes the last beat off*. He keeps to a habit 90 times in 100 when its trigger is on the table. (Round 1's habits were patterns among shown cards, worth 1.7 points: they flipped no answer.) | A habit rules about two of his leads in three. |
+| **[R2] A habit you know** | The card is printed on the face-down slot when the trigger is on the table ("usually: Cross"). Film in camp finds one habit before the bell; the tally under each slot (what lay face down there, and after which shown card) finds the other by about round 2. | Camp, then watching. |
 | His wind | What he can afford face down. On 1 wind or less he hides nothing. | Always. |
-| The corner: "Watch him" | The whole next round is laid face up. | A corner pick. |
-| A knockdown | His next exchange is face up. | Earned. |
+| The corner: "Watch him" | His leads of the next round are laid face up. **[R2]** His corner can pick it too: then yours are. | A corner pick. |
+| A knockdown | His next lead is face up. | Earned. |
+| **[R2] How he answers you** | When you lead, the table keeps what he has done in the same spot: against a shown head punch, a shown body punch, a shown guard, nothing shown, and against your face-down card. That is what you lay a trap on. | Grows through the bout. |
 | **His read of you** | He remembers what you do on each beat and against the face-down card, and answers it. A chip shows what his corner has noticed. Measured: a player who always blocks high on the hidden card loses 7 more points to an opponent who adapts. | Grows with his class; novices do not adapt. |
 | His discard pile | Open, as a reminder of what he has thrown. **Not a skill:** counting it was worth nothing in the probe, so the game does the count and prints it. | Always. |
 
 ### 3.5 The cards
 
-Thirteen cards went into the probe. The last column is what the probe said about each.
+Thirteen cards went into the round 1 probe; round 2 has fourteen (the Check hook). The last column is what the round 1
+probe said about each; round 2's card table is in `docs/CARDSCOPE2_PROBE.md`.
 
-| Card | Wind | Does | Its job | Probe |
+**[R2] Deck rules (close the breaker deck).** A deck holds 12 to 16 cards, at most 4 copies of a card and at most 2
+Cross counters. "Drop a habit" can never take a deck under 12. Round 1 had no limits and the critic's 10-card deck with
+4 Cross counters won the pro debut 78% of the time.
+
+| Card | Wind | Does | Its job | Round 1 probe |
 |---|---|---|---|---|
 | Jab | 1 | 2 head, fast, straight | Opens a combination, beats slower punches to the mark, cheap probe at the hidden beat. | Works: most played (24%), good against two styles, poor against two. |
 | Body jab | 1 | 2 body, fast, straight | Goes under a high guard; starts a chain cheaply. | Works: best pick against the pressure fighter, middling elsewhere. |
 | Cross | 2 | 6 head, straight | The money end of the one-two. | Played a lot (16%) but more copies never help: the starting deck has enough. |
 | Lead hook | 2 | 6 head, hook | Punishes a slip; ends the 1-2-3. | Same as the cross. |
-| Body hook | 2 | 4 body, hook, takes 1 wind | The investment: his wind, then his secrets. | Weak: three rounds are too short for the investment to pay. Needs the longer pro bouts or a bigger wind bite. |
+| Body hook | **[R2]** 3 (was 2) | 4 body, hook, takes 2 wind out of what he gets back (was 1) | The investment: his wind, then his secrets. | Weak: three rounds are too short for the investment to pay. Needs the longer pro bouts or a bigger wind bite. |
 | Uppercut | 3 | 10 head, slow | Splits a block, catches a slip, a roll or a tie-up. | Weak: opponents rarely guard, so there is little to split. |
-| Cross counter | 3 | Beats a straight for 6 | The read made into a card. | **Too strong**: the best pick against three of four styles even after its price went from 2 to 3. |
+| Cross counter | 3 | **[R2]** Beats the cross for 6 (was: any straight) | The read made into a card: lay it where you know the cross is coming. | **Too strong** in round 1: the best pick against three of four styles even after its price went from 2 to 3. |
+| Check hook **[R2]** | 2 | Catches a jab or a block for 6 and takes his next beat; otherwise 4, hook | The trap that punishes the safe answer. Face down behind your own shown jab, or his against yours. | New in round 2. |
 | Block | 1 | High or low, stops 4 | The cheap half-answer to anything. | Works: top-five pick everywhere, never the best. |
 | Slip | 2 | Straight misses, counter next beat | The full answer to a known straight. | Works as designed: +23 points against the out-boxer, -18 against the pressure fighter. |
 | Roll | 2 | Hook misses, counter next beat | The full answer to a known hook. | Best against the pressure fighter, as designed, but weaker than the slip. |
 | Step back | 2 | Everything misses | Safe against the unknown, earns nothing. | Middling to poor. |
-| Tie up | 1 | Smothers this beat and softens his next | Survival when hurt; once a round. | **Too strong**: second-best pick against every style. |
+| Tie up | **[R2]** 2 (was 1) | Smothers this beat and softens his next | Survival when hurt; once a round. | **Too strong** in round 1: second-best pick against every style. |
 | Feint | 0 | Takes away his next guard, +4 | Turns a shown guard into an opening. | **Dead**: worst pick against every style; he seldom guards. |
 
 Sharp and Signature versions (from drilling) change one thing each; sized in the build phases, not in this probe.
@@ -216,22 +247,35 @@ Sharp and Signature versions (from drilling) change one thing each; sized in the
 ### 3.6 The corner minute
 
 Between rounds pick one of three (a better coach offers a fourth):
-- **Water** - full wind, and 1 more wind back per exchange for the round.
-- **Ice** - 20 head damage back.
-- **Watch him** - the whole next round is laid face up.
+- **Water** - full wind at the bell. **[R2]** No longer 1 more wind back all round: on equal paper that alone was worth
+  about 25 points and made the pick automatic.
+- **Ice** - 30 head damage back **[R2]** (was 20).
+- **Watch him** - his leads of the next round are laid face up.
+- **[R2]** His corner picks from the same three with the same rule of thumb (hurt: ice; short of wind: water; else watch
+  you). In round 1's greybox it could never pick "watch".
 
 Measured: always taking the same one costs 1 to 7 points against choosing by the state of the fight, but a random pick is
 only 1.6 behind the informed one. The corner is not yet the decision it must be (bar B17 failed); phase 5 owns it.
 
-### 3.6b The opponent on paper
+### 3.6b The opponent on paper **[R2: replaced]**
 
-He lays blind and you answer seeing two cards, so at equal numbers the seeing boxer wins nearly every bout (run 1:
-99.9%). The opponent is therefore **the better boxer on paper**: more wind (top and back per exchange) and heavier
-hands, in steps, each opponent boxer with his own step. That is the gym game's own rule ("the better-trained boxer
-usually wins; a good plan gives the underdog a real chance") turned into the card game's difficulty. Measured by class,
-the reader's win rate: novice 97.5%, open class 76.9%, regional 64.1%, title 44.2%, professional 27.0%.
-A boxer who lays blind gets little from guards, so opponents' decks are punches and traps; their defence is their
-numbers. A cautious opponent style has to be built from fast punches and counters, not from blocks.
+*Round 1:* he always led blind, so he had to be the better boxer on paper (up to twice your wind, heavier hands) to make
+a fight of it. The critic traced most faults to that one patch.
+
+*Round 2:* **equal paper up to and including regional class.** Same top wind, same wind back, same hands. What makes
+one class harder than the last is how he boxes, not what he is given:
+
+| Class | Bouts of the run | He shows | How he boxes | Paper |
+|---|---|---|---|---|
+| Novice | 1, 2 | all three cards on his leads | loose leads, answers almost at random, does not read you | equal |
+| Open class | 3, 4 | two of three | still loose, starts to read you | equal |
+| Regional | 5, 6 | two of three | tidy leads, answers well, reads you | equal |
+| Title | 7 | two of three | sharp, reads you fully | top wind +1 |
+| Professional (four rounds) | 8 | one of three on his first lead of a round | sharp | top wind +1, heavier hands |
+
+So the first hidden card arrives at bout 3 with nothing else changing (the critic's cliff was two changes at once), and
+his numbers move only from the title bout. His decks hold guards, the check hook and a feint again, because a leader who
+can hide one card and an answerer who sees two both have a use for them.
 
 ### 3.7 How FightCamp feeds the deck (the link to the gym game)
 
@@ -261,8 +305,8 @@ numbers. A cautious opponent style has to be built from fast punches and counter
 ### 3.8 The run (the ladder)
 
 Standing alone, the card game is one boxer's road from novice to her professional debut: **eight bouts**, one deck carried.
-- **The ladder:** two novice bouts (he shows all three cards), two open-class bouts (he hides one, adapts a little), two
-  regional bouts (hides one, adapts), a title bout, the pro debut over four rounds (hides two early in a round). Each has
+- **The ladder [R2]:** the five classes of 3.6b: two novice bouts, two open-class, two regional, a title bout, the pro
+  debut over four rounds. Equal paper until the title bout. Each has
   three judges drawn from five tastes and an opponent with a style, two habits and one best weapon.
 - **Between bouts, one of:** *drill* (pick 1 of 3: a new card, a Sharp version, a combination step), *drop a habit*
   (remove a card), *film* (find one habit of the next opponent), or *rest* (head damage carried from the last bout is
@@ -272,6 +316,27 @@ Standing alone, the card game is one boxer's road from novice to her professiona
 - **What is lost:** head points carried into the next bout; a stoppage loss costs the next camp pick (suspension); the
   third loss ends the run.
 - Inside FightCamp the same ladder is simply the career: the weeks are the picks.
+
+### 3.9 The table does the sums **[R2, new]**
+
+The critic: the reader's edge over a rule of thumb "is mostly exact sums over 112 lines ... depth a program has; a person
+gets it only if the table does the sums". So the table does them. This is a rule of the design, not a nicety of the page:
+
+- **Three result strips, one a beat.** As you hold a card over a beat, the strip under it shows what happens there
+  against the card you can see: damage both ways, who lands first, the combination bonus, what a block leaves, a lost
+  beat. Lifting the card takes it back. Nothing is hidden in a rulebook.
+- **The face-down beat shows a range**, worst to best over the cards he can still be holding and can pay for (the game
+  does the count of his discards), and the habit if one is known ("usually: Cross").
+- **Three small scales, one a judge**, move as you place cards: what this exchange would do to each count.
+- **Wind as pips for both boxers**, his dimming as he tires; "cannot hide a card" lights up at 1.
+- **When you lead** the strips show what each beat does if he stands still, and under each of your slots what he has
+  done in that spot so far (3.4, last row). The table cannot show his answer; that is the bet.
+- **After the beats** each strip keeps its one true line, so "why did I lose that exchange" is on the screen.
+
+*Its bar (C10, section 4b):* a bot that places one card at a time and keeps whatever the printed numbers like best, with
+no memory, no counting and no plan, must close half the gap between the rule-of-thumb beginner and the reader. If it
+does, the skill the probe measures is one a person at this table can reach. The owner's bar for phase 2 stays: after each
+exchange he can say why he won or lost it, and he wins at least 1 bout of 3 at open class.
 
 ---
 
@@ -351,6 +416,58 @@ last exchange, then a coin from the seed that falls both ways, and his corner pi
 **Round 2 verdict rule: PASS = B1 to B7 and C1 to C12 all pass.** Supporting bars B8 to B18 that fail are named with
 their cause. The brief's run rule stands: the design as written, one resize (numbers only), one design change, stop.
 
+### 4c. Round 3 bars (CARDSCOPE3; written and committed before any round 3 code ran, not loosened afterwards) **[R3]**
+
+Round 3 changes the form (section 2b: the rally; one card at a time, every punch thrown face up, the answer to his
+punches and your own attack are the same turn, one face-down trap slot). The owner's interview outranks the critics:
+fast and punchy, a bout of about 5 minutes, every number shown. The words the bars need:
+
+- **A turn**: first you answer the punches he threw at you (a guard on any of them, or take it), they land or miss at
+  once, then you throw your own and may set one trap face down. **A volley**: the punches one boxer throws in one turn.
+- **A set card**: the one trap a boxer may have face down. It catches one kind of punch (the jab; the cross and the
+  uppercut; the hooks) and is gone at his next turn if nothing walked onto it.
+- **A decision**: one card played (a guard, a punch, a trap set), one turn ended, one corner pick. 8 seconds each.
+
+Bots in the player's chair: **random**; **fixed line** (a fixed order of card names played top down every turn while
+wind lasts, guards on the biggest punch they stop; the best of 400 searched orders and re-measured on fresh seeds);
+**greedy** (most damage thrown less damage taken this turn; no judges, no wind plan, blind to set cards); **beginner**
+(the rule of thumb: guard what you see with the right guard, biggest punch first, then jab, cross, hook with what is
+left; sets nothing, ignores his set card); **table player** (one card at a time, keeps whatever the printed numbers like
+best: damage both ways if he stands still, the judges' counts, the middle of the printed range for his set card, the
+printed share of his turns with each punch; no memory, no plan); **reader** (public information only: what guards and
+traps he can still hold, his habits, the judges, wind kept for later); **all-seeing** (the reader shown his set card and
+his hand: a ceiling). Population as in section 4: 4 player boxers x 4 opponents, all different; regional class
+unless a bar says otherwise.
+
+**Kept exactly as written:** B1 to B9, B11, B13 to B18, C1, C3, C8 to C12 (in C10 and C11 "beginner" is the beginner
+above; in C12 "his leads" are his turns and "the answer to the face-down card" is the volley thrown at his set card).
+
+**Kept, with the old shape's words replaced by this form's (same numbers):**
+
+| # | Bar | Pass when |
+|---|---|---|
+| B10 | Showing beats guessing | the reader's lead over random is 10+ points bigger with his punches thrown face up than when they must be guarded unseen |
+| B12 | No blanks | volleys from which nothing lands (none thrown, or all stopped or caught) under 15%; cards that end up doing nothing (a trap nothing walked onto) under 25% of cards played |
+| C2 | He tires | he starts 5 to 15% of his turns with 2 wind or less after his wind comes back (he cannot both guard and throw a power punch) |
+| C4 | You set traps | the reader sets a trap on 30%+ of its turns |
+| C5 | The set card is a fork | of the traps he sets no one kind is over 55%; he has a trap down on 20 to 85% of his turns (so a turn with nothing set is 15%+) |
+| C6 | No fixed answer to the set card | the reader forced, whenever he has a card set, to always ignore it / always lead with the jab / throw only jabs and body jabs / throw nothing wins 10+ points less than the reader who chooses, each of the four |
+| C7 | The answers spread | of the reader's volleys at a set card, sorted by first punch (jab / body jab / cross or uppercut / hook / none), no class is over 40% |
+
+**New in round 3:**
+
+| # | Bar | Pass when |
+|---|---|---|
+| D1 | Fast and punchy (owner) | a bout takes 3 to 6 minutes of real decisions: the reader's and the table player's bouts average 22.5 to 45 decisions (x 8 s), and 95% of bouts are under 7 minutes (52 decisions) |
+| D2 | Guards are worth something (round 2's real fault) | the reader forbidden to guard wins 15+ points less; the reader made to guard everything it can first wins 5+ points less; 30 to 70% of punches thrown are stopped; two or more guard cards are top-half picks against some style in the card table |
+| D3 | The chairs are equal | reader against reader over the 16 pairs, the boxer who throws first in round 1 wins 45 to 55% |
+| D4 | Quick turns | the choices in front of the player at one decision (cards that can legally be played, with their targets, and "end the turn") average under 10 and are never over 20 |
+| D5 | No trap deck | deck rule: at most 2 of each trap. The best deck the breaker search finds holds its win rate by C8, and a deck with 6 traps wins less than the neutral deck plus the best 2 |
+
+**Round 3 verdict rule: PASS = B1 to B7, C1 to C12 and D1 to D5 all pass.** Supporting bars B8 to B18 that fail are named
+with their cause. Run rule as before: sizing on its own seeds (300000 and up), then the design as written, one resize
+(numbers only), one design change, stop.
+
 ---
 
 ## 5. Keep and throw away from `proto/cardgame`
@@ -422,28 +539,88 @@ must check a human beginner there.
 Sizing between runs used its own seeds (300000 and up) and looked at win rate, stoppages, one-sided and late shares;
 the bar tables ran on other seeds. The bars in section 4 were committed before the first run and were not edited.
 
+## 6b. Round 2 result **[R2]** (full tables: `docs/CARDSCOPE2_PROBE.md`)
+
+**Verdict: FAIL.** Final run: 6 of 7 round 1 core bars, 4 of 12 round 2 bars, 5 of 11 supporting bars. Two measured
+runs: as sized, then the one resize (Body hook 3 wind, knockdown line 24 / 18, habits kept 90 in 100). The third run was
+not spent on a patch.
+
+| Critic item | Bar | Final run | |
+|---|---|---|---|
+| 1 | C1 equal paper holds (reader 55 to 65% at regional) | 57.8% | PASS |
+| 1 | C2 he tires (5 to 15% of exchanges on 1 wind or less) | 2.3% (6.6% before the resize) | FAIL |
+| 1 | C3 nobody is the heavier hitter | 7.0 dealt, 7.0 taken an exchange | PASS |
+| 1 | C4 you set traps (30%+ of your leads) | 38.0% | PASS |
+| 2 | C5 the hidden card is a fork | punch 43.8, guard or trap 30.3, nothing 22.5, feint 3.4 (was 81 / 15 / 2 / 2) | PASS |
+| 2 | C6 no fixed answer to it (each 10+ under free choice) | block -30, jab -11, empty -22, a punch -9 | FAIL (by 1.4) |
+| 2 | C7 the answers spread (no class over 40%) | a punch 50.4% (was 62%) | FAIL |
+| 3 | C8 no breaker deck over 50% in the pro debut | 61.1% with four Check hooks (46.5% before the resize) | FAIL |
+| 3 | C9 no added pair lifts a pair-up over 25 | +50.6 Check hook (run 1: +47.2 Body hook; round 1: +62 Cross counter) | FAIL |
+| 4 | C10 the table player closes half the beginner-reader gap | 46.2% (beginner 4.3, table player 29.0, reader 57.8) | FAIL |
+| 5 | C11 no cliff (beginner 70+ / 45 to 60 / 25 to 40) | 81.0 / 43.1 / 4.3 | FAIL |
+| 6 | C12 habits rule and flip | on the table in 70.8% of his leads; the answer flips in 31.9%; film +5.3; counting +0.9 | FAIL (on counting only) |
+| 10 | the two code faults | both fixed and tested | done |
+
+**What round 2 settled.**
+- The lead can change hands with one rule set, and on equal paper the game still separates players: random 1%, damage
+  chaser 31%, reader 58%, all-seeing 66%. No fixed line wins a bout.
+- He is no longer a different kind of boxer: same wind, same hands, guards and traps in his deck, and what he lays face
+  down is a punch less than half the time.
+- Knowledge now changes answers: a known habit is worth 5.3 points and flips the answer to the hidden card in a third of
+  the exchanges where it applies (round 1: 1.7 points, no flips).
+- The corner became a decision by accident of equal paper (informed 4.9 over random, each card a quarter or more of the
+  picks: B17 passes). Wind is the strongest currency in the game.
+
+**What is still wrong, in order of weight.**
+1. **The answering boxer wins by hitting, so guards are worth nothing.** Leading, a boxer deals about 7 and takes 10;
+   answering, 8 and 4. The best answer to a shown punch is a faster or harder punch, not a guard. That one fact is behind
+   C11 (the beginner guards and loses 96% of bouts at regional class), B6 (Block, Slip, Roll, Step back and Feint are
+   bottom-half picks against every style), C7 and C6 (a punch into the unknown is right half the time).
+   *Phase 0 (a) and (b):* a guard that works must pay (a block also earns the counter; a Parry for the jab), and the lead
+   must be worth holding (evade and keep the lead).
+2. **Whichever card takes his next action away is the key card.** Round 1: Cross counter. Run 1: Body hook (his wind).
+   Run 2: Check hook (his next beat). Sizing one up moves the crown. *Phase 0 (c):* limit the Check hook to 2 copies like
+   the Cross counter, and size "takes his next action" as one family, not card by card.
+3. **He tires only through the body, and that fights with point 2** (C2 passed at 6.6% while the Body hook was the key).
+   *Phase 0:* a second road to being tired that is not a card (for example, a third card in one exchange costs a wind
+   more), so the Body hook can be sized down without him never tiring.
+4. **The table helps the answer, not the lead.** The table player answers as well as the damage chaser and stops there.
+   *Phase 2:* the lead needs its own help on the table (what he did in this spot before), and C10 is measured again.
+5. **Bars written for the old shape.** B10 (showing beats guessing) and B8's "fixed above random" no longer measure what
+   they were written for now that both corners lead; they are kept as written and reported failed, not reworded.
+
+**Honest limits.** Bots, not people; nobody has played an exchange. Sizing used its own seeds and the bar tables others,
+but the reader's weights were tuned in sizing, so the reader is a better player than round 1's. The beginner's lead
+("jab, cross, hook in order") is our definition, not the critic's; it spends all its wind and that is part of its score.
+
 ## 7. Open decisions for the owner (taste and scope only)
 
 1. **Where it lives.** The page describes a card game that can stand alone (the 8-bout run) and can also be fight night
    inside FightCamp (3.7). Phases 1 to 6 build it standing alone in the browser, as the prototype was; phase 8 is the
    link. Whether it replaces the 30-second-call fight night or sits beside it is his call after he has played phase 2.
-2. **He is better on paper.** The player is the underdog with the better eyes in every bout past novice class. If that
-   reads as unfair at the table, the alternative is to take turns leading (he answers your three cards every second
-   exchange); it costs a second rule set and was not probed.
+2. ~~He is better on paper.~~ **[R2] Decided: the lead changes hands and the paper is equal.** Decided by Claude under
+   the owner's FREE HAND (S534: "you can remove, add from scratch or interconnect") because the fresh critic showed it is
+   a structural fix, not a taste: it is what lets him tire, gives his guards and traps a use and gives the player a trap
+   of her own to set. It did not cost a second rule set: the same exchange rules serve both corners. Probed in round 2.
 
-## 8. The build plan (one job a phase; each ends on its test and its fun bar)
+## 8. The build plan **[R2: revised]** (one job a phase; each ends on its test and its fun bar)
+
+Changed from round 1: a phase 0 is added because round 2 did not pass; phase 1 ports the round 2 greybox (turns to lead,
+equal paper, the trap, habits, deck rules); phase 2 builds the table of 3.9 and carries its bar; phases 3 and 4 own the
+bars round 2 left open.
 
 | Phase | Builds | Test | Fun bar to pass before the next phase |
 |---|---|---|---|
-| 1. The rules module | `proto/cardbout/rules`: the exchange, wind, knockdowns, judges, the bout, seeded; ported from `proto/cardscope` (rules.mjs, bout.mjs) with its 32 checks | `node proto/cardbout/rules.test.mjs` | B1 to B5, B9 to B12, B14 re-measured on the new module, same numbers as run 3 |
-| 2. The table | One page: his three slots, your hand, wind, the three judges' scales, beat-by-beat reveal with one true line per beat, the flip of the hidden card; novice and regional opponent | a page test that plays a seeded bout through the page's own calls | The owner plays 3 bouts. A bout takes 5 to 8 minutes; he can say after each exchange why he won or lost it |
-| 3. The opponents | 8 boxers (two a style) each with a weapon, two habits, own paper; a known habit flips the hidden card; his corner's read shown as a chip; a trap card that punishes the safe answer | harness block "opponents" | B18 (every pair 40 to 90%), B15 (habits known 4+), B16 (8+) |
-| 4. The card pool | Re-cut from the probe: Cross counter beats the cross only; Tie up costs 2; Feint reworked or cut; Uppercut and Body hook given their targets; Sharp and Signature versions; named combinations as drills | harness block "cards" (the card table of the probe) | **B6** (every card top-four somewhere and bottom-half somewhere), B13 |
-| 5. The corner and film | Corner cards as orders for the round (three now, five with plan cards); film in camp | harness block "corner" | B17 (informed 3+ over random, each card 15%+ of picks) |
+| 0. Round 3 on the greybox (no page) | Only what section 6b names as the cause of a failed bar: (a) a use for the lead beyond damage control (the critic's Pivot: evade a straight and keep the lead; a clean lead keeps the lead); (b) "guard what you see" made sound: a block that works also earns the counter, a Parry for the jab; (c) the card pool re-cut on the round 2 card table (weak guards, Feint, Step back; Body hook sized); (d) the counter-puncher's deck against body work | `node proto/cardscope/engine.test.mjs`, then the five probe commands | C6, C7, C10, C11, B5, B6, C9 and B18 as written. One round, bars not loosened. If the two critics still score under 8 after it, the owner gets "cut it or keep it" |
+| 1. The rules module | `proto/cardbout/rules`: the exchange, who leads, wind, knockdowns, judges, the bout, seeded; ported from `proto/cardscope` (rules.mjs, bout.mjs) with its checks | `node proto/cardbout/rules.test.mjs` | B1 to B5, B9, B12, B14 and C1 to C5 re-measured on the new module, same numbers as the greybox |
+| 2. The table | One page built to 3.9: both sets of slots, the three result strips filling in as a card is held over a beat, the range and the habit on the face-down beat, the three judges' scales, wind pips for both, the turn of the table when the lead changes; novice and open-class opponent | a page test that plays a seeded bout through the page's own calls; the strip numbers equal the rules module's | C10 on the page's own numbers. The owner plays 3 bouts: a bout takes 5 to 8 minutes; after each exchange he can say why he won or lost it; he wins 1+ of 3 at open class |
+| 3. The opponents | 8 boxers (two a style), each with two habits (one ending on a punch, one not), a weapon and his own deck; the five classes of 3.6b; his corner's read of you shown as a chip | harness block "opponents" | B18 (every pair 40 to 90%), C12, B16 (8+), C11 |
+| 4. The card pool | Whatever phase 0 kept, plus Sharp and Signature versions and named combinations as drills; deck rules enforced in the picks | harness block "cards" (the card table of the probe) | B6 (every card top-four somewhere and bottom-half somewhere), B13, C8, C9 |
+| 5. The corner and film | Corner cards as orders for the round with a cost each (critic item 7); film in camp finds one habit | harness block "corner" | B17 (informed 3+ over random, each card 15%+ of picks), B15 |
 | 6. The run | The 8-bout ladder: drill / drop / film / rest, perks, damage carried, three losses | harness block "run" | B7 on the real run; a good bot finishes 30 to 50% of runs; a run takes 40 to 60 minutes |
-| 7. Words and feel | Varied true lines, timing of the reveal, the sound of the flip | line test: no line contradicts its beat | The owner plays a full run |
+| 7. Words and feel | Varied true lines, timing of the reveal, the sound of the flip | line test: no line contradicts its beat | The owner plays a full run; after a loss he says "I lost because of what I played, not because of what he had" |
 | 8. The link | A deck built from a Career boxer (3.7), result written back (damage, the Why) | adapter test with a golden boxer | His call (decision 1) |
 
-No phase starts before the one above it has passed its bar. The card-pool changes named in phase 4 are proposals from
-the probe's table, not measured. Two fresh critics score this page first (`CARDSCOPE1_CRITIC_KALLI.md` is queued; the
-second is a later SDK job).
+No phase starts before the one above it has passed its bar. Phase 0's changes are proposals from the round 2 tables, not
+measured. A fresh critic scores this page first (`CARDSCOPE2_CRITIC_KALLI.md` is queued; a second, code-checked critic is
+a later SDK job).

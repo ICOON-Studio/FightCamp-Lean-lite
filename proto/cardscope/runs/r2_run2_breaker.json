@@ -1,0 +1,108 @@
+{
+ "population": "pro debut (class 5, four rounds), reader, neutral boxer with the deck v each of 4 opponents; final measure 250 bouts an opponent",
+ "neutral": 10.2,
+ "decksTried": 17,
+ "finals": [
+  {
+   "why": "swap round 2: Jab out, Body jab in",
+   "deck": "2 Jab, 2 Body jab, 1 Cross, 2 Block high, 1 Slip, 4 Check hook",
+   "screen": 65,
+   "win": 61.1
+  },
+  {
+   "why": "swap round 1: Cross out, Body jab in",
+   "deck": "3 Jab, 1 Body jab, 1 Cross, 2 Block high, 1 Slip, 4 Check hook",
+   "screen": 53.3,
+   "win": 47.9
+  },
+  {
+   "why": "Check hook stacked to its limit",
+   "deck": "3 Jab, 2 Cross, 2 Block high, 1 Slip, 4 Check hook",
+   "screen": 45.6,
+   "win": 40.8
+  },
+  {
+   "why": "Body hook stacked to its limit",
+   "deck": "3 Jab, 2 Cross, 4 Body hook, 2 Block high, 1 Slip",
+   "screen": 28.8,
+   "win": 29.7
+  },
+  {
+   "why": "Body jab stacked to its limit",
+   "deck": "3 Jab, 4 Body jab, 2 Cross, 2 Block high, 1 Slip",
+   "screen": 31.9,
+   "win": 27.4
+  }
+ ],
+ "screened": [
+  {
+   "why": "Check hook stacked to its limit",
+   "win": 45.6
+  },
+  {
+   "why": "Body jab stacked to its limit",
+   "win": 31.9
+  },
+  {
+   "why": "Body hook stacked to its limit",
+   "win": 28.8
+  },
+  {
+   "why": "Cross stacked to its limit",
+   "win": 20
+  },
+  {
+   "why": "Uppercut stacked to its limit",
+   "win": 20
+  },
+  {
+   "why": "Jab stacked to its limit",
+   "win": 13.1
+  },
+  {
+   "why": "the neutral deck",
+   "win": 11.9
+  },
+  {
+   "why": "neutral deck with two Cross counters for Feint and Step back",
+   "win": 11.3
+  },
+  {
+   "why": "Cross counter stacked to its limit",
+   "win": 11.3
+  },
+  {
+   "why": "Block high stacked to its limit",
+   "win": 10.6
+  },
+  {
+   "why": "Lead hook stacked to its limit",
+   "win": 8.8
+  },
+  {
+   "why": "Slip stacked to its limit",
+   "win": 0.6
+  },
+  {
+   "why": "the thin Cross counter deck of the critic, made legal",
+   "win": 0
+  },
+  {
+   "why": "Roll stacked to its limit",
+   "win": 0
+  },
+  {
+   "why": "Step back stacked to its limit",
+   "win": 0
+  },
+  {
+   "why": "Tie up stacked to its limit",
+   "win": 0
+  },
+  {
+   "why": "Feint stacked to its limit",
+   "win": 0
+  }
+ ],
+ "seconds": 212
+}
