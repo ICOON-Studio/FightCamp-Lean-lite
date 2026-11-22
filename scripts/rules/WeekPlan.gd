@@ -121,9 +121,9 @@ static func diet_fact(f: Dictionary, today: int) -> Dictionary:
 			"tip": "%d kcal a day under what the training burns: about half a kilo off a week. It stops by itself once the scale is %.2f kg under the limit." % [int(CUT_DEFICIT), CUT_MARGIN]}
 	if booked:
 		return {"diet": diet, "booked": booked, "line": "Inside %s kg for %s: eating as normal" % [kg, when],
-			"tip": "Full meals: the weight stays about where it is. If the scale climbs to the limit the lighter meals start by themselves."}
+			"tip": "Full meals hold the weight; if the scale reaches the limit, lighter meals start."}
 	return {"diet": diet, "booked": booked, "line": "No bout booked: eating as normal",
-		"tip": "With no weigh-in ahead the meals cover the training. A booking under the walking weight starts the lighter meals by itself."}
+		"tip": "Full meals for the training; a booking under the walking weight starts lighter meals."}
 
 
 ## S356 the week she runs: the coach's week for the camp's phase (WeekPhase, f["phase"] - Sim keeps it current) with the

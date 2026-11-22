@@ -54,18 +54,18 @@ static func worst_at_end(rounds: Array) -> String:
 
 
 ## The report for one fighter.
-static func report(rounds: Array, who: String) -> Dictionary:
+static func report(rounds: Array, _who: String = "") -> Dictionary:
 	var fw: Dictionary = first_went(rounds)
 	if fw.is_empty():
 		var n: int = rounds.size()
 		var rounds_word: String = "round" if n == 1 else "rounds"
 		return {"part": "", "round": 0, "focus": "",
-			"line": "%s held up for all %d %s" % [who, n, rounds_word], "advice": ""}
+			"line": "Everything held up for all %d %s" % [n, rounds_word], "advice": ""}
 	var part: String = str(fw["part"])
 	var round_num: int = int(fw["round"])
 	var focus: String = str(FOCUS[part])
 	return {"part": part, "round": round_num, "focus": focus,
-		"line": "%s's %s went in round %d" % [who, NAMES[part], round_num],
+		"line": "The %s went in round %d" % [NAMES[part], round_num],
 		"advice": "Next week: %s" % FOCUS_LABEL[focus]}
 
 

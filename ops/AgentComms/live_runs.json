@@ -22,16 +22,6 @@
       "eta": "about 2 h",
       "note": "S538 23:35 Code Mode terminal tab, Fable, owner subscription"
     },
-    "COACHHIRE1": {
-      "id": "COACHHIRE1",
-      "status": "done",
-      "started": "2026-11-22T21:05",
-      "title": "Coach hire: a real choice? probe, then wire or delete",
-      "seat": "claude",
-      "agent": "claude-fable (API credit, sdk_run.py)",
-      "eta": "about 90 min",
-      "note": "S538 cc6a5589f FAIL: 0 wins, 0 members for ~55k; CoachMarket + CoachFit removed (free hand)"
-    },
     "LEDGERPROBE1": {
       "id": "LEDGERPROBE1",
       "status": "running",
@@ -42,25 +32,15 @@
       "eta": "about 90 min",
       "note": "S538 23:35 Code Mode terminal tab, Fable, owner subscription"
     },
-    "CARDSCOPE4": {
-      "id": "CARDSCOPE4",
-      "status": "done",
-      "started": "2026-11-22T21:18",
-      "title": "Card game scope 4: six martial arts, limb points tested",
-      "seat": "claude",
-      "agent": "claude-fable (API credit, sdk_run.py)",
-      "eta": "about 2 h",
-      "note": "S538 e43791485 FAIL 5/7: wind pool beats limb points; P5 hold, P6 own mechanics fail"
-    },
     "PLANFLOW2": {
       "id": "PLANFLOW2",
-      "status": "running",
+      "status": "done",
       "started": "2026-11-22T22:25",
       "title": "Plan chart: main bet, uses, save/load + repeat-read probe",
       "seat": "claude",
       "agent": "claude-fable (API credit, sdk_run.py)",
       "eta": "about 2 h",
-      "note": "S538 23:35 Code Mode terminal tab, Fable, owner subscription"
+      "note": "S538 1b2976832: bet, uses, save/load built; repeat-read probe FAIL 1.1/100 (the rule exists silently: PlanRead ADJUST) -> show it"
     },
     "CARDSCOPE5": {
       "id": "CARDSCOPE5",
@@ -74,23 +54,13 @@
     },
     "RESULTV2": {
       "id": "RESULTV2",
-      "status": "running",
+      "status": "done",
       "started": "2026-11-22T23:20",
       "title": "Build the result page v2 (approved mockup)",
       "seat": "claude",
       "agent": "claude-fable (API credit, sdk_run.py)",
       "eta": "about 2 h",
-      "note": "S538 23:35 on the owner's subscription (Fable subagent; credit ran out)"
-    },
-    "OFFICEV2": {
-      "id": "OFFICEV2",
-      "status": "done",
-      "started": "2026-11-22T23:20",
-      "title": "Build office goals + sheets with right-click (approved)",
-      "seat": "claude",
-      "agent": "claude-fable (API credit, sdk_run.py)",
-      "eta": "about 2 h",
-      "note": "S538 b4abaff50 built; goals + sheets + right-click; 8 tests 0 failures; stills docs/previews/officev2; hint fix by Claude"
+      "note": "S538 4497f9201 built; 8 tests pass; stills docs/playtest/s538_resultv2; button size fix by Claude; name in body_focus line waits for PLANFLOW2 (ResultTabs)"
     }
   },
   "codex_budget": {

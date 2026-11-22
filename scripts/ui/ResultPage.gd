@@ -2,9 +2,12 @@ extends RefCounted
 ## S443 the fight result as a SUMMARY with TABS (operator Q-S294-199: "Yes, summary + tabs"; four critic rounds stuck at 6
 ## while one page held everything, ops/research/RESULT_ROUND3_S442.md + RESULT_R4_CRITIC_A/B_S442.md). The result is the fight
 ## only (operator S440 "Yes, fight only"): goals, tiredness and morale are not on it.
-##   header   - both boxers, the verdict and how, the three judges round by round, the rank the bout earned (WhyRank)
-##   SUMMARY  - the ONE cause with its measured fix (FixLab: the plan as written against the best change, "even the best plan
-##              makes it an even fight" when the numbers say so), what the bout cost, the rounds strip
+##   header   - both boxers with their portraits, the verdict and how, the three judges round by round with the colour
+##              key, the rank the bout earned (WhyRank)
+##   SUMMARY  - S538 RESULTV2 (owner Q-S294-303 "more graphics, use tooltips/modals to shorten things"; the approved picture
+##              ops/previews/s538_look/result_v2.png): WHY (ResultTiles.why: icon, one headline, dots, the fix as bars),
+##              ROUND BY ROUND and WHAT IT COST (ResultRounds), the row of icon tiles (ResultTiles.row); every sentence
+##              is a hover away and in the modal THE WHOLE READ (ResultRead)
 ##   SCORECARD - ResultScorecard (S504, the three judges' sheets, a hover a score)
 ##   THE EXCHANGES / THE NUMBERS / THE PLAN - ResultTabs
 ##   footer   - the night's take-home, the plan lit up, Back home
@@ -19,7 +22,11 @@ const FightWhy := preload("res://scripts/rules/FightWhy.gd")
 const FightFlow := preload("res://scripts/rules/FightFlow.gd")
 const PlanLines := preload("res://scripts/rules/PlanLines.gd")
 const StrikeMap := preload("res://scripts/rules/StrikeMap.gd")
-const AftermathTiles := preload("res://scripts/ui/AftermathTiles.gd")
+const ResultTiles := preload("res://scripts/ui/ResultTiles.gd")     # S538 RESULTV2 the why card and the icon tiles
+const ResultRounds := preload("res://scripts/ui/ResultRounds.gd")   # round by round, what it cost
+const ResultRead := preload("res://scripts/ui/ResultRead.gd")       # the modal: the whole read
+const Faces := preload("res://scripts/rules/Faces.gd")
+const PromoShot := preload("res://scripts/ui/PromoShot.gd")
 const FixLab := preload("res://scripts/state/FixLab.gd")
 const ResultTabs := preload("res://scripts/ui/ResultTabs.gd")
 const ResultCause := preload("res://scripts/ui/ResultCause.gd")
@@ -43,7 +50,7 @@ static func build(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 	if not m.has("fixlab"):   # measured once a bout, on the first draw; the first-bell copy is not needed after
 		m["fixlab"] = FixLab.run(c, m)
 		m.erase("lab_from")
-	v.add_theme_constant_override("separation", 12)
+	v.add_theme_constant_override("separation", 10)
 	var panel := v.get_parent().get_parent().get_parent() as Control
 	if panel != null:
 		panel.custom_minimum_size = Vector2(WIDE, 0)
@@ -59,7 +66,7 @@ static func build(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 		_: body = summary(main, m, f, names)
 	body.name = "Tab_" + tab
 	v.add_child(body)
-	v.add_child(footer(main, m, f, opp))
+	v.add_child(footer(main, m, f, opp, tab == "summary"))
 
 
 ## Both boxers either side of the verdict and the judges.
@@ -72,37 +79,64 @@ static func header(c: Career, f: Dictionary, m: Dictionary, names: Array) -> HBo
 	var w := int(f.get(rec + "w", 0))
 	var l := int(f.get(rec + "l", 0))
 	var was := "%d-%d" % [w - int(outcome == "win"), l - int(outcome == "loss")]
+	var stems: Array = Faces.pair(f, opp)
 	var mine := _side(str(f.get("name", names[0])), "Your fighter · %s · %s" % [str(f.get("style", "")), str(f.get("stance", "")).to_lower()],
-		"Record %s → %d-%d" % [was, w, l], Broadcast.HERS, false)
+		"Record %s → %d-%d" % [was, w, l], Broadcast.HERS, false, str(stems[0]))
+	var rank := UI.hbox(8)
+	rank.mouse_filter = Control.MOUSE_FILTER_PASS
+	for t in m.get("aftermath", []):   # the rank tile's lines (where the bout left the ladder) are this line's hover
+		if str((t as Dictionary).get("id", "")) == "rank":
+			rank.tooltip_text = "\n".join(PackedStringArray(t.get("lines", [])))
+	if str(m.get("rank_words", "")) != "":
+		rank.add_child(ResultTiles.icon("ladder", 24, UI.MUTED))
 	var why := UI.label(str(m.get("rank_words", "")), TEXT, UI.FG, "body", true)
 	why.name = "WhyRank"   # the rank the bout earned (S428: every fight shows it), the rank tile's first line
-	why.custom_minimum_size = Vector2(420, 0)
-	mine.get_child(0).add_child(why)
+	why.custom_minimum_size = Vector2(280, 0)
+	why.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	rank.add_child(why)
+	mine.find_child("Words", true, false).add_child(rank)
 	h.add_child(mine)
-	var mid := UI.vbox(2)
+	var mid := UI.hbox(30)
 	mid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	var word := {"win": "WON", "loss": "LOST", "draw": "A DRAW"}.get(outcome, "") as String
 	var col: Color = UI.GREEN if outcome == "win" else (UI.RED if outcome == "loss" else UI.GOLD)
-	var top := UI.hbox(22)
-	top.add_child(UI.display(word, 72, col))
-	var how := UI.vbox(0)
-	how.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	how.add_child(UI.label(_how(m), 24, UI.FG, "bold"))
-	var swing := _swing(m, names)
-	if swing != "":
-		how.add_child(UI.label(swing, TEXT, UI.MUTED))
-	top.add_child(how)
+	var top := UI.vbox(0)
+	top.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	top.add_child(UI.display(word, 96, col))
+	top.add_child(UI.label(_how(m), 24, UI.FG, "bold"))
 	mid.add_child(top)
 	if str(m.get("stopped", "")) == "":
-		mid.add_child(_judges(m))
+		var cards := UI.vbox(8)
+		cards.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		cards.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		var grid := _judges(m)
+		grid.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+		cards.add_child(grid)
+		var key := UI.hbox(8)
+		key.name = "JudgesKey"
+		key.alignment = BoxContainer.ALIGNMENT_CENTER
+		for k in [[Broadcast.HERS, "your boxer's round"], [Broadcast.THEIRS, "the opponent's round"]]:
+			var sq := ColorRect.new()
+			sq.color = k[0]
+			sq.custom_minimum_size = Vector2(14, 14)
+			sq.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+			key.add_child(sq)
+			key.add_child(UI.label(str(k[1]) + "   ", 16, UI.MUTED))
+		cards.add_child(key)
+		var swing := _swing(m, names)
+		if swing != "":   # the one round the judges did not all score alike, under their cards
+			var sw := UI.label(swing, 17, UI.MUTED)
+			sw.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+			cards.add_child(sw)
+		mid.add_child(cards)
 	h.add_child(mid)
 	var rival := c.rival(str(opp["name"]))
 	var orec := "Record %d-%d" % [int(rival.get("w", 0)), int(rival.get("l", 0))] if not rival.is_empty() else ""
-	h.add_child(_side(str(opp.get("name", names[1])), str(opp.get("style", "")), orec, Broadcast.THEIRS, true))
+	h.add_child(_side(str(opp.get("name", names[1])), str(opp.get("style", "")), orec, Broadcast.THEIRS, true, str(stems[1])))
 	return h
 
 
-static func _side(name: String, sub: String, rec: String, colour: Color, right: bool) -> PanelContainer:
+static func _side(name: String, sub: String, rec: String, colour: Color, right: bool, stem: String = "") -> PanelContainer:
 	var p := PanelContainer.new()
 	var sb := UI.box(Color(colour.r, colour.g, colour.b, 0.14), Color(Palette.PAGE, 0), 2, 0, 16, 10)
 	sb.border_color = colour
@@ -110,13 +144,30 @@ static func _side(name: String, sub: String, rec: String, colour: Color, right: 
 	sb.border_width_right = 5 if right else 0
 	p.add_theme_stylebox_override("panel", sb)
 	p.custom_minimum_size = Vector2(440, 0)
+	var row := UI.hbox(16)
+	p.add_child(row)
 	var v := UI.vbox(2)
-	p.add_child(v)
+	v.name = "Words"
+	v.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	v.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	row.add_child(v)
+	var pic := PromoShot.picture(stem, Vector2(104, 104)) if stem != "" else null
+	if pic != null:   # S538 RESULTV2: the boxer's portrait in the corner's colour
+		var frame := PanelContainer.new()
+		frame.name = "Portrait"
+		frame.add_theme_stylebox_override("panel", UI.box(Palette.PAGE, colour, 6, 3, 0, 0))
+		frame.clip_contents = true
+		frame.custom_minimum_size = Vector2(110, 110)
+		frame.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		frame.add_child(pic)
+		row.add_child(frame)
+		if not right:
+			row.move_child(frame, 0)
 	var al := HORIZONTAL_ALIGNMENT_RIGHT if right else HORIZONTAL_ALIGNMENT_LEFT
-	for row in [[name.to_upper(), 34, Palette.TEXT, "display"], [sub, TEXT, UI.MUTED, "body"], [rec, TEXT, UI.FG, "bold"]]:
-		if str(row[0]) == "":
+	for ln in [[name.to_upper(), 34, Palette.TEXT, "display"], [sub, TEXT, UI.MUTED, "body"], [rec, TEXT, UI.FG, "bold"]]:
+		if str(ln[0]) == "":
 			continue
-		var lb := UI.label(str(row[0]), int(row[1]), row[2], str(row[3]))
+		var lb := UI.label(str(ln[0]), int(ln[1]), ln[2], str(ln[3]))
 		lb.horizontal_alignment = al
 		v.add_child(lb)
 	return p
@@ -187,6 +238,10 @@ static func _judges(m: Dictionary) -> GridContainer:
 	g.add_theme_constant_override("h_separation", 8)
 	g.add_theme_constant_override("v_separation", 4)
 	var leans: Array = (m.get("judges", {}) as Dictionary).get("leans", []) if _judged(m) else []
+	for hd in [""] + range(rounds.size()).map(func(i): return "ROUND %d" % (i + 1)) + ["CARD"]:
+		var hl := UI.caps(str(hd))
+		hl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		g.add_child(hl)
 	for j in (m["cards"] as Array).size():
 		var jl := UI.label("Judge %d" % (j + 1), TEXT, UI.MUTED)
 		if j < leans.size():
@@ -197,7 +252,7 @@ static func _judges(m: Dictionary) -> GridContainer:
 			var sc := _score(m, j, i)
 			var cell := UI.label("%d-%d" % [sc[0], sc[1]], 18, Palette.TEXT, "bold")
 			cell.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-			cell.custom_minimum_size = Vector2(64, 26)
+			cell.custom_minimum_size = Vector2(92, 26)
 			var bg := PanelContainer.new()
 			var col: Color = Broadcast.HERS if sc[0] > sc[1] else (Broadcast.THEIRS if sc[0] < sc[1] else Palette.LINE)
 			bg.add_theme_stylebox_override("panel", UI.box(col.darkened(0.35), col, 3, 1, 4, 0))
@@ -265,114 +320,82 @@ static func punches(main: Node, m: Dictionary) -> Control:
 	return FightAnalysisOwn.open(main, f, row)
 
 
-## THE SUMMARY: the one cause and its fix beside what the bout cost, then the rounds.
+## THE SUMMARY (S538 RESULTV2): why, round by round and what it cost side by side, then the row of icon tiles.
 static func summary(main: Node, m: Dictionary, f: Dictionary, names: Array) -> VBoxContainer:
-	var v := UI.vbox(12)
+	var v := UI.vbox(10)
 	var row := UI.hbox(14)
-	var cause := ResultCause.cause_card(main, m, f, names)
-	cause.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	cause.size_flags_stretch_ratio = 1.9
-	row.add_child(cause)
-	var cost := cost_card(main, m, f, names)
-	cost.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	row.add_child(cost)
+	var cause := ResultTiles.why(main, m, f, names)
+	var rounds := ResultRounds.card(m, names, m.get("fixlab", {}), scores(m))
+	var cost := ResultRounds.cost(main, m, f)
+	for part in [[cause, 1.0], [rounds, 1.12], [cost, 0.88]]:
+		(part[0] as Control).size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		(part[0] as Control).size_flags_stretch_ratio = float(part[1])
+		(part[0] as Control).custom_minimum_size = Vector2(440, 0)
+		row.add_child(part[0])
 	v.add_child(row)
-	if str(m.get("card_ask", "")) != "":   # S531 "she asked about your gym" (CardAsk): the boxer chose the gym
-		var ask := UI.label(str(m["card_ask"]), 20, UI.GREEN, "semi", true)
-		ask.name = "CardAsk"
-		v.add_child(ask)
-	elif str(m.get("visit_note", "")) != "":   # S533 the work was seen though nobody came: coaching and luck told apart
-		var seen := UI.label(str(m["visit_note"]), 18, UI.MUTED, "body", true)
-		seen.name = "VisitNote"
-		v.add_child(seen)
-	# S533 the corner's eye: the bout's one recorded clue (BoutFinish), or the plain word that none was recorded.
-	var clue := UI.label("The plan's clue: " + str(m.get("clue", "No recorded clue: the plan's lines were not tracked in this bout.")), 18, UI.FG, "body", true)
-	clue.name = "PlanClue"
-	v.add_child(clue)
-	v.add_child(ResultTabs.round_strip(m, names, (m.get("fixlab", {}) as Dictionary)))
+	v.add_child(ResultTiles.row(m))   # the night's take-home and the plan's clue (S533 the corner's eye), a tile each
 	return v
 
 
-## What the bout cost: hurt, counts, the damage tile (the stand-down's head) and the rank tile, as tiles with hovers.
-static func cost_card(main: Node, m: Dictionary, f: Dictionary, names: Array) -> PanelContainer:
-	var p := ResultCause.panel("WHAT IT COST %s" % str(names[0]).to_upper())
-	p.name = "Cost"
-	var v: VBoxContainer = p.get_child(0)
-	var hurt := 0
-	for r in m["rounds"]:
-		for x in (r as Dictionary).get("exchanges", []):
-			hurt += int(bool(((x as Dictionary).get("after", {}) as Dictionary).get("hurt", [false, false])[0]))
-	var dealt := 0
-	for r in m["rounds"]:
-		for x in (r as Dictionary).get("exchanges", []):
-			dealt += int(bool(((x as Dictionary).get("after", {}) as Dictionary).get("hurt", [false, false])[1]))
-	var counts := int((m.get("counts", {}) as Dictionary).get("a", 0))
-	var folds: Array = []   # S467 LIVERRIBS1: which counts were body knockdowns from the liver
-	for r in m["rounds"]:
-		if bool((r as Dictionary).get("liver_fold", false)) and str((r as Dictionary).get("down", "")) == "a":
-			folds.append("round %d" % int((r as Dictionary).get("n", 0)))
-	var count_tip := "Counts from the referee in the bout." + ("" if folds.is_empty() else " Body knockdown (liver): %s." % ", ".join(PackedStringArray(folds)))
-	var facts := UI.hbox(26)
-	for fact in [["%d" % hurt, "times hurt", UI.AMBER if hurt > 0 else UI.GREEN, "Exchanges your boxer finished hurt (the opponent won one big)."],
-			["%d" % dealt, "times the opponent was hurt", UI.FG, "Exchanges the opponent finished hurt: the same count the other way."],
-			["%d" % counts, "standing counts" if folds.is_empty() else "counts, %d from the liver" % folds.size(), UI.RED if counts > 0 else UI.GREEN, count_tip]]:
-		var cell := UI.vbox(0)
-		cell.mouse_filter = Control.MOUSE_FILTER_PASS
-		cell.tooltip_text = str(fact[3])
-		cell.add_child(UI.display(str(fact[0]), 40, fact[2]))
-		cell.add_child(UI.label(str(fact[1]), TEXT, UI.MUTED))
-		facts.add_child(cell)
-	v.add_child(facts)
-	for t in m.get("aftermath", []):
-		if ["damage", "rank"].has(str((t as Dictionary).get("id", ""))):
-			var tile := AftermathTiles.tile(t)
-			tile.custom_minimum_size = Vector2(0, 104)
-			v.add_child(tile)
-	var focus := ResultTabs.body_focus(main, m, f)   # the body report's one action: train the part that went first
-	if focus != null:
-		v.add_child(focus)
-	return p
+## Every judge's score of every round: scores[round][judge] = [ours, theirs]; [] on a stopped bout (no cards).
+static func scores(m: Dictionary) -> Array:
+	var out: Array = []
+	if str(m.get("stopped", "")) != "":
+		return out
+	for i in (m["rounds"] as Array).size():
+		var row: Array = []
+		for j in (m["cards"] as Array).size():
+			row.append(_score(m, j, i))
+		out.append(row)
+	return out
 
 
-static func footer(main: Node, m: Dictionary, f: Dictionary, opp: Dictionary) -> HBoxContainer:
+## What the modal needs from the header: the verdict's words, the swing round, the record's move.
+static func read_ctx(f: Dictionary, m: Dictionary, names: Array) -> Dictionary:
+	var outcome := str(m.get("outcome", "win" if bool(m["win"]) else "loss"))
+	var rec := "pro_" if bool(m.get("pro", false)) else ""
+	var w := int(f.get(rec + "w", 0))
+	var l := int(f.get(rec + "l", 0))
+	return {"names": names, "how": "%s. %s" % [{"win": "Won", "loss": "Lost", "draw": "A draw"}.get(outcome, ""), _how(m)], "swing": _swing(m, names),
+		"record": "Record %d-%d → %d-%d" % [w - int(outcome == "win"), l - int(outcome == "loss"), w, l], "scores": scores(m)}
+
+
+## The foot: on the summary the tiles carry the numbers, so the foot holds the hint (or the night's one line: the boxer who
+## asked about the gym, the work that was seen) and "More: the whole read"; the other
+## tabs keep the night's take-home as a line of numbers. The plan lit up (FightNight) and Back home close it.
+static func footer(main: Node, m: Dictionary, f: Dictionary, _opp: Dictionary, on_summary: bool = false) -> HBoxContainer:
 	var foot := UI.hbox(14)
 	foot.name = "ResultFoot"
-	var take := []
-	if m.has("tickets"):
-		take.append(["%d SOLD" % int(m["tickets"]["sold"]), "DEBUT TICKETS", UI.GOLD])
-		take.append([UI.signed(int(m.get("gym_cut", 0))), "THE GYM'S SHARE", UI.GREEN if int(m.get("gym_cut", 0)) > 0 else UI.MUTED])
-	elif bool(m.get("pro", false)):
-		take.append([UI.signed(int(m.get("gym_cut", 0))), "THE GYM'S PURSE SHARE", UI.GREEN])
+	if on_summary:
+		var hint := UI.label("Every tile and bar has its words one hover away.", 18, UI.MUTED, "body", true)
+		if str(m.get("card_ask", "")) != "":   # S531 "she asked about your gym" (CardAsk): the boxer chose the gym
+			hint = UI.label(str(m["card_ask"]), 19, UI.GREEN, "semi", true)
+			hint.name = "CardAsk"
+		elif str(m.get("visit_note", "")) != "":   # S533 the work was seen though nobody came: coaching and luck told apart
+			hint = UI.label(str(m["visit_note"]), 17, UI.MUTED, "body", true)
+			hint.name = "VisitNote"
+		hint.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		hint.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		foot.add_child(hint)
 	else:
-		var cut := int(m.get("club_cut", BoutRules.TICKET_CUT))
-		var none := "THE HOST KEPT THE GATE" if m.has("gate_line") else "NO TICKET CUT AT THE CHAMPIONSHIPS"   # S512 a picked name
-		take.append([UI.signed(cut), "CLUB TICKET CUT" if cut > 0 else none, UI.GREEN if cut > 0 else UI.MUTED])
-		if m.has("taught"):   # S512 ASKFIGHT1: what the fight taught (FightLearn), on every amateur result
-			var g := float(m["taught"].get("grow", 0.0))
-			take.append([("+%.1f" % g) if g > 0.0 else "NOTHING", "WHAT IT TAUGHT, EVERY ABILITY" + (" (A STEP UP)" if str(m["taught"].get("kind", "")) == "step_up" else ""),
-				UI.GREEN if g > 0.0 else UI.MUTED])
-		var lp: Dictionary = m.get("ladder_pts", {})
-		if not lp.is_empty():   # S515 LADDERWIRE1: the ladder points this bout moved (season ladder v6)
-			var dl := int(lp["a_delta"])
-			take.append([("+%d" % dl) if dl > 0 else ("%d" % dl if dl < 0 else "NO CHANGE"), "LADDER POINTS, NOW %d" % int(lp["a_rep"]),
-				UI.GREEN if dl > 0 else (UI.RED if dl < 0 else UI.MUTED)])
-		var hf: Dictionary = m.get("host_favour", {})
-		if not hf.is_empty():   # S515 FAVOURS2: the host's favour count, on every bout boxed on a host's show
-			take.append(["+1 FAVOUR" if bool(hf["earned"]) else "%d OF %d" % [int(hf["count"]), FightWeekEvents.BOUTS_PER_FAVOUR],
-				"THE HOST OWES YOU ONE" if bool(hf["earned"]) else "BOUTS FOR THE HOST TOWARD A FAVOUR", UI.GREEN if bool(hf["earned"]) else UI.MUTED])
-	var lost := int(m.get("members_lost", 0))
-	var win := bool(m["win"])
-	take.append(["+%d" % BoutRules.WIN_MEMBERS if win else ("-%d" % lost if lost > 0 else "NO CHANGE"), "MEMBERS AFTER THE NEWS", UI.GOLD if lost == 0 else UI.RED])
-	if m.has("injury"):
-		take.append([str(m["injury"]).to_upper(), "INJURY REPORT", UI.RED])
-	var rib := UI.hbox(44)
-	for it in take:
-		var cell := UI.vbox(0)
-		cell.add_child(UI.display(str(it[0]), 30, it[2]))
-		cell.add_child(UI.caps(str(it[1])))
-		rib.add_child(cell)
-	foot.add_child(rib)
-	foot.add_child(UI.spacer())
+		var rib := UI.hbox(44)
+		for it in ResultTiles.take(m):
+			var cell := UI.vbox(0)
+			cell.add_child(UI.display(str(it["big"]), 30, it["col"]))
+			cell.add_child(UI.caps(str(it["label"]).get_slice(" · ", 0) + (", " + str(it["side"]) if str(it.get("side", "")) != "" else "")))
+			rib.add_child(cell)
+		foot.add_child(rib)
+	if not on_summary:
+		foot.add_child(UI.spacer())
+	if on_summary:
+		var names := [str(f["first"]), str(f["bout"]["opp"]["first"])]
+		var more := UI.button("More: the whole read", "Btn", func(): ResultRead.open(main, m, f, read_ctx(f, m, names)))
+		more.name = "WholeRead"
+		more.tooltip_text = "Opens every fact of this page in plain sentences: the cause, the fix, the cost, the rank, the cards."
+		more.add_theme_font_size_override("font_size", 20)
+		more.custom_minimum_size = Vector2(250, 56)
+		more.size_flags_vertical = Control.SIZE_SHRINK_END
+		foot.add_child(more)
 	var home := UI.button("Back home", "Btn", main.act.bind("afterfight", ""))
 	home.name = "BackHome"
 	home.add_theme_font_size_override("font_size", 24)

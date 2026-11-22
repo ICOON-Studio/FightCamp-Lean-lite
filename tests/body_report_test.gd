@@ -94,7 +94,7 @@ func _test7() -> void:
 	var rounds: Array = [{"legs": 30, "core": 20}, {"legs": 55, "lead_shoulder": 52}, {"legs": 70}]
 	var r: Dictionary = BR.report(rounds, "Lucy")
 	var expected: Dictionary = {"part": "legs", "round": 2, "focus": "conditioning",
-		"line": "Lucy's legs went in round 2", "advice": "Next week: Stamina"}
+		"line": "The legs went in round 2", "advice": "Next week: Stamina"}
 	_check(_same_dict(r, expected),
 		"test 7: report Lucy legs r2 (got %s, expected %s)" % [str(r), str(expected)])
 
@@ -106,7 +106,7 @@ func _test8() -> void:
 	var ok := true
 	if str(r1["focus"]) != "technique":
 		ok = false
-	if str(r1["line"]) != "Maria's jab arm went in round 1":
+	if str(r1["line"]) != "The jab arm went in round 1":
 		ok = false
 	if str(r2["advice"]) != "Next week: Power":
 		ok = false
@@ -119,9 +119,9 @@ func _test9() -> void:
 	var r1: Dictionary = BR.report([{"legs": 10}, {"legs": 20}, {"legs": 30}], "Lucy")
 	var r2: Dictionary = BR.report([{"legs": 10}], "Lucy")
 	var ok := true
-	if str(r1["line"]) != "Lucy held up for all 3 rounds":
+	if str(r1["line"]) != "Everything held up for all 3 rounds":
 		ok = false
-	if str(r2["line"]) != "Lucy held up for all 1 round":
+	if str(r2["line"]) != "Everything held up for all 1 round":
 		ok = false
 	_check(ok,
 		"test 9: report held-up lines (r1='%s', r2='%s')" % [str(r1["line"]), str(r2["line"])])

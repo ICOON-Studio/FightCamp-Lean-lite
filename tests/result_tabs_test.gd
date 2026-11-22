@@ -3,6 +3,9 @@ extends SceneTree
 ## page's sample bout through the game's own fight night (tools/result_dump.gd, the first of seeds 44-63 with a measured fix) and
 ## builds the real page: the summary holds the verdict, ONE cause with its measured fix (FixLab), what it cost and the
 ## rounds strip; the three tabs build; the fix button writes the measured lines into the plan; no he/she in the words.
+## S538 RESULTV2 (owner Q-S294-303 "more graphics, use tooltips/modals to shorten things"): the summary is pictures - the
+## icon tiles, the bars, the figure - every one with a tooltip that explains, and "More: the whole read" opens the modal
+## that holds every fact in words (Close and Esc shut it).
 
 const Dump := preload("res://tools/result_dump.gd")
 const FixLab := preload("res://scripts/state/FixLab.gd")
@@ -11,6 +14,9 @@ const BoutActs := preload("res://scripts/ui/BoutActs.gd")
 const ResultCause := preload("res://scripts/ui/ResultCause.gd")
 const PlanLines := preload("res://scripts/rules/PlanLines.gd")
 const ResultScorecard := preload("res://scripts/ui/ResultScorecard.gd")
+const ResultTiles := preload("res://scripts/ui/ResultTiles.gd")
+const ResultRead := preload("res://scripts/ui/ResultRead.gd")
+const Tip := preload("res://scripts/ui/Tip.gd")
 
 var failures := 0
 var asserts := 0
@@ -31,7 +37,8 @@ func _initialize() -> void:
 		var cf := Dump._setup(sd)
 		var mm := Dump._fight(cf[0], cf[1], Dump.PLAN, true)
 		var pre := FixLab.run(cf[0], mm)
-		if bool(pre.get("ok", false)) and (pre["changes"] as Dictionary).has("rewrite"):
+		# S538: and that line lost an exchange (after the S538 rule changes seed 46's only wrong-fit line won its one use)
+		if bool(pre.get("ok", false)) and (pre["changes"] as Dictionary).has("rewrite") and int(pre["changes"]["rewrite"].get("lost", 0)) > 0:
 			c = cf[0]
 			f = cf[1]
 			m = mm
@@ -60,15 +67,20 @@ func _initialize() -> void:
 	var lab: Dictionary = m["fixlab"]
 	print("RESULT_TABS lab written=%d best=%s best_wins=%d verdict=%s of %d" % [int(lab["written"]), lab["best"], int(lab["best_wins"]), lab["verdict"], int(lab["nights"])])
 	var fixed := str(lab["best"]) != ""
-	for n in ["ResultHead", "Judges", "WhyRank", "ResultTabs", "Tab_summary", "Cause", "CauseHead", "FixLadder", "FixVerdict", "Cost", "RoundStrip", "BackHome"]:
+	for n in ["ResultHead", "Judges", "WhyRank", "ResultTabs", "Tab_summary", "Cause", "CauseHead", "FixLadder", "Cost", "RoundStrip", "BackHome",
+			"Portrait", "JudgesKey", "ResultTiles", "Tile_ticket", "Tile_members", "Tile_clue", "HeadCount", "BodyCount", "CostFacts", "Energy", "WholeRead"]:
 		_check(page.find_child(n, true, false) != null, "the summary holds %s" % n)
 	_check((page.find_child("PlanFix", true, false) != null) == fixed, "the fix button is there only when a change beats luck (best '%s')" % str(lab["best"]))
 	var head: Label = page.find_child("CauseHead", true, false)
 	var cause := "Line %s: %s" % [FixLab.LETTERS[int(worst["i"])], ResultCause._move(str(worst["move"]))]
 	_check(head != null and head.text.begins_with(cause), "the one cause is the line that lost most, '%s': '%s'" % [cause, head.text if head else ""])
-	var verdict: Label = page.find_child("FixVerdict", true, false)
-	print("RESULT_TABS verdict: %s" % (verdict.text if verdict else ""))
-	_check(verdict != null and (verdict.text.contains("Even the best plan") == (["even", "class"].has(str(lab["verdict"])))), "the verdict sentence follows the numbers")
+	var bars: Control = page.find_child("FixLadder", true, false)   # S538: the verdict sentence is the bars' tooltip (and the modal's)
+	var verdict := str(Tip.of(bars).get("now", "")) if bars != null else ""
+	print("RESULT_TABS verdict: %s" % verdict)
+	_check(verdict != "" and (verdict.contains("Even the best plan") == (["even", "class"].has(str(lab["verdict"])))), "the verdict sentence follows the numbers")
+	_check(str(Tip.of(bars).get("do", "")).begins_with("Measured: %d more nights" % int(lab["nights"])), "the bars' tooltip says how the fix was measured")
+	_tooltips(page)
+	_whole_read(desk, page, m, verdict)
 	_check(not fixed or str(lab["best"]) == "both" or int(lab["changes"].get("both", {}).get("wins", -1)) < int(lab["best_wins"]), "both changes are the fix unless they win less")
 	for k in lab["changes"]:
 		_check((str(lab["best"]) != str(k)) or int(lab["changes"][k]["wins"]) - int(lab["written"]) >= FixLab.MIN_GAIN, "the fix beats the plan as written by %d nights or more" % FixLab.MIN_GAIN)
@@ -163,6 +175,72 @@ func _scorecard(desk: Desk, m: Dictionary) -> void:
 	fake["rounds"] = [{"won": true, "exchanges": []}]
 	_check(ResultScorecard.sheet_input(fake).is_empty(), "a first-round stoppage has no card")
 	_check(_pronouns(page) == "", "no he/she on the scorecard: %s" % _pronouns(page))
+
+
+## S538 every tile, bar and round of the summary has a tooltip, and it EXPLAINS: six words or more, never the label again.
+func _tooltips(page: Control) -> void:
+	var tiles: Node = page.find_child("ResultTiles", true, false)
+	_check(tiles != null and tiles.get_child_count() >= 3, "the summary has its row of icon tiles (%d)" % (tiles.get_child_count() if tiles else 0))
+	if tiles == null:
+		return
+	var hover: Array = tiles.get_children()
+	for n in ["HeadCount", "BodyCount", "Damage", "Energy", "Score", "FixLadder"]:
+		hover.append(page.find_child(n, true, false))
+	hover.append_array(page.find_child("CostFacts", true, false).get_children())
+	hover.append_array(page.find_child("Round1", true, false).get_child(1).get_children())   # round 1's exchanges
+	for c in hover:
+		var spec: Dictionary = Tip.of(c) if c != null else {}
+		var said := " ".join(PackedStringArray(Tip.prose(spec))) if not spec.is_empty() else ""
+		var label := ""
+		for l in (c as Node).find_children("*", "Label", true, false) if c != null else []:
+			label += (l as Label).text + " "
+		_check(said.split(" ", false).size() >= 6 and said.to_lower().strip_edges() != label.to_lower().strip_edges(),
+			"%s has a tooltip that explains: '%s'" % [str(c.name) if c else "a missing node", said.left(70)])
+	for t in tiles.get_children():
+		_check((t as Node).find_children("*", "TextureRect", true, false).size() >= 1, "tile %s carries an icon" % str(t.name))
+
+
+## S538 "More: the whole read" opens the modal; it holds every fact of the page in words; Close and Esc shut it.
+func _whole_read(desk: Desk, page: Control, m: Dictionary, verdict: String) -> void:
+	var more: Button = page.find_child("WholeRead", true, false)
+	if more == null:
+		return
+	more.emit_signal("pressed")
+	var read: Control = desk.find_child("ResultRead", false, false)
+	_check(read != null, "More: the whole read opens the modal")
+	if read == null:
+		return
+	var text := ""
+	for l in read.find_children("*", "Label", true, false):
+		text += (l as Label).text + "\n"
+	var facts := [verdict, ResultTiles.measured(m["fixlab"]), str(m.get("clue", ResultTiles.NO_CLUE)), str(m.get("rank_words", "")), "times hurt", "standing count",
+		"Energy at the bell", "exchanges", "Record "]
+	for t in ResultTiles.take(m):
+		facts.append(str(t["words"]))
+	for cd in m["cards"]:
+		facts.append(str(cd))
+	for t in m.get("aftermath", []):
+		if str(t.get("id", "")) == "damage":
+			facts.append(str(t["big"]))
+			facts.append_array(t.get("lines", []))
+	for k in ["rewrite", "add"]:
+		if (m["fixlab"]["changes"] as Dictionary).has(k):
+			facts.append("%d of %d" % [int(m["fixlab"]["changes"][k]["wins"]), int(m["fixlab"]["nights"])])
+	var head: Label = page.find_child("CauseHead", true, false)
+	facts.append(head.text if head != null else "?")
+	for fact in facts:
+		_check(str(fact) == "" or text.contains(str(fact)), "the whole read holds: %s" % str(fact).left(80))
+	_check(_pronouns(read) == "", "no he/she in the whole read: %s" % _pronouns(read))
+	(read.find_child("ReadClose", true, false) as Button).emit_signal("pressed")
+	_check(desk.find_child("ResultRead", false, false) == null, "Close shuts the whole read")
+	more.emit_signal("pressed")
+	var again: Control = desk.find_child("ResultRead", false, false)
+	var esc := InputEventAction.new()
+	esc.action = "ui_cancel"
+	esc.pressed = true
+	if again != null:
+		again._input(esc)
+	_check(again != null and desk.find_child("ResultRead", false, false) == null, "Esc shuts the whole read")
 
 
 func _page(desk: Desk, m: Dictionary) -> Control:

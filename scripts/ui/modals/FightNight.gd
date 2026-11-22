@@ -316,6 +316,8 @@ func _result(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 	if not lit.is_empty() and foot != null:   # S340 her plan as a flow, lit with what fired and what worked (Q-S294-64)
 		var see := UI.button("The plan, lit up", "Btn", _open_lit.bind(main, lit, "THE FLOW: %s vs %s" % [str(f["first"]).to_upper(), str(opp["first"]).to_upper()]))
 		see.name = "PlanLit"
+		see.add_theme_font_size_override("font_size", 20)   # S538 RESULTV2: the same size as its neighbours (More / Back home)
+		see.custom_minimum_size = Vector2(220, 56)
 		see.size_flags_vertical = Control.SIZE_SHRINK_END
 		foot.add_child(see)
 		foot.move_child(see, foot.get_child_count() - 2)

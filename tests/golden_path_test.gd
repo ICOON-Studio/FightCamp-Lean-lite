@@ -275,7 +275,7 @@ func _week_two(c: Career) -> void:
 	var f := c.fighter()
 	# S327 update 29 part B: the body report on the result page; its button sets next week's focus.
 	var rep: Dictionary = main.modal.get("body_report", {})
-	_check(str(rep.get("line", "")).begins_with(str(f["first"])) and f.get("last_body_report", {}) == rep, "the body report: %s" % str(rep.get("line", "")))
+	_check((str(rep.get("line", "")).begins_with("The ") or str(rep.get("line", "")).begins_with("Everything ")) and not str(rep.get("line", "")).contains(str(f["first"])) and f.get("last_body_report", {}) == rep, "the body report: %s" % str(rep.get("line", "")))
 	if str(rep.get("focus", "")) != "":
 		_press(_modal_button("BodyFocus"), "Train it next week")
 		_check(str(f["focus"]) == str(rep["focus"]) and main.modal.get("step", "") == "result", "the body report's button sets her focus: %s" % str(f["focus"]))
