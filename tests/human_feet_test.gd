@@ -14,6 +14,8 @@ extends SceneTree
 ##               (ball within LOW_M of the canvas) is a foot dragged, not stepped: more than DRAG_MAX_M is a slide.
 ## Run at the game's frame step:  <godot> --headless --fixed-fps 30 --audio-driver Dummy --path . --script res://tests/human_feet_test.gd
 ## (without --fixed-fps the test caps itself at 30 frames a second and takes real time).
+## FIXED_FPS 30 (S538, read by tools/run_tests.sh): the stage is stepped by DT = 1/30 s here; at the runner's 60 the clips
+## and the stage ran on two clocks and the same dip read 11.7 cm (4.0-4.4 cm at the game's step).
 
 const Stage := preload("res://scripts/fight3d/FightStage.gd")
 const PunchRange := preload("res://scripts/fight3d/PunchRange.gd")
@@ -135,7 +137,7 @@ func _initialize() -> void:
 		_check(int(d["frames"]) > 600, "boxer %d was read on every frame (%d frames)" % [i, int(d["frames"])])
 		_check(int(d["longest"]) <= AIR_RUN_MAX, "boxer %d never has both feet off the canvas (longest %d frames, peak %.1f cm in %s)" % [
 			i, int(d["longest"]), 100.0 * float(d["peak"]), str(d["worst"])])
-		_check(float(d["deep"]) <= SINK_M, "boxer %d never stands under the canvas (deepest %.1f cm, %d frames)" % [i, 100.0 * float(d["deep"]), int(d["under"])])
+		_check(float(d["deep"]) <= SINK_M, "boxer %d never stands under the canvas (deepest %.1f cm in %s, %d frames)" % [i, 100.0 * float(d["deep"]), str(d.get("deep_in", "-")), int(d["under"])])
 	print("HUMAN_FEET_TEST failures=%d" % failures)
 	quit(1 if failures > 0 else 0)
 
@@ -181,7 +183,9 @@ func _tally() -> void:
 			d["run"] = 0
 		if low < -SINK_M:
 			d["under"] = int(d["under"]) + 1
-		d["deep"] = maxf(float(d["deep"]), -low)
+		if -low > float(d["deep"]):
+			d["deep"] = -low
+			d["deep_in"] = tag
 		# the stiller standing foot's travel on the canvas
 		if (prev[i] as Dictionary).size() == 4:
 			var still := INF

@@ -5,6 +5,7 @@ extends SceneTree
 
 const Attrs := preload("res://scripts/rules/Attrs.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
+const VersusPanel := preload("res://scripts/ui/VersusPanel.gd")
 
 var bare_pct := RegEx.create_from_string("^[+\\-]\\d+%$")
 var bare_over := RegEx.create_from_string("\\d\\.\\d over")
@@ -48,7 +49,12 @@ func _initialize() -> void:
 	if offer != "":
 		main.act("openBout", offer)
 		await _settle()
-		_page("bout", ["Scouting report"], [])
+		# S535 OFFERBUILD1 (b81ae44c4, owner Q-296 "Yes, build it"): the offer opens on the host club's letter, which says
+		# "Scouting: n of m found." as the approved mockup does; "Scouting report" stays on the Full report behind it.
+		_page("bout", ["Scouting:"], [])
+		VersusPanel.show_report(main, offer)
+		await _settle()
+		_page("full report", ["Scouting report"], [])
 	main.act("fighter", "lucy")
 	await _settle()
 	_page("overview", ["OF 100", "kg"], [])

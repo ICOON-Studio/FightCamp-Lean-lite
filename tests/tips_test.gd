@@ -46,7 +46,9 @@ func _initialize() -> void:
 		_check(not card.get_global_rect().intersects(c.get_global_rect()), "the card is not over the control")
 		var panel := card.get_child(0) as PanelContainer
 		var st := panel.get_theme_stylebox("panel") as StyleBoxFlat
-		_check(st != null and st.bg_color.a >= 0.999, "the card is opaque")
+		# S534 owner C446 "can the background be transparent?" (33b43ec83): the card is 86% opaque - the page shows through,
+		# the words still read. Opaque again or thinner than 80% is a change he did not ask for.
+		_check(st != null and st.bg_color.a >= 0.8 and st.bg_color.a < 0.999, "the card lets the page show through and still reads (alpha %.2f)" % (st.bg_color.a if st != null else -1.0))
 	await _secs(0.8)
 	_check(Tips.state() == "locked", "locked LOCK_S after showing (%s)" % Tips.state())
 	var shift := InputEventKey.new()

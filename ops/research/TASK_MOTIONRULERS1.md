@@ -40,3 +40,8 @@ None: these are our own foot-lock and guard-idle layers.
   guard_knee is green again.
 - Still HELD: CLAUDE.md item 8 METHOD - fight animation is FIGHTPLAYER2; no new fix layer in scripts/fight3d until it is built.
   These rulers measure the old player; decide with the FIGHTPLAYER2 work whether they are fixed, moved to v2 or retired.
+
+## Added 2026-11-22 (NIGHTFIX537, S538)
+- The likely causes above are ruled out by their own control arms: `-- oldswing` leaves human_feet (4.0 cm) and the strafe slide
+  unchanged, `-- oldflight` / `-- oldguard` leave head_aim at 0.235 / 0.227. Bisect instead. Details: docs/NIGHTFIX537_RESULT.md.
+- human_feet_test now runs at FIXED_FPS 30 in the runner and names the move: pro_left_hook_v2 -> guard, 4.0-4.4 cm, 1-2 frames.
