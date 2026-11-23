@@ -8,6 +8,7 @@ const UI := preload("res://scripts/ui/UI.gd")
 const Sim := preload("res://scripts/state/Sim.gd")
 const Bouts := preload("res://scripts/state/Bouts.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
+const WeighMissWire := preload("res://scripts/state/WeighMissWire.gd")   # S539
 const Injuries := preload("res://scripts/state/Injuries.gd")
 const Champs := preload("res://scripts/state/Champs.gd")
 const TrainingPlan := preload("res://scripts/rules/TrainingPlan.gd")
@@ -256,8 +257,23 @@ static func act(main: Node, name: String, arg: String) -> bool:
 			var f := who(main, "")
 			var made := Bouts.weigh(c, f)
 			main.close_modal()
+			if WeighMissWire.pending(f):   # S539 a pro miss: the other corner answers on the same pop-up
+				main.open_modal({"type": "weighin", "fid": f["id"]})
+				return true
 			main.toast("%s made weight. Tomorrow is fight night." % f["first"] if made
 				else "%s missed weight. The bout is off and the club pays %s for the empty slot." % [f["first"], UI.money(BoutRules.MISSED_WEIGHT_COST)])
+		"missBox", "missPull":
+			var f := Bouts.weighing_today(c)
+			if f.is_empty() or not WeighMissWire.pending(f):
+				return true
+			if name == "missBox":
+				WeighMissWire.box(c, f)
+			else:
+				WeighMissWire.pull(c, f)
+			main.close_modal()
+			main.toast("%s boxes tomorrow, drained." % f["first"] if name == "missBox"
+				else "The bout is off. The club pays %s for the empty slot." % UI.money(BoutRules.MISSED_WEIGHT_COST))
+			main.render()
 		"fightnight":
 			var f := Bouts.fighting_today(c)
 			if not f.is_empty():

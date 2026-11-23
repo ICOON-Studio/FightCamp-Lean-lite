@@ -8779,6 +8779,24 @@
       "attach": [
         "AgentComms/board_attach/Q-S294-306_0_PLANREADSHOW1_RESULT.md"
       ],
+      "answer": "Yes, make it bite",
+      "note": null,
+      "answered_at": "2026-11-23T01:29:11Z",
+      "seen_by_claude": false,
+      "comment_only": false
+    },
+    {
+      "id": "Q-S294-307",
+      "asked": "2026-11-23T02:00:49.294381+00:00",
+      "session": "S294",
+      "text": "Combo counter: spam loses 6 in 100, varied plans get read 17 in 100. Build it?",
+      "options": [
+        "Yes, build it",
+        "No, drop it"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-307_0_REPEATBITE1_RESULT.md"
+      ],
       "answer": null,
       "note": null,
       "answered_at": null,

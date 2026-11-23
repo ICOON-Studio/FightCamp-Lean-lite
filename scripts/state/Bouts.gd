@@ -32,6 +32,7 @@ const Promises := preload("res://scripts/rules/Promises.gd")   # S487 R58 M5: a 
 const Champs := preload("res://scripts/state/Champs.gd")
 const PeakCamp := preload("res://scripts/rules/PeakCamp.gd")
 const WeekPhase := preload("res://scripts/rules/WeekPhase.gd")
+const WeighMissWire := preload("res://scripts/state/WeighMissWire.gd")   # S539 the pro weigh-in miss
 const GymDeals := preload("res://scripts/state/GymDeals.gd")   # S525 SPLIT500C: the pro camp's bill moved out of GymSpend
 const FirstHour := preload("res://scripts/rules/FirstHour.gd")
 const HeadCoach := preload("res://scripts/rules/HeadCoach.gd")
@@ -93,7 +94,8 @@ static func camp_due(c: Career, f: Dictionary) -> bool:
 
 static func weigh_in_today(c: Career, f: Dictionary) -> bool:
 	var b: Dictionary = f["bout"]
-	return b.has("day") and c.day == int(b["day"]) - 1 and not bool(b.get("weighed", false))
+	# S539 a pro miss waiting on the player's answer (WeighMissWire) keeps the weigh-in open, so it blocks Continue.
+	return b.has("day") and c.day == int(b["day"]) - 1 and (not bool(b.get("weighed", false)) or b.has("miss"))
 
 
 static func fight_day(c: Career, f: Dictionary) -> bool:
@@ -372,6 +374,8 @@ static func weigh(c: Career, f: Dictionary) -> bool:
 			false, bool(bb.get("ask_kilo", false))) >= 0.0
 		if not made:   # S513 FIGHTWEEK3: the host re-matches 1 in 3 on the night, else off + a favour (PullOutWire.weigh_miss)
 			made = load("res://scripts/state/PullOutWire.gd").weigh_miss(c, f)
+	if not made and WeighMissWire.applies(f):   # S539 a pro miss: the other corner answers, the player decides
+		return WeighMissWire.open(c, f)
 	f["bout"]["made"] = made
 	if not made and f["bout"].has("champ"):
 		# S328 a championship has no empty slot to pay for: she is out of the draw.
@@ -381,14 +385,19 @@ static func weigh(c: Career, f: Dictionary) -> bool:
 		Champs.withdraw(c, f, "missed weight")
 		return made
 	if not made:
-		c.add_news("%s missed weight. The bout is off." % f["name"])
-		_first_hour_after(c, f, false, true)
-		c.pay(-BoutRules.MISSED_WEIGHT_COST, "Empty slot: %s missed weight" % f["first"])
-		f["bout"] = {}
-		f["camp"] = {}
-		f["booked_fight"] = false
-		f["next_offer_day"] = c.day + AFTER_MISSED_WEIGHT
+		call_off(c, f)
 	return made
+
+
+## Missed weight and no bout after all: the club pays for the empty slot (also WeighMissWire.pull).
+static func call_off(c: Career, f: Dictionary) -> void:
+	c.add_news("%s missed weight. The bout is off." % f["name"])
+	_first_hour_after(c, f, false, true)
+	c.pay(-BoutRules.MISSED_WEIGHT_COST, "Empty slot: %s missed weight" % f["first"])
+	f["bout"] = {}
+	f["camp"] = {}
+	f["booked_fight"] = false
+	f["next_offer_day"] = c.day + AFTER_MISSED_WEIGHT
 
 
 ## Fight night lives in BoutNight (S326 split); these entry points keep their old names for every caller.

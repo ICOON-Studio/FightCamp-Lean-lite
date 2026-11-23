@@ -100,7 +100,7 @@ static func after(f: Dictionary, landed: Array, at: String, opp_attrs: Dictionar
 	var own := Attrs.of(f)
 	var blocks := [blocked_of(int(landed[1])), blocked_of(int(landed[0]))]   # [we block their punches, they block ours]
 	var ctxs := [
-		{"ropes": at == "own_ropes", "amateur": amateur,
+		{"ropes": at == "own_ropes", "amateur": amateur, "missed_weight": bool(f["bout"].get("missed_weight", false)),   # S539 boxed drained
 			"shoulder": GuardWear.shoulder(float(own.get("stamina", 55.0)), float(own.get("strength", 55.0)))},
 		{"ropes": at == "opp_ropes", "amateur": amateur,
 			"shoulder": GuardWear.shoulder(float(opp_attrs.get("stamina", 55.0)), float(opp_attrs.get("strength", 55.0)))}]
