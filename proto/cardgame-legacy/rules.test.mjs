@@ -1,6 +1,3 @@
-// FightCamp card game - rules tests.
-//   node proto/cardgame/rules.test.mjs
-// Prints PASS/FAIL for every check and exits 1 if anything fails.
 import rules from './rules.js';
 import './rules.round2.test.mjs';
 import './rules.round3.test.mjs';
@@ -28,7 +25,6 @@ function eq(a, b, msg) {
 function near(a, b, tol, msg) {
   if (Math.abs(a - b) > tol) throw new Error((msg || 'not near') + ' (get ' + a + ', want ' + b + ' +/- ' + tol + ')');
 }
-// a game that has finished its 4 camp weeks, ready for the bell
 function sameSexOpponent(id, preferred) {
   const me = R.boxerById(id), requested = R.boxerById(preferred);
   if (requested && requested.id !== id && requested.pronoun === me.pronoun && requested.club !== me.club) return requested.id;
@@ -40,17 +36,10 @@ function readyGame(seed, me = 'ada', foe = 'mara') {
   while (game.phase === 'camp') R.pickCampCard(game, R.aiCampPick(game));
   return game;
 }
-/* round 3b: each seat now draws from its own hit stream, so a seed that used to
-   go the distance can stop early. These checks are about the schedule and the
-   cards, not about seed 3 in particular, so they walk to the first bout that
-   goes the distance and keep every assertion. */
 function distanceBout(startSeed, me, foe) {
   for (let seed = startSeed; seed < startSeed + 40; seed++) {
     const b = playBout(seed, me, foe);
     if (b.fight.result && b.fight.result.method !== 'decision') continue;
-    /* Round 3b also resolves a handful of cells by range (inside-range trades
-       for the hook and the pivot, both documented deviations). This check is
-       about the plain table, so it takes a bout that never lands on one. */
     const overridden = b.fight.events.some((ev) => ev.code !== R.RESOLUTION[ev.player.card][ev.opponent.card]);
     if (!overridden) return b;
   }
@@ -69,7 +58,6 @@ function playBout(seed, me = 'ada', foe = 'mara') {
   }
   return { game, fight };
 }
-/* ------------------------------------------------------------------ data */
 check('data: 17 boxing cards, each with a name, a kind, a cost and one line of text', () => {
   eq(R.CARD_ORDER.length, 17, 'card count');
   eq(new Set(R.CARD_ORDER).size, 17, 'card ids are unique');
@@ -91,7 +79,6 @@ check('data: 17 boxing cards, each with a name, a kind, a cost and one line of t
   eq(R.CARD_ORDER.filter(id => R.CARDS[id].kind === 'defence').length, 5, '5 defences');
   eq(R.CARD_ORDER.filter(id => R.CARDS[id].kind === 'footwork').length, 5, '5 footwork cards');
 });
-/* ------------------------------------------------- resolution table (all pairs) */
 check('resolution table: every one of the 289 pairs has a legal outcome', () => {
   const legal = Object.keys(R.FLIP);
   for (const row of R.MATRIX_ROWS) eq(row.length, 17, 'every row has 17 cells');
@@ -163,7 +150,6 @@ check('resolution table: step back takes the big shots away but the jab follows'
   }
   eq(R.RESOLUTION.step_back.jab, 'l', 'the jab follows a step back');
 });
-/* ---------------------------------------------------------------- the RNG */
 check('seeded RNG: the same seed gives the same sequence, another seed does not', () => {
   const a = R.makeRng(42), b = R.makeRng(42), c = R.makeRng(43);
   const seqA = [], seqB = [], seqC = [];
@@ -174,7 +160,6 @@ check('seeded RNG: the same seed gives the same sequence, another seed does not'
   eq(R.hashSeed('a', 1), R.hashSeed('a', 1), 'hashSeed is stable');
   ok(R.hashSeed('a', 1) !== R.hashSeed('a', 2), 'hashSeed separates parts');
 });
-/* ------------------------------------------------------------ camp layer */
 check('camp: 4 weeks, 3 offers a week, a pick changes the deck or a stat', () => {
   const game = R.createGame({ seed: 7, playerBoxerId: 'ada', opponentBoxerId: 'mara' });
   eq(game.phase, 'camp', 'starts in camp');
@@ -223,7 +208,6 @@ check('scouting: the file reveals 0, 1 or 2 habits and never more than the man h
     eq(sc.known.length + sc.fleeting, habits.length, 'known + unknown = all his habits');
   }
 });
-/* ---------------------------------------------------------- the fight loop */
 check('fight: 3 rounds x 6 exchanges, 5 cards in hand, both corners play one card an exchange', () => {
   const { fight } = distanceBout(3);
   ok(R.isOver(fight), 'the bout ends');
@@ -296,7 +280,6 @@ check('fight: a card costs wind, and the same card can cost differently to a fit
   ok(fight.player.stamina < fight.player.maxStamina + 1, 'stamina starts at its maximum');
   eq(fight.player.stamina, fight.player.maxStamina, 'a fresh boxer starts full');
 });
-/* --------------------------------------------------------------- scoring */
 check('judging: 10-9 for a clear round, 10-8 when a knockdown decides it, 10-10 for a tie', () => {
     const even = { thrown: 6, landed: 3, damage: 10, kd: 0 };
   eq(R.judgeRound(even, { thrown: 6, landed: 3, damage: 10, kd: 0 }, 5, 5).join('-'), '10-10', 'nothing between them');
@@ -322,7 +305,6 @@ check('judging: five judges, five cards, every round 10-something, decision text
   }
   ok(/points|draw/i.test(fight.result.text), 'the result is in words');
 });
-/* --------------------------------------------------------------- stoppage */
 check('stoppage: three knockdowns is a stoppage, and reported on the right man', () => {
   const stop = R.checkStoppage({
     player: { knockdowns: 3, head: 0, stamina: 40, maxStamina: 80 },
@@ -370,12 +352,11 @@ check('stoppage: in a real bout a stoppage is always justified by the state', ()
   }
   ok(stoppages >= 0, 'stoppages were looked at (' + stoppages + ' in 60 bouts)');
 });
-/* ------------------------------------------------------------------ habits */
 check('habits: a habit fires in its stated situation, and only with the card in hand', () => {
   const game = readyGame(31, 'ada', 'mara');
   const fight = R.startFight(game);
   fight.opponent.habits = ['clinch_when_hurt'];
-  fight.opponent.head = 55;                       // hurt
+  fight.opponent.head = 55;
   fight.opponent.hand = ['clinch', 'jab', 'cross', 'slip', 'block'];
   fight.opponent.lastCard = null;
   eq(R.chooseAiCard(fight, 'opponent'), 'clinch', 'hurt, he holds: he clinches');
@@ -410,7 +391,6 @@ check('habits: the same situation gives the same card twice (he is readable)', (
   eq(first, 'jab', 'he opens the round with the jab');
   eq(second, first, 'the read is stable');
 });
-/* --------------------------------------------------------- same seed bout */
 check('seeded bout: the same seed plays the same bout, exchange for exchange', () => {
   for (const seed of [1, 99, 4242]) {
     const a = playBout(seed, 'tomas', 'ines');
@@ -426,10 +406,7 @@ check('seeded bout: a different seed plays a different bout', () => {
   const b = playBout(6, 'tomas', 'ines');
   ok(JSON.stringify(a.fight.events) !== JSON.stringify(b.fight.events), 'different seeds diverge');
 });
-/* -------------------------------------------------------------- the corner */
 check('corner: 3 cards offered between rounds, each one costs something, the pick has an effect', () => {
-  /* Round 3b added a sixth corner card, so which three a given seed draws has
-     moved. Find a round one that offers breathe instead of pinning the draw. */
   let game = null, fight = null;
   for (let s = 41; s < 400; s++) {
     game = readyGame(s);
@@ -473,7 +450,6 @@ check('corner: every corner card can be picked and leaves the fight playable', (
     ok(fight.events.length >= 7, id + ' and the next exchange happens');
   }
 });
-/* ------------------------------------------------------------- the boxers */
 check('roster: 8 boxers, 4 styles, different stats and a style that is data', () => {
   eq(R.BOXERS.length, 8, 'eight boxers');
   const styles = new Set(R.BOXERS.map(b => b.style));
@@ -501,7 +477,6 @@ check('readability: a boxer never starts a fight with a habit the file already g
   for (const k of known) ok(R.boxerById('ines').habits.includes(k), 'the file only lists his habits');
   ok(known.length <= 2, 'no more than two habits before the bell');
 });
-/* ------------------------------------------------------------------ summary */
 console.log('');
 console.log(passed + ' passed, ' + failed + ' failed');
 if (failed) {

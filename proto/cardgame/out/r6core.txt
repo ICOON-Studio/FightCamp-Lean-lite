@@ -1,0 +1,35 @@
+P1 unchanged boxing v wrestling: boxing wins 44.3 | ends: KO 44.1 lead 53.4 tap 0.0 pin 0.6 cards 1.9 | early 98.1 | 3+ ranges 100.0 ground 100.0 | decisions 24.9 (95%: 35) choices 3.2 max 8 | s/turn 12.3 | holds back 23.3 quiet 8.5 | holds on 0.06/bout finish 83.7 end 0.6 of ground bouts
+P1 slice substitution boxing v BJJ: boxing wins 54.4 | ends: KO 8.9 lead 5.3 tap 28.7 pin 0.0 cards 57.2 | early 42.8 | 3+ ranges 98.6 ground 100.0 | decisions 23.2 (95%: 35) choices 2.8 max 8 | s/turn 10.2 | holds back 16.7 quiet 5.9 | holds on 1.81/bout finish 15.9 end 28.7 of ground bouts (not literal P1)
+   [p1: 5 s, per=200, seed=500000000, mode=wind]
+P2 a health only    ends: KO 42.3 lead 0.0 tap 0.0 pin 0.0 cards 57.8 | early 42.3 | 3+ ranges 100.0 ground 100.0 | decisions 31.2 (95%: 37) choices 3.0 max 8 | s/turn 10.6 | holds back 28.8 quiet 1.6 | holds on 0.00/bout finish 0.0 end 0.0 of ground bouts
+P2 b + points lead  ends: KO 40.5 lead 7.0 tap 0.0 pin 0.0 cards 52.5 | early 47.5 | 3+ ranges 98.8 ground 100.0 | decisions 30.5 (95%: 37) choices 3.0 max 8 | s/turn 10.6 | holds back 28.0 quiet 0.9 | holds on 0.00/bout finish 0.0 end 0.0 of ground bouts
+P2 c + the hold     ends: KO 9.0 lead 4.8 tap 30.3 pin 0.0 cards 56.0 | early 44.0 | 3+ ranges 99.5 ground 100.0 | decisions 23.0 (95%: 36) choices 2.8 max 8 | s/turn 10.2 | holds back 16.2 quiet 6.9 | holds on 1.90/bout finish 15.9 end 30.3 of ground bouts
+P2 AI blind to health: 27.8 against the full AI (50 = no loss)
+P2 AI blind to points: 50.8 against the full AI (50 = no loss)
+P2 AI blind to the hold: 41.5 against the full AI (50 = no loss)
+   [p2: 8 s, per=200, seed=500000000, mode=wind]
+P5 visible race: AI answer = the printed rule in 100.0 of 611 held turns | a hold ends 31.3 of bouts that reach the ground | 17.0 of holds that go on finish | 1.84 holds a bout
+P5 hidden roll (p=17.0): a hold ends 19.8 of ground bouts | AI over impatient 64.0 (visible race: 76.5)
+   [p5: 9 s, per=200, seed=500000000, mode=wind]
+P6 boxing     the turn changes with the mechanic off in 49.3 of 706 turns
+P6 bjj        the turn changes with the mechanic off in 99.6 of 718 turns
+P6 blind judge (each action under the range it is laid at; a kick is its own kind) names the style from 10 turns: 97.5 (boxing 95.0, bjj 100.0)
+P6 blind judge (each action under the range it is laid at; a kick and a punch one kind) names the style from 10 turns: 97.5 (boxing 95.0, bjj 100.0)
+P6 blind judge (round 4 instrument: every action filed under the range the turn began at, a kick and a punch one kind) names the style from 10 turns: 98.0 (boxing 96.0, bjj 100.0)
+   [p6: 10 s, per=200, seed=500000000, mode=wind]
+you \ him    boxing    bjj     avg
+boxing           -   56.5    56.5
+bjj           43.5      -    43.5
+ends: KO 6.5 lead 7.8 tap 28.2 pin 0.0 cards 57.5 | early 42.5 | 3+ ranges 97.8 ground 100.0 | decisions 22.8 (95%: 35) choices 2.8 max 7 | s/turn 10.2 | holds back 16.7 quiet 6.1 | holds on 1.87/bout finish 15.1 end 28.2 of ground bouts
+P4 cells outside 40-60: 0 of 1; worst: boxing v bjj 56.5
+D1 decisions per bout 22.8; 95th percentile 35; max choices 7
+   [p4: 11 s, per=200, seed=500000000, mode=wind]
+P10 boxing     AI 55.0 | scripted 50.5 | impatient 53.5  (each against the AI pilot flying the other included art)
+P10 bjj        AI 46.5 | scripted 40.0 | impatient 0.0  (each against the AI pilot flying the other included art)
+R-C11 the impatient line with a style deck against the AI pilot: 26.8
+   [p10: 12 s, per=200, seed=500000000, mode=wind]
+R-C8 cheap boxing  impatient 16.3 | AI 28.2
+R-C8 cheap karate  impatient 9.0 | AI 55.3
+R-C8 cheap mix     impatient 14.0 | AI 8.3
+R-B6 cards with a matchup (top three against one style, bottom half against another): 0 of 13 = 0.0
+   [r3: 17 s, per=200, seed=500000000, mode=wind]
