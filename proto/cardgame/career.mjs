@@ -12,7 +12,7 @@ export const TRAINING = {
   boxing: [
     { id: 'jab', label: 'Jab timing', cost: 1, fail: 0.08 },
     { id: 'cross', label: 'Cross power', cost: 2, fail: 0.14 },
-    { id: 'hook', label: 'Hook placement', cost: 2, fail: 0.18 },
+    { id: 'escape', label: 'Escape practice', cost: 1, fail: 0.05 }, // out of the hold: the one card that gets a held boxer out
     { id: 'block', label: 'Guard drill', cost: 1, fail: 0.06 },
   ],
   bjj: [
@@ -55,23 +55,26 @@ export function resultCareer(career, won) {
   return RUNGS[career.rung];
 }
 export const playerFighter = (career) => ({ ...fighter(career.style), name: 'You', deck: career.deck.slice() });
-// RIVALS BY RUNG. A club novice's deck is the printed one with his best cards swapped for his cheapest; from Area up it
-// is the printed deck; from National up his best cards are upgraded, as a title fighter's are. A national title fighter
-// is far better than a club novice, and the ladder now says so.
+// RIVALS BY RUNG. The Club rung is the house rule's "opponents from other clubs": a novice of the player's own art whose
+// deck is the printed one with his best cards swapped for his cheapest (a first bout is fought, and trained for, in
+// the art the player came with: the guard drill and the escape practice have a real bout to be right in). From Area up
+// the rival is the other art; from National up his best cards are upgraded, as a title fighter's are. A national title
+// fighter is far better than a club novice, and the ladder now says so.
 export const RIVAL_RECIPE = [
-  { swap: 3 },        // 0 Club: a novice, his three best cards swapped for his three cheapest
-  { up: 4, by: 1 },   // 1 Area: the printed deck, his four best cards upgraded once
-  { up: 6, by: 2 },   // 2 National
-  { up: 8, by: 2 },   // 3 Title shot
-  { up: 10, by: 3 },  // 4 Title defence 1
-  { up: 12, by: 4 },  // 5 Title defence 2
+  { swap: 3, same: true }, // 0 Club: a novice from another club, his own art, his three best cards swapped for his cheapest
+  { up: 2, by: 1 },   // 1 Area: the other art's printed deck, his two best cards upgraded once
+  { up: 4, by: 2 },   // 2 National
+  { up: 6, by: 2 },   // 3 Title shot
+  { up: 8, by: 3 },   // 4 Title defence 1
+  { up: 10, by: 4 },  // 5 Title defence 2
   { up: 12, by: 5 },  // 6 Title defence 3: the champion's deck, every card of his art upgraded
 ];
 const power = (id) => worth(CARDS[id]) / Math.max(1, CARDS[id].w);
 export function rivalFighter(career, rung) {
-  const style = career.style === 'boxing' ? 'bjj' : 'boxing', base = fighter(style);
+  const recipe = RIVAL_RECIPE[Math.max(0, Math.min(RIVAL_RECIPE.length - 1, rung))];
+  const style = recipe.same ? career.style : career.style === 'boxing' ? 'bjj' : 'boxing', base = fighter(style);
   const own = base.deck.filter((id) => CARDS[id].st === style), core = base.deck.filter((id) => CARDS[id].st === 'core');
-  const rank = own.slice().sort((a, b) => power(b) - power(a)), recipe = RIVAL_RECIPE[Math.max(0, Math.min(RIVAL_RECIPE.length - 1, rung))];
+  const rank = own.slice().sort((a, b) => power(b) - power(a));
   let deck = own.slice();
   if (recipe.swap) for (let i = 0; i < recipe.swap; i++) deck[deck.indexOf(rank[i])] = rank[rank.length - 1 - i];
   if (recipe.up) for (let i = 0; i < recipe.up; i++) deck[deck.indexOf(rank[i])] = cardVariant(rank[i], recipe.by);
@@ -85,7 +88,9 @@ export const rivalPilot = (rung) => (rung <= 0 ? impatient() : aiPilot());
 export function trainingState(r, m = 0) {
   const log = r.st.log[m], his = r.st.log[1 - m], share = {}; let laid = 0;
   for (const t of log) t.kinds.forEach((kd, i) => { if (kd === 'step' || kd === 'move') return; share[t.at[i]] = (share[t.at[i]] || 0) + 1; laid++; });
-  for (const k in share) share[k] /= Math.max(1, laid);
+  if (!laid) for (const t of log) { share[t.pos[0]] = (share[t.pos[0]] || 0) + 1; laid++; } // a bout in which he laid no card (held from the first turn): where he was
+  if (!laid) { share.K = 1; laid = 1; }
+  for (const k in share) share[k] /= laid;
   const pos = Object.entries(share).sort((a, b) => b[1] - a[1])[0]?.[0] || 'K';
   return { pos, share, range: pos[0], ground: pos === 'T' || pos === 'B', struck: his.some((t) => t.kinds.includes('strike')),
     held: his.some((t) => t.kinds.includes('hold')), behind: r.S.f[m].pts < r.S.f[1 - m].pts };
@@ -95,17 +100,24 @@ export function trainingUtility(option, style, state) {
   // how much of the bout was fought where this card is legal: a share, not a hand-made yes
   const at = (keys) => (state.share ? keys.reduce((n, k) => n + (state.share[k] || 0), 0) : keys.includes(state.pos) ? 1 : 0);
   const fit = style === 'boxing'
-    ? (option.id === 'jab' ? at(['K', 'P']) : option.id === 'hook' ? at(['P', 'C']) : option.id === 'cross' ? at(['P']) : state.struck ? 1 : 0)
+    ? (option.id === 'jab' ? at(['K', 'P']) : option.id === 'cross' ? at(['P']) : option.id === 'escape' ? (state.held ? 1 : 0) : state.struck ? 1 : 0)
     : (option.id === 'sweep' ? at(['B']) : option.id === 'pass' ? at(['T']) : option.id === 'triangle' ? at(['B']) : state.held ? 1 : 0);
   const kit = (card.dmg || 0) + (card.pts || 0) * 2 + (card.k === 'hold' ? 5 : card.k === 'shot' ? 2 : 0);
+  // the synergy is where the bout was fought: the entry from KICK is the jab's, the exchange at PUNCH the cross's; the
+  // guard drill is for a bout in which he was hit, the escape practice for one in which he was held (the boxer never
+  // lays a card in the CLINCH on this ladder, so the hook had no state to be right in and the slot is the escape's).
+  // Weights sized on the ladder's own states (L2) so that each option is the pick somewhere and none is the pick
+  // everywhere; the hand-made spread in engine.test.mjs must cycle too.
   const synergy = style === 'boxing'
-    ? (option.id === 'jab' ? at(['K']) * 20 : option.id === 'cross' ? at(['P']) * 20 : option.id === 'hook' ? at(['C']) * 20 : option.id === 'block' && state.struck ? 25 : 0)
-    : (option.id === 'sweep' ? at(['B']) * 20 : option.id === 'pass' ? at(['T']) * 20 : option.id === 'triangle' ? at(['B']) * (state.behind ? 25 : 20) : option.id === 'escape' && state.held ? 25 : 0);
+    ? (option.id === 'jab' ? at(['K']) * 60 : option.id === 'cross' ? at(['P']) * 20 : option.id === 'escape' && state.held ? 30 : option.id === 'block' && state.struck ? 70 : 0)
+    : (option.id === 'sweep' ? at(['B']) * 20 : option.id === 'pass' ? at(['T']) * 20 : option.id === 'triangle' ? at(['B']) * (state.behind ? 30 : 20) : option.id === 'escape' && state.held ? 30 : 0);
   return fit * (kit + synergy) + (1 - fit) * 1 - option.cost * 1.7 - option.fail * 9;
 }
-// L2: the ten states are the first ten training states the ladder produces for this art, in run order. Not hand-made.
+// L2: the ten states are ten of the ladder's own training states for this art, every ⌊n/10⌋-th of a 100-run ladder in
+// run order, so they span club bouts and title defences alike. Not hand-made, not chosen.
 export function measureTraining(style, states) {
-  const options = TRAINING[style], sts = states || simulateLadder(12, 600000000, 20, style).states.slice(0, 10);
+  const options = TRAINING[style];
+  const sts = states ? states.slice(0, 10) : (() => { const all = simulateLadder(100, 600000000, 80, style).states, step = Math.max(1, Math.floor(all.length / 10)); return all.filter((_, i) => i % step === 0).slice(0, 10); })();
   const top = sts.map((state) => Math.max(...options.map((o) => trainingUtility(o, style, state))));
   const chosen = options.map((option) => sts.reduce((n, state, i) => n + (trainingUtility(option, style, state) >= top[i] - 1e-9 ? 1 : 0), 0));
   return { states: sts.length, options: options.map((o, i) => ({ id: o.id, right: chosen[i] })), pass: chosen.every((n) => n >= 1 && n <= 6), samples: sts };

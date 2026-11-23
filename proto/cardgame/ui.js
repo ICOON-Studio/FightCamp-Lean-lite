@@ -43,11 +43,12 @@ function finishBout() {
   const winner = S.over ? S.over.win : scoreA !== scoreB ? (scoreA > scoreB ? 0 : 1) : a.hp !== b.hp ? (a.hp > b.hp ? 0 : 1) : S.r() < 0.5 ? 0 : 1;
   const how = S.over?.how || (scoreA === scoreB ? 'cards' : 'points');
   state.result = { winner, how, scoreA, scoreB, hpA: a.hp, hpB: b.hp, ptsA: a.pts, ptsB: b.pts, dealtA: a.dealt, dealtB: b.dealt };
-  const wonTitle = takesTitle(state.career, winner === 0); // read before resultCareer moves the rung: the belt is won at the title shot
+  const lastDefence = state.career.rung === RUNGS.length - 1; // read before resultCareer moves the rung
+  const wonTitle = takesTitle(state.career, winner === 0); // the belt is won at the title shot (career.mjs)
   const rung = resultCareer(state.career, winner === 0);
-  state.champion = state.career.rung > TITLE_SHOT; // he holds the belt while he sits on a defence rung
+  state.champion = state.career.rung > TITLE_SHOT; // he holds the belt while he sits on a defence rung; a lost defence is a title shot again
   state.cut = state.career.losses >= CUT_AT_LOSSES;
-  state.complete = winner === 0 && rung === RUNGS[RUNGS.length - 1];
+  state.complete = winner === 0 && lastDefence; // the career ends at the last defence WON, as in simulateLadder
   state.note = wonTitle ? `Win by ${how}. YOU TAKE THE TITLE at ${RUNGS[TITLE_SHOT]}; rank #${state.career.rank}. The defences are next.`
     : winner === 0 ? `Win by ${how}. ${state.career.rung > TITLE_SHOT ? 'Title defended' : 'Advance'} at ${rung}; rank #${state.career.rank}.`
       : `Loss by ${how}. ${state.career.rung > TITLE_SHOT ? 'The title is gone; back to' : 'Dropped to'} ${rung}; rank #${state.career.rank}.${state.cut ? ` ${CUT_AT_LOSSES} losses: the gym cuts you.` : ''}`;
@@ -99,7 +100,7 @@ function advance() {
 function renderFight(answerOpts) {
   const S = state.fight, me = S.f[0], foe = S.f[1], options = answerOpts || (state.humanPhase === 'answer' ? answerOptions(S, 0) : []);
   where.textContent = `ROUND ${state.round + 1} / ${N.rounds} · TURN ${Math.min(state.turn + 1, N.turns)} / ${N.turns} · ${posKey(S, 0)}`;
-  const preview = options.length ? `<h2>Answer the visible volley</h2><div class="offers">${options.map((o, i) => `<button class="card defence" data-answer="${i}"><b>${o ? esc(names(o.id)) : 'Take it'}</b><small>${o ? esc(cardText(o.id)) : 'No answer cost; incoming cards resolve in order.'}</small></button>`).join('')}</div>` : '';
+  const preview = options.length ? `<h2>Answer the visible volley</h2><div class="offers">${options.map((o, i) => `<button class="card defence" data-answer="${i}" data-id="${o ? o.id : '@'}"><b>${o ? esc(names(o.id)) : 'Take it'}</b><small>${o ? esc(cardText(o.id)) : 'No answer cost; incoming cards resolve in order.'}</small></button>`).join('')}</div>` : '';
   const playable = state.humanPhase === 'act' ? actions(S, 0).filter((id) => legalNow(S.pj || S, 0, id) && canPay(me, cost(S, 0, id))) : [];
   const floorNames = { '@in': 'Step in', '@out': 'Step out', '@stand': 'Stand', '@up': 'Get up', '@pull': 'Pull guard' };
   const floorActions = playable.filter((id) => id.startsWith('@')).map((id) => `<button class="btn" data-floor="${id}">${floorNames[id] || id} · ${cost(S, 0, id)[0]} wind</button>`).join('');

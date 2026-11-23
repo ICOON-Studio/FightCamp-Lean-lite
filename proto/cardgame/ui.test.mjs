@@ -81,9 +81,24 @@ test('a win at the title shot takes the title; the defences are defences', () =>
   assert.match(p.screen.innerHTML, /Defend the title/);
 });
 
+test('the career ends at the last defence won, not before: a win at defence 2 is a defence 3 to come', () => {
+  ui.reset(); pick('boxing');
+  CARDS.titlehit = { ...CARDS.cross, n: 'The bell ringer', dmg: 99, w: 1, L: '', at: ['K', 'P', 'C', 'G'] };
+  // a title defence rival's sweep scores seven at once: the corner carries sprawls to stop it, and bells otherwise
+  state.career.deck = Array(8).fill('sprawl').concat(Array(7).fill('titlehit'));
+  state.career.rung = RUNGS.length - 2; state.champion = true;
+  // this corner reads the table: it sprawls the sweep and breaks the hold before it lays a card
+  const readFirst = () => { for (let g = 0; g < 4000; g++) { if (p.screen.querySelector('#trainNext')) return; const stop = enabled('[data-answer]').find((b) => ['sprawl', 'escape', '@break'].includes(b.dataset.id)); const b = stop || ['[data-card]', '[data-floor]', '[data-answer]'].map((sel) => enabled(sel)[0]).find(Boolean); if (b) { b.click(); continue; } const end = p.screen.querySelector('#endTurn'); if (end && !end.disabled) { end.click(); continue; } assert.fail('the page is stuck'); } assert.fail('the bout never reached a verdict'); };
+  click('#skip'); readFirst();
+  assert.equal(state.result.winner, 0); assert.equal(state.complete, false, 'defence 2 won: the career goes on'); assert.equal(state.career.rung, RUNGS.length - 1);
+  assert.match(p.screen.innerHTML, /Defend the title/);
+  click('#trainNext'); click('#skip'); readFirst();
+  assert.equal(state.result.winner, 0); assert.equal(state.complete, true, 'defence 3 won: the career is complete'); assert.match(p.screen.innerHTML, /Start another career/);
+});
+
 test('a career ends at the cut, and the page offers another one', () => {
   ui.reset(); pick('bjj');
-  state.career.rung = 0; state.career.losses = CUT_AT_LOSSES - 1;
+  state.career.rung = 1; state.career.losses = CUT_AT_LOSSES - 1; // the Area rival is the other art, a boxer who hits (a club novice of his own art could only coin-flip this deck)
   state.career.deck = Array(15).fill('sprawl'); // a corner that can only defend cannot win
   click('#skip');
   playBout();

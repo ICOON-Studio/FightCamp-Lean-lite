@@ -271,7 +271,7 @@ test('the utility gives each training option a niche on the declared tactical sp
   // the ladder's own states (the next test), which is what round 6b asked for.
   const spread = (style) => Array.from({ length: 10 }, (_, i) => {
     const phase = i % 4;
-    if (style === 'boxing') return phase === 0 ? { pos: 'K', share: { K: 1 } } : phase === 1 ? { pos: 'P', share: { P: 1 } } : phase === 2 ? { pos: 'C', share: { C: 1 } } : { pos: 'K', share: { K: 1 }, struck: true };
+    if (style === 'boxing') return phase === 0 ? { pos: 'K', share: { K: 1 } } : phase === 1 ? { pos: 'P', share: { P: 1 } } : phase === 2 ? { pos: 'B', share: { B: 1 }, held: true } : { pos: 'K', share: { K: 1 }, struck: true };
     return phase === 0 ? { pos: 'B', share: { B: 1 } } : phase === 1 ? { pos: 'T', share: { T: 1 } } : phase === 2 ? { pos: 'B', share: { B: 1 }, behind: true } : { pos: 'B', share: { B: 1 }, held: true };
   });
   for (const style of STYLES) { const m = measureTraining(style, spread(style)); assert.equal(m.pass, true, JSON.stringify(m)); }
@@ -315,10 +315,10 @@ test('the title is won at the TITLE SHOT, and the defences are defences', () => 
   assert.equal(l1.titleWins, l1.results.filter((r) => r.title).length);
 });
 
-test('a rival is his own art with better cards at every rung: a club novice is diluted, a title defence is upgraded', () => {
+test('rivals by rung: a club novice of the player\'s own art is diluted, from Area up the other art with better cards, a title defence is upgraded', () => {
   const c = freshCareer('boxing');
   const decks = RUNGS.map((_, rung) => rivalFighter(c, rung));
-  for (const [i, F] of decks.entries()) { assert.equal(F.deck.length, 15, 'rung ' + i); assert.ok(F.deck.every((id) => CARDS[id]), 'rung ' + i); assert.equal(F.style, 'bjj'); }
+  for (const [i, F] of decks.entries()) { assert.equal(F.deck.length, 15, 'rung ' + i); assert.ok(F.deck.every((id) => CARDS[id]), 'rung ' + i); assert.equal(F.style, i === 0 ? 'boxing' : 'bjj', 'rung ' + i + ': the club novice is the player\'s own art, from Area up the other art'); }
   assert.notDeepEqual(decks[0].deck, decks[1].deck, 'the club novice is not the area fighter');
   assert.ok(!decks[0].deck.some((id) => id.includes('+')), 'a novice has no upgraded cards');
   for (const rung of [3, 4, 5, 6]) assert.ok(decks[rung].deck.some((id) => id.includes('+')), 'rung ' + rung + ' has upgraded cards');

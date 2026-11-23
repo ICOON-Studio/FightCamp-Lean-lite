@@ -77,7 +77,18 @@ const P = {
   p2() {
     out.p2 = {};
     for (const [arm, pts, hold] of [['a health only', 0, 0], ['b + points lead', 1, 0], ['c + the hold', 1, 1]]) { N.clkPts = pts; N.clkHold = hold; const T = table(() => AI, () => AI, per), s = shape(T.tot); out.p2[arm] = s; say(`P2 ${arm.padEnd(16)} ${shapeLine(s)}`); }
-    for (const [name, W] of [['health', { hp: 0, ko: 0 }], ['points', { pts: 0, lead: 0 }], ['the hold', { sub: 0, pin: 0 }]]) { const T = table(() => aiPilot({ ...W0, ...W }), () => AI, per); out.p2['blind ' + name] = mean(T.avg); say(`P2 AI blind to ${name}: ${pct(mean(T.avg))} against the full AI (50 = no loss)`); }
+    // a blind pilot flies each art against the full AI flying the other art, both seats, and is compared with the full
+    // AI's own share for that art: a clock counts only if losing sight of it costs 5 points (the round-6 bar). In a
+    // two-art slice table() would seat the blind pilot in one art only and fold the two seatings into a seat
+    // asymmetry, so the loop is written out.
+    const F = fold(table(() => AI, () => AI, per));
+    for (const [name, W] of [['health', { hp: 0, ko: 0 }], ['points', { pts: 0, lead: 0 }], ['the hold', { sub: 0, pin: 0 }]]) {
+      const blind = aiPilot({ ...W0, ...W }, 'blind ' + name), share = {};
+      for (const s of STYLES) { let w = 0, n = 0; for (const t of STYLES) if (t !== s) { const r1 = play(fighter(s), fighter(t), blind, AI, per), r2 = play(fighter(t), fighter(s), AI, blind, per); w += r1.win + (r2.n - r2.win); n += r1.n + r2.n; } share[s] = w / n; }
+      const loss = Object.fromEntries(STYLES.map((s) => [s, F.avg[s] - share[s]]));
+      out.p2['blind ' + name] = { share, loss, meanLoss: mean(loss) };
+      say(`P2 AI blind to ${name}: ${STYLES.map((s) => `${s} ${pct(share[s])} (full AI ${pct(F.avg[s])}, loss ${pct(loss[s])})`).join(', ')} | mean loss ${pct(mean(loss))} (5+ = the bar)`);
+    }
   },
   p5() {
     let heldTurns = 0, same = 0;

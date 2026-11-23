@@ -1,0 +1,332 @@
+{
+ "p1": {
+  "boxing": 0.185,
+  "s": {
+   "ko": 0.185,
+   "lead": 0.798125,
+   "tap": 0,
+   "pin": 0.016875,
+   "cards": 0,
+   "early": 1,
+   "vis3": 1,
+   "ground": 1,
+   "dec": 25.010625,
+   "dec95": 39,
+   "secTurn": 11.324173517579158,
+   "held": 0.240335840475774,
+   "quiet": 0.07512681476298758,
+   "choices": 3.0606523126196343,
+   "maxCh": 8,
+   "holdEnds": 0.016875,
+   "holdFinish": 0.875,
+   "holdOn": 0.055
+  },
+  "sliceSubstitution": {
+   "boxing": 0.50875,
+   "s": {
+    "ko": 0.19875,
+    "lead": 0.191875,
+    "tap": 0.2475,
+    "pin": 0,
+    "cards": 0.361875,
+    "early": 0.638125,
+    "vis3": 0.82375,
+    "ground": 1,
+    "dec": 30.3725,
+    "dec95": 48,
+    "secTurn": 9.67834770767135,
+    "held": 0.22197004085338176,
+    "quiet": 0.01206147461254134,
+    "choices": 2.782098199099034,
+    "maxCh": 8,
+    "holdEnds": 0.2475,
+    "holdFinish": 0.4913151364764268,
+    "holdOn": 0.50375
+   }
+  }
+ },
+ "p2": {
+  "a health only": {
+   "ko": 0.4075,
+   "lead": 0,
+   "tap": 0,
+   "pin": 0,
+   "cards": 0.5925,
+   "early": 0.4075,
+   "vis3": 1,
+   "ground": 1,
+   "dec": 42.0025,
+   "dec95": 49,
+   "secTurn": 9.712171299774605,
+   "held": 0.2400450788880541,
+   "quiet": 0.002629601803155522,
+   "choices": 2.7928890211246653,
+   "maxCh": 8,
+   "holdEnds": 0,
+   "holdFinish": 0,
+   "holdOn": 0
+  },
+  "b + points lead": {
+   "ko": 0.37,
+   "lead": 0.2225,
+   "tap": 0,
+   "pin": 0,
+   "cards": 0.4075,
+   "early": 0.5925,
+   "vis3": 0.94,
+   "ground": 1,
+   "dec": 37.0525,
+   "dec95": 48,
+   "secTurn": 9.769552238805973,
+   "held": 0.2535181236673774,
+   "quiet": 0.0014925373134328358,
+   "choices": 2.8148385573062518,
+   "maxCh": 8,
+   "holdEnds": 0,
+   "holdFinish": 0,
+   "holdOn": 0
+  },
+  "c + the hold": {
+   "ko": 0.2,
+   "lead": 0.1725,
+   "tap": 0.2475,
+   "pin": 0,
+   "cards": 0.38,
+   "early": 0.62,
+   "vis3": 0.83,
+   "ground": 1,
+   "dec": 30.875,
+   "dec95": 48,
+   "secTurn": 9.6180986273513,
+   "held": 0.22648703609557702,
+   "quiet": 0.013218098627351297,
+   "choices": 2.7718731056779147,
+   "maxCh": 8,
+   "holdEnds": 0.2475,
+   "holdFinish": 0.4419642857142857,
+   "holdOn": 0.56
+  },
+  "blind health": {
+   "share": {
+    "boxing": 0.015,
+    "bjj": 0.5575
+   },
+   "loss": {
+    "boxing": 0.5025,
+    "bjj": -0.07500000000000001
+   },
+   "meanLoss": 0.21374999999999997
+  },
+  "blind points": {
+   "share": {
+    "boxing": 0.45,
+    "bjj": 0.505
+   },
+   "loss": {
+    "boxing": 0.06749999999999995,
+    "bjj": -0.02250000000000002
+   },
+   "meanLoss": 0.022499999999999964
+  },
+  "blind the hold": {
+   "share": {
+    "boxing": 0.5725,
+    "bjj": 0.295
+   },
+   "loss": {
+    "boxing": -0.05500000000000005,
+    "bjj": 0.1875
+   },
+   "meanLoss": 0.06624999999999998
+  }
+ },
+ "p5": {
+  "same": 1,
+  "heldTurns": 95,
+  "s": {
+   "ko": 0.1575,
+   "lead": 0.165,
+   "tap": 0.26,
+   "pin": 0,
+   "cards": 0.4175,
+   "early": 0.5825,
+   "vis3": 0.81,
+   "ground": 1,
+   "dec": 30.3075,
+   "dec95": 48,
+   "secTurn": 9.582936918304032,
+   "held": 0.22388831437435366,
+   "quiet": 0.010599793174767322,
+   "choices": 2.7673893405600722,
+   "maxCh": 8,
+   "holdEnds": 0.26,
+   "holdFinish": 0.5226130653266332,
+   "holdOn": 0.4975
+  },
+  "roll": {
+   "s": {
+    "ko": 0.3075,
+    "lead": 0.1675,
+    "tap": 0.2225,
+    "pin": 0,
+    "cards": 0.3025,
+    "early": 0.6975,
+    "vis3": 0.865,
+    "ground": 1,
+    "dec": 31.94,
+    "dec95": 48,
+    "secTurn": 9.77972738537795,
+    "held": 0.22403965303593557,
+    "quiet": 0.0007434944237918215,
+    "choices": 2.811457720227585,
+    "maxCh": 8,
+    "holdEnds": 0.2225,
+    "holdFinish": 0.5174418604651163,
+    "holdOn": 0.43
+   },
+   "aiOverImp": 0.6799999999999999,
+   "aiOverImpRace": 0.76
+  }
+ },
+ "p6": {
+  "diff": {
+   "boxing": 0.44994617868675996,
+   "bjj": 1
+  },
+  "judge": {
+   "boxing": 0.8,
+   "bjj": 1
+  },
+  "judgeKick": 0.9,
+  "by2": {
+   "boxing": 0.8,
+   "bjj": 1
+  },
+  "judgeFine": 0.9,
+  "by1": {
+   "boxing": 0.8,
+   "bjj": 1
+  },
+  "judgeAll": 0.9,
+  "by0": {
+   "boxing": 0.8,
+   "bjj": 1
+  }
+ },
+ "p4": {
+  "F": {
+   "cell": {
+    "boxing": {
+     "bjj": 0.5775
+    },
+    "bjj": {
+     "boxing": 0.4225
+    }
+   },
+   "avg": {
+    "boxing": 0.5775,
+    "bjj": 0.4225
+   }
+  },
+  "s": {
+   "ko": 0.195,
+   "lead": 0.17,
+   "tap": 0.2,
+   "pin": 0,
+   "cards": 0.435,
+   "early": 0.565,
+   "vis3": 0.85,
+   "ground": 1,
+   "dec": 32.3975,
+   "dec95": 48,
+   "secTurn": 9.629820301117045,
+   "held": 0.21758135016998542,
+   "quiet": 0.010199125789218067,
+   "choices": 2.7711228299780593,
+   "maxCh": 8,
+   "holdEnds": 0.2,
+   "holdFinish": 0.45977011494252873,
+   "holdOn": 0.435
+  },
+  "worst": [
+   [
+    "boxing",
+    "bjj",
+    0.5775
+   ]
+  ],
+  "outside": 0
+ },
+ "p10": {
+  "ai": {
+   "boxing": 0.535,
+   "bjj": 0.55
+  },
+  "scripted": {
+   "boxing": 0.53,
+   "bjj": 0.435
+  },
+  "impatient": {
+   "boxing": 0.53,
+   "bjj": 0
+  }
+ },
+ "r3": {
+  "cheap": {
+   "boxing": {
+    "imp": 0.1925,
+    "ai": 0.1975
+   },
+   "karate": {
+    "imp": 0.01,
+    "ai": 0.3525
+   },
+   "mix": {
+    "imp": 0.0675,
+    "ai": 0.0175
+   }
+  },
+  "cards": {
+   "jab": [
+    2
+   ],
+   "cross": [
+    0
+   ],
+   "hook": [
+    3
+   ],
+   "bodyhook": [
+    4
+   ],
+   "upper": [
+    1
+   ],
+   "slip": [
+    5
+   ],
+   "block": [
+    6
+   ],
+   "sweep": [
+    2
+   ],
+   "pass": [
+    1
+   ],
+   "triangle": [
+    3
+   ],
+   "armbar": [
+    0
+   ],
+   "choke": [
+    4
+   ],
+   "kimura": [
+    5
+   ]
+  },
+  "cardShare": 0
+ }
+}
