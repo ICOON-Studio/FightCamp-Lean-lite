@@ -46,5 +46,22 @@ Where this page and COACHDEEP_GRILL_S539.md differ, THIS page wins; the other 22
 11. WHEN A KNOWN NAME PAYS: a known name on $800-1,100 a week loses money in every amateur club (measured). He pays only
     once the club has a pro or a title boxer, where he lifts the purse and the name; his card says so.
 
-## Round 3
-(asked S542; answers recorded here when given)
+## Round 3 (owner: "Yes to all six")
+12. WHERE IT SHOWS (no new screens beyond a hire list and a coach card): Club > People staff table (ratings, wage, the
+    chemistry word per boxer); the hire list (three candidates a month, the "pays for itself at about N members" line, the
+    trial button); the week plan (pairings as a fact, with "change"); the boxer card (the coach and the chemistry word);
+    the corner pick before a fight; the moments as pop-ups, like the pro offer.
+13. HOW OFTEN: at most one coach moment a month, a few a season.
+14. OVERRULING THE PAIRING IS FREE: "change" costs nothing in itself; the chemistry word of the new pairing is the only
+    consequence.
+15. PEOPLE CAN REALLY BE LOST: a falling-out handled badly or a refused raise can cost a coach or a boxer for good, after two
+    warnings shown on their card.
+16. BUILD ORDER, a build for the owner to play after each step: (1) cut the class-or-pads rule; (2) rated coaches, the coach
+    card, the hire list, wages, the known-name rule; (3) the chemistry word, the trial week, the week pairing itself; (4)
+    the four moments; (5) the corner pick.
+17. THE PROBE BEFORE BUILDING (quick, like turning pro's; bots check only that nothing is broken): no candidate is the best
+    hire in every club; the known name pays with a pro and loses without one; in each moment no answer is best in more than
+    6 of 10 cases; in the corner the tactician and the bonded coach are each right at least a quarter of the time. Then two
+    critics at 8, then the build, then the owner's play closes it.
+
+The frontier is empty: nothing on coaches is left open. Next: TASK_COACHDEEP7 (the map + the quick probe).

@@ -4597,17 +4597,47 @@
    "seat": "kalli",
    "brief": "research/CRITIC_TURNPRO1_V17_BRIEF.md",
    "stem": "CRITIC_TURNPRO1_V17_BRIEF_KALLI",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-23 20:26",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-23 20:40",
+   "sent_ms": 1795459225343,
+   "answered_at": "2026-11-23 21:10",
+   "answer": "research/CRITIC_TURNPRO1_V17_BRIEF_KALLI.md",
+   "chars": 18919,
+   "seen_by_claude": true
   },
   {
    "id": "SQ315",
    "seat": "dola",
    "brief": "research/CRITIC_TURNPRO1_V17_BRIEF.md",
    "stem": "CRITIC_TURNPRO1_V17_BRIEF_DOLA",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-23 20:26",
+   "tries": 0,
+   "sent_at": "2026-11-23 20:40",
+   "pid": 190628,
+   "transcript": "AgentComms/seat_logs/SQ315_dola.txt",
+   "answered_at": "2026-11-23 21:10",
+   "answer": "research/CRITIC_TURNPRO1_V17_BRIEF_DOLA.md",
+   "seen_by_claude": true
+  },
+  {
+   "id": "SQ316",
+   "seat": "kalli",
+   "brief": "research/CRITIC_DEPTHPRICE1_BRIEF.md",
+   "stem": "CRITIC_DEPTHPRICE1_BRIEF_KALLI",
+   "status": "queued",
+   "queued_at": "2026-11-23 21:32",
+   "tries": 0
+  },
+  {
+   "id": "SQ317",
+   "seat": "dola",
+   "brief": "research/CRITIC_DEPTHPRICE1_BRIEF.md",
+   "stem": "CRITIC_DEPTHPRICE1_BRIEF_DOLA",
+   "status": "queued",
+   "queued_at": "2026-11-23 21:32",
    "tries": 0
   }
  ]

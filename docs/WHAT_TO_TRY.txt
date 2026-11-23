@@ -1,4 +1,4 @@
-S541 build (2026-11-23, evening) - what changed, and what to try
+S542 build (2026-11-23, night) - what changed, and what to try (items 6 and 7 are new)
 
 1. WATCH A ROUND IN PICTURES (your Q-310 "Keep, build the full set"): after a round, the fight screen has a button
    "Watch it in pictures": the round just fought, exchange by exchange, as paired pictures - who threw what and whether it
@@ -17,6 +17,9 @@ S541 build (2026-11-23, evening) - what changed, and what to try
    $2,000): how full each is likely to be, the money and the reputation. A full hall lifts reputation, a half-empty one
    costs it. One "Book" button for the better hall, two when it is close (your call). Two standby reserves box first if
    a visiting boxer pulls out. Hover the row for the full sentence. The night's result message carries the sheet.
+7. THE BODY CROSS LANDS ON THE BODY (pictures only): in "Watch it in pictures", a rear straight to the body now shows the
+   boxer dropping his level and the glove on the ribs, not at chest height. The 3D fight is unchanged (it does not throw
+   this punch yet). By eye: the knees bend deep and the head stays on the centre line.
 
 S539 build (2026-11-23, early morning) - what changed, and what to try
 

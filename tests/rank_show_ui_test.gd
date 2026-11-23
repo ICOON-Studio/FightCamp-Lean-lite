@@ -106,18 +106,18 @@ func _result_path() -> void:
 	m["night_seen"] = true   # S442 the headline card comes first; See the fight opens the result page (HeadlineCard)
 	night.build(desk, m)
 	var why: Label = night.find_child("WhyRank", true, false) as Label
-	var tile: Node = night.find_child("After_rank", true, false)
+	# S538 RESULTV2 (the owner-approved page): the rank tile is gone; its lines are the hover of the WhyRank line.
+	var lines: Array = []
+	for t in m.get("aftermath", []):
+		if str((t as Dictionary).get("id", "")) == "rank":
+			lines = (t as Dictionary).get("lines", [])
 	_check(why != null, "the result modal holds WhyRank")
-	_check(tile != null, "the result modal holds the rank tile")
-	if why != null and tile != null:
-		var small: Label = tile.find_child("Small", true, false) as Label
-		var first := ""
-		if small != null:
-			first = small.text
+	_check(lines.size() > 0, "the aftermath carries the rank lines")
+	if why != null and lines.size() > 0:
 		print("CASE result: %s" % why.text)
-		_check(small != null and why.text == first, "WhyRank matches the rank tile's first line ('%s')" % why.text)
-		var tip: PackedStringArray = tile.tooltip_text.split("\n")
-		_check(tip.size() > 0 and why.text == str(tip[0]), "WhyRank matches the rank tile tooltip's first line")
+		_check(why.text == str(lines[0]), "WhyRank matches the rank lines' first line ('%s')" % why.text)
+		var tip: PackedStringArray = (why.get_parent() as Control).tooltip_text.split("\n")
+		_check(tip.size() == lines.size() and why.text == str(tip[0]), "the WhyRank line's hover holds the rank lines, the first one its own words")
 		_check(why.text == str(m.get("rank_words", "")), "WhyRank is the rank words the bout booked")
 		_check(why.text != "", "an amateur bout has rank words to show")
 

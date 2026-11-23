@@ -32,15 +32,35 @@
    "eta": "about 2 h",
    "note": "S542 abeeaffe2: FAIL 7/9 (a, g). f2 and j pass 10/10 without the trade; SMART best in 8 of 10: the weekly pairing is a solved rule; the hire by club size is the real choice (-39 to +50 lines). Owner cut-or-keep on the board"
   },
-  "TURNPRO17": {
-   "id": "TURNPRO17",
-   "status": "done",
-   "started": "2026-11-23T19:59",
-   "title": "Turning pro v17: the owner's design (when + safe or risky first six fights, patience, confidence, hunger) - map + quick probe",
+  "COACHDEEP7": {
+   "id": "COACHDEEP7",
+   "status": "running",
+   "started": "2026-11-23T21:14",
+   "title": "Coaches v7: the owner's design (a staff game: the hire, the trial week, four moments, the corner pick) - map + quick probe",
    "seat": "claude",
-   "agent": "claude-opus-5-5 (console tab TURNPRO17)",
+   "agent": "claude-opus-5-5 (console tab COACHDEEP7)",
    "eta": "about 2-3 h",
-   "note": "S542 ca087a732: worker FAIL 4/6 at risky purse x1.5 -> Claude's full-size rerun at x1.75: PASS 6/6 (reader best 9/10, beats every habit >2SE in 7/10 by 1.2-3.7 points; safe 36% / risky 64%). Limits: small edge, sensitive to the purse multiple. Critics queued SQ314 kalli, SQ315 dola; a code-checked critic owed"
+   "note": "S542, owner interview (17 yes): research/COACH_INTERVIEW_S542.md; PASS -> critics kalli + dola queued by the worker"
+  },
+  "TURNPRO18": {
+   "id": "TURNPRO18",
+   "status": "running",
+   "started": "2026-11-23T21:33",
+   "title": "Turning pro v18: the matchup decides, the name pays after fight 6, the bars know the boxer - map + full-size probe (ten bars)",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (console tab TURNPRO18, c1 of the S543 session)",
+   "eta": "about 3 h",
+   "note": "S543, from both v17 critics' lists: research/TASK_TURNPRO18.md; PASS -> critics kalli + dola queued by the worker; a code-checked critic owed"
+  },
+  "DEPTHPRICE1CRIT": {
+   "id": "DEPTHPRICE1CRIT",
+   "status": "running",
+   "started": "2026-11-23T21:34",
+   "title": "Code-checked critic of the two priced choices (fight-week load; sponsorship or a day job)",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (console tab DEPTHPRICE1CRIT, c2 of the S543 session)",
+   "eta": "about 40 min",
+   "note": "S543 DEPTH1: research/TASK_DEPTHPRICE1CRIT.md; chat critics SQ316 kalli, SQ317 dola queued"
   }
  },
  "codex_budget": {
