@@ -33,3 +33,27 @@ another ("Got it" three times before the first move). Cover up spent 1 wind with
 5. The bout screen names the player's own art and its one rule in a line under the name.
 6. The coach's notes: at most one at a time, never blocking the buttons, each tied to the thing it points at.
 7. Start-of-bout check for both arts: the first hand must hold at least one playable line (a card or the move that opens it).
+
+## His second comment (same evening, after Pull guard and a laid Sweep) - the real one
+Screen: the strip says GROUND "you are underneath"; "HIS VOLLEY, FACE UP": Let him up ("stand up from the top position"),
+Jab (1 wind, PUNCH, 2 damage), Cross (2 wind, PUNCH, 4 damage + 1 point); the log: "Club challenger: Let him up -> Jab ->
+Cross", "You: Sweep". His words, verbatim:
+
+"this is has not been given enough thought , how the boxer jabs when he is in the ground , its like very quickly drafted
+without any attention to how a a real fight is done."
+
+What the rules do (code read: `proto/cardgame/engine.mjs` `@stand` -> `stand(S, 'P')`): the boxer is on top in the guard;
+"Let him up" stands HIM up and puts the WHOLE bout back to standing at punch range - both fighters at once, in the same
+volley as a jab and a cross. So in the rules he is not jabbing on the ground. But:
+- THE SCREEN SHOWS THE OPPOSITE: the strip still says GROUND, you are underneath, with two PUNCH cards under it; the card's
+  name reads as if he lets YOU up; nothing says what became of the laid Sweep.
+- HE IS RIGHT ABOUT THE FIGHT. The bout's position is ONE shared switch (kick / punch / clinch / ground + top or bottom
+  and a number). So standing out of a guard teleports the man on his back to his feet for free, and he then takes a clean
+  jab and cross with no turn in between. In a real fight the man on the bottom is still down when the other stands: he
+  has to get up (a technical stand-up takes a beat and can be punished), the standing man cannot box a grounded man with
+  a jab and a cross, and what happens next depends on the rules of the bout.
+- THIS WAS MISSED BY THE ROUND'S GATES: 47 of 47 tests and a play gate of 6 of 6 measured that the rules agree with
+  themselves and that a bout can be finished - never that each move is how a fight goes. Claude played round 8 by hand
+  (as the boxer) and did not catch it.
+
+Round 9 does NOT open with the seven screen fixes above. It opens with `CARDREAL_SCOPE_S543.md`.

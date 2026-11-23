@@ -189,3 +189,24 @@ she is under 23 and he is her main coach, else refuse. Course: send when cash > 
 6. A course -> ratings up -> the ceiling (rating + 3) stops it.
 ONE-REP TRIAL FIRST: one career per cell per arm, printed in full. STOP and fix this map if members leave the catchment
 band, if every cell converges on the same best hire, or if no arm ever loses a person.
+
+## 14. TRIAL FIXES (added after the one-rep trial, BEFORE the full run; bars s10 unchanged)
+The first one-rep trial (FAIL 2 of 7) showed the greybox could not measure the map; these fixes went in before the full run:
+1. **The corner had no lever.** `BoutRead.chance(f, opp, camp, coach)` returns the same chance at coach 0, 30, 55, 80 and 100,
+   and two OppFile tapes move nothing (measured on all three boxers, three opponents each). v5/v6's tactics (`plan_rating`)
+   and film (`tapes`) were dead levers. s7 now reads the game's round edges (`BoutRead.round_edges`, its own 3-round
+   integration): a call before rounds 2 and 3 is priced by `Exchanges.EDGE` (best +17, ok +5, wrong -10) - best calls
+   0.6 x tactics/20, wrong 0.3 x (1 - tactics/20), a call shapes a third of the round (ESTIMATE), x playbook fit, x listen
+   (1 + 0.4 x chem); a clash ignores the first call. FOR THE BUILD: the game's own read ignores the corner coach today.
+2. **The no-gi fighter came with no mat coach**, so the mat-capable local won 8 of 10 cells only by giving her a career
+   (+100 lines). A sessional mat coach ($150, 2 evenings, no-gi only) is on the books in every cell with a no-gi fighter.
+3. **The careful line uses the free "change"** (s4, interview 14): once the word shows, a clash pair is unpaired when another
+   coach can take her. It also reads the warnings on a style push (never hands a second warning to a coach under the line).
+4. **The "no" answers cost nothing** (refuse won every raise, allow or refuse tied): a refused raise now makes the coach work
+   worse (pads, tactics, teaching, motivation -2 for 26 weeks), and a coach with loyalty 10 or less, or one already warned,
+   leaves in two weeks ("match it or let him go", interview 8); a coach not backed in a falling-out works worse for 13 weeks;
+   a boxer not backed loses 15 morale; a style push's shaky fights = an "ok" edge against her each round for 2 bouts.
+5. **The forced falling-out** picks the worst pair that has worked together 4+ weeks (it had picked pairs already apart).
+6. **A runaway**: a matched raise compounded every 26 weeks (the known name reached ~$1,950 a week). Raises stop at the top of
+   the coach's band (grill Q17: $300 / $600 / $1,100) and come at most once a season.
+7. **Ties count for every tied answer and hire** (stricter than first-listed, as v5/v6 did).

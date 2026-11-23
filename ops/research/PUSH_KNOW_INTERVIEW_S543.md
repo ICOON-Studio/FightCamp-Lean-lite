@@ -60,3 +60,65 @@ your boxer tired, your boxer hurt). `scripts/rules/StepEffect.gd` TABLE: ten lea
 | (not on his list, in the game) | calls `lead` (Draw the lead), `tie` (Tie up), `finish` (Go for the finish), `long` (Jab and move) |
 
 ## Round 2 - asked S543, answers below when given
+
+Asked (each with Claude's recommended answer): C1 the list = his ten commands plus the four calls the game has (fourteen,
+three groups), replacing Push / Steady / Save; C2 one command active from each group; C3 every command is best / ok /
+wrong against what the opponent is doing right now, a wrong one costs; C4 a command works as well as the boxer has trained
+it; C5 the two bars stay (wind and head), every command shows what it burns; C6 a command can be changed at any time, takes
+effect from the next exchange, and the boxer hears it by coachability and trust in the corner; C7 shown first as the
+shout, the bars and a line in the round, the 3D look of each command in the 3D phase; C8 probe on the real bout, critics
+for depth, the build, his play.
+
+His answer, verbatim:
+"c1 do you think its too much ? c2 1 option for attack or defence and 1 option for positioning c3 yes c4 yes c5 yes c6
+yes(maybe use switch or range sliders) c7 yes c8 yes"
+
+What that settles:
+- C2 CHANGED BY HIM: TWO slots, not three - ONE command for attack or defence, and ONE for positioning.
+- C3, C4, C5, C7, C8 YES.
+- C6 YES, with his idea for the control: "maybe use switch or range sliders".
+- C1 OPEN: he asked whether fourteen is too much. Claude's answer (S543): yes, for a 40-second watched round. Proposal put
+  to him in round 3.
+
+## Round 3 - asked S543, answers below when given
+
+Claude's answer to his C1 ("do you think its too much ?"): yes - a watched round is 40 seconds; fourteen buttons cannot be
+read in that time. Asked, each with the recommended answer: D1 the list trimmed to his ten (a FIGHT slot of eight, a RING
+slot of two); D2 the controls; D3 what the boxer does with nothing selected; D4 the moment button.
+
+His answer, verbatim: "d1-4 yes"
+
+## THE SPEC (complete: rounds 1-3) - the corner commands
+1. WHAT IT IS: the player works the corner live. Not one push switch: the player SELECTS commands, and "the engine should
+   understand and respond and display these decisions on the fight" (his words).
+2. TWO SLOTS (his C2): ONE command for attack or defence, ONE for positioning.
+   - FIGHT slot, one of eight or none: Go to the body; Change levels; Let your hands go; Be first; Sit down on your shots
+     (attack) - Hands up; Reset; Get out of there (defence and form).
+   - RING slot, one of two or neither: Cut the ring off; Stay away from the ropes.
+3. THE OLDER CALLS (D1): "Jab and move" becomes "Get out of there"; "Tie up" and "Breathe, pick your shots" (the eighth existing call) become part of "Reset"; "Go for the finish"
+   becomes the moment button (9); "Draw the lead" leaves the live set and stays a line of the pre-fight plan.
+   They replace Push / Steady / Save.
+4. RIGHT OR WRONG BY THE MOMENT (C3): every command is best, ok or wrong against what the opponent is doing right now
+   (pressing, at range, waiting to counter, loading up, tiring, hurt). A wrong command costs.
+5. ONLY AS GOOD AS THE BOXER (C4): a command works as well as the boxer has trained it; an untrained one shows Poor and
+   does little. Only trained commands are lit.
+6. THE TWO BARS STAY (C5, his 12 Nov idea): wind and head beside the fighter; every command shows what it burns.
+7. CHANGING A COMMAND (C6): free at any time while the round plays; it takes effect from the next exchange; the boxer
+   hears it or not by coachability and trust in the corner. The control (his idea, D2): the RING slot is a three-stop
+   slider (Stay away from the ropes | Centre | Cut the ring off); the FIGHT slot is a row of eight buttons in two colours,
+   one lit, click the lit one to turn it off.
+8. NOTHING SELECTED (D3): the boxer fights to the plan written before the bout, as today. A command overrides the plan
+   only while it is on.
+9. MOMENTS (P3, D4): when the opponent is hurt a pulsing "Go for the finish" button appears and goes when the moment
+   passes. Openings the player can see; some opponents bait, and the opponent's file warns - the baits wait for
+   TELLPLAY1 (`TELLPLAY_SCOPE_S543.md`).
+10. LIVE (P4): worked while the round plays, no pause; in a round not watched the coach in the corner works it by
+    tactics rating (the corner pick of coaches v7).
+11. SHOWN (C7), in two steps: now the shout as a bubble at the corner, the bars moving, a line in the round ("Hands up:
+    slipped the right hand") and right / wrong calls counted on the result page; the 3D boxers visibly doing each command
+    in the 3D phase after the mechanics (his order).
+12. ROUTE AND JUDGING (C8, P5): a probe on the real bout first (no single command best everywhere; reading the moment
+    beats any fixed command), then critics for DEPTH (measured and compared, 8 or more), then the build; FUN is his play.
+    A mechanic stays only with both.
+Build task ids: CORNERCMD1 (map + probe), then critics, then the build. Knowledge: KNOWBUILD1 (step 1 of v9, the signing
+card) after the turning pro v17 build.

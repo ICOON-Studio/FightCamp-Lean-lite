@@ -18,9 +18,6 @@ static func act(main: Node, name: String, arg: String) -> bool:
 				return true
 			main.open_modal({"type": "fightweek", "fid": str(f["id"]), "plan": FightWeekPlan.draft(c, f), "view": "week",
 				"night": 0})
-		"fwstop":
-			_plan(main)["stop"] = FightWeek.stop_of(arg)
-			main.redraw_modal()
 		"fwnight":   # a day cell: no night there -> place one and pick its partner; a night -> take it off
 			var nights: Dictionary = _plan(main)["nights"]
 			var d := int(arg)

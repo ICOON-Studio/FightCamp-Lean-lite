@@ -34,13 +34,13 @@
   },
   "COACHDEEP7": {
    "id": "COACHDEEP7",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-23T21:14",
    "title": "Coaches v7: the owner's design (a staff game: the hire, the trial week, four moments, the corner pick) - map + quick probe",
    "seat": "claude",
    "agent": "claude-opus-5-5 (console tab COACHDEEP7)",
    "eta": "about 2-3 h",
-   "note": "S542, owner interview (17 yes): research/COACH_INTERVIEW_S542.md; PASS -> critics kalli + dola queued by the worker"
+   "note": "2f78435ae: FAIL 4 of 7, each failing bar by one cell (M best in 7; back the coach 7, refuse the push 7; the careful line loses the solid coach in 2). Found: BoutRead.chance ignores the corner coach. -> COACHDEEP8 (the three named changes)"
   },
   "TURNPRO18": {
    "id": "TURNPRO18",
@@ -64,13 +64,13 @@
   },
   "FWLOAD2": {
    "id": "FWLOAD2",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-23T21:50",
    "title": "Fight-week load: two state-reading values (the bank lands before the bell; the flat round reads the opponent's start), probed on the game's own tank and week",
    "seat": "claude",
    "agent": "claude-opus-5-5 (console tab FWLOAD2, c3 of the S543 session)",
    "eta": "about 2-3 h",
-   "note": "S543 DEPTH1, from the code-checked critic (4/5): research/TASK_FWLOAD2.md; FAIL = cut the choice (the assistant picks)"
+   "note": "148d2d66c: FAIL - Train through best in 0 of 18 cells; a perfect lookup beats always Tick over by 0.78 wins in 100; the assistant as built is within 2 of the best in 15 of 18. Verdict: cut the choice (the assistant picks). -> the owner, cut or keep"
   },
   "TELLPLAY1": {
    "id": "TELLPLAY1",
@@ -81,6 +81,27 @@
    "agent": "claude-opus-5-5 (console tab TELLPLAY1, c4 of the S543 session)",
    "eta": "about 3 h",
    "note": "S543, from TURNPROBE18's STOP: research/TELLPLAY_SCOPE_S543.md, research/TASK_TELLPLAY1.md; seven bars"
+  },
+  "TURNPROBUILD17": {
+   "id": "TURNPROBUILD17",
+   "status": "running",
+   "started": "2026-11-23T22:12",
+   "title": "Build turning pro v17 (owner: 'Yes, build v17 now'): the offer and Not yet, two bouts for pro fights 1-6, the two bars, four screens, the cuts",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (console tab TURNPROBUILD17, c5 of the S543 session; worktree E:/FightCamp/wt/TURNPROBUILD17)",
+   "eta": "about 5-7 h",
+   "branch": "build/turnpro17",
+   "note": "S543: research/TASK_TURNPROBUILD17.md; step 1 (scripts/rules/ProStart.gd) on main; merge by diff"
+  },
+  "COACHDEEP8": {
+   "id": "COACHDEEP8",
+   "status": "running",
+   "started": "2026-11-23T22:25",
+   "title": "Coaches v8: v7 plus the three changes its probe named (a warning costs while it stands; a two-art coach is a solid-band wage; the card's line counts the boxers), the same seven bars",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (console tab COACHDEEP8, c6 of the S543 session)",
+   "eta": "about 1.5-2 h",
+   "note": "S543: research/TASK_COACHDEEP8.md; PASS -> critics kalli + dola queued by the worker; a code-checked critic owed"
   }
  },
  "codex_budget": {

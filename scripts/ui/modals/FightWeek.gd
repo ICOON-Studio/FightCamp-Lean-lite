@@ -180,10 +180,7 @@ func _middle(main: Node, c: Career, f: Dictionary, plan: Dictionary, r: Dictiona
 			cell.add_child(UI.label("pads", 16, UI.MUTED))
 		days_row.add_child(cell)
 	col.add_child(UI.label("THE WEEK'S LOAD", 18, UI.MUTED, "caps"))
-	var stops := UI.hbox(10)
-	col.add_child(stops)
-	for s in FightWeek.STOPS:
-		stops.add_child(_stop_card(main, f, str(s), str(s) == str(r["stop"])))
+	col.add_child(_load_line(f, plan, str(r["stop"])))
 	col.add_child(UI.label("PLAN LINES", 18, UI.MUTED, "caps"))
 	var flow := HFlowContainer.new()
 	flow.add_theme_constant_override("h_separation", 8)
@@ -206,32 +203,21 @@ static func _fw_nights(nights: Dictionary) -> int:
 	return n
 
 
-func _stop_card(main: Node, f: Dictionary, s: String, on: bool) -> Control:
+## S543 (owner: "cut the fight week load choice"; docs/FWLOAD2_RESULT.md: the pick was worth under 1 win in 100 and the
+## assistant already played it): the load is set by the assistant and shown as one line - which load, and why.
+const LOAD_WHY := {"tired": "the boxer is tired", "weight": "there is weight to lose", "near_usable": "a move is close to usable",
+	"rating_gap": "the opponent is well below the boxer", "opp_round1": "the opponent starts fast", "default": "a plain week"}
+
+
+func _load_line(f: Dictionary, plan: Dictionary, s: String) -> Control:
 	var r1 := FightWeek.round_one(FightWeekPlan.tired(f), s)
-	var round_word := "%s %+.1f" % [str(r1["state"]), float(r1["edge"])] if str(r1["state"]) == FightWeek.STATE_FLAT \
-		else "sharp"   # S535 DEPTHPRICE1A: the "+1 line up" boost was shown but never wired into the bout - not promised now
-	var ink := UI.GOLD_INK if on else UI.FG
-	var soft := UI.GOLD_INK if on else UI.MUTED
-	var b := UI.button("", "BtnSolid" if on else "BtnQuiet", main.act.bind("fwstop", s))
-	b.custom_minimum_size = Vector2(250, 104)
-	b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	var m := MarginContainer.new()
-	m.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	for side in ["left", "right", "top", "bottom"]:
-		m.add_theme_constant_override("margin_" + side, 12 if side in ["left", "right"] else 6)
-	m.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	var v := UI.vbox(2)
-	v.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	m.add_child(v)
-	b.add_child(m)
-	v.add_child(UI.label(str(FightWeek.STOP_NAMES[s]), 21, ink, "bold"))
-	v.add_child(UI.label("tank %d off · round 1 %s" % [int(FightWeek.STOP_TANK[s]), round_word], 15, soft, "body", true))
-	v.add_child(UI.label("best: %s" % FightWeek.best_when(s), 15, soft, "body", true))
-	for l in v.get_children():
-		(l as Control).mouse_filter = Control.MOUSE_FILTER_IGNORE
-		(l as Control).custom_minimum_size.x = 226.0   # a wrapped label measures its height at a known width
-	b.custom_minimum_size.y = 132.0
-	return b
+	var l := UI.label("%s, set by your assistant: %s." % [str(FightWeek.STOP_NAMES[s]), str(LOAD_WHY.get(str(plan.get("fact", "default")), LOAD_WHY["default"]))],
+		19, UI.FG, "body", true)
+	l.name = "FwLoad"
+	l.mouse_filter = Control.MOUSE_FILTER_STOP
+	l.tooltip_text = "How hard the boxer trains this week. This load takes %d off the tank at the first bell, leaves round 1 %s and keeps %d%% of the week's pad work." % [
+		int(FightWeek.STOP_TANK[s]), "flat" if str(r1["state"]) == FightWeek.STATE_FLAT else "sharp", roundi(float(FightWeek.BANK_SHARE[s]) * 100.0)]
+	return l
 
 
 func _right(r: Dictionary, band: Dictionary) -> Control:
@@ -275,7 +261,7 @@ func _footer(main: Node, plan: Dictionary, r: Dictionary) -> Control:
 	words.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	row.add_child(words)
 	words.add_child(UI.label("\"%s\"" % str(plan.get("line", "")), 22, UI.FG, "bold", true))
-	words.add_child(UI.label("Your assistant's pick for the load, the night and the weight.", 16, UI.MUTED))
+	words.add_child(UI.label("Your assistant's pick for the night and the weight. The load is set for you.", 16, UI.MUTED))
 	row.add_child(UI.button("Use the pick", "BtnQuiet", main.act.bind("fwpick", "")))
 	var missing := int(r["missing"]) > 0
 	var lock := UI.button2("Lock the week", "pick a partner for every night" if missing else "", "BtnSolid",

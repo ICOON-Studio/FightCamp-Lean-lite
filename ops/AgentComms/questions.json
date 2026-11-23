@@ -9081,6 +9081,23 @@
    "note": "owner in chat S543: \"Yes, build v17 now\"",
    "answered_at": "2026-11-23T19:59:38.539435+00:00",
    "seen_by_claude": true
+  },
+  {
+   "id": "Q-S294-324",
+   "asked": "2026-11-23T20:12:06.745964+00:00",
+   "session": "S294",
+   "text": "Fight-week load is worth under 1 win in 100 after three tests. Cut it (assistant picks)?",
+   "options": [
+    "Cut it",
+    "Keep it"
+   ],
+   "attach": [
+    "AgentComms/board_attach/Q-S294-324_0_FWLOAD2_RESULT.md"
+   ],
+   "answer": "Cut it",
+   "note": "owner in chat S543: \"cut the fight week load choice\"",
+   "answered_at": "2026-11-23T20:21:29.069629+00:00",
+   "seen_by_claude": true
   }
  ]
 }

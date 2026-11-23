@@ -1,3 +1,15 @@
+S543 (2026-11-23, late) - on main, in the NEXT build (not exported yet: the PC was at its memory limit)
+
+1. THE FIGHT WEEK SCREEN SHOWS THE REAL TANK: before an amateur bout, "The tank at the first bell" is now the number the
+   boxer really fights on. It used to show its own, softer sum: a boxer a week after a bout saw "0 off" on Rest up and
+   fought 8 off; a tired boxer could be 13 points out. The rows under the bar (fatigue, the last bout, the scale, the
+   week) add up to it, and the win chance on that screen follows it.
+2. THE WEEK'S LOAD IS SET FOR YOU (your "cut the fight week load choice"): the three cards Rest up / Tick over / Train
+   through are gone. One line says which load your assistant set and why; hover it for what that load does. Measured
+   three times: the choice was worth under 1 win in 100. The sparring nights, the partners, Eat less and the film night
+   are still yours.
+3. "Fatigue after the bell +6" is gone from that screen: the game never applied it.
+
 S542 build (2026-11-23, night) - what changed, and what to try (items 6 and 7 are new)
 
 1. WATCH A ROUND IN PICTURES (your Q-310 "Keep, build the full set"): after a round, the fight screen has a button

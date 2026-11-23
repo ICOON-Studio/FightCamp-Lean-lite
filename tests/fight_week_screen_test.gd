@@ -14,6 +14,7 @@ const Bouts := preload("res://scripts/state/Bouts.gd")
 const Needs := preload("res://scripts/state/Needs.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const FightWeekPlan := preload("res://scripts/state/FightWeekPlan.gd")
+const FightWeek := preload("res://scripts/rules/FightWeek.gd")
 const PartnerMatch := preload("res://scripts/rules/PartnerMatch.gd")
 const Champs := preload("res://scripts/state/Champs.gd")
 const PlanTemplates := preload("res://scripts/rules/PlanTemplates.gd")
@@ -75,14 +76,19 @@ func _initialize() -> void:
 	main.act("fwpartnerof", "6")
 	main.act("fwpartner", str(best["id"]))
 	_check(str(main.modal.get("view", "")) == "week", "picking a partner returns to the week")
-	main.act("fwstop", "tick_over")
+	# S543 (owner: "cut the fight week load choice"; FWLOAD2: worth under 1 win in 100): the assistant sets the load.
+	var stop := str(main.modal["plan"]["stop"])
+	var load_line: Label = main.find_child("FwLoad", true, false) as Label
+	_check(load_line != null and load_line.text.contains(str(FightWeek.STOP_NAMES[stop])), "the screen says the load the assistant set (%s)" % stop)
+	main.act("fwstop", "train_through" if stop != "train_through" else "rest_up")
+	_check(str(main.modal["plan"]["stop"]) == stop, "the load is not the player's to change")
 	main.modal["plan"]["eat_less"] = false
 	main.modal["plan"]["film"] = false
 	var cash_before := c.cash
 	var fav_before := FightWeekPlan.favours(c, str(best["club"]))
 	main.act("fwlock")
 	_check(not FightWeekPlan.is_open(f) and main.modal.is_empty(), "the week locks and the screen closes")
-	_check(str(b.get("load", "")) == "tick_over" and (b.get("spar_days", []) as Array) == [6], "bout: Tick over, one night 6 days out")
+	_check(str(b.get("load", "")) == stop and (b.get("spar_days", []) as Array) == [6], "bout: the assistant's load (%s), one night 6 days out" % stop)
 	_check(absf(float(b.get("spar_edge", -9.0)) - float(m["edge"])) < 0.001,
 		"rounds 1-2 edge = the partner's %s edge %.1f (got %.1f)" % [str(m["word"]), float(m["edge"]), float(b.get("spar_edge", -9.0))])
 	var readied := int(m["lines"]) > 0
@@ -94,7 +100,7 @@ func _initialize() -> void:
 		"the partner's cost: %s, cash %d -> %d, favours %d -> %d" % ["our club, free" if bool(best["ours"]) else "outside",
 		cash_before, c.cash, fav_before, fav_now])
 	var tp := BoutRules.tank_parts_for(c.results, f, float(f.get("week_fatigue", 20.0)), c.day)
-	_check(int(tp.get("week", -1)) == 9, "the tank's week layer is Tick over 6 + a 6-day night 3 (got %s)" % str(tp.get("week")))
+	_check(int(tp.get("week", -1)) == int(FightWeek.STOP_TANK[stop]) + 3, "the tank's week layer is the load's %d + a 6-day night 3 (got %s)" % [int(FightWeek.STOP_TANK[stop]), str(tp.get("week"))])
 	acts = _need_acts(c)
 	_check(not acts.has("fightweek"), "the to-do no longer asks for the fight week")
 	# 5. run to fight night and box it
