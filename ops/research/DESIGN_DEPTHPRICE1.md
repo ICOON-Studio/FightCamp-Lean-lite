@@ -1,5 +1,12 @@
 # DESIGN DEPTHPRICE1 - two solved choices given a price: the fight week's load, and the sponsorship or a day job (S543)
 
+> S543 CODE CHECK (`DESIGN_DEPTHPRICE1_CRITIC_OPUS.md`, commit 8db852cf2): do NOT build either price as measured. Wrong on
+> this page: the screen's tank was not the bout's tank (fixed 6e60558e4: the bout takes 2 a point over 50, cap 20, +8 for a
+> bout inside 7 days); Rest up only rests the TANK's reading to 30; Train through's "+6 after the bell" was shown and never
+> applied (line removed); the rival's approach has five answers, and the deal does feed back (loyalty -> approach -> a
+> locked stipend). Both probes passed by construction or noise (the fight-week cells were two tiredness levels; six of the
+> ten club cells were two cells counted three times). Verdict for both: CHANGE, re-probe, else cut.
+
 Two small choices that exist in the game today and that a measurement found solved (one option best almost everywhere).
 Each gets a price. Both prices were measured on a greybox before this page (`docs/DEPTHPRICE1A_RESULT.md` row 21,
 `docs/DEPTHPRICE1B_RESULT.md` row 15); nothing is built yet. Score each choice on its own.

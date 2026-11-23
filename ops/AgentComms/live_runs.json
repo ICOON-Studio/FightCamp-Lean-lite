@@ -44,23 +44,43 @@
   },
   "TURNPRO18": {
    "id": "TURNPRO18",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-23T21:33",
    "title": "Turning pro v18: the matchup decides, the name pays after fight 6, the bars know the boxer - map + full-size probe (ten bars)",
    "seat": "claude",
    "agent": "claude-opus-5-5 (console tab TURNPRO18, c1 of the S543 session)",
    "eta": "about 3 h",
-   "note": "S543, from both v17 critics' lists: research/TASK_TURNPRO18.md; PASS -> critics kalli + dola queued by the worker; a code-checked critic owed"
+   "note": "4d7082c8a: STOP at the measure-first gate - a plan line against a tell adds a median 0.2-1.1 points over the coach's plan (7 of 10 types under 4 points best-worst); only the fade answer pays (7-15). No career ran. -> TELLPLAY_SCOPE_S543, TELLPLAY1"
   },
   "DEPTHPRICE1CRIT": {
    "id": "DEPTHPRICE1CRIT",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-23T21:34",
    "title": "Code-checked critic of the two priced choices (fight-week load; sponsorship or a day job)",
    "seat": "claude",
    "agent": "claude-opus-5-5 (console tab DEPTHPRICE1CRIT, c2 of the S543 session)",
    "eta": "about 40 min",
-   "note": "S543 DEPTH1: research/TASK_DEPTHPRICE1CRIT.md; chat critics SQ316 kalli, SQ317 dola queued"
+   "note": "8db852cf2: fight-week load DEPTH 4 PLAY 5, sponsorship/day job DEPTH 3 PLAY 4, both CHANGE; found the screen tank defect (fixed S543)"
+  },
+  "FWLOAD2": {
+   "id": "FWLOAD2",
+   "status": "running",
+   "started": "2026-11-23T21:50",
+   "title": "Fight-week load: two state-reading values (the bank lands before the bell; the flat round reads the opponent's start), probed on the game's own tank and week",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (console tab FWLOAD2, c3 of the S543 session)",
+   "eta": "about 2-3 h",
+   "note": "S543 DEPTH1, from the code-checked critic (4/5): research/TASK_FWLOAD2.md; FAIL = cut the choice (the assistant picks)"
+  },
+  "TELLPLAY1": {
+   "id": "TELLPLAY1",
+   "status": "running",
+   "started": "2026-11-23T21:56",
+   "title": "A tell changes how the opponent fights: two flagged rules (the tell's situation weighs in the opponent's game; the fade answer under the cap), measured on the read and the real bout",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (console tab TELLPLAY1, c4 of the S543 session)",
+   "eta": "about 3 h",
+   "note": "S543, from TURNPROBE18's STOP: research/TELLPLAY_SCOPE_S543.md, research/TASK_TELLPLAY1.md; seven bars"
   }
  },
  "codex_budget": {

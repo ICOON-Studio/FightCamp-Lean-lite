@@ -480,7 +480,6 @@ static func rank_move(rows: Array, f: Dictionary, opp_name: String, order: Calla
 	return {"now": rank_of(rows, str(f["name"])), "win": _after(rows, f, opp_name, true, order, min_wins),
 		"loss": _after(rows, f, opp_name, false, order, min_wins), "need": maxi(0, min_wins - int(f["w"]) - 1)}
 
-
 static func _after(rows: Array, f: Dictionary, opp_name: String, won: bool, order: Callable, min_wins: int) -> int:
 	var w := int(f["w"]) + int(won)
 	if w < min_wins:

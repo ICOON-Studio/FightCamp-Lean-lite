@@ -13,6 +13,7 @@ extends RefCounted
 ##   mark(c, f)  is_open(f)  lines(f)  partners(c, f)  opp_known(f)  draft(c, f)  read(c, f, plan)  lock(c, f, plan) -> ""|why
 
 const FightWeek := preload("res://scripts/rules/FightWeek.gd")
+const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const FightWeekPick := preload("res://scripts/rules/FightWeekPick.gd")
 const PartnerMatch := preload("res://scripts/rules/PartnerMatch.gd")
 const WeighGap := preload("res://scripts/rules/WeighGap.gd")
@@ -251,11 +252,37 @@ static func read(c: Career, f: Dictionary, plan: Dictionary) -> Dictionary:
 		rows.append({"days": days, "night": sn, "partner": by_id[pid], "match": m, "readied": ids})
 	var r1 := FightWeek.round_one(tired(f), stop)
 	var left_after: Array = free.filter(func(x): return not readied.has(x))
-	return {"stop": stop, "tank": FightWeek.tank(tired(f), stop, fw_days, bool(plan.get("eat_less", false))),
+	return {"stop": stop, "tank": bout_tank(c, f, stop, fw_days, bool(plan.get("eat_less", false))),
 		"round_one": r1, "edge": float(r1["edge"]), "spar_edge": edge,   # S482: the partner apart (rounds 1-2)
 		"nights": rows, "missing": missing, "lines": lns,
 		"readied": readied, "unsparred": left_after, "partners": plist, "weight": weight(f, plan), "ways": weigh_ways(c, f),
 		"spar_days": fw_days, "wb_spar_days": wb_days}
+
+
+## S543 (DEPTHPRICE1 code-checked critic): the tank the screen shows IS the tank the bout uses - BoutRules.tank_parts_for
+## on the bout as this plan would lock it (fatigue 2 a point over 50, the scale, the boxer's last bout, capped together;
+## Rest up rested to 30), then the week's choices. Same shape as FightWeek.tank; the rows add up to `off`.
+static func bout_tank(c: Career, f: Dictionary, stop: String, fw_days: Array, eat_less: bool) -> Dictionary:
+	var fx := f.duplicate()
+	var b: Dictionary = (f["bout"] as Dictionary).duplicate()
+	b["load"] = stop
+	b["spar_days"] = fw_days
+	b["eat_less"] = eat_less
+	fx["bout"] = b
+	var tp := BoutRules.tank_parts_for(c.results, fx, float(f.get("week_fatigue", f.get("fatigue", 20.0))), int(b.get("day", c.day)))
+	var week: Dictionary = FightWeek.tank(0, stop, fw_days, eat_less)
+	var base := roundi(float(tp["off"]) - float(tp.get("week", 0.0)))   # the capped part (BoutRules.TANK_MAX)
+	var parts: Array = []
+	var room := base
+	for k in [["tired", FightWeek.LABEL_TIRED], ["weight", "The scale"], ["bout", "The last bout"]]:
+		var pts := mini(room, roundi(float(tp.get(k[0], 0.0))))
+		if pts > 0:
+			parts.append([k[1], pts])
+			room -= pts
+	if room > 0 and not parts.is_empty():   # rounding: the rows still add up to the capped part
+		parts[0][1] = int(parts[0][1]) + room
+	parts.append_array(week["parts"])
+	return {"tired_layer": base, "choices": int(week["choices"]), "off": base + int(week["choices"]), "parts": parts}
 
 
 ## Locks the week. "" when done, else why not (a night with no partner, a partner she cannot pay for).

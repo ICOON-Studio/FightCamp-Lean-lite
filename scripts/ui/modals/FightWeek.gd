@@ -265,8 +265,7 @@ func _right(r: Dictionary, band: Dictionary) -> Control:
 		col.add_child(wb)
 		if hi - lo >= 30:   # as OfferCard._band: a band this wide is still a rough guess
 			col.add_child(UI.muted("  Wide: the film night narrows it", UI.SMALL, true))
-	var after := FightWeek.tired_after(str(r["stop"]))
-	col.add_child(UI.kv("Fatigue after the bell", "+%d" % after))
+	# S543: "Fatigue after the bell +6" was shown and never applied (FightWeek.tired_after has no reader in the sim): not promised now.
 	return col
 
 

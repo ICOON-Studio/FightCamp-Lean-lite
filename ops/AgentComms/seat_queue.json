@@ -4627,18 +4627,23 @@
    "seat": "kalli",
    "brief": "research/CRITIC_DEPTHPRICE1_BRIEF.md",
    "stem": "CRITIC_DEPTHPRICE1_BRIEF_KALLI",
-   "status": "queued",
+   "status": "sent",
    "queued_at": "2026-11-23 21:32",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-23 21:40",
+   "sent_ms": 1795462822896
   },
   {
    "id": "SQ317",
    "seat": "dola",
    "brief": "research/CRITIC_DEPTHPRICE1_BRIEF.md",
    "stem": "CRITIC_DEPTHPRICE1_BRIEF_DOLA",
-   "status": "queued",
+   "status": "sent",
    "queued_at": "2026-11-23 21:32",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-23 21:40",
+   "pid": 64716,
+   "transcript": "AgentComms/seat_logs/SQ317_dola.txt"
   }
  ]
 }

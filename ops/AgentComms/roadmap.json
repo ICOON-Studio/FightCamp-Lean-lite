@@ -6,7 +6,7 @@
   "id": "S542",
   "owner": "claude",
   "updated": "2026-11-23",
-  "summary": "S542 (Fable) HANDOVER: ORDER (owner: \"restyling isnot important i want to finish with all pending mechanics then focus on the 3d and menus\"). Turning pro v17: his Q-320 'Yes, build it'; probe PASS 6/6 at risky purse x1.75 (Claude's full-size rerun; the worker's x1.5 run failed 4/6); critics Kalli 5/6/6 (the price decides, not the matchup; the name buys nothing after fight 6; confidence doubles an existing trait; Not yet has no reason), Dola 8/9/9 (tie the bars to who the boxer is, show the math, hunger felt in the ring) -> v18, one round, both lists. Coaches: v5 FAIL 7/10, v6 FAIL 7/9 -> his 'Interview me' -> 17 yes (COACH_INTERVIEW_S542.md: a staff game - the hire, the trial week, four moments, the corner pick; the week pairs itself; class-or-pads rule cut) -> COACHDEEP7 map + quick probe RUNNING (console tab c4 of the S542 desktop session). Card r8 the guide merged (47/47, play gate 6/6), played by hand, dead cards greyed; http://127.0.0.1:8799/ waits for his play. Club show light night verified (in the build). BODYCROSS1: a body-cross take, pictures only. Restyle parked (Q-321 'Not now'). Build exported 21:15 with WHAT_TO_TRY items 6-7.",
+  "summary": "METHOD S543 TELLS FIRST: a plan line against an opponent's tell adds about 1 point over the coach's plan (TURNPROBE18, checked in code); no design round built on \"the player answers the tell\" until TELLPLAY1 is measured (research/TELLPLAY_SCOPE_S543.md). | S542 (Fable) HANDOVER: ORDER (owner: \"restyling isnot important i want to finish with all pending mechanics then focus on the 3d and menus\"). Turning pro v17: his Q-320 'Yes, build it'; probe PASS 6/6 at risky purse x1.75 (Claude's full-size rerun; the worker's x1.5 run failed 4/6); critics Kalli 5/6/6 (the price decides, not the matchup; the name buys nothing after fight 6; confidence doubles an existing trait; Not yet has no reason), Dola 8/9/9 (tie the bars to who the boxer is, show the math, hunger felt in the ring) -> v18, one round, both lists. Coaches: v5 FAIL 7/10, v6 FAIL 7/9 -> his 'Interview me' -> 17 yes (COACH_INTERVIEW_S542.md: a staff game - the hire, the trial week, four moments, the corner pick; the week pairs itself; class-or-pads rule cut) -> COACHDEEP7 map + quick probe RUNNING (console tab c4 of the S542 desktop session). Card r8 the guide merged (47/47, play gate 6/6), played by hand, dead cards greyed; http://127.0.0.1:8799/ waits for his play. Club show light night verified (in the build). BODYCROSS1: a body-cross take, pictures only. Restyle parked (Q-321 'Not now'). Build exported 21:15 with WHAT_TO_TRY items 6-7.",
   "next_action": "S543: see NEXT_SESSION_PROMPT.md (collect COACHDEEP7; turning pro v18 from the two critics' lists; owner plays card r8 -> round 9; knowledge v9 interview offer).",
   "last_working_commit": "c7758093e",
   "verified_playable": "Builds/FightCamp.exe S541 (pictures view, combo counter, footwork 10/10); card r7 page played by Claude and the owner",
@@ -5260,7 +5260,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-23",
+  "updated": "2026-11-23 21:41 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5407,22 +5407,61 @@
    "RANKSHOWUI": "Rank earned shown after every fight (result, Why, fighter page)",
    "GYMLIFE2": "Gym picture: smooth shadow boxing, walks round the kit, nobody under a button",
    "INTROCORNER2": "Fight intro from the corners: each name call shown, never alike",
-   "FIGHTFILM1": "Fight analysis page: every punch of a fight, and film nights where you find the opponent's tells yourself"
+   "FIGHTFILM1": "Fight analysis page: every punch of a fight, and film nights where you find the opponent's tells yourself",
+   "TELLPLAY1": "Make a found tell change the fight, so the plan line that answers it pays"
   },
   "working_now": [
    {
+    "title": "Deep coaches v5: catchment ceiling caps the class loop",
+    "who": "claude-opus-5-5 (Code Mode tab c5)",
+    "started": "2026-11-23T15:40",
+    "run": "COACHDEEP5",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "Club show as a light money night: hall read + two reserves",
+    "who": "claude-opus-5-5 (Code Mode tab c6)",
+    "started": "2026-11-23T16:20",
+    "run": "HOSTLIGHT1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "Deep coaches v6: the class-night-or-pads trade cut, the coach part probed alone (nine bars)",
+    "who": "claude-opus-5-5 (console tab COACHDEEP6)",
+    "started": "2026-11-23T19:53",
+    "run": "COACHDEEP6",
+    "state": "LANDED - Claude collects"
+   },
+   {
     "title": "Coaches v7: the owner's design (a staff game: the hire, the trial week, four moments, the corner pick) - map + quick probe",
     "who": "claude-opus-5-5 (console tab COACHDEEP7)",
-    "started": "2026-11-23T20:40",
-    "run": "COACHDEEP7",
-    "state": "running - the next session collects"
+    "started": "2026-11-23T21:14",
+    "run": "COACHDEEP7"
+   },
+   {
+    "title": "Turning pro v18: the matchup decides, the name pays after fight 6, the bars know the boxer - map + full-size probe (ten bars)",
+    "who": "claude-opus-5-5 (console tab TURNPRO18, c1 of the S543 session)",
+    "started": "2026-11-23T21:33",
+    "run": "TURNPRO18"
+   },
+   {
+    "title": "Code-checked critic of the two priced choices (fight-week load; sponsorship or a day job)",
+    "who": "claude-opus-5-5 (console tab DEPTHPRICE1CRIT, c2 of the S543 session)",
+    "started": "2026-11-23T21:34",
+    "run": "DEPTHPRICE1CRIT"
    }
   ],
   "next": [
    {
+    "id": "TELLPLAY1",
+    "who": "claude",
+    "title": "A tell must change how the opponent fights (TELLPLAY_SCOPE_S543: the root under turning pro, knowledge, film and the push switch) | NEXT: collect the TELLPLAY1 probe (console tab), then two critics at 8, then build",
+    "after": ""
+   },
+   {
     "id": "TURNPRO1",
     "who": "claude",
-    "title": "Turning pro v17: probe PASS 6/6 at risky purse x1.75; critics Kalli 5/6/6, Dola 8/9/9 | NEXT: v18 from both lists (matchup tell on each card, the name pays after fight 6, the two bars wired to ambition and the confidence trait, a reason for Not yet), full-size probe, same two critics + a code-checked one",
+    "title": "Turning pro: v17 approved (Q-320), probe PASS 6/6, critics 5/6/6 and 8/9/9. v18 STOPPED at its first check (S543): a plan line against a tell adds about 1 point | NEXT: the owner's call to build v17 now; v18's matchup rule waits for TELLPLAY1",
     "after": ""
    },
    {
@@ -5935,64 +5974,6 @@
   "map": {
    "done_earlier": [
     {
-     "text": "Card plan written (Fable)",
-     "who": "claude"
-    },
-    {
-     "text": "2D pictures: 2x58, on /review",
-     "who": "claude"
-    },
-    {
-     "text": "Club show card cut: light night",
-     "who": "claude"
-    },
-    {
-     "text": "Card r7 merged: PLAY gate 6/6",
-     "who": "claude"
-    },
-    {
-     "text": "S541 build exported",
-     "who": "claude"
-    },
-    {
-     "text": "Card plan signed",
-     "who": "claude"
-    },
-    {
-     "text": "Card r7: PLAY gate 6/6",
-     "who": "claude"
-    },
-    {
-     "text": "Turning pro interview",
-     "who": "claude"
-    },
-    {
-     "text": "STEPPAY5 merged: steps 10/10",
-     "who": "claude"
-    },
-    {
-     "text": "TURNPRO15 probe: PASS 17/17",
-     "who": "claude"
-    },
-    {
-     "text": "Chip words: three uses",
-     "who": "claude"
-    },
-    {
-     "text": "Coach v2: FAIL on money",
-     "who": "claude"
-    },
-    {
-     "text": "Combo counter built",
-     "who": "claude"
-    },
-    {
-     "text": "Footwork merged 10/10",
-     "who": "claude"
-    }
-   ],
-   "done_session": [
-    {
      "text": "Card r8 guide merged + played",
      "who": "claude"
     },
@@ -6026,6 +6007,40 @@
     },
     {
      "text": "Pro v17 critics: 5/6/6, 8/9/9",
+     "who": "claude"
+    },
+    {
+     "text": "Card plan written (Fable)",
+     "who": "claude"
+    },
+    {
+     "text": "2D pictures: 2x58, on /review",
+     "who": "claude"
+    },
+    {
+     "text": "Club show card cut: light night",
+     "who": "claude"
+    },
+    {
+     "text": "Card r7 merged: PLAY gate 6/6",
+     "who": "claude"
+    },
+    {
+     "text": "S541 build exported",
+     "who": "claude"
+    }
+   ],
+   "done_session": [
+    {
+     "text": "Nightly: rank test follows v2 page",
+     "who": "claude"
+    },
+    {
+     "text": "Fight week screen: the real tank",
+     "who": "claude"
+    },
+    {
+     "text": "Turning pro v18: stopped, 1 point",
      "who": "claude"
     }
    ],
@@ -6112,6 +6127,26 @@
     },
     {
      "text": "Coaches v7: map + quick probe",
+     "who": "claude"
+    },
+    {
+     "text": "Turning pro v18: brief + probe",
+     "who": "claude"
+    },
+    {
+     "text": "Turning pro v18: map + probe (tab)",
+     "who": "claude"
+    },
+    {
+     "text": "Depth prices: 3 critics",
+     "who": "claude"
+    },
+    {
+     "text": "Fight-week load: re-probe (tab)",
+     "who": "claude"
+    },
+    {
+     "text": "Tells change the fight: probe",
      "who": "claude"
     }
    ],
@@ -6411,9 +6446,13 @@
     {
      "text": "Turning pro v18: both lists",
      "who": "claude"
+    },
+    {
+     "text": "Launch TURNPRO18 worker",
+     "who": "claude"
     }
    ],
-   "session": "S542"
+   "session": "S543"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",

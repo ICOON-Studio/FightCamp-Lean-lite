@@ -3,6 +3,10 @@
 Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. Digest: ops/research/S542_DIGEST.md.
 
 ## METHOD lines - quote all of them in your first message
+- TELLS FIRST (S543 TURNPROBE18, checked in code): a plan line the player writes against an opponent's tell adds about 1
+  point over the coach's plan, because a tell does not change how the opponent fights. No new design round whose central
+  idea is "the player answers the tell" (turning pro's matchup rule, scouting the opponent's file, the push switch's openings) until
+  TELLPLAY1 is measured: `ops/research/TELLPLAY_SCOPE_S543.md`.
 - ORDER (owner S542: "restyling isnot important i want to finish with all pending mechanics then focus on the 3d and
   menus"): pending mechanics first (turning pro, coaches, knowledge, depth, push switch, progression), THEN 3D and menus.
   No look / restyle / mockup-pick question to him until then. Ask before launching a new animation item.
