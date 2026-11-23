@@ -78,8 +78,12 @@ static func run_cell(make_fighter: Callable, seed_start: int, n_fighters: int, s
 	return {"wins": wins, "fires": fires, "uses": uses, "n": n, "wrong": wrong, "rides": rides}
 
 
-## The gate's three legs for one step from its six measured cells: best style in 1.5-5, wrong style negative,
-## every other style 0 to +1. cells = {style: {"delta": wins in 100}}.
+## The gate's three legs for one step from its six measured cells, as the result table has them since STEPPAY3
+## (docs/STEPPAY3_RESULT.md): the style it is FOR in 1.5-5, the wrong style below 0 (no such style = passes), and no other
+## style above the band's top (5). S538 STEPPAY4: the old third leg ("others 0 to +1") could not pass for a step whose
+## moment several styles share and printed pass=0/10; the other half of the third leg - each style within 2.0 of what
+## its situations are worth - needs the fit run: tools/step_fire_fit_probe.gd `legs=<gate outputs>,<fit outputs>`.
+## cells = {style: {"delta": wins in 100}}.
 static func legs(step: String, cells: Dictionary) -> Dictionary:
 	var best: String = StepValue.best_style(step)
 	var wrong: String = StepValue.wrong_style(step)
@@ -96,7 +100,7 @@ static func legs(step: String, cells: Dictionary) -> Dictionary:
 		if s == best or s == wrong:
 			continue
 		var v: float = float(cells[s]["delta"])
-		if v < 0.0 or v > 1.0:
+		if v > 5.0:
 			others_ok = false
 			if worst_other == "":
 				worst_other = s
@@ -126,7 +130,7 @@ static func fail_line(step: String, cells: Dictionary, lg: Dictionary) -> String
 	if not bool(lg["wrong_ok"]):
 		why.append("wrong cell %s %+.1f not negative" % [str(lg["wrong"]), float(cells[str(lg["wrong"])]["delta"])])
 	if not bool(lg["others_ok"]):
-		why.append("other styles outside 0 to +1 (first: %s)" % str(lg["worst_other"]))
+		why.append("another style above the band's top 5 (first: %s)" % str(lg["worst_other"]))
 	return "FAIL %s: StepEffect.TABLE.%s (%s) is the row that would move it - %s. Only its ropes count is wired today (StepWire); the deny/open/drain sizes are not in the exchange yet." % [
 		step, step, ", ".join(parts), "; ".join(why)]
 
@@ -207,7 +211,7 @@ static func write_doc(report: Dictionary) -> void:
 		var lg: Dictionary = legs(sid, cells)
 		if bool(lg["pass"]):
 			pass_count += 1
-		f.store_line("- %s: best %s %+.1f in 1.5-5: %s; wrong %s %+.1f negative: %s; others 0 to +1: %s -> **%s**" % [
+		f.store_line("- %s: best %s %+.1f in 1.5-5: %s; wrong %s %+.1f negative: %s; no other style above 5: %s -> **%s**" % [
 			sid, str(lg["best"]), float(cells[str(lg["best"])]["delta"]), "yes" if bool(lg["best_ok"]) else "NO",
 			str(lg["wrong"]), float(cells[str(lg["wrong"])]["delta"]), "yes" if bool(lg["wrong_ok"]) else "NO",
 			"yes" if bool(lg["others_ok"]) else "NO", "PASS" if bool(lg["pass"]) else "FAIL"])

@@ -46,6 +46,9 @@ static func ride(lv: Dictionary, pick: Dictionary, plan: Array, f: Dictionary, p
 	var arrow := str(pick["move"])
 	if not StepEffect.TABLE.has(PlanFight.base_id(arrow)) or PlanFight.fit(arrow, psit) != "best":
 		return {}
+	var games: Dictionary = Exchanges.STYLE_MODES.get(str((((f.get("bout", {}) as Dictionary).get("opp", {})) as Dictionary).get("style", "")), {})
+	if PlanFight.StepWrong.bare(arrow, games, str(lv.get("mode", ""))) or PlanFight.StepWrong.slides(arrow, games, lv):
+		return {}   # S538 STEPPAY4: against the style that punishes it the step is only a step; S539 STEPPAY5: a mover slides off the first cut (rules/StepWrong.gd)
 	var dest := str(StrikeMap.move(arrow).get("to", ""))
 	var moves: Dictionary = f.get("moves", {})
 	if dest == "" or not StrikeMap.outs(dest).any(func(m): return str(m.get("kind", "")) == "combo" and PlanFight.can_do(m, moves)):

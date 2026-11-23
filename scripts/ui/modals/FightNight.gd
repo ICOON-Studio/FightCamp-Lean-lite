@@ -126,7 +126,7 @@ func _live(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 		v.add_child(UI.label(str(last["habit_line"]), 18, UI.AMBER, "body", true))
 	if str(last.get("read_line", "")) != "":   # S539 PLANREADSHOW1: the opponent has read her answer
 		var rl := UI.label(str(last["read_line"]), 18, UI.AMBER, "body", true)
-		rl.tooltip_text = PlanReadShow.TIP_BITE % PlanReadShow.PlanRead.FREE_USES
+		rl.tooltip_text = PlanReadShow.TIP_BITE % PlanReadShow.READ_AT
 		v.add_child(rl)
 	if str(last.get("perk_line", "")) != "":   # S355 a perk at work (PerkFight)
 		v.add_child(UI.label(str(last["perk_line"]), 18, UI.GREEN, "body", true))

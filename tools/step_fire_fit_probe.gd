@@ -35,12 +35,25 @@ func _initialize() -> void:
 		TV.StepWire.ride_on = false
 	if OS.get_cmdline_user_args().has("moments=off"):
 		StepMoment.on = false
+	if OS.get_cmdline_user_args().has("trap=off"):   # S538 STEPPAY4 control arm: no step gives her a game
+		PlanFight.StepWrong.on = false
+	for a in OS.get_cmdline_user_args():
+		if str(a).begins_with("trap=") and str(a) != "trap=off":   # measurement only: trap=cost:8,pull:1.5
+			for kv in str(a).substr(5).split(","):
+				PlanFight.StepWrong.probe[str(kv).get_slice(":", 0)] = float(str(kv).get_slice(":", 1))
+	print("StepWrong: on=%s cost=%.1f pull=%.2f" % [str(PlanFight.StepWrong.on), PlanFight.StepWrong.cost(), PlanFight.StepWrong.pull()])
 	for a in OS.get_cmdline_user_args():
 		if str(a).begins_with("rate="):
 			for kv in str(a).substr(5).split(","):
 				StepMoment.probe_rate[str(kv).get_slice(":", 0)] = float(str(kv).get_slice(":", 1))
 	print("StepMoment: on=%s rates=%s" % [str(StepMoment.on), str(StepMoment.STEP.keys().map(func(k): return "%s %.2f" % [str(k), StepMoment.rate(str(k))]))])
 	var base: Dictionary = tv.call("_base_dict")
+	if OS.get_cmdline_user_args().has("wrong"):
+		_wrong(tv, base, only, n)
+		tv.free()
+		print("STEP_FIRE_FIT done")
+		quit(0)
+		return
 	if OS.get_cmdline_user_args().has("delta"):
 		_delta(tv, base, only)
 		tv.free()
@@ -90,7 +103,7 @@ func _initialize() -> void:
 							rides += 1
 						if PlanFight.base_id(str(xd.get("arrow", ""))) == sid and bool(xd.get("planned", false)):
 							fires += 1
-							var k2 := PlanFight.fit(sid, psit)
+							var k2 := str(xd.get("arrow_fit", PlanFight.fit(sid, psit)))   # S539 STEPPAY5: the fight's own grade (a step she met is wrong: StepWrong)
 							t[k2] = int(t[k2]) + 1
 						elif PlanFight.fit(sid, psit) == "best" and PlanFight.base_id(str(xd.get("want", ""))) != sid \
 								and str(xd.get("at", "")) == str(PlanFight.StrikeMap.move(sid).get("from", "")):
@@ -177,7 +190,13 @@ func _delta(tv: Object, base: Dictionary, only: Array) -> void:
 		var sid := str(step)
 		var with_plan: Array = tv.call("_plan_for", sid)
 		var without_plan: Array = with_plan.filter(func(a): return str(a["move"]) != sid)
-		for style in (StepValue.STYLES if all_styles else [StepValue.best_style(sid)]):
+		var legs: Array = [StepValue.best_style(sid)] + ([StepValue.wrong_style(sid)] if StepValue.wrong_style(sid) != "" and OS.get_cmdline_user_args().has("styles=legs") else [])
+		if OS.get_cmdline_user_args().has("styles=wrong"):   # S538: the wrong style's cell alone
+			legs = [StepValue.wrong_style(sid)] if StepValue.wrong_style(sid) != "" else []
+		for a in OS.get_cmdline_user_args():
+			if str(a).begins_with("style="):   # S538: one named style, e.g. style=Slugger
+				legs = [str(a).substr(6)]
+		for style in (StepValue.STYLES if all_styles else legs):
 			var opp: Dictionary = tv.call("_find_opp", str(TV.STYLE_OPP[str(style)]))
 			opp["rating"] = float(RATING[str(opp["name"])])
 			var w := 0
@@ -194,3 +213,77 @@ func _delta(tv: Object, base: Dictionary, only: Array) -> void:
 			var nt := float(int(TV.N_BOUTS) * TV.SEED_SETS.size())
 			print("DELTA step=%s style=%s delta=%+.2f with=%.1f%% without=%.1f%% fires/bout=%.2f rides/bout=%.2f" % [
 				sid, str(style), 100.0 * float(w - wo) / nt, 100.0 * float(w) / nt, 100.0 * float(wo) / nt, float(fires) / nt, float(rides) / nt])
+
+
+## S538 STEPPAY4 `wrong`: what the step costs TODAY in the bouts of the style that should punish it. Per situation the
+## fight graded the exchange on (the moment's row when one was dealt): how often the plan wanted the step there, how often
+## the boxer held it (StepWire.holds), and for the fires: exchanges won, the plan's points, punches taken - beside the
+## exchanges of the same situation where the step did not fire. One line a situation, the wrong-fit ones marked.
+func _wrong(tv: Object, base: Dictionary, only: Array, n: int) -> void:
+	for step in only:
+		var sid := str(step)
+		var ws := StepValue.wrong_style(sid)
+		if ws == "":
+			continue
+		var plan: Array = tv.call("_plan_for", sid)
+		var opp: Dictionary = tv.call("_find_opp", str(TV.STYLE_OPP[ws]))
+		opp["rating"] = float(RATING[str(opp["name"])])
+		var fires_all := 0
+		var traps := 0        # exchanges she played the game a step gave her (StepWrong)
+		var now_mode := {}    # "<her game>/<the situation graded>" -> fires
+		var next_mode := {}   # her game the exchange after a fire -> fires
+		var by := {}   # psit -> [exchanges, wanted, held, fires, fires won, plan points, punches taken on fires, others, others won, punches taken on others]
+		for k in n:
+			var c := Career.quick_start()
+			c.fighters.append(tv.call("_make_fighter", int(TV.SEED_START) + (k % int(TV.N_FIGHTERS))))
+			c.day = 40 + k
+			var f: Dictionary = c.fighter()
+			f["camp"] = {}
+			f["morale"] = 60.0
+			f["moves"] = (base["moves"] as Dictionary).duplicate()
+			var steps: Dictionary = (base["steps"] as Dictionary).duplicate()
+			steps[sid] = float(TV.SHARP)
+			f["steps"] = steps
+			f["combos"] = (base["combos"] as Dictionary).duplicate()
+			f["arrows"] = plan.duplicate(true)
+			c.coach = {}
+			f["bout"] = {"opp": opp.duplicate(true), "day": c.day, "weighed": true, "made": true, "done": false, "film": 0, "rounds": 3}
+			var m := {"fid": f["id"], "step": "tape", "total": 3}
+			Bouts.fight_step(c, f, m, "sim")
+			for r in m["rounds"]:
+				var rex: Array = (r as Dictionary)["exchanges"]
+				for xi in rex.size():
+					var xd: Dictionary = rex[xi]
+					var psit := str(xd.get("moment", ""))
+					if psit == "":
+						psit = str(xd.get("psit", ""))
+					if PlanFight.base_id(str(xd.get("arrow", ""))) == sid and bool(xd.get("planned", false)):
+						fires_all += 1
+						var k1 := "%s/%s" % [str(xd.get("mode", "")), psit]
+						now_mode[k1] = int(now_mode.get(k1, 0)) + 1
+						var k3 := str((rex[xi + 1] as Dictionary).get("mode", "")) if xi + 1 < rex.size() else "bell"
+						next_mode[k3] = int(next_mode.get(k3, 0)) + 1
+					var t: Array = by.get_or_add(psit, [0, 0, 0, 0, 0, 0.0, 0, 0, 0, 0])
+					var took := int((xd.get("landed", [0, 0]) as Array)[1])
+					traps += int(str(xd.get("trap", "")) != "")
+					t[0] += 1
+					t[1] += int(PlanFight.base_id(str(xd.get("want", ""))) == sid)
+					t[2] += int(bool(xd.get("held", false)) and PlanFight.base_id(str(xd.get("want", ""))) == sid)
+					if PlanFight.base_id(str(xd.get("arrow", ""))) == sid and bool(xd.get("planned", false)):
+						t[3] += 1
+						t[4] += int(bool(xd.get("won", false)))
+						t[5] += float(xd.get("plan_edge", 0.0))
+						t[6] += took
+					else:
+						t[7] += 1
+						t[8] += int(bool(xd.get("won", false)))
+						t[9] += took
+		print("WRONG step=%s style=%s traps/bout=%.2f" % [sid, ws, float(traps) / float(n)])
+		print("WRONG step=%s style=%s fires/bout=%.2f | her game then: %s | her game the exchange after (same round): %s" % [sid, ws, float(fires_all) / float(n), str(now_mode), str(next_mode)])
+		for psit in by:
+			var t: Array = by[psit]
+			var fr := float(maxi(1, int(t[3])))
+			var ot := float(maxi(1, int(t[7])))
+			print("WRONG step=%s style=%s sit=%s fit=%s exchanges/bout=%.2f wanted/bout=%.2f held/bout=%.2f fires/bout=%.2f fires_won=%.0f%% plan_points=%+.1f taken=%.2f | others won=%.0f%% taken=%.2f" % [
+				sid, ws, str(psit), PlanFight.fit(sid, str(psit)), float(t[0]) / float(n), float(t[1]) / float(n), float(t[2]) / float(n), float(t[3]) / float(n),
+				100.0 * float(t[4]) / fr, float(t[5]) / fr, float(t[6]) / fr, 100.0 * float(t[8]) / ot, float(t[9]) / ot])

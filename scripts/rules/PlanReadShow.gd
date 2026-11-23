@@ -9,7 +9,10 @@ const StrikeMap := preload("res://scripts/rules/StrikeMap.gd")
 
 const TIP_BITE := "A right answer that keeps paying gets read: after %d uses in a round the opponent has it, and each further use pays 30%% less of its edge until the bell. To get it back: give the same moment a second answer, or drill the line sharper so its edge still pays when it is read."
 const TIP_LEAN := "One answer covers most of the moments you expect. An opponent who sees it work again and again starts to read it, and it pays 30%% less on every use after the first %d in a round. Give one of those moments a different answer."
-const LEAN_WORDS := "Leans on one answer: an opponent adjusts after two uses a round"
+## S540 (owner C477): the chip said "after two uses" while the rule bites on the fourth right use (adjust(uses) cuts from
+## uses = FREE_USES + 1 earlier right uses); every word now reads READ_AT.
+const READ_AT := PlanRead.FREE_USES + 1
+const LEAN_WORDS := "Leans on one answer: an opponent reads it after three uses a round"
 
 
 ## The percent of the edge a read took away (0 when nothing bit).

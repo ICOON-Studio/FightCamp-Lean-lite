@@ -13,6 +13,7 @@ extends RefCounted
 const StrikeMap := preload("res://scripts/rules/StrikeMap.gd")
 const PlanBoard := preload("res://scripts/rules/PlanBoard.gd")
 const Combos := preload("res://scripts/rules/Combos.gd")
+const StepWrong := preload("res://scripts/rules/StepWrong.gd")   # S538 STEPPAY4: where a step leaves your boxer (RingDuel reads it here)
 const StepMoment := preload("res://scripts/rules/StepMoment.gd")   # S537 STEPPAY3: deals the five steps' moments (LiveRound reads it here)
 
 ## Power points a move is worth in its exchange. Under a best shout's 15 (Exchanges.EDGE): the plan is her habit, the

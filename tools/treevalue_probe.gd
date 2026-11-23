@@ -439,7 +439,7 @@ func _initialize() -> void:
 			line += " %+6.1f (t%+5.1f)" % [float(cells[s]["delta"]), float(StepValue.TARGET[sid][s])]
 		line += " %6s" % ("PASS" if bool(lg["pass"]) else "FAIL")
 		print(line)
-		print("  %s: best %s %+.1f in 1.5-5: %s; wrong %s %+.1f negative: %s; others 0 to +1: %s" % [
+		print("  %s: best %s %+.1f in 1.5-5: %s; wrong %s %+.1f negative: %s; no other style above 5: %s (by situation: step_fire_fit_probe legs=)" % [
 			sid, str(lg["best"]), float(cells[str(lg["best"])]["delta"]), "yes" if bool(lg["best_ok"]) else "NO",
 			"none" if str(lg["wrong"]) == "" else str(lg["wrong"]), float(cells.get(str(lg["wrong"]), {"delta": 0.0})["delta"]), "yes" if bool(lg["wrong_ok"]) else "NO",
 			"yes" if bool(lg["others_ok"]) else "NO"])

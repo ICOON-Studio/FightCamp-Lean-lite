@@ -272,7 +272,7 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 		d -= float(cl["edge"])
 	# S398 where this 30 s is fought and the duel there (its own dice, so the round's other rolls stay as they were).
 	var prev_mode := str(lv["mode"])   # S488 STYLE5: read before RingDuel.step changes it
-	var duel := RingDuel.step(f, opp, lv, call, prev_mode, her_energy(lv, i), opp_energy(lv, i), _rng(c, f, n, i + 91))
+	var duel := RingDuel.step(f, opp, lv, call, prev_mode, her_energy(lv, i), opp_energy(lv, i), _rng(c, f, n, i + 91), arrow if bool(pick.get("planned", false)) else "")   # S538 STEPPAY4: the planned step taken now
 	d += float(duel["edge"])
 	d += StyleLevers.points(f, int(duel["place"]), prev_mode, pace, arrow)   # S488 STYLE5
 	d += StepWire.open_edge(lv, arrow, bool(pick.get("planned", false)))   # S525: the last exchange's step opened this line

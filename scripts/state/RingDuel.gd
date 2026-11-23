@@ -69,7 +69,7 @@ static func form(f: Dictionary, salt: int) -> Array:
 ## mode_bias, with a cut-off ring (StepWire, lv.ring_cut) taking that share off the opponent's range game this round.
 ## S533 STEPPAY2: an opponent on the ropes / in the corner has no range game at all (PlaceEdge.bias).
 static func step_bias(f: Dictionary, o: Dictionary, lv: Dictionary) -> Dictionary:
-	var b := PlaceEdge.bias(mode_bias(f, o), str(lv.get("at", "")))
+	var b := PlanFight.StepWrong.bias(PlaceEdge.bias(mode_bias(f, o), str(lv.get("at", ""))), lv, Exchanges.STYLE_MODES.get(str(o.get("style", "")), {}))   # S538 STEPPAY4: the game a step gave her
 	var cut := float(lv.get("ring_cut", 0.0))
 	if cut <= 0.0:
 		return b
@@ -103,7 +103,7 @@ static func open(lv: Dictionary) -> void:
 ## One exchange: where it is fought and her duel edge there. call = her call ("" = her own choice), mode = the opponent's
 ## game, energies now, hurt flags. Returns {edge, place, stepin, a_best, b_best, tie}.
 static func step(f: Dictionary, o: Dictionary, lv: Dictionary, call: String, mode: String, ea: float, eb: float,
-		rng: RandomNumberGenerator) -> Dictionary:
+		rng: RandomNumberGenerator, stepped := "") -> Dictionary:
 	var n := int(lv.get("n", 1))
 	var a := Duels.effective(Attrs.of(f), ea, bool(lv.get("her_hurt", false)), n >= 3)
 	a["open_add"] = StyleName.effect(f, "range_open")   # S459 INTEGRATE1: the named Out-boxer
@@ -123,7 +123,12 @@ static func step(f: Dictionary, o: Dictionary, lv: Dictionary, call: String, mod
 	var d := Duels.at(a, b, int(st["place"]), c)
 	var fm: Array = f["bout"].get("form", [0.0, 0.0])
 	lv["place_edge"] = PlaceEdge.edge(at)   # the ONE read of the place in the exchange odds
-	d["edge"] = float(d["edge"]) + float(fm[0]) - float(fm[1]) + float(lv["place_edge"])
+	var games: Dictionary = Exchanges.STYLE_MODES.get(str(o.get("style", "")), {})
+	var met := PlanFight.StepWrong.meet(stepped, games, mode)   # S538 STEPPAY4: she meets the planned step taken this exchange (stepped) ...
+	lv["met"] = met != 0.0
+	lv["trap_game"] = PlanFight.StepWrong.met_game(stepped, games, mode) if met != 0.0 else str(lv.get("gave", ""))
+	lv["trap_edge"] = met if met != 0.0 else PlanFight.StepWrong.edge(lv, mode, float(games.get(mode, 0.0)))   # ... or plays the game an earlier one gave her (never both)
+	d["edge"] = float(d["edge"]) + float(fm[0]) - float(fm[1]) + float(lv["place_edge"]) + float(lv["trap_edge"])
 	d["place"] = int(st["place"])
 	d["stepin"] = int(st["stepin"])
 	d["pinned"] = int(lv["pins"][0]) >= Duels.PINNED_AFTER
@@ -371,6 +376,15 @@ static func settle(lv: Dictionary, rec: Dictionary, s: Dictionary, rng: RandomNu
 		rec["place_edge"] = float(lv["place_edge"])
 		rec["duel_edge"] = float(rec["duel_edge"]) - float(rec["place_edge"])
 		rec["duel_line"] = duel_line(rec, names)
+	if rec.has("duel_edge") and float(lv.get("trap_edge", 0.0)) != 0.0:   # S538 STEPPAY4: the trap's points are not the duel's
+		rec["trap"] = str(lv.get("trap_game", ""))
+		rec["trap_edge"] = float(lv["trap_edge"])
+		rec["duel_edge"] = float(rec["duel_edge"]) - float(rec["trap_edge"])
+		rec["duel_line"] = duel_line(rec, names)
+	if bool(lv.get("met", false)):   # she met the step: the fight grades it wrong against her, whatever her game was
+		rec["met"] = true
+		rec["arrow_fit"] = "wrong"
+	PlanFight.StepWrong.after(lv, arrow, bool(rec.get("planned", false)), bool(s["won"]))
 	lv["at"] = PlanFight.where_next(arrow, bool(s["won"]), sit)
 	StepWire.after(lv, rec, arrow, bool(rec.get("planned", false)))   # S489 STEPVALUE1: the ropes count can override the place
 	exs.append(rec)

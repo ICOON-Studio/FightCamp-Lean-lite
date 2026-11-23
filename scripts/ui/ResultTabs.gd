@@ -293,7 +293,7 @@ static func plan(m: Dictionary, names: Array) -> HBoxContainer:
 			var rb: Dictionary = read_bites[str(a["move"])]
 			var rl := UI.label(PlanReadShow.bite_text(rb), TEXT, UI.AMBER, "bold")
 			rl.name = "ReadBite"
-			rl.tooltip_text = PlanReadShow.TIP_BITE % PlanReadShow.PlanRead.FREE_USES
+			rl.tooltip_text = PlanReadShow.TIP_BITE % PlanReadShow.READ_AT
 			rl.mouse_filter = Control.MOUSE_FILTER_STOP
 			line.add_child(rl)
 		lv.add_child(line)
