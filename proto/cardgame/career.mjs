@@ -5,7 +5,7 @@ import { aiPilot, impatient, worth } from './plan.mjs';
 
 export const RUNGS = ['Club', 'Area', 'National', 'Title shot', 'Title defence 1', 'Title defence 2', 'Title defence 3'];
 export const TITLE_SHOT = RUNGS.indexOf('Title shot');
-export const CUT_AT_LOSSES = 4; // a career is a title or four losses: the gym cuts a boxer who keeps losing
+export const CUT_AT_LOSSES = 6; // a career is a title or six losses: the gym cuts a boxer who keeps losing
 // the belt is won at the TITLE SHOT, not at the last defence: read the rung before resultCareer moves it
 export const takesTitle = (career, won) => !!won && RUNGS[career.rung] === 'Title shot';
 export const TRAINING = {
@@ -58,7 +58,15 @@ export const playerFighter = (career) => ({ ...fighter(career.style), name: 'You
 // RIVALS BY RUNG. A club novice's deck is the printed one with his best cards swapped for his cheapest; from Area up it
 // is the printed deck; from National up his best cards are upgraded, as a title fighter's are. A national title fighter
 // is far better than a club novice, and the ladder now says so.
-const RIVAL_RECIPE = [{ swap: 2 }, {}, { up: 2, by: 1 }, { up: 4, by: 1 }, { up: 4, by: 2 }, { up: 6, by: 2 }, { up: 6, by: 3 }];
+export const RIVAL_RECIPE = [
+  { swap: 3 },        // 0 Club: a novice, his three best cards swapped for his three cheapest
+  { up: 4, by: 1 },   // 1 Area: the printed deck, his four best cards upgraded once
+  { up: 6, by: 2 },   // 2 National
+  { up: 8, by: 2 },   // 3 Title shot
+  { up: 10, by: 3 },  // 4 Title defence 1
+  { up: 12, by: 4 },  // 5 Title defence 2
+  { up: 12, by: 5 },  // 6 Title defence 3: the champion's deck, every card of his art upgraded
+];
 const power = (id) => worth(CARDS[id]) / Math.max(1, CARDS[id].w);
 export function rivalFighter(career, rung) {
   const style = career.style === 'boxing' ? 'bjj' : 'boxing', base = fighter(style);
@@ -104,15 +112,17 @@ export function measureTraining(style, states) {
 }
 export const ladderBudgetSeconds = (decisions, secondsPerDecision = 8) => decisions * secondsPerDecision;
 export function simulateLadder(runs = 100, seed = 600000000, maxBouts = 80, style) {
-  const AI = aiPilot(), results = []; let titleWins = 0, boutCount = 0, decisionCount = 0, capped = 0;
+  const AI = aiPilot(), results = [], byRung = RUNGS.map(() => ({ bouts: 0, wins: 0 })); let titleWins = 0, boutCount = 0, decisionCount = 0, capped = 0;
   for (let i = 0; i < runs; i++) {
     const career = freshCareer(style || (i % 2 ? 'boxing' : 'bjj'), seed + i * 1009); let wonTitle = false, runDecisions = 0; const states = [];
     for (let n = 0; n < maxBouts; n++) {
       const r = bout(playerFighter(career), rivalFighter(career, career.rung), [AI, rivalPilot(career.rung)], seed + i * 1009 + n * 31);
       const won = r.win === 0; boutCount++; decisionCount += r.st.dec[0]; runDecisions += r.st.dec[0];
-      wonTitle = takesTitle(career, won);
+      byRung[career.rung].bouts++; if (won) byRung[career.rung].wins++;
+      wonTitle = wonTitle || takesTitle(career, won); // sticky: a defence lost and regained is still a title won
+      const defended = career.rung === RUNGS.length - 1; // the last defence, read before resultCareer moves the rung
       resultCareer(career, won);
-      if (wonTitle || career.losses >= CUT_AT_LOSSES) break;
+      if ((defended && won) || career.losses >= CUT_AT_LOSSES) break; // the career ends at the last defence or the cut
       const state = trainingState(r); states.push(state);
       const choice = TRAINING[career.style].slice().sort((a, b) => trainingUtility(b, career.style, state) - trainingUtility(a, career.style, state))[0];
       train(career, choice, seededRandom(seed + i * 991 + n * 17));
@@ -121,7 +131,7 @@ export function simulateLadder(runs = 100, seed = 600000000, maxBouts = 80, styl
     results.push({ title: wonTitle, bouts: career.bouts, decisions: runDecisions, cut: !wonTitle && career.losses >= CUT_AT_LOSSES, states });
   }
   const winners = results.filter((x) => x.title), avg = (xs, key) => xs.length ? xs.reduce((n, x) => n + x[key], 0) / xs.length : 0;
-  return { runs, titleWins, titleRate: titleWins / runs, meanBouts: boutCount / runs, bouts: boutCount, meanMinutes: decisionCount / runs * 8 / 60, titleWinnerMeanBouts: avg(winners, 'bouts'), titleWinnerMeanMinutes: avg(winners, 'decisions') * 8 / 60, capped, cut: results.filter((x) => x.cut).length, results, states: results.flatMap((x) => x.states) };
+  return { runs, titleWins, titleRate: titleWins / runs, meanBouts: boutCount / runs, bouts: boutCount, meanMinutes: decisionCount / runs * 8 / 60, titleWinnerMeanBouts: avg(winners, 'bouts'), titleWinnerMeanMinutes: avg(winners, 'decisions') * 8 / 60, capped, cut: results.filter((x) => x.cut).length, byRung, results, states: results.flatMap((x) => x.states) };
 }
 function seededRandom(seed) { let a = seed >>> 0; return () => { a = (a + 0x6d2b79f5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
 export const assertCareer = (c) => { if (!RUNGS[c.rung] || c.rank < 1 || c.energy < 0 || c.deck.length < 15) throw new Error('Invalid career state'); return true; };
