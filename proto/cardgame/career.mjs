@@ -1,8 +1,13 @@
+// The career layer: the ladder, the rivals on it, the training turn between bouts, and the two probes (L1, L2).
 import { CARDS, N, fighter } from './cards.mjs';
 import { bout } from './engine.mjs';
-import { aiPilot } from './plan.mjs';
+import { aiPilot, impatient, worth } from './plan.mjs';
 
 export const RUNGS = ['Club', 'Area', 'National', 'Title shot', 'Title defence 1', 'Title defence 2', 'Title defence 3'];
+export const TITLE_SHOT = RUNGS.indexOf('Title shot');
+export const CUT_AT_LOSSES = 4; // a career is a title or four losses: the gym cuts a boxer who keeps losing
+// the belt is won at the TITLE SHOT, not at the last defence: read the rung before resultCareer moves it
+export const takesTitle = (career, won) => !!won && RUNGS[career.rung] === 'Title shot';
 export const TRAINING = {
   boxing: [
     { id: 'jab', label: 'Jab timing', cost: 1, fail: 0.08 },
@@ -19,27 +24,26 @@ export const TRAINING = {
 };
 export const freshCareer = (style = 'boxing', seed = 539) => ({ style, rung: 0, rank: 100, wins: 0, losses: 0, energy: 5, deck: fighter(style).deck.slice(), upgrades: {}, seed, bouts: 0, trainingDone: false });
 export function cardVariant(id, level) {
-  const key = `${id}+${level}`;
+  const key = `${id}+${level}`, base = CARDS[id];
+  if (!base) throw new Error('no such card to train: ' + id);
   if (!CARDS[key]) {
-    const base = CARDS[id];
     CARDS[key] = { ...base, n: `${base.n} ${level === 1 ? 'II' : `+${level}`}`, dmg: base.dmg === undefined ? undefined : base.dmg + level, pts: base.pts === undefined ? undefined : base.pts + level, guard: base.fx === 'block' ? N.block + level : base.guard, count: base.count === undefined ? undefined : Math.max(1, base.count - level), w: Math.max(0, base.w - level) };
   }
   return key;
 }
+const levelOf = (id, base) => (id === base ? 0 : +(id.slice(base.length + 1)) || 0);
+// one card in, one card out: a second upgrade of the same card replaces the copy already in the deck, it never adds one
 export function train(career, option, rng = Math.random) {
   if (career.energy < option.cost) return { ok: false, reason: 'Not enough training energy.' };
   career.energy -= option.cost;
-  const before = career.deck.filter((id) => id === option.id || id.startsWith(`${option.id}+`)).length;
   if (rng() < option.fail) return { ok: false, failed: true, message: `${option.label} missed: the card printed a ${Math.round(option.fail * 100)}% failure chance.` };
-  if (before) {
-    const index = career.deck.findIndex((id) => id === option.id);
-    if (index >= 0) career.deck[index] = cardVariant(option.id, (career.upgrades[option.id] || 0) + 1);
-    else career.deck.push(cardVariant(option.id, (career.upgrades[option.id] || 0) + 1));
-    career.upgrades[option.id] = (career.upgrades[option.id] || 0) + 1;
-    return { ok: true, kind: 'upgrade', message: `${option.label} upgraded one ${CARDS[option.id].n}.` };
-  }
-  career.deck.push(option.id);
-  return { ok: true, kind: 'add', message: `${option.label} added ${CARDS[option.id].n} to the deck.` };
+  const base = option.id, copies = career.deck.map((id, i) => ({ i, id, lv: id === base || id.startsWith(base + '+') ? levelOf(id, base) : -1 })).filter((c) => c.lv >= 0);
+  const next = cardVariant(base, (career.upgrades[base] || 0) + 1);
+  career.upgrades[base] = (career.upgrades[base] || 0) + 1;
+  if (!copies.length) { career.deck.push(base); return { ok: true, kind: 'add', message: `${option.label} added ${CARDS[base].n} to the deck.` }; }
+  const low = copies.sort((a, b) => a.lv - b.lv)[0];
+  career.deck[low.i] = next;
+  return { ok: true, kind: 'upgrade', message: `${option.label} upgraded one ${CARDS[base].n}.` };
 }
 export function resultCareer(career, won) {
   career.bouts++;
@@ -51,53 +55,73 @@ export function resultCareer(career, won) {
   return RUNGS[career.rung];
 }
 export const playerFighter = (career) => ({ ...fighter(career.style), name: 'You', deck: career.deck.slice() });
-export const rivalFighter = (career, rung) => ({ ...fighter(career.style === 'boxing' ? 'bjj' : 'boxing'), name: `${RUNGS[rung]} challenger`, deck: fighter(career.style === 'boxing' ? 'bjj' : 'boxing').deck.slice() });
-
-// L2: deterministic state sweep; value is incremental expected damage/position utility adjusted for training energy and failure risk.
+// RIVALS BY RUNG. A club novice's deck is the printed one with his best cards swapped for his cheapest; from Area up it
+// is the printed deck; from National up his best cards are upgraded, as a title fighter's are. A national title fighter
+// is far better than a club novice, and the ladder now says so.
+const RIVAL_RECIPE = [{ swap: 2 }, {}, { up: 2, by: 1 }, { up: 4, by: 1 }, { up: 4, by: 2 }, { up: 6, by: 2 }, { up: 6, by: 3 }];
+const power = (id) => worth(CARDS[id]) / Math.max(1, CARDS[id].w);
+export function rivalFighter(career, rung) {
+  const style = career.style === 'boxing' ? 'bjj' : 'boxing', base = fighter(style);
+  const own = base.deck.filter((id) => CARDS[id].st === style), core = base.deck.filter((id) => CARDS[id].st === 'core');
+  const rank = own.slice().sort((a, b) => power(b) - power(a)), recipe = RIVAL_RECIPE[Math.max(0, Math.min(RIVAL_RECIPE.length - 1, rung))];
+  let deck = own.slice();
+  if (recipe.swap) for (let i = 0; i < recipe.swap; i++) deck[deck.indexOf(rank[i])] = rank[rank.length - 1 - i];
+  if (recipe.up) for (let i = 0; i < recipe.up; i++) deck[deck.indexOf(rank[i])] = cardVariant(rank[i], recipe.by);
+  return { ...base, name: `${RUNGS[rung]} challenger`, deck: core.concat(deck) };
+}
+// a rival's corner by rung: a club novice's corner plays the dearest card it can; a title fighter's reads the table
+export const rivalPilot = (rung) => (rung <= 0 ? impatient() : aiPilot());
+// THE STATE A CAREER TRAINS IN, read off the bout it just fought: where his own cards had to be legal (the share of
+// them laid at each place on the strip), whether he was held, whether he was struck, whether he was behind on the
+// cards. Nothing here is hand-made: it is the ladder's own record, per art, and it says where the deck had to work.
+export function trainingState(r, m = 0) {
+  const log = r.st.log[m], his = r.st.log[1 - m], share = {}; let laid = 0;
+  for (const t of log) t.kinds.forEach((kd, i) => { if (kd === 'step' || kd === 'move') return; share[t.at[i]] = (share[t.at[i]] || 0) + 1; laid++; });
+  for (const k in share) share[k] /= Math.max(1, laid);
+  const pos = Object.entries(share).sort((a, b) => b[1] - a[1])[0]?.[0] || 'K';
+  return { pos, share, range: pos[0], ground: pos === 'T' || pos === 'B', struck: his.some((t) => t.kinds.includes('strike')),
+    held: his.some((t) => t.kinds.includes('hold')), behind: r.S.f[m].pts < r.S.f[1 - m].pts };
+}
 export function trainingUtility(option, style, state) {
   const card = CARDS[option.id];
+  // how much of the bout was fought where this card is legal: a share, not a hand-made yes
+  const at = (keys) => (state.share ? keys.reduce((n, k) => n + (state.share[k] || 0), 0) : keys.includes(state.pos) ? 1 : 0);
   const fit = style === 'boxing'
-    ? (option.id === 'jab' ? ['K', 'P'].includes(state.range) : option.id === 'hook' ? ['P', 'C'].includes(state.range) : option.id === 'cross' ? state.range === 'P' : option.id === 'block' ? state.incoming : false)
-    : (option.id === 'sweep' ? ['B0', 'B1'].includes(state.pos) : option.id === 'pass' ? ['T0', 'T1', 'T2'].includes(state.pos) : option.id === 'triangle' ? state.pos === 'B0' : option.id === 'escape' ? state.held : false);
+    ? (option.id === 'jab' ? at(['K', 'P']) : option.id === 'hook' ? at(['P', 'C']) : option.id === 'cross' ? at(['P']) : state.struck ? 1 : 0)
+    : (option.id === 'sweep' ? at(['B']) : option.id === 'pass' ? at(['T']) : option.id === 'triangle' ? at(['B']) : state.held ? 1 : 0);
   const kit = (card.dmg || 0) + (card.pts || 0) * 2 + (card.k === 'hold' ? 5 : card.k === 'shot' ? 2 : 0);
   const synergy = style === 'boxing'
-    ? (option.id === 'jab' && state.range === 'K' ? 20 : option.id === 'cross' && state.range === 'P' ? 20 : option.id === 'hook' && state.range === 'C' ? 20 : option.id === 'block' && state.incoming ? 25 : 0)
-    : (option.id === 'sweep' && ['B0', 'B1'].includes(state.pos) ? 20 : option.id === 'pass' && state.pos[0] === 'T' ? 20 : option.id === 'triangle' && state.pos === 'B0' && state.behind ? 25 : option.id === 'escape' && state.held ? 25 : 0);
-  return (fit ? kit + synergy : 1) - option.cost * 1.7 - option.fail * 9;
+    ? (option.id === 'jab' ? at(['K']) * 20 : option.id === 'cross' ? at(['P']) * 20 : option.id === 'hook' ? at(['C']) * 20 : option.id === 'block' && state.struck ? 25 : 0)
+    : (option.id === 'sweep' ? at(['B']) * 20 : option.id === 'pass' ? at(['T']) * 20 : option.id === 'triangle' ? at(['B']) * (state.behind ? 25 : 20) : option.id === 'escape' && state.held ? 25 : 0);
+  return fit * (kit + synergy) + (1 - fit) * 1 - option.cost * 1.7 - option.fail * 9;
 }
-export function measureTraining(style) {
-  const states = Array.from({ length: 10 }, (_, i) => {
-    const phase = i % 4;
-    if (style === 'boxing') return phase === 0 ? { range: 'K' } : phase === 1 ? { range: 'P' } : phase === 2 ? { range: 'C' } : { range: 'K', incoming: true };
-    return phase === 0 ? { pos: 'B1', ground: true } : phase === 1 ? { pos: 'T1', ground: true } : phase === 2 ? { pos: 'B0', ground: true, behind: true } : { pos: 'B0', ground: true, held: true };
-  });
-  const options = TRAINING[style];
-  const top = states.map((state) => Math.max(...options.map((o) => trainingUtility(o, style, state))));
-  const chosen = options.map((option) => states.reduce((n, state, i) => n + (trainingUtility(option, style, state) >= top[i] - 1e-9 ? 1 : 0), 0));
-  return { states: states.length, options: options.map((o, i) => ({ id: o.id, right: chosen[i] })), pass: chosen.every((n) => n >= 1 && n <= 6) };
+// L2: the ten states are the first ten training states the ladder produces for this art, in run order. Not hand-made.
+export function measureTraining(style, states) {
+  const options = TRAINING[style], sts = states || simulateLadder(12, 600000000, 20, style).states.slice(0, 10);
+  const top = sts.map((state) => Math.max(...options.map((o) => trainingUtility(o, style, state))));
+  const chosen = options.map((option) => sts.reduce((n, state, i) => n + (trainingUtility(option, style, state) >= top[i] - 1e-9 ? 1 : 0), 0));
+  return { states: sts.length, options: options.map((o, i) => ({ id: o.id, right: chosen[i] })), pass: chosen.every((n) => n >= 1 && n <= 6), samples: sts };
 }
 export const ladderBudgetSeconds = (decisions, secondsPerDecision = 8) => decisions * secondsPerDecision;
-export function simulateLadder(runs = 100, seed = 600000000, maxBouts = 80) {
+export function simulateLadder(runs = 100, seed = 600000000, maxBouts = 80, style) {
   const AI = aiPilot(), results = []; let titleWins = 0, boutCount = 0, decisionCount = 0, capped = 0;
   for (let i = 0; i < runs; i++) {
-    const career = freshCareer(i % 2 ? 'boxing' : 'bjj', seed + i * 1009); let wonTitle = false, runDecisions = 0;
+    const career = freshCareer(style || (i % 2 ? 'boxing' : 'bjj'), seed + i * 1009); let wonTitle = false, runDecisions = 0; const states = [];
     for (let n = 0; n < maxBouts; n++) {
-      const r = bout(playerFighter(career), rivalFighter(career, career.rung), [AI, AI], seed + i * 1009 + n * 31);
+      const r = bout(playerFighter(career), rivalFighter(career, career.rung), [AI, rivalPilot(career.rung)], seed + i * 1009 + n * 31);
       const won = r.win === 0; boutCount++; decisionCount += r.st.dec[0]; runDecisions += r.st.dec[0];
-      wonTitle = won && career.rung === RUNGS.length - 1;
+      wonTitle = takesTitle(career, won);
       resultCareer(career, won);
-      if (wonTitle) break;
-      const opts = TRAINING[career.style], phase = n % 4, state = career.style === 'boxing'
-        ? phase === 0 ? { range: 'K' } : phase === 1 ? { range: 'P' } : phase === 2 ? { range: 'C' } : { range: 'K', incoming: true }
-        : phase === 0 ? { pos: 'B1', ground: true } : phase === 1 ? { pos: 'T1', ground: true } : phase === 2 ? { pos: 'B0', ground: true, behind: true } : { pos: 'B0', ground: true, held: true };
-      const choice = opts.slice().sort((a, b) => trainingUtility(b, career.style, state) - trainingUtility(a, career.style, state))[0];
+      if (wonTitle || career.losses >= CUT_AT_LOSSES) break;
+      const state = trainingState(r); states.push(state);
+      const choice = TRAINING[career.style].slice().sort((a, b) => trainingUtility(b, career.style, state) - trainingUtility(a, career.style, state))[0];
       train(career, choice, seededRandom(seed + i * 991 + n * 17));
     }
-    if (wonTitle) titleWins++; else capped++;
-    results.push({ title: wonTitle, bouts: career.bouts, decisions: runDecisions });
+    if (wonTitle) titleWins++; else if (career.losses < CUT_AT_LOSSES) capped++;
+    results.push({ title: wonTitle, bouts: career.bouts, decisions: runDecisions, cut: !wonTitle && career.losses >= CUT_AT_LOSSES, states });
   }
   const winners = results.filter((x) => x.title), avg = (xs, key) => xs.length ? xs.reduce((n, x) => n + x[key], 0) / xs.length : 0;
-  return { runs, titleWins, titleRate: titleWins / runs, meanBouts: boutCount / runs, bouts: boutCount, meanMinutes: decisionCount / runs * 8 / 60, titleWinnerMeanBouts: avg(winners, 'bouts'), titleWinnerMeanMinutes: avg(winners, 'decisions') * 8 / 60, capped, results };
+  return { runs, titleWins, titleRate: titleWins / runs, meanBouts: boutCount / runs, bouts: boutCount, meanMinutes: decisionCount / runs * 8 / 60, titleWinnerMeanBouts: avg(winners, 'bouts'), titleWinnerMeanMinutes: avg(winners, 'decisions') * 8 / 60, capped, cut: results.filter((x) => x.cut).length, results, states: results.flatMap((x) => x.states) };
 }
 function seededRandom(seed) { let a = seed >>> 0; return () => { a = (a + 0x6d2b79f5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
 export const assertCareer = (c) => { if (!RUNGS[c.rung] || c.rank < 1 || c.energy < 0 || c.deck.length < 15) throw new Error('Invalid career state'); return true; };
