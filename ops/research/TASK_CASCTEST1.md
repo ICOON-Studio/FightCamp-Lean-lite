@@ -1,5 +1,7 @@
 # TASK CASCTEST1 - Cascadeur FREE tier: prove AutoPhysics on our cross take, ready for Pro at the month end (S537)
 
+Status: DONE (collected e668b108f; marked S540)
+
 Model: claude-fable-5-2 (Code Mode console in E:\FightCamp\Lean). Discipline: boxing (demo).
 Owner S537: "use the free tier, i can afford it at the end of month". LICENCE: Cascadeur Free is NON-COMMERCIAL and saves .casc
 only (ops/research/K41_EXPORT_LICENCES.md). So: this is an evaluation and a recipe. NOTHING made on the free tier enters

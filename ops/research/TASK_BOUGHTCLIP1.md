@@ -1,5 +1,7 @@
 # TASK BOUGHTCLIP1 - show the owner the bought cross as bought, and answer "does the cross only reach the shoulder?" (S537)
 
+Status: DONE (collected 0a96ac479; marked S540)
+
 Model: claude-fable-5-2 (Agent SDK, API credit). Discipline: boxing (demo). Standing approval for animation fixes (S510).
 METHOD: fight player v2 only; no new correction layer; fixed side camera for every comparison (memory
 feedback_before_after_films_s537); open every frame yourself and say plainly what shows.

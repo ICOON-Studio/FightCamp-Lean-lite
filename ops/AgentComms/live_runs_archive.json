@@ -24313,6 +24313,17 @@
    "eta": "about 07:00",
    "note": "10/10, merged f31338cfa",
    "landed": "2026-11-23T11:40"
+  },
+  {
+   "id": "TURNPRO15CRIT",
+   "status": "landed",
+   "started": "2026-11-23T11:40",
+   "title": "Turning pro v15: code-checked critic",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (Code Mode tab c4)",
+   "eta": "about 1 h",
+   "note": "6/6/6, 5623b7b0a -> TURNPRO16",
+   "landed": "2026-11-23T11:42"
   }
  ]
 }

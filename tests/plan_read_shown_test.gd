@@ -22,6 +22,7 @@ var failures := 0
 
 
 func _initialize() -> void:
+	PlanReadShow.ComboCounter.on = false   # S540: this test is ADJUST's; the combo counter's own lines are combo_counter_test's
 	var ranger: Dictionary = Data.RIVALS.filter(func(r): return str(r["style"]) == "Out-boxer")[0]
 	var plan := PlanTemplates.load(PlanTemplates.boxing("t_walk"), PlanBoard.TOP_COACH)
 	var digest := 0

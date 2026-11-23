@@ -260,6 +260,7 @@ static func plan(m: Dictionary, names: Array) -> HBoxContainer:
 	if arrows.is_empty():
 		lv.add_child(UI.label("No plan was written: the coach boxed it from the tape.", TEXT, UI.MUTED, "body", true))
 	var read_bites := PlanReadShow.bites(rounds)   # S539 PLANREADSHOW1: where the opponent read an answer
+	var cc_rows := PlanReadShow.ComboCounter.counters(rounds)   # S540 COMBOCOUNTER1: where a repeated line got countered
 	var bet := PlanBet.verdict(arrows, uses)   # S538 PLANFLOW2: the main bet first - did it fire, did it win its exchanges
 	if not bet.is_empty():
 		var bl := UI.label("MAIN BET, line %s (%s). %s" % ["ABCDEFGHI"[int(bet["i"])] if int(bet["i"]) < 9 else "", _move(str(bet["move"])), bet["text"]], TEXT,
@@ -296,6 +297,12 @@ static func plan(m: Dictionary, names: Array) -> HBoxContainer:
 			rl.tooltip_text = PlanReadShow.TIP_BITE % PlanReadShow.READ_AT
 			rl.mouse_filter = Control.MOUSE_FILTER_STOP
 			line.add_child(rl)
+		if cc_rows.has(str(a["move"])):
+			var cl := UI.label(PlanReadShow.counter_text(cc_rows[str(a["move"])]), TEXT, Palette.BAD if int(cc_rows[str(a["move"])]["n"]) > 0 else UI.AMBER, "bold")
+			cl.name = "Countered"
+			cl.tooltip_text = PlanReadShow.tip_counter()
+			cl.mouse_filter = Control.MOUSE_FILTER_STOP
+			line.add_child(cl)
 		lv.add_child(line)
 	lv.add_child(UI.sep())
 	var calls := UI.hbox(18)

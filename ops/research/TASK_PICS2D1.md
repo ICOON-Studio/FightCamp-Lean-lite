@@ -1,5 +1,7 @@
 # TASK PICS2D1 - the 2D picture test: 12 pair stills from our own 3D, one real round played as pictures beside its 3D film (S539)
 
+Status: DONE (collected e6aecf184; marked S540)
+
 Model: claude-opus-5-5 (Code Mode tab). Discipline: boxing (demo). A test only: nothing in the shipped game changes.
 
 ## Why

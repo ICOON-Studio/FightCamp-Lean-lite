@@ -1,5 +1,7 @@
 # TASK KNEEROOT1 - where does the knee cave-in come from when our leg bakes are OFF? + gloves that move on their own (S537)
 
+Status: DONE (collected 07ae5199f; marked S540)
+
 Model: claude-fable-5-2 (Agent SDK, API credit). Discipline: boxing (demo). Standing approval for animation fixes (S510).
 METHOD (S510 + owner S537): fight player v2 only; NO new correction layer; "use our research/clips"; before/after films on a
 FIXED side camera on the punching boxer, both halves framed the same (memory feedback_before_after_films_s537).

@@ -106,7 +106,7 @@ static func open(c: Career, f: Dictionary, m: Dictionary, n: int, plan: String, 
 	var pace0 := PlanFile.pace_for(f, n, m.get("rounds", []))
 	if n == 1:
 		f["bout"]["plan_tally"] = {}
-	PlanPressure.new_round(f["bout"], n)   # S397 the plan's pressure and her tank's ceiling last the bout
+	PlanPressure.new_round(f["bout"], n); PlanReadShow.ComboCounter.open_round(f, n)   # S397 the plan's pressure lasts the bout; S540 COMBOCOUNTER1 the film at the first bell, the count fades at each later one
 	m["live"] = {"pace": pace0 if pace0 != "" else str(was.get("pace", "steady")), "aim": str(was.get("aim", "")), "n": n, "plan": plan, "ex": [], "shouts": 0, "mode": mode, "her_hurt": bool(jobs.get("hurt", false)), "opp_hurt": false,
 		"talk": talk, "talk_kind": str(jobs.get("talk", "")), "setup": setup, "adapt": Adaptation.start(f["bout"], str(jobs.get("adapt", "")), Exchanges.uptake(float((f.get("personality", {}) as Dictionary).get("coachability", 55.0)), 0) * FighterProfile.trust(f)),
 		"cost": 0.0, "e": e, "base": base, "fix": fix, "last": n >= int(f["bout"].get("rounds", BoutRules.ROUNDS)),
@@ -282,6 +282,7 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	var roll_a := rng.randf()
 	var roll_b := rng.randf()
 	var s := Exchanges.settle(d, roll_a, roll_b)
+	var cc := PlanReadShow.ComboCounter.throw(f, arrow if bool(pick.get("planned", false)) else "", _rng(c, f, n, i + 277).randf(), s)   # S540 COMBOCOUNTER1: ADJUST trims the edge, a counter takes the exchange
 	var lev := StepWire.levers(lv, s, arrow, bool(pick.get("planned", false)), step_grade, _rng(c, f, n, i + 211), fit_now)
 	# S388 the plan's true effect: the same dice without its edge. +1 it won this exchange, -1 it lost it (FightWhy).
 	var swing := int(bool(s["won"])) - int(bool(Exchanges.settle(d - plan_edge - read_edge, roll_a, roll_b)["won"]))
@@ -373,9 +374,10 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	rec["arrow_fit"] = PlanFight.fit(arrow, psit)
 	rec["psit"] = psit if mo.is_empty() else PlanFight.refine(sit, RoundStyle.opponent_habits(opp), i, Exchanges.EXCHANGES); rec["moment"] = str(mo.get("id", ""))   # the screens' situation words stay her game
 	rec["plan_edge"] = plan_edge
+	PlanReadShow.say_counter(rec, cc, arrow)   # S540: every counter is said
 	if not bite.is_empty():
 		rec["read_adj"] = bite
-		if not bool(lv.get("adj_said", false)):   # one live line a round, on the first bite
+		if not bool(lv.get("adj_said", false)) and not bool(cc["countered"]):   # one live line a round, on the first bite
 			rec["read_line"] = PlanReadShow.feed_line(PlanReadShow.move_name(arrow))
 			lv["adj_said"] = true
 	rec["read_edge"] = read_edge
@@ -394,11 +396,9 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 		return {}
 	return close(f, m)
 
-
 ## S333 THE READ (LiveRead holds it since S398).
 static func read_state(f: Dictionary) -> Dictionary:
 	return LiveRead.read_state(f)
-
 
 static func read_view(f: Dictionary, seen: String) -> Dictionary:
 	return LiveRead.read_view(f, seen)

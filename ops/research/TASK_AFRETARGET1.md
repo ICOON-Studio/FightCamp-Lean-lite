@@ -1,5 +1,7 @@
 # TASK AFRETARGET1 - the knee bend is in OUR retarget: play ActionForge's cross in the game, find the difference (S537)
 
+Status: DONE (collected c5ecb3dd4; marked S540)
+
 Model: claude-fable-5-2 (Agent SDK, API credit). Discipline: boxing (demo). Standing approval for animation fixes (S510).
 METHOD: fight player v2 only; no new correction layer; fixed side camera, both halves framed the same; open every frame
 yourself and say plainly whether the difference shows.

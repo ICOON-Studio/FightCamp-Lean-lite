@@ -1,5 +1,7 @@
 # TASK PLANFLOW2 - plan chart: main bet, how often each line fired, save/load a plan; probe "repeat it and get read" (S538)
 
+Status: DONE (collected 1ec898481; marked S540)
+
 Model: claude-fable-5-2 (headless on the API credit, ops/Tools/sdk_run.py). Discipline: boxing (demo).
 
 ## Owner (S538, Q-S294-301, verbatim)

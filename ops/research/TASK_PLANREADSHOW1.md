@@ -1,5 +1,7 @@
 # TASK PLANREADSHOW1 - show the "opponents adjust" rule the game already has (S538)
 
+Status: DONE (collected 786581331; marked S540)
+
 Model: claude-fable-5-2 (Code Mode terminal tab, owner's subscription). Discipline: boxing (demo).
 
 ## Why

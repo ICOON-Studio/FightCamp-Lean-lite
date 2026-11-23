@@ -1,5 +1,7 @@
 # TASK FP2POSE4 - fight player v2: the hip drive on power punches, authored at the bake (S537)
 
+Status: DONE (collected 38a1432cf; marked S540)
+
 Model: claude-fable-5-2 (headless on the API credit). Discipline: boxing (demo). Standing approval for animation fixes (S510).
 METHOD (owner S537): "the power does not come from twisting the knee use our research/clips when you make animations".
 Fight player v2 ONLY (scripts/fight3d/v2).

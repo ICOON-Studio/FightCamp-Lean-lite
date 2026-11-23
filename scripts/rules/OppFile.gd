@@ -26,6 +26,8 @@ const DEPTH_ALL := 3
 ## Her style word's main game in the coach's words (Exchanges.STYLE_MODES, the game she plays most).
 const GAME_WORDS := {"press": "walks you down", "range": "boxes at range", "counter": "waits to counter",
 	"loadup": "loads up big shots"}
+## S540 (owner C477 still): every mode tell was headed "Mode", so the film panel listed MODE twice; each now names its game.
+const MODE_HEAD := {"press": "Mode: presses", "range": "Mode: at range", "counter": "Mode: counters", "loadup": "Mode: loads up"}
 
 ## [words in her threat, the answer, corner call, plan situation]: the first match is her counter (real coaching cues).
 const WEAPON_ANSWERS := [
@@ -102,7 +104,7 @@ static func tells(opp: Dictionary) -> Array:
 static func mode_tell(mode: String, films: int, shown: int) -> Dictionary:
 	var band := ModeTells.band(films, shown)
 	var how_often := "%s (%d of %d films)" % [band.to_upper(), shown, films] if band != "" else "not on the films"
-	return {"id": "mode:" + mode, "what": "Mode", "how": "tape", "call": "", "when": mode if band != "" else "",
+	return {"id": "mode:" + mode, "what": str(MODE_HEAD.get(mode, "Mode")), "how": "tape", "call": "", "when": mode if band != "" else "",
 		"band": band, "value": "%s: %s" % [str(GAME_WORDS.get(mode, mode)).capitalize(), how_often],
 		"counter": "Plan an arrow for 'If %s'" % str(FightFlow.WHEN_WORDS.get(mode, mode)) if band != "" else ""}
 

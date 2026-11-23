@@ -53,7 +53,7 @@ func _build() -> void:
 	if PlanReadShow.lean_move(arrows) != "":   # S539: one answer covers most of the moments - an opponent adjusts to it
 		var lean := UI.chip(PlanReadShow.LEAN_WORDS, "amber")
 		lean.name = "LeanChip"
-		lean.tooltip_text = PlanReadShow.TIP_LEAN % PlanReadShow.READ_AT
+		lean.tooltip_text = PlanReadShow.TIP_LEAN % PlanReadShow.READ_AT + "\n\n" + PlanReadShow.tip_counter()   # S540 COMBOCOUNTER1
 		lean.mouse_filter = Control.MOUSE_FILTER_STOP
 		top.add_child(lean)
 	add_child(top)

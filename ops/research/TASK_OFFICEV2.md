@@ -1,5 +1,7 @@
 # TASK OFFICEV2 - build the office Goals panel and the Fighters/Staff sheets with right-click actions (S538)
 
+Status: DONE (collected df2f87d94; marked S540)
+
 Model: claude-fable-5-2 (headless on the API credit, ops/Tools/sdk_run.py). Discipline: boxing (demo).
 
 ## Owner

@@ -32,16 +32,6 @@
    "eta": "about 1.5 h",
    "note": "S540"
   },
-  "TURNPRO15CRIT": {
-   "id": "TURNPRO15CRIT",
-   "status": "running",
-   "started": "2026-11-23T11:40",
-   "title": "Turning pro v15: code-checked critic",
-   "seat": "claude",
-   "agent": "claude-opus-5-5 (Code Mode tab c4)",
-   "eta": "about 1 h",
-   "note": "S540"
-  },
   "CARDSCOPE6": {
    "id": "CARDSCOPE6",
    "status": "running",
@@ -61,6 +51,36 @@
    "agent": "claude-sonnet-5-5 (Code Mode tab c5)",
    "eta": "about 1.5 h",
    "note": "S540, measurement only"
+  },
+  "TURNPRO16": {
+   "id": "TURNPRO16",
+   "status": "running",
+   "started": "2026-11-23T12:05",
+   "title": "Turning pro v16: spendable favour, map + probe",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (Code Mode tab c6)",
+   "eta": "about 4 h",
+   "note": "S540"
+  },
+  "COACHDEEP3": {
+   "id": "COACHDEEP3",
+   "status": "running",
+   "started": "2026-11-23T12:40",
+   "title": "Deep coaches v3: amateur bouts pay by rank (Q-311)",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (Code Mode tab c7)",
+   "eta": "about 3 h",
+   "note": "S540"
+  },
+  "PICS2D2": {
+   "id": "PICS2D2",
+   "status": "queued",
+   "started": "",
+   "title": "2D pictures: the full boxing set as a second view (Q-310)",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (next free Code Mode tab)",
+   "eta": "1.5-2 days",
+   "note": "S540, starts when a tab frees"
   }
  },
  "codex_budget": {

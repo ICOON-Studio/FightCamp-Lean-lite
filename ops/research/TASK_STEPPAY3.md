@@ -1,5 +1,7 @@
 # TASK STEPPAY3 - footwork: give the five steps with no moment a moment (S537)
 
+Status: DONE (collected 263bf5d30; marked S540)
+
 Model: claude-fable-5-2 (Code Mode console). Discipline: boxing (demo).
 WORK IN A WORKTREE (probes read the fight code in main right now): `git worktree add E:/FightCamp/wt/s537_steppay3 -b
 s537/steppay3 main`, then `powershell -NoProfile -ExecutionPolicy Bypass -File ops\Tools\seed_godot_cache.ps1 -Worktree
