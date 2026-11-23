@@ -24357,6 +24357,28 @@
    "eta": "about 2 h",
    "note": "FAIL 5/9 759660b04 -> HOSTPROBE4",
    "landed": "2026-11-23T11:52"
+  },
+  {
+   "id": "CARDSCOPE6",
+   "status": "landed",
+   "started": "2026-11-23T11:40",
+   "title": "Card game r6: one line, 2-art slice, ladder (Arena)",
+   "seat": "arena",
+   "agent": "arena (arena/2e7b5504-fightcamp-lean-lite)",
+   "eta": "about 3 h",
+   "note": "FAIL 5 core bars + page broken; merged as base 9815bfe8f/e417141f -> CARDFIX6B",
+   "landed": "2026-11-23T12:08"
+  },
+  {
+   "id": "NIGHTREDS1",
+   "status": "landed",
+   "started": "2026-11-23T11:50",
+   "title": "Which merge turned plan_templates + matchmaking_bots red",
+   "seat": "claude",
+   "agent": "claude-sonnet-5-5 (Code Mode tab c5)",
+   "eta": "about 1.5 h",
+   "note": "plan_templates<-STEPPAY3, matchmaking_bots<-DMGCLASS2; e363a982b -> P4PEVID1",
+   "landed": "2026-11-23T13:54"
   }
  ]
 }

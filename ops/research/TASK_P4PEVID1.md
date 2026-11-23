@@ -22,6 +22,17 @@ one bout. Other commits in range: cc8c3789d (words), c9159faf2 (OppFile heading)
    not apply to an escape off her own ropes. Pick, write why in the code comment, keep both step_wrong_test and p4p_visit_test green.
 3. Tests: p4p_visit_test, step_wrong_test, tape_clips_test, golden_path_test.
 
+
+## Also in this run (NIGHTREDS1, ops/research/NIGHTREDS1_RESULT.md - Claude decided both)
+4. plan_templates_test (red since 3a3cb3a08 STEPPAY3): the turn template (t_turn) lost its edge because the five step moments
+   now dealt into every bout pay the starter plan and the turn template has no answers for them. DECIDED: give t_turn the
+   moments' right answers (the template is built for a presser; a presser's moments are its job) - the bar "turn beats the
+   starter v Maria" stays. Owns scripts/rules/PlanTemplates.gd (or wherever t_turn is defined).
+5. matchmaking_bots_test (red since 68067e0ba DMGCLASS2, pro bouts lost the four-count limit): first re-run it with 360 careers a
+   bot (120 is noisy: blind moved 2 places); if "scouting is worth it" still fails, the scouting read must price the pro
+   stoppage risk (the opponent's power v your chin under pro rules) - DECIDED: fix the read, never the bar. Report numbers.
+Tests for 4-5: plan_templates_test, matchmaking_bots_test (11 min, alone).
+
 ## Prior research
 docs/STEPPAY4_RESULT.md (the gate), CardAsk.gd header, VisitWire.gd.
 
