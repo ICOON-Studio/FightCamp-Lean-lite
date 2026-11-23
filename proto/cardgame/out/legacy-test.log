@@ -1,0 +1,123 @@
+PASS  public scouting changes the AI decision without reading the opponent hand
+PASS  opponent counter-weights cards repeated twice in your last three exchanges
+PASS  a losing Jab does not earn the next-punch setup
+PASS  habits: every signature appears at least three times in the fight deck
+PASS  context: ahead means more damage dealt, not more damage taken
+PASS  scouting: live prediction shows active condition and hand odds without reading hidden hand
+PASS  tell chips have the promised blind/one-habit/two-habit reliability
+PASS  range matchup overrides remain anti-symmetric and resolve the listed reads
+PASS  habit signature fires about 70% when true and held
+PASS  a fresh boxer cannot be knocked down on the opening exchange
+PASS  fight RNG: hit draws cannot perturb shuffles or knockdown draws
+PASS  exchange choice: a correct prediction costs extra wind and resolves as a clean win
+PASS  exchange choice: a wrong prediction gives the opponent the next outcome step
+PASS  defence pays in position or wind, never damage; only the exchange winner moves range
+PASS  referee: two consecutive clinches warn; the third costs a round point
+PASS  corner: gloves high applies the promised 15% punch damage reduction for the next round
+PASS  corner: change the plan draws two extra cards for both corners
+PASS  corner: study is replaced when both habits are already known
+PASS  house rule: bouts only pair same-sex boxers
+RESULT: PASS - round 2 (19 checks green)
+PASS  A/D4 referee: two clinches cost the holder 2 wind, the third costs a point
+PASS  A/D4 referee: the point comes off the offender’s own card, not the opponent’s
+PASS  A/D5 stool: the picker pays, the opponent draws the extra card
+PASS  A/D5 stool: the picker’s first exchange really is 20% heavier
+PASS  A/D2 film odds: the unseen pool makes the printed chance climb, and the change is shown
+PASS  A/D3 landed: a defence that takes no damage is a defensive win, not a punch landed
+PASS  A/D3 judging: punches score on damage, defence on clean wins
+PASS  A/D8 shape: the table is built from shapes, with the named overrides on top
+PASS  A/D8 defensive data is read: counters only pay when you win and take nothing
+PASS  A/breathe: the light first exchange belongs to the exchange after the corner
+PASS  A/knockdown protection: the opening exchange of a fresh bout cannot drop a man
+
+11 passed, 0 failed
+RESULT: PASS - round 3 Part A (11 checks green)
+PASS  B1 tell: a shape, never the exact opposite, one free look a round
+PASS  B1 tell: the engine never uses a chip it has not seen
+PASS  B2 table: at least eight clean-win / countered pairs, each with a named reason
+PASS  B2 table: the brief’s reads resolve the way the log says
+PASS  B3 predict: a read defence card wins clean and still does its job
+PASS  B4 combos: up to three cards, sum plus one wind per extra, in order
+PASS  B5 new cards: each has its counter written first in the table
+PASS  B6 wind binds: recovery is +8 and some exchanges really cannot be paid for
+PASS  B7 range costs: out of range costs an extra wind and accuracy
+PASS  B8 camp: every pick adds one and removes one, and the deck is capped at 16
+PASS  B8 camp: an informed camp beats a random camp
+PASS  B9 amateur bout: no draws, five judges with a taste, scores after every round
+PASS  B10 the shipped bout trains the opponent, and the file says so
+PASS  B11 house rules: other clubs, no repeat pairing, nobody is a fixed “he”
+PASS  B12 corner: at least two competitive picks most offers, none a dead card
+PASS  engine: the AI never picks a card the page would not let you play
+
+16 passed, 0 failed
+RESULT: PASS - round 3 Part B (16 checks green)
+PASS  C1 cut off: a won cut off moves the fight inside and traps the other man
+PASS  C1 trapped: his Step back and Pivot out cost one more wind and land at half rate
+PASS  C1 ropes: two cut offs in a row put him on the ropes and Step back is off the table
+PASS  C1 clinch: a won clinch costs him a wind, gives you one, and smothers his next punch
+PASS  C1 clinch: the smothered punch is 15% less accurate on his next exchange
+PASS  C2 no repeats: a non-punch card cannot follow a non-punch card
+PASS  C2 no repeats: clinch is exempt, because the referee rule needs two in a row
+PASS  C2 two men doing nothing: both pay a wind, and Pivot out v Jab / Cut off trade
+PASS  C3 lines: one sentence, possessive, and the verb agrees with the table
+PASS  C3 lines: the exchange text carries the same sentence the table implies
+PASS  C5 react: a reacting boxer takes 10% less, and a prediction gives it up
+PASS  C5 react: the tell is shown as a shape on a reacting exchange
+PASS  C6 lead hook: a tie against the guard and against a step back at close quarters
+PASS  C7 change the plan: two extra cards for six wind, for whichever corner asks
+PASS  C4 the baseline is honest: style weights, no tell, no film, both chairs
+PASS  C4 the read reads the tell: the forecast follows the shape on the chip
+PASS  C4 bout win share and points swing are measured, not "win when played"
+RESULT: PASS - round 3b second pass (17 checks green)
+PASS  R4 combo: he answers the worst card of the combination, not the first
+PASS  R4 combo: a card that loses ends the combination
+PASS  R4 combo: the second card costs 2 wind more and the third 4 more
+PASS  R4 combo: no wind, no combination; a gassed punch does under half
+PASS  R4 predict: calling the card right is a clean win
+PASS  R4 predict: calling the shape right is one step better, wrong gives him the step
+PASS  R4 predict: a right shape keeps the cover, a wrong one gives it up
+PASS  R4 clinch: the smother is still there at his next punch and is spent by it
+PASS  R4 clinch: his punch after a won clinch lands less often
+PASS  R4 ropes: one won cut off, then a won punch inside, puts him on the ropes
+PASS  R4 ropes: a cut off that catches him stepping back walls him in at once; the pivot gets him off
+PASS  R4 ropes: the engine may cut the ring off twice running
+PASS  R4 chairs: his feint is spent by his punch, and a clean landed shot is recorded
+PASS  R4 judges: more punches against harder punches splits the panel
+PASS  R4 corner: go to the body and box and move change the next round
+PASS  R4 corner: change the plan costs its six wind once; catch breath gives ten
+RESULT: PASS - round 4 (16 checks green)
+PASS  data: 17 boxing cards, each with a name, a kind, a cost and one line of text
+PASS  resolution table: every one of the 289 pairs has a legal outcome
+PASS  resolution table: anti-symmetric (what one card does to another is exactly the flip back)
+PASS  resolution table: a card against itself is a trade (punch) or nothing (defence/footwork)
+PASS  resolution table: slip beats the straight punches, a hook beats a slip
+PASS  resolution table: roll beats the hooks, the uppercut beats a roll
+PASS  resolution table: a hook beats a clinch attempt at range, a clinch smothers the inside
+PASS  resolution table: cut off the ring beats step back, pivot out beats cut off, a jab beats cut off
+PASS  resolution table: block stops the hands, the uppercut goes through the guard
+PASS  resolution table: step back takes the big shots away but the jab follows
+PASS  seeded RNG: the same seed gives the same sequence, another seed does not
+PASS  camp: 4 weeks, 3 offers a week, a pick changes the deck or a stat
+PASS  camp: added cards really are in the fight deck, and stats are raised
+PASS  scouting: the file reveals 0, 1 or 2 habits and never more than the man has
+PASS  fight: 3 rounds x 6 exchanges, 5 cards in hand, both corners play one card an exchange
+PASS  fight: the hand is only ever real cards, and a card cannot be played twice from the same hand
+PASS  fight: stamina never goes below zero, in any exchange of many bouts
+PASS  fight: a card costs wind, and the same card can cost differently to a fitter boxer
+PASS  judging: 10-9 for a clear round, 10-8 when a knockdown decides it, 10-10 for a tie
+PASS  judging: five judges, five cards, every round 10-something, decision text present
+PASS  stoppage: three knockdowns is a stoppage, and reported on the right man
+PASS  stoppage: a hurt boxer on an empty tank is stopped; a fresh one is not
+PASS  stoppage: in a real bout a stoppage is always justified by the state
+PASS  habits: a habit fires in its stated situation, and only with the card in hand
+PASS  habits: every habit names a real card and a situation the engine understands
+PASS  habits: the same situation gives the same card twice (he is readable)
+PASS  seeded bout: the same seed plays the same bout, exchange for exchange
+PASS  seeded bout: a different seed plays a different bout
+PASS  corner: 3 cards offered between rounds, each one costs something, the pick has an effect
+PASS  corner: every corner card can be picked and leaves the fight playable
+PASS  roster: 8 boxers, 4 styles, different stats and a style that is data
+PASS  readability: a boxer never starts a fight with a habit the file already gave away
+
+32 passed, 0 failed
+RESULT: PASS - all 32 checks green

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FightCamp — Style Sheet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Barlow', sans-serif;
+    background-color: #1c1712;
+    color: #efe6d6;
+    line-height: 1.5;
+    padding: 40px 60px;
+    font-size: 16px;
+  }
+  h1 { font-size: 36px; font-weight: 700; margin-bottom: 8px; }
+  .subhead { font-size: 18px; color: #a89a86; margin-bottom: 40px; }
+  h2 { font-size: 20px; color: #e8b54a; text-transform: uppercase; letter-spacing: 1px; margin: 40px 0 20px; border-bottom: 1px solid #3a3127; padding-bottom: 8px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; margin-bottom: 24px; }
+  .card {
+    background-color: #262019;
+    border: 1px solid #3a3127;
+    border-radius: 10px;
+    padding: 20px;
+  }
+  .card.active { box-shadow: inset 0 0 8px rgba(232, 181, 74, 0.15); border-color: #4a3f33; }
+  .swatch { height: 60px; border-radius: 6px; margin-bottom: 8px; }
+  .swatch-label { font-size: 13px; color: #a89a86; }
+  .swatch-hex { font-family: monospace; font-size: 14px; margin-top: 2px; }
+  .label-sm { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: #e8b54a; margin-bottom: 4px; }
+  .value-lg { font-size: 22px; font-weight: 700; }
+  .tile-row { display: flex; gap: 12px; }
+  .tile { flex: 1; background-color: #262019; border: 1px solid #3a3127; border-radius: 8px; padding: 14px 10px; text-align: center; }
+  .pill { display: inline-block; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; padding: 3px 8px; border-radius: 12px; border: 1px solid; }
+  .bar-wrap { height: 24px; display: flex; align-items: center; border-radius: 12px; overflow: hidden; background-color: #3a3127; position: relative; }
+  .bar-left { height: 100%; background-color: #4a7fd0; text-align: left; padding-left: 10px; display: flex; align-items: center; font-size: 13px; font-weight: 600; }
+  .bar-right { height: 100%; background-color: #d0503c; text-align: right; padding-right: 10px; display: flex; align-items: center; justify-content: flex-end; font-size: 13px; font-weight: 600; }
+  .btn { padding: 10px 20px; border-radius: 6px; font-family: inherit; font-size: 15px; font-weight: 600; cursor: default; border: none; }
+  .btn.primary { background-color: #e8b54a; color: #1c1712; }
+  .btn.secondary { background: transparent; border: 1px solid #e8b54a; color: #e8b54a; }
+  .btn.plain { background: transparent; color: #efe6d6; text-decoration: underline; text-underline-offset: 3px; }
+  .table-row { display: flex; align-items: center; padding: 16px 12px; background-color: #262019; border: 1px solid #3a3127; border-radius: 8px; margin-bottom: 8px; }
+  .portrait { width: 40px; height: 40px; border-radius: 50%; background-color: #3a3127; margin-right: 16px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+  .chip { background-color: rgba(232, 181, 74, 0.1); border: 1px solid rgba(232, 181, 74, 0.3); border-radius: 6px; padding: 10px 14px; font-size: 14px; color: #e8b54a; }
+  .type-scale p { margin-bottom: 10px; }
+  .type-scale .h1 { font-size: 36px; font-weight: 700; }
+  .type-scale .h2 { font-size: 24px; font-weight: 600; color: #e8b54a; text-transform: uppercase; letter-spacing: 1px; }
+  .type-scale .sub { font-size: 18px; color: #a89a86; }
+  .type-scale .body { font-size: 16px; }
+  .type-scale .small { font-size: 13px; color: #a89a86; }
+</style>
+</head>
+<body>
+  <h1>FightCamp UI Style Sheet</h1>
+  <p class="subhead">Anvil Street Gym — visual system & components</p>
+
+  <h2>01 — Colours</h2>
+  <div class="grid">
+    <div>
+      <div class="swatch" style="background-color: #1c1712;"></div>
+      <div class="swatch-label">Page Background</div>
+      <div class="swatch-hex">#1c1712</div>
+    </div>
+    <div>
+      <div class="swatch" style="background-color: #262019;"></div>
+      <div class="swatch-label">Card Surface</div>
+      <div class="swatch-hex">#262019</div>
+    </div>
+    <div>
+      <div class="swatch" style="background-color: #3a3127;"></div>
+      <div class="swatch-label">Borders / Muted</div>
+      <div class="swatch-hex">#3a3127</div>
+    </div>
+    <div>
+      <div class="swatch" style="background-color: #efe6d6;"></div>
+      <div class="swatch-label">Main Text</div>
+      <div class="swatch-hex">#efe6d6</div>
+    </div>
+    <div>
+      <div class="swatch" style="background-color: #a89a86;"></div>
+      <div class="swatch-label">Muted Text</div>
+      <div class="swatch-hex">#a89a86</div>
+    </div>
+    <div>
+      <div class="swatch" style="background-color: #e8b54a;"></div>
+      <div class="swatch-label">Accent / Highlight</div>
+      <div class="swatch-hex">#e8b54a</div>
+    </div>
+    <div>
+      <div class="swatch" style="background-color: #3fb27f;"></div>
+      <div class="swatch-label">Positive / Good</div>
+      <div class="swatch-hex">#3fb27f</div>
+    </div>
+    <div>
+      <div class="swatch" style="background-color: #d0503c;"></div>
+      <div class="swatch-label">Negative / Opponent</div>
+      <div class="swatch-hex">#d0503c</div>
+    </div>
+    <div>
+      <div class="swatch" style="background-color: #4a7fd0;"></div>
+      <div class="swatch-label">Your Boxer</div>
+      <div class="swatch-hex">#4a7fd0</div>
+    </div>
+  </div>
+
+  <h2>02 — Typography</h2>
+  <div class="card type-scale">
+    <p class="h1">Headline — Barlow Bold 36px</p>
+    <p class="h2">Section Label — Small Caps, Accent, Spaced</p>
+    <p class="sub">Subhead / Description — 18px, muted</p>
+    <p class="body">Body text — 16px, cream, comfortable reading length</p>
+    <p class="small">Small / metadata — 13px, muted</p>
+    <p style="font-style: italic; font-weight: 700; font-size: 20px; margin-top:16px;"><em>Anvil Street Gym</em> — display style</p>
+  </div>
+
+  <h2>03 — Components</h2>
+
+  <h3 style="margin-bottom:12px; font-size:16px;">Card — Default & Active</h3>
+  <div class="grid" style="grid-template-columns: 1fr 1fr;">
+    <div class="card">
+      <div class="label-sm">Default Card</div>
+      <p>Standard container for all grouped content. 10px radius, soft border.</p>
+    </div>
+    <div class="card active">
+      <div class="label-sm">Active / Selected</div>
+      <p>Soft amber inner glow — indicates current selection or focus.</p>
+    </div>
+  </div>
+
+  <h3 style="margin:32px 0 12px; font-size:16px;">Key-Value Tiles</h3>
+  <div class="tile-row" style="max-width: 600px;">
+    <div class="tile"><div class="label-sm">Result</div><div class="value-lg">Win</div></div>
+    <div class="tile"><div class="label-sm">Method</div><div class="value-lg">Points</div></div>
+    <div class="tile"><div class="label-sm">Rounds</div><div class="value-lg">3/3</div></div>
+    <div class="tile"><div class="label-sm">Rank</div><div class="value-lg">#11</div></div>
+  </div>
+
+  <h3 style="margin:32px 0 12px; font-size:16px;">Pill Tags</h3>
+  <div style="display:flex; gap:10px; flex-wrap:wrap;">
+    <span class="pill" style="border-color:#3fb27f; color:#3fb27f;">Sharp</span>
+    <span class="pill" style="border-color:#e8b54a; color:#e8b54a;">Learning</span>
+    <span class="pill" style="border-color:#d0503c; color:#d0503c;">Unready</span>
+    <span class="pill" style="border-color:#4a7fd0; color:#4a7fd0;">Your Boxer</span>
+  </div>
+
+  <h3 style="margin:32px 0 12px; font-size:16px;">Comparison Bar</h3>
+  <div style="max-width:500px;">
+    <div class="label-sm" style="display:flex; justify-content:space-between;"><span>Your boxer</span><span>Opponent</span></div>
+    <div class="bar-wrap">
+      <div class="bar-left" style="width: 62%;">142</div>
+      <div class="bar-right" style="width: 38%;">86</div>
+    </div>
+    <p style="font-size:13px; color:#a89a86; margin-top:4px;">Punches Landed</p>
+  </div>
+
+  <h3 style="margin:32px 0 12px; font-size:16px;">Buttons</h3>
+  <div style="display:flex; gap:16px; align-items:center;">
+    <button class="btn primary">Primary Action</button>
+    <button class="btn secondary">Secondary</button>
+    <button class="btn plain">Plain Link</button>
+  </div>
+
+  <h3 style="margin:32px 0 12px; font-size:16px;">Table Row with Portrait</h3>
+  <div class="table-row" style="max-width:600px;">
+    <div class="portrait">🥊</div>
+    <div style="flex:1;">
+      <div style="font-weight:600;">M. Carter</div>
+      <div style="font-size:13px; color:#a89a86;">Lightweight • 24 • 4–1</div>
+    </div>
+    <div style="text-align:right; font-size:15px;">Good Form</div>
+  </div>
+
+  <h3 style="margin:32px 0 12px; font-size:16px;">Info / Warning Chip</h3>
+  <div class="chip" style="max-width:550px;">
+    ⚠ Leans on one answer: an opponent reads it after three uses a round
+  </div>
+
+</body>
+</html>

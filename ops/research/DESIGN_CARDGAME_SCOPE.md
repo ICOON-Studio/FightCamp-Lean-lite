@@ -882,6 +882,24 @@ beside it (6e says why).
 
 ---
 
+### 4f. Round 6 bars fixed before implementation and measurement **[R6]**
+
+The round-5 bars are not loosened. P1 retains its boxing-versus-wrestling matchup and thresholds; the selected two-art slice has no wrestling deck, so the round-6 run reports boxing versus BJJ as the labelled slice substitution and does not claim literal P1 pass. The other bars use the two playable arts (boxing and BJJ). Probe population: both seats, 200 bouts per pairing, measured seed base 500000000, mode=wind; sizing data is frozen from `proto/cardscope5/sized.json`. Bars:
+
+| # | Fixed pass bar |
+|---|---|
+| P1 | Boxing v wrestling, 3+ ranges in 80%+ of bouts; neither deck wins over 60%; at most 37.5 decisions. Report boxing v BJJ as the round-6 slice substitution. |
+| P2 | Health-only, health + points lead, then + hold: report all three end mixes; with all clocks, KO, points lead and hold (tap/pin) each end 15%+; 40–70% end early; pilot blind to each individual clock loses 5+ points. |
+| P5 | Printed hold answer is selected in 100% of held turns; holds end 15–30% of ground bouts; 20–80% of holds finish. |
+| P6 | Mechanic-off changes the pilot turn in >50% of turns for each playable art; round-4 blind judge names style from ten turns in 90%+. Report finer judge readings separately, never as a substitute. |
+| P4 | The two-art pairing is 40–60%; each art's average is 47–53%. |
+| P10 | AI pilot is no more than five percentage points below the scripted pilot for each playable art against the other included art. |
+| D1 | AI v AI: 22.5–45 decisions per bout for one chair; 95% of bouts under 52. |
+| L1 | In 100 seeded career runs, 30–70 win the title; a complete player-paced ladder run is 20–40 minutes, with the decision-time model disclosed. |
+| L2 | In ten predeclared training states, every one of the four options is the utility-maximizing pick in at least one state and no option is best in more than six. |
+
+No tuning after this sheet; report measured values even when a bar fails. The existing cardscope5 measured values remain the round-5 baseline, not round-6 results.
+
 ## 5. Keep and throw away from `proto/cardgame`
 
 **Keep**
@@ -1246,8 +1264,38 @@ sharper pairings.
   thin. Pins end 4.0% of bouts (0.9% before), still the small clock.
 - Bots, not people; one pilot is the measure and the opponent at once. P7, P8 and P9 were not run.
 
-## 7. Open decisions for the owner (taste and scope only)
+## 6f. Round 6 result **[R6]** (one line in `proto/cardgame/`; harness `probe.mjs`)
 
+**Verdict: FAIL — the two-art rules slice is playable and the ladder/training layer is implemented, but P2, P4, P5, P6's mechanic clause, and both L1 clauses fail.** The core bars were fixed first in 4f. Cards were ported with `sized.json` loaded as a browser-compatible JSON module; `N.mode='wind'` remains. Probe: `node proto/cardgame/probe.mjs all per=200 seed=500000000 tag=r6core`, both seats, AI pilot; 200 bouts per directional pairing where stated. The 100-run ladder result uses the deterministic pilot and its published 8-second/player-decision duration model (an estimate, not wall-clock human play).
+
+### Pick: BJJ, not judo
+Round 5 chose the art whose mechanic changes the turn most and whose blind-judge score is best. BJJ: P6 mechanic-off changed the turn in **95.8%** (3,781 turns), versus judo **57.1%** (4,509); the finest blind judge named BJJ **99.7%**, versus judo **99.2%**. Round 6 retained BJJ's strong signal: **99.6%** (718 turns); the two-art blind judge was **98.0%** on round 4's instrument (90% bar). The portfolio is boxing + BJJ. Judo and the other five styles remain out of the playable slice.
+
+### Fixed-bar results
+
+| # | Bar / slice measurement | Round 6 measured | Result |
+|---|---|---|---|
+| P1 | Original boxing v wrestling: 3+ ranges ≥80%, neither wins >60%, ≤37.5 decisions | boxing 44.3%; 3+ ranges 100%; 24.9 decisions — PASS on unchanged matchup. Wrestling is not in this slice. Boxing v BJJ substitution: boxing 54.4%, 3+ ranges 98.6%, 23.2 decisions; both shares ≤60%. | PASS original; slice analogue PASS (labelled substitution) |
+| P2 | KO, points lead, hold each ≥15%; early 40–70%; each clock blind loses ≥5 points | Health only: KO 42.3%, cards 57.8%. +points: KO 40.5%, lead 7.0%, cards 52.5%. +hold: KO 9.0%, lead 4.8%, tap 30.3%, pin 0%, cards 56.0%; early 44.0%. Blind health 27.8% (−22.2); blind points 50.8% (−0.8); blind hold 41.5% (−8.5), where 50 is no loss. | **FAIL** (KO/lead shares and blind-points clause) |
+| P5 | Printed answer 100%; holds end 15–30% of ground bouts; 20–80% of holds finish | Printed answer **100.0%** of 611 held turns; hold ends **31.3%** of ground bouts; **17.0%** of holds that go on finish. Hidden-roll control p=17.0: 19.8% ground-bout ends; AI over impatient 64.0% (visible race 76.5%). | **FAIL** (both rate bounds) |
+| P6 | Each mechanic-off turn change >50%; blind judge ≥90% | Boxing **49.3%** (706 turns), BJJ **99.6%** (718); round-4 judge **98.0%** overall (boxing 96.0, BJJ 100.0). Finer readings 97.5%. | **FAIL** (boxing mechanic clause); judge PASS |
+| P4 | Pairing 40–60%; each style average 47–53% | Boxing v BJJ 56.5%; averages: boxing **56.5%**, BJJ **43.5%**; 0/1 cells outside 40–60. | **FAIL** (both style averages) |
+| P10 | AI no more than 5 points below scripted pilot per art | Boxing AI 55.0%, scripted 50.5% (+4.5); BJJ AI 46.5%, scripted 40.0% (+6.5). | PASS |
+| D1 | 22.5–45 decisions/bout; 95% under 52 | 22.8 decisions; 95th percentile 35; max choices 7. | PASS |
+| L1 | 30–70 title wins of 100; complete run 20–40 minutes | **100/100 titles**; mean **11.7 bouts / 30.3 modeled minutes** per run at 8 seconds per player decision (no 80-bout caps). | **FAIL** (title rate; duration PASS) |
+| L2 | Every training option best in ≥1 and ≤6 of ten states | Boxing jab/cross/hook/block: **3/3/2/2**. BJJ sweep/pass/triangle/escape: **3/3/2/2**. | PASS |
+
+P4 and P2's score lines show why a two-art slice is not automatically balanced: rounds and cards play, but BJJ's folded share is still outside the unchanged style-average band. P1's literal bar passes on the measured boxing/wrestling pair; the slice analogue is separately printed and is not relabelled as the literal bar.
+
+### Form, ladder, training, and cuts
+
+- **Form:** one shared four-range strip (KICK–PUNCH–CLINCH–GROUND), face-up rally, wind pool, projected-state previews and card-level damage/result text.
+- **Ladder:** visible Club → Area → National → Title shot → Title defences 1–3, a rank number, wins advance one rung and losses drop one rung (with the club floor).
+- **Training:** exactly four style-specific choices between bouts; each prints energy cost and failure chance and either adds a card or upgrades one card. Failure spends energy only; no stat decay. L2's ten reproducible tactical states cycle 3/3/2/2: boxing KICK entry, PUNCH exchange, CLINCH infighting, KICK under an incoming volley; BJJ bottom guard, top position, threatened bottom guard, held bottom position. Utility uses playability, card value, training cost/failure and the situation-specific synergy. It is a synthetic state sweep, not human preference data.
+- **Cut:** kickboxing, karate, judo, wrestling and sambo are out of the playable slice; no asynchronous battles, animations or critics this round. The five prior Arena test modules and their old rules are retained under `proto/cardgame-legacy/` because the standing instruction is to keep every found test; the previous playable rules are no longer loaded by the page. The legacy suite still runs and passes.
+- **Visual gate:** not verified. This Linux workspace has no Chromium/Edge/Firefox or installed browser automation, while `tools/render_mockup.py` imports Windows-only `msvcrt` and requires a Windows Edge executable. Therefore the requested 1920×1080 and phone stills were not fabricated; `ops/previews/card_r6/` remains empty. Do not treat this as visually checked.
+
+## 7. Open decisions for the owner (taste and scope only)
 
 000. **[R5] Seven arts, and what "balanced" should mean.** Kickboxing is in (his S538 ask). With every art playing its
    own way the table reads like a sport (the wrestler beats the boxer, karate beats the sambo man) and two of 21

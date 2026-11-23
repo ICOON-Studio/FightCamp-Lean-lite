@@ -1,0 +1,108 @@
+{
+  "barsWritten": "ops/research/DESIGN_CARDGAME_SCOPE.md §4f",
+  "rungCount": 7,
+  "options": {
+    "boxing": [
+      {
+        "id": "jab",
+        "cost": 1,
+        "failure": 0.08
+      },
+      {
+        "id": "cross",
+        "cost": 2,
+        "failure": 0.14
+      },
+      {
+        "id": "hook",
+        "cost": 2,
+        "failure": 0.18
+      },
+      {
+        "id": "block",
+        "cost": 1,
+        "failure": 0.06
+      }
+    ],
+    "bjj": [
+      {
+        "id": "sweep",
+        "cost": 2,
+        "failure": 0.15
+      },
+      {
+        "id": "pass",
+        "cost": 1,
+        "failure": 0.08
+      },
+      {
+        "id": "triangle",
+        "cost": 3,
+        "failure": 0.22
+      },
+      {
+        "id": "escape",
+        "cost": 1,
+        "failure": 0.05
+      }
+    ]
+  },
+  "L1": {
+    "runs": 100,
+    "titleWins": 100,
+    "titleRate": 100,
+    "meanBouts": 11.7,
+    "estimatedMeanMinutesAllRuns": 30.3,
+    "titleWinnerMeanBouts": 11.7,
+    "titleWinnerMeanMinutes": 30.3,
+    "capped": 0,
+    "decisionModel": "8 seconds per player decision, from the D1 round-3 time model"
+  },
+  "L2": {
+    "boxing": {
+      "states": 10,
+      "options": [
+        {
+          "id": "jab",
+          "right": 3
+        },
+        {
+          "id": "cross",
+          "right": 3
+        },
+        {
+          "id": "hook",
+          "right": 2
+        },
+        {
+          "id": "block",
+          "right": 2
+        }
+      ],
+      "pass": true
+    },
+    "bjj": {
+      "states": 10,
+      "options": [
+        {
+          "id": "sweep",
+          "right": 3
+        },
+        {
+          "id": "pass",
+          "right": 3
+        },
+        {
+          "id": "triangle",
+          "right": 2
+        },
+        {
+          "id": "escape",
+          "right": 2
+        }
+      ],
+      "pass": true
+    }
+  },
+  "runtimeSeconds": 1.6
+}

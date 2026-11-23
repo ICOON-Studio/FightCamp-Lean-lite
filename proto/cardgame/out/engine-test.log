@@ -1,0 +1,148 @@
+TAP version 13
+# Subtest: every style deck and every cheap deck is a legal 15
+ok 1 - every style deck and every cheap deck is a legal 15
+  ---
+  duration_ms: 1.447347
+  type: 'test'
+  ...
+# Subtest: the strip: a card is playable only at its range; a step is laid like a card, costs wind and moves the bout
+ok 2 - the strip: a card is playable only at its range; a step is laid like a card, costs wind and moves the bout
+  ---
+  duration_ms: 1.260195
+  type: 'test'
+  ...
+# Subtest: one answer: a block takes its number off one strike, the rest land
+ok 3 - one answer: a block takes its number off one strike, the rest land
+  ---
+  duration_ms: 1.335653
+  type: 'test'
+  ...
+# Subtest: boxing, combinations: the jab steps in; a punch behind a punch costs 1 less; off, it does not
+ok 4 - boxing, combinations: the jab steps in; a punch behind a punch costs 1 less; off, it does not
+  ---
+  duration_ms: 0.894072
+  type: 'test'
+  ...
+# Subtest: boxing, inside work: the short punches land in the CLINCH; off, they need PUNCH range
+ok 5 - boxing, inside work: the short punches land in the CLINCH; off, they need PUNCH range
+  ---
+  duration_ms: 0.176358
+  type: 'test'
+  ...
+# Subtest: kickboxing, hands and feet: a punch behind a kick steps in and is 1 cheaper, the knee behind a punch takes the CLINCH; a stopped kick leaves the punch short; a low kick makes his steps dearer
+ok 6 - kickboxing, hands and feet: a punch behind a kick steps in and is 1 cheaper, the knee behind a punch takes the CLINCH; a stopped kick leaves the punch short; a low kick makes his steps dearer
+  ---
+  duration_ms: 0.593778
+  type: 'test'
+  ...
+# Subtest: karate, in-and-out: the punch blitzes in from KICK and is back out, a kick from PUNCH springs out, both 1 cheaper; the volley ends at KICK
+ok 7 - karate, in-and-out: the punch blitzes in from KICK and is back out, a kick from PUNCH springs out, both 1 cheaper; the volley ends at KICK
+  ---
+  duration_ms: 0.234981
+  type: 'test'
+  ...
+# Subtest: judo, the grip: no throw without it; laid in the same volley it can be stopped; stood a turn the throw cannot
+ok 8 - judo, the grip: no throw without it; laid in the same volley it can be stopped; stood a turn the throw cannot
+  ---
+  duration_ms: 0.400438
+  type: 'test'
+  ...
+# Subtest: judo, the grip owns his posture: a gripped wrestler cannot shoot
+ok 9 - judo, the grip owns his posture: a gripped wrestler cannot shoot
+  ---
+  duration_ms: 0.329496
+  type: 'test'
+  ...
+# Subtest: wrestling, chain wrestling and the ride: the shot travels from KICK; stuffed, he is tied up and the next shot cannot be stopped; the man under him gets up one rung at a time
+ok 10 - wrestling, chain wrestling and the ride: the shot travels from KICK; stuffed, he is tied up and the next shot cannot be stopped; the man under him gets up one rung at a time
+  ---
+  duration_ms: 0.629601
+  type: 'test'
+  ...
+# Subtest: bjj, the guard: Pull guard is his own step, and he attacks from underneath at once; nobody else can
+ok 11 - bjj, the guard: Pull guard is his own step, and he attacks from underneath at once; nobody else can
+  ---
+  duration_ms: 0.30833
+  type: 'test'
+  ...
+# Subtest: sambo, throw-to-lock: the throw goes from PUNCH and the lock goes on in the volley of the throw; for a judo man the hold waits a turn
+ok 12 - sambo, throw-to-lock: the throw goes from PUNCH and the lock goes on in the volley of the throw; for a judo man the hold waits a turn
+  ---
+  duration_ms: 1.284187
+  type: 'test'
+  ...
+# Subtest: the hold: wind comes back slower while held; the price goes up 1 a turn; break free the turn you can pay; else the count ends it
+ok 13 - the hold: wind comes back slower while held; the price goes up 1 a turn; break free the turn you can pay; else the count ends it
+  ---
+  duration_ms: 0.421391
+  type: 'test'
+  ...
+# Subtest: a pin scores at the top of every turn it is on, also the turn he escapes, and its last points at the end; only the Escape card gets out
+ok 14 - a pin scores at the top of every turn it is on, also the turn he escapes, and its last points at the end; only the Escape card gets out
+  ---
+  duration_ms: 0.200783
+  type: 'test'
+  ...
+# Subtest: the pilot in a hold follows the printed rule: Escape if he holds it, else break free the first turn he can pay
+ok 15 - the pilot in a hold follows the printed rule: Escape if he holds it, else break free the first turn he can pay
+  ---
+  duration_ms: 0.743413
+  type: 'test'
+  ...
+# Subtest: a points lead ends the bout early
+ok 16 - a points lead ends the bout early
+  ---
+  duration_ms: 0.120048
+  type: 'test'
+  ...
+# Subtest: the referee stands up a ground phase with no attack
+ok 17 - the referee stands up a ground phase with no attack
+  ---
+  duration_ms: 0.088764
+  type: 'test'
+  ...
+# Subtest: same seed, same bout; every pairing ends with a winner; the three pilots fly every deck
+ok 18 - same seed, same bout; every pairing ends with a winner; the three pilots fly every deck
+  ---
+  duration_ms: 40.617552
+  type: 'test'
+  ...
+# Subtest: career ladder advances on wins, drops one rung on a loss, and rank stays visible
+ok 19 - career ladder advances on wins, drops one rung on a loss, and rank stays visible
+  ---
+  duration_ms: 0.424175
+  type: 'test'
+  ...
+# Subtest: training has four priced options; success adds or upgrades one card and failure never decays stats
+ok 20 - training has four priced options; success adds or upgrades one card and failure never decays stats
+  ---
+  duration_ms: 2.749688
+  type: 'test'
+  ...
+# Subtest: trained card copies carry the visible upgrade into engine data
+ok 21 - trained card copies carry the visible upgrade into engine data
+  ---
+  duration_ms: 0.159479
+  type: 'test'
+  ...
+# Subtest: each training option is best in a non-overused state in the declared L2 sweep
+ok 22 - each training option is best in a non-overused state in the declared L2 sweep
+  ---
+  duration_ms: 0.444473
+  type: 'test'
+  ...
+# Subtest: no script over 500 lines
+ok 23 - no script over 500 lines
+  ---
+  duration_ms: 0.484427
+  type: 'test'
+  ...
+1..23
+# tests 23
+# suites 0
+# pass 23
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 120.398191
