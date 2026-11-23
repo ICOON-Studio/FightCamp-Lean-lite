@@ -1,0 +1,48 @@
+P1 boxing v wrestling: boxing wins 44.3 | ends: KO 44.1 lead 53.4 tap 0.0 pin 0.6 cards 1.9 | early 98.1 | 3+ ranges 100.0 ground 100.0 | decisions 24.9 (95%: 35) choices 3.2 max 8 | s/turn 12.3 | holds back 23.3 quiet 8.5 | holds on 0.06/bout finish 83.7 end 0.6 of ground bouts
+   [p1: 3 s, per=200, seed=500000000, mode=wind]
+P2 a health only    ends: KO 36.6 lead 0.0 tap 0.0 pin 0.0 cards 63.4 | early 36.6 | 3+ ranges 91.0 ground 85.0 | decisions 30.8 (95%: 39) choices 3.0 max 14 | s/turn 10.9 | holds back 19.6 quiet 14.9 | holds on 0.00/bout finish 0.0 end 0.0 of ground bouts
+P2 b + points lead  ends: KO 28.2 lead 24.0 tap 0.0 pin 0.0 cards 47.8 | early 52.2 | 3+ ranges 90.3 ground 84.8 | decisions 28.3 (95%: 38) choices 3.1 max 15 | s/turn 10.9 | holds back 19.9 quiet 14.5 | holds on 0.00/bout finish 0.0 end 0.0 of ground bouts
+P2 c + the hold     ends: KO 22.6 lead 19.6 tap 11.6 pin 4.0 cards 42.1 | early 57.9 | 3+ ranges 90.1 ground 84.7 | decisions 24.6 (95%: 37) choices 3.0 max 15 | s/turn 10.9 | holds back 12.3 quiet 13.8 | holds on 1.01/bout finish 23.5 end 18.4 of ground bouts
+P2 AI blind to health: 36.1 against the full AI (50 = no loss)
+P2 AI blind to points: 40.4 against the full AI (50 = no loss)
+P2 AI blind to the hold: 47.8 against the full AI (50 = no loss)
+   [p2: 92 s, per=200, seed=500000000, mode=wind]
+P5 visible race: AI answer = the printed rule in 100.0 of 6494 held turns | a hold ends 18.9 of bouts that reach the ground | 23.9 of holds that go on finish | 1.02 holds a bout
+P5 hidden roll (p=23.9): a hold ends 23.7 of ground bouts | AI over impatient 77.6 (visible race: 79.0)
+   [p5: 127 s, per=200, seed=500000000, mode=wind]
+P6 boxing     the turn changes with the mechanic off in 63.7 of 4124 turns
+P6 kickboxing the turn changes with the mechanic off in 57.0 of 4316 turns
+P6 karate     the turn changes with the mechanic off in 61.4 of 5262 turns
+P6 judo       the turn changes with the mechanic off in 57.1 of 4509 turns
+P6 wrestling  the turn changes with the mechanic off in 72.3 of 4410 turns
+P6 bjj        the turn changes with the mechanic off in 95.8 of 3781 turns
+P6 sambo      the turn changes with the mechanic off in 63.4 of 3958 turns
+P6 blind judge (each action under the range it is laid at; a kick is its own kind) names the style from 10 turns: 89.0 (boxing 80.7, kickboxing 93.2, karate 85.2, judo 99.2, wrestling 80.7, bjj 99.7, sambo 84.3)
+P6 blind judge (each action under the range it is laid at; a kick and a punch one kind) names the style from 10 turns: 81.5 (boxing 68.8, kickboxing 55.3, karate 81.2, judo 99.7, wrestling 81.3, bjj 99.7, sambo 84.5)
+P6 blind judge (round 4 instrument: every action filed under the range the turn began at, a kick and a punch one kind) names the style from 10 turns: 48.5 (boxing 3.5, kickboxing 10.5, karate 65.3, judo 99.7, wrestling 12.7, bjj 90.5, sambo 57.2)
+   [p6: 152 s, per=200, seed=500000000, mode=wind]
+you \ him    boxing kickbo karate   judo wrestl    bjj  sambo     avg
+boxing           -   53.3   49.0   45.8   43.5   56.0   40.3    48.0
+kickboxing    46.8      -   52.5   53.0   57.2   64.8   38.5    52.1
+karate        51.0   47.5      -   47.0   54.8   49.7   59.3    51.5
+judo          54.3   47.0   53.0      -   44.3   51.0   41.3    48.5
+wrestling     56.5   42.8   45.3   55.8      -   47.5   56.2    50.7
+bjj           44.0   35.2   50.2   49.0   52.5      -   48.8    46.6
+sambo         59.7   61.5   40.8   58.8   43.8   51.2      -    52.6
+ends: KO 22.6 lead 19.2 tap 11.7 pin 3.9 cards 42.7 | early 57.3 | 3+ ranges 90.1 ground 84.8 | decisions 24.7 (95%: 37) choices 3.0 max 12 | s/turn 10.8 | holds back 12.2 quiet 14.3 | holds on 1.04/bout finish 22.7 end 18.4 of ground bouts
+P4 cells outside 40-60: 2 of 21; worst: kickboxing v bjj 64.8, kickboxing v sambo 38.5, boxing v sambo 40.3, karate v sambo 59.3, judo v sambo 41.3
+   [p4: 167 s, per=200, seed=500000000, mode=wind]
+P10 boxing     AI 45.3 | scripted 28.3 | impatient 20.9  (each against the AI pilot flying the other five)
+P10 kickboxing AI 52.0 | scripted 18.5 | impatient 16.9  (each against the AI pilot flying the other five)
+P10 karate     AI 52.3 | scripted 18.3 | impatient 8.2  (each against the AI pilot flying the other five)
+P10 judo       AI 47.5 | scripted 29.4 | impatient 29.8  (each against the AI pilot flying the other five)
+P10 wrestling  AI 52.3 | scripted 37.0 | impatient 35.3  (each against the AI pilot flying the other five)
+P10 bjj        AI 51.5 | scripted 41.2 | impatient 8.6  (each against the AI pilot flying the other five)
+P10 sambo      AI 51.4 | scripted 20.7 | impatient 23.9  (each against the AI pilot flying the other five)
+R-C11 the impatient line with a style deck against the AI pilot: 20.5
+   [p10: 197 s, per=200, seed=500000000, mode=wind]
+R-C8 cheap boxing  impatient 6.5 | AI 10.3
+R-C8 cheap karate  impatient 6.7 | AI 36.6
+R-C8 cheap mix     impatient 3.6 | AI 2.4
+R-B6 cards with a matchup (top three against one style, bottom half against another): 31 of 47 = 66.0
+   [r3: 242 s, per=200, seed=500000000, mode=wind]

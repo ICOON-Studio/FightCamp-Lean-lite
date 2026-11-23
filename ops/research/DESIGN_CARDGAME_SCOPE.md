@@ -1,4 +1,16 @@
-# The card game - the whole scope (CARDSCOPE1 to 4, S537 and S538)
+# The card game - the whole scope (CARDSCOPE1 to 5, S537 to S539)
+
+**[R5] Status after round 5 (CARDSCOPE5, S539): every art's own mechanic now decides the line and the hold reads
+true, but the table and two other clauses fail; verdict FAIL (4 of 7 core bars).** Seven arts now (the owner added
+kickboxing in S538). Each art's mechanic became a rule about what is *playable* (section 3T), and switching it off now
+changes the pilot's turn in 57 to 96% of turns for every art (round 4: 0 to 43%). The hold's printed rule is now the
+best answer in 100% of 6,494 held turns (round 4: 48.9%): a submission has a printed price that rises a turn, a pin
+has no price at all (only the Escape card). Measured once on fresh seeds (section 6e): a bout is 24.7 decisions = 3.3
+minutes; knockouts end 22.6%, points leads 19.6%, holds 15.6%. **Failing:** the style table (19 of 21 pairings inside
+40 to 60; kickboxing beats BJJ 64.8, loses to sambo 38.5; BJJ averages 46.6), the blind judge (48.5% on round 4's
+instrument, 89.0% at its best reading, bar 90) and one clause of the clocks bar. **No critic is queued: the brief asks
+for one only on a pass.** Read 3T, 6e and 8 for the current design; the picture of one turn is
+`proto/cardscope5/turn_mock.png`.
 
 **[R4] Status after round 4 (CARDSCOPE4, S538): six martial arts on one strip; the style table balances, two core bars
 fail, verdict FAIL (5 of 7 core bars, P3 decided).** The rally now runs on a four-range strip (KICK - PUNCH - CLINCH -
@@ -362,6 +374,115 @@ ranges to cross.
 **For the later asks.** The AI pilot (`plan.mjs`, public information only: his open pile, the table) flies all six
 decks and beats each style's hand-written script (P10), so it can be the opponents and the ghost of another player's
 deck. A deck is a style name + 15 card ids: a file of under 300 bytes. Asynchronous battles stay a later layer.
+
+---
+
+## 3T. The round 5 design: what each art may play **[R5]** (greybox `proto/cardscope5/`; changes 3S's mechanics, hold and card table, keeps its board, turn and clocks)
+
+Follows round 4's finding (6d): four of the six mechanics changed what a card *does*, not which card is *right*. In
+round 5 every mechanic is a rule about **where a card may be played or what must come before it**, so the same hand
+plays differently in each art. Each can be switched off in the greybox (the deck then follows the plain rules: a card
+only at its printed range, a hold only a turn after the takedown). One picture of a turn: `proto/cardscope5/turn_mock.png`
+(a mockup, not a build).
+
+**Seven arts** (owner S538 added kickboxing: it stands and trades, no takedowns, no ground cards).
+
+| Art | Its place | Its own mechanic: what it lets him play | Without it |
+|---|---|---|---|
+| Boxing | PUNCH, and inside | **Combinations.** The jab steps in from KICK by itself. A punch laid right behind a punch costs 1 wind less. The short punches (hook, body hook, uppercut) also work in the CLINCH. Jab, cross, hook clean in order: +7 damage, +2 points | every punch needs PUNCH range and its full price |
+| Kickboxing | KICK to CLINCH, on his feet | **Hands and feet.** His kicks also land from PUNCH range. A strike of another kind than his last (kick, punch, knee) costs 1 less and goes to its own range by itself: a punch behind a kick steps in, the knee behind a punch takes the CLINCH, a punch behind the knee pushes off to PUNCH | kicks need KICK, the knee needs the CLINCH, each move between is a paid step |
+| Karate | KICK | **In-and-out.** The reverse punch blitzes in from KICK (1 less) and he is back out; his kicks also land from PUNCH range and spring back to KICK; a volley that is not stopped ends at KICK; a grip does not hold him | he must step in to punch and step out again |
+| Judo | CLINCH | **The grip.** No throw without it. The grip pulls the other man into the CLINCH; he cannot step out and cannot shoot or throw. A grip that has stood a turn makes the throw unstoppable | throws go from the CLINCH with no grip and can always be stopped |
+| Wrestling | wherever the bout is, then on top | **Chain wrestling and the ride.** His shot travels from any standing range. A stuffed shot leaves him tied up in the CLINCH and his next shot cannot be stopped. Under him, Get up wins back one rung a turn (under anybody else two) | a takedown needs the CLINCH; a stuffed shot is just lost |
+| BJJ | GROUND, underneath | **The guard.** Pull guard is his own step from any standing range (2 wind). His holds and sweeps work from underneath, and at once behind the pull | nothing works from underneath; he needs a takedown he does not own |
+| Sambo | PUNCH to a leg | **Punch, throw, lock.** His throw also goes from PUNCH range; laid right behind his own punch it cannot be stopped; a lock may be laid in the same volley behind the throw; his leg locks go on from any place on the ground, on top or underneath | throw from the CLINCH only, the lock waits a turn and needs a settled top position |
+
+**The hold, as printed on the table (replaces 3S's "Make room" and "squeeze").** While held you keep your hand and get
+2 wind a turn instead of 3. **The rule: Escape if you hold it; else break free the first turn you can pay; else hang
+on.**
+- A **submission** prints its price (3 to 6 wind) and its countdown (1 to 3 of your turns). The price goes up 1 every
+  turn you stay in, so the first turn you can pay is the cheapest. Countdown at 0 = the tap, the bout.
+- A **pin** has no price: wind does not buy the way out, only the Escape card does. It scores at the top of every turn
+  it is on (1 or 2 points) and again when its countdown ends (+2 or +3); then both stand in the CLINCH, where an escape
+  also leaves them.
+- So the two holds ask different things of the man on top: a submission races the other man's **wind** (go for it when
+  he is spent), a pin is sure points against his one **Escape** (go for it when the open pile shows it gone). That is
+  the pin's reason to be taken: in round 4 it ended 0.9% of bouts, here 4.0%.
+
+**Other rules as they now stand.** Health 37. A step in or out costs 1 wind (round 4: free); Let him up 1, Get up 2.
+Cover up 1 wind, 2 off one strike. A ground phase where the man on top lays no attack is stood up after one turn. At
+the last bell: points + damage dealt / 8. A deck is 15: 12 of your art + 2 Sprawl + 1 Escape; a new hand of 5 every
+turn; wind 4 at the start, 3 back a turn, most 6, 2 at the stool; two rounds of five turns.
+
+**The cards as sized** (`node proto/cardscope5/report.mjs`; rungs 0 to 3 = guard, half guard, side pin, mount or back;
+"top1" = on top at half guard or better, "under0" = underneath in guard; "Where" is the printed range, the mechanic's
+wider range is in the last column):
+
+| Style | Card | In deck | Wind | Where | What it does |
+|---|---|---|---|---|---|
+| boxing | Jab | 3 | 1 | PUNCH | 2 damage, steps in from KICK |
+| boxing | Cross | 3 | 2 | PUNCH | 4 damage, 1 pt |
+| boxing | Lead hook | 2 | 2 | PUNCH | 5 damage, 1 pt, boxing: also inside, in the CLINCH |
+| boxing | Body hook | 1 | 3 | PUNCH | 1 damage, takes 1 wind, boxing: also inside, in the CLINCH |
+| boxing | Uppercut | 1 | 3 | PUNCH | 6 damage, 1 pt, boxing: also inside, in the CLINCH, cannot be blocked |
+| boxing | Slip | 1 | 3 | answer | a punch: it misses, your next punch +1 |
+| boxing | Block | 1 | 1 | answer | a strike: 4 off |
+| kickboxing | One-two | 2 | 2 | PUNCH | 6 damage, 2 pt, kickboxing: behind a kick it steps in, behind the knee it pushes off to PUNCH |
+| kickboxing | Left hook | 2 | 2 | PUNCH | 3 damage, kickboxing: behind a kick it steps in, behind the knee it pushes off to PUNCH |
+| kickboxing | Low kick | 2 | 1 | KICK PUNCH | 1 damage, a kick (karate, kickboxing: also from PUNCH), hurts the leg (1 wind, his steps +1 that turn) |
+| kickboxing | Body kick | 2 | 2 | KICK | 5 damage, 2 pt, a kick (karate, kickboxing: also from PUNCH) |
+| kickboxing | High kick | 1 | 3 | KICK | 7 damage, 2 pt, a kick (karate, kickboxing: also from PUNCH) |
+| kickboxing | Knee | 2 | 2 | CLINCH | 1 damage, 2 pt, kickboxing: behind a punch it takes the CLINCH by itself |
+| kickboxing | Check | 1 | 2 | answer | a kick: it misses, your next strike +1 |
+| karate | Front kick | 3 | 3 | KICK | 1 damage, 1 pt, a kick (karate, kickboxing: also from PUNCH) |
+| karate | Roundhouse | 2 | 2 | KICK | 4 damage, 2 pt, a kick (karate, kickboxing: also from PUNCH) |
+| karate | Head kick | 1 | 3 | KICK | 5 damage, 3 pt, a kick (karate, kickboxing: also from PUNCH), takes 1 wind |
+| karate | Leg kick | 1 | 2 | KICK PUNCH | 1 damage, a kick (karate, kickboxing: also from PUNCH), hurts the leg (1 wind, his steps +1 that turn) |
+| karate | Reverse punch | 3 | 2 | PUNCH | 4 damage, 1 pt, karate: blitz from KICK and back out |
+| karate | Step off | 2 | 2 | answer | a strike, or a takedown that is not clean: it misses and you are back at KICK |
+| judo | Grip | 3 | 1 | PUNCH CLINCH | pulls him into the CLINCH, he cannot step out; throws need it; stood a turn = the throw cannot be stopped |
+| judo | Hip throw | 2 | 2 | CLINCH | takedown to rung 3, 2 pt, 4 damage, needs the grip |
+| judo | Foot sweep | 2 | 1 | CLINCH | takedown to rung 3, 2 pt, needs the grip |
+| judo | Shoulder throw | 1 | 1 | CLINCH | takedown to rung 3, 5 pt, 5 damage, needs the grip |
+| judo | Hold-down | 2 | 1 | top1 top2 top3 | pin (2 pt at the top of every turn, +3 at the end), countdown 1, no price: only the Escape card gets out |
+| judo | Armlock | 1 | 3 | top2 top3 | submission, countdown 2, break free 5 wind (+1 a turn) |
+| judo | Tie in | 1 | 3 | answer | a strike: 4 off and you are in the CLINCH |
+| wrestling | Double leg | 2 | 2 | CLINCH | takedown to rung 1, 2 pt, wrestling: from any standing range; cannot be stopped behind a stuffed shot |
+| wrestling | Single leg | 2 | 1 | CLINCH | takedown to rung 0, 2 pt, wrestling: from any standing range; cannot be stopped behind a stuffed shot |
+| wrestling | Body lock slam | 1 | 3 | CLINCH | takedown to rung 0, 3 pt, 2 damage, wrestling: from any standing range; cannot be stopped behind a stuffed shot |
+| wrestling | Ground strikes | 3 | 1 | top | 5 damage, 1 pt |
+| wrestling | The fall | 1 | 2 | top1 top2 top3 | pin (1 pt at the top of every turn, +2 at the end), countdown 1, no price: only the Escape card gets out |
+| wrestling | Ride | 1 | 1 | top | up one rung, 0 pt |
+| wrestling | Front headlock | 2 | 2 | answer | a takedown that is not clean: it is stuffed |
+| bjj | Sweep | 2 | 2 | under0 under1 | takedown to rung 1, 2 pt, from underneath (BJJ only) |
+| bjj | Guard pass | 3 | 1 | top0 top1 top2 | up one rung, 3 pt |
+| bjj | Triangle | 2 | 2 | under0 | submission, countdown 3, break free 3 wind (+1 a turn) |
+| bjj | Armbar | 2 | 3 | under0 top2 top3 | submission, countdown 1, break free 6 wind (+1 a turn) |
+| bjj | Rear choke | 1 | 3 | top3 | submission, countdown 1, break free 6 wind (+1 a turn) |
+| bjj | Kimura | 2 | 3 | under1 top1 top2 | submission, countdown 2, break free 3 wind (+1 a turn) |
+| sambo | Sambo throw | 2 | 2 | CLINCH | takedown to rung 0, 3 pt, 1 damage, sambo: also from PUNCH; right behind his own punch it cannot be stopped; a lock may follow in the same volley |
+| sambo | Leg trip | 2 | 2 | CLINCH | takedown to rung 1, 1 pt, sambo: also from PUNCH; right behind his own punch it cannot be stopped; a lock may follow in the same volley |
+| sambo | Knee bar | 2 | 2 | GROUND | submission, countdown 2, break free 3 wind (+1 a turn), sambo: from any place on the ground |
+| sambo | Ankle lock | 1 | 3 | GROUND | submission, countdown 3, break free 6 wind (+1 a turn), sambo: from any place on the ground |
+| sambo | Chest hold | 1 | 3 | top | pin (1 pt at the top of every turn, +2 at the end), countdown 1, no price: only the Escape card gets out |
+| sambo | Overhand | 3 | 1 | PUNCH | 4 damage, 1 pt |
+| sambo | Catch the kick | 1 | 2 | answer | a kick: it misses and he is taken down, 1 pt |
+| every deck | Sprawl | 2 | 1 | answer | a takedown or a grip |
+| every deck | Escape | 1 | 1 | answer | a hold or a pass as it is laid; played in your turn: stand up |
+
+**What round 5 cut or replaced, and why.**
+- **The Tie-up card and the tie-up read** (wrestling): the read asked the other man a question he never had to answer.
+  Chain wrestling replaces it: the stuffed shot itself is the set-up.
+- **The Guard pull card and BJJ's "chains"** (a free next hold): the pull is now a step he always has, so a BJJ hand is
+  never dead on the feet; the free hold changed nothing (5.2% in round 4).
+- **Sambo's free lock the turn after a throw** (0.0% in round 4): he laid the lock free or not. Now the lock goes on in
+  the volley of the throw, which nobody else may do.
+- **Make room and the squeeze price** (the hold): two extra sums on a turn that should be one glance. One printed price
+  that rises replaces both.
+- **Every "+1" mechanic** (boxing's +1 a chained punch, judo's +2 points behind a grip): numbers on the same card, not
+  a different card.
+- Kept from round 4 unchanged: the strip, one answer a turn, face-up volleys, three clocks, the wind pool (limb points
+  stay out, 6d), the open pile, the fixed 15.
 
 ---
 
@@ -750,6 +871,15 @@ reported and owned by a build phase if they fail. Run rule (the brief): sizing o
 the measured run on other seeds; a probe that fails twice is redesigned (FREE HAND), and the redesign is written down.
 P7 (rulesets as replay), P8 (cross-training) and P9 (the animation budget) are named as next and not run.
 
+### 4e. Round 5 bars (CARDSCOPE5) **[R5]**
+
+**The round 4 bars, unchanged** (the brief: "written before the run, not loosened"): P1, P2, P4, P5, P6, P10 and D1
+exactly as in 4d, the same verdict rule, the same run rule (sizing on seeds from 300000, the measured run once on
+500000000). P3 was decided in round 4 and is not re-run. Two things changed around the bars, neither in their favour:
+the owner added a seventh art (S538), so "all pairings" is 21 cells where the bars were written for 15, and "each of
+the six" reads "each of the seven". P6's judge is reported on round 4's instrument (the bar) and on two finer readings
+beside it (6e says why).
+
 ---
 
 ## 5. Keep and throw away from `proto/cardgame`
@@ -1027,8 +1157,102 @@ closed (a fixed 15; 35%); card matchups are still short.
 - Pins end 0.9% of bouts: the pin clock is nearly unused next to the tap (23.8%).
 - P7 (rulesets as replay), P8 (cross-training) and P9 (the animation budget) are named as next and were not run.
 
+## 6e. Round 5 result **[R5]** (greybox `proto/cardscope5/`; raw output `proto/cardscope5/measured/m_all.txt`)
+
+**Verdict: FAIL. 4 of 7 core bars pass (P1, P5, P10, D1). P5 and P6's first clause, the two things the round was for,
+now pass; P4, P6's judge clause and one clause of P2 fail.** Supporting: D4 and R-C8 pass, R-C11 and R-B6 fail.
+Measured once, on seeds 500000000 and up, after sizing on seeds 300000 to about 360 million; 200 bouts a seat = 400 a
+pairing, 8,400 a table. Nothing was re-sized after the measured run.
+
+| # | Bar | Round 4 | Round 5, measured | |
+|---|---|---|---|---|
+| P1 | boxing v wrestling: 3+ ranges in 80%+; neither over 60%; at most 37.5 decisions | 100%; 48.0; 30.4 | 3+ ranges 100%; boxing 44.3%; 24.9 decisions | PASS |
+| P2 | knockout, lead and hold each end 15%+; 40 to 70% end early; blind to a clock loses 5+ | 18.8 / 16.4 / 24.7; 59.8%; -12.8, -8.0, -8.9 | knockout 22.6, lead 19.6, hold 15.6 (tap 11.6, pin 4.0); 57.9% early; blind to health -13.9, to points -9.6, **to the hold -2.2** (health only: 36.6% early; health + points: 52.2%) | **FAIL** (last clause) |
+| P5 | the pilot's answer = the printed rule in 100% of held turns; a hold ends 15 to 30% of ground bouts; 20 to 80% of holds finish | 48.9%; 24.8%; 27.2% | **100.0%** of 6,494 held turns; 18.9%; 23.9% | PASS |
+| P6 | mechanic off changes the pilot's turn in over 50% of turns, each art; a blind judge names the art from 10 turns in 90%+ | 0.0 to 42.9; 52.8% | boxing **63.7**, kickboxing **57.0**, karate **61.4**, judo **57.1**, wrestling **72.3**, BJJ **95.8**, sambo **63.4**; judge **48.5%** | clause 1 PASS, clause 2 **FAIL** |
+| P4 | every pairing inside 40 to 60; every average inside 47 to 53 | 15 of 15; 47.4 to 52.3 | **19 of 21** (38.5 to 64.8); averages 46.6 to 52.6 (BJJ 46.6) | **FAIL** |
+| P10 | the AI pilot no more than 5 under each art's scripted pilot | ahead in all six | ahead in all seven: boxing +17.0, kickboxing +33.5, karate +34.0, judo +18.1, wrestling +15.3, BJJ +10.3, sambo +30.7 | PASS |
+| D1 | 22.5 to 45 decisions; 95% under 52 | 24.7; 43 | 24.7 decisions (3.3 minutes); 95% under 37 | PASS |
+| D4 | choices at a decision under 10 on average, never over 20 | 2.8; 11 | 3.0; most 15 | PASS |
+| R-C8 | cheap decks: at most 50% with the impatient line, 55% with the AI | 19.6 / 24.3, 25.0 / 32.7, 19.3 / 22.5 | boxing 6.5 / 10.3, karate 6.7 / 36.6, mix 3.6 / 2.4 | PASS |
+| R-C11 | the impatient line with a style deck wins 25 to 40% | 35.0% | **20.5%** | FAIL |
+| R-B6 | 75%+ of style cards have a matchup (by lift) | 57.1% | 31 of 47 = 66.0% | FAIL |
+
+The style table (row = you, AI pilot in both chairs, both seatings folded):
+
+| you \ him | Boxing | Kickboxing | Karate | Judo | Wrestling | BJJ | Sambo | average |
+|---|---|---|---|---|---|---|---|---|
+| Boxing | - | 53.3 | 49.0 | 45.8 | 43.5 | 56.0 | 40.3 | 48.0 |
+| Kickboxing | 46.8 | - | 52.5 | 53.0 | 57.2 | **64.8** | **38.5** | 52.1 |
+| Karate | 51.0 | 47.5 | - | 47.0 | 54.8 | 49.7 | 59.3 | 51.5 |
+| Judo | 54.3 | 47.0 | 53.0 | - | 44.3 | 51.0 | 41.3 | 48.5 |
+| Wrestling | 56.5 | 42.8 | 45.3 | 55.8 | - | 47.5 | 56.2 | 50.7 |
+| BJJ | 44.0 | **35.2** | 50.2 | 49.0 | 52.5 | - | 48.8 | 46.6 |
+| Sambo | 59.7 | **61.5** | 40.8 | 58.8 | 43.8 | 51.2 | - | 52.6 |
+
+It reads like a sport now, which round 4's table did not: the wrestler beats the boxer and the judo man, the sambo man
+beats the two strikers who stand in punching range and loses to the one who will not stay there (karate) and to the
+better wrestler, the kickboxer walks out of the guard puller's guard. It is also why the bar fails: sharper arts make
+sharper pairings.
+
+**The blind judge, three readings of the same 8,400 logs** (10 turns of one fighter; kinds of action and ranges only):
+
+| Reading | All | Boxing | Kickboxing | Karate | Judo | Wrestling | BJJ | Sambo |
+|---|---|---|---|---|---|---|---|---|
+| Round 4's instrument, **the bar**: every action filed under the range the turn began at; a kick and a punch one kind | **48.5** | 3.5 | 10.5 | 65.3 | 99.7 | 12.7 | 90.5 | 57.2 |
+| Each action filed under the range it is laid at | 81.5 | 68.8 | 55.3 | 81.2 | 99.7 | 81.3 | 99.7 | 84.5 |
+| The same, and a kick is its own kind | 89.0 | 80.7 | 93.2 | 85.2 | 99.2 | 80.7 | 99.7 | 84.3 |
+
+**What fails, and the cause.**
+1. **P6, the blind judge (48.5%, bar 90; 89.0% at the kindest reading, which also fails).** Round 4's instrument files
+   a whole turn under the range it began at. In round 5 cards carry the fighter (the jab steps in, the shot travels,
+   the blitz goes in and out), so most turns of the boxer, the kickboxer and the wrestler "begin at KICK" and look the
+   same to it (3.5, 10.5, 12.7%). That is an instrument that has gone blind, not a pass: read where each action is laid
+   and with a kick as its own kind, the judge is at 89.0 and the real remaining confusions show. Boxing (80.7) is taken
+   for kickboxing or sambo: all three punch at PUNCH range. Wrestling (80.7) is taken for judo: a takedown, then top.
+   Karate (85.2) and sambo (84.3) lose logs the same way. Judo and BJJ are unmistakable (99%).
+2. **P4, the table (19 of 21; BJJ averages 46.6).** Two cells, one fighter: the kickboxer. Against BJJ (64.8) he has
+   nothing to do on the ground and does not need it: he stands up for 1 wind or the referee stands them up after one
+   idle turn, so every guard pull costs the BJJ man 2 wind for one turn of attacks. Against sambo (38.5) his kicks are
+   caught and he has no ground card against a leg lock that goes on in the volley of the throw. Sizing took the worst
+   cell from 27 off (where the last five passes began) to 11 to 15 off and stopped there: with rules this sharp a
+   number that helps one pairing hurts the next (sambo beats boxing 59.7 and judo 58.8 and loses to karate 40.8 and
+   wrestling 43.8). The table needs pair-specific cards, not more passes over the same numbers.
+3. **P2, blind to the hold (-2.2, bar -5).** Two causes. The probe blinds the pilot by setting two hold weights to 0;
+   round 5's pilot has a third (how long a man stays held), so the "blind" pilot still sees holds. Counted after the
+   measured run on 4,200 other bouts, and so not a pass: -3.7 with two weights at 0, -7.8 with all three. And holds
+   weigh less than in round 4: the tap ends 11.6% of bouts (was 23.8%), because a submission can now be bought off the
+   first turn the held man has the wind.
+4. **R-C11, the beginner (20.5%, bar 25 to 40; it was 35.0).** The impatient line ignores the mechanic, and a mechanic
+   that decides what is playable leaves it holding dead cards: 8.2% with karate, 8.6% with BJJ, 35.3% with wrestling.
+   The price of P6's first clause; the teaching of each art's one rule has to carry it.
+5. **R-B6, card matchups (66.0%, bar 75; it was 57.1).** Better, still short.
+
+**How the round was run (honest account).**
+- The job ran twice. The first run made the rule changes and eleven sizing passes and stopped mid-sizing; the second
+  (S539) picked up its files, changed four more rules, sized again and measured. Rules changed by the second run, each
+  with its reason: a pin cannot be bought off and ends in the CLINCH (the pilot rightly refused to pay 6 wind out of a
+  one-turn pin: P5 read 93.3%); sambo's leg locks from anywhere became part of its mechanic (sambo's P6 read 34.8%);
+  the kickboxer's punch behind the knee pushes off to PUNCH (kickboxing read 51.7%); the wrestler's ride (he was on top
+  for 2% of his turns: his ground cards were dead and the judge took him for a judo man).
+- **The numbers are a search's, not a designer's**, more than in round 4: about 110 numbers and, new, the count of each
+  card in a deck. Odd prices stay: the Front kick costs 3 wind for 1 damage and a point; the Shoulder throw (5 points)
+  costs 1; the Knee does 1 damage; the Ride scores nothing. The first sizing tool fitted its own seed (a table 2 cells
+  off on its seed was 5 off on the next), so a second tool was written (`tune2.mjs`: candidates screened on three
+  seeds and kept only if better on four others).
+- **BJJ stands on one number.** Tried during sizing: with Pull guard at 1 wind instead of 2, BJJ averaged 75%. A design this sensitive to
+  one price is not finished.
+- 14.3% of turns end with nothing laid, and a decision offers 3.0 choices on average. Fast (3.3 minutes); possibly
+  thin. Pins end 4.0% of bouts (0.9% before), still the small clock.
+- Bots, not people; one pilot is the measure and the opponent at once. P7, P8 and P9 were not run.
+
 ## 7. Open decisions for the owner (taste and scope only)
 
+
+000. **[R5] Seven arts, and what "balanced" should mean.** Kickboxing is in (his S538 ask). With every art playing its
+   own way the table reads like a sport (the wrestler beats the boxer, karate beats the sambo man) and two of 21
+   pairings fall outside 40 to 60. Claude's plan is to bring those two back inside (section 8). His to say after he has
+   played a turn: should every pairing be near even, or may an art have a bad matchup, as in the sports?
 00. **[R4] His limb points: probed, and the single wind pool measured better (6d).** His idea, his "maybe"; kept
    from it: a hurt leg as a status. His to overrule after he has played a turn. **[R4] The six arts are in**, on one
    strip; whether a turn with four ranges still feels "fast and punchy" (3.3 minutes by the bots) is his to say at the
@@ -1071,6 +1295,17 @@ baker). Then two fresh critics (Kalli and a code-checked one), 8+ on DEPTH and P
 build the rules of `proto/cardscope4`, not of cardscope3: the six-style table replaces the eight boxers, the strip and
 the three clocks replace the judges. **Asynchronous ghost battles** (owner S537) come after phase 6, the run: the pilot
 and the 15-id deck file they need exist already (3S).
+
+**[R5] The plan after round 5.** Phase 0 is **round 6 on `proto/cardscope5`** (one job, no page), four items and
+nothing else: (a) **the table**: the kickboxer gets one answer to the ground (his one copy of Check becomes a card
+that also frees a caught leg, or a second Escape) and the guard pull stops being one price (BJJ must not swing from 47
+to 75 on 1 wind): then `tune2.mjs` with pair-specific cards, P4 measured again; (b) **the judge**: its instrument is
+fixed first and committed before the run (each action filed where it lands, a kick, a punch and a knee as kinds),
+then boxing, kickboxing and sambo get one thing at PUNCH range the other two never do, and wrestling one thing on top
+judo never does; (c) **the clocks probe** blinds all three hold weights, and the submission is looked at again (the
+tap fell from 23.8 to 11.6%); (d) **the beginner** (20.5%): each art's one rule taught on the table, R-C11 re-measured.
+The numbers the search left odd are polished by hand in the same job. Then P7, P8, P9 and the two fresh critics as in
+the round 4 plan. Phases 1 to 7 now build the rules of `proto/cardscope5`.
 
 No phase starts before the one above it has passed its bar, except that phase 0 and phase 1 may run side by side (the
 rules port does not depend on the numbers). A fresh critic scores this page first (`CARDSCOPE3_CRITIC_KALLI.md` is

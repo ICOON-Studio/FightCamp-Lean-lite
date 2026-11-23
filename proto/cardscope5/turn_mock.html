@@ -1,0 +1,112 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>CARDSCOPE5 - one turn (mockup, not a build)</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;overflow:hidden;background:#14171c;color:#e8e6e0;font:16px/1.3 "Segoe UI",Arial,sans-serif}
+.top{height:54px;display:flex;align-items:center;gap:26px;padding:0 28px;background:#0d0f13;border-bottom:2px solid #2a2f38;font-size:17px}
+.top b{color:#ffd36b}.tag{font-size:12px;letter-spacing:1px;color:#8a93a3;text-transform:uppercase}
+.col{position:absolute;top:70px;width:330px;height:650px;background:#1b1f26;border:2px solid #2a2f38;border-radius:10px;padding:16px}
+.you{left:20px;border-color:#2f6fb5}.him{right:20px;border-color:#b5482f}
+.name{font-size:24px;font-weight:700}.sub{color:#9aa3b2;font-size:14px;margin-bottom:10px}
+.row{margin:12px 0}.lab{display:flex;justify-content:space-between;font-size:14px;color:#b9c0cc;margin-bottom:4px}
+.bar{height:20px;background:#2a2f38;border-radius:5px;overflow:hidden;position:relative}.bar i{display:block;height:100%}
+.hp i{background:#4caf6a}.hp .ghost{position:absolute;top:0;height:100%;background:repeating-linear-gradient(45deg,#e0533d,#e0533d 5px,#7a2b20 5px,#7a2b20 10px)}
+.pips span{display:inline-block;width:30px;height:30px;border-radius:50%;margin-right:6px;border:2px solid #57c7ff;background:#57c7ff}
+.pips span.o{background:transparent}.pips span.s{background:#234a60;border-style:dashed}
+.box{background:#12151a;border:1px solid #2a2f38;border-radius:8px;padding:9px 11px;font-size:14px;margin-top:10px}
+.box h4{font-size:12px;letter-spacing:1px;color:#ffd36b;text-transform:uppercase;margin-bottom:4px}
+.ok{color:#6fdc8c}.bad{color:#ff7a66}.dim{color:#7d8696}.gold{color:#ffd36b}
+.mid{position:absolute;left:366px;right:366px;top:70px}
+.strip{display:flex;height:96px;border:2px solid #2a2f38;border-radius:10px;overflow:hidden;background:#1b1f26}
+.strip>div{flex:1;border-right:2px solid #2a2f38;padding:8px 10px;position:relative}.strip>div:last-child{border:0;flex:2.2}
+.strip .here{background:#2b3442;outline:3px solid #ffd36b;outline-offset:-3px}.strip .next{background:#1f3329;outline:3px dashed #6fdc8c;outline-offset:-3px}
+.strip h3{font-size:17px}.strip small{color:#9aa3b2;font-size:12.5px;display:block}
+.rungs{display:flex;gap:5px;margin-top:5px}.rungs span{flex:1;font-size:12px;text-align:center;padding:4px 0;border:1px solid #3a414d;border-radius:4px;color:#9aa3b2}
+.rungs .n{border-color:#6fdc8c;color:#6fdc8c;font-weight:700}
+.panel{margin-top:12px;background:#1b1f26;border:2px solid #2a2f38;border-radius:10px;padding:12px 14px}
+.panel h2{font-size:15px;letter-spacing:1px;text-transform:uppercase;color:#ffd36b;margin-bottom:8px}.panel h2 span{color:#9aa3b2;text-transform:none;letter-spacing:0;font-weight:400}
+.cards{display:flex;gap:12px}
+.card{width:170px;height:176px;border-radius:9px;border:2px solid #57606e;background:#232831;padding:8px 9px;position:relative;font-size:13px}
+.card h5{font-size:16px}.card .w{position:absolute;right:7px;top:6px;background:#57c7ff;color:#06222f;font-weight:700;border-radius:50%;width:26px;height:26px;text-align:center;line-height:26px}
+.card .at{font-size:11px;color:#9aa3b2;letter-spacing:.5px;margin:2px 0 5px}.card .n{font-size:26px;font-weight:700}
+.card .res{position:absolute;left:0;right:0;bottom:0;padding:5px 8px;border-top:1px solid #3a414d;font-size:12.5px;background:#161a20;border-radius:0 0 7px 7px}
+.red{border-color:#b5482f}.blue{border-color:#2f6fb5}.sel{outline:3px solid #ffd36b}.off{opacity:.42}.laid{border-color:#6fdc8c;background:#1f3329}
+.ans{display:flex;gap:10px;margin-top:9px}.btn{flex:1;border:2px solid #57606e;border-radius:8px;padding:7px 10px;font-size:13.5px;background:#232831}
+.btn b{font-size:15px}.btn.pick{border-color:#ffd36b;background:#3a3320}
+.sum{margin-top:8px;font-size:15px}.sum b{font-size:19px}
+.hand{position:absolute;left:20px;right:20px;bottom:16px;height:254px;background:#0d0f13;border:2px solid #2a2f38;border-radius:10px;padding:11px 14px}
+.hand h2{font-size:15px;letter-spacing:1px;text-transform:uppercase;color:#ffd36b;margin-bottom:8px}.hand h2 span{color:#9aa3b2;text-transform:none;letter-spacing:0;font-weight:400}
+.hand .cards{gap:14px}.hand .card{width:200px;height:196px}
+.end{position:absolute;right:16px;top:44px;width:420px}
+.end .go{background:#ffd36b;color:#1a1608;font-weight:700;font-size:20px;text-align:center;border-radius:9px;padding:12px;margin-top:9px}
+.clk{display:flex;gap:8px}.clk div{flex:1;background:#12151a;border:1px solid #2a2f38;border-radius:7px;padding:6px 8px;font-size:12.5px}.clk b{display:block;font-size:14px;color:#ffd36b}
+</style></head><body>
+<div class="top"><span><b>MMA night</b> - all three clocks live</span><span>Round <b>1</b> of 2</span><span>Turn <b>3</b> of 5</span><span>Your decisions so far <b>9</b> (about 1 min 10)</span><span class="dim">mockup of the round 5 scope - numbers are the greybox's, nothing here is built</span></div>
+
+<div class="col you"><div class="tag">you</div><div class="name">WRESTLING</div><div class="sub">decides where the bout is - chain wrestling and the ride</div>
+ <div class="row"><div class="lab"><span>Health (0 = knockout)</span><span><b>28</b> / 37 <span class="bad">&rarr; 24 after his volley</span></span></div><div class="bar hp"><i style="width:75.7%"></i><div class="ghost" style="left:64.9%;width:10.8%"></div></div></div>
+ <div class="row"><div class="lab"><span>Points (a lead of 8 ends it)</span><span><b>3</b> v 1 <span class="ok">&rarr; 6 v 1 after yours</span></span></div><div class="bar"><i style="width:25%;background:#ffd36b"></i><div class="ghost" style="left:25%;width:37.5%;background:#6fdc8c;opacity:.6"></div></div><div class="lab" style="margin-top:3px"><span>lead now 2</span><span class="ok">lead 5 of 8 if it all lands</span></div></div>
+ <div class="row"><div class="lab"><span>Wind (3 back each turn, most 6)</span><span><b>5</b> &rarr; 1 left</span></div><div class="pips"><span class="s"></span><span class="s"></span><span class="s"></span><span class="s"></span><span></span><span class="o"></span></div><div class="dim" style="font-size:12.5px;margin-top:3px">Cover up 1 + Single leg 1 + Ground strikes 1 + Ride 1 = 4 spent; next turn you start on 4</div></div>
+ <div class="box"><h4>Your own mechanic: chain wrestling and the ride</h4>Your shot <b>travels from any standing range</b>: no step in needed. If he stuffs it you are <b>tied up in the CLINCH</b> and <span class="ok"><b>your next shot cannot be stopped</b></span>. Once you are on top, his Get up wins back <b>one rung a turn</b>, not two.</div>
+ <div class="box"><h4>Your deck</h4>15 cards: 6 to draw, 4 in the pile, 5 in hand. A new hand of 5 every turn.<br>Escape: <span class="ok">1 still to draw</span> &nbsp; Sprawl: 1 to draw, 1 used</div>
+</div>
+
+<div class="col him"><div class="tag">him</div><div class="name">BOXING</div><div class="sub">owns PUNCH - the jab steps in, a punch behind a punch costs 1 less</div>
+ <div class="row"><div class="lab"><span>Health</span><span><b>30</b> / 37 <span class="ok">&rarr; 25 after your volley</span></span></div><div class="bar hp"><i style="width:81.1%"></i><div class="ghost" style="left:67.6%;width:13.5%"></div></div></div>
+ <div class="row"><div class="lab"><span>Points</span><span><b>1</b></span></div><div class="bar"><i style="width:12.5%;background:#ffd36b"></i></div></div>
+ <div class="row"><div class="lab"><span>Wind</span><span><b>2</b> now, <b>5</b> at his turn</span></div><div class="pips"><span></span><span></span><span class="o"></span><span class="o"></span><span class="o"></span><span class="o"></span></div></div>
+ <div class="box"><h4>What he can still answer with</h4>
+  <b>Cover up</b> (always, 1 wind): 2 off one strike<br>
+  <b>Block</b> x1 (4 off a strike): in his pile - <span class="ok">cannot come this turn</span><br>
+  <b>Slip</b> x1: unseen - <span class="ok">punches only, no use against a shot</span><br>
+  <b>Sprawl</b> x2: both unseen - <span class="gold">89% he holds one</span><br>
+  <b>Escape</b> x1: <span class="ok">in his pile</span> - a pin put on now cannot be escaped: sure points</div>
+ <div class="box"><h4>His pile (open)</h4>Jab, Cross (just thrown), Hook, Block, Escape, Body hook, Cross &nbsp;<span class="dim">7 of 15</span></div>
+</div>
+
+<div class="mid">
+ <div class="strip">
+  <div><h3>KICK</h3><small>every round starts here</small></div>
+  <div class="here"><h3>PUNCH <span class="gold" style="font-size:13px">&#9679; the bout is here</span></h3><small>his Jab stepped in from KICK</small></div>
+  <div><h3>CLINCH</h3><small>if he stuffs your shot: tied up here</small></div>
+  <div class="next"><h3>GROUND <span class="ok" style="font-size:13px">&#9675; after your volley, you on top</span></h3><div class="rungs"><span>guard</span><span class="n">half guard</span><span>side pin</span><span>mount / back</span></div><small style="margin-top:3px">no attack for a turn: the referee stands you both up at KICK</small></div>
+ </div>
+
+ <div class="panel"><h2>1. He threw at you <span>- face up, in this order. Pick ONE answer or take it.</span></h2>
+  <div class="cards">
+   <div class="card red"><h5>Jab</h5><div class="w">1</div><div class="at">PUNCH &middot; steps in from KICK</div><div class="n">2</div>head<div class="res bad">lands: <b>-2</b></div></div>
+   <div class="card red sel"><h5>Cross</h5><div class="w">2</div><div class="at">PUNCH &middot; behind a punch: paid 1</div><div class="n">4</div>head &middot; 1 point if clean<div class="res ok">Cover up: 4 &rarr; <b>2</b>, no point</div></div>
+   <div style="flex:1">
+    <div class="ans"><div class="btn"><b>Take it</b><br><span class="bad">-6 health, his point</span><br>0 wind, all 5 left for your volley</div><div class="btn pick"><b>Cover up the Cross</b> &#10003;<br><span class="ok">-4 health</span>, no point for him<br>1 wind, always there</div></div>
+    <div class="ans"><div class="btn off"><b>Front headlock</b><br>nothing here to stop<br>(a takedown that is not clean)</div><div class="btn off"><b>Sprawl</b><br>not in hand<br>(takedowns, grips)</div></div>
+    <div class="sum">With Cover up: you <b>28 &rarr; 24</b>, points stay <b>3 v 1</b>, 4 wind left for your volley.</div>
+   </div>
+  </div>
+ </div>
+
+ <div class="panel" style="position:relative;height:262px"><h2>2. Your volley <span>- laid face up one card at a time; it lands on his turn, in order</span></h2>
+  <div class="cards">
+   <div class="card blue laid"><h5>Single leg</h5><div class="w">1</div><div class="at">any standing range &rarr; GROUND</div><div class="n">2 pts</div><span class="gold">89%: Sprawl stuffs it</span><div class="res ok">down, you on top, in his guard</div></div>
+   <div class="card blue laid"><h5>Ground strikes</h5><div class="w">1</div><div class="at">GROUND, on top &middot; 1 point</div><div class="n">5</div>head<div class="res ok">lands: <b>-5</b>, +1 point</div></div>
+   <div class="card blue laid"><h5>Ride</h5><div class="w">1</div><div class="at">GROUND, on top</div><div class="n">+1 rung</div>to half guard<div class="res ok">his Get up now only reaches the guard</div></div>
+  </div>
+  <div class="end">
+   <div class="clk"><div><b>Health</b>him 30 &rarr; 25<br>knockout at 0</div><div><b>Points</b>3 v 1 &rarr; 6 v 1<br>lead 5 of 8</div><div><b>The hold</b>none on<br>your Fall next turn: +3</div></div>
+   <div class="box" style="margin-top:8px"><h4>If he sprawls the Single leg (89%)</h4>The strikes and the Ride miss, 3 wind gone. But you are tied up in the CLINCH and <b>next turn's shot cannot be stopped</b>.</div>
+   <div class="go">END THE TURN &nbsp;-&nbsp; 1 wind kept</div>
+  </div>
+ </div>
+</div>
+
+<div class="hand"><h2>Your hand <span>- 5 new cards each turn. A greyed card says why. The number on each is what it does from where the bout will stand.</span></h2>
+ <div class="cards">
+  <div class="card blue off"><h5>Single leg</h5><div class="w">1</div><div class="at">any standing range &rarr; GROUND, guard</div><div class="n">2 pts</div>stuffed: tied up, next shot clean<div class="res">laid first</div></div>
+  <div class="card blue off"><h5>Ground strikes</h5><div class="w">1</div><div class="at">GROUND, on top</div><div class="n">5</div>+1 point<div class="res">laid second</div></div>
+  <div class="card blue off"><h5>Ride</h5><div class="w">1</div><div class="at">GROUND, on top</div><div class="n">+1 rung</div>no points<div class="res">laid third</div></div>
+  <div class="card blue"><h5>The fall</h5><div class="w">2</div><div class="at">GROUND, on top, half guard or better</div><div class="n">pin</div>+1 at the top of his turn, +2 at the end. No price: only his Escape gets him out<div class="res gold">not in the volley of a takedown: next turn</div></div>
+  <div class="card blue off"><h5>Front headlock</h5><div class="w">2</div><div class="at">answer &middot; a takedown</div><div class="n">stuffs it</div>not if the shot is clean<div class="res bad">he threw punches: nothing to stop</div></div>
+  <div class="card" style="border-style:dashed"><h5>Steps</h5><div class="at">always there, laid like a card</div><b>Step in</b> 1 &middot; <b>Step out</b> 1<br>on the ground: <b>Let him up</b> 1 / <b>Get up</b> 2<br><br><b>Cover up</b> 1<br>in a submission: <b>Break free</b> at its price<div class="res dim">no card needed</div></div>
+  <div style="flex:1" class="box"><h4>Where this line goes</h4>His <b>Escape is in his pile</b>. If the volley lands he is under you at half guard, and his Get up (2 wind) only reaches the guard. Next turn you start on 4: <b>Ride</b> again (1) and <b>The fall</b> (2), a pin nothing of his can stop: <b>+3 = 9 v 1, a lead of 8: you win on points.</b> If he sprawls instead, your next shot cannot be stopped. Taking the Cross would save 1 wind and cost 2 health and a point.</div>
+ </div>
+</div>
+</body></html>
