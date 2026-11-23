@@ -3,16 +3,16 @@
  "updated": "2026-11-23",
  "author": "claude S294",
  "now": {
-  "id": "S540",
+  "id": "S541",
   "owner": "claude",
   "updated": "2026-11-23",
-  "summary": "S540 (Opus): answered the board (Q-306/307 combo counter BUILT cf5dfe536: spam -6.7 v counter-puncher; Q-308 club show v6 FAIL 5/9 -> v7 running; Q-309 restyle: Dola's style sheet rendered, pages B/C/D re-queued; Q-310 'Keep, build the full set' -> PICS2D2; Q-311 'Bouts pay by rank' -> coaches v3 FAIL 7/10). Merged STEPPAY5 (steps 10/10). TURNPROBE15 PASS 17/17 but critics 6/6/6 (Opus code-checked), Kalli 6/6/6, Dola 9/9/8 -> v16 map + probe (batch c15). Knowledge v8: Kalli 6/6/7. Fixed: lean chip words, MODE twice, BoutRead cache key. Card game: r6 merged as a base (page broken) -> CARDFIX6B + GRAPPLEMAP1 on Arena; owner asked for AAA pre-production by Fable, genre open but already studied -> CARDPREPROD1. Regression: p4p_visit red after STEPPAY5 -> P4PEVID1 with the two nightly reds.",
-  "next_action": "S541: see NEXT_SESSION_PROMPT.md (collect CARDPREPROD1 -> owner sign-off; P4PEVID1; HOSTPROBE4; TURNPROBE16 sum; PICS2D2; MOTIONRULERS1; CARDFIX6B + GRAPPLEMAP1 on Arena; coaches v4; export once the tree is clean).",
-  "last_working_commit": "db29d2b7e",
-  "verified_playable": "S539 build is the last export; S540 not exported (PICS2D2 had uncommitted view edits in the tree).",
-  "incomplete_blocked": "CARDPREPROD1, P4PEVID1, HOSTPROBE4, TURNPROBE16 batch, PICS2D2, MOTIONRULERS1, CARDFIX6B, GRAPPLEMAP1 running at handover",
-  "next_acceptance": "each running job collected by its own bar (probe verdicts, STEPPAY5 READY TO MERGE + tests, PICS2D1 owner pick)",
-  "awaiting_operator": "Q-S294-307 combo counter build/drop; Q-S294-308 club show favour rate; Q-S294-309 restyle; PICS2D1 pick when it lands"
+  "summary": "S541 (Opus): card plan SIGNED (Q-312 + Q-313..317 Yes); CARDFIX6B + card r7 merged (PLAY gate 6/6, 40 tests) - owner played r7: KO'd in bout 1, 'i didnt understand the design , maybe a guide would be useful' -> card r8 THE GUIDE on Arena (arena/1f620be9). GRAPPLEMAP1 merged (8 BJJ card pictures). PICS2D2 landed (2x58 pictures, dodges + reactions; body cross gap). P4PEVID1 landed (p4p_visit, plan_templates, golden_path PASS). Club show v8 FAIL 6/9, 3rd in a row -> Q-318 'Yes, light night': card CUT, HOSTLIGHT1 building (tab c6). Coaches v4 FAIL 6/10 (uncapped class<->members loop) -> COACHDEEP5 (tab c5) + feedback-loop gate in claude_cm.ps1 (owner 'Yes, add it'). Knowledge v9 map done, critics SQ312/313. TURNPROBE16 FAIL 11/16 -> owner interview (15 yes): TURNPRO_INTERVIEW_S541.md = the new turning-pro spec; next session writes v17 from it. Owner: agents only in console (settings deny Agent + start_session). Build exported.",
+  "next_action": "S542: see NEXT_SESSION_PROMPT.md (turning pro v17 design from TURNPRO_INTERVIEW_S541.md with the owner; collect card r8 (guide) -> play by script -> owner plays; HOSTLIGHT1; COACHDEEP5; knowledge v9 critics SQ312/313; Dola restyle C/D).",
+  "last_working_commit": "2a5f3b6c0",
+  "verified_playable": "Builds/FightCamp.exe S541 (pictures view, combo counter, footwork 10/10); card r7 page played by Claude and the owner",
+  "incomplete_blocked": "Turning pro v17: design with the owner first (he asked for it next session). Knowledge v9 critics: Kalli 7/8/7, Dola 8/7/7 - each under 8 on one axis -> v10 from both lists or an interview (9 rounds).",
+  "next_acceptance": "Owner says yes to the v17 rules with numbers; TASK_TURNPRO17 launched with Feedback loops; card r8 merged and played by him.",
+  "awaiting_operator": "Turning pro v17 design conversation; his play of card r8 (the guide) when it lands."
  },
  "next": "S496: 0) get_usage; where_we_are roll S496; quote board answers (Q-259 Training K v6c; build WeekCards v6c on Yes - WeekCards.gd 552 lines is split first). 1) Collect as they land, by diff + their test: Qwen ONELOOK2 (fight HUD palette, ETA ~11:00 11-16; render before/after fight stills on the hidden desktop, his OK before merge), Goose FILMCOUNT1 (#326, branch goose/issue-326 - Goose's PR step failed twice: collect from the branch; read its FINDS table and noise numbers, retune FilmBout rates if a floor missed), Grok Dev FIGHTPAGE1 (branch grok/fightpage1, ETA ~13:30; render at 1920x1080 text 1.0 and 1.3, judge against fight_analysis_v3.png, then his board). 2) Kalli SQ202 LADDER1 v6 + SQ203 COACHSPEC1 r6 -> two fresh critics each (Dola + John; Dola refused COACHSPEC1 r5 - resend). 3) Wire after FIGHTPAGE1+FILMCOUNT1: the film-night stop in the fight week (FightWeekPlan film night -> FightAnalysis.for_tape with FilmCount.check, FilmPattern.checks by coach rating), FilmEdge pays at the figure, the result page's Punch by punch tab over m['tape'] (BoutTape), History keeps 20 tapes (~400 lines a bout). 4) Live fight log panel brief to Grok Dev once FIGHTPAGE1 lands. 5) ONELOOK1 sweep after ONELOOK2: RosterCards, ReadPanel, MatMap (UI.gd/WoodKit/WeekCards first need a split).",
  "assessment": {
@@ -2332,6 +2332,11 @@
    "id": "S540",
    "date": "2026-11-23",
    "summary": "Combo counter built; footwork merged 10/10; pro v15 probe PASS but critics 6/6/6 -> v16; coaches v3 7/10; club show v6 5/9 -> v7; card r6 broken page -> fix round + GrappleMap; card game AAA pre-production plan by Fable (owner); p4p regression found -> fix running."
+  },
+  {
+   "id": "S541",
+   "date": "2026-11-23",
+   "summary": "Card plan signed; card r7 played by the owner (didn't understand) -> r8 the guide; club show card cut (light night); turning pro interview (15 answers) replaces 16 failed rounds; feedback-loop gate; agents console-only; build exported."
   }
  ],
  "blocked_on_operator": [],
@@ -5250,7 +5255,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-23 14:10 board_sync",
+  "updated": "2026-11-23 18:41 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5401,43 +5406,32 @@
   },
   "working_now": [
    {
-    "title": "Turning pro v16: spendable favour, map + probe",
+    "title": "Deep coaches v5: catchment ceiling caps the class loop",
+    "who": "claude-opus-5-5 (Code Mode tab c5)",
+    "started": "2026-11-23T15:40",
+    "run": "COACHDEEP5"
+   },
+   {
+    "title": "Club show as a light money night: hall read + two reserves",
     "who": "claude-opus-5-5 (Code Mode tab c6)",
-    "started": "2026-11-23T12:05",
-    "run": "TURNPRO16"
+    "started": "2026-11-23T16:20",
+    "run": "HOSTLIGHT1"
    },
    {
-    "title": "Deep coaches v3: amateur bouts pay by rank (Q-311)",
-    "who": "claude-opus-5-5 (Code Mode tab c11)",
-    "started": "2026-11-23T12:40",
-    "run": "COACHDEEP3"
-   },
-   {
-    "title": "2D pictures: the full boxing set as a second view (Q-310)",
-    "who": "claude-opus-5-5 (Code Mode tab c8)",
-    "started": "2026-11-23T12:50",
-    "run": "PICS2D2"
-   },
-   {
-    "title": "Club show v7: pro line from real careers, hall over the range of nights",
-    "who": "claude-opus-5-5 (Code Mode tab c9)",
-    "started": "2026-11-23T13:35",
-    "run": "HOSTPROBE4"
-   },
-   {
-    "title": "Card r6b: page loads, title at the shot, rivals by rung, failing bars",
-    "who": "arena (arena/70a5176b-fightcamp-lean-lite)",
-    "started": "2026-11-23T13:50",
-    "run": "CARDFIX6B"
-   },
-   {
-    "title": "Fix 3 regressions: card-ask evidence, plan_templates, matchmaking_bots",
-    "who": "claude-opus-5-5 (Code Mode tab c10)",
-    "started": "2026-11-23T14:05",
-    "run": "P4PEVID1"
+    "title": "Card round 8: the guide (guided first bout, low-health warning, How to play)",
+    "who": "arena (arena/1f620be9-fightcamp-lean-lite)",
+    "started": "2026-11-23T17:15",
+    "run": "CARDROUND8",
+    "state": "LANDED - Claude collects"
    }
   ],
   "next": [
+   {
+    "id": "TURNPRO1",
+    "who": "claude",
+    "title": "Turning pro v17 from the owner interview (TURNPRO_INTERVIEW_S541.md): when + safe/risky first 6 fights, patience/confidence/hunger | NEXT: design with the owner, then greybox probe",
+    "after": ""
+   },
    {
     "id": "COACHDEEP1",
     "who": "claude",
@@ -5449,18 +5443,6 @@
     "who": "arena",
     "title": "Card game: one line, 2-art slice, play link (CARDGAME_PLAN_S539) | NEXT: CARDSCOPE6 on Arena after round 5",
     "after": ""
-   },
-   {
-    "id": "PICS2D1",
-    "who": "claude",
-    "title": "2D exchange pictures from our 3D (Fight Business idea) | NEXT: owner picks pictures v 3D",
-    "after": ""
-   },
-   {
-    "id": "TURNPRO1",
-    "who": "claude",
-    "title": "Turning pro v15: map committed d62c4bb5d, probe running | NEXT: when b4/b5 land run tools/turnprobe15_sum.py -> docs/TURNPROBE15_RESULT.md; PASS -> two critics (one code-checked)",
-    "after": "FOUNDATION"
    },
    {
     "id": "STEPSCOPE1",
@@ -5479,12 +5461,6 @@
     "who": "claude",
     "title": "Knowledge stakes v7 (rival clock, Q-305): Kalli 7/6/6, Dola 8/7/8 | NEXT: v8 from both lists (play to 8)",
     "after": "AMATEURWEEK1"
-   },
-   {
-    "id": "HOSTSHOW1",
-    "who": "claude",
-    "title": "Club show: v4 FAIL 2/10, v5 FAIL 3/9 | NEXT: Q-308 favour rate, then v6 (pro call on ladder points, hall as a read, cut sell/leave-off) + probe 3",
-    "after": "RANKSHOW1"
    },
    {
     "id": "PUSHTANK1",
@@ -5816,6 +5792,51 @@
   },
   "done_recently": [
    {
+    "title": "S541 build exported",
+    "who": "claude-opus-5-5",
+    "when": "2026-11-23"
+   },
+   {
+    "title": "Feedback-loop gate on briefs",
+    "who": "claude-opus-5-5",
+    "when": "2026-11-23"
+   },
+   {
+    "title": "Turning pro interview: 15 answers",
+    "who": "claude-opus-5-5",
+    "when": "2026-11-23"
+   },
+   {
+    "title": "Club show card cut: light night",
+    "who": "claude-opus-5-5",
+    "when": "2026-11-23"
+   },
+   {
+    "title": "P4P regressions fixed",
+    "who": "claude-opus-5-5",
+    "when": "2026-11-23"
+   },
+   {
+    "title": "2D pictures 2x58 landed",
+    "who": "claude-opus-5-5",
+    "when": "2026-11-23"
+   },
+   {
+    "title": "GrappleMap BJJ pictures merged",
+    "who": "claude-opus-5-5",
+    "when": "2026-11-23"
+   },
+   {
+    "title": "Card r7 merged: PLAY gate 6/6",
+    "who": "claude-opus-5-5",
+    "when": "2026-11-23"
+   },
+   {
+    "title": "Card plan signed (Q-312)",
+    "who": "claude-opus-5-5",
+    "when": "2026-11-23"
+   },
+   {
     "title": "Combo counter built (Q-307)",
     "who": "claude-opus-5-5",
     "when": "2026-11-23"
@@ -5848,36 +5869,6 @@
    {
     "title": "Win read moves with mood",
     "who": "claude-opus-5-5 (Code Mode)",
-    "when": "2026-11-23"
-   },
-   {
-    "title": "Fight Business demo read",
-    "who": "claude-opus-5-5 (Code Mode)",
-    "when": "2026-11-23"
-   },
-   {
-    "title": "MMA Empire update read",
-    "who": "claude-opus-5-5 (Code Mode)",
-    "when": "2026-11-23"
-   },
-   {
-    "title": "Combo counter probe 2",
-    "who": "claude-opus-5-5 (Code Mode)",
-    "when": "2026-11-23"
-   },
-   {
-    "title": "Combo counter probe",
-    "who": "claude-opus-5-5 (Code Mode)",
-    "when": "2026-11-23"
-   },
-   {
-    "title": "Club show v5 probe",
-    "who": "claude-opus-5-5 (Code Mode)",
-    "when": "2026-11-23"
-   },
-   {
-    "title": "Host a club show: code check of map v4 + greybox probe",
-    "who": "claude-opus-5-5 (Code Mode tab c4)",
     "when": "2026-11-23"
    }
   ],
@@ -5967,64 +5958,6 @@
   "map": {
    "done_earlier": [
     {
-     "text": "Q-305 rival deadline: yes",
-     "who": "claude"
-    },
-    {
-     "text": "Arena PRs 443/444 closed",
-     "who": "claude"
-    },
-    {
-     "text": "Knowledge v7 map: rival clock",
-     "who": "claude"
-    },
-    {
-     "text": "Opponents adjust: shown",
-     "who": "claude"
-    },
-    {
-     "text": "Show v4 probe: FAIL 2/10",
-     "who": "claude"
-    },
-    {
-     "text": "Strong/OK/Bad replace Beats it",
-     "who": "claude"
-    },
-    {
-     "text": "Card plan: 1 line, 2-art slice",
-     "who": "claude"
-    },
-    {
-     "text": "Pro weigh-in miss: 3 answers",
-     "who": "claude"
-    },
-    {
-     "text": "Knowledge v7: Kalli 7/6/6 Dola 8/7",
-     "who": "claude"
-    },
-    {
-     "text": "Coach grill: 24 answers",
-     "who": "claude"
-    },
-    {
-     "text": "Club show v5: FAIL 3/9",
-     "who": "claude"
-    },
-    {
-     "text": "Combo counter: 2 probes FAIL",
-     "who": "claude"
-    },
-    {
-     "text": "Fight Business + MMA Empire read",
-     "who": "claude"
-    },
-    {
-     "text": "Mood read fix",
-     "who": "claude"
-    }
-   ],
-   "done_session": [
-    {
      "text": "STEPPAY5 merged: steps 10/10",
      "who": "claude"
     },
@@ -6062,6 +5995,56 @@
     },
     {
      "text": "Card r6 merged (page broken)",
+     "who": "claude"
+    },
+    {
+     "text": "Q-305 rival deadline: yes",
+     "who": "claude"
+    },
+    {
+     "text": "Arena PRs 443/444 closed",
+     "who": "claude"
+    },
+    {
+     "text": "Knowledge v7 map: rival clock",
+     "who": "claude"
+    },
+    {
+     "text": "Opponents adjust: shown",
+     "who": "claude"
+    }
+   ],
+   "done_session": [
+    {
+     "text": "Card plan written (Fable)",
+     "who": "claude"
+    },
+    {
+     "text": "2D pictures: 2x58, on /review",
+     "who": "claude"
+    },
+    {
+     "text": "Club show card cut: light night",
+     "who": "claude"
+    },
+    {
+     "text": "Card r7 merged: PLAY gate 6/6",
+     "who": "claude"
+    },
+    {
+     "text": "S541 build exported",
+     "who": "claude"
+    },
+    {
+     "text": "Card plan signed",
+     "who": "claude"
+    },
+    {
+     "text": "Card r7: PLAY gate 6/6",
+     "who": "claude"
+    },
+    {
+     "text": "Turning pro interview",
      "who": "claude"
     }
    ],
@@ -6111,14 +6094,6 @@
      "who": "claude"
     },
     {
-     "text": "Club show v7 (c9)",
-     "who": "claude"
-    },
-    {
-     "text": "Pro v16 probe batch",
-     "who": "claude"
-    },
-    {
      "text": "2D pictures full set",
      "who": "claude"
     },
@@ -6128,6 +6103,14 @@
     },
     {
      "text": "Card fix r6b + GrappleMap",
+     "who": "claude"
+    },
+    {
+     "text": "Card plan: your sign-off (Q-312)",
+     "who": "claude"
+    },
+    {
+     "text": "Your play: card game r7",
      "who": "claude"
     }
    ],
@@ -6415,15 +6398,27 @@
     {
      "text": "Export S540 build",
      "who": "claude"
+    },
+    {
+     "text": "Body-cross take for 2D pictures",
+     "who": "claude"
+    },
+    {
+     "text": "Turning pro v17 (interview)",
+     "who": "claude"
+    },
+    {
+     "text": "Card r8 guide: your play",
+     "who": "claude"
     }
    ],
-   "session": "S540"
+   "session": "S541"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
  "last_working_commit": "42feebb38",
- "next_action": "S541: see NEXT_SESSION_PROMPT.md (collect CARDPREPROD1 -> owner sign-off; P4PEVID1; HOSTPROBE4; TURNPROBE16 sum; PICS2D2; MOTIONRULERS1; CARDFIX6B + GRAPPLEMAP1 on Arena; coaches v4; export once the tree is clean).",
+ "next_action": "S542: see NEXT_SESSION_PROMPT.md (turning pro v17 design from TURNPRO_INTERVIEW_S541.md with the owner; collect card r8 (guide) -> play by script -> owner plays; HOSTLIGHT1; COACHDEEP5; knowledge v9 critics SQ312/313; Dola restyle C/D).",
  "next_acceptance": "Rulers vs r0: head jumps on the contact frame under 4, a head inside the other's body under 5 frames, arm out median under 4 frames with join_return green, then r1 film at two fresh blind critics 5+/10",
  "superseded_archive": [
   {

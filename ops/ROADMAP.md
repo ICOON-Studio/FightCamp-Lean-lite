@@ -8,9 +8,9 @@ Updated 2026-11-23 by claude S294.
 
 ## Now
 
-**S540 — ?** *(claude)*
+**S541 — ?** *(claude)*
 
-S540 (Opus): answered the board (Q-306/307 combo counter BUILT cf5dfe536: spam -6.7 v counter-puncher; Q-308 club show v6 FAIL 5/9 -> v7 running; Q-309 restyle: Dola's style sheet rendered, pages B/C/D re-queued; Q-310 'Keep, build the full set' -> PICS2D2; Q-311 'Bouts pay by rank' -> coaches v3 FAIL 7/10). Merged STEPPAY5 (steps 10/10). TURNPROBE15 PASS 17/17 but critics 6/6/6 (Opus code-checked), Kalli 6/6/6, Dola 9/9/8 -> v16 map + probe (batch c15). Knowledge v8: Kalli 6/6/7. Fixed: lean chip words, MODE twice, BoutRead cache key. Card game: r6 merged as a base (page broken) -> CARDFIX6B + GRAPPLEMAP1 on Arena; owner asked for AAA pre-production by Fable, genre open but already studied -> CARDPREPROD1. Regression: p4p_visit red after STEPPAY5 -> P4PEVID1 with the two nightly reds.
+S541 (Opus): card plan SIGNED (Q-312 + Q-313..317 Yes); CARDFIX6B + card r7 merged (PLAY gate 6/6, 40 tests) - owner played r7: KO'd in bout 1, 'i didnt understand the design , maybe a guide would be useful' -> card r8 THE GUIDE on Arena (arena/1f620be9). GRAPPLEMAP1 merged (8 BJJ card pictures). PICS2D2 landed (2x58 pictures, dodges + reactions; body cross gap). P4PEVID1 landed (p4p_visit, plan_templates, golden_path PASS). Club show v8 FAIL 6/9, 3rd in a row -> Q-318 'Yes, light night': card CUT, HOSTLIGHT1 building (tab c6). Coaches v4 FAIL 6/10 (uncapped class<->members loop) -> COACHDEEP5 (tab c5) + feedback-loop gate in claude_cm.ps1 (owner 'Yes, add it'). Knowledge v9 map done, critics SQ312/313. TURNPROBE16 FAIL 11/16 -> owner interview (15 yes): TURNPRO_INTERVIEW_S541.md = the new turning-pro spec; next session writes v17 from it. Owner: agents only in console (settings deny Agent + start_session). Build exported.
 
 ## Next
 
@@ -429,3 +429,4 @@ LATER IN S500 (main 20f803461, after his two notes on the fight): (a) his "can y
 |  |  | **S538**  |  |  | *none yet* | Result page v2, office goals + sheets, plan chart bet/uses/save-load built from owner answers; credit ran out -> Code Mode tabs on the subscription; coach modules removed (probe FAIL); misread sized; card game: kickboxing, ladders/training asked, market research by John/Dola; cross closed as shipped. |
 |  |  | **S539**  |  |  | *none yet* | Weigh-in miss answers, Strong/OK/Bad, opponents adjust shown, mood read fixed; combo counter and club show probes FAIL; deep coaches grilled (24 answers) and v2 running; card game plan (free seats); MMA Empire + Fight Business read; 2D picture test running. |
 |  |  | **S540**  |  |  | *none yet* | Combo counter built; footwork merged 10/10; pro v15 probe PASS but critics 6/6/6 -> v16; coaches v3 7/10; club show v6 5/9 -> v7; card r6 broken page -> fix round + GrappleMap; card game AAA pre-production plan by Fable (owner); p4p regression found -> fix running. |
+|  |  | **S541**  |  |  | *none yet* | Card plan signed; card r7 played by the owner (didn't understand) -> r8 the guide; club show card cut (light night); turning pro interview (15 answers) replaces 16 failed rounds; feedback-loop gate; agents console-only; build exported. |
