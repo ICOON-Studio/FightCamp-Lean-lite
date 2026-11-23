@@ -5,7 +5,7 @@ import fs from 'node:fs';
 import { CARDS, N, STYLES, OWN, CHEAP, fighter, deckLegal } from './cards.mjs';
 import { newBout, bout, doAnswer, startAct, declare, endAct, legalNow, answerOptions, posKey, cost } from './engine.mjs';
 import { aiPilot, impatient, scripted, outlook } from './plan.mjs';
-import { freshCareer, RUNGS, TRAINING, train, resultCareer, measureTraining, assertCareer } from './career.mjs';
+import { freshCareer, RUNGS, TRAINING, train, resultCareer, measureTraining, assertCareer, takesTitle, rivalFighter, simulateLadder, trainingState, CUT_AT_LOSSES, TITLE_SHOT } from './career.mjs';
 
 // a bout with both hands set by hand and full wind; seat 0 = a, seat 1 = b
 function table(a, b, ha, hb, x) {
@@ -266,10 +266,82 @@ test('trained card copies carry the visible upgrade into engine data', () => {
   const triangle = grappler.deck.find((id) => id.startsWith('triangle+')); assert.equal(CARDS[triangle].count, Math.max(1, CARDS.triangle.count - 1));
 });
 
-test('each training option is best in a non-overused state in the declared L2 sweep', () => {
-  for (const style of STYLES) { const m = measureTraining(style); assert.equal(m.pass, true, JSON.stringify(m)); }
+test('the utility gives each training option a niche on the declared tactical spread (the shape L2 was written on)', () => {
+  // the four tactical states the utility was written on, kept as a unit test of its shape. The L2 BAR is measured on
+  // the ladder's own states (the next test), which is what round 6b asked for.
+  const spread = (style) => Array.from({ length: 10 }, (_, i) => {
+    const phase = i % 4;
+    if (style === 'boxing') return phase === 0 ? { pos: 'K', share: { K: 1 } } : phase === 1 ? { pos: 'P', share: { P: 1 } } : phase === 2 ? { pos: 'B', share: { B: 1 }, held: true } : { pos: 'K', share: { K: 1 }, struck: true };
+    return phase === 0 ? { pos: 'B', share: { B: 1 } } : phase === 1 ? { pos: 'T', share: { T: 1 } } : phase === 2 ? { pos: 'B', share: { B: 1 }, behind: true } : { pos: 'B', share: { B: 1 }, held: true };
+  });
+  for (const style of STYLES) { const m = measureTraining(style, spread(style)); assert.equal(m.pass, true, JSON.stringify(m)); }
+});
+
+test('L2 measures the ladder\'s own training states: ten of them, read off bouts, never hand-made', () => {
+  for (const style of STYLES) {
+    const m = measureTraining(style);
+    assert.equal(m.states, 10, style);
+    for (const s of m.samples) {
+      assert.ok(s.pos && 'KPC TB'.includes(s.pos), style + ' ' + JSON.stringify(s));
+      assert.ok(s.share && Object.values(s.share).some((v) => v > 0), 'a share read off a bout');
+      const total = Object.values(s.share).reduce((a, b) => a + b, 0);
+      assert.ok(Math.abs(total - 1) < 1e-9, 'the share sums to one');
+    }
+    for (const o of m.options) assert.ok(o.right >= 0 && o.right <= 10, o.id);
+    assert.equal(m.pass, m.options.every((o) => o.right >= 1 && o.right <= 6), 'the verdict is the bar, whatever it says');
+  }
 });
 
 test('no script over 500 lines', () => {
-  for (const f of fs.readdirSync(new URL('.', import.meta.url))) if (f.endsWith('.mjs')) assert.ok(fs.readFileSync(new URL(f, import.meta.url), 'utf8').split('\n').length <= 500, f);
+  for (const f of fs.readdirSync(new URL('.', import.meta.url))) if (/\.(mjs|js)$/.test(f)) assert.ok(fs.readFileSync(new URL(f, import.meta.url), 'utf8').split('\n').length <= 500, f);
+});
+
+test('the page module graph links: a broken import fails here, not in the owner\'s browser', async () => {
+  const { install } = await import('./uidom.mjs');
+  install(); // a stand-in document, so the page can be imported at all
+  const ui = await import('./ui.js');
+  assert.equal(typeof ui.reset, 'function'); assert.ok(ui.state, 'the page keeps its career on the table');
+});
+
+test('the title is won at the TITLE SHOT, and the defences are defences', () => {
+  assert.equal(RUNGS[TITLE_SHOT], 'Title shot');
+  for (const [rung, won, want] of [[TITLE_SHOT, true, true], [TITLE_SHOT, false, false], [TITLE_SHOT - 1, true, false], [TITLE_SHOT + 1, true, false], [RUNGS.length - 1, true, false]]) {
+    const c = freshCareer('boxing'); c.rung = rung;
+    assert.equal(takesTitle(c, won), want, `${RUNGS[rung]} ${won ? 'won' : 'lost'}`);
+  }
+  // and the ladder counts a career as a title only when it wins the title shot
+  const l1 = simulateLadder(12, 700000000, 60);
+  for (const r of l1.results) assert.ok(r.title || r.cut, 'every career ends in a title or the cut');
+  assert.equal(l1.titleWins, l1.results.filter((r) => r.title).length);
+});
+
+test('rivals by rung: a club novice of the player\'s own art is diluted, from Area up the other art with better cards, a title defence is upgraded', () => {
+  const c = freshCareer('boxing');
+  const decks = RUNGS.map((_, rung) => rivalFighter(c, rung));
+  for (const [i, F] of decks.entries()) { assert.equal(F.deck.length, 15, 'rung ' + i); assert.ok(F.deck.every((id) => CARDS[id]), 'rung ' + i); assert.equal(F.style, i === 0 ? 'boxing' : 'bjj', 'rung ' + i + ': the club novice is the player\'s own art, from Area up the other art'); }
+  assert.notDeepEqual(decks[0].deck, decks[1].deck, 'the club novice is not the area fighter');
+  assert.ok(!decks[0].deck.some((id) => id.includes('+')), 'a novice has no upgraded cards');
+  for (const rung of [3, 4, 5, 6]) assert.ok(decks[rung].deck.some((id) => id.includes('+')), 'rung ' + rung + ' has upgraded cards');
+  assert.ok(decks[6].deck.filter((id) => id.includes('+')).length >= decks[3].deck.filter((id) => id.includes('+')).length, 'the defences are not easier than the title shot');
+});
+
+test('a training upgrade is one card in, one card out: a second upgrade never grows the deck', () => {
+  for (const style of STYLES) {
+    const c = freshCareer(style), n = c.deck.length, opt = TRAINING[style][0], copies = (d) => d.filter((id) => id === opt.id || id.startsWith(opt.id + '+')).length, had = copies(c.deck);
+    c.energy = 6; assert.equal(train(c, opt, () => 1).kind, 'upgrade');
+    assert.equal(c.deck.length, n, style);
+    c.energy = 6; assert.equal(train(c, opt, () => 1).kind, 'upgrade');
+    assert.equal(c.deck.length, n, style + ': the second upgrade replaced the copy');
+    assert.ok(c.deck.some((id) => id === `${opt.id}+2`), 'the copy carries both upgrades');
+    assert.equal(copies(c.deck), had, 'still the same number of that card');
+    assert.equal(assertCareer(c), true);
+  }
+});
+
+test('every training state is read off a bout the ladder fought', () => {
+  const l1 = simulateLadder(4, 710000000, 20, 'boxing');
+  assert.ok(l1.states.length > 0);
+  for (const s of l1.states) { assert.ok(s.pos, JSON.stringify(s)); assert.ok(s.share); assert.ok(Object.values(s.share).reduce((a, b) => a + b, 0) > 0.99); }
+  const r = { st: { log: [[{ pos: 'P', kinds: ['strike'], at: ['P'] }], [{ pos: 'K', kinds: ['strike'], at: ['K'] }]] }, S: { f: [{ pts: 0 }, { pts: 2 }] } };
+  assert.deepEqual(trainingState(r, 0), { pos: 'P', share: { P: 1 }, range: 'P', ground: false, struck: true, held: false, behind: true });
 });

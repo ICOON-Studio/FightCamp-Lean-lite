@@ -14,9 +14,9 @@
         "failure": 0.14
       },
       {
-        "id": "hook",
-        "cost": 2,
-        "failure": 0.18
+        "id": "escape",
+        "cost": 1,
+        "failure": 0.05
       },
       {
         "id": "block",
@@ -49,13 +49,51 @@
   },
   "L1": {
     "runs": 100,
-    "titleWins": 100,
-    "titleRate": 100,
-    "meanBouts": 11.7,
-    "estimatedMeanMinutesAllRuns": 30.3,
-    "titleWinnerMeanBouts": 11.7,
-    "titleWinnerMeanMinutes": 30.3,
+    "titleWins": 48,
+    "titleRate": 48,
+    "meanBouts": 13.8,
+    "estimatedMeanMinutesAllRuns": 31,
+    "titleWinnerMeanBouts": 14.8,
+    "titleWinnerMeanMinutes": 31,
     "capped": 0,
+    "cut": 52,
+    "byRung": {
+      "Club": {
+        "bouts": 293,
+        "wins": 290,
+        "winRate": 99
+      },
+      "Area": {
+        "bouts": 469,
+        "wins": 260,
+        "winRate": 55.4
+      },
+      "National": {
+        "bouts": 332,
+        "wins": 128,
+        "winRate": 38.6
+      },
+      "Title shot": {
+        "bouts": 168,
+        "wins": 68,
+        "winRate": 40.5
+      },
+      "Title defence 1": {
+        "bouts": 77,
+        "wins": 23,
+        "winRate": 29.9
+      },
+      "Title defence 2": {
+        "bouts": 28,
+        "wins": 9,
+        "winRate": 32.1
+      },
+      "Title defence 3": {
+        "bouts": 9,
+        "wins": 2,
+        "winRate": 22.2
+      }
+    },
     "decisionModel": "8 seconds per player decision, from the D1 round-3 time model"
   },
   "L2": {
@@ -64,33 +102,152 @@
       "options": [
         {
           "id": "jab",
-          "right": 3
+          "right": 2
         },
         {
           "id": "cross",
+          "right": 4
+        },
+        {
+          "id": "escape",
           "right": 3
         },
         {
-          "id": "hook",
-          "right": 2
-        },
-        {
           "id": "block",
-          "right": 2
+          "right": 1
         }
       ],
-      "pass": true
+      "pass": true,
+      "samples": [
+        {
+          "pos": "P",
+          "share": {
+            "K": 0.058823529411764705,
+            "P": 0.9411764705882353
+          },
+          "range": "P",
+          "ground": false,
+          "struck": true,
+          "held": false,
+          "behind": false
+        },
+        {
+          "pos": "K",
+          "share": {
+            "K": 1
+          },
+          "range": "K",
+          "ground": false,
+          "struck": false,
+          "held": false,
+          "behind": true
+        },
+        {
+          "pos": "P",
+          "share": {
+            "K": 0.0625,
+            "P": 0.875,
+            "B": 0.0625
+          },
+          "range": "P",
+          "ground": false,
+          "struck": false,
+          "held": false,
+          "behind": true
+        },
+        {
+          "pos": "P",
+          "share": {
+            "P": 1
+          },
+          "range": "P",
+          "ground": false,
+          "struck": false,
+          "held": true,
+          "behind": false
+        },
+        {
+          "pos": "P",
+          "share": {
+            "K": 0.14285714285714285,
+            "P": 0.8571428571428571
+          },
+          "range": "P",
+          "ground": false,
+          "struck": false,
+          "held": false,
+          "behind": false
+        },
+        {
+          "pos": "P",
+          "share": {
+            "K": 0.125,
+            "P": 0.875
+          },
+          "range": "P",
+          "ground": false,
+          "struck": false,
+          "held": true,
+          "behind": true
+        },
+        {
+          "pos": "P",
+          "share": {
+            "P": 1
+          },
+          "range": "P",
+          "ground": false,
+          "struck": false,
+          "held": false,
+          "behind": false
+        },
+        {
+          "pos": "P",
+          "share": {
+            "K": 0.07142857142857142,
+            "P": 0.9285714285714286
+          },
+          "range": "P",
+          "ground": false,
+          "struck": false,
+          "held": false,
+          "behind": false
+        },
+        {
+          "pos": "P",
+          "share": {
+            "K": 0.1111111111111111,
+            "P": 0.8888888888888888
+          },
+          "range": "P",
+          "ground": false,
+          "struck": false,
+          "held": true,
+          "behind": false
+        },
+        {
+          "pos": "K",
+          "share": {
+            "K": 1
+          },
+          "range": "K",
+          "ground": false,
+          "struck": false,
+          "held": true,
+          "behind": false
+        }
+      ]
     },
     "bjj": {
       "states": 10,
       "options": [
         {
           "id": "sweep",
-          "right": 3
+          "right": 5
         },
         {
           "id": "pass",
-          "right": 3
+          "right": 2
         },
         {
           "id": "triangle",
@@ -98,11 +255,131 @@
         },
         {
           "id": "escape",
-          "right": 2
+          "right": 1
         }
       ],
-      "pass": true
+      "pass": true,
+      "samples": [
+        {
+          "pos": "B",
+          "share": {
+            "B": 0.6666666666666666,
+            "T": 0.3333333333333333
+          },
+          "range": "B",
+          "ground": true,
+          "struck": false,
+          "held": false,
+          "behind": false
+        },
+        {
+          "pos": "B",
+          "share": {
+            "B": 0.6666666666666666,
+            "T": 0.3333333333333333
+          },
+          "range": "B",
+          "ground": true,
+          "struck": false,
+          "held": true,
+          "behind": false
+        },
+        {
+          "pos": "B",
+          "share": {
+            "B": 0.6,
+            "T": 0.4
+          },
+          "range": "B",
+          "ground": true,
+          "struck": true,
+          "held": false,
+          "behind": false
+        },
+        {
+          "pos": "B",
+          "share": {
+            "B": 0.6666666666666666,
+            "T": 0.3333333333333333
+          },
+          "range": "B",
+          "ground": true,
+          "struck": true,
+          "held": false,
+          "behind": true
+        },
+        {
+          "pos": "B",
+          "share": {
+            "B": 0.6666666666666666,
+            "T": 0.3333333333333333
+          },
+          "range": "B",
+          "ground": true,
+          "struck": true,
+          "held": false,
+          "behind": true
+        },
+        {
+          "pos": "B",
+          "share": {
+            "B": 1
+          },
+          "range": "B",
+          "ground": true,
+          "struck": false,
+          "held": false,
+          "behind": false
+        },
+        {
+          "pos": "B",
+          "share": {
+            "B": 1
+          },
+          "range": "B",
+          "ground": true,
+          "struck": false,
+          "held": false,
+          "behind": false
+        },
+        {
+          "pos": "B",
+          "share": {
+            "B": 0.5,
+            "T": 0.5
+          },
+          "range": "B",
+          "ground": true,
+          "struck": true,
+          "held": false,
+          "behind": false
+        },
+        {
+          "pos": "B",
+          "share": {
+            "B": 0.8571428571428571,
+            "T": 0.14285714285714285
+          },
+          "range": "B",
+          "ground": true,
+          "struck": false,
+          "held": false,
+          "behind": false
+        },
+        {
+          "pos": "T",
+          "share": {
+            "B": 0.3333333333333333,
+            "T": 0.6666666666666666
+          },
+          "range": "T",
+          "ground": true,
+          "struck": true,
+          "held": false,
+          "behind": false
+        }
+      ]
     }
   },
-  "runtimeSeconds": 1.6
-}\n
+  "runtimeSeconds": 7.7
+}
