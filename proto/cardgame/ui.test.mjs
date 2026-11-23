@@ -2,13 +2,13 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { CARDS, fighter, STYLES } from './cards.mjs';
-import { names, cardText, card, previewTraining } from './ui-text.mjs';
+import { names, cardText, card, previewTraining, esc, printedProblems } from './ui-text.mjs';
 import { TRAINING, RUNGS, TITLE_SHOT, CUT_AT_LOSSES, freshCareer, takesTitle, rivalFighter } from './career.mjs';
 import { install } from './uidom.mjs';
 
 const p = install();
 const ui = await import('./ui.js');
-const { state } = ui;
+const { state, copyPlayLog, oneCardFirstVolley } = ui;
 const enabled = (sel) => p.screen.querySelectorAll(sel).filter((b) => !b.disabled);
 const click = (sel) => { const b = p.screen.querySelector(sel); assert.ok(b, 'the page offers ' + sel); b.click(); return b; };
 function pick(style) { click('[data-style="' + style + '"]'); }
@@ -35,10 +35,13 @@ test('the two engine answers have words: the page used to die looking them up in
   assert.doesNotThrow(() => card('jab'));
 });
 
-test('the page links and renders the art pick', () => {
-  assert.match(p.where.textContent, /PICK YOUR ART/i);
+test('the page links and renders the art pick (round 7 opening: two fighters, two lines each)', () => {
+  assert.match(p.where.textContent, /PICK YOUR FIGHTER/i);
   assert.equal(p.screen.querySelectorAll('[data-style]').length, 2);
   assert.match(p.screen.innerHTML, /card ladder/i);
+  // the first-10-minutes script, minute 0:00: each fighter says where he wins and his one rule
+  assert.match(p.screen.innerHTML, /Where he wins:/); assert.match(p.screen.innerHTML, /His one rule:/);
+  assert.match(p.screen.innerHTML, /combinations/i); assert.match(p.screen.innerHTML, /the guard/i);
 });
 
 test('the page plays a whole bout and a ladder step by script', () => {
@@ -118,4 +121,65 @@ test('a rival is his art with better cards at every rung, and a club novice is t
   assert.notDeepEqual(decks[0], decks[1], 'the club novice is not the area fighter');
   assert.notDeepEqual(decks[2], decks[3], 'the national fighter is not the title shot');
   assert.ok(decks[6].some((id) => id.includes('+')), 'a title defence rival carries upgraded cards');
+});
+
+// ---- round 7: the PLAY gate (plan section 7) -----------------------------------------------
+
+test('the printed numbers equal the engine\'s: every card line, step line and training preview', () => {
+  const { checked, problems } = printedProblems();
+  assert.ok(checked >= 40, `checked ${checked} printed numbers`);
+  assert.deepEqual(problems, [], problems.join('\n'));
+});
+
+test('the play log has every decision with its seconds, the copy button returns it, and it ends where the player stopped', () => {
+  ui.reset(); pick('bjj');
+  assert.match(p.where.textContent, /TRAINING/);
+  click('#skip');
+  assert.match(p.screen.innerHTML, /End turn/);
+  playBout();
+  assert.ok(p.screen.querySelector('#copyLog'), 'the verdict offers the copy button');
+  p.screen.querySelector('#copyLog').click();
+  const text = state.lastLogText;
+  assert.ok(text && text.startsWith('FightCamp card ladder - play log'), 'the copy button put the log on the table');
+  assert.match(text, /\[pick\s*\] picked the BJJ man \(the guard\)/);
+  assert.match(text, /\[training\s*\] skipped training/);
+  assert.match(text, /\[bout\s*\] bout 1 starts: Club challenger, his first volley is one card/);
+  assert.match(text, /\[bout\s*\] the bout ended: /);
+  assert.match(text, /\[verdict\s*\] verdict: /);
+  // every line of the log carries its seconds and its phase
+  for (const line of text.split('\n').slice(1)) assert.match(line, /^\s*\d+(\.\d+)? s  \[\w+\s*\] /, line);
+  // where the player stopped is the last line
+  p.screen.querySelector('#newCareer').click();
+  assert.match(copyPlayLog(), /\[stopped\s*\] the player left the career \(New career\) at verdict/);
+});
+
+test('the first bout: the rival\'s first volley is one card, his later volleys are the full line', () => {
+  // the pure limit, tested directly: the pilot wants three cards, the player sees one, then the full line resumes
+  const base = { name: 'stub', answer: () => null, act: () => ['jab', 'cross', 'hook'] };
+  const flag = { on: true, full: null, declared: null };
+  const rival = oneCardFirstVolley(base, flag);
+  assert.deepEqual(rival.act(null, 1), ['jab'], 'the first volley is one card');
+  assert.equal(flag.full, 3, 'the pilot wanted his full line');
+  assert.equal(flag.declared, 1, 'one card was declared');
+  assert.deepEqual(rival.act(null, 1), ['jab', 'cross', 'hook'], 'his next volley is the full line');
+  assert.deepEqual(oneCardFirstVolley(base, { on: false, full: null, declared: null }).act(null, 1), ['jab', 'cross', 'hook'], 'a later bout is not limited');
+  // and on the page: in bout 1 the rival declares at most one card
+  ui.reset(); pick('boxing');
+  click('#skip');
+  playBout();
+  assert.ok(state.volleyFlag.full !== null, 'the rival threw his first volley in bout 1');
+  assert.ok(state.volleyFlag.declared <= 1, `the first volley is one card, not ${state.volleyFlag.declared}`);
+});
+
+test('the verdict says in one line why the bout ended, and the line matches the finish', () => {
+  for (const style of ['boxing', 'bjj']) {
+    ui.reset(); pick(style);
+    click('#skip');
+    playBout();
+    const r = state.result;
+    assert.ok(state.why, style + ': a why line');
+    const expect = { ko: /health reached 0/, lead: /ahead by \d+ points/, tap: /tapped out/, pin: /hold-down/, cards: /judges counted/, points: /judges counted/ }[r.how];
+    assert.match(state.why, expect, `${style} ${r.how}: ${state.why}`);
+    assert.ok(p.screen.innerHTML.includes(esc(state.why)), 'the why line is on the verdict screen');
+  }
 });

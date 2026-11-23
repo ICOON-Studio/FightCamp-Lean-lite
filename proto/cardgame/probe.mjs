@@ -1,18 +1,22 @@
 // CARDSCOPE5 probes. node probe.mjs <what> [per=N] [seed=S] [name=value ...]   what: matrix | p3 | p1 | p2 | p5 | p6 | p4 | p10 | r3 | all
+// The two gates of plan section 7 (round 7): node probe.mjs gate=play | gate=ship (protocol per=200 seed=500000000).
 // name=value resizes one number for one run: a key of N (hp=44), a card (cross.dmg=6) or an AI weight (W.pos=2).
 import fs from 'node:fs';
 import { CARDS, N, STYLES, fighter, CHEAP, size } from './cards.mjs';
 import { bout, clone, startAct, answerOptions } from './engine.mjs';
 import { aiPilot, impatient, scripted, W0 } from './plan.mjs';
+import { printedProblems } from './ui-text.mjs';
+import { simulateLadder, measureTraining } from './career.mjs';
 
-const args = process.argv.slice(2), what = args[0] || 'matrix', kv = {};
-for (const a of args.slice(1)) {
+const args = process.argv.slice(2), gateArg = args.find((a) => /^gate=(play|ship)$/.test(a)) || '';
+const what = gateArg ? 'gate' : args[0] || 'matrix', kv = {};
+for (const a of args.filter((x) => x !== what)) {
   const [k, v] = a.split('='), num = isNaN(+v) ? v : +v;
   if (k === 'per' || k === 'seed' || k === 'tag') kv[k] = num;
   else if (k.startsWith('W.')) W0[k.slice(2)] = num;
   else size(k, num);
 }
-const per = kv.per || 40, seed0 = kv.seed || 300000, out = {}, lines = [];
+let per = kv.per || 40, seed0 = kv.seed || 300000; const out = {}, lines = [];
 const say = (s) => { lines.push(s); console.log(s); };
 const pct = (x) => (100 * x).toFixed(1);
 const PAIRS = []; for (let i = 0; i < STYLES.length; i++) for (let j = i + 1; j < STYLES.length; j++) PAIRS.push([STYLES[i], STYLES[j]]);
@@ -140,7 +144,113 @@ const P = {
     out.r3.cardShare = pass / n; say(`R-B6 cards with a matchup (top three against one style, bottom half against another): ${pass} of ${n} = ${pct(pass / n)}`);
   },
 };
+// ---- the two gates of plan section 7 (round 7): the PLAY gate the owner plays, the SHIP gate the
+// critics and the next art pass. P1 and L2 are measured on the slice (boxing v BJJ, real ladder states
+// from simulateLadder) - never on arts or states that are not in the build.
+let gateResult = null;
+function gateTable(name, rows, pass, note) {
+  const w = (s, n) => { s = String(s); return s.length > n ? s.slice(0, n - 1) + '…' : s.padEnd(n); };
+  const wrap = (s, n) => { const out = []; while (s.length > n) { let i = s.lastIndexOf(' ', n); if (i < n / 2) i = n; out.push(s.slice(0, i)); s = s.slice(i).trimStart(); } out.push(s); return out; };
+  say('');
+  say(`${name} GATE - plan section 7. ${note}`);
+  say(`${w('#', 3)}${w('bar', 62)}${w('measured', 58)}result`);
+  for (const [i, r] of rows.entries()) {
+    const bar = wrap(r.bar, 62), mes = wrap(r.measured, 58);
+    const n = Math.max(bar.length, mes.length);
+    for (let j = 0; j < n; j++) say(`${w(j === 0 ? i + 1 : '', 3)}${w(bar[j] || '', 62)}${w(mes[j] || '', 58)}${j === 0 ? (r.pass ? 'PASS' : 'FAIL') : ''}`);
+  }
+  say(`${name} GATE: ${pass ? 'PASS' : 'FAIL'} (${rows.filter((r) => r.pass).length}/${rows.length})`);
+}
+P.gate = async function () {
+  per = kv.per || 200; seed0 = kv.seed || 500000000; // the round-6b protocol, so the rows stay comparable
+  const N0 = { ...N }, lineStart = lines.length, rows = [];
+  const row = (bar, measured, pass) => rows.push({ bar, measured, pass: !!pass });
+  // 1-2 the page's module graph links under the stub document, and a scripted player finishes one bout and
+  // one ladder step through the page's own calls (a broken import or a crash fails the gate here)
+  try {
+    const { install } = await import('./uidom.mjs');
+    const p = install();
+    const ui = await import('./ui.js');
+    const screen = p.screen;
+    const enabled = (sel) => screen.querySelectorAll(sel).filter((b) => !b.disabled);
+    const click = (sel) => { const b = screen.querySelector(sel); if (!b) throw new Error('the page offers no ' + sel); b.click(); };
+    click('[data-style="boxing"]');
+    click('#skip');
+    let guard = 0;
+    while (!screen.querySelector('#trainNext')) {
+      if (guard++ > 4000) throw new Error('the bout never reached a verdict');
+      const b = ['[data-answer]', '[data-card]', '[data-floor]'].map((sel) => enabled(sel)[0]).find(Boolean);
+      if (b) { b.click(); continue; }
+      const end = screen.querySelector('#endTurn');
+      if (end && !end.disabled) { end.click(); continue; }
+      throw new Error('the page is stuck with nothing to click');
+    }
+    const how = ui.state.result.how;
+    click('#trainNext');
+    click('#skip');
+    if (!screen.querySelector('#endTurn')) throw new Error('the ladder step did not reach the next bout');
+    row('the page\'s module graph links (a broken import fails the test)', 'ui.js linked under the stub document', true);
+    row('a scripted player finishes a bout and a ladder step through the page\'s own calls', `1 bout to a verdict (by ${how}); then verdict, training, the next bout on the table`, true);
+  } catch (e) {
+    row('the page\'s module graph links (a broken import fails the test)', 'link failed: ' + e.message, false);
+    row('a scripted player finishes a bout and a ladder step through the page\'s own calls', 'not reached: ' + e.message, false);
+  }
+  // 3 the printed numbers equal the engine's
+  const pr = printedProblems();
+  row('the printed numbers equal the engine\'s', `${pr.checked} card lines, steps and previews checked; ${pr.problems.length} mismatches${pr.problems.length ? ': ' + pr.problems[0] : ''}`, !pr.problems.length);
+  // 4-5 D1 and the pairing, on the slice, both seats
+  const rA = play(fighter('boxing'), fighter('bjj'), AI, AI, per);
+  const rB = play(fighter('bjj'), fighter('boxing'), AI, AI, per);
+  const s = shape(add(add({}, rA), rB));
+  const share = (rA.win + (rB.n - rB.win)) / (rA.n + rB.n); // the folded boxing share
+  row('D1: 22.5-45 decisions a bout, 95% under 52', `${s.dec.toFixed(1)} decisions; 95th percentile ${s.dec95}`, s.dec >= 22.5 && s.dec <= 45 && s.dec95 < 52);
+  row('every pairing inside 40-60', `boxing v bjj: boxing ${pct(share)} / bjj ${pct(1 - share)}`, share >= 0.4 && share <= 0.6);
+  // 6 no crash in 1,000 bot bouts
+  let crashed = 0, firstErr = '';
+  for (let i = 0; i < 1000; i++) {
+    try { bout(fighter(i % 2 ? 'bjj' : 'boxing'), fighter(i % 2 ? 'boxing' : 'bjj'), [AI, AI], 900000000 + i * 61); }
+    catch (e) { if (!crashed) firstErr = e.message; crashed++; }
+  }
+  row('no crash in 1,000 bot bouts', `${1000 - crashed} of 1000 clean${crashed ? '; first: ' + firstErr : ''}`, !crashed);
+  const playRows = rows.slice();
+  const playPass = playRows.every((r) => r.pass);
+  gateTable('PLAY', playRows, playPass, 'the owner may open the build when every row is PASS');
+  if (gateArg !== 'gate=ship') { Object.assign(N, N0); gateResult = { tag: 'play', pass: playPass, lineStart, payload: { config: { per, seed: seed0, mode: N.mode }, play: { rows: playRows, pass: playPass } } }; writeGate(); return; }
+  // ---- SHIP: PLAY, plus the full sheet, measured on the slice --------------------------------------
+  say('');
+  say('SHIP GATE - the full sheet (plan section 7): the critics, the next art and outside players');
+  P.p2(); P.p5(); P.p6(); P.p10();
+  const c = out.p2['c + the hold'];
+  const blinds = [['health', out.p2['blind health'].meanLoss], ['points', out.p2['blind points'].meanLoss], ['hold', out.p2['blind the hold'].meanLoss]];
+  row('P2: each way to win ends 15%+; early 40-70%; a pilot blind to any one loses 5+', `KO ${pct(c.ko)} lead ${pct(c.lead)} tap ${pct(c.tap)} pin ${pct(c.pin)}; early ${pct(c.early)}; blind health ${pct(blinds[0][1])} points ${pct(blinds[1][1])} hold ${pct(blinds[2][1])}`, c.ko >= .15 && c.lead >= .15 && c.tap + c.pin >= .15 && c.early >= .4 && c.early <= .7 && blinds.every(([, v]) => v >= 5));
+  row('P1 (slice, boxing v BJJ): 3+ ranges >=80%, neither wins >60%, <=37.5 decisions', `3+ ranges ${pct(s.vis3)}%; boxing ${pct(share)} / bjj ${pct(1 - share)}; ${s.dec.toFixed(1)} decisions`, s.vis3 >= .8 && share >= .4 && share <= .6 && s.dec <= 37.5);
+  row('P4: pairing 40-60%; each art\'s average 47-53', `boxing v bjj ${pct(share)}; averages boxing ${pct(share)} / bjj ${pct(1 - share)}`, share >= .4 && share <= .6 && share >= .47 && share <= .53 && 1 - share >= .47 && 1 - share <= .53);
+  const p5 = out.p5;
+  row('P5: the hold is a readable race (printed answer 100%; ends 15-30% of ground bouts; 20-80% of holds finish)', `printed answer ${pct(p5.same)}; ends ${pct(p5.s.holdEnds)}; finish ${pct(p5.s.holdFinish)}`, p5.same === 1 && p5.s.holdEnds >= .15 && p5.s.holdEnds <= .3 && p5.s.holdFinish >= .2 && p5.s.holdFinish <= .8);
+  const p6 = out.p6;
+  row('P6: each art plays differently (mechanic off changes >50% of its turns; blind judge >=90%)', STYLES.map((t) => `${t} ${pct(p6.diff[t])}`).join(' / ') + `; judge ${pct(p6.judgeAll)}`, STYLES.every((t) => p6.diff[t] > .5) && p6.judgeAll >= .9);
+  const p10 = out.p10;
+  row('P10: the pilot flies every deck (AI no more than 5 points below the scripted)', STYLES.map((t) => `${t}: AI ${pct(p10.ai[t])} / scripted ${pct(p10.scripted[t])}`).join(' ; '), STYLES.every((t) => p10.ai[t] - p10.scripted[t] >= -0.05));
+  const l1 = simulateLadder(100, 600000000, 80);
+  row('L1: 30-70 titles in 100 (model minutes shown)', `${l1.titleWins}/100 titles; ${l1.meanMinutes.toFixed(1)} modelled minutes a run (8 s a player decision)`, l1.titleWins >= 30 && l1.titleWins <= 70);
+  const l2 = STYLES.map((t) => ({ t, m: measureTraining(t) }));
+  row('L2: every training option best in 1-6 of ten real ladder states (from simulateLadder)', l2.map(({ t, m }) => `${t} ${m.options.map((o) => o.right).join('/')}`).join(' ; '), l2.every(({ m }) => m.pass));
+  row('the beginner at 25-40% (the impatient line against the AI, per art)', STYLES.map((t) => `${t} ${pct(p10.impatient[t])}`).join(' ; '), STYLES.every((t) => p10.impatient[t] >= .25 && p10.impatient[t] <= .4));
+  const shipRows = rows.slice();
+  const shipPass = shipRows.every((r) => r.pass);
+  gateTable('SHIP', shipRows, shipPass, 'PLAY, plus the full bar sheet; the critics and the next art pass the build when every row is PASS');
+  Object.assign(N, N0);
+  gateResult = { tag: 'ship', pass: shipPass, lineStart, payload: { config: { per, seed: seed0, mode: N.mode }, play: { rows: playRows, pass: playPass }, ship: { rows: shipRows, pass: shipPass, l1: { titles: l1.titleWins, minutes: +l1.meanMinutes.toFixed(1), bouts: +l1.meanBouts.toFixed(1) }, l2: Object.fromEntries(l2.map(({ t, m }) => [t, m.options.map((o) => o.right)])), blindLoss: Object.fromEntries(blinds), p2hold: { ko: c.ko, lead: c.lead, tap: c.tap, pin: c.pin, early: c.early }, beginner: p10.impatient } } };
+  writeGate();
+};
+function writeGate() {
+  fs.mkdirSync(new URL('./out/', import.meta.url), { recursive: true });
+  fs.writeFileSync(new URL(`./out/gate-${gateResult.tag}.txt`, import.meta.url), lines.slice(gateResult.lineStart).join('\n') + '\n');
+  fs.writeFileSync(new URL(`./out/gate-${gateResult.tag}.json`, import.meta.url), JSON.stringify(gateResult.payload, null, 1));
+}
+
 const order = what === 'all' ? ['p1', 'p2', 'p5', 'p6', 'p4', 'p10', 'r3'] : [what];
 const t0 = Date.now();
-for (const w of order) { P[w](); say(`   [${w}: ${((Date.now() - t0) / 1000).toFixed(0)} s, per=${per}, seed=${seed0}, mode=${N.mode}]`); }
+for (const w of order) { await P[w](); say(`   [${w}: ${((Date.now() - t0) / 1000).toFixed(0)} s, per=${per}, seed=${seed0}, mode=${N.mode}]`); }
 if (kv.tag) { fs.mkdirSync(new URL('./out/', import.meta.url), { recursive: true }); fs.writeFileSync(new URL(`./out/${kv.tag}.json`, import.meta.url), JSON.stringify(out, (k, v) => (k === 'decs' || k === 'logs' ? undefined : v), 1)); fs.writeFileSync(new URL(`./out/${kv.tag}.txt`, import.meta.url), lines.join('\n') + '\n'); }
+if (what === 'gate') { process.exitCode = gateResult.pass ? 0 : 1; }

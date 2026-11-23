@@ -1,6 +1,7 @@
 // The page's words. Pure: no document, no game state, so node can import this module and a broken import fails the
 // test. Every line the player reads about a card is built here, from the same CARDS the engine plays.
-import { CARDS, N, FLOOR } from './cards.mjs';
+import { CARDS, N, FLOOR, STYLES } from './cards.mjs';
+import { TRAINING, cardVariant } from './career.mjs';
 
 export const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 const RANGE = { K: 'KICK', P: 'PUNCH', C: 'CLINCH', G: 'GROUND', T: 'TOP', B: 'GUARD' };
@@ -42,4 +43,34 @@ export function previewTraining(option) {
   if (c.k === 'hold') return `Preview: ${cardText(option.id)}; trained version shortens the hold countdown by one.`;
   if (c.pts) return `Preview: ${cardText(option.id)}; trained version scores ${c.pts + 1} points.`;
   return `Preview: ${cardText(option.id)}; trained version costs ${Math.max(0, c.w - 1)} wind.`;
+}
+// The PLAY gate row "the printed numbers equal the engine's" (plan section 7): every number a card line, a step
+// line or a training preview prints must be the engine's own number for that card. Returns { checked, problems };
+// empty problems = the table shows the rules as they play.
+export function printedProblems() {
+  const problems = []; let checked = 0;
+  const has = (t, frag, what) => { checked++; if (!t.includes(frag)) problems.push(`${what}: the line is "${t}" but the engine says "${frag}"`); };
+  for (const id of Object.keys(CARDS)) {
+    const c = CARDS[id];
+    if (!['boxing', 'bjj', 'core'].includes(c.st)) continue;
+    const t = cardText(id);
+    has(t, `${c.w} wind`, `${id} wind`);
+    if (c.k === 'strike') { has(t, `${c.dmg} damage`, `${id} damage`); if (c.pts) has(t, `${c.pts} point`, `${id} points`); }
+    else if (c.k === 'shot') { has(t, `rung ${c.to}`, `${id} the rung`); has(t, `${c.pts} point`, `${id} points`); if (c.dmg) has(t, `${c.dmg} damage`, `${id} damage`); }
+    else if (c.k === 'hold') { has(t, `countdown ${c.count}`, `${id} the countdown`); if (c.brk) has(t, `break at ${c.brk}`, `${id} the break price`); }
+    else if (c.k === 'adv') has(t, `${c.pts} point`, `${id} points`);
+    else if (c.k === 'ans' && c.fx === 'block') has(t, `${c.guard || N.block} off`, `${id} the block`);
+  }
+  for (const id of ['@in', '@out', '@stand', '@up', '@pull']) has(cardText(id), FLOOR[id], `${id} the step name`);
+  has(cardText('@cover'), `lands for ${N.cover} less`, '@cover the cover number');
+  for (const s of STYLES) for (const o of TRAINING[s]) {
+    const c = CARDS[o.id], v = CARDS[cardVariant(o.id, 1)], t = previewTraining(o);
+    if (c.k === 'strike') has(t, `${c.dmg} damage`, `${o.id} the preview keeps the base damage`);
+    else has(t, cardText(o.id), `${o.id} the preview keeps the base line`);
+    if (c.k === 'strike') has(t, `${v.dmg} damage`, `${o.id} the trained damage`);
+    else if (c.fx === 'block') has(t, `${v.guard} damage`, `${o.id} the trained block`);
+    else if (c.pts) has(t, `${v.pts} point`, `${o.id} the trained points`);
+    else if (c.k !== 'hold') has(t, `${v.w} wind`, `${o.id} the trained wind`);
+  }
+  return { checked, problems };
 }

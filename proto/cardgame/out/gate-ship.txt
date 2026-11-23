@@ -1,0 +1,57 @@
+
+PLAY GATE - plan section 7. the owner may open the build when every row is PASS
+#  bar                                                           measured                                                  result
+1  the page's module graph links (a broken import fails the test)ui.js linked under the stub document                      PASS
+2  a scripted player finishes a bout and a ladder step through   1 bout to a verdict (by ko); then verdict, training, the  PASS
+   the page's own calls                                          next bout on the table                                    
+3  the printed numbers equal the engine's                        58 card lines, steps and previews checked; 0 mismatches   PASS
+4  D1: 22.5-45 decisions a bout, 95% under 52                    30.7 decisions; 95th percentile 48                        PASS
+5  every pairing inside 40-60                                    boxing v bjj: boxing 50.2 / bjj 49.8                      PASS
+6  no crash in 1,000 bot bouts                                   1000 of 1000 clean                                        PASS
+PLAY GATE: PASS (6/6)
+
+SHIP GATE - the full sheet (plan section 7): the critics, the next art and outside players
+P2 a health only    ends: KO 47.0 lead 0.0 tap 0.0 pin 0.0 cards 53.0 | early 47.0 | 3+ ranges 100.0 ground 100.0 | decisions 41.7 (95%: 48) choices 2.8 max 8 | s/turn 9.8 | holds back 24.7 quiet 0.1 | holds on 0.00/bout finish 0.0 end 0.0 of ground bouts
+P2 b + points lead  ends: KO 34.0 lead 22.0 tap 0.0 pin 0.0 cards 44.0 | early 56.0 | 3+ ranges 94.3 ground 100.0 | decisions 37.7 (95%: 48) choices 2.8 max 8 | s/turn 9.7 | holds back 24.5 quiet 0.1 | holds on 0.00/bout finish 0.0 end 0.0 of ground bouts
+P2 c + the hold     ends: KO 18.0 lead 16.0 tap 25.0 pin 0.0 cards 41.0 | early 59.0 | 3+ ranges 81.3 ground 100.0 | decisions 30.7 (95%: 48) choices 2.8 max 8 | s/turn 9.7 | holds back 22.8 quiet 1.2 | holds on 0.46/bout finish 54.6 end 25.0 of ground bouts
+P2 AI blind to health: boxing 1.3 (full AI 47.5, loss 46.3), bjj 55.8 (full AI 52.5, loss -3.3) | mean loss 21.5 (5+ = the bar)
+P2 AI blind to points: boxing 49.3 (full AI 47.5, loss -1.7), bjj 53.8 (full AI 52.5, loss -1.3) | mean loss -1.5 (5+ = the bar)
+P2 AI blind to the hold: boxing 50.7 (full AI 47.5, loss -3.2), bjj 36.5 (full AI 52.5, loss 16.0) | mean loss 6.4 (5+ = the bar)
+P5 visible race: AI answer = the printed rule in 100.0 of 119 held turns | a hold ends 27.0 of bouts that reach the ground | 47.6 of holds that go on finish | 0.57 holds a bout
+P5 hidden roll (p=47.6): a hold ends 19.3 of ground bouts | AI over impatient 71.5 (visible race: 77.0)
+P6 boxing     the turn changes with the mechanic off in 46.5 of 861 turns
+P6 bjj        the turn changes with the mechanic off in 100.0 of 892 turns
+P6 blind judge (each action under the range it is laid at; a kick is its own kind) names the style from 10 turns: 90.5 (boxing 81.0, bjj 100.0)
+P6 blind judge (each action under the range it is laid at; a kick and a punch one kind) names the style from 10 turns: 90.5 (boxing 81.0, bjj 100.0)
+P6 blind judge (round 4 instrument: every action filed under the range the turn began at, a kick and a punch one kind) names the style from 10 turns: 90.5 (boxing 81.0, bjj 100.0)
+P10 boxing     AI 47.5 | scripted 59.0 | impatient 49.5  (each against the AI pilot flying the other included art)
+P10 bjj        AI 49.5 | scripted 38.5 | impatient 0.0  (each against the AI pilot flying the other included art)
+R-C11 the impatient line with a style deck against the AI pilot: 24.8
+
+SHIP GATE - plan section 7. PLAY, plus the full bar sheet; the critics and the next art pass the build when every row is PASS
+#  bar                                                           measured                                                  result
+1  the page's module graph links (a broken import fails the test)ui.js linked under the stub document                      PASS
+2  a scripted player finishes a bout and a ladder step through   1 bout to a verdict (by ko); then verdict, training, the  PASS
+   the page's own calls                                          next bout on the table                                    
+3  the printed numbers equal the engine's                        58 card lines, steps and previews checked; 0 mismatches   PASS
+4  D1: 22.5-45 decisions a bout, 95% under 52                    30.7 decisions; 95th percentile 48                        PASS
+5  every pairing inside 40-60                                    boxing v bjj: boxing 50.2 / bjj 49.8                      PASS
+6  no crash in 1,000 bot bouts                                   1000 of 1000 clean                                        PASS
+7  P2: each way to win ends 15%+; early 40-70%; a pilot blind to KO 18.0 lead 16.0 tap 25.0 pin 0.0; early 59.0; blind     FAIL
+   any one loses 5+                                              health 21.5 points -1.5 hold 6.4                          
+8  P1 (slice, boxing v BJJ): 3+ ranges >=80%, neither wins >60%, 3+ ranges 84.8%; boxing 50.2 / bjj 49.8; 30.7 decisions   PASS
+   <=37.5 decisions                                                                                                        
+9  P4: pairing 40-60%; each art's average 47-53                  boxing v bjj 50.2; averages boxing 50.2 / bjj 49.8        PASS
+10 P5: the hold is a readable race (printed answer 100%; ends    printed answer 100.0; ends 27.0; finish 47.6              PASS
+   15-30% of ground bouts; 20-80% of holds finish)                                                                         
+11 P6: each art plays differently (mechanic off changes >50% of  boxing 46.5 / bjj 100.0; judge 90.5                       FAIL
+   its turns; blind judge >=90%)                                                                                           
+12 P10: the pilot flies every deck (AI no more than 5 points     boxing: AI 47.5 / scripted 59.0 ; bjj: AI 49.5 / scripted FAIL
+   below the scripted)                                           38.5                                                      
+13 L1: 30-70 titles in 100 (model minutes shown)                 48/100 titles; 31.0 modelled minutes a run (8 s a player  PASS
+                                                                 decision)                                                 
+14 L2: every training option best in 1-6 of ten real ladder      boxing 2/4/3/1 ; bjj 5/2/2/1                              PASS
+   states (from simulateLadder)                                                                                            
+15 the beginner at 25-40% (the impatient line against the AI, perboxing 49.5 ; bjj 0.0                                     FAIL
+   art)                                                                                                                    
+SHIP GATE: FAIL (11/15)
