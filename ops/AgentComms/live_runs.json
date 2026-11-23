@@ -22,16 +22,6 @@
    "eta": "about 2 h",
    "note": "S540"
   },
-  "KNOWSTAKES8": {
-   "id": "KNOWSTAKES8",
-   "status": "running",
-   "started": "2026-11-23T11:40",
-   "title": "Knowledge v8: play to 8",
-   "seat": "claude",
-   "agent": "claude-opus-5-5 (Code Mode tab c3)",
-   "eta": "about 1.5 h",
-   "note": "S540"
-  },
   "CARDSCOPE6": {
    "id": "CARDSCOPE6",
    "status": "running",
@@ -74,11 +64,11 @@
   },
   "PICS2D2": {
    "id": "PICS2D2",
-   "status": "queued",
-   "started": "",
+   "status": "running",
+   "started": "2026-11-23T12:50",
    "title": "2D pictures: the full boxing set as a second view (Q-310)",
    "seat": "claude",
-   "agent": "claude-opus-5-5 (next free Code Mode tab)",
+   "agent": "claude-opus-5-5 (Code Mode tab c8)",
    "eta": "1.5-2 days",
    "note": "S540, starts when a tab frees"
   }

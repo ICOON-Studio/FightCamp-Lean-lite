@@ -24324,6 +24324,17 @@
    "eta": "about 1 h",
    "note": "6/6/6, 5623b7b0a -> TURNPRO16",
    "landed": "2026-11-23T11:42"
+  },
+  {
+   "id": "KNOWSTAKES8",
+   "status": "landed",
+   "started": "2026-11-23T11:40",
+   "title": "Knowledge v8: play to 8",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (Code Mode tab c3)",
+   "eta": "about 1.5 h",
+   "note": "v8 809cae63a; critics Kalli SQ307, Dola SQ308",
+   "landed": "2026-11-23T11:56"
   }
  ]
 }
