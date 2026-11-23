@@ -6,6 +6,7 @@ const DEBUT_NOTE := "First pro round done. Smaller gloves hurt more: keep your h
 const RoundGraphics := preload("res://scripts/ui/RoundGraphics.gd")
 const Broadcast := preload("res://scripts/ui/Broadcast.gd")
 const UI := preload("res://scripts/ui/UI.gd")
+const PlanReadShow := preload("res://scripts/rules/PlanReadShow.gd")   # S539 PLANREADSHOW1
 const TowelStrip := preload("res://scripts/ui/TowelStrip.gd")
 const CrackStrip := preload("res://scripts/ui/CrackStrip.gd")
 const CrackWire := preload("res://scripts/state/CrackWire.gd")
@@ -123,6 +124,10 @@ func _live(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 		v.add_child(UI.label(str(last["clinch_line"]), 18, UI.AMBER if bool((last.get("clinch", {}) as Dictionary).get("hit", false)) else UI.MUTED, "body", true))
 	if str(last.get("habit_line", "")) != "":
 		v.add_child(UI.label(str(last["habit_line"]), 18, UI.AMBER, "body", true))
+	if str(last.get("read_line", "")) != "":   # S539 PLANREADSHOW1: the opponent has read her answer
+		var rl := UI.label(str(last["read_line"]), 18, UI.AMBER, "body", true)
+		rl.tooltip_text = PlanReadShow.TIP_BITE % PlanReadShow.PlanRead.FREE_USES
+		v.add_child(rl)
 	if str(last.get("perk_line", "")) != "":   # S355 a perk at work (PerkFight)
 		v.add_child(UI.label(str(last["perk_line"]), 18, UI.GREEN, "body", true))
 	v.add_child(UI.caps("WHAT YOU SEE"))

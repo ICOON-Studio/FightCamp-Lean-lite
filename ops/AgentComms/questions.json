@@ -8748,6 +8748,41 @@
       "answered_at": "2026-11-22T20:57:28Z",
       "seen_by_claude": true,
       "comment_only": false
+    },
+    {
+      "id": "Q-S294-305",
+      "asked": "2026-11-22T23:23:52.468829+00:00",
+      "session": "S294",
+      "text": "Prospects: a rival gym signs them in 1-3 weeks unless you decide?",
+      "options": [
+        "Yes, add the deadline",
+        "No deadline"
+      ],
+      "attach": [
+        "research/CRITIC_KNOW_STAKES1_V6_BRIEF_KALLI.md"
+      ],
+      "answer": "Yes, add the deadline",
+      "note": null,
+      "answered_at": "2026-11-22T23:28:22Z",
+      "seen_by_claude": true,
+      "comment_only": false
+    },
+    {
+      "id": "Q-S294-306",
+      "asked": "2026-11-23T01:25:19.545883+00:00",
+      "session": "S294",
+      "text": "Repeated-combo penalty fires 3 times in 600 bouts. Make repeats cost more?",
+      "options": [
+        "Yes, make it bite",
+        "No, keep it rare"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-306_0_PLANREADSHOW1_RESULT.md"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
     }
   ]
 }

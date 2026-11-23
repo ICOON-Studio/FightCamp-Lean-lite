@@ -117,6 +117,6 @@ static func _ko_days() -> int:
 
 ## Wait words: when the sheet hasn't sent a name yet. Reads every number from the game's constants.
 static func wait_words() -> String:
-	var cost: int = absi(int(FighterProfile.MORALE_EVENTS.get("month_no_fight", 0)))
-	return "Wait for the sheet: likely in %d to %d weeks, date unknown. A month without a fight costs %d morale." % [
-		AmateurBooking.LEAD_WEEKS_MIN, AmateurBooking.LEAD_WEEKS_MAX, cost]
+	# S539 HOSTPROBE1 + TURNPRO15 step 0: the morale sentence went - nothing applies month_no_fight (no false promise on screen).
+	return "Wait for the sheet: likely in %d to %d weeks, date unknown." % [
+		AmateurBooking.LEAD_WEEKS_MIN, AmateurBooking.LEAD_WEEKS_MAX]

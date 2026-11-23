@@ -310,9 +310,8 @@ func _check_trade_stopped() -> void:
 ## Wait words: reads every number from the game's constants.
 func _check_wait_words() -> void:
 	var w := AskDates.wait_words()
-	var want := "Wait for the sheet: likely in %d to %d weeks, date unknown. A month without a fight costs %d morale." % [
-		AmateurBooking.LEAD_WEEKS_MIN, AmateurBooking.LEAD_WEEKS_MAX,
-		absi(int(FighterProfile.MORALE_EVENTS.get("month_no_fight", 0)))]
+	var want := "Wait for the sheet: likely in %d to %d weeks, date unknown." % [
+		AmateurBooking.LEAD_WEEKS_MIN, AmateurBooking.LEAD_WEEKS_MAX]
 	_check(w == want, "wait_words() '%s', want '%s'" % [w, want])
 
 

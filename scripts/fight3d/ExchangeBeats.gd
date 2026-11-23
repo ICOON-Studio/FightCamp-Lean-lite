@@ -107,6 +107,8 @@ static func build(x: Dictionary, k: int, r: Dictionary, ctx: Dictionary) -> Arra
 		out.append({"t": at + Exchanges.EX_SECONDS - 6.0, "who": "a", "move": "say", "result": "none", "caption": str(x["habit_line"]), "secs": 1.5})   # S525 coach: the habit line holds 1.5 s
 	elif str(x.get("perk_line", "")) != "":   # S355 Counter sense: the free counter gets its caption
 		out.append({"t": at + Exchanges.EX_SECONDS - 6.0, "who": "a", "move": "say", "result": "none", "caption": str(x["perk_line"])})
+	if str(x.get("read_line", "")) != "":   # S539 PLANREADSHOW1: the opponent has read her answer (after the habit line's 1.5 s)
+		out.append({"t": at + Exchanges.EX_SECONDS - 4.5, "who": "a", "move": "say", "result": "none", "caption": str(x["read_line"]), "secs": 1.5})
 	out.append(Bubbles.mark({"t": at + Exchanges.EX_SECONDS - VERDICT_LEAD_S, "who": "a", "move": "say", "result": "none", "caption": str(x["verdict"])}, "coach", x, ctx))
 	out.sort_custom(func(a, b): return float(a["t"]) < float(b["t"]))
 	return out

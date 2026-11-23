@@ -196,7 +196,7 @@ static func learn_line(step: String, style: String, mastery: float, grade_word: 
 	if w > 0.05:
 		return "Worth about +%.1f in 100 against a %s%s" % [w, low, once]
 	if w < -0.05:
-		return "Walks into it against a %s: about %.1f in 100%s" % [low, w, once]
+		return "A bad answer against a %s: about %.1f in 100%s" % [low, w, once]
 	return "Little use against a %s%s" % [low, once]
 
 

@@ -146,7 +146,7 @@ static func film_tag(gp, row: Control, when: String, i: int) -> void:
 	ch.name = "Film_%d" % i
 	ch.mouse_filter = Control.MOUSE_FILTER_PASS
 	ch.tooltip_text = "From the film: %s. " % str(e.get("words", "")) + {
-		"confirmed": "The ring confirmed it: this line can rate Beats it.",
+		"confirmed": "The ring confirmed it: this line can grade Strong.",
 		"cleared": "The ring showed it was not there: this line answers nothing. Change it."}.get(st,
 		"%d%% sure until the ring sees it, so this line rates Works at best." % int(e.get("pct", 0)))
 	row.add_child(ch)

@@ -1,0 +1,59 @@
+extends RefCounted
+## S539 PLANREADSHOW1 (owner Q-S294-301, repeated combos get read): the rule is PlanRead.ADJUST (S396 "opponents adjust"); this
+## file only SAYS it - no number here changes a fight. Words are game words and carry no names (names only in headers).
+##   cut_pct(keep) -> int   feed_line(move_name) -> String   bite_text(bite) -> String   bites(rounds) -> Dictionary
+##   lean_move(arrows) -> String
+
+const PlanRead := preload("res://scripts/rules/PlanRead.gd")
+const StrikeMap := preload("res://scripts/rules/StrikeMap.gd")
+
+const TIP_BITE := "A right answer that keeps paying gets read: after %d uses in a round the opponent has it, and each further use pays 30%% less of its edge until the bell. To get it back: give the same moment a second answer, or drill the line sharper so its edge still pays when it is read."
+const TIP_LEAN := "One answer covers most of the moments you expect. An opponent who sees it work again and again starts to read it, and it pays 30%% less on every use after the first %d in a round. Give one of those moments a different answer."
+const LEAN_WORDS := "Leans on one answer: an opponent adjusts after two uses a round"
+
+
+## The percent of the edge a read took away (0 when nothing bit).
+static func cut_pct(keep: float) -> int:
+	return int(round((1.0 - keep) * 100.0)) if keep < 1.0 else 0
+
+
+## The live fight's line on the first bite of a round.
+static func feed_line(move_name: String) -> String:
+	return "They have your %s now: it pays less this round." % move_name
+
+
+## The record a bite leaves on its exchange (read only - the fight has already settled).
+static func bite(move: String, uses_before: int, keep: float, round_n: int) -> Dictionary:
+	return {"move": move, "uses": uses_before, "cut": cut_pct(keep), "round": round_n}
+
+
+static func bite_text(b: Dictionary) -> String:
+	return "read after %d uses in round %d: paid %d%% less" % [int(b["uses"]), int(b["round"]), int(b["cut"])]
+
+
+## The first bite of each plan answer over the bout: {move: bite}.
+static func bites(rounds: Array) -> Dictionary:
+	var out := {}
+	for r in rounds:
+		for x in (r as Dictionary).get("exchanges", []):
+			var b: Dictionary = (x as Dictionary).get("read_adj", {})
+			if not b.is_empty() and not out.has(str(b["move"])):
+				out[str(b["move"])] = b
+	return out
+
+
+## The one answer that covers most of the plan's lines (three lines or more, over half of them), or "".
+static func lean_move(arrows: Array) -> String:
+	var n := {}
+	for a in arrows:
+		var mv := str((a as Dictionary).get("move", ""))
+		if mv != "":
+			n[mv] = int(n.get(mv, 0)) + 1
+	for mv in n:
+		if int(n[mv]) >= 3 and int(n[mv]) * 2 > arrows.size():
+			return str(mv)
+	return ""
+
+
+static func move_name(id: String) -> String:
+	return str(StrikeMap.move(id).get("name", id))

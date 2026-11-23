@@ -12,6 +12,7 @@ extends "res://scripts/ui/GamePlan.gd"
 
 const PlanAuto := preload("res://scripts/rules/PlanAuto.gd")   # the plans the chart writes (coach, last bout)
 const Shapes := preload("res://scripts/ui/PlanChartShapes.gd")   # the wires and the diamond
+const PlanReadShow := preload("res://scripts/rules/PlanReadShow.gd")   # S539 PLANREADSHOW1: the lean chip
 
 const COL_L := 380.0
 const COL_R := 320.0
@@ -51,6 +52,12 @@ func _build() -> void:
 		_bouts[str(r["move"])] = r
 	var top := UI.hbox(10)
 	top.add_child(_buttons())
+	if PlanReadShow.lean_move(arrows) != "":   # S539: one answer covers most of the moments - an opponent adjusts to it
+		var lean := UI.chip(PlanReadShow.LEAN_WORDS, "amber")
+		lean.name = "LeanChip"
+		lean.tooltip_text = PlanReadShow.TIP_LEAN % PlanReadShow.PlanRead.FREE_USES
+		lean.mouse_filter = Control.MOUSE_FILTER_STOP
+		top.add_child(lean)
 	add_child(top)
 	var worth := UI.hbox(0)   # the worth bar on its own row: its words are long (S482 still: the page ran off the screen)
 	worth.add_child(UI.spacer())
@@ -300,7 +307,7 @@ func _bell() -> Control:
 		PlanBet.mark(self, row, place, "")   # S538 the main bet
 		var spots := PlanLines.blind(arrows, place)   # S493 WHYGRADE1: a line with no IF is thrown whatever happens here
 		if not spots.is_empty():
-			row.add_child(Icons.icon("info", 16, UI.AMBER, "Walks into it when %s.
+			row.add_child(Icons.icon("info", 16, UI.AMBER, "A bad answer when %s.
 With no IF, this line is thrown whatever happens here: add an IF for that." % " or ".join(PackedStringArray(spots.map(func(w): return str(FightFlow.WHEN_WORDS[w]))))))
 		v.add_child(row)
 		if i >= 0:   # S373 FLOWBOUT1 + S538: how the range's move has done in real bouts, under its row

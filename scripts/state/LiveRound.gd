@@ -39,6 +39,7 @@ const StyleName := preload("res://scripts/rules/StyleName.gd")   # S459 INTEGRAT
 const StyleLevers := preload("res://scripts/rules/StyleLevers.gd")   # S486 STYLE4: the three new levers
 const LineGrade := preload("res://scripts/rules/LineGrade.gd")   # GRADE1
 const CrackWire := preload("res://scripts/state/CrackWire.gd")   # S470 the corner's answer to a cracked rib
+const PlanReadShow := preload("res://scripts/rules/PlanReadShow.gd")   # S539 PLANREADSHOW1: the ADJUST bite, said
 const LivePreview := preload("res://scripts/state/LivePreview.gd")   # S490 LIVEROUNDSPLIT1
 
 ## Her values a call is done with (LivePreview holds it since S490).
@@ -251,8 +252,12 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	# S396 rank 3 (PlanRead): right answers that land build reads, wrong ones punished; both carry through the round.
 	var fit_now := PlanFight.fit(arrow, psit) if bool(pick.get("planned", false)) else "none"
 	var uses: Dictionary = lv.get_or_add("answer_uses", {})   # per round: both corners reset at the bell (S396 templates test)
+	var bite := {}   # S539 PLANREADSHOW1: recorded only - what ADJUST took off this answer's edge
 	if plan_edge > 0.0 and fit_now == "best":
-		plan_edge *= PlanRead.adjust(int(uses.get(arrow, 0)))
+		var keep := PlanRead.adjust(int(uses.get(arrow, 0)))
+		plan_edge *= keep
+		if keep < 1.0:
+			bite = PlanReadShow.bite(arrow, int(uses.get(arrow, 0)), keep, n)
 	var rb := ReadBack.factor(f["bout"], arrow, pick, str(lv.get("plan_won_arrow", "")))
 	plan_edge *= float(rb["cov"]) * float(rb["mult"]) * StyleName.plan_mult(f, at, str(lv["mode"])) if plan_edge > 0.0 else 1.0
 	fit_now = "wrong" if bool(rb["wrong"]) else fit_now
@@ -261,6 +266,7 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 		pick["planned"] = false
 		fit_now = "none"
 		plan_edge = 0.0
+		bite = {}
 	# The round's reads move the exchange and count as the plan's effect (swing), but the Why grades the answers themselves.
 	var read_edge := PlanRead.edge(int(lv.get("reads", 0))) + PlanPressure.edge(f["bout"]) * StyleName.effect(f, "pressure_answers")   # S397 + pressure (S459 Pressure fighter x1.2)
 	d += plan_edge + read_edge - ProReadWire.edge(f["bout"], n, arrow, pick, _rng(c, f, n, i + 83).randf())   # S462 the pro read
@@ -377,6 +383,11 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	rec["arrow_fit"] = PlanFight.fit(arrow, psit)
 	rec["psit"] = psit if mo.is_empty() else PlanFight.refine(sit, RoundStyle.opponent_habits(opp), i, Exchanges.EXCHANGES); rec["moment"] = str(mo.get("id", ""))   # the screens' situation words stay her game
 	rec["plan_edge"] = plan_edge
+	if not bite.is_empty():
+		rec["read_adj"] = bite
+		if not bool(lv.get("adj_said", false)):   # one live line a round, on the first bite
+			rec["read_line"] = PlanReadShow.feed_line(PlanReadShow.move_name(arrow))
+			lv["adj_said"] = true
 	rec["read_edge"] = read_edge
 	rec["plan_swing"] = swing
 	rec["pressure"] = pressed

@@ -21,8 +21,14 @@ const PLACES := ["outside", "long", "mid", "inside", "clinch", "own_ropes", "opp
 const PLACE_WORDS := {"outside": "From outside", "long": "At long range", "mid": "At mid range", "inside": "Inside",
 	"clinch": "In the clinch", "own_ropes": "On the ropes", "opp_ropes": "Opponent on the ropes", "corner": "Opponent in the corner"}
 ## The fit as the coach says it (no his/her on screen, S354).
-const FIT_WORDS := {"best": "Beats it", "ok": "Works", "none": "", "wrong": "Walks into it"}
+## S539 owner on "Beats it": "i do not understand it and donot like it ,find something else" -> a plain grade of the answer.
+const FIT_WORDS := {"best": "Strong", "ok": "OK", "none": "", "wrong": "Bad"}
 const FIT_ORDER := {"best": 0, "ok": 1, "none": 2, "wrong": 3}
+## S539 owner "what beats it mean ?": the fit is the coach's rating BEFORE the bout, never the result (the result sits beside it).
+const FIT_TIPS := {
+	"best": "Strong answer: against what this opponent does at that moment, this is the best thing your boxer can throw. Graded before the fight; the result is beside it.",
+	"ok": "OK answer: it helps a little at that moment. A stronger one exists - the Playbook lists it first.",
+	"wrong": "Bad answer: this opponent's game punishes it at that moment. Change the line before the next fight."}
 ## S381 C229 stage 4 (film is earned): the situation a found tell (OppFile.tells) is answered in. A tell names its plan
 ## situation (`when`); else its corner call's situation (Exchanges.CALLS "Use when ..."); a habit the ring plays goes by
 ## what it opens: hands that drop late or a slow start ask for long combinations (tiring), a dropped right or a lunging jab

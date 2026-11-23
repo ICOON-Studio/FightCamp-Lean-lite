@@ -21,6 +21,7 @@ const WhyCard := preload("res://scripts/ui/WhyCard.gd")
 const ResultMarks := preload("res://scripts/ui/ResultMarks.gd")
 const ResultCause := preload("res://scripts/ui/ResultCause.gd")
 const PlanBet := preload("res://scripts/ui/PlanBet.gd")
+const PlanReadShow := preload("res://scripts/rules/PlanReadShow.gd")   # S539 PLANREADSHOW1
 
 const TEXT := 20
 const FIT_COL := {"best": Palette.GOOD, "ok": Palette.GOOD, "wrong": Palette.BAD, "none": Palette.MUTED}
@@ -258,6 +259,7 @@ static func plan(m: Dictionary, names: Array) -> HBoxContainer:
 				uses[str(x["arrow"])] = u
 	if arrows.is_empty():
 		lv.add_child(UI.label("No plan was written: the coach boxed it from the tape.", TEXT, UI.MUTED, "body", true))
+	var read_bites := PlanReadShow.bites(rounds)   # S539 PLANREADSHOW1: where the opponent read an answer
 	var bet := PlanBet.verdict(arrows, uses)   # S538 PLANFLOW2: the main bet first - did it fire, did it win its exchanges
 	if not bet.is_empty():
 		var bl := UI.label("MAIN BET, line %s (%s). %s" % ["ABCDEFGHI"[int(bet["i"])] if int(bet["i"]) < 9 else "", _move(str(bet["move"])), bet["text"]], TEXT,
@@ -278,12 +280,22 @@ static func plan(m: Dictionary, names: Array) -> HBoxContainer:
 		line.add_child(words)
 		if bool(a.get("bet", false)):
 			line.add_child(_tag("MAIN BET", UI.GOLD))
-		line.add_child(UI.label(str(PlanLines.FIT_WORDS.get(fit, "")), TEXT, FIT_COL.get(fit, UI.MUTED), "bold"))
+		var fl := UI.label(str(PlanLines.FIT_WORDS.get(fit, "")), TEXT, FIT_COL.get(fit, UI.MUTED), "bold")
+		fl.tooltip_text = str(PlanLines.FIT_TIPS.get(fit, ""))
+		fl.mouse_filter = Control.MOUSE_FILTER_STOP
+		line.add_child(fl)
 		var u: Array = uses.get(str(a["move"]), [])
 		var res := UI.label("never used" if u.is_empty() else "won %d of %d" % [u.filter(func(w): return w).size(), u.size()], TEXT,
 			UI.MUTED if u.is_empty() else Palette.TEXT)
 		res.custom_minimum_size = Vector2(150, 0)
 		line.add_child(res)
+		if read_bites.has(str(a["move"])):
+			var rb: Dictionary = read_bites[str(a["move"])]
+			var rl := UI.label(PlanReadShow.bite_text(rb), TEXT, UI.AMBER, "bold")
+			rl.name = "ReadBite"
+			rl.tooltip_text = PlanReadShow.TIP_BITE % PlanReadShow.PlanRead.FREE_USES
+			rl.mouse_filter = Control.MOUSE_FILTER_STOP
+			line.add_child(rl)
 		lv.add_child(line)
 	lv.add_child(UI.sep())
 	var calls := UI.hbox(18)

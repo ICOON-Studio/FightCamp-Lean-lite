@@ -417,7 +417,7 @@ func _cost_word(cost: float) -> String:
 
 
 func _fit_short(fit: String) -> String:
-	return {"best": "Beats their game", "ok": "Works", "wrong": "Plays into their game"}.get(fit, "No answer")
+	return {"best": "Strong answer", "ok": "OK answer", "wrong": "Bad answer"}.get(fit, "No answer")
 
 
 func _shift_ink(shift: int, on: bool) -> Color:

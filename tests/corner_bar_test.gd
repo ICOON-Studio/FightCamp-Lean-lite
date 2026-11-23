@@ -10,7 +10,7 @@ const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 
 ## Exchanges.fit returns best / ok / wrong (the brief's good / ok / bad). The drawing's words for those three.
 const FightSeam := preload("res://scripts/fight3d/FightSeam.gd")
-const GRADE := {"best": "Beats it", "ok": "Works", "wrong": "Risky"}
+const GRADE := {"best": "Strong", "ok": "OK", "wrong": "Bad"}
 const RED := Color("#e2483d")
 const BLUE := Color("#3a7ce0")
 
