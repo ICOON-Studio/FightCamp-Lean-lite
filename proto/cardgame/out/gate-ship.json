@@ -1,0 +1,157 @@
+{
+ "config": {
+  "per": 200,
+  "seed": 500000000,
+  "mode": "wind"
+ },
+ "play": {
+  "rows": [
+   {
+    "bar": "the page's module graph links (a broken import fails the test)",
+    "measured": "ui.js linked under the stub document",
+    "pass": true
+   },
+   {
+    "bar": "a scripted player finishes a bout and a ladder step through the page's own calls",
+    "measured": "1 bout to a verdict (by ko); then verdict, training, the next bout on the table",
+    "pass": true
+   },
+   {
+    "bar": "the printed numbers equal the engine's",
+    "measured": "58 card lines, steps and previews checked; 0 mismatches",
+    "pass": true
+   },
+   {
+    "bar": "D1: 22.5-45 decisions a bout, 95% under 52",
+    "measured": "30.7 decisions; 95th percentile 48",
+    "pass": true
+   },
+   {
+    "bar": "every pairing inside 40-60",
+    "measured": "boxing v bjj: boxing 50.2 / bjj 49.8",
+    "pass": true
+   },
+   {
+    "bar": "no crash in 1,000 bot bouts",
+    "measured": "1000 of 1000 clean",
+    "pass": true
+   }
+  ],
+  "pass": true
+ },
+ "ship": {
+  "rows": [
+   {
+    "bar": "the page's module graph links (a broken import fails the test)",
+    "measured": "ui.js linked under the stub document",
+    "pass": true
+   },
+   {
+    "bar": "a scripted player finishes a bout and a ladder step through the page's own calls",
+    "measured": "1 bout to a verdict (by ko); then verdict, training, the next bout on the table",
+    "pass": true
+   },
+   {
+    "bar": "the printed numbers equal the engine's",
+    "measured": "58 card lines, steps and previews checked; 0 mismatches",
+    "pass": true
+   },
+   {
+    "bar": "D1: 22.5-45 decisions a bout, 95% under 52",
+    "measured": "30.7 decisions; 95th percentile 48",
+    "pass": true
+   },
+   {
+    "bar": "every pairing inside 40-60",
+    "measured": "boxing v bjj: boxing 50.2 / bjj 49.8",
+    "pass": true
+   },
+   {
+    "bar": "no crash in 1,000 bot bouts",
+    "measured": "1000 of 1000 clean",
+    "pass": true
+   },
+   {
+    "bar": "P2: each way to win ends 15%+; early 40-70%; a pilot blind to any one loses 5+",
+    "measured": "KO 18.0 lead 16.0 tap 25.0 pin 0.0; early 59.0; blind health 21.5 points -1.5 hold 6.4",
+    "pass": false
+   },
+   {
+    "bar": "P1 (slice, boxing v BJJ): 3+ ranges >=80%, neither wins >60%, <=37.5 decisions",
+    "measured": "3+ ranges 84.8%; boxing 50.2 / bjj 49.8; 30.7 decisions",
+    "pass": true
+   },
+   {
+    "bar": "P4: pairing 40-60%; each art's average 47-53",
+    "measured": "boxing v bjj 50.2; averages boxing 50.2 / bjj 49.8",
+    "pass": true
+   },
+   {
+    "bar": "P5: the hold is a readable race (printed answer 100%; ends 15-30% of ground bouts; 20-80% of holds finish)",
+    "measured": "printed answer 100.0; ends 27.0; finish 47.6",
+    "pass": true
+   },
+   {
+    "bar": "P6: each art plays differently (mechanic off changes >50% of its turns; blind judge >=90%)",
+    "measured": "boxing 46.5 / bjj 100.0; judge 90.5",
+    "pass": false
+   },
+   {
+    "bar": "P10: the pilot flies every deck (AI no more than 5 points below the scripted)",
+    "measured": "boxing: AI 47.5 / scripted 59.0 ; bjj: AI 49.5 / scripted 38.5",
+    "pass": false
+   },
+   {
+    "bar": "L1: 30-70 titles in 100 (model minutes shown)",
+    "measured": "48/100 titles; 31.0 modelled minutes a run (8 s a player decision)",
+    "pass": true
+   },
+   {
+    "bar": "L2: every training option best in 1-6 of ten real ladder states (from simulateLadder)",
+    "measured": "boxing 2/4/3/1 ; bjj 5/2/2/1",
+    "pass": true
+   },
+   {
+    "bar": "the beginner at 25-40% (the impatient line against the AI, per art)",
+    "measured": "boxing 49.5 ; bjj 0.0",
+    "pass": false
+   }
+  ],
+  "pass": false,
+  "l1": {
+   "titles": 48,
+   "minutes": 31,
+   "bouts": 13.8
+  },
+  "l2": {
+   "boxing": [
+    2,
+    4,
+    3,
+    1
+   ],
+   "bjj": [
+    5,
+    2,
+    2,
+    1
+   ]
+  },
+  "blindLoss": {
+   "health": 0.21499999999999997,
+   "points": -0.015000000000000013,
+   "hold": 0.06375
+  },
+  "p2hold": {
+   "ko": 0.18,
+   "lead": 0.16,
+   "tap": 0.25,
+   "pin": 0,
+   "early": 0.59
+  },
+  "beginner": {
+   "boxing": 0.495,
+   "bjj": 0
+  }
+ }
+}

@@ -162,7 +162,7 @@ func _career() -> void:
 	_check(int(Sim.weekly_income(c)["fitness"]) == 0, "control: no assistant, no classes")
 	# A club show: paid now, the night pays (or not) on the day.
 	var before := c.cash
-	_check(GymSpend.book_show(c) == "" and c.cash == before - ClubShow.COST, "booking a show pays the hall")
+	_check(GymSpend.book_show(c) == "" and c.cash == before - ClubShow.cost(str(c.show["hall"])), "booking a show pays the hall the read names")
 	_check(GymSpend.book_show(c) != "", "one show at a time")
 	c.day = int(c.show["day"])
 	var at := c.cash

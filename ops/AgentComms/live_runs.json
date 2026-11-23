@@ -32,17 +32,6 @@
    "eta": "about 2 h",
    "note": "S541"
   },
-  "CARDROUND7": {
-   "id": "CARDROUND7",
-   "status": "running",
-   "started": "2026-11-23T15:55",
-   "title": "Card round 7: the build you open and play (PLAY gate)",
-   "seat": "arena",
-   "agent": "arena (arena/c30aab81-fightcamp-lean-lite)",
-   "branch": "arena/c30aab81-fightcamp-lean-lite",
-   "eta": "about 1-2 h",
-   "note": "S541; chat https://arena.ai/agent/01a208a5-fd12-7ca6-8a21-666fc30aab81"
-  },
   "HOSTLIGHT1": {
    "id": "HOSTLIGHT1",
    "status": "running",

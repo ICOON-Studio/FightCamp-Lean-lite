@@ -25,6 +25,8 @@ const ProDebut := preload("res://scripts/rules/ProDebut.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const ProLadder := preload("res://scripts/state/ProLadder.gd")
 const JudgeNight := preload("res://scripts/state/JudgeNight.gd")
+const GymSpend := preload("res://scripts/state/GymSpend.gd")
+const ClubShow := preload("res://scripts/rules/ClubShow.gd")
 
 var failures := 0
 var main: Node
@@ -630,3 +632,24 @@ func _week_four(c: Career) -> void:
 	main.act("go", "world:0")
 	_check(main._shell.find_child("NewsCols", true, false) != null, "WORLD > News draws the year's lines")
 	_check(c.cash > cash - 5000, "the money holds through week 4 (%d)" % c.cash)
+	_club_show(c)
+
+
+## S541 HOSTLIGHT1: Club > Money's show row reads the hall that pays and books it on one click, two reserves with it.
+func _club_show(c: Career) -> void:
+	if int(c.show.get("day", -1)) >= 0:
+		_check(c.show.has("hall"), "a show already booked carries its hall")
+		return
+	c.cash = maxi(c.cash, 10000)   # the step reads the row and books; the money checks above are done
+	main.act("go", "money:0")
+	var rd: Dictionary = GymSpend.show_read(c)
+	var line := str(rd["short"])
+	var shown: bool = main._shell.find_children("*", "Label", true, false).any(func(l): return (l as Label).text.contains(line))
+	_check(shown and (line.begins_with(ClubShow.hall_name(str(rd["hall"]))) or line.begins_with("Close - your call")), "the show row reads the hall: %s" % line)
+	var book := _shell_button("BookShow")
+	_check(book != null and not book.disabled and book.tooltip_text.contains("reach"), "the book button names the hall and its hover explains the read")
+	var before := c.cash
+	var hall := str(rd["hall"]) if not bool(rd["close"]) else "community"
+	_press(book, "book the club show")
+	_check(str(c.show.get("hall", "")) == hall and c.cash == before - ClubShow.cost(hall) and int(c.show.get("day", -1)) > c.day,
+		"booked at %s for %s, two reserves on standby" % [ClubShow.hall_name(hall), Clock.fmt(int(c.show.get("day", -1)))])

@@ -1353,6 +1353,53 @@ Every other key is the round-6 freeze. `dmgPer` stays 8: at 9–12 the boxer's d
 - **Tests:** `node --test proto/cardgame/*.test.mjs` 36/36; legacy `node proto/cardgame-legacy/rules.test.mjs` 32/32. Added: the module-graph link, `@cover`/`@break` words, the title at the title shot (table and page), the career ends at the last defence won, rivals by rung with the club novice of the player's art, the in-place upgrade, L2 on the ladder's own states, the training-state reader on a no-card bout. Adapted, not weakened: the rival test now expects the player's art at Club and the other art above (same length and upgrade checks); the cut test's hopeless deck meets the Area boxer (a club novice of its own art could only coin-flip it); the spread test's third boxing state is "held" in place of "CLINCH infighting", which the real ladder never produces. The 500-line rule holds (largest file 313 lines).
 - **Cuts:** the three failing clauses are reported, not tuned to; the levers above are cut because each broke a passing bar. Visual gate: unchanged from round 6 — no browser in this workspace; the page was played through its DOM stub, not seen.
 
+## 6h. Round 7 result **[R7]** (TASK CARDROUND7; `proto/cardgame/`, harness `probe.mjs gate=play` / `gate=ship`; tag `card-r7`)
+
+**Verdict: PASS on the one thing — the PLAY gate passes (6/6) and stays passing; this is the first build the owner may open.** The owner signed the pre-production plan (S541, all five answers Yes), so from this round his play sits at the PLAY gate, not behind the bar sheet (plan section 1 STOP 3). The SHIP gate is measured and printed beside it (11/15): the four failing rows are the known clauses — P2's points-blind, P6's boxing mechanic (both the 6g analyses), plus draw variance on the P10/beginner lines — and they are the hand-sizing targets of round 9, not tuned here. No rule or number change beyond CARDFIX6B's list: `sized.json`, the engine numbers and every card are untouched; this round is a gate, a log and an opening.
+
+### The one thing, in its four parts
+
+- **(a) The node test that links the page and plays it.** `ui.test.mjs` already imported the graph through the stub document and played a whole bout plus a ladder step through the page's own calls; it is now the standing test for the PLAY gate's first two rows, and `probe.mjs gate=play` re-runs the same scripted player inside the harness so the gate is one command. A broken import or a crash fails the row, the gate and the process (exit 1).
+- **(b) The two tables of plan section 7.** `node proto/cardgame/probe.mjs gate=play` and `gate=ship` print the PLAY table (6 bars) and the SHIP table (PLAY plus P2, P4, P5, P6, P10, L1, L2, the beginner, and P1). P1 is measured on the slice — boxing v BJJ, both seats, labelled as the substitution, never on wrestling, which is not in the build (STOP 5) — and L2 on the ladder's own ten real states per art from `simulateLadder`. Protocol per=200 seed=500000000 so the rows stay comparable to 6g; the gate's own bout seeds are fresh (crash run at 900M+). Raw: `out/gate-play.{txt,json}`, `out/gate-ship.{txt,json}`.
+- **(c) The play log and its copy button.** `playlog.mjs` keeps, per career, every decision the player makes (pick, each training pick and its outcome, every answer, card, step and end turn, the bells, the bout's end, the verdict) with its seconds from the start of the career and its phase; a career ended by the cut, by the last defence or by his own New career button gets a `stopped` line, so "where it stopped" is in the log, not asked. The verdict screen carries one **Copy play log** button: the browser takes it to the clipboard; under the stub document (no clipboard) the same text is left on the table (`state.lastLogText`) for a reader or a test.
+- **(d) The first-10-minutes script as the opening (plan section 3).** Minute 0:00: two fighters to pick, two lines each — *where he wins* and *his one rule* (the boxer: standing, in the pocket, clean punches and the knockout; combinations. The BJJ man: on the ground, from underneath, the tap or the pass points; the guard). Minute 0:30: the first bout is club level and the rival's **first volley is one card** (`oneCardFirstVolley`, a pure wrapper tested directly — the pilot wants three, the player sees one; his next volley and every later bout is the full line), so the first answer is one card against one and the table shows what each answer does. Minute 3:30: the verdict says **in one line why the bout ended**, built from the engine's own final state (`whyLine`: knockout / points lead with the lead number / tap / pin / cards with both scores) and tested to match the finish in both chairs. The rest of the script was already on the table in 6g: the strip greys the hand off the ground, the result shows rung and rank, training prints cost and failure, a loss drops one rung, never below the club.
+
+### PLAY gate (measured, `out/gate-play.txt`)
+
+| # | Bar | Measured | Result |
+|---|---|---|---|
+| 1 | The page's module graph links (a broken import fails the test) | ui.js linked under the stub document | PASS |
+| 2 | A scripted player finishes a bout and a ladder step through the page's own calls | 1 bout to a verdict; then verdict, training, the next bout on the table | PASS |
+| 3 | The printed numbers equal the engine's | 58 card lines, steps and previews checked; 0 mismatches (`printedProblems`, also a node test) | PASS |
+| 4 | D1: 22.5–45 decisions a bout, 95% under 52 | 30.7 decisions; 95th percentile 48 | PASS |
+| 5 | Every pairing inside 40–60 | boxing v bjj: 50.2 / 49.8 | PASS |
+| 6 | No crash in 1,000 bot bouts | 1,000 of 1,000 clean | PASS |
+
+**PLAY GATE: PASS (6/6).**
+
+### SHIP gate (measured, `out/gate-ship.txt`)
+
+| # | Bar | Measured | Result |
+|---|---|---|---|
+| 1–6 | (the PLAY rows above) | (as above) | PASS |
+| 7 | P2: each way to win ends 15%+; early 40–70%; a pilot blind to any one loses 5+ | KO 18.0 lead 16.0 tap 25.0 pin 0.0; early 59.0; blind health 21.5, points **−1.5**, hold 6.4 | **FAIL** (points-blind) |
+| 8 | P1 (slice, boxing v BJJ): 3+ ranges ≥80%, neither wins >60%, ≤37.5 decisions | 3+ ranges 84.8%; 50.2 / 49.8; 30.7 decisions | PASS |
+| 9 | P4: pairing 40–60%; each art's average 47–53 | 50.2 / 49.8 | PASS (this draw; 6g showed 46.8–53.8 over ten seeds, mean 51.1) |
+| 10 | P5: the hold is a readable race (printed answer 100%; ends 15–30% of ground bouts; 20–80% of holds finish) | 100.0% of 119 held turns; ends 27.0; finish 47.6 | PASS |
+| 11 | P6: each art plays differently (mechanic off >50% of its turns; blind judge ≥90%) | boxing **46.5** / bjj 100.0; judge 90.5 | **FAIL** (boxing's mechanic clause) |
+| 12 | P10: the pilot flies every deck (AI no more than 5 below the scripted) | boxing AI 47.5 / scripted 59.0 (**−11.5**); bjj AI 49.5 / scripted 38.5 (+11.0) | **FAIL** (boxing line) |
+| 13 | L1: 30–70 titles in 100 | 48/100; 31.0 modelled minutes a run (8 s a player decision) | PASS |
+| 14 | L2: every training option best in 1–6 of ten real ladder states (from simulateLadder) | boxing 2/4/3/1; bjj 5/2/2/1 | PASS |
+| 15 | The beginner at 25–40% (the impatient line against the AI, per art) | boxing **49.5**; bjj **0.0** | **FAIL** (both lines) |
+
+**SHIP GATE: FAIL (11/15).** The four failures are exactly the territory round 9 exists for (plan section 12: "the slice to the SHIP gate, sized by hand" — Kalli writes the two decks' numbers with a one-line reason each, then the pair cards, the ladder Edges and the beginner lesson). P2's points-blind and P6's boxing mechanic fail for the reasons 6g measured (the points ride on the cards the pilot plays anyway; the boxer spends most of his turns on top of the guard with nothing of his to lay), and this draw's P2 points-blind is even smaller (−1.5 vs 6g's 2.2). P10/beginner is the impatient/scripted line's draw variance, the same variance 6g documented on P4 (ten seeds 46.8–53.8): the scripted boxer line is the high draw this time. Nothing here is tuned; the card allows no rule or number change.
+
+### Form, tests, and cuts
+
+- **Form:** unchanged — one strip, face-up rally, wind pool, three clocks, judges by cards. The only behaviour change a player sees is the opening: two fighters with their two lines, the first volley of one card, and the one-line why at the verdict.
+- **Tests:** `node --test proto/cardgame/*.test.mjs` **40/40** (was 36); legacy `node proto/cardgame-legacy/rules.test.mjs` 32/32. Added: the printed numbers equal the engine's (58 lines, `printedProblems` in `ui-text.mjs`); the play log records each decision with its seconds, the copy button returns it, and the career's last line is where the player stopped; the first volley is one card (the wrapper tested directly, the page tested through a played bout); the verdict's why-line matches the finish in both chairs. Adapted, not weakened: the pick-screen test now expects the round-7 opening's words (`PICK YOUR FIGHTER`, the two lines per fighter) in place of `PICK YOUR ART` — same intent, the screen renders two fighters. The 500-line rule holds (largest file 347 lines, the test file).
+- **Cuts:** the SHIP gate's four failing rows are reported, not tuned. The gate's page row uses the same seeded career as the tests (seed 640); the crash row's 1,000 seeds are fresh so a seed-specific crash cannot hide behind the protocol draw. Visual gate: unchanged from 6g — no browser in this workspace; the page was served over HTTP (all modules 200) and played by script through the DOM stub, not seen. Claude's scripted session: picked the boxer, trained Jab timing (Jab II landed in the bout), won the club bout by knockout — the verdict said "Knockout - Club challenger's health reached 0." — advanced to Area at rank #92, started the Area bout, and pasted the play log (43 decisions, pick to bout 2).
+
 ## 7. Open decisions for the owner (taste and scope only)
 
 000. **[R5] Seven arts, and what "balanced" should mean.** Kickboxing is in (his S538 ask). With every art playing its

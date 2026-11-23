@@ -120,17 +120,34 @@ static func _show(main: Node, c: Career, net: int) -> Dictionary:
 		why = "the next show can be booked from %s" % Clock.fmt(int(c.show.get("last", 0)) + ClubShow.EVERY_DAYS - ClubShow.LEAD_DAYS)
 	elif c.cash < ClubShow.COST:
 		why = "not enough cash"
-	var pv := GymSpend.show_preview(c)
-	var effect := "The night: %s to %s. One show every %d weeks." % [UI.signed(int(pv["net_lo"])), UI.signed(int(pv["net_hi"])), ClubShow.EVERY_DAYS / 7]
+	# S541 HOSTLIGHT1: the hall read names the hall that pays on the club's likely night and books it on one click; two
+	# buttons when the halls are within $300 ("Close - your call").
+	var rd := GymSpend.show_read(c)
+	var hall := str(rd["hall"])
+	var price := ClubShow.cost(hall)
+	if why == "" and c.cash < price:
+		why = "not enough cash"
+	var effect := str(rd["short"])
 	var grey := why != ""
 	var does := effect
 	if grey:
 		effect = why_tip(why)
-	var label := "Book"
-	if why != "" and why != "not enough cash":
-		label = Clock.fmt(int(c.show.get("last", 0)) + ClubShow.EVERY_DAYS - ClubShow.LEAD_DAYS)
-	return _pack("show", "Club show", ClubShow.COST, UI.money(ClubShow.COST), "booked", effect, 0, 0, grey, effect if grey else "",
-		false, false, false, ClubShow.COST, [_btn(main, label, "BookShow", "bookshow", "", why)], c, net, does)
+	var hover := str(rd["line"]) + " One show every %d weeks.\n" % (ClubShow.EVERY_DAYS / 7) + "The read: each hall's likely night over five crowds, good to bad, and the chance a visiting bout pulls out. " + \
+		"Town hall fills from your club's name (%d%% reach at your reputation); your boxers' own followers come anywhere. " % roundi(ClubShow.reach("town", c.reputation) * 100) + \
+		"A full hall (85%) lifts the gym's name, a half-empty one costs it. Two standby reserves ($40 each) box if a visitor pulls out."
+	var halls: Array = ClubShow.HALL_ORDER if bool(rd["close"]) else [hall]
+	var buttons: Array = []
+	for h in halls:
+		var label := "Book %s" % ClubShow.hall_name(h)
+		if why != "" and why != "not enough cash":
+			label = Clock.fmt(int(c.show.get("last", 0)) + ClubShow.EVERY_DAYS - ClubShow.LEAD_DAYS)
+		var hw := why if why != "" or c.cash >= ClubShow.cost(str(h)) else "not enough cash"
+		var b := _btn(main, label, "BookShow" if buttons.is_empty() else "BookShow_" + str(h), "bookshow", str(h), hw)
+		if hw == "":
+			b.tooltip_text = hover
+		buttons.append(b)
+	return _pack("show", "Club show", price, UI.money(price), "booked", effect, 0, 0, grey, effect if grey else "",
+		false, false, false, price, buttons, c, net, does)
 
 
 static func _grant(main: Node, c: Career, net: int) -> Dictionary:

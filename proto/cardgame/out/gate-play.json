@@ -1,0 +1,42 @@
+{
+ "config": {
+  "per": 200,
+  "seed": 500000000,
+  "mode": "wind"
+ },
+ "play": {
+  "rows": [
+   {
+    "bar": "the page's module graph links (a broken import fails the test)",
+    "measured": "ui.js linked under the stub document",
+    "pass": true
+   },
+   {
+    "bar": "a scripted player finishes a bout and a ladder step through the page's own calls",
+    "measured": "1 bout to a verdict (by ko); then verdict, training, the next bout on the table",
+    "pass": true
+   },
+   {
+    "bar": "the printed numbers equal the engine's",
+    "measured": "58 card lines, steps and previews checked; 0 mismatches",
+    "pass": true
+   },
+   {
+    "bar": "D1: 22.5-45 decisions a bout, 95% under 52",
+    "measured": "30.7 decisions; 95th percentile 48",
+    "pass": true
+   },
+   {
+    "bar": "every pairing inside 40-60",
+    "measured": "boxing v bjj: boxing 50.2 / bjj 49.8",
+    "pass": true
+   },
+   {
+    "bar": "no crash in 1,000 bot bouts",
+    "measured": "1000 of 1000 clean",
+    "pass": true
+   }
+  ],
+  "pass": true
+ }
+}

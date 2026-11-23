@@ -6,6 +6,7 @@ const SaveGame := preload("res://scripts/state/SaveGame.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const GymSpend := preload("res://scripts/state/GymSpend.gd")
+const ClubShow := preload("res://scripts/rules/ClubShow.gd")
 const GymDeals := preload("res://scripts/state/GymDeals.gd")   # S525 SPLIT500C: the talks and the grant bid
 const GymUpgrades := preload("res://scripts/rules/GymUpgrades.gd")
 const StaffRoles := preload("res://scripts/rules/StaffRoles.gd")
@@ -80,8 +81,8 @@ static func _spend(main: Node, c: Career, name: String, arg: String) -> void:
 			GymSpend.set_kit(c, arg)
 			done = "Kit budget: %s." % str(GymSpend.kit(c)["name"]).to_lower()
 		"bookshow":
-			why = GymSpend.book_show(c)
-			done = "Club show booked for %s." % Clock.fmt(int(c.show.get("day", c.day)))
+			why = GymSpend.book_show(c, arg)   # S541 HOSTLIGHT1: arg = the hall ("" = the hall the read names)
+			done = "Club show booked at %s for %s." % [ClubShow.hall_name(str(c.show.get("hall", "community"))), Clock.fmt(int(c.show.get("day", c.day)))]
 		"dues":
 			GymSpend.set_dues(c, arg)
 			done = "Dues set."

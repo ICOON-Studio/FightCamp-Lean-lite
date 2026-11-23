@@ -334,18 +334,31 @@ static func home_boxers(c: Career) -> int:
 	return c.fighters.filter(func(f): return not bool(f.get("pro", false)) and (f.get("injury", {}) as Dictionary).is_empty()).size()
 
 
-static func show_preview(c: Career) -> Dictionary:
-	return ClubShow.preview(c.members, c.reputation, JUNIORS if youth_on(c) else 0, home_boxers(c), GymBonus.show(c.gym_plan))
+## S541 HOSTLIGHT1: the hall read - both halls' likely night, the one that pays named (ClubShow.read).
+static func show_read(c: Career) -> Dictionary:
+	return ClubShow.read(c.members, c.reputation, JUNIORS if youth_on(c) else 0, home_boxers(c), GymBonus.show(c.gym_plan))
 
 
-static func book_show(c: Career) -> String:
+static func show_preview(c: Career, hall: String = "") -> Dictionary:
+	if hall == "":
+		hall = str(show_read(c)["hall"])
+	return ClubShow.preview(c.members, c.reputation, JUNIORS if youth_on(c) else 0, home_boxers(c), GymBonus.show(c.gym_plan), hall)
+
+
+## Books the show in `hall` ("" = the hall the read names), two standby reserves with it.
+static func book_show(c: Career, hall: String = "") -> String:
 	if not ClubShow.can_book(c.day, int(c.show.get("day", -1)), int(c.show.get("last", -1))):
 		return "one show at a time, %d weeks apart" % (ClubShow.EVERY_DAYS / 7)
-	if c.cash < ClubShow.COST:
-		return "$%d short of the price" % (ClubShow.COST - c.cash)
-	c.pay(-ClubShow.COST, "Club show: hall, officials, doctor and ambulance, trophies")
+	if not ClubShow.HALLS.has(hall):
+		hall = str(show_read(c)["hall"])
+	var price := ClubShow.cost(hall)
+	if c.cash < price:
+		return "$%d short of the price" % (price - c.cash)
+	c.pay(-price, "Club show: %s, officials, doctor and ambulance, medals, two standby reserves" % ClubShow.hall_name(hall).to_lower())
 	c.show["day"] = ClubShow.show_day(c.day)
-	c.add_news("%s's club show is booked for %s. Tickets go on sale at the desk." % [c.gym_name, Clock.fmt(int(c.show["day"]))])
+	c.show["hall"] = hall
+	c.add_news("%s's club show is booked at %s for %s, two reserves on standby. Tickets go on sale at the desk." % [c.gym_name,
+		ClubShow.hall_name(hall), Clock.fmt(int(c.show["day"]))])
 	return ""
 
 
@@ -365,16 +378,24 @@ static func day_events(c: Career) -> void:
 		return
 	var rng := RandomNumberGenerator.new()
 	rng.seed = c.seed * 31 + c.day
-	var n := ClubShow.night(c.members, c.reputation, JUNIORS if youth_on(c) else 0, home_boxers(c),
-		rng.randf_range(ClubShow.LUCK.x, ClubShow.LUCK.y) * GymBonus.show(c.gym_plan), rng.randi_range(ClubShow.RAFFLE.x, ClubShow.RAFFLE.y))
+	var hall := str(c.show.get("hall", "community"))   # S541 HOSTLIGHT1; a show booked before it is a Community night
+	var luck := rng.randf_range(ClubShow.LUCK.x, ClubShow.LUCK.y) * GymBonus.show(c.gym_plan)
+	var raffle := rng.randi_range(ClubShow.RAFFLE.x, ClubShow.RAFFLE.y)
+	var falls := 0
+	for i in int(ClubShow.HALLS[hall]["card"]):   # each visiting bout may pull out at the game's own rate; reserves box first
+		if rng.randf() < ClubShow.PULL_OUT:
+			falls += 1
+	var n := ClubShow.night_in(hall, c.members, c.reputation, JUNIORS if youth_on(c) else 0, home_boxers(c), luck, raffle, falls)
 	c.pay(int(n["tickets"]) + int(n["raffle"]), "Club show: %d tickets and the raffle" % int(n["sold"]))
+	n["members"] = mini(int(n["members"]), maxi(0, member_cap(c) - c.members))
 	c.members += int(n["members"])
+	c.reputation = maxi(0, c.reputation + int(n["rep"]))
 	c.show = {"day": -1, "last": c.day, "night": n}
 	ApproachWire.show_night(c)   # S487 R58: a promised top of the show kept or broken
 	var net := int(n["net"])
-	c.add_news("Club show night: %d sold, the raffle %s. %s" % [int(n["sold"]), GameMoney.text(int(n["raffle"])),
+	c.add_news("Club show night at %s The raffle %s. %s" % [ClubShow.sheet(n), GameMoney.text(int(n["raffle"])),
 		("The night made %s after the hall, and %d new members signed up." % [GameMoney.text(net), int(n["members"])]) if net > 0
-		else "A thin crowd: the night lost %s." % GameMoney.text(-net)])
+		else "The night lost %s." % GameMoney.text(-net)])
 
 
 ## ---------- the week's end ----------
