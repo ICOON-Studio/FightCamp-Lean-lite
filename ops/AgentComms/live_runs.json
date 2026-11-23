@@ -41,6 +41,17 @@
    "agent": "claude-opus-5-5 (Code Mode tab c6)",
    "eta": "about 2 h",
    "note": "S541, owner Q-318"
+  },
+  "CARDROUND8": {
+   "id": "CARDROUND8",
+   "status": "running",
+   "started": "2026-11-23T17:15",
+   "title": "Card round 8: the guide (guided first bout, low-health warning, How to play)",
+   "seat": "arena",
+   "agent": "arena (arena/1f620be9-fightcamp-lean-lite)",
+   "branch": "arena/1f620be9-fightcamp-lean-lite",
+   "eta": "about 1-2 h",
+   "note": "S541, owner: \"i didnt understand the design , maybe a guide would be useful\""
   }
  },
  "codex_budget": {
