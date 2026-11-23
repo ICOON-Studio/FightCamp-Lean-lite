@@ -4334,7 +4334,8 @@
    "sent_ms": 1795387822827,
    "answered_at": "2026-11-23 01:10",
    "answer": "research/CRITIC_KNOW_STAKES1_V6_BRIEF_KALLI.md",
-   "chars": 19591
+   "chars": 19591,
+   "seen_by_claude": true
   },
   {
    "id": "SQ297",
@@ -4348,7 +4349,8 @@
    "pid": 179772,
    "transcript": "AgentComms/seat_logs/SQ297_dola.txt",
    "answered_at": "2026-11-23 00:10",
-   "answer": "research/CRITIC_KNOW_STAKES1_V6_BRIEF_DOLA.md"
+   "answer": "research/CRITIC_KNOW_STAKES1_V6_BRIEF_DOLA.md",
+   "seen_by_claude": true
   },
   {
    "id": "SQ298",
@@ -4362,7 +4364,8 @@
    "sent_ms": 1795387824976,
    "answered_at": "2026-11-23 01:27",
    "answer": "research/JOHN_CARDGAME_MARKET_S538_JOHN.md",
-   "chars": 23726
+   "chars": 23726,
+   "seen_by_claude": true
   },
   {
    "id": "SQ299",
@@ -4376,7 +4379,59 @@
    "pid": 189988,
    "transcript": "AgentComms/seat_logs/SQ299_dola.txt",
    "answered_at": "2026-11-23 00:54",
-   "answer": "research/JOHN_CARDGAME_MARKET_S538_DOLA.md"
+   "answer": "research/JOHN_CARDGAME_MARKET_S538_DOLA.md",
+   "seen_by_claude": true
+  },
+  {
+   "id": "SQ300",
+   "seat": "kalli",
+   "brief": "research/CRITIC_KNOW_STAKES1_V7_BRIEF.md",
+   "stem": "CRITIC_KNOW_STAKES1_V7_BRIEF_KALLI",
+   "status": "answered",
+   "queued_at": "2026-11-23 03:21",
+   "tries": 0,
+   "sent_at": "2026-11-23 03:22",
+   "sent_ms": 1795396963802,
+   "answered_at": "2026-11-23 04:10",
+   "answer": "research/CRITIC_KNOW_STAKES1_V7_BRIEF_KALLI.md",
+   "chars": 19910
+  },
+  {
+   "id": "SQ301",
+   "seat": "dola",
+   "brief": "research/CRITIC_KNOW_STAKES1_V7_BRIEF.md",
+   "stem": "CRITIC_KNOW_STAKES1_V7_BRIEF_DOLA",
+   "status": "answered",
+   "queued_at": "2026-11-23 03:21",
+   "tries": 0,
+   "sent_at": "2026-11-23 03:22",
+   "pid": 205272,
+   "transcript": "AgentComms/seat_logs/SQ301_dola.txt",
+   "answered_at": "2026-11-23 03:40",
+   "answer": "research/CRITIC_KNOW_STAKES1_V7_BRIEF_DOLA.md"
+  },
+  {
+   "id": "SQ302",
+   "seat": "kalli",
+   "brief": "research/CRITIC_COACHDEEP1_BRIEF.md",
+   "stem": "CRITIC_COACHDEEP1_BRIEF_KALLI",
+   "status": "sent",
+   "queued_at": "2026-11-23 04:25",
+   "tries": 0,
+   "sent_at": "2026-11-23 04:40",
+   "sent_ms": 1795401623563
+  },
+  {
+   "id": "SQ303",
+   "seat": "dola",
+   "brief": "research/CRITIC_COACHDEEP1_BRIEF.md",
+   "stem": "CRITIC_COACHDEEP1_BRIEF_DOLA",
+   "status": "sent",
+   "queued_at": "2026-11-23 04:25",
+   "tries": 0,
+   "sent_at": "2026-11-23 04:40",
+   "pid": 184292,
+   "transcript": "AgentComms/seat_logs/SQ303_dola.txt"
   }
  ]
 }

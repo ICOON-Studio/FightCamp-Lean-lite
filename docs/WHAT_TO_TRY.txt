@@ -1,3 +1,19 @@
+S539 build (2026-11-23, early morning) - what changed, and what to try
+
+1. A PRO WEIGH-IN MISS NO LONGER JUST CANCELS THE BOUT (your "build the weigh-in miss answers for pro bouts"): if a pro
+   boxer misses weight, the pop-up says "THEIR CORNER ANSWERS": up to 0.5 kg over they still box for 20% of the purse;
+   0.5-2.5 kg over they want 35% or walk (a slugger / pressure fighter walks half as often); over 2.5 kg they walk.
+   "Box anyway" pays the share from the purse and your boxer fights drained (the guard wears faster all night); "Pull out"
+   is the old empty slot ($300). Hover both buttons. The day waits until you choose. Amateur bouts are unchanged.
+2. "BEATS IT / WORKS / WALKS INTO IT" ARE NOW "STRONG / OK / BAD" (your "i do not understand it ... find something else"):
+   on the plan chart, the Playbook, the result page's Plan tab and the corner bar. On the result page hover the word: it
+   is the grade before the fight, the result sits beside it.
+3. "OPPONENTS ADJUST" IS SHOWN: the plan chart warns with an amber chip when one answer covers most of the plan; in a fight
+   a line says when they have read your combo; the result's Plan tab shows what a read cost. (It still fires rarely - your
+   Q-307 decides whether it bites harder.)
+4. Fixed: the "a month without a fight costs 6 morale" line is gone (nothing applied it); the win read now moves with a
+   boxer's mood (it froze on the first mood it saw).
+
 S538 build (2026-11-23, night) - what changed, and what to try
 
 1. THE RESULT PAGE (your Q-303 + Q-304 "Yes, build them"): after a fight - portraits, the judges' cards as coloured blocks,

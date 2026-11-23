@@ -10,7 +10,7 @@
    "seat": "claude",
    "agent": "claude-fable (API credit, sdk_run.py)",
    "eta": "about 90 min",
-   "note": "S539: map committed d62c4bb5d; probe stage b boxer 3 of 6 one at a time, done ~07:00, then sum + result"
+   "note": "S539: probe b0-b3 done, b4 running, b5 next (run.sh loop), ~1 h each; then sum + result"
   },
   "STEPPAY4": {
    "id": "STEPPAY4",
@@ -22,16 +22,6 @@
    "eta": "about 2 h",
    "note": "S539: gate5.sh part 4 of 9 in E:/FightCamp/wt/s538_steppay4; result read by Claude when GATEDONE"
   },
-  "LEDGERPROBE1": {
-   "id": "LEDGERPROBE1",
-   "status": "done",
-   "started": "2026-11-22T21:05",
-   "title": "Contract tab: keep / cut stipend / release probe",
-   "seat": "claude",
-   "agent": "claude-fable (API credit, sdk_run.py)",
-   "eta": "about 90 min",
-   "note": "S538 23:35 Code Mode terminal tab, Fable, owner subscription"
-  },
   "CARDSCOPE5": {
    "id": "CARDSCOPE5",
    "status": "running",
@@ -40,36 +30,102 @@
    "seat": "claude",
    "agent": "claude-fable-5-2 (Code Mode tab c1)",
    "eta": "about 2 h (05:15)",
-   "note": "S539 resumed from the files on disk"
-  },
-  "KNOWSTAKES7": {
-   "id": "KNOWSTAKES7",
-   "status": "done",
-   "started": "2026-11-23T03:20",
-   "title": "Knowledge stakes v7: both critics + the rival gym deadline (Q-305)",
-   "seat": "claude",
-   "agent": "claude-fable-5-2 (Code Mode tab c2)",
-   "eta": "about 1.5 h (04:45)",
-   "note": "S539 landed 2f21fd401; critics Kalli SQ300 + Dola SQ301"
-  },
-  "PLANREADSHOW1": {
-   "id": "PLANREADSHOW1",
-   "status": "done",
-   "started": "2026-11-23T03:20",
-   "title": "Show the \"opponents adjust\" rule: feed, Plan tab, plan chart",
-   "seat": "claude",
-   "agent": "claude-sonnet-5-5 (Code Mode tab c3)",
-   "eta": "about 3 h (06:20, Godot slots shared)",
-   "note": "S539 landed 983016e51; finding: ADJUST fires 3 in ~600 bouts -> board question"
+   "note": "S539 tab c1 (Fable) still running at handover; notes in proto/cardscope5/NOTES_S538_PEER.md"
   },
   "HOSTPROBE1": {
    "id": "HOSTPROBE1",
-   "status": "running",
+   "status": "done",
    "started": "2026-11-23T03:20",
    "title": "Host a club show: code check of map v4 + greybox probe",
    "seat": "claude",
    "agent": "claude-opus-5-5 (Code Mode tab c4)",
    "eta": "about 3 h (06:30)",
+   "note": "S539 owner subscription"
+  },
+  "HOSTPROBE2": {
+   "id": "HOSTPROBE2",
+   "title": "Club show v5 probe",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (Code Mode)",
+   "started": "2026-11-23",
+   "status": "done"
+  },
+  "REPEATBITE1": {
+   "id": "REPEATBITE1",
+   "title": "Combo counter probe",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (Code Mode)",
+   "started": "2026-11-23",
+   "status": "done"
+  },
+  "REPEATBITE2": {
+   "id": "REPEATBITE2",
+   "title": "Combo counter probe 2",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (Code Mode)",
+   "started": "2026-11-23",
+   "status": "done"
+  },
+  "MMAEMPIRE1": {
+   "id": "MMAEMPIRE1",
+   "title": "MMA Empire update read",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (Code Mode)",
+   "started": "2026-11-23",
+   "status": "done"
+  },
+  "FIGHTBIZ1": {
+   "id": "FIGHTBIZ1",
+   "title": "Fight Business demo read",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (Code Mode)",
+   "started": "2026-11-23",
+   "status": "done"
+  },
+  "MOODREAD1": {
+   "id": "MOODREAD1",
+   "title": "Win read moves with mood",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (Code Mode)",
+   "started": "2026-11-23",
+   "status": "done"
+  },
+  "COACHDEEP1": {
+   "id": "COACHDEEP1",
+   "title": "Deep coaches v1 probe",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (Code Mode)",
+   "started": "2026-11-23",
+   "status": "done"
+  },
+  "COACHDEEP2": {
+   "id": "COACHDEEP2",
+   "status": "running",
+   "started": "2026-11-23T04:50",
+   "title": "Deep coaches v2: owner answers + probe",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (Code Mode tab c13)",
+   "eta": "about 06:00",
+   "note": "S539 owner subscription"
+  },
+  "PICS2D1": {
+   "id": "PICS2D1",
+   "status": "running",
+   "started": "2026-11-23T04:50",
+   "title": "2D picture test: 14 stills + one round v its 3D film",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (Code Mode tab c14)",
+   "eta": "about 07:00",
+   "note": "S539 owner subscription"
+  },
+  "STEPPAY5": {
+   "id": "STEPPAY5",
+   "status": "running",
+   "started": "2026-11-23T04:50",
+   "title": "Footwork: finish STEPPAY4, ready to merge",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (Code Mode tab c12)",
+   "eta": "about 07:00",
    "note": "S539 owner subscription"
   }
  },

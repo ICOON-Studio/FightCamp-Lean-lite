@@ -8797,6 +8797,41 @@
       "attach": [
         "AgentComms/board_attach/Q-S294-307_0_REPEATBITE1_RESULT.md"
       ],
+      "answer": "Yes, build it",
+      "note": null,
+      "answered_at": "2026-11-23T02:13:47Z",
+      "seen_by_claude": false,
+      "comment_only": false
+    },
+    {
+      "id": "Q-S294-308",
+      "asked": "2026-11-23T02:59:13.169250+00:00",
+      "session": "S294",
+      "text": "Club show: keep the game's own favour rate (about 3 a year) as the target?",
+      "options": [
+        "Yes, keep it",
+        "No, more favours"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-308_0_HOSTPROBE2_RESULT.md"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-309",
+      "asked": "2026-11-23T02:59:13.811221+00:00",
+      "session": "S294",
+      "text": "Restyle screens like Fight Business polish: style sheet + 3 mockups first?",
+      "options": [
+        "Yes, start",
+        "Not now"
+      ],
+      "attach": [
+        "research/FIGHTBIZ1_COMPARE.md"
+      ],
       "answer": null,
       "note": null,
       "answered_at": null,
