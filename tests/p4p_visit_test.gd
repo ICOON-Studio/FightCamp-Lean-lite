@@ -107,6 +107,14 @@ func _rules() -> void:
 	_check(not bool(CardAsk.evidence([_round(1, [_x("long", true), _x("own_ropes", true, "", true, "tie")])])["qualifies"]),
 		"a call on the round's last exchange has no recorded escape")
 	_check(not bool(CardAsk.evidence([{"n": 1, "won": true}, "x"])["qualifies"]), "an old bout with no exchanges recorded: no evidence, no crash")
+	# S540 P4PEVID1: a step that RODE off the ropes is recorded on the card it led to (StepWire.ride: at = mid, rode_from = own_ropes)
+	var rode := _x("mid", true, "pivot_out")
+	rode["rode_from"] = "own_ropes"
+	var esc := CardAsk.evidence([_round(1, [rode, _x("long", true, "1-2")]), _round(2, [rode.duplicate(), _x("mid", false)])])
+	_check(bool(esc["qualifies"]) and esc["kind"] == "line" and esc["what"] == "pivot_out" and int(esc["pressure"]) == 2,
+		"an escape that rode off the own ropes is under pressure: twice won = evidence (%s)" % str(esc))
+	_check(not bool(CardAsk.evidence([_round(1, [_x("mid", true, "pivot_out"), _x("mid", true, "pivot_out")])])["qualifies"]),
+		"the same line won twice at mid, never on the ropes, is not evidence")
 	var lo := CardAsk.chance(0, true, 0, 6)
 	var hi := CardAsk.chance(100, true, 6, 6)
 	_check(lo > 0.0 and hi > lo and is_equal_approx(hi, CardAsk.CAP) and CardAsk.chance(9999, true, 50, 50) <= CardAsk.CAP,

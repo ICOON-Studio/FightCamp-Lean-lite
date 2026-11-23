@@ -3,6 +3,11 @@
 Task: `ops/research/TASK_HOSTPROBE5.md`. v8 = map v7 (`DESIGN_HOSTSHOW1_V7.md`) with HOSTPROBE4 section 7 done
 (`docs/HOSTPROBE4_RESULT.md`: v7 FAILED, 5 of 9 bars - the 34-point line called a strong starter 3 bouts early and left the
 chase cells over the line; below best in 20 of 36; asking up gave less pro offer; the card beat the lazy ask in 8 of 36).
+**HOSTPROBE5 (S541): FAIL, 6 of 9 bars** (docs/HOSTPROBE5_RESULT.md) - solved: a reason to ask up (B9 17 of 18), below no longer
+the answer (B3 33 in 100), the hall read, reserves, rank number. Broken: the weighed call moves a leader's call 2.5 bouts (B8,
+Lucy), the favour is too cheap now the yes carries the night (B1 12 of 48), the card beats the lazy ask in 14 of 108 (A3). Third
+FAIL in a row: the result's s7 says the card cannot reach 8 and sends "light money night, cut the card" to the owner's call.
+
 Bar (owner S534): probe first, then two fresh critics at 8+ DEPTH and 8+ PLAY. FREE HAND (owner S534): remove, add,
 interconnect. Probe: `tools/hostprobe5.gd` + the flagged rules copy `tools/hostprobe5_rules.gd`; result `docs/HOSTPROBE5_RESULT.md`.
 
@@ -178,6 +183,16 @@ Ships ON (GameSwitches.GAME_ON). Nothing is built before HOSTPROBE5 passes and t
 ## 9. Probe bars
 Written in docs/HOSTPROBE5_RESULT.md s3 before the run: HOSTPROBE4's bars, not loosened; B8 on the game's own careers on
 seeds W_BELOW was not calibrated on; the card cells now carry the club and its hall (108 cells).
+
+## 9b. Feedback loops (owner S541 rule)
+| Loop | Feeds | Feeds back? | Cap |
+|---|---|---|---|
+| Posters -> seats -> full house -> reputation | the next show's draw (1.0 a rep point) and Town's reach (0.6 + 0.01 a rep point) | yes, show to show | the hall's seats (250 / 400), full = +4 / +6 rep a show at most, about 3 shows a year, reach capped at 1.25 |
+| Favour spent -> a yes -> a win on their show later earns one back | Career.favours (built) | yes, slowly | 3 a club (CODE FAVOURS_MAX), about 3 earned a year (HOSTPROBE4) |
+| Weighed win -> the pro call | Roster.pro_ready | no (a call ends the amateur road) | the built lines 7 / 9 |
+| Home win -> members -> the draw | ClubShow draw 0.7 a member | yes | GymSpend.member_limit (built) |
+One-rep trial before the full probe: the road smoke (one career, s4 step 1); the card ran first at 2,000 rolls (its first run
+at the uncalibrated weight was stopped before it wrote anything).
 
 ## 10. What was rejected, and why
 - v4's own favour ledger: made the favour near free and duplicated a built one.

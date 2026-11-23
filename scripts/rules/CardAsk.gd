@@ -29,8 +29,12 @@ const FITS := ["best", "ok"]
 
 
 ## Pressure as the exchange recorded it: your boxer started it on the own ropes, or pinned there.
+## S540 P4PEVID1: a planned step in its best situation RIDES (StepWire.ride, S533 STEPPAY2 phase 3): the exchange is fought
+## on the card the step leads to, so the record's "at" is already off the ropes and "rode_from" keeps where it started.
+## That ride IS the escape off the ropes the other corner sees (pivot out on a presser, won): it counts as under pressure.
+## Reading only "at" hid every working escape from the evidence (0 of 60 real bouts against a Pressure fighter, was 20).
 static func under_pressure(x: Dictionary) -> bool:
-	return str(x.get("at", "")) == "own_ropes" or bool(x.get("pinned", false))
+	return str(x.get("at", "")) == "own_ropes" or str(x.get("rode_from", "")) == "own_ropes" or bool(x.get("pinned", false))
 
 
 ## What the other corner could have seen, from the bout's closed rounds (each round's "exchanges").

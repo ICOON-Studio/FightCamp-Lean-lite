@@ -8889,10 +8889,11 @@
       "attach": [
         "research/CARDGAME_PREPROD_S540.md"
       ],
-      "answer": null,
+      "answer": "Sign it",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-23T12:43:08Z",
+      "seen_by_claude": false,
+      "comment_only": false
     },
     {
       "id": "Q-S294-313",
@@ -8904,10 +8905,11 @@
         "No"
       ],
       "attach": [],
-      "answer": null,
+      "answer": "Yes",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-23T12:43:25Z",
+      "seen_by_claude": false,
+      "comment_only": false
     },
     {
       "id": "Q-S294-314",
@@ -8919,10 +8921,11 @@
         "Change order"
       ],
       "attach": [],
-      "answer": null,
+      "answer": "Yes",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-23T12:43:40Z",
+      "seen_by_claude": false,
+      "comment_only": false
     },
     {
       "id": "Q-S294-315",
@@ -8934,10 +8937,11 @@
         "No"
       ],
       "attach": [],
-      "answer": null,
+      "answer": "Yes",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-23T12:44:09Z",
+      "seen_by_claude": false,
+      "comment_only": false
     },
     {
       "id": "Q-S294-316",
@@ -8949,10 +8953,11 @@
         "No"
       ],
       "attach": [],
-      "answer": null,
+      "answer": "Yes",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-23T12:44:30Z",
+      "seen_by_claude": false,
+      "comment_only": false
     },
     {
       "id": "Q-S294-317",
@@ -8964,6 +8969,24 @@
         "No"
       ],
       "attach": [],
+      "answer": "Yes",
+      "note": null,
+      "answered_at": "2026-11-23T12:44:39Z",
+      "seen_by_claude": false,
+      "comment_only": false
+    },
+    {
+      "id": "Q-S294-318",
+      "asked": "2026-11-23T14:06:27.605455+00:00",
+      "session": "S294",
+      "text": "Club show failed 6 probes. Keep it as a light money night and cut the matchmaking card?",
+      "options": [
+        "Yes, light night",
+        "Keep trying"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-318_0_HOSTPROBE5_RESULT.md"
+      ],
       "answer": null,
       "note": null,
       "answered_at": null,

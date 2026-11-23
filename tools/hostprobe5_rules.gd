@@ -58,7 +58,7 @@ const POSTERS_BELOW := 12      ## ESTIMATE
 ## than ours before the bout) counts 1, any other win W_BELOW. The lines stay Roster.PRO_WINS (7) with top 3, or
 ## Roster.PRO_WINS_ANY_RANK (9) at any rank. W_BELOW = the lowest of {0.5, 0.6, 0.7, 0.8} that keeps the built call's timing
 ## on the road's calibration seeds (docs/HOSTPROBE5_RESULT.md s2 fixes the procedure before the run; set after stage=road).
-const W_BELOW := 0.5           ## CALIBRATED (stage=road, seeds 0-7; result s4)
+const W_BELOW := 0.8           ## CALIBRATED (stage=road, seeds 0-7: the lowest that passes B8 there; result s4)
 
 
 static func weight(opp_pts: int, our_pts: int) -> float:

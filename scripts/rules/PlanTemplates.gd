@@ -14,8 +14,12 @@ const PlanBoard := preload("res://scripts/rules/PlanBoard.gd")
 
 const BOXING := [
 	{"id": "t_turn", "name": "Vs a presser: make the punches miss and turn", "from": "Leonard-Hagler 1987, Joshua-Ruiz II 2019, Taylor-Serrano I 2022",
-		"idea": "Jab and leave; never stand where the punches land; if it gets close, hold.", "games": ["press"],
-		"arrows": [{"move": "1-1"}, {"move": "step_back"}, {"move": "pivot_out"}, {"move": "tie_up"},
+		"idea": "Jab and leave; never stand where the punches land; roll under the hooks and out; hold the big one.", "games": ["press"],
+		# S540 P4PEVID1 (NIGHTREDS1: STEPPAY3's moments paid the starter plan, not this one): a presser's moments are this
+		# template's job, so it carries their answers - inside she throws hooks (StepMoment flurry): roll under and out, not
+		# hold; the hold is for the loaded shot (loadup's best). Measured v Maria, 40 bouts: was 0.437 / +0.23 v the
+		# starter's 0.444 / +0.25; now 0.443 / +0.30. (push_off for the smother moved nothing: left out.)
+		"arrows": [{"move": "1-1"}, {"move": "step_back"}, {"move": "pivot_out"}, {"move": "roll_out"}, {"move": "tie_up", "when": "loadup"},
 			{"move": "slip 2-3", "when": "loadup"}, {"move": "step_out", "when": "she_tired"}]},
 	{"id": "t_ground", "name": "Vs a presser: stand your ground and push back", "from": "Holyfield-Tyson I 1996",
 		"idea": "Don't go backwards: hold, shove the presser onto the heels, then hit first. Strong, durable boxers only.", "games": ["press"],

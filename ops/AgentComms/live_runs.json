@@ -12,16 +12,6 @@
    "eta": "about 4 h",
    "note": "S540: then python tools/turnprobe16_sum.py E:/FightCamp/tmp/turnpro16/*.jsonl > docs/TURNPROBE16_RESULT.md"
   },
-  "CARDFIX6B": {
-   "id": "CARDFIX6B",
-   "status": "running",
-   "started": "2026-11-23T13:50",
-   "title": "Card r6b: page loads, title at the shot, rivals by rung, failing bars",
-   "seat": "arena",
-   "agent": "arena (arena/70a5176b-fightcamp-lean-lite)",
-   "eta": "about 1 h",
-   "note": "S540"
-  },
   "P4PEVID1": {
    "id": "P4PEVID1",
    "status": "running",
@@ -32,26 +22,6 @@
    "eta": "about 2 h",
    "note": "S540"
   },
-  "HOSTPROBE5": {
-   "id": "HOSTPROBE5",
-   "status": "running",
-   "started": "2026-11-23T14:50",
-   "title": "Club show v8: section 7 of probe 4, then probe",
-   "seat": "claude",
-   "agent": "claude-opus-5-5 (Code Mode tab c1)",
-   "eta": "about 2 h",
-   "note": "S541"
-  },
-  "KNOWSTAKES9": {
-   "id": "KNOWSTAKES9",
-   "status": "running",
-   "started": "2026-11-23T14:50",
-   "title": "Knowledge stakes v9 from both critic lists (play to 8)",
-   "seat": "claude",
-   "agent": "claude-fable-5-2 (Code Mode tab c3)",
-   "eta": "about 1.5 h",
-   "note": "S541"
-  },
   "COACHDEEP5": {
    "id": "COACHDEEP5",
    "status": "running",
@@ -61,6 +31,17 @@
    "agent": "claude-opus-5-5 (Code Mode tab c5)",
    "eta": "about 2 h",
    "note": "S541"
+  },
+  "CARDROUND7": {
+   "id": "CARDROUND7",
+   "status": "running",
+   "started": "2026-11-23T15:55",
+   "title": "Card round 7: the build you open and play (PLAY gate)",
+   "seat": "arena",
+   "agent": "arena (arena/c30aab81-fightcamp-lean-lite)",
+   "branch": "arena/c30aab81-fightcamp-lean-lite",
+   "eta": "about 1-2 h",
+   "note": "S541; chat https://arena.ai/agent/01a208a5-fd12-7ca6-8a21-666fc30aab81"
   }
  },
  "codex_budget": {
