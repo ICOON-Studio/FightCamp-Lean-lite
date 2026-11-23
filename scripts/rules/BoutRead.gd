@@ -60,6 +60,7 @@ const PLAN_CARRY := 1.9
 ## Rounds of next_mode's dice behind one style's mix.
 const MIX_ROUNDS := 300
 
+## S539 MOODREAD1: both edge keys carry her mood (trust, as LiveRound); morale 20-80 reads real bouts within 0.028.
 static var _mixes := {}; static var _ge := {}; static var _ready := {}; static var _re := {}
 static func clear_cache() -> void: _ge = {}; _re = {}
 
@@ -221,7 +222,7 @@ static func _call(f: Dictionary, n: int) -> String:
 
 ## LiveRound.exchange's call, perk, plan and habit terms in one situation of round n, as a mean over the round's exchanges.
 static func _game_edge(f: Dictionary, sit: String, n: int) -> float:
-	var key := hash(sit) ^ (n * 1315423911) ^ hash(f.get("stats", {})) ^ hash(f.get("arrows", [])) ^ hash(f.get("moves", {})) ^ hash(f.get("combos", {})) ^ hash(f.get("personality", {})) ^ hash(f.get("perks", [])) ^ hash(f.get("habits", [])) ^ int(round(float(f.get("footwork", 0.0)) * 1000.0))
+	var key := hash(FighterProfile.mood(float(f.get("morale", FighterProfile.MORALE_START)))) ^ hash(sit) ^ (n * 1315423911) ^ hash(f.get("stats", {})) ^ hash(f.get("arrows", [])) ^ hash(f.get("moves", {})) ^ hash(f.get("combos", {})) ^ hash(f.get("personality", {})) ^ hash(f.get("perks", [])) ^ hash(f.get("habits", [])) ^ int(round(float(f.get("footwork", 0.0)) * 1000.0))
 	if _ge.has(key):
 		return float(_ge[key])
 	var e := _game_edge_of(f, sit, n)
@@ -305,7 +306,7 @@ static func _tiring(opp: Dictionary, n: int, energy: float) -> float:
 
 ## Her mean edge in power points in each round against this opponent, on this camp.
 static func _re_key(f: Dictionary, o: Dictionary, camp: Dictionary, coach: float) -> String:
-	return RingDuel.stat_bucket(f) + str(f.get("moves")) + str(f.get("combos")) + str(f.get("steps")) + str(f.get("arrows")) + str(f.get("personality")) + str(f.get("perks")) + str(f.get("habits")) + str(f.get("style")) + str(f.get("stance")) + str(f.get("style_dials")) + str(f.get("durability_cap")) + str(camp) + str(coach) + str(o.get("rating")) + str(o.get("weak")) + str(o.get("threat")) + str(o.get("style")) + str(o.get("shape")) + str(o.get("age")) + str(o.get("peak_age")) + str(o.get("pace")) + str(o.get("forward")) + str(o.get("heart")) + str(o.get("stance")) + str(o.get("height")) + str(o.get("reach")) + str(o.get("name")) + str(o.get("damage_ledger")) + str(o.get("sex")) + str(BoutRules.tank_read(f)) + "|r%s-%s-%s-%s" % [o.get("w"), o.get("l"), o.get("d"), o.get("pro")] + "|e%s|s%s|n%s" % [(f.get("bout", {}) as Dictionary).get("r1_edge", 0.0), (f.get("bout", {}) as Dictionary).get("spar_edge", 0.0), (f.get("bout", {}) as Dictionary).get("rounds", 0)]   # S434 PUNCHSTART1: her punches grow with her record
+	return FighterProfile.mood(float(f.get("morale", FighterProfile.MORALE_START))) + RingDuel.stat_bucket(f) + str(f.get("moves")) + str(f.get("combos")) + str(f.get("steps")) + str(f.get("arrows")) + str(f.get("personality")) + str(f.get("perks")) + str(f.get("habits")) + str(f.get("style")) + str(f.get("stance")) + str(f.get("style_dials")) + str(f.get("durability_cap")) + str(camp) + str(coach) + str(o.get("rating")) + str(o.get("weak")) + str(o.get("threat")) + str(o.get("style")) + str(o.get("shape")) + str(o.get("age")) + str(o.get("peak_age")) + str(o.get("pace")) + str(o.get("forward")) + str(o.get("heart")) + str(o.get("stance")) + str(o.get("height")) + str(o.get("reach")) + str(o.get("name")) + str(o.get("damage_ledger")) + str(o.get("sex")) + str(BoutRules.tank_read(f)) + "|r%s-%s-%s-%s" % [o.get("w"), o.get("l"), o.get("d"), o.get("pro")] + "|e%s|s%s|n%s" % [(f.get("bout", {}) as Dictionary).get("r1_edge", 0.0), (f.get("bout", {}) as Dictionary).get("spar_edge", 0.0), (f.get("bout", {}) as Dictionary).get("rounds", 0)]   # S434 PUNCHSTART1: her punches grow with her record
 
 
 static func round_edges(f: Dictionary, opp: Dictionary, camp: Dictionary, coach := 0.0) -> Array:
