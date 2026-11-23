@@ -2,131 +2,65 @@
  "_doc": "Claude writes one entry per agent run at launch (operator S144: 'make it more clear, who is working on what, ETA'). The ops board /agents page joins it to the live processes. eta = Claude's estimate at launch, local time; status running|waiting|done.",
  "seats": 3,
  "runs": {
-  "TURNPRO15": {
-   "id": "TURNPRO15",
+  "COMBOCOUNTER1": {
+   "id": "COMBOCOUNTER1",
    "status": "running",
-   "started": "2026-11-22T21:00",
-   "title": "Turning pro v15: fix the favour, card honesty, name-chaser bars",
+   "started": "2026-11-23T11:40",
+   "title": "Combo counter build (Q-307 yes)",
    "seat": "claude",
-   "agent": "claude-fable (API credit, sdk_run.py)",
-   "eta": "about 90 min",
-   "note": "S539: probe b0-b3 done, b4 running, b5 next (run.sh loop), ~1 h each; then sum + result"
-  },
-  "STEPPAY4": {
-   "id": "STEPPAY4",
-   "status": "running",
-   "started": "2026-11-22T21:00",
-   "title": "Footwork: the wrong style punishes the step",
-   "seat": "claude",
-   "agent": "claude-fable (API credit, sdk_run.py)",
+   "agent": "claude-opus-5-5 (Code Mode tab c1)",
    "eta": "about 2 h",
-   "note": "S539: gate5.sh part 4 of 9 in E:/FightCamp/wt/s538_steppay4; result read by Claude when GATEDONE"
+   "note": "S540"
   },
-  "CARDSCOPE5": {
-   "id": "CARDSCOPE5",
+  "HOSTPROBE3": {
+   "id": "HOSTPROBE3",
    "status": "running",
-   "started": "2026-11-23T03:15",
-   "title": "Card game round 5: each art plays differently, readable holds",
+   "started": "2026-11-23T11:40",
+   "title": "Club show v6 map + probe (Q-308 yes)",
    "seat": "claude",
-   "agent": "claude-fable-5-2 (Code Mode tab c1)",
-   "eta": "about 2 h (05:15)",
-   "note": "S539 tab c1 (Fable) still running at handover; notes in proto/cardscope5/NOTES_S538_PEER.md"
+   "agent": "claude-opus-5-5 (Code Mode tab c2)",
+   "eta": "about 2 h",
+   "note": "S540"
   },
-  "HOSTPROBE1": {
-   "id": "HOSTPROBE1",
-   "status": "done",
-   "started": "2026-11-23T03:20",
-   "title": "Host a club show: code check of map v4 + greybox probe",
+  "KNOWSTAKES8": {
+   "id": "KNOWSTAKES8",
+   "status": "running",
+   "started": "2026-11-23T11:40",
+   "title": "Knowledge v8: play to 8",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (Code Mode tab c3)",
+   "eta": "about 1.5 h",
+   "note": "S540"
+  },
+  "TURNPRO15CRIT": {
+   "id": "TURNPRO15CRIT",
+   "status": "running",
+   "started": "2026-11-23T11:40",
+   "title": "Turning pro v15: code-checked critic",
    "seat": "claude",
    "agent": "claude-opus-5-5 (Code Mode tab c4)",
-   "eta": "about 3 h (06:30)",
-   "note": "S539 owner subscription"
+   "eta": "about 1 h",
+   "note": "S540"
   },
-  "HOSTPROBE2": {
-   "id": "HOSTPROBE2",
-   "title": "Club show v5 probe",
-   "seat": "claude",
-   "agent": "claude-opus-5-5 (Code Mode)",
-   "started": "2026-11-23",
-   "status": "done"
-  },
-  "REPEATBITE1": {
-   "id": "REPEATBITE1",
-   "title": "Combo counter probe",
-   "seat": "claude",
-   "agent": "claude-opus-5-5 (Code Mode)",
-   "started": "2026-11-23",
-   "status": "done"
-  },
-  "REPEATBITE2": {
-   "id": "REPEATBITE2",
-   "title": "Combo counter probe 2",
-   "seat": "claude",
-   "agent": "claude-opus-5-5 (Code Mode)",
-   "started": "2026-11-23",
-   "status": "done"
-  },
-  "MMAEMPIRE1": {
-   "id": "MMAEMPIRE1",
-   "title": "MMA Empire update read",
-   "seat": "claude",
-   "agent": "claude-opus-5-5 (Code Mode)",
-   "started": "2026-11-23",
-   "status": "done"
-  },
-  "FIGHTBIZ1": {
-   "id": "FIGHTBIZ1",
-   "title": "Fight Business demo read",
-   "seat": "claude",
-   "agent": "claude-opus-5-5 (Code Mode)",
-   "started": "2026-11-23",
-   "status": "done"
-  },
-  "MOODREAD1": {
-   "id": "MOODREAD1",
-   "title": "Win read moves with mood",
-   "seat": "claude",
-   "agent": "claude-opus-5-5 (Code Mode)",
-   "started": "2026-11-23",
-   "status": "done"
-  },
-  "COACHDEEP1": {
-   "id": "COACHDEEP1",
-   "title": "Deep coaches v1 probe",
-   "seat": "claude",
-   "agent": "claude-opus-5-5 (Code Mode)",
-   "started": "2026-11-23",
-   "status": "done"
-  },
-  "COACHDEEP2": {
-   "id": "COACHDEEP2",
+  "CARDSCOPE6": {
+   "id": "CARDSCOPE6",
    "status": "running",
-   "started": "2026-11-23T04:50",
-   "title": "Deep coaches v2: owner answers + probe",
-   "seat": "claude",
-   "agent": "claude-opus-5-5 (Code Mode tab c13)",
-   "eta": "about 06:00",
-   "note": "S539 owner subscription"
+   "started": "2026-11-23T11:40",
+   "title": "Card game r6: one line, 2-art slice, ladder (Arena)",
+   "seat": "arena",
+   "agent": "arena (arena/2e7b5504-fightcamp-lean-lite)",
+   "eta": "about 3 h",
+   "note": "S540"
   },
-  "PICS2D1": {
-   "id": "PICS2D1",
+  "NIGHTREDS1": {
+   "id": "NIGHTREDS1",
    "status": "running",
-   "started": "2026-11-23T04:50",
-   "title": "2D picture test: 14 stills + one round v its 3D film",
+   "started": "2026-11-23T11:50",
+   "title": "Which merge turned plan_templates + matchmaking_bots red",
    "seat": "claude",
-   "agent": "claude-opus-5-5 (Code Mode tab c14)",
-   "eta": "about 07:00",
-   "note": "S539 owner subscription"
-  },
-  "STEPPAY5": {
-   "id": "STEPPAY5",
-   "status": "running",
-   "started": "2026-11-23T04:50",
-   "title": "Footwork: finish STEPPAY4, ready to merge",
-   "seat": "claude",
-   "agent": "claude-opus-5-5 (Code Mode tab c12)",
-   "eta": "about 07:00",
-   "note": "S539 owner subscription"
+   "agent": "claude-sonnet-5-5 (Code Mode tab c5)",
+   "eta": "about 1.5 h",
+   "note": "S540, measurement only"
   }
  },
  "codex_budget": {

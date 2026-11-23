@@ -5245,7 +5245,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-23 03:41 board_sync",
+  "updated": "2026-11-23 05:11 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5396,34 +5396,40 @@
   },
   "working_now": [
    {
-    "title": "Deep coaches v2: the owner's 24 answers + probe",
-    "who": "claude-opus-5-5 (Code Mode tab c13)",
-    "started": "2026-11-23T04:52",
-    "run": "COACHDEEP2"
+    "title": "Turning pro v15: fix the favour, card honesty, name-chaser bars",
+    "who": "claude-fable (API credit, sdk_run.py)",
+    "started": "2026-11-22T21:00",
+    "run": "TURNPRO15"
    },
    {
-    "title": "2D picture test: 14 stills + one round beside its 3D film",
-    "who": "claude-opus-5-5 (Code Mode tab c14)",
-    "started": "2026-11-23T04:55",
-    "run": "PICS2D1"
+    "title": "Footwork: the wrong style punishes the step",
+    "who": "claude-fable (API credit, sdk_run.py)",
+    "started": "2026-11-22T21:00",
+    "run": "STEPPAY4"
    },
    {
-    "title": "Footwork: finish STEPPAY4 (cut_off, step_back v Slugger), ready to merge",
-    "who": "claude-opus-5-5 (Code Mode tab c12)",
-    "started": "2026-11-23T04:47",
-    "run": "STEPPAY5"
-   },
-   {
-    "title": "Card game round 5: each art plays differently",
+    "title": "Card game round 5: each art plays differently, readable holds",
     "who": "claude-fable-5-2 (Code Mode tab c1)",
     "started": "2026-11-23T03:15",
     "run": "CARDSCOPE5"
    },
    {
-    "title": "Turning pro v15 probe (boxers 5-6 of 6)",
-    "who": "Godot loop E:/FightCamp/tmp/turnpro15/run.sh",
-    "started": "2026-11-22T23:46",
-    "run": "TURNPRO15"
+    "title": "Deep coaches v2: owner answers + probe",
+    "who": "claude-opus-5-5 (Code Mode tab c13)",
+    "started": "2026-11-23T04:50",
+    "run": "COACHDEEP2"
+   },
+   {
+    "title": "2D picture test: 14 stills + one round v its 3D film",
+    "who": "claude-opus-5-5 (Code Mode tab c14)",
+    "started": "2026-11-23T04:50",
+    "run": "PICS2D1"
+   },
+   {
+    "title": "Footwork: finish STEPPAY4, ready to merge",
+    "who": "claude-opus-5-5 (Code Mode tab c12)",
+    "started": "2026-11-23T04:50",
+    "run": "STEPPAY5"
    }
   ],
   "next": [
@@ -5805,6 +5811,46 @@
   },
   "done_recently": [
    {
+    "title": "Deep coaches v1 probe",
+    "who": "claude-opus-5-5 (Code Mode)",
+    "when": "2026-11-23"
+   },
+   {
+    "title": "Win read moves with mood",
+    "who": "claude-opus-5-5 (Code Mode)",
+    "when": "2026-11-23"
+   },
+   {
+    "title": "Fight Business demo read",
+    "who": "claude-opus-5-5 (Code Mode)",
+    "when": "2026-11-23"
+   },
+   {
+    "title": "MMA Empire update read",
+    "who": "claude-opus-5-5 (Code Mode)",
+    "when": "2026-11-23"
+   },
+   {
+    "title": "Combo counter probe 2",
+    "who": "claude-opus-5-5 (Code Mode)",
+    "when": "2026-11-23"
+   },
+   {
+    "title": "Combo counter probe",
+    "who": "claude-opus-5-5 (Code Mode)",
+    "when": "2026-11-23"
+   },
+   {
+    "title": "Club show v5 probe",
+    "who": "claude-opus-5-5 (Code Mode)",
+    "when": "2026-11-23"
+   },
+   {
+    "title": "Host a club show: code check of map v4 + greybox probe",
+    "who": "claude-opus-5-5 (Code Mode tab c4)",
+    "when": "2026-11-23"
+   },
+   {
     "title": "Pro weigh-in miss: their corner answers",
     "who": "claude",
     "when": "2026-11-23"
@@ -5823,46 +5869,6 @@
     "title": "Knowledge v7 map + critics",
     "who": "claude-fable-5-2",
     "when": "2026-11-23"
-   },
-   {
-    "title": "MMA Empire + Fight Business reads",
-    "who": "claude-opus-5-5",
-    "when": "2026-11-23"
-   },
-   {
-    "title": "Show the \"opponents adjust\" rule: feed, Plan tab, plan chart",
-    "who": "claude-sonnet-5-5 (Code Mode tab c3)",
-    "when": "2026-11-23"
-   },
-   {
-    "title": "Knowledge stakes v7: both critics + the rival gym deadline (Q-305)",
-    "who": "claude-fable-5-2 (Code Mode tab c2)",
-    "when": "2026-11-23"
-   },
-   {
-    "title": "Contract tab: keep / cut stipend / release probe",
-    "who": "claude-fable (API credit, sdk_run.py)",
-    "when": "2026-11-23"
-   },
-   {
-    "title": "Card round 4: wind pool beats limb points",
-    "who": "claude",
-    "done": "2026-11-23"
-   },
-   {
-    "title": "Being wrong about people: sized (+12%)",
-    "who": "claude",
-    "done": "2026-11-23"
-   },
-   {
-    "title": "Coach hire probed: FAIL, unused coach modules removed",
-    "who": "claude",
-    "done": "2026-11-23"
-   },
-   {
-    "title": "Plan chart: main bet, uses, save/load (your Q-301)",
-    "who": "claude",
-    "done": "2026-11-23"
    }
   ],
   "scope_note": "S294: lean restart (E:\\FightCamp\\Lean\\docs\\RESTART_PLAN.md). Old roadmap items are parked until the weekly builds reach them.",
@@ -5951,64 +5957,6 @@
   "map": {
    "done_earlier": [
     {
-     "text": "Result page v2 built",
-     "who": "claude"
-    },
-    {
-     "text": "Office goals + sheets built",
-     "who": "claude"
-    },
-    {
-     "text": "Plan chart: bet, uses, save",
-     "who": "claude"
-    },
-    {
-     "text": "Coach hire: FAIL, removed",
-     "who": "claude"
-    },
-    {
-     "text": "Misread sized: +12%",
-     "who": "claude"
-    },
-    {
-     "text": "Card r4: wind beats limbs",
-     "who": "claude"
-    },
-    {
-     "text": "Tape grey bar: not reproduced",
-     "who": "claude"
-    },
-    {
-     "text": "Cross legs: heel up (6/10)",
-     "who": "claude"
-    },
-    {
-     "text": "Knee with hips + longer stance",
-     "who": "claude"
-    },
-    {
-     "text": "Weight r5: FAIL",
-     "who": "claude"
-    },
-    {
-     "text": "Hip drive on power punches",
-     "who": "claude"
-    },
-    {
-     "text": "S537: knee fixed, AF legs",
-     "who": "claude"
-    },
-    {
-     "text": "Godot: 92% CPU, 8 threads, 6 slots",
-     "who": "claude"
-    },
-    {
-     "text": "Arms by Strength stills to review",
-     "who": "claude"
-    }
-   ],
-   "done_session": [
-    {
      "text": "Q-305 rival deadline: yes",
      "who": "claude"
     },
@@ -6063,9 +6011,23 @@
     {
      "text": "Mood read fix",
      "who": "claude"
+    }
+   ],
+   "done_session": [
+    {
+     "text": "STEPPAY5 merged: steps 10/10",
+     "who": "claude"
     },
     {
-     "text": "Build exported S539",
+     "text": "TURNPRO15 probe: PASS 17/17",
+     "who": "claude"
+    },
+    {
+     "text": "Chip words: three uses",
+     "who": "claude"
+    },
+    {
+     "text": "Coach v2: FAIL on money",
      "who": "claude"
     }
    ],
@@ -6095,95 +6057,35 @@
      "who": "claude"
     },
     {
-     "text": "Turning pro v13 probe (Fable)",
-     "who": "agent"
-    },
-    {
-     "text": "Card game prototype (Arena)",
-     "who": "agent"
-    },
-    {
-     "text": "Weight r5 (Fable)",
-     "who": "agent"
-    },
-    {
-     "text": "Guard v8: stance merged",
-     "who": "agent"
-    },
-    {
      "text": "Cross legs FP2POSE2",
      "who": "agent"
-    },
-    {
-     "text": "Card game loop to 8",
-     "who": "agent"
-    },
-    {
-     "text": "STEPPAY3: five steps (Fable)",
-     "who": "claude"
-    },
-    {
-     "text": "Turning pro v14 (Fable)",
-     "who": "claude"
     },
     {
      "text": "Stance length FP2POSE3 (Fable)",
      "who": "claude"
     },
     {
-     "text": "TURNPRO15 probe: 4 boxers left",
+     "text": "Combo counter build (c1)",
      "who": "claude"
     },
     {
-     "text": "STEPPAY4 gate: part 4 of 9",
+     "text": "Club show v6 probe (c2)",
      "who": "claude"
     },
     {
-     "text": "CARDSCOPE5 resume (Fable)",
+     "text": "Knowledge v8 (c3)",
      "who": "claude"
     },
     {
-     "text": "PLANREADSHOW1 build (Sonnet)",
+     "text": "Pro v15 critics: K+D+Opus",
      "who": "claude"
     },
     {
-     "text": "KNOWSTAKES7: rival deadline",
+     "text": "Card r6 on Arena",
      "who": "claude"
     },
     {
-     "text": "HOSTPROBE1: club show probe",
-     "who": "claude"
-    },
-    {
-     "text": "Critics: knowledge v7 (K+D)",
-     "who": "claude"
-    },
-    {
-     "text": "REPEATBITE1: repeats bite",
-     "who": "claude"
-    },
-    {
-     "text": "HOSTPROBE2: show v5 probe",
-     "who": "claude"
-    },
-    {
-     "text": "MMA Empire update read",
-     "who": "claude"
-    },
-    {
-     "text": "COACHDEEP1: coaches as people",
-     "who": "claude"
-    },
-    {
-     "text": "Fight Business demo read",
-     "who": "claude"
-    },
-    {
-     "text": "2D picture test (PICS2D1)",
-     "who": "claude"
-    },
-    {
-     "text": "Coach v2 (COACHDEEP2)",
+     "text": "Restyle: Dola style sheet",
      "who": "claude"
     }
    ],
@@ -6425,14 +6327,6 @@
      "who": "claude"
     },
     {
-     "text": "Merge dmgfix (tests green)",
-     "who": "claude"
-    },
-    {
-     "text": "STEPPAY3: five steps",
-     "who": "claude"
-    },
-    {
      "text": "Tape: stray grey bar",
      "who": "claude"
     },
@@ -6457,39 +6351,19 @@
      "who": "claude"
     },
     {
-     "text": "Show 'opponents adjust'",
-     "who": "claude"
-    },
-    {
-     "text": "Knowledge v7 (Kalli+Dola)",
-     "who": "claude"
-    },
-    {
-     "text": "Card r6: 2 arts, play link",
-     "who": "claude"
-    },
-    {
-     "text": "Card r6 on Arena (2-art slice)",
-     "who": "claude"
-    },
-    {
-     "text": "Knowledge v8 (play to 8)",
-     "who": "claude"
-    },
-    {
-     "text": "Club show v6 after Q-308",
-     "who": "claude"
-    },
-    {
-     "text": "Restyle: style sheet (Q-309)",
-     "who": "claude"
-    },
-    {
      "text": "MOTIONRULERS1: 3 anim reds",
+     "who": "claude"
+    },
+    {
+     "text": "Your pick: 2D pictures (Q-310)",
+     "who": "claude"
+    },
+    {
+     "text": "Your call: boxer money (Q-311)",
      "who": "claude"
     }
    ],
-   "session": "S539"
+   "session": "S540"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
