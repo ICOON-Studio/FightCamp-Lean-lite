@@ -1400,7 +1400,70 @@ Every other key is the round-6 freeze. `dmgPer` stays 8: at 9–12 the boxer's d
 - **Tests:** `node --test proto/cardgame/*.test.mjs` **40/40** (was 36); legacy `node proto/cardgame-legacy/rules.test.mjs` 32/32. Added: the printed numbers equal the engine's (58 lines, `printedProblems` in `ui-text.mjs`); the play log records each decision with its seconds, the copy button returns it, and the career's last line is where the player stopped; the first volley is one card (the wrapper tested directly, the page tested through a played bout); the verdict's why-line matches the finish in both chairs. Adapted, not weakened: the pick-screen test now expects the round-7 opening's words (`PICK YOUR FIGHTER`, the two lines per fighter) in place of `PICK YOUR ART` — same intent, the screen renders two fighters. The 500-line rule holds (largest file 347 lines, the test file).
 - **Cuts:** the SHIP gate's four failing rows are reported, not tuned. The gate's page row uses the same seeded career as the tests (seed 640); the crash row's 1,000 seeds are fresh so a seed-specific crash cannot hide behind the protocol draw. Visual gate: unchanged from 6g — no browser in this workspace; the page was served over HTTP (all modules 200) and played by script through the DOM stub, not seen. Claude's scripted session: picked the boxer, trained Jab timing (Jab II landed in the bout), won the club bout by knockout — the verdict said "Knockout - Club challenger's health reached 0." — advanced to Area at rank #92, started the Area bout, and pasted the play log (43 decisions, pick to bout 2).
 
-## 7. Open decisions for the owner (taste and scope only)
+## 6i. Round 8 result **[R8]** (TASK CARDROUND8 — the guide; `proto/cardgame/`, harness `probe.mjs gate=play` / `gate=ship`; tag `card-r8`)
+
+**Verdict: PASS on the one thing — the first bout of a new career runs with a coach: six lines, one at a time, each at the moment its thing first happens, each pointing at its element on screen, each generated from the engine's numbers; the node test sees them exactly once in order in bout 1 and none in bout 2; the PLAY gate stays 6/6 and the suite is 47/47.** The owner's round-7 log (S541: lost bout 1 by knockout with no warning; Cover up 7 of 12 answers; Step in/in/out/out/in in 4 s; a turn ended with no card; first answer 41 s; "i didnt understand the design, maybe a guide would be useful") is answered line for line: his volley and what an answer is (line 1), the strip and what Step in/out does (line 3), wind and why a card is greyed (line 2), the warning before he picks (item 3). The only game change is the first bout's opponent (item 2); its win rate is below.
+
+### The one thing, in its five parts
+
+- **(a) `guide.mjs`: the six lines and their moments.** One table, `GUIDE`, in the brief's order — *His volley; Wind; The range strip; Laying cards; Points, health and the ways to win; The bell and the rounds* — each `{ id, title, target, text() }`. `text()` is a function that reads the engine when the line is spoken (`N.back`, `N.cap`, `N.stepW`, `N.hp`, `N.lead`, `N.rounds`, `N.turns`, the strip's four keys), so no number is typed into a sentence and none can drift from `sized.json`; the test mutates `N.lead` and `N.turns` and reads the new numbers in the words. `target` is the id of the element the line points at (`volleysheet, wind, range, hand, score, rounds`); `guideMoment(id, ctx)` says when a line is due from what the coach can see of the bout (the answer table up; your own hand and wind on screen; a point or a point of health moved; the bell rung or the bout ended), and `nextGuideLine(seen, ctx)` returns the **first unsaid line whose moment has come** — a line whose moment has not come holds the rest, so the order is the brief's, always.
+- **(b) The coach card (`ui.js`).** `coachDue()` is asked by every screen: null unless the guide switch is on and this is the first bout of the career (or its verdict, where a line still unsaid is said). `paint(html, due, wire)` renders the screen and, when a line is due, ONE card over it (`.coach-veil` + `.coach`: tag, title, one or two sentences, **Got it**) and wires only Got it — never more than one line on screen. The target element carries `.coach-target` (a gold ring above the veil, so it is seen lit under the card). Got it pushes the id into `state.guideSeen`, logs `coach: <title>` to the play log, and renders; the scripted player in the tests and in the gate clicks it before anything else. The bell line is due at the first bell (`wrapRound`) and, if the bout ends first, at the verdict (the verdict carries `#rounds`: "The bout ended in round r of N").
+- **(c) The low-health warning (item 3).** `volleyThreat(S, m)` clones the bout and runs `resolveIncoming` on it with no answer — the engine measures its own volley, so the warning can never disagree with the resolution. `ko` if it would take the health to 0, `low` if under a quarter; `threatLine` gives the red line ("This volley knocks you out unless you answer." / "…under a quarter of your health…"), printed by `answerTable` as `<p class="warn" id="warning">` above the answers, before the player picks. Tested iff: shown when and only when the laid volley would KO.
+- **(d) The How to play page and the switch (items 4 and 5).** A **How to play** button on every screen (pick, training, fight, verdict, the page itself): one page — a small picture of the strip (`rangeStrip(null, 'picture')`: KICK - PUNCH - CLINCH - GROUND in a row), the same six lines as the guide (`howtoLines()` renders `guideLines()`, six `.howto-line`s, under the ten-line bar), and the switch **Coach lines: ON/OFF**. The switch is on for a new career (`state.guide = true` at the pick) and turns itself off when the player leaves the first bout's verdict; the page's switch turns it either way.
+- **(e) The first bout's opponent (item 2) — the only game change.** `rivalFighter(career, 0)`: for `career.bouts === 0` the rival is **the other art** at the softest club deck — the printed deck with his three best cards swapped for his cheapest (`RIVAL_RECIPE[0] = { swap: 3 }`) — and `rivalPilot(0, career)` flies him by **that art's own priority list** (`scripted`), so a BJJ novice really sits to guard in the first bout (the impatient line cannot: at KICK a grappler has no card to lay). After the first bout a club novice is what he was in round 6 — the player's own art, diluted, impatient corner — so the ladder's club bouts and L2's states are unchanged from 6h. From Area up, unchanged. Measured over 400 seeds per art, first bout only:
+
+| Who plays the first bout | Boxing v the BJJ novice | BJJ v the boxing novice | Lost by KO in round 1 |
+|---|---|---|---|
+| the AI pilot (the gate's player) | **56.3%** | **56.0%** | 0/400, 0/400 |
+| the page's own scripted line (the tests' player) | **57.8%** | **0.0%** (281/400 by KO, over 3 rounds) | boxing 0/400; bjj **4/400** |
+| a reader (answers the dearest card, pulls guard) | 57.8% | **24.5%** | 0/400, 0/400 |
+
+The first bout may be lost, as the brief allows, and the boxer's is a coin flip; the page's own bjj line — which lays the first card in its hand and never pulls — loses to the boxing novice, and in 4 of 400 seeds in round 1, before the bell line (the verdict still says it). A player who reads the first five lines is not knocked out in round 1 (0/400 as either art). Before round 8 the club novice was the player's own art: the AI pilot won 99.5% (boxing) / 97.0% (bjj) of club bouts against him — the first bout is now a bout, not a walk-over, and it teaches the two arts' difference as plan section 3 asks.
+
+### The guide's lines, in order (as rendered with `sized.json`)
+
+1. **His volley** → the volley sheet. *His volley is face up: what he throws this turn, a card or a step at a time. A card can be answered - each answer says what it stops; a step only moves the bout.*
+2. **Wind** → the wind stat. *Wind pays for your cards. The number by your name is what you have now; 3 comes back at the start of each of your turns, up to 5. A greyed card costs more wind than you have, or does not work where you stand.*
+3. **The range strip** → the strip. *The strip is where the bout stands: KICK - PUNCH - CLINCH - GROUND. Every card says the range it works at. Step in costs 1 wind and takes you a range in; Step out costs 1 wind and takes you a range out.*
+4. **Laying cards** → your hand. *Lay your cards one at a time: each is paid in wind and resolves on his turn. End turn when your volley is laid.*
+5. **Points, health and the ways to win** → the score strip. *Health is 42; points come from clean punches and takedowns. The ways to win: a knockout (his health gone), a points lead of 7, or a hold - a submission or a pin.*
+6. **The bell and the rounds** → the round/turn stat. *2 rounds of 7 turns each. At the bell the last volley is resolved; the next round starts standing.*
+
+### PLAY gate (measured, `out/gate-play.txt`)
+
+| # | Bar | Measured | Result |
+|---|---|---|---|
+| 1 | The page's module graph links (a broken import fails the test) | ui.js linked under the stub document | PASS |
+| 2 | A scripted player finishes a bout and a ladder step through the page's own calls | 1 bout to a verdict (by ko); then verdict, training, the next bout on the table — Got it clicked at every coach line | PASS |
+| 3 | The printed numbers equal the engine's | 58 card lines, steps and previews checked; 0 mismatches | PASS |
+| 4 | D1: 22.5–45 decisions a bout, 95% under 52 | 30.7 decisions; 95th percentile 48 | PASS |
+| 5 | Every pairing inside 40–60 | boxing v bjj: 50.2 / 49.8 | PASS |
+| 6 | No crash in 1,000 bot bouts | 1,000 of 1,000 clean | PASS |
+
+**PLAY GATE: PASS (6/6).**
+
+### SHIP gate (measured, `out/gate-ship.txt`)
+
+| # | Bar | Measured | Result |
+|---|---|---|---|
+| 1–6 | (the PLAY rows above) | (as above) | PASS |
+| 7 | P2 | KO 18.0 lead 16.0 tap 25.0 pin 0.0; early 59.0; blind health 21.5, points −1.5, hold 6.4 | **FAIL** (points-blind, the 6g clause) |
+| 8 | P1 | 3+ ranges 84.8%; 50.2 / 49.8; 30.7 decisions | PASS |
+| 9 | P4 | 50.2 / 49.8 | PASS |
+| 10 | P5 | printed answer 100.0; ends 27.0; finish 47.6 | PASS |
+| 11 | P6 | boxing **46.5** / bjj 100.0; judge 90.5 | **FAIL** (boxing's mechanic, the 6g clause) |
+| 12 | P10 | boxing AI 47.5 / scripted 59.0; bjj AI 49.5 / scripted 38.5 | **FAIL** (boxing line) |
+| 13 | L1 | **52/100** titles; **29.9** modelled minutes a run (6h: 48, 31.0) | PASS |
+| 14 | L2 | boxing **3/4/2/1**; bjj **5/2/1/2** (6h: 2/4/3/1, 5/2/2/1) | PASS |
+| 15 | The beginner | boxing **49.5**; bjj **0.0** | **FAIL** (both lines) |
+
+**SHIP GATE: FAIL (11/15)** — the same four rows as 6h, for the same reasons; nothing was tuned. One note on the way: the round was first built with the other art at **every** club bout, which moved L2 to boxing 3/5/2/0, bjj 6/1/3/0 (FAIL) — the training states came from bouts the ladder's own club line had never fought. Narrowed to the first bout alone (what the brief names), L2 is back in its bar and L1 sits where 6h did within the draw.
+
+### Form, tests, and cuts
+
+- **Form:** unchanged — one strip, face-up rally, wind pool, three clocks, judges by cards; no rule or number touched (`sized.json`, the engine numbers and every card are round 6b's). What a player sees new: the coach's card at each new thing in the first bout, the red warning line in the answer table, the How to play button and page, the other art across the table in bout 1.
+- **Tests:** `node --test proto/cardgame/*.test.mjs` **47/47** (was 40): engine 29, ui 18. Added: the guide shows each line exactly once in the first bout, in order, with its element on screen and highlighted, and the play log has the six `coach:` lines; the lines are generated from the engine's numbers (mutating `N` changes the words); the warning shows iff the laid volley would KO (over a sweep of laid volleys and healths, through `answerTable`); the How to play button is on every screen and its page holds six `.howto-line`s and the strip picture; the switch is on for a new career, off after the first bout, and the page's switch turns the coach off; the first bout is against the other art at a club novice's deck and his corner plays his art (`state.first === 1`, the volley opens the bout); the first bout is not lost by a knockout before the coach's last line (120 seeds per art, the boxer by the page line, the BJJ man by the reader — 0 round-1 KOs). Extended, not weakened: engine test 27 ("the other art at every rung") now also checks the first-bout exception — once a bout is fought, a club novice is the player's own art with the impatient corner; ui test 7 ("a rival is the other art with better cards at every rung, and a club novice is the weakest") keeps its intent. Adapted: tests 3, 4, 6, 9 assert `His volley, face up` or `Choose a card or end your turn` where they said `End turn` — the answer screen has no End turn, and the first bout now opens on it. The 500-line rule holds (largest file 354 lines, `ui.test.mjs`); legacy `node proto/cardgame-legacy/rules.test.mjs` 32/32.
+- **Cuts:** no browser in this workspace for Claude — the page was served over HTTP (every module 200) and the first bout was played by script through the DOM stub with the guide on (ui test 12, gate row 2), not seen; the owner's play is the visual gate. A live preview of `proto/cardgame/` is left running for him. The page's own bjj line is 4/400 round-1 KOs (above); not tuned — the coach's five lines before the bell are the fix the brief asks for, and a player who reads them is not knocked out in round 1.
 
 000. **[R5] Seven arts, and what "balanced" should mean.** Kickboxing is in (his S538 ask). With every art playing its
    own way the table reads like a sport (the wrestler beats the boxer, karate beats the sambo man) and two of 21

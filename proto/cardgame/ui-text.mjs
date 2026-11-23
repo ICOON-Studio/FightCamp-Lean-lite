@@ -2,6 +2,7 @@
 // test. Every line the player reads about a card is built here, from the same CARDS the engine plays.
 import { CARDS, N, FLOOR, STYLES } from './cards.mjs';
 import { TRAINING, cardVariant } from './career.mjs';
+import { STRIP, guideLines, volleyThreat, threatLine } from './guide.mjs';
 
 export const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 const RANGE = { K: 'KICK', P: 'PUNCH', C: 'CLINCH', G: 'GROUND', T: 'TOP', B: 'GUARD' };
@@ -73,4 +74,27 @@ export function printedProblems() {
     else if (c.k !== 'hold') has(t, `${v.w} wind`, `${o.id} the trained wind`);
   }
   return { checked, problems };
+}
+// ---- round 8: the guide on the table -----------------------------------------------------------------
+// the range strip: the four ranges of the bout, the one you are at lit. key = posKey(S, m) ('K','P','C','T0'..'B3'),
+// or null for the picture on the How to play page. On the ground the strip also says which side you are on.
+export function rangeStrip(key, extra = '') {
+  const at = key ? (key[0] === 'T' || key[0] === 'B' ? 'G' : key[0]) : null;
+  const side = key ? (key[0] === 'T' ? `on top, rung ${key[1]}` : key[0] === 'B' ? `underneath, rung ${key[1]}` : '') : '';
+  return `<span class="rangestrip${extra ? ' ' + extra : ''}" id="range">${STRIP.map(([k, w]) => `<span class="range-cell${at === k ? ' on' : ''}">${w}</span>`).join('')}${side ? `<small>${side}</small>` : ''}</span>`;
+}
+// his volley, face up: every card and step he has laid this turn, with the line the answer table uses for it
+export function volleyRow(S) {
+  if (!S.inc.length) return '';
+  return `<div class="volley" id="volley"><span class="tiny">His volley, face up</span>${S.inc.map((p) => `<span class="volley-card${p.id[0] === '@' ? ' step' : ''}"><b>${esc(names(p.id))}</b><small>${esc(cardText(p.id))}</small></span>`).join('')}</div>`;
+}
+// the answer table: his volley, the low-health warning in red when the volley as laid would knock you out (or leave you
+// under a quarter), then one card per answer. options = answerOptions(S, 0): [null, ...]; null is Take it.
+export function answerTable(S, options) {
+  const warn = threatLine(volleyThreat(S, 0));
+  return `${volleyRow(S)}${warn ? `<p class="warn" id="warning">${esc(warn)}</p>` : ''}<h2>Answer the visible volley</h2><div class="offers">${options.map((o, i) => `<button class="card defence" data-answer="${i}" data-id="${o ? o.id : '@'}"><b>${o ? esc(names(o.id)) : 'Take it'}</b><small>${o ? esc(cardText(o.id)) : 'No answer cost: his volley resolves as it lies.'}</small></button>`).join('')}</div>`;
+}
+// the How to play page (round 8, item 4): the same six lines the coach says, and the picture of the strip
+export function howtoLines() {
+  return guideLines().map((l) => `<div class="howto-line" data-line="${l.id}"><b>${esc(l.title)}</b><span>${esc(l.text)}</span></div>`).join('');
 }

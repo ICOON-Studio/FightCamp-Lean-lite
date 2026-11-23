@@ -103,12 +103,12 @@
    },
    {
     "bar": "L1: 30-70 titles in 100 (model minutes shown)",
-    "measured": "48/100 titles; 31.0 modelled minutes a run (8 s a player decision)",
+    "measured": "52/100 titles; 29.9 modelled minutes a run (8 s a player decision)",
     "pass": true
    },
    {
     "bar": "L2: every training option best in 1-6 of ten real ladder states (from simulateLadder)",
-    "measured": "boxing 2/4/3/1 ; bjj 5/2/2/1",
+    "measured": "boxing 3/4/2/1 ; bjj 5/2/1/2",
     "pass": true
    },
    {
@@ -119,22 +119,22 @@
   ],
   "pass": false,
   "l1": {
-   "titles": 48,
-   "minutes": 31,
-   "bouts": 13.8
+   "titles": 52,
+   "minutes": 29.9,
+   "bouts": 13.6
   },
   "l2": {
    "boxing": [
-    2,
-    4,
     3,
+    4,
+    2,
     1
    ],
    "bjj": [
     5,
     2,
-    2,
-    1
+    1,
+    2
    ]
   },
   "blindLoss": {

@@ -1,7 +1,7 @@
 // The career layer: the ladder, the rivals on it, the training turn between bouts, and the two probes (L1, L2).
 import { CARDS, N, fighter } from './cards.mjs';
 import { bout } from './engine.mjs';
-import { aiPilot, impatient, worth } from './plan.mjs';
+import { aiPilot, impatient, scripted, worth } from './plan.mjs';
 
 export const RUNGS = ['Club', 'Area', 'National', 'Title shot', 'Title defence 1', 'Title defence 2', 'Title defence 3'];
 export const TITLE_SHOT = RUNGS.indexOf('Title shot');
@@ -56,12 +56,15 @@ export function resultCareer(career, won) {
 }
 export const playerFighter = (career) => ({ ...fighter(career.style), name: 'You', deck: career.deck.slice() });
 // RIVALS BY RUNG. The Club rung is the house rule's "opponents from other clubs": a novice of the player's own art whose
-// deck is the printed one with his best cards swapped for his cheapest (a first bout is fought, and trained for, in
-// the art the player came with: the guard drill and the escape practice have a real bout to be right in). From Area up
-// the rival is the other art; from National up his best cards are upgraded, as a title fighter's are. A national title
-// fighter is far better than a club novice, and the ladder now says so.
+// deck is the printed one with his best cards swapped for his cheapest (a first bout is fought, and trained for, in the
+// art the player came with: the guard drill and the escape practice have a real bout to be right in). THE FIRST BOUT of
+// a career is the exception (owner S541: "against the other art", plan section 3, so the first bout teaches the two
+// arts' difference): the same softest club deck with the other art's cards, flown by that art's own priority list (the
+// impatient line cannot fly a grappler: at KICK he has no card to lay, so he would only step out and never show his
+// art). From Area up the rival is the other art; from National up his best cards are upgraded, as a title fighter's are.
+// A national title fighter is far better than a club novice, and the ladder now says so.
 export const RIVAL_RECIPE = [
-  { swap: 3, same: true }, // 0 Club: a novice from another club, his own art, his three best cards swapped for his cheapest
+  { swap: 3, same: true }, // 0 Club: a novice of the player's own art, his three best cards swapped for his cheapest
   { up: 2, by: 1 },   // 1 Area: the other art's printed deck, his two best cards upgraded once
   { up: 4, by: 2 },   // 2 National
   { up: 6, by: 2 },   // 3 Title shot
@@ -72,7 +75,8 @@ export const RIVAL_RECIPE = [
 const power = (id) => worth(CARDS[id]) / Math.max(1, CARDS[id].w);
 export function rivalFighter(career, rung) {
   const recipe = RIVAL_RECIPE[Math.max(0, Math.min(RIVAL_RECIPE.length - 1, rung))];
-  const style = recipe.same ? career.style : career.style === 'boxing' ? 'bjj' : 'boxing', base = fighter(style);
+  const other = career.bouts === 0 && rung === 0; // the first bout of a career is against the other art (plan section 3)
+  const style = other ? (career.style === 'boxing' ? 'bjj' : 'boxing') : recipe.same ? career.style : career.style === 'boxing' ? 'bjj' : 'boxing', base = fighter(style);
   const own = base.deck.filter((id) => CARDS[id].st === style), core = base.deck.filter((id) => CARDS[id].st === 'core');
   const rank = own.slice().sort((a, b) => power(b) - power(a));
   let deck = own.slice();
@@ -80,8 +84,9 @@ export function rivalFighter(career, rung) {
   if (recipe.up) for (let i = 0; i < recipe.up; i++) deck[deck.indexOf(rank[i])] = cardVariant(rank[i], recipe.by);
   return { ...base, name: `${RUNGS[rung]} challenger`, deck: core.concat(deck) };
 }
-// a rival's corner by rung: a club novice's corner plays the dearest card it can; a title fighter's reads the table
-export const rivalPilot = (rung) => (rung <= 0 ? impatient() : aiPilot());
+// a rival's corner by rung: the first bout's novice plays the other art's own line (the priority list, which knows that
+// art's entries); a later club novice's corner plays the dearest card it can; a title fighter's reads the table
+export const rivalPilot = (rung, career) => (rung <= 0 ? (career?.bouts === 0 ? scripted(rivalFighter(career, rung).style) : impatient()) : aiPilot());
 // THE STATE A CAREER TRAINS IN, read off the bout it just fought: where his own cards had to be legal (the share of
 // them laid at each place on the strip), whether he was held, whether he was struck, whether he was behind on the
 // cards. Nothing here is hand-made: it is the ladder's own record, per art, and it says where the deck had to work.
@@ -128,7 +133,7 @@ export function simulateLadder(runs = 100, seed = 600000000, maxBouts = 80, styl
   for (let i = 0; i < runs; i++) {
     const career = freshCareer(style || (i % 2 ? 'boxing' : 'bjj'), seed + i * 1009); let wonTitle = false, runDecisions = 0; const states = [];
     for (let n = 0; n < maxBouts; n++) {
-      const r = bout(playerFighter(career), rivalFighter(career, career.rung), [AI, rivalPilot(career.rung)], seed + i * 1009 + n * 31);
+      const r = bout(playerFighter(career), rivalFighter(career, career.rung), [AI, rivalPilot(career.rung, career)], seed + i * 1009 + n * 31);
       const won = r.win === 0; boutCount++; decisionCount += r.st.dec[0]; runDecisions += r.st.dec[0];
       byRung[career.rung].bouts++; if (won) byRung[career.rung].wins++;
       wonTitle = wonTitle || takesTitle(career, won); // sticky: a defence lost and regained is still a title won

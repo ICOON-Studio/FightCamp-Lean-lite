@@ -5,7 +5,7 @@ import fs from 'node:fs';
 import { CARDS, N, STYLES, OWN, CHEAP, fighter, deckLegal } from './cards.mjs';
 import { newBout, bout, doAnswer, startAct, declare, endAct, legalNow, answerOptions, posKey, cost } from './engine.mjs';
 import { aiPilot, impatient, scripted, outlook } from './plan.mjs';
-import { freshCareer, RUNGS, TRAINING, train, resultCareer, measureTraining, assertCareer, takesTitle, rivalFighter, simulateLadder, trainingState, CUT_AT_LOSSES, TITLE_SHOT } from './career.mjs';
+import { freshCareer, RUNGS, TRAINING, train, resultCareer, measureTraining, assertCareer, takesTitle, rivalFighter, rivalPilot, simulateLadder, trainingState, CUT_AT_LOSSES, TITLE_SHOT } from './career.mjs';
 
 // a bout with both hands set by hand and full wind; seat 0 = a, seat 1 = b
 function table(a, b, ha, hb, x) {
@@ -315,14 +315,18 @@ test('the title is won at the TITLE SHOT, and the defences are defences', () => 
   assert.equal(l1.titleWins, l1.results.filter((r) => r.title).length);
 });
 
-test('rivals by rung: a club novice of the player\'s own art is diluted, from Area up the other art with better cards, a title defence is upgraded', () => {
+test('rivals by rung: the other art at every rung (round 8: the first bout is against it), a club novice diluted, from Area up better cards, a title defence is upgraded', () => {
   const c = freshCareer('boxing');
   const decks = RUNGS.map((_, rung) => rivalFighter(c, rung));
-  for (const [i, F] of decks.entries()) { assert.equal(F.deck.length, 15, 'rung ' + i); assert.ok(F.deck.every((id) => CARDS[id]), 'rung ' + i); assert.equal(F.style, i === 0 ? 'boxing' : 'bjj', 'rung ' + i + ': the club novice is the player\'s own art, from Area up the other art'); }
+  for (const [i, F] of decks.entries()) { assert.equal(F.deck.length, 15, 'rung ' + i); assert.ok(F.deck.every((id) => CARDS[id]), 'rung ' + i); assert.equal(F.style, 'bjj', 'rung ' + i + ': the other art at every rung, the club novice too (plan section 3: the first bout is against the other art)'); }
   assert.notDeepEqual(decks[0].deck, decks[1].deck, 'the club novice is not the area fighter');
   assert.ok(!decks[0].deck.some((id) => id.includes('+')), 'a novice has no upgraded cards');
   for (const rung of [3, 4, 5, 6]) assert.ok(decks[rung].deck.some((id) => id.includes('+')), 'rung ' + rung + ' has upgraded cards');
   assert.ok(decks[6].deck.filter((id) => id.includes('+')).length >= decks[3].deck.filter((id) => id.includes('+')).length, 'the defences are not easier than the title shot');
+  // the exception is the first bout only: once a bout is fought, a club novice is the player's own art again
+  const c2 = freshCareer('boxing'); c2.bouts = 1;
+  assert.equal(rivalFighter(c2, 0).style, 'boxing', 'a later club bout is against the player\'s own art');
+  assert.equal(rivalPilot(0, c2).name, 'impatient', 'and his corner plays the dearest card it can');
 });
 
 test('a training upgrade is one card in, one card out: a second upgrade never grows the deck', () => {
