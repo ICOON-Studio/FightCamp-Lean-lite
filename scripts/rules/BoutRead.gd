@@ -244,7 +244,7 @@ static func _game_edge_of(f: Dictionary, sit: String, n: int) -> float:
 	var moves: Dictionary = f.get("moves", {})
 	var combos: Dictionary = f.get("combos", {})
 	var pick := PlanFight.choose(PlanFile.arrows_for(f.get("arrows", []), f.get("late", {}), n, BoutRules.ROUNDS), at, moves, sit)   # S460 PlanPhase, as the ring
-	if sit in ["tiring", "she_tired"]:   # S434 the opponent's games walk the card chain in _round_edges (PlanChain)
+	if sit == "she_tired":   # S434 the opponent's games walk the card chain in _round_edges (PlanChain); S544 "tiring" too (TELLPLAY1: read 7.6, the bout 0.9)
 		e += PLAN_REACH * PLAN_CARRY * LineGrade.edge(pick, sit, PlanFight.rate(str(pick["move"]), combos), PlanFight.card_mean(at, sit, moves, combos), LineGrade.attrs_for(f))   # GRADE1
 	var habits := 0.0
 	for i in Exchanges.EXCHANGES:
@@ -307,7 +307,7 @@ static func _tiring(opp: Dictionary, n: int, energy: float) -> float:
 ## Her mean edge in power points in each round against this opponent, on this camp.
 ## S540 (COACHDEEP3): own_combos + book in the key - a week drilling only her own combination kept the old win chance.
 static func _re_key(f: Dictionary, o: Dictionary, camp: Dictionary, coach: float) -> String:
-	return FighterProfile.mood(float(f.get("morale", FighterProfile.MORALE_START))) + RingDuel.stat_bucket(f) + str(f.get("moves")) + str(f.get("combos")) + str(f.get("own_combos")) + str(f.get("book")) + str(f.get("steps")) + str(f.get("arrows")) + str(f.get("personality")) + str(f.get("perks")) + str(f.get("habits")) + str(f.get("style")) + str(f.get("stance")) + str(f.get("style_dials")) + str(f.get("durability_cap")) + str(camp) + str(coach) + str(o.get("rating")) + str(o.get("weak")) + str(o.get("threat")) + str(o.get("style")) + str(o.get("shape")) + str(o.get("age")) + str(o.get("peak_age")) + str(o.get("pace")) + str(o.get("forward")) + str(o.get("heart")) + str(o.get("stance")) + str(o.get("height")) + str(o.get("reach")) + str(o.get("name")) + str(o.get("damage_ledger")) + str(o.get("sex")) + str(BoutRules.tank_read(f)) + "|r%s-%s-%s-%s" % [o.get("w"), o.get("l"), o.get("d"), o.get("pro")] + "|e%s|s%s|n%s" % [(f.get("bout", {}) as Dictionary).get("r1_edge", 0.0), (f.get("bout", {}) as Dictionary).get("spar_edge", 0.0), (f.get("bout", {}) as Dictionary).get("rounds", 0)]   # S434 PUNCHSTART1: her punches grow with her record
+	return FighterProfile.mood(float(f.get("morale", FighterProfile.MORALE_START))) + RingDuel.stat_bucket(f) + str(f.get("moves")) + str(f.get("combos")) + str(f.get("own_combos")) + str(f.get("book")) + str(f.get("steps")) + str(f.get("arrows")) + str(f.get("personality")) + str(f.get("perks")) + str(f.get("habits")) + str(f.get("style")) + str(f.get("stance")) + str(f.get("style_dials")) + str(f.get("durability_cap")) + str(camp) + str(coach) + str(o.get("rating")) + str(o.get("weak")) + str(o.get("threat")) + str(o.get("style")) + str(o.get("shape")) + str(o.get("age")) + str(o.get("peak_age")) + str(o.get("pace")) + str(o.get("forward")) + str(o.get("heart")) + str(o.get("stance")) + str(o.get("height")) + str(o.get("reach")) + str(o.get("name")) + str(o.get("damage_ledger")) + str(o.get("sex")) + str(BoutRules.tank_read(f)) + "|r%s-%s-%s-%s" % [o.get("w"), o.get("l"), o.get("d"), o.get("pro")] + "|e%s|s%s|n%s" % [(f.get("bout", {}) as Dictionary).get("r1_edge", 0.0), (f.get("bout", {}) as Dictionary).get("spar_edge", 0.0), (f.get("bout", {}) as Dictionary).get("rounds", 0)] + "|c%s" % (f.get("bout", {}) as Dictionary).get("conf_edge", 0.0)   # S434 PUNCHSTART1: her punches grow with her record
 
 
 static func round_edges(f: Dictionary, opp: Dictionary, camp: Dictionary, coach := 0.0) -> Array:
@@ -333,7 +333,7 @@ static func _round_edges(f: Dictionary, opp: Dictionary, camp: Dictionary, coach
 	for n in range(1, tanks.size() + 1):
 		var t: Dictionary = tanks[n - 1]
 		var e := base + float(t["edge"]) + BoutRules.stance_edge(n, str(f.get("stance", "orthodox")), opp, camp)
-		e += BoutRules.first_round_edge(n, f.get("bout", {})) + BoutRules.spar_edge(n, f.get("bout", {}))   # S474 round 1 / rust; S482 partner
+		e += BoutRules.first_round_edge(n, f.get("bout", {})) + BoutRules.spar_edge(n, f.get("bout", {})) + BoutRules.conf_edge(f.get("bout", {}))   # S474 round 1 / rust; S482 partner; S543 confidence
 		if n >= BoutRules.ROUNDS:   # S434 CARDIO1: the fade's slope on her Stamina, as LiveRound
 			e -= BoutRules.own_fade(float(own_attrs["stamina"]))
 		if n >= BoutRules.ROUNDS and str(opp.get("weak", "")).begins_with("Fades"):
@@ -374,8 +374,8 @@ static func _round_edges(f: Dictionary, opp: Dictionary, camp: Dictionary, coach
 				steps.append(st)
 			e += ex / float(Exchanges.EXCHANGES)
 		# S434 her plan on the cards she really stands on (PlanChain), exchange by exchange at her chance of one; her own
-		# trouble and the opponent's tiring move her card but add their plan once, in worth (_game_edge_of).
-		e += PLAN_CARRY * PlanChain.walk(fx.get("arrows", []), fx.get("moves", {}), fx.get("combos", {}), steps, ComboOdds.win_odds(e), ["she_tired", "tiring"], fx.get("steps", {}))
+		# trouble moves her card but adds its plan once, in worth (_game_edge_of). S544: the opponent's tiring walks the chain.
+		e += PLAN_CARRY * PlanChain.walk(fx.get("arrows", []), fx.get("moves", {}), fx.get("combos", {}), steps, ComboOdds.win_odds(e), ["she_tired"], fx.get("steps", {}))
 		out.append(e)
 	return out
 

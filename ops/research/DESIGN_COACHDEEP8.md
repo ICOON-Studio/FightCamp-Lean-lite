@@ -265,5 +265,6 @@ The first one-rep trial (FAIL 2 of 7) showed the greybox could not measure the m
    the coach's band (grill Q17: $300 / $600 / $1,100) and come at most once a season.
 7. **Ties count for every tied answer and hire** (stricter than first-listed, as v5/v6 did).
 
-## 15. v8 TUNING (filled after the one-rep trial, BEFORE the full run; bars s10 unchanged)
-See `docs/COACHDEEP8_RESULT.md` s5.
+## 15. v8 TUNING (after the one-rep trial, BEFORE the full run; bars s10 unchanged)
+Nothing tuned: the sizes stayed at the task's starting estimates (reason: `docs/COACHDEEP8_RESULT.md` s5). Two probe fixes only,
+no rule changed: a parse slip and two name collisions from moving `_chance` into the rules file.

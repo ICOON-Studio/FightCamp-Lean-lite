@@ -220,6 +220,19 @@
      ]
     }
    ]
+  },
+  {
+   "title": "Mechanics",
+   "frames": [
+    {
+     "id": "turnpro17_s544",
+     "title": "Turning pro v17: the five screens (S544 build)",
+     "kind": "gallery",
+     "globs": [
+      "docs/playtest/s543_turnpro17/*_real.png"
+     ]
+    }
+   ]
   }
  ]
 }

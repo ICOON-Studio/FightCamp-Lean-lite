@@ -1,7 +1,8 @@
 extends SceneTree
-## TASK PROCONTRACT1: blind contract test for turning pro (TURNPRO1 v2).
-## Written strictly from the contract, DESIGN_TURNPRO1_V2_REVISE_KALLI_KALLI.md
-## sections 1-6, and module header comments without reading forbidden function bodies.
+## TASK PROCONTRACT1: blind contract test for turning pro (TURNPRO1 v2), cut to v17 by S543 TURNPROBUILD17 (map
+## DESIGN_TURNPRO1_V17.md section 6): the two houses, who calls by the forecast, the 14-day window, the lapse, the asks and
+## the decline rule are gone; their checks are deleted or rewritten (docs/TURNPROBUILD17_RESULT.md lists each). Kept: the
+## offer line, the structure keys, no offer beside a booked bout, the age stop, signing, the week review's lines.
 
 const Career := preload("res://scripts/state/Career.gd")
 const Data := preload("res://scripts/state/Data.gd")
@@ -14,10 +15,7 @@ var failures: int = 0
 
 func _initialize() -> void:
 	_test_check_pro_eligibility_and_structure()
-	_test_two_houses_and_forecast()
-	_test_window_lapse_and_return()
-	_test_asks_and_plain()
-	_test_turn_pro_and_declines()
+	_test_turn_pro_and_not_yet()
 	_test_proweeklines()
 	if failures == 0:
 		print("PRO_CONTRACT PASS fails=0")
@@ -38,7 +36,6 @@ func _make_career(members: int = 50, day: int = 0) -> Career:
 	c.members = members
 	c.fighters.clear()
 	var f: Dictionary = Data.fighter_state(Data.lucy(), day)
-	f["pro_declines"] = 0
 	f["bout"] = {}
 	f["booked_fight"] = false
 	c.fighters.append(f)
@@ -74,10 +71,10 @@ func _test_check_pro_eligibility_and_structure() -> void:
 	_check(not c.pro_offer.is_empty(), "9 wins at rank 0: offer made")
 
 	# Edge: second check_pro on the same day changes nothing
-	var expires_before: int = int(c.pro_offer.get("expires", 0))
+	var day_before: int = int(c.pro_offer.get("day", -1))
 	var fid_before: String = str(c.pro_offer.get("fid", ""))
 	Roster.check_pro(c)
-	_check(int(c.pro_offer.get("expires", 0)) == expires_before and str(c.pro_offer.get("fid", "")) == fid_before, "second check_pro on same day changes nothing")
+	_check(int(c.pro_offer.get("day", -2)) == day_before and str(c.pro_offer.get("fid", "")) == fid_before, "second check_pro on same day changes nothing")
 
 	# Edge: offer is not made while a bout is booked
 	var c_bk: Career = _make_career(50, 10)
@@ -97,185 +94,64 @@ func _test_check_pro_eligibility_and_structure() -> void:
 	var f_age: Dictionary = c_age.fighter()
 	f_age["w"] = 9
 	f_age["age"] = ProCall.AGE_STOP
-	f_age["pro_declines"] = 0
 	Roster.check_pro(c_age)
 	_check(c_age.pro_offer.is_empty(), "never at age 32 or older for a first call")
 	f_age["age"] = 31
 	Roster.check_pro(c_age)
 	_check(not c_age.pro_offer.is_empty(), "first call made at age 31")
 
-	# Structure: first house old keys and added keys
+
+	# Structure: the old keys, one promoter (S543 v17), the two bouts of fight 1 today and four weeks on
 	var o: Dictionary = c.pro_offer
 	_check(str(o.get("fid", "")) == str(f.get("id", "")), "c.pro_offer keeps fid")
 	_check(o.has("promoter") and o.has("purse") and o.has("terms") and o.has("step") and o.has("top"), "c.pro_offer keeps promoter, purse, terms, step, top")
-	_check(o.get("offers", []) is Array and not (o.get("offers", []) as Array).is_empty(), "c.pro_offer adds offers array")
+	_check(not o.has("offers") and not o.has("asked") and not o.has("expires"), "one promoter, one offer: no houses, no asks, no window")
 	_check(o.has("forecast") and int(o.get("forecast", 0)) >= 0, "c.pro_offer adds forecast")
-	_check(int(o.get("expires", 0)) == c.day + ProCall.WINDOW_DAYS, "c.pro_offer adds expires (day + 14)")
-	_check(o.get("asked", null) is Dictionary and o.get("plain", null) is Dictionary, "c.pro_offer adds asked and plain dictionaries")
+	_check((o.get("pair_now", {}) as Dictionary).has("safe") and (o.get("pair_later", {}) as Dictionary).has("risky"), "c.pro_offer carries fight 1's two bouts today and four weeks on")
 
-func _test_two_houses_and_forecast() -> void:
-	var pmap: Dictionary = ProCall.promoters()
-	_check(pmap.has("bow") and pmap.has("hf"), "ProCall.promoters defines bow and hf")
-	var bow_base: Dictionary = pmap.get("bow", {}) as Dictionary
-	var hf_base: Dictionary = pmap.get("hf", {}) as Dictionary
-	_check(int(bow_base.get("purse", 0)) == 1500 and int(bow_base.get("break_even", 0)) == 60 and int(bow_base.get("debut_weeks", 0)) == 4, "bow: $1,500, break-even 60, debut 4 weeks out")
-	_check(int(hf_base.get("purse", 0)) == 1800 and int(hf_base.get("debut_weeks", 0)) == 6, "hf: $1,800, debut 6 weeks out")
 
-	# Pure rule ProCall.who_calls: far below, band [45, 75], far above
-	_check(ProCall.who_calls(40) == ["hf"], "forecast 40 (< 45): Harrow & Finch alone")
-	var mid_calls: Array = ProCall.who_calls(60)
-	_check(mid_calls.size() == 2 and mid_calls.has("bow") and mid_calls.has("hf"), "forecast 60 (within 15 of 60): both houses call")
-	_check(ProCall.who_calls(80) == ["bow"], "forecast 80 (> 75): Bow Lane alone")
-
-	# In career check_pro: tickets = 20 + floor(members * 0.5) + 2 * w
-	var c_low: Career = _make_career(0, 5)
-	c_low.fighter()["w"] = 9  # tickets = 38 (< 45)
-	Roster.check_pro(c_low)
-	var off_low: Array = c_low.pro_offer.get("offers", []) as Array
-	_check(off_low.size() == 1 and str((off_low[0] as Dictionary).get("key", "")) == "hf", "career forecast < 45 produces Harrow & Finch alone")
-
-	var c_mid: Career = _make_career(40, 5)
-	c_mid.fighter()["w"] = 9  # tickets = 58 ([45, 75])
-	Roster.check_pro(c_mid)
-	var off_mid: Array = c_mid.pro_offer.get("offers", []) as Array
-	var keys_mid: Array = off_mid.map(func(it: Dictionary) -> String: return str(it.get("key", "")))
-	_check(off_mid.size() == 2 and keys_mid.has("bow") and keys_mid.has("hf"), "career forecast within 15 of 60 produces both houses")
-
-	var c_high: Career = _make_career(100, 5)
-	c_high.fighter()["w"] = 9  # tickets = 88 (> 75)
-	Roster.check_pro(c_high)
-	var off_high: Array = c_high.pro_offer.get("offers", []) as Array
-	_check(off_high.size() == 1 and str((off_high[0] as Dictionary).get("key", "")) == "bow", "career forecast > 75 produces Bow Lane alone")
-
-func _test_window_lapse_and_return() -> void:
-	_check(ProCall.WINDOW_DAYS == 14, "ProCall.WINDOW_DAYS is 14")
-	var c: Career = _make_career(40, 10)
-	var f: Dictionary = c.fighter()
-	f["w"] = 9
-	Roster.check_pro(c)
-	_check(int(c.pro_offer.get("expires", 0)) == 24, "offer expires on day 10 + 14 = 24")
-
-	# Edge: day 13 vs day 14 (day 13 = still there, day 14 = lapsed)
-	c.day = 23
-	Roster.check_pro(c)
-	_check(not c.pro_offer.is_empty(), "the window running out on day 13 vs day 14 (13 = still there)")
-
-	c.day = 24
-	Roster.check_pro(c)
-	_check(c.pro_offer.is_empty(), "day 14: offer has lapsed")
-	_check(int(f.get("pro_declines", 0)) == 0, "lapse is NOT a decline: pro_declines does not move")
-
-	# Promoter calls again after 2 more wins (no call before them)
-	f["w"] = 10
-	Roster.check_pro(c)
-	_check(c.pro_offer.is_empty(), "no call after only 1 win following lapse")
-
-	f["w"] = 11
-	Roster.check_pro(c)
-	_check(not c.pro_offer.is_empty(), "promoter calls again after 2 more wins")
-
-func _test_asks_and_plain() -> void:
-	var c: Career = _make_career(40, 0)
-	c.fighter()["w"] = 9
-	Roster.check_pro(c)
-
-	# 1. "will not" answer does not spend the ask
-	var wont_txt: String = ProOfferWire.ask(c, "bow", "costs", 10)
-	_check(wont_txt != "", "ask 'costs' on bow returns refusal text")
-	var asked_map: Dictionary = c.pro_offer.get("asked", {}) as Dictionary
-	_check((asked_map.get("bow", {}) as Dictionary).is_empty(), "a 'will not' answer does not spend the ask")
-
-	# 2. Taken ask spends it and updates terms
-	var take_txt: String = ProOfferWire.ask(c, "bow", "later2", 10)
-	_check(take_txt != "", "taken ask 'later2' on bow returns text")
-	var off_bow: Dictionary = ProOfferWire.offer(c.pro_offer, "bow")
-	_check(int(off_bow.get("debut_weeks", 0)) == 6, "taken ask later2 updates debut_weeks to 6")
-
-	# 3. Second ask on same house is refused
-	var second_txt: String = ProOfferWire.ask(c, "bow", "softer", 10)
-	_check(second_txt == "", "second ask on the same house is refused")
-
-	# 4. Other house keeps its own ask
-	var hf_txt: String = ProOfferWire.ask(c, "hf", "costs", 10)
-	_check(hf_txt != "", "the other house keeps its own ask and accepts costs")
-
-	# 5. back_to_plain restores plain terms and ask stays spent
-	ProOfferWire.back_to_plain(c, "bow")
-	var plain_bow: Dictionary = ProOfferWire.offer(c.pro_offer, "bow")
-	_check(int(plain_bow.get("debut_weeks", 0)) == 4, "back_to_plain restores plain terms")
-	var ask_after_plain: String = ProOfferWire.ask(c, "bow", "later4", 10)
-	_check(ask_after_plain == "", "ask stays spent after back_to_plain")
-
-func _test_turn_pro_and_declines() -> void:
-	# 5a. Sign with "bow": 4 weeks out, stipend stops, pro_signed records previous stipend
+func _test_turn_pro_and_not_yet() -> void:
+	# 5a. Sign: the stipend stops, pro_signed records the previous stipend, the debut is picked from two bouts
 	var c_bow: Career = _make_career(40, 100)
 	var f_bow: Dictionary = c_bow.fighter()
 	f_bow["w"] = 9
 	f_bow["weekly_salary"] = 250
 	Roster.check_pro(c_bow)
-	Roster.turn_pro(c_bow, "bow")
+	Roster.turn_pro(c_bow)
 
 	_check(bool(f_bow.get("pro", false)), "f[pro] true after turn_pro")
 	_check(int(f_bow.get("weekly_salary", -1)) == 0, "the stipend stops (weekly_salary 0)")
 	_check(c_bow.pro_offer.is_empty(), "c.pro_offer is empty after signing")
-	var bout_bow: Dictionary = f_bow.get("bout", {}) as Dictionary
-	_check(bool(bout_bow.get("pro", false)), "debut is booked pro")
-	_check(int(bout_bow.get("day", 0)) == Roster.debut_day(100, 4), "signing with 'bow' books 4 weeks out")
+	_check((f_bow.get("bout", {}) as Dictionary).is_empty() and (f_bow.get("pro_pair", {}) as Dictionary).has("safe"), "the debut waits as two bouts (S543 v17)")
+	_check(int(f_bow.get("pro_due", 0)) == Roster.debut_day(100, 4), "the debut night is 4 weeks out")
 
 	var ps_bow: Dictionary = f_bow.get("pro_signed", {}) as Dictionary
-	_check(int(ps_bow.get("d", -1)) == 100 and str(ps_bow.get("key", "")) == "bow" and str(ps_bow.get("house", "")) != "", "pro_signed records d, the house key and its name")
+	_check(int(ps_bow.get("d", -1)) == 100 and str(ps_bow.get("house", "")) == Roster.PROMOTER, "pro_signed records d and the promoter's name")
 	_check(int(ps_bow.get("stipend", 0)) == 250, "pro_signed records previous weekly_salary (250) before zeroing")
 	_check(int(ps_bow.get("costs", 0)) > 0, "pro_signed records costs > 0 when gym pays them")
 
-	# 5b. Sign with "hf" (costs ask taken): books 6 weeks out, costs recorded as 0
-	var c_hf: Career = _make_career(40, 200)
-	var f_hf: Dictionary = c_hf.fighter()
-	f_hf["w"] = 9
-	f_hf["weekly_salary"] = 250
-	Roster.check_pro(c_hf)
-	ProOfferWire.ask(c_hf, "hf", "costs", 10)
-	Roster.turn_pro(c_hf, "hf")
-	var bout_hf: Dictionary = f_hf.get("bout", {}) as Dictionary
-	_check(int(bout_hf.get("day", 0)) == Roster.debut_day(200, 6), "signing with 'hf' books 6 weeks out")
-	var ps_hf: Dictionary = f_hf.get("pro_signed", {}) as Dictionary
-	_check(int(ps_hf.get("costs", -1)) == 0, "pro_signed records costs as 0 when house pays from purse")
-
-	# 5c. Decline pro and edge: a decline's next call puts the declined house FIRST
+	# 5c. Not yet (S543 v17 replaces the decline rule): the offer returns four weeks later, the line does not move
 	var c_dec: Career = _make_career(40, 10)
 	var f_dec: Dictionary = c_dec.fighter()
 	f_dec["w"] = 9
 	Roster.check_pro(c_dec)
-	var off_dec: Array = c_dec.pro_offer.get("offers", []) as Array
-	var declined_house: String = str((off_dec[0] as Dictionary).get("key", ""))
-
 	Roster.decline_pro(c_dec)
-	_check(int(f_dec.get("pro_declines", 0)) == 1, "Roster.decline_pro increments pro_declines to 1")
-	_check(c_dec.pro_offer.is_empty(), "c.pro_offer empty after decline")
-
-	f_dec["w"] += 2
+	_check(int(f_dec["pro_start"]["patience"]) == 2 and c_dec.pro_offer.is_empty(), "Not yet: a mark spent, the offer goes")
+	c_dec.day += 27
 	Roster.check_pro(c_dec)
-	_check(not c_dec.pro_offer.is_empty(), "offer returns after 2 wins following decline")
-	var next_off: Array = c_dec.pro_offer.get("offers", []) as Array
-	_check(str((next_off[0] as Dictionary).get("key", "")) == declined_house, "a decline's next call puts the declined house FIRST")
-
-	# 5d. Edge (design s1, corrected S525): after 2 declines only a regional number 1 calls; after 3 the door is closed.
+	_check(c_dec.pro_offer.is_empty(), "no call inside four weeks")
+	c_dec.day += 1
+	Roster.check_pro(c_dec)
+	_check(not c_dec.pro_offer.is_empty() and int(f_dec["w"]) == 9, "the offer returns four weeks later at the same 9 wins")
 	Roster.decline_pro(c_dec)
-	_check(int(f_dec.get("pro_declines", 0)) == 2, "second decline")
-	f_dec["w"] += 9
-	f_dec["rank"] = 2
+	c_dec.day += 28
 	Roster.check_pro(c_dec)
-	_check(c_dec.pro_offer.is_empty(), "two declines then 9 more wins = no call short of a number 1 ranking")
-	f_dec["rank"] = 1
-	Roster.check_pro(c_dec)
-	_check(not c_dec.pro_offer.is_empty(), "two declines: a number 1 ranking brings the call")
+	_check(bool(c_dec.pro_offer.get("rival", false)), "the third call is a rival gym's")
 	Roster.decline_pro(c_dec)
-	_check(int(f_dec.get("pro_declines", 0)) == 3, "three declines reached")
-	_check(str((c_dec.news[0] as Dictionary).get("t", "")).contains("No promoter will call"), "the third decline's news closes the door: %s" % str((c_dec.news[0] as Dictionary).get("t", "")))
-	f_dec["w"] += 9
-	Roster.check_pro(c_dec)
-	_check(c_dec.pro_offer.is_empty(), "three declines: the door is closed even at number 1")
+	_check(not c_dec.pro_offer.is_empty(), "Not yet does nothing on the rival gym's call")
+	c_dec.pro_offer = {}
 	Roster.decline_pro(c_dec)
-	_check(int(f_dec.get("pro_declines", 0)) == 3, "declining with no offer on the table changes nothing")
+	_check(int(f_dec["pro_start"]["patience"]) == 1, "declining with no offer on the table changes nothing")
 
 func _test_proweeklines() -> void:
 	# 6a. Nothing for an amateur

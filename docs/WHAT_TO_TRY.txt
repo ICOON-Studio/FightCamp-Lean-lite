@@ -1,4 +1,26 @@
-S543 (2026-11-23, late) - on main, in the NEXT build (not exported yet: the PC was at its memory limit)
+S544 build (2026-11-24, night) - what changed, and what to try
+
+1. TURNING PRO, YOUR DESIGN (your "Yes, build v17 now"): at 9 amateur wins (or 7 and a regional top 3) ONE promoter calls.
+   The pop-up has two buttons: Turn pro now / Not yet. Patience is three marks. "Not yet" costs a mark and 15 hunger and
+   the promoter calls again in 4 weeks; the third time a rival gym calls instead: turn pro now, or the boxer leaves.
+   The two houses, the five asks, the 14-day window and the "+2 wins after a no" rule are gone.
+2. PRO FIGHTS 1 TO 6 ARE A PICK OF TWO: on Fights, SAFE (the promoter's tune-up, 75-90% to win, the normal purse, name
+   +1) beside RISKY (the step up, 40-55%, purse x1.75, name +3). Each card says what a win, a points loss and a
+   stoppage do to the boxer. After fight 6 the normal booking takes over.
+3. TWO BARS ON THE BOXER CARD, under TURNING PRO: CONFIDENCE (a safe win +4, a risky win +12, a points loss -10, stopped
+   -30; it moves the win chance by up to 5 points, and the printed chance already holds it) and HUNGER (a safe win -10,
+   any risky fight +10, each Not yet -15). At hunger 0 the boxer asks to leave: two warnings, gone at the third booking.
+   The result page ends with one line: what the fight did to both bars and the name.
+4. TO SEE IT FAST: Test jump "pro" on the create screen (a 9-1 boxer, the promoter's call is open). Try: all safe (six wins and the hunger runs
+   out), all risky, and Not yet twice.
+   YOU WILL NOTICE: for a strong boxer "win chance today" and "in four weeks" are the same number (89% and 54%). The
+   promoter finds a harder man for a better boxer, so waiting gains a strong boxer nothing; it moves for a weaker one.
+5. A WRONG NUMBER FIXED: a plan line "when the opponent tires" used to add 7 to 15 points to the win chance on the
+   cards. Measured over 60,000 real bouts the fight pays about 1. The cards now show what the fight pays.
+6. From the S543 list below, also in this build: the fight week screen shows the real tank; the week's load is set for
+   you; "Fatigue after the bell +6" is gone.
+
+S543 (2026-11-23, late) - in the S544 build
 
 1. THE FIGHT WEEK SCREEN SHOWS THE REAL TANK: before an amateur bout, "The tank at the first bell" is now the number the
    boxer really fights on. It used to show its own, softer sum: a boxer a week after a bout saw "0 off" on Rest up and

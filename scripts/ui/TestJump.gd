@@ -29,6 +29,12 @@ extends RefCounted
 ##                                        one, then Continue on to fight night
 ##   FightCamp.exe -- jump=pro            S329 update 31: quick start, Lucy put at the line (9-1 amateur) - the promoter's
 ##                                        offer opens: her debut tickets, what the gym pays now; sign and play to the debut
+##   FightCamp.exe -- jump=prorival       S544 (owner: "add a jumpswitch for the new feattures on the board"): turning pro v17,
+##                                        Not yet said twice (eight weeks played) - the third call is a rival gym's
+##   FightCamp.exe -- jump=propair        S544: turned pro at the first call; opens FIGHTS on pro fight 1's two bouts,
+##                                        the safe tune-up beside the risky step up
+##   FightCamp.exe -- jump=prohunger      S544: Not yet twice, turned pro, then safe bouts until the hunger runs out;
+##                                        opens the boxer card: the TURNING PRO bars and the warning (the pair is on FIGHTS)
 ## The same button presses tools/fight3d_play.gd makes. It plays on its own save slot, never his career save.
 ## Scene jumps (SCENE_JUMPS, no career - prototypes outside the boxing game open on their own scene):
 ##   FightCamp.exe -- jump=grapple        S335 the GrappleMap ground-move browser
@@ -54,7 +60,7 @@ const SAVE_PATH := "user://test_jump_save.json"
 const SCENE_JUMPS := {"grapple": "res://scenes/dev/GrappleBrowser.tscn", "strikemap": "res://scenes/dev/StrikeBrowser.tscn",
 	"theatre": "res://scenes/dev/GrappleTheatre.tscn"}
 const JUMPS := ["fight", "fight_nofilm", "corner", "round3", "injury", "nationals", "pro", "taperoom", "camp", "belt", "men", "men_fight", "gameplan",
-	"training", "proladder", "proranked", "club4"]
+	"training", "proladder", "proranked", "club4", "prorival", "propair", "prohunger"]
 ## What two weeks of pad time on the 1-2 and the 1-2-3 leave her with (Combos.LEARN_AT is 30).
 const DRILLED := {"1-2": 62.0, "1-2-3": 48.0}
 ## S378 jump=gameplan: her own combinations (PLAYBOOK > Combos rows) and their pad time - the first a signature.
@@ -166,6 +172,9 @@ static func run(main: Node, jump: String) -> bool:
 		f["offers"] = []
 		Roster.check_pro(c)
 		Roster.turn_pro(c)
+		# S543 TURNPRO17: these jumps are about the normal booking (fight 7 on): the debut is booked as the pair's last fight
+		f["pro_start"]["fights"] = Roster.ProStart.FIGHTS - 1
+		Roster.ProPair.book(c, f, "safe")
 		_pro_night(c, f)
 		_pro_wait(c, f)
 		if jump == "proranked":   # a pro with a few wins behind her (a place on the table comes from the reviews)
@@ -189,6 +198,41 @@ static func run(main: Node, jump: String) -> bool:
 		_tidy(main, c)
 		main.act("go", "fights:0")
 		return not (f.get("pro_offers", []) as Array).is_empty()
+	if jump in ["prorival", "propair", "prohunger"]:   # S544 turning pro v17's other screens
+		f["w"] = 9
+		f["l"] = 1
+		f["offers"] = []
+		Roster.check_pro(c)
+		if jump != "propair":
+			for i in 2:   # Not yet twice: each time the promoter is back four weeks on
+				main.act("prooffer")
+				main.act("declinepro")
+				_pro_call(c)
+			main.clear_toast()
+		main.act("prooffer")
+		if jump == "prorival":
+			return str(main.modal.get("type", "")) == "prooffer" and bool(c.pro_offer.get("rival", false))
+		main.act("turnpro")
+		main.clear_toast()
+		if jump == "propair":
+			main.act("go", "fights:0")
+			return not (f.get("pro_pair", {}) as Dictionary).is_empty()
+		for i in Roster.ProStart.FIGHTS - 1:   # safe bouts until the hunger is gone (a lost bout does not feed it either)
+			if int(f["pro_start"]["hunger"]) <= 0 or (f.get("pro_pair", {}) as Dictionary).is_empty():
+				break
+			Roster.ProPair.book(c, f, "safe")
+			_pro_night(c, f)
+			for d in 10:   # the next booking opens the day after (ProPair.day_events)
+				if not (f.get("pro_pair", {}) as Dictionary).is_empty() or not c.fighters.has(f):
+					break
+				Sim.step_day(c)
+				c.review_pending = false
+		_tidy(main, c)
+		if not main.modal.is_empty():
+			main.act("close")
+		main.act("fighter", str(f["id"]))
+		main.act("ftab", "0")
+		return c.fighters.has(f) and bool(f.get("pro", false))
 	if jump == "pro":
 		f["w"] = 9
 		f["l"] = 1
@@ -321,6 +365,16 @@ static func _pro_night(c: Career, f: Dictionary) -> void:
 	var m := {"fid": f["id"], "step": "tape", "total": int(f["bout"].get("rounds", 4))}
 	Bouts.fight_step(c, f, m, "sim")
 	Bouts.after_fight(c, f)
+
+
+## S544 after a Not yet: the days are played until the promoter (or the rival gym) calls again.
+static func _pro_call(c: Career) -> void:
+	for i in 40:
+		if not c.pro_offer.is_empty():
+			return
+		Sim.step_day(c)
+		c.review_pending = false
+		Roster.check_pro(c)
 
 
 static func _pro_wait(c: Career, f: Dictionary) -> void:

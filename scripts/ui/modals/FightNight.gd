@@ -250,7 +250,7 @@ func _round(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 			v.add_child(grow)
 		advice = str(cc["call"]) if n < total else ""
 	var fb: Dictionary = main.career.fighter_by_id(str(m.get("fid", ""))).get("bout", {})
-	if n == 1 and n < total and stop == "" and bool(fb.get("pro", false)) and fb.has("deal"):   # S523 TURNPRO1 map M13: the debut note, once
+	if n == 1 and n < total and stop == "" and bool(fb.get("pro", false)) and (fb.has("deal") or int(fb.get("pair_fight", 0)) == 1):   # S523 TURNPRO1 map M13: the debut note, once (S543: the pair's fight 1)
 		var dn := UI.label(DEBUT_NOTE, 18, UI.GOLD, "body", true)
 		dn.name = "DebutNote"
 		v.add_child(dn)

@@ -5265,7 +5265,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-23 22:41 board_sync",
+  "updated": "2026-11-24 00:11 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5418,71 +5418,35 @@
   },
   "working_now": [
    {
-    "title": "Deep coaches v5: catchment ceiling caps the class loop",
-    "who": "claude-opus-5-5 (Code Mode tab c5)",
-    "started": "2026-11-23T15:40",
-    "run": "COACHDEEP5",
-    "state": "LANDED - Claude collects"
+    "title": "Coaches v8: v7 plus the three changes its probe named (a warning costs while it stands; a two-art coach is a solid-band wage; the card's line counts the boxers), the same seven bars",
+    "who": "claude-opus-5-5 (console tab COACHDEEP8, c6 of the S543 session)",
+    "started": "2026-11-23T22:25",
+    "run": "COACHDEEP8"
    },
    {
-    "title": "Club show as a light money night: hall read + two reserves",
-    "who": "claude-opus-5-5 (Code Mode tab c6)",
-    "started": "2026-11-23T16:20",
-    "run": "HOSTLIGHT1",
-    "state": "LANDED - Claude collects"
+    "title": "Card game round 9: the engine on the real-fight position model (each fighter's own position; getting up costs a turn; steps answerable)",
+    "who": "Arena (chat 01a20a6d-3a1b-79dc-a475-e858f591a0d9)",
+    "started": "2026-11-24T00:01",
+    "run": "CARDROUND9"
    },
    {
-    "title": "Deep coaches v6: the class-night-or-pads trade cut, the coach part probed alone (nine bars)",
-    "who": "claude-opus-5-5 (console tab COACHDEEP6)",
-    "started": "2026-11-23T19:53",
-    "run": "COACHDEEP6",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "Coaches v7: the owner's design (a staff game: the hire, the trial week, four moments, the corner pick) - map + quick probe",
-    "who": "claude-opus-5-5 (console tab COACHDEEP7)",
-    "started": "2026-11-23T21:14",
-    "run": "COACHDEEP7",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "Turning pro v18: the matchup decides, the name pays after fight 6, the bars know the boxer - map + full-size probe (ten bars)",
-    "who": "claude-opus-5-5 (console tab TURNPRO18, c1 of the S543 session)",
-    "started": "2026-11-23T21:33",
-    "run": "TURNPRO18",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "Code-checked critic of the two priced choices (fight-week load; sponsorship or a day job)",
-    "who": "claude-opus-5-5 (console tab DEPTHPRICE1CRIT, c2 of the S543 session)",
-    "started": "2026-11-23T21:34",
-    "run": "DEPTHPRICE1CRIT",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "Fight-week load: two state-reading values (the bank lands before the bell; the flat round reads the opponent's start), probed on the game's own tank and week",
-    "who": "claude-opus-5-5 (console tab FWLOAD2, c3 of the S543 session)",
-    "started": "2026-11-23T21:50",
-    "run": "FWLOAD2",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "A tell changes how the opponent fights: two flagged rules (the tell's situation weighs in the opponent's game; the fade answer under the cap), measured on the read and the real bout",
-    "who": "claude-opus-5-5 (console tab TELLPLAY1, c4 of the S543 session)",
-    "started": "2026-11-23T21:56",
-    "run": "TELLPLAY1"
+    "title": "Fight pictures (your 'Yes, fix them now'): no body through a body, a blocked glove on the block, a landed glove on the near side; both sets re-rendered",
+    "who": "claude-opus-5-5 (console tab PICSFIX1 of the S544 session)",
+    "started": "2026-11-24T00:01",
+    "run": "PICSFIX1"
    },
    {
     "title": "Build turning pro v17 (owner: 'Yes, build v17 now'): the offer and Not yet, two bouts for pro fights 1-6, the two bars, four screens, the cuts",
     "who": "claude-opus-5-5 (console tab TURNPROBUILD17, c5 of the S543 session; worktree E:/FightCamp/wt/TURNPROBUILD17)",
     "started": "2026-11-23T22:12",
-    "run": "TURNPROBUILD17"
+    "run": "TURNPROBUILD17",
+    "state": "LANDED - Claude collects"
    },
    {
-    "title": "Coaches v8: v7 plus the three changes its probe named (a warning costs while it stands; a two-art coach is a solid-band wage; the card's line counts the boxers), the same seven bars",
-    "who": "claude-opus-5-5 (console tab COACHDEEP8, c6 of the S543 session)",
-    "started": "2026-11-23T22:25",
-    "run": "COACHDEEP8"
+    "title": "Corner commands (your ten commands in two slots): one clean map and a probe on real bouts, nine bars; step 0 measures today's eight calls first",
+    "who": "claude-opus-5-5 (console tab CORNERCMD1 of the S544 session)",
+    "started": "2026-11-24T00:07",
+    "run": "CORNERCMD1"
    }
   ],
   "next": [
@@ -6059,6 +6023,26 @@
     {
      "text": "John's card research: checked",
      "who": "claude"
+    },
+    {
+     "text": "Turning pro v17: merged, in build",
+     "who": "claude"
+    },
+    {
+     "text": "Fade answer: card shows real worth",
+     "who": "claude"
+    },
+    {
+     "text": "S544 build exported",
+     "who": "claude"
+    },
+    {
+     "text": "Coaches v8: fails 4 of 7",
+     "who": "claude"
+    },
+    {
+     "text": "Board: 3 turning pro jump buttons",
+     "who": "claude"
     }
    ],
    "now": [
@@ -6143,10 +6127,6 @@
      "who": "claude"
     },
     {
-     "text": "Coaches v7: map + quick probe",
-     "who": "claude"
-    },
-    {
      "text": "Turning pro v18: brief + probe",
      "who": "claude"
     },
@@ -6163,15 +6143,27 @@
      "who": "claude"
     },
     {
-     "text": "Turning pro v17: build (worktree)",
+     "text": "Card r9: real positions (Arena)",
      "who": "claude"
     },
     {
-     "text": "Card audit vs real fights (tab)",
+     "text": "Card model: 2 fresh critics",
      "who": "claude"
     },
     {
-     "text": "Collect turning pro v17 build",
+     "text": "Fight pictures fix (tab)",
+     "who": "claude"
+    },
+    {
+     "text": "Corner commands: map + probe (tab)",
+     "who": "claude"
+    },
+    {
+     "text": "Your play: turning pro v17",
+     "who": "operator"
+    },
+    {
+     "text": "Plan worth: plan vs coach (tab)",
      "who": "claude"
     }
    ],
@@ -6477,15 +6469,7 @@
      "who": "claude"
     },
     {
-     "text": "Turning pro v17: build (worktree)",
-     "who": "claude"
-    },
-    {
      "text": "Card r9: your 4 questions first",
-     "who": "claude"
-    },
-    {
-     "text": "Corner commands: map + probe",
      "who": "claude"
     },
     {
@@ -6493,23 +6477,15 @@
      "who": "claude"
     },
     {
-     "text": "Fight pictures: fix (your yes)",
-     "who": "claude"
-    },
-    {
      "text": "Card game: real fight first",
      "who": "claude"
     },
     {
-     "text": "Export the S543 build",
-     "who": "claude"
+     "text": "3D fight: staged exchanges (E33)",
+     "who": "operator"
     },
     {
-     "text": "Plan worth: whole plan vs coach",
-     "who": "claude"
-    },
-    {
-     "text": "Fix fade answer on the card",
+     "text": "Coaches v9: 3 changes + stop rule",
      "who": "claude"
     }
    ],

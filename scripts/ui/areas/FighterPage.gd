@@ -41,6 +41,8 @@ const BoutHistory := preload("res://scripts/ui/BoutHistory.gd")
 const StudyWeek := preload("res://scripts/rules/StudyWeek.gd")
 const PadWeek := preload("res://scripts/rules/PadWeek.gd")
 const DarkOverview := preload("res://scripts/ui/DarkOverview.gd")
+const ProStart := preload("res://scripts/rules/ProStart.gd")   # S543 TURNPRO17: patience, confidence, hunger
+const ProPair := preload("res://scripts/state/ProPair.gd")
 
 ## S414 operator on Q-S294-143: "Show me one real page first". On until the dark-or-cream answer; false draws the old page.
 static var dark_overview := true
@@ -270,6 +272,7 @@ func _photo(parent: Control, f: Dictionary, size: Vector2) -> void:
 
 func _overview(main: Node, c: Career, f: Dictionary, g: Dictionary) -> void:
 	_next_step_card(main, c, f)
+	_pro_start_card(f)
 	if _dark:
 		DarkOverview.make(self, main, c, f, g)
 		return
@@ -319,6 +322,35 @@ func _overview(main: Node, c: Career, f: Dictionary, g: Dictionary) -> void:
 		(child as Control).size_flags_vertical = Control.SIZE_FILL
 
 
+## S543 TURNPRO17 (map section 7): from the first pro offer to pro fight 6 - the patience marks (until pro), CONFIDENCE
+## and HUNGER as meters (UI.meter, the bar every card uses), and the warning at hunger 0.
+func _pro_start_card(f: Dictionary) -> void:
+	var s: Dictionary = f.get("pro_start", {})
+	if s.is_empty() or (bool(f.get("pro", false)) and not ProStart.on(s) and int(s.get("warn", 0)) == 0):
+		return
+	var card := _card("TURNING PRO")
+	card.get_parent().name = "ProStartCard"
+	if not bool(f.get("pro", false)):
+		card.add_child(load("res://scripts/ui/modals/ProOffer.gd").patience_row(s))
+	for k in [["conf", "CONFIDENCE", UI.GREEN, "Moves the win chance of pro fights 1-6 by up to 5 points either way: 50 is level, 100 adds 5, 0 costs 5. Wins raise it, a stoppage costs most."],
+			["hunger", "HUNGER", UI.AMBER, "How much the boxer wants it. Safe wins and each Not yet lower it, a risky bout raises it; at 0 the boxer asks to leave."]]:
+		var h := UI.hbox(10)
+		h.name = "Bar_" + str(k[0])
+		h.mouse_filter = Control.MOUSE_FILTER_STOP
+		h.tooltip_text = str(k[3])
+		var lab := UI.label(str(k[1]), UI.SMALL, UI.MUTED, "caps")
+		lab.custom_minimum_size.x = 120
+		h.add_child(lab)
+		h.add_child(UI.meter(float(s.get(k[0], 50)) / 100.0, k[2]))
+		h.add_child(UI.label(str(int(s.get(k[0], 50))), UI.BODY, UI.FG, "bold"))
+		card.add_child(h)
+	var warn := ProPair.warning_line(f)
+	if warn != "":
+		var wl := UI.label(warn, UI.SMALL, UI.RED, "bold", true)
+		wl.name = "HungerWarning"
+		card.add_child(wl)
+
+
 ## Input for NextStep.road from her career state (one source for the card and tests).
 static func _road_input(c: Career, f: Dictionary) -> Dictionary:
 	var nationals := ""
@@ -333,10 +365,10 @@ static func _road_input(c: Career, f: Dictionary) -> Dictionary:
 		if str(r.get("fid", "")) == str(f["id"]) and bool(r.get("pro", false)):
 			pro_bouts += 1
 	return {"bouts": Champs.bouts(f), "w": int(f["w"]), "reg_days": Champs.club_days(c, f), "age": int(f["age"]),
-		"injured": Injuries.out(c, f), "rank": int(f.get("rank", 0)), "pro_declines": int(f.get("pro_declines", 0)),
+		"injured": Injuries.out(c, f), "rank": int(f.get("rank", 0)), "patience": int((f.get("pro_start", {}) as Dictionary).get("patience", 3)),
 		"nat_final": bool(f.get("nat_final", false)), "nationals": nationals, "pro": bool(f.get("pro", false)),
 		"pro_bouts": pro_bouts, "sold": NextStep.Roster.ProOfferWire.forecast(c, f, NextStep.Roster.titles(f)),   # S523 M4
-		"pro_wait_w": int(f.get("pro_wait_w", 0))}   # S531 a lapsed offer waits 2 more wins (TURNCRITIC7A)
+		"pro_back": int(f.get("pro_back", 0))}   # S543 v17: a Not yet waits four weeks
 
 
 func _next_step_card(main: Node, c: Career, f: Dictionary) -> void:

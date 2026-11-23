@@ -104,8 +104,8 @@
   },
   {
    "id": "fightcamp_test_pro",
-   "label": "Test: the pro offer and her debut (update 31)",
-   "why": "A quick-start career with Lucy put at the line (9-1 amateur): the promoter's offer opens - her 100 debut tickets as a bar, what the gym pays now. Turn her pro, then CONTINUE through her debut camp to the fight; the result page shows the tickets sold. Its own save slot; your career save is untouched.",
+   "label": "Test: turning pro - the promoter's call (Turn pro now / Not yet)",
+   "why": "A quick-start career with Lucy put at the line (9-1 amateur): the promoter's call is open - the two bouts of pro fight 1 (safe and risky), the win chance today and in four weeks, the three patience marks, the debut tickets. Turn pro now or Not yet. Its own save slot; your career save is untouched.",
    "candidates": [
     "%WINDIR%/System32/schtasks.exe"
    ],
@@ -114,7 +114,53 @@
     "/tn",
     "FightCamp Play test pro"
    ],
-   "gui": false
+   "gui": false,
+   "short": "Pro: the call"
+  },
+  {
+   "id": "fightcamp_test_propair",
+   "label": "Test: turning pro - pro fight 1, safe or risky",
+   "why": "Lucy turned pro at the first call: opens FIGHTS on pro fight 1 of 6 - the promoter's tune-up (safe) beside the step up (risky), the win chance, purse and name of each, and what a win, a points loss and a stoppage do to confidence and hunger. Take one and play it. Its own save slot. Owner S544: 'add a jumpswitch for the new feattures on the board'.",
+   "candidates": [
+    "%WINDIR%/System32/schtasks.exe"
+   ],
+   "args": [
+    "/run",
+    "/tn",
+    "FightCamp Play test propair"
+   ],
+   "gui": false,
+   "short": "Pro: safe or risky"
+  },
+  {
+   "id": "fightcamp_test_prorival",
+   "label": "Test: turning pro - the rival gym's call",
+   "why": "Not yet said twice (eight weeks played): the third call comes from a rival gym - Turn pro now, or Let the boxer go and the boxer leaves the club for good. Its own save slot.",
+   "candidates": [
+    "%WINDIR%/System32/schtasks.exe"
+   ],
+   "args": [
+    "/run",
+    "/tn",
+    "FightCamp Play test prorival"
+   ],
+   "gui": false,
+   "short": "Pro: rival gym calls"
+  },
+  {
+   "id": "fightcamp_test_prohunger",
+   "label": "Test: turning pro - the hunger runs out",
+   "why": "Not yet twice, turned pro, then safe bouts until the hunger is gone: opens the boxer card - the TURNING PRO bars (confidence, hunger) and the warning that the boxer asks to leave; the next pair of bouts waits on FIGHTS (a risky bout brings the hunger back). Its own save slot.",
+   "candidates": [
+    "%WINDIR%/System32/schtasks.exe"
+   ],
+   "args": [
+    "/run",
+    "/tn",
+    "FightCamp Play test prohunger"
+   ],
+   "gui": false,
+   "short": "Pro: hunger gone"
   },
   {
    "id": "fightcamp_test_camp",

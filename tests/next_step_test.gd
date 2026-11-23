@@ -109,30 +109,26 @@ func _test5() -> void:
 	_check(ok, "test 5: lit=3 rank=0 need='1 more wins and a top-3 ranking, or 3 more wins' (got lit=%d need='%s')" % [r["lit"], r["need"]])
 
 
-## 6. pro_declines 2 -> "Only a No. 1 ranking brings another offer"; 3 -> "No more offers - stays amateur".
+## 6. S543 v17 (rewritten: the decline rule is gone): Not yet moves no line - patience 1 still needs 1 more win at 6-x
+## rank 2, exactly as patience 3 (control).
 func _test6() -> void:
-	var f1 := {"bouts": 8, "w": 6, "rank": 2, "reg_days": 120, "age": 22, "nationals": "Lost in the regional final", "pro_declines": 2}
+	var f1 := {"bouts": 8, "w": 6, "rank": 2, "reg_days": 120, "age": 22, "nationals": "Lost in the regional final", "patience": 1}
 	var r1: Dictionary = NS.road(f1, 20)
-	var f2 := {"bouts": 8, "w": 6, "rank": 2, "reg_days": 120, "age": 22, "nationals": "Lost in the regional final", "pro_declines": 3}
+	var f2 := {"bouts": 8, "w": 6, "rank": 2, "reg_days": 120, "age": 22, "nationals": "Lost in the regional final", "patience": 3}
 	var r2: Dictionary = NS.road(f2, 20)
-	var ok := true
-	if r1["need"] != "Only a No. 1 ranking brings another offer":
-		ok = false
-	if r2["need"] != "No more offers - stays amateur":
-		ok = false
-	_check(ok, "test 6: pro_declines 2 -> 'Only a No. 1 ranking...' 3 -> 'No more offers...' (got r1='%s', r2='%s')" % [r1["need"], r2["need"]])
+	_check(r1["need"] == "1 more win" and r2["need"] == "1 more win", "test 6: the line does not move with Not yets (got r1='%s', r2='%s')" % [r1["need"], r2["need"]])
 
 
-## 7. Consistency with the game's own rule: for every w in 0..12, rank in 0..5, pro_declines in 0..3, nat_final in [false, true]
+## 7. Consistency with the game's own rule: for every w in 0..12, rank in 0..5, patience in 1..3, nat_final in [false, true]
 ## (bouts 15, reg_days 200, age 24, nationals "Won it"): step 3 done == Roster.pro_ready(f). Print the number of cases.
 func _test7() -> void:
 	var cases := 0
 	var ok := true
 	for w in range(13):
 		for rank in range(6):
-			for pro_declines in range(4):
+			for patience in range(1, 4):
 				for nat_final in [false, true]:
-					var f := {"bouts": 15, "w": w, "rank": rank, "reg_days": 200, "age": 24, "nationals": "Won it", "pro_declines": pro_declines, "nat_final": nat_final}
+					var f := {"bouts": 15, "w": w, "rank": rank, "reg_days": 200, "age": 24, "nationals": "Won it", "patience": patience, "nat_final": nat_final}
 					var r: Dictionary = NS.road(f, 20)
 					var step3_done: bool = r["steps"][3]["done"]
 					var expected: bool = Roster.pro_ready(f)
@@ -168,8 +164,8 @@ func _test9() -> void:
 		{"bouts": 6, "reg_days": 100, "age": 22, "nationals": "entered"},
 		{"bouts": 8, "w": 6, "rank": 2, "reg_days": 120, "age": 22, "nationals": "Lost in the regional final"},
 		{"bouts": 8, "w": 6, "rank": 0, "reg_days": 120, "age": 22, "nationals": "Lost in the regional final"},
-		{"bouts": 8, "w": 6, "rank": 2, "reg_days": 120, "age": 22, "nationals": "Lost in the regional final", "pro_declines": 2},
-		{"bouts": 8, "w": 6, "rank": 2, "reg_days": 120, "age": 22, "nationals": "Lost in the regional final", "pro_declines": 3},
+		{"bouts": 8, "w": 6, "rank": 2, "reg_days": 120, "age": 22, "nationals": "Lost in the regional final", "patience": 2},
+		{"bouts": 8, "w": 9, "rank": 2, "reg_days": 120, "age": 22, "nationals": "Lost in the regional final", "patience": 1, "pro_back": 48},
 		{"bouts": 8, "w": 8, "rank": 1, "reg_days": 200, "age": 24, "nationals": "Won it", "pro": true, "pro_bouts": 0},
 		{"bouts": 8, "w": 8, "rank": 1, "reg_days": 200, "age": 24, "nationals": "Won it", "pro": true, "pro_bouts": 1},
 	]
@@ -190,24 +186,25 @@ func _test9() -> void:
 	_check(ok, "test 9: steps 0..lit-1 done, never more than one step lit")
 
 
-## 10. S523 TURNPRO1 map M4: at the Pro offer step the card names the debut tickets against each house, the age line and
-## the declines left; off that step there is no pro line (control).
+## 10. S523 TURNPRO1 map M4 (rewritten S543 v17: one promoter, Not yets instead of declines): at the Pro offer step the
+## card names the debut tickets against the promoter's break-even, the age line and the Not yets left; off that step there
+## is no pro line (control).
 func _test10() -> void:
 	var f := {"bouts": 8, "w": 6, "rank": 2, "reg_days": 120, "age": 30, "nationals": "Lost in the regional final", "sold": 52}
 	var r: Dictionary = NS.road(f, 20)
 	var pl := str(r.get("pro_line", ""))
-	_check(int(r["lit"]) == 3 and pl.contains("Debut tickets today: 52") and pl.contains("Bow Lane pays from 60 (about 4 wins away)")
-		and pl.contains("Harrow & Finch pays from 70 (about 9 wins away)") and pl.contains("Age 30") and pl.contains("Declines left: 3"),
+	_check(int(r["lit"]) == 3 and pl.contains("Debut tickets today: 52") and pl.contains("pays from 60 (about 4 wins away)")
+		and pl.contains("Age 30") and pl.contains("Not yet left: 2"),
 		"test 10: the pro line - '%s'" % pl)
 	_check(str(NS.road({}, 20).get("pro_line", "")) == "", "test 10: no pro line before the Pro offer step")
 
 
-## S531 TURNCRITIC7A: after a lapse (pro_wait_w = wins + 2) the road does not call the offer due; it counts the wins left.
+## S531 TURNCRITIC7A, rewritten S543 v17 (no lapse; Not yet waits four weeks): while a Not yet waits the road does not call
+## the offer due; it counts the days left.
 func _test_lapse_wait() -> void:
-	var f := {"bouts": 12, "w": 9, "rank": 2, "reg_days": 200, "age": 24, "nationals": "Lost in the regional final", "pro_wait_w": 11}
+	var f := {"bouts": 12, "w": 9, "rank": 2, "reg_days": 200, "age": 24, "nationals": "Lost in the regional final", "pro_back": 48}
 	var r: Dictionary = NS.road(f, 20)
-	_check(r["lit"] == 3 and str(r["need"]).contains("2 more wins before the promoters call again"),
-		"lapse: step 3 stays lit and says 2 more wins (got lit=%d need='%s')" % [r["lit"], r["need"]])
-	f["w"] = 11
-	var r2: Dictionary = NS.road(f, 20)
-	_check(r2["lit"] == 4, "lapse: once the wins are in, the offer step is done again (got lit=%d)" % r2["lit"])
+	_check(r["lit"] == 3 and str(r["need"]).contains("calls again in 28 days"),
+		"Not yet: step 3 stays lit and counts the days (got lit=%d need='%s')" % [r["lit"], r["need"]])
+	var r2: Dictionary = NS.road(f, 48)
+	_check(r2["lit"] == 4, "Not yet: four weeks on, the offer step is done again (got lit=%d)" % r2["lit"])

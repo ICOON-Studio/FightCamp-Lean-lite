@@ -1,6 +1,6 @@
 extends SceneTree
 ## S486 R58 LOYALHOOKS1 (map R58_MAP_S439 M1): the game's own moves change loyalty - a legal offer passed (-3, never the
-## mismatch, never while injured), the pro call (decline -8, turn pro +5 after the share is set), a signing in the same
+## mismatch, never while injured), the pro call (S543 v17: Not yet costs no loyalty; turn pro +5 after the share is set), a signing in the same
 ## class (-4 each), four idle Mondays (-3), results through the real fight (win +2 / loss -1 / stopped -3, a Loyal boxer at
 ## half) and the goal (+5 / -4).
 
@@ -76,7 +76,7 @@ func _initialize() -> void:
 	f["bout"] = {}
 	c.pro_offer = {"fid": f["id"], "promoter": "Test", "purse": 1500, "terms": 1.0, "step": 500, "top": 3000}
 	Roster.decline_pro(c)
-	_check(Loyalty.value(f) == 52, "declining the pro offer: 60 -> %d" % Loyalty.value(f))
+	_check(Loyalty.value(f) == 60, "Not yet on the pro offer costs no loyalty (S543 v17): 60 -> %d" % Loyalty.value(f))
 	f["loyalty"] = 48
 	c.pro_offer = {"fid": f["id"], "promoter": "Test", "purse": 1500, "terms": 1.0, "step": 500, "top": 3000}
 	Roster.turn_pro(c)

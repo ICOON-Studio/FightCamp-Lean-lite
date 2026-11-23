@@ -230,6 +230,7 @@ static func step_day(career: Career) -> void:
 	Injuries.late_spar(career)   # S513: a late fight-week sparring night's cut stop and injury
 	Bouts.day_events(career)
 	ProLadder.day_events(career)   # S397 the pro tables: a month of world bouts, her offers
+	load("res://scripts/state/ProPair.gd").day_events(career)   # S543 TURNPRO17: pro fights 1-6, the next safe / risky booking
 	GymSpend.day_events(career)   # S397 money bites: a club show's night
 	Region.day_events(career)
 	if career.day % 7 == 0:

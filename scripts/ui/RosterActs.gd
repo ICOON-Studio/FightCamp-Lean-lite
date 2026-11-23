@@ -7,9 +7,6 @@ const Recruit := preload("res://scripts/rules/Recruit.gd")
 const Roster := preload("res://scripts/state/Roster.gd")
 const FirstHour := preload("res://scripts/rules/FirstHour.gd")
 const UI := preload("res://scripts/ui/UI.gd")
-const ProOfferWire := preload("res://scripts/state/ProOfferWire.gd")
-const GymBills := preload("res://scripts/rules/GymBills.gd")
-const Needs := preload("res://scripts/state/Needs.gd")
 const VisitWire := preload("res://scripts/state/VisitWire.gd")
 const STRIKE := preload("res://scenes/dev/StrikeBrowser.tscn")
 const TAPE := preload("res://scripts/ui/FightAnalysisTape.gd")   # S511: the Tape Room retired into FIGHT ANALYSIS
@@ -88,24 +85,27 @@ static func act(main: Node, name: String, arg: String) -> bool:
 			if not c.pro_offer.is_empty():
 				main.open_modal({"type": "prooffer", "fid": c.pro_offer["fid"]})
 		"turnpro":
-			var f := Roster.turn_pro(c, arg)   # S523: arg = the house signed with ("" = the first)
+			var f := Roster.turn_pro(c)
 			main.close_modal()
 			if f.is_empty():
 				return true
-			main.toast("%s is a pro. Debut on %s." % [f["first"], Clock.fmt(int(f["bout"]["day"]))])
-		"proask":   # S523 TURNPRO1B: the one ask on a house's offer ("house|kind"); the offer redraws with the answer
-			var parts := arg.split("|")
-			var said := ProOfferWire.ask(c, parts[0], parts[1], GymBills.runway_weeks(c.cash, Needs.money_net(c)))
-			if said != "":
-				main.toast(said)
-			main.open_modal({"type": "prooffer", "fid": c.pro_offer["fid"]})
-		"proplain":
-			ProOfferWire.back_to_plain(c, arg)
-			main.open_modal({"type": "prooffer", "fid": c.pro_offer["fid"]})
-		"declinepro":
+			main.toast("%s is a pro. Debut on %s: pick the bout on Fights." % [f["first"], Clock.fmt(int(f["pro_due"]))])
+		"declinepro":   # S543 v17 "Not yet": a patience mark, the offer back in four weeks
 			Roster.decline_pro(c)
 			main.close_modal()
-			main.toast("Staying amateur for now.")
+			main.toast("Not yet: the promoter calls again in %d weeks." % Roster.ProStart.NOT_YET_WEEKS)
+		"rivalgo":   # S543 v17: the rival gym's call refused - the boxer leaves for good
+			Roster.refuse_rival(c)
+			main.close_modal()
+			main.toast("The boxer leaves for the rival gym.")
+		"propair":   # S543 TURNPRO17: "<fid>:safe|risky", pro fights 1-6
+			var pp := arg.split(":")
+			var pf := c.fighter_by_id(pp[0])
+			if not pf.is_empty() and Roster.ProPair.book(c, pf, pp[1]):
+				main.nav({"area": "home", "tab": 0})
+				main.toast("Pro fight booked for %s. Next: set the camp." % pf["first"])
+			else:
+				main.render()
 		_:
 			return false
 	return true

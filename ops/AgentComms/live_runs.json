@@ -2,26 +2,46 @@
  "_doc": "Claude writes one entry per agent run at launch (operator S144: 'make it more clear, who is working on what, ETA'). The ops board /agents page joins it to the live processes. eta = Claude's estimate at launch, local time; status running|waiting|done.",
  "seats": 3,
  "runs": {
-  "TURNPROBUILD17": {
-   "id": "TURNPROBUILD17",
+  "CARDROUND9": {
+   "id": "CARDROUND9",
    "status": "running",
-   "started": "2026-11-23T22:12",
-   "title": "Build turning pro v17 (owner: 'Yes, build v17 now'): the offer and Not yet, two bouts for pro fights 1-6, the two bars, four screens, the cuts",
-   "seat": "claude",
-   "agent": "claude-opus-5-5 (console tab TURNPROBUILD17, c5 of the S543 session; worktree E:/FightCamp/wt/TURNPROBUILD17)",
-   "eta": "about 5-7 h",
-   "branch": "build/turnpro17",
-   "note": "S543: research/TASK_TURNPROBUILD17.md; step 1 (scripts/rules/ProStart.gd) on main; merge by diff"
+   "started": "2026-11-24T00:01",
+   "title": "Card game round 9: the engine on the real-fight position model (each fighter's own position; getting up costs a turn; steps answerable)",
+   "seat": "arena",
+   "agent": "Arena (chat 01a20a6d-3a1b-79dc-a475-e858f591a0d9)",
+   "branch": "arena/f591a0d9-fightcamp-lean-lite",
+   "eta": "about 2-3 h",
+   "note": "S544: research/TASK_CARDROUND9.md, spec = research/CARDREAL_AUDIT.md section 4; lite mirror f93fa300; its PR relays to an arena/* PR here; Claude plays both arts by hand before the owner"
   },
-  "COACHDEEP8": {
-   "id": "COACHDEEP8",
+  "PICSFIX1": {
+   "id": "PICSFIX1",
    "status": "running",
-   "started": "2026-11-23T22:25",
-   "title": "Coaches v8: v7 plus the three changes its probe named (a warning costs while it stands; a two-art coach is a solid-band wage; the card's line counts the boxers), the same seven bars",
+   "started": "2026-11-24T00:01",
+   "title": "Fight pictures (your 'Yes, fix them now'): no body through a body, a blocked glove on the block, a landed glove on the near side; both sets re-rendered",
    "seat": "claude",
-   "agent": "claude-opus-5-5 (console tab COACHDEEP8, c6 of the S543 session)",
-   "eta": "about 1.5-2 h",
-   "note": "S543: research/TASK_COACHDEEP8.md; PASS -> critics kalli + dola queued by the worker; a code-checked critic owed"
+   "agent": "claude-opus-5-5 (console tab PICSFIX1 of the S544 session)",
+   "eta": "about 2-3 h",
+   "note": "S544: research/TASK_PICSFIX1.md; windowed renders on the hidden desktop, one at a time"
+  },
+  "CORNERCMD1": {
+   "id": "CORNERCMD1",
+   "status": "running",
+   "started": "2026-11-24T00:07",
+   "title": "Corner commands (your ten commands in two slots): one clean map and a probe on real bouts, nine bars; step 0 measures today's eight calls first",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (console tab CORNERCMD1 of the S544 session)",
+   "eta": "about 3-4 h",
+   "note": "S544: owner 'yes start the probe' (Q-S294-325); research/TASK_CORNERCMD1.md; spec research/PUSH_KNOW_INTERVIEW_S543.md"
+  },
+  "PLANWORTH1": {
+   "id": "PLANWORTH1",
+   "status": "running",
+   "started": "2026-11-24T00:36",
+   "title": "What a whole fight plan you write is worth against the coach's plan, in real bouts (a measurement; your S354 'make the fight plan fun to design' stands on it)",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (console tab PLANWORTH1 of the S544 session)",
+   "eta": "about 2 h",
+   "note": "S544: research/TASK_PLANWORTH1.md; six findings bars; no design, nothing changed in the game"
   }
  },
  "codex_budget": {

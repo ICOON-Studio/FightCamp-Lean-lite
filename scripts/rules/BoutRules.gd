@@ -178,6 +178,12 @@ static func spar_edge(n: int, bout: Dictionary) -> float:
 	return float(bout.get("spar_edge", 0.0)) if n >= 1 and n <= SPAR_LAST_ROUND else 0.0
 
 
+## S543 TURNPRO17: the boxer's CONFIDENCE on a pro fight 1-6 (ProPair.conf_edge, power points, every round). The live round
+## and the read both add it, so the chance the booking prints is the chance the fight is fought at. No key = 0.
+static func conf_edge(bout: Dictionary) -> float:
+	return float(bout.get("conf_edge", 0.0))
+
+
 ## The daily-gain multiplier the camp puts on one stat (1.0 off the focus or without a camp).
 static func camp_gain_mult(camp: Dictionary, stat: String) -> float:
 	if camp.is_empty() or str(camp.get("focus", "")) != stat:

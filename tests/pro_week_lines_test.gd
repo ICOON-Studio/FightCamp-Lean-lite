@@ -2,13 +2,12 @@ extends SceneTree
 ## S524 TURNPRO1 map M11: the week review's turning-pro lines from the real ledger.
 ## Signing writes the stipend and the gym's costs; the 4 weeks after signing say the amateur cut lost and the stipend
 ## saved; the debut's week says share, costs, net and one NEXT line. Control arms: an amateur and a boxer signed
-## 5 weeks ago get no line; a costs-covered deal records 0 costs.
+## 5 weeks ago get no line. (S543 v17: the costs-covered deal went with the asks; its control is deleted.)
 
 const Data := preload("res://scripts/state/Data.gd")
 const Roster := preload("res://scripts/state/Roster.gd")
 const ProCall := preload("res://scripts/rules/ProCall.gd")
 const ProWeekLines := preload("res://scripts/ui/ProWeekLines.gd")
-const ProOfferWire := preload("res://scripts/state/ProOfferWire.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 
 var failures := 0
@@ -40,9 +39,8 @@ func _initialize() -> void:
 	var f: Dictionary = c.fighter()
 	_check(ProWeekLines.lines_for(f, c.day).is_empty(), "an amateur has no pro line")
 	Roster.check_pro(c)
-	var keys: Array = (c.pro_offer.get("offers", []) as Array).map(func(t): return str(t["key"]))
-	_check(keys.has("bow"), "Bow Lane calls (%s)" % str(keys))
-	Roster.turn_pro(c, "bow")
+	_check(str(c.pro_offer.get("promoter", "")) == Roster.PROMOTER, "the promoter calls (%s)" % str(c.pro_offer.get("promoter", "")))
+	Roster.turn_pro(c)
 	var s: Dictionary = f.get("pro_signed", {})
 	_check(int(s.get("stipend", -1)) == 250 and int(f["weekly_salary"]) == 0, "signing keeps the stipend it stopped ($250)")
 	_check(int(s.get("costs", -1)) > 0, "the gym's signing costs are on the record (%d)" % int(s.get("costs", -1)))
@@ -67,12 +65,5 @@ func _initialize() -> void:
 	_check(ProWeekLines.lines_for(f, d0 + 6).is_empty(), "after the debut is recorded the signing line no longer shows")
 	s["costs"] = 0
 	_check(str(ProWeekLines.next_line(f, 300)).contains("$500"), "a debut in profit: the next lever is the purse step")
-	# Control: a covered-costs deal records 0 costs.
-	var c2 := _career()
-	Roster.check_pro(c2)
-	ProOfferWire.ask(c2, "hf", "costs", 20)
-	Roster.turn_pro(c2, "hf")
-	var s2: Dictionary = c2.fighter().get("pro_signed", {})
-	_check(int(s2.get("costs", -1)) == 0, "Harrow & Finch paying the costs from the purse: the gym's costs 0")
 	print("PRO_WEEK_LINES failures=%d" % failures)
 	quit(0 if failures == 0 else 1)

@@ -24545,6 +24545,27 @@
    "agent": "claude-opus-5-5 (console tab CARDAUDIT1 of the S544 session)",
    "eta": "about 1 h (00:40)",
    "note": "S544 efc80e8f9: 83 rows - REAL 60, WRONG 18, MISSING-LINK 5; 22 missing options (15 needed); new model 1.14 x the size; walked bout clean. Critics SQ320 Dola, SQ321 Kalli queued"
+  },
+  {
+   "id": "TURNPROBUILD17",
+   "status": "done",
+   "started": "2026-11-23T22:12",
+   "title": "Build turning pro v17 (owner: 'Yes, build v17 now'): the offer and Not yet, two bouts for pro fights 1-6, the two bars, four screens, the cuts",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (console tab TURNPROBUILD17, c5 of the S543 session; worktree E:/FightCamp/wt/TURNPROBUILD17)",
+   "eta": "about 5-7 h",
+   "branch": "build/turnpro17",
+   "note": "S544: merged 1b4862dbe (clean, no conflicts); 34 tests green on main with the fade fix; five stills opened; in the S544 build"
+  },
+  {
+   "id": "COACHDEEP8",
+   "status": "done",
+   "started": "2026-11-23T22:25",
+   "title": "Coaches v8: v7 plus the three changes its probe named (a warning costs while it stands; a two-art coach is a solid-band wage; the card's line counts the boxers), the same seven bars",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (console tab COACHDEEP8, c6 of the S543 session)",
+   "eta": "about 1.5-2 h",
+   "note": "S544 25971b28f: FAIL 4 of 7 (bars 1, 2, 3; v7 failed 1, 3, 5): the cheap local is best in 7 of 10 cells, back-the-coach 8 of 10, refuse-the-push 8 of 10; three named changes -> COACHDEEP9 with a stop rule"
   }
  ]
 }

@@ -9,7 +9,8 @@ extends RefCounted
 ## Rules: scripts/rules/Matchmaking.gd; state: scripts/state/ProLadder.gd; acts proscout / probook (BoutActs).
 
 const CoachRead := preload("res://scripts/rules/CoachRead.gd")
-const ProLean := preload("res://scripts/state/ProLean.gd")
+const ProStart := preload("res://scripts/rules/ProStart.gd")   # S543 TURNPRO17: pro fights 1-6, two bouts side by side
+const ProPair := preload("res://scripts/state/ProPair.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const ProLadder := preload("res://scripts/state/ProLadder.gd")
 const MM := preload("res://scripts/rules/Matchmaking.gd")
@@ -40,6 +41,8 @@ static func section(main: Node, c: Career, f: Dictionary) -> Control:
 	table.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	table.size_flags_stretch_ratio = 3.2
 	cols.add_child(table)
+	if not ProLadder.on_ladder(c, f):   # S543: before the debut there is no table yet
+		return page
 	var road := _road_card(c, f)
 	road.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	road.size_flags_stretch_ratio = 1.3
@@ -107,6 +110,9 @@ static func _table_card(main: Node, c: Career, f: Dictionary) -> Control:
 		v.add_child(UI.label("Booked: vs %s, %s. Set the camp on Fighters, then the Training tab." % [f["bout"]["opp"]["name"], Clock.fmt(int(f["bout"]["day"]))],
 			UI.BODY, UI.GOLD, "bold", true))
 		return card[0]
+	if not (f.get("pro_pair", {}) as Dictionary).is_empty() or f.has("pro_open"):
+		_pair(main, f, v)
+		return card[0]
 	var offers := ProLadder.offer_rows(c, f)
 	if offers.is_empty():
 		v.add_child(UI.label("The promoter calls on %s with three fights." % Clock.fmt(maxi(int(f.get("pro_next", c.day)), c.day + 1)),
@@ -114,9 +120,6 @@ static func _table_card(main: Node, c: Career, f: Dictionary) -> Control:
 		v.add_child(UI.label("Until then: set the training on Fighters, then the Training tab. %s" % ("After a loss the next pick is a rebuild fight: a win clears it." if
 			bool(ProLadder.entry(c, f).get("rebuild", false)) else "The road is on the right."), UI.SMALL, UI.MUTED, "body", true))
 		return card[0]
-	var lean := ProLean.line(f)   # S523 TURNPRO1: the house's lean (map M14)
-	if lean != "":
-		v.add_child(UI.label(lean, UI.SMALL, UI.MUTED, "body", true))
 	v.add_child(_head_row())
 	var offered: Array = offers.filter(func(x): return str(x["kind"]) == "above").map(func(x): return x["opp"])   # a duck passes the step up
 	for r in offers:
@@ -239,6 +242,65 @@ static func _row(main: Node, c: Career, f: Dictionary, r: Dictionary, offered: A
 		main.act.bind("proscout", "%s:%d" % [f["id"], int(opp["id"])]), why != "", why))
 	h.add_child(_fixed(COL_ACT, acts))
 	return h
+
+
+## S543 TURNPRO17 (map section 7): pro fights 1-6 - two cards side by side, SAFE and RISKY: the opponent, the chance (the
+## number the fight is fought at), the purse, the name a win adds, and what a win and a loss do to both bars.
+static func _pair(main: Node, f: Dictionary, v: VBoxContainer) -> void:
+	var p: Dictionary = f.get("pro_pair", {})
+	if p.is_empty():
+		v.add_child(UI.label("The promoter calls tomorrow with the next two fights.", UI.BODY, UI.FG, "bold"))
+		return
+	var s: Dictionary = f.get("pro_start", ProStart.new_state())
+	v.add_child(UI.label("Pro fight %d of %d: pick one. Fight night %s." % [int(p["fight"]), ProStart.FIGHTS, Clock.fmt(int(f.get("pro_due", 0)))],
+		UI.BODY, UI.FG, "bold", true))
+	var warn := ProPair.warning_line(f)
+	if warn != "":
+		var wl := UI.label(warn, UI.SMALL, UI.RED, "bold", true)
+		wl.name = "HungerWarning"
+		v.add_child(wl)
+	var row := UI.hbox(16)
+	row.name = "PairCards"
+	v.add_child(row)
+	for kind in ProStart.KINDS:
+		var b: Dictionary = p[kind]
+		var cv := UI.card()
+		cv[0].name = "Pair_" + kind
+		cv[0].size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		var col: VBoxContainer = cv[1]
+		var head := UI.hbox(10)
+		head.add_child(UI.chip(str(ProStart.KIND_NAMES[kind]).to_upper(), "green" if kind == "safe" else "amber"))
+		var is_line := str(ProStart.KIND_IS[kind])
+		head.add_child(UI.muted(is_line.left(1).to_upper() + is_line.substr(1), UI.SMALL))
+		col.add_child(head)
+		var opp: Dictionary = b["opp"]
+		col.add_child(UI.label(str(opp["name"]), UI.BODY + 1, UI.FG, "bold"))
+		col.add_child(UI.muted("%s, %s, %s" % [_record(opp), str(opp["style"]).to_lower(), str(opp["threat"]).to_lower()], UI.SMALL))
+		var mid := float(b["chance"])
+		var ch := UI.hbox(10)
+		ch.name = "Chance_" + kind
+		ch.mouse_filter = Control.MOUSE_FILTER_STOP
+		ch.tooltip_text = "The game's read of this bout with the boxer's confidence in it: the number the fight is fought at."
+		ch.add_child(UI.label("%d%%" % roundi(mid * 100.0), UI.BODY + 8, _odds_color(mid), "bold"))
+		ch.add_child(UI.meter(mid, _odds_color(mid), [], 160))
+		col.add_child(ch)
+		col.add_child(UI.kv("Purse", GameMoney.text(int(b["purse"]))))
+		col.add_child(UI.kv("Name on a win", "+%d" % int(b["name"])))
+		col.add_child(UI.label("Win: %s." % _bars(s, kind, "win"), UI.SMALL, UI.GREEN, "body", true))
+		col.add_child(UI.label("Lose on points: %s." % _bars(s, kind, "points"), UI.SMALL, UI.AMBER, "body", true))
+		col.add_child(UI.label("Stopped: %s, %d weeks out." % [_bars(s, kind, "ko"), MM.STOP_REST_WEEKS], UI.SMALL, UI.RED, "body", true))
+		var go := UI.button("Take this fight", "BtnSolid", main.act.bind("propair", "%s:%s" % [f["id"], kind]))
+		go.name = "Take_" + kind
+		col.add_child(go)
+		row.add_child(cv[0])
+
+
+## What one result does to the two bars, in words ("confidence +4, hunger -10").
+static func _bars(s: Dictionary, kind: String, outcome: String) -> String:
+	var t := s.duplicate()
+	var mv := ProStart.after_fight(t, kind, outcome)
+	var hunger := int(mv["hunger"]) + (ProStart.rest(t, MM.STOP_REST_WEEKS) if outcome == "ko" else 0)
+	return "confidence %+d, hunger %+d" % [int(mv["conf"]), hunger]
 
 
 static func _win_short(c: Career, f: Dictionary, opp: Dictionary, duck: bool = false) -> String:

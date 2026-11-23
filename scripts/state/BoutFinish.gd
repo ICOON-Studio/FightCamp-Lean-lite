@@ -30,6 +30,7 @@ const Injuries := preload("res://scripts/state/Injuries.gd")
 const Loyalty := preload("res://scripts/rules/Loyalty.gd")
 const HomeBout := preload("res://scripts/state/HomeBout.gd")   # S488 HOMEBOUT1
 const PlanRecord := preload("res://scripts/rules/PlanRecord.gd")
+const ProPair := preload("res://scripts/state/ProPair.gd")   # S543 TURNPRO17: pro fights 1-6, safe or risky
 const NOTES_PATH := "res://assets/data/fight_habits.json"
 
 static var _notes_bank: Dictionary = {}
@@ -117,9 +118,9 @@ static func run(c: Career, f: Dictionary, m: Dictionary) -> void:
 		c.pay(int(tickets["gym"]), "Debut tickets: %d sold, the gym's %d%% of the fighter's share - %s vs %s" % [int(tickets["sold"]),
 			int(Roster.GYM_SHARE * 100), f["first"], opp["name"]])
 		c.add_news(Roster.debut_words(f, tickets))
-	elif pro:
+	if pro and (tickets.is_empty() or f["bout"].has("pair_kind")):   # S543 v17: the debut pays its purse beside the tickets
 		var purse := int(f["bout"]["purse"])
-		m["gym_cut"] = Roster.gym_cut(purse, f)
+		m["gym_cut"] = int(m.get("gym_cut", 0)) + Roster.gym_cut(purse, f)
 		c.pay(Roster.gym_cut(purse, f), "Purse share (%d%%): %s vs %s" % [roundi(Roster.share_of(f) * 100), f["first"], opp["name"]])
 		if win:
 			f["purse"] = mini(int(f["purse_top"]), int(f["purse"]) + int(f["purse_step"]))
@@ -218,6 +219,10 @@ static func run(c: Career, f: Dictionary, m: Dictionary) -> void:
 	m["body_change"] = BodyReport.change_line(f.get("last_body_report", {}), report)
 	f["last_body_report"] = report
 	Injuries.after_bout(c, f, m)
+	if pro and f["bout"].has("pair_kind"):   # S543 TURNPRO17: the bars, the name, the next booking (a draw counts as a loss)
+		var moved := ProPair.after_bout(c, f, str(f["bout"]["pair_kind"]), "win" if win else ("ko" if beaten else "points"))
+		m["bar_line"] = ProPair.ProStart.bar_line(moved, f["pro_start"])
+		m["name_gain"] = int(moved["name"])
 	AfterFight.book(c, f, m, before, notes_bank())
 	Roster.check_pro(c)
 

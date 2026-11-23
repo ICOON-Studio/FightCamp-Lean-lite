@@ -6,12 +6,13 @@ const SeasonPath := preload("res://scripts/rules/SeasonPath.gd")
 const Roster := preload("res://scripts/state/Roster.gd")
 const ProCall := preload("res://scripts/rules/ProCall.gd")
 const ProDebut := preload("res://scripts/rules/ProDebut.gd")
+const ProStart := preload("res://scripts/rules/ProStart.gd")
 
 const STEPS := ["First bout", "Nationals ready", "The nationals", "Pro offer", "Pro debut"]
 
 
 ## Her road: five steps, the one she is on lit, and what the next one needs.
-## f holds: bouts, w, reg_days, age, injured, rank, pro_declines, nat_final, nationals, pro, pro_bouts.
+## f holds: bouts, w, reg_days, age, injured, rank, nat_final, nationals, pro, pro_bouts, patience, pro_back (S543 v17).
 static func road(f: Dictionary, day: int) -> Dictionary:
 	var bouts: int = int(f.get("bouts", 0))
 	var w: int = int(f.get("w", 0))
@@ -19,7 +20,6 @@ static func road(f: Dictionary, day: int) -> Dictionary:
 	var age: int = int(f.get("age", 0))
 	var injured: bool = bool(f.get("injured", false))
 	var rank: int = int(f.get("rank", 0))
-	var pro_declines: int = int(f.get("pro_declines", 0))
 	var nat_final: bool = bool(f.get("nat_final", false))
 	var nationals: String = str(f.get("nationals", ""))
 	var pro: bool = bool(f.get("pro", false))
@@ -47,7 +47,7 @@ static func road(f: Dictionary, day: int) -> Dictionary:
 	# Roster.pro_ready reads f["w"] as a must-have key: hand it a copy with the defaults filled in.
 	var g := f.duplicate()
 	g["w"] = w
-	steps[3]["done"] = pro or (Roster.pro_ready(g) and w >= int(f.get("pro_wait_w", 0)))   # S531: not while a lapse waits
+	steps[3]["done"] = pro or (Roster.pro_ready(g) and day >= int(f.get("pro_back", 0)))   # S543 v17: not while a Not yet waits
 
 	# Step 4: Pro debut
 	steps[4]["done"] = pro_bouts >= 1
@@ -68,24 +68,19 @@ static func road(f: Dictionary, day: int) -> Dictionary:
 	return {"steps": steps, "lit": lit, "need": need, "pro_line": pro_line(f) if lit == 3 else ""}
 
 
-## S523 TURNPRO1 map M4: under the Pro offer step - the age line, declines left, and the debut tickets against each
-## house's break-even (f["sold"] = ProDebut.tickets_sold today; each win sells PER_WIN more).
+## Under the Pro offer step (S523 map M4, S543 v17): the debut tickets today against the promoter's break-even, the age
+## line, and the Not yets left (each costs 15 hunger; with none left a rival gym calls instead).
 static func pro_line(f: Dictionary) -> String:
 	var parts: Array = []
 	if f.has("sold"):
 		var sold := int(f["sold"])
-		var houses: Array = []
-		for k in ["bow", "hf"]:
-			var t: Dictionary = ProCall.promoters()[k]
-			var be := int(t["break_even"])
-			var gap := be - sold
-			houses.append("%s pays from %d (%s)" % [{"bow": "Bow Lane", "hf": "Harrow & Finch"}[k], be,
-				"past it" if gap <= 0 else "about %d wins away" % ceili(float(gap) / ProDebut.PER_WIN)])
-		parts.append("Debut tickets today: %d. %s." % [sold, "; ".join(houses)])
+		var gap := ProDebut.BREAK_EVEN - sold
+		parts.append("Debut tickets today: %d; the promoter's share pays from %d (%s)." % [sold, ProDebut.BREAK_EVEN,
+			"past it" if gap <= 0 else "about %d wins away" % ceili(float(gap) / ProDebut.PER_WIN)])
 	var age := ProCall.age_line(int(f.get("age", 0)))
 	if age != "":
 		parts.append(age)
-	parts.append("Declines left: %d." % maxi(0, 3 - int(f.get("pro_declines", 0))))
+	parts.append("Not yet left: %d." % maxi(0, int(f.get("patience", ProStart.PATIENCE)) - 1))
 	return " ".join(parts)
 
 
@@ -97,7 +92,6 @@ static func _need_for(lit: int, f: Dictionary, day: int, elig: Dictionary) -> St
 	var age: int = int(f.get("age", 0))
 	var injured: bool = bool(f.get("injured", false))
 	var rank: int = int(f.get("rank", 0))
-	var pro_declines: int = int(f.get("pro_declines", 0))
 	var nationals: String = str(f.get("nationals", ""))
 	var pro: bool = bool(f.get("pro", false))
 
@@ -117,15 +111,11 @@ static func _need_for(lit: int, f: Dictionary, day: int, elig: Dictionary) -> St
 				return "Injured - cannot enter"
 			return "Enter before entries close in %d days" % n
 		3:
-			var wait_left := int(f.get("pro_wait_w", 0)) - w
-			if wait_left > 0 and not pro:   # S531 TURNCRITIC7A: the offer lapsed; the promoters call again after more wins
-				return "The last offer lapsed: %d more win%s before the promoters call again." % [wait_left, "" if wait_left == 1 else "s"]
-			if pro_declines >= 3:
-				return "No more offers - stays amateur"
-			if pro_declines >= 2:
-				return "Only a No. 1 ranking brings another offer"
-			var need: int = Roster.PRO_WINS + pro_declines * Roster.PRO_RETURN_WINS
-			var any: int = Roster.PRO_WINS_ANY_RANK + pro_declines * Roster.PRO_RETURN_WINS
+			var back := int(f.get("pro_back", 0))
+			if back > day and not pro:   # S543 v17: after a Not yet the promoter calls again four weeks on
+				return "Not yet: the promoter calls again in %d days" % (back - day)
+			var need: int = Roster.PRO_WINS
+			var any: int = Roster.PRO_WINS_ANY_RANK
 			var ranked: bool = rank >= 1 and rank <= Roster.PRO_RANK
 			if ranked:
 				var more: int = need - w
@@ -137,7 +127,7 @@ static func _need_for(lit: int, f: Dictionary, day: int, elig: Dictionary) -> St
 				var more_any: int = any - w
 				return "%d more wins and a top-3 ranking, or %d more wins" % [more_ranked, more_any]
 		4:
-			if pro:
-				return "The debut is booked %d weeks after signing" % Roster.PRO_DEBUT_WEEKS
+			if pro:   # S543 v17: the debut is pro fight 1 of six, picked from two bouts
+				return "Pick the debut on Fights: the promoter's tune-up or a step up, %d weeks after signing" % Roster.PRO_DEBUT_WEEKS
 			return "Sign the offer"
 	return ""

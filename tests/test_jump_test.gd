@@ -92,13 +92,29 @@ func _initialize() -> void:
 			main.queue_free()
 			await process_frame
 			continue
+		if jump in ["prorival", "propair", "prohunger"]:   # S544 turning pro v17's other screens, one board button each
+			var ps: Dictionary = f.get("pro_start", {})
+			if jump == "prorival":
+				_check(ok and main.modal.get("type", "") == "prooffer" and bool(main.career.pro_offer.get("rival", false)) and not TestJump.Roster.ProStart.can_wait(ps)
+					and not bool(f.get("pro", false)), "prorival: the rival gym's call is open, no Not yet left, still an amateur")
+			elif jump == "propair":
+				var pp: Dictionary = f.get("pro_pair", {})
+				_check(ok and bool(f.get("pro", false)) and pp.has("safe") and pp.has("risky") and int(pp.get("fight", 0)) == 1 and (f["bout"] as Dictionary).is_empty()
+					and str(main.route.get("area", "")) == "fights", "propair: a pro on FIGHTS with fight 1's safe and risky bouts, nothing booked")
+			else:
+				_check(ok and bool(f.get("pro", false)) and not TestJump.Roster.ProStart.can_wait(ps) and int(ps.get("fights", 0)) >= 1 and int(ps.get("hunger", 99)) <= 20,
+					"prohunger: a pro after %d safe bouts, hunger %d, warnings %d" % [int(ps.get("fights", 0)), int(ps.get("hunger", 99)), int(ps.get("warn", 0))])
+			_check(main.save_path == TestJump.SAVE_PATH, "%s: its own save slot" % jump)
+			main.queue_free()
+			await process_frame
+			continue
 		if jump == "pro":
-			# S329 update 31: the offer opens; signing pays her licence and books the ticket debut.
+			# S329 update 31: the offer opens; signing pays the licence. S543 v17: the debut is picked from two bouts on Fights.
 			_check(ok and main.modal.get("type", "") == "prooffer", "pro: the promoter's offer is open")
 			var cash: int = main.career.cash
 			main.act("turnpro")
-			_check(bool(f.get("pro", false)) and bool(f["bout"].get("tickets", false)) and main.career.cash < cash,
-				"pro: signed, the gym paid her licence, a ticket debut is booked")
+			_check(bool(f.get("pro", false)) and (f["bout"] as Dictionary).is_empty() and not (f.get("pro_pair", {}) as Dictionary).is_empty() and main.career.cash < cash,
+				"pro: signed, the gym paid the licence, the debut's two bouts wait on Fights")
 			main.queue_free()
 			await process_frame
 			continue

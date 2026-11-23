@@ -52,6 +52,10 @@ func _initialize() -> void:
 	_check(not c.pro_offer.is_empty(), "a promoter offers her a pro contract at 9-1")
 	Roster.turn_pro(c)
 	_check(c.world.is_empty(), "no world before her debut is fought")
+	# S543 TURNPRO17: pro fights 1-6 are the safe / risky pair (turnpro17_walk_test walks them). This test reads the normal
+	# booking from fight 7: the pair is marked five fights in, so the debut is its sixth and the ladder follows it.
+	f["pro_start"]["fights"] = 5
+	_check(load("res://scripts/state/ProPair.gd").book(c, f, "safe"), "the debut is booked from the pair")
 	_fight(c, f)
 	var e := ProLadder.entry(c, f)
 	_check(not c.world.is_empty() and not e.is_empty(), "after the debut she is on the %s table" % ProLadder.division_for(f))

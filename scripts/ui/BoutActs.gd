@@ -198,6 +198,9 @@ static func act(main: Node, name: String, arg: String) -> bool:
 		"probook":   # S397 rank 4: "<fid>:<opp id>:o|a" - take an offer, or ask for a name
 			var bp := arg.split(":")
 			var bf := who(main, bp[0])
+			if not (bf.get("pro_pair", {}) as Dictionary).is_empty() or bf.has("pro_open"):   # S543 v17: fights 1-6 are the pair
+				main.toast("Pro fights 1 to 6 are picked on Fights: the promoter's tune-up or a step up.")
+				return true
 			var res := ProLadder.book(c, bf, int(bp[1]), bp[2] == "a")
 			if bool(res["ok"]):
 				main.nav({"area": "home", "tab": 0})

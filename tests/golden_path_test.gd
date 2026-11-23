@@ -559,7 +559,7 @@ func _week_four(c: Career) -> void:
 	# Turning pro. The test puts Lucy at the line (9 wins) instead of playing 4 more bouts.
 	lucy["w"] = 9
 	_play_until(func(): return not c.pro_offer.is_empty(), "a promoter calls at the line")
-	_check(str(c.pro_offer.get("fid", "")) == "lucy" and int(c.pro_offer.get("purse", 0)) in [1500, 1800], "the offer: %s, %s debut (S523: one house or two by the ticket forecast)" % [c.pro_offer.get("promoter", "?"), UI.money(int(c.pro_offer.get("purse", 0)))])
+	_check(str(c.pro_offer.get("fid", "")) == "lucy" and int(c.pro_offer.get("purse", 0)) == 1500 and not c.pro_offer.has("offers"), "the offer: %s, %s a fight (S543 v17: one promoter, one offer)" % [c.pro_offer.get("promoter", "?"), UI.money(int(c.pro_offer.get("purse", 0)))])
 	_check(str(Needs.go_state(c, false)["s"]).contains("promoter"), "the offer stops time")
 	main.act("go_btn")
 	_check(main.modal.get("type", "") == "prooffer", "NEEDS YOU opens the offer")
@@ -575,7 +575,13 @@ func _week_four(c: Career) -> void:
 		"signing pays her licence and brain scans: %s" % UI.money(int(sheet["costs"])))
 	_check(bool(lucy.get("licensed", false)) and Roster.trainer_licensed(c), "she and her trainer hold BBBofC licences")
 	_check(bool(lucy.get("pro", false)) and int(Sim.weekly_costs(c)["fighters"]) == stipends - 250, "she is a pro: her stipend stops")
-	_check(int(lucy["bout"].get("rounds", 0)) == 4 and bool(lucy["bout"].get("pro", false)), "her debut is booked: 4 rounds, %s" % Clock.fmt(int(lucy["bout"].get("day", 0))))
+	# S543 TURNPRO17: the debut is pro fight 1 of six - two bouts on Fights, the promoter's tune-up and a step up
+	_check((lucy["bout"] as Dictionary).is_empty() and not (lucy.get("pro_pair", {}) as Dictionary).is_empty(), "the debut's two bouts wait on Fights")
+	main.act("go", "fights:0")
+	var take := main._shell.find_child("Take_safe", true, false) as Button
+	_check(take != null and main._shell.find_child("Pair_risky", true, false) != null, "FIGHTS shows the two bouts side by side")
+	_press(take, "Take the promoter's tune-up for the debut")
+	_check(int(lucy["bout"].get("rounds", 0)) == 4 and bool(lucy["bout"].get("pro", false)) and str(lucy["bout"].get("pair_kind", "")) == "safe", "her debut is booked: 4 rounds, %s" % Clock.fmt(int(lucy["bout"].get("day", 0))))
 	_check(Region.our_rank(c, lucy) == 0, "a pro leaves the amateur rankings")
 	var cash := c.cash
 	main.act("camp", "lucy")
@@ -594,7 +600,8 @@ func _week_four(c: Career) -> void:
 	main.act("go", "home:0")
 	main.act("go_btn")
 	_check(main.modal.get("type", "") == "fight" and int(main.modal.get("total", 0)) == 4, "fight night: four rounds")
-	var debut_gym := int(Roster.debut_night(c, lucy)["gym"])   # S523: the house's deal - the gym's cut of the purse and the ticket share
+	var debut_gym := int(Roster.debut_night(c, lucy)["gym"])   # the gym's cut of the tickets (S543 v17: the purse is paid beside it)
+	var purse_gym := Roster.gym_cut(int(lucy["bout"]["purse"]), lucy)
 	_press(_modal_button("Begin"), "Begin the debut")
 	_shout_round()
 	if BoutNight.stopped(main.modal) == "" and int(main.modal.get("round", 0)) == 1:   # S523 map M13: the debut's corner note, once
@@ -616,9 +623,10 @@ func _week_four(c: Career) -> void:
 		"a pro record of one bout; the amateur record stays 9-%d" % lucy["l"])
 	_check(c.ledger.any(func(e): return str(e["t"]).begins_with("Debut tickets") and int(e["amount"]) == debut_gym),
 		"the debut pays the gym its cut of the purse and the tickets: %s" % UI.money(debut_gym))
-	_check(not c.ledger.any(func(e): return str(e["t"]).begins_with("Purse share")), "no flat purse on the debut")
+	_check(c.ledger.any(func(e): return str(e["t"]).begins_with("Purse share") and int(e["amount"]) == purse_gym), "the debut pays its purse beside the tickets (S543 v17): %s" % UI.money(purse_gym))
+	_check(str(main.modal.get("bar_line", "")).contains("Hunger"), "the result carries what the debut did to both bars: %s" % str(main.modal.get("bar_line", "")))
 	var deb: Dictionary = (lucy.get("pro_signed", {}) as Dictionary).get("debut", {})   # S524 map M11: the week review's debut ledger
-	_check(int(deb.get("gym", -1)) == debut_gym and ProWeekLines.lines_for(lucy, c.day + 1).any(func(l): return str(l["kind"]) == "ledger"),
+	_check(int(deb.get("gym", -1)) == debut_gym + purse_gym and ProWeekLines.lines_for(lucy, c.day + 1).any(func(l): return str(l["kind"]) == "ledger"),
 		"the debut is on the ledger the week review reads (gym %s)" % UI.money(int(deb.get("gym", 0))))
 	_press(_modal_button("BackHome"), "Back home")
 	_check(c.news.any(func(x): return str(x["t"]).contains("turns pro")), "the news: she turns pro")

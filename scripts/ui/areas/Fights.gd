@@ -38,7 +38,7 @@ func build(main: Node) -> void:
 	# S396 screen cut: Offers, Calendar and Results are one page (docs/STRUCTURE_DESIGN_S395.md 5.4).
 	_offers(main, c)
 	for f in c.fighters:   # S397 rank 4: a pro's offers, the road and the asks
-		if ProLadder.on_ladder(c, f):
+		if ProLadder.on_ladder(c, f) or not (f.get("pro_pair", {}) as Dictionary).is_empty():   # S543: the debut's two bouts too
 			add_child(ProFights.section(main, c, f))
 	for g in c.grapplers:   # S396 blind round 2: the no-gi athlete's opens belong on Fights too
 		add_child(MatOpens.card(main, c, g, "%s: NO-GI OPENS" % str(g["first"]).to_upper()))

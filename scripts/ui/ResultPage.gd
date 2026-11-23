@@ -334,7 +334,22 @@ static func summary(main: Node, m: Dictionary, f: Dictionary, names: Array) -> V
 		row.add_child(part[0])
 	v.add_child(row)
 	v.add_child(ResultTiles.row(m))   # the night's take-home and the plan's clue (S533 the corner's eye), a tile each
+	var bars := bar_row(m)
+	if bars != null:
+		v.add_child(bars)
 	return v
+
+
+## S543 TURNPRO17: pro fights 1-6 - one line, what the fight did to the boxer's confidence and hunger (ProStart.bar_line).
+static func bar_row(m: Dictionary) -> Label:
+	var line := str(m.get("bar_line", ""))
+	if line == "":
+		return null
+	var l := UI.label("The boxer after the fight: %s%s." % [line, ", name +%d" % int(m["name_gain"]) if int(m.get("name_gain", 0)) > 0 else ""], TEXT, UI.FG, "semi", true)
+	l.name = "BarLine"
+	l.mouse_filter = Control.MOUSE_FILTER_STOP
+	l.tooltip_text = "Confidence moves the next pro fight's win chance by up to 5 points; at hunger 0 the boxer asks to leave."
+	return l
 
 
 ## Every judge's score of every round: scores[round][judge] = [ours, theirs]; [] on a stopped bout (no cards).
