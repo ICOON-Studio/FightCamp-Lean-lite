@@ -12,16 +12,6 @@
    "eta": "about 4 h",
    "note": "S540: then python tools/turnprobe16_sum.py E:/FightCamp/tmp/turnpro16/*.jsonl > docs/TURNPROBE16_RESULT.md"
   },
-  "PICS2D2": {
-   "id": "PICS2D2",
-   "status": "running",
-   "started": "2026-11-23T12:50",
-   "title": "2D pictures: the full boxing set as a second view (Q-310)",
-   "seat": "claude",
-   "agent": "claude-opus-5-5 (Code Mode tab c16, resumed)",
-   "eta": "1.5-2 days",
-   "note": "S540: resumed after the low-memory stop; uncommitted view edits in FightNight/golden_path are its own"
-  },
   "CARDFIX6B": {
    "id": "CARDFIX6B",
    "status": "running",
@@ -52,16 +42,6 @@
    "eta": "about 2 h",
    "note": "S541"
   },
-  "COACHDEEP4": {
-   "id": "COACHDEEP4",
-   "status": "running",
-   "started": "2026-11-23T14:50",
-   "title": "Deep coaches v4: rank bands, departure price, class nights by members",
-   "seat": "claude",
-   "agent": "claude-opus-5-5 (Code Mode tab c2)",
-   "eta": "about 2 h",
-   "note": "S541"
-  },
   "KNOWSTAKES9": {
    "id": "KNOWSTAKES9",
    "status": "running",
@@ -70,6 +50,16 @@
    "seat": "claude",
    "agent": "claude-fable-5-2 (Code Mode tab c3)",
    "eta": "about 1.5 h",
+   "note": "S541"
+  },
+  "COACHDEEP5": {
+   "id": "COACHDEEP5",
+   "status": "running",
+   "started": "2026-11-23T15:40",
+   "title": "Deep coaches v5: catchment ceiling caps the class loop",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (Code Mode tab c5)",
+   "eta": "about 2 h",
    "note": "S541"
   }
  },

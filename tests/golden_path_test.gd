@@ -144,6 +144,17 @@ func _shout_round() -> void:
 	_check(LiveRound.live(main.modal).is_empty(), "the round's five shouts fought it to the bell")
 
 
+## S540 PICS2D2: the round page opens round 1 in pictures (the second view beside the 3D), then back to the corner.
+func _pictures() -> void:
+	_press(_modal_button("Pictures"), "PICS2D2: the round page offers the round in pictures")
+	var pv: Node = main.get_node_or_null("FightPictures")
+	var n: int = (pv.pics as Array).size() if pv != null else 0
+	_check(pv != null and n >= 6 and pv._pic.texture != null, "PICS2D2: round 1 plays as %d pictures, the first drawn" % n)
+	if pv != null:
+		_press(pv.find_child("PicsClose", true, false) as Button, "PICS2D2: back to the corner")
+	_check(main.get_node_or_null("FightPictures") == null, "PICS2D2: the pictures view closed")
+
+
 func c_fighter() -> Dictionary:
 	return main.career.fighter_by_id(str(main.modal["fid"]))
 
@@ -253,6 +264,7 @@ func _week_two(c: Career) -> void:
 	_check(main.modal_node() != null and main.modal_node().find_child("Shout_*", true, false) != null, "S308: round 1 opens on the shout bar")
 	_shout_round()
 	_check(int(main.modal.get("round", 0)) == 1 and (main.modal["rounds"][0]["lines"] as Array).size() >= 3, "round 1 told in words, exchanges counted")
+	_pictures()
 	_press(_modal_button("Corner_long"), "corner call after round 1")
 	_shout_round()
 	_press(_modal_button("Corner_body"), "corner call after round 2")

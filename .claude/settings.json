@@ -5,6 +5,10 @@
       "PowerShell(powershell -NoProfile -ExecutionPolicy Bypass -File *pc_watchdog.ps1*)",
       "PowerShell(& *agent_window.ps1*)",
       "Edit(ops/Tools/pc_watchdog.ps1)"
+    ],
+    "deny": [
+      "Agent",
+      "mcp__ccd_session__start_session"
     ]
   },
   "hooks": {

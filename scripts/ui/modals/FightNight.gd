@@ -32,6 +32,7 @@ const HeadlineCard := preload("res://scripts/ui/modals/HeadlineCard.gd")
 const ResultPage := preload("res://scripts/ui/ResultPage.gd")
 const FightAnalysisOwn := preload("res://scripts/ui/FightAnalysisOwn.gd")   # S511 FIGHTFILM1: The round so far
 const RingTopDown := preload("res://scripts/ui/RingTopDown.gd")
+const FightPictures := preload("res://scripts/ui/FightPictures.gd")   # S540 PICS2D2: the round in pictures
 
 
 func build(main: Node, m: Dictionary) -> void:
@@ -263,6 +264,8 @@ func _round(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 		var sofar := UI.button("The round so far", "Btn", func(): FightAnalysisOwn.so_far(main, main.career.fighter_by_id(str(m["fid"])), m))
 		sofar.name = "RoundSoFar"
 		v.add_child(sofar)
+	if FightPictures.on() and last.has("exchanges"):   # S540 PICS2D2: the round just fought as pictures, beside the 3D
+		v.add_child(FightPictures.button(main, m))
 	if n < total and stop == "":
 		v.add_child(UI.caps("IN THE CORNER: WHAT DO YOU TELL YOUR BOXER?"))
 		_towel(main, v, m)   # S461 INTEGRATE1 #4 the towel card (TowelWire), only when it comes

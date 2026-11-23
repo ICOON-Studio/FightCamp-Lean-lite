@@ -1,0 +1,211 @@
+{
+  "names": [
+    "Lucy Jackson",
+    "Priya Nair"
+  ],
+  "set": "w",
+  "shows": [
+    {
+      "big": false,
+      "k": 0,
+      "line": "Your boxer won those 30 seconds with no call from you.",
+      "move": "jab",
+      "pic": "blue_jab_blocked",
+      "result": "blocked",
+      "t": 0.8,
+      "who": "b"
+    },
+    {
+      "big": false,
+      "k": 0,
+      "line": "Your boxer won those 30 seconds with no call from you.",
+      "move": "cross",
+      "pic": "blue_cross_blocked",
+      "result": "blocked",
+      "t": 1.15,
+      "who": "b"
+    },
+    {
+      "big": false,
+      "k": 0,
+      "line": "Your boxer won those 30 seconds with no call from you.",
+      "move": "body_hook",
+      "pic": "red_body_hook_landed",
+      "result": "lands",
+      "t": 4.29,
+      "who": "a"
+    },
+    {
+      "big": false,
+      "k": 1,
+      "line": "Right idea, \"Draw the lead\", but your boxer still lost those 30 seconds.",
+      "move": "body_hook",
+      "pic": "blue_body_hook_landed",
+      "result": "lands",
+      "t": 30.82,
+      "who": "b"
+    },
+    {
+      "big": false,
+      "k": 1,
+      "line": "Right idea, \"Draw the lead\", but your boxer still lost those 30 seconds.",
+      "move": "jab",
+      "pic": "blue_jab_missed",
+      "result": "misses",
+      "t": 31.15,
+      "who": "b"
+    },
+    {
+      "big": false,
+      "k": 2,
+      "line": "Right idea, \"Jab and move\", but your boxer still lost those 30 seconds.",
+      "move": "jab",
+      "pic": "blue_jab_blocked",
+      "result": "blocked",
+      "t": 60.8,
+      "who": "b"
+    },
+    {
+      "big": false,
+      "k": 2,
+      "line": "Right idea, \"Jab and move\", but your boxer still lost those 30 seconds.",
+      "move": "jab",
+      "pic": "blue_jab_missed",
+      "result": "misses",
+      "t": 61.15,
+      "who": "b"
+    },
+    {
+      "big": false,
+      "k": 2,
+      "line": "Right idea, \"Jab and move\", but your boxer still lost those 30 seconds.",
+      "move": "body_hook",
+      "pic": "blue_body_hook_landed",
+      "result": "lands",
+      "t": 62.2,
+      "who": "b"
+    },
+    {
+      "big": false,
+      "k": 3,
+      "line": "Your boxer won those 30 seconds with no call from you.",
+      "move": "body_hook",
+      "pic": "blue_body_hook_landed",
+      "result": "lands",
+      "t": 90.8,
+      "who": "b"
+    },
+    {
+      "k": 3,
+      "line": "Your boxer won those 30 seconds with no call from you.",
+      "pic": "clinch",
+      "say": "Clinch - both tie up",
+      "t": 91.3,
+      "who": ""
+    },
+    {
+      "big": false,
+      "k": 3,
+      "line": "Your boxer won those 30 seconds with no call from you.",
+      "move": "jab",
+      "pic": "red_jab_missed",
+      "result": "misses",
+      "t": 91.15,
+      "who": "a"
+    },
+    {
+      "big": false,
+      "k": 3,
+      "line": "Your boxer won those 30 seconds with no call from you.",
+      "move": "body_hook",
+      "pic": "red_body_hook_landed",
+      "result": "lands",
+      "t": 100.33,
+      "who": "a"
+    },
+    {
+      "big": false,
+      "k": 4,
+      "line": "It worked: \"Draw the lead\" won your boxer those 30 seconds.",
+      "move": "cross",
+      "pic": "blue_cross_missed",
+      "result": "misses",
+      "t": 120.84,
+      "who": "b"
+    },
+    {
+      "k": 4,
+      "line": "It worked: \"Draw the lead\" won your boxer those 30 seconds.",
+      "pic": "clinch",
+      "say": "Clinch - both tie up",
+      "t": 121.34,
+      "who": ""
+    },
+    {
+      "big": false,
+      "k": 4,
+      "line": "It worked: \"Draw the lead\" won your boxer those 30 seconds.",
+      "move": "lead_hook",
+      "pic": "blue_lead_hook_missed",
+      "result": "misses",
+      "t": 121.15,
+      "who": "b"
+    },
+    {
+      "big": true,
+      "k": 4,
+      "line": "It worked: \"Draw the lead\" won your boxer those 30 seconds.",
+      "move": "lead_hook",
+      "pic": "red_lead_hook_landed",
+      "result": "lands",
+      "t": 135.35,
+      "who": "a"
+    },
+    {
+      "big": false,
+      "k": 5,
+      "line": "It worked: \"Jab and move\" won your boxer those 30 seconds.",
+      "move": "rear_uppercut",
+      "pic": "red_rear_uppercut_missed",
+      "result": "misses",
+      "t": 150.8,
+      "who": "a"
+    },
+    {
+      "k": 5,
+      "line": "It worked: \"Jab and move\" won your boxer those 30 seconds.",
+      "pic": "clinch",
+      "say": "Clinch - both tie up",
+      "t": 151.3,
+      "who": ""
+    },
+    {
+      "big": false,
+      "k": 5,
+      "line": "It worked: \"Jab and move\" won your boxer those 30 seconds.",
+      "move": "cross",
+      "pic": "blue_cross_missed",
+      "result": "misses",
+      "t": 153.45,
+      "who": "b"
+    },
+    {
+      "big": true,
+      "k": 5,
+      "line": "It worked: \"Jab and move\" won your boxer those 30 seconds.",
+      "move": "cross",
+      "pic": "red_cross_landed",
+      "result": "lands",
+      "t": 177.0,
+      "who": "a"
+    },
+    {
+      "k": 5,
+      "line": "",
+      "pic": "red_corner",
+      "say": "The bell - back to the corner",
+      "t": 180.0,
+      "who": ""
+    }
+  ]
+}

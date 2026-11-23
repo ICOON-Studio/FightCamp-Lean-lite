@@ -66,6 +66,9 @@ Claude decides design and integrates; the operator approves (D49: Ludo makes ass
   built mechanic that cannot reach 8 goes to him as "cut it or keep it" - never removed silently. ops/research/DEPTH_SCOPE_S534.md.
   FREE HAND (owner S534: "you can remove,add from scratch or interconnect current and current with needed mechanics"): to reach 8, Claude may remove a mechanic, add one from scratch, or interconnect existing ones
   (with each other or with a new one) - decided and done, then reported with the probe and critic evidence.
+- FEEDBACK LOOPS BEFORE THE PROBE (owner S541 "Yes, add it", after COACHDEEP4's class nights followed members that followed
+  class nights, uncapped): every design/probe brief has `## Feedback loops` - what the change feeds, whether that feeds back,
+  the cap on each loop, a one-rep trial run before the full probe. `ops/Tools/claude_cm.ps1` refuses the launch without it.
 - EVERY NEW MECHANIC: WIRED, SHOWN, 7+ (operator S425: "i expect all new mechanics to be wired and shown properly on the correct menus and be deep enough for a critics +7/10"): a design map reaches his board only once two fresh critics score its depth 7 or more (a lower score = another round, never the board); the map carries a table of every menu the mechanic appears on and what each is wired to; the build is done only when each of those menus shows it in the .exe and one golden-path test walks it end to end.
 - At most 3 PC agents at once (watchdog; S419 operator: "i think thepc can handle more, change the rule ?" - seat_dispatch MAX_PC_AGENTS 2 -> 3; Godot jobs in godot_slot: GREEN 6 (owner S536 "can you get more going in parallel ?"; 4 since S534), all on the same 8 threads (S536 "Yes, use 8"), AMBER 2, RED 0), cloud seats unlimited. Every brief names its owned files, the one test command,
   and stays under the 500-line rule.

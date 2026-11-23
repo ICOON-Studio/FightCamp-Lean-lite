@@ -1,0 +1,636 @@
+{
+  "blue_body_cross_blocked": {
+    "clip": "pro_right_cross_c",
+    "glove": [
+      393.2,
+      308.1
+    ],
+    "hit_m": 0.406,
+    "result": "blocked",
+    "target": [
+      362.6,
+      411.6
+    ]
+  },
+  "blue_body_cross_landed": {
+    "clip": "pro_right_cross_c",
+    "glove": [
+      249.6,
+      335.3
+    ],
+    "hit_m": 0.289,
+    "result": "landed",
+    "target": [
+      282.2,
+      416.0
+    ]
+  },
+  "blue_body_cross_missed": {
+    "clip": "pro_right_cross_c",
+    "glove": [
+      322.0,
+      250.8
+    ],
+    "hit_m": 0.662,
+    "result": "missed",
+    "target": [
+      305.5,
+      449.3
+    ]
+  },
+  "blue_body_hook_blocked": {
+    "clip": "pro_body_shot",
+    "glove": [
+      313.2,
+      325.5
+    ],
+    "hit_m": 0.324,
+    "result": "blocked",
+    "target": [
+      296.7,
+      414.4
+    ]
+  },
+  "blue_body_hook_landed": {
+    "clip": "pro_body_shot",
+    "glove": [
+      285.7,
+      416.4
+    ],
+    "hit_m": 0.003,
+    "result": "landed",
+    "target": [
+      286.5,
+      416.0
+    ]
+  },
+  "blue_body_hook_missed": {
+    "clip": "pro_body_shot",
+    "glove": [
+      295.4,
+      382.2
+    ],
+    "hit_m": 0.314,
+    "result": "missed",
+    "target": [
+      278.8,
+      449.3
+    ]
+  },
+  "blue_corner": {},
+  "blue_cross_blocked": {
+    "clip": "pro_right_cross",
+    "glove": [
+      319.0,
+      223.5
+    ],
+    "hit_m": 0.173,
+    "result": "blocked",
+    "target": [
+      267.4,
+      224.6
+    ]
+  },
+  "blue_cross_landed": {
+    "clip": "pro_right_cross",
+    "glove": [
+      270.2,
+      227.3
+    ],
+    "hit_m": 0.002,
+    "result": "landed",
+    "target": [
+      269.7,
+      227.3
+    ]
+  },
+  "blue_cross_missed": {
+    "clip": "pro_right_cross",
+    "glove": [
+      255.4,
+      278.3
+    ],
+    "hit_m": 0.361,
+    "result": "missed",
+    "target": [
+      148.2,
+      259.9
+    ]
+  },
+  "blue_jab_blocked": {
+    "clip": "pro_left_jab",
+    "glove": [
+      317.3,
+      247.3
+    ],
+    "hit_m": 0.179,
+    "result": "blocked",
+    "target": [
+      278.2,
+      227.1
+    ]
+  },
+  "blue_jab_landed": {
+    "clip": "pro_left_jab",
+    "glove": [
+      82.5,
+      225.2
+    ],
+    "hit_m": 0.004,
+    "result": "landed",
+    "target": [
+      82.4,
+      226.3
+    ]
+  },
+  "blue_jab_missed": {
+    "clip": "pro_left_jab",
+    "glove": [
+      265.6,
+      264.4
+    ],
+    "hit_m": 0.351,
+    "result": "missed",
+    "target": [
+      161.6,
+      259.9
+    ]
+  },
+  "blue_knockdown_1": {},
+  "blue_knockdown_2": {},
+  "blue_knockdown_3": {},
+  "blue_lead_hook_blocked": {
+    "clip": "pro_left_hook_ft",
+    "glove": [
+      346.5,
+      234.9
+    ],
+    "hit_m": 0.221,
+    "result": "blocked",
+    "target": [
+      315.9,
+      227.5
+    ]
+  },
+  "blue_lead_hook_landed": {
+    "clip": "pro_left_hook_ft",
+    "glove": [
+      263.8,
+      223.7
+    ],
+    "hit_m": 0.001,
+    "result": "landed",
+    "target": [
+      263.7,
+      223.7
+    ]
+  },
+  "blue_lead_hook_missed": {
+    "clip": "pro_left_hook_ft",
+    "glove": [
+      304.0,
+      236.1
+    ],
+    "hit_m": 0.421,
+    "result": "missed",
+    "target": [
+      263.9,
+      280.5
+    ]
+  },
+  "blue_lead_uppercut_blocked": {
+    "clip": "pro_left_uppercut",
+    "glove": [
+      367.1,
+      250.5
+    ],
+    "hit_m": 0.153,
+    "result": "blocked",
+    "target": [
+      334.3,
+      224.1
+    ]
+  },
+  "blue_lead_uppercut_landed": {
+    "clip": "pro_left_uppercut",
+    "glove": [
+      312.2,
+      228.0
+    ],
+    "hit_m": 0.003,
+    "result": "landed",
+    "target": [
+      312.9,
+      228.0
+    ]
+  },
+  "blue_lead_uppercut_missed": {
+    "clip": "pro_left_uppercut",
+    "glove": [
+      335.7,
+      203.1
+    ],
+    "hit_m": 0.263,
+    "result": "missed",
+    "target": [
+      298.5,
+      259.9
+    ]
+  },
+  "blue_rear_hook_blocked": {
+    "clip": "pro_right_hook_ft",
+    "glove": [
+      337.8,
+      244.7
+    ],
+    "hit_m": 0.169,
+    "result": "blocked",
+    "target": [
+      313.9,
+      225.1
+    ]
+  },
+  "blue_rear_hook_landed": {
+    "clip": "pro_right_hook_ft",
+    "glove": [
+      280.3,
+      226.6
+    ],
+    "hit_m": 0.003,
+    "result": "landed",
+    "target": [
+      281.2,
+      226.6
+    ]
+  },
+  "blue_rear_hook_missed": {
+    "clip": "pro_right_hook_ft",
+    "glove": [
+      313.9,
+      245.8
+    ],
+    "hit_m": 0.289,
+    "result": "missed",
+    "target": [
+      285.8,
+      300.8
+    ]
+  },
+  "blue_rear_uppercut_blocked": {
+    "clip": "pro_right_uppercut",
+    "glove": [
+      368.6,
+      246.6
+    ],
+    "hit_m": 0.179,
+    "result": "blocked",
+    "target": [
+      324.7,
+      222.9
+    ]
+  },
+  "blue_rear_uppercut_landed": {
+    "clip": "pro_right_uppercut",
+    "glove": [
+      320.7,
+      229.3
+    ],
+    "hit_m": 0.012,
+    "result": "landed",
+    "target": [
+      318.6,
+      227.3
+    ]
+  },
+  "blue_rear_uppercut_missed": {
+    "clip": "pro_right_uppercut",
+    "glove": [
+      324.2,
+      238.9
+    ],
+    "hit_m": 0.21,
+    "result": "missed",
+    "target": [
+      267.8,
+      260.2
+    ]
+  },
+  "clinch": {},
+  "guard": {},
+  "red_body_cross_blocked": {
+    "clip": "pro_right_cross_c",
+    "glove": [
+      360.5,
+      287.4
+    ],
+    "hit_m": 0.476,
+    "result": "blocked",
+    "target": [
+      424.3,
+      399.5
+    ]
+  },
+  "red_body_cross_landed": {
+    "clip": "pro_right_cross_c",
+    "glove": [
+      470.0,
+      356.4
+    ],
+    "hit_m": 0.172,
+    "result": "landed",
+    "target": [
+      453.2,
+      405.4
+    ]
+  },
+  "red_body_cross_missed": {
+    "clip": "pro_right_cross_c",
+    "glove": [
+      447.7,
+      270.2
+    ],
+    "hit_m": 0.652,
+    "result": "missed",
+    "target": [
+      544.6,
+      440.7
+    ]
+  },
+  "red_body_hook_blocked": {
+    "clip": "pro_body_shot",
+    "glove": [
+      468.4,
+      308.4
+    ],
+    "hit_m": 0.375,
+    "result": "blocked",
+    "target": [
+      470.5,
+      399.8
+    ]
+  },
+  "red_body_hook_landed": {
+    "clip": "pro_body_shot",
+    "glove": [
+      459.7,
+      405.6
+    ],
+    "hit_m": 0.002,
+    "result": "landed",
+    "target": [
+      459.5,
+      405.4
+    ]
+  },
+  "red_body_hook_missed": {
+    "clip": "pro_body_shot",
+    "glove": [
+      472.1,
+      398.0
+    ],
+    "hit_m": 0.283,
+    "result": "missed",
+    "target": [
+      514.9,
+      440.7
+    ]
+  },
+  "red_corner": {},
+  "red_cross_blocked": {
+    "clip": "pro_right_cross",
+    "glove": [
+      434.7,
+      218.8
+    ],
+    "hit_m": 0.166,
+    "result": "blocked",
+    "target": [
+      481.6,
+      204.7
+    ]
+  },
+  "red_cross_landed": {
+    "clip": "pro_right_cross",
+    "glove": [
+      487.8,
+      207.7
+    ],
+    "hit_m": 0.029,
+    "result": "landed",
+    "target": [
+      491.6,
+      199.9
+    ]
+  },
+  "red_cross_missed": {
+    "clip": "pro_right_cross",
+    "glove": [
+      499.8,
+      296.1
+    ],
+    "hit_m": 0.379,
+    "result": "missed",
+    "target": [
+      596.2,
+      234.9
+    ]
+  },
+  "red_jab_blocked": {
+    "clip": "pro_left_jab",
+    "glove": [
+      452.8,
+      226.9
+    ],
+    "hit_m": 0.131,
+    "result": "blocked",
+    "target": [
+      476.8,
+      202.4
+    ]
+  },
+  "red_jab_landed": {
+    "clip": "pro_left_jab",
+    "glove": [
+      559.0,
+      199.9
+    ],
+    "hit_m": 0.006,
+    "result": "landed",
+    "target": [
+      560.6,
+      199.5
+    ]
+  },
+  "red_jab_missed": {
+    "clip": "pro_left_jab",
+    "glove": [
+      494.6,
+      283.3
+    ],
+    "hit_m": 0.394,
+    "result": "missed",
+    "target": [
+      601.6,
+      234.8
+    ]
+  },
+  "red_knockdown_1": {},
+  "red_knockdown_2": {},
+  "red_knockdown_3": {},
+  "red_lead_hook_blocked": {
+    "clip": "pro_left_hook_ft",
+    "glove": [
+      418.2,
+      225.8
+    ],
+    "hit_m": 0.202,
+    "result": "blocked",
+    "target": [
+      442.8,
+      202.5
+    ]
+  },
+  "red_lead_hook_landed": {
+    "clip": "pro_left_hook_ft",
+    "glove": [
+      508.4,
+      197.0
+    ],
+    "hit_m": 0.007,
+    "result": "landed",
+    "target": [
+      510.5,
+      196.4
+    ]
+  },
+  "red_lead_hook_missed": {
+    "clip": "pro_left_hook_ft",
+    "glove": [
+      460.5,
+      255.7
+    ],
+    "hit_m": 0.509,
+    "result": "missed",
+    "target": [
+      539.3,
+      266.8
+    ]
+  },
+  "red_lead_uppercut_blocked": {
+    "clip": "pro_left_uppercut",
+    "glove": [
+      397.5,
+      228.0
+    ],
+    "hit_m": 0.14,
+    "result": "blocked",
+    "target": [
+      424.6,
+      201.7
+    ]
+  },
+  "red_lead_uppercut_landed": {
+    "clip": "pro_left_uppercut",
+    "glove": [
+      396.2,
+      201.3
+    ],
+    "hit_m": 0.005,
+    "result": "landed",
+    "target": [
+      397.4,
+      200.6
+    ]
+  },
+  "red_lead_uppercut_missed": {
+    "clip": "pro_left_uppercut",
+    "glove": [
+      424.2,
+      221.8
+    ],
+    "hit_m": 0.233,
+    "result": "missed",
+    "target": [
+      484.8,
+      234.9
+    ]
+  },
+  "red_rear_hook_blocked": {
+    "clip": "pro_right_hook_ft",
+    "glove": [
+      422.5,
+      224.5
+    ],
+    "hit_m": 0.194,
+    "result": "blocked",
+    "target": [
+      448.1,
+      200.4
+    ]
+  },
+  "red_rear_hook_landed": {
+    "clip": "pro_right_hook_ft",
+    "glove": [
+      465.0,
+      199.1
+    ],
+    "hit_m": 0.003,
+    "result": "landed",
+    "target": [
+      464.7,
+      199.2
+    ]
+  },
+  "red_rear_hook_missed": {
+    "clip": "pro_right_hook_ft",
+    "glove": [
+      449.0,
+      265.3
+    ],
+    "hit_m": 0.334,
+    "result": "missed",
+    "target": [
+      507.9,
+      279.7
+    ]
+  },
+  "red_rear_uppercut_blocked": {
+    "clip": "pro_right_uppercut",
+    "glove": [
+      376.2,
+      225.7
+    ],
+    "hit_m": 0.168,
+    "result": "blocked",
+    "target": [
+      416.0,
+      202.8
+    ]
+  },
+  "red_rear_uppercut_landed": {
+    "clip": "pro_right_uppercut",
+    "glove": [
+      445.2,
+      203.9
+    ],
+    "hit_m": 0.019,
+    "result": "landed",
+    "target": [
+      448.1,
+      199.9
+    ]
+  },
+  "red_rear_uppercut_missed": {
+    "clip": "pro_right_uppercut",
+    "glove": [
+      432.0,
+      256.2
+    ],
+    "hit_m": 0.372,
+    "result": "missed",
+    "target": [
+      541.4,
+      235.2
+    ]
+  }
+}

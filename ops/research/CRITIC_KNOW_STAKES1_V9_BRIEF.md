@@ -1,0 +1,1353 @@
+# KNOW_STAKES1_V9 - score this mechanic's DESIGN (fresh critic, S541)
+
+You are a fresh critic: a sports management-sim designer who knows boxing. Read the whole game first (the critic pack
+below: facts only, no scores), then what a critic can open, then the design map at the end (v9, then the v8 and v7 maps it
+changes, then the greybox probe result). Judge the MECHANIC, not the
+look of any screen. You have seen no earlier review of it; do not look for one (no file named *_CRITIC_*).
+
+Score, each out of 10, with the reasons, on its own line as `SCORE depth=<n> play=<n> general=<n>`:
+1. DEPTH - real choices with trade-offs that change outcomes; no dominant pick; it interacts with the rest of the game.
+2. PLAY - fun week to week: anticipation, a reason to come back, a reward the player feels.
+3. GENERAL DESIGN - clear, consistent with the game's rules and words, buildable from what the game has, nothing useless.
+The bar (owner S534: "mechanics need an 8 critic's to stay in the game for depth and fun"): 8 or more on DEPTH and 8 or
+more on PLAY. Below that, say whether you would cut the mechanic, keep it, or what must change.
+
+Also answer (owner S403): which options are MISSING, which are USELESS, and what each option changes in the game.
+
+One owner ruling is newer than the pack. The pack (sections 6 and 7) lists "prospect deadlines" as held back. The owner
+has since been asked "Prospects: a rival gym signs them in 1-3 weeks unless you decide?" and answered "Yes, add the
+deadline" (Q-S294-305). So the deadline is decided; judge HOW the map does it, not whether.
+
+Judge the central claim hardest: that signing on the hunch, paying to look again, and waiting are EACH the right call
+some of the time, and that none of them wins nearly always. Say which one you think dominates, and in which situation.
+v9 is a change list on top of v8, which is a change list on top of v7: judge the mechanic as v9 + every v8 and v7 line it
+does not change. The map's section 7 and the probe result report a greybox measurement that passes four bars (two of them
+thinly) and misses the fifth, how often the choice matters at all; judge whether that gap matters and whether the design
+closes it.
+
+READ THE CODE. Every line the map tags CODE names a file and a line. If you can open the repository (main, 2026-11-23 or
+later, at or after 7fc74f4e1; say which commit you read, and say so plainly if your copy is older), open each and say whether the code does that; list every claim that is wrong and say
+which files you read. If you cannot open files, check the map against the excerpts in "Code excerpts" below and against
+the pack, and say plainly that you could not open the rest. Never guess a code fact.
+
+Judge the probes too (map section 7 and `docs/KNOWSTAKES9_RESULT.md`, greybox `tools/knowstakes9.gd`): are the bars the right ones, could each pass while the mechanic is still shallow,
+and what would you measure instead.
+
+End with **To reach 10/10** (owner S405): the concrete changes that would take it from your score to 10, most important
+first, each specific enough to build. A score without that list is not finished.
+Then DRAW your 10/10 (owner S411): one complete, self-contained HTML page, 1920x1080, of the screen where this mechanic
+matters most (inline CSS, no scripts, no outside files). We render it with `tools/render_mockup.py`. Put it in one code
+block at the very end.
+
+Plain words. Names only in headers (the body says "your boxer", "the opponent", "the prospect"; no fixed he or she).
+Real-world boxing evidence where it helps. Change nothing in the repository; never run Godot; open images with a file
+tool only.
+
+## Code excerpts (for a critic who cannot open the repository)
+
+`scripts/rules/KnowReads.gd:8-13, :24-30` - what a read costs in code today (main, 2026-11-23):
+```
+const PRICE_LOOK_CLOSER := 120  ## ESTIMATE
+const PRICE_TRIAL_WEEKS := 4  ## ESTIMATE
+const STIPEND_WEEKLY := 250  ## ESTIMATE - amateur fighter stipend
+const PRICE_TEST_DAY := 60  ## ESTIMATE
+static func price(kind: String) -> int:
+	...
+	elif kind == "trial":
+		return PRICE_TRIAL_WEEKS * STIPEND_WEEKLY / 2  # half stipend for 4 weeks
+	elif kind == "test_day":
+		return PRICE_TEST_DAY
+```
+A search of `scripts/ui` on 2026-11-23 finds no file that names `Knowledge`, `KnowWire` or `KnowReads`.
+
+`scripts/ui/areas/Fighters.gd:221-223` - the prospect list today: the true value in the middle, 5 either side:
+```
+	var mid := float(StatBlock.shown(float(gr["value"])))
+	r.add_child(UI.meter((mid + Data.SCOUT_SPREAD) / 100.0, UI.GOLD, [(mid - Data.SCOUT_SPREAD) / 100.0], 150.0))
+	r.add_child(UI.mono("%d-%d" % [int(mid) - Data.SCOUT_SPREAD, int(mid) + Data.SCOUT_SPREAD], UI.SMALL, UI.FG))
+```
+`scripts/state/Roster.gd:103-105` - the same formula as a function (no caller):
+```
+static func scouted_range(p: Dictionary, stat: String) -> String:
+	var v := float(p["stats"][stat])
+	return "%d-%d" % [int(v) - Data.SCOUT_SPREAD, int(v) + Data.SCOUT_SPREAD]
+```
+`scripts/state/Roster.gd:87-89, :143` - the prospect trial today is one free Monday; the record starts at signing:
+```
+static func trial_day_for(day: int) -> int:
+	return day - posmod(day, 7) + 7
+	...
+	KnowWire.start(f)   # S524 KNOWLEDGE1: a new signing starts with day-one ranges (old saves stay exact)
+```
+`scripts/rules/Knowledge.gd:106, :174-183, :251-261, :372-376` - the width, the range, the jump to exact, the misread:
+```
+	return FLOOR + (start - FLOOR) / (1.0 + exposure / HALF) + _stale_of(g, k)     # FLOOR 0.5, HALF 12; start 8 / 12 / 15
+
+static func range_of(k: Dictionary, attr: String, truth: float, hype: float = 0.0) -> Dictionary:
+	...
+	var lifted: float = minf(offset + clampf(hype, 0.0, 1.0) * HYPE_MAX_LIFT, HYPE_CEIL)   # no caller passes hype
+	var centre: float = truth + lifted * w
+	var lo: float = clampf(truth + (lifted - 1.0) * w, 0.0, 100.0)
+	var hi: float = clampf(truth + (lifted + 1.0) * w, 0.0, 100.0)
+
+static func shown(k: Dictionary, attr: String, truth: float, hype: float = 0.0) -> Dictionary:
+	...
+	if known(k, g):                                    # share_gone >= KNOWN_SHARE 0.6
+		return {"lo": truth, "hi": truth, "centre": truth, "width": 0.0, "known": true}
+
+static func _offset(k: Dictionary, attr: String) -> float:
+	var own: float = _hash_offset(hash([seed, attr]))
+	var shared: float = _hash_offset(hash([seed, "shared_k6"]))
+	return SHARED_MISREAD * shared + (1.0 - SHARED_MISREAD) * own      # 0.5; offsets in -0.6..+0.6
+```
+`scripts/rules/KnowReads.gd:105-119` - the trial and test-day reads as rules (called by no game code):
+```
+static func _apply_trial(k: Dictionary) -> void:
+	K.expose(k, "body", 24.0, "session")
+	K.expose(k, "skills", 24.0, "session")
+	if k.get("under_fire_opened", false):
+		K.expose(k, "under_fire", 8.0, "spar")
+
+static func _apply_test_day(k: Dictionary) -> void:
+	var narrow: float = K.BOUT_FIRE_NARROW  # 4 points
+	if bouts < 5:
+		narrow *= 2.0
+	K.expose(k, "body", narrow * 2.0, "test")
+```
+`scripts/rules/CardAsk.gd:23-26` and `scripts/state/VisitWire.gd:146-156` - the one deadline the game has today (a beaten
+opponent who asks to train here):
+```
+const WAIT_DAYS := 7           # at reception through day + 7, gone the day after
+const COOLDOWN_DAYS := 120
+const TRIAL_DECIDE_DAYS := 1
+const TRIAL_LOSS := 0.25       # the price of Trial first: 1 in 4 the old club talks the boxer round before that Monday
+	...
+		a["trial_came"] = not CardAsk.trial_lost(rng.randf())
+		if not bool(a["trial_came"]):
+			c.add_news("%s did not come to the trial: the old club talked the boxer round." % ...)
+			c.applicant = {}
+```
+`scripts/state/Leaving.gd:98, :108-112` - a boxer who leaves becomes a region row that boxes on:
+```
+		c.rivals.append(rival_row(c, f, to_club))
+static func rival_row(c: Career, f: Dictionary, to_club: String) -> Dictionary:
+	return {"div": ..., "name": ..., "club": to_club, "age": ..., "style": ..., "w": ..., "l": ...,
+		"rating": LEFT_RATING, "threat": "", "weak": "", "left": c.day, "from": c.gym_name, "bouts": []}
+```
+`scripts/state/Leaving.gd:29-30, :59-61` - letting a boxer go today (no term, no cash):
+```
+const REP_LET_GO := -1
+const REP_LET_GO_RANKED := -3
+## The player lets the boxer go (M7): free in cash, the smaller reputation cost, the same knock-on.
+static func let_go(c: Career, fid: String) -> Dictionary:
+	return _go(c, fid, "let_go", TO_CLUB, true)
+```
+`scripts/state/Data.gd:229` and `scripts/state/Career.gd:123` - the five named prospects all go on the list on day 0:
+```
+const PROSPECTS: Array[Dictionary] = [ ... five named prospects ... ]
+	for p in Data.PROSPECTS:
+```
+`scripts/ui/RecruitPanel.gd:46-47, :104` - the signing card today:
+```
+	top.add_child(UI.muted("potential %s stars (your eye for talent: exact)" % _s(float(st[0])) if eye else
+		"potential %s to %s stars (a guess until the trial)" % [_s(float(st[0])), _s(float(st[1]))], UI.BODY))
+	row.add_child(UI.label("%d  up to %d" % [StatBlock.shown(now), StatBlock.shown(cap)], UI.BODY, UI.FG, "bold"))
+```
+
+---
+
+> Also read `ops/research/CRITIC_ACCESS.md`: the Miro board, the real screens, the mockups and the eight MMA fighters. Written S403 from the code; update it when a mechanic or screen lands.
+
+## What every critic must return (operator S405: "i want the critics everytime to state what to change to reach 10/10")
+Whatever you score (a screen, a film, a mechanic, a design), end with **To reach 10/10**: the concrete changes that would take it from your score to 10, most important first, each specific enough to build. If it needs something the game cannot do yet, say so. A score without this list is not finished.
+
+> Also read `ops/research/CRITIC_ACCESS.md`: the Miro board, the real screens, the mockups and the eight MMA fighters. Written S403 from the code; update it when a mechanic or screen lands.
+
+## What every critic must return (operator S405: "i want the critics everytime to state what to change to reach 10/10")
+Whatever you score (a screen, a film, a mechanic, a design), end with **To reach 10/10**: the concrete changes that would take it from your score to 10, most important first, each specific enough to build. If it needs something the game cannot do yet, say so. A score without this list is not finished.
+
+
+# FightCamp critic pack: the whole game, for judging whether a screen has the right options
+
+Owner's rule: "i want every screen you design to have the right options so every critic needs to know the whole game design and mechanics to guide you".
+This pack is facts only: no scores, no verdicts, no earlier critic comments, and nothing that is merely proposed. Written 2026-11-08 from the code
+and the agreed plans. Where a document and the code disagree, the pack says what the code does.
+
+How to read the status tags:
+- BUILT = it is in the game now and a player can use it.
+- AGREED, NOT BUILT = the owner approved it (or a plan he approved includes it) but the game does not do it yet. Judge a screen as if it will exist.
+- PARTLY = some of it is in the game; the pack says which part.
+- NOT ESTABLISHED = the pack could not confirm it from the code or the plans. Do not assume either way.
+Names only in headers (owner S448: "notice how the names are only mentioned on the header , nowhere in text menus options , follow that rule"): a person's name sits in the screen's header once; options, buttons, rows, lines and tooltips say her / him / the opponent / your coach. Flag every name you see outside a header.
+A screen should offer an option only if the player can act on it (rule in section 7). "Option" below means anything the player can press, drag, pick or type.
+
+## 1. What the game is
+
+- A boxing gym management game for PC (Godot 4.7, Windows). The player is the head coach and owner of one small boxing club. Not a promoter, not a fighter,
+  not a tycoon. The club lives on members who pay monthly dues; a fighter's bouts add ticket cuts, reputation and new members.
+- Scope for the first release: boxing and no-gi BJJ (the owner decided BJJ ships beside boxing). MMA comes in the first update after launch. Kickboxing and
+  Muay Thai are not scheduled. Early Access is the target; no date.
+- The player controls: whom to sign and which starting focus; the coaches and staff hired; the week of training for each fighter (mornings, pad and sparring
+  evenings, diet); which bouts to take or ask for; the camp before a bout; the game plan written as lines; combinations built and drilled; the corner calls
+  and corner minute on fight night; the fighter's next goal; the club's money (dues, spending, deals, upgrades).
+- The player does NOT control: the punches thrown. The fight is settled by rules (exchanges of 30 seconds); the 3D fight only shows the settled round and
+  never decides. The player also does not control fighters' moods directly, rival fighters, the weather/twist cards, injuries, or when offers arrive.
+- The fun, in the owner's and the design's words: raising an unknown into a champion; the plan is the star; you can always see how your plan made the
+  difference (the Why after every fight); every week costs something (training, weight, fatigue and money pull against each other); fighters are people
+  (traits, habits, moods); fast and honest (anything one click from anywhere, true numbers). The three core mechanics beside the corner (owner S354):
+  the morning sessions that add up to a goal and an intensity (the week), the evening move and combination planner, and a fight plan that is fun to design.
+  The Playbook/Combos area is the part the owner calls really fun ("to try and also learn from the book").
+- Design rule on results: the better-trained fighter usually wins; a good plan turns close fights and gives underdogs a real chance. Measured in tests:
+  good plan about 59% of bouts, no plan 45%, bad plan 41% (one matchup). Training beats planning: 5 points better in stats wins about 72%, 10 points about 95%.
+- Not mobile, not casual: no timers, gacha, daily rewards or ads. Real stats stay visible. Deeper, not wider (owner approved "build all proposed systems").
+- Tone: a gym, warm and tactile, not a spreadsheet. Plain words, one word per concept, no flavour text.
+
+## 2. A career from the first minute to the first pro fight
+
+Time model: the clock runs day by day when the player presses the big CONTINUE button. It stops by itself every Monday (the week review) and for
+anything that needs the player (a bout offer on its last day, weigh-in, fight night, injury choice, trial day, walk-in). Day 0 is Monday 5 January 2026.
+The button says what it is stopping for ("to Thu 15 Jan, the offer expires"). Quiet week = one click.
+
+1. Title screen: Resume career (if a save exists), New career, Quick start (a ready club, London), Load career, Settings, Credits, Quit.
+2. New career, two steps. Step 1 YOU: your name and one of four head coaches on photo cards (Old hand, Ex-pro, Amateur coach, Strength coach), each with one
+   edge. Step 2 YOUR CLUB: country, city, gym name, and one of three starts that double as difficulty: Fresh doors (normal), In debt with one good boxer (hard),
+   Backed with big expectations (risky). A switch lets the player skip the first-hour guide. Quick start takes the first coach card and Fresh doors.
+3. Day 0, Home: the first-hour card (the job: keep the doors open; the first show date; who you are), a walk-in fighter waiting at reception (Lucy Jackson in
+   the standard start; other starts and the male-boxer start use other names). The guide strip runs three stages: FIRST WEEK (sign, coach, week, go),
+   FIRST FIGHT (offer, prep, fight), THE CLUB (second boxer, bouts for both, set the first boxer's next goal). It can be skipped.
+4. Sign the walk-in: an RPG-style card (class from style, potential in stars, each attribute's ceiling, two traits, one habit, a signature move, an
+   ambition) and ONE starting focus. Hire an assistant coach (Luke Reid sessional $450 a week, or Marcus Hale full-time $1,090 a week; $1,000 signing fee).
+   Without any coach, training runs at 60%. Open the Week and lock in week 1 (the coach has already written a week). Press CONTINUE.
+5. Monday of week 2 (day 7): the first bout offer arrives, for the club show on Saturday of week 4 (day 26). Until the first bout is fought there is no twist
+   card and no ask. She starts about 1.4 kg over the limit, so weight is the first real decision (a cut needs starting in week 1). Accept shows a poster
+   reveal and offers the camp.
+6. Fight prep: camp (focus, intensity, partner, film), game plan, weigh-in the day before, fight night, result, Why, goal talk. After the first bout: a second
+   walk-in arrives the next Monday, a rival coach (Frank Doyle, Eastside ABC) is named in the news, three club tasks appear on the guide strip, and Ana (the
+   no-gi athlete) is teased, then asks to join after the club's second bout or by week 9.
+7. The loop afterwards: offers every couple of weeks (a club show every other Saturday from day 12), camps, nationals, money pressure, more fighters.
+8. Amateur road: the National Amateur Championships. Entry needs 5 bouts and 3 months registered, age 19-40; entries close in week 10; a London regional then a
+   national draw. While in it, no other offers come. A loss, injury or missed weight ends the run.
+9. Turning pro: a promoter's offer arrives at 7 wins with a top-3 regional rank, or at 9 wins at any rank. The debut is 4 rounds, about 4 weeks after signing.
+   The gym pays the licence ($230) and, the first time, medicals ($875) and the trainer's licence ($140). Stipend stops. After the debut a pro joins a world
+   division table unranked and the promoter brings three offers per fight (see 4.12). Older docs said "the game ends near the first pro fights"; the code
+   goes further (pro ladder, belts, ageing, retirement), see section 8.
+   BUILT S523 (turning pro v2): two fictional promoters. Bow Lane (ticket house: $1,500, less $25 a ticket short of 60 sold,
+   floor $500, 50% of tickets past 60, debut 4 weeks out, opponent 1.0 under) and Harrow & Finch (guarantee house: $1,800,
+   30% past 70, debut 6 weeks out, opponent 1.5 under). Who calls follows the debut ticket forecast (family 20 + half the
+   members + 2 a win + 10 a title + 10 for topping the club's own show): within 15 of 60 both call side by side, else one.
+   The offer stands 14 days (running out is not a No: the call returns after 2 more wins); no first call at 32+. One ask
+   per promoter, its answer shown before pressing: later debut (+2/+4 weeks for $150/$300 off), softer opponent (and the
+   next 2 offer sets are tune-ups), better split (taken 20+ over break-even, a +5 counter at 5-19, else won't), own ticket
+   price (Bow Lane), costs from the purse (Harrow & Finch counter). The offer shows the gym at signing, the gym each week
+   after, the boxer's money and when the gym is even again; morale on each button (a title-chaser before the nationals
+   minds). The debut pays the gym 25% of the purse and of the ticket share. For the first 6 pro fights Harrow & Finch adds
+   a second tune-up, Bow Lane a second step up. NEXT STEP shows tickets vs each break-even in wins, age line, declines left.
+10. The club failing: 8 weeks in a row below $0 closes the gym. A closed gym shows a summary that cannot be dismissed (New career / Load career / Title).
+
+## 3. The fighter: three layers
+
+Plan agreed by the owner (2026-11-08): a fighter has primary attributes (what the fighter IS, same in every sport), skills (how good at one sport) and moves
+(a jab, a low kick, an armbar; each has its own level in the Playbook: New, Raw, Usable at 30, Sharp at 60, Signature at 85).
+
+AGREED, NOT BUILT: the 10 primary attributes. Operator: "these 10 lookok"; one Speed for hands and feet (the game's Hand speed becomes Speed). Strength; Explosiveness; Speed;
+Stamina; Recovery; Flexibility; Durability; Fight IQ; Composure; Heart. One Strength number for the whole body (no number per hand; left/right differ through
+moves and stance). Merges: Chin and Toughness become Durability; boxing Conditioning and BJJ Cardio become Stamina. Power is not its own number (it comes from
+Strength, Explosiveness and skill). Weight cut, height, reach and stance are written facts, not bars. "Marks easily" is a label for cuts, not a bar. Aggression is
+a slider you set (Patient to Forward), not a bar. Technique and Defence become skills. Explosiveness and Recovery stay only if the fight really uses them.
+AGREED, NOT BUILT: 12 skills (ops/research/S400_REVIEW/SKILLS_PROPOSAL_S404.md). Boxing 5: Accuracy, Timing, Defence, Footwork, Inside fighting. Kickboxing and Muay Thai 6: those + Clinch. No-gi BJJ 5: Takedowns, Guard, Top game, Submissions, Escapes. MMA 12 in three groups. The profile design (one body and mind for every sport; only skills swap; a sport switch appears only once the
+fighter trains both; crossing over costs training time) is agreed in shape; the mockup number lists (24 numbers, 25 for a boxer) predate the 10-attribute list.
+
+BUILT today (what screens show):
+- Boxing: 7 trained stats: Power, Hand speed, Technique, Defence, Conditioning, Ring IQ (fight IQ), Chin; plus Footwork (derived from speed and defence) and
+  the personality values Heart, Discipline, Confidence, Coachability, Temper (Loyalty exists but is not on the board). Amateur women's lightweights sit 55-65;
+  bands: weak under 45, fair under 55, solid under 65, strong under 75, elite above. Each stat has a potential ceiling ("tick") and a weekly delta.
+- Moves with mastery (0-100): Jab, Cross, Lead hook, Body hook, Uppercut, Check hook; from 30 a move is a "weapon" the fight can use. Combinations (the
+  book: 1-1, 1-2, 1-1-2, 2-3, 1-2-3, 1-2-3-2, 3b-3, 1-2-3b, 1-6-3, slip 2-3) unlock when their moves are weapons; players can also build their own.
+- Body: weight vs class limit, condition (fatigue word), injuries. Style word (Out-boxer, Pressure fighter, Counter-puncher, Volume puncher, Boxer-puncher,
+  Slugger). Stance. Age. Record. Rank in the region.
+- Personality and habits, learned not shown as numbers in the ring: 6 traits (heart, temper, confidence, discipline, coachability, loyalty) and habits
+  (for example drops the right after the jab, slow starter, fades late, chases stoppage). A coach's-notes card fills in with words from fights and sparring.
+- Morale (stored 0-100): Fired up (75+), Steady (50+), Flat (30+), Low. Moves: win +8, loss -12, goal met/missed, rest week +4, a month without a fight -6,
+  bout booked +5, wrong corner call -2, right call +1. Morale is also trust in the corner: Fired up 1.05, Steady 1.0, Flat 0.85, Low 0.7 of the corner's
+  word taken in; a Low fighter stops listening.
+- BJJ athletes have 6 stats (strength, cardio, flexibility, explosiveness, composure, aggression) and mastery per move; belts, not ranks.
+- Perks (the perk road): open for good when attributes reach a need, each changes one thing in a bout: Iron chin (Chin 70), Stiff jab (Technique 65),
+  Second wind (Conditioning 70), Ring general (Ring IQ 65, corner calls work 25% better), Counter sense (Defence 65 + Check hook weapon), Body snatcher (Body
+  hook weapon), Finisher (Power 70), Fast hands (Hand speed 70).
+
+## 4. Every mechanic
+
+### 4.1 The week and training plan - BUILT
+- Choice: for each fighter a week of seven mornings (a session each: roadwork, intervals, heavy bag, weights, speed bag, slip rope, shadow, neck work, or rest;
+  each at Light, Normal or Hard) and seven evenings (Pads, Sparring, Rest, Film). The coach writes the week from the camp phase and repeats it; the player edits
+  exceptions (click a day, a popover). "Back to the coach's week" resets. Diet: Hold or Cut 500 kcal a day.
+- Phases counted back from a booked bout: BASE (no bout), BUILD (3+ weeks out), PEAK (2 weeks out, hardest, sparring twice), TAPER (fight week: light, three rest
+  days, no sparring).
+- Changes: each morning adds a small amount to one stat (pace 1.0 per focused week x coach factor x headroom clamp((potential-stat)/25, 0.10, 1.25), a morning
+  is a fifth of it, Light x0.6, Hard x1.3, less when tired); kcal and weight; fatigue (0-100, "Week tiredness"; from 80 she is overreached: gains x0.6 and
+  injury risk x3). The Week tab shows plan totals, the goal line, the coach's one change with a "Do it" button, and the weeks to fight night.
+- Coach factor: 0.5 + rating x 0.7 per cent; no coach = 60%. Strength coach head-coach edge: body mornings +10%, craft mornings -10%.
+- Twist card: once a week the coach draws one (sore wrist, rain, weights room shut, partner ill, head cold, visiting pro, quiet week; or a choice card such as
+  tight knee, scale will not move, night off, heating breaks, combo clicking, southpaw in town, old coach visits, sponsor photoshoot, rival talks trash). Two
+  answers each with a visible price; unanswered = the coach's pick on Monday. Planned vs actual is shown on the review.
+- Training load: acute vs usual load; a spike (ratio 1.5+) raises injury risk 2-4x.
+- Two fighters in camp competing for the coach's pad nights: AGREED, NOT BUILT (see 4.2).
+
+### 4.2 Pads, combinations and mastery - BUILT (pad nights for two fighters AGREED, NOT BUILT)
+- Evenings are nights that carry drill cards. A pad night is 75 minutes split over its cards; a sparring night gives every card already in her hands a share.
+  Standard week: 3 pad nights; camp 2+1 / 2+2 / 3+2 pad+spar for Light/Standard/Hard.
+- Choice: drag a drill card (a move or combination) onto a pad night; split a night 50/50, 70/30, 30/70; remove or clear; pin cards in the tray; "+ drill it".
+- Mastery gain per hour of drilling: pads 2.1, heavy bag 1.05, shadow 0.85, sparring 1.5, speed bag 0.9, double-end bag 1.2. Undrilled moves fade slowly.
+  A drilled combination also holds its punches. Tiers: New, Raw (under 30), Usable (30), Sharp (60), Signature (85). A move at 30+ is a weapon.
+  Today a planned line fires every time once it is usable; sharp is worth about 1 win in 100 over usable. In the game but SWITCHED OFF (S427,
+  measured on 400 bouts a cell): a planned line fires 1 use in 2 at usable, 3 in 4 at sharp, always at Signature (sharp then +2.8 wins in 100
+  over usable, Signature +2.7 over sharp). BUILT for professional bouts (S458-S462, `ProRead`): the opponent's corner studies your boxer's
+  last two professional fights and waits for the punch thrown most; two real weapons or a feint line blunt it. Amateur bouts: not read across bouts.
+- A combination in a fight costs energy (longer costs more); a flurry is limited by hand speed and tiredness; a signature (drilling, not length) may run one
+  punch past the speed cap. Own combinations built in the Playbook (Combos tab) get their own pad mastery.
+- AGREED, NOT BUILT: with two fighters in camp the coach's pad nights are shared; the top row of "Learn on the pads" shows how many go to each (cost to the
+  other fighter), only while two are in camp; a needs flag says when the second camp starts.
+
+### 4.3 Fight camp - BUILT
+- Opened by "Set camp" (a need once a bout is 3+ weeks off, or from Fight prep). Choices: camp focus (one of Conditioning, Power, Technique, Defence, Speed);
+  intensity Light / Standard / Hard (3, 4, 5 nights; focus multiplier 1.1/1.2/1.35; fight-night edge +0.25/+0.6/+1.0; all free); Partner: club mates (free) or an
+  outside mate of the opponent's stance or style ($160); Film (tape study, free).
+- Changes: the camp stat gets a forecast to fight night; scale forecast; tape study opens one tell on the opponent's file every few camp days (weapon first,
+  weakness last). A camp whose three lines are all met on fight night (made weight, stat on target, never overreached) gives PEAK CAMP: +bonus to every stat for
+  that fight. A southpaw partner removes a round-1 penalty for an orthodox boxer who never faced one.
+
+### 4.4 Weight - BUILT
+- Each fighter has a class limit (amateur, from Data.gd: women's 57/60/65/70/75 kg, men's 55/60/70/75 kg; the pro ladder groups them by ProLadder.division_for). Weigh-in is the day before. Diet Hold/Cut and training burn move weight;
+  the bout page and Fight prep forecast "now / on the day". Missing weight calls the bout off and the club pays $300 for the empty slot. A boxer over his
+  class can get a bout he can make (a later date). The Old hand head coach makes cuts easier (120 kcal a day more).
+
+### 4.5 Booking and matchmaking - PARTLY
+- Amateurs BUILT: offers arrive (a club show every other Saturday; one offer at a time per fighter, answer by a date, usually 8-12 weeks lead at clubs, 2-4
+  weeks in the first hour). Each offer: Accept or Pass, both free. An unsafe mismatch (a novice, 0-10 bouts, against an open fighter) cannot be accepted. Win chance
+  shown as a band that widens when unscouted. Ask for a fight (amateurs, built S512-S518): the sheet name, a step up or a name you pick, at one of the next club shows; a host can say No with its reason, a No to a boxer ON A RUN is a DUCK, two ducks in 8 weeks and that corner OWES the bout. The door opens the day after a bout (S520); the asked show still falls after the 10-day rest, and the sheet sends its own offer when the rest ends if nothing was asked.
+- Pros BUILT (after the debut, on Fights): the promoter brings three offers per fight (TUNE-UP likely, STEP UP about even, PAYDAY long shot) standing 7 days; OR the
+  player asks for a named boxer within the promoter's band (about 5 places above, unranked reach 15; a top-5 name needs 3 fans); Scout costs $250 and opens the
+  opponent's weapon and weakness and narrows the chance range. A promoter refuses if you duck the step up twice. Each row shows chance, what a win gives (place,
+  fans), what a loss costs, stoppage risk, pay (gym's 25% of the purse), and the gap to the next fight (quick, normal, hard night).
+- Rank rule: beat someone above you and take their place; beat someone below and nothing moves; a losing record is never ranked in the top 10. Purse: $1,500 unranked
+  + $400 per place; tickets follow fans and how close the fight looks. Pro rounds: 4 unranked, 6 ranked, 8 top 10, 10 for a title.
+
+### 4.6 Scouting and the opponent's file - BUILT
+- Free at booking: record, look, style word. Hidden until found: best weapon, each habit, weakness. Amateur: tape study in camp opens one a session. Pro: scout
+  for $250; the weapon is public tape. A found tell names its answer (a plan situation, a corner call or a drill). The Ex-pro head coach opens one tell the day
+  a bout is booked. An opponent with no bouts has no tape. The Tape Room (Fight prep, "Watch the tape") plays 3-4 films of her past bouts, SPOT the tell, then
+  YOUR ANSWER picks a move that becomes a plan line.
+
+### 4.7 The game plan (Playbook) - BUILT
+- A plan is lines: "At long range -> One-two", "When she presses -> Step back" (places: outside, long, mid, inside, clinch, ropes; situations: she presses, boxes at range,
+  waits to counter, loads up, tires). Each answer is rated vs the opponent's game: Beats it / Works / Walks into it, and its edge over improvising, times her pad
+  time. Rate against another kind of opponent; round-by-round pace Push/Steady/Save; a go-to combination. The coach's skill sets how many lines (a plan holds
+  4-6). Real fight plans can be loaded; See the flow; Open the map. With no plan written the assistant coach writes one (poor to about half of a read plan).
+- A plan the fighter has not drilled works less well; a wrong answer costs. During a bout: planned right answers that win exchanges build PRESSURE on the opponent
+  (cuts her output); planned wrong answers she is punished for shrink her energy ceiling.
+- BUILT (`PlanRead`): inside a round the opponent adjusts - a planned line pays in full for its first 2 uses in that round, then less each use; it resets
+  at the bell. AGREED, NOT BUILT: their note replaces the coach's line in the corner minute naming the line that stopped working.
+
+### 4.8 Fight night - BUILT
+- A bout is 3 rounds of 3 minutes (amateur), 4 (pro debut), more later. A round is six 30-second exchanges, each settled by dice on an edge (training, plan, corner call,
+  pressure, tiredness). The opponent fights one way at a time (Pressing, Boxing at range, Waiting to counter, Loading up, Tiring, Hurt), shown as a clue.
+- Every 30 seconds the player may shout one of the 3 calls that fit, or say nothing: Jab and move, Go to the body, Draw the lead, Hands up move your head, Let your
+  hands go, Breathe pick your shots, Tie up, Go for the finish. Each has a best / ok / wrong match to the opponent's mode, needs stats, costs or gives energy; only
+  two instructions per minute get through fully. Pace (Push / Steady / Save) and Aim (Own game / Head / Body / ribs / the hurt head) persist from shout to shout.
+  A set-up "NOW!" fires a learned combination into a gap the opponent opens: big edge, or a cost if wrong.
+- Corner minute between rounds: the corner card (what worked, what hurt, the call), the plan call, ONE CHANGE for the next round (a habit fix, or Elbows in: half the body punches go to the head, saving their energy and adding head damage, or Gloves high: the reverse; moved punches change where she is hit and what it costs, measured not to change who wins), RECOVER with 3 points (water, ice on the ribs, clear
+  her head when hurt), SET-UP (a combination x a gap), TALK (calm / fire up / the truth), change one plan arrow, cutman job (close the cut, enswell an eye, nothing).
+  Trust: a wrong call she followed costs trust; a Low fighter ignores shouting.
+- Knockdowns and counts come from power and damage vs chin, heart for the count; amateur RSC at 3 counts in a round or 4 in a bout. Injury roll after the bout.
+- Result: scorecards (3 judges), win on points / stoppage / draw, "what decided it", the Why, a body report (which part went first, with a "Train X next week"
+  button), "The plan, lit up" flow, then Back home and the goal talk. Watch modes: with a picture the 3D fight plays (1x/2x, Skip round, Skip bout); headless runs
+  stay in words. "Sim to result" skips the fight. Highlights/full modes in design notes: NOT ESTABLISHED as options in the UI.
+- AGREED, NOT BUILT: a cutman card for a closing eye, "stop it (she loses, the eye is safe) or go on (risk of a lasting cut)", behind a divider, never a pop-up,
+  never pre-selected, not using one of the two fixes (the 3D corner has a cutman job row today; whether its stop-or-go choice exists is NOT ESTABLISHED).
+
+### 4.9 The Why - BUILT (the hook)
+- After a bout, plain lines: YOUR PLAN (graded against having no plan: right answers, wrong answers, neutral, worth about +X% chance), AGAINST YOU (what the opponent's
+  habits cost), NEXT (what to train or write). Graded by how each planned move answered what the opponent was doing, not by the dice; "swing" counts replay the
+  dice without the plan's edge. A readable reason for every random swing (R11): AGREED, NOT BUILT as a general feature; it lives on existing rows.
+
+### 4.10 Damage, injuries, suspension - BUILT
+- Six body places per boxer take punches (head, ribs, etc.); bands fine over 55, hurt 55, critical 35, doctor 15. Bout injury roll from settled damage (about 6% a
+  3x3 bout; 72% head/neck, 20% cuts); training injury about 1.3% a week, more when overreached. Stoppage loss = 30-day suspension, longer for repeats. While out: no
+  offers, a quarter of gains. A fighter hurt before a bout: choice "pull out" (club pays the empty slot) or "fight hurt" (less energy: minor 10, moderate 15, serious 20).
+  A damage ledger and fights-left forecast exist for pros in the world model.
+
+### 4.11 Morale, trust, goals - BUILT
+- Goals with deadlines (for example Debut inside a month, Next bout inside a month, Southpaw answer, Five-round engine), set in the office after each bout (Goal talk:
+  pick one of the offered goals). Status ON TRACK / AT RISK / OFF TRACK / MET / MISSED; ~70% clearable by design; meeting or missing moves morale. "Her asks" can be
+  heard or overruled (morale +5 / -5). The ambition shown on the signing card does not yet change anything (the design says a kept goal should build loyalty, a broken one may make a fighter leave: AGREED, NOT BUILT). Overruling a low-coachability fighter hurts more.
+
+### 4.12 Staff - PARTLY
+- Head coach (you): one of four edges: Old hand (cuts easier), Ex-pro (one tell on file when a bout is booked), Amateur coach (a prospect's exact potential), Strength
+  coach (+10% body mornings, -10% craft mornings). Assistants: Luke Reid and Marcus Hale (above); training quality, plan lines taught (more with better rating), evening
+  classes +$350 a week. Staff jobs on the Club page (each changes one number): Second club coach 10 h ($280 a week: +1 roster place, +40 members, runs fitness classes);
+  Strength and conditioning ($100: training injury risk -15%, a pro camp's bill halved); Physio ($75: injuries back a quarter sooner); Cutman ($150 a pro night: half
+  the post-bout layoffs). Letting a staff member go costs a week's pay. Letting the main assistant coach go: NOT ESTABLISHED (Let go exists on the staff jobs).
+- "Coach runs it / I run it" per fighter: AGREED, NOT BUILT (the Roster has no such column).
+
+### 4.13 Money and the gym - BUILT
+- The week review gives one short reason beside any change in members (word getting round, gym full, less room, dues too steep, more than the gym's name can hold).
+- Income each week: members' dues ($35 a month each standard; bands Cheap $25 / Standard $35 / Premium $45 change who joins), evening classes (+$350 with a coach), no-gi
+  dues, sponsors, fitness classes, juniors' dues. Costs: rent $1,800 a month (bigger premises more), England-Boxing-style fees ($315 club + $18 a boxer + $35 a coach a year),
+  coach, fighter stipends ($250 a week, optional), heating and power by season, insurance $1,250 a year, staff, kit budget (Low $0 / Standard $45 / Good $80 a week),
+  upgrades' upkeep. Wages and upkeep are billed every 28 days. Start cash = 1 / 3 / 6 months of costs by start. Runway under 8 weeks warns; below $0 is red; 8 weeks in a
+  row below $0 closes the gym. A loan ($180 a week for 26 weeks) comes with the debt start; the backed start loses $5,000 if the first show is lost. An overdraft rule
+  exists (offered after 12 weeks of trading, 16% a year) but NOT ESTABLISHED as having a screen.
+- One-offs: a bout adds a $450 ticket cut; camps cost a partner fee when used; repairs; a club show you host ($3,500, tickets $25, up to 400 seats, every 16 weeks, can lose
+  money); a club grant bid once a year (answer in 42 days, needs a second coach, odds follow reputation).
+- Spending choices on the Money page: Premises (Unit 70 members/3 places, $1,800 rent; Bigger unit 140/5, $3,400, $12,000 to move; Club building 250/7, $5,500, $25,000);
+  Upgrades (matted floor $2,400; strength corner $3,600; fitness class kit $1,500; youth section $1,800), each bought once, works after a week, one visible effect; Sponsors
+  (Ironclad $250/week from the start; Bow Road Physio $150 after the first win; bigger sponsors later); dues band; kit budget; evening coaches; pro stipends and contract talks.
+- Members: walk toward a target set by reputation, dues band, premises and coaches (at most 6 a week). A win adds +8 members and +5 reputation; a loss removes 1 and 2 reputation;
+  a stoppage loss 2 and 4. Facilities (floor, ring, bags, lockers, office) can be repaired once ($120 bags) for +2 reputation.
+- A pro's share to the gym starts at 25% (manager 15% + trainer 10%); contract talks at the first top-10 and the first belt (keep 25% for a bonus or drop the share), then yearly.
+
+### 4.14 Rankings, titles, the world - PARTLY
+- Amateur regional table (the region's club-show boxers; a player's fighter enters at 4 wins); rankings move as rivals fight each other at shows; news lines. Nationals and the
+  regional bracket (BUILT). World pro tables for four divisions (women's and men's lightweight and welterweight, about 20 ranked each): boxers age, peak, decline and retire
+  (damage ledger and age), new ones arrive yearly, belts at four levels (area, national, continental, world) with mandatory challengers and vacated belts, rivals improve (BUILT in the
+  rules; its screens are on Fights, not World). An open-ended career, year review, three club goals a year, club tiers, a record book of champions and rivalries,
+  a named rival gym that poaches and rematches, promises/poaching at contract time, a career clock with retirement talk, youth-section home-grown prospects, a commentary line
+  and a press card are AGREED (owner "all of them", Q-S294-120) and mostly NOT BUILT; Records (the gym's own history log with filters) and the youth section exist.
+
+### 4.15 BJJ (no-gi) - BUILT
+- Athletes (Ana Ribeiro) are on the mat, not in the ring: belts white, blue, purple, brown, black with 4 stripes each (IBJJF floor: blue needs 2 years, purple 1.5, brown 1; minimum
+  ages 16/16/18/19). The week is 3 classes; a class drills the syllabus move she is closest to owning (+3.2 a week; owned at 30, signature 50). Choices: drill a move; stripe call
+  (now / hold / early) with morale and loyalty costs; promote; enter opens (no-gi tournaments every 35 days, 8-person brackets); fight an open yourself (the player calls the moves on the move
+  graph) or simulate it; who teaches (hired coach or the athlete). No ranking table: the belt is the ladder. 5-10 minute matches by belt; points: takedown 2, sweep 2, pass 3, knee on belly 2,
+  mount 4, back 4. A BJJ athlete costs a roster place and a no-gi coach by the class.
+- The match runs on two-sided beats of about 11 seconds (S405): each side either acts on its pick or works its grips, and a holding lead can draw the referee's 20-second stall count.
+  Measured over 1,000 bouts: white belts finish about 34% of matches, the first to score keeps the bout about 80% of the time, and a one-belt gap wins about 74%.
+  Her mat plan (BUILT S515-S516): a hand of plan lines (a white belt holds 3), shown line by line on the open's result and counted in a season
+  book ("this season N of M: works / fails"). Measured (mat_book_test, S516): a white belt tried her plan lines ONCE in four opens - with a hand
+  of 3 and early losses, most opens end before a line comes up.
+
+### 4.16 Perks - BUILT (listed in section 3).
+
+## 5. Every screen in the game today
+
+### 5.0 The shell (on every game screen)
+- Top bar, left to right: Back (<) and Forward (>) arrows (greyed when none); gym name; date and week (hover card); red/amber flags (not on Home): GYM CLOSED, BELOW $0, LOW CASH,
+  APPLICANT, TRIAL, PRO OFFER, SET CAMP, WEEK REVIEW, WEIGH-IN, NEW GOAL (each opens its thing); cash with "running +/- $N a week" (hover card); the big button; Menu.
+- The big button: CONTINUE ("to <date>, <reason>"), RUNNING (click to pause), NEEDS YOU (n) (opens the first red need), or GO TO FIGHT NIGHT. Space also presses it.
+- Menu: Mail (opens World News; shows a new count), Save, Load, Settings, Handbook, Quit to title.
+- Left rail: Home, Fighters, Fights (badge = open offers), Club, World; the club crest (hover: name, members). Keys 1-5 reach the rail (design note: NOT ESTABLISHED in code).
+- A guide strip (first-hour guide only): the current stage's steps, what to do and why, a button for the next step, and Skip the guide.
+- Settings: text size (Small/Medium/Large/Largest), window (Windowed/Full screen), days run at (Normal/Fast/Fastest), four sound sliders (all, punches/ring, crowd, music),
+  Autosave (every Monday, last weeks kept / Off). Handbook: search and group filter (All, Words, The club, The week, The plan, Fight night, Money) with links to areas. Credits.
+
+### 5.1 Title; 5.2 Create (see section 2). Create buttons: Back to title, Next: your club, Back, Open the gym; picks for coach, country, city, gym name, start.
+
+### 5.3 Home (no tabs) - BUILT
+- Notice board of needs as pinned notes, each with a button: Meet the walk-in; Answer a bout offer (Open); Weigh in; Set camp; Hire a coach (Staff); money warning (Money);
+  a sponsor waiting (Deals); Enter for the nationals (Nationals); Week N review ready (Open); New goal waiting (Talk); Trial today (Watch the trial); Pro offer (Hear it);
+  Hurt before the bout (Decide); competes today (Go to the mats); The gym has closed (See the summary). Red = stops the clock; amber should come next; steel can wait.
+- First-hour card until the first bout (the job, show date and countdown, you). The next fight as a matchup card (button: Go to fight night, or the next step).
+- YOUR FIGHTERS table: fighter (name opens the page), record, rank, next fight, weight, freshness, this week's plan. Right column: SINCE LAST MONDAY (each fighter's biggest gain
+  with its cause, injuries, rank moves, new members; "All news and mail"), THE CLUB THIS WEEK (money in, costs, members, coach), COMING UP (bouts, weigh-ins, championship dates, bills).
+
+### 5.4 Fighters > Roster - BUILT
+- A sortable table (columns: fighter, record, rank, The Road, and more) with flag chips per fighter that open the thing that needs her; a card per no-gi athlete with belt,
+  stripes, classes, "<name>'s mat: Playbook"; buttons: Meet the walk-in, Open training, Set camp (locked with a reason when it cannot start), See offers.
+- Fighters > Find a fighter: PROSPECTS NEAR <city> as face cards with scouted ranges for four stats (a range until the trial; the Amateur coach edge shows exact potential),
+  button Invite to a trial (free; she comes in on the Monday; signing costs the stipend). States: trial date, signed, passed. The reception walk-in is separate.
+
+### 5.5 Fighter page (tabs: Overview, Week, Fight prep (only with a bout or camp), Playbook, History)
+- Header: portrait, name, weight class, age, stance, record, goal chip ("Goal, N days: still needs X - at risk").
+- Overview: NEXT STEP (the road: next step and what it needs; Enter for the nationals; the whole road on hover); attribute board (radar of eight against potential plus all values with weekly
+  delta, hover says what each does in a fight); BODY (weight of limit, condition, injury), COACH SAYS, COACH'S NOTES n of m; GOAL (title, days left, meter, status, quote;
+  Talk to <name> when a goal talk is waiting), NEXT BOUT; buttons Plan the week, Fight plan (n arrows), Find a bout; perk road; moves with mastery bars (hover plays the move); combos
+  learned (gold = thrown in fights); contract text ("club stipend $250 a week, until turning pro") and goals so far.
+- Week: head (NEXT/THIS WEEK dates, tiredness), PLAN TOTALS, seven columns of morning and evening cards (click opens a popover: Light | Normal | Hard and sessions; Rest | Pads | Sparring
+  and the drill cards), goal line, the coach's one change with a Do it button, Back to the coach's week, the twist card (choose an answer), LEARN ON THE PADS tray (drag a card to an
+  evening), THIS CAMP (diet pills Hold / Cut 500 kcal) only with a bout booked, a skills road below.
+- Fight prep: VS <opponent> (club, record, game), days to fight night and weigh-in, ONE primary button that moves with the state (Set the camp / Write the game plan before sparring /
+  Watch the tape / Step on the scale / Check the week), the tale of the tape with the win chance and how sure it is, WHAT YOUR PLAN SHOULD ANSWER (each found trait with its answer and
+  "Write it"; hidden ones say what opens them), CAMP AND WEIGHT (scale margin, the camp stat's line to fight night, Change the week).
+- Playbook (boxer): tabs Moves (move book by place in the ring; Watch/Steps, Drill, Replay, Slow motion), Game plan (see 4.7: Write a line / Change / Clear this line, Answer: <best>,
+  Rate against, Load a real plan, Test it (limited tries), See the flow, Open the map, Build plan in the move browser), Combos (build a chain from "+ move" buttons, Play it, Clear, Save to the
+  book, Drill it on the pads, Watch on the pads, chain hit rates vs opponent types), Escapes (folded into Moves in the agreed menu). A body plays each move on the right.
+- History: every bout she fought (and brought) with result, opponent, cards and why; milestones.
+- No-gi athlete page: one Record view: THE ROAD TO BLACK BELT (five belts with stripes), TO <NEXT> BELT (mat time, moves owned, syllabus), COACH'S CALL (give the stripe, Promote to <belt>, next opens
+  with Enter, who teaches), RECORD in opens; her Playbook is a mat book (moves by group, Systems, Drill, Undo, a game tree with FELT and links).
+
+### 5.6 Fights (no tabs) - BUILT
+- Amateur: OFFERS ON THE TABLE (a card per offer: opponent face, record, win band, chips; Open) with each fighter's STANDING beside it (booked or free, next on the road, Enter for the
+  nationals); when none, the line says when the next offer can come. For a pro: a strip, NEXT FIGHT table (offers, asks: Take this fight / Book <name> / Scout ($250)) and THE ROAD (champions and
+  places around her). No-gi opens card with Enter. Fixtures list (calendar), RESULTS (who beat whom, cards, why).
+- Bout page (an offer): head chips (Legal, even match / Weight at risk / Not safe), tale of the tape, stats vs the estimate, win band and ranks at stake, SCOUTING file (locked lines say what
+  tape study opens), TERMS (date, 3 x 3 minutes, weight, on the scale now/on the day, time for a camp, purse none, club ticket cut $450, answer by). Buttons: Accept the bout (disabled with a
+  reason when unsafe or answered), Pass. Accept plays the poster reveal and offers Set the camp / Later.
+
+### 5.7 Club (tabs: People, Money, Records) - BUILT
+- People: STAFF (you as head coach with your edge; the assistant card with training quality, plan lines, cost, net weekly; two hire cards when none: Hire Luke / Hire Marcus; no-gi coach line;
+  STAFF JOBS with Hire / Let go), MEMBERS (on the books and drift, reputation word, dues band).
+- Money: CASH WEEK BY WEEK chart; NOW (cash, weekly in, costs, net, month's bill, runway line, break-even members); WHERE IT COMES FROM / WHERE IT GOES bars; STIPENDS (Pay/Stop the stipend);
+  CONTRACT TALKS (Keep 25%: pay a bonus / Drop to a lower share); PREMISES (Move); UPGRADES (Buy); KIT BUDGET (Low/Standard/Good); evening coaches (Hire one / Let one go); CLUB GRANT (Bid for a grant);
+  CLUB SHOW (Book the show); ONE-OFFS IN and PAID OUT (last 8 weeks); DEALS (Sign a sponsor); FACILITIES (Repair); dues bands buttons.
+- Records: the gym's own history, newest first, with filters (who: everyone / each fighter / coach / gym; what: bouts, honours, people...).
+
+### 5.8 World (tabs: News, Rankings, Championships) - BUILT
+- News: AROUND THE REGION (other clubs' bouts, names are links) and fixtures/events. Rankings: a table per division the gym has a fighter in (rank, fighter, gym, record, style, last bout; click a name for the rival file; a
+  fighter enters at 4 wins; no-gi says the belt is the ladder). Championships: the road to the nationals per amateur (rings for what she still needs, Enter, the London regional and national draw brackets, titles).
+- Rival file (modal): record, style and the tells found so far; locked lines say what tape study unlocks.
+
+### 5.9 Modals (open on a press or when the clock stops on them; nothing else opens by itself)
+- Interview/Trial (walk-in, prospect): the fighter as an RPG recruit, one starting focus (Sharpen the signature +10 mastery, Fix the habit gone in 4 weeks, Raise the ceiling +5 potential), Sign or Pass.
+- Pro offer: the debut money picture (tickets she sells, her share, what the gym pays now, what ends); buttons Turn <name> pro / Stay amateur.
+- Goal talk: pick one of the goals offered, Set goal or Later.
+- Camp: see 4.3; buttons Later / Start (shows the cost).
+- Weigh-in: Step on the scale (made or missed). Injury choice: pull out or fight hurt.
+- Fight night: tale of the tape (Begin fight, Sim to result); rounds with shout bar, Sim the round; corner minute (call buttons, fixes, jobs, Say nothing / No fix); To the scorecards / To the result;
+  result with Train X next week, The plan lit up, Back home.
+- Week review (per fighter): bars fill to the next whole point, moves drilled, new weapon, rank change, planned vs actual, pads cards turning over, money, the coach's word; rows land one at a time with the biggest
+  surprise last; the only button is Next week. Open night (BJJ): Simulate this bout or Fight it, Back to the gym. Closed gym summary. Info boxes (Settings, Handbook, Credits).
+
+## 6. The seven approved menus, and the agreed structure of all menus
+
+Owner, Q-S294-127: "Yes, build the seven": Home, Fighter Week, Boxing profile, Playbook, Fight night, Money, World. A shared warm-wall kit (WarmKit: wall, whiteboard, paper, sticky, magnet, chalkboard, marker
+ledge) is built first so screens cannot drift. None of the seven is rebuilt in the kit yet; the screens in section 5 are the current ones. Agreed structure: five rail buttons (Home, Fighters, Fights, Club, World); one
+home per job; no mailbox (Mail opens World News and the Monday page replaces the week-review pop-up); nothing opens by itself; time is one big button saying what it stops for; one booked fight runs in a straight line
+(Home countdown, camp, weigh-in, tape, fight night, the Why).
+
+- Home (agreed): needs first, the job, the next fight, one row per fighter, Since last Monday with causes, the club's week, what is coming; the week review folds in as a need that "sits here, never pops up"; the line
+  under the big button names the next stop; the first-week guide card only in the first hour.
+- Fighter Week (agreed): the whiteboard: sessions as magnets, the fight date circled, colour only means risk, one red button moves the week on; plan totals, fatigue, the goal line, the coach's one change with the effect on the
+  button; Learn on the pads; ADD "Coach's pad nights" as the top row, two fighters in camp only, with the cost to the other fighter (R55).
+- Boxing profile (agreed in shape; numbers superseded by the 10 attributes in section 3): tabs Overview, Week, Playbook, History on one portrait header; three columns Body, Skills, Mind with a style line ("Keeps it
+  long"), one thing to work on and where it is trained; the sport switch only once she trains both; a rival gym's offer with its three answers (match it, promise something, let her go) as the top card when it
+  comes (R58, needs the running world).
+- Playbook (agreed): Moves (Escapes folded in), Game plan (lines drawn on a board, plays a default at once, rate against each kind of opponent), Combos; "No bout booked: try the plan against each kind of opponent".
+- Fight night (agreed): dark and tight, handwritten coach notes, three fixes / time for two; stats cut to three rows in the minute; the "she has adapted" note (14 words at most) replaces the coach's note (R25); a
+  cutman card only when an eye is closing (R28); the result with scorecards and the Why (plan, against you, next); the money lines move from the Why to Home; no "one change for next time" (the Why's NEXT carries it).
+- Money (agreed): the gym's books on the whiteboard: cash, runway, in and out, bills, deals, repairs, upgrades; dues bands wait for the owner's call on the cut.
+- World (agreed): News cut to only what touches you; Rankings with rivals that develop (movement arrows, Developing column); Championships; fixtures; no-gi "belt is the ladder".
+- Other menus in the agreed map (not in the seven; final text per MENU_STRUCTURE_S402): Start (three starts, already in game); First week; Fighters (a real roster); Fights (Ask for a fight sits under
+  the offers: level, date window, an answer with its reason; it waits for the bot test that a smart ask beats a plain one, R37); Fight prep ("What your plan should answer", no injury-risk lines on camp
+  choices); Club > People (staff cards keep their faces; members panel cut); Grow (finding and signing only plus the pro offer; no prospect deadlines); Top bar (no change).
+- Held back, do not build from an old mockup: one change after the Why, camp injury risk, scorecards after each round, members panel, prospect deadlines, sponsor line and per-fighter costs, the progress chart on History.
+- Conditional elements and when each appears: Coach's pad nights (two fighters in camp, until a camp ends); Needs flag for the second camp (the second camp starts, until she opens the Week); Cutman card (an eye reaches
+  the closing state at the bell); Adapted note (from round 2, when the opponent has answered one of your lines); Rival offer (the running world sends one; a flag only, answered or past its date); Ask for a fight
+  (always, once a boxer is signed); Swing reason (a random roll moved a number you can see, scrolls off with the week).
+
+## 7. The owner's standing rulings on screens (quoted or near-verbatim)
+
+- Only actionable information: "i do not want stupid and unecessary information to be displayed unless the player can really do something about it". Cut it, hover it, or put the action on it.
+- One top bar and modals; nothing opens by itself; moments come as flags on the top bar. A week review sits as a need on Home.
+- No flavour text; plain words; one word per concept (Raw, Usable, Sharp, Signature everywhere). Hover explains every number.
+- Not mobile: "thats not how sim/manager games look , its very simplestic no actual stats to make the player understand how good the fighter is". Real stats stay. Not an 80s spreadsheet; no placeholders.
+- Do NOT judge against a generic management sim ("they seems like economic management simulator"). Judge fit to this game and its plan.
+- Look B, the gym whiteboard: marker notes, polaroid, needs as sticky notes, the cash tin, the fight date circled; warm tan plaster wall, wood and aluminium frames, cream paper. ONE art style across menus
+  ("no art consistency" was his complaint). Stylized comic portraits in menus are on and must match the fighter. Marker fonts Permanent Marker and Kalam.
+- Screens come only from agreed mockups; nothing is built on a menu he has not OK'd. A generic Money page was reverted.
+- Fight night goes dark and tight (the Miro "Corner minute"); the coach's notes stay handwritten.
+- Everything new ships switched ON. Hover cards on top-bar date and cash. Animated meters (every bar tweens).
+- Weekly job pages must not become a pop-up. One-click reach from anywhere. Two Point alignment is parked (the gym floor is out of the first release).
+- No gym still with the Day Plan or a drawer open; stills of fights show both fighters head to feet; boxers wear boots (visual rules for pictures).
+- Scouting means opponents; finding fighters is "Find a fighter". The facility is a "gym"; a fight camp is only pre-bout preparation. Fighters are fictional; organisations real-named only where legal.
+
+## 8. Where the documents and the code differ, and what could not be established
+
+Code wins. For the critic: do not judge a screen against these older statements.
+- Autosave, Settings and Handbook: docs say "not built"; they are built (autosave every Monday).
+- Pros have no offers/world after the debut (docs): the code has a pro ladder, promoter offers, asking, scouting, belts, ageing and retirement.
+- Ask for a fight: docs say impossible; it exists for pros only. Amateurs cannot ask.
+- Gym closes after 4 weeks below $0 (CLAUDE.md numbers) vs 8 weeks in code. Gym's share of a pro purse 35% (CLAUDE.md) vs 25% in code. A loss costs 3 members and 2 reputation (CLAUDE.md) vs 1 and 2 in code (stoppage 2 and 4).
+- Ex-pro head-coach edge: design says one extra corner call; code gives one opponent tell on file at booking. Old hand: design "cheaper camps"; code: easier weight cuts.
+- Roster limit "up to 8": code gives 3 places, +2 per premises tier, +1 per second coach (5 and 7 at the larger premises).
+- Four rail buttons plus Playbook: the Playbook is reached from the fighter page, not the rail. Docs on Fights tabs are out of date (one page).
+- "Coach runs it", year review and club goals, club tiers, rival gym, poaching, career clock: not in code. Overdraft has rules but no screen found. Keys 1-5 for the rail and highlights/full watch options: not found.
+- NOT ESTABLISHED: the exact number of moves in the Playbook; whether the 3D corner's cutman choice offers "stop it / go on"; whether the week review ever opens without a press (the owner listed it as a defect on 2026-11-08);
+  the owner's answer on an open-ended career and a roster of 8; whether R11 (readable reason for every swing) exists beyond the Why; crossover numbers between boxing and BJJ (left blank on purpose).
+
+## Added S409
+The building: chosen once at new career, one of four gym plans, each with one small permanent edge (5% more members, 5% more show income, 3% better power and technique training, or injured boxers back 10% sooner).
+The gym on Home has people in it: the club's fighters and members, working at equipment and walking the floor. More members, more people (2 to 12). Decoration only: they take no clicks.
+
+## Added S410
+- The shell's top bar is dark on every game screen (5.0).
+- Fighters > Roster (5.4) is now full-body cards on a painted gym: weight class and rank, a corner flag for the most urgent answer (Set camp, Offer, Weight, Mood low), Condition / Mood / Weight tiles, the next fight and days to it; a click opens the fighter's page. Under them, Scouted for you: up to four prospects, with Invite to a trial. A Cards / Table switch keeps the sortable table (Rank, The Road, Goal).
+- Fights > a bout offer (5.6) opens as a versus screen: the two boxers on a red and a blue wall, the tale of the tape (record, age, weight on the day against the limit, height, stance), the win chance and how sure it is, what a win and a loss change, Full report / Pass / Accept. Full report is the old bout page: stats against the estimate, win band, ranks at stake, the file, the terms.
+- The game does not hold a venue, last-five form or a fighter's reach, and there is no scouting before accepting an amateur offer.
+
+## Added S448 (code check)
+- The attributes in section 3 marked AGREED, NOT BUILT are in the code: `scripts/rules/Attrs.gd` holds the 14 abilities (Strength,
+  Explosiveness, Speed, Stamina, Recovery, Flexibility, Durability, Fight IQ, Composure; skills Accuracy, Timing, Defence, Footwork,
+  Inside fighting) plus Heart; the old seven (Power, Hand speed, Technique, Defence, Conditioning, Ring IQ, Chin) are kept as a summary
+  read from them. Punches are moves with mastery. Our own fighters have no height or reach value yet (opponents do).
+- The plan's step and defence answers are `StrikeMap` arrows: step in, step out, step back, cut off, herd, pivot out, push off, feint,
+  tie up, roll out. BUILT since S463 (`StepMastery`): each of the 10 has its own mastery bar, given at signing from Footwork; a step fires by its
+  bar like a punch (under Usable 30 the coach never plans it and it mostly fails). Training a step (S463, greybox): the fighter page's WHAT TO LEARN NEXT card puts ONE step or defence in the study slot; the week's pad nights raise
+  it about 6 a week (step back 0 to 32 in about 5 weeks); at Usable 30 it leaves the slot. One slot only. NOT BUILT: nothing takes a step past 30
+  (to Sharp 60), sparring gives a step nothing, and two steps cannot be learned at once.
+- Coaches: Luke Reid pads 74 (rating 58), Marcus Hale pads 58 / conditioning 90 (rating 74).
+- Units: the code counts a pad night as 240 drill units (PadWeek.PAD_NIGHT_MINUTES) for the 75 real minutes in 4.2; a sparring night shares 180
+  units over the moves on the fighter's cards and plan. Mastery maths uses the units.
+
+## Added S451 (code check; where this and an older line above disagree, this wins)
+- FireLevel is ON since S450: a planned line fires 1 use in 2 at Usable, 3 in 4 at Sharp, always at Signature. The line in 4.2 that says
+  "SWITCHED OFF" is out of date.
+- Our own fighters now have height and reach, and the fight reads them (S450). The S448 line saying they have none is out of date.
+- Phases come from any booked bout, camp or no camp: a bout 1 week out makes the week TAPER (WeekPhase.phase), also for an amateur bout.
+- Two rest rules after a stoppage loss, both in code: the 30-day suspension (Injuries) and the next bout offered 8 weeks later than usual
+  (Matchmaking.STOP_REST_WEEKS).
+- The office is a full-screen computer desktop (owner's Q-213 "A, full screen", S451): the gym's office pin opens it. Its Desktop shows what
+  needs you, the next four weeks (bouts, bills, dues), mail, the fighters with each one's flag, money 8 weeks ahead and the staff. Its other
+  apps (Mail, Schedule, Fighters, Staff, Finance, Records) are AGREED, NOT BUILT; today they lead to the existing pages.
+
+SANDBOX (S412): the player runs any gym with any boxers, men or women. Never write about one boxer as the story, and never a fixed he or she in text or mockups.
+
+---
+
+# What a critic can open (S403)
+
+Operator S403: "giveaccess to miro board for the critics and everything else required" (S499: the board is now our own map page). Read `ops/research/CRITIC_PACK.md` first, then use whatever here helps. All of it is read-only for a critic: change nothing.
+
+## The map (S499: our own page, Miro is no longer used)
+The owner's map is http://127.0.0.1:8787/map. A critic reads it from its files, no browser and no Miro tool needed:
+- `ops/AgentComms/map/frames.json`: every frame on the map (rows, titles, which pictures each shows as file globs).
+- `ops/AgentComms/map/notes.json`: the owner's sticky notes (`who: operator`), each with the frame it sits on. Read them all.
+- Where we are (done, now, next): `python ops/Tools/where_we_are.py` prints the cards.
+
+| Frame id | What it holds | Files |
+|---|---|---|
+| screens | Every screen as the game draws it today | `E:/FightCamp/critic_pack/screens/*_real.png` |
+| menus402 / painted402 | Menus final (S402): layouts and Ludo's painted art | `docs/mockups/s402/*.png`, `docs/mockups/concepts/S402_*.png` |
+| menus401 / painted401 | The earlier round | `docs/mockups/s401/*.png`, `docs/mockups/concepts/S401_*.png` |
+| where | What is done, being worked on, and next | roadmap.json `plan.map` |
+
+The old Miro board (MENUS FINAL, MECHANICS LIST, the owner's stickies up to S498) is a view-only archive; what could be copied
+from it is in `ops/AgentComms/map/miro_export.json` (empty until Miro allows a read: see `ops/research/MIRO_EXPORT_S499.md`).
+
+Some frames carry earlier critics' scores. Ignore them and reach your own verdict: they are there for the owner, not for you.
+
+## The real game and the plans
+- Real screens as the game draws them today, 1920x1080: `E:/FightCamp/critic_pack/screens/*_real.png`. Open them with the file tool.
+- Approved menu layouts: `docs/mockups/s402/` (HTML and PNG), painted concepts: `docs/mockups/concepts/S402_*`, and `docs/mockups/s401/` for menus not redone in S402.
+- The owner's answers to every design question: `ops/AgentComms/questions.json`.
+- Design documents: `docs/GAME_BIBLE.md`, `docs/PLAYER_PATH.md`, `docs/STRUCTURE_DESIGN_S395.md`. In `ops/research/S400_REVIEW/` only YARDSTICK, MENU_STRUCTURE_S402, MECHANICS_DECISION_S402 and PRIMARY_ATTRIBUTES_S403: the rest carries earlier critics' scores.
+- All code: `scripts/` (screens in `scripts/ui/areas` and `scripts/ui/modals`, rules in `scripts/rules`, game state in `scripts/state`). Never open `GameState.gd` or `FightRealtime.gd`.
+- Research memory: `python ops/Tools/prior_research.py <terms>` lists what was already studied, `ops/research/`.
+- Comparison games read from their files: the memory notes on Corner King and Two Point Museum, and `ops/research/TWOPOINT_ALIGNMENT.md`.
+
+## The eight MMA fighters
+Every menu is filled with the same eight MMA fighters so the screens are ready before the MMA release: `docs/mockups/s403/roster_mma8.json`, rules in `docs/mockups/s403/MOCKUP_RULES.md`. Grey with a reason means not usable right now; full colour with the warning triangle means not built yet, drawn as it will work. Check a screen against the fighters who stress it most.
+
+## How to judge a screen
+Say which options it is missing, which ones are useless, and what each option changes in the game. Open images with the file tool only: never start an app or a window on the owner's monitors, and never run Godot.
+
+---
+
+# THE DESIGN MAP TO JUDGE
+(This copy leaves out the map's section 1 and one section of the result page: they describe earlier reviews, which a fresh
+critic does not read.)
+
+# Knowledge stakes v9 - they box on Saturday, the trial runs by the day, and the scout is wrong one time in three
+
+S541, 2026-11-23. Board row KNOWLEDGE1. Map only: nothing is built by this page. Bar (owner S534): 8 on DEPTH and 8 on PLAY.
+Lines tagged CODE were opened on 2026-11-23 at the file:line given (main at 7fc74f4e1). ESTIMATE = proposed, not in the
+game. MEASURED = a probe result, with its file. Words: "the prospect", "your boxer", "they"; no fixed he or she.
+v8 (`DESIGN_KNOW_STAKES1_V8.md`) stays the base, and v7 under it: every line not changed here holds.
+
+One sentence: **the scout brings a name they cannot call, who boxes on a date you can see, while a rival club decides inside
+a window you can see; you can sign on the hunch, take them on trial and stop the evening you have seen enough, or wait for
+the bout - and the two dates on the card say which.**
+
+## 0. What changed from v8, in eight lines
+1. **EVERY SCOUTED NAME BOXES SOON.** The scout finds names at shows: the card carries their next bout, 4 to 18 days out,
+   free to watch. Watching opens under fire (rough) and moves the record. v8 had a bout only now and then.
+2. **THE TRIAL RUNS BY THE DAY, AND EACH DAY ANSWERS ONE QUESTION.** Day 1 the fitness test (body). Days 2-4 pads (skills).
+   Day 5 the pad test (the ceiling). Day 6 conditioning (the rest of the body read). Day 7 the hard spar, optional (under
+   fire). Every evening: **Sign, Send home, or Another day.** $36 a day (a week's stipend by the day; $250 for all seven).
+3. **THE TEST DAY BUTTON IS GONE.** It is day 1 of the trial. One read with a depth the player chooses, instead of two.
+4. **THE WINDOW COMES FROM WHAT THE RIVAL SEES, NOTHING ELSE.** Their look above the level: they decide between day 1 and
+   day 13 ("Lynn AC want this one"). Not above: between day 8 and day 20 ("having a look"). The record no longer shortens
+   it (the player can already read the record; it was a second, stacked minus 7).
+5. **THE SCOUT'S MAYBES ARE TIGHTER:** a scouted name's first look sits within 2 of the level (was 3). MEASURED: the first
+   look's call is then wrong 33.0% of the time - one in three.
+6. **A SIGNED BOXER'S NUMBERS COME BACK ON THE READ ALONE.** A group prints single numbers once it is a good read. The
+   second gate (12 weeks or 3 bouts) is cut: both critics found it late or confusing.
+7. **THE NEXT CARD REMEMBERS THE LAST ONE.** A "Last time" strip on every signing card: the last one who got away and
+   where they box now; the last trial, what the first look said and what the trial found.
+8. **A READ THAT CHANGES THE ANSWER SAYS WHY.** "Body 56-72 -> 61-69: now clear of the level" / "now under it".
+Kept from v8 unchanged: the 12-week bond, the refund when the rival signs during a trial, the rival's look on the card,
+the ceiling range and its pad test, the open session read while waiting, the got-away list and the return bout, two named
+prospects from day 0, Pass freeing the slot.
+
+## 2. What the game does today (only what v9 adds to v7 and v8 section 1)
+- **C1 CODE - the trial's price is $500, not $125.** `scripts/rules/KnowReads.gd:9` PRICE_TRIAL_WEEKS 4, `:28`
+  "half stipend for 4 weeks" = 4 x $250 / 2. v7 and v8 wrote $125 without flagging the change (the first critic's code
+  check). **v9 flags it: `price("trial")` becomes $36 a day.** MEASURED why (section 6): at $18 a day ($125 the week)
+  always taking the trial ties the careful player; at $36 it does not.
+- **C2 CODE - the test day.** `KnowReads.gd:11` PRICE_TEST_DAY 60, `:114-119 _apply_test_day` (body exposure 16). v9
+  keeps the read and drops the price and the button: it is what day 1 of the trial applies.
+- **C3 CODE - the trial's read stays the code's.** `KnowReads.gd:105-111 _apply_trial`: body 24, skills 24. v8 cut body
+  to 12; **v9 puts it back** (16 on day 1 + 8 on day 6; skills 8 a day on days 2-4). MEASURED: body 12 gains nothing.
+- **C4 CODE - no screen reads the knowledge code.** Searched today: no file under `scripts/ui` names `Knowledge`,
+  `KnowWire` or `KnowReads`; the callers are `scripts/state/BoutFinish.gd`, `KnowWire.gd`, `Roster.gd`, `Sim.gd`. The
+  first critic is right: the mechanic is invisible today. Wiring one screen is step 1.
+- **C5 CODE - the bond is new work.** `scripts/state/Leaving.gd:65 let_go_price` prices reputation only (v8 B1 said so;
+  repeated because the critic listed it).
+
+## 3. The design (changes to v8 section 2 only)
+
+### A. The card
+- Two dates, side by side, on one 21-day strip: **the bout** ("Boxes Sat 23 Jan at the Lynn show, free to watch") and
+  **the rival's window** ("Lynn AC want this one: they decide between Mon 18 and Sun 24 Jan"). Days before the window
+  are marked safe. The strip is the decision: a bout before the window says wait; a window that opens tomorrow says
+  hunch or one trial day.
+- Under the ranges, as v8: the rival's look, the stake line with the bond.
+- Bottom: the "Last time" strip (0.7). Only real entries; empty until there is one.
+
+### B. The calls
+| Call | Cash | Days | What it answers | Odds on the button |
+|---|---|---|---|---|
+| **Sign now** | the bond: $250 a week, 12 weeks | 0 | Nothing more | "About 1 first look in 3 like this ends under the level." (MEASURED 33%) |
+| **Start the trial** | $36 a day, refunded if the rival signs during it; a place held | 1 to 7, your choice each evening | Day 1 body (16 wide to about 7). Days 2-4 skills (to about 9 wide by day 4). Day 5 the ceiling, halved. Day 6 body to about 6. Day 7 hard spar: under fire and the pressure trait; injury x2 that night, +15 tiredness | Each evening on **Another day**: "Tomorrow: pads, skills narrow again. Lynn AC may decide tomorrow: 0 in 7" or "1 in 5" (days left in the window) |
+| **Wait for the bout** (Continue) | $0, your evening | to the bout | Under fire, rough (about 23 wide); the record moves; the open session narrows body and skills a little each week (v8) | "Lynn AC may decide before the bout: 0 in 7" or "3 in 7" |
+| **Pass** | $0 | 0 | Frees the slot today; they box on at the rival club; no news line | "Kept on the got-away list with your look." |
+- Letting the window run out is not Pass: it writes "Lynn AC sign the prospect, 24 Jan" in the news and on the got-away
+  list with that date (the second critic's item 5).
+- The trial and the bout combine: a trial can start the day after the bout, and a bout can fall inside a trial (the
+  prospect boxes that evening; that trial day reads under fire instead of its own question, at no injury risk to you;
+  ESTIMATE, not in the probe).
+- MEASURED (docs/KNOWSTAKES9_RESULT.md): the pure trial call runs 5.2 days on average. Ending it by the day halves what the
+  careful player loses to the rival during a trial (7.5% of prospects against 16.2% with a whole-week trial).
+
+### C. The rival
+- Window (ESTIMATE): 7 days long. Last day = 7 when the rival's own look is above the level, 14 when not, plus 0-6. So
+  the first possible day is day 1 to 7 for a name they want and day 8 to 14 for one they are looking at. One rule, read
+  off the rival's look that is already on the card. MEASURED: beside the first look the clock adds 0.015 of R2 about the
+  truth; day 1 of the trial adds 0.041 (B4 PASS).
+- Everything else as v8 (the region row, the return bout within 26 weeks tagged "you passed").
+
+### D. Arrivals
+- The scout brings names within 2 of the level, each with a bout date. Walk-ins, visitors and home juniors stay
+  unfiltered and have no bout line unless the region sheet has them on a show.
+- At most two open at once, as v7. The side-by-side strip shows every open name (there are never more than two).
+
+### E. Numbers for signed boxers
+- A group prints single numbers once it is a good read (60% of the range gone). No second gate. Before that: the middle,
+  the range on hover, the weekly gain moving the middle. The number shown is the middle of a range under 3 wide, never a
+  jump to the truth (v7 L3). Prospects always show ranges.
+
+## 4. Feedback loops (owner S541; written after the probe - the rule landed during this session)
+| The change feeds | Does that feed back? | Cap |
+|---|---|---|
+| Better signings -> wins -> cash -> more trial days | Yes, a rich club reads more | 3 places; one new name every 4-6 weeks; two open at once; 7 trial days a name ($252) |
+| A flop -> the bond -> less cash -> the hunch instead of a read -> more flops | Yes, downward | The bond is paid only on letting go and never above $3,000; keeping a flop costs the stipend they already draw. NOT MEASURED on the real loop: the build's probe must run a cash-tight club (gym closes after 8 weeks below $0) |
+| Prospects the rival signs -> stronger region rows -> a higher level -> the scout's maybes centre higher | Yes, slowly | 8-12 names a year, a sheet of many rows; the level is a mean. To measure in P-F (v7): the level's drift over two years stays under 2 points |
+| Trial days / waiting -> the rival's window | No: the window is fixed when the name arrives | - |
+| Watching the bout -> the record -> the rival's window | No in v9 (the record no longer sets the window) | - |
+One-rep trial run before the full probe: run 0 of the result (2,000 prospects, v8 rules replayed) before any v9 run.
+
+## 5. Menus (v8 section 3 holds; rows that change)
+| Menu | v9 changes | Wired to |
+|---|---|---|
+| Signing card | the 21-day strip with the bout and the window; Start the trial replaces Test day and Trial week; Wait for the bout; "Last time" strip; "1 in 3" on Sign now | prospect record: `bout_day` (new), `window_from`, `window_to`, `rival_seed`; `Knowledge.range_of` |
+| Trial (`ui/modals/Trial.gd`) | the seven days as a ladder with today's question lit; the before / after strip each evening with its "why" line; Sign / Send home / Another day with tomorrow's question and tomorrow's odds | `KnowReads` per-day reads (new: `apply_trial_day(k, day)`), `KnowReads.price("trial")` = 36 x days |
+| Top bar Continue | stops each trial evening, on the bout day, on the window's first and last day | `Clock` candidates |
+| Needs strip | "Trial day 3: decide tonight"; "The prospect boxes tonight"; "Lynn AC decide from today" | same |
+| Fights / the region show | the prospect's bout is a row on that show: Watch (free, your evening) | the region sheet + `bout_day` |
+| Find a fighter | scouted names within 2 of the level, each with its bout date; "Next name: about N weeks" | `Data.PROSPECTS` order, the arrival clock, the filter on `Knowledge.range_of` centres |
+| Fighter page / Week / attribute board | single numbers once a good read; the middle with the range on hover before | `Knowledge.share_gone` |
+| News / got-away list | "Lynn AC sign the prospect, 24 Jan" when a window runs out; nothing on Pass | prospect record -> `Leaving.rival_row` shape |
+| `KnowReads.gd` | trial price by the day; PRICE_TEST_DAY and the test_day read kind folded into trial day 1 | CODE change, C1-C3 |
+
+## 6. Every item on both "to reach 10/10" lists: taken or why not
+
+**First critic (code-checked):**
+| # | Item | Answer |
+|---|---|---|
+| 1 | Make more decisions matter: widen the starting ranges, make the bond bite; 40% of prospects decisive | PARTLY. The bond stays as v8. Wider first looks MEASURED: they lift flips by a point and then break B2 (always-trial ties the careful player), so the widths stay the code's and the scout filter tightens to 2 instead: first look wrong 33.0%, decisive 18.1 -> 24.2%. The 40% bar: 59.6% on the critic's own measure, but that pass comes from the trial's price ($252 a full week); at $125 it reads 26.8%. Said plainly in the result. |
+| 2 | Give wait its own read: the prospect's bout inside the window | TAKEN, as the centre of v9 (0.1). MEASURED: wait best in 12.8% -> 32.4%; without the bout 22.1%. |
+| 3 | Base the deadline on what the rival sees; drop the stacked minus 7s; keep the floor of 7 | TAKEN (0.4). |
+| 4 | Price the test day in time or a held place | TAKEN, further: the test is day 1 of the trial, so it holds a place and spends a day of the clock. |
+| 5 | Put the trial's body reading back to 24 | TAKEN (C3). MEASURED: 12 gains nothing. |
+| 6 | Settle the trial price: $125 on the map against $500 in code | TAKEN: $36 a day, $252 the week, written as a code change (C1). MEASURED: $18 a day fails B2, $36 and $72 pass. |
+| 7 | Charge the weeks left in `let_go_price`; show it on the card | ALREADY IN v8 (stake line, let-go confirm); listed as new work (C5). |
+| 8 | Feedback on the next card, not 12 weeks later | TAKEN (0.7, the "Last time" strip; 0.6 cuts the 12-week gate). |
+| 9 | Wire one screen to `KnowWire` | TAKEN as step 1 of the order (section 7); C4 confirms nothing is wired. |
+| 10 | Re-run the probe with shared dice and the new measures | TAKEN: the dice are shared (stated in the result); decisive share of all prospects, the card-only player's regret against the truth (+$1,024), and filter on / off side by side are in the final table. |
+| Missing | Watching the prospect's bout inside the window | TAKEN (item 2). |
+| Useless | Numbers after a good read AND 12 weeks or 3 bouts | TAKEN: the second gate is cut (0.6). |
+
+**Second critic:**
+| # | Item | Answer |
+|---|---|---|
+| 1 | Strengthen the wait read: open session body 12, skills 10 | REFUSED on the measurement: 50.6 / 17.1 / 32.3 against 50.7 / 17.7 / 31.5. No bar moves; the bout does the work. |
+| 2 | Trial skills exposure 24 -> 30; keep body at 12 | REFUSED: flips 25.0 -> 25.5 for a code change; body at 12 measured no better than 24. The trial keeps the code's 24 / 24. |
+| 3 | Scout filter within 3 -> within 4 | REFUSED on the measurement: 57.1 / 15.6 / 27.3, decisive 20.9, flips 23.6 - worse on every line. v9 goes the other way, to 2. |
+| 4 | A partial trial: stop early, keep the read | TAKEN, as the trial's whole shape (0.2). No refund rule is needed: the days are paid as they are used. |
+| 5 | Make Pass and letting the window expire differ | TAKEN (3B). |
+| 6 | Watch them box: buff it; a habit clue | THE BOUT TAKEN for every scouted name. The habit clue REFUSED here: habits are their own map (v7 split them off). |
+| 7 | Remove the "12 weeks or 3 bouts" gate | TAKEN (0.6). |
+| 8 | A "why" on the line when a read flips the decision | TAKEN (0.8), worded from the range and the level only. |
+| 9 | Compare up to 4 prospects | NOT NEEDED: the list never holds more than two open names (v7 2C); the strip shows both. |
+| Missing | A scout filter toggle | REFUSED: without the filter the hunch is right 87% of the time and best in 75.9% (MEASURED) - the toggle's other position is the dull game. |
+| Missing | A lever on the rival's window (a better offer) | REFUSED on the measurement: matching the rival's offer at +$50 a week makes the hunch best in 68.2% (B1 FAIL); it removes the loss the window exists for. |
+| Useless | Pass against expiry | TAKEN (item 5). |
+
+## 7. Probes
+Greybox: `tools/knowstakes9.gd`. Every run: **docs/KNOWSTAKES9_RESULT.md.** One line: **v9 PARTIAL - B1, B2, B3, B4 PASS for
+the first time; B5 (how often the choice matters) half met; the no-clock control missed its bar.**
+| Bar | v8 | v9 (20,000 maybes) |
+|---|---|---|
+| B1 best per decision: hunch / look / wait (each 15-60%) | 56.4 / 30.8 / 12.8 - FAIL | **45.4 / 22.2 / 32.4 - PASS** |
+| B2 selective beats every arm but the truth, low end > 0 | PASS | PASS, thin over always-trial: +$32 (19..46) |
+| B3 selective's reads flip the first-look call 25-60% | 18.0 - FAIL | **25.7 - PASS, by 0.7** |
+| B4 the clock adds less than the first paid read | 0.013 vs 0.035 - PASS | 0.015 vs 0.041 - PASS |
+| B5 (new) best beats worst by > $250 in >= 40% of all prospects; best beats second by >= $250 in >= 30% | 22.7 / 15.4 | 59.6 (price-led; 26.8 at $125 a week) / **17.8 - FAIL** |
+| Decisive decisions, of all prospects | 18.1% | 24.2% |
+| Control: no clock -> hunch best under 15% | - | 26.9 - FAIL (with the clock 45.4: the clock does move it) |
+**The honest gap.** With three calls, two of which are ways of looking again, one call stands alone only when the other
+two both go wrong; the ceiling is the share of wrong first looks (33%) plus the prospects the rival takes. If the critics
+hold B5's second half, the next lever is a fourth call that is not a look - for example signing on a short 4-week bond at
+a dearer stipend, so the hunch has a cheap and a committed form - not another read strength. Not in v9: unmeasured.
+
+## 8. Order of work
+1. One screen reads `KnowWire` (the signing card's ranges), with P-A from v7. 2. The prospect record: bout day, window,
+rival's look; the 21-day strip; the trial by the day; the bond; B1-B5 and P-F re-run on the real loop (KNOWBOTS worlds),
+including a cash-tight club (section 4). 3. The got-away list, the return bout, the "Last time" strip. 4. Numbers for
+signed boxers. Each step is done when its menus show it in the .exe and the golden path walks one prospect to each of
+five endings: signed on the hunch, signed on trial day 3, sent home after the pad test, signed at ringside after the bout,
+taken by the rival and met again.
+
+## Sources read today
+v8 and v7 maps; both v8 critics' answers (`CRITIC_KNOW_STAKES1_V8_BRIEF_KALLI.md`, `_DOLA.md` from line 1031); the first
+critic's v7 answer; `docs/KNOWSTAKES8_RESULT.md`; `tools/knowstakes8.gd` (whole); `scripts/rules/KnowReads.gd` (:1-135),
+`Knowledge.gd` (constants and function list), `CardAsk.gd` and `VisitWire.gd` (grep: TRIAL_LOSS is at `CardAsk.gd:26` and
+`VisitWire.gd:146-149` on today's main - the first critic's copy was two days older), `Leaving.gd:65`; a search of
+`scripts/ui` and `scripts/state` for the knowledge code. Probe runs: 56.
+
+---
+
+# THE BASE MAP v9 CHANGES (v8, unchanged; where v9 says otherwise, v9 wins)
+
+# Knowledge stakes v8 - the scout brings maybes, the rival decides inside a window, and signing is a bond
+
+S540, 2026-11-23. Board row KNOWLEDGE1. Map only: nothing is built by this page. Bar (owner S534): 8 on DEPTH and 8 on PLAY.
+Lines tagged CODE were opened on 2026-11-23 at the file:line given (main after 37dce4f37). ESTIMATE = proposed, not in the
+game. MEASURED = a probe result, with its file. Words: "the prospect", "your boxer", "they"; no fixed he or she.
+v7 (`DESIGN_KNOW_STAKES1_V7.md`) stays the base: every v7 line not changed here holds (sections 1, 2A, 2E, 3 of v7).
+
+## 0. What changed from v7, in nine lines
+1. **SIGNING IS A BET (a bond).** The club stipend binds 12 weeks. Letting a boxer go before week 12 pays the weeks left
+   (at most $3,000) on top of today's reputation cost. The stake line says so. (v7 kept today's price: $0 cash.)
+2. **THE RIVAL DECIDES INSIDE A WINDOW, NOT ON A DATE.** "Lynn AC decide between Mon 19 and Mon 26 Jan." Any day of that
+   week they may sign. Waiting is no longer free up to the last day, and the trial's 1-in-4 dice is gone: a trial is lost
+   only when the rival's day falls inside the trial week, and the button shows those odds from the window.
+3. **A LOST TRIAL IS REFUNDED.** The rival took them: the $125 comes back. You lose the days, not the money.
+4. **THE RIVAL'S LOOK IS SHOWN, NOT DECODED.** "Lynn AC's look: body 58-70, skills 52-66." The clock no longer hides a
+   second read: the player weighs two honest, noisy looks. The window's place keeps a random part (0-6 days).
+5. **THE CEILING IS THE WIDEST UNKNOWN, AND THE TRIAL CAN READ IT.** First look "up to 70-98" (half-width 14, was 9). The
+   trial week's pad test (one new move drilled) halves it. Nothing else before signing moves it. Amateur coach: exact.
+6. **WAITING READS.** Each week waited the prospect trains at the open session: body and skills each narrow a little (about
+   a third of a test day). The Wait button says what a week buys and what it risks.
+7. **THE SCOUT BRINGS MAYBES.** A scouted name is one the scout cannot call: its first look sits within 3 of the region's
+   level. The sure ones were signed at fourteen by the big clubs; the hopeless ones are not brought. Walk-ins and visitors
+   stay unfiltered.
+8. **NUMBERS COME BACK FOR SIGNED BOXERS.** A group prints single numbers once it reads "good read" AND the boxer has had
+   12 weeks in training or 3 bouts. Before that the board shows the middle with the range on hover, and the weekly gain
+   moves the middle. Prospects always show ranges.
+9. **THE REVEAL IS A MOMENT.** Every read ends on a before / after strip and one line: "Body 56-72 -> 61-69. Your first
+   look had the middle at 64." Cut: the 3-days-sooner rule.
+
+## 1. What the game does today (only what v8 adds to v7 section 1)
+- **B1 CODE - letting go is free in cash.** `scripts/state/Leaving.gd:59-61 let_go` ("free in cash, the smaller reputation
+  cost"); `:29-30` REP_LET_GO -1, REP_LET_GO_RANKED -3. Nothing binds a stipend to a term today.
+- **B2 CODE - the one trial dice the game has.** `scripts/rules/CardAsk.gd:26 TRIAL_LOSS 0.25`, rolled at `:137` for the
+  bout visitor only. v8 does not touch the visitor (its 7-day wait, `:23`, stays).
+- **B3 CODE - the trial read v7 described.** `scripts/rules/KnowReads.gd:105-111 _apply_trial` gives body 24 and skills 24
+  exposure. v7's "body 12" was a change to that code it did not flag (Kalli's code check): **v8 flags it** - body 24 -> 12,
+  so a trial reads mostly skills and heart and a test day stays the body read. Width after: body about 8.5, skills about 9.
+- **B4 CODE - numbers.** `scripts/rules/Knowledge.gd:23 FLOOR 0.5` (a range never reaches 1 wide by narrowing alone, and
+  stale adds on top). Under v7's "a number only at 1 wide" no signed boxer would ever print a number again. The pack's
+  standing rule: "Real stats stay visible." v8 section 2F answers it.
+- **B5 CODE - the five named prospects.** `scripts/state/Data.gd:229` PROSPECTS, all put on the list on day 0 by
+  `scripts/state/Career.gd:123`.
+
+## 2. The design (changes to v7 section 2 only)
+
+### A. The card (v7 2A, plus)
+- Ceiling: "up to 70-98", half-width 14 (ESTIMATE), leaning with the shared misread. The pad test halves it. Exact for the
+  Amateur coach (`HeadCoach.gd sees_potential`), which now removes the single biggest unknown on the card.
+- Under the player's own ranges, one muted line: **"Lynn AC's look: body 58-70, skills 52-66."** Same range rule, the
+  rival's own seed (it can be as wrong as yours, and in its own direction).
+- The stake line: **"A place, $250 a week, bound 12 weeks: letting go sooner pays the weeks left."**
+- The bout date when the prospect has one inside the window: "Boxes Sat 24 Jan at the Lynn show (free to watch)."
+
+### B. The reads (v7 2B, changed rows)
+| Read | Cash | Days | What it answers | Odds on the button |
+|---|---|---|---|---|
+| Test day | $60 | 1 | Body 16 wide to about 7 (CODE exposure 16) | "Body only. About 1 time in N this puts them under the level." (TellWorth pattern, from the shown range) |
+| Trial week | $125, refunded if the rival signs during it | 7, a place held | Skills to about 9 wide, body to about 8.5 (B3: body 24 -> 12), the ceiling halved by the pad test; optional hard spar on the last day opens under fire and the pressure trait, injury x2 that night, +15 tiredness | "Lynn AC may sign during the week: 2 in 7." (days of the window inside the week / window length) |
+| Watch them box | $0, your evening | to the bout | Under fire rough, the record moves | Shown only when the bout is inside the window |
+| **Wait a week (Continue)** | $0 | 7 | The open session: body and skills each narrow by about a third of a test day (ESTIMATE body +8, skills +8 exposure) | "A week: 0 in 7 they sign (window opens Mon 19)" or "3 in 7" |
+- The hunch: **Sign now** (the bond on the button) and **Pass** stay. Pass now differs from letting the window run: it
+  frees the slot on the list today, so the next name can arrive (v7 kept two open at once).
+- Cut: the 3-days-sooner rule (Kalli: "a small knob nobody will notice").
+
+### C. The rival (v7 2C, changed)
+- **Window (ESTIMATE).** The date shown is the last day; the rival signs on one day of the 7 before it. Last day: 21 days,
+  minus 7 when the record reads well, minus 7 when the rival's own look rates them above the level, minus 0-6 (random),
+  floor 7. The player sees the window and the rival's look; the record is on the card. **MEASURED (docs/KNOWSTAKES8_RESULT.md,
+  B4): beside the player's first look, the clock now adds 0.013 of R2 about the truth; the test day adds 0.035.** In v7
+  the clock added 0.026 - the paid reads were not worth more than reading the timer.
+- When it runs out: as v7 (a region row at that club, boxing on). **The one that got away comes back:** within 26 weeks,
+  when the division matches, the region sheet offers that boxer against yours, tagged "you passed" (v7 only said "can be").
+
+### D. Arrivals (v7 2C "names arrive in turn", changed)
+- **First hour kept (Kalli 9):** two named prospects are on the list from day 0, as today, with their windows; the other
+  three named ones arrive one every 4-6 weeks, then region novices.
+- **The scout brings maybes (MEASURED to matter, section 5):** a scouted name's first look sits within 3 of the level.
+  Without this filter the hunch is the best call in 78% of decisions; with it, 56%.
+
+### E. Two prospects side by side (v7 item 8, plus Dola's compare)
+- The strip shows both range sets on one axis with the level line, both windows, and one line where they overlap:
+  "Body overlaps: either could be the stronger." (from the shown ranges only).
+
+### F. Numbers for signed boxers (Kalli 3, B4)
+- A group prints single numbers (attribute board, radar, weekly deltas, perk thresholds like "Chin 70") once it is a good
+  read (60% of the range gone, the word v7 kept) AND the boxer has 12 weeks in training or 3 bouts. Before that: the middle,
+  the range on hover, "+1 this week" moving the middle. No group ever jumps to the truth (v7's L3 fix holds): the number
+  shown is the middle of a range under 3 wide.
+
+### G. Feedback (Dola priority 1 and 3)
+- Reveal line after every read and on the first bout: before / after, and where the first look put the middle.
+- A Monday line on an open prospect only when something moved ("Body 56-72 -> 59-70 at the open session") or the window
+  opens this week ("Lynn AC decide from Monday").
+- The clock pill turns amber inside 14 days and red once the window is open; the top bar's Continue stops on the day
+  the window opens and on its last day.
+- Got-away list (v7): adds "Your first look: body 56-72. They box at 66 now."
+
+## 3. Menus (v7 section 3 holds; rows that change)
+| Menu | v8 adds | Wired to |
+|---|---|---|
+| Signing card | rival's look line, window line, bond in the stake line, ceiling range, Wait button with its read and risk, odds on every read | prospect record: `window_from`, `window_to`, `rival_seed` (new); `Knowledge.range_of` with the rival seed |
+| Let go confirm (`Leaving.let_go_price`, CODE `:65`) | "Pays the 8 weeks left: $2,000" before week 12 | `signed_day` (new) + `GameMoney.FIGHTER_STIPEND` |
+| Top bar Continue | stops on the window's first day and its last day | `Clock` candidates |
+| Needs strip | "Lynn AC decide from today" | same |
+| Fighter page overview / Week / attribute board | single numbers only per 2F; range on hover before | `Knowledge.share_gone`, weeks since signing, bout count |
+| Monday review | a prospect line only when it moved or a window opens | `Knowledge.moment` |
+| Fights (amateur offers) | the got-away boxer offered within 26 weeks, "you passed" | `c.rivals` row with `passed_by`, `passed_day` |
+| Find a fighter | two names from day 0, then "Next name: about N weeks" | `Data.PROSPECTS` order + an arrival clock |
+
+## 4. Every item on both "to reach 10/10" lists: taken or why not
+
+**First critic (code-checked):**
+| # | Item | Answer |
+|---|---|---|
+| 1 | Bind the stipend 12 weeks; pay the weeks left on an early let-go; add the sign-and-cut arm | TAKEN (0.1). MEASURED: sign-and-cut is the worst arm but one in every run (v8 $1,133 against selective $2,782 at V $5,000); it was already worse in v7, the bond widens the gap by $400. |
+| 2 | A pre-signing read of the ceiling: a pad test in the trial week | TAKEN, stronger: halves the ceiling, not a third (run 5 of the result: with a third, selective's reads flipped 16.6%; with half, 18.0%). |
+| 3 | Numbers for signed boxers | TAKEN (2F), with the critic's two gates. |
+| 4 | Show the rival's look; cap the shortening with a random part | TAKEN (0.4, 2C). MEASURED B4 PASS. |
+| 5 | Make the trial loss fair: refund; scale the risk with the clock; show the odds | TAKEN, as one rule: the window replaces the dice, so the risk scales by itself (none when the window opens after the trial, up to 1 in 1 when it is already open) and the button prints it. |
+| 6 | A slow free read for waiting | TAKEN, larger than asked (body AND skills, about a third of a test day): at body +4 alone wait was best in 9% of decisions. |
+| 7 | Fix the probes: sign-and-cut and clock-only arms, branch replay, drop the 1.5x loss bar, the clock-predicts-truth measure | ALL TAKEN (section 5). |
+| 8 | The one that got away comes back within 26 weeks | TAKEN (2C). |
+| 9 | Keep the first hour: two named prospects from day 0 | TAKEN (2D). |
+| 10 | Bout date when the prospect arrives; cut 3-days-sooner | TAKEN (2A, 2B). |
+| 11 | List the trial's exposure change as a code change | TAKEN (B3). |
+
+**Second critic:**
+| # | Item | Answer |
+|---|---|---|
+| 1 | Reveal pulse + one-line summary; "your guess last time" | TAKEN (2G). |
+| 2 | A weekly update line on the prospect | TAKEN, only when something moved (owner S398: only actionable info; "No change since Monday" is not). |
+| 3 | Trial loss: phone the rival ($150, 60% +4 days), full refund | REFUND TAKEN. The phone call REFUSED: a second dice to fix the first; the window removes the first dice instead. |
+| 4 | The hard spar's cost on the button | TAKEN (2B row). |
+| 5 | End a trial early: pay $60, keep part of the read | REFUSED: with odds printed from the window the player starts a trial knowing its risk; a half-trial is the test day under another name. |
+| 6 | Under fire partly read by watching a bout | ALREADY IN v7 (Watch them box opens it rough). |
+| 7 | Bout-watch reminder | TAKEN (2A bout date). |
+| 8 | Compare overlay for two prospects | TAKEN (2E). |
+| 9 | Got-away "you were right" line | TAKEN (2G), worded as where they box now; never "right/wrong" (the truth is always inside the range). |
+| 10 | Clock colours: neutral / amber / red with a pulse | TAKEN without the pulse (owner: pulsing is for buttons that need a press - the top bar's stop already does that). |
+| Missing | "Watch at the trial" in person, costs an evening | REFUSED: the player is always the head coach at the trial; an evening cost with no new information is a tax. |
+| Useless | "Sign now: show the downside odds" | TAKEN: the Sign now button carries the same TellWorth line ("about 1 in 3 of first looks like this end under the level"). |
+
+## 5. Probes (bars fixed in v7 section 5 and printed by the probe before every run)
+Greybox: `tools/knowstakes8.gd` (Knowledge.gd's own widths, offsets and reads; the rest ESTIMATE). Result, every run:
+**docs/KNOWSTAKES8_RESULT.md.** One line: **v8 PARTIAL - B2 and B4 PASS, the dominant trial of v7 is broken (look best in
+97% of decisive v7 decisions -> 31%), B1 misses by wait at 12.8% against 15%, B3 by flips at 18% against 25%.**
+| Bar | v7 (maybes) | v8 (maybes) |
+|---|---|---|
+| B1 best per decision: hunch / look / wait (each 15-60%) | 1.4 / 96.7 / 2.0 | 56.4 / 30.8 / 12.8 - FAIL on wait |
+| B2 selective beats every arm but the truth, low end > 0 | (not a v8 bar) | PASS at V $3,000 / $5,000 / $8,000 |
+| B3 selective's reads flip the first-look call 25-60% | 25.9 | 18.0 - FAIL |
+| B4 clock adds less than the test day | 0.026 vs 0.088 | 0.013 vs 0.035 - PASS |
+| Lost to the rival: selective / buy-everything | 10.2 / 21.8% | 1.4 / 23.4% |
+Next (the build's own probe, before the menus): the same bars on the real game loop (KNOWBOTS worlds), plus P-F from v7.
+If wait stays under 15% there: the open session's read is the knob, then the window length.
+
+## 6. Order of work (v7 section 6 holds), with the bond and window built in step 2 beside the clock.
+
+## Sources read today
+v7 map; both v7 critics' lists; `Knowledge.gd` (:1-135, :160-262,
+:360-380), `KnowReads.gd` (:95-135), `Leaving.gd` (:1-73), `CardAsk.gd` (grep), `Data.gd` (grep), `Career.gd:123`,
+`StatBlock.gd:24`, `tools/knowmisread2_probe.gd` (:1-80), docs/KNOWMISREAD2_RESULT.md. Probe runs: 8 (section 5 file).
+
+---
+
+# THE BASE UNDER IT (v7, unchanged; where v8 or v9 says otherwise, they win)
+
+# Knowledge stakes v7 - a wrong first look, three ways to be less wrong, and a rival gym's clock
+
+S539, 2026-11-23. Board row KNOWLEDGE1. Map only: nothing is built by this page. Bar (owner S534): 8 on DEPTH and 8 on PLAY.
+Every line tagged CODE was opened on 2026-11-23 at the file:line given (main after 053597329). ESTIMATE = proposed, not in
+the game. MEASURED = a probe result, with its file. Words: "the prospect", "your boxer", "they"; no fixed he or she.
+
+## 0. What changed since v6, in seven lines
+1. THE CLOCK (owner Q-S294-305, asked "Prospects: a rival gym signs them in 1-3 weeks unless you decide?": "Yes, add the
+   deadline"). Every prospect has a rival gym and a last day, 7 to 21 days out. Every read spends days of it (section 2C).
+2. ONE RANGE SYSTEM, MADE AT FIRST SIGHT. The prospect list printed the truth in the middle of its range (L1 below). That
+   list formula and `Roster.scouted_range` go; every screen reads `Knowledge.shown`.
+3. NOTHING JUMPS TO EXACT. Today a group turns into the true number at 60% read (L3). In v7 a range only narrows.
+4. HYPE IS CUT (L2: it was never wired). So is "Call the old gym", whose only job was to clear it.
+5. THE TRIAL IS ONE WEEK, not four: a four-week trial cannot fit a clock of three weeks.
+6. THE CEILING AND THE HEART are now unknowns too (2A): potential is a range that leans with the rest, and the
+   under-pressure trait is "not seen yet" until a hard spar or a first bout.
+7. HABITS (v6 section D) leave this map for their own (HABITS1, next row). The opponent's record (v6 section C) stays as a
+   gated slice (2E): nothing of it is built before its own probe and the owner's word on an older ruling.
+
+## 1. What the game does today
+
+### The three defects a code check found in v6, re-read today
+- **L1 CODE - the answer leaks.** `scripts/ui/areas/Fighters.gd:216-223` draws each prospect group as the true value
+  minus 5 to plus 5 (`Data.SCOUT_SPREAD`, `scripts/state/Data.gd:224`). `scripts/state/Roster.gd:103-105 scouted_range` is
+  the same formula; grep today finds no caller. The middle of the printed range IS the truth. Same pattern in
+  `scripts/state/HomeJuniors.gd:74-75` (news prints potential minus 5 to plus 5) and in `Roster.gd:117` (the trial verdict
+  is "good" exactly when potential is 80 or more). `scripts/ui/RecruitPanel.gd:104` prints "N up to M" from the true stat
+  and the true cap; `:113` prints both personality traits.
+- **L2 CODE - hype is unwired.** `scripts/rules/Knowledge.gd:292-299 set_hyped / clear_hype / is_hyped` exist; grep today:
+  only `KnowReads.gd:79-80` and two tests call them. `range_of` (`:174-183`) lifts the range only by a `hype` argument no
+  caller passes, so clearing the flag changes nothing shown. `hyped_centre_offset` (`:285-290`) is a second, unused formula.
+- **L3 CODE - the trial jumps to exact.** `scripts/rules/KnowReads.gd:105-111` adds 24 exposure to body and skills. With
+  `Knowledge.gd:106` (half-width = 0.5 + (start - 0.5) / (1 + exposure / 12)) that is 67% of the range gone, past
+  `KNOWN_SHARE 0.6` (`:43`), and `shown` (`:251-261`) then returns the truth itself. Every group does this at 60%.
+  Beside it: the prospect trial in play is not this read at all. It is free, the next Monday (`Roster.gd:87-99`), and the
+  card after it is exact (`scripts/ui/modals/Trial.gd:2, :18, :29`).
+
+### What else the design stands on
+- **K1 CODE - `Knowledge.gd:9-13, :17-19`.** Body (6 attributes), skills (6), under fire (2) carry a range; day-one
+  half-widths 8 / 12 / 15. Mind (6) is always exact (`:253-256`). Under fire reads Unknown until opened (`:100-101`).
+- **K2 CODE - `Knowledge.gd:174-183, :372-376`.** Shown middle = truth + offset x half-width; offset is -0.6..+0.6, half
+  of it one per-person misread (SHARED_MISREAD 0.5, `:38`). The truth is always inside the range, in its middle 60%.
+- **K3 CODE - no record before signing.** `scripts/state/KnowWire.gd:24-25 start` is called only inside
+  `Roster.gd:143 sign_fighter`. A prospect has no record; a boxer with none is fully seen (`KnowWire.gd:17-20`).
+- **K4 CODE - no screen reads it.** As v6 K4: grep for KnowWire / Knowledge / KnowReads under scripts/ui returns nothing
+  today. `KnowReads.apply` (`:56-75`) returns a cost for the trial only; no code charges the other prices.
+- **K5 MEASURED - docs/KNOWMISREAD2_RESULT.md (360 paired worlds).** A signer who knows the truth ends with +12.1% more
+  top-10 boxers (95%: +5.3 to +19.6) and +3.7% more cash (+2.2 to +5.4). Bout wins +1.0% (-0.9 to +3.0): not told from
+  zero. A bigger misread is a weak lever. So the stake must come from what a wrong signing costs and from more decisions
+  resting on the read, which is what the clock adds.
+- **D1 CODE - a deadline already exists for one kind of arrival.** A beaten opponent who asks to train here waits at
+  reception 7 days (`scripts/rules/CardAsk.gd:23`), may be given one trial Monday, and "1 time in 4 the old club talks the
+  boxer round first" (`:26 TRIAL_LOSS 0.25`, `scripts/state/VisitWire.gd:142-160`, said on the card at
+  `scripts/ui/modals/Interview.gd:71`). The top bar already stops on that last day (`scripts/state/Clock.gd:63`). Scouted
+  prospects have no clock: all five named ones are on the list from day one (`Career.gd:124`, `Data.gd:229-251`).
+- **D2 CODE - a boxer who leaves already boxes on in the region.** `scripts/state/Leaving.gd:98, :108-112 rival_row`
+  turns a boxer into a row of `c.rivals` at the new club; `scripts/state/Region.gd:140` puts every such row on the region's
+  shows and `:189-192` moves its record and rating; `scripts/state/Newcomers.gd:53-80` already makes new region novices
+  with a club and a seeded past. Letting a signed amateur go is free in cash and costs reputation (`Leaving.gd:59-61`;
+  the size was not re-read today).
+- **D3 CODE - the ceiling is half-hidden already.** `RecruitPanel.gd:41-47` shows potential as a star range, exact for the
+  Amateur coach (`scripts/rules/HeadCoach.gd:36, :69 sees_potential`). Row `:104` then prints the exact cap anyway.
+
+## 2. The design
+
+One sentence: **a first look misreads the whole person the same way; a rival gym has had its own look and a date; you can
+sign on the hunch, spend days and money to look again, or wait - and each is sometimes the right call.**
+
+### A. What the card shows (wires K2; fixes L1 and L3)
+- A record is made the day a prospect is first seen (list, reception, visit) and is carried into the signing instead of
+  being started there. The list, the signing card, the trial card and the fighter page all draw `Knowledge.shown`.
+- Per group one line: "Body 56-72, rough". One rule for numbers everywhere: **a single number is printed only when the
+  range is 1 wide.** `shown` stops returning the truth at 60%; 60% only changes the word to "good read".
+- CEILING (ESTIMATE): "up to 70-88", half-width 9, leaning with the same shared misread, so a prospect read high is read
+  high on the ceiling too. It narrows by half after 8 signed weeks and again on the first bout; no pre-signing read
+  moves it. The Amateur coach sees it exact (the edge that exists, D3): that edge now removes the biggest unknown.
+- HEART (ESTIMATE): of the two traits the card prints today, the one about pressure ("Folds when hurt", "Big heart",
+  "Short fuse") reads "Not seen yet" until a hard spar or a first bout. The other shows at first meeting.
+- The stake line, unchanged from v6: "A place and $250 a week." Under it, new: the clock line (C).
+- Each read's result is a before / after strip per group plus what is still unread ("Under fire: still unknown").
+
+### B. Three reads, three different questions, three different prices in days
+| Read | Cash | Days of the clock | What it answers | When it is the wrong buy |
+|---|---|---|---|---|
+| Test day | $60 | 1 (next morning) | "Is the engine real?" Body 16 wide to about 7 (CODE: exposure 16, `KnowReads.gd:114-119`) | The doubt is in skills or heart; body cannot change the answer |
+| Trial week | $125 | 7, a place held, and 1 time in 4 the rival talks them round during it (the game's own rule, D1) | "Can they box, and what are they like when hit?" Skills 24 wide to about 9, body to about 8.5 (ESTIMATE: exposure 24 / 12). Optional hard spar on the last day: under fire opens (about 19 wide), the pressure trait shows; injury x2 that night and +15 tiredness, CHARGED (today screen data only, `KnowReads.gd:126-129`) | Fewer than 7 clear days; cash under a month of bills; the place is needed for a better name |
+| Watch them box | $0, your evening (no coached night at the club that day) | Waits for the date | Only when the prospect boxes on a region show inside the clock: under fire opens rough (ESTIMATE: a quarter of the way, about 23 wide), the record moves | No bout inside the clock; a win there also makes the rival move 3 days sooner |
+- Always present: **Sign now**, **Wait** (Continue), **Pass**.
+- A trial never reads past "good read": after test day + trial the body is still about 5.5 wide.
+- Every read button says what it could change, in the pattern Camp already uses for film (`scripts/rules/TellWorth.gd:1-8`,
+  wired at `scripts/ui/modals/Camp.gd:199`): "Body 56-72 now, about 7 wide after. The region's level here is 60: about
+  1 time in 4 this read puts them under it." The level is the mean rating of the division's sheet (the number
+  `Newcomers.gd:65-70` already computes); the odds come from the shown range only, never from the truth.
+- CUT from v6: Call the old gym (L2), Recheck $40 as a button (its halving of what went stale is folded into the hard
+  spar on the Week), look closer, the 0-5 pip row.
+
+### C. The rival gym's clock (owner Q-S294-305)
+- **Who.** A named club from the prospect's own division sheet (the clubs `Newcomers.gd:62-68` collects).
+- **How long (ESTIMATE).** 21 days, minus 7 when the record reads well (3 or more bouts, wins at least twice the losses),
+  minus 7 when the rival's OWN first look rates them above the region's level. The rival's look is the same range rule with
+  its own seed: the rival can be as wrong as you. Floor 7. A home junior: 21. The bout visitor keeps the 7 days it has (D1).
+- **What the player sees.** One line on the card and on the list: "Lynn AC want this one: they sign on Mon 26 Jan (9 days)."
+  or "Lynn AC are having a look: Mon 9 Feb (20 days)." Hover: "Another gym's coach has had one look, like yours, and can
+  be as wrong as yours. A short clock means they liked what they saw. Every read below spends days of it."
+  The top bar's Continue stops on the last day ("to Mon 26 Jan, Lynn AC sign the prospect"), as it does for the visitor.
+- **What each choice costs on it.** Sign now 0. Test day 1. Trial 7 (the button is greyed with its reason when fewer than
+  7 clear days are left). Watch them box: until the bout. Wait: a day a day.
+- **So the short clock is itself a read, and a noisy one.** A 7-day clock says "someone else rates them" and leaves room
+  for a test day or the hunch, never both a trial and a second thought.
+- **When it runs out.** The rival signs them. They become a row in the region at that club (D2: the same `rival_row` a
+  leaving boxer gets, with the rating taken from their true stats instead of the flat `LEFT_RATING`), box on the region's
+  shows, climb or not, and can be offered as an opponent to your boxer in that division. Cheap: one append; Region does
+  the rest today. Pass does the same, on the last day.
+- **The ones that got away (the feedback v6 lacked).** Find a fighter keeps a short list: "Signed by Lynn AC, 26 Jan.
+  3-0 since. Your last read: body 56-72. The region rates them 66." A news line on their first title or on the night
+  they box your boxer.
+- **Why prospects must now arrive in turn.** Five clocks starting on day one would empty the list by week 3. So names
+  arrive one at a time (ESTIMATE: one every 4 to 6 weeks, the first in week 2, at most two open at once): the five named
+  prospects in a seeded order, then region novices offered through the conversion the visit already uses
+  (`CardAsk.gd:147-165 walkin`). The list says when the scout expects the next: "Next name: about 2 weeks." Two open at
+  once, one place: the side-by-side strip shows both sets of ranges and both clocks.
+
+### D. When each call is right (the claim the probe must prove)
+- **Sign now** wins when the clock is short, the ranges sit clear of the region's level whichever way they lean, or cash
+  is tight enough that $125 and a held place hurt more than a flop.
+- **Look again** wins when one group straddles the level and that group is the one a read can reach in the days left.
+- **Wait** wins when the next name is due inside this clock and there is one place; when Friday's dues pay for the read
+  you cannot afford today; or when they box on Saturday and under fire is the doubt.
+- **Pass** wins more often than v6 allowed: a pass is now seen (the got-away list), not silent.
+
+### E. The opponent's record (gated; not part of this build)
+v6 gave every opponent a rolled lean so the $250 scout had something to remove. Two true objections: a rolled lean that
+only the scout sees past passes its probe by construction, and `scripts/rules/Matchmaking.gd:139-140` records "S416: the
+read never leans" (a code comment; whose ruling it was has not been established). CODE correction to v6: the opponent's
+stat ranges already move with the rating range (`scripts/rules/BoutRead.gd:117-134`); only the record is independent.
+v7: the lean, if any, is COMPUTED from the opponent's kept record (`r["bouts"]`, seeded by `RivalPast`): the share of wins
+against boxers with losing records. Real case: Peter McNeeley, 36-1 against a soft schedule before Tyson in 1995. First
+probe P-C on a greybox; if it passes, the owner is asked whether to overturn S416; only then a map. If it fails, the
+scout goes to the owner as "cut it or keep it" (S534).
+
+## 3. Every menu it appears on, and what each is wired to
+
+| Menu | CODE TODAY (read 2026-11-23) | TO BUILD (ESTIMATE) | Wired to |
+|---|---|---|---|
+| Top bar, Continue | `state/Clock.gd:60-63` stops for a trial day and the visitor's last day | Also stops on a prospect's last day, named | prospect `expires` (new), `Clock` candidates |
+| Needs strip | `state/Needs.gd:63-66` "Trial today" | "Last day: Lynn AC sign <name> tomorrow"; "Trial week ends today" | same |
+| Fighters > Find a fighter | `ui/areas/Fighters.gd:185-232` truth minus 5 to plus 5, Invite to a trial (free) | Group ranges with width words, ceiling range, the clock line, the three reads + Sign now + Pass, "Next name: about N weeks", the got-away list | `Knowledge.shown` (:251), `KnowReads.apply` (:56), new prospect record and clock |
+| Roster, Scouted for you | `ui/RosterCards.gd:316-318, :353-354` up to four cards, a trial pill | Up to two open cards, each with its clock pill ("9 days") | prospect `expires` |
+| Signing card (walk-in, visit, prospect) | `ui/RecruitPanel.gd:41-47` star range, `:104` exact "N up to M", `:113` both traits | Ranges, ceiling range (exact with the Amateur coach), the pressure trait "Not seen yet", "A place and $250 a week", clock line, read buttons with what each could change | `Knowledge.shown`, `HeadCoach.sees_potential` (:69), `GymSpend.place_blocked` |
+| Two prospects side by side | none | Both range sets, both clocks, the one place | the two prospect records |
+| Trial | `ui/modals/Trial.gd:2, :18` one free Monday, exact stats, verdict from potential 80+ (`Roster.gd:117`) | A week: before / after strip, the hard-spar choice on the last day with its risk, the verdict from the read not the truth, what is still unread | `KnowReads._apply_trial` (:105, new numbers), `Knowledge.hard_spar` (:124), `CardAsk.TRIAL_LOSS` (:26) |
+| Fighter overview | `ui/areas/FighterPage.gd:271 _overview` | Group ranges with "last read: trial week, 3 weeks ago"; what went stale and that a hard spar or a bout answers it | `Knowledge.shown`, `stale_causes` (:210) |
+| Week | (not re-read today) | Hard spar as a night choice with its risk; it also halves what went stale | `Knowledge.hard_spar`, `recheck` (:213) |
+| Monday review | (not re-read today) | A line only when a group's middle moved 5 or more, or its word changed | `Knowledge.moment` (:302), `monday_lines` (:313) |
+| The Why after the first bout | (not re-read today) | "Under fire opened: 49-57. Your first look had the middle at 63." and the pressure trait, if still unseen | `KnowWire.bout`, `Knowledge.moment` |
+| News | `state/HomeJuniors.gd:74-75` potential minus 5 to plus 5 | The junior's ceiling as the range the card will show; "Lynn AC sign <name>"; got-away results | prospect record; `Leaving.rival_row` shape (:108) |
+| Fights (amateur offers) | region rows offered by division (`state/Region.gd:140`) | The one who got away can be the name on the sheet, tagged "you passed" | `c.rivals` row with `passed_by` (new) |
+| Head coach choice | `rules/HeadCoach.gd:36` "Exact potential, no range" | Same words; now true on every card | `sees_potential` |
+
+## 4. Each critic item, answered
+
+**The three code defects:** leak - FIXED (A, L1). Hype - CUT (L2, 0.4). Trial jumps to exact - FIXED (A, B, L3).
+
+| # | Item (first critic's list) | Answer |
+|---|---|---|
+| 1 | No exact numbers on the signing card, trial result or opponent file | DONE for prospects and signed boxers (A). The opponent file is 2E, gated. |
+| 2 | A 0-5 knowledge pip row on Roster cards; ranges with last-updated text on the fighter page | Pip row REFUSED (the other critic: a number with no action; owner S398, only what the player can act on). The fighter page line is DONE. |
+| 3 | Wire the three reads; the range updates at once | DONE: before / after strip (A, B). |
+| 4 | Run the scout probe first; cut the lean if it fails; show what the scout could flip, and before / after | DONE as the gate in 2E. |
+| 5 | A stale warning and Recheck $40 as a regular small decision | CHANGED: the stale line with its cause is shown; the $40 button is CUT (it halves a small widening and never changes an answer); the hard spar does that job at a real price. |
+| 6 | The ledger at corner, result and Why | MOVED to the habits map with all of v6 section D. |
+| 7 | Say what the trial does not reveal | DONE: every read lists what is still unread. |
+| 8 | Two prospects side by side | DONE (C: two open at once, one strip). |
+| 9 | One free film night per opponent; a line on why amateurs read free and pros pay | MOVED with 2E. |
+| 10 | Missing: "sign rough and fix later" | DONE: it is Sign now. |
+| 11 | Missing: a cheaper partial scout | REFUSED: a second price on a purchase not yet shown to pay. |
+| 12 | Useless: a free club spar | CHANGED: the hard spar's risk is charged, so it is no longer free. |
+| 13 | Reads do not compete; no weekly hook; the reward comes late; the risk is hard to weigh | ANSWERED by C and D: the clock makes the reads compete for days, a name arrives every few weeks with its date in the top bar, each read ends in a reveal, and the got-away list shows what a pass cost. |
+
+| # | Item (second critic's list, code-checked) | Answer |
+|---|---|---|
+| 1 | One range system, created at first sight; delete `Roster.scouted_range` | DONE (A). |
+| 2 | The ceiling under a range, drawn against your best boxer; the Amateur coach sees it exact | DONE (A, D3). |
+| 3 | Heart and head under a range, opened by a hard spar or a first bout | CHANGED: not three numeric ranges; the pressure trait is hidden until seen (A). Coachability and temper as numbers are not shown to the player today, so a range on them would be new numbers with no screen. |
+| 4 | Make hype real | REFUSED, hype CUT. A tag with a known lift is no unknown; a hidden one is a second misread doing the first one's job, and KNOWMISREAD2 measured a bigger misread as a weak lever. The rival's short clock now carries "someone talks them up". |
+| 5 | Drop the jump to exact at 60% | DONE (A). |
+| 6 | A rival gym's deadline on every prospect | DONE (C), on the owner's yes. |
+| 7 | Feedback both ways: a price to let a flop go; "you passed on" news | DONE for the pass (C). Letting go keeps the price the game charges today (reputation, D2); no second fee is added. |
+| 8 | The reveal as a moment; Monday lines only when they matter | DONE (A strips, section 3 Why and Monday rows). The wording differs: the truth is always inside the range (K2), so the line is where in the range it fell, never "under your read". |
+| 9 | The opponent's lean from the real record; say it overturns S416 | DONE as 2E, gated. |
+| 10 | Every read button says what it could change, in the film-worth pattern | DONE (B). |
+| 11 | Split the habits off | DONE (0.7). |
+| 12 | Fix the probes: flips, overlap, visibly wrong, the computed lean | DONE (section 5). |
+| 13 | Cut the pip row and Recheck; fix the fixed "he" lines | DONE. |
+| c1 | No record before signing | TRUE (K3). Fixed in A. |
+| c5 | Test day is about 7.4 wide, not 6 | TRUE. Corrected in B. |
+| c6 | Only the trial returns a cost | TRUE (K4). The build charges each read through `c.pay`. |
+| c7 | Opponent stat ranges already move with the rating range | TRUE (2E). |
+| c9 | The four-week $500 trial was an unflagged change | TRUE. v7 flags its own: one paid week replaces one free Monday. |
+| c10 | Two line numbers off by one in `Matchmaking.gd` | Not so on today's tree: `SCOUT_COST` is at :40 and `scout` at :126-136. The critic read a copy two days older. |
+| c11 | The film-worth pattern exists and is wired | TRUE; reused (B). |
+
+## 5. Probes the build must pass (bars fixed here, before any run)
+
+Ruler: `tools/knowmisread2_probe.gd` worlds (seeds 7000 / 8000 / 9000 x 120), the same world for every arm, 95% bootstrap
+interval over worlds, the worlds' own prospects (all different). Cash is the first measure (tightest interval, +/- 1.6
+points); top-10 boxers the second. Every result prints its population and how many decisions each world held.
+
+| Probe | Arms | Passes when | Control arm |
+|---|---|---|---|
+| P-A no leak, no jump | Every prospect and signed boxer, every screen line | 0 lines print a truth while the range is over 1 wide; a guesser who takes the middle of the shown range misses by at least 0.25 x the half-width on average; no group's width falls by more than half in one day outside a named read | Today's list formula (truth +/- 5) must FAIL: its guesser misses by 0 |
+| P-B hunch, look, wait | Always sign now / always buy every read that fits the clock / always decide on the last day / selective (reads only when a group straddles the region's level; waits only for a due name, due cash or a bout) / knows the truth | (1) per decision, each of the three pure calls is the best of the three in at least 15% and none in more than 60%; (2) selective ends with more cash than each pure arm, interval low end above 0, and no fewer top-10 boxers than the best of them; (3) each read, when selective buys it, flips sign / pass 25 to 60% of the time (under 10% = dead, cut); (4) selective loses 10 to 30% of prospects to the rival, and buy-everything loses at least 1.5x that | Clock set to 999 days: buy-everything must be best in over 60% (the dominant trial the clock exists to break). Reads that narrow nothing must equal sign now |
+| P-F how it feels | Selective arm, two game years | 8 to 12 prospects a year; two open at once whose ranges overlap in 30 to 60% of pairs; a signed boxer's group middle moves 5 or more by week 10 in 20 to 45% of signings; at least 1 got-away a year later boxes one of yours | One open at a time must read 0 overlap |
+| P-C the record (gates 2E) | Never scouts / scouts when the chance spans level or it is a step up / always / knows the truth; lean computed from the record at share 0 and 0.5 | At 0.5: selective wins more bouts and nets more cash than never (low ends above 0), always nets less than selective, 25 to 60% of scouts change take / pass / camp; scouted fights per world reported | Share 0 is today's game and must read as faint as DEPTH_AUDIT_S534 row 36 |
+
+Tuning order if P-B fails, one knob at a time, each rerun on the same worlds: the trial's 1 in 4 (down to 1 in 6), the
+clock's floor (7 to 10 days), the arrival gap. Not the misread share (K5). If a pure call still wins over 60% after
+three reruns, the map goes to the owner as "cut it or keep it".
+
+## 6. Order of work
+1. P-A greybox, then A (record at first sight, one range rule, no exact). 2. P-B and P-F on a greybox with the clock,
+then B and C together (the reads are only a choice with the clock). 3. The got-away list and the region row. 4. P-C,
+alone, later. Each step is done when the menus of section 3 show it in the .exe and the golden path walks one prospect
+from first sight to each of the four endings (signed on the hunch, signed after a trial, lost during a trial, taken by
+the rival and met again as an opponent).
+
+## Sources read today
+`scripts/rules/Knowledge.gd` (whole), `KnowReads.gd` (:1-135), `CardAsk.gd` (whole), `TellWorth.gd` (:1-40),
+`Matchmaking.gd` (:36-42, :120-142), `BoutRead.gd` (:112-136), `HeadCoach.gd` (grep lines), `scripts/state/Roster.gd`
+(:80-160), `KnowWire.gd` (:12-36), `VisitWire.gd` (:40-160), `Leaving.gd` (:40-70, :92-114), `Newcomers.gd` (:1-30, :44-82),
+`Region.gd` (:134-146, :186-193), `HomeJuniors.gd` (:50-90), `Data.gd` (:215-262), `Clock.gd` (:58-63), `Needs.gd` (:61-66),
+`scripts/ui/areas/Fighters.gd` (:184-232), `RecruitPanel.gd` (:36-50, :92-114), `RosterCards.gd` (:312-320, :350-356),
+`modals/Trial.gd` (:1-40), `modals/Interview.gd` (:56-84); grep for every caller named above; v6; both v6 critics' lists;
+docs/KNOWMISREAD2_RESULT.md. No Godot run, no probe run for this map.
+
+---
+
+# THE GREYBOX PROBE RESULT (docs/KNOWSTAKES9_RESULT.md)
+
+# KNOWSTAKES9 result - the prospect decision on a greybox, v9 rules (v8 replayed first)
+
+Status: MEASURED on a greybox, PARTIAL (four bars of five). Nothing in the game changed. Discipline: boxing. S541, 2026-11-23.
+Map: `ops/research/DESIGN_KNOW_STAKES1_V9.md`. Probe: `tools/knowstakes9.gd` (based on `tools/knowstakes8.gd`).
+
+## Verdict (one line)
+v9 passes B1, B2, B3 and B4 for the first time (hunch / look / wait best in 45.4 / 22.2 / 32.4% of decisive decisions; v8 was
+56.4 / 30.8 / 12.8) and lifts decisive decisions from 18.1% to 24.2% of prospects, but B5, the new "how often does the choice
+matter" bar both critics asked for, is only half met: 59.6% on the first half (bar 40, and that pass comes from the trial's
+price), 17.8% on the second (bar 30). The no-clock control missed the bar I set for it (26.9% against under 15%).
+
+## The ruler
+- Greybox, not the game loop. Widths, offsets and reads are `scripts/rules/Knowledge.gd`'s own (`fresh`, `expose`,
+  `hard_spar`, `range_of`, `_offset`). ESTIMATES of the greybox, unchanged from v8: merit = 0.6 x (0.4 body + 0.4 skills +
+  0.2 under fire) + 0.4 x (ceiling - 12); good = merit >= the level (60); a good signing is worth V ($3,000 / $5,000 /
+  $8,000; shares do not move with V); a flop costs the 12-week bond ($3,000) and frees the place in week 8.
+- Population: the same people as KNOWSTAKES8 (seeds 54000.., same truths, same v8 dice), every one different: body,
+  skills, under fire ~ N(60, 7), ceiling = their level + U(4, 22), each with a second name due 7-42 days later. New v9 dice
+  per person, drawn after the v8 ones: the bout day, U(4, 18). "maybes" = the scout brings only names whose first look
+  is within 2 of the level (63,218 drawn to keep 20,000); "all" = no filter.
+- Shared dice (the first critic's question): yes. The rival's day, the bout day and the second name are drawn once per
+  prospect; every call and every arm on that prospect reads the same draws.
+- Three pure calls on every prospect: HUNCH (decide on the first look), LOOK (start the trial; end it the evening the read
+  sits 2 points clear of the level, or the evening before the rival's window opens when there are 2 or more safe days),
+  WAIT (Continue to the prospect's bout when it falls inside the clock, else 7 days; then decide).
+- Arms: the three calls, sign-and-cut, clock-only (sign when the rival likes them), buy-everything (the whole week,
+  whatever the window), selective (the hunch when the first look sits 1.2 clear; else the trial by the day; then the bout
+  if it is still unclear and the bout is before the window), knows the truth. Interval: normal 95%, paired per prospect.
+- One probe fix against v8: the player's estimate weighs their own look and the rival's shown look by how narrow each is
+  (v8's probe took a plain average, so a finished trial still counted the rival's rough look as half). Run with the plain
+  average: flips 24.8% against 25.7% - it is worth about one point of B3.
+
+## Bars (printed by the probe before every run)
+B1 each of hunch / look / wait best in 15-60% of decisive decisions. B2 selective above every arm but the truth, low end
+> 0. B3 selective's reads flip the first-look call 25-60%. B4 the clock, beside the first look, explains less of the truth
+than day 1 of the trial adds. **B5 (new, from both critics):** in at least 40% of ALL prospects the best of the three
+calls beats the worst by more than $250 (the first critic), and in at least 30% it beats the second by $250 or more (the
+second critic). CONTROL: with no clock the hunch must be best in under 15%.
+
+## Final run (20,000 prospects, maybes; cash at V $5,000)
+| | v8 (its own 20,000, docs/KNOWSTAKES8_RESULT.md) | **v9** | v9, no scout filter |
+|---|---|---|---|
+| Decisive decisions | 18.1% | **24.2%** (4,835) | 18.7% |
+| The first look's call is wrong | 27.6% (run 0) | **33.0%** | 12.6% |
+| Best: hunch / look / wait | 56.4 / 30.8 / 12.8 | **45.4 / 22.2 / 32.4** | 75.9 / 8.5 / 15.6 |
+| Selective, mean | $2,782 | $2,563 | $3,264 |
+| Selective minus hunch | +195 | +277 (248..305) | +81 |
+| Selective minus look | +213 | **+32 (19..46)** | +59 |
+| Selective minus wait | +449 | +350 (317..382) | +641 |
+| Selective minus buy-everything | - | +129 (104..154) | +645 |
+| Selective minus sign-and-cut / clock-only | +1,649 / +629 | +1,473 / +519 | +1,976 / +433 |
+| Knows the truth minus selective | +829 | +1,024 | +416 |
+| Selective's reads flip the call | 18.0% | **25.7%** of 10,831 | 25.5% of 3,478 |
+| Lost to the rival: selective / buy-everything | 1.4 / 23.4% | 7.5 / 26.6% | 2.2 / 28.5% |
+| Best beats worst by > $250 / best beats second by >= $250 | 22.7 / 15.4% (run 0) | **59.6 / 17.8%** | 30.7 / 6.5% |
+| B1 / B2 / B3 / B4 / B5 | FAIL / PASS / FAIL / PASS / - | **PASS / PASS / PASS / PASS / FAIL** | FAIL / PASS / PASS / PASS / FAIL |
+
+B2 holds at every V: selective minus look is +31 (21..40) at $3,000 and +35 (15..54) at $8,000.
+R2 of the truth (maybes): the clock alone 0.044, the first look 0.224, the clock beside it adds **0.015**, day 1 of the trial
+adds **0.041**. B4 PASS. The pure LOOK call's trial runs 5.2 days on average and the rival's day comes first in 11.4% of
+them; the pure WAIT call loses 40.5% (it waits for the bout even inside an open window).
+
+## The runs, in order (56 probe runs; 4,000 prospects unless said; one knob at a time)
+0. **v8 replayed by this file's first build** (2,000 of v8's own maybes): 54.2 / 31.7 / 14.1, decisive 19.1%, flips 17.6% -
+   the port reads the same as KNOWSTAKES8 (56.4 / 30.8 / 12.8, 18.1%, 18.0% at 20,000). The v8 arm then left the file
+   (the 500-line rule); `tools/knowstakes8.gd` remains the v8 ruler.
+1. **The v9 structure** (every scouted name boxes inside 4-18 days; the trial runs by the day; the window comes from the
+   rival's look only; the weighted estimate), trial still $125 flat: 54.8 / 16.9 / 28.3. **The wait passes for the first
+   time.** B2 FAIL: always-trial ties the selective player (-14).
+   - First looks 1.5x wider (the first critic's item 1): 50.7 / 17.7 / 31.5, flips 25.0 - but in run 3 it breaks B2.
+     The five lines below were each run against this wider-look line.
+   - The second critic's stronger reads (trial skills 30, open session body 12 / skills 10): 50.6 / 17.1 / 32.3, flips
+     25.5. No bar moves.
+   - The second critic's wider scout filter (within 4): 57.1 / 15.6 / 27.3, decisive 20.9, flips 23.6. Worse on every line.
+   - Trial body read 12 (v8) against 24 (the code): flips 24.4 against 25.0. No reason to change the code.
+   - No bout: 44.9 / 29.1 / 26.0, decisive 18.1. Whole-week trial only: 54.6 / 22.4 / 22.9.
+2. **The trial priced by the day; the rival's offer can be matched; the filter.**
+   - Matching the rival's offer at +$50 a week instead of losing them: hunch 73.5%. B1 FAIL. Refused.
+   - $18 / $36 / $72 a day: best-beats-worst-by-$250 reads 24.6 / 47.2 / 60.8%. **That half of B5 follows the trial's
+     price**, not the decision.
+   - Scout filter within 2: decisive 25.8, first look wrong 35.3%, 44.6 / 20.6 / 34.8. Within 1.5: 27.2, 38.6%.
+3. **The test day becomes day 1 of the trial** (one button less); selective as described under the ruler.
+   - Wider first looks + filter 2: B2 FAIL (-17, a tie with always-trial). **Plain first looks + filter 2: B1, B2, B3, B4
+     PASS** (47.5 / 20.3 / 32.1, +37 over look, flips 25.3).
+4. **Final 20,000** (table above), and what each piece is worth at 8,000:
+   - No bout: 39.8 / 38.1 / 22.1, decisive 19.4. The bout is worth 5 points of decisive and 10 points of the wait.
+   - Whole-week trial only: 49.7 / 24.8 / 25.5, and the selective player loses 16.2% to the rival against 7.5%.
+   - $18 a day ($125 the week): B2 FAIL (selective minus look +10, low end -10). $72 a day ($500, the code's price
+     today): B2 PASS (+92). **$36 a day is the cheapest price at which thinking beats always buying.**
+   - Filter 3: 55.3 / 16.1 / 28.6, decisive 21.2. Filter 1.5: 41.9 / 23.5 / 34.6, decisive 27.0, B2 FAIL (+3).
+   - Selective reading everything inside 2 points: B2 FAIL (-1), flips 17.7. Matching: 68.2 / 20.1 / 11.7, B1 FAIL.
+   - **Control, no clock (20,000): 26.9 / 36.6 / 36.6. FAIL against my bar of 15.** The clock moves the hunch from 27% to
+     45%; the hunch keeps a quarter even with no clock because a read costs money when the first look was right.
+
+## What it says
+1. **The prospect's own bout is what makes waiting a call.** v8's wait was a pause with a small read. A dated, free, public
+   bout gives it something to wait for, and the window says whether there is time.
+2. **A trial you can end any evening is the press-your-luck the mechanic lacked.** It halves the prospects lost in a
+   trial, and it makes the test day redundant: day 1 is the test.
+3. **A scout's hunch is wrong one time in three** (33.0%) with the filter at 2. That is the lever on how often the choice
+   matters; wider ranges and stronger reads are not.
+4. **B5 is the honest gap.** Decisive decisions rose from 18.1% to 24.2%. The $250 measure reads 59.6% only because a
+   full trial costs $252; at $125 a week it reads 26.8%. Best-beats-second reads 17.8% against 30. On this greybox the
+   ceiling is the share of first looks that are wrong (33%) plus the prospects the rival takes: with three calls, two of
+   which are ways of looking again, one call can only stand alone when the other two both go wrong.
+5. **Thin margins, said plainly:** B3 passes by 0.7 of a point (25.7 against 25); B2 over always-trial by $32 (low end
+   $19). Both are sensitive to the trial's price and to how the selective player is written.
+
+## What is next
+- The map goes to two fresh critics with this page (`CRITIC_KNOW_STAKES1_V9_BRIEF.md`).
+- The build's own probe re-runs B1-B5 on the real loop (KNOWBOTS worlds) before any menu, with P-F from v7.
+- If the critics hold B5's second half as a bar: the next lever is a fourth call that is not a look (the map's section 6
+  names it), not another read strength.
+
+## Tests
+None run: no game file changed. The probe ran 56 times through godot_slot (`--who KNOWSTAKES9`); the first run waited 21
+minutes behind a RED memory gate, the rest ran at once.
