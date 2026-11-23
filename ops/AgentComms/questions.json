@@ -8782,7 +8782,7 @@
       "answer": "Yes, make it bite",
       "note": null,
       "answered_at": "2026-11-23T01:29:11Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "comment_only": false
     },
     {
@@ -8800,7 +8800,7 @@
       "answer": "Yes, build it",
       "note": null,
       "answered_at": "2026-11-23T02:13:47Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "comment_only": false
     },
     {
@@ -8815,10 +8815,11 @@
       "attach": [
         "AgentComms/board_attach/Q-S294-308_0_HOSTPROBE2_RESULT.md"
       ],
-      "answer": null,
+      "answer": "Yes, keep it",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-23T09:05:56Z",
+      "seen_by_claude": true,
+      "comment_only": false
     },
     {
       "id": "Q-S294-309",
@@ -8832,6 +8833,137 @@
       "attach": [
         "research/FIGHTBIZ1_COMPARE.md"
       ],
+      "answer": "Yes, start",
+      "note": null,
+      "answered_at": "2026-11-23T09:20:15Z",
+      "seen_by_claude": true,
+      "comment_only": false
+    },
+    {
+      "id": "Q-S294-310",
+      "asked": "2026-11-23T09:34:54.204413+00:00",
+      "session": "S294",
+      "text": "2D picture round beside the 3D: keep it as a second view (1.5-2 days for boxing), or drop it?",
+      "options": [
+        "Keep, build the full set",
+        "Card game only",
+        "Drop it"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-310_0_contact_sheet.png"
+      ],
+      "answer": "Keep, build the full set",
+      "note": null,
+      "answered_at": "2026-11-23T09:54:48Z",
+      "seen_by_claude": true,
+      "comment_only": false
+    },
+    {
+      "id": "Q-S294-311",
+      "asked": "2026-11-23T09:35:16.874384+00:00",
+      "session": "S294",
+      "text": "An amateur costs $250/week, earns the club $112. Which fixes it?",
+      "options": [
+        "Day job, few stipends",
+        "Bouts pay by rank",
+        "Wins bring members"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-311_0_COACHDEEP2_RESULT.md"
+      ],
+      "answer": "Bouts pay by rank",
+      "note": null,
+      "answered_at": "2026-11-23T09:54:38Z",
+      "seen_by_claude": true,
+      "comment_only": false
+    },
+    {
+      "id": "Q-S294-312",
+      "asked": "2026-11-23T12:35:52.852369+00:00",
+      "session": "S294",
+      "text": "Card game plan: sign it so card rounds restart? Two-minute page at the top.",
+      "options": [
+        "Sign it",
+        "Change it"
+      ],
+      "attach": [
+        "research/CARDGAME_PREPROD_S540.md"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-313",
+      "asked": "2026-11-23T12:35:53.486309+00:00",
+      "session": "S294",
+      "text": "Card game: you play every weekly build, even before balance is finished?",
+      "options": [
+        "Yes",
+        "No"
+      ],
+      "attach": [],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-314",
+      "asked": "2026-11-23T12:35:54.093099+00:00",
+      "session": "S294",
+      "text": "Card art order after boxing+BJJ: wrestling, kickboxing, judo, karate, sambo, MMA last?",
+      "options": [
+        "Yes",
+        "Change order"
+      ],
+      "attach": [],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-315",
+      "asked": "2026-11-23T12:35:54.941943+00:00",
+      "session": "S294",
+      "text": "Card game Early Access with four arts, the rest as free updates?",
+      "options": [
+        "Yes",
+        "No"
+      ],
+      "attach": [],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-316",
+      "asked": "2026-11-23T12:35:55.509877+00:00",
+      "session": "S294",
+      "text": "May a card art have a bad matchup like real sport, never worse than 40-60?",
+      "options": [
+        "Yes",
+        "No"
+      ],
+      "attach": [],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-317",
+      "asked": "2026-11-23T12:35:56.054447+00:00",
+      "session": "S294",
+      "text": "Try the Expedition 33 timed guard once, optional, at the three-art build?",
+      "options": [
+        "Yes",
+        "No"
+      ],
+      "attach": [],
       "answer": null,
       "note": null,
       "answered_at": null,

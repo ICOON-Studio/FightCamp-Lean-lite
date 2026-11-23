@@ -8,9 +8,9 @@ Updated 2026-11-23 by claude S294.
 
 ## Now
 
-**S539 — ?** *(claude)*
+**S540 — ?** *(claude)*
 
-S539 (Opus): collected S538's runs (LEDGERPROBE1 FAIL -> contract tab dropped; TURNPRO15 map v15 committed, probe still running b4/b5; STEPPAY4 gate 8/10 -> STEPPAY5 finishing on its branch). Built: pro weigh-in miss answers (owner, 78cff7ff2), Strong/OK/Bad grade words (owner, f9a5bc0c7), opponents adjust shown (PLANREADSHOW1 983016e51), mood in the win read (MOODREAD1 fe72931fd), false morale line cut. Probes: combo counter REPEATBITE1+2 FAIL (Q-307), club show v4 FAIL 2/10 + v5 FAIL 3/9 (Q-308 favour rate), deep coaches v1 PASS 5/5 then owner's 24 grilling answers (COACHDEEP_GRILL_S539.md) -> COACHDEEP2 running. Knowledge v7: Kalli 7/6/6, Dola 8/7/8 (play under 8 -> v8). Card game: owner 'ok' to CARDGAME_PLAN_S539 (one line, 2-art slice, play link) and 'written by arena,dola,ludo, claude coordinates'. Reference reads: MMA Empire update, Fight Business demo (2D pictures test PICS2D1 running; restyle Q-309). Matt Pocock skills installed.
+S540 (Opus): answered the board (Q-306/307 combo counter BUILT cf5dfe536: spam -6.7 v counter-puncher; Q-308 club show v6 FAIL 5/9 -> v7 running; Q-309 restyle: Dola's style sheet rendered, pages B/C/D re-queued; Q-310 'Keep, build the full set' -> PICS2D2; Q-311 'Bouts pay by rank' -> coaches v3 FAIL 7/10). Merged STEPPAY5 (steps 10/10). TURNPROBE15 PASS 17/17 but critics 6/6/6 (Opus code-checked), Kalli 6/6/6, Dola 9/9/8 -> v16 map + probe (batch c15). Knowledge v8: Kalli 6/6/7. Fixed: lean chip words, MODE twice, BoutRead cache key. Card game: r6 merged as a base (page broken) -> CARDFIX6B + GRAPPLEMAP1 on Arena; owner asked for AAA pre-production by Fable, genre open but already studied -> CARDPREPROD1. Regression: p4p_visit red after STEPPAY5 -> P4PEVID1 with the two nightly reds.
 
 ## Next
 
@@ -428,3 +428,4 @@ LATER IN S500 (main 20f803461, after his two notes on the fight): (a) his "can y
 |  |  | **S537**  |  |  | *none yet* | Credit jobs via Agent SDK (claude -p billed the subscription); knee bend = our foot pin + glove stage (off), owner picked ActionForge's legs (shipped); card game scope rounds 1-3 + owner interview + reference games read; guard v9 + DEPTH35 dropped; board 49 -> 11; STEPPAY3/DMGFIX merged; weight choices cut. |
 |  |  | **S538**  |  |  | *none yet* | Result page v2, office goals + sheets, plan chart bet/uses/save-load built from owner answers; credit ran out -> Code Mode tabs on the subscription; coach modules removed (probe FAIL); misread sized; card game: kickboxing, ladders/training asked, market research by John/Dola; cross closed as shipped. |
 |  |  | **S539**  |  |  | *none yet* | Weigh-in miss answers, Strong/OK/Bad, opponents adjust shown, mood read fixed; combo counter and club show probes FAIL; deep coaches grilled (24 answers) and v2 running; card game plan (free seats); MMA Empire + Fight Business read; 2D picture test running. |
+|  |  | **S540**  |  |  | *none yet* | Combo counter built; footwork merged 10/10; pro v15 probe PASS but critics 6/6/6 -> v16; coaches v3 7/10; club show v6 5/9 -> v7; card r6 broken page -> fix round + GrappleMap; card game AAA pre-production plan by Fable (owner); p4p regression found -> fix running. |

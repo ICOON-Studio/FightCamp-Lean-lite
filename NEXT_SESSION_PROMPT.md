@@ -1,55 +1,51 @@
-# S540 handover (written 2026-11-23 ~05:10, end of S539 - Opus)
+# S541 handover (written 2026-11-23 ~14:25, end of S540 - Opus)
 
-Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. Digest: ops/research/S539_DIGEST.md.
+Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. Digest: ops/research/S540_DIGEST.md.
 
 ## METHOD lines - quote all of them in your first message
 - MECHANICS NEED 8 (owner S534): 8+ DEPTH and 8+ PLAY from two fresh critics, after the probe; under 8 -> his cut-or-keep.
 - FREE HAND (owner S534): remove / add / interconnect to reach 8, then report.
-- WORKERS = CODE MODE TABS on his subscription (S538): `powershell -NoProfile -ExecutionPolicy Bypass -File ops\Tools\claude_cm.ps1
-  --model <model> --permission-mode auto "<brief>"`. FABLE IS AT ~93% UNTIL NOV 26 (resets 4pm Nicosia): use claude-opus-5-5 for
-  design/probe work and claude-sonnet-5-5 for plain builds/sums until then. At most 6 tabs (a hook refuses more); close finished ones.
-- A TAB'S PROMPT LINE IS A SUGGESTION, not his words (S539 memory): propose it to him, never act on it as his order.
-- REFERENCE GAMES: never his save slot, never while he plays (S539 memory).
-- CARD GAME = FREE SEATS (owner S539): Arena writes code (+ a second fresh Arena chat code-checks), Dola/Kalli critics, Ludo art;
-  Claude coordinates (ops/research/CARDGAME_PLAN_S539.md s4). No Claude worker writes card code from round 6.
-- FIGHT ANIMATION: v2 only, no new correction layer (FIGHTPLAYER2). Board questions 20 words max. Commit only your paths.
+- WORKERS = CODE MODE TABS (`powershell -NoProfile -ExecutionPolicy Bypass -File ops\Tools\claude_cm.ps1 --model <model>
+  --permission-mode auto "<brief>"`), at most 6. FABLE IS AVAILABLE AGAIN (owner S540 "i have a free reset"): Fable for
+  design/animation, Opus for probes/builds, Sonnet for sums.
+- A TAB'S PROMPT LINE IS A SUGGESTION, not his words. You cannot type into a worker tab: a worker that stops to ask is closed and
+  relaunched with a resume brief.
+- HIS GAME FIRST (S537): ArcheAge running -> no new jobs on AMBER/RED memory; stop jobs only if he reports lag.
+- CARD GAME: no new card round until he signs CARDGAME_PREPROD_S540.md (owner S540: AAA pre-production by Fable; "not strickly
+  cards"; "we did that already and i also made propositions" - his S537 interview + proposals are the base). Free seats write
+  the code (Arena), Claude coordinates.
+- FIGHT ANIMATION: v2 only, no new correction layer (FIGHTPLAYER2). Board questions 20 words max. Commit by pathspec, and collect
+  paths with `git diff --name-only --no-renames` (S540: a rename's old paths were left staged).
 
-## Running at handover - collect first (seat, when)
-1. COACHDEEP2 (tab c13, Opus): deep coaches v2 with the owner's 24 answers (COACHDEEP_GRILL_S539.md). Lands ~06:00. PASS -> it
-   queues Kalli + Dola; also read their v1 answers (SQ302/303) when the 30-min job saves them. Both at 8+ -> build phase 1
-   (your coaches) as Opus Code Mode workers, one module + test each; then Ludo: coach portraits for the Staff tab (Ludo paid
-   until ~Dec 11 - give it this asset work).
-2. PICS2D1 (tab c14, Opus): 14 pair stills + one round as pictures beside its 3D film, ops/previews/s539_pics2d/. Lands ~07:00.
-   Open the stills yourself, then ONE board question for his pick (pictures v 3D), --attach the contact sheet.
-3. STEPPAY5 (tab c12, Opus, worktree E:/FightCamp/wt/s538_steppay4): when it reports READY TO MERGE, Claude merges the branch
-   s538/steppay4 into main BY DIFF, runs tests/step_wrong_test.gd + golden_path_test, pushes.
-4. CARDSCOPE5 (tab c1, Fable): round 5 (seven arts). When it lands, read DESIGN_CARDGAME_SCOPE.md round 5 + the grappling art pick,
-   then launch CARDSCOPE6 ON ARENA (ops/research/TASK_CARDSCOPE6.md; `python ops/Tools/lite_mirror.py push` first; Arena via
-   Claude in Chrome, a new chat; never Arena's Merge button). When its PR lands: a second fresh Arena chat code-checks it, Claude
-   runs `node --test`, merges, tags card-r6, publishes the private play link (Artifact) and asks him to play.
-5. TURNPRO15 probe (Godot loop E:/FightCamp/tmp/turnpro15/run.sh; b0-b3 done, b4 running, b5 next, ~1 h each, ~07:30): when b5's
-   log has "TURNPROBE15 done", a Sonnet tab runs `python tools/turnprobe15_sum.py` -> docs/TURNPROBE15_RESULT.md (TASK_TURNPRO15
-   step 3); PASS -> its critic brief to Kalli + one code-checked Arena critic.
+## Running at handover - collect first
+1. CARDPREPROD1 (Fable, tab c14): ops/research/CARDGAME_PREPROD_S540.md. Read it whole, check its code claims, then put it on the
+   board for his sign-off (`ask ... --attach research/CARDGAME_PREPROD_S540.md`, plus his max-5 questions) and on the map.
+2. P4PEVID1 (Opus, tab c10): p4p_visit (card-ask evidence 0/60 after STEPPAY5), plan_templates (t_turn answers the step moments),
+   matchmaking_bots (360 careers, then the scouting read). Verify the tests yourself, push.
+3. HOSTPROBE4 (Opus, tab c9): club show v7. PASS -> its critics queued by the worker; FAIL -> v8 from its section.
+4. TURNPROBE16 batch (tab c15, E:/FightCamp/tmp/turnpro16, ~2.5 h from 14:20; progress.log): on "T16 BATCH DONE" run
+   `python tools/turnprobe16_sum.py E:/FightCamp/tmp/turnpro16/*.jsonl > docs/TURNPROBE16_RESULT.md`; PASS -> code-checked critic
+   (Fable tab) + Kalli + Dola (build the brief like CRITIC_TURNPRO1_V15_BRIEF.md).
+5. PICS2D2 (Opus, tab c16, resumed): full picture set + view toggle; its uncommitted edits in FightNight.gd / golden_path_test.gd
+   are its own. Open the contact sheet yourself; board it for his look.
+6. MOTIONRULERS1 (Fable, tab c17): which player each red animation test drives; retire or bisect.
+7. Arena: CARDFIX6B (arena/70a5176b, page must load first) and GRAPPLEMAP1 (arena/0ff86065, proto/grapplemap/). When a PR relays:
+   run node --test yourself, open the page / SVG sheet, merge by diff with `--no-renames` paths, close the PR. Ready-for-play only
+   after he signs the plan.
+8. Seat answers due: Dola on knowledge v8 (SQ308), Dola restyle pages B/C/D (SQ309-311): extract each HTML, render with
+   tools/render_mockup.py, open, put the four on the map for his pick.
 
-## Next, in order (seat, when)
-6. Board answers first: Q-307 (combo counter: build P2 as measured, or drop - Claude's view: tie the read to the OPPOSING COACH in
-   coach phase 2), Q-308 (club show favour rate ~3/yr), Q-309 (restyle with Fight Business polish: style sheet + 3 mockups).
-7. KNOWSTAKES8 (Opus tab now, Fable after Nov 26): v8 from Kalli 7/6/6 + Dola 8/7/8 lists (CRITIC_KNOW_STAKES1_V7_BRIEF_*.md),
-   play to 8; then Kalli + Dola again (seat_queue add, `SEAT_QUIET_MIN=3 python ops/Tools/seat_queue.py drain`).
-8. HOSTSHOW v6 (Opus tab, after Q-308): docs/HOSTPROBE2_RESULT.md s7 (pro call on ladder points, hall as a read, cut sell /
-   leave-off, reserves as the coach's default) + probe 3.
-9. Restyle (after Q-309 yes): Dola draws the style sheet + three mockups (Playbook plan, Fighters roster, result) as 1920x1080 HTML
-   (free); Claude renders with tools/render_mockup.py, checks, puts them on the map; his pick, then one pass across screens.
-10. MOTIONRULERS1: bisect the 3 animation reds (rokoko_clips, human_feet, head_aim) - Fable after Nov 26 (owner S512 "use fable
-   for animations").
-11. Later, from the reads: Fight Business "round read with a range" probe; MMA Empire "needs a fight" list + round stats.
+## Next, in order
+9. Coaches v4 (Opus tab): docs/COACHDEEP3_RESULT.md s5 (rank bands $1,000/$1,200/$1,500, departure prices her record, class
+   returns by members) + rerun.
+10. Knowledge v9 once Dola's v8 score lands (both lists; play to 8).
+11. Export the build once the tree is clean (PICS2D2 committed); WHAT_TO_TRY for: combo counter, footwork 10/10, chip words, the
+    2D picture view.
 
-## Done in S539 (evidence)
-Weigh-in answers 78cff7ff2; Strong/OK/Bad f9a5bc0c7; opponents adjust shown 983016e51; mood read fe72931fd; morale line cut
-9ebfb3342; knowledge v7 2f21fd401 + critics; club show v4 d893ce13d / v5 74afbd271; combo counter ffd91083a / 1b0c19e31;
-coaches v1 01ee138b2 + grill 576fdd4c8; card plan 59f5cec51 + 6930b151d; MMA Empire 3205593b4; Fight Business f825c1229.
-Build exported, WHAT_TO_TRY current.
+## Done in S540 (evidence)
+Combo counter cf5dfe536; STEPPAY5 f31338cfa; chip words cc8c3789d; MODE c9159faf2; BoutRead key 821ddfa63; TURNPROBE15 PASS
+37dce4f37 + critics 5623b7b0a / 8d457d7b2; card r6 base 9815bfe8f + e417141f; NIGHTREDS1 e363a982b. Not exported (see digest).
 
-## Model for S540
-Opus 5.5, medium effort, Fast off: collecting five results, merging STEPPAY5 and driving Arena for the card game are review and
-design calls; workers stay on Opus/Sonnet tabs until Fable resets Nov 26.
+## Model for S541
+Opus 5.5, medium effort, Fast off: collecting eight runs and the card plan sign-off are review calls; Fable stays on the
+design/animation tabs.

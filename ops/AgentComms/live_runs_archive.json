@@ -24379,6 +24379,47 @@
    "eta": "about 1.5 h",
    "note": "plan_templates<-STEPPAY3, matchmaking_bots<-DMGCLASS2; e363a982b -> P4PEVID1",
    "landed": "2026-11-23T13:54"
+  },
+  {
+   "id": "COACHDEEP3",
+   "status": "landed",
+   "started": "2026-11-23T12:40",
+   "title": "Deep coaches v3: amateur bouts pay by rank (Q-311)",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (Code Mode tab c11)",
+   "eta": "about 3 h",
+   "note": "FAIL 7/10 139fa7f8c -> v4 (rank bands up, departure prices her record, class returns by members)",
+   "landed": "2026-11-23T14:20"
+  },
+  {
+   "id": "CARDPREPROD1",
+   "status": "landed",
+   "started": "2026-11-23T14:40",
+   "title": "Card game pre-production plan (AAA prep, art-by-art roadmap)",
+   "seat": "claude",
+   "agent": "claude-fable-5-2 (Code Mode tab c14)",
+   "eta": "about 1 h",
+   "note": "S540: owner rulings in the brief; no new genre study | S541: landed 235394ed4; on the board Q-312"
+  },
+  {
+   "id": "MOTIONRULERS1",
+   "status": "landed",
+   "started": "2026-11-23T14:20",
+   "title": "3 animation tests red: v2 or retired path, then bisect",
+   "seat": "claude",
+   "agent": "claude-fable-5-2 (Code Mode tab c17)",
+   "eta": "about 2 h",
+   "note": "S540 | S541: landed f92679f90"
+  },
+  {
+   "id": "HOSTPROBE4",
+   "status": "landed",
+   "started": "2026-11-23T13:35",
+   "title": "Club show v7: pro line from real careers, hall over the range of nights",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (Code Mode tab c9)",
+   "eta": "about 2 h",
+   "note": "S540 | S541: landed 41099ec2d FAIL 5/9 -> HOSTPROBE5"
   }
  ]
 }

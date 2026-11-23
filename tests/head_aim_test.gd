@@ -1,4 +1,7 @@
 extends SceneTree
+## OUT OF THE NIGHTLY LIST (S540 MOTIONRULERS1): this ruler measures the OLD fight player (a plain FightStage, no
+## `-- fightplayer2`), where no fix layer may be added (CLAUDE.md item 8). Its aim switch does nothing on v2 (v2/PunchAim.gd is another layer); v2's aim is read by tests/player2_test.gd LANDS.
+## Still runs by hand as the old player's control arm. docs/MOTIONRULERS1_RESULT.md.
 ## HEADAIM2B (S417): a ruler that holds, and joins.
 ## Both noaim and aim-on measured in ONE process for deterministic comparison.
 ##   python ops/Tools/godot_slot.py run --who qwen -- <godot.exe> --headless --audio-driver Dummy --path . --script res://tests/head_aim_test.gd

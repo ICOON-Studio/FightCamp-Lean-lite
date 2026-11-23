@@ -1,6 +1,6 @@
 # TASK MOTIONRULERS1 - main session (animation order): three fight-motion rulers red after S503/S504
 
-Status: HELD (nightly review 2026-11-17, Claude). Discipline: boxing. Model: main session (Opus) or Ziva - fight motion.
+Status: DONE S540 (the three rulers measure the old player: out of the nightly list; player2_test in, with a FLOOR row - docs/MOTIONRULERS1_RESULT.md). Was OPEN (S540: Fable reset, owner "keep going"; was HELD (nightly review 2026-11-17, Claude). Discipline: boxing. Model: main session (Opus) or Ziva - fight motion.
 Source: ops/AgentComms/nightly/suite_2026-11-17.log (commit a05c139ea). All three were green at the 2026-11-16 run (859acea5) and in S502's digest.
 
 ## What is red
@@ -12,6 +12,13 @@ Source: ops/AgentComms/nightly/suite_2026-11-17.log (commit a05c139ea). All thre
 - 92e253e1b (S503 day 8, "a step lifts, travels, sets down": scripts/fight3d/BoxerFootwork.gd +43, RingFeet.gd): the strafe now travels less inside the clip and slides on a planted foot; the lifted step can set a foot 4 cm under the canvas for a frame; leg snaps on rk_guard_b. Fits rokoko_clips + human_feet.
 - 96196cc48 (S503, "a paw and a feint on their own clocks": scripts/fight3d/GuardLife.gd +57): the paw/feint breaks the settled guard often, so boxer 0 had 5 settled frames out of 1320. Fits guard_knee.
 - Less likely: 519bbd165 (S504 RingFeet/RingPlace one-line changes with the hit-stop).
+
+
+## S540 first step (the METHOD line: fight animation = FIGHTPLAYER2, no new correction layer in scripts/fight3d)
+Today's nightly reds are rokoko_clips_test, human_feet_test, head_aim_test (guard_knee_test is green again). FIRST establish
+which player each test drives: the shipped v2 player (scripts/fight3d/v2/) or the retired path. A test of the retired path is
+retired (moved out of the nightly list with a line saying why), not patched. A test of v2 is bisected (git bisect over the
+range since its last green nightly) and fixed at the cause in v2 - never a new correction layer on top. Visual gate as above.
 
 ## Contract
 OWNS: scripts/fight3d/BoxerFootwork.gd, scripts/fight3d/RingFeet.gd, scripts/fight3d/GuardLife.gd

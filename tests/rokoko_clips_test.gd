@@ -1,4 +1,7 @@
 extends SceneTree
+## OUT OF THE NIGHTLY LIST (S540 MOTIONRULERS1): this ruler measures the OLD fight player (a plain FightStage, no
+## `-- fightplayer2`), where no fix layer may be added (CLAUDE.md item 8). It reads the opt-in `-- rokoko` route, off in the game since S432; v2 does not play it.
+## Still runs by hand as the old player's control arm. docs/MOTIONRULERS1_RESULT.md.
 ## S399 ROKOKO2 (operator S399: "these animations are good why you removed them and changed them with crap"): the Rokoko
 ## captured jab, cross and guard play in the fight, ON, as cleanly as the source take.
 ##   1. the fight picks them: the guard is the captured one, a plain jab / cross is a captured one (a big shot, a miss, a

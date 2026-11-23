@@ -3,14 +3,14 @@
  "updated": "2026-11-23",
  "author": "claude S294",
  "now": {
-  "id": "S539",
+  "id": "S540",
   "owner": "claude",
   "updated": "2026-11-23",
-  "summary": "S539 (Opus): collected S538's runs (LEDGERPROBE1 FAIL -> contract tab dropped; TURNPRO15 map v15 committed, probe still running b4/b5; STEPPAY4 gate 8/10 -> STEPPAY5 finishing on its branch). Built: pro weigh-in miss answers (owner, 78cff7ff2), Strong/OK/Bad grade words (owner, f9a5bc0c7), opponents adjust shown (PLANREADSHOW1 983016e51), mood in the win read (MOODREAD1 fe72931fd), false morale line cut. Probes: combo counter REPEATBITE1+2 FAIL (Q-307), club show v4 FAIL 2/10 + v5 FAIL 3/9 (Q-308 favour rate), deep coaches v1 PASS 5/5 then owner's 24 grilling answers (COACHDEEP_GRILL_S539.md) -> COACHDEEP2 running. Knowledge v7: Kalli 7/6/6, Dola 8/7/8 (play under 8 -> v8). Card game: owner 'ok' to CARDGAME_PLAN_S539 (one line, 2-art slice, play link) and 'written by arena,dola,ludo, claude coordinates'. Reference reads: MMA Empire update, Fight Business demo (2D pictures test PICS2D1 running; restyle Q-309). Matt Pocock skills installed.",
-  "next_action": "S540: see NEXT_SESSION_PROMPT.md (collect COACHDEEP2, PICS2D1, STEPPAY5, CARDSCOPE5, TURNPRO15; launch CARDSCOPE6 on Arena; KNOW v8; answers Q-307/308/309).",
-  "last_working_commit": "cd26f82a1",
-  "verified_playable": "S539 build exported (Builds/FightCamp.exe): pro weigh-in miss pop-up played on the hidden desktop (stills ops/previews/s539_weighmiss); golden_path green",
-  "incomplete_blocked": "COACHDEEP2, PICS2D1, STEPPAY5, CARDSCOPE5, TURNPRO15 probe still running (see NEXT_SESSION_PROMPT.md)",
+  "summary": "S540 (Opus): answered the board (Q-306/307 combo counter BUILT cf5dfe536: spam -6.7 v counter-puncher; Q-308 club show v6 FAIL 5/9 -> v7 running; Q-309 restyle: Dola's style sheet rendered, pages B/C/D re-queued; Q-310 'Keep, build the full set' -> PICS2D2; Q-311 'Bouts pay by rank' -> coaches v3 FAIL 7/10). Merged STEPPAY5 (steps 10/10). TURNPROBE15 PASS 17/17 but critics 6/6/6 (Opus code-checked), Kalli 6/6/6, Dola 9/9/8 -> v16 map + probe (batch c15). Knowledge v8: Kalli 6/6/7. Fixed: lean chip words, MODE twice, BoutRead cache key. Card game: r6 merged as a base (page broken) -> CARDFIX6B + GRAPPLEMAP1 on Arena; owner asked for AAA pre-production by Fable, genre open but already studied -> CARDPREPROD1. Regression: p4p_visit red after STEPPAY5 -> P4PEVID1 with the two nightly reds.",
+  "next_action": "S541: see NEXT_SESSION_PROMPT.md (collect CARDPREPROD1 -> owner sign-off; P4PEVID1; HOSTPROBE4; TURNPROBE16 sum; PICS2D2; MOTIONRULERS1; CARDFIX6B + GRAPPLEMAP1 on Arena; coaches v4; export once the tree is clean).",
+  "last_working_commit": "db29d2b7e",
+  "verified_playable": "S539 build is the last export; S540 not exported (PICS2D2 had uncommitted view edits in the tree).",
+  "incomplete_blocked": "CARDPREPROD1, P4PEVID1, HOSTPROBE4, TURNPROBE16 batch, PICS2D2, MOTIONRULERS1, CARDFIX6B, GRAPPLEMAP1 running at handover",
   "next_acceptance": "each running job collected by its own bar (probe verdicts, STEPPAY5 READY TO MERGE + tests, PICS2D1 owner pick)",
   "awaiting_operator": "Q-S294-307 combo counter build/drop; Q-S294-308 club show favour rate; Q-S294-309 restyle; PICS2D1 pick when it lands"
  },
@@ -2327,6 +2327,11 @@
    "id": "S539",
    "date": "2026-11-23",
    "summary": "Weigh-in miss answers, Strong/OK/Bad, opponents adjust shown, mood read fixed; combo counter and club show probes FAIL; deep coaches grilled (24 answers) and v2 running; card game plan (free seats); MMA Empire + Fight Business read; 2D picture test running."
+  },
+  {
+   "id": "S540",
+   "date": "2026-11-23",
+   "summary": "Combo counter built; footwork merged 10/10; pro v15 probe PASS but critics 6/6/6 -> v16; coaches v3 7/10; club show v6 5/9 -> v7; card r6 broken page -> fix round + GrappleMap; card game AAA pre-production plan by Fable (owner); p4p regression found -> fix running."
   }
  ],
  "blocked_on_operator": [],
@@ -5245,7 +5250,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-23 05:11 board_sync",
+  "updated": "2026-11-23 14:10 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5396,40 +5401,40 @@
   },
   "working_now": [
    {
-    "title": "Turning pro v15: fix the favour, card honesty, name-chaser bars",
-    "who": "claude-fable (API credit, sdk_run.py)",
-    "started": "2026-11-22T21:00",
-    "run": "TURNPRO15"
+    "title": "Turning pro v16: spendable favour, map + probe",
+    "who": "claude-opus-5-5 (Code Mode tab c6)",
+    "started": "2026-11-23T12:05",
+    "run": "TURNPRO16"
    },
    {
-    "title": "Footwork: the wrong style punishes the step",
-    "who": "claude-fable (API credit, sdk_run.py)",
-    "started": "2026-11-22T21:00",
-    "run": "STEPPAY4"
+    "title": "Deep coaches v3: amateur bouts pay by rank (Q-311)",
+    "who": "claude-opus-5-5 (Code Mode tab c11)",
+    "started": "2026-11-23T12:40",
+    "run": "COACHDEEP3"
    },
    {
-    "title": "Card game round 5: each art plays differently, readable holds",
-    "who": "claude-fable-5-2 (Code Mode tab c1)",
-    "started": "2026-11-23T03:15",
-    "run": "CARDSCOPE5"
+    "title": "2D pictures: the full boxing set as a second view (Q-310)",
+    "who": "claude-opus-5-5 (Code Mode tab c8)",
+    "started": "2026-11-23T12:50",
+    "run": "PICS2D2"
    },
    {
-    "title": "Deep coaches v2: owner answers + probe",
-    "who": "claude-opus-5-5 (Code Mode tab c13)",
-    "started": "2026-11-23T04:50",
-    "run": "COACHDEEP2"
+    "title": "Club show v7: pro line from real careers, hall over the range of nights",
+    "who": "claude-opus-5-5 (Code Mode tab c9)",
+    "started": "2026-11-23T13:35",
+    "run": "HOSTPROBE4"
    },
    {
-    "title": "2D picture test: 14 stills + one round v its 3D film",
-    "who": "claude-opus-5-5 (Code Mode tab c14)",
-    "started": "2026-11-23T04:50",
-    "run": "PICS2D1"
+    "title": "Card r6b: page loads, title at the shot, rivals by rung, failing bars",
+    "who": "arena (arena/70a5176b-fightcamp-lean-lite)",
+    "started": "2026-11-23T13:50",
+    "run": "CARDFIX6B"
    },
    {
-    "title": "Footwork: finish STEPPAY4, ready to merge",
-    "who": "claude-opus-5-5 (Code Mode tab c12)",
-    "started": "2026-11-23T04:50",
-    "run": "STEPPAY5"
+    "title": "Fix 3 regressions: card-ask evidence, plan_templates, matchmaking_bots",
+    "who": "claude-opus-5-5 (Code Mode tab c10)",
+    "started": "2026-11-23T14:05",
+    "run": "P4PEVID1"
    }
   ],
   "next": [
@@ -5811,6 +5816,31 @@
   },
   "done_recently": [
    {
+    "title": "Combo counter built (Q-307)",
+    "who": "claude-opus-5-5",
+    "when": "2026-11-23"
+   },
+   {
+    "title": "Footwork STEPPAY5 merged 10/10",
+    "who": "claude-opus-5-5",
+    "when": "2026-11-23"
+   },
+   {
+    "title": "Turning pro v15 probe PASS 17/17",
+    "who": "claude-opus-5-5",
+    "when": "2026-11-23"
+   },
+   {
+    "title": "Lean chip + MODE fixes",
+    "who": "claude-opus-5-5",
+    "when": "2026-11-23"
+   },
+   {
+    "title": "Win-chance cache fix",
+    "who": "claude-opus-5-5",
+    "when": "2026-11-23"
+   },
+   {
     "title": "Deep coaches v1 probe",
     "who": "claude-opus-5-5 (Code Mode)",
     "when": "2026-11-23"
@@ -5848,26 +5878,6 @@
    {
     "title": "Host a club show: code check of map v4 + greybox probe",
     "who": "claude-opus-5-5 (Code Mode tab c4)",
-    "when": "2026-11-23"
-   },
-   {
-    "title": "Pro weigh-in miss: their corner answers",
-    "who": "claude",
-    "when": "2026-11-23"
-   },
-   {
-    "title": "Strong / OK / Bad replace Beats it / Works / Walks into it",
-    "who": "claude",
-    "when": "2026-11-23"
-   },
-   {
-    "title": "Win read moves with mood (MOODREAD1)",
-    "who": "claude-opus-5-5",
-    "when": "2026-11-23"
-   },
-   {
-    "title": "Knowledge v7 map + critics",
-    "who": "claude-fable-5-2",
     "when": "2026-11-23"
    }
   ],
@@ -6029,6 +6039,30 @@
     {
      "text": "Coach v2: FAIL on money",
      "who": "claude"
+    },
+    {
+     "text": "Combo counter built",
+     "who": "claude"
+    },
+    {
+     "text": "Footwork merged 10/10",
+     "who": "claude"
+    },
+    {
+     "text": "Pro v15 probe PASS, critics 6",
+     "who": "claude"
+    },
+    {
+     "text": "Coaches v3: FAIL 7/10",
+     "who": "claude"
+    },
+    {
+     "text": "Club show v6: FAIL 5/9",
+     "who": "claude"
+    },
+    {
+     "text": "Card r6 merged (page broken)",
+     "who": "claude"
     }
    ],
    "now": [
@@ -6065,27 +6099,35 @@
      "who": "claude"
     },
     {
-     "text": "Combo counter build (c1)",
-     "who": "claude"
-    },
-    {
-     "text": "Club show v6 probe (c2)",
-     "who": "claude"
-    },
-    {
-     "text": "Knowledge v8 (c3)",
-     "who": "claude"
-    },
-    {
-     "text": "Pro v15 critics: K+D+Opus",
-     "who": "claude"
-    },
-    {
-     "text": "Card r6 on Arena",
-     "who": "claude"
-    },
-    {
      "text": "Restyle: Dola style sheet",
+     "who": "claude"
+    },
+    {
+     "text": "Card plan: AAA prep (Fable)",
+     "who": "claude"
+    },
+    {
+     "text": "3 regressions fix (P4PEVID1)",
+     "who": "claude"
+    },
+    {
+     "text": "Club show v7 (c9)",
+     "who": "claude"
+    },
+    {
+     "text": "Pro v16 probe batch",
+     "who": "claude"
+    },
+    {
+     "text": "2D pictures full set",
+     "who": "claude"
+    },
+    {
+     "text": "Anim reds (Fable)",
+     "who": "claude"
+    },
+    {
+     "text": "Card fix r6b + GrappleMap",
      "who": "claude"
     }
    ],
@@ -6355,11 +6397,23 @@
      "who": "claude"
     },
     {
-     "text": "Your pick: 2D pictures (Q-310)",
+     "text": "Your sign-off: card plan",
      "who": "claude"
     },
     {
-     "text": "Your call: boxer money (Q-311)",
+     "text": "Coaches v4",
+     "who": "claude"
+    },
+    {
+     "text": "Knowledge v9 after Dola",
+     "who": "claude"
+    },
+    {
+     "text": "Restyle pages B C D",
+     "who": "claude"
+    },
+    {
+     "text": "Export S540 build",
      "who": "claude"
     }
    ],
@@ -6369,7 +6423,7 @@
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
  "last_working_commit": "42feebb38",
- "next_action": "S540: collect COACHDEEP2 (c13), PICS2D1 (c14), STEPPAY5 (c12, merge by diff), CARDSCOPE5 (c1), TURNPRO15 probe b4/b5 (sum + result + critics); then CARDSCOPE6 on Arena, KNOWSTAKES8 (Kalli+Dola lists), act on Q-307/308/309.",
+ "next_action": "S541: see NEXT_SESSION_PROMPT.md (collect CARDPREPROD1 -> owner sign-off; P4PEVID1; HOSTPROBE4; TURNPROBE16 sum; PICS2D2; MOTIONRULERS1; CARDFIX6B + GRAPPLEMAP1 on Arena; coaches v4; export once the tree is clean).",
  "next_acceptance": "Rulers vs r0: head jumps on the contact frame under 4, a head inside the other's body under 5 frames, arm out median under 4 frames with join_return green, then r1 film at two fresh blind critics 5+/10",
  "superseded_archive": [
   {

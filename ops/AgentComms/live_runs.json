@@ -8,19 +8,9 @@
    "started": "2026-11-23T12:05",
    "title": "Turning pro v16: spendable favour, map + probe",
    "seat": "claude",
-   "agent": "claude-opus-5-5 (Code Mode tab c6)",
+   "agent": "probe batch in terminal tab c15 (E:/FightCamp/tmp/turnpro16, ~2.5 h); map 0ffde41dd",
    "eta": "about 4 h",
-   "note": "S540"
-  },
-  "COACHDEEP3": {
-   "id": "COACHDEEP3",
-   "status": "running",
-   "started": "2026-11-23T12:40",
-   "title": "Deep coaches v3: amateur bouts pay by rank (Q-311)",
-   "seat": "claude",
-   "agent": "claude-opus-5-5 (Code Mode tab c11)",
-   "eta": "about 3 h",
-   "note": "S540: sweep + full run after the low-memory stop"
+   "note": "S540: then python tools/turnprobe16_sum.py E:/FightCamp/tmp/turnpro16/*.jsonl > docs/TURNPROBE16_RESULT.md"
   },
   "PICS2D2": {
    "id": "PICS2D2",
@@ -28,19 +18,9 @@
    "started": "2026-11-23T12:50",
    "title": "2D pictures: the full boxing set as a second view (Q-310)",
    "seat": "claude",
-   "agent": "claude-opus-5-5 (Code Mode tab c8)",
+   "agent": "claude-opus-5-5 (Code Mode tab c16, resumed)",
    "eta": "1.5-2 days",
-   "note": "S540, starts when a tab frees"
-  },
-  "HOSTPROBE4": {
-   "id": "HOSTPROBE4",
-   "status": "running",
-   "started": "2026-11-23T13:35",
-   "title": "Club show v7: pro line from real careers, hall over the range of nights",
-   "seat": "claude",
-   "agent": "claude-opus-5-5 (Code Mode tab c9)",
-   "eta": "about 2 h",
-   "note": "S540"
+   "note": "S540: resumed after the low-memory stop; uncommitted view edits in FightNight/golden_path are its own"
   },
   "CARDFIX6B": {
    "id": "CARDFIX6B",
@@ -61,6 +41,46 @@
    "agent": "claude-opus-5-5 (Code Mode tab c10)",
    "eta": "about 2 h",
    "note": "S540"
+  },
+  "GRAPPLEMAP1": {
+   "id": "GRAPPLEMAP1",
+   "status": "running",
+   "started": "2026-11-23T14:30",
+   "title": "GrappleMap: BJJ positions + 2D SVG view",
+   "seat": "arena",
+   "agent": "arena (arena/0ff86065-fightcamp-lean-lite)",
+   "eta": "about 1 h",
+   "note": "S540, owner link"
+  },
+  "HOSTPROBE5": {
+   "id": "HOSTPROBE5",
+   "status": "running",
+   "started": "2026-11-23T14:50",
+   "title": "Club show v8: section 7 of probe 4, then probe",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (Code Mode tab c1)",
+   "eta": "about 2 h",
+   "note": "S541"
+  },
+  "COACHDEEP4": {
+   "id": "COACHDEEP4",
+   "status": "running",
+   "started": "2026-11-23T14:50",
+   "title": "Deep coaches v4: rank bands, departure price, class nights by members",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (Code Mode tab c2)",
+   "eta": "about 2 h",
+   "note": "S541"
+  },
+  "KNOWSTAKES9": {
+   "id": "KNOWSTAKES9",
+   "status": "running",
+   "started": "2026-11-23T14:50",
+   "title": "Knowledge stakes v9 from both critic lists (play to 8)",
+   "seat": "claude",
+   "agent": "claude-fable-5-2 (Code Mode tab c3)",
+   "eta": "about 1.5 h",
+   "note": "S541"
   }
  },
  "codex_budget": {

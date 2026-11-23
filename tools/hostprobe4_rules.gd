@@ -58,8 +58,8 @@ const POSTERS_BELOW := 12      ## ESTIMATE
 ## the median points boxers hold at the built call, PRO_PTS_ANY = the 75th percentile (calibration seeds of stage=road;
 ## docs/HOSTPROBE4_RESULT.md s2 fixes the procedure before the run). Top 3 and PRO_PTS, or PRO_PTS_ANY at any rank.
 ## Declines and the national finalist rule stay as built (the probe's boxers have 0 declines).
-const PRO_PTS := 0             ## CALIBRATED: set from stage=road (see the result s4)
-const PRO_PTS_ANY := 0         ## CALIBRATED: set from stage=road
+const PRO_PTS := 34            ## CALIBRATED (stage=road, seeds 0-7: median at the built call; result s4)
+const PRO_PTS_ANY := 40        ## CALIBRATED (stage=road, seeds 0-7: 75th percentile)
 
 
 static func pro_points() -> int:

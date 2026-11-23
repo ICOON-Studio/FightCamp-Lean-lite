@@ -6,6 +6,8 @@ extends SceneTree
 ##   SHORT    a missed punch's glove is NOT on him; a blocked one does not pass his guard line
 ##   JUMPS    no head moves more than 12 cm in 1/30 s outside a contact
 ##   SLIDE    a standing foot travels under 1 m in a 30 s exchange
+##   FLOOR    no ball or ankle goes more than SINK_M under where it stands in his guard (S540 MOTIONRULERS1: human_feet_test's
+##            bar, carried here when that ruler of the old player left the nightly list)
 ##   REST     with no punch within 1.5 s the pelvises are at the edge of range (ChoreoRules.REST_M - 0.22 .. + 0.3: past the longest jab's 1.04 m)
 ##   APART    no head inside the other man's head or chest
 ##   COUNTS   the plan lands what the round landed
@@ -40,6 +42,8 @@ const RootPath := preload("res://scripts/fight3d/v2/RootPath.gd")
 const Match := preload("res://tests/player2_match.gd")
 const HZ := 60.0
 const ON_M := 0.12
+const SINK_M := 0.03
+const SINK_BONES := ["LeftToes", "RightToes", "LeftFoot", "RightFoot"]
 const HANDS_M := 0.12        # a hit man's wrist may be this much further from his head than in his guard
 ## FP2POSE1 (owner C454: "where the fuck is he looking at"): a boxer's eyes stay on the target through a cross, the chin
 ## behind the punching shoulder - the face a few degrees off the other man, not riding the shoulders (the raw take: 76).
@@ -309,12 +313,16 @@ func _initialize() -> void:
 	var prev_head: Array = [[], []]
 	var prev_ball: Array = [[null, null], [null, null]]
 	var floor_y := [[0.0, 0.0], [0.0, 0.0]]
+	var sink_y := [[], []]
+	var deep := [0.0, "", 0]   # the deepest joint under its guard height: metres, where, frames past SINK_M
 	var guard_d: Array = [{"LeftHand": [], "RightHand": []}, {"LeftHand": [], "RightHand": []}]   # wrist to head in the guard
 	var react_d: Array = []     # [boxer, hand, take, wrist to head, seconds into the reaction]
 	for i in 2:
 		var sk2: Skeleton3D = st.boxers[i]["skel"]
 		for k in 2:
 			floor_y[i][k] = _w(i, ["LeftToes", "RightToes"][k]).y   # the ball as it stands in the guard (FloorStand puts it on the canvas)
+		for bn in SINK_BONES:
+			sink_y[i].append(_w(i, bn).y)
 	for rn in rounds:
 		var round := {"n": 1, "won": rn % 2 == 0, "mine": 60.0, "theirs": 55.0, "corner": "", "lines": []}
 		var beats: Array = RS.build(round, "Slugger", "Boxer", 30.0, sd + rn)["beats"]
@@ -394,6 +402,11 @@ func _initialize() -> void:
 					jumps += 1
 					if show:
 						print("  head jump %6.2f boxer %d %.2f m clip %s" % [t, i, (hist[2] as Vector3).distance_to(hist[0]), (st.boxers[i]["ap"] as AnimationPlayer).current_animation])
+				for k in SINK_BONES.size():
+					var under: float = float(sink_y[i][k]) - _w(i, SINK_BONES[k]).y
+					deep[2] = int(deep[2]) + (1 if under > SINK_M else 0)
+					if under > float(deep[0]):
+						deep = [under, "boxer %d %s in %s at %.2f s" % [i, SINK_BONES[k], (st.boxers[i]["ap"] as AnimationPlayer).current_animation, t], deep[2]]
 				var slips: Array = []   # the stiller foot that stands is the support foot: what IT travels is slide
 				for k in 2:
 					var ball := _w(i, ["LeftToes", "RightToes"][k])
@@ -453,6 +466,7 @@ func _initialize() -> void:
 	_check(short_on == 0, "SHORT no missed punch has its glove on him (%d of %d)" % [short_on, short_n])
 	_debt(jumps == 0, jumps <= 6 * rounds, "JUMPS no head moves over 12 cm in 1/30 s outside a contact (%d; guard %d)" % [jumps, 6 * rounds])
 	_debt(float(slide[0]) <= 1.0 * rounds and float(slide[1]) <= 1.0 * rounds, maxf(float(slide[0]), float(slide[1])) <= 6.0 * rounds, "SLIDE a standing foot travels under 1 m an exchange (%.2f / %.2f over %d; guard 6 m: 5 until S537 KNEEROOT1 gave a punch its own feet back, docs/KNEEROOT1_RESULT.md)" % [float(slide[0]), float(slide[1]), rounds])
+	_check(float(deep[0]) <= SINK_M, "FLOOR no ball or ankle goes more than %.0f cm under where it stands in his guard (deepest %.1f cm, %s; %d frames over)" % [SINK_M * 100.0, float(deep[0]) * 100.0, deep[1], int(deep[2])])
 	_check(not rest.is_empty() and float(rest[0]) >= R.REST_M - 0.35 and float(rest[-1]) <= R.REST_M + 0.3, "REST out of reach between bursts (%.2f..%.2f m)" % [float(rest[0]) if not rest.is_empty() else 0.0, float(rest[-1]) if not rest.is_empty() else 0.0])
 	_check(not react_d.is_empty() and away_n == 0, "HANDS a hit man's wrists stay within %.2f m of their guard distance to his head (%d of %d frames over, worst %+.2f m)" % [HANDS_M, away_n, react_d.size(), away_worst])
 	_check(inside == 0, "APART no head inside the other man (%d frames)" % inside)

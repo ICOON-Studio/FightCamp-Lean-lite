@@ -1,4 +1,7 @@
 extends SceneTree
+## OUT OF THE NIGHTLY LIST (S540 MOTIONRULERS1): this ruler measures the OLD fight player (a plain FightStage, no
+## `-- fightplayer2`), where no fix layer may be added (CLAUDE.md item 8). Its floor bar (SINK_M 3 cm) lives on in tests/player2_test.gd FLOOR, read on the v2 player.
+## Still runs by hand as the old player's control arm. docs/MOTIONRULERS1_RESULT.md.
 ## HUMANFIGHT1 (operator S430: "i see some animations the fighters are off the ground flying"). The ruler the old foot tests
 ## could not be: they read only frames where the footwork rig has the legs and only the plan's planted foot, but three
 ## quarters of a round a boxer plays a captured take "pure" (RkPure: every leg layer off), and that is where she leaves

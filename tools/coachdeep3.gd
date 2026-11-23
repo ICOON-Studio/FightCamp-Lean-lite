@@ -94,7 +94,7 @@ func _initialize() -> void:
 	if _arg("mode", "full") == "evening":
 		_evening(reps)
 	elif _arg("mode", "full") == "sweep":
-		for sz in [1.0, 0.6, 0.4, 0.25]:
+		for sz in Array(_arg("sizes", "1.0,0.6,0.4,0.25").split(",")).map(func(s): return float(s)):   # sizes= resumes a stopped sweep
 			chem_size = sz
 			var wins := {}
 			for size in SIZES:
@@ -468,7 +468,6 @@ func _bout(f: Dictionary, i: int, ev: Dictionary, coaches: Dictionary, rep: int,
 			OppFile.tape(opp)
 		f["arrows"] = []
 		f["bout"] = {}
-		BoutRead.clear_cache()   # its key reads moves, not own_combos (BoutRead._re_key): a drilled combination must re-read
 		p = BoutRead.chance(f, opp, {}, R.plan_rating(c, str(f.get("style", ""))))
 	(f["p"] as Array).append(p)
 	if (f["p"] as Array).size() > 3:
