@@ -42,6 +42,16 @@
    "branch": "arena/c30aab81-fightcamp-lean-lite",
    "eta": "about 1-2 h",
    "note": "S541; chat https://arena.ai/agent/01a208a5-fd12-7ca6-8a21-666fc30aab81"
+  },
+  "HOSTLIGHT1": {
+   "id": "HOSTLIGHT1",
+   "status": "running",
+   "started": "2026-11-23T16:20",
+   "title": "Club show as a light money night: hall read + two reserves",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (Code Mode tab c6)",
+   "eta": "about 2 h",
+   "note": "S541, owner Q-318"
   }
  },
  "codex_budget": {
