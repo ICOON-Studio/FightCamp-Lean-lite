@@ -12,16 +12,6 @@
    "eta": "about 4 h",
    "note": "S540: then python tools/turnprobe16_sum.py E:/FightCamp/tmp/turnpro16/*.jsonl > docs/TURNPROBE16_RESULT.md"
   },
-  "P4PEVID1": {
-   "id": "P4PEVID1",
-   "status": "running",
-   "started": "2026-11-23T14:05",
-   "title": "Fix 3 regressions: card-ask evidence, plan_templates, matchmaking_bots",
-   "seat": "claude",
-   "agent": "claude-opus-5-5 (Code Mode tab c10)",
-   "eta": "about 2 h",
-   "note": "S540"
-  },
   "COACHDEEP5": {
    "id": "COACHDEEP5",
    "status": "running",

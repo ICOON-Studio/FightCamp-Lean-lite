@@ -1,3 +1,18 @@
+S541 build (2026-11-23, evening) - what changed, and what to try
+
+1. WATCH A ROUND IN PICTURES (your Q-310 "Keep, build the full set"): after a round, the fight screen has a button
+   "Watch it in pictures": the round just fought, exchange by exchange, as paired pictures - who threw what and whether it
+   landed. On a miss the defender pulls back or ducks; on a landed punch the head snaps or the body folds (your "make one
+   fighter dodge" and "use reactions"). Known gap: a landed body cross still lands at chest height (no take for it yet).
+2. THE COMBO COUNTER (your Q-306 "Yes, make it bite" + Q-307 "Yes, build it"): throw the same plan line over and over and
+   the opponent reads it and takes the exchange; a counter-puncher reads it faster. The feed says when they read you, the
+   result page's Plan tab shows what it cost, and the next opponent has seen the tape of your top line. Vary your plan.
+3. FOOTWORK: all ten steps now pay off and the wrong step against the wrong style is punished (10 of 10, was 8).
+4. Wording: the Playbook's "opponents adjust" chip now says when the read really starts (your C477); MODE no longer
+   listed twice (C478).
+5. Fixed: the corner's card ask saw no evidence after the footwork merge (an escape off the ropes was invisible to it);
+   it reads the ridden escape again. The "turn" plan template answers a presser's moments again.
+
 S539 build (2026-11-23, early morning) - what changed, and what to try
 
 1. A PRO WEIGH-IN MISS NO LONGER JUST CANCELS THE BOUT (your "build the weigh-in miss answers for pro bouts"): if a pro
