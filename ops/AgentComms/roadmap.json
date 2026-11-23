@@ -6,8 +6,8 @@
   "id": "S541",
   "owner": "claude",
   "updated": "2026-11-23",
-  "summary": "ORDER (owner S542: \"restyling isnot important i want to finish with all pending mechanics then focus on the 3d and menus\"): pending mechanics first (turning pro v17, coaches, knowledge, club show done, depth, push switch), THEN 3D and menus; restyle PARKED (Q-321 closed \"Not now\"). COACHDEEP6 FAIL 7/9 -> Q-322 his cut-or-keep. | S542 owner Q-320 'Yes, build it' (turning pro v17 rules, TURNPRO17_RULES_S542.md) -> TURNPRO17 map + quick probe running (Opus tab). Also running: BODYCROSS1 (Fable, body-cross take), COACHDEEP6 (Opus, coaches without the evening trade). Restyle A-D on the map, Q-321 open. | S542 (Fable, in progress): card r8 THE GUIDE merged by diff (5665bd72c, 47/47, play gate 6/6; PR 449 closed, its red check was the reviewer tool's HTTP 429). Claude played the guided first bout by hand: dead cards looked playable -> fixed (fb893e2bf: greyed + reason; strip says 'you are on top'). Round 9 notes: a coach line when the bout first goes to the ground; the strip shows where the bout is, the hand where it will be after laid steps; a Cross printed 4+1 landed 2+0 into the guard with no reason. COACHDEEP5 FAIL 7/10: coach part passes, the class-night-or-pads evening trade fails bar h a third time -> DECISION (free hand): trade cut as a depth claim, v6 map without it, then critics. HOSTLIGHT1 built (4e205b1c3); Claude's own rerun + still held while the owner plays (memory AMBER). Turning pro v17 rules with numbers put to the owner for his yes. Four finished worker processes (P4PEVID1, PICS2D2, COACHDEEP5, HOSTLIGHT1) still alive, ~1.4 GB: stopping them was refused by the permission mode. | S541 (Opus): card plan SIGNED (Q-312 + Q-313..317 Yes); CARDFIX6B + card r7 merged (PLAY gate 6/6, 40 tests) - owner played r7: KO'd in bout 1, 'i didnt understand the design , maybe a guide would be useful' -> card r8 THE GUIDE on Arena (arena/1f620be9). GRAPPLEMAP1 merged (8 BJJ card pictures). PICS2D2 landed (2x58 pictures, dodges + reactions; body cross gap). P4PEVID1 landed (p4p_visit, plan_templates, golden_path PASS). Club show v8 FAIL 6/9, 3rd in a row -> Q-318 'Yes, light night': card CUT, HOSTLIGHT1 building (tab c6). Coaches v4 FAIL 6/10 (uncapped class<->members loop) -> COACHDEEP5 (tab c5) + feedback-loop gate in claude_cm.ps1 (owner 'Yes, add it'). Knowledge v9 map done, critics SQ312/313. TURNPROBE16 FAIL 11/16 -> owner interview (15 yes): TURNPRO_INTERVIEW_S541.md = the new turning-pro spec; next session writes v17 from it. Owner: agents only in console (settings deny Agent + start_session). Build exported.",
-  "next_action": "S542: collect TURNPRO17 (PASS -> critics at 8 -> build; FAIL -> one change), BODYCROSS1 (open the side film + four pictures), COACHDEEP6 (PASS -> critics; a code-checked Arena critic owed for both); owner plays card r8 at http://127.0.0.1:8799/ -> round 9 on Arena from CARD_R8_CLAUDE_PLAY_S542.md; Q-321 restyle pick; knowledge v9: offer the interview.",
+  "summary": "TURNPRO17: PASS 6/6 at risky purse x1.75 (Claude's full rerun; the worker's x1.5 run failed 4/6) -> critics SQ314/315 queued, build after two 8s. BODYCROSS1 collected (pictures only, not the 3D fight). Coach interview with the owner: round 1 five yes (staff game, auto-pair, story, judged by play, own coaches only), round 2 asked. | ORDER (owner S542: \"restyling isnot important i want to finish with all pending mechanics then focus on the 3d and menus\"): pending mechanics first (turning pro v17, coaches, knowledge, club show done, depth, push switch), THEN 3D and menus; restyle PARKED (Q-321 closed \"Not now\"). COACHDEEP6 FAIL 7/9 -> Q-322 his cut-or-keep. | S542 owner Q-320 'Yes, build it' (turning pro v17 rules, TURNPRO17_RULES_S542.md) -> TURNPRO17 map + quick probe running (Opus tab). Also running: BODYCROSS1 (Fable, body-cross take), COACHDEEP6 (Opus, coaches without the evening trade). Restyle A-D on the map, Q-321 open. | S542 (Fable, in progress): card r8 THE GUIDE merged by diff (5665bd72c, 47/47, play gate 6/6; PR 449 closed, its red check was the reviewer tool's HTTP 429). Claude played the guided first bout by hand: dead cards looked playable -> fixed (fb893e2bf: greyed + reason; strip says 'you are on top'). Round 9 notes: a coach line when the bout first goes to the ground; the strip shows where the bout is, the hand where it will be after laid steps; a Cross printed 4+1 landed 2+0 into the guard with no reason. COACHDEEP5 FAIL 7/10: coach part passes, the class-night-or-pads evening trade fails bar h a third time -> DECISION (free hand): trade cut as a depth claim, v6 map without it, then critics. HOSTLIGHT1 built (4e205b1c3); Claude's own rerun + still held while the owner plays (memory AMBER). Turning pro v17 rules with numbers put to the owner for his yes. Four finished worker processes (P4PEVID1, PICS2D2, COACHDEEP5, HOSTLIGHT1) still alive, ~1.4 GB: stopping them was refused by the permission mode. | S541 (Opus): card plan SIGNED (Q-312 + Q-313..317 Yes); CARDFIX6B + card r7 merged (PLAY gate 6/6, 40 tests) - owner played r7: KO'd in bout 1, 'i didnt understand the design , maybe a guide would be useful' -> card r8 THE GUIDE on Arena (arena/1f620be9). GRAPPLEMAP1 merged (8 BJJ card pictures). PICS2D2 landed (2x58 pictures, dodges + reactions; body cross gap). P4PEVID1 landed (p4p_visit, plan_templates, golden_path PASS). Club show v8 FAIL 6/9, 3rd in a row -> Q-318 'Yes, light night': card CUT, HOSTLIGHT1 building (tab c6). Coaches v4 FAIL 6/10 (uncapped class<->members loop) -> COACHDEEP5 (tab c5) + feedback-loop gate in claude_cm.ps1 (owner 'Yes, add it'). Knowledge v9 map done, critics SQ312/313. TURNPROBE16 FAIL 11/16 -> owner interview (15 yes): TURNPRO_INTERVIEW_S541.md = the new turning-pro spec; next session writes v17 from it. Owner: agents only in console (settings deny Agent + start_session). Build exported.",
+  "next_action": "S542: owner's round 2 + 3 of the coach interview -> COACH_INTERVIEW_S542.md -> coach map v7 + probe; collect turning pro v17 critics (SQ314/315), launch a code-checked critic, at 8+8 write the build brief; owner plays card r8 -> round 9 on Arena (CARD_R8_CLAUDE_PLAY_S542.md); knowledge v9 interview offer.",
   "last_working_commit": "fb893e2bf",
   "verified_playable": "Builds/FightCamp.exe S541 (pictures view, combo counter, footwork 10/10); card r7 page played by Claude and the owner",
   "incomplete_blocked": "Turning pro v17: design with the owner first (he asked for it next session). Knowledge v9 critics: Kalli 7/8/7, Dola 8/7/7 - each under 8 on one axis -> v10 from both lists or an interview (9 rounds).",
@@ -5255,7 +5255,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-23 18:41 board_sync",
+  "updated": "2026-11-23 20:11 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5409,20 +5409,28 @@
     "title": "Deep coaches v5: catchment ceiling caps the class loop",
     "who": "claude-opus-5-5 (Code Mode tab c5)",
     "started": "2026-11-23T15:40",
-    "run": "COACHDEEP5"
+    "run": "COACHDEEP5",
+    "state": "LANDED - Claude collects"
    },
    {
     "title": "Club show as a light money night: hall read + two reserves",
     "who": "claude-opus-5-5 (Code Mode tab c6)",
     "started": "2026-11-23T16:20",
-    "run": "HOSTLIGHT1"
+    "run": "HOSTLIGHT1",
+    "state": "LANDED - Claude collects"
    },
    {
-    "title": "Card round 8: the guide (guided first bout, low-health warning, How to play)",
-    "who": "arena (arena/1f620be9-fightcamp-lean-lite)",
-    "started": "2026-11-23T17:15",
-    "run": "CARDROUND8",
+    "title": "Deep coaches v6: the class-night-or-pads trade cut, the coach part probed alone (nine bars)",
+    "who": "claude-opus-5-5 (console tab COACHDEEP6)",
+    "started": "2026-11-23T19:53",
+    "run": "COACHDEEP6",
     "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "Turning pro v17: the owner's design (when + safe or risky first six fights, patience, confidence, hunger) - map + quick probe",
+    "who": "claude-opus-5-5 (console tab TURNPRO17)",
+    "started": "2026-11-23T19:59",
+    "run": "TURNPRO17"
    }
   ],
   "next": [
@@ -5792,6 +5800,16 @@
   },
   "done_recently": [
    {
+    "title": "Animation: a rear straight to the body that lands on the ribs (the 4 red pictures)",
+    "who": "claude-fable-5-2 (console tab BODYCROSS1)",
+    "when": "2026-11-23"
+   },
+   {
+    "title": "Card round 8: the guide (guided first bout, low-health warning, How to play)",
+    "who": "arena (arena/1f620be9-fightcamp-lean-lite)",
+    "when": "2026-11-23"
+   },
+   {
     "title": "S541 build exported",
     "who": "claude-opus-5-5",
     "when": "2026-11-23"
@@ -5839,36 +5857,6 @@
    {
     "title": "Combo counter built (Q-307)",
     "who": "claude-opus-5-5",
-    "when": "2026-11-23"
-   },
-   {
-    "title": "Footwork STEPPAY5 merged 10/10",
-    "who": "claude-opus-5-5",
-    "when": "2026-11-23"
-   },
-   {
-    "title": "Turning pro v15 probe PASS 17/17",
-    "who": "claude-opus-5-5",
-    "when": "2026-11-23"
-   },
-   {
-    "title": "Lean chip + MODE fixes",
-    "who": "claude-opus-5-5",
-    "when": "2026-11-23"
-   },
-   {
-    "title": "Win-chance cache fix",
-    "who": "claude-opus-5-5",
-    "when": "2026-11-23"
-   },
-   {
-    "title": "Deep coaches v1 probe",
-    "who": "claude-opus-5-5 (Code Mode)",
-    "when": "2026-11-23"
-   },
-   {
-    "title": "Win read moves with mood",
-    "who": "claude-opus-5-5 (Code Mode)",
     "when": "2026-11-23"
    }
   ],
@@ -6034,6 +6022,14 @@
     {
      "text": "Coaches v6: FAIL 7/9, your call",
      "who": "claude"
+    },
+    {
+     "text": "Body cross lands on the ribs",
+     "who": "claude"
+    },
+    {
+     "text": "Turning pro v17 probe: PASS 6/6",
+     "who": "claude"
     }
    ],
    "now": [
@@ -6111,6 +6107,14 @@
     },
     {
      "text": "Turning pro v17: map + probe",
+     "who": "claude"
+    },
+    {
+     "text": "Coach interview with you",
+     "who": "claude"
+    },
+    {
+     "text": "Turning pro v17: two critics",
      "who": "claude"
     }
    ],

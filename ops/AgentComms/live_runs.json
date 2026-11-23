@@ -22,28 +22,6 @@
    "eta": "about 2 h",
    "note": "S541 -> S542 read: built and committed 4e205b1c3 (two halls as a read, two reserves). Claude still to rerun club_show_test + golden_path and open the Club > Money still (held: owner playing, memory AMBER)"
   },
-  "CARDROUND8": {
-   "id": "CARDROUND8",
-   "status": "done",
-   "started": "2026-11-23T17:15",
-   "title": "Card round 8: the guide (guided first bout, low-health warning, How to play)",
-   "seat": "arena",
-   "agent": "arena (arena/1f620be9-fightcamp-lean-lite)",
-   "branch": "arena/1f620be9-fightcamp-lean-lite",
-   "eta": "about 1-2 h",
-   "note": "S542: merged by diff 5665bd72c (47/47, play gate 6/6), PR 449 closed; by-hand play fix fb893e2bf (dead cards greyed + reason)",
-   "reconciled": "2026-11-23 18:40 board_reconcile: PR #449 open - collect it"
-  },
-  "BODYCROSS1": {
-   "id": "BODYCROSS1",
-   "status": "running",
-   "started": "2026-11-23T19:50",
-   "title": "Animation: a rear straight to the body that lands on the ribs (the 4 red pictures)",
-   "seat": "claude",
-   "agent": "claude-fable-5-2 (console tab BODYCROSS1)",
-   "eta": "about 2-3 h (Godot queue)",
-   "note": "S542; brief ops/research/TASK_BODYCROSS1.md"
-  },
   "COACHDEEP6": {
    "id": "COACHDEEP6",
    "status": "landed",
@@ -56,13 +34,13 @@
   },
   "TURNPRO17": {
    "id": "TURNPRO17",
-   "status": "running",
+   "status": "done",
    "started": "2026-11-23T19:59",
    "title": "Turning pro v17: the owner's design (when + safe or risky first six fights, patience, confidence, hunger) - map + quick probe",
    "seat": "claude",
    "agent": "claude-opus-5-5 (console tab TURNPRO17)",
    "eta": "about 2-3 h",
-   "note": "S542, owner Q-320 'Yes, build it'; PASS -> critics kalli + dola queued by the worker"
+   "note": "S542 ca087a732: worker FAIL 4/6 at risky purse x1.5 -> Claude's full-size rerun at x1.75: PASS 6/6 (reader best 9/10, beats every habit >2SE in 7/10 by 1.2-3.7 points; safe 36% / risky 64%). Limits: small edge, sensitive to the purse multiple. Critics queued SQ314 kalli, SQ315 dola; a code-checked critic owed"
   }
  },
  "codex_budget": {

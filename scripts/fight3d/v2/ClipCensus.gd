@@ -44,6 +44,7 @@ const MEDIUM_MAX_M := 0.30
 const STEMS := {
 	"left_jab": "jab", "right_cross": "cross", "left_hook": "lead_hook", "right_hook": "rear_hook",
 	"left_uppercut": "lead_uppercut", "right_uppercut": "rear_uppercut", "body_shot": "body_hook", "kidney_shot": "body_hook",
+	"body_cross": "body_cross",   # S542 BODYCROSS1: the authored rear straight to the body (tools/pics2d_bodycross_bake.gd); its own family, so no cross or body-hook pool picks it
 }
 const MC_PUNCH := {"mc_jab": "jab", "mc_cross": "cross", "mc_lead_hook": "lead_hook", "mc_rear_hook": "rear_hook",
 	"mc_lead_uppercut": "lead_uppercut", "mc_rear_uppercut": "rear_uppercut"}

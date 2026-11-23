@@ -1,40 +1,40 @@
 {
   "blue_body_cross_blocked": {
-    "clip": "pro_right_cross_c",
+    "clip": "pro_body_cross",
     "glove": [
-      401.3,
-      315.5
+      300.4,
+      344.9
     ],
-    "hit_m": 0.43,
+    "hit_m": 0.306,
     "result": "blocked",
     "target": [
-      357.6,
-      422.3
+      262.3,
+      422.5
     ]
   },
   "blue_body_cross_landed": {
-    "clip": "pro_right_cross_c",
+    "clip": "pro_body_cross",
     "glove": [
-      275.4,
-      368.4
+      145.0,
+      423.8
     ],
-    "hit_m": 0.207,
+    "hit_m": 0.036,
     "result": "landed",
     "target": [
-      295.9,
+      134.8,
       427.2
     ]
   },
   "blue_body_cross_missed": {
-    "clip": "pro_right_cross_c",
+    "clip": "pro_body_cross",
     "glove": [
-      326.8,
-      282.5
+      260.8,
+      409.6
     ],
-    "hit_m": 0.672,
+    "hit_m": 0.207,
     "result": "missed",
     "target": [
-      232.2,
+      229.3,
       461.0
     ]
   },
@@ -318,41 +318,41 @@
   "clinch": {},
   "guard": {},
   "red_body_cross_blocked": {
-    "clip": "pro_right_cross_c",
+    "clip": "pro_body_cross",
     "glove": [
-      367.5,
-      308.8
+      466.5,
+      351.8
     ],
-    "hit_m": 0.442,
+    "hit_m": 0.288,
     "result": "blocked",
     "target": [
-      422.8,
-      417.7
+      510.5,
+      418.8
     ]
   },
   "red_body_cross_landed": {
-    "clip": "pro_right_cross_c",
+    "clip": "pro_body_cross",
     "glove": [
-      478.6,
-      372.1
+      382.9,
+      116.7
     ],
-    "hit_m": 0.182,
+    "hit_m": 0.002,
     "result": "landed",
     "target": [
-      460.6,
-      423.7
+      383.4,
+      116.5
     ]
   },
   "red_body_cross_missed": {
-    "clip": "pro_right_cross_c",
+    "clip": "pro_body_cross",
     "glove": [
-      447.9,
-      286.2
+      511.9,
+      412.5
     ],
-    "hit_m": 0.653,
+    "hit_m": 0.208,
     "result": "missed",
     "target": [
-      540.4,
+      549.4,
       459.0
     ]
   },

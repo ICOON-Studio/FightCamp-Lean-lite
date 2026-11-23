@@ -10,7 +10,7 @@ extends SceneTree
 ## BlockCatch (the catching glove) with the glove carried onto that glove, a missed one meets a pull or a duck (BeatClips'
 ## own defence takes) so the miss reads from the side. Nothing in scripts/fight3d is changed (FIGHTPLAYER2 method line).
 ##   python tools/hidden_desktop.py run --timeout=900 --log=<f> <godot.exe> --path . --windowed --resolution 1920x1080 \
-##       --audio-driver Dummy --fixed-fps 60 --script res://tools/pics2d_set.gd -- <out_dir> art=toon set=w|m [only=<prefix>]
+##       --audio-driver Dummy --fixed-fps 60 --script res://tools/pics2d_set.gd -- <out_dir> art=toon set=w|m [only=<prefix> | only=*<part of the name>]
 ## Prints PICS2D_SET wrote=<n> refused=<n> and writes <out_dir>/contacts.json (glove + target in pixels, hit_m per picture).
 
 const SIZE := 768
@@ -27,7 +27,7 @@ const FAMILIES := {
 	"lead_hook": [["pro_left_hook_ft", "pro_left_hook_v2", "pro_left_hook_hard_ft"], false],
 	"rear_hook": [["pro_right_hook_ft", "pro_right_hook", "pro_right_hook_hard"], false],
 	"body_hook": [["pro_body_shot", "pro_kidney_shot"], true],
-	"body_cross": [["pro_right_cross_c", "pro_right_cross_ft", "pro_right_cross"], true],   # _c drops lowest (S540 probe)
+	"body_cross": [["pro_body_cross", "pro_right_cross_c", "pro_right_cross"], true],   # S542 BODYCROSS1: the authored take (tools/pics2d_bodycross_bake.gd); _c was 0.17-0.29 m high
 	"lead_uppercut": [["pro_left_uppercut", "pro_left_uppercut_hard"], false],
 	"rear_uppercut": [["pro_right_uppercut", "pro_right_uppercut_hurt"], false],
 }
@@ -68,6 +68,13 @@ func _arg(key: String, def: String) -> String:
 
 
 func _initialize() -> void:
+	if not await _setup():
+		return
+	await _run()
+
+
+## The stage, the pair, the side camera; the ring placer off. False when the v2 player was not built.
+func _setup() -> bool:
 	var args := OS.get_cmdline_user_args()
 	if not args.is_empty():
 		out_dir = args[0]
@@ -94,7 +101,7 @@ func _initialize() -> void:
 	if stage.v2 == null:
 		print("PICS2D_SET FAIL the v2 player was not built")
 		quit(1)
-		return
+		return false
 	crew = FightCast.crew(stage, false)
 	cam = Camera3D.new()
 	cam.projection = Camera3D.PROJECTION_ORTHOGONAL
@@ -108,6 +115,10 @@ func _initialize() -> void:
 	home_t = [_node(0).global_transform, _node(1).global_transform]
 	axis = ((home_t[1].origin - home_t[0].origin) * Vector3(1, 0, 1)).normalized()
 	stage.set_process(false)   # the ring placer off: the pair is placed here; clips, IK and the finish still run
+	return true
+
+
+func _run() -> void:
 	if _want("guard"):
 		await _home_guard()
 		await _shot("guard")
@@ -133,7 +144,7 @@ func _initialize() -> void:
 
 
 func _want(name: String) -> bool:
-	return only == "" or name.begins_with(only)
+	return only == "" or name.begins_with(only) or (only.begins_with("*") and name.contains(only.substr(1)))
 
 
 func _take(who: int, fam: String) -> String:

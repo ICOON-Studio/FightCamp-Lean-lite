@@ -4591,6 +4591,24 @@
    "answered_at": "2026-11-23 18:10",
    "answer": "research/CRITIC_KNOW_STAKES1_V9_BRIEF_DOLA.md",
    "seen_by_claude": true
+  },
+  {
+   "id": "SQ314",
+   "seat": "kalli",
+   "brief": "research/CRITIC_TURNPRO1_V17_BRIEF.md",
+   "stem": "CRITIC_TURNPRO1_V17_BRIEF_KALLI",
+   "status": "queued",
+   "queued_at": "2026-11-23 20:26",
+   "tries": 0
+  },
+  {
+   "id": "SQ315",
+   "seat": "dola",
+   "brief": "research/CRITIC_TURNPRO1_V17_BRIEF.md",
+   "stem": "CRITIC_TURNPRO1_V17_BRIEF_DOLA",
+   "status": "queued",
+   "queued_at": "2026-11-23 20:26",
+   "tries": 0
   }
  ]
 }
