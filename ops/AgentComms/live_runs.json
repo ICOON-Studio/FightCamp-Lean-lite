@@ -42,16 +42,6 @@
    "eta": "about 2 h",
    "note": "S540"
   },
-  "GRAPPLEMAP1": {
-   "id": "GRAPPLEMAP1",
-   "status": "running",
-   "started": "2026-11-23T14:30",
-   "title": "GrappleMap: BJJ positions + 2D SVG view",
-   "seat": "arena",
-   "agent": "arena (arena/0ff86065-fightcamp-lean-lite)",
-   "eta": "about 1 h",
-   "note": "S540, owner link"
-  },
   "HOSTPROBE5": {
    "id": "HOSTPROBE5",
    "status": "running",
