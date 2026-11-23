@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>GrappleMap pictures for the BJJ cards</title>
+<style>
+body{font:15px/1.5 system-ui,sans-serif;background:#efeae0;color:#2b2620;margin:0;padding:24px 20px 60px}
+h1{font-size:22px;margin:0 0 6px}h2{font-size:17px;margin:28px 0 8px}
+.lead{max-width:900px;color:#57503f}
+.cardrow{display:flex;gap:18px;align-items:flex-start;background:#fbf9f4;border:1px solid #dcd5c6;border-radius:12px;padding:14px;margin:12px 0;max-width:1000px}
+.pic{width:320px;flex:0 0 320px}.pic img,.pic svg{width:320px;height:320px;display:block;border-radius:8px}
+.txt{flex:1;min-width:0}.txt h3{margin:0 0 4px;font-size:18px}
+.pill{font-size:11px;background:#e6dfd0;border-radius:20px;padding:2px 8px;color:#57503f;vertical-align:middle}
+.print{margin:0 0 8px;color:#4a4438}.tags{color:#8a8272;font-size:12px}
+table{border-collapse:collapse;font-size:13px;background:#fbf9f4}td,th{border:1px solid #dcd5c6;padding:3px 8px;text-align:left}
+code{background:#e6dfd0;padding:1px 4px;border-radius:4px;font-size:13px}
+</style></head><body>
+<h1>GrappleMap pictures for the card game's BJJ cards</h1>
+<p class="lead">Every picture is drawn straight from <code>GrappleMap.txt</code> (public domain): two figures, side view,
+orthographic, red and blue, limbs as round-capped strokes. A move plays as its frames (CSS stepped); a position is one
+still. Card text and numbers come from <code>proto/cardgame/cards.mjs</code>; ids are GrappleMap's own record order.</p>
+<p class="lead">8 of 8 cards in the BJJ deck have a picture
+(6 of 6
+BJJ cards, 2 of 2
+shared core cards). Source: GrappleMap
+GrappleMap.txt at commit <code>032c8f91</code>, 601 positions,
+1485 transitions, 7722 transition frames,
+161 tags. All authors involved in the creation of the contents of this package have agreed to release their respective contributions into the Public Domain.</p>
+<h2>The cards</h2>
+<section class="cardrow"><div class="pic"><img src="sprawl.svg" alt="Sprawl drawn from GrappleMap" width="320" height="320"></div><div class="txt"><h3>Sprawl <span class="pill">core</span></h3><p class="print">Sprawl · ans · 1 wind · from hL</p><b>GrappleMap 983</b> "sprawl to head&amp;arm" · 3 frames · top<br><span class="tags">sprawl</span><br><small>96 low double leg → 368 sprawl w/ head&amp;arm vs double-leg</small><br><small>a sprawl on a low double leg that ends in GrappleMap's named sprawl position: the card answers a takedown (tagged sprawl, top).</small></div></section>
+<section class="cardrow"><div class="pic"><img src="escape.svg" alt="Escape drawn from GrappleMap" width="320" height="320"></div><div class="txt"><h3>Escape <span class="pill">core</span></h3><p class="print">Escape · ans · 1 wind · from h</p><b>GrappleMap 632</b> "stand up escape" · 6 frames · bottom<br><span class="tags">stand_up stand_up</span><br><small>236 chest pass → 288 sprawl vs turtle w/ single</small><br><small>the bottom player stands up out of a pass being laid, which is exactly the card's printed act: stand up (tagged stand_up, bottom).</small></div></section>
+<section class="cardrow"><div class="pic"><img src="sweep.svg" alt="Sweep drawn from GrappleMap" width="320" height="320"></div><div class="txt"><h3>Sweep <span class="pill">bjj</span></h3><p class="print">Sweep · shot · 2 wind · from B0/B1</p><b>GrappleMap 894</b> "hip bump sweep" · 5 frames · bottom<br><span class="tags">sweep</span><br><small>110 posture broken full guard → (unnamed end)</small><br><small>the bottom player in a broken-open closed guard rolls up and over: the card's own sweep from B0/B1, and GrappleMap tags it sweep (bottom).</small></div></section>
+<section class="cardrow"><div class="pic"><img src="pass.svg" alt="Guard pass drawn from GrappleMap" width="320" height="320"></div><div class="txt"><h3>Guard pass <span class="pill">bjj</span></h3><p class="print">Guard pass · adv · 1 wind · from T0/T1/T2</p><b>GrappleMap 752</b> "bull fighter pass" · 5 frames · top, detailed<br><span class="tags">pass_around</span><br><small>185 standing vs supine w/ legs extended → 440 bull fighter pass</small><br><small>the standing player walks the legs aside and comes down past them: the card is an advance from the top rungs T0-T2, and GrappleMap tags it pass_around (top).</small></div></section>
+<section class="cardrow"><div class="pic"><img src="triangle.svg" alt="Triangle drawn from GrappleMap" width="320" height="320"></div><div class="txt"><h3>Triangle <span class="pill">bjj</span></h3><p class="print">Triangle · hold · 2 wind · from B0</p><b>GrappleMap 704</b> "triangle" · 8 frames · bottom<br><span class="tags">no tags</span><br><small>227 full guard kimura threat → (unnamed end)</small><br><small>the bottom player closes a triangle from full guard, which is the card's own B0 range (bottom).</small></div></section>
+<section class="cardrow"><div class="pic"><img src="armbar.svg" alt="Armbar drawn from GrappleMap" width="320" height="320"></div><div class="txt"><h3>Armbar <span class="pill">bjj</span></h3><p class="print">Armbar · hold · 3 wind · from B0/T2/T3</p><b>GrappleMap 1458</b> "arm bar" · 6 frames · bottom<br><span class="tags">armbar</span><br><small>(unnamed start) → 263 arm lock</small><br><small>the arm bar is finished and GrappleMap lands on its own position named "arm lock", tagged armbar (bottom).</small></div></section>
+<section class="cardrow"><div class="pic"><img src="choke.svg" alt="Rear choke drawn from GrappleMap" width="320" height="320"></div><div class="txt"><h3>Rear choke <span class="pill">bjj</span></h3><p class="print">Rear choke · hold · 3 wind · from T3</p><b>GrappleMap 716</b> "rear naked choke" · 5 frames · top<br><span class="tags">rear_naked_choke</span><br><small>224 back w/ arm trapped → 198 rear naked choke w/ arm trapped</small><br><small>the rear naked choke from back control with the arm trapped: the card's T3 range, tagged rear_naked_choke.</small></div></section>
+<section class="cardrow"><div class="pic"><img src="kimura.svg" alt="Kimura drawn from GrappleMap" width="320" height="320"></div><div class="txt"><h3>Kimura <span class="pill">bjj</span></h3><p class="print">Kimura · hold · 3 wind · from B1/T1/T2</p><b>GrappleMap 1786</b> "kimura" · 9 frames · no top/bottom tag<br><span class="tags">kimura</span><br><small>(unnamed start) → 499 half guard kimura</small><br><small>the kimura finishes into GrappleMap's "half guard kimura", the card's own B1/T1 half guard rungs (tagged kimura).</small></div></section>
+<h2>The positions in the extract</h2>
+<table><tr><th>id</th><th>name</th><th>tags</th></tr>
+<tr><td>96</td><td>low double leg</td><td class="tags">double_leg_takedown standing</td></tr>
+<tr><td>110</td><td>posture broken full guard</td><td class="tags">full_guard closed_guard top_kneeling bottom_supine top_posture_broken collar_tie</td></tr>
+<tr><td>185</td><td>standing vs supine w/ legs extended</td><td class="tags">standing bottom_supine</td></tr>
+<tr><td>198</td><td>rear naked choke w/ arm trapped</td><td class="tags">back rear_naked_choke</td></tr>
+<tr><td>224</td><td>back w/ arm trapped</td><td class="tags">back</td></tr>
+<tr><td>227</td><td>full guard kimura threat</td><td class="tags">full_guard kimura top_kneeling bottom_seated</td></tr>
+<tr><td>236</td><td>chest pass</td><td class="tags">pass_around top_kneeling leg_smash passing</td></tr>
+<tr><td>263</td><td>arm lock</td><td class="tags">armbar bottom_supine</td></tr>
+<tr><td>288</td><td>sprawl vs turtle w/ single</td><td class="tags">turtle single_leg_takedown sprawl</td></tr>
+<tr><td>368</td><td>sprawl w/ head&amp;arm vs double-leg</td><td class="tags">double_leg_takedown sprawl turtle</td></tr>
+<tr><td>440</td><td>bull fighter pass</td><td class="tags">standing bottom_supine pass_around</td></tr>
+<tr><td>499</td><td>half guard kimura</td><td class="tags">half_guard bottom_supine kimura</td></tr>
+</table>
+<p class="lead" style="margin-top:18px">Made by <code>node proto/grapplemap/slice.mjs</code> from the fetched
+GrappleMap.txt (never committed, 2.55 MB); the slice itself is
+<code>bjj_slice.json</code>, its verbatim source text <code>bjj_slice.gm.txt</code>.</p>
+</body></html>
