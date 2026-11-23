@@ -2,26 +2,6 @@
  "_doc": "Claude writes one entry per agent run at launch (operator S144: 'make it more clear, who is working on what, ETA'). The ops board /agents page joins it to the live processes. eta = Claude's estimate at launch, local time; status running|waiting|done.",
  "seats": 3,
  "runs": {
-  "COMBOCOUNTER1": {
-   "id": "COMBOCOUNTER1",
-   "status": "running",
-   "started": "2026-11-23T11:40",
-   "title": "Combo counter build (Q-307 yes)",
-   "seat": "claude",
-   "agent": "claude-opus-5-5 (Code Mode tab c1)",
-   "eta": "about 2 h",
-   "note": "S540"
-  },
-  "HOSTPROBE3": {
-   "id": "HOSTPROBE3",
-   "status": "running",
-   "started": "2026-11-23T11:40",
-   "title": "Club show v6 map + probe (Q-308 yes)",
-   "seat": "claude",
-   "agent": "claude-opus-5-5 (Code Mode tab c2)",
-   "eta": "about 2 h",
-   "note": "S540"
-  },
   "CARDSCOPE6": {
    "id": "CARDSCOPE6",
    "status": "running",
@@ -71,6 +51,16 @@
    "agent": "claude-opus-5-5 (Code Mode tab c8)",
    "eta": "1.5-2 days",
    "note": "S540, starts when a tab frees"
+  },
+  "HOSTPROBE4": {
+   "id": "HOSTPROBE4",
+   "status": "running",
+   "started": "2026-11-23T13:35",
+   "title": "Club show v7: pro line from real careers, hall over the range of nights",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (Code Mode tab c9)",
+   "eta": "about 2 h",
+   "note": "S540"
   }
  },
  "codex_budget": {

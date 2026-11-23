@@ -24335,6 +24335,28 @@
    "eta": "about 1.5 h",
    "note": "v8 809cae63a; critics Kalli SQ307, Dola SQ308",
    "landed": "2026-11-23T11:56"
+  },
+  {
+   "id": "COMBOCOUNTER1",
+   "status": "landed",
+   "started": "2026-11-23T11:40",
+   "title": "Combo counter build (Q-307 yes)",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (Code Mode tab c1)",
+   "eta": "about 2 h",
+   "note": "built cf5dfe536: spam -6.7 v counter-puncher, spread read 20/100",
+   "landed": "2026-11-23T11:52"
+  },
+  {
+   "id": "HOSTPROBE3",
+   "status": "landed",
+   "started": "2026-11-23T11:40",
+   "title": "Club show v6 map + probe (Q-308 yes)",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (Code Mode tab c2)",
+   "eta": "about 2 h",
+   "note": "FAIL 5/9 759660b04 -> HOSTPROBE4",
+   "landed": "2026-11-23T11:52"
   }
  ]
 }
