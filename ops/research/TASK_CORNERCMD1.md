@@ -30,6 +30,18 @@ the spec and from what the fight already has.
 - TELLS FIRST (`TELLPLAY_SCOPE_S543.md`): the opponent's game mix reads only the style today. Probe the commands on the
   MODES as built; the baits of spec point 9 are NOT in this task.
 
+## What TELLPLAY1 found (S544, `docs/TELLPLAY1_RESULT.md`) - read it before the page; it changes step 0
+- One plan line added to the coach's plan is worth 0.1-0.9 points in the ring (why is still being measured:
+  `TASK_PLANWORTH1.md`). A command that tells the boxer to do what the plan already does is worth nothing. For each
+  command the page must say what it gives that the plan in force does NOT have.
+- The read (`BoutRead`) over-read one line 4 to 8 times against the real bout. Every verdict here comes from real bouts
+  (paired dice, 2 SE printed beside each difference); the read is never the instrument.
+- STEP 0, BEFORE THE PAGE (about 20 minutes): on the real bout, with TODAY'S eight calls and nothing new, play PLAN ONLY
+  against a reader who shouts the call `Exchanges.grade` marks best for the opponent's moment, in four cells. Print the
+  wins in 100 and 2 SE. If the reader is under 2 wins in 100 over PLAN ONLY, find in the code where the edge is lost
+  (the call's edge size, `uptake`, how many exchanges a call touches, the plan line it overrides) and write that at the
+  top of the page: the new commands are sized from it, not from a guess. Bar 2 cannot pass on a lever worth 1 point.
+
 ## Do
 1. `ops/research/DESIGN_CORNERCMD1.md`: one clean page.
    - The ten commands in the two slots, each in one table row: what the boxer does (plain boxing words), which existing

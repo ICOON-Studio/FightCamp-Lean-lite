@@ -24420,6 +24420,131 @@
    "agent": "claude-opus-5-5 (Code Mode tab c9)",
    "eta": "about 2 h",
    "note": "S540 | S541: landed 41099ec2d FAIL 5/9 -> HOSTPROBE5"
+  },
+  {
+   "id": "CARDROUND8",
+   "status": "done",
+   "started": "2026-11-23T17:15",
+   "title": "Card round 8: the guide (guided first bout, low-health warning, How to play)",
+   "seat": "arena",
+   "agent": "arena (arena/1f620be9-fightcamp-lean-lite)",
+   "branch": "arena/1f620be9-fightcamp-lean-lite",
+   "eta": "about 1-2 h",
+   "note": "S542: merged by diff 5665bd72c (47/47, play gate 6/6), PR 449 closed; by-hand play fix fb893e2bf (dead cards greyed + reason)",
+   "reconciled": "2026-11-23 18:40 board_reconcile: PR #449 open - collect it",
+   "archived": "2026-11-23 20:11 board_sync"
+  },
+  {
+   "id": "BODYCROSS1",
+   "status": "done",
+   "started": "2026-11-23T19:50",
+   "title": "Animation: a rear straight to the body that lands on the ribs (the 4 red pictures)",
+   "seat": "claude",
+   "agent": "claude-fable-5-2 (console tab BODYCROSS1)",
+   "eta": "about 2-3 h (Godot queue)",
+   "note": "S542 49121faa6: pro_body_cross take authored offline from the plain cross (hips sink 0.18 m, feet planted); 12 body-cross pictures re-made. Claude reran fight_pictures, player2, clip_db: PASS; contact picture + take frames opened. NOT wired into the 3D fight (no rule throws body_cross): pictures only. Left for his eye: head on the centre line, knees deep",
+   "archived": "2026-11-23 20:11 board_sync"
+  },
+  {
+   "id": "TURNPRO17",
+   "status": "done",
+   "started": "2026-11-23T19:59",
+   "title": "Turning pro v17: the owner's design (when + safe or risky first six fights, patience, confidence, hunger) - map + quick probe",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (console tab TURNPRO17)",
+   "eta": "about 2-3 h",
+   "note": "S542 ca087a732: worker FAIL 4/6 at risky purse x1.5 -> Claude's full-size rerun at x1.75: PASS 6/6 (reader best 9/10, beats every habit >2SE in 7/10 by 1.2-3.7 points; safe 36% / risky 64%). Limits: small edge, sensitive to the purse multiple. Critics queued SQ314 kalli, SQ315 dola; a code-checked critic owed",
+   "archived": "2026-11-23 20:41 board_sync"
+  },
+  {
+   "id": "COACHDEEP5",
+   "status": "done",
+   "started": "2026-11-23T15:40",
+   "title": "Deep coaches v5: catchment ceiling caps the class loop",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (Code Mode tab c5)",
+   "eta": "about 2 h",
+   "note": "S541 33a0ba01a: FAIL 7/10 (catchment ceiling closes the class and members loop); collected S542"
+  },
+  {
+   "id": "HOSTLIGHT1",
+   "status": "done",
+   "started": "2026-11-23T16:20",
+   "title": "Club show as a light money night: hall read + two reserves",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (Code Mode tab c6)",
+   "eta": "about 2 h",
+   "note": "S541 light money night; collected S542"
+  },
+  {
+   "id": "COACHDEEP6",
+   "status": "done",
+   "started": "2026-11-23T19:53",
+   "title": "Deep coaches v6: the class-night-or-pads trade cut, the coach part probed alone (nine bars)",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (console tab COACHDEEP6)",
+   "eta": "about 2 h",
+   "note": "S542: collected, superseded by the owner interview (coaches v7)"
+  },
+  {
+   "id": "COACHDEEP7",
+   "status": "done",
+   "started": "2026-11-23T21:14",
+   "title": "Coaches v7: the owner's design (a staff game: the hire, the trial week, four moments, the corner pick) - map + quick probe",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (console tab COACHDEEP7)",
+   "eta": "about 2-3 h",
+   "note": "S543 2f78435ae: FAIL 4 of 7, each by one cell; v8 launched"
+  },
+  {
+   "id": "TURNPRO18",
+   "status": "done",
+   "started": "2026-11-23T21:33",
+   "title": "Turning pro v18: the matchup decides, the name pays after fight 6, the bars know the boxer - map + full-size probe (ten bars)",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (console tab TURNPRO18, c1 of the S543 session)",
+   "eta": "about 3 h",
+   "note": "S543: stopped at its first check (a plan line against a tell adds about 1 point)"
+  },
+  {
+   "id": "DEPTHPRICE1CRIT",
+   "status": "done",
+   "started": "2026-11-23T21:34",
+   "title": "Code-checked critic of the two priced choices (fight-week load; sponsorship or a day job)",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (console tab DEPTHPRICE1CRIT, c2 of the S543 session)",
+   "eta": "about 40 min",
+   "note": "S543: neither price survives the code check"
+  },
+  {
+   "id": "FWLOAD2",
+   "status": "done",
+   "started": "2026-11-23T21:50",
+   "title": "Fight-week load: two state-reading values (the bank lands before the bell; the flat round reads the opponent's start), probed on the game's own tank and week",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (console tab FWLOAD2, c3 of the S543 session)",
+   "eta": "about 2-3 h",
+   "note": "S543: FAIL; the fight-week load choice cut (owner)"
+  },
+  {
+   "id": "TELLPLAY1",
+   "status": "done",
+   "started": "2026-11-23T21:56",
+   "title": "A tell changes how the opponent fights: two flagged rules (the tell's situation weighs in the opponent's game; the fade answer under the cap), measured on the read and the real bout",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (console tab TELLPLAY1, c4 of the S543 session)",
+   "eta": "about 3 h",
+   "note": "S544 515b2e6e8: FAIL bar 1 (0 of 10 types; a line moves 0.1-0.8 points in the ring); the read over-reads the fade answer 4-8 times (fix queued); next = PLANWORTH1 (a measurement)"
+  },
+  {
+   "id": "CARDAUDIT1",
+   "status": "done",
+   "started": "2026-11-23T23:36",
+   "title": "Card game: every card and step checked against how a real fight goes (John's sequences); the new position model on paper",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (console tab CARDAUDIT1 of the S544 session)",
+   "eta": "about 1 h (00:40)",
+   "note": "S544 efc80e8f9: 83 rows - REAL 60, WRONG 18, MISSING-LINK 5; 22 missing options (15 needed); new model 1.14 x the size; walked bout clean. Critics SQ320 Dola, SQ321 Kalli queued"
   }
  ]
 }

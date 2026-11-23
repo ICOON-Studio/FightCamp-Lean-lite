@@ -16,6 +16,14 @@ done." Checked in the code by the coordinator (`proto/cardgame/engine.mjs`).
 ## The rule until this is done
 No round 9 feature, screen or balance work on the card game. The next card work is the three phases below, in order.
 
+## Where it stands (S544)
+- Phase 1 DONE for boxer against jiu-jitsu fighter: `CARDREAL1_JOHN_BRIEF_JOHN.md` (sources checked). The other four
+  arts: John again, SQ319 (`CARDREAL2_JOHN_BRIEF.md`).
+- Phase 2 DONE: `CARDREAL_AUDIT.md` (83 rows: REAL 60, WRONG 18, MISSING-LINK 5; 22 missing options, 15 needed; the new
+  model is 1.14 x today's size; one whole bout walked with no "how is that possible?" turn). Fresh critics queued:
+  Dola SQ320, Kalli SQ321 (`CRITIC_CARDREAL_BRIEF.md`).
+- Phase 3 NEXT: `TASK_CARDROUND9.md` (Arena): the engine on the new model first, the screen after the critics.
+
 ## The plan
 | Phase | What | Who | Done when |
 |---|---|---|---|

@@ -5265,7 +5265,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-23",
+  "updated": "2026-11-23 22:41 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5442,7 +5442,8 @@
     "title": "Coaches v7: the owner's design (a staff game: the hire, the trial week, four moments, the corner pick) - map + quick probe",
     "who": "claude-opus-5-5 (console tab COACHDEEP7)",
     "started": "2026-11-23T21:14",
-    "run": "COACHDEEP7"
+    "run": "COACHDEEP7",
+    "state": "LANDED - Claude collects"
    },
    {
     "title": "Turning pro v18: the matchup decides, the name pays after fight 6, the bars know the boxer - map + full-size probe (ten bars)",
@@ -5462,13 +5463,26 @@
     "title": "Fight-week load: two state-reading values (the bank lands before the bell; the flat round reads the opponent's start), probed on the game's own tank and week",
     "who": "claude-opus-5-5 (console tab FWLOAD2, c3 of the S543 session)",
     "started": "2026-11-23T21:50",
-    "run": "FWLOAD2"
+    "run": "FWLOAD2",
+    "state": "LANDED - Claude collects"
    },
    {
     "title": "A tell changes how the opponent fights: two flagged rules (the tell's situation weighs in the opponent's game; the fade answer under the cap), measured on the read and the real bout",
     "who": "claude-opus-5-5 (console tab TELLPLAY1, c4 of the S543 session)",
     "started": "2026-11-23T21:56",
     "run": "TELLPLAY1"
+   },
+   {
+    "title": "Build turning pro v17 (owner: 'Yes, build v17 now'): the offer and Not yet, two bouts for pro fights 1-6, the two bars, four screens, the cuts",
+    "who": "claude-opus-5-5 (console tab TURNPROBUILD17, c5 of the S543 session; worktree E:/FightCamp/wt/TURNPROBUILD17)",
+    "started": "2026-11-23T22:12",
+    "run": "TURNPROBUILD17"
+   },
+   {
+    "title": "Coaches v8: v7 plus the three changes its probe named (a warning costs while it stands; a two-art coach is a solid-band wage; the card's line counts the boxers), the same seven bars",
+    "who": "claude-opus-5-5 (console tab COACHDEEP8, c6 of the S543 session)",
+    "started": "2026-11-23T22:25",
+    "run": "COACHDEEP8"
    }
   ],
   "next": [
@@ -5981,64 +5995,6 @@
   "map": {
    "done_earlier": [
     {
-     "text": "Card r8 guide merged + played",
-     "who": "claude"
-    },
-    {
-     "text": "Club show light night: verified",
-     "who": "claude"
-    },
-    {
-     "text": "Restyle A-D on the map",
-     "who": "claude"
-    },
-    {
-     "text": "Turning pro v17 rules: your yes",
-     "who": "claude"
-    },
-    {
-     "text": "Coaches v6: FAIL 7/9, your call",
-     "who": "claude"
-    },
-    {
-     "text": "Body cross lands on the ribs",
-     "who": "claude"
-    },
-    {
-     "text": "Turning pro v17 probe: PASS 6/6",
-     "who": "claude"
-    },
-    {
-     "text": "Coach interview: 17 answers",
-     "who": "claude"
-    },
-    {
-     "text": "Pro v17 critics: 5/6/6, 8/9/9",
-     "who": "claude"
-    },
-    {
-     "text": "Card plan written (Fable)",
-     "who": "claude"
-    },
-    {
-     "text": "2D pictures: 2x58, on /review",
-     "who": "claude"
-    },
-    {
-     "text": "Club show card cut: light night",
-     "who": "claude"
-    },
-    {
-     "text": "Card r7 merged: PLAY gate 6/6",
-     "who": "claude"
-    },
-    {
-     "text": "S541 build exported",
-     "who": "claude"
-    }
-   ],
-   "done_session": [
-    {
      "text": "Nightly: rank test follows v2 page",
      "who": "claude"
     },
@@ -6068,6 +6024,40 @@
     },
     {
      "text": "Coaches v7: fails by one, v8 runs",
+     "who": "claude"
+    },
+    {
+     "text": "Card r8 guide merged + played",
+     "who": "claude"
+    },
+    {
+     "text": "Club show light night: verified",
+     "who": "claude"
+    },
+    {
+     "text": "Restyle A-D on the map",
+     "who": "claude"
+    },
+    {
+     "text": "Turning pro v17 rules: your yes",
+     "who": "claude"
+    },
+    {
+     "text": "Coaches v6: FAIL 7/9, your call",
+     "who": "claude"
+    },
+    {
+     "text": "Body cross lands on the ribs",
+     "who": "claude"
+    }
+   ],
+   "done_session": [
+    {
+     "text": "Tells probe: fails, under 1 point",
+     "who": "claude"
+    },
+    {
+     "text": "John's card research: checked",
      "who": "claude"
     }
    ],
@@ -6173,11 +6163,15 @@
      "who": "claude"
     },
     {
-     "text": "Tells change the fight: probe",
+     "text": "Turning pro v17: build (worktree)",
      "who": "claude"
     },
     {
-     "text": "Turning pro v17: build (worktree)",
+     "text": "Card audit vs real fights (tab)",
+     "who": "claude"
+    },
+    {
+     "text": "Collect turning pro v17 build",
      "who": "claude"
     }
    ],
@@ -6509,9 +6503,17 @@
     {
      "text": "Export the S543 build",
      "who": "claude"
+    },
+    {
+     "text": "Plan worth: whole plan vs coach",
+     "who": "claude"
+    },
+    {
+     "text": "Fix fade answer on the card",
+     "who": "claude"
     }
    ],
-   "session": "S543"
+   "session": "S544"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",

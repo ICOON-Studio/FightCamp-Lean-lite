@@ -4,6 +4,24 @@ Source: `docs/TURNPROBE18_RESULT.md` (S543, 33,631 reads of the game's own win r
 checked in code by the coordinator (`scripts/rules/BoutRead.gd` `_games` reads only the style and "walks in"; `OppFile.gd`
 WEAPON_ANSWERS / WEAKNESS_ANSWERS name a situation for each tell that nothing in the opponent's game mix reads).
 
+## PHASE 1 MEASURED (S544): FAIL - and the root is one level lower
+`docs/TELLPLAY1_RESULT.md` (60,000 real bouts + 66,000 reads): making the opponent play a tell's situation more often
+(rule A) moves a player's line by 0.1-0.8 points in the ring. Bar 1 fails 0 of 10 types. So the line is not small
+because the situation is rare.
+- RULE A IS NOT BUILT. Phases 2-4 below are void as written.
+- CHECKED IN CODE (coordinator, S544), two corrections to the worker's "why": (1) a 58 coach reads ONE card
+  (`CoachPlan.READ_AT` [50, 70]), so "the coach already wrote the answer" holds for that card only; (2) the probe's arm
+  was the coach's arrows PLUS one player line, but in the game the coach writes only when the player's plan is empty
+  (`BoutNight.gd` l.197-200) - one written line may switch the coach's plan off.
+- NOT YET KNOWN: what a WHOLE player-written plan is worth today against the coach's, in real bouts (S397 said +12 to
+  +16 for one opponent; the engine has changed). The owner's S354 "make the fight plan fun to design" stands on it.
+  NEXT: `TASK_PLANWORTH1.md`, a measurement. Its numbers go to the owner; until then no design round whose central idea
+  is a plan line the player adds, and no question to him built on TELLPLAY1's "why".
+- A SEEN DEFECT, fixed apart from the dilemma: the read shows the fade answer at +7 to +15, the fight pays +0.9
+  (`BoutRead._game_edge_of` l.247-248, `_round_edges` l.378: the worker's rule B "chain"). After the v17 merge.
+- JUDGE ON THE REAL BOUT: the read can over-read a line 4 to 8 times. A probe's verdict comes from `BoutNight.play_out`
+  (paired dice, the SE printed), the read only beside it.
+
 ## The finding (a METHOD finding: it sits under several mechanics, not one)
 - A plan line the player writes against an opponent's weapon or weakness adds a median **0.2 to 1.1 points** of win chance
   over the coach's own plan. For 7 of 10 boxer types the best and the worst line are under 4 points apart.
