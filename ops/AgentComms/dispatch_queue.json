@@ -1768,9 +1768,16 @@
     {
       "task": "RIBSTEP1",
       "seat": "grok",
-      "status": "queued",
+      "status": "dropped",
       "queued": "2026-11-22T07:40",
-      "note": "nightly 11-22: rib_damage body-plan rate 59.0 < 60; bisect, likely STEPPAY2 bfe5a9817/7aa64e2e3; measurement only"
+      "note": "nightly 11-22: rib_damage body-plan rate 59.0 < 60; bisect, likely STEPPAY2 bfe5a9817/7aa64e2e3; measurement only | 11-23: rib_damage green again in the nightly, dropped"
+    },
+    {
+      "task": "NIGHTREDS1",
+      "seat": "grok",
+      "status": "queued",
+      "queued": "2026-11-23T07:40",
+      "note": "nightly 11-23: plan_templates t_turn edge and matchmaking_bots (smart vs hard, scouting stoppages) red; bisect DMGCLASS2 / STEPPAY3 / MOODREAD1; measurement only"
     }
   ]
 }

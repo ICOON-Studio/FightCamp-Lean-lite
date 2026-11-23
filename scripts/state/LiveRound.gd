@@ -46,12 +46,10 @@ const LivePreview := preload("res://scripts/state/LivePreview.gd")   # S490 LIVE
 static func values(f: Dictionary) -> Dictionary:
 	return LivePreview.values(f)
 
-
 static func _rng(c: Career, f: Dictionary, n: int, i: int) -> RandomNumberGenerator:
 	var rng := RandomNumberGenerator.new()
 	rng.seed = c.day * 31 + n * 7 + i * 101 + 3 + c.fighters.find(f) * 1009
 	return rng
-
 
 ## Opens round n. plan = the corner minute's call ("" before round 1); e = Bouts._energy's round; fix = the habit the
 ## corner fixed for this round (S309 HabitFix, "" = none). jobs = the rest of the corner minute (S310 CornerJobs):
@@ -119,38 +117,30 @@ static func open(c: Career, f: Dictionary, m: Dictionary, n: int, plan: String, 
 	RingDuel.open(m["live"])
 	GuardState.open(f, n)   # S524 GUARDWEAR: both guards full at the first bell, the corner's minute after
 
-
 ## S310 what the fight display shows after i exchanges: {a, b (energy), body [taken by her, by the opponent], hurt [hers,
 ## the opponent's]}. Kept on each exchange ("after") and the round ("start") so the display shows only what was watched.
 static func state(lv: Dictionary, i: int) -> Dictionary:
 	return RingDuel.state(lv, i)
 
-
 static func live(m: Dictionary) -> Dictionary:
 	return m.get("live", {})
-
 
 ## Her energy as exchange i starts (the round's start -> bell, less what the calls spent and the body shots she took).
 static func her_energy(lv: Dictionary, i: int) -> float:
 	return RingDuel.her_energy(lv, i)
 
-
 static func opp_energy(lv: Dictionary, i: int) -> float:
 	return RingDuel.opp_energy(lv, i)
-
 
 ## S490 the corner's view, the set-up's NOW and the combo words live in LivePreview (file limits).
 static func preview(f: Dictionary, m: Dictionary) -> Dictionary:
 	return LivePreview.preview(f, m)
 
-
 static func now_offer(lv: Dictionary, sit_seen: String) -> Dictionary:
 	return LivePreview.now_offer(lv, sit_seen)
 
-
 static func combo_words(id: String) -> String:
 	return LivePreview.combo_words(id)
-
 
 ## Fights the next exchange with this shout ("" = say nothing; "now" = fire the set-up on the plan). Returns the closed
 ## round after the sixth, else {}.

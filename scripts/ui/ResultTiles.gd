@@ -40,7 +40,7 @@ static func icon(name: String, px: int, colour: Color) -> TextureRect:
 		var key := "%s@%d" % [name, px]
 		if not _cache.has(key):
 			var img := Image.new()
-			img.load_svg_from_string('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">%s</svg>' % str(SVG[name]), float(px) / 24.0)
+			img.load_svg_from_string('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">%s</svg>' % str(SVG[name]), float(px) / 24.0)
 			_cache[key] = ImageTexture.create_from_image(img)
 		r.texture = _cache[key]
 	else:

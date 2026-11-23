@@ -303,7 +303,7 @@ static func counters(when: String, habits: Array = [], mastery: Dictionary = {})
 	for m in StrikeMap.outs(card):
 		(by[PlanFight.fit(str(m["id"]), sit)] as Array).append(m)
 	var picks: Array = []
-	for k in [["best"], ["ok", "none", "best"], ["wrong", "none", "ok", "best"]]:
+	for k in [["best"], ["ok", "none", "best", "wrong"], ["wrong", "none", "ok", "best"]]:   # nightly 11-23: a place with no ok move (STEPPAY3 made roll_out, push_off wrong on a tiring opponent) offers a second wrong turn
 		for g in k:
 			var left: Array = (by[g] as Array).filter(func(m): return not picks.has(m))
 			if not left.is_empty():

@@ -30,7 +30,6 @@ const SOFT := Palette.MUTED
 
 static var adding_if := false   # the "+ Add an IF" list is open
 
-
 static func chart(m: Node, fighter: Dictionary, play: Callable) -> Control:
 	var g := new()
 	g.name = "GamePlan"
@@ -43,7 +42,6 @@ static func chart(m: Node, fighter: Dictionary, play: Callable) -> Control:
 	g.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	g._build()
 	return g
-
 
 func _build() -> void:
 	UI.clear(self)
@@ -78,7 +76,6 @@ func _build() -> void:
 	if checks.get_child_count() > 1:
 		add_child(checks)
 
-
 ## The buttons that work today: a real fight plan (preset), Test it (a sparring night), the move map.
 func _buttons() -> Control:
 	var h := UI.hbox(8)
@@ -106,7 +103,6 @@ func _buttons() -> Control:
 	h.add_child(PlanSaves.button(self))
 	return h
 
-
 ## Left: who the plan is rated against, then the opponent's file (tells found on film, each with the plan's answer).
 func _left() -> Control:
 	var card := PanelContainer.new()
@@ -132,7 +128,6 @@ func _left() -> Control:
 	if not b.is_empty() and vs == "":
 		v.add_child(_file_compact())
 	return card
-
 
 ## The opponent's file in a narrow column (PlanFile.rows): each tell, what it is, the plan's answer to it, and the better
 ## answer one click away. Names stay in headers (S448): the rows say "the opponent".
