@@ -12,6 +12,11 @@ S541 build (2026-11-23, evening) - what changed, and what to try
    listed twice (C478).
 5. Fixed: the corner's card ask saw no evidence after the footwork merge (an escape off the ropes was invisible to it);
    it reads the ridden escape again. The "turn" plan template answers a presser's moments again.
+6. THE CLUB SHOW IS A LIGHT MONEY NIGHT (your Q-318 "Yes, light night"; in this build since 17:12): Club > Money, the
+   "Club show" row now reads both halls before you book - Community hall (250 seats, $1,000) and Town hall (400 seats,
+   $2,000): how full each is likely to be, the money and the reputation. A full hall lifts reputation, a half-empty one
+   costs it. One "Book" button for the better hall, two when it is close (your call). Two standby reserves box first if
+   a visiting boxer pulls out. Hover the row for the full sentence. The night's result message carries the sheet.
 
 S539 build (2026-11-23, early morning) - what changed, and what to try
 

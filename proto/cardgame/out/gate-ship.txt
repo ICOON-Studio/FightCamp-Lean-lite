@@ -48,9 +48,9 @@ SHIP GATE - plan section 7. PLAY, plus the full bar sheet; the critics and the n
    its turns; blind judge >=90%)                                                                                           
 12 P10: the pilot flies every deck (AI no more than 5 points     boxing: AI 47.5 / scripted 59.0 ; bjj: AI 49.5 / scripted FAIL
    below the scripted)                                           38.5                                                      
-13 L1: 30-70 titles in 100 (model minutes shown)                 48/100 titles; 31.0 modelled minutes a run (8 s a player  PASS
+13 L1: 30-70 titles in 100 (model minutes shown)                 52/100 titles; 29.9 modelled minutes a run (8 s a player  PASS
                                                                  decision)                                                 
-14 L2: every training option best in 1-6 of ten real ladder      boxing 2/4/3/1 ; bjj 5/2/2/1                              PASS
+14 L2: every training option best in 1-6 of ten real ladder      boxing 3/4/2/1 ; bjj 5/2/1/2                              PASS
    states (from simulateLadder)                                                                                            
 15 the beginner at 25-40% (the impatient line against the AI, perboxing 49.5 ; bjj 0.0                                     FAIL
    art)                                                                                                                    

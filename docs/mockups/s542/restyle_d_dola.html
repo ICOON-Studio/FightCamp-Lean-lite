@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FightCamp — Fight Result</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Barlow', sans-serif; }
+  body {
+    background-color: #1c1712;
+    color: #efe6d6;
+    width: 1920px; height: 1080px;
+    padding: 32px;
+    overflow-x: hidden;
+  }
+
+  /* Top Bar */
+  .top-bar {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 32px; padding-bottom: 16px;
+    border-bottom: 1px solid #3a3127;
+  }
+  .top-left { display: flex; gap: 16px; align-items: center; }
+  .nav-link { color: #efe6d6; text-decoration: none; font-size: 14px; }
+  .nav-link:hover { color: #e8b54a; }
+  .gym-name { font-size: 20px; font-weight: 700; font-style: italic; }
+  .top-right { display: flex; gap: 24px; align-items: center; font-size: 14px; }
+  .mail-badge { position: relative; }
+  .badge {
+    position: absolute; top: -8px; right: -8px;
+    background: #e8b54a; color: #1c1712;
+    font-size: 10px; font-weight: 700;
+    padding: 1px 5px; border-radius: 10px;
+  }
+  .cash { color: #e8b54a; font-weight: 600; }
+  .menu-btn { background: none; border: 1px solid #3a3127; color: #efe6d6; padding: 6px 16px; border-radius: 6px; cursor: pointer; }
+
+  /* Headline */
+  .result-header { text-align: center; margin-bottom: 32px; }
+  .result-title { font-size: 42px; font-weight: 700; margin-bottom: 8px; }
+  .result-sub { font-size: 18px; color: #a89a86; }
+  .boxer-names { font-size: 22px; margin-top: 8px; }
+  .your-boxer { color: #4a7fd0; }
+  .opponent { color: #d0503c; }
+
+  /* Cards */
+  .card {
+    background-color: #262019;
+    border: 1px solid #3a3127;
+    border-radius: 10px;
+    padding: 24px;
+  }
+  .card.active { box-shadow: inset 0 0 12px rgba(232, 181, 74, 0.08); }
+  .card-label {
+    font-size: 12px; text-transform: uppercase; letter-spacing: 1.5px;
+    color: #e8b54a; margin-bottom: 12px; font-weight: 500;
+  }
+
+  /* Key-Value Tiles */
+  .tiles-row { display: flex; gap: 16px; margin-bottom: 32px; justify-content: center; }
+  .tile {
+    background-color: #262019;
+    border: 1px solid #3a3127;
+    border-radius: 10px;
+    padding: 16px 24px;
+    min-width: 140px; text-align: center;
+  }
+  .tile-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #a89a86; margin-bottom: 6px; }
+  .tile-value { font-size: 20px; font-weight: 700; }
+
+  /* Pills/Tags */
+  .pill {
+    display: inline-block;
+    border: 1px solid;
+    border-radius: 20px;
+    padding: 4px 10px;
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .pill.good { border-color: #3fb27f; color: #3fb27f; }
+  .pill.bad { border-color: #d0503c; color: #d0503c; }
+  .pill.neutral { border-color: #a89a86; color: #a89a86; }
+  .pill.info { border-color: #4a7fd0; color: #4a7fd0; }
+
+  /* Two-Colour Bar */
+  .bar-container { margin: 16px 0; }
+  .bar-label-row { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px; }
+  .bar-wrapper { display: flex; height: 20px; border-radius: 10px; overflow: hidden; }
+  .bar-your { background-color: #4a7fd0; text-align: left; padding-left: 8px; font-size: 11px; font-weight: 600; line-height: 20px; }
+  .bar-opp { background-color: #d0503c; text-align: right; padding-right: 8px; font-size: 11px; font-weight: 600; line-height: 20px; }
+
+  /* Layout Grid */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; margin-bottom: 32px; }
+  .full-card { margin-bottom: 24px; }
+
+  /* Plan Lines */
+  .plan-line {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 0; border-bottom: 1px solid #3a3127;
+  }
+  .plan-line:last-child { border-bottom: none; }
+  .plan-text { font-size: 15px; flex: 1; }
+  .plan-meta { display: flex; gap: 12px; align-items: center; font-size: 13px; }
+  .grade-strong { color: #3fb27f; font-weight: 600; }
+  .grade-ok { color: #e8b54a; font-weight: 600; }
+  .grade-bad { color: #d0503c; font-weight: 600; }
+  .hint-note { font-size: 12px; color: #a89a86; font-style: italic; margin-left: 8px; }
+
+  /* Round Row */
+  .round-row {
+    display: flex; align-items: center; padding: 10px 0;
+    border-bottom: 1px solid #3a3127; font-size: 15px;
+  }
+  .round-row:last-child { border-bottom: none; }
+  .round-num { width: 60px; font-weight: 600; }
+  .round-winner { flex: 1; }
+  .round-call { color: #a89a86; font-size: 13px; text-align: right; }
+
+  /* Buttons */
+  .btn-primary {
+    background-color: #e8b54a; color: #1c1712;
+    font-size: 16px; font-weight: 600;
+    border: none; border-radius: 8px;
+    padding: 14px 40px; cursor: pointer;
+  }
+  .btn-secondary {
+    background: transparent; color: #efe6d6;
+    font-size: 14px; border: 1px solid #3a3127;
+    border-radius: 6px; padding: 8px 16px; cursor: pointer;
+  }
+  .btn-row { text-align: center; margin-top: 32px; }
+
+  /* Small text */
+  .muted { color: #a89a86; font-size: 14px; }
+</style>
+</head>
+<body>
+
+<!-- Top Bar -->
+<div class="top-bar">
+  <div class="top-left">
+    <a href="#" class="nav-link">← Back</a>
+    <span class="gym-name">Anvil Street Gym</span>
+    <span class="muted">Mon 5 Jan 2026 / Week 1</span>
+  </div>
+  <div class="top-right">
+    <a href="#" class="nav-link">Gym</a>
+    <a href="#" class="nav-link mail-badge">Mail<span class="badge">2</span></a>
+    <span class="cash">$17,200 <span class="muted" style="font-size:12px;">running -$628/wk</span></span>
+    <button class="menu-btn">Menu</button>
+  </div>
+</div>
+
+<!-- Main Result Header -->
+<div class="result-header">
+  <h1 class="result-title">Win on Points</h1>
+  <p class="result-sub">After 3 × 3 minute rounds — Unanimous decision</p>
+  <p class="boxer-names"><span class="your-boxer">Your Boxer</span> — def. — <span class="opponent">The Opponent</span></p>
+</div>
+
+<!-- Key-Value Tiles -->
+<div class="tiles-row">
+  <div class="tile">
+    <div class="tile-label">Result</div>
+    <div class="tile-value" style="color:#3fb27f;">Win</div>
+  </div>
+  <div class="tile">
+    <div class="tile-label">Method</div>
+    <div class="tile-value">Points</div>
+  </div>
+  <div class="tile">
+    <div class="tile-label">Rounds</div>
+    <div class="tile-value">3 / 3</div>
+  </div>
+  <div class="tile">
+    <div class="tile-label">Rank Earned</div>
+    <div class="tile-value">#14 → #11</div>
+  </div>
+</div>
+
+<div class="grid-2">
+  <!-- Round-by-Round -->
+  <div class="card">
+    <div class="card-label">Round by Round</div>
+    <div class="round-row">
+      <span class="round-num">1</span>
+      <span class="round-winner"><span class="your-boxer">Your Boxer</span> — 10:9</span>
+      <span class="round-call">Coach: Stay long, don't trade inside</span>
+    </div>
+    <div class="round-row">
+      <span class="round-num">2</span>
+      <span class="round-winner"><span class="opponent">Opponent</span> — 9:10</span>
+      <span class="round-call">Coach: They're checking your lead hand</span>
+    </div>
+    <div class="round-row">
+      <span class="round-num">3</span>
+      <span class="round-winner"><span class="your-boxer">Your Boxer</span> — 10:9</span>
+      <span class="round-call">Coach: Smart work — they ran out of options</span>
+    </div>
+  </div>
+
+  <!-- Plan Walked Out With -->
+  <div class="card">
+    <div class="card-label">The Plan Your Boxer Walked Out With</div>
+    <div class="plan-line">
+      <span class="plan-text">If they rush forward → step back and counter straight left</span>
+      <div class="plan-meta">
+        <span class="grade-strong">Strong</span>
+        <span class="muted">Won 2 of 3 exchanges</span>
+      </div>
+    </div>
+    <div class="plan-line">
+      <span class="plan-text">If they stay outside → feint then close distance</span>
+      <div class="plan-meta">
+        <span class="grade-ok">OK</span>
+        <span class="muted">Used once</span>
+      </div>
+    </div>
+    <div class="plan-line">
+      <span class="plan-text">If they clinch → pivot toward the ropes</span>
+      <div class="plan-meta">
+        <span class="grade-bad">Bad</span>
+        <span class="muted">Never used</span>
+      </div>
+    </div>
+    <div class="plan-line">
+      <span class="plan-text">Lead hand feint → draw their counter</span>
+      <div class="plan-meta">
+        <span class="grade-strong">Strong</span>
+        <span class="muted">Read after 3 uses in round 1</span>
+        <span class="hint-note">Opponent adjusted — paid 30% less effectiveness</span>
+      </div>
+    </div>
+    <div class="plan-line">
+      <span class="plan-text">At bell — start from outside range</span>
+      <div class="plan-meta">
+        <span class="grade-ok">OK</span>
+        <span class="muted">Worked round 1 only</span>
+      </div>
+    </div>
+    <div class="plan-line">
+      <span class="plan-text">On ropes → elbow and spin free</span>
+      <div class="plan-meta">
+        <span class="grade-ok">OK</span>
+        <span class="muted">Not needed</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="grid-3">
+  <!-- Why: Your Plan -->
+  <div class="card">
+    <div class="card-label">Why It Worked — Your Plan</div>
+    <p style="margin-bottom:8px; font-size:14px;">Your boxer established the jab early and forced them to reach. Counter-punches landed consistently when they over-committed.</p>
+    <span class="pill good">+ Control</span>
+  </div>
+
+  <!-- Against You -->
+  <div class="card">
+    <div class="card-label">What They Did Well</div>
+    <p style="margin-bottom:8px; font-size:14px;">They crowded you in round 2 and slowed your rhythm. Your boxer didn't pivot enough — be ready to circle next time.</p>
+    <span class="pill bad">− Rhythm</span>
+  </div>
+
+  <!-- Next Steps -->
+  <div class="card">
+    <div class="card-label">Next</div>
+    <p style="margin-bottom:8px; font-size:14px;">Rank up! Next opponent is taller, longer reach. Start working on your inside entry this week.</p>
+    <span class="pill info">New Matchup</span>
+  </div>
+</div>
+
+<!-- Comparison Bars -->
+<div class="card full-card">
+  <div class="card-label">Punch Statistics</div>
+
+  <div class="bar-container">
+    <div class="bar-label-row">
+      <span style="color:#4a7fd0;">Your Boxer</span>
+      <span style="color:#d0503c;">Opponent</span>
+    </div>
+    <div style="font-size:13px; margin-bottom:4px;">Total Punches Landed</div>
+    <div class="bar-wrapper">
+      <div class="bar-your" style="width:58%;">82</div>
+      <div class="bar-opp" style="width:42%;">59</div>
+    </div>
+  </div>
+
+  <div class="bar-container">
+    <div style="font-size:13px; margin-bottom:4px;">Body Shots Landed</div>
+    <div class="bar-wrapper">
+      <div class="bar-your" style="width:45%;">28</div>
+      <div class="bar-opp" style="width:55%;">34</div>
+    </div>
+  </div>
+
+  <div class="bar-container">
+    <div style="font-size:13px; margin-bottom:4px;">Head Shots Landed</div>
+    <div class="bar-wrapper">
+      <div class="bar-your" style="width:67%;">54</div>
+      <div class="bar-opp" style="width:33%;">25</div>
+    </div>
+  </div>
+</div>
+
+<!-- Primary Button -->
+<div class="btn-row">
+  <button class="btn-primary">Back to the Gym</button>
+</div>
+
+</body>
+</html>

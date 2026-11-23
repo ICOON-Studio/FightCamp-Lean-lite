@@ -4529,7 +4529,8 @@
    "pid": 182104,
    "transcript": "AgentComms/seat_logs/SQ309_dola.txt",
    "answered_at": "2026-11-23 15:10",
-   "answer": "research/RESTYLE1B_DOLA_BRIEF_DOLA.md"
+   "answer": "research/RESTYLE1B_DOLA_BRIEF_DOLA.md",
+   "seen_by_claude": true
   },
   {
    "id": "SQ310",
@@ -4543,7 +4544,8 @@
    "pid": 160800,
    "transcript": "AgentComms/seat_logs/SQ310_dola.txt",
    "answered_at": "2026-11-23 16:10",
-   "answer": "research/RESTYLE1C_DOLA_BRIEF_DOLA.md"
+   "answer": "research/RESTYLE1C_DOLA_BRIEF_DOLA.md",
+   "seen_by_claude": true
   },
   {
    "id": "SQ311",
@@ -4557,7 +4559,8 @@
    "pid": 92656,
    "transcript": "AgentComms/seat_logs/SQ311_dola.txt",
    "answered_at": "2026-11-23 17:10",
-   "answer": "research/RESTYLE1D_DOLA_BRIEF_DOLA.md"
+   "answer": "research/RESTYLE1D_DOLA_BRIEF_DOLA.md",
+   "seen_by_claude": true
   },
   {
    "id": "SQ312",
@@ -4571,7 +4574,8 @@
    "sent_ms": 1795441223576,
    "answered_at": "2026-11-23 16:10",
    "answer": "research/CRITIC_KNOW_STAKES1_V9_BRIEF_KALLI.md",
-   "chars": 19709
+   "chars": 19709,
+   "seen_by_claude": true
   },
   {
    "id": "SQ313",
@@ -4585,7 +4589,8 @@
    "pid": 241984,
    "transcript": "AgentComms/seat_logs/SQ313_dola.txt",
    "answered_at": "2026-11-23 18:10",
-   "answer": "research/CRITIC_KNOW_STAKES1_V9_BRIEF_DOLA.md"
+   "answer": "research/CRITIC_KNOW_STAKES1_V9_BRIEF_DOLA.md",
+   "seen_by_claude": true
   }
  ]
 }

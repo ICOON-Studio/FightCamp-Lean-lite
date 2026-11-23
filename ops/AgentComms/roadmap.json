@@ -6,9 +6,9 @@
   "id": "S541",
   "owner": "claude",
   "updated": "2026-11-23",
-  "summary": "S541 (Opus): card plan SIGNED (Q-312 + Q-313..317 Yes); CARDFIX6B + card r7 merged (PLAY gate 6/6, 40 tests) - owner played r7: KO'd in bout 1, 'i didnt understand the design , maybe a guide would be useful' -> card r8 THE GUIDE on Arena (arena/1f620be9). GRAPPLEMAP1 merged (8 BJJ card pictures). PICS2D2 landed (2x58 pictures, dodges + reactions; body cross gap). P4PEVID1 landed (p4p_visit, plan_templates, golden_path PASS). Club show v8 FAIL 6/9, 3rd in a row -> Q-318 'Yes, light night': card CUT, HOSTLIGHT1 building (tab c6). Coaches v4 FAIL 6/10 (uncapped class<->members loop) -> COACHDEEP5 (tab c5) + feedback-loop gate in claude_cm.ps1 (owner 'Yes, add it'). Knowledge v9 map done, critics SQ312/313. TURNPROBE16 FAIL 11/16 -> owner interview (15 yes): TURNPRO_INTERVIEW_S541.md = the new turning-pro spec; next session writes v17 from it. Owner: agents only in console (settings deny Agent + start_session). Build exported.",
-  "next_action": "S542: see NEXT_SESSION_PROMPT.md (turning pro v17 design from TURNPRO_INTERVIEW_S541.md with the owner; collect card r8 (guide) -> play by script -> owner plays; HOSTLIGHT1; COACHDEEP5; knowledge v9 critics SQ312/313; Dola restyle C/D).",
-  "last_working_commit": "2a5f3b6c0",
+  "summary": "ORDER (owner S542: \"restyling isnot important i want to finish with all pending mechanics then focus on the 3d and menus\"): pending mechanics first (turning pro v17, coaches, knowledge, club show done, depth, push switch), THEN 3D and menus; restyle PARKED (Q-321 closed \"Not now\"). COACHDEEP6 FAIL 7/9 -> Q-322 his cut-or-keep. | S542 owner Q-320 'Yes, build it' (turning pro v17 rules, TURNPRO17_RULES_S542.md) -> TURNPRO17 map + quick probe running (Opus tab). Also running: BODYCROSS1 (Fable, body-cross take), COACHDEEP6 (Opus, coaches without the evening trade). Restyle A-D on the map, Q-321 open. | S542 (Fable, in progress): card r8 THE GUIDE merged by diff (5665bd72c, 47/47, play gate 6/6; PR 449 closed, its red check was the reviewer tool's HTTP 429). Claude played the guided first bout by hand: dead cards looked playable -> fixed (fb893e2bf: greyed + reason; strip says 'you are on top'). Round 9 notes: a coach line when the bout first goes to the ground; the strip shows where the bout is, the hand where it will be after laid steps; a Cross printed 4+1 landed 2+0 into the guard with no reason. COACHDEEP5 FAIL 7/10: coach part passes, the class-night-or-pads evening trade fails bar h a third time -> DECISION (free hand): trade cut as a depth claim, v6 map without it, then critics. HOSTLIGHT1 built (4e205b1c3); Claude's own rerun + still held while the owner plays (memory AMBER). Turning pro v17 rules with numbers put to the owner for his yes. Four finished worker processes (P4PEVID1, PICS2D2, COACHDEEP5, HOSTLIGHT1) still alive, ~1.4 GB: stopping them was refused by the permission mode. | S541 (Opus): card plan SIGNED (Q-312 + Q-313..317 Yes); CARDFIX6B + card r7 merged (PLAY gate 6/6, 40 tests) - owner played r7: KO'd in bout 1, 'i didnt understand the design , maybe a guide would be useful' -> card r8 THE GUIDE on Arena (arena/1f620be9). GRAPPLEMAP1 merged (8 BJJ card pictures). PICS2D2 landed (2x58 pictures, dodges + reactions; body cross gap). P4PEVID1 landed (p4p_visit, plan_templates, golden_path PASS). Club show v8 FAIL 6/9, 3rd in a row -> Q-318 'Yes, light night': card CUT, HOSTLIGHT1 building (tab c6). Coaches v4 FAIL 6/10 (uncapped class<->members loop) -> COACHDEEP5 (tab c5) + feedback-loop gate in claude_cm.ps1 (owner 'Yes, add it'). Knowledge v9 map done, critics SQ312/313. TURNPROBE16 FAIL 11/16 -> owner interview (15 yes): TURNPRO_INTERVIEW_S541.md = the new turning-pro spec; next session writes v17 from it. Owner: agents only in console (settings deny Agent + start_session). Build exported.",
+  "next_action": "S542: collect TURNPRO17 (PASS -> critics at 8 -> build; FAIL -> one change), BODYCROSS1 (open the side film + four pictures), COACHDEEP6 (PASS -> critics; a code-checked Arena critic owed for both); owner plays card r8 at http://127.0.0.1:8799/ -> round 9 on Arena from CARD_R8_CLAUDE_PLAY_S542.md; Q-321 restyle pick; knowledge v9: offer the interview.",
+  "last_working_commit": "fb893e2bf",
   "verified_playable": "Builds/FightCamp.exe S541 (pictures view, combo counter, footwork 10/10); card r7 page played by Claude and the owner",
   "incomplete_blocked": "Turning pro v17: design with the owner first (he asked for it next session). Knowledge v9 critics: Kalli 7/8/7, Dola 8/7/7 - each under 8 on one axis -> v10 from both lists or an interview (9 rounds).",
   "next_acceptance": "Owner says yes to the v17 rules with numbers; TASK_TURNPRO17 launched with Feedback loops; card r8 merged and played by him.",
@@ -5958,64 +5958,6 @@
   "map": {
    "done_earlier": [
     {
-     "text": "STEPPAY5 merged: steps 10/10",
-     "who": "claude"
-    },
-    {
-     "text": "TURNPRO15 probe: PASS 17/17",
-     "who": "claude"
-    },
-    {
-     "text": "Chip words: three uses",
-     "who": "claude"
-    },
-    {
-     "text": "Coach v2: FAIL on money",
-     "who": "claude"
-    },
-    {
-     "text": "Combo counter built",
-     "who": "claude"
-    },
-    {
-     "text": "Footwork merged 10/10",
-     "who": "claude"
-    },
-    {
-     "text": "Pro v15 probe PASS, critics 6",
-     "who": "claude"
-    },
-    {
-     "text": "Coaches v3: FAIL 7/10",
-     "who": "claude"
-    },
-    {
-     "text": "Club show v6: FAIL 5/9",
-     "who": "claude"
-    },
-    {
-     "text": "Card r6 merged (page broken)",
-     "who": "claude"
-    },
-    {
-     "text": "Q-305 rival deadline: yes",
-     "who": "claude"
-    },
-    {
-     "text": "Arena PRs 443/444 closed",
-     "who": "claude"
-    },
-    {
-     "text": "Knowledge v7 map: rival clock",
-     "who": "claude"
-    },
-    {
-     "text": "Opponents adjust: shown",
-     "who": "claude"
-    }
-   ],
-   "done_session": [
-    {
      "text": "Card plan written (Fable)",
      "who": "claude"
     },
@@ -6045,6 +5987,52 @@
     },
     {
      "text": "Turning pro interview",
+     "who": "claude"
+    },
+    {
+     "text": "STEPPAY5 merged: steps 10/10",
+     "who": "claude"
+    },
+    {
+     "text": "TURNPRO15 probe: PASS 17/17",
+     "who": "claude"
+    },
+    {
+     "text": "Chip words: three uses",
+     "who": "claude"
+    },
+    {
+     "text": "Coach v2: FAIL on money",
+     "who": "claude"
+    },
+    {
+     "text": "Combo counter built",
+     "who": "claude"
+    },
+    {
+     "text": "Footwork merged 10/10",
+     "who": "claude"
+    }
+   ],
+   "done_session": [
+    {
+     "text": "Card r8 guide merged + played",
+     "who": "claude"
+    },
+    {
+     "text": "Club show light night: verified",
+     "who": "claude"
+    },
+    {
+     "text": "Restyle A-D on the map",
+     "who": "claude"
+    },
+    {
+     "text": "Turning pro v17 rules: your yes",
+     "who": "claude"
+    },
+    {
+     "text": "Coaches v6: FAIL 7/9, your call",
      "who": "claude"
     }
    ],
@@ -6082,10 +6070,6 @@
      "who": "claude"
     },
     {
-     "text": "Restyle: Dola style sheet",
-     "who": "claude"
-    },
-    {
      "text": "Card plan: AAA prep (Fable)",
      "who": "claude"
     },
@@ -6111,6 +6095,22 @@
     },
     {
      "text": "Your play: card game r7",
+     "who": "claude"
+    },
+    {
+     "text": "Turning pro v17: design with you",
+     "who": "claude"
+    },
+    {
+     "text": "Body cross take (Fable tab)",
+     "who": "claude"
+    },
+    {
+     "text": "Coaches v6: no evening trade",
+     "who": "claude"
+    },
+    {
+     "text": "Turning pro v17: map + probe",
      "who": "claude"
     }
    ],
@@ -6392,10 +6392,6 @@
      "who": "claude"
     },
     {
-     "text": "Restyle pages B C D",
-     "who": "claude"
-    },
-    {
      "text": "Export S540 build",
      "who": "claude"
     },
@@ -6412,7 +6408,7 @@
      "who": "claude"
     }
    ],
-   "session": "S541"
+   "session": "S542"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",

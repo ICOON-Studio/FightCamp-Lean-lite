@@ -3682,6 +3682,135 @@
       "seen_by_claude": true,
       "id": "C476",
       "addressed": "S538: moving on - the cross is CLOSED as shipped (ActionForge legs); next = the other punch takes"
+    },
+    {
+      "path": "_sent/2026-11-23_0325_opponents_adjust_shown_plan_chip_plan_ta/planreadshow1_chart_lean_chip.png",
+      "text": "what do you think ?",
+      "at": "2026-11-23T01:38:12Z",
+      "seen_by_claude": true,
+      "id": "C477",
+      "addressed": "cited by cc8c3789d 2026-11-23"
+    },
+    {
+      "path": "_sent/2026-11-23_0325_opponents_adjust_shown_plan_chip_plan_ta/planreadshow1_result_plan_tab.png",
+      "text": "what do you think ?",
+      "at": "2026-11-23T01:38:23Z",
+      "seen_by_claude": true,
+      "id": "C478"
+    },
+    {
+      "path": "_sent/2026-11-23_1134_2d_pictures_v_the_3d_round_pics2d1/contact_sheet.png",
+      "text": "ok",
+      "at": "2026-11-23T12:23:22Z",
+      "seen_by_claude": true,
+      "id": "C479"
+    },
+    {
+      "path": "_sent/2026-11-23_0516_2d_pictures_v_3d_one_round/3d_round.mp4",
+      "text": "ok, but why so low fps ?",
+      "at": "2026-11-23T12:24:14Z",
+      "seen_by_claude": true,
+      "at_s": 158.3,
+      "id": "C480"
+    },
+    {
+      "path": "_sent/2026-11-23_0516_2d_pictures_v_3d_one_round/blue_cross_missed.png",
+      "text": "not good , make one fighter dodge  when other one punches",
+      "at": "2026-11-23T12:25:15Z",
+      "seen_by_claude": true,
+      "id": "C481"
+    },
+    {
+      "path": "_sent/2026-11-23_0516_2d_pictures_v_3d_one_round/blue_jab_missed.png",
+      "text": "not good , make one fighter dodge  when other one punches",
+      "at": "2026-11-23T12:25:18Z",
+      "seen_by_claude": true,
+      "id": "C482"
+    },
+    {
+      "path": "_sent/2026-11-23_0516_2d_pictures_v_3d_one_round/blue_jab_landed.png",
+      "text": "ok",
+      "at": "2026-11-23T12:25:28Z",
+      "seen_by_claude": true,
+      "id": "C483"
+    },
+    {
+      "path": "_sent/2026-11-23_0516_2d_pictures_v_3d_one_round/picture_round.mp4",
+      "text": "not bad but can get a lot better and use reactions . is this for the card game ?",
+      "at": "2026-11-23T12:26:58Z",
+      "seen_by_claude": true,
+      "at_s": 18.7,
+      "id": "C484"
+    },
+    {
+      "path": "_sent/2026-11-23_0445_the_fight_business_demo_2d_fight/06_tactics_24_sliders.png",
+      "text": "can improve this idea with the sliders",
+      "at": "2026-11-23T12:27:33Z",
+      "seen_by_claude": true,
+      "id": "C485"
+    },
+    {
+      "path": "_sent/2026-11-22_2342_result_page_v2_in_the_game/result_v2_loss.png",
+      "text": "ok",
+      "at": "2026-11-23T12:29:40Z",
+      "seen_by_claude": true,
+      "id": "C486"
+    },
+    {
+      "path": "_sent/2026-11-22_2342_result_page_v2_in_the_game/result_v2_loss_modal.png",
+      "text": "ok",
+      "at": "2026-11-23T12:30:06Z",
+      "seen_by_claude": true,
+      "id": "C487"
+    },
+    {
+      "path": "_sent/2026-11-22_2342_result_page_v2_in_the_game/result_v2_loss_tooltip.png",
+      "text": "ok",
+      "at": "2026-11-23T12:30:13Z",
+      "seen_by_claude": true,
+      "id": "C488"
+    },
+    {
+      "path": "_sent/2026-11-22_2339_office_goals_sheets_in_the_game/office_sheets_real.png",
+      "text": "ok",
+      "at": "2026-11-23T12:31:18Z",
+      "seen_by_claude": true,
+      "id": "C489"
+    },
+    {
+      "path": "_sent/2026-11-22_2339_office_goals_sheets_in_the_game/office_sheets_menu_real.png",
+      "text": "ok",
+      "at": "2026-11-23T12:31:22Z",
+      "seen_by_claude": true,
+      "id": "C490"
+    },
+    {
+      "path": "_sent/2026-11-22_2339_office_goals_sheets_in_the_game/office_sheets_columns_real.png",
+      "text": "ok",
+      "at": "2026-11-23T12:31:37Z",
+      "seen_by_claude": true,
+      "id": "C491"
+    },
+    {
+      "path": "_sent/2026-11-22_2339_office_goals_sheets_in_the_game/office_goals_tip_real.png",
+      "text": "ok",
+      "at": "2026-11-23T12:31:45Z",
+      "seen_by_claude": true,
+      "id": "C492"
+    },
+    {
+      "path": "_sent/2026-11-22_2339_office_goals_sheets_in_the_game/office_goals_real.png",
+      "text": "ok",
+      "at": "2026-11-23T12:31:50Z",
+      "seen_by_claude": true,
+      "id": "C493"
+    },
+    {
+      "path": "_sent/2026-11-22_2339_office_goals_sheets_in_the_game/office_staff_menu_real.png",
+      "text": "ok",
+      "at": "2026-11-23T12:31:59Z",
+      "seen_by_claude": true,
+      "id": "C494"
     }
   ]
 }

@@ -179,6 +179,8 @@ P.gate = async function () {
     let guard = 0;
     while (!screen.querySelector('#trainNext')) {
       if (guard++ > 4000) throw new Error('the bout never reached a verdict');
+      const gotit = screen.querySelector('#gotit'); // round 8: the coach's line first, then the bout
+      if (gotit) { gotit.click(); continue; }
       const b = ['[data-answer]', '[data-card]', '[data-floor]'].map((sel) => enabled(sel)[0]).find(Boolean);
       if (b) { b.click(); continue; }
       const end = screen.querySelector('#endTurn');

@@ -185,6 +185,18 @@
       "ops/previews/s538_look/*.png"
      ],
      "cols": 3
+    },
+    {
+     "id": "s542_restyle",
+     "title": "Restyle: Dola's four pages for your pick - A style sheet, B, C roster, D fight result (S542)",
+     "kind": "gallery",
+     "globs": [
+      "docs/mockups/s540_restyle/a_style_sheet.png",
+      "docs/mockups/s541/restyle_b_dola.png",
+      "docs/mockups/s542/restyle_c_dola.png",
+      "docs/mockups/s542/restyle_d_dola.png"
+     ],
+     "cols": 2
     }
    ]
   },

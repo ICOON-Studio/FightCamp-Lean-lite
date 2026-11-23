@@ -74,6 +74,8 @@ h3{font-size:clamp(13px,1.05vw,16px)}
 .card.footwork{border-color:#3d5a3c;background:linear-gradient(180deg,#212a22,#1b1f1b)}
 .card.footwork .name{color:#bfe0c0}
 .card[disabled]{opacity:.45;cursor:not-allowed}
+#hand button[disabled]{opacity:.42;cursor:not-allowed;filter:saturate(.35)}
+#hand button[disabled] small{color:#e0b08a}
 .card.gassed{border-style:dashed}
 .card.gassed .cost{color:#e69a90;border-color:#6f3b34}
 .card.chosen{border-color:var(--gold);box-shadow:0 0 0 2px #e3ab4533,0 10px 22px #0007}
@@ -137,6 +139,35 @@ h3{font-size:clamp(13px,1.05vw,16px)}
 .small-note{font-size:11px;color:#9d8b79}
 .modebar .btn{font-size:11px;padding:8px 10px}
 .reads{gap:5px}.readline{font-size:12px;line-height:1.35;overflow-wrap:anywhere}
+
+/* --- round 8: the coach, the strip, his volley, the warning, how to play ------------------- */
+.stat{white-space:nowrap}
+.rangestrip{display:inline-flex;gap:4px;align-items:center;flex-wrap:wrap}
+.range-cell{padding:3px 10px;border:1px solid var(--line);border-radius:999px;font-size:11px;letter-spacing:.08em;color:var(--muted);background:#1b1714;font-family:var(--mono)}
+.range-cell.on{border-color:var(--gold);color:var(--gold-ink);background:var(--gold);font-weight:700}
+.rangestrip small{color:var(--muted);margin-left:4px;font-family:var(--mono);font-size:11px}
+.rangestrip.picture{margin:2px 0 6px}
+.volley{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:4px 0 8px}
+.volley .tiny{width:100%}
+.volley-card{border:1px solid #6f3b34;border-radius:9px;padding:5px 10px;background:#2a1e1b;font-size:12px;max-width:34ch}
+.volley-card b{display:block;color:#f0b6ad}
+.volley-card small{display:block;color:#c7b7a4;font-size:11px;line-height:1.3}
+.volley-card.step{border-color:var(--line2);background:#221d18}
+.volley-card.step b{color:#bfe0c0}
+.warn{color:var(--red);font-weight:700;margin:6px 0 2px;font-size:15px}
+.howto{display:flex;flex-direction:column;gap:7px;max-width:80ch}
+.howto-line{border-left:3px solid var(--gold);padding:5px 11px;background:#221c17;border-radius:0 8px 8px 0;font-size:14px;color:#e7d9c6;line-height:1.4}
+.howto-line b{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:1px}
+.coach-veil{position:fixed;inset:0;background:#000a;z-index:40}
+.coach{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:50;width:min(640px,94vw);
+  background:linear-gradient(180deg,#2e251f,#1d1815);border:1px solid var(--gold);border-radius:14px;
+  box-shadow:0 18px 44px #000d;padding:13px 17px 12px;display:flex;flex-direction:column;gap:7px}
+.coach .tag{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-family:var(--mono)}
+.coach b{font-family:var(--display);font-size:19px}
+.coach p{margin:0;color:#ecdfcd;font-size:15px;line-height:1.45}
+.coach .btn{align-self:flex-end}
+.coach-target{position:relative;z-index:45;border-radius:10px;box-shadow:0 0 0 3px var(--gold),0 0 0 7px #e3ab4526}
+
 
 /* --- corner / result --------------------------------------------------- */
 .corner{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;align-content:start}

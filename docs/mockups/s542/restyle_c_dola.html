@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FightCamp — Fighters > Roster</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="httpsfonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  font-family:Inter,sans-serif;
+  background:#1c1712;
+  color:#efe6d6;
+  width:1920px;height:1080px;
+  padding:24px;
+  overflow:hidden;
+}
+.top-bar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 24px;margin-bottom:24px;
+  background:#262019;border:1px solid #3a3127;border-radius:10px;
+}
+.nav-group{display:flex;gap:16px;align-items:center;}
+.nav-btn{background:transparent;border:none;color:#efe6d6;cursor:pointer;font-size:14px;}
+.gym-name{font-size:20px;font-weight:700;font-style:italic;}
+.top-meta{display:flex;gap:32px;align-items:center;font-size:14px;color:#a89a86;}
+.badge{background:#e8b54a20;color:#e8b54a;padding:2px 8px;border-radius:10px;font-size:12px;}
+.cash{color:#efe6d6;font-weight:600;}
+.primary-btn{
+  background:#e8b54a;color:#1c1712;border:none;border-radius:8px;
+  padding:10px 20px;font-weight:600;cursor:pointer;font-size:14px;
+}
+.secondary-btn{
+  background:transparent;color:#efe6d6;border:1px solid #3a3127;border-radius:8px;
+  padding:8px 16px;cursor:pointer;font-size:14px;
+}
+h1{font-size:28px;margin-bottom:4px;}
+.subhead{color:#a89a86;font-size:14px;margin-bottom:24px;}
+.section-label{
+  text-transform:small-caps;letter-spacing:1px;color:#e8b54a;
+  font-size:12px;margin-bottom:8px;display:block;
+}
+.card{
+  background:#262019;border:1px solid #3a3127;border-radius:10px;
+  padding:20px;margin-bottom:24px;
+}
+.card.active{border-color:#4a4137;box-shadow:inset 0 0 8px #ffffff08;}
+.pill{
+  font-size:11px;text-transform:uppercase;letter-spacing:0.5px;
+  padding:3px 10px;border-radius:12px;border:1px solid;
+  display:inline-block;
+}
+.pill.good{border-color:#3fb27f;color:#3fb27f;}
+.pill.bad{border-color:#d0503c;color:#d0503c;}
+.pill.neutral{border-color:#a89a86;color:#a89a86;}
+.split-layout{display:grid;grid-template-columns:1200px 456px;gap:24px;}
+.filter-bar{display:flex;gap:16px;margin-bottom:16px;align-items:center;}
+.filter-bar select, .filter-bar input{
+  background:#1c1712;border:1px solid #3a3127;color:#efe6d6;
+  padding:8px 12px;border-radius:6px;font-size:13px;
+}
+table{width:100%;border-collapse:collapse;}
+th{
+  text-transform:small-caps;letter-spacing:1px;color:#a89a86;
+  font-size:12px;text-align:left;padding:0 16px 12px;
+}
+tr{height:60px;border-bottom:1px solid #3a312740;cursor:pointer;}
+tr:hover{background:#2e271f;}
+tr.selected{background:#352d23;}
+td{padding:0 16px;font-size:14px;}
+.portrait{
+  width:40px;height:40px;border-radius:50%;background:#3a3127;
+  display:inline-flex;align-items:center;justify-content:center;
+  margin-right:12px;vertical-align:middle;
+}
+.form-bar{display:flex;gap:2px;width:80px;}
+.form-segment{width:12px;height:12px;border-radius:2px;}
+.stat-row{margin:16px 0;}
+.stat-bar-container{
+  height:12px;background:#1c1712;border-radius:6px;overflow:hidden;
+  margin-top:4px;
+}
+.stat-bar{height:100%;border-radius:6px;}
+.btn-row{display:flex;gap:12px;margin-top:24px;}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="nav-group">
+    <button class="nav-btn">←</button>
+    <span class="gym-name">Anvil Street Gym</span>
+    <button class="nav-btn">→</button>
+  </div>
+  <div class="top-meta">
+    <span>Mon 23 Nov 2026 / Week 4</span>
+    <span><button class="nav-btn">Gym</button></span>
+    <span><button class="nav-btn">Mail</button> <span class="badge">2</span></span>
+    <span class="cash">$17,200 <span style="font-size:12px;color:#a89a86">(-$628/wk)</span></span>
+    <button class="secondary-btn">Menu</button>
+  </div>
+</div>
+
+<h1>Fighters &mdash; Roster</h1>
+<p class="subhead">Your boxers, their progress, and what comes next</p>
+
+<div class="split-layout">
+<!-- LEFT: ROSTER TABLE -->
+<div>
+  <span class="section-label">filter roster</span>
+  <div class="filter-bar">
+    <select><option>All Weight Classes</option></select>
+    <select><option>All Status</option></select>
+    <select><option>Sort: Name A&ndash;Z</option></select>
+    <span style="margin-left:auto">6 boxers</span>
+  </div>
+
+  <div class="card" style="padding:0;overflow:hidden;">
+  <table>
+    <thead>
+      <tr style="border-bottom:1px solid #3a3127;">
+        <th>Boxer</th><th>Weight</th><th>Age</th><th>Record</th><th>Form</th><th>Morale</th><th>Next Bout</th><th>Goal</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="selected">
+        <td><span class="portrait">J</span>Jake Marlow</td>
+        <td>Lightweight</td><td>21</td><td>3&ndash;1</td>
+        <td><div class="form-bar"><div class="form-segment" style="background:#3fb27f"></div><div class="form-segment" style="background:#3fb27f"></div><div class="form-segment" style="background:#3fb27f"></div><div class="form-segment" style="background:#a89a86"></div><div class="form-segment" style="background:#a89a86"></div></div></td>
+        <td><span class="pill good">High</span></td>
+        <td>Dec 5 vs. R. Costa</td><td>Regional ranking</td>
+      </tr>
+      <tr>
+        <td><span class="portrait">L</span>Liam Carter</td>
+        <td>Welterweight</td><td>23</td><td>5&ndash;2</td>
+        <td><div class="form-bar"><div class="form-segment" style="background:#3fb27f"></div><div class="form-segment" style="background:#3fb27f"></div><div class="form-segment" style="background:#a89a86"></div><div class="form-segment" style="background:#d0503c"></div><div class="form-segment" style="background:#d0503c"></div></div></td>
+        <td><span class="pill neutral">Steady</span></td>
+        <td>Dec 12 vs. T. Reid</td><td>Title shot</td>
+      </tr>
+      <tr>
+        <td><span class="portrait">M</span>Mia Torres</td>
+        <td>Featherweight</td><td>20</td><td>4&ndash;0</td>
+        <td><div class="form-bar"><div class="form-segment" style="background:#3fb27f"></div><div class="form-segment" style="background:#3fb27f"></div><div class="form-segment" style="background:#3fb27f"></div><div class="form-segment" style="background:#3fb27f"></div><div class="form-segment" style="background:#a89a86"></div></div></td>
+        <td><span class="pill good">Peak</span></td>
+        <td>Dec 3 vs. K. Lin</td><td>National ranking</td>
+      </tr>
+      <tr>
+        <td><span class="portrait">R</span>Raj Patel</td>
+        <td>Super-light</td><td>24</td><td>2&ndash;3</td>
+        <td><div class="form-bar"><div class="form-segment" style="background:#a89a86"></div><div class="form-segment" style="background:#a89a86"></div><div class="form-segment" style="background:#d0503c"></div><div class="form-segment" style="background:#d0503c"></div><div class="form-segment" style="background:#d0503c"></div></div></td>
+        <td><span class="pill bad">Low</span></td>
+        <td>Dec 8 vs. J. Okoro</td><td>Get 1st win</td>
+      </tr>
+      <tr>
+        <td><span class="portrait">S</span>Sam Willis</td>
+        <td>Middleweight</td><td>25</td><td>6&ndash;1</td>
+        <td><div class="form-bar"><div class="form-segment" style="background:#3fb27f"></div><div class="form-segment" style="background:#3fb27f"></div><div class="form-segment" style="background:#3fb27f"></div><div class="form-segment" style="background:#3fb27f"></div><div class="form-segment" style="background:#3fb27f"></div></div></td>
+        <td><span class="pill good">Peak</span></td>
+        <td>Dec 1 vs. M. Hale</td><td>Challenger spot</td>
+      </tr>
+      <tr>
+        <td><span class="portrait">Z</span>Zara Khan</td>
+        <td>Bantamweight</td><td>19</td><td>1&ndash;0</td>
+        <td><div class="form-bar"><div class="form-segment" style="background:#3fb27f"></div><div class="form-segment" style="background:#3fb27f"></div><div class="form-segment" style="background:#a89a86"></div><div class="form-segment" style="background:#a89a86"></div><div class="form-segment" style="background:#a89a86"></div></div></td>
+        <td><span class="pill neutral">Fresh</span></td>
+        <td>Jan 5 vs. L. Voss</td><td>Build experience</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</div>
+
+<!-- RIGHT: DETAIL CARD -->
+<div class="card active">
+  <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;">
+    <span class="portrait" style="width:64px;height:64px;font-size:24px;">J</span>
+    <div>
+      <h2 style="font-size:20px;">Jake Marlow</h2>
+      <p style="color:#a89a86;font-size:13px;">Lightweight &bull; 21 &bull; Orthodox</p>
+    </div>
+  </div>
+
+  <p style="margin-bottom:12px;"><strong>Record:</strong> 3 Wins &bull; 1 Loss &bull; 1 KO</p>
+  <p style="margin-bottom:20px;"><strong>Ladder Rank:</strong> Regional #14</p>
+
+  <span class="section-label">key stats</span>
+  <div class="stat-row">
+    <span>Striking Accuracy</span>
+    <div class="stat-bar-container"><div class="stat-bar" style="width:72%;background:#4a7fd0;"></div></div>
+    <span style="font-size:12px;color:#a89a86;margin-top:2px;">72%</span>
+  </div>
+  <div class="stat-row">
+    <span>Defence</span>
+    <div class="stat-bar-container"><div class="stat-bar" style="width:58%;background:#4a7fd0;"></div></div>
+    <span style="font-size:12px;color:#a89a86;margin-top:2px;">58%</span>
+  </div>
+  <div class="stat-row">
+    <span>Stamina</span>
+    <div class="stat-bar-container"><div class="stat-bar" style="width:81%;background:#4a7fd0;"></div></div>
+    <span style="font-size:12px;color:#a89a86;margin-top:2px;">81%</span>
+  </div>
+
+  <div class="btn-row">
+    <button class="secondary-btn">Open Profile</button>
+    <button class="secondary-btn">Book Fight</button>
+    <button class="primary-btn" style="margin-left:auto;">TRAIN</button>
+  </div>
+</div>
+</div>
+
+</body>
+</html>
