@@ -15,6 +15,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .man h2{margin:0;font-size:1.2rem;grid-column:1/3}.you h2{color:var(--blue)}.him h2{color:var(--red)}
 .bar{height:.9rem;border-radius:4px;background:#3a2e26;border:1px solid var(--line2);overflow:hidden}.bar i{display:block;height:100%;transition:width .35s}
 .hp i{background:var(--red)}.st i{background:var(--green)}
+.clock{font-variant-numeric:tabular-nums;font-weight:700;font-size:1.25rem;color:var(--gold)}.clock.last{color:#ff8f86}.ticks{display:inline-flex;gap:3px;vertical-align:middle;margin-left:.4rem}.ticks i{width:1.1rem;height:.55rem;border-radius:2px;background:#3a2e26;border:1px solid var(--line2)}.ticks i.done{background:var(--muted)}.ticks i.cur{background:var(--gold);border-color:var(--gold)}
 .tag{display:inline-block;padding:1px .5rem;border-radius:.7rem;border:1px solid var(--red);color:#ffb3ad;font-size:.8rem;margin-left:.4rem}
 .table{background:var(--panel);border:1px solid var(--line);border-radius:.7rem;padding:.8rem;display:flex;flex-direction:column;gap:.6rem;min-height:15rem}
 .said{font-size:1.25rem;font-weight:600;min-height:1.7rem}.sub{color:var(--muted);min-height:1.3rem}
@@ -56,11 +57,11 @@ button{font:inherit;color:inherit;cursor:pointer}
 <script>
 // TWO HANDS (S551 toy, owner: "you can use deck for each hand or even combine them ... decide what each move hits and give
 // opponent various options"; defence by timing, "like Expedition 33"). A feel test, not a balanced game: every number is in N / MOVES.
-const N = { hp: 12, st: 6, rec: 2, defCost: 1, bell: 4, rounds: 3, leads: 3, combo: 3, half: 170, alt: 0.8, rocked: 0.75, bit: 0.6, gapAlt: 380, gapSame: 620, counter: 2, kdBack: [5, 4], aiSkill: 0.8 };
+const N = { hp: 12, st: 6, rec: 2, defCost: 1, bell: 4, spare: 1, ctrHalf: 80, ctrMs: 620, aiCtr: 0.5, rounds: 3, leads: 3, combo: 3, half: 170, alt: 0.8, rocked: 0.75, bit: 0.6, gapAlt: 380, gapSame: 620, counter: 2, kdBack: [5, 4], aiSkill: 0.8 };
 // o: the defences that work against the move -> window size (1 = full). k: what the defence does.
 const DEF = { block: { v: ['block', 'blocks'], n: 'Block', k: 'soak', t: 'Takes the sting out. His combination goes on.' }, elbow: { v: ['cover up against', 'covers up against'], n: 'Elbow block', k: 'soak', t: 'Covers the ribs. His combination goes on.' },
-  slip: { v: ['slip', 'slips'], n: 'Slip', k: 'evade', t: 'It misses. You counter and his combination ends.' }, duck: { v: ['duck under', 'ducks under'], n: 'Duck under', k: 'evade', t: 'It sails over. You counter and his combination ends.' },
-  parry: { v: ['parry', 'parries'], n: 'Parry', k: 'evade', t: 'You knock it aside. You counter and his combination ends.' }, step: { v: ['step back', 'steps back'], n: 'Step back', k: 'away', t: 'It falls short and his combination ends. You give ground.' },
+  slip: { v: ['slip', 'slips'], n: 'Slip', k: 'evade', t: 'It misses. Then a timed counter: land it to stop him.' }, duck: { v: ['duck under', 'ducks under'], n: 'Duck under', k: 'evade', t: 'It sails over. Then a timed counter: land it to stop him.' },
+  parry: { v: ['parry', 'parries'], n: 'Parry', k: 'evade', t: 'You knock it aside. Then a timed counter: land it to stop him.' }, step: { v: ['step back', 'steps back'], n: 'Step back', k: 'away', t: 'It falls short and his combination ends. You give ground.' },
   lean: { v: ['lean back', 'leans back'], n: 'Lean back', k: 'away', t: 'It passes your chin and his combination ends. You give ground.' } };
 const MOVES = {
   jab: { n: 'Jab', h: 0, hits: 'head', d: 1, p: 1, st: 1, ms: 700, chip: 0, o: { block: 1, slip: 0.55, parry: 0.42 } },
@@ -88,7 +89,8 @@ function draw() {
     $(k ? 'him' : 'you').innerHTML = `<h2>${k ? 'Him' : 'You'}${m.ropes >= 2 ? '<span class="tag">on the ropes</span>' : ''}${m.rocked ? '<span class="tag">rocked</span>' : ''}${m.kd ? `<span class="tag">down ${m.kd}x</span>` : ''}</h2>
       <span class="lab">Health ${Math.max(0, m.hp)} of ${N.hp}</span><div class="bar hp"><i style="width:${100 * Math.max(0, m.hp) / N.hp}%"></i></div>
       <span class="lab">Stamina ${m.st} of ${m.cap}</span><div class="bar st"><i style="width:${100 * m.st / N.st}%"></i></div>`; }
-  $('where').innerHTML = `Round <b>${round}</b> of ${N.rounds} - exchange <b>${Math.min(turn + 1, 2 * N.leads)}</b> of ${2 * N.leads}`;
+  { const all = 2 * N.leads, left = Math.max(0, all - turn), sec = left * (180 / all), last = left <= 1, cur = phase === 'shown' || phase === 'over' ? -1 : turn;
+    $('where').innerHTML = `Round <b>${round}</b> of ${N.rounds} &nbsp; <span class="clock ${last ? 'last' : ''}" title="A round is ${all} exchanges: each man leads ${N.leads} times">${Math.floor(sec / 60)}:${String(Math.round(sec % 60)).padStart(2, '0')}</span><span class="ticks">${Array.from({ length: all }, (_, j) => `<i class="${j < turn ? 'done' : j === cur ? 'cur' : ''}"></i>`).join('')}</span> ${left === 0 ? 'the bell' : last ? '<b>last exchange of the round</b>' : left + ' exchanges to the bell'}`; }
   $('score').innerHTML = `Points this round: you <b>${F[0].pts}</b> - him <b>${F[1].pts}</b>` + cards.map((c, i) => ` &nbsp; R${i + 1} ${c[0]}-${c[1]}`).join('');
 }
 const face = (id, h, i, cls) => { const m = MOVES[id], o = Object.keys(m.o).map((k) => DEF[k].n.toLowerCase()).join(', ');
@@ -109,13 +111,14 @@ function next() {
     round++; turn = 0; for (const m of F) { m.pts = 0; m.st = Math.min(m.cap, m.st + N.bell); m.ropes = 0; m.rocked = 0; } log(`Round ${round}.`); }
   for (const m of F) { if (turn) m.st = Math.min(m.cap, m.st + N.rec); fill(m); }
   F[a].ropes = 0; pick = []; draw();
-  if (a === 0) lead(); else { const ids = aiCombo(); if (!ids.length) { F[1].st = Math.min(F[1].cap, F[1].st + 2); log('He takes a breath.'); return done('He takes a breath.'); } defend(ids); }
+  if (a === 0) lead(); else { const ids = aiCombo(); if (!ids.length) { F[1].st = Math.min(F[1].cap, F[1].st + N.combo * N.spare); log('He has nothing left to throw and covers up.'); return done('He has nothing left to throw and covers up.'); } defend(ids); }
 }
 function lead() { phase = 'lead'; const ids = pick.map((p) => p.id), ok = ids.length && MOVES[ids[ids.length - 1]].feint !== 1;
-  $('said').textContent = 'Your lead: pick up to three moves from your two hands, in order.'; $('sub').textContent = `Changing hands makes the next punch come faster. A feint cannot be last. Only ${N.rec} stamina comes back each exchange.`;
+  $('said').textContent = 'Your lead: pick up to three moves from your two hands, in order.'; $('sub').textContent = `Changing hands makes the next punch come faster. A feint cannot be last. ${N.rec} stamina comes back each exchange, +${N.spare} for each of the three moves you do not throw.`;
   $('combo').innerHTML = ids.length ? chips(ids, -1) + `<span class="lab">${cost(ids)} stamina</span>` : ''; $('rows').innerHTML = ''; hands(true);
-  $('acts').innerHTML = `<button class="btn" id="rest">Breather (+2 stamina)</button><button class="btn go" id="go" ${ok ? '' : 'disabled'}>Throw it</button>`;
-  $('rest').onclick = () => { F[0].st = Math.min(F[0].cap, F[0].st + 2); log('You take a breath.'); done('You take a breath.'); };
+  const me0 = F[0], broke = ![0, 1].some((h) => me0.up[h].some((id) => !MOVES[id].feint && MOVES[id].st <= me0.st)), spare = (N.combo - ids.length) * N.spare;
+  $('acts').innerHTML = (broke ? `<button class="btn go" id="rest">Cover up - you cannot pay for a punch (+${N.combo * N.spare} stamina)</button>` : `<span class="lab" style="align-self:center">${ids.length ? (spare ? `throwing ${ids.length}: +${spare} stamina back for holding the rest` : 'throwing all three: nothing held back') : 'fewer punches = stamina back'}</span>`) + `<button class="btn ${broke ? '' : 'go'}" id="go" ${ok ? '' : 'disabled'}>Throw it</button>`;
+  if ($('rest')) $('rest').onclick = () => { F[0].st = Math.min(F[0].cap, F[0].st + N.combo * N.spare); log('You cover up and get your wind back.'); done('You cover up and get your wind back.'); };
   $('go').onclick = () => { const me = F[0]; for (const h of [0, 1]) me.up[h] = me.up[h].filter((_, i) => !pick.some((p) => p.h === h && p.i === i)); attack(ids); }; }
 function aiCombo() { const m = F[1], out = []; let st = m.st, last = -1; const pool = [0, 1].flatMap((h) => m.up[h].map((id, i) => ({ h, i, id })));
   const want = st >= 5 ? 3 : st >= 3 ? 2 : st >= 1 ? 1 : 0;
@@ -156,6 +159,7 @@ function defend(ids) { phase = 'defend'; xr = []; hands(false); $('acts').innerH
       if (m.feint) { if (pressed) { D.bit = 1; res = 'hit'; log('He feints and you bite: your next band is smaller.'); $('said').textContent = 'A feint - and you bit.'; rec('Feint', 'You moved - there was no punch', 'your next band is smaller', 'bad'); } else { res = 'safe'; log('He feints. You do not move.'); $('said').textContent = 'A feint. You held still.'; rec('Feint', 'You held still', 'nothing lost', 'good'); } }
       else { if (pressed) D.st = Math.max(0, D.st - dcost(pressed.k)); const k = pressed && pressed.k, off = pressed ? Math.abs(pressed.t - lead * total) : 1e9, good = k && off <= half(D, id, k, prev); res = resolve(1, id, good ? k : null, pressed ? (pressed.t < lead * total ? 'too early' : 'too late') : 'no defence'); D.bit = 0; }
       marks[i] = res === 'hit' ? 'hit' : 'safe'; prev = id; i++; draw();
+      if (res === 'evade') return setTimeout(() => sweepCounter((ok) => { counter(0, ok); draw(); $('rows').innerHTML = ''; if (ok || F[1].hp <= 0) setTimeout(() => finish(1, ids, marks), 700); else setTimeout(one, 450); }), 200);
       if (res === 'stop') return setTimeout(() => finish(1, ids, marks), 650); setTimeout(one, m.feint ? 250 : 420); };
     requestAnimationFrame(tick); };
   one(); }
@@ -167,8 +171,21 @@ function resolve(att, id, k, whyNot) { const A = F[att], D = F[1 - att], m = MOV
     const t = `${his} ${m.n} lands clean (${whyNot}): -${m.d} health${m.body ? ', stamina bar 1 shorter' : ''}.`; log(t); $('said').textContent = t; if (D.hp <= 0) { down(1 - att); return 'stop'; } return 'hit'; }
   const d = DEF[k]; D.rocked = 0;
   if (d.k === 'soak') { D.hp -= m.chip || 0; rec(m.n, `${who} ${d.v[you ? 0 : 1]} it`, m.chip ? `-${m.chip} health${you ? '' : ' for him'} gets through${D.hp <= 0 ? ' - DOWN' : ''}` : 'no damage', m.chip ? b : g); const t = `${who} ${d.v[you ? 0 : 1]} the ${m.n}${m.chip ? ' - ' + m.chip + ' health gets through' : ''}.`; log(t); $('said').textContent = t; if (D.hp <= 0) { down(1 - att); return 'stop'; } return 'safe'; }
-  if (d.k === 'evade') { A.hp -= N.counter; D.pts += 1; rec(m.n, `${who} ${d.v[you ? 0 : 1]} it and counter${you ? '' : 's'}`, `-${N.counter} health for ${you ? 'him' : 'you'}${A.hp <= 0 ? ' - DOWN' : ''}`, g); const t = `${who} ${d.v[you ? 0 : 1]} the ${m.n} and counter${you ? '' : 's'}: -${N.counter} health for ${you ? 'him' : 'you'}.`; log(t); $('said').textContent = t; if (A.hp <= 0) down(att); return 'stop'; }
+  if (d.k === 'evade') { rec(m.n, `${who} ${d.v[you ? 0 : 1]} it`, 'no damage', g); const t = `${who} ${d.v[you ? 0 : 1]} the ${m.n}.`; log(t); $('said').textContent = t; return 'evade'; }
   D.ropes++; rec(m.n, `${who} ${d.v[you ? 0 : 1]}`, 'it falls short' + (D.ropes >= 2 ? (you ? ' - you are on the ropes' : ' - he is on the ropes') : ''), g); const t = `${who} ${d.v[you ? 0 : 1]}: the ${m.n} falls short.${D.ropes >= 2 ? (you ? ' You are on the ropes.' : ' He is on the ropes.') : ''}`; log(t); $('said').textContent = t; return 'stop'; }
+// the counter after a slip, duck or parry: `def` is the man who evaded. It lands only if it is timed.
+function counter(def, ok) { const A = F[1 - def], D = F[def], you = def === 0, r = xr[xr.length - 1];
+  if (ok) { A.hp -= N.counter; D.pts += 1; r.act += you ? ' and counter' : ' and counters'; r.out = `-${N.counter} health for ${you ? 'him' : 'you'}${A.hp <= 0 ? ' - DOWN' : ''}`; r.cls = you ? 'good' : 'bad';
+    const t = `${you ? 'Your' : 'His'} counter lands: -${N.counter} health for ${you ? 'him' : 'you'}. ${you ? 'His' : 'Your'} combination ends.`; log(t); $('said').textContent = t; if (A.hp <= 0) down(1 - def); }
+  else { r.act += you ? ' - your counter misses' : ' - his counter misses'; const t = `${you ? 'Your' : 'His'} counter misses. ${you ? 'He keeps coming.' : 'You keep going.'}`; log(t); $('said').textContent = t; } }
+function sweepCounter(cb) { const D = F[0], total = N.ctrMs, lead = 0.62, hw = N.ctrHalf * (0.7 + 0.3 * D.st / N.st);
+  $('said').textContent = 'COUNTER! Press when the line is in the band.'; $('sub').textContent = 'Miss it and he keeps coming.';
+  $('rows').innerHTML = `<div class="opt"><button data-k="counter"><kbd>A</kbd><b>Counter</b><small>${N.counter} health and his combination ends.</small></button><div class="track"><div class="zone risk" style="left:${100 * (lead - hw / total)}%;width:${100 * 2 * hw / total}%"></div><div class="impact" style="left:${100 * lead}%"></div><div class="mark"></div></div></div>`;
+  const t0 = performance.now(); let pressed = null; const press = () => { if (pressed == null) pressed = performance.now() - t0; };
+  $('rows').querySelector('button').onpointerdown = (e) => { e.preventDefault(); press(); }; live = { keys: ['counter', 'counter', 'counter'], press };
+  const tick = (now) => { const t = now - t0; $('rows').querySelector('.mark').style.left = Math.min(100, 100 * t / total) + '%';
+    if (t < total && pressed == null) return requestAnimationFrame(tick); live = null; cb(pressed != null && Math.abs(pressed - lead * total) <= hw); };
+  requestAnimationFrame(tick); }
 function down(k) { const m = F[k], w = k ? 'He' : 'You'; m.kd++; if (m.kd > N.kdBack.length) { m.hp = 0; const t = `${k ? 'HE IS' : 'YOU ARE'} DOWN for the third time - health at 0.`; log(t); $('said').textContent = t; return true; }
   m.hp = N.kdBack[m.kd - 1]; m.rocked = 0; F[1 - k].pts += 3; const t = `${k ? 'HE IS' : 'YOU ARE'} DOWN - health hit 0. ${w} get${k ? 's' : ''} up with ${m.hp} health; 3 points to ${k ? 'you' : 'him'}. Down three times and the referee stops it.`; log(t); $('said').textContent = t; return false; }
 // you lead: he defends the same way, his hands played by the machine (you watch the same sweep, quicker)
@@ -181,9 +198,11 @@ function attack(ids) { phase = 'attack'; xr = []; hands(false); $('acts').innerH
       const k = !opts.length ? null : soak && (rnd() < 0.6 || !other.length) ? soak : pickOne(other); if (k) D.st = Math.max(0, D.st - dcost(k)); const ok = k && rnd() < Math.min(0.95, N.aiSkill * half(D, id, k, prev) / (N.half * 0.6));
       res = resolve(0, id, ok ? k : null, k ? 'he mistimes his ' + DEF[k].n.toLowerCase() : 'nothing stops it'); D.bit = 0; }
     marks[i] = res === 'hit' ? 'hit' : 'safe'; prev = id; i++; draw();
+    if (res === 'evade') { const ok = rnd() < N.aiCtr; counter(1, ok); draw(); if (ok) res = 'stop'; }
     if (res === 'stop') return setTimeout(() => finish(0, ids, marks), 700); setTimeout(one, 650); };
   one(); }
-function finish(att, ids, marks) { $('combo').innerHTML = story(att, ids, -1, false); $('rows').innerHTML = ''; draw();
+function finish(att, ids, marks) { const sp = (N.combo - ids.length) * N.spare; if (sp) { F[att].st = Math.min(F[att].cap, F[att].st + sp); log(`${att ? 'He' : 'You'} held ${N.combo - ids.length} back: +${sp} stamina.`); }
+  $('combo').innerHTML = story(att, ids, -1, false); $('rows').innerHTML = ''; draw();
   const dead = F.findIndex((m) => m.kd > N.kdBack.length); if (dead >= 0) return over(dead ? 'YOU WIN - the referee stops it' : 'HE WINS - the referee stops it'); done(null); }
 function done(text) { phase = 'shown'; if (text) $('said').textContent = text; $('sub').textContent = ''; $('rows').innerHTML = ''; hands(false); draw(); turn++; a = 1 - a;
   $('acts').innerHTML = `<button class="btn go" id="next">${a ? 'His turn - get ready' : 'Your turn'}</button>`; $('next').onclick = next; }
