@@ -279,6 +279,23 @@ static func read(c: Career, f: Dictionary, o: Dictionary, opp: Dictionary) -> Pa
 	return p
 
 
+## S547 (face_frame_test, red since a closer-drawn boxer came in): the picture's fixed place cut one chin. Moves the
+## picture the least that keeps its head box, plus a margin, inside the slot.
+static func _keep_head(pic: TextureRect, at: Vector2, size: Vector2) -> Vector2:
+	if pic.texture == null:
+		return at
+	var head: Rect2 = load("res://scripts/ui/FaceFrame.gd").box_for(pic.texture)
+	var img := Vector2(pic.texture.get_size())
+	if head.size.x <= 0.0 or img.x <= 0.0:
+		return at
+	var k := maxf(size.x / img.x, size.y / img.y)
+	var m := head.size.y * k * 0.08
+	var h := Rect2((size - img * k) / 2.0 + head.position * k - Vector2(m, m), head.size * k + Vector2(m, m) * 2.0)
+	var x := clampf(at.x, -h.position.x, PORTRAIT.x - h.end.x) if h.size.x <= PORTRAIT.x else at.x
+	var y := clampf(at.y, -h.position.y, PORTRAIT.y - h.end.y) if h.size.y <= PORTRAIT.y else at.y
+	return Vector2(x, y)
+
+
 ## The opponent's picture, head to waist, fading into the slate.
 static func _portrait(stem: String) -> Control:
 	var box := Control.new()
@@ -295,6 +312,7 @@ static func _portrait(stem: String) -> Control:
 		body.size = Vector2(330, 640)
 		if body is TextureRect:
 			(body as TextureRect).stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+			body.position = _keep_head(body as TextureRect, body.position, body.size)
 		box.add_child(body)
 	var ramp := Gradient.new()
 	ramp.offsets = PackedFloat32Array([0.0, 1.0])

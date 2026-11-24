@@ -1,6 +1,8 @@
 extends SceneTree
 ## S411: a coach's areas average to the overall rating, every session reads its area, and the People
 ## card shows the five bars, Best at, and the boxer's week from WeekPlan.
+## S547 STAFFCARDS1: the Staff window is cards (StaffDesk). The card's face says Best at; the ranked areas (the tooltip
+## standard's three rows) and the boxer's week are its hover. The page fits the office window with no scroll.
 
 const Data := preload("res://scripts/state/Data.gd")
 const Sim := preload("res://scripts/state/Sim.gd")
@@ -12,6 +14,8 @@ const TrainingPreview := preload("res://scripts/rules/TrainingPreview.gd")
 const PageInk := preload("res://tools/page_ink.gd")
 const MenuFx := preload("res://scripts/ui/MenuFx.gd")
 const MAIN := preload("res://scenes/Main.tscn")
+const StaffDesk := preload("res://scripts/ui/StaffDesk.gd")
+const Tip := preload("res://scripts/ui/Tip.gd")
 
 var failures := 0
 var main: Node
@@ -96,7 +100,8 @@ func _screen() -> void:
 	Sim.sign(c, ["Jab and move", "Pad rounds", "Hill sprints"])
 	main.act("go", "gym:1")
 	await _settle()
-	_check(main.find_child("CoachCompare", true, false) != null, "two coaches side by side")
+	var open := main.find_child("JobsOpen", true, false)
+	_check(open != null and open.find_child("StaffCard_reid", true, false) != null and open.find_child("StaffCard_hale", true, false) != null, "two coaches side by side in JOBS OPEN")
 	_check(main.find_child("Assistant_reid", true, false) != null and main.find_child("Assistant_hale", true, false) != null,
 		"both cards exist by name")
 	_check(main.find_child("Hire_reid", true, false) != null and main.find_child("Hire_hale", true, false) != null,
@@ -112,18 +117,15 @@ func _screen() -> void:
 	await _settle()
 	var card: Node = main.find_child("Assistant_reid", true, false)
 	_check(card != null, "the hired card is Assistant_reid")
-	var bars: Node = card.find_child("AreaBars", true, false) if card != null else null
-	_check(bars != null and bars.get_child_count() == 5, "five bars")
-	if bars != null:
-		var prev := 101.0
-		for i in bars.get_child_count():
-			var b := bars.get_child(i) as Control
-			var rating := float(b.get_meta("rating"))
-			_check(rating <= prev + 0.001, "bar %d %s at %.0f" % [i, str(b.get_meta("area")), rating])
-			prev = rating
-			var marked := _text(b).contains("Best at")
-			_check(marked == (i == 0), "Best at on bar %d" % i)
-		_check(str(bars.get_child(0).get_meta("area")) == "pads", "Reid's top bar is pads")
+	var tip: Dictionary = StaffDesk.hover(c, "reid")
+	var rows: Array = tip.get("rows", [])
+	_check(rows.size() == 3, "the hover ranks his three best areas (%d rows, the standard's most)" % rows.size())
+	var ranked := CoachAreas.ranked(c.coach)
+	for i in rows.size():
+		_check(str(rows[i][0]) == CoachAreas.short(str(ranked[i]["id"])) and int(rows[i][1]) == roundi(float(ranked[i]["rating"])), "row %d is %s %s" % [i, rows[i][0], rows[i][1]])
+		_check((str(rows[i][3]) == "good") == (i == 0), "only the best row is marked good (%d)" % i)
+	_check(rows.size() > 0 and str(rows[0][0]) == CoachAreas.short("pads"), "Reid's top area is pads")
+	_check(card != null and _text(card).contains("Best at pads"), "the card's face says Best at pads")
 	var f: Dictionary = c.fighter()
 	var area := CoachAreas.best(c.coach)
 	var ctx: Dictionary = Sim.week_ctx(c, f)
@@ -140,8 +142,7 @@ func _screen() -> void:
 		_check(alone > 0.0 and coached > alone, "a coach's pad nights teach more than none (%.2f, %.2f)" % [alone, coached])
 		_check(coached / alone <= 1.0 + 0.40 * r / 100.0 + 0.01, "and no more than the page's percent says (%.3f)" % (coached / alone))
 		want = CoachAreas.move_line(area, alone, coached)
-	var shown: Node = main.find_child("BoxerLine", true, false)
-	_check(shown != null and str((shown as Label).text) == want, "boxer line equals WeekPlan: %s" % want)
+	_check(str(tip.get("now", "")) == want + ".", "the hover's boxer line equals WeekPlan: %s (%s)" % [want, tip.get("now", "")])
 	_check(main.find_child("Hire_reid", true, false) == null, "a hired coach has no Hire button")
 	for id in ["assistant", "strength", "physio", "cutman"]:
 		_check(main.find_child("LetGo_" + id, true, false) != null, "LetGo_%s" % id)
@@ -151,15 +152,15 @@ func _screen() -> void:
 		"painted gym behind People")
 	_check(_fits(), "one coach and four jobs fit, no scroll")
 	# S532 operator: "why you repeat the description in the tooltip ? the tooltip should display explaining information"
-	for box_name in ["CoachTiles", "Members"]:
-		for box in main.find_children(box_name, "", true, false):
-			for tile in box.get_children():
-				var tip := " ".join(preload("res://scripts/ui/Tip.gd").prose(preload("res://scripts/ui/Tip.gd").of(tile as Control)))   # S532 GUIDETIPS1: cards now
-				_check(tip.split(" ", false).size() >= 6, "%s tile explains, not repeats: '%s'" % [box_name, tip])
+	for card_n in main.find_children("StaffCard_*", "", true, false):   # S547: the cards' hovers replace the tiles'
+		var said := " ".join(Tip.prose(Tip.of(card_n as Control)))
+		_check(said.split(" ", false).size() >= 6, "%s explains, not repeats: '%s'" % [card_n.name, said])
 	var ink: Dictionary = PageInk.read(main.find_child("PeoplePage", true, false))   # S546: the page itself; the office computer's dock and bar are not its words
 	print("STAFF_INK words=%d" % int(ink["words"]))
-	_check(int(ink["words"]) <= 110, "People words %d <= 110 (pictures %.1f%%, tallest %.0f)" % [ink["words"], ink["pic_pct"], ink["tallest"]])
-	if int(ink["words"]) > 110:
+	# S547 STAFFCARDS1: 110 was the slate page's count; the cards carry the S546 mockup's words (a role line, four facts at most,
+	# one button a card: 141 with one coach and four jobs hired). The ceiling stays, at the mockup's count.
+	_check(int(ink["words"]) <= 150, "People words %d <= 150 (pictures %.1f%%, tallest %.0f)" % [ink["words"], ink["pic_pct"], ink["tallest"]])
+	if int(ink["words"]) > 150:
 		_dump(root)
 
 
@@ -183,8 +184,7 @@ func _fits() -> bool:
 	var page: Control = main.find_child("PeoplePage", true, false)
 	var people := page.get_global_rect().end.y if page != null else bottom
 	print("  layout people=%.0f content=%.0f scroll=%.0f/%.0f" % [people, bottom, bar.max_value, bar.page])
-	# S546 (owner: Staff inside the office computer): the page itself never scrolls and nothing of the computer leaves the
-	# screen; the staff cards sit in the STAFF window, which scrolls until the cards redo (ops/previews/s546_staff).
+	# S546 (owner: Staff inside the office computer), S547 STAFFCARDS1: the cards fit the STAFF window whole - no scroll.
 	var host: Node = main.find_child("HostScroll", true, false)
 	return page != null and host != null and host.is_ancestor_of(page) and bottom <= 1080.0 and bar.max_value <= bar.page + 1.0
 

@@ -24651,5 +24651,16 @@
   "eta": "about 1.5-2.5 h (to about 05:15)",
   "note": "S545: research/TASK_CORNERCMD2.md; stop rule | S547: landed, FAIL bars 5, 6, 8 again - stop rule, facts to the owner",
   "started": "2026-11-24T03:05"
+ },
+ "STAFFCARDS1": {
+  "id": "STAFFCARDS1",
+  "status": "done",
+  "seat": "claude",
+  "agent": "claude-opus-5-5 (console tab STAFFCARDS1 of the S547 session, tab c2)",
+  "started": "2026-11-24T05:52",
+  "eta": "about 3-4 h (to about 09:30)",
+  "title": "The Staff window as cards (your 'this screen is terrible'): a face, the job in plain words, four facts, one button; fits the window with no scroll",
+  "brief": "ops/research/TASK_STAFFCARDS1.md",
+  "branch": "build/staffcards1"
  }
 }

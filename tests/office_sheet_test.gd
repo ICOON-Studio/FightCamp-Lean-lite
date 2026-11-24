@@ -175,7 +175,8 @@ func _open_sheets(which: String) -> void:
 	if str(main.route["area"]) != "office":
 		main.nav({"area": "office", "tab": 0})
 		await _settle()
-	(main.find_child("App_" + which, true, false) as Button).pressed.emit()
+	# S547 STAFFCARDS1: the Staff icon opens the staff cards; the sheets (fighters and staff side by side) open from Fighters
+	(main.find_child("App_" + ("fighters" if which == "staff" else which), true, false) as Button).pressed.emit()
 	await _settle()
 
 

@@ -37,9 +37,9 @@ const BLUE := Palette.ACCENT
 const CREST := "res://assets/ui/club_badge.svg"
 ## [label, KitIcon, act, arg]: section 2's routes. Mail is the game's news list (Main's "mail": World > News, read).
 const APPS := [["Desktop", "booked", "go", "office:0"], ["Mail", "offer", "mail", ""], ["Fights", "calendar", "go", "fights:0"],
-	["Fighters", "hands", "sheets", ""], ["Staff", "coach", "sheets", ""], ["Finance", "money", "go", "money:0"],
+	["Fighters", "hands", "sheets", ""], ["Staff", "coach", "go", "gym:1"], ["Finance", "money", "go", "money:0"],
 	["Log", "contract", "go", "gym:4"]]   # S546 owner: "Name this Log ... Records goes for the fighters and coaches"
-const SHEET_APPS := ["Fighters", "Staff"]
+const SHEET_APPS := ["Fighters"]   # S547: the Staff icon opens the staff cards (StaffDesk); the staff sheet stays in the Fighters sheets
 const TONE := {"r": RED, "a": AMBER, "g": GREEN, "b": BLUE}
 const CHIP := {"bout": [RED, INK], "fight_week": [Palette.SECOND, Palette.HEADER], "show": [RED, INK],
 	"open": [BLUE, BG], "champs": [AMBER, BG]}
@@ -59,10 +59,10 @@ static var mail_fresh := 0
 static var view := "desk"
 static var _seen := 0
 ## S545 (owner C498 "shouldnt this be inside the computer"), S546 (his Club page note: Staff, Money, Records too): the area hosting this desktop as a window -> [the dock app lit, the foot line]
-const HOSTED := {"fights": ["Fights", "Scroll the window for the calendar and the results."], "staff": ["Staff", "Scroll the window for the jobs and the members."], "money": ["Finance", "Hover a number for where it comes from."], "records": ["Log", "Pick who and what to narrow the list."]}
+const HOSTED := {"fights": ["Fights", "Scroll the window for the calendar and the results."], "staff": ["Staff", "Hover a card for what each job changes."], "money": ["Finance", "Hover a number for where it comes from."], "records": ["Log", "Pick who and what to narrow the list."]}
 var hosted := ""   ## a HOSTED key while that area hosts this desktop
 var host_box: Container   ## where that area's page goes
-
+var bar_head: HBoxContainer   ## S547 STAFFCARDS1: the window bar's row, where a hosted page may put its head line (Staff)
 func host(main: Node, what: String) -> Container:
 	hosted = what
 	build(main)
@@ -176,7 +176,7 @@ func _window(main: Node, c: Career, cards: Array) -> Control:
 	win.add_child(v)
 	var bar := _panel("WindowBar", UI.box(BG, LINE, 0, 0, 18, 6), Control.SIZE_FILL, Vector2(0, 44))
 	var bh := UI.hbox(14)
-	bar.add_child(bh)
+	bar.add_child(bh); bar_head = bh
 	bh.add_child(UI.label(str(HOSTED[hosted][0]).to_upper() if hosted != "" else {"desk": "THIS WEEK AT THE GYM", "mail": "MAIL"}.get(view, "FIGHTERS AND STAFF"), 20, INK, "caps"))
 	v.add_child(bar)
 	var grid := _margin(18, 14, 18, 14) if hosted == "" or hosted == "fights" else _margin(10, 8, 10, 8)   # S546: a hosted page keeps its width

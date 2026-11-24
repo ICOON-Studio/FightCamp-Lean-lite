@@ -76,6 +76,12 @@ func _initialize() -> void:
 			main.queue_free()
 			await process_frame
 			continue
+		if jump == "staff":
+			# S547 STAFFCARDS1: no coach yet - the Staff window's cards with the coaches for hire, its own save slot.
+			_check(ok and main.find_child("StaffCard_reid", true, false) != null and main.save_path == TestJump.SAVE_PATH, "staff: the Staff cards with the coaches for hire, its own save slot")
+			main.queue_free()
+			await process_frame
+			continue
 		if jump == "belt":
 			# S362 update 64: Ana's belt road (the no-gi Record tab).
 			_check(ok and str(main.route.get("fighter", "")) == "ana" and main.find_child("BeltRoad", true, false) != null, "belt: Ana's belt road is open")

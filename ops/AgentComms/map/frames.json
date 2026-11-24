@@ -248,6 +248,15 @@
       "docs/playtest/s547/*_real.png"
      ],
      "cols": 2
+    },
+    {
+     "id": "staff_cards_s547",
+     "title": "The staff screen as cards (S547 build)",
+     "kind": "gallery",
+     "globs": [
+      "docs/playtest/s547/jump_*gym1_real.png"
+     ],
+     "cols": 2
     }
    ]
   }

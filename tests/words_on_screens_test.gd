@@ -34,7 +34,7 @@ func _initialize() -> void:
 	main.act("sign")
 	main.act("go", "gym:1")
 	await _settle()
-	_page("people", ["Versus no coach", "moves"], [])
+	_page("people", ["Best at", "moves"], [])   # S547 STAFFCARDS1: the bars ("Versus no coach") are the card's hover now; its face says Best at
 	var c: Career = main.career
 	_run_until(func() -> bool: return not (c.fighter()["offers"] as Array).is_empty())
 	var offer := ""

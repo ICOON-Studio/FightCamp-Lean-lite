@@ -32,17 +32,6 @@
    "title": "The bout card promises +11.6 for a plan the ring pays +1.7 for: find the cause, fix the read to the bout",
    "brief": "ops/research/TASK_PLANREAD2.md"
   },
-  "STAFFCARDS1": {
-   "id": "STAFFCARDS1",
-   "status": "running",
-   "seat": "claude",
-   "agent": "claude-opus-5-5 (console tab STAFFCARDS1 of the S547 session, tab c2)",
-   "started": "2026-11-24T05:52",
-   "eta": "about 3-4 h (to about 09:30)",
-   "title": "The Staff window as cards (your 'this screen is terrible'): a face, the job in plain words, four facts, one button; fits the window with no scroll",
-   "brief": "ops/research/TASK_STAFFCARDS1.md",
-   "branch": "build/staffcards1"
-  },
   "BODYREACT2": {
    "id": "BODYREACT2",
    "status": "running",
@@ -52,6 +41,25 @@
    "eta": "about 2-3 h (to about 08:45)",
    "title": "In the 3D fight a landed body punch folds the hit boxer (your 'the reaction should force the opponent to bend hisposture a bit'): the player picks the fold take; films for your eye",
    "brief": "ops/research/TASK_BODYREACT2.md"
+  },
+  "CORNERBASE1": {
+   "id": "CORNERBASE1",
+   "status": "running",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (console tab CORNERBASE1 of the S547 session, tab c4)",
+   "eta": "about 3-4 h (to about 10:15)",
+   "title": "What the live corner is worth against a coach who reads the opponent and rests a tired boxer (today's +15 to +22 is against a coach who does neither)",
+   "brief": "ops/research/TASK_CORNERBASE1.md",
+   "started": "2026-11-24T06:33"
+  },
+  "MATCHBOTS2": {
+   "id": "MATCHBOTS2",
+   "status": "queued",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (a console tab, when one frees)",
+   "eta": "about 3 h once launched",
+   "title": "Scouting must protect a boxer again: the bot that scouts is stopped more often than the one that does not (red in the 05:00 tests)",
+   "brief": "ops/research/TASK_MATCHBOTS2.md"
   }
  },
  "codex_budget": {

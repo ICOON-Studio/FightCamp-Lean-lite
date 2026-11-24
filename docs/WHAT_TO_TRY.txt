@@ -1,4 +1,4 @@
-S547 build (2026-11-24, 05:56) - the signing card, CONTINUE, the body cross
+S547 build (2026-11-24, second export about 06:40) - the signing card, CONTINUE, the staff cards
 
 O. THE SIGNING CARD (new mechanic, your interview answers K1 to K4): the scout brings one name at a time (Fighters >
    Find a fighter; the first after 4 to 6 weeks). The card is a scene: the prospect, three RANGES (body, skills,
@@ -15,7 +15,10 @@ Q. THE BODY CROSS (your mark "there is no elbow bent , the reaction should force
 R. FROM LAST NIGHT, NOW IN THE BUILD: the gym's history window is Log (Records is for fighters and coaches); the
    "Change dues?" pop-up is no longer drawn under the dues pictures.
 S. NO LINE TELLS YOU TO WAIT FOR OFFERS: Home's corner and the Free chip say "Ask for a bout on Fights."
-   NOT IN THIS BUILD: the staff screen as cards (its worker is building it now).
+T. THE STAFF SCREEN IS CARDS (your "this screen is terrible"): the office computer's Staff window shows AT THE GYM and
+   JOBS OPEN. Each person or job is one card: the face (a grey figure for an open job), the job in plain words, a few
+   facts, one button. Hover a card for the details. Hire moves the card up with NEW on it. Nothing scrolls.
+   The sortable list of fighters and staff is still under the Fighters icon.
 
 S546 build (2026-11-24, about 04:15) - your review notes and the Club page
 

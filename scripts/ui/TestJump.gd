@@ -20,6 +20,7 @@ extends RefCounted
 ##                                        opens on her Training tab, the week's plan (S490 operator: "can you add the training
 ##                                        scene here" - the board's Training button)
 ##   FightCamp.exe -- jump=club4          S489 FOURSTART1: the test club (Lucy, Kira, Josh + Ana, Reid hired); opens on the gym
+##   FightCamp.exe -- jump=staff          S547 STAFFCARDS1: quick start, the walk-in signed, no coach yet; opens the Staff cards
 ##   FightCamp.exe -- jump=belt           S362 update 64: quick start, Ana Ribeiro's belt road (the no-gi Record tab)
 ##   FightCamp.exe -- jump=men            S371 update 68: quick start, then Danny Osei (a man, the men's lightweights) signed
 ##                                        through scouting, played on until his first men's offers arrive; opens on FIGHTS >
@@ -65,7 +66,7 @@ const SAVE_PATH := "user://test_jump_save.json"
 const SCENE_JUMPS := {"grapple": "res://scenes/dev/GrappleBrowser.tscn", "strikemap": "res://scenes/dev/StrikeBrowser.tscn",
 	"theatre": "res://scenes/dev/GrappleTheatre.tscn"}
 const JUMPS := ["fight", "fight_nofilm", "corner", "round3", "injury", "nationals", "pro", "taperoom", "camp", "belt", "men", "men_fight", "gameplan",
-	"training", "proladder", "proranked", "club4", "prorival", "propair", "prohunger", "prospect", "prospecttrial", "prospectsigned", "prospectgone"]
+	"training", "proladder", "proranked", "club4", "staff", "prorival", "propair", "prohunger", "prospect", "prospecttrial", "prospectsigned", "prospectgone"]
 ## What two weeks of pad time on the 1-2 and the 1-2-3 leave her with (Combos.LEARN_AT is 30).
 const DRILLED := {"1-2": 62.0, "1-2-3": 48.0}
 ## S378 jump=gameplan: her own combinations (PLAYBOOK > Combos rows) and their pad time - the first a signature.
@@ -131,6 +132,10 @@ static func run(main: Node, jump: String) -> bool:
 	for card in ["Jab and move", "Pad rounds", "Hill sprints"]:
 		main.act("pickcard", card)
 	main.act("sign")
+	if jump == "staff":   # S547 STAFFCARDS1: no coach yet - the Staff window with the coaches for hire
+		FirstWeek.skip(main.career)
+		main.act("go", "gym:1")
+		return (main.career as Career).coach.is_empty()
 	main.act("hire", "reid")
 	var c: Career = main.career
 	FirstWeek.skip(c)   # S387 a jump is past the first-week guide

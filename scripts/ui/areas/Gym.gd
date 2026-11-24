@@ -11,7 +11,7 @@ const AreaHead := preload("res://scripts/ui/AreaHead.gd")
 const Tips := preload("res://scripts/ui/Tips.gd")
 const TopCards := preload("res://scripts/ui/TopCards.gd")
 const RecordsPage := preload("res://scripts/ui/RecordsPage.gd")
-const StaffCard := preload("res://scripts/ui/StaffCard.gd")
+const StaffDesk := preload("res://scripts/ui/StaffDesk.gd")   # S547 STAFFCARDS1: the Staff window as cards
 const MenuFx := preload("res://scripts/ui/MenuFx.gd")
 const RosterCards := preload("res://scripts/ui/RosterCards.gd")
 const OFFICE := preload("res://scenes/areas/Office.tscn")
@@ -22,7 +22,7 @@ func build(main: Node) -> void:
 	var c: Career = main.career
 	match int(main.route["tab"]):
 		0, 1, 2:
-			StaffCard.page(_window(main, "staff"), main, c, false)
+			StaffDesk.page(_window(main, "staff"), main, c)
 		3:
 			AreaHead.add(self, main, "gym")
 			_facilities(main, c)

@@ -5285,7 +5285,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-24",
+  "updated": "2026-11-24 06:11 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5442,28 +5442,25 @@
     "who": "Arena (chat 01a20a6d-3a1b-79dc-a475-e858f591a0d9)",
     "started": "2026-11-24T00:01",
     "run": "CARDROUND9",
-    "eta": "Arena reached its daily usage limit (S547 05:48); continue tomorrow in the same chat"
+    "state": "waiting"
    },
    {
     "title": "The bout card promises +11.6 for a plan the ring pays +1.7 for: find the cause, fix the read to the bout",
     "who": "claude-opus-5-5 (console tab PLANREAD2 of the S547 session, tab c1)",
     "started": "2026-11-24T05:50",
-    "run": "PLANREAD2",
-    "eta": "about 3-4 h (to about 09:30), most of it bout runs"
+    "run": "PLANREAD2"
    },
    {
     "title": "The Staff window as cards (your 'this screen is terrible'): a face, the job in plain words, four facts, one button; fits the window with no scroll",
     "who": "claude-opus-5-5 (console tab STAFFCARDS1 of the S547 session, tab c2)",
     "started": "2026-11-24T05:52",
-    "run": "STAFFCARDS1",
-    "eta": "about 3-4 h (to about 09:30)"
+    "run": "STAFFCARDS1"
    },
    {
     "title": "In the 3D fight a landed body punch folds the hit boxer (your 'the reaction should force the opponent to bend hisposture a bit'): the player picks the fold take; films for your eye",
     "who": "claude-fable-5-2 (console tab BODYREACT2 of the S547 session, tab c3)",
     "started": "2026-11-24T06:02",
-    "run": "BODYREACT2",
-    "eta": "about 2-3 h (to about 08:45)"
+    "run": "BODYREACT2"
    }
   ],
   "next": [
@@ -6122,6 +6119,10 @@
     },
     {
      "text": "Nightly: 4 old reds, 25 fixed",
+     "who": "claude"
+    },
+    {
+     "text": "Offer page: chin no longer cut",
      "who": "claude"
     }
    ],

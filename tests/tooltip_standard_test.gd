@@ -147,12 +147,10 @@ func _screens() -> void:
 	main.act("sign")
 	main.act("go", "gym:1")
 	await _page("people")
-	var tiles: Array = []
-	for box in main.find_children("CoachTiles", "", true, false):
-		tiles.append_array(box.get_children())
-	_check(tiles.size() >= 5, "People: the coach's tiles are there (%d)" % tiles.size())
+	var tiles: Array = main.find_children("StaffCard_*", "", true, false)   # S547 STAFFCARDS1: the tiles became cards; each card's hover
+	_check(tiles.size() >= 5, "Staff: the cards are there (%d)" % tiles.size())
 	for t in tiles:
-		_clean(t as Control, "People tile '%s'" % _label_of(t as Control))
+		_clean(t as Control, "Staff card '%s'" % str(t.name), "full")
 	main.act("hire", "reid")
 	await process_frame
 	main.act("go", "fighters:0")
