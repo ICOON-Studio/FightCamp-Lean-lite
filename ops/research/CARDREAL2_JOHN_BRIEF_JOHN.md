@@ -4,6 +4,13 @@ Brief: research/CARDREAL2_JOHN_BRIEF.md
 Sent: 2026-11-23 23:40 | collected: 2026-11-24 00:10 by Tools/seat_queue.py (the 30-min reconcile)
 Verify the sources before using it.
 
+SOURCE CHECK (Claude, S545, four number sources opened): [S28] CagePotato says 14% of guillotine attempts finish, UFC since
+2007 - EXACT (it gives NO ankle lock figure: the "below 0.8%" row is John's own derivation). [S6] AgentMMA says "Since
+2016, league-wide takedown accuracy was 36.5%, making average defense 63.5%" - EXACT. [S27] BJJ Heroes (who wins a leg
+entanglement: 62 / 44 / 38%) and [S26] PMC (755 throws at the 2013 Worlds) refused an automated read (403, browser
+check) - NOT OPENED: open them in a browser before a rule stands on those numbers. The other 37 sources: not opened.
+Use: the audit of judo, wrestling, sambo and karate waits until boxer against jiu-jitsu passes its critics (round 9b).
+
 ---
 
 On it. CARDREAL1 is my starting point, and I'm beginning with judo and wrestling: grips with no jacket, where each fighter lands after a throw or a stuffed shot, then sambo leg locks, karate and the get-ups.

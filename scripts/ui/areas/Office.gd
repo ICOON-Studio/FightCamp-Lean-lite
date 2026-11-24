@@ -36,7 +36,7 @@ const AMBER := Palette.WARN
 const BLUE := Palette.ACCENT
 const CREST := "res://assets/ui/club_badge.svg"
 ## [label, KitIcon, act, arg]: section 2's routes. Mail is the game's news list (Main's "mail": World > News, read).
-const APPS := [["Desktop", "booked", "go", "office:0"], ["Mail", "offer", "mail", ""], ["Schedule", "calendar", "go", "fights:0"],
+const APPS := [["Desktop", "booked", "go", "office:0"], ["Mail", "offer", "mail", ""], ["Fights", "calendar", "go", "fights:0"],
 	["Fighters", "hands", "sheets", ""], ["Staff", "coach", "sheets", ""], ["Finance", "money", "go", "money:0"],
 	["Records", "contract", "go", "gym:4"]]
 const SHEET_APPS := ["Fighters", "Staff"]
@@ -58,6 +58,15 @@ static var mail_fresh := 0
 ## gym shows the dashboard; Back from a page the sheet opened returns to the sheet).
 static var view := "desk"
 static var _seen := 0
+var hosted := ""   ## S545 (owner C498 "shouldnt this be inside the computer"): "fights" while the Fights area hosts this desktop
+var host_box: Container   ## where that list goes
+
+func host(main: Node, what: String) -> Container:
+	hosted = what
+	build(main)
+	return host_box
+
+func _shown() -> String: return hosted if hosted != "" else view
 
 ## Main's "mail" act: the next build opens on the Mail window; the unread count becomes the blue dots and is cleared.
 static func open_mail(c: Career) -> void:
@@ -68,12 +77,13 @@ static func open_mail(c: Career) -> void:
 func build(main: Node) -> void:
 	var c: Career = main.career
 	var trail: Array = main.past
-	if trail.size() > _seen and not trail.is_empty() and str(trail[-1].get("area", "")) != "office":
-		view = "desk"
-	_seen = trail.size()
-	if open_as != "":
-		view = open_as
-		open_as = ""
+	if hosted == "":
+		if trail.size() > _seen and not trail.is_empty() and str(trail[-1].get("area", "")) != "office":
+			view = "desk"
+		_seen = trail.size()
+		if open_as != "":
+			view = open_as
+			open_as = ""
 	add_theme_constant_override("separation", 0)
 	size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	# S498 ONELOOK1 (operator: "how do you call this consistent ?"): the office sits on the one gym wall like every page -
@@ -93,7 +103,9 @@ func build(main: Node) -> void:
 	body.add_child(pad)
 	pad.add_child(_window(main, c, cards))
 	var fm := _margin(136, 0, 0, 10)
-	fm.add_child(_nm(UI.label({"desk": FOOT, "mail": MAIL_FOOT}.get(view, SHEET_FOOT), 16, DIM), "OfficeFoot"))
+	var foot := _panel("OfficeFootBack", UI.box(Palette.alpha(BG, 0.85), Palette.CLEAR, 6, 0, 12, 4), Control.SIZE_SHRINK_BEGIN)   # S545: on the bare floor photo half the line could not be read
+	foot.add_child(_nm(UI.label({"desk": FOOT, "mail": MAIL_FOOT, "fights": "Scroll the window for the calendar and the results."}.get(_shown(), SHEET_FOOT), 16, DIM), "OfficeFoot"))
+	fm.add_child(foot)
 	v.add_child(fm)
 
 ## The OS strip: crest, club name, date and week, cash.
@@ -117,7 +129,7 @@ func _dock(main: Node, c: Career, cards: Array) -> Control:
 	var flagged := cards.filter(func(x): return str(x["tone"]) == "r").size()
 	for a in APPS:
 		var word := str(a[0])
-		var on := SHEET_APPS.has(word) if view == "sheets" else (word == "Mail" if view == "mail" else word == "Desktop")
+		var on := SHEET_APPS.has(word) if _shown() == "sheets" else (word == "Mail" if _shown() == "mail" else (word == "Fights" if _shown() == "fights" else word == "Desktop"))
 		var b := _button(word, PANEL2, AMBER if on else LINE, 16, 2 if on else 1, AMBER if on else DIM, 2)
 		b.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 		b.name = "App_" + word.to_lower()
@@ -150,6 +162,10 @@ func _badge(n: int, col: Color, why: String) -> Control:
 ## The Fighters and Staff icons: the sheets inside the desktop (no page change).
 func _show(main: Node, what: String) -> void:
 	view = what
+	if str(main.route.get("area", "")) != "office":   # S545: from the Fights window the sheets open on the office route
+		open_as = what
+		main.nav({"area": "office", "tab": 0})
+		return
 	main.render()
 
 ## The Desktop window: its bar, then needs | calendar | mail, goals | club, fighters | staff - or the two sheets.
@@ -161,16 +177,28 @@ func _window(main: Node, c: Career, cards: Array) -> Control:
 	var bar := _panel("WindowBar", UI.box(BG, LINE, 0, 0, 18, 6), Control.SIZE_FILL, Vector2(0, 44))
 	var bh := UI.hbox(14)
 	bar.add_child(bh)
-	bh.add_child(UI.label({"desk": "THIS WEEK AT THE CLUB", "mail": "MAIL"}.get(view, "FIGHTERS AND STAFF"), 20, INK, "caps"))
+	bh.add_child(UI.label({"desk": "THIS WEEK AT THE CLUB", "mail": "MAIL", "fights": "FIGHTS"}.get(_shown(), "FIGHTERS AND STAFF"), 20, INK, "caps"))
 	v.add_child(bar)
 	var grid := _margin(18, 14, 18, 14)
 	v.add_child(grid)
 	var rows := UI.vbox(14)
 	grid.add_child(rows)
+	if hosted == "fights" or view == "mail":   # a window that fills the desktop
+		for n: Control in [win, grid, rows]:
+			n.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	if hosted == "fights":   # S545: the Fights window; the Fights area fills `host_box`
+		var sc := ScrollContainer.new()
+		sc.name = "FightsScroll"
+		sc.size_flags_vertical = Control.SIZE_EXPAND_FILL
+		sc.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+		sc.custom_minimum_size.y = 730.0   # as the Mail window
+		host_box = UI.vbox(14)
+		host_box.name = "FightsList"
+		host_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		sc.add_child(host_box)
+		rows.add_child(sc)
+		return win
 	if view == "mail":   # S544: the mail window, inside the desktop
-		win.size_flags_vertical = Control.SIZE_EXPAND_FILL
-		grid.size_flags_vertical = Control.SIZE_EXPAND_FILL
-		rows.size_flags_vertical = Control.SIZE_EXPAND_FILL
 		rows.add_child(OfficeMail.build(main, c, mail_fresh))
 		return win
 	if view == "sheets":

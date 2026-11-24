@@ -5932,64 +5932,6 @@
   "map": {
    "done_earlier": [
     {
-     "text": "Nightly: rank test follows v2 page",
-     "who": "claude"
-    },
-    {
-     "text": "Fight week screen: the real tank",
-     "who": "claude"
-    },
-    {
-     "text": "Turning pro v18: stopped, 1 point",
-     "who": "claude"
-    },
-    {
-     "text": "Fight-week load: fails, your call",
-     "who": "claude"
-    },
-    {
-     "text": "Interview: corner commands spec",
-     "who": "claude"
-    },
-    {
-     "text": "Fight-week load choice: cut",
-     "who": "claude"
-    },
-    {
-     "text": "Card r8: your play, 2 findings",
-     "who": "claude"
-    },
-    {
-     "text": "Coaches v7: fails by one, v8 runs",
-     "who": "claude"
-    },
-    {
-     "text": "Card r8 guide merged + played",
-     "who": "claude"
-    },
-    {
-     "text": "Club show light night: verified",
-     "who": "claude"
-    },
-    {
-     "text": "Restyle A-D on the map",
-     "who": "claude"
-    },
-    {
-     "text": "Turning pro v17 rules: your yes",
-     "who": "claude"
-    },
-    {
-     "text": "Coaches v6: FAIL 7/9, your call",
-     "who": "claude"
-    },
-    {
-     "text": "Body cross lands on the ribs",
-     "who": "claude"
-    }
-   ],
-   "done_session": [
-    {
      "text": "Tells probe: fails, under 1 point",
      "who": "claude"
     },
@@ -6028,8 +5970,25 @@
     {
      "text": "Profile on screen; Mail in office",
      "who": "claude"
+    },
+    {
+     "text": "Nightly: rank test follows v2 page",
+     "who": "claude"
+    },
+    {
+     "text": "Fight week screen: the real tank",
+     "who": "claude"
+    },
+    {
+     "text": "Turning pro v18: stopped, 1 point",
+     "who": "claude"
+    },
+    {
+     "text": "Fight-week load: fails, your call",
+     "who": "claude"
     }
    ],
+   "done_session": [],
    "now": [
     {
      "text": "Between-rounds voices: your ear",
@@ -6146,6 +6105,18 @@
     {
      "text": "Your play: S544 second export",
      "who": "operator"
+    },
+    {
+     "text": "Your 4 review notes: pro call",
+     "who": "claude"
+    },
+    {
+     "text": "Body cross 2: reach + hurt (Fable)",
+     "who": "claude"
+    },
+    {
+     "text": "Fights inside office computer",
+     "who": "claude"
     }
    ],
    "next": [
@@ -6468,9 +6439,13 @@
     {
      "text": "Coaches v9: 3 changes + stop rule",
      "who": "claude"
+    },
+    {
+     "text": "Card r9b: critics' changes",
+     "who": "claude"
     }
    ],
-   "session": "S544"
+   "session": "S545"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",

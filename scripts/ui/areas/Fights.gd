@@ -1,6 +1,9 @@
 extends VBoxContainer
 ## FIGHTS, one page (S396): the offers with each fighter's standing, the calendar, the results. An offer's Open goes to its
 ## bout page.
+## S545 (owner C498: "shouldnt this be inside the computer in the offece menu ?"): the list is the FIGHTS window of the
+## office computer (Office.host builds the desktop round it; `_into` = the window's list). A bout page and the Ask panel
+## stay whole pages. The route stays `fights`.
 
 const OfferCard := preload("res://scripts/ui/OfferCard.gd")
 const AskPanel := preload("res://scripts/ui/AskPanel.gd")
@@ -8,7 +11,6 @@ const AskFlow := preload("res://scripts/state/AskFlow.gd")
 const Pulse := preload("res://scripts/ui/Pulse.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const Fixtures := preload("res://scripts/ui/Fixtures.gd")
-const AreaHead := preload("res://scripts/ui/AreaHead.gd")
 const GameMoney := preload("res://scripts/rules/GameMoney.gd")
 const Bouts := preload("res://scripts/state/Bouts.gd")
 const Champs := preload("res://scripts/state/Champs.gd")
@@ -21,6 +23,9 @@ const NextStep := preload("res://scripts/rules/NextStep.gd")
 const FighterPage := preload("res://scripts/ui/areas/FighterPage.gd")
 const ProFights := preload("res://scripts/ui/ProFights.gd")
 const ProLadder := preload("res://scripts/state/ProLadder.gd")
+const OFFICE := preload("res://scenes/areas/Office.tscn")
+
+var _into: Container = self
 
 
 func build(main: Node) -> void:
@@ -34,14 +39,21 @@ func build(main: Node) -> void:
 	if str(main.route.get("ask", "")) != "":   # S512 ASKFIGHT1: the Ask panel for one fighter
 		AskPanel.build(main, self, str(main.route["ask"]))
 		return
-	AreaHead.add(self, main, "fights")
+	add_theme_constant_override("separation", 0)
+	var desk := OFFICE.instantiate()
+	add_child(desk)
+	_into = desk.host(main, "fights")
 	# S396 screen cut: Offers, Calendar and Results are one page (docs/STRUCTURE_DESIGN_S395.md 5.4).
+	# S545: two bouts waiting to be picked (S543, pro fights 1-6) are the decision: they lead the window, nothing cut.
+	var picking := c.fighters.filter(func(x): return not (x.get("pro_pair", {}) as Dictionary).is_empty())
+	for f in picking:
+		_into.add_child(ProFights.section(main, c, f))
 	_offers(main, c)
 	for f in c.fighters:   # S397 rank 4: a pro's offers, the road and the asks
-		if ProLadder.on_ladder(c, f) or not (f.get("pro_pair", {}) as Dictionary).is_empty():   # S543: the debut's two bouts too
-			add_child(ProFights.section(main, c, f))
+		if ProLadder.on_ladder(c, f) and not picking.has(f):
+			_into.add_child(ProFights.section(main, c, f))
 	for g in c.grapplers:   # S396 blind round 2: the no-gi athlete's opens belong on Fights too
-		add_child(MatOpens.card(main, c, g, "%s: NO-GI OPENS" % str(g["first"]).to_upper()))
+		_into.add_child(MatOpens.card(main, c, g, "%s: NO-GI OPENS" % str(g["first"]).to_upper()))
 	_calendar(c)
 	_results(c)
 
@@ -53,7 +65,7 @@ func _offers(main: Node, c: Career) -> void:
 	# the right - her face, record, what she has booked and her last results - so an empty week still reads.
 	var cols := UI.hbox(16)
 	cols.name = "OfferCols"
-	add_child(cols)
+	_into.add_child(cols)
 	var card := UI.card("OFFERS ON THE TABLE")
 	card[0].size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	card[0].size_flags_stretch_ratio = 3.0
@@ -140,12 +152,12 @@ func _standing(main: Node, c: Career, f: Dictionary) -> Control:
 
 ## S398: the one fixture list (Fixtures), the same as World's.
 func _calendar(c: Career) -> void:
-	add_child(Fixtures.card(c)[0])
+	_into.add_child(Fixtures.card(c)[0])
 
 
 func _results(c: Career) -> void:
 	var card := UI.card("RESULTS")
-	add_child(card[0])
+	_into.add_child(card[0])
 	if c.results.is_empty():
 		card[1].add_child(UI.muted("No bouts yet.", UI.BODY))
 		return

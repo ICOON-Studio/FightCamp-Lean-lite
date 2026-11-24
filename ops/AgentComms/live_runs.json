@@ -10,18 +10,18 @@
    "seat": "arena",
    "agent": "Arena (chat 01a20a6d-3a1b-79dc-a475-e858f591a0d9)",
    "branch": "arena/f591a0d9-fightcamp-lean-lite",
-   "eta": "about 2-3 h",
-   "note": "S544: research/TASK_CARDROUND9.md, spec = research/CARDREAL_AUDIT.md section 4; lite mirror f93fa300; its PR relays to an arena/* PR here; Claude plays both arts by hand before the owner"
+   "eta": "about 1 h after the 02:02 restart",
+   "note": "S544: research/TASK_CARDROUND9.md, spec = research/CARDREAL_AUDIT.md section 4; lite mirror f93fa300; its PR relays to an arena/* PR here; Claude plays both arts by hand before the owner | S545 02:02: it had stopped at 00:31 on its tool-call limit, branch not pushed; told to continue (push first, finish tests, open the PR)"
   },
   "CORNERCMD1": {
    "id": "CORNERCMD1",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-24T00:07",
    "title": "Corner commands (your ten commands in two slots): one clean map and a probe on real bouts, nine bars; step 0 measures today's eight calls first",
    "seat": "claude",
    "agent": "claude-opus-5-5 (console tab CORNERCMD1 of the S544 session)",
    "eta": "about 3-4 h",
-   "note": "S544: owner 'yes start the probe' (Q-S294-325); research/TASK_CORNERCMD1.md; spec research/PUSH_KNOW_INTERVIEW_S543.md"
+   "note": "S544: owner 'yes start the probe' (Q-S294-325); research/TASK_CORNERCMD1.md; spec research/PUSH_KNOW_INTERVIEW_S543.md | S545: landed 095abdc73 FAIL bars 5, 6, 8 (the reader +9.7 / +18.2 over the plan: the core holds); round 2 briefed"
   },
   "PLANWORTH1": {
    "id": "PLANWORTH1",
@@ -32,6 +32,53 @@
    "agent": "claude-opus-5-5 (console tab PLANWORTH1 of the S544 session)",
    "eta": "about 2 h",
    "note": "S544: research/TASK_PLANWORTH1.md; six findings bars; no design, nothing changed in the game"
+  },
+  "BODYCROSS2": {
+   "id": "BODYCROSS2",
+   "status": "running",
+   "title": "Body cross: reaches him and hurts him (your note C500: reads as a touch, not a punch)",
+   "seat": "claude",
+   "agent": "claude-fable-5-2 (console tab BODYCROSS2 of the S545 session)",
+   "eta": "about 2-3 h (to about 05:00)",
+   "note": "S545: research/TASK_BODYCROSS2.md; the animation item of S545",
+   "started": "2026-11-24T02:13"
+  },
+  "CARDROUND9B": {
+   "id": "CARDROUND9B",
+   "status": "queued",
+   "title": "Card game round 9b: the two critics' changes (knockdown, floor defences paid in wind, posture, punches from on top)",
+   "seat": "arena",
+   "agent": "Arena (new chat after round 9 is merged)",
+   "eta": "2-3 h once launched",
+   "note": "S545: research/TASK_CARDROUND9B.md; Kalli 6/5/6, Dola 9/9/9 on the paper model"
+  },
+  "KNOWBUILD1": {
+   "id": "KNOWBUILD1",
+   "status": "queued",
+   "title": "Knowledge: the signing card in the game, a scene like the pro call (ranges, the rival's window, trial evenings where you pick the question)",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (console tab, after COACHDEEP9 and BODYCROSS2)",
+   "eta": "5-7 h once launched",
+   "note": "S545: research/TASK_KNOWBUILD1.md; owner interview S543 K1-K4; worktree build/knowbuild1"
+  },
+  "COACHDEEP9": {
+   "id": "COACHDEEP9",
+   "status": "running",
+   "started": "2026-11-24T02:21",
+   "title": "Coaches v9: three named changes and a stop rule (a forced moment that fails again is cut as a decision)",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (console tab COACHDEEP9 of the S545 session)",
+   "eta": "about 1.5-2 h (to about 04:15)",
+   "note": "S545: research/TASK_COACHDEEP9.md"
+  },
+  "CORNERCMD2": {
+   "id": "CORNERCMD2",
+   "status": "queued",
+   "title": "Corner commands round 2: no free rest (Reset, Get out), the ring slider right against who runs or pins, the boxer's training matters more",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (console tab, next free slot)",
+   "eta": "1.5-2.5 h once launched",
+   "note": "S545: research/TASK_CORNERCMD2.md; stop rule"
   }
  },
  "codex_budget": {

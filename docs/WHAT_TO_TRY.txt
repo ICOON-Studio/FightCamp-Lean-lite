@@ -1,3 +1,11 @@
+S545 build (2026-11-24, 02:30) - one change on top of the S544 build
+
+G. FIGHTS IS INSIDE THE OFFICE COMPUTER (your "shouldnt this be inside the computer in the offece menu ?"): the Fights
+   button, from anywhere, opens the office computer with the Fights window - the same dock and top line as Mail. Two
+   bouts waiting for your pick (pro fights 1 to 6) sit at the top; scroll the window for the calendar and the results.
+   The dock app once called Schedule is now Fights. A bout's own page and the Ask panel are still whole pages.
+   Also: the grey help line under the office windows sits on a dark strip (half of it could not be read).
+
 S544 build, second export (2026-11-24, 02:00) - your four play notes, fixed
 
 A. THE PROMOTER'S CALL IS A SCENE (your "looks like spreadheet you need to use art"): the boxer stands in the signing

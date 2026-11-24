@@ -2,7 +2,8 @@
 
 Spec: `ops/research/PUSH_KNOW_INTERVIEW_S543.md`, section THE SPEC (12 points) - his design. Brief: `ops/research/TASK_CORNERCMD1.md`.
 Probe: `tools/cornercmd1_probe.gd` + `tools/cornercmd1_rules.gd` (the commands as flagged local rules), `tools/cornercmd1_sum.py`.
-Result: `docs/CORNERCMD1_RESULT.md`. Nothing under scripts/ or tests/ changes in this task.
+Result: `docs/CORNERCMD1_RESULT.md` (FAIL: bars 5, 6, 8 - a held command that gives wind back is free recovery; the coach
+rule was tuned to (tactics - 30) / 50). Nothing under scripts/ or tests/ changes in this task.
 
 ## STEP 0 (run before this page): today's eight calls are NOT where the edge is lost
 

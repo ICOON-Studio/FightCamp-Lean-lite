@@ -330,8 +330,10 @@ static func _tape_lines(bo: Dictionary) -> Array:
 
 static func _road_card(c: Career, f: Dictionary) -> Control:
 	var road := ProLadder.road(c, f)
-	var card := UI.card("THE ROAD: %s" % str(road["div"]).to_upper())
+	var card := UI.card()
 	var v: VBoxContainer = card[1]
+	# S545: the title wraps (a long class name pushed the Fights window 40 px past the screen once it sat in the office computer)
+	v.add_child(UI.label("THE ROAD: %s" % str(road["div"]).to_upper(), 18, UI.WoodKit.HEAD, "caps", true))
 	v.add_child(UI.label(str(road["next"]), UI.SMALL, UI.FG, "bold", true))
 	var you := int(road["you"])
 	var champs: Array = []
