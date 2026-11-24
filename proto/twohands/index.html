@@ -17,17 +17,29 @@ button{font:inherit;color:inherit;cursor:pointer}
 .hp i{background:var(--red)}.st i{background:var(--green)}
 .clock{font-variant-numeric:tabular-nums;font-weight:700;font-size:1.25rem;color:var(--gold)}.clock.last{color:#ff8f86}.ticks{display:inline-flex;gap:3px;vertical-align:middle;margin-left:.4rem}.ticks i{width:1.1rem;height:.55rem;border-radius:2px;background:#3a2e26;border:1px solid var(--line2)}.ticks i.done{background:var(--muted)}.ticks i.cur{background:var(--gold);border-color:var(--gold)}
 .tag{display:inline-block;padding:1px .5rem;border-radius:.7rem;border:1px solid var(--red);color:#ffb3ad;font-size:.8rem;margin-left:.4rem}
+.duo{display:grid;grid-template-columns:minmax(18rem,40%) 1fr;gap:.8rem;align-items:start}.tell{display:flex;flex-direction:column;gap:.5rem;min-width:0}
+.stage{position:relative;height:clamp(11rem,31vh,19rem);border-radius:.6rem;overflow:hidden;display:flex;justify-content:center;background:linear-gradient(#1c2230 0%,#2a3447 56%,#4f74ad 56%,#35507f 100%);border:1px solid var(--line2)}
+.stage:before,.stage:after{content:"";position:absolute;left:0;right:0;height:3px;background:#c9382f;opacity:.85}.stage:before{top:30%}.stage:after{top:43%;background:#e8e1d6}
+.stage img{position:absolute;top:-17%;height:126%;left:50%;transform:translateX(-50%) scaleX(-1);z-index:1;filter:drop-shadow(0 8px 6px rgba(0,0,0,.45))}
+.stage .nm{position:absolute;bottom:.4rem;z-index:2;font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:.85rem;text-shadow:0 1px 3px #000}.stage .nm.you{left:.7rem;color:#9cc0f5}.stage .nm.him{right:.7rem;color:#ff9d95}
+.pop{position:absolute;top:22%;z-index:3;font-weight:800;font-size:2.1rem;text-shadow:0 2px 6px #000;opacity:0;pointer-events:none}.pop.p0{left:24%}.pop.p1{right:24%}
+.pop.go{animation:pop .9s ease-out}.pop.dmg{color:#ff6b5e}.pop.ok{color:#8fe39a;font-size:1.5rem}
+@keyframes pop{0%{opacity:0;transform:translateY(12px) scale(.7)}15%{opacity:1;transform:translateY(0) scale(1.15)}100%{opacity:0;transform:translateY(-38px) scale(1)}}
+.stage.shake{animation:shake .28s}.stage.flash:before{box-shadow:0 0 0 100vmax rgba(217,83,74,.28)}
+@keyframes shake{20%{transform:translateX(-7px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(3px)}}
+.mute{margin-left:.6rem;padding:.2rem .6rem;border-radius:.4rem;border:1px solid var(--line2);background:var(--panel2);font-size:.85rem}
+@media (prefers-reduced-motion:reduce){.stage.shake{animation:none}.pop.go{animation:none;opacity:1}}
 .table{background:var(--panel);border:1px solid var(--line);border-radius:.7rem;padding:.8rem;display:flex;flex-direction:column;gap:.6rem;min-height:15rem}
 .said{font-size:1.25rem;font-weight:600;min-height:1.7rem}.sub{color:var(--muted);min-height:1.3rem}
 .combo{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;min-height:3rem}
 .story{display:grid;gap:.3rem;width:100%}.srow{display:grid;grid-template-columns:1.6rem minmax(9rem,14rem) 1fr auto;gap:.7rem;align-items:center;padding:.4rem .7rem;border-radius:.5rem;border:1px solid var(--line2);background:var(--panel2);font-size:1.05rem}
 .srow em{font-style:normal;font-weight:700}.srow.good{border-color:var(--green)}.srow.good em{color:var(--green)}.srow.bad{border-color:var(--red)}.srow.bad em{color:#ff8f86}.srow.now{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold)}.srow.dim{opacity:.5}
-@media (max-width:820px){.srow{grid-template-columns:1.2rem 1fr}.srow em{grid-column:2}}
+@media (max-width:820px){.srow{grid-template-columns:1.2rem auto 1fr;gap:.4rem}.srow em{grid-column:2 / 4}}
 .chip{padding:.35rem .7rem;border-radius:.5rem;border:1px solid var(--line2);background:var(--panel2)}.chip.now{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold)}
 .chip.hit{border-color:var(--red)}.chip.safe{border-color:var(--green)}.chip.dim{opacity:.45}
 .rows{display:grid;gap:.45rem}
-.opt{display:grid;grid-template-columns:11rem 1fr;gap:.6rem;align-items:center}
-.opt button{min-height:3rem;border-radius:.5rem;border:1px solid var(--line2);background:var(--panel2);text-align:left;padding:.3rem .6rem}
+.opt{display:grid;grid-template-columns:19rem 1fr;gap:.6rem;align-items:center}
+.opt button{min-height:2.7rem;border-radius:.5rem;border:1px solid var(--line2);background:var(--panel2);text-align:left;padding:.3rem .6rem}
 .opt button b{display:block}.opt button small{color:var(--muted);font-size:.8rem}.opt button kbd{float:right;color:var(--gold);font:inherit;font-weight:700}
 .track{position:relative;height:2.2rem;border-radius:.4rem;background:#1a1513;border:1px solid var(--line2);overflow:hidden}
 .zone{position:absolute;top:0;bottom:0;background:rgba(116,189,124,.45);border-left:1px solid var(--green);border-right:1px solid var(--green)}
@@ -40,18 +52,26 @@ button{font:inherit;color:inherit;cursor:pointer}
 .card{flex:1;min-height:5.6rem;background:var(--panel2);border:1px solid var(--line2);border-radius:.5rem;padding:.4rem .55rem;text-align:left;position:relative}
 .card b{display:block}.card small{display:block;color:var(--muted);font-size:.8rem;line-height:1.25}.card .w{position:absolute;top:4px;right:.5rem;color:var(--gold);font-size:.82rem}
 .card.pick{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold)}.card.no{opacity:.4;cursor:not-allowed}.card:not(.no):hover{border-color:var(--gold)}
+.setup{display:grid;gap:.8rem}.opps{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem}
+.opp{background:var(--panel2);border:1px solid var(--line2);border-radius:.6rem;padding:.6rem .7rem;text-align:left}.opp b{display:block;font-size:1.1rem;color:#ff9d95}.opp small{display:block;color:var(--muted);line-height:1.3}
+.opp.pick{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold)}
+.pack{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}.pk{background:var(--panel2);border:1px solid var(--line2);border-radius:.6rem;padding:.6rem .7rem}
+.pk .ln{display:grid;grid-template-columns:1fr auto;align-items:center;gap:.5rem;padding:.15rem 0}.pk .ln small{display:block;color:var(--muted);font-size:.78rem}
+.cnt{display:inline-flex;align-items:center;gap:.35rem}.cnt button{width:2.2rem;height:2.2rem;border-radius:.4rem;border:1px solid var(--line2);background:var(--panel);font-weight:700}.cnt b{min-width:1.2rem;text-align:center}
+.pk .bad{color:#ff8f86}.pk .okc{color:var(--green)}
+@media (max-width:820px){.opps{grid-template-columns:1fr}.pack{grid-template-columns:1fr}}
 .acts{display:flex;gap:.6rem;justify-content:flex-end;flex-wrap:wrap}
 .btn{padding:.7rem 1.3rem;border-radius:.55rem;border:1px solid var(--line2);background:var(--panel2);font-weight:600;min-height:44px}
 .btn.go{background:var(--gold);color:#231a12;border-color:var(--gold);animation:pulse 1.4s infinite}.btn:disabled{opacity:.4;animation:none}
 @keyframes pulse{50%{box-shadow:0 0 0 5px rgba(227,171,69,.25)}}
-.log{font-size:.92rem;color:#d9cbba;max-height:7rem;overflow:auto}.log div{padding:1px 0;border-bottom:1px dotted #33281f}
-@media (max-width:820px){html{font-size:14px}.opt{grid-template-columns:8.5rem 1fr}.card{min-height:6.5rem}.btn{flex:1}}
+.log{font-size:.92rem;color:#d9cbba;max-height:4.4rem;overflow:auto}.log div{padding:1px 0;border-bottom:1px dotted #33281f}
+@media (max-width:820px){html{font-size:14px}.duo{grid-template-columns:1fr}.opt{grid-template-columns:9.5rem 1fr}.card{min-height:6.5rem}.btn{flex:1}}
 @media (prefers-reduced-motion:reduce){.btn.go{animation:none}}
 </style></head>
 <body><div class="app">
-  <div class="top"><span class="brand">Two Hands</span><span id="where"></span><span id="score"></span><span class="lab" style="margin-left:auto">a deck for each hand - defend by timing</span></div>
+  <div class="top"><span class="brand">Two Hands</span><span id="where"></span><span id="score"></span><span class="lab" style="margin-left:auto">a deck for each hand - defend by timing</span><button class="mute" id="mute">Sound on</button></div>
   <div class="men"><div class="man you" id="you"></div><div class="man him" id="him"></div></div>
-  <div class="table"><div class="said" id="said"></div><div class="sub" id="sub"></div><div class="combo" id="combo"></div><div class="rows" id="rows"></div><span class="lab">What happened - newest on top</span><div class="log" id="log"></div></div>
+  <div class="table"><div class="duo"><div class="stage" id="stage"><img id="pic" alt="" src="img/guard.webp"><span class="pop p0" id="pop0"></span><span class="pop p1" id="pop1"></span><span class="nm you">You</span><span class="nm him" id="nmhim">Him</span></div><div class="tell"><div class="said" id="said"></div><div class="sub" id="sub"></div><div class="combo" id="combo"></div></div></div><div class="rows" id="rows"></div><span class="lab">What happened - newest on top</span><div class="log" id="log"></div></div>
   <div><div class="hands" id="hands"></div><div class="acts" id="acts" style="margin-top:.6rem"></div></div>
 </div>
 <script>
@@ -74,20 +94,45 @@ const MOVES = {
   rup: { n: 'Rear uppercut', h: 1, hits: 'chin, from below', d: 4, p: 2, st: 3, ms: 860, o: { lean: 0.6, slip: 0.42 } },
   rbody: { n: 'Body cross', h: 1, hits: 'stomach', d: 2, p: 1, st: 2, ms: 760, chip: 0, body: 1, o: { elbow: 0.8, step: 0.65 } },
 };
+// three opponents who fight differently: their own two decks, speed (ms x), health, and how the machine defends
+const OPPS = [
+  { n: 'The Jabber', t: 'Out-boxer. A fast jab, feints, and he counters well. Light hands, less health.', decks: [['jab', 'jab', 'jab', 'jab', 'jab', 'hook', 'feint', 'feint', 'feint', 'lbody'], ['cross', 'cross', 'cross', 'rbody', 'rbody', 'over']], ms: 0.88, hp: 10, ctr: 0.7, skill: 0.9, soak: 0.45 },
+  { n: 'The Slugger', t: 'Slow and heavy. Overhands and uppercuts. He blocks, rarely slips, and takes a lot.', decks: [['jab', 'jab', 'hook', 'hook', 'hook', 'lup', 'lup', 'lbody'], ['over', 'over', 'over', 'rup', 'rup', 'cross', 'cross']], ms: 1.14, hp: 14, ctr: 0.3, skill: 0.7, soak: 0.8 },
+  { n: 'The Body Snatcher', t: 'Pressure. He goes to the ribs to shorten your stamina, three punches at a time.', decks: [['jab', 'jab', 'jab', 'lbody', 'lbody', 'lbody', 'hook', 'feint'], ['rbody', 'rbody', 'rbody', 'cross', 'cross', 'rup']], ms: 1.0, hp: 12, ctr: 0.5, skill: 0.8, soak: 0.6 },
+];
+// your two hands: how many of each move you pack. A hand's deck must be exactly its size.
+const PACK = [{ size: 10, max: 5, ids: ['jab', 'hook', 'lup', 'lbody', 'feint'] }, { size: 8, max: 4, ids: ['cross', 'over', 'rup', 'rbody'] }];
+let mine = [{ jab: 4, hook: 2, lup: 1, lbody: 1, feint: 2 }, { cross: 3, over: 2, rup: 1, rbody: 2 }], oppI = 0, OPP = OPPS[0];
+const packed = (h) => Object.values(mine[h]).reduce((x, y) => x + y, 0), myDecks = () => mine.map((c) => Object.entries(c).flatMap(([id, n]) => Array(n).fill(id)));
 const DECKS = [['jab', 'jab', 'jab', 'jab', 'hook', 'hook', 'lup', 'lbody', 'feint', 'feint'], ['cross', 'cross', 'cross', 'over', 'over', 'rup', 'rbody', 'rbody']];
 const HAND = ['Lead hand', 'Rear hand'], KEYS = ['a', 's', 'd'];
+// pictures and sounds: the move -> its picture name; the attacker's colour (you are blue, he is red)
+const PIC = { jab: 'jab', hook: 'lead_hook', lup: 'lead_uppercut', lbody: 'body_hook', cross: 'cross', over: 'rear_hook', rup: 'rear_uppercut', rbody: 'body_cross' };
+let mute = false, popN = 0;
+const snd = (n, v = 0.7) => { if (mute) return; try { const au = new Audio('snd/' + n + '.ogg'); au.volume = v; au.play().catch(() => {}); } catch (e) {} };
+const pic = (n) => { const el = document.getElementById('pic'); if (el) el.src = 'img/' + n + '.webp'; };
+function pop(who, text, cls) { const el = document.getElementById('pop' + who); el.textContent = text; el.className = 'pop p' + who + ' ' + cls; void el.offsetWidth; el.classList.add('go'); }
+function jolt(hard) { const st = document.getElementById('stage'); st.classList.remove('shake', 'flash'); void st.offsetWidth; st.classList.add('shake'); if (hard) { st.classList.add('flash'); setTimeout(() => st.classList.remove('flash'), 160); } }
+// one punch shown: kind = clean | soak | miss. att = who threw it (0 you, 1 him)
+function fx(kind, att, id, dmg) { const m = MOVES[id], col = att ? 'red' : 'blue', vic = 1 - att;
+  pic(`${col}_${PIC[id]}_${kind === 'clean' ? 'landed' : kind === 'soak' ? 'blocked' : 'missed'}`);
+  if (kind === 'clean') { snd(m.body ? 'punch_body_1' : dmg >= 4 ? 'punch_big_1' : dmg >= 3 ? 'punch_power_head_2' : 'punch_jab_head_1'); pop(vic, '-' + dmg, 'dmg'); jolt(vic === 0); if (dmg >= 3) snd('crowd_club_oooh_1', 0.35); }
+  else if (kind === 'soak') { snd('punch_block_' + (1 + popN++ % 2)); pop(vic, dmg ? '-' + dmg : 'blocked', dmg ? 'dmg' : 'ok'); }
+  else { snd('punch_miss_whoosh_' + (1 + popN++ % 2)); pop(vic, 'missed', 'ok'); } }
+function fxCounter(def) { pic(`${def ? 'red' : 'blue'}_cross_landed`); snd('punch_power_head_3'); pop(1 - def, '-' + N.counter, 'dmg'); jolt(def === 1); }
+function fxDown(k) { setTimeout(() => { pic(`${k ? 'red' : 'blue'}_knockdown_2`); snd('knockdown_fall_4'); snd('crowd_club_cheer_1', 0.4); }, 380); }
 const $ = (id) => document.getElementById(id), rnd = Math.random, pickOne = (a) => a[Math.floor(rnd() * a.length)];
 const shuffle = (a) => { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
 let F, round, turn, a, phase, pick, logs = [], cards = [], live = null;
-const man = () => ({ hp: N.hp, st: N.st, cap: N.st, pts: 0, kd: 0, ropes: 0, rocked: 0, bit: 0, decks: DECKS.map((d) => shuffle([...d])), up: [[], []] });
-function fill(m) { for (const h of [0, 1]) while (m.up[h].length < 2) { if (!m.decks[h].length) m.decks[h] = shuffle([...DECKS[h]].filter((id) => !m.up[h].includes(id) || rnd() < 0.5)); m.up[h].push(m.decks[h].pop()); } }
+const man = (src = DECKS, hp = N.hp) => ({ hp, max: hp, st: N.st, cap: N.st, pts: 0, kd: 0, ropes: 0, rocked: 0, bit: 0, src, decks: src.map((d) => shuffle([...d])), up: [[], []] });
+function fill(m) { for (const h of [0, 1]) while (m.up[h].length < 2) { if (!m.decks[h].length) m.decks[h] = shuffle([...m.src[h]].filter((id) => !m.up[h].includes(id) || rnd() < 0.5)); m.up[h].push(m.decks[h].pop()); } }
 const log = (t) => { logs.unshift(t); $('log').innerHTML = logs.slice(0, 30).map((l) => `<div>${l}</div>`).join(''); };
 const cost = (ids) => ids.reduce((s, id) => s + MOVES[id].st, 0);
 
-function draw() {
+function draw() { $('stage').style.display = phase === 'setup' ? 'none' : ''; $('nmhim').textContent = OPP.n;
   for (const k of [0, 1]) { const m = F[k];
-    $(k ? 'him' : 'you').innerHTML = `<h2>${k ? 'Him' : 'You'}${m.ropes >= 2 ? '<span class="tag">on the ropes</span>' : ''}${m.rocked ? '<span class="tag">rocked</span>' : ''}${m.kd ? `<span class="tag">down ${m.kd}x</span>` : ''}</h2>
-      <span class="lab">Health ${Math.max(0, m.hp)} of ${N.hp}</span><div class="bar hp"><i style="width:${100 * Math.max(0, m.hp) / N.hp}%"></i></div>
+    $(k ? 'him' : 'you').innerHTML = `<h2>${k ? OPP.n : 'You'}${m.ropes >= 2 ? '<span class="tag">on the ropes</span>' : ''}${m.rocked ? '<span class="tag">rocked</span>' : ''}${m.kd ? `<span class="tag">down ${m.kd}x</span>` : ''}</h2>
+      <span class="lab">Health ${Math.max(0, m.hp)} of ${m.max}</span><div class="bar hp"><i style="width:${100 * Math.max(0, m.hp) / m.max}%"></i></div>
       <span class="lab">Stamina ${m.st} of ${m.cap}</span><div class="bar st"><i style="width:${100 * m.st / N.st}%"></i></div>`; }
   { const all = 2 * N.leads, left = Math.max(0, all - turn), sec = left * (180 / all), last = left <= 1, cur = phase === 'shown' || phase === 'over' ? -1 : turn;
     $('where').innerHTML = `Round <b>${round}</b> of ${N.rounds} &nbsp; <span class="clock ${last ? 'last' : ''}" title="A round is ${all} exchanges: each man leads ${N.leads} times">${Math.floor(sec / 60)}:${String(Math.round(sec % 60)).padStart(2, '0')}</span><span class="ticks">${Array.from({ length: all }, (_, j) => `<i class="${j < turn ? 'done' : j === cur ? 'cur' : ''}"></i>`).join('')}</span> ${left === 0 ? 'the bell' : last ? '<b>last exchange of the round</b>' : left + ' exchanges to the bell'}`; }
@@ -102,15 +147,26 @@ function hands(active) { const me = F[0];
     if (n >= 0) pick.splice(n, 1); else if (!b.classList.contains('no')) pick.push({ h, i, id: me.up[h][i] }); lead(); }; }
 const chips = (ids, at, marks = []) => ids.map((id, i) => `<span class="chip ${i === at ? 'now' : ''} ${marks[i] || ''}">${i + 1}. ${MOVES[id].n}</span>`).join('');
 
-function start() { F = [man(), man()]; round = 1; turn = 0; cards = []; logs = []; pick = []; a = rnd() < 0.5 ? 0 : 1; log(`Round 1. ${a ? 'He leads' : 'You lead'} first.`); for (const m of F) fill(m); draw(); hands(false);
+// before the bout: pick the man in the other corner and pack your two hands
+function setup() { phase = 'setup'; F = [man(myDecks()), man(OPP.decks, OPP.hp)]; round = 1; turn = 0; cards = []; logs = []; pick = []; xr = []; draw(); pic('guard');
+  $('said').textContent = 'Who is in the other corner, and what is in your hands?'; $('sub').textContent = 'Two moves of each hand are always face up in the bout. What you pack is what can come up.';
+  $('combo').innerHTML = ''; $('hands').innerHTML = ''; $('log').innerHTML = '';
+  const ok = PACK.every((pk, h) => packed(h) === pk.size);
+  $('rows').innerHTML = `<div class="setup"><div class="opps">${OPPS.map((o, i) => `<button class="opp ${i === oppI ? 'pick' : ''}" data-o="${i}"><b>${o.n}</b><small>${o.t}</small><small>Health ${o.hp} - ${o.ms < 1 ? 'fast' : o.ms > 1 ? 'slow' : 'average'} hands</small></button>`).join('')}</div>
+    <div class="pack">${PACK.map((pk, h) => `<div class="pk"><span class="lab">${HAND[h]} - <span class="${packed(h) === pk.size ? 'okc' : 'bad'}">${packed(h)} of ${pk.size} packed</span></span>${pk.ids.map((id) => { const m = MOVES[id];
+      return `<div class="ln"><span><b>${m.n}</b><small>${m.feint ? 'draws a press; his next band shrinks' : `${m.d} health, ${m.st} stamina${m.body ? ', shortens his stamina bar' : ''} - he can ${Object.keys(m.o).map((k) => DEF[k].n.toLowerCase()).join(', ')}`}</small></span><span class="cnt"><button data-h="${h}" data-id="${id}" data-d="-1">-</button><b>${mine[h][id]}</b><button data-h="${h}" data-id="${id}" data-d="1">+</button></span></div>`; }).join('')}</div>`).join('')}</div></div>`;
+  for (const b of $('rows').querySelectorAll('.opp')) b.onclick = () => { oppI = +b.dataset.o; OPP = OPPS[oppI]; setup(); };
+  for (const b of $('rows').querySelectorAll('.cnt button')) b.onclick = () => { const h = +b.dataset.h, id = b.dataset.id, v = mine[h][id] + +b.dataset.d; if (v < 0 || v > PACK[h].max || (+b.dataset.d > 0 && packed(h) >= PACK[h].size)) return; mine[h][id] = v; setup(); };
+  $('acts').innerHTML = `<button class="btn go" id="next" ${ok ? '' : 'disabled'}>${ok ? 'Fight ' + OPP.n : 'Pack both hands full first'}</button>`; $('next').onclick = start; }
+function start() { F = [man(myDecks()), man(OPP.decks, OPP.hp)]; snd('bell_round_start_1', 0.5); round = 1; turn = 0; cards = []; logs = []; pick = []; a = rnd() < 0.5 ? 0 : 1; log(`Round 1. ${a ? 'He leads' : 'You lead'} first.`); for (const m of F) fill(m); draw(); hands(false);
   $('said').textContent = a ? 'He leads first. His punches come one at a time.' : 'You lead first.'; $('sub').textContent = 'When he punches: press a defence (A, S, D or tap it) while the white line is inside its band. Wide band = safe block. Narrow band = a counter.';
   $('combo').innerHTML = ''; $('rows').innerHTML = ''; $('acts').innerHTML = `<button class="btn go" id="next">${a ? 'Ready - let him come' : 'Start'}</button>`; $('next').onclick = next; }
 function next() {
-  if (turn >= 2 * N.leads) { const [x, y] = F, w = x.pts === y.pts ? -1 : x.pts > y.pts ? 0 : 1, sc = [w === 1 ? 9 : 10, w === 0 ? 9 : 10]; cards.push(sc); log(`BELL. The judges give the round ${sc[0]}-${sc[1]}.`);
+  if (turn >= 2 * N.leads) { const [x, y] = F, w = x.pts === y.pts ? -1 : x.pts > y.pts ? 0 : 1, sc = [w === 1 ? 9 : 10, w === 0 ? 9 : 10]; cards.push(sc); log(`BELL. The judges give the round ${sc[0]}-${sc[1]}.`); snd('bell_round_end_1', 0.5);
     if (round >= N.rounds) { const t = [0, 1].map((k) => cards.reduce((s, c) => s + c[k], 0)); return over(t[0] === t[1] ? `A DRAW ${t[0]}-${t[1]}` : `${t[0] > t[1] ? 'YOU WIN' : 'HE WINS'} on the cards ${t[0]}-${t[1]}`); }
     round++; turn = 0; for (const m of F) { m.pts = 0; m.st = Math.min(m.cap, m.st + N.bell); m.ropes = 0; m.rocked = 0; } log(`Round ${round}.`); }
   for (const m of F) { if (turn) m.st = Math.min(m.cap, m.st + N.rec); fill(m); }
-  F[a].ropes = 0; pick = []; draw();
+  F[a].ropes = 0; pick = []; draw(); pic('guard');
   if (a === 0) lead(); else { const ids = aiCombo(); if (!ids.length) { F[1].st = Math.min(F[1].cap, F[1].st + N.combo * N.spare); log('He has nothing left to throw and covers up.'); return done('He has nothing left to throw and covers up.'); } defend(ids); }
 }
 function lead() { phase = 'lead'; const ids = pick.map((p) => p.id), ok = ids.length && MOVES[ids[ids.length - 1]].feint !== 1;
@@ -141,8 +197,8 @@ function story(att, ids, at, hidden) { return '<div class="story">' + ids.map((i
 // he leads: each punch sweeps across; you press a defence in its band
 function defend(ids) { phase = 'defend'; xr = []; hands(false); $('acts').innerHTML = ''; const marks = []; let i = 0, prev = null;
   const one = () => { if (i >= ids.length || F[0].hp <= 0) return finish(1, ids, marks);
-    const id = ids[i], m = MOVES[id], D = F[0], opts = options(D, id), lead = 0.72, total = m.ms + (prev == null ? 500 : MOVES[prev].h !== m.h ? N.gapAlt : N.gapSame);
-    F[1].st -= m.st; draw();
+    const id = ids[i], m = MOVES[id], D = F[0], opts = options(D, id), lead = 0.72, total = m.ms * OPP.ms + (prev == null ? 500 : MOVES[prev].h !== m.h ? N.gapAlt : N.gapSame);
+    F[1].st -= m.st; draw(); pic('guard');
     $('said').textContent = m.feint ? 'He twitches...' : `His ${m.n} is coming - ${m.hits}.`; $('sub').textContent = m.feint ? '' : opts.length ? 'Press a defence when the white line is inside its band.' : 'Nothing you have stops this.';
     $('combo').innerHTML = story(1, ids, i, true);
     const shownOpts = m.feint ? ['block', 'slip', 'step'] : opts;
@@ -167,15 +223,15 @@ function defend(ids) { phase = 'defend'; xr = []; hands(false); $('acts').innerH
 function resolve(att, id, k, whyNot) { const A = F[att], D = F[1 - att], m = MOVES[id], you = att === 1, his = you ? 'His' : 'Your', who = you ? 'You' : 'He', g = you ? 'good' : 'bad', b = you ? 'bad' : 'good';
   const miss = { 'too early': 'You pressed too early', 'too late': 'You pressed too late', 'no defence': 'You did not defend', 'nothing stops it': 'He has no answer to it' }[whyNot] || (whyNot ? whyNot[0].toUpperCase() + whyNot.slice(1) : '');
   if (!k) { D.hp -= m.d; A.pts += m.p; D.rocked = 1; if (m.body) { D.cap = Math.max(3, D.cap - 1); D.st = Math.min(D.st, D.cap); }
-    rec(m.n, miss + ' - it lands clean', `-${m.d} health${you ? '' : ' for him'}${m.body ? ', stamina bar shorter' : ''}${D.hp <= 0 ? ' - DOWN' : ''}`, b);
+    fx('clean', att, id, m.d); rec(m.n, miss + ' - it lands clean', `-${m.d} health${you ? '' : ' for him'}${m.body ? ', stamina bar shorter' : ''}${D.hp <= 0 ? ' - DOWN' : ''}`, b);
     const t = `${his} ${m.n} lands clean (${whyNot}): -${m.d} health${m.body ? ', stamina bar 1 shorter' : ''}.`; log(t); $('said').textContent = t; if (D.hp <= 0) { down(1 - att); return 'stop'; } return 'hit'; }
   const d = DEF[k]; D.rocked = 0;
-  if (d.k === 'soak') { D.hp -= m.chip || 0; rec(m.n, `${who} ${d.v[you ? 0 : 1]} it`, m.chip ? `-${m.chip} health${you ? '' : ' for him'} gets through${D.hp <= 0 ? ' - DOWN' : ''}` : 'no damage', m.chip ? b : g); const t = `${who} ${d.v[you ? 0 : 1]} the ${m.n}${m.chip ? ' - ' + m.chip + ' health gets through' : ''}.`; log(t); $('said').textContent = t; if (D.hp <= 0) { down(1 - att); return 'stop'; } return 'safe'; }
-  if (d.k === 'evade') { rec(m.n, `${who} ${d.v[you ? 0 : 1]} it`, 'no damage', g); const t = `${who} ${d.v[you ? 0 : 1]} the ${m.n}.`; log(t); $('said').textContent = t; return 'evade'; }
-  D.ropes++; rec(m.n, `${who} ${d.v[you ? 0 : 1]}`, 'it falls short' + (D.ropes >= 2 ? (you ? ' - you are on the ropes' : ' - he is on the ropes') : ''), g); const t = `${who} ${d.v[you ? 0 : 1]}: the ${m.n} falls short.${D.ropes >= 2 ? (you ? ' You are on the ropes.' : ' He is on the ropes.') : ''}`; log(t); $('said').textContent = t; return 'stop'; }
+  if (d.k === 'soak') { D.hp -= m.chip || 0; fx('soak', att, id, m.chip || 0); rec(m.n, `${who} ${d.v[you ? 0 : 1]} it`, m.chip ? `-${m.chip} health${you ? '' : ' for him'} gets through${D.hp <= 0 ? ' - DOWN' : ''}` : 'no damage', m.chip ? b : g); const t = `${who} ${d.v[you ? 0 : 1]} the ${m.n}${m.chip ? ' - ' + m.chip + ' health gets through' : ''}.`; log(t); $('said').textContent = t; if (D.hp <= 0) { down(1 - att); return 'stop'; } return 'safe'; }
+  if (d.k === 'evade') { fx('miss', att, id, 0); rec(m.n, `${who} ${d.v[you ? 0 : 1]} it`, 'no damage', g); const t = `${who} ${d.v[you ? 0 : 1]} the ${m.n}.`; log(t); $('said').textContent = t; return 'evade'; }
+  D.ropes++; fx('miss', att, id, 0); rec(m.n, `${who} ${d.v[you ? 0 : 1]}`, 'it falls short' + (D.ropes >= 2 ? (you ? ' - you are on the ropes' : ' - he is on the ropes') : ''), g); const t = `${who} ${d.v[you ? 0 : 1]}: the ${m.n} falls short.${D.ropes >= 2 ? (you ? ' You are on the ropes.' : ' He is on the ropes.') : ''}`; log(t); $('said').textContent = t; return 'stop'; }
 // the counter after a slip, duck or parry: `def` is the man who evaded. It lands only if it is timed.
 function counter(def, ok) { const A = F[1 - def], D = F[def], you = def === 0, r = xr[xr.length - 1];
-  if (ok) { A.hp -= N.counter; D.pts += 1; r.act += you ? ' and counter' : ' and counters'; r.out = `-${N.counter} health for ${you ? 'him' : 'you'}${A.hp <= 0 ? ' - DOWN' : ''}`; r.cls = you ? 'good' : 'bad';
+  if (ok) { A.hp -= N.counter; D.pts += 1; fxCounter(def); r.act += you ? ' and counter' : ' and counters'; r.out = `-${N.counter} health for ${you ? 'him' : 'you'}${A.hp <= 0 ? ' - DOWN' : ''}`; r.cls = you ? 'good' : 'bad';
     const t = `${you ? 'Your' : 'His'} counter lands: -${N.counter} health for ${you ? 'him' : 'you'}. ${you ? 'His' : 'Your'} combination ends.`; log(t); $('said').textContent = t; if (A.hp <= 0) down(1 - def); }
   else { r.act += you ? ' - your counter misses' : ' - his counter misses'; const t = `${you ? 'Your' : 'His'} counter misses. ${you ? 'He keeps coming.' : 'You keep going.'}`; log(t); $('said').textContent = t; } }
 function sweepCounter(cb) { const D = F[0], total = N.ctrMs, lead = 0.62, hw = N.ctrHalf * (0.7 + 0.3 * D.st / N.st);
@@ -186,7 +242,7 @@ function sweepCounter(cb) { const D = F[0], total = N.ctrMs, lead = 0.62, hw = N
   const tick = (now) => { const t = now - t0; $('rows').querySelector('.mark').style.left = Math.min(100, 100 * t / total) + '%';
     if (t < total && pressed == null) return requestAnimationFrame(tick); live = null; cb(pressed != null && Math.abs(pressed - lead * total) <= hw); };
   requestAnimationFrame(tick); }
-function down(k) { const m = F[k], w = k ? 'He' : 'You'; m.kd++; if (m.kd > N.kdBack.length) { m.hp = 0; const t = `${k ? 'HE IS' : 'YOU ARE'} DOWN for the third time - health at 0.`; log(t); $('said').textContent = t; return true; }
+function down(k) { const m = F[k], w = k ? 'He' : 'You'; m.kd++; fxDown(k); if (m.kd > N.kdBack.length) { m.hp = 0; const t = `${k ? 'HE IS' : 'YOU ARE'} DOWN for the third time - health at 0.`; log(t); $('said').textContent = t; return true; }
   m.hp = N.kdBack[m.kd - 1]; m.rocked = 0; F[1 - k].pts += 3; const t = `${k ? 'HE IS' : 'YOU ARE'} DOWN - health hit 0. ${w} get${k ? 's' : ''} up with ${m.hp} health; 3 points to ${k ? 'you' : 'him'}. Down three times and the referee stops it.`; log(t); $('said').textContent = t; return false; }
 // you lead: he defends the same way, his hands played by the machine (you watch the same sweep, quicker)
 function attack(ids) { phase = 'attack'; xr = []; hands(false); $('acts').innerHTML = ''; $('rows').innerHTML = ''; const marks = []; let i = 0, prev = null;
@@ -195,10 +251,10 @@ function attack(ids) { phase = 'attack'; xr = []; hands(false); $('acts').innerH
     $('combo').innerHTML = story(0, ids, i, false); $('sub').textContent = '';
     if (m.feint) { if (rnd() < 0.45) { D.bit = 1; res = 'hit'; log('You feint and he bites.'); $('said').textContent = 'You feint - he bites.'; rec('Feint', 'He moved - there was no punch', 'his next band is smaller', 'good'); } else { res = 'safe'; log('You feint. He does not move.'); $('said').textContent = 'You feint. He holds still.'; rec('Feint', 'He held still', 'nothing gained', 'bad'); } }
     else { const opts = options(D, id), soak = opts.find((k) => DEF[k].k === 'soak'), other = opts.filter((k) => DEF[k].k !== 'soak');
-      const k = !opts.length ? null : soak && (rnd() < 0.6 || !other.length) ? soak : pickOne(other); if (k) D.st = Math.max(0, D.st - dcost(k)); const ok = k && rnd() < Math.min(0.95, N.aiSkill * half(D, id, k, prev) / (N.half * 0.6));
+      const k = !opts.length ? null : soak && (rnd() < OPP.soak || !other.length) ? soak : pickOne(other); if (k) D.st = Math.max(0, D.st - dcost(k)); const ok = k && rnd() < Math.min(0.95, OPP.skill * half(D, id, k, prev) / (N.half * 0.6));
       res = resolve(0, id, ok ? k : null, k ? 'he mistimes his ' + DEF[k].n.toLowerCase() : 'nothing stops it'); D.bit = 0; }
     marks[i] = res === 'hit' ? 'hit' : 'safe'; prev = id; i++; draw();
-    if (res === 'evade') { const ok = rnd() < N.aiCtr; counter(1, ok); draw(); if (ok) res = 'stop'; }
+    if (res === 'evade') { const ok = rnd() < OPP.ctr; counter(1, ok); draw(); if (ok) res = 'stop'; }
     if (res === 'stop') return setTimeout(() => finish(0, ids, marks), 700); setTimeout(one, 650); };
   one(); }
 function finish(att, ids, marks) { const sp = (N.combo - ids.length) * N.spare; if (sp) { F[att].st = Math.min(F[att].cap, F[att].st + sp); log(`${att ? 'He' : 'You'} held ${N.combo - ids.length} back: +${sp} stamina.`); }
@@ -206,8 +262,13 @@ function finish(att, ids, marks) { const sp = (N.combo - ids.length) * N.spare; 
   const dead = F.findIndex((m) => m.kd > N.kdBack.length); if (dead >= 0) return over(dead ? 'YOU WIN - the referee stops it' : 'HE WINS - the referee stops it'); done(null); }
 function done(text) { phase = 'shown'; if (text) $('said').textContent = text; $('sub').textContent = ''; $('rows').innerHTML = ''; hands(false); draw(); turn++; a = 1 - a;
   $('acts').innerHTML = `<button class="btn go" id="next">${a ? 'His turn - get ready' : 'Your turn'}</button>`; $('next').onclick = next; }
-function over(text) { phase = 'over'; log(text); $('said').textContent = text; $('sub').textContent = ''; $('rows').innerHTML = ''; hands(false); draw(); $('acts').innerHTML = '<button class="btn go" id="again">Another bout</button>'; $('again').onclick = start; }
+function over(text) { phase = 'over'; log(text); $('said').textContent = text; $('sub').textContent = ''; $('rows').innerHTML = ''; hands(false); draw(); $('acts').innerHTML = '<button class="btn go" id="again">Another bout</button>'; $('again').onclick = setup; }
+document.getElementById('mute').onclick = (e) => { mute = !mute; e.target.textContent = mute ? 'Sound off' : 'Sound on'; };
+for (const c of ['red', 'blue']) for (const k of Object.values(PIC)) for (const r of ['landed', 'blocked', 'missed']) new Image().src = `img/${c}_${k}_${r}.webp`;
+for (const n of ['red_knockdown_2', 'blue_knockdown_2']) new Image().src = `img/${n}.webp`;
 window.addEventListener('keydown', (e) => { const k = e.key.toLowerCase(); if (live) { const r = KEYS.indexOf(k); if (r >= 0 && live.keys[r]) { e.preventDefault(); live.press(live.keys[r]); } return; }
   if (k === 'enter' || k === ' ') { e.preventDefault(); (document.getElementById('next') || document.getElementById('again') || document.getElementById('go'))?.click(); } });
-start();
+setup();
+// ?peek=defend|result : a still for checking the layout (he leads at once; result = after the exchange, nothing pressed)
+if (/peek=/.test(location.search)) { mute = true; start(); a = 1; next(); }
 </script></body></html>

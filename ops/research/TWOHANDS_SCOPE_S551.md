@@ -50,3 +50,27 @@ critics at 8, art.
 `OWNER_CARDGAME_INTERVIEW_S537.md` (fast and punchy, show me everything, Expedition 33 as "a different approach"),
 `JOHN_CARDGAME_MARKET_S538_JOHN.md` s4 (Expedition 33), `CARDREF1_REFERENCE_GAMES.md` (Ironbound: never read; corrected in
 `CARDRANGE_SCOPE_S550.md`), `DESIGN_CARDGAME_SCOPE.md` 6d (limb points lost to the wind pool - a different thing).
+
+## Changes after his first plays (S551, all in `proto/twohands/index.html`)
+His words, in order: "why i am down ?"; "make the thing that describes the fight to be clear about the action , i think
+you are too generous with the stamina"; "Slip is too strong i think , how about making the counter timed event ?
+breather is useless/bad design as it stands now . Add a clock or something soplayerknows when rounds ends"; then
+"keep working on 2hands".
+- Every punch line shows its damage; the knockdown line says the rule (health 0, up with 5, three and it is stopped).
+- The exchange is told move by move (who threw what, what the other man did, what it cost; green good, red bad).
+- Stamina: 2 back an exchange (was 3); any defence but a block costs 1, charged even when mistimed; the bell gives 4.
+- A slip, duck or parry only makes the punch miss; a TIMED COUNTER follows (narrow band): landed = 2 health and his
+  combination ends, missed = he keeps coming. The machine's counters land by its own rate.
+- No breather: each of the three moves not thrown returns 1 stamina; "Cover up" only when no punch can be paid for.
+- A round clock: 3:00 counting down 30 s an exchange, six ticks, "last exchange of the round".
+- THE RING: our own 2D fight pictures (`assets/ui/fight_pictures/m`, small web copies in `proto/twohands/img`), every
+  punch landed / blocked / missed for both men, knockdowns; the game's punch, block, miss, bell and crowd sounds
+  (`proto/twohands/snd`, a Sound on/off button); damage numbers pop over the man hit; the ring shakes when you are hit.
+- THREE OPPONENTS WHO FIGHT DIFFERENTLY (their own two decks, hand speed, health, how they defend and counter):
+  The Jabber, The Slugger, The Body Snatcher - picked before the bout.
+- PACK YOUR HANDS before the bout: how many of each move sits in the lead hand (10) and the rear hand (8).
+Checked S551: a scripted bout against The Slugger ran clean (pictures swapped per punch, no script error); headless
+screenshots at 1400 x 900 of the pick screen and of a defence - everything fits one screen. NOT checked: a phone-width
+layout by eye; the sounds by ear (nobody has heard them on this page); balance of the three opponents (first guesses).
+Known art limit: the pictures are end-of-punch stills, so the punch does not travel on screen - the sweep is still the
+timing cue. An overhand uses the rear-hook picture (no overhand picture exists).
