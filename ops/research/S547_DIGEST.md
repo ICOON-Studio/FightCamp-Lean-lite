@@ -65,3 +65,19 @@ Build: Builds/FightCamp.exe exported 05:56 (docs/WHAT_TO_TRY.txt O to S).
 - The start page's FULL TESTS line is the day before's until about 05:50: the 05:00 run starts at 05:15 and takes 30
   minutes; touch no game file while `sh tools/run_tests.sh` of nightly_tests.ps1 is alive.
 - Arena's branch lives on FightCamp-Lean-lite (not FightCamp-lite): `gh api repos/ICOON-Studio/FightCamp-Lean-lite/branches/<b>`.
+
+## After the first save (06:10 - 06:45)
+- STAFFCARDS1 landed in 34 minutes (0abec2562 on build/staffcards1) and is merged (fe3b9fcff): `git apply --3way`,
+  no conflict; 15 tests green on main (staff_cards new, coach_areas, people_slate, office_screen, guide_person,
+  film_night, office_sheet, words_on_screens, tooltip_standard, test_jump, first_week, golden_path, plain_words,
+  palette_guard, file_limits). Its stills opened beside the drawing: cards, a face or a grey figure, at most four
+  facts, one button, no scroll, NEW and Let go after a hire, bounds 0. Re-made on main: docs/playtest/s547, on /review
+  and the map. The worker added a second file (StaffDeskCard.gd) to stay under its line limit: accepted.
+- Second export 06:31 FROM A CLEAN WORKTREE (wt/STAFFCARDS1 detached on main): the main checkout held two workers'
+  open edits (BoutRead.gd, ChoreoReact.gd, clip_db.json). The package came out 24 MB smaller: main's export had been
+  packing untracked trial folders. The exported game boots headless with no error line.
+- face_frame_test green: `OfferSides._keep_head` moves the opponent's picture the least that keeps its head box, plus
+  a margin, inside the slot (one closer-drawn boxer's chin was cut by 1 px).
+- CORNERBASE1 launched 06:33 (Opus, tab c4); its coach's table was committed before any run (33e8fbb4b).
+- Briefs written, not launched: MATCHBOTS2. Queued to John: CORNERREAL1 (SQ322).
+- In flight at the handover (context 413k): PLANREAD2 (tab c1), BODYREACT2 (tab c3), CORNERBASE1 (tab c4).

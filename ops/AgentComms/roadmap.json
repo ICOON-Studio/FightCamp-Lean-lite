@@ -6,8 +6,8 @@
   "id": "S547",
   "owner": "claude",
   "updated": "2026-11-24",
-  "summary": "S547 (Fable) HANDOVER. METHOD: A DECISION SCREEN IS A SCENE AND THE PAGE ITSELF SHOWS WHAT CHANGED - NO POP-UP, NO ICON TILES; LITTLE TEXT; PLAIN MENU WORDS, THE PLAYER'S PLACE IS THE GYM; OFFICE-LIKE PAGES ARE WINDOWS OF THE OFFICE COMPUTER; THE PLAYER BOOKS WHEN HIS BOXERS ARE READY; THE FIGHT'S DEPTH IS IN THE CORNER, LIVE (round 2: +15 at 3 rounds, +22 at 6; the best written plan +1.7); FIGHT ANIMATION v2 ONLY, HIS EYE IS THE RULER. Done and exported (05:56): the SIGNING CARD is in the game (KNOWBUILD1 merged by diff: a prospect as a scene, three ranges, the rival's 7-day window, the trial by the day, Sign lands on the profile); CONTINUE reads 'days run to <date>' with the reason on hover (his Q-327 answer 'Top bar CONTINUE'); the mind attribute is Self-belief (Confidence is the bar only); Finance's club show row fits; two wait-for-offers lines now say Ask for a bout; Log and the dues pop-up fix are in the build. Collected: BODYCROSS3 (13 of 13 on its ruler, sheets on /review for his eye); CORNERCMD2 FAIL again on bars 5, 6, 8 (stop rule) with the core stronger - Q-330 asks him to cut the two ring calls; Arena card round 9 saved on its branch (61 tests green, play gate 4 of 6, boxing 77.5 v jiu-jitsu 22.5), Arena out of usage for the day. The 05:00 tests: 499 pass, 4 old reds (move_tip, matchmaking_bots, block_meet, face_frame), 25 fewer than the day before, none new. Workers launched in console tabs: PLANREAD2 (Opus), STAFFCARDS1 (Opus, worktree build/staffcards1), BODYREACT2 (Fable: the 3D fight plays the body-shot fold).",
-  "next_action": "S548: see NEXT_SESSION_PROMPT.md (collect what is still running of PLANREAD2, STAFFCARDS1, BODYREACT2; his answers Q-328, Q-329, Q-330; CORNERBASE1: the coach's own corner call is blind to the opponent and never rests a tired boxer, so the corner's +15 to +22 is measured against a baseline with a hole; Arena round 9 continues when its limit resets)",
+  "summary": "S547 (Fable) HANDOVER. METHOD: A DECISION SCREEN IS A SCENE AND THE PAGE ITSELF SHOWS WHAT CHANGED - NO POP-UP, NO ICON TILES; LITTLE TEXT; PLAIN MENU WORDS, THE PLAYER'S PLACE IS THE GYM; OFFICE-LIKE PAGES ARE WINDOWS OF THE OFFICE COMPUTER; THE PLAYER BOOKS WHEN HIS BOXERS ARE READY; THE FIGHT'S DEPTH IS IN THE CORNER, LIVE (round 2: +15 at 3 rounds, +22 at 6; the best written plan +1.7); FIGHT ANIMATION v2 ONLY, HIS EYE IS THE RULER. Done and exported (05:56): the SIGNING CARD is in the game (KNOWBUILD1 merged by diff: a prospect as a scene, three ranges, the rival's 7-day window, the trial by the day, Sign lands on the profile); CONTINUE reads 'days run to <date>' with the reason on hover (his Q-327 answer 'Top bar CONTINUE'); the mind attribute is Self-belief (Confidence is the bar only); Finance's club show row fits; two wait-for-offers lines now say Ask for a bout; Log and the dues pop-up fix are in the build. Collected: BODYCROSS3 (13 of 13 on its ruler, sheets on /review for his eye); CORNERCMD2 FAIL again on bars 5, 6, 8 (stop rule) with the core stronger - Q-330 asks him to cut the two ring calls; Arena card round 9 saved on its branch (61 tests green, play gate 4 of 6, boxing 77.5 v jiu-jitsu 22.5), Arena out of usage for the day. The 05:00 tests: 499 pass, 4 old reds (move_tip, matchmaking_bots, block_meet, face_frame), 25 fewer than the day before, none new. Workers launched in console tabs: PLANREAD2 (Opus), STAFFCARDS1 (Opus, worktree build/staffcards1), BODYREACT2 (Fable: the 3D fight plays the body-shot fold). After the first save: STAFFCARDS1 LANDED in 34 minutes and is merged and exported (06:31, from a clean worktree: two workers had open edits in the main checkout) - the Staff window is cards, no scroll, NEW after a hire; the offer page keeps the opponent's whole head (face_frame_test green again); CORNERBASE1 launched 06:33 (Opus tab c4); briefs MATCHBOTS2 (the bot that scouts is stopped more than the one that does not) and John's CORNERREAL1 (seat queue SQ322) written. In flight at the handover: PLANREAD2 (tab c1), BODYREACT2 (Fable, tab c3), CORNERBASE1 (tab c4).",
+  "next_action": "S548: see NEXT_SESSION_PROMPT.md (collect PLANREAD2, BODYREACT2 and CORNERBASE1 - tabs c1, c3, c4 of the S547 session; his answers Q-328, Q-329, Q-330 and his eye on /review; launch MATCHBOTS2; Arena round 9 continues when its limit resets)",
   "last_working_commit": "29097a616",
   "verified_playable": "Builds/FightCamp.exe S546 export (2026-11-24 04:07): Fights, the promoter's call, an amateur's profile and the Finance / Staff / Records windows rendered on the hidden desktop and opened (bounds 0 on the two runs that printed it); the touched tests green (about 75 run).",
   "incomplete_blocked": "KNOWBUILD1 landed, not collected. BODYCROSS3 and CORNERCMD2 running in console tabs; Arena card round 9 running. The staff screen redo (cards) is drawn, not built: the STAFF window holds the old cards and scrolls. PLANREAD2 and the red nightly matchmaking test are briefed / noted, not started. The temp worktree E:/FightCamp/wt/S545_NIGHTRED could not be removed (the command was refused): its one-line proof is saved in E:/FightCamp/wt_salvage/S545_NIGHTRED.",
@@ -2366,7 +2366,7 @@
   {
    "id": "S547",
    "date": "2026-11-24",
-   "summary": "Done and exported (05:56): the SIGNING CARD is in the game (KNOWBUILD1 merged by diff: a prospect as a scene, three ranges, the rival's 7-day window, the trial by the day, Sign lands on the profile); CONTINUE reads 'days run to <date>' with the reason on hover (his Q-327 answer 'Top bar CONTINUE'); the mind attribute is Self-belief (Confidence is the bar only); Finance's club show row fits; two wait-for-offers lines now say Ask for a bout; Log and the dues pop-up fix are in the build. Collected: BODYCROSS3 (13 of 13 on its ruler, sheets on /review for his eye); CORNERCMD2 FAIL again on bars 5, 6, 8 (stop rule) with the core stronger - Q-330 asks him to cut the two ring calls; Arena card round 9 saved on its branch (61 tests green, play gate 4 of 6, boxing 77.5 v jiu-jitsu 22.5), Arena out of usage for the day. The 05:00 tests: 499 pass, 4 old reds (move_tip, matchmaking_bots, block_meet, face_frame), 25 fewer than the day before, none new. Workers launched in console tabs: PLANREAD2 (Opus), STAFFCARDS1 (Opus, worktree build/staffcards1), BODYREACT2 (Fable: the 3D fight plays the body-shot fold)."
+   "summary": "Done and exported (05:56): the SIGNING CARD is in the game (KNOWBUILD1 merged by diff: a prospect as a scene, three ranges, the rival's 7-day window, the trial by the day, Sign lands on the profile); CONTINUE reads 'days run to <date>' with the reason on hover (his Q-327 answer 'Top bar CONTINUE'); the mind attribute is Self-belief (Confidence is the bar only); Finance's club show row fits; two wait-for-offers lines now say Ask for a bout; Log and the dues pop-up fix are in the build. Collected: BODYCROSS3 (13 of 13 on its ruler, sheets on /review for his eye); CORNERCMD2 FAIL again on bars 5, 6, 8 (stop rule) with the core stronger - Q-330 asks him to cut the two ring calls; Arena card round 9 saved on its branch (61 tests green, play gate 4 of 6, boxing 77.5 v jiu-jitsu 22.5), Arena out of usage for the day. The 05:00 tests: 499 pass, 4 old reds (move_tip, matchmaking_bots, block_meet, face_frame), 25 fewer than the day before, none new. Workers launched in console tabs: PLANREAD2 (Opus), STAFFCARDS1 (Opus, worktree build/staffcards1), BODYREACT2 (Fable: the 3D fight plays the body-shot fold). After the first save: STAFFCARDS1 LANDED in 34 minutes and is merged and exported (06:31, from a clean worktree: two workers had open edits in the main checkout) - the Staff window is cards, no scroll, NEW after a hire; the offer page keeps the opponent's whole head (face_frame_test green again); CORNERBASE1 launched 06:33 (Opus tab c4); briefs MATCHBOTS2 (the bot that scouts is stopped more than the one that does not) and John's CORNERREAL1 (seat queue SQ322) written. In flight at the handover: PLANREAD2 (tab c1), BODYREACT2 (Fable, tab c3), CORNERBASE1 (tab c4)."
   }
  ],
  "blocked_on_operator": [],
@@ -5285,7 +5285,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-24 06:11 board_sync",
+  "updated": "2026-11-24",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5442,25 +5442,28 @@
     "who": "Arena (chat 01a20a6d-3a1b-79dc-a475-e858f591a0d9)",
     "started": "2026-11-24T00:01",
     "run": "CARDROUND9",
-    "state": "waiting"
+    "eta": "Arena reached its daily usage limit (S547 05:48); continue tomorrow in the same chat"
    },
    {
     "title": "The bout card promises +11.6 for a plan the ring pays +1.7 for: find the cause, fix the read to the bout",
     "who": "claude-opus-5-5 (console tab PLANREAD2 of the S547 session, tab c1)",
     "started": "2026-11-24T05:50",
-    "run": "PLANREAD2"
-   },
-   {
-    "title": "The Staff window as cards (your 'this screen is terrible'): a face, the job in plain words, four facts, one button; fits the window with no scroll",
-    "who": "claude-opus-5-5 (console tab STAFFCARDS1 of the S547 session, tab c2)",
-    "started": "2026-11-24T05:52",
-    "run": "STAFFCARDS1"
+    "run": "PLANREAD2",
+    "eta": "about 3-4 h (to about 09:30), most of it bout runs"
    },
    {
     "title": "In the 3D fight a landed body punch folds the hit boxer (your 'the reaction should force the opponent to bend hisposture a bit'): the player picks the fold take; films for your eye",
     "who": "claude-fable-5-2 (console tab BODYREACT2 of the S547 session, tab c3)",
     "started": "2026-11-24T06:02",
-    "run": "BODYREACT2"
+    "run": "BODYREACT2",
+    "eta": "about 2-3 h (to about 08:45)"
+   },
+   {
+    "title": "What the live corner is worth against a coach who reads the opponent and rests a tired boxer (today's +15 to +22 is against a coach who does neither)",
+    "who": "claude-opus-5-5 (console tab CORNERBASE1 of the S547 session, tab c4)",
+    "started": "2026-11-24T06:33",
+    "run": "CORNERBASE1",
+    "eta": "about 3-4 h (to about 10:15)"
    }
   ],
   "next": [
@@ -5473,19 +5476,13 @@
    {
     "id": "NIGHTREDS1",
     "who": "claude",
-    "title": "05:00 tests: 4 old reds left (was 29): matchmaking_bots (pro bouts lost the four-count limit; the rule is right), move_tip, block_meet (old player), face_frame (one opponent's picture cut at the chin on the offer page) | NEXT: a probe makes reckless matchmaking cost again or the margins are re-set with the reason; the offer page's picture slot",
+    "title": "05:00 tests: 3 old reds left (was 29): matchmaking_bots (the bot that scouts is stopped MORE than the one that does not, since pros can be stopped), move_tip, block_meet (old player's rulers); face_frame fixed in S547 | NEXT: launch MATCHBOTS2 (brief written) when a tab frees",
     "after": ""
    },
    {
     "id": "PLANREAD1",
     "who": "claude",
     "title": "The card promises +11.6 for a plan the bout pays +1.7 to +2.9 for | NEXT: collect PLANREAD2 (Opus tab, launched 05:50)",
-    "after": ""
-   },
-   {
-    "id": "CLUBPAGE1",
-    "who": "claude",
-    "title": "The staff screen as cards (your 'this screen is terrible'): STAFFCARDS1 building it from the drawing (Opus tab, worktree build/staffcards1) | NEXT: open its three stills against the drawing, merge by diff, export",
     "after": ""
    },
    {
@@ -5527,7 +5524,7 @@
    {
     "id": "PUSHTANK1",
     "who": "claude",
-    "title": "Corner commands round 2: reading the moment +15 (3 rounds) to +22 (6 rounds); FAIL again on three checks - the ring calls add 0, the held calls beat a coach's call that is blind to the opponent, the three probe boxers grade alike | NEXT: your answer Q-330 (cut the two ring calls); CORNERBASE1: measure against a coach's call that reads the opponent and rests a tired boxer, then the code-checked critic",
+    "title": "Corner commands round 2: reading the moment +15 (3 rounds) to +22 (6 rounds), measured against a coach's call that never reads the opponent or rests a tired boxer; three checks fail again | NEXT: collect CORNERBASE1 (Opus tab, launched 06:33: the same probe against a coach who does both); your answer Q-330 (cut the two ring calls); then the code-checked critic",
     "after": ""
    },
    {
@@ -5866,6 +5863,16 @@
   },
   "done_recently": [
    {
+    "title": "S547: the staff screen is cards (your 'this screen is terrible') - a face, the job in plain words, four facts, one button; merged and exported 06:31",
+    "who": "claude-opus-5-5 (STAFFCARDS1) + claude",
+    "when": "2026-11-24"
+   },
+   {
+    "title": "S547: the bout offer page no longer cuts an opponent's picture at the chin",
+    "who": "claude",
+    "when": "2026-11-24"
+   },
+   {
     "title": "S547: the signing card is in the game - a prospect as a scene, ranges, the rival's window, the trial by the day (KNOWBUILD1 merged, exported)",
     "who": "claude",
     "when": "2026-11-24"
@@ -6123,6 +6130,10 @@
     },
     {
      "text": "Offer page: chin no longer cut",
+     "who": "claude"
+    },
+    {
+     "text": "Staff screen as cards: in build",
      "who": "claude"
     }
    ],
@@ -6572,7 +6583,7 @@
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
  "last_working_commit": "29097a616",
- "next_action": "S548: see NEXT_SESSION_PROMPT.md (collect what is still running of PLANREAD2, STAFFCARDS1, BODYREACT2; his answers Q-328, Q-329, Q-330; CORNERBASE1: the coach's own corner call is blind to the opponent and never rests a tired boxer, so the corner's +15 to +22 is measured against a baseline with a hole; Arena round 9 continues when its limit resets)",
+ "next_action": "S548: see NEXT_SESSION_PROMPT.md (collect PLANREAD2, BODYREACT2 and CORNERBASE1 - tabs c1, c3, c4 of the S547 session; his answers Q-328, Q-329, Q-330 and his eye on /review; launch MATCHBOTS2; Arena round 9 continues when its limit resets)",
  "next_acceptance": "Rulers vs r0: head jumps on the contact frame under 4, a head inside the other's body under 5 frames, arm out median under 4 frames with join_return green, then r1 film at two fresh blind critics 5+/10",
  "superseded_archive": [
   {

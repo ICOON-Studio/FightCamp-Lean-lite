@@ -4,6 +4,15 @@ extends RefCounted
 
 const R := preload("res://scripts/fight3d/v2/ChoreoRules.gd")
 const BeatClips := preload("res://scripts/fight3d/BeatClips.gd")
+## BODYREACT2 (S547, owner C502: "the reaction should force the opponent to bend hisposture a bit"; S305 / S310 / S369
+## "body shots still have no reaction"): a landed body punch's reaction is picked by WHEN ITS FOLD ARRIVES, not by head
+## travel. clip_db fold_g (tools/bodyreact2_bake.gd) is each gut-shot take's hips - neck line over the fight's guard, deg,
+## from its own keys. A take may answer a body punch when the PICTURE shows BODY_FOLD_MIN_DEG or more BODY_FOLD_S after
+## the key the player starts it on (start_s, this body's size; fold_shown: the take's fold then x how far the fold join
+## has carried him out of his guard): 0.15 s less two pictures, the first of the three pictures inside 0.15 s he must
+## see the bend on (K51 lines 7, 81, 96: a reaction is front-loaded, it begins on the blow).
+const BODY_FOLD_S := 0.117
+const BODY_FOLD_MIN_DEG := 10.0
 
 
 static func react(db: Dictionary, rows: Dictionary, move: String, big: bool, from_left: bool, rng: RandomNumberGenerator, hfh: float, log: Array, sc: float = 1.0, used: Array = []) -> Array:
@@ -49,10 +58,17 @@ static func react(db: Dictionary, rows: Dictionary, move: String, big: bool, fro
 		# S513: nearly every head punch played ONE take; any take within REACT_VARY_M of the best fit may play.
 		var near: Array = pool.filter(func(c): return float(c[0]) <= float(pool[0][0]) + R.REACT_VARY_M)
 		best = str(near[rng.randi_range(0, near.size() - 1)][1]) if near.size() > 1 else str(pool[0][1])
+		# BODYREACT2: a body punch takes the take that folds on the blow (the head-travel pick above is still drawn, so
+		# every other draw of the exchange is what it was; with no such take it stands, and the log says so).
+		var fold: String = fold_take(db, rows, big, sc, rng) if is_body else ""
+		if is_body and fold == "":
+			log.append("react: %s no take folds on the blow - picked by head travel" % move)
 		# S531 (film 11, both critics: "the big hit reaction is one canned snap used twice", ex1 #53 = ex3 #45): a take
 		# already shown in this exchange (30 s) is passed over while another that goes the right way is within
 		# REACT_FRESH_M of the best fit - the nearest of those plays.
-		if used.has(best):
+		if fold != "":
+			best = fold   # (shown twice in an exchange it plays twice: a late fold is not variety)
+		elif used.has(best):
 			var fresh: Array = pool.filter(func(c): return not used.has(str(c[1])) and float(c[0]) <= float(pool[0][0]) + R.REACT_FRESH_M)
 			if not fresh.is_empty():
 				best = str(fresh[0][1])
@@ -61,6 +77,43 @@ static func react(db: Dictionary, rows: Dictionary, move: String, big: bool, fro
 	var hips: float = float(best_row.get("hips_max_m", 0.0))
 	var rpart: String = "whole" if hips >= R.WHOLE_BODY_HIPS_M else "upper"
 	return [best, best_row, rpart, size]
+
+
+## BODYREACT2: the gut-shot take a landed body punch plays - a normal one draws among the takes that fold on the blow, a
+## big one takes the deepest of them ("" = none does). The draw is its own (seeded off rng, which it does not advance).
+static func fold_take(db: Dictionary, rows: Dictionary, big: bool, sc: float, rng: RandomNumberGenerator) -> String:
+	var hz: float = float((db.get("meta", {}) as Dictionary).get("curve_hz", 30.0))
+	var folds: Array = []   # [fold on the blow, name]
+	for n in rows:
+		var r: Dictionary = rows[n]
+		var curve: Array = r.get("fold_g", [])
+		if curve.is_empty() or str(r.get("kind", "")) != "reaction" or not str(n).contains("gutshot") or not may_play(r, true):
+			continue
+		var on_blow: float = fold_shown(curve, float(start_s(r, "body_hook", hz, sc)[0]), BODY_FOLD_S, hz)
+		if on_blow >= BODY_FOLD_MIN_DEG:
+			folds.append([on_blow, str(n)])
+	if folds.is_empty():
+		return ""
+	folds.sort_custom(func(x, y): return float(x[0]) > float(y[0]) if float(x[0]) != float(y[0]) else str(x[1]) < str(y[1]))
+	if big or folds.size() == 1:
+		return str(folds[0][1])
+	var own := RandomNumberGenerator.new()
+	own.seed = rng.state
+	return str(folds[own.randi_range(0, folds.size() - 1)][1])
+
+
+## The fold a picture shows s after a gut-shot take is joined from the guard at take time from: the take's own fold then
+## (fold_g) x the fold join's way (R.JOIN_WAY, a film picture a step - worst_step's model). On the films' pairs it reads
+## within 2 deg of tools/bodyreact2_ruler.gd's pictures for all four takes the fight has played.
+static func fold_shown(curve: Array, from: float, s: float, hz: float) -> float:
+	var way: Array = R.JOIN_WAY["fold"]
+	var k: float = s * R.FILM_HZ - 1.0
+	var w: float = 1.0
+	if k < 0.0:
+		w = float(way[0]) * (k + 1.0)
+	elif k < float(way.size() - 1):
+		w = lerpf(float(way[int(k)]), float(way[int(k) + 1]), k - float(int(k)))
+	return w * g_at(curve, from + s, hz)
 
 
 ## S530 NO HEAD OVER THE BAR IN ONE PICTURE (film 6 and the S529 bout: 20 head jumps over 12 cm, the worst 20 cm; both

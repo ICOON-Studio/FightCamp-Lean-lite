@@ -38,13 +38,15 @@ Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. Dige
 - His notes on /review (the signing card stills, the body cross 3 sheets) and his play of the S547 build
   (WHAT_TO_TRY O to S).
 
-## SECOND: collect what was running at the handover (see "Workers" at the foot for what landed in S547)
+## SECOND: collect what was running at the handover (tabs of the S547 session; STAFFCARDS1 already landed and is merged)
 1. PLANREAD2 (Opus, tab c1 of the S547 session, launched 05:50) -> `docs/PLANREAD2_RESULT.md` on main (it commits
    its own paths). Check the cause sentence against the code lines, the held-out error, the before/after table.
-2. STAFFCARDS1 (Opus, tab c2, launched 05:52) -> `E:\FightCamp\wt\STAFFCARDS1`, branch `build/staffcards1`,
-   `docs/STAFFCARDS1_RESULT.md` there. Open its three stills beside `docs/mockups/s546/staff_cards.png`: cards, a
-   face or a silhouette, four facts, one button, no scroll, NEW after a hire, nothing cut. Merge by diff:
-   `git diff --binary main...build/staffcards1 > p.patch && git apply --3way p.patch`, resolve, its tests, export.
+2. CORNERBASE1 (Opus, tab c4, launched 06:33, 3-4 h) -> `docs/CORNERBASE1_RESULT.md` on main, the coach's table in
+   `ops/research/DESIGN_CORNERBASE1.md` (committed before any run: 33e8fbb4b). Brief `TASK_CORNERBASE1.md`. The number
+   for the owner: the reader minus FILE+SKILL 58 = the honest worth of the live corner. Check its control (280 bouts
+   identical to CORNERCMD2) and that no coach arm peeks at the exchange before it is played. Then the code-checked
+   critic on the eight commands, then Kalli and Dola. John's research on real corners: `CORNERREAL1_JOHN_JOHN.md`
+   (seat queue SQ322; `start` prints it under SEAT ANSWERS).
 3. BODYREACT2 (Fable, tab c3, launched 06:02) -> `docs/BODYREACT2_RESULT.md` on main; films and the sheet on /review.
    Check on its own pictures: the hit boxer folds 10 deg or more on three pictures; head reactions unchanged (its
    control arm); `player2_test` green.
@@ -54,32 +56,33 @@ Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. Dige
    Keep working, "find the rule behind 77/23 by walking two bouts from each side; no balancing number". PR -> CI log,
    `ci_arena.py guard`, apply the diff, `lite_mirror.py push`, then a NEW chat on `TASK_CARDROUND9B.md`.
 
-## THIRD: CORNERBASE1 (write the brief, launch an Opus worker)
-CORNERCMD2 failed bar 8 because the baseline is weak, not because a command is too strong:
-`BoutRules.auto_corner(stats)` (l.383) returns "long" or "body" from our boxer's stats alone. It never reads the
-opponent (it says "Go to the body" against a man who loads up: the wrong call, `Exchanges.MODES.loadup.wrong`) and it
-never rests a boxer at 0 wind. The same call is what a player who sims the bout gets (`BoutNight.gd` l.128,
-`BoutRead.gd` l.216, `BalanceHarness`). The brief: (a) a coach's call that reads the opponent's game and rests a tired
-boxer, built from the eight commands (no ring calls if Q-330 says cut); (b) the CORNERCMD2 probe again with that as the
-baseline: the reader's edge over it is the honest worth of the live corner; (c) what it does to a simmed bout's
-results (the balancing tests that use `auto_corner`). `## Feedback loops`: the coach's call feeds the read
-(`BoutRead` l.216) and the sim. Then the code-checked critic on the eight commands, then Kalli and Dola.
+## THIRD: launch MATCHBOTS2 (brief written, `ops/research/TASK_MATCHBOTS2.md`, Opus worker) when a tab frees
+`matchmaking_bots_test` is red since pros can be stopped (the rule is right): the bot that SCOUTS is stopped more often
+than the one that does not (0.91 v 0.77), because the tape only makes it braver (`SCOUTED_RISK`). If the player's screen
+shows the opponent's punch, the bot prices it; if it does not, that is a gap in the read to bring to the owner.
 
 ## Then
-- NIGHTREDS: `matchmaking_bots_test` (a probe makes reckless matchmaking cost again, or the margins are re-set with
-  the reason written); `face_frame_test` (the offer page's opponent slot cuts `mh_boxer_13` 1 px at the chin:
-  `OfferOpp/OppArt/Body`, 330x640); `move_tip_test` and `block_meet_test` are animation rulers (old player: say so in
-  the test list or move them out as MOTIONRULERS1 did).
+- NIGHTREDS left after S547: `matchmaking_bots_test` (MATCHBOTS2 above); `move_tip_test` and `block_meet_test` are
+  animation rulers of the old player (say so in the test list or move them out as MOTIONRULERS1 did). `face_frame_test`
+  is green again (the offer page keeps the head box inside its slot: `OfferSides._keep_head`).
   The temp worktree `E:\FightCamp\wt\S545_NIGHTRED` is still there: ask him to allow its removal.
+- STAFFCARDS1 is MERGED AND EXPORTED (fe3b9fcff; `scripts/ui/StaffDesk.gd`, `StaffDeskCard.gd`; stills on /review).
+  If his eye wants changes: the card is `StaffDeskCard.build`, the rows `StaffDesk.page`. Its worktree
+  `E:\FightCamp\wt\STAFFCARDS1` sits detached on main (I exported from it); the retire job takes it.
+- EXPORT WHILE WORKERS EDIT THE MAIN CHECKOUT: export from a clean seeded worktree
+  (`git -C <wt> checkout --detach main`, then `OUT=/e/FightCamp/Lean/Builds sh tools/export.sh` from it). The package is
+  24 MB smaller that way: main's export packs untracked trial folders (assets/ui/style_b/_trial*, portraits_v1_refbleed,
+  assets/anim/af_retarget, baked/ailive_trial) - move or ignore them.
 - KNOWBUILD2: the got-away boxer's return bout (`ProspectWire.got_away` rows are there for it).
 - DEPTH1 (sponsorship as one budget across the boxers; the loan's timing). PROGBUILD1 rides on coaches.
 - The offer page, the trial evening: the question cards borrow a man's 3D picture for a woman prospect (KNOWBUILD1
   generated no art): four small paintings from Ludo would fix it.
 
 ## Waiting on the owner
-- Q-328, Q-329, Q-330; his eye on /review; his play of the S547 build.
+- Q-328, Q-329, Q-330; his eye on /review (signing card, staff cards, body cross 3); his play of the S547 build
+  (second export 06:31, WHAT_TO_TRY O to T).
 - The finished worker tabs of earlier sessions hold memory: he closes them, or says yes to closing them.
 
 ## Model for S548
-Opus, medium effort, Fast off, if only collections and the CORNERBASE1 brief remain; Fable if the staff cards come
-back needing a design eye.
+Fable, medium effort, Fast off: BODYREACT2's films need an eye and his notes on the staff cards and the signing card
+are design work. Opus is enough if only the two probe collections remain.
