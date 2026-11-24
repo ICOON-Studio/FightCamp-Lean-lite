@@ -107,7 +107,7 @@ func build(main: Node, offer_id: String) -> void:
 	])
 	UI.add_rows(right, [
 		UI.kv("Purse", "none, amateur"),
-		UI.kv("Club ticket cut", UI.money(BoutRules.TICKET_CUT), UI.GREEN, "mono"),
+		UI.kv("Gym ticket cut", UI.money(BoutRules.TICKET_CUT), UI.GREEN, "mono"),
 		UI.kv("Answer by", Clock.fmt(int(o["expires"]))),
 	])
 	add_child(terms[0])
@@ -152,7 +152,7 @@ func _answer_row(main: Node, f: Dictionary, o: Dictionary, offer_id: String, wf:
 	elif not open:
 		foot.add_child(UI.muted("Answered.", UI.SMALL))
 	elif not bool(wf["ok"]):
-		var heavy := UI.label("Your boxer would come in %.1f kg over even cutting from tomorrow. Missing weight calls the bout off and the club pays %s for the empty slot." % [
+		var heavy := UI.label("Your boxer would come in %.1f kg over even cutting from tomorrow. Missing weight calls the bout off and the gym pays %s for the empty slot." % [
 			float(wf["over"]), UI.money(BoutRules.MISSED_WEIGHT_COST)], UI.SMALL, UI.RED, "body", true)
 		heavy.name = "WeightWarn"
 		heavy.size_flags_vertical = Control.SIZE_SHRINK_CENTER

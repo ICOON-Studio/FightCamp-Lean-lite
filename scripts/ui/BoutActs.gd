@@ -264,7 +264,7 @@ static func act(main: Node, name: String, arg: String) -> bool:
 				main.open_modal({"type": "weighin", "fid": f["id"]})
 				return true
 			main.toast("%s made weight. Tomorrow is fight night." % f["first"] if made
-				else "%s missed weight. The bout is off and the club pays %s for the empty slot." % [f["first"], UI.money(BoutRules.MISSED_WEIGHT_COST)])
+				else "%s missed weight. The bout is off and the gym pays %s for the empty slot." % [f["first"], UI.money(BoutRules.MISSED_WEIGHT_COST)])
 		"missBox", "missPull":
 			var f := Bouts.weighing_today(c)
 			if f.is_empty() or not WeighMissWire.pending(f):
@@ -275,7 +275,7 @@ static func act(main: Node, name: String, arg: String) -> bool:
 				WeighMissWire.pull(c, f)
 			main.close_modal()
 			main.toast("%s boxes tomorrow, drained." % f["first"] if name == "missBox"
-				else "The bout is off. The club pays %s for the empty slot." % UI.money(BoutRules.MISSED_WEIGHT_COST))
+				else "The bout is off. The gym pays %s for the empty slot." % UI.money(BoutRules.MISSED_WEIGHT_COST))
 			main.render()
 		"fightnight":
 			var f := Bouts.fighting_today(c)

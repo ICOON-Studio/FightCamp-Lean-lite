@@ -55,4 +55,4 @@ static func words(ans: String, over: float, cost: int) -> String:
 
 ## Hover text: what each path costs and why it matters.
 const TIP_BOX := "Box drained: the cut is not finished, so the guard wears faster all night (+18%). The share comes out of the boxer's purse, so the gym's cut shrinks with it."
-const TIP_PULL := "Pull out: no purse, the club pays for the empty slot and the next offer is a week away. The boxer stays fresh."
+const TIP_PULL := "Pull out: no purse, the gym pays for the empty slot and the next offer is a week away. The boxer stays fresh."

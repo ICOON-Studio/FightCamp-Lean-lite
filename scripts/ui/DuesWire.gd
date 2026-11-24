@@ -86,7 +86,7 @@ static func trial_row(main: Node, c: Career) -> Control:
 	b.name = "JuniorDues"
 	b.custom_minimum_size = Vector2(96, 44)
 	b.add_theme_font_size_override("font_size", 22)
-	b.tooltip_text = "Club, Money, Dues."
+	b.tooltip_text = "Office, Finance, Dues."
 	h.add_child(b)
 	return row
 

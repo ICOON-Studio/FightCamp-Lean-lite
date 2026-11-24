@@ -42,7 +42,7 @@ func build(main: Node) -> void:
 	head.add_child(B.caps("TRAINING", 26))
 	add_child(head)
 	if c.fighters.is_empty():
-		add_child(B.lab("Sign a boxer first: the week is planned here once someone trains at the club.", 20, Palette.TEXT, "bold"))
+		add_child(B.lab("Sign a boxer first: the week is planned here once someone trains at the gym.", 20, Palette.TEXT, "bold"))
 		return
 	var f := ClubWeek.pick(c, str(main.route.get("fighter", "")))
 	var fid := str(f["id"])

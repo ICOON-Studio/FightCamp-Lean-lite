@@ -46,6 +46,6 @@ func _initialize() -> void:
 			c.review_pending = false
 	_check(reviews >= 3, "four weeks give the weekly reviews (%d)" % reviews)
 	_check(covered == 3, "a week's review covers all three boxers (%d)" % covered)
-	_check(c.fighters.size() == 3, "all three still at the club after four weeks")
+	_check(c.fighters.size() == 3, "all three still at the gym after four weeks")
 	print("test_club_test %s" % ("PASS" if fails == 0 else "FAIL (%d)" % fails))
 	quit(0 if fails == 0 else 1)

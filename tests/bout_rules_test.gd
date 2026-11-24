@@ -80,7 +80,7 @@ func _test_southpaw() -> void:
 	_check(BoutRules.stance_edge(1, "orthodox", sp, none, true) == 0.0, "a lefty week takes it away too")
 	_check(BoutRules.stance_edge(1, "orthodox", orth, none) == 0.0, "an orthodox opponent costs nothing")
 	_check(BoutRules.stance_edge(1, "southpaw", orth, none) == 0.0 and BoutRules.stance_edge(1, "southpaw", sp, none) == 0.0,
-		"the mirror: a southpaw spars orthodox club mates every night - never caught out")
+		"the mirror: a southpaw spars orthodox gym mates every night - never caught out")
 	var plus := false
 	for n in [1, 2, 3]:
 		for st in ["orthodox", "southpaw"]:

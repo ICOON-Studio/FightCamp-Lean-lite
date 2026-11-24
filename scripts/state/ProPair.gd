@@ -43,10 +43,31 @@ const NAMES_F := ["Kayleigh Doran", "Stacey Mills", "Jodie Kerr", "Paige Whitlow
 	"Ellie Strand", "Nadia Ferris", "Carly Wren", "Amira Hale", "Becky Thorne", "Lena Voss"]
 
 
+## S546: the pro start takes over the bar the boxer built as an amateur (conf_of), not a flat 50.
 static func state(f: Dictionary) -> Dictionary:
 	if not f.has("pro_start"):
-		f["pro_start"] = ProStart.new_state()
+		f["pro_start"] = ProStart.new_state(conf_of(f))
 	return f["pro_start"]
+
+
+## The boxer's confidence today: the pro start's once an offer has come, else the amateur bar (f.conf), else the record's.
+static func conf_of(f: Dictionary) -> int:
+	var s: Dictionary = f.get("pro_start", {})
+	if not s.is_empty():
+		return int(s.get("conf", ProStart.CONF_START))
+	return int(f["conf"]) if f.has("conf") else ProStart.from_record(int(f.get("w", 0)), int(f.get("l", 0)))
+
+
+## After an amateur bout (S546, owner C501): the bar moves with the result and the winning run, on the pro start when one
+## exists (a bout fought after "Not yet"). `before` = conf_of read BEFORE the record moved. Returns {conf: what moved}.
+static func amateur_bout(f: Dictionary, before: int, outcome: String) -> Dictionary:
+	var after := ProStart.amateur_after(before, outcome, int(f.get("win_run", 0)))
+	f["win_run"] = int(f.get("win_run", 0)) + 1 if outcome == "win" else 0
+	if (f.get("pro_start", {}) as Dictionary).is_empty():
+		f["conf"] = after
+	else:
+		f["pro_start"]["conf"] = after
+	return {"conf": after - before}
 
 
 ## The power edge confidence puts on every round of this bout: the edge whose read moves raw by ProStart.shift(conf)

@@ -141,7 +141,7 @@ func _staff(desk: Script, c: Career) -> void:
 	c.coach = (Data.COACHES[0] as Dictionary).duplicate(true)
 	c.staff_roles = ["physio"]
 	var rows: Array = desk.staff(c)
-	_check(rows.size() >= 3, "the head coach, the club coach and the physio (%d rows)" % rows.size())
+	_check(rows.size() >= 3, "the head coach, the gym coach and the physio (%d rows)" % rows.size())
 	if not rows.is_empty():
 		_check(str(rows[0]["role"]) == "Head coach (you)", "the first row is you (%s)" % str(rows[0]["role"]))
 	var banned: Array = str(c.coach["name"]).split(" ", false) + str(c.head["name"]).split(" ", false)
@@ -151,7 +151,7 @@ func _staff(desk: Script, c: Career) -> void:
 				if str(r.get(k, "")).contains(str(part)):
 					_check(false, "staff row %s names no one (%s)" % [k, str(r.get(k, ""))])
 	var roles: Array = rows.map(func(r): return str(r["role"]))
-	_check(roles.has("Club coach") and roles.has("Physio"), "roles by their job (%s)" % str(roles))
+	_check(roles.has("Gym coach") and roles.has("Physio"), "roles by their job (%s)" % str(roles))
 	c.coach = {}
 	c.staff_roles = []
 

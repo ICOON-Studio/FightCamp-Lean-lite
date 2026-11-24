@@ -22,8 +22,8 @@ const AREAS: Array[Dictionary] = [
 	# S348 the Playbook (Q-S294-71 "Yes, build it"): her moves, plans, combos and escapes on one whiteboard, each one plays.
 	{"id": "playbook", "name": "PLAYBOOK", "job": "moves and plans", "tabs": ["Moves", "Game plan", "Combos", "Escapes"]},
 	{"id": "fights", "name": "FIGHTS", "job": "get them fights", "tabs": []},
-	{"id": "gym", "name": "CLUB", "job": "run the club", "tabs": ["", "Staff", "", "", "Records"]},   # S545 owner: "what happened to normal words like staff" (was People)
-	{"id": "money", "name": "CLUB", "job": "keep it alive", "tabs": ["Money", "", "", ""]},
+	{"id": "gym", "name": "GYM", "job": "run the gym", "tabs": ["", "Staff", "", "", "Log"]},   # S545 owner: "what happened to normal words like staff" (was People)
+	{"id": "money", "name": "GYM", "job": "keep it alive", "tabs": ["Money", "", "", ""]},
 	{"id": "world", "name": "WORLD", "job": "the boxing world", "tabs": ["News", "Rankings", "Championships", "", ""]},
 ]
 

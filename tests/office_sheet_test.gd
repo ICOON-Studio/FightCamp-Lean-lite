@@ -111,7 +111,7 @@ func _staff_menu(c: Career) -> void:
 	var coach := str(c.coach.get("id", ""))
 	var lines: Array = await _right_click("Row_staff_" + coach)
 	var words: Array = lines.map(func(x): return str(x["t"]))
-	_check(words == ["Open the staff page"], "the club coach: the staff page, and no Let go (%s)" % str(words))
+	_check(words == ["Open the staff page"], "the gym coach: the staff page, and no Let go (%s)" % str(words))
 	menu.close(main)
 	var other := "hale" if coach != "hale" else "reid"
 	lines = await _right_click("Row_staff_" + other)

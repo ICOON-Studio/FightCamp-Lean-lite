@@ -33,7 +33,7 @@ static func act(main: Node, name: String, arg: String) -> bool:
 				var p := Roster.prospect(c, arg)
 				main.toast("%s comes in for a trial on %s." % [p["first"], Clock.fmt(int(p["trial_day"]))])
 			elif GymSpend.place_blocked(c) != "":   # S397 roster places
-				main.toast("No trial: %s (Club)." % GymSpend.place_blocked(c))
+				main.toast("No trial: %s (Staff)." % GymSpend.place_blocked(c))
 			main.render()
 		"trial":
 			main.open_modal({"type": "trial", "pid": arg, "picks": []})
@@ -51,7 +51,7 @@ static func act(main: Node, name: String, arg: String) -> bool:
 			var f := Roster.sign_prospect(c, str(main.modal["pid"]), main.modal["picks"])
 			main.close_modal()
 			if not f.is_empty():
-				main.toast("%s signed on the club stipend. Goal: %s." % [f["first"], str(f["goal"]["title"]).to_lower()])
+				main.toast("%s signed on the gym stipend. Goal: %s." % [f["first"], str(f["goal"]["title"]).to_lower()])
 		"passprospect":
 			Roster.pass_on(c, str(main.modal["pid"]))
 			main.close_modal()

@@ -93,7 +93,7 @@ static func end_week(c: Career, youth_on: bool, assistant: bool) -> void:
 		if bool(f.get("home", false)) and int(f.get("home_until", 0)) > 0 and c.day >= int(f["home_until"]) and not bool(f.get("pro", false)):
 			f["weekly_salary"] = 0 if bool(f.get("day_job", false)) else GameMoney.FIGHTER_STIPEND
 			f["home_until"] = 0
-			c.add_news("%s's first year is up: the full club stipend from now on." % f["first"])
+			c.add_news("%s's first year is up: the full gym stipend from now on." % f["first"])
 
 
 ## Roster.sign_prospect's hook: a home-grown signing starts on half the stipend.

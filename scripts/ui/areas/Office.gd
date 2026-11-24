@@ -38,7 +38,7 @@ const CREST := "res://assets/ui/club_badge.svg"
 ## [label, KitIcon, act, arg]: section 2's routes. Mail is the game's news list (Main's "mail": World > News, read).
 const APPS := [["Desktop", "booked", "go", "office:0"], ["Mail", "offer", "mail", ""], ["Fights", "calendar", "go", "fights:0"],
 	["Fighters", "hands", "sheets", ""], ["Staff", "coach", "sheets", ""], ["Finance", "money", "go", "money:0"],
-	["Records", "contract", "go", "gym:4"]]
+	["Log", "contract", "go", "gym:4"]]   # S546 owner: "Name this Log ... Records goes for the fighters and coaches"
 const SHEET_APPS := ["Fighters", "Staff"]
 const TONE := {"r": RED, "a": AMBER, "g": GREEN, "b": BLUE}
 const CHIP := {"bout": [RED, INK], "fight_week": [Palette.SECOND, Palette.HEADER], "show": [RED, INK],
@@ -58,15 +58,15 @@ static var mail_fresh := 0
 ## gym shows the dashboard; Back from a page the sheet opened returns to the sheet).
 static var view := "desk"
 static var _seen := 0
-var hosted := ""   ## S545 (owner C498 "shouldnt this be inside the computer"): "fights" while the Fights area hosts this desktop
-var host_box: Container   ## where that list goes
+## S545 (owner C498 "shouldnt this be inside the computer"), S546 (his Club page note: Staff, Money, Records too): the area hosting this desktop as a window -> [the dock app lit, the foot line]
+const HOSTED := {"fights": ["Fights", "Scroll the window for the calendar and the results."], "staff": ["Staff", "Scroll the window for the jobs and the members."], "money": ["Finance", "Hover a number for where it comes from."], "records": ["Log", "Pick who and what to narrow the list."]}
+var hosted := ""   ## a HOSTED key while that area hosts this desktop
+var host_box: Container   ## where that area's page goes
 
 func host(main: Node, what: String) -> Container:
 	hosted = what
 	build(main)
 	return host_box
-
-func _shown() -> String: return hosted if hosted != "" else view
 
 ## Main's "mail" act: the next build opens on the Mail window; the unread count becomes the blue dots and is cleared.
 static func open_mail(c: Career) -> void:
@@ -104,7 +104,7 @@ func build(main: Node) -> void:
 	pad.add_child(_window(main, c, cards))
 	var fm := _margin(136, 0, 0, 10)
 	var foot := _panel("OfficeFootBack", UI.box(Palette.alpha(BG, 0.85), Palette.CLEAR, 6, 0, 12, 4), Control.SIZE_SHRINK_BEGIN)   # S545: on the bare floor photo half the line could not be read
-	foot.add_child(_nm(UI.label({"desk": FOOT, "mail": MAIL_FOOT, "fights": "Scroll the window for the calendar and the results."}.get(_shown(), SHEET_FOOT), 16, DIM), "OfficeFoot"))
+	foot.add_child(_nm(UI.label(str(HOSTED[hosted][1]) if hosted != "" else {"desk": FOOT, "mail": MAIL_FOOT}.get(view, SHEET_FOOT), 16, DIM), "OfficeFoot"))
 	fm.add_child(foot)
 	v.add_child(fm)
 
@@ -117,7 +117,7 @@ func _top(c: Career) -> Control:
 	h.add_child(_nm(UI.label(c.gym_name.to_upper(), 21, INK, "caps"), "OfficeClub"))
 	h.add_child(UI.spacer())
 	h.add_child(UI.label("%s  \u00b7" % Clock.fmt_long(c.day), 18, INK, "semi"))
-	h.add_child(_num("Week %d" % Clock.week_of(c.day), 18, AMBER, "Week of the season, from the club's first Monday"))
+	h.add_child(_num("Week %d" % Clock.week_of(c.day), 18, AMBER, "Week of the season, from the gym's first Monday"))
 	h.add_child(UI.label("Cash", 18, INK, "bold"))
 	h.add_child(_nm(_num(UI.money(c.cash), 18, GREEN if c.cash >= 0 else RED, "Cash in the tin today"), "OfficeCash"))
 	return p
@@ -129,7 +129,7 @@ func _dock(main: Node, c: Career, cards: Array) -> Control:
 	var flagged := cards.filter(func(x): return str(x["tone"]) == "r").size()
 	for a in APPS:
 		var word := str(a[0])
-		var on := SHEET_APPS.has(word) if _shown() == "sheets" else (word == "Mail" if _shown() == "mail" else (word == "Fights" if _shown() == "fights" else word == "Desktop"))
+		var on := word == str(HOSTED[hosted][0]) if hosted != "" else (SHEET_APPS.has(word) if view == "sheets" else word == ("Mail" if view == "mail" else "Desktop"))
 		var b := _button(word, PANEL2, AMBER if on else LINE, 16, 2 if on else 1, AMBER if on else DIM, 2)
 		b.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 		b.name = "App_" + word.to_lower()
@@ -177,23 +177,23 @@ func _window(main: Node, c: Career, cards: Array) -> Control:
 	var bar := _panel("WindowBar", UI.box(BG, LINE, 0, 0, 18, 6), Control.SIZE_FILL, Vector2(0, 44))
 	var bh := UI.hbox(14)
 	bar.add_child(bh)
-	bh.add_child(UI.label({"desk": "THIS WEEK AT THE CLUB", "mail": "MAIL", "fights": "FIGHTS"}.get(_shown(), "FIGHTERS AND STAFF"), 20, INK, "caps"))
+	bh.add_child(UI.label(str(HOSTED[hosted][0]).to_upper() if hosted != "" else {"desk": "THIS WEEK AT THE GYM", "mail": "MAIL"}.get(view, "FIGHTERS AND STAFF"), 20, INK, "caps"))
 	v.add_child(bar)
-	var grid := _margin(18, 14, 18, 14)
+	var grid := _margin(18, 14, 18, 14) if hosted == "" or hosted == "fights" else _margin(10, 8, 10, 8)   # S546: a hosted page keeps its width
 	v.add_child(grid)
 	var rows := UI.vbox(14)
 	grid.add_child(rows)
-	if hosted == "fights" or view == "mail":   # a window that fills the desktop
+	if hosted != "" or view == "mail":   # a window that fills the desktop
 		for n: Control in [win, grid, rows]:
 			n.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	if hosted == "fights":   # S545: the Fights window; the Fights area fills `host_box`
+	if hosted != "":   # S545: a hosted window (Fights; S546 Staff, Finance, Records): that area fills `host_box`
 		var sc := ScrollContainer.new()
-		sc.name = "FightsScroll"
+		sc.name = "FightsScroll" if hosted == "fights" else "HostScroll"
 		sc.size_flags_vertical = Control.SIZE_EXPAND_FILL
 		sc.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
-		sc.custom_minimum_size.y = 730.0   # as the Mail window
+		sc.custom_minimum_size.y = 730.0 if hosted == "fights" else 756.0   # as the Mail window; S546 the books fit whole (727), and the page stays on screen with the guide strip up
 		host_box = UI.vbox(14)
-		host_box.name = "FightsList"
+		host_box.name = "FightsList" if hosted == "fights" else "HostList"
 		host_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		sc.add_child(host_box)
 		rows.add_child(sc)

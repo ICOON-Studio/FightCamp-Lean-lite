@@ -76,9 +76,9 @@ static func build(main: Node) -> Control:
 	var fighters: Array = OfficeDesk.fighter_sheet(c)
 	v.add_child(_sheet(main, "fighters", fighters, "%d on the books" % fighters.size() if not fighters.is_empty() else "nobody signed yet: the walk-in waits at reception"))
 	var staff: Array = OfficeDesk.staff_sheet(c)
-	var here := staff.filter(func(r): return str(r["cells"]["status"][0]) == "At the club").size()
+	var here := staff.filter(func(r): return str(r["cells"]["status"][0]) == "At the gym").size()
 	var jobs := staff.filter(func(r): return str(r["cells"]["status"][0]) == "Job open").size()
-	var card := _sheet(main, "staff", staff, "%d at the club · %d job%s open" % [here, jobs, "" if jobs == 1 else "s"])
+	var card := _sheet(main, "staff", staff, "%d at the gym · %d job%s open" % [here, jobs, "" if jobs == 1 else "s"])
 	v.add_child(card)
 	return v
 

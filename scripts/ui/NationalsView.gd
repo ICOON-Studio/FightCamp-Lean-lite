@@ -55,7 +55,7 @@ static func _road_card(page: Control, main: Node, c: Career, f: Dictionary) -> v
 			b.name = "Enter_" + str(f["id"])
 			b.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 			card[1].add_child(b)
-			card[1].add_child(UI.muted("Each round is a normal bout: camp, weigh-in, your corner. No other offers while in it; no ticket cut for the club.", UI.SMALL, true))
+			card[1].add_child(UI.muted("Each round is a normal bout: camp, weigh-in, your corner. No other offers while in it; no ticket cut for the gym.", UI.SMALL, true))
 			card[1].add_child(_needs(c, f))   # S397: the button first, what she meets under it
 		else:
 			card[1].add_child(UI.muted(why + ".", UI.BODY, true))

@@ -42,7 +42,7 @@ static func line(c: Career) -> String:
 			for k in FirstHour.TASKS:
 				if not bool(done[k]):
 					var job := str(FirstHour.TASK_WORDS[k])
-					return "Next job for the club: %s." % (job.left(1).to_lower() + job.substr(1))
+					return "Next job for the gym: %s." % (job.left(1).to_lower() + job.substr(1))
 	return "Press Continue. The review tells you how it went."
 
 

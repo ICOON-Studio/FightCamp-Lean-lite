@@ -270,8 +270,8 @@ static func _letter(c: Career, f: Dictionary, o: Dictionary, wf: Dictionary, cre
 		"A Saturday club show at the host's gym. The weigh-in is the day before."))
 	terms.add_child(_term("Term_prepare", "Time to prepare", _prepare(day - c.day), "No camp needed: a fight week",
 		"An amateur bout takes a light fight week, not a camp. The weeks before it are ordinary training."))
-	terms.add_child(_term("Term_club", "To the club", UI.money(BoutRules.TICKET_CUT), "Purse: none, amateur",
-		"The host pays the visiting club a share of the door. Amateurs box for no purse.", INK, "ticket cut"))
+	terms.add_child(_term("Term_club", "To the gym", UI.money(BoutRules.TICKET_CUT), "Purse: none, amateur",
+		"The host pays the visiting gym a share of the door. Amateurs box for no purse.", INK, "ticket cut"))
 	var own := int(o["own_bouts"])
 	var theirs := int(o["their_bouts"])
 	var novice := AmateurBooking.NOVICE_MAX_BOUTS
@@ -355,7 +355,7 @@ static func _answer(main: Node, c: Career, f: Dictionary, o: Dictionary, offer_i
 	report.custom_minimum_size = Vector2(0, 60)
 	report.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	row.add_child(report)
-	var accept := UI.button2("Accept the bout", "%s, %s to the club" % [Clock.fmt(int(o["day"])), UI.money(BoutRules.TICKET_CUT)], "BtnSolid",
+	var accept := UI.button2("Accept the bout", "%s, %s to the gym" % [Clock.fmt(int(o["day"])), UI.money(BoutRules.TICKET_CUT)], "BtnSolid",
 		main.act.bind("accept", offer_id), Vector2(0, 60), UI.FG, UI.MUTED, bool(st["off"]), 21, 16, str(st["why"]))
 	accept.name = "Accept"
 	_centre(accept)
@@ -373,7 +373,7 @@ static func _reasons(c: Career, f: Dictionary, o: Dictionary, wf: Dictionary) ->
 	if bool(o["answered"]) or bool(o["mismatch"]):
 		return out
 	if not bool(wf["ok"]):
-		var heavy := UI.label("Your boxer would come in %.1f kg over even cutting from tomorrow. Missing weight calls the bout off and the club pays %s for the empty slot." % [
+		var heavy := UI.label("Your boxer would come in %.1f kg over even cutting from tomorrow. Missing weight calls the bout off and the gym pays %s for the empty slot." % [
 			float(wf["over"]), UI.money(BoutRules.MISSED_WEIGHT_COST)], UI.SMALL, UI.RED, "body", true)
 		heavy.name = "WeightWarn"
 		out.append(heavy)

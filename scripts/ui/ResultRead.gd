@@ -24,7 +24,7 @@ static func blocks(m: Dictionary, f: Dictionary, ctx: Dictionary) -> Array:
 		{"icon": "hand-fist", "col": UI.RED if not win else UI.GOLD, "title": "WHY IT WAS WON, AND WHAT TO SHARPEN" if win else "WHY IT WAS LOST, AND THE MEASURED FIX", "lines": _why(m, names, win)},
 		{"icon": "clue", "col": UI.GOLD, "title": "THE PLAN'S CLUE", "lines": [[str(m.get("clue", ResultTiles.NO_CLUE)), UI.FG, 19]]},
 		{"icon": "user", "col": UI.GREEN, "title": "WHAT IT COST YOUR BOXER", "lines": _cost(m)},
-		{"icon": "ladder", "col": UI.MUTED, "title": "RANK AND THE CLUB", "lines": _club(m, ctx)},
+		{"icon": "ladder", "col": UI.MUTED, "title": "RANK AND THE GYM", "lines": _club(m, ctx)},
 		{"icon": "cards", "col": Palette.ACCENT, "title": "THE CARDS", "lines": _cards(m, ctx)}]
 
 

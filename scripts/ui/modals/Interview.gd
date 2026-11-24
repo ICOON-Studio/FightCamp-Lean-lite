@@ -64,10 +64,10 @@ func build(main: Node, m: Dictionary) -> void:
 	v.add_child(RecruitPanel.build(main, main.career, a, picks, "pickcard"))
 	var foot := UI.hbox(12)
 	var blocked := str(t.get("blocked", ""))
-	var terms := UI.label("Club stipend, $250 a week", UI.BODY + 2, UI.FG, "bold")
+	var terms := UI.label("Gym stipend, $250 a week", UI.BODY + 2, UI.FG, "bold")
 	if visit:
 		terms.text = ("No place free: %s. The visit stays open until %s." % [blocked, Clock.fmt(int(t["expires"]))]) if blocked != "" else (
-			"Sign now: place %d of %d, club stipend %s a week, training starts this week.%s" % [int(t["used"]) + 1, int(t["places"]), UI.money(int(t["stipend"])),
+			"Sign now: place %d of %d, gym stipend %s a week, training starts this week.%s" % [int(t["used"]) + 1, int(t["places"]), UI.money(int(t["stipend"])),
 				" Trial first: your coach's read before you pay, but 1 time in 4 the old club talks the boxer round first." if int(t["trial_day"]) >= 0 else ""])
 		terms.name = "VisitTerms"
 	foot.add_child(terms)

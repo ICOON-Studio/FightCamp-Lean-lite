@@ -32,7 +32,7 @@ const Promises := preload("res://scripts/rules/Promises.gd")
 const FilmPattern := preload("res://scripts/rules/FilmPattern.gd")
 const HireRunway := preload("res://scripts/ui/HireRunway.gd")   # S515 COACHROLES1: the runway line on a hire
 
-const TABS := [["People", "gym", 1], ["Money", "money", 0], ["Records", "gym", 4]]
+const TABS := [["People", "gym", 1], ["Money", "money", 0], ["Log", "gym", 4]]
 const ROLE_WORD := {"assistant": "Second coach", "strength": "Strength coach", "physio": "Physio", "cutman": "Cutman"}
 const ROLE_ICON := {"assistant": "members", "strength": "weights", "physio": "Recovery", "cutman": "ice"}
 const INK := UI.FG          # paper ink: WoodKit.ink turns it chalk on a slate
@@ -40,11 +40,12 @@ const SOFT := UI.MUTED
 const GREEN := UI.GREEN
 
 
-static func page(parent: Container, main: Node, c: Career) -> void:
+static func page(parent: Container, main: Node, c: Career, head: bool = true) -> void:
 	var root := UI.vbox(10)
 	root.name = "PeoplePage"
 	parent.add_child(root)
-	root.add_child(_head(main))
+	if head:   # S546: inside the office computer the window's bar names the page
+		root.add_child(_head(main))
 	if not c.head.is_empty():
 		root.add_child(_you(c))
 	if c.coach.is_empty():
@@ -297,7 +298,7 @@ static func _roles(main: Node, c: Career) -> Control:
 		row.add_child(_role(main, c, r))
 	# S421: was a bare icon at the row's end (the number only on hover); now icon + number + caption like the other tiles.
 	var places := _tile("members", "%d / %d" % [GymSpend.used(c), GymSpend.places(c)],
-		"Boxers the club can sign: %d of %d taken. A second coach adds one." % [GymSpend.used(c), GymSpend.places(c)], INK, "roster places", true)   # the role cards' dark bed
+		"Boxers the gym can sign: %d of %d taken. A second coach adds one." % [GymSpend.used(c), GymSpend.places(c)], INK, "roster places", true)   # the role cards' dark bed
 	places.name = "RosterPlaces"
 	places.size_flags_horizontal = Control.SIZE_SHRINK_END
 	places.custom_minimum_size = Vector2(130, 0)

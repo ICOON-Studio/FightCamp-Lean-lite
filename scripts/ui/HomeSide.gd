@@ -117,7 +117,7 @@ static func _kv(k: String, value: String) -> Control:
 
 
 static func _club(c: Career) -> Control:
-	var card := UI.card("THE CLUB THIS WEEK")
+	var card := UI.card("THE GYM THIS WEEK")
 	var v: VBoxContainer = card[1]
 	card[0].name = "ClubWeek"
 	v.add_child(_kv("Money in", UI.money(int(Sim.weekly_income(c)["total"]))))

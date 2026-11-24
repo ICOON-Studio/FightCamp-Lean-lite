@@ -1412,6 +1412,8 @@ def _consume_media_comments(path: Path = ROOT / "AgentComms" / "media_comments.j
 
 ASK_WORDS = 20          # S533 operator: board questions short and to the point
 ASK_OPTION_WORDS = 5
+ASK_ATTACH_LINES = 4
+ASK_ATTACH_CHARS = 120
 
 
 def _ask_cmd(args: argparse.Namespace) -> int:
@@ -1427,6 +1429,17 @@ def _ask_cmd(args: argparse.Namespace) -> int:
         print("REFUSED: a board question is at most %d words (this one %d) and each option at most %d words%s. Put the detail in --attach (operator S533: 'shorter and on to the point')."
               % (ASK_WORDS, words, ASK_OPTION_WORDS, (" (too long: %s)" % long_opts) if long_opts else ""))
         return 2
+    ## S546 owner (two questions carried a 37 KB result file under them): "your questions onthe board cannot exceed 3-4
+    ## lines , please neve3r use wall of text formeto waste 8 hours reading". A text attachment is a note of at most
+    ## ASK_ATTACH_LINES lines (the facts he needs to answer); a picture has no limit; a long document is never attached.
+    for item in [a.strip() for a in args.attach.split("|") if a.strip()]:
+        path = Path(item) if Path(item).is_absolute() else ROOT / item
+        if path.suffix.lower() in (".md", ".txt") and path.is_file():
+            lines = [ln for ln in path.read_text(encoding="utf-8", errors="replace").splitlines() if ln.strip()]
+            if len(lines) > ASK_ATTACH_LINES or any(len(ln) > ASK_ATTACH_CHARS for ln in lines):
+                print("REFUSED: %s is %d lines; a text attachment is at most %d lines of %d characters (owner S546: 'cannot exceed 3-4 lines'). "
+                      "Write the facts he needs in a short note, or attach a picture." % (item, len(lines), ASK_ATTACH_LINES, ASK_ATTACH_CHARS))
+                return 2
     print("Added " + ask_question(args.text, args.options, attach=args.attach))
     return 0
 

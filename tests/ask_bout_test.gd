@@ -50,8 +50,7 @@ func _initialize() -> void:
 		["the card carries the teaching number", "\"teaches\": teach_words,", "\"teaches\": teach_words, \"learn\": 0.73,",
 			"_check_card"],
 		["the road loses the nationals line", "if need > 0:", "if false:", "_check_strip"],
-		["S445: no first-bout lock", "if int(f.get(\"w\", 0)) + int(f.get(\"l\", 0)) + int(f.get(\"d\", 0)) == 0",
-			"if false and int(f.get(\"w\", 0)) + int(f.get(\"l\", 0)) + int(f.get(\"d\", 0)) == 0", "_check_open"],
+		# S546: the first-bout lock and its mutant are gone (owner C503: a ready boxer may ask before the first bout).
 		["S445: a 14-day show called no camp", "if away > 7:", "if away > 14:", "_check_strip"],
 		["S445: a scale miss leaves Ask armed", "\"ask_ok\": not risk,", "\"ask_ok\": true,", "_check_strip"],
 		["S445: the road never says cannot", "if show_day >= 0 and need >", "if false and need >", "_check_strip"],
@@ -208,7 +207,7 @@ func _check_open(S: GDScript) -> Array:
 		["fought today", {"last_bout_day": 50}, false, 51],
 		["ASKGAP1: open the day after a bout", {"last_bout_day": 49}, true, -1],
 		["open", {"last_bout_day": 30}, true, -1],
-		["no bout fought yet", {"last_bout_day": -1}, false, -1],
+		["no bout fought yet: a ready boxer may ask (S546, owner C503)", {"last_bout_day": -1}, true, -1],
 		["first bout booked", {"last_bout_day": -1, "booked": true, "bout_day": 26}, false, 27],
 	]
 	for cs in cases:

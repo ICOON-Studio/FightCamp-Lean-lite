@@ -93,7 +93,7 @@ func _node() -> void:
 	node.setup(old, [])
 	var cap: int = GymPeople.crowd(old.members, [], old.premises).size()
 	_check(old.gym_slots.is_empty() and node.spots.size() > cap, "an old save has more kit than people")
-	_check(node.people.size() == cap and node.people.size() <= GymPeople.MAX_PEOPLE, "an old save does not grow the crowd past what the club allows (%d)" % node.people.size())
+	_check(node.people.size() == cap and node.people.size() <= GymPeople.MAX_PEOPLE, "an old save does not grow the crowd past what the gym allows (%d)" % node.people.size())
 	_check(_unique(node.people), "an old save still puts one person on a spot")
 	_check(node.mouse_filter == Control.MOUSE_FILTER_IGNORE, "the node ignores the mouse")
 	a.free()

@@ -37,14 +37,18 @@ func build(main: Node) -> void:
 	size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	size_flags_vertical = Control.SIZE_EXPAND_FILL
 	var c: Career = main.career
-	AreaHead.add(self, main, "money", [], true, true, true)
+	# S546 (owner: Staff / Money / Records inside the office computer): the books are the computer's FINANCE window.
+	add_theme_constant_override("separation", 0)
+	var desk: Control = load("res://scenes/areas/Office.tscn").instantiate()
+	add_child(desk)
+	var into: Container = desk.host(main, "money")
 	var inc: Dictionary = Sim.weekly_income(c)
 	var cost: Dictionary = Sim.weekly_costs(c)
 	var ahead: Array = CashForecast.project(c, 8)
 	var row := UI.hbox(8)
 	row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	row.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	add_child(row)
+	into.add_child(row)
 	row.add_child(_board(main, c, inc, cost, ahead))
 	row.add_child(MoneyPanels.side(main, c, ahead))
 	DuesWire.mark_boards.call_deferred(main)
@@ -55,8 +59,8 @@ func _board(main: Node, c: Career, inc: Dictionary, cost: Dictionary, ahead: Arr
 	board.name = "BooksBoard"
 	board.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	board.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	# The old sheet inset 30+22. The frame is 22 px, so the pad is the frame and the page stays inside 1080.
-	board.add_theme_stylebox_override("panel", WoodKit.slate(30, 22))
+	# S546: the office window is the frame now; a second slate inside it cost 60 px of width and 44 of height.
+	board.add_theme_stylebox_override("panel", StyleBoxEmpty.new())
 	var v := UI.vbox(2)
 	board.add_child(v)
 	v.add_child(_head(c, inc, cost, ahead))

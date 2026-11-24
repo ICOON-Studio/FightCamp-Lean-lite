@@ -230,7 +230,7 @@ func _week_two(c: Career) -> void:
 	main.act("camp")
 	_check(main.modal.get("type", "") == "camp", "SET CAMP opens the camp")
 	_press(_modal_button("StartCamp"), "Start the camp is live")
-	_check(not c.fighter()["camp"].is_empty() and c.cash == cash_before, "standard camp + film: the club's own nights, nothing paid (S381 C229)")
+	_check(not c.fighter()["camp"].is_empty() and c.cash == cash_before, "standard camp + film: the gym's own nights, nothing paid (S381 C229)")
 	# S341 scouting in stages: the camp's first tape session opens her best weapon; the rest come a session at a time.
 	var opp_file: Dictionary = c.fighter()["bout"]["opp"]
 	_check(OppFile.found(opp_file) == ["weapon"] and int(c.fighter()["bout"]["film"]) == 2,
@@ -335,7 +335,7 @@ func _missed_weight() -> void:
 	c.fighter()["weight"] = float(c.fighter()["limit"]) + 1.0
 	var cash := c.cash
 	_check(not Bouts.weigh(c, c.fighter()), "a kilo over on the morning: she misses weight (%.1f for %.1f)" % [c.fighter()["weight"], c.fighter()["limit"]])
-	_check(c.fighter()["bout"].is_empty() and c.cash == cash - 300, "the bout is off and the club pays $300 for the empty slot")
+	_check(c.fighter()["bout"].is_empty() and c.cash == cash - 300, "the bout is off and the gym pays $300 for the empty slot")
 	_check(str(c.news[0]["t"]).contains("missed weight"), "the news says so")
 
 
@@ -525,7 +525,7 @@ func _week_four(c: Career) -> void:
 	var kira := c.fighter_by_id("kira")
 	_check(str(kira["div"]) == "wfw" and float(kira["limit"]) == 57.0 and str(kira["learning"]) == "Uppercut",
 		"Kira: featherweight, 57 kg, learning the uppercut")
-	_check(int(Sim.weekly_costs(c)["fighters"]) == 500, "two club stipends: $500 a week")
+	_check(int(Sim.weekly_costs(c)["fighters"]) == 500, "two gym stipends: $500 a week")
 	main.act("go", "fighters:0")
 	var roster: Node = main._shell.find_child("Roster", true, false)
 	# S440 PAGES2B: the painted rows on the painted gym; the S410 full-body cards are one click away (roster_cards_test).

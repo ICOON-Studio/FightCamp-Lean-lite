@@ -90,7 +90,7 @@ static func choice_modal(c: Career, f: Dictionary) -> Dictionary:
 	var b: Dictionary = f["bout"]
 	var sev := severity(int(inj["days_out"]))
 	var weeks := int(ceil((int(b["day"]) - c.day) / 7.0))
-	var body := "%s: %s.\n\nThe bout with %s is on %s, %s away - before the injury heals.\n\nPull out: the club pays $%d for the empty slot; rest and heal.\nFight hurt: the bout starts %d %% down on energy, and the %s comes out of the fight worse (%d %% longer to heal)." % [
+	var body := "%s: %s.\n\nThe bout with %s is on %s, %s away - before the injury heals.\n\nPull out: the gym pays $%d for the empty slot; rest and heal.\nFight hurt: the bout starts %d %% down on energy, and the %s comes out of the fight worse (%d %% longer to heal)." % [
 		f["first"], line(c, f), b["opp"]["name"], Clock.fmt(int(b["day"])), "1 week" if weeks <= 1 else "%d weeks" % weeks,
 		BoutRules.MISSED_WEIGHT_COST, int(HURT_ENERGY[sev]), InjuryRoll.name_of(inj).to_lower(), int((WORSE_MULT - 1.0) * 100)]
 	return {"type": "info", "title": "%s is hurt before the bout" % f["first"], "body": body, "locked": true, "fid": f["id"],
@@ -121,7 +121,7 @@ static func pull_out(c: Career, f: Dictionary) -> void:
 		f["booked_fight"] = false
 		return
 	c.pay(-BoutRules.MISSED_WEIGHT_COST, "Empty slot: %s injured" % f["first"])
-	c.add_news("%s is out of the %s bout with %s. The club pays $%d for the empty slot." % [f["first"], Clock.fmt(int(b["day"])),
+	c.add_news("%s is out of the %s bout with %s. The gym pays $%d for the empty slot." % [f["first"], Clock.fmt(int(b["day"])),
 		b["opp"]["name"], BoutRules.MISSED_WEIGHT_COST])
 	f["bout"] = {}
 	f["camp"] = {}

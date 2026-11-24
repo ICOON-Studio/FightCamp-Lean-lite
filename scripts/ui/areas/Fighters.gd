@@ -229,4 +229,4 @@ func _scouting(main: Node, c: Career) -> void:
 			v.add_child(b)
 		grid.add_child(pc)
 	card[1].add_child(grid)
-	card[1].add_child(UI.muted("Scouted ranges: a club fighter reads about 50-60. A trial is free: the fighter comes in on the Monday. Signing costs the %s club stipend a week." % UI.money(250), UI.SMALL, true))
+	card[1].add_child(UI.muted("Scouted ranges: a club fighter reads about 50-60. A trial is free: the fighter comes in on the Monday. Signing costs the %s gym stipend a week." % UI.money(250), UI.SMALL, true))

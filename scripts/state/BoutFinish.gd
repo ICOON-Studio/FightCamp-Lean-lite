@@ -95,6 +95,7 @@ static func run(c: Career, f: Dictionary, m: Dictionary) -> void:
 	# S329 update 31: the debut pays from the tickets she sold before the bell (the members before tonight's result).
 	var tickets: Dictionary = Roster.debut_night(c, f) if pro and bool(f["bout"].get("tickets", false)) else {}
 	var rec := "pro_" if pro else ""
+	var conf_before := ProPair.conf_of(f)   # S546: read before the record moves (a boxer with no bar yet reads from it)
 	if outcome == "win":
 		f[rec + "w"] = int(f.get(rec + "w", 0)) + 1
 		c.members += BoutRules.WIN_MEMBERS
@@ -153,7 +154,7 @@ static func run(c: Career, f: Dictionary, m: Dictionary) -> void:
 		for d in c.deals:
 			if str(d["state"]) == "locked":
 				d["state"] = "offer"
-				c.add_news("%s wants to sponsor %s: %s a week (Club, Money)." % [d["name"], f["first"], GameMoney.text(int(d["per"]))])
+				c.add_news("%s wants to sponsor %s: %s a week (Office, Finance)." % [d["name"], f["first"], GameMoney.text(int(d["per"]))])
 	var card_text := ", ".join(cards) if stop == "" else "%s round %d" % [stop, rounds.size()]
 	f["last_bout_day"] = c.day   # S434 the Tank's last bout, read by the bout page too (BoutRules.tank_read)
 	c.results.push_front({"d": c.day, "fid": f["id"], "who": f["first"], "opp": opp["name"], "win": win, "outcome": outcome, "pro": pro, "cards": card_text,
@@ -223,6 +224,10 @@ static func run(c: Career, f: Dictionary, m: Dictionary) -> void:
 		var moved := ProPair.after_bout(c, f, str(f["bout"]["pair_kind"]), "win" if win else ("ko" if beaten else "points"))
 		m["bar_line"] = ProPair.ProStart.bar_line(moved, f["pro_start"])
 		m["name_gain"] = int(moved["name"])
+	elif not pro and str(f.get("sport", "")) != "bjj":
+		# S546 (owner C501: "confidence should raise even when amateur with wins andstreak"): the amateur bout moves the bar.
+		var went := ProPair.amateur_bout(f, conf_before, "win" if win else ("ko" if beaten else "points"))
+		m["bar_line"] = ProPair.ProStart.bar_line(went, {"conf": ProPair.conf_of(f)})
 	AfterFight.book(c, f, m, before, notes_bank())
 	Roster.check_pro(c)
 

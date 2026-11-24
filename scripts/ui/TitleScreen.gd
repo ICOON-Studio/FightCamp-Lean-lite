@@ -42,8 +42,8 @@ func build(main: Node) -> void:
 	var items: Array = [line]
 	if saved != "":
 		items.append(_item("Resume", "RESUME CAREER", saved, true, main.act.bind("load", "")))
-	items.append(_item("NewCareer", "NEW CAREER", "your past, then your club", saved == "", main.act.bind("newcareer", "")))
-	items.append(_item("QuickStart", "QUICK START", "a ready club in London", false, main.act.bind("quick", "")))
+	items.append(_item("NewCareer", "NEW CAREER", "your past, then your gym", saved == "", main.act.bind("newcareer", "")))
+	items.append(_item("QuickStart", "QUICK START", "a ready gym in London", false, main.act.bind("quick", "")))
 	if saved != "":
 		items.append(_item("LoadCareer", "LOAD CAREER", "", false, main.act.bind("load", "")))
 	items.append(_item("Settings", "SETTINGS", "", false, main.act.bind("settings", "")))

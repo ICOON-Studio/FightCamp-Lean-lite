@@ -146,5 +146,5 @@ static func answer(c: Career, fid: String, yes: bool) -> String:
 	b["rep_x"] = REP_X
 	b["late_ask"] = true
 	c.favours[host] = FightWeekEvents.fill_gap(FightWeekPlan.favours(c, host))
-	c.add_news("%s takes the gap at %s on %s. The host owes the club one." % [f["first"], host, Clock.fmt(int(a["show"]))])
+	c.add_news("%s takes the gap at %s on %s. The host owes the gym one." % [f["first"], host, Clock.fmt(int(a["show"]))])
 	return ""

@@ -189,4 +189,4 @@ static func offer_chips(c: Career, f: Dictionary, o: Dictionary) -> Array:
 	cut.name = "Cut_" + str(o["id"])
 	Tip.short(mis, "Strength gap", "Your boxer's strength minus the opponent's estimate. Minus means the opponent is stronger.")   # S533 TIPFIX3
 	return [mis,
-		Icons.tip(rank, "The opponent's place in the division."), Icons.tip(cut, "The club's ticket cut for the bout.")]
+		Icons.tip(rank, "The opponent's place in the division."), Icons.tip(cut, "The gym's ticket cut for the bout.")]

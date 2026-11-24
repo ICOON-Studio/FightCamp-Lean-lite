@@ -1,6 +1,9 @@
 extends VBoxContainer
-## CLUB: People (hire a coach, the staff jobs, the members), Facilities, Records. S411 the People
-## tab is painted cards: what each coach is good at, and what the boxer gets from it.
+## The gym's Staff page (hire a coach, the staff jobs, the members), Facilities, Records. S411 the Staff
+## page is painted cards: what each coach is good at, and what the boxer gets from it.
+## S546 (owner on the S545 build: "i do not understand whatis club and what is gym, this screen is terrible"): Staff and
+## Records are windows of the office computer (Office.host), the way Fights is. No CLUB header, no tab strip of their own:
+## the computer's dock is the way between them. The routes stay gym:1 and gym:4.
 
 const Palette := preload("res://scripts/ui/Palette.gd")
 const UI := preload("res://scripts/ui/UI.gd")
@@ -11,6 +14,7 @@ const RecordsPage := preload("res://scripts/ui/RecordsPage.gd")
 const StaffCard := preload("res://scripts/ui/StaffCard.gd")
 const MenuFx := preload("res://scripts/ui/MenuFx.gd")
 const RosterCards := preload("res://scripts/ui/RosterCards.gd")
+const OFFICE := preload("res://scenes/areas/Office.tscn")
 
 
 func build(main: Node) -> void:
@@ -18,14 +22,20 @@ func build(main: Node) -> void:
 	var c: Career = main.career
 	match int(main.route["tab"]):
 		0, 1, 2:
-			MenuFx.set_wall(main, RosterCards.BACKDROP)
-			StaffCard.page(self, main, c)
+			StaffCard.page(_window(main, "staff"), main, c, false)
 		3:
 			AreaHead.add(self, main, "gym")
 			_facilities(main, c)
 		4:
-			AreaHead.add(self, main, "gym")
-			add_child(RecordsPage.build(main, c))
+			_window(main, "records").add_child(RecordsPage.build(main, c))
+
+
+## The office computer with this page as its window: where the page's cards go.
+func _window(main: Node, what: String) -> Container:
+	add_theme_constant_override("separation", 0)
+	var desk := OFFICE.instantiate()
+	add_child(desk)
+	return desk.host(main, what)
 
 
 func _facilities(main: Node, c: Career) -> void:

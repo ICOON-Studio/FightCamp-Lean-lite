@@ -156,7 +156,7 @@ func _screen() -> void:
 			for tile in box.get_children():
 				var tip := " ".join(preload("res://scripts/ui/Tip.gd").prose(preload("res://scripts/ui/Tip.gd").of(tile as Control)))   # S532 GUIDETIPS1: cards now
 				_check(tip.split(" ", false).size() >= 6, "%s tile explains, not repeats: '%s'" % [box_name, tip])
-	var ink: Dictionary = PageInk.read(root)
+	var ink: Dictionary = PageInk.read(main.find_child("PeoplePage", true, false))   # S546: the page itself; the office computer's dock and bar are not its words
 	print("STAFF_INK words=%d" % int(ink["words"]))
 	_check(int(ink["words"]) <= 110, "People words %d <= 110 (pictures %.1f%%, tallest %.0f)" % [ink["words"], ink["pic_pct"], ink["tallest"]])
 	if int(ink["words"]) > 110:
@@ -183,7 +183,10 @@ func _fits() -> bool:
 	var page: Control = main.find_child("PeoplePage", true, false)
 	var people := page.get_global_rect().end.y if page != null else bottom
 	print("  layout people=%.0f content=%.0f scroll=%.0f/%.0f" % [people, bottom, bar.max_value, bar.page])
-	return people <= 1080.0 and bottom <= 1080.0 and bar.max_value <= bar.page + 1.0
+	# S546 (owner: Staff inside the office computer): the page itself never scrolls and nothing of the computer leaves the
+	# screen; the staff cards sit in the STAFF window, which scrolls until the cards redo (ops/previews/s546_staff).
+	var host: Node = main.find_child("HostScroll", true, false)
+	return page != null and host != null and host.is_ancestor_of(page) and bottom <= 1080.0 and bar.max_value <= bar.page + 1.0
 
 
 func _text(n: Node) -> String:

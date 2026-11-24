@@ -113,8 +113,8 @@ func _initialize() -> void:
 	_check(str(main.modal["focus"]) == "power" and int(main.modal["protocol"]) == 3 and bool(main.modal["film"]), "picks: power, hard, film")
 	_check(_checks(m) == ["power"], "the check mark moved to Power (%s)" % str(_checks(m)))
 	# S381 C229 stage 2: the club's own nights and film are free; the outside partner is the only cash.
-	_check(_text(m, "Summary") == "Power camp, Hard, club mates - %d days - free" % days, "summary: %s" % _text(m, "Summary"))
-	_check(_text(m, "SummaryParts") == "(the club's own nights)", "the cost parts: %s" % _text(m, "SummaryParts"))
+	_check(_text(m, "Summary") == "Power camp, Hard, gym mates - %d days - free" % days, "summary: %s" % _text(m, "Summary"))
+	_check(_text(m, "SummaryParts") == "(the gym's own nights)", "the cost parts: %s" % _text(m, "SummaryParts"))
 	_check(_text(m, "StartCamp") == "Start the camp", "start: %s" % _text(m, "StartCamp"))
 	var hard_fc := m.find_child("Focus_power", true, false).find_child("Forecast", true, false) as Label
 	_check(hard_fc != null and hard_fc.text.ends_with("%.1f by fight night" % pw[3]), "the Power card counts on to Hard's forecast: %s" % hard_fc.text)
@@ -154,7 +154,7 @@ func _initialize() -> void:
 	await _settle(0.8)
 	m = main.modal_node()
 	var pw_nofilm := float(CampForecast.run(c, f, "power", 3, false)["stats"]["power"])
-	_check(_text(m, "Summary") == "Power camp, Hard, club mates - %d days - free" % days
+	_check(_text(m, "Summary") == "Power camp, Hard, gym mates - %d days - free" % days
 		and (m.find_child("Focus_power", true, false).find_child("Forecast", true, false) as Label).text.ends_with("%.1f by fight night" % pw_nofilm),
 		"film off: still free, the Build-week pad night is back in the forecast (%.2f vs %.2f)" % [pw_nofilm, pw[3]])
 	_press(m.find_child("Film", true, false) as Button, "film back on")
@@ -167,11 +167,11 @@ func _initialize() -> void:
 	var pc := m.find_child("Partner", true, false) as Button
 	_check(str(opp.get("stance", "")) == "southpaw" and str(f.get("stance", "orthodox")) == "orthodox" and mate == "southpaw mate",
 		"seed 1: an orthodox boxer against a southpaw (%s, %s)" % [str(f.get("stance", "")), str(opp.get("stance", ""))])
-	_check(pc != null and _text(pc, "Title") == "Club mates" and _text(pc, "Line") == "free (click: southpaw mate, $160)"
+	_check(pc != null and _text(pc, "Title") == "Gym mates" and _text(pc, "Line") == "free (click: southpaw mate, $160)"
 		and _text(pc, "Risk") == "'never faced a southpaw' -0.6 in round 1" and pc.find_child("Matches", true, false) == null
 		and pc.find_child("Check", true, false) == null, "partner off: %s" % str(_labels(pc)))
 	var pic := pc.find_child("Pic", true, false) as TextureRect if pc != null else null
-	_check(pic != null and pic.texture != null and pic.texture.resource_path.ends_with("_sparring.png"), "club mates: an ink sparring picture")
+	_check(pic != null and pic.texture != null and pic.texture.resource_path.ends_with("_sparring.png"), "gym mates: an ink sparring picture")
 	_press(pc, "the Partner card")
 	await _settle(0.8)
 	m = main.modal_node()

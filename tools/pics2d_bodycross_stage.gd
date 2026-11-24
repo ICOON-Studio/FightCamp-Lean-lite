@@ -31,6 +31,7 @@ var t_binds: Array = []
 var t_bones := PackedInt32Array()
 var t_flip := 1.0
 var t_for := -1                # whose trunk is read
+var react_from := -1.0         # BODYCROSS3: >= 0 = the hit man's take starts from this key (from=<s>), not the plan's
 
 
 func _watch() -> void:
@@ -275,6 +276,8 @@ func _range(who: int, clip: String, cs: float, hand: String, own: bool) -> Dicti
 
 ## The hit man's answer by the v2 player's own route for a landed body punch (Choreographer's reaction entry).
 func _react_plan(d: int, forced: String = "") -> Dictionary:
+	if forced != "" and not (stage.v2.db["rows"] as Dictionary).has(forced):
+		return {"clip": forced, "from_s": maxf(react_from, 0.0), "until_s": 9.0, "picked": ""}
 	var db: Dictionary = stage.v2.db
 	var rows: Dictionary = db["rows"]
 	var sc: float = stage.v2.pair.size(d)
@@ -287,7 +290,37 @@ func _react_plan(d: int, forced: String = "") -> Dictionary:
 	var r_peak := float(row.get("head_peak_s", 0.0))
 	var r_at := minf(r_peak, float(row.get("head_rel_s", r_peak)))
 	var until := minf(minf(r_peak + 0.15, r_at + ChoreoRules.REACT_STAGGER_S), float(row.get("length_s", 9.0)))
-	return {"clip": clip, "from_s": float(st[0]), "until_s": until, "picked": str(ri[0])}
+	return {"clip": clip, "from_s": float(st[0]) if react_from < 0.0 else react_from, "until_s": until, "picked": str(ri[0])}
+
+
+## An earlier version of a take beside the shipped one, on both bodies (the before side of a film or a ruler): its
+## file, its clip_db row, its glove front at the contact (what Player2._sample reads for every take it knows).
+func _adopt(path: String, row_path: String, old_name: String, new_name: String) -> bool:
+	var row: Variant = JSON.parse_string(FileAccess.get_file_as_string(row_path))
+	if not ResourceLoader.exists(path) or not (row is Dictionary):
+		print("BC2_STAGE no old take at %s / %s" % [path, row_path])
+		return false
+	stage.v2.db["rows"][old_name] = row
+	for i in 2:
+		var bx: Dictionary = stage.boxers[i]
+		var ap: AnimationPlayer = bx["ap"]
+		var skel: Skeleton3D = bx["skel"]
+		var prefix := str(ap.get_animation(new_name).track_get_path(0)).get_slice(":", 0)
+		for ln in ap.get_animation_library_list():
+			var lib := ap.get_animation_library(ln)
+			if lib.has_animation(new_name):
+				FightClips._add_baked(lib, skel, prefix, old_name, path)
+		if not ap.has_animation(old_name):
+			return false
+		var hand: String = stage.hand_of(i, str(row.get("hand", "RightHand")))
+		ap.play(old_name)
+		ap.seek(float(row.get("contact_s", 0.3)), true)
+		(bx["gloves"] as Node)._follow()
+		stage.v2._fronts[i][old_name] = (bx["node"] as Node3D).global_transform.affine_inverse() * (stage.glove_front(i, hand) as Vector3)
+		var hp := skel.get_bone_global_pose(skel.find_bone(hand))
+		stage.v2._rels[i][old_name] = (skel.global_transform.basis * hp.basis).inverse() * ((stage.glove_front(i, hand) as Vector3) - skel.global_transform * hp.origin)
+		stage.v2.guard(i)
+	return true
 
 
 ## Plays the staged punch whole from the guard; frame(k, info) is called once a picture (a coroutine may draw it).

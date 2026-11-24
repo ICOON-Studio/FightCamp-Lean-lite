@@ -201,7 +201,7 @@ static func answers(v: Dictionary) -> Array:
 		"id": "promise",
 		"available": can_book,
 		"why_not": promise_why,
-		"cash": -SHOW_COST,
+		"cash": -int(v.get("show_cost", SHOW_COST)),   # S546: the hall the booking will take (the card said $3,500 and the booking charged the hall's price)
 		"loyalty_end": clampi(loyalty + promise_gain, 0, 100),
 		"holder_end": holder_loyalty,
 		"train": 1.0,

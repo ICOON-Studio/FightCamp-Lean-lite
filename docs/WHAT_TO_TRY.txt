@@ -1,3 +1,24 @@
+S546 build (2026-11-24, about 04:15) - your review notes and the Club page
+
+J. FIGHTS: BOOK ANY TIME (your "why you tell the player when the next offer is ? the player should be able to book a
+   fight any time his fighters are ready"): the "next offer can come from ..." lines are gone. With no offer on the
+   table the window is your boxers, two across, each with its own Ask for a bout. A boxer with no bout yet can ask too.
+K. CONFIDENCE BUILDS AS AN AMATEUR (your "confidence should raise even when amateur with wins andstreak , when its high
+   its indication to go pro"): every amateur boxer shows a Confidence bar on the profile. A win +3, one more for each
+   win already in the run (up to +3 more); a points loss -8; a stoppage -20. The promoter's call shows it ("Confidence
+   78: high, the boxer is ready") and the pro start takes it over instead of a flat 50. The result page says what the
+   bout did to it. Checked: the six turning-pro bars hold at a start of 50, 65 and 80.
+L. STAFF, FINANCE AND RECORDS ARE INSIDE THE OFFICE COMPUTER (your Club page note): the three open as windows of the
+   computer, like Fights and Mail. The CLUB header and its tabs are gone; the dock is the way between them.
+   The staff window still holds the OLD staff cards (it scrolls): the redo as cards with a face, the job in plain
+   words, a few facts and one button is drawn (docs/mockups/s546/staff_cards.png) and is the next build.
+M. ONE WORD: THE GYM (your "i do not understand whatis club and what is gym"): the menus, the pointers and the game's
+   lines say gym for your place ("Gym stipend", "the gym pays", the hub pin "Office"). Other boxers' clubs and "club
+   show" keep the word.
+N. FOUND AND FIXED: when a rival gym approaches your boxer, the answer "Promise: our show" said $3,500 and charged the
+   hall's real price. The card now shows the price it takes.
+   NOT IN THIS BUILD: the body cross with a bent elbow and the hit man bending (your mark) - its worker is running.
+
 S545 build, second export (2026-11-24, 03:30) - your notes from tonight
 
 G. FIGHTS IS INSIDE THE OFFICE COMPUTER (your "shouldnt this be inside the computer in the offece menu ?"): the Fights

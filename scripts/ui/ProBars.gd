@@ -20,7 +20,18 @@ const BARS := [["conf", "CONFIDENCE", "green", 50, "Confidence %d of 100. It mov
 static var mark: Array = []
 
 
+## S546 (owner C501: "confidence should raise even when amateur with wins andstreak , when its high its indication to go
+## pro"): an amateur boxer shows the confidence bar from the first day - before any pro offer it is the one row.
+const AMATEUR_TIP := "Confidence %d of 100. Wins raise it, a winning run more; a loss lowers it, a stoppage most. High means ready to turn pro: it carries into the first six pro fights, up to 5 points of win chance."
+
+
+static func amateur(f: Dictionary) -> bool:
+	return (f.get("pro_start", {}) as Dictionary).is_empty() and not bool(f.get("pro", false)) and str(f.get("sport", "")) != "bjj"
+
+
 static func shown(f: Dictionary) -> bool:
+	if amateur(f):
+		return true
 	var s: Dictionary = f.get("pro_start", {})
 	return not s.is_empty() and not (bool(f.get("pro", false)) and not ProStart.on(s) and int(s.get("warn", 0)) == 0)
 
@@ -30,16 +41,19 @@ static func rows(f: Dictionary, width: int, fresh: Array = []) -> Array:
 		return []
 	if fresh.is_empty():
 		fresh = mark
-	var s: Dictionary = f["pro_start"]
+	var lone := amateur(f)
+	var s: Dictionary = {"conf": load("res://scripts/state/ProPair.gd").conf_of(f)} if lone else f["pro_start"]
 	var out: Array = []
 	for k in BARS:
+		if lone and str(k[0]) != "conf":
+			continue
 		var v := int(s.get(k[0], 50))
 		var low := (str(k[0]) == "hunger" and v <= 20) or (str(k[0]) == "conf" and v < 30)
 		var tone: Color = DarkOverview.TONE["red"] if low else DarkOverview.TONE[str(k[2])]
 		var row := UI.hbox(10)
 		row.name = "Bar_" + str(k[0])
 		row.mouse_filter = Control.MOUSE_FILTER_PASS
-		row.tooltip_text = str(k[4]) % v
+		row.tooltip_text = (AMATEUR_TIP if lone or not bool(f.get("pro", false)) else str(k[4])) % v if str(k[0]) == "conf" else str(k[4]) % v
 		row.add_child(UI.label(str(k[1]), UI.BODY, DarkOverview.SOFT, "bold"))
 		var bar := DarkOverview.Bar.new()
 		bar.frac = float(v) / 100.0
@@ -52,6 +66,8 @@ static func rows(f: Dictionary, width: int, fresh: Array = []) -> Array:
 		if fresh.has(str(k[0])):
 			row.add_child(new_chip())
 		out.append(row)
+	if lone:
+		return out
 	if not bool(f.get("pro", false)):
 		var pr: Control = load("res://scripts/ui/modals/ProOffer.gd").patience_row(s)
 		if fresh.has("patience"):

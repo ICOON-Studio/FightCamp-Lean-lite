@@ -252,7 +252,7 @@ func _pro_and_pads() -> void:
 	var sam := _prospect("samira")
 	sam["loyalty"] = Loyalty.SETTLED_AT
 	_check(is_equal_approx(Loyalty.pro_share(sam), ProDebut.MANAGER + ProDebut.TRAINER),
-		"at 50 the club keeps manager + trainer (%.2f)" % Loyalty.pro_share(sam))
+		"at 50 the gym keeps manager + trainer (%.2f)" % Loyalty.pro_share(sam))
 	var josh := _prospect("josh")
 	josh["loyalty"] = Loyalty.SETTLED_AT - 1
 	_check(is_equal_approx(Loyalty.pro_share(josh), ProDebut.TRAINER), "at 49 an outside manager: the trainer's share alone (%.2f)" % Loyalty.pro_share(josh))

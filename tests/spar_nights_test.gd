@@ -65,7 +65,7 @@ func _button() -> void:
 func _range() -> void:
 	var maria: Dictionary = (Data.OPPONENTS[0] as Dictionary).duplicate(true)
 	var priya: Dictionary = (Data.OPPONENTS[1] as Dictionary).duplicate(true)
-	_check(PlanTest._spread(maria, {}) == PlanTest.SPREAD_UNSEEN and PlanTest.SPREAD_UNSEEN == 4, "club mates: +-4")
+	_check(PlanTest._spread(maria, {}) == PlanTest.SPREAD_UNSEEN and PlanTest.SPREAD_UNSEEN == 4, "gym mates: +-4")
 	_check(PlanTest._spread(maria, {"partner": true}) == PlanTest.SPREAD_PARTNER and PlanTest.SPREAD_PARTNER == 2,
 		"the southpaw mate who matches Maria: +-2")
 	_check(PlanTest._spread(priya, {"partner": true}) == PlanTest.SPREAD_UNSEEN, "a mate who does not match Priya: still +-4")

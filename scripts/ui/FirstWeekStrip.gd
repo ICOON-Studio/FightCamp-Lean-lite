@@ -2,7 +2,7 @@ extends RefCounted
 ## S413 operator, Q-S294-140 "Yes, build him": the guide is a person. Since S533 (Q-S294-287 "C clipboard") his clipboard: the stage's jobs ticked off (GuideClipboard), his line (GuideLines),
 ## its button beside it, and a warm light marks the thing to touch (GuideLight). The what and the why stay as the bubble's tooltip.
 ## It shows only while Career.guide is set; Skip ends the guide for this career.
-## S397 rank 5 (ops/research/RANK5_FIRST_HOUR_S397.md): three stages - FIRST WEEK, FIRST FIGHT, THE CLUB (FirstWeek.STAGES).
+## S397 rank 5 (ops/research/RANK5_FIRST_HOUR_S397.md): three stages - FIRST WEEK, FIRST FIGHT, THE GYM (FirstWeek.STAGES).
 ## Every reason is a rule the game runs: the coach share (Sim.NO_COACH_RATING), the show's weight forecast (Sim.weigh_forecast),
 ## the assistant's plan at the bell (CoachPlan), the club tasks (FirstHour.tasks).
 
@@ -150,7 +150,7 @@ static func what(c: Career) -> String:
 		"fight":
 			return "Weigh-in Friday, fight Saturday."
 		"club":
-			return "Three jobs for the club, in any order."
+			return "Three jobs for the gym, in any order."
 	return "Run the week."
 
 
@@ -181,7 +181,7 @@ static func why(c: Career) -> String:
 		"fight":
 			return "CONTINUE runs to the weigh-in; between rounds the corner minute is yours, and the result says why."
 		"club":
-			return "A second fighter, two camps at once and a goal that fits after a fight: running a club, not one boxer."
+			return "A second fighter, two camps at once and a goal that fits after a fight: running a gym, not one boxer."
 	return "CONTINUE plays the days. The review then shows what training gained and where the money went."
 
 

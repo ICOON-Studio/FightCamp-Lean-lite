@@ -84,7 +84,12 @@ Claude decides design and integrates; the operator approves (D49: Ludo makes ass
   Little text (S545: "you do not need to spell everything out for the player"; "A simple You pay : 123456$ is enough ,
   if more things are needed use the fucking tooltip"). Plain menu words (S545: "what happened to normal words like
   staff"; "i do not understand whatis club and what is gym": the player's place is the gym). Office-like pages (Mail,
-  Fights, and next Staff / Money / Records) are windows of the office computer (`Office.host`).
+  Fights, and since S546 Staff / Finance / Records) are windows of the office computer (`Office.host`, `Office.HOSTED`).
+  THE PLAYER BOOKS WHEN HIS BOXERS ARE READY (owner S546, on "the next offer can come from Tue 13 Jan": "why you tell
+  the player when the next offer is ? the player should be able to book a fight any time his fighters are ready"): no
+  line tells him to wait for the game; the page shows the action he can take now, or the plain reason he cannot. A bar
+  that feeds a decision is visible and moving before it (S546: "confidence should raise even when amateur with wins
+  andstreak , when its high its indication to go pro").
 - At most 3 PC agents at once (watchdog; S419 operator: "i think thepc can handle more, change the rule ?" - seat_dispatch MAX_PC_AGENTS 2 -> 3; Godot jobs in godot_slot: GREEN 6 (owner S536 "can you get more going in parallel ?"; 4 since S534), all on the same 8 threads (S536 "Yes, use 8"), AMBER 2, RED 0), cloud seats unlimited. Every brief names its owned files, the one test command,
   and stays under the 500-line rule.
 

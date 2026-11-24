@@ -35,10 +35,10 @@ func _signed(loyal: int) -> Dictionary:
 func _initialize() -> void:
 	var low := _signed(40)
 	_check(is_equal_approx(float(low["before"]), 0.10), "loyalty 40: the offer shows 10%% (%.2f)" % float(low["before"]))
-	_check(is_equal_approx(float(low["after"]), 0.10), "loyalty 40: the club keeps 10%% of her purses (%.2f)" % float(low["after"]))
+	_check(is_equal_approx(float(low["after"]), 0.10), "loyalty 40: the gym keeps 10%% of her purses (%.2f)" % float(low["after"]))
 	_check(str(low["news"]).contains("outside manager"), "loyalty 40: the news says an outside manager signs her")
 	var ok := _signed(62)
-	_check(is_equal_approx(float(ok["after"]), Roster.GYM_SHARE), "loyalty 62: the club keeps the usual %.2f (%.2f)" % [Roster.GYM_SHARE, float(ok["after"])])
+	_check(is_equal_approx(float(ok["after"]), Roster.GYM_SHARE), "loyalty 62: the gym keeps the usual %.2f (%.2f)" % [Roster.GYM_SHARE, float(ok["after"])])
 	_check(not str(ok["news"]).contains("outside manager"), "loyalty 62: no outside manager")
 	var modal: GDScript = load("res://scripts/ui/modals/ProOffer.gd")
 	_check(modal != null and modal.can_instantiate(), "the pro offer screen's script loads (it shows the 10% line)")

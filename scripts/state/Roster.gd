@@ -157,7 +157,7 @@ static func sign_fighter(c: Career, raw: Dictionary, picks: Array) -> Dictionary
 	var bouts: int = int(f.get("w", 0)) + int(f.get("l", 0)) + int(f.get("d", 0))
 	f["goal"] = FighterGoal.goal_for(f, SIGNING_GOAL if bouts == 0 else SIGNING_GOAL_CARDED, c.day)
 	c.fighters.append(f)
-	c.add_news("%s signs for %s on the club stipend." % [f["name"], c.gym_name])
+	c.add_news("%s signs for %s on the gym stipend." % [f["name"], c.gym_name])
 	if c.fighters.size() == 2:   # S519 club week v11 s2: said once, when the coach's time first has two to cover
 		c.add_news("Two boxers now share the coach's time: the coached mornings are dealt on Training (1-to-1 or shared), a class night costs that evening's pads, and the film nights are shared in a fight week.")
 	return f
@@ -275,7 +275,7 @@ static func turn_pro(c: Career, _house := "") -> Dictionary:
 	# S485 CLUBWEEK1 (his Q-244 "Yes"): under 50 loyalty an outside manager signs the boxer; the club keeps the trainer's 10%.
 	if Loyalty.pro_share(f) < share_of(f):
 		f["gym_share"] = Loyalty.pro_share(f)
-		c.add_news("An outside manager signs %s: the club keeps only the trainer's %d%%." % [f["first"], int(round(Loyalty.pro_share(f) * 100))])
+		c.add_news("An outside manager signs %s: the gym keeps only the trainer's %d%%." % [f["first"], int(round(Loyalty.pro_share(f) * 100))])
 	Loyalty.apply(f, "turn_pro", c.day)   # S486 LOYALHOOKS1: after the share is set (the share reads loyalty before it)
 	f["promoter"] = PROMOTER
 	f["pro_signed"] = {"d": c.day, "house": PROMOTER, "key": "", "stipend": int(f.get("weekly_salary", 0)), "costs": int(sheet["costs"])}   # S524 M11

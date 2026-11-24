@@ -5,7 +5,7 @@ extends RefCounted
 ## sports physio GBP 55-90 a session, small-hall cutman $100-190 a night); effect sizes are GAME values. Pure.
 
 const LIST: Array[Dictionary] = [
-	{"id": "assistant", "name": "Second club coach, 10 hours", "wage": 280, "per_bout": 0,
+	{"id": "assistant", "name": "Second gym coach, 10 hours", "wage": 280, "per_bout": 0,
 		"effect": "One more place on the roster; carries 40 more members; runs the fitness classes"},
 	{"id": "strength", "name": "Strength and conditioning coach, 2 sessions", "wage": 100, "per_bout": 0,
 		"effect": "Training injury risk down 15%; a pro camp's bill halved"},

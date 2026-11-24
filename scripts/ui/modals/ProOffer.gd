@@ -48,6 +48,14 @@ func build(main: Node, m: Dictionary) -> void:
 	var age_line := ProCall.age_line(int(f.get("age", 22)))
 	if age_line != "":
 		v.add_child(UI.muted(age_line, UI.SMALL, true))
+	# S546 (owner C501: "when its high its indication to go pro"): the boxer's confidence, the call's one signal.
+	var conf: int = load("res://scripts/state/ProPair.gd").conf_of(f)
+	var word := ProStart.conf_word(conf)
+	var sign := ProScene.fact("trending-up", Palette.GOOD if word == "high" else (Palette.BAD if word == "low" else Palette.TEXT),
+		"Confidence %d: %s" % [conf, word], {"high": "the boxer is ready", "low": "amateur wins would lift it first", "steady": "neither ready nor shaken"}[word],
+		"Amateur wins raise it, a winning run more; losses lower it. It carries into the first six pro fights: up to 5 points of win chance, either way from 50.")
+	sign.name = "ConfSign"
+	v.add_child(sign)
 	var cards := UI.hbox(16)
 	cards.name = "Choices"
 	v.add_child(cards)
@@ -93,14 +101,14 @@ func _turn_card(main: Node, c: Career, f: Dictionary, o: Dictionary) -> Control:
 	var share := roundi(Roster.signing_share(f) * 100)
 	var tip := "The pro purse. It grows by %s with each win, to %s. The gym keeps %d%% of every purse." % [UI.money(int(o["step"])), UI.money(int(o["top"])), share]
 	if Roster.signing_share(f) < Roster.GYM_SHARE:
-		tip += " Loyalty is under 50: an outside manager signs the boxer and the club keeps only the trainer's share."
+		tip += " Loyalty is under 50: an outside manager signs the boxer and the gym keeps only the trainer's share."
 	var purse := ProScene.fact("ticket", Palette.GOOD, "%s a fight" % UI.money(int(o["purse"])),
 		"+%s a win, up to %s. The gym keeps %d%%%s." % [UI.money(int(o["step"])), UI.money(int(o["top"])), share,
 		" (loyalty is under 50)" if Roster.signing_share(f) < Roster.GYM_SHARE else ""], tip)
 	var pays := ProScene.fact("clipboard-pen", Palette.BAD, "-%s today" % UI.money(int(sheet["costs"])), "licence and medical, paid at signing", ", ".join(parts) + ".")
 	pays.name = "PaysNow"
 	var ends := ProScene.fact("x", Palette.MUTED, "Amateur days end", "no %s weekly stipend, no amateur bouts or rankings" % UI.money(GameMoney.FIGHTER_STIPEND),
-		"For good: the club stipend (%s a week) stops, amateur bouts, rankings and the nationals are over, and the club's ticket cut (%s a bout, about %s a week) ends." % [
+		"For good: the gym stipend (%s a week) stops, amateur bouts, rankings and the nationals are over, and the gym's ticket cut (%s a bout, about %s a week) ends." % [
 		UI.money(GameMoney.FIGHTER_STIPEND), UI.money(BoutRules.TICKET_CUT), UI.money(ProCall.LOST_CUT_A_WEEK)])
 	var facts: Array = [purse, pays, ends]
 	var before_nats := bool(Champs.check(c, f).get("ok", false))
@@ -173,7 +181,7 @@ func _leave_card(main: Node) -> Control:
 	var facts: Array = [
 		ProScene.fact("x", Palette.BAD, "Gone for good", "the boxer signs with the rival gym"),
 		ProScene.fact("user", Palette.MUTED, "A place frees", "one fewer boxer on the roster"),
-		ProScene.fact("trending-down", Palette.WARN, "Reputation falls", "the town hears the club lost a prospect")]
+		ProScene.fact("trending-down", Palette.WARN, "Reputation falls", "the town hears the gym lost a prospect")]
 	var go_away := UI.button("Let the boxer go", "BtnQuiet", main.act.bind("rivalgo", ""))
 	go_away.name = "LetGo"
 	go_away.tooltip_text = "The boxer leaves for the rival gym for good: the place on the roster frees, the club loses a little reputation."

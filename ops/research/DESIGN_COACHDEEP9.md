@@ -89,8 +89,8 @@ A monthly list of THREE candidates (local coaches; now and then a known name; la
   Weights: teaching runs the class nights (members and dues, the score's biggest part) and pads make the boxers (the game's
   PadWeek, OwnCombos); tactics and conditioning are the corner and the week's other areas; the rest is support. The $150 an art is
   the sessional mat coach's own price (s14 fix 2); the $350 is the name (interview 11: a known name sits on $800-1,100 by his name,
-  not his teaching). Real-world reason: club coaches are paid by sessions they can run (England Boxing coach rates are per
-  session, and a coach who can take the class and the pads is booked for both).
+  not his teaching). Reason: a coach is paid for the sessions he can run, and a coach who can take the class and
+  the pads is booked for both (the owner's Q17).
 
   | Card | v8 wage | P | v9 wage | moved |
   |---|---|---|---|---|
@@ -339,3 +339,7 @@ no rule changed: a parse slip and two name collisions from moving `_chance` into
 - The wage rule -> wages -> cash. Print cash per arm; no arm's career under -$40k.
 - ONE-REP TRIAL FIRST: STOP and fix the map if every cell picks the same hire, a moment's answers differ by under 0.5 lines in
   every cell, or a bar v8 passed (4, 5, 6, 7) fails in the trial.
+## 18. v9 TRIAL TUNING (after the one-rep trial, BEFORE the full run; bars s10 unchanged)
+- The drain at 1 a week did nothing to a boxer: a full week gives her +1 (Loyalty.MOVES full_week). Tuned once inside the task's
+  range to 2 a week (net -1 for a boxer on full weeks, -2 for a coach); the pop-up's "lasts about N weeks" counts the boxer's +1.
+  The second trial gave the same scores (boxers sit at 75-100 by week 26): recorded, not tuned further. Result: docs/COACHDEEP9_RESULT.md.

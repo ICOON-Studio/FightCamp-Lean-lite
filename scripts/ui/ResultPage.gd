@@ -348,7 +348,8 @@ static func bar_row(m: Dictionary) -> Label:
 	var l := UI.label("The boxer after the fight: %s%s." % [line, ", name +%d" % int(m["name_gain"]) if int(m.get("name_gain", 0)) > 0 else ""], TEXT, UI.FG, "semi", true)
 	l.name = "BarLine"
 	l.mouse_filter = Control.MOUSE_FILTER_STOP
-	l.tooltip_text = "Confidence moves the next pro fight's win chance by up to 5 points; at hunger 0 the boxer asks to leave."
+	l.tooltip_text = "Confidence moves the next pro fight's win chance by up to 5 points; at hunger 0 the boxer asks to leave." if bool(m.get("pro", false)) \
+		else "Wins raise it, a winning run more; losses lower it. High means ready to turn pro: it carries into the first six pro fights."
 	return l
 
 

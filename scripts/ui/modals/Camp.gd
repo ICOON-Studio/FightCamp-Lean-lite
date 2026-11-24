@@ -219,12 +219,12 @@ func _footer(main: Node, f: Dictionary, opp: Dictionary, focus: String, proto: i
 	foot.name = "Footer"
 	var cost := BoutRules.camp_cost(proto, partner)
 	var head := "%s camp, %s, %s - %d days - " % [Data.LABEL[focus], BoutRules.PROTOCOLS[proto]["name"],
-		BoutRules.partner_word(opp) if partner else "club mates", days]
+		BoutRules.partner_word(opp) if partner else "gym mates", days]
 	var sum := UI.label("", 27, UI.FG, "handbold")
 	sum.name = "Summary"
 	CampCard.count(sum, cost_was, cost, func(x: float) -> String: return head + _money(x))
 	foot.add_child(sum)
-	var why := "partner" if partner else "the club's own nights"
+	var why := "partner" if partner else "the gym's own nights"
 	var parts := UI.label("(%s)" % why, 21, UI.MUTED, "hand")
 	parts.name = "SummaryParts"
 	parts.size_flags_vertical = Control.SIZE_SHRINK_END

@@ -102,7 +102,7 @@ static func _after(main: Node, c: Career) -> Control:
 	v.add_child(UI.label("%s %s %s%s." % [r.get("who", ""), said, r.get("opp", ""), " on points" if points else (", " + cards if cards != "" else "")],
 		UI.BODY + 4, UI.GREEN if bool(r.get("win", false)) else UI.RED, "bold", true))
 	if points:
-		v.add_child(UI.muted("The judges: %s. The club's ticket cut is in either way." % cards, UI.SMALL, true))
+		v.add_child(UI.muted("The judges: %s. The gym's ticket cut is in either way." % cards, UI.SMALL, true))
 	if str(r.get("why", "")) != "":
 		v.add_child(UI.label(str(r["why"]), UI.BODY, UI.FG, "body", true))
 	return card[0]

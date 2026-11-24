@@ -36,41 +36,11 @@ func _initialize() -> void:
 	label.add_theme_font_size_override("font_size", 24)
 	layer.add_child(label)
 	who = int(_arg("who", "1" if _arg("set", "w") == "m" else "0"))
-	if _arg("old", "") != "" and _adopt(_arg("old", ""), _arg("row", "")):
+	if _arg("old", "") != "" and _adopt(_arg("old", ""), _arg("row", ""), OLD_NAME, NEW_NAME):
 		await _side("before", OLD_NAME, false, "film", "BEFORE  the S542 take as it was filmed")
 	await _side("after", NEW_NAME, true, _arg("react", "game"), "AFTER  elbow bent at the touch, the arm finishes into him")
 	print("BODYCROSS_FILM wrote=%d refused=%d" % [wrote, refused])
 	quit(0 if refused == 0 else 1)
-
-
-## The S542 take beside the new one, on both bodies: its file, its clip_db row, its glove front at the contact
-## (what Player2._sample reads for every take it knows).
-func _adopt(path: String, row_path: String) -> bool:
-	var row: Variant = JSON.parse_string(FileAccess.get_file_as_string(row_path))
-	if not ResourceLoader.exists(path) or not (row is Dictionary):
-		print("BODYCROSS_FILM no old take at %s / %s: the after side only" % [path, row_path])
-		return false
-	stage.v2.db["rows"][OLD_NAME] = row
-	for i in 2:
-		var bx: Dictionary = stage.boxers[i]
-		var ap: AnimationPlayer = bx["ap"]
-		var skel: Skeleton3D = bx["skel"]
-		var prefix := str(ap.get_animation(NEW_NAME).track_get_path(0)).get_slice(":", 0)
-		for ln in ap.get_animation_library_list():
-			var lib := ap.get_animation_library(ln)
-			if lib.has_animation(NEW_NAME):
-				FightClips._add_baked(lib, skel, prefix, OLD_NAME, path)
-		if not ap.has_animation(OLD_NAME):
-			return false
-		var hand: String = stage.hand_of(i, str(row.get("hand", "RightHand")))
-		ap.play(OLD_NAME)
-		ap.seek(float(row.get("contact_s", 0.3)), true)
-		(bx["gloves"] as Node)._follow()
-		stage.v2._fronts[i][OLD_NAME] = (bx["node"] as Node3D).global_transform.affine_inverse() * (stage.glove_front(i, hand) as Vector3)
-		var hp := skel.get_bone_global_pose(skel.find_bone(hand))
-		stage.v2._rels[i][OLD_NAME] = (skel.global_transform.basis * hp.basis).inverse() * ((stage.glove_front(i, hand) as Vector3) - skel.global_transform * hp.origin)
-		stage.v2.guard(i)
-	return true
 
 
 func _side(t: String, clip: String, own: bool, react: String, words: String) -> void:

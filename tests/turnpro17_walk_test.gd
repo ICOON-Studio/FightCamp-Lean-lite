@@ -148,7 +148,7 @@ func _walk_one() -> void:
 	if row != null:
 		row.free()
 	var won := str(m.get("outcome", "")) == "win"
-	_check(not won or c.reputation >= rep + ProStart.name_gain("risky"), "a risky win adds the name to the club's reputation (%d -> %d)" % [rep, c.reputation])
+	_check(not won or c.reputation >= rep + ProStart.name_gain("risky"), "a risky win adds the name to the gym's reputation (%d -> %d)" % [rep, c.reputation])
 	# bookings 2-6
 	for n in range(2, 7):
 		var waited := _days_until(c, func(): return not (f.get("pro_pair", {}) as Dictionary).is_empty() or not c.fighters.has(f), 20)

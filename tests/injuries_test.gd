@@ -83,7 +83,7 @@ func _initialize() -> void:
 	_check(bool(pf["offers"][0]["answered"]), "open offers are withdrawn")
 	Injuries.pull_out(p, pf)
 	_check((pf["bout"] as Dictionary).is_empty() and (pf["camp"] as Dictionary).is_empty() and not Injuries.pending(pf), "pulled out: no bout, no camp")
-	_check(p.cash == cash - BoutRules.MISSED_WEIGHT_COST, "the club pays the empty slot: %d -> %d" % [cash, p.cash])
+	_check(p.cash == cash - BoutRules.MISSED_WEIGHT_COST, "the gym pays the empty slot: %d -> %d" % [cash, p.cash])
 	_check(p.news.any(func(x): return str(x["t"]).contains("empty slot")) and p.news.any(func(x): return str(x["t"]).contains("Hand injury")), "the news reports both")
 	# She fights hurt: the bout keeps, less in the tank, and the injury comes out worse.
 	var h := _career()

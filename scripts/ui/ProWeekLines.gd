@@ -45,7 +45,7 @@ static func lines_for(f: Dictionary, day: int) -> Array:
 ## The one lever (design s2 "the NEXT line names the lever").
 static func next_line(f: Dictionary, net: int) -> String:
 	if net < 0:
-		return "NEXT: more members sell more pro tickets - the gym's share grows with the club, the costs were one-off."
+		return "NEXT: more members sell more pro tickets - the gym's share grows with the gym, the costs were one-off."
 	return "NEXT: each pro win adds %s to the purse (top %s); the gym keeps its share of every one." % [
 		UI.money(int(f.get("purse_step", 500))), UI.money(int(f.get("purse_top", 3000)))]
 

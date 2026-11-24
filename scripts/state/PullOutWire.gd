@@ -212,5 +212,5 @@ static func weigh_miss(c: Career, f: Dictionary) -> bool:
 		return true
 	if host != "":
 		c.favours[host] = maxi(0, FightWeekPlan.favours(c, host) - int(res["favours"]))
-		c.add_news("%s has no spare at the weight: the bout is off and the club owes the host a favour." % host)
+		c.add_news("%s has no spare at the weight: the bout is off and the gym owes the host a favour." % host)
 	return false

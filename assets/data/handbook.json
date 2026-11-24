@@ -409,7 +409,7 @@
   "name": "Head coach (you)",
   "def": "You run the club and stand in the corner. Your past, picked at the start, gives one edge for the whole career.",
   "why": "Old hand: every cut burns 120 kcal a day more. Ex-pro: one of the opponent's habits is on file the day a bout is booked. Amateur coach: a prospect's potential shows exact. Strength coach: conditioning, power and speed mornings +10%, technique and defence mornings -10%.",
-  "group": "The club",
+  "group": "The gym",
   "area": "gym",
   "src": "HeadCoach.CARDS, HeadCoach.OLDHAND_CUT_KCAL, EXPRO_TELLS, STRENGTH_GAIN, CRAFT_GAIN"
  },
@@ -418,7 +418,7 @@
   "name": "Assistant coach",
   "def": "The coach you hire. Runs the sessions you cannot, the evening classes, and writes a fight plan when you write none.",
   "why": "Without one, missed sessions train at 60%. An assistant's plan reads one or two of the opponent's games; yours can read more.",
-  "group": "The club",
+  "group": "The gym",
   "area": "gym",
   "src": "Sim.NO_COACH_RATING, CoachPlan.READ_AT"
  },
@@ -427,7 +427,7 @@
   "name": "Club start",
   "def": "How the club begins: Fresh doors, In debt with one good boxer, or Backed with big expectations.",
   "why": "Fresh: three months of bills in the bank. In debt: one month, a $180 a week loan for 26 weeks, a better walk-in 2.2 kg over. Backed: six months, rent x1.5, and the backers take $5,000 back if the first show is lost.",
-  "group": "The club",
+  "group": "The gym",
   "area": "gym",
   "src": "ClubStart.CARDS, LOAN_WEEK, LOAN_WEEKS, BACKERS_CLAWBACK"
  },
@@ -436,7 +436,7 @@
   "name": "The visit",
   "def": "A boxer your boxer beat in an amateur bout asks to train at your club, and waits a week at reception.",
   "why": "It needs evidence from the bout: a call that was heard and fitted on the ropes, followed by an exchange off them, or the same planned line winning twice on the ropes. Then a seeded roll: 5% + 0.1% a reputation point (to 10%) + 3% for the evidence + up to 7% for the share of planned exchanges won, never above 25%. Reception must be empty and a place free. Pass, or let the week run out, and that boxer does not ask again for 120 days.",
-  "group": "The club",
+  "group": "The gym",
   "area": "fighters",
   "src": "CardAsk.evidence, CardAsk.chance, CardAsk.COOLDOWN_DAYS, VisitWire.after_bout (seed: career seed, day, opponent)"
  }

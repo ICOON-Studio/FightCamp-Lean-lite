@@ -8,7 +8,7 @@ extends RefCounted
 ## TWO BARS on the boxer, 0-100: CONFIDENCE (start 50) moves the win chance by at most 5 points either way; HUNGER
 ##   (start 70) at 0 = the boxer asks to leave: a warning at each of the next two bookings, gone at the third.
 ## Pure static: no state, no preloads. The state is one Dictionary kept on the fighter (f["pro_start"]).
-##   new_state()  shift(conf)  shown(raw, kind, conf)  purse(base, kind)  name_gain(kind)
+##   new_state(conf)  amateur_after(conf, outcome, run)  from_record(w, l)  conf_word(conf)  shift(conf)  shown(raw, kind, conf)  purse(base, kind)  name_gain(kind)
 ##   not_yet(s) -> false when no mark is left   can_wait(s)   after_fight(s, kind, outcome) -> what moved
 ##   rest(s, extra_weeks)   booking_check(s) -> "" | "warn" | "gone"   bar_line(before, after)
 
@@ -29,6 +29,12 @@ const RISKY_PURSE := 1.75            ## probe-tuned from double: at x2 the risky
 const CONF_START := 50
 const CONF := {"safe_win": 4, "risky_win": 12, "points_loss": -10, "ko_loss": -30}
 const CONF_SHIFT_MAX := 0.05
+## S546 (owner C501: "confidence should raise even when amateur with wins andstreak , when its high its indication to go
+## pro"): the bar is the boxer's from the first amateur bout. A win +3, one more for each win already in the run (at most
+## +3 more); a loss on the cards -8, a stoppage -20 - smaller than a pro fight's, there are more of them. It moves no
+## amateur bout: it is the read of the boxer the pro start takes over (new_state(conf)) in place of a flat 50.
+const AMATEUR := {"win": 3, "run_max": 3, "points_loss": -8, "ko_loss": -20}
+const RECORD := {"win": 4, "loss": -8, "lo": 10, "hi": 90}   ## a boxer who arrives with a record: the bar read from it
 ## HUNGER
 const HUNGER_START := 70
 const HUNGER_SAFE_WIN := -10         ## probe-tuned from -8
@@ -39,8 +45,25 @@ const WARNINGS := 2
 const OUTCOMES := ["win", "points", "ko"]
 
 
-static func new_state() -> Dictionary:
-	return {"conf": CONF_START, "hunger": HUNGER_START, "patience": PATIENCE, "warn": 0, "name": 0, "fights": 0}
+static func new_state(conf: int = CONF_START) -> Dictionary:
+	return {"conf": clampi(conf, 0, 100), "hunger": HUNGER_START, "patience": PATIENCE, "warn": 0, "name": 0, "fights": 0}
+
+
+## The bar after an amateur bout. outcome "win" | "points" (lost on the cards, or a draw) | "ko"; run = the wins in a
+## row BEFORE this bout.
+static func amateur_after(conf: int, outcome: String, run: int) -> int:
+	var d := int(AMATEUR["win"]) + clampi(run, 0, int(AMATEUR["run_max"])) if outcome == "win" 		else int(AMATEUR["ko_loss" if outcome == "ko" else "points_loss"])
+	return clampi(conf + d, 0, 100)
+
+
+## The bar of a boxer who arrives with a record and no bar yet (a walk-in with bouts behind, an old save).
+static func from_record(w: int, l: int) -> int:
+	return clampi(CONF_START + int(RECORD["win"]) * w + int(RECORD["loss"]) * l, int(RECORD["lo"]), int(RECORD["hi"]))
+
+
+## The bar in one word, for the pro call: high is the sign the boxer is ready.
+static func conf_word(conf: int) -> String:
+	return "high" if conf >= 70 else ("low" if conf < 40 else "steady")
 
 
 ## The points of win chance confidence moves: linear, 0 -> -0.05, 50 -> 0, 100 -> +0.05.

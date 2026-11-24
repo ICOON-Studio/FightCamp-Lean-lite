@@ -68,7 +68,7 @@ static func _upgrade(main: Node, c: Career, u: Dictionary, net: int) -> Dictiona
 		delta = added - upkeep
 		if not owned and not c.staff_roles.has("assistant"):
 			grey = true
-			reason = "Needs a second club coach to earn anything."
+			reason = "Needs a second gym coach to earn anything."
 	var why := "" if owned else GymUpgrades.blocked(id, c.upgrades, c.cash)
 	if not owned and why != "":
 		grey = true
@@ -77,7 +77,7 @@ static func _upgrade(main: Node, c: Career, u: Dictionary, net: int) -> Dictiona
 	if id == "youth":
 		effect = "20 juniors bring %s a week. The juniors' coach is %s." % [UI.money(GymSpend.juniors_dues()), UI.money(GymSpend.JUNIORS_COACH)]
 	elif id == "fitkit" and not owned:
-		effect = "Fitness classes: %s a week with a second club coach." % UI.money(int(u["value"]))
+		effect = "Fitness classes: %s a week with a second gym coach." % UI.money(int(u["value"]))
 	if owned:
 		effect = "Ours. " + effect
 	var does := effect   # TIPFIX1: what it buys, kept for the NOT YET card when the reason takes the line

@@ -61,7 +61,7 @@ static func staff_items(c: Career, row: Dictionary) -> Array:
 	match str(row["kind"]):
 		"hire":
 			out.append(_item("Hire", "%s to sign" % GameMoney.text(GameMoney.COACH_SIGNING_FEE), "hire", id, "state",
-				"" if c.coach.is_empty() else "the club coach's place is taken"))
+				"" if c.coach.is_empty() else "the gym coach's place is taken"))
 		"open":
 			var r: Dictionary = StaffRoles.role(id)
 			out.append(_item("Hire", "%s a pro night" % GameMoney.text(int(r["per_bout"])) if int(r["per_bout"]) > 0 else "%s a week" % GameMoney.text(int(r["wage"])),

@@ -145,7 +145,7 @@ func _tab(main: Node, c: Career, f: Dictionary, g: Dictionary, t: int, folded: b
 			add_child(FightPrep.make(main, c, f))
 		6:
 			var card := _card("CONTRACT")
-			UI.add_rows(card, [UI.kv("Terms", "Club stipend, $250 a week"), UI.kv("Until", "turning pro")])
+			UI.add_rows(card, [UI.kv("Terms", "Gym stipend, $250 a week"), UI.kv("Until", "turning pro")])
 			card.add_child(UI.caps("GOALS SO FAR"))
 			var done: Array = f.get("history", [])
 			if done.is_empty():

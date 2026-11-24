@@ -67,7 +67,9 @@ func _look(board: Control) -> void:
 	var side := main.find_child("BooksSide", true, false) as Control
 	print("MONEY_SLATE BooksBoard skin %s" % _skin(board))
 	print("MONEY_SLATE BooksSide skin %s" % _skin(side))
-	_check(_framed(board), "BooksBoard is a framed slate (%s)" % _skin(board))
+	# S546 (owner: Money inside the office computer): the office window is the slate; the books carry no second frame.
+	_check(board.get_theme_stylebox("panel") is StyleBoxEmpty and main.find_child("DesktopWindow", true, false) != null,
+		"the books sit in the office window, no frame of their own (%s)" % _skin(board))
 	_check(side != null and _framed(side), "BooksSide is a framed slate (%s)" % _skin(side))
 	var tags := main.find_child("PriceTags", true, false)
 	if tags != null and tags.get_child_count() > 0:

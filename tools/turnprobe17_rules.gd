@@ -22,6 +22,8 @@ const RISKY_PURSE := 1.75           ## ESTIMATE: tuned by the probe (owner-appro
 const OPP_RISE := 0.3               ## ESTIMATE: each pro fight's opponents a little better (records climb), both bouts alike
 ## --- CONFIDENCE (0-100) ---
 const CONF_START := 50
+## S546 (owner C501: the bar is built as an amateur): the probe's arm `conf0=<n>` starts every boxer there, not at 50.
+static var conf0 := CONF_START
 const CONF := {"safe_win": 4, "risky_win": 12, "points_loss": -10, "ko_loss": -30}   ## ESTIMATE
 const CONF_SHIFT_MAX := 0.05        ## at most 5 points either way: linear, 0 -> -5, 50 -> 0, 100 -> +5
 ## --- HUNGER (0-100) ---
@@ -56,9 +58,9 @@ static func purse(wins: int, kind: String) -> int:
 
 
 static func new_state() -> Dictionary:
-	return {"conf": CONF_START, "hunger": HUNGER_START, "patience": PATIENCE, "warn": 0, "gone": false, "w": 0, "l": 0, "ko": 0,
+	return {"conf": conf0, "hunger": HUNGER_START, "patience": PATIENCE, "warn": 0, "gone": false, "w": 0, "l": 0, "ko": 0,
 		"name": 0, "purse": 0, "gym": 0, "fights": 0, "not_yet": 0, "week": 0, "safe": 0, "risky": 0, "run": 0, "worst_run": 0,
-		"conf_lo": CONF_START, "conf_hi": CONF_START, "hun_lo": HUNGER_START, "hun_hi": HUNGER_START, "ko_early": false, "late_w": 0, "late_n": 0,
+		"conf_lo": conf0, "conf_hi": conf0, "hun_lo": HUNGER_START, "hun_hi": HUNGER_START, "ko_early": false, "late_w": 0, "late_n": 0,
 		"hunger_by_fight": [], "conf_by_fight": []}
 
 

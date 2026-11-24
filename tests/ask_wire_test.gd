@@ -45,7 +45,7 @@ func _initialize() -> void:
 	f.erase("last_bout_day")
 	# 1. closed before the first bout, open after one and 10 days.
 	var g := AskFlow.open(c, f)
-	_check(not bool(g["open"]) and str(g["why"]).contains("first bout comes from the sheet"), "1a closed before the first bout (%s)" % g["why"])
+	_check(bool(g["open"]), "1a open before the first bout: a ready boxer may ask (S546, owner C503) (%s)" % g["why"])
 	f["w"] = 1
 	f["last_bout_day"] = c.day
 	g = AskFlow.open(c, f)
@@ -112,7 +112,7 @@ func _initialize() -> void:
 	_check(absf(float(f["stats"]["technique"]) - before - want) < 0.001, "4b every fight ability grew by it (technique %.2f -> %.2f)" % [before, float(f["stats"]["technique"])])
 	var foot := ResultPage.footer(main, m, f, b["opp"])
 	_check(_has_text(foot, "WHAT IT TAUGHT"), "4c the result page shows WHAT IT TAUGHT")
-	_check(int(m.get("club_cut", -1)) == BoutRules.TICKET_CUT, "4d a step up keeps the club's ticket cut")
+	_check(int(m.get("club_cut", -1)) == BoutRules.TICKET_CUT, "4d a step up keeps the gym's ticket cut")
 	foot.free()
 	# 5. a ranked fighter picks a name: the host keeps the gate.
 	f["bout"] = {}

@@ -170,8 +170,12 @@ func _fit(main: Node) -> void:
 				_check(pin == null, t.name + " has no pin")
 			elif pin != null:
 				_check(pin.position.x <= 40.0 and pin.position.y <= 12.0, "%s pin sits at the top-left (%s)" % [t.name, str(pin.position)])
-	var head := main.find_child("ClubHead", true, false) as Control
-	_check(head != null and head.size.y <= 48.0, "club row is one line of at most 48 px (%.0f)" % (head.size.y if head != null else -1))
+	# S546 (owner: Money inside the office computer): no CLUB row of its own; the window's bar names the page.
+	_check(main.find_child("ClubHead", true, false) == null, "no CLUB row: the books are the office computer's window")
+	var head := main.find_child("WindowBar", true, false) as Control
+	_check(head != null and head.size.y <= 48.0, "the window bar is one line of at most 48 px (%.0f)" % (head.size.y if head != null else -1))
+	var app := main.find_child("App_finance", true, false) as Button
+	_check(app != null and app.get_theme_color("font_color") == load("res://scripts/ui/Palette.gd").WARN, "the dock's Finance is the lit app")
 	var chart := main.find_child("CashChart", true, false)
 	var legend := main.find_child("ChartLegend", true, false)
 	_check(chart != null and legend != null, "chart and its list")
@@ -199,7 +203,7 @@ func _narrow(main: Node) -> void:
 	root.size = Vector2i(1280, 720)
 	await process_frame
 	await process_frame
-	var pairs := [["BooksBoard", "BooksSide"], ["DuesBoard", "KitBoard"], ["PriceTags", "DuesBoard"], ["ClubHead", "BooksBoard"]]
+	var pairs := [["BooksBoard", "BooksSide"], ["DuesBoard", "KitBoard"], ["PriceTags", "DuesBoard"], ["WindowBar", "BooksBoard"]]
 	for pair in pairs:
 		var a := main.find_child(str(pair[0]), true, false) as Control
 		var b := main.find_child(str(pair[1]), true, false) as Control

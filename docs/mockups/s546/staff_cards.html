@@ -1,0 +1,78 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Staff - cards (S546 mockup)</title>
+<style>
+@font-face{font-family:Barlow;src:url(../../../assets/fonts/Barlow-Medium.ttf);font-weight:500}
+@font-face{font-family:Barlow;src:url(../../../assets/fonts/Barlow-SemiBold.ttf);font-weight:600}
+@font-face{font-family:Barlow;src:url(../../../assets/fonts/Barlow-Bold.ttf);font-weight:700}
+@font-face{font-family:Marker;src:url(../../../assets/fonts/PermanentMarker-Regular.ttf)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;overflow:hidden;font-family:Barlow;font-weight:500;color:#eee2ce;background:#1a1512 url(../../../assets/ui/art/gym_main.jpg) center/cover}
+body:before{content:"";position:absolute;inset:0;background:rgba(26,21,18,.45)}
+.top{position:absolute;left:0;top:0;width:1920px;height:78px;background:#1a1512;border-bottom:1px solid #4c4b45;display:flex;align-items:center;padding:0 18px;gap:14px}
+.top .gym{font-family:Marker;font-size:30px;color:#6fa0e6}.top .d{font-size:18px;font-weight:600;line-height:1.1}.top .d small{display:block;color:#b1a084;font-size:15px;font-weight:500}
+.top .sp{flex:1}.top .cash{font-size:26px;font-weight:700;color:#e6bd55;text-align:right;line-height:1}.top .cash small{display:block;font-size:15px;color:#b1a084;font-weight:500;margin-top:4px}
+.top .go{background:#991d1c;padding:8px 16px;width:270px;font-weight:700;font-size:18px;line-height:1.15}.top .go small{display:block;font-weight:500;font-size:15px}
+.btn0{background:#3a3b3a;border:1px solid #4c4b45;padding:11px 18px;font-weight:700;font-size:17px;border-radius:4px}
+.os{position:absolute;left:28px;top:101px;width:1864px;height:46px;background:rgba(26,21,18,.92);display:flex;align-items:center;padding:0 22px;gap:18px;font-size:18px}
+.os b{font-size:21px;letter-spacing:2px}.os .sp{flex:1}.os .wk{color:#cf9245;font-weight:600}.os .c{color:#2cb56f;font-weight:600}
+.dock{position:absolute;left:28px;top:147px;width:108px;height:880px;background:rgba(26,21,18,.85);padding:18px 15px;display:flex;flex-direction:column;gap:12px}
+.app{width:78px;height:78px;border-radius:16px;background:#414342;border:1px solid #4c4b45;color:#b1a084;font-weight:700;font-size:16px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:8px}
+.app.on{border:2px solid #cf9245;color:#cf9245}
+.win{position:absolute;left:164px;top:165px;width:1700px;height:862px;background:#2e3234;border:1px solid #4c4b45;box-shadow:0 6px 18px rgba(0,0,0,.5)}
+.bar{height:44px;background:#1a1512;display:flex;align-items:center;padding:0 18px;font-weight:700;font-size:20px;letter-spacing:3px}
+.bar span{margin-left:auto;font-size:16px;letter-spacing:0;color:#b1a084;font-weight:500}
+.in{padding:16px 18px}
+h3{font-size:17px;letter-spacing:3px;color:#e6bd55;font-weight:700;margin:2px 0 10px}
+.row{display:flex;gap:16px;margin-bottom:18px}
+.card{width:320px;height:356px;background:#232627;border:2px solid rgba(238,226,206,.16);border-radius:8px;overflow:hidden;display:flex;flex-direction:column;position:relative}
+.card.open{border-style:dashed;border-color:#4c4b45}
+.pic{height:150px;position:relative;overflow:hidden;background:#3a342c center 18%/cover}
+.pic:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(35,38,39,.05) 30%,rgba(35,38,39,.96))}
+.card.open .pic{background:#26292a}
+.sil{position:absolute;left:50%;top:26px;width:64px;height:64px;border-radius:50%;background:#3d403f;transform:translateX(-50%)}
+.sil:after{content:"";position:absolute;left:-38px;top:72px;width:140px;height:90px;border-radius:70px 70px 0 0;background:#3d403f}
+.pic .nm{position:absolute;left:14px;bottom:6px;font-family:Marker;font-size:30px;z-index:2;text-shadow:0 2px 3px #000}
+.pic .tag{position:absolute;right:10px;top:10px;z-index:2;font-size:14px;font-weight:700;padding:2px 8px;border-radius:4px;background:#1a1512;color:#b1a084;border:1px solid #4c4b45}
+.body{padding:10px 14px 12px;display:flex;flex-direction:column;gap:7px;flex:1}
+.role{font-size:17px;color:#b1a084;font-weight:600}
+.f{display:flex;gap:10px;align-items:baseline;font-size:18px;font-weight:600}
+.f i{width:10px;height:10px;border-radius:5px;flex:none;background:#b1a084;transform:translateY(-1px)}
+.f.g i{background:#2cb56f}.f.g{color:#2cb56f}.f.m i{background:#e6bd55}.f.m b{color:#e6bd55}
+.sp2{flex:1}
+.b{height:44px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px}
+.b.hire{background:#991d1c}.b.quiet{background:#442f24;color:#eee2ce}.b.pulse{box-shadow:0 0 0 3px rgba(230,189,85,.55)}
+.b.none{background:transparent;color:#b1a084;font-weight:500;font-size:16px}
+.foot{position:absolute;left:164px;top:1036px;background:rgba(26,21,18,.85);padding:4px 12px;border-radius:6px;font-size:16px;color:#b1a084}
+.note{position:absolute;right:56px;top:1040px;font-size:15px;color:#b1a084}
+</style></head><body>
+<div class="top"><div class="btn0">&lt;</div><div class="btn0" style="opacity:.5">&gt;</div><div class="gym">Anvil Street Gym</div><div class="d">Mon 5 Jan 2026<small>Week 1</small></div>
+<div style="width:90px"></div><div class="btn0">Gym</div><div class="btn0">Mail (8 new)</div><div class="sp"></div>
+<div class="cash">$16,200<small>running -$1,197 a week</small></div><div class="go">CONTINUE<small>to Mon 12 Jan, week review</small></div><div class="btn0">Menu</div></div>
+<div class="os"><b>ANVIL STREET GYM</b><div class="sp"></div>Mon 5 Jan 2026 &middot;<span class="wk">Week 1</span><b style="font-size:18px;letter-spacing:0">Cash</b><span class="c">$16,200</span></div>
+<div class="dock"><div class="app">Desktop</div><div class="app">Mail</div><div class="app">Fights</div><div class="app">Fighters</div><div class="app on">Staff</div><div class="app">Finance</div><div class="app">Records</div></div>
+<div class="win"><div class="bar">STAFF<span>3 at the gym &middot; 5 jobs open &middot; wages $620 a week</span></div><div class="in">
+<h3>AT THE GYM</h3>
+<div class="row">
+ <div class="card"><div class="pic" style="background-image:url(../../../assets/ui/style_b/portraits/mh_staff_trainer.png)"><div class="nm">Sam Carter</div><div class="tag">You</div></div>
+  <div class="body"><div class="role">Head coach, owner</div><div class="f g"><i></i>Easier weight cuts</div><div class="f"><i></i>Holds the pads for every boxer</div><div class="f"><i></i>In the corner on fight night</div><div class="sp2"></div></div></div>
+ <div class="card"><div class="pic" style="background-image:url(../../../assets/ui/style_b/portraits/mh_boxer_07.png)"><div class="nm">Luke Reid</div><div class="tag">3 evenings</div></div>
+  <div class="body"><div class="role">Coach, part-time</div><div class="f g"><i></i>Best at pads: moves +30%</div><div class="f"><i></i>Runs the evening classes</div><div class="f m"><i></i><span>You pay: <b>$450 a week</b></span></div><div class="f m"><i></i><span>Classes bring in: <b>$350</b></span></div><div class="sp2"></div><div class="b quiet">Let go</div></div></div>
+ <div class="card"><div class="pic" style="background-image:url(../../../assets/ui/style_b/portraits/mh_staff_coach_2.png)"><div class="nm">Mat coach</div><div class="tag">No-gi</div></div>
+  <div class="body"><div class="role">Jiu-jitsu coach, 2 classes</div><div class="f g"><i></i>Runs the no-gi classes</div><div class="f"><i></i>Trains your grappler</div><div class="f m"><i></i><span>You pay: <b>$170 a week</b></span></div><div class="f m"><i></i><span>Classes bring in: <b>$203</b></span></div><div class="sp2"></div><div class="b quiet">Let go</div></div></div>
+</div>
+<h3>JOBS OPEN</h3>
+<div class="row">
+ <div class="card open"><div class="pic"><div class="sil"></div><div class="nm">Second coach</div></div>
+  <div class="body"><div class="role">10 hours a week</div><div class="f g"><i></i>1 more boxer on the roster</div><div class="f g"><i></i>Room for 40 more members</div><div class="f m"><i></i><span>You pay: <b>$280 a week</b></span></div><div class="sp2"></div><div class="b hire pulse">Hire</div></div></div>
+ <div class="card open"><div class="pic"><div class="sil"></div><div class="nm">Strength coach</div></div>
+  <div class="body"><div class="role">2 sessions a week</div><div class="f g"><i></i>15% fewer training injuries</div><div class="f g"><i></i>A pro camp costs half</div><div class="f m"><i></i><span>You pay: <b>$100 a week</b></span></div><div class="sp2"></div><div class="b hire">Hire</div></div></div>
+ <div class="card open"><div class="pic"><div class="sil"></div><div class="nm">Physio</div></div>
+  <div class="body"><div class="role">On call, a session a week</div><div class="f g"><i></i>Injured boxers back 25% sooner</div><div class="f m"><i></i><span>You pay: <b>$75 a week</b></span></div><div class="sp2"></div><div class="b hire">Hire</div></div></div>
+ <div class="card open"><div class="pic"><div class="sil"></div><div class="nm">Cutman</div></div>
+  <div class="body"><div class="role">By the pro night</div><div class="f g"><i></i>Half the layoffs from cuts</div><div class="f m"><i></i><span>You pay: <b>$150 a night</b></span></div><div class="sp2"></div><div class="b hire">Hire</div></div></div>
+ <div class="card open"><div class="pic"><div class="sil"></div><div class="nm">Evening coach</div></div>
+  <div class="body"><div class="role">10 hours a week</div><div class="f g"><i></i>Room for 40 more members</div><div class="f"><i></i>Not needed yet: the gym has room</div><div class="f m"><i></i><span>You pay: <b>$280 a week</b></span></div><div class="sp2"></div><div class="b quiet" style="opacity:.6">Hire</div></div></div>
+</div>
+</div></div>
+<div class="foot">Hover a card for the details. The pulsing button is the hire the gym needs first.</div>
+<div class="note">S546 mockup - not the game yet</div>
+</body></html>

@@ -58,7 +58,7 @@ func build(main: Node) -> void:
 		bar.color = WoodKit.HEAD if i <= step else Color(WoodKit.SOFT, 0.35)
 		bar.custom_minimum_size = Vector2(0, 5)
 		cell.add_child(bar)
-		cell.add_child(UI.label(["1  You, the head coach", "2  Your club and its start"][i], UI.SMALL, UI.GOLD if i == step else UI.MUTED, "semi"))
+		cell.add_child(UI.label(["1  You, the head coach", "2  Your gym and its start"][i], UI.SMALL, UI.GOLD if i == step else UI.MUTED, "semi"))
 		steps.add_child(cell)
 	v.add_child(steps)
 	var nav := UI.hbox(10)
@@ -66,7 +66,7 @@ func build(main: Node) -> void:
 		_you(main, v, s)
 		nav.add_child(UI.button("Back to title", "BtnQuiet", main.act.bind("title", "")))
 		nav.add_child(UI.spacer())
-		var next := UI.button("Next: your club", "BtnSolid", func(): _keep(main); main.act("cstep", "1"))
+		var next := UI.button("Next: your gym", "BtnSolid", func(): _keep(main); main.act("cstep", "1"))
 		next.name = "CreateNext"
 		nav.add_child(next)
 	else:
@@ -96,7 +96,7 @@ func _you(main: Node, v: VBoxContainer, s: Dictionary) -> void:
 	var title := UI.vbox(2)
 	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	title.add_child(UI.display("1. YOU, THE HEAD COACH", 50))
-	title.add_child(UI.muted("You run the club and stand in the corner on fight night. Your past gives you one edge for the whole career.", UI.BODY, true))
+	title.add_child(UI.muted("You run the gym and stand in the corner on fight night. Your past gives you one edge for the whole career.", UI.BODY, true))
 	head.add_child(title)
 	var name_box := UI.vbox(4)
 	name_box.add_child(UI.caps("YOUR NAME"))
@@ -177,17 +177,17 @@ func _club(main: Node, v: VBoxContainer, s: Dictionary) -> void:
 	_gym_edit.custom_minimum_size = Vector2(420, 48)
 	_dark_line(_gym_edit)
 	gym.add_child(_gym_edit)
-	gym.add_child(UI.muted("The city is your club's home: it is on the posters, the news and the prospects' list.", UI.SMALL, true))
+	gym.add_child(UI.muted("The city is your gym's home: it is on the posters, the news and the prospects' list.", UI.SMALL, true))
 	where.add_child(gym)
 	v.add_child(where)
-	v.add_child(UI.caps("YOUR BUILDING - EACH GIVES THE CLUB ONE SMALL EDGE FOR THE WHOLE CAREER"))
+	v.add_child(UI.caps("YOUR BUILDING - EACH GIVES THE GYM ONE SMALL EDGE FOR THE WHOLE CAREER"))
 	var plans := UI.hbox(16)
 	plans.alignment = BoxContainer.ALIGNMENT_CENTER
 	var chosen := str(GymBonus.plan(str(s.get("gym_plan", "")))["id"])
 	for p in GymPlan.load_all():
 		plans.add_child(_plan_card(main, p, str(p["id"]) == chosen))
 	v.add_child(plans)
-	v.add_child(UI.caps("HOW THE CLUB STARTS - IT IS ALSO HOW HARD THE FIRST YEAR IS"))
+	v.add_child(UI.caps("HOW THE GYM STARTS - IT IS ALSO HOW HARD THE FIRST YEAR IS"))
 	var row := UI.hbox(16)
 	var pick := ClubStart.valid(str(s.get("start", "fresh")))
 	for cd in ClubStart.CARDS:

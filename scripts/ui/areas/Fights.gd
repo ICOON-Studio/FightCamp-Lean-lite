@@ -63,6 +63,21 @@ func _offers(main: Node, c: Career) -> void:
 		return   # S397 rank 4: a pro-only gym gets the promoter's cards below, not an empty amateur board
 	# S369 (S367 critic: "a list in the top fifth of an empty page"): the offers on the left, each fighter's standing on
 	# the right - her face, record, what she has booked and her last results - so an empty week still reads.
+	var open := Bouts.open_offers(c)
+	if open.is_empty() and not c.fighters.is_empty():
+		# S546 (owner C503 on the "next offer can come from Tue 13 Jan" lines: "why you tell the player when the next offer
+		# is ? the player should be able to book a fight any time his fighters are ready"): with nothing on the table the
+		# page is the boxers themselves, two across, each with its own Ask for a bout. No waiting line.
+		var grid := GridContainer.new()
+		grid.name = "Standing"
+		grid.columns = 2
+		grid.add_theme_constant_override("h_separation", 16)
+		grid.add_theme_constant_override("v_separation", 16)
+		grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		_into.add_child(grid)
+		for f in c.fighters:
+			grid.add_child(_standing(main, c, f))
+		return
 	var cols := UI.hbox(16)
 	cols.name = "OfferCols"
 	_into.add_child(cols)
@@ -79,15 +94,8 @@ func _offers(main: Node, c: Career) -> void:
 		cols.add_child(side)
 		for f in c.fighters:
 			side.add_child(_standing(main, c, f))
-	var open := Bouts.open_offers(c)
 	if open.is_empty():
-		if c.fighters.is_empty():
-			card[1].add_child(UI.muted("Sign a fighter to get offers.", UI.BODY, true))
-			return
-		card[1].add_child(UI.muted("No offers right now.", UI.BODY, true))
-		# S369: when each one's next offer can come (Bouts.day_events' own rule), not "every couple of weeks".
-		for bf in c.fighters:
-			card[1].add_child(UI.label(next_offer_line(c, bf), UI.BODY, UI.FG, "bold", true))
+		card[1].add_child(UI.muted("Sign a fighter to book bouts.", UI.BODY, true))
 		return
 	# S387 a card per offer (OfferCard): the opponent's face, record, win band and the chips, ready to decide on.
 	for fo in open:
@@ -97,22 +105,6 @@ func _offers(main: Node, c: Career) -> void:
 		if (b as Button).theme_type_variation == "BtnSolid":
 			Pulse.breathe(b)
 			break
-
-
-## When her next offer can come, by Bouts.day_events' rule: none while booked or in the championships, else from her
-## next_offer_day.
-static func next_offer_line(c: Career, f: Dictionary) -> String:
-	var fb: Dictionary = f["bout"]
-	if not fb.is_empty():
-		return "Booked: %s vs %s, %s." % [f["first"], fb["opp"]["name"], Clock.fmt(int(fb["day"]))]
-	if Champs.active(f):
-		return "%s: no other offers during the championships." % f["first"]
-	if bool(f.get("pro", false)):
-		return "%s: pro fights come from the promoter, below." % f["first"] if ProLadder.on_ladder(c, f) else 			"%s: the pro debut comes first." % f["first"]
-	var days := int(f.get("next_offer_day", c.day)) - c.day
-	if days > 0:
-		return "%s: the next offer can come from %s (in %d day%s)." % [f["first"], Clock.fmt(int(f["next_offer_day"])), days, "" if days == 1 else "s"]
-	return "%s: an offer can come any day now." % f["first"]
 
 
 ## One fighter's standing: booked or free, then her road's next step - with Enter when the nationals are open to her

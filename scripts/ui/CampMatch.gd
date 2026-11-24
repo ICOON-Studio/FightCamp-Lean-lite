@@ -44,7 +44,7 @@ static func partner_card(main: Node, f: Dictionary, opp: Dictionary, on: bool, h
 		tag.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 		w.add_child(tag)
 	var mate := BoutRules.partner_word(opp)
-	var title := UI.label(mate.left(1).to_upper() + mate.substr(1) if on else "Club mates", 20, UI.FG, "bold", true)
+	var title := UI.label(mate.left(1).to_upper() + mate.substr(1) if on else "Gym mates", 20, UI.FG, "bold", true)
 	title.name = "Title"
 	w.add_child(title)
 	var line := UI.label("other club - %d visits - %s" % [BoutRules.PARTNER_VISITS, UI.money(BoutRules.partner_fee())] if on

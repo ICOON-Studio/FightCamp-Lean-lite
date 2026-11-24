@@ -74,15 +74,15 @@ static func take(m: Dictionary) -> Array:
 	var win := bool(m.get("win", false))
 	if m.has("tickets"):
 		out.append({"id": "tickets", "icon": "ticket", "big": "%d SOLD" % int(m["tickets"]["sold"]), "label": "DEBUT TICKETS", "col": UI.GOLD,
-			"tip": "Seats the club sold for the pro debut. The gym's share of them is the next tile.", "words": "%d debut tickets sold." % int(m["tickets"]["sold"])})
+			"tip": "Seats the gym sold for the pro debut. The gym's share of them is the next tile.", "words": "%d debut tickets sold." % int(m["tickets"]["sold"])})
 		out.append(_money(int(m.get("gym_cut", 0)), "THE GYM'S SHARE", "What the gym keeps from the debut's tickets and purse, paid on the night."))
 	elif bool(m.get("pro", false)):
 		out.append(_money(int(m.get("gym_cut", 0)), "THE GYM'S PURSE SHARE", "The gym's part of the boxer's purse, paid on the night. The rest is the boxer's."))
 	else:
 		var cut := int(m.get("club_cut", BoutRules.TICKET_CUT))
 		var none := "THE HOST KEPT THE GATE" if m.has("gate_line") else "NO TICKET CUT AT THE CHAMPIONSHIPS"   # S512 a picked name
-		out.append(_money(cut, "CLUB TICKET CUT" if cut > 0 else none, "The host pays the club for bringing a boxer to the show, win or lose." if cut > 0
-			else ("A bout the club asked for by name: the host keeps the whole gate." if m.has("gate_line") else "The championships pay no ticket cut: the title is the prize.")))
+		out.append(_money(cut, "GYM TICKET CUT" if cut > 0 else none, "The host pays the gym for bringing a boxer to the show, win or lose." if cut > 0
+			else ("A bout the gym asked for by name: the host keeps the whole gate." if m.has("gate_line") else "The championships pay no ticket cut: the title is the prize.")))
 		var lp: Dictionary = m.get("ladder_pts", {})
 		if not lp.is_empty():   # S515 LADDERWIRE1: the ladder points this bout moved (season ladder v6)
 			var dl := int(lp["a_delta"])
@@ -109,8 +109,8 @@ static func take(m: Dictionary) -> Array:
 		out.append({"id": "favour", "icon": "favour", "big": "+1 FAVOUR" if earned else "%d OF %d" % [int(hf["count"]), need],
 			"label": "THE HOST OWES YOU ONE" if earned else "BOUTS FOR THE HOST TOWARD A FAVOUR", "col": UI.GREEN if earned else UI.GOLD,
 			"pips": [need if earned else int(hf["count"]), need],
-			"tip": "Every %d bouts boxed on this host's shows, the host owes the club a favour to call in later." % need,
-			"words": "The host owes the club a favour." if earned else "%d of %d bouts for the host toward a favour." % [int(hf["count"]), need]})
+			"tip": "Every %d bouts boxed on this host's shows, the host owes the gym a favour to call in later." % need,
+			"words": "The host owes the gym a favour." if earned else "%d of %d bouts for the host toward a favour." % [int(hf["count"]), need]})
 	if m.has("injury"):
 		out.append({"id": "injury", "icon": "heart-pulse", "big": str(m["injury"]).to_upper(), "label": "INJURY REPORT", "col": UI.RED, "small": true, "wide": true,
 			"tip": "The doctor's finding after the bout. The boxer's page says how long it keeps the boxer out of sparring and bouts.", "words": "Injury report: %s." % str(m["injury"])})

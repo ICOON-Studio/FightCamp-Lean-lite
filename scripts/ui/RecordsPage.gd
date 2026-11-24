@@ -15,7 +15,7 @@ static var kind := ""
 
 
 static func build(main: Node, c: Career) -> Control:
-	var card := UI.card("RECORDS")
+	var card := UI.card()   # S546: the window bar says LOG; no second title
 	var v: VBoxContainer = card[1]
 	var people := _people(c)
 	if not people.any(func(p): return p[1] == who):

@@ -4,7 +4,7 @@ extends RefCounted
 ## from before this, a veteran's skip, or a finished first hour). Each unfinished first-week step is a red need, so CONTINUE itself
 ## reads NEEDS YOU and takes the player to it.
 ## S397 rank 5 (ops/research/RANK5_FIRST_HOUR_S397.md): the guide runs on to the first Why, then three club tasks, in three
-## stages: FIRST WEEK (sign, coach, week, go), FIRST FIGHT (offer, prep, fight), THE CLUB (club: FirstHour.TASKS). Only the
+## stages: FIRST WEEK (sign, coach, week, go), FIRST FIGHT (offer, prep, fight), THE GYM (club: FirstHour.TASKS). Only the
 ## first week's steps block time; the later ones are pins and a strip line, never a pop-up, and every one can be done out of
 ## order (the guide follows what is true). Ana (the no-gi grappler) is a first-hour teaser and joins after the club's second
 ## bout (FirstHour.monday; was the end of week 1, critics S397 point 11).
@@ -15,7 +15,7 @@ const Data := preload("res://scripts/state/Data.gd")
 const Bouts := preload("res://scripts/state/Bouts.gd")
 
 const STEPS := ["sign", "coach", "week", "go", "offer", "prep", "fight", "club"]
-const STAGES := [["FIRST WEEK", ["sign", "coach", "week", "go"]], ["FIRST FIGHT", ["offer", "prep", "fight"]], ["THE CLUB", ["club"]]]
+const STAGES := [["FIRST WEEK", ["sign", "coach", "week", "go"]], ["FIRST FIGHT", ["offer", "prep", "fight"]], ["THE GYM", ["club"]]]
 const PREFS := "user://prefs.cfg"
 
 

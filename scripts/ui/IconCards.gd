@@ -16,7 +16,7 @@ const CARDS := {
 	"camp": ["In camp", "In a fight camp for a booked bout."],
 	"injured": ["Injured", "Hurt: no bouts until the injury heals."],
 	"offer": ["Offer waiting", "A bout offer waits for an answer.", "Answer it on Fights."],
-	"contract": ["Contract talks", "The contract is up for talks with the club."],
+	"contract": ["Contract talks", "The contract is up for talks with the gym."],
 	"free": ["Free", "No bout booked yet.", "Offers come in on Fights."],
 	"leaving": ["Leaving", "Another gym is trying to sign this fighter."],
 	"retiring": ["Retiring", "Talking about hanging up the gloves."],

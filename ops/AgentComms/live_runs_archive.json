@@ -24576,6 +24576,39 @@
    "agent": "claude-opus-5-5 (console tab PICSFIX1 of the S544 session)",
    "eta": "about 2-3 h",
    "note": "S544 d935da31d: a gate in the picture tool; both sets re-rendered, 0 of 96 punch pictures over a bar (10 of 48 before); blocked body punches end on the forearm but still at chest height (no elbow-down block clip in the game: named in the result); contact sheets docs/playtest/s543_pics opened by Claude"
+  },
+  {
+   "id": "CORNERCMD1",
+   "status": "collected",
+   "started": "2026-11-24T00:07",
+   "title": "Corner commands (your ten commands in two slots): one clean map and a probe on real bouts, nine bars; step 0 measures today's eight calls first",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (console tab CORNERCMD1 of the S544 session)",
+   "eta": "about 3-4 h",
+   "note": "S544: owner 'yes start the probe' (Q-S294-325); research/TASK_CORNERCMD1.md; spec research/PUSH_KNOW_INTERVIEW_S543.md | S545: landed 095abdc73 FAIL bars 5, 6, 8 (the reader +9.7 / +18.2 over the plan: the core holds); round 2 briefed",
+   "archived": "2026-11-24 03:51 board_sync"
+  },
+  {
+   "id": "PLANWORTH1",
+   "status": "collected",
+   "started": "2026-11-24T00:36",
+   "title": "What a whole fight plan you write is worth against the coach's plan, in real bouts (a measurement; your S354 'make the fight plan fun to design' stands on it)",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (console tab PLANWORTH1 of the S544 session)",
+   "eta": "about 2 h",
+   "note": "S544: research/TASK_PLANWORTH1.md; six findings bars; no design, nothing changed in the game | S545: landed ac4cb322b - the best written plan +1.7 wins in 100 over the coach's; the card over-reads 4 to 7 times",
+   "archived": "2026-11-24 03:51 board_sync"
+  },
+  {
+   "id": "BODYCROSS2",
+   "status": "collected",
+   "title": "Body cross: reaches him and hurts him (your note C500: reads as a touch, not a punch)",
+   "seat": "claude",
+   "agent": "claude-fable-5-2 (console tab BODYCROSS2 of the S545 session)",
+   "eta": "about 2-3 h (to about 05:00)",
+   "note": "S545: research/TASK_BODYCROSS2.md; the animation item of S545 | landed 98088087c: 8.2-9.4 m/s at the contact, 8-9 cm into him, the hit man folds; films on /review; his eye closes it",
+   "started": "2026-11-24T02:13",
+   "archived": "2026-11-24 03:51 board_sync"
   }
  ]
 }

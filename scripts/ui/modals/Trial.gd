@@ -27,7 +27,7 @@ func build(main: Node, m: Dictionary) -> void:
 	v.add_child(UI.label("Your coach: \"%s\"" % read["verdict"], UI.BODY, UI.GOLD if bool(read["good"]) else UI.FG, "italic", true))
 	# S354 the trial as an RPG recruit (RecruitPanel), one starting focus.
 	v.add_child(RecruitPanel.build(main, c, p, picks, "trialcard"))
-	v.add_child(UI.muted("Terms: club stipend, %s a week." % UI.money(GameMoney.FIGHTER_STIPEND), UI.SMALL))
+	v.add_child(UI.muted("Terms: gym stipend, %s a week." % UI.money(GameMoney.FIGHTER_STIPEND), UI.SMALL))
 	var foot := UI.hbox(10)
 	foot.add_child(UI.spacer())
 	var pass_b := UI.button("Pass", "BtnQuiet", main.act.bind("passprospect", ""))

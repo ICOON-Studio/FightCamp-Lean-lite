@@ -44,8 +44,8 @@ static func open(f: Dictionary, day: int, after_fight: int) -> Dictionary:
 		return _closed("%s fights on the mats: BJJ nights are not club shows." % nm, -1)
 	if bool(f.get("in_nationals", false)):
 		return _closed("%s is entered in the nationals." % nm, int(f.get("nationals_end", -1)))
-	if int(f.get("w", 0)) + int(f.get("l", 0)) + int(f.get("d", 0)) == 0 and int(f.get("last_bout_day", -1)) < 0 			and not bool(f.get("booked", false)):
-		return _closed("%s's first bout comes from the sheet; asking opens after it is fought." % nm, -1)
+	# S546 (owner C503: "the player should be able to book a fight any time his fighters are ready"): a boxer with no bout
+	# yet may ask too (the sheet's name inside the novice rule); the sheet's own first offer still comes when nothing is asked.
 	if bool(f.get("booked", false)):
 		var bd := int(f.get("bout_day", -1))
 		return _closed("%s already has a bout booked." % nm, bd + rest_gap(after_fight) if bd >= 0 else -1)
@@ -253,8 +253,8 @@ static func card(opp: Dictionary, kind: String, rows: Array, min_wins: int, teac
 	return {"label": label(kind, fighter_ranked), "name": nm, "club": str(opp.get("club", "")), "record": "%d-%d" % [int(opp.get("w", 0)), int(opp.get("l", 0))],
 		"place": str(RankLine.before(rows, nm, min_wins)["words"]), "style": str(opp.get("style", "")),
 		"teaches": teach_words, "stoppage": stop_words,
-		"gate": "The host keeps the gate: $0 for the club." if kind == "name" else
-			"The club keeps the $%d ticket cut." % BoutRules.TICKET_CUT}
+		"gate": "The host keeps the gate: $0 for the gym." if kind == "name" else
+			"The gym keeps the $%d ticket cut." % BoutRules.TICKET_CUT}
 
 
 static func label(kind: String, fighter_ranked: bool) -> String:

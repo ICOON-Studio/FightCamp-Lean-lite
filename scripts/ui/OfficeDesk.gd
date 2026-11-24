@@ -124,7 +124,7 @@ static func day_card(cell: Dictionary) -> Dictionary:
 
 
 ## [{sender, line, unread, d}]: the newest first, unread before read. News carries no sender: the club's own mail reads
-## "Club news", the region's stories "Around the region".
+## "Gym news", the region's stories "Around the region".
 static func mail(c: Career) -> Array:
 	var unread: Array = []
 	var read: Array = []
@@ -134,7 +134,7 @@ static func mail(c: Career) -> Array:
 		var fresh := own and left > 0
 		if fresh:
 			left -= 1
-		var row := {"sender": "Club news" if own else "Around the region", "line": str(n["t"]), "unread": fresh, "d": int(n["d"])}
+		var row := {"sender": "Gym news" if own else "Around the region", "line": str(n["t"]), "unread": fresh, "d": int(n["d"])}
 		(unread if fresh else read).append(row)
 	return (unread + read).slice(0, SHOWN_MAIL)
 
@@ -280,9 +280,9 @@ static func staff(c: Career) -> Array:
 	var line := "pad nights %d of %d done this week" % [done, total] if total > 0 else "no pad nights yet: sign a boxer"
 	out.append({"role": "Head coach (you)", "line": line, "pay": "", "face": "res://assets/ui/art/guide_trainer.png", "empty": false})
 	if c.coach.is_empty():
-		out.append({"role": "No club coach yet", "line": "hire one from Staff: training runs slower without", "pay": "", "face": "", "empty": true})
+		out.append({"role": "No gym coach yet", "line": "hire one from Staff: training runs slower without", "pay": "", "face": "", "empty": true})
 	else:
-		out.append({"role": "Club coach", "line": "runs the evening classes", "pay": "%s a week" % GameMoney.text(int(c.coach.get("salary", 0))),
+		out.append({"role": "Gym coach", "line": "runs the evening classes", "pay": "%s a week" % GameMoney.text(int(c.coach.get("salary", 0))),
 			"face": "", "empty": false})
 	for id in c.staff_roles:
 		var r: Dictionary = StaffRoles.role(str(id))
@@ -352,11 +352,11 @@ static func _in_days(n: int) -> String:
 static func staff_sheet(c: Career) -> Array:
 	var out: Array = []
 	var you: Dictionary = staff(c)[0]
-	out.append(_staff_row("you", "you", "You", "Head coach", "At the club", 0, "the owner", 0, str(you["line"]), "Holds the pads for every boxer", {}, str(you["face"])))
+	out.append(_staff_row("you", "you", "You", "Head coach", "At the gym", 0, "the owner", 0, str(you["line"]), "Holds the pads for every boxer", {}, str(you["face"])))
 	for co in Data.COACHES:
 		var mine := str(c.coach.get("id", "")) == str(co["id"])
 		var week := "%s a week" % GameMoney.text(int(co["salary"]))
-		var word := "At the club" if mine else ("For hire" if c.coach.is_empty() else "Place taken")
+		var word := "At the gym" if mine else ("For hire" if c.coach.is_empty() else "Place taken")
 		out.append(_staff_row(str(co["id"]), "coach" if mine else "hire", str(co["name"]), str(co["kind"]), word, 0 if mine else 1,
 			week if mine else "%s, %s to sign" % [week, GameMoney.text(GameMoney.COACH_SIGNING_FEE)], int(co["salary"]), str(co["note"]),
 			"Best at %s" % str(co["spec"]).to_lower(), co["areas"], ""))
@@ -365,11 +365,11 @@ static func staff_sheet(c: Career) -> Array:
 		var on := c.staff_roles.has(id)
 		var bout := int(r["per_bout"]) > 0
 		out.append(_staff_row(id, "role" if on else "open", str(StaffCard.ROLE_WORD.get(id, "Staff")) if on else "nobody yet", str(r["name"]),
-			"At the club" if on else "Job open", 0 if on else 2, "%s a pro night" % GameMoney.text(int(r["per_bout"])) if bout else "%s a week" % GameMoney.text(int(r["wage"])),
+			"At the gym" if on else "Job open", 0 if on else 2, "%s a pro night" % GameMoney.text(int(r["per_bout"])) if bout else "%s a week" % GameMoney.text(int(r["wage"])),
 			int(r["per_bout"]) if bout else int(r["wage"]), "", str(r["effect"]), {}, ""))
 	var n := c.extra_coaches
 	out.append(_staff_row("evening", "evening", "%d evening coach%s" % [n, "" if n == 1 else "es"] if n > 0 else "nobody yet", "Evening coach, 10 hours",
-		"At the club" if n > 0 else "Job open", 0 if n > 0 else 2, "%s a week each" % GameMoney.text(StaffRoles.EVENING_WAGE), StaffRoles.EVENING_WAGE,
+		"At the gym" if n > 0 else "Job open", 0 if n > 0 else 2, "%s a week each" % GameMoney.text(StaffRoles.EVENING_WAGE), StaffRoles.EVENING_WAGE,
 		"the evening classes", "Room for %d more members each" % StaffRoles.COACH_MEMBERS, {}, ""))
 	return out
 

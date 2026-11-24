@@ -32,6 +32,7 @@ const BACK_MIN_S := 0.40
 const BACK_POSE_M := 0.04     # his neck over his hips within this of where it was at the contact = his posture is back
 const BEFORE_F := 6
 const AFTER_ROWS := 10
+const OLD_NAME := "pro_body_cross_old"
 
 
 func _initialize() -> void:
@@ -43,6 +44,8 @@ func _initialize() -> void:
 	var clip := _arg("take", "pro_body_cross")
 	var own := _arg("as", "filmed") == "own"
 	var react := _arg("react", "game" if own else "film")
+	if _arg("old", "") != "":   # the before side: an earlier version of the take (its .res and its clip_db row as JSON)
+		clip = OLD_NAME if _adopt(_arg("old", ""), _arg("row", ""), OLD_NAME, clip) else clip
 	if not (stage.boxers[who]["ap"] as AnimationPlayer).has_animation(clip):
 		print("BODYCROSS2_RULER RED no take %s" % clip)
 		quit(0)
@@ -58,7 +61,36 @@ func _initialize() -> void:
 	var fh := FileAccess.open(out_dir.path_join("ruler_%s_%s.json" % [set_name, _arg("tag", m["as"])]), FileAccess.WRITE)
 	fh.store_string(JSON.stringify(m, "  "))
 	fh.close()
+	_md(m, out_dir.path_join("ruler_%s_%s.md" % [set_name, _arg("tag", m["as"])]))
 	quit(0)
+
+
+## BODYCROSS3: THE SUMMARY TABLE, WRITTEN BY THE RULER ITSELF. docs/BODYCROSS2_RESULT.md's table printed NaN in most
+## cells: the ruler never wrote that table - it was filled outside the repo from this tool's JSON by names the JSON
+## does not have (the picture-by-picture rows, read by their real names, were right). One column a run; paste them.
+func _md(m: Dictionary, path: String) -> void:
+	var back := "never moved" if float(m["moved_most_m"]) <= BACK_POSE_M else ("not back in %.1f s" % (AFTER_F / 60.0) if float(m["back_s"]) < 0.0 else "%.3f s" % float(m["back_s"]))
+	var cells: Array = [
+		["Glove to his body at its nearest", "touches (%.2f m)" % TOUCH_M, ("touches" if bool(m["touched"]) else "%.3f m short" % float(m["nearest_m"]))],
+		["Past where the surface was", "%.2f-%.2f m" % [PAST_MIN_M, PAST_MAX_M], "%.3f m" % float(m["past_m"])],
+		["Speed at the contact", "%.0f m/s or more" % AT_MIN_MPS, "%.2f m/s" % float(m["at_mps"])],
+		["... as a share of the top", "%d %% or more" % int(AT_SHARE * 100.0), "%d %%" % int(round(100.0 * float(m["at_mps"]) / maxf(float(m["top_mps"]), 0.01)))],
+		["Top speed (when)", "%.0f m/s or more" % TOP_MIN_MPS, "%.2f m/s (%.3f s before the contact)" % [float(m["top_mps"]), float(m["top_before_s"])]],
+		["First move to contact (the fist alone)", "%.2f-%.2f s" % [FIRST_MIN_S, FIRST_MAX_S], "%.3f s (%.3f s)" % [float(m["first_s"]), float(m["fist_s"])]],
+		["Hit man within %.2f s: hips back" % HURT_S, "%.2f m (or fold)" % HURT_M, "%.3f m" % float(m["hips_back_m"])],
+		["... trunk fold (neck over hips)", "%.2f m (or hips)" % HURT_M, "%.3f m (%.1f deg)" % [float(m["fold_m"]), float(m["fold_deg"])]],
+		["Posture back after", "%.1f s or more" % BACK_MIN_S, back],
+		["Elbow at the contact (in 3D)", "(K52: 137 +/- 12)", "%.1f deg" % float(m["elbow_deg"])],
+		["Puncher's hips forward at the contact", "(0.04-0.06)", "%.3f m" % float(m["hips_fwd_m"])],
+		["Hips apart in the guard", "-", "%.3f m" % float(m["pair_hips_m"])],
+		["Verdict", "", "%s (%d of %d bars failed)" % [m["verdict"], (m["bars"] as Array).filter(func(b): return not bool(b["pass"])).size(), (m["bars"] as Array).size()]],
+	]
+	var txt := "| Measure | Bar | %s, set %s, as %s (the hit man: %s) |\n|---|---|---|\n" % [m["take"], m["set"], m["as"], m["react"]]
+	for c in cells:
+		txt += "| %s | %s | %s |\n" % c
+	var fh := FileAccess.open(path, FileAccess.WRITE)
+	fh.store_string(txt)
+	fh.close()
 
 
 static func _r3(v: float) -> float:
@@ -167,7 +199,7 @@ func _measure(who: int, run: Dictionary) -> Dictionary:
 		"elbow_deg": snappedf(elbow, 0.1), "hip_turn_deg": snappedf(_turn(a, b, who, "UpperLeg"), 0.1), "shoulder_turn_deg": snappedf(_turn(a, b, who, "UpperArm"), 0.1),
 		"hips_fwd_m": _r3((_at(b, who, "Hips") - _at(a, who, "Hips")).dot(dirv)), "hips_fwd_most_m": _r3(fwd_most), "rear_heel_up_m": _r3(heel),
 		"pair_hips_m": _r3(((_at(fr[LEAD_F]["def"], d, "Hips") - _at(a, who, "Hips")) * Vector3(1, 0, 1)).length()), "step_m": _r3(float(st["step"])),
-		"staged_left_m": _r3(float(st["gap"])), "rows": rows,
+		"staged_left_m": _r3(float(st["gap"])), "rows": rows, "ci": ci,
 		# where on him it lands: the glove's height on the contact picture against his rib point (the game's body target) and his hip joints
 		"glove_y_m": _r3((gl[ci] as Vector3).y), "his_ribs_y_m": _r3(_at(fr[ci - 1]["def"], d, "Chest").y - 0.14 * float(stage.v2._scale(d))),
 		"his_hips_y_m": _r3(_at(fr[ci - 1]["def"], d, "Hips").y), "his_chest_y_m": _r3(_at(fr[ci - 1]["def"], d, "Chest").y)}

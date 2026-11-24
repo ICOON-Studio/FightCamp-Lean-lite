@@ -220,7 +220,7 @@ func _partner() -> void:
 	var f := _lucy()
 	_check(PlanCards.partner(f) == "southpaw mate", "the camp booked the southpaw mate")
 	f["camp"]["partner"] = false
-	_check(PlanCards.partner(f) == "", "club mates: no chip")
+	_check(PlanCards.partner(f) == "", "gym mates: no chip")
 
 
 func _check(ok: bool, what: String) -> void:

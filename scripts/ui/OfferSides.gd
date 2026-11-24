@@ -182,7 +182,7 @@ static func mine(c: Career, f: Dictionary, o: Dictionary, wf: Dictionary, by: Di
 	v.add_child(fact("Mine_Scale", "On the scale", scale, "The forecast for the weigh-in, the day before the bout, cutting from tomorrow. Missing weight calls the bout off."))
 	var price := 0 if bool(o["answered"]) else Bouts.pass_price(c, f, o)
 	var pass_word := word("costs nothing", Palette.MUTED) if price == 0 else word("loyalty %d: wants this fight" % price, Palette.WARN)
-	v.add_child(fact("Mine_Pass", "If you pass", pass_word, "Loyalty is %d of 100 now. Under %d a boxer leaves the club." % [Loyalty.value(f), Loyalty.LEAVES_UNDER]))
+	v.add_child(fact("Mine_Pass", "If you pass", pass_word, "Loyalty is %d of 100 now. Under %d a boxer leaves the gym." % [Loyalty.value(f), Loyalty.LEAVES_UNDER]))
 	return p
 
 

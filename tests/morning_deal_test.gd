@@ -96,7 +96,7 @@ func _initialize() -> void:
 	TestClub.make(solo)
 	while solo.fighters.size() > 1:
 		solo.fighters.pop_back()
-	_check(MorningWire.of(solo, solo.fighters[0]).is_empty(), "one boxer at the club: no coached mornings, the week as before")
+	_check(MorningWire.of(solo, solo.fighters[0]).is_empty(), "one boxer at the gym: no coached mornings, the week as before")
 	_done()
 
 

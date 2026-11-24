@@ -10,38 +10,8 @@
    "seat": "arena",
    "agent": "Arena (chat 01a20a6d-3a1b-79dc-a475-e858f591a0d9)",
    "branch": "arena/f591a0d9-fightcamp-lean-lite",
-   "eta": "unknown: restarted 02:02, not pushed at 03:05 - check its chat",
+   "eta": "continued 03:53 after its tool-call limit (61 of 61 tests green, engine 462 lines; the play gate fails: boxing 86% v jiu-jitsu 14%); about 1 h to its PR",
    "note": "S544: research/TASK_CARDROUND9.md, spec = research/CARDREAL_AUDIT.md section 4; lite mirror f93fa300; its PR relays to an arena/* PR here; Claude plays both arts by hand before the owner | S545 02:02: it had stopped at 00:31 on its tool-call limit, branch not pushed; told to continue (push first, finish tests, open the PR)"
-  },
-  "CORNERCMD1": {
-   "id": "CORNERCMD1",
-   "status": "landed",
-   "started": "2026-11-24T00:07",
-   "title": "Corner commands (your ten commands in two slots): one clean map and a probe on real bouts, nine bars; step 0 measures today's eight calls first",
-   "seat": "claude",
-   "agent": "claude-opus-5-5 (console tab CORNERCMD1 of the S544 session)",
-   "eta": "about 3-4 h",
-   "note": "S544: owner 'yes start the probe' (Q-S294-325); research/TASK_CORNERCMD1.md; spec research/PUSH_KNOW_INTERVIEW_S543.md | S545: landed 095abdc73 FAIL bars 5, 6, 8 (the reader +9.7 / +18.2 over the plan: the core holds); round 2 briefed"
-  },
-  "PLANWORTH1": {
-   "id": "PLANWORTH1",
-   "status": "landed",
-   "started": "2026-11-24T00:36",
-   "title": "What a whole fight plan you write is worth against the coach's plan, in real bouts (a measurement; your S354 'make the fight plan fun to design' stands on it)",
-   "seat": "claude",
-   "agent": "claude-opus-5-5 (console tab PLANWORTH1 of the S544 session)",
-   "eta": "about 2 h",
-   "note": "S544: research/TASK_PLANWORTH1.md; six findings bars; no design, nothing changed in the game | S545: landed ac4cb322b - the best written plan +1.7 wins in 100 over the coach's; the card over-reads 4 to 7 times"
-  },
-  "BODYCROSS2": {
-   "id": "BODYCROSS2",
-   "status": "landed",
-   "title": "Body cross: reaches him and hurts him (your note C500: reads as a touch, not a punch)",
-   "seat": "claude",
-   "agent": "claude-fable-5-2 (console tab BODYCROSS2 of the S545 session)",
-   "eta": "about 2-3 h (to about 05:00)",
-   "note": "S545: research/TASK_BODYCROSS2.md; the animation item of S545 | landed 98088087c: 8.2-9.4 m/s at the contact, 8-9 cm into him, the hit man folds; films on /review; his eye closes it",
-   "started": "2026-11-24T02:13"
   },
   "CARDROUND9B": {
    "id": "CARDROUND9B",
@@ -54,7 +24,7 @@
   },
   "KNOWBUILD1": {
    "id": "KNOWBUILD1",
-   "status": "running",
+   "status": "landed",
    "title": "Knowledge: the signing card in the game, a scene like the pro call (ranges, the rival's window, trial evenings where you pick the question)",
    "seat": "claude",
    "agent": "claude-opus-5-5 (console tab KNOWBUILD1 of the S545 session)",
@@ -64,7 +34,7 @@
   },
   "COACHDEEP9": {
    "id": "COACHDEEP9",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-24T02:21",
    "title": "Coaches v9: three named changes and a stop rule (a forced moment that fails again is cut as a decision)",
    "seat": "claude",
@@ -81,6 +51,16 @@
    "eta": "about 1.5-2.5 h (to about 05:15)",
    "note": "S545: research/TASK_CORNERCMD2.md; stop rule",
    "started": "2026-11-24T03:05"
+  },
+  "BODYCROSS3": {
+   "id": "BODYCROSS3",
+   "status": "running",
+   "seat": "claude",
+   "agent": "claude-fable-5-2 (console tab BODYCROSS3 of the S546 session, tab c1)",
+   "eta": "about 2-3 h (to about 06:45)",
+   "title": "Body cross 3: a bent elbow you can see, the hit man bends (your mark C502: 'there is no elbow bent , the reaction should force the opponent to bend hisposture a bit')",
+   "brief": "ops/research/TASK_BODYCROSS3.md",
+   "started": "2026-11-24T04:00"
   }
  },
  "codex_budget": {

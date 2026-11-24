@@ -131,7 +131,7 @@ static func set_stipend(c: Career, f: Dictionary, on: bool) -> String:
 	LoyaltyWire.stipend(c, f, on)   # S485 CLUBWEEK1: sponsorship given +5 / pulled -8
 	var home := bool(f.get("home", false)) and int(f.get("home_until", 0)) > c.day
 	f["weekly_salary"] = (roundi(GameMoney.FIGHTER_STIPEND * HomeJuniors.HALF) if home else GameMoney.FIGHTER_STIPEND) if on else 0
-	c.add_news("%s %s." % [f["first"], "is back on the club stipend and trains full time" if on else "takes a day job: off the gym sponsorship, working 2 mornings a week"])
+	c.add_news("%s %s." % [f["first"], "is back on the gym stipend and trains full time" if on else "takes a day job: off the gym sponsorship, working 2 mornings a week"])
 	return ""
 
 
@@ -193,9 +193,9 @@ static func member_limit(c: Career) -> String:
 
 
 ## S531 GROWTH_SCOPE: when the room holds the gym back, the two numbers and the fix ("Your name draws 84; the unit holds
-## 70: bigger premises (Club > Money) let them in"); else "".
-const ROOM_FIX := {"premises": ["the unit holds", "bigger premises (Club > Money)"],
-	"equipment": ["the kit takes", "more kit (Home > Equip)"], "coaches": ["your coaches take", "an evening coach (Club > Money)"]}
+## 70: bigger premises (Office > Finance) let them in"); else "".
+const ROOM_FIX := {"premises": ["the unit holds", "bigger premises (Office > Finance)"],
+	"equipment": ["the kit takes", "more kit (Home > Equip)"], "coaches": ["your coaches take", "an evening coach (Office > Finance)"]}
 
 
 static func room_line(c: Career) -> String:
@@ -219,7 +219,7 @@ static func place_blocked(c: Career) -> String:
 	if used(c) < places(c):
 		return ""
 	if not c.staff_roles.has("assistant"):
-		return "every place is taken: a second club coach opens one"
+		return "every place is taken: a second gym coach opens one"
 	if c.premises < GymUpgrades.PREMISES.size() - 1:
 		return "every place is taken: bigger premises open two"
 	return "every place is taken"
@@ -255,7 +255,7 @@ static func move(c: Career, loan: bool = false) -> String:
 	var sp: Dictionary = GymUpgrades.SPONSORS[c.premises]
 	if not sp.is_empty() and not c.deals.any(func(d): return str(d["id"]) == str(sp["id"])):
 		c.deals.append(sp.merged({"state": "offer"}))
-		c.add_news("%s wants a deal with a club this size: %s a week for %s (Money > Deals)." % [sp["name"], GameMoney.text(int(sp["per"])), sp["what"]])
+		c.add_news("%s wants a deal with a gym this size: %s a week for %s (Money > Deals)." % [sp["name"], GameMoney.text(int(sp["per"])), sp["what"]])
 	c.add_news("%s moves into a %s: room for %d members, rent %s a month." % [c.gym_name, str(next["name"]).to_lower(),
 		int(next["cap"]), GameMoney.text(int(next["rent"]))])
 	return ""

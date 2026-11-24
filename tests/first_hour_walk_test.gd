@@ -101,7 +101,7 @@ func _play() -> void:
 	for id in HeadCoach.ids():
 		_check(main.find_child("Coach_" + id, true, false) != null, "the %s card is on screen" % id)
 	main.act("cpick", "coach|expro")
-	_press(_button(main, "CreateNext"), "Next: your club")
+	_press(_button(main, "CreateNext"), "Next: your gym")
 	_screen("YOUR CLUB: three starts", 2)
 	main.act("cpick", "start|fresh")
 	_press(_button(main, "CreateStart"), "Open the gym")
@@ -192,7 +192,7 @@ func _play() -> void:
 	_check(fight_min <= FIGHT_BY_MIN, "the fight starts by minute %.0f (estimate %.1f)" % [FIGHT_BY_MIN, fight_min])
 	_check(why_min <= WHY_BY_MIN, "the Why by minute %.0f (estimate %.1f)" % [WHY_BY_MIN, why_min])
 	_press(_button(main.modal_node(), "BackHome"), "back home")
-	_check(c.guide == "club", "the guide moves to the club tasks (%s)" % c.guide)
+	_check(c.guide == "club", "the guide moves to the gym tasks (%s)" % c.guide)
 
 	_run_to_stop()
 	_check(str(c.applicant.get("id", "")) == FirstHour.SECOND_WALKIN, "Monday: the second walk-in")

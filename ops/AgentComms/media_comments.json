@@ -3861,6 +3861,30 @@
       "at_s": 27.8,
       "id": "C500",
       "addressed": "cited by 1d9a1aa6a 2026-11-24"
+    },
+    {
+      "path": "_sent/2026-11-24_0310_after_turn_pro_now_the_profile_says_what/jump_pro_declinepro_real.png",
+      "text": "confidence should raise even when amateur with wins andstreak , when its high its indication to go pro",
+      "at": "2026-11-24T01:19:18Z",
+      "seen_by_claude": true,
+      "id": "C501",
+      "addressed": "cited by c4eed6c52 2026-11-24"
+    },
+    {
+      "id": "C502",
+      "path": "media:_sent/2026-11-24_0258_body_cross_reaches_and_hurts/bodycross2_after_every_picture_m.png",
+      "text": "MARKUP: 1 marks -> Feedback/2026-11-24-03/README.md",
+      "at": "2026-11-24T01:20:36Z",
+      "seen_by_claude": true,
+      "addressed": "cited by c4eed6c52 2026-11-24"
+    },
+    {
+      "id": "C503",
+      "path": "media:_sent/2026-11-24_0223_fights_inside_the_office_computer_your_n/jump_club4_close_go_real.png",
+      "text": "MARKUP: 1 marks -> Feedback/2026-11-24-04/README.md",
+      "at": "2026-11-24T01:21:54Z",
+      "seen_by_claude": true,
+      "addressed": "cited by c4eed6c52 2026-11-24"
     }
   ]
 }

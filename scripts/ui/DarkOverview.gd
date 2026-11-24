@@ -232,7 +232,7 @@ static func loyalty(f: Dictionary, day := -1) -> Control:
 	var row := UI.hbox(10)
 	row.name = "Loyalty"
 	row.mouse_filter = Control.MOUSE_FILTER_PASS
-	var tip := "Loyalty %d of 100. Under 50 an outside manager signs the boxer on turning pro (the club keeps 10%%, not 25%%). Under 25 after two talks the boxer leaves." % v
+	var tip := "Loyalty %d of 100. Under 50 an outside manager signs the boxer on turning pro (the gym keeps 10%%, not 25%%). Under 25 after two talks the boxer leaves." % v
 	var moves: Array = Loyalty.reasons(f, 0).slice(0, 3)
 	for m in moves:
 		tip += "

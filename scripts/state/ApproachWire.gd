@@ -63,7 +63,12 @@ static func holder(c: Career, f: Dictionary) -> Dictionary:
 
 
 static func _can_book(c: Career) -> bool:
-	return ClubShow.can_book(c.day, int(c.show.get("day", -1)), int(c.show.get("last", -1))) and c.cash >= ClubShow.COST
+	return ClubShow.can_book(c.day, int(c.show.get("day", -1)), int(c.show.get("last", -1))) and c.cash >= show_cost(c)
+
+
+## S546: what PROMISE: OUR SHOW pays today - the hall GymSpend.book_show takes (the read's hall), as the booking charges it.
+static func show_cost(c: Career) -> int:
+	return ClubShow.cost(str(load("res://scripts/state/GymSpend.gd").show_read(c)["hall"]))
 
 
 ## The view Approach.answers reads, from the open approach (its day, group and talk) and the club today.
@@ -75,7 +80,7 @@ static func answer_view(c: Career, f: Dictionary) -> Dictionary:
 	return {"loyalty": Loyalty.value(f), "talk": str(a.get("talk", "")), "group": group, "holder": hv,
 		"can_book": _can_book(c) and HomeBout.reason(c, f) == "", "ticks_after_show": TICKS_AFTER_SHOW if group == "keep" else 0,
 		"holder_ticks": 0 if h.is_empty() or Loyalty.value(h) >= Loyalty.LOYAL_AT else HOLDER_TICKS,
-		"day": int(a.get("day", c.day))}
+		"day": int(a.get("day", c.day)), "show_cost": show_cost(c)}
 
 
 static func columns(c: Career, f: Dictionary) -> Array:
@@ -167,7 +172,7 @@ static func answer(c: Career, fid: String, id: String) -> String:
 				_on_stipend(f, GameMoney.FIGHTER_STIPEND)
 				f["stipend_lock"] = end
 			Loyalty.commit(f, int(Approach.GAIN["match"]), "approach_match", c.day)
-			c.add_news("You match %s's offer: %s stays%s." % [CLUB, first, ", on the club stipend to %s" % Clock.fmt(end) if str(a["group"]) == "keep" else ""])
+			c.add_news("You match %s's offer: %s stays%s." % [CLUB, first, ", on the gym stipend to %s" % Clock.fmt(end) if str(a["group"]) == "keep" else ""])
 		"half":
 			var half := roundi(GameMoney.FIGHTER_STIPEND * 0.5)
 			_on_stipend(f, half)
@@ -177,7 +182,7 @@ static func answer(c: Career, fid: String, id: String) -> String:
 				x["train_mult"] = {"x": float(Approach.TRAIN["half"]), "until": end}
 			Loyalty.commit(f, int(col["loyalty_end"]) - Loyalty.value(f), "approach_half", c.day)
 			Loyalty.commit(h, Approach.HOLDER_HALF, "approach_half_holder", c.day)
-			c.add_news("The club stipend is split in two to %s: half each, both train a little less." % Clock.fmt(end))
+			c.add_news("The gym stipend is split in two to %s: half each, both train a little less." % Clock.fmt(end))
 		"move":
 			_on_stipend(f, GameMoney.FIGHTER_STIPEND)
 			f["stipend_lock"] = end
@@ -189,7 +194,7 @@ static func answer(c: Career, fid: String, id: String) -> String:
 			Loyalty.commit(h, Approach.HOLDER_MOVE, "approach_move_holder", c.day)
 			if Loyalty.value(h) < Loyalty.LOYAL_AT:
 				h["grievance"] = {"from": c.day, "until": end}
-			c.add_news("The club stipend moves to %s; %s takes a day job and minds it." % [first, h["first"]])
+			c.add_news("The gym stipend moves to %s; %s takes a day job and minds it." % [first, h["first"]])
 		"promise":
 			var why: String = HomeBout.reason(c, f)
 			if why == "":

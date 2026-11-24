@@ -15,7 +15,7 @@ const LIST: Array[Dictionary] = [
 		"effect": "Power and conditioning sessions gain 10% more; the racks take room for 10 members", "kind": "gain", "value": 1.10,
 		"stats": ["power", "conditioning"], "room": 10},
 	{"id": "fitkit", "name": "Fitness class kit: mornings and lunchtimes", "price": 1500, "upkeep": 15,
-		"effect": "Fitness classes, +$420 a week, while a second club coach runs them", "kind": "fitness", "value": 420, "needs": "assistant"},
+		"effect": "Fitness classes, +$420 a week, while a second gym coach runs them", "kind": "fitness", "value": 420, "needs": "assistant"},
 	{"id": "youth", "name": "Youth section: DBS checks, a welfare course, juniors' nights", "price": 1800, "upkeep": 0,
 		"effect": "20 juniors' dues, and a home-grown prospect at the term intakes", "kind": "youth", "value": 1},
 ]

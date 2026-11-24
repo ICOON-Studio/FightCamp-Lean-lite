@@ -40,9 +40,10 @@ func _initialize() -> void:
 		var tag := "jump_" + jump
 		for t in then:
 			var parts := str(t).split(":")
-			main.act(parts[0], str(parts[1]).replace("FID", str(main.career.fighter().get("id", ""))) if parts.size() > 1 else "")
+			var arg := ":".join(parts.slice(1))   # S546: "go:gym:1" keeps its whole argument (was cut to "gym")
+			main.act(parts[0], arg.replace("FID", str(main.career.fighter().get("id", ""))))
 			main.clear_toast()
-			tag += "_" + parts[0]
+			tag += "_" + parts[0] + ("_" + arg.replace(":", "") if parts.size() > 2 else "")
 		await _shot(tag)
 		_bounds(tag, main)
 		print("JUMP %s reached=%s" % [jump, ok])

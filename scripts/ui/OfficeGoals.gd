@@ -126,7 +126,7 @@ static func _boxer(c: Career, f: Dictionary) -> Dictionary:
 			"tip": {"title": "A promise you made", "what": "Your word to this boxer, still open.",
 				"rows": [["Kept", "loyalty +%d" % Promises.KEPT, "", "good"], ["Broken", "loyalty %d" % Promises.BROKEN, "", "bad"]], "do": todo}}, true)
 	else:
-		row.merge({"want": "No goal set", "target": "goal talk waiting in the office" if talk else "nothing asked of the club yet",
+		row.merge({"want": "No goal set", "target": "goal talk waiting in the office" if talk else "nothing asked of the gym yet",
 			"status": "GOAL TALK" if talk else "NO GOAL", "tone": "a" if talk else "m", "miss": "nothing lost", "met": "",
 			"tip": {"title": "No goal yet", "what": "A goal gives the boxer something to train for.",
 				"do": "Hold the goal talk today: click this row." if talk else "Wait for the talk: Needs you shows it when it is due."}})
@@ -165,7 +165,7 @@ static func _goal_tip(c: Career, f: Dictionary, g: Dictionary) -> Dictionary:
 			weak = behind
 	if todo == "":
 		todo = "Hold the course: every target is met."
-	return {"title": str(g["title"]), "what": "What this boxer asked the club for.", "rows": rows.slice(0, Tip.MAX_ROWS), "do": todo}
+	return {"title": str(g["title"]), "what": "What this boxer asked the gym for.", "rows": rows.slice(0, Tip.MAX_ROWS), "do": todo}
 
 
 static func _grappler(c: Career, g: Dictionary) -> Dictionary:
@@ -220,7 +220,7 @@ static func panel(main: Node, c: Career) -> Control:
 	v.add_child(h)
 	var left := UI.vbox(4)
 	left.custom_minimum_size = Vector2(336, 0)
-	left.add_child(UI.label("THE CLUB, PENDING", 16, Palette.MUTED, "caps"))
+	left.add_child(UI.label("THE GYM, PENDING", 16, Palette.MUTED, "caps"))
 	var pend := pending(c)
 	for i in pend.size():
 		left.add_child(_pending_row(main, pend[i], i))

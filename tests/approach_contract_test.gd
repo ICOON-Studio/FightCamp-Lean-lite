@@ -342,9 +342,10 @@ func _test_promise() -> void:
 	kira.merge({"loyalty": 30, "weight": float(kira["limit"]), "next_offer_day": 6}, true)
 	_step_days(c, 7)
 	var cash_before: int = c.cash
+	var show_price: int = ApproachWire.show_cost(c)   # S546: the hall's price, as the card shows it
 	_check(str(ApproachWire.answer(c, kid, "promise")) == "" and not _is_open(c, kid), "promise: ok")
 	var show_day: int = int(c.show.get("day", -1))
-	_check(c.cash == cash_before - 3500 and show_day > c.day, "promise: $3,500 paid and show booked")
+	_check(c.cash == cash_before - show_price and show_day > c.day, "promise: the hall's price paid ($%d) and show booked" % show_price)
 	_check(_promise_count(c, kid, "open") == 1, "promise: one open 'show_top' row in c.promises")
 	var loy_open: int = Loyalty.value(kira)
 	for o_item in kira["offers"]:

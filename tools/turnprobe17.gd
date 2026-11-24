@@ -289,6 +289,7 @@ func _initialize() -> void:
 	var stage := _arg("stage", "trial")
 	var reps := int(_arg("reps", "1" if stage == "trial" else "2000"))
 	out_path = _arg("out", "")
+	R.conf0 = int(_arg("conf0", "50"))   # S546: the start of the confidence bar (the amateur record's read)
 	_build_types()
 	_pools()
 	var pop: Array = []

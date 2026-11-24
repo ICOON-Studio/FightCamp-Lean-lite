@@ -158,7 +158,7 @@ static func _card(main: Node, c: Career, f: Dictionary, o: Dictionary, opp: Dict
 	v.add_child(_centre(UI.label("%s · 3 X 3 MIN" % Clock.fmt(day).to_upper(), 22, UI.FG, "bold")))
 	var weeks := int((day - c.day) / 7.0)
 	var time_words := "%d week%s to prepare" % [weeks, "" if weeks == 1 else "s"] if weeks >= 1 else "no time for a camp"
-	v.add_child(_centre(UI.label("%s to the club · %s · answer by %s" % [UI.money(BoutRules.TICKET_CUT), time_words, Clock.fmt(int(o["expires"]))], UI.TINY + 1, UI.MUTED)))
+	v.add_child(_centre(UI.label("%s to the gym · %s · answer by %s" % [UI.money(BoutRules.TICKET_CUT), time_words, Clock.fmt(int(o["expires"]))], UI.TINY + 1, UI.MUTED)))
 	v.add_child(_centre(UI.display("VS", 64, UI.RED)))
 	var chip := UI.chip("Not safe" if bool(o["mismatch"]) else ("Weight at risk" if not bool(wf["ok"]) else "Legal, even match"),
 		"red" if bool(o["mismatch"]) else ("amber" if not bool(wf["ok"]) else "green"))

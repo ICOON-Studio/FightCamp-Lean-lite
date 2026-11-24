@@ -54,7 +54,7 @@ static func facts(n: Dictionary) -> Array:
 			{"id": "record", "cap": "RECORD", "was": "amateur %d-%d" % [int(n["w"]), int(n["l"])], "now": "Pro 0-0", "col": Palette.HEADER,
 				"tip": "The amateur record stays on the History tab. Amateur bouts, rankings and the nationals are over for this boxer."},
 			{"id": "purse", "cap": "PAY", "was": "%s a week" % GameMoney.text(GameMoney.FIGHTER_STIPEND), "now": "%s a fight" % GameMoney.text(int(n["purse"])), "col": Palette.GOOD,
-				"tip": "The weekly club stipend stops. The gym keeps %d%% of each purse; the purse grows with each win." % int(n["share"])},
+				"tip": "The weekly gym stipend stops. The gym keeps %d%% of each purse; the purse grows with each win." % int(n["share"])},
 			{"id": "paid", "cap": "PAID TODAY", "was": "", "now": "-%s" % GameMoney.text(int(n["paid"])), "col": Palette.BAD,
 				"tip": "The boxing board's licence, the scans, medical and bloods, and your coach's trainer licence if the coach had none."},
 		]

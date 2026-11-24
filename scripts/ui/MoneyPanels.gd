@@ -26,7 +26,7 @@ static func side(main: Node, c: Career, _ahead: Array) -> Control:
 	slate.name = "BooksSide"
 	slate.custom_minimum_size = Vector2(200, 0)
 	slate.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	slate.size_flags_stretch_ratio = 0.34
+	slate.size_flags_stretch_ratio = 0.30   # S546: inside the office window (0.34 on the old full page)
 	# The column had no frame. Pad is the 22 px frame, so the outer size does not grow past it.
 	slate.add_theme_stylebox_override("panel", WoodKit.slate(22, 22))
 	var col := UI.vbox(8)

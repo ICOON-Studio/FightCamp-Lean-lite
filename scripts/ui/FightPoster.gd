@@ -74,7 +74,7 @@ static func build(c: Career, f: Dictionary, w: float = 380.0) -> Control:
 	var div: Dictionary = Data.DIVISIONS.get(f.get("div", ""), {})
 	var sex := "MEN'S" if str(div.get("sex", "f")) == "m" else "WOMEN'S"
 	v.add_child(_text("%d X 3 MIN  -  %s %s" % [int(b.get("rounds", BoutRules.ROUNDS)), sex, str(div.get("short", "%.0f KG" % float(f.get("limit", 0.0)))).to_upper()], 17 * k, INK, true))
-	v.add_child(_text("CLUB TICKET CUT %s" % UI.money(BoutRules.TICKET_CUT), 15 * k, RED, true))
+	v.add_child(_text("GYM TICKET CUT %s" % UI.money(BoutRules.TICKET_CUT), 15 * k, RED, true))
 	var gap := Control.new()
 	gap.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	v.add_child(gap)

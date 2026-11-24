@@ -109,9 +109,15 @@ func _initialize() -> void:
 	r = _approached()
 	c = r[0]; kid = r[1]; holder = r[2]
 	var cash := c.cash
+	var price := ApproachWire.show_cost(c)   # S546: the hall's own price (S541 light night), and the card shows the same
+	var shown := 0
+	for col in ApproachWire.columns(c, kid):
+		if str(col["id"]) == "promise":
+			shown = -int(col["cash"])
+	_check(shown == price and price > 0, "the answer card shows the price the booking takes (%d, %d)" % [shown, price])
 	_check(ApproachWire.answer(c, str(kid["id"]), "promise") == "", "PROMISE: OUR SHOW taken")
 	var night := int(c.show["day"])
-	_check(c.cash == cash - 3500 and night > c.day and c.promises.size() == 1, "the show booked for day %d and the promise listed" % night)
+	_check(c.cash == cash - price and night > c.day and c.promises.size() == 1, "the show booked for day %d and the promise listed" % night)
 	var lb := Loyalty.value(kid)
 	while c.day < night:   # S488 HOMEBOUT1: the night's bout is weighed and boxed; boxing it keeps the promise
 		kid["weight"] = float(kid["limit"])

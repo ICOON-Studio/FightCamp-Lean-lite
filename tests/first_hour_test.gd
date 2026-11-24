@@ -95,7 +95,7 @@ func _initialize() -> void:
 	_check(bool(c.first_hour["fought"]) and not FirstHour.quiet(c), "the first bout ends the quiet weeks")
 	_check(c.news.any(func(n): return str(n["t"]).begins_with(FirstHour.RIVAL["coach"])), "a rival coach is named in the news")
 	FirstWeek.sync(c)
-	_check(c.guide == "club", "the guide moves to the club tasks (%s)" % c.guide)
+	_check(c.guide == "club", "the guide moves to the gym tasks (%s)" % c.guide)
 	_to_day(c, 28)
 	_check(str(c.applicant.get("id", "")) == FirstHour.SECOND_WALKIN and str(c.applicant.get("quote", "")) != "", "Monday after the show: the second walk-in, with an own line")
 	_check(c.grapplers.is_empty(), "no Ana yet")

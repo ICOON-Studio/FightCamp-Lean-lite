@@ -65,7 +65,7 @@ static func let_go(c: Career, fid: String) -> Dictionary:
 static func let_go_price(c: Career, fid: String) -> Dictionary:
 	var f := c.fighter_by_id(fid)
 	if f.is_empty():
-		return {"rep": 0, "ranked": false, "why_not": "not in the club"}
+		return {"rep": 0, "ranked": false, "why_not": "not in the gym"}
 	var rk := ranked(c, f)
 	var why_not := ""
 	if int(f.get("bout", {}).get("day", -1)) >= c.day and not bool(f.get("bout", {}).get("done", false)):

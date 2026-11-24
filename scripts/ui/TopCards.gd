@@ -23,7 +23,7 @@ static func money(c: Career) -> Dictionary:
 		"Cash lasts about %d weeks at this net." % GymBills.runway_weeks(c.cash, net)
 	# TIPFIX2 (owner Q-283 "Shorter cards"): no MOVES line - the rows already split what comes in from what goes out.
 	return {"kind": "full", "title": "Money a week", "what": "What comes in and goes out in a normal week.",
-		"rows": rows, "now": now, "do": "Open Club, Money tab, for every line.", "keys": ["runway", "dues"]}
+		"rows": rows, "now": now, "do": "Open Office, Finance, for every line.", "keys": ["runway", "dues"]}
 
 
 static func date(c: Career) -> Dictionary:

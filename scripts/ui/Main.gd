@@ -76,7 +76,7 @@ func _ready() -> void:
 	_fight_layer = _layer()
 	_modal_layer = _layer()
 	_mat_layer = _layer()
-	_toast_layer = _layer()
+	_toast_layer = _layer(); _modal_layer.z_index = 20; _mat_layer.z_index = 20; _toast_layer.z_index = 20   # S546 owner's Dues screenshot: the board paintings (z 2, 4) were drawn over the "Change dues?" pop-up
 	Grapplers.live = FightView.enabled()
 	_toast_layer.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_timer = Timer.new()

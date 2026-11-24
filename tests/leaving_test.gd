@@ -112,7 +112,7 @@ func _initialize() -> void:
 		Sim.step_day(c)
 		c.review_pending = false
 	_check(c.fighter_by_id(kid).is_empty(), "the day loop's Monday removes the boxer")
-	_check(not c.fighters.is_empty(), "the club keeps its other boxer")
+	_check(not c.fighters.is_empty(), "the gym keeps its other boxer")
 	# The game runs on after a leave (a second week through the loop).
 	start = c.day
 	while c.day < start + 7:

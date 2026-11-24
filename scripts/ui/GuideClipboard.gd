@@ -18,7 +18,7 @@ const BAND := Palette.CLIP_BAND
 const RED := Palette.CLIP_TITLE
 const ROW_W := 380.0
 
-const TITLES := {"FIRST WEEK": "Week 1 jobs", "FIRST FIGHT": "First fight jobs", "THE CLUB": "Club jobs"}
+const TITLES := {"FIRST WEEK": "Week 1 jobs", "FIRST FIGHT": "First fight jobs", "THE GYM": "Gym jobs"}
 const JOBS := {
 	"sign": "Sign your first boxer", "coach": "Hire an assistant coach", "week": "Plan the week", "go": "Start the week",
 	"offer": "Answer the show's offer", "prep": "Set the fight plan", "fight": "Weigh in and fight",
@@ -39,13 +39,13 @@ static func title(c: Career) -> String:
 	return str(TITLES.get(str(st[0]), "Jobs")) if not st.is_empty() else "Jobs"
 
 
-## The stage's jobs in order. THE CLUB's jobs are FirstHour.tasks (any order); the others follow the guide's steps.
+## The stage's jobs in order. THE GYM's jobs are FirstHour.tasks (any order); the others follow the guide's steps.
 static func rows(c: Career) -> Array:
 	var st := FirstWeek.stage(c)
 	if st.is_empty():
 		return []
 	var out: Array = []
-	if str(st[0]) == "THE CLUB":
+	if str(st[0]) == "THE GYM":
 		var done := FirstHour.tasks(c)
 		var now_given := false
 		for k in FirstHour.TASKS:

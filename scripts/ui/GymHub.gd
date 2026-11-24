@@ -39,7 +39,7 @@ const PIN_AT := {"reception": Vector2(0.165, 0.555), "training": Vector2(0.48, 0
 ## id, name, icon, the zone kind the pin stands on ("" = the noticeboard).
 const PLACES := [
 	["reception", "Reception", "members", "reception"], ["training", "Fighters", "bag", "bags"], ["playbook", "Playbook", "mat", "mats"],
-	["fights", "Fights", "champion", "ring"], ["office", "Club office", "money", "office"], ["world", "World", "up", ""],
+	["fights", "Fights", "champion", "ring"], ["office", "Office", "money", "office"], ["world", "World", "up", ""],
 	["equip", "Equip the gym", "Strength", "weights"], ["week", "Training", "calendar", "bags"],
 ]
 
