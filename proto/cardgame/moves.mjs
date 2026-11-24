@@ -3,7 +3,7 @@
 // whose place changes, the other man's window is read off the join, and nothing here touches the rules of a laid card.
 import { CARDS, N } from './cards.mjs';
 import { legalNow, place, placeBoth, hit, strikeFits, fxOf } from './engine.mjs';
-import { kickDmg } from './floor.mjs';
+import { kickDmg, putHold, holdLegs } from './floor.mjs';
 
 // a MOVE: before and after for EACH man, and the other man's window (audit 4c)
 function resolveMove(S, a, p, ans) {
@@ -30,7 +30,7 @@ function resolveMove(S, a, p, ans) {
     if (S.j.kind === 'clinch') { // leaving a clinch is fought for (audit 2a MISSING-LINK, M15)
       const holder = S.tie ? S.tie.by : -1;
       if (ans === '@pull') { // the tie holder drags him back down off the tie
-        placeBoth(S, d === 0 ? ['gbot', 'gtop'] : ['gtop', 'gbot'], { g: 'closed' }); S.tie = null; S.stall = 0;
+        placeBoth(S, d === 0 ? ['gbot', 'gtop'] : ['gtop', 'gbot'], { g: 'closed' }); S.tie = null; S.stall = 0; S.post = a; // C1
         if (S.st) S.st.pulls++;
         return;
       }
@@ -47,15 +47,24 @@ function resolveMove(S, a, p, ans) {
   }
   if (id === '@stand') { // the boxer stands up out of his guard: the BJJ man STAYS on his back (the owner's case)
     if (ans === 'sweep') { placeBoth(S, a === 0 ? ['gbot', 'gtop'] : ['gtop', 'gbot'], { g: 'open' }); S.stall = 0; if (S.st) S.st.sweeps++; return; }
-    if (ans && CARDS[ans]?.k === 'hold') { // an arm attack as his posture opens
-      const h = CARDS[ans];
-      S.hold = { by: d, kind: 'sub', count: h.count, brk: h.brk, tick: h.tick || 0, pts: h.hpts || 0, card: ans };
-      if (S.st) S.st.holdOn++;
-      return;
-    }
-    place(S, a, 'stand'); S.stall = 0; return; // pair 4: standing in his guard, the legs still round him
+    if (ans && CARDS[ans]?.k === 'hold') { putHold(S, d, ans); return; } // an arm attack as his posture opens
+    // pair 4: standing in his guard. E2: standing up in a CLOSED guard opens it - unless he pays Hold the legs (B4)
+    if (fx === 'legs') { place(S, a, 'stand'); holdLegs(S); return; }
+    place(S, a, 'stand', { g: S.j.g === 'closed' ? 'open' : S.j.g }); S.stall = 0; return;
+  }
+  if (id === '@gnp') { // F1: the jiu-jitsu fighter's punch from on top; the Escape card recovers guard as he punches
+    if (ans === 'escape') { placeBoth(S, a === 0 ? ['gtop', 'gbot'] : ['gbot', 'gtop'], { g: S.j.top === 'side' ? 'closed' : 'half' }); return; }
+    const dmg = Math.max(0, N.topDmg - (fx === 'cover' ? N.cover : fx === 'block' ? N.block : 0));
+    if (dmg > 0 && N.topTko) S.gnpHit = true; // the referee's stoppage count (A2) - switched in cards.mjs N
+    hit(S, a, d, dmg, 0); S.stall = 0; if (S.st) S.st.topPunches = (S.st.topPunches || 0) + 1;
+    return;
+  }
+  if (id === '@post') { // C2: he posts on an arm to sit up, and the arm can be taken
+    if (ans && CARDS[ans]?.k === 'hold') putHold(S, d, ans); else { S.post = null; if (S.st) S.st.posts = (S.st.posts || 0) + 1; }
+    return;
   }
   if (id === '@back') {
+    if (fx === 'legs') { holdLegs(S); return; } // B4: the back-away fails, the legs lock round him again
     if (ans === 'sweep') { placeBoth(S, a === 0 ? ['gbot', 'gtop'] : ['gtop', 'gbot'], { g: 'open' }); S.stall = 0; if (S.st) S.st.sweeps++; return; }
     if (fx === 'up') { hit(S, d, a, kickDmg(ans, CARDS.upkick.dmg), 0); if (S.st) S.st.upkicks++; return; } // kicked as he backs out
     // BACK AWAY IS OUT OF HIS LEGS, NOT A TAKEDOWN. This used to knock the OTHER man to his back unconditionally, so a
@@ -69,12 +78,12 @@ function resolveMove(S, a, p, ans) {
     const tied = S.tie && S.tie.by === a;
     if (!tied) { place(S, a, 'seat'); S.j = { kind: 'apart', leg: true }; S.stall = 0; if (S.st) S.st.sits++; return; } // SIT DOWN: he sits, the boxer stays standing
     S.tie = null;
-    if (fx === 'sprawl' || fx === 'base') { placeBoth(S, a === 0 ? ['seat', 'stand'] : ['stand', 'seat'], { kind: 'apart', leg: true }); S.stall = 0; if (S.st) S.st.sprawled++; return; } // the Sprawl card, or Keep your base (9b B1)
+    if (fx === 'sprawl' || fx === 'base') { placeBoth(S, a === 0 ? ['seat', 'stand'] : ['stand', 'seat'], { kind: 'apart', leg: true }); S.tried = a; S.stall = 0; if (S.st) S.st.sprawled++; return; } // the Sprawl card, or Keep your base (9b B1)
     // the pull off his own tie IS a settled position: the boxer comes down into the guard with his arm and head still
     // held, so a hold may follow in the same volley (audit 4c, the MISSING-LINK row). A hold needs a settled position,
     // and a pull made from a tie is exactly that - it is not the volley of a takedown.
     placeBoth(S, a === 0 ? ['gbot', 'gtop'] : ['gtop', 'gbot'], { g: 'closed' }); S.stall = 0;
-    S.gpass = S.pass; S.gby = a;
+    S.gpass = S.pass; S.gby = a; S.post = d; // C1: pulled down bent over - his posture is broken
     if (S.st) S.st.pulls++;
     return;
   }
@@ -90,5 +99,15 @@ function resolveMove(S, a, p, ans) {
     place(S, a, 'stand'); S.stall = 0; if (S.st) S.st.rises++;
     return;
   }
+}
+// D1, E1 (audit 9a): a punch thrown from inside the guard, or down from standing in it, is an arm given. The man
+// underneath answers the punch itself: it does not land, and his hold is on (from standing the puncher is pulled back
+// down, bent over) - or, against the standing man, he sweeps him as he punches.
+export function guardCatch(S, a, ans) {
+  const d = 1 - a;
+  if (S.st) S.st.catches = (S.st.catches || 0) + 1;
+  if (ans === 'sweep') { placeBoth(S, d === 0 ? ['gtop', 'gbot'] : ['gbot', 'gtop'], { g: 'half' }); S.f[d].pts += CARDS.sweep.pts; S.gpass = S.pass; S.stall = 0; if (S.st) S.st.sweeps++; return; }
+  if (S.at[a] === 'stand') { placeBoth(S, a === 0 ? ['gtop', 'gbot'] : ['gbot', 'gtop'], { g: 'closed' }); S.post = a; }
+  putHold(S, d, ans);
 }
 export { resolveMove };

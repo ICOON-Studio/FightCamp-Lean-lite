@@ -38,6 +38,17 @@ exactly what is missing; this task does that list and nothing else.
 4. The hit boxer answers with the fold rule as it is (BODYREACT2: the gut-shot take that shows 10 deg or more 0.117 s
    after its start). Do not change that rule.
 
+5. THE CLOSE BODY HOOK DOES NOT READ AS A PUNCH (owner, /review C505, 2026-11-24, on
+   `ops/previews/s547_bodyreact/bodyreact2_before_after_m_close.mp4`: "this is wrong , there isno punching on this
+   clip"; he said "nice" to the two films of the other take, C504 / C506). Claude opened the frames (S549): with
+   `pro_body_shot` thrown at 0.46-0.58 m the puncher dips, walks his head into the other man's chest and both gloves
+   stay low in front of him - no arm travels to the ribs, so it reads as a shove. This is the take at that range, not
+   the answer. Fix inside v2's own pick, no new layer: measure, per body-hook take, the glove's travel to the trunk
+   and the heads gap at the touch over the 60 seeds; a take that reaches the touch with heads under 0.45 m or glove
+   travel under 0.25 m in the last 0.15 s is not picked at that range (the pool then gives the take he liked, or the
+   pair is set to that take's own range first). Say in the result which it was. Film it on the same fixed side
+   camera as BODYREACT2, before / after, men and women.
+
 ## The bars (on pictures, men's pair mh_boxer_02 v 01 and women's pair 11 v 14, 60 seeds each)
 - THROWN: over 240 planned rounds a body cross is landed in at least 1 round in 6, and never in the same exchange slot
   twice running.

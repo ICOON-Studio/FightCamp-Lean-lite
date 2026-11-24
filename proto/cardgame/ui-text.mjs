@@ -24,6 +24,9 @@ const STEP = {
   '@base': 'keep your base: his pull or his sweep fails',
   '@escape': 'fight the hold as he puts it on: it fails, and he stays where he is',
   '@kick': `kick up off your back: ${N.kickDmg} damage, no card needed`,
+  '@gnp': `punch from on top: ${N.topDmg} damage, no card needed`,
+  '@post': 'sit up in his guard so you can punch: you post on an arm, and he may take it',
+  '@hold': 'hold his legs as he stands or backs away: your guard stays locked, and he cannot back away next turn',
 };
 export const isStep = (id) => typeof id === 'string' && id[0] === '@';
 export const names = (id) => (isStep(id) ? FLOOR[id] || id : CARDS[id]?.n || id);
@@ -41,6 +44,10 @@ export function cardText(id) {
     : c.fx ? `${c.vs}` : c.act ? 'Escape / stand up' : c.vs || 'Move';
   return `${c.w} wind · ${at} · ${effect}`;
 }
+// S549 (the owner, playing: "i have 2 wind, why can i play a card that costs 3 ?"): the card face printed the price
+// written on the card while the button was lit by the price he PAYS NOW (a punch laid behind a punch costs 1 less).
+// Every price on a card in hand is the price now, with the printed one beside it when they differ.
+export const pricedNow = (text, w, printed) => (w === printed ? text : String(text).split(`${printed} wind`).join(`${w} wind now (${printed} on the card)`));
 export function card(id, extra = '') {
   const c = CARDS[id] || {};
   const kind = c.k === 'strike' ? 'punch' : c.k === 'ans' ? 'defence' : isStep(id) ? 'footwork' : 'corner';

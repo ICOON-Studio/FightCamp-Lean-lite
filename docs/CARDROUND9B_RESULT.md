@@ -107,3 +107,71 @@ NOT DONE, said plainly: the bot never pays for Keep your base against a pull (0 
 punches, and a tie that stood makes the answer 3 wind. A player can use it; the bot cannot show whether it matters.
 A second shape I tried and dropped (the base only stops the pull and he keeps his tie) could not be measured for the
 same reason. The sweep keeps its card answer (Sprawl).
+
+---
+
+# SLICE 2 (S549, Claude on main): posture, the arm given by a punch, standing in the guard
+
+Red tests first (cf7c65790, `proto/cardgame/r9b2.test.mjs`, 11 tests), then the build. `node --test`: 85 of 85.
+PLAY GATE 6 of 6 (26.7 decisions, boxing 43.0 / jiu-jitsu 57.0). engine.mjs 484 lines (the deal moved to `deal.mjs`).
+
+## NOT GREEN - read this first
+1. **The bots almost never reach these rules, so their balance is NOT MEASURED.** In 400 bot bouts: 10 pulls into the
+   closed guard, 6 turns bent over, 5 stand-ups in the guard, 1 Hold the legs, 1 arm taken off a punch, 0 Posture up.
+   By the task's own rule (a move laid in under 2% of the bouts where it was legal) the rows are built and NOT DONE.
+2. **Why: slice 1's Frame at 1 wind ends the pull.** 682 ties laid, 290 framed, and the tie must now stand a turn
+   (H1b) - so 10 pulls reach the guard in 400 bouts. The jiu-jitsu bot's bout is: sit down (about 730 times), wait,
+   up-kick (652). With Frame at 2 wind: 86 pulls, 76 stand-ups, taps 66 - and boxing falls to 36.8% (gate 40-60).
+   With no Frame: 212 pulls, taps 112, boxing 28.0%. Not changed here: Frame stays 1 wind. The pairing as the bots
+   play it is held inside the gate by a rule that keeps the fight off the floor - the owner's and the critics' call.
+3. A boxer pulled into the closed guard is close to lost for the bot: every way out (Posture up, Stand up, a punch)
+   gives an arm, and the jiu-jitsu bot takes it nearly every time (76 stand-ups left 3 turns standing in the guard).
+4. Slice 3 (F jiu-jitsu punches from on top, G the body-lock trip, I3-I5) is NOT built. The Sprawl and Up-kick cards'
+   stronger versions, the walked bout 9c as a test and posture in the place words on the page: NOT built.
+
+## What is ON (each test red first)
+| Row | What a player meets | Test (r9b2.test.mjs) |
+|---|---|---|
+| C1 | a pull leaves the man on top bent over (posture broken); following him down or a takedown leaves it up | 9b C1 |
+| C2 | Posture up: 1 wind, no card, and a punch may go behind it; the Triangle or the Armbar may answer it | 9b C2 (two tests) |
+| C3 | bent over in the guard he cannot punch | 9b C3 |
+| C5 | breaking a hold leaves the same kind of guard (the half guard stays the half guard) | 9b C5 |
+| D1 | a punch from inside the guard gives up an arm: the Armbar or the Triangle answers the punch itself | 9b D1 |
+| E1 | a punch down from standing in the guard is the whole punch; the Sweep or the Armbar answers it | 9b E1 (two tests) |
+| E2 | standing up in a closed guard opens it | 9b E2 |
+| B4, E3 | Hold the legs: 2 wind, no card, answers Stand up or Back away; the guard stays locked, no backing away next turn; at most 2 turns running | 9b B4 (two tests) |
+
+Old test changed BY MEANING: real.test "the walked bout", turn 9 - the pulled boxer postures up before his ground punch.
+My own two B4 tests: the stuck man punches down (a turn with nothing laid by either man brings the referee).
+
+## The bot (plan.mjs `placeFit`)
+A place is now worth what he can do there NOW: bent over in the guard 0.25 of the place, a boxer's punches inside
+the guard 0.6, under an open guard 0.35, the half guard 0.7. Before it the boxer's bot never stood up in the guard
+(0 in 400). Balance with it: boxing 44.3% (was 44.5%).
+
+## Two fixes from the owner's play (S549)
+- "i have 2 wind, why can i play a card that costs 3 ?" - the card printed its own price while the button used the
+  price paid now (a punch behind a punch is 1 less). A card in hand now reads "2 wind now (3 on the card)". Seen on the page.
+- The page stayed on LOADING after an edit: the browser kept an old file beside a new one. `proto/cardgame/serve.py`
+  serves with no-store; `.claude/launch.json` uses it.
+
+---
+
+# SLICE 3 (S549, Claude on main): F1, I3, I4, I5 - G is NOT built
+
+Red tests first (`proto/cardgame/r9b3.test.mjs`, 5 tests). `node --test` 90 of 90; PLAY GATE 6 of 6.
+
+| Row | What a player meets | State |
+|---|---|---|
+| F1 the jiu-jitsu fighter punches from on top (1 wind, 2 damage, no card; Cover or the Escape card answers) | - | BUILT, **OFF** (`N.topOn = 0`): measured below |
+| I3 a failed pull leaves him seated; stood up by the referee, he is not charged with timidity. A sit with no tie still is | ON | 9b I3 |
+| I4 a clinch held through both turns with nothing laid by either man is broken, apart at punching range | ON | 9b I4 |
+| I5 nobody working with a man standing in the guard: the legs are opened, he stands over a man on his back | ON | 9b I5 |
+
+F1 measured (400 bot bouts): on, the jiu-jitsu bot lays it 496 times and boxing wins **36.0%** (42 stoppages; the gate
+is 40-60). Kept out of the referee's stoppage count: 39.0%. At 2 wind, or at 1 damage, the bot never lays it (0 of
+400) - there is no price between "never" and "too strong", the same shape as Keep your base. Left off; the critics'
+row K6 is right on paper and breaks the pairing when played.
+
+NOT built: G1-G3 (the collar tie or the body lock as a choice, the trip off the body lock), the Sprawl and Up-kick
+cards' stronger versions, the walked bout 9c as a test, posture in the page's place words, Kalli's three measures.

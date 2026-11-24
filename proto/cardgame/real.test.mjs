@@ -114,7 +114,9 @@ test('the walked bout of audit section 7, replayed turn by turn: both men place 
   assert.equal(S.j.kind, 'entangled', 'turn 9: the tie became the pull: pair 5, the guard');
   // 9b. a ground punch from inside the guard is HALF damage (the memo's weak punch from the guard)
   const hp0 = S.f[1].hp;
-  has(0, 'cross'); wind(0); turn(S, 0, null, ['cross']); doAnswer(S, 1, null);
+  // 9b C1-C3 (slice 2): the pull left him bent over - he must posture up before he can punch
+  assert.equal(S.post, 0, 'turn 9: pulled down, his posture is broken');
+  has(0, 'cross'); wind(0); turn(S, 0, null, ['@post', 'cross']); doAnswer(S, 1, null);
   assert.equal(hp0 - S.f[1].hp, Math.ceil(CARDS.cross.dmg / 2), 'turn 9: the ground punch in the guard is half of it');
   // 10-11. a triangle; the boxer answers Escape, then stands up in the guard
   has(1, 'triangle'); wind(1); turn(S, 1, null, ['triangle']);

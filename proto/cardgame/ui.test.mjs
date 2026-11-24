@@ -361,3 +361,12 @@ test('the first bout is not lost by a knockout before the coach\'s last line', (
   assert.equal(boxerKo, 0, 'the boxer is never knocked out by the other art\'s novice');
   assert.equal(bjjKoRound1, 0, 'the BJJ player is not knocked out in round one');
 });
+
+test('S549: a card in hand prints the price paid NOW (a punch behind a punch is 1 less), with the card\'s own beside it', async () => {
+  const { pricedNow, cardText } = await import('./ui-text.mjs');
+  const { CARDS } = await import('./cards.mjs');
+  const t = cardText('upper'), w = CARDS.upper.w;
+  assert.equal(pricedNow(t, w, w), t, 'same price: the line as printed');
+  const d = pricedNow(t, w - 1, w);
+  assert.ok(d.startsWith(`${w - 1} wind now (${w} on the card)`), d);
+});

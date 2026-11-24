@@ -3885,6 +3885,37 @@
       "at": "2026-11-24T01:21:54Z",
       "seen_by_claude": true,
       "addressed": "cited by c4eed6c52 2026-11-24"
+    },
+    {
+      "path": "_sent/2026-11-24_0651_body_hook_in_the_3d_fight_the_hit_boxer_/bodyreact2_before_after_m.mp4",
+      "text": "nice",
+      "at": "2026-11-24T10:21:21Z",
+      "seen_by_claude": true,
+      "at_s": 8.3,
+      "id": "C504"
+    },
+    {
+      "path": "_sent/2026-11-24_0651_body_hook_in_the_3d_fight_the_hit_boxer_/bodyreact2_before_after_m_close.mp4",
+      "text": "this is wrong , there isno punching on this clip",
+      "at": "2026-11-24T10:21:54Z",
+      "seen_by_claude": true,
+      "at_s": 14.3,
+      "id": "C505"
+    },
+    {
+      "path": "_sent/2026-11-24_0651_body_hook_in_the_3d_fight_the_hit_boxer_/bodyreact2_before_after_w.mp4",
+      "text": "nice",
+      "at": "2026-11-24T10:22:09Z",
+      "seen_by_claude": true,
+      "at_s": 14.4,
+      "id": "C506"
+    },
+    {
+      "path": "_sent/2026-11-24_0632_the_staff_screen_as_cards_s547_build_you/jump_club4_go_gym1_real.png",
+      "text": "better",
+      "at": "2026-11-24T10:23:07Z",
+      "seen_by_claude": true,
+      "id": "C507"
     }
   ]
 }

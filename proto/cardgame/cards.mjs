@@ -20,6 +20,12 @@ export const N = {
   //    turn with no punch: 69.3% (gate 40-60). A sweep is the jiu-jitsu man's one way up from his back.
   //  - the no-card escape from a hold as it is laid (escOn): OFF - holds laid fall from 0.28 a bout to 0.
   baseOn: 1, baseSweep: 0, escOn: 0,
+  // SLICE 2 (S549, audit 9a C2, B4), FIRST GUESSES: Posture up 1 wind; Hold the legs 2 wind, at most legsMax turns running
+  postW: 1, holdW: 2, legsMax: 2,
+  // SLICE 3 (audit 9a F1), FIRST GUESS: the jiu-jitsu fighter's punch from on top, 1 wind for 2 damage.
+  // S549 MEASURED (400 bot bouts): OFF. On, he lays it 496 times and boxing wins 36.0% (42 stoppages; gate 40-60); with
+  // the punches kept out of the stoppage count (topTko 0) 39.0%; at 2 wind or 1 damage the bot never lays it (0).
+  topW: 1, topDmg: 2, topOn: 0, topTko: 0,
 };
 // limbs: a lead arm, A rear arm, l lead leg, L rear leg, h hips; x any arm, y any leg
 const K = ['K'], P = ['P'], C = ['C'], PC = ['P', 'C'], KP = ['K', 'P'], KPC = ['K', 'P', 'C'];
@@ -122,6 +128,9 @@ export const MOVE = {
   '@base': { n: 'Keep your base', ends: 0, ans: 1, real: '9a B1 Keep your base: the pull or the sweep fails' },
   '@escape': { n: 'Fight the hold', ends: 0, ans: 1, real: '9a B2 Escape a hold as it is laid: the holder stays where he is' },
   '@kick': { n: 'Up-kick', ends: 0, real: '9a B3 Up-kick from your back with no card' },
+  '@gnp': { n: 'Punch from on top', ends: 0, real: '9a F1 the jiu-jitsu fighter punches from on top: past the guard, 1 wind, half of a cross' },
+  '@post': { n: 'Posture up', ends: 0, real: '9a C2 Posture up: he gives an arm to post, the Triangle or the Armbar may answer it' },
+  '@hold': { n: 'Hold the legs', ends: 0, ans: 1, real: '9a B4 Hold the legs: the guard stays closed round the standing man; E3 no backing away that turn' },
   '@break': { n: 'Break free', ends: 0, real: '2a Break free (WRONG fixed: both stay down, the holder one layer back)' },
 };
 export const FLOOR = Object.fromEntries(Object.entries(MOVE).map(([k, m]) => [k, m.n]));

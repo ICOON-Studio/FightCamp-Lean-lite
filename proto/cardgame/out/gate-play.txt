@@ -5,7 +5,7 @@ PLAY GATE - plan section 7. the owner may open the build when every row is PASS
 2  a scripted player finishes a bout and a ladder step through   1 bout to a verdict (by ko); then verdict, training, the  PASS
    the page's own calls                                          next bout on the table                                    
 3  the printed numbers equal the engine's                        61 card lines, steps and previews checked; 0 mismatches   PASS
-4  D1: 22.5-45 decisions a bout, 95% under 52                    26.8 decisions; 95th percentile 41                        PASS
+4  D1: 22.5-45 decisions a bout, 95% under 52                    26.7 decisions; 95th percentile 41                        PASS
 5  every pairing inside 40-60                                    boxing v bjj: boxing 43.0 / bjj 57.0                      PASS
 6  no crash in 1,000 bot bouts                                   1000 of 1000 clean                                        PASS
 PLAY GATE: PASS (6/6)

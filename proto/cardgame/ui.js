@@ -3,7 +3,7 @@ import { CARDS, N, fighter, STYLES } from './cards.mjs';
 import { newBout, beginTurn, answerOptions, doAnswer, startAct, declare, endAct, canAct, placeKey, cost, canPay, legalNow } from './engine.mjs';
 import { aiPilot, actions } from './plan.mjs';
 import { freshCareer, RUNGS, TITLE_SHOT, CUT_AT_LOSSES, TRAINING, train, resultCareer, playerFighter, rivalFighter, rivalPilot, takesTitle } from './career.mjs';
-import { esc, names, cardText, card, previewTraining, placePicture, answerTable, howtoLines, whereEachIs, moveName } from './ui-text.mjs';
+import { esc, names, cardText, card, pricedNow, previewTraining, placePicture, answerTable, howtoLines, whereEachIs, moveName } from './ui-text.mjs';
 import { GUIDE, guideLines, nextGuideLine } from './guide.mjs';
 import { newLog, logEntry, stopAt, playLogText } from './playlog.mjs';
 
@@ -205,7 +205,7 @@ export function renderFight(answerOpts) {
   const floorActions = playable.filter((id) => id.startsWith('@')).map((id) => `<button class="btn" data-floor="${id}">${esc(floorNames[id] || id)} · ${cost(S, 0, id)[0]} wind</button>`).join('');
   const body = answering
     ? `<section${aimed(due, 'volleysheet', 'sheet')} id="volleysheet">${answerTable(S, options)}</section>`
-    : `<section class="sheet"><h2>Choose a card or end your turn</h2><div${aimed(due, 'hand', 'hand')} id="hand">${shown.hand.map((id, i) => `<button data-card="${i}" ${!playable.includes(id) ? 'disabled' : ''}>${card(id)}<small>${playable.includes(id) ? `Preview · ${esc(cardText(id))}` : esc(whyDead(S, shown, id))}</small></button>`).join('')}</div><div class="row">${floorActions}</div><div class="row"><button class="btn primary" id="endTurn">End turn</button><span class="muted">Cards resolve exactly as previewed unless an answer stops them.</span></div></section>`;
+    : `<section class="sheet"><h2>Choose a card or end your turn</h2><div${aimed(due, 'hand', 'hand')} id="hand">${shown.hand.map((id, i) => `<button data-card="${i}" ${!playable.includes(id) ? 'disabled' : ''}>${pricedNow(card(id), cost(S, 0, id)[0], CARDS[id].w)}<small>${playable.includes(id) ? `Preview · ${esc(pricedNow(cardText(id), cost(S, 0, id)[0], CARDS[id].w))}` : esc(whyDead(S, shown, id))}</small></button>`).join('')}</div><div class="row">${floorActions}</div><div class="row"><button class="btn primary" id="endTurn">End turn</button><span class="muted">Cards resolve exactly as previewed unless an answer stops them.</span></div></section>`;
   const html = `${rungBar()}<div${aimed(due, 'score', 'scorestrip')} id="score"><b>${esc(me.name)} · ${state.career.style}</b><span>HP ${me.hp}/${N.hp}</span><span>Points ${me.pts}</span><span${aimed(due, 'wind', 'stat')} id="wind">Wind ${me.wind}/${N.cap}</span><span${aimed(due, 'rounds', 'stat')} id="rounds">Round ${state.round + 1}/${N.rounds} · turn ${Math.min(state.turn + 1, N.turns)}/${N.turns}</span>${whereEachIs(S, due && due.target === 'range' ? 'coach-target' : '')}<span class="spacer"></span><b>${esc(foe.name)} · ${foe.style}</b><span>HP ${foe.hp}</span><span>Points ${foe.pts}</span><span>Wind ${foe.wind}</span><button class="btn" id="howto">How to play</button></div>${body}<div class="sheet"><b>Fight log</b>${state.logs.map((x) => `<small>${esc(x)}</small>`).join('')}</div>`;
   paint(html, due, () => {
     howtoButton();

@@ -23,7 +23,7 @@
    },
    {
     "bar": "D1: 22.5-45 decisions a bout, 95% under 52",
-    "measured": "26.8 decisions; 95th percentile 41",
+    "measured": "26.7 decisions; 95th percentile 41",
     "pass": true
    },
    {

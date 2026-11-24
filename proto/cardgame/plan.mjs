@@ -95,11 +95,22 @@ function escChance(S, m) {
   return V.disc.includes('escape') ? 0 : Math.min(1, V.hand.length / Math.max(1, V.list.length - V.disc.length));
 }
 const dz = (hp) => 60 / (Math.max(hp, 0) + 6);
+// SLICE 2 (S549): a place is worth what he can DO there NOW. Read off the place alone, the boxer's bot never stood up
+// in the guard and never sat up to punch (0 and 1 times in 400 bouts), and the jiu-jitsu bot never paid to keep his
+// guard closed: bent over in the guard his punches are dead (C3); from inside it they are half, standing in it whole
+// (E1); under an OPEN guard the holds and the sweep are dead cards (they name the closed or the half guard).
+export const PF = { bent: 0.25, inGuard: 0.6, open: 0.35, half: 0.7 };
+const placeFit = (S, k) => {
+  const key = placeKey(S, k), f = fit(S.f[k], key);
+  if (key === 'gt') return f * (S.post === k ? PF.bent : S.f[k].style === 'boxing' ? PF.inGuard : 1);
+  if (key === 'gb') return f * (S.j.g === 'open' ? PF.open : S.j.g === 'half' ? PF.half : 1);
+  return f;
+};
 export function value(S, m, W = W0) {
   if (S.over) return S.over.win === m ? 1e4 : -1e4;
   const M = S.f[m], H = S.f[1 - m], ld = M.pts - H.pts;
   let v = W.hp * (M.hp - H.hp) + W.ko * (dz(H.hp) - dz(M.hp)) + W.pts * ld + W.lead * (Math.max(0, ld - 4) ** 2 - Math.max(0, -ld - 4) ** 2)
-    + (S.hold ? 0 : (S.at[m] !== 'stand' || S.at[1 - m] !== 'stand' ? W.pos : W.posS) * (fit(M, placeKey(S, m)) - fit(H, placeKey(S, 1 - m)))) + W.wind * (N.mode === 'limb' ? 0 : M.wind - H.wind) + W.drain * (H.drain - M.drain);
+    + (S.hold ? 0 : (S.at[m] !== 'stand' || S.at[1 - m] !== 'stand' ? W.pos : W.posS) * (placeFit(S, m) - placeFit(S, 1 - m))) + W.wind * (N.mode === 'limb' ? 0 : M.wind - H.wind) + W.drain * (H.drain - M.drain);
   if (S.hold) {
     const h = S.hold, o = outlook(S), e = escChance(S, m);
     v += (h.by === m ? 1 : -1) * ((1 - e) * ((o.fin ? (h.kind === 'sub' ? W.sub : W.pin) : W.wind * o.price) + W.pts * o.pts + W.held * o.turns) + e * (W.wind * CARDS.escape.w + W.pts * h.tick + W.held));
@@ -129,7 +140,7 @@ function evalVolley(C, m, his, W) {
   for (const t of his) for (let i = 0; i < C.inc.length; i++) if (ansFits(C, m, t.id, C.inc[i])) e = Math.min(e, U + t.p * (base({ id: t.id, i }) - U));
   return e;
 }
-export const MOVES = ['@in', '@out', '@stand', '@back', '@up', '@pull', '@kick'];
+export const MOVES = ['@in', '@out', '@stand', '@back', '@up', '@pull', '@kick', '@post', '@gnp'];
 export function actions(C, m) {
   const M = C.f[m], out = [];
   if (C.pj.ended) return out; // the move he laid ended his volley: nothing more this turn

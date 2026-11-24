@@ -5292,7 +5292,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-24 13:41 board_sync",
+  "updated": "2026-11-24 14:11 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5445,14 +5445,14 @@
   },
   "working_now": [
    {
-    "title": "Card game round 9b: slice 1 on main (Frame, knockdown, stoppage, up-kick with no card; gate 6/6, boxing 43 / jiu-jitsu 57). Keep your base is built and OFF: it makes boxing win 99.5% - your call on its shape",
+    "title": "Card game round 9b: slice 1 on main (Frame, knockdown, stoppage, up-kick with no card, Keep your base against a pull in its weaker shape; gate 6/6, boxing 43 / jiu-jitsu 57). Slices 2-3 not built",
     "who": "Claude (this session, on main; owner S548: do 9b yourself)",
     "started": "2026-11-24T13:25",
     "run": "CARDROUND9B",
     "state": "waiting"
    },
    {
-    "title": "Make the written fight plan matter (your 'make it more impactful'): three ways measured in real bouts (resumed after the restart; ends about 18:00)",
+    "title": "Make the written fight plan matter (your Q-328 'make it more impactful'): three ways measured in real bouts before any design",
     "who": "claude-opus-5-5 (console tab PLANIMPACT1 resumed, tab c3 of the S548 session)",
     "started": "2026-11-24T14:05",
     "run": "PLANIMPACT1"
@@ -6043,64 +6043,6 @@
   "map": {
    "done_earlier": [
     {
-     "text": "Signing card in the game",
-     "who": "claude"
-    },
-    {
-     "text": "CONTINUE says what it does",
-     "who": "claude"
-    },
-    {
-     "text": "Body cross 3: in, your eye",
-     "who": "claude"
-    },
-    {
-     "text": "Corner cmds 2 FAIL: Q-330",
-     "who": "claude"
-    },
-    {
-     "text": "Nightly: 4 old reds, 25 fixed",
-     "who": "claude"
-    },
-    {
-     "text": "Offer page: chin no longer cut",
-     "who": "claude"
-    },
-    {
-     "text": "Staff screen as cards: in build",
-     "who": "claude"
-    },
-    {
-     "text": "Coaches v9: 6 of 7 after the cut",
-     "who": "agent"
-    },
-    {
-     "text": "Fights: Ask on every boxer",
-     "who": "claude"
-    },
-    {
-     "text": "Confidence builds as an amateur",
-     "who": "claude"
-    },
-    {
-     "text": "Staff/Finance/Records in office",
-     "who": "claude"
-    },
-    {
-     "text": "One word: the gym",
-     "who": "claude"
-    },
-    {
-     "text": "Show promise: real price",
-     "who": "claude"
-    },
-    {
-     "text": "Fights inside office computer",
-     "who": "claude"
-    }
-   ],
-   "done_session": [
-    {
      "text": "Body hook bends him: collected",
      "who": "claude"
     },
@@ -6134,6 +6076,40 @@
     },
     {
      "text": "PC lag: found, restarted",
+     "who": "claude"
+    },
+    {
+     "text": "Signing card in the game",
+     "who": "claude"
+    },
+    {
+     "text": "CONTINUE says what it does",
+     "who": "claude"
+    },
+    {
+     "text": "Body cross 3: in, your eye",
+     "who": "claude"
+    },
+    {
+     "text": "Corner cmds 2 FAIL: Q-330",
+     "who": "claude"
+    },
+    {
+     "text": "Nightly: 4 old reds, 25 fixed",
+     "who": "claude"
+    }
+   ],
+   "done_session": [
+    {
+     "text": "Card 9b slice 2 on main",
+     "who": "claude"
+    },
+    {
+     "text": "Card price shown as paid now",
+     "who": "claude"
+    },
+    {
+     "text": "Close body hook note -> brief",
      "who": "claude"
     }
    ],
@@ -6256,6 +6232,10 @@
     },
     {
      "text": "Scouting bots probe",
+     "who": "claude"
+    },
+    {
+     "text": "Plan impact probe: collect ~18:00",
      "who": "claude"
     }
    ],
@@ -6607,9 +6587,13 @@
     {
      "text": "Body cross in 3D (BODYCROSS4)",
      "who": "claude"
+    },
+    {
+     "text": "Card: Frame price ends the pull",
+     "who": "claude"
     }
    ],
-   "session": "S548"
+   "session": "S549"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
