@@ -6,7 +6,7 @@ export const N = {
   rounds: 3, leads: 3, hand: 5, volley: 3,
   cap: 6, rec: 3, capMin: 2, rest: 2,          // wind: the pool, back each exchange, the floor body work can push it to
   blockOff: 2, counterPlus: 0, slipPlus: 2, slipTired: 1, tiredAt: 4, clinchW: 1,
-  kdAt: 7, kdTo: 6, bellDaze: 1, fade: 1, koCap: 3, kdRound: 2, kdBout: 3, kdCap: 0,
+  kdAt: 7, kdTo: 6, bellDaze: 1, fade: 1, corner: 0, keep: 2, planBody: 1, planCounter: 2, koCap: 3, kdRound: 2, kdBout: 3, kdCap: 0,   // corner 1 = water / ice / advice; corner 2 = a PLAN for the next round: body / counter / box
 };
 // k: punch | feint | ans. w wind, d daze (head) or cap (body), s the judges' points for a clean one
 export const CARDS = {
@@ -36,7 +36,7 @@ export function newBout(seed, first = 0) {
 export function draw(S, k) { const m = S.f[k]; while (m.hand.length < N.hand) { if (!m.deck.length) { m.deck = shuffle(m.pile, S.r); m.pile = []; if (!m.deck.length) break; } m.hand.push(m.deck.pop()); } }
 const spend = (m, ids) => { for (const id of ids) { const i = m.hand.indexOf(id); if (i < 0) throw new Error('not in hand: ' + id); m.hand.splice(i, 1); m.pile.push(id); } };
 export const slipCost = (m) => CARDS.slip.w + (m.cap <= N.tiredAt ? N.slipTired : 0);
-export const volleyCost = (v) => v.reduce((s, id) => s + CARDS[id].w, 0);
+export const volleyCost = (v, m) => v.reduce((s, id) => s + CARDS[id].w - (m && m.plan === 'body' && id === 'body' ? N.planBody : 0), 0);
 
 // the answers a man may lay to a volley: {id, at?} - slip names the punch it makes miss; a counter is a cross or hook
 export function answers(S, d, volley) {
@@ -55,13 +55,13 @@ export function answers(S, d, volley) {
 // one exchange, on a copy-free state: returns the lines of what happened. a leads, d answers.
 export function resolve(S, a, volley, ans) {
   const A = S.f[a], D = S.f[d_of(a)], ev = [], d = d_of(a);
-  spend(A, volley); A.wind -= volleyCost(volley); A.thrown += volley.filter((x) => CARDS[x].k === 'punch').length;
+  spend(A, volley); A.wind -= volleyCost(volley, A); A.thrown += volley.filter((x) => CARDS[x].k === 'punch').length;
   if (volley.length) A.ropes = 0;                       // a man who leads has come off the ropes
   if (!volley.length) { A.wind = Math.min(A.cap, A.wind + N.rest); ev.push({ t: 'rest', k: a }); D.held = 0; return ev; }
   const id = ans.id;
   if (id) { spend(D, [id]); D.wind -= id === 'slip' ? slipCost(D) : id === 'clinch' ? N.clinchW : CARDS[id].w; }
   if (id === 'clinch') A.wind = Math.max(0, A.wind - N.clinchW);
-  D.held = id === 'clinch' ? 1 : 0; if (id === 'step') D.ropes = 1;
+  D.held = id === 'clinch' ? 1 : 0; if (id === 'step' && D.plan !== 'box') D.ropes = 1;
   const land = (who, to, pid, plus = 0, off = 0) => {    // a punch reaches `to`
     const c = CARDS[pid], M = S.f[to];
     if (c.zone === 'body') { M.cap = Math.max(N.capMin, M.cap - c.d); M.wind = Math.min(M.wind, M.cap); S.f[who].pts += c.s; ev.push({ t: 'body', k: who, id: pid }); return 0; }
@@ -76,14 +76,14 @@ export function resolve(S, a, volley, ans) {
     const pid = volley[i], c = CARDS[pid];
     if (c.k === 'feint') { ev.push({ t: 'feint', k: a }); if (id === 'clinch' && i === 0) { ev.push({ t: 'clinch', k: d }); break; } continue; }
     if (ans.counter && i === 0) {                         // he takes the first punch and fires back; the volley ends there
-      const down = land(a, d, pid, bonus); bonus = 0;
-      if (!down && !S.over) land(d, a, id, N.counterPlus), ev.push({ t: 'countered', k: d });
+      const down = land(a, d, pid, c.power ? bonus : 0); if (c.power) bonus = 0;
+      if (!down && !S.over) land(d, a, id, N.counterPlus + (D.plan === 'counter' ? N.planCounter : 0)), ev.push({ t: 'countered', k: d });
       break;
     }
-    if (id === 'slip' && ans.at === i) { ev.push({ t: 'slipped', k: d, id: pid }); D.ready = 1; bonus = 0; continue; }
-    if (id === 'step' && !c.long) { ev.push({ t: 'short', k: a, id: pid }); bonus = 0; continue; }
+    if (id === 'slip' && ans.at === i) { ev.push({ t: 'slipped', k: d, id: pid }); D.ready = 1; if (c.power) bonus = 0; continue; }
+    if (id === 'step' && !c.long) { ev.push({ t: 'short', k: a, id: pid }); if (c.power) bonus = 0; continue; }
     const off = id === 'block' && c.zone === 'head' && !c.unblock ? N.blockOff : 0;
-    const down = land(a, d, pid, bonus, off); bonus = 0;
+    const down = land(a, d, pid, c.power ? bonus : 0, off); if (c.power) bonus = 0;
     if (down || S.over) break;
     if (id === 'clinch') { ev.push({ t: 'clinch', k: d }); break; }
   }
@@ -98,11 +98,18 @@ function knock(S, k, ev) {
   return 1;
 }
 // the bell: the round goes 10-9 to the man with more clean points (10-10 level), each knockdown took a point already
-export function bell(S) {
+// the corner's minute (N.corner): each man takes ONE of water (his wind bar 1 longer again, never past the full bar),
+// ice (his head clear: daze 0) or advice (he keeps up to N.keep cards of his hand; the rest is a fresh hand)
+export function bell(S, picks = []) {
   const [x, y] = S.f, lvl = x.pts === y.pts, w = lvl ? (x.thrown === y.thrown ? -1 : x.thrown > y.thrown ? 0 : 1) : x.pts > y.pts ? 0 : 1;   // level on clean punches: the busier man
   const sc = [10 + x.card - (w === 1 ? 1 : 0), 10 + y.card - (w === 0 ? 1 : 0)];
   S.cards.push(sc);
-  for (const m of S.f) { m.total += m.pts; m.pts = 0; m.card = 0; m.kdsRound = 0; m.daze = Math.max(0, m.daze - N.bellDaze); m.wind = m.cap; m.held = 0; m.ropes = 0; m.skip = 0; m.ready = 0; m.thrown = 0; m.hurt = 0; m.pile.push(...m.hand); m.hand = []; }   // the corner: a fresh hand
+  for (const m of S.f) { m.total += m.pts; m.pts = 0; m.card = 0; m.kdsRound = 0; m.daze = Math.max(0, m.daze - N.bellDaze); m.wind = m.cap; m.held = 0; m.ropes = 0; m.skip = 0; m.ready = 0; m.thrown = 0; m.hurt = 0; const pk = picks[S.f.indexOf(m)] || {}; m.corner = pk.id || null; m.plan = ['body', 'counter', 'box'].includes(pk.id) ? pk.id : null;
+    if (pk.id === 'water') { m.cap = Math.min(N.cap, m.cap + 1); m.wind = m.cap; }
+    if (pk.id === 'ice') m.daze = 0;
+    const keep = pk.id === 'advice' ? (pk.keep || []).slice(0, N.keep).filter((id) => m.hand.includes(id)) : [];
+    const rest = [...m.hand]; for (const id of keep) rest.splice(rest.indexOf(id), 1);
+    m.pile.push(...rest); m.hand = keep; }   // the corner: a fresh hand
   return sc;
 }
 export function verdict(S) {
@@ -126,7 +133,7 @@ export function bout(pilots, seed, o = {}) {
       const before = o.onEx ? snap(S) : null, ev = resolve(S, a, volley, ans);
       o.onEx?.(S, a, volley, ans, ev, before, legal);
     }
-    if (!S.over) { const sc = bell(S); o.onBell?.(S, sc); }
+    if (!S.over) { const picks = N.corner && S.round < N.rounds ? [0, 1].map((k) => pilots[k].corner?.(S, k) || {}) : []; const sc = bell(S, picks); o.onBell?.(S, sc, picks); }
   }
   return { S, ...(S.over || verdict(S)) };
 }

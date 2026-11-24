@@ -3,7 +3,7 @@
 import { N, CARDS, DECK, bout } from './rules.mjs';
 import { reader, slugger, W } from './bot.mjs';
 const arg = { n: 400, walk: 0, seed: 0, pilots: 'reader,reader', quiet: 0 };
-for (const kv of process.argv.slice(2)) { const [k, v] = kv.split('='); if (k in arg) arg[k] = isNaN(+v) ? v : +v; else if (k.startsWith('W.')) W[k.slice(2)] = +v; else if (k.startsWith('D.')) DECK[k.slice(2)] = +v; else if (k.includes('.')) { const [c, f] = k.split('.'); CARDS[c][f] = +v; } else N[k] = +v; }
+for (const kv of process.argv.slice(2)) { const [k, v] = kv.split('='); if (k in arg) arg[k] = isNaN(+v) ? v : +v; else if (k.startsWith('W.')) W[k.slice(2)] = +v; else if (k.startsWith('D.')) DECK[k.slice(2)] = +v; else if (k.includes('.')) { const [c, f] = k.split('.'); CARDS[c][f] = +v; } else N[k] = isNaN(+v) ? v : +v; }
 const mk = { reader, slugger }, names = arg.pilots.split(',');
 const nm = (id) => CARDS[id].n, who = ['A', 'B'];
 const say = (e) => ({ rest: `${who[e.k]} takes a breath`, feint: `${who[e.k]} feints`, drawn: `${who[e.k]} bites on the feint: his ${e.id && nm(e.id)} hits air`,
@@ -24,10 +24,10 @@ if (arg.walk) {
   console.log(`RESULT: ${b.win < 0 ? 'a draw' : who[b.win] + ' wins'} by ${b.how}${b.t ? ' ' + b.t.join('-') : ''}`);
   process.exit(0);
 }
-const r = { first: 0, seat0: 0, draws: 0, how: {}, laid: {}, legalIn: {}, laidIn: {}, ans: {}, dec: 0, kds: 0, kdBouts: 0, combo: 0, comboBouts: 0, ex: 0, empty: 0, size: [0, 0, 0, 0], wide: 0, wideRounds: 0, rounds: 0, capEnd: 0, bodyKO: 0, open: {} };
+const r = { first: 0, seat0: 0, draws: 0, how: {}, laid: {}, legalIn: {}, laidIn: {}, ans: {}, dec: 0, kds: 0, kdBouts: 0, combo: 0, comboBouts: 0, ex: 0, empty: 0, size: [0, 0, 0, 0], wide: 0, wideRounds: 0, rounds: 0, capEnd: 0, bodyKO: 0, open: {}, corner: {}, plan: {} };
 const ids = Object.keys(CARDS);
 for (let i = 0; i < arg.n; i++) {
-  const first = i % 2, seen = {}, used = {}; let kd = 0, combo = 0;
+  const first = i % 2, seen = {}, used = {}; let kd = 0, combo = 0, plans = null;
   const b = bout([mk[names[0]](), mk[names[1]]()], 77000001 + 7919 * i + arg.seed, { first,
     onEx(S, a, v, ans, ev, before, legal) {
       if (!v) return; r.ex++; r.dec += v.length || legal.length > 1 ? 2 : 1; if (!v.length) r.empty++; r.size[v.length]++;
@@ -38,7 +38,9 @@ for (let i = 0; i < arg.n; i++) {
       let landed = 0; for (const e of ev) { if ((e.t === 'clean' || e.t === 'body') && e.k === a) landed++; if (e.t === 'knockdown') kd++; }
       if (landed >= 2) combo++;
     },
-    onBell(S, sc) { r.rounds++; if (Math.abs(sc[0] - sc[1]) >= 2) r.wideRounds++; } });
+    onBell(S, sc, picks) { r.rounds++; if (Math.abs(sc[0] - sc[1]) >= 2) r.wideRounds++; for (const pk of picks || []) if (pk.id) r.corner[pk.id] = (r.corner[pk.id] || 0) + 1;
+      if (plans) for (const k of [0, 1]) if (plans[k].id) { const key = plans[k].id + ' v ' + plans[1 - k].id; r.plan[key] = r.plan[key] || [0, 0]; r.plan[key][0]++; r.plan[key][1] += sc[k] > sc[1 - k] ? 1 : sc[k] === sc[1 - k] ? 0.5 : 0; }
+      plans = picks && picks.length ? picks : null; } });
   for (const id of ids) { if (seen[id]) r.legalIn[id] = (r.legalIn[id] || 0) + 1; if (used[id]) r.laidIn[id] = (r.laidIn[id] || 0) + 1; }
   if (used.counter) r.laidIn.counter = (r.laidIn.counter || 0) + 1;
   r.first += b.win === first ? 1 : b.win < 0 ? 0.5 : 0; r.seat0 += b.win === 0 ? 1 : b.win < 0 ? 0.5 : 0; r.draws += b.win < 0;
@@ -63,5 +65,7 @@ console.log('laid a bout', JSON.stringify(Object.fromEntries(Object.entries(r.la
 console.log('answers', JSON.stringify(Object.fromEntries(Object.entries(r.ans).sort((a, b) => b[1] - a[1]).map(([k, v]) => [k, pc(v, r.ex - r.empty)]))));
 console.log('bouts a card was used in, of the bouts it was held', JSON.stringify(Object.fromEntries(ids.map((id) => [nm(id), pc(r.laidIn[id] || 0, r.legalIn[id] || 1)]))), '| counter', pc(r.laidIn.counter || 0, n));
 console.log('a volley opens with (share, points it scored, daze it cost the leader)', JSON.stringify(Object.fromEntries(Object.entries(r.open).map(([k, v]) => [k, [pc(v.n, r.ex - r.empty), +(v.pts / v.n).toFixed(2), +(v.hurt / v.n).toFixed(2)]]))));
+if (N.corner) console.log('the corner picks', JSON.stringify(r.corner));
+if (N.corner === 2) console.log('a plan against a plan: rounds, share of them won', JSON.stringify(Object.fromEntries(Object.entries(r.plan).sort().map(([k, v]) => [k, [v[0], pc(v[1], v[0])]]))));
 let pass = 0; for (const [what, v, lo, hi] of bars) { const ok = v >= lo && v <= hi; pass += ok; console.log(ok ? 'PASS' : 'FAIL', what, '->', v <= 1 && hi <= 1 && what.includes('%') ? pc(v, 1) : (+v).toFixed(1), never.length && what.startsWith('every') ? never.map(nm).join(', ') : ''); }
 console.log(`BARS ${pass} of ${bars.length}`);

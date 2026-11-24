@@ -1,5 +1,10 @@
 # BOXCARDS1 - boxer v boxer as a card game, on paper and measured (S550)
 
+**VERDICT (Arena, code-checked, `BOXCARDS1_CRITIC_ARENA.md`): real bout 5, depth 6, play 6 - FAILS the bar of 8.** Its main
+finding: the answerer sees the whole volley before he answers ("clairvoyance"), so one block or one step back covers a
+whole combination. No blind bot beats the reading bot more than 54%. This page stays as the record of version 1;
+version 2 (the volley turned over one punch at a time) is `DESIGN_BOXCARDS2.md`.
+
 Phase 2 of `CARDBOX_SCOPE_S549.md` (owner Q-332 "Yes, go"). Owner S549: "the real test should be a boxer vs boxer ,
 donot mix classes untill all arts cards are ingame". This page is the rules, one walked bout, and the bot numbers of a
 small greybox (`proto/boxcards/`, 272 lines, 12 tests). There is no page to play yet: that is phase 3, after critics.
@@ -36,7 +41,7 @@ punches - that is what a combination is. The game is which answer he holds, and 
 | Uppercut | 2 | 3 | daze 4, 2 points | goes through a block |
 | Feint | 2 | 1 | nothing itself | the punch behind it cannot be slipped; a volley that opens on it cannot be countered |
 | Block | 3 | 1 | 2 off every head punch of the volley; a blocked punch does not score | not the uppercut, not the body |
-| Slip | 3 | 1 (2 when his wind bar is 4 or less) | ONE punch he names misses; his next lead hits 2 harder | not the punch behind a feint |
+| Slip | 3 | 1 (2 when his wind bar is 4 or less) | ONE punch he names misses; the first power punch of his next lead hits 2 harder | not the punch behind a feint |
 | Step back | 2 | 1 | every punch but the jab falls short | then he is on the ropes: no second step back until he has led |
 | Clinch | 2 | 1, and 1 from the leader | the first card of the volley happens, the rest is smothered | not twice running |
 | Counter (a Cross or Lead hook from the hand) | - | 2 | he takes the first punch, his punch lands clean, the volley ends | only when a power punch or body hook LEADS the volley |
@@ -64,8 +69,8 @@ At the bell the man with more clean points takes the round 10-9. Level: the man 
 ## Measured: 400 bot bouts (`node proto/boxcards/probe.mjs`)
 | What | Old game, boxer v boxer | BOXCARDS1 | Bar (scope phase 3) |
 |---|---|---|---|
-| Goes to the cards | 0% (400 of 400 knockouts) | 83.3% | 40-70% - MISS |
-| The man who leads first wins | 30.5% | 54.6% | 45-55% |
+| Goes to the cards | 0% (400 of 400 knockouts) | 83.5% | 40-70% - MISS |
+| The man who leads first wins | 30.5% | 53.6% | 45-55% |
 | A combination (2+ punches of one volley land) | 0.02 a bout | in 90% of bouts, 1.74 a bout | most bouts |
 | Decisions a bout, both men | 67.9 | 32.2 | 22-45 |
 | Empty leads | - | 9.3% | under 10% |
@@ -77,7 +82,7 @@ At the bell the man with more clean points takes the round 10-9. Level: the man 
 | The reading bot v the biggest-volley bot | - | wins 91.6% | skill must show |
 
 5 of 6 bars. The miss: 83% of bouts go to the cards against a bar of 40-70. That bar was Claude's (S549), written with
-twelve-round bouts in mind. With the knockdown line at 6 instead of 7 it is 79% and half of all bouts have a knockdown,
+twelve-round bouts in mind. With the knockdown line at 6 instead of 7 it is 77% and 55% of all bouts have a knockdown (Arena's rerun; my 79% was from an earlier build),
 which is too many for three rounds. Not tuned further: this is a question for the critics and for him (below).
 
 Weak spots the numbers show: a volley almost never OPENS with the body hook (0.9%: it costs the leader 1.03 daze in
@@ -120,8 +125,22 @@ Round 3. B must win it big.
 | The hand | what each card costs now (a slip is dearer when tired) and which answers the shown volley allows | `answers`, `slipCost` |
 | The ladder page | unchanged for now (training and rungs stay; only boxing playable) | - |
 
+## The corner's minute: one version measured, switched OFF (`corner=1`)
+At the bell each man takes one of: water (his wind bar 1 longer again), ice (his head clear), advice (he keeps two
+cards of his hand). The bot takes ice 47%, water 27%, advice 26% - all three are used. But the two that heal undo the
+other man's work: bouts to the cards rise from 83% to 90%, knockdowns fall from 0.60 to 0.41 a bout, the body knockout
+goes from 6 bouts to 1. Verdict: a corner that heals makes the bout quieter. The next version to try is a corner that
+changes the NEXT round (a plan), not one that repairs the last.
+
+That version too is measured and OFF (`corner=2`, plans dealt at random so each is judged fairly, 1,200 bouts): work
+the body (his body hooks cost 1), counter him (his counter hits 2 harder), box (a step back does not put him on the
+ropes). Every plan against every plan wins 49-51% of the next round: at these sizes a plan changes nothing. Doubled
+(body hooks free, counter 4 harder): counter beats body 55%, box still nothing, and empty leads rise to 14% (a counter
+plan scares the lead off). So neither corner is in. A corner worth a choice has to change WHAT HE MAY DO next round,
+not a number by one.
+
 ## Not in the greybox (named so nobody assumes it)
-The corner's minute as a choice (today: a fresh hand only), styles (out-boxer, pressure fighter: both men have the
+Styles (out-boxer, pressure fighter: both men have the
 same deck), a range track (step back and the ropes stand in for it), the referee's point for holding, cuts.
 
 ## Feedback loops

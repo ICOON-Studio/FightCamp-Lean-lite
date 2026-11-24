@@ -2,16 +2,6 @@
  "_doc": "Claude writes one entry per agent run at launch (operator S144: 'make it more clear, who is working on what, ETA'). The ops board /agents page joins it to the live processes. eta = Claude's estimate at launch, local time; status running|waiting|done.",
  "seats": 3,
  "runs": {
-  "CARDROUND9B": {
-   "id": "CARDROUND9B",
-   "status": "done",
-   "title": "Card round 9b slices 1-3 on main; STOPPED by your call: no more mixed boxing v jiu-jitsu work (CARDBOX_SCOPE_S549)",
-   "seat": "claude",
-   "agent": "Claude (this session, on main; owner S548: do 9b yourself)",
-   "eta": "slice 1 of 3 landed 406197a75; slices 2-3 (posture, the guard, top punches, the trip) next session",
-   "note": "S545: research/TASK_CARDROUND9B.md; Kalli 6/5/6, Dola 9/9/9 on the paper model",
-   "started": "2026-11-24T13:25"
-  },
   "MATCHBOTS2": {
    "id": "MATCHBOTS2",
    "status": "queued",
@@ -50,17 +40,6 @@
    "eta": "about 3-4 h once launched",
    "title": "The body cross is thrown in the 3D fight (the take is ready; the punch list never names it): films for your eye",
    "brief": "ops/research/TASK_BODYCROSS4.md"
-  },
-  "CARDBOX1": {
-   "id": "CARDBOX1",
-   "status": "done",
-   "seat": "arena",
-   "agent": "Arena (chat 01a20da7-2bc0-7576-abe2-df98869b061a)",
-   "started": "2026-11-24T15:03",
-   "eta": "about 1-2 h",
-   "branch": "arena/869b061a-fightcamp-lean-lite",
-   "title": "Arena's paper is in: three real boxing bouts and two ways to play a round as cards (proto/cardgame/CARDBOX1_BREAKDOWN.md). Both ways failed the real round - the defender sees the card; Claude writes boxer v boxer on paper next",
-   "brief": "ops/research/TASK_CARDBOX1.md"
   }
  },
  "codex_budget": {
@@ -344,5 +323,16 @@
   "status": "running",
   "issue": "https://arena.ai/agent/01a20362-68fd-7381-b745-5ef003088e4d",
   "eta": "Kalli at next 30-min reconcile; Arena ~30-60 min"
+ },
+ "BOXCARDS1_CRITIC": {
+  "id": "BOXCARDS1_CRITIC",
+  "status": "running",
+  "seat": "arena",
+  "agent": "Arena (chat 01a20db8, repo FightCamp-Lean-lite)",
+  "branch": "arena/04b68eed-fightcamp-lean-lite",
+  "started": "2026-11-24T15:22",
+  "eta": "about 30-45 min (its last paper took 25)",
+  "title": "Boxer v boxer card game: the code-checked critic (page against code, its own exploiting bots, sweeps) - depth and play out of 10",
+  "brief": "ops/research/TASK_BOXCARDS1_CRITIC_ARENA.md"
  }
 }

@@ -4,8 +4,21 @@
     {
       "name": "cardgame",
       "runtimeExecutable": "python",
-      "runtimeArgs": ["proto/cardgame/serve.py", "8799"],
+      "runtimeArgs": [
+        "proto/cardgame/serve.py",
+        "8799"
+      ],
       "port": 8799
+    },
+    {
+      "name": "boxcards",
+      "runtimeExecutable": "python",
+      "runtimeArgs": [
+        "proto/cardgame/serve.py",
+        "8798",
+        "boxcards"
+      ],
+      "port": 8798
     }
   ]
 }

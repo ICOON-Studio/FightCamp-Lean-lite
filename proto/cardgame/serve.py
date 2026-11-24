@@ -16,6 +16,7 @@ class NoCache(http.server.SimpleHTTPRequestHandler):
 
 
 if __name__ == "__main__":
-    os.chdir(os.path.dirname(os.path.abspath(__file__)))
+    here = os.path.dirname(os.path.abspath(__file__))
+    os.chdir(os.path.join(here, '..', sys.argv[2]) if len(sys.argv) > 2 else here)   # [port] [sibling folder, e.g. boxcards]
     port = int(sys.argv[1]) if len(sys.argv) > 1 else 8799
     http.server.ThreadingHTTPServer(("127.0.0.1", port), NoCache).serve_forever()
