@@ -436,4 +436,24 @@ The gym on Home has people in it: the club's fighters and members, working at eq
   needs you, the next four weeks (bouts, bills, dues), mail, the fighters with each one's flag, money 8 weeks ahead and the staff. Its other
   apps (Mail, Schedule, Fighters, Staff, Finance, Records) are AGREED, NOT BUILT; today they lead to the existing pages.
 
+## Added S548 (code check; where this and an older line above disagree, this wins)
+- The office computer hosts real windows now (scripts/ui/areas/Office.gd HOSTED): Fights, Staff, Finance and Log (the gym's history) open inside it, beside
+  Mail and the Desktop. The S451 line "AGREED, NOT BUILT" is out of date for those.
+- Staff is a window of CARDS (scripts/ui/StaffDesk.gd, StaffDeskCard.gd, S547): two rows, AT THE GYM and JOBS OPEN; a card is a face, a
+  name, the job in plain words, at most four facts and one button; details on hover. The staff are still today's: one coach with one
+  rating (Luke Reid 58 or Marcus Hale 74), the mat coach, four jobs. Coaches with eight ratings, traits and chemistry are DESIGN ONLY
+  (ops/research/DESIGN_COACHMAP1.md).
+- Signing a prospect is a scene (scripts/ui/ProspectScene.gd, S547): the prospect painted in the gym, three reads shown as ranges, a
+  rival gym's 7-day window, the trial by the day; Sign lands on the fighter's profile. Turning pro is a scene too (ProScene.gd).
+- A click that changes something lands on the page where the change lives; the page itself says "was -> now" and marks what is NEW.
+  No pop-up and no icon tiles for "what changed" (owner S545).
+- The bout card's win read prices a written plan the way the ring pays it since S547 (scripts/rules/PlanReadFit.gd): a style plan read
+  10.6 wins in 100 over its bout before, 0.6 after.
+- MEASURED, not yet acted on in the game: the best written plan is worth about +3 wins in 100 over no plan and +1.7 over the coach's
+  (docs/PLANWORTH1_RESULT.md); shouting the right corner call live is worth about +10 over a coach who reads the opponent's file
+  (docs/CORNERBASE1_RESULT.md); a coach's rating buys nothing in a simmed bout. The owner wants the written plan made "more impactful"
+  (S548); a probe is running. The corner's two ring calls (Cut the ring off, Stay off the ropes) were designed, measured at +0 and CUT
+  by the owner (S548) before they were built.
+- In the 3D fight a landed body hook bends the hit boxer on the blow (S547). The body cross is not thrown there yet.
+
 SANDBOX (S412): the player runs any gym with any boxers, men or women. Never write about one boxer as the story, and never a fixed he or she in text or mockups.

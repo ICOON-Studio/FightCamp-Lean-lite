@@ -16,7 +16,7 @@ const ProScene := preload("res://scripts/ui/ProScene.gd")
 
 const GYM := "res://assets/ui/art/gym_backdrop.jpg"
 const DAYS := 21
-const SPRITE := "res://assets/ui/art/hub_sprites/mh_boxer_01_%s.png"
+const SPRITE := "res://assets/ui/art/hub_sprites/%s_%s.png"   ## S548: the prospect's own body (was always mh_boxer_01, a man)
 const FRAME := 4   ## the hub sheets' frame shown on a question (mid-move)
 ## The four questions (K4): the picture, the button's name, what it narrows (one plain line), the hover.
 const QUESTIONS := {
@@ -186,7 +186,7 @@ static func _key(col: Color, words: String) -> Control:
 
 
 ## Tomorrow's question as a picture button: the boxer at the bag / in guard / stretching, the question's name, what it narrows.
-static func question(main: Node, pid: String, q: String, asked: int, on: bool) -> Button:
+static func question(main: Node, pid: String, q: String, asked: int, on: bool, stem: String = "mh_boxer_01") -> Button:
 	var info: Dictionary = QUESTIONS[q]
 	var b := Button.new()
 	b.name = "Q_" + q
@@ -206,9 +206,12 @@ static func question(main: Node, pid: String, q: String, asked: int, on: bool) -
 	pic.clip_contents = true
 	pic.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	pic.add_child(MenuFx.art(GYM))
-	var path := SPRITE % str(info["pic"])
+	var path := SPRITE % [stem, str(info["pic"])]
+	if not ResourceLoader.exists(path):
+		path = SPRITE % ["mh_boxer_01", str(info["pic"])]
 	if ResourceLoader.exists(path):   # a hub sprite sheet: 16 frames of 96 x 128 px; one frame of the move
 		var s := TextureRect.new()
+		s.name = "QPic"
 		s.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		s.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		var at := AtlasTexture.new()

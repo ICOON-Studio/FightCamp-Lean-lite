@@ -12,6 +12,7 @@ const ProspectWire := preload("res://scripts/state/ProspectWire.gd")
 const PC := preload("res://scripts/rules/ProspectClock.gd")
 const KR := preload("res://scripts/rules/KnowReads.gd")
 const Recruit := preload("res://scripts/rules/Recruit.gd")
+const Faces := preload("res://scripts/rules/Faces.gd")
 const Pulse := preload("res://scripts/ui/Pulse.gd")
 
 const GROUP_WORD := {"body": "Body", "skills": "Skills", "ceiling": "Ceiling", "fire": "Under fire"}
@@ -64,7 +65,7 @@ func build(main: Node, m: Dictionary) -> void:
 	qs.name = "Questions"
 	var asks: Dictionary = (p["know"] as Dictionary).get("asks", {})
 	for q in KR.QUESTIONS:
-		qs.add_child(ProspectScene.question(main, str(p["id"]), q, int(asks.get(q, 0)), can_more))
+		qs.add_child(ProspectScene.question(main, str(p["id"]), q, int(asks.get(q, 0)), can_more, Faces.stem(p)))
 	v.add_child(qs)
 	var foot := UI.hbox(12)
 	var paid := UI.label("Paid so far: %s" % UI.money(int(t.get("paid", 0))), UI.BODY, Palette.MUTED, "semi")

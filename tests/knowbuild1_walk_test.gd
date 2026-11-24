@@ -17,6 +17,7 @@ const GymSpend := preload("res://scripts/state/GymSpend.gd")
 const FirstWeek := preload("res://scripts/rules/FirstWeek.gd")
 const Needs := preload("res://scripts/state/Needs.gd")
 const Sim := preload("res://scripts/state/Sim.gd")
+const Faces := preload("res://scripts/rules/Faces.gd")
 
 var failures := 0
 var main: Node
@@ -168,6 +169,9 @@ func _trial_three_days() -> void:
 			"b: evening %d shows before -> after for %s with its why line" % [day_n, p["trial"]["last"]["q"]])
 		if day_n < 3:
 			var qs := main.find_children("Q_*", "BaseButton", true, false)
+			var qpic := (qs[0] as Node).find_child("QPic", true, false) as TextureRect if not qs.is_empty() else null
+			_check(qpic != null and str((qpic.texture as AtlasTexture).atlas.resource_path).contains(Faces.stem(p) + "_"),
+				"b: a question shows the prospect's own body (%s), not a borrowed one (S548)" % Faces.stem(p))
 			_check(qs.size() >= 2 and qs.size() <= 4 and main.find_child("Odds", true, false) != null, "b: %d picture questions for tomorrow and tonight's rival odds" % qs.size())
 			_check(_press("Q_" + picks[day_n - 1]) and main.modal.is_empty(), "b: tomorrow's question: %s" % picks[day_n - 1])
 	var r3: Dictionary = PW.card(c, p)["ranges"]
