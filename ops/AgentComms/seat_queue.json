@@ -4750,8 +4750,8 @@
    "status": "queued",
    "queued_at": "2026-11-24 12:08",
    "tries": 0,
-   "skips": 10,
-   "last_error": "2026-11-24 16:40 no CDP on 9333 (the app runs without its debug port or is closed; never launched from here - it opens a window)"
+   "skips": 23,
+   "last_error": "2026-11-24 22:59 no CDP on 9333 (the app runs without its debug port or is closed; never launched from here - it opens a window)"
   },
   {
    "id": "SQ325",
@@ -4765,7 +4765,39 @@
    "sent_ms": 1795525823582,
    "answered_at": "2026-11-24 16:10",
    "answer": "research/CARDBOX1_JOHN_BRIEF_JOHN.md",
-   "chars": 30062
+   "chars": 30062,
+   "seen_by_claude": true
+  },
+  {
+   "id": "SQ326",
+   "seat": "kalli",
+   "brief": "research/TWOHANDS_DEFENCE_IDEAS_BRIEF.md",
+   "stem": "TWOHANDS_DEFENCE_IDEAS_BRIEF_KALLI",
+   "status": "sent",
+   "queued_at": "2026-11-24 22:59",
+   "tries": 0,
+   "sent_at": "2026-11-24 22:59",
+   "sent_ms": 1795553983179
+  },
+  {
+   "id": "SQ327",
+   "seat": "dola",
+   "brief": "research/TWOHANDS_DEFENCE_IDEAS_BRIEF.md",
+   "stem": "TWOHANDS_DEFENCE_IDEAS_BRIEF_DOLA",
+   "status": "queued",
+   "queued_at": "2026-11-24 22:59",
+   "tries": 0
+  },
+  {
+   "id": "SQ328",
+   "seat": "john",
+   "brief": "research/TWOHANDS_DEFENCE_IDEAS_BRIEF.md",
+   "stem": "TWOHANDS_DEFENCE_IDEAS_BRIEF_JOHN",
+   "status": "sent",
+   "queued_at": "2026-11-24 22:59",
+   "tries": 0,
+   "sent_at": "2026-11-24 22:59",
+   "sent_ms": 1795553985608
   }
  ]
 }

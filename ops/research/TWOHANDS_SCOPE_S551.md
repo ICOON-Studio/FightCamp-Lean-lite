@@ -97,3 +97,38 @@ Checked S551 in the browser: a scripted bout in each style ran with no script er
 at the right height and wore down 8 -> 3; the three-press style unchanged); headless screenshots of both screens at
 1400 x 900 fit. NOT checked by a person: whether the sharp press makes leading better or just busier; whether holding
 a guard is a decision or a default; every number (guard 8, wear = damage, sharp 30%) is a first guess.
+
+## S551, after playing the timed versions: THE TIMED PRESSES ARE OUT FOR NOW (his call)
+His words: "i dont like the timed mechanic fornow , can you find another way to block guard and defence ? maybe a block
+cards can be generated if some criteria are met , i have some ideas but you can brainstorm it and ask other ideas from
+ludo,ziva,grokbots".
+- No more work on the sweep, bands, sharp presses or timed counters until he says so. They stay in the page as built.
+- Kept from Two Hands (nothing he rejected): a deck for each hand with two moves face up, combinations across hands,
+  each move says what it hits, the ring with our pictures, three opponents, pack your hands, the round clock, the
+  move-by-move story, stamina that pays and returns for moves held back.
+- Idea round, independent (no proposal of ours in the brief): `TWOHANDS_DEFENCE_IDEAS_BRIEF.md` sent to Kalli (SQ326) and
+  John (SQ328); Dola (SQ327) waits for its app's debug port; Ludo asked in a new Ask Ludo chat "Boxing Defense
+  Mechanics" (never the chat that was open: it was another project's). Ziva not asked: it needs a Godot editor and the
+  coach probe is running Godot jobs.
+- HIS OWN IDEAS come first: he said he has some. Ask, then set them beside the seats' and Claude's.
+- A few minutes later, his refinement: "the timed mechanic would be nice if the are are animations and the defence gets
+  triggerred on its own maybe and pllayer has to react or something like that". So timing is a LATER layer, not dead:
+  it needs real punch animations; the defence itself happens without a press (from cards or the boxer), and the player
+  REACTS to a moment (for example a counter opening), instead of pressing for every punch.
+- Ludo: the question and one follow-up line are posted in the new chat "Boxing Defense Mechanics"; no reply came in
+  about three minutes and the page showed no error. To be read later from All Chats; not asked again.
+
+### Claude's own shortlist (before the seats answer; nothing built)
+1. HANDS AT HOME: your defence is what you did not throw. A hand you hold back in your lead makes a guard card for his
+   next lead (lead hand held: catches a straight; rear hand held: covers the side of the head; both held: the body
+   too). Throw all three and you have nothing. You lay the cards under his combination: his first move is face up, the
+   rest face down. Real boxing: a hand that punches is not guarding.
+2. EARNED ANSWERS: events create a card - your jab lands: a Slip (it misses and you counter); he bites on your feint: a
+   Counter; you give ground: a Pivot off the ropes; you block two running: a Clinch. Use it in his next lead or lose it.
+3. A STANCE EACH EXCHANGE: before he leads you pick one of three stances (high guard, shell, on your toes); each stops
+   some kinds of punch and costs something different. Read from his two face-up moves a hand.
+4. THE GUARD BAR ALONE: the guard held high or low that wears (built), with no timed moves at all.
+Pick to try first: 1 and 2 together - it is his hint ("block cards generated if some criteria are met"), it keeps both
+decks pure offence, and the lay-under-his-cards step measured well with bots in rules3 (a real choice 13% of the time
+against 1% for the old prompt; no blind pilot over 38%). The later layer (his refinement): once punches are animated,
+the laid cards play by themselves and one REACT moment appears when a counter opens.

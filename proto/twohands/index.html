@@ -14,6 +14,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .man{background:var(--panel);border:1px solid var(--line);border-radius:.7rem;padding:.6rem .8rem;display:grid;grid-template-columns:auto 1fr;gap:.2rem .8rem;align-items:center}
 .man h2{margin:0;font-size:1.2rem;grid-column:1/3}.you h2{color:var(--blue)}.him h2{color:var(--red)}
 .bar{height:.9rem;border-radius:4px;background:#3a2e26;border:1px solid var(--line2);overflow:hidden}.bar i{display:block;height:100%;transition:width .35s}
+.bar{display:flex}.bar s{display:block;height:100%;margin-left:auto;background:repeating-linear-gradient(90deg,#120e0c,#120e0c 5px,#3a1f1b 5px,#3a1f1b 7px)}.bar u{display:block;height:100%;background:repeating-linear-gradient(45deg,#e3ab45,#e3ab45 4px,#8a6a2c 4px,#8a6a2c 8px);transition:width .2s}
 .hp i{background:var(--red)}.st i{background:var(--green)}
 .clock{font-variant-numeric:tabular-nums;font-weight:700;font-size:1.25rem;color:var(--gold)}.clock.last{color:#ff8f86}.ticks{display:inline-flex;gap:3px;vertical-align:middle;margin-left:.4rem}.ticks i{width:1.1rem;height:.55rem;border-radius:2px;background:#3a2e26;border:1px solid var(--line2)}.ticks i.done{background:var(--muted)}.ticks i.cur{background:var(--gold);border-color:var(--gold)}
 .tag{display:inline-block;padding:1px .5rem;border-radius:.7rem;border:1px solid var(--red);color:#ffb3ad;font-size:.8rem;margin-left:.4rem}
@@ -52,11 +53,13 @@ button{font:inherit;color:inherit;cursor:pointer}
 .mark{position:absolute;top:0;bottom:0;width:3px;background:#fff;box-shadow:0 0 8px #fff;left:0}
 .impact{position:absolute;top:0;bottom:0;width:1px;background:var(--red);opacity:.7}
 .hands{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.left{display:block;margin-top:.35rem;color:var(--muted);font-size:.82rem}.left b{color:var(--fg);font-weight:600}.decks{margin-top:auto;border-top:1px dotted var(--line2);padding-top:.4rem;color:var(--muted);font-size:.85rem;line-height:1.5}.decks b{color:#ff9d95;font-weight:600}
 .hand{background:var(--panel);border:1px solid var(--line);border-radius:.7rem;padding:.6rem}
 .cards{display:flex;gap:.5rem;margin-top:.3rem}
 .card{flex:1;min-height:5.6rem;background:var(--panel2);border:1px solid var(--line2);border-radius:.5rem;padding:.4rem .55rem;text-align:left;position:relative}
 .card b{display:block}.card small{display:block;color:var(--muted);font-size:.8rem;line-height:1.25}.card .w{position:absolute;top:4px;right:.5rem;color:var(--gold);font-size:.82rem}
-.card.pick{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold)}.card.no{opacity:.4;cursor:not-allowed}.card:not(.no):hover{border-color:var(--gold)}
+.card .why{color:#ff9d95;font-weight:600;margin-top:.15rem}.card.no{opacity:.55}.card.no b,.card.no small:not(.why){opacity:.6}
+.card.pick{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold)}.card.no{cursor:not-allowed}.card:not(.no):hover{border-color:var(--gold)}
 .setup{display:grid;gap:.8rem}.opps{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem}
 .opp{background:var(--panel2);border:1px solid var(--line2);border-radius:.6rem;padding:.6rem .7rem;text-align:left}.opp b{display:block;font-size:1.1rem;color:#ff9d95}.opp small{display:block;color:var(--muted);line-height:1.3}
 .opp.pick{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold)}
@@ -76,7 +79,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 <body><div class="app">
   <div class="top"><span class="brand">Two Hands</span><span id="where"></span><span id="score"></span><span class="lab" style="margin-left:auto">a deck for each hand - defend by timing</span><button class="mute" id="mute">Sound on</button></div>
   <div class="men"><div class="man you" id="you"></div><div class="man him" id="him"></div></div>
-  <div class="table"><div class="duo"><div class="stage" id="stage"><img id="pic" alt="" src="img/guard.webp"><span class="pop p0" id="pop0"></span><span class="pop p1" id="pop1"></span><span class="glove" id="glove"></span><span class="nm you">You</span><span class="nm him" id="nmhim">Him</span></div><div class="tell"><div class="said" id="said"></div><div class="sub" id="sub"></div><div class="combo" id="combo"></div></div></div><div class="rows" id="rows"></div><span class="lab">What happened - newest on top</span><div class="log" id="log"></div></div>
+  <div class="table"><div class="duo"><div class="stage" id="stage"><img id="pic" alt="" src="img/guard.webp"><span class="pop p0" id="pop0"></span><span class="pop p1" id="pop1"></span><span class="glove" id="glove"></span><span class="nm you">You</span><span class="nm him" id="nmhim">Him</span></div><div class="tell"><div class="said" id="said"></div><div class="sub" id="sub"></div><div class="combo" id="combo"></div><div class="decks" id="decks"></div></div></div><div class="rows" id="rows"></div><span class="lab">What happened - newest on top</span><div class="log" id="log"></div></div>
   <div><div class="hands" id="hands"></div><div class="acts" id="acts" style="margin-top:.6rem"></div></div>
 </div>
 <script>
@@ -136,19 +139,24 @@ const log = (t) => { logs.unshift(t); $('log').innerHTML = logs.slice(0, 30).map
 const cost = (ids) => ids.reduce((s, id) => s + MOVES[id].st, 0);
 
 function draw() { $('stage').style.display = phase === 'setup' ? 'none' : ''; $('nmhim').textContent = OPP.n;
-  for (const k of [0, 1]) { const m = F[k];
+  for (const k of [0, 1]) { const m = F[k], sp = k === 0 && phase === 'lead' ? cost((pick || []).map((x) => x.id)) : 0;
     $(k ? 'him' : 'you').innerHTML = `<h2>${k ? OPP.n : 'You'}${m.ropes >= 2 ? '<span class="tag">on the ropes</span>' : ''}${m.rocked ? '<span class="tag">rocked</span>' : ''}${m.kd ? `<span class="tag">down ${m.kd}x</span>` : ''}</h2>
       <span class="lab">Health ${Math.max(0, m.hp)} of ${m.max}</span><div class="bar hp"><i style="width:${100 * Math.max(0, m.hp) / m.max}%"></i></div>
-      <span class="lab">Stamina ${m.st} of ${m.cap}</span><div class="bar st"><i style="width:${100 * m.st / N.st}%"></i></div>${GUARD ? `<span class="lab" title="A guard stops what is aimed where it is held. Every punch it stops wears it. 2 comes back each exchange.">Guard ${m.g} of ${N.guard} - held ${m.gp}</span><div class="bar gb"><i style="width:${100 * m.g / N.guard}%"></i></div>` : ''}`; }
+      <span class="lab" title="The striped part is what the moves you have picked will cost.">Stamina ${m.st - sp} of ${m.cap}${sp ? ` - ${sp} in this lead` : ''}</span><div class="bar st"><i style="width:${100 * (m.st - sp) / N.st}%"></i><u style="width:${100 * sp / N.st}%"></u>${m.cap < N.st ? `<s title="Lost to body punches for this bout" style="width:${100 * (N.st - m.cap) / N.st}%"></s>` : ''}</div>${GUARD ? `<span class="lab" title="A guard stops what is aimed where it is held. Every punch it stops wears it. 2 comes back each exchange.">Guard ${m.g} of ${N.guard} - held ${m.gp}</span><div class="bar gb"><i style="width:${100 * m.g / N.guard}%"></i></div>` : ''}`; }
   { const all = 2 * N.leads, left = Math.max(0, all - turn), sec = left * (180 / all), last = left <= 1, cur = phase === 'shown' || phase === 'over' ? -1 : turn;
     $('where').innerHTML = `Round <b>${round}</b> of ${N.rounds} &nbsp; <span class="clock ${last ? 'last' : ''}" title="A round is ${all} exchanges: each man leads ${N.leads} times">${Math.floor(sec / 60)}:${String(Math.round(sec % 60)).padStart(2, '0')}</span><span class="ticks">${Array.from({ length: all }, (_, j) => `<i class="${j < turn ? 'done' : j === cur ? 'cur' : ''}"></i>`).join('')}</span> ${left === 0 ? 'the bell' : last ? '<b>last exchange of the round</b>' : left + ' exchanges to the bell'}`; }
   $('score').innerHTML = `Points this round: you <b>${F[0].pts}</b> - him <b>${F[1].pts}</b>` + cards.map((c, i) => ` &nbsp; R${i + 1} ${c[0]}-${c[1]}`).join('');
 }
-const face = (id, h, i, cls) => { const m = MOVES[id], o = Object.keys(m.o).map((k) => DEF[k].n.toLowerCase()).join(', ');
-  return `<button class="card ${cls}" data-h="${h}" data-i="${i}"><span class="w">${m.st} stamina</span><b>${m.n}</b><small>${m.feint ? 'Lands nothing. If he bites, his next window shrinks.' : `Hits the ${m.hits}. ${m.d} health${m.body ? ', his stamina bar 1 shorter' : ''}.`}</small><small>${m.feint ? '' : 'He can: ' + o}</small></button>`; };
-function hands(active) { const me = F[0];
+const face = (id, h, i, cls, why = '') => { const m = MOVES[id], o = Object.keys(m.o).map((k) => DEF[k].n.toLowerCase()).join(', ');
+  return `<button class="card ${cls}" data-h="${h}" data-i="${i}"><span class="w">${m.st} stamina</span><b>${m.n}</b><small>${m.feint ? 'Lands nothing. If he bites, his next window shrinks.' : `Hits the ${m.hits}. ${m.d} health${m.body ? ', his stamina bar 1 shorter' : ''}.`}</small><small>${m.feint ? '' : 'He can: ' + o}</small>${why ? `<small class="why">${why}</small>` : ''}</button>`; };
+// what a hand's deck still holds: the cards not yet drawn (for him, the two face up count too: you do not see which)
+function deckLeft(m, h, withUp) { const c = {}; for (const id of [...m.decks[h], ...(withUp ? m.up[h] : [])]) c[id] = (c[id] || 0) + 1;
+  const t = m.src[h].filter((id, i, a) => a.indexOf(id) === i).filter((id) => c[id]).map((id) => `${MOVES[id].n} x${c[id]}`); return t.length ? t.join(', ') : 'empty - it is reshuffled at the next draw'; }
+function hisDecks() { const el = $('decks'); if (!el) return; el.innerHTML = phase === 'setup' ? '' : `<span class="lab">${OPP.n}'s decks - not yet thrown</span><br><b>Lead hand:</b> ${deckLeft(F[1], 0, true)}<br><b>Rear hand:</b> ${deckLeft(F[1], 1, true)}`; }
+function hands(active) { const me = F[0]; hisDecks();
   $('hands').innerHTML = [0, 1].map((h) => `<div class="hand"><span class="lab">${HAND[h]}</span><div class="cards">${me.up[h].map((id, i) => { const n = pick.findIndex((p) => p.h === h && p.i === i);
-    const no = !active || (n < 0 && (pick.length >= N.combo || cost(pick.map((p) => p.id)) + MOVES[id].st > me.st)); return face(id, h, i, (n >= 0 ? 'pick ' : '') + (no ? 'no' : '')); }).join('')}</div></div>`).join('');
+    const left = me.st - cost(pick.map((p) => p.id)), no = !active || (n < 0 && (pick.length >= N.combo || MOVES[id].st > left));
+    const why = !active || n >= 0 || !no ? '' : pick.length >= N.combo ? 'Three moves are already picked.' : `Needs ${MOVES[id].st} stamina - you have ${left} left.`; return face(id, h, i, (n >= 0 ? 'pick ' : '') + (no ? 'no' : ''), why); }).join('')}</div><small class="left">Still in this deck (${me.decks[h].length}): <b>${deckLeft(me, h, false)}</b></small></div>`).join('');
   if (active) for (const b of $('hands').querySelectorAll('.card')) b.onclick = () => { const h = +b.dataset.h, i = +b.dataset.i, n = pick.findIndex((p) => p.h === h && p.i === i);
     if (n >= 0) pick.splice(n, 1); else if (!b.classList.contains('no')) pick.push({ h, i, id: me.up[h][i] }); lead(); }; }
 const chips = (ids, at, marks = []) => ids.map((id, i) => `<span class="chip ${i === at ? 'now' : ''} ${marks[i] || ''}">${i + 1}. ${MOVES[id].n}</span>`).join('');
@@ -156,7 +164,7 @@ const chips = (ids, at, marks = []) => ids.map((id, i) => `<span class="chip ${i
 // before the bout: pick the man in the other corner and pack your two hands
 function setup() { phase = 'setup'; F = [man(myDecks()), man(OPP.decks, OPP.hp)]; round = 1; turn = 0; cards = []; logs = []; pick = []; xr = []; draw(); pic('guard');
   $('said').textContent = 'Who is in the other corner, and what is in your hands?'; $('sub').textContent = 'Two moves of each hand are always face up in the bout. What you pack is what can come up.';
-  $('combo').innerHTML = ''; $('hands').innerHTML = ''; $('log').innerHTML = '';
+  $('combo').innerHTML = ''; $('decks').innerHTML = ''; $('hands').innerHTML = ''; $('log').innerHTML = '';
   const ok = PACK.every((pk, h) => packed(h) === pk.size);
   $('rows').innerHTML = `<div class="setup"><div class="opps">${OPPS.map((o, i) => `<button class="opp ${i === oppI ? 'pick' : ''}" data-o="${i}"><b>${o.n}</b><small>${o.t}</small><small>Health ${o.hp} - ${o.ms < 1 ? 'fast' : o.ms > 1 ? 'slow' : 'average'} hands</small></button>`).join('')}</div>
     <div class="modes"><button class="opp ${GUARD ? 'pick' : ''}" data-g="1"><b>Defence: a guard and timed moves</b><small>Hold your guard high or low: it stops what is aimed there with no timing, but every punch wears it. Slips, ducks and leans are the timed presses, and they set up the counter.</small></button><button class="opp ${GUARD ? '' : 'pick'}" data-g="0"><b>Defence: three timed presses</b><small>Every defence is a timed press, the block included (a wide band). No guard bar.</small></button></div>
@@ -166,7 +174,7 @@ function setup() { phase = 'setup'; F = [man(myDecks()), man(OPP.decks, OPP.hp)]
   for (const b of $('rows').querySelectorAll('.modes .opp')) b.onclick = () => { GUARD = b.dataset.g === '1'; setup(); };
   for (const b of $('rows').querySelectorAll('.cnt button')) b.onclick = () => { const h = +b.dataset.h, id = b.dataset.id, v = mine[h][id] + +b.dataset.d; if (v < 0 || v > PACK[h].max || (+b.dataset.d > 0 && packed(h) >= PACK[h].size)) return; mine[h][id] = v; setup(); };
   $('acts').innerHTML = `<button class="btn go" id="next" ${ok ? '' : 'disabled'}>${ok ? 'Fight ' + OPP.n : 'Pack both hands full first'}</button>`; $('next').onclick = start; }
-function start() { F = [man(myDecks()), man(OPP.decks, OPP.hp)]; snd('bell_round_start_1', 0.5); round = 1; turn = 0; cards = []; logs = []; pick = []; a = rnd() < 0.5 ? 0 : 1; log(`Round 1. ${a ? 'He leads' : 'You lead'} first.`); for (const m of F) fill(m); draw(); hands(false);
+function start() { phase = 'ready'; F = [man(myDecks()), man(OPP.decks, OPP.hp)]; snd('bell_round_start_1', 0.5); round = 1; turn = 0; cards = []; logs = []; pick = []; a = rnd() < 0.5 ? 0 : 1; log(`Round 1. ${a ? 'He leads' : 'You lead'} first.`); for (const m of F) fill(m); draw(); hands(false);
   $('said').textContent = a ? 'He leads first. His punches come one at a time.' : 'You lead first.'; $('sub').textContent = 'When he punches: press a defence (A, S, D or tap it) while the white line is inside its band. Wide band = safe block. Narrow band = a counter.';
   $('combo').innerHTML = ''; $('rows').innerHTML = ''; $('acts').innerHTML = `<button class="btn go" id="next">${a ? 'Ready - let him come' : 'Start'}</button>`; $('next').onclick = next; }
 function next() {
@@ -177,11 +185,11 @@ function next() {
   F[a].ropes = 0; pick = []; draw(); pic('guard');
   if (a === 0) lead(); else { const ids = aiCombo(); if (!ids.length) { F[1].st = Math.min(F[1].cap, F[1].st + N.combo * N.spare); log('He has nothing left to throw and covers up.'); return done('He has nothing left to throw and covers up.'); } defend(ids); }
 }
-function lead() { phase = 'lead'; const ids = pick.map((p) => p.id), ok = ids.length && MOVES[ids[ids.length - 1]].feint !== 1;
+function lead() { phase = 'lead'; draw(); const ids = pick.map((p) => p.id), ok = ids.length && MOVES[ids[ids.length - 1]].feint !== 1;
   $('said').textContent = 'Your lead: pick up to three moves from your two hands, in order.'; $('sub').textContent = `Changing hands makes the next punch come faster. A feint cannot be last. ${N.rec} stamina comes back each exchange, +${N.spare} for each of the three moves you do not throw.`;
   $('combo').innerHTML = ids.length ? chips(ids, -1) + `<span class="lab">${cost(ids)} stamina</span>` : ''; $('rows').innerHTML = ''; hands(true);
   const me0 = F[0], broke = ![0, 1].some((h) => me0.up[h].some((id) => !MOVES[id].feint && MOVES[id].st <= me0.st)), spare = (N.combo - ids.length) * N.spare;
-  $('acts').innerHTML = (broke ? `<button class="btn go" id="rest">Cover up - you cannot pay for a punch (+${N.combo * N.spare} stamina)</button>` : `<span class="lab" style="align-self:center">${ids.length ? (spare ? `throwing ${ids.length}: +${spare} stamina back for holding the rest` : 'throwing all three: nothing held back') : 'fewer punches = stamina back'}</span>`) + `<button class="btn ${broke ? '' : 'go'}" id="go" ${ok ? '' : 'disabled'}>Throw it</button>`;
+  $('acts').innerHTML = (broke ? `<button class="btn go" id="rest">Cover up - you cannot pay for a punch (+${N.combo * N.spare} stamina)</button>` : `<span class="lab" style="align-self:center">${ids.length ? `${me0.st - cost(ids)} stamina left - ` + (spare ? `throwing ${ids.length}: +${spare} back for holding the rest` : 'throwing all three: nothing held back') : `you have ${me0.st} stamina - fewer punches = stamina back`}</span>`) + `<button class="btn ${broke ? '' : 'go'}" id="go" ${ok ? '' : 'disabled'}>Throw it</button>`;
   if ($('rest')) $('rest').onclick = () => { F[0].st = Math.min(F[0].cap, F[0].st + N.combo * N.spare); log('You cover up and get your wind back.'); done('You cover up and get your wind back.'); };
   $('go').onclick = () => { const me = F[0]; for (const h of [0, 1]) me.up[h] = me.up[h].filter((_, i) => !pick.some((p) => p.h === h && p.i === i)); attack(ids); }; }
 function aiCombo() { const m = F[1], out = []; let st = m.st, last = -1; const pool = [0, 1].flatMap((h) => m.up[h].map((id, i) => ({ h, i, id })));
@@ -309,11 +317,14 @@ function over(text) { phase = 'over'; log(text); $('said').textContent = text; $
 document.getElementById('mute').onclick = (e) => { mute = !mute; e.target.textContent = mute ? 'Sound off' : 'Sound on'; };
 for (const c of ['red', 'blue']) for (const k of Object.values(PIC)) for (const r of ['landed', 'blocked', 'missed']) new Image().src = `img/${c}_${k}_${r}.webp`;
 for (const n of ['red_knockdown_2', 'blue_knockdown_2']) new Image().src = `img/${n}.webp`;
-window.addEventListener('keydown', (e) => { const k = e.key.toLowerCase(); if (phase === 'defend' && (k === 'w' || k === 'x')) { e.preventDefault(); return setGuard(k === 'w' ? 'high' : 'low'); }
+// keys are read by their PLACE on the keyboard (e.code), so a Greek or any other layout, and Caps Lock, change nothing
+const CODE = { KeyA: 'a', KeyS: 's', KeyD: 'd', KeyW: 'w', KeyX: 'x', Space: ' ', Enter: 'enter', NumpadEnter: 'enter', ArrowUp: 'w', ArrowDown: 'x', ArrowLeft: 'a', ArrowRight: 'd' };
+window.addEventListener('keydown', (e) => { if (e.repeat || e.ctrlKey || e.altKey || e.metaKey) return; const k = CODE[e.code] || (e.key || '').toLowerCase(); if (phase === 'defend' && (k === 'w' || k === 'x')) { e.preventDefault(); return setGuard(k === 'w' ? 'high' : 'low'); }
   if (live && live.any && (k === ' ' || k === 'enter' || KEYS.includes(k))) { e.preventDefault(); return live.press(live.keys[0]); }
   if (live) { const r = KEYS.indexOf(k); if (r >= 0 && live.keys[r]) { e.preventDefault(); live.press(live.keys[r]); } return; }
   if (k === 'enter' || k === ' ') { e.preventDefault(); (document.getElementById('next') || document.getElementById('again') || document.getElementById('go'))?.click(); } });
 setup();
 // ?peek=defend|result : a still for checking the layout (he leads at once; result = after the exchange, nothing pressed)
-if (/peek=/.test(location.search)) { mute = true; start(); a = 1; next(); }
+if (/peek=lead/.test(location.search)) { mute = true; start(); F[0].st = 3; a = 0; next(); document.querySelector('.hand .card').click(); }
+else if (/peek=/.test(location.search)) { mute = true; start(); a = 1; next(); }
 </script></body></html>
