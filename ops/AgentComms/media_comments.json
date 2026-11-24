@@ -3843,7 +3843,8 @@
       "text": "shouldnt this be inside the computer in the offece menu ?",
       "at": "2026-11-23T22:38:42Z",
       "seen_by_claude": true,
-      "id": "C498"
+      "id": "C498",
+      "addressed": "cited by 9aa58d2fb 2026-11-24"
     },
     {
       "path": "_sent/2026-11-24_0024_turning_pro_v17_in_the_game_the_offer_th/04_result_real.png",
@@ -3858,7 +3859,8 @@
       "at": "2026-11-23T22:41:39Z",
       "seen_by_claude": true,
       "at_s": 27.8,
-      "id": "C500"
+      "id": "C500",
+      "addressed": "cited by 1d9a1aa6a 2026-11-24"
     }
   ]
 }

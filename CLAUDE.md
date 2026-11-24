@@ -77,7 +77,14 @@ Claude decides design and integrates; the operator approves (D49: Ludo makes ass
   painting, a name, at most four plain facts, its own button; details on hover) - never rows of key/value as its main
   content. After the click the player lands where the change lives, sees before -> after with NEW marked and one pulsing
   next action. No card is cut by the bottom of a 1080 screen: `tools/jump_snapshot.gd` on the hidden desktop prints BOUNDS.
-  A worker's stills are checked for all three before a merge. Pattern: `scripts/ui/ProScene.gd`, `modals/ProNews.gd`.
+  A worker's stills are checked for all three before a merge. Pattern: `scripts/ui/ProScene.gd`, `WhatsNew.card`.
+  NO POP-UP AND NO ICON TILES FOR "WHAT CHANGED" (owner S545, on the four-tile pop-up S544 put over the profile: "this
+  looks like AI slop"; its button left it open over the next page: "the window doesnt go away"): the page the player
+  lands on says it itself - its top card, plain "was -> now" words, the one pulsing next action, NEW on what is new.
+  Little text (S545: "you do not need to spell everything out for the player"; "A simple You pay : 123456$ is enough ,
+  if more things are needed use the fucking tooltip"). Plain menu words (S545: "what happened to normal words like
+  staff"; "i do not understand whatis club and what is gym": the player's place is the gym). Office-like pages (Mail,
+  Fights, and next Staff / Money / Records) are windows of the office computer (`Office.host`).
 - At most 3 PC agents at once (watchdog; S419 operator: "i think thepc can handle more, change the rule ?" - seat_dispatch MAX_PC_AGENTS 2 -> 3; Godot jobs in godot_slot: GREEN 6 (owner S536 "can you get more going in parallel ?"; 4 since S534), all on the same 8 threads (S536 "Yes, use 8"), AMBER 2, RED 0), cloud seats unlimited. Every brief names its owned files, the one test command,
   and stays under the 500-line rule.
 

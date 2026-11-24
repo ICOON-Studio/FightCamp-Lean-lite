@@ -1,10 +1,17 @@
-S545 build (2026-11-24, 02:30) - one change on top of the S544 build
+S545 build, second export (2026-11-24, 03:30) - your notes from tonight
 
 G. FIGHTS IS INSIDE THE OFFICE COMPUTER (your "shouldnt this be inside the computer in the offece menu ?"): the Fights
    button, from anywhere, opens the office computer with the Fights window - the same dock and top line as Mail. Two
    bouts waiting for your pick (pro fights 1 to 6) sit at the top; scroll the window for the calendar and the results.
    The dock app once called Schedule is now Fights. A bout's own page and the Ask panel are still whole pages.
    Also: the grey help line under the office windows sits on a dark strip (half of it could not be read).
+H. NO POP-UP AFTER TURN PRO NOW OR NOT YET (your "this looks like AI slop", "the window doesnt go away", "WTF happened
+   to the playerprofile"): the click opens the boxer's profile and the profile itself says what changed - one card at
+   the top: A PRO FROM TODAY, the record, the pay and what was paid as "was -> now", and one button, Pick the first pro
+   fight. Confidence and Hunger carry NEW. The button now lands on Fights with nothing left open.
+I. THE TAB READS STAFF, NOT PEOPLE (your "what happened to normal words like staff"). Still owed from the same note: one
+   word for your place (the gym, not club), Staff / Money / Records inside the office computer, the staff screen redone.
+   NOT FOUND: the "week preview" button - tell me which screen it is on.
 
 S544 build, second export (2026-11-24, 02:00) - your four play notes, fixed
 

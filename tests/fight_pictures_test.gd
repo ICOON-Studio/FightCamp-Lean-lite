@@ -9,6 +9,8 @@ extends SceneTree
 const FP := preload("res://scripts/ui/FightPictures.gd")
 const FightLog := preload("res://scripts/rules/FightLog.gd")
 const LAND_MAX_M := 0.07     # glove front to the target point on a landed picture
+const BODY_ON_M := 0.01      # S545 BODYCROSS2: a landed body cross is read against his body SURFACE as drawn: on it or in it ...
+const BODY_SUNK_MAX_M := 0.09   # ... and never deeper than this (a glove through a body)
 const MISS_MIN_PX := 50.0    # glove to head on a missed picture, in the 768 px picture (~0.17 m)
 
 var failures := 0
@@ -55,6 +57,7 @@ func _contacts() -> void:
 		var cj: Dictionary = parsed if parsed is Dictionary else {}
 		var far: Array = []
 		var near: Array = []
+		var body: Array = []
 		for n in cj:
 			var c: Dictionary = cj[n]
 			if not c.has("glove"):
@@ -62,11 +65,14 @@ func _contacts() -> void:
 			var gap := Vector2(c["glove"][0], c["glove"][1]).distance_to(Vector2(c["target"][0], c["target"][1]))
 			if str(c["result"]) == "landed" and float(c["hit_m"]) > LAND_MAX_M:
 				far.append("%s %.2f m" % [n, float(c["hit_m"])])
+			if str(n).ends_with("body_cross_landed") and (not c.has("sunk_m") or float(c["hit_m"]) > BODY_ON_M or float(c["sunk_m"]) > BODY_SUNK_MAX_M):
+				body.append("%s hit %.3f sunk %s" % [n, float(c["hit_m"]), str(c.get("sunk_m", "none"))])
 			if str(c["result"]) == "missed" and gap < MISS_MIN_PX:
 				near.append("%s %.0f px" % [n, gap])
 		_check(cj.size() >= 50, "set %s: contacts for %d pictures" % [s, cj.size()])
 		_check(far.is_empty(), "set %s: every landed glove on its target (off: %s)" % [s, far])
 		_check(near.is_empty(), "set %s: every missed glove clearly off the head (on: %s)" % [s, near])
+		_check(body.is_empty(), "set %s: a landed body cross is on or in his body as drawn, never through it (off: %s)" % [s, body])
 
 
 func _b(t: float, who: String, move: String, result: String, big := false) -> Dictionary:

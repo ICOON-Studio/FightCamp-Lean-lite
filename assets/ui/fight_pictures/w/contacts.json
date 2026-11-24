@@ -1,63 +1,64 @@
 {
   "blue_body_cross_blocked": {
-    "apart_m": 0.948,
-    "apart_pic_m": 0.947,
-    "block_m": 0.018,
+    "apart_m": 0.903,
+    "apart_pic_m": 0.902,
+    "block_m": 0.01,
     "block_on": "left forearm",
     "clip": "pro_body_cross",
     "cover": "mc_to_block",
     "fails": [],
-    "feet_m": 0.701,
+    "feet_m": 0.673,
     "glove": [
-      311.8,
-      321.5
+      340.3,
+      309.2
     ],
-    "head_clear_m": 0.872,
-    "hit_m": 0.396,
+    "head_clear_m": 0.827,
+    "hit_m": 0.449,
     "result": "blocked",
     "target": [
-      263.2,
+      282.5,
       430.3
     ]
   },
   "blue_body_cross_landed": {
-    "apart_m": 0.899,
-    "apart_pic_m": 0.899,
+    "apart_m": 0.827,
+    "apart_pic_m": 0.823,
     "clip": "pro_body_cross",
     "cover": "",
     "fails": [],
-    "feet_m": 0.568,
+    "feet_m": 0.468,
     "glove": [
-      288.6,
-      423.8
+      253.9,
+      406.3
     ],
-    "head_clear_m": 0.853,
-    "hit_m": 0.036,
-    "near_m": 0.144,
+    "head_clear_m": 0.743,
+    "hit_m": 0.0,
+    "near_m": 0.085,
     "result": "landed",
+    "sunk_m": 0.013,
     "target": [
-      278.4,
-      427.2
+      257.7,
+      407.1
     ]
   },
   "blue_body_cross_missed": {
-    "apart_m": 0.992,
-    "apart_pic_m": 0.992,
-    "clear_hand_m": 0.376,
-    "clear_m": 0.2,
+    "apart_m": 0.884,
+    "apart_pic_m": 0.884,
+    "clear_hand_m": 0.342,
+    "clear_m": 0.227,
     "clip": "pro_body_cross",
     "cover": "",
     "fails": [],
-    "feet_m": 0.839,
+    "feet_m": 0.745,
     "glove": [
-      245.7,
-      409.6
+      254.6,
+      393.6
     ],
-    "head_clear_m": 0.948,
-    "hit_m": 0.207,
+    "head_clear_m": 0.837,
+    "hit_m": 0.237,
     "result": "missed",
     "target": [
-      214.2,
+      243.7,
       461.0
     ]
   },
@@ -511,64 +512,65 @@
   },
   "guard": {},
   "red_body_cross_blocked": {
-    "apart_m": 0.929,
-    "apart_pic_m": 0.928,
-    "block_m": 0.045,
+    "apart_m": 0.887,
+    "apart_pic_m": 0.886,
+    "block_m": 0.011,
     "block_on": "left forearm",
     "clip": "pro_body_cross",
     "cover": "mc_to_block",
     "fails": [],
-    "feet_m": 0.676,
+    "feet_m": 0.652,
     "glove": [
-      457.5,
-      325.9
+      434.2,
+      311.5
     ],
-    "head_clear_m": 0.857,
-    "hit_m": 0.37,
+    "head_clear_m": 0.815,
+    "hit_m": 0.425,
     "result": "blocked",
     "target": [
-      500.5,
+      484.1,
       428.6
     ]
   },
   "red_body_cross_landed": {
-    "apart_m": 0.88,
-    "apart_pic_m": 0.88,
+    "apart_m": 0.812,
+    "apart_pic_m": 0.809,
     "clip": "pro_body_cross",
     "cover": "",
     "fails": [],
-    "feet_m": 0.542,
+    "feet_m": 0.41,
     "glove": [
-      460.2,
-      423.9
+      516.2,
+      409.1
     ],
-    "head_clear_m": 0.84,
-    "hit_m": 0.002,
-    "near_m": 0.111,
+    "head_clear_m": 0.718,
+    "hit_m": 0.0,
+    "near_m": 0.074,
     "result": "landed",
+    "sunk_m": 0.017,
     "target": [
-      460.6,
-      423.7
+      511.4,
+      408.9
     ]
   },
   "red_body_cross_missed": {
-    "apart_m": 1.018,
-    "apart_pic_m": 1.018,
-    "clear_hand_m": 0.383,
-    "clear_m": 0.198,
+    "apart_m": 0.867,
+    "apart_pic_m": 0.867,
+    "clear_hand_m": 0.351,
+    "clear_m": 0.209,
     "clip": "pro_body_cross",
     "cover": "",
     "fails": [],
-    "feet_m": 0.859,
+    "feet_m": 0.721,
     "glove": [
-      527.0,
-      412.5
+      517.8,
+      396.2
     ],
-    "head_clear_m": 0.979,
-    "hit_m": 0.208,
+    "head_clear_m": 0.825,
+    "hit_m": 0.225,
     "result": "missed",
     "target": [
-      564.5,
+      521.4,
       459.0
     ]
   },

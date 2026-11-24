@@ -273,7 +273,7 @@ func _photo(parent: Control, f: Dictionary, size: Vector2) -> void:
 
 
 func _overview(main: Node, c: Career, f: Dictionary, g: Dictionary) -> void:
-	var news: Dictionary = main.route.get("new", {})   # S544: a decision just made on this boxer - its rows carry NEW (the pop-up ProNews says what changed)
+	var news: Dictionary = main.route.get("new", {})   # S544: a decision just made on this boxer - its rows carry NEW (the top card, WhatsNew.card, says what changed)
 	var fresh := _dark and str(news.get("fid", "")) == str(f["id"])
 	_next_step_card(main, c, f)
 	if _dark:   # S544: the pro bars live in the boxer's column (ProBars.rows), no page-wide card
@@ -378,6 +378,10 @@ static func _road_input(c: Career, f: Dictionary) -> Dictionary:
 
 
 func _next_step_card(main: Node, c: Career, f: Dictionary) -> void:
+	var news: Dictionary = main.route.get("new", {})
+	if _dark and str(news.get("fid", "")) == str(f["id"]):   # S545: the decision just made leads the profile (no pop-up)
+		WhatsNew.card(main, _card(""), news)
+		return
 	var card := _card("NEXT STEP")
 	var road: Dictionary = NextStep.road(_road_input(c, f), c.day)
 	if int(road["lit"]) < 0:

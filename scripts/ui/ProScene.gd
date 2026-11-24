@@ -3,7 +3,7 @@ extends RefCounted
 ## The left of each pop-up is one picture: the signing office (assets/ui/art/sign_office.jpg, the belts on the wall, the
 ## ring behind the glass), the boxer standing in it (the full-body cut-out the roster uses), the promoter's ticket pinned
 ## top-left with who is calling, and the boxer's name and record on a plate at the foot. The right side holds the choice
-## cards (ProOffer) or what changed (ProNews).
+## cards (ProOffer).
 ##   art(f, caption, size, ticket) -> Control      fact(icon, colour, big, small, tip) -> Control (a picture fact row)
 ##   header(path, title, colour, height) -> Control (a choice card's picture strip with its title over it)
 

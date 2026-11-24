@@ -115,6 +115,14 @@ func _initialize() -> void:
 			main.act("turnpro")
 			_check(bool(f.get("pro", false)) and (f["bout"] as Dictionary).is_empty() and not (f.get("pro_pair", {}) as Dictionary).is_empty() and main.career.cash < cash,
 				"pro: signed, the gym paid the licence, the debut's two bouts wait on Fights")
+			# S545 (owner: "this looks like AI slop", "the window doesnt go away"): no pop-up - the profile says what changed,
+			# and its one button lands on Fights with nothing left open.
+			var go: Node = main.find_child("NewsGo", true, false)
+			_check(main.modal.is_empty() and str(main.route.get("area", "")) == "fighters" and go != null and main.find_child("Fact_record", true, false) != null,
+				"pro: the profile is open with what changed on it, no pop-up")
+			if go != null:
+				(go as Button).pressed.emit()
+			_check(main.modal.is_empty() and str(main.route.get("area", "")) == "fights", "pro: Pick the first pro fight lands on Fights, nothing left open")
 			main.queue_free()
 			await process_frame
 			continue

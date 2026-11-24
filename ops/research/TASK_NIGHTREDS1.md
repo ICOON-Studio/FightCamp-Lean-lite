@@ -50,3 +50,15 @@ Never a checkout in the main checkout. PR body: `RESULT: ops/research/NIGHTREDS1
 
 ## The one trap
 t_turn's gap is 0.007 on 40 bouts: run the 40 bouts as the test does (same days), never fewer, and compare printed numbers, not pass/fail alone.
+
+## S545 note (the coordinator re-ran both on today's main, 2026-11-24 02:25)
+- `plan_templates_test`: GREEN now (PLAN_TEMPLATES failures=0; t_turn v Maria won 0.443 edge +0.30 against the starter
+  plan's 0.444 edge +0.25). Nothing to do.
+- `matchmaking_bots_test`: still RED, the same two checks: "smart's median place beats hard's by >= 1 (+0.5)" (smart
+  13.0, hard 13.5) and "scouting is worth it: fewer stoppage losses than blind (+0.14)" (smart 0.91, blind 0.77; scouting
+  still buys +5 top-10 finishes and costs $2,924). The nightly logs print failures only: it was absent on 2026-11-22
+  05:00 and present on 2026-11-23 05:00, so the cause is a rule change of that day. Candidates touching the world's
+  bouts: the merges `s535/dmgfix` (e93158da7, damage by class and sex) and `s537/steppay3` (8625bd763), then S539's
+  MOODREAD1 (fe72931fd). BISECT those three in a worktree before touching a number; the fix is in the rule that moved,
+  or the test's margin with the reason written - never both.
+

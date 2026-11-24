@@ -1,113 +1,98 @@
-extends "res://tools/pics2d_set.gd"
-## BODYCROSS1 (S542, ops/research/TASK_BODYCROSS1.md step 6): THE BODY CROSS LANDING, OLD TAKE v NEW TAKE, on the
-## pictures' own fixed side camera (orthographic, level, red on the left; never a corner frame - owner S537). The same
-## pair, the same camera, the game's own finish (Player2._arm -> PunchAim on the ribs): first the take the pictures used
-## until S542 (pro_right_cross_c, the head cross sent at the body), then the authored body cross (pro_body_cross).
-## Each is played whole at 60 pictures a second from the guard; the other man's gut-shot reaction starts on the contact.
-## Writes <out>/<old|new>_NNN.png, <out>/<old|new>_contact.png (through the set tool's framing check: both boxers head
-## to toes in frame, else STILL_FRAMING FAIL) and prints the glove's distance to the rib point on the contact picture.
-##   python tools/hidden_desktop.py run --timeout=600 --log=<f> <godot.exe> --path . --windowed --resolution 1920x1080 \
-##       --audio-driver Dummy --fixed-fps 60 --script res://tools/pics2d_bodycross_film.gd -- <out_dir> art=toon set=w|m [who=0|1]
+extends "res://tools/pics2d_bodycross_stage.gd"
+## THE BODY CROSS, BEFORE v AFTER, on the pictures' own fixed side camera (orthographic, level, red on the left; never a
+## corner frame - owner S537). BODYCROSS1 (S542) filmed the head cross against its new take; BODYCROSS2 (S545, owner
+## C500 on that film: "does not reach opponent ... trying to touch hime rather than punch him and hurt him") films:
+##   before  the S542 take exactly as that film showed it (old=<the S542 .res>, row=<its clip_db row as JSON>): the
+##           game's finish armed, the hit man's take from its first key on the spot;
+##   after   the re-authored take on its own keys: no finish, the puncher where the take's glove meets his body, the
+##           hit man's answer by the v2 player's own route for a landed body punch, both bodies travelling as their takes do.
+## The same pair, the same camera (fixed for the whole film, wide enough for the hit man's step back). Each side is
+## played whole at 60 pictures a second from the guard.
+## Writes <out>/<before|after>_NNN.png and prints which picture the contact key is drawn on.
+##   python tools/hidden_desktop.py run --timeout=900 --log=<f> <godot.exe> --path . --windowed --resolution 1920x1080 \
+##       --audio-driver Dummy --fixed-fps 60 --script res://tools/pics2d_bodycross_film.gd -- <out_dir> art=toon set=w|m [who=0|1] [old=<res> row=<json>] [react=game|<take>]
 
-const TAKES := [["old", "pro_right_cross_c", "OLD  the head cross sent at the body"], ["new", "pro_body_cross", "NEW  the body cross take"]]
-const LEAD_FRAMES := 18
-const TAIL_FRAMES := 24
+const OLD_NAME := "pro_body_cross_s542"
+const NEW_NAME := "pro_body_cross"
+const FILM_ORTHO_M := 3.0     # the pictures' 2.55 m, widened: a gut shot's take steps the hit man back up to 0.5 m
+const FILM_SHIFT_M := 0.15    # ... and the camera stands this far toward his side
 
 var label: Label
+var tag := ""
+var pics := 0
+var who := 0
 
 
 func _initialize() -> void:
 	if not await _setup():
 		return
+	_watch()
 	sv.transparent_bg = false
 	RenderingServer.set_default_clear_color(Color(0.20, 0.22, 0.26))
 	var layer := CanvasLayer.new()
 	sv.add_child(layer)
 	label = Label.new()
 	label.position = Vector2(20, 16)
-	label.add_theme_font_size_override("font_size", 26)
+	label.add_theme_font_size_override("font_size", 24)
 	layer.add_child(label)
-	var who := int(_arg("who", "0"))
-	for t in TAKES:
-		await _film(who, str(t[0]), str(t[1]), str(t[2]))
+	who = int(_arg("who", "1" if _arg("set", "w") == "m" else "0"))
+	if _arg("old", "") != "" and _adopt(_arg("old", ""), _arg("row", "")):
+		await _side("before", OLD_NAME, false, "film", "BEFORE  the S542 take as it was filmed")
+	await _side("after", NEW_NAME, true, _arg("react", "game"), "AFTER  elbow bent at the touch, the arm finishes into him")
 	print("BODYCROSS_FILM wrote=%d refused=%d" % [wrote, refused])
 	quit(0 if refused == 0 else 1)
 
 
-func _film(who: int, tag: String, clip: String, words: String) -> void:
-	var ap: AnimationPlayer = stage.boxers[who]["ap"]
-	if not ap.has_animation(clip):
-		print("BODYCROSS_FILM no take %s" % clip)
-		refused += 1
-		return
-	var row: Dictionary = stage.v2.db["rows"][clip]
-	var cs := float(row.get("contact_s", 0.3))
-	var hand: String = stage.hand_of(who, str(row.get("hand", "RightHand")))
-	var dirv := axis * (1.0 if who == 0 else -1.0)
-	# the range, the set tool's way: the take alone, then the pair moved by what the armed glove still leaves
-	await _home_guard()
-	stage.v2._play(who, clip, 0.0, "punch", false)
-	await _to_contact(who, clip, cs)
-	var short: float = (stage.v2.target(1 - who, true) - stage.glove_front(who, hand)).dot(dirv)
-	var room: float = (_node(1 - who).global_position - _node(who).global_position).dot(dirv) - MIN_APART_M
-	var step := minf(short, room)
-	var extra := Vector3.ZERO
-	for attempt in 3:
-		await _home_guard(step, who)
-		_node(who).global_position += extra
-		stage.v2._arm(who, clip, true)
-		stage.v2._play(who, clip, 0.0, "punch", false)
-		await _to_contact(who, clip, cs)
-		for f in 8:
-			await process_frame
-		var r: Vector3 = stage.v2.target(1 - who, true) - stage.glove_front(who, hand)
-		if r.length() <= 0.04:
-			break
-		extra += Vector3(r.x, 0.0, r.z) + dirv * maxf(0.0, -r.y) * 0.6
-		extra -= dirv * maxf(0.0, (step + extra.dot(dirv)) - room)
-	# the film: from the guard, the whole take, the reaction on the contact
-	await _home_guard(step, who)
-	_node(who).global_position += extra
-	_aim([0, 1])
-	label.text = "%s   (%s)" % [words, clip]
-	var n := 0
-	for f in LEAD_FRAMES:
-		await process_frame
-		n = await _frame(tag, n)
-	stage.v2._arm(who, clip, true)
-	stage.v2._play(who, clip, 0.0, "punch", false)
-	var hit := false
-	var tail := 0
-	for f in 400:
-		await process_frame
-		var live := str(ap.current_animation) == clip and ap.is_playing()
-		if not hit and (not live or ap.current_animation_position >= cs - 0.008):
-			hit = true
-			var tgt: Vector3 = stage.v2.target(1 - who, true)
-			var gl: Vector3 = stage.glove_front(who, hand)
-			print("BODYCROSS_FILM %s %s contact: glove to the rib point %.3f m (glove %.3f m up, ribs %.3f m up), step %.2f m (+%.2f)" % [
-				tag, clip, gl.distance_to(tgt), gl.y, tgt.y, step, extra.length()])
-			var bad := _framed([0, 1])
-			if bad.is_empty():
-				await RenderingServer.frame_post_draw
-				sv.get_texture().get_image().save_png(out_dir.path_join(tag + "_contact.png"))
-				print("STILL_FRAMING ok %s_contact" % tag)
-				wrote += 1
-			else:
-				print("STILL_FRAMING FAIL %s_contact: %s" % [tag, "; ".join(PackedStringArray(bad))])
-				refused += 1
-			stage.v2._play(1 - who, str(REACT["body_cross"]), 0.0, "reaction", false)
-		n = await _frame(tag, n)
-		if not live:
-			tail += 1
-			if tail >= TAIL_FRAMES:
-				break
-	var aim: Node = stage.v2._aim[who]
-	if aim != null:
-		aim.disarm()
+## The S542 take beside the new one, on both bodies: its file, its clip_db row, its glove front at the contact
+## (what Player2._sample reads for every take it knows).
+func _adopt(path: String, row_path: String) -> bool:
+	var row: Variant = JSON.parse_string(FileAccess.get_file_as_string(row_path))
+	if not ResourceLoader.exists(path) or not (row is Dictionary):
+		print("BODYCROSS_FILM no old take at %s / %s: the after side only" % [path, row_path])
+		return false
+	stage.v2.db["rows"][OLD_NAME] = row
+	for i in 2:
+		var bx: Dictionary = stage.boxers[i]
+		var ap: AnimationPlayer = bx["ap"]
+		var skel: Skeleton3D = bx["skel"]
+		var prefix := str(ap.get_animation(NEW_NAME).track_get_path(0)).get_slice(":", 0)
+		for ln in ap.get_animation_library_list():
+			var lib := ap.get_animation_library(ln)
+			if lib.has_animation(NEW_NAME):
+				FightClips._add_baked(lib, skel, prefix, OLD_NAME, path)
+		if not ap.has_animation(OLD_NAME):
+			return false
+		var hand: String = stage.hand_of(i, str(row.get("hand", "RightHand")))
+		ap.play(OLD_NAME)
+		ap.seek(float(row.get("contact_s", 0.3)), true)
+		(bx["gloves"] as Node)._follow()
+		stage.v2._fronts[i][OLD_NAME] = (bx["node"] as Node3D).global_transform.affine_inverse() * (stage.glove_front(i, hand) as Vector3)
+		var hp := skel.get_bone_global_pose(skel.find_bone(hand))
+		stage.v2._rels[i][OLD_NAME] = (skel.global_transform.basis * hp.basis).inverse() * ((stage.glove_front(i, hand) as Vector3) - skel.global_transform * hp.origin)
+		stage.v2.guard(i)
+	return true
 
 
-func _frame(tag: String, n: int) -> int:
+func _side(t: String, clip: String, own: bool, react: String, words: String) -> void:
+	tag = t
+	pics = 0
+	label.text = words
+	var run := await _play_out(who, clip, own, react, _pic)
+	var plan: Dictionary = run["react"]
+	print("BODYCROSS_FILM %s %s: the contact key is drawn on picture %d of %d; the hit man plays %s; puncher stepped %.3f m" % [t, clip, int(run["kc"]) - 1, pics,
+		FILM_REACT + " from its first key, on the spot" if react == "film" else "%s from %.3f s (the v2 player's route)" % [plan["clip"], plan["from_s"]], float((run["stage"] as Dictionary)["step"])])
+
+
+## One picture of the film (the frame being drawn now). The camera never moves after the first one.
+func _pic(k: int, _info: Dictionary) -> void:
+	if k == 0:
+		cam.size = FILM_ORTHO_M
+		cam.global_position += axis * (1.0 if who == 0 else -1.0) * FILM_SHIFT_M
 	await RenderingServer.frame_post_draw
-	sv.get_texture().get_image().save_png(out_dir.path_join("%s_%03d.png" % [tag, n]))
-	return n + 1
+	var bad := Gate.framed(stage, cam, [0, 1], SIZE)
+	if not bad.is_empty():
+		print("STILL_FRAMING FAIL %s_%03d: %s" % [tag, pics, "; ".join(PackedStringArray(bad))])
+		refused += 1
+	sv.get_texture().get_image().save_png(out_dir.path_join("%s_%03d.png" % [tag, pics]))
+	pics += 1
+	wrote += 1

@@ -17,9 +17,13 @@ answers on top. `docs/KNOWSTAKES9_RESULT.md` holds the measured numbers the map 
 - A DECISION SCREEN IS A SCENE, AND A CLICK SHOWS WHAT CHANGED (owner S544: "looks like spreadheet you need to use art",
   "i click turn pro now , i expect to see what changed"). The signing card is a picture of the moment (the prospect in
   the gym) with the calls as cards: a painting, a name, at most FOUR plain facts, its own button; details on hover. Never
-  rows of key / value as the main content. After Sign the player lands on the new boxer's profile with the what-changed
-  pop-up and NEW marks, and one pulsing next action. Reuse the pattern: `scripts/ui/ProScene.gd`,
-  `modals/ProOffer.gd`, `modals/ProNews.gd`, `WhatsNew.gd`, `ProBars.mark`.
+  rows of key / value as the main content. After Sign the player lands on the new boxer's profile, and THE PROFILE
+  ITSELF says what changed: its top card (the pattern is `WhatsNew.card`: a title, one line, what changed as plain
+  "was -> now" words, the one pulsing next action) and NEW marks on the things that are new. NO POP-UP over the
+  profile and NO GRID OF ICON TILES (owner S545 on the four-tile pop-up a worker built: "this looks like AI slop";
+  its button left it open over the next page: "the window doesnt go away"). Reuse: `scripts/ui/ProScene.gd`,
+  `modals/ProOffer.gd`, `WhatsNew.gd`, `ProBars.mark`; `tests/test_jump_test.gd` (the "pro" block) shows the check
+  that a decision's button lands on its page with nothing left open - write the same check for Sign.
 - NOTHING CUT BY THE SCREEN (owner S544: "why half the screen isout of bounds"): `tools/jump_snapshot.gd` on the hidden
   desktop with `--log`; no BOUNDS line; open every picture yourself.
 - LITTLE TEXT (owner S545, on the pro call: "you do not need to spell everything out for the player"; "A simple You
@@ -69,18 +73,19 @@ STEP 2 - THE SCREENS (owner S425: wired and shown on the correct menus; this bui
 |---|---|---|
 | Signing card (a scene) | the prospect painted in the gym; the read as RANGES in at most three groups (body, skills, ceiling) drawn as bars with a band, not numbers in rows; one strip of 21 days with the bout and the rival's window when the name has them (days before the window marked safe); the calls as cards: SIGN NOW, START THE TRIAL, WAIT FOR THE BOUT (only when there is a bout), and Pass as a plain button. Each card: at most four facts (what it costs, what it answers, the odds line from map 3B in a few words) | new `scripts/ui/modals/Prospect.gd` + a scene helper beside `ProScene.gd` (reuse it if it fits; do not grow a file past 500 lines) |
 | Trial evening (`scripts/ui/modals/Trial.gd`, 43 lines today) | before -> after bands for what today's question narrowed, with one "why" line; tomorrow's question as up to four picture buttons (K4) each with what it narrows and tonight's rival odds ("Lynn AC may decide tomorrow: 1 in 5"); SIGN / SEND HOME / ANOTHER DAY | `Trial.gd`, `KnowReads` |
-| After Sign | the new boxer's profile opens with the what-changed pop-up (a place taken: 2 of 3; the season's commitment; the read as it stands) and NEW marks; one pulsing next action (plan the week) | `WhatsNew.gd`, `ProNews.gd` pattern |
+| After Sign | the new boxer's profile opens; its top card says what changed in plain was -> now words (a place taken: 2 of 3; the season's commitment; the read as it stands) with NEW marks on the profile; one pulsing next action (plan the week); no pop-up | `WhatsNew.card` pattern |
 | Top bar Continue + the Needs strip | stops each trial evening, on the bout day, on the window's first and last day; "Trial day 3: decide tonight", "The prospect boxes tonight", "Lynn AC decide from today" | `Clock` candidates, `OfficeDesk.needs` |
 | Find a fighter / reception | an open prospect is a card that opens the signing card; the first walk-in of a new game uses the same card (no strip when the name has no dates) | `scripts/ui/areas/Fighters.gd`, `RosterActs.gd` |
 | Mail (the office computer) + got-away list | the rival's signing line; the got-away row | `OfficeMail.gd` reads the news as today |
 NOT in this build (say so in the result, do not half-build): numbers for signed boxers (map 3E), the return bout, the
 "Last time" strip, the region show's Watch row beyond the Continue stop.
-Words: "the prospect", "the boxer", club names in full; names only in headers; no he / she / him / her in game text
+Words: the player's place is "the gym" in every menu word (owner S545: "i do not understand whatis club and what is gym";
+"what happened to normal words like staff"): plain game-menu words, Staff not People. "The prospect", "the boxer", other clubs' names in full; names only in headers; no he / she / him / her in game text
 (`tests/no_pronoun_test.gd`). Colours only from `Palette.gd`. Every meter tweens (the meter the other cards use).
 
 STEP 3 - THE JUMPS AND THE STILLS.
 - `scripts/ui/TestJump.gd` jumps: `prospect` (the card, a name with a bout and a window), `prospecttrial` (trial
-  evening 2), `prospectsigned` (the profile with the what-changed pop-up), `prospectgone` (the window ran out: Mail).
+  evening 2), `prospectsigned` (the profile with its what-changed card), `prospectgone` (the window ran out: Mail).
   Add them to `ops/Tools/opsboard/launch_targets.json` as board buttons (how the four "Pro:" buttons were added, S544).
 - Stills of the four states on the never-shown desktop through `tools/jump_snapshot.gd` (`--log`; one windowed render
   at a time, inside `python ops/Tools/godot_slot.py run --who KNOWBUILD1 -- ...`), saved under

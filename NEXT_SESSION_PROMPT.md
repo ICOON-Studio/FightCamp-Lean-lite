@@ -1,70 +1,90 @@
-# S545 handover (written 2026-11-24 about 02:00, end of S544 - Fable)
+# S546 handover (written 2026-11-24 about 03:30, end of S545 - Fable)
 
-Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. Digest: ops/research/S544_DIGEST.md.
+Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. Digest: ops/research/S545_DIGEST.md.
 
 ## METHOD lines - quote all of them in your first message
-- A DECISION SCREEN IS A SCENE, AND A CLICK SHOWS WHAT CHANGED (owner S544: "looks like spreadheet you need to use art
-  you are an experienced AAA game designer"; "i click turn pro now , i expect to see what changed , bring up the players
-  profile show me what is new"). A decision screen = a picture of the moment + the choices as cards with a painting and
-  at most four plain facts; never rows of key/value as the main content. After a decision button, the player lands where
-  the change lives, sees before -> after with NEW marked, and one pulsing next action. Pattern to reuse:
-  `scripts/ui/ProScene.gd`, `modals/ProOffer.gd`, `modals/ProNews.gd`, `WhatsNew.gd`, `ProBars.mark`.
-- NOTHING CUT BY THE SCREEN (owner S544: "why half the screen isout of bounds"). Before a screen change is merged or
-  exported: `tools/jump_snapshot.gd` on the hidden desktop with `--log` (BOUNDS lines; headless sizes are wrong), and
-  open the real picture. A worker's stills are checked for both of these lines before the merge.
+- A DECISION SCREEN IS A SCENE; AFTER THE CLICK THE PAGE ITSELF SHOWS WHAT CHANGED - NO POP-UP, NO ICON TILES (owner
+  S544: "looks like spreadheet you need to use art"; S545 on the four-tile pop-up over the profile: "this looks like AI
+  slop", "the window doesnt go away"). Pattern: `scripts/ui/ProScene.gd`, `modals/ProOffer.gd`, `WhatsNew.card` (the
+  profile's top card: a title, one line, plain was -> now words, the one pulsing next action), `ProBars.mark`.
+- LITTLE TEXT (owner S545: "you do not need to spell everything out for the player"; "A simple You pay : 123456$ is
+  enough , if more things are needed use the fucking tooltip").
+- PLAIN MENU WORDS (owner S545: "i do not understand whatis club and what is gym"; "never seen People as description in
+  a menu in a game , what happened to normal words like staff").
+- EVERYTHING OFFICE-LIKE LIVES IN THE OFFICE COMPUTER (owner: Mail S544, Fights S545 "shouldnt this be inside the
+  computer in the offece menu ?"). Pattern: `Office.host` (the Fights area builds the desktop round its list).
+- NOTHING CUT BY THE SCREEN: `tools/jump_snapshot.gd` on the hidden desktop with `--log`, through `godot_slot.py`. A
+  PICTURE WITH A POP-UP OVER THE WRONG PAGE IS A BUG, not the jump's state (S545 miss).
 - ORDER (owner S542): pending mechanics first, THEN 3D and menus. His own play notes on a screen are fixed at once.
-- NO DESIGN ROUND ON A PLAN LINE THE PLAYER ADDS until PLANWORTH1 is measured (TELLPLAY1 FAIL: under 1 point in the
-  ring; `ops/research/TELLPLAY_SCOPE_S543.md`). Judge on real bouts (`BoutNight.play_out`), never on the read alone.
-- A WORKER'S NUMBERS CAN BE RIGHT AND ITS WHY WRONG: open the code lines a "why" stands on before it becomes a question
-  to the owner.
-- CARD GAME, REAL FIGHT FIRST: each new or changed move names the audit row it follows (`ops/research/CARDREAL_AUDIT.md`).
-- MECHANICS NEED 8 (owner S534), probe first, then a code-checked critic, then the chat critics. DEPTH is measured, FUN
-  is his play. FREE HAND to remove / add / interconnect, then report.
-- A DESIGN THAT KEEPS FAILING gets a stop rule in its brief (COACHDEEP9) or an interview with him.
-- AGENTS ONLY IN THE CONSOLE: `mcp__terminal__run_in_terminal` with `powershell -NoProfile -ExecutionPolicy Bypass -File
-  ops\Tools\claude_cm.ps1 --model claude-opus-5-5 --permission-mode auto "<brief>"`. At most 3 at once.
-- HIS GAME FIRST: ArcheAge running + memory AMBER = two Godot slots; my renders and tests queue behind the probes.
-- FIGHT ANIMATION: v2 only, no new correction layer. Board questions 20 words max. Commit by pathspec.
+- THE FIGHT'S DEPTH IS IN THE CORNER, LIVE (S545 measured): reading the moment pays +10 to +18 wins in 100
+  (CORNERCMD1); the best written plan pays +1.7 over the coach's (PLANWORTH1). No design round on the written plan
+  before he has heard these two numbers.
+- MECHANICS NEED 8 (owner S534), probe first, then a code-checked critic, then the chat critics. A WORKER'S NUMBERS CAN
+  BE RIGHT AND ITS WHY WRONG: open the code lines first. A DESIGN THAT KEEPS FAILING gets a stop rule or an interview.
+- CARD GAME, REAL FIGHT FIRST. FIGHT ANIMATION: v2 only, no new correction layer. AGENTS ONLY IN THE CONSOLE
+  (`claude_cm.ps1` through `mcp__terminal__run_in_terminal`, at most 3). HIS GAME FIRST. Board questions 20 words max.
+  Commit by pathspec; never `cd` in a Bash call without coming back; write JSON the way the file was (no re-indent).
 
-## FIRST: collect what is running (read the result files; the tabs belong to the S544 desktop session)
-1. CORNERCMD1 (tab c3; owner "yes start the probe", Q-325) -> `docs/CORNERCMD1_RESULT.md`. Step 0 measures today's eight
-   calls on real bouts; then nine bars. PASS -> the worker queues Kalli and Dola; launch a code-checked critic FIRST.
-   FAIL -> which bar and the one change, to him (it is his design).
-2. PLANWORTH1 (tab c4) -> `docs/PLANWORTH1_RESULT.md`: question 1 (does one written line switch the coach's plan off?)
-   then six findings bars. Take the numbers to the owner in plain words: (a) designing the plan pays, (b) it pays but the
-   tape adds nothing, (c) it barely beats the coach's. Only then a design question.
-3. Arena CARDROUND9 (chat 01a20a6d-3a1b-79dc-a475-e858f591a0d9, branch arena/f591a0d9-fightcamp-lean-lite): its PR
-   relays from the lite mirror. Read the CI log yourself, `ci_arena.py guard`, apply the diff. Then PLAY BOTH ARTS BY HAND
-   and write down each move that does not look like a fight, before the owner is asked.
-4. Seat answers (ARRIVED at the end of S544, filed UNREAD): Kalli scored the paper model real 6, depth 5, play 6
-   (the knockdown is missing, and the punches a fan expects). Read both critics, take their changes into a round 9b for
-   Arena BEFORE the owner is asked to play. SQ320 Dola, SQ321 Kalli (`CRITIC_CARDREAL_BRIEF.md`: the paper model; their 10/10 first screens are
-   the input for card round 10, the screen); SQ319 John (`CARDREAL2_JOHN_BRIEF.md`: judo, wrestling, sambo, karate -
-   check sources, then the same audit for those arts).
+## FIRST: his two open play notes (he was playing the S545 build when the session ran out of room)
+1. THE CLUB PAGE, verbatim: "i do not understand whatis club and what is gym, this screen is terrible , never seen
+   People as description in a menu in a game , what happened to normal words like staff ." Done in S545: the tab reads
+   Staff (tests were still running at handover: check the last commit's message). OWED:
+   (a) one word for the player's place in every menu: the gym (the page header CLUB, the hub pin "Club office", the
+       handbook's "Club"; `Data.AREAS`, `GymHub.gd`, `HandbookPanel.gd`; tests name some of these);
+   (b) the three Club pages (Staff, Money, Records) as windows of the office computer, the way Fights is (the dock
+       already has Staff, Finance, Records; the generic way is in `Shell.refresh`: host the area node inside
+       `Office.host`'s box and skip the area head; watch page widths, 200 px narrower);
+   (c) the staff screen itself ("terrible"): redo it as cards with a face, the role in plain words, at most four
+       facts and one button each - after COACHDEEP9 lands (the card's content depends on it). Scope it, picture it,
+       check it yourself against the METHOD lines before he sees it.
+2. "wtf is the week preview button doing and showing ?" - NOT FOUND by name in `scripts/ui` (no label says "preview";
+   candidates: the top bar CONTINUE "to Mon 12 Jan, week review", the week review pop-up, the training page's night
+   bar `NightBar.gd` / `TrainingPreview`). Ask him which screen in one short line, or find it from his next screenshot.
 
-## SECOND: launch
-- COACHDEEP9 (`ops/research/TASK_COACHDEEP9.md`): first free worker slot. Its STOP RULE is the coordinator's to apply:
-  a forced moment that fails bar 3 again is cut as a player decision; no v10.
+## SECOND: collect (result files; the tabs belong to the S545 desktop session)
+1. COACHDEEP9 (tab c2) -> `docs/COACHDEEP9_RESULT.md`. Its STOP RULE is yours to apply: a forced moment that fails bar 3
+   again is cut as a player decision; no v10. NOTE: its cut run hung at 03:01 on a parse error I left in
+   `scripts/state/Data.gd` from 02:52 to 03:15 (fixed, never committed). The owner said "Yes, stop it": the stuck Godot
+   run was stopped at 03:25 and the worker re-ran it by itself (a 1-rep check, then the full cut run, about 32 minutes).
+   CORNERCMD2's full run started at 03:15:20, after the fix.
+2. CORNERCMD2 (tab c3) -> `docs/CORNERCMD2_RESULT.md`. PASS -> launch a code-checked critic FIRST, then Kalli and Dola.
+   FAIL -> its stop rule: the facts to him, his design (the ring slider: "cut it as a held slider, keep the two ring
+   calls as moment answers, or cut both").
+3. KNOWBUILD1 (tab c4, worktree `E:\FightCamp\wt\KNOWBUILD1`, branch `build/knowbuild1`) -> `docs/KNOWBUILD1_RESULT.md`
+   on the branch. Merge by diff ONLY after you open its four stills and check: a scene, no pop-up, no icon tiles, little
+   text, nothing cut, the click lands where the change lives.
+4. Arena CARDROUND9 (chat https://arena.ai/agent/01a20a6d-3a1b-79dc-a475-e858f591a0d9, the built-in browser pane;
+   branch arena/f591a0d9-fightcamp-lean-lite not pushed at 03:05). If it stopped on its tool-call limit again: type
+   "continue" in its box. When its PR relays: CI log, `ci_arena.py guard`, apply the diff, `lite_mirror.py push`, then
+   a NEW Arena chat on `ops/research/TASK_CARDROUND9B.md`. Then play both arts by hand.
+5. BODYCROSS2 landed (98088087c): films and stills on /review ("Body cross: reaches and hurts"). His eye closes it.
+   Open follow-up, a scope call: every body punch in the 3D fight stops dead on a target 5-7.5 cm in front of the skin
+   (`PunchAim`); that is the v2 player's finish, so it is a FIGHTPLAYER2 item, not a patch.
 
-## THIRD: his play
-- The S544 build (second export) is in `Builds/`. `docs/WHAT_TO_TRY.txt` leads with six points (A-F). Board buttons:
-  Pro: the call / safe or risky / rival gym calls / hunger gone. His play notes are fixed the same session.
-- Shown to him as pictures: `docs/playtest/s544_turnpro/` (the call, the rival call, a pro from today, not yet, the
-  profile, Mail in the office); on 8787/review: v17's first screens and the fight pictures' contact sheets.
+## THIRD: tell him the two numbers, then one design conversation (Fable)
+In plain words: (1) a fight plan written before the bout is worth about 2 more wins in 100 than the coach's own; the
+card shows about 12 (wrong by 4 to 7 times: a defect to fix in the read whatever he decides); (2) shouting the right
+command at the right moment in the fight is worth 10 to 18. Ask ONE thing: whether the pre-fight plan stays a big
+screen to design, or shrinks to the coach's plan plus one or two picks while the corner becomes the game. Do not
+propose a redesign before his answer.
 
 ## Then, in his order (mechanics first)
-- KNOWBUILD1: step 1 of knowledge v9 (the signing card) - as a SCENE (the METHOD line), with what changed after signing.
-- DEPTH1: sponsorship as one budget split across the boxers; the loan's timing.
-- PROGBUILD1 (rides on coaches). Then 3D and menus; the map holds "3D fight: staged exchanges (E33)" for that phase.
-- Apply the scene + what-changed pattern to the other decision pop-ups as they are touched (bout offer, weigh-in miss,
-  the club show booking, the hire): not a restyle sweep, one screen when its mechanic is worked on.
-- Known gaps: a blocked body punch is caught at chest height in the pictures (no elbow-down block clip); the nightly
-  reds `plan_templates_test` and `matchmaking_bots_test` (NIGHTREDS1, no seat took it).
+- NIGHTREDS: `matchmaking_bots_test` is red because DMGCLASS2 took the four-count bout limit out of pro bouts
+  (`WorldBout.gd` PRO_FROM); proven in a worktree. The rule is right; make reckless matchmaking cost again (what a
+  stoppage loss does to a pro: weeks out, the place lost) by a probe, or re-set the test's margins with the reason
+  written. `ops/research/TASK_NIGHTREDS1.md` holds the note. Remove the temp worktree `E:\FightCamp\wt\S545_NIGHTRED`
+  (`git worktree remove --force`, then delete branch `s545/nightred`).
+- DEPTH1 (sponsorship as one budget split across the boxers; the loan's timing). PROGBUILD1 rides on coaches.
+- The read over-reads a written plan 4 to 7 times (PLANWORTH1): fix `BoutRead` the way the fade answer was fixed in
+  S544 (walk the card chain at its fire share), with a test red first.
+- Card game: John's four-arts memo waits for boxer against jiu-jitsu to pass its critics.
 
 ## Waiting on the owner
-- His play of the S544 build. Nothing else.
-- Finished worker tabs from S543 and S544 hold memory (he closes tabs; never Stop-Process without his yes).
+- His eye on /review: the turning pro call after his two marks; Fights inside the office computer; the body cross.
+- His play of the S545 build (WHAT_TO_TRY leads with G and H).
+- Finished worker tabs hold memory (BODYCROSS2 c1; S544's CORNERCMD1 and PLANWORTH1): he said "Yes, close them" for
+  eight on 2026-11-24; ask again before closing others.
 
-## Model for S545
-Opus 5.5, medium effort, Fast off: collections, one launch, and his play notes; Fable for a design conversation if
-PLANWORTH1 says the plan barely beats the coach's.
+## Model for S546
+Fable, medium effort, Fast off: the Club page work is design + build to his taste, and the plan-versus-corner
+conversation needs it. Opus is enough if only collections remain.

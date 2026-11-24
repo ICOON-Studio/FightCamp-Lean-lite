@@ -94,7 +94,7 @@ static func act(main: Node, name: String, arg: String) -> bool:
 			var pn := WhatsNew.news_pro(c, f, {"cash": cash_was})
 			main.act("fighter", str(f["id"]))
 			main.route["new"] = pn
-			main.open_modal({"type": "pronews", "fid": str(f["id"]), "news": pn})
+			main.render()   # S545: the profile itself says what changed (no pop-up)
 		"declinepro":   # S543 v17 "Not yet": a patience mark, the offer back in four weeks; S544 the profile shows what it cost
 			var wf: Dictionary = c.fighter_by_id(str(c.pro_offer.get("fid", "")))
 			var hunger_was := int((wf.get("pro_start", {}) as Dictionary).get("hunger", 0))
@@ -104,7 +104,7 @@ static func act(main: Node, name: String, arg: String) -> bool:
 				var wn := WhatsNew.news_wait(c, wf, {"hunger": hunger_was})
 				main.act("fighter", str(wf["id"]))
 				main.route["new"] = wn
-				main.open_modal({"type": "pronews", "fid": str(wf["id"]), "news": wn})
+				main.render()
 		"rivalgo":   # S543 v17: the rival gym's call refused - the boxer leaves for good
 			Roster.refuse_rival(c)
 			main.close_modal()
