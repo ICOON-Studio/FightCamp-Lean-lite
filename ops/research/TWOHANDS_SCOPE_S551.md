@@ -74,3 +74,26 @@ screenshots at 1400 x 900 of the pick screen and of a defence - everything fits 
 layout by eye; the sounds by ear (nobody has heard them on this page); balance of the three opponents (first guesses).
 Known art limit: the pictures are end-of-punch stills, so the punch does not travel on screen - the sweep is still the
 timing cue. An overhand uses the rear-hook picture (no overhand picture exists).
+
+## The timed mechanic reworked, and a second defence style (S551, his "can you work on th e2hands timed mechanic and alsoseeif you can find an alternative forthe gaurds")
+My reading of "the guards": the defence options (the block and its two cousins as three timed presses). If he meant
+something else, this section is the wrong answer.
+- THE PUNCH TRAVELS: a glove flies across the ring from the puncher to the target (head height or body height) on the
+  same clock as the white line; it arrives at the impact.
+- PERFECT TIMING: the bright middle of every band (35% of it). A perfect block lets nothing through; a perfect slip,
+  duck or parry counters at once (no second press); a perfect step back gives no ground.
+- YOUR PUNCHES ARE TIMED TOO: each punch you throw gets one press (Space or tap) as it lands. In the band = a SHARP
+  punch (the machine reads and times its defence 30% worse); in the bright middle = +1 health; no press = an ordinary
+  punch, no penalty.
+- DEFENCE STYLE B, "a guard and timed moves" (picked on the first screen; it is the default so he sees it):
+  the block is no longer a timed press. You HOLD a guard high or low (W / X or tap, any time, no timing). It stops what
+  is aimed where it is held - a head punch against a high guard, a body punch against a low one - and every punch it
+  stops wears a GUARD bar (8; minus the punch's damage; 2 back each exchange, 4 at the bell). A broken guard stops
+  nothing. An uppercut comes up through any guard. Slips, ducks, parries, leans and steps stay timed presses and set
+  up the counter; a move that is mistimed leaves you with no guard for that punch. The opponent has the same guard,
+  shown on his panel ("held high"): hitting where his guard is not is now a choice when you lead.
+- Style A, "three timed presses", is still there to compare: everything as before.
+Checked S551 in the browser: a scripted bout in each style ran with no script error (guard took head and body punches
+at the right height and wore down 8 -> 3; the three-press style unchanged); headless screenshots of both screens at
+1400 x 900 fit. NOT checked by a person: whether the sharp press makes leading better or just busier; whether holding
+a guard is a decision or a default; every number (guard 8, wear = damage, sharp 30%) is a first guess.
