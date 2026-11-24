@@ -10,6 +10,7 @@ const Gap := preload("res://scripts/fight3d/v2/ChoreoGap.gd")
 const React := preload("res://scripts/fight3d/v2/ChoreoReact.gd")
 const Wait := preload("res://scripts/fight3d/v2/ChoreoWait.gd")
 const Drift := preload("res://scripts/fight3d/v2/ChoreoDrift.gd")
+const RoundScript := preload("res://scripts/rules/RoundScript.gd")
 
 
 ## Plan one exchange. beats: time-ordered input (never mutated). db: parsed clip_db.json.
@@ -42,12 +43,18 @@ static func plan(beats: Array, db: Dictionary, opts: Dictionary) -> Dictionary:
 	# one boxer's own punches never overtake each other (R2). The output keeps the input's order.
 	var own_ct := {"a": -99.0, "b": -99.0}
 	var keys: Array = []
+	# BODYCROSS4 (S548): what each beat is SHOWN as. The bout's settled body punch ("body_hook": every count and the
+	# damage map read that name, and it stays on the beat) is thrown with the rear hand - the rear straight to the body,
+	# "body_cross" - when the damage map puts it on the ribs of the rear hand's side, and inside a combination when his
+	# lead hand has just punched (RoundScript.show: no draw).
+	var shown: Array = RoundScript.show(beats, south)
 	for i in beats.size():
 		var b0: Dictionary = beats[i]
+		var w0 := str(b0.get("who", "a"))
+		var m0: String = str(shown[i])
 		var k: float = float(b0.get("t", 0.0))
-		if R.is_punch(str(b0.get("move", ""))):
-			var w0 := str(b0.get("who", "a"))
-			k = maxf(k + R.impact_s_for(str(b0.get("move", ""))), float(own_ct[w0]) + R.OWN_GAP_S)
+		if R.is_punch(m0):
+			k = maxf(k + R.impact_s_for(m0), float(own_ct[w0]) + R.OWN_GAP_S)
 			own_ct[w0] = k
 		keys.append([k, i])
 	keys.sort_custom(func(x, y): return float(x[0]) < float(y[0]) if float(x[0]) != float(y[0]) else int(x[1]) < int(y[1]))
@@ -57,12 +64,14 @@ static func plan(beats: Array, db: Dictionary, opts: Dictionary) -> Dictionary:
 		var at_i: int = int(key[1])
 		var who: String = str(beat.get("who", "a"))
 		var other: String = "b" if who == "a" else "a"
-		var move: String = str(beat.get("move", ""))
+		var move: String = str(shown[at_i])
 		var result: String = str(beat.get("result", ""))
 		var def: String = str(beat.get("def", ""))
 		var big: bool = bool(beat.get("big", false))
 		var bt: float = float(beat.get("t", 0.0))
 		var ob: Dictionary = beat.duplicate()
+		if move != str(beat.get("move", "")):
+			ob["shown"] = move
 		if not R.is_punch(move):
 			_non_punch(ob, move, bt, who, marks, ev[who], ctrl_until)
 			out_beats[at_i] = ob
@@ -153,11 +162,11 @@ static func plan(beats: Array, db: Dictionary, opts: Dictionary) -> Dictionary:
 			t_play = contact_t - (contact_s - from_s)
 		var ik_m: float = minf((dev if R.is_straight(move) else 0.0) + (reach if result == "lands" else 0.0), R.IK_MAX_M)
 		# S529: a landed cross, hook or uppercut moves the man it hit (ChoreoGap.HURT_OUT_M: HE takes the step back)
-		marks.append({"t": contact_t, "gap": pgap, "who": who, "kind": "contact", "hurt": other if result == "lands" and not (move in ["jab", "body_hook"]) else ""})
+		marks.append({"t": contact_t, "gap": pgap, "who": who, "kind": "contact", "hurt": other if result == "lands" and not (move == "jab" or R.is_body(move)) else ""})
 		ev[who].append({"t": t_play, "clip": take_name, "kind": "punch", "part": "whole", "from_s": from_s,
 			"join_s": R.join_for("punch"), "control_t": contact_t + R.CONTROL_S, "contact_t": contact_t, "move": move,
 			"until_s": contact_s + R.arm_home_s(move) + 0.25,   # his hand is home (Player2 hands the take back to the guard): a wait thing may start
-			"result": result, "big": big, "ik_m": ik_m})
+			"result": result, "big": big, "ik_m": ik_m, "own": take_name in R.OWN_KEYS and dev <= R.gap_fit_for(move) + 0.001})
 		ctrl_until[who] = contact_t + R.CONTROL_S
 		prev_ct = contact_t
 		prev_free = contact_t
@@ -187,7 +196,7 @@ static func plan(beats: Array, db: Dictionary, opts: Dictionary) -> Dictionary:
 			# S530: ... as late as keeps the head's step under the bar in every picture (ChoreoReact.start_s)
 			var r_start: Array = React.start_s(rrow, move, float((db.get("meta", {}) as Dictionary).get("curve_hz", 30.0)), float(scale.get(other, 1.0)))
 			var r_from: float = float(r_start[0])
-			var r_until: float = minf(r_peak + 0.15, r_at + R.REACT_STAGGER_S) if move == "body_hook" else r_at + R.REACT_TAIL_S
+			var r_until: float = minf(r_peak + 0.15, r_at + R.REACT_STAGGER_S) if R.is_body(move) else r_at + R.REACT_TAIL_S
 			r_until = minf(r_until, float(rrow.get("length_s", r_until)))
 			ev[other].append({"t": rt, "clip": react_name, "kind": "reaction", "part": "?", "from_s": r_from,
 				"until_s": r_until, "soft": bool(r_start[1]),
@@ -393,6 +402,10 @@ static func _pool(db: Dictionary, rows: Dictionary, move: String, big: bool) -> 
 static func _pick(rows: Dictionary, pool: Array, sc: float, off: float, prev_gap: float, room: float, last: String, rng: RandomNumberGenerator, move: String = "jab", lands: bool = false) -> Array:
 	if pool.is_empty():
 		return ["", {}, prev_gap, 0.0]
+	if room == INF:   # BODYCROSS4: where the pair can be set to any take's own range first, never a take that does not read as a punch
+		var reads: Array = pool.filter(func(n): return not (str(n) in R.NO_PUNCH_READ))
+		if not reads.is_empty():
+			pool = reads
 	if lands:
 		var long: Array = pool.filter(func(n): return not R.is_short(move, float(rows[n].get("contact_gap_m", 0.9)) * sc, float(rows[n].get("head_fwd_m", 0.0)) * sc))
 		if not long.is_empty():

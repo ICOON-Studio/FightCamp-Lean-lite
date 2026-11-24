@@ -3,6 +3,11 @@
 Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. Digest: ops/research/S550_DIGEST.md.
 
 ## METHOD lines - quote all of them in your first message
+- ## METHOD - CARD GAME: THE DECK FORM IS IN QUESTION (owner S551: "there are 1 million deckbuilding games ... i expect a
+  proper innovative design"; "Take it" is "dumb"; defence "Timing, like Expedition 33"; "you can use deck for each hand or
+  even combine them ... decide what each move hits and give opponent various options"). No work on proto/boxcards rules2 /
+  rules3 or CARDRANGE_SCOPE_S550 (on hold). Plan: `ops/research/TWOHANDS_SCOPE_S551.md`; phase 0 = HIS PLAY of the toy
+  `proto/twohands/index.html` (preview `twohands`, port 8797). Read his notes before any design page.
 - ## METHOD - CARD GAME: ONE ART AGAINST ITSELF FIRST (owner S549: "the real test should be a boxer vs boxer , donot
   mix classes untill all arts cards are ingame"). No work on the mixed boxing v jiu-jitsu game (`proto/cardgame/`).
 - ## METHOD - CARD GAME: VERSION 3 IS RANGE, NO MORE PATCH ROUNDS ON VERSION 2 (S550: two code-checked critics, 5/6/6

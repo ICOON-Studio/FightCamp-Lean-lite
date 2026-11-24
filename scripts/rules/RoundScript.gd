@@ -14,6 +14,7 @@ extends RefCounted
 
 const RoundStyle := preload("res://scripts/rules/RoundStyle.gd")
 const Combos := preload("res://scripts/rules/Combos.gd")
+const BodyMap := preload("res://scripts/rules/BodyMap.gd")
 
 const SECONDS := 40.0
 const BEATS := 9
@@ -247,6 +248,52 @@ static func highlights(script: Dictionary, gap_s: float = 1.6) -> Array:
 			t += gap_s + COMBO_GAP_S * (run.size() - 1)
 		i += run.size()
 	return out
+
+
+## BODYCROSS4 (S548): THE HAND A BODY PUNCH IS SHOWN WITH. The round settles a body punch as "body_hook" - the name every
+## count reads (BodyMap's ribs, BodyLoad's arms, the exchange's body tally, the fight log) - and that name stays on the
+## beat: a new move name here would be skipped by each of them and move a bout number. What the 3D ring may choose is the
+## HAND, and the game already holds the data: the damage map puts every body punch on one side of the ribs
+## (BodyMap._punch_hits, a carried "side" first, else its own hash of the beat: the liver side BodyMap.LIVER_SHARE of
+## the time). An orthodox boxer's lead hook lands on the other man's right ribs (the liver); the ribs on the far side
+## are his REAR hand's - the rear straight to the body, which FightLog and the 2D pictures call "body_cross". So the
+## share is 1 - LIVER_SHARE = 0.4 for an orthodox boxer (a southpaw's rear hand is the liver's: 0.6), with NO draw: no
+## random number of the round or of the exchange is added or moved, and the picture hurts the side the body panel marks.
+## shown(beat, attacker_south) -> the move to show: "body_cross", or the beat's own move.
+## show(beats, south {a, b}) -> the move to show for every beat, in the beats' order: shown() for a body punch that
+## opens or stands alone, and INSIDE A COMBINATION THE HANDS ALTERNATE (the punch before it by the same boxer, SHOW_COMBO_S
+## or less earlier: after his lead hand - a jab, a lead hook - the body punch is the rear hand's, after his rear hand
+## the lead hook's; a jab then a lead body hook was one arm out twice in 0.35 s). Only one take of the rear straight
+## to the body is owned, so a boxer's two punches running are never both body crosses.
+const SHOW_COMBO_S := 0.6
+const LEAD_HAND := ["jab", "lead_hook", "lead_uppercut", "body_hook"]
+
+
+static func show(beats: Array, south: Dictionary = {}) -> Array:
+	var out: Array = []
+	var last := {}   # who -> [the last punch shown, its time]
+	for b in beats:
+		var who := str(b.get("who", "a"))
+		var m := shown(b, bool(south.get(who, false)))
+		if str(b.get("move", "")) == "body_hook":
+			var prev: Array = last.get(who, ["", -99.0])
+			if float(b.get("t", 0.0)) - float(prev[1]) <= SHOW_COMBO_S:
+				m = "body_cross" if str(prev[0]) in LEAD_HAND else "body_hook"
+			elif str(prev[0]) == "body_cross":
+				m = "body_hook"
+		if not NOT_PUNCH.has(m) and m != "say":
+			last[who] = [m, float(b.get("t", 0.0))]
+		out.append(m)
+	return out
+
+
+static func shown(beat: Dictionary, attacker_south: bool = false) -> String:
+	var move := str(beat.get("move", ""))
+	if move != "body_hook" or not beat.has("t") or not beat.has("who"):
+		return move
+	var hits: Array = BodyMap._punch_hits(beat, attacker_south)
+	var lead_ribs := "left_ribs" if attacker_south else "right_ribs"
+	return move if hits.is_empty() or str((hits[0] as Dictionary).get("place", lead_ribs)) == lead_ribs else "body_cross"
 
 
 static func _beat(who: String, move: String, result: String) -> Dictionary:

@@ -15,7 +15,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .lab{font-size:0.786rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
 .pips{display:flex;gap:4px;margin-top:3px} .pip{width:1.857rem;height:1rem;border-radius:3px;background:#3a2e26;border:1px solid var(--line2);transition:background .3s}
 .pip.on{background:var(--green)} .pip.gone{background:#1a1513;border-style:dashed;opacity:.5}
-.pip.dz{background:var(--red)} .pip.line{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold)}
+.pip.hp{background:var(--red)} .pip.line{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold)}
 .tag{display:inline-block;padding:2px 0.571rem;border-radius:0.714rem;border:1px solid var(--line2);font-size:0.857rem;margin:2px 4px 0 0}
 .tag.bad{border-color:var(--red);color:#ffb3ad} .tag.good{border-color:var(--green);color:#bfe6c3}
 .used{font-size:0.857rem;color:var(--muted);line-height:1.5}
@@ -279,8 +279,8 @@ const PILOTS = { reader, slugger,
 // shows what it does and costs before you lay it. The bot reads its own hand and the table only (bot2.mjs).
 
 
-const TXT = { jab: '1 point. Never countered, never out-stepped.', cross: '2 points, head 3.', hook: '2 points, head 3.', body: '1 point. His wind bar 1 shorter all bout. A block does not stop it.',
-  upper: '2 points, head 4. A block does not stop it.', feint: 'Lands nothing. Your next punch turns hidden: he answers blind.', block: 'Stops one head punch. Wasted on a body hook or uppercut.',
+const TXT = { jab: '1 point, 1 health. Never countered, never out-stepped.', cross: '2 points, 3 health.', hook: '2 points, 3 health.', body: '1 point. His stamina bar 1 shorter all bout. A block does not stop it.',
+  upper: '2 points, 4 health. A block does not stop it.', feint: 'Lands nothing. Your next punch turns hidden: he answers blind.', block: 'Stops one head punch. Wasted on a body hook or uppercut.',
   slip: 'One punch misses. Add a punch of yours: it lands and his volley ends.', step: 'His punch falls short, his volley ends. Puts you on the ropes.', clinch: 'Smothers his punch, his volley ends. Not on his first card.' };
 const $ = (id) => document.getElementById(id), who = ['You', 'He'], nm = (id) => CARDS[id].n, bot = reader();
 let seed = Math.floor(Math.random() * 1e6);
@@ -329,15 +329,15 @@ let lastMine = null;
 function end(v) { phase = 'over'; const t = v.t ? ' ' + v.t.join('-') : ''; lastText = v.win < 0 ? 'A DRAW' + t : `${v.win === 0 ? 'YOU WIN' : 'HE WINS'} by ${v.how}${t}`; log(lastText, 'bell'); render(); }
 
 function man(el, k) { const m = S.f[k], pips = []; for (let i = 0; i < N.cap; i++) pips.push(`<span class="pip ${i < m.wind ? 'on' : i >= m.cap ? 'gone' : ''}"></span>`);
-  const dz = []; for (let i = 0; i < N.kdAt; i++) dz.push(`<span class="pip ${i < m.daze ? 'dz' : ''} ${i === N.kdAt - 1 ? 'line' : ''}"></span>`);
-  const tags = [m.hurt ? '<span class="tag bad" title="Has been down this round: the head does not clear before the bell">hurt</span>' : '', m.ropes ? '<span class="tag bad" title="No second step back until he has led">on the ropes</span>' : '',
+  const dz = []; for (let i = 0; i < N.kdAt; i++) dz.push(`<span class="pip ${i < N.kdAt - m.daze ? 'hp' : ''}"></span>`);
+  const tags = [m.hurt ? '<span class="tag bad" title="Has been down this round: no health comes back before the bell">hurt</span>' : '', m.ropes ? '<span class="tag bad" title="No second step back until he has led">on the ropes</span>' : '',
     m.held ? '<span class="tag" title="No clinch twice running">just clinched</span>' : '', m.holds ? `<span class="tag" title="The third hold in a round costs a point">holds ${m.holds}</span>` : '', m.kds ? `<span class="tag bad">down ${m.kds}x</span>` : ''].join('');
   const used = Object.keys(DECK).map((id) => { const n = m.pile.filter((c) => c === id).length; return n ? `${nm(id)} ${n} of ${DECK[id]}` : ''; }).filter(Boolean).join(', ');
-  el.innerHTML = `<h2>${k ? 'Him' : 'You'}</h2><div><span class="lab" title="Pays for every card. 3 comes back before each exchange. A body punch shortens the bar for the whole bout.">Wind ${m.wind} of ${m.cap}</span><div class="pips">${pips.join('')}</div></div>
-    <div><span class="lab" title="A clean big punch that fills the bar to the gold line puts him down.">Head ${m.daze} of ${N.kdAt}</span><div class="pips">${dz.join('')}</div></div>
+  el.innerHTML = `<h2>${k ? 'Him' : 'You'}</h2><div><span class="lab" title="Pays for every card. 3 comes back before each exchange. A body punch shortens the bar for the whole bout.">Stamina ${m.wind} of ${m.cap}</span><div class="pips">${pips.join('')}</div></div>
+    <div><span class="lab" title="Every clean head punch takes some. At 0 a big punch puts him down. A little comes back between exchanges.">Health ${Math.max(0, N.kdAt - m.daze)} of ${N.kdAt}</span><div class="pips">${dz.join('')}</div></div>
     <div><span class="lab">This round</span><div><b>${m.pts}</b> points, ${m.thrown} punches thrown</div></div><div>${tags}</div>
     <div class="used"><span class="lab">${k ? 'Cards he has played' : 'Cards you have played'}</span><br>${used || 'none yet'}</div>`; }
-const face = (id, extra = '', cls = '', n = '') => `<button class="card ${cls}" ${extra}><span class="w">${id === 'slip' ? slipCost(S.f[0]) : CARDS[id].w} wind</span><b>${nm(id)}</b><small>${TXT[id]}</small>${n ? `<span class="n">${n}</span>` : ''}</button>`;
+const face = (id, extra = '', cls = '', n = '') => `<button class="card ${cls}" ${extra}><span class="w">${id === 'slip' ? slipCost(S.f[0]) : CARDS[id].w} stamina</span><b>${nm(id)}</b><small>${TXT[id]}</small>${n ? `<span class="n">${n}</span>` : ''}</button>`;
 const down = (n) => Array(n).fill('<span class="card down"></span>').join('');
 function render() {
   $('where').innerHTML = `Round <b>${S.round}</b> of ${N.rounds} - exchange <b>${Math.min(x + (phase === 'shown' || phase === 'over' ? 0 : 1), 6)}</b> of 6`;
@@ -348,9 +348,9 @@ function render() {
   if (phase === 'lead') {
     const cost = volleyCost(pick);
     $('said').textContent = 'Your lead: up to three cards, in order. He will see them one at a time.';
-    $('volley').innerHTML = pick.map((id) => face(id, 'disabled', 'pick')).join('') + (pick.length ? `<span class="lab">${cost} wind if all turn</span>` : '');
+    $('volley').innerHTML = pick.map((id) => face(id, 'disabled', 'pick')).join('') + (pick.length ? `<span class="lab">${cost} stamina if all turn</span>` : '');
     $('hand').innerHTML = me.hand.map((id, i) => { const isAns = CARDS[id].k === 'ans', n = pickIdx.indexOf(i) + 1; const no = isAns || (!n && (pick.length >= N.volley || cost + CARDS[id].w > me.wind)); return face(id, `data-i="${i}"`, (n ? 'pick ' : '') + (no ? 'no ' : '') + (isAns ? 'ans' : ''), n || ''); }).join('');
-    $('acts').innerHTML = `<button class="btn" id="rest" title="Wind back and a fresh hand. The judges give him 2 points.">Breather (+${N.rest} wind, new hand, 2 points to him)</button> <button class="btn go" id="go" ${legalVolley(S, 0, pick) && pick.length ? '' : 'disabled'}>Throw it</button>`;
+    $('acts').innerHTML = `<button class="btn" id="rest" title="Stamina back and a fresh hand. The judges give him 2 points.">Breather (+${N.rest} stamina, new hand, 2 points to him)</button> <button class="btn go" id="go" ${legalVolley(S, 0, pick) && pick.length ? '' : 'disabled'}>Throw it</button>`;
     $('go').onclick = throwIt; $('rest').onclick = () => { pick = []; pickIdx = []; throwIt(); };
     for (const b of $('hand').querySelectorAll('.card')) b.onclick = () => toggle(+b.dataset.i);
   } else if (phase === 'answer') {
@@ -358,7 +358,7 @@ function render() {
     $('said').textContent = v.shown ? `His ${nm(v.shown)} is coming.${v.left ? ' ' + v.left + ' more face down.' : ' It is his last card.'}` : `He feinted: a hidden punch is coming.${v.left ? ' ' + v.left + ' more face down.' : ''}`;
     $('volley').innerHTML = turned.map((id, i) => id ? face(id, 'disabled', i === turned.length - 1 ? 'now' : '') : '<span class="card down now"></span>').join('') + down(v.left) + (his.ev.length ? `<span class="lab">${sentence(his.ev)}</span>` : '');
     $('hand').innerHTML = me.hand.map((id) => face(id, 'disabled', CARDS[id].k === 'ans' ? 'ans' : '')).join('');
-    $('opts').innerHTML = v.legal.map((ans, i) => `<button class="opt" data-i="${i}"><b>${aname(ans)}${ans.id ? ' - ' + acost(ans, me) + ' wind' : ''}</b><small>${v.shown ? preview(ans) : blindText(ans)}</small></button>`).join('');
+    $('opts').innerHTML = v.legal.map((ans, i) => `<button class="opt" data-i="${i}"><b>${aname(ans)}${ans.id ? ' - ' + acost(ans, me) + ' stamina' : ''}</b><small>${v.shown ? preview(ans) : blindText(ans)}</small></button>`).join('');
     for (const b of $('opts').querySelectorAll('.opt')) b.onclick = () => { his.given.push(v.legal[+b.dataset.i]); ask(); };
   } else {
     $('said').textContent = lastText;

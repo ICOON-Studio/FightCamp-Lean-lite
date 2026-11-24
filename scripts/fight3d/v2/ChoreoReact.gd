@@ -20,7 +20,7 @@ static func react(db: Dictionary, rows: Dictionary, move: String, big: bool, fro
 	var want: float = R.react_head_m(move, big) / maxf(sc, 0.5)   # S530: the takes are measured on the census body; a bigger man shows more
 	# Direction: straight -> back (x >= 0.6); hook from left -> his left (y >= 0.5); hook from right -> his right (y <= -0.5)
 	var want_back: bool = R.is_straight(move) or move.contains("uppercut")
-	var is_body: bool = move == "body_hook"
+	var is_body: bool = R.is_body(move)   # BODYCROSS4: any body punch (the body hook, the rear straight to the body)
 	var want_side: int = 0  # 0 = no side preference, 1 = his left, -1 = his right
 	if move.contains("hook") and not is_body:
 		want_side = 1 if from_left else -1
@@ -129,9 +129,9 @@ static func start_s(row: Dictionary, move: String, hz: float, sc: float) -> Arra
 	var curve: Array = row.get("head_g", [])
 	if curve.is_empty():
 		return [from, false]
-	if move != "body_hook" and worst_step(curve, from + 1.0 / R.FILM_HZ, R.JOIN_WAY["quick"], hz) * sc <= R.HEAD_STEP_MAX_M:
+	if not R.is_body(move) and worst_step(curve, from + 1.0 / R.FILM_HZ, R.JOIN_WAY["quick"], hz) * sc <= R.HEAD_STEP_MAX_M:
 		return [from, false]
-	var way: Array = R.JOIN_WAY["fold" if move == "body_hook" else "snap"]
+	var way: Array = R.JOIN_WAY["fold" if R.is_body(move) else "snap"]
 	while from > 0.0 and worst_step(curve, from + 1.0 / R.FILM_HZ, way, hz) * sc > R.HEAD_STEP_MAX_M:
 		from = maxf(from - 0.5 / R.FILM_HZ, 0.0)
 	return [from, true]

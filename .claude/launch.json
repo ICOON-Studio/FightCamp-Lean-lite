@@ -19,6 +19,16 @@
         "boxcards"
       ],
       "port": 8798
+    },
+    {
+      "name": "twohands",
+      "runtimeExecutable": "python",
+      "runtimeArgs": [
+        "proto/cardgame/serve.py",
+        "8797",
+        "twohands"
+      ],
+      "port": 8797
     }
   ]
 }

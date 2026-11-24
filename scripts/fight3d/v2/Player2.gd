@@ -285,7 +285,7 @@ func _event(i: int, e: Dictionary) -> void:
 	if kind in ["fidget", "feint"]:
 		_wait(i, e)
 		return
-	if kind == "reaction" and str(e.get("move", "")) == "body_hook":
+	if kind == "reaction" and R.is_body(str(e.get("move", ""))):
 		_join_next = JOIN_FOLD
 	elif bool(e.get("soft", false)):   # S531: a duck joined part-way in (film 11, def2 #15: 17 cm of head in one picture) takes the fold's join
 		_join_next = JOIN_SOFT if kind == "reaction" else JOIN_FOLD
@@ -299,8 +299,8 @@ func _event(i: int, e: Dictionary) -> void:
 	var who := "a" if i == 0 else "b"
 	var move := str(e["move"])
 	var result := str(e["result"])
-	if result == "lands" and (_fronts[i] as Dictionary).has(clip):
-		_arm(i, clip, move == "body_hook")
+	if result == "lands" and (_fronts[i] as Dictionary).has(clip) and not bool(e.get("own", false)):   # (own: the take's own keys land it, ChoreoRules.OWN_KEYS)
+		_arm(i, clip, R.is_body(move))
 	var big := bool(e.get("big", false))
 	var ct := float(e["contact_t"])
 	_due.append([ct, func() -> void:
@@ -355,7 +355,7 @@ func _measure(i: int, clip: String, move: String, now_f: int, gap: float) -> voi
 	var hand: String = st.hand_of(i, str((db["rows"].get(clip, {}) as Dictionary).get("hand", "LeftHand")))
 	(st.boxers[i]["gloves"] as Node)._follow()
 	var g: Vector3 = st.glove_front(i, hand)
-	var tp := target(1 - i, move == "body_hook")
+	var tp := target(1 - i, R.is_body(move))
 	var d: Vector3 = (st.boxers[i]["node"] as Node3D).global_transform.basis.orthonormalized().inverse() * (g - tp)
 	(st.hit_gaps as Array).append({"now_f": now_f, "hitter": i, "move": move, "clip": clip, "miss": g.distance_to(tp),
 		"graze": false, "cut": false, "gap": gap, "fwd": d.z, "side": d.x, "up": d.y,

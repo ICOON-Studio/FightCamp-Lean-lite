@@ -45,6 +45,14 @@ const SAME_HAND_S := 0.04      # the same hand again starts this long after cont
 ## film 9; every film's critics: "the other hand drops to the hip / flies over the head"): they play only when their
 ## family owns nothing else.
 const FREE_HAND_OUT := ["pro_left_hook_hard", "pro_left_jab_hard", "pro_right_cross_ft", "pro_right_uppercut"]
+## BODYCROSS4 (S548, owner C505 on the close body hook's film: "this is wrong , there isno punching on this clip").
+## tools/bodycross4_ruler.gd, 120 exchanges a pair on the fixed side camera: pro_body_shot's glove gets 0.01-0.08 m
+## (men) / 0.12-0.15 m (women) nearer his skin in the last 0.15 s before the touch and touches with the heads 0.46-0.58 m
+## apart - a dip and a lean, no arm travelling to the ribs; pro_kidney_shot's gets 0.85-1.07 m nearer, heads 0.62-0.75 m.
+## The bar is 0.25 m of glove travel and heads 0.45 m: a take under it is not picked wherever the pair can be set to
+## another take's own range first (from rest, or after a wait at the pocket: Choreographer._pick). Inside a burst the
+## pick stays by distance: the long take, cut in part-way with its step in lost, stops 16-17 cm short of him there.
+const NO_PUNCH_READ := ["pro_body_shot"]
 const PULL_ALONE_S := 0.9       # a plain miss is pulled from only when no punch follows inside this (S531)
 const WIND_MIN_S := 0.12      # a take never starts later than this before its contact
 ## ... a hook, an uppercut or a body shot not later than this (S525, film 3 and 4: a hook thrown second in a
@@ -101,7 +109,18 @@ const QUIET_MIN_S := 1.2      # minimum quiet spell for a pivot
 const WHOLE_BODY_HIPS_M := 0.15  # reaction whose hips_max_m >= this is whole-body
 
 # --- Move categories ---
-const PUNCH_MOVES := ["jab", "cross", "lead_hook", "rear_hook", "lead_uppercut", "rear_uppercut", "body_hook"]
+const PUNCH_MOVES := ["jab", "cross", "lead_hook", "rear_hook", "lead_uppercut", "rear_uppercut", "body_hook", "body_cross"]
+## BODYCROSS4 (S548): the punches aimed at the trunk. body_cross = the rear straight to the body (pro_body_cross): the
+## rear hand (not in LEFT_HAND_MOVES); a body punch in everything else - the rib aim, the range, the hit man's fold.
+## It is not a STRAIGHT here: its take turns the hips 70 deg and changes level, so it starts and comes home like a hook.
+const BODY_MOVES := ClipCensus.BODY_FAMILIES
+## Takes AUTHORED on the fight's bodies to land by their own keys (BODYCROSS3: the glove sinks 6-8 cm into him, the
+## elbow bent 129 deg). When the plan has the pair at such a take's own distance the arm finish (PunchAim) is NOT armed:
+## armed, it held the glove on the rib aim point 5 cm off his skin while the body came on - on the pictures the arm
+## was straight (168 deg) one picture BEFORE the touch and bent after it, the reverse of a punch (bodycross4_ruler).
+const OWN_KEYS := ["pro_body_cross"]
+## ... and it lands when the body punch the bout settled lands (the same slot of the exchange: no other punch's time moves).
+const IMPACT_AS := {"body_cross": "body_hook"}
 const STRAIGHTS := ["jab", "cross"]
 const LEFT_HAND_MOVES := ["jab", "lead_hook", "lead_uppercut", "body_hook"]
 const PASS_MOVES := ["clinch", "count", "tired", "inside"]
@@ -119,10 +138,14 @@ static func is_left_hand(move: String) -> bool:
 	return move in LEFT_HAND_MOVES
 
 
+static func is_body(move: String) -> bool:
+	return move in BODY_MOVES
+
+
 static func range_kind(move: String) -> String:
 	if move in STRAIGHTS:
 		return "straight"
-	if move == "body_hook":
+	if is_body(move):
 		return "body"
 	return "upper" if move.ends_with("uppercut") else "hook"
 
@@ -146,6 +169,7 @@ static func gap_fit_for(move: String) -> float:
 
 
 static func impact_s_for(move: String) -> float:
+	move = str(IMPACT_AS.get(move, move))
 	if BeatClips.IMPACT_S.has(move):
 		return float(BeatClips.IMPACT_S[move])
 	return 0.45
@@ -186,7 +210,7 @@ const REACT_VARY_SCORE := 0.30
 ## (The film's ruler reads about 0.8 of a take's head_rel_m, so the asks sit a little over the critics' numbers.)
 const REACT_HEAD_M := {"jab": 0.11,   # S531: 0.15 read 16 cm on films 9 and 10 (bar 8-12; "a jab knocks the head back further than a cross")
 	 "cross": 0.24, "lead_hook": 0.24, "rear_hook": 0.24, "lead_uppercut": 0.18,
-	"rear_uppercut": 0.18, "body_hook": 0.30}
+	"rear_uppercut": 0.18, "body_hook": 0.30, "body_cross": 0.30}
 const REACT_BIG := 1.4
 const REACT_FRESH_M := 0.12       # a reaction not yet shown in this exchange may be this much further from the fit (S531)
 const REACT_VARY_M := 0.045       # takes this near the best fit share the punch (variety)
@@ -203,7 +227,7 @@ const REACT_STAGGER_S := 1.0      # ... a body shot's after its stagger, this lo
 
 
 static func react_peak_s(move: String) -> float:
-	return REACT_FOLD_S if move == "body_hook" else REACT_PEAK_S
+	return REACT_FOLD_S if is_body(move) else REACT_PEAK_S
 
 
 static func react_head_m(move: String, big: bool) -> float:
@@ -211,7 +235,7 @@ static func react_head_m(move: String, big: bool) -> float:
 
 
 static func react_size_for(move: String, big: bool) -> String:
-	if big and move != "body_hook":
+	if big and not is_body(move):
 		return "heavy"
 	if move == "jab":
 		return "light"

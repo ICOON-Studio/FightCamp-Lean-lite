@@ -40,11 +40,16 @@ const FIGHT_KINDS := ["punch", "reaction", "block", "defence", "idle"]
 const LIGHT_MAX_M := 0.15
 const MEDIUM_MAX_M := 0.30
 
+## BODYCROSS4 (S548): the families aimed at the trunk (ChoreoRules.is_body reads this list: a third body punch is one
+## name here), and the takes only the v2 player plays (no BeatClips pool of the old player picks them).
+const BODY_FAMILIES := ["body_hook", "body_cross"]
+const V2_PLAYS := ["pro_body_cross"]
+
 ## Punch families by the name's stem (Punch PRO pro_<stem>[form], Starter mc_<family>).
 const STEMS := {
 	"left_jab": "jab", "right_cross": "cross", "left_hook": "lead_hook", "right_hook": "rear_hook",
 	"left_uppercut": "lead_uppercut", "right_uppercut": "rear_uppercut", "body_shot": "body_hook", "kidney_shot": "body_hook",
-	"body_cross": "body_cross",   # S542 BODYCROSS1: the authored rear straight to the body (tools/pics2d_bodycross_bake.gd); its own family, so no cross or body-hook pool picks it
+	"body_cross": "body_cross",   # S542 BODYCROSS1: the authored rear straight to the body (tools/pics2d_bodycross_bake.gd); its own family, so no cross or body-hook pool picks it (S548 BODYCROSS4: the v2 player throws it, Choreographer.plan)
 }
 const MC_PUNCH := {"mc_jab": "jab", "mc_cross": "cross", "mc_lead_hook": "lead_hook", "mc_rear_hook": "rear_hook",
 	"mc_lead_uppercut": "lead_uppercut", "mc_rear_uppercut": "rear_uppercut"}
@@ -118,6 +123,8 @@ static func played(has: Callable) -> Array:
 	for f in GuardLife.FIDGETS:
 		if has.call(str(f)):
 			out[str(f)] = true
+	for n in V2_PLAYS:
+		out[str(n)] = true
 	var names: Array = []
 	for n in out:
 		if str(n) != "" and has.call(str(n)):
@@ -158,7 +165,7 @@ static func flags(row: Dictionary) -> Array:
 	if fam != "" and not fam in STRAIGHTS and float(row.get("miss_m", 0.0)) > TOUCH_M:
 		var up := float(row.get("up_m", 0.0))
 		out.append("lands %s: %d cm outside the %s" % ["low" if up < -0.05 else ("high" if up > 0.05 else "wide"),
-			_cm(float(row["miss_m"])), "trunk" if fam == "body_hook" else "head"])
+			_cm(float(row["miss_m"])), "trunk" if fam in BODY_FAMILIES else "head"])
 	return out
 
 
@@ -173,7 +180,7 @@ static func drop_reasons(clip: String, row: Dictionary) -> Array:
 		var bar := MISS_MAX_STRAIGHT_M if fam in STRAIGHTS else MISS_MAX_M
 		if float(row.get("miss_m", 0.0)) > bar:
 			why.append("cannot land: the glove passes %d cm outside the %s (%d cm %s the aim point)" % [_cm(float(row["miss_m"])),
-				"trunk" if fam == "body_hook" else "head", _cm(absf(float(row.get("up_m", 0.0)))), "under" if float(row.get("up_m", 0.0)) < 0.0 else "over"])
+				"trunk" if fam in BODY_FAMILIES else "head", _cm(absf(float(row.get("up_m", 0.0)))), "under" if float(row.get("up_m", 0.0)) < 0.0 else "over"])
 	if k in FIGHT_KINDS and k != "punch":
 		why.append_array(flags(row))
 	return why

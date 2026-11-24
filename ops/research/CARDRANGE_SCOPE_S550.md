@@ -58,3 +58,55 @@ later (a feint that draws the step back).
 ## Prior research
 `DESIGN_BOXCARDS1.md`, `DESIGN_BOXCARDS2.md`, both critics, `CARDBOX_SCOPE_S549.md`, `CARDBOX1_BREAKDOWN.md` (items 1
 and 8), `CARDREAL_AUDIT.md` (the old game's range letters K / P / C: the same idea, mixed with the floor).
+
+## Phase 0 - his play of version 2 (S551, 2026-11-24)
+- On the answer prompt's "Take it - His Jab lands clean" button: "ithink this is dumb , need to find better mechanic".
+  Measured on 400 reader v reader bouts of version 2 (24.9 prompts a bout): "Take it" was the ONLY button in 28%, it
+  stood beside one answer in 41%, and it was picked in 1% of the prompts that offered anything else. The prompt is not
+  a decision.
+- On the two bars: "i do not see health wtf is this ?" (the bar was "Head 0 of 8", filling as he is hit). The page now
+  shows HEALTH 8 of 8 draining and STAMINA (was Wind); no rule or number changed. Version 3 keeps those two words.
+
+## Step A of version 3: THE DEFENCE IS LAID, NOT ASKED (built S551, `rules3.mjs`, `bot3.mjs`, `probe3.mjs`)
+The leader lays up to three cards face down. The other man sees how many, and the FIRST card, and lays his own line
+against them: one answer or nothing against each place. Both lines turn over together. A punch that meets nothing
+lands (no button). An answer that cannot meet its punch is wasted; a feint draws out the answer laid against it; answers
+in places never reached go back to the hand free. Everything else is version 2 (range is step B, on top of this).
+One-bout trial first (`node proto/boxcards/probe3.mjs walk=1 seed=5`), then 400 bouts:
+
+| Bar (written from his note) | Version 2 | Laid, first card seen | Laid, nothing seen |
+|---|---|---|---|
+| "No defence" chosen when he could defend (a real choice: 10-50%) | 1% | 13% | 1% |
+| Ways to defend to pick from, on average | 1 to 2 buttons at 69% of prompts | 16 lines | 17 lines |
+| His line was the best against what really came (40-80%: read, not solved, not a coin) | - | 70% | 28% |
+| Laid answers wasted or drawn out | - | 16% | 40% |
+| First lead wins (45-55%) | 54% | 50% | 45% |
+| Empty leads (under 10%) | 7% | 12% NOT MET | 7% |
+| Bouts to the judges | 80% | 74% | 55% |
+| Best blind pilot against the reader (under 60%) | none over 50% (DESIGN_BOXCARDS2) | 38% (an answer in every place) | not run |
+Blind pilots, first card seen, 200 bouts each: never defends 4%, a block everywhere 8%, a slip everywhere 8%, clinch 5%,
+step back 6%, answers only the card he sees 21%, an answer everywhere 38%, jab-cross-hook every lead 11%, all jabs 13%,
+never leads 0%. VERDICT: seeing the first card is the version to keep (seeing nothing is a guess: right 28% of the time).
+NOT MET: empty leads 12% (the breather is taken more now that a lead is answered blind) - a number for step B, not
+tuned here. NOT MEASURED: fun - his play of the page (`proto/boxcards/v3.html`).
+
+### Feedback loops (step A)
+- Laid answers are wasted -> stamina gone -> he cannot lead -> breathers. Capped: 3 stamina back before each exchange,
+  a breather gives the other man 2 points; measured as empty leads (12%).
+- Slip-and-counter ends his volley -> the leader leads one card -> one card is easy to answer. Seen: 34% of leads are
+  one card (version 2: 27%). Watched in step B, where a jab that turns carries him in.
+
+## S551, later the same play: THE FORM ITSELF IS IN QUESTION (a METHOD finding - this scope is ON HOLD)
+His words: "there are 1 million deckbuilding games , do a proper research if you have too , i expect a proper innovative
+design , you can interview me if needed . here is an idea : ironbound for example it has four slots 1left hand 2 right
+hand 3 trinket (it can be left leg) 4 trinket (it can be right leg) add more if need for knees and elbows".
+- So: no step B (range) on this deck engine until the form is settled with him. Step A's page (`v3.html`, `page3.js`) is
+  on disk, NOT played in a browser by anyone, not linked from the page he plays.
+- Ironbound, checked S551: our files hold nothing true about it (CARDREF1 s5 "not read, encrypted packs"; Dola's market row
+  "3 lanes, weapon + shield" is contradicted by the reviews). From reviews (bitsandpieces.games 2020, Steam): four classes,
+  each a FIXED set of tokens (no deck building); on your turn you play a token from your hand OR activate a piece of
+  equipment; four equipment slots, two weapons and two trinkets; upgrades make equipment stronger. Reviewers' complaint:
+  "playing whatever cards you happen to have and then using your weaponry" (thin decisions) - the thing ours must beat.
+- Not the same as his S537 "action points for each limb", which was probed as limb LIGHTS on a card deck and lost to the
+  wind pool (DESIGN_CARDGAME_SCOPE 6d). Slots that HOLD a technique and are always there to use is a different form.
+- Next: the interview he offered, then `ops/research/BODYSLOTS_SCOPE_S551.md` (paper, greybox probe, critics at 8).
