@@ -3,18 +3,18 @@
  "updated": "2026-11-24",
  "author": "claude S294",
  "now": {
-  "id": "S550",
+  "id": "S551",
   "owner": "claude",
-  "updated": "2026-11-24",
-  "summary": "S550 (Fable) HANDOVER. ## METHOD - CARD GAME: VERSION 3 IS RANGE, NO MORE PATCH ROUNDS ON VERSION 2 (two code-checked critics, 5/6/6 then 6/5/7, both put 'no range' first): ops/research/CARDRANGE_SCOPE_S550.md, phase 0 = his play of version 2 (phone https://claude.ai/artifact/RVECDqN7dwM9NLGVqQjQxq, PC preview boxcards). ## METHOD - CARD GAME: ONE ART AGAINST ITSELF FIRST (owner S549). THE WRITTEN PLAN STAYS AND MUST MATTER (Q-333 S550 'Second probe': PLANIMPACT2 running from 15:48, about 4 h). COACHES: Q-334 S550 'Probe the changes' -> COACHMAP2 queued AFTER PLANIMPACT2 (one rule is not sold twice). Built: boxer v boxer as its own engine twice (proto/boxcards: v1 12 tests, v2 21 tests, 4 of 6 bars, no blind pilot over 50%), the playable page and the phone build. Not launched: BODYCROSS4 (the animation item), MATCHBOTS2. No export (no game file changed). S548 (Fable) HANDOVER. METHOD: THE WRITTEN PLAN STAYS AND MUST MATTER (owner 'make it more impactful'); THE CORNER HAS EIGHT COMMANDS, NO RING SLOT ('Cut both'); COACHES: NO TRIAL WEEK, CHEMISTRY ON THE HIRE CARD ('Cut it, show chemistry'); CARD GAME: MEASURE A CRITIC'S RULE BEFORE IT GOES ON, THE BOT MUST USE WHAT IS BUILT; HIS GAME FIRST - ONE WORKER WHILE ARCHEAGE IS OPEN; mechanics first then 3D and menus; fight animation v2 only, his eye is the ruler. Collected PLANREAD2, CORNERBASE1 (the corner ~+10 v a coach who reads the file), BODYREACT2 (body hook bends him; films on /review). Card round 9 on main (owner: fix both yourself) and round 9b slice 1 (73 tests, gate 6/6, boxing 43 / jiu-jitsu 57; Keep your base on against a pull in its weaker shape, off against a sweep where it made boxing 99.5%). Coach map as cut written; Kalli 5/5/6. PC: ArcheAge lag = Windows kernel pool 15.3 GB a",
-  "next_action": "S551: check docs/PLANIMPACT2_RESULT.md against the code and its own table, then one page for the owner (the plan stays small / a ring change); collect BODYCROSS4; launch COACHMAP2 when a slot is free; read his play of card version 2, then CARDRANGE_SCOPE_S550 phase 1.",
-  "last_working_commit": "27feae258",
-  "verified_playable": "The S547 build is the last exported .exe (no game file changed in S549 or S550). The card page: version 2 played through by script in the preview and published for his phone; not played by hand.",
-  "incomplete_blocked": "PLANIMPACT2 landed FAIL and is not yet checked against the code; COACHMAP2 briefed, not launched; BODYCROSS4 running (Fable tab, from 17:15); MATCHBOTS2 not launched; John's facts landed, not read; Dola not sent; no export.",
-  "next_acceptance": "PLANIMPACT2 check page committed and his decision asked on the board; BODYCROSS4 films on /review; COACHMAP2 running; version 3 range rules on paper with a walked bout.",
-  "awaiting_operator": "His play of boxer v boxer version 2 (phone link in NEXT_SESSION_PROMPT.md); His eye on /review: body hook films, body cross 3, signing card, staff cards; His play of the S547 build"
+  "updated": "2026-11-25",
+  "summary": "S551 (Fable) HANDOVER. ## METHOD - THE FIGHT GAME IS RING SWITCHES (the owner's own idea: every action a switch, a hand left off defends; 'this can become a beautiful game i played 1 turn and i love it'): proto/twohands/switch.html and order.html, served by a terminal tab. ## METHOD - THE FIGHT MUST BE SEEN: 2D animations of every action, GrappleMap from any angle on the ground; first work = TASK_RINGANIM1. Deck engines, laid defence and timed presses are parked. PLANIMPACT2 checked (the cap is the opponent model); Q-335 'Yes, scope it' -> STYLEPLACE scope and brief. COACHMAP2 landed FAIL, not checked. BODYCROSS4 collected.",
+  "next_action": "S552: TASK_RINGANIM1 (standing 2D animations for Ring Switches: red first, one jab strip, then every action); collect COACHMAP2 (check, then the keep-or-cut board question); launch STYLEPLACE1; read Kalli's and John's idea answers against Ring Switches.",
+  "last_working_commit": "bd7c41126",
+  "verified_playable": "The S547 build is the last exported .exe. Ring Switches (a browser toy): scripted bouts ran clean, bot measures in TWOHANDS_SCOPE_S551.md; the owner played one turn of switch.html.",
+  "incomplete_blocked": "No export since S547 (BODYCROSS4 changed game files). RINGANIM1 briefed, not started. COACHMAP2 not checked or asked. STYLEPLACE1 and MATCHBOTS2 not launched. Ring Switches: the Jabber too easy, no tests in the repo for its rules, the order question open.",
+  "next_acceptance": "A jab frame run plays on the page and its strip is on /review; every action of the table has a run or is named NOT GREEN; COACHMAP2 check page committed and the coach question on the board; STYLEPLACE1 running.",
+  "awaiting_operator": "His play of Ring Switches (keep the chosen order or not); his eye on /review (body cross 4, body hook, signing card, staff cards); Dola's debug port; the coach keep-or-cut call once asked."
  },
- "next": "S551: see NEXT_SESSION_PROMPT.md - collect PLANIMPACT2 (check best minus careless, the corner band, the code lines); launch BODYCROSS4 and COACHMAP2 as slots free; the card game: read his play of version 2, then CARDRANGE_SCOPE_S550 phase 1 (paper) and 2 (greybox); John SQ325; the FILE coach; an export when his game is closed.",
+ "next": "S552: see NEXT_SESSION_PROMPT.md - RINGANIM1 first (standing 2D animations for Ring Switches), then collect COACHMAP2, launch STYLEPLACE1, read the seats' idea answers.",
  "assessment": {
   "source": "Codex deep audit + Cursor televised-MMA gap assessment, both 2026-09-12",
   "bars": [
@@ -2384,6 +2384,11 @@
    "id": "S550",
    "date": "2026-11-24",
    "summary": "Boxer v boxer card game built as its own small engine, twice: version 1 (a volley against one answer; Arena 5/6/6) and version 2 (the volley turned one punch at a time; Arena 6/5/7; 4 of 6 bars, no blind bot over 50%), a playable page and a phone link. Both critics: no range -> CARDRANGE_SCOPE_S550, no more patch rounds. Q-333 'Second probe' -> PLANIMPACT2 running. Q-334 'Probe the changes' -> COACHMAP2 queued behind it. PLANIMPACT1 collected by the S549 session: no lever passed."
+  },
+  {
+   "id": "S551",
+   "date": "2026-11-25",
+   "summary": "The fight game found its form. After the owner rejected the deck game's prompt ('dumb'), a laid defence and three timed versions of Two Hands, he proposed every action as a switch; built the same hour as Ring Switches (hands punch or are held high / low and block, range from the feet, both act at once, our ring pictures and sounds): 'this can become a beautiful game i played 1 turn and i love it'. Added: opponents that read a habit, an ordered version (three moments a beat), the page teaching which hold stops which punch. Measured with bots. Also: PLANIMPACT2 checked against the code, STYLEPLACE scope (his 'Yes, scope it'), COACHMAP2 landed FAIL, BODYCROSS4 collected, RINGANIM1 briefed for the standing 2D animations."
   }
  ],
  "blocked_on_operator": [],
@@ -5302,7 +5307,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-24 20:11 board_sync",
+  "updated": "2026-11-25",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5452,17 +5457,22 @@
    "FIGHTFILM1": "Fight analysis page: every punch of a fight, and film nights where you find the opponent's tells yourself",
    "TELLPLAY1": "Make a found tell change the fight, so the plan line that answers it pays",
    "PUSHTANK1": "Corner commands: you select what the corner shouts, live, in two slots",
-   "STYLEPLACE1": "Opponents fight in different places"
+   "STYLEPLACE1": "Opponents fight in different places",
+   "RINGANIM1": "Standing 2D animations (Ring Switches)",
+   "RINGSWITCH1": "Ring Switches: the fight toy"
   },
-  "working_now": [
-   {
-    "title": "Coaches (your Q-334 'Probe the changes'): the corner coach's ratings matter, a coach leads at most 2 boxers, the bars measured again - keep or cut",
-    "who": "claude-opus-5-5 (a console tab when PLANIMPACT2 lands: its first change depends on that result, and one worker at a time while the owner plays)",
-    "started": "2026-11-24T20:05",
-    "run": "COACHMAP2"
-   }
-  ],
+  "working_now": [],
   "next": [
+   {
+    "id": "RINGANIM1",
+    "who": "claude",
+    "title": "Standing 2D animations for Ring Switches: every action seen frame by frame (your 'seeing every card being executed by the fighters') | NEXT: red first, one jab strip, then every action; strips and a before / after film for your eye"
+   },
+   {
+    "id": "RINGSWITCH1",
+    "who": "claude",
+    "title": "Ring Switches, your idea (every action a switch; a hand left off defends): playable, two pages (with and without a chosen order) | NEXT: your play decides the order; tune the Jabber; tests for its rules; the ground with GrappleMap after the standing animations"
+   },
    {
     "id": "STYLEPLACE1",
     "who": "claude",
@@ -5508,7 +5518,7 @@
    {
     "id": "COACHDEEP1",
     "who": "claude",
-    "title": "Coaches: the map as cut scored 5 / 5 (bar 8) | NEXT: COACHMAP2 probes the three changes (your 'Probe the changes') once the plan probe has landed",
+    "title": "Coaches: COACHMAP2 probed Kalli's three changes - FAIL (bars 1, 3, 4, 7b) | NEXT: check the result against the code, then your keep-or-cut call on the board",
     "after": ""
    },
    {
@@ -5538,7 +5548,7 @@
    {
     "id": "CARDGAME1",
     "who": "claude",
-    "title": "Card game, boxer v boxer: version 2 playable (phone link); two critics 5/6/6 and 6/5/7, both 'no range' | NEXT: your play of version 2, then version 3 with a range track (CARDRANGE_SCOPE_S550), paper first",
+    "title": "Card game: the deck form is parked (your 'there are 1 million deckbuilding games'); the fight game is now Ring Switches | NEXT: see RINGSWITCH1",
     "after": ""
    },
    {
@@ -5865,6 +5875,11 @@
   },
   "done_recently": [
    {
+    "id": "S551",
+    "who": "claude",
+    "title": "Ring Switches built from your idea and played; plan probe 2 checked; opponents-in-different-places scoped; body cross collected"
+   },
+   {
     "title": "The written plan, second probe (your Q-333 'Second probe'): the plan sharpens the corner only where it was drilled for THIS opponent - must make a good plan beat a careless one by 6",
     "who": "claude-opus-5-5 (console tab PLANIMPACT2 of the S550 session)",
     "when": "2026-11-24"
@@ -5916,11 +5931,6 @@
    },
    {
     "title": "S547: the bout offer page no longer cuts an opponent's picture at the chin",
-    "who": "claude",
-    "when": "2026-11-24"
-   },
-   {
-    "title": "S547: the signing card is in the game - a prospect as a scene, ranges, the rival's window, the trial by the day (KNOWBUILD1 merged, exported)",
     "who": "claude",
     "when": "2026-11-24"
    }
@@ -6079,6 +6089,22 @@
     {
      "text": "Plan probe 2 checked v code",
      "who": "claude"
+    },
+    {
+     "text": "Ring Switches toy (your idea)",
+     "who": "claude"
+    },
+    {
+     "text": "Ring Switches: chosen order page",
+     "who": "claude"
+    },
+    {
+     "text": "Two Hands toy + timed versions",
+     "who": "claude"
+    },
+    {
+     "text": "Coaches probe 2: failed",
+     "who": "claude"
     }
    ],
    "now": [
@@ -6203,23 +6229,11 @@
      "who": "claude"
     },
     {
-     "text": "Plan impact probe: collect ~18:00",
-     "who": "claude"
-    },
-    {
      "text": "John: boxing facts (SQ325)",
      "who": "claude"
     },
     {
-     "text": "Your play: boxer v boxer v2",
-     "who": "operator"
-    },
-    {
-     "text": "Your play: Two Hands toy",
-     "who": "claude"
-    },
-    {
-     "text": "Coaches probe 2 (tab, ~00:05)",
+     "text": "Your play: Ring Switches, 2 pages",
      "who": "claude"
     }
    ],
@@ -6565,23 +6579,19 @@
      "who": "claude"
     },
     {
-     "text": "Body cross in 3D (BODYCROSS4)",
-     "who": "claude"
-    },
-    {
-     "text": "Coaches probe 2 (after plan probe)",
-     "who": "claude"
-    },
-    {
-     "text": "Card v3: a range track (scope)",
-     "who": "claude"
-    },
-    {
      "text": "Ziva: play the body cross",
      "who": "claude"
     },
     {
      "text": "Opponent styles probe (Q-335)",
+     "who": "claude"
+    },
+    {
+     "text": "Standing 2D animations (RINGANIM1)",
+     "who": "claude"
+    },
+    {
+     "text": "Coaches: keep or cut (your call)",
      "who": "claude"
     }
    ],

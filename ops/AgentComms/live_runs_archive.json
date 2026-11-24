@@ -24735,6 +24735,18 @@
    "started": "2026-11-24T17:15",
    "landed": "2026-11-24T17:59",
    "note": "commit 075844273; body_cross_play_test green in S551; films on /review for his eye"
+  },
+  {
+   "id": "COACHMAP2",
+   "status": "landed",
+   "seat": "claude-opus-5-5 (console tab COACHMAP2 of the S551 session)",
+   "agent": "claude-opus-5-5 (a console tab when PLANIMPACT2 lands: its first change depends on that result, and one worker at a time while the owner plays)",
+   "started": "2026-11-24T20:05",
+   "eta": "about 4 h (to about 00:05)",
+   "title": "Coaches (your Q-334 'Probe the changes'): the corner coach's ratings matter, a coach leads at most 2 boxers, the bars measured again - keep or cut",
+   "brief": "ops/research/TASK_COACHMAP2.md",
+   "landed": "2026-11-24T23:09",
+   "note": "commit fc207d8a1, FAIL (bars 1, 3, 4, 7b); not yet checked against the code"
   }
  ],
  "KNOWBUILD1": {

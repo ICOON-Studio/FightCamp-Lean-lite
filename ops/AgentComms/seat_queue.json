@@ -4750,8 +4750,8 @@
    "status": "queued",
    "queued_at": "2026-11-24 12:08",
    "tries": 0,
-   "skips": 23,
-   "last_error": "2026-11-24 22:59 no CDP on 9333 (the app runs without its debug port or is closed; never launched from here - it opens a window)"
+   "skips": 27,
+   "last_error": "2026-11-25 00:40 no CDP on 9333 (the app runs without its debug port or is closed; never launched from here - it opens a window)"
   },
   {
    "id": "SQ325",
@@ -4773,11 +4773,14 @@
    "seat": "kalli",
    "brief": "research/TWOHANDS_DEFENCE_IDEAS_BRIEF.md",
    "stem": "TWOHANDS_DEFENCE_IDEAS_BRIEF_KALLI",
-   "status": "sent",
+   "status": "answered",
    "queued_at": "2026-11-24 22:59",
    "tries": 0,
    "sent_at": "2026-11-24 22:59",
-   "sent_ms": 1795553983179
+   "sent_ms": 1795553983179,
+   "answered_at": "2026-11-24 23:40",
+   "answer": "research/TWOHANDS_DEFENCE_IDEAS_BRIEF_KALLI.md",
+   "chars": 10556
   },
   {
    "id": "SQ327",
@@ -4793,11 +4796,14 @@
    "seat": "john",
    "brief": "research/TWOHANDS_DEFENCE_IDEAS_BRIEF.md",
    "stem": "TWOHANDS_DEFENCE_IDEAS_BRIEF_JOHN",
-   "status": "sent",
+   "status": "answered",
    "queued_at": "2026-11-24 22:59",
    "tries": 0,
    "sent_at": "2026-11-24 22:59",
-   "sent_ms": 1795553985608
+   "sent_ms": 1795553985608,
+   "answered_at": "2026-11-24 23:40",
+   "answer": "research/TWOHANDS_DEFENCE_IDEAS_BRIEF_JOHN.md",
+   "chars": 12680
   }
  ]
 }

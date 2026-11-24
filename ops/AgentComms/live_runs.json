@@ -22,15 +22,12 @@
    "title": "Critics on the coaches map as cut (trial week out, chemistry on the hire card): depth and play out of 10, and what reaches 10",
    "brief": "ops/research/CRITIC_COACHMAP1_BRIEF.md"
   },
-  "COACHMAP2": {
-   "id": "COACHMAP2",
-   "status": "running",
-   "seat": "claude-opus-5-5 (console tab COACHMAP2 of the S551 session)",
-   "agent": "claude-opus-5-5 (a console tab when PLANIMPACT2 lands: its first change depends on that result, and one worker at a time while the owner plays)",
-   "started": "2026-11-24T20:05",
-   "eta": "about 4 h (to about 00:05)",
-   "title": "Coaches (your Q-334 'Probe the changes'): the corner coach's ratings matter, a coach leads at most 2 boxers, the bars measured again - keep or cut",
-   "brief": "ops/research/TASK_COACHMAP2.md"
+  "STYLEPLACE1": {
+   "id": "STYLEPLACE1",
+   "status": "queued",
+   "seat": "claude",
+   "title": "Opponents that fight in different places, so a written plan can be specific (your Q-335 'Yes, scope it')",
+   "eta": "about 4-5 h once launched"
   }
  },
  "codex_budget": {
