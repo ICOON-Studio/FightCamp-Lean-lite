@@ -7,12 +7,12 @@
   "owner": "claude",
   "updated": "2026-11-24",
   "summary": "S549 (Fable). ## METHOD - CARD GAME: ONE ART AGAINST ITSELF FIRST (owner S549: 'the real test should be a boxer vs boxer , donot mix classes untill all arts cards are ingame'; 'BREAKDOWN A real mma fight and make it workwith card logic'). No work on the mixed boxing v jiu-jitsu game. Plan: ops/research/CARDBOX_SCOPE_S549.md. S548 (Fable) HANDOVER. METHOD: THE WRITTEN PLAN STAYS AND MUST MATTER (owner 'make it more impactful'); THE CORNER HAS EIGHT COMMANDS, NO RING SLOT ('Cut both'); COACHES: NO TRIAL WEEK, CHEMISTRY ON THE HIRE CARD ('Cut it, show chemistry'); CARD GAME: MEASURE A CRITIC'S RULE BEFORE IT GOES ON, THE BOT MUST USE WHAT IS BUILT; HIS GAME FIRST - ONE WORKER WHILE ARCHEAGE IS OPEN; mechanics first then 3D and menus; fight animation v2 only, his eye is the ruler. Collected PLANREAD2, CORNERBASE1 (the corner ~+10 v a coach who reads the file), BODYREACT2 (body hook bends him; films on /review). Card round 9 on main (owner: fix both yourself) and round 9b slice 1 (73 tests, gate 6/6, boxing 43 / jiu-jitsu 57; Keep your base on against a pull in its weaker shape, off against a sweep where it made boxing 99.5%). Coach map as cut written; Kalli 5/5/6. PC: ArcheAge lag = Windows kernel pool 15.3 GB after 12 days up; he restarted. No export this session.",
-  "next_action": "Collect PLANIMPACT1 (Opus tab, ~18:00) and Arena's CARDBOX1 paper (branch arena/869b061a-fightcamp-lean-lite) with John's facts (SQ325); then relaunch MATCHBOTS2, launch BODYCROSS4, the coaches page for the owner, the FILE coach for simmed bouts, export when his game is closed.",
-  "last_working_commit": "b0b77e92d",
+  "next_action": "S550: see NEXT_SESSION_PROMPT.md - card game phase 2 (boxer v boxer on paper + a greybox probe, then critics; Arena's paper and John's facts are the inputs); collect PLANIMPACT1; then MATCHBOTS2, the coaches page, BODYCROSS4, the FILE coach, an export when his game is closed.",
+  "last_working_commit": "056cf26cf",
   "verified_playable": "Builds/FightCamp.exe S546 export (2026-11-24 04:07): Fights, the promoter's call, an amateur's profile and the Finance / Staff / Records windows rendered on the hidden desktop and opened (bounds 0 on the two runs that printed it); the touched tests green (about 75 run).",
   "incomplete_blocked": "PLANIMPACT1 running. CARDBOX1 on Arena. MATCHBOTS2 and BODYCROSS4 wait (one worker while he plays). Card rounds 9/9b stay on main and are stopped.",
   "next_acceptance": "He plays the S546 build (WHAT_TO_TRY J to N). His eye on /review closes the three notes and the office windows, and judges the staff cards drawing. BODYCROSS3's sheet shows a bent elbow and a bent man to his eye.",
-  "awaiting_operator": "His eye on /review (body hook films, body cross 3, signing card, staff cards). His play of the S547 build and of card round 9 / 9b. Dola's app needs its debug port open."
+  "awaiting_operator": "His eye on /review (body cross 3, signing card, staff cards). His play of the S547 build. Dola's app needs its debug port."
  },
  "next": "S496: 0) get_usage; where_we_are roll S496; quote board answers (Q-259 Training K v6c; build WeekCards v6c on Yes - WeekCards.gd 552 lines is split first). 1) Collect as they land, by diff + their test: Qwen ONELOOK2 (fight HUD palette, ETA ~11:00 11-16; render before/after fight stills on the hidden desktop, his OK before merge), Goose FILMCOUNT1 (#326, branch goose/issue-326 - Goose's PR step failed twice: collect from the branch; read its FINDS table and noise numbers, retune FilmBout rates if a floor missed), Grok Dev FIGHTPAGE1 (branch grok/fightpage1, ETA ~13:30; render at 1920x1080 text 1.0 and 1.3, judge against fight_analysis_v3.png, then his board). 2) Kalli SQ202 LADDER1 v6 + SQ203 COACHSPEC1 r6 -> two fresh critics each (Dola + John; Dola refused COACHSPEC1 r5 - resend). 3) Wire after FIGHTPAGE1+FILMCOUNT1: the film-night stop in the fight week (FightWeekPlan film night -> FightAnalysis.for_tape with FilmCount.check, FilmPattern.checks by coach rating), FilmEdge pays at the figure, the result page's Punch by punch tab over m['tape'] (BoutTape), History keeps 20 tapes (~400 lines a bout). 4) Live fight log panel brief to Grok Dev once FIGHTPAGE1 lands. 5) ONELOOK1 sweep after ONELOOK2: RosterCards, ReadPanel, MatMap (UI.gd/WoodKit/WeekCards first need a split).",
  "assessment": {
@@ -2374,6 +2374,11 @@
    "model": "Fable",
    "summary": "Three workers collected; his three board answers acted on (plan stays and must matter, coach trial cut, ring calls cut); card round 9 fixed and merged and round 9b slice 1 built by Claude; coach map as cut (Kalli 5/5/6); ArcheAge lag traced to a 15.3 GB Windows kernel pool, PC restarted.",
    "digest": "ops/research/S548_DIGEST.md"
+  },
+  {
+   "id": "S549",
+   "date": "2026-11-24",
+   "summary": "Card 9b slices 2-3 built and measured, then the owner changed the card method: one art against itself first ('the real test should be a boxer vs boxer'). Boxer v boxer measured broken (400 of 400 knockouts). Scope CARDBOX_SCOPE_S549 approved (Q-332). Arena's real-bout paper collected; John queued. His play: price shown as paid now, the page server no-store. C505 into BODYCROSS4."
   }
  ],
  "blocked_on_operator": [],
@@ -6119,6 +6124,10 @@
     {
      "text": "Card method: boxer v boxer",
      "who": "claude"
+    },
+    {
+     "text": "Arena boxing paper collected",
+     "who": "claude"
     }
    ],
    "now": [
@@ -6244,10 +6253,6 @@
     },
     {
      "text": "Plan impact probe: collect ~18:00",
-     "who": "claude"
-    },
-    {
-     "text": "Arena: boxing bouts into cards",
      "who": "claude"
     },
     {

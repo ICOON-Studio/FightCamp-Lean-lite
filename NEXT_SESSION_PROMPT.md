@@ -1,6 +1,6 @@
-# S549 handover (written 2026-11-24, S548 - Fable)
+# S550 handover (written 2026-11-24, S549 - Fable)
 
-Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. Digest: ops/research/S548_DIGEST.md.
+Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. Digest: ops/research/S549_DIGEST.md (and S548_DIGEST.md).
 
 ## METHOD lines - quote all of them in your first message
 - ## METHOD - CARD GAME: ONE ART AGAINST ITSELF FIRST (owner S549, playing the page: "THE CARD GAME DOESNT MAKE SENSE.
@@ -33,44 +33,35 @@ Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. Dige
   file; a bare `cd` in Bash moves the session folder - go back to the repo root.
 
 ## FIRST: what is running or half done
-1. PLANIMPACT1 (Opus, console tab "PLANIMPACT1 (resumed)", tab c3 of the S548 session, relaunched 14:05 after the PC
-   restart; about 4 h, one Godot at a time) -> `docs/PLANIMPACT1_RESULT.md` on main. Design page (committed before any
-   run): `ops/research/DESIGN_PLANIMPACT1.md`. Raw: `E:/FightCamp/tmp/planimpact1/`. If the tab is gone and there is no
-   result page, relaunch with the same prompt (it resumes from the jsonl files). Check: the control equals PLANWORTH1
-   bout for bout; a lever that passes bar 1 and fails bar 2 (the corner still pays) is a FAIL.
-2. MATCHBOTS2 - NOT RUNNING. Its first worker died with the PC restart at step 0-1. On disk, uncommitted:
-   `tools/matchbots2_probe.gd` and probe hooks in `tests/matchmaking_bots_test.gd` (three vars, unset = the test as
-   before), and a worktree `E:/FightCamp/wt/mb2` (detached at 7d9057efe, for the before arm). Relaunch AFTER PLANIMPACT1
-   lands (one worker while he plays): brief `ops/research/TASK_MATCHBOTS2.md`, tell it what is on disk.
-3. COACH MAP: Kalli answered - depth 5, play 5, general 6 (`ops/research/CRITIC_COACHMAP1_BRIEF_KALLI.md`); she could not
-   open the code. Dola's copy (SQ324) did not send: the Dola app has no debug port open (9333). Her three changes that
-   matter: (a) the corner coach gets a job BESIDE the live corner - tactics = how often the opponent's clue is right,
-   the bond = how much of the player's call the boxer hears, the cutman = recovery; (b) a coach is the main coach of at
-   most 2 boxers, so a clash on the hire card cannot be paired away; (c) re-run the hire with the chemistry word shown.
-   (a) is the same idea as PLANIMPACT1's lever 2 (the plan sharpens the corner): read both results together before any
-   v2. Coaches have now failed ten rounds: the next step is ONE page for the owner (keep with these three changes and a
-   probe, or cut back to today's two hire cards), not an eleventh map.
-4. BODYCROSS4 - brief written (`ops/research/TASK_BODYCROSS4.md`, Fable worker), NOT launched: the body cross thrown in
-   the 3D fight. This is the session's animation item; launch it when the PC is free of his game or as the one worker.
+1. THE CARD GAME, PHASE 2 (owner Q-332 "Yes, go"): write boxer v boxer ON PAPER, then a small greybox probe, THEN the
+   critics (S534 order). Inputs: Arena's paper `proto/cardgame/CARDBOX1_BREAKDOWN.md` (collected, read: parts 1-2
+   usable; BOTH its turn structures failed to play the real round because the defender sees the card and answers it;
+   its pick is not taken as it stands - see S549_DIGEST "Arena's paper"), John's facts SQ325
+   (`ops/research/CARDBOX1_JOHN_BRIEF_JOHN.md` when it lands: check Arena's part 1 against it), the measured mirror
+   bout (`node proto/cardgame/mirror.mjs`: 400 of 400 knockouts, the second man wins 69.5%). Claude's direction is in
+   the digest: keep the volley against ONE answer, add round scoring, the knockdown and count, body punches that lower
+   his wind for the bout, the clinch answer, a feint with a shown effect, three rounds of three exchanges. Bars:
+   CARDBOX_SCOPE_S549.md phase 3. A fresh small engine (`proto/boxcards/`), not a patch of engine.mjs.
+2. PLANIMPACT1 (Opus, console tab of the S548 session; about 4 h from 14:05) -> `docs/PLANIMPACT1_RESULT.md` on main.
+   Design page: `ops/research/DESIGN_PLANIMPACT1.md`. Raw: `E:/FightCamp/tmp/planimpact1/`. If the tab is gone and
+   there is no result page, relaunch with the same prompt (it resumes from the jsonl files). Check: the control equals
+   PLANWORTH1 bout for bout; a lever that passes bar 1 and fails bar 2 (the corner still pays) is a FAIL.
+3. MATCHBOTS2 - NOT RUNNING. On disk, uncommitted: `tools/matchbots2_probe.gd`, probe hooks in
+   `tests/matchmaking_bots_test.gd` (three vars, unset = the test as before), a worktree `E:/FightCamp/wt/mb2`
+   (detached at 7d9057efe). Relaunch AFTER PLANIMPACT1 lands: brief `ops/research/TASK_MATCHBOTS2.md`.
+4. COACH MAP: Kalli depth 5, play 5, general 6. Her three changes and the rest as in S548_DIGEST. The next step is ONE
+   page for the owner (keep with the three changes and a probe, or cut back to today's two hire cards) - written
+   AFTER PLANIMPACT1 (its lever 2 is the same idea as her change a).
+5. BODYCROSS4 - brief written, NOT launched (`ops/research/TASK_BODYCROSS4.md`, Fable worker). It now has step 5: the
+   close body hook does not read as a punch (his /review note C505). This is the session's animation item.
 
-## The card game (owner S548: "fix both yourself, dont wait for arena", "do 9b yourself too")
-- ROUND 9 IS ON MAIN (4307c453a) with two fixes: the man who pulls guard off a step out lands on his back; the bot's
-  jiu-jitsu man with no entry sits down. `ops/research/CARDROUND9_WALK_S548.md`.
-- ROUND 9b SLICE 1 IS ON MAIN (406197a75, 104878fdf): Frame, the tie that must stand a turn, the knockdown, the
-  referee's stoppage, the Up-kick with no card, "get up" before the stand-up, recover guard by where he was pinned,
-  Keep your base against a PULL only for a man who threw no punch last turn (his "Weaker version, measured").
-  OFF, built and tested: Keep your base against a SWEEP (99.5% boxing; 69.3% weaker) and the no-card hold escape.
-  `docs/CARDROUND9B_RESULT.md`; paper = `ops/research/CARDREAL_AUDIT.md` section 9. `cd proto/cardgame && node --test`
-  73 of 73; `node probe.mjs gate=play` 6 of 6 (26.8 decisions, boxing 43.0 / jiu-jitsu 57.0); `node stats9b.mjs
-  [name=value]` = the 400-bout table. engine.mjs is at 495 of 500 lines: new rules go in floor.mjs / moves.mjs.
-- NOT BUILT: slice 2 (C posture, D a punch from the guard gives up an arm, E standing in the guard + Hold the legs),
-  slice 3 (F jiu-jitsu punches from on top, G the body-lock trip, I3-I5 the referee's rest), the Sprawl / Up-kick cards'
-  stronger versions, section 9c's walked bout as a test, posture in the state words, Kalli's three measures.
-- KNOWN: jiu-jitsu wins 179 of 222 on the points lead and 25 by tap (look at `N.lead` next, not moved); the bot never
-  lays the no-card Up-kick in its own turn and never pays Keep your base against a pull.
-- HIS PLAY of round 9 / 9b is owed ("Later"): preview `cardgame` in .claude/launch.json (port 8799).
-- Arena: its mirror is refreshed (`python ops/Tools/lite_mirror.py --lean push`; without `--lean` it targets the old
-  repo and fails). Its round-9 chat is superseded by main; a new chat only for a slice Claude does not take.
+## The card game as it stands (history: nothing below is to be continued)
+- Rounds 9 and 9b (slices 1-3) are on main, 90 of 90 tests, play gate 6 of 6: `docs/CARDROUND9B_RESULT.md`. STOPPED by
+  the METHOD line above. The floor model is kept for the day the arts meet.
+- The page: preview `cardgame` (port 8799, `proto/cardgame/serve.py`, no-store). He plays it live while it is edited:
+  never leave the working tree half-built - build in one script, test, then let him reload.
+- Arena is back (S549): its chat on `ICOON-Studio/FightCamp-Lean-lite` wrote the paper in about 25 minutes; the lite
+  mirror carries `ops/research` too (it read CARDREF1 there), so everything in a brief is public.
 
 ## Collected in S548 (details in the digest)
 PLANREAD2 (the card reads a plan as the ring pays it), CORNERBASE1 (the corner ~+10 v a coach who reads the file; a
@@ -93,6 +84,6 @@ evening's question pictures show the prospect's own body (NOT in an exported bui
   workers at 97% RAM). He restarted: pool 0.8 GB. If it climbs again within days, find the driver (poolmon is not
   installed). Closing finished worker tabs each session keeps about 4 GB free.
 
-## Model for S549
-Opus, medium effort, Fast off: collecting two probes and the coach decision page. Fable for the card slices 2-3 or
-BODYCROSS4's films.
+## Model for S550
+Fable, medium effort, Fast off: the boxer v boxer design on paper and its greybox probe are design work; Opus is enough
+for collecting PLANIMPACT1 and the coaches page.

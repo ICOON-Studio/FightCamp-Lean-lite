@@ -53,13 +53,13 @@
   },
   "CARDBOX1": {
    "id": "CARDBOX1",
-   "status": "running",
+   "status": "done",
    "seat": "arena",
    "agent": "Arena (chat 01a20da7-2bc0-7576-abe2-df98869b061a)",
    "started": "2026-11-24T15:03",
    "eta": "about 1-2 h",
    "branch": "arena/869b061a-fightcamp-lean-lite",
-   "title": "Card game: three real boxing bouts broken down, then one round played two ways as card against card (your 'the real test should be a boxer vs boxer')",
+   "title": "Arena's paper is in: three real boxing bouts and two ways to play a round as cards (proto/cardgame/CARDBOX1_BREAKDOWN.md). Both ways failed the real round - the defender sees the card; Claude writes boxer v boxer on paper next",
    "brief": "ops/research/TASK_CARDBOX1.md"
   }
  },
