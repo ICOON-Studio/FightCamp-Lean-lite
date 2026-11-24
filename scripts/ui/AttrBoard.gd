@@ -24,7 +24,7 @@ const GROUPS := [
 	{"title": "BOXING SKILLS", "keys": ["accuracy", "timing", "defence", "footwork", "inside"]},
 	{"title": "MIND", "keys": ["fight_iq", "composure", "heart", "discipline", "confidence", "coachability", "temper"]},
 ]
-const NAME := {"discipline": "Discipline", "confidence": "Confidence", "coachability": "Coachability", "temper": "Temper"}
+const NAME := {"discipline": "Discipline", "confidence": "Self-belief", "coachability": "Coachability", "temper": "Temper"}
 const PERSONALITY := ["heart", "discipline", "confidence", "coachability", "temper"]
 const TraitLine := preload("res://scripts/rules/TraitLine.gd")   # S460 INTEGRATE1 #7
 ## What each value does in a bout (read from the rule that uses it: Duels, Knockdowns, Exchanges, TheRead).

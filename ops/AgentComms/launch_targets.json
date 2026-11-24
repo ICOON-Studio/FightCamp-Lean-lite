@@ -163,6 +163,66 @@
    "short": "Pro: hunger gone"
   },
   {
+   "id": "fightcamp_test_prospect",
+   "label": "Test: signing a prospect - the card",
+   "why": "A scouted name with a bout date and a rival club's window: the signing card opens - the prospect in the gym, the read as three ranges, the 21-day strip, and the calls Sign now, Start the trial, Wait for the bout, Pass. Its own save slot. S545 KNOWBUILD1 (owner K2-K4).",
+   "candidates": [
+    "%WINDIR%/System32/schtasks.exe"
+   ],
+   "args": [
+    "/run",
+    "/tn",
+    "FightCamp Play test prospect"
+   ],
+   "gui": false,
+   "short": "Prospect: the card"
+  },
+  {
+   "id": "fightcamp_test_prospecttrial",
+   "label": "Test: signing a prospect - a trial evening",
+   "why": "Trial day 2 in the evening: what today's question narrowed (before -> after with its why), tomorrow's question as four pictures (body, skills, the pad test, the hard spar), the rival's odds tonight; Sign, Send home or another day. Its own save slot.",
+   "candidates": [
+    "%WINDIR%/System32/schtasks.exe"
+   ],
+   "args": [
+    "/run",
+    "/tn",
+    "FightCamp Play test prospecttrial"
+   ],
+   "gui": false,
+   "short": "Prospect: trial evening"
+  },
+  {
+   "id": "fightcamp_test_prospectsigned",
+   "label": "Test: signing a prospect - after Sign",
+   "why": "A prospect signed after two trial days: the new boxer's profile opens and its top card says what changed (a place taken, held to the season's end, the read), NEW marked, one pulsing next action. No pop-up. Its own save slot.",
+   "candidates": [
+    "%WINDIR%/System32/schtasks.exe"
+   ],
+   "args": [
+    "/run",
+    "/tn",
+    "FightCamp Play test prospectsigned"
+   ],
+   "gui": false,
+   "short": "Prospect: signed"
+  },
+  {
+   "id": "fightcamp_test_prospectgone",
+   "label": "Test: signing a prospect - the rival signs",
+   "why": "The rival club's window ran out: the office computer's Mail shows the line, and Find a fighter keeps the name on the got-away list with the last look. Its own save slot.",
+   "candidates": [
+    "%WINDIR%/System32/schtasks.exe"
+   ],
+   "args": [
+    "/run",
+    "/tn",
+    "FightCamp Play test prospectgone"
+   ],
+   "gui": false,
+   "short": "Prospect: got away"
+  },
+  {
    "id": "fightcamp_test_camp",
    "label": "Test: a camp on the whiteboard (update 59)",
    "why": "A quick-start career: Lucy booked and her camp started, a twist card dealt for you to answer (the short-notice swap when her bout is 2+ weeks out). Opens on her Training tab - the coach's whiteboard: the camp phase writes the week, answer the twist, press Test it, then CONTINUE through the camp to fight night. Its own save slot; your career save is untouched.",

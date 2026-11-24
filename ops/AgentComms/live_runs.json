@@ -4,14 +4,14 @@
  "runs": {
   "CARDROUND9": {
    "id": "CARDROUND9",
-   "status": "running",
+   "status": "waiting",
    "started": "2026-11-24T00:01",
    "title": "Card game round 9: the engine on the real-fight position model (each fighter's own position; getting up costs a turn; steps answerable)",
    "seat": "arena",
    "agent": "Arena (chat 01a20a6d-3a1b-79dc-a475-e858f591a0d9)",
    "branch": "arena/f591a0d9-fightcamp-lean-lite",
-   "eta": "continued 03:53 after its tool-call limit (61 of 61 tests green, engine 462 lines; the play gate fails: boxing 86% v jiu-jitsu 14%); about 1 h to its PR",
-   "note": "S544: research/TASK_CARDROUND9.md, spec = research/CARDREAL_AUDIT.md section 4; lite mirror f93fa300; its PR relays to an arena/* PR here; Claude plays both arts by hand before the owner | S545 02:02: it had stopped at 00:31 on its tool-call limit, branch not pushed; told to continue (push first, finish tests, open the PR)"
+   "eta": "Arena reached its daily usage limit (S547 05:48); continue tomorrow in the same chat",
+   "note": "S544: research/TASK_CARDROUND9.md, spec = research/CARDREAL_AUDIT.md section 4; lite mirror f93fa300; its PR relays to an arena/* PR here; Claude plays both arts by hand before the owner | S545 02:02: it had stopped at 00:31 on its tool-call limit, branch not pushed; told to continue (push first, finish tests, open the PR) | S547: branch pushed at e0e15a796 (lite mirror), 61 of 61 tests green, engine 484 lines, play gate 4 of 6 (boxing 77.5 v jiu-jitsu 22.5; 21.0 decisions a bout, bar 22.5-45)"
   },
   "CARDROUND9B": {
    "id": "CARDROUND9B",
@@ -22,45 +22,36 @@
    "eta": "2-3 h once launched",
    "note": "S545: research/TASK_CARDROUND9B.md; Kalli 6/5/6, Dola 9/9/9 on the paper model"
   },
-  "KNOWBUILD1": {
-   "id": "KNOWBUILD1",
-   "status": "landed",
-   "title": "Knowledge: the signing card in the game, a scene like the pro call (ranges, the rival's window, trial evenings where you pick the question)",
-   "seat": "claude",
-   "agent": "claude-opus-5-5 (console tab KNOWBUILD1 of the S545 session)",
-   "eta": "about 5-7 h (to about 09:00)",
-   "note": "S545: research/TASK_KNOWBUILD1.md; owner interview S543 K1-K4; worktree build/knowbuild1",
-   "started": "2026-11-24T03:06"
-  },
-  "COACHDEEP9": {
-   "id": "COACHDEEP9",
-   "status": "landed",
-   "started": "2026-11-24T02:21",
-   "title": "Coaches v9: three named changes and a stop rule (a forced moment that fails again is cut as a decision)",
-   "seat": "claude",
-   "agent": "claude-opus-5-5 (console tab COACHDEEP9 of the S545 session)",
-   "eta": "about 1.5-2 h (to about 04:15)",
-   "note": "S545: research/TASK_COACHDEEP9.md"
-  },
-  "CORNERCMD2": {
-   "id": "CORNERCMD2",
-   "status": "running",
-   "title": "Corner commands round 2: no free rest (Reset, Get out), the ring slider right against who runs or pins, the boxer's training matters more",
-   "seat": "claude",
-   "agent": "claude-opus-5-5 (console tab CORNERCMD2 of the S545 session)",
-   "eta": "about 1.5-2.5 h (to about 05:15)",
-   "note": "S545: research/TASK_CORNERCMD2.md; stop rule",
-   "started": "2026-11-24T03:05"
-  },
-  "BODYCROSS3": {
-   "id": "BODYCROSS3",
+  "PLANREAD2": {
+   "id": "PLANREAD2",
    "status": "running",
    "seat": "claude",
-   "agent": "claude-fable-5-2 (console tab BODYCROSS3 of the S546 session, tab c1)",
-   "eta": "about 2-3 h (to about 06:45)",
-   "title": "Body cross 3: a bent elbow you can see, the hit man bends (your mark C502: 'there is no elbow bent , the reaction should force the opponent to bend hisposture a bit')",
-   "brief": "ops/research/TASK_BODYCROSS3.md",
-   "started": "2026-11-24T04:00"
+   "agent": "claude-opus-5-5 (console tab PLANREAD2 of the S547 session, tab c1)",
+   "started": "2026-11-24T05:50",
+   "eta": "about 3-4 h (to about 09:30), most of it bout runs",
+   "title": "The bout card promises +11.6 for a plan the ring pays +1.7 for: find the cause, fix the read to the bout",
+   "brief": "ops/research/TASK_PLANREAD2.md"
+  },
+  "STAFFCARDS1": {
+   "id": "STAFFCARDS1",
+   "status": "running",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (console tab STAFFCARDS1 of the S547 session, tab c2)",
+   "started": "2026-11-24T05:52",
+   "eta": "about 3-4 h (to about 09:30)",
+   "title": "The Staff window as cards (your 'this screen is terrible'): a face, the job in plain words, four facts, one button; fits the window with no scroll",
+   "brief": "ops/research/TASK_STAFFCARDS1.md",
+   "branch": "build/staffcards1"
+  },
+  "BODYREACT2": {
+   "id": "BODYREACT2",
+   "status": "running",
+   "seat": "claude",
+   "agent": "claude-fable-5-2 (console tab BODYREACT2 of the S547 session, tab c3)",
+   "started": "2026-11-24T06:02",
+   "eta": "about 2-3 h (to about 08:45)",
+   "title": "In the 3D fight a landed body punch folds the hit boxer (your 'the reaction should force the opponent to bend hisposture a bit'): the player picks the fold take; films for your eye",
+   "brief": "ops/research/TASK_BODYREACT2.md"
   }
  },
  "codex_budget": {

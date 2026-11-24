@@ -180,7 +180,7 @@ func _screens() -> void:
 	_check(go != null and str(Tip.of(go).get("title", "")) == "Continue", "the test club's week is set: Continue is free")
 	if go != null:
 		_clean(go, "Continue (the days can run)", "full")
-		_check(str(Tip.of(go).get("now", "")).begins_with("Next stop: "), "Continue says where the days will stop: %s" % Tip.of(go).get("now", ""))
+		_check(str(Tip.of(go).get("now", "")).begins_with("Stops "), "Continue says where the days will stop: %s" % Tip.of(go).get("now", ""))
 	var bars := main.find_children("Bar_*", "Control", true, false).filter(func(b): return "ghost" in b)   # the pad tiles' own bars
 	_check(not bars.is_empty(), "Training: a pad night shows a mastery bar (%d)" % bars.size())
 	if not bars.is_empty():

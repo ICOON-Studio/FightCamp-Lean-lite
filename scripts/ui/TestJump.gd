@@ -35,6 +35,10 @@ extends RefCounted
 ##                                        the safe tune-up beside the risky step up
 ##   FightCamp.exe -- jump=prohunger      S544: Not yet twice, turned pro, then safe bouts until the hunger runs out;
 ##                                        opens the boxer card: the TURNING PRO bars and the warning (the pair is on FIGHTS)
+##   FightCamp.exe -- jump=prospect      S545 KNOWBUILD1: a scouted name with a bout and a rival window - the signing card
+##   FightCamp.exe -- jump=prospecttrial S545: trial day 2's evening (tomorrow's question, tonight's odds)
+##   FightCamp.exe -- jump=prospectsigned S545: signed after two trial days - the profile says what changed
+##   FightCamp.exe -- jump=prospectgone  S545: the rival club's window ran out - the office computer's Mail
 ## The same button presses tools/fight3d_play.gd makes. It plays on its own save slot, never his career save.
 ## Scene jumps (SCENE_JUMPS, no career - prototypes outside the boxing game open on their own scene):
 ##   FightCamp.exe -- jump=grapple        S335 the GrappleMap ground-move browser
@@ -55,12 +59,13 @@ const TestClub := preload("res://scripts/state/TestClub.gd")
 const WeekTwist := preload("res://scripts/rules/WeekTwist.gd")
 const OwnCombos := preload("res://scripts/rules/OwnCombos.gd")
 const ComboWords := preload("res://scripts/rules/ComboWords.gd")
+const ProspectWire := preload("res://scripts/state/ProspectWire.gd")   # S545 KNOWBUILD1
 
 const SAVE_PATH := "user://test_jump_save.json"
 const SCENE_JUMPS := {"grapple": "res://scenes/dev/GrappleBrowser.tscn", "strikemap": "res://scenes/dev/StrikeBrowser.tscn",
 	"theatre": "res://scenes/dev/GrappleTheatre.tscn"}
 const JUMPS := ["fight", "fight_nofilm", "corner", "round3", "injury", "nationals", "pro", "taperoom", "camp", "belt", "men", "men_fight", "gameplan",
-	"training", "proladder", "proranked", "club4", "prorival", "propair", "prohunger"]
+	"training", "proladder", "proranked", "club4", "prorival", "propair", "prohunger", "prospect", "prospecttrial", "prospectsigned", "prospectgone"]
 ## What two weeks of pad time on the 1-2 and the 1-2-3 leave her with (Combos.LEARN_AT is 30).
 const DRILLED := {"1-2": 62.0, "1-2-3": 48.0}
 ## S378 jump=gameplan: her own combinations (PLAYBOOK > Combos rows) and their pad time - the first a signature.
@@ -130,6 +135,8 @@ static func run(main: Node, jump: String) -> bool:
 	var c: Career = main.career
 	FirstWeek.skip(c)   # S387 a jump is past the first-week guide
 	var f: Dictionary = c.fighter()
+	if jump.begins_with("prospect"):
+		return _prospect(main, c, jump)
 	if jump == "club4":   # S489 FOURSTART1: the test club, four fighters on the books; opens on the gym
 		TestClub.make(c)
 		main.render()
@@ -301,6 +308,62 @@ static func run(main: Node, jump: String) -> bool:
 		f["combos"] = DRILLED.duplicate()
 	main.act("fightnight")
 	return str(main.modal.get("type", "")) == "fight"
+
+
+## S545 KNOWBUILD1: one named prospect brought in with a bout before the rival's window closes (the window a few days off,
+## the bout before the rival's day); the other names stay as they were. Prints the read at each step (the one-rep trial).
+static func _prospect(main: Node, c: Career, jump: String) -> bool:
+	var p: Dictionary = {}
+	for id in ["kira", "samira", "tess", "danny", "josh"]:
+		var was: Dictionary = ProspectWire.by_id(c, id).duplicate(true)
+		var q := ProspectWire.arrive(c, id)
+		if p.is_empty() and not q.is_empty() and int(q["window_from"]) > c.day + 4 and int(q["bout_day"]) < int(q["rival_day"]):
+			p = q
+		elif not q.is_empty():
+			q.clear()
+			q.merge(was)
+	if p.is_empty():
+		return false
+	var id := str(p["id"])
+	_print_read(c, p, "arrived")
+	if jump == "prospect":
+		main.act("prospect", id)
+		return str(main.modal.get("type", "")) == "prospect"
+	if jump == "prospectgone":
+		for i in 30:
+			if str(p["state"]) == "gone":
+				break
+			Sim.step_day(c)
+			c.review_pending = false
+		_tidy(main, c)
+		main.act("mail")
+		return str(p["state"]) == "gone"
+	ProspectWire.start_trial(c, id)   # day 1 the fitness test, then the evening's pick: skills
+	for i in 2:
+		Sim.step_day(c)
+		c.review_pending = false
+		_print_read(c, p, "trial day %d (%s)" % [int(p["trial"]["days"]), str(p["trial"]["last"]["q"])])
+		if i == 0:
+			ProspectWire.ask(c, id, "skills")
+	_tidy(main, c)
+	if not main.modal.is_empty():
+		main.act("close")
+	main.render()   # the top bar reads the days the trial played
+	if jump == "prospecttrial":
+		main.act("trial", id)
+		return str(main.modal.get("type", "")) == "trial" and int(p["trial"]["days"]) == 2
+	main.act("trial", id)
+	main.act("prospectsign", id)
+	_print_read(c, p, "signed")
+	return not c.fighter_by_id(id).is_empty() and str(main.route.get("fighter", "")) == id
+
+
+static func _print_read(c: Career, p: Dictionary, when: String) -> void:
+	var r: Dictionary = ProspectWire.card(c, p)["ranges"]
+	print("TESTJUMP prospect %s %s: body %d-%d, skills %d-%d, ceiling %d-%d; level %.1f; bout %s, %s decide %s-%s (signs %s); paid %d" % [p["name"], when,
+		int(r["body"]["lo"]), int(ceil(float(r["body"]["hi"]))), int(r["skills"]["lo"]), int(ceil(float(r["skills"]["hi"]))), int(r["ceiling"]["lo"]), int(ceil(float(r["ceiling"]["hi"]))),
+		ProspectWire.level(c, str(p["div"])), Clock.fmt(int(p["bout_day"])), str(p["club"]), Clock.fmt(int(p["window_from"])), Clock.fmt(int(p["window_to"])),
+		Clock.fmt(int(p["rival_day"])), int((p.get("trial", {}) as Dictionary).get("paid", 0))])
 
 
 static func _tidy(main: Node, c: Career) -> void:

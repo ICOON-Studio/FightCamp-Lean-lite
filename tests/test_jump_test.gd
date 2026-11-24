@@ -108,6 +108,28 @@ func _initialize() -> void:
 			main.queue_free()
 			await process_frame
 			continue
+		if jump.begins_with("prospect"):   # S545 KNOWBUILD1: the signing card's four screens, one board button each
+			if jump == "prospect":
+				_check(ok and main.modal.get("type", "") == "prospect" and main.find_child("DayStrip", true, false) != null and main.find_child("SignNow", true, false) != null,
+					"prospect: the signing card with its strip and calls")
+			elif jump == "prospecttrial":
+				_check(ok and main.modal.get("type", "") == "trial" and main.find_child("Q_body", true, false) != null and main.find_child("Why", true, false) != null,
+					"prospecttrial: trial day 2's evening, tomorrow's questions")
+			elif jump == "prospectsigned":
+				# The same check as the pro block (owner S545 "the window doesnt go away"): Sign lands on the profile with nothing open,
+				# its top card says what changed, and its one button leaves nothing open either.
+				var go: Node = main.find_child("NewsGo", true, false)
+				_check(ok and main.modal.is_empty() and str(main.route.get("area", "")) == "fighters" and go != null and main.find_child("Fact_place", true, false) != null,
+					"prospectsigned: the profile is open with what changed on it, no pop-up")
+				if go != null:
+					(go as Button).pressed.emit()
+				_check(main.modal.is_empty(), "prospectsigned: Plan the week leaves nothing open")
+			else:
+				_check(ok and main.modal.is_empty() and str(main.route.get("area", "")) == "office", "prospectgone: the rival signed, the office computer's Mail is open")
+			_check(main.save_path == TestJump.SAVE_PATH, "%s: its own save slot" % jump)
+			main.queue_free()
+			await process_frame
+			continue
 		if jump == "pro":
 			# S329 update 31: the offer opens; signing pays the licence. S543 v17: the debut is picked from two bouts on Fights.
 			_check(ok and main.modal.get("type", "") == "prooffer", "pro: the promoter's offer is open")

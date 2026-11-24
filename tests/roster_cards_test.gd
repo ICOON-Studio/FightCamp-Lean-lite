@@ -51,7 +51,8 @@ func _initialize() -> void:
 	if strip != null:
 		_check(strip.get_global_rect().end.x <= 1920.0, "the strip is on the screen (ends at %.0f)" % strip.get_global_rect().end.x)
 		_check(strip.get_global_rect().end.y <= 1080.0, "the page fits without scrolling (ends at %.0f)" % strip.get_global_rect().end.y)
-	_check(main.find_child("StripInvite_kira", true, false) != null, "a scouted prospect can be invited from the strip")
+	# S545 KNOWBUILD1: the strip opens the signing card (the free Monday invite is gone: the trial runs by the day)
+	_check(main.find_child("StripOpen_kira", true, false) != null, "a scouted prospect's signing card opens from the strip")
 	var to_end: Control = main.find_child("View_rows", true, false)
 	_check(to_end != null and to_end.get_global_rect().end.x <= 1920.0, "the Rows button is on the screen")
 	var wall: TextureRect = main.get_node_or_null("PaintedWall")

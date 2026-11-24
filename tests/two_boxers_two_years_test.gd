@@ -44,13 +44,15 @@ func _initialize() -> void:
 				if not bool(o.get("answered", false)) and not bool(o.get("mismatch", false)) and (f["bout"] as Dictionary).is_empty():
 					main.act("accept", str(o["id"]))
 					break
+		# S545 KNOWBUILD1 rewrote this (it drove the free Monday invite): an open scouted name starts a trial by the day and
+		# is signed on its first evening.
 		if c.fighters.size() < 2 and c.day >= 7 * 13:
 			for p in c.prospects:
-				if str(p["state"]) == "scout":
-					main.act("invite", str(p["id"]))
+				if str(p["state"]) == "scout" and p.has("know") and not c.prospects.any(func(x): return str(x.get("state", "")) == "trial"):
+					main.act("prospecttrial", str(p["id"]))
 					break
 		for p in c.prospects:
-			if str(p["state"]) == "invited" and c.day >= int(p["trial_day"]):
+			if load("res://scripts/state/ProspectWire.gd").evening(p):
 				main.act("trial", str(p["id"]))
 				main.act("signprospect")
 		if not c.pro_offer.is_empty():

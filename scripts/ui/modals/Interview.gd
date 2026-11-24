@@ -54,6 +54,8 @@ func build(main: Node, m: Dictionary) -> void:
 		str(a["style"]).to_lower(), _known(main.career, a) if visit else ""], UI.BODY + 2, UI.MUTED, "body", true))
 	# S397 rank 5: each walk-in speaks for themself (FirstHour.walkin's quote); the first one's line stays.
 	v.add_child(UI.label(str(a.get("quote", "\"I've had four fights at a church hall. I want a proper gym and a proper coach.\"")), UI.BODY + 2, UI.FG, "italic", true))
+	if not visit:   # S545 KNOWBUILD1: the read the signing card shows - three ranges against the level (a walk-in has no dates: no strip)
+		v.add_child(_reads(main.career, a))
 	# S354 the reception as an RPG recruit (operator: "get it more rpg elements to this"): RecruitPanel.
 	if visit and bool(t["trial_seen"]):
 		var said := UI.label("Your coach, after the trial: \"%s\"" % str(Roster.trial_read(main.career, a)["verdict"]), UI.BODY + 2, UI.GOLD, "italic", true)
@@ -101,6 +103,20 @@ func build(main: Node, m: Dictionary) -> void:
 		m["shown"] = true
 		MenuFx.pop(photo, 0.05)
 		MenuFx.arrive([card], 0.12)
+
+
+## S545 KNOWBUILD1: the walk-in's first look, the same knowledge the signed boxer starts with (KnowWire.start's seed).
+func _reads(c: Career, a: Dictionary) -> Control:
+	var K: GDScript = load("res://scripts/rules/Knowledge.gd")
+	var PS: GDScript = load("res://scripts/ui/ProspectScene.gd")
+	var k: Dictionary = K.fresh(absi(hash(str(a.get("id", a.get("name", ""))))))
+	var r: Dictionary = load("res://scripts/rules/ProspectClock.gd").ranges(k, a)
+	var lvl: float = load("res://scripts/state/ProspectWire.gd").level(c, str(a.get("div", "wlw")))
+	var h := UI.hbox(28)
+	h.name = "WalkInReads"
+	for g in [["body", "BODY"], ["skills", "SKILLS"], ["ceiling", "CEILING"]]:
+		h.add_child(PS.read_col(str(g[0]), str(g[1]), r[g[0]], lvl, "One look so far: training and bouts narrow it. White tick: the region's level.", 170.0))
+	return h
 
 
 ## What is known of a visitor beyond the card: the club the boxer comes from and the place on the regional ladder.

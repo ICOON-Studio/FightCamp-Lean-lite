@@ -11,6 +11,9 @@ const FightLog := preload("res://scripts/rules/FightLog.gd")
 const LAND_MAX_M := 0.07     # glove front to the target point on a landed picture
 const BODY_ON_M := 0.01      # S545 BODYCROSS2: a landed body cross is read against his body SURFACE as drawn: on it or in it ...
 const BODY_SUNK_MAX_M := 0.09   # ... and never deeper than this (a glove through a body)
+const BENT_MAX_DEG := 150.0  # S546 BODYCROSS3 (owner C502 "there is no elbow bent"): the body cross's arm is capped under this in its own keys
+const FOLD_TAKE := "pro_hit_by_gutshot_v3_fold"   # ... and the man it hits plays the gut-shot take that folds on the blow
+const HEAD_CLEAR_M := 0.60   # the set gate's bar (tools/pics2d_gate.gd), read as drawn on those pictures
 const MISS_MIN_PX := 50.0    # glove to head on a missed picture, in the 768 px picture (~0.17 m)
 
 var failures := 0
@@ -19,6 +22,7 @@ var failures := 0
 func _initialize() -> void:
 	_set_complete()
 	_contacts()
+	_body_cross_takes()
 	_shows()
 	await _player()
 	print("FIGHT_PICTURES failures=%d" % failures)
@@ -67,12 +71,26 @@ func _contacts() -> void:
 				far.append("%s %.2f m" % [n, float(c["hit_m"])])
 			if str(n).ends_with("body_cross_landed") and (not c.has("sunk_m") or float(c["hit_m"]) > BODY_ON_M or float(c["sunk_m"]) > BODY_SUNK_MAX_M):
 				body.append("%s hit %.3f sunk %s" % [n, float(c["hit_m"]), str(c.get("sunk_m", "none"))])
+			if str(n).ends_with("body_cross_landed") and (str(c.get("react", "")) != FOLD_TAKE or float(c.get("head_clear_m", 0.0)) < HEAD_CLEAR_M):
+				body.append("%s hit man %s, heads %.3f" % [n, str(c.get("react", "none")), float(c.get("head_clear_m", 0.0))])
 			if str(c["result"]) == "missed" and gap < MISS_MIN_PX:
 				near.append("%s %.0f px" % [n, gap])
 		_check(cj.size() >= 50, "set %s: contacts for %d pictures" % [s, cj.size()])
 		_check(far.is_empty(), "set %s: every landed glove on its target (off: %s)" % [s, far])
 		_check(near.is_empty(), "set %s: every missed glove clearly off the head (on: %s)" % [s, near])
-		_check(body.is_empty(), "set %s: a landed body cross is on or in his body as drawn, never through it (off: %s)" % [s, body])
+		_check(body.is_empty(), "set %s: a landed body cross is on or in his body as drawn, never through it, the hit man on the fold take, no head in the other body (off: %s)" % [s, body])
+
+
+## S546 BODYCROSS3: the two takes those pictures are made of carry what the owner asked for in their own keys.
+func _body_cross_takes() -> void:
+	var punch := load("res://assets/anim/baked/mc_Box1_M3_Body_Cross.res") as Animation
+	var m: Dictionary = punch.get_meta("bodycross3", {}) if punch != null else {}
+	_check(not m.is_empty() and float(m.get("bend_max_deg", 180.0)) <= BENT_MAX_DEG and float(m.get("bend_from_deg", 180.0)) <= BENT_MAX_DEG,
+		"the body cross lands with a bent arm and never straightens it (touch %.1f deg, cap %.1f; bar %d)" % [float(m.get("bend_from_deg", 180.0)), float(m.get("bend_max_deg", 180.0)), int(BENT_MAX_DEG)])
+	_check(float(m.get("step_m", 0.0)) >= 0.04, "the body cross steps in (%.2f m)" % float(m.get("step_m", 0.0)))
+	var fold := load("res://assets/anim/baked/mc_Box1_M3_Hit_By_GutShot_V3_Fold.res") as Animation
+	var fm: Dictionary = fold.get_meta("bodycross3", {}) if fold != null else {}
+	_check(float(fm.get("from_s", 0.0)) >= 0.15, "the hit man's take starts on the fold, not on the wait before it (v3 from %.3f s)" % float(fm.get("from_s", 0.0)))
 
 
 func _b(t: float, who: String, move: String, result: String, big := false) -> Dictionary:

@@ -313,7 +313,7 @@ static func _scouted(main: Node, c: Career) -> Control:
 	var title := UI.display("Scouted\nfor you", 30, UI.FG)
 	title.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	h.add_child(title)
-	var open := c.prospects.filter(func(x): return str(x.get("state", "")) in ["scout", "invited"])
+	var open := c.prospects.filter(func(x): return str(x.get("state", "")) in ["scout", "invited", "trial"])
 	for x in open.slice(0, SHOWN_PROSPECTS):
 		h.add_child(_prospect(main, x))
 	if open.is_empty():
@@ -350,14 +350,14 @@ static func _prospect(main: Node, x: Dictionary) -> Button:
 	note.max_lines_visible = 2
 	note.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	v.add_child(note)
-	var invited := str(x.get("state", "")) == "invited"
-	var pill := UI.chip("Trial %s" % Clock.fmt(int(x["trial_day"])) if invited else str(x["style"]), "gold")
+	var invited := str(x.get("state", "")) in ["invited", "trial"]
+	var pill := UI.chip(("Trial day %d" % int((x.get("trial", {}) as Dictionary).get("days", 0)) if str(x["state"]) == "trial" else "Trial %s" % Clock.fmt(int(x["trial_day"]))) if invited else str(x["style"]), "gold")
 	pill.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	v.add_child(pill)
 	h.add_child(v)
-	if not invited:   # a trial is free, so it can be asked for from here; the ranges stay on Find a fighter
-		var ask := UI.button("Invite to a trial", "BtnSolid", main.act.bind("invite", str(x["id"])))
-		ask.name = "StripInvite_" + str(x["id"])
+	if x.has("know"):   # S545 KNOWBUILD1: the strip opens the signing card (the old free Monday trial is gone)
+		var ask := UI.button("See the card", "BtnSolid", main.act.bind("prospect", str(x["id"])))
+		ask.name = "StripOpen_" + str(x["id"])
 		ask.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		h.add_child(ask)
 	b.add_child(h)

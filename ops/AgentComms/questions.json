@@ -9143,10 +9143,11 @@
         "I will send a screenshot"
       ],
       "attach": [],
-      "answer": null,
+      "answer": "Top bar CONTINUE",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-24T02:18:26Z",
+      "seen_by_claude": true,
+      "comment_only": false
     },
     {
       "id": "Q-S294-328",
@@ -9178,6 +9179,23 @@
       ],
       "attach": [
         "AgentComms/board_attach/Q-S294-329_0_COACHDEEP9_RESULT.md"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-330",
+      "asked": "2026-11-24T03:49:47.463407+00:00",
+      "session": "S294",
+      "text": "Corner ring calls (Cut the ring off, Stay off the ropes) add 0 wins in two probes. Cut them?",
+      "options": [
+        "Cut both",
+        "Keep them anyway"
+      ],
+      "attach": [
+        "research/Q_CORNER_RING_S547.md"
       ],
       "answer": null,
       "note": null,

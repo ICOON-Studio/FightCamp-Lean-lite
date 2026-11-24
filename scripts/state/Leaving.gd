@@ -70,6 +70,8 @@ static func let_go_price(c: Career, fid: String) -> Dictionary:
 	var why_not := ""
 	if int(f.get("bout", {}).get("day", -1)) >= c.day and not bool(f.get("bout", {}).get("done", false)):
 		why_not = "a bout is booked"
+	if int(f.get("held_to", -1)) > c.day and not bool(f.get("pro", false)):   # S545 KNOWBUILD1 (owner K1): signed for the season
+		why_not = "signed to the season's end, %s" % Clock.fmt(int(f["held_to"]))
 	return {"rep": REP_LET_GO_RANKED if rk else REP_LET_GO, "ranked": rk, "why_not": why_not}
 
 

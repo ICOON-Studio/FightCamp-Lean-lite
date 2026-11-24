@@ -174,7 +174,7 @@ const COACH_DO := {"fit": ["Rest this week", "REST"], "weight": ["Cut weight", "
 	"file": ["Scout the opponent", "DRILL"], "plan": ["Write a game plan", "DRILL"]}
 ## The DO NEXT pin's words for a need's act (the Home button word stays in "label").
 const PIN_DO := {"openBout": "Answer offer", "goaltalk": "Set a goal", "weighin": "Weigh in", "camp": "Set camp",
-	"injurychoice": "Decide on the bout", "prooffer": "Hear the offer", "opennight": "Go to the mats", "trial": "Watch the trial",
+	"injurychoice": "Decide on the bout", "prooffer": "Hear the offer", "opennight": "Go to the mats", "trial": "Watch the trial", "prospect": "See the card",
 	"interview": "Meet the walk-in"}
 
 ## Coach's change for one CoachCheck row: [words, tag, act, arg].

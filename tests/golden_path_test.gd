@@ -84,6 +84,7 @@ func _play() -> void:
 	# S397 rank 5: the golden path plays the long road (week 2 offers 2-4 weeks out, twelve weeks, save/load, a second bout,
 	# a missed weigh-in) as a career without the first hour's fixed show; first_hour_walk_test plays the first hour itself.
 	c.first_hour = {}
+	load("res://scripts/state/ProspectWire.gd").restart(c)   # S545: the scout's first two names drawn on the fixed seed too
 	_check(main.screen == "career" and c != null, "quick start opens the career")
 	# S397 money bites: 3 months of costs now includes January's heating and power, insurance and the kit budget (was 14,600).
 	_check(c.members == 30 and c.cash == 17200, "quick start: 30 members, $17,200 (3 months of costs, S324/S397) - got %d" % c.cash)
@@ -192,7 +193,11 @@ func _run_until(until: Callable, label: String) -> bool:
 
 func _week_two(c: Career) -> void:
 	var days: int = main.run_to_stop()
-	_check(days == 7 and c.review_pending, "week 1: CONTINUE ran 7 days and stopped at the review")
+	var named := 0
+	while not c.review_pending and days < 7 and load("res://scripts/state/ProspectWire.gd").stop_today(c):   # S545: a scouted name's day stops it once
+		named += 1
+		days += main.run_to_stop()
+	_check(days == 7 and c.review_pending, "week 1: CONTINUE ran 7 days and stopped at the review (%d stop%s on a scouted name's day)" % [named, "" if named == 1 else "s"])
 	main.act("review")
 	var review: Node = main.modal_node()
 	_check(review != null and main.modal.get("type", "") == "review", "week 1: the review opened (%d stats crossed a point)" % (
@@ -453,7 +458,9 @@ func _week_three(c: Career) -> void:
 	_check(c.day >= 84, "twelve weeks played (day %d)" % c.day)
 	var unfilled := c.news.filter(func(x): return str(x["t"]).contains("{"))
 	_check(unfilled.is_empty(), "every news line has its names filled (%d of %d not: %s)" % [unfilled.size(), c.news.size(), str(unfilled.slice(0, 1))])
-	_check(c.unread <= 40, "Mail counts mail, not every rival result (%d unread)" % c.unread)
+	# S545 KNOWBUILD1: a rival club signing a scouted name is the gym's own mail (one line each), never a rival result
+	var gone_mail := c.prospects.filter(func(x): return str(x.get("state", "")) == "gone").size()
+	_check(c.unread <= 40 + gone_mail, "Mail counts mail, not every rival result (%d unread, %d of them a rival signing a scouted name)" % [c.unread, gone_mail])
 	_check(c.cash_history.size() >= 13, "MONEY has a cash bar for every week (%d)" % c.cash_history.size())
 	_check(c.cash > 8000 and not c.closed, "the gym's money holds over twelve weeks (S324: the real bills bite; was > 15,000 on a $25,000 start): %s" % GameMoney_text(c.cash))
 	_check(c.ledger.filter(func(e): return str(e["t"]).begins_with("Month-end bill")).size() == 3, "three month-end bills paid (days 28, 56, 84)")
@@ -509,19 +516,30 @@ func _week_four(c: Career) -> void:
 	_check(BoutRules.weapons(lucy["moves"]).size() >= 5, "twelve weeks of drilling: Lucy has %d weapons (%s)" % [
 		BoutRules.weapons(lucy["moves"]).size(), ", ".join(BoutRules.weapons(lucy["moves"]))])
 	_check(c.news.any(func(x): return str(x["t"]).contains("new weapon")), "a new weapon made the news")
-	# Scouting: Kira Mensah, featherweight.
+	# Scouting (S545 KNOWBUILD1, owner K2-K4): the scout brings Kira Mensah today - a featherweight with a bout at the region
+	# show and a rival club's window. Her card opens the signing card; a trial by the day, two questions picked, signed on day 3.
+	var PW: GDScript = load("res://scripts/state/ProspectWire.gd")
+	var kira_p: Dictionary = PW.arrive(c, "kira")
+	if int(kira_p["window_from"]) <= c.day + 4:   # the test keeps the rival off the three trial days (a real one may come sooner)
+		kira_p["window_from"] = c.day + 8
+		kira_p["window_to"] = c.day + 14
+		kira_p["rival_day"] = c.day + 12
 	main.act("go", "fighters:3")
-	_press(_shell_button("Invite_kira"), "FIGHTERS > Scouting: invite Kira to a trial")
-	var kira_p: Dictionary = c.prospects.filter(func(p): return p["id"] == "kira")[0]
-	_check(str(kira_p["state"]) == "invited" and posmod(int(kira_p["trial_day"]), 7) == 0, "her trial is on a Monday (%s)" % Clock.fmt(int(kira_p["trial_day"])))
-	_play_until(func(): return int(kira_p["trial_day"]) <= c.day, "CONTINUE reaches the trial")
-	_check(str(Needs.go_state(c, false)["s"]).begins_with("Trial today"), "the trial stops time: %s" % Needs.go_state(c, false)["s"])
-	main.act("go_btn")
-	_check(main.modal.get("type", "") == "trial", "NEEDS YOU opens the trial")
-	for card in ["Jab and move", "Body work", "Pad rounds"]:
-		main.act("trialcard", card)
-	_press(_modal_button("SignProspect"), "sign Kira")
-	_check(c.fighters.size() == 2 and str(kira_p["state"]) == "signed", "two fighters on the roster")
+	_press(_shell_button("Open_kira"), "FIGHTERS > Find a fighter: Kira's card opens the signing card")
+	_check(main.modal.get("type", "") == "prospect" and main.find_child("Range_body", true, false) != null, "the signing card: the read as ranges")
+	_press(_modal_button("StartTrial"), "start Kira's trial, the fitness test tomorrow")
+	for q in ["skills", "pads", ""]:
+		_play_until(func(): return PW.evening(kira_p), "CONTINUE reaches the trial evening")
+		_check(str(Needs.go_state(c, false)["s"]).begins_with("Trial day"), "the trial evening stops time: %s" % Needs.go_state(c, false)["s"])
+		main.act("go_btn")
+		_check(main.modal.get("type", "") == "trial", "NEEDS YOU opens the trial evening")
+		if q != "":
+			_press(_modal_button("Q_" + q), "tomorrow's question: %s" % q)
+	_press(_modal_button("TrialSign"), "sign Kira on trial day 3")
+	_check(c.fighters.size() == 2 and str(kira_p["state"]) == "signed" and int(kira_p["trial"]["days"]) == 3, "two fighters on the roster")
+	var kira_bouts0 := int(kira_p["w"]) + int(kira_p["l"])   # S545: her own region bouts before she was signed count too
+	_check(main.modal.is_empty() and str(main.route.get("fighter", "")) == "kira" and main.find_child("NewsTitle", true, false) != null,
+		"after Sign the new boxer's profile says what changed, no pop-up")
 	var kira := c.fighter_by_id("kira")
 	_check(str(kira["div"]) == "wfw" and float(kira["limit"]) == 57.0 and str(kira["learning"]) == "Uppercut",
 		"Kira: featherweight, 57 kg, learning the uppercut")
@@ -551,7 +569,7 @@ func _week_four(c: Career) -> void:
 	_press(_modal_button("StartCamp"), "Kira's camp")
 	var holly_before := int(c.rival("Holly Marsh")["w"]) + int(c.rival("Holly Marsh")["l"])
 	_play_until(func(): return (kira["bout"] as Dictionary).is_empty() and c.results.any(func(r): return r.get("fid", "") == "kira"), "Kira's bout is fought")
-	_check(int(kira["w"]) + int(kira["l"]) == 2, "Kira's record moved: %d-%d" % [kira["w"], kira["l"]])
+	_check(int(kira["w"]) + int(kira["l"]) == kira_bouts0 + 1, "Kira's record moved: %d-%d" % [kira["w"], kira["l"]])
 	_check(int(c.rival("Holly Marsh")["w"]) + int(c.rival("Holly Marsh")["l"]) == holly_before + 1, "Holly's record took the result")
 	main.act("go", "world:1")
 	_check(main._shell.find_child("Rankings_wfw", true, false) != null, "WORLD > Rankings shows the featherweights too")
@@ -651,7 +669,7 @@ func _club_show(c: Career) -> void:
 	c.cash = maxi(c.cash, 10000)   # the step reads the row and books; the money checks above are done
 	main.act("go", "money:0")
 	var rd: Dictionary = GymSpend.show_read(c)
-	var line := str(rd["short"])
+	var line := str(rd["row"])   # S547: the row names the one hall; the other is on its button
 	var shown: bool = main._shell.find_children("*", "Label", true, false).any(func(l): return (l as Label).text.contains(line))
 	_check(shown and (line.begins_with(ClubShow.hall_name(str(rd["hall"]))) or line.begins_with("Close - your call")), "the show row reads the hall: %s" % line)
 	var book := _shell_button("BookShow")

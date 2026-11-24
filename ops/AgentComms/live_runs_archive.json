@@ -24610,5 +24610,46 @@
    "started": "2026-11-24T02:13",
    "archived": "2026-11-24 03:51 board_sync"
   }
- ]
+ ],
+ "KNOWBUILD1": {
+  "id": "KNOWBUILD1",
+  "status": "done",
+  "title": "Knowledge: the signing card in the game, a scene like the pro call (ranges, the rival's window, trial evenings where you pick the question)",
+  "seat": "claude",
+  "agent": "claude-opus-5-5 (console tab KNOWBUILD1 of the S545 session)",
+  "eta": "about 5-7 h (to about 09:00)",
+  "note": "S545: research/TASK_KNOWBUILD1.md; owner interview S543 K1-K4; worktree build/knowbuild1",
+  "started": "2026-11-24T03:06"
+ },
+ "COACHDEEP9": {
+  "id": "COACHDEEP9",
+  "status": "done",
+  "started": "2026-11-24T02:21",
+  "title": "Coaches v9: three named changes and a stop rule (a forced moment that fails again is cut as a decision)",
+  "seat": "claude",
+  "agent": "claude-opus-5-5 (console tab COACHDEEP9 of the S545 session)",
+  "eta": "about 1.5-2 h (to about 04:15)",
+  "note": "S545: research/TASK_COACHDEEP9.md"
+ },
+ "BODYCROSS3": {
+  "id": "BODYCROSS3",
+  "status": "done",
+  "seat": "claude",
+  "agent": "claude-fable-5-2 (console tab BODYCROSS3 of the S546 session, tab c1)",
+  "eta": "about 2-3 h (to about 06:45)",
+  "title": "Body cross 3: a bent elbow you can see, the hit man bends (your mark C502: 'there is no elbow bent , the reaction should force the opponent to bend hisposture a bit')",
+  "brief": "ops/research/TASK_BODYCROSS3.md",
+  "started": "2026-11-24T04:00",
+  "note": "S547: landed 05:19 (c39580b37), 13 of 13 on its ruler, sheets on /review for his eye"
+ },
+ "CORNERCMD2": {
+  "id": "CORNERCMD2",
+  "status": "done",
+  "title": "Corner commands round 2: no free rest (Reset, Get out), the ring slider right against who runs or pins, the boxer's training matters more",
+  "seat": "claude",
+  "agent": "claude-opus-5-5 (console tab CORNERCMD2 of the S545 session)",
+  "eta": "about 1.5-2.5 h (to about 05:15)",
+  "note": "S545: research/TASK_CORNERCMD2.md; stop rule | S547: landed, FAIL bars 5, 6, 8 again - stop rule, facts to the owner",
+  "started": "2026-11-24T03:05"
+ }
 }

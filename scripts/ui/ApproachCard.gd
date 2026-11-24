@@ -182,7 +182,9 @@ static func _column(main: Node, f: Dictionary, col: Dictionary) -> Control:
 ## The Overview's Let go button: greyed with its reason (Leaving.let_go_price).
 static func let_go_button(main: Node, c: Career, f: Dictionary) -> Button:
 	var p := Leaving.let_go_price(c, str(f["id"]))
-	var b := UI.button("Let go", "Btn", main.act.bind("letgo", str(f["id"])), str(p["why_not"]) != "", str(p["why_not"]))
+	var held := int(f.get("held_to", -1)) > c.day and not bool(f.get("pro", false))   # S545 KNOWBUILD1 (owner K1): the season's place
+	var b := UI.button("Held to %s" % Clock.fmt(int(f["held_to"])) if held else "Let go", "Btn", main.act.bind("letgo", str(f["id"])), str(p["why_not"]) != "",
+		"Signed for the season: the place is the gym's commitment until the season's end." if held else str(p["why_not"]))
 	b.name = "Btn_letgo"
 	return b
 

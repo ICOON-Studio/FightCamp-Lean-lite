@@ -54,6 +54,19 @@ func _at(s: Dictionary, i: int, bone: String) -> Vector3:
 	return (s["xf"] as Transform3D) * ((s["poses"] as Array)[(stage.boxers[i]["skel"] as Skeleton3D).find_bone(bone)] as Transform3D).origin
 
 
+## The set gate's crowding measure AS DRAWN, on two recorded poses: the nearest a head bone is to the other's trunk
+## line and head (tools/pics2d_gate.gd reads the bones between frames - the take's own key, before the join smoother).
+func _heads(a: Dictionary, b: Dictionary, who: int) -> float:
+	var best := INF
+	for pair in [[a, who, b, 1 - who], [b, 1 - who, a, who]]:
+		var h := _at(pair[0], pair[1], "Head")
+		var line: Array = []
+		for bone in Gate.TORSO + ["Head"]:
+			line.append(_at(pair[2], pair[3], bone))
+		best = minf(best, Gate.chain_dist([h, h], line))
+	return best
+
+
 ## The hit man's trunk skin, read once: the vertices mostly weighted to the trunk's bones and the triangles between them.
 func _surf_build(d: int) -> void:
 	var sk: Skeleton3D = stage.boxers[d]["skel"]

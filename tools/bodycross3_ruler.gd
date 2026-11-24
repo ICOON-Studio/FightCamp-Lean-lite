@@ -106,6 +106,7 @@ func _sheet(who: int, run: Dictionary, m: Dictionary) -> Dictionary:
 	var shown := 0
 	var bent := 0
 	var later_max := 0.0
+	var curve: Array = []       # every picture from the touch: [fold deg, hips back m]
 	for k in range(maxi(ci - SHEET_BEFORE, 0), fr.size()):
 		var a: Dictionary = fr[k]["thr"]
 		var b: Dictionary = fr[k]["def"]
@@ -128,6 +129,8 @@ func _sheet(who: int, run: Dictionary, m: Dictionary) -> Dictionary:
 			for q in [3, 6, 9]:
 				if f == q:
 					at_s[q] = fold
+		if f >= 0:
+			curve.append([snappedf(fold, 0.1), _r3(hb)])
 		if f > SHEET_AFTER:
 			continue
 		var sh := _at(a, who, side + "UpperArm")
@@ -144,17 +147,17 @@ func _sheet(who: int, run: Dictionary, m: Dictionary) -> Dictionary:
 				shown += 1
 		rows.append({"pic": rows.size() + 1, "f": f, "take_s": _r3(float(fr[k]["pos"])), "elbow_seen_deg": snappedf(seen, 0.1),
 			"elbow_3d_deg": snappedf(rad_to_deg((sh - el).angle_to(wr - el)), 0.1), "gap_m": _r3(gap), "on_body": on,
-			"lean_deg": snappedf(lean, 0.1), "fold_deg": snappedf(fold, 0.1), "hips_back_m": _r3(hb)})
+			"lean_deg": snappedf(lean, 0.1), "fold_deg": snappedf(fold, 0.1), "hips_back_m": _r3(hb), "heads_m": _r3(_heads(a, b, who))})
 	var touch: Dictionary = rows[mini(SHEET_BEFORE, rows.size() - 1)]
 	var s := {"set": m["set"], "take": m["take"], "react": m["react"], "react_from_s": m["react_from_s"], "rows": rows, "pair_hips_m": m["pair_hips_m"],
 		"touched": bool(m["touched"]), "elbow_touch_deg": touch["elbow_seen_deg"], "elbow_later_max_deg": snappedf(later_max, 0.1), "bent_pics": bent,
 		"fold_in_deg": snappedf(fold_in, 0.1), "fold_most_deg": snappedf(fold_most, 0.1), "fold_most_s": _r3(fold_most_s), "fold_shown_pics": shown,
 		"fold_005": snappedf(float(at_s.get(3, 0.0)), 0.1), "fold_010": snappedf(float(at_s.get(6, 0.0)), 0.1), "fold_015": snappedf(float(at_s.get(9, 0.0)), 0.1),
-		"hips_in_m": _r3(hips_in), "hips_most_m": _r3(hips_most), "upright_s": _r3(up_s), "lean_touch_deg": snappedf(lean0, 0.1)}
+		"hips_in_m": _r3(hips_in), "hips_most_m": _r3(hips_most), "upright_s": _r3(up_s), "lean_touch_deg": snappedf(lean0, 0.1), "curve": curve}
 	print("BC3 %s set %s; the hit man plays %s from %.3f s; hips %.3f m apart in the guard" % [s["take"], s["set"], s["react"], s["react_from_s"], s["pair_hips_m"]])
-	print("BC3 sheet  pic  take_s  elbow as seen (3D)  glove-to-body  on body  his lean  his fold  hips back")
+	print("BC3 sheet  pic  take_s  elbow as seen (3D)  glove-to-body  on body  his lean  his fold  hips back  head to the other's trunk (the picture gate's %.2f)" % Gate.HEAD_CLEAR_M)
 	for r in rows:
-		print("BC3 %3d (%+d)  %6.3f  %6.1f deg (%5.1f)  %7.3f m  %-3s  %6.1f deg  %6.1f deg  %6.3f m" % [r["pic"], r["f"], r["take_s"], r["elbow_seen_deg"], r["elbow_3d_deg"], r["gap_m"], "yes" if r["on_body"] else "no", r["lean_deg"], r["fold_deg"], r["hips_back_m"]])
+		print("BC3 %3d (%+d)  %6.3f  %6.1f deg (%5.1f)  %7.3f m  %-3s  %6.1f deg  %6.1f deg  %6.3f m  %6.3f m" % [r["pic"], r["f"], r["take_s"], r["elbow_seen_deg"], r["elbow_3d_deg"], r["gap_m"], "yes" if r["on_body"] else "no", r["lean_deg"], r["fold_deg"], r["hips_back_m"], r["heads_m"]])
 	print("BC3_REACT %s from %.3f s: fold as seen %.1f / %.1f / %.1f deg at +0.05 / +0.10 / +0.15 s, most %.1f deg at +%.3f s; hips back %.3f m in %.2f s, %.3f m most; %s" % [
 		s["react"], s["react_from_s"], s["fold_005"], s["fold_010"], s["fold_015"], s["fold_most_deg"], s["fold_most_s"], s["hips_in_m"], FOLD_S, s["hips_most_m"],
 		"never folded %.0f deg" % FOLD_SHOWN if fold_most < FOLD_SHOWN else ("not upright again in %.1f s" % (AFTER_F / 60.0) if up_s < 0.0 else "upright again after %.3f s" % up_s)])
@@ -183,9 +186,9 @@ func _sheet(who: int, run: Dictionary, m: Dictionary) -> Dictionary:
 
 
 func _md3(s: Dictionary, path: String) -> void:
-	var txt := "%s, set %s, the hit man plays %s from %.3f s - %s\n\n| Picture | Elbow as seen (3D) | Glove to his body m | His fold deg (lean) | His hips back m |\n|---|---|---|---|---|\n" % [s["take"], s["set"], s["react"], s["react_from_s"], s["verdict"]]
+	var txt := "%s, set %s, the hit man plays %s from %.3f s - %s\n\n| Picture | Elbow as seen (3D) | Glove to his body m | His fold deg (lean) | His hips back m | Head to the other's trunk m |\n|---|---|---|---|---|---|\n" % [s["take"], s["set"], s["react"], s["react_from_s"], s["verdict"]]
 	for r in s["rows"]:
-		txt += "| %d (%+d) | %.1f (%.1f) | %.3f%s | %.1f (%.1f) | %.3f |\n" % [r["pic"], r["f"], r["elbow_seen_deg"], r["elbow_3d_deg"], r["gap_m"], " on" if r["on_body"] else "", r["fold_deg"], r["lean_deg"], r["hips_back_m"]]
+		txt += "| %d (%+d) | %.1f (%.1f) | %.3f%s | %.1f (%.1f) | %.3f | %.3f |\n" % [r["pic"], r["f"], r["elbow_seen_deg"], r["elbow_3d_deg"], r["gap_m"], " on" if r["on_body"] else "", r["fold_deg"], r["lean_deg"], r["hips_back_m"], r["heads_m"]]
 	txt += "\n| Bar | Read | |\n|---|---|---|\n"
 	for b in s["bars"]:
 		txt += "| %s | %s | %s |\n" % [b["bar"], b["read"], "pass" if b["pass"] else "FAIL"]

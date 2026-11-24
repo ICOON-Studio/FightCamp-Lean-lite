@@ -90,7 +90,7 @@ static func trial_day_for(day: int) -> int:
 
 static func invite(c: Career, id: String) -> bool:
 	var p := prospect(c, id)
-	if p.is_empty() or str(p["state"]) != "scout" or GymSpend.place_blocked(c) != "":   # S397 roster places
+	if p.is_empty() or not str(p["state"]) in ["scout", "later"] or GymSpend.place_blocked(c) != "":   # S397 roster places; S545 a name not yet scouted can be asked in
 		return false
 	p["state"] = "invited"
 	p["trial_day"] = trial_day_for(c.day)
@@ -123,6 +123,8 @@ static func trial_read(c: Career, p: Dictionary) -> Dictionary:
 ## Signs a prospect after her trial (her stats are now known exactly).
 static func sign_prospect(c: Career, id: String, picks: Array) -> Dictionary:
 	var p := prospect(c, id)
+	if str(p.get("state", "")) == "trial":   # S545 KNOWBUILD1: a trial by the day signs through its own path (the read, the season)
+		return load("res://scripts/state/ProspectWire.gd").sign(c, id)
 	if p.is_empty() or str(p["state"]) != "invited":
 		return {}
 	var raw: Dictionary = p.duplicate(true)

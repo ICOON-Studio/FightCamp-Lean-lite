@@ -190,13 +190,15 @@ static func read(members: int, reputation: int, juniors: int, home_boxers: int, 
 	if close:
 		line = "Close - your call. %s %s. %s %s." % [hall_name("community"), _fill(lk["community"], false), hall_name("town"), _fill(lk["town"], false)]
 	else:
-		line = "Your club %s. %s %s." % [_fill(lk[best], true), hall_name(other), _fill(lk[other], false)]
+		line = "Your gym %s. %s %s." % [_fill(lk[best], true), hall_name(other), _fill(lk[other], false)]
 	# the row's own words: two lines on Club > Money hold about 90 characters, so the read is cut to the halls' facts
 	var first: String = "community" if close else best
 	var second: String = "town" if close else other
 	var short := "%s%s: %s. %s: %s." % ["Close - your call. " if close else "", hall_name(first), _brief(lk[first], true),
 		hall_name(second).trim_suffix(" hall"), _brief(lk[second], false)]
-	return {"hall": best, "close": close, "likely": lk, "line": line, "short": short}
+	# S547: Finance is an office window now (narrower): the row says the named hall only; each button's hover has its hall.
+	var row := "Close - your call." if close else "%s: %s." % [hall_name(best), _brief(lk[best], true)]
+	return {"hall": best, "close": close, "likely": lk, "line": line, "short": short, "row": row}
 
 
 ## "full, likely +$2,300, +4 rep" / "136 of 250, likely +$1,800" / "half-empty, -$900, -4 rep".

@@ -147,3 +147,55 @@ grade: mean of (best step mastery, footwork); Good from 55, OK from 40.
 Population and arms as the brief: ten cells (presser, mover, counter-puncher, loader, fader, slow starter, body puncher,
 switch-hitter, the favourite +3, the underdog -3) x our two women x three and six rounds; arms PLAN ONLY, each of the ten
 commands held all bout, all sixteen fixed pairs, push while wind > 45, the reader, the coach at 40 / 58 / 75, and "alt".
+
+
+---
+
+# Round 2 (CORNERCMD2, S545) - honest wind, a round-1 call, a ring that answers who runs, grades that matter
+
+Brief: `ops/research/TASK_CORNERCMD2.md`. Written BEFORE any round-2 run. Probe: `tools/cornercmd2_probe.gd` + `tools/cornercmd2_rules.gd`
+(round 1's tools with the four changes as flags `ch=1,2,3,4`; `ch=0` = round 1 as it ran), `tools/cornercmd2_sum.py`.
+Result: `docs/CORNERCMD2_RESULT.md` - FAIL again on bars 5, 6, 8 (the free recovery is gone; bar 3 now passes; the ring
+is worth +0 held and as a moment answer; STOP RULE sections written there). These four changes are the ONLY changes to the page above; everything else (the ten
+commands, the moments, the reader's rule, the coach rule as tuned, (tactics - 30) / 50) stands.
+
+## The four changes (before -> after)
+
+| # | What | Before (round 1) | After (round 2) | Boxing reason | Source |
+|---|---|---|---|---|---|
+| 1a | Reset ("calm" / "tie") wind | -3.0 / -2.0 every exchange it is on, whatever the moment; a held Reset made the corner minute's call "calm" (`Combos.round_spend`: 0.8 of the punches, all round) | the refill only while OUR boxer is tired or hurt (the moments she_tired / she_hurt); any other moment it costs 0 (the call's -3 is given back) and still gives up offence (-3 edge, as before). The corner minute's call is "calm" only when she comes back to the stool tired (under 35 at the bell) or hurt; otherwise the plan's call | "breathe" is for a boxer who is blowing; a fresh boxer told to breathe just throws less | J55 (the corner minute: settle and breathe is one of five jobs); PUSHPROBE2 "Push five, Save one" (the free-recovery loop) |
+| 1b | Get out of there ("long") wind | -0.5 every exchange (the built call gives wind back) | 0 (the -0.5 is given back while the command is on, also in the round's first 30 s when it is the corner's call) | punch-and-move is not rest; the legs work | CORNERCMD1 result (Get out held +23.9) |
+| 1c | New commands' wind | Change levels 1.0, Sit down 1.0, Be first 1.5 | 0.5, 0.5, 1.0 - the built calls' scale (body 1.5, let_go 3.0, hands 0, long -0.5) | changing levels and planting are a little more work than boxing; throwing first is more | Exchanges.CALLS cost column |
+| 1d | Ring wind | Cut 1.0, Ropes 0.5 | Cut 0.5, Ropes 0 | walking a man down is work; turning off the ropes is what a boxer does anyway | STEPPAY4: cut_off's tank cost; StepEffect "self_tank" |
+| 2 | Round 1's call | none: `BoutNight` opens round 1 on plan "" (l.77 / l.194); the corner speaks from round 2, so any held command had a free third of a 3-rounder | every arm opens round 1 on `BoutRules.auto_corner(stats)` - the call PLAN ONLY uses in every later round (the probe opens round 1 itself: the same steps as `fight_step("start")` with that call) | a corner sends the boxer out with one instruction | J55's mic'd corners; Halperin et al. S21 |
+| 3a | Cut the ring off | a flat ring edge (0.6 of a call, best at range) + `ring_cut` 0.5 x grade x heard | NO flat edge. In the moments where the opponent gives ground (range, counter) it moves the fight: `ring_cut` 0.5 x grade x heard for the round (his range game less often) and his ROPES COUNT +1 with chance grade x heard (StepEffect's cut_off row: opp_ropes 1; at 3 the next exchange is on his ropes, PlaceEdge +5 and no range game). Against a man coming forward (press, loadup) it leaves our boxer open: -5 x commit x heard (the size of being on your own ropes, PlaceEdge.ROPES) | cutting off a runner takes his room; stepping across in front of a presser walks you onto his punches | footwork topic page (ring position); STEPPAY4 (cut_off +4.75 v Out-boxer, about 0 v Pressure); coaching line "cut him off, don't follow him" |
+| 3b | Stay away from the ropes | a flat ring edge (0.6 of a call, best when pressed) + pins cleared with chance grade x heard | NO flat edge. In the moments where the opponent walks her down (press, loadup), with chance grade x heard: her ropes count and Duels pins cleared, and an exchange that was going to be fought on her own ropes (PlaceEdge -5) is fought on the moment's own card instead. Against a mover (range) it gives up the centre: -5 x commit x heard | "get off the ropes" against a man walking you down; circling away from a jabber gives him his range | STEPPAY4 (pivot_out +3.25 v Pressure, -3.50 v Out-boxer; step_out +3.00 v Slugger) |
+| 4a | Grade multipliers on a COMMAND (fight and ring) | positive edge Good 1.0 / OK 0.6 / Poor 0.3 (OK->Good ramp 56-62); a wrong one committed Good 1.5 / OK 1.0 / Poor 0.6 | positive Good **1.25** / OK 0.6 / Poor **0.25** (ramp 0.6 -> 1.25 over 56-62); wrong Good 1.5 / OK 1.0 / Poor **1.0** (a Poor command pays a quarter and costs in full: its wind, its head, its wrong moments) | an untrained boxer told to sit down on her shots does it badly AND gets hit doing it; a trained one does it as her own | spec 5: "an untrained one shows Poor and does little" |
+| 4b | The tie at "loading up" | Hands up and Be first both best; Be first won every tie (list order) | Hands up is best at loading up for a boxer whose guard + head movement mean is above her hand speed + timing mean, and only OK for the other kind; Be first the reverse. No new command | a slick defender makes the big shot miss; a fast one beats it to the punch | corner practice; CORNERCMD1 bar 3 (Hands up 0%) |
+
+Every number here is an ESTIMATE with the reason given; the bars below decide.
+
+## Feedback loops (from the brief; caps)
+
+- Command -> edge -> a won exchange -> the opponent hurt or tired -> a better moment for the same command. Cap: bar 8.
+- Reset when tired -> wind back -> not tired -> Reset stops refilling -> tired again: the design (rest when you need it). Cap:
+  the refill only in she_tired / she_hurt, and Reset gives up offence. Check: Reset held ends each round BELOW the reader's
+  wind + 15, and does not beat PLAN ONLY by more than 10 in any cell.
+- Cut the ring off -> the mover has less room -> more exchanges on his ropes -> our boxer spends 0.5 an exchange -> tired ->
+  cannot cut. Cap: its 0.5 wind, the ropes count's 3, the round's length. Printed: our wind at each bell with Cut held v the mover.
+- Stay away from the ropes -> fewer rope exchanges -> less damage -> more wind for offence: one way, no loop.
+- Grades wider -> trained commands pay more -> the player trains what already pays. Outside this probe (training is not
+  simulated); a limit on the result page.
+- ONE-REP TRIAL FIRST: all four off reproduces round 1 (one cell, 140 bouts, the same dice); then one bout per cell per arm
+  with the changes on, and one cell printed exchange by exchange, read for a command that changes nothing.
+
+## Bars (the SAME nine, never loosened)
+
+All nine at 3 and 6 rounds, the same ten cells, the same two women plus ONE more of ours with a different trained set, the
+same paired dice (bout k = career day 70000 + 7k). Bar 5 then reads: at least 4 commands where at least two of the three
+boxers disagree (one above +1, another below -1, held all bout v PLAN ONLY). New prints: the wind at every bell for Reset held
+and Get out held (STOP flag: never under 60 = still free recovery) and, for each cell, which ring stop is right held and by
+how much. STOP RULE (the coordinator applies it): bar 8 fails again -> name the command and the cells, no further tuning;
+bar 6 fails again -> the ring slot goes to the owner as "cut it as a held slider, keep the two ring calls as moment answers,
+or cut both"; bar 5 fails again -> say whether the grades are too close in the population or the engine ignores them; bars
+1, 2, 4, 7, 9 must still pass, and a reader under +5 over PLAN ONLY is a FAIL.

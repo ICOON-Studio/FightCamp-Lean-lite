@@ -2,6 +2,7 @@ extends VBoxContainer
 ## FIGHTERS: Roster, Training (each week on the fighter page: WeekBoard), Fight camps, Scouting
 ## (prospects: a scouted range, invite to a trial). A fighter's name opens her page.
 
+const ProspectScene := preload("res://scripts/ui/ProspectScene.gd")   # S545 KNOWBUILD1: the read as bands
 const UI := preload("res://scripts/ui/UI.gd")
 const AreaHead := preload("res://scripts/ui/AreaHead.gd")
 const Data := preload("res://scripts/state/Data.gd")
@@ -185,7 +186,9 @@ func _scouting(main: Node, c: Career) -> void:
 	var card := UI.card("PROSPECTS NEAR %s" % c.city.to_upper())
 	add_child(card[0])
 	var grid := FighterCard.grid("Prospects")
-	for p in c.prospects:
+	# S545 KNOWBUILD1 (owner K3: a prospect is a moment): the names the scout has brought, open ones first; a card opens the
+	# signing card. Names still to come are not shown.
+	for p in c.prospects.filter(func(x): return str(x.get("state", "")) in ["scout", "trial", "invited"]) + c.prospects.filter(func(x): return str(x.get("state", "")) == "signed"):
 		var pc := PanelContainer.new()
 		pc.theme_type_variation = "Card"
 		pc.name = "Prospect_" + str(p["id"])
@@ -204,6 +207,13 @@ func _scouting(main: Node, c: Career) -> void:
 		match str(p["state"]):
 			"invited":
 				top.add_child(UI.chip("trial %s" % Clock.fmt(int(p["trial_day"])), "gold"))
+			"trial":
+				top.add_child(UI.chip("trial day %d" % int(p["trial"].get("days", 0)), "gold"))
+			"scout":
+				if int(p.get("window_to", -1)) >= 0:
+					var dl := UI.chip("%s decide by %s" % [str(p["club"]), Clock.fmt(int(p["window_to"]))], "red")
+					dl.tooltip_text = "Boxes %s. %s may sign between %s and %s." % [Clock.fmt(int(p["bout_day"])), str(p["club"]), Clock.fmt(int(p["window_from"])), Clock.fmt(int(p["window_to"]))]
+					top.add_child(dl)
 			"signed":
 				top.add_child(UI.chip("signed", "green"))
 			"passed":
@@ -211,9 +221,20 @@ func _scouting(main: Node, c: Career) -> void:
 		v.add_child(top)
 		v.add_child(UI.muted("%d, %s, %s: %s" % [p["age"], str(p["wc"]).to_lower(), str(p["style"]).to_lower(), p["note"]], UI.SMALL, true))
 		v.add_child(UI.caps("SCOUTED"))
+		if p.has("know"):   # S545 KNOWBUILD1: the same read the signing card shows - three ranges against the level
+			var rr: Dictionary = load("res://scripts/rules/ProspectClock.gd").ranges(p["know"], p)
+			var lv: float = load("res://scripts/state/ProspectWire.gd").level(c, str(p["div"]))
+			var reads := UI.hbox(18)
+			for g in [["body", "Body"], ["skills", "Skills"], ["ceiling", "Ceiling"]]:
+				var col := UI.vbox(0)
+				col.add_child(UI.label(str(g[1]), UI.SMALL, UI.MUTED))
+				col.add_child(UI.label(ProspectScene.range_text(rr[g[0]]), UI.BODY, UI.FG, "bold"))
+				col.add_child(ProspectScene.band(float(rr[g[0]]["lo"]), float(rr[g[0]]["hi"]), lv, ProspectScene.tone_of(rr[g[0]], lv), 120.0))
+				reads.add_child(col)
+			v.add_child(reads)
 		# S443 one set of numbers (UX_AUDIT_S442 proposal A): the short form the roster and the fighter page use, each a
 		# scouted range (a copy: the prospect's own dict is not given attributes by a page draw)
-		for gr in StatBlock.groups(Data.fighter_state(p.duplicate(true), c.day)):   # as the reception reads the walk-in
+		for gr in ([] if p.has("know") else StatBlock.groups(Data.fighter_state(p.duplicate(true), c.day))):   # as the reception reads the walk-in
 			var r := UI.hbox(10)
 			var lab := UI.label(str(gr["name"]), UI.SMALL, UI.FG)
 			lab.custom_minimum_size = Vector2(110, 0)
@@ -222,11 +243,35 @@ func _scouting(main: Node, c: Career) -> void:
 			r.add_child(UI.meter((mid + Data.SCOUT_SPREAD) / 100.0, UI.GOLD, [(mid - Data.SCOUT_SPREAD) / 100.0], 150.0))
 			r.add_child(UI.mono("%d-%d" % [int(mid) - Data.SCOUT_SPREAD, int(mid) + Data.SCOUT_SPREAD], UI.SMALL, UI.FG))
 			v.add_child(r)
-		if str(p["state"]) == "scout":
-			var b := UI.button("Invite to a trial", "Btn", main.act.bind("invite", p["id"]))
-			b.name = "Invite_" + str(p["id"])
+		if str(p["state"]) in ["scout", "trial"] and p.has("know"):
+			var b := UI.button("See the card", "BtnSolid", main.act.bind("prospect", p["id"]))
+			b.name = "Open_" + str(p["id"])
 			b.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 			v.add_child(b)
 		grid.add_child(pc)
 	card[1].add_child(grid)
-	card[1].add_child(UI.muted("Scouted ranges: a club fighter reads about 50-60. A trial is free: the fighter comes in on the Monday. Signing costs the %s gym stipend a week." % UI.money(250), UI.SMALL, true))
+	var nxt := int(c.scout.get("next", -1))
+	card[1].add_child(UI.muted("The scout brings one name at a time, two open at most. Next name: about %s." % Clock.fmt(maxi(nxt, c.day + 1)) if nxt >= 0 else "", UI.SMALL, true))
+	_got_away(c)
+
+
+## S545 KNOWBUILD1: the names the gym let go by - signed by a rival club (the window ran out) or passed - with the last look.
+func _got_away(c: Career) -> void:
+	var rows: Array = load("res://scripts/state/ProspectWire.gd").got_away(c)
+	if rows.is_empty():
+		return
+	var card := UI.card("GOT AWAY")
+	card[0].name = "GotAway"
+	add_child(card[0])
+	for r in rows.slice(0, 6):
+		var h := UI.hbox(14)
+		h.name = "GotAwayRow"
+		h.add_child(UI.label(str(r["name"]), UI.BODY, UI.FG, "bold"))
+		h.add_child(UI.label("passed" if bool(r["passed"]) else str(r["club"]), UI.BODY, UI.MUTED if bool(r["passed"]) else UI.RED, "semi"))
+		h.add_child(UI.label(Clock.fmt(int(r["d"])), UI.SMALL, UI.MUTED))
+		h.add_child(UI.spacer())
+		var look := UI.label(str(r["look"]), UI.SMALL, UI.MUTED, "mono")
+		look.tooltip_text = "Your last look before the name went. They box on at %s." % str(r["club"])
+		look.mouse_filter = Control.MOUSE_FILTER_STOP
+		h.add_child(look)
+		card[1].add_child(h)

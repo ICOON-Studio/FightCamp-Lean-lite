@@ -239,6 +239,15 @@
      "globs": [
       "docs/playtest/s544_turnpro/0*.png"
      ]
+    },
+    {
+     "id": "signing_card_s547",
+     "title": "The signing card in the game (S547 build): the card, a trial evening, after Sign, the rival signs",
+     "kind": "gallery",
+     "globs": [
+      "docs/playtest/s547/*_real.png"
+     ],
+     "cols": 2
     }
    ]
   }

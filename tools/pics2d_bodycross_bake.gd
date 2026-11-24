@@ -21,9 +21,23 @@ extends SceneTree
 ##   S545  THE WEIGHT GOES FORWARD FWD_M more (hips; Undisputed's body straight carries 0.055-0.061 m, B&C's plain cross
 ##     0.04) and THE REAR HEEL COMES UP HEEL_M more, pivoting on the ball of the foot (our captured rear uppercut 6.1 cm;
 ##     no published figure, K46 line 19). The hip and shoulder turn are the bought cross's own keys: nothing is twisted.
+##   S546 BODYCROSS3 (owner C502 on BODYCROSS2's own sheet: "there is no elbow bent"): A BENT ARM YOU CAN SEE, AND A STEP.
+##     tools/bodycross3_ruler.gd on the S545 take: the elbow AS SEEN from the side camera is 158.6 deg on the touch
+##     (the bought cross flares its elbow out, toward the camera: 142.7 in 3D) and 169 one picture later. Now:
+##     - the contact is earlier still on the arm's travel (key=, the bought take's elbow there is printed);
+##     - past that key the arm's shoulder-to-wrist span is capped softly (BEND_MAX_DEG at the very most): the rest of
+##       the drive is the bought take's own hip and shoulder turn and the weight, the arm never locks out;
+##     - the elbow comes DOWN under the punch's line through the drive (_bend), the upper arm rolled so its hinge is
+##       square to the bend, the fist kept as the bought take turns it: the bend is in the plane the side camera sees;
+##     - the sink is 0.13 m, was 0.18: with the step the 0.18 crouch put the rear knee a hand off the canvas on the
+##       women's pair (a kneeling lunge on the sheet); the trunk hinges 5 deg at the waist, was 10 (a bent arm brings
+##       the heads 8-10 cm nearer: bend the knees, not the waist); the arm's line from the shoulder is pitched down the rest;
+##     - the range the shorter arm leaves is closed by a STEP of the lead foot (STEP_M forward, lifted LIFT_M, planted
+##       PLANT_BEFORE_S before the contact; K46: coaching step-in 5-8 cm, lead foot planted at impact) and the hips
+##       going with it; he steps back out as he comes up. Feet on the floor, never slid.
 ## Base: the plain cross the game shows (the ActionForge-legged Punch PRO cross, assets/anim/af_retarget). Saved as
 ## mc_Box1_M3_Body_Cross.res (FightClips: pro_body_cross; ClipCensus family body_cross: only the pictures use it).
-##   <godot> --headless --audio-driver Dummy --fixed-fps 60 --path . --script res://tools/pics2d_bodycross_bake.gd -- [dry] [drop=0.18] [lean=10] [rate=2.0] [tc=0.30] [key=0.24]
+##   <godot> --headless --audio-driver Dummy --fixed-fps 60 --path . --script res://tools/pics2d_bodycross_bake.gd -- [dry] [drop=0.13] [lean=5] [rate=1.7] [tc=0.30] [key=0.225] [step=0.06] [bendmax=130]
 
 const Stage := preload("res://scripts/fight3d/FightStage.gd")
 const FightClips := preload("res://scripts/fight3d/FightClips.gd")
@@ -47,6 +61,9 @@ const HEEL_M := 0.03
 const LEAN_SHARE := {"Hips": 0.4, "Spine": 0.3, "Chest": 0.3}
 const FACE_BACK := {"Neck": -0.4, "Head": -0.4}
 const ARM_MAX_DEG := 30.0
+const LIFT_M := 0.03          # the stepping foot's lift
+const PLANT_BEFORE_S := 0.067 # the lead foot is down this long before the contact
+const STEP_FROM_S := 0.033
 
 var skel: Skeleton3D
 var ap: AnimationPlayer
@@ -54,14 +71,19 @@ var fwd := Vector3.BACK      # skeleton space
 var side := Vector3.RIGHT
 var front := 0.15
 var scale := 1.0
-var drop_m := 0.18
-var lean_deg := 10.0
-var rate := 2.0              # the drive's pace on the contact key, against the bought take's
+var drop_m := 0.13
+var lean_deg := 5.0
+var rate := 1.7              # the drive's pace on the contact key, against the bought take's
 var tc := 0.30               # the contact, seconds into the new take
 var SRC_CONTACT_S := 0.24    # the bought take's time that becomes the contact (its elbow 143 deg there; key=)
 var tl := 0.0                # the load's end
 var tf := 0.0                # the follow-through's length
 var hinge := {}              # "Left" / "Right" -> the knee's hinge axis in the thigh bone's own frame
+var arm_hinge := Vector3.ZERO  # the elbow's hinge axis in the upper arm's own frame
+var step_m := 0.06           # BODYCROSS3: the lead foot's step in
+var bend_from := 128.0       # the elbow angle (3D) on the contact key: past it the arm's span is capped
+var bend_max := 130.0        # ... never past this
+var now_t := 0.0             # the new take's time of the key being posed (the step and the bend read it)
 
 
 func _arg(key: String, def: float) -> float:
@@ -77,7 +99,9 @@ func _initialize() -> void:
 	lean_deg = _arg("lean", lean_deg)
 	rate = _arg("rate", rate)
 	tc = _arg("tc", tc)
-	SRC_CONTACT_S = _arg("key", SRC_CONTACT_S)
+	SRC_CONTACT_S = _arg("key", 0.225)
+	step_m = _arg("step", step_m)
+	bend_max = _arg("bendmax", bend_max)
 	FightClips.as_bought = true
 	var st: Node3D = Stage.new()
 	root.add_child(st)
@@ -105,6 +129,10 @@ func _initialize() -> void:
 	var ribs_world: float = (ds.global_transform * ds.get_bone_global_pose(ds.find_bone("Chest")).origin).y - 0.14 * float((d["node"] as Node3D).scale.x)
 	var ribs_y: float = (ribs_world - skel.global_transform.origin.y) / skel.global_transform.basis.get_scale().y
 	_hinges()
+	ap.play(SRC_NAME)
+	ap.seek(SRC_CONTACT_S, true)
+	bend_from = _ang(_g("RightUpperArm").origin, _g("RightLowerArm").origin, _g("RightHand").origin)
+	print("BODYCROSS_BAKE the bought take's elbow on the contact key %.3f s: %.1f deg in 3D, %.1f as the side camera sees it" % [SRC_CONTACT_S, bend_from, _seen(_g("RightUpperArm").origin, _g("RightLowerArm").origin, _g("RightHand").origin)])
 	var src := load(SRC) as Animation
 	var out := src.duplicate(true) as Animation
 	# the clock: the load's length is what leaves the contact on tc with the drive ending at 'rate'
@@ -123,6 +151,7 @@ func _initialize() -> void:
 	var hi := ARM_MAX_DEG
 	for it in 24:
 		var mid := (lo + hi) * 0.5
+		now_t = tc
 		_edit(SRC_CONTACT_S, 1.0, mid, FWD_M * _drive(tc), HEEL_M * _drive(tc))
 		if _glove("Right").y > ribs_y + AIM_UP_M:
 			lo = mid
@@ -156,6 +185,7 @@ func _initialize() -> void:
 		ap.play(SRC_NAME)
 		ap.seek(ts, true)
 		var before := _read()
+		now_t = to
 		var err := _edit(ts, w, arm_deg, FWD_M * _drive(to), HEEL_M * _drive(to))
 		foot_err = maxf(foot_err, err)
 		for t in out.get_track_count():
@@ -176,7 +206,8 @@ func _initialize() -> void:
 			"glove_y": [snappedf(before["glove"].y, 0.001), snappedf(after["glove"].y, 0.001)],
 			"hips_y": [snappedf(before["hips"].y, 0.001), snappedf(after["hips"].y, 0.001)], "hips_fwd": snappedf((after["hips"] as Vector3).dot(fwd), 0.001), "head_y": snappedf(after["head"].y, 0.001),
 			"heel_y": snappedf(_g("RightFoot").origin.y, 0.001), "knee_l": snappedf(after["kl"], 0.1), "knee_r": snappedf(after["kr"], 0.1),
-			"lean": snappedf(after["lean"], 0.1), "lead_glove_to_head": snappedf(after["lead"], 0.001), "elbow": snappedf(after["elbow"], 0.1)})
+			"lean": snappedf(after["lean"], 0.1), "lead_glove_to_head": snappedf(after["lead"], 0.001), "elbow": snappedf(after["elbow"], 0.1), "elbow_seen": snappedf(after["seen"], 0.1),
+			"lead_foot": [snappedf(_g("LeftFoot").origin.dot(fwd), 0.001), snappedf(_g("LeftFoot").origin.y, 0.001)], "turn": [snappedf(after["hipturn"], 0.1), snappedf(after["shturn"], 0.1)]})
 	for r in rows:
 		print("BODYCROSS_KEY %s" % JSON.stringify(r))
 	var c: Dictionary = rows[ci]
@@ -185,6 +216,7 @@ func _initialize() -> void:
 		at, int(round(100.0 * at / maxf(top, 0.01))), top, int(round(1000.0 * (ci - top_k) / HZ)), c["elbow"], float(deep["glove_fwd"]) - float(c["glove_fwd"]), deep["elbow"], c["glove_y"][1], ribs_y])
 	print("BODYCROSS_BAKE feet off their recorded spots by at most %.4f m (the rear foot pivots on its ball: its ankle is meant to rise)" % foot_err)
 	if not dry:
+		out.set_meta("bodycross3", {"step_m": step_m, "lift_m": LIFT_M, "bend_from_deg": snappedf(bend_from, 0.1), "bend_max_deg": bend_max})
 		out.set_meta("bodycross2", {"from": SRC, "drop_m": drop_m, "lean_deg": lean_deg, "arm_deg": snappedf(arm_deg, 0.1), "contact_s": snappedf(tc, 0.001),
 			"src_contact_s": SRC_CONTACT_S, "drive_rate": rate, "reach_s": snappedf(tc + tf, 0.001), "fwd_m": FWD_M, "heel_m": HEEL_M, "aim_up_m": AIM_UP_M})
 		var e := ResourceSaver.save(out, OUT)
@@ -267,7 +299,85 @@ func _read() -> Dictionary:
 	return {"glove": gl, "hips": hips, "head": head, "lean": rad_to_deg((head - hips).angle_to(Vector3.UP)), "reach": (gl - hips).dot(fwd),
 		"kl": _ang(_g("LeftUpperLeg").origin, _g("LeftLowerLeg").origin, _g("LeftFoot").origin),
 		"kr": _ang(_g("RightUpperLeg").origin, _g("RightLowerLeg").origin, _g("RightFoot").origin),
-		"lead": _glove("Left").distance_to(head), "elbow": _ang(_g("RightUpperArm").origin, _g("RightLowerArm").origin, _g("RightHand").origin)}
+		"lead": _glove("Left").distance_to(head), "elbow": _ang(_g("RightUpperArm").origin, _g("RightLowerArm").origin, _g("RightHand").origin),
+		"seen": _seen(_g("RightUpperArm").origin, _g("RightLowerArm").origin, _g("RightHand").origin),
+		"hipturn": _yaw(_g("RightUpperLeg").origin - _g("LeftUpperLeg").origin), "shturn": _yaw(_g("RightUpperArm").origin - _g("LeftUpperArm").origin)}
+
+
+## The angle at k as the side camera sees it (the part along its line of sight, the take's side axis, dropped).
+func _seen(a: Vector3, k: Vector3, b: Vector3) -> float:
+	var u := a - k
+	var v := b - k
+	return rad_to_deg((u - side * u.dot(side)).angle_to(v - side * v.dot(side)))
+
+
+## How far a left-to-right line is turned from square to the punch's line (deg).
+func _yaw(line: Vector3) -> float:
+	return rad_to_deg(atan2(line.dot(fwd), line.dot(side)))
+
+
+## BODYCROSS3: how much of the elbow-down bend is on at new-take time t: in through the drive, whole from just before
+## the contact to the end of the hold, out as he comes up.
+func _bend(t: float) -> float:
+	if t <= tc + tf + HOLD_S:
+		return _smooth((t - tl * 0.5) / maxf(tc - 0.02 - tl * 0.5, 0.01))
+	return 1.0 - _smooth((t - tc - tf - HOLD_S) / OUT_S)
+
+
+## BODYCROSS3: the lead foot's step at new-take time t: [forward m, up m]. In during the load, planted PLANT_BEFORE_S
+## before the contact, there through the drive and the hold, back out as he comes up.
+func _step(t: float) -> Array:
+	var land := tc - PLANT_BEFORE_S
+	var x := 0.0
+	var going := 0.0
+	if t <= land:
+		going = clampf((t - STEP_FROM_S) / (land - STEP_FROM_S), 0.0, 1.0)
+		x = _smooth(going)
+	elif t <= tc + tf + HOLD_S:
+		x = 1.0
+	else:
+		going = clampf((t - tc - tf - HOLD_S) / OUT_S, 0.0, 1.0)
+		x = 1.0 - _smooth(going)
+	return [step_m * x, LIFT_M * sin(PI * going) if going > 0.0 and going < 1.0 else 0.0]
+
+
+## BODYCROSS3: the punching arm re-solved. Its shoulder-to-wrist span is the bought take's up to the span of an elbow
+## at bend_from deg, capped softly after it (bend_max at the most); the elbow goes under the shoulder-wrist line by
+## weight bend, the upper arm rolled so the elbow's hinge is square to the bend, the fist kept as the take turns it.
+func _arm(bend: float) -> void:
+	var s: Vector3 = _g("RightUpperArm").origin
+	var e0: Vector3 = _g("RightLowerArm").origin
+	var w0: Vector3 = _g("RightHand").origin
+	var hand: Basis = _g("RightHand").basis
+	var l1 := (e0 - s).length()
+	var l2 := (w0 - e0).length()
+	var d := (w0 - s).length()
+	var dc := sqrt(l1 * l1 + l2 * l2 - 2.0 * l1 * l2 * cos(deg_to_rad(bend_from)))
+	var dm := sqrt(l1 * l1 + l2 * l2 - 2.0 * l1 * l2 * cos(deg_to_rad(bend_max)))
+	var d1 := d if d <= dc else dc + (dm - dc) * (1.0 - exp(-(d - dc) / maxf(dm - dc, 0.001)))
+	if bend <= 0.0 and d1 >= d - 1e-5:
+		return
+	var u := (w0 - s) / d
+	var own := (e0 - s) - u * (e0 - s).dot(u)
+	var down := (Vector3.DOWN - u * Vector3.DOWN.dot(u)).normalized()
+	var pole := down if own.length() < 0.01 else own.normalized().slerp(down, clampf(bend, 0.0, 1.0)).normalized()
+	var a := (l1 * l1 - l2 * l2 + d1 * d1) / (2.0 * d1)
+	var e1 := s + u * a + pole * sqrt(maxf(0.0, l1 * l1 - a * a))
+	var w1 := s + u * d1
+	_turn("RightUpperArm", Basis(Quaternion((e0 - s).normalized(), (e1 - s).normalized())))
+	var axis := (e1 - s).normalized()
+	var want := axis.cross(w1 - e1)
+	if want.length() > 0.02:
+		var have: Vector3 = _g("RightUpperArm").basis.orthonormalized() * arm_hinge
+		have = (have - axis * have.dot(axis)).normalized()
+		_turn("RightUpperArm", Basis(axis, have.signed_angle_to(want.normalized(), axis) * clampf(bend, 0.0, 1.0)))
+	var e2: Vector3 = _g("RightLowerArm").origin
+	var f0: Vector3 = (_g("RightHand").origin - e2).normalized()
+	_turn("RightLowerArm", Basis(Quaternion(f0, (w1 - e2).normalized())))
+	var hi := skel.find_bone("RightHand")
+	var hg := skel.get_bone_global_pose(hi)
+	hg.basis = Basis(Quaternion((w0 - e0).normalized(), (w1 - e2).normalized())) * hand
+	skel.set_bone_global_pose(hi, hg)
 
 
 ## Each knee's hinge axis in its thigh's own frame, read where the knees are well bent.
@@ -280,6 +390,12 @@ func _hinges() -> void:
 		var n: Vector3 = (k - u.origin).cross(_g(s + "Foot").origin - k).normalized()
 		hinge[s] = u.basis.orthonormalized().inverse() * n
 		print("BODYCROSS_BAKE %s knee hinge read at %.0f deg" % [s, _ang(u.origin, k, _g(s + "Foot").origin)])
+	ap.play(SRC_NAME)
+	ap.seek(0.0, true)
+	var ua := _g("RightUpperArm")
+	var el: Vector3 = _g("RightLowerArm").origin
+	arm_hinge = ua.basis.orthonormalized().inverse() * (el - ua.origin).cross(_g("RightHand").origin - el).normalized()
+	print("BODYCROSS_BAKE elbow hinge read at %.0f deg (the guard)" % _ang(ua.origin, el, _g("RightHand").origin))
 
 
 ## Poses the source take at ts, then puts the level change on at weight w, the hips fwd_m forward and the rear heel
@@ -294,7 +410,14 @@ func _edit(ts: float, w: float, arm_deg: float, fwd_m: float = 0.0, heel_m: floa
 		feet[s] = _g(s + "Foot")
 		toes[s] = _g(s + "Toes")
 		knees[s] = [_g(s + "UpperLeg").origin, _g(s + "LowerLeg").origin]
-	if w <= 0.0 and fwd_m <= 0.0 and heel_m <= 0.0:
+	var stp := _step(now_t)
+	var bend := _bend(now_t)
+	fwd_m += step_m * _drive(now_t)
+	if float(stp[0]) > 0.0 or float(stp[1]) > 0.0:   # the lead foot where the step has it
+		var mv: Vector3 = fwd * float(stp[0]) + Vector3.UP * float(stp[1])
+		feet["Left"] = Transform3D((feet["Left"] as Transform3D).basis, (feet["Left"] as Transform3D).origin + mv)
+		toes["Left"] = Transform3D((toes["Left"] as Transform3D).basis, (toes["Left"] as Transform3D).origin + mv)
+	if w <= 0.0 and fwd_m <= 0.0 and heel_m <= 0.0 and bend <= 0.0:
 		return 0.0
 	# 1. the hips sink and go forward
 	var hips := skel.find_bone("Hips")
@@ -311,6 +434,7 @@ func _edit(ts: float, w: float, arm_deg: float, fwd_m: float = 0.0, heel_m: floa
 	var dir: Vector3 = (_glove("Right") - sh) * Vector3(1, 0, 1)
 	if dir.length() > 0.05:
 		_turn("RightUpperArm", Basis(dir.normalized().cross(Vector3.UP).normalized(), -deg_to_rad(arm_deg * w)))
+	_arm(bend)
 	# 4. the rear heel: the foot pivots on its ball (the toes' joint stays on its spot, the toes stay flat)
 	var rear: Transform3D = feet["Right"]
 	var ball: Vector3 = (toes["Right"] as Transform3D).origin

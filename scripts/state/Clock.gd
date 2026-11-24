@@ -62,6 +62,7 @@ static func next_stop(career: Career) -> Dictionary:
 			cands.append({"d": int(p["trial_day"]), "r": "%s's trial" % p["first"]})
 	if bool(career.applicant.get("from_card", false)):   # S533 the visit's last day
 		cands.append({"d": int(career.applicant.get("expires", -1)), "r": "the last day of the boxer at reception"})
+	cands.append_array(load("res://scripts/state/ProspectWire.gd").stops(career))   # S545 KNOWBUILD1: trial evenings, the bout, the window
 	var best: Dictionary = {}
 	for c in cands:
 		if int(c["d"]) > career.day and (best.is_empty() or int(c["d"]) < int(best["d"])):
@@ -87,4 +88,6 @@ static func stop_now(career: Career) -> bool:
 		return true
 	if bool(career.applicant.get("from_card", false)) and int(career.applicant.get("expires", -1)) == career.day:
 		return true   # S533 the visit's last day: time stops once (not a blocker), so the answer is never lost unseen
+	if load("res://scripts/state/ProspectWire.gd").stop_today(career):
+		return true   # S545 KNOWBUILD1: the prospect's bout day, the rival's first and last day stop once
 	return false

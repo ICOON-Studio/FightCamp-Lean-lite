@@ -64,6 +64,7 @@ static func needs(career: Career) -> Array:
 		if str(p["state"]) == "invited" and int(p["trial_day"]) <= career.day:
 			n.append({"red": true, "t": "Trial today: %s" % p["name"], "s": "%s, %s; at the gym now" % [str(p["wc"]).to_lower(), p["note"]],
 				"act": "trial", "arg": p["id"], "label": "Watch the trial"})
+	n.append_array(load("res://scripts/state/ProspectWire.gd").needs(career))   # S545 KNOWBUILD1: trial evenings, the bout, the window
 	if not career.pro_offer.is_empty():
 		var pf := career.fighter_by_id(str(career.pro_offer["fid"]))
 		n.append({"red": true, "t": "A promoter wants to sign %s" % pf["name"], "s": _pro_line(career),
@@ -156,6 +157,8 @@ static func flags(career: Career) -> Array:
 	for p in career.prospects:
 		if str(p["state"]) == "invited" and int(p["trial_day"]) <= career.day:
 			out.append({"t": "TRIAL", "act": "trial", "arg": p["id"], "red": true})
+		elif load("res://scripts/state/ProspectWire.gd").evening(p):   # S545 KNOWBUILD1: a trial evening to answer
+			out.append({"t": "TRIAL DAY %d" % int(p["trial"]["days"]), "act": "trial", "arg": p["id"], "red": true})
 	for f in ApproachWire.open_for(career):
 		out.append({"t": "APPROACHED", "act": "approach", "arg": f["id"], "red": true})
 	for f in PullOutWire.open_for(career):
@@ -192,7 +195,9 @@ static func go_state(career: Career, running: bool) -> Dictionary:
 	if running:
 		return {"cls": "Go", "t": "RUNNING", "s": "click to pause"}
 	var stop: Dictionary = Clock.next_stop(career)
-	return {"cls": "Go", "t": "CONTINUE", "s": "to %s, %s" % [Clock.fmt(int(stop["d"])), stop["r"]]}
+	# S547 (owner Q-327 on "to Mon 12 Jan, week review": "wtf is the week preview button doing and showing ?"): the button
+	# says what a click does and where it stops; why it stops there is on the hover (TopCards.go).
+	return {"cls": "Go", "t": "CONTINUE", "s": "days run to %s" % Clock.fmt(int(stop["d"]))}
 
 
 ## S523 TURNPRO1B: one note even with two houses calling, and the days the offer still stands.

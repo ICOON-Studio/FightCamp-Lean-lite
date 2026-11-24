@@ -43,6 +43,8 @@ const GymSlots := preload("res://scripts/rules/GymSlots.gd")
 @export var ledger: Array = []
 ## Week 4: the prospects scouting knows (state scout | invited | trial | signed | passed).
 @export var prospects: Array = []
+## S545 KNOWBUILD1: the scout's arrival clock (ProspectWire: {next, n}); {} = an old save, started on its first day.
+@export var scout: Dictionary = {}
 ## Week 4: a promoter's offer to turn a fighter pro ({} when none).
 @export var pro_offer: Dictionary = {}
 @export var world: Dictionary = {}   # S397 the WORLD1 pro tables (ProLadder); {} until a fighter turns pro
@@ -122,6 +124,7 @@ static func quick_start(name: String = "Anvil Street Gym", town: String = "Londo
 		r["bouts"] = RivalPast.seed(r, others, c.seed, c.day)
 	for p in Data.PROSPECTS:
 		c.prospects.append((p as Dictionary).merged({"state": "scout", "trial_day": -1}, false).duplicate(true))
+	load("res://scripts/state/ProspectWire.gd").start(c)   # S545 KNOWBUILD1: one name at a time, two open, each with its dates
 	for d in Data.DEALS:
 		c.deals.append((d as Dictionary).merged({"state": "locked" if bool(d["after_win"]) else "offer"}))
 	for f in Data.FACILITIES:

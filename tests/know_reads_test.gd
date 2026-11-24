@@ -3,6 +3,9 @@ extends SceneTree
 ## Covers: every read, every stale cause, hype clear, moment threshold,
 ## honest-range sweep (1000 random truths/exposures: truth inside every band),
 ## word thresholds. Last line: KNOW_READS failures=0.
+## S545 KNOWBUILD1 rewrote two checks to the owner's new rules (interview S543 K4, map v9 C1-C2): the prices (the trial was
+## $500 for 4 weeks, now $36 a day; the test day was $60, now day 1 of the trial at the same $36) and _test_test_day
+## ("twice with under 5 bouts") -> _test_trial_days (each evening's question narrows its own group, a second ask half as much).
 
 const K := preload("res://scripts/rules/Knowledge.gd")
 const KR := preload("res://scripts/rules/KnowReads.gd")
@@ -14,7 +17,7 @@ func _initialize() -> void:
 	_test_prices()
 	_test_look_closer()
 	_test_trial()
-	_test_test_day()
+	_test_trial_days()
 	_test_recheck()
 	_test_hard_spar_club()
 	_test_hard_spar_outside()
@@ -38,11 +41,13 @@ func _check(ok: bool, label: String) -> void:
 # Prices match the design table.
 func _test_prices() -> void:
 	var ok := KR.price("look_closer") == 120
-	ok = ok and KR.price("test_day") == 60
+	ok = ok and KR.price("test_day") == 36  # S545: the test day is the trial's body question, a trial day's price
 	ok = ok and KR.price("recheck") == 40
 	ok = ok and KR.price("hard_spar_club") == 0
 	ok = ok and KR.price("hard_spar_outside") == 160
-	ok = ok and KR.price("trial") == 500  # half stipend * 4 weeks
+	ok = ok and KR.price("trial") == 36  # S545 map v9 C1: $36 a day (was $500 for 4 weeks)
+	for q in KR.QUESTIONS:
+		ok = ok and KR.price(q) == KR.PRICE_TRIAL_DAY
 	_check(ok, "prices match design table")
 
 # Look closer: narrows widest group to half day-one, or clears Hyped.
@@ -72,20 +77,31 @@ func _test_trial() -> void:
 	var ok := w_body_after < w_body_before and w_skills_after < w_skills_before
 	_check(ok, "trial: narrows body and skills")
 
-# Test day: body narrows, twice with under 5 bouts.
-func _test_test_day() -> void:
-	# Under 5 bouts: double narrowing
-	var k1: Dictionary = K.fresh(301)
-	KR.apply(k1, "test_day")
-	var w1: float = K.width(k1, "body")
-	# Over 5 bouts: normal narrowing
-	var k2: Dictionary = K.fresh(302)
-	k2["bout_count"] = 10
-	KR.apply(k2, "test_day")
-	var w2: float = K.width(k2, "body")
-	# Under 5 bouts should narrow more
-	var ok := w1 < w2
-	_check(ok, "test_day: twice with under 5 bouts")
+# S545 K4: each trial day answers the question picked the evening before; a second ask narrows again, half as much.
+func _test_trial_days() -> void:
+	var k: Dictionary = K.fresh(301)
+	k["ceil_hw"] = 14.0
+	var b0: float = K.width(k, "body")
+	var s0: float = K.width(k, "skills")
+	var paid := KR.apply_trial_day(k, "body")
+	var b1: float = K.width(k, "body")
+	_check(paid == 36 and b1 < b0 and absf(K.width(k, "skills") - s0) < 0.0001, "trial day body: body narrows, skills untouched, $36")
+	KR.apply_trial_day(k, "body")
+	var b2: float = K.width(k, "body")
+	_check(b2 < b1 and (b1 - b2) < (b0 - b1), "trial day body again: narrows again, less than the first ask")
+	KR.apply_trial_day(k, "skills")
+	_check(K.width(k, "skills") < s0, "trial day skills: skills narrow")
+	KR.apply_trial_day(k, "pads")
+	_check(absf(float(k["ceil_hw"]) - 7.0) < 0.0001, "the pad test halves the ceiling's range (14 -> 7)")
+	KR.apply_trial_day(k, "pads")
+	_check(absf(float(k["ceil_hw"]) - 5.25) < 0.0001, "a second pad test takes a quarter (7 -> 5.25)")
+	var opened := bool(k.get("under_fire_opened", false))
+	KR.apply_trial_day(k, "spar")
+	var f1: float = K.width(k, "under_fire")
+	KR.apply_trial_day(k, "spar")
+	_check(not opened and bool(k["under_fire_opened"]) and bool(k.get("pressure_seen", false)) and K.width(k, "under_fire") < f1,
+		"the hard spar opens under fire and the pressure trait; a second narrows it")
+	_check(int(k["asks"]["body"]) == 2 and KR.least_asked(k) == "skills" and KR.apply_trial_day(k, "nap") == 0, "asks counted; least asked; an unknown question costs nothing")
 
 # Recheck: halves stale.
 func _test_recheck() -> void:

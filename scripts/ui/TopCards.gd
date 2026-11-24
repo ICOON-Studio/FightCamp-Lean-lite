@@ -60,11 +60,11 @@ static func go(c: Career, g: Dictionary, running: bool) -> Dictionary:
 	var blocked := str(g.get("cls", "")) == "GoBlock"
 	var ns := Clock.next_stop(c)
 	var d := {"kind": "full", "title": "The days wait" if blocked else "Continue",
-		"what": "The days cannot run until this job is done." if blocked else "Runs the days to week's end, bills, fights or offers.",
+		"what": "The days cannot run until this job is done." if blocked else "The days run until something needs you.",
 		"do": "Click to go to the job." if blocked else ("Click to pause, change anything, carry on." if running else "Click to start; click again to pause."),
 		"hint": [["Menu", "Settings: how fast the days run"]]}
 	if blocked:
 		d["moves"] = "Days stop for week's end, bills, weigh-ins, fights, offers."
 	else:
-		d["now"] = "Next stop: %s, %s." % [Clock.fmt(int(ns["d"])), str(ns["r"])]
+		d["now"] = "Stops %s: %s." % [Clock.fmt(int(ns["d"])), "the week's results" if str(ns["r"]) == "week review" else str(ns["r"])]
 	return d

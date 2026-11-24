@@ -127,7 +127,7 @@ static func _show(main: Node, c: Career, net: int) -> Dictionary:
 	var price := ClubShow.cost(hall)
 	if why == "" and c.cash < price:
 		why = "not enough cash"
-	var effect := str(rd["short"])
+	var effect := str(rd["row"])
 	var grey := why != ""
 	var does := effect
 	if grey:

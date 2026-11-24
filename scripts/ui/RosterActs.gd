@@ -9,6 +9,7 @@ const WhatsNew := preload("res://scripts/ui/WhatsNew.gd")   # S544: after a deci
 const FirstHour := preload("res://scripts/rules/FirstHour.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const VisitWire := preload("res://scripts/state/VisitWire.gd")
+const ProspectWire := preload("res://scripts/state/ProspectWire.gd")   # S545 KNOWBUILD1: the signing card's calls
 const STRIKE := preload("res://scenes/dev/StrikeBrowser.tscn")
 const TAPE := preload("res://scripts/ui/FightAnalysisTape.gd")   # S511: the Tape Room retired into FIGHT ANALYSIS
 
@@ -47,15 +48,38 @@ static func act(main: Node, name: String, arg: String) -> bool:
 			elif picks.size() < 3:
 				picks.append(arg)
 			main.redraw_modal()
-		"signprospect":
-			var f := Roster.sign_prospect(c, str(main.modal["pid"]), main.modal["picks"])
-			main.close_modal()
-			if not f.is_empty():
-				main.toast("%s signed on the gym stipend. Goal: %s." % [f["first"], str(f["goal"]["title"]).to_lower()])
+		"signprospect":   # the trial evening's SIGN (S545: the profile says what changed)
+			_signed(main, c, str(main.modal.get("pid", arg)))
 		"passprospect":
-			Roster.pass_on(c, str(main.modal["pid"]))
+			ProspectWire.pass_on(c, str(main.modal.get("pid", arg)))
 			main.close_modal()
-			main.toast("You pass. Scouting has others.")
+			main.render()
+		# S545 KNOWBUILD1 (owner K2-K4): the signing card and its calls
+		"prospect":
+			if not ProspectWire.by_id(c, arg).is_empty():
+				main.open_modal({"type": "trial" if ProspectWire.evening(ProspectWire.by_id(c, arg)) else "prospect", "pid": arg, "picks": []})
+		"prospectsign":
+			_signed(main, c, arg if arg != "" else str(main.modal.get("pid", "")))
+		"prospecttrial":
+			var tid := arg if arg != "" else str(main.modal.get("pid", ""))
+			if ProspectWire.start_trial(c, tid):
+				main.close_modal()
+				main.toast("The trial starts tomorrow: the fitness test.")
+			else:
+				main.toast("No place free for a trial.")
+		"trialq":   # "<pid>:<question>" - Another day, tomorrow's question
+			var tq := arg.split(":")
+			if tq.size() == 2 and ProspectWire.ask(c, tq[0], tq[1]):
+				main.close_modal()
+				main.render()
+		"prospecthome":
+			ProspectWire.send_home(c, arg if arg != "" else str(main.modal.get("pid", "")))
+			main.close_modal()
+			main.render()
+		"prospectpass":
+			ProspectWire.pass_on(c, arg if arg != "" else str(main.modal.get("pid", "")))
+			main.close_modal()
+			main.render()
 		"decline":   # S405 the first walk-in refused: gone for good, the next one comes in
 			var left := FirstHour.refuse(c)
 			main.close_modal()
@@ -120,3 +144,19 @@ static func act(main: Node, name: String, arg: String) -> bool:
 		_:
 			return false
 	return true
+
+
+## Sign from the card or the trial evening: no pop-up - the new boxer's profile opens and its top card says what changed.
+static func _signed(main: Node, c: Career, pid: String) -> void:
+	var p := ProspectWire.by_id(c, pid)
+	var before := {"used": int(ProspectWire._gs().used(c)), "places": int(ProspectWire._gs().places(c))}
+	var f: Dictionary = Roster.sign_prospect(c, pid, main.modal.get("picks", [])) if str(p.get("state", "")) == "invited" and not p.has("know") \
+		else ProspectWire.sign(c, pid)
+	main.close_modal()
+	if f.is_empty():
+		main.toast("Not signed: every place is taken.")
+		return
+	var news := WhatsNew.news_sign(c, f, p, before)
+	main.act("fighter", str(f["id"]))
+	main.route["new"] = news
+	main.render()

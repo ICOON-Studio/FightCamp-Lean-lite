@@ -3,11 +3,11 @@
  "updated": "2026-11-24",
  "author": "claude S294",
  "now": {
-  "id": "S546",
+  "id": "S547",
   "owner": "claude",
   "updated": "2026-11-24",
-  "summary": "S546 (Fable) HANDOVER. METHOD: A DECISION SCREEN IS A SCENE AND THE PAGE ITSELF SHOWS WHAT CHANGED - NO POP-UP, NO ICON TILES; LITTLE TEXT; PLAIN MENU WORDS, THE PLAYER'S PLACE IS THE GYM; EVERYTHING OFFICE-LIKE IS A WINDOW OF THE OFFICE COMPUTER (Mail, Fights, and since S546 Staff, Finance, Records); THE FIGHT'S DEPTH IS IN THE CORNER, LIVE (+10 to +18 wins in 100; the best written plan +1.7 over the coach's). Built and exported in S546, from his review notes: Fights has no 'next offer' lines and every boxer has Ask for a bout, a boxer with no bout may ask (C503); CONFIDENCE is the boxer's bar from the first amateur bout and the pro start takes it over (C501; the six turning-pro bars hold at a start of 50, 65 and 80); Staff, Finance and Records are office windows; club -> gym in the menus and 95 game lines; the approach's show promise shows the hall's real price. COACHDEEP9 collected: 5 of 7, 6 of 7 after THE CUT of the falling-out (the stop rule); the trial week fails its bar. Running: BODYCROSS3 (Fable tab c1 of the S546 session: a bent elbow you can see, the hit man bends, his mark C502), CORNERCMD2, Arena card round 9 (continued 03:53). KNOWBUILD1 LANDED at 04:09 and is NOT collected.",
-  "next_action": "S547: see NEXT_SESSION_PROMPT.md (collect KNOWBUILD1 first - its diff meets S546's word changes in RosterActs.gd and WhatsNew.gd; then the staff screen redone as cards from docs/mockups/s546/staff_cards.png; collect BODYCROSS3, CORNERCMD2, Arena round 9; launch PLANREAD2; his three board answers Q-327, Q-328, Q-329)",
+  "summary": "S547 (Fable) HANDOVER. METHOD: A DECISION SCREEN IS A SCENE AND THE PAGE ITSELF SHOWS WHAT CHANGED - NO POP-UP, NO ICON TILES; LITTLE TEXT; PLAIN MENU WORDS, THE PLAYER'S PLACE IS THE GYM; OFFICE-LIKE PAGES ARE WINDOWS OF THE OFFICE COMPUTER; THE PLAYER BOOKS WHEN HIS BOXERS ARE READY; THE FIGHT'S DEPTH IS IN THE CORNER, LIVE (round 2: +15 at 3 rounds, +22 at 6; the best written plan +1.7); FIGHT ANIMATION v2 ONLY, HIS EYE IS THE RULER. Done and exported (05:56): the SIGNING CARD is in the game (KNOWBUILD1 merged by diff: a prospect as a scene, three ranges, the rival's 7-day window, the trial by the day, Sign lands on the profile); CONTINUE reads 'days run to <date>' with the reason on hover (his Q-327 answer 'Top bar CONTINUE'); the mind attribute is Self-belief (Confidence is the bar only); Finance's club show row fits; two wait-for-offers lines now say Ask for a bout; Log and the dues pop-up fix are in the build. Collected: BODYCROSS3 (13 of 13 on its ruler, sheets on /review for his eye); CORNERCMD2 FAIL again on bars 5, 6, 8 (stop rule) with the core stronger - Q-330 asks him to cut the two ring calls; Arena card round 9 saved on its branch (61 tests green, play gate 4 of 6, boxing 77.5 v jiu-jitsu 22.5), Arena out of usage for the day. The 05:00 tests: 499 pass, 4 old reds (move_tip, matchmaking_bots, block_meet, face_frame), 25 fewer than the day before, none new. Workers launched in console tabs: PLANREAD2 (Opus), STAFFCARDS1 (Opus, worktree build/staffcards1), BODYREACT2 (Fable: the 3D fight plays the body-shot fold).",
+  "next_action": "S548: see NEXT_SESSION_PROMPT.md (collect what is still running of PLANREAD2, STAFFCARDS1, BODYREACT2; his answers Q-328, Q-329, Q-330; CORNERBASE1: the coach's own corner call is blind to the opponent and never rests a tired boxer, so the corner's +15 to +22 is measured against a baseline with a hole; Arena round 9 continues when its limit resets)",
   "last_working_commit": "29097a616",
   "verified_playable": "Builds/FightCamp.exe S546 export (2026-11-24 04:07): Fights, the promoter's call, an amateur's profile and the Finance / Staff / Records windows rendered on the hidden desktop and opened (bounds 0 on the two runs that printed it); the touched tests green (about 75 run).",
   "incomplete_blocked": "KNOWBUILD1 landed, not collected. BODYCROSS3 and CORNERCMD2 running in console tabs; Arena card round 9 running. The staff screen redo (cards) is drawn, not built: the STAFF window holds the old cards and scrolls. PLANREAD2 and the red nightly matchmaking test are briefed / noted, not started. The temp worktree E:/FightCamp/wt/S545_NIGHTRED could not be removed (the command was refused): its one-line proof is saved in E:/FightCamp/wt_salvage/S545_NIGHTRED.",
@@ -2362,6 +2362,11 @@
    "id": "S546",
    "date": "2026-11-24",
    "summary": "The owner's three review notes fixed and exported: C503 Fights (no 'next offer can come' lines; each boxer's card has Ask for a bout; a boxer with no bout yet may ask), C501 confidence as an amateur (win +3, +1 a win in the run to +3 more, points loss -8, stoppage -20; the pro start takes it over; shown on the promoter's call and the result page; turnprobe17 6 of 6 at a start of 50, 65, 80), C502 -> BODYCROSS3 briefed and launched (Fable tab). His S545 Club page note: Staff, Finance and Records became windows of the office computer; club -> gym in the menus, the pointers and 95 game lines; the staff cards redo drawn (docs/mockups/s546/staff_cards.png), not built. Found and fixed: the approach's PROMISE: OUR SHOW card said $3,500 and charged the hall's price. COACHDEEP9 collected (5 of 7; 6 of 7 after the falling-out is cut as a decision by the stop rule; the trial week fails its bar -> Q-329). Arena card round 9 continued after its tool limit (61 of 61 tests, play gate fails: boxing 86% v jiu-jitsu 14%). PLANREAD2 briefed (the read over-promises a written plan 4 to 7 times). The PC went RED on memory (97%) once: own test batch stopped. Handover at 500k tokens of context."
+  },
+  {
+   "id": "S547",
+   "date": "2026-11-24",
+   "summary": "Done and exported (05:56): the SIGNING CARD is in the game (KNOWBUILD1 merged by diff: a prospect as a scene, three ranges, the rival's 7-day window, the trial by the day, Sign lands on the profile); CONTINUE reads 'days run to <date>' with the reason on hover (his Q-327 answer 'Top bar CONTINUE'); the mind attribute is Self-belief (Confidence is the bar only); Finance's club show row fits; two wait-for-offers lines now say Ask for a bout; Log and the dues pop-up fix are in the build. Collected: BODYCROSS3 (13 of 13 on its ruler, sheets on /review for his eye); CORNERCMD2 FAIL again on bars 5, 6, 8 (stop rule) with the core stronger - Q-330 asks him to cut the two ring calls; Arena card round 9 saved on its branch (61 tests green, play gate 4 of 6, boxing 77.5 v jiu-jitsu 22.5), Arena out of usage for the day. The 05:00 tests: 499 pass, 4 old reds (move_tip, matchmaking_bots, block_meet, face_frame), 25 fewer than the day before, none new. Workers launched in console tabs: PLANREAD2 (Opus), STAFFCARDS1 (Opus, worktree build/staffcards1), BODYREACT2 (Fable: the 3D fight plays the body-shot fold)."
   }
  ],
  "blocked_on_operator": [],
@@ -5280,7 +5285,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-24 04:10 board_sync",
+  "updated": "2026-11-24",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5436,58 +5441,54 @@
     "title": "Card game round 9: the engine on the real-fight position model (each fighter's own position; getting up costs a turn; steps answerable)",
     "who": "Arena (chat 01a20a6d-3a1b-79dc-a475-e858f591a0d9)",
     "started": "2026-11-24T00:01",
-    "run": "CARDROUND9"
+    "run": "CARDROUND9",
+    "eta": "Arena reached its daily usage limit (S547 05:48); continue tomorrow in the same chat"
    },
    {
-    "title": "Knowledge: the signing card in the game, a scene like the pro call (ranges, the rival's window, trial evenings where you pick the question)",
-    "who": "claude-opus-5-5 (console tab KNOWBUILD1 of the S545 session)",
-    "started": "2026-11-24T03:06",
-    "run": "KNOWBUILD1",
-    "state": "LANDED - Claude collects"
+    "title": "The bout card promises +11.6 for a plan the ring pays +1.7 for: find the cause, fix the read to the bout",
+    "who": "claude-opus-5-5 (console tab PLANREAD2 of the S547 session, tab c1)",
+    "started": "2026-11-24T05:50",
+    "run": "PLANREAD2",
+    "eta": "about 3-4 h (to about 09:30), most of it bout runs"
    },
    {
-    "title": "Coaches v9: three named changes and a stop rule (a forced moment that fails again is cut as a decision)",
-    "who": "claude-opus-5-5 (console tab COACHDEEP9 of the S545 session)",
-    "started": "2026-11-24T02:21",
-    "run": "COACHDEEP9",
-    "state": "LANDED - Claude collects"
+    "title": "The Staff window as cards (your 'this screen is terrible'): a face, the job in plain words, four facts, one button; fits the window with no scroll",
+    "who": "claude-opus-5-5 (console tab STAFFCARDS1 of the S547 session, tab c2)",
+    "started": "2026-11-24T05:52",
+    "run": "STAFFCARDS1",
+    "eta": "about 3-4 h (to about 09:30)"
    },
    {
-    "title": "Corner commands round 2: no free rest (Reset, Get out), the ring slider right against who runs or pins, the boxer's training matters more",
-    "who": "claude-opus-5-5 (console tab CORNERCMD2 of the S545 session)",
-    "started": "2026-11-24T03:05",
-    "run": "CORNERCMD2"
-   },
-   {
-    "title": "Body cross 3: a bent elbow you can see, the hit man bends (your mark C502: 'there is no elbow bent , the reaction should force the opponent to bend hisposture a bit')",
-    "who": "claude-fable-5-2 (console tab BODYCROSS3 of the S546 session, tab c1)",
-    "started": "2026-11-24T04:00",
-    "run": "BODYCROSS3"
+    "title": "In the 3D fight a landed body punch folds the hit boxer (your 'the reaction should force the opponent to bend hisposture a bit'): the player picks the fold take; films for your eye",
+    "who": "claude-fable-5-2 (console tab BODYREACT2 of the S547 session, tab c3)",
+    "started": "2026-11-24T06:02",
+    "run": "BODYREACT2",
+    "eta": "about 2-3 h (to about 08:45)"
    }
   ],
   "next": [
    {
+    "id": "BODYREACT2",
+    "who": "claude",
+    "title": "In the 3D fight a landed body punch folds the hit boxer (your 'the reaction should force the opponent to bend hisposture a bit'; S305, S310, S369 on the live fight) | NEXT: collect BODYREACT2 (Fable tab): the ruler, the control arm, the films on /review for your eye",
+    "after": ""
+   },
+   {
     "id": "NIGHTREDS1",
     "who": "claude",
-    "title": "05:00 tests: matchmaking_bots_test red since pro bouts lost the four-count limit (the rule is right) | NEXT: a probe makes reckless matchmaking cost again, or the test's margins are re-set with the reason written",
+    "title": "05:00 tests: 4 old reds left (was 29): matchmaking_bots (pro bouts lost the four-count limit; the rule is right), move_tip, block_meet (old player), face_frame (one opponent's picture cut at the chin on the offer page) | NEXT: a probe makes reckless matchmaking cost again or the margins are re-set with the reason; the offer page's picture slot",
     "after": ""
    },
    {
     "id": "PLANREAD1",
     "who": "claude",
-    "title": "The card promises +11.6 for a plan the bout pays +1.7 to +2.9 for | NEXT: launch PLANREAD2 (brief written) in a console tab when one frees",
+    "title": "The card promises +11.6 for a plan the bout pays +1.7 to +2.9 for | NEXT: collect PLANREAD2 (Opus tab, launched 05:50)",
     "after": ""
    },
    {
     "id": "CLUBPAGE1",
     "who": "claude",
-    "title": "Your Club page note: DONE - Staff, Finance, Records are office windows; one word, the gym | NEXT: the staff screen redone as cards (the drawing is on /review), build in S547",
-    "after": ""
-   },
-   {
-    "id": "WEEKPREVIEW1",
-    "who": "claude",
-    "title": "Your note 'wtf is the week preview button doing and showing ?': the button was not found by that name | NEXT: you say which screen, then it is fixed",
+    "title": "The staff screen as cards (your 'this screen is terrible'): STAFFCARDS1 building it from the drawing (Opus tab, worktree build/staffcards1) | NEXT: open its three stills against the drawing, merge by diff, export",
     "after": ""
    },
    {
@@ -5517,7 +5518,7 @@
    {
     "id": "KNOWLEDGE1",
     "who": "claude",
-    "title": "Knowledge: the signing card build KNOWBUILD1 LANDED 04:09 (worktree build/knowbuild1), not collected | NEXT: open its four stills (a scene, no pop-up, little text, nothing cut), merge by diff - mind S546's word changes in RosterActs.gd and WhatsNew.gd",
+    "title": "Knowledge: the signing card is IN THE GAME (S547 build): a scene, three ranges, the rival's window, the trial by the day | NEXT: your play (WHAT_TO_TRY O); KNOWBUILD2: the got-away boxer's return bout",
     "after": ""
    },
    {
@@ -5529,7 +5530,7 @@
    {
     "id": "PUSHTANK1",
     "who": "claude",
-    "title": "Corner commands: round 1 FAIL bars 5, 6, 8 with the core holding (+9.7 / +18.2 for reading the moment) | NEXT: collect CORNERCMD2 (running), code-checked critic first on a pass",
+    "title": "Corner commands round 2: reading the moment +15 (3 rounds) to +22 (6 rounds); FAIL again on three checks - the ring calls add 0, the held calls beat a coach's call that is blind to the opponent, the three probe boxers grade alike | NEXT: your answer Q-330 (cut the two ring calls); CORNERBASE1: measure against a coach's call that reads the opponent and rests a tired boxer, then the code-checked critic",
     "after": ""
    },
    {
@@ -5541,7 +5542,7 @@
    {
     "id": "CARDGAME1",
     "who": "claude",
-    "title": "Card game: critics on the paper model Kalli 6/5/6, Dola 9/9/9; round 9 restarted on Arena | NEXT: collect round 9, launch round 9b (TASK_CARDROUND9B), play both arts by hand",
+    "title": "Card game round 9 on Arena: 61 tests green, play gate 4 of 6 (boxing 77.5 v jiu-jitsu 22.5; 21 decisions a bout) - Arena is out of usage for the day | NEXT: continue in the same chat when its limit resets, then round 9b, then play both arts by hand",
     "after": ""
    },
    {
@@ -5868,6 +5869,41 @@
   },
   "done_recently": [
    {
+    "title": "S547: the signing card is in the game - a prospect as a scene, ranges, the rival's window, the trial by the day (KNOWBUILD1 merged, exported)",
+    "who": "claude",
+    "when": "2026-11-24"
+   },
+   {
+    "title": "S547: CONTINUE says what a click does - 'days run to Mon 12 Jan', the reason on hover (your 'Top bar CONTINUE')",
+    "who": "claude",
+    "when": "2026-11-24"
+   },
+   {
+    "title": "S547: Self-belief is the mind attribute; Confidence is the bar only (two things had one name)",
+    "who": "claude",
+    "when": "2026-11-24"
+   },
+   {
+    "title": "S547: Finance's club show row fits its window; no line tells you to wait for offers",
+    "who": "claude",
+    "when": "2026-11-24"
+   },
+   {
+    "title": "S547: body cross 3 collected (a bent elbow, the hit boxer folds) - the sheets are on /review for your eye",
+    "who": "claude",
+    "when": "2026-11-24"
+   },
+   {
+    "title": "S547: corner commands round 2 collected - the core +15 to +22, three checks fail again; your call on the ring calls (Q-330)",
+    "who": "claude",
+    "when": "2026-11-24"
+   },
+   {
+    "title": "S547: the 05:00 tests read - 4 old reds left of 29, none new",
+    "who": "claude",
+    "when": "2026-11-24"
+   },
+   {
     "title": "S546: Fights - no 'next offer' lines, Ask for a bout on every boxer (your note C503)",
     "who": "claude",
     "when": "2026-11-24"
@@ -5923,30 +5959,6 @@
    {
     "title": "S545: the body cross reaches him and hurts him (your note; films on /review)",
     "who": "claude-fable (BODYCROSS2)"
-   },
-   {
-    "title": "S545: corner commands measured - reading the moment wins 10 to 18 more bouts in 100",
-    "who": "claude-opus (CORNERCMD1)"
-   },
-   {
-    "title": "S545: the written fight plan measured - 1.7 more wins in 100 than the coach's",
-    "who": "claude-opus (PLANWORTH1)"
-   },
-   {
-    "title": "S544: your four play notes fixed - the call as a scene, what changed after the click, the profile on screen, Mail in the office",
-    "who": "claude"
-   },
-   {
-    "title": "S544: turning pro v17 merged and exported; the wrong fade number on the cards fixed",
-    "who": "claude"
-   },
-   {
-    "title": "S544: fight pictures fixed (0 of 96 tangled); card audit done, round 9 on Arena",
-    "who": "claude"
-   },
-   {
-    "title": "S544: tells probe failed (under 1 point); coaches v8 failed 4 of 7 -> v9 with a stop rule",
-    "who": "claude"
    }
   ],
   "scope_note": "S294: lean restart (E:\\FightCamp\\Lean\\docs\\RESTART_PLAN.md). Old roadmap items are parked until the weekly builds reach them.",
@@ -6035,6 +6047,30 @@
   "map": {
    "done_earlier": [
     {
+     "text": "Coaches v9: 6 of 7 after the cut",
+     "who": "agent"
+    },
+    {
+     "text": "Fights: Ask on every boxer",
+     "who": "claude"
+    },
+    {
+     "text": "Confidence builds as an amateur",
+     "who": "claude"
+    },
+    {
+     "text": "Staff/Finance/Records in office",
+     "who": "claude"
+    },
+    {
+     "text": "One word: the gym",
+     "who": "claude"
+    },
+    {
+     "text": "Show promise: real price",
+     "who": "claude"
+    },
+    {
      "text": "Fights inside office computer",
      "who": "claude"
     },
@@ -6065,55 +6101,27 @@
     {
      "text": "Turning pro v17: merged, in build",
      "who": "claude"
-    },
-    {
-     "text": "Fade answer: card shows real worth",
-     "who": "claude"
-    },
-    {
-     "text": "S544 build exported",
-     "who": "claude"
-    },
-    {
-     "text": "Coaches v8: fails 4 of 7",
-     "who": "claude"
-    },
-    {
-     "text": "Board: 3 turning pro jump buttons",
-     "who": "claude"
-    },
-    {
-     "text": "Fight pictures: 0 of 96 tangled",
-     "who": "claude"
-    },
-    {
-     "text": "Turn pro: scene with art + reveal",
-     "who": "claude"
     }
    ],
    "done_session": [
     {
-     "text": "Coaches v9: 6 of 7 after the cut",
-     "who": "agent"
-    },
-    {
-     "text": "Fights: Ask on every boxer",
+     "text": "Signing card in the game",
      "who": "claude"
     },
     {
-     "text": "Confidence builds as an amateur",
+     "text": "CONTINUE says what it does",
      "who": "claude"
     },
     {
-     "text": "Staff/Finance/Records in office",
+     "text": "Body cross 3: in, your eye",
      "who": "claude"
     },
     {
-     "text": "One word: the gym",
+     "text": "Corner cmds 2 FAIL: Q-330",
      "who": "claude"
     },
     {
-     "text": "Show promise: real price",
+     "text": "Nightly: 4 old reds, 25 fixed",
      "who": "claude"
     }
    ],
@@ -6223,32 +6231,8 @@
      "who": "claude"
     },
     {
-     "text": "Corner commands: map + probe (tab)",
-     "who": "claude"
-    },
-    {
-     "text": "Plan worth: plan vs coach (tab)",
-     "who": "claude"
-    },
-    {
      "text": "Your play: S544 second export",
      "who": "operator"
-    },
-    {
-     "text": "Your 4 review notes: pro call",
-     "who": "claude"
-    },
-    {
-     "text": "Body cross 2: reach + hurt (Fable)",
-     "who": "claude"
-    },
-    {
-     "text": "Coaches v9: probe (tab)",
-     "who": "claude"
-    },
-    {
-     "text": "Body cross 3 (Fable tab)",
-     "who": "agent"
     }
    ],
    "next": [
@@ -6557,10 +6541,6 @@
      "who": "claude"
     },
     {
-     "text": "Knowledge: build the signing card",
-     "who": "claude"
-    },
-    {
      "text": "Card game: real fight first",
      "who": "claude"
     },
@@ -6569,19 +6549,7 @@
      "who": "operator"
     },
     {
-     "text": "Coaches v9: 3 changes + stop rule",
-     "who": "claude"
-    },
-    {
      "text": "Card r9b: critics' changes",
-     "who": "claude"
-    },
-    {
-     "text": "Corner commands round 2",
-     "who": "claude"
-    },
-    {
-     "text": "Knowledge: signing card build",
      "who": "claude"
     },
     {
@@ -6593,29 +6561,17 @@
      "who": "claude"
     },
     {
-     "text": "Staff screen as cards (drawn)",
-     "who": "claude"
-    },
-    {
-     "text": "Collect signing card build",
-     "who": "claude"
-    },
-    {
-     "text": "PLANREAD2: card over-promises",
-     "who": "claude"
-    },
-    {
      "text": "Coaches: your call on the trial",
      "who": "claude"
     }
    ],
-   "session": "S546"
+   "session": "S547"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
  "last_working_commit": "29097a616",
- "next_action": "S547: see NEXT_SESSION_PROMPT.md (collect KNOWBUILD1 first - its diff meets S546's word changes in RosterActs.gd and WhatsNew.gd; then the staff screen redone as cards from docs/mockups/s546/staff_cards.png; collect BODYCROSS3, CORNERCMD2, Arena round 9; launch PLANREAD2; his three board answers Q-327, Q-328, Q-329)",
+ "next_action": "S548: see NEXT_SESSION_PROMPT.md (collect what is still running of PLANREAD2, STAFFCARDS1, BODYREACT2; his answers Q-328, Q-329, Q-330; CORNERBASE1: the coach's own corner call is blind to the opponent and never rests a tired boxer, so the corner's +15 to +22 is measured against a baseline with a hole; Arena round 9 continues when its limit resets)",
  "next_acceptance": "Rulers vs r0: head jumps on the contact frame under 4, a head inside the other's body under 5 frames, arm out median under 4 frames with join_return green, then r1 film at two fresh blind critics 5+/10",
  "superseded_archive": [
   {

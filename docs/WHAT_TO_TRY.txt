@@ -1,3 +1,22 @@
+S547 build (2026-11-24, 05:56) - the signing card, CONTINUE, the body cross
+
+O. THE SIGNING CARD (new mechanic, your interview answers K1 to K4): the scout brings one name at a time (Fighters >
+   Find a fighter; the first after 4 to 6 weeks). The card is a scene: the prospect, three RANGES (body, skills,
+   ceiling) against the region's level, the next three weeks as a strip (gold = the prospect boxes, red = the rival
+   club may sign), and three answers as cards: Sign now, Start the trial ($36 a day, you pick tomorrow's question each
+   evening: body, skills, pad test, hard spar), Wait for the bout. Pass is at the foot. Sign opens the new boxer's
+   profile and its top card says what changed. Wait too long and the rival club signs: one line in Mail.
+   Quick way in: the board's play buttons "prospect", "prospecttrial", "prospectsigned", "prospectgone".
+P. CONTINUE SAYS WHAT IT DOES (your "wtf is the week preview button doing and showing ?", then "Top bar CONTINUE"):
+   it reads CONTINUE / days run to Mon 12 Jan. Why the days stop there is on its hover.
+Q. THE BODY CROSS (your mark "there is no elbow bent , the reaction should force the opponent to bend hisposture a
+   bit"): the fight's pictures of the body cross are re-made - the elbow stays bent, the hit boxer folds. The side
+   films and the twelve-picture sheet are on the board's review page. Not yet in the 3D fight's own reaction picker.
+R. FROM LAST NIGHT, NOW IN THE BUILD: the gym's history window is Log (Records is for fighters and coaches); the
+   "Change dues?" pop-up is no longer drawn under the dues pictures.
+S. NO LINE TELLS YOU TO WAIT FOR OFFERS: Home's corner and the Free chip say "Ask for a bout on Fights."
+   NOT IN THIS BUILD: the staff screen as cards (its worker is building it now).
+
 S546 build (2026-11-24, about 04:15) - your review notes and the Club page
 
 J. FIGHTS: BOOK ANY TIME (your "why you tell the player when the next offer is ? the player should be able to book a

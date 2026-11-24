@@ -86,7 +86,7 @@ static func _words(c: Career) -> Array:
 	var b: Dictionary = f.get("bout", {}) if not f.is_empty() else {}
 	if b.has("opp") and b.has("day"):
 		return ["NEXT FIGHT", "%s vs %s, %s" % [f["first"], b["opp"]["name"], Clock.fmt(int(b["day"]))]]
-	return ["", "No fight booked. Offers come in on Fights."]
+	return ["", "No fight booked. Ask for a bout on Fights."]
 
 
 ## The rest of Home waits under the gym.

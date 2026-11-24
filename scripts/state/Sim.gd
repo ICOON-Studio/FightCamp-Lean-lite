@@ -233,6 +233,7 @@ static func step_day(career: Career) -> void:
 	load("res://scripts/state/ProPair.gd").day_events(career)   # S543 TURNPRO17: pro fights 1-6, the next safe / risky booking
 	GymSpend.day_events(career)   # S397 money bites: a club show's night
 	Region.day_events(career)
+	load("res://scripts/state/ProspectWire.gd").day(career)   # S545 KNOWBUILD1: arrivals, trial days, the prospect's bout, the rival's day
 	if career.day % 7 == 0:
 		end_week(career)
 	Champs.day_events(career)   # S328 last: a pull-out from the week's injuries ends her championship run today

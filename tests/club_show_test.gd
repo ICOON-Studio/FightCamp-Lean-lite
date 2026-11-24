@@ -45,7 +45,7 @@ func _read() -> void:
 	var grown := ClubShow.read(200, 70, 0, 4)
 	_check(str(small["hall"]) == "community" and not bool(small["close"]), "a rep-10 club is read Community: %s" % small["line"])
 	_check(str(grown["hall"]) == "town" and not bool(grown["close"]), "a rep-70 grown club is read Town: %s" % grown["line"])
-	_check(str(small["line"]).begins_with("Your club ") and str(small["line"]).contains("Town hall would") and str(small["line"]).contains("likely "),
+	_check(str(small["line"]).begins_with("Your gym ") and str(small["line"]).contains("Town hall would") and str(small["line"]).contains("likely "),
 		"the line names the hall that pays and what the other would do: %s" % small["line"])
 	var lk: Dictionary = small["likely"]
 	_check(int(lk["community"]["net"]) > int(lk["town"]["net"]), "the named hall pays more on the expected night (%d v %d)" % [int(lk["community"]["net"]), int(lk["town"]["net"])])

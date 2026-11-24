@@ -124,7 +124,10 @@ func _test_region() -> void:
 		"the shows in her division made the news")
 	var rows := Region.rankings(c, "wlw")
 	_check(rows.size() == 11 and not rows.any(func(x): return bool(x["ours"])), "3-1: eleven ranked lightweights, Lucy not yet")
-	_check(Region.rankings(c, "wfw").size() == 5, "the featherweights have their own table")
+	# S545 KNOWBUILD1 (owner K1): a scouted name the rival club signs boxes on in the region, so the table grows by the names
+	# that got away (the rule this check was written to: five featherweights, fixed).
+	var away := c.rivals.filter(func(x): return str(x.get("div", "")) == "wfw" and x.has("got_away")).size()
+	_check(Region.rankings(c, "wfw").size() == 5 + away, "the featherweights have their own table (5 + %d who got away)" % away)
 	var f := c.fighter()
 	_check(Region.our_rank(c, f) == 0, "3-1: Lucy is not ranked yet")
 	f["w"] = 4
