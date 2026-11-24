@@ -155,3 +155,30 @@ Checked S551: 900 bot bouts of the rules ran without an error (a script that nev
 288 of 300 and The Slugger 6 of 300 - the opponents are NOT balanced, first guesses); a scripted bout in the browser
 ran clean; a headless screenshot of the board fits 1400 x 900. NOT checked: fun; whether one setting wins every beat
 (Inside turned into trading rear uppercuts in my script); the phone layout; sounds by ear.
+
+### Ring Switches after his first turn (S551): "this can become a beautiful game i played 1 turn and i love it"
+THE DIRECTION (a METHOD line): Ring Switches is the form to develop. Deck engines and timed presses stay parked.
+- His note: "guard up and keep it home do the same thing". Fixed: there is no Guard switch any more. Each hand either
+  punches or is HELD HIGH or HELD LOW (lead high: straight head punches; lead low: the body; rear high: hooks and
+  overhands; rear low: uppercuts). One idea, one place.
+- THE MAN READS A HABIT: the same punches in two of your last three punching beats and (by his own rate: Jabber 75%,
+  Body Snatcher 60%, Slugger 45%) he answers exactly that - he tries every plan he can pay for against it and takes the
+  best. Before this, each man had one fixed setting that beat him 98-100% of the time.
+- A jab no longer wears a guard; a big punch wears it 1 (it broke in three beats before).
+- Health 22 (opponents 20 / 26 / 22), up from 14: bouts ended by stoppage 99.7% of the time; stamina 1 a beat + 1 a hand held.
+- The open-lines readout and the Fight button sit above the board, never cut off.
+MEASURED (tools kept in the scratchpad, not in the repo yet; 150 bouts a cell, Jabber / Slugger / Body Snatcher):
+| Who plays you | Wins | Stoppages |
+|---|---|---|
+| A sensible player (answers what the man did last beat) | 95% / 77% / 77% | 18% / 36% / 22% |
+| The same, but 1 beat in 4 he does something else | 79% / 61% / 69% | 3% / 20% / 7% |
+| Random switches | 2% / 5% / 8% | 0% / 7% / 0% |
+| The best single fixed setting (144 tried, 60 bouts each) | 3% / 60% / 2% | - |
+No fixed setting beats all three over 50% (0 of 144). So: skill pays, a habit is punished, the three men ask for
+different fights. NOT GREEN: the Jabber is too easy for a perfect reader (95%); the Slugger can still be beaten 60% by
+one setting (lead hook, rear hand high); bouts mostly go to the cards (stoppages low for the sloppy player); the bots
+are one-beat readers, not people - fun and feel are his play.
+NEXT (owed before it is called a game): the probe as files in the repo with tests; opponents tuned to the band 50-70%
+for the sensible player; a code-checked critic then chat critics at 8; the seats' idea answers read against it; legs,
+elbows and knees as more switch groups for the other arts (his Ironbound slots); the build layer (which switches a
+boxer owns comes from training).

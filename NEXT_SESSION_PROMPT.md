@@ -3,6 +3,12 @@
 Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. Digest: ops/research/S550_DIGEST.md.
 
 ## METHOD lines - quote all of them in your first message
+- ## METHOD - THE FIGHT GAME IS RING SWITCHES (owner S551, his own idea: "what if put everything that the fighter can do in the
+  fight as action toggable buttons"; after one turn: "this can become a beautiful game i played 1 turn and i love it"; "guard
+  up and keep it home do the same thing" -> a hand is held high or low). `proto/twohands/switch.html`, served by a terminal
+  tab: `python proto/cardgame/serve.py 8797 twohands` -> http://localhost:8797/switch.html. No decks, no timed presses (timing
+  only later, with animations, the defence triggering by itself). Plan, measures and what is owed: the last section of
+  `ops/research/TWOHANDS_SCOPE_S551.md`. Build his idea as a toy first, measure, then pages.
 - ## METHOD - CARD GAME: THE DECK FORM IS IN QUESTION (owner S551: "there are 1 million deckbuilding games ... i expect a
   proper innovative design"; "Take it" is "dumb"; defence "Timing, like Expedition 33"; "you can use deck for each hand or
   even combine them ... decide what each move hits and give opponent various options"). No work on proto/boxcards rules2 /
