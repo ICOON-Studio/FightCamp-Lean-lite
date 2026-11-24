@@ -7,7 +7,11 @@ import { WORDS, PAIRS } from './board.mjs';
 export const W0 = { hp: 1, ko: 1, pts: 4, pos: 3, posS: 0.8, wind: 2, lead: 1.5, sub: 30, pin: 6, held: 10, setup: 4, drain: 2, lock: 1, up: 1.2, ref: 2 };
 // the places a card can name, in the round-9 keys (board.mjs): the standing ranges, the join, the ground places
 export const KEYS = ['K', 'P', 'C', 'over', 'gt', 'gb', 'past', 'pin', 'down'];
-export const worth = (c) => (c.k === 'strike' ? c.dmg + 4 * (c.pts || 0) : c.k === 'shot' ? 4 * c.pts + (c.dmg || 0) + 3 : c.k === 'hold' ? 12 : c.k === 'adv' ? 4 * c.pts + 2 : c.k === 'setup' ? 3 : c.k === 'move' ? 1 : 0);
+// A SUBMISSION IS THE WHOLE FIGHT, NOT A POSITION. It used to price at a flat 12 against an adv card's 4*pts + 2 (a
+// guard pass is 18), so the pilot passed instead of attacking every single time it could: it laid 0.15 holds a bout
+// and never once went for the finish from the half guard, where the audit puts the kimura. A hold that runs ends the
+// bout outright - that is worth more than any position, and it is priced that way now.
+export const worth = (c) => (c.k === 'strike' ? c.dmg + 4 * (c.pts || 0) : c.k === 'shot' ? 4 * c.pts + (c.dmg || 0) + 3 : c.k === 'hold' ? 26 : c.k === 'adv' ? 4 * c.pts + 2 : c.k === 'setup' ? 3 : c.k === 'move' ? 1 : 0);
 export const moveWorth = (id) => (id === '@stand' || id === '@up' ? 6 : id === '@pull' ? 9 : id === '@in' || id === '@out' || id === '@back' ? 2 : 0);
 export { keyWords };
 const FIT = new Map();
