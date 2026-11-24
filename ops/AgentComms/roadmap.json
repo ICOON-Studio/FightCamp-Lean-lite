@@ -3,14 +3,14 @@
  "updated": "2026-11-24",
  "author": "claude S294",
  "now": {
-  "id": "S548",
+  "id": "S549",
   "owner": "claude",
   "updated": "2026-11-24",
-  "summary": "S548 (Fable) HANDOVER. METHOD: THE WRITTEN PLAN STAYS AND MUST MATTER (owner 'make it more impactful'); THE CORNER HAS EIGHT COMMANDS, NO RING SLOT ('Cut both'); COACHES: NO TRIAL WEEK, CHEMISTRY ON THE HIRE CARD ('Cut it, show chemistry'); CARD GAME: MEASURE A CRITIC'S RULE BEFORE IT GOES ON, THE BOT MUST USE WHAT IS BUILT; HIS GAME FIRST - ONE WORKER WHILE ARCHEAGE IS OPEN; mechanics first then 3D and menus; fight animation v2 only, his eye is the ruler. Collected PLANREAD2, CORNERBASE1 (the corner ~+10 v a coach who reads the file), BODYREACT2 (body hook bends him; films on /review). Card round 9 on main (owner: fix both yourself) and round 9b slice 1 (73 tests, gate 6/6, boxing 43 / jiu-jitsu 57; Keep your base on against a pull in its weaker shape, off against a sweep where it made boxing 99.5%). Coach map as cut written; Kalli 5/5/6. PC: ArcheAge lag = Windows kernel pool 15.3 GB after 12 days up; he restarted. No export this session.",
-  "next_action": "S549: see NEXT_SESSION_PROMPT.md - collect PLANIMPACT1 (tab c3, resumed 14:05), then relaunch MATCHBOTS2 (one worker while he plays); one page for the owner on coaches (keep with Kalli's three changes and a probe, or cut back); card 9b slices 2-3; launch BODYCROSS4; build the FILE coach for simmed bouts; export when his game is closed.",
+  "summary": "S549 (Fable). ## METHOD - CARD GAME: ONE ART AGAINST ITSELF FIRST (owner S549: 'the real test should be a boxer vs boxer , donot mix classes untill all arts cards are ingame'; 'BREAKDOWN A real mma fight and make it workwith card logic'). No work on the mixed boxing v jiu-jitsu game. Plan: ops/research/CARDBOX_SCOPE_S549.md. S548 (Fable) HANDOVER. METHOD: THE WRITTEN PLAN STAYS AND MUST MATTER (owner 'make it more impactful'); THE CORNER HAS EIGHT COMMANDS, NO RING SLOT ('Cut both'); COACHES: NO TRIAL WEEK, CHEMISTRY ON THE HIRE CARD ('Cut it, show chemistry'); CARD GAME: MEASURE A CRITIC'S RULE BEFORE IT GOES ON, THE BOT MUST USE WHAT IS BUILT; HIS GAME FIRST - ONE WORKER WHILE ARCHEAGE IS OPEN; mechanics first then 3D and menus; fight animation v2 only, his eye is the ruler. Collected PLANREAD2, CORNERBASE1 (the corner ~+10 v a coach who reads the file), BODYREACT2 (body hook bends him; films on /review). Card round 9 on main (owner: fix both yourself) and round 9b slice 1 (73 tests, gate 6/6, boxing 43 / jiu-jitsu 57; Keep your base on against a pull in its weaker shape, off against a sweep where it made boxing 99.5%). Coach map as cut written; Kalli 5/5/6. PC: ArcheAge lag = Windows kernel pool 15.3 GB after 12 days up; he restarted. No export this session.",
+  "next_action": "Collect PLANIMPACT1 (Opus tab, ~18:00) and Arena's CARDBOX1 paper (branch arena/869b061a-fightcamp-lean-lite) with John's facts (SQ325); then relaunch MATCHBOTS2, launch BODYCROSS4, the coaches page for the owner, the FILE coach for simmed bouts, export when his game is closed.",
   "last_working_commit": "b0b77e92d",
   "verified_playable": "Builds/FightCamp.exe S546 export (2026-11-24 04:07): Fights, the promoter's call, an amateur's profile and the Finance / Staff / Records windows rendered on the hidden desktop and opened (bounds 0 on the two runs that printed it); the touched tests green (about 75 run).",
-  "incomplete_blocked": "PLANIMPACT1 running. MATCHBOTS2 died with the PC restart (probe and hooks on disk, uncommitted). BODYCROSS4 briefed, not launched. Card 9b slices 2-3 not built. Dola's coach review not sent (no debug port). No export.",
+  "incomplete_blocked": "PLANIMPACT1 running. CARDBOX1 on Arena. MATCHBOTS2 and BODYCROSS4 wait (one worker while he plays). Card rounds 9/9b stay on main and are stopped.",
   "next_acceptance": "He plays the S546 build (WHAT_TO_TRY J to N). His eye on /review closes the three notes and the office windows, and judges the staff cards drawing. BODYCROSS3's sheet shows a bent elbow and a bent man to his eye.",
   "awaiting_operator": "His eye on /review (body hook films, body cross 3, signing card, staff cards). His play of the S547 build and of card round 9 / 9b. Dola's app needs its debug port open."
  },
@@ -6111,6 +6111,14 @@
     {
      "text": "Close body hook note -> brief",
      "who": "claude"
+    },
+    {
+     "text": "Card 9b slice 3; F1 measured off",
+     "who": "claude"
+    },
+    {
+     "text": "Card method: boxer v boxer",
+     "who": "claude"
     }
    ],
    "now": [
@@ -6236,6 +6244,14 @@
     },
     {
      "text": "Plan impact probe: collect ~18:00",
+     "who": "claude"
+    },
+    {
+     "text": "Arena: boxing bouts into cards",
+     "who": "claude"
+    },
+    {
+     "text": "John: boxing facts (SQ325)",
      "who": "claude"
     }
    ],
@@ -6577,10 +6593,6 @@
      "who": "claude"
     },
     {
-     "text": "Card r9b slices 2-3",
-     "who": "claude"
-    },
-    {
      "text": "Coaches: keep or cut page",
      "who": "claude"
     },
@@ -6589,7 +6601,7 @@
      "who": "claude"
     },
     {
-     "text": "Card: Frame price ends the pull",
+     "text": "Card: boxer v boxer on paper",
      "who": "claude"
     }
    ],

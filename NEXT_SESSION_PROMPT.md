@@ -3,6 +3,13 @@
 Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. Digest: ops/research/S548_DIGEST.md.
 
 ## METHOD lines - quote all of them in your first message
+- ## METHOD - CARD GAME: ONE ART AGAINST ITSELF FIRST (owner S549, playing the page: "THE CARD GAME DOESNT MAKE SENSE.
+  If the fight is MMA bjj fighter has no strikes ... BREAKDOWN A real mma fight and make it workwith card logic. the
+  real test should be a boxer vs boxer , donot mix classes untill all arts cards are ingame"). NO work on the mixed
+  boxing v jiu-jitsu game (no slice, balance or critic round; rounds 9 / 9b stay on main as they are). Boxer v boxer
+  measured: 400 of 400 knockouts, the second man wins 69.5% (`node proto/cardgame/mirror.mjs`). Plan and phases:
+  `ops/research/CARDBOX_SCOPE_S549.md`; phase 1 is Arena's paper `TASK_CARDBOX1.md` + John's facts (SQ325). The card
+  lines further down this page that speak of slices 2-3 are history.
 - A DECISION SCREEN IS A SCENE; AFTER THE CLICK THE PAGE ITSELF SHOWS WHAT CHANGED - NO POP-UP, NO ICON TILES; LITTLE
   TEXT; PLAIN MENU WORDS, THE PLAYER'S PLACE IS THE GYM; OFFICE-LIKE PAGES ARE WINDOWS OF THE OFFICE COMPUTER; THE PLAYER
   BOOKS WHEN HIS BOXERS ARE READY (owner S544-S546).

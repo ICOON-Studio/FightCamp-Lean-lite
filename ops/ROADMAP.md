@@ -8,9 +8,9 @@ Updated 2026-11-24 by claude S294.
 
 ## Now
 
-**S548 — ?** *(claude)*
+**S549 — ?** *(claude)*
 
-S548 (Fable) HANDOVER. METHOD: THE WRITTEN PLAN STAYS AND MUST MATTER (owner 'make it more impactful'); THE CORNER HAS EIGHT COMMANDS, NO RING SLOT ('Cut both'); COACHES: NO TRIAL WEEK, CHEMISTRY ON THE HIRE CARD ('Cut it, show chemistry'); CARD GAME: MEASURE A CRITIC'S RULE BEFORE IT GOES ON, THE BOT MUST USE WHAT IS BUILT; HIS GAME FIRST - ONE WORKER WHILE ARCHEAGE IS OPEN; mechanics first then 3D and menus; fight animation v2 only, his eye is the ruler. Collected PLANREAD2, CORNERBASE1 (the corner ~+10 v a coach who reads the file), BODYREACT2 (body hook bends him; films on /review). Card round 9 on main (owner: fix both yourself) and round 9b slice 1 (73 tests, gate 6/6, boxing 43 / jiu-jitsu 57; Keep your base on against a pull in its weaker shape, off against a sweep where it made boxing 99.5%). Coach map as cut written; Kalli 5/5/6. PC: ArcheAge lag = Windows kernel pool 15.3 GB after 12 days up; he restarted. No export this session.
+S549 (Fable). ## METHOD - CARD GAME: ONE ART AGAINST ITSELF FIRST (owner S549: 'the real test should be a boxer vs boxer , donot mix classes untill all arts cards are ingame'; 'BREAKDOWN A real mma fight and make it workwith card logic'). No work on the mixed boxing v jiu-jitsu game. Plan: ops/research/CARDBOX_SCOPE_S549.md. S548 (Fable) HANDOVER. METHOD: THE WRITTEN PLAN STAYS AND MUST MATTER (owner 'make it more impactful'); THE CORNER HAS EIGHT COMMANDS, NO RING SLOT ('Cut both'); COACHES: NO TRIAL WEEK, CHEMISTRY ON THE HIRE CARD ('Cut it, show chemistry'); CARD GAME: MEASURE A CRITIC'S RULE BEFORE IT GOES ON, THE BOT MUST USE WHAT IS BUILT; HIS GAME FIRST - ONE WORKER WHILE ARCHEAGE IS OPEN; mechanics first then 3D and menus; fight animation v2 only, his eye is the ruler. Collected PLANREAD2, CORNERBASE1 (the corner ~+10 v a coach who reads the file), BODYREACT2 (body hook bends him; films on /review). Card round 9 on main (owner: fix both yourself) and round 9b slice 1 (73 tests, gate 6/6, boxing 43 / jiu-jitsu 57; Keep your base on against a pull in its weaker shape, off against a sweep where it made boxing 99.5%). Coach map as cut written; Kalli 5/5/6. PC: ArcheAge lag = Windows kernel pool 15.3 GB after 12 days up; he restarted. No export this session.
 
 ## Next
 

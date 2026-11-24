@@ -4739,7 +4739,8 @@
    "sent_ms": 1795515022353,
    "answered_at": "2026-11-24 12:40",
    "answer": "research/CRITIC_COACHMAP1_BRIEF_KALLI.md",
-   "chars": 19446
+   "chars": 19446,
+   "seen_by_claude": true
   },
   {
    "id": "SQ324",
@@ -4749,8 +4750,17 @@
    "status": "queued",
    "queued_at": "2026-11-24 12:08",
    "tries": 0,
-   "skips": 4,
-   "last_error": "2026-11-24 13:40 no CDP on 9333 (the app runs without its debug port or is closed; never launched from here - it opens a window)"
+   "skips": 6,
+   "last_error": "2026-11-24 14:40 no CDP on 9333 (the app runs without its debug port or is closed; never launched from here - it opens a window)"
+  },
+  {
+   "id": "SQ325",
+   "seat": "john",
+   "brief": "research/CARDBOX1_JOHN_BRIEF.md",
+   "stem": "CARDBOX1_JOHN_BRIEF_JOHN",
+   "status": "queued",
+   "queued_at": "2026-11-24 15:03",
+   "tries": 0
   }
  ]
 }

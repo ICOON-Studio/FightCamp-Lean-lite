@@ -4,8 +4,8 @@
  "runs": {
   "CARDROUND9B": {
    "id": "CARDROUND9B",
-   "status": "waiting",
-   "title": "Card game round 9b: slice 1 on main (Frame, knockdown, stoppage, up-kick with no card, Keep your base against a pull in its weaker shape; gate 6/6, boxing 43 / jiu-jitsu 57). Slices 2-3 not built",
+   "status": "done",
+   "title": "Card round 9b slices 1-3 on main; STOPPED by your call: no more mixed boxing v jiu-jitsu work (CARDBOX_SCOPE_S549)",
    "seat": "claude",
    "agent": "Claude (this session, on main; owner S548: do 9b yourself)",
    "eta": "slice 1 of 3 landed 406197a75; slices 2-3 (posture, the guard, top punches, the trip) next session",
@@ -50,6 +50,17 @@
    "eta": "about 3-4 h once launched",
    "title": "The body cross is thrown in the 3D fight (the take is ready; the punch list never names it): films for your eye",
    "brief": "ops/research/TASK_BODYCROSS4.md"
+  },
+  "CARDBOX1": {
+   "id": "CARDBOX1",
+   "status": "running",
+   "seat": "arena",
+   "agent": "Arena (chat 01a20da7-2bc0-7576-abe2-df98869b061a)",
+   "started": "2026-11-24T15:03",
+   "eta": "about 1-2 h",
+   "branch": "arena/869b061a-fightcamp-lean-lite",
+   "title": "Card game: three real boxing bouts broken down, then one round played two ways as card against card (your 'the real test should be a boxer vs boxer')",
+   "brief": "ops/research/TASK_CARDBOX1.md"
   }
  },
  "codex_budget": {
