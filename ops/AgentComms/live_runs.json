@@ -22,33 +22,13 @@
    "title": "Critics on the coaches map as cut (trial week out, chemistry on the hire card): depth and play out of 10, and what reaches 10",
    "brief": "ops/research/CRITIC_COACHMAP1_BRIEF.md"
   },
-  "BODYCROSS4": {
-   "id": "BODYCROSS4",
-   "status": "running",
-   "seat": "claude",
-   "agent": "claude-fable-5-2 (console tab BODYCROSS4 of the S550 session)",
-   "eta": "about 3-4 h (to about 20:45)",
-   "title": "The body cross is thrown in the 3D fight (the take is ready; the punch list never names it): films for your eye",
-   "brief": "ops/research/TASK_BODYCROSS4.md",
-   "started": "2026-11-24T17:15"
-  },
-  "PLANIMPACT2": {
-   "id": "PLANIMPACT2",
-   "status": "done",
-   "seat": "claude",
-   "agent": "claude-opus-5-5 (console tab PLANIMPACT2 of the S550 session)",
-   "started": "2026-11-24T15:48",
-   "eta": "landed about 16:55: FAIL - best plan beats a careless one by about 2 (bar 6); the rule adds half a win; its code lines not yet checked by Claude",
-   "title": "The written plan, second probe (your Q-333 'Second probe'): the plan sharpens the corner only where it was drilled for THIS opponent - must make a good plan beat a careless one by 6",
-   "brief": "ops/research/TASK_PLANIMPACT2.md"
-  },
   "COACHMAP2": {
    "id": "COACHMAP2",
-   "status": "queued",
-   "seat": "claude",
+   "status": "running",
+   "seat": "claude-opus-5-5 (console tab COACHMAP2 of the S551 session)",
    "agent": "claude-opus-5-5 (a console tab when PLANIMPACT2 lands: its first change depends on that result, and one worker at a time while the owner plays)",
-   "started": "2026-11-24T16:25",
-   "eta": "about 4 h once launched (after about 19:45)",
+   "started": "2026-11-24T20:05",
+   "eta": "about 4 h (to about 00:05)",
    "title": "Coaches (your Q-334 'Probe the changes'): the corner coach's ratings matter, a coach leads at most 2 boxers, the bars measured again - keep or cut",
    "brief": "ops/research/TASK_COACHMAP2.md"
   }

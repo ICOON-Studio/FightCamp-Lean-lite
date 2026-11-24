@@ -24654,6 +24654,87 @@
    "eta": "Arena reached its daily usage limit (S547 05:48); continue tomorrow in the same chat",
    "note": "S544: research/TASK_CARDROUND9.md, spec = research/CARDREAL_AUDIT.md section 4; lite mirror f93fa300; its PR relays to an arena/* PR here; Claude plays both arts by hand before the owner | S545 02:02: it had stopped at 00:31 on its tool-call limit, branch not pushed; told to continue (push first, finish tests, open the PR) | S547: branch pushed at e0e15a796 (lite mirror), 61 of 61 tests green, engine 484 lines, play gate 4 of 6 (boxing 77.5 v jiu-jitsu 22.5; 21.0 decisions a bout, bar 22.5-45)",
    "landed": "2026-11-24 S548: on main 4307c453a, the two causes of 77 v 23 fixed by Claude (owner: fix both yourself); play gate 6/6"
+  },
+  {
+   "id": "CARDROUND9B",
+   "status": "done",
+   "title": "Card round 9b slices 1-3 on main; STOPPED by your call: no more mixed boxing v jiu-jitsu work (CARDBOX_SCOPE_S549)",
+   "seat": "claude",
+   "agent": "Claude (this session, on main; owner S548: do 9b yourself)",
+   "eta": "slice 1 of 3 landed 406197a75; slices 2-3 (posture, the guard, top punches, the trip) next session",
+   "note": "S545: research/TASK_CARDROUND9B.md; Kalli 6/5/6, Dola 9/9/9 on the paper model",
+   "started": "2026-11-24T13:25",
+   "archived": "2026-11-24 15:11 board_sync"
+  },
+  {
+   "id": "CARDBOX1",
+   "status": "done",
+   "seat": "arena",
+   "agent": "Arena (chat 01a20da7-2bc0-7576-abe2-df98869b061a)",
+   "started": "2026-11-24T15:03",
+   "eta": "about 1-2 h",
+   "branch": "arena/869b061a-fightcamp-lean-lite",
+   "title": "Arena's paper is in: three real boxing bouts and two ways to play a round as cards (proto/cardgame/CARDBOX1_BREAKDOWN.md). Both ways failed the real round - the defender sees the card; Claude writes boxer v boxer on paper next",
+   "brief": "ops/research/TASK_CARDBOX1.md",
+   "archived": "2026-11-24 15:11 board_sync"
+  },
+  {
+   "id": "PLANIMPACT1",
+   "status": "done",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (console tab PLANIMPACT1 resumed, tab c3 of the S548 session)",
+   "started": "2026-11-24T14:05",
+   "eta": "landed 15:30: no lever passed (docs/PLANIMPACT1_RESULT.md)",
+   "title": "Make the written fight plan matter (your Q-328 'make it more impactful'): three ways measured in real bouts before any design",
+   "brief": "ops/research/TASK_PLANIMPACT1.md",
+   "archived": "2026-11-24 15:41 board_sync"
+  },
+  {
+   "id": "BOXCARDS1_CRITIC",
+   "status": "done",
+   "seat": "arena",
+   "agent": "Arena (chat 01a20db8, repo FightCamp-Lean-lite)",
+   "branch": "arena/04b68eed-fightcamp-lean-lite",
+   "started": "2026-11-24T15:22",
+   "eta": "collected 15:32: real bout 5, depth 6, play 6 (bar 8); version 2 in work",
+   "title": "Boxer v boxer card game: the code-checked critic (page against code, its own exploiting bots, sweeps) - depth and play out of 10",
+   "brief": "ops/research/TASK_BOXCARDS1_CRITIC_ARENA.md",
+   "archived": "2026-11-24 15:41 board_sync"
+  },
+  {
+   "id": "BOXCARDS2_CRITIC",
+   "status": "done",
+   "seat": "arena",
+   "agent": "Arena (chat 01a20dcc, repo FightCamp-Lean-lite)",
+   "branch": "arena/537fa33b-fightcamp-lean-lite",
+   "started": "2026-11-24T15:52",
+   "eta": "collected 16:10: real bout 6, depth 5, play 7 (bar 8); four contract faults fixed; next gate his play, then a range track as its own scope",
+   "title": "Boxer v boxer card game, version 2 (one punch at a time): a fresh code-checked critic - depth and play out of 10",
+   "brief": "ops/research/TASK_BOXCARDS2_CRITIC_ARENA.md",
+   "archived": "2026-11-24 16:11 board_sync"
+  },
+  {
+   "id": "PLANIMPACT2",
+   "status": "done",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (console tab PLANIMPACT2 of the S550 session)",
+   "started": "2026-11-24T15:48",
+   "eta": "landed about 16:55: FAIL - best plan beats a careless one by about 2 (bar 6); the rule adds half a win; its code lines not yet checked by Claude",
+   "title": "The written plan, second probe (your Q-333 'Second probe'): the plan sharpens the corner only where it was drilled for THIS opponent - must make a good plan beat a careless one by 6",
+   "brief": "ops/research/TASK_PLANIMPACT2.md",
+   "archived": "2026-11-24 17:11 board_sync"
+  },
+  {
+   "id": "BODYCROSS4",
+   "status": "landed",
+   "seat": "claude",
+   "agent": "claude-fable-5-2 (console tab BODYCROSS4 of the S550 session)",
+   "eta": "about 3-4 h (to about 20:45)",
+   "title": "The body cross is thrown in the 3D fight (the take is ready; the punch list never names it): films for your eye",
+   "brief": "ops/research/TASK_BODYCROSS4.md",
+   "started": "2026-11-24T17:15",
+   "landed": "2026-11-24T17:59",
+   "note": "commit 075844273; body_cross_play_test green in S551; films on /review for his eye"
   }
  ],
  "KNOWBUILD1": {
