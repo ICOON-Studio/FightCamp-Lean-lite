@@ -24609,6 +24609,39 @@
    "note": "S545: research/TASK_BODYCROSS2.md; the animation item of S545 | landed 98088087c: 8.2-9.4 m/s at the contact, 8-9 cm into him, the hit man folds; films on /review; his eye closes it",
    "started": "2026-11-24T02:13",
    "archived": "2026-11-24 03:51 board_sync"
+  },
+  {
+   "id": "PLANREAD2",
+   "status": "landed",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (console tab PLANREAD2 of the S547 session, tab c1)",
+   "started": "2026-11-24T05:50",
+   "eta": "about 3-4 h (to about 09:30), most of it bout runs",
+   "title": "The bout card promises +11.6 for a plan the ring pays +1.7 for: find the cause, fix the read to the bout",
+   "brief": "ops/research/TASK_PLANREAD2.md",
+   "landed": "2026-11-24 (collected S548)"
+  },
+  {
+   "id": "BODYREACT2",
+   "status": "landed",
+   "seat": "claude",
+   "agent": "claude-fable-5-2 (console tab BODYREACT2 of the S547 session, tab c3)",
+   "started": "2026-11-24T06:02",
+   "eta": "about 2-3 h (to about 08:45)",
+   "title": "In the 3D fight a landed body punch folds the hit boxer (your 'the reaction should force the opponent to bend hisposture a bit'): the player picks the fold take; films for your eye",
+   "brief": "ops/research/TASK_BODYREACT2.md",
+   "landed": "2026-11-24 (collected S548)"
+  },
+  {
+   "id": "CORNERBASE1",
+   "status": "landed",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (console tab CORNERBASE1 of the S547 session, tab c4)",
+   "eta": "about 3-4 h (to about 10:15)",
+   "title": "What the live corner is worth against a coach who reads the opponent and rests a tired boxer (today's +15 to +22 is against a coach who does neither)",
+   "brief": "ops/research/TASK_CORNERBASE1.md",
+   "started": "2026-11-24T06:33",
+   "landed": "2026-11-24 (collected S548)"
   }
  ],
  "KNOWBUILD1": {

@@ -22,44 +22,44 @@
    "eta": "2-3 h once launched",
    "note": "S545: research/TASK_CARDROUND9B.md; Kalli 6/5/6, Dola 9/9/9 on the paper model"
   },
-  "PLANREAD2": {
-   "id": "PLANREAD2",
-   "status": "running",
-   "seat": "claude",
-   "agent": "claude-opus-5-5 (console tab PLANREAD2 of the S547 session, tab c1)",
-   "started": "2026-11-24T05:50",
-   "eta": "about 3-4 h (to about 09:30), most of it bout runs",
-   "title": "The bout card promises +11.6 for a plan the ring pays +1.7 for: find the cause, fix the read to the bout",
-   "brief": "ops/research/TASK_PLANREAD2.md"
-  },
-  "BODYREACT2": {
-   "id": "BODYREACT2",
-   "status": "running",
-   "seat": "claude",
-   "agent": "claude-fable-5-2 (console tab BODYREACT2 of the S547 session, tab c3)",
-   "started": "2026-11-24T06:02",
-   "eta": "about 2-3 h (to about 08:45)",
-   "title": "In the 3D fight a landed body punch folds the hit boxer (your 'the reaction should force the opponent to bend hisposture a bit'): the player picks the fold take; films for your eye",
-   "brief": "ops/research/TASK_BODYREACT2.md"
-  },
-  "CORNERBASE1": {
-   "id": "CORNERBASE1",
-   "status": "running",
-   "seat": "claude",
-   "agent": "claude-opus-5-5 (console tab CORNERBASE1 of the S547 session, tab c4)",
-   "eta": "about 3-4 h (to about 10:15)",
-   "title": "What the live corner is worth against a coach who reads the opponent and rests a tired boxer (today's +15 to +22 is against a coach who does neither)",
-   "brief": "ops/research/TASK_CORNERBASE1.md",
-   "started": "2026-11-24T06:33"
-  },
   "MATCHBOTS2": {
    "id": "MATCHBOTS2",
+   "status": "running",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (console tab MATCHBOTS2 of the S548 session, tab c1)",
+   "eta": "about 3 h (to about 15:15)",
+   "title": "Scouting must protect a boxer again: the bot that scouts is stopped more often than the one that does not (red in the 05:00 tests)",
+   "brief": "ops/research/TASK_MATCHBOTS2.md",
+   "started": "2026-11-24T12:08"
+  },
+  "PLANIMPACT1": {
+   "id": "PLANIMPACT1",
+   "status": "running",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (console tab PLANIMPACT1 of the S548 session, tab c2)",
+   "started": "2026-11-24T12:25",
+   "eta": "about 4-5 h (to about 17:00), most of it bout runs",
+   "title": "Make the written fight plan matter (your Q-328 'make it more impactful'): three ways measured in real bouts before any design",
+   "brief": "ops/research/TASK_PLANIMPACT1.md"
+  },
+  "COACHMAP1_CRITICS": {
+   "id": "COACHMAP1_CRITICS",
+   "status": "queued",
+   "seat": "kalli, dola",
+   "agent": "Kalli (SQ323), Dola (SQ324) - the 30-min job sends them",
+   "started": "2026-11-24T13:15",
+   "eta": "answers within about 2 h",
+   "title": "Critics on the coaches map as cut (trial week out, chemistry on the hire card): depth and play out of 10, and what reaches 10",
+   "brief": "ops/research/CRITIC_COACHMAP1_BRIEF.md"
+  },
+  "BODYCROSS4": {
+   "id": "BODYCROSS4",
    "status": "queued",
    "seat": "claude",
-   "agent": "claude-opus-5-5 (a console tab, when one frees)",
-   "eta": "about 3 h once launched",
-   "title": "Scouting must protect a boxer again: the bot that scouts is stopped more often than the one that does not (red in the 05:00 tests)",
-   "brief": "ops/research/TASK_MATCHBOTS2.md"
+   "agent": "claude-fable-5-2 (a console tab when MATCHBOTS2 lands; two workers at most)",
+   "eta": "about 3-4 h once launched",
+   "title": "The body cross is thrown in the 3D fight (the take is ready; the punch list never names it): films for your eye",
+   "brief": "ops/research/TASK_BODYCROSS4.md"
   }
  },
  "codex_budget": {

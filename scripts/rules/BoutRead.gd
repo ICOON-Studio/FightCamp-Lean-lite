@@ -17,6 +17,7 @@ const RoundStyle := preload("res://scripts/rules/RoundStyle.gd")
 const HabitFix := preload("res://scripts/rules/HabitFix.gd")
 const PlanFight := preload("res://scripts/rules/PlanFight.gd")
 const PlanChain := preload("res://scripts/rules/PlanChain.gd")
+const PlanReadFit := preload("res://scripts/rules/PlanReadFit.gd")   # S547
 const LineGrade := preload("res://scripts/rules/LineGrade.gd")   # GRADE1
 const PerkFight := preload("res://scripts/rules/PerkFight.gd")
 const FighterProfile := preload("res://scripts/rules/FighterProfile.gd")
@@ -49,14 +50,9 @@ const OPP_TIRED_ODDS := 0.75
 const FADE_ODDS := 0.5
 ## Punches each side lands in an exchange on the mean (Exchanges.LANDED): what its body shots cost a tank.
 const MEAN_LANDED := 3.5
-## Share of a plan's edge that reaches the ring in her own trouble and the opponent's tiring (the opponent's games walk the
-## card chain exactly: PlanChain).
-const PLAN_REACH := 0.75
-## S397 what rides on a plan's answers past their own exchange (PlanRead's reads, PlanPressure's pressure and tank ceiling).
-## S434 PUNCHSTART1 round 2 re-fit on the card chain walked exchange by exchange (her trouble and the opponent's tiring counted
-## once): 22 arms x 1,000 real bouts (Lucy +-shifts, tired, no plan to four arrows, vs Maria/Priya/Erin/Dana) worst 0.033, rms
-## 0.017; 8 held-out arms 0.065 / 0.036 (round 1, 1.4 with the double count: 0.041 / 0.026, held out 0.074 / 0.041).
-const PLAN_CARRY := 1.9
+## S547 PLANREAD2: the plan terms live in PlanReadFit (PLAN_REACH, PLAN_CARRY and their fit).
+const PLAN_REACH := PlanReadFit.PLAN_REACH
+const PLAN_CARRY := PlanReadFit.PLAN_CARRY
 ## Rounds of next_mode's dice behind one style's mix.
 const MIX_ROUNDS := 300
 
@@ -240,12 +236,7 @@ static func _game_edge_of(f: Dictionary, sit: String, n: int) -> float:
 	if float(vals.get("ring_iq", 55.0)) >= Exchanges.IQ_FINDS:   # she finds the answer herself when the game carries on
 		e = lerpf(e, Exchanges.call_edge(call, sit, vals, heard, true), Exchanges.KEEP)
 	e = PerkFight.call_edge(f, e) + PerkFight.jab_edge(f, sit)
-	var at := str(PlanFight.GAME_CARD.get(sit, "long"))
-	var moves: Dictionary = f.get("moves", {})
-	var combos: Dictionary = f.get("combos", {})
-	var pick := PlanFight.choose(PlanFile.arrows_for(f.get("arrows", []), f.get("late", {}), n, BoutRules.ROUNDS), at, moves, sit)   # S460 PlanPhase, as the ring
-	if sit == "she_tired":   # S434 the opponent's games walk the card chain in _round_edges (PlanChain); S544 "tiring" too (TELLPLAY1: read 7.6, the bout 0.9)
-		e += PLAN_REACH * PLAN_CARRY * LineGrade.edge(pick, sit, PlanFight.rate(str(pick["move"]), combos), PlanFight.card_mean(at, sit, moves, combos), LineGrade.attrs_for(f))   # GRADE1
+	# S547 PLANREAD2: her plan in her own trouble walks the card chain with every other situation (_round_edges, PlanReadFit)
 	var habits := 0.0
 	for i in Exchanges.EXCHANGES:
 		habits += Exchanges.HABIT_BOUT * HabitFix.cost(HabitFix.punished(f.get("habits", []), sit, n, i, n == BoutRules.ROUNDS), "", 0.0)
@@ -330,6 +321,7 @@ static func _round_edges(f: Dictionary, opp: Dictionary, camp: Dictionary, coach
 		* (Exchanges.BODY_THREAT_SHARE if str(opp.get("threat", "")).to_lower().contains("body") else Exchanges.BODY_SHARE)
 	var out: Array = []
 	var states: Dictionary = {}
+	var cc := PlanReadFit.open(fx, opp)   # S547 the combo counter's counts, carried round to round
 	for n in range(1, tanks.size() + 1):
 		var t: Dictionary = tanks[n - 1]
 		var e := base + float(t["edge"]) + BoutRules.stance_edge(n, str(f.get("stance", "orthodox")), opp, camp)
@@ -373,9 +365,11 @@ static func _round_edges(f: Dictionary, opp: Dictionary, camp: Dictionary, coach
 					st[sit] = (1.0 - tiring) * float(mix[sit])
 				steps.append(st)
 			e += ex / float(Exchanges.EXCHANGES)
-		# S434 her plan on the cards she really stands on (PlanChain), exchange by exchange at her chance of one; her own
-		# trouble moves her card but adds its plan once, in worth (_game_edge_of). S544: the opponent's tiring walks the chain.
-		e += PLAN_CARRY * PlanChain.walk(fx.get("arrows", []), fx.get("moves", {}), fx.get("combos", {}), steps, ComboOdds.win_odds(e), ["she_tired"], fx.get("steps", {}))
+		# S434 her plan on the cards she really stands on (PlanChain), exchange by exchange at her chance of one; S544 the
+		# opponent's tiring and S547 her own trouble walk the chain too, and the counter takes its exchanges (PlanReadFit).
+		var pt := PlanReadFit.chain(fx, opp, steps, ComboOdds.win_odds(e), cc, n, tanks.size())   # S547: the ring's firing rule and its counter
+		e = PlanReadFit.countered(e + float(pt[0]), float(pt[1]))
+		cc = PlanReadFit.bell(cc)
 		out.append(e)
 	return out
 

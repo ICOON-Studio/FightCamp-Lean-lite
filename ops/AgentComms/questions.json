@@ -9162,10 +9162,11 @@
       "attach": [
         "AgentComms/board_attach/Q-S294-328_0_PLANWORTH1_RESULT.md"
       ],
-      "answer": null,
+      "answer": "make it more impactful",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-24T09:55:30Z",
+      "seen_by_claude": true,
+      "comment_only": true
     },
     {
       "id": "Q-S294-329",
@@ -9180,10 +9181,11 @@
       "attach": [
         "AgentComms/board_attach/Q-S294-329_0_COACHDEEP9_RESULT.md"
       ],
-      "answer": null,
+      "answer": "Cut it, show chemistry",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-24T09:57:37Z",
+      "seen_by_claude": true,
+      "comment_only": false
     },
     {
       "id": "Q-S294-330",
@@ -9197,10 +9199,11 @@
       "attach": [
         "research/Q_CORNER_RING_S547.md"
       ],
-      "answer": null,
+      "answer": "Cut both",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-24T09:57:58Z",
+      "seen_by_claude": true,
+      "comment_only": false
     }
   ]
 }

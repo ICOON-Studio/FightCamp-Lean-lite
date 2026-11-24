@@ -17,8 +17,10 @@ static var _cells := {}
 
 
 ## {card: {sit: [edge, card if won, card if lost]}} for the cards she can stand on: what her plan does there.
-static func _table(arrows: Array, moves: Dictionary, combos: Dictionary, sits: Array, bars: Dictionary = {}) -> Dictionary:
-	var key := "%s|%s|%s|%s|%s" % [str(arrows), str(moves), str(combos), str(sits), str(bars)]
+## S547 PLANREAD2: each cell also holds [3] the move and [4] its fire share when planned (0 = her instinct, never counted by
+## the ring's ComboCounter); attrs = her grade (LineGrade.attrs_for, as LiveRound; {} = ungraded, the S434 walk).
+static func _table(arrows: Array, moves: Dictionary, combos: Dictionary, sits: Array, bars: Dictionary = {}, attrs: Dictionary = {}) -> Dictionary:
+	var key := "%s|%s|%s|%s|%s|%s" % [str(arrows), str(moves), str(combos), str(sits), str(bars), str(attrs)]
 	if _cells.has(key):
 		return _cells[key]
 	var out := {}
@@ -33,13 +35,14 @@ static func _table(arrows: Array, moves: Dictionary, combos: Dictionary, sits: A
 		for sit in sits:
 			var pick := PlanFight.choose(arrows, card, moves, sit)
 			var mv := str(pick["move"])
-			var e := LineGrade.edge(pick, sit, PlanFight.rate(mv, combos), PlanFight.card_mean(card, sit, moves, combos), {})
+			var e := LineGrade.edge(pick, sit, PlanFight.rate(mv, combos), PlanFight.card_mean(card, sit, moves, combos), attrs)
 			# S459 (bout_read red since S450 FIRELEVEL3): the fight fires a planned line only on its level's share of uses
 			# (LiveRound: not fired = not planned, no edge); the read takes the same share, on the mean.
-			e *= FireLevel.share(FireLevel.shares_for({}), FireLevel.mastery_of({"combos": combos, "steps": bars}, mv))   # S464: steps by their bar, as the fight (STEPMASTERY1)
+			var share := FireLevel.share(FireLevel.shares_for({}), FireLevel.mastery_of({"combos": combos, "steps": bars}, mv))   # S464: steps by their bar, as the fight (STEPMASTERY1)
+			e *= share
 			var won := PlanFight.where_next(mv, true, sit)
 			var lost := PlanFight.where_next(mv, false, sit)
-			out[card][sit] = [e, won, lost]
+			out[card][sit] = [e, won, lost, mv, share if bool(pick.get("planned", false)) else 0.0]
 			todo.append(won)
 			todo.append(lost)
 	_cells[key] = out
@@ -84,3 +87,55 @@ static func walk(arrows: Array, moves: Dictionary, combos: Dictionary, steps: Ar
 				nx[cell[2]] = float(nx.get(cell[2], 0.0)) + w * (1.0 - p_win)
 		on = nx
 	return out / float(steps.size())
+
+
+## S547 PLANREAD2 (docs/PLANREAD2_RESULT.md): the walk as the ring fights a plan today. Every situation walks the chain,
+## her own trouble too (she_tired on the card she stands on, S466 - the read used to price it on "inside", where the tie-up
+## lives and where the ring never puts a tired boxer); her grade on every line (attrs, as LiveRound); and the opponent's
+## combo counter (ComboCounter, S540): a plan line thrown read_at times is read, each further throw is countered at
+## `chance` and that exchange is lost whatever the line was worth. cc = {move: expected throws so far}, carried across the
+## bout's rounds and changed in place (the caller fades it at the bell). Returns [edge per exchange, countered share per
+## exchange]: the caller takes the countered share off her exchange odds (PlanReadFit.countered).
+static func walk_ring(arrows: Array, moves: Dictionary, combos: Dictionary, steps: Array, p_win: float, bars: Dictionary, attrs: Dictionary, cc: Dictionary, read_at: int, chance: float, skip: Array = []) -> Array:
+	if arrows.is_empty() or steps.is_empty():
+		return [0.0, 0.0]
+	var sits := {}
+	for st in steps:
+		for sit in st:
+			sits[sit] = true
+	var t := _table(arrows, moves, combos, sits.keys(), bars, attrs)
+	var on := {"": 1.0}
+	var out := 0.0
+	var kap := 0.0
+	for st in steps:
+		var nx := {}
+		var thrown := {}
+		for card in on:
+			for sit in st:
+				var w := float(on[card]) * float(st[sit])
+				if w <= 0.0:
+					continue
+				var here := str(PlanFight.GAME_CARD.get(sit, "long")) if card == "" else str(card)
+				var cell: Array = t[here][sit]
+				if not skip.has(sit):
+					out += w * float(cell[0])
+				var fire := w * float(cell[4])
+				if fire > 0.0:
+					kap += fire * read_odds(float(cc.get(cell[3], 0.0)), read_at) * chance
+					thrown[cell[3]] = float(thrown.get(cell[3], 0.0)) + fire
+				nx[cell[1]] = float(nx.get(cell[1], 0.0)) + w * p_win
+				nx[cell[2]] = float(nx.get(cell[2], 0.0)) + w * (1.0 - p_win)
+		for mv in thrown:
+			cc[mv] = float(cc.get(mv, 0.0)) + float(thrown[mv])
+		on = nx
+	return [out / float(steps.size()), kap / float(steps.size())]
+
+
+## The chance a line already thrown `mean` times on the mean has been thrown at least `n` times (Poisson).
+static func read_odds(mean: float, n: int) -> float:
+	var term := exp(-mean)
+	var below := 0.0
+	for k in maxi(n, 0):
+		below += term
+		term *= mean / float(k + 1)
+	return clampf(1.0 - below, 0.0, 1.0)

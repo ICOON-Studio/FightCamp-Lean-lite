@@ -1,5 +1,15 @@
 # DESIGN_CORNERCMD1 - the corner commands (S544, the owner's spec)
 
+> **S548 - THE RING SLOT IS CUT (owner, board Q-330, asked "Corner ring calls (Cut the ring off, Stay off the ropes) add 0
+> wins in two probes. Cut them?": "Cut both").** The corner has the eight fight commands and no ring slider. Everything below
+> about the RING slot (the slider, `RING`, RING_SCALE, bar 6 "the ring slot is alive", the Fight screen row "RING slot") is
+> history, not design. The ring stays where it already pays: the plan's step lines (cut_off, herd, pivot_out, roll_out,
+> step_out) and the opponent file's "Cut the ring off" read. Measured: CORNERCMD1 and CORNERCMD2 (+0 in both; the reader
+> without the ring was +0.8 / +0.4 better, `docs/CORNERCMD2_RESULT.md`), and CORNERBASE1 ran every arm without it.
+> Against a coach who reads the file the live corner is worth about +10 wins in 100 (`docs/CORNERBASE1_RESULT.md`), bar 8
+> passes, bar 5 still fails (1-2 commands split the boxers, 4 needed).
+
+
 Spec: `ops/research/PUSH_KNOW_INTERVIEW_S543.md`, section THE SPEC (12 points) - his design. Brief: `ops/research/TASK_CORNERCMD1.md`.
 Probe: `tools/cornercmd1_probe.gd` + `tools/cornercmd1_rules.gd` (the commands as flagged local rules), `tools/cornercmd1_sum.py`.
 Result: `docs/CORNERCMD1_RESULT.md` (FAIL: bars 5, 6, 8 - a held command that gives wind back is free recovery; the coach

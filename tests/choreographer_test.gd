@@ -370,7 +370,7 @@ func _r14_waits() -> void:
 	_check(fidget_through == 0, "R14: no fidget plays into a punch of either man (%d)" % fidget_through)
 	_check(longest <= 4.2, "R14: nobody stands in the plain guard longer than 4.2 s (S531: was 2; the guard bounces, and nobody paws from out of reach any more) (longest %.2f s, %s)" % [longest, longest_at])
 	_check(still <= 4.5, "R14: the distance never holds still longer than 4.5 s (S531: was 2.2; the rock at rest is off, the wait bounces, a half step in every 4-7 s) (longest %.2f s)" % still)
-	_check(int(kinds.get("fidget", 0)) > 0 and int(kinds.get("paw", 0)) > 0 and int(kinds.get("cross_feint", 0)) > 0, "R14: fidgets, paws and feints are all planned (%s)" % str(kinds))
+	_check(int(kinds.get("fidget", 0)) > 0 and int(kinds.get("paw", 0)) > 0 and int(kinds.get("jab_feint", 0)) + int(kinds.get("cross_feint", 0)) + int(kinds.get("body_feint", 0)) > 0, "R14: fidgets, paws and feints are all planned (%s)" % str(kinds))
 	var plain := Choreo.plan([_beat("a", "jab", "lands", 5.0)], db, _opts({"waits": false}))
 	_check((plain["tracks"]["a"] as Array).filter(func(e): return str(e["kind"]) in ["fidget", "feint"]).is_empty(), "R14: waits off = the plan without them")
 
@@ -400,9 +400,13 @@ func _r15_sized() -> void:
 					jab_dropped += 1
 				_check(React.may_play(row, true), "R15: a dropped take plays only for a face tipped up within the allowance (%s)" % str(e.get("clip", "")))
 		mean[move] = sum / 20.0
-	_check(float(mean["jab"]) < float(mean["cross"]) and float(mean["cross"]) <= float(mean["lead_hook"]) + 0.03 and float(mean["body_hook"]) > float(mean["cross"]),
-		"R15: the hit head travels by the punch - jab %.2f < cross %.2f, hook %.2f, body %.2f m" % [float(mean["jab"]), float(mean["cross"]), float(mean["lead_hook"]), float(mean["body_hook"])])
-	_check(float(mean["jab"]) >= 0.09 and float(mean["cross"]) >= 0.17 and float(mean["body_hook"]) >= 0.26, "R15: ... and no punch gets a take under its floor")
+	_check(float(mean["jab"]) < float(mean["cross"]) and float(mean["cross"]) <= float(mean["lead_hook"]) + 0.03,
+		"R15: the hit head travels by the punch - jab %.2f < cross %.2f, hook %.2f m" % [float(mean["jab"]), float(mean["cross"]), float(mean["lead_hook"])])
+	_check(float(mean["jab"]) >= 0.09 and float(mean["cross"]) >= 0.17, "R15: ... and no punch gets a take under its floor")
+	# S547 BODYREACT2: a body punch is answered by the take that folds on the blow, not by head travel
+	var be := _react_of("body_hook", 0)
+	_check(React.fold_shown((rows.get(str(be.get("clip", "")), {}) as Dictionary).get("fold_g", []), float(be.get("from_s", 0.0)), React.BODY_FOLD_S, 30.0) >= React.BODY_FOLD_MIN_DEG,
+		"R15: a body punch's take folds on the blow (%s)" % str(be.get("clip", "")))
 	_check(jab_dropped == 0, "R15: a jab never plays a take the census dropped (%d)" % jab_dropped)
 	_check(not React.may_play({"drop": ["face tips up 34 deg"]}, true) and React.may_play({"drop": ["face tips up 29 deg"]}, true)
 		and not React.may_play({"drop": ["face tips up 29 deg"]}, false) and not React.may_play({"drop": ["face tips up 20 deg", "glove over the crown 9 frames"]}, true),

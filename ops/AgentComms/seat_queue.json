@@ -4717,8 +4717,32 @@
    "seat": "john",
    "brief": "research/CORNERREAL1_JOHN.md",
    "stem": "CORNERREAL1_JOHN_JOHN",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-24 06:08",
+   "tries": 0,
+   "sent_at": "2026-11-24 06:10",
+   "sent_ms": 1795493423428,
+   "answered_at": "2026-11-24 07:10",
+   "answer": "research/CORNERREAL1_JOHN_JOHN.md",
+   "chars": 34046,
+   "seen_by_claude": true
+  },
+  {
+   "id": "SQ323",
+   "seat": "kalli",
+   "brief": "research/CRITIC_COACHMAP1_BRIEF.md",
+   "stem": "CRITIC_COACHMAP1_BRIEF_KALLI",
+   "status": "queued",
+   "queued_at": "2026-11-24 12:08",
+   "tries": 0
+  },
+  {
+   "id": "SQ324",
+   "seat": "dola",
+   "brief": "research/CRITIC_COACHMAP1_BRIEF.md",
+   "stem": "CRITIC_COACHMAP1_BRIEF_DOLA",
+   "status": "queued",
+   "queued_at": "2026-11-24 12:08",
    "tries": 0
   }
  ]
