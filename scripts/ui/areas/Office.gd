@@ -21,6 +21,7 @@ const Tip := preload("res://scripts/ui/Tip.gd")
 const Bar := preload("res://scripts/ui/Bar.gd")
 const OfficeGoals := preload("res://scripts/ui/OfficeGoals.gd")
 const OfficeSheet := preload("res://scripts/ui/OfficeSheet.gd")
+const OfficeMail := preload("res://scripts/ui/OfficeMail.gd")   # S544: Mail is a window of this computer
 
 const BG := Palette.PAGE
 const PANEL := Palette.CARD
@@ -46,12 +47,23 @@ const CARD_W := 196
 const MAX_CHIPS := 4
 const MAX_STAFF := 3
 const FOOT := "Click an app or any card to open it. The one pulsing button is the decision due first."
+const MAIL_FOOT := "A blue dot is mail that arrived since your last look. Click a name to open that boxer or club."
 const SHEET_FOOT := "Click a heading to sort. Right-click a name for what you can do."
 
-## "desk" (the dashboard) or "sheets"; `_seen` = how long Main's history was at the last build (a fresh arrival from the
+## S544: `open_as` = the window the next build opens on ("mail": Main's "mail" act, from the top bar or anywhere), and
+## `mail_fresh` = how many club mails were unread when Mail was opened (the dots; the act zeroes Career.unread).
+static var open_as := ""
+static var mail_fresh := 0
+## "desk" (the dashboard), "sheets" or "mail"; `_seen` = how long Main's history was at the last build (a fresh arrival from the
 ## gym shows the dashboard; Back from a page the sheet opened returns to the sheet).
 static var view := "desk"
 static var _seen := 0
+
+## Main's "mail" act: the next build opens on the Mail window; the unread count becomes the blue dots and is cleared.
+static func open_mail(c: Career) -> void:
+	mail_fresh = c.unread
+	open_as = "mail"
+	c.unread = 0
 
 func build(main: Node) -> void:
 	var c: Career = main.career
@@ -59,6 +71,9 @@ func build(main: Node) -> void:
 	if trail.size() > _seen and not trail.is_empty() and str(trail[-1].get("area", "")) != "office":
 		view = "desk"
 	_seen = trail.size()
+	if open_as != "":
+		view = open_as
+		open_as = ""
 	add_theme_constant_override("separation", 0)
 	size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	# S498 ONELOOK1 (operator: "how do you call this consistent ?"): the office sits on the one gym wall like every page -
@@ -78,7 +93,7 @@ func build(main: Node) -> void:
 	body.add_child(pad)
 	pad.add_child(_window(main, c, cards))
 	var fm := _margin(136, 0, 0, 10)
-	fm.add_child(_nm(UI.label(FOOT if view == "desk" else SHEET_FOOT, 16, DIM), "OfficeFoot"))
+	fm.add_child(_nm(UI.label({"desk": FOOT, "mail": MAIL_FOOT}.get(view, SHEET_FOOT), 16, DIM), "OfficeFoot"))
 	v.add_child(fm)
 
 ## The OS strip: crest, club name, date and week, cash.
@@ -102,7 +117,7 @@ func _dock(main: Node, c: Career, cards: Array) -> Control:
 	var flagged := cards.filter(func(x): return str(x["tone"]) == "r").size()
 	for a in APPS:
 		var word := str(a[0])
-		var on := SHEET_APPS.has(word) if view == "sheets" else word == "Desktop"
+		var on := SHEET_APPS.has(word) if view == "sheets" else (word == "Mail" if view == "mail" else word == "Desktop")
 		var b := _button(word, PANEL2, AMBER if on else LINE, 16, 2 if on else 1, AMBER if on else DIM, 2)
 		b.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 		b.name = "App_" + word.to_lower()
@@ -146,12 +161,18 @@ func _window(main: Node, c: Career, cards: Array) -> Control:
 	var bar := _panel("WindowBar", UI.box(BG, LINE, 0, 0, 18, 6), Control.SIZE_FILL, Vector2(0, 44))
 	var bh := UI.hbox(14)
 	bar.add_child(bh)
-	bh.add_child(UI.label("THIS WEEK AT THE CLUB" if view == "desk" else "FIGHTERS AND STAFF", 20, INK, "caps"))
+	bh.add_child(UI.label({"desk": "THIS WEEK AT THE CLUB", "mail": "MAIL"}.get(view, "FIGHTERS AND STAFF"), 20, INK, "caps"))
 	v.add_child(bar)
 	var grid := _margin(18, 14, 18, 14)
 	v.add_child(grid)
 	var rows := UI.vbox(14)
 	grid.add_child(rows)
+	if view == "mail":   # S544: the mail window, inside the desktop
+		win.size_flags_vertical = Control.SIZE_EXPAND_FILL
+		grid.size_flags_vertical = Control.SIZE_EXPAND_FILL
+		rows.size_flags_vertical = Control.SIZE_EXPAND_FILL
+		rows.add_child(OfficeMail.build(main, c, mail_fresh))
+		return win
 	if view == "sheets":
 		bh.add_child(UI.label("sheets inside the desktop", 16, DIM, "semi"))
 		rows.add_child(OfficeSheet.build(main))

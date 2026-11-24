@@ -167,7 +167,8 @@ static func _boxer(f: Dictionary, c: Career = null) -> Control:
 	var name_l := UI.display(nm, name_px, Palette.TEXT)
 	TextScale.fit(name_l, LEFT_W, name_px, 30)   # S494: at the Largest text size the name pushed the page past 1920
 	col.add_child(name_l)
-	col.add_child(UI.label("%s, %d, %s, amateur %d-%d" % [f["wc"], f["age"], f["stance"], f["w"], f["l"]], UI.BODY, SOFT, "semi", true))
+	var rec := "pro %d-%d, amateur %d-%d" % [int(f.get("pro_w", 0)), int(f.get("pro_l", 0)), f["w"], f["l"]] if bool(f.get("pro", false)) else "amateur %d-%d" % [f["w"], f["l"]]
+	col.add_child(UI.label("%s, %d, %s, %s" % [f["wc"], f["age"], f["stance"], rec], UI.BODY, SOFT, "semi", true))
 	# S437 RANKSHOWUI: where she stands, always: a number, or how many wins from a number (RankLine's own words).
 	var standing: Control = RankRow.build(c, f) if c != null else null
 	if standing != null:
@@ -175,9 +176,12 @@ static func _boxer(f: Dictionary, c: Career = null) -> Control:
 		col.add_child(standing)
 	col.add_child(condition(f))
 	col.add_child(loyalty(f, c.day if c != null else -1))
+	var pro: Array = load("res://scripts/ui/ProBars.gd").rows(f, LEFT_W)   # S544: confidence, hunger, patience, the warning
+	for r in pro:
+		col.add_child(r)
 	var holder := Control.new()
 	# S430 (operator: "this screen on the bottom is clipped"): 690 pushed the goal and body row off a 1080 screen.
-	holder.custom_minimum_size = Vector2(LEFT_W, 560)
+	holder.custom_minimum_size = Vector2(LEFT_W, 560 - 36 * pro.size())   # S544: the pro rows take their height from the picture, never from the page
 	holder.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	holder.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var pic: Control = RosterCards.stance_body(f)

@@ -1,70 +1,70 @@
-# S544 handover (written 2026-11-23 ~22:40, end of S543 - Fable)
+# S545 handover (written 2026-11-24 about 02:00, end of S544 - Fable)
 
-Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. Digest: ops/research/S543_DIGEST.md.
+Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. Digest: ops/research/S544_DIGEST.md.
 
 ## METHOD lines - quote all of them in your first message
-- ORDER (owner S542: "restyling isnot important i want to finish with all pending mechanics then focus on the 3d and
-  menus"): pending mechanics first, THEN 3D and menus. No look / restyle question to him until then. Ask before launching a
-  new animation item (PICSFIX1 below is his own "Yes, fix them now").
-- TELLS FIRST (S543 TURNPROBE18, checked in code): a plan line the player writes against an opponent's tell adds about 1
-  point over the coach's plan, because a tell does not change how the opponent fights. No new design round whose central
-  idea is "the player answers the tell" (turning pro's matchup rule, scouting the opponent's file, the push switch's
-  openings) until TELLPLAY1 is measured: `ops/research/TELLPLAY_SCOPE_S543.md`.
-- CARD GAME, REAL FIGHT FIRST (owner S543: "very quickly drafted without any attention to how a a real fight is done"):
-  no round 9 feature, screen or balance work until the real sequences are researched and every card is audited against
-  them: `ops/research/CARDREAL_SCOPE_S543.md`. Each new or changed move names the real sequence it follows.
-- MECHANICS NEED 8 (owner S534): 8+ DEPTH and 8+ PLAY from two fresh critics, after the probe; under 8 -> his cut-or-keep.
-- DEPTH IS MEASURED, FUN IS HIS PLAY (owner S543: "depth can be judged and compared , i will play to judge the fun").
-- FREE HAND (owner S534): remove / add / interconnect to reach 8, then report.
-- A DESIGN PAGE GOES TO A CODE-CHECKED CRITIC FIRST (S543: the depth-prices page had five wrong code claims and both its
-  probes had passed by construction; the code-checked critic found it in six minutes).
-- RUN THE FULL SIZE BEFORE A VERDICT. FEEDBACK LOOPS in every design/probe brief (claude_cm.ps1 refuses without).
-- AGENTS ONLY IN THE CONSOLE (owner S541): `mcp__terminal__run_in_terminal` with `powershell -NoProfile -ExecutionPolicy
-  Bypass -File ops\Tools\claude_cm.ps1 --model <model> --permission-mode auto "<brief>"`. At most 3 at once.
-- A DESIGN THAT KEEPS FAILING: interview the owner on the dilemma (grilling skill) before another round.
-- HIS GAME FIRST (S537): ArcheAge running -> no new jobs on AMBER/RED memory. At handover the watchdog was RED (memory
-  93%, ArcheAge open): nothing could be launched and no build was exported.
+- A DECISION SCREEN IS A SCENE, AND A CLICK SHOWS WHAT CHANGED (owner S544: "looks like spreadheet you need to use art
+  you are an experienced AAA game designer"; "i click turn pro now , i expect to see what changed , bring up the players
+  profile show me what is new"). A decision screen = a picture of the moment + the choices as cards with a painting and
+  at most four plain facts; never rows of key/value as the main content. After a decision button, the player lands where
+  the change lives, sees before -> after with NEW marked, and one pulsing next action. Pattern to reuse:
+  `scripts/ui/ProScene.gd`, `modals/ProOffer.gd`, `modals/ProNews.gd`, `WhatsNew.gd`, `ProBars.mark`.
+- NOTHING CUT BY THE SCREEN (owner S544: "why half the screen isout of bounds"). Before a screen change is merged or
+  exported: `tools/jump_snapshot.gd` on the hidden desktop with `--log` (BOUNDS lines; headless sizes are wrong), and
+  open the real picture. A worker's stills are checked for both of these lines before the merge.
+- ORDER (owner S542): pending mechanics first, THEN 3D and menus. His own play notes on a screen are fixed at once.
+- NO DESIGN ROUND ON A PLAN LINE THE PLAYER ADDS until PLANWORTH1 is measured (TELLPLAY1 FAIL: under 1 point in the
+  ring; `ops/research/TELLPLAY_SCOPE_S543.md`). Judge on real bouts (`BoutNight.play_out`), never on the read alone.
+- A WORKER'S NUMBERS CAN BE RIGHT AND ITS WHY WRONG: open the code lines a "why" stands on before it becomes a question
+  to the owner.
+- CARD GAME, REAL FIGHT FIRST: each new or changed move names the audit row it follows (`ops/research/CARDREAL_AUDIT.md`).
+- MECHANICS NEED 8 (owner S534), probe first, then a code-checked critic, then the chat critics. DEPTH is measured, FUN
+  is his play. FREE HAND to remove / add / interconnect, then report.
+- A DESIGN THAT KEEPS FAILING gets a stop rule in its brief (COACHDEEP9) or an interview with him.
+- AGENTS ONLY IN THE CONSOLE: `mcp__terminal__run_in_terminal` with `powershell -NoProfile -ExecutionPolicy Bypass -File
+  ops\Tools\claude_cm.ps1 --model claude-opus-5-5 --permission-mode auto "<brief>"`. At most 3 at once.
+- HIS GAME FIRST: ArcheAge running + memory AMBER = two Godot slots; my renders and tests queue behind the probes.
 - FIGHT ANIMATION: v2 only, no new correction layer. Board questions 20 words max. Commit by pathspec.
 
-## FIRST: collect the three workers (console tabs c4, c5, c6 of the S543 desktop session; read results from the files)
-1. TELLPLAY1 (tab c4) -> `docs/TELLPLAY1_RESULT.md`. Brief `ops/research/TASK_TELLPLAY1.md`, seven bars. PASS -> two critics,
-   one code-checked FIRST; FAIL -> the one change. It unblocks turning pro's matchup rule and the commands' baits.
-2. TURNPROBUILD17 (tab c5) -> branch `build/turnpro17`, worktree `E:\FightCamp\wt\TURNPROBUILD17`,
-   `docs/TURNPROBUILD17_RESULT.md` there. The owner: "Yes, build v17 now". Merge by DIFF onto main (read the deleted and
-   rewritten tests list first), run the tests it names, open its four stills, export, WHAT_TO_TRY, he plays.
-   Step 1 is on main: `scripts/rules/ProStart.gd` + `tests/pro_start_test.gd`.
-3. COACHDEEP8 (tab c6) -> `docs/COACHDEEP8_RESULT.md`. v7 failed 4 of 7 each by one cell; v8 = its three named changes.
-   PASS -> the worker queues Kalli and Dola; launch a code-checked critic. Then build step 1 of his order (cut the
-   class-or-pads rule in `scripts/rules/CoachRoles.gd`). Carry the finding: `BoutRead.chance` ignores the corner coach.
+## FIRST: collect what is running (read the result files; the tabs belong to the S544 desktop session)
+1. CORNERCMD1 (tab c3; owner "yes start the probe", Q-325) -> `docs/CORNERCMD1_RESULT.md`. Step 0 measures today's eight
+   calls on real bouts; then nine bars. PASS -> the worker queues Kalli and Dola; launch a code-checked critic FIRST.
+   FAIL -> which bar and the one change, to him (it is his design).
+2. PLANWORTH1 (tab c4) -> `docs/PLANWORTH1_RESULT.md`: question 1 (does one written line switch the coach's plan off?)
+   then six findings bars. Take the numbers to the owner in plain words: (a) designing the plan pays, (b) it pays but the
+   tape adds nothing, (c) it barely beats the coach's. Only then a design question.
+3. Arena CARDROUND9 (chat 01a20a6d-3a1b-79dc-a475-e858f591a0d9, branch arena/f591a0d9-fightcamp-lean-lite): its PR
+   relays from the lite mirror. Read the CI log yourself, `ci_arena.py guard`, apply the diff. Then PLAY BOTH ARTS BY HAND
+   and write down each move that does not look like a fight, before the owner is asked.
+4. Seat answers (ARRIVED at the end of S544, filed UNREAD): Kalli scored the paper model real 6, depth 5, play 6
+   (the knockdown is missing, and the punches a fan expects). Read both critics, take their changes into a round 9b for
+   Arena BEFORE the owner is asked to play. SQ320 Dola, SQ321 Kalli (`CRITIC_CARDREAL_BRIEF.md`: the paper model; their 10/10 first screens are
+   the input for card round 10, the screen); SQ319 John (`CARDREAL2_JOHN_BRIEF.md`: judo, wrestling, sambo, karate -
+   check sources, then the same audit for those arts).
 
-## SECOND: launch what is briefed and waiting for a slot (watchdog not RED)
-- PICSFIX1 (`ops/research/TASK_PICSFIX1.md`): the owner's "Yes, fix them now" on the two fight-picture defects. FIRST free slot.
-- CORNERCMD1 (`ops/research/TASK_CORNERCMD1.md`): the corner commands, map + probe. The spec is
-  `ops/research/PUSH_KNOW_INTERVIEW_S543.md` (THE SPEC, 12 points). He was asked to confirm the spec before the probe
-  launches and had not answered at handover: ask once, then launch.
-- EXPORT: `sh tools/export.sh` was NOT run in S543 (watchdog RED). On main and not yet in a build: the fight-week load
-  cut, the fight-week tank fix, the rank test fix. `docs/WHAT_TO_TRY.txt` has the S543 section ready.
+## SECOND: launch
+- COACHDEEP9 (`ops/research/TASK_COACHDEEP9.md`): first free worker slot. Its STOP RULE is the coordinator's to apply:
+  a forced moment that fails bar 3 again is cut as a player decision; no v10.
 
-## THIRD: seat answers and the card game
-- SQ316 Kalli, SQ317 Dola on `CRITIC_DEPTHPRICE1_BRIEF.md`: sent before the code check; the page was wrong (see its
-  correction note). Read them for ideas on the sponsorship budget only.
-- SQ318 John, `CARDREAL1_JOHN_BRIEF.md` (the real sequences, boxer against jiu-jitsu fighter): check his sources, then
-  phase 2 of `CARDREAL_SCOPE_S543.md` (the card-by-card audit, a console worker). `CARD_R8_OWNER_PLAY_S543.md` holds his
-  words and the seven screen fixes that come AFTER the real-fight work.
+## THIRD: his play
+- The S544 build (second export) is in `Builds/`. `docs/WHAT_TO_TRY.txt` leads with six points (A-F). Board buttons:
+  Pro: the call / safe or risky / rival gym calls / hunger gone. His play notes are fixed the same session.
+- Shown to him as pictures: `docs/playtest/s544_turnpro/` (the call, the rival call, a pro from today, not yet, the
+  profile, Mail in the office); on 8787/review: v17's first screens and the fight pictures' contact sheets.
 
 ## Then, in his order (mechanics first)
-- KNOWBUILD1: build step 1 of knowledge v9 (the signing card: ranges, two dates, three calls; each trial evening the
-  player picks tomorrow's question; no "sign short") - his K1-K4 answers in the interview file. After the v17 build.
-- DEPTH1: sponsorship as ONE budget split across the boxers (the code-checked critic's proposal,
-  `DESIGN_DEPTHPRICE1_CRITIC_OPUS.md` section 3); the loan's timing. The fight-week load is CUT (Q-324).
-- PROGBUILD1 (a better pads coach: rides on coaches v8). Then 3D and menus.
-- Nightly reds left for the main session: `palette_guard_test` (FightPictures.gd, 11 raw colours: in PICSFIX1),
-  `move_tip_test` (animation, held), `plan_templates_test` + `matchmaking_bots_test` (NIGHTREDS1, queued for grok).
+- KNOWBUILD1: step 1 of knowledge v9 (the signing card) - as a SCENE (the METHOD line), with what changed after signing.
+- DEPTH1: sponsorship as one budget split across the boxers; the loan's timing.
+- PROGBUILD1 (rides on coaches). Then 3D and menus; the map holds "3D fight: staged exchanges (E33)" for that phase.
+- Apply the scene + what-changed pattern to the other decision pop-ups as they are touched (bout offer, weigh-in miss,
+  the club show booking, the hire): not a restyle sweep, one screen when its mechanic is worked on.
+- Known gaps: a blocked body punch is caught at chest height in the pictures (no elbow-down block clip); the nightly
+  reds `plan_templates_test` and `matchmaking_bots_test` (NIGHTREDS1, no seat took it).
 
 ## Waiting on the owner
-- His confirmation of the 12-point corner commands spec.
-- About a dozen finished worker processes hold ~3.5 GB (he closes the tabs; never Stop-Process without his yes; never
-  the three running tabs c4, c5, c6).
+- His play of the S544 build. Nothing else.
+- Finished worker tabs from S543 and S544 hold memory (he closes tabs; never Stop-Process without his yes).
 
-## Model for S544
-Opus 5.5, medium effort, Fast off: three collections, one merge by diff and two launches; Opus workers for the probes.
+## Model for S545
+Opus 5.5, medium effort, Fast off: collections, one launch, and his play notes; Fable for a design conversation if
+PLANWORTH1 says the plan barely beats the coach's.

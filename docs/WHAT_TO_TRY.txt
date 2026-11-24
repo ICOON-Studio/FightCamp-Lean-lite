@@ -1,3 +1,20 @@
+S544 build, second export (2026-11-24, 02:00) - your four play notes, fixed
+
+A. THE PROMOTER'S CALL IS A SCENE (your "looks like spreadheet you need to use art"): the boxer stands in the signing
+   office with the promoter's ticket; the two answers are cards with a painting, a name and a few plain facts each.
+   Hover a fact for its detail (the licence breakdown, who buys the tickets, the four-weeks-on odds).
+B. AFTER THE CLICK YOU SEE WHAT CHANGED (your "i expect to see what changed , bring up the players profile"): Turn pro now
+   opens the boxer's profile with "A PRO FROM TODAY" over it - pro 0-0 (was amateur 9-1), $1,500 a fight (was $250 a
+   week), what was paid, the two new bars - and one button, Pick the first pro fight. Not yet does the same with what it
+   cost. Close it and Confidence and Hunger carry a NEW mark on the profile.
+C. THE PROFILE FITS THE SCREEN (your "half the screen isout of bounds"): Confidence and Hunger are two bars under Loyalty;
+   the page-wide TURNING PRO strip is gone.
+D. MAIL OPENS INSIDE THE OFFICE COMPUTER (your "i am not inside the computer in the office screen"): the Mail button, from
+   anywhere, opens the office computer's Mail window - Inbox with a blue dot on what is new, Around the region beside it.
+E. THE FIGHT PICTURES (your "Yes, fix them now"): in "Watch it in pictures" no body goes through a body and a blocked
+   punch ends on the glove or the forearm. Known gap: a blocked body punch is still caught at chest height.
+F. FOUR BOARD BUTTONS under Play the game > Straight to: Pro: the call / safe or risky / rival gym calls / hunger gone.
+
 S544 build (2026-11-24, night) - what changed, and what to try
 
 1. TURNING PRO, YOUR DESIGN (your "Yes, build v17 now"): at 9 amateur wins (or 7 and a regional top 3) ONE promoter calls.

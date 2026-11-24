@@ -370,9 +370,9 @@ func act(name: String, arg: String = "") -> void:
 			render()
 		"pausebtn":
 			pause()
-		"mail":
-			career.unread = 0
-			nav({"area": "world", "tab": 0})
+		"mail":   # S544 owner: "i click mail and i am not inside the computer in the office screen ?" - the office computer's Mail window
+			load("res://scripts/ui/areas/Office.gd").open_mail(career)
+			nav({"area": "office", "tab": 0})
 		"interview":
 			open_modal({"type": "interview", "picks": []})
 		"pickcard":

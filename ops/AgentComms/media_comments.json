@@ -3816,6 +3816,49 @@
       "at": "2026-11-23T12:31:59Z",
       "seen_by_claude": true,
       "id": "C494"
+    },
+    {
+      "id": "C495",
+      "path": "media:_sent/2026-11-24_0024_turning_pro_v17_in_the_game_the_offer_th/01_pro_offer_real.png",
+      "text": "MARKUP: 1 marks -> Feedback/2026-11-24-01/README.md",
+      "at": "2026-11-23T22:33:52Z",
+      "seen_by_claude": false
+    },
+    {
+      "id": "C496",
+      "path": "media:_sent/2026-11-24_0024_turning_pro_v17_in_the_game_the_offer_th/01b_rival_call_real.png",
+      "text": "MARKUP: 1 marks -> Feedback/2026-11-24-02/README.md",
+      "at": "2026-11-23T22:37:28Z",
+      "seen_by_claude": false
+    },
+    {
+      "path": "_sent/2026-11-24_0024_turning_pro_v17_in_the_game_the_offer_th/02_boxer_card_real.png",
+      "text": "ok",
+      "at": "2026-11-23T22:37:53Z",
+      "seen_by_claude": false,
+      "id": "C497"
+    },
+    {
+      "path": "_sent/2026-11-24_0024_turning_pro_v17_in_the_game_the_offer_th/03_booking_pair_real.png",
+      "text": "shouldnt this be inside the computer in the offece menu ?",
+      "at": "2026-11-23T22:38:42Z",
+      "seen_by_claude": false,
+      "id": "C498"
+    },
+    {
+      "path": "_sent/2026-11-24_0024_turning_pro_v17_in_the_game_the_offer_th/04_result_real.png",
+      "text": "ok",
+      "at": "2026-11-23T22:39:26Z",
+      "seen_by_claude": false,
+      "id": "C499"
+    },
+    {
+      "path": "_sent/2026-11-23_2006_body_cross_lands_on_the_ribs/bodycross_before_after_m.mp4",
+      "text": "the punch in the stomach does not reach opponent and the motion reads more like he is trying to touch hime rather than punch him and hurt him",
+      "at": "2026-11-23T22:41:39Z",
+      "seen_by_claude": false,
+      "at_s": 27.8,
+      "id": "C500"
     }
   ]
 }

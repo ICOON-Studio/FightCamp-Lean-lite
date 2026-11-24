@@ -70,6 +70,14 @@ Claude decides design and integrates; the operator approves (D49: Ludo makes ass
   class nights, uncapped): every design/probe brief has `## Feedback loops` - what the change feeds, whether that feeds back,
   the cap on each loop, a one-rep trial run before the full probe. `ops/Tools/claude_cm.ps1` refuses the launch without it.
 - EVERY NEW MECHANIC: WIRED, SHOWN, 7+ (operator S425: "i expect all new mechanics to be wired and shown properly on the correct menus and be deep enough for a critics +7/10"): a design map reaches his board only once two fresh critics score its depth 7 or more (a lower score = another round, never the board); the map carries a table of every menu the mechanic appears on and what each is wired to; the build is done only when each of those menus shows it in the .exe and one golden-path test walks it end to end.
+- A DECISION SCREEN IS A SCENE, AND A CLICK SHOWS WHAT CHANGED (owner S544, on the turning pro pop-up a worker built to the
+  rule above: "this is still confusing and looks like spreadheet you need to use art you are an experienced AAA game
+  designer"; then "i click turn pro now , i expect to see what changed , bring up the players profile show me what is new";
+  then "why half the screen isout of bounds"). A decision screen is a picture of the moment with the choices as cards (a
+  painting, a name, at most four plain facts, its own button; details on hover) - never rows of key/value as its main
+  content. After the click the player lands where the change lives, sees before -> after with NEW marked and one pulsing
+  next action. No card is cut by the bottom of a 1080 screen: `tools/jump_snapshot.gd` on the hidden desktop prints BOUNDS.
+  A worker's stills are checked for all three before a merge. Pattern: `scripts/ui/ProScene.gd`, `modals/ProNews.gd`.
 - At most 3 PC agents at once (watchdog; S419 operator: "i think thepc can handle more, change the rule ?" - seat_dispatch MAX_PC_AGENTS 2 -> 3; Godot jobs in godot_slot: GREEN 6 (owner S536 "can you get more going in parallel ?"; 4 since S534), all on the same 8 threads (S536 "Yes, use 8"), AMBER 2, RED 0), cloud seats unlimited. Every brief names its owned files, the one test command,
   and stays under the 500-line rule.
 

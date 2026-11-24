@@ -5,6 +5,7 @@ extends RefCounted
 const GymSpend := preload("res://scripts/state/GymSpend.gd")
 const Recruit := preload("res://scripts/rules/Recruit.gd")
 const Roster := preload("res://scripts/state/Roster.gd")
+const WhatsNew := preload("res://scripts/ui/WhatsNew.gd")   # S544: after a decision, the profile shows what changed
 const FirstHour := preload("res://scripts/rules/FirstHour.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const VisitWire := preload("res://scripts/state/VisitWire.gd")
@@ -84,16 +85,26 @@ static func act(main: Node, name: String, arg: String) -> bool:
 		"prooffer":
 			if not c.pro_offer.is_empty():
 				main.open_modal({"type": "prooffer", "fid": c.pro_offer["fid"]})
-		"turnpro":
+		"turnpro":   # S544 (owner: "i expect to see what changed , bring up the players profile"): the profile, what is new on it
+			var cash_was: int = c.cash
 			var f := Roster.turn_pro(c)
 			main.close_modal()
 			if f.is_empty():
 				return true
-			main.toast("%s is a pro. Debut on %s: pick the bout on Fights." % [f["first"], Clock.fmt(int(f["pro_due"]))])
-		"declinepro":   # S543 v17 "Not yet": a patience mark, the offer back in four weeks
+			var pn := WhatsNew.news_pro(c, f, {"cash": cash_was})
+			main.act("fighter", str(f["id"]))
+			main.route["new"] = pn
+			main.open_modal({"type": "pronews", "fid": str(f["id"]), "news": pn})
+		"declinepro":   # S543 v17 "Not yet": a patience mark, the offer back in four weeks; S544 the profile shows what it cost
+			var wf: Dictionary = c.fighter_by_id(str(c.pro_offer.get("fid", "")))
+			var hunger_was := int((wf.get("pro_start", {}) as Dictionary).get("hunger", 0))
 			Roster.decline_pro(c)
 			main.close_modal()
-			main.toast("Not yet: the promoter calls again in %d weeks." % Roster.ProStart.NOT_YET_WEEKS)
+			if not wf.is_empty() and c.pro_offer.is_empty():
+				var wn := WhatsNew.news_wait(c, wf, {"hunger": hunger_was})
+				main.act("fighter", str(wf["id"]))
+				main.route["new"] = wn
+				main.open_modal({"type": "pronews", "fid": str(wf["id"]), "news": wn})
 		"rivalgo":   # S543 v17: the rival gym's call refused - the boxer leaves for good
 			Roster.refuse_rival(c)
 			main.close_modal()

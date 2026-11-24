@@ -14,6 +14,7 @@ const FIGHT := preload("res://scenes/modals/FightNight.tscn")
 const GOALTALK := preload("res://scenes/modals/GoalTalk.tscn")
 const TRIAL := preload("res://scenes/modals/Trial.tscn")
 const PROOFFER := preload("res://scenes/modals/ProOffer.tscn")
+const PRONEWS := preload("res://scenes/modals/ProNews.tscn")   # S544: what a turning-pro decision changed
 const POSTER := preload("res://scenes/modals/PosterReveal.tscn")
 const OPEN_NIGHT := preload("res://scenes/modals/OpenNight.tscn")
 const FIGHT_WEEK := preload("res://scenes/modals/FightWeek.tscn")
@@ -39,7 +40,7 @@ static func render_modal(main: Node) -> void:
 	center.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	main._modal_layer.add_child(center)
 	var scene: PackedScene = {"interview": INTERVIEW, "review": REVIEW, "info": INFO, "camp": CAMP, "weighin": WEIGH,
-		"fight": FIGHT, "goaltalk": GOALTALK, "trial": TRIAL, "prooffer": PROOFFER, "poster": POSTER, "open": OPEN_NIGHT, "fightweek": FIGHT_WEEK}[main.modal["type"]]
+		"fight": FIGHT, "goaltalk": GOALTALK, "trial": TRIAL, "prooffer": PROOFFER, "pronews": PRONEWS, "poster": POSTER, "open": OPEN_NIGHT, "fightweek": FIGHT_WEEK}[main.modal["type"]]
 	var node := scene.instantiate()
 	center.add_child(node)
 	node.build(main, main.modal)

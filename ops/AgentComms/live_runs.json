@@ -13,16 +13,6 @@
    "eta": "about 2-3 h",
    "note": "S544: research/TASK_CARDROUND9.md, spec = research/CARDREAL_AUDIT.md section 4; lite mirror f93fa300; its PR relays to an arena/* PR here; Claude plays both arts by hand before the owner"
   },
-  "PICSFIX1": {
-   "id": "PICSFIX1",
-   "status": "running",
-   "started": "2026-11-24T00:01",
-   "title": "Fight pictures (your 'Yes, fix them now'): no body through a body, a blocked glove on the block, a landed glove on the near side; both sets re-rendered",
-   "seat": "claude",
-   "agent": "claude-opus-5-5 (console tab PICSFIX1 of the S544 session)",
-   "eta": "about 2-3 h",
-   "note": "S544: research/TASK_PICSFIX1.md; windowed renders on the hidden desktop, one at a time"
-  },
   "CORNERCMD1": {
    "id": "CORNERCMD1",
    "status": "running",

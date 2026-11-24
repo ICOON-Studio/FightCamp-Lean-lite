@@ -1,18 +1,18 @@
 {
  "_note": "SINGLE SOURCE OF TRUTH for the roadmap. The ops board reads this file directly and ROADMAP.md is GENERATED from it by Tools/render_roadmap.py. Do not hand-maintain a second copy anywhere - that is the defect R136/U62 named and it has cost this project eight times.",
- "updated": "2026-11-23",
+ "updated": "2026-11-24",
  "author": "claude S294",
  "now": {
-  "id": "S543",
+  "id": "S544",
   "owner": "claude",
-  "updated": "2026-11-23",
-  "summary": "S543 (Fable) HANDOVER. METHOD: TELLS FIRST (a plan line against an opponent's tell adds about 1 point; research/TELLPLAY_SCOPE_S543.md) and CARD GAME, REAL FIGHT FIRST (research/CARDREAL_SCOPE_S543.md). Owner: 'Yes, build v17 now' (turning pro: TURNPROBUILD17 on branch build/turnpro17), 'cut the fight week load choice' (done), 'Yes, fix them now' (fight pictures: PICSFIX1 briefed), interview three rounds: the push switch becomes his ten corner commands in two slots (research/PUSH_KNOW_INTERVIEW_S543.md), knowledge K1-K4 answered. Fixed: the fight-week screen shows the tank the bout uses. Turning pro v18 stopped at its first check; depth prices failed a code check; FWLOAD2 FAIL; coaches v7 FAIL 4 of 7 by one cell each -> COACHDEEP8. Running at handover: TELLPLAY1, TURNPROBUILD17, COACHDEEP8 (console tabs c4, c5, c6 of the S543 desktop session). Briefed, not launched (watchdog RED, cap 3): PICSFIX1, CORNERCMD1. NO BUILD EXPORTED.",
-  "next_action": "S544: see NEXT_SESSION_PROMPT.md (collect TELLPLAY1, TURNPROBUILD17, COACHDEEP8; launch PICSFIX1 and CORNERCMD1; export; John's card research)",
-  "last_working_commit": "d10c681eb",
-  "verified_playable": "Builds/FightCamp.exe S542 (21:15). S543's fight-week tank fix and load cut are on main, tests green, NOT exported.",
-  "incomplete_blocked": "Export blocked by the watchdog (RED: memory 93%, the owner's ArcheAge running). Turning pro v17 build in flight on a branch. Corner commands probe waits for his confirmation of the spec.",
-  "next_acceptance": "The v17 build merged by diff, exported, and played by him; TELLPLAY1 measured; PICSFIX1 pictures pass their gate and his eye.",
-  "awaiting_operator": "His confirmation of the 12-point corner commands spec (PUSH_KNOW_INTERVIEW_S543.md)."
+  "updated": "2026-11-24",
+  "summary": "S544 (Fable) HANDOVER. METHOD: A DECISION SCREEN IS A SCENE AND A CLICK SHOWS WHAT CHANGED (owner: 'looks like spreadheet you need to use art', 'i click turn pro now , i expect to see what changed'); NO DESIGN ROUND ON A PLAN LINE THE PLAYER ADDS until PLANWORTH1 is measured (TELLPLAY1 FAIL: under 1 point in the ring; research/TELLPLAY_SCOPE_S543.md); CARD GAME, REAL FIGHT FIRST (audit done, round 9 on Arena). Built and exported: turning pro v17 merged, the fade answer on the cards fixed, the call as a scene with art, the what-changed pop-up, the profile inside the screen, Mail inside the office computer, the fight pictures fixed (PICSFIX1), four board jump buttons. Coaches v8 FAIL 4 of 7 -> COACHDEEP9 briefed with a stop rule. Owner: 'yes start the probe' (corner commands).",
+  "next_action": "S545: see NEXT_SESSION_PROMPT.md (collect CORNERCMD1, PLANWORTH1, Arena card round 9, the two card critics, John; launch COACHDEEP9; his play of the build)",
+  "last_working_commit": "8d3ae3c1d",
+  "verified_playable": "Builds/FightCamp.exe S544 second export (2026-11-24): the exported game reaches the pro jumps headless with no script error; 24 UI tests + 35 rule tests green.",
+  "incomplete_blocked": "CORNERCMD1 and PLANWORTH1 probes running in console tabs; Arena on card round 9; COACHDEEP9 briefed, not launched (worker cap, the owner's game open).",
+  "next_acceptance": "He plays the S544 build: the call, the pick of two bouts, the bars, Mail in the office. PLANWORTH1 says what a whole plan is worth; CORNERCMD1 passes its nine bars or names the one change.",
+  "awaiting_operator": "His play of the S544 build (turning pro v17 and the four fixes). Nothing else is waiting on him."
  },
  "next": "S496: 0) get_usage; where_we_are roll S496; quote board answers (Q-259 Training K v6c; build WeekCards v6c on Yes - WeekCards.gd 552 lines is split first). 1) Collect as they land, by diff + their test: Qwen ONELOOK2 (fight HUD palette, ETA ~11:00 11-16; render before/after fight stills on the hidden desktop, his OK before merge), Goose FILMCOUNT1 (#326, branch goose/issue-326 - Goose's PR step failed twice: collect from the branch; read its FINDS table and noise numbers, retune FilmBout rates if a floor missed), Grok Dev FIGHTPAGE1 (branch grok/fightpage1, ETA ~13:30; render at 1920x1080 text 1.0 and 1.3, judge against fight_analysis_v3.png, then his board). 2) Kalli SQ202 LADDER1 v6 + SQ203 COACHSPEC1 r6 -> two fresh critics each (Dola + John; Dola refused COACHSPEC1 r5 - resend). 3) Wire after FIGHTPAGE1+FILMCOUNT1: the film-night stop in the fight week (FightWeekPlan film night -> FightAnalysis.for_tape with FilmCount.check, FilmPattern.checks by coach rating), FilmEdge pays at the figure, the result page's Punch by punch tab over m['tape'] (BoutTape), History keeps 20 tapes (~400 lines a bout). 4) Live fight log panel brief to Grok Dev once FIGHTPAGE1 lands. 5) ONELOOK1 sweep after ONELOOK2: RosterCards, ReadPanel, MatMap (UI.gd/WoodKit/WeekCards first need a split).",
  "assessment": {
@@ -2347,6 +2347,11 @@
    "id": "S543",
    "date": "2026-11-23",
    "summary": "Turning pro v18 stopped at its first check (a plan line against a tell adds about 1 point) -> TELLS FIRST scope + TELLPLAY1; owner 'Yes, build v17 now' -> ProStart module on main, TURNPROBUILD17 on a branch; depth prices failed a code check, fight-week screen now shows the bout's tank, FWLOAD2 FAIL -> owner 'cut the fight week load choice' (done); coaches v7 FAIL 4 of 7 -> COACHDEEP8; owner interview (three rounds): ten corner commands in two slots replace the push switch, knowledge K1-K4; owner played card round 8: screen unreadable and not a real fight -> CARDREAL scope, John queued; fight pictures defects diagnosed, PICSFIX1 briefed ('Yes, fix them now'); no build exported (watchdog RED)."
+  },
+  {
+   "id": "S544",
+   "date": "2026-11-24",
+   "summary": "TELLPLAY1 collected: FAIL (a tell played more moves a player's line under 1 point in the ring); its 'why' corrected in code (a 58 coach reads one card; the coach writes only when the player's plan is empty) -> PLANWORTH1 (what a whole plan is worth) launched. The read's fade answer fixed (+7 to +15 shown, +0.9 paid). Turning pro v17 merged, exported; owner played it: four notes fixed the same night - the call as a scene with art, a pop-up of what changed after the click, the profile off the screen (pro bars moved under loyalty; tools/jump_snapshot.gd cut-card check), Mail inside the office computer. John's card research checked; CARDAUDIT1 (60 real, 18 wrong, 5 missing a step; the new position model) -> Arena card round 9 + critics Dola/Kalli + John on four more arts. PICSFIX1 landed: 0 of 96 pictures over a bar. COACHDEEP8 FAIL 4 of 7 -> COACHDEEP9 brief with a stop rule. Owner: 'yes start the probe' -> CORNERCMD1 running. Four turning pro jump buttons on the board. Owner asked whether Expedition 33's approach fits the 3D fight: staging yes, timed windows for the corner yes, player-timed dodges no (map card for the 3D phase)."
   }
  ],
  "blocked_on_operator": [],
@@ -5265,7 +5270,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-24 00:11 board_sync",
+  "updated": "2026-11-24",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5418,54 +5423,41 @@
   },
   "working_now": [
    {
-    "title": "Coaches v8: v7 plus the three changes its probe named (a warning costs while it stands; a two-art coach is a solid-band wage; the card's line counts the boxers), the same seven bars",
-    "who": "claude-opus-5-5 (console tab COACHDEEP8, c6 of the S543 session)",
-    "started": "2026-11-23T22:25",
-    "run": "COACHDEEP8"
-   },
-   {
     "title": "Card game round 9: the engine on the real-fight position model (each fighter's own position; getting up costs a turn; steps answerable)",
     "who": "Arena (chat 01a20a6d-3a1b-79dc-a475-e858f591a0d9)",
     "started": "2026-11-24T00:01",
     "run": "CARDROUND9"
    },
    {
-    "title": "Fight pictures (your 'Yes, fix them now'): no body through a body, a blocked glove on the block, a landed glove on the near side; both sets re-rendered",
-    "who": "claude-opus-5-5 (console tab PICSFIX1 of the S544 session)",
-    "started": "2026-11-24T00:01",
-    "run": "PICSFIX1"
-   },
-   {
-    "title": "Build turning pro v17 (owner: 'Yes, build v17 now'): the offer and Not yet, two bouts for pro fights 1-6, the two bars, four screens, the cuts",
-    "who": "claude-opus-5-5 (console tab TURNPROBUILD17, c5 of the S543 session; worktree E:/FightCamp/wt/TURNPROBUILD17)",
-    "started": "2026-11-23T22:12",
-    "run": "TURNPROBUILD17",
-    "state": "LANDED - Claude collects"
-   },
-   {
     "title": "Corner commands (your ten commands in two slots): one clean map and a probe on real bouts, nine bars; step 0 measures today's eight calls first",
     "who": "claude-opus-5-5 (console tab CORNERCMD1 of the S544 session)",
     "started": "2026-11-24T00:07",
     "run": "CORNERCMD1"
+   },
+   {
+    "title": "What a whole fight plan you write is worth against the coach's plan, in real bouts (a measurement; your S354 'make the fight plan fun to design' stands on it)",
+    "who": "claude-opus-5-5 (console tab PLANWORTH1 of the S544 session)",
+    "started": "2026-11-24T00:36",
+    "run": "PLANWORTH1"
    }
   ],
   "next": [
    {
     "id": "TELLPLAY1",
     "who": "claude",
-    "title": "A tell must change how the opponent fights (TELLPLAY_SCOPE_S543: the root under turning pro, knowledge, film and the push switch) | NEXT: collect the TELLPLAY1 probe (console tab), then two critics at 8, then build",
+    "title": "Tells: TELLPLAY1 FAIL (a tell played more moves a player's line under 1 point in the ring). Rule A not built | NEXT: collect PLANWORTH1 (what a whole plan you write is worth against the coach's), then take the numbers to the owner",
     "after": ""
    },
    {
     "id": "TURNPRO1",
     "who": "claude",
-    "title": "Turning pro: v17 approved (Q-320), probe PASS 6/6, critics 5/6/6 and 8/9/9. v18 STOPPED at its first check (S543): a plan line against a tell adds about 1 point | NEXT: the owner's call to build v17 now; v18's matchup rule waits for TELLPLAY1",
+    "title": "Turning pro v17: BUILT, merged, exported (S544), its screens redone after his play (a scene with art, what changed after the click) | NEXT: his play of the build; then KNOWBUILD1 (the signing card)",
     "after": ""
    },
    {
     "id": "COACHDEEP1",
     "who": "claude",
-    "title": "Coaches: owner interview S542 (17 yes, COACH_INTERVIEW_S542.md) - a staff game | NEXT: collect COACHDEEP7 (map + quick probe), critics at 8, then build step 1 (cut class-or-pads)",
+    "title": "Coaches: v8 FAIL 4 of 7 (bars 1, 2, 3; v7 failed 1, 3, 5) | NEXT: launch COACHDEEP9 (three named changes + stop rule: a forced moment that fails again is cut as a decision); build wiring note: the win read ignores the corner coach",
     "after": ""
    },
    {
@@ -5483,7 +5475,7 @@
    {
     "id": "PUSHTANK1",
     "who": "claude",
-    "title": "Corner commands (was the push switch): the owner's interview S543 - ten commands in two slots, live, the two bars as their cost (PUSH_KNOW_INTERVIEW_S543.md) | NEXT: launch CORNERCMD1 (map + probe on the real bout, brief written) when a worker slot frees; critics at 8; build",
+    "title": "Corner commands: owner 'yes start the probe' (Q-325) - CORNERCMD1 running (step 0 on today's eight calls, then nine bars on real bouts) | NEXT: collect; PASS -> code-checked critic then Kalli and Dola; FAIL -> the one change, to him",
     "after": ""
    },
    {
@@ -5495,7 +5487,7 @@
    {
     "id": "CARDGAME1",
     "who": "claude",
-    "title": "Card game: the owner played round 8 (S543) - the first screen cannot be read and the fight is not how a real fight goes (the boxer punches a man who was on his back) | NEXT: CARDREAL_SCOPE_S543 - John's real sequences (queued), the card-by-card audit, then round 9 on a position per fighter",
+    "title": "Card game: audit done (60 real, 18 wrong, 5 missing a step), the new position model on paper | NEXT: collect Arena's round 9 PR (the engine), the two critics (SQ320, SQ321) and John's four arts (SQ319); Claude plays both arts by hand before he is asked",
     "after": ""
    },
    {
@@ -5822,6 +5814,22 @@
   },
   "done_recently": [
    {
+    "title": "S544: your four play notes fixed - the call as a scene, what changed after the click, the profile on screen, Mail in the office",
+    "who": "claude"
+   },
+   {
+    "title": "S544: turning pro v17 merged and exported; the wrong fade number on the cards fixed",
+    "who": "claude"
+   },
+   {
+    "title": "S544: fight pictures fixed (0 of 96 tangled); card audit done, round 9 on Arena",
+    "who": "claude"
+   },
+   {
+    "title": "S544: tells probe failed (under 1 point); coaches v8 failed 4 of 7 -> v9 with a stop rule",
+    "who": "claude"
+   },
+   {
     "title": "S543: turning pro v18 stopped (a tell is worth about 1 point) -> the tells scope; v17 build started",
     "who": "claude"
    },
@@ -5836,41 +5844,6 @@
    {
     "title": "S542: card round 8 (the guide) merged, played by hand, dead cards greyed",
     "who": "claude"
-   },
-   {
-    "title": "S542: club show light night verified, in the build",
-    "who": "claude"
-   },
-   {
-    "title": "S542: turning pro v17 rules approved (Q-320), probe PASS 6/6 at x1.75",
-    "who": "claude"
-   },
-   {
-    "title": "S542: coach interview, 17 answers (a staff game)",
-    "who": "claude"
-   },
-   {
-    "title": "S542: body-cross take for the round pictures",
-    "who": "claude"
-   },
-   {
-    "title": "S542: owner order - mechanics first, then 3D and menus; restyle parked",
-    "who": "claude"
-   },
-   {
-    "title": "Turning pro v17: the owner's design (when + safe or risky first six fights, patience, confidence, hunger) - map + quick probe",
-    "who": "claude-opus-5-5 (console tab TURNPRO17)",
-    "when": "2026-11-23"
-   },
-   {
-    "title": "Animation: a rear straight to the body that lands on the ribs (the 4 red pictures)",
-    "who": "claude-fable-5-2 (console tab BODYCROSS1)",
-    "when": "2026-11-23"
-   },
-   {
-    "title": "Card round 8: the guide (guided first bout, low-health warning, How to play)",
-    "who": "arena (arena/1f620be9-fightcamp-lean-lite)",
-    "when": "2026-11-23"
    }
   ],
   "scope_note": "S294: lean restart (E:\\FightCamp\\Lean\\docs\\RESTART_PLAN.md). Old roadmap items are parked until the weekly builds reach them.",
@@ -6043,6 +6016,18 @@
     {
      "text": "Board: 3 turning pro jump buttons",
      "who": "claude"
+    },
+    {
+     "text": "Fight pictures: 0 of 96 tangled",
+     "who": "claude"
+    },
+    {
+     "text": "Turn pro: scene with art + reveal",
+     "who": "claude"
+    },
+    {
+     "text": "Profile on screen; Mail in office",
+     "who": "claude"
     }
    ],
    "now": [
@@ -6151,20 +6136,16 @@
      "who": "claude"
     },
     {
-     "text": "Fight pictures fix (tab)",
-     "who": "claude"
-    },
-    {
      "text": "Corner commands: map + probe (tab)",
      "who": "claude"
     },
     {
-     "text": "Your play: turning pro v17",
-     "who": "operator"
-    },
-    {
      "text": "Plan worth: plan vs coach (tab)",
      "who": "claude"
+    },
+    {
+     "text": "Your play: S544 second export",
+     "who": "operator"
     }
    ],
    "next": [
@@ -6494,8 +6475,8 @@
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
- "last_working_commit": "42feebb38",
- "next_action": "S542: see NEXT_SESSION_PROMPT.md (turning pro v17 design from TURNPRO_INTERVIEW_S541.md with the owner; collect card r8 (guide) -> play by script -> owner plays; HOSTLIGHT1; COACHDEEP5; knowledge v9 critics SQ312/313; Dola restyle C/D).",
+ "last_working_commit": "8d3ae3c1d",
+ "next_action": "S545: see NEXT_SESSION_PROMPT.md (collect CORNERCMD1, PLANWORTH1, Arena card round 9, the two card critics, John; launch COACHDEEP9; his play of the build)",
  "next_acceptance": "Rulers vs r0: head jumps on the contact frame under 4, a head inside the other's body under 5 frames, arm out median under 4 frames with join_return green, then r1 film at two fresh blind critics 5+/10",
  "superseded_archive": [
   {

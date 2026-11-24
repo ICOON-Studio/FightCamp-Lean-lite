@@ -51,14 +51,14 @@ static func pending(c: Career) -> Array:
 				"Set the week before it on the Training page.", "fighter", str(f["id"])))
 	var split: Dictionary = CashForecast.bill_split(CashForecast.project(c, 8))
 	out.append(_item("bills", "money", "Bills due", "%s · month bill %s" % [Clock.fmt(GameMoney.next_bill_day(c.day)),
-		GameMoney.text(int(split["amount"]))], GameMoney.next_bill_day(c.day), c.day, "Keep that much in the tin: Finance shows the weeks.",
+		GameMoney.text(int(split["amount"]))], GameMoney.next_bill_day(c.day), c.day, "Keep that much in the tin.",
 		"go", "money:0"))
 	for e in Champs.calendar(c):
 		if str(e["t"]) == "Nationals entries close":
 			var n := c.fighters.filter(func(x): return Champs.active(x)).size()
 			out.append(_item("champs", "champion", "Nationals entries close", "%s · %s" % [Clock.fmt(int(e["d"])),
 				"nobody entered" if n == 0 else "%d entered" % n], int(e["d"]), c.day,
-				"Right-click a boxer on the Fighters sheet to enter.", "go", "world:2"))
+				"Right-click a boxer on the Fighters sheet.", "go", "world:2"))
 			break
 	for g in c.grapplers:
 		for d in g.get("entered", []):

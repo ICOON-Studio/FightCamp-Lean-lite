@@ -215,8 +215,11 @@ func _load_line(f: Dictionary, plan: Dictionary, s: String) -> Control:
 		19, UI.FG, "body", true)
 	l.name = "FwLoad"
 	l.mouse_filter = Control.MOUSE_FILTER_STOP
-	l.tooltip_text = "How hard the boxer trains this week. This load takes %d off the tank at the first bell, leaves round 1 %s and keeps %d%% of the week's pad work." % [
-		int(FightWeek.STOP_TANK[s]), "flat" if str(r1["state"]) == FightWeek.STATE_FLAT else "sharp", roundi(float(FightWeek.BANK_SHARE[s]) * 100.0)]
+	# S544: a card (Tip.explain), not one long line with three numbers in it (tooltip_rest_test: long, piled)
+	load("res://scripts/ui/Tip.gd").explain(l, {"title": "This week's training load", "what": "How hard the boxer trains before the bout.",
+		"rows": [["Tank at the first bell", "-%d" % int(FightWeek.STOP_TANK[s]), "", "bad"],
+			["Round 1", "flat" if str(r1["state"]) == FightWeek.STATE_FLAT else "sharp", "", ""],
+			["Pad work kept", "%d%%" % roundi(float(FightWeek.BANK_SHARE[s]) * 100.0), "", ""]]})
 	return l
 
 

@@ -132,9 +132,8 @@ static func _show(main: Node, c: Career, net: int) -> Dictionary:
 	var does := effect
 	if grey:
 		effect = why_tip(why)
-	var hover := str(rd["line"]) + " One show every %d weeks.\n" % (ClubShow.EVERY_DAYS / 7) + "The read: each hall's likely night over five crowds, good to bad, and the chance a visiting bout pulls out. " + \
-		"Town hall fills from your club's name (%d%% reach at your reputation); your boxers' own followers come anywhere. " % roundi(ClubShow.reach("town", c.reputation) * 100) + \
-		"A full hall (85%) lifts the gym's name, a half-empty one costs it. Two standby reserves ($40 each) box if a visitor pulls out."
+	# S544: each hall's read as a card with rows (Tip.explain), not one long paragraph (tooltip_rest_test: long, piled)
+	var lk: Dictionary = rd["likely"]
 	var halls: Array = ClubShow.HALL_ORDER if bool(rd["close"]) else [hall]
 	var buttons: Array = []
 	for h in halls:
@@ -144,7 +143,13 @@ static func _show(main: Node, c: Career, net: int) -> Dictionary:
 		var hw := why if why != "" or c.cash >= ClubShow.cost(str(h)) else "not enough cash"
 		var b := _btn(main, label, "BookShow" if buttons.is_empty() else "BookShow_" + str(h), "bookshow", str(h), hw)
 		if hw == "":
-			b.tooltip_text = hover
+			var l: Dictionary = lk[str(h)]
+			var rep := int(l["rep"])
+			load("res://scripts/ui/Tip.gd").explain(b, {"title": "A club show at %s" % ClubShow.hall_name(str(h)), "what": "The likely night over good and bad crowds.",
+				"rows": [["Seats sold", "%d of %d" % [int(l["sold"]), int(l["seats"])], "", ""],
+					["The night's money", ("+" if int(l["net"]) >= 0 else "-") + UI.money(absi(int(l["net"]))), "", "good" if int(l["net"]) >= 0 else "bad"],
+					["Reputation", "%+d" % rep, "", "good" if rep > 0 else ("bad" if rep < 0 else "")]],
+				"moves": "A full hall lifts the gym's name.", "do": "Book one show every %d weeks." % (ClubShow.EVERY_DAYS / 7)})
 		buttons.append(b)
 	return _pack("show", "Club show", price, UI.money(price), "booked", effect, 0, 0, grey, effect if grey else "",
 		false, false, false, price, buttons, c, net, does)

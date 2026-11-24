@@ -11,6 +11,7 @@ extends Control
 const BoutTape := preload("res://scripts/fight3d/BoutTape.gd")
 const Faces := preload("res://scripts/rules/Faces.gd")
 const UI := preload("res://scripts/ui/UI.gd")
+const Palette := preload("res://scripts/ui/Palette.gd")   # PICSFIX1: every colour from the one palette
 const DIR := "res://assets/ui/fight_pictures/"
 const PIC_S := 1.1
 const POP_S := 0.24
@@ -143,11 +144,11 @@ func build(round_n: int) -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_STOP
 	var bg := ColorRect.new()
-	bg.color = Color(0.11, 0.12, 0.15)
+	bg.color = Palette.PAGE
 	bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	add_child(bg)
 	var canvas := ColorRect.new()   # a lit canvas behind the pair, as a ring floor under lights
-	canvas.color = Color(0.86, 0.84, 0.78)
+	canvas.color = Palette.TEXT.darkened(0.07)
 	canvas.position = Vector2(90, 70)
 	canvas.size = Vector2(940, 940)
 	add_child(canvas)
@@ -165,14 +166,14 @@ func build(round_n: int) -> void:
 	_fx.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_fx)
 	_flash = ColorRect.new()
-	_flash.color = Color(1, 1, 1, 0)
+	_flash.color = Palette.fade(0.0)
 	_flash.position = canvas.position
 	_flash.size = canvas.size
 	_flash.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_flash)
 	var head := _label(Vector2(1090, 90), 40, "%s  v  %s" % [names[0], names[1]])
-	head.add_theme_color_override("font_color", Color(1, 0.86, 0.5))
-	_label(Vector2(1090, 150), 24, "ROUND %d IN PICTURES" % round_n).add_theme_color_override("font_color", Color(0.7, 0.72, 0.78))
+	head.add_theme_color_override("font_color", Palette.HEADER.lightened(0.3))
+	_label(Vector2(1090, 150), 24, "ROUND %d IN PICTURES" % round_n).add_theme_color_override("font_color", Palette.MUTED)
 	_clock = _label(Vector2(1090, 190), 60, "")
 	_exl = _label(Vector2(1090, 280), 30, "")
 	_what = _label(Vector2(1090, 340), 38, "")
@@ -204,7 +205,7 @@ func _label(p: Vector2, px: int, t: String) -> Label:
 	l.position = p
 	l.text = t
 	l.add_theme_font_size_override("font_size", px)
-	l.add_theme_color_override("font_color", Color(0.95, 0.95, 0.95))
+	l.add_theme_color_override("font_color", Palette.TEXT)
 	add_child(l)
 	return l
 
@@ -316,11 +317,11 @@ class Fx extends Control:
 			var k := u / RING_S
 			var r := lerpf(20.0, 130.0, ease(k, 0.4))
 			var a := 1.0 - k
-			draw_arc(glove, r, 0.0, TAU, 48, Color(1.0, 0.92, 0.35, a), lerpf(12.0, 3.0, k), true)
-			draw_arc(glove, r * 0.62, 0.0, TAU, 40, Color(1, 1, 1, a), lerpf(7.0, 2.0, k), true)
+			draw_arc(glove, r, 0.0, TAU, 48, Palette.alpha(Palette.CLIP_BAND, a), lerpf(12.0, 3.0, k), true)
+			draw_arc(glove, r * 0.62, 0.0, TAU, 40, Palette.fade(a), lerpf(7.0, 2.0, k), true)
 			for i in 10:
 				var d := Vector2.from_angle(TAU * i / 10.0 + 0.3)
-				draw_line(glove + d * r * 0.7, glove + d * r * 1.15, Color(1, 0.7, 0.2, a), 5.0, true)
+				draw_line(glove + d * r * 0.7, glove + d * r * 1.15, Palette.alpha(Palette.WARN.lightened(0.2), a), 5.0, true)
 		else:
 			if u > 0.7:
 				return
@@ -329,8 +330,8 @@ class Fx extends Control:
 			var shift := dir * lerpf(0.0, 50.0, minf(u / 0.3, 1.0))
 			for i in 3:
 				var o := Vector2(-dir.y, dir.x) * (i - 1) * 14.0
-				draw_line(glove + o - dir * 110.0 + shift, glove + o + dir * 26.0 + shift, Color(1, 1, 1, a * 0.8), 4.0, true)
-			draw_string(ThemeDB.fallback_font, face + Vector2(-70, -90) + shift, word, HORIZONTAL_ALIGNMENT_LEFT, -1, 56, Color(1, 0.25, 0.2, a))
+				draw_line(glove + o - dir * 110.0 + shift, glove + o + dir * 26.0 + shift, Palette.fade(a * 0.8), 4.0, true)
+			draw_string(ThemeDB.fallback_font, face + Vector2(-70, -90) + shift, word, HORIZONTAL_ALIGNMENT_LEFT, -1, 56, Palette.alpha(Palette.BAD_FILL, a))
 
 
 ## A field read as yes/no: a bool as it is, a filled Dictionary/Array (the tape's clinch record) as yes.

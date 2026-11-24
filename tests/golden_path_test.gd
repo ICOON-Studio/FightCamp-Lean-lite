@@ -655,7 +655,7 @@ func _club_show(c: Career) -> void:
 	var shown: bool = main._shell.find_children("*", "Label", true, false).any(func(l): return (l as Label).text.contains(line))
 	_check(shown and (line.begins_with(ClubShow.hall_name(str(rd["hall"]))) or line.begins_with("Close - your call")), "the show row reads the hall: %s" % line)
 	var book := _shell_button("BookShow")
-	_check(book != null and not book.disabled and book.tooltip_text.contains("reach"), "the book button names the hall and its hover explains the read")
+	_check(book != null and not book.disabled and str(load("res://scripts/ui/Tip.gd").of(book).get("title", "")).contains("club show"), "the book button names the hall and its hover card gives the read (S544: a card, not a paragraph)")
 	var before := c.cash
 	var hall := str(rd["hall"]) if not bool(rd["close"]) else "community"
 	_press(book, "book the club show")

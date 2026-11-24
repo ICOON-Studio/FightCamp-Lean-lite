@@ -43,6 +43,8 @@ const PadWeek := preload("res://scripts/rules/PadWeek.gd")
 const DarkOverview := preload("res://scripts/ui/DarkOverview.gd")
 const ProStart := preload("res://scripts/rules/ProStart.gd")   # S543 TURNPRO17: patience, confidence, hunger
 const ProPair := preload("res://scripts/state/ProPair.gd")
+const ProBars := preload("res://scripts/ui/ProBars.gd")   # S544: the pro bars in the boxer's column
+const WhatsNew := preload("res://scripts/ui/WhatsNew.gd")   # S544: what a decision just changed
 
 ## S414 operator on Q-S294-143: "Show me one real page first". On until the dark-or-cream answer; false draws the old page.
 static var dark_overview := true
@@ -271,11 +273,15 @@ func _photo(parent: Control, f: Dictionary, size: Vector2) -> void:
 
 
 func _overview(main: Node, c: Career, f: Dictionary, g: Dictionary) -> void:
+	var news: Dictionary = main.route.get("new", {})   # S544: a decision just made on this boxer - its rows carry NEW (the pop-up ProNews says what changed)
+	var fresh := _dark and str(news.get("fid", "")) == str(f["id"])
 	_next_step_card(main, c, f)
-	_pro_start_card(f)
-	if _dark:
+	if _dark:   # S544: the pro bars live in the boxer's column (ProBars.rows), no page-wide card
+		ProBars.mark = WhatsNew.marks(news) if fresh else []
 		DarkOverview.make(self, main, c, f, g)
+		ProBars.mark = []
 		return
+	_pro_start_card(f)
 	# S340 C157: the attributes board runs the page's width (radar + every value the bout reads); body and goal below it.
 	add_child(AttrBoard.build(f))
 	var grid := UI.hbox(16)

@@ -4672,29 +4672,42 @@
    "seat": "john",
    "brief": "research/CARDREAL2_JOHN_BRIEF.md",
    "stem": "CARDREAL2_JOHN_BRIEF_JOHN",
-   "status": "sent",
+   "status": "answered",
    "queued_at": "2026-11-23 23:35",
    "tries": 0,
    "sent_at": "2026-11-23 23:40",
-   "sent_ms": 1795470024732
+   "sent_ms": 1795470024732,
+   "answered_at": "2026-11-24 00:10",
+   "answer": "research/CARDREAL2_JOHN_BRIEF_JOHN.md",
+   "chars": 34614
   },
   {
    "id": "SQ320",
    "seat": "dola",
    "brief": "research/CRITIC_CARDREAL_BRIEF.md",
    "stem": "CRITIC_CARDREAL_BRIEF_DOLA",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-23 23:58",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-24 00:10",
+   "pid": 35136,
+   "transcript": "AgentComms/seat_logs/SQ320_dola.txt",
+   "answered_at": "2026-11-24 00:40",
+   "answer": "research/CRITIC_CARDREAL_BRIEF_DOLA.md"
   },
   {
    "id": "SQ321",
    "seat": "kalli",
    "brief": "research/CRITIC_CARDREAL_BRIEF.md",
    "stem": "CRITIC_CARDREAL_BRIEF_KALLI",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-23 23:58",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-24 00:10",
+   "sent_ms": 1795471828563,
+   "answered_at": "2026-11-24 00:40",
+   "answer": "research/CRITIC_CARDREAL_BRIEF_KALLI.md",
+   "chars": 22418
   }
  ]
 }

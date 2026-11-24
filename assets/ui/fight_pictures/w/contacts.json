@@ -1,90 +1,144 @@
 {
   "blue_body_cross_blocked": {
+    "apart_m": 0.948,
+    "apart_pic_m": 0.947,
+    "block_m": 0.018,
+    "block_on": "left forearm",
     "clip": "pro_body_cross",
+    "cover": "mc_to_block",
+    "fails": [],
+    "feet_m": 0.701,
     "glove": [
-      300.4,
-      344.9
+      311.8,
+      321.5
     ],
-    "hit_m": 0.306,
+    "head_clear_m": 0.872,
+    "hit_m": 0.396,
     "result": "blocked",
     "target": [
-      262.3,
-      422.5
+      263.2,
+      430.3
     ]
   },
   "blue_body_cross_landed": {
+    "apart_m": 0.899,
+    "apart_pic_m": 0.899,
     "clip": "pro_body_cross",
+    "cover": "",
+    "fails": [],
+    "feet_m": 0.568,
     "glove": [
-      145.0,
+      288.6,
       423.8
     ],
+    "head_clear_m": 0.853,
     "hit_m": 0.036,
+    "near_m": 0.144,
     "result": "landed",
     "target": [
-      134.8,
+      278.4,
       427.2
     ]
   },
   "blue_body_cross_missed": {
+    "apart_m": 0.992,
+    "apart_pic_m": 0.992,
+    "clear_hand_m": 0.376,
+    "clear_m": 0.2,
     "clip": "pro_body_cross",
+    "cover": "",
+    "fails": [],
+    "feet_m": 0.839,
     "glove": [
-      260.8,
+      245.7,
       409.6
     ],
+    "head_clear_m": 0.948,
     "hit_m": 0.207,
     "result": "missed",
     "target": [
-      229.3,
+      214.2,
       461.0
     ]
   },
   "blue_body_hook_blocked": {
+    "apart_m": 0.712,
+    "apart_pic_m": 0.712,
+    "block_m": 0.021,
+    "block_on": "left forearm",
     "clip": "pro_body_shot",
+    "cover": "mc_to_block",
+    "fails": [],
+    "feet_m": 0.25,
     "glove": [
-      321.9,
-      338.7
+      357.9,
+      322.4
     ],
-    "hit_m": 0.302,
+    "head_clear_m": 0.62,
+    "hit_m": 0.397,
     "result": "blocked",
     "target": [
-      303.8,
-      425.0
+      308.0,
+      430.3
     ]
   },
   "blue_body_hook_landed": {
-    "clip": "pro_body_shot",
+    "apart_m": 0.749,
+    "apart_pic_m": 0.718,
+    "clip": "pro_kidney_shot",
+    "cover": "",
+    "fails": [],
+    "feet_m": 0.242,
     "glove": [
-      311.4,
-      428.0
+      311.7,
+      427.0
     ],
-    "hit_m": 0.003,
+    "head_clear_m": 0.754,
+    "hit_m": 0.02,
+    "near_m": 0.11,
     "result": "landed",
     "target": [
       311.8,
-      427.2
+      427.9
     ]
   },
   "blue_body_hook_missed": {
+    "apart_m": 0.699,
+    "apart_pic_m": 0.697,
+    "clear_hand_m": 0.356,
+    "clear_m": 0.229,
     "clip": "pro_body_shot",
+    "cover": "",
+    "fails": [],
+    "feet_m": 0.339,
     "glove": [
-      302.5,
+      303.8,
       404.3
     ],
-    "hit_m": 0.26,
+    "head_clear_m": 0.62,
+    "hit_m": 0.283,
     "result": "missed",
     "target": [
-      283.3,
+      264.6,
       461.0
     ]
   },
   "blue_corner": {},
   "blue_cross_blocked": {
+    "apart_m": 1.009,
+    "apart_pic_m": 1.009,
+    "block_m": 0.0,
+    "block_on": "left glove",
     "clip": "pro_right_cross",
+    "cover": "",
+    "fails": [],
+    "feet_m": 0.647,
     "glove": [
-      332.3,
-      241.0
+      335.2,
+      239.8
     ],
-    "hit_m": 0.161,
+    "head_clear_m": 0.936,
+    "hit_m": 0.178,
     "result": "blocked",
     "target": [
       284.2,
@@ -92,12 +146,19 @@
     ]
   },
   "blue_cross_landed": {
+    "apart_m": 0.905,
+    "apart_pic_m": 0.905,
     "clip": "pro_right_cross",
+    "cover": "",
+    "fails": [],
+    "feet_m": 0.485,
     "glove": [
       293.6,
       238.2
     ],
+    "head_clear_m": 0.826,
     "hit_m": 0.004,
+    "near_m": 0.094,
     "result": "landed",
     "target": [
       292.5,
@@ -105,38 +166,61 @@
     ]
   },
   "blue_cross_missed": {
+    "apart_m": 1.257,
+    "apart_pic_m": 1.257,
+    "clear_hand_m": 0.142,
+    "clear_m": 0.375,
     "clip": "pro_right_cross",
+    "cover": "",
+    "fails": [],
+    "feet_m": 0.998,
     "glove": [
-      272.5,
+      257.5,
       304.4
     ],
+    "head_clear_m": 1.191,
     "hit_m": 0.376,
     "result": "missed",
     "target": [
-      164.6,
+      149.6,
       271.3
     ]
   },
   "blue_jab_blocked": {
+    "apart_m": 1.032,
+    "apart_pic_m": 1.032,
+    "block_m": 0.0,
+    "block_on": "right glove",
     "clip": "pro_left_jab",
+    "cover": "",
+    "fails": [],
+    "feet_m": 0.596,
     "glove": [
-      320.6,
-      262.5
+      335.4,
+      260.7
     ],
-    "hit_m": 0.146,
+    "head_clear_m": 0.969,
+    "hit_m": 0.178,
     "result": "blocked",
     "target": [
       292.4,
-      237.5
+      237.6
     ]
   },
   "blue_jab_landed": {
+    "apart_m": 0.925,
+    "apart_pic_m": 0.925,
     "clip": "pro_left_jab",
+    "cover": "",
+    "fails": [],
+    "feet_m": 0.447,
     "glove": [
       82.0,
       237.1
     ],
+    "head_clear_m": 0.864,
     "hit_m": 0.001,
+    "near_m": 0.091,
     "result": "landed",
     "target": [
       81.6,
@@ -144,15 +228,23 @@
     ]
   },
   "blue_jab_missed": {
+    "apart_m": 1.279,
+    "apart_pic_m": 1.279,
+    "clear_hand_m": 0.147,
+    "clear_m": 0.377,
     "clip": "pro_left_jab",
+    "cover": "",
+    "fails": [],
+    "feet_m": 0.965,
     "glove": [
-      280.1,
+      265.0,
       294.4
     ],
+    "head_clear_m": 1.231,
     "hit_m": 0.379,
     "result": "missed",
     "target": [
-      169.0,
+      153.9,
       271.2
     ]
   },
@@ -160,25 +252,40 @@
   "blue_knockdown_2": {},
   "blue_knockdown_3": {},
   "blue_lead_hook_blocked": {
+    "apart_m": 0.946,
+    "apart_pic_m": 0.946,
+    "block_m": 0.0,
+    "block_on": "right glove",
     "clip": "pro_left_hook_ft",
+    "cover": "",
+    "fails": [],
+    "feet_m": 0.29,
     "glove": [
-      349.1,
-      244.3
+      358.0,
+      245.9
     ],
-    "hit_m": 0.218,
+    "head_clear_m": 0.981,
+    "hit_m": 0.225,
     "result": "blocked",
     "target": [
-      322.6,
+      316.6,
       237.7
     ]
   },
   "blue_lead_hook_landed": {
+    "apart_m": 0.81,
+    "apart_pic_m": 0.809,
     "clip": "pro_left_hook_ft",
+    "cover": "",
+    "fails": [],
+    "feet_m": 0.179,
     "glove": [
-      286.9,
-      234.5
+      298.1,
+      236.3
     ],
-    "hit_m": 0.002,
+    "head_clear_m": 0.929,
+    "hit_m": 0.04,
+    "near_m": 0.13,
     "result": "landed",
     "target": [
       286.2,
@@ -186,64 +293,103 @@
     ]
   },
   "blue_lead_hook_missed": {
+    "apart_m": 1.002,
+    "apart_pic_m": 1.001,
+    "clear_hand_m": 0.203,
+    "clear_m": 0.207,
     "clip": "pro_left_hook_ft",
+    "cover": "",
+    "fails": [],
+    "feet_m": 0.447,
     "glove": [
-      310.9,
+      295.8,
       270.9
     ],
-    "hit_m": 0.413,
+    "head_clear_m": 1.067,
+    "hit_m": 0.408,
     "result": "missed",
     "target": [
-      253.0,
-      301.7
+      236.8,
+      289.9
     ]
   },
   "blue_lead_uppercut_blocked": {
+    "apart_m": 0.744,
+    "apart_pic_m": 0.744,
+    "block_m": 0.0,
+    "block_on": "left glove",
     "clip": "pro_left_uppercut",
+    "cover": "",
+    "fails": [],
+    "feet_m": 0.18,
     "glove": [
-      367.9,
-      261.9
+      354.2,
+      262.1
     ],
-    "hit_m": 0.144,
+    "head_clear_m": 0.785,
+    "hit_m": 0.152,
     "result": "blocked",
     "target": [
-      339.4,
+      322.6,
       234.8
     ]
   },
   "blue_lead_uppercut_landed": {
+    "apart_m": 0.726,
+    "apart_pic_m": 0.726,
     "clip": "pro_left_uppercut",
+    "cover": "",
+    "fails": [],
+    "feet_m": 0.18,
     "glove": [
-      361.4,
-      239.2
+      268.3,
+      240.1
     ],
-    "hit_m": 0.003,
+    "head_clear_m": 0.813,
+    "hit_m": 0.013,
+    "near_m": 0.101,
     "result": "landed",
     "target": [
-      362.1,
+      264.9,
       238.8
     ]
   },
   "blue_lead_uppercut_missed": {
+    "apart_m": 0.665,
+    "apart_pic_m": 0.665,
+    "clear_hand_m": 0.222,
+    "clear_m": 0.204,
     "clip": "pro_left_uppercut",
+    "cover": "",
+    "fails": [],
+    "feet_m": 0.304,
     "glove": [
-      340.2,
+      320.3,
       230.5
     ],
+    "head_clear_m": 0.773,
     "hit_m": 0.218,
     "result": "missed",
     "target": [
-      294.3,
+      274.5,
       271.2
     ]
   },
   "blue_rear_hook_blocked": {
+    "apart_m": 0.786,
+    "apart_pic_m": 0.791,
+    "block_m": 0.0,
+    "block_on": "left glove",
     "clip": "pro_right_hook_ft",
+    "cover": "",
+    "fails": [],
+    "feet_m": 0.361,
     "glove": [
-      345.0,
-      261.7
+      353.2,
+      260.5
     ],
-    "hit_m": 0.156,
+    "head_clear_m": 0.714,
+    "hit_m": 0.173,
     "result": "blocked",
     "target": [
       323.4,
@@ -251,51 +397,81 @@
     ]
   },
   "blue_rear_hook_landed": {
+    "apart_m": 0.756,
+    "apart_pic_m": 0.756,
     "clip": "pro_right_hook_ft",
+    "cover": "",
+    "fails": [],
+    "feet_m": 0.289,
     "glove": [
-      301.6,
+      302.2,
       237.4
     ],
+    "head_clear_m": 0.712,
     "hit_m": 0.003,
+    "near_m": 0.09,
     "result": "landed",
     "target": [
-      301.6,
+      302.2,
       237.4
     ]
   },
   "blue_rear_hook_missed": {
+    "apart_m": 0.863,
+    "apart_pic_m": 0.85,
+    "clear_hand_m": 0.214,
+    "clear_m": 0.204,
     "clip": "pro_right_hook_ft",
+    "cover": "",
+    "fails": [],
+    "feet_m": 0.251,
     "glove": [
-      323.0,
+      307.9,
       277.8
     ],
+    "head_clear_m": 0.839,
     "hit_m": 0.261,
     "result": "missed",
     "target": [
-      270.3,
+      255.3,
       309.5
     ]
   },
   "blue_rear_uppercut_blocked": {
+    "apart_m": 0.726,
+    "apart_pic_m": 0.708,
+    "block_m": 0.0,
+    "block_on": "left glove",
     "clip": "pro_right_uppercut",
+    "cover": "",
+    "fails": [],
+    "feet_m": 0.269,
     "glove": [
-      375.3,
-      258.3
+      377.8,
+      257.1
     ],
-    "hit_m": 0.173,
+    "head_clear_m": 0.743,
+    "hit_m": 0.179,
     "result": "blocked",
     "target": [
-      333.8,
+      333.7,
       233.3
     ]
   },
   "blue_rear_uppercut_landed": {
+    "apart_m": 0.645,
+    "apart_pic_m": 0.634,
     "clip": "pro_right_uppercut",
+    "cover": "",
+    "fails": [],
+    "feet_m": 0.175,
     "glove": [
       331.2,
       238.2
     ],
+    "head_clear_m": 0.699,
     "hit_m": 0.001,
+    "near_m": 0.089,
     "result": "landed",
     "target": [
       331.4,
@@ -303,79 +479,134 @@
     ]
   },
   "blue_rear_uppercut_missed": {
+    "apart_m": 0.85,
+    "apart_pic_m": 0.848,
+    "clear_hand_m": 0.142,
+    "clear_m": 0.305,
     "clip": "pro_right_uppercut",
+    "cover": "",
+    "fails": [],
+    "feet_m": 0.576,
     "glove": [
-      333.4,
+      318.3,
       260.3
     ],
+    "head_clear_m": 0.9,
     "hit_m": 0.305,
     "result": "missed",
     "target": [
-      242.3,
+      227.2,
       271.6
     ]
   },
-  "clinch": {},
+  "clinch": {
+    "apart_m": 0.223,
+    "apart_pic_m": 0.221,
+    "arm_m": 0.074,
+    "chest_m": 0.468,
+    "fails": [],
+    "feet_m": 0.143,
+    "head_clear_m": 0.172,
+    "head_m": 0.172
+  },
   "guard": {},
   "red_body_cross_blocked": {
+    "apart_m": 0.929,
+    "apart_pic_m": 0.928,
+    "block_m": 0.045,
+    "block_on": "left forearm",
     "clip": "pro_body_cross",
+    "cover": "mc_to_block",
+    "fails": [],
+    "feet_m": 0.676,
     "glove": [
-      466.5,
-      351.8
+      457.5,
+      325.9
     ],
-    "hit_m": 0.288,
+    "head_clear_m": 0.857,
+    "hit_m": 0.37,
     "result": "blocked",
     "target": [
-      510.5,
-      418.8
+      500.5,
+      428.6
     ]
   },
   "red_body_cross_landed": {
+    "apart_m": 0.88,
+    "apart_pic_m": 0.88,
     "clip": "pro_body_cross",
+    "cover": "",
+    "fails": [],
+    "feet_m": 0.542,
     "glove": [
-      382.9,
-      116.7
+      460.2,
+      423.9
     ],
+    "head_clear_m": 0.84,
     "hit_m": 0.002,
+    "near_m": 0.111,
     "result": "landed",
     "target": [
-      383.4,
-      116.5
+      460.6,
+      423.7
     ]
   },
   "red_body_cross_missed": {
+    "apart_m": 1.018,
+    "apart_pic_m": 1.018,
+    "clear_hand_m": 0.383,
+    "clear_m": 0.198,
     "clip": "pro_body_cross",
+    "cover": "",
+    "fails": [],
+    "feet_m": 0.859,
     "glove": [
-      511.9,
+      527.0,
       412.5
     ],
+    "head_clear_m": 0.979,
     "hit_m": 0.208,
     "result": "missed",
     "target": [
-      549.4,
+      564.5,
       459.0
     ]
   },
   "red_body_hook_blocked": {
+    "apart_m": 0.713,
+    "apart_pic_m": 0.713,
+    "block_m": 0.037,
+    "block_on": "left forearm",
     "clip": "pro_body_shot",
+    "cover": "mc_to_block",
+    "fails": [],
+    "feet_m": 0.245,
     "glove": [
-      464.3,
-      327.9
+      435.0,
+      323.5
     ],
-    "hit_m": 0.345,
+    "head_clear_m": 0.62,
+    "hit_m": 0.385,
     "result": "blocked",
     "target": [
-      470.8,
-      417.9
+      482.7,
+      428.6
     ]
   },
   "red_body_hook_landed": {
+    "apart_m": 0.725,
+    "apart_pic_m": 0.724,
     "clip": "pro_body_shot",
+    "cover": "",
+    "fails": [],
+    "feet_m": 0.179,
     "glove": [
-      454.2,
-      424.1
+      448.5,
+      422.5
     ],
-    "hit_m": 0.002,
+    "head_clear_m": 0.638,
+    "hit_m": 0.019,
+    "near_m": 0.128,
     "result": "landed",
     "target": [
       454.0,
@@ -383,26 +614,42 @@
     ]
   },
   "red_body_hook_missed": {
+    "apart_m": 0.691,
+    "apart_pic_m": 0.69,
+    "clear_hand_m": 0.365,
+    "clear_m": 0.201,
     "clip": "pro_body_shot",
+    "cover": "",
+    "fails": [],
+    "feet_m": 0.325,
     "glove": [
-      472.3,
+      499.3,
       406.5
     ],
+    "head_clear_m": 0.611,
     "hit_m": 0.253,
     "result": "missed",
     "target": [
-      502.4,
+      529.4,
       459.0
     ]
   },
   "red_corner": {},
   "red_cross_blocked": {
+    "apart_m": 1.04,
+    "apart_pic_m": 1.038,
+    "block_m": 0.0,
+    "block_on": "left glove",
     "clip": "pro_right_cross",
+    "cover": "",
+    "fails": [],
+    "feet_m": 0.722,
     "glove": [
-      428.7,
-      240.2
+      427.0,
+      239.7
     ],
-    "hit_m": 0.164,
+    "head_clear_m": 0.95,
+    "hit_m": 0.18,
     "result": "blocked",
     "target": [
       477.9,
@@ -410,12 +657,19 @@
     ]
   },
   "red_cross_landed": {
+    "apart_m": 0.912,
+    "apart_pic_m": 0.911,
     "clip": "pro_right_cross",
+    "cover": "",
+    "fails": [],
+    "feet_m": 0.488,
     "glove": [
       478.0,
       233.8
     ],
+    "head_clear_m": 0.834,
     "hit_m": 0.006,
+    "near_m": 0.096,
     "result": "landed",
     "target": [
       479.7,
@@ -423,25 +677,41 @@
     ]
   },
   "red_cross_missed": {
+    "apart_m": 1.253,
+    "apart_pic_m": 1.253,
+    "clear_hand_m": 0.146,
+    "clear_m": 0.371,
     "clip": "pro_right_cross",
+    "cover": "",
+    "fails": [],
+    "feet_m": 0.988,
     "glove": [
-      492.4,
+      507.4,
       307.2
     ],
+    "head_clear_m": 1.188,
     "hit_m": 0.374,
     "result": "missed",
     "target": [
-      597.1,
+      612.2,
       268.0
     ]
   },
   "red_jab_blocked": {
+    "apart_m": 1.048,
+    "apart_pic_m": 1.047,
+    "block_m": 0.0,
+    "block_on": "left glove",
     "clip": "pro_left_jab",
+    "cover": "",
+    "fails": [],
+    "feet_m": 0.66,
     "glove": [
-      448.9,
-      259.7
+      434.2,
+      259.8
     ],
-    "hit_m": 0.131,
+    "head_clear_m": 0.976,
+    "hit_m": 0.166,
     "result": "blocked",
     "target": [
       474.3,
@@ -449,12 +719,19 @@
     ]
   },
   "red_jab_landed": {
+    "apart_m": 0.93,
+    "apart_pic_m": 0.93,
     "clip": "pro_left_jab",
+    "cover": "",
+    "fails": [],
+    "feet_m": 0.454,
     "glove": [
       562.8,
       232.9
     ],
+    "head_clear_m": 0.87,
     "hit_m": 0.002,
+    "near_m": 0.092,
     "result": "landed",
     "target": [
       563.5,
@@ -462,15 +739,23 @@
     ]
   },
   "red_jab_missed": {
+    "apart_m": 1.272,
+    "apart_pic_m": 1.272,
+    "clear_hand_m": 0.144,
+    "clear_m": 0.367,
     "clip": "pro_left_jab",
+    "cover": "",
+    "fails": [],
+    "feet_m": 0.958,
     "glove": [
-      488.6,
+      503.6,
       298.6
     ],
+    "head_clear_m": 1.223,
     "hit_m": 0.369,
     "result": "missed",
     "target": [
-      594.9,
+      610.0,
       268.0
     ]
   },
@@ -478,25 +763,40 @@
   "red_knockdown_2": {},
   "red_knockdown_3": {},
   "red_lead_hook_blocked": {
+    "apart_m": 0.98,
+    "apart_pic_m": 0.98,
+    "block_m": 0.0,
+    "block_on": "right glove",
     "clip": "pro_left_hook_ft",
+    "cover": "",
+    "fails": [],
+    "feet_m": 0.358,
     "glove": [
-      417.0,
-      253.8
+      403.9,
+      243.6
     ],
-    "hit_m": 0.211,
+    "head_clear_m": 0.994,
+    "hit_m": 0.224,
     "result": "blocked",
     "target": [
-      443.9,
+      448.7,
       234.8
     ]
   },
   "red_lead_hook_landed": {
+    "apart_m": 0.808,
+    "apart_pic_m": 0.808,
     "clip": "pro_left_hook_ft",
+    "cover": "",
+    "fails": [],
+    "feet_m": 0.179,
     "glove": [
-      491.0,
-      229.9
+      482.3,
+      231.8
     ],
-    "hit_m": 0.004,
+    "head_clear_m": 0.931,
+    "hit_m": 0.034,
+    "near_m": 0.123,
     "result": "landed",
     "target": [
       492.2,
@@ -504,64 +804,103 @@
     ]
   },
   "red_lead_hook_missed": {
+    "apart_m": 1.011,
+    "apart_pic_m": 1.01,
+    "clear_hand_m": 0.169,
+    "clear_m": 0.198,
     "clip": "pro_left_hook_ft",
+    "cover": "",
+    "fails": [],
+    "feet_m": 0.461,
     "glove": [
-      458.4,
+      473.5,
       275.5
     ],
+    "head_clear_m": 1.08,
     "hit_m": 0.406,
     "result": "missed",
     "target": [
-      516.7,
+      531.8,
       288.1
     ]
   },
   "red_lead_uppercut_blocked": {
+    "apart_m": 0.762,
+    "apart_pic_m": 0.762,
+    "block_m": 0.0,
+    "block_on": "left glove",
     "clip": "pro_left_uppercut",
+    "cover": "",
+    "fails": [],
+    "feet_m": 0.22,
     "glove": [
-      396.5,
-      261.2
+      403.3,
+      261.3
     ],
-    "hit_m": 0.142,
+    "head_clear_m": 0.754,
+    "hit_m": 0.15,
     "result": "blocked",
     "target": [
-      423.9,
+      433.8,
       233.9
     ]
   },
   "red_lead_uppercut_landed": {
+    "apart_m": 0.723,
+    "apart_pic_m": 0.723,
     "clip": "pro_left_uppercut",
+    "cover": "",
+    "fails": [],
+    "feet_m": 0.18,
     "glove": [
-      401.5,
+      493.6,
       234.2
     ],
-    "hit_m": 0.002,
+    "head_clear_m": 0.813,
+    "hit_m": 0.004,
+    "near_m": 0.086,
     "result": "landed",
     "target": [
-      400.8,
+      492.5,
       234.1
     ]
   },
   "red_lead_uppercut_missed": {
+    "apart_m": 0.68,
+    "apart_pic_m": 0.68,
+    "clear_hand_m": 0.219,
+    "clear_m": 0.204,
     "clip": "pro_left_uppercut",
+    "cover": "",
+    "fails": [],
+    "feet_m": 0.32,
     "glove": [
-      423.7,
+      438.8,
       229.5
     ],
+    "head_clear_m": 0.791,
     "hit_m": 0.211,
     "result": "missed",
     "target": [
-      471.4,
+      486.5,
       268.0
     ]
   },
   "red_rear_hook_blocked": {
+    "apart_m": 0.803,
+    "apart_pic_m": 0.8,
+    "block_m": 0.0,
+    "block_on": "left glove",
     "clip": "pro_right_hook_ft",
+    "cover": "",
+    "fails": [],
+    "feet_m": 0.419,
     "glove": [
-      424.6,
-      258.9
+      417.5,
+      257.6
     ],
-    "hit_m": 0.168,
+    "head_clear_m": 0.714,
+    "hit_m": 0.183,
     "result": "blocked",
     "target": [
       446.3,
@@ -569,12 +908,19 @@
     ]
   },
   "red_rear_hook_landed": {
+    "apart_m": 0.763,
+    "apart_pic_m": 0.762,
     "clip": "pro_right_hook_ft",
+    "cover": "",
+    "fails": [],
+    "feet_m": 0.293,
     "glove": [
       469.0,
       232.6
     ],
+    "head_clear_m": 0.718,
     "hit_m": 0.003,
+    "near_m": 0.09,
     "result": "landed",
     "target": [
       468.9,
@@ -582,38 +928,61 @@
     ]
   },
   "red_rear_hook_missed": {
+    "apart_m": 0.889,
+    "apart_pic_m": 0.875,
+    "clear_hand_m": 0.184,
+    "clear_m": 0.206,
     "clip": "pro_right_hook_ft",
+    "cover": "",
+    "fails": [],
+    "feet_m": 0.272,
     "glove": [
-      446.8,
+      461.9,
       281.9
     ],
+    "head_clear_m": 0.862,
     "hit_m": 0.256,
     "result": "missed",
     "target": [
-      504.0,
+      519.1,
       305.8
     ]
   },
   "red_rear_uppercut_blocked": {
+    "apart_m": 0.789,
+    "apart_pic_m": 0.738,
+    "block_m": 0.0,
+    "block_on": "left glove",
     "clip": "pro_right_uppercut",
+    "cover": "",
+    "fails": [],
+    "feet_m": 0.336,
     "glove": [
-      385.7,
-      257.7
+      385.5,
+      258.1
     ],
+    "head_clear_m": 0.759,
     "hit_m": 0.17,
     "result": "blocked",
     "target": [
-      426.4,
+      426.6,
       235.0
     ]
   },
   "red_rear_uppercut_landed": {
+    "apart_m": 0.692,
+    "apart_pic_m": 0.68,
     "clip": "pro_right_uppercut",
+    "cover": "",
+    "fails": [],
+    "feet_m": 0.218,
     "glove": [
       445.8,
       235.2
     ],
+    "head_clear_m": 0.739,
     "hit_m": 0.01,
+    "near_m": 0.096,
     "result": "landed",
     "target": [
       447.6,
@@ -621,15 +990,23 @@
     ]
   },
   "red_rear_uppercut_missed": {
+    "apart_m": 0.819,
+    "apart_pic_m": 0.818,
+    "clear_hand_m": 0.137,
+    "clear_m": 0.27,
     "clip": "pro_right_uppercut",
+    "cover": "",
+    "fails": [],
+    "feet_m": 0.541,
     "glove": [
-      428.6,
+      443.7,
       257.3
     ],
+    "head_clear_m": 0.871,
     "hit_m": 0.271,
     "result": "missed",
     "target": [
-      509.3,
+      524.4,
       268.3
     ]
   }

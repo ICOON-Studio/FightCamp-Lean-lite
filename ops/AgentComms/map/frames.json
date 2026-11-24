@@ -231,6 +231,14 @@
      "globs": [
       "docs/playtest/s543_turnpro17/*_real.png"
      ]
+    },
+    {
+     "id": "turnpro_scene_s544",
+     "title": "Turning pro after your play: scene, what changed, Mail in the office (S544)",
+     "kind": "gallery",
+     "globs": [
+      "docs/playtest/s544_turnpro/0*.png"
+     ]
     }
    ]
   }

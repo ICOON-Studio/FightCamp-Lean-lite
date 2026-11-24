@@ -11,7 +11,7 @@ const APPS := ["Desktop", "Mail", "Schedule", "Fighters", "Staff", "Finance", "R
 ## App -> [area, tab] it opens (Mail: the game's news list, World > News; Staff and Records: the Club pages, where
 ## StaffCard.TABS puts People and Records).
 ## OFFICEV2 (S538, owner Q-S294-302): Fighters and Staff open their sheets INSIDE the desktop, so the route stays the office.
-const GOES := {"Desktop": ["office", 0], "Mail": ["world", 0], "Schedule": ["fights", 0], "Fighters": ["office", 0],
+const GOES := {"Desktop": ["office", 0], "Mail": ["office", 0], "Schedule": ["fights", 0], "Fighters": ["office", 0],
 	"Staff": ["office", 0], "Finance": ["money", 0], "Records": ["gym", 4]}
 
 var failures := 0
@@ -70,6 +70,12 @@ func _route(app: String) -> void:
 	_check(ok, "%s opens %s tab %d (went to %s tab %d)" % [app, want[0], int(want[1]), main.route["area"], int(main.route["tab"])])
 	if app == "Mail":
 		_check(int(main.career.unread) == 0, "opening Mail reads the news (unread %d)" % int(main.career.unread))
+		# S544 (owner: "i click mail and i am not inside the computer in the office screen ?"): Mail is a window of the desktop
+		_check(main.find_child("OfficeMail", true, false) != null and main.find_child("MailInbox", true, false) != null
+			and main.find_child("NeedsPanel", true, false) == null, "Mail opens its window inside the office computer (inbox shown, dashboard gone)")
+		main.act("mail")   # from anywhere (the top bar's Mail button): the same window
+		await _settle()
+		_check(str(main.route["area"]) == "office" and main.find_child("OfficeMail", true, false) != null, "the Mail act lands in the office computer's mail window")
 
 
 func _settle() -> void:
