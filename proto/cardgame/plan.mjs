@@ -1,21 +1,64 @@
 // CARDSCOPE5 pilots. ONE AI pilot flies any deck from public information (probe P10; later: opponents and ghost decks).
 // Beside it: the impatient line (rule of thumb) and a scripted priority list per style.
-import { CARDS, N } from './cards.mjs';
-import { clone, declare, resolveIncoming, legalNow, canPay, cost, ansFits, posKey, fits, answerOptions, atFor } from './engine.mjs';
+import { CARDS, N, MOVE } from './cards.mjs';
+import { clone, declare, resolveIncoming, legalNow, canPay, cost, ansFits, placeKey, fits, answerOptions, atFor, groundStep, keyWords } from './engine.mjs';
+import { WORDS, PAIRS } from './board.mjs';
 
-export const W0 = { hp: 1, ko: 1, pts: 4, pos: 3, posS: 0.8, wind: 2, lead: 1.5, sub: 30, pin: 6, held: 10, setup: 4, drain: 2 };
-const KEYS = ['K', 'P', 'C', 'T0', 'T1', 'T2', 'T3', 'B0', 'B1', 'B2', 'B3'];
+export const W0 = { hp: 1, ko: 1, pts: 4, pos: 3, posS: 0.8, wind: 2, lead: 1.5, sub: 30, pin: 6, held: 10, setup: 4, drain: 2, lock: 1, up: 1.2, ref: 2 };
+// the places a card can name, in the round-9 keys (board.mjs): the standing ranges, the join, the ground places
+export const KEYS = ['K', 'P', 'C', 'over', 'gt', 'gb', 'past', 'pin', 'down'];
 export const worth = (c) => (c.k === 'strike' ? c.dmg + 4 * (c.pts || 0) : c.k === 'shot' ? 4 * c.pts + (c.dmg || 0) + 3 : c.k === 'hold' ? 12 : c.k === 'adv' ? 4 * c.pts + 2 : c.k === 'setup' ? 3 : c.k === 'move' ? 1 : 0);
+export const moveWorth = (id) => (id === '@stand' || id === '@up' ? 6 : id === '@pull' ? 9 : id === '@in' || id === '@out' || id === '@back' ? 2 : 0);
+export { keyWords };
 const FIT = new Map();
+// what each move (audit 4c) is worth to THIS deck where the bout stands now: the tie and the pilot both read it
+export function openMoves(S, m) {
+  const F = S.f[m], me = S.at[m], him = S.at[1 - m], j = S.j, out = [];
+  const isMove = (id) => !!MOVE[id];
+  // WHAT HIS HAND SAYS: a set-up in hand is an entrance; a card that needs a tie he holds is worth the tie (worth() has
+  // no way to price an entrance, so the places alone under-rate the grappler and he never ties up at all)
+  const hand = S.f[m].hand;
+  const wantsTie = hand.includes('tieup') || hand.includes('grip') || (F.mech && F.style === 'bjj' && (hand.includes('@pull') ? false : true) && hand.some((id) => CARDS[id] && (CARDS[id].needGrip || CARDS[id].k === 'hold')));
+  const ally = (at, key = placeKey(S, m)) => (at && fits(atFor(F, CARDS['sweep']), key, j) ? 1 : 0);
+  if (S.hold && S.hold.by !== m) { out.push({ id: '@break', w: S.hold.kind === 'pin' ? 0 : 3 }); return out; }
+  if (me === 'stand' && him === 'stand') {
+    if (j.kind !== 'clinch' && j.reach === 'K') out.push({ id: '@in', w: 1 });
+    if (j.kind === 'clinch' || j.reach === 'P') out.push({ id: '@out', w: 1 });
+    if (j.kind !== 'clinch' && j.reach === 'P') out.push({ id: '@in', w: 3 });
+    if (j.kind !== 'clinch') { // the tie-up in hand is worth making, above all to a man whose cards need it
+      if (hand.includes('tieup')) out.push({ id: 'tieup', w: 6 });
+      if (hand.includes('grip') && j.reach === 'P') out.push({ id: 'grip', w: 6 });
+      if (wantsTie) out.push({ id: '@in', w: 4 }); // Step in at PUNCH is the entry that makes the tie
+    }
+    if (F.mech && F.style === 'bjj') { if (j.kind === 'clinch' && S.tie && S.tie.by === m) out.push({ id: '@pull', w: 10 }); else if (j.kind !== 'clinch') out.push({ id: '@pull', w: 5 }); }
+  } else if (me === 'stand' && (him === 'seat' || him === 'back')) {
+    out.push({ id: '@out', w: j.leg ? 1 : 0 }, { id: '@in', w: j.leg ? 4 : 2 });
+    if (fits(atFor(F, CARDS.upkick), 'down', j)) out.push({ id: 'upkick', w: 4 });
+  } else if (me === 'stand' && him === 'gbot') out.push({ id: '@back', w: 5 });
+  else if (me === 'gtop') { out.push({ id: '@stand', w: 5 }); if (fits(atFor(F, CARDS.pass), 'gt', j)) out.push({ id: 'pass', w: 6 }); }
+  else if (me === 'gbot' && him === 'stand') { // standing in his guard: tripod / sickle / ankle pick (M8), the up-kick is a foul here
+    if (S.f[m].hand.includes('sweep') && legalNow(S, m, 'sweep')) out.push({ id: 'sweep', w: 9 });
+    if (S.f[m].hand.includes('triangle') || S.f[m].hand.includes('armbar')) out.push({ id: '@stand', w: 0 });
+  }
+  else if (me === 'gbot') { if (fits(atFor(F, CARDS.sweep), 'gb', j)) out.push({ id: 'sweep', w: 7 }); out.push({ id: '@up', w: 2 }); }
+  else if (me === 'seat' || me === 'back') { out.push({ id: '@up', w: 4 }); if (fits(atFor(F, CARDS.upkick), 'down', j) && him === 'stand') out.push({ id: 'upkick', w: 4 }); if (fits(atFor(F, CARDS.sweep), 'down', j)) out.push({ id: 'sweep', w: 5 }); }
+  else if (me === 'past') { if (fits(atFor(F, CARDS.pass), 'past', j)) out.push({ id: 'pass', w: 6 }); }
+  else if (me === 'pin') out.push({ id: 'escape', w: 5 });
+  void ally;
+  return out.filter((x) => legalNow(S, m, x.id) && (isMove(x.id) || S.f[m].hand.includes(x.id)));
+}
 export const resetFit = () => FIT.clear(); // the sizing search changes card numbers: the table must be rebuilt
-// how much of this deck is alive at each place on the strip (worth per wind, averaged over the deck)
+// the moves each place can offer (audit 4c): a place is worth something to a man if he can DO something there, card or move
+const MOVEFIT = { K: ['@in'], P: ['@in', '@pull'], C: ['@out', '@pull'], over: ['@in', '@out'], gt: ['@stand'], gb: [], past: [], pin: ['@up'], down: ['@up'] };
+// how much of this deck is alive at each place (worth per wind, averaged over the deck, moves included)
 export function fit(F, key) {
-  const id = F.list.join() + F.mech; let t = FIT.get(id);
+  const id = F.list.join() + F.mech + F.style; let t = FIT.get(id);
   if (!t) {
     t = {};
     for (const k of KEYS) {
       let s = 0;
       for (const c of F.list.map((i) => CARDS[i])) { const at = atFor(F, c); if (at && fits(at, k)) s += worth(c) / Math.max(1, c.w); }
+      for (const mv of MOVEFIT[k] || []) if (mv !== '@pull' || (F.mech && F.style === 'bjj')) s += moveWorth(mv) / 2;
       t[k] = s / F.list.length;
     }
     FIT.set(id, t);
@@ -45,13 +88,18 @@ export function value(S, m, W = W0) {
   if (S.over) return S.over.win === m ? 1e4 : -1e4;
   const M = S.f[m], H = S.f[1 - m], ld = M.pts - H.pts;
   let v = W.hp * (M.hp - H.hp) + W.ko * (dz(H.hp) - dz(M.hp)) + W.pts * ld + W.lead * (Math.max(0, ld - 4) ** 2 - Math.max(0, -ld - 4) ** 2)
-    + (S.hold ? 0 : (S.pos === 'G' ? W.pos : W.posS) * (fit(M, posKey(S, m)) - fit(H, posKey(S, 1 - m)))) + W.wind * (N.mode === 'limb' ? 0 : M.wind - H.wind) + W.drain * (H.drain - M.drain);
+    + (S.hold ? 0 : (S.at[m] !== 'stand' || S.at[1 - m] !== 'stand' ? W.pos : W.posS) * (fit(M, placeKey(S, m)) - fit(H, placeKey(S, 1 - m)))) + W.wind * (N.mode === 'limb' ? 0 : M.wind - H.wind) + W.drain * (H.drain - M.drain);
   if (S.hold) {
     const h = S.hold, o = outlook(S), e = escChance(S, m);
     v += (h.by === m ? 1 : -1) * ((1 - e) * ((o.fin ? (h.kind === 'sub' ? W.sub : W.pin) : W.wind * o.price) + W.pts * o.pts + W.held * o.turns) + e * (W.wind * CARDS.escape.w + W.pts * h.tick + W.held));
   }
-  if (S.grip && S.f[S.grip.by].mech) v += (S.grip.by === m ? 1 : -1) * W.setup;
-  if (S.tie && S.f[S.tie.by].mech) v += (S.tie.by === m ? 1 : -1) * W.setup;
+  // a tie-up (or a judo grip) belongs to one man. Audit 4c: it is his entrance (the clinch entry, the pull, the throw that
+  // needs a grip, the throw behind his own punch) - so to the man who holds it the tie is worth his BEST move off it, and
+  // to the other man it is worth the trouble of breaking it
+  if (S.tie && S.f[S.tie.by].mech) {
+    const holder = S.tie.by, H2 = S.f[holder], best = openMoves(S, holder).reduce((b, mv) => Math.max(b, mv.w), 0);
+    v += (S.tie.by === m ? 1 : -1) * (W.setup + W.lock * best / 10 + (S.tie.mode === 'grip' ? 2 : 0));
+  }
   return v;
 }
 // what he can still hold to answer with: [{id, p}] from his list less his discards (the table prints this count)
@@ -70,9 +118,11 @@ function evalVolley(C, m, his, W) {
   for (const t of his) for (let i = 0; i < C.inc.length; i++) if (ansFits(C, m, t.id, C.inc[i])) e = Math.min(e, U + t.p * (base({ id: t.id, i }) - U));
   return e;
 }
+export const MOVES = ['@in', '@out', '@stand', '@back', '@up', '@pull'];
 export function actions(C, m) {
   const M = C.f[m], out = [];
-  for (const id of [...new Set(M.hand), '@in', '@out', '@stand', '@up', '@pull']) if (legalNow(C.pj, m, id) && canPay(M, cost(C, m, id))) out.push(id);
+  if (C.pj.ended) return out; // the move he laid ended his volley: nothing more this turn
+  for (const id of [...new Set(M.hand), ...MOVES]) if (legalNow(C.pj, m, id) && canPay(M, cost(C, m, id))) out.push(id);
   return out;
 }
 function count(S, n) { if (S.st) { S.st.choices += n; S.st.steps++; if (n > S.st.maxCh) S.st.maxCh = n; } }
@@ -112,6 +162,7 @@ export function aiPilot(W = W0, name = 'ai') {
         }
         if (!top || top.v <= best + 0.01 || seq.length >= 7) { if (S.st && acts.some((id) => id[0] !== '@')) S.st.held[m]++; break; }
         best = top.v1; seq.push(top.id); C = top.c;
+        if (C.pj.ended) break; // a move that ends the volley: nothing more may be laid after it
       }
       return seq;
     },
@@ -137,12 +188,18 @@ function listPilot(name, prio, to) {
         const acts = actions(C, m); if (!acts.length) break;
         let id = prio(C, m, acts).find((x) => acts.includes(x));
         if (!id) {
-          const pos = C.pj.pos, R = 'KPC';
-          if (pos === 'G') id = C.pj.top === m ? (seq.length ? null : '@stand') : acts.find((x) => x === 'escape') || '@up';
-          else if (R.indexOf(pos) < R.indexOf(goal)) id = '@in'; else if (R.indexOf(pos) > R.indexOf(goal)) id = '@out';
+          // no card on the list is legal here: walk on the places, in flight words (never a code)
+          const me = C.pj.at[m], him = C.pj.at[1 - m], R = 'KPC';
+          if (me === 'stand' && him === 'stand') { const k = placeKey(C.pj, m); id = R.indexOf(k) < R.indexOf(goal) ? '@in' : R.indexOf(k) > R.indexOf(goal) ? '@out' : null; }
+          else if (me === 'stand' && (him === 'seat' || him === 'back')) id = acts.find((x) => x === 'upkick') || (C.pj.j.leg ? '@out' : null); // he refuses to follow and walks away
+          else if (me === 'stand' && him === 'gbot') id = acts.includes('@back') ? '@back' : null;
+          else if (me === 'gtop') id = acts.includes('pass') ? 'pass' : acts.includes('@stand') ? (seq.length ? null : '@stand') : null;
+          else if (me === 'gbot' || me === 'seat' || me === 'back' || me === 'knee') id = acts.find((x) => x === 'sweep' || x === 'upkick') || (seq.length ? null : acts.includes('@up') ? '@up' : null);
+          else if (me === 'past') id = acts.find((x) => CARDS[x] && CARDS[x].k === 'hold');
           if (!id || !acts.includes(id)) break;
         }
         declare(C, m, id); seq.push(id);
+        if (C.pj.ended) break;
       }
       return seq;
     },
@@ -150,15 +207,17 @@ function listPilot(name, prio, to) {
 }
 const dearFirst = (C, m, acts) => acts.filter((x) => x[0] !== '@' && CARDS[x].k !== 'ans').sort((a, b) => CARDS[b].w - CARDS[a].w);
 export const impatient = () => listPilot('impatient', dearFirst);
-const gripOn = (C, m) => C.grip && C.grip.by === m;
+const gripOn = (C, m) => C.tie && C.tie.by === m && C.tie.mode === 'grip';
+const onGround = (C) => C.at[0] !== 'stand' || C.at[1] !== 'stand';
 const SCRIPT = {
-  boxing: [() => ['jab', 'cross', 'hook', 'upper', 'bodyhook'], 'P'],
-  kickboxing: [(C) => (C.pos === 'C' ? ['knee', 'kbhook'] : ['highkick', 'bodykick', 'onetwo', 'lowkick', 'kbhook', 'knee']), 'P'],
-  karate: [(C) => (C.pos === 'K' ? ['revpunch', 'headkick', 'roundhouse', 'frontkick', 'legkick'] : ['headkick', 'roundhouse', 'frontkick', 'legkick', 'revpunch']), 'K'],
-  judo: [(C, m) => (C.pos === 'G' ? ['pin', 'armlock'] : gripOn(C, m) ? ['shoulderthrow', 'hipthrow', 'footsweep'] : ['grip']), 'P'],
-  wrestling: [(C) => (C.pos === 'G' ? ['fall', 'gnp', 'ride'] : ['slam', 'double', 'single']), 'P'],
-  bjj: [() => ['choke', 'armbar', 'triangle', 'kimura', 'pass', 'sweep', '@pull'], 'P'],
-  sambo: [(C) => (C.pos === 'G' ? ['kneebar', 'anklelock', 'casualpin'] : ['sthrow', 'trip', 'overhand']), 'C'],
+  boxing: [(C) => (onGround(C) ? (C.at[0] === 'gtop' ? ['hook', 'cross', 'pass'] : C.at[0] === 'stand' ? ['cross', 'hook'] : ['upkick']) : placeKey(C, 0) === 'C' ? ['hook', 'bodyhook', 'upper'] : ['jab', 'cross', 'hook', 'upper', 'bodyhook']), 'P'],
+  kickboxing: [(C) => (placeKey(C, 0) === 'C' ? ['knee', 'kbhook'] : ['highkick', 'bodykick', 'onetwo', 'lowkick', 'kbhook', 'knee']), 'P'],
+  karate: [(C) => (placeKey(C, 0) === 'K' ? ['revpunch', 'headkick', 'roundhouse', 'frontkick', 'legkick'] : ['headkick', 'roundhouse', 'frontkick', 'legkick', 'revpunch']), 'K'],
+  judo: [(C, m) => (onGround(C) ? ['pin', 'armlock'] : gripOn(C, m) ? ['shoulderthrow', 'hipthrow', 'footsweep'] : ['grip']), 'P'],
+  wrestling: [(C) => (onGround(C) ? ['fall', 'gnp', 'ride'] : ['slam', 'double', 'single']), 'P'],
+  bjj: [(C, m) => (C.at[m] === 'gtop' ? ['pass', 'kimura', 'armbar'] : C.at[m] === 'gbot' ? ['triangle', 'armbar', 'kimura', 'sweep'] : C.at[m] === 'stand' && onGround(C) ? ['upkick', 'sweep'] : ['choke', 'sweep', 'tieup', '@pull']), 'P'],
+  sambo: [(C) => (onGround(C) ? ['kneebar', 'anklelock', 'casualpin'] : ['sthrow', 'trip', 'overhand']), 'C'],
 };
 export const scripted = (style) => listPilot('scripted ' + style, (C, m, acts) => SCRIPT[style][0](C.pj, m).concat(acts.filter((x) => x === 'sprawl' || x === 'headlock')), SCRIPT[style][1]);
+export { WORDS, PAIRS };
 export { answerOptions };

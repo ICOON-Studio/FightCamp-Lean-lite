@@ -5,7 +5,7 @@ import { CARDS, N, fighter, STYLES } from './cards.mjs';
 import { newBout, startAct, declare, endAct, answerOptions, bout, clone } from './engine.mjs';
 import { actions } from './plan.mjs';
 import { names, cardText, card, previewTraining, esc, printedProblems, answerTable, rangeStrip, howtoLines } from './ui-text.mjs';
-import { guideLines, volleyThreat, threatLine } from './guide.mjs';
+import { guideLines, volleyThreat, threatLine, PLACES_PICTURE } from './guide.mjs';
 import { TRAINING, RUNGS, TITLE_SHOT, CUT_AT_LOSSES, freshCareer, takesTitle, rivalFighter, rivalPilot, playerFighter } from './career.mjs';
 import { install } from './uidom.mjs';
 
@@ -239,7 +239,10 @@ test('the guide\'s lines are generated from the engine\'s numbers: no number is 
   for (const l of lines) for (const d of l.text.match(/\d+/g) || []) assert.ok(numbers.has(d), `${l.id}: the number ${d} is not one of the engine's`);
   const by = Object.fromEntries(lines.map((l) => [l.id, l.text]));
   assert.ok(by.wind.includes(`${N.back} comes back`) && by.wind.includes(`up to ${N.cap}`), 'the wind line carries the refill and the cap');
-  assert.ok(by.range.includes(`Step in costs ${N.stepW} wind`) && by.range.includes(`Step out costs ${N.stepW} wind`), 'the strip line carries the step prices');
+  // ROUND 9 (item 7): the one-switch strip is gone. The range line now says each man has his OWN place and that the page
+  // names EACH man's place; the step price is still the engine's own number, not a word typed twice.
+  assert.ok(by.range.includes('Each man has his OWN place') || by.range.includes('OWN place'), 'the range line is the two-places rule');
+  assert.ok(by.range.includes(`Steps cost ${N.stepW} wind`), 'the range line carries the step price');
   assert.ok(by.win.includes(`Health is ${N.hp}`) && by.win.includes(`a points lead of ${N.lead}`), 'the win line carries health and the lead');
   assert.ok(by.bell.includes(`${N.rounds} rounds of ${N.turns} turns`), 'the bell line carries the rounds and the turns');
   // and the lines follow the engine: change a number, the words change
@@ -255,7 +258,10 @@ test('the guide\'s lines are generated from the engine\'s numbers: no number is 
 test('the low-health warning shows when and only when the laid volley would knock you out', () => {
   // a table built by hand: he lays two Uppercuts, then the player's health decides the warning
   const S = newBout(fighter('boxing'), fighter('boxing'), 11);
-  S.pos = 'P'; S.f[1].hand = ['upper', 'upper', 'upper', 'upper', 'upper']; S.f[1].wind = 20;
+  // ROUND 9: there is no S.pos any more (each man has his own place in S.at and the pair in S.j); the two men are
+  // apart at PUNCH, where the uppercut works.
+  S.at = ['stand', 'stand']; S.j = { kind: 'apart', reach: 'P' };
+  S.f[1].hand = ['upper', 'upper', 'upper', 'upper', 'upper']; S.f[1].wind = 20;
   startAct(S); declare(S, 1, 'upper'); declare(S, 1, 'upper'); endAct(S, 1);
   const opts = answerOptions(S, 0);
   S.f[0].hp = 5;
@@ -278,7 +284,7 @@ test('the low-health warning shows when and only when the laid volley would knoc
   assert.doesNotMatch(p.screen.innerHTML, /class="warn"/);
 });
 
-test('the How to play button is on every screen, and its page holds the guide\'s six lines and a small picture of the strip', () => {
+test('the How to play button is on every screen, and its page holds the guide\'s six lines and the eight places a fight can be in', () => {
   ui.reset();
   assert.ok(p.screen.querySelector('#howto'), 'the pick screen');
   click('#howto');
@@ -287,8 +293,11 @@ test('the How to play button is on every screen, and its page holds the guide\'s
   assert.equal(items.length, guideLines().length, 'the page has the guide\'s lines');
   assert.ok(items.length <= 10, 'the rules in ten lines or fewer');
   for (const l of guideLines()) assert.ok(p.screen.innerHTML.includes(esc(l.text)), l.id + ' is on the page, in the coach\'s words');
-  for (const w of ['KICK', 'PUNCH', 'CLINCH', 'GROUND']) assert.ok(p.screen.innerHTML.includes('>' + w + '<'), 'the picture of the strip shows ' + w);
-  assert.match(rangeStrip(null, 'picture'), /KICK/, 'the picture is the strip');
+  // ROUND 9 (item 7): the picture is the paper's own list of the eight places a fight can be in - one per man, no
+  // switch and no light - not the round-8 strip's KICK / PUNCH / CLINCH / GROUND.
+  for (const w of PLACES_PICTURE) assert.ok(p.screen.innerHTML.includes('>' + w + '<'), 'the picture shows the place: ' + w);
+  assert.equal(PLACES_PICTURE.length, 8, 'eight places');
+  assert.match(rangeStrip(null, 'picture'), /In his guard, underneath/, 'the picture is the places list');
   assert.equal((howtoLines().match(/class="howto-line"/g) || []).length, guideLines().length);
   click('#back');
   assert.equal(p.screen.querySelectorAll('[data-style]').length, 2, 'back to the pick');

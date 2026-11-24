@@ -1,15 +1,22 @@
-// CARDSCOPE5 greybox: the rally on a strip. A turn = answer his volley with ONE answer, it resolves in order, then
-// lay your own volley face up (cards and steps, one at a time). Nothing is rolled; a card that is no longer legal
-// when it resolves (he stopped the entry) whiffs.
-import { CARDS, N } from './cards.mjs';
+// ROUND 9 (TASK_CARDROUND9): the card game on the real-fight position model (CARDREAL_AUDIT section 4). A turn = answer
+// his volley with ONE answer, it resolves in order, then lay your own volley face up (cards and moves, one at a time).
+// Each fighter has his own place (board.mjs): a move names whose place changes, and nobody is moved for free. A move
+// that leaves contact, goes to the ground or rises from it is answerable like a card (audit 2d, 4c). Nothing is rolled;
+// a card that is no longer legal when it resolves (he stopped the entry) whiffs.
+import { CARDS, N, MOVE } from './cards.mjs';
+import { GUARD_KINDS, PAST_KINDS, pairOk, joinFor, groundStep } from './board.mjs';
+export { groundStep, GUARD_KINDS, PAST_KINDS } from './board.mjs';
+export { newBout, bout } from './desk.mjs'; // the round and turn loop (desk.mjs), re-exported: one import for the callers
+export { resolveMove } from './moves.mjs'; // the floor moves (audit 4c), their own file: one import for the callers
+import { resolveMove } from './moves.mjs';
 
 export function rng(seed) {
   let a = seed >>> 0;
   return () => { a = (a + 0x6d2b79f5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
 }
 export function shuffle(a, r) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
-const BIT = { a: 1, A: 2, l: 4, L: 8, h: 16 }, VB = { K: 1, P: 2, C: 4, G: 8 };
-const KPs = ['K', 'P'], PCs = ['P', 'C'], TOPS = ['T1', 'T2', 'T3'];
+const BIT = { a: 1, A: 2, l: 4, L: 8, h: 16 };
+const DOWN = ['seat', 'back'], GROUNDKEYS = ['gt', 'gb', 'past', 'pin', 'down'];
 
 export function newFighter(F, r) {
   return { name: F.name, style: F.style, mech: F.mech !== false, list: F.deck.slice(), deck: shuffle(F.deck.slice(), r), hand: [], disc: [],
@@ -17,12 +24,35 @@ export function newFighter(F, r) {
 }
 const cf = (F) => ({ ...F, hand: F.hand.slice() });
 export function clone(S) {
-  const c = { ...S, f: [cf(S.f[0]), cf(S.f[1])], inc: S.inc.slice(), hold: S.hold && { ...S.hold }, grip: S.grip && { ...S.grip }, tie: S.tie && { ...S.tie }, ctx: { ...S.ctx }, st: null, pj: null };
+  const c = { ...S, f: [cf(S.f[0]), cf(S.f[1])], at: S.at.slice(), j: { ...S.j }, inc: S.inc.map((p) => ({ ...p })), hold: S.hold && { ...S.hold }, tie: S.tie && { ...S.tie }, timid: S.timid.slice(), ctx: { ...S.ctx }, st: null, pj: null };
   if (S.pj) c.pj = clone(S.pj);
   return c;
 }
-export const posKey = (S, m) => (S.pos !== 'G' ? S.pos : (S.top === m ? 'T' : 'B') + S.rung);
-export function fits(at, key) { for (const a of at) if (a === key || (key.length === 2 && (a === key[0] || a === 'G'))) return true; return false; }
+// THE PLACE A CARD NAMES, in board.mjs keys: K P C kick / punch / the clinch; over standing over a man who is down;
+// gt gb the guard, on top / underneath; past past his guard; pin pinned; down on the floor and apart
+const KEYWORD = { K: 'kick range', P: 'punch range', C: 'the clinch', over: 'standing over a man who is down', gt: 'in his guard, on top', gb: 'in his guard, underneath', past: 'past his guard', pin: 'pinned', down: 'on the floor, apart' };
+export const keyWords = (k) => KEYWORD[k] || k;
+export function placeKey(S, m) {
+  const me = S.at[m], him = S.at[1 - m], j = S.j;
+  if (me === 'stand') { if (j.kind === 'clinch') return 'C'; if (him === 'stand') return j.reach === 'K' ? 'K' : 'P'; return 'over'; }
+  if (me === 'gtop') return 'gt';
+  if (me === 'gbot') return 'gb';
+  if (me === 'past') return 'past';
+  if (me === 'pin') return 'pin';
+  return 'down';
+}
+export const posKey = placeKey; // the round-8 name for the same idea (one key per fighter now)
+export function fits(atList, key, j = {}) {
+  for (const a of atList) {
+    const p = typeof a === 'string' ? a : a.p, gs = typeof a === 'string' ? null : a.gs;
+    if (p === key || (p === 'G' && GROUNDKEYS.includes(key))) {
+      // a guard kind / past kind the card names must be the one that holds - except where no join is given (the pilot's
+      // static "where can this card ever be played" table reads the place alone)
+      if (!gs || (!j.g && !j.top) || gs.includes(j.g) || gs.includes(j.top)) return true;
+    }
+  }
+  return false;
+}
 export function draw(M, r) {
   while (M.hand.length < N.hand) {
     if (!M.deck.length) { if (!M.disc.length) break; M.deck = shuffle(M.disc, r); M.disc = []; }
@@ -40,196 +70,312 @@ function limbMask(F, L) {
 }
 export function canPay(F, [w, L]) { return (N.mode === 'limb' || F.wind >= w) && (N.mode === 'wind' || limbMask(F, L) >= 0); }
 function pay(F, [w, L]) { if (N.mode !== 'limb') F.wind -= w; if (N.mode !== 'wind') F.lit &= ~limbMask(F, L); }
-export function cost(S, m, id) {
-  if (id === '@in' || id === '@out') return [N.stepW + (S.f[m].lame ? 1 : 0), 'y']; // a kicked leg: steps cost 1 more for a turn
-  if (id === '@stand') return [S.rung === 0 ? N.standW + 1 : N.standW, 'y'];
+function baseCost(S, m, id) {
+  if (id === '@in' || id === '@out' || id === '@back') return [N.stepW + (S.f[m].lame ? 1 : 0), 'y'];
+  if (id === '@stand') return [N.standW, 'y'];
   if (id === '@cover') return [N.coverW, 'x'];
   if (id === '@pull') return [N.pullW, 'h'];
-  if (id === '@break') return [S.hold.brk, ''];
+  if (id === '@break') return [S.hold ? S.hold.brk : 99, ''];
   if (id === '@up') return [N.upW, 'hy'];
   const c = CARDS[id], M = S.f[m], Q = S.pj;
-  if (Q && M.mech && c.k === 'strike') { // the two strikers' own mechanics are prices: what a line costs
+  if (Q && M.mech && c.k === 'strike') { // the two strikers' own mechanics are prices
     const last = S.inc[S.inc.length - 1], lc = last && CARDS[last.id];
     if (M.style === 'boxing' && !c.kick && lc && lc.k === 'strike' && !lc.kick) return [Math.max(0, c.w - 1), c.L];
-    if (M.style === 'kickboxing' && Q.ctx.lastT && Q.ctx.lastT !== kindOf(c)) return [Math.max(0, c.w - 1), c.L]; // hands and feet
-    if (M.style === 'karate' && c.w > 1 && c.blitz && Q.pos === 'K') return [c.w - 1, c.L];
+    if (M.style === 'kickboxing' && Q.ctx.lastT && Q.ctx.lastT !== kindOf(c)) return [Math.max(0, c.w - 1), c.L];
+    if (M.style === 'karate' && c.w > 1 && c.blitz && placeKey(Q, m) === 'K') return [c.w - 1, c.L];
   }
   return [c.w, c.L];
 }
-const SR = ['K', 'P', 'C'];
+// audit 2d: a grip or tie that stood a turn makes the ANSWER 1 wind dearer, never impossible
+export function cost(S, m, id, p) {
+  const [w, L] = baseCost(S, m, id);
+  const a = 1 - m;
+  if (p && S.tie && S.tie.by === a && S.tie.pass < S.pass && (CARDS[p.id]?.k === 'shot' || p.id === '@pull')) return [w + N.surcharge, L];
+  return [w, L];
+}
 const kindOf = (c) => (c.kick ? 'k' : c.kneeC ? 'n' : 'p');
-// kickboxing's own mechanic: a strike of another kind than his last goes to its own range by itself: a punch behind a
-// kick steps in to PUNCH, the knee behind a punch takes the CLINCH, a punch behind the knee pushes off back to PUNCH
-const carries = (S, M, c) => (M.mech && M.style === 'kickboxing' && c.k === 'strike' ? (S.pos === 'K' && kindOf(c) === 'p' && S.ctx.lastT === 'k' ? 'P' : S.pos === 'P' && c.kneeC && S.ctx.lastT === 'p' ? 'C' : S.pos === 'C' && kindOf(c) === 'p' && S.ctx.lastT === 'n' ? 'P' : null) : null);
-// where a card is playable for this fighter: the printed ranges, widened or narrowed by his art's own mechanic
+// kickboxing's own mechanic: a strike of another kind than his last carries him to its own range by itself. Round 9: the
+// round-8 strip is two places now (apart at KICK/PUNCH, and the CLINCH), so the clinch reads as 'C' - the knee behind the
+// punch takes the clinch, and the punch behind the knee pushes back off to PUNCH. Both men must be on their feet.
+function carries(S, M, c) {
+  if (!(M.mech && M.style === 'kickboxing' && c.k === 'strike')) return null;
+  if (S.at[0] !== 'stand' || S.at[1] !== 'stand') return null;
+  if (S.j.kind === 'entangled') return null;
+  const r = S.j.kind === 'clinch' ? 'C' : S.j.reach, t = S.ctx.lastT;
+  return r === 'K' && kindOf(c) === 'p' && t === 'k' ? 'P' : r === 'P' && c.kneeC && t === 'p' ? 'C' : r === 'C' && kindOf(c) === 'p' && t === 'n' ? 'P' : null;
+}
+// where a card is playable for this fighter: the places it names, widened or narrowed by his art's own mechanic
 export function atFor(F, c) {
   let at = c.at; if (!at) return at;
   if (F.mech) {
-    if (c.enter || c.blitz || (c.kick && (F.style === 'karate' || F.style === 'kickboxing'))) at = KPs; // the kickboxer kicks from PUNCH range and stays there
-    if (F.style === 'wrestling' && c.k === 'shot') at = SR;
-    if (F.style === 'boxing' && c.inside) at = PCs; // infighting: the short punches work in the CLINCH
-    if (F.style === 'sambo' && c.k === 'shot') at = PCs; // the sambo throw goes off the punch exchange: no clinch needed first
+    if (c.enter || c.blitz || (c.kick && (F.style === 'karate' || F.style === 'kickboxing'))) at = ['K', 'P'];
+    if (F.style === 'wrestling' && c.k === 'shot') at = ['K', 'P', 'C'];
+    if (F.style === 'boxing' && c.inside) at = ['P', 'C'];
+    if (F.style === 'sambo' && c.k === 'shot') at = ['P', 'C'];
+    // the punches down (M12): from standing over a man who is down, and from on top on the ground (M11: weak in the
+    // guard, full past it). A rule hung on the boxer's own hook and cross, never a new card
+    if (c.punchDown) at = [...at, 'over', 'gt', 'past'];
   }
-  if (c.leg && !(F.mech && F.style === 'sambo')) at = TOPS; // a leg lock from any place on the ground is sambo's; without it, it needs a settled top position like any lock
-  if (!(F.mech && F.style === 'bjj') && at.some((a) => a[0] === 'B')) at = at.filter((a) => a[0] !== 'B'); // the guard is BJJ's
+  if (c.leg && !(F.mech && F.style === 'sambo')) at = ['gt', 'past'];
+  if (!(F.mech && F.style === 'bjj')) at = at.filter((a) => (typeof a === 'string' ? a !== 'gb' : a.p !== 'gb'));
   return at;
 }
-// is this card or step legal where the bout stands now (position and status; not its price)
+const onTop = (S, m) => S.at[m] === 'gtop' || S.at[m] === 'past';
+const atGuard = (S, m) => S.at[m] === 'gbot';
+const standOver = (S, m) => S.at[m] === 'stand' && (DOWN.includes(S.at[1 - m]));
+// is this card or step legal where the bout stands now (places and status; not its price)
 export function legalNow(S, m, id) {
   if (S.over) return false;
-  const M = S.f[m], G = S.pos === 'G';
-  if (id === '@in') return !G && S.pos !== 'C';
-  if (id === '@out') return !G && S.pos !== 'K' && !(S.grip && S.grip.by !== m && !(M.mech && M.style === 'karate')); // a grip holds a man in; not the karate man, who is never there
-  if (id === '@stand') return G && S.top === m && !S.hold;
-  if (id === '@up') return G && S.top !== m && !S.hold;
-  if (id === '@pull') return !S.hold && M.mech && M.style === 'bjj' && S.pos !== 'G'; // he sits to guard from any range and makes him come
+  const M = S.f[m], me = S.at[m], him = S.at[1 - m], j = S.j, key = placeKey(S, m);
+  const bothStand = me === 'stand' && him === 'stand';
+  if (id === '@in') {
+    if (bothStand) return j.kind !== 'clinch' && (j.reach === 'K' || j.reach === 'P'); // KICK -> PUNCH, PUNCH -> the clinch
+    return standOver(S, m) && down(S, 1 - m); // step closer, or follow him down
+  }
+  if (id === '@out') {
+    if (bothStand) return j.kind === 'clinch' || j.reach === 'P'; // the clinch -> apart at PUNCH; PUNCH -> KICK
+    return standOver(S, m) && !!j.leg; // walk away, out of leg range
+  }
+  if (id === '@stand') return me === 'gtop' && !S.hold;
+  if (id === '@back') return me === 'stand' && (him === 'gbot' || S.j.kind === 'clinch'); // out of the clinch, or out of his legs
+  if (id === '@up') return (me === 'seat' || me === 'back' || me === 'knee') && him === 'stand' && !S.hold;
+  // Pull guard (audit 4c): with HIS OWN tie, from the clinch it made; with no tie, the same button is Sit down, from
+  // apart. (Round 9 first wrote this as "never in the clinch", which forbade the very move the audit names - walked bout
+  // turn 4, the BJJ man pulling off his collar tie in his own volley.)
+  if (id === '@pull') return !S.hold && M.mech && M.style === 'bjj' && bothStand && ((S.tie && S.tie.by === m) || j.kind !== 'clinch');
   if (S.hold || id === '@break') return false;
   const c = CARDS[id];
   if (c.k === 'ans') {
-    if (c.act) return G && S.top !== m;
-    if (c.fx === 'sprawl') return !!((S.grip && S.grip.by !== m) || (S.tie && S.tie.by !== m));
+    if (c.act) return key === 'pin' || key === 'gb'; // Escape in his own turn: recover guard, never stands up
+    if (c.fx === 'sprawl') return !!S.tie && S.tie.by !== m;
     return false;
   }
-  if (c.needGrip && M.mech && !(S.grip && S.grip.by === m)) return false;
-  if (c.k === 'shot' && S.grip && S.grip.by !== m && S.f[1 - m].mech) return false; // a gripped man cannot shoot or throw: the grip owns his posture
-  // a hold needs a settled position: not in the volley of the takedown (sambo's own mechanic is the exception; so is BJJ's own pull)
-  if (c.k === 'hold' && S.gpass === S.pass && !(S.gby === m && (S.gpull || (M.mech && M.style === 'sambo')))) return false;
-  return !!carries(S, M, c) || fits(atFor(M, c), posKey(S, m));
+  // the up-kick: only from the floor, at a STANDING man, inside the reach of the feet (rule 3: never at a man in the guard)
+  if (c.up) return (me === 'seat' || me === 'back') && him === 'stand' && !!j.leg;
+  // the sweep: from the guard, at the man on top of it (hip bump) or at a man standing out of it (tripod, sickle, ankle
+  // pick - M8); from the seat, the ankle pick; never at a man past the guard
+  if (c.sweep) return (key === 'gb' && (him === 'gtop' || (him === 'stand' && !!j.leg))) || (key === 'down' && him === 'stand' && !!j.leg);
+  if (c.needGrip && M.mech && !(S.tie && S.tie.by === m && S.tie.mode === 'grip')) return false;
+  // the sambo throw (audit 2c MISSING-LINK): the grab is part of his own punch, so it goes from PUNCH only and only
+  // right behind his own punch laid this same volley - and it is answerable like any other step off contact.
+  if (M.mech && M.style === 'sambo' && id === 'sthrow' && !(key === 'P' && S.ctx.lastT === 'p')) return false;
+  if (c.k === 'shot' && S.tie && S.tie.by !== m && S.f[1 - m].mech) return false; // a gripped man cannot shoot: the grip owns his posture
+  // Tie up (4c), and the judo Grip with it: a set-up that makes contact - from PUNCH range, from KICK (reaching in as the
+  // step in would, the punch that punishes it landing on the way), or inside the clinch as a better hold
+  if ((id === 'tieup' || id === 'grip') && !bothStand) return false;
+  // audit 2c: hold-downs, rolls and ground strikes are the man ON TOP's; ground punches inside the guard are a rule on the
+  // boxer's own hook and cross (M11), never on the bjj man's. The rule takes only the GROUND places away: at PUNCH the
+  // cross is the plain cross and works for anybody (the round-9 test caught the rule refusing it there too).
+  if ((id === 'hook' || id === 'cross') && c.punchDown && !M.mech && ['over', 'gt', 'past'].includes(key)) return false;
+  // a hold needs a settled position: not in the volley of the takedown (sambo's own mechanic is the exception; so is BJJ's pull)
+  if (c.k === 'hold' && S.gpass === S.pass && !(S.gby === m && M.mech && (M.style === 'sambo' || M.style === 'bjj'))) return false;
+  return !!carries(S, M, c) || fits(atFor(M, c), key, j);
 }
-// a clean takedown cannot be answered: the judo grip, the wrestler's read of the tie-up
-export function shotClean(S, a, c, pass = S.pass, behindPunch = S.ctx.lastT === 'p') {
-  const A = S.f[a];
-  if (!A.mech) return false;
-  if (A.style === 'sambo' && c.k === 'shot') return behindPunch; // punch-to-throw: his throw right behind his own punch cannot be stopped
-  if (c.needGrip) return !!S.grip && S.grip.by === a && S.grip.pass < pass;
-  if (c.cleanIf === 'tie') return !!S.tie && S.tie.by === a && S.tie.pass < pass;
-  return false;
-}
-const fxOf = (id) => (id === '@cover' ? 'cover' : CARDS[id].fx);
-// does answer `id` stop pending card p (thrown by a)?
+const down = (S, m) => DOWN.includes(S.at[m]);
+export const fxOf = (id) => (id === '@cover' ? 'cover' : CARDS[id]?.up ? 'up' : CARDS[id]?.fx);
+export const strikeFits = (S, m, id, key) => !!CARDS[id] && CARDS[id].k === 'strike' && fits(atFor(S.f[m], CARDS[id]), key, S.j);
+// does answer `id` (laid by m, the man answering) stop pending card or move p (laid by a = 1 - m)?
 export function ansFits(S, a, id, p) {
-  const c = CARDS[p.id]; if (!c) return false;
-  const fx = fxOf(id), ground = !!c.at && c.at[0][0] === 'T', before = CARDS[S.inc[S.inc.indexOf(p) - 1]?.id], bp = !!before && before.k === 'strike' && !before.kick; // the card laid just before it is a punch
+  const m = 1 - a, c = CARDS[p.id], fx = fxOf(id);
+  if (!c) { // a MOVE: only the windows the audit names (4c), never more
+    if (fx === 'up') return p.id === '@in' || p.id === '@out' || p.id === '@back'; // follow him down, walk away, back away
+    if (fx === 'sprawl') return p.id === '@in' || p.id === '@pull'; // following him down / the pull: posture
+    if (p.id === '@pull') return fx === 'sprawl';
+    if (p.id === '@stand') return (id === 'sweep' && atGuard(S, m)) || (CARDS[id]?.k === 'hold' && atGuard(S, m) && fits(atFor(S.f[m], CARDS[id]), 'gb', S.j));
+    if (p.id === '@back') return id === 'sweep' && atGuard(S, m);
+    if (p.id === '@out' && S.j.kind === 'clinch') return S.tie && S.tie.by === m ? id === '@pull' : strikeFits(S, m, id, 'C');
+    if (p.id === '@in' && S.at[m] === 'stand' && S.at[a] === 'stand') return false;
+    return false;
+  }
+  const ground = ['gt', 'past', 'over', 'gb', 'pin', 'down'].includes(placeKey(S, a));
   if (fx === 'cover' || fx === 'block') return c.k === 'strike' && !c.unblock;
   if (fx === 'slip') return c.k === 'strike' && !c.kick && !ground;
-  if (fx === 'evade') return (c.k === 'strike' && !ground) || (c.k === 'shot' && !c.sweep && !shotClean(S, a, c, S.pass + 1, bp)); // he is not there: a strike, or a shot that is not clean
+  if (fx === 'evade') return (c.k === 'strike' && !ground) || c.k === 'shot'; // no takedown is unanswerable (2d): a stood tie just makes it dearer
   if (fx === 'tiein') return c.k === 'strike' && !ground;
   if (fx === 'catch' || fx === 'check') return !!c.kick;
-  if (fx === 'sprawl') return c.k === 'setup' || (c.k === 'shot' && !shotClean(S, a, c, S.pass + 1, bp));
-  if (fx === 'headlock') return c.k === 'shot' && !shotClean(S, a, c, S.pass + 1, bp); // it snaps a shooter down; it does not stop a grip
+  if (fx === 'sprawl') return c.k === 'setup' || c.k === 'shot';
+  if (fx === 'headlock') return c.k === 'shot';
+  if (fx === 'up') return c.k === 'strike' && placeKey(S, a) === 'over'; // the up-kick answers the punch down (M12)
   if (fx === 'escape') return c.k === 'hold' || c.k === 'adv';
   return false;
 }
 function end(S, win, how) { if (!S.over) S.over = { win, how }; }
 function checkOver(S) {
   for (const k of [0, 1]) if (S.f[k].hp <= 0) end(S, 1 - k, 'ko');
-  if (N.clkPts) for (const k of [0, 1]) if (S.f[k].pts - S.f[1 - k].pts >= N.lead) end(S, k, 'lead');
+  if (N.clkPts && !S.over) for (const k of [0, 1]) if (S.f[k].pts - S.f[1 - k].pts >= N.lead) end(S, k, 'lead');
 }
-function stand(S, pos) { S.pos = pos; S.top = -1; S.rung = 0; S.stall = 0; S.hold = null; }
-function ground(S, top, rung, by, pull) { S.pos = 'G'; S.top = top; S.rung = rung; S.stall = 0; S.grip = S.tie = null; S.gpass = S.pass; S.gby = by; S.gpull = !!pull; }
+// put a man somewhere and rebuild the join; the engine REFUSES a pair a fight does not have (audit 4b)
+export function place(S, m, p, jp = {}) {
+  const at = S.at.slice(); at[m] = p;
+  const j = joinFor(at, { ...S.j, ...jp });
+  if (!pairOk(at, j)) throw new Error(`illegal pair: ${at.join(' / ')} ${JSON.stringify(j)}`);
+  S.at = at; S.j = j;
+}
+export function placeBoth(S, at, jp = {}) {
+  const j = joinFor(at, { ...S.j, ...jp });
+  if (!pairOk(at, j)) throw new Error(`illegal pair: ${at.join(' / ')} ${JSON.stringify(j)}`);
+  S.at = at.slice(); S.j = j;
+}
+// the referee stands both men up, apart at KICK: the only stand-up there is (audit 2d, 4c)
+function refUp(S, why) { S.at = ['stand', 'stand']; S.j = { kind: 'apart', reach: 'K' }; S.tie = null; S.hold = null; S.stall = 0; if (S.st) { S.st.refUps++; S.st.refLog.push(why); } }
+export function hit(S, by, to, dmg, pts = 0) { if (!dmg) return; S.f[to].hp -= dmg; S.f[by].dealt += dmg; if (pts) S.f[by].pts += pts; checkOver(S); }
 function drainHim(D) { if (N.mode === 'limb') D.dark |= 16; else D.drain = Math.min(N.drainCap, D.drain + 1); }
-function finishHold(S) {
-  const h = S.hold; if (S.st) S.st.holdDone++;
-  if (h.kind === 'sub') end(S, h.by, 'tap'); else { S.f[h.by].pts += h.pts; stand(S, 'C'); checkOver(S); if (S.over && S.over.how === 'lead') S.over.how = 'pin'; }
+// the hold ends and BOTH STAY DOWN, the holder one layer back (audit 2a Break free, 2b Escape, 4c)
+function backOneLayer(S, by) {
+  const o = 1 - by;
+  if (S.at[by] === 'past') {
+    if (S.j.top === 'back') { placeBoth(S, by === 0 ? ['past', 'pin'] : ['pin', 'past'], { top: 'side' }); }
+    else { placeBoth(S, by === 0 ? ['gtop', 'gbot'] : ['gbot', 'gtop'], { g: 'half' }); }
+  } else if (S.at[by] === 'gbot') S.j = { kind: 'entangled', g: 'closed' }; // the plain guard he attacked from
+  S.hold = null;
+  void o;
 }
+function finishHold(S, bell = false) {
+  const h = S.hold; if (!h) return;
+  if (S.st) S.st.holdDone++;
+  S.hold = null;
+  if (h.kind === 'sub') { if (!bell) end(S, h.by, 'tap'); return; }
+  S.f[h.by].pts += h.pts;
+  refUp(S, 'a pin that ran its count'); // audit 2d: the points stand, the referee stands them apart at KICK
+  checkOver(S);
+  if (S.over && S.over.how === 'lead') S.over.how = 'pin';
+}
+const visBit = (S) => (S.at[0] !== 'stand' || S.at[1] !== 'stand' ? 8 : S.j.kind === 'clinch' ? 4 : S.j.reach === 'K' ? 1 : 2);
+// a takedown or throw lands: `to` 0 the guard, 1 the half guard, 2 side control, 3 the back
+function landShot(S, a, to) {
+  const top = to >= 2 ? (to >= 3 ? 'back' : 'side') : to === 1 ? 'half' : 'closed';
+  if (to >= 2) placeBoth(S, a === 0 ? ['past', 'pin'] : ['pin', 'past'], { top });
+  else placeBoth(S, a === 0 ? ['gtop', 'gbot'] : ['gbot', 'gtop'], { g: top });
+  S.tie = null; S.stall = 0; S.gpass = S.pass; S.gby = a;
+  if (S.st) S.st.downs++;
+}
+// one laid thing (card or move) resolves, with the defender's one answer applied to it
 function resolveOne(S, a, p, ans) {
-  const d = 1 - a, A = S.f[a], D = S.f[d], id = p.id, x = S.ctx;
+  const d = 1 - a, A = S.f[a], D = S.f[d], x = S.ctx;
   if (S.over) return;
-  if (!legalNow(S, a, id)) { x.prev = false; x.combo = 0; x.lastT = null; if (S.st) S.st.whiff++; return; }
-  if (id === '@in') { S.pos = S.pos === 'K' ? 'P' : 'C'; return; }
-  if (id === '@out') { S.pos = S.pos === 'C' ? 'P' : 'K'; S.tie = null; return; }
-  if (id === '@stand') { stand(S, 'P'); return; }
-  if (id === '@up') { // the ride (wrestling's own): under a wrestler Get up wins back one rung only, and he is up only from the guard
-    const ride = D.mech && D.style === 'wrestling';
-    if (S.rung <= (ride ? 0 : 1)) stand(S, 'P'); else S.rung -= ride ? 1 : 2; return;
+  if (!legalNow(S, a, p.id)) { x.prev = false; x.combo = 0; x.lastT = null; if (S.st) S.st.whiff++; return; }
+  if (p.id[0] === '@') { x.prev = false; x.combo = 0; x.lastT = null; resolveMove(S, a, p, ans); return; }
+  const c = CARDS[p.id], fx = ans ? fxOf(ans) : null, key = placeKey(S, a);
+  if (c.k === 'ans') { // Escape played in his own turn: recover guard, both stay down (audit 2b WRONG fixed)
+    if (c.act) {
+      if (S.at[a] === 'pin') placeBoth(S, a === 0 ? ['gbot', 'gtop'] : ['gtop', 'gbot'], { g: 'half' });
+      else S.j = { kind: 'entangled', g: 'closed' };
+    } else S.tie = null;
+    return;
   }
-  if (id === '@pull') { ground(S, d, 0, a, true); return; }
-  const c = CARDS[id], fx = ans ? fxOf(ans) : null;
-  if (c.k === 'ans') { if (c.act) { if (S.rung <= 1) stand(S, 'P'); else S.rung -= 2; } else S.grip = S.tie = null; return; }
   if (c.k === 'strike') {
-    // the boxer's jab takes him in and he stays in; the karate blitz goes in and is back out at KICK before the answer
-    const ct = carries(S, A, c); if (ct) S.pos = ct;
-    if (A.mech) { if (S.pos === 'K' && c.enter) S.pos = 'P'; else if (S.pos === 'P' && (c.kick || c.blitz) && A.style === 'karate') S.pos = 'K'; }
-    let dmg = c.dmg + (p.b || 0), clean = true;
+    const ct = carries(S, A, c); if (ct) S.j = ct === 'C' ? { kind: 'clinch', by: a } : { kind: 'apart', reach: ct };
+    if (A.mech) { if (key === 'K' && c.enter) S.j = { ...S.j, reach: 'P' }; else if (key === 'P' && (c.kick || c.blitz) && A.style === 'karate') S.j = { ...S.j, reach: 'K' }; }
+    // the punch down (M12) and the ground punch from inside the guard (M11) are HALF of it; past the guard it is all of it
+    const weak = key === 'over' || key === 'gt';
+    let dmg = (weak ? Math.ceil(c.dmg / 2) : c.dmg) + (p.b || 0), clean = true;
     if (fx === 'block') { dmg = Math.max(0, dmg - (CARDS[ans]?.guard || N.block)); clean = false; }
     else if (fx === 'cover') { dmg = Math.max(0, dmg - N.cover); clean = false; }
-    else if (fx === 'tiein') { dmg = Math.max(0, dmg - N.tiein); clean = false; S.pos = 'C'; }
-    else if (fx) {
+    else if (fx === 'tiein') { dmg = Math.max(0, dmg - N.tiein); clean = false; S.j = { ...S.j, kind: 'clinch' }; }
+    else if (fx === 'up') { // the up-kick: the punch down misses and he is kicked instead
+      hit(S, d, a, CARDS.upkick.dmg, 0); if (S.st) S.st.upkicks++;
+      x.prev = false; x.combo = 0; x.lastT = null; return;
+    } else if (fx) {
       if (fx === 'slip' || fx === 'check') D.ctr = N.counter;
-      else if (fx === 'evade') { if (D.mech) S.pos = 'K'; }
-      else if (fx === 'catch') { ground(S, d, 0, d); D.pts += N.catchPts; }
+      else if (fx === 'evade') { if (D.mech && S.at[d] === 'stand' && S.at[a] === 'stand') S.j = { kind: 'apart', reach: 'K' }; }
+      else if (fx === 'catch') { if (S.at[d] === 'stand') { placeBoth(S, d === 0 ? ['gtop', 'gbot'] : ['gbot', 'gtop'], { g: 'closed' }); D.pts += N.catchPts; S.gpass = S.pass; S.stall = 0; } }
       x.prev = false; x.combo = 0; x.lastT = null; return;
     }
     x.lastT = kindOf(c);
     if (clean) {
-      x.combo = id === 'jab' ? 1 : id === 'cross' && x.combo === 1 ? 2 : id === 'hook' && x.combo === 2 ? 3 : 0;
+      x.combo = p.id === 'jab' ? 1 : p.id === 'cross' && x.combo === 1 ? 2 : p.id === 'hook' && x.combo === 2 ? 3 : 0;
       if (x.combo === 3 && A.mech && A.style === 'boxing') { dmg += N.comboDmg; A.pts += N.comboPts; if (S.st) S.st.combos++; }
       A.pts += c.pts || 0;
       if (c.drain) drainHim(D);
       if (c.cripple) { D.lame = 1; if (N.mode === 'wind') drainHim(D); else D.dark |= 4; }
     } else x.combo = 0;
-    D.hp -= dmg; A.dealt += dmg; x.prev = clean; if (S.pos === 'G') S.stall = 0;
-    if (c.close && S.pos === 'P') S.pos = 'C';
+    D.hp -= dmg; A.dealt += dmg; x.prev = clean; S.stall = 0;
+    if (c.close && S.j.reach === 'P') S.j = { ...S.j, kind: 'clinch' };
+    checkOver(S);
     return;
   }
   x.prev = false; x.combo = 0;
   if (c.k === 'shot') {
-    const clean = shotClean(S, a, c);
-    if (fx && !clean) {
+    if (fx === 'evade' || fx === 'sprawl' || fx === 'headlock') { // no takedown is unanswerable (2d); a stood tie only prices it dearer
       if (fx === 'headlock') D.pts += N.headlockPts;
-      if (fx === 'evade') { if (D.mech) S.pos = 'K'; if (S.st) S.st.stuffed++; return; }
-      if (A.mech && A.style === 'wrestling') { S.tie = { by: a, pass: S.pass }; S.pos = 'C'; } // chain wrestling: stuffed, he stays on the legs
-      if (S.st) S.st.stuffed++; return;
+      if (fx === 'evade' && D.mech && S.at[d] === 'stand' && S.at[a] === 'stand') S.j = { kind: 'apart', reach: 'K' };
+      // chain wrestling is the SHOOTER's own mechanic (audit 2c): his stuffed shot leaves HIM tied up with the man he
+      // shot at, holding the tie - so his next shot is a chain, not a new entry. (Round 8 read the defender's style here.)
+      if (fx === 'sprawl' && S.at[a] === 'stand' && S.at[d] === 'stand' && A.mech && A.style === 'wrestling') { placeBoth(S, S.at.slice(), { kind: 'clinch', by: a }); S.tie = { by: a, mode: 'tie', pass: S.pass }; }
+      if (S.st) S.st.stuffed++;
+      return;
     }
-    ground(S, a, c.to, a); A.pts += c.pts; D.hp -= c.dmg || 0; A.dealt += c.dmg || 0;
-    if (S.st) S.st.downs++;
-  } else if (c.k === 'setup') {
-    if (fx) { if (fx === 'headlock') D.pts += N.headlockPts; if (fx === 'evade' && D.mech) S.pos = 'K'; return; }
-    if (id === 'grip') { S.grip = { by: a, pass: S.pass }; S.pos = 'C'; } else S.tie = { by: a, pass: S.pass, struck: false };
-  } else if (c.k === 'hold') {
-    if (fx) { if (S.top === a) S.rung = Math.max(0, S.rung - 1); return; }
+    if (c.sweep) { // the sweep: he comes up on top, the other man in half guard
+      placeBoth(S, a === 0 ? ['gtop', 'gbot'] : ['gbot', 'gtop'], { g: 'half' }); A.pts += c.pts; S.gpass = S.pass; S.stall = 0;
+      if (S.st) S.st.sweeps++;
+      return;
+    }
+    landShot(S, a, c.to); A.pts += c.pts; if (c.dmg) hit(S, a, d, c.dmg);
+    return;
+  }
+  if (c.k === 'setup') {
+    if (fx) { if (fx === 'headlock') D.pts += N.headlockPts; if (fx === 'evade' && D.mech) S.j = { kind: 'apart', reach: 'K' }; return; }
+    S.tie = { by: a, mode: p.id === 'grip' ? 'grip' : 'tie', pass: S.pass };
+    S.j = { ...S.j, kind: 'clinch', by: a };
+    return;
+  }
+  if (c.k === 'hold') {
+    if (fx) { backOneLayer(S, a); return; } // stopped as it was laid: the holder one layer back, both stay down (2b)
     if (!N.clkHold) return;
     S.stall = 0; if (S.st) S.st.holdOn++;
     if (N.holdRoll && S.st) { if (S.r() < N.holdRoll) { S.hold = { by: a, kind: c.hk, pts: c.hpts || 0 }; finishHold(S); } return; }
-    S.hold = { by: a, kind: c.hk, count: c.count, brk: c.brk, tick: c.tick || 0, pts: c.hpts || 0 };
-  } else if (c.k === 'adv') {
+    S.hold = { by: a, kind: c.hk, count: c.count, brk: c.brk, tick: c.tick || 0, pts: c.hpts || 0, card: p.id };
+    return;
+  }
+  if (c.k === 'adv') {
     if (fx) return;
-    S.rung = Math.min(3, S.rung + 1); A.pts += c.pts; S.stall = 0;
+    if (S.at[a] === 'gtop') placeBoth(S, a === 0 ? ['past', 'pin'] : ['pin', 'past'], { top: 'side' }); // Guard pass
+    else if (S.at[a] === 'past') placeBoth(S, a === 0 ? ['past', 'pin'] : ['pin', 'past'], { top: S.j.top === 'side' ? 'mount' : 'back' });
+    A.pts += c.pts; S.stall = 0; S.gpass = S.pass;
+    return;
   }
 }
-// m answers the volley thrown at him; ans = { id, i } (i = which pending card; -1 = the hold he is in) or null
+// m answers the volley thrown at him; ans = { id, i } (i = which laid thing; -1 = the hold he is in) or null
 export function resolveIncoming(S, m, ans) {
   const a = 1 - m, A = S.f[a];
   S.pass++; S.ctx = { prev: false, combo: 0 };
   if (S.hold && S.hold.by === a) {
-    const h = S.hold; // a pin scores at the top of every turn it is on, also the turn he gets out: sure points
+    const h = S.hold;
     if (h.tick) { A.pts += h.tick; checkOver(S); if (S.over && S.over.how === 'lead') S.over.how = 'pin'; }
-    // out by the Escape card or (a submission only) by paying the hold's price: both men are back on their feet in the CLINCH.
-    // The hold tightens: the price goes up by 1 every turn he stays in, so the first turn he can pay is the cheapest
-    if (S.over) { /* the pin's points ended it */ } else if (ans && (ans.id === 'escape' || ans.id === '@break')) { stand(S, 'C'); if (S.st) S.st.escaped++; }
-    else { h.brk += N.tighten; if (--h.count <= 0) finishHold(S); }
+    if (S.over) { /* the pin's points ended it */ }
+    else if (ans && (ans.id === 'escape' || ans.id === '@break')) { backOneLayer(S, h.by); if (S.st) S.st.escaped++; } // both stay down
+    else { h.brk += N.tighten; if (--h.count <= 0) finishHold(S); } // the hold tightens
   }
   const inc = S.inc; S.inc = []; let struck = false; const stopped = !!(ans && ans.i >= 0);
   for (let i = 0; i < inc.length && !S.over; i++) {
     resolveOne(S, a, inc[i], ans && ans.i === i ? ans.id : null); checkOver(S);
-    if (CARDS[inc[i].id]?.k === 'strike') struck = true;
-    if (S.st) S.st.vis |= VB[S.pos];
+    if (CARDS[inc[i].id]?.k === 'strike' || inc[i].id[0] === '@') struck = true;
+    if (S.st) S.st.vis |= visBit(S);
   }
-  if (!S.over && struck && !stopped && A.mech && A.style === 'karate' && S.pos === 'P' && !(S.grip && S.grip.by === m)) S.pos = 'K';
-  if (S.grip && S.grip.by === a && S.grip.pass < S.pass) S.grip = null;
-  if (S.tie && S.tie.by === a && S.tie.pass < S.pass) S.tie = null;
-  if (S.st) S.st.vis |= VB[S.pos];
+  if (!S.over && struck && !stopped && A.mech && A.style === 'karate' && S.at[0] === 'stand' && S.at[1] === 'stand' && S.j.reach === 'P' && !(S.tie && S.tie.by === m)) S.j = { ...S.j, reach: 'K' };
+  // a CLINCH TIE stands until it is used or the clinch ends (audit 7: "takes it ... still holds" the collar tie for
+  // a whole exchange, then pulls guard off it on his own turn). It used to be dropped after one pass, which made the
+  // pull a one-turn move and broke the walked bout at turn 4.
+  if (S.tie && S.j.kind !== 'clinch') S.tie = null;
+  if (S.st) S.st.vis |= visBit(S);
 }
+// a move or a card that ends the volley: nothing more can be laid after it that turn
+export const endsVolley = (id) => !!(MOVE[id] && MOVE[id].ends);
 export function answerOptions(S, m) {
   const M = S.f[m], out = [null];
   if (S.hold && S.hold.by !== m) {
     if (M.hand.includes('escape') && canPay(M, cost(S, m, 'escape'))) out.push({ id: 'escape', i: -1 });
-    if (S.hold.kind === 'sub' && M.wind >= S.hold.brk) out.push({ id: '@break', i: -1 }); // a pin has no price: only the Escape card gets him out
+    if (S.hold.kind === 'sub' && M.wind >= S.hold.brk) out.push({ id: '@break', i: -1 });
     return out;
   }
-  for (const id of [...new Set(M.hand.filter((k) => CARDS[k].k === 'ans')), '@cover']) {
-    if (!canPay(M, cost(S, m, id))) continue;
-    for (let i = 0; i < S.inc.length; i++) if (ansFits(S, 1 - m, id, S.inc[i])) out.push({ id, i });
+  const ids = [...new Set([...M.hand, '@cover', '@pull'])];
+  for (const id of ids) {
+    if (id === '@pull' && !legalNow(S, m, '@pull')) continue;
+    for (let i = 0; i < S.inc.length; i++) {
+      if (!ansFits(S, 1 - m, id, S.inc[i])) continue;
+      if (!canPay(M, cost(S, m, id, S.inc[i]))) continue;
+      out.push({ id, i });
+    }
   }
   return out;
 }
@@ -245,69 +391,72 @@ export function doAnswer(S, m, ans) {
   const M = S.f[m];
   if (ans) {
     if (!answerOptions(S, m).some((o) => o && o.id === ans.id && o.i === ans.i)) throw new Error('answer not legal: ' + ans.id);
-    pay(M, cost(S, m, ans.id)); if (ans.id[0] !== '@') discard(S, M, ans.id);
+    pay(M, cost(S, m, ans.id, S.inc[ans.i])); if (ans.id[0] !== '@') discard(S, M, ans.id);
   }
   resolveIncoming(S, m, ans);
 }
 export function startAct(S) { S.pj = clone(S); S.pj.pass++; S.pj.ctx = { prev: false, combo: 0 }; }
-export const canAct = (S) => !S.over && !S.hold;
-// lay one card or step: paid now, shown face up, resolved on his turn. S.pj is what happens if he stands still.
+export const canAct = (S) => !S.over && !S.hold && !(S.pj && S.pj.ended);
+// lay one card or move: paid now, shown face up, resolved on his turn. S.pj is what happens if he stands still.
+// lay one card or move: paid now, shown face up, resolved on his turn. S.pj is the bout IF HE STANDS STILL - the page and
+// the pilot price and preview against it - and every declared thing resolves into that same pending clone, one behind
+// the other. ROUND 9 (the copy bug): the clone used to be thrown away when the turn closed, so a step's own effect (the
+// punch as a man rose, the guard a pull closed) never reached the bout. endAct COMMITS the pending clone back into the
+// bout now; the wind and the hand are already paid on the bout itself, by the same amounts, so they are not re-applied.
 export function declare(S, m, id) {
-  const M = S.f[m], c = cost(S, m, id);
-  if (!legalNow(S.pj, m, id) || !canPay(M, c)) throw new Error('not legal: ' + id);
-  if (id[0] !== '@') discard(S, M, id);
-  pay(M, c); S.pj.f[m].wind = M.wind; S.pj.f[m].lit = M.lit;
+  if (S.pj && S.pj.ended) throw new Error('not legal: the turn ended with the move before this one');
+  const c = cost(S, m, id);
+  if (!legalNow(S.pj, m, id) || !canPay(S.f[m], c)) throw new Error('not legal: ' + id);
+  if (id[0] !== '@') discard(S, S.f[m], id);
+  pay(S.f[m], c); S.pj.f[m].wind = S.f[m].wind; S.pj.f[m].lit = S.f[m].lit;
   const p = { id, b: 0 };
-  if (CARDS[id]?.k === 'strike') { p.b = M.ctr; M.ctr = 0; if (S.tie && S.tie.by !== m) S.tie.struck = true; }
+  if (CARDS[id]?.k === 'strike') { p.b = S.f[m].ctr; S.f[m].ctr = 0; if (S.tie && S.tie.by !== m) S.tie.struck = true; }
   S.inc.push(p); resolveOne(S.pj, m, p, null);
+  if (endsVolley(id)) S.pj.ended = true;
 }
+const WORK = ['strike', 'hold', 'adv', 'shot'];
+// the referee's own rules (audit 4d). Two clocks, and they are different clocks:
+//  - the pair where NOBODY works: one full exchange (both turns) with no strike and no attack from either man, then the
+//    referee stands both up, apart at KICK (4c "Referee stand-up"). Holding a place is not work (rule 6).
+//  - the grounded man who will not engage (rule 5, Leites): HIS turn with nothing laid towards the standing man, and he
+//    is stood up there and then; the count runs per round - warned the second time, a point off the third (4c, 4e).
 export function endAct(S, m) {
-  const M = S.f[m]; M.ctr = 0; M.chain = 0; M.free = 0; S.pj = null; if (M.lame) M.lame--;
-  if (S.pos === 'G' && S.top !== m && S.inc.some((p) => p.id[0] !== '@')) S.stall = 0; // work from underneath keeps it on the ground
-  if (S.pos === 'G' && S.top === m && !S.hold) {
-    if (!S.inc.some((p) => p.id[0] !== '@')) S.stall++;
-    if (S.stall >= N.stallMax) { stand(S, 'K'); S.inc = []; if (S.st) S.st.refUps++; }
+  // S.pj is the FORECAST - what the bout is if he stands still - never the bout. The whole volley (cards AND moves) is
+  // re-resolved on the real places when the other man answers it (resolveIncoming), so nothing is committed here; the
+  // forecast is discarded.
+  S.pj = null;
+  const M = S.f[m]; M.ctr = 0; M.chain = 0; M.free = 0; if (M.lame) M.lame--;
+  const me = S.at[m], him = S.at[1 - m], laid = S.inc.filter((p) => p.id[0] !== '@' && CARDS[p.id]);
+  // a MOVE counts as work on the ground too: the guard pass, the back take, the sweep, the stand-up - "the boxer is
+  // working, so no referee" (audit 7, turn 12). Read only from cards, the referee stood up a busy man's bout.
+  const worked = laid.some((p) => WORK.includes(CARDS[p.id].k))
+    || S.inc.some((p) => p.id === '@stand' || p.id === '@back' || p.id === '@in' || (p.id === '@out' && DOWN.includes(S.at[m])));
+  const grappled = ['gtop', 'gbot', 'past', 'pin'].includes(me) || ['gtop', 'gbot', 'past', 'pin'].includes(him);
+  if (!grappled) S.stall = 0;
+  else if (worked) S.stall = 0;
+  else if (++S.stall >= 2 * N.stallMax) refUp(S, 'nobody working on the ground'); // one exchange, both turns
+  if (S.hold) return;
+  // pair 3 (audit 4c, last rows): the man DOWN who laid nothing towards the standing man in HIS OWN turn is stood up,
+  // there and then. Round 9 first read this the wrong way round and stood up the STANDING man (and charged him with
+  // timidity) whenever the other was on the floor and apart - the walked bout caught it on the very first follow-down.
+  if (DOWN.includes(S.at[m]) && S.j.kind === 'apart' && him === 'stand') {
+    // a MOVE towards the standing man counts as work too: getting up (@up), the up-kick he throws from the floor, the
+    // sweep, the shot. Round 9 read only cards here, so the man who laid Get up was stood up by the referee before his
+    // own move ever resolved - and the punch as he rose could never land, because he was already on his feet.
+    const work = S.inc.some((p) => p.id[0] === '@' ? (p.id === '@up' || p.id === '@in' || p.id === '@back') : CARDS[p.id] && (CARDS[p.id].up || CARDS[p.id].sweep || CARDS[p.id].k === 'shot' || CARDS[p.id].punchDown));
+    if (!work) standHimUp(S, m);
   }
 }
-export function newBout(F0, F1, seed) {
-  const r = rng(seed);
-  return { f: [newFighter(F0, r), newFighter(F1, r)], pos: 'K', top: -1, rung: 0, inc: [], hold: null, grip: null, tie: null, stall: 0, pass: 0, gpass: -1, gby: -1, gpull: false, ctx: { prev: false, combo: 0 }, over: null, r, pj: null, round: 0, turn: 0,
-    st: { vis: 1, whiff: 0, stuffed: 0, downs: 0, holdOn: 0, holdDone: 0, escaped: 0, letGo: 0, refUps: 0, combos: 0, dec: [0, 0], turns: [0, 0], cards: [0, 0], quiet: [0, 0], choices: 0, steps: 0, maxCh: 0, held: [0, 0], secs: [0, 0], played: [{}, {}], log: [[], []] } };
-}
-// agents[k] = { answer(S,k) -> {id,i}|null, act(S,k) -> [ids] }
-export function bout(F0, F1, agents, seed, opt = {}) {
-  const S = newBout(F0, F1, seed), st = S.st;
-  let first = opt.first ?? (S.r() < 0.5 ? 0 : 1);
-  const turn = (k, bell, noAct) => {
-    beginTurn(S, k, bell);
-    const opts = S.inc.length || (S.hold && S.hold.by !== k) ? answerOptions(S, k) : [null];
-    const ans = opts.length > 1 ? agents[k].answer(S, k, opts) : null;
-    if (opts.length > 1) st.dec[k]++;
-    if (opt.onAnswer) opt.onAnswer(S, k, ans, opts);
-    doAnswer(S, k, ans);
-    if (bell || noAct || !canAct(S)) return;
-    st.turns[k]++; startAct(S);
-    const seq = agents[k].act(S, k);
-    if (opt.onAct) opt.onAct(S, k, seq);
-    const at = [];
-    for (const id of seq) { at.push(posKey(S.pj, k)[0]); declare(S, k, id); if (id[0] !== '@') st.played[k][id] = 1; }
-    st.dec[k] += seq.length + 1; st.cards[k] += seq.length; if (!seq.length) st.quiet[k]++;
-    st.log[k].push({ pos: posKey(S, k), kinds: seq.map((id) => (id === '@pull' ? 'move' : id[0] === '@' ? 'step' : CARDS[id].k)), kk: seq.map((id) => (CARDS[id]?.kick ? 'kick' : null)), at, ans: ans ? 1 : 0 });
-    endAct(S, k);
-  };
-  for (let rd = 0; rd < N.rounds && !S.over; rd++) {
-    S.round = rd; stand(S, 'K'); S.inc = []; S.grip = S.tie = null;
-    if (rd) for (const B of S.f) B.wind = Math.min(N.cap, B.wind + N.stool);
-    for (let t = 0; t < N.turns && !S.over; t++) { S.turn = t; for (const k of [first, 1 - first]) if (!S.over) turn(k, false); }
-    if (!S.over && S.inc.length) turn(first, true);
-    for (let g = 0; g < 9 && S.hold && !S.over; g++) turn(1 - S.hold.by, false, true); // the bell waits for a hold: it runs to its end
-    first = 1 - first;
+// the referee stands up the grounded man who will not engage, apart at KICK; the count is per round: warned the second
+// time, a point off the third (audit 4c last row, 4e)
+export function standHimUp(S, m) {
+  S.at = ['stand', 'stand']; S.j = { kind: 'apart', reach: 'K' }; S.tie = null; S.stall = 0;
+  S.timid[m]++;
+  if (S.st) {
+    S.st.refUps++; S.st.refLog.push('the grounded man will not engage'); S.st.timid = (S.st.timid || 0) + 1;
+    // audit 4c, 4e: the point off is the referee's, and it does NOT reset the count (a reset would be a free way out of
+    // the cap: sit, be warned, sit, be warned - never penalised twice)
+    if (S.timid[m] >= N.timidAt) { S.f[m].pts -= 1; S.st.timidPts = (S.st.timidPts || 0) + 1; S.st.warn.push({ m, kind: 'point off' }); }
+    else if (S.timid[m] === N.warnAt) S.st.warn.push({ m, kind: 'warning' });
   }
-  const [A, B] = S.f; let win, how;
-  if (S.over) ({ win, how } = S.over);
-  else {
-    const sa = (N.clkPts ? A.pts : 0) + A.dealt / N.dmgPer, sb = (N.clkPts ? B.pts : 0) + B.dealt / N.dmgPer;
-    win = sa !== sb ? (sa > sb ? 0 : 1) : A.hp !== B.hp ? (A.hp > B.hp ? 0 : 1) : S.r() < 0.5 ? 0 : 1; how = 'cards';
-  }
-  return { win, how, early: !!S.over, st, S };
 }
