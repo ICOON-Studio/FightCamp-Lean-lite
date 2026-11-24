@@ -132,3 +132,26 @@ Pick to try first: 1 and 2 together - it is his hint ("block cards generated if 
 decks pure offence, and the lay-under-his-cards step measured well with bots in rules3 (a real choice 13% of the time
 against 1% for the old prompt; no blind pilot over 38%). The later layer (his refinement): once punches are animated,
 the laid cards play by themselves and one REACT moment appears when a counter opens.
+
+## RING SWITCHES - his own idea, built as a second toy (S551): `proto/twohands/switch.html` (http://localhost:8797/switch.html)
+His words: "ideas first: you have some nice ideas, holding a card can turn to a defence is reasonable , i like the idea .
+what if put everything that the fighter can do in the fight as action toggable buttons like the jab,uppercut
+push,backoff,step in , guard low, guard up etc . Could you make a game based on that idea".
+- NO DECKS, NO TIMING. Every action is a switch that stays as set until changed. Both men set theirs and act at once;
+  the beat then plays out move by move with our ring pictures and sounds. 3 rounds of 6 beats.
+- LEAD HAND: keep it home, jab, lead hook, lead uppercut, body hook, feint, push off. REAR HAND: keep it home, cross,
+  overhand, rear uppercut, body cross. FEET: step in, hold, back off (+ clinch). GUARD: up or low.
+- A HAND LEFT OFF DEFENDS (his "holding ... can turn to a defence"): guard up - the lead hand home stops straight head
+  punches, the rear hand home stops hooks and overhands; guard low - they stop body punches and uppercuts. A hand that
+  punches leaves its line open. The page shows the four lines, covered or OPEN, as the switches change. Each block wears
+  a guard bar (6); a broken guard covers nothing.
+- RANGE (the thing two critics asked for): Long, Mid, Inside, moved by both men's feet before the punches. A jab reaches
+  Long and Mid, a cross Mid, hooks Mid and Inside, uppercuts Inside. Back off at Long twice = on the ropes.
+- ORDER: the fast punch first (jab, then cross / hooks / body, then uppercuts and overhand); equal speeds land
+  together. A big punch that lands stops his slower one. His punch that misses or is blocked makes yours a counter (+1).
+- STAMINA: 1 back a beat and 1 more for each hand kept home, so holding a hand is both defence and rest.
+- What you see of him: his bars, the range, what he did last beat. Three opponents with their own habits.
+Checked S551: 900 bot bouts of the rules ran without an error (a script that never keeps a hand home beat The Jabber
+288 of 300 and The Slugger 6 of 300 - the opponents are NOT balanced, first guesses); a scripted bout in the browser
+ran clean; a headless screenshot of the board fits 1400 x 900. NOT checked: fun; whether one setting wins every beat
+(Inside turned into trading rear uppercuts in my script); the phone layout; sounds by ear.

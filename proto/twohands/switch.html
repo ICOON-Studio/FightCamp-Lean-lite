@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Ring Switches</title>
+<style>
+:root{color-scheme:dark;--bg:#151211;--panel:#221c18;--panel2:#2b231d;--line:#43332a;--line2:#5a4436;--fg:#f2e9dd;--muted:#b7a595;--gold:#e3ab45;--red:#d9534a;--blue:#5f92d8;--green:#74bd7c}
+*{box-sizing:border-box}html{font-size:clamp(13px,1.02vw,21px)}html,body{height:100%;margin:0}
+body{background:radial-gradient(1200px 700px at 50% -10%,#2a211b 0%,var(--bg) 60%);color:var(--fg);font:1.05rem/1.35 "Segoe UI",system-ui,sans-serif}
+button{font:inherit;color:inherit;cursor:pointer}
+.app{min-height:100%;display:grid;grid-template-rows:auto auto auto 1fr;gap:.6rem;padding:.6rem max(16px,env(safe-area-inset-left,0px))}
+.top{display:flex;gap:1.1rem;align-items:baseline;border-bottom:1px solid var(--line);padding-bottom:.45rem;flex-wrap:wrap}
+.brand{font-weight:700;letter-spacing:.14em;color:var(--gold);text-transform:uppercase}.top b{color:var(--gold)}
+.lab{font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.ticks{display:inline-flex;gap:3px;vertical-align:middle;margin-left:.4rem}.ticks i{width:1.1rem;height:.55rem;border-radius:2px;background:#3a2e26;border:1px solid var(--line2)}.ticks i.done{background:var(--muted)}.ticks i.cur{background:var(--gold);border-color:var(--gold)}
+.men{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.man{background:var(--panel);border:1px solid var(--line);border-radius:.7rem;padding:.5rem .8rem;display:grid;grid-template-columns:auto 1fr;gap:.15rem .8rem;align-items:center}
+.man h2{margin:0;font-size:1.15rem;grid-column:1/3}.you h2{color:var(--blue)}.him h2{color:var(--red)}.man .note{grid-column:1/3;color:var(--muted);font-size:.85rem}
+.bar{display:flex;height:.85rem;border-radius:4px;background:#3a2e26;border:1px solid var(--line2);overflow:hidden}.bar i{display:block;height:100%;transition:width .35s}
+.bar u{display:block;height:100%;background:repeating-linear-gradient(45deg,#e3ab45,#e3ab45 4px,#8a6a2c 4px,#8a6a2c 8px);transition:width .2s}
+.hp i{background:var(--red)}.st i{background:var(--green)}.gb i{background:var(--blue)}
+.tag{display:inline-block;padding:1px .5rem;border-radius:.7rem;border:1px solid var(--red);color:#ffb3ad;font-size:.78rem;margin-left:.4rem}
+.duo{display:grid;grid-template-columns:minmax(18rem,38%) 1fr;gap:.8rem;align-items:stretch}
+.stage{position:relative;height:clamp(10rem,27vh,17rem);border-radius:.6rem;overflow:hidden;background:linear-gradient(#1c2230 0%,#2a3447 56%,#4f74ad 56%,#35507f 100%);border:1px solid var(--line2)}
+.stage:before,.stage:after{content:"";position:absolute;left:0;right:0;height:3px;background:#c9382f;opacity:.85}.stage:before{top:30%}.stage:after{top:43%;background:#e8e1d6}
+.stage img{position:absolute;top:-17%;height:126%;left:50%;transform:translateX(-50%) scaleX(-1);z-index:1;filter:drop-shadow(0 8px 6px rgba(0,0,0,.45))}
+.stage .nm{position:absolute;bottom:.4rem;z-index:2;font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:.8rem;text-shadow:0 1px 3px #000}.nm.you{left:.7rem;color:#9cc0f5}.nm.him{right:.7rem;color:#ff9d95}
+.pop{position:absolute;top:20%;z-index:3;font-weight:800;font-size:2rem;text-shadow:0 2px 6px #000;opacity:0;pointer-events:none}.pop.p0{left:22%}.pop.p1{right:22%}
+.pop.go{animation:pop .9s ease-out}.pop.dmg{color:#ff6b5e}.pop.ok{color:#8fe39a;font-size:1.4rem}
+@keyframes pop{0%{opacity:0;transform:translateY(12px) scale(.7)}15%{opacity:1;transform:none}100%{opacity:0;transform:translateY(-36px)}}
+.stage.shake{animation:shake .28s}@keyframes shake{20%{transform:translateX(-7px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(3px)}}
+.rng{position:absolute;top:.4rem;left:50%;transform:translateX(-50%);z-index:3;display:flex;gap:4px}.rng span{padding:.1rem .6rem;border-radius:.7rem;border:1px solid var(--line2);background:rgba(20,16,14,.75);font-size:.78rem;color:var(--muted)}.rng span.on{border-color:var(--gold);color:var(--gold);font-weight:700}
+.tell{background:var(--panel);border:1px solid var(--line);border-radius:.6rem;padding:.6rem .8rem;display:flex;flex-direction:column;gap:.35rem;min-width:0;overflow:auto;max-height:clamp(10rem,27vh,17rem)}
+.said{font-size:1.15rem;font-weight:600}
+.srow{display:grid;grid-template-columns:minmax(8rem,13rem) 1fr auto;gap:.6rem;align-items:center;padding:.3rem .6rem;border-radius:.45rem;border:1px solid var(--line2);background:var(--panel2)}
+.srow em{font-style:normal;font-weight:700}.srow.good{border-color:var(--green)}.srow.good em{color:var(--green)}.srow.bad{border-color:var(--red)}.srow.bad em{color:#ff8f86}.srow.flat{color:var(--muted)}
+.board{display:grid;grid-template-columns:1fr 1fr 12rem 10rem;gap:.6rem}
+.grp{background:var(--panel);border:1px solid var(--line);border-radius:.7rem;padding:.5rem .6rem;display:flex;flex-direction:column;gap:.35rem;min-width:0}
+.sw{display:grid;grid-template-columns:1fr auto;gap:.1rem .5rem;align-items:center;text-align:left;padding:.26rem .6rem;border-radius:.5rem;border:1px solid var(--line2);background:var(--panel2);min-height:2.2rem}
+.sw b{font-weight:600}.sw small{grid-column:1/3;color:var(--muted);font-size:.76rem;line-height:1.2}.sw .c{color:var(--gold);font-size:.8rem}
+.sw.on{border-color:var(--gold);background:#3a2c18;box-shadow:0 0 0 2px var(--gold)}.sw.home.on{border-color:var(--green);background:#1f2e22;box-shadow:0 0 0 2px var(--green)}
+.sw:disabled{cursor:not-allowed}.sw:disabled b,.sw:disabled .c{opacity:.45}.sw .why{color:#ff9d95;font-weight:600}
+.under{display:grid;grid-template-columns:1fr auto;gap:.8rem;align-items:center}
+.lines{display:flex;gap:.4rem;flex-wrap:wrap;align-items:center}.ln{padding:.2rem .6rem;border-radius:.7rem;border:1px solid var(--line2);font-size:.85rem}.ln.cov{border-color:var(--green);color:#bfe6c3}.ln.open{border-color:var(--red);color:#ffb3ad}
+.btn{padding:.65rem 1.3rem;border-radius:.55rem;border:1px solid var(--line2);background:var(--panel2);font-weight:600;min-height:44px}
+.btn.go{background:var(--gold);color:#231a12;border-color:var(--gold);animation:pulse 1.4s infinite}.btn:disabled{opacity:.4;animation:none}
+@keyframes pulse{50%{box-shadow:0 0 0 5px rgba(227,171,69,.25)}}
+.opps{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem}.opp{background:var(--panel2);border:1px solid var(--line2);border-radius:.6rem;padding:.6rem .7rem;text-align:left}.opp b{display:block;font-size:1.1rem;color:#ff9d95}.opp small{display:block;color:var(--muted)}.opp.on{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold)}
+.how{color:var(--muted);line-height:1.5}.how b{color:var(--fg)}
+@media (max-width:900px){html{font-size:14px}.duo{grid-template-columns:1fr}.board{grid-template-columns:1fr 1fr}.opps{grid-template-columns:1fr}.under{grid-template-columns:1fr}.btn{width:100%}}
+@media (prefers-reduced-motion:reduce){.btn.go,.stage.shake,.pop.go{animation:none}.pop.go{opacity:1}}
+</style></head>
+<body><div class="app">
+  <div class="top"><span class="brand">Ring Switches</span><span id="where"></span><span id="score"></span><span class="lab" style="margin-left:auto">every action is a switch - a hand left off defends</span><button class="btn" id="mute" style="padding:.2rem .6rem;min-height:0;font-size:.85rem">Sound on</button></div>
+  <div class="men"><div class="man you" id="you"></div><div class="man him" id="him"></div></div>
+  <div class="duo"><div class="stage" id="stage"><div class="rng" id="rng"></div><img id="pic" alt="" src="img/guard.webp"><span class="pop p0" id="pop0"></span><span class="pop p1" id="pop1"></span><span class="nm you">You</span><span class="nm him" id="nmhim">Him</span></div>
+    <div class="tell"><div class="said" id="said"></div><div id="story"></div></div></div>
+  <div><div class="board" id="board"></div><div class="under" style="margin-top:.5rem"><div class="lines" id="lines"></div><div id="acts"></div></div></div>
+</div>
+<script>
+// RING SWITCHES (S551 toy). Owner: "what if put everything that the fighter can do in the fight as action toggable
+// buttons like the jab,uppercut push,backoff,step in , guard low, guard up etc"; "holding a card can turn to a defence is
+// reasonable , i like the idea". No decks, no timing: you set switches, both men act at once, the beat plays out.
+// A feel test: every number is in N / ACT and is a first guess.
+const N = { hp: 22, st: 8, rec: 1, hold: 1, guard: 6, grec: 1, rounds: 3, beats: 6, kd: [9, 7], counter: 1 };   // rec: stamina back a beat, + hold for each hand kept home
+const RNG = { 1: 'Inside', 2: 'Mid', 3: 'Long' };
+// a punch: which hand, stamina, health it takes, speed (1 first), the ranges it reaches, the line it travels on
+const ACT = {
+  jab: { n: 'Jab', h: 0, st: 1, d: 1, sp: 1, reach: [2, 3], line: 'straight', pic: 'jab' },
+  hook: { n: 'Lead hook', h: 0, st: 2, d: 3, sp: 2, reach: [1, 2], line: 'side', pic: 'lead_hook' },
+  lup: { n: 'Lead uppercut', h: 0, st: 3, d: 4, sp: 3, reach: [1], line: 'under', pic: 'lead_uppercut' },
+  lbody: { n: 'Body hook', h: 0, st: 2, d: 2, sp: 2, reach: [1, 2], line: 'body', body: 1, pic: 'body_hook' },
+  feint: { n: 'Feint', h: 0, st: 1, feint: 1, t: 'Draws his hands: your rear-hand punch this beat cannot be covered.' },
+  push: { n: 'Push off', h: 0, st: 1, push: 1, t: 'Inside only: shoves him back to Mid before the punches. Breaks a clinch.' },
+  cross: { n: 'Cross', h: 1, st: 2, d: 3, sp: 2, reach: [2], line: 'straight', pic: 'cross' },
+  over: { n: 'Overhand', h: 1, st: 3, d: 4, sp: 3, reach: [1, 2], line: 'side', pic: 'rear_hook' },
+  rup: { n: 'Rear uppercut', h: 1, st: 3, d: 4, sp: 3, reach: [1], line: 'under', pic: 'rear_uppercut' },
+  rbody: { n: 'Body cross', h: 1, st: 2, d: 2, sp: 2, reach: [2], line: 'body', body: 1, pic: 'body_cross' },
+};
+const LINE = { straight: 'Head, straight', side: 'Head, from the side', under: 'Chin, from below', body: 'Body' };
+const FEET = { in: { n: 'Step in', st: 1, t: 'One place closer.' }, hold: { n: 'Hold your ground', st: 0, t: 'Stay where you are.' }, back: { n: 'Back off', st: 1, t: 'One place further. At Long you are giving ground toward the ropes.' } };
+// what a hand LEFT OFF covers: it depends on where the guard is held
+const COVER = { high: ['straight', 'side'], low: ['body', 'under'] };   // [lead hand home, rear hand home]
+const OPPS = [
+  { n: 'The Jabber', t: 'Stays at Long behind the jab and backs off when you come in. Crosses when you stand at Mid.', hp: 20 },
+  { n: 'The Slugger', t: 'Walks in. Overhands and hooks at Mid, uppercuts Inside. Throws with both hands, so he leaves lines open.', hp: 26 },
+  { n: 'The Body Snatcher', t: 'Gets to Mid or Inside and digs to the body to shorten your stamina. Keeps a hand home.', hp: 22 },
+];
+const $ = (id) => document.getElementById(id), rnd = Math.random, pickOne = (a) => a[Math.floor(rnd() * a.length)], clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+let F, P, oppI = 0, OPP = OPPS[0], round, beat, range, cards, phase = 'setup', mute = false, busy = false, popN = 0;
+const plan0 = () => ({ lead: null, rear: null, feet: 'hold', guard: 'high', clinch: false });
+const man = (hp) => ({ hp, max: hp, st: N.st, cap: N.st, g: N.guard, pts: 0, kd: 0, ropes: 0, held: 0, last: null });
+const snd = (n, v = 0.7) => { if (mute) return; try { const au = new Audio('snd/' + n + '.ogg'); au.volume = v; au.play().catch(() => {}); } catch (e) {} };
+const pic = (n) => { $('pic').src = 'img/' + n + '.webp'; };
+function pop(who, text, cls) { const el = $('pop' + who); el.textContent = text; el.className = 'pop p' + who + ' ' + cls; void el.offsetWidth; el.classList.add('go'); }
+function jolt() { const st = $('stage'); st.classList.remove('shake'); void st.offsetWidth; st.classList.add('shake'); }
+const cost = (p) => (p.lead ? ACT[p.lead].st : 0) + (p.rear ? ACT[p.rear].st : 0) + FEET[p.feet].st + (p.clinch ? 1 : 0);
+// the lines a man's plan covers, and why a line is open
+function covers(m, p) { const c = {}; if (m.g <= 0 || p.clinch) return c; if (!p.lead) c[COVER[p.guard][0]] = 1; if (!p.rear) c[COVER[p.guard][1]] = 1; return c; }
+const planWords = (p) => !p ? 'nothing yet' : p.clinch ? 'clinch' : [p.lead && ACT[p.lead].n, p.rear && ACT[p.rear].n, p.feet !== 'hold' && FEET[p.feet].n, 'guard ' + p.guard].filter(Boolean).join(' + ');
+
+// ---- one beat: both plans at once. Returns the events in the order they happen.
+function resolve(S, P) { const ev = [], f = S.f, say = (k, o) => ev.push({ k, ...o });
+  for (const k of [0, 1]) { f[k].st -= cost(P[k]); f[k].last = { ...P[k] }; }
+  const pusher = [0, 1].find((k) => P[k].lead === 'push' && !P[k].clinch), clincher = [0, 1].find((k) => P[k].clinch);
+  if (clincher != null && (S.range > 2 || f[clincher].held)) { say(clincher, { t: 'flat', a: 'reaches to clinch', o: S.range > 2 ? 'too far away' : 'the referee will not allow two running' }); P[clincher] = { ...P[clincher], clinch: false, lead: null, rear: null }; }
+  else if (clincher != null && pusher === 1 - clincher) { say(clincher, { t: 'flat', a: 'tries to clinch', o: 'shoved off' }); P[clincher] = { ...P[clincher], clinch: false, lead: null, rear: null }; }
+  else if (clincher != null) { f[clincher].st = Math.min(f[clincher].cap, f[clincher].st + 3); f[clincher].held = 2; S.range = 2; say(clincher, { t: 'clinch', a: 'ties him up', o: 'no punch lands - the referee breaks them at Mid, +2 stamina' }); return ev; }
+  // feet first
+  let d = 0; for (const k of [0, 1]) { const ft = P[k].feet; if (ft === 'in') { d--; f[k].ropes = 0; } if (ft === 'back') { d++; if (S.range === 3) f[k].ropes++; } }
+  const r0 = S.range; S.range = clamp(S.range + d, 1, 3);
+  if (pusher != null && S.range === 1) { S.range = 2; say(pusher, { t: 'flat', a: 'pushes off', o: 'back to Mid' }); }
+  if (S.range !== r0) ev.unshift({ k: -1, t: 'range', a: `${RNG[r0]} to ${RNG[S.range]}`, o: [0, 1].map((k) => P[k].feet === 'hold' ? '' : (k ? 'he ' : 'you ') + (P[k].feet === 'in' ? 'step' + (k ? 's' : '') + ' in' : 'back' + (k ? 's' : '') + ' off')).filter(Boolean).join(', ') });
+  for (const k of [0, 1]) if (P[k].lead === 'feint') say(k, { t: 'flat', a: 'feints', o: P[k].rear ? 'his hands are drawn' : 'nothing behind it' });
+  // punches, fastest first; equal speeds land together
+  const shots = []; for (const k of [0, 1]) for (const id of [P[k].lead, P[k].rear]) if (id && ACT[id].d) shots.push({ k, id, a: ACT[id] });
+  shots.sort((x, y) => x.a.sp - y.a.sp);
+  const stun = [0, 0], opening = [0, 0], cov = [covers(f[0], P[0]), covers(f[1], P[1])];
+  for (let i = 0; i < shots.length;) { let j = i; while (j < shots.length && shots[j].a.sp === shots[i].a.sp) j++;
+    const tier = shots.slice(i, j), stunNow = [...stun], openNow = [...opening];
+    for (const s of tier) { const A = f[s.k], D = f[1 - s.k], a = s.a, v = 1 - s.k;
+      if (stunNow[s.k]) { say(s.k, { t: 'flat', id: s.id, a: a.n, o: 'beaten to the punch - never thrown' }); continue; }
+      if (D.hp <= 0) continue;
+      if (!a.reach.includes(S.range)) { say(s.k, { t: 'miss', id: s.id, a: a.n, o: S.range > Math.max(...a.reach) ? 'falls short at ' + RNG[S.range] : 'smothered - too close at ' + RNG[S.range] }); opening[v] = 1; continue; }
+      const drawn = P[s.k].lead === 'feint' && a.h === 1;
+      if (cov[v][a.line] && !drawn) { D.g = Math.max(0, D.g - (a.d >= 3 ? 2 : 1)); say(s.k, { t: 'block', id: s.id, a: a.n, o: `blocked by the ${COVER[P[v].guard][0] === a.line ? 'lead' : 'rear'} hand held ${P[v].guard}` + (D.g <= 0 ? ' - GUARD BROKEN' : '') }); opening[v] = 1; continue; }
+      const dmg = a.d + (openNow[s.k] ? N.counter : 0); D.hp -= dmg; A.pts += a.d >= 3 ? 2 : 1; if (a.body) { D.cap = Math.max(4, D.cap - 1); D.st = Math.min(D.st, D.cap); } if (a.d >= 3) stun[v] = 1;
+      const why = D.g <= 0 ? 'guard broken' : drawn ? 'the feint drew his hand' : P[v].clinch ? '' : (COVER[P[v].guard].includes(a.line) ? `the ${COVER[P[v].guard][0] === a.line ? 'lead' : 'rear'} hand was punching` : `guard held ${P[v].guard}`);
+      say(s.k, { t: 'hit', id: s.id, a: a.n, dmg, o: `lands${openNow[s.k] ? ' as a counter' : ''} (${why}): -${dmg} health${a.body ? ', stamina bar shorter' : ''}`, down: D.hp <= 0 }); }
+    i = j; }
+  if (!ev.some((e) => e.t !== 'range')) ev.push({ k: -1, t: 'flat', a: 'Nothing thrown', o: 'both men wait' });
+  return ev; }
+function endBeat(S) { for (const m of S.f) { const l = m.last || {}, home = l.clinch ? 0 : (l.lead ? 0 : 1) + (l.rear ? 0 : 1); m.st = Math.min(m.cap, m.st + N.rec + N.hold * home); m.g = Math.min(N.guard, m.g + N.grec); if (m.held) m.held--; } }
+
+// ---- the machine: reads the range, your guard as he sees it, and what you did LAST beat
+function ai(S) { const me = S.f[1], you = S.f[0], last = you.last || plan0(), p = plan0(), r = S.range; let st = me.st; const can = (id) => ACT[id].st <= st;
+  const take = (slot, id) => { if (id && can(id) && !p[slot]) { p[slot] = id; st -= ACT[id].st; } };
+  const openYou = (line) => !covers(you, last)[line];
+  p.guard = last.lead === 'lbody' || last.rear === 'rbody' ? (rnd() < 0.6 ? 'low' : 'high') : (r === 1 && rnd() < 0.35 ? 'low' : 'high');
+  if (oppI === 0) { if (r < 3 && !(me.ropes >= 2) && st > 1 && rnd() < 0.75) { p.feet = 'back'; st--; }
+    const rr = clamp(r + (p.feet === 'back' ? 1 : 0), 1, 3); if (rr >= 2) take('lead', 'jab'); if (rr === 2 && rnd() < (openYou('straight') ? 0.8 : 0.35)) take('rear', 'cross'); if (rr === 1) take('lead', rnd() < 0.5 ? 'push' : 'hook'); }
+  else if (oppI === 1) { if (r === 3 && st > 2) { p.feet = 'in'; st--; }
+    const rr = clamp(r - (p.feet === 'in' ? 1 : 0), 1, 3); if (rr === 2) { take('rear', 'over'); if (rnd() < 0.6) take('lead', openYou('side') ? 'hook' : 'jab'); } else if (rr === 1) { take('rear', 'rup'); if (rnd() < 0.5) take('lead', 'hook'); } else take('lead', 'jab'); }
+  else { if (r === 3 && st > 2) { p.feet = 'in'; st--; }
+    const rr = clamp(r - (p.feet === 'in' ? 1 : 0), 1, 3); if (rr === 2) { take(rnd() < 0.5 ? 'rear' : 'lead', rnd() < 0.5 ? 'rbody' : 'lbody'); if (!p.rear && rnd() < 0.4 && openYou('straight')) take('rear', 'cross'); } else if (rr === 1) { take('lead', 'lbody'); if (rnd() < 0.3) take('rear', 'rup'); } else take('lead', 'jab'); }
+  if (me.st <= 2 && r <= 2 && !me.held && rnd() < 0.5) return { ...plan0(), clinch: true, guard: p.guard };
+  return p; }
+
+// ---- the page
+function draw() { for (const k of [0, 1]) { const m = F[k], sp = k === 0 && phase === 'plan' ? cost(P) : 0;
+    $(k ? 'him' : 'you').innerHTML = `<h2>${k ? OPP.n : 'You'}${m.ropes >= 2 ? '<span class="tag">on the ropes</span>' : ''}${m.g <= 0 ? '<span class="tag">guard broken</span>' : ''}${m.kd ? `<span class="tag">down ${m.kd}x</span>` : ''}</h2>
+      <span class="lab">Health ${Math.max(0, m.hp)} of ${m.max}</span><div class="bar hp"><i style="width:${100 * Math.max(0, m.hp) / m.max}%"></i></div>
+      <span class="lab" title="The striped part is what your switches will cost this beat. 1 comes back each beat, and 1 more for each hand you keep home.">Stamina ${m.st - sp} of ${m.cap}${sp ? ` - ${sp} this beat` : ''}</span><div class="bar st"><i style="width:${100 * Math.max(0, m.st - sp) / N.st}%"></i><u style="width:${100 * Math.min(sp, m.st) / N.st}%"></u></div>
+      <span class="lab" title="A hand left off blocks. Every block wears the guard; 1 comes back each beat.">Guard ${m.g} of ${N.guard}</span><div class="bar gb"><i style="width:${100 * m.g / N.guard}%"></i></div>
+      ${k ? `<span class="note">Last beat he did: <b>${planWords(m.last)}</b></span>` : ''}`; }
+  $('where').innerHTML = `Round <b>${round}</b> of ${N.rounds} <span class="ticks">${Array.from({ length: N.beats }, (_, j) => `<i class="${j < beat ? 'done' : j === beat ? 'cur' : ''}"></i>`).join('')}</span> ${N.beats - beat <= 1 ? '<b>last beat of the round</b>' : N.beats - beat + ' beats to the bell'}`;
+  $('score').innerHTML = `Points this round: you <b>${F[0].pts}</b> - him <b>${F[1].pts}</b>` + cards.map((c, i) => ` &nbsp; R${i + 1} ${c[0]}-${c[1]}`).join('');
+  $('rng').innerHTML = [1, 2, 3].map((r) => `<span class="${r === range ? 'on' : ''}">${RNG[r]}</span>`).join(''); $('nmhim').textContent = OPP.n; }
+function board() { const me = F[0], left = me.st - cost(P), after = clamp(range + (P.feet === 'in' ? -1 : P.feet === 'back' ? 1 : 0), 1, 3);
+  const sw = (grp, id, name, c, sub, on, dis, why, home) => `<button class="sw ${on ? 'on' : ''} ${home ? 'home' : ''}" data-g="${grp}" data-id="${id}" ${dis ? 'disabled' : ''}><b>${name}</b><span class="c">${c}</span><small>${sub}</small>${why ? `<small class="why">${why}</small>` : ''}</button>`;
+  const hand = (h) => { const slot = h ? 'rear' : 'lead', cur = P[slot], ids = Object.keys(ACT).filter((id) => ACT[id].h === h);
+    return `<div class="grp"><span class="lab">${h ? 'Rear hand' : 'Lead hand'}</span>` + sw(slot, '', 'Keep it home', '+1 stamina', `Blocks: ${LINE[COVER[P.guard][h]].toLowerCase()} (guard ${P.guard})`, !cur && !P.clinch, P.clinch, '', 1) +
+      ids.map((id) => { const a = ACT[id], on = cur === id, room = left + (cur ? ACT[cur].st : 0), short = a.st > room, reach = a.d ? a.reach.includes(after) : true;
+        const sub = a.d ? `${a.d} health - ${LINE[a.line].toLowerCase()} - reaches ${a.reach.map((r) => RNG[r]).join(', ')}` : a.t;
+        const why = P.clinch ? '' : short ? `Needs ${a.st} stamina - ${room} left.` : !reach && a.d ? `Will not reach at ${RNG[after]} unless he moves.` : id === 'push' && after !== 1 ? `Only works Inside.` : '';
+        return sw(slot, id, a.n, a.st + ' stamina', sub, on, P.clinch || (short && !on), why); }).join('') + '</div>'; };
+  $('board').innerHTML = hand(0) + hand(1) +
+    `<div class="grp"><span class="lab">Feet</span>${Object.keys(FEET).map((id) => { const ft = FEET[id], on = P.feet === id, room = left + FEET[P.feet].st, bad = id === 'back' && me.ropes >= 2;
+      return sw('feet', id, ft.n, ft.st ? ft.st + ' stamina' : 'free', id === 'hold' ? `You are at ${RNG[range]}.` : ft.t, on, P.clinch || bad || (ft.st > room && !on), bad ? 'You are on the ropes.' : ft.st > room && !on ? `Needs 1 stamina.` : ''); }).join('')}
+      ${sw('clinch', 'x', 'Clinch', '1 stamina', 'Mid or Inside: no punch lands for either man, you get 2 stamina. Not twice running.', P.clinch, (range > 2 || me.held || left + (P.clinch ? 1 : 0) < 1) && !P.clinch, range > 2 ? 'Too far away.' : me.held ? 'The referee will not allow it yet.' : '')}</div>
+     <div class="grp"><span class="lab">Guard</span>${sw('guard', 'high', 'Guard up', 'free', 'Hands home block head punches.', P.guard === 'high', P.clinch, '')}${sw('guard', 'low', 'Guard low', 'free', 'Hands home block the body and uppercuts.', P.guard === 'low', P.clinch, '')}</div>`;
+  for (const b of $('board').querySelectorAll('.sw')) b.onclick = () => { const g = b.dataset.g, id = b.dataset.id; if (g === 'clinch') { P.clinch = !P.clinch; if (P.clinch) { P.lead = P.rear = null; P.feet = 'hold'; } } else if (g === 'lead' || g === 'rear') P[g] = P[g] === id || !id ? null : id; else P[g] = id; plan(); };
+  const c = covers(me, P); $('lines').innerHTML = '<span class="lab">What you leave open</span>' + Object.keys(LINE).map((l) => `<span class="ln ${c[l] ? 'cov' : 'open'}">${LINE[l]}: ${c[l] ? 'covered' : 'OPEN'}</span>`).join('') + (me.g <= 0 ? '<span class="ln open">your guard is broken: nothing is covered</span>' : ''); }
+function plan() { phase = 'plan'; draw(); board();
+  $('acts').innerHTML = `<button class="btn go" id="go">Fight this beat</button>`; $('go').onclick = go; }
+function go() { if (busy) return; busy = true; phase = 'play'; $('acts').innerHTML = ''; for (const b of $('board').querySelectorAll('.sw')) b.disabled = true;
+  const S = { f: F, range }, his = ai(S), before = [F[0].hp, F[1].hp], ev = resolve(S, [{ ...P }, his]); range = S.range;
+  $('said').textContent = `He: ${planWords(his)}.`; $('story').innerHTML = ''; let i = 0;
+  const step = () => { if (i >= ev.length) return after();
+    const e = ev[i++], you = e.k === 0, who = e.k < 0 ? '' : you ? 'Your ' : 'His ', cls = e.t === 'hit' ? (you ? 'good' : 'bad') : e.t === 'block' || e.t === 'miss' ? (you ? 'bad' : 'good') : 'flat';
+    const label = e.t === 'range' ? 'The range' : e.id ? who + e.a : e.k < 0 ? e.a : (you ? 'You ' : 'He ') + (you ? e.a.replace(/^(\w+?)s /, '$1 ').replace(/^ties/, 'tie').replace(/^pushes/, 'push').replace(/^feints/, 'feint').replace(/^reaches/, 'reach').replace(/^tries/, 'try') : e.a);
+    $('story').insertAdjacentHTML('beforeend', `<div class="srow ${cls}"><b>${label}</b><span>${e.t === 'range' ? e.a + (e.o ? ' - ' + e.o : '') : e.o}</span><em>${e.t === 'hit' ? '-' + e.dmg : e.t === 'block' ? 'blocked' : e.t === 'miss' ? 'missed' : ''}</em></div>`);
+    const col = e.k ? 'red' : 'blue';
+    if (e.t === 'hit') { pic(`${col}_${ACT[e.id].pic}_landed`); snd(ACT[e.id].body ? 'punch_body_1' : e.dmg >= 4 ? 'punch_big_1' : e.dmg >= 3 ? 'punch_power_head_2' : 'punch_jab_head_1'); pop(1 - e.k, '-' + e.dmg, 'dmg'); if (e.k === 1) jolt(); if (e.down) setTimeout(() => { pic(`${e.k ? 'blue' : 'red'}_knockdown_2`); snd('knockdown_fall_4'); }, 350); }
+    else if (e.t === 'block') { pic(`${col}_${ACT[e.id].pic}_blocked`); snd('punch_block_' + (1 + popN++ % 2)); pop(1 - e.k, 'blocked', 'ok'); }
+    else if (e.t === 'miss') { pic(`${col}_${ACT[e.id].pic}_missed`); snd('punch_miss_whoosh_' + (1 + popN++ % 2)); pop(1 - e.k, 'missed', 'ok'); }
+    else if (e.t === 'clinch') pic('clinch'); else if (e.t === 'range') draw();
+    draw(); setTimeout(step, e.t === 'range' || e.t === 'flat' ? 450 : e.down ? 1100 : 750); };
+  const after = () => { endBeat({ f: F }); busy = false;
+    for (const k of [0, 1]) if (F[k].hp <= 0) { F[k].kd++; F[1 - k].pts += 3; if (F[k].kd > N.kd.length) return over(k ? 'YOU WIN - the referee stops it' : `${OPP.n} WINS - the referee stops it`); F[k].hp = N.kd[F[k].kd - 1];
+      $('story').insertAdjacentHTML('beforeend', `<div class="srow ${k ? 'good' : 'bad'}"><b>${k ? 'HE IS' : 'YOU ARE'} DOWN</b><span>health hit 0 - up at ${F[k].hp}; three times and it is stopped</span><em></em></div>`); }
+    beat++; P = { ...P, clinch: false, lead: affordable(P.lead), rear: affordable(P.rear) }; if (cost(P) > F[0].st) P = { ...plan0(), guard: P.guard };
+    if (beat >= N.beats) return bell(); plan(); };
+  setTimeout(step, 350); }
+const affordable = (id) => (id && ACT[id].st <= F[0].st ? id : null);
+function bell() { const [x, y] = F, w = x.pts === y.pts ? -1 : x.pts > y.pts ? 0 : 1, sc = [w === 1 ? 9 : 10, w === 0 ? 9 : 10]; cards.push(sc); snd('bell_round_end_1', 0.5);
+  if (round >= N.rounds) { const t = [0, 1].map((k) => cards.reduce((s, c) => s + c[k], 0)); return over(t[0] === t[1] ? `A DRAW ${t[0]}-${t[1]}` : `${t[0] > t[1] ? 'YOU WIN' : OPP.n + ' WINS'} on the cards ${t[0]}-${t[1]}`); }
+  round++; beat = 0; range = 3; for (const m of F) { m.pts = 0; m.st = m.cap; m.g = N.guard; m.ropes = 0; m.held = 0; }
+  $('said').textContent = `BELL. The judges give the round ${sc[0]}-${sc[1]}. Round ${round}: back at Long.`; pic('guard'); plan(); }
+function over(text) { phase = 'over'; busy = false; draw(); $('said').textContent = text; $('board').innerHTML = ''; $('lines').innerHTML = ''; $('acts').innerHTML = '<button class="btn go" id="go">Another bout</button>'; $('go').onclick = setup; }
+function setup() { phase = 'setup'; OPP = OPPS[oppI]; F = [man(N.hp), man(OPP.hp)]; P = plan0(); round = 1; beat = 0; range = 3; cards = []; draw(); pic('guard');
+  $('said').textContent = 'Every action is a switch. Both men act at once.';
+  $('story').innerHTML = `<div class="how"><b>Each hand</b> throws one punch a beat, or stays home. <b>A hand at home blocks</b>: with the guard up, the lead hand stops straight punches and the rear hand stops hooks; with the guard low they stop body punches and uppercuts.<br><b>Feet</b> change the range: Long, Mid, Inside. Each punch only reaches at some ranges.<br><b>The fast punch lands first.</b> A big punch that lands stops his slower one. A punch of his that misses or is blocked makes yours a counter (+1).<br><b>Stamina:</b> 1 comes back each beat, and 1 more for each hand you kept home. Switches stay as you set them until you change them.</div>`;
+  $('board').innerHTML = `<div class="opps" style="grid-column:1/5">${OPPS.map((o, i) => `<button class="opp ${i === oppI ? 'on' : ''}" data-o="${i}"><b>${o.n}</b><small>${o.t}</small><small>Health ${o.hp}</small></button>`).join('')}</div>`;
+  for (const b of $('board').querySelectorAll('.opp')) b.onclick = () => { oppI = +b.dataset.o; setup(); };
+  $('lines').innerHTML = ''; $('acts').innerHTML = `<button class="btn go" id="go">Fight ${OPP.n}</button>`; $('go').onclick = () => { snd('bell_round_start_1', 0.5); $('said').textContent = 'Round 1. You start at Long: only a jab reaches.'; $('story').innerHTML = ''; plan(); }; }
+$('mute').onclick = (e) => { mute = !mute; e.target.textContent = mute ? 'Sound off' : 'Sound on'; };
+window.addEventListener('keydown', (e) => { if (e.repeat) return; if (e.code === 'Space' || e.code === 'Enter') { e.preventDefault(); document.getElementById('go')?.click(); } });
+setup();
+if (/peek=/.test(location.search)) { mute = true; document.getElementById('go').click(); P.lead = 'jab'; P.feet = 'in'; plan(); }
+</script></body></html>
