@@ -3,18 +3,18 @@
  "updated": "2026-11-24",
  "author": "claude S294",
  "now": {
-  "id": "S549",
+  "id": "S550",
   "owner": "claude",
   "updated": "2026-11-24",
-  "summary": "S549 (Fable). ## METHOD - CARD GAME: ONE ART AGAINST ITSELF FIRST (owner S549: 'the real test should be a boxer vs boxer , donot mix classes untill all arts cards are ingame'; 'BREAKDOWN A real mma fight and make it workwith card logic'). No work on the mixed boxing v jiu-jitsu game. Plan: ops/research/CARDBOX_SCOPE_S549.md. S548 (Fable) HANDOVER. METHOD: THE WRITTEN PLAN STAYS AND MUST MATTER (owner 'make it more impactful'); THE CORNER HAS EIGHT COMMANDS, NO RING SLOT ('Cut both'); COACHES: NO TRIAL WEEK, CHEMISTRY ON THE HIRE CARD ('Cut it, show chemistry'); CARD GAME: MEASURE A CRITIC'S RULE BEFORE IT GOES ON, THE BOT MUST USE WHAT IS BUILT; HIS GAME FIRST - ONE WORKER WHILE ARCHEAGE IS OPEN; mechanics first then 3D and menus; fight animation v2 only, his eye is the ruler. Collected PLANREAD2, CORNERBASE1 (the corner ~+10 v a coach who reads the file), BODYREACT2 (body hook bends him; films on /review). Card round 9 on main (owner: fix both yourself) and round 9b slice 1 (73 tests, gate 6/6, boxing 43 / jiu-jitsu 57; Keep your base on against a pull in its weaker shape, off against a sweep where it made boxing 99.5%). Coach map as cut written; Kalli 5/5/6. PC: ArcheAge lag = Windows kernel pool 15.3 GB after 12 days up; he restarted. No export this session.",
-  "next_action": "S550: see NEXT_SESSION_PROMPT.md - card game phase 2 (boxer v boxer on paper + a greybox probe, then critics; Arena's paper and John's facts are the inputs); collect PLANIMPACT1; then MATCHBOTS2, the coaches page, BODYCROSS4, the FILE coach, an export when his game is closed.",
-  "last_working_commit": "056cf26cf",
-  "verified_playable": "Builds/FightCamp.exe S546 export (2026-11-24 04:07): Fights, the promoter's call, an amateur's profile and the Finance / Staff / Records windows rendered on the hidden desktop and opened (bounds 0 on the two runs that printed it); the touched tests green (about 75 run).",
-  "incomplete_blocked": "PLANIMPACT1 running. CARDBOX1 on Arena. MATCHBOTS2 and BODYCROSS4 wait (one worker while he plays). Card rounds 9/9b stay on main and are stopped.",
-  "next_acceptance": "He plays the S546 build (WHAT_TO_TRY J to N). His eye on /review closes the three notes and the office windows, and judges the staff cards drawing. BODYCROSS3's sheet shows a bent elbow and a bent man to his eye.",
-  "awaiting_operator": "His eye on /review (body cross 3, signing card, staff cards). His play of the S547 build. Dola's app needs its debug port."
+  "summary": "S550 (Fable) HANDOVER. ## METHOD - CARD GAME: VERSION 3 IS RANGE, NO MORE PATCH ROUNDS ON VERSION 2 (two code-checked critics, 5/6/6 then 6/5/7, both put 'no range' first): ops/research/CARDRANGE_SCOPE_S550.md, phase 0 = his play of version 2 (phone https://claude.ai/artifact/RVECDqN7dwM9NLGVqQjQxq, PC preview boxcards). ## METHOD - CARD GAME: ONE ART AGAINST ITSELF FIRST (owner S549). THE WRITTEN PLAN STAYS AND MUST MATTER (Q-333 S550 'Second probe': PLANIMPACT2 running from 15:48, about 4 h). COACHES: Q-334 S550 'Probe the changes' -> COACHMAP2 queued AFTER PLANIMPACT2 (one rule is not sold twice). Built: boxer v boxer as its own engine twice (proto/boxcards: v1 12 tests, v2 21 tests, 4 of 6 bars, no blind pilot over 50%), the playable page and the phone build. Not launched: BODYCROSS4 (the animation item), MATCHBOTS2. No export (no game file changed). S548 (Fable) HANDOVER. METHOD: THE WRITTEN PLAN STAYS AND MUST MATTER (owner 'make it more impactful'); THE CORNER HAS EIGHT COMMANDS, NO RING SLOT ('Cut both'); COACHES: NO TRIAL WEEK, CHEMISTRY ON THE HIRE CARD ('Cut it, show chemistry'); CARD GAME: MEASURE A CRITIC'S RULE BEFORE IT GOES ON, THE BOT MUST USE WHAT IS BUILT; HIS GAME FIRST - ONE WORKER WHILE ARCHEAGE IS OPEN; mechanics first then 3D and menus; fight animation v2 only, his eye is the ruler. Collected PLANREAD2, CORNERBASE1 (the corner ~+10 v a coach who reads the file), BODYREACT2 (body hook bends him; films on /review). Card round 9 on main (owner: fix both yourself) and round 9b slice 1 (73 tests, gate 6/6, boxing 43 / jiu-jitsu 57; Keep your base on against a pull in its weaker shape, off against a sweep where it made boxing 99.5%). Coach map as cut written; Kalli 5/5/6. PC: ArcheAge lag = Windows kernel pool 15.3 GB a",
+  "next_action": "S551: check docs/PLANIMPACT2_RESULT.md against the code and its own table, then one page for the owner (the plan stays small / a ring change); collect BODYCROSS4; launch COACHMAP2 when a slot is free; read his play of card version 2, then CARDRANGE_SCOPE_S550 phase 1.",
+  "last_working_commit": "27feae258",
+  "verified_playable": "The S547 build is the last exported .exe (no game file changed in S549 or S550). The card page: version 2 played through by script in the preview and published for his phone; not played by hand.",
+  "incomplete_blocked": "PLANIMPACT2 landed FAIL and is not yet checked against the code; COACHMAP2 briefed, not launched; BODYCROSS4 running (Fable tab, from 17:15); MATCHBOTS2 not launched; John's facts landed, not read; Dola not sent; no export.",
+  "next_acceptance": "PLANIMPACT2 check page committed and his decision asked on the board; BODYCROSS4 films on /review; COACHMAP2 running; version 3 range rules on paper with a walked bout.",
+  "awaiting_operator": "His play of boxer v boxer version 2 (phone link in NEXT_SESSION_PROMPT.md); His eye on /review: body hook films, body cross 3, signing card, staff cards; His play of the S547 build"
  },
- "next": "S496: 0) get_usage; where_we_are roll S496; quote board answers (Q-259 Training K v6c; build WeekCards v6c on Yes - WeekCards.gd 552 lines is split first). 1) Collect as they land, by diff + their test: Qwen ONELOOK2 (fight HUD palette, ETA ~11:00 11-16; render before/after fight stills on the hidden desktop, his OK before merge), Goose FILMCOUNT1 (#326, branch goose/issue-326 - Goose's PR step failed twice: collect from the branch; read its FINDS table and noise numbers, retune FilmBout rates if a floor missed), Grok Dev FIGHTPAGE1 (branch grok/fightpage1, ETA ~13:30; render at 1920x1080 text 1.0 and 1.3, judge against fight_analysis_v3.png, then his board). 2) Kalli SQ202 LADDER1 v6 + SQ203 COACHSPEC1 r6 -> two fresh critics each (Dola + John; Dola refused COACHSPEC1 r5 - resend). 3) Wire after FIGHTPAGE1+FILMCOUNT1: the film-night stop in the fight week (FightWeekPlan film night -> FightAnalysis.for_tape with FilmCount.check, FilmPattern.checks by coach rating), FilmEdge pays at the figure, the result page's Punch by punch tab over m['tape'] (BoutTape), History keeps 20 tapes (~400 lines a bout). 4) Live fight log panel brief to Grok Dev once FIGHTPAGE1 lands. 5) ONELOOK1 sweep after ONELOOK2: RosterCards, ReadPanel, MatMap (UI.gd/WoodKit/WeekCards first need a split).",
+ "next": "S551: see NEXT_SESSION_PROMPT.md - collect PLANIMPACT2 (check best minus careless, the corner band, the code lines); launch BODYCROSS4 and COACHMAP2 as slots free; the card game: read his play of version 2, then CARDRANGE_SCOPE_S550 phase 1 (paper) and 2 (greybox); John SQ325; the FILE coach; an export when his game is closed.",
  "assessment": {
   "source": "Codex deep audit + Cursor televised-MMA gap assessment, both 2026-09-12",
   "bars": [
@@ -2379,6 +2379,11 @@
    "id": "S549",
    "date": "2026-11-24",
    "summary": "Card 9b slices 2-3 built and measured, then the owner changed the card method: one art against itself first ('the real test should be a boxer vs boxer'). Boxer v boxer measured broken (400 of 400 knockouts). Scope CARDBOX_SCOPE_S549 approved (Q-332). Arena's real-bout paper collected; John queued. His play: price shown as paid now, the page server no-store. C505 into BODYCROSS4."
+  },
+  {
+   "id": "S550",
+   "date": "2026-11-24",
+   "summary": "Boxer v boxer card game built as its own small engine, twice: version 1 (a volley against one answer; Arena 5/6/6) and version 2 (the volley turned one punch at a time; Arena 6/5/7; 4 of 6 bars, no blind bot over 50%), a playable page and a phone link. Both critics: no range -> CARDRANGE_SCOPE_S550, no more patch rounds. Q-333 'Second probe' -> PLANIMPACT2 running. Q-334 'Probe the changes' -> COACHMAP2 queued behind it. PLANIMPACT1 collected by the S549 session: no lever passed."
   }
  ],
  "blocked_on_operator": [],
@@ -5297,7 +5302,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-24 15:41 board_sync",
+  "updated": "2026-11-24",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5478,7 +5483,7 @@
    {
     "id": "PLANCORNER1",
     "who": "claude",
-    "title": "The fight plan is worth +1.7 wins in 100 over the coach's; the corner, live, +10 to +18 | NEXT: one question to you: does the plan stay a big screen or shrink while the corner becomes the game",
+    "title": "The written plan: three ways measured, none passed (best plan beats a careless one by 1 to 2) | NEXT: collect the second probe PLANIMPACT2 (your 'Second probe'), about 19:45",
     "after": ""
    },
    {
@@ -5496,7 +5501,7 @@
    {
     "id": "COACHDEEP1",
     "who": "claude",
-    "title": "Coaches v9: 5 of 7; 6 of 7 after the falling-out is cut as a decision (the gym backs the coach, one news line). The trial week is the wrong buy in 9 of 10 gyms | NEXT: your answer Q-329 (cut the trial, show chemistry on the hire card?), then one clean map, a code-checked critic, Kalli and Dola",
+    "title": "Coaches: the map as cut scored 5 / 5 (bar 8) | NEXT: COACHMAP2 probes the three changes (your 'Probe the changes') once the plan probe has landed",
     "after": ""
    },
    {
@@ -5526,7 +5531,7 @@
    {
     "id": "CARDGAME1",
     "who": "claude",
-    "title": "Card game round 9 on Arena: 61 tests green, play gate 4 of 6 (boxing 77.5 v jiu-jitsu 22.5; 21 decisions a bout) - Arena is out of usage for the day | NEXT: continue in the same chat when its limit resets, then round 9b, then play both arts by hand",
+    "title": "Card game, boxer v boxer: version 2 playable (phone link); two critics 5/6/6 and 6/5/7, both 'no range' | NEXT: your play of version 2, then version 3 with a range track (CARDRANGE_SCOPE_S550), paper first",
     "after": ""
    },
    {
@@ -5853,6 +5858,26 @@
   },
   "done_recently": [
    {
+    "title": "The plan-impact probe collected: no way of making the written plan matter passed",
+    "who": "claude",
+    "when": "2026-11-24"
+   },
+   {
+    "title": "Boxer v boxer card game, version 1 and its critic (5 / 6 / 6): the answerer saw the whole volley",
+    "who": "claude",
+    "when": "2026-11-24"
+   },
+   {
+    "title": "Boxer v boxer card game, version 2: playable page and phone link; 21 rule tests; no blind bot beats the reading bot",
+    "who": "claude",
+    "when": "2026-11-24"
+   },
+   {
+    "title": "Boxer v boxer card game, version 2 (one punch at a time): a fresh code-checked critic - depth and play out of 10",
+    "who": "Arena (chat 01a20dcc, repo FightCamp-Lean-lite)",
+    "when": "2026-11-24"
+   },
+   {
     "title": "Boxer v boxer card game: the code-checked critic (page against code, its own exploiting bots, sweeps) - depth and play out of 10",
     "who": "Arena (chat 01a20db8, repo FightCamp-Lean-lite)",
     "when": "2026-11-24"
@@ -5889,26 +5914,6 @@
    },
    {
     "title": "S547: CONTINUE says what a click does - 'days run to Mon 12 Jan', the reason on hover (your 'Top bar CONTINUE')",
-    "who": "claude",
-    "when": "2026-11-24"
-   },
-   {
-    "title": "S547: Self-belief is the mind attribute; Confidence is the bar only (two things had one name)",
-    "who": "claude",
-    "when": "2026-11-24"
-   },
-   {
-    "title": "S547: Finance's club show row fits its window; no line tells you to wait for offers",
-    "who": "claude",
-    "when": "2026-11-24"
-   },
-   {
-    "title": "S547: body cross 3 collected (a bent elbow, the hit boxer folds) - the sheets are on /review for your eye",
-    "who": "claude",
-    "when": "2026-11-24"
-   },
-   {
-    "title": "S547: corner commands round 2 collected - the core +15 to +22, three checks fail again; your call on the ring calls (Q-330)",
     "who": "claude",
     "when": "2026-11-24"
    }
@@ -6071,6 +6076,18 @@
     {
      "text": "Boxer v boxer v2: critic 6/5/7",
      "who": "claude"
+    },
+    {
+     "text": "Phone link: boxer v boxer v2",
+     "who": "claude"
+    },
+    {
+     "text": "Coaches: probe briefed (Q-334)",
+     "who": "claude"
+    },
+    {
+     "text": "Plan probe 2: failed (about 2)",
+     "who": "agent"
     }
    ],
    "now": [
@@ -6205,10 +6222,6 @@
     {
      "text": "Your play: boxer v boxer v2",
      "who": "operator"
-    },
-    {
-     "text": "Plan probe 2 (PLANIMPACT2)",
-     "who": "agent"
     }
    ],
    "next": [

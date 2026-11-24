@@ -145,8 +145,8 @@ def bars(paths):
 def xbar(paths):
     w = collections.defaultdict(list)
     plan = {}
-    for r in rows(paths, "cb"):
-        if "@" not in r["arm"]:
+    for r in rows(paths):
+        if r.get("tag") not in ("cb", "cbx") or "@" not in r["arm"]:
             continue
         c, pk, s = r["arm"].split(":")
         fam, sj = pk.split("@")

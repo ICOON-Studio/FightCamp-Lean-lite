@@ -1,0 +1,379 @@
+<title>Boxer v Boxer</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+:root{color-scheme:dark;--bg:#151211;--panel:#221c18;--panel2:#2b231d;--line:#43332a;--line2:#5a4436;--fg:#f2e9dd;--muted:#b7a595;--gold:#e3ab45;--red:#d9534a;--blue:#5f92d8;--green:#74bd7c;}
+*{box-sizing:border-box}html{font-size:clamp(13px,1.08vw,26px)}html,body{height:100%;margin:0}
+body{background:radial-gradient(1200px 700px at 50% -10%,#2a211b 0%,var(--bg) 60%);color:var(--fg);font:1.07rem/1.35 "Segoe UI",system-ui,sans-serif}
+button{font:inherit;color:inherit;cursor:pointer}
+.app{height:100%;display:grid;grid-template-rows:auto 1fr auto;gap:0.714rem;padding-block:0.714rem;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.top{display:flex;gap:1.286rem;align-items:baseline;border-bottom:1px solid var(--line);padding-bottom:0.571rem}
+.brand{font-weight:700;letter-spacing:.14em;color:var(--gold);text-transform:uppercase}
+.top b{color:var(--gold)} .rounds span{display:inline-block;margin-right:0.714rem;color:var(--muted)}
+.mid{display:grid;grid-template-columns:18.571rem 1fr 18.571rem;gap:0.857rem;min-height:0}
+.man{background:var(--panel);border:1px solid var(--line);border-radius:0.714rem;padding:0.857rem;display:flex;flex-direction:column;gap:0.714rem}
+.man h2{margin:0;font-size:1.286rem} .man.you h2{color:var(--blue)} .man.him h2{color:var(--red)}
+.lab{font-size:0.786rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.pips{display:flex;gap:4px;margin-top:3px} .pip{width:1.857rem;height:1rem;border-radius:3px;background:#3a2e26;border:1px solid var(--line2);transition:background .3s}
+.pip.on{background:var(--green)} .pip.gone{background:#1a1513;border-style:dashed;opacity:.5}
+.pip.dz{background:var(--red)} .pip.line{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold)}
+.tag{display:inline-block;padding:2px 0.571rem;border-radius:0.714rem;border:1px solid var(--line2);font-size:0.857rem;margin:2px 4px 0 0}
+.tag.bad{border-color:var(--red);color:#ffb3ad} .tag.good{border-color:var(--green);color:#bfe6c3}
+.used{font-size:0.857rem;color:var(--muted);line-height:1.5}
+.table{background:var(--panel);border:1px solid var(--line);border-radius:0.714rem;padding:0.857rem;display:flex;flex-direction:column;gap:0.571rem;min-height:0}
+.said{font-size:1.214rem;font-weight:600;min-height:1.714rem} .lines{flex:1;overflow:auto;font-size:1rem;color:#d9cbba}
+.lines div{padding:2px 0;border-bottom:1px dotted #33281f} .lines .bell{color:var(--gold);font-weight:600}
+.volley{display:flex;gap:0.571rem;align-items:center;min-height:6.571rem;flex-wrap:wrap}
+.card{width:9.143rem;min-height:6.143rem;background:var(--panel2);border:1px solid var(--line2);border-radius:0.571rem;padding:0.429rem 0.571rem;text-align:left;position:relative}
+.card b{display:block;font-size:1rem} .card small{color:var(--muted);font-size:0.821rem;line-height:1.25;display:block}
+.card .w{position:absolute;top:5px;right:0.5rem;font-size:0.857rem;color:var(--gold)}
+.card.down{background:repeating-linear-gradient(45deg,#3a2c22,#3a2c22 6px,#30241c 6px,#30241c 12px);min-height:5.2rem;width:4.2rem}.card.now{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold)}.card.pick{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold)} .card.no{opacity:.4;cursor:not-allowed} .card.ans{border-color:#4d6a8f}
+.card .n{position:absolute;bottom:4px;right:0.5rem;font-size:0.857rem;color:var(--gold);font-weight:700}
+.opts{display:grid;grid-template-columns:repeat(auto-fill,minmax(17.857rem,1fr));gap:0.571rem}
+.opt{background:var(--panel2);border:1px solid var(--line2);border-radius:0.571rem;padding:0.571rem 0.714rem;text-align:left}
+.opt:hover,.card:not(.no):hover{border-color:var(--gold)} .opt b{display:block} .opt small{color:var(--muted);display:block;font-size:0.893rem}
+.hand{display:flex;gap:0.571rem;align-items:stretch;flex-wrap:wrap}
+.btn{padding:0.714rem 1.286rem;border-radius:0.571rem;border:1px solid var(--line2);background:var(--panel2);font-weight:600}
+.btn.go{background:var(--gold);color:#231a12;border-color:var(--gold);animation:pulse 1.4s infinite} .btn:disabled{opacity:.4;animation:none}
+@keyframes pulse{50%{box-shadow:0 0 0 5px rgba(227,171,69,.25)}}
+.bottom{display:flex;gap:1rem;align-items:center}
+
+@media (max-width:820px){
+  html{font-size:14px}
+  .app{height:auto;min-height:100%;grid-template-rows:auto auto auto}
+  .top{flex-wrap:wrap;gap:6px 14px}.top .lab{display:none}
+  .mid{grid-template-columns:1fr 1fr;grid-template-areas:"you him" "table table"}
+  .man.you{grid-area:you}.man.him{grid-area:him}.table{grid-area:table;min-width:0}
+  .man{padding:8px;gap:6px;min-width:0}.man .used{display:none}.pip{width:auto;flex:1 1 0;min-width:0}
+  .lines{max-height:9rem}.opts{grid-template-columns:1fr}
+  .card{width:auto;flex:1 1 30%;min-width:0}.card.down{flex:0 0 3rem}
+  .bottom{flex-direction:column;align-items:stretch}.bottom>div:nth-child(2){display:none}
+  #acts{display:flex;flex-direction:column;gap:8px}.btn{width:100%;min-height:44px}.opt{min-height:44px}
+}
+</style>
+<div class="app">
+  <div class="top"><span class="brand">Boxer v boxer</span><span id="where"></span><span class="rounds" id="rounds"></span><span style="margin-left:auto" class="lab">three rounds - each man leads three times a round</span></div>
+  <div class="mid">
+    <div class="man you" id="you"></div>
+    <div class="table"><div class="said" id="said"></div><div class="volley" id="volley"></div><div class="opts" id="opts"></div><div class="lines" id="lines"></div></div>
+    <div class="man him" id="him"></div>
+  </div>
+  <div class="bottom"><div class="hand" id="hand"></div><div style="flex:1"></div><div id="acts"></div></div>
+</div>
+<script type="module">
+// BOXCARDS2 (S550, after Arena's critic of version 1: "the answerer sees the whole volley"): the volley is laid FACE
+// DOWN and turned over ONE PUNCH AT A TIME. Each punch as it turns asks the other man: pay to stop it, or take it. He
+// sees how many cards are still face down, never what they are. No dice: the only chance is the draw.
+// A bout is 3 rounds; in a round each man leads 3 times, turn about. Every number is in N: node probe2.mjs name=value
+const N = {
+  rounds: 3, leads: 3, hand: 5, volley: 3,
+  cap: 6, rec: 3, capMin: 2, rest: 2, restPts: 2, restFresh: 1,
+  blockLeak: 1, slipTired: 1, tiredAt: 4, clinchW: 1, holdFree: 2,
+  kdAt: 8, kdTo: 6, bellDaze: 1, fade: 1, koCap: 3, kdRound: 2, kdBout: 3,
+};
+const CARDS = {
+  jab:    { n: 'Jab',       k: 'punch', w: 1, d: 1, s: 1, zone: 'head', long: 1 },
+  cross:  { n: 'Cross',     k: 'punch', w: 2, d: 3, s: 2, zone: 'head', power: 1 },
+  hook:   { n: 'Lead hook', k: 'punch', w: 2, d: 3, s: 2, zone: 'head', power: 1 },
+  body:   { n: 'Body hook', k: 'punch', w: 2, d: 1, s: 1, zone: 'body' },
+  upper:  { n: 'Uppercut',  k: 'punch', w: 3, d: 4, s: 2, zone: 'head', power: 1, unblock: 1 },
+  feint:  { n: 'Feint',     k: 'feint', w: 1 },
+  block:  { n: 'Block',     k: 'ans', w: 1 },
+  slip:   { n: 'Slip',      k: 'ans', w: 1 },
+  step:   { n: 'Step back', k: 'ans', w: 1 },
+  clinch: { n: 'Clinch',    k: 'ans', w: 1 },
+};
+const DECK = { jab: 5, cross: 3, hook: 3, body: 3, upper: 2, feint: 2, block: 3, slip: 3, step: 2, clinch: 2 };
+const deckList = () => Object.entries(DECK).flatMap(([id, c]) => Array(c).fill(id));
+function rng(seed) { let a = seed >>> 0; return () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+const shuffle = (a, r) => { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+
+function newBout(seed, first = 0) {
+  const r = rng(seed);
+  const man = () => ({ deck: shuffle(deckList(), r), pile: [], hand: [], wind: N.cap, cap: N.cap, daze: 0, kds: 0, kdsRound: 0,
+    pts: 0, kdScored: 0, total: 0, ropes: 0, held: 0, holds: 0, skip: 0, thrown: 0, hurt: 0, pen: 0 });
+  return { r, f: [man(), man()], round: 1, first, over: null, cards: [] };
+}
+function draw(S, k) { const m = S.f[k]; while (m.hand.length < N.hand) { if (!m.deck.length) { m.deck = shuffle(m.pile, S.r); m.pile = []; if (!m.deck.length) break; } m.hand.push(m.deck.pop()); } }
+const spend = (m, id) => { const i = m.hand.indexOf(id); if (i < 0) throw new Error('not in hand: ' + id); m.hand.splice(i, 1); m.pile.push(id); };
+const slipCost = (m) => CARDS.slip.w + (m.cap <= N.tiredAt ? N.slipTired : 0);
+const volleyCost = (v) => v.reduce((s, id) => s + CARDS[id].w, 0);
+function legalVolley(S, a, v) {
+  const h = [...S.f[a].hand]; if (v.length > N.volley || volleyCost(v) > S.f[a].wind) return false;
+  for (const id of v) { const i = h.indexOf(id); if (i < 0 || CARDS[id].k === 'ans') return false; h.splice(i, 1); }
+  return !v.length || CARDS[v[v.length - 1]].k !== 'feint';
+}
+// the answers a man may lay to ONE punch as it turns. `shown` is the punch, or null when a feint has hidden it (then he
+// answers blind, and an answer that cannot meet the punch is wasted). A slip may carry a counter: {id:'slip', with}
+function answers(S, d, shown, np = 0) {   // np: the PUNCHES of this volley already turned (a feint is not one)
+  const m = S.f[d], has = (id) => m.hand.includes(id), c = shown && CARDS[shown], out = [{ id: null }];
+  if (has('block') && m.wind >= 1 && (!c || (c.zone === 'head' && !c.unblock))) out.push({ id: 'block' });
+  if (has('step') && m.wind >= 1 && !m.ropes && (!c || !c.long)) out.push({ id: 'step' });
+  if (has('clinch') && m.wind >= N.clinchW && !m.held && np > 0) out.push({ id: 'clinch' });        // he must have come in behind a first PUNCH
+  const sc = slipCost(m);
+  if (has('slip') && m.wind >= sc) { out.push({ id: 'slip' });                                           // a jab is never countered; nor a punch he cannot see
+    if (c && !c.long) for (const p of new Set(m.hand)) if (CARDS[p].k === 'punch' && m.wind >= sc + CARDS[p].w) out.push({ id: 'slip', with: p }); }
+  if (c && !c.long && np === 0) for (const p of ['cross', 'hook']) if (has(p) && m.wind >= CARDS[p].w) out.push({ id: p, trade: 1 });   // a trade goes over the LEAD punch only
+  return out;
+}
+const same = (x, y) => x.id === y.id && (x.with || null) === (y.with || null) && !!x.trade === !!y.trade;
+
+function land(S, who, pid, ev, leak = null) {            // a punch from `who` reaches the other man; true = he is down
+  const c = CARDS[pid], M = S.f[1 - who], P = S.f[who];
+  if (c.zone === 'body') { M.cap = Math.max(N.capMin, M.cap - c.d); M.wind = Math.min(M.wind, M.cap); P.pts += c.s; ev.push({ t: 'body', k: who, id: pid }); return false; }
+  if (leak != null) { M.daze += leak; ev.push({ t: 'blocked', k: who, id: pid, dz: leak }); return false; }
+  M.daze += c.d; P.pts += c.s; ev.push({ t: 'clean', k: who, id: pid, dz: c.d });
+  if (c.power && M.daze >= N.kdAt) {
+    M.kds++; M.kdsRound++; P.kdScored++; M.daze = N.kdTo; M.skip = 1; M.hurt = 1; ev.push({ t: 'knockdown', k: 1 - who });
+    if (M.cap <= N.koCap) S.over = { win: who, how: 'knockout' };
+    else if (M.kdsRound >= N.kdRound || M.kds >= N.kdBout) S.over = { win: who, how: 'stoppage' };
+    return true;
+  }
+  return false;
+}
+// one exchange. answer(S, d, view) is asked at each punch: view = { i, left, shown, legal, seen: the cards turned so far }
+// Cards never turned (the exchange was stopped) go back to the leader's hand and cost him nothing.
+function exchange(S, a, volley, answer, o = {}) {
+  const A = S.f[a], d = 1 - a, D = S.f[d], ev = o.ev || [];   // o.ev: the page reads what has happened so far
+  if (!legalVolley(S, a, volley)) throw new Error('illegal volley: ' + volley.join(','));
+  if (!volley.length) { A.wind = Math.min(A.cap, A.wind + N.rest); D.pts += N.restPts; if (N.restFresh) { A.pile.push(...A.hand); A.hand = []; } ev.push({ t: 'rest', k: a }); D.held = 0; return ev; }   // the judges mark the man who will not lead
+  A.ropes = 0;
+  let blind = !!o.blind, clinched = false, np = o.np || 0; const seen = [];   // o.blind: a bot asks "what if the hidden punch is this one"
+  for (let i = 0; i < volley.length; i++) {
+    const pid = volley[i], c = CARDS[pid];
+    spend(A, pid); A.wind -= c.w;
+    if (c.k === 'feint') { ev.push({ t: 'feint', k: a }); blind = true; seen.push(pid); continue; }
+    A.thrown++;
+    const shown = blind ? null : pid, legal = answers(S, d, shown, np);
+    const pick = answer(S, d, { i, np, left: volley.length - i - 1, shown, legal, seen: [...seen] }) || legal[0];
+    const ans = legal.find((x) => same(x, pick)); if (!ans) throw new Error('illegal answer: ' + JSON.stringify(pick));
+    blind = false; seen.push(pid); np++;
+    let stop = false;
+    if (ans.id === 'block') { spend(D, 'block'); D.wind -= 1;
+      if (c.zone === 'head' && !c.unblock) land(S, a, pid, ev, c.power ? N.blockLeak : 0); else { ev.push({ t: 'wasted', k: d, id: 'block' }); stop = land(S, a, pid, ev); } }
+    else if (ans.id === 'slip') { spend(D, 'slip'); D.wind -= slipCost(D) ; ev.push({ t: 'slipped', k: d, id: pid });
+      if (ans.with) { spend(D, ans.with); D.wind -= CARDS[ans.with].w; D.thrown++; ev.push({ t: 'counter', k: d }); land(S, d, ans.with, ev); stop = true; } }
+    else if (ans.id === 'step') { spend(D, 'step'); D.wind -= 1; D.ropes = 1;
+      if (c.long) { ev.push({ t: 'wasted', k: d, id: 'step' }); stop = land(S, a, pid, ev); } else { ev.push({ t: 'short', k: a, id: pid }); stop = true; } }
+    else if (ans.id === 'clinch') { spend(D, 'clinch'); D.wind -= N.clinchW; A.wind = Math.max(0, A.wind - N.clinchW); clinched = true; D.holds++; A.thrown--;   // a smothered punch was never thrown
+      if (D.holds > N.holdFree) { D.pen++; ev.push({ t: 'warned', k: d }); }
+      ev.push({ t: 'clinch', k: d, id: pid }); stop = true; }
+    else if (ans.trade) { spend(D, ans.id); D.wind -= CARDS[ans.id].w; D.thrown++;
+      if (c.long) { ev.push({ t: 'wasted', k: d, id: ans.id }); stop = land(S, a, pid, ev); }
+      else { const down = land(S, a, pid, ev); if (!down) { ev.push({ t: 'traded', k: d }); land(S, d, ans.id, ev); } stop = true; } }
+    else stop = land(S, a, pid, ev);
+    if (stop || S.over) { const back = volley.length - i - 1; if (back) ev.push({ t: 'kept', k: a, n: back }); break; }
+  }
+  D.held = clinched ? 1 : 0;
+  return ev;
+}
+// the bell: a man who scored a knockdown takes the round 10-8 (10-7 for two); else 10-9 on clean points, the busier man
+// when level, else 10-10. A referee's point for holding comes off after that.
+function bell(S) {
+  const [x, y] = S.f, kd = x.kdScored - y.kdScored;
+  const w = kd ? (kd > 0 ? 0 : 1) : x.pts !== y.pts ? (x.pts > y.pts ? 0 : 1) : x.thrown !== y.thrown ? (x.thrown > y.thrown ? 0 : 1) : -1;
+  const lose = 10 - 1 - Math.abs(kd), sc = [w === 1 ? lose : 10, w === 0 ? lose : 10];
+  if (w < 0) sc[0] = sc[1] = 10;
+  sc[0] -= x.pen; sc[1] -= y.pen; S.cards.push(sc);
+  for (const m of S.f) { m.total += m.pts; m.pts = 0; m.kdScored = 0; m.kdsRound = 0; m.pen = 0; m.holds = 0; m.daze = Math.max(0, m.daze - N.bellDaze); m.wind = m.cap;
+    m.held = 0; m.ropes = 0; m.thrown = 0; m.hurt = 0; m.pile.push(...m.hand); m.hand = []; }
+  return sc;
+}
+function verdict(S) {
+  const t = [0, 1].map((k) => S.cards.reduce((s, c) => s + c[k], 0));
+  if (t[0] !== t[1]) return { win: t[0] > t[1] ? 0 : 1, how: 'decision', t };
+  const p = S.f.map((m) => m.total);
+  return { win: p[0] === p[1] ? -1 : p[0] > p[1] ? 0 : 1, how: p[0] === p[1] ? 'draw' : 'decision on punches', t };
+}
+const nextLead = (S, lead) => { const t = [0, 1].map((k) => S.cards.reduce((s, c) => s + c[k], 0)); return t[0] !== t[1] ? (t[0] < t[1] ? 0 : 1) : 1 - lead; };
+function tick(S, x) { for (const k of [0, 1]) { const m = S.f[k]; if (x) { m.wind = Math.min(m.cap, m.wind + N.rec); if (!m.hurt) m.daze = Math.max(0, m.daze - N.fade); } draw(S, k); } }
+// a whole bout. pilots[k] = { lead(view, k) -> [ids], answer(view, k, punchView) }. A pilot gets S; an honest one reads
+// only its own hand and what is on the table (bot2.mjs `mine`).
+function bout(pilots, seed, o = {}) {
+  const S = newBout(seed, o.first || 0); let lead = S.first;
+  for (S.round = 1; S.round <= N.rounds && !S.over; S.round++) {
+    if (S.round > 1) lead = nextLead(S, lead);
+    let a = lead;
+    for (let x = 0; x < 2 * N.leads && !S.over; x++, a = 1 - a) {
+      tick(S, x);
+      if (S.f[a].skip) { S.f[a].skip = 0; o.onEx?.(S, a, null, [{ t: 'count', k: a }]); continue; }
+      const before = o.onEx ? snap(S) : null, volley = pilots[a].lead(S, a), asked = [];
+      const ev = exchange(S, a, volley, (T, d, view) => { const ans = pilots[d].answer(T, d, view); asked.push({ view, ans }); return ans; });
+      o.onEx?.(S, a, volley, ev, before, asked);
+    }
+    if (!S.over) { const sc = bell(S); o.onBell?.(S, sc); }
+  }
+  return { S, ...(S.over || verdict(S)) };
+}
+const snap = (S) => S.f.map((m) => ({ wind: m.wind, cap: m.cap, daze: m.daze, pts: m.pts, hand: [...m.hand] }));
+
+// BOXCARDS2 bots. `reader`: as the leader he tries every volley against a few hands the other man MAY hold (dealt from
+// the cards he has not seen) and plays the best on average; as the answerer he weighs, at each punch as it turns, every
+// answer he may lay against taking it - an answer that ends the exchange is also worth the face-down cards it stops.
+// He reads his own hand and the table only. `slugger`: his dearest volley, a block when he has one.
+
+const clone = (S) => ({ ...S, over: null, cards: S.cards.map((c) => [...c]), f: S.f.map((m) => ({ ...m, pile: [...m.pile], hand: [...m.hand] })) });
+const W = { pts: 1, daze: 0.45, cap: 1.6, wind: 0.25, kd: 6, win: 40, busy: 0.3, pen: 1, card: 0.15, unseen: 1.0, k: 6 };
+function worth(S, k) {
+  const me = S.f[k], he = S.f[1 - k];
+  if (S.over) return S.over.win === k ? W.win : -W.win;
+  return W.pts * (me.pts - he.pts) + W.daze * (he.daze - me.daze) + W.cap * (me.cap - he.cap) + W.kd * (me.kdScored - he.kdScored) - W.pen * (me.pen - he.pen)
+    + W.wind * (Math.min(me.cap, me.wind + N.rec) - Math.min(he.cap, he.wind + N.rec)) + W.busy * Math.sign(me.thrown - he.thrown);
+}
+function volleys(S, a) {
+  const m = S.f[a], kinds = [...new Set(m.hand.filter((id) => CARDS[id].k !== 'ans'))], out = [[]];
+  const count = (id) => m.hand.filter((x) => x === id).length;
+  const go = (v) => { for (const id of kinds) {
+    if (v.filter((x) => x === id).length >= count(id)) continue;
+    const nv = [...v, id]; if (volleyCost(nv) > m.wind) continue;
+    if (CARDS[id].k !== 'feint') out.push(nv);
+    if (nv.length < N.volley) go(nv);
+  } };
+  go([]); return out;
+}
+// the punches the leader may still hold, by what the answerer has seen (the leader's pile, which holds this volley so far)
+function unseenPunches(S, a) { const he = S.f[a], out = []; for (const [id, n] of Object.entries(DECK)) if (CARDS[id].k === 'punch') { const left = n - he.pile.filter((x) => x === id).length; if (left > 0) out.push([id, left]); } return out; }
+const ends = (ans, pid) => ans.id === 'clinch' || !!ans.with || (ans.id === 'step' && !CARDS[pid].long) || (!!ans.trade && !CARDS[pid].long);
+function tryAnswer(S, d, pid, ans, blind, at) {
+  const T = clone(S), A = T.f[1 - d]; A.hand.push(pid); A.wind += CARDS[pid].w; A.thrown--;
+  exchange(T, 1 - d, [pid], () => ans, { blind, np: at });
+  return worth(T, d) - W.card * (ans.id ? 1 + (ans.with ? 1 : 0) : 0);
+}
+function answerBot(S, d, view) {
+  let best = view.legal[0], bv = -1e9;
+  const cand = view.shown ? [[view.shown, 1]] : unseenPunches(S, 1 - d), tot = cand.reduce((s, c) => s + c[1], 0);
+  for (const ans of view.legal) {
+    let v = 0; for (const [pid, n] of cand) v += (n / tot) * (tryAnswer(S, d, pid, ans, !view.shown, view.np) + (ends(ans, pid) ? W.unseen * view.left : 0));
+    if (v > bv + 1e-9) { bv = v; best = ans; }
+  }
+  return best;
+}
+function leadBot(S, a) {
+  const D = S.f[1 - a], pool = [...D.deck, ...D.hand], r = rng(S.round * 7919 + S.f[a].pile.length * 131 + D.pile.length * 17 + S.cards.length + 1), hands = [];
+  for (let i = 0; i < W.k; i++) hands.push(shuffle([...pool], r).slice(0, D.hand.length));
+  let best = [], bv = -1e9;
+  for (const v of volleys(S, a)) {
+    let sum = 0; const hs = v.length ? hands : [D.hand];
+    for (const h of hs) { const T = clone(S); T.f[1 - a].hand = [...h]; exchange(T, a, v, answerBot); sum += worth(T, a); }
+    const x = sum / hs.length; if (x > bv + 1e-9) { bv = x; best = v; }
+  }
+  return best;
+}
+const reader = () => ({ lead: leadBot, answer: answerBot });
+const slugger = () => ({
+  lead(S, a) { let best = [], bc = -1; for (const v of volleys(S, a)) { const c = v.reduce((s, id) => s + (CARDS[id].d || 0), 0); if (c > bc) { bc = c; best = v; } } return best; },
+  answer(S, d, view) { return view.legal.find((x) => x.id === 'block') || view.legal[0]; },
+});
+// the blind pilots a critic would try: each leads or answers as named, and is the reader for the rest
+const fixed = (order) => (S, a) => { const m = S.f[a], h = [...m.hand], v = []; let w = m.wind; for (const id of order) { const i = h.indexOf(id); if (i >= 0 && w >= CARDS[id].w && v.length < N.volley) { v.push(id); h.splice(i, 1); w -= CARDS[id].w; } } return v; };
+const PILOTS = { reader, slugger,
+  same: () => ({ lead: fixed(['jab', 'cross', 'hook']), answer: answerBot }),
+  jabs: () => ({ lead: fixed(['jab', 'jab', 'jab']), answer: answerBot }),
+  never: () => ({ lead: () => [], answer: answerBot }),
+  holder: () => ({ lead: leadBot, answer: (S, d, v) => v.legal.find((x) => x.id === 'clinch') || answerBot(S, d, v) }),
+  runner: () => ({ lead: leadBot, answer: (S, d, v) => v.legal.find((x) => x.id === 'step') || answerBot(S, d, v) }),
+  taker: () => ({ lead: leadBot, answer: (S, d, v) => v.legal[0] }),
+  first: () => ({ lead: leadBot, answer: (S, d, v) => v.legal[1] || v.legal[0] }),
+};
+
+// BOXCARDS2 page: you against the reading bot. His volley lies face down and turns one punch at a time; every answer
+// shows what it does and costs before you lay it. The bot reads its own hand and the table only (bot2.mjs).
+
+
+const TXT = { jab: '1 point. Never countered, never out-stepped.', cross: '2 points, head 3.', hook: '2 points, head 3.', body: '1 point. His wind bar 1 shorter all bout. A block does not stop it.',
+  upper: '2 points, head 4. A block does not stop it.', feint: 'Lands nothing. Your next punch turns hidden: he answers blind.', block: 'Stops one head punch. Wasted on a body hook or uppercut.',
+  slip: 'One punch misses. Add a punch of yours: it lands and his volley ends.', step: 'His punch falls short, his volley ends. Puts you on the ropes.', clinch: 'Smothers his punch, his volley ends. Not on his first card.' };
+const $ = (id) => document.getElementById(id), who = ['You', 'He'], nm = (id) => CARDS[id].n, bot = reader();
+let seed = Math.floor(Math.random() * 1e6);
+let S, lead, a, x, phase, pick = [], pickIdx = [], lines = [], lastText = '';
+let his = null;   // while he leads: { volley, given: [your answers so far], view: the punch waiting for you, ev: what has happened }
+const STOP = { stop: 1 };
+const say = (e) => { const you = e.k === 0, w = who[e.k], c = e.id && nm(e.id), my = you ? 'Your' : 'His'; return ({ rest: `${w} take${you ? '' : 's'} a breather (2 points to ${you ? 'him' : 'you'})`, feint: `${w} feint${you ? '' : 's'}`,
+  clinch: `${w} tie${you ? '' : 's'} up before the ${c} lands`, warned: `the referee takes a point from ${you ? 'you' : 'him'} for holding`, slipped: `${w} slip${you ? '' : 's'} the ${c}`, counter: `${w} counter${you ? '' : 's'}`,
+  traded: `${w} fire${you ? '' : 's'} back`, short: `${my} ${c} falls short`, wasted: `${my} ${c} is wasted`, body: `${my} ${c} lands to the body`, clean: `${my} ${c} lands clean`, blocked: `${my} ${c} is blocked`,
+  knockdown: you ? 'YOU ARE DOWN' : 'HE IS DOWN', count: `${w} lose${you ? '' : 's'} the lead to the count`, kept: `${w} keep${you ? '' : 's'} ${e.n} card${e.n > 1 ? 's' : ''} unthrown` }[e.t]); };
+const aname = (x) => !x.id ? 'Take it' : x.trade ? 'Trade: fire your ' + nm(x.id) : x.with ? 'Slip and counter with your ' + nm(x.with) : nm(x.id);
+const acost = (x, m) => !x.id ? 0 : x.id === 'slip' ? slipCost(m) + (x.with ? CARDS[x.with].w : 0) : CARDS[x.id].w;
+const log = (t, cls = '') => lines.unshift({ t, cls });
+const sentence = (ev) => ev.map(say).join('; ') + '.';
+
+function start() { S = newBout(seed, seed % 2); lead = S.first; S.round = 1; log(`Round 1. ${who[lead]} lead${lead ? 's' : ''} first.`, 'bell'); a = lead; x = 0; step(); }
+function step() {
+  if (S.over) return end(S.over);
+  if (x === 2 * N.leads) {
+    const sc = bell(S); log(`BELL. The judges give the round ${sc[0]}-${sc[1]}.`, 'bell');
+    if (S.round === N.rounds) return end(verdict(S));
+    S.round++; const was = lead; lead = nextLead(S, lead);
+    log(`Round ${S.round}. ${who[lead]} lead${lead ? 's' : ''} first.`, 'bell'); a = lead; x = 0;
+  }
+  tick(S, x); pick = []; pickIdx = []; his = null;
+  if (S.f[a].skip) { S.f[a].skip = 0; const t = say({ t: 'count', k: a }); log(t + '.'); return shown(t + '.'); }
+  if (a === 1) { his = { volley: bot.lead(S, 1), given: [] }; return ask(); }
+  phase = 'lead'; render();
+}
+// he leads: replay the answers you have given on a copy until the next punch waits for you, or the exchange is over
+function ask() {
+  const T = clone(S), ev = []; let i = 0, view = null;
+  try { exchange(T, 1, [...his.volley], (t, d, v) => { if (i < his.given.length) return his.given[i++]; view = v; throw STOP; }, { ev }); }
+  catch (e) { if (e !== STOP) throw e; }
+  his.ev = ev; his.view = view;
+  if (!view) { let j = 0; const real = exchange(S, 1, [...his.volley], () => his.given[j++]); log('He leads. ' + sentence(real)); return shown(sentence(real)); }
+  phase = 'answer'; render();
+}
+function preview(ans) { const T = clone(S), ev = []; let i = 0; const given = [...his.given, ans];
+  try { exchange(T, 1, [...his.volley], () => { if (i < given.length) return given[i++]; throw STOP; }, { ev }); } catch (e) { if (e !== STOP) throw e; }
+  const news = ev.slice(his.ev.length).filter((e) => e.t !== 'feint'); return news.length ? sentence(news) : 'Nothing lands.'; }
+function throwIt() { const v = [...pick]; if (!legalVolley(S, 0, v)) return; const ev = exchange(S, 0, v, bot.answer);
+  log((v.length ? 'You lead ' + v.map(nm).join(' - ') + '. ' : '') + sentence(ev)); shown(sentence(ev), v); }
+function shown(text, mine) { phase = 'shown'; lastText = text; lastMine = mine || null; x++; a = 1 - a; render(); }
+let lastMine = null;
+function end(v) { phase = 'over'; const t = v.t ? ' ' + v.t.join('-') : ''; lastText = v.win < 0 ? 'A DRAW' + t : `${v.win === 0 ? 'YOU WIN' : 'HE WINS'} by ${v.how}${t}`; log(lastText, 'bell'); render(); }
+
+function man(el, k) { const m = S.f[k], pips = []; for (let i = 0; i < N.cap; i++) pips.push(`<span class="pip ${i < m.wind ? 'on' : i >= m.cap ? 'gone' : ''}"></span>`);
+  const dz = []; for (let i = 0; i < N.kdAt; i++) dz.push(`<span class="pip ${i < m.daze ? 'dz' : ''} ${i === N.kdAt - 1 ? 'line' : ''}"></span>`);
+  const tags = [m.hurt ? '<span class="tag bad" title="Has been down this round: the head does not clear before the bell">hurt</span>' : '', m.ropes ? '<span class="tag bad" title="No second step back until he has led">on the ropes</span>' : '',
+    m.held ? '<span class="tag" title="No clinch twice running">just clinched</span>' : '', m.holds ? `<span class="tag" title="The third hold in a round costs a point">holds ${m.holds}</span>` : '', m.kds ? `<span class="tag bad">down ${m.kds}x</span>` : ''].join('');
+  const used = Object.keys(DECK).map((id) => { const n = m.pile.filter((c) => c === id).length; return n ? `${nm(id)} ${n} of ${DECK[id]}` : ''; }).filter(Boolean).join(', ');
+  el.innerHTML = `<h2>${k ? 'Him' : 'You'}</h2><div><span class="lab" title="Pays for every card. 3 comes back before each exchange. A body punch shortens the bar for the whole bout.">Wind ${m.wind} of ${m.cap}</span><div class="pips">${pips.join('')}</div></div>
+    <div><span class="lab" title="A clean big punch that fills the bar to the gold line puts him down.">Head ${m.daze} of ${N.kdAt}</span><div class="pips">${dz.join('')}</div></div>
+    <div><span class="lab">This round</span><div><b>${m.pts}</b> points, ${m.thrown} punches thrown</div></div><div>${tags}</div>
+    <div class="used"><span class="lab">${k ? 'Cards he has played' : 'Cards you have played'}</span><br>${used || 'none yet'}</div>`; }
+const face = (id, extra = '', cls = '', n = '') => `<button class="card ${cls}" ${extra}><span class="w">${id === 'slip' ? slipCost(S.f[0]) : CARDS[id].w} wind</span><b>${nm(id)}</b><small>${TXT[id]}</small>${n ? `<span class="n">${n}</span>` : ''}</button>`;
+const down = (n) => Array(n).fill('<span class="card down"></span>').join('');
+function render() {
+  $('where').innerHTML = `Round <b>${S.round}</b> of ${N.rounds} - exchange <b>${Math.min(x + (phase === 'shown' || phase === 'over' ? 0 : 1), 6)}</b> of 6`;
+  $('rounds').innerHTML = S.cards.map((c, i) => `<span>R${i + 1}: you ${c[0]}-${c[1]}</span>`).join('');
+  man($('you'), 0); man($('him'), 1);
+  const me = S.f[0];
+  $('lines').innerHTML = lines.map((l) => `<div class="${l.cls}">${l.t}</div>`).join(''); $('opts').innerHTML = ''; $('acts').innerHTML = '';
+  if (phase === 'lead') {
+    const cost = volleyCost(pick);
+    $('said').textContent = 'Your lead: up to three cards, in order. He will see them one at a time.';
+    $('volley').innerHTML = pick.map((id) => face(id, 'disabled', 'pick')).join('') + (pick.length ? `<span class="lab">${cost} wind if all turn</span>` : '');
+    $('hand').innerHTML = me.hand.map((id, i) => { const isAns = CARDS[id].k === 'ans', n = pickIdx.indexOf(i) + 1; const no = isAns || (!n && (pick.length >= N.volley || cost + CARDS[id].w > me.wind)); return face(id, `data-i="${i}"`, (n ? 'pick ' : '') + (no ? 'no ' : '') + (isAns ? 'ans' : ''), n || ''); }).join('');
+    $('acts').innerHTML = `<button class="btn" id="rest" title="Wind back and a fresh hand. The judges give him 2 points.">Breather (+${N.rest} wind, new hand, 2 points to him)</button> <button class="btn go" id="go" ${legalVolley(S, 0, pick) && pick.length ? '' : 'disabled'}>Throw it</button>`;
+    $('go').onclick = throwIt; $('rest').onclick = () => { pick = []; pickIdx = []; throwIt(); };
+    for (const b of $('hand').querySelectorAll('.card')) b.onclick = () => toggle(+b.dataset.i);
+  } else if (phase === 'answer') {
+    const v = his.view, turned = [...v.seen, v.shown];
+    $('said').textContent = v.shown ? `His ${nm(v.shown)} is coming.${v.left ? ' ' + v.left + ' more face down.' : ' It is his last card.'}` : `He feinted: a hidden punch is coming.${v.left ? ' ' + v.left + ' more face down.' : ''}`;
+    $('volley').innerHTML = turned.map((id, i) => id ? face(id, 'disabled', i === turned.length - 1 ? 'now' : '') : '<span class="card down now"></span>').join('') + down(v.left) + (his.ev.length ? `<span class="lab">${sentence(his.ev)}</span>` : '');
+    $('hand').innerHTML = me.hand.map((id) => face(id, 'disabled', CARDS[id].k === 'ans' ? 'ans' : '')).join('');
+    $('opts').innerHTML = v.legal.map((ans, i) => `<button class="opt" data-i="${i}"><b>${aname(ans)}${ans.id ? ' - ' + acost(ans, me) + ' wind' : ''}</b><small>${v.shown ? preview(ans) : blindText(ans)}</small></button>`).join('');
+    for (const b of $('opts').querySelectorAll('.opt')) b.onclick = () => { his.given.push(v.legal[+b.dataset.i]); ask(); };
+  } else {
+    $('said').textContent = lastText;
+    $('volley').innerHTML = (lastMine || (his ? his.volley.slice(0, his.volley.length - (his.ev.find((e) => e.t === 'kept')?.n || 0)) : [])).map((id) => face(id, 'disabled')).join('');
+    $('hand').innerHTML = me.hand.map((id) => face(id, 'disabled')).join('');
+    $('acts').innerHTML = phase === 'over' ? '<button class="btn go" id="again">Another bout</button>' : '<button class="btn go" id="next">Next</button>';
+    if (phase === 'over') $('again').onclick = () => { seed = Math.floor(Math.random() * 1e6); lines = []; start(); }; else $('next').onclick = step;
+  }
+}
+const blindText = (ans) => !ans.id ? 'Whatever it is, it lands.' : ans.id === 'block' ? 'Stops a jab, cross or hook. Wasted if it is a body hook or an uppercut.' : ans.id === 'step' ? 'It falls short and his volley ends - unless it is a jab.'
+  : ans.id === 'clinch' ? 'Smothers it whatever it is; his volley ends.' : 'It misses whatever it is; his volley goes on.';
+function toggle(i) { const me = S.f[0], id = me.hand[i]; if (CARDS[id].k === 'ans') return; const p = pickIdx.indexOf(i);
+  if (p >= 0) pickIdx.splice(p, 1); else { if (pickIdx.length >= N.volley || volleyCost(pick) + CARDS[id].w > me.wind) return; pickIdx.push(i); }
+  pick = pickIdx.map((j) => me.hand[j]); render(); }
+window.addEventListener('keydown', (e) => { if (e.key === 'Enter') (document.getElementById('next') || document.getElementById('go'))?.click(); });
+start();
+
+</script>
