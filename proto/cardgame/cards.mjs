@@ -10,6 +10,14 @@ export const N = {
   lead: 8, counter: 3, block: 4, cover: 2, tiein: 3, coverW: 1, stepW: 1, pullW: 1, standW: 1, minW: 1, upW: 3, cycle: 1, redraw: 1, drainCap: 1,
   comboDmg: 5, comboPts: 2, catchPts: 2, headlockPts: 1, dmgPer: 5, stallMax: 2, copies: 3, own: 12,
   clkPts: 1, clkHold: 1, holdRoll: 0, riseDmg: 3, surcharge: 1, timidAt: 3, warnAt: 2,
+  // ROUND 9b (audit section 9), FIRST GUESSES, reported and not tuned: the no-card answers' wind, the no-card up-kick's
+  // damage, the knockdown (a punch for kdDmg or more that leaves him at kdHp or under), the stoppage (tkoTurns turns)
+  frameW: 1, baseW: 2, escW: 2, kickW: 2, kickDmg: 2, kdDmg: 6, kdHp: 10, tkoTurns: 2,
+  // S548 MEASURED (400 bot bouts, docs/CARDROUND9B_RESULT.md): Keep your base as an always-there answer takes boxing to
+  // 99.5% (99.0% at 3 wind, 88.3% at 4): the jiu-jitsu man never reaches the floor - no price fixes it, the SHAPE is
+  // wrong. The no-card escape takes the holds laid from 0.28 a bout to 0.00 (the bot stops trying). Both are built and
+  // tested and stay OFF until a critic and the owner choose a shape: 0 = off, 1 = on.
+  baseOn: 0, escOn: 0,
 };
 // limbs: a lead arm, A rear arm, l lead leg, L rear leg, h hips; x any arm, y any leg
 const K = ['K'], P = ['P'], C = ['C'], PC = ['P', 'C'], KP = ['K', 'P'], KPC = ['K', 'P', 'C'];
@@ -108,6 +116,10 @@ export const MOVE = {
   // The sit (no tie) is his whole turn, as before. Declared in engine.mjs endsVolley, which reads the tie.
   '@pull': { n: 'Pull guard', ends: 0, real: '4c Pull guard from his tie; 4c Sit down with no tie' },
   '@cover': { n: 'Cover up', ends: 0, real: '2a Cover up REAL' },
+  '@frame': { n: 'Frame', ends: 0, ans: 1, real: '9a H1 Frame: the tie fails, both stay at punching range' },
+  '@base': { n: 'Keep your base', ends: 0, ans: 1, real: '9a B1 Keep your base: the pull or the sweep fails' },
+  '@escape': { n: 'Fight the hold', ends: 0, ans: 1, real: '9a B2 Escape a hold as it is laid: the holder stays where he is' },
+  '@kick': { n: 'Up-kick', ends: 0, real: '9a B3 Up-kick from your back with no card' },
   '@break': { n: 'Break free', ends: 0, real: '2a Break free (WRONG fixed: both stay down, the holder one layer back)' },
 };
 export const FLOOR = Object.fromEntries(Object.entries(MOVE).map(([k, m]) => [k, m.n]));

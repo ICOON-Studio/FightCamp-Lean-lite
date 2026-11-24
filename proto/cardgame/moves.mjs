@@ -3,6 +3,7 @@
 // whose place changes, the other man's window is read off the join, and nothing here touches the rules of a laid card.
 import { CARDS, N } from './cards.mjs';
 import { legalNow, place, placeBoth, hit, strikeFits, fxOf } from './engine.mjs';
+import { kickDmg } from './floor.mjs';
 
 // a MOVE: before and after for EACH man, and the other man's window (audit 4c)
 function resolveMove(S, a, p, ans) {
@@ -20,7 +21,7 @@ function resolveMove(S, a, p, ans) {
     }
     if (!S.j.leg) { S.j = { kind: 'apart', leg: true }; return; } // step into the reach of his feet
 
-    if (fx === 'up') { hit(S, d, a, CARDS.upkick.dmg, 0); if (S.st) S.st.upkicks++; return; } // kicked on the way in and he stays up
+    if (fx === 'up') { hit(S, d, a, kickDmg(ans, CARDS.upkick.dmg), 0); if (S.st) S.st.upkicks++; return; } // kicked on the way in and he stays up
     placeBoth(S, a === 0 ? ['gtop', 'gbot'] : ['gbot', 'gtop'], { g: 'open' }); S.tie = null; S.stall = 0;
     if (S.st) S.st.downs++;
     return;
@@ -40,7 +41,7 @@ function resolveMove(S, a, p, ans) {
       return;
     }
     if (S.at[a] === 'stand' && S.at[d] === 'stand') { S.j = { kind: 'apart', reach: 'K' }; return; }
-    if (fx === 'up') { hit(S, d, a, CARDS.upkick.dmg, 0); if (S.st) S.st.upkicks++; } // kicked as he leaves
+    if (fx === 'up') { hit(S, d, a, kickDmg(ans, CARDS.upkick.dmg), 0); if (S.st) S.st.upkicks++; } // kicked as he leaves
     if (!S.over) S.j = { kind: 'apart', leg: false };
     return;
   }
@@ -56,7 +57,7 @@ function resolveMove(S, a, p, ans) {
   }
   if (id === '@back') {
     if (ans === 'sweep') { placeBoth(S, a === 0 ? ['gbot', 'gtop'] : ['gtop', 'gbot'], { g: 'open' }); S.stall = 0; if (S.st) S.st.sweeps++; return; }
-    if (fx === 'up') { hit(S, d, a, CARDS.upkick.dmg, 0); if (S.st) S.st.upkicks++; return; } // kicked as he backs out
+    if (fx === 'up') { hit(S, d, a, kickDmg(ans, CARDS.upkick.dmg), 0); if (S.st) S.st.upkicks++; return; } // kicked as he backs out
     // BACK AWAY IS OUT OF HIS LEGS, NOT A TAKEDOWN. This used to knock the OTHER man to his back unconditionally, so a
     // boxer laying Back away in a clinch put the jiu-jitsu man on the floor and stayed standing himself - the clinch
     // turned into a knock-down for the man who did nothing. Audit 4c: "Back away (boxer, out of the guard)" is the
@@ -68,13 +69,17 @@ function resolveMove(S, a, p, ans) {
     const tied = S.tie && S.tie.by === a;
     if (!tied) { place(S, a, 'seat'); S.j = { kind: 'apart', leg: true }; S.stall = 0; if (S.st) S.st.sits++; return; } // SIT DOWN: he sits, the boxer stays standing
     S.tie = null;
-    if (fx === 'sprawl') { placeBoth(S, a === 0 ? ['seat', 'stand'] : ['stand', 'seat'], { kind: 'apart', leg: true }); S.stall = 0; if (S.st) S.st.sprawled++; return; }
+    if (fx === 'sprawl' || fx === 'base') { placeBoth(S, a === 0 ? ['seat', 'stand'] : ['stand', 'seat'], { kind: 'apart', leg: true }); S.stall = 0; if (S.st) S.st.sprawled++; return; } // the Sprawl card, or Keep your base (9b B1)
     // the pull off his own tie IS a settled position: the boxer comes down into the guard with his arm and head still
     // held, so a hold may follow in the same volley (audit 4c, the MISSING-LINK row). A hold needs a settled position,
     // and a pull made from a tie is exactly that - it is not the volley of a takedown.
     placeBoth(S, a === 0 ? ['gbot', 'gtop'] : ['gtop', 'gbot'], { g: 'closed' }); S.stall = 0;
     S.gpass = S.pass; S.gby = a;
     if (S.st) S.st.pulls++;
+    return;
+  }
+  if (id === '@kick') { // 9b B3: the up-kick with no card, off his back at a standing man inside the reach of his feet
+    hit(S, a, d, Math.max(0, N.kickDmg - (fx === 'cover' ? N.cover : fx === 'block' ? N.block : 0)), 0); S.stall = 0; if (S.st) S.st.upkicks++;
     return;
   }
   if (id === '@up') {

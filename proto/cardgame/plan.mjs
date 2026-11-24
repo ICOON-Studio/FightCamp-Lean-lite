@@ -129,7 +129,7 @@ function evalVolley(C, m, his, W) {
   for (const t of his) for (let i = 0; i < C.inc.length; i++) if (ansFits(C, m, t.id, C.inc[i])) e = Math.min(e, U + t.p * (base({ id: t.id, i }) - U));
   return e;
 }
-export const MOVES = ['@in', '@out', '@stand', '@back', '@up', '@pull'];
+export const MOVES = ['@in', '@out', '@stand', '@back', '@up', '@pull', '@kick'];
 export function actions(C, m) {
   const M = C.f[m], out = [];
   if (C.pj.ended) return out; // the move he laid ended his volley: nothing more this turn

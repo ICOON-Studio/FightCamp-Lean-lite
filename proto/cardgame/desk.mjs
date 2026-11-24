@@ -7,7 +7,7 @@ import { newFighter, rng, beginTurn, answerOptions, doAnswer, startAct, declare,
 
 export function newBout(F0, F1, seed) {
   const r = rng(seed);
-  return { f: [newFighter(F0, r), newFighter(F1, r)], at: ['stand', 'stand'], j: { kind: 'apart', reach: 'K' }, inc: [], hold: null, tie: null, stall: 0, pass: 0, gpass: -1, gby: -1, ctx: { prev: false, combo: 0 }, over: null, r, pj: null, round: 0, turn: 0, timid: [0, 0],
+  return { f: [newFighter(F0, r), newFighter(F1, r)], at: ['stand', 'stand'], j: { kind: 'apart', reach: 'K' }, inc: [], hold: null, tie: null, stall: 0, pass: 0, gpass: -1, gby: -1, gnp: [0, 0], idle: [0, 0], ctx: { prev: false, combo: 0 }, over: null, r, pj: null, round: 0, turn: 0, timid: [0, 0],
     st: { vis: 1, whiff: 0, stuffed: 0, downs: 0, holdOn: 0, holdDone: 0, escaped: 0, letGo: 0, refUps: 0, combos: 0, dec: [0, 0], turns: [0, 0], cards: [0, 0], quiet: [0, 0], choices: 0, steps: 0, maxCh: 0, held: [0, 0], secs: [0, 0], played: [{}, {}], log: [[], []], downTurns: [0, 0], refLog: [], warn: [], timid: 0, timidPts: 0, sits: 0, pulls: 0, sprawled: 0, upkicks: 0, riseHits: 0, sweeps: 0, rises: 0, bellEnds: 0 } };
 }
 // agents[k] = { answer(S,k,opts) -> {id,i}|null, act(S,k) -> [ids] }
@@ -42,7 +42,7 @@ export function bout(F0, F1, agents, seed, opt = {}) {
     if (S.at[k] !== 'stand') st.downTurns[k]++;
   };
   for (let rd = 0; rd < N.rounds && !S.over; rd++) {
-    S.round = rd; S.at = ['stand', 'stand']; S.j = { kind: 'apart', reach: 'K' }; S.inc = []; S.tie = null; S.hold = null; S.stall = 0; S.timid = [0, 0];
+    S.round = rd; S.at = ['stand', 'stand']; S.j = { kind: 'apart', reach: 'K' }; S.inc = []; S.tie = null; S.hold = null; S.stall = 0; S.timid = [0, 0]; S.gnp = [0, 0]; S.idle = [0, 0];
     if (rd) for (const B of S.f) B.wind = Math.min(N.cap, B.wind + N.stool);
     for (let t = 0; t < N.turns && !S.over; t++) { S.turn = t; for (const k of [first, 1 - first]) if (!S.over) turn(k, false); }
     if (!S.over && S.inc.length) turn(first, true);

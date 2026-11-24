@@ -335,7 +335,7 @@ test('same seed, same bout; every pairing ends with a winner; the three pilots f
   const a = bout(fighter('judo'), fighter('karate'), [AI, AI], 99), b = bout(fighter('judo'), fighter('karate'), [AI, AI], 99);
   assert.equal(a.win, b.win); assert.equal(a.how, b.how); assert.deepEqual(a.st.dec, b.st.dec);
   for (const s of STYLES) for (const t of STYLES) if (s !== t) {
-    for (const p of [AI, impatient(), scripted(s)]) { const r = bout(fighter(s), fighter(t), [p, AI], 11); assert.ok(r.win === 0 || r.win === 1); assert.ok(['ko', 'lead', 'tap', 'pin', 'cards'].includes(r.how)); assert.ok(posKey(r.S, 0)); }
+    for (const p of [AI, impatient(), scripted(s)]) { const r = bout(fighter(s), fighter(t), [p, AI], 11); assert.ok(r.win === 0 || r.win === 1); assert.ok(['ko', 'tko', 'lead', 'tap', 'pin', 'cards'].includes(r.how)); assert.ok(posKey(r.S, 0)); }
   }
 });
 

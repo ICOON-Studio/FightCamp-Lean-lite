@@ -4,12 +4,13 @@
  "runs": {
   "CARDROUND9B": {
    "id": "CARDROUND9B",
-   "status": "queued",
-   "title": "Card game round 9b: the two critics' changes (knockdown, floor defences paid in wind, posture, punches from on top)",
-   "seat": "arena",
-   "agent": "Arena (new chat after round 9 is merged)",
-   "eta": "2-3 h once launched (Arena after 14:47; the Lean lite mirror must be refreshed first: lite_mirror.py push still targets the old repo)",
-   "note": "S545: research/TASK_CARDROUND9B.md; Kalli 6/5/6, Dola 9/9/9 on the paper model"
+   "status": "waiting",
+   "title": "Card game round 9b: slice 1 on main (Frame, knockdown, stoppage, up-kick with no card; gate 6/6, boxing 43 / jiu-jitsu 57). Keep your base is built and OFF: it makes boxing win 99.5% - your call on its shape",
+   "seat": "claude",
+   "agent": "Claude (this session, on main; owner S548: do 9b yourself)",
+   "eta": "slice 1 of 3 landed 406197a75; slices 2-3 (posture, the guard, top punches, the trip) next session",
+   "note": "S545: research/TASK_CARDROUND9B.md; Kalli 6/5/6, Dola 9/9/9 on the paper model",
+   "started": "2026-11-24T13:25"
   },
   "MATCHBOTS2": {
    "id": "MATCHBOTS2",

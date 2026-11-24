@@ -115,3 +115,34 @@ OWNS: proto/cardgame/, ops/research/CARDREAL_AUDIT.md, ops/research/DESIGN_CARDG
 RED_TEST: proto/cardgame (node --test: one red test per change A-I before the build)
 REGRESSION: none (standalone)
 VISUAL: Claude plays both arts by hand on the page
+
+## S548 ADDENDUM - the seat is a CLAUDE WORKER in a console tab (owner S548: "do 9b yourself too, dont wait for arena")
+Where this addendum and the text above disagree, the addendum wins.
+- WHERE: the main checkout `E:\FightCamp\Lean`, folder `proto/cardgame` (round 9 is on main, 4307c453a, with the two
+  S548 fixes - read `ops/research/CARDROUND9_WALK_S548.md` first). No lite mirror, no PR, no tag: commit on main by
+  pathspec (`git commit -m "..." -- <paths>`), never `git add -A` or `.`; do not push. Other workers (MATCHBOTS2,
+  PLANIMPACT1) edit this same checkout: touch ONLY proto/cardgame/, ops/research/CARDREAL_AUDIT.md (a new section 9;
+  nothing above it edited), ops/research/DESIGN_CARDGAME_SCOPE.md and your result page docs/CARDROUND9B_RESULT.md.
+- TOOLS: node only (`node --test` inside proto/cardgame; `node probe.mjs gate=play`). Never Godot. Nothing opens on a
+  monitor. Scratch files go in your scratchpad, not in the repo.
+- STARTING STATE, measured S548: `node --test` 63 of 63; PLAY GATE 6 of 6 (24.1 decisions a bout, boxing 57.3 /
+  jiu-jitsu 42.8). Both must still hold at the end, or the result says exactly which row moved and why. No test is
+  deleted or weakened: 29 engine + 18 ui + 16 real today.
+- THE 500-LINE LIMIT: engine.mjs is at 484. New rules go in moves.mjs (89) or a new small module (the referee's
+  rules, posture), not into engine.mjs.
+- ORDER: paper first and committed (section 9), then ONE change at a time - red test committed, build, `node --test`
+  green, commit - in this order: H (the rows to fix), I (the referee), A (the knockdown), C then D then E (posture and
+  the guard), B (the floor defences), F (punches from on top), G (the trip). After EACH change run the play gate and
+  write its six rows in the result page; a change that breaks the gate is reported, not tuned.
+- THE BOT MUST USE WHAT YOU BUILD. S548 found the jiu-jitsu bot never once sat down in 400 bouts although the move was
+  legal and free: its look-ahead is two cards deep (plan.mjs act) and a move that pays three moves later is never
+  chosen. For EVERY new move or defence print how often the bot lays it over 400 bouts (seats alternated, seed
+  500000000 + 7919 x i); a move laid in under 2% of the bouts where it was legal is NOT DONE - walk one bout, find why
+  the bot passes it, fix the bot's worth for it (never a balancing number in the rules).
+- THE PAGE: the player must be able to do everything the bot can. After the build, play BOTH arts through the page's
+  own calls (uidom.mjs, as ui.test.mjs and the gate's rows 1-2 do) to a verdict and list every new button the page
+  offered, by its name on the page.
+- RESULT: `docs/CARDROUND9B_RESULT.md` - NOT GREEN first; per change: the row, the red test's name, the gate after it;
+  the three measures of "Measure and print"; the feedback-loop prints and whether any STOP fired; the two bot bouts
+  turn by turn; win rates before and after; what you left out and why. Then stop: the coordinator plays it and sends
+  section 9 to the critics. Do not ask questions: decide, and write what you decided.

@@ -19,7 +19,11 @@ const STEP = {
   '@up': 'get up: it takes your turn, and he may punch you as you rise',
   '@cover': `a strike lands for ${N.cover} less`,
   '@break': 'break a submission: pay its price in wind; both stay down, he one layer back',
-  '@pull': 'pull guard off your tie, or sit down with none',
+  '@pull': 'pull guard off a tie that has stood a turn, or sit down with none',
+  '@frame': 'frame off his tie: it fails, and you both stay where you are',
+  '@base': 'keep your base: his pull or his sweep fails',
+  '@escape': 'fight the hold as he puts it on: it fails, and he stays where he is',
+  '@kick': `kick up off your back: ${N.kickDmg} damage, no card needed`,
 };
 export const isStep = (id) => typeof id === 'string' && id[0] === '@';
 export const names = (id) => (isStep(id) ? FLOOR[id] || id : CARDS[id]?.n || id);

@@ -116,6 +116,7 @@ function whyLine(r) {
   const S = state.fight, W = S.f[r.winner], L = S.f[1 - r.winner], score = (f) => (((N.clkPts ? f.pts : 0) + f.dealt / N.dmgPer)).toFixed(1);
   const his = (f) => (f.name === 'You' ? 'Your' : `${f.name}'s`); // S541 owner's log: "You's health reached 0"
   if (r.how === 'ko') return `Knockout - ${his(L)} health reached 0.`;
+  if (r.how === 'tko') return `Stoppage - the referee stopped it: ${L.name} took punches on the floor for ${N.tkoTurns} turns and laid nothing back.`;
   if (r.how === 'lead') return `Points lead - ${W.name} got ahead by ${Math.abs(W.pts - L.pts)} points; a lead of ${N.lead} ends the bout early.`;
   if (r.how === 'tap') return `Tap - ${L.name} tapped out of a submission.`;
   if (r.how === 'pin') return `Pin - ${W.name}'s hold-down ran out its count and scored the bout.`;

@@ -398,3 +398,87 @@ check); `ops/research/CARDREAL_SCOPE_S543.md`; `ops/research/CARD_R8_OWNER_PLAY_
 `proto/grapplemap/bjj_slice.json` (card, position and move names). Not opened: `CARD_R8_CLAUDE_PLAY_S542.md`,
 `DESIGN_CARDGAME_SCOPE.md`, `topics/ground.md`, `topics/clinch.md` (the memo and the code answered every row; the critic
 round can add them).
+
+## 9. Round 9b: the changed rows (S548, after two fresh critics; TASK_CARDROUND9B)
+
+Written before any engine code. Where a row here and a row of 4c disagree, this one wins. Sources: Kalli's review
+(`CRITIC_CARDREAL_BRIEF_KALLI.md`, numbered K1-K9), Dola's (`CRITIC_CARDREAL_BRIEF_DOLA.md`, D), the memo's row M20.
+Every number marked FIRST GUESS is reported, not tuned (balance is round 11).
+
+### 9a. The rows (4c format: before and after for EACH man, how long, the other man's window)
+
+| # | Move or rule (who) | Before (mover / other) | After (mover / other) | How long | The other man's window |
+|---|---|---|---|---|---|
+| A1 | THE KNOCKDOWN (a rule on any standing punch; K1) | STANDING / STANDING, the punch lands for 6 or more and leaves him at 10 health or under (FIRST GUESS 6, 10) | STANDING, in leg range / SEATED (pair 3) | at once, as the punch lands; the rest of the volley is laid at a man who is down, so only the punch down still lands | none: it is the punch's result. He gets his own turn seated (Get up, Up-kick, Cover) |
+| A2 | The referee's stoppage (TKO; K1) | pair 3 or a ground pair: punches LAND on the man down in 2 of the puncher's turns running, and the man down laid nothing back in between (FIRST GUESS 2) | the bout ends, win by stoppage | automatic | laying anything back (Up-kick, Get up, Sweep, a hold, Hold the legs) resets the count |
+| B1 | Keep your base (a floor move, 2 wind; K2) - the answer to a pull, a trip or a sweep | whatever pair the pull / trip / sweep was laid at | the same pair: the pull, trip or sweep fails; a failed pull drops the tie (H2) and leaves the puller SEATED as today | his one answer | - |
+| B1c | The Sprawl CARD (the stronger version; in words "Sprawl: keep your base and drive him down") | as B1 | as B1, and against a pull or a shot the man who tried it ends ON HIS KNEES in front of him (pair 7) instead of seated | his one answer | - |
+| B2 | Escape a hold (floor move, 2 wind; K2) | held | the hold ends, both stay down, the holder where he was (mount stays mount) | his one answer | - |
+| B2c | The Escape CARD (stronger) | held | as today: the holder ONE LAYER BACK (mount -> half guard, triangle -> plain guard) | his one answer | - |
+| B3 | Up-kick from your back (floor move, 2 wind; K2) | SEATED or ON HIS BACK / STANDING in leg range | the same; 2 damage (the card: 3, as printed) | part of a volley, or his answer to Follow him down / Walk away / Back away / Punch down | Cover |
+| B4 | Hold the legs (floor move, 2 wind; K2) - the answer to Stand up in the guard or Back away | GUARD UNDERNEATH (closed) / the man standing up or backing out | Stand up: he stands but the guard stays CLOSED round him (pair 4, legs held). Back away: it fails, he stays in pair 4 | his one answer; at most 2 turns running, then the guard opens by itself (the cap of the loop) | - |
+| C1 | POSTURE, one flag on the man IN GUARD ON TOP: UP or BROKEN (K3) | a pull, or a sweep stopped by Keep your base, leaves it BROKEN; a takedown or Follow him down leaves it UP | - | - | - |
+| C2 | Posture up (a move of the man on top, 1 wind) | IN GUARD ON TOP, posture BROKEN / GUARD UNDERNEATH | the same, posture UP | part of a volley | Triangle or Armbar may answer it (he gives an arm to post) |
+| C3 | Ground punches from inside the guard need posture UP (K3) | - | a punch laid with posture BROKEN is not legal | - | - |
+| C4 | Sweep, by posture (K3): hip bump when his posture is UP; scissor when it is BROKEN | GUARD UNDERNEATH / IN GUARD ON TOP | as today (he comes up on top) | one card | Keep your base; a stopped sweep leaves posture BROKEN |
+| C5 | Breaking a triangle or an armbar (D) | the hold on | the SAME kind of guard as before the hold (closed stays closed, half stays half), posture as it was | his answer | - |
+| D1 | A punch from inside the guard gives up an arm (K4) | IN GUARD ON TOP, posture UP / GUARD UNDERNEATH | the same | part of a volley | Cover, Block - AND the Armbar or the Triangle may answer the punch itself: the punch does not land and the hold is on |
+| E1 | Punch down from standing in the guard (pair 4) at FULL damage (K5) | STANDING / GUARD UNDERNEATH | the same | part of a volley | Cover; Sweep (he is swept as he punches); Armbar on the punching arm (the hold is on, he is pulled back IN GUARD ON TOP, posture BROKEN) |
+| E2 | Stand up in a CLOSED guard opens it (K5) | IN GUARD ON TOP (closed) / GUARD UNDERNEATH | STANDING / GUARD UNDERNEATH, guard OPEN - unless the man underneath pays Hold the legs (B4) | ends his volley | Sweep, Triangle, Armbar as today; Hold the legs |
+| E3 | Back away while the legs are held | pair 4, legs held | not legal that turn | - | - |
+| F1 | The jiu-jitsu fighter punches from on top (a rule, no card; K6): 1 wind, half of a cross (2 damage) | PAST THE GUARD (mount or side) / PINNED | the same | part of a volley | Cover up or Escape (the card recovers guard as he punches) |
+| G1 | Tie up is a collar tie or a body lock: his choice as he lays it (K9, M20) | STANDING / STANDING | CLINCH, he holds the tie (kind: collar or body) | part of a volley | Frame (H1), or hit him on the way in |
+| G2 | Trip (the jiu-jitsu fighter, a move off his BODY LOCK, 2 wind) | CLINCH, his body lock, stood through one of the boxer's turns | PAST THE GUARD (side control) / PINNED | ends his volley | Keep your base: he stays standing, the clinch and the body lock hold |
+| G3 | Pull guard stays, from the COLLAR tie | as 4c | as 4c (posture BROKEN, C1) | as 4c | Keep your base / Sprawl |
+| H1 | Frame (a floor move, 1 wind; K7) - the answer to a Tie up | STANDING / STANDING at PUNCH | the same: the tie fails, both stay at PUNCH | his one answer | - |
+| H1b | THE TIE MUST STAND through one of the other man's turns before a pull or a trip: no tie-and-pull in one volley (K7). With no tie that has stood, the button is Sit down | - | - | - | - |
+| H2 | A failed pull drops the tie (K7) | - | no tie | - | - |
+| H3 | Recover guard, by where he was pinned (K7; 4c's row was wrong, section 7 turn 20 was right) | PINNED under mount / PINNED under side control | GUARD UNDERNEATH, HALF guard / GUARD UNDERNEATH, closed guard | part of a volley | as 4c |
+| H4 | Get up in open space: unchanged (ends at KICK; the one punch as he rises when the standing man is in leg range). Kalli's "ends at punching range" is NOT taken: a technical stand-up moves away from him | - | - | - | - |
+| I1 | The grounded man who will not engage (K8, D): after ONE empty turn he hears "get up" and stays down; after the SECOND empty turn running he is stood up | pair 3 | first: the same pair, a warning in words; second: STANDING / STANDING at KICK, the timidity count +1 | automatic | - |
+| I2 | A warning always comes before a point off | - | the first stand-up in a round is free, the second is the WARNING, the third and later a point off (as 4c: unchanged in number, now guaranteed in order) | - | - |
+| I3 | A pull is an attempt and never counts toward timidity; a Sit down with no tie still does | - | - | - | - |
+| I4 | A clinch held through a whole exchange (both turns) with nothing laid by either man is broken | CLINCH | STANDING / STANDING at PUNCH, no tie | automatic | - |
+| I5 | Standing in the guard (pair 4) is the ground for the nobody-works stand-up, and THAT stand-up leaves the boxer STANDING in leg range and the other man ON HIS BACK (pair 3) - not both up at KICK - so the boxer still has to pass the up-kick to leave | pair 4, nobody working for one exchange | STANDING in leg range / ON HIS BACK | automatic | - |
+| J | NOT TAKEN: the kneeling in-between state as a picture (D; the screen is round 10); pairs 7 and 8 get no word on the first screen (K) | - | - | - | - |
+
+### 9b. The loops these rows open, and their caps (the brief's "Feedback loops")
+- Floor defences cost wind -> less to attack with: capped by the wind that comes back each turn and by the referee (A2, I1).
+- Knockdown -> punches down -> another knockdown: capped by A2 (two turns of landed punches with nothing back ends it).
+- Hold the legs <-> Stand up in the guard: at most 2 turns running (B4), then the guard opens.
+- Frame <-> Tie up: 1 wind against a card; the tie costs a card.
+
+### 9c. The bout of section 7, re-walked on these rows (the boxer goes first)
+ROUND 1 - both standing, kicking range.
+1. The boxer steps in and jabs; the jab lands. -> Both standing, punching range.
+2. The jiu-jitsu fighter ties up a collar tie. -> (laid)
+3. The boxer could Frame (1 wind); he keeps his wind and takes the tie, then throws a body hook and an uppercut inside. -> Clinch, the jiu-jitsu fighter holding a collar tie that has now STOOD a turn.
+4. The jiu-jitsu fighter covers the uppercut, takes the body hook, and pulls guard off the collar tie. -> (laid)
+5. The boxer answers with Keep your base (2 wind; he holds no Sprawl card). The pull fails and the tie is gone. -> The boxer standing; the jiu-jitsu fighter SEATED, in leg range. The boxer walks away. -> (laid)
+6. The jiu-jitsu fighter pays 2 wind for an Up-kick as the boxer leaves (no card needed): it lands. The boxer is out of leg range. The jiu-jitsu fighter worked this turn (the up-kick), so the referee says nothing.
+   He gets up. -> (laid) -> Both standing, kicking range.
+7. The boxer steps in: jab, cross. -> Both standing, punching range.
+8. The jiu-jitsu fighter covers the cross; the jab lands. He ties up (a body lock this time). He cannot pull or trip in the same volley: the tie has not stood. -> (laid)
+9. The boxer Frames (1 wind): the tie fails. -> Both standing, punching range. He throws jab, cross, hook: the combination. -> (laid)
+10. The jiu-jitsu fighter covers the hook; the jab and the cross land - the cross for 6, and it leaves him on 9: A KNOCKDOWN. -> The jiu-jitsu fighter SEATED; the boxer standing over him, in leg range.
+    Seated, he lays an Up-kick (2 wind). -> (laid)
+11. The boxer chooses: Punch down, Follow him down, or Walk away. He covers the up-kick and punches down (his cross, half damage). -> (laid)
+12. The punch down lands. The jiu-jitsu fighter laid something back last turn (the up-kick), so the stoppage count is 0. He gets up (the boxer is in leg range: one punch as he rises - the boxer has no punch laid for it). -> Both standing, kicking range.
+The bell.
+
+ROUND 2 - both standing, kicking range.
+13. The jiu-jitsu fighter steps in and ties up a body lock. -> (laid)
+14. The boxer has 0 wind for a Frame after his own volley; the tie goes on. He throws two uppercuts inside. -> Clinch, body lock, stood.
+15. The uppercuts land. The jiu-jitsu fighter Trips off the body lock. -> (laid)
+16. The boxer cannot pay Keep your base (2 wind): he goes down. -> The jiu-jitsu fighter PAST THE GUARD in side control; the boxer PINNED.
+    The boxer recovers guard (the Escape card, in his own turn). -> (laid)
+17. From side control the recovery is to the closed GUARD: the boxer on his back, the jiu-jitsu fighter IN HIS GUARD ON TOP, posture UP. The jiu-jitsu fighter passes to the half guard. -> (laid)
+18. The pass goes through (the boxer holds no Escape now and saves his wind). -> Half guard. The boxer lays nothing.
+19. The jiu-jitsu fighter passes again -> side control; punches from on top (1 wind, 2 damage). -> (laid)
+20. The boxer covers the punch. The pass stands: PINNED under side control. There is no hold yet, so nothing to escape; he holds no Escape card to recover guard with. The nobody-works clock does not run: the top man is working.
+21. The jiu-jitsu fighter lays the Kimura from side control. -> (laid)
+22. The boxer pays 2 wind: Escape a hold (the floor move). The kimura ends; the jiu-jitsu fighter stays in side control (no layer back: that is the card). -> Same.
+23. The jiu-jitsu fighter punches from on top twice and lays the Kimura again. -> (laid)
+24. The boxer has 1 wind: he cannot pay. The punches land; the kimura runs. He taps on its count. The jiu-jitsu fighter wins by submission in round 2.
+
+Turns decided by "he had no card for it" in section 7: 6, 9, 12, 19, 21. Here: none. Turns 5 (Keep your base), 6 (Up-kick), 9 (Frame) and 22 (Escape a hold) are paid in wind; turns 14, 16 and 24 are lost because the wind was spent - a choice he made earlier, which is the point (K2).

@@ -94,7 +94,9 @@ test('the walked bout of audit section 7, replayed turn by turn: both men place 
   assert.equal(S.at[1], 'seat', 'the BJJ man still seated');
   // 6. the BJJ fighter stays sitting and lays nothing -> the referee stands him up
   turn(S, 1, null, []);
-  assert.deepEqual(S.at, ['stand', 'stand'], 'turn 6: the referee stands him up'); assert.equal(S.j.reach, 'K');
+  assert.deepEqual(S.at, ['stand', 'seat'], 'turn 6 (9b I1): one empty turn - he is told to get up and stays down');
+  turn(S, 0, null, []); turn(S, 1, null, []);
+  assert.deepEqual(S.at, ['stand', 'stand'], 'turn 6: the second empty turn running - the referee stands him up'); assert.equal(S.j.reach, 'K');
   // 7. the boxer steps in: jab, cross
   has(0, '@in', 'jab', 'cross'); wind(0); turn(S, 0, null, ['@in', 'jab', 'cross']); turn(S, 1, null);
   assert.equal(S.j.reach, 'P', 'turn 7: back at punching range');
@@ -103,7 +105,10 @@ test('the walked bout of audit section 7, replayed turn by turn: both men place 
   doAnswer(S, 1, null); startAct(S); declare(S, 1, 'tieup');
   assert.equal(S.pj.j.kind, 'clinch', 'turn 8: the tie is LAID - the pending bout is the clinch, his to hold');
   assert.equal(S.pj.tie.by, 1, 'turn 8: and the tie is his');
-  declare(S, 1, '@pull'); endAct(S, 1);
+  assert.throws(() => declare(S, 1, '@pull'), /not legal/, 'turn 8 (9b H1b): no pull behind a tie laid in the same volley');
+  endAct(S, 1);
+  turn(S, 0, null, []);                 // the boxer takes the tie (he could Frame it): it has stood a turn
+  wind(1); turn(S, 1, null, ['@pull']); // now the pull goes off it
   turn(S, 0, null, []);
   assert.equal(S.at[0], 'gtop', 'turn 9: the boxer is in the guard, on top'); assert.equal(S.at[1], 'gbot', 'the BJJ man under him');
   assert.equal(S.j.kind, 'entangled', 'turn 9: the tie became the pull: pair 5, the guard');
@@ -141,7 +146,10 @@ test('the walked bout of audit section 7, replayed turn by turn: both men place 
   assert.equal(S.at[1], 'stand', 'turn 14: he gets up'); assert.equal(S.j.reach, 'K', 'both standing, kicking range');
   // 15. the boxer steps in: jab, cross, hook
   has(0, '@in', 'jab', 'cross', 'hook'); wind(0); turn(S, 0, null, ['@in', 'jab', 'cross', 'hook']); turn(S, 1, null);
-  assert.equal(S.j.reach, 'P', 'turn 15: punching range');
+  // 9b A1: on this walk the combination finds a man already hurt - the cross lands for 6 or more and leaves him at 10 or
+  // under, so he is KNOCKED DOWN (section 9c turn 10); on a fresher man the same volley leaves both at punching range
+  if (S.f[1].hp > 0 && S.f[1].hp <= N.kdHp) { assert.equal(S.at[1], 'seat', 'turn 15: the knockdown seats him'); assert.equal(S.at[0], 'stand'); assert.equal(S.j.leg, true, 'the boxer stands over him in leg range'); }
+  else assert.equal(S.j.reach, 'P', 'turn 15: punching range');
   const AIonly = { answer: () => null, act: () => [] };
   void AIonly; void AI; void REFUSED;
 });
@@ -328,7 +336,7 @@ test('every legal pair of audit 4b is reachable, and every illegal one is refuse
   { // 5 the guard pair: pull guard off his OWN collar tie in the clinch - it needs the tie, not just the pair
     const S = table('bjj', 'boxing', ['@pull'], []);
     places(S, ['stand', 'stand'], { kind: 'clinch', by: 0 });
-    S.tie = { by: 0, mode: 'tie', pass: S.pass };
+    S.tie = { by: 0, mode: 'tie', pass: S.pass, stood: true }; // 9b H1b: a tie that has stood a turn
     turn(S, 0, null, ['@pull']); doAnswer(S, 1, null); seen(S);
   }
   { // 6 past and pinned (side): the pass is ONE RUNG now, so it takes two of them to get past the guard
@@ -364,7 +372,7 @@ test('the timidity rule: the grounded man who lays nothing towards the standing 
   S.f[1].hand = ['block'];
   // the GROUNDED man is seat 0 (the BJJ man) and the standing man is his opponent: the rule is about him laying
   // nothing towards the man on his feet, so he must be the one whose turn it is, and he must be the one in the seat.
-  const sit = () => { places(S, ['seat', 'stand'], { kind: 'apart', leg: true }); turn(S, 0, null, []); };
+  const sit = () => { places(S, ['seat', 'stand'], { kind: 'apart', leg: true }); turn(S, 0, null, []); assert.equal(S.at[0], 'seat', '9b I1: told to get up first'); turn(S, 0, null, []); };
   sit(); assert.equal(S.st.timid, 1, 'first: stood up, no warning');
   sit(); assert.equal(S.st.timid, 2, 'second: a warning');
   const pts = S.f[0].pts;
@@ -396,7 +404,7 @@ test('the engine is deterministic and every pairing still ends with a winner und
   for (const [x, y] of [['boxing', 'bjj'], ['bjj', 'boxing']]) {
     const r = bout(fighter(x), fighter(y), [AI, AI], 99);
     assert.ok(r.win === 0 || r.win === 1);
-    assert.ok(['ko', 'lead', 'tap', 'pin', 'cards'].includes(r.how));
+    assert.ok(['ko', 'tko', 'lead', 'tap', 'pin', 'cards'].includes(r.how));
     assert.ok(posKey(r.S, 0) && posKey(r.S, 1), 'both men have a place at the end');
   }
   void scripted; void clone; void GUARD_KINDS; void PAST_KINDS;

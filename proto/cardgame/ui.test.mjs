@@ -59,7 +59,7 @@ test('the page plays a whole bout and a ladder step by script', () => {
   click('#skip');
   assert.match(p.screen.innerHTML, /His volley, face up|Choose a card or end your turn/, 'the bout is on the table');
   playBout();
-  assert.ok(state.result, 'a verdict'); assert.ok(['ko', 'lead', 'tap', 'pin', 'cards', 'points'].includes(state.result.how));
+  assert.ok(state.result, 'a verdict'); assert.ok(['ko', 'tko', 'lead', 'tap', 'pin', 'cards', 'points'].includes(state.result.how));
   assert.ok(state.logs.length > 0, 'the fight log has lines');
   assert.equal(state.career.bouts, 1); assert.ok(p.screen.innerHTML.includes('Victory') || p.screen.innerHTML.includes('Defeat'));
   const rungAfter = state.career.rung, rankAfter = state.career.rank;
@@ -184,7 +184,7 @@ test('the verdict says in one line why the bout ended, and the line matches the 
     playBout();
     const r = state.result;
     assert.ok(state.why, style + ': a why line');
-    const expect = { ko: /health reached 0/, lead: /ahead by \d+ points/, tap: /tapped out/, pin: /hold-down/, cards: /judges counted/, points: /judges counted/ }[r.how];
+    const expect = { ko: /health reached 0/, tko: /referee stopped it/, lead: /ahead by \d+ points/, tap: /tapped out/, pin: /hold-down/, cards: /judges counted/, points: /judges counted/ }[r.how];
     assert.match(state.why, expect, `${style} ${r.how}: ${state.why}`);
     assert.ok(p.screen.innerHTML.includes(esc(state.why)), 'the why line is on the verdict screen');
   }
