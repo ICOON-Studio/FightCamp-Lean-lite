@@ -7,7 +7,7 @@ import SIZED_DATA from './sized.json' with { type: 'json' };
 export const N = {
   mode: 'wind', // round 4 decided: one wind pool (the limb arms stay in the code and are not re-run)
   hp: 30, cap: 6, back: 3, heldBack: 2, tighten: 1, start: 4, stool: 2, hand: 5, turns: 5, rounds: 2,
-  lead: 8, counter: 3, block: 4, cover: 2, tiein: 3, coverW: 1, stepW: 1, pullW: 1, standW: 1, upW: 3, cycle: 1, redraw: 1, drainCap: 1,
+  lead: 8, counter: 3, block: 4, cover: 2, tiein: 3, coverW: 1, stepW: 1, pullW: 1, standW: 1, minW: 1, upW: 3, cycle: 1, redraw: 1, drainCap: 1,
   comboDmg: 5, comboPts: 2, catchPts: 2, headlockPts: 1, dmgPer: 5, stallMax: 2, copies: 3, own: 12,
   clkPts: 1, clkHold: 1, holdRoll: 0, riseDmg: 3, surcharge: 1, timidAt: 3, warnAt: 2,
 };
@@ -103,7 +103,10 @@ export const MOVE = {
   '@stand': { n: 'Stand up in the guard', ends: 1, real: '4c Stand up in the guard (M7, the owner\'s case)' },
   '@back': { n: 'Back away', ends: 0, real: '4c Back away (M7 step 4)' },
   '@up': { n: 'Get up', ends: 1, real: '4c Get up in open space (M6)' },
-  '@pull': { n: 'Pull guard', ends: 1, real: '4c Pull guard from his tie; 4c Sit down with no tie' },
+  // A pull made from his TIE does not end the volley: "a pull straight into a triangle needs an arm and the head already
+  // held" - only behind a pull made from a tie may a hold follow in the same volley (audit 4c, the MISSING-LINK row).
+  // The sit (no tie) is his whole turn, as before. Declared in engine.mjs endsVolley, which reads the tie.
+  '@pull': { n: 'Pull guard', ends: 0, real: '4c Pull guard from his tie; 4c Sit down with no tie' },
   '@cover': { n: 'Cover up', ends: 0, real: '2a Cover up REAL' },
   '@break': { n: 'Break free', ends: 0, real: '2a Break free (WRONG fixed: both stay down, the holder one layer back)' },
 };

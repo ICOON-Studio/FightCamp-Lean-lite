@@ -80,8 +80,11 @@ function baseCost(S, m, id) {
   const c = CARDS[id], M = S.f[m], Q = S.pj;
   if (Q && M.mech && c.k === 'strike') { // the two strikers' own mechanics are prices
     const last = S.inc[S.inc.length - 1], lc = last && CARDS[last.id];
-    if (M.style === 'boxing' && !c.kick && lc && lc.k === 'strike' && !lc.kick) return [Math.max(0, c.w - 1), c.L];
-    if (M.style === 'kickboxing' && Q.ctx.lastT && Q.ctx.lastT !== kindOf(c)) return [Math.max(0, c.w - 1), c.L];
+    // a combination is CHEAPER, never free. Flooring at 0 made a jab behind a jab cost NOTHING, so a boxer chained
+    // punches without limit - measured at 7.5 cards a volley against the jiu-jitsu man's 3.2, with 11-damage
+    // combinations for 3 wind. A fighter with no wind cannot throw, and that must hold for every card he owns.
+    if (M.style === 'boxing' && !c.kick && lc && lc.k === 'strike' && !lc.kick) return [Math.max(N.minW, c.w - 1), c.L];
+    if (M.style === 'kickboxing' && Q.ctx.lastT && Q.ctx.lastT !== kindOf(c)) return [Math.max(N.minW, c.w - 1), c.L];
     if (M.style === 'karate' && c.w > 1 && c.blitz && placeKey(Q, m) === 'K') return [c.w - 1, c.L];
   }
   return [c.w, c.L];
@@ -142,7 +145,13 @@ export function legalNow(S, m, id) {
   // Pull guard (audit 4c): with HIS OWN tie, from the clinch it made; with no tie, the same button is Sit down, from
   // apart. (Round 9 first wrote this as "never in the clinch", which forbade the very move the audit names - walked bout
   // turn 4, the BJJ man pulling off his collar tie in his own volley.)
-  if (id === '@pull') return !S.hold && M.mech && M.style === 'bjj' && bothStand && ((S.tie && S.tie.by === m) || j.kind !== 'clinch');
+  // PULLING FROM A CLINCH. Audit 4b pair 2: the clinch is "a collar tie before a pull" - contact is exactly where a pull
+  // starts, and the memo's own walked bout has the jiu-jitsu man pulling out of a clinch (7, turn 4). Round 9's gate asked
+  // for the tie he had made HIMSELF or for being out of the clinch, so a jiu-jitsu man tied up by a boxer - in contact,
+  // in the one place his game begins - could not pull at all: 68-100% of his clinch turns were dead cards. What a pull
+  // needs is CONTACT, and the clinch is contact; his own tie (a set-up he spent a card on) is what lets a hold follow in
+  // the same volley, which declare() reads separately.
+  if (id === '@pull') return !S.hold && M.mech && M.style === 'bjj' && bothStand;
   if (S.hold || id === '@break') return false;
   const c = CARDS[id];
   if (c.k === 'ans') {
@@ -329,7 +338,14 @@ function resolveOne(S, a, p, ans) {
   }
   if (c.k === 'adv') {
     if (fx) return;
-    if (S.at[a] === 'gtop') placeBoth(S, a === 0 ? ['past', 'pin'] : ['pin', 'past'], { top: 'side' }); // Guard pass
+    // THE GUARD PASS IS ONE RUNG, NOT TWO (audit 2c, the rung table): full guard -> HALF guard -> side control. It used
+    // to jump gtop straight to past/side in a single card, which skipped the half guard entirely - and the half guard is
+    // where the bottom man's kimura lives (audit 4c). Jumping it took the jiu-jitsu man's whole guard game off the board
+    // and handed the boxer side control for one card.
+    if (S.at[a] === 'gtop') {
+      if (S.j.g === 'closed' || S.j.g === 'open') placeBoth(S, S.at.slice(), { g: 'half' });        // into the half guard
+      else placeBoth(S, a === 0 ? ['past', 'pin'] : ['pin', 'past'], { top: 'side' });              // half guard -> past
+    }
     else if (S.at[a] === 'past') placeBoth(S, a === 0 ? ['past', 'pin'] : ['pin', 'past'], { top: S.j.top === 'side' ? 'mount' : 'back' });
     A.pts += c.pts; S.stall = 0; S.gpass = S.pass;
     return;
@@ -359,8 +375,12 @@ export function resolveIncoming(S, m, ans) {
   if (S.tie && S.j.kind !== 'clinch') S.tie = null;
   if (S.st) S.st.vis |= visBit(S);
 }
-// a move or a card that ends the volley: nothing more can be laid after it that turn
-export const endsVolley = (id) => !!(MOVE[id] && MOVE[id].ends);
+// a move or a card that ends the volley: nothing more can be laid after it that turn.
+// THE PULL IS THE ONE THAT DEPENDS ON WHAT HE HAD: from his own collar tie it carries him straight into the guard with the
+// boxer's arm and head still in his hands, and a hold may follow in the same volley (audit 4c, line "a pull straight into
+// a triangle ... only behind a pull made from a tie"). With no tie it is only a sit, and it ends his turn. Round 9 first
+// read `ends: 1` off the card for both, which made the triangle-in-the-same-volley the audit names impossible to lay.
+export const endsVolley = (id, S, m) => (id === '@pull' ? !(S && S.tie && S.tie.by === m) : !!(MOVE[id] && MOVE[id].ends));
 export function answerOptions(S, m) {
   const M = S.f[m], out = [null];
   if (S.hold && S.hold.by !== m) {
@@ -411,8 +431,10 @@ export function declare(S, m, id) {
   pay(S.f[m], c); S.pj.f[m].wind = S.f[m].wind; S.pj.f[m].lit = S.f[m].lit;
   const p = { id, b: 0 };
   if (CARDS[id]?.k === 'strike') { p.b = S.f[m].ctr; S.f[m].ctr = 0; if (S.tie && S.tie.by !== m) S.tie.struck = true; }
+  // was the pull made off his own tie? read BEFORE it resolves, because resolving it is what drops the tie
+  const pulledFromTie = id === '@pull' && !!(S.tie && S.tie.by === m);
   S.inc.push(p); resolveOne(S.pj, m, p, null);
-  if (endsVolley(id)) S.pj.ended = true;
+  if (id === '@pull' ? !pulledFromTie : endsVolley(id, S.pj, m)) S.pj.ended = true;
 }
 const WORK = ['strike', 'hold', 'adv', 'shot'];
 // the referee's own rules (audit 4d). Two clocks, and they are different clocks:

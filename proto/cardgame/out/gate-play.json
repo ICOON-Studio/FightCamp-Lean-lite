@@ -13,23 +13,23 @@
    },
    {
     "bar": "a scripted player finishes a bout and a ladder step through the page's own calls",
-    "measured": "1 bout to a verdict (by ko); then verdict, training, the next bout on the table",
+    "measured": "1 bout to a verdict (by points); then verdict, training, the next bout on the table",
     "pass": true
    },
    {
     "bar": "the printed numbers equal the engine's",
-    "measured": "58 card lines, steps and previews checked; 0 mismatches",
+    "measured": "61 card lines, steps and previews checked; 0 mismatches",
     "pass": true
    },
    {
     "bar": "D1: 22.5-45 decisions a bout, 95% under 52",
-    "measured": "30.7 decisions; 95th percentile 48",
-    "pass": true
+    "measured": "22.5 decisions; 95th percentile 34",
+    "pass": false
    },
    {
     "bar": "every pairing inside 40-60",
-    "measured": "boxing v bjj: boxing 50.2 / bjj 49.8",
-    "pass": true
+    "measured": "boxing v bjj: boxing 76.8 / bjj 23.3",
+    "pass": false
    },
    {
     "bar": "no crash in 1,000 bot bouts",
@@ -37,6 +37,6 @@
     "pass": true
    }
   ],
-  "pass": true
+  "pass": false
  }
 }

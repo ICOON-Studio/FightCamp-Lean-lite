@@ -30,7 +30,10 @@ export function openMoves(S, m) {
       if (hand.includes('grip') && j.reach === 'P') out.push({ id: 'grip', w: 6 });
       if (wantsTie) out.push({ id: '@in', w: 4 }); // Step in at PUNCH is the entry that makes the tie
     }
-    if (F.mech && F.style === 'bjj') { if (j.kind === 'clinch' && S.tie && S.tie.by === m) out.push({ id: '@pull', w: 10 }); else if (j.kind !== 'clinch') out.push({ id: '@pull', w: 5 }); }
+    // the pull goes from CONTACT: in a clinch (whoever holds the tie - the clinch is where his game starts, audit 4b pair
+    // 2 "a collar tie before a pull") or from PUNCH after stepping in. It was only ever offered out of a clinch he held
+    // himself, so a jiu-jitsu man tied up by a boxer stood there playing dead cards.
+    if (F.mech && F.style === 'bjj') out.push({ id: '@pull', w: j.kind === 'clinch' ? 12 : 5 });
   } else if (me === 'stand' && (him === 'seat' || him === 'back')) {
     out.push({ id: '@out', w: j.leg ? 1 : 0 }, { id: '@in', w: j.leg ? 4 : 2 });
     if (fits(atFor(F, CARDS.upkick), 'down', j)) out.push({ id: 'upkick', w: 4 });

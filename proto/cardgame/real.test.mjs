@@ -168,12 +168,12 @@ test('4c Tie up: standing at PUNCH -> a clinch the BJJ man holds, and it is the 
   assert.ok(S.tie && S.tie.by === 0, 'the BJJ man holds the tie');
 });
 
-test('4c Pull guard needs his tie and ends his volley; Sprawl answers it and leaves him SEATED; with no tie the same button is Sit down', () => {
-  // with the tie: pulled into the guard
+test('4c Pull guard needs his tie; off his tie a hold may follow it; Sprawl answers it and leaves him SEATED; with no tie the same button is Sit down', () => {
+  // with the tie: pulled into the guard - and it does NOT end his volley, so the triangle the audit names may follow
   let S = table('bjj', 'boxing', ['tieup'], []);
   turn(S, 0, null, ['tieup']); turn(S, 1, null);
   doAnswer(S, 0, null); startAct(S); declare(S, 0, '@pull');
-  assert.equal(S.pj.ended, true, 'the pull ends his volley');
+  assert.ok(!S.pj.ended, 'a pull off his own tie leaves the volley open (the arm and head were already held)');
   endAct(S, 0); doAnswer(S, 1, null);
   assert.equal(S.at[0], 'gbot'); assert.equal(S.at[1], 'gtop', 'the boxer is in the guard');
   // the sprawl answers the pull: he ends SEATED, the boxer standing, in leg range
@@ -258,11 +258,14 @@ test('4c Back away, the guard pass, the sweep from the guard, the ground punches
   places(S, ['stand', 'gbot'], { kind: 'entangled', g: 'closed' });
   turn(S, 0, null, ['@back']);
   assert.ok(answerOptions(S, 1).some((o) => o && o.id === 'upkick'), 'Up-kick answers Back away');
-  // the guard pass: gtop -> past/pin
-  S = table('bjj', 'boxing', ['pass'], []);
+  // the guard pass is ONE RUNG (audit 2c, the rung table): full guard -> HALF guard -> past the guard. It used to jump
+  // gtop straight to past/side in one card, skipping the half guard - where the bottom man's kimura lives.
+  S = table('bjj', 'boxing', ['pass', 'pass'], []);
   places(S, ['gtop', 'gbot'], { kind: 'entangled', g: 'closed' });
   turn(S, 0, null, ['pass']); doAnswer(S, 1, null);
-  assert.equal(S.at[0], 'past'); assert.equal(S.at[1], 'pin');
+  assert.equal(S.at[0], 'gtop'); assert.equal(S.at[1], 'gbot'); assert.equal(S.j.g, 'half', 'the pass came into the half guard');
+  turn(S, 0, null, ['pass']); doAnswer(S, 1, null);
+  assert.equal(S.at[0], 'past'); assert.equal(S.at[1], 'pin', 'and the second pass went past it');
   // the sweep from the guard: gbot/gtop -> gtop/gbot in half guard
   S = table('bjj', 'boxing', ['sweep'], []);
   places(S, ['gbot', 'gtop'], { kind: 'entangled', g: 'closed' });
@@ -328,7 +331,12 @@ test('every legal pair of audit 4b is reachable, and every illegal one is refuse
     S.tie = { by: 0, mode: 'tie', pass: S.pass };
     turn(S, 0, null, ['@pull']); doAnswer(S, 1, null); seen(S);
   }
-  seen(play(['bjj', 'boxing'], ['pass'], ['pass'], ['gtop', 'gbot'], { kind: 'entangled', g: 'closed' }));     // 6 past and pinned (side)
+  { // 6 past and pinned (side): the pass is ONE RUNG now, so it takes two of them to get past the guard
+    const P = table('bjj', 'boxing', ['pass', 'pass'], []);
+    places(P, ['gtop', 'gbot'], { kind: 'entangled', g: 'closed' });
+    turn(P, 0, null, ['pass']); doAnswer(P, 1, null);
+    turn(P, 0, null, ['pass']); doAnswer(P, 1, null); seen(P);
+  }
   seen(play(['boxing', 'bjj'], [], [], ['stand', 'knee'], { kind: 'apart', leg: true }));                       // 7 standing and knees
   seen(play(['boxing', 'bjj'], [], [], ['seat', 'back'], { kind: 'apart' }));                                   // 8 both down apart
   assert.equal(reached.size, 8, 'all eight pairs of the audit were reached: ' + [...reached].join(' '));

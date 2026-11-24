@@ -64,7 +64,11 @@ function resolveMove(S, a, p, ans) {
     if (!tied) { place(S, a, 'seat'); S.j = { kind: 'apart', leg: true }; S.stall = 0; if (S.st) S.st.sits++; return; } // SIT DOWN: he sits, the boxer stays standing
     S.tie = null;
     if (fx === 'sprawl') { placeBoth(S, a === 0 ? ['seat', 'stand'] : ['stand', 'seat'], { kind: 'apart', leg: true }); S.stall = 0; if (S.st) S.st.sprawled++; return; }
+    // the pull off his own tie IS a settled position: the boxer comes down into the guard with his arm and head still
+    // held, so a hold may follow in the same volley (audit 4c, the MISSING-LINK row). A hold needs a settled position,
+    // and a pull made from a tie is exactly that - it is not the volley of a takedown.
     placeBoth(S, a === 0 ? ['gbot', 'gtop'] : ['gtop', 'gbot'], { g: 'closed' }); S.stall = 0;
+    S.gpass = S.pass; S.gby = a;
     if (S.st) S.st.pulls++;
     return;
   }

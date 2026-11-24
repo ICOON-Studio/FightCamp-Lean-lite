@@ -3,7 +3,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import { CARDS, N, STYLES, OWN, CHEAP, fighter, deckLegal } from './cards.mjs';
-import { newBout, bout, doAnswer, startAct, declare, endAct, legalNow, answerOptions, posKey, placeKey, cost } from './engine.mjs';
+import { newBout, bout, doAnswer, startAct, declare, endAct, legalNow, answerOptions, posKey, placeKey, cost, canPay } from './engine.mjs';
 import { joinFor } from './board.mjs';
 import { aiPilot, impatient, scripted, outlook } from './plan.mjs';
 import { freshCareer, RUNGS, TRAINING, train, resultCareer, measureTraining, assertCareer, takesTitle, rivalFighter, rivalPilot, simulateLadder, trainingState, CUT_AT_LOSSES, TITLE_SHOT } from './career.mjs';
@@ -180,23 +180,36 @@ test('wrestling, chain wrestling: the shot travels from KICK, the chain rides a 
   assert.equal(Q.pj, null);
 });
 
-test('bjj, the guard: Pull guard needs his tie (without one it is Sit down) and it ends his volley; from underneath he attacks at once; nobody else can pull', () => {
-  // ROUND 9 (audit 4c): a pull is legal only WITH his tie and it ENDS THE VOLLEY, so the triangle is laid on the next
-  // turn - round 8 pulled from PUNCH with no tie and laid a triangle in the same volley.
+test('bjj, the guard: Pull guard needs his tie (without one it is Sit down); off his tie a HOLD follows in the same volley; nobody else can pull', () => {
+  // ROUND 9 (audit 4c, the MISSING-LINK row): "a pull straight into a triangle needs an arm and the head already held -
+  // only behind a pull made from a tie." So a pull off his OWN tie does NOT end his volley and the triangle follows in
+  // the same volley; with no tie the same button is a sit, and a sit is his whole turn. Round 9 first read `ends: 1`
+  // off the card for both, which made the very triangle the audit names impossible to lay.
   const S = table('bjj', 'boxing', ['triangle', 'tieup'], []);
   stand(S, 'P');
   assert.equal(can(S, 0, '@pull'), true, 'the button is legal with no tie - it is the SIT DOWN');
   turn(S, 0, null, ['tieup']); turn(S, 1, null);
   assert.equal(where(S, 0), 'C'); assert.ok(S.tie && S.tie.by === 0, 'Tie up is the clinch entry a pull needs (M9)');
-  // the pull ends his volley: laid through declare by hand so the ended flag can be read before the turn closes
+  // the pull off his own tie does not end the volley: laid through declare by hand so the state can be read first.
+  // The triangle has to be IN HAND on the turn he pulls, not on the turn he tied (the tie's turn discards what it lays).
+  S.f[0].hand.push('triangle');
   doAnswer(S, 0, null); startAct(S); declare(S, 0, '@pull');
-  assert.equal(S.pj.ended, true, 'the pull ends his volley: nothing more may be laid that turn');
-  assert.throws(() => declare(S, 0, 'triangle'), /not legal/, 'nothing more may be laid after it');
+  assert.ok(!S.pj.ended, 'a pull off his own tie leaves the volley open (audit 4c, the MISSING-LINK row)');
+  assert.equal(S.pj.at[0], 'gbot', 'the pull put him on his back');
+  assert.ok(S.f[0].hand.includes('triangle'), 'the triangle is in hand: ' + S.f[0].hand.join(','));
+  assert.ok(canPay(S.f[0], cost(S, 0, 'triangle')), 'and he can pay for it: wind ' + S.f[0].wind);
+  declare(S, 0, 'triangle');
+  assert.ok(S.pj.hold && S.pj.hold.by === 0, 'the triangle follows the pull in the SAME volley: the arm was already held');
   endAct(S, 0);
   doAnswer(S, 1, null);
   assert.equal(S.at[0], 'gbot'); assert.equal(S.at[1], 'gtop', 'he pulled the boxer into his guard');
-  turn(S, 0, null, ['triangle']); turn(S, 1, null);
-  assert.ok(S.hold && S.hold.by === 0, 'from underneath he attacks at once, on his next turn');
+  assert.ok(S.hold && S.hold.by === 0, 'and the triangle came with him');
+  // WITH NO TIE the same button is a sit, and a sit IS his whole turn
+  const SIT = table('bjj', 'boxing', ['@pull', 'triangle'], []);
+  stand(SIT, 'P');
+  doAnswer(SIT, 0, null); startAct(SIT); declare(SIT, 0, '@pull');
+  assert.equal(SIT.pj.ended, true, 'no tie: it is only a sit, and it ends his volley');
+  assert.throws(() => declare(SIT, 0, 'triangle'), /not legal/, 'nothing more may be laid after a bare sit');
   const T = table('bjj', 'boxing', ['triangle'], [], { mech: false }); clinch(T);
   assert.equal(can(T, 0, '@pull'), false, 'without his mechanic it is not a pull');
   places(T, ['gtop', 'gbot'], { kind: 'entangled', g: 'closed' });
