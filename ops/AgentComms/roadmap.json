@@ -5297,7 +5297,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-24 14:11 board_sync",
+  "updated": "2026-11-24 15:41 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5450,17 +5450,10 @@
   },
   "working_now": [
    {
-    "title": "Card game round 9b: slice 1 on main (Frame, knockdown, stoppage, up-kick with no card, Keep your base against a pull in its weaker shape; gate 6/6, boxing 43 / jiu-jitsu 57). Slices 2-3 not built",
-    "who": "Claude (this session, on main; owner S548: do 9b yourself)",
-    "started": "2026-11-24T13:25",
-    "run": "CARDROUND9B",
-    "state": "waiting"
-   },
-   {
-    "title": "Make the written fight plan matter (your Q-328 'make it more impactful'): three ways measured in real bouts before any design",
-    "who": "claude-opus-5-5 (console tab PLANIMPACT1 resumed, tab c3 of the S548 session)",
-    "started": "2026-11-24T14:05",
-    "run": "PLANIMPACT1"
+    "title": "The written plan, second probe (your Q-333 'Second probe'): the plan sharpens the corner only where it was drilled for THIS opponent - must make a good plan beat a careless one by 6",
+    "who": "claude-opus-5-5 (console tab PLANIMPACT2 of the S550 session)",
+    "started": "2026-11-24T15:48",
+    "run": "PLANIMPACT2"
    }
   ],
   "next": [
@@ -5860,6 +5853,26 @@
   },
   "done_recently": [
    {
+    "title": "Boxer v boxer card game: the code-checked critic (page against code, its own exploiting bots, sweeps) - depth and play out of 10",
+    "who": "Arena (chat 01a20db8, repo FightCamp-Lean-lite)",
+    "when": "2026-11-24"
+   },
+   {
+    "title": "Make the written fight plan matter (your Q-328 'make it more impactful'): three ways measured in real bouts before any design",
+    "who": "claude-opus-5-5 (console tab PLANIMPACT1 resumed, tab c3 of the S548 session)",
+    "when": "2026-11-24"
+   },
+   {
+    "title": "Arena's paper is in: three real boxing bouts and two ways to play a round as cards (proto/cardgame/CARDBOX1_BREAKDOWN.md). Both ways failed the real round - the defender sees the card; Claude writes boxer v boxer on paper next",
+    "who": "Arena (chat 01a20da7-2bc0-7576-abe2-df98869b061a)",
+    "when": "2026-11-24"
+   },
+   {
+    "title": "Card round 9b slices 1-3 on main; STOPPED by your call: no more mixed boxing v jiu-jitsu work (CARDBOX_SCOPE_S549)",
+    "who": "Claude (this session, on main; owner S548: do 9b yourself)",
+    "when": "2026-11-24"
+   },
+   {
     "title": "S547: the staff screen is cards (your 'this screen is terrible') - a face, the job in plain words, four facts, one button; merged and exported 06:31",
     "who": "claude-opus-5-5 (STAFFCARDS1) + claude",
     "when": "2026-11-24"
@@ -5898,68 +5911,6 @@
     "title": "S547: corner commands round 2 collected - the core +15 to +22, three checks fail again; your call on the ring calls (Q-330)",
     "who": "claude",
     "when": "2026-11-24"
-   },
-   {
-    "title": "S547: the 05:00 tests read - 4 old reds left of 29, none new",
-    "who": "claude",
-    "when": "2026-11-24"
-   },
-   {
-    "title": "S546: Fights - no 'next offer' lines, Ask for a bout on every boxer (your note C503)",
-    "who": "claude",
-    "when": "2026-11-24"
-   },
-   {
-    "title": "S546: confidence builds as an amateur and carries into the pro start (your note C501)",
-    "who": "claude",
-    "when": "2026-11-24"
-   },
-   {
-    "title": "S546: Staff, Finance and Records are windows of the office computer (your note)",
-    "who": "claude",
-    "when": "2026-11-24"
-   },
-   {
-    "title": "S546: one word, the gym, in the menus and 95 game lines (your note)",
-    "who": "claude",
-    "when": "2026-11-24"
-   },
-   {
-    "title": "S546: the approach's show promise shows the hall's real price (it said $3,500, charged $2,580)",
-    "who": "claude",
-    "when": "2026-11-24"
-   },
-   {
-    "title": "S546: coaches v9 collected - 6 of 7 after the falling-out is cut as a decision; your call on the trial week (Q-329)",
-    "who": "claude",
-    "when": "2026-11-24"
-   },
-   {
-    "title": "Body cross: reaches him and hurts him (your note C500: reads as a touch, not a punch)",
-    "who": "claude-fable-5-2 (console tab BODYCROSS2 of the S545 session)",
-    "when": "2026-11-24"
-   },
-   {
-    "title": "What a whole fight plan you write is worth against the coach's plan, in real bouts (a measurement; your S354 'make the fight plan fun to design' stands on it)",
-    "who": "claude-opus-5-5 (console tab PLANWORTH1 of the S544 session)",
-    "when": "2026-11-24"
-   },
-   {
-    "title": "Corner commands (your ten commands in two slots): one clean map and a probe on real bouts, nine bars; step 0 measures today's eight calls first",
-    "who": "claude-opus-5-5 (console tab CORNERCMD1 of the S544 session)",
-    "when": "2026-11-24"
-   },
-   {
-    "title": "S545: Fights is a window of the office computer (your note)",
-    "who": "claude"
-   },
-   {
-    "title": "S545: after Turn pro now the profile itself says what changed; the pop-up is gone (your 'AI slop' note)",
-    "who": "claude"
-   },
-   {
-    "title": "S545: the body cross reaches him and hurts him (your note; films on /review)",
-    "who": "claude-fable (BODYCROSS2)"
    }
   ],
   "scope_note": "S294: lean restart (E:\\FightCamp\\Lean\\docs\\RESTART_PLAN.md). Old roadmap items are parked until the weekly builds reach them.",
@@ -6048,6 +5999,30 @@
   "map": {
    "done_earlier": [
     {
+     "text": "Card 9b slice 2 on main",
+     "who": "claude"
+    },
+    {
+     "text": "Card price shown as paid now",
+     "who": "claude"
+    },
+    {
+     "text": "Close body hook note -> brief",
+     "who": "claude"
+    },
+    {
+     "text": "Card 9b slice 3; F1 measured off",
+     "who": "claude"
+    },
+    {
+     "text": "Card method: boxer v boxer",
+     "who": "claude"
+    },
+    {
+     "text": "Arena boxing paper collected",
+     "who": "claude"
+    },
+    {
      "text": "Body hook bends him: collected",
      "who": "claude"
     },
@@ -6078,55 +6053,23 @@
     {
      "text": "Coach map as cut: Kalli 5/5/6",
      "who": "claude"
-    },
-    {
-     "text": "PC lag: found, restarted",
-     "who": "claude"
-    },
-    {
-     "text": "Signing card in the game",
-     "who": "claude"
-    },
-    {
-     "text": "CONTINUE says what it does",
-     "who": "claude"
-    },
-    {
-     "text": "Body cross 3: in, your eye",
-     "who": "claude"
-    },
-    {
-     "text": "Corner cmds 2 FAIL: Q-330",
-     "who": "claude"
-    },
-    {
-     "text": "Nightly: 4 old reds, 25 fixed",
-     "who": "claude"
     }
    ],
    "done_session": [
     {
-     "text": "Card 9b slice 2 on main",
+     "text": "Boxer v boxer engine: 5 of 6 bars",
      "who": "claude"
     },
     {
-     "text": "Card price shown as paid now",
+     "text": "Boxer v boxer v1: critic 5/6/6",
      "who": "claude"
     },
     {
-     "text": "Close body hook note -> brief",
-     "who": "claude"
+     "text": "Plan probe 1: no lever passed",
+     "who": "agent"
     },
     {
-     "text": "Card 9b slice 3; F1 measured off",
-     "who": "claude"
-    },
-    {
-     "text": "Card method: boxer v boxer",
-     "who": "claude"
-    },
-    {
-     "text": "Arena boxing paper collected",
+     "text": "Boxer v boxer v2: critic 6/5/7",
      "who": "claude"
     }
    ],
@@ -6258,6 +6201,14 @@
     {
      "text": "John: boxing facts (SQ325)",
      "who": "claude"
+    },
+    {
+     "text": "Your play: boxer v boxer v2",
+     "who": "operator"
+    },
+    {
+     "text": "Plan probe 2 (PLANIMPACT2)",
+     "who": "agent"
     }
    ],
    "next": [
@@ -6606,11 +6557,15 @@
      "who": "claude"
     },
     {
-     "text": "Card: boxer v boxer on paper",
+     "text": "Coaches probe 2 (after plan probe)",
+     "who": "claude"
+    },
+    {
+     "text": "Card v3: a range track (scope)",
      "who": "claude"
     }
    ],
-   "session": "S549"
+   "session": "S550"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",

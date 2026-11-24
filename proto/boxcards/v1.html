@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Boxer v boxer - card bout (greybox)</title>
+<style>
+:root{--bg:#151211;--panel:#221c18;--panel2:#2b231d;--line:#43332a;--line2:#5a4436;--fg:#f2e9dd;--muted:#b7a595;--gold:#e3ab45;--red:#d9534a;--blue:#5f92d8;--green:#74bd7c;color-scheme:dark}
+*{box-sizing:border-box}html{font-size:clamp(13px,1.08vw,26px)}html,body{height:100%;margin:0}
+body{background:radial-gradient(1200px 700px at 50% -10%,#2a211b 0%,var(--bg) 60%);color:var(--fg);font:1.07rem/1.35 "Segoe UI",system-ui,sans-serif}
+button{font:inherit;color:inherit;cursor:pointer}
+.app{height:100%;display:grid;grid-template-rows:auto 1fr auto;gap:0.714rem;padding:0.714rem 1.143rem}
+.top{display:flex;gap:1.286rem;align-items:baseline;border-bottom:1px solid var(--line);padding-bottom:0.571rem}
+.brand{font-weight:700;letter-spacing:.14em;color:var(--gold);text-transform:uppercase}
+.top b{color:var(--gold)} .rounds span{display:inline-block;margin-right:0.714rem;color:var(--muted)}
+.mid{display:grid;grid-template-columns:18.571rem 1fr 18.571rem;gap:0.857rem;min-height:0}
+.man{background:var(--panel);border:1px solid var(--line);border-radius:0.714rem;padding:0.857rem;display:flex;flex-direction:column;gap:0.714rem}
+.man h2{margin:0;font-size:1.286rem} .man.you h2{color:var(--blue)} .man.him h2{color:var(--red)}
+.lab{font-size:0.786rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.pips{display:flex;gap:4px;margin-top:3px} .pip{width:1.857rem;height:1rem;border-radius:3px;background:#3a2e26;border:1px solid var(--line2);transition:background .3s}
+.pip.on{background:var(--green)} .pip.gone{background:#1a1513;border-style:dashed;opacity:.5}
+.pip.dz{background:var(--red)} .pip.line{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold)}
+.tag{display:inline-block;padding:2px 0.571rem;border-radius:0.714rem;border:1px solid var(--line2);font-size:0.857rem;margin:2px 4px 0 0}
+.tag.bad{border-color:var(--red);color:#ffb3ad} .tag.good{border-color:var(--green);color:#bfe6c3}
+.used{font-size:0.857rem;color:var(--muted);line-height:1.5}
+.table{background:var(--panel);border:1px solid var(--line);border-radius:0.714rem;padding:0.857rem;display:flex;flex-direction:column;gap:0.571rem;min-height:0}
+.said{font-size:1.214rem;font-weight:600;min-height:1.714rem} .lines{flex:1;overflow:auto;font-size:1rem;color:#d9cbba}
+.lines div{padding:2px 0;border-bottom:1px dotted #33281f} .lines .bell{color:var(--gold);font-weight:600}
+.volley{display:flex;gap:0.571rem;align-items:center;min-height:6.571rem;flex-wrap:wrap}
+.card{width:9.143rem;min-height:6.143rem;background:var(--panel2);border:1px solid var(--line2);border-radius:0.571rem;padding:0.429rem 0.571rem;text-align:left;position:relative}
+.card b{display:block;font-size:1rem} .card small{color:var(--muted);font-size:0.821rem;line-height:1.25;display:block}
+.card .w{position:absolute;top:5px;right:0.5rem;font-size:0.857rem;color:var(--gold)}
+.card.pick{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold)} .card.no{opacity:.4;cursor:not-allowed} .card.ans{border-color:#4d6a8f}
+.card .n{position:absolute;bottom:4px;right:0.5rem;font-size:0.857rem;color:var(--gold);font-weight:700}
+.opts{display:grid;grid-template-columns:repeat(auto-fill,minmax(17.857rem,1fr));gap:0.571rem}
+.opt{background:var(--panel2);border:1px solid var(--line2);border-radius:0.571rem;padding:0.571rem 0.714rem;text-align:left}
+.opt:hover,.card:not(.no):hover{border-color:var(--gold)} .opt b{display:block} .opt small{color:var(--muted);display:block;font-size:0.893rem}
+.hand{display:flex;gap:0.571rem;align-items:stretch;flex-wrap:wrap}
+.btn{padding:0.714rem 1.286rem;border-radius:0.571rem;border:1px solid var(--line2);background:var(--panel2);font-weight:600}
+.btn.go{background:var(--gold);color:#231a12;border-color:var(--gold);animation:pulse 1.4s infinite} .btn:disabled{opacity:.4;animation:none}
+@keyframes pulse{50%{box-shadow:0 0 0 5px rgba(227,171,69,.25)}}
+.bottom{display:flex;gap:1rem;align-items:center}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="top"><span class="brand">Boxer v boxer</span><span id="where"></span><span class="rounds" id="rounds"></span><span style="margin-left:auto" class="lab">greybox - three rounds, each man leads three times a round</span></div>
+  <div class="mid">
+    <div class="man you" id="you"></div>
+    <div class="table"><div class="said" id="said"></div><div class="volley" id="volley"></div><div class="opts" id="opts"></div><div class="lines" id="lines"></div></div>
+    <div class="man him" id="him"></div>
+  </div>
+  <div class="bottom"><div class="hand" id="hand"></div><div style="flex:1"></div><div id="acts"></div></div>
+</div>
+<script type="module">
+import { N, CARDS, DECK, newBout, draw, answers, resolve, bell, verdict, volleyCost, slipCost } from './rules.mjs';
+import { reader, clone } from './bot.mjs';
+const TXT = { jab: '1 point. Reaches a man who steps back. Cannot be countered.', cross: '2 points, head 3.', hook: '2 points, head 3.', body: '1 point. His wind bar 1 shorter all bout. Under a block.',
+  upper: '2 points, head 4. Through a block.', feint: 'Lands nothing. The next punch cannot be slipped.', block: '2 off each head punch; they do not score.',
+  slip: 'One punch misses. Your next big punch +2.', step: 'Only jabs reach you. Puts you on the ropes.', clinch: 'His first card happens, the rest is smothered.' };
+const $ = (id) => document.getElementById(id), who = ['You', 'He'], nm = (id) => CARDS[id].n, bot = reader();
+const seed = +(new URLSearchParams(location.search).get('seed') || Math.floor(Math.random() * 1e6));
+let S, lead, a, x, phase, pick = [], pickIdx = [], volley = [], legal = [], lines = [], lastAns = null, lastText = '';
+const say = (e) => { const w = who[e.k], c = e.id && nm(e.id), you = e.k === 0; return ({ rest: `${w} take${you ? '' : 's'} a breath`, feint: `${w} feint${you ? '' : 's'}`,
+  clinch: `${w} tie${you ? '' : 's'} up; the referee breaks it`, countered: `${w} fired back as it landed`, slipped: `${w} slip${you ? '' : 's'} the ${c}`,
+  short: `${you ? 'Your' : 'His'} ${c} falls short`, body: `${you ? 'Your' : 'His'} ${c} lands to the body`, clean: `${you ? 'Your' : 'His'} ${c} lands clean`,
+  blocked: `${you ? 'Your' : 'His'} ${c} is blocked${e.dz ? ' (' + e.dz + ' gets through)' : ''}`, knockdown: `${you ? 'YOU ARE DOWN' : 'HE IS DOWN'}`, count: `${w} lose${you ? '' : 's'} the lead to the count` }[e.t]); };
+const log = (t, cls = '') => { lines.unshift({ t, cls }); };
+function start() { S = newBout(seed, seed % 2); lead = S.first; S.round = 1; log(`Round 1. ${who[lead]} lead${lead ? 's' : ''} first.`, 'bell'); a = lead; x = 0; step(); }
+function step() {
+  if (S.over) return end(S.over);
+  if (x === 2 * N.leads) {
+    const sc = bell(S); log(`BELL. The judges give the round ${sc[0]}-${sc[1]}.`, 'bell');
+    if (S.round === N.rounds) return end(verdict(S));
+    S.round++; const t = [0, 1].map((k) => S.cards.reduce((s, c) => s + c[k], 0)); lead = t[0] !== t[1] ? (t[0] < t[1] ? 0 : 1) : 1 - lead;
+    log(`Round ${S.round}. ${who[lead]} lead${lead ? 's' : ''} first${t[0] !== t[1] ? ' (behind on the cards)' : ''}.`, 'bell'); a = lead; x = 0;
+  }
+  for (const k of [0, 1]) { const m = S.f[k]; m.wind = Math.min(m.cap, m.wind + (x ? N.rec : 0)); if (x && !m.hurt) m.daze = Math.max(0, m.daze - N.fade); draw(S, k); }
+  pick = []; pickIdx = []; volley = [];
+  if (S.f[a].skip) { S.f[a].skip = 0; log(say({ t: 'count', k: a })); return shown(a ? 'He is still shaking it off.' : 'You are still shaking it off.'); }
+  if (a === 1) { volley = bot.lead(S, 1); if (!volley.length) return fire({ id: null }); legal = answers(S, 0, volley); phase = 'answer'; }
+  else phase = 'lead';
+  render();
+}
+function fire(ans) {
+  if (a === 0) { volley = pick; ans = volley.length ? bot.answer(S, 1, volley, answers(S, 1, volley)) : { id: null }; }
+  const ev = resolve(S, a, [...volley], { ...ans });
+  const head = `${who[a]} ${volley.length ? (a ? 'leads' : 'lead') + ': ' + volley.map(nm).join(' - ') : ''}${volley.length ? '.  ' + who[1 - a] + ': ' + ansName(ans, volley) + '.' : ''}`;
+  log((volley.length ? head + '  ' : '') + ev.map(say).join('; ') + '.');
+  shown(ev.map(say).join('; ') + '.', ans);
+}
+const ansName = (ans, v) => !ans.id ? 'no answer' : ans.counter ? 'counter ' + nm(ans.id) : ans.id === 'slip' ? 'slip the ' + nm(v[ans.at]) : nm(ans.id).toLowerCase();
+function shown(text, ans) { phase = 'shown'; lastAns = ans || null; lastText = text; x++; a = 1 - a; render(); }
+function end(v) { phase = 'over'; const t = v.t ? ' ' + v.t.join('-') : ''; lastText = v.win < 0 ? 'A DRAW' + t : `${v.win === 0 ? 'YOU WIN' : 'HE WINS'} by ${v.how}${t}`; log(lastText, 'bell'); render(); }
+function preview(ans) { const T = clone(S); const ev = resolve(T, 1, [...volley], { ...ans }); const me = T.f[0], was = S.f[0];
+  const bits = [ev.map(say).join('; ')]; if (ans.id) bits.push(`costs ${was.wind - me.wind} wind`); return bits.join(' - '); }
+function man(el, k) { const m = S.f[k], pips = []; for (let i = 0; i < N.cap; i++) pips.push(`<span class="pip ${i < m.wind ? 'on' : i >= m.cap ? 'gone' : ''}"></span>`);
+  const dz = []; for (let i = 0; i < N.kdAt; i++) dz.push(`<span class="pip ${i < m.daze ? 'dz' : ''} ${i === N.kdAt - 1 ? 'line' : ''}"></span>`);
+  const tags = [m.hurt ? '<span class="tag bad" title="Has been down this round: his head does not clear before the bell">hurt</span>' : '', m.ropes ? '<span class="tag bad" title="Cannot step back again until he has led">on the ropes</span>' : '',
+    m.held ? '<span class="tag" title="Cannot clinch twice running">just clinched</span>' : '', m.ready ? '<span class="tag good" title="The first big punch of the next lead hits 2 harder">counter loaded</span>' : '', m.kds ? `<span class="tag bad">down ${m.kds}x</span>` : ''].join('');
+  const used = Object.keys(DECK).map((id) => { const n = m.pile.filter((c) => c === id).length; return n ? `${nm(id)} ${n} of ${DECK[id]}` : ''; }).filter(Boolean).join(', ');
+  el.innerHTML = `<h2>${k ? 'Him' : 'You'}</h2><div><span class="lab" title="Pays for every card. 3 comes back before each exchange. A body punch shortens the bar for the whole bout.">Wind ${m.wind} of ${m.cap}</span><div class="pips">${pips.join('')}</div></div>
+    <div><span class="lab" title="A clean big punch that fills the bar to the gold line puts him down.">Head ${m.daze} of ${N.kdAt}</span><div class="pips">${dz.join('')}</div></div>
+    <div><span class="lab">This round</span><div><b>${m.pts}</b> clean points, ${m.thrown} punches thrown</div></div><div>${tags}</div>
+    <div class="used"><span class="lab">${k ? 'Cards he has played' : 'Cards you have played'}</span><br>${used || 'none yet'}</div>`; }
+const face = (id, extra = '', cls = '', n = '') => `<button class="card ${cls}" ${extra}><span class="w">${id === 'slip' ? slipCost(S.f[0]) : CARDS[id].w} wind</span><b>${nm(id)}</b><small>${TXT[id]}</small>${n ? `<span class="n">${n}</span>` : ''}</button>`;
+function render() {
+  $('where').innerHTML = `Round <b>${S.round}</b> of ${N.rounds} - exchange <b>${Math.min(x + (phase === 'shown' || phase === 'over' ? 0 : 1), 6)}</b> of 6`;
+  $('rounds').innerHTML = S.cards.map((c, i) => `<span>R${i + 1}: you ${c[0]}-${c[1]}</span>`).join('');
+  man($('you'), 0); man($('him'), 1);
+  const me = S.f[0], cost = volleyCost(pick);
+  $('lines').innerHTML = lines.map((l) => `<div class="${l.cls}">${l.t}</div>`).join('');
+  $('opts').innerHTML = ''; $('acts').innerHTML = '';
+  if (phase === 'lead') {
+    $('said').textContent = 'Your lead: pick up to three cards, in order.';
+    $('volley').innerHTML = pick.map((id) => face(id, 'disabled', 'pick')).join('') + (pick.length ? `<span class="lab">${cost} wind` + (pick[0] === 'jab' || pick[0] === 'feint' ? ' - he cannot counter' : pick.length ? ' - he CAN counter (no jab or feint first)' : '') + '</span>' : '');
+    const left = [...me.hand]; for (const id of pick) left.splice(left.indexOf(id), 1);
+    $('hand').innerHTML = me.hand.map((id, i) => { const isAns = CARDS[id].k === 'ans', n = picked(i); const no = isAns || (!n && (pick.length >= N.volley || cost + CARDS[id].w > me.wind)); return face(id, `data-i="${i}" title="${isAns ? 'An answer: you lay it when he leads' : ''}"`, (n ? 'pick ' : '') + (no ? 'no ' : '') + (isAns ? 'ans' : ''), n || ''); }).join('');
+    $('acts').innerHTML = `<button class="btn" id="rest">Take a breath (+${N.rest} wind)</button> <button class="btn go" id="go" ${pick.length && CARDS[pick[pick.length - 1]].k !== 'feint' ? '' : 'disabled'}>Throw it</button>`;
+    $('go').onclick = () => fire(); $('rest').onclick = () => { pick = []; pickIdx = []; fire(); };
+    for (const b of $('hand').querySelectorAll('.card')) b.onclick = () => toggle(+b.dataset.i);
+  } else if (phase === 'answer') {
+    $('said').textContent = 'He leads. Lay ONE answer.';
+    $('volley').innerHTML = volley.map((id) => face(id, 'disabled')).join('');
+    $('hand').innerHTML = me.hand.map((id) => face(id, 'disabled', CARDS[id].k === 'ans' ? 'ans' : '')).join('');
+    $('opts').innerHTML = legal.map((ans, i) => `<button class="opt" data-i="${i}"><b>${ans.id ? ansName(ans, volley).replace(/^./, (c) => c.toUpperCase()) : 'No answer'}</b><small>${preview(ans)}</small></button>`).join('');
+    for (const b of $('opts').querySelectorAll('.opt')) b.onclick = () => fire(legal[+b.dataset.i]);
+  } else {
+    $('said').textContent = lastText;
+    $('volley').innerHTML = volley.map((id) => face(id, 'disabled')).join('') + (lastAns && lastAns.id ? '<span class="lab">answered by</span>' + face(lastAns.id, 'disabled', 'ans') : '');
+    $('hand').innerHTML = me.hand.map((id) => face(id, 'disabled')).join('');
+    $('acts').innerHTML = phase === 'over' ? `<button class="btn go" id="again">Another bout</button>` : `<button class="btn go" id="next">Next</button>`;
+    if (phase === 'over') $('again').onclick = () => { location.search = ''; }; else $('next').onclick = step;
+  }
+}
+const picked = (i) => { const p = pickIdx.indexOf(i); return p < 0 ? 0 : p + 1; };
+function toggle(i) { const me = S.f[0], id = me.hand[i]; if (CARDS[id].k === 'ans') return; const p = pickIdx.indexOf(i);
+  if (p >= 0) pickIdx.splice(p, 1); else { if (pickIdx.length >= N.volley || volleyCost(pick) + CARDS[id].w > me.wind) return; pickIdx.push(i); }
+  pick = pickIdx.map((j) => me.hand[j]); render(); }
+window.addEventListener('keydown', (e) => { if (e.key === 'Enter') (document.getElementById('next') || document.getElementById('go'))?.click(); });
+start();
+</script>
+</body>
+</html>

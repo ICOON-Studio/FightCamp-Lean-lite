@@ -28,14 +28,14 @@ function unseenPunches(S, a) { const he = S.f[a], out = []; for (const [id, n] o
 const ends = (ans, pid) => ans.id === 'clinch' || !!ans.with || (ans.id === 'step' && !CARDS[pid].long) || (!!ans.trade && !CARDS[pid].long);
 function tryAnswer(S, d, pid, ans, blind, at) {
   const T = clone(S), A = T.f[1 - d]; A.hand.push(pid); A.wind += CARDS[pid].w; A.thrown--;
-  exchange(T, 1 - d, [pid], () => ans, { blind, at });
+  exchange(T, 1 - d, [pid], () => ans, { blind, np: at });
   return worth(T, d) - W.card * (ans.id ? 1 + (ans.with ? 1 : 0) : 0);
 }
 export function answerBot(S, d, view) {
   let best = view.legal[0], bv = -1e9;
   const cand = view.shown ? [[view.shown, 1]] : unseenPunches(S, 1 - d), tot = cand.reduce((s, c) => s + c[1], 0);
   for (const ans of view.legal) {
-    let v = 0; for (const [pid, n] of cand) v += (n / tot) * (tryAnswer(S, d, pid, ans, !view.shown, view.i) + (ends(ans, pid) ? W.unseen * view.left : 0));
+    let v = 0; for (const [pid, n] of cand) v += (n / tot) * (tryAnswer(S, d, pid, ans, !view.shown, view.np) + (ends(ans, pid) ? W.unseen * view.left : 0));
     if (v > bv + 1e-9) { bv = v; best = ans; }
   }
   return best;

@@ -5,6 +5,22 @@ Version 1 (`DESIGN_BOXCARDS1.md`) failed Arena's code-checked critic: real bout 
 covered a combination. This page is version 2: rules, one walked bout, bot numbers. Code: `proto/boxcards/rules2.mjs`,
 `bot2.mjs`, `probe2.mjs`, `boxcards2.test.mjs` (18 tests). No playable page yet (the page on port 8798 is version 1).
 
+## VERDICT (Arena, a fresh code-checked critic, `BOXCARDS2_CRITIC_ARENA.md`): real bout 6, depth 5, play 7 - FAILS the bar of 8
+Against version 1 (5 / 6 / 6): real bout +1, play +1, depth -1. It confirms the clairvoyance, the blanket block, the
+forced trade and the free breather are fixed, reproduces every number on this page, and finds no blind pilot over 50%
+(its own five: best 50.0%). Why it still fails:
+- NO RANGE. Nothing says where the two men stand, so a step back, a clinch and a body hook are card facts, not ring
+  facts. This is the first item of both critic rounds and of Arena's fourteen. It is the METHOD finding: version 3 is a
+  range track, written and probed as its own scope - not a third patch round.
+- DEPTH IS NOT PROVEN: the reading bot looks one exchange ahead; "no exploit found" is not "skill beats the draw".
+  Only hands played by a person can show it. THE NEXT GATE IS THE OWNER'S PLAY of the page.
+- Four contract faults, all FIXED in S550 with tests (21 of 21): a feint let him clinch before any real punch; a
+  smothered punch still counted as thrown; a knockdown on a round's last exchange cost no lead; this page said "wind
+  bar" where the code means the bar's top (now said plainly below). After the fixes: 80.0% to the judges, first lead
+  53.8%, a combination in 89.8% of bouts, a knockdown in 43.0%, empty leads 7.1%, 4 of 6 bars as before.
+- Its sweeps: a breather at 2 points is the only tested price that keeps empty leads under 10% (0: 22%, 1: 14%, 3: 4%);
+  the slip-and-counter is not too cheap (at 2 wind little moves); a fourth round is not the way to more decisions.
+
 ## The one idea
 The leader lays up to three cards FACE DOWN. They turn over one at a time. At each punch the other man decides: pay
 to stop it, or take it. He sees how many cards are still face down, never what they are. A combination lands because
@@ -48,10 +64,10 @@ Hidden: the hands and the face-down cards.
 | Answer | In deck | Wind | What it does to the punch that has just turned |
 |---|---|---|---|
 | Block | 3 | 1 | a head punch does not score (a big one still adds 1). Wasted on a body hook or an uppercut |
-| Slip | 3 | 1 (2 when his wind bar is 4 or less) | it misses; the volley goes on |
+| Slip | 3 | 1 (2 when body work has cut the TOP of his wind bar to 4 or less) | it misses; the volley goes on |
 | Slip and counter | a Slip + any punch | slip + the punch | it misses, his punch lands clean, the volley ends. Not against a jab, not blind |
 | Step back | 2 | 1 | it falls short and the volley ends. Then he is on the ropes (no second step back until he has led). Not against a jab |
-| Clinch | 2 | 1, and 1 from the leader | it is smothered and the volley ends. Not on the first card, not twice running; the third in a round costs a point |
+| Clinch | 2 | 1, and 1 from the leader | it is smothered and the volley ends. Not until one real punch of the volley has turned (a feint does not count), not twice running; the third in a round costs a point |
 | Trade (a Cross or Lead hook) | - | 2 | both punches land, the volley ends. Only over the LEAD punch, never a jab |
 
 Cards the leader never turned (the exchange was stopped) go back to his hand and cost him nothing.
@@ -59,7 +75,7 @@ Cards the leader never turned (the exchange was stopped) go back to his hand and
 ## Knockdown, count, stoppage, judges
 A CLEAN cross, hook or uppercut that fills his head bar to 8 puts him down: the round is 10-8, the volley ends, he
 loses his next lead, he gets up with his head at 6 and it does not clear before the bell. Twice down in a round or
-three times in the bout: stopped. Down with a wind bar of 3 or less: counted out.
+three times in the bout: stopped. Down when body work has cut the TOP of his wind bar to 3 or less: counted out (whatever wind he has at that moment).
 At the bell: 10-9 on clean points; level, the man who threw more; else 10-10.
 
 ## Measured: 400 bot bouts (`node proto/boxcards/probe2.mjs`)
@@ -111,6 +127,8 @@ B wins 30-27.
 
 ## Open points (what the critic is asked)
 1. A knockdown in 45% of three-round bouts is too many. With the head bar at 9 it is 31.5% and 86% go to the judges.
+   Swept after this page went to the critic (not changed yet): four leads a round with a head bar of 10 (up at 7):
+   a knockdown in 34% of bouts, 84% to the judges, 22 decisions a man, 5 of 6 bars.
 2. The slip-and-counter decides most rounds in the walked bout. Is it too cheap (3 wind, two cards)?
 3. A breather costs 2 points. Right, or a blunt tool?
 4. Three rounds give one man 17 decisions. More exchanges a round, or is 17 quick decisions right for five minutes?

@@ -42,15 +42,15 @@ export function legalVolley(S, a, v) {
 }
 // the answers a man may lay to ONE punch as it turns. `shown` is the punch, or null when a feint has hidden it (then he
 // answers blind, and an answer that cannot meet the punch is wasted). A slip may carry a counter: {id:'slip', with}
-export function answers(S, d, shown, i = 0) {
+export function answers(S, d, shown, np = 0) {   // np: the PUNCHES of this volley already turned (a feint is not one)
   const m = S.f[d], has = (id) => m.hand.includes(id), c = shown && CARDS[shown], out = [{ id: null }];
   if (has('block') && m.wind >= 1 && (!c || (c.zone === 'head' && !c.unblock))) out.push({ id: 'block' });
   if (has('step') && m.wind >= 1 && !m.ropes && (!c || !c.long)) out.push({ id: 'step' });
-  if (has('clinch') && m.wind >= N.clinchW && !m.held && i > 0) out.push({ id: 'clinch' });        // he must have come in behind his first card
+  if (has('clinch') && m.wind >= N.clinchW && !m.held && np > 0) out.push({ id: 'clinch' });        // he must have come in behind a first PUNCH
   const sc = slipCost(m);
   if (has('slip') && m.wind >= sc) { out.push({ id: 'slip' });                                           // a jab is never countered; nor a punch he cannot see
     if (c && !c.long) for (const p of new Set(m.hand)) if (CARDS[p].k === 'punch' && m.wind >= sc + CARDS[p].w) out.push({ id: 'slip', with: p }); }
-  if (c && !c.long && i === 0) for (const p of ['cross', 'hook']) if (has(p) && m.wind >= CARDS[p].w) out.push({ id: p, trade: 1 });   // a trade goes over the LEAD punch only
+  if (c && !c.long && np === 0) for (const p of ['cross', 'hook']) if (has(p) && m.wind >= CARDS[p].w) out.push({ id: p, trade: 1 });   // a trade goes over the LEAD punch only
   return out;
 }
 const same = (x, y) => x.id === y.id && (x.with || null) === (y.with || null) && !!x.trade === !!y.trade;
@@ -71,20 +71,20 @@ function land(S, who, pid, ev, leak = null) {            // a punch from `who` r
 // one exchange. answer(S, d, view) is asked at each punch: view = { i, left, shown, legal, seen: the cards turned so far }
 // Cards never turned (the exchange was stopped) go back to the leader's hand and cost him nothing.
 export function exchange(S, a, volley, answer, o = {}) {
-  const A = S.f[a], d = 1 - a, D = S.f[d], ev = [];
+  const A = S.f[a], d = 1 - a, D = S.f[d], ev = o.ev || [];   // o.ev: the page reads what has happened so far
   if (!legalVolley(S, a, volley)) throw new Error('illegal volley: ' + volley.join(','));
   if (!volley.length) { A.wind = Math.min(A.cap, A.wind + N.rest); D.pts += N.restPts; if (N.restFresh) { A.pile.push(...A.hand); A.hand = []; } ev.push({ t: 'rest', k: a }); D.held = 0; return ev; }   // the judges mark the man who will not lead
   A.ropes = 0;
-  let blind = !!o.blind, clinched = false; const seen = [];   // o.blind: a bot asks "what if the hidden punch is this one"
+  let blind = !!o.blind, clinched = false, np = o.np || 0; const seen = [];   // o.blind: a bot asks "what if the hidden punch is this one"
   for (let i = 0; i < volley.length; i++) {
     const pid = volley[i], c = CARDS[pid];
     spend(A, pid); A.wind -= c.w;
     if (c.k === 'feint') { ev.push({ t: 'feint', k: a }); blind = true; seen.push(pid); continue; }
     A.thrown++;
-    const shown = blind ? null : pid, legal = answers(S, d, shown, o.at ?? i);
-    const pick = answer(S, d, { i, left: volley.length - i - 1, shown, legal, seen: [...seen] }) || legal[0];
+    const shown = blind ? null : pid, legal = answers(S, d, shown, np);
+    const pick = answer(S, d, { i, np, left: volley.length - i - 1, shown, legal, seen: [...seen] }) || legal[0];
     const ans = legal.find((x) => same(x, pick)); if (!ans) throw new Error('illegal answer: ' + JSON.stringify(pick));
-    blind = false; seen.push(pid);
+    blind = false; seen.push(pid); np++;
     let stop = false;
     if (ans.id === 'block') { spend(D, 'block'); D.wind -= 1;
       if (c.zone === 'head' && !c.unblock) land(S, a, pid, ev, c.power ? N.blockLeak : 0); else { ev.push({ t: 'wasted', k: d, id: 'block' }); stop = land(S, a, pid, ev); } }
@@ -92,7 +92,7 @@ export function exchange(S, a, volley, answer, o = {}) {
       if (ans.with) { spend(D, ans.with); D.wind -= CARDS[ans.with].w; D.thrown++; ev.push({ t: 'counter', k: d }); land(S, d, ans.with, ev); stop = true; } }
     else if (ans.id === 'step') { spend(D, 'step'); D.wind -= 1; D.ropes = 1;
       if (c.long) { ev.push({ t: 'wasted', k: d, id: 'step' }); stop = land(S, a, pid, ev); } else { ev.push({ t: 'short', k: a, id: pid }); stop = true; } }
-    else if (ans.id === 'clinch') { spend(D, 'clinch'); D.wind -= N.clinchW; A.wind = Math.max(0, A.wind - N.clinchW); clinched = true; D.holds++;
+    else if (ans.id === 'clinch') { spend(D, 'clinch'); D.wind -= N.clinchW; A.wind = Math.max(0, A.wind - N.clinchW); clinched = true; D.holds++; A.thrown--;   // a smothered punch was never thrown
       if (D.holds > N.holdFree) { D.pen++; ev.push({ t: 'warned', k: d }); }
       ev.push({ t: 'clinch', k: d, id: pid }); stop = true; }
     else if (ans.trade) { spend(D, ans.id); D.wind -= CARDS[ans.id].w; D.thrown++;
@@ -113,7 +113,7 @@ export function bell(S) {
   if (w < 0) sc[0] = sc[1] = 10;
   sc[0] -= x.pen; sc[1] -= y.pen; S.cards.push(sc);
   for (const m of S.f) { m.total += m.pts; m.pts = 0; m.kdScored = 0; m.kdsRound = 0; m.pen = 0; m.holds = 0; m.daze = Math.max(0, m.daze - N.bellDaze); m.wind = m.cap;
-    m.held = 0; m.ropes = 0; m.skip = 0; m.thrown = 0; m.hurt = 0; m.pile.push(...m.hand); m.hand = []; }
+    m.held = 0; m.ropes = 0; m.thrown = 0; m.hurt = 0; m.pile.push(...m.hand); m.hand = []; }
   return sc;
 }
 export function verdict(S) {

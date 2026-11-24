@@ -12,16 +12,6 @@
    "brief": "ops/research/TASK_MATCHBOTS2.md",
    "started": "2026-11-24T12:08"
   },
-  "PLANIMPACT1": {
-   "id": "PLANIMPACT1",
-   "status": "done",
-   "seat": "claude",
-   "agent": "claude-opus-5-5 (console tab PLANIMPACT1 resumed, tab c3 of the S548 session)",
-   "started": "2026-11-24T14:05",
-   "eta": "landed 15:30: no lever passed (docs/PLANIMPACT1_RESULT.md)",
-   "title": "Make the written fight plan matter (your Q-328 'make it more impactful'): three ways measured in real bouts before any design",
-   "brief": "ops/research/TASK_PLANIMPACT1.md"
-  },
   "COACHMAP1_CRITICS": {
    "id": "COACHMAP1_CRITICS",
    "status": "queued",
@@ -41,17 +31,6 @@
    "title": "The body cross is thrown in the 3D fight (the take is ready; the punch list never names it): films for your eye",
    "brief": "ops/research/TASK_BODYCROSS4.md"
   },
-  "BOXCARDS1_CRITIC": {
-   "id": "BOXCARDS1_CRITIC",
-   "status": "done",
-   "seat": "arena",
-   "agent": "Arena (chat 01a20db8, repo FightCamp-Lean-lite)",
-   "branch": "arena/04b68eed-fightcamp-lean-lite",
-   "started": "2026-11-24T15:22",
-   "eta": "collected 15:32: real bout 5, depth 6, play 6 (bar 8); version 2 in work",
-   "title": "Boxer v boxer card game: the code-checked critic (page against code, its own exploiting bots, sweeps) - depth and play out of 10",
-   "brief": "ops/research/TASK_BOXCARDS1_CRITIC_ARENA.md"
-  },
   "PLANIMPACT2": {
    "id": "PLANIMPACT2",
    "status": "running",
@@ -61,6 +40,27 @@
    "eta": "about 4 h (to about 19:45): one Godot at a time while the owner plays",
    "title": "The written plan, second probe (your Q-333 'Second probe'): the plan sharpens the corner only where it was drilled for THIS opponent - must make a good plan beat a careless one by 6",
    "brief": "ops/research/TASK_PLANIMPACT2.md"
+  },
+  "BOXCARDS2_CRITIC": {
+   "id": "BOXCARDS2_CRITIC",
+   "status": "done",
+   "seat": "arena",
+   "agent": "Arena (chat 01a20dcc, repo FightCamp-Lean-lite)",
+   "branch": "arena/537fa33b-fightcamp-lean-lite",
+   "started": "2026-11-24T15:52",
+   "eta": "collected 16:10: real bout 6, depth 5, play 7 (bar 8); four contract faults fixed; next gate his play, then a range track as its own scope",
+   "title": "Boxer v boxer card game, version 2 (one punch at a time): a fresh code-checked critic - depth and play out of 10",
+   "brief": "ops/research/TASK_BOXCARDS2_CRITIC_ARENA.md"
+  },
+  "COACHMAP2": {
+   "id": "COACHMAP2",
+   "status": "queued",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (a console tab when PLANIMPACT2 lands: its first change depends on that result, and one worker at a time while the owner plays)",
+   "started": "2026-11-24T16:25",
+   "eta": "about 4 h once launched (after about 19:45)",
+   "title": "Coaches (your Q-334 'Probe the changes'): the corner coach's ratings matter, a coach leads at most 2 boxers, the bars measured again - keep or cut",
+   "brief": "ops/research/TASK_COACHMAP2.md"
   }
  },
  "codex_budget": {

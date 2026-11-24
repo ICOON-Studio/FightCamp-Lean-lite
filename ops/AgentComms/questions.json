@@ -9253,6 +9253,24 @@
    "note": "answered in the session chat (S550)",
    "answered_at": "2026-11-24T13:45:00Z",
    "seen_by_claude": true
+  },
+  {
+   "id": "Q-S294-334",
+   "asked": "2026-11-24T13:46:49.161445+00:00",
+   "session": "S294",
+   "text": "Coaches scored 5 of 10. Probe her three changes, or cut back to today's two hire cards?",
+   "options": [
+    "Probe the changes",
+    "Cut back"
+   ],
+   "attach": [
+    "research/Q_COACHES_S550.md"
+   ],
+   "answer": "Probe the changes",
+   "note": "answered in the session chat (S550)",
+   "answered_at": "2026-11-24T14:20:00Z",
+   "seen_by_claude": true,
+   "comment_only": false
   }
  ]
 }
