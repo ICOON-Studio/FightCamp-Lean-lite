@@ -199,7 +199,7 @@ export function ansFits(S, a, id, p) {
   }
   const ground = ['gt', 'past', 'over', 'gb', 'pin', 'down'].includes(placeKey(S, a));
   if (fx === 'frame') return c.k === 'setup'; // 9b H1: the frame stops a tie or a grip as it is laid
-  if (fx === 'base') return !!c.sweep;
+  if (fx === 'base') return !!c.sweep && !!N.baseSweep;
   if (id === '@escape') return c.k === 'hold'; // 9b B2: a hold as it is laid, never a pass (that is the card)
   if (fx === 'cover' || fx === 'block') return c.k === 'strike' && !c.unblock;
   if (fx === 'slip') return c.k === 'strike' && !c.kick && !ground;
@@ -400,7 +400,7 @@ export function answerOptions(S, m) {
   for (const id of ids) {
     if (id === '@pull' && !legalNow(S, m, '@pull')) continue;
     if (id === '@kick' && !(['seat', 'back', 'gbot'].includes(S.at[m]) && S.at[1 - m] === 'stand')) continue;
-    if ((id === '@base' && !N.baseOn) || (id === '@escape' && !N.escOn)) continue; // built, measured, switched OFF (cards.mjs N)
+    if ((id === '@base' && (!N.baseOn || M.threw)) || (id === '@escape' && !N.escOn)) continue; // B1w: no base for a man who just punched; switches in cards.mjs N
     for (let i = 0; i < S.inc.length; i++) {
       if (!ansFits(S, 1 - m, id, S.inc[i])) continue;
       if (!canPay(M, cost(S, m, id, S.inc[i]))) continue;
@@ -458,7 +458,7 @@ export function endAct(S, m) {
   S.pj = null;
   const M = S.f[m]; M.ctr = 0; M.chain = 0; M.free = 0; if (M.lame) M.lame--;
   if (S.inc.length || S.at[m] === 'stand') { S.gnp[m] = 0; S.idle[m] = 0; } // 9b A2, I1
-  if (S.tie && S.tie.by !== m) S.tie.stood = true; // 9b H1b: the tie has stood through one of his turns
+  if (S.tie && S.tie.by !== m) S.tie.stood = true; M.threw = S.inc.some((p) => CARDS[p.id]?.k === 'strike'); // B1w // 9b H1b: the tie has stood through one of his turns
   const me = S.at[m], him = S.at[1 - m], laid = S.inc.filter((p) => p.id[0] !== '@' && CARDS[p.id]);
   // a MOVE counts as work on the ground too: the guard pass, the back take, the sweep, the stand-up - "the boxer is
   // working, so no referee" (audit 7, turn 12). Read only from cards, the referee stood up a busy man's bout.

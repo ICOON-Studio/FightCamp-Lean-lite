@@ -13,11 +13,13 @@ export const N = {
   // ROUND 9b (audit section 9), FIRST GUESSES, reported and not tuned: the no-card answers' wind, the no-card up-kick's
   // damage, the knockdown (a punch for kdDmg or more that leaves him at kdHp or under), the stoppage (tkoTurns turns)
   frameW: 1, baseW: 2, escW: 2, kickW: 2, kickDmg: 2, kdDmg: 6, kdHp: 10, tkoTurns: 2,
-  // S548 MEASURED (400 bot bouts, docs/CARDROUND9B_RESULT.md): Keep your base as an always-there answer takes boxing to
-  // 99.5% (99.0% at 3 wind, 88.3% at 4): the jiu-jitsu man never reaches the floor - no price fixes it, the SHAPE is
-  // wrong. The no-card escape takes the holds laid from 0.28 a bout to 0.00 (the bot stops trying). Both are built and
-  // tested and stay OFF until a critic and the owner choose a shape: 0 = off, 1 = on.
-  baseOn: 0, escOn: 0,
+  // S548 MEASURED (400 bot bouts, docs/CARDROUND9B_RESULT.md). Keep your base has two halves:
+  //  - against a PULL (baseOn): ON, and only for a man who threw no punch in his last turn (the owner's 'weaker version').
+  //    Measured harmless: boxing stays 44.5%; the bot never pays for it (0 of 400), a player can.
+  //  - against a SWEEP (baseSweep): OFF. It is the half that broke the pairing - always there: boxing 99.5%; only after a
+  //    turn with no punch: 69.3% (gate 40-60). A sweep is the jiu-jitsu man's one way up from his back.
+  //  - the no-card escape from a hold as it is laid (escOn): OFF - holds laid fall from 0.28 a bout to 0.
+  baseOn: 1, baseSweep: 0, escOn: 0,
 };
 // limbs: a lead arm, A rear arm, l lead leg, L rear leg, h hips; x any arm, y any leg
 const K = ['K'], P = ['P'], C = ['C'], PC = ['P', 'C'], KP = ['K', 'P'], KPC = ['K', 'P', 'C'];

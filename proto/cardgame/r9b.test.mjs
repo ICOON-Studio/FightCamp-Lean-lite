@@ -110,7 +110,7 @@ test('9b A2: punches landing on a man who is down for 2 turns with nothing laid 
 });
 
 test('9b B1: Keep your base - 2 wind, no card - stops a pull (the tie is gone, the puller seated) and a sweep', (t) => {
-  assert.equal(N.baseOn, 0, 'OFF in the game since S548: measured at 99.5% boxing'); N.baseOn = 1; t.after(() => { N.baseOn = 0; });
+  assert.equal(N.baseSweep, 0, 'the SWEEP half is OFF in the game since S548: measured at 99.5% boxing (69.3% in its weaker shape)'); N.baseSweep = 1; t.after(() => { N.baseSweep = 0; });
   const S = table('boxing', 'bjj', BOX, BJJ);
   S.j = { kind: 'apart', reach: 'P' };
   turn(S, 1, null, ['tieup']); turn(S, 0, null, []); turn(S, 1, null, ['@pull']);
@@ -148,4 +148,20 @@ test('9b B3: the Up-kick with no card - 2 wind, from the floor at a standing man
   turn(T, 1, '@kick', []);
   assert.equal(T.f[0].hp, hp2 - N.kickDmg, 'kicked as he leaves, with no card in hand');
   assert.equal(legalNow(table('boxing', 'bjj', BOX, BJJ), 1, '@kick'), false, 'never from standing');
+});
+
+// S548, the owner's call on B1 ("Weaker version, measured"): Keep your base is there only for a man who threw NO punch in
+// his last turn - a boxer who has just let a combination go is on his front foot and cannot also sit back on his hips.
+// So the boxer chooses each turn: punch, or keep his balance for the pull he sees coming.
+test('9b B1w: Keep your base is offered only to a man who threw no punch in his last turn', (t) => {
+  const was = N.baseOn; N.baseOn = 1; t.after(() => { N.baseOn = was; });
+  const go = (boxerVolley) => {
+    const S = table('boxing', 'bjj', BOX, BJJ);
+    S.j = { kind: 'apart', reach: 'P' };
+    turn(S, 1, null, ['tieup']); turn(S, 0, null, boxerVolley); turn(S, 1, null, ['@pull']);
+    S.f[0].wind = N.cap;
+    return answerOptions(S, 0).some((o) => o && o.id === '@base');
+  };
+  assert.equal(go([]), true, 'he threw nothing: his hips are under him, he may keep his base');
+  assert.equal(go(['hook']), false, 'he threw a hook inside the clinch: no base to keep, the pull takes him down');
 });

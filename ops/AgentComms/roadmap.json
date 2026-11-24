@@ -6,13 +6,13 @@
   "id": "S548",
   "owner": "claude",
   "updated": "2026-11-24",
-  "summary": "S548 (Fable) IN PROGRESS. Collected: PLANREAD2 (the card now reads a plan as the ring pays it: style plan read +10.6 over its bout, now +0.6; cause checked in PlanReadFit.gd), CORNERBASE1 (against a coach who reads the file the live corner is worth about +10 wins in 100, not 15-22; a simmed bout should get the FILE coach +2.6/+6.2; the coach's rating buys 0 in a simmed bout), BODYREACT2 (a landed body hook bends the hit boxer on the blow, 60 of 60; his eye on /review; choreographer_test patched green). His answers: Q-328 'make it more impactful' -> PLANIMPACT1 probe launched (three levers: variety beats the counter, the plan sharpens the corner, round one belongs to the plan); Q-329 'Cut it, show chemistry' -> TASK_COACHMAP1 written (one clean map as cut, then critics); Q-330 'Cut both' -> the ring slot is cut on DESIGN_CORNERCMD1. Workers in console tabs of the S548 session: MATCHBOTS2 (c1), PLANIMPACT1 (c2). METHOD: A DECISION SCREEN IS A SCENE AND THE PAGE ITSELF SHOWS WHAT CHANGED - NO POP-UP, NO ICON TILES; LITTLE TEXT; PLAIN MENU WORDS, THE PLAYER'S PLACE IS THE GYM; OFFICE-LIKE PAGES ARE WINDOWS OF THE OFFICE COMPUTER; THE PLAYER BOOKS WHEN HIS BOXERS ARE READY; THE FIGHT'S DEPTH IS IN THE CORNER, LIVE (round 2: +15 at 3 rounds, +22 at 6; the best written plan +1.7); FIGHT ANIMATION v2 ONLY, HIS EYE IS THE RULER. Done and exported (05:56): the SIGNING CARD is in the game (KNOWBUILD1 merged by diff: a prospect as a scene, three ranges, the rival's 7-day window, the trial by the day, Sign lands on the profile); CONTINUE reads 'days run to <date>' with the reason on hover (his Q-327 answer 'Top bar CONTINUE'); the mind attribute is Self-belief (Confidence is the bar only); Finance's club show row fits; two wait-for-offers lines now say Ask for a bout; Log and the dues pop-up fix are in the build. Collected: BODYCROSS3 (13 of 13 on its ruler, sheets on /review for his eye); CORNERCMD2 FAIL again on bars 5, 6, 8 (stop rule) with the core stronger - Q-330 asks him to cut the two ring calls; Arena card round 9 saved on its branch (61 tests green, play gate 4 of 6, boxing 77.5 v jiu-jitsu 22.5), Arena out of usage for the day. The 05:00 tests: 499 pass, 4 old reds (move_tip, matchmaking_bots, block_meet, face_frame), 25 fewer than the day before, none new. Workers launched in console tabs: PLANREAD2 (Opus), STAFFCARDS1 (Opus, worktree build/staffcards1), BODYREACT2 (Fable: the 3D fi",
-  "next_action": "Collect MATCHBOTS2 (tab c1, docs/MATCHBOTS2_RESULT.md) and PLANIMPACT1 (tab c2, docs/PLANIMPACT1_RESULT.md); launch COACHMAP1 when a tab frees (two workers at most); Arena round 9 when its limit resets; build the FILE coach for simmed bouts (CORNERBASE1 verdict 2, with BoutRead._call following).",
-  "last_working_commit": "29097a616",
+  "summary": "S548 (Fable) HANDOVER. METHOD: THE WRITTEN PLAN STAYS AND MUST MATTER (owner 'make it more impactful'); THE CORNER HAS EIGHT COMMANDS, NO RING SLOT ('Cut both'); COACHES: NO TRIAL WEEK, CHEMISTRY ON THE HIRE CARD ('Cut it, show chemistry'); CARD GAME: MEASURE A CRITIC'S RULE BEFORE IT GOES ON, THE BOT MUST USE WHAT IS BUILT; HIS GAME FIRST - ONE WORKER WHILE ARCHEAGE IS OPEN; mechanics first then 3D and menus; fight animation v2 only, his eye is the ruler. Collected PLANREAD2, CORNERBASE1 (the corner ~+10 v a coach who reads the file), BODYREACT2 (body hook bends him; films on /review). Card round 9 on main (owner: fix both yourself) and round 9b slice 1 (73 tests, gate 6/6, boxing 43 / jiu-jitsu 57; Keep your base on against a pull in its weaker shape, off against a sweep where it made boxing 99.5%). Coach map as cut written; Kalli 5/5/6. PC: ArcheAge lag = Windows kernel pool 15.3 GB after 12 days up; he restarted. No export this session.",
+  "next_action": "S549: see NEXT_SESSION_PROMPT.md - collect PLANIMPACT1 (tab c3, resumed 14:05), then relaunch MATCHBOTS2 (one worker while he plays); one page for the owner on coaches (keep with Kalli's three changes and a probe, or cut back); card 9b slices 2-3; launch BODYCROSS4; build the FILE coach for simmed bouts; export when his game is closed.",
+  "last_working_commit": "b0b77e92d",
   "verified_playable": "Builds/FightCamp.exe S546 export (2026-11-24 04:07): Fights, the promoter's call, an amateur's profile and the Finance / Staff / Records windows rendered on the hidden desktop and opened (bounds 0 on the two runs that printed it); the touched tests green (about 75 run).",
-  "incomplete_blocked": "MATCHBOTS2 and PLANIMPACT1 running. COACHMAP1 queued. Arena card round 9 waiting on its daily limit. Body cross still not thrown in the 3D fight (BODYREACT2 'said, not done').",
+  "incomplete_blocked": "PLANIMPACT1 running. MATCHBOTS2 died with the PC restart (probe and hooks on disk, uncommitted). BODYCROSS4 briefed, not launched. Card 9b slices 2-3 not built. Dola's coach review not sent (no debug port). No export.",
   "next_acceptance": "He plays the S546 build (WHAT_TO_TRY J to N). His eye on /review closes the three notes and the office windows, and judges the staff cards drawing. BODYCROSS3's sheet shows a bent elbow and a bent man to his eye.",
-  "awaiting_operator": "His eye on /review: the body hook films (BODYREACT2), body cross 3 sheets, signing card, staff cards. His play of the S547 build (WHAT_TO_TRY O to T). Yes to close the finished worker tabs of earlier sessions and to remove E:\\FightCamp\\wt\\S545_NIGHTRED."
+  "awaiting_operator": "His eye on /review (body hook films, body cross 3, signing card, staff cards). His play of the S547 build and of card round 9 / 9b. Dola's app needs its debug port open."
  },
  "next": "S496: 0) get_usage; where_we_are roll S496; quote board answers (Q-259 Training K v6c; build WeekCards v6c on Yes - WeekCards.gd 552 lines is split first). 1) Collect as they land, by diff + their test: Qwen ONELOOK2 (fight HUD palette, ETA ~11:00 11-16; render before/after fight stills on the hidden desktop, his OK before merge), Goose FILMCOUNT1 (#326, branch goose/issue-326 - Goose's PR step failed twice: collect from the branch; read its FINDS table and noise numbers, retune FilmBout rates if a floor missed), Grok Dev FIGHTPAGE1 (branch grok/fightpage1, ETA ~13:30; render at 1920x1080 text 1.0 and 1.3, judge against fight_analysis_v3.png, then his board). 2) Kalli SQ202 LADDER1 v6 + SQ203 COACHSPEC1 r6 -> two fresh critics each (Dola + John; Dola refused COACHSPEC1 r5 - resend). 3) Wire after FIGHTPAGE1+FILMCOUNT1: the film-night stop in the fight week (FightWeekPlan film night -> FightAnalysis.for_tape with FilmCount.check, FilmPattern.checks by coach rating), FilmEdge pays at the figure, the result page's Punch by punch tab over m['tape'] (BoutTape), History keeps 20 tapes (~400 lines a bout). 4) Live fight log panel brief to Grok Dev once FIGHTPAGE1 lands. 5) ONELOOK1 sweep after ONELOOK2: RosterCards, ReadPanel, MatMap (UI.gd/WoodKit/WeekCards first need a split).",
  "assessment": {
@@ -2367,6 +2367,13 @@
    "id": "S547",
    "date": "2026-11-24",
    "summary": "Done and exported (05:56): the SIGNING CARD is in the game (KNOWBUILD1 merged by diff: a prospect as a scene, three ranges, the rival's 7-day window, the trial by the day, Sign lands on the profile); CONTINUE reads 'days run to <date>' with the reason on hover (his Q-327 answer 'Top bar CONTINUE'); the mind attribute is Self-belief (Confidence is the bar only); Finance's club show row fits; two wait-for-offers lines now say Ask for a bout; Log and the dues pop-up fix are in the build. Collected: BODYCROSS3 (13 of 13 on its ruler, sheets on /review for his eye); CORNERCMD2 FAIL again on bars 5, 6, 8 (stop rule) with the core stronger - Q-330 asks him to cut the two ring calls; Arena card round 9 saved on its branch (61 tests green, play gate 4 of 6, boxing 77.5 v jiu-jitsu 22.5), Arena out of usage for the day. The 05:00 tests: 499 pass, 4 old reds (move_tip, matchmaking_bots, block_meet, face_frame), 25 fewer than the day before, none new. Workers launched in console tabs: PLANREAD2 (Opus), STAFFCARDS1 (Opus, worktree build/staffcards1), BODYREACT2 (Fable: the 3D fight plays the body-shot fold). After the first save: STAFFCARDS1 LANDED in 34 minutes and is merged and exported (06:31, from a clean worktree: two workers had open edits in the main checkout) - the Staff window is cards, no scroll, NEW after a hire; the offer page keeps the opponent's whole head (face_frame_test green again); CORNERBASE1 launched 06:33 (Opus tab c4); briefs MATCHBOTS2 (the bot that scouts is stopped more than the one that does not) and John's CORNERREAL1 (seat queue SQ322) written. In flight at the handover: PLANREAD2 (tab c1), BODYREACT2 (Fable, tab c3), CORNERBASE1 (tab c4)."
+  },
+  {
+   "id": "S548",
+   "date": "2026-11-24",
+   "model": "Fable",
+   "summary": "Three workers collected; his three board answers acted on (plan stays and must matter, coach trial cut, ring calls cut); card round 9 fixed and merged and round 9b slice 1 built by Claude; coach map as cut (Kalli 5/5/6); ArcheAge lag traced to a 15.3 GB Windows kernel pool, PC restarted.",
+   "digest": "ops/research/S548_DIGEST.md"
   }
  ],
  "blocked_on_operator": [],
@@ -5285,7 +5292,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-24 12:11 board_sync",
+  "updated": "2026-11-24 13:41 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5438,22 +5445,16 @@
   },
   "working_now": [
    {
-    "title": "Card game round 9: the engine on the real-fight position model (each fighter's own position; getting up costs a turn; steps answerable)",
-    "who": "Arena (chat 01a20a6d-3a1b-79dc-a475-e858f591a0d9)",
-    "started": "2026-11-24T00:01",
-    "run": "CARDROUND9",
+    "title": "Card game round 9b: slice 1 on main (Frame, knockdown, stoppage, up-kick with no card; gate 6/6, boxing 43 / jiu-jitsu 57). Keep your base is built and OFF: it makes boxing win 99.5% - your call on its shape",
+    "who": "Claude (this session, on main; owner S548: do 9b yourself)",
+    "started": "2026-11-24T13:25",
+    "run": "CARDROUND9B",
     "state": "waiting"
    },
    {
-    "title": "Scouting must protect a boxer again: the bot that scouts is stopped more often than the one that does not (red in the 05:00 tests)",
-    "who": "claude-opus-5-5 (console tab MATCHBOTS2 of the S548 session, tab c1)",
-    "started": "2026-11-24T12:08",
-    "run": "MATCHBOTS2"
-   },
-   {
-    "title": "Make the written fight plan matter (your Q-328 'make it more impactful'): three ways measured in real bouts before any design",
-    "who": "claude-opus-5-5 (console tab PLANIMPACT1 of the S548 session, tab c2)",
-    "started": "2026-11-24T12:25",
+    "title": "Make the written fight plan matter (your 'make it more impactful'): three ways measured in real bouts (resumed after the restart; ends about 18:00)",
+    "who": "claude-opus-5-5 (console tab PLANIMPACT1 resumed, tab c3 of the S548 session)",
+    "started": "2026-11-24T14:05",
     "run": "PLANIMPACT1"
    }
   ],
@@ -6122,6 +6123,18 @@
     {
      "text": "Card r9b slice 1 on main",
      "who": "claude"
+    },
+    {
+     "text": "Keep your base: measured",
+     "who": "claude"
+    },
+    {
+     "text": "Coach map as cut: Kalli 5/5/6",
+     "who": "claude"
+    },
+    {
+     "text": "PC lag: found, restarted",
+     "who": "claude"
     }
    ],
    "now": [
@@ -6586,6 +6599,14 @@
     {
      "text": "Card r9b slices 2-3",
      "who": "claude"
+    },
+    {
+     "text": "Coaches: keep or cut page",
+     "who": "claude"
+    },
+    {
+     "text": "Body cross in 3D (BODYCROSS4)",
+     "who": "claude"
     }
    ],
    "session": "S548"
@@ -6594,7 +6615,7 @@
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
  "last_working_commit": "29097a616",
- "next_action": "Collect MATCHBOTS2 (tab c1, docs/MATCHBOTS2_RESULT.md) and PLANIMPACT1 (tab c2, docs/PLANIMPACT1_RESULT.md); launch COACHMAP1 when a tab frees (two workers at most); Arena round 9 when its limit resets; build the FILE coach for simmed bouts (CORNERBASE1 verdict 2, with BoutRead._call following).",
+ "next_action": "S549: see NEXT_SESSION_PROMPT.md - collect PLANIMPACT1 (tab c3, resumed 14:05), then relaunch MATCHBOTS2 (one worker while he plays); one page for the owner on coaches (keep with Kalli's three changes and a probe, or cut back); card 9b slices 2-3; launch BODYCROSS4; build the FILE coach for simmed bouts; export when his game is closed.",
  "next_acceptance": "Rulers vs r0: head jumps on the contact frame under 4, a head inside the other's body under 5 frames, arm out median under 4 frames with join_return green, then r1 film at two fresh blind critics 5+/10",
  "superseded_archive": [
   {

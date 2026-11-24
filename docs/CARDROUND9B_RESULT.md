@@ -88,3 +88,22 @@ owner's open call in the audit (2d); it is the one number I would look at next -
 ## How to run it again
 `cd proto/cardgame && node --test` ; `node probe.mjs gate=play` ; the 400-bout table: `node stats9b.mjs`, and with any
 number changed for one run `node stats9b.mjs baseOn=1 baseW=4` (the rows of the table above).
+
+## S548, later: the owner's call on Keep your base - "Weaker version, measured"
+The weaker shape: Keep your base is there only for a man who threw NO punch in his last turn (he chooses between a
+combination and his balance). Measured over the same 400 bouts, and the measurement split the answer in two:
+| Arm | Boxing wins | Bases paid |
+|---|---|---|
+| off (as slice 1 shipped) | 44.5% | 0 |
+| weaker, against a pull AND a sweep | 69.3% (outside the 40-60 gate) | 374 - every one against a SWEEP, none against a pull |
+| weaker, against a pull only | 44.5% | 0 |
+| always there, against a pull only | 44.5% | 0 |
+So what broke the pairing (99.5% in the critics' shape) was never the pull: it was the SWEEP half. The sweep is the
+jiu-jitsu man's one way up from his back, and a 2-wind answer to it that needs no card takes it away.
+NOW IN THE GAME: the pull half is ON in the weaker shape (`N.baseOn 1`); the sweep half is OFF (`N.baseSweep 0`); the
+no-card hold escape stays OFF (`N.escOn 0`). Test "9b B1w" (red first, 137bbe85e). 73 of 73; PLAY GATE 6 of 6
+(26.8 decisions, boxing 43.0 / jiu-jitsu 57.0).
+NOT DONE, said plainly: the bot never pays for Keep your base against a pull (0 of 400) - it has spent its wind on
+punches, and a tie that stood makes the answer 3 wind. A player can use it; the bot cannot show whether it matters.
+A second shape I tried and dropped (the base only stops the pull and he keeps his tie) could not be measured for the
+same reason. The sweep keeps its card answer (Sprawl).

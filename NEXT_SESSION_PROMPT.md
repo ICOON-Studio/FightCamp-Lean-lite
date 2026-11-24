@@ -1,88 +1,91 @@
-# S548 handover (written 2026-11-24, S547 - Fable)
+# S549 handover (written 2026-11-24, S548 - Fable)
 
-Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. Digest: ops/research/S547_DIGEST.md.
+Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. Digest: ops/research/S548_DIGEST.md.
 
 ## METHOD lines - quote all of them in your first message
-- A DECISION SCREEN IS A SCENE; AFTER THE CLICK THE PAGE ITSELF SHOWS WHAT CHANGED - NO POP-UP, NO ICON TILES (owner
-  S544: "looks like spreadheet you need to use art"; S545: "this looks like AI slop", "the window doesnt go away").
-  Patterns: `scripts/ui/ProScene.gd`, `modals/ProOffer.gd`, `WhatsNew.card`, `ProspectScene.gd`, `modals/Prospect.gd`.
-- LITTLE TEXT (owner S545: "you do not need to spell everything out for the player"; "A simple You pay : 123456$ is
-  enough , if more things are needed use the fucking tooltip"). A hover card: 10 words a sentence, 14 for a plain line
-  (`Tip.gd`; `tooltip_standard_test` fails on a longer one).
-- PLAIN MENU WORDS; THE PLAYER'S PLACE IS THE GYM (owner S545). Other boxers' clubs and "club show" keep the word.
-  The gym's history window is Log; Records is for fighters and coaches (owner S546).
-- EVERYTHING OFFICE-LIKE IS A WINDOW OF THE OFFICE COMPUTER (`Office.HOSTED`; a hosted window is 756 px tall).
-- THE PLAYER BOOKS WHEN HIS BOXERS ARE READY (owner S546): never a line that tells him to wait.
-- NOTHING CUT BY THE SCREEN: `tools/jump_snapshot.gd` on the hidden desktop with `--log=<file>`, through
-  `godot_slot.py`; `then=<act>:<arg>` plays an act after the jump (`then=go:money:0` = Finance, `then=go_btn:` = the
-  top bar's button).
-- ORDER (owner S542): pending mechanics first, THEN 3D and menus. His own play notes on a screen are fixed at once.
-- THE FIGHT'S DEPTH IS IN THE CORNER, LIVE: reading the moment +15 (3 rounds) to +22 (6 rounds) wins in 100
-  (CORNERCMD2) - measured against a coach's call that is blind to the opponent (see CORNERBASE1 below). The best
-  written plan +1.7 over the coach's (PLANWORTH1). No design round on the written plan before his answer to Q-328.
+- A DECISION SCREEN IS A SCENE; AFTER THE CLICK THE PAGE ITSELF SHOWS WHAT CHANGED - NO POP-UP, NO ICON TILES; LITTLE
+  TEXT; PLAIN MENU WORDS, THE PLAYER'S PLACE IS THE GYM; OFFICE-LIKE PAGES ARE WINDOWS OF THE OFFICE COMPUTER; THE PLAYER
+  BOOKS WHEN HIS BOXERS ARE READY (owner S544-S546).
+- ORDER (owner S542): pending mechanics first, THEN 3D and menus.
+- THE WRITTEN PLAN STAYS AND MUST MATTER (owner S548, Q-328: "make it more impactful"). Never propose shrinking the plan
+  screen. The live corner is worth about +10 wins in 100 over a coach who reads the file (CORNERBASE1); the best written
+  plan +1.7 to +3.0. PLANIMPACT1 measures three levers; no plan design before its result.
+- THE CORNER HAS EIGHT COMMANDS AND NO RING SLOT (owner S548, Q-330: "Cut both").
+- COACHES: NO TRIAL WEEK, CHEMISTRY ON THE HIRE CARD (owner S548, Q-329: "Cut it, show chemistry"). The page to read is
+  `ops/research/DESIGN_COACHMAP1.md` (DESIGN_COACHDEEP9 is history).
 - MECHANICS NEED 8 (owner S534), probe first, then a code-checked critic, then the chat critics. A WORKER'S NUMBERS CAN
-  BE RIGHT AND ITS WHY WRONG: open the code lines first. A DESIGN THAT KEEPS FAILING gets a stop rule or an interview.
-- CARD GAME, REAL FIGHT FIRST. FIGHT ANIMATION: v2 only, no new correction layer; THE OWNER'S EYE IS THE RULER.
-  AGENTS ONLY IN THE CONSOLE (`claude_cm.ps1` through `mcp__terminal__run_in_terminal`, at most 3). HIS GAME FIRST.
-  Board questions 20 words max, options 5 words max, a text note 4 lines of 120 characters at most.
-  Commit by pathspec (workers edit this same checkout); a script with an apostrophe goes in a file; write JSON the way
-  the file was; `(cd ops && ...)` - a bare `cd` moves the session folder.
+  BE RIGHT AND ITS WHY WRONG: open the code lines first.
+- CARD GAME, REAL FIGHT FIRST - AND MEASURE A CRITIC'S RULE BEFORE IT GOES ON (S548: Kalli's "Keep your base" made
+  boxing win 99.5%). THE BOT MUST USE WHAT IS BUILT: a legal move the bot never lays proves nothing.
+- FIGHT ANIMATION: v2 only, no new correction layer; THE OWNER'S EYE IS THE RULER.
+- HIS GAME FIRST (S537, again S548: "find why archeage is lagging"): while ArcheAge is open, ONE worker and one Godot
+  at a time; check `Get-Process ArcheAgeChronicles` before any launch. AGENTS ONLY IN THE CONSOLE (`claude_cm.ps1`
+  through `mcp__terminal__run_in_terminal`). The Stop hook refuses a turn end while a stage is open: keep own light work
+  (briefs, maps, node) for the waits.
+- Commit by pathspec (`git commit -- <files>`; `git add -A` and `.` are blocked); a script with an apostrophe goes in a
+  file; a bare `cd` in Bash moves the session folder - go back to the repo root.
 
-## FIRST: his answers (the board prints them at start; quote each)
-- Q-328 "A written fight plan adds 2 wins in 100; live corner calls add 10 to 18. Shrink the plan screen?"
-- Q-329 "Coach trial week is the wrong buy in 9 of 10 gyms. Cut it, show chemistry on the hire card?" After his
-  answer: ONE clean coach map (v9 as cut) written from the code by Arena, with the table of every menu it appears on;
-  then a code-checked critic, then Kalli and Dola. No v10 on numbers.
-- Q-330 "Corner ring calls (Cut the ring off, Stay off the ropes) add 0 wins in two probes. Cut them?" My pick: cut
-  both from the corner (the ring already pays in the plan's step lines).
-- His notes on /review (the signing card stills, the body cross 3 sheets) and his play of the S547 build
-  (WHAT_TO_TRY O to S).
+## FIRST: what is running or half done
+1. PLANIMPACT1 (Opus, console tab "PLANIMPACT1 (resumed)", tab c3 of the S548 session, relaunched 14:05 after the PC
+   restart; about 4 h, one Godot at a time) -> `docs/PLANIMPACT1_RESULT.md` on main. Design page (committed before any
+   run): `ops/research/DESIGN_PLANIMPACT1.md`. Raw: `E:/FightCamp/tmp/planimpact1/`. If the tab is gone and there is no
+   result page, relaunch with the same prompt (it resumes from the jsonl files). Check: the control equals PLANWORTH1
+   bout for bout; a lever that passes bar 1 and fails bar 2 (the corner still pays) is a FAIL.
+2. MATCHBOTS2 - NOT RUNNING. Its first worker died with the PC restart at step 0-1. On disk, uncommitted:
+   `tools/matchbots2_probe.gd` and probe hooks in `tests/matchmaking_bots_test.gd` (three vars, unset = the test as
+   before), and a worktree `E:/FightCamp/wt/mb2` (detached at 7d9057efe, for the before arm). Relaunch AFTER PLANIMPACT1
+   lands (one worker while he plays): brief `ops/research/TASK_MATCHBOTS2.md`, tell it what is on disk.
+3. COACH MAP: Kalli answered - depth 5, play 5, general 6 (`ops/research/CRITIC_COACHMAP1_BRIEF_KALLI.md`); she could not
+   open the code. Dola's copy (SQ324) did not send: the Dola app has no debug port open (9333). Her three changes that
+   matter: (a) the corner coach gets a job BESIDE the live corner - tactics = how often the opponent's clue is right,
+   the bond = how much of the player's call the boxer hears, the cutman = recovery; (b) a coach is the main coach of at
+   most 2 boxers, so a clash on the hire card cannot be paired away; (c) re-run the hire with the chemistry word shown.
+   (a) is the same idea as PLANIMPACT1's lever 2 (the plan sharpens the corner): read both results together before any
+   v2. Coaches have now failed ten rounds: the next step is ONE page for the owner (keep with these three changes and a
+   probe, or cut back to today's two hire cards), not an eleventh map.
+4. BODYCROSS4 - brief written (`ops/research/TASK_BODYCROSS4.md`, Fable worker), NOT launched: the body cross thrown in
+   the 3D fight. This is the session's animation item; launch it when the PC is free of his game or as the one worker.
 
-## SECOND: collect what was running at the handover (tabs of the S547 session; STAFFCARDS1 already landed and is merged)
-1. PLANREAD2 (Opus, tab c1 of the S547 session, launched 05:50) -> `docs/PLANREAD2_RESULT.md` on main (it commits
-   its own paths). Check the cause sentence against the code lines, the held-out error, the before/after table.
-2. CORNERBASE1 (Opus, tab c4, launched 06:33, 3-4 h) -> `docs/CORNERBASE1_RESULT.md` on main, the coach's table in
-   `ops/research/DESIGN_CORNERBASE1.md` (committed before any run: 33e8fbb4b). Brief `TASK_CORNERBASE1.md`. The number
-   for the owner: the reader minus FILE+SKILL 58 = the honest worth of the live corner. Check its control (280 bouts
-   identical to CORNERCMD2) and that no coach arm peeks at the exchange before it is played. Then the code-checked
-   critic on the eight commands, then Kalli and Dola. John's research on real corners: `CORNERREAL1_JOHN_JOHN.md`
-   (seat queue SQ322; `start` prints it under SEAT ANSWERS).
-3. BODYREACT2 (Fable, tab c3, launched 06:02) -> `docs/BODYREACT2_RESULT.md` on main; films and the sheet on /review.
-   Check on its own pictures: the hit boxer folds 10 deg or more on three pictures; head reactions unchanged (its
-   control arm); `player2_test` green.
-4. Arena CARDROUND9 (https://arena.ai/agent/01a20a6d-3a1b-79dc-a475-e858f591a0d9, built-in browser pane): out of usage
-   on 11-24. Its branch is pushed (FightCamp-Lean-lite, arena/f591a0d9-fightcamp-lean-lite, e0e15a796): 61 tests green,
-   play gate 4 of 6 (boxing 77.5 v jiu-jitsu 22.5; 21.0 decisions a bout against 22.5-45). When its limit resets:
-   Keep working, "find the rule behind 77/23 by walking two bouts from each side; no balancing number". PR -> CI log,
-   `ci_arena.py guard`, apply the diff, `lite_mirror.py push`, then a NEW chat on `TASK_CARDROUND9B.md`.
+## The card game (owner S548: "fix both yourself, dont wait for arena", "do 9b yourself too")
+- ROUND 9 IS ON MAIN (4307c453a) with two fixes: the man who pulls guard off a step out lands on his back; the bot's
+  jiu-jitsu man with no entry sits down. `ops/research/CARDROUND9_WALK_S548.md`.
+- ROUND 9b SLICE 1 IS ON MAIN (406197a75, 104878fdf): Frame, the tie that must stand a turn, the knockdown, the
+  referee's stoppage, the Up-kick with no card, "get up" before the stand-up, recover guard by where he was pinned,
+  Keep your base against a PULL only for a man who threw no punch last turn (his "Weaker version, measured").
+  OFF, built and tested: Keep your base against a SWEEP (99.5% boxing; 69.3% weaker) and the no-card hold escape.
+  `docs/CARDROUND9B_RESULT.md`; paper = `ops/research/CARDREAL_AUDIT.md` section 9. `cd proto/cardgame && node --test`
+  73 of 73; `node probe.mjs gate=play` 6 of 6 (26.8 decisions, boxing 43.0 / jiu-jitsu 57.0); `node stats9b.mjs
+  [name=value]` = the 400-bout table. engine.mjs is at 495 of 500 lines: new rules go in floor.mjs / moves.mjs.
+- NOT BUILT: slice 2 (C posture, D a punch from the guard gives up an arm, E standing in the guard + Hold the legs),
+  slice 3 (F jiu-jitsu punches from on top, G the body-lock trip, I3-I5 the referee's rest), the Sprawl / Up-kick cards'
+  stronger versions, section 9c's walked bout as a test, posture in the state words, Kalli's three measures.
+- KNOWN: jiu-jitsu wins 179 of 222 on the points lead and 25 by tap (look at `N.lead` next, not moved); the bot never
+  lays the no-card Up-kick in its own turn and never pays Keep your base against a pull.
+- HIS PLAY of round 9 / 9b is owed ("Later"): preview `cardgame` in .claude/launch.json (port 8799).
+- Arena: its mirror is refreshed (`python ops/Tools/lite_mirror.py --lean push`; without `--lean` it targets the old
+  repo and fails). Its round-9 chat is superseded by main; a new chat only for a slice Claude does not take.
 
-## THIRD: launch MATCHBOTS2 (brief written, `ops/research/TASK_MATCHBOTS2.md`, Opus worker) when a tab frees
-`matchmaking_bots_test` is red since pros can be stopped (the rule is right): the bot that SCOUTS is stopped more often
-than the one that does not (0.91 v 0.77), because the tape only makes it braver (`SCOUTED_RISK`). If the player's screen
-shows the opponent's punch, the bot prices it; if it does not, that is a gap in the read to bring to the owner.
+## Collected in S548 (details in the digest)
+PLANREAD2 (the card reads a plan as the ring pays it), CORNERBASE1 (the corner ~+10 v a coach who reads the file; a
+simmed bout should get the FILE coach, +2.6 / +6.2, NOT BUILT - `BoutRead._call` must follow; the coach's rating buys
+0 in a simmed bout), BODYREACT2 (a body hook bends the hit boxer; films on /review, his eye).
+Small fixes: choreographer_test follows BODYREACT2; block_meet_test out of the 05:00 list (old player); the trial
+evening's question pictures show the prospect's own body (NOT in an exported build yet).
 
 ## Then
-- NIGHTREDS left after S547: `matchmaking_bots_test` (MATCHBOTS2 above); `move_tip_test` and `block_meet_test` are
-  animation rulers of the old player (say so in the test list or move them out as MOTIONRULERS1 did). `face_frame_test`
-  is green again (the offer page keeps the head box inside its slot: `OfferSides._keep_head`).
-  The temp worktree `E:\FightCamp\wt\S545_NIGHTRED` is still there: ask him to allow its removal.
-- STAFFCARDS1 is MERGED AND EXPORTED (fe3b9fcff; `scripts/ui/StaffDesk.gd`, `StaffDeskCard.gd`; stills on /review).
-  If his eye wants changes: the card is `StaffDeskCard.build`, the rows `StaffDesk.page`. Its worktree
-  `E:\FightCamp\wt\STAFFCARDS1` sits detached on main (I exported from it); the retire job takes it.
-- EXPORT WHILE WORKERS EDIT THE MAIN CHECKOUT: export from a clean seeded worktree
-  (`git -C <wt> checkout --detach main`, then `OUT=/e/FightCamp/Lean/Builds sh tools/export.sh` from it). The package is
-  24 MB smaller that way: main's export packs untracked trial folders (assets/ui/style_b/_trial*, portraits_v1_refbleed,
-  assets/anim/af_retarget, baked/ailive_trial) - move or ignore them.
-- KNOWBUILD2: the got-away boxer's return bout (`ProspectWire.got_away` rows are there for it).
-- DEPTH1 (sponsorship as one budget across the boxers; the loan's timing). PROGBUILD1 rides on coaches.
-- The offer page, the trial evening: the question cards borrow a man's 3D picture for a woman prospect (KNOWBUILD1
-  generated no art): four small paintings from Ludo would fix it.
+- Build the FILE coach for simmed bouts (CORNERBASE1 verdict 2; keep her own call where she is Poor at the file's).
+- KNOWBUILD2 (the got-away boxer's return bout). DEPTH1. PROGBUILD1 rides on coaches.
+- NO EXPORT WAS MADE IN S548 (he was playing; the only game change is the question pictures). Export from a clean
+  seeded worktree when his game is closed (`OUT=/e/FightCamp/Lean/Builds sh tools/export.sh`), WHAT_TO_TRY gets U.
 
 ## Waiting on the owner
-- Q-328, Q-329, Q-330; his eye on /review (signing card, staff cards, body cross 3); his play of the S547 build
-  (second export 06:31, WHAT_TO_TRY O to T).
-- The finished worker tabs of earlier sessions hold memory: he closes them, or says yes to closing them.
+- His eye on /review: body hook films (BODYREACT2), body cross 3, signing card, staff cards.
+- His play: the S547 build (WHAT_TO_TRY O to T) and card round 9 / 9b.
+- Dola needs its debug port open for SQ324.
+- THE PC (S548): ArcheAge lagged because Windows' kernel pool had grown to 15.3 GB after 12.3 days up (plus my two
+  workers at 97% RAM). He restarted: pool 0.8 GB. If it climbs again within days, find the driver (poolmon is not
+  installed). Closing finished worker tabs each session keeps about 4 GB free.
 
-## Model for S548
-Fable, medium effort, Fast off: BODYREACT2's films need an eye and his notes on the staff cards and the signing card
-are design work. Opus is enough if only the two probe collections remain.
+## Model for S549
+Opus, medium effort, Fast off: collecting two probes and the coach decision page. Fable for the card slices 2-3 or
+BODYCROSS4's films.

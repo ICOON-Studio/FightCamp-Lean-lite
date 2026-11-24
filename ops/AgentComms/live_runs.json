@@ -5,7 +5,7 @@
   "CARDROUND9B": {
    "id": "CARDROUND9B",
    "status": "waiting",
-   "title": "Card game round 9b: slice 1 on main (Frame, knockdown, stoppage, up-kick with no card; gate 6/6, boxing 43 / jiu-jitsu 57). Keep your base is built and OFF: it makes boxing win 99.5% - your call on its shape",
+   "title": "Card game round 9b: slice 1 on main (Frame, knockdown, stoppage, up-kick with no card, Keep your base against a pull in its weaker shape; gate 6/6, boxing 43 / jiu-jitsu 57). Slices 2-3 not built",
    "seat": "claude",
    "agent": "Claude (this session, on main; owner S548: do 9b yourself)",
    "eta": "slice 1 of 3 landed 406197a75; slices 2-3 (posture, the guard, top punches, the trip) next session",
@@ -14,10 +14,10 @@
   },
   "MATCHBOTS2": {
    "id": "MATCHBOTS2",
-   "status": "running",
+   "status": "queued",
    "seat": "claude",
-   "agent": "claude-opus-5-5 (console tab MATCHBOTS2 of the S548 session, tab c1)",
-   "eta": "about 3 h (to about 15:15)",
+   "agent": "claude-opus-5-5 (a console tab after PLANIMPACT1: one worker at a time while the owner plays)",
+   "eta": "about 3 h once launched; its probe and test hooks are on disk, uncommitted (the first worker died with the PC restart at step 0-1)",
    "title": "Scouting must protect a boxer again: the bot that scouts is stopped more often than the one that does not (red in the 05:00 tests)",
    "brief": "ops/research/TASK_MATCHBOTS2.md",
    "started": "2026-11-24T12:08"
@@ -26,9 +26,9 @@
    "id": "PLANIMPACT1",
    "status": "running",
    "seat": "claude",
-   "agent": "claude-opus-5-5 (console tab PLANIMPACT1 of the S548 session, tab c2)",
-   "started": "2026-11-24T12:25",
-   "eta": "about 4-5 h (to about 17:00), most of it bout runs",
+   "agent": "claude-opus-5-5 (console tab PLANIMPACT1 resumed, tab c3 of the S548 session)",
+   "started": "2026-11-24T14:05",
+   "eta": "about 4 h (to about 18:00): one Godot at a time while the owner plays; resumed after the PC restart",
    "title": "Make the written fight plan matter (your Q-328 'make it more impactful'): three ways measured in real bouts before any design",
    "brief": "ops/research/TASK_PLANIMPACT1.md"
   },
