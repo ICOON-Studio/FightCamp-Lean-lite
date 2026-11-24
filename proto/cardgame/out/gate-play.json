@@ -23,12 +23,12 @@
    },
    {
     "bar": "D1: 22.5-45 decisions a bout, 95% under 52",
-    "measured": "22.5 decisions; 95th percentile 34",
+    "measured": "21.0 decisions; 95th percentile 32",
     "pass": false
    },
    {
     "bar": "every pairing inside 40-60",
-    "measured": "boxing v bjj: boxing 76.8 / bjj 23.3",
+    "measured": "boxing v bjj: boxing 77.5 / bjj 22.5",
     "pass": false
    },
    {

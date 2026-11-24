@@ -22,8 +22,12 @@ export function openMoves(S, m) {
   const ally = (at, key = placeKey(S, m)) => (at && fits(atFor(F, CARDS['sweep']), key, j) ? 1 : 0);
   if (S.hold && S.hold.by !== m) { out.push({ id: '@break', w: S.hold.kind === 'pin' ? 0 : 3 }); return out; }
   if (me === 'stand' && him === 'stand') {
+    // A JIU-JITSU MAN DOES NOT WALK AWAY FROM HIS OWN FIGHT. Away from the clinch, @out steps him back to KICK, where
+    // his deck is emptier still - at PUNCH he at least has the tie and the pull. It was ranking the step back at w:1
+    // above the pull at w:5 and laying nothing after it, which is how 79 of his empty volleys happened with wind in hand.
+    const groundOnly = F.mech && F.style === 'bjj' && j.kind !== 'clinch';
     if (j.kind !== 'clinch' && j.reach === 'K') out.push({ id: '@in', w: 1 });
-    if (j.kind === 'clinch' || j.reach === 'P') out.push({ id: '@out', w: 1 });
+    if (j.kind === 'clinch' || j.reach === 'P') out.push({ id: '@out', w: groundOnly ? 0 : 1 });
     if (j.kind !== 'clinch' && j.reach === 'P') out.push({ id: '@in', w: 3 });
     if (j.kind !== 'clinch') { // the tie-up in hand is worth making, above all to a man whose cards need it
       if (hand.includes('tieup')) out.push({ id: 'tieup', w: 6 });

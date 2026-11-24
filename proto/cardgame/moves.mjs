@@ -57,6 +57,11 @@ function resolveMove(S, a, p, ans) {
   if (id === '@back') {
     if (ans === 'sweep') { placeBoth(S, a === 0 ? ['gbot', 'gtop'] : ['gtop', 'gbot'], { g: 'open' }); S.stall = 0; if (S.st) S.st.sweeps++; return; }
     if (fx === 'up') { hit(S, d, a, CARDS.upkick.dmg, 0); if (S.st) S.st.upkicks++; return; } // kicked as he backs out
+    // BACK AWAY IS OUT OF HIS LEGS, NOT A TAKEDOWN. This used to knock the OTHER man to his back unconditionally, so a
+    // boxer laying Back away in a clinch put the jiu-jitsu man on the floor and stayed standing himself - the clinch
+    // turned into a knock-down for the man who did nothing. Audit 4c: "Back away (boxer, out of the guard)" is the
+    // ground move (pair 4 -> pair 3); out of a CLINCH the step off contact is Step out, which the tie holder may answer.
+    if (S.j.kind === 'clinch') { S.tie = null; placeBoth(S, S.at.slice(), { kind: 'apart', reach: 'P' }); S.stall = 0; return; }
     place(S, d, 'back'); S.j = { kind: 'apart', leg: true }; S.stall = 0; return; // pair 3, in leg range
   }
   if (id === '@pull') {
