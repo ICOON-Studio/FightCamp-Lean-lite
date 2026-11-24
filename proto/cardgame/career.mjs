@@ -1,6 +1,7 @@
 // The career layer: the ladder, the rivals on it, the training turn between bouts, and the two probes (L1, L2).
 import { CARDS, N, fighter } from './cards.mjs';
-import { bout } from './engine.mjs';
+import { bout, placeKey } from './engine.mjs';
+import { groundStep } from './board.mjs';
 import { aiPilot, impatient, scripted, worth } from './plan.mjs';
 
 export const RUNGS = ['Club', 'Area', 'National', 'Title shot', 'Title defence 1', 'Title defence 2', 'Title defence 3'];
@@ -91,32 +92,49 @@ export const rivalPilot = (rung, career) => (rung <= 0 ? (career?.bouts === 0 ? 
 // them laid at each place on the strip), whether he was held, whether he was struck, whether he was behind on the
 // cards. Nothing here is hand-made: it is the ladder's own record, per art, and it says where the deck had to work.
 export function trainingState(r, m = 0) {
-  const log = r.st.log[m], his = r.st.log[1 - m], share = {}; let laid = 0;
-  for (const t of log) t.kinds.forEach((kd, i) => { if (kd === 'step' || kd === 'move') return; share[t.at[i]] = (share[t.at[i]] || 0) + 1; laid++; });
-  if (!laid) for (const t of log) { share[t.pos[0]] = (share[t.pos[0]] || 0) + 1; laid++; } // a bout in which he laid no card (held from the first turn): where he was
+  const log = r.st.log[m], his = r.st.log[1 - m];
+  // ROUND 9: a place on the screen is one of the standing ranges (K, P, C) or one of the ground places. THE GROUND IS
+  // NOT ONE PLACE ANY MORE: the audit's own states read it as the guard (G), past the guard (T) and the seat/down (B) -
+  // on top or underneath, the same three keys the round-8 strip used, so the utility's states and their numbers still
+  // line up with the model they were sized on. A share is the count of cards he laid at that kind of place.
+  const key = (k) => (['K', 'P', 'C'].includes(k) ? k : ['past', 'pin'].includes(k) ? 'T' : ['gt', 'gb'].includes(k) ? 'G' : ['over', 'down'].includes(k) ? 'B' : 'G');
+  const share = {}; let laid = 0;
+  for (const t of log) t.at.forEach((k, i) => { if (t.kinds[i] === 'move') return; share[key(k)] = (share[key(k)] || 0) + 1; laid++; });
+  if (!laid) for (const t of log) { share[key(t.pos)] = (share[key(t.pos)] || 0) + 1; laid++; } // a bout in which he laid no card (held from the first turn): where he was
   if (!laid) { share.K = 1; laid = 1; }
   for (const k in share) share[k] /= laid;
   const pos = Object.entries(share).sort((a, b) => b[1] - a[1])[0]?.[0] || 'K';
-  return { pos, share, range: pos[0], ground: pos === 'T' || pos === 'B', struck: his.some((t) => t.kinds.includes('strike')),
+  return { pos, share, range: pos, ground: pos === 'G', struck: his.some((t) => t.kinds.includes('strike')),
     held: his.some((t) => t.kinds.includes('hold')), behind: r.S.f[m].pts < r.S.f[1 - m].pts };
 }
+// ROUND 9: the synergy weights are DATA, so they can be re-read on the ladder's own states under the new model (every
+// card laid at a place is a share of K, P, C, G, T, B) instead of being three numbers buried in an expression.
+export const SYNERGY = {
+  boxing: { jab: { K: 0, C: 0 }, cross: { P: 4 }, escape: 30, block: 70 },
+  // the triangle does not win a sweep's round by being a triangle: it wins the round he is BEHIND in, where a sweep
+  // does not fix the scoreboard. (Round 9 first gave it a flat guard weight, and then it was never the pick at all.)
+  bjj: { sweep: { G: 20 }, pass: { T: 10 }, triangle: { G: 0, behind: 60 }, escape: 40 },
+};
 export function trainingUtility(option, style, state) {
   const card = CARDS[option.id];
   // how much of the bout was fought where this card is legal: a share, not a hand-made yes
   const at = (keys) => (state.share ? keys.reduce((n, k) => n + (state.share[k] || 0), 0) : keys.includes(state.pos) ? 1 : 0);
-  const fit = style === 'boxing'
-    ? (option.id === 'jab' ? at(['K', 'P']) : option.id === 'cross' ? at(['P']) : option.id === 'escape' ? (state.held ? 1 : 0) : state.struck ? 1 : 0)
-    : (option.id === 'sweep' ? at(['B']) : option.id === 'pass' ? at(['T']) : option.id === 'triangle' ? at(['B']) : state.held ? 1 : 0);
+  const W = SYNERGY[style], w = W[option.id];
+  // where the card is legal, in the model's own places: the jab from KICK or PUNCH, the cross at PUNCH, the guard drill
+  // and block at PUNCH or in the clinch; the sweep and the triangle in the guard, the guard pass PAST it (T)
+  const home = style === 'boxing'
+    ? (option.id === 'jab' ? ['K', 'P'] : option.id === 'cross' ? ['P'] : option.id === 'escape' ? [] : ['P', 'C'])
+    : (option.id === 'escape' ? [] : option.id === 'pass' ? ['T'] : ['G']);
+  const fit = option.id === 'escape' ? (state.held ? 1 : 0) : style === 'boxing' && option.id === 'block' ? (state.struck ? 1 : 0) : at(home);
+  // the synergy is where the bout was fought: the jab is the entry from KICK and the close round the clinch, the cross
+  // the damage at PUNCH, the guard drill a bout he was HIT in, the escape a bout he was HELD in; on the grappler the
+  // sweep is the guard, the pass the work past it, the triangle the guard he is BEHIND from.
+  const syn = option.id === 'escape' ? (state.held ? w : 0)
+    : option.id === 'block' ? (state.struck ? w + at(['P', 'C']) * 3 : 0)
+      : style === 'boxing' ? (option.id === 'jab' ? at(['K']) * w.K + at(['C']) * w.C : at(['P']) * w.P)
+        : (option.id === 'triangle' ? at(['G']) * (w.G + (state.behind ? w.behind : 0)) : at(option.id === 'sweep' ? ['G'] : ['T']) * w[option.id === 'sweep' ? 'G' : 'T']);
   const kit = (card.dmg || 0) + (card.pts || 0) * 2 + (card.k === 'hold' ? 5 : card.k === 'shot' ? 2 : 0);
-  // the synergy is where the bout was fought: the entry from KICK is the jab's, the exchange at PUNCH the cross's; the
-  // guard drill is for a bout in which he was hit, the escape practice for one in which he was held (the boxer never
-  // lays a card in the CLINCH on this ladder, so the hook had no state to be right in and the slot is the escape's).
-  // Weights sized on the ladder's own states (L2) so that each option is the pick somewhere and none is the pick
-  // everywhere; the hand-made spread in engine.test.mjs must cycle too.
-  const synergy = style === 'boxing'
-    ? (option.id === 'jab' ? at(['K']) * 60 : option.id === 'cross' ? at(['P']) * 20 : option.id === 'escape' && state.held ? 30 : option.id === 'block' && state.struck ? 70 : 0)
-    : (option.id === 'sweep' ? at(['B']) * 20 : option.id === 'pass' ? at(['T']) * 20 : option.id === 'triangle' ? at(['B']) * (state.behind ? 30 : 20) : option.id === 'escape' && state.held ? 30 : 0);
-  return fit * (kit + synergy) + (1 - fit) * 1 - option.cost * 1.7 - option.fail * 9;
+  return fit * (kit + syn) + (1 - fit) * 1 - option.cost * 1.7 - option.fail * 9;
 }
 // L2: the ten states are ten of the ladder's own training states for this art, every ⌊n/10⌋-th of a 100-run ladder in
 // run order, so they span club bouts and title defences alike. Not hand-made, not chosen.

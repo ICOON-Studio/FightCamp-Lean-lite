@@ -24642,6 +24642,18 @@
    "brief": "ops/research/TASK_CORNERBASE1.md",
    "started": "2026-11-24T06:33",
    "landed": "2026-11-24 (collected S548)"
+  },
+  {
+   "id": "CARDROUND9",
+   "status": "landed",
+   "started": "2026-11-24T00:01",
+   "title": "Card game round 9: the engine on the real-fight position model (each fighter's own position; getting up costs a turn; steps answerable)",
+   "seat": "arena",
+   "agent": "Arena (chat 01a20a6d-3a1b-79dc-a475-e858f591a0d9)",
+   "branch": "arena/f591a0d9-fightcamp-lean-lite",
+   "eta": "Arena reached its daily usage limit (S547 05:48); continue tomorrow in the same chat",
+   "note": "S544: research/TASK_CARDROUND9.md, spec = research/CARDREAL_AUDIT.md section 4; lite mirror f93fa300; its PR relays to an arena/* PR here; Claude plays both arts by hand before the owner | S545 02:02: it had stopped at 00:31 on its tool-call limit, branch not pushed; told to continue (push first, finish tests, open the PR) | S547: branch pushed at e0e15a796 (lite mirror), 61 of 61 tests green, engine 484 lines, play gate 4 of 6 (boxing 77.5 v jiu-jitsu 22.5; 21.0 decisions a bout, bar 22.5-45)",
+   "landed": "2026-11-24 S548: on main 4307c453a, the two causes of 77 v 23 fixed by Claude (owner: fix both yourself); play gate 6/6"
   }
  ],
  "KNOWBUILD1": {

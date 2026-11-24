@@ -1,20 +1,25 @@
 // The page's words. Pure: no document, no game state, so node can import this module and a broken import fails the
 // test. Every line the player reads about a card is built here, from the same CARDS the engine plays.
-import { CARDS, N, FLOOR, STYLES } from './cards.mjs';
+import { CARDS, N, FLOOR, STYLES, MOVE } from './cards.mjs';
 import { TRAINING, cardVariant } from './career.mjs';
-import { STRIP, guideLines, volleyThreat, threatLine } from './guide.mjs';
+import { PLACES_PICTURE, guideLines, volleyThreat, threatLine } from './guide.mjs';
+import { WORDS, GUARD_WORDS } from './board.mjs';
+import { placeKey, keyWords, legalNow } from './engine.mjs';
 
 export const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
-const RANGE = { K: 'KICK', P: 'PUNCH', C: 'CLINCH', G: 'GROUND', T: 'TOP', B: 'GUARD' };
+// ROUND 9 (item 7): no codes on the screen, ever. A place is printed in plain fight words - the standing ranges by the
+// name fighters use, the ground places by what the two bodies are doing (board.mjs WORDS is the one table of them).
+const RANGE = { K: 'at kicking range', P: 'at punching range', C: 'in the clinch', over: 'standing over a man who is down', gt: 'in his guard, on top', gb: 'in his guard, underneath', past: 'past his guard', pin: 'pinned under him', down: 'on the floor, apart' };
 // the two engine answers are not cards: the page used to look them up in CARDS and die on the missing key
 const STEP = {
-  '@in': 'KICK → PUNCH, PUNCH → CLINCH',
-  '@out': 'CLINCH → PUNCH, PUNCH → KICK',
-  '@stand': 'stand up from the top position',
-  '@up': 'get up: win back one rung',
+  '@in': 'Step in a range (over a grounded man: follow him down)',
+  '@out': 'Step out of a range or the clinch (over a grounded man: walk away)',
+  '@stand': 'stand up in his guard - the legs still round you, and your turn ends here',
+  '@back': 'back away out of his legs, out of the reach of his feet',
+  '@up': 'get up: it takes your turn, and he may punch you as you rise',
   '@cover': `a strike lands for ${N.cover} less`,
-  '@break': 'break a submission: pay its price in wind',
-  '@pull': 'sit to guard from any standing range (BJJ)',
+  '@break': 'break a submission: pay its price in wind; both stay down, he one layer back',
+  '@pull': 'pull guard off your tie, or sit down with none',
 };
 export const isStep = (id) => typeof id === 'string' && id[0] === '@';
 export const names = (id) => (isStep(id) ? FLOOR[id] || id : CARDS[id]?.n || id);
@@ -22,7 +27,7 @@ export function cardText(id) {
   if (isStep(id)) return `${FLOOR[id] || id} · ${STEP[id] || 'a step'}`;
   const c = CARDS[id];
   if (!c) return String(id);
-  const at = c.at ? c.at.map((x) => RANGE[x] || x).join(' / ') : 'ANSWER';
+  const at = c.at ? c.at.map((x) => RANGE[typeof x === 'string' ? x : x.p] || x).join(' / ') : 'ANSWER';
   const effect = c.k === 'strike' ? `${c.dmg} damage${c.pts ? ` + ${c.pts} point${c.pts === 1 ? '' : 's'}` : ''}${c.drain ? ' · drains wind' : ''}`
     : c.k === 'shot' ? `Takedown · rung ${c.to} · ${c.pts} points${c.dmg ? ` · ${c.dmg} damage` : ''}`
     : c.k === 'hold' ? `${c.hk === 'sub' ? 'Submission' : 'Pin'} · countdown ${c.count}${c.brk ? ` · break at ${c.brk} wind` : ''}`
@@ -75,14 +80,44 @@ export function printedProblems() {
   }
   return { checked, problems };
 }
-// ---- round 8: the guide on the table -----------------------------------------------------------------
-// the range strip: the four ranges of the bout, the one you are at lit. key = posKey(S, m) ('K','P','C','T0'..'B3'),
-// or null for the picture on the How to play page. On the ground the strip also says which side you are on.
-export function rangeStrip(key, extra = '') {
-  const at = key ? (key[0] === 'T' || key[0] === 'B' ? 'G' : key[0]) : null;
-  const side = key ? (key[0] === 'T' ? `you are on top${+key[1] ? `, ground step ${key[1]}` : ''}` : key[0] === 'B' ? `you are underneath${+key[1] ? `, ground step ${key[1]}` : ''}` : '') : '';
-  return `<span class="rangestrip${extra ? ' ' + extra : ''}" id="range">${STRIP.map(([k, w]) => `<span class="range-cell${at === k ? ' on' : ''}">${w}</span>`).join('')}${side ? `<small>${side}</small>` : ''}</span>`;
+// ---- round 9, item 7: WHERE EACH MAN IS, in plain fight words (audit 4a-4c) ------------------------------
+// The one-switch strip is gone. Two lines: the player's own place and the other man's, each in the words a corner
+// speaks, with the join between them (ranges, the clinch and who holds the tie, leg reach, the guard's kind).
+export function joinWords(S) {
+  const j = S.j, me = S.at[0], him = S.at[1];
+  if (j.kind === 'clinch') return j.by === 0 ? 'you have the tie' : j.by === 1 ? 'he has the tie' : 'no tie held';
+  if (j.kind === 'entangled') return j.g ? GUARD_WORDS[j.g] : j.top === 'back' ? 'you have his back' : j.top === 'mount' ? 'he is mounted under you' : 'side control';
+  if (me === 'stand' && him === 'stand') return j.reach === 'K' ? 'apart at kicking range' : 'apart at punching range';
+  if ((me === 'stand' || him === 'stand') && (j.leg === true || j.leg === false)) return j.leg ? 'inside the reach of his feet' : 'out of reach of his feet';
+  return 'apart';
 }
+export function whereLine(S, who = 0) {
+  const me = who === 0, at = S.at[who];
+  const words = me ? WORDS[at].own : WORDS[at].him;
+  return `${me ? 'You' : 'He'}: ${words}`;
+}
+// the two lines, the way the page prints them: "You: standing, out of reach of his feet. He: on his back."
+export function whereEachIs(S, extra = '') {
+  const j = S.j, leg = j.leg === true ? ', inside the reach of his feet' : j.leg === false ? ', out of reach of his feet' : '';
+  return `<span class="where${extra ? ' ' + extra : ''}" id="range"><b>${esc(whereLine(S, 0))}${esc(leg && ((S.at[0] === 'stand') !== (S.at[1] === 'stand')) ? (S.at[1] === 'stand' ? ', out of reach of his feet' : '') : '')}</b> · <b>${esc(whereLine(S, 1))}</b><small>${esc(joinWords(S))}</small></span>`;
+}
+// the picture on the How to play page: the paper's own list of places (no switch, no light)
+export function placePicture(extra = '') {
+  return `<span class="rangestrip${extra ? ' ' + extra : ''}" id="range">${PLACES_PICTURE.map((w) => `<span class="range-cell">${w}</span>`).join('')}</span>`;
+}
+// a move's name follows the STATE (audit 4c, 6): Step in over a grounded man reads Follow him down, Step out reads Walk
+// away, Pull guard with no tie reads Sit down. Never a new button: the same button, the state's name.
+export function moveName(S, m, id) {
+  const me = S.at[m], him = S.at[1 - m], j = S.j;
+  if (id === '@in') { if (me === 'stand' && (him === 'seat' || him === 'back')) return j.leg ? 'Follow him down' : 'Step in'; return 'Step in'; }
+  if (id === '@out') { if (me === 'stand' && (him === 'seat' || him === 'back')) return 'Walk away'; if (me === 'stand' && him === 'gbot') return 'Back away'; if (j.kind === 'clinch') return 'Step out of the clinch'; return 'Step out'; }
+  if (id === '@pull') return S.tie && S.tie.by === m ? 'Pull guard' : 'Sit down';
+  if (id === '@stand') return 'Stand up in the guard';
+  return FLOOR[id] || id;
+}
+export const namesIn = (S, m, id) => moveName(S, m, id);
+// the old name, kept for the parts of the page that only want a label: the state-free name of a move
+export const rangeStrip = (key, extra = '') => placePicture(extra);
 // his volley, face up: every card and step he has laid this turn, with the line the answer table uses for it
 export function volleyRow(S) {
   if (!S.inc.length) return '';

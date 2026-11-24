@@ -2,24 +2,13 @@
  "_doc": "Claude writes one entry per agent run at launch (operator S144: 'make it more clear, who is working on what, ETA'). The ops board /agents page joins it to the live processes. eta = Claude's estimate at launch, local time; status running|waiting|done.",
  "seats": 3,
  "runs": {
-  "CARDROUND9": {
-   "id": "CARDROUND9",
-   "status": "waiting",
-   "started": "2026-11-24T00:01",
-   "title": "Card game round 9: the engine on the real-fight position model (each fighter's own position; getting up costs a turn; steps answerable)",
-   "seat": "arena",
-   "agent": "Arena (chat 01a20a6d-3a1b-79dc-a475-e858f591a0d9)",
-   "branch": "arena/f591a0d9-fightcamp-lean-lite",
-   "eta": "Arena reached its daily usage limit (S547 05:48); continue tomorrow in the same chat",
-   "note": "S544: research/TASK_CARDROUND9.md, spec = research/CARDREAL_AUDIT.md section 4; lite mirror f93fa300; its PR relays to an arena/* PR here; Claude plays both arts by hand before the owner | S545 02:02: it had stopped at 00:31 on its tool-call limit, branch not pushed; told to continue (push first, finish tests, open the PR) | S547: branch pushed at e0e15a796 (lite mirror), 61 of 61 tests green, engine 484 lines, play gate 4 of 6 (boxing 77.5 v jiu-jitsu 22.5; 21.0 decisions a bout, bar 22.5-45)"
-  },
   "CARDROUND9B": {
    "id": "CARDROUND9B",
    "status": "queued",
    "title": "Card game round 9b: the two critics' changes (knockdown, floor defences paid in wind, posture, punches from on top)",
    "seat": "arena",
    "agent": "Arena (new chat after round 9 is merged)",
-   "eta": "2-3 h once launched",
+   "eta": "2-3 h once launched (Arena after 14:47; the Lean lite mirror must be refreshed first: lite_mirror.py push still targets the old repo)",
    "note": "S545: research/TASK_CARDROUND9B.md; Kalli 6/5/6, Dola 9/9/9 on the paper model"
   },
   "MATCHBOTS2": {

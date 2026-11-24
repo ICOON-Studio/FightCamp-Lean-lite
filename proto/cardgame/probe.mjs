@@ -177,10 +177,11 @@ P.gate = async function () {
     click('[data-style="boxing"]');
     click('#skip');
     let guard = 0;
-    while (!screen.querySelector('#trainNext')) {
+    for (;;) { // S548: the coach may speak over the verdict too (as ui.test.mjs reads it): his line first, THEN the verdict's button
       if (guard++ > 4000) throw new Error('the bout never reached a verdict');
       const gotit = screen.querySelector('#gotit'); // round 8: the coach's line first, then the bout
       if (gotit) { gotit.click(); continue; }
+      if (screen.querySelector('#trainNext')) break;
       const b = ['[data-answer]', '[data-card]', '[data-floor]'].map((sel) => enabled(sel)[0]).find(Boolean);
       if (b) { b.click(); continue; }
       const end = screen.querySelector('#endTurn');

@@ -1,9 +1,9 @@
 // The page. Every game decision lives in engine.mjs / plan.mjs / career.mjs; this file only renders and clicks.
 import { CARDS, N, fighter, STYLES } from './cards.mjs';
-import { newBout, beginTurn, answerOptions, doAnswer, startAct, declare, endAct, posKey, cost, canPay, legalNow } from './engine.mjs';
+import { newBout, beginTurn, answerOptions, doAnswer, startAct, declare, endAct, canAct, placeKey, cost, canPay, legalNow } from './engine.mjs';
 import { aiPilot, actions } from './plan.mjs';
 import { freshCareer, RUNGS, TITLE_SHOT, CUT_AT_LOSSES, TRAINING, train, resultCareer, playerFighter, rivalFighter, rivalPilot, takesTitle } from './career.mjs';
-import { esc, names, cardText, card, previewTraining, rangeStrip, answerTable, howtoLines } from './ui-text.mjs';
+import { esc, names, cardText, card, previewTraining, placePicture, answerTable, howtoLines, whereEachIs, moveName } from './ui-text.mjs';
 import { GUIDE, guideLines, nextGuideLine } from './guide.mjs';
 import { newLog, logEntry, stopAt, playLogText } from './playlog.mjs';
 
@@ -15,7 +15,7 @@ export const state = { career: null, fight: null, first: 0, actor: 0, turn: 0, r
 function whyDead(S, me, id) {
   const parts = cardText(id).split(' · ');
   if (parts[1] === 'ANSWER') return 'An answer: you lay it against his volley, not in your own turn.';
-  if (!legalNow(S.pj || S, 0, id)) return `Works at ${parts[1]} range - the bout is not there now.`;
+  if (!legalNow(S.pj || S, 0, id)) return `Works ${parts[1]} - the bout is not there now.`;
   const need = cost(S, 0, id)[0];
   if (!canPay(me, cost(S, 0, id))) return `Costs ${need} wind - you have ${me.wind}.`;
   return 'Cannot be laid now.';
@@ -151,13 +151,9 @@ function wrapRound() {
     doAnswer(S, k, ans); addLog('Bell: last volley resolved.'); if (state.playlog) logEntry(state.playlog, 'bout', 'the bell: last volley resolved');
   }
   if (S.over) return finishBout();
-  if (S.hold) {
-    for (let j = 0; j < 8 && S.hold && !S.over; j++) {
-      const k = 1 - S.hold.by; beginTurn(S, k, false); const opts = answerOptions(S, k); const ans = opts.length > 1 ? (k === 0 ? null : state.rival.answer(S, k, opts)) : null; doAnswer(S, k, ans);
-    }
-  }
+  if (S.hold) { S.hold = null; addLog('Bell: the hold ends with the round.'); if (state.playlog) logEntry(state.playlog, 'bout', 'the bell ends the hold'); } // rule 9: no tap on the bell
   if (S.over || state.round >= N.rounds - 1) return finishBout();
-  state.round++; state.turn = 0; state.actor = 0; S.pos = 'K'; S.top = -1; S.rung = 0; S.inc = []; S.grip = S.tie = null; S.hold = null;
+  state.round++; state.turn = 0; state.actor = 0; S.at = ['stand', 'stand']; S.j = { kind: 'apart', reach: 'K' }; S.inc = []; S.tie = null; S.hold = null; S.stall = 0; S.timid = [0, 0];
   for (const F of S.f) F.wind = Math.min(N.cap, F.wind + N.stool);
   state.first = 1 - state.first; advance();
 }
@@ -195,20 +191,27 @@ export function renderFight(answerOpts) {
   const S = state.fight, me = S.f[0], foe = S.f[1];
   const options = answerOpts || (state.humanPhase === 'answer' ? answerOptions(S, 0) : []);
   const due = coachDue();
-  where.textContent = `ROUND ${state.round + 1} / ${N.rounds} · TURN ${Math.min(state.turn + 1, N.turns)} / ${N.turns} · ${posKey(S, 0)}`;
+  where.textContent = `ROUND ${state.round + 1} / ${N.rounds} · TURN ${Math.min(state.turn + 1, N.turns)} / ${N.turns} · ${placeKey(S, 0)}`;
   const answering = state.humanPhase === 'answer';
-  const playable = answering ? [] : actions(S, 0).filter((id) => legalNow(S.pj || S, 0, id) && canPay(me, cost(S, 0, id)));
-  const floorNames = { '@in': 'Step in', '@out': 'Step out', '@stand': 'Let him up', '@up': 'Get up', '@pull': 'Pull guard' };
-  const floorActions = playable.filter((id) => id.startsWith('@')).map((id) => `<button class="btn" data-floor="${id}">${floorNames[id] || id} · ${cost(S, 0, id)[0]} wind</button>`).join('');
+  // ROUND 9: the hand on screen is the PENDING volley's hand (S.pj), not the live fighter's, and the wind on the buttons
+  // is the pending volley's wind. Reading the live man left a spent button lit and its click threw not legal: @out, so
+  // the page never moved (the ui stall at the first clinch).
+  const pend = S.pj || S, mine = pend.f[0];
+  const playable = answering ? [] : actions(S, 0).filter((id) => legalNow(pend, 0, id) && canPay(mine, cost(S, 0, id)));
+  const shown = answering ? null : mine;
+  // ROUND 9 (item 7): each button is NAMED BY THE STATE (Follow him down, Walk away, Sit down, Stand up in the guard)
+  const floorNames = Object.fromEntries(playable.filter((id) => id[0] === '@').map((id) => [id, moveName(S, 0, id)]));
+  const floorActions = playable.filter((id) => id.startsWith('@')).map((id) => `<button class="btn" data-floor="${id}">${esc(floorNames[id] || id)} · ${cost(S, 0, id)[0]} wind</button>`).join('');
   const body = answering
     ? `<section${aimed(due, 'volleysheet', 'sheet')} id="volleysheet">${answerTable(S, options)}</section>`
-    : `<section class="sheet"><h2>Choose a card or end your turn</h2><div${aimed(due, 'hand', 'hand')} id="hand">${me.hand.map((id, i) => `<button data-card="${i}" ${!playable.includes(id) ? 'disabled' : ''}>${card(id)}<small>${playable.includes(id) ? `Preview · ${esc(cardText(id))}` : esc(whyDead(S, me, id))}</small></button>`).join('')}</div><div class="row">${floorActions}</div><div class="row"><button class="btn primary" id="endTurn">End turn</button><span class="muted">Cards resolve exactly as previewed unless an answer stops them.</span></div></section>`;
-  const html = `${rungBar()}<div${aimed(due, 'score', 'scorestrip')} id="score"><b>${esc(me.name)} · ${state.career.style}</b><span>HP ${me.hp}/${N.hp}</span><span>Points ${me.pts}</span><span${aimed(due, 'wind', 'stat')} id="wind">Wind ${me.wind}/${N.cap}</span><span${aimed(due, 'rounds', 'stat')} id="rounds">Round ${state.round + 1}/${N.rounds} · turn ${Math.min(state.turn + 1, N.turns)}/${N.turns}</span>${rangeStrip(posKey(S, 0), due && due.target === 'range' ? 'coach-target' : '')}<span class="spacer"></span><b>${esc(foe.name)} · ${foe.style}</b><span>HP ${foe.hp}</span><span>Points ${foe.pts}</span><span>Wind ${foe.wind}</span><button class="btn" id="howto">How to play</button></div>${body}<div class="sheet"><b>Fight log</b>${state.logs.map((x) => `<small>${esc(x)}</small>`).join('')}</div>`;
+    : `<section class="sheet"><h2>Choose a card or end your turn</h2><div${aimed(due, 'hand', 'hand')} id="hand">${shown.hand.map((id, i) => `<button data-card="${i}" ${!playable.includes(id) ? 'disabled' : ''}>${card(id)}<small>${playable.includes(id) ? `Preview · ${esc(cardText(id))}` : esc(whyDead(S, shown, id))}</small></button>`).join('')}</div><div class="row">${floorActions}</div><div class="row"><button class="btn primary" id="endTurn">End turn</button><span class="muted">Cards resolve exactly as previewed unless an answer stops them.</span></div></section>`;
+  const html = `${rungBar()}<div${aimed(due, 'score', 'scorestrip')} id="score"><b>${esc(me.name)} · ${state.career.style}</b><span>HP ${me.hp}/${N.hp}</span><span>Points ${me.pts}</span><span${aimed(due, 'wind', 'stat')} id="wind">Wind ${me.wind}/${N.cap}</span><span${aimed(due, 'rounds', 'stat')} id="rounds">Round ${state.round + 1}/${N.rounds} · turn ${Math.min(state.turn + 1, N.turns)}/${N.turns}</span>${whereEachIs(S, due && due.target === 'range' ? 'coach-target' : '')}<span class="spacer"></span><b>${esc(foe.name)} · ${foe.style}</b><span>HP ${foe.hp}</span><span>Points ${foe.pts}</span><span>Wind ${foe.wind}</span><button class="btn" id="howto">How to play</button></div>${body}<div class="sheet"><b>Fight log</b>${state.logs.map((x) => `<small>${esc(x)}</small>`).join('')}</div>`;
   paint(html, due, () => {
     howtoButton();
     root.querySelectorAll('[data-answer]').forEach((b) => b.onclick = () => { const ans = options[+b.dataset.answer]; if (state.playlog) logEntry(state.playlog, 'bout', ans ? `answered ${names(ans.id)} to ${S.inc[ans.i] ? names(S.inc[ans.i].id) : 'the hold'}` : 'took the volley with no answer'); doAnswer(S, 0, ans); if (S.over) return finishBout(); if (S.hold) { finishTurn(0, []); return advance(); } startAct(S); state.humanPhase = 'act'; renderFight(); });
-    root.querySelectorAll('[data-card]').forEach((b) => b.onclick = () => { const id = me.hand[+b.dataset.card]; try { declare(S, 0, id); addLog(`You laid ${names(id)} · ${cardText(id)}.`); if (state.playlog) logEntry(state.playlog, 'bout', `laid ${names(id)}`); renderFight(); } catch (e) { state.note = e.message; } });
-    root.querySelectorAll('[data-floor]').forEach((b) => b.onclick = () => { const id = b.dataset.floor; try { declare(S, 0, id); addLog(`You chose ${floorNames[id]} · ${cost(S, 0, id)[0]} wind.`); if (state.playlog) logEntry(state.playlog, 'bout', `chose ${floorNames[id]}`); renderFight(); } catch (e) { state.note = e.message; } });
+    // ROUND 9: the index is into the hand ON SCREEN (the pending volley's), not the live fighter's hand
+    root.querySelectorAll('[data-card]').forEach((b) => b.onclick = () => { const id = (shown || me).hand[+b.dataset.card]; try { declare(S, 0, id); addLog(`You laid ${names(id)} · ${cardText(id)}.`); if (state.playlog) logEntry(state.playlog, 'bout', `laid ${names(id)}`); renderFight(); } catch (e) { state.note = e.message; return renderFight(); } });
+    root.querySelectorAll('[data-floor]').forEach((b) => b.onclick = () => { const id = b.dataset.floor, nm = moveName(S, 0, id); try { declare(S, 0, id); addLog(`You chose ${nm} · ${cost(S, 0, id)[0]} wind.`); if (state.playlog) logEntry(state.playlog, 'bout', `chose ${nm}`); if (!canAct(S)) { const seq = S.inc.filter((x) => x.id && x.id[0] !== '@').map((x) => x.id); finishTurn(0, seq); return advance(); } renderFight(); } catch (e) { state.note = e.message; } });
     const endTurn = root.querySelector('#endTurn');
     if (endTurn) endTurn.onclick = () => { const seq = S.inc.filter((x) => x.id && x.id[0] !== '@').map((x) => x.id); if (state.playlog) logEntry(state.playlog, 'bout', 'ended the turn'); finishTurn(0, seq); advance(); };
   });
@@ -229,7 +232,7 @@ function renderResult() {
 // strip, and the switch that turns the coach off (item 5)
 function renderHowTo() {
   where.textContent = 'HOW TO PLAY';
-  const html = `<h1>How to play</h1><p class="lead muted">The whole game in six lines, and the strip it is fought on. The coach says the same lines, one at a time, in your first bout.</p>${rangeStrip(null, 'picture')}<div class="howto">${howtoLines()}</div><div class="row"><button class="btn" id="guideSwitch">Coach lines: ${state.guide ? 'ON' : 'OFF'}</button><button class="btn primary" id="back">Back</button><button class="btn" id="howto">How to play</button></div>`;
+  const html = `<h1>How to play</h1><p class="lead muted">The whole game in six lines, and the eight places a fight can be in. The coach says the same lines, one at a time, in your first bout.</p>${placePicture('picture')}<div class="howto">${howtoLines()}</div><div class="row"><button class="btn" id="guideSwitch">Coach lines: ${state.guide ? 'ON' : 'OFF'}</button><button class="btn primary" id="back">Back</button><button class="btn" id="howto">How to play</button></div>`;
   paint(html, null, () => {
     root.querySelector('#back').onclick = () => { state.howto = false; render(); };
     root.querySelector('#guideSwitch').onclick = () => { state.guide = !state.guide; renderHowTo(); };

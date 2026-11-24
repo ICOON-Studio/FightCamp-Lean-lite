@@ -5285,7 +5285,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-24 07:11 board_sync",
+  "updated": "2026-11-24 12:11 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5445,13 +5445,13 @@
     "state": "waiting"
    },
    {
-    "title": "Scouting must protect a boxer again: the bot that scouts is stopped more than the one that does not (ends about 15:15)",
+    "title": "Scouting must protect a boxer again: the bot that scouts is stopped more often than the one that does not (red in the 05:00 tests)",
     "who": "claude-opus-5-5 (console tab MATCHBOTS2 of the S548 session, tab c1)",
     "started": "2026-11-24T12:08",
     "run": "MATCHBOTS2"
    },
    {
-    "title": "Make the written fight plan matter (your 'make it more impactful'): three ways measured in real bouts before any design (ends about 17:00)",
+    "title": "Make the written fight plan matter (your Q-328 'make it more impactful'): three ways measured in real bouts before any design",
     "who": "claude-opus-5-5 (console tab PLANIMPACT1 of the S548 session, tab c2)",
     "started": "2026-11-24T12:25",
     "run": "PLANIMPACT1"
@@ -6114,6 +6114,10 @@
     {
      "text": "Ring calls cut (Q-330)",
      "who": "claude"
+    },
+    {
+     "text": "Card r9 on main, gate 6/6",
+     "who": "claude"
     }
    ],
    "now": [
@@ -6569,6 +6573,10 @@
     },
     {
      "text": "Coach map as cut (Q-329)",
+     "who": "claude"
+    },
+    {
+     "text": "Your play: card game r9",
      "who": "claude"
     }
    ],

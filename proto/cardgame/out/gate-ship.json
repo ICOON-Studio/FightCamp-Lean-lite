@@ -13,22 +13,22 @@
    },
    {
     "bar": "a scripted player finishes a bout and a ladder step through the page's own calls",
-    "measured": "1 bout to a verdict (by ko); then verdict, training, the next bout on the table",
+    "measured": "1 bout to a verdict (by tap); then verdict, training, the next bout on the table",
     "pass": true
    },
    {
     "bar": "the printed numbers equal the engine's",
-    "measured": "58 card lines, steps and previews checked; 0 mismatches",
+    "measured": "59 card lines, steps and previews checked; 0 mismatches",
     "pass": true
    },
    {
     "bar": "D1: 22.5-45 decisions a bout, 95% under 52",
-    "measured": "30.7 decisions; 95th percentile 48",
+    "measured": "24.1 decisions; 95th percentile 37",
     "pass": true
    },
    {
     "bar": "every pairing inside 40-60",
-    "measured": "boxing v bjj: boxing 50.2 / bjj 49.8",
+    "measured": "boxing v bjj: boxing 57.3 / bjj 42.8",
     "pass": true
    },
    {
@@ -48,22 +48,22 @@
    },
    {
     "bar": "a scripted player finishes a bout and a ladder step through the page's own calls",
-    "measured": "1 bout to a verdict (by ko); then verdict, training, the next bout on the table",
+    "measured": "1 bout to a verdict (by tap); then verdict, training, the next bout on the table",
     "pass": true
    },
    {
     "bar": "the printed numbers equal the engine's",
-    "measured": "58 card lines, steps and previews checked; 0 mismatches",
+    "measured": "59 card lines, steps and previews checked; 0 mismatches",
     "pass": true
    },
    {
     "bar": "D1: 22.5-45 decisions a bout, 95% under 52",
-    "measured": "30.7 decisions; 95th percentile 48",
+    "measured": "24.1 decisions; 95th percentile 37",
     "pass": true
    },
    {
     "bar": "every pairing inside 40-60",
-    "measured": "boxing v bjj: boxing 50.2 / bjj 49.8",
+    "measured": "boxing v bjj: boxing 57.3 / bjj 42.8",
     "pass": true
    },
    {
@@ -73,84 +73,84 @@
    },
    {
     "bar": "P2: each way to win ends 15%+; early 40-70%; a pilot blind to any one loses 5+",
-    "measured": "KO 18.0 lead 16.0 tap 25.0 pin 0.0; early 59.0; blind health 21.5 points -1.5 hold 6.4",
+    "measured": "KO 37.8 lead 32.8 tap 15.5 pin 0.0; early 86.0; blind health 27.8 points 13.6 hold 4.9",
     "pass": false
    },
    {
     "bar": "P1 (slice, boxing v BJJ): 3+ ranges >=80%, neither wins >60%, <=37.5 decisions",
-    "measured": "3+ ranges 84.8%; boxing 50.2 / bjj 49.8; 30.7 decisions",
+    "measured": "3+ ranges 95.3%; boxing 57.3 / bjj 42.8; 24.1 decisions",
     "pass": true
    },
    {
     "bar": "P4: pairing 40-60%; each art's average 47-53",
-    "measured": "boxing v bjj 50.2; averages boxing 50.2 / bjj 49.8",
-    "pass": true
-   },
-   {
-    "bar": "P5: the hold is a readable race (printed answer 100%; ends 15-30% of ground bouts; 20-80% of holds finish)",
-    "measured": "printed answer 100.0; ends 27.0; finish 47.6",
-    "pass": true
-   },
-   {
-    "bar": "P6: each art plays differently (mechanic off changes >50% of its turns; blind judge >=90%)",
-    "measured": "boxing 46.5 / bjj 100.0; judge 90.5",
+    "measured": "boxing v bjj 57.3; averages boxing 57.3 / bjj 42.8",
     "pass": false
    },
    {
+    "bar": "P5: the hold is a readable race (printed answer 100%; ends 15-30% of ground bouts; 20-80% of holds finish)",
+    "measured": "printed answer 100.0; ends 16.0; finish 18.6",
+    "pass": false
+   },
+   {
+    "bar": "P6: each art plays differently (mechanic off changes >50% of its turns; blind judge >=90%)",
+    "measured": "boxing 54.3 / bjj 53.9; judge 97.5",
+    "pass": true
+   },
+   {
     "bar": "P10: the pilot flies every deck (AI no more than 5 points below the scripted)",
-    "measured": "boxing: AI 47.5 / scripted 59.0 ; bjj: AI 49.5 / scripted 38.5",
+    "measured": "boxing: AI 50.5 / scripted 60.5 ; bjj: AI 45.5 / scripted 50.5",
     "pass": false
    },
    {
     "bar": "L1: 30-70 titles in 100 (model minutes shown)",
-    "measured": "52/100 titles; 29.9 modelled minutes a run (8 s a player decision)",
+    "measured": "42/100 titles; 36.8 modelled minutes a run (8 s a player decision)",
     "pass": true
    },
    {
     "bar": "L2: every training option best in 1-6 of ten real ladder states (from simulateLadder)",
-    "measured": "boxing 3/4/2/1 ; bjj 5/2/1/2",
-    "pass": true
+    "measured": "boxing 0/6/3/1 ; bjj 1/0/2/7",
+    "pass": false
    },
    {
     "bar": "the beginner at 25-40% (the impatient line against the AI, per art)",
-    "measured": "boxing 49.5 ; bjj 0.0",
+    "measured": "boxing 56.5 ; bjj 0.0",
     "pass": false
    }
   ],
   "pass": false,
   "l1": {
-   "titles": 52,
-   "minutes": 29.9,
-   "bouts": 13.6
+   "titles": 42,
+   "minutes": 36.8,
+   "bouts": 12.4
   },
   "l2": {
    "boxing": [
+    0,
+    6,
     3,
-    4,
-    2,
     1
    ],
    "bjj": [
-    5,
-    2,
     1,
-    2
+    0,
+    2,
+    7
    ]
   },
   "blindLoss": {
-   "health": 0.21499999999999997,
-   "points": -0.015000000000000013,
-   "hold": 0.06375
+   "health": 0.2775,
+   "points": 0.13624999999999998,
+   "hold": 0.048750000000000016
   },
   "p2hold": {
-   "ko": 0.18,
-   "lead": 0.16,
-   "tap": 0.25,
+   "ko": 0.3775,
+   "lead": 0.3275,
+   "tap": 0.155,
    "pin": 0,
-   "early": 0.59
+   "early": 0.86
   },
   "beginner": {
-   "boxing": 0.495,
+   "boxing": 0.565,
    "bjj": 0
   }
  }

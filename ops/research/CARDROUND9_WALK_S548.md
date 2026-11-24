@@ -58,3 +58,20 @@ Giving him a real standing choice (reach or sit or cover) should move both; meas
    that one; no balancing number; engine.mjs under 500 lines.
 3. Gate rows 1 and 2 ("the page offers no #skip") are the gate script clicking before the coach's line (`#gotit`): fix
    the script's order, not the page.
+
+## DONE the same session (owner S548: "fix both yourself, dont wait for arena")
+Round 9 is on main (`proto/cardgame`, Arena's branch e0e15a7 plus four commits), each fix red first:
+1. Rule 1, the one line in moves.mjs. Test: "a pull that answers a step out of his own tie seats the PULLER in the guard".
+2. Rule 2 was the BOT, not the rules. The rules already had the free standing choice the walk asked for: Step in (at
+   punch range it is the clinch entry, and he can be hit coming in) and Sit down (Pull guard with no tie). Tried on 400
+   bouts with the bot's empty standing turns filled: step in 69.8% boxing (no help: a clinch without a hold card is
+   still a dead hand), **sit down 52.8%**. The bot never sat because its look-ahead is two cards deep and a seat pays
+   three moves later. Now it sits when it would lay nothing standing apart - not once the referee has warned it that
+   round (the third stand-up costs a point). plan.mjs, 6 lines. Test: "the bot's jiu-jitsu man with no entry sits down".
+   The page already offers the player the same button ("Sit down - 1 wind"); nothing changed for a human.
+3. The gate script read the verdict's button before the coach's line (probe.mjs; ui.test.mjs already had the order).
+Result: `node --test` 63 of 63 (47 before round 9; none deleted: engine 29, ui 18, real 16 new). PLAY GATE 6 of 6:
+24.1 decisions a bout (22.5-45), boxing 57.3 / jiu-jitsu 42.8 (40-60), 1,000 bouts clean. engine.mjs 484 lines.
+Played through the page in the browser pane as the jiu-jitsu man to a verdict (a careless line: sit every turn, never
+cover - lost by knockout with 2 points off for not engaging, as the referee's rule says).
+Not done: the owner's own play of round 9; round 9b (the critics' changes).
