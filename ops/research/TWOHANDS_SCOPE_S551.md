@@ -182,3 +182,51 @@ NEXT (owed before it is called a game): the probe as files in the repo with test
 for the sensible player; a code-checked critic then chat critics at 8; the seats' idea answers read against it; legs,
 elbows and knees as more switch groups for the other arts (his Ironbound slots); the build layer (which switches a
 boxer owns comes from training).
+
+### Does the ORDER of your moves matter? (S551, his question: "maybe the order that you play your moves can play a crucial role ? what do you think ?")
+Claude's answer: yes - and built as its own page so the version he loves is untouched: `proto/twohands/order.html`
+(http://localhost:8797/order.html; generated from switch.html by `proto/twohands/tools/make_order.py`).
+- A beat is THREE MOMENTS. The order you click your switches is the order you throw them (numbers on the switches, an
+  order strip; click an action in the strip to throw it one place earlier). Your first action meets his first.
+- A hand is out of its guard ONLY in the moment it acts. Catch him in the moment his hand is out and it lands; a moment
+  later it is back and blocks. Feet take a moment: step in then hook reaches; jab then back off is hit and move.
+- A feint draws his hands for the punch of the NEXT moment. His miss or block makes your later punches counters.
+- The reach warning on a switch is worked out for the moment that punch is thrown (after your own step if it comes first).
+- The opponents have their own orders (the Jabber punches, then moves off) and the habit reader tries every order.
+MEASURED (`proto/twohands/tools/probe_order_swing.js`, `probe_order_bots.js`; 150 bouts a man):
+| | Jabber | Slugger | Body Snatcher |
+|---|---|---|---|
+| Beats where the player throws 2+ actions | 58% | 26% | 30% |
+| Of those: a different order changes the result | 82% | 90% | 69% |
+| ... by 3 health or more | 76% | 85% | 54% |
+| The plain order (feet, lead, rear) is NOT the best one | 20% | 43% | 42% |
+| Sensible player, choosing his order: wins | 100% | 82% | 79% |
+| Sensible player who never chooses an order: wins | 100% | 89% | 76% |
+So within a beat the order is worth 3 to 5 health most of the time - it IS crucial. But the bot that only answers what the
+man did last beat does not win more bouts by choosing it (it cannot foresee his order), and the Jabber is now beaten
+every time (his hit-then-move order leaves him open: NOT GREEN). Fixed plans: none beats all three over 50% (448 tried).
+NOT checked: a person's play; whether three moments make a beat too slow to set (his "fast and punchy").
+
+### The fight must be SEEN (S551, his words)
+"we need to work on the visuals of the fight so the player can understand the actions by seeing every card being executed
+by the fighters , 2d animations and when the fight goes to the ground we will use the grapplemap animations from any angle
+we want. What do you think ?" - and on the ordered page's "Open" chips: "can you explain this ? i could understand it as
+it was before".
+- Fixed at once: the "What you leave open" line is the four plain lines again (Head straight, Head from the side, Chin
+  from below, Body), each "covered", "OPEN", or - in the ordered page - "open in moment 2 only".
+- Done now with the stills we own (both pages): for every action the ring goes back to the guard, a caption names it
+  ("Moment 2: Your Jab is blocked"), the switch that is being executed lights up on the board, then the result picture
+  comes in with a flash. Checked in the browser: captions, pictures and lit switches follow the three moments in order.
+- Claude's view: yes, this is the right next work, and it also answers the worry about thinking time (a beat that shows
+  itself needs no reading). What we own for it:
+  1. STANDING, 2D ANIMATION: the stills come from our own 3D fight clips through the picture tools (`tools/pics2d_*.gd`,
+     `docs/PICS2D1_RESULT.md`). A short frame run for each action (about 8-10 pictures: wind-up, travel, the end as
+     landed / blocked / missed) is the same job with more frames. Needed that we do not have: step in, back off, hold
+     high / low, feint, push off as their own pictures; an overhand (it borrows the rear hook). A GPU job on the hidden
+     desktop, when his game is closed.
+  2. THE GROUND, GRAPPLEMAP: `proto/grapplemap` already reads the public-domain map (601 positions, 1,485 moves of 3-40
+     poses, 23 joints a body in 3D) and draws stills (`render2d.mjs`). Because the poses are 3D, a move can be played in
+     the browser from any angle by turning the joints before drawing - a small player on top of the parser.
+  OPEN (his taste, later): the standing boxers are rendered 3D bodies and the GrappleMap figures are mannequins - two
+  looks. Either both become mannequins, or the map's poses are put on our bodies in Godot (a real retarget job).
+  NOT STARTED: the ground game itself has no rules in Ring Switches yet.

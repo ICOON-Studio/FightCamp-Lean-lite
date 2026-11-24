@@ -27,6 +27,9 @@ button{font:inherit;color:inherit;cursor:pointer}
 .pop.go{animation:pop .9s ease-out}.pop.dmg{color:#ff6b5e}.pop.ok{color:#8fe39a;font-size:1.4rem}
 @keyframes pop{0%{opacity:0;transform:translateY(12px) scale(.7)}15%{opacity:1;transform:none}100%{opacity:0;transform:translateY(-36px)}}
 .stage.shake{animation:shake .28s}@keyframes shake{20%{transform:translateX(-7px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(3px)}}
+.stage img.act{animation:act .24s ease-out}@keyframes act{0%{filter:brightness(1.7) drop-shadow(0 8px 6px rgba(0,0,0,.45));transform:translateX(-50%) scaleX(-1) scale(.95)}100%{filter:drop-shadow(0 8px 6px rgba(0,0,0,.45));transform:translateX(-50%) scaleX(-1) scale(1)}}
+.cap{position:absolute;left:50%;bottom:.45rem;transform:translateX(-50%);z-index:4;background:rgba(20,16,14,.86);border:1px solid var(--gold);border-radius:.6rem;padding:.2rem .9rem;font-weight:700;white-space:nowrap;max-width:96%;overflow:hidden;text-overflow:ellipsis}.cap:empty{display:none}.cap.good{border-color:var(--green)}.cap.bad{border-color:var(--red)}
+.sw.doing{border-color:#fff!important;box-shadow:0 0 0 3px #fff!important}
 .rng{position:absolute;top:.4rem;left:50%;transform:translateX(-50%);z-index:3;display:flex;gap:4px}.rng span{padding:.1rem .6rem;border-radius:.7rem;border:1px solid var(--line2);background:rgba(20,16,14,.75);font-size:.78rem;color:var(--muted)}.rng span.on{border-color:var(--gold);color:var(--gold);font-weight:700}
 .tell{background:var(--panel);border:1px solid var(--line);border-radius:.6rem;padding:.6rem .8rem;display:flex;flex-direction:column;gap:.35rem;min-width:0;overflow:auto;max-height:clamp(10rem,27vh,17rem)}
 .said{font-size:1.15rem;font-weight:600}
@@ -51,7 +54,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 <body><div class="app">
   <div class="top"><span class="brand">Ring Switches</span><span id="where"></span><span id="score"></span><span class="lab" style="margin-left:auto">every action is a switch - a hand left off defends</span><button class="btn" id="mute" style="padding:.2rem .6rem;min-height:0;font-size:.85rem">Sound on</button></div>
   <div class="men"><div class="man you" id="you"></div><div class="man him" id="him"></div></div>
-  <div class="duo"><div class="stage" id="stage"><div class="rng" id="rng"></div><img id="pic" alt="" src="img/guard.webp"><span class="pop p0" id="pop0"></span><span class="pop p1" id="pop1"></span><span class="nm you">You</span><span class="nm him" id="nmhim">Him</span></div>
+  <div class="duo"><div class="stage" id="stage"><div class="rng" id="rng"></div><img id="pic" alt="" src="img/guard.webp"><span class="pop p0" id="pop0"></span><span class="pop p1" id="pop1"></span><span class="cap" id="cap"></span><span class="nm you">You</span><span class="nm him" id="nmhim">Him</span></div>
     <div class="tell"><div class="said" id="said"></div><div id="story"></div></div></div>
   <div><div class="under" style="margin-bottom:.5rem"><div class="lines" id="lines"></div><div id="acts"></div></div><div class="board" id="board"></div></div>
 </div>
@@ -76,6 +79,14 @@ const ACT = {
   rbody: { n: 'Body cross', h: 1, st: 2, d: 2, sp: 2, reach: [2], line: 'body', body: 1, pic: 'body_cross' },
 };
 const LINE = { straight: 'Head, straight', side: 'Head, from the side', under: 'Chin, from below', body: 'Body' };
+// said in HIS punches, so the player knows what each hold is for
+const THREAT = { straight: 'His jab and cross', side: 'His hook and overhand', under: 'His uppercuts', body: 'His body punches' };
+const STOPS = { straight: 'his jab and his cross', side: 'his lead hook and his overhand', under: 'his uppercuts', body: 'his body hook and body cross' };
+const momentOf = (p, sl) => '';
+const YOURS = { straight: 'jab or cross', side: 'lead hook or overhand', under: 'uppercut', body: 'body punch' };
+// how to stop what he did last beat, and how to counter it
+function answerTo(p) { if (!p || p.clinch) return ''; const ps = ['lead', 'rear'].filter((sl) => p[sl] && ACT[p[sl]].d); if (!ps.length) return '';
+  return ps.map((sl) => { const a = ACT[p[sl]], mine = slotOf(a.line), h = COVER.high.includes(a.line) ? 'high' : 'low'; const gap = COVER[heightOf(p, sl)][sl === 'lead' ? 0 : 1]; return `his <b>${a.n}</b>${momentOf(p, sl)}: hold your <b>${mine} hand ${h}</b> to block it. While his ${sl} hand is out, your <b>${YOURS[gap]}</b> gets through`; }).join('; ') + '. A punch of his that you block or that misses makes your next punch a <b>counter</b> (+1 health).'; }
 const FEET = { in: { n: 'Step in', st: 1, t: 'One place closer.' }, hold: { n: 'Hold your ground', st: 0, t: 'Stay where you are.' }, back: { n: 'Back off', st: 1, t: 'One place further. At Long you are giving ground toward the ropes.' } };
 // what a hand LEFT OFF covers: it depends on where the guard is held
 const COVER = { high: ['straight', 'side'], low: ['body', 'under'] };   // [lead hand home, rear hand home]
@@ -165,14 +176,14 @@ function draw() { for (const k of [0, 1]) { const m = F[k], sp = k === 0 && phas
       <span class="lab">Health ${Math.max(0, m.hp)} of ${m.max}</span><div class="bar hp"><i style="width:${100 * Math.max(0, m.hp) / m.max}%"></i></div>
       <span class="lab" title="The striped part is what your switches will cost this beat. 1 comes back each beat, and 1 more for each hand you hold instead of punching.">Stamina ${m.st - sp} of ${m.cap}${sp ? ` - ${sp} this beat` : ''}</span><div class="bar st"><i style="width:${100 * Math.max(0, m.st - sp) / N.st}%"></i><u style="width:${100 * Math.min(sp, m.st) / N.st}%"></u></div>
       <span class="lab" title="A hand left off blocks. Every big punch it blocks wears the guard 1; a jab does not. 1 comes back each beat.">Guard ${m.g} of ${N.guard}</span><div class="bar gb"><i style="width:${100 * m.g / N.guard}%"></i></div>
-      ${k ? `<span class="note">Last beat he did: <b>${planWords(m.last)}</b></span>` : ''}`; }
+      ${k ? `<span class="note">Last beat he did: <b>${planWords(m.last)}</b></span>${answerTo(m.last) ? `<span class="note">To stop that - ${answerTo(m.last)}</span>` : ''}` : ''}`; }
   $('where').innerHTML = `Round <b>${round}</b> of ${N.rounds} <span class="ticks">${Array.from({ length: N.beats }, (_, j) => `<i class="${j < beat ? 'done' : j === beat ? 'cur' : ''}"></i>`).join('')}</span> ${N.beats - beat <= 1 ? '<b>last beat of the round</b>' : N.beats - beat + ' beats to the bell'}`;
   $('score').innerHTML = `Points this round: you <b>${F[0].pts}</b> - him <b>${F[1].pts}</b>` + cards.map((c, i) => ` &nbsp; R${i + 1} ${c[0]}-${c[1]}`).join('');
   $('rng').innerHTML = [1, 2, 3].map((r) => `<span class="${r === range ? 'on' : ''}">${RNG[r]}</span>`).join(''); $('nmhim').textContent = OPP.n; }
 function board() { const me = F[0], left = me.st - cost(P), after = clamp(range + (P.feet === 'in' ? -1 : P.feet === 'back' ? 1 : 0), 1, 3);
   const sw = (grp, id, name, c, sub, on, dis, why, home) => `<button class="sw ${on ? 'on' : ''} ${home ? 'home' : ''}" data-g="${grp}" data-id="${id}" ${dis ? 'disabled' : ''}><b>${name}</b><span class="c">${c}</span><small>${sub}</small>${why ? `<small class="why">${why}</small>` : ''}</button>`;
   const hand = (h) => { const slot = h ? 'rear' : 'lead', cur = P[slot], ids = Object.keys(ACT).filter((id) => ACT[id].h === h);
-    return `<div class="grp"><span class="lab">${h ? 'Rear hand' : 'Lead hand'}</span>` + ['high', 'low'].map((g) => sw(slot, g, g === 'high' ? 'Hold it high' : 'Hold it low', '+1 stamina', `Blocks: ${LINE[COVER[g][h]].toLowerCase()}`, !cur && !P.clinch && (h ? P.hr : P.hl) === g, P.clinch, '', 1)).join('') +
+    return `<div class="grp"><span class="lab">${h ? 'Rear hand' : 'Lead hand'}</span>` + ['high', 'low'].map((g) => sw(slot, g, g === 'high' ? 'Hold it high' : 'Hold it low', '+1 stamina', `Blocks ${STOPS[COVER[g][h]]}`, !cur && !P.clinch && (h ? P.hr : P.hl) === g, P.clinch, '', 1)).join('') +
       ids.map((id) => { const a = ACT[id], on = cur === id, room = left + (cur ? ACT[cur].st : 0), short = a.st > room, reach = a.d ? a.reach.includes(after) : true;
         const sub = a.d ? `${a.d} health - ${LINE[a.line].toLowerCase()} - reaches ${a.reach.map((r) => RNG[r]).join(', ')}` : a.t;
         const why = P.clinch ? '' : short ? `Needs ${a.st} stamina - ${room} left.` : !reach && a.d ? `Will not reach at ${RNG[after]} unless he moves.` : id === 'push' && after !== 1 ? `Only works Inside.` : '';
@@ -182,7 +193,7 @@ function board() { const me = F[0], left = me.st - cost(P), after = clamp(range 
       return sw('feet', id, ft.n, ft.st ? ft.st + ' stamina' : 'free', id === 'hold' ? `You are at ${RNG[range]}.` : ft.t, on, P.clinch || bad || (ft.st > room && !on), bad ? 'You are on the ropes.' : ft.st > room && !on ? `Needs 1 stamina.` : ''); }).join('')}
       ${sw('clinch', 'x', 'Clinch', '1 stamina', 'Mid or Inside: no punch lands for either man, you get 2 stamina. Not twice running.', P.clinch, (range > 2 || me.held || left + (P.clinch ? 1 : 0) < 1) && !P.clinch, range > 2 ? 'Too far away.' : me.held ? 'The referee will not allow it yet.' : '')}</div>`;
   for (const b of $('board').querySelectorAll('.sw')) b.onclick = () => { const g = b.dataset.g, id = b.dataset.id; if (g === 'clinch') { P.clinch = !P.clinch; if (P.clinch) { P.lead = P.rear = null; P.feet = 'hold'; } } else if (g === 'lead' || g === 'rear') { if (id === 'high' || id === 'low') { P[g] = null; P[g === 'lead' ? 'hl' : 'hr'] = id; } else P[g] = P[g] === id ? null : id; } else P[g] = id; plan(); };
-  const c = covers(me, P); $('lines').innerHTML = '<span class="lab">What you leave open</span>' + Object.keys(LINE).map((l) => `<span class="ln ${c[l] ? 'cov' : 'open'}">${LINE[l]}: ${c[l] ? 'covered' : 'OPEN'}</span>`).join('') + (me.g <= 0 ? '<span class="ln open">your guard is broken: nothing is covered</span>' : ''); }
+  const c = covers(me, P); $('lines').innerHTML = '<span class="lab">What you leave open</span>' + Object.keys(LINE).map((l) => `<span class="ln ${c[l] ? 'cov' : 'open'}" title="${LINE[l]}">${THREAT[l]}: ${c[l] ? 'covered' : 'OPEN'}</span>`).join('') + (me.g <= 0 ? '<span class="ln open">your guard is broken: nothing is covered</span>' : ''); }
 function plan() { phase = 'plan'; draw(); board();
   $('acts').innerHTML = `<button class="btn go" id="go">Fight this beat</button>`; $('go').onclick = go; }
 function go() { if (busy) return; busy = true; phase = 'play'; $('acts').innerHTML = ''; for (const b of $('board').querySelectorAll('.sw')) b.disabled = true;
@@ -192,13 +203,19 @@ function go() { if (busy) return; busy = true; phase = 'play'; $('acts').innerHT
     const e = ev[i++], you = e.k === 0, who = e.k < 0 ? '' : you ? 'Your ' : 'His ', cls = e.t === 'hit' ? (you ? 'good' : 'bad') : e.t === 'block' || e.t === 'miss' ? (you ? 'bad' : 'good') : 'flat';
     const label = e.t === 'range' ? 'The range' : e.id ? who + e.a : e.k < 0 ? e.a : (you ? 'You ' : 'He ') + (you ? e.a.replace(/^(\w+?)s /, '$1 ').replace(/^ties/, 'tie').replace(/^pushes/, 'push').replace(/^feints/, 'feint').replace(/^reaches/, 'reach').replace(/^tries/, 'try') : e.a);
     $('story').insertAdjacentHTML('beforeend', `<div class="srow ${cls}"><b>${label}</b><span>${e.t === 'range' ? e.a + (e.o ? ' - ' + e.o : '') : e.o}</span><em>${e.t === 'hit' ? '-' + e.dmg : e.t === 'block' ? 'blocked' : e.t === 'miss' ? 'missed' : ''}</em></div>`);
-    const col = e.k ? 'red' : 'blue';
+    const col = e.k ? 'red' : 'blue', punch = e.t === 'hit' || e.t === 'block' || e.t === 'miss', cp = $('cap');
+    // THE RING SHOWS THE ACTION: back to the guard, name the action, light its switch, then the picture of how it ended
+    cp.className = 'cap ' + (cls === 'flat' ? '' : cls); cp.textContent = (e.m != null ? `Moment ${e.m + 1}: ` : '') + label + (punch ? (e.t === 'hit' ? ` lands, -${e.dmg}` : e.t === 'block' ? ' is blocked' : ' misses') : e.t === 'range' ? ': ' + e.a : '');
+    for (const b of document.querySelectorAll('.sw.doing')) b.classList.remove('doing'); if (e.k === 0) { const b = document.querySelector(e.id ? `.sw[data-id="${e.id}"]` : e.t === 'clinch' ? '.sw[data-g="clinch"]' : null); if (b) b.classList.add('doing'); }
+    if (e.t === 'range' && e.o.includes('you ')) { const b = document.querySelector('.sw[data-g="feet"].on'); if (b) b.classList.add('doing'); }
+    if (punch) pic('guard');
+    setTimeout(() => { if (punch) { const im = $('pic'); im.classList.remove('act'); void im.offsetWidth; im.classList.add('act'); }
     if (e.t === 'hit') { pic(`${col}_${ACT[e.id].pic}_landed`); snd(ACT[e.id].body ? 'punch_body_1' : e.dmg >= 4 ? 'punch_big_1' : e.dmg >= 3 ? 'punch_power_head_2' : 'punch_jab_head_1'); pop(1 - e.k, '-' + e.dmg, 'dmg'); if (e.k === 1) jolt(); if (e.down) setTimeout(() => { pic(`${e.k ? 'blue' : 'red'}_knockdown_2`); snd('knockdown_fall_4'); }, 350); }
     else if (e.t === 'block') { pic(`${col}_${ACT[e.id].pic}_blocked`); snd('punch_block_' + (1 + popN++ % 2)); pop(1 - e.k, 'blocked', 'ok'); }
     else if (e.t === 'miss') { pic(`${col}_${ACT[e.id].pic}_missed`); snd('punch_miss_whoosh_' + (1 + popN++ % 2)); pop(1 - e.k, 'missed', 'ok'); }
     else if (e.t === 'clinch') pic('clinch'); else if (e.t === 'range') draw();
-    draw(); setTimeout(step, e.t === 'range' || e.t === 'flat' ? 450 : e.down ? 1100 : 750); };
-  const after = () => { endBeat({ f: F }); busy = false;
+    draw(); setTimeout(step, e.t === 'range' || e.t === 'flat' ? 600 : e.down ? 1250 : 900); }, punch ? 220 : 0); };
+  const after = () => { endBeat({ f: F }); busy = false; $('cap').textContent = ''; for (const b of document.querySelectorAll('.sw.doing')) b.classList.remove('doing');
     for (const k of [0, 1]) if (F[k].hp <= 0) { F[k].kd++; F[1 - k].pts += 3; if (F[k].kd > N.kd.length) return over(k ? 'YOU WIN - the referee stops it' : `${OPP.n} WINS - the referee stops it`); F[k].hp = N.kd[F[k].kd - 1];
       $('story').insertAdjacentHTML('beforeend', `<div class="srow ${k ? 'good' : 'bad'}"><b>${k ? 'HE IS' : 'YOU ARE'} DOWN</b><span>health hit 0 - up at ${F[k].hp}; three times and it is stopped</span><em></em></div>`); }
     beat++; P = { ...P, clinch: false, lead: affordable(P.lead), rear: affordable(P.rear) }; if (cost(P) > F[0].st) P = { ...plan0(), hl: P.hl, hr: P.hr };
