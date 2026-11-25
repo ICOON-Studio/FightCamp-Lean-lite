@@ -42,7 +42,7 @@ test('a punch only reaches at its ranges', () => {
 test('the fast punch lands first and a big one that lands stops his slower punch', () => {
   const S = ring(2), ev = resolve(S, [plan({ rear: 'cross' }), plan({ rear: 'over', hl: 'low' })]);
   assert.ok(find(ev, 0, 'hit', 'cross')); const o = find(ev, 1, 'flat', 'over');
-  assert.ok(o && /never thrown/.test(o.o)); assert.equal(S.f[0].hp, N.hp);
+  assert.ok(o && /beaten to the punch/.test(o.o)); assert.equal(S.f[0].hp, N.hp);
 });
 test('a feint draws his hands: the rear punch behind it cannot be covered', () => {
   const S = ring(2), ev = resolve(S, [plan({ lead: 'feint', rear: 'cross' }), plan({ hl: 'high', hr: 'high' })]);
@@ -93,7 +93,7 @@ test('S555: the cross and the body cross reach Mid and Inside; the lead uppercut
   S = ring(1); ev = resolve(S, [plan({ rear: 'rbody' }), plan({ hl: 'high' })]); assert.ok(find(ev, 0, 'hit', 'rbody'));
   assert.deepEqual([ACT.lup.st, ACT.lup.d, ACT.lup.sp], [2, 3, 2]); assert.equal(ACT.hook.sp, ACT.jab.sp);
   S = ring(2); ev = resolve(S, [plan({ lead: 'hook' }), plan({ rear: 'cross', hr: 'low', hl: 'low' })]);
-  assert.ok(find(ev, 0, 'hit', 'hook')); assert.ok(/never thrown/.test(find(ev, 1, 'flat', 'cross').o), 'the fast hook lands first and stops his cross');
+  assert.ok(find(ev, 0, 'hit', 'hook')); assert.ok(/beaten to the punch/.test(find(ev, 1, 'flat', 'cross').o), 'the fast hook lands first and stops his cross');
 });
 test('S555: a jab that lands no longer keeps him out (the S554 trial is off: it made 75% of beats Long)', () => {
   const S = ring(3); const ev = resolve(S, [plan({ lead: 'jab' }), plan({ hl: 'low' })]);
@@ -113,7 +113,7 @@ test('S555: a hand is out of its guard only in the moment it acts - a lead hook 
   const S = ring(2), ev = resolve(S, [plan({ rear: 'rbody', lead: 'hook', ord: ['rear', 'lead'] }), plan({ lead: 'jab', rear: 'cross', ord: ['lead', 'rear'] })]);
   const b = find(ev, 1, 'block', 'jab'); assert.ok(b && b.m === 0, 'his jab is blocked in moment 1');
   assert.match(b.o, /your lead hand was still up \(its Lead hook comes in moment 2\)/, 'and the line says why: ' + b.o);
-  assert.match(find(ev, 1, 'flat', 'cross').o, /never thrown/, 'in moment 2 the fast lead hook lands first and stops his cross (the hook is as fast as the jab since the balance pass)');
+  assert.match(find(ev, 1, 'flat', 'cross').o, /beaten to the punch/, 'in moment 2 the fast lead hook lands first and stops his cross (the hook is as fast as the jab since the balance pass)');
   const S2 = ring(2), ev2 = resolve(S2, [plan({ rear: 'rbody', lead: 'lbody', ord: ['rear', 'lead'] }), plan({ lead: 'jab', rear: 'cross', ord: ['lead', 'rear'] })]);
   const c = find(ev2, 1, 'hit', 'cross'); assert.ok(c && c.m === 1, 'a body hook is no faster than his cross: in moment 2 the cross finds the lead hand out');
   assert.match(c.o, /your lead hand was out, throwing its Body hook/);
@@ -176,5 +176,17 @@ test('S555: a push says what it is and why it did nothing; his plain beats never
   for (let oi = 0; oi < 3; oi++) { R.setOpp(oi); const was = R.opp().skill; R.opp().skill = 0;
     for (let i = 0; i < 25; i++) { const T = ring(2 + (i % 2)); T.t = 3; assert.notEqual(R.ai(T).lead, 'push', R.opp().n + ' shoves at nothing on a plain beat'); }
     R.opp().skill = was; }
+});
+test('S555: beaten to the punch - a BIG punch that lands stops his SLOWER punch of the same moment, and the line names it (owner: "when beaten to the punch happens ?")', () => {
+  let S = ring(2), ev = resolve(S, [plan({ lead: 'hook' }), plan({ rear: 'cross', hr: 'low', hl: 'low' })]);
+  assert.match(find(ev, 1, 'flat', 'cross').o, /beaten to the punch: your Lead hook is faster, landed first and stopped it/); assert.equal(S.f[0].hp, N.hp);
+  S = ring(2); ev = resolve(S, [plan({ lead: 'jab' }), plan({ rear: 'cross', hl: 'low' })]);
+  assert.ok(find(ev, 0, 'hit', 'jab') && find(ev, 1, 'hit', 'cross'), 'a jab is fast but small: it lands first and stops nothing');
+  S = ring(2); ev = resolve(S, [plan({ rear: 'cross', hl: 'low' }), plan({ rear: 'cross', hl: 'low' })]);
+  assert.ok(find(ev, 0, 'hit', 'cross') && find(ev, 1, 'hit', 'cross'), 'two punches of the same speed both land');
+  S = ring(2); ev = resolve(S, [plan({ lead: 'hook' }), plan({ rear: 'cross', hr: 'high', hl: 'low' })]);
+  assert.ok(find(ev, 0, 'hit', 'hook'), 'his rear hand is out throwing, so the hook lands'); S = ring(2);
+  ev = resolve(S, [plan({ lead: 'hook', hl: 'low', ord: ['lead'] }), plan({ rear: 'cross', feet: 'in', hr: 'high', ord: ['feet', 'rear'] })]);
+  assert.ok(find(ev, 0, 'block', 'hook') && find(ev, 1, 'hit', 'cross'), 'a big punch that is BLOCKED stops nothing, and a punch in another moment is never stopped');
 });
 console.log(`RULES_TEST ${n} passed${process.exitCode ? ' - FAILURES above' : ''}`);
