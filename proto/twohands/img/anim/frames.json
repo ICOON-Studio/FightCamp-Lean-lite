@@ -30,8 +30,8 @@
    "contact": 6,
    "clip": "pro_body_cross",
    "hit": [
-    0.417,
-    0.338
+    0.362,
+    0.479
    ]
   },
   "blue_body_cross_landed": {
@@ -130,8 +130,8 @@
    "contact": 6,
    "clip": "pro_body_shot",
    "hit": [
-    0.416,
-    0.409
+    0.38,
+    0.476
    ]
   },
   "blue_body_hook_missed": {
@@ -772,8 +772,8 @@
    "contact": 6,
    "clip": "pro_body_cross",
    "hit": [
-    0.576,
-    0.35
+    0.619,
+    0.459
    ]
   },
   "red_body_cross_landed": {
@@ -872,8 +872,8 @@
    "contact": 6,
    "clip": "pro_body_shot",
    "hit": [
-    0.562,
-    0.406
+    0.598,
+    0.475
    ]
   },
   "red_body_hook_landed": {
@@ -3942,8 +3942,8 @@
    "contact": 6,
    "clip": "pro_body_jab",
    "hit": [
-    0.427,
-    0.336
+    0.388,
+    0.481
    ]
   },
   "blue_body_jab_landed": {
@@ -4042,8 +4042,8 @@
    "contact": 6,
    "clip": "pro_body_jab",
    "hit": [
-    0.557,
-    0.355
+    0.615,
+    0.465
    ]
   },
   "red_body_jab_landed": {

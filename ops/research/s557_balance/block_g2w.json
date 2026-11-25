@@ -1,0 +1,12 @@
+{
+ "_note": "As block_g2, and the look-ahead values a point of guard at 0.4 health (0.15 on the page).",
+ "W": {
+  "guard": 0.4
+ },
+ "src": [
+  [
+   "D.g = Math.max(0, D.g - (a.d >= 3 ? 1 : 0));",
+   "D.g = Math.max(0, D.g - a.d);"
+  ]
+ ]
+}

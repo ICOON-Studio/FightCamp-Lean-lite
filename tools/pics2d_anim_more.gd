@@ -15,14 +15,12 @@ extends "res://tools/pics2d_anim.gd"
 
 const RootPath := preload("res://scripts/fight3d/v2/RootPath.gd")
 const PushOff := preload("res://scripts/fight3d/PushOff.gd")
-const MirrorClip := preload("res://scripts/fight3d/MirrorClip.gd")
 const STEPS := {"step_in": ["st_in_m", 1.0, 0.355], "back_off": ["st_out_m", -1.0, 0.35]}   # take, way along the line, its travel (foot_db)
 ## THE RANGE IS SEEN (owner S553: "i think you need to draw them for inside/midrang/long ?"): the standing pictures at the
 ## page's three ranges. Long = the guard spots; each step in is the step take's own travel (0.355 m), so Mid = one step,
 ## Inside = two. A run's plain name is Long; _r2 = Mid, _r1 = Inside. A step run's suffix is the range it ENDS on.
 const RANGE_IN := {"": 0.0, "_r2": 0.355, "_r1": 0.71}
 const STEP_T := [0.0, 0.12, 0.24, 0.36, 0.48, 0.60, 0.72, 0.86]
-const HOLD_DIR := "res://assets/anim/baked/holds/"
 ## a held hand -> the hand, the place it guards as [landmark, [toward him, out to the hand's side, up] m], and how the
 ## bar reads it: "glove" = the glove's middle, "arm" = the nearest point of elbow-to-glove (the forearm does the guarding;
 ## the place is the body cross's own contact, 6 cm over the belt-line target), "under" = the glove waits UNDER the place
@@ -181,16 +179,7 @@ func _step_run(who: int, key: String, name: String, end_in: float = 0.0, ranged 
 ## A hand held, or both (HOLDTAKES1): the authored take from the guard; a hand it does not name stays where the guard has it.
 func _hold_run(who: int, key: String, name: String, step_in: float = 0.0) -> void:
 	var clip := "hold_" + key
-	var ap: AnimationPlayer = stage.boxers[who]["ap"]
-	var skel: Skeleton3D = stage.boxers[who]["skel"]
-	if not ap.has_animation(clip):
-		FightClips._add_baked(ap.get_animation_library(""), skel, str(ap.get_node(ap.root_node).get_path_to(skel)), clip, HOLD_DIR + clip + ".res")
-		if ap.has_animation(clip) and bool(stage.boxers[who].get("south", false)):   # a mirrored man: his lead is his right
-			var lib: AnimationLibrary = ap.get_animation_library("")
-			var m: Animation = MirrorClip.mirror(lib.get_animation(clip), skel, MirrorClip._plane(skel))
-			if m != null:
-				lib.remove_animation(clip)
-				lib.add_animation(clip, m)
+	_add_hold(who, clip)
 	if not _has(who, clip):
 		return
 	var was := {}   # each wrist from the head, in the guard

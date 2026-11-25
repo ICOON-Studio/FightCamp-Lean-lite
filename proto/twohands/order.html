@@ -58,6 +58,8 @@ button{font:inherit;color:inherit;cursor:pointer}
 .pop.at{left:auto;right:auto;transform:translateX(-50%)}.pop.at.go{animation:popat .95s ease-out}@keyframes popat{0%{opacity:0;margin-top:10px}15%{opacity:1;margin-top:0}100%{opacity:0;margin-top:-34px}}
 .bar.hurt{animation:hurt .55s ease-out}@keyframes hurt{0%{box-shadow:0 0 0 3px #fff;filter:brightness(2.2)}100%{box-shadow:0 0 0 0 transparent;filter:none}}
 .rng i.gp{width:.7rem;height:.7rem;border-radius:2px;background:var(--gold);align-self:center;opacity:.9}.rng i.gp.lost{background:#5a2a26;opacity:.9}.rng i.rope{width:4px;height:1.3rem;border-radius:2px;background:#e8e1d6;align-self:center}.rng .gr{display:flex;gap:3px;padding:0 .35rem;align-items:center}
+.bar s{display:block;height:100%;margin-left:auto;background:repeating-linear-gradient(135deg,#6a302b,#6a302b 4px,#2a1614 4px,#2a1614 8px)}
+.note.his{display:grid;gap:.05rem;cursor:help}.note.his i{font-style:normal;display:inline-block;min-width:6.3rem}.note.his span+span b{font-weight:400;color:var(--fg)}
 .sw .hab{grid-column:1/3;color:var(--gold);font-size:.76rem;font-weight:700}
 @media (max-width:900px){html{font-size:14px}.duo{grid-template-columns:1fr}.board{grid-template-columns:1fr 1fr}.opps{grid-template-columns:1fr}.under{grid-template-columns:1fr}.btn{width:100%}}
 @media (prefers-reduced-motion:reduce){.btn.go,.stage.shake,.pop.go,.burst.go,.bar.hurt{animation:none}.pop.go{opacity:1}}
@@ -80,7 +82,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 // N / ACT and five rules below were chosen on tools/balance.mjs - two equal men who both play each beat's solved mix box at all
 // three ranges, every punch gets thrown, bouts end both ways (docs/RINGSWITCH_BALANCE_S555.md has the table). keep: 0 = the S554
 // trial "a landed jab keeps him out" is off: it made 75% of beats Long.
-const N = { hp: 18, st: 8, rec: 1, hold: 1, guard: 6, grec: 1, rounds: 3, beats: 6, kd: [6, 4], counter: 1, keep: 0, even: 1 };   // rec: stamina back a beat, + hold for each hand kept home
+const N = { hp: 18, st: 8, rec: 1, hold: 1, guard: 6, grec: 1, rounds: 3, beats: 6, kd: [6, 4], counter: 1, keep: 0, even: 1, capMin: 4 };   // rec: stamina back a beat, + hold for each hand kept home
 const RNG = { 1: 'Inside', 2: 'Mid', 3: 'Long' };
 // a punch: which hand, stamina, health it takes, speed (1 first), the ranges it reaches, the line it travels on
 const ACT = {
@@ -185,15 +187,18 @@ function resolve(S, P) { const ev = [], f = S.f, say = (k, o) => ev.push({ k, ..
         if (D.hp <= 0) continue;
         if (!a.reach.includes(S.range)) { say(sh.k, { m: i, t: 'miss', id: sh.id, a: a.n, o: S.range > Math.max(...a.reach) ? 'falls short at ' + RNG[S.range] : 'smothered - too close at ' + RNG[S.range] }); opening[v] = 1; continue; }
         if (cov[v][a.line] && !wasDrawn) { D.g = Math.max(0, D.g - (a.d >= 3 ? 1 : 0)); say(sh.k, { m: i, t: 'block', id: sh.id, a: a.n, o: (P[v][sl] ? `blocked: ${v ? 'his' : 'your'} ${sl} hand was ${P[v].ord.indexOf(sl) > i ? 'still up' : 'back up'} (its ${ACT[P[v][sl]].n} ${P[v].ord.indexOf(sl) > i ? 'comes in' : 'was'} moment ${P[v].ord.indexOf(sl) + 1})` : `blocked by ${v ? 'his' : 'your'} ${sl} hand, held ${heightOf(P[v], sl)}`) + (D.g <= 0 ? ' - GUARD BROKEN' : '') }); opening[v] = 1; continue; }
-        const dmg = a.d + (openNow[sh.k] ? N.counter : 0); D.hp -= dmg; A.pts += a.d >= 3 ? 2 : 1; if (a.body) { D.cap = Math.max(4, D.cap - 1); D.st = Math.min(D.st, D.cap); } if (a.d >= 3) stun[v] = a.n; if (a.keep && N.keep) D.kept = 1;
+        const dmg = a.d + (openNow[sh.k] ? N.counter : 0); D.hp -= dmg; A.pts += a.d >= 3 ? 2 : 1; const cap0 = D.cap; if (a.body) { D.cap = Math.max(N.capMin, D.cap - 1); D.st = Math.min(D.st, D.cap); } if (a.d >= 3) stun[v] = a.n; if (a.keep && N.keep) D.kept = 1;
         const why = D.g <= 0 ? 'guard broken' : wasDrawn ? 'the feint drew his hand' : act[v] === sl ? `${v ? 'his' : 'your'} ${sl} hand was out, throwing its ${ACT[P[v][sl]].n}` : `${v ? 'his' : 'your'} ${sl} hand was held ${heightOf(P[v], sl)}`;
-        say(sh.k, { m: i, t: 'hit', id: sh.id, a: a.n, dmg, o: `lands${openNow[sh.k] ? ' as a counter' : ''} (${why}): -${dmg} health${a.body ? ', stamina bar shorter' : ''}${a.keep && N.keep ? (v ? ' - he cannot step in next beat' : ' - you cannot step in next beat') : ''}`, down: D.hp <= 0 }); }
+        say(sh.k, { m: i, t: 'hit', id: sh.id, a: a.n, dmg, pts: a.d >= 3 ? 2 : 1, o: `lands${openNow[sh.k] ? ' as a counter' : ''} (${why}): -${dmg} health, ${a.d >= 3 ? '2 points' : '1 point'}${a.body ? (D.cap < cap0 ? `, stamina bar ${D.cap} for the rest of the bout` : `, stamina bar stays ${D.cap} (it never goes lower)`) : ''}${a.keep && N.keep ? (v ? ' - he cannot step in next beat' : ' - you cannot step in next beat') : ''}`, down: D.hp <= 0 }); }
       x = y; }
     for (const k of [0, 1]) if (drawn[k]) drawn[k]--; }
   if (!ev.length) ev.push({ k: -1, t: 'flat', a: 'Nothing thrown', o: 'both men wait' });
   return ev; }
 function endBeat(S) { for (const m of S.f) { const l = m.last || {}, home = l.clinch ? 0 : (l.lead ? 0 : 1) + (l.rear ? 0 : 1); m.st = Math.min(m.cap, m.st + N.rec + N.hold * home); m.g = Math.min(N.guard, m.g + N.grec); if (m.held) m.held--; } }
 
+// THE JUDGES (S556 rule, S557 moved here so the page, the words tool and the tests share one copy): more points takes the
+// round 10-9; level on points it goes to the man who backed off less (N.even); level on both it is 10-10.
+function judge(x, y) { const lvl = x.pts === y.pts, gx = x.gave || 0, gy = y.gave || 0, onGround = lvl && !!N.even && gx !== gy, w = lvl ? (onGround ? (gx < gy ? 0 : 1) : -1) : x.pts > y.pts ? 0 : 1; return { w, onGround, sc: [w === 1 ? 9 : 10, w === 0 ? 9 : 10] }; }
 const perms = (a) => a.length < 2 ? [a] : a.flatMap((x, i) => perms([...a.slice(0, i), ...a.slice(i + 1)]).map((r) => [x, ...r]));
 // ---- S555 THE BEAT AS A GUESSING GAME (the owner: "vs the jabber you win very easy , all your rear hands land easy , need
 // better balance"). Both men choose at once, so a beat has no best plan, only a best MIX of plans: the one neither man
@@ -245,15 +250,26 @@ function ai(S) { const me = S.f[1], you = S.f[0], t = S.t || N.beats, lean = lea
 
 // ---- the page
 function draw() { for (const k of [0, 1]) { const m = F[k], sp = k === 0 && phase === 'plan' ? cost(P) : 0;
-    $(k ? 'him' : 'you').innerHTML = `<h2>${k ? OPP.n : 'You'}${m.ropes >= 2 ? '<span class="tag">on the ropes</span>' : ''}${m.kept ? '<span class="tag">kept out by the jab</span>' : ''}${m.g <= 0 ? '<span class="tag">guard broken</span>' : ''}${m.kd ? `<span class="tag">down ${m.kd}x</span>` : ''}</h2>
+    $(k ? 'him' : 'you').innerHTML = `<h2>${k ? OPP.n : 'You'}${m.ropes >= 2 ? '<span class="tag">on the ropes</span>' : ''}${m.kept ? '<span class="tag">kept out by the jab</span>' : ''}${m.g <= 0 ? '<span class="tag">guard broken</span>' : ''}${m.kd ? `<span class="tag">down ${m.kd}x${m.kd >= N.kd.length ? ' - one more ends it' : ''}</span>` : ''}</h2>
       <span class="lab">Health ${Math.max(0, m.hp)} of ${m.max}</span><div class="bar hp"><i style="width:${100 * Math.max(0, m.hp) / m.max}%"></i></div>
-      <span class="lab" title="The striped part is what your switches will cost this beat. 1 comes back each beat, and 1 more for each hand you hold instead of punching.">Stamina ${m.st - sp} of ${m.cap}${sp ? ` - ${sp} this beat` : ''}</span><div class="bar st"><i style="width:${100 * Math.max(0, m.st - sp) / N.st}%"></i><u style="width:${100 * Math.min(sp, m.st) / N.st}%"></u></div>
+      <span class="lab" title="The striped part is what your switches will cost this beat. 1 comes back each beat, and 1 more for each hand you hold instead of punching.
+A body hook or body cross that lands shortens the bar by 1 for the rest of the bout (the dark end). It never goes under ${N.capMin}.">Stamina ${m.st - sp} of ${m.cap}${m.cap < N.st ? ` (was ${N.st})` : ''}${sp ? ` - ${sp} this beat` : ''}</span><div class="bar st"><i style="width:${100 * Math.max(0, m.st - sp) / N.st}%"></i><u style="width:${100 * Math.min(sp, m.st) / N.st}%"></u>${m.cap < N.st ? `<s style="width:${100 * (N.st - m.cap) / N.st}%"></s>` : ''}</div>
       <span class="lab" title="A hand left off blocks. Every big punch it blocks wears the guard 1; a jab does not. 1 comes back each beat.">Guard ${m.g} of ${N.guard}</span><div class="bar gb"><i style="width:${100 * m.g / N.guard}%"></i></div>
-      ${k ? `<span class="note">Last beat he did: <b>${planWords(m.last)}</b></span>${answerTo(m.last) ? `<span class="note">To stop that - ${answerTo(m.last)}</span>` : ''}` : ''}`; }
+      ${k ? hisBeats() : ''}`; }
   $('where').innerHTML = `Round <b>${round}</b> of ${N.rounds} <span class="ticks">${Array.from({ length: N.beats }, (_, j) => `<i class="${j < beat ? 'done' : j === beat ? 'cur' : ''}"></i>`).join('')}</span> ${N.beats - beat <= 1 ? '<b>last beat of the round</b>' : N.beats - beat + ' beats to the bell'}`;
-  $('score').innerHTML = `<span title="A round level on points goes to the man who backed off less. Backed off this round: you ${F[0].gave || 0}, him ${F[1].gave || 0}.">Points this round: you <b>${F[0].pts}</b> - him <b>${F[1].pts}</b></span>` + cards.map((c, i) => ` &nbsp; R${i + 1} ${c[0]}-${c[1]}`).join('');
+  $('score').innerHTML = `<span title="A round level on points goes to the man who backed off less. Backed off this round: you ${F[0].gave || 0}, him ${F[1].gave || 0}.
+Points: 2 for a big punch landed (3 health or more on its switch), 1 for a small one, 3 for a knockdown. A counter adds health, not points.">Points this round: you <b>${F[0].pts}</b> - him <b>${F[1].pts}</b></span>` + cards.map((c, i) => ` &nbsp; R${i + 1} ${c[0]}-${c[1]}`).join('');
   const ground = (m, who) => `<span class="gr" title="Ground behind ${who}: ${2 - Math.min(2, m.ropes)} of 2. Every back off gives one up; with none left ${who === 'you' ? 'you are' : 'he is'} on the ropes and cannot back off. A step in wins it back.">${who === 'you' ? '<i class="rope"></i>' : ''}${[0, 1].map((j) => `<i class="gp ${(who === 'you' ? j < m.ropes : 1 - j < m.ropes) ? 'lost' : ''}"></i>`).join('')}${who === 'you' ? '' : '<i class="rope"></i>'}</span>`;
   $('rng').innerHTML = ground(F[0], 'you') + [1, 2, 3].map((r) => `<span class="${r === range ? 'on' : ''}">${RNG[r]}</span>`).join('') + ground(F[1], 'him'); $('nmhim').textContent = OPP.n; }
+// ZIVAFIX1 (S557; Ziva played nine bouts: the main guess, which line is open, was blind): HIS LAST THREE BEATS are on his card,
+// newest first, holds included; the hover counts what each of his hands did this round. seen / seenRound are display only.
+let seen = [], seenRound = [];
+function hisBeats() { if (!seen.length) return '<span class="note">Last beat he did: <b>nothing yet</b></span>';
+  const n = seenRound.length, held = (sl, h) => seenRound.filter((p) => !p.clinch && !p[sl] && (sl === 'lead' ? p.hl : p.hr) === h).length, out = (sl) => seenRound.filter((p) => !p.clinch && p[sl]).length;
+  const tip = n ? `This round, ${n} beat${n > 1 ? 's' : ''}:
+his lead hand - held high ${held('lead', 'high')}, held low ${held('lead', 'low')}, thrown ${out('lead')}
+his rear hand - held high ${held('rear', 'high')}, held low ${held('rear', 'low')}, thrown ${out('rear')}` : 'A new round: nothing seen of him yet.', stop = answerTo(F[1].last).replace(/<\/?b>/g, '');   /* S557: how to stop his last beat was a paragraph on his card (the owner likes little text: it is the hover now) */
+  return `<span class="note his"${tipAttr(tip + (stop ? '\n\nTo stop his last beat - ' + stop : ''))}>${[...seen].reverse().map((p, i) => `<span><i>${['Last beat', 'Before that', 'And before'][i]}</i> <b>${planWords(p)}</b></span>`).join('')}</span>`; }
 // THE PLAYER READS HIM TOO (the seats: K5, J2): a punch in two of his last three punching beats is a habit, and the hold that stops it is marked
 function hisHabits() { const habit = {}; { const hs = F[1].hist || [], n = {}; for (const h of hs) for (const id of [h.lead, h.rear]) if (id && ACT[id].d) n[id] = (n[id] || 0) + 1; for (const id in n) if (n[id] >= 2) { const l = ACT[id].line; habit[slotOf(l) + '|' + (COVER.high.includes(l) ? 'high' : 'low')] = ACT[id].n; } } return habit; }
 function board() { const me = F[0], left = me.st - cost(P); P.ord = ordOf(P); const stepAt = P.ord.indexOf('feet'), dr = P.feet === 'in' ? -1 : P.feet === 'back' ? 1 : 0;
@@ -314,7 +330,7 @@ let hisNext = null;   // S555: he makes up his mind while you set your switches 
 function plan() { phase = 'plan'; draw(); board(); showHold(); const at = round + ':' + beat; if (!hisNext || hisNext.at !== at) { hisNext = { at, plan: null }; const mine = hisNext; setTimeout(() => { if (hisNext === mine) { mine.plan = ai({ f: F.map((m) => ({ ...m })), range, t: N.beats - beat }); if (!mine.plan) mine.at = ''; } }, 60); }
   $('acts').innerHTML = `<button class="btn go" id="go">Fight this beat</button>`; $('go').onclick = go; }
 function go() { if (busy) return; busy = true; phase = 'play'; $('acts').innerHTML = ''; for (const b of $('board').querySelectorAll('.sw')) b.disabled = true;
-  const S = { f: F, range, t: N.beats - beat }, his = hisNext && hisNext.at === round + ':' + beat && hisNext.plan ? hisNext.plan : ai(S), before = [F[0].hp, F[1].hp], ev = resolve(S, [{ ...P }, his]); range = S.range;
+  const S = { f: F, range, t: N.beats - beat }, his = hisNext && hisNext.at === round + ':' + beat && hisNext.plan ? hisNext.plan : ai(S), before = [F[0].hp, F[1].hp], ev = resolve(S, [{ ...P }, his]); range = S.range; seen = [...seen, his].slice(-3); seenRound.push(his);
   $('said').textContent = `He: ${planWords(his)}.`; $('story').innerHTML = ''; let i = 0;
   const step = () => { if (i >= ev.length) return after();
     const e = ev[i++], you = e.k === 0, who = e.k < 0 ? '' : you ? 'Your ' : 'His ', cls = e.t === 'hit' ? (you ? 'good' : 'bad') : e.t === 'block' || e.t === 'miss' ? (you ? 'bad' : 'good') : 'flat';
@@ -342,9 +358,7 @@ function go() { if (busy) return; busy = true; phase = 'play'; $('acts').innerHT
   const after = () => { endBeat({ f: F }); busy = false; $('cap').textContent = ''; for (const b of document.querySelectorAll('.sw.doing')) b.classList.remove('doing');
     for (const k of [0, 1]) if (F[k].hp <= 0) { F[k].kd++; F[1 - k].pts += 3; if (F[k].kd > N.kd.length) return over(k ? 'YOU WIN - the referee stops it' : `${OPP.n} WINS - the referee stops it`); F[k].hp = N.kd[F[k].kd - 1];
       $('story').insertAdjacentHTML('beforeend', `<div class="srow ${k ? 'good' : 'bad'}"${tipAttr(`At 0 health a man is down. He gets up on ${N.kd[0]} health the first time and ${N.kd[1]} the second; the third knockdown stops the bout.\nA knockdown is worth 3 points in the round.`)}><b>${k ? 'HE IS' : 'YOU ARE'} DOWN</b><span>health hit 0 - up at ${F[k].hp}; three times and it is stopped</span><em></em></div>`); }
-    beat++; P = { ...P, clinch: false, lead: affordable(P.lead), rear: affordable(P.rear) }; if (cost(P) > F[0].st) P = { ...plan0(), hl: P.hl, hr: P.hr }; P.ord = ordOf(P);
-    if (F[0].kept && P.feet === 'in') P.feet = 'hold';   /* his jab landed: the step in does not carry over */
-    if (beat >= N.beats) return bell(); heldShown = ''; plan(); };
+    beat++; if (beat >= N.beats) return bell(); trim(); heldShown = ''; plan(); };
   const need = ev.map(runOf).filter(Boolean); for (const e of ev) if (e.down) need.push(`${e.k ? 'blue' : 'red'}_knockdown`, runOf(e).replace(/_landed$/, '_ko'));
   Promise.race([warm(need), new Promise((ok) => setTimeout(ok, 1500))]).then(() => setTimeout(step, 350)); }
 /* a held hand is SEEN (HOLDTAKES1, S553): every hand that does not punch is held high or low - one hand, or both */
@@ -353,12 +367,19 @@ function showHold() { const l = P.clinch || P.lead ? '' : P.hl, r = P.clinch || 
   const far = 'blue_' + h, run = range < 3 && ANIM[`${far}_r${range}`] ? `${far}_r${range}` : far;   /* the men stand at the range: Long, Mid (_r2) or Inside (_r1) */
   warm([run]).then(() => { if (phase === 'plan' && heldShown === key) playRun(run, false, () => {}, () => {}); }); }
 const affordable = (id) => (id && ACT[id].st <= F[0].st ? id : null);
-function bell() { const [x, y] = F, lvl = x.pts === y.pts, gx = x.gave || 0, gy = y.gave || 0, onGround = lvl && N.even && gx !== gy, w = lvl ? (onGround ? (gx < gy ? 0 : 1) : -1) : x.pts > y.pts ? 0 : 1, sc = [w === 1 ? 9 : 10, w === 0 ? 9 : 10];   // S556: an even round goes to the man who gave less ground cards.push(sc); snd('bell_round_end_1', 0.5);
+// your switches carry over to the next beat; what the stamina cannot pay is switched off, and the page SAYS so (ZIVAFIX1: a beat was refused without a word)
+function trim() { const was = { ...P }; P = { ...P, clinch: false, lead: affordable(P.lead), rear: affordable(P.rear) }; if (cost(P) > F[0].st) P = { ...plan0(), hl: P.hl, hr: P.hr }; P.ord = ordOf(P);
+  if (F[0].kept && P.feet === 'in') P.feet = 'hold';   /* his jab landed: the step in does not carry over */
+  const off = [...['lead', 'rear'].filter((sl) => was[sl] && !P[sl]).map((sl) => ACT[was[sl]].n), ...(was.feet !== 'hold' && P.feet === 'hold' ? [FEET[was.feet].n] : [])];
+  if (off.length) $('story').insertAdjacentHTML('beforeend', `<div class="srow flat"${tipAttr('Switches stay as you set them, but only while your stamina can pay for them. 1 stamina comes back each beat, and 1 more for each hand you hold.')}><b>Switched off</b><span>${off.join(', ')} - you have ${F[0].st} stamina for the next beat</span><em></em></div>`); }
+function bell() { const { w, onGround, sc } = judge(F[0], F[1]);   /* S557: the S556 edit left a comment in front of the next two calls - no round reached the cards and a bout on points ended 'A DRAW 0-0' */
+  cards.push(sc); snd('bell_round_end_1', 0.5); seenRound = [];
   if (round >= N.rounds) { const t = [0, 1].map((k) => cards.reduce((s, c) => s + c[k], 0)); return over(t[0] === t[1] ? `A DRAW ${t[0]}-${t[1]}` : `${t[0] > t[1] ? 'YOU WIN' : OPP.n + ' WINS'} on the cards ${t[0]}-${t[1]}`); }
   round++; beat = 0; range = 3; for (const m of F) { m.pts = 0; m.st = m.cap; m.g = N.guard; m.ropes = 0; m.held = 0; m.kept = 0; m.gave = 0; }
+  trim(); heldShown = '';
   $('said').textContent = `BELL. The judges give the round ${sc[0]}-${sc[1]}${onGround ? ` (level on points: it goes to ${w ? 'him, you' : 'you, he'} backed off more)` : ''}. Round ${round}: back at Long.`; pic('guard'); plan(); }
 function over(text) { phase = 'over'; busy = false; draw(); $('said').textContent = text; $('board').innerHTML = ''; $('lines').innerHTML = ''; $('acts').innerHTML = '<button class="btn go" id="go">Another bout</button>'; $('go').onclick = setup; }
-function setup() { phase = 'setup'; OPP = OPPS[oppI]; F = [man(N.hp), man(OPP.hp)]; P = plan0(); round = 1; beat = 0; range = 3; cards = []; draw(); pic('guard');
+function setup() { phase = 'setup'; OPP = OPPS[oppI]; F = [man(N.hp), man(OPP.hp)]; P = plan0(); round = 1; beat = 0; range = 3; cards = []; seen = []; seenRound = []; draw(); pic('guard');
   $('said').textContent = 'Every action is a switch. Both men act at once.';
   $('story').innerHTML = `<div class="how"><b>Each hand</b> throws one punch a beat, or stays home. <b>A hand that does not punch is held high or low, and blocks</b>: the lead hand high stops straight head punches, low stops body punches; the rear hand high stops hooks, low stops uppercuts.<br><b>Feet</b> change the range: Long, Mid, Inside. Each punch only reaches at some ranges. <b>A step in beats a back off</b> in the same moment: you close anyway. <b>Every back off gives ground</b>: two and you are on the ropes, until you step in. The clinch works Inside only.<br><b>A beat is three moments.</b> The order you click your switches is the order you throw them: your first action meets his first, your second his second. <b>A hand is out of its guard only in the moment it acts.</b> Catch him in the moment his hand is out and it lands; a moment later it is back. Feet take a moment too: step in and then hook, or jab and then back off. <b>When both punch in the same moment the faster punch lands first</b> (fast, medium, slow - it is on each switch), and a big one (3 health or more) that lands stops his slower punch: he is beaten to the punch. A punch of his that misses or is blocked makes your later punches counters (+1).<br><b>Stamina:</b> 1 comes back each beat, and 1 more for each hand you held instead of punching. Switches stay as you set them until you change them - but <b>throw the same thing in two of your last three punching beats and he may read it</b>: he then picks the best answer to exactly that.</div>`;
   $('board').innerHTML = `<div class="opps" style="grid-column:1/4">${OPPS.map((o, i) => `<button class="opp ${i === oppI ? 'on' : ''}" data-o="${i}"><b>${o.n}</b><small>${o.t}</small><small>Health ${o.hp} - ${o.read > 0.7 ? 'reads a habit fast' : o.read > 0.5 ? 'reads a habit' : 'slow to read a habit'}</small></button>`).join('')}</div>`;

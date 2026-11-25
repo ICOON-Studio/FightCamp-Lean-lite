@@ -1,0 +1,9 @@
+{
+ "_note": "A block costs the BLOCKER guard: every blocked punch wears it 1, a big one (3 health or more) 2. Guard 6, 1 back a beat.",
+ "src": [
+  [
+   "D.g = Math.max(0, D.g - (a.d >= 3 ? 1 : 0));",
+   "D.g = Math.max(0, D.g - (a.d >= 3 ? 2 : 1));"
+  ]
+ ]
+}

@@ -446,6 +446,14 @@
       "ops/previews/s556_zivaplay/*.png"
      ],
      "cols": 1
+    },
+    {
+     "id": "s557_lowcover",
+     "title": "A blocked body punch is stopped at the body (S557): the lead hand held low",
+     "kind": "gallery",
+     "globs": [
+      "ops/previews/s557_lowcover/*_strip.png"
+     ]
     }
    ]
   }

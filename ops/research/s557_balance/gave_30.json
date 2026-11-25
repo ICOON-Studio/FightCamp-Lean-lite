@@ -1,0 +1,12 @@
+{
+ "_note": "A back off costs the man 0.30 health in the solver's eyes (the round may go to the other man on ground).",
+ "W": {
+  "gave": 0.3
+ },
+ "src": [
+  [
+   "return (y0.hp - y.hp) - (x0.hp - x.hp) + W.cap *",
+   "return (W.gave || 0) * (((y.gave || 0) - (y0.gave || 0)) - ((x.gave || 0) - (x0.gave || 0))) + (y0.hp - y.hp) - (x0.hp - x.hp) + W.cap *"
+  ]
+ ]
+}

@@ -1,0 +1,9 @@
+{
+ "_note": "A block costs the BLOCKER guard the punch's own health (jab 1 ... overhand 4). Guard 6, 1 back a beat.",
+ "src": [
+  [
+   "D.g = Math.max(0, D.g - (a.d >= 3 ? 1 : 0));",
+   "D.g = Math.max(0, D.g - a.d);"
+  ]
+ ]
+}

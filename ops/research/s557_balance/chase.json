@@ -1,0 +1,13 @@
+{
+ "_note": "He backed off last beat: your step in this beat costs no stamina (the chase is free).",
+ "src": [
+  [
+   "function resolve(S, P) { const ev = [], f = S.f, say = (k, o) => ev.push({ k, ...o });",
+   "function resolve(S, P) { const ev = [], f = S.f, say = (k, o) => ev.push({ k, ...o }); const was = [f[0].last, f[1].last];"
+  ],
+  [
+   "f[k].st -= cost(P[k]); f[k].last = { ...P[k] };",
+   "f[k].st -= cost(P[k]) - (P[k].feet === 'in' && !P[k].clinch && was[1 - k] && was[1 - k].feet === 'back' && !was[1 - k].clinch ? 1 : 0); f[k].last = { ...P[k] };"
+  ]
+ ]
+}

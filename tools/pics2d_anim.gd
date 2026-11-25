@@ -12,6 +12,8 @@ extends "res://tools/pics2d_set.gd"
 ## Writes <out_dir>/<run>_<k>.png and <out_dir>/frames.json; prints PICS2D_ANIM runs=<n> frames=<n> refused=<n> gate_failed=<n>.
 
 const R := preload("res://scripts/fight3d/v2/ChoreoRules.gd")
+const MirrorClip := preload("res://scripts/fight3d/MirrorClip.gd")
+const HOLD_DIR := "res://assets/anim/baked/holds/"
 ## s from the contact. The task's first guess (-0.30 .. +0.12) left the hand out at the end of the strip and started
 ## an uppercut after its dip: the way in from -0.42, the hand home by +0.30 (arm_home_s + the home join's 0.22).
 const OFFS := [-0.42, -0.30, -0.20, -0.13, -0.08, -0.04, 0.0, 0.06, 0.12, 0.20, 0.30]
@@ -33,6 +35,24 @@ func _run() -> void:
 				if _want(name):
 					await _punch_run(who, str(fam), str(res), name)
 	_finish()
+
+
+## An authored held-hand take (HOLDTAKES1, assets/anim/baked/holds) put on a boxer's player; a mirrored man gets it mirrored.
+## LOWCOVER1 (S557): a blocked body punch is met by the lead forearm held low on the ribs - the page's own rule ("the
+## lead hand held low blocks body punches") and J50 row 2 ("low block / elbow-down body guard"). Until now it met the
+## shell take, whose elbows stay 0.44-0.47 m over the rib target, so a blocked body punch was drawn at chest height.
+func _add_hold(who: int, clip: String) -> void:
+	var ap: AnimationPlayer = stage.boxers[who]["ap"]
+	var skel: Skeleton3D = stage.boxers[who]["skel"]
+	if ap.has_animation(clip):
+		return
+	FightClips._add_baked(ap.get_animation_library(""), skel, str(ap.get_node(ap.root_node).get_path_to(skel)), clip, HOLD_DIR + clip + ".res")
+	if ap.has_animation(clip) and bool(stage.boxers[who].get("south", false)):   # a mirrored man: his lead is his right
+		var lib: AnimationLibrary = ap.get_animation_library("")
+		var m: Animation = MirrorClip.mirror(lib.get_animation(clip), skel, MirrorClip._plane(skel))
+		if m != null:
+			lib.remove_animation(clip)
+			lib.add_animation(clip, m)
 
 
 ## only=a,b,c: several names (each as the still tool reads one: a prefix, or *part).
@@ -62,11 +82,14 @@ func _finish() -> void:
 func _find(who: int, fam: String, res: String) -> Dictionary:
 	var takes := _takes(who, fam)
 	var body: bool = FAMILIES[fam][1]
+	if res == "blocked" and body:
+		_add_hold(1 - who, COVER[0])
+	var covers: Array = Array(_arg("cover", "").split(",")) if _arg("cover", "") != "" else COVER   # cover=mc_to_block,mc_block: the S556 cover-ups again (the before numbers)
 	var dirv := axis * (1.0 if who == 0 else -1.0)
 	var best := {}
 	var tries: Array = []
 	for clip in takes:
-		for cv in (COVER + [""] if res == "blocked" and body else [""]):
+		for cv in (covers + [""] if res == "blocked" and body else [""]):
 			tries.append([clip, cv])
 	for tr in tries:
 		var clip: String = tr[0]
@@ -201,6 +224,8 @@ func _punch_run(who: int, fam: String, res: String, name: String) -> void:
 		if is_zero_approx(off):   # measured on the pose that was drawn
 			var m: Dictionary = Gate.punch(stage, who, b["hand"], res, body, axis * (1.0 if who == 0 else -1.0), _px, SIZE / cam.size, _view())
 			gate_fails = m["fails"]
+			if m.has("body_up_m"):
+				print("BODY_UP %s: the glove's front %.3f m over the body target (bar %.2f), stopped by %s, cover %s" % [name, float(m["body_up_m"]), Gate.BODY_UP_M, str(m.get("block_on", "?")), cover if cover != "" else "none"])
 			var gp: Vector2 = _px(stage.glove_front(who, b["hand"]))
 			hit_at = [snappedf(gp.x / SIZE, 0.001), snappedf(gp.y / SIZE, 0.001)]
 			if near:

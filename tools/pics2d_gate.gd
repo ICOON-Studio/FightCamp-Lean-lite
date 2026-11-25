@@ -22,6 +22,7 @@ const CLINCH_FEET_M := 0.0     # the clinch: no foot past the other's
 const LAND_M := 0.04
 const NEAR_MIN_M := 0.03
 const BLOCK_M := 0.05
+const BODY_UP_M := 0.20       # a blocked body punch: the glove front this far over the body target at most (S557 on the low hand: 0.09-0.19 and read as the body; the S556 cover-up: 0.29-0.54, at the chest)
 const FOREARM_R := 0.04
 const FEET_MIN_M := 0.16      # nearest foot bones along the line (the boots reach ~0.08 past each); clean >= 0.16, crossed <= 0.14
 const HEAD_CLEAR_M := 0.60    # a head's bone to the other's trunk line and head: clean pictures 0.64-1.30, the crowded body hooks 0.45-0.60
@@ -115,6 +116,10 @@ static func punch(stage: Node3D, who: int, hand: String, res: String, body: bool
 		m["block_on"] = b[1]
 		if b[0] > BLOCK_M:
 			fails.append("block_m %.3f > %.2f" % [b[0], BLOCK_M])
+		if body:   # LOWCOVER1 (S557): a blocked BODY punch is stopped at the body - until now it met a high cover-up at chest height
+			m["body_up_m"] = _r(g.y - tgt.y)
+			if g.y - tgt.y > BODY_UP_M:
+				fails.append("body_up_m %.3f > %.2f (a blocked body punch drawn over the body)" % [g.y - tgt.y, BODY_UP_M])
 	else:
 		var gp: Vector2 = px.call(g)
 		var head_px := gp.distance_to(px.call(tgt)) / ppm

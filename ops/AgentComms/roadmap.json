@@ -6,9 +6,9 @@
   "id": "S556",
   "owner": "claude",
   "updated": "2026-11-25",
-  "summary": "S556 (Fable) HANDOVER. ## METHOD - RING SWITCHES IS THE MAIN LINE, AND THE ORDER VERSION IS THE PAGE (owner S555: 'first off i want version with theorder of actions'). ## METHOD - THE SLICE IS BALANCED ON THE INSTRUMENT, NEVER BY HAND (owner S555: 'need better balance , i want this slice to be perfectly balance to move on'): a change is tried as a tweak file first; after any rule or number change on proto/twohands/order.html run tools/balance.mjs table, then play (two sets), then rules_test. ## METHOD - THE FIGHT MUST BE SEEN, SIDE VIEW, BOTH MEN CHEST TO THE CAMERA. ## METHOD - THE SEATS' IDEAS ARE USED AND REPORTED. Done: the southpaw measured in five rule versions (two prepared, three from John's sourced answer SQ333) - none passes (best 6 of 9 bars) and none matches real boxing, nothing built, the cover-table question is with Kalli (SQ334); the body jab has its own authored take and pictures and is on the page; an even round goes to the man who gave less ground (draws 12% -> 6%) is on the page; health 18; the page measures 8 of 9 bars on two sets of 84 bouts (16% stopped, 2.25 knockdowns, 7.5% draws). Moving costs breath measured and left off (the men stop moving, 7 of 9). NOT GREEN: he has not played it; the jab lands 73% and the body jab 69% (the old failing bar); a blocked or missed body punch is drawn at chest height; the look-ahead does not know the ground rule. docs/RINGSWITCH_S556.md, docs/RINGSWITCH_SOUTHPAW_S556.md, docs/BODYJAB1_RESULT.md. After the handover (owner: 'Maybe breath can be used to put a limit on movements if that becomes an issue'; 'Can ziva play test it and judge it on fun?'): breath is kept in reserve as the limiter on movement, not built; proto/twohands/tools/play_cli.mjs plays a bout in words on the page's own rules and opponents; Ziva was started and is playing nine bouts (ZIVAPLAY1, ops/research/TASK_ZIVAPLAY1.md). The owner on the southpaw (S556, asked 'wait for Kalli's cover table, or build one of the measured versions anyway?'): 'Wait for Kalli'. Nothing of the southpaw is built before her table is measured at 8 bars or more. ZIVAPLAY1 landed and was collected the same session: fun 6, depth 7, clarity 6, variety 6; three of its claims checked against the logs (two true, one count overstated, one false as written: no beat was lost to a refusal).",
-  "next_action": "S557: FIRST ZIVAFIX1 - the four clarity changes Ziva's playtest asks for (ops/research/ZIVAPLAY1_REPORT.md, collected and checked in S556): his last three beats shown before you choose, the stamina bar and the refusal in words, the knockdown count, the points. Then its three rule ideas on the balance tool. S557: FIRST Kalli's cover table for the open stance if it has landed (SQ334): write it as a tweak, measure it (5 minutes), report against the nine bars and John's two facts (the cross thrown more than 3.8 a bout, the jab landing well under 73%); build 'The Southpaw' only at 8 bars or more, after telling him the picture cost. Then his play on the page with the body jab; the look-ahead learns the ground rule; a low cover take so a blocked body punch is drawn on the body (the animation item); the rest of the seats' list measured on the tool.",
-  "last_working_commit": "edff485d2",
+  "summary": "S557 (Fable) HANDOVER. ## METHOD - RING SWITCHES IS THE MAIN LINE, AND THE ORDER VERSION IS THE PAGE. ## METHOD - THE SLICE IS BALANCED ON THE INSTRUMENT, NEVER BY HAND; after ANY page edit also run page_play_test.mjs (it plays the page itself to the last bell). ## METHOD - THE FIGHT MUST BE SEEN, SIDE VIEW, BOTH MEN CHEST TO THE CAMERA. ## METHOD - THE SEATS' IDEAS ARE USED AND REPORTED. Done: a defect on the page he plays fixed (since S556 no round reached the cards and a bout on points ended 'A DRAW 0-0'); Ziva's four clarity changes (his last three beats on his card, points and the stamina bar in words, 'one more ends it', a switch the stamina cannot pay switched off in words); Kalli's open-stance cover table measured in three versions (4, 4, 6 of 9 bars): the southpaw is NOT built; repeated beats measured rare (0-10% of bouts); a blocked body punch now meets the lead hand held low (0.09-0.19 m over the body, was 0.29-0.54), pictures on the page, not seen by him. NOT DONE: the owner's mid-session order 'have it playtested by all agents and also you' - brief written (TASK_ALLPLAY1.md), no seat started, Claude did not play. Still measuring, unread: Ziva's rule ideas and the ground rule (E:/FightCamp/tmp/s557_ziva, s557_ground). He has not played the page. docs/RINGSWITCH_S557.md.",
+  "next_action": "S558: FIRST HIS ORDER, NOT DONE - 'have it playtested by all agents and also you' (owner S557): the brief is ops/research/TASK_ALLPLAY1.md; no seat was started and Claude did not play (S557 hit its size limit). Start Ziva, Arena and Cline on it, play three bouts yourself, build the by-message driver for Kalli, John, Maria and Antigravity (no shell), tell him Dola could not be reached. SECOND read what is still measuring: E:/FightCamp/tmp/s557_ziva (a block costs the blocker guard, the free chase) and E:/FightCamp/tmp/s557_ground (the look-ahead learns the ground rule). THIRD the low-cover pictures are on the page: play one in the browser, send him a before and after strip, run fight_pictures_test. After every page edit: page_play_test.mjs.",
+  "last_working_commit": "71f6043f8",
   "verified_playable": "Builds/ exported in S556 (the S547 game plus S548's two changes: the 3D fight throws the body cross, the trial evening's pictures show the prospect's own body; pro_body_jab is on disk and unused by the game). Ring Switches (a browser toy): one beat played in the browser in S556 against the Jabber - both men threw a body jab, both landed, no console error; rules_test 34 pass; anim_check 124 runs PASS.",
   "incomplete_blocked": "Ring Switches: the owner has not played the page with the body jab; the jab lands 73% and the body jab 69% (bar 65%); blocked and missed body punches are drawn at chest height; the look-ahead does not know the ground rule; the southpaw is not built (five versions fail); six seat ideas still unmeasured. The clip table is not reproducible by one tool (a full census run changes eight rows).",
   "next_acceptance": "Kalli's open-stance cover table is measured with its own look-ahead and reported to him against the nine bars and John's two facts, or, if it has not landed, his play on the page is answered and the look-ahead plays for level rounds (measured before and after).",
@@ -18,7 +18,7 @@
    "The rest of his Q-336 note on coaches ('thecoaches should have')"
   ]
  },
- "next": "S557: see NEXT_SESSION_PROMPT.md - Kalli's southpaw cover table measured, his play on the page with the body jab, the look-ahead learns the ground rule, a low cover take.",
+ "next": "S558: see NEXT_SESSION_PROMPT.md - the all-agents playtest (his order), Ziva's rule ideas and the ground rule read off the tool, the low-cover pictures onto the page.",
  "assessment": {
   "source": "Codex deep audit + Cursor televised-MMA gap assessment, both 2026-09-12",
   "bars": [
@@ -2432,6 +2432,12 @@
    "id": "S556",
    "date": "2026-11-25",
    "summary": "The southpaw (owner S555: 'yes prepare this for next session') measured on tools/balance.mjs: versions 1 and 2 (6 and 5 of 9 bars), then John's sourced answer (SQ333: the rear straight thrown 25-40% more against a southpaw, the jab landing half as often) and three more versions from it (5, 6, 5 of 9). All fail the same way: the rear hand held high stops three big punches, the lead hand high only the jab. Nothing built; the cover-table design question queued for Kalli (SQ334). The two changes both seats asked for: an even round to the man who gave less ground (draws 12% -> 6%, on the page) and moving costs breath (the men stop moving, 7 of 9, left off). BODYJAB1: tools/pics2d_bodycross_bake.gd takes the punching arm as a setting (the body cross bakes unchanged, 56 keys identical); pro_body_jab authored (glove 7.8 m/s at the touch, elbow 136 deg, sink 0.17 m), family body_jab, clip table row added by hand, eight frame runs through the picture gate; on the page it made the fight too bloody (2.7 knockdowns, 27% stopped over 168 bouts), so health 18: 8 of 9 bars on two sets. Found: a full clip_census run changes eight other rows of clip_db.json. Export rebuilt. Commits d447ba3a5, 9a8e2a0f5, edff485d2."
+  },
+  {
+   "id": "S557",
+   "date": "2026-11-25",
+   "summary": "S557 (Fable) HANDOVER. ## METHOD - RING SWITCHES IS THE MAIN LINE, AND THE ORDER VERSION IS THE PAGE. ## METHOD - THE SLICE IS BALANCED ON THE INSTRUMENT, NEVER BY HAND; after ANY page edit also run page_play_test.mjs (it plays the page itself to the last bell). ## METHOD - THE FIGHT MUST BE SEEN, SIDE VIEW, BOTH MEN CHEST TO THE CAMERA. ## METHOD - THE SEATS' IDEAS ARE USED AND REPORTED. Done: a defect on the page he plays fixed (since S556 no round reached the cards and a bout on points ended 'A DRAW 0-0'); Ziva's four clarity changes (his last three beats on his card, points and the stamina bar in words, 'one more ends it', a switch the stamina cannot pay switched off in words); Kalli's open-stance cover table measured in three versions (4, 4, 6 of 9 bars): the southpaw is NOT built; repeated beats measured rare (0-10% of bouts); a blocked body punch now meets the lead hand held low (0.09-0.19 m over the body, was 0.29-0.54), pictures on the page, not seen by him. NOT DONE: the owner's mid-session order 'have it playtested by all agents and also you' - brief written (TASK_ALLPLAY1.md), no seat started, Claude did not play. Still measuring, unread: Ziva's rule ideas and the ground rule (E:/FightCamp/tmp/s557_ziva, s557_ground). He has not played the page. docs/RINGSWITCH_S557.md.",
+   "commit": "71f6043f8"
   }
  ],
  "blocked_on_operator": [],
@@ -5350,7 +5356,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-25 17:41 board_sync",
+  "updated": "2026-11-25 S557",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5503,27 +5509,37 @@
    "STYLEPLACE1": "Opponents fight in different places",
    "RINGANIM1": "Standing 2D animations for Ring Switches: built, 59 of 64 runs",
    "RINGSWITCH1": "Ring Switches: the fight toy",
-   "HOLDTAKES1": "A hand held high or low, seen: four guard takes for Ring Switches"
+   "HOLDTAKES1": "A hand held high or low, seen: four guard takes for Ring Switches",
+   "ALLPLAY1": "Ring Switches played by every agent and by Claude (your 'have it playtested by all agents and also you'): the brief is written, NO seat started yet - Ziva, Arena, Cline play in words; Kalli, John, Maria, Antigravity need a play-by-message driver; Dola cannot be reached",
+   "ZIVARULES1": "Ziva's rule ideas on the balance tool: a block costs the blocker guard (three versions), a free chase after he backs off; and the look-ahead learns the ground rule (four versions) | MEASURING at the end of S557, not read",
+   "LOWCOVER1": "A blocked body punch is stopped at the body: it meets the lead hand held low (0.09-0.19 m over the body, was 0.29-0.54) | on the page (gate 6 of 6), not seen by you yet; a missed body punch and the overhand's own take are next",
+   "ZIVAFIX1": "Ring Switches after Ziva's playtest: his last three beats on his card before you choose, points and the stamina bar said in words, 'one more ends it', a switch you cannot pay for switched off in words; and a defect fixed - a bout on points no longer ends 'A DRAW 0-0'",
+   "KALLITABLE1": "Kalli's cover table for the southpaw measured in three versions: 4, 4 and 6 of 9 bars - not built"
   },
-  "working_now": [
-   {
-    "title": "Ziva plays Ring Switches nine bouts in words and judges it on fun (your 'Can ziva play test it and judge it on fun?')",
-    "who": "Ziva (the editor on E:/FightCamp/wt/ZIVA_LEAN, chat 'Ring Switches Playtest and Fun Evaluation' at http://127.0.0.1:7012/)",
-    "started": "2026-11-25T17:16",
-    "run": "ZIVAPLAY1"
-   }
-  ],
+  "working_now": [],
   "next": [
    {
-    "id": "ZIVAFIX1",
+    "id": "ALLPLAY1",
     "who": "claude",
-    "title": "Ring Switches after Ziva's playtest (fun 6, depth 7, clarity 6, variety 6 out of 10): show his last three beats before you choose; say in words that a body punch shortens the stamina bar for the whole bout and offer a cheaper plan instead of a refusal; say 'one more knockdown ends it'; say why points differ from health | then on the balance tool: a block costs the blocker guard, one honest punch at Long, opponents that do not repeat a beat three times",
+    "title": "Ring Switches played by every agent and by Claude (your 'have it playtested by all agents and also you'): the brief is written, NO seat started yet - Ziva, Arena, Cline play in words; Kalli, John, Maria, Antigravity need a play-by-message driver; Dola cannot be reached",
+    "after": ""
+   },
+   {
+    "id": "ZIVARULES1",
+    "who": "claude",
+    "title": "Ziva's rule ideas on the balance tool: a block costs the blocker guard (three versions), a free chase after he backs off; and the look-ahead learns the ground rule (four versions) | MEASURING at the end of S557, not read",
+    "after": "ALLPLAY1"
+   },
+   {
+    "id": "LOWCOVER1",
+    "who": "claude",
+    "title": "A blocked body punch is stopped at the body: it meets the lead hand held low (0.09-0.19 m over the body, was 0.29-0.54) | on the page (gate 6 of 6), not seen by you yet; a missed body punch and the overhand's own take are next",
     "after": ""
    },
    {
     "id": "SOUTHPAW1",
     "who": "claude",
-    "title": "Ring Switches: a southpaw opponent | five rule versions measured, none passes (best 6 of 9 bars; the cross is thrown less, real boxing says more) | NEXT: Kalli's cover table for the open stance (SQ334), measured the day it lands; nothing is built before 8 bars | YOUR CALL (S556): 'Wait for Kalli'",
+    "title": "Ring Switches: a southpaw opponent | seven rule versions measured, none passes (Kalli's cover table: 4, 4 and 6 of 9 bars; whichever rear punch no hold stops fully becomes the only punch). NOT built (your 'Wait for Kalli'; build at 8 bars or more)",
     "after": ""
    },
    {
@@ -5940,6 +5956,16 @@
   },
   "done_recently": [
    {
+    "id": "ZIVAFIX1",
+    "who": "claude",
+    "title": "Ring Switches after Ziva's playtest: his last three beats on his card before you choose, points and the stamina bar said in words, 'one more ends it', a switch you cannot pay for switched off in words; and a defect fixed - a bout on points no longer ends 'A DRAW 0-0'"
+   },
+   {
+    "id": "KALLITABLE1",
+    "who": "claude",
+    "title": "Kalli's cover table for the southpaw measured in three versions: 4, 4 and 6 of 9 bars - not built"
+   },
+   {
     "id": "ZIVAPLAY1",
     "who": "ziva",
     "title": "Ziva played Ring Switches nine bouts in words (2 wins, 7 losses) and judged it: fun 6, depth 7, clarity 6, variety 6 - 'a real game with one genuinely original idea, and the idea works' (the order); seven changes to reach 10 and its drawing of the fight screen"
@@ -5987,16 +6013,6 @@
    {
     "title": "Boxer v boxer card game, version 1 and its critic (5 / 6 / 6): the answerer saw the whole volley",
     "who": "claude",
-    "when": "2026-11-24"
-   },
-   {
-    "title": "Boxer v boxer card game, version 2: playable page and phone link; 21 rule tests; no blind bot beats the reading bot",
-    "who": "claude",
-    "when": "2026-11-24"
-   },
-   {
-    "title": "Boxer v boxer card game, version 2 (one punch at a time): a fresh code-checked critic - depth and play out of 10",
-    "who": "Arena (chat 01a20dcc, repo FightCamp-Lean-lite)",
     "when": "2026-11-24"
    }
   ],
@@ -6086,64 +6102,6 @@
   "map": {
    "done_earlier": [
     {
-     "text": "Order version is the page",
-     "who": "claude"
-    },
-    {
-     "text": "Opponents play the solved mix",
-     "who": "claude"
-    },
-    {
-     "text": "Dues card test fixed",
-     "who": "claude"
-    },
-    {
-     "text": "Ring Switches balanced: 8/9 bars",
-     "who": "claude"
-    },
-    {
-     "text": "Kalli + John read: balance",
-     "who": "claude"
-    },
-    {
-     "text": "Rule tooltips, drag order, hands",
-     "who": "claude"
-    },
-    {
-     "text": "Guard holds pass their bars",
-     "who": "claude"
-    },
-    {
-     "text": "Knockdown falls from the punch",
-     "who": "claude"
-    },
-    {
-     "text": "Jab keeps him out: built, measured",
-     "who": "claude"
-    },
-    {
-     "text": "17 rule tests on the page",
-     "who": "claude"
-    },
-    {
-     "text": "Near-miss lead hooks (your C508)",
-     "who": "claude"
-    },
-    {
-     "text": "Hit burst at the glove (your C509)",
-     "who": "claude"
-    },
-    {
-     "text": "Body jab found: Jabber 97% -> 60%",
-     "who": "claude"
-    },
-    {
-     "text": "Kalli + John read: body jab first",
-     "who": "claude"
-    }
-   ],
-   "done_session": [
-    {
      "text": "Southpaw measured: 2 variants",
      "who": "claude"
     },
@@ -6174,6 +6132,52 @@
     {
      "text": "Ziva played 9 bouts: fun 6/10",
      "who": "agent"
+    },
+    {
+     "text": "Order version is the page",
+     "who": "claude"
+    },
+    {
+     "text": "Opponents play the solved mix",
+     "who": "claude"
+    },
+    {
+     "text": "Dues card test fixed",
+     "who": "claude"
+    },
+    {
+     "text": "Ring Switches balanced: 8/9 bars",
+     "who": "claude"
+    },
+    {
+     "text": "Kalli + John read: balance",
+     "who": "claude"
+    },
+    {
+     "text": "Rule tooltips, drag order, hands",
+     "who": "claude"
+    }
+   ],
+   "done_session": [
+    {
+     "text": "ZIVAFIX1: 4 clarity changes",
+     "who": "claude"
+    },
+    {
+     "text": "Cards fixed: no 0-0 draw",
+     "who": "claude"
+    },
+    {
+     "text": "Kalli table: 4, 4, 6 of 9",
+     "who": "claude"
+    },
+    {
+     "text": "Repeats measured: rare",
+     "who": "claude"
+    },
+    {
+     "text": "Low cover rendered",
+     "who": "claude"
     }
    ],
    "now": [
@@ -6686,15 +6690,27 @@
     {
      "text": "After Ziva: his last 3 beats shown",
      "who": "claude"
+    },
+    {
+     "text": "All agents playtest (his order)",
+     "who": "claude"
+    },
+    {
+     "text": "Read Ziva rules + ground runs",
+     "who": "claude"
+    },
+    {
+     "text": "Low cover onto the page",
+     "who": "claude"
     }
    ],
-   "session": "S556"
+   "session": "S557"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
- "last_working_commit": "edff485d2",
- "next_action": "S557: FIRST Kalli's cover table for the open stance if it has landed (SQ334): write it as a tweak, measure it (5 minutes), report against the nine bars and John's two facts (the cross thrown more than 3.8 a bout, the jab landing well under 73%); build 'The Southpaw' only at 8 bars or more, after telling him the picture cost. Then his play on the page with the body jab; the look-ahead learns the ground rule; a low cover take so a blocked body punch is drawn on the body (the animation item); the rest of the seats' list measured on the tool.",
+ "last_working_commit": "71f6043f8",
+ "next_action": "S558: FIRST HIS ORDER, NOT DONE - 'have it playtested by all agents and also you' (owner S557): the brief is ops/research/TASK_ALLPLAY1.md; no seat was started and Claude did not play (S557 hit its size limit). Start Ziva, Arena and Cline on it, play three bouts yourself, build the by-message driver for Kalli, John, Maria and Antigravity (no shell), tell him Dola could not be reached. SECOND read what is still measuring: E:/FightCamp/tmp/s557_ziva (a block costs the blocker guard, the free chase) and E:/FightCamp/tmp/s557_ground (the look-ahead learns the ground rule). THIRD the low-cover pictures are on the page: play one in the browser, send him a before and after strip, run fight_pictures_test. After every page edit: page_play_test.mjs.",
  "next_acceptance": "Rulers vs r0: head jumps on the contact frame under 4, a head inside the other's body under 5 frames, arm out median under 4 frames with join_return green, then r1 film at two fresh blind critics 5+/10",
  "superseded_archive": [
   {

@@ -43,8 +43,8 @@ const REACT := {"jab": "pro_hit_by_jab_v3", "cross": "pro_hit_by_cross_v1_short"
 	"lead_uppercut": "pro_hit_by_hook_v5", "rear_uppercut": "pro_hit_by_cross_v1_short"}
 const REACT_AT_S := 0.05
 const KO_AT := [0.16, 0.42, 0.97]
-## PICSFIX1: a blocked body punch meets the cover-up (the game's own shell takes, BeatClips/RoundStyle), held this far in.
-const COVER := ["mc_to_block", "mc_block"]
+## A blocked body punch meets the LEAD FOREARM HELD LOW (S557, J50 row 2; the frame runs load the take), else the shell takes.
+const COVER := ["hold_lead_low", "mc_to_block", "mc_block"]
 const CLINCH_GAPS := [0.50, 0.80]   # PICSFIX1: the roots' sweep for the clinch picture
 const COVER_AT := 0.45   # the shell held (mc_block: elbows 0.44-0.47 m over the rib target all through - no take lowers them)
 
@@ -296,7 +296,7 @@ func _block_point(who: int, hand: String, body: bool) -> Vector3:
 	var d := 1 - who
 	var side := "Right" if hand == "LeftHand" else "Left"
 	var pg: Vector3 = stage.glove_front(who, hand)
-	if body:   # the nearer of her two forearms to the glove (the arriving side's, or the other one tucked across)
+	if body and not cover.begins_with("hold_"):   # the nearer of her two forearms to the glove (the arriving side's, or the other one tucked across)
 		var best := Vector3.INF
 		for sd in [side, "Left" if side == "Right" else "Right"]:
 			var p := Geometry3D.get_closest_point_to_segment(pg, Gate.world(stage, d, sd + "LowerArm"), Gate.world(stage, d, sd + "Hand"))
@@ -304,7 +304,7 @@ func _block_point(who: int, hand: String, body: bool) -> Vector3:
 				best = p
 		return best + (pg - best).normalized() * (Gate.FOREARM_R + 0.01)
 	var bcn: Node = stage.boxers[d].get("block_catch")
-	var ch := str(bcn.call("catch_hand")) if bcn != null else side + "Hand"
+	var ch := (("Right" if bool(stage.boxers[d].get("south", false)) else "Left") + "Hand") if body else (str(bcn.call("catch_hand")) if bcn != null else side + "Hand")   # S557: a body punch met by the lead hand held low ends on THAT glove
 	var gloves: Dictionary = (stage.boxers[d]["gloves"] as Node).gloves
 	var g: Vector3 = ((gloves["l"] if ch.begins_with("Left") else gloves["r"]) as Node3D).global_position
 	return g + (pg - g).normalized() * 0.09

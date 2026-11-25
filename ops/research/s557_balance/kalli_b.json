@@ -1,0 +1,35 @@
+{
+ "_note": "OPEN STANCE, Kalli's cover table (SQ334, ops/research/RINGSWITCH_SOUTHPAW2_BRIEF_KALLI.md). Lead hand high stops the jab AND the lead hook; lead hand low stops the body punches AND the lead uppercut; rear hand high stops the overhand and takes 1 off the cross; rear hand low stops the rear uppercut. Version B, her own fallback: the two jobs swapped - the rear hand high stops the cross fully and takes 1 off the overhand (which is then a 3-health punch).",
+ "ACT": {
+  "hook": {
+   "line": "ohook"
+  },
+  "lup": {
+   "line": "olup"
+  },
+  "cross": {
+   "line": "ocross"
+  },
+  "over": {
+   "line": "oover"
+  }
+ },
+ "src": [
+  [
+   "if (act[k] !== 'lead') c[COVER[P[k].hl][0]] = 1; if (act[k] !== 'rear') c[COVER[P[k].hr][1]] = 1;",
+   "if (act[k] !== 'lead') { c[COVER[P[k].hl][0]] = 1; c[P[k].hl === 'high' ? 'ohook' : 'olup'] = 1; } if (act[k] !== 'rear') { c[COVER[P[k].hr][1]] = 1; if (P[k].hr === 'high') { c.ocross = 1; c.osoft = 1; } }"
+  ],
+  [
+   "const LINE = { straight: 'Head, straight',",
+   "const LINE = { ohook: 'Head, the lead hook round to the lead side', olup: 'Chin, the lead uppercut up the middle', ocross: 'Head, the rear straight down the middle', oover: 'Head, the overhand', straight: 'Head, straight',"
+  ],
+  [
+   "const slotOf = (line) => (line === 'straight' || line === 'body' ? 'lead' : 'rear'),",
+   "const slotOf = (line) => (line === 'straight' || line === 'body' || line === 'ohook' || line === 'olup' ? 'lead' : 'rear'),"
+  ],
+  [
+   "const A = f[sh.k], D = f[1 - sh.k], a = sh.a, v = 1 - sh.k, sl = slotOf(a.line), wasDrawn = drawn[sh.k] === 1;",
+   "const A = f[sh.k], D = f[1 - sh.k], v = 1 - sh.k, wasDrawn = drawn[sh.k] === 1, a = sh.a.line === 'oover' && cov[v].osoft && !wasDrawn ? { ...sh.a, d: sh.a.d - 1 } : sh.a, sl = slotOf(a.line);"
+  ]
+ ]
+}

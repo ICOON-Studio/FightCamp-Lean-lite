@@ -18,7 +18,7 @@ export function load(seed = 1, page = 'order.html', patch = null, useTable = tru
   const stub = { getElementById: () => ({ classList: { add() {}, remove() {} }, style: {} }), querySelector: () => null, querySelectorAll: () => [] };
   const MathS = Object.create(Math); MathS.random = rng;
   const fn = new Function('document', 'fetch', 'Math', 'Audio', 'Image', src + `
-    ;return { N, RNG, ACT, FEET, COVER, OPPS, LO, RO, plan0, man, cost, covers, resolve, endBeat, ai, planWords, slotOf, heightOf,
+    ;return { N, RNG, ACT, FEET, COVER, OPPS, LO, RO, plan0, man, cost, covers, resolve, endBeat, ai, planWords, slotOf, heightOf, judge: typeof judge === 'function' ? judge : null,
       ordOf: typeof ordOf === 'function' ? ordOf : null, perms: typeof perms === 'function' ? perms : null,
       W: typeof W === 'object' ? W : null, plansFor: typeof plansFor === 'function' ? plansFor : null, worth: typeof worth === 'function' ? worth : null, solveBeat: typeof solveBeat === 'function' ? solveBeat : null,
       setVT: (t) => { VT = t; }, getVT: () => VT, setN: (o) => Object.assign(N, o), setAct: (id, o) => { ACT[id] = { ...ACT[id], ...o }; },
