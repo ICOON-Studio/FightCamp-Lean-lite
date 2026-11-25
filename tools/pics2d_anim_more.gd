@@ -4,21 +4,38 @@ extends "res://tools/pics2d_anim.gd"
 ## take or layer, recorded from the fixed side camera; nothing is layered over a take.
 ##   step in / back off : the refitted step takes (StepPlay.TAKES: st_in_m, st_out_m), the body carried by the take's own
 ##                        hip travel, as StepPlay does
-##   hold high          : pro_idle_to_block into pro_block_loop (the tight high guard)
-##   hold low           : mc_to_block into mc_block (the body cover-up the blocked body punches use)
+##   a hand held        : HOLDTAKES1 (S553) - lead high / lead low / rear high / rear low, the four authored one-hand
+##                        holds (tools/pics2d_hold_bake.gd -> assets/anim/baked/holds/), added to each boxer here
 ##   feint              : ChoreoWait's paw - the lead hand of pro_left_jab_b to 0.20 s, then home (Player2._wait)
 ##   push               : PushOff (hands on the chest, both pushed out to range) - the game's only push
 ##   clinch             : Clinch.start, as the still tool's clinch picture, seen tying up
 ##   knockdown          : pro_knockout_v1 from the first buckle to the canvas
-## NOT here because no take exists: an overhand (the page borrows the rear hook), a one-hand hold (both hands move).
+## NOT here because no take exists: an overhand (the page borrows the rear hook).
 ##   same command as pics2d_anim.gd with --script res://tools/pics2d_anim_more.gd
 
 const RootPath := preload("res://scripts/fight3d/v2/RootPath.gd")
 const PushOff := preload("res://scripts/fight3d/PushOff.gd")
+const MirrorClip := preload("res://scripts/fight3d/MirrorClip.gd")
 const STEPS := {"step_in": ["st_in_m", 1.0, 0.355], "back_off": ["st_out_m", -1.0, 0.35]}   # take, way along the line, its travel (foot_db)
+## THE RANGE IS SEEN (owner S553: "i think you need to draw them for inside/midrang/long ?"): the standing pictures at the
+## page's three ranges. Long = the guard spots; each step in is the step take's own travel (0.355 m), so Mid = one step,
+## Inside = two. A run's plain name is Long; _r2 = Mid, _r1 = Inside. A step run's suffix is the range it ENDS on.
+const RANGE_IN := {"": 0.0, "_r2": 0.355, "_r1": 0.71}
 const STEP_T := [0.0, 0.12, 0.24, 0.36, 0.48, 0.60, 0.72, 0.86]
-const HOLDS := {"hold_high": [["pro_idle_to_block", "pro_block_loop"], [0.0, 0.10, 0.20, 0.32, 0.50]],
-	"hold_low": [["mc_to_block", "mc_block"], [0.0, 0.12, 0.25, 0.40, 0.60, 0.85]]}
+const HOLD_DIR := "res://assets/anim/baked/holds/"
+## a held hand -> the hand, the place it guards as [landmark, [toward him, out to the hand's side, up] m], and how the
+## bar reads it: "glove" = the glove's middle, "arm" = the nearest point of elbow-to-glove (the forearm does the guarding;
+## the place is the body cross's own contact, 6 cm over the belt-line target), "under" = the glove waits UNDER the place
+## on the punch's way up (an uppercut: how far the glove is off the line straight under the chin)
+const HAND := {"lead_high": ["Left", "face", Vector3(0.0, 0.0, 0.0), "glove"], "lead_low": ["Left", "ribs", Vector3(0.0, 0.0, 0.06), "arm"],
+	"rear_high": ["Right", "head", Vector3(0.03, 0.08, 0.07), "glove"], "rear_low": ["Right", "face", Vector3(0.0, 0.0, -0.13), "under"]}
+## run -> the hands it holds (one hand, or both: the page holds every hand that does not punch high or low)
+const HOLDS := {"lead_high": ["lead_high"], "lead_low": ["lead_low"], "rear_high": ["rear_high"], "rear_low": ["rear_low"],
+	"both_high_high": ["lead_high", "rear_high"], "both_high_low": ["lead_high", "rear_low"],
+	"both_low_high": ["lead_low", "rear_high"], "both_low_low": ["lead_low", "rear_low"]}
+const HOLD_T := [0.0, 0.08, 0.14, 0.20, 0.26, 0.34, 0.50]
+const HOLD_PLACE_M := 0.08   # the glove (or forearm) this near the place it guards
+const HOLD_OTHER_M := 0.05   # the other hand this near where the guard has it
 const FEINT := ["pro_left_jab_b", 0.20]   # ChoreoWait.BEATS "paw"
 const FEINT_T := [0.0, 0.07, 0.13, 0.20, 0.27, 0.36, 0.46]
 const PUSH_T := [0.0, 0.10, 0.20, 0.30, 0.40, 0.55, 0.70, 0.85]
@@ -26,6 +43,7 @@ const PUSH_GAP_M := 0.68          # Clinch.PAIR_GAP_M: the push starts from the 
 const CLINCH_GAP := {"m": 0.68, "w": 0.62}   # Clinch.PAIR_GAP_M; the still's 0.66 / 0.60 read 0.214-0.219 m apart here (bar 0.22)
 const CLINCH_T := [0.0, 0.25, 0.50, 0.80, 1.20, 2.50]
 const KO_FRAC := [0.04, 0.12, 0.20, 0.30, 0.42, 0.56, 0.72, 0.97]
+const KO_AFTER := [0.0, 0.06, 0.12, 0.20, 0.30, 0.42, 0.56, 0.72, 0.90, 1.12, 1.40, 1.75, 2.15]   # s from the contact
 
 
 func _run() -> void:
@@ -34,13 +52,20 @@ func _run() -> void:
 		for key in STEPS:
 			if _want("%s_%s" % [col, key]):
 				await _step_run(who, str(key), "%s_%s" % [col, key])
+			for rk in (["_r2", "_r1"] if str(key) == "step_in" else ["_r3", "_r2"]):   # the range it ends on
+				if _want("%s_%s%s" % [col, key, rk]):
+					await _step_run(who, str(key), "%s_%s%s" % [col, key, rk], float(RANGE_IN.get(rk, 0.0)), true)
 		for key in HOLDS:
-			if _want("%s_%s" % [col, key]):
-				await _hold_run(who, HOLDS[key][0], HOLDS[key][1], "%s_%s" % [col, key])
+			for rk in RANGE_IN:
+				if _want("%s_%s%s" % [col, key, rk]):
+					await _hold_run(who, str(key), "%s_%s%s" % [col, key, rk], float(RANGE_IN[rk]))
 		if _want(col + "_feint"):
 			await _feint_run(who, col + "_feint")
 		if _want(col + "_knockdown"):
 			await _ko_run(who, col + "_knockdown")
+		for fam in FAMILIES:
+			if _want("%s_%s_ko" % [col, fam]):
+				await _punch_ko_run(who, str(fam), "%s_%s_ko" % [col, fam])
 	# LAST: the push and the clinch put the arms on the other man through the stage's reach layer, and it stayed on
 	# (the first render had every later run of the other corner with a lead arm held straight out).
 	if _want("push"):
@@ -122,7 +147,7 @@ func _has(who: int, clip: String) -> bool:
 
 ## A step: the take played on the spot, the body carried along the line by the share of its hip travel made so far.
 ## Step in ends on the guard spot (it starts a step further out); back off starts on it.
-func _step_run(who: int, key: String, name: String) -> void:
+func _step_run(who: int, key: String, name: String, end_in: float = 0.0, ranged := false) -> void:
 	var clip: String = STEPS[key][0]
 	if not _has(who, clip):
 		return
@@ -131,6 +156,8 @@ func _step_run(who: int, key: String, name: String) -> void:
 	var dist := float(STEPS[key][2])
 	var toward := axis * (1.0 if who == 0 else -1.0)
 	var from: Vector3 = home_t[who].origin - (toward * dist if way > 0.0 else Vector3.ZERO)
+	if ranged:   # it ENDS end_in m in from Long: a step in starts a step further out, a step back a step further in
+		from = home_t[who].origin + toward * (end_in - way * dist)
 	var path := RootPath.of(ap.get_animation(clip))
 	var len := ap.get_animation(clip).length
 	var build := func() -> Array:
@@ -148,15 +175,69 @@ func _step_run(who: int, key: String, name: String) -> void:
 	await _solo(name, clip, STEP_T.filter(func(t) -> bool: return float(t) <= len), build, each)
 
 
-func _hold_run(who: int, clips: Array, times: Array, name: String) -> void:
-	if not _has(who, clips[0]) or not _has(who, clips[1]):
+## A hand held, or both (HOLDTAKES1): the authored take from the guard; a hand it does not name stays where the guard has it.
+func _hold_run(who: int, key: String, name: String, step_in: float = 0.0) -> void:
+	var clip := "hold_" + key
+	var ap: AnimationPlayer = stage.boxers[who]["ap"]
+	var skel: Skeleton3D = stage.boxers[who]["skel"]
+	if not ap.has_animation(clip):
+		FightClips._add_baked(ap.get_animation_library(""), skel, str(ap.get_node(ap.root_node).get_path_to(skel)), clip, HOLD_DIR + clip + ".res")
+		if ap.has_animation(clip) and bool(stage.boxers[who].get("south", false)):   # a mirrored man: his lead is his right
+			var lib: AnimationLibrary = ap.get_animation_library("")
+			var m: Animation = MirrorClip.mirror(lib.get_animation(clip), skel, MirrorClip._plane(skel))
+			if m != null:
+				lib.remove_animation(clip)
+				lib.add_animation(clip, m)
+	if not _has(who, clip):
 		return
-	var len0 := (stage.boxers[who]["ap"] as AnimationPlayer).get_animation(clips[0]).length
+	var was := {}   # each wrist from the head, in the guard
 	var build := func() -> Array:
-		await _home_guard()
-		return [[0.0, func() -> void: stage.v2._play(who, clips[0], 0.0, "block", false)],
-			[len0 - 0.03, func() -> void: stage.v2._play(who, clips[1], 0.0, "block", false)]]
-	await _solo(name, "%s > %s" % clips, times, build)
+		await _home_guard(step_in, who)
+		for s in ["Left", "Right"]:
+			was[s] = Gate.world(stage, who, s + "Hand") - Gate.world(stage, who, "Head")
+		return [[0.0, func() -> void: stage.v2._play(who, clip, 0.0, "block", false)]]
+	await _solo(name, clip, HOLD_T, build, Callable(), false, func() -> Dictionary: return _hold_gate(who, key, was))
+
+
+## The bars of a hold, read on the stage as it is drawn: each held glove (or forearm) at the place it guards, no glove
+## over the top of the head, a hand that is not held still in its guard.
+func _hold_gate(who: int, key: String, was: Dictionary) -> Dictionary:
+	var sc: float = _node(who).scale.x
+	var fwd: Vector3 = _node(who).global_transform.basis.z.normalized()
+	var head := Gate.world(stage, who, "Head")
+	var top := head.y + 0.16 * sc
+	var fails: Array = []
+	var said: Array = []
+	var held := {}
+	for h in HOLDS[key]:
+		var row: Array = HAND[h]
+		var s: String = str(stage.hand_of(who, str(row[0]) + "Hand")).trim_suffix("Hand")
+		held[s] = true
+		var out := fwd.cross(Vector3.UP).normalized() * (-1.0 if s == "Left" else 1.0)
+		var off: Vector3 = row[2]
+		var place: Vector3 = stage.target_point(who, str(row[1]) == "ribs") if str(row[1]) != "head" else head
+		place += (fwd * off.x + out * off.y + Vector3.UP * off.z) * sc
+		var tip: Vector3 = stage.glove_front(who, s + "Hand")
+		var mid := (tip + Gate.world(stage, who, s + "Hand")) * 0.5
+		var near := mid.distance_to(place)
+		if str(row[3]) == "arm":
+			near = Geometry3D.get_closest_point_to_segment(place, Gate.world(stage, who, s + "LowerArm"), tip).distance_to(place)
+		elif str(row[3]) == "under":
+			near = ((mid - place) * Vector3(1, 0, 1)).length() if mid.y < place.y else 9.0
+		if near > HOLD_PLACE_M * sc:
+			fails.append("%s %.3f m from the place it guards (bar %.2f)" % [h, near / sc, HOLD_PLACE_M])
+		if maxf(tip.y, mid.y) > top:
+			fails.append("%s glove %.3f m over the top of the head" % [h, (maxf(tip.y, mid.y) - top) / sc])
+		said.append("%s %.3f m from its place, %.3f m under the top of the head, %.2f m over the hips" % [h, near / sc, (top - maxf(tip.y, mid.y)) / sc, (mid.y - Gate.world(stage, who, "Hips").y) / sc])
+	for s in ["Left", "Right"]:
+		if held.has(s):
+			continue
+		var moved := (Gate.world(stage, who, s + "Hand") - head).distance_to(was[s])
+		if moved > HOLD_OTHER_M * sc:
+			fails.append("the other hand %.3f m from its guard (bar %.2f)" % [moved / sc, HOLD_OTHER_M])
+		said.append("the other hand %.3f m from its guard" % [moved / sc])
+	print("HOLD_GATE %s %s: %s" % [["red", "blue"][who], key, "; ".join(PackedStringArray(said))])
+	return {"fails": fails}
 
 
 func _feint_run(who: int, name: String) -> void:
@@ -218,3 +299,54 @@ func _ko_run(who: int, name: String) -> void:
 		return [[0.0, func() -> void: stage.v2._play(who, KO_CLIP, 0.0, "reaction", false)]]
 	var times: Array = KO_FRAC.map(func(f) -> float: return snappedf(float(f) * len, 0.01))
 	await _solo(name, KO_CLIP, times, build, Callable(), true)
+
+
+## THE KNOCKDOWN COMES FROM THE PUNCH (owner S553, on the fall played by itself after the punch: "there is no hit how is
+## that knock down ?"): a landed punch's own run from its contact on, the hit man going down from that blow (KO_CLIP
+## started one picture after the glove arrives, as a hit reaction is). The pair, the camera and the size are the landed
+## run's own; the picture is twice as wide, so the man on the canvas is still in it and nothing changes size. The page
+## plays the landed run up to its contact, then this.
+func _punch_ko_run(who: int, fam: String, name: String) -> void:
+	var b := await _find(who, fam, "landed")
+	if b.is_empty() or not _has(1 - who, KO_CLIP):
+		print("PICS2D_ANIM no %s take on %s" % [fam, name])
+		refused += 1
+		return
+	cover = ""
+	var body: bool = FAMILIES[fam][1]
+	await _pose(who, str(b["clip"]), fam, "landed", float(b["cs"]), b["hand"], body, float(b["step"]), b["side"])
+	_aim([0, 1])
+	var pl := _plan(who, b, fam, "landed")
+	pl["ans"] = KO_CLIP
+	pl["ans_kind"] = "reaction"
+	pl["ans_t"] = 1.0 / 60.0
+	pl["ans_from"] = 0.0
+	var dirv := axis * (1.0 if who == 0 else -1.0)
+	for attempt in 4:   # the landed run's own last step: the glove on the target on the contact as it is played live
+		await _pose_at(who, b, pl, Vector3.ZERO, 0.0)
+		await process_frame
+		var m: Dictionary = Gate.punch(stage, who, b["hand"], "landed", body, dirv, _px, SIZE / cam.size, _view())
+		if (m["fails"] as Array).is_empty():
+			break
+		var back := maxf(maxf(Gate.APART_MIN_M - float(m["apart_m"]), Gate.FEET_MIN_M - float(m["feet_m"])), Gate.HEAD_CLEAR_M - float(m["head_clear_m"]))
+		b["step"] = float(b["step"]) - back - 0.02 if back > 0.0 else float(b["step"]) + float(m.get("hit_m", 0.0)) - 0.01
+	var len := (stage.boxers[1 - who]["ap"] as AnimationPlayer).get_animation(KO_CLIP).length
+	sv.size = Vector2i(SIZE * 2, SIZE)
+	var files: Array = []
+	var times: Array = []
+	for off in KO_AFTER:
+		if float(off) > len - 0.05:
+			break
+		await _pose_at(who, b, pl, Vector3.ZERO, float(off))
+		await RenderingServer.frame_post_draw
+		var f := "%s_%d" % [name, files.size()]
+		sv.get_texture().get_image().save_png(out_dir.path_join(f + ".png"))
+		wrote += 1
+		files.append(f + ".png")
+		times.append(off)
+	sv.size = Vector2i(SIZE, SIZE)
+	for f in 3:
+		await process_frame
+	runs[name] = {"files": files, "offs": times, "contact": 0, "clip": str(b["clip"]), "answer": KO_CLIP, "wide": 2, "step": snappedf(float(b["step"]), 0.001), "gate_fails": []}
+	print("PICS2D_ANIM %s = %s then %s, %d frames, step %.2f m" % [name, b["clip"], KO_CLIP, files.size(), float(b["step"])])
+	_save()

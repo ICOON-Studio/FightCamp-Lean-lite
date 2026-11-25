@@ -272,6 +272,156 @@
      ]
     }
    ]
+  },
+  {
+   "title": "Ring Switches",
+   "frames": [
+    {
+     "id": "ringswitch_plan",
+     "title": "Ring Switches: the plan (S553)",
+     "kind": "cards",
+     "columns": [
+      {
+       "title": "DONE",
+       "cards": [
+        {
+         "text": "Your idea built as a toy, two pages (S551)",
+         "who": "claude"
+        },
+        {
+         "text": "Every action plays frame by frame, 59 runs (S552)",
+         "who": "claude"
+        },
+        {
+         "text": "Four guard holds authored: each hand high or low (S553)",
+         "who": "claude"
+        },
+        {
+         "text": "Both men now drawn chest to the camera (S553)",
+         "who": "claude"
+        },
+        {
+         "text": "Guard bar measured: it never breaks (S553)",
+         "who": "claude"
+        }
+       ]
+      },
+      {
+       "title": "NOW: the pictures",
+       "cards": [
+        {
+         "text": "New pictures onto the page (rendered, not yet on it)",
+         "who": "claude"
+        },
+        {
+         "text": "Play both pages in the browser",
+         "who": "claude"
+        },
+        {
+         "text": "Two punch pictures failed their check: redo",
+         "who": "claude"
+        },
+        {
+         "text": "Sheets and a film for your eye",
+         "who": "claude"
+        }
+       ]
+      },
+      {
+       "title": "NEXT: your notes",
+       "cards": [
+        {
+         "text": "Knockdown comes from the punch (built, needs pictures)",
+         "who": "claude"
+        },
+        {
+         "text": "Long, Mid, Inside are drawn (built, needs pictures)",
+         "who": "claude"
+        },
+        {
+         "text": "Missed hook: a near miss, not a wild swing (C508)",
+         "who": "claude"
+        },
+        {
+         "text": "Effects when a punch lands (C509)",
+         "who": "claude"
+        },
+        {
+         "text": "Uppercut: men start too close, arm through the gloves",
+         "who": "claude"
+        }
+       ]
+      },
+      {
+       "title": "THEN: the game",
+       "cards": [
+        {
+         "text": "Guard bar: cut it or rebuild it",
+         "who": "claude"
+        },
+        {
+         "text": "The Jabber is too easy",
+         "who": "claude"
+        },
+        {
+         "text": "Bots that plan more than one beat",
+         "who": "claude"
+        },
+        {
+         "text": "Tests for the rules",
+         "who": "claude"
+        },
+        {
+         "text": "Keep the order page or not",
+         "who": "claude"
+        }
+       ]
+      },
+      {
+       "title": "LATER",
+       "cards": [
+        {
+         "text": "Ground game with GrappleMap, any angle",
+         "who": "claude"
+        },
+        {
+         "text": "Other arts as more switch groups",
+         "who": "claude"
+        },
+        {
+         "text": "Training decides which switches a boxer owns",
+         "who": "claude"
+        },
+        {
+         "text": "Overhand take, one-man shove, the women pair",
+         "who": "claude"
+        }
+       ]
+      },
+      {
+       "title": "YOUR CALLS",
+       "cards": [
+        {
+         "text": "Guard bar: cut or rebuild?",
+         "who": "claude"
+        },
+        {
+         "text": "Your eye on the new pictures",
+         "who": "claude"
+        },
+        {
+         "text": "Order page: keep or drop?",
+         "who": "claude"
+        },
+        {
+         "text": "Coaches note: the rest of your sentence",
+         "who": "claude"
+        }
+       ]
+      }
+     ]
+    }
+   ]
   }
  ]
 }

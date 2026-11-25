@@ -15,7 +15,8 @@
       "text": "fine",
       "at": "2026-10-10T08:30:45Z",
       "seen_by_claude": true,
-      "id": "C2"
+      "id": "C2",
+      "addressed": "cited by 37097029f 2026-11-24"
     },
     {
       "path": "_sent/2026-10-10_0515_smooth_animation_part_1_ludo_steadier_ca/side_by_side.mp4",
@@ -3900,7 +3901,8 @@
       "at": "2026-11-24T10:21:54Z",
       "seen_by_claude": true,
       "at_s": 14.3,
-      "id": "C505"
+      "id": "C505",
+      "addressed": "cited by cf7c65790 2026-11-24"
     },
     {
       "path": "_sent/2026-11-24_0651_body_hook_in_the_3d_fight_the_hit_boxer_/bodyreact2_before_after_w.mp4",
@@ -3916,6 +3918,38 @@
       "at": "2026-11-24T10:23:07Z",
       "seen_by_claude": true,
       "id": "C507"
+    },
+    {
+      "path": "_sent/2026-11-25_0134_ring_switches_every_action_frame_by_fram/before_after_quarter_speed.mp4",
+      "text": "hook aims too high i think and too far away from the head",
+      "at": "2026-11-25T01:43:12Z",
+      "seen_by_claude": false,
+      "at_s": 18.0,
+      "id": "C508"
+    },
+    {
+      "path": "_sent/2026-11-25_0134_ring_switches_every_action_frame_by_fram/before_after_real_speed.mp4",
+      "text": "needs some visual effects when it lands showing the damage done beside sounds",
+      "at": "2026-11-25T01:44:31Z",
+      "seen_by_claude": false,
+      "at_s": 8.9,
+      "id": "C509"
+    },
+    {
+      "path": "_sent/2026-11-24_1758_the_close_body_hook_you_said_had_no_punc/bodycross4_close_hook_before_after_m.mp4",
+      "text": "very good",
+      "at": "2026-11-25T02:10:39Z",
+      "seen_by_claude": false,
+      "at_s": 14.3,
+      "id": "C510"
+    },
+    {
+      "path": "_sent/2026-11-24_1758_the_close_body_hook_you_said_had_no_punc/bodycross4_close_hook_before_after_w.mp4",
+      "text": "awesome",
+      "at": "2026-11-25T02:10:58Z",
+      "seen_by_claude": false,
+      "at_s": 14.3,
+      "id": "C511"
     }
   ]
 }

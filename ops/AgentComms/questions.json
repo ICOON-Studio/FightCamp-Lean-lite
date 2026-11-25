@@ -9302,10 +9302,11 @@
       "attach": [
         "research/COACHMAP2_ASK_S552.md"
       ],
-      "answer": null,
-      "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answer": "Keep the two hire cards",
+      "note": "thecoaches should have",
+      "answered_at": "2026-11-25T01:38:12Z",
+      "seen_by_claude": true,
+      "comment_only": false
     }
   ]
 }

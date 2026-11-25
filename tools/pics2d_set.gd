@@ -101,7 +101,7 @@ func _setup() -> bool:
 	var pair: Array = SETS[_arg("set", "w")]
 	var spec: Array = []
 	for i in 2:
-		spec.append({"glb": "res://assets/models/metahuman/mh_boxer_%s.glb" % pair[i], "corner": ["red", "blue"][i], "stance": "orthodox"})
+		spec.append({"glb": "res://assets/models/metahuman/mh_boxer_%s.glb" % pair[i], "corner": ["red", "blue"][i], "stance": "southpaw" if _arg("south", "") == ["red", "blue"][i] else "orthodox"})   # south=blue: he is mirrored, so both men show the camera their chest
 	print("PICS2D_SET set=%s bodies %s" % [_arg("set", "w"), pair])
 	stage.setup(spec[0], spec[1])
 	if stage.v2 == null:
@@ -461,8 +461,8 @@ func _aim(who: Array) -> void:
 		var h := Gate.world(stage, i, "Hips")
 		mid += Vector3(h.x, 0.0, h.z)
 	mid /= float(who.size())
-	var off := Vector3(-8.0, 0.0, 0.0).rotated(Vector3.UP, deg_to_rad(yaw_deg))
-	cam.global_position = Vector3(mid.x + off.x, LOOK_Y, mid.z + off.z)
+	var off := Vector3(-8.0, 0.0, 0.0).rotated(Vector3.BACK, -deg_to_rad(float(_arg("pitch", "0")))).rotated(Vector3.UP, deg_to_rad(yaw_deg))   # pitch=<deg>: the camera raised, looking down
+	cam.global_position = Vector3(mid.x + off.x, LOOK_Y + off.y, mid.z + off.z)
 	cam.look_at(Vector3(mid.x, LOOK_Y, mid.z), Vector3.UP)
 	cam.make_current()
 

@@ -32,16 +32,18 @@ def font(px: int):
 
 def strip(src: Path, name: str, row: dict, dst: Path) -> Path:
     files, offs = row["files"], row["offs"]
-    w = STRIP_PX
-    sheet = Image.new("RGB", (w * len(files), w + 34), (38, 46, 62))
+    h = STRIP_PX
+    first = Image.open(src / files[0])
+    w = h * first.width // first.height   # a knockdown's pictures are twice as wide (same size of man)
+    sheet = Image.new("RGB", (w * len(files), h + 34), (38, 46, 62))
     draw = ImageDraw.Draw(sheet)
     for k, f in enumerate(files):
-        im = Image.open(src / f).convert("RGBA").resize((w, w), Image.LANCZOS)
-        tile = Image.new("RGBA", (w, w), (38, 46, 62, 255) if offs[k] != 0 else (84, 62, 30, 255))
+        im = Image.open(src / f).convert("RGBA").resize((w, h), Image.LANCZOS)
+        tile = Image.new("RGBA", (w, h), (38, 46, 62, 255) if offs[k] != 0 else (84, 62, 30, 255))
         tile.alpha_composite(im)
         sheet.paste(tile.convert("RGB"), (k * w, 0))
         label = "contact" if offs[k] == 0 else ("%+.2f s" % offs[k])
-        draw.text((k * w + 8, w + 6), label, fill=(240, 232, 220), font=font(18))
+        draw.text((k * w + 8, h + 6), label, fill=(240, 232, 220), font=font(18))
     draw.text((8, 6), "%s  (%s)" % (name, row.get("clip", "")), fill=(227, 171, 69), font=font(18))
     dst.mkdir(parents=True, exist_ok=True)
     p = dst / (name + "_strip.png")
@@ -86,7 +88,8 @@ def main(argv: list[str]) -> int:
             OUT.mkdir(parents=True, exist_ok=True)
             names = []
             for f in row["files"]:
-                im = Image.open(d / f).convert("RGBA").resize((WEB_PX, WEB_PX), Image.LANCZOS)
+                im = Image.open(d / f).convert("RGBA")
+                im = im.resize((WEB_PX * im.width // im.height, WEB_PX), Image.LANCZOS)   # the height is the size: a wide picture stays wide
                 wn = Path(f).with_suffix(".webp").name
                 im.save(OUT / wn, "WEBP", quality=76)
                 names.append(wn)

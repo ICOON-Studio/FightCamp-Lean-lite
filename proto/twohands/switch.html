@@ -111,11 +111,12 @@ fetch('img/anim/frames.json').then((r) => r.json()).then((j) => { ANIM = j.runs 
 function warm(runs) { return Promise.all(runs.filter((n) => ANIM[n]).flatMap((n) => ANIM[n].files).filter((f) => !PRE[f]).map((f) => new Promise((ok) => { const im = new Image(); PRE[f] = im; im.onload = im.onerror = ok; im.src = 'img/anim/' + f; }))); }
 const stepRun = (o) => { const m = /you (step in|back off)/.exec(o) || /he (steps in|backs off)/.exec(o); return m ? (m[0][0] === 'y' ? 'blue_' : 'red_') + (/in$/.test(m[1]) ? 'step_in' : 'back_off') : ''; };
 const runOf = (e) => { const col = e.k ? 'red' : 'blue'; if (e.t === 'hit' || e.t === 'block' || e.t === 'miss') return `${col}_${ACT[e.id].run || ACT[e.id].pic}_${e.t === 'hit' ? 'landed' : e.t === 'block' ? 'blocked' : 'missed'}`;
-  if (e.t === 'clinch') return `${col}_clinch`; if (e.t === 'range') return stepRun(e.o || ''); if (e.t === 'flat' && e.k >= 0 && !e.id) return /^feint/.test(e.a) ? `${col}_feint` : /^push/.test(e.a) ? `${col}_push` : ''; return ''; };
+  if (e.t === 'clinch') return `${col}_clinch`; if (e.t === 'range') { const run = stepRun(e.o || ''), to = / to (Inside|Mid|Long)$/.exec(e.a || ''), rr = run && to ? `${run}_r${{ Inside: 1, Mid: 2, Long: 3 }[to[1]]}` : ''; return ANIM[rr] ? rr : run; }   /* a step is drawn ending on the range it reaches */ if (e.t === 'flat' && e.k >= 0 && !e.id) return /^feint/.test(e.a) ? `${col}_feint` : /^push/.test(e.a) ? `${col}_push` : ''; return ''; };
 // plays a run at its recorded times: the contact picture is held HOLD ms (onHit fires on it), a big punch's last three pictures in are slowed
-function playRun(run, big, onHit, done) { const r = ANIM[run]; if (!r || !r.files.every((f) => PRE[f] && PRE[f].naturalWidth)) return false;
+const ready = (run) => !!ANIM[run] && ANIM[run].files.every((f) => PRE[f] && PRE[f].naturalWidth);
+function playRun(run, big, onHit, done, cut) { const r = ANIM[run]; if (!ready(run)) return false;   /* cut: stop BEFORE the contact picture (a knockdown's own run takes over from there) */
   const c = r.contact, at = Math.max(c, 0); let i = 0;
-  const show = () => { $('pic').src = PRE[r.files[i]].src; if (i === at) onHit(); if (i >= r.files.length - 1) return done();
+  const show = () => { if (cut && i === c) return done(); $('pic').src = PRE[r.files[i]].src; if (i === at) onHit(); if (i >= r.files.length - 1) return done();
     let wait = Math.min(MAX_GAP, (r.offs[i + 1] - r.offs[i]) * 1000); if (i === c) wait += HOLD; if (big && c - i >= 1 && c - i <= 3) wait *= BIG_SLOW; i++; setTimeout(show, wait); };
   show(); return true; }
 function pop(who, text, cls) { const el = $('pop' + who); el.textContent = text; el.className = 'pop p' + who + ' ' + cls; void el.offsetWidth; el.classList.add('go'); }
@@ -229,6 +230,9 @@ function go() { if (busy) return; busy = true; phase = 'play'; $('acts').innerHT
       else if (e.t === 'clinch' && still) pic('clinch');
       draw(); };
     const kd = `${e.k ? 'blue' : 'red'}_knockdown`, fall = (then) => { if (!e.down) return then(); snd('knockdown_fall_4'); if (!playRun(kd, false, () => {}, () => setTimeout(then, 600))) { pic(kd + '_2'); setTimeout(then, 900); } };
+    /* a knockdown comes FROM the punch (owner S553: "there is no hit how is that knock down ?"): the punch up to its contact, then the run where he goes down from it */
+    const ko = e.down && e.t === 'hit' ? runOf(e).replace(/_landed$/, '_ko') : '';
+    if (ko && ready(ko) && playRun(runOf(e), ACT[e.id].d >= 4, () => {}, () => { setTimeout(() => snd('knockdown_fall_4'), 450); playRun(ko, false, () => fx(false), () => setTimeout(step, 900)); }, true)) return;
     if (playRun(runOf(e), punch && ACT[e.id].d >= 4, () => fx(false), () => fall(() => setTimeout(step, punch ? 200 : 150)))) return;
     if (punch) pic('guard');
     setTimeout(() => { fx(true); if (e.down) setTimeout(() => { pic(kd + '_2'); snd('knockdown_fall_4'); }, 350);
@@ -237,12 +241,14 @@ function go() { if (busy) return; busy = true; phase = 'play'; $('acts').innerHT
     for (const k of [0, 1]) if (F[k].hp <= 0) { F[k].kd++; F[1 - k].pts += 3; if (F[k].kd > N.kd.length) return over(k ? 'YOU WIN - the referee stops it' : `${OPP.n} WINS - the referee stops it`); F[k].hp = N.kd[F[k].kd - 1];
       $('story').insertAdjacentHTML('beforeend', `<div class="srow ${k ? 'good' : 'bad'}"><b>${k ? 'HE IS' : 'YOU ARE'} DOWN</b><span>health hit 0 - up at ${F[k].hp}; three times and it is stopped</span><em></em></div>`); }
     beat++; P = { ...P, clinch: false, lead: affordable(P.lead), rear: affordable(P.rear) }; if (cost(P) > F[0].st) P = { ...plan0(), hl: P.hl, hr: P.hr };
-    if (beat >= N.beats) return bell(); plan(); };
-  const need = ev.map(runOf).filter(Boolean); for (const e of ev) if (e.down) need.push(`${e.k ? 'blue' : 'red'}_knockdown`);
+    if (beat >= N.beats) return bell(); heldShown = ''; plan(); };
+  const need = ev.map(runOf).filter(Boolean); for (const e of ev) if (e.down) need.push(`${e.k ? 'blue' : 'red'}_knockdown`, runOf(e).replace(/_landed$/, '_ko'));
   Promise.race([warm(need), new Promise((ok) => setTimeout(ok, 1500))]).then(() => setTimeout(step, 350)); }
-/* a held guard is SEEN too: when both hands are held the same way the player settles into it (no take holds ONE hand) */
+/* a held hand is SEEN (HOLDTAKES1, S553): every hand that does not punch is held high or low - one hand, or both */
 let heldShown = '';
-function showHold() { const h = !P.lead && !P.rear && !P.clinch && P.hl === P.hr ? P.hl : ''; if (h === heldShown) return; heldShown = h; if (!h) return; const run = 'blue_hold_' + h; warm([run]).then(() => { if (phase === 'plan' && heldShown === h) playRun(run, false, () => {}, () => {}); }); }
+function showHold() { const l = P.clinch || P.lead ? '' : P.hl, r = P.clinch || P.rear ? '' : P.hr, h = l && r ? `both_${l}_${r}` : l ? `lead_${l}` : r ? `rear_${r}` : '', key = h + '@' + range; if (key === heldShown) return; heldShown = key; if (!h) return pic('guard');
+  const far = 'blue_' + h, run = range < 3 && ANIM[`${far}_r${range}`] ? `${far}_r${range}` : far;   /* the men stand at the range: Long, Mid (_r2) or Inside (_r1) */
+  warm([run]).then(() => { if (phase === 'plan' && heldShown === key) playRun(run, false, () => {}, () => {}); }); }
 const affordable = (id) => (id && ACT[id].st <= F[0].st ? id : null);
 function bell() { const [x, y] = F, w = x.pts === y.pts ? -1 : x.pts > y.pts ? 0 : 1, sc = [w === 1 ? 9 : 10, w === 0 ? 9 : 10]; cards.push(sc); snd('bell_round_end_1', 0.5);
   if (round >= N.rounds) { const t = [0, 1].map((k) => cards.reduce((s, c) => s + c[k], 0)); return over(t[0] === t[1] ? `A DRAW ${t[0]}-${t[1]}` : `${t[0] > t[1] ? 'YOU WIN' : OPP.n + ' WINS'} on the cards ${t[0]}-${t[1]}`); }
