@@ -1,0 +1,26 @@
+{
+ "_note": "S559 KICKBOX1 fix A: a feint does not set up a kick (kicks are seen coming); the check is free (held like a hand); head kick 4 health, 4 stamina; low kick 1 health (the leg mark and the limp stay its weapon). From the first table: low kick landed 88%, head kick 92% (feint then head kick), 96% stoppages.",
+ "page": "kick.html",
+ "src": [
+  [
+   "wasDrawn = drawn[sh.k] === 1;",
+   "wasDrawn = drawn[sh.k] === 1 && !sh.kick;"
+  ],
+  [
+   "check: { n: 'Check', st: 1,",
+   "check: { n: 'Check', st: 0,"
+  ],
+  [
+   "headk: { n: 'Head kick', st: 3,",
+   "headk: { n: 'Head kick', st: 4,"
+  ]
+ ],
+ "ACT": {
+  "headk": {
+   "d": 4
+  },
+  "low": {
+   "d": 1
+  }
+ }
+}
