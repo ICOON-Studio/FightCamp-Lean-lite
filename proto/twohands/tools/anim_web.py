@@ -8,6 +8,8 @@ proto/twohands/img/anim/frames.json (merged: a later run of the same name replac
 frame failed the picture gate is NOT copied (the page then keeps its still) and is printed.
 --alias new=old: the page's run `new` plays the frames of `old` (said in the table as "same_as").
 --skip <part>: runs whose name holds <part> get a strip but no web copy (a take that reads wrong is shown, not shipped).
+MASK1 (S559): a frame with <run>_<k>_mask.png beside it (tools/pics2d_mask.gd) gets its mask copied too, 480 px, every
+pixel snapped to the nearest part colour or made clear (lossless, palette PNG); the run's row lists them as "masks".
 """
 from __future__ import annotations
 
@@ -21,6 +23,24 @@ HERE = Path(__file__).resolve().parent
 OUT = HERE.parent / "img" / "anim"
 WEB_PX = 480
 STRIP_PX = 300
+## tools/pics2d_mask.gd PART: the eight part colours (blue lead, rear, legs, torso; red lead, rear, legs, torso)
+MASK_RGB = [(255, 0, 0), (0, 255, 0), (0, 0, 255), (255, 255, 0), (255, 0, 255), (0, 255, 255), (255, 128, 0), (128, 0, 255)]
+
+
+def mask_web(src: Path, dst: Path) -> None:
+    """The mask at the web size, nearest-neighbour, each pixel the nearest part colour (or clear under half alpha)."""
+    im = Image.open(src).convert("RGBA")
+    im = im.resize((WEB_PX * im.width // im.height, WEB_PX), Image.NEAREST)
+    pal = Image.new("P", (1, 1))
+    flat = [0, 0, 0] + [c for rgb in MASK_RGB for c in rgb]
+    pal.putpalette(flat + [0] * (768 - len(flat)))
+    rgb = Image.new("RGB", im.size, (0, 0, 0))
+    rgb.paste(im, mask=im.getchannel("A"))
+    q = rgb.quantize(palette=pal, dither=Image.Dither.NONE)
+    clear = im.getchannel("A").point(lambda v: 255 if v < 128 else 0)
+    q.paste(0, mask=clear)   # index 0 = clear
+    q.info["transparency"] = 0
+    q.save(dst, "PNG", optimize=True, transparency=0)
 
 
 def font(px: int):
@@ -86,14 +106,20 @@ def main(argv: list[str]) -> int:
                 skipped += 1
                 continue
             OUT.mkdir(parents=True, exist_ok=True)
-            names = []
+            names, masks = [], []
             for f in row["files"]:
+                mk = d / (Path(f).stem + "_mask.png")
+                if mk.exists():
+                    mask_web(mk, OUT / mk.name)
+                    masks.append(mk.name)
                 im = Image.open(d / f).convert("RGBA")
                 im = im.resize((WEB_PX * im.width // im.height, WEB_PX), Image.LANCZOS)   # the height is the size: a wide picture stays wide
                 wn = Path(f).with_suffix(".webp").name
                 im.save(OUT / wn, "WEBP", quality=76)
                 names.append(wn)
             table["runs"][name] = {"files": names, "offs": row["offs"], "contact": row.get("contact", -1), "clip": row.get("clip", "")}
+            if masks and len(masks) == len(names):
+                table["runs"][name]["masks"] = masks
             if row.get("hit"):   # C509: the glove's place on the contact picture (share of width, height) - the page draws the hit there
                 table["runs"][name]["hit"] = row["hit"]
             kept += 1

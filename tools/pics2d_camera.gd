@@ -2,7 +2,11 @@
 ## tools/camera_pick.gd and saves the angle to tools/pics2d_camera.json; tools/pics2d_set.gd (and every tool built on it)
 ## then takes those numbers as its defaults. No file = today's camera exactly (level, side on, ORTHO_M 2.55, LOOK_Y 1.02).
 ## pitch= / yaw= on the command line still win over the file.
+## RINGCAM1 (S559, ops/research/TASK_RINGCAM1.md): cam=ring (the default) aims EVERY picture at one fixed spot of the
+## ring (ring_at: the hips' middle in the guard at Long, read once at setup), so a hold, a step and a punch are seen
+## from the same camera and nothing snaps between runs; cam=pair = the S552-S559 aim (the middle of who is in it).
 
+const Gate := preload("res://tools/pics2d_gate.gd")
 const PATH := "res://tools/pics2d_camera.json"
 const DEFAULTS := {"pitch": 0.0, "yaw": 0.0, "size": 2.55, "look_y": 1.02, "look_shift": 0.0}
 const PITCH_MAX := 85.0   # straight down has no "up" for look_at
@@ -22,7 +26,20 @@ static func read(arg: Callable) -> Dictionary:
 		if v != "":
 			d[k] = float(v)
 	d["pitch"] = clampf(float(d["pitch"]), -PITCH_MAX, PITCH_MAX)
+	d["ring"] = str(arg.call("cam", "ring")) != "pair"
 	return d
+
+
+## The point the camera aims at: ring_at on the ring camera, else the middle of the hips of who is in the picture
+## (the hips, not the roots: a knockdown carries the body a metre from its root).
+static func mid(stage: Node, who: Array, c: Dictionary) -> Vector3:
+	if bool(c.get("ring", false)) and c.has("ring_at"):
+		return c["ring_at"]
+	var m := Vector3.ZERO
+	for i in who:
+		var h := Gate.world(stage, i, "Hips")
+		m += Vector3(h.x, 0.0, h.z)
+	return m / float(who.size())
 
 
 ## Places the orthographic camera 8 m off the pair on -X, raised by pitch (looking down), turned by yaw about the pair,

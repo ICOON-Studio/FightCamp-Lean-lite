@@ -67,7 +67,10 @@ func _want(name: String) -> bool:
 
 func _save() -> void:   # after every run: a render that is cut short keeps what it made
 	var fh := FileAccess.open(out_dir.path_join("frames.json"), FileAccess.WRITE)
-	fh.store_string(JSON.stringify({"runs": runs}, "  "))
+	var doc := {"runs": runs}
+	if bool(camv.get("ring", false)):   # RINGCAM1: one camera for every run; a metre along red -> blue is this many px
+		doc["camera"] = {"ring": true, "px_per_m": SIZE / cam.size, "axis_px": [snappedf((_px(axis) - _px(Vector3.ZERO)).x, 0.01), snappedf((_px(axis) - _px(Vector3.ZERO)).y, 0.01)], "size_m": cam.size}
+	fh.store_string(JSON.stringify(doc, "  "))
 	fh.close()
 
 

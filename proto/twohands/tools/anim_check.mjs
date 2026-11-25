@@ -18,6 +18,9 @@ const RESULTS = ['landed', 'blocked', 'missed'];
 // (the choice the game is about: a hand held high or low). The two-hand holds of S552 are gone: the page never asks for them.
 const SOLO = ['step_in', 'back_off', 'lead_high', 'lead_low', 'rear_high', 'rear_low', 'feint', 'push', 'clinch', 'knockdown'];
 const NO_TAKE = [];
+// KICKTAKE1 (S559): kick.html's first kicks (ACT[..].pic teep, low_kick) and the shin check, from tools/pics2d_kick.gd.
+// The body kick and the head kick have no take yet (their page falls back to its still).
+const KICKS = ['teep', 'low_kick'];
 const HANDS = ['lead_high', 'lead_low', 'rear_high', 'rear_low'];
 const BOTH = ['both_high_high', 'both_high_low', 'both_low_high', 'both_low_low'];
 
@@ -26,6 +29,8 @@ export function wanted() {
   for (const c of CORNERS) {
     for (const p of PUNCHES) for (const r of RESULTS) runs.push(`${c}_${p}_${r}`);
     for (const s of SOLO) runs.push(`${c}_${s}`);
+    for (const k of KICKS) for (const r of RESULTS) runs.push(`${c}_${k}_${r}`);
+    runs.push(`${c}_check`);
     // S553: both hands held (every hand that does not punch is high or low), the knockdown that comes from each punch,
     // and the steps drawn ending on the range they reach (_r3 Long, _r2 Mid, _r1 Inside)
     for (const h of BOTH) runs.push(`${c}_${h}`);

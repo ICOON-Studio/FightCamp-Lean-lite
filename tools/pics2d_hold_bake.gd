@@ -17,6 +17,10 @@ extends SceneTree
 ## reads them). The game does not load them yet; tools/pics2d_anim_more.gd adds them for the pictures.
 ## Both hands held at once (the page: a hand that does not punch is held high or low) = both arms solved on the same
 ## keys: hold_both_<lead>_<rear>.res.
+## KICKTAKE1 (S559): a LEG variant, the same method on the lead leg (POSES "limb": "leg", bones UpperLeg / LowerLeg / Foot):
+##   check      stops his low kick          the lead knee up and out, the shin turned out, the foot off the canvas, the
+##                                          guard held (the Muay Thai shin check; RamsterZ H2H_LegBlockIdle as the shape)
+## only=check bakes it alone: hold_check.res.
 ##   <godot> --headless --audio-driver Dummy --fixed-fps 60 --path . --script res://tools/pics2d_hold_bake.gd -- [dry]
 ##       [only=lead_low] [at=f,o,u] [pole=f,o,u] [roll=deg] [set=m|w]
 
@@ -51,7 +55,16 @@ const POSES := {
 	# line (the cuff under the chin, not the glove)
 	"rear_low": {"side": "Right", "from": "chest", "at": Vector3(0.12, 0.09, 0.17), "pole": Vector3(-0.4, 0.8, -0.5), "roll": 0.0,
 		"guards": ["face", Vector3(0.02, 0.0, -0.30)]},
+	# KICKTAKE1: the ankle 0.30 m ahead of the hips, 0.12 m out to its own side and 0.50 m under them (about 0.3 m off the
+	# canvas), the knee up and FORWARD, a little out: the shin stands in front of his lead thigh, in a low kick's path from
+	# either side. (First pose: ankle 0.24 m out, knee 0.35 m out - with blue mirrored for the camera the kick comes from the
+	# inside and passed 0.23 m from that shin.)
+	# Second fix: the knee higher (ankle 0.42 m under the hips, not 0.50) so the middle of the shin stands at the height the
+	# low kick's shin travels (about 0.68 m): at 0.50 the kick met the check knee to knee.
+	"check": {"side": "Left", "limb": "leg", "from": "hips", "at": Vector3(0.30, 0.12, -0.42), "pole": Vector3(1.0, 0.35, 0.6), "roll": 0.0,
+		"guards": ["hips", Vector3(0.30, 0.12, -0.42)]},
 }
+const LIMBS := {"arm": ["UpperArm", "LowerArm", "Hand"], "leg": ["UpperLeg", "LowerLeg", "Foot"]}
 
 var skel: Skeleton3D
 var ap: AnimationPlayer
@@ -109,6 +122,8 @@ func _initialize() -> void:
 		return
 	_pose_base()
 	for s in ["Left", "Right"]:
+		var ut := _g(s + "UpperLeg")
+		hinge[s + "Leg"] = ut.basis.orthonormalized().inverse() * (_g(s + "LowerLeg").origin - ut.origin).cross(_g(s + "Foot").origin - _g(s + "LowerLeg").origin).normalized()
 		var ua := _g(s + "UpperArm")
 		var el: Vector3 = _g(s + "LowerArm").origin
 		var hd: Vector3 = _g(s + "Hand").origin
@@ -118,7 +133,7 @@ func _initialize() -> void:
 			_rel(hd, "head", s), _rel(hd, "face", s), _rel(hd, "chest", s), _rel(hd, "hips", s), _rel(_glove(s), "face", s)])
 	print("HOLD_BAKE landmarks (m, from the hips): head %s face %s chest %s; one metre = %.3f skeleton units" % [_rel(_mark("head"), "hips", "Right"), _rel(_mark("face"), "hips", "Right"), _rel(_mark("chest"), "hips", "Right"), kk])
 	var src: Animation = ap.get_animation(base)
-	if only == "" and not dry:
+	if only == "" and not dry and false:   # KICKTAKE1: the both-hand holds are baked (S553); only= keeps this skipped
 		DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(OUT_DIR))
 		for l in ["high", "low"]:
 			for r in ["high", "low"]:
@@ -135,8 +150,19 @@ func _initialize() -> void:
 			p["roll"] = float(_arg("roll", str(p["roll"])))
 		var out := _bake(src, [p])
 		_pose_base()
+		var foot0: Vector3 = _g(("Right" if str(p["side"]) == "Left" else "Left") + "Foot").origin
 		_arm(p, 1.0)
 		var s: String = p["side"]
+		if str(p.get("limb", "arm")) == "leg":
+			var o2: String = "Right" if s == "Left" else "Left"
+			print("HOLD_BAKE %s: ankle %s from the hips; knee %.2f m and foot %.2f m off the canvas line of the guard's feet, knee %s from the hips; knee bend %.0f deg; the standing foot moved %.4f m; both wrists moved %.4f / %.4f m" % [
+				key, _rel(_g(s + "Foot").origin, "hips", s), (_g(s + "LowerLeg").origin.y - foot0.y) / kk, (_g(s + "Foot").origin.y - foot0.y) / kk,
+				_rel(_g(s + "LowerLeg").origin, "hips", s), rad_to_deg((_g(s + "UpperLeg").origin - _g(s + "LowerLeg").origin).angle_to(_g(s + "Foot").origin - _g(s + "LowerLeg").origin)),
+				_g(o2 + "Foot").origin.distance_to(foot0) / kk, _other_moved("Left"), _other_moved("Right")])
+			if not dry:
+				out.set_meta("holdtakes1", {"side": s, "limb": "leg", "from": p["from"], "at": p["at"], "pole": p["pole"], "base": base, "move_s": MOVE_S})
+				print("HOLD_BAKE saved %shold_%s.res (err %d, %.2f s)" % [OUT_DIR, key, ResourceSaver.save(out, OUT_DIR + "hold_%s.res" % key), out.length])
+			continue
 		var o: String = "Right" if s == "Left" else "Left"
 		var g: Array = p["guards"]
 		var place: Vector3 = _mark(str(g[0])) + _off(g[1], s)
@@ -242,14 +268,17 @@ func _other_moved(o: String) -> float:
 
 
 ## The arm of pose p, share k of the way from the guard (the skeleton is in the guard when this is called).
+## KICKTAKE1: "limb": "leg" = the same solve on UpperLeg / LowerLeg / Foot (hip, knee, ankle; the foot goes with the shin).
 func _arm(p: Dictionary, k: float) -> void:
 	if k <= 0.0:
 		return
 	var s: String = p["side"]
-	var sh: Vector3 = _g(s + "UpperArm").origin
-	var e0: Vector3 = _g(s + "LowerArm").origin
-	var w0: Vector3 = _g(s + "Hand").origin
-	var hand: Basis = _g(s + "Hand").basis
+	var lb: Array = LIMBS[str(p.get("limb", "arm"))]
+	var hk: String = s if str(p.get("limb", "arm")) == "arm" else s + "Leg"
+	var sh: Vector3 = _g(s + lb[0]).origin
+	var e0: Vector3 = _g(s + lb[1]).origin
+	var w0: Vector3 = _g(s + lb[2]).origin
+	var hand: Basis = _g(s + lb[2]).basis
 	var l1 := (e0 - sh).length()
 	var l2 := (w0 - e0).length()
 	var tgt: Vector3 = w0.lerp(_mark(str(p["from"])) + _off(p["at"], s), k)
@@ -263,19 +292,19 @@ func _arm(p: Dictionary, k: float) -> void:
 	var a := (l1 * l1 - l2 * l2 + d * d) / (2.0 * d)
 	var e1 := sh + u * a + pole * sqrt(maxf(0.0, l1 * l1 - a * a))
 	var w1 := sh + u * d
-	_turn(s + "UpperArm", Basis(Quaternion((e0 - sh).normalized(), (e1 - sh).normalized())))
+	_turn(s + lb[0], Basis(Quaternion((e0 - sh).normalized(), (e1 - sh).normalized())))
 	# the upper arm's twist: the elbow's hinge square to the plane the arm bends in
 	var axis := (e1 - sh).normalized()
 	var plane := axis.cross(w1 - e1)
 	if plane.length() > 0.02 * kk:
-		var have: Vector3 = _g(s + "UpperArm").basis.orthonormalized() * (hinge[s] as Vector3)
+		var have: Vector3 = _g(s + lb[0]).basis.orthonormalized() * (hinge[hk] as Vector3)
 		have = (have - axis * have.dot(axis)).normalized()
-		_turn(s + "UpperArm", Basis(axis, have.signed_angle_to(plane.normalized(), axis)))
-	var e2: Vector3 = _g(s + "LowerArm").origin
+		_turn(s + lb[0], Basis(axis, have.signed_angle_to(plane.normalized(), axis)))
+	var e2: Vector3 = _g(s + lb[1]).origin
 	var fa := (w1 - e2).normalized()
-	_turn(s + "LowerArm", Basis(Quaternion((_g(s + "Hand").origin - e2).normalized(), fa)))
+	_turn(s + lb[1], Basis(Quaternion((_g(s + lb[2]).origin - e2).normalized(), fa)))
 	# the fist goes with the forearm, rolled about it if the pose says so
-	var hi := skel.find_bone(s + "Hand")
+	var hi := skel.find_bone(s + lb[2])
 	var hg := skel.get_bone_global_pose(hi)
 	hg.basis = Basis(fa, deg_to_rad(float(p["roll"])) * k) * Basis(Quaternion((w0 - e0).normalized(), fa)) * hand
 	skel.set_bone_global_pose(hi, hg)

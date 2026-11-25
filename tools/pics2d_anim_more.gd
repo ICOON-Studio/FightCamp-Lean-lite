@@ -48,11 +48,22 @@ const CLINCH_T := [0.0, 0.25, 0.50, 0.80, 1.20, 2.50]
 const KO_FROM := 0.42   # s into the knockdown take where the fall starts (its lead-in is a standing guard)
 const KO_FRAC := [0.04, 0.12, 0.20, 0.30, 0.42, 0.56, 0.72, 0.97]
 const KO_AFTER := [0.0, 0.06, 0.12, 0.20, 0.30, 0.42, 0.56, 0.72, 0.90, 1.12, 1.40, 1.75, 2.15]   # s from the contact
+## MASK1 (S559): the pictures the page shows while the player plans (the guard, every hold) get a part mask beside each
+## frame, <run>_<k>_mask.png, drawn in the same frame (tools/pics2d_mask.gd). mask=off skips it.
+const Mask := preload("res://tools/pics2d_mask.gd")
+var mask: RefCounted = null
 
 
 func _run() -> void:
+	if _arg("mask", "on") != "off":
+		mask = Mask.new(root, stage, cam, sv)
 	for who in 2:
 		var col: String = ["red", "blue"][who]
+		for rk in RANGE_IN:   # MASK1: the guard at each range, as the page shows it while he plans
+			if _want("%s_guard%s" % [col, rk]):
+				await _solo("%s_guard%s" % [col, rk], "guard", [0.0], func() -> Array:
+					await _home_guard(float(RANGE_IN[rk]), who)
+					return [])
 		for key in STEPS:
 			if _want("%s_%s" % [col, key]):
 				await _step_run(who, str(key), "%s_%s" % [col, key])
@@ -80,6 +91,17 @@ func _run() -> void:
 			await _clinch_run(who, ["red", "blue"][who] + "_clinch")
 			await _hands_free()
 	_finish()
+
+
+## MASK1: the planning pictures (the guard and the holds) are saved with their part mask, from the same drawn frame.
+func _frame(name: String, who: Array = [0, 1]) -> bool:
+	var masked := mask != null and (name.contains("_guard") or HOLDS.keys().any(func(k) -> bool: return name.contains("_" + str(k))))
+	if masked:
+		mask.sync()
+	var ok: bool = await super._frame(name, who)
+	if ok and masked:
+		mask.save(out_dir.path_join(name + "_mask.png"))
+	return ok
 
 
 ## The clinch and the push off let go: nobody holds, no hand reaches, both back in the guard.
@@ -165,7 +187,9 @@ func _step_run(who: int, key: String, name: String, end_in: float = 0.0, ranged 
 	var path := RootPath.of(ap.get_animation(clip))
 	var len := ap.get_animation(clip).length
 	var build := func() -> Array:
-		await _home_guard()
+		# RINGCAM1: settled ON the start spot (40 frames), as the hold pictures are; moved there after the guard settled
+		# at Long, frame 0 drew the body 13-28 px short of it (the guard had not caught up) - the "start" snap off Long
+		await _home_guard((from - home_t[who].origin).dot(toward), who)
 		_node(who).global_position = from
 		return [[0.0, func() -> void: stage.v2._play(who, clip, 0.0, "step", false)]]
 	var each := func(_t: float) -> void:

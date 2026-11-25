@@ -1,84 +1,124 @@
-// BODYUI1 (S559) - the owner's idea, built as a toy on a copy of the page (body.html; the rules are order.html's, untouched):
-// "what if we map the available options for the player (cards, switches) on the opponents body and your own fighters body.
-// Lets say i move my mouse on the left hand of my fighter and the available switches appear like tooltip. if i click the same
-// hand the tooltip stays and i can make my selection ... then that selection goes into a strip ... decides and explains the order"
-// Hover a glove, the boots or the body of YOUR man = that part's switches; click = they stay; a pick goes into the order strip,
-// which says in words what each moment does. Hover HIS glove = what that hand did in his last beats and what it shuts.
-// The spots follow the picture: each time a picture is shown, the gloves and boots are found by their colour.
+// BODYUI1 + MASK1 (S559) - the owner's body toy on the REAL body (body.html = order.html's page and rules, plus this file).
+// BODYUI1, the owner: "what if we map the available options for the player (cards, switches) on the opponents body and your
+// own fighters body. Lets say i move my mouse on the left hand of my fighter and the available switches appear ..."
+// MASK1, the owner: "you break down the body to each limb (feet can be one option when it is boxing match for movement
+// options), so when i say you highlight the arm i move my mouse on i do not want text near the fighters (tubes or circles
+// on the fighters are forbidden) make a pointer outlining to the available options menu".
+// How: every picture shown while he plans has a part mask beside it (<frame>_mask.png, rendered from the 3D in the same
+// frame by tools/pics2d_mask.gd: one flat colour per part). The pixel under the mouse names the part; that part glows (its
+// outline, 3 px out from the mask's edge, 60%, in its corner's colour) on a canvas over the picture. Its switches open in
+// ONE fixed panel left of the ring, and a thin line runs from the lit limb to the panel, drawn BEHIND the men. Click = the
+// part stays open. His parts light too: the panel then says what that limb did in his last three beats.
+// Parts: lead arm, rear arm, legs (= feet: step in, back off), torso (= the clinch). No circle, no label on a man.
 (() => {
-  const stage = $('stage'), im = $('pic'), brd = $('board');
-  const layer = document.createElement('div'); layer.id = 'spots'; stage.appendChild(layer);
-  let pinned = null, hover = null, hideT = 0, spots = {};
-  const SPOT = { lead: 'Lead hand', rear: 'Rear hand', feet: 'Feet', clinch: 'Clinch', hlead: 'His lead', hrear: 'His rear' };
-  // ---- find the parts on the picture (the picture is 480x480, drawn mirrored: blue = you on the left)
-  const cv = document.createElement('canvas'), cx = cv.getContext('2d', { willReadFrequently: true });
-  function find() {
-    if (!im.naturalWidth) return null; const w = 160, h = 160; cv.width = w; cv.height = h;
-    try { cx.clearRect(0, 0, w, h); cx.drawImage(im, 0, 0, w, h); } catch (e) { return null; }
-    let d; try { d = cx.getImageData(0, 0, w, h).data; } catch (e) { return null; }
-    const blueG = [], redG = [], boots = [], shorts = [];
-    for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) { const i = (y * w + x) * 4, r = d[i], g = d[i + 1], b = d[i + 2], a = d[i + 3]; if (a < 128) continue;
-      if (y < h * 0.5 && b > 120 && b > r * 1.7 && b > g * 1.35) blueG.push([x, y]);
-      else if (y < h * 0.5 && r > 140 && r > g * 2.2 && r > b * 2.2) redG.push([x, y]);
-      else if (y > h * 0.74 && r > 60 && r > g * 2 && r > b * 2) boots.push([x, y]);
-      else if (y >= h * 0.5 && y < h * 0.7 && b > 120 && b > r * 1.7 && b > g * 1.35) shorts.push([x, y]); }
-    const two = (pts, leadIsLeft) => { if (pts.length < 6) return null; let xs = pts.map((p) => p[0]); let a = pts[xs.indexOf(Math.min(...xs))], b = pts[xs.indexOf(Math.max(...xs))];
-      for (let k = 0; k < 6; k++) { const A = [], B = []; for (const p of pts) ((p[0] - a[0]) ** 2 + (p[1] - a[1]) ** 2 <= (p[0] - b[0]) ** 2 + (p[1] - b[1]) ** 2 ? A : B).push(p);
-        const m = (s, o) => (s.length ? [s.reduce((t, p) => t + p[0], 0) / s.length, s.reduce((t, p) => t + p[1], 0) / s.length] : o); a = m(A, a); b = m(B, b); }
-      return leadIsLeft ? { lead: a, rear: b } : { lead: b, rear: a }; };
-    const mean = (pts) => (pts.length ? [pts.reduce((t, p) => t + p[0], 0) / pts.length, pts.reduce((t, p) => t + p[1], 0) / pts.length] : null);
-    // in the file blue stands on the right facing left, so his lead glove is the LEFT one; red faces right, his lead is the RIGHT one
-    const B = two(blueG, true), R = two(redG, false), ft = mean(boots), sh = mean(shorts), u = (p) => p && [p[0] / w, p[1] / h];
-    return { lead: B && u(B.lead), rear: B && u(B.rear), hlead: R && u(R.lead), hrear: R && u(R.rear), feet: u(ft), clinch: sh ? [sh[0] / w, 0.37] : null }; }
-  const toStage = (p) => { const H = stage.clientHeight * 1.26, W = H * (im.naturalWidth / im.naturalHeight || 1); return [stage.clientWidth / 2 + (0.5 - p[0]) * W, stage.clientHeight * -0.17 + p[1] * H]; };
-  // ---- the spots
-  function place() { if (phase !== 'plan') { layer.innerHTML = ''; spots = {}; return; } const f = find(); if (!f) return;
-    for (const k of Object.keys(SPOT)) { let el = spots[k]; if (!f[k]) { if (el) el.style.display = 'none'; continue; }
-      if (!el) { el = spots[k] = document.createElement('button'); el.className = 'spot ' + (k[0] === 'h' ? 'his' : 'mine') + ' s-' + k; el.dataset.k = k; layer.appendChild(el);
-        el.onmouseenter = () => open(k, false); el.onmouseleave = () => leave(); el.onclick = (e) => { e.stopPropagation(); if (k[0] === 'h') return open(k); pinned = pinned === k ? null : k; if (pinned) open(k, true); else close(); mark(); }; }
-      let [x, y] = toStage(f[k]); if (k === 'lead' || k === 'rear') { const o = f.lead && f.rear && Math.hypot(f.lead[0] - f.rear[0], f.lead[1] - f.rear[1]) < 0.05 ? (k === 'lead' ? 11 : -11) : 0; x += o; }   // gloves on top of each other: side by side
-      if (k === 'hlead' || k === 'hrear') { const o = f.hlead && f.hrear && Math.hypot(f.hlead[0] - f.hrear[0], f.hlead[1] - f.hrear[1]) < 0.05 ? (k === 'hlead' ? -11 : 11) : 0; x += o; }
-      el.style.display = ''; el.style.left = x + 'px'; el.style.top = y + 'px'; }
-    mark(); }
-  function mark() { const first = round === 1 && beat === 0 && !pinned && !P.lead && !P.rear && P.feet === 'hold';
-    for (const k in spots) { const el = spots[k], sl = k === 'clinch' ? null : k; let lab = SPOT[k], n = '';
-      if (sl === 'lead' || sl === 'rear') { if (P[sl]) { lab = ACT[P[sl]].n; n = P.ord.indexOf(sl) + 1; } else lab = (sl === 'lead' ? 'Lead' : 'Rear') + ' held ' + (sl === 'lead' ? P.hl : P.hr); }
-      else if (sl === 'feet' && P.feet !== 'hold') { lab = FEET[P.feet].n; n = P.ord.indexOf('feet') + 1; } else if (k === 'clinch' && P.clinch) lab = 'Clinch';
-      el.innerHTML = (n ? `<b>${n}</b>` : '') + `<span>${lab}</span>`; el.classList.toggle('set', !!n || (k === 'clinch' && P.clinch)); el.classList.toggle('pin', pinned === k); el.classList.toggle('pulse', first && k === 'lead');
-      el.classList.toggle('off', P.clinch && k !== 'clinch' && k[0] !== 'h'); } }
-  // ---- the panel: the page's own switch column for that part (the same buttons, the same rules)
-  function open(k, pin) { clearTimeout(hideT); if (k[0] === 'h') { const t = $('histip'); t.innerHTML = hisHand(k === 'hlead' ? 'lead' : 'rear'); t.style.display = 'block'; posAt(t, spots[k].getBoundingClientRect()); return; }   // his hand: a tooltip only, your panel stays
-    hover = k; if (pinned && pinned !== k && !pin) return; show(k); }
-  function leave() { $('histip').style.display = 'none'; hideT = setTimeout(() => { if (!pinned && !brd.matches(':hover')) close(); }, 260); }
-  function close() { hover = null; brd.className = 'board float'; brd.style.display = 'none'; $('histip').style.display = 'none'; mark(); }
-  function show(k) { const sp = spots[k]; if (!sp) return; const r = sp.getBoundingClientRect();
-    if (k[0] === 'h') { brd.style.display = 'none'; const t = $('histip'); t.innerHTML = hisHand(k === 'hlead' ? 'lead' : 'rear'); t.style.display = 'block'; posAt(t, r); return; }
-    $('histip').style.display = 'none'; const gi = k === 'lead' ? 0 : k === 'rear' ? 1 : 2; brd.className = 'board float show' + gi + (k === 'feet' ? ' only-feet' : k === 'clinch' ? ' only-clinch' : ''); brd.style.display = 'block'; for (const b of brd.querySelectorAll('.sw')) { const sm = b.querySelector('small:not(.why):not(.hab)'); if (sm && !b.dataset.tip) b.dataset.tip = sm.textContent; } posAt(brd, r, true); }
-  function posAt(el, r, mine) { const w = el.offsetWidth, h = el.offsetHeight, right = mine ? r.left - w - 14 < 8 : r.left + r.width / 2 < innerWidth / 2;   // your man's switches open on his own side, away from the other man
-    let x = right ? r.right + 14 : r.left - w - 14; x = Math.max(8, Math.min(x, innerWidth - w - 8)); let y = r.top - h / 3; y = Math.max(8, Math.min(y, innerHeight - h - 8)); el.style.left = x + 'px'; el.style.top = y + 'px'; }
-  function hisHand(sl) { const H = sl === 'lead' ? 0 : 1, nm = sl === 'lead' ? 'His lead hand' : 'His rear hand';
-    const rows = seen.length ? [...seen].reverse().map((p, i) => { const did = p.clinch ? 'clinched' : p[sl] ? 'threw his ' + ACT[p[sl]].n.toLowerCase() : 'held ' + (sl === 'lead' ? p.hl : p.hr) + ' - it shut ' + STOPS[COVER[sl === 'lead' ? p.hl : p.hr][H]];
-      return `<div><i>${['Last beat', 'Before that', 'And before'][i]}</i> ${did}</div>`; }).join('') : '<div>Nothing seen of him yet.</div>';
-    return `<b>${nm}</b>${rows}<div class="hint">Held high it shuts ${STOPS[COVER.high[H]]}; held low, ${STOPS[COVER.low[H]]}.</div>`; }
-  document.addEventListener('click', (e) => { if (!e.target.isConnected) return;   /* a switch re-draws the panel: its button is gone by now */
-    if (pinned && !brd.contains(e.target) && !e.target.closest('.spot') && !e.target.closest('#seqwords') && !e.target.closest('.seq')) { pinned = null; close(); } });
-  brd.addEventListener('mouseleave', () => { if (!pinned) leave(); }); brd.addEventListener('mouseenter', () => clearTimeout(hideT));
+  const stage = $('stage'), im = $('pic'), brd = $('board'), side = $('side');
+  // [r, g, b, who (0 you = blue, 1 him = red), part] - tools/pics2d_mask.gd PART, snapped exactly by anim_web.py
+  const PARTS = [[255, 0, 0, 0, 'lead'], [0, 255, 0, 0, 'rear'], [0, 0, 255, 0, 'feet'], [255, 255, 0, 0, 'clinch'],
+    [255, 0, 255, 1, 'lead'], [0, 255, 255, 1, 'rear'], [255, 128, 0, 1, 'feet'], [128, 0, 255, 1, 'clinch']];
+  const GLOW = [[143, 192, 255], [255, 138, 128]];
+  const NAME = { lead: 'Lead hand', rear: 'Rear hand', feet: 'Feet', clinch: 'Body' };
+  const SUB = { lead: 'your front hand, nearer him', rear: 'your back hand, the power hand', feet: 'step in, back off, or stand', clinch: 'tie him up (Inside only)' };
+  const glow = document.createElement('canvas'); glow.id = 'glow'; stage.appendChild(glow);
+  const NS = 'http://www.w3.org/2000/svg', svg = document.createElementNS(NS, 'svg'); svg.id = 'pointer'; document.body.appendChild(svg);
+  const line = document.createElementNS(NS, 'polyline'); line.setAttribute('fill', 'none'); line.setAttribute('stroke-width', '2'); line.setAttribute('stroke-linejoin', 'round'); line.setAttribute('stroke-dasharray', '7 4');   // dashed: never read as a rope svg.appendChild(line);
+  const head = document.createElement('div'); head.className = 'hd'; side.insertBefore(head, brd);
+  const his = document.createElement('div'); his.id = 'his'; side.appendChild(his);
+  let mask = null, maskFor = '', hover = null, pinned = null, drawn = '';
+  const MASKS = {}, RING = {};
+  // ---- the mask of the picture on screen
+  let byFile = null, nRuns = 0;
+  function maskUrl() { const m = /img\/anim\/([^/?#]+\.webp)/.exec(im.src); if (!m) return null;
+    if (!byFile || Object.keys(ANIM).length !== nRuns) { byFile = {}; nRuns = Object.keys(ANIM).length; for (const n in ANIM) { const r = ANIM[n]; if (r.masks) r.files.forEach((f, i) => { byFile[f] = r.masks[i]; }); } }
+    return byFile[m[1]] ? 'img/anim/' + byFile[m[1]] : null; }
+  function loadMask(url) {
+    if (!MASKS[url]) MASKS[url] = new Promise((ok) => { const m = new Image(); m.onerror = () => ok(null);
+      m.onload = () => { const c = document.createElement('canvas'), W = c.width = m.naturalWidth, H = c.height = m.naturalHeight, x = c.getContext('2d', { willReadFrequently: true }); x.drawImage(m, 0, 0);
+        const d = x.getImageData(0, 0, W, H).data, id = new Uint8Array(W * H);
+        for (let i = 0; i < id.length; i++) { if (d[i * 4 + 3] < 128) continue; let best = 0, bd = 1e9;
+          for (let k = 0; k < PARTS.length; k++) { const p = PARTS[k], e = (d[i * 4] - p[0]) ** 2 + (d[i * 4 + 1] - p[1]) ** 2 + (d[i * 4 + 2] - p[2]) ** 2; if (e < bd) { bd = e; best = k + 1; } }
+          id[i] = best; }
+        ok({ url, W, H, id }); };
+      m.src = url; });
+    return MASKS[url]; }
+  // every picture change (a cached picture set again fires no load in some browsers): the mask of that picture
+  function follow() { if (maskFor === im.src) return; const u = maskUrl(); maskFor = im.src; if (!u) { mask = null; return redraw(); } loadMask(u).then((m) => { if (maskFor === im.src) { mask = m; redraw(); } }); }
+  im.addEventListener('load', follow); new MutationObserver(follow).observe(im, { attributes: true, attributeFilter: ['src'] });
+  const mirrored = () => { const m = /matrix\(([^,]+)/.exec(getComputedStyle(im).transform); return m ? parseFloat(m[1]) < 0 : false; };
+  // ---- which part is under the mouse (the pixel, else the nearest part pixel within 3 px: a forgiving edge)
+  function partAt(e) { if (!mask || phase !== 'plan') return 0; const r = im.getBoundingClientRect(); let u = (e.clientX - r.left) / r.width; const v = (e.clientY - r.top) / r.height;
+    if (mirrored()) u = 1 - u; if (u < 0 || u >= 1 || v < 0 || v >= 1) return 0; const x = Math.floor(u * mask.W), y = Math.floor(v * mask.H);
+    if (mask.id[y * mask.W + x]) return mask.id[y * mask.W + x];
+    for (let rr = 1; rr <= 3; rr++) for (let dy = -rr; dy <= rr; dy++) for (let dx = -rr; dx <= rr; dx++) { const X = x + dx, Y = y + dy; if (X >= 0 && Y >= 0 && X < mask.W && Y < mask.H && mask.id[Y * mask.W + X]) return mask.id[Y * mask.W + X]; }
+    return 0; }
+  const keyOf = (k) => (k ? PARTS[k - 1][3] + ':' + PARTS[k - 1][4] : null);
+  const idxOf = (key) => PARTS.findIndex((p) => p[3] + ':' + p[4] === key) + 1;
+  stage.addEventListener('mousemove', (e) => { const key = keyOf(partAt(e)); stage.classList.toggle('over', !!key); if (key !== hover) { hover = key; show(); } });
+  stage.addEventListener('mouseleave', () => { stage.classList.remove('over'); if (hover) { hover = null; show(); } });
+  stage.addEventListener('click', (e) => { if (phase !== 'plan') return; const key = keyOf(partAt(e)); pinned = key && pinned !== key ? key : null; show(); });
+  // ---- the glow: the part's outline, from the mask
+  function ring(key) { const ck = mask.url + '|' + key; if (RING[ck]) return RING[ck];
+    const n = idxOf(key), W = mask.W, H = mask.H, inn = new Uint8Array(W * H); let any = 0;
+    for (let i = 0; i < inn.length; i++) if (mask.id[i] === n) { inn[i] = 1; any = 1; }
+    if (!any) return (RING[ck] = null);
+    const R = 3, a = new Uint8Array(W * H), dil = new Uint8Array(W * H);   // square dilation, rows then columns
+    for (let y = 0; y < H; y++) { let last = -99; for (let x = 0; x < W; x++) { if (inn[y * W + x]) last = x; if (x - last <= R) a[y * W + x] = 1; } last = 99999; for (let x = W - 1; x >= 0; x--) { if (inn[y * W + x]) last = x; if (last - x <= R) a[y * W + x] = 1; } }
+    for (let x = 0; x < W; x++) { let last = -99; for (let y = 0; y < H; y++) { if (a[y * W + x]) last = y; if (y - last <= R) dil[y * W + x] = 1; } last = 99999; for (let y = H - 1; y >= 0; y--) { if (a[y * W + x]) last = y; if (last - y <= R) dil[y * W + x] = 1; } }
+    const pts = []; for (let i = 0; i < dil.length; i++) if (dil[i] && !inn[i]) pts.push(i);
+    return (RING[ck] = { pts, W, H }); }
+  const tmp = document.createElement('canvas');
+  function redraw() {
+    const s = stage.getBoundingClientRect(), r = im.getBoundingClientRect(), x = glow.getContext('2d');
+    glow.style.left = (r.left - s.left - stage.clientLeft) + 'px'; glow.style.top = (r.top - s.top - stage.clientTop) + 'px'; glow.style.width = r.width + 'px'; glow.style.height = r.height + 'px'; glow.style.transform = mirrored() ? 'scaleX(-1)' : '';
+    const keys = phase === 'plan' && mask ? [...new Set([pinned, hover].filter(Boolean))] : [], sig = (mask ? mask.url : '') + keys.join() + r.width + r.left;
+    if (sig === drawn) return; drawn = sig;
+    if (!mask || !keys.length) { x.clearRect(0, 0, glow.width, glow.height); line.setAttribute('points', ''); return; }
+    if (glow.width !== mask.W || glow.height !== mask.H) { glow.width = tmp.width = mask.W; glow.height = tmp.height = mask.H; }
+    x.clearRect(0, 0, glow.width, glow.height);
+    for (const k of keys) { const g = ring(k); if (!g) continue; const t = tmp.getContext('2d'), img = t.createImageData(g.W, g.H), c = GLOW[+k[0]], al = Math.round(255 * 0.6 * (k === hover || !hover ? 1 : 0.6));
+      for (const i of g.pts) { img.data[i * 4] = c[0]; img.data[i * 4 + 1] = c[1]; img.data[i * 4 + 2] = c[2]; img.data[i * 4 + 3] = al; }
+      t.putImageData(img, 0, 0); x.save(); x.filter = 'blur(3px)'; x.drawImage(tmp, 0, 0); x.drawImage(tmp, 0, 0); x.restore(); x.drawImage(tmp, 0, 0); }
+    pointer(hover || pinned, r); }
+  // ---- the pointer: from the lit limb's edge nearest the panel to the panel, behind the men (#pointer sits under the picture)
+  function pointer(key, r) { const g = key && ring(key); if (!g || !g.pts.length) { line.setAttribute('points', ''); return; }
+    const p = side.getBoundingClientRect(), mir = mirrored(), ax = p.right + 1; let best = null, bd = 1e12;
+    for (let j = 0; j < g.pts.length; j += 3) { const i = g.pts[j], px = i % g.W, py = (i - px) / g.W, sx = r.left + ((mir ? g.W - px - 0.5 : px + 0.5) / g.W) * r.width, sy = r.top + ((py + 0.5) / g.H) * r.height;
+      const ay = Math.max(p.top + 18, Math.min(p.bottom - 18, sy)), d = (sx - ax) ** 2 + (sy - ay) ** 2; if (d < bd) { bd = d; best = [sx, sy, ay]; } }
+    const c = GLOW[+key[0]], col = `rgb(${c[0]},${c[1]},${c[2]})`, sr = stage.getBoundingClientRect(), mx = sr.left - 2;
+    line.setAttribute('stroke', col); line.setAttribute('opacity', '0.85'); line.style.filter = `drop-shadow(0 0 3px ${col})`;
+    line.setAttribute('points', `${best[0]},${best[1]} ${mx},${best[2]} ${ax},${best[2]}`); }
+  // ---- the panel: the page's own switch group for that part (the same buttons, the same rules); his part: what it did
+  function show() { redraw(); panel(); }
+  function panel() { const k = hover || pinned; side.className = 'side' + (k ? ' w' + k[0] : '');
+    if (!k) { const first = round === 1 && beat === 0 && phase === 'plan';
+      head.className = 'hd' + (first ? ' hint' : ''); head.innerHTML = '<b>Point at your man</b><small>an arm, the legs or the body - click it to keep its switches open. Point at him to see what that limb did.</small>';
+      brd.style.display = 'none'; his.style.display = 'none'; return; }
+    head.className = 'hd'; const [w, part] = k.split(':');
+    if (w === '1') { brd.style.display = 'none'; his.style.display = 'block'; head.innerHTML = `<b>His ${NAME[part].toLowerCase()}</b>${pinned === k ? '<small>kept open: click it again to let go</small>' : ''}`; his.innerHTML = hisPart(part); return; }
+    his.style.display = 'none'; brd.style.display = ''; head.innerHTML = `<b>${NAME[part]}</b><small>${pinned === k ? 'kept open: click it again to let go' : SUB[part]}</small>`;
+    brd.className = 'board show' + (part === 'lead' ? 0 : part === 'rear' ? 1 : 2) + (part === 'feet' ? ' only-feet' : part === 'clinch' ? ' only-clinch' : ''); }
+  const BEATS = ['Last beat', 'Before that', 'And before'];
+  function hisPart(part) { const rows = (f) => (seen.length ? [...seen].reverse().map((p, i) => `<div><i>${BEATS[i]}</i> ${f(p)}</div>`).join('') : '<div>Nothing seen of him yet.</div>');
+    if (part === 'feet') return rows((p) => (p.clinch ? 'tied you up' : p.feet === 'in' ? 'stepped in' : p.feet === 'back' ? 'backed off' : 'stood his ground')) + '<div class="hint">A step in beats a back off in the same moment.</div>';
+    if (part === 'clinch') return rows((p) => (p.clinch ? 'clinched' : 'did not clinch')) + '<div class="hint">The clinch works Inside only, and not twice running.</div>';
+    const H = part === 'lead' ? 0 : 1, sl = part;
+    return rows((p) => (p.clinch ? 'clinched' : p[sl] ? 'threw his ' + ACT[p[sl]].n.toLowerCase() : 'held ' + (sl === 'lead' ? p.hl : p.hr) + ' - it shut ' + STOPS[COVER[sl === 'lead' ? p.hl : p.hr][H]]))
+      + `<div class="hint">Held high it shuts ${STOPS[COVER.high[H]]}; held low, ${STOPS[COVER.low[H]]}.</div>`; }
   // ---- the strip says what each moment does
   function words() { const el = $('seqwords'); if (phase !== 'plan') { el.innerHTML = ''; return; }
     if (P.clinch) { el.innerHTML = '<span>You tie him up: nothing lands either way this beat, you get 2 stamina back.</span>'; return; }
     let r = range; const out = P.ord.map((sl, i) => { const m = `<b>${i + 1}</b>`;
       if (sl === 'feet') { r = Math.max(1, Math.min(3, r + (P.feet === 'in' ? -1 : 1))); return `${m} you ${P.feet === 'in' ? 'step in' : 'back off'} - now at ${RNG[r]}`; }
       const a = ACT[P[sl]]; if (!a.d) return `${m} ${a.n.toLowerCase()} with your ${sl} hand`;
-      const reach = a.reach.includes(r); return `${m} your ${a.n.toLowerCase()} ${reach ? 'reaches' : '<u>will not reach</u>'} at ${RNG[r]}; your ${sl} hand is out, ${THREAT[COVER[sl === 'lead' ? P.hl : P.hr][sl === 'lead' ? 0 : 1]].toLowerCase()} can get in`; });
-    el.innerHTML = out.length ? out.map((s) => `<span>${s}</span>`).join('') + '<span class="meet">Your moment 1 meets his moment 1, 2 meets 2, 3 meets 3.</span>' : '<span>No action: both hands held. Hover your man\'s gloves, boots or body to pick.</span>'; }
+      return `${m} your ${a.n.toLowerCase()} ${a.reach.includes(r) ? 'reaches' : '<u>will not reach</u>'} at ${RNG[r]}; your ${sl} hand is out, ${THREAT[COVER[sl === 'lead' ? P.hl : P.hr][sl === 'lead' ? 0 : 1]].toLowerCase()} can get in`; });
+    el.innerHTML = out.length ? out.map((s) => `<span>${s}</span>`).join('') + '<span class="meet">Your moment 1 meets his moment 1, 2 meets 2, 3 meets 3.</span>' : ''; }
   // ---- wrap the page's own drawing
-  const board0 = board, plan0b = plan; let seenAt = 0;
-  board = function () { board0(); if (phase === 'plan') { if (!brd.classList.contains('float')) brd.className = 'board float'; if (pinned) show(pinned); else if (!hover) brd.style.display = 'none'; } else { brd.className = 'board'; brd.style.display = ''; } words(); mark(); };
-  plan = function () { plan0b(); place(); };
-  im.addEventListener('load', () => { if (phase === 'plan') place(); else if (layer.innerHTML) place(); });
-  addEventListener('resize', () => { place(); if (pinned) show(pinned); });
-  const t = document.createElement('div'); t.id = 'histip'; document.body.appendChild(t);
+  const board0 = board, plan0b = plan;
+  board = function () { board0(); panel(); words(); };
+  plan = function () { plan0b(); show(); };
+  addEventListener('resize', () => { drawn = ''; redraw(); });
   const sw = document.createElement('div'); sw.id = 'seqwords'; $('lines').parentNode.parentNode.insertBefore(sw, $('lines').parentNode.nextSibling);
-  // phase leaves 'plan' when the beat is fought: hide the spots and the panel
-  setInterval(() => { if (phase !== 'plan' && layer.innerHTML) { layer.innerHTML = ''; spots = {}; pinned = null; close(); brd.className = 'board'; brd.style.display = ''; words(); } }, 200);
+  // the beat is fought: nothing glows (the switches that act are marked in the panel by the page)
+  setInterval(() => { if (phase !== 'plan' && (hover || drawn)) { hover = null; drawn = ''; redraw(); words(); } if (phase === 'plan' && !drawn && (pinned || hover)) redraw(); }, 200);
+  panel();
+  window.bodyMask = () => ({ pic: im.src.split('/').pop(), mask: mask ? mask.url.split('/').pop() : null, hover, pinned });   // read by tools/mask_shots.mjs
 })();

@@ -64,32 +64,66 @@ button{font:inherit;color:inherit;cursor:pointer}
 @media (max-width:900px){html{font-size:14px}.duo{grid-template-columns:1fr}.board{grid-template-columns:1fr 1fr}.opps{grid-template-columns:1fr}.under{grid-template-columns:1fr}.btn{width:100%}}
 @media (prefers-reduced-motion:reduce){.btn.go,.stage.shake,.pop.go,.burst.go,.bar.hurt{animation:none}.pop.go{opacity:1}}
 
-/* BODYUI1 (S559): the switches live on the fighters' bodies */
-.duo{grid-template-columns:minmax(26rem,60%) 1fr}
-.stage{height:clamp(16rem,50vh,34rem)}.tell{max-height:clamp(16rem,50vh,34rem)}
-#spots{position:absolute;inset:0;z-index:5;pointer-events:none}
-.spot{position:absolute;pointer-events:auto;transform:translate(-50%,-50%);min-width:2.2rem;height:2.2rem;border-radius:1.1rem;border:2px solid #9cc0f5;background:rgba(20,30,50,.55);display:flex;align-items:center;gap:.25rem;padding:0 .45rem;font-size:.75rem;font-weight:700;color:#dbe8ff;white-space:nowrap;box-shadow:0 0 0 2px rgba(0,0,0,.35)}
-.spot span{display:none}.spot:hover span,.spot.pin span,.spot.set span{display:inline}
-.spot b{display:grid;place-items:center;width:1.3rem;height:1.3rem;border-radius:50%;background:var(--gold);color:#231a12;font-size:.8rem}
-.spot.set{border-color:var(--gold);background:rgba(58,44,24,.85);color:var(--fg)}.spot.pin,.spot:hover{border-color:#fff;background:rgba(20,16,14,.92);z-index:2}
-.spot.his{border-color:#ff9d95;background:rgba(60,20,20,.5);color:#ffd2ce}.spot.off{opacity:.3}
-.spot.s-feet,.spot.s-clinch{border-style:dashed}
-.spot.pulse{animation:spot 1.2s infinite}@keyframes spot{50%{box-shadow:0 0 0 8px rgba(156,192,245,.35)}}
-.board.float{position:fixed;z-index:40;display:none;width:min(16.5rem,92vw);grid-template-columns:1fr;background:#120e0c;border:1px solid var(--gold);border-radius:.7rem;padding:.35rem;box-shadow:0 .6rem 1.6rem #000d}
-.board.float .grp{display:none}.board.float .sw small:not(.why):not(.hab){display:none}.board.float .sw{min-height:1.8rem;padding:.2rem .55rem}.board.float .lab.hand svg{display:none}.board.float.show0 .grp:nth-child(1),.board.float.show1 .grp:nth-child(2),.board.float.show2 .grp:nth-child(3){display:flex}
-.board.float.only-feet .sw[data-g=clinch],.board.float.only-clinch .sw[data-g=feet]{display:none}
-#histip{position:fixed;z-index:40;display:none;max-width:24rem;background:#120e0c;border:1px solid #ff9d95;border-radius:.6rem;padding:.5rem .7rem;font-size:.9rem;line-height:1.45;box-shadow:0 .6rem 1.6rem #000d}
-#histip b{color:#ff9d95}#histip i{font-style:normal;color:var(--muted);display:inline-block;min-width:6.3rem}#histip .hint{margin-top:.3rem;color:var(--muted)}
-#seqwords{display:flex;flex-direction:column;gap:.15rem;font-size:.92rem;color:var(--fg)}#seqwords b{color:var(--gold);margin-right:.35rem}#seqwords u{color:#ff8f86;text-decoration:none;font-weight:700}#seqwords .meet{color:var(--muted);font-size:.82rem}
-.app{grid-template-rows:auto auto auto auto 1fr}
-@media (hover:none){.spot span{display:inline}}
-</style></head>
+/* COMPACT1 (S559): small toggle buttons, an icon each, the details in the tooltip (owner: "make the cells smaller like toggle buttons add a bit of art and toolitps") */
+.board{grid-template-columns:1.25fr 1fr 1.25fr}
+.grp{display:grid;grid-template-columns:repeat(auto-fill,minmax(8.4rem,1fr));gap:.3rem;align-content:start;padding:.4rem .5rem}
+.grp>.lab{grid-column:1/-1;margin-bottom:.05rem}.grp>.lab.hand svg{width:3rem;height:1.8rem}.grp>.lab.hand i{display:none}
+.sw{grid-template-columns:auto 1fr auto;gap:0 .35rem;padding:.18rem .45rem;min-height:2.1rem;font-size:.86rem;line-height:1.15}
+.sw small{display:none}.sw .ic{display:grid;place-items:center;width:1.45rem;height:1.45rem;border-radius:.35rem;background:#1a1512;color:var(--muted)}
+.sw .ic svg{width:1.15rem;height:1.15rem}.sw.on .ic{color:var(--gold)}.sw.home.on .ic{color:var(--green)}
+.sw .c{font-size:.75rem;white-space:nowrap}.sw.far{border-style:dashed}.sw.far b{opacity:.6}
+.sw .flag{position:absolute;right:-.35rem;top:-.4rem;width:1.05rem;height:1.05rem;border-radius:50%;display:grid;place-items:center;font-size:.7rem;font-weight:800}
+.sw .flag.why{background:#d9534a;color:#fff}.sw .flag.hab{background:var(--gold);color:#231a12}
+.sw .n{left:-.4rem;top:-.4rem;width:1.2rem;height:1.2rem;font-size:.75rem}
+
+/* STAGE1 (S559, owner on kick.html: "why the mi,long ranges are covering the fighter heads ? can you make the fight scene bigger ?") */
+.duo{grid-template-columns:minmax(24rem,64%) 1fr}
+.stage{height:clamp(15rem,46vh,31rem)}.tell{max-height:clamp(15rem,46vh,31rem)}
+.rng{top:.45rem;left:.5rem;transform:none}   /* the empty top-left corner: never on a head or a boot */
+
+/* DESK1 (S559, owner: "where you describe the action can you put a faded background of the ... tv table" - our own crew,
+   three original commentators made with Ludo: no real people, no logos) */
+.tell{position:relative;isolation:isolate}.tell::before{content:"";position:absolute;inset:0;z-index:-1;background:url(img/commdesk.webp) center 30%/cover no-repeat;opacity:.2;border-radius:inherit;pointer-events:none}
+
+/* RINGUI1 (S559): the range plates on the floor (true toe-to-toe gaps) and the commentators' calls */
+.rng>span:not(.gr){display:none}
+#ruler{position:absolute;inset:0;z-index:2;pointer-events:none}
+#ruler .gap{position:absolute;height:8px;border-radius:4px;background:rgba(227,171,69,.45);box-shadow:0 0 12px rgba(227,171,69,.75);transition:left .4s,width .4s,background .2s}
+#ruler .gap i{position:absolute;top:-9px;width:3px;height:26px;border-radius:2px;background:#ffe27a}#ruler .gap i:first-child{left:-2px}#ruler .gap i:last-child{right:-2px}
+#ruler .gap.ok{background:rgba(116,189,124,.55);box-shadow:0 0 12px rgba(116,189,124,.8)}#ruler .gap.no{background:rgba(217,83,74,.5);box-shadow:0 0 12px rgba(217,83,74,.8)}
+#ruler .gap.flash{animation:plateflash .9s ease-out}@keyframes plateflash{0%{box-shadow:0 0 0 6px rgba(255,226,122,.9)}100%{box-shadow:0 0 12px rgba(227,171,69,.75)}}
+#ruler .plabel{position:absolute;transform:translateX(-50%);font-size:.78rem;color:#f2e9dd;text-shadow:0 1px 3px #000;white-space:nowrap}#ruler .plabel b{color:var(--gold);letter-spacing:.06em;text-transform:uppercase}#ruler .plabel u{color:#ff8f86;text-decoration:none;font-weight:700}
+#desklight{position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:0;transition:opacity .4s;background:radial-gradient(ellipse 18% 55% at var(--x,50%) 42%,rgba(255,196,110,.42),transparent 70%);mix-blend-mode:screen}#desklight.on{opacity:1}
+#call{position:sticky;bottom:0;margin-top:auto;background:rgba(18,14,12,.9);border-left:3px solid var(--gold);border-radius:.4rem;padding:.4rem .6rem;font-size:.98rem;display:none}#call.on{display:block;animation:callin .35s ease-out}
+#call b{display:block;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}#call.w0{border-left-color:#ff8f86}#call.w0 b{color:#ff8f86}#call.w2{border-left-color:#9cc0f5}#call.w2 b{color:#9cc0f5}
+@keyframes callin{0%{opacity:0;transform:translateY(8px)}100%{opacity:1;transform:none}}
+
+/* MASK1 (S559, owner: "when i say you highlight the arm i move my mouse on i do not want text near the fighters (tubes or
+   circles on the fighters are forbidden) make a pointer outlining to the available options menu"): the limb under the
+   mouse glows (its outline, from a part mask rendered from the 3D beside each picture); its switches sit in ONE fixed
+   panel left of the ring; a thin line runs from the lit limb to it, BEHIND the men (it never draws on a body). */
+.duo{grid-template-columns:17.5rem minmax(24rem,1fr) minmax(13rem,23%)}
+.stage{height:clamp(15rem,60vh,42rem)}.tell{max-height:clamp(15rem,60vh,42rem)}   /* the board moved beside the ring: the ring takes its height */
+.side{background:var(--panel);border:1px solid var(--line);border-radius:.6rem;padding:.4rem;display:flex;flex-direction:column;gap:.35rem;min-width:0;overflow:auto;max-height:clamp(15rem,60vh,42rem);transition:border-color .2s}
+.side.w0{border-color:#8fc0ff}.side.w1{border-color:#ff8a80}
+.side .hd{font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:.1rem .2rem}.side .hd b{color:var(--fg)}.side.w0 .hd b{color:#9cc0f5}.side.w1 .hd b{color:#ff9d95}
+.side .hd small{display:block;text-transform:none;letter-spacing:0;font-size:.75rem;color:var(--muted)}
+.side .hd.hint{border:1px dashed var(--gold);border-radius:.5rem;padding:.4rem .5rem;animation:pulse 1.4s infinite}
+#side .board{display:grid;grid-template-columns:1fr;gap:.35rem}#side .board .grp{display:none;grid-template-columns:1fr 1fr;padding:.3rem}
+#side .board.show0 .grp:nth-child(1),#side .board.show1 .grp:nth-child(2),#side .board.show2 .grp:nth-child(3){display:grid}
+#side .board.only-feet .sw[data-g=clinch],#side .board.only-clinch .sw[data-g=feet],#side .board.only-clinch .grp>.lab{display:none}
+#his{display:none;font-size:.9rem;line-height:1.45;padding:0 .2rem}#his i{font-style:normal;color:var(--muted);display:inline-block;min-width:6rem}#his .hint{margin-top:.3rem;color:var(--muted)}
+#glow{position:absolute;z-index:2;pointer-events:none}
+#pointer{position:fixed;left:0;top:0;width:100vw;height:100vh;z-index:0;pointer-events:none;overflow:visible}
+.stage.over{cursor:pointer}
+#seqwords{display:flex;flex-direction:column;gap:.1rem;font-size:.88rem;color:var(--fg)}#seqwords b{color:var(--gold);margin-right:.35rem}#seqwords u{color:#ff8f86;text-decoration:none;font-weight:700}#seqwords .meet{color:var(--muted);font-size:.8rem}
+</style><script src="ring_ui.js" defer></script></head>
 <body><div class="app">
-  <div class="top"><span class="brand">Ring Switches</span><span id="where"></span><span id="score"></span><span class="lab" style="margin-left:auto">TOY: point at your man's gloves, boots or body - click to keep the switches open</span><button class="btn" id="mute" style="padding:.2rem .6rem;min-height:0;font-size:.85rem">Sound on</button></div>
+  <div class="top"><span class="brand">Ring Switches</span><span id="where"></span><span id="score"></span><span class="lab" style="margin-left:auto">TOY: point at a limb - click it to keep its switches open</span><button class="btn" id="mute" style="padding:.2rem .6rem;min-height:0;font-size:.85rem">Sound on</button></div>
   <div class="men"><div class="man you" id="you"></div><div class="man him" id="him"></div></div>
-  <div class="duo"><div class="stage" id="stage"><div class="rng" id="rng"></div><img id="pic" alt="" src="img/guard.webp"><span class="burst" id="burst"></span><span class="pop p0" id="pop0"></span><span class="pop p1" id="pop1"></span><span class="cap" id="cap"></span><span class="nm you">You</span><span class="nm him" id="nmhim">Him</span></div>
+  <div class="duo"><div class="side" id="side"><div class="board" id="board"></div></div><div class="stage" id="stage"><div class="rng" id="rng"></div><img id="pic" alt="" src="img/guard.webp"><span class="burst" id="burst"></span><span class="pop p0" id="pop0"></span><span class="pop p1" id="pop1"></span><span class="cap" id="cap"></span><span class="nm you">You</span><span class="nm him" id="nmhim">Him</span></div>
     <div class="tell"><div class="said" id="said"></div><div id="story"></div></div></div>
-  <div><div class="under" style="margin-bottom:.5rem"><div class="lines" id="lines"></div><div id="acts"></div></div><div class="board" id="board"></div></div>
+  <div><div class="under" style="margin-bottom:.5rem"><div class="lines" id="lines"></div><div id="acts"></div></div></div>
 </div>
 <script>
 // S555: THIS PAGE IS THE SOURCE (the owner: "i want version with the order of actions"). It was generated from switch.html by
@@ -270,6 +304,22 @@ function ai(S) { const me = S.f[1], you = S.f[0], t = S.t || N.beats, lean = lea
   const r = solveBeat(S, t, { lean1: lean, iters: 400 }); return r.B[drawFrom(r.q)]; }
 
 // ---- the page
+// COMPACT1 (S559): a small picture on each switch, drawn in the button's colour. The line a punch travels on, the hand held
+// high or low, the step's way, the leg for a kick.
+const SVGI = (d) => `<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
+const ICONS = {
+  high: '<circle cx="10" cy="6" r="3.5"/><path d="M4 9h12"/><path d="M6 13v4M14 13v4"/>', low: '<circle cx="10" cy="5" r="3"/><path d="M4 13h12"/><path d="M7 9v2M13 9v2"/>',
+  straight: '<path d="M2 8h13"/><path d="M11 4l4 4-4 4"/><circle cx="17.5" cy="8" r="1.6"/>', side: '<path d="M3 15C5 5 12 3 16 6"/><path d="M12 3l4 3-3 4"/>',
+  under: '<path d="M4 18C5 10 9 6 12 4"/><path d="M8 4h4v4"/>', body: '<path d="M2 12h11"/><path d="M9 8l4 4-4 4"/><rect x="15" y="8" width="3.5" height="8" rx="1.5"/>',
+  feint: '<path d="M2 10h3M7 10h3M12 10h2"/><path d="M13 6l4 4-4 4"/>', push: '<path d="M4 5v10M8 5v10"/><path d="M8 10h8"/><path d="M13 7l3 3-3 3"/>',
+  in: '<path d="M3 5l5 5-5 5M10 5l5 5-5 5"/>', back: '<path d="M17 5l-5 5 5 5M10 5l-5 5 5 5"/>', hold: '<path d="M6 4v12M14 4v12"/><path d="M4 16h4M12 16h4"/>',
+  check: '<path d="M9 3v6l-3 4h5"/><path d="M9 9l3 8"/><path d="M15 6v8"/>', teep: '<path d="M4 4v7l4 3h9"/><path d="M15 11l3 3-3 3"/>',
+  low: '<path d="M4 3v8"/><path d="M4 11C7 17 13 18 17 15"/><path d="M14 13l3 2-1 3"/>', bodyk: '<path d="M4 3v6"/><path d="M4 9C7 13 12 13 17 10"/><path d="M14 8l3 2-2 3"/>',
+  headk: '<path d="M4 18v-6"/><path d="M4 12C6 6 11 3 16 4"/><path d="M13 2l3 2-2 3"/>', clinch: '<circle cx="7" cy="8" r="4"/><circle cx="13" cy="8" r="4"/><path d="M4 17c2-3 10-3 12 0"/>' };
+function ICON(grp, id) { if (id === 'high' || id === 'low') return SVGI(ICONS[id]); if (grp === 'clinch') return SVGI(ICONS.clinch);
+  if (grp === 'feet') return SVGI(ICONS[id] || ICONS.hold); const a = ACT[id]; if (!a) return ''; if (a.feint) return SVGI(ICONS.feint); if (a.push) return SVGI(ICONS.push);
+  return SVGI(ICONS[a.line] || ICONS.straight); }
+
 function draw() { for (const k of [0, 1]) { const m = F[k], sp = k === 0 && phase === 'plan' ? cost(P) : 0;
     $(k ? 'him' : 'you').innerHTML = `<h2>${k ? OPP.n : 'You'}${m.ropes >= 2 ? '<span class="tag">on the ropes</span>' : ''}${m.kept ? '<span class="tag">kept out by the jab</span>' : ''}${m.g <= 0 ? '<span class="tag">guard broken</span>' : ''}${m.kd ? `<span class="tag">down ${m.kd}x${m.kd >= N.kd.length ? ' - one more ends it' : ''}</span>` : ''}</h2>
       <span class="lab">Health ${Math.max(0, m.hp)} of ${m.max}</span><div class="bar hp"><i style="width:${100 * Math.max(0, m.hp) / m.max}%"></i></div>
@@ -296,7 +346,8 @@ function hisHabits() { const habit = {}; { const hs = F[1].hist || [], n = {}; f
 function board() { const me = F[0], left = me.st - cost(P); P.ord = ordOf(P); const stepAt = P.ord.indexOf('feet'), dr = P.feet === 'in' ? -1 : P.feet === 'back' ? 1 : 0;
   const rangeAt = (sl) => { const at = P.ord.indexOf(sl) < 0 ? P.ord.length : P.ord.indexOf(sl); return clamp(range + (stepAt >= 0 && stepAt < at ? dr : 0), 1, 3); }, num = (sl) => (P.ord.indexOf(sl) >= 0 ? `<span class="n">${P.ord.indexOf(sl) + 1}</span>` : '');
   const habit = hisHabits();
-  const sw = (grp, id, name, c, sub, on, dis, why, home) => `<button class="sw ${on ? 'on' : ''} ${home ? 'home' : ''}" data-g="${grp}" data-id="${id}" ${dis ? 'disabled' : ''}>${on && !home && grp !== 'clinch' && !(grp === 'feet' && id === 'hold') ? num(grp) : ''}<b>${name}</b><span class="c">${c}</span><small>${sub}</small>${home && habit[grp + '|' + id] ? `<small class="hab">He keeps throwing his ${habit[grp + '|' + id].toLowerCase()}</small>` : ''}${why ? `<small class="why">${why}</small>` : ''}</button>`;
+  const sw = (grp, id, name, c, sub, on, dis, why, home) => { const hb = home && habit[grp + '|' + id] ? `He keeps throwing his ${habit[grp + '|' + id].toLowerCase()}: this hold stops it.` : '';   /* COMPACT1: one small toggle; what it does, what it costs and why not are the tooltip */
+    return `<button class="sw ${on ? 'on' : ''} ${home ? 'home' : ''} ${why && !dis ? 'far' : ''}" data-g="${grp}" data-id="${id}" ${dis ? 'disabled' : ''}${tipAttr(`${name} - ${c}\n${sub}${hb ? '\n' + hb : ''}${why ? '\n' + why : ''}`)}>${on && !home && grp !== 'clinch' && !(grp === 'feet' && id === 'hold') ? num(grp) : ''}<i class="ic">${ICON(grp, id)}</i><b>${name}</b><span class="c">${c.replace(' stamina', '')}</span>${hb ? '<span class="flag hab">!</span>' : why ? '<span class="flag why">!</span>' : ''}</button>`; };
   const hand = (h) => { const slot = h ? 'rear' : 'lead', cur = P[slot], ids = Object.keys(ACT).filter((id) => ACT[id].h === h);
     return `<div class="grp"><span class="lab hand" data-tip="${h ? 'Your REAR hand is the back one, further from him: the power hand (cross, overhand, rear uppercut, body cross). Held, it stops what comes from the side (high) or from below (low).' : 'Your LEAD hand is the front one, nearer him: the jab hand (jab, body jab, lead hook, lead uppercut, body hook, feint, push). Held, it stops straight punches (high) or body punches (low).'}">${handIcon(h)}${h ? 'Rear hand <i>your back hand</i>' : 'Lead hand <i>your front hand, nearer him</i>'}</span>` + ['high', 'low'].map((g) => sw(slot, g, g === 'high' ? 'Hold it high' : 'Hold it low', '+1 stamina', `Blocks ${STOPS[COVER[g][h]]}`, !cur && !P.clinch && (h ? P.hr : P.hl) === g, P.clinch, '', 1)).join('') +
       ids.map((id) => { const a = ACT[id], on = cur === id, room = left + (cur ? ACT[cur].st : 0), short = a.st > room, after = rangeAt(slot), reach = a.d ? a.reach.includes(after) : true;
@@ -384,8 +435,8 @@ function go() { if (busy) return; busy = true; phase = 'play'; $('acts').innerHT
   Promise.race([warm(need), new Promise((ok) => setTimeout(ok, 1500))]).then(() => setTimeout(step, 350)); }
 /* a held hand is SEEN (HOLDTAKES1, S553): every hand that does not punch is held high or low - one hand, or both */
 let heldShown = '';
-function showHold() { const l = P.clinch || P.lead ? '' : P.hl, r = P.clinch || P.rear ? '' : P.hr, h = l && r ? `both_${l}_${r}` : l ? `lead_${l}` : r ? `rear_${r}` : '', key = h + '@' + range; if (key === heldShown) return; heldShown = key; if (!h) return pic('guard');
-  const far = 'blue_' + h, run = range < 3 && ANIM[`${far}_r${range}`] ? `${far}_r${range}` : far;   /* the men stand at the range: Long, Mid (_r2) or Inside (_r1) */
+function showHold() { const l = P.clinch || P.lead ? '' : P.hl, r = P.clinch || P.rear ? '' : P.hr, h = l && r ? `both_${l}_${r}` : l ? `lead_${l}` : r ? `rear_${r}` : '', key = h + '@' + range; if (key === heldShown) return; heldShown = key; if (!h && !ANIM.blue_guard) return pic('guard');   /* MASK1: the guard as a run too, at the range (it has its masks) */
+  const far = 'blue_' + (h || 'guard'), run = range < 3 && ANIM[`${far}_r${range}`] ? `${far}_r${range}` : far;   /* the men stand at the range: Long, Mid (_r2) or Inside (_r1) */
   warm([run]).then(() => { if (phase === 'plan' && heldShown === key) playRun(run, false, () => {}, () => {}); }); }
 const affordable = (id) => (id && ACT[id].st <= F[0].st ? id : null);
 // your switches carry over to the next beat; what the stamina cannot pay is switched off, and the page SAYS so (ZIVAFIX1: a beat was refused without a word)

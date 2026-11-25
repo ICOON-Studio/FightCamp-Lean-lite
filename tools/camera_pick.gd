@@ -174,6 +174,13 @@ func _save_pick() -> bool:
 		await process_frame
 	await RenderingServer.frame_post_draw
 	sv.get_texture().get_image().save_png(dir.path_join("campick_%d.png" % n))
+	# S559 (owner: "hdid nt the tool save all my saves ??"): every save's numbers also go to a history file, one line a save,
+	# so a picture can always be matched to its camera (pics2d_camera.json keeps only the latest).
+	var hist := dir.path_join("saves.jsonl")
+	var hf := FileAccess.open(hist, FileAccess.READ_WRITE) if FileAccess.file_exists(hist) else FileAccess.open(hist, FileAccess.WRITE)
+	hf.seek_end()
+	hf.store_line(JSON.stringify({"save": n, "camera": d}))
+	hf.close()
 	var bad := Gate.framed(stage, cam, [0, 1], SIZE)
 	note.text = "SAVED  campick_%d.png  (this camera is now the pictures' camera)" % n + ("" if bad.is_empty() else "   - but a man is cut: " + "; ".join(PackedStringArray(bad)))
 	print("CAMPICK SAVED %s %s framed=%s" % [dir.path_join("campick_%d.png" % n), JSON.stringify(d), "ok" if bad.is_empty() else "; ".join(PackedStringArray(bad))])

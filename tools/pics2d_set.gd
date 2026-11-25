@@ -123,6 +123,7 @@ func _setup() -> bool:
 	Gate.clean_set(stage, [_node(0), _node(1)])
 	home_t = [_node(0).global_transform, _node(1).global_transform]
 	axis = ((home_t[1].origin - home_t[0].origin) * Vector3(1, 0, 1)).normalized()
+	camv["ring_at"] = CamPick.mid(stage, [0, 1], {})   # RINGCAM1: the ring camera's fixed spot, the pair in the guard at Long
 	stage.set_process(false)   # the ring placer off: the pair is placed here; clips, IK and the finish still run
 	return true
 
@@ -332,7 +333,7 @@ func _dodge(who: int, fam: String, hand: String, body: bool) -> void:
 		_freeze(d)
 		for f in 4:
 			await process_frame
-	var ppm := SIZE / ORTHO_M
+	var ppm := SIZE / cam.size   # S559 RINGCAM1 follow-up: the owner's camera is 3.149 m wide, not ORTHO_M
 	for tries in 12:   # clear of the head by Gate.MISS_PX_M and of both her gloves by Gate.MISS_HAND_M, on the picture
 		var g := _px(stage.glove_front(who, hand))
 		var short_px := Gate.MISS_PX_M * ppm - g.distance_to(_px(stage.v2.target(d, body)))
@@ -456,14 +457,10 @@ func _xy(w: Vector3) -> Array:
 	return [snappedf(p.x, 0.1), snappedf(p.y, 0.1)]
 
 
-## The fixed side camera: from -X (red left, blue right), level, centred on who is in the picture.
+## The fixed side camera: from -X (red left, blue right), level, on the ring's fixed spot (cam=ring, RINGCAM1) or
+## centred on who is in the picture (cam=pair).
 func _aim(who: Array) -> void:
-	var mid := Vector3.ZERO
-	for i in who:   # the hips, not the roots: a knockdown carries the body a metre from its root
-		var h := Gate.world(stage, i, "Hips")
-		mid += Vector3(h.x, 0.0, h.z)
-	mid /= float(who.size())
-	CamPick.place(cam, mid, camv.merged({"yaw": yaw_deg}, true))   # pitch= / yaw= / the saved file (CAMPICK1); none = level, side on
+	CamPick.place(cam, CamPick.mid(stage, who, camv), camv.merged({"yaw": yaw_deg}, true))   # pitch= / yaw= / the saved file (CAMPICK1); none = level, side on
 	cam.make_current()
 
 
