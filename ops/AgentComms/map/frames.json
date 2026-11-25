@@ -420,6 +420,14 @@
        ]
       }
      ]
+    },
+    {
+     "id": "s554_ring",
+     "title": "S554 Ring Switches: holds, knockdown, missed hook",
+     "kind": "gallery",
+     "globs": [
+      "ops/previews/s554_ring/*.png"
+     ]
     }
    ]
   }

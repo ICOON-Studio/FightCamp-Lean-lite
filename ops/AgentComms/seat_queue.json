@@ -4750,8 +4750,8 @@
    "status": "queued",
    "queued_at": "2026-11-24 12:08",
    "tries": 0,
-   "skips": 27,
-   "last_error": "2026-11-25 00:40 no CDP on 9333 (the app runs without its debug port or is closed; never launched from here - it opens a window)"
+   "skips": 38,
+   "last_error": "2026-11-25 06:10 no CDP on 9333 (the app runs without its debug port or is closed; never launched from here - it opens a window)"
   },
   {
    "id": "SQ325",
@@ -4780,7 +4780,8 @@
    "sent_ms": 1795553983179,
    "answered_at": "2026-11-24 23:40",
    "answer": "research/TWOHANDS_DEFENCE_IDEAS_BRIEF_KALLI.md",
-   "chars": 10556
+   "chars": 10556,
+   "seen_by_claude": true
   },
   {
    "id": "SQ327",
@@ -4803,7 +4804,36 @@
    "sent_ms": 1795553985608,
    "answered_at": "2026-11-24 23:40",
    "answer": "research/TWOHANDS_DEFENCE_IDEAS_BRIEF_JOHN.md",
-   "chars": 12680
+   "chars": 12680,
+   "seen_by_claude": true
+  },
+  {
+   "id": "SQ329",
+   "seat": "kalli",
+   "brief": "research/RINGSWITCH_IDEAS2_BRIEF.md",
+   "stem": "RINGSWITCH_IDEAS2_BRIEF_KALLI",
+   "status": "answered",
+   "queued_at": "2026-11-25 05:34",
+   "tries": 0,
+   "sent_at": "2026-11-25 05:40",
+   "sent_ms": 1795578025377,
+   "answered_at": "2026-11-25 06:10",
+   "answer": "research/RINGSWITCH_IDEAS2_BRIEF_KALLI.md",
+   "chars": 8185
+  },
+  {
+   "id": "SQ330",
+   "seat": "john",
+   "brief": "research/RINGSWITCH_IDEAS2_BRIEF.md",
+   "stem": "RINGSWITCH_IDEAS2_BRIEF_JOHN",
+   "status": "answered",
+   "queued_at": "2026-11-25 05:34",
+   "tries": 0,
+   "sent_at": "2026-11-25 05:40",
+   "sent_ms": 1795578027649,
+   "answered_at": "2026-11-25 06:10",
+   "answer": "research/RINGSWITCH_IDEAS2_BRIEF_JOHN.md",
+   "chars": 8993
   }
  ]
 }

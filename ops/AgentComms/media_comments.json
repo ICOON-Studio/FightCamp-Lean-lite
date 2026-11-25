@@ -3923,7 +3923,7 @@
       "path": "_sent/2026-11-25_0134_ring_switches_every_action_frame_by_fram/before_after_quarter_speed.mp4",
       "text": "hook aims too high i think and too far away from the head",
       "at": "2026-11-25T01:43:12Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "at_s": 18.0,
       "id": "C508"
     },
@@ -3931,7 +3931,7 @@
       "path": "_sent/2026-11-25_0134_ring_switches_every_action_frame_by_fram/before_after_real_speed.mp4",
       "text": "needs some visual effects when it lands showing the damage done beside sounds",
       "at": "2026-11-25T01:44:31Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "at_s": 8.9,
       "id": "C509"
     },
@@ -3939,7 +3939,7 @@
       "path": "_sent/2026-11-24_1758_the_close_body_hook_you_said_had_no_punc/bodycross4_close_hook_before_after_m.mp4",
       "text": "very good",
       "at": "2026-11-25T02:10:39Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "at_s": 14.3,
       "id": "C510"
     },
@@ -3947,9 +3947,24 @@
       "path": "_sent/2026-11-24_1758_the_close_body_hook_you_said_had_no_punc/bodycross4_close_hook_before_after_w.mp4",
       "text": "awesome",
       "at": "2026-11-25T02:10:58Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "at_s": 14.3,
       "id": "C511"
+    },
+    {
+      "path": "_sent/2026-11-24_1758_the_rear_straight_to_the_body_is_now_thr/bodycross4_jab_then_body_cross_m.mp4",
+      "text": "nice",
+      "at": "2026-11-25T02:45:11Z",
+      "seen_by_claude": true,
+      "at_s": 12.6,
+      "id": "C512"
+    },
+    {
+      "path": "_sent/2026-11-24_1758_the_rear_straight_to_the_body_is_now_thr/bodycross4_game_camera_w.png",
+      "text": "ok",
+      "at": "2026-11-25T02:45:22Z",
+      "seen_by_claude": true,
+      "id": "C513"
     }
   ]
 }

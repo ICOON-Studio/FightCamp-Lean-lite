@@ -125,7 +125,49 @@ func _punch_run(who: int, fam: String, res: String, name: String) -> void:
 	# bodies, feet or heads too close step the puncher back; a miss too near gives the other man more ground; a glove
 	# short of its block or its target steps the puncher in by what is left.
 	var dirv := axis * (1.0 if who == 0 else -1.0)
-	for attempt in 4:
+	var near := res == "missed" and bool(pl.get("weave", false))   # C508: a hook that misses is a NEAR miss
+	if near:
+		# The weave at its deepest takes the head 0.25 m under the glove, and the first staging also gave ground on top.
+		# Searched instead: the SHALLOWEST duck (the take entered so its deepest point comes after the contact) and the
+		# LEAST ground given at which the glove still clears his face and his gloves on the picture. The take itself is
+		# not changed and nothing is layered on it.
+		var best := {}
+		var best_roomy := {}
+		for depth in [1.0, 0.8, 0.64]:   # under 0.6 he is hardly ducking and the glove lands on his guard on the picture (seen S554)
+			_dodge_at(pl, float(depth))
+			pl["t0"] = minf(float(pl["punch_t"]), float(pl["ans_t"]))
+			for g in [0.0, 0.05, 0.10, 0.15, 0.20, 0.25]:
+				var gv: Vector3 = dirv * float(g)
+				await _pose_at(who, b, pl, gv, 0.0)
+				await process_frame
+				var m: Dictionary = Gate.punch(stage, who, b["hand"], res, body, dirv, _px, SIZE / cam.size, _view())
+				var back_n := maxf(maxf(Gate.APART_MIN_M - float(m["apart_m"]), Gate.FEET_MIN_M - float(m["feet_m"])), Gate.HEAD_CLEAR_M - float(m["head_clear_m"]))
+				if back_n > 0.0 and best.is_empty():
+					b["step"] = float(b["step"]) - back_n - 0.02
+					await _pose_at(who, b, pl, gv, 0.0)
+					await process_frame
+					m = Gate.punch(stage, who, b["hand"], res, body, dirv, _px, SIZE / cam.size, _view())
+				if not _near_fails(m).is_empty():
+					continue   # too near his face or his gloves, or the bodies meet: more ground
+				var clear := float(m.get("clear_m", 1.0))
+				var roomy := float(m.get("clear_hand_m", 1.0)) >= Gate.MISS_NEAR_HAND_M   # the two gloves do not overlap on the picture
+				if roomy and (best_roomy.is_empty() or clear < float(best_roomy["clear"])):
+					best_roomy = {"clear": clear, "depth": float(depth), "give": gv}
+				if best.is_empty() or clear < float(best["clear"]):
+					best = {"clear": clear, "depth": float(depth), "give": gv}
+				if roomy:
+					break   # more ground only takes the glove further away
+			if not best_roomy.is_empty() and float(best_roomy["clear"]) <= Gate.MISS_NEAR_GOOD_M:
+				break
+		if not best_roomy.is_empty():
+			best = best_roomy   # a miss whose glove is clear of his gloves is taken before a nearer one that is not: glove on glove reads as a block (seen S554)
+		if best.is_empty():
+			best = {"clear": -1.0, "depth": 1.0, "give": give}
+		give = best["give"]
+		_dodge_at(pl, float(best["depth"]))
+		pl["t0"] = minf(float(pl["punch_t"]), float(pl["ans_t"]))
+		print("MISS_FIT %s: the duck at %.0f%% of its depth on the contact, ground given %.2f m, glove %.3f m from his face on the picture" % [name, 100.0 * float(best["depth"]), (give as Vector3).length(), float(best["clear"])])
+	for attempt in (0 if near else 4):
 		await _pose_at(who, b, pl, give, 0.0)
 		await process_frame
 		var m: Dictionary = Gate.punch(stage, who, b["hand"], res, body, dirv, _px, SIZE / cam.size, _view())
@@ -147,6 +189,7 @@ func _punch_run(who: int, fam: String, res: String, name: String) -> void:
 	var files: Array = []
 	var times: Array = []
 	var gate_fails: Array = []
+	var hit_at: Array = []   # C509: where the glove is on the contact picture, as a share of its width and height
 	var ok := true
 	for k in range(first, offs.size()):
 		var off := float(offs[k])
@@ -158,6 +201,12 @@ func _punch_run(who: int, fam: String, res: String, name: String) -> void:
 		if is_zero_approx(off):   # measured on the pose that was drawn
 			var m: Dictionary = Gate.punch(stage, who, b["hand"], res, body, axis * (1.0 if who == 0 else -1.0), _px, SIZE / cam.size, _view())
 			gate_fails = m["fails"]
+			var gp: Vector2 = _px(stage.glove_front(who, b["hand"]))
+			hit_at = [snappedf(gp.x / SIZE, 0.001), snappedf(gp.y / SIZE, 0.001)]
+			if near:
+				gate_fails = _near_fails(m)
+				if float(m.get("clear_m", 0.0)) > Gate.MISS_NEAR_MAX_M + 0.03:   # said, not failed: his own gloves are in the way of anything nearer
+					print("MISS_WIDE %s: glove %.3f m from his face (a near miss is %.2f at most) - nearer would put it on his gloves" % [name, float(m["clear_m"]), Gate.MISS_NEAR_MAX_M])
 		files.append(f + ".png")
 		times.append(off)
 	if not ok:
@@ -167,7 +216,7 @@ func _punch_run(who: int, fam: String, res: String, name: String) -> void:
 		print("PICS_GATE FAIL %s (contact frame): %s" % [name, "; ".join(PackedStringArray(gate_fails))])
 		failed.append(name)
 	runs[name] = {"files": files, "offs": times, "contact": times.find(0.0), "clip": clip, "cover": cover, "answer": pl["ans"],
-		"step": snappedf(float(b["step"]), 0.001), "gate_fails": gate_fails}
+		"step": snappedf(float(b["step"]), 0.001), "gate_fails": gate_fails, "hit": hit_at}
 	print("PICS2D_ANIM %s = %s%s, answer %s, %d frames, step %.2f m" % [name, clip, " cover " + cover if cover != "" else "", pl["ans"], files.size(), float(b["step"])])
 	_save()
 
@@ -200,14 +249,36 @@ func _plan(who: int, b: Dictionary, fam: String, res: String) -> Dictionary:
 		pl["ans_kind"] = "defence"
 		if pl["ans"] != "":   # Choreographer: a dodge starts min(its head's peak, DEF_LEAD_S) before the contact, that far before its peak
 			var dpeak := float((rows.get(pl["ans"], {}) as Dictionary).get("head_peak_s", dap.get_animation(pl["ans"]).length * 0.42))
-			var lead_in := minf(dpeak, R.DEF_LEAD_S)
-			pl["ans_t"] = -lead_in
-			pl["ans_from"] = dpeak - lead_in
+			pl["dpeak"] = dpeak
+			pl["weave"] = kind == "weave"
+			_dodge_at(pl, 1.0)
 	if pl["ans"] == "" or not dap.has_animation(pl["ans"]):
 		pl["ans"] = ""
 		pl["ans_t"] = INF
 	pl["t0"] = minf(float(pl["punch_t"]), float(pl["ans_t"]))
 	return pl
+
+
+## A hook that misses is a NEAR miss (C508): the gate's 0.20 m clear of the face becomes MISS_NEAR_MIN_M for it.
+func _near_fails(m: Dictionary) -> Array:
+	var out: Array = []
+	for f in (m["fails"] as Array):
+		if str(f).begins_with("clear_m") and float(m.get("clear_m", 0.0)) >= Gate.MISS_NEAR_MIN_M - 0.005:
+			continue
+		out.append(f)
+	return out
+
+
+## Where the dodge is ON THE CONTACT: f = 1 at its deepest (the Choreographer's timing), less = still on its way down.
+## C508 (owner S553 on the missed lead hook: "hook aims too high i think and too far away from the head"): the weave was
+## at its deepest on the contact and the man stood ducked from the first frame, so the hook swept 0.3 m over him. The
+## take is not changed and nothing is layered on it: it is entered so that the head is just under the glove as it passes.
+func _dodge_at(pl: Dictionary, f: float) -> void:
+	var x := float(pl["dpeak"]) * f
+	var lead_in := minf(x, R.DEF_LEAD_S)
+	pl["ans_t"] = -lead_in
+	pl["ans_from"] = x - lead_in
+	pl["depth"] = f
 
 
 ## One frame of the run: the pair on the found spots, everything played from the run's start in real time and stopped

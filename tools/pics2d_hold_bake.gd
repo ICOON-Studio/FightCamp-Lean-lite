@@ -42,7 +42,9 @@ const POSES := {
 	"rear_high": {"side": "Right", "from": "head", "at": Vector3(0.05, 0.10, -0.02), "pole": Vector3(1.0, 0.2, -0.2), "roll": 0.0,
 		"guards": ["head", Vector3(0.03, 0.08, 0.07)]},
 	# the glove drops to the chest under the chin, on the uppercut's way up, the elbow by the ribs
-	"rear_low": {"side": "Right", "from": "chest", "at": Vector3(0.14, 0.02, 0.17), "pole": Vector3(-0.4, 0.8, -0.5), "roll": 0.0,
+	# S554: the wrist 7 cm out to its own side and 2 cm back - the first pose had the glove's MIDDLE 8 cm past the centre
+	# line (the cuff under the chin, not the glove)
+	"rear_low": {"side": "Right", "from": "chest", "at": Vector3(0.12, 0.09, 0.17), "pole": Vector3(-0.4, 0.8, -0.5), "roll": 0.0,
 		"guards": ["face", Vector3(0.02, 0.0, -0.30)]},
 }
 

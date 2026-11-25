@@ -37,6 +37,7 @@ const planWords = (p) => !p ? 'nothing yet' : p.clinch ? 'clinch' : [ordOf(p).ma
 cut("// ---- one beat: both plans at once.", "function endBeat(S)", r"""// ---- one beat = THREE MOMENTS. In moment i each man does the i-th thing of his order (or nothing). A hand is out of
 // its guard only in the moment it acts; the rest of the beat it is held where he holds it.
 function resolve(S, P) { const ev = [], f = S.f, say = (k, o) => ev.push({ k, ...o });
+  for (const k of [0, 1]) { if (f[k].kept && P[k].feet === 'in') P[k] = { ...P[k], feet: 'hold' }; f[k].kept = 0; }   // S554: a landed jab keeps him out (as switch.html)
   for (const k of [0, 1]) { P[k] = { ...P[k], ord: ordOf(P[k]) }; f[k].st -= cost(P[k]); f[k].last = { ...P[k] }; if (P[k].lead || P[k].rear) f[k].hist = [...(f[k].hist || []), { ...P[k] }].slice(-3); }
   const pusher = [0, 1].find((k) => P[k].lead === 'push' && !P[k].clinch), clincher = [0, 1].find((k) => P[k].clinch);
   if (clincher != null && (S.range > 2 || f[clincher].held)) { say(clincher, { t: 'flat', a: 'reaches to clinch', o: S.range > 2 ? 'too far away' : 'the referee will not allow two running' }); P[clincher] = { ...plan0(), hl: P[clincher].hl, hr: P[clincher].hr }; }
@@ -59,9 +60,9 @@ function resolve(S, P) { const ev = [], f = S.f, say = (k, o) => ev.push({ k, ..
         if (D.hp <= 0) continue;
         if (!a.reach.includes(S.range)) { say(sh.k, { m: i, t: 'miss', id: sh.id, a: a.n, o: S.range > Math.max(...a.reach) ? 'falls short at ' + RNG[S.range] : 'smothered - too close at ' + RNG[S.range] }); opening[v] = 1; continue; }
         if (cov[v][a.line] && !wasDrawn) { D.g = Math.max(0, D.g - (a.d >= 3 ? 1 : 0)); say(sh.k, { m: i, t: 'block', id: sh.id, a: a.n, o: `blocked by the ${sl} hand held ${heightOf(P[v], sl)}` + (D.g <= 0 ? ' - GUARD BROKEN' : '') }); opening[v] = 1; continue; }
-        const dmg = a.d + (openNow[sh.k] ? N.counter : 0); D.hp -= dmg; A.pts += a.d >= 3 ? 2 : 1; if (a.body) { D.cap = Math.max(4, D.cap - 1); D.st = Math.min(D.st, D.cap); } if (a.d >= 3) stun[v] = 1;
+        const dmg = a.d + (openNow[sh.k] ? N.counter : 0); D.hp -= dmg; A.pts += a.d >= 3 ? 2 : 1; if (a.body) { D.cap = Math.max(4, D.cap - 1); D.st = Math.min(D.st, D.cap); } if (a.d >= 3) stun[v] = 1; if (a.keep && N.keep) D.kept = 1;
         const why = D.g <= 0 ? 'guard broken' : wasDrawn ? 'the feint drew his hand' : act[v] === sl ? `the ${sl} hand was out in that moment` : `the ${sl} hand was held ${heightOf(P[v], sl)}`;
-        say(sh.k, { m: i, t: 'hit', id: sh.id, a: a.n, dmg, o: `lands${openNow[sh.k] ? ' as a counter' : ''} (${why}): -${dmg} health${a.body ? ', stamina bar shorter' : ''}`, down: D.hp <= 0 }); }
+        say(sh.k, { m: i, t: 'hit', id: sh.id, a: a.n, dmg, o: `lands${openNow[sh.k] ? ' as a counter' : ''} (${why}): -${dmg} health${a.body ? ', stamina bar shorter' : ''}${a.keep && N.keep ? (v ? ' - he cannot step in next beat' : ' - you cannot step in next beat') : ''}`, down: D.hp <= 0 }); }
       x = y; }
     for (const k of [0, 1]) if (drawn[k]) drawn[k]--; }
   if (!ev.length) ev.push({ k: -1, t: 'flat', a: 'Nothing thrown', o: 'both men wait' });
@@ -69,7 +70,7 @@ function resolve(S, P) { const ev = [], f = S.f, say = (k, o) => ev.push({ k, ..
 """)
 # ---- the machine: its own order, and the reader tries every order
 R("const hist = you.hist || [], key = (x) => [x.lead, x.rear, x.feet].join('|'),", "const hist = you.hist || [], key = (x) => [x.lead, x.rear, x.feet, ordOf(x).join('>')].join('|'),")
-R("      const c = { ...lo, ...ro, feet, clinch: false }, lead = c.lead, rear = c.rear; if (cost(c) > me.st || (feet === 'back' && me.ropes >= 2)) continue;\n      const T = { range: S.range, f: S.f.map((m) => ({ ...m, hist: [] })) }; resolve(T, [{ ...guess }, c]);\n      const v = (you.hp - T.f[0].hp) - (me.hp - T.f[1].hp) + 0.25 * T.f[1].st + 0.6 * [lead, rear, feet].filter((x) => like.includes(x)).length + rnd() * 0.5;\n      if (v > bv) { bv = v; best = c; } }",
+R("      const c = { ...lo, ...ro, feet, clinch: false }, lead = c.lead, rear = c.rear; if (cost(c) > me.st || (feet === 'back' && me.ropes >= 2) || (feet === 'in' && !stepOk)) continue;\n      const T = { range: S.range, f: S.f.map((m) => ({ ...m, hist: [] })) }; resolve(T, [{ ...guess }, c]);\n      const v = (you.hp - T.f[0].hp) - (me.hp - T.f[1].hp) + 0.25 * T.f[1].st + 0.6 * [lead, rear, feet].filter((x) => like.includes(x)).length + rnd() * 0.5;\n      if (v > bv) { bv = v; best = c; } }",
   "      const c0 = { ...lo, ...ro, feet, clinch: false, ord: [] }, lead = c0.lead, rear = c0.rear; if (cost(c0) > me.st || (feet === 'back' && me.ropes >= 2)) continue;\n      for (const ord of perms(ordOf(c0))) { const c = { ...c0, ord }, T = { range: S.range, f: S.f.map((m) => ({ ...m, hist: [] })) }; resolve(T, [{ ...guess }, { ...c }]);\n        const v = (you.hp - T.f[0].hp) - (me.hp - T.f[1].hp) + 0.25 * T.f[1].st + 0.6 * [lead, rear, feet].filter((x) => like.includes(x)).length + rnd() * 0.5;\n        if (v > bv) { bv = v; best = c; } } }")
 R("// ---- the machine:", "const perms = (a) => a.length < 2 ? [a] : a.flatMap((x, i) => perms([...a.slice(0, i), ...a.slice(i + 1)]).map((r) => [x, ...r]));\n// ---- the machine:")
 # his own style orders: the Jabber hits and THEN moves off (so he picks his punches for the range he stands at)

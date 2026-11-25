@@ -36,12 +36,15 @@ const HOLDS := {"lead_high": ["lead_high"], "lead_low": ["lead_low"], "rear_high
 const HOLD_T := [0.0, 0.08, 0.14, 0.20, 0.26, 0.34, 0.50]
 const HOLD_PLACE_M := 0.08   # the glove (or forearm) this near the place it guards
 const HOLD_OTHER_M := 0.05   # the other hand this near where the guard has it
+const HOLD_OTHER_FACE_M := 0.34   # the hand that is not held: its wrist this near the face (it is in a guard)
+const HOLD_FRONT_M := 0.15   # a glove guarding the face: this far in front of it at most
 const FEINT := ["pro_left_jab_b", 0.20]   # ChoreoWait.BEATS "paw"
 const FEINT_T := [0.0, 0.07, 0.13, 0.20, 0.27, 0.36, 0.46]
 const PUSH_T := [0.0, 0.10, 0.20, 0.30, 0.40, 0.55, 0.70, 0.85]
 const PUSH_GAP_M := 0.68          # Clinch.PAIR_GAP_M: the push starts from the tie-up
 const CLINCH_GAP := {"m": 0.68, "w": 0.62}   # Clinch.PAIR_GAP_M; the still's 0.66 / 0.60 read 0.214-0.219 m apart here (bar 0.22)
 const CLINCH_T := [0.0, 0.25, 0.50, 0.80, 1.20, 2.50]
+const KO_FROM := 0.42   # s into the knockdown take where the fall starts (its lead-in is a standing guard)
 const KO_FRAC := [0.04, 0.12, 0.20, 0.30, 0.42, 0.56, 0.72, 0.97]
 const KO_AFTER := [0.0, 0.06, 0.12, 0.20, 0.30, 0.42, 0.56, 0.72, 0.90, 1.12, 1.40, 1.75, 2.15]   # s from the contact
 
@@ -196,7 +199,13 @@ func _hold_run(who: int, key: String, name: String, step_in: float = 0.0) -> voi
 		for s in ["Left", "Right"]:
 			was[s] = Gate.world(stage, who, s + "Hand") - Gate.world(stage, who, "Head")
 		return [[0.0, func() -> void: stage.v2._play(who, clip, 0.0, "block", false)]]
-	await _solo(name, clip, HOLD_T, build, Callable(), false, func() -> Dictionary: return _hold_gate(who, key, was))
+	# S554: the take holds the guard's FIRST picture; the home guard is a loop caught at any phase (it read 0.011 to
+	# 0.056 m by run). The other hand is read against the take's own first drawn picture: does it stay there.
+	var each := func(t: float) -> void:
+		if t > EPS and t < 0.03:
+			for s in ["Left", "Right"]:
+				was[s] = Gate.world(stage, who, s + "Hand") - Gate.world(stage, who, "Head")
+	await _solo(name, clip, HOLD_T, build, each, false, func() -> Dictionary: return _hold_gate(who, key, was))
 
 
 ## The bars of a hold, read on the stage as it is drawn: each held glove (or forearm) at the place it guards, no glove
@@ -224,11 +233,18 @@ func _hold_gate(who: int, key: String, was: Dictionary) -> Dictionary:
 			near = Geometry3D.get_closest_point_to_segment(place, Gate.world(stage, who, s + "LowerArm"), tip).distance_to(place)
 		elif str(row[3]) == "under":
 			near = ((mid - place) * Vector3(1, 0, 1)).length() if mid.y < place.y else 9.0
+		var front := 0.0
+		if str(row[1]) == "face" and str(row[3]) == "glove":   # S554: a glove guards the face from IN FRONT of it, on the
+			front = (mid - place).dot(fwd)                       # punch's line: read how far it is ACROSS that line, and
+			near = ((mid - place) - fwd * front).length()        # that it is in front and not out at arm's length (the
+			if front < 0.0 or front > HOLD_FRONT_M * sc:         # first bar was the plain distance to a point ON the face)
+				fails.append("%s %.3f m in front of the face (bar 0 to %.2f)" % [h, front / sc, HOLD_FRONT_M])
 		if near > HOLD_PLACE_M * sc:
 			fails.append("%s %.3f m from the place it guards (bar %.2f)" % [h, near / sc, HOLD_PLACE_M])
 		if maxf(tip.y, mid.y) > top:
 			fails.append("%s glove %.3f m over the top of the head" % [h, (maxf(tip.y, mid.y) - top) / sc])
-		said.append("%s %.3f m from its place, %.3f m under the top of the head, %.2f m over the hips" % [h, near / sc, (top - maxf(tip.y, mid.y)) / sc, (mid.y - Gate.world(stage, who, "Hips").y) / sc])
+		var d := (mid - place) / sc   # read back the way the place is written: [toward him, out to the hand's side, up]
+		said.append("%s %.3f m from its place [%.2f, %.2f, %.2f], %.3f m under the top of the head, %.2f m over the hips" % [h, near / sc, d.dot(fwd), d.dot(out), d.y, (top - maxf(tip.y, mid.y)) / sc, (mid.y - Gate.world(stage, who, "Hips").y) / sc])
 	for s in ["Left", "Right"]:
 		if held.has(s):
 			continue
@@ -236,6 +252,12 @@ func _hold_gate(who: int, key: String, was: Dictionary) -> Dictionary:
 		if moved > HOLD_OTHER_M * sc:
 			fails.append("the other hand %.3f m from its guard (bar %.2f)" % [moved / sc, HOLD_OTHER_M])
 		said.append("the other hand %.3f m from its guard" % [moved / sc])
+		# the control: the bar above is read against the take's own first picture, so it cannot see an arm that was
+		# ALREADY wrong there (a reach layer left on held a lead arm straight out, S553). A guard wrist is 0.22-0.27 m
+		# from the face; an arm held out is over 0.5 m.
+		var far := Gate.world(stage, who, s + "Hand").distance_to(stage.target_point(who, false))
+		if far > HOLD_OTHER_FACE_M * sc:
+			fails.append("the other hand %.3f m from the face (bar %.2f): it is not in a guard" % [far / sc, HOLD_OTHER_FACE_M])
 	print("HOLD_GATE %s %s: %s" % [["red", "blue"][who], key, "; ".join(PackedStringArray(said))])
 	return {"fails": fails}
 
@@ -278,11 +300,14 @@ func _push_run(_who: int, name: String) -> void:
 
 func _clinch_run(who: int, name: String) -> void:
 	var mid: Vector3 = (home_t[0].origin + home_t[1].origin) * 0.5
-	var gap := float(CLINCH_GAP.get(_arg("set", "w"), 0.66))
+	var gap := float(_arg("clinch_gap", str(CLINCH_GAP.get(_arg("set", "w"), 0.66))))
 	var build := func() -> Array:
 		await _hands_free()
-		_node(0).global_position = mid - axis * gap * 0.5
-		_node(1).global_position = mid + axis * gap * 0.5
+		# S554: with blue mirrored both heads lean to the SAME side and met (0.10 m apart, a head inside a head). In a
+		# tie-up the heads pass cheek to cheek: blue half a head nearer the camera, red half a head further.
+		var side: Vector3 = (cam.global_transform.basis.z * Vector3(1, 0, 1)).normalized() * (float(_arg("clinch_side", "0.07")) if bool(stage.boxers[1].get("south", false)) else 0.0)
+		_node(0).global_position = mid - axis * gap * 0.5 - side
+		_node(1).global_position = mid + axis * gap * 0.5 + side
 		stage.clinch.start(who, 30.0, 0, -1)
 		return []
 	await _solo(name, "Clinch", CLINCH_T, build, Callable(), false, func() -> Dictionary: return Gate.clinch(stage, _view()))
@@ -307,6 +332,9 @@ func _ko_run(who: int, name: String) -> void:
 ## run's own; the picture is twice as wide, so the man on the canvas is still in it and nothing changes size. The page
 ## plays the landed run up to its contact, then this.
 func _punch_ko_run(who: int, fam: String, name: String) -> void:
+	# S554: the knockdown take stands in its guard for its first 0.4 s; played from 0 the hit man took the punch, stood
+	# calmly for half a second and THEN fell. It is entered where the body starts to go.
+	var ko_from := float(_arg("ko_from", str(KO_FROM)))
 	var b := await _find(who, fam, "landed")
 	if b.is_empty() or not _has(1 - who, KO_CLIP):
 		print("PICS2D_ANIM no %s take on %s" % [fam, name])
@@ -320,7 +348,7 @@ func _punch_ko_run(who: int, fam: String, name: String) -> void:
 	pl["ans"] = KO_CLIP
 	pl["ans_kind"] = "reaction"
 	pl["ans_t"] = 1.0 / 60.0
-	pl["ans_from"] = 0.0
+	pl["ans_from"] = ko_from
 	var dirv := axis * (1.0 if who == 0 else -1.0)
 	for attempt in 4:   # the landed run's own last step: the glove on the target on the contact as it is played live
 		await _pose_at(who, b, pl, Vector3.ZERO, 0.0)
@@ -335,7 +363,7 @@ func _punch_ko_run(who: int, fam: String, name: String) -> void:
 	var files: Array = []
 	var times: Array = []
 	for off in KO_AFTER:
-		if float(off) > len - 0.05:
+		if float(off) > len - ko_from - 0.05:
 			break
 		await _pose_at(who, b, pl, Vector3.ZERO, float(off))
 		await RenderingServer.frame_post_draw

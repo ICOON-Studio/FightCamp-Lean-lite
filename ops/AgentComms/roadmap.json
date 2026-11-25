@@ -3,22 +3,24 @@
  "updated": "2026-11-25",
  "author": "claude S294",
  "now": {
-  "id": "S553",
+  "id": "S554",
   "owner": "claude",
   "updated": "2026-11-25",
-  "summary": "S553 (Fable) HANDOVER. ## METHOD - RING SWITCHES IS THE MAIN LINE (owner S553: 'i think we should focus more on the RingSwitches'); the plan and coach probe rounds are parked, nothing cut. ## METHOD - THE FIGHT MUST BE SEEN, SIDE VIEW, BOTH MEN CHEST TO THE CAMERA ('Yes, side view'): every render takes south=blue; a fall never without its punch; a held hand shows its arm; the ranges are drawn. Four guard holds authored and the tools and page committed (304b4d47f); the new pictures are rendered in E:/FightCamp/tmp/holdtakes1/open and NOT on the page. Guard bar measured: never breaks. STYLEPLACE1 checked: FAIL stands.",
-  "next_action": "S554: finish HOLDTAKES1 - collect the render in E:/FightCamp/tmp/holdtakes1/open, look at the new poses, convert (anim_web, anim_stills), anim_check green, PLAY both pages, sheets and film on the review board; then his C508 (missed hook too high and far), C509 (effects when a punch lands); his answer on the guard bar (cut or rebuild).",
-  "last_working_commit": "304b4d47f",
-  "verified_playable": "The S547 build is the last exported .exe. Ring Switches (a browser toy): both pages play the frame runs, checked in the browser (no console errors); the bot measures still run (probe_switch_bots.js).",
-  "incomplete_blocked": "No export since S547. A held guard is not seen (HOLDTAKES1). Overhand borrows the rear hook, the push is the mutual push-off, red's blocked body hook keeps its still, men's pair only. STYLEPLACE1 not landed. MATCHBOTS2 not launched. Ring Switches: the Jabber too easy, no tests for its rules, the order question and the guard bar question open.",
-  "next_acceptance": "A jab frame run plays on the page and its strip is on /review; every action of the table has a run or is named NOT GREEN; COACHMAP2 check page committed and the coach question on the board; STYLEPLACE1 running.",
+  "summary": "S554 (Fable) HANDOVER. ## METHOD - RING SWITCHES IS THE MAIN LINE (owner S553; S554: 'keep improving the ringswitch'). ## METHOD - THE FIGHT MUST BE SEEN, SIDE VIEW, BOTH MEN CHEST TO THE CAMERA. ## METHOD - THE SEATS' IDEAS ARE USED AND REPORTED (owner S554: 'what happenned with the brainstorming from other agents ?'). On the page now: the guard holds at three ranges, knockdowns that start from the punch, near-miss lead hooks (C508), the hit burst (C509), a landed jab keeps him out, the ground strip, his habit marked. FINDING: a body jab that reaches Long takes the sensible player from 97% to 60% against the Jabber; it needs an authored take. Kalli and John answered the same session: BOTH put the body jab first (three sources agree); all three versions measure 60 to 67%.",
+  "next_action": "S555: author the body jab take (pattern tools/pics2d_bodycross_bake.gd), render its 8 runs, apply ops/research/RINGSWITCH_BODYJAB_PATCH_S554.py in John's version (shortens the bar, keeps out, never two beats running); then probe HURT, CIRCLE OFF and one rule per opponent (ops/research/RINGSWITCH_IDEAS2_VS_PROBE_S554.md); red's tie-up, the wide rear hooks; the guard bar is his call.",
+  "last_working_commit": "b35bf8488",
+  "verified_playable": "The S547 build is the last exported .exe. Ring Switches (a browser toy): both pages played in the browser in S554 (holds, a knockdown from the punch, the jab rule, the hit burst placed on the glove; no console errors); 17 rule tests and anim_check 116 of 116 pass.",
+  "incomplete_blocked": "No export since S547 (no game file changed). Ring Switches: red's tie-up borrows blue's picture; both rear hooks that miss are wide; the overhand borrows the rear hook; men's pair only; the body jab has no take; bouts rarely end early; the owner has not played the S554 page. MATCHBOTS2 not launched. Dola's SQ324 and SQ327 never left the queue.",
+  "next_acceptance": "A body jab run plays on the page and its strip is on /review; the seats' answers are reported to him one by one; the probe on the page's own rules still shows the Jabber near 60%.",
   "awaiting_operator": [
-   "His eye on the new Ring Switches pictures once they are on the page",
-   "The guard bar never breaks: cut it or rebuild it (ops/research/GUARDBAR_S553.md)",
-   "The rest of his Q-336 note ('thecoaches should have')"
+   "His eye and his play on the S554 Ring Switches page (sheets and film on /review)",
+   "The guard bar never breaks: cut it or rebuild it - Kalli: cut it; John: a block costs stamina instead (ops/research/RINGSWITCH_IDEAS2_VS_PROBE_S554.md)",
+   "Which body jab: John's version is recommended (same page)",
+   "The rest of his Q-336 note ('thecoaches should have')",
+   "Whether 'a landed jab keeps him out' stays (a trial, N.keep)"
   ]
  },
- "next": "S553: see NEXT_SESSION_PROMPT.md - collect STYLEPLACE1, then HOLDTAKES1 (four guard takes for Ring Switches), his answers on coaches (Q-336) and the guard bar.",
+ "next": "S555: see NEXT_SESSION_PROMPT.md - the seats' answers, then the body jab take for Ring Switches.",
  "assessment": {
   "source": "Codex deep audit + Cursor televised-MMA gap assessment, both 2026-09-12",
   "bars": [
@@ -2404,6 +2406,13 @@
    "date": "2026-11-25",
    "summary": "Ring Switches became the main line on the owner's word. STYLEPLACE1 was checked against the code and its raw files (FAIL stands). Four one-hand guard holds and the four both-hands pairs were authored as baked takes. The session's finding: the player's man had been drawn from behind in every picture, hiding his rear arm; with the blue man mirrored both show the camera their chest (owner, against an isometric test: 'Yes, side view'). Built on his notes: a knockdown that comes from the punch, standing pictures and steps at three ranges, the page showing the held hand or hands. The guard bar was measured: it never breaks. NOT GREEN: the new pictures were still rendering at the handover and are not on the page; nothing new was played; his C508 and C509 are not done.",
    "commit": "304b4d47f"
+  },
+  {
+   "id": "S554",
+   "date": "2026-11-25",
+   "summary": "Finished HOLDTAKES1: three hold bars failed for three different reasons (a wrong bar, a wrong pose, a moving reference), each decided on the picture; the knockdown take is entered where the fall starts; a missed lead hook is a near miss (C508); the page draws the hit where the glove lands (C509). Built the three additions from Kalli's and John's brainstorm (a landed jab keeps him out, the ground strip, his habit marked) and measured them on the page's own rules (rules.mjs, 17 tests). Finding: a body jab that reaches Long takes the sensible player from 97% to 60% against the Jabber; it needs an authored take. A new ideas brief queued to Kalli and John. Their answers landed the same session and were read: both put the body jab first; all three versions measure 60 to 67% against the Jabber (ops/research/RINGSWITCH_IDEAS2_VS_PROBE_S554.md).",
+   "commit": "b35bf8488 + the handover commit",
+   "digest": "ops/research/S554_DIGEST.md"
   }
  ],
  "blocked_on_operator": [],
@@ -5480,15 +5489,16 @@
   "working_now": [],
   "next": [
    {
-    "id": "HOLDTAKES1",
+    "id": "BODYJAB1",
     "who": "claude",
-    "title": "Guard holds, both men chest to the camera, knockdown from the punch, three ranges: built, the pictures rendered | NEXT: look at them, put them on the page, play both pages, sheets on the review board",
+    "title": "Ring Switches: a body jab that reaches Long - Kalli, John and the probe all put it first (the Jabber 97% -> 60 to 67%) | NEXT: author its take, render 8 runs, put the switch on the page",
     "after": ""
    },
    {
     "id": "RINGSWITCH1",
     "who": "claude",
-    "title": "Ring Switches, the main line (your S553 call) | NEXT: your notes C508 (missed hook too high and far) and C509 (effects when a punch lands); the guard bar never breaks: cut or rebuild; the Jabber too easy"
+    "title": "Ring Switches, the main line | NEXT: your eye and play on the S554 page; red's tie-up picture; the two wide rear hooks; the guard bar never breaks: cut or rebuild (your call)",
+    "after": "BODYJAB1"
    },
    {
     "id": "STYLEPLACE1",
@@ -5892,6 +5902,11 @@
   },
   "done_recently": [
    {
+    "id": "S554",
+    "who": "claude",
+    "title": "Ring Switches: guard holds and knockdowns from the punch on the page; your two film notes done (near-miss hook, hit burst); the agents' three ideas built and measured; Kalli and John asked again and read - both want a body jab first"
+   },
+   {
     "id": "S553",
     "who": "claude",
     "title": "Four guard holds authored; both men now drawn chest to the camera; knockdown from the punch and three ranges built; guard bar measured (never breaks); STYLEPLACE1 checked"
@@ -5944,11 +5959,6 @@
    {
     "title": "Arena's paper is in: three real boxing bouts and two ways to play a round as cards (proto/cardgame/CARDBOX1_BREAKDOWN.md). Both ways failed the real round - the defender sees the card; Claude writes boxer v boxer on paper next",
     "who": "Arena (chat 01a20da7-2bc0-7576-abe2-df98869b061a)",
-    "when": "2026-11-24"
-   },
-   {
-    "title": "Card round 9b slices 1-3 on main; STOPPED by your call: no more mixed boxing v jiu-jitsu work (CARDBOX_SCOPE_S549)",
-    "who": "Claude (this session, on main; owner S548: do 9b yourself)",
     "when": "2026-11-24"
    }
   ],
@@ -6038,6 +6048,18 @@
   "map": {
    "done_earlier": [
     {
+     "text": "Guard holds authored (4 + pairs)",
+     "who": "claude"
+    },
+    {
+     "text": "STYLEPLACE1 checked: FAIL stands",
+     "who": "claude"
+    },
+    {
+     "text": "Guard bar measured: never breaks",
+     "who": "claude"
+    },
+    {
      "text": "Ring Switches: frame by frame",
      "who": "claude"
     },
@@ -6080,31 +6102,39 @@
     {
      "text": "Boxer v boxer engine: 5 of 6 bars",
      "who": "claude"
-    },
-    {
-     "text": "Boxer v boxer v1: critic 5/6/6",
-     "who": "claude"
-    },
-    {
-     "text": "Plan probe 1: no lever passed",
-     "who": "agent"
-    },
-    {
-     "text": "Boxer v boxer v2: critic 6/5/7",
-     "who": "claude"
     }
    ],
    "done_session": [
     {
-     "text": "Guard holds authored (4 + pairs)",
+     "text": "Guard holds pass their bars",
      "who": "claude"
     },
     {
-     "text": "STYLEPLACE1 checked: FAIL stands",
+     "text": "Knockdown falls from the punch",
      "who": "claude"
     },
     {
-     "text": "Guard bar measured: never breaks",
+     "text": "Jab keeps him out: built, measured",
+     "who": "claude"
+    },
+    {
+     "text": "17 rule tests on the page",
+     "who": "claude"
+    },
+    {
+     "text": "Near-miss lead hooks (your C508)",
+     "who": "claude"
+    },
+    {
+     "text": "Hit burst at the glove (your C509)",
+     "who": "claude"
+    },
+    {
+     "text": "Body jab found: Jabber 97% -> 60%",
+     "who": "claude"
+    },
+    {
+     "text": "Kalli + John read: body jab first",
      "who": "claude"
     }
    ],
@@ -6234,12 +6264,8 @@
      "who": "claude"
     },
     {
-     "text": "Your play: Ring Switches, 2 pages",
-     "who": "claude"
-    },
-    {
-     "text": "Guard holds seen (HOLDTAKES1)",
-     "who": "claude"
+     "text": "Your play: Ring Switches S554",
+     "who": "operator"
     }
    ],
    "next": [
@@ -6592,41 +6618,33 @@
      "who": "claude"
     },
     {
-     "text": "Guard holds seen (HOLDTAKES1)",
-     "who": "claude"
-    },
-    {
-     "text": "Your eye: S552 films",
-     "who": "operator"
-    },
-    {
      "text": "Coaches: keep or cut (Q-336)",
      "who": "operator"
     },
     {
-     "text": "New pictures onto the page",
-     "who": "claude"
-    },
-    {
-     "text": "Missed hook: near miss (C508)",
-     "who": "claude"
-    },
-    {
-     "text": "Hit effects on the page (C509)",
-     "who": "claude"
-    },
-    {
      "text": "Guard bar: cut or rebuild",
+     "who": "claude"
+    },
+    {
+     "text": "Body jab: author its take",
+     "who": "claude"
+    },
+    {
+     "text": "Clinch picture when he ties up",
+     "who": "claude"
+    },
+    {
+     "text": "Probe: hurt, circle off, opponents",
      "who": "claude"
     }
    ],
-   "session": "S553"
+   "session": "S554"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
- "last_working_commit": "304b4d47f",
- "next_action": "S554: finish HOLDTAKES1 - collect the render in E:/FightCamp/tmp/holdtakes1/open, look at the new poses, convert (anim_web, anim_stills), anim_check green, PLAY both pages, sheets and film on the review board; then his C508 (missed hook too high and far), C509 (effects when a punch lands); his answer on the guard bar (cut or rebuild).",
+ "last_working_commit": "b35bf8488",
+ "next_action": "S555: author the body jab take (pattern tools/pics2d_bodycross_bake.gd), render its 8 runs, apply ops/research/RINGSWITCH_BODYJAB_PATCH_S554.py in John's version (shortens the bar, keeps out, never two beats running); then probe HURT, CIRCLE OFF and one rule per opponent (ops/research/RINGSWITCH_IDEAS2_VS_PROBE_S554.md); red's tie-up, the wide rear hooks; the guard bar is his call.",
  "next_acceptance": "Rulers vs r0: head jumps on the contact frame under 4, a head inside the other's body under 5 frames, arm out median under 4 frames with join_return green, then r1 film at two fresh blind critics 5+/10",
  "superseded_archive": [
   {

@@ -94,6 +94,8 @@ def main(argv: list[str]) -> int:
                 im.save(OUT / wn, "WEBP", quality=76)
                 names.append(wn)
             table["runs"][name] = {"files": names, "offs": row["offs"], "contact": row.get("contact", -1), "clip": row.get("clip", "")}
+            if row.get("hit"):   # C509: the glove's place on the contact picture (share of width, height) - the page draws the hit there
+                table["runs"][name]["hit"] = row["hit"]
             kept += 1
     for new, old in alias.items():
         if old in table["runs"]:

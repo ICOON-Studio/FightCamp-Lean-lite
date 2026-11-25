@@ -28,6 +28,12 @@ const HEAD_CLEAR_M := 0.60    # a head's bone to the other's trunk line and head
 const FEET := ["LeftFoot", "RightFoot", "LeftToes", "RightToes"]
 const MISS_PX_M := 0.20
 const MISS_HAND_M := 0.14
+## C508 (S554, owner on the missed hook: "aims too high i think and too far away from the head"): a hook that misses is
+## a NEAR miss - on the picture the glove clears his face by a hand's width, and by no more than MISS_NEAR_MAX_M
+const MISS_NEAR_MIN_M := 0.13
+const MISS_NEAR_MAX_M := 0.24
+const MISS_NEAR_HAND_M := 0.21   # ... and his WRISTS by this much: at 0.14 the two gloves overlapped on the picture and it read as a block
+const MISS_NEAR_GOOD_M := 0.19   # the search stops at the first staging this near
 const CLINCH_CHEST_M := 0.50
 const HEAD_APART_M := 0.15     # head bone to head bone: one head breadth (ANSUR II means: men 0.155 m, women 0.147 m) - cheek to cheek, never inside
 const ARM_OFF_M := 0.07
