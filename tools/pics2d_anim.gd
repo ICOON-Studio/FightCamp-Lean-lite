@@ -1,0 +1,281 @@
+extends "res://tools/pics2d_set.gd"
+## RINGANIM1 (S552, task ops/research/TASK_RINGANIM1.md). The owner on Ring Switches (S551): "we need to work on the
+## visuals of the fight so the player can understand the actions by seeing every card being executed by the fighters".
+## A FRAME RUN for every picture of the still set: the pair is placed exactly as the still tool places it (the range
+## FOUND, tools/pics2d_gate.gd), then the take is played again from its start, once for each frame, and stopped at a
+## fixed time before or after the contact. The other man plays his own answer in step: the hit reaction (landed), his
+## block or cover-up (blocked), his pull or duck (missed). The camera is fixed on the contact for the whole run.
+## Nothing is layered over a take and nothing under scripts/ is changed: this records what the v2 player plays.
+##   python tools/hidden_desktop.py run --timeout=3000 --log=<f> <godot.exe> --path . --windowed --resolution 1920x1080 \
+##       --audio-driver Dummy --fixed-fps 60 --script res://tools/pics2d_anim.gd -- <out_dir> art=toon set=m \
+##       [only=<prefix> | only=*<part>] [offs=-0.3,-0.2,...] [take=<clip>]
+## Writes <out_dir>/<run>_<k>.png and <out_dir>/frames.json; prints PICS2D_ANIM runs=<n> frames=<n> refused=<n> gate_failed=<n>.
+
+const R := preload("res://scripts/fight3d/v2/ChoreoRules.gd")
+## s from the contact. The task's first guess (-0.30 .. +0.12) left the hand out at the end of the strip and started
+## an uppercut after its dip: the way in from -0.42, the hand home by +0.30 (arm_home_s + the home join's 0.22).
+const OFFS := [-0.42, -0.30, -0.20, -0.13, -0.08, -0.04, 0.0, 0.06, 0.12, 0.20, 0.30]
+const EPS := 0.008
+
+var offs: Array = OFFS
+var runs := {}
+
+
+func _run() -> void:
+	if _arg("offs", "") != "":
+		offs = []
+		for s in _arg("offs", "").split(","):
+			offs.append(float(s))
+	for who in 2:
+		for fam in FAMILIES:
+			for res in RESULTS:
+				var name := "%s_%s_%s" % [["red", "blue"][who], fam, res]
+				if _want(name):
+					await _punch_run(who, str(fam), str(res), name)
+	_finish()
+
+
+## only=a,b,c: several names (each as the still tool reads one: a prefix, or *part).
+func _want(name: String) -> bool:
+	if not only.contains(","):
+		return super._want(name)
+	for part in only.split(","):
+		if name.begins_with(part) or (part.begins_with("*") and name.contains(part.substr(1))):
+			return true
+	return false
+
+
+func _save() -> void:   # after every run: a render that is cut short keeps what it made
+	var fh := FileAccess.open(out_dir.path_join("frames.json"), FileAccess.WRITE)
+	fh.store_string(JSON.stringify({"runs": runs}, "  "))
+	fh.close()
+
+
+func _finish() -> void:
+	_save()
+	print("PICS2D_ANIM runs=%d frames=%d refused=%d gate_failed=%d %s" % [runs.size(), wrote, refused, failed.size(), " ".join(PackedStringArray(failed))])
+	quit(0 if refused == 0 and failed.is_empty() else 1)
+
+
+## The still tool's own search (pics2d_set._punch), returning what it found instead of taking the picture:
+## {clip, cover, step, side, hand, cs, fails}. Empty when the boxer has no take of the family.
+func _find(who: int, fam: String, res: String) -> Dictionary:
+	var takes := _takes(who, fam)
+	var body: bool = FAMILIES[fam][1]
+	var dirv := axis * (1.0 if who == 0 else -1.0)
+	var best := {}
+	var tries: Array = []
+	for clip in takes:
+		for cv in (COVER + [""] if res == "blocked" and body else [""]):
+			tries.append([clip, cv])
+	for tr in tries:
+		var clip: String = tr[0]
+		cover = tr[1]
+		var row: Dictionary = stage.v2.db["rows"][clip]
+		var cs := float(row.get("contact_s", 0.3))
+		var hand: String = stage.hand_of(who, str(row.get("hand", "LeftHand")))
+		await _home_guard()
+		stage.v2._play(who, clip, 0.0, "punch", false)
+		await _to_contact(who, clip, cs)
+		var step: float = (stage.v2.target(1 - who, body) - stage.glove_front(who, hand)).dot(dirv) - (0.10 if res == "blocked" else 0.0)
+		var side := Vector3.ZERO
+		for attempt in 6:
+			await _pose(who, clip, fam, res, cs, hand, body, step, side)
+			var m: Dictionary = Gate.punch(stage, who, hand, res, body, dirv, _px, SIZE / cam.size, _view())
+			m["clip"] = clip
+			if best.is_empty() or (m["fails"] as Array).size() < (best["fails"] as Array).size():
+				best = m.merged({"step": step, "side": side, "hand": hand, "cs": cs, "cover": cover})
+			if (m["fails"] as Array).is_empty():
+				break
+			var back := maxf(maxf(Gate.APART_MIN_M - float(m["apart_m"]), Gate.FEET_MIN_M - float(m["feet_m"])), Gate.HEAD_CLEAR_M - float(m["head_clear_m"]))
+			if back > 0.0:
+				step -= back + 0.02
+				continue
+			var gl: Vector3 = stage.glove_front(who, hand)
+			var goal: Vector3 = stage.v2.target(1 - who, body) if res == "landed" else _block_point(who, hand, body)
+			if res == "missed" or not goal.is_finite():
+				break
+			var r := goal - gl
+			step += r.dot(dirv)
+			side += Vector3(r.x, 0.0, r.z) - dirv * r.dot(dirv)
+		if (best["fails"] as Array).is_empty():
+			break
+	return best
+
+
+func _punch_run(who: int, fam: String, res: String, name: String) -> void:
+	var b := await _find(who, fam, res)
+	if b.is_empty():
+		print("PICS2D_ANIM no %s take on %s" % [fam, name])
+		refused += 1
+		return
+	var clip: String = b["clip"]
+	var cs := float(b["cs"])
+	var body: bool = FAMILIES[fam][1]
+	var d := 1 - who
+	cover = b["cover"]
+	# The still's own pose once more: the camera is fixed on it, and how far the other man gave ground (a miss) is read
+	# from it, so he stands there from the first frame on (the punch is out of range all the way, not at the end only).
+	await _pose(who, clip, fam, res, cs, b["hand"], body, float(b["step"]), b["side"])
+	var give: Vector3 = _node(d).global_position - home_t[d].origin
+	_aim([0, 1])
+	var pl := _plan(who, b, fam, res)
+	# Everything is played LIVE here (the still froze each man where it wanted him): the contact is posed and measured
+	# once more, and the pair is moved by what the gate still misses - the still tool's own rule (pics2d_set._punch):
+	# bodies, feet or heads too close step the puncher back; a miss too near gives the other man more ground; a glove
+	# short of its block or its target steps the puncher in by what is left.
+	var dirv := axis * (1.0 if who == 0 else -1.0)
+	for attempt in 4:
+		await _pose_at(who, b, pl, give, 0.0)
+		await process_frame
+		var m: Dictionary = Gate.punch(stage, who, b["hand"], res, body, dirv, _px, SIZE / cam.size, _view())
+		if (m["fails"] as Array).is_empty():
+			break
+		var back := maxf(maxf(Gate.APART_MIN_M - float(m["apart_m"]), Gate.FEET_MIN_M - float(m["feet_m"])), Gate.HEAD_CLEAR_M - float(m["head_clear_m"]))
+		if back > 0.0:
+			b["step"] = float(b["step"]) - back - 0.02
+		elif res == "missed":
+			give += dirv * (maxf(Gate.MISS_PX_M - float(m.get("clear_m", 1.0)), Gate.MISS_HAND_M - float(m.get("clear_hand_m", 1.0))) + 0.04)
+		elif res == "blocked":
+			b["step"] = float(b["step"]) + float(m.get("block_m", 0.0)) - 0.02
+		else:
+			b["step"] = float(b["step"]) + float(m.get("hit_m", 0.0)) - 0.01
+	var first := 0 # the offsets before anything starts are all the guard: keep the last of them only
+	for k in offs.size():
+		if float(offs[k]) <= float(pl["t0"]):
+			first = k
+	var files: Array = []
+	var times: Array = []
+	var gate_fails: Array = []
+	var ok := true
+	for k in range(first, offs.size()):
+		var off := float(offs[k])
+		await _pose_at(who, b, pl, give, off)
+		var f := "%s_%d" % [name, files.size()]
+		if not await _frame(f):
+			ok = false
+			break
+		if is_zero_approx(off):   # measured on the pose that was drawn
+			var m: Dictionary = Gate.punch(stage, who, b["hand"], res, body, axis * (1.0 if who == 0 else -1.0), _px, SIZE / cam.size, _view())
+			gate_fails = m["fails"]
+		files.append(f + ".png")
+		times.append(off)
+	if not ok:
+		refused += 1
+		return
+	if not gate_fails.is_empty():
+		print("PICS_GATE FAIL %s (contact frame): %s" % [name, "; ".join(PackedStringArray(gate_fails))])
+		failed.append(name)
+	runs[name] = {"files": files, "offs": times, "contact": times.find(0.0), "clip": clip, "cover": cover, "answer": pl["ans"],
+		"step": snappedf(float(b["step"]), 0.001), "gate_fails": gate_fails}
+	print("PICS2D_ANIM %s = %s%s, answer %s, %d frames, step %.2f m" % [name, clip, " cover " + cover if cover != "" else "", pl["ans"], files.size(), float(b["step"])])
+	_save()
+
+
+## WHEN each thing of the run starts, in seconds from the contact, as the v2 player times it (Choreographer, Player2):
+## the punch from its take's start_s; a landed punch's reaction one picture after the glove arrives, part-way into its
+## take so the head is furthest ChoreoRules.react_peak_s later; a block or a dodge so that it is where the still has it
+## on the contact; the punching arm home ChoreoRules.arm_home_s after the contact (the guard, through Player2.JOIN_HOME).
+func _plan(who: int, b: Dictionary, fam: String, res: String) -> Dictionary:
+	var clip: String = b["clip"]
+	var cs := float(b["cs"])
+	var body: bool = FAMILIES[fam][1]
+	var rows: Dictionary = stage.v2.db["rows"]
+	var dap: AnimationPlayer = stage.boxers[1 - who]["ap"]
+	var from_s := clampf(float((rows[clip] as Dictionary).get("start_s", 0.0)), 0.0, cs - 0.05)
+	var pl := {"fam": fam, "res": res, "from_s": from_s, "punch_t": from_s - cs, "home_t": R.arm_home_s(fam), "ans": "", "ans_kind": "reaction", "ans_t": INF, "ans_from": 0.0}
+	if res == "landed":
+		pl["ans"] = str(REACT.get(fam, ""))
+		var peak := float((rows.get(pl["ans"], {}) as Dictionary).get("head_peak_s", 0.3))
+		pl["ans_t"] = 1.0 / 60.0
+		pl["ans_from"] = maxf(0.0, peak - R.react_peak_s(fam))
+	elif res == "blocked":
+		if body and cover != "" and dap.has_animation(cover):
+			pl["ans"] = cover
+			pl["ans_kind"] = "block"
+			pl["ans_t"] = -minf(COVER_AT, dap.get_animation(cover).length - 0.02)
+	else:
+		var kind := "weave" if fam in ["lead_hook", "rear_hook"] else "pull"
+		pl["ans"] = BeatClips.defence(kind, fam, str(b["hand"]) == "LeftHand", false, func(c: String) -> bool: return dap.has_animation(c))
+		pl["ans_kind"] = "defence"
+		if pl["ans"] != "":   # Choreographer: a dodge starts min(its head's peak, DEF_LEAD_S) before the contact, that far before its peak
+			var dpeak := float((rows.get(pl["ans"], {}) as Dictionary).get("head_peak_s", dap.get_animation(pl["ans"]).length * 0.42))
+			var lead_in := minf(dpeak, R.DEF_LEAD_S)
+			pl["ans_t"] = -lead_in
+			pl["ans_from"] = dpeak - lead_in
+	if pl["ans"] == "" or not dap.has_animation(pl["ans"]):
+		pl["ans"] = ""
+		pl["ans_t"] = INF
+	pl["t0"] = minf(float(pl["punch_t"]), float(pl["ans_t"]))
+	return pl
+
+
+## One frame of the run: the pair on the found spots, everything played from the run's start in real time and stopped
+## `off` s from the contact.
+func _pose_at(who: int, b: Dictionary, pl: Dictionary, give: Vector3, off: float) -> void:
+	var clip: String = b["clip"]
+	var cs := float(b["cs"])
+	var hand: String = b["hand"]
+	var fam: String = pl["fam"]
+	var res: String = pl["res"]
+	var body: bool = FAMILIES[fam][1]
+	var d := 1 - who
+	await _home_guard(float(b["step"]), who)
+	_node(who).global_position += b["side"]
+	_node(d).global_position += give
+	if off <= float(pl["t0"]):
+		return   # the guard, before anything starts
+	var todo: Array = [
+		[float(pl["punch_t"]), func() -> void:
+			if res == "landed":
+				stage.v2._arm(who, clip, body)
+			elif res == "blocked":
+				_aim_block(who, clip, fam, cs, hand, body, cs - float(pl["from_s"]))
+			stage.v2._play(who, clip, float(pl["from_s"]), "punch", false)],
+		[float(pl["ans_t"]), func() -> void:
+			if res == "landed" and body:
+				stage.v2._join_next = Player2.JOIN_FOLD
+			stage.v2._play(d, pl["ans"], float(pl["ans_from"]), pl["ans_kind"], false)],
+		[float(pl["home_t"]), func() -> void:
+			stage.v2._join_next = Player2.JOIN_HOME
+			stage.v2.guard(who)]]
+	var t := float(pl["t0"])
+	while true:
+		for e in todo:
+			if e.size() == 2 and t >= float(e[0]) - EPS:
+				(e[1] as Callable).call()
+				e.append(true)
+		if t >= off - EPS:
+			break
+		await process_frame
+		t += 1.0 / 60.0
+	# Frozen HERE and drawn in this same frame (pics2d_anim._frame): a wait would let the layers that run on the clock
+	# (the join smoother, PunchAim, BlockCatch) go on while the takes stand still - the first strips had the arm home
+	# 0.05 s early because of three such frames.
+	_freeze(who)
+	_freeze(d)
+
+
+## A blocked punch, armed at the punch's start (pics2d_set._arm_block's rule with the block timed to the real contact):
+## a head punch meets her BlockCatch glove, `contact_in` s from now; the glove's finish is aimed at her block (her
+## glove's padding, or her forearm for a body punch - the cover-up itself is played by the run, in step).
+func _aim_block(who: int, clip: String, fam: String, cs: float, hand: String, body: bool, contact_in: float) -> void:
+	if not body:
+		BlockCatch.block(stage, who, clip, fam, cs, 1.0, contact_in)
+	var node: Node3D = _node(who)
+	var front: Vector3 = stage.v2._fronts[who][clip]
+	var tgt := func() -> Vector3: return _block_point(who, hand, body)
+	(stage.v2._aim[who] as Node).arm(clip, hand, cs, func() -> Vector3: return tgt.call() - node.global_transform * front,
+		(stage.v2._rels[who] as Dictionary).get(clip, Vector3.ZERO), tgt)
+
+
+## Saves the picture as the camera stands (never re-aimed inside a run). False when a boxer is not whole in it.
+func _frame(name: String, who: Array = [0, 1]) -> bool:
+	var bad := Gate.framed(stage, cam, who, SIZE)
+	if not bad.is_empty():
+		print("STILL_FRAMING FAIL %s: %s" % [name, "; ".join(PackedStringArray(bad))])
+		return false
+	await RenderingServer.frame_post_draw
+	sv.get_texture().get_image().save_png(out_dir.path_join(name + ".png"))
+	wrote += 1
+	return true

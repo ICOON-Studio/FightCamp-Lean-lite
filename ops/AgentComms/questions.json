@@ -9284,6 +9284,24 @@
       "attach": [
         "research/PLANIMPACT2_OWNER_S551.md"
       ],
+      "answer": "Yes, scope it",
+      "note": null,
+      "answered_at": "2026-11-24T21:04:36Z",
+      "seen_by_claude": true,
+      "comment_only": false
+    },
+    {
+      "id": "Q-S294-336",
+      "asked": "2026-11-24T23:06:57.519437+00:00",
+      "session": "S294",
+      "text": "Coaches cannot reach 8 after nine rounds. Keep them as today's two hire cards, or cut coaches?",
+      "options": [
+        "Keep the two hire cards",
+        "Cut coaches"
+      ],
+      "attach": [
+        "research/COACHMAP2_ASK_S552.md"
+      ],
       "answer": null,
       "note": null,
       "answered_at": null,

@@ -1,0 +1,1886 @@
+{
+ "runs": {
+  "blue_body_cross_blocked": {
+   "files": [
+    "blue_body_cross_blocked_0.webp",
+    "blue_body_cross_blocked_1.webp",
+    "blue_body_cross_blocked_2.webp",
+    "blue_body_cross_blocked_3.webp",
+    "blue_body_cross_blocked_4.webp",
+    "blue_body_cross_blocked_5.webp",
+    "blue_body_cross_blocked_6.webp",
+    "blue_body_cross_blocked_7.webp",
+    "blue_body_cross_blocked_8.webp",
+    "blue_body_cross_blocked_9.webp",
+    "blue_body_cross_blocked_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_body_cross"
+  },
+  "blue_body_cross_missed": {
+   "files": [
+    "blue_body_cross_missed_0.webp",
+    "blue_body_cross_missed_1.webp",
+    "blue_body_cross_missed_2.webp",
+    "blue_body_cross_missed_3.webp",
+    "blue_body_cross_missed_4.webp",
+    "blue_body_cross_missed_5.webp",
+    "blue_body_cross_missed_6.webp",
+    "blue_body_cross_missed_7.webp",
+    "blue_body_cross_missed_8.webp",
+    "blue_body_cross_missed_9.webp",
+    "blue_body_cross_missed_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_body_cross"
+  },
+  "blue_body_hook_blocked": {
+   "files": [
+    "blue_body_hook_blocked_0.webp",
+    "blue_body_hook_blocked_1.webp",
+    "blue_body_hook_blocked_2.webp",
+    "blue_body_hook_blocked_3.webp",
+    "blue_body_hook_blocked_4.webp",
+    "blue_body_hook_blocked_5.webp",
+    "blue_body_hook_blocked_6.webp",
+    "blue_body_hook_blocked_7.webp",
+    "blue_body_hook_blocked_8.webp",
+    "blue_body_hook_blocked_9.webp",
+    "blue_body_hook_blocked_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_body_shot"
+  },
+  "blue_body_hook_missed": {
+   "files": [
+    "blue_body_hook_missed_0.webp",
+    "blue_body_hook_missed_1.webp",
+    "blue_body_hook_missed_2.webp",
+    "blue_body_hook_missed_3.webp",
+    "blue_body_hook_missed_4.webp",
+    "blue_body_hook_missed_5.webp",
+    "blue_body_hook_missed_6.webp",
+    "blue_body_hook_missed_7.webp",
+    "blue_body_hook_missed_8.webp",
+    "blue_body_hook_missed_9.webp",
+    "blue_body_hook_missed_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_body_shot"
+  },
+  "blue_cross_blocked": {
+   "files": [
+    "blue_cross_blocked_0.webp",
+    "blue_cross_blocked_1.webp",
+    "blue_cross_blocked_2.webp",
+    "blue_cross_blocked_3.webp",
+    "blue_cross_blocked_4.webp",
+    "blue_cross_blocked_5.webp",
+    "blue_cross_blocked_6.webp",
+    "blue_cross_blocked_7.webp",
+    "blue_cross_blocked_8.webp",
+    "blue_cross_blocked_9.webp"
+   ],
+   "offs": [
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 5,
+   "clip": "pro_right_cross"
+  },
+  "blue_cross_landed": {
+   "files": [
+    "blue_cross_landed_0.webp",
+    "blue_cross_landed_1.webp",
+    "blue_cross_landed_2.webp",
+    "blue_cross_landed_3.webp",
+    "blue_cross_landed_4.webp",
+    "blue_cross_landed_5.webp",
+    "blue_cross_landed_6.webp",
+    "blue_cross_landed_7.webp",
+    "blue_cross_landed_8.webp",
+    "blue_cross_landed_9.webp"
+   ],
+   "offs": [
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 5,
+   "clip": "pro_right_cross"
+  },
+  "blue_cross_missed": {
+   "files": [
+    "blue_cross_missed_0.webp",
+    "blue_cross_missed_1.webp",
+    "blue_cross_missed_2.webp",
+    "blue_cross_missed_3.webp",
+    "blue_cross_missed_4.webp",
+    "blue_cross_missed_5.webp",
+    "blue_cross_missed_6.webp",
+    "blue_cross_missed_7.webp",
+    "blue_cross_missed_8.webp",
+    "blue_cross_missed_9.webp",
+    "blue_cross_missed_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_right_cross"
+  },
+  "blue_jab_blocked": {
+   "files": [
+    "blue_jab_blocked_0.webp",
+    "blue_jab_blocked_1.webp",
+    "blue_jab_blocked_2.webp",
+    "blue_jab_blocked_3.webp",
+    "blue_jab_blocked_4.webp",
+    "blue_jab_blocked_5.webp",
+    "blue_jab_blocked_6.webp",
+    "blue_jab_blocked_7.webp",
+    "blue_jab_blocked_8.webp",
+    "blue_jab_blocked_9.webp",
+    "blue_jab_blocked_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_left_jab"
+  },
+  "blue_jab_landed": {
+   "files": [
+    "blue_jab_landed_0.webp",
+    "blue_jab_landed_1.webp",
+    "blue_jab_landed_2.webp",
+    "blue_jab_landed_3.webp",
+    "blue_jab_landed_4.webp",
+    "blue_jab_landed_5.webp",
+    "blue_jab_landed_6.webp",
+    "blue_jab_landed_7.webp",
+    "blue_jab_landed_8.webp",
+    "blue_jab_landed_9.webp",
+    "blue_jab_landed_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_left_jab"
+  },
+  "blue_jab_missed": {
+   "files": [
+    "blue_jab_missed_0.webp",
+    "blue_jab_missed_1.webp",
+    "blue_jab_missed_2.webp",
+    "blue_jab_missed_3.webp",
+    "blue_jab_missed_4.webp",
+    "blue_jab_missed_5.webp",
+    "blue_jab_missed_6.webp",
+    "blue_jab_missed_7.webp",
+    "blue_jab_missed_8.webp",
+    "blue_jab_missed_9.webp",
+    "blue_jab_missed_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_left_jab"
+  },
+  "blue_lead_hook_blocked": {
+   "files": [
+    "blue_lead_hook_blocked_0.webp",
+    "blue_lead_hook_blocked_1.webp",
+    "blue_lead_hook_blocked_2.webp",
+    "blue_lead_hook_blocked_3.webp",
+    "blue_lead_hook_blocked_4.webp",
+    "blue_lead_hook_blocked_5.webp",
+    "blue_lead_hook_blocked_6.webp",
+    "blue_lead_hook_blocked_7.webp",
+    "blue_lead_hook_blocked_8.webp",
+    "blue_lead_hook_blocked_9.webp",
+    "blue_lead_hook_blocked_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_left_hook_ft"
+  },
+  "blue_lead_hook_landed": {
+   "files": [
+    "blue_lead_hook_landed_0.webp",
+    "blue_lead_hook_landed_1.webp",
+    "blue_lead_hook_landed_2.webp",
+    "blue_lead_hook_landed_3.webp",
+    "blue_lead_hook_landed_4.webp",
+    "blue_lead_hook_landed_5.webp",
+    "blue_lead_hook_landed_6.webp",
+    "blue_lead_hook_landed_7.webp",
+    "blue_lead_hook_landed_8.webp",
+    "blue_lead_hook_landed_9.webp",
+    "blue_lead_hook_landed_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_left_hook_ft"
+  },
+  "blue_lead_hook_missed": {
+   "files": [
+    "blue_lead_hook_missed_0.webp",
+    "blue_lead_hook_missed_1.webp",
+    "blue_lead_hook_missed_2.webp",
+    "blue_lead_hook_missed_3.webp",
+    "blue_lead_hook_missed_4.webp",
+    "blue_lead_hook_missed_5.webp",
+    "blue_lead_hook_missed_6.webp",
+    "blue_lead_hook_missed_7.webp",
+    "blue_lead_hook_missed_8.webp",
+    "blue_lead_hook_missed_9.webp",
+    "blue_lead_hook_missed_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_left_hook_ft"
+  },
+  "blue_lead_uppercut_missed": {
+   "files": [
+    "blue_lead_uppercut_missed_0.webp",
+    "blue_lead_uppercut_missed_1.webp",
+    "blue_lead_uppercut_missed_2.webp",
+    "blue_lead_uppercut_missed_3.webp",
+    "blue_lead_uppercut_missed_4.webp",
+    "blue_lead_uppercut_missed_5.webp",
+    "blue_lead_uppercut_missed_6.webp",
+    "blue_lead_uppercut_missed_7.webp",
+    "blue_lead_uppercut_missed_8.webp",
+    "blue_lead_uppercut_missed_9.webp",
+    "blue_lead_uppercut_missed_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_left_uppercut"
+  },
+  "blue_rear_hook_blocked": {
+   "files": [
+    "blue_rear_hook_blocked_0.webp",
+    "blue_rear_hook_blocked_1.webp",
+    "blue_rear_hook_blocked_2.webp",
+    "blue_rear_hook_blocked_3.webp",
+    "blue_rear_hook_blocked_4.webp",
+    "blue_rear_hook_blocked_5.webp",
+    "blue_rear_hook_blocked_6.webp",
+    "blue_rear_hook_blocked_7.webp",
+    "blue_rear_hook_blocked_8.webp",
+    "blue_rear_hook_blocked_9.webp",
+    "blue_rear_hook_blocked_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_right_hook_ft"
+  },
+  "blue_rear_hook_landed": {
+   "files": [
+    "blue_rear_hook_landed_0.webp",
+    "blue_rear_hook_landed_1.webp",
+    "blue_rear_hook_landed_2.webp",
+    "blue_rear_hook_landed_3.webp",
+    "blue_rear_hook_landed_4.webp",
+    "blue_rear_hook_landed_5.webp",
+    "blue_rear_hook_landed_6.webp",
+    "blue_rear_hook_landed_7.webp",
+    "blue_rear_hook_landed_8.webp",
+    "blue_rear_hook_landed_9.webp",
+    "blue_rear_hook_landed_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_right_hook_ft"
+  },
+  "blue_rear_hook_missed": {
+   "files": [
+    "blue_rear_hook_missed_0.webp",
+    "blue_rear_hook_missed_1.webp",
+    "blue_rear_hook_missed_2.webp",
+    "blue_rear_hook_missed_3.webp",
+    "blue_rear_hook_missed_4.webp",
+    "blue_rear_hook_missed_5.webp",
+    "blue_rear_hook_missed_6.webp",
+    "blue_rear_hook_missed_7.webp",
+    "blue_rear_hook_missed_8.webp",
+    "blue_rear_hook_missed_9.webp",
+    "blue_rear_hook_missed_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_right_hook_ft"
+  },
+  "blue_rear_uppercut_blocked": {
+   "files": [
+    "blue_rear_uppercut_blocked_0.webp",
+    "blue_rear_uppercut_blocked_1.webp",
+    "blue_rear_uppercut_blocked_2.webp",
+    "blue_rear_uppercut_blocked_3.webp",
+    "blue_rear_uppercut_blocked_4.webp",
+    "blue_rear_uppercut_blocked_5.webp",
+    "blue_rear_uppercut_blocked_6.webp",
+    "blue_rear_uppercut_blocked_7.webp",
+    "blue_rear_uppercut_blocked_8.webp",
+    "blue_rear_uppercut_blocked_9.webp",
+    "blue_rear_uppercut_blocked_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_right_uppercut"
+  },
+  "blue_rear_uppercut_landed": {
+   "files": [
+    "blue_rear_uppercut_landed_0.webp",
+    "blue_rear_uppercut_landed_1.webp",
+    "blue_rear_uppercut_landed_2.webp",
+    "blue_rear_uppercut_landed_3.webp",
+    "blue_rear_uppercut_landed_4.webp",
+    "blue_rear_uppercut_landed_5.webp",
+    "blue_rear_uppercut_landed_6.webp",
+    "blue_rear_uppercut_landed_7.webp",
+    "blue_rear_uppercut_landed_8.webp",
+    "blue_rear_uppercut_landed_9.webp",
+    "blue_rear_uppercut_landed_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_right_uppercut"
+  },
+  "blue_rear_uppercut_missed": {
+   "files": [
+    "blue_rear_uppercut_missed_0.webp",
+    "blue_rear_uppercut_missed_1.webp",
+    "blue_rear_uppercut_missed_2.webp",
+    "blue_rear_uppercut_missed_3.webp",
+    "blue_rear_uppercut_missed_4.webp",
+    "blue_rear_uppercut_missed_5.webp",
+    "blue_rear_uppercut_missed_6.webp",
+    "blue_rear_uppercut_missed_7.webp",
+    "blue_rear_uppercut_missed_8.webp",
+    "blue_rear_uppercut_missed_9.webp",
+    "blue_rear_uppercut_missed_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_right_uppercut"
+  },
+  "red_body_cross_blocked": {
+   "files": [
+    "red_body_cross_blocked_0.webp",
+    "red_body_cross_blocked_1.webp",
+    "red_body_cross_blocked_2.webp",
+    "red_body_cross_blocked_3.webp",
+    "red_body_cross_blocked_4.webp",
+    "red_body_cross_blocked_5.webp",
+    "red_body_cross_blocked_6.webp",
+    "red_body_cross_blocked_7.webp",
+    "red_body_cross_blocked_8.webp",
+    "red_body_cross_blocked_9.webp",
+    "red_body_cross_blocked_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_body_cross"
+  },
+  "red_body_cross_landed": {
+   "files": [
+    "red_body_cross_landed_0.webp",
+    "red_body_cross_landed_1.webp",
+    "red_body_cross_landed_2.webp",
+    "red_body_cross_landed_3.webp",
+    "red_body_cross_landed_4.webp",
+    "red_body_cross_landed_5.webp",
+    "red_body_cross_landed_6.webp",
+    "red_body_cross_landed_7.webp",
+    "red_body_cross_landed_8.webp",
+    "red_body_cross_landed_9.webp"
+   ],
+   "offs": [
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 5,
+   "clip": "pro_body_cross"
+  },
+  "red_body_cross_missed": {
+   "files": [
+    "red_body_cross_missed_0.webp",
+    "red_body_cross_missed_1.webp",
+    "red_body_cross_missed_2.webp",
+    "red_body_cross_missed_3.webp",
+    "red_body_cross_missed_4.webp",
+    "red_body_cross_missed_5.webp",
+    "red_body_cross_missed_6.webp",
+    "red_body_cross_missed_7.webp",
+    "red_body_cross_missed_8.webp",
+    "red_body_cross_missed_9.webp",
+    "red_body_cross_missed_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_body_cross"
+  },
+  "red_body_hook_landed": {
+   "files": [
+    "red_body_hook_landed_0.webp",
+    "red_body_hook_landed_1.webp",
+    "red_body_hook_landed_2.webp",
+    "red_body_hook_landed_3.webp",
+    "red_body_hook_landed_4.webp",
+    "red_body_hook_landed_5.webp",
+    "red_body_hook_landed_6.webp",
+    "red_body_hook_landed_7.webp",
+    "red_body_hook_landed_8.webp",
+    "red_body_hook_landed_9.webp",
+    "red_body_hook_landed_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_kidney_shot"
+  },
+  "red_body_hook_missed": {
+   "files": [
+    "red_body_hook_missed_0.webp",
+    "red_body_hook_missed_1.webp",
+    "red_body_hook_missed_2.webp",
+    "red_body_hook_missed_3.webp",
+    "red_body_hook_missed_4.webp",
+    "red_body_hook_missed_5.webp",
+    "red_body_hook_missed_6.webp",
+    "red_body_hook_missed_7.webp",
+    "red_body_hook_missed_8.webp",
+    "red_body_hook_missed_9.webp",
+    "red_body_hook_missed_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_body_shot"
+  },
+  "red_cross_blocked": {
+   "files": [
+    "red_cross_blocked_0.webp",
+    "red_cross_blocked_1.webp",
+    "red_cross_blocked_2.webp",
+    "red_cross_blocked_3.webp",
+    "red_cross_blocked_4.webp",
+    "red_cross_blocked_5.webp",
+    "red_cross_blocked_6.webp",
+    "red_cross_blocked_7.webp",
+    "red_cross_blocked_8.webp",
+    "red_cross_blocked_9.webp"
+   ],
+   "offs": [
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 5,
+   "clip": "pro_right_cross"
+  },
+  "red_cross_landed": {
+   "files": [
+    "red_cross_landed_0.webp",
+    "red_cross_landed_1.webp",
+    "red_cross_landed_2.webp",
+    "red_cross_landed_3.webp",
+    "red_cross_landed_4.webp",
+    "red_cross_landed_5.webp",
+    "red_cross_landed_6.webp",
+    "red_cross_landed_7.webp",
+    "red_cross_landed_8.webp",
+    "red_cross_landed_9.webp"
+   ],
+   "offs": [
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 5,
+   "clip": "pro_right_cross"
+  },
+  "red_cross_missed": {
+   "files": [
+    "red_cross_missed_0.webp",
+    "red_cross_missed_1.webp",
+    "red_cross_missed_2.webp",
+    "red_cross_missed_3.webp",
+    "red_cross_missed_4.webp",
+    "red_cross_missed_5.webp",
+    "red_cross_missed_6.webp",
+    "red_cross_missed_7.webp",
+    "red_cross_missed_8.webp",
+    "red_cross_missed_9.webp",
+    "red_cross_missed_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_right_cross"
+  },
+  "red_jab_blocked": {
+   "files": [
+    "red_jab_blocked_0.webp",
+    "red_jab_blocked_1.webp",
+    "red_jab_blocked_2.webp",
+    "red_jab_blocked_3.webp",
+    "red_jab_blocked_4.webp",
+    "red_jab_blocked_5.webp",
+    "red_jab_blocked_6.webp",
+    "red_jab_blocked_7.webp",
+    "red_jab_blocked_8.webp",
+    "red_jab_blocked_9.webp",
+    "red_jab_blocked_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_left_jab"
+  },
+  "red_jab_landed": {
+   "files": [
+    "red_jab_landed_0.webp",
+    "red_jab_landed_1.webp",
+    "red_jab_landed_2.webp",
+    "red_jab_landed_3.webp",
+    "red_jab_landed_4.webp",
+    "red_jab_landed_5.webp",
+    "red_jab_landed_6.webp",
+    "red_jab_landed_7.webp",
+    "red_jab_landed_8.webp",
+    "red_jab_landed_9.webp",
+    "red_jab_landed_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_left_jab"
+  },
+  "red_jab_missed": {
+   "files": [
+    "red_jab_missed_0.webp",
+    "red_jab_missed_1.webp",
+    "red_jab_missed_2.webp",
+    "red_jab_missed_3.webp",
+    "red_jab_missed_4.webp",
+    "red_jab_missed_5.webp",
+    "red_jab_missed_6.webp",
+    "red_jab_missed_7.webp",
+    "red_jab_missed_8.webp",
+    "red_jab_missed_9.webp",
+    "red_jab_missed_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_left_jab"
+  },
+  "red_lead_hook_blocked": {
+   "files": [
+    "red_lead_hook_blocked_0.webp",
+    "red_lead_hook_blocked_1.webp",
+    "red_lead_hook_blocked_2.webp",
+    "red_lead_hook_blocked_3.webp",
+    "red_lead_hook_blocked_4.webp",
+    "red_lead_hook_blocked_5.webp",
+    "red_lead_hook_blocked_6.webp",
+    "red_lead_hook_blocked_7.webp",
+    "red_lead_hook_blocked_8.webp",
+    "red_lead_hook_blocked_9.webp",
+    "red_lead_hook_blocked_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_left_hook_ft"
+  },
+  "red_lead_hook_landed": {
+   "files": [
+    "red_lead_hook_landed_0.webp",
+    "red_lead_hook_landed_1.webp",
+    "red_lead_hook_landed_2.webp",
+    "red_lead_hook_landed_3.webp",
+    "red_lead_hook_landed_4.webp",
+    "red_lead_hook_landed_5.webp",
+    "red_lead_hook_landed_6.webp",
+    "red_lead_hook_landed_7.webp",
+    "red_lead_hook_landed_8.webp",
+    "red_lead_hook_landed_9.webp",
+    "red_lead_hook_landed_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_left_hook_ft"
+  },
+  "red_lead_hook_missed": {
+   "files": [
+    "red_lead_hook_missed_0.webp",
+    "red_lead_hook_missed_1.webp",
+    "red_lead_hook_missed_2.webp",
+    "red_lead_hook_missed_3.webp",
+    "red_lead_hook_missed_4.webp",
+    "red_lead_hook_missed_5.webp",
+    "red_lead_hook_missed_6.webp",
+    "red_lead_hook_missed_7.webp",
+    "red_lead_hook_missed_8.webp",
+    "red_lead_hook_missed_9.webp",
+    "red_lead_hook_missed_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_left_hook_ft"
+  },
+  "red_lead_uppercut_blocked": {
+   "files": [
+    "red_lead_uppercut_blocked_0.webp",
+    "red_lead_uppercut_blocked_1.webp",
+    "red_lead_uppercut_blocked_2.webp",
+    "red_lead_uppercut_blocked_3.webp",
+    "red_lead_uppercut_blocked_4.webp",
+    "red_lead_uppercut_blocked_5.webp",
+    "red_lead_uppercut_blocked_6.webp",
+    "red_lead_uppercut_blocked_7.webp",
+    "red_lead_uppercut_blocked_8.webp",
+    "red_lead_uppercut_blocked_9.webp",
+    "red_lead_uppercut_blocked_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_left_uppercut"
+  },
+  "red_lead_uppercut_landed": {
+   "files": [
+    "red_lead_uppercut_landed_0.webp",
+    "red_lead_uppercut_landed_1.webp",
+    "red_lead_uppercut_landed_2.webp",
+    "red_lead_uppercut_landed_3.webp",
+    "red_lead_uppercut_landed_4.webp",
+    "red_lead_uppercut_landed_5.webp",
+    "red_lead_uppercut_landed_6.webp",
+    "red_lead_uppercut_landed_7.webp",
+    "red_lead_uppercut_landed_8.webp",
+    "red_lead_uppercut_landed_9.webp",
+    "red_lead_uppercut_landed_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_left_uppercut_hard"
+  },
+  "red_lead_uppercut_missed": {
+   "files": [
+    "red_lead_uppercut_missed_0.webp",
+    "red_lead_uppercut_missed_1.webp",
+    "red_lead_uppercut_missed_2.webp",
+    "red_lead_uppercut_missed_3.webp",
+    "red_lead_uppercut_missed_4.webp",
+    "red_lead_uppercut_missed_5.webp",
+    "red_lead_uppercut_missed_6.webp",
+    "red_lead_uppercut_missed_7.webp",
+    "red_lead_uppercut_missed_8.webp",
+    "red_lead_uppercut_missed_9.webp",
+    "red_lead_uppercut_missed_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_left_uppercut"
+  },
+  "red_rear_hook_blocked": {
+   "files": [
+    "red_rear_hook_blocked_0.webp",
+    "red_rear_hook_blocked_1.webp",
+    "red_rear_hook_blocked_2.webp",
+    "red_rear_hook_blocked_3.webp",
+    "red_rear_hook_blocked_4.webp",
+    "red_rear_hook_blocked_5.webp",
+    "red_rear_hook_blocked_6.webp",
+    "red_rear_hook_blocked_7.webp",
+    "red_rear_hook_blocked_8.webp",
+    "red_rear_hook_blocked_9.webp",
+    "red_rear_hook_blocked_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_right_hook_ft"
+  },
+  "red_rear_hook_landed": {
+   "files": [
+    "red_rear_hook_landed_0.webp",
+    "red_rear_hook_landed_1.webp",
+    "red_rear_hook_landed_2.webp",
+    "red_rear_hook_landed_3.webp",
+    "red_rear_hook_landed_4.webp",
+    "red_rear_hook_landed_5.webp",
+    "red_rear_hook_landed_6.webp",
+    "red_rear_hook_landed_7.webp",
+    "red_rear_hook_landed_8.webp",
+    "red_rear_hook_landed_9.webp",
+    "red_rear_hook_landed_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_right_hook_ft"
+  },
+  "red_rear_hook_missed": {
+   "files": [
+    "red_rear_hook_missed_0.webp",
+    "red_rear_hook_missed_1.webp",
+    "red_rear_hook_missed_2.webp",
+    "red_rear_hook_missed_3.webp",
+    "red_rear_hook_missed_4.webp",
+    "red_rear_hook_missed_5.webp",
+    "red_rear_hook_missed_6.webp",
+    "red_rear_hook_missed_7.webp",
+    "red_rear_hook_missed_8.webp",
+    "red_rear_hook_missed_9.webp",
+    "red_rear_hook_missed_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_right_hook_ft"
+  },
+  "red_rear_uppercut_blocked": {
+   "files": [
+    "red_rear_uppercut_blocked_0.webp",
+    "red_rear_uppercut_blocked_1.webp",
+    "red_rear_uppercut_blocked_2.webp",
+    "red_rear_uppercut_blocked_3.webp",
+    "red_rear_uppercut_blocked_4.webp",
+    "red_rear_uppercut_blocked_5.webp",
+    "red_rear_uppercut_blocked_6.webp",
+    "red_rear_uppercut_blocked_7.webp",
+    "red_rear_uppercut_blocked_8.webp",
+    "red_rear_uppercut_blocked_9.webp",
+    "red_rear_uppercut_blocked_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_right_uppercut"
+  },
+  "red_rear_uppercut_landed": {
+   "files": [
+    "red_rear_uppercut_landed_0.webp",
+    "red_rear_uppercut_landed_1.webp",
+    "red_rear_uppercut_landed_2.webp",
+    "red_rear_uppercut_landed_3.webp",
+    "red_rear_uppercut_landed_4.webp",
+    "red_rear_uppercut_landed_5.webp",
+    "red_rear_uppercut_landed_6.webp",
+    "red_rear_uppercut_landed_7.webp",
+    "red_rear_uppercut_landed_8.webp",
+    "red_rear_uppercut_landed_9.webp",
+    "red_rear_uppercut_landed_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_right_uppercut"
+  },
+  "red_rear_uppercut_missed": {
+   "files": [
+    "red_rear_uppercut_missed_0.webp",
+    "red_rear_uppercut_missed_1.webp",
+    "red_rear_uppercut_missed_2.webp",
+    "red_rear_uppercut_missed_3.webp",
+    "red_rear_uppercut_missed_4.webp",
+    "red_rear_uppercut_missed_5.webp",
+    "red_rear_uppercut_missed_6.webp",
+    "red_rear_uppercut_missed_7.webp",
+    "red_rear_uppercut_missed_8.webp",
+    "red_rear_uppercut_missed_9.webp",
+    "red_rear_uppercut_missed_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_right_uppercut"
+  },
+  "blue_body_cross_landed": {
+   "files": [
+    "blue_body_cross_landed_0.webp",
+    "blue_body_cross_landed_1.webp",
+    "blue_body_cross_landed_2.webp",
+    "blue_body_cross_landed_3.webp",
+    "blue_body_cross_landed_4.webp",
+    "blue_body_cross_landed_5.webp",
+    "blue_body_cross_landed_6.webp",
+    "blue_body_cross_landed_7.webp",
+    "blue_body_cross_landed_8.webp",
+    "blue_body_cross_landed_9.webp"
+   ],
+   "offs": [
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 5,
+   "clip": "pro_body_cross"
+  },
+  "blue_body_hook_landed": {
+   "files": [
+    "blue_body_hook_landed_0.webp",
+    "blue_body_hook_landed_1.webp",
+    "blue_body_hook_landed_2.webp",
+    "blue_body_hook_landed_3.webp",
+    "blue_body_hook_landed_4.webp",
+    "blue_body_hook_landed_5.webp",
+    "blue_body_hook_landed_6.webp",
+    "blue_body_hook_landed_7.webp",
+    "blue_body_hook_landed_8.webp",
+    "blue_body_hook_landed_9.webp",
+    "blue_body_hook_landed_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_kidney_shot"
+  },
+  "blue_lead_uppercut_blocked": {
+   "files": [
+    "blue_lead_uppercut_blocked_0.webp",
+    "blue_lead_uppercut_blocked_1.webp",
+    "blue_lead_uppercut_blocked_2.webp",
+    "blue_lead_uppercut_blocked_3.webp",
+    "blue_lead_uppercut_blocked_4.webp",
+    "blue_lead_uppercut_blocked_5.webp",
+    "blue_lead_uppercut_blocked_6.webp",
+    "blue_lead_uppercut_blocked_7.webp",
+    "blue_lead_uppercut_blocked_8.webp",
+    "blue_lead_uppercut_blocked_9.webp",
+    "blue_lead_uppercut_blocked_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_left_uppercut"
+  },
+  "blue_lead_uppercut_landed": {
+   "files": [
+    "blue_lead_uppercut_landed_0.webp",
+    "blue_lead_uppercut_landed_1.webp",
+    "blue_lead_uppercut_landed_2.webp",
+    "blue_lead_uppercut_landed_3.webp",
+    "blue_lead_uppercut_landed_4.webp",
+    "blue_lead_uppercut_landed_5.webp",
+    "blue_lead_uppercut_landed_6.webp",
+    "blue_lead_uppercut_landed_7.webp",
+    "blue_lead_uppercut_landed_8.webp",
+    "blue_lead_uppercut_landed_9.webp",
+    "blue_lead_uppercut_landed_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_left_uppercut"
+  },
+  "blue_back_off": {
+   "files": [
+    "blue_back_off_0.webp",
+    "blue_back_off_1.webp",
+    "blue_back_off_2.webp",
+    "blue_back_off_3.webp",
+    "blue_back_off_4.webp",
+    "blue_back_off_5.webp",
+    "blue_back_off_6.webp"
+   ],
+   "offs": [
+    0.0,
+    0.12,
+    0.24,
+    0.36,
+    0.48,
+    0.6,
+    0.72
+   ],
+   "contact": -1,
+   "clip": "st_out_m"
+  },
+  "blue_clinch": {
+   "files": [
+    "blue_clinch_0.webp",
+    "blue_clinch_1.webp",
+    "blue_clinch_2.webp",
+    "blue_clinch_3.webp",
+    "blue_clinch_4.webp",
+    "blue_clinch_5.webp"
+   ],
+   "offs": [
+    0.0,
+    0.25,
+    0.5,
+    0.8,
+    1.2,
+    2.5
+   ],
+   "contact": -1,
+   "clip": "Clinch"
+  },
+  "blue_feint": {
+   "files": [
+    "blue_feint_0.webp",
+    "blue_feint_1.webp",
+    "blue_feint_2.webp",
+    "blue_feint_3.webp",
+    "blue_feint_4.webp",
+    "blue_feint_5.webp",
+    "blue_feint_6.webp"
+   ],
+   "offs": [
+    0.0,
+    0.07,
+    0.13,
+    0.2,
+    0.27,
+    0.36,
+    0.46
+   ],
+   "contact": -1,
+   "clip": "pro_left_jab_b"
+  },
+  "blue_knockdown": {
+   "files": [
+    "blue_knockdown_0.webp",
+    "blue_knockdown_1.webp",
+    "blue_knockdown_2.webp",
+    "blue_knockdown_3.webp",
+    "blue_knockdown_4.webp",
+    "blue_knockdown_5.webp",
+    "blue_knockdown_6.webp",
+    "blue_knockdown_7.webp"
+   ],
+   "offs": [
+    0.09,
+    0.26,
+    0.43,
+    0.65,
+    0.91,
+    1.21,
+    1.56,
+    2.1
+   ],
+   "contact": -1,
+   "clip": "pro_knockout_v1"
+  },
+  "blue_step_in": {
+   "files": [
+    "blue_step_in_0.webp",
+    "blue_step_in_1.webp",
+    "blue_step_in_2.webp",
+    "blue_step_in_3.webp",
+    "blue_step_in_4.webp",
+    "blue_step_in_5.webp",
+    "blue_step_in_6.webp",
+    "blue_step_in_7.webp"
+   ],
+   "offs": [
+    0.0,
+    0.12,
+    0.24,
+    0.36,
+    0.48,
+    0.6,
+    0.72,
+    0.86
+   ],
+   "contact": -1,
+   "clip": "st_in_m"
+  },
+  "push": {
+   "files": [
+    "push_0.webp",
+    "push_1.webp",
+    "push_2.webp",
+    "push_3.webp",
+    "push_4.webp",
+    "push_5.webp",
+    "push_6.webp",
+    "push_7.webp"
+   ],
+   "offs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4,
+    0.55,
+    0.7,
+    0.85
+   ],
+   "contact": -1,
+   "clip": "PushOff"
+  },
+  "red_back_off": {
+   "files": [
+    "red_back_off_0.webp",
+    "red_back_off_1.webp",
+    "red_back_off_2.webp",
+    "red_back_off_3.webp",
+    "red_back_off_4.webp",
+    "red_back_off_5.webp",
+    "red_back_off_6.webp"
+   ],
+   "offs": [
+    0.0,
+    0.12,
+    0.24,
+    0.36,
+    0.48,
+    0.6,
+    0.72
+   ],
+   "contact": -1,
+   "clip": "st_out_m"
+  },
+  "red_clinch": {
+   "files": [
+    "red_clinch_0.webp",
+    "red_clinch_1.webp",
+    "red_clinch_2.webp",
+    "red_clinch_3.webp",
+    "red_clinch_4.webp",
+    "red_clinch_5.webp"
+   ],
+   "offs": [
+    0.0,
+    0.25,
+    0.5,
+    0.8,
+    1.2,
+    2.5
+   ],
+   "contact": -1,
+   "clip": "Clinch"
+  },
+  "red_feint": {
+   "files": [
+    "red_feint_0.webp",
+    "red_feint_1.webp",
+    "red_feint_2.webp",
+    "red_feint_3.webp",
+    "red_feint_4.webp",
+    "red_feint_5.webp",
+    "red_feint_6.webp"
+   ],
+   "offs": [
+    0.0,
+    0.07,
+    0.13,
+    0.2,
+    0.27,
+    0.36,
+    0.46
+   ],
+   "contact": -1,
+   "clip": "pro_left_jab_b"
+  },
+  "red_knockdown": {
+   "files": [
+    "red_knockdown_0.webp",
+    "red_knockdown_1.webp",
+    "red_knockdown_2.webp",
+    "red_knockdown_3.webp",
+    "red_knockdown_4.webp",
+    "red_knockdown_5.webp",
+    "red_knockdown_6.webp",
+    "red_knockdown_7.webp"
+   ],
+   "offs": [
+    0.09,
+    0.26,
+    0.43,
+    0.65,
+    0.91,
+    1.21,
+    1.56,
+    2.1
+   ],
+   "contact": -1,
+   "clip": "pro_knockout_v1"
+  },
+  "red_step_in": {
+   "files": [
+    "red_step_in_0.webp",
+    "red_step_in_1.webp",
+    "red_step_in_2.webp",
+    "red_step_in_3.webp",
+    "red_step_in_4.webp",
+    "red_step_in_5.webp",
+    "red_step_in_6.webp",
+    "red_step_in_7.webp"
+   ],
+   "offs": [
+    0.0,
+    0.12,
+    0.24,
+    0.36,
+    0.48,
+    0.6,
+    0.72,
+    0.86
+   ],
+   "contact": -1,
+   "clip": "st_in_m"
+  },
+  "blue_overhand_landed": {
+   "files": [
+    "blue_rear_hook_landed_0.webp",
+    "blue_rear_hook_landed_1.webp",
+    "blue_rear_hook_landed_2.webp",
+    "blue_rear_hook_landed_3.webp",
+    "blue_rear_hook_landed_4.webp",
+    "blue_rear_hook_landed_5.webp",
+    "blue_rear_hook_landed_6.webp",
+    "blue_rear_hook_landed_7.webp",
+    "blue_rear_hook_landed_8.webp",
+    "blue_rear_hook_landed_9.webp",
+    "blue_rear_hook_landed_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_right_hook_ft",
+   "same_as": "blue_rear_hook_landed"
+  },
+  "blue_overhand_blocked": {
+   "files": [
+    "blue_rear_hook_blocked_0.webp",
+    "blue_rear_hook_blocked_1.webp",
+    "blue_rear_hook_blocked_2.webp",
+    "blue_rear_hook_blocked_3.webp",
+    "blue_rear_hook_blocked_4.webp",
+    "blue_rear_hook_blocked_5.webp",
+    "blue_rear_hook_blocked_6.webp",
+    "blue_rear_hook_blocked_7.webp",
+    "blue_rear_hook_blocked_8.webp",
+    "blue_rear_hook_blocked_9.webp",
+    "blue_rear_hook_blocked_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_right_hook_ft",
+   "same_as": "blue_rear_hook_blocked"
+  },
+  "blue_overhand_missed": {
+   "files": [
+    "blue_rear_hook_missed_0.webp",
+    "blue_rear_hook_missed_1.webp",
+    "blue_rear_hook_missed_2.webp",
+    "blue_rear_hook_missed_3.webp",
+    "blue_rear_hook_missed_4.webp",
+    "blue_rear_hook_missed_5.webp",
+    "blue_rear_hook_missed_6.webp",
+    "blue_rear_hook_missed_7.webp",
+    "blue_rear_hook_missed_8.webp",
+    "blue_rear_hook_missed_9.webp",
+    "blue_rear_hook_missed_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_right_hook_ft",
+   "same_as": "blue_rear_hook_missed"
+  },
+  "red_overhand_landed": {
+   "files": [
+    "red_rear_hook_landed_0.webp",
+    "red_rear_hook_landed_1.webp",
+    "red_rear_hook_landed_2.webp",
+    "red_rear_hook_landed_3.webp",
+    "red_rear_hook_landed_4.webp",
+    "red_rear_hook_landed_5.webp",
+    "red_rear_hook_landed_6.webp",
+    "red_rear_hook_landed_7.webp",
+    "red_rear_hook_landed_8.webp",
+    "red_rear_hook_landed_9.webp",
+    "red_rear_hook_landed_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_right_hook_ft",
+   "same_as": "red_rear_hook_landed"
+  },
+  "red_overhand_blocked": {
+   "files": [
+    "red_rear_hook_blocked_0.webp",
+    "red_rear_hook_blocked_1.webp",
+    "red_rear_hook_blocked_2.webp",
+    "red_rear_hook_blocked_3.webp",
+    "red_rear_hook_blocked_4.webp",
+    "red_rear_hook_blocked_5.webp",
+    "red_rear_hook_blocked_6.webp",
+    "red_rear_hook_blocked_7.webp",
+    "red_rear_hook_blocked_8.webp",
+    "red_rear_hook_blocked_9.webp",
+    "red_rear_hook_blocked_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_right_hook_ft",
+   "same_as": "red_rear_hook_blocked"
+  },
+  "red_overhand_missed": {
+   "files": [
+    "red_rear_hook_missed_0.webp",
+    "red_rear_hook_missed_1.webp",
+    "red_rear_hook_missed_2.webp",
+    "red_rear_hook_missed_3.webp",
+    "red_rear_hook_missed_4.webp",
+    "red_rear_hook_missed_5.webp",
+    "red_rear_hook_missed_6.webp",
+    "red_rear_hook_missed_7.webp",
+    "red_rear_hook_missed_8.webp",
+    "red_rear_hook_missed_9.webp",
+    "red_rear_hook_missed_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_right_hook_ft",
+   "same_as": "red_rear_hook_missed"
+  },
+  "blue_push": {
+   "files": [
+    "push_0.webp",
+    "push_1.webp",
+    "push_2.webp",
+    "push_3.webp",
+    "push_4.webp",
+    "push_5.webp",
+    "push_6.webp",
+    "push_7.webp"
+   ],
+   "offs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4,
+    0.55,
+    0.7,
+    0.85
+   ],
+   "contact": -1,
+   "clip": "PushOff",
+   "same_as": "push"
+  },
+  "red_push": {
+   "files": [
+    "push_0.webp",
+    "push_1.webp",
+    "push_2.webp",
+    "push_3.webp",
+    "push_4.webp",
+    "push_5.webp",
+    "push_6.webp",
+    "push_7.webp"
+   ],
+   "offs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4,
+    0.55,
+    0.7,
+    0.85
+   ],
+   "contact": -1,
+   "clip": "PushOff",
+   "same_as": "push"
+  }
+ }
+}

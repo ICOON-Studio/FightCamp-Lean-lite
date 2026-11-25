@@ -75,7 +75,7 @@ const ACT = {
   feint: { n: 'Feint', h: 0, st: 1, feint: 1, t: 'Draws his hands: the punch you throw in the next moment cannot be covered.' },
   push: { n: 'Push off', h: 0, st: 1, push: 1, t: 'Inside only: shoves him back to Mid before the punches. Breaks a clinch.' },
   cross: { n: 'Cross', h: 1, st: 2, d: 3, sp: 2, reach: [2], line: 'straight', pic: 'cross' },
-  over: { n: 'Overhand', h: 1, st: 3, d: 4, sp: 3, reach: [1, 2], line: 'side', pic: 'rear_hook' },
+  over: { n: 'Overhand', h: 1, st: 3, d: 4, sp: 3, reach: [1, 2], line: 'side', pic: 'rear_hook', run: 'overhand' },
   rup: { n: 'Rear uppercut', h: 1, st: 3, d: 4, sp: 3, reach: [1], line: 'under', pic: 'rear_uppercut' },
   rbody: { n: 'Body cross', h: 1, st: 2, d: 2, sp: 2, reach: [2], line: 'body', body: 1, pic: 'body_cross' },
 };
@@ -105,6 +105,20 @@ const RO = [{ rear: null, hr: 'high' }, { rear: null, hr: 'low' }, ...['cross', 
 const man = (hp) => ({ hp, max: hp, st: N.st, cap: N.st, g: N.guard, pts: 0, kd: 0, ropes: 0, held: 0, last: null });
 const snd = (n, v = 0.7) => { if (mute) return; try { const au = new Audio('snd/' + n + '.ogg'); au.volume = v; au.play().catch(() => {}); } catch (e) {} };
 const pic = (n) => { $('pic').src = 'img/' + n + '.webp'; };
+// RINGANIM1 (S552): every action is SEEN, frame by frame. img/anim/frames.json lists each run's pictures and their times
+// from the contact (tools/pics2d_anim.gd records them from the 3D fight). A run that is not on disk falls back to its still.
+let ANIM = {}; const PRE = {}, HOLD = 250, BIG_SLOW = 1.6, MAX_GAP = 350;   /* ms: the contact's hold, a big punch's slow-in, the longest wait between two pictures (a clinch settles for 1.3 s) */
+fetch('img/anim/frames.json').then((r) => r.json()).then((j) => { ANIM = j.runs || {}; }).catch(() => {});
+function warm(runs) { return Promise.all(runs.filter((n) => ANIM[n]).flatMap((n) => ANIM[n].files).filter((f) => !PRE[f]).map((f) => new Promise((ok) => { const im = new Image(); PRE[f] = im; im.onload = im.onerror = ok; im.src = 'img/anim/' + f; }))); }
+const stepRun = (o) => { const m = /you (step in|back off)/.exec(o) || /he (steps in|backs off)/.exec(o); return m ? (m[0][0] === 'y' ? 'blue_' : 'red_') + (/in$/.test(m[1]) ? 'step_in' : 'back_off') : ''; };
+const runOf = (e) => { const col = e.k ? 'red' : 'blue'; if (e.t === 'hit' || e.t === 'block' || e.t === 'miss') return `${col}_${ACT[e.id].run || ACT[e.id].pic}_${e.t === 'hit' ? 'landed' : e.t === 'block' ? 'blocked' : 'missed'}`;
+  if (e.t === 'clinch') return `${col}_clinch`; if (e.t === 'range') return stepRun(e.o || ''); if (e.t === 'flat' && e.k >= 0 && !e.id) return /^feint/.test(e.a) ? `${col}_feint` : /^push/.test(e.a) ? `${col}_push` : ''; return ''; };
+// plays a run at its recorded times: the contact picture is held HOLD ms (onHit fires on it), a big punch's last three pictures in are slowed
+function playRun(run, big, onHit, done) { const r = ANIM[run]; if (!r || !r.files.every((f) => PRE[f] && PRE[f].naturalWidth)) return false;
+  const c = r.contact, at = Math.max(c, 0); let i = 0;
+  const show = () => { $('pic').src = PRE[r.files[i]].src; if (i === at) onHit(); if (i >= r.files.length - 1) return done();
+    let wait = Math.min(MAX_GAP, (r.offs[i + 1] - r.offs[i]) * 1000); if (i === c) wait += HOLD; if (big && c - i >= 1 && c - i <= 3) wait *= BIG_SLOW; i++; setTimeout(show, wait); };
+  show(); return true; }
 function pop(who, text, cls) { const el = $('pop' + who); el.textContent = text; el.className = 'pop p' + who + ' ' + cls; void el.offsetWidth; el.classList.add('go'); }
 function jolt() { const st = $('stage'); st.classList.remove('shake'); void st.offsetWidth; st.classList.add('shake'); }
 const cost = (p) => (p.lead ? ACT[p.lead].st : 0) + (p.rear ? ACT[p.rear].st : 0) + FEET[p.feet].st + (p.clinch ? 1 : 0);
@@ -209,7 +223,7 @@ function board() { const me = F[0], left = me.st - cost(P); P.ord = ordOf(P); co
     `<span class="lab" style="margin-left:.8rem">What you leave open</span>` + (me.g <= 0 ? '<span class="ln open">your guard is broken: nothing is covered</span>' : all.map((l) => { const sl = slotOf(l), at = P.ord.indexOf(sl);
       return !heldCov[l] ? `<span class="ln open">${THREAT[l]}: OPEN</span>` : at >= 0 ? `<span class="ln open" title="That hand is busy in moment ${at + 1}; before and after it is back and blocks.">${THREAT[l]}: open in moment ${at + 1} only</span>` : `<span class="ln cov">${THREAT[l]}: covered</span>`; }).join(''));
   for (const b of $('lines').querySelectorAll('.seq button')) b.onclick = () => { const i = P.ord.indexOf(b.dataset.sl); if (i > 0) { const o = [...P.ord]; [o[i - 1], o[i]] = [o[i], o[i - 1]]; P.ord = o; plan(); } }; }
-function plan() { phase = 'plan'; draw(); board();
+function plan() { phase = 'plan'; draw(); board(); showHold();
   $('acts').innerHTML = `<button class="btn go" id="go">Fight this beat</button>`; $('go').onclick = go; }
 function go() { if (busy) return; busy = true; phase = 'play'; $('acts').innerHTML = ''; for (const b of $('board').querySelectorAll('.sw')) b.disabled = true;
   const S = { f: F, range }, his = ai(S), before = [F[0].hp, F[1].hp], ev = resolve(S, [{ ...P }, his]); range = S.range;
@@ -219,23 +233,31 @@ function go() { if (busy) return; busy = true; phase = 'play'; $('acts').innerHT
     const label = e.t === 'range' ? 'The range' : e.id ? who + e.a : e.k < 0 ? e.a : (you ? 'You ' : 'He ') + (you ? e.a.replace(/^(\w+?)s /, '$1 ').replace(/^ties/, 'tie').replace(/^pushes/, 'push').replace(/^feints/, 'feint').replace(/^reaches/, 'reach').replace(/^tries/, 'try') : e.a);
     $('story').insertAdjacentHTML('beforeend', `<div class="srow ${cls}"><b>${e.m != null ? `<span style="color:var(--gold)">${e.m + 1}</span> ` : ''}${label}</b><span>${e.t === 'range' ? e.a + (e.o ? ' - ' + e.o : '') : e.o}</span><em>${e.t === 'hit' ? '-' + e.dmg : e.t === 'block' ? 'blocked' : e.t === 'miss' ? 'missed' : ''}</em></div>`);
     const col = e.k ? 'red' : 'blue', punch = e.t === 'hit' || e.t === 'block' || e.t === 'miss', cp = $('cap');
-    // THE RING SHOWS THE ACTION: back to the guard, name the action, light its switch, then the picture of how it ended
+    // THE RING SHOWS THE ACTION: name the action, light its switch, then play it frame by frame (its still when the run is not on disk)
     cp.className = 'cap ' + (cls === 'flat' ? '' : cls); cp.textContent = (e.m != null ? `Moment ${e.m + 1}: ` : '') + label + (punch ? (e.t === 'hit' ? ` lands, -${e.dmg}` : e.t === 'block' ? ' is blocked' : ' misses') : e.t === 'range' ? ': ' + e.a : '');
     for (const b of document.querySelectorAll('.sw.doing')) b.classList.remove('doing'); if (e.k === 0) { const b = document.querySelector(e.id ? `.sw[data-id="${e.id}"]` : e.t === 'clinch' ? '.sw[data-g="clinch"]' : null); if (b) b.classList.add('doing'); }
     if (e.t === 'range' && e.o.includes('you ')) { const b = document.querySelector('.sw[data-g="feet"].on'); if (b) b.classList.add('doing'); }
+    const fx = (still) => { if (punch) { const im = $('pic'); im.classList.remove('act'); void im.offsetWidth; im.classList.add('act'); }
+      if (e.t === 'hit') { if (still) pic(`${col}_${ACT[e.id].pic}_landed`); snd(ACT[e.id].body ? 'punch_body_1' : e.dmg >= 4 ? 'punch_big_1' : e.dmg >= 3 ? 'punch_power_head_2' : 'punch_jab_head_1'); pop(1 - e.k, '-' + e.dmg, 'dmg'); if (e.k === 1) jolt(); }
+      else if (e.t === 'block') { if (still) pic(`${col}_${ACT[e.id].pic}_blocked`); snd('punch_block_' + (1 + popN++ % 2)); pop(1 - e.k, 'blocked', 'ok'); }
+      else if (e.t === 'miss') { if (still) pic(`${col}_${ACT[e.id].pic}_missed`); snd('punch_miss_whoosh_' + (1 + popN++ % 2)); pop(1 - e.k, 'missed', 'ok'); }
+      else if (e.t === 'clinch' && still) pic('clinch');
+      draw(); };
+    const kd = `${e.k ? 'blue' : 'red'}_knockdown`, fall = (then) => { if (!e.down) return then(); snd('knockdown_fall_4'); if (!playRun(kd, false, () => {}, () => setTimeout(then, 600))) { pic(kd + '_2'); setTimeout(then, 900); } };
+    if (playRun(runOf(e), punch && ACT[e.id].d >= 4, () => fx(false), () => fall(() => setTimeout(step, punch ? 200 : 150)))) return;
     if (punch) pic('guard');
-    setTimeout(() => { if (punch) { const im = $('pic'); im.classList.remove('act'); void im.offsetWidth; im.classList.add('act'); }
-    if (e.t === 'hit') { pic(`${col}_${ACT[e.id].pic}_landed`); snd(ACT[e.id].body ? 'punch_body_1' : e.dmg >= 4 ? 'punch_big_1' : e.dmg >= 3 ? 'punch_power_head_2' : 'punch_jab_head_1'); pop(1 - e.k, '-' + e.dmg, 'dmg'); if (e.k === 1) jolt(); if (e.down) setTimeout(() => { pic(`${e.k ? 'blue' : 'red'}_knockdown_2`); snd('knockdown_fall_4'); }, 350); }
-    else if (e.t === 'block') { pic(`${col}_${ACT[e.id].pic}_blocked`); snd('punch_block_' + (1 + popN++ % 2)); pop(1 - e.k, 'blocked', 'ok'); }
-    else if (e.t === 'miss') { pic(`${col}_${ACT[e.id].pic}_missed`); snd('punch_miss_whoosh_' + (1 + popN++ % 2)); pop(1 - e.k, 'missed', 'ok'); }
-    else if (e.t === 'clinch') pic('clinch'); else if (e.t === 'range') draw();
-    draw(); setTimeout(step, e.t === 'range' || e.t === 'flat' ? 600 : e.down ? 1250 : 900); }, punch ? 220 : 0); };
+    setTimeout(() => { fx(true); if (e.down) setTimeout(() => { pic(kd + '_2'); snd('knockdown_fall_4'); }, 350);
+    setTimeout(step, e.t === 'range' || e.t === 'flat' ? 600 : e.down ? 1250 : 900); }, punch ? 220 : 0); };
   const after = () => { endBeat({ f: F }); busy = false; $('cap').textContent = ''; for (const b of document.querySelectorAll('.sw.doing')) b.classList.remove('doing');
     for (const k of [0, 1]) if (F[k].hp <= 0) { F[k].kd++; F[1 - k].pts += 3; if (F[k].kd > N.kd.length) return over(k ? 'YOU WIN - the referee stops it' : `${OPP.n} WINS - the referee stops it`); F[k].hp = N.kd[F[k].kd - 1];
       $('story').insertAdjacentHTML('beforeend', `<div class="srow ${k ? 'good' : 'bad'}"><b>${k ? 'HE IS' : 'YOU ARE'} DOWN</b><span>health hit 0 - up at ${F[k].hp}; three times and it is stopped</span><em></em></div>`); }
     beat++; P = { ...P, clinch: false, lead: affordable(P.lead), rear: affordable(P.rear) }; if (cost(P) > F[0].st) P = { ...plan0(), hl: P.hl, hr: P.hr }; P.ord = ordOf(P);
     if (beat >= N.beats) return bell(); plan(); };
-  setTimeout(step, 350); }
+  const need = ev.map(runOf).filter(Boolean); for (const e of ev) if (e.down) need.push(`${e.k ? 'blue' : 'red'}_knockdown`);
+  Promise.race([warm(need), new Promise((ok) => setTimeout(ok, 1500))]).then(() => setTimeout(step, 350)); }
+/* a held guard is SEEN too: when both hands are held the same way the player settles into it (no take holds ONE hand) */
+let heldShown = '';
+function showHold() { const h = !P.lead && !P.rear && !P.clinch && P.hl === P.hr ? P.hl : ''; if (h === heldShown) return; heldShown = h; if (!h) return; const run = 'blue_hold_' + h; warm([run]).then(() => { if (phase === 'plan' && heldShown === h) playRun(run, false, () => {}, () => {}); }); }
 const affordable = (id) => (id && ACT[id].st <= F[0].st ? id : null);
 function bell() { const [x, y] = F, w = x.pts === y.pts ? -1 : x.pts > y.pts ? 0 : 1, sc = [w === 1 ? 9 : 10, w === 0 ? 9 : 10]; cards.push(sc); snd('bell_round_end_1', 0.5);
   if (round >= N.rounds) { const t = [0, 1].map((k) => cards.reduce((s, c) => s + c[k], 0)); return over(t[0] === t[1] ? `A DRAW ${t[0]}-${t[1]}` : `${t[0] > t[1] ? 'YOU WIN' : OPP.n + ' WINS'} on the cards ${t[0]}-${t[1]}`); }

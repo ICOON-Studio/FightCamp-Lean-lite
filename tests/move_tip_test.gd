@@ -90,9 +90,13 @@ func _initialize() -> void:
 	if p != null:
 		# S382 round 2: a solid partner who reacts - the jab slipped or blocked, the cross taken.
 		_check(float(p.ghost_alpha()) > 0.99, "the partner is solid, not a ghost (alpha %.2f)" % float(p.ghost_alpha()))
+		# S552: since BLOCKLOOK2 (S449) a block is the guard plus a catch (BlockCatch) and plays NO clip, and the partner
+		# slips only the odd jabs (MoveStudio.defend): a 3 s window that held the even jab saw neither and went red at 05:00.
+		# The slip is still read by its clip; the block by the catch the partner was given.
 		var seen := await _partner_clips(p, 3.0)
-		_check(seen.any(func(c): return str(c).contains("dodge") or str(c).contains("block") or str(c) == "slip"),
-			"the partner slips or blocks the jab (%s)" % str(seen))
+		var caught: bool = (p.get("_stage").boxers[1] as Dictionary).get("block_catch") != null
+		_check(caught or seen.any(func(c): return str(c).contains("dodge") or str(c).contains("block") or str(c) == "slip"),
+			"the partner slips or blocks the jab (%s, catch %s)" % [str(seen), caught])
 		_check(seen.any(func(c): return str(c).contains("hit_by_cross") or str(c).contains("hit_jab") or str(c) == "react_head"),
 			"and takes the cross (%s)" % str(seen))
 		# S408: the clip runs on real time, so one instant on a slow runner proves nothing. S410 (0 of 30 on CI, green here: the two

@@ -259,6 +259,19 @@
      "cols": 2
     }
    ]
+  },
+  {
+   "title": "Fight",
+   "frames": [
+    {
+     "id": "s552_ringanim",
+     "title": "S552 Ring Switches: every action frame by frame",
+     "kind": "gallery",
+     "globs": [
+      "ops/previews/s552_ringanim/*.png"
+     ]
+    }
+   ]
   }
  ]
 }
