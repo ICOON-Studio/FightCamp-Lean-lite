@@ -25,7 +25,7 @@ export const TABLE = path.join(here, '..', 'vtable.json');
 
 // the page's rules with a change tried on them; table: a vtable path, null = none, undefined = the page's own
 export function loadTweaked(seed = 1, tweak = null, table = undefined) { const tw = tweak || {};
-  const R = load(seed, 'order.html', tw.src ? (s) => { for (const [a, b] of tw.src) { if (!s.includes(a)) throw new Error('tweak: not on the page: ' + a.slice(0, 60)); s = s.replace(a, b); } return s; } : null, table === undefined);
+  const R = load(seed, tw.page || 'order.html', tw.src ? (s) => { for (const [a, b] of tw.src) { if (!s.includes(a)) throw new Error('tweak: not on the page: ' + a.slice(0, 60)); s = s.replace(a, b); } return s; } : null, table === undefined);
   if (tw.N) R.setN(tw.N); if (tw.W) Object.assign(R.W, tw.W); for (const id in tw.ACT || {}) R.setAct(id, tw.ACT[id]);
   if (tw.LO) for (const id of tw.LO) R.LO.push({ lead: id, hl: 'high' }); if (tw.RO) for (const id of tw.RO) R.RO.push({ rear: id, hr: 'high' });
   (tw.OPPS || []).forEach((o, i) => Object.assign(R.OPPS[i], o));   // an opponent's skill, lean, read or health tried
@@ -40,12 +40,12 @@ export function stateOf(R, o = {}) { const S = { range: o.range ?? 3, f: [R.man(
 // how often each switch is in a mix
 export function usage(R, plans, p) { const u = {}, add = (k, x) => { u[k] = (u[k] || 0) + x; };
   plans.forEach((c, i) => { const x = p[i]; if (x < 1e-9) return; if (c.clinch) return add('clinch', x);
-    add(c.lead || 'lead held ' + c.hl, x); add(c.rear || 'rear held ' + c.hr, x); add(c.feet === 'hold' ? 'feet hold' : c.feet === 'in' ? 'step in' : 'back off', x);
+    add(c.lead || 'lead held ' + c.hl, x); add(c.rear || 'rear held ' + c.hr, x); add(c.feet === 'hold' ? 'feet hold' : c.feet === 'in' ? 'step in' : c.feet === 'back' ? 'back off' : c.feet, x);
     add('punches:' + ((c.lead && R.ACT[c.lead].d ? 1 : 0) + (c.rear ? 1 : 0)), x);
     if (c.ord.length > 1) { add('ordered', x); add('first:' + c.ord[0], x); } });
   return u; }
-export const SWITCHES = (R) => [...Object.keys(R.ACT), 'clinch', 'step in', 'back off', 'feet hold', 'lead held high', 'lead held low', 'rear held high', 'rear held low'];
-export const nameOf = (R, a) => (R.ACT[a] ? R.ACT[a].n : a);
+export const SWITCHES = (R) => [...Object.keys(R.ACT), ...(R.FEET && R.FEET.check ? ['check'] : []), 'clinch', 'step in', 'back off', 'feet hold', 'lead held high', 'lead held low', 'rear held high', 'rear held low'];
+export const nameOf = (R, a) => (R.ACT[a] ? R.ACT[a].n : R.FEET && R.FEET[a] ? R.FEET[a].n : a);
 
 // ---- the round looked ahead: V[t][range - 1][a][b][ra * 3 + rb], t = beats left, a / b stamina, ra / rb ground given (0-2).
 // Equal men, so the value with the two men swapped is the same with its sign turned.
@@ -71,7 +71,7 @@ function bouts(R, who, opp, n) { const { N, ACT, plan0, man, cost, resolve, endB
     for (const c of R.plansFor(S, 0)) { if (c.clinch) continue; const T = { range: S.range, f: S.f.map((m) => ({ ...m, hist: [] })) }; resolve(T, [{ ...c }, { ...guess, clinch: false }]);
       const v = (he.hp - T.f[1].hp) - (me.hp - T.f[0].hp) + 0.25 * T.f[0].st + rnd() * 0.5; if (v > bv) { bv = v; best = c; } }
     return best; };
-  const note = (k, c) => { const u = o.use[k], add = (x) => { u[x] = (u[x] || 0) + 1; }; if (c.clinch) return add('clinch'); add(c.lead || 'lead held ' + c.hl); add(c.rear || 'rear held ' + c.hr); add(c.feet === 'hold' ? 'feet hold' : c.feet === 'in' ? 'step in' : 'back off');
+  const note = (k, c) => { const u = o.use[k], add = (x) => { u[x] = (u[x] || 0) + 1; }; if (c.clinch) return add('clinch'); add(c.lead || 'lead held ' + c.hl); add(c.rear || 'rear held ' + c.hr); add(c.feet === 'hold' ? 'feet hold' : c.feet === 'in' ? 'step in' : c.feet === 'back' ? 'back off' : c.feet);   // S559: a kick or a check counted as itself
     o.np[k][(c.lead && ACT[c.lead].d ? 1 : 0) + (c.rear ? 1 : 0)]++; if (k === 0 && c.ord && c.ord.length > 1) { o.ordered++; o.first[c.ord[0]] = (o.first[c.ord[0]] || 0) + 1; } };
   for (let b = 0; b < n; b++) { const S = { f: [man(N.hp), man(R.opp().hp)], range: 3 }; let done = false; const t = [0, 0];
     for (let r = 0; r < N.rounds && !done; r++) { S.range = 3; for (const m of S.f) { m.pts = 0; m.st = m.cap; m.g = N.guard; m.ropes = 0; m.held = 0; m.kept = 0; m.gave = 0; }
@@ -106,7 +106,7 @@ export function report(R, who, opp, o) { const pc = (x) => (100 * x).toFixed(0) 
 export function bars(R, o) { const L = [], pc = (x) => (100 * x).toFixed(0) + '%', nb = o.beats, both = (f) => (f(0) + f(1)) / 2, use = (a) => both((k) => (o.use[k][a] || 0) / nb), tot = (q) => q.hit + q.block + q.miss;
   const bar = (name, ok, val) => L.push(`  ${ok ? 'PASS' : 'FAIL'} ${name}: ${val}`), pun = (id) => { const q = { hit: 0, block: 0, miss: 0 }; for (const k of [0, 1]) for (const x in q) q[x] += (o.pun[k][id] || q)[x] || 0; return q; };
   const rng = [1, 2, 3].map((r) => o.rng[r] / nb); bar('every range is fought at (each 15-55% of beats)', rng.every((x) => x >= 0.15 && x <= 0.55), `Inside ${pc(rng[0])}, Mid ${pc(rng[1])}, Long ${pc(rng[2])}`);
-  const acts = [...Object.keys(R.ACT), 'clinch', 'step in', 'back off'], top = acts.map((a) => [a, use(a)]).sort((x, y) => y[1] - x[1]);
+  const acts = [...Object.keys(R.ACT), ...(R.FEET && R.FEET.check ? ['check'] : []), 'clinch', 'step in', 'back off'], top = acts.map((a) => [a, use(a)]).sort((x, y) => y[1] - x[1]);
   bar('no switch is a must (none in over 40% of beats)', top[0][1] <= 0.4, top.slice(0, 3).map(([a, x]) => `${nameOf(R, a)} ${pc(x)}`).join(', '));
   const dead = acts.filter((a) => use(a) < 0.03); bar('no switch is dead (each in at least 3% of beats)', !dead.length, dead.length ? dead.map((a) => `${nameOf(R, a)} ${pc(use(a))}`).join(', ') : 'none under 3%');
   const rates = Object.keys(R.ACT).filter((id) => R.ACT[id].d && tot(pun(id)) / o.n >= 1).map((id) => { const q = pun(id); return [id, q.hit / tot(q), q.miss / tot(q)]; });
