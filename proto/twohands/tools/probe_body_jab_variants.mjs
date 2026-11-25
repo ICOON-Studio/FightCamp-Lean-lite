@@ -12,9 +12,9 @@ function run(v) { const R = load(seed), { N, ACT, LO, plan0, man, cost, resolve,
   if (v.body != null) { ACT.bjab = { n: 'Body jab', h: 0, st: 1, d: 1, sp: 1, reach: [2, 3], line: 'body', keep: v.keep, body: v.body, pic: 'jab' }; LO.push({ lead: 'bjab', hl: 'high' }); }
   const ai = (S) => { const p = R.ai(S); if (v.body == null || p.lead !== 'jab') return p; const l = S.f[0].last || plan0(), q = l.lead ? 0.35 : l.hl === 'high' ? 0.6 : 0.15; return rnd() < q ? { ...p, lead: 'bjab' } : p; };
   const human = (S) => { const me = S.f[0], he = S.f[1], g0 = he.last || plan0(), guess = cost(g0) <= he.st ? g0 : { ...plan0(), hl: g0.hl, hr: g0.hr }; let best = plan0(), bv = -1e9;
-    for (const lo of LO) for (const ro of R.RO) for (const feet of ['in', 'hold', 'back']) { const c = { ...lo, ...ro, feet, clinch: false }; if (cost(c) > me.st || (feet === 'back' && me.ropes >= 2) || (feet === 'in' && me.kept)) continue;
-      const T = { range: S.range, f: S.f.map((m) => ({ ...m, hist: [] })) }; resolve(T, [c, { ...guess, clinch: false }]);
-      const val = (he.hp - T.f[1].hp) - (me.hp - T.f[0].hp) + 0.25 * T.f[0].st + rnd() * 0.5; if (val > bv) { bv = val; best = c; } }
+    for (const lo of LO) for (const ro of R.RO) for (const feet of ['in', 'hold', 'back']) { const c0 = { ...lo, ...ro, feet, clinch: false, ord: [] }; if (cost(c0) > me.st || (feet === 'back' && me.ropes >= 2) || (feet === 'in' && me.kept)) continue;
+      for (const ord of R.perms(R.ordOf(c0))) { const c = { ...c0, ord }, T = { range: S.range, f: S.f.map((m) => ({ ...m, hist: [] })) }; resolve(T, [{ ...c }, { ...guess, clinch: false }]);   // S555: on the order page he picks the order too
+        const val = (he.hp - T.f[1].hp) - (me.hp - T.f[0].hp) + 0.25 * T.f[0].st + rnd() * 0.5; if (val > bv) { bv = val; best = c; } } }
     return best; };
   const out = [];
   for (let oi = 0; oi < OPPS.length; oi++) { R.setOpp(oi); let w = 0, long = 0, beats = 0, kept = 0, jabs = 0, stops = 0, cap = 0;

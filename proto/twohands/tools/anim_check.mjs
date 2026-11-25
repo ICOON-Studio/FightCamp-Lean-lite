@@ -11,7 +11,7 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 const dir = path.join(here, '..', 'img', 'anim');
 const MIN = 3;
 const CORNERS = ['blue', 'red'];
-// the page's punches (ACT[..].pic in switch.html) - the overhand has its own run name even while it borrows a take
+// the page's punches (ACT[..].pic in order.html) - the overhand has its own run name even while it borrows a take
 const PUNCHES = ['jab', 'cross', 'lead_hook', 'body_hook', 'lead_uppercut', 'rear_uppercut', 'body_cross', 'overhand'];
 const RESULTS = ['landed', 'blocked', 'missed'];
 // one run each: feet, the feint, the push, the clinch, the knockdown, and since HOLDTAKES1 (S553) the four ONE-HAND holds

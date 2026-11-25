@@ -3,24 +3,13 @@
  "updated": "2026-11-25",
  "author": "claude S294",
  "now": {
-  "id": "S554",
+  "id": "S555",
   "owner": "claude",
   "updated": "2026-11-25",
-  "summary": "S554 (Fable) HANDOVER. ## METHOD - RING SWITCHES IS THE MAIN LINE (owner S553; S554: 'keep improving the ringswitch'). ## METHOD - THE FIGHT MUST BE SEEN, SIDE VIEW, BOTH MEN CHEST TO THE CAMERA. ## METHOD - THE SEATS' IDEAS ARE USED AND REPORTED (owner S554: 'what happenned with the brainstorming from other agents ?'). On the page now: the guard holds at three ranges, knockdowns that start from the punch, near-miss lead hooks (C508), the hit burst (C509), a landed jab keeps him out, the ground strip, his habit marked. FINDING: a body jab that reaches Long takes the sensible player from 97% to 60% against the Jabber; it needs an authored take. Kalli and John answered the same session: BOTH put the body jab first (three sources agree); all three versions measure 60 to 67%.",
-  "next_action": "S555: author the body jab take (pattern tools/pics2d_bodycross_bake.gd), render its 8 runs, apply ops/research/RINGSWITCH_BODYJAB_PATCH_S554.py in John's version (shortens the bar, keeps out, never two beats running); then probe HURT, CIRCLE OFF and one rule per opponent (ops/research/RINGSWITCH_IDEAS2_VS_PROBE_S554.md); red's tie-up, the wide rear hooks; the guard bar is his call.",
-  "last_working_commit": "b35bf8488",
-  "verified_playable": "The S547 build is the last exported .exe. Ring Switches (a browser toy): both pages played in the browser in S554 (holds, a knockdown from the punch, the jab rule, the hit burst placed on the glove; no console errors); 17 rule tests and anim_check 116 of 116 pass.",
-  "incomplete_blocked": "No export since S547 (no game file changed). Ring Switches: red's tie-up borrows blue's picture; both rear hooks that miss are wide; the overhand borrows the rear hook; men's pair only; the body jab has no take; bouts rarely end early; the owner has not played the S554 page. MATCHBOTS2 not launched. Dola's SQ324 and SQ327 never left the queue.",
-  "next_acceptance": "A body jab run plays on the page and its strip is on /review; the seats' answers are reported to him one by one; the probe on the page's own rules still shows the Jabber near 60%.",
-  "awaiting_operator": [
-   "His eye and his play on the S554 Ring Switches page (sheets and film on /review)",
-   "The guard bar never breaks: cut it or rebuild it - Kalli: cut it; John: a block costs stamina instead (ops/research/RINGSWITCH_IDEAS2_VS_PROBE_S554.md)",
-   "Which body jab: John's version is recommended (same page)",
-   "The rest of his Q-336 note ('thecoaches should have')",
-   "Whether 'a landed jab keeps him out' stays (a trial, N.keep)"
-  ]
+  "summary": "S555 (Fable) HANDOVER. ## METHOD - RING SWITCHES IS THE MAIN LINE, AND THE ORDER VERSION IS THE PAGE (owner S555: 'first off i want version with theorder of actions'). ## METHOD - THE SLICE IS BALANCED ON THE INSTRUMENT, NEVER BY HAND (owner S555: 'vs the jabber you win very easy , all your rear hands land easy , need better balance , i want this slice to be perfectly balance to move on (always have in scope other arts that will be added and knees and elbows)'): after any rule or number change on proto/twohands/order.html run tools/balance.mjs table, then play, then rules_test. ## METHOD - THE FIGHT MUST BE SEEN, SIDE VIEW, BOTH MEN CHEST TO THE CAMERA. ## METHOD - THE SEATS' IDEAS ARE USED AND REPORTED. Done: order.html is the single source (its generator is gone); a block says whose hand and why; the opponents play each beat's solved mix with a style lean and a skill, not a script; five rule changes and new numbers chosen on the balance tool - two equal men who play well now box Inside / Mid / Long 32 / 35 / 33% (was 6 / 19 / 75), stoppages 20%, draws 12%, 8 of 9 bars (the jab lands 72%). The player who answers the man's last beat wins 44 / 56 / 42% (was 100 / 81 / 72). NOT GREEN: he has not played it; the body jab is measured better still but has no picture; six seat ideas unbuilt and unmeasured. docs/RINGSWITCH_BALANCE_S555.md.",
+  "next_action": "S556: his play on the balanced page first. Then measure on tools/balance.mjs the two changes BOTH seats asked for (moving costs breath; an even round goes to the man who gave less ground), then author the body jab take (pattern tools/pics2d_bodycross_bake.gd), render its runs and apply ops/research/s555_balance/apply_rules_bjab_patch.py bjab, rebuild the table, re-measure."
  },
- "next": "S555: see NEXT_SESSION_PROMPT.md - the seats' answers, then the body jab take for Ring Switches.",
+ "next": "S556: see NEXT_SESSION_PROMPT.md - his play on the balanced Ring Switches page, the two seat changes to measure, then the body jab take.",
  "assessment": {
   "source": "Codex deep audit + Cursor televised-MMA gap assessment, both 2026-09-12",
   "bars": [
@@ -2413,6 +2402,18 @@
    "summary": "Finished HOLDTAKES1: three hold bars failed for three different reasons (a wrong bar, a wrong pose, a moving reference), each decided on the picture; the knockdown take is entered where the fall starts; a missed lead hook is a near miss (C508); the page draws the hit where the glove lands (C509). Built the three additions from Kalli's and John's brainstorm (a landed jab keeps him out, the ground strip, his habit marked) and measured them on the page's own rules (rules.mjs, 17 tests). Finding: a body jab that reaches Long takes the sensible player from 97% to 60% against the Jabber; it needs an authored take. A new ideas brief queued to Kalli and John. Their answers landed the same session and were read: both put the body jab first; all three versions measure 60 to 67% against the Jabber (ops/research/RINGSWITCH_IDEAS2_VS_PROBE_S554.md).",
    "commit": "b35bf8488 + the handover commit",
    "digest": "ops/research/S554_DIGEST.md"
+  },
+  {
+   "id": "S555",
+   "date": "2026-11-25",
+   "summary": "Owner on the order page: 'why his jab is blocked when i picked lead hook ?', 'i want version with theorder of actions', then 'vs the jabber you win very easy , all your rear hands land easy , need better balance , i want this slice to be perfectly balance to move on (always have in scope other arts that will be added and knees and elbows)'. order.html became the single source (make_order.py gone); the block line says whose hand and why. Built the balance instrument (tools/balance.mjs: each beat solved as a guessing game by regret matching, the round looked ahead into vtable.json, whole bouts counted against nine bars) and replaced the scripted opponents with ones that play the solved mix with a style lean and a skill. Finding: with both men playing well the morning's rules were 75% Long, a jab every second beat, no knockdown. Five rule changes and new numbers took the mirror bout from 2 to 8 of 9 bars; the measuring player went from 100 / 81 / 72% to 44 / 56 / 42% against the three opponents. The body jab does nothing against scripts on the order page but improves the solved game; it waits for its picture. Kalli and John answered the same session: John's first change is the rule built. dues_card_test (red at 05:00) measured a stale rect: fixed. No game file changed, no export.",
+   "commits": [
+    "675063742",
+    "b27e77b6f",
+    "3ca3afe8b",
+    "c35e6ea40",
+    "898201754"
+   ]
   }
  ],
  "blocked_on_operator": [],
@@ -5491,13 +5492,13 @@
    {
     "id": "BODYJAB1",
     "who": "claude",
-    "title": "Ring Switches: a body jab that reaches Long - Kalli, John and the probe all put it first (the Jabber 97% -> 60 to 67%) | NEXT: author its take, render 8 runs, put the switch on the page",
+    "title": "Ring Switches: the body jab | measured on the balanced order page: with it draws 12% -> 4% and the jab and body jab are each 12% of beats (Long gets a real guess); it has no picture | NEXT: author its take, render its runs, apply the page patch, rebuild the table",
     "after": ""
    },
    {
     "id": "RINGSWITCH1",
     "who": "claude",
-    "title": "Ring Switches, the main line | NEXT: your eye and play on the S554 page; red's tie-up picture; the two wide rear hooks; the guard bar never breaks: cut or rebuild (your call)",
+    "title": "Ring Switches, the main line: the order version is the page and it is balanced on the instrument (8 of 9 bars) | NEXT: your play on it; then the two changes both seats asked for (moving costs breath, an even round to the man who gave less ground), measured first",
     "after": "BODYJAB1"
    },
    {
@@ -5902,6 +5903,11 @@
   },
   "done_recently": [
    {
+    "id": "S555",
+    "who": "claude",
+    "title": "Ring Switches balanced: the order version is the page; opponents play the best mix with a style and a skill instead of a script; five rule changes - all three ranges fought, stoppages 20%, no dead punch; you no longer walk over the Jabber (44% from 100%)"
+   },
+   {
     "id": "S554",
     "who": "claude",
     "title": "Ring Switches: guard holds and knockdowns from the punch on the page; your two film notes done (near-miss hook, hit burst); the agents' three ideas built and measured; Kalli and John asked again and read - both want a body jab first"
@@ -5954,11 +5960,6 @@
    {
     "title": "Make the written fight plan matter (your Q-328 'make it more impactful'): three ways measured in real bouts before any design",
     "who": "claude-opus-5-5 (console tab PLANIMPACT1 resumed, tab c3 of the S548 session)",
-    "when": "2026-11-24"
-   },
-   {
-    "title": "Arena's paper is in: three real boxing bouts and two ways to play a round as cards (proto/cardgame/CARDBOX1_BREAKDOWN.md). Both ways failed the real round - the defender sees the card; Claude writes boxer v boxer on paper next",
-    "who": "Arena (chat 01a20da7-2bc0-7576-abe2-df98869b061a)",
     "when": "2026-11-24"
    }
   ],
@@ -6048,64 +6049,6 @@
   "map": {
    "done_earlier": [
     {
-     "text": "Guard holds authored (4 + pairs)",
-     "who": "claude"
-    },
-    {
-     "text": "STYLEPLACE1 checked: FAIL stands",
-     "who": "claude"
-    },
-    {
-     "text": "Guard bar measured: never breaks",
-     "who": "claude"
-    },
-    {
-     "text": "Ring Switches: frame by frame",
-     "who": "claude"
-    },
-    {
-     "text": "Coaches probe 2 checked, asked",
-     "who": "claude"
-    },
-    {
-     "text": "Old red test fixed (move tip)",
-     "who": "claude"
-    },
-    {
-     "text": "Health + Stamina bars on v2",
-     "who": "claude"
-    },
-    {
-     "text": "Body cross in 3D collected",
-     "who": "claude"
-    },
-    {
-     "text": "Plan probe 2 checked v code",
-     "who": "claude"
-    },
-    {
-     "text": "Ring Switches toy (your idea)",
-     "who": "claude"
-    },
-    {
-     "text": "Ring Switches: chosen order page",
-     "who": "claude"
-    },
-    {
-     "text": "Two Hands toy + timed versions",
-     "who": "claude"
-    },
-    {
-     "text": "Coaches probe 2: failed",
-     "who": "claude"
-    },
-    {
-     "text": "Boxer v boxer engine: 5 of 6 bars",
-     "who": "claude"
-    }
-   ],
-   "done_session": [
-    {
      "text": "Guard holds pass their bars",
      "who": "claude"
     },
@@ -6135,6 +6078,52 @@
     },
     {
      "text": "Kalli + John read: body jab first",
+     "who": "claude"
+    },
+    {
+     "text": "Guard holds authored (4 + pairs)",
+     "who": "claude"
+    },
+    {
+     "text": "STYLEPLACE1 checked: FAIL stands",
+     "who": "claude"
+    },
+    {
+     "text": "Guard bar measured: never breaks",
+     "who": "claude"
+    },
+    {
+     "text": "Ring Switches: frame by frame",
+     "who": "claude"
+    },
+    {
+     "text": "Coaches probe 2 checked, asked",
+     "who": "claude"
+    },
+    {
+     "text": "Old red test fixed (move tip)",
+     "who": "claude"
+    }
+   ],
+   "done_session": [
+    {
+     "text": "Order version is the page",
+     "who": "claude"
+    },
+    {
+     "text": "Opponents play the solved mix",
+     "who": "claude"
+    },
+    {
+     "text": "Dues card test fixed",
+     "who": "claude"
+    },
+    {
+     "text": "Ring Switches balanced: 8/9 bars",
+     "who": "claude"
+    },
+    {
+     "text": "Kalli + John read: balance",
      "who": "claude"
     }
    ],
@@ -6264,7 +6253,7 @@
      "who": "claude"
     },
     {
-     "text": "Your play: Ring Switches S554",
+     "text": "Your play: balanced Ring Switches",
      "who": "operator"
     }
    ],
@@ -6626,25 +6615,29 @@
      "who": "claude"
     },
     {
-     "text": "Body jab: author its take",
-     "who": "claude"
-    },
-    {
      "text": "Clinch picture when he ties up",
      "who": "claude"
     },
     {
      "text": "Probe: hurt, circle off, opponents",
      "who": "claude"
+    },
+    {
+     "text": "Measure: moving costs breath",
+     "who": "claude"
+    },
+    {
+     "text": "Measure: even round to ground",
+     "who": "claude"
     }
    ],
-   "session": "S554"
+   "session": "S555"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
- "last_working_commit": "b35bf8488",
- "next_action": "S555: author the body jab take (pattern tools/pics2d_bodycross_bake.gd), render its 8 runs, apply ops/research/RINGSWITCH_BODYJAB_PATCH_S554.py in John's version (shortens the bar, keeps out, never two beats running); then probe HURT, CIRCLE OFF and one rule per opponent (ops/research/RINGSWITCH_IDEAS2_VS_PROBE_S554.md); red's tie-up, the wide rear hooks; the guard bar is his call.",
+ "last_working_commit": "898201754",
+ "next_action": "S556: his play on the balanced page first. Then measure on tools/balance.mjs the two changes BOTH seats asked for (moving costs breath; an even round goes to the man who gave less ground), then author the body jab take (pattern tools/pics2d_bodycross_bake.gd), render its runs and apply ops/research/s555_balance/apply_rules_bjab_patch.py bjab, rebuild the table, re-measure.",
  "next_acceptance": "Rulers vs r0: head jumps on the contact frame under 4, a head inside the other's body under 5 frames, arm out median under 4 frames with join_return green, then r1 film at two fresh blind critics 5+/10",
  "superseded_archive": [
   {

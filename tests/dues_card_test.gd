@@ -92,6 +92,12 @@ func _layout(main: Node) -> void:
 	for _i in 4:
 		await process_frame
 	_check(books != null and not books.visible, "Dues opens the boards and the books page steps aside")
+	# S555: the board is measured AFTER it opens (it grows to hold its three boards; measured before the click it was the
+	# books page's height, and the 05:00 run of 11-25 read a board 11 px short once S547 shortened a books row), and the
+	# open board must sit inside the office window that shows it (HostScroll): that is what would cut a card.
+	area = host.get_global_rect() if host != null else Rect2()
+	var window := main.find_child("HostScroll", true, false) as Control
+	_check(window != null and _inside_rect(area, window.get_global_rect()), "the open dues board fits the office window (%s in %s)" % [area, window.get_global_rect() if window != null else Rect2()])
 	_check(books == null or books.find_child("Dues_cheap", true, false) == null, "the books page has no dues strip")
 	var rects: Array[Rect2] = []
 	for band in Membership.DUES_ORDER:

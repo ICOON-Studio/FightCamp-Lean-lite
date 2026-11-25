@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Ring Switches - order</title>
+<title>Ring Switches</title>
 <style>
 :root{color-scheme:dark;--bg:#151211;--panel:#221c18;--panel2:#2b231d;--line:#43332a;--line2:#5a4436;--fg:#f2e9dd;--muted:#b7a595;--gold:#e3ab45;--red:#d9534a;--blue:#5f92d8;--green:#74bd7c}
 *{box-sizing:border-box}html{font-size:clamp(13px,1.02vw,21px)}html,body{height:100%;margin:0}
@@ -60,31 +60,37 @@ button{font:inherit;color:inherit;cursor:pointer}
 @media (prefers-reduced-motion:reduce){.btn.go,.stage.shake,.pop.go,.burst.go,.bar.hurt{animation:none}.pop.go{opacity:1}}
 </style></head>
 <body><div class="app">
-  <div class="top"><span class="brand">Ring Switches - your order</span><span id="where"></span><span id="score"></span><span class="lab" style="margin-left:auto">the order you click is the order you throw - <a href="switch.html" style="color:inherit">the version without order</a></span><button class="btn" id="mute" style="padding:.2rem .6rem;min-height:0;font-size:.85rem">Sound on</button></div>
+  <div class="top"><span class="brand">Ring Switches</span><span id="where"></span><span id="score"></span><span class="lab" style="margin-left:auto">the order you click is the order you throw</span><button class="btn" id="mute" style="padding:.2rem .6rem;min-height:0;font-size:.85rem">Sound on</button></div>
   <div class="men"><div class="man you" id="you"></div><div class="man him" id="him"></div></div>
   <div class="duo"><div class="stage" id="stage"><div class="rng" id="rng"></div><img id="pic" alt="" src="img/guard.webp"><span class="burst" id="burst"></span><span class="pop p0" id="pop0"></span><span class="pop p1" id="pop1"></span><span class="cap" id="cap"></span><span class="nm you">You</span><span class="nm him" id="nmhim">Him</span></div>
     <div class="tell"><div class="said" id="said"></div><div id="story"></div></div></div>
   <div><div class="under" style="margin-bottom:.5rem"><div class="lines" id="lines"></div><div id="acts"></div></div><div class="board" id="board"></div></div>
 </div>
 <script>
+// S555: THIS PAGE IS THE SOURCE (the owner: "i want version with the order of actions"). It was generated from switch.html by
+// tools/make_order.py until S555; that generator is gone and switch.html is the old version without order, no longer built on.
+// The rules are everything above the page mark (four dashes, then "the page"): tools/rules.mjs reads them, rules_test.mjs tests them.
 // RING SWITCHES (S551 toy). Owner: "what if put everything that the fighter can do in the fight as action toggable
 // buttons like the jab,uppercut push,backoff,step in , guard low, guard up etc"; "holding a card can turn to a defence is
 // reasonable , i like the idea". No decks, no timing: you set switches, both men act at once, the beat plays out.
-// A feel test: every number is in N / ACT and is a first guess.
-const N = { hp: 22, st: 8, rec: 1, hold: 1, guard: 6, grec: 1, rounds: 3, beats: 6, kd: [9, 7], counter: 1, keep: 1 };   // rec: stamina back a beat, + hold for each hand kept home
+// S555 THE BALANCED SLICE (the owner: "need better balance , i want this slice to be perfectly balance to move on"): the numbers in
+// N / ACT and five rules below were chosen on tools/balance.mjs - two equal men who both play each beat's solved mix box at all
+// three ranges, every punch gets thrown, bouts end both ways (docs/RINGSWITCH_BALANCE_S555.md has the table). keep: 0 = the S554
+// trial "a landed jab keeps him out" is off: it made 75% of beats Long.
+const N = { hp: 17, st: 8, rec: 1, hold: 1, guard: 6, grec: 1, rounds: 3, beats: 6, kd: [6, 4], counter: 1, keep: 0 };   // rec: stamina back a beat, + hold for each hand kept home
 const RNG = { 1: 'Inside', 2: 'Mid', 3: 'Long' };
 // a punch: which hand, stamina, health it takes, speed (1 first), the ranges it reaches, the line it travels on
 const ACT = {
-  jab: { n: 'Jab', h: 0, st: 1, d: 1, sp: 1, reach: [2, 3], line: 'straight', pic: 'jab', keep: 1, x: 'If it lands he cannot step in next beat.' },
-  hook: { n: 'Lead hook', h: 0, st: 2, d: 3, sp: 2, reach: [1, 2], line: 'side', pic: 'lead_hook' },
-  lup: { n: 'Lead uppercut', h: 0, st: 3, d: 4, sp: 3, reach: [1], line: 'under', pic: 'lead_uppercut' },
+  jab: { n: 'Jab', h: 0, st: 1, d: 1, sp: 1, reach: [2, 3], line: 'straight', pic: 'jab' },
+  hook: { n: 'Lead hook', h: 0, st: 2, d: 3, sp: 1, reach: [1, 2], line: 'side', pic: 'lead_hook' },   // S555: as fast as the jab (the check hook); at the hooks' speed it was in 3% of beats
+  lup: { n: 'Lead uppercut', h: 0, st: 2, d: 3, sp: 2, reach: [1], line: 'under', pic: 'lead_uppercut' },   // S555: the short one (was 3 stamina, 4 health, slow: never worth choosing beside the rear uppercut)
   lbody: { n: 'Body hook', h: 0, st: 2, d: 2, sp: 2, reach: [1, 2], line: 'body', body: 1, pic: 'body_hook' },
   feint: { n: 'Feint', h: 0, st: 1, feint: 1, t: 'Draws his hands: the punch you throw in the next moment cannot be covered.' },
   push: { n: 'Push off', h: 0, st: 1, push: 1, t: 'Inside only: shoves him back to Mid before the punches. Breaks a clinch.' },
-  cross: { n: 'Cross', h: 1, st: 2, d: 3, sp: 2, reach: [2], line: 'straight', pic: 'cross' },
+  cross: { n: 'Cross', h: 1, st: 2, d: 3, sp: 2, reach: [1, 2], line: 'straight', pic: 'cross' },   // S555: Mid AND Inside (Mid only, it fell short two times in three)
   over: { n: 'Overhand', h: 1, st: 3, d: 4, sp: 3, reach: [1, 2], line: 'side', pic: 'rear_hook', run: 'overhand' },
   rup: { n: 'Rear uppercut', h: 1, st: 3, d: 4, sp: 3, reach: [1], line: 'under', pic: 'rear_uppercut' },
-  rbody: { n: 'Body cross', h: 1, st: 2, d: 2, sp: 2, reach: [2], line: 'body', body: 1, pic: 'body_cross' },
+  rbody: { n: 'Body cross', h: 1, st: 2, d: 2, sp: 2, reach: [1, 2], line: 'body', body: 1, pic: 'body_cross' },
 };
 const LINE = { straight: 'Head, straight', side: 'Head, from the side', under: 'Chin, from below', body: 'Body' };
 // said in HIS punches, so the player knows what each hold is for
@@ -95,13 +101,13 @@ const YOURS = { straight: 'jab or cross', side: 'lead hook or overhand', under: 
 // how to stop what he did last beat, and how to counter it
 function answerTo(p) { if (!p || p.clinch) return ''; const ps = ['lead', 'rear'].filter((sl) => p[sl] && ACT[p[sl]].d); if (!ps.length) return '';
   return ps.map((sl) => { const a = ACT[p[sl]], mine = slotOf(a.line), h = COVER.high.includes(a.line) ? 'high' : 'low'; const gap = COVER[heightOf(p, sl)][sl === 'lead' ? 0 : 1]; return `his <b>${a.n}</b>${momentOf(p, sl)}: hold your <b>${mine} hand ${h}</b> to block it. In that same moment his ${sl} hand is out, so your <b>${YOURS[gap]}</b> gets through`; }).join('; ') + '. Then throw your own punch in a LATER moment: after his is blocked or misses, yours is a <b>counter</b> (+1 health). A moment later his hand is back and blocks again.'; }
-const FEET = { in: { n: 'Step in', st: 1, t: 'One place closer.' }, hold: { n: 'Hold your ground', st: 0, t: 'Stay where you are.' }, back: { n: 'Back off', st: 1, t: 'One place further. At Long you are giving ground toward the ropes.' } };
+const FEET = { in: { n: 'Step in', st: 1, t: 'One place closer, even if he backs off in that moment. Wins your ground back.' }, hold: { n: 'Hold your ground', st: 0, t: 'Stay where you are.' }, back: { n: 'Back off', st: 1, t: 'One place further, and you give ground: two and you are on the ropes.' } };
 // what a hand LEFT OFF covers: it depends on where the guard is held
 const COVER = { high: ['straight', 'side'], low: ['body', 'under'] };   // [lead hand home, rear hand home]
 const OPPS = [
-  { n: 'The Jabber', t: 'Stays at Long behind the jab and backs off when you come in. Crosses when you stand at Mid.', hp: 20, read: 0.75 },
-  { n: 'The Slugger', t: 'Walks in. Overhands and hooks at Mid, uppercuts Inside. Throws with both hands, so he leaves lines open.', hp: 26, read: 0.45 },
-  { n: 'The Body Snatcher', t: 'Gets to Mid or Inside and digs to the body to shorten your stamina. Keeps a hand home.', hp: 22, read: 0.6 },
+  { n: 'The Jabber', t: 'Stays at Long behind the jab and backs off when you come in. Crosses when you stand at Mid.', hp: 15, read: 0.75, like: ['jab', 'cross', 'back'], lean: 0.4, skill: 0.52 },
+  { n: 'The Slugger', t: 'Walks in. Overhands and hooks at Mid, uppercuts Inside. Throws with both hands, so he leaves lines open.', hp: 20, read: 0.45, like: ['over', 'hook', 'rup', 'lup', 'in'], lean: 0.4, skill: 0.58 },
+  { n: 'The Body Snatcher', t: 'Gets to Mid or Inside and digs to the body to shorten your stamina. Keeps a hand home.', hp: 17, read: 0.6, like: ['lbody', 'rbody', 'in'], lean: 0.4, skill: 0.78 },   // skill: set so the man who answers his last beat wins about 60 / 50 / 50%, and random clicking 1 bout in 10 (S555, docs/RINGSWITCH_BALANCE_S555.md)
 ];
 const $ = (id) => document.getElementById(id), rnd = Math.random, pickOne = (a) => a[Math.floor(rnd() * a.length)], clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 let F, P, oppI = 0, OPP = OPPS[0], round, beat, range, cards, phase = 'setup', mute = false, busy = false, popN = 0;
@@ -115,6 +121,7 @@ const pic = (n) => { $('pic').src = 'img/' + n + '.webp'; };
 // RINGANIM1 (S552): every action is SEEN, frame by frame. img/anim/frames.json lists each run's pictures and their times
 // from the contact (tools/pics2d_anim.gd records them from the 3D fight). A run that is not on disk falls back to its still.
 let ANIM = {}; const PRE = {}, HOLD = 250, BIG_SLOW = 1.6, MAX_GAP = 350;   /* ms: the contact's hold, a big punch's slow-in, the longest wait between two pictures (a clinch settles for 1.3 s) */
+fetch('vtable.json').then((r) => r.json()).then((j) => { VT = j.VT; }).catch(() => {});
 fetch('img/anim/frames.json').then((r) => r.json()).then((j) => { ANIM = j.runs || {}; }).catch(() => {});
 function warm(runs) { return Promise.all(runs.filter((n) => ANIM[n]).flatMap((n) => ANIM[n].files).filter((f) => !PRE[f]).map((f) => new Promise((ok) => { const im = new Image(); PRE[f] = im; im.onload = im.onerror = ok; im.src = 'img/anim/' + f; }))); }
 const stepRun = (o) => { const m = /you (step in|back off)/.exec(o) || /he (steps in|backs off)/.exec(o); return m ? (m[0][0] === 'y' ? 'blue_' : 'red_') + (/in$/.test(m[1]) ? 'step_in' : 'back_off') : ''; };
@@ -152,12 +159,13 @@ function resolve(S, P) { const ev = [], f = S.f, say = (k, o) => ev.push({ k, ..
   for (const k of [0, 1]) { if (f[k].kept && P[k].feet === 'in') P[k] = { ...P[k], feet: 'hold' }; f[k].kept = 0; }   // S554: a landed jab keeps him out (as switch.html)
   for (const k of [0, 1]) { P[k] = { ...P[k], ord: ordOf(P[k]) }; f[k].st -= cost(P[k]); f[k].last = { ...P[k] }; if (P[k].lead || P[k].rear) f[k].hist = [...(f[k].hist || []), { ...P[k] }].slice(-3); }
   const pusher = [0, 1].find((k) => P[k].lead === 'push' && !P[k].clinch), clincher = [0, 1].find((k) => P[k].clinch);
-  if (clincher != null && (S.range > 2 || f[clincher].held)) { say(clincher, { t: 'flat', a: 'reaches to clinch', o: S.range > 2 ? 'too far away' : 'the referee will not allow two running' }); P[clincher] = { ...plan0(), hl: P[clincher].hl, hr: P[clincher].hr }; }
+  if (clincher != null && (S.range > 1 || f[clincher].held)) { say(clincher, { t: 'flat', a: 'reaches to clinch', o: S.range > 1 ? 'too far away - a clinch is Inside only' : 'the referee will not allow two running' }); P[clincher] = { ...plan0(), hl: P[clincher].hl, hr: P[clincher].hr }; }
   else if (clincher != null && pusher === 1 - clincher) { say(clincher, { t: 'flat', a: 'tries to clinch', o: 'shoved off' }); P[clincher] = { ...plan0(), hl: P[clincher].hl, hr: P[clincher].hr }; }
-  else if (clincher != null) { f[clincher].st = Math.min(f[clincher].cap, f[clincher].st + 3); f[clincher].held = 2; S.range = 2; say(clincher, { t: 'clinch', a: 'ties him up', o: 'no punch lands - the referee breaks them at Mid, +2 stamina' }); return ev; }
+  else if (clincher != null) { f[clincher].st = Math.min(f[clincher].cap, f[clincher].st + 2); f[clincher].held = 2; S.range = 2; say(clincher, { t: 'clinch', a: 'ties him up', o: 'no punch lands - the referee breaks them at Mid, +2 stamina' }); return ev; }
   const opening = [0, 0], drawn = [0, 0];
   for (let i = 0; i < 3; i++) { const act = [P[0].ord[i], P[1].ord[i]]; if (!act[0] && !act[1]) continue;
-    let d = 0; for (const k of [0, 1]) if (act[k] === 'feet') { if (P[k].feet === 'in') { d--; f[k].ropes = 0; } else { d++; if (S.range === 3) f[k].ropes++; } }
+    let d = 0; for (const k of [0, 1]) if (act[k] === 'feet') { if (P[k].feet === 'in') { d--; f[k].ropes = 0; } else { d++; f[k].ropes++; } }   // S555: EVERY back off gives ground (it did at Long only, and backing off was in 45% of beats)
+    if ([0, 1].some((k) => act[k] === 'feet' && P[k].feet === 'in') && [0, 1].some((k) => act[k] === 'feet' && P[k].feet === 'back')) d = -1;   // S555: A STEP IN BEATS A BACK OFF in the same moment (cutting off the ring): he closes anyway
     const r0 = S.range; S.range = clamp(S.range + d, 1, 3); const movers = [0, 1].filter((k) => act[k] === 'feet').map((k) => (k ? 'he ' : 'you ') + (P[k].feet === 'in' ? 'step' + (k ? 's' : '') + ' in' : 'back' + (k ? 's' : '') + ' off')).join(', ');
     if (movers) ev.push({ k: -1, m: i, t: 'range', a: S.range !== r0 ? `${RNG[r0]} to ${RNG[S.range]}` : `stays ${RNG[r0]}`, o: movers });
     for (const k of [0, 1]) if (act[k] === 'lead' && P[k].lead === 'push') { if (S.range === 1) { S.range = 2; say(k, { m: i, t: 'flat', a: 'pushes off', o: 'back to Mid' }); } else say(k, { m: i, t: 'flat', a: 'pushes', o: 'at nothing - he is not Inside' }); }
@@ -171,9 +179,9 @@ function resolve(S, P) { const ev = [], f = S.f, say = (k, o) => ev.push({ k, ..
         if (stunNow[sh.k]) { say(sh.k, { m: i, t: 'flat', id: sh.id, a: a.n, o: 'beaten to the punch - never thrown' }); continue; }
         if (D.hp <= 0) continue;
         if (!a.reach.includes(S.range)) { say(sh.k, { m: i, t: 'miss', id: sh.id, a: a.n, o: S.range > Math.max(...a.reach) ? 'falls short at ' + RNG[S.range] : 'smothered - too close at ' + RNG[S.range] }); opening[v] = 1; continue; }
-        if (cov[v][a.line] && !wasDrawn) { D.g = Math.max(0, D.g - (a.d >= 3 ? 1 : 0)); say(sh.k, { m: i, t: 'block', id: sh.id, a: a.n, o: `blocked by the ${sl} hand held ${heightOf(P[v], sl)}` + (D.g <= 0 ? ' - GUARD BROKEN' : '') }); opening[v] = 1; continue; }
+        if (cov[v][a.line] && !wasDrawn) { D.g = Math.max(0, D.g - (a.d >= 3 ? 1 : 0)); say(sh.k, { m: i, t: 'block', id: sh.id, a: a.n, o: (P[v][sl] ? `blocked: ${v ? 'his' : 'your'} ${sl} hand was ${P[v].ord.indexOf(sl) > i ? 'still up' : 'back up'} (its ${ACT[P[v][sl]].n} ${P[v].ord.indexOf(sl) > i ? 'comes in' : 'was'} moment ${P[v].ord.indexOf(sl) + 1})` : `blocked by ${v ? 'his' : 'your'} ${sl} hand, held ${heightOf(P[v], sl)}`) + (D.g <= 0 ? ' - GUARD BROKEN' : '') }); opening[v] = 1; continue; }
         const dmg = a.d + (openNow[sh.k] ? N.counter : 0); D.hp -= dmg; A.pts += a.d >= 3 ? 2 : 1; if (a.body) { D.cap = Math.max(4, D.cap - 1); D.st = Math.min(D.st, D.cap); } if (a.d >= 3) stun[v] = 1; if (a.keep && N.keep) D.kept = 1;
-        const why = D.g <= 0 ? 'guard broken' : wasDrawn ? 'the feint drew his hand' : act[v] === sl ? `the ${sl} hand was out in that moment` : `the ${sl} hand was held ${heightOf(P[v], sl)}`;
+        const why = D.g <= 0 ? 'guard broken' : wasDrawn ? 'the feint drew his hand' : act[v] === sl ? `${v ? 'his' : 'your'} ${sl} hand was out, throwing its ${ACT[P[v][sl]].n}` : `${v ? 'his' : 'your'} ${sl} hand was held ${heightOf(P[v], sl)}`;
         say(sh.k, { m: i, t: 'hit', id: sh.id, a: a.n, dmg, o: `lands${openNow[sh.k] ? ' as a counter' : ''} (${why}): -${dmg} health${a.body ? ', stamina bar shorter' : ''}${a.keep && N.keep ? (v ? ' - he cannot step in next beat' : ' - you cannot step in next beat') : ''}`, down: D.hp <= 0 }); }
       x = y; }
     for (const k of [0, 1]) if (drawn[k]) drawn[k]--; }
@@ -182,33 +190,53 @@ function resolve(S, P) { const ev = [], f = S.f, say = (k, o) => ev.push({ k, ..
 function endBeat(S) { for (const m of S.f) { const l = m.last || {}, home = l.clinch ? 0 : (l.lead ? 0 : 1) + (l.rear ? 0 : 1); m.st = Math.min(m.cap, m.st + N.rec + N.hold * home); m.g = Math.min(N.guard, m.g + N.grec); if (m.held) m.held--; } }
 
 const perms = (a) => a.length < 2 ? [a] : a.flatMap((x, i) => perms([...a.slice(0, i), ...a.slice(i + 1)]).map((r) => [x, ...r]));
-// ---- the machine: reads the range, your guard as he sees it, and what you did LAST beat
-function ai(S) { const me = S.f[1], you = S.f[0], last = you.last || plan0(), p = plan0(), r = S.range; let st = me.st; const can = (id) => ACT[id].st <= st;
-  const take = (slot, id) => { if (id && can(id) && !p[slot]) { p[slot] = id; st -= ACT[id].st; } };
-  const openYou = (line) => !covers(you, last)[line];
-  p.hl = last.lead === 'lbody' || last.rear === 'rbody' ? (rnd() < 0.6 ? 'low' : 'high') : 'high'; p.hr = r === 1 && rnd() < 0.4 ? 'low' : p.hl;
-  const stepOk = !me.kept;   // a jab landed on him last beat: no way in
-  if (oppI === 0) { if (r < 3 && !(me.ropes >= 2) && st > 1 && rnd() < 0.75) { p.feet = 'back'; st--; }
-    const rr = r; p.ord = ['lead', 'rear', 'feet']; if (rr >= 2) take('lead', 'jab'); if (rr === 2 && rnd() < (openYou('straight') ? 0.8 : 0.35)) take('rear', 'cross'); if (rr === 1) take('lead', rnd() < 0.5 ? 'push' : 'hook'); }
-  else if (oppI === 1) { if (r === 3 && st > 2 && stepOk) { p.feet = 'in'; st--; }
-    const rr = clamp(r - (p.feet === 'in' ? 1 : 0), 1, 3); if (rr === 2) { take('rear', 'over'); if (rnd() < 0.6) take('lead', openYou('side') ? 'hook' : 'jab'); } else if (rr === 1) { take('rear', 'rup'); if (rnd() < 0.5) take('lead', 'hook'); } else if (stepOk || rnd() < 0.3) take('lead', 'jab'); }   /* kept out: the lead hand stays high to stop the next jab */
-  else { if (r === 3 && st > 2 && stepOk) { p.feet = 'in'; st--; }
-    const rr = clamp(r - (p.feet === 'in' ? 1 : 0), 1, 3); if (rr === 2) { take(rnd() < 0.5 ? 'rear' : 'lead', rnd() < 0.5 ? 'rbody' : 'lbody'); if (!p.rear && rnd() < 0.4 && openYou('straight')) take('rear', 'cross'); } else if (rr === 1) { take('lead', 'lbody'); if (rnd() < 0.3) take('rear', 'rup'); } else if (stepOk || rnd() < 0.3) take('lead', 'jab'); }
-  // HE READS A HABIT: the same punches in two of your last three punching beats and he answers THAT - he tries every
-  // plan he can pay for against it on a copy of the ring and takes the best for him (with a lean to his own style)
+// ---- S555 THE BEAT AS A GUESSING GAME (the owner: "vs the jabber you win very easy , all your rear hands land easy , need
+// better balance"). Both men choose at once, so a beat has no best plan, only a best MIX of plans: the one neither man
+// can improve on. solveBeat finds it (regret matching over every plan each can pay for, in every order). The opponents
+// play that mix, leaning to their style; tools/balance.mjs reads the same mix to say which switches are dead or a must.
+// It reads ACT / FEET / COVER, so a knee, an elbow or another art's moves are in it the day they are in the tables.
+const W = { st: 0.25, cap: 0.6, guard: 0.15, ropes: 0.25, kept: 0.3 };   // what stamina / the stamina bar / guard / ground / being kept out is worth, in health
+let VT = null;   // the round looked ahead: VT[beats left][range - 1][your stamina][his][your ground given * 3 + his] = what the rest of the round is worth to you (tools/balance.mjs table)
+function plansFor(S, k) { const me = S.f[k], out = [];
+  for (const lo of LO) for (const ro of RO) for (const feet of ['in', 'hold', 'back']) { const c0 = { ...plan0(), ...lo, ...ro, feet };
+    if (cost(c0) > me.st || (feet === 'back' && me.ropes >= 2) || (feet === 'in' && me.kept)) continue;
+    for (const ord of perms(ordOf(c0))) out.push({ ...c0, ord }); }
+  if (S.range <= 1 && !me.held && me.st >= 1) out.push({ ...plan0(), clinch: true });
+  return out; }
+// what a beat is worth to man 0 with t beats left in the round (this one counted): health, what it leaves, the rest of the round
+function worth(S, a, b, t) { const T = { range: S.range, f: S.f.map((m) => ({ ...m, hist: [] })) }; resolve(T, [{ ...a }, { ...b }]); endBeat(T); const [x, y] = T.f, [x0, y0] = S.f;
+  const rest = t > 1 ? (VT && VT[t - 1] ? VT[t - 1][T.range - 1][clamp(x.st, 0, N.st)][clamp(y.st, 0, N.st)][Math.min(x.ropes, 2) * 3 + Math.min(y.ropes, 2)] : W.st * (x.st - y.st) - W.ropes * (x.ropes - y.ropes)) : 0;
+  return (y0.hp - y.hp) - (x0.hp - x.hp) + W.cap * ((x.cap - x0.cap) - (y.cap - y0.cap)) + W.guard * ((x.g - x0.g) - (y.g - y0.g)) + (t > 1 ? W.kept * (y.kept - x.kept) : 0) + rest; }
+function solveBeat(S, t, o = {}) { const A = plansFor(S, 0), B = plansFor(S, 1), n = A.length, m = B.length, M = new Float64Array(n * m), la = o.lean0 ? A.map(o.lean0) : null, lb = o.lean1 ? B.map(o.lean1) : null;
+  for (let i = 0; i < n; i++) for (let j = 0; j < m; j++) M[i * m + j] = worth(S, A[i], B[j], t) + (la ? la[i] : 0) - (lb ? lb[j] : 0);
+  const rp = new Float64Array(n), rq = new Float64Array(m), sp = new Float64Array(n), sq = new Float64Array(m), p = new Float64Array(n).fill(1 / n), q = new Float64Array(m).fill(1 / m), u = new Float64Array(n), w = new Float64Array(m);
+  for (let it = 1, iters = o.iters || 600; it <= iters; it++) { w.fill(0); let ev = 0;
+    for (let i = 0; i < n; i++) { let z = 0; const r = i * m, pi = p[i]; for (let j = 0; j < m; j++) { z += M[r + j] * q[j]; if (pi) w[j] += M[r + j] * pi; } u[i] = z; ev += pi * z; }
+    let zp = 0, zq = 0; for (let i = 0; i < n; i++) { rp[i] = Math.max(0, rp[i] + u[i] - ev); zp += rp[i]; } for (let j = 0; j < m; j++) { rq[j] = Math.max(0, rq[j] + ev - w[j]); zq += rq[j]; }
+    for (let i = 0; i < n; i++) { p[i] = zp > 0 ? rp[i] / zp : 1 / n; sp[i] += p[i] * it; } for (let j = 0; j < m; j++) { q[j] = zq > 0 ? rq[j] / zq : 1 / m; sq[j] += q[j] * it; } }
+  const norm = (x) => { let z = 0; for (const e of x) z += e; return Array.from(x, (e) => e / z); }, P = norm(sp), Q = norm(sq); let v = 0, hi = -1e9, lo = 1e9; const col = new Float64Array(m);
+  for (let i = 0; i < n; i++) { let z = 0; for (let j = 0; j < m; j++) { z += M[i * m + j] * Q[j]; col[j] += M[i * m + j] * P[i]; } v += P[i] * z; if (z > hi) hi = z; } for (let j = 0; j < m; j++) if (col[j] < lo) lo = col[j];
+  return { A, B, p: P, q: Q, v, exploit: hi - lo, M }; }
+const drawFrom = (mix) => { let x = rnd(), i = 0; while (i < mix.length - 1 && (x -= mix[i]) > 0) i++; return i; };
+// ---- the machine (S555): he plays the beat's best mix, leaning to his style (OPP.like, OPP.lean), so no line of his
+// is always open; and HE READS A HABIT - the same switches in the same order in two of your last three punching beats and
+// (OPP.read of the time) he answers THAT with the best plan he can pay for. S.t = beats left in the round, this one counted.
+const leanOf = (o) => (c) => (c.clinch || !o.lean ? 0 : o.lean * [c.lead, c.rear, c.feet].filter((x) => o.like.includes(x)).length);
+function ai(S) { const me = S.f[1], you = S.f[0], t = S.t || N.beats, lean = leanOf(OPP);
   const hist = you.hist || [], key = (x) => [x.lead, x.rear, x.feet, ordOf(x).join('>')].join('|'), cnt = {}; for (const h of hist) cnt[key(h)] = (cnt[key(h)] || 0) + 1;
   const habit = hist.find((h) => cnt[key(h)] >= 2);
-  if (habit && rnd() < OPP.read) { let best = p, bv = -1e9; const like = [['jab', 'cross', 'back'], ['over', 'hook', 'rup', 'lup', 'in'], ['lbody', 'rbody', 'in']][oppI];
+  if (habit && rnd() < OPP.read) { let best = null, bv = -1e9;
     const yours = { ...habit, feet: (habit.feet === 'back' && you.ropes >= 2) || (habit.feet === 'in' && you.kept) ? 'hold' : habit.feet }, guess = cost(yours) <= you.st ? yours : { ...plan0(), hl: habit.hl, hr: habit.hr };
-    for (const lo of LO) for (const ro of RO) for (const feet of ['in', 'hold', 'back']) {
-      const c0 = { ...lo, ...ro, feet, clinch: false, ord: [] }, lead = c0.lead, rear = c0.rear; if (cost(c0) > me.st || (feet === 'back' && me.ropes >= 2)) continue;
-      for (const ord of perms(ordOf(c0))) { const c = { ...c0, ord }, T = { range: S.range, f: S.f.map((m) => ({ ...m, hist: [] })) }; resolve(T, [{ ...guess }, { ...c }]);
-        const v = (you.hp - T.f[0].hp) - (me.hp - T.f[1].hp) + 0.25 * T.f[1].st + 0.6 * [lead, rear, feet].filter((x) => like.includes(x)).length + rnd() * 0.5;
-        if (v > bv) { bv = v; best = c; } } }
+    for (const c of plansFor(S, 1)) { const v = -worth(S, guess, c, t) + lean(c) + rnd() * 0.3; if (v > bv) { bv = v; best = c; } }
     return best; }
-  if (me.st <= 2 && r <= 2 && !me.held && rnd() < 0.5) return { ...plan0(), clinch: true };
-  if (!p.ord.length) p.ord = oppI === 1 ? ['feet', 'rear', 'lead'] : ['feet', 'lead', 'rear'];
-  return p; }
+  // HIS SKILL: the share of beats he plays the best mix. The rest are plain beats of his style - any plan he can pay for with
+  // one of his own switches in it whose punches reach if you stand still (no uppercut thrown from Long) - and those are the
+  // beats a player reads him on. At skill 1 he is as good as the rules allow:
+  // the man who answers his last beat then wins 1 bout in 4 (tools/balance.mjs play who=sensible).
+  if (rnd() >= (OPP.skill == null ? 1 : OPP.skill)) { const all = plansFor(S, 1), still = { ...plan0(), hl: you.last ? you.last.hl : 'high', hr: you.last ? you.last.hr : 'high' };
+    const own = all.filter((c) => !c.clinch && [c.lead, c.rear, c.feet].some((x) => OPP.like.includes(x)) && !resolve({ range: S.range, f: S.f.map((m) => ({ ...m, hist: [] })) }, [{ ...still }, { ...c }]).some((e) => e.k === 1 && e.t === 'miss'));
+    return pickOne(own.length ? own : all); }
+  const r = solveBeat(S, t, { lean1: lean, iters: 400 }); return r.B[drawFrom(r.q)]; }
 
 // ---- the page
 function draw() { for (const k of [0, 1]) { const m = F[k], sp = k === 0 && phase === 'plan' ? cost(P) : 0;
@@ -219,7 +247,7 @@ function draw() { for (const k of [0, 1]) { const m = F[k], sp = k === 0 && phas
       ${k ? `<span class="note">Last beat he did: <b>${planWords(m.last)}</b></span>${answerTo(m.last) ? `<span class="note">To stop that - ${answerTo(m.last)}</span>` : ''}` : ''}`; }
   $('where').innerHTML = `Round <b>${round}</b> of ${N.rounds} <span class="ticks">${Array.from({ length: N.beats }, (_, j) => `<i class="${j < beat ? 'done' : j === beat ? 'cur' : ''}"></i>`).join('')}</span> ${N.beats - beat <= 1 ? '<b>last beat of the round</b>' : N.beats - beat + ' beats to the bell'}`;
   $('score').innerHTML = `Points this round: you <b>${F[0].pts}</b> - him <b>${F[1].pts}</b>` + cards.map((c, i) => ` &nbsp; R${i + 1} ${c[0]}-${c[1]}`).join('');
-  const ground = (m, who) => `<span class="gr" title="Ground behind ${who}: ${2 - Math.min(2, m.ropes)} of 2. Backing off at Long gives one up; with none left ${who === 'you' ? 'you are' : 'he is'} on the ropes and cannot back off. A step in wins it back.">${who === 'you' ? '<i class="rope"></i>' : ''}${[0, 1].map((j) => `<i class="gp ${(who === 'you' ? j < m.ropes : 1 - j < m.ropes) ? 'lost' : ''}"></i>`).join('')}${who === 'you' ? '' : '<i class="rope"></i>'}</span>`;
+  const ground = (m, who) => `<span class="gr" title="Ground behind ${who}: ${2 - Math.min(2, m.ropes)} of 2. Every back off gives one up; with none left ${who === 'you' ? 'you are' : 'he is'} on the ropes and cannot back off. A step in wins it back.">${who === 'you' ? '<i class="rope"></i>' : ''}${[0, 1].map((j) => `<i class="gp ${(who === 'you' ? j < m.ropes : 1 - j < m.ropes) ? 'lost' : ''}"></i>`).join('')}${who === 'you' ? '' : '<i class="rope"></i>'}</span>`;
   $('rng').innerHTML = ground(F[0], 'you') + [1, 2, 3].map((r) => `<span class="${r === range ? 'on' : ''}">${RNG[r]}</span>`).join('') + ground(F[1], 'him'); $('nmhim').textContent = OPP.n; }
 // THE PLAYER READS HIM TOO (the seats: K5, J2): a punch in two of his last three punching beats is a habit, and the hold that stops it is marked
 function hisHabits() { const habit = {}; { const hs = F[1].hist || [], n = {}; for (const h of hs) for (const id of [h.lead, h.rear]) if (id && ACT[id].d) n[id] = (n[id] || 0) + 1; for (const id in n) if (n[id] >= 2) { const l = ACT[id].line; habit[slotOf(l) + '|' + (COVER.high.includes(l) ? 'high' : 'low')] = ACT[id].n; } } return habit; }
@@ -236,7 +264,7 @@ function board() { const me = F[0], left = me.st - cost(P); P.ord = ordOf(P); co
   $('board').innerHTML = hand(0) + hand(1) +
     `<div class="grp"><span class="lab">Feet</span>${Object.keys(FEET).map((id) => { const ft = FEET[id], on = P.feet === id, room = left + FEET[P.feet].st, bad = (id === 'back' && me.ropes >= 2) || (id === 'in' && me.kept);
       return sw('feet', id, ft.n, ft.st ? ft.st + ' stamina' : 'free', id === 'hold' ? `You are at ${RNG[range]}.` : ft.t, on, P.clinch || bad || (ft.st > room && !on), bad ? (id === 'in' ? 'His jab landed: no way in this beat.' : 'You are on the ropes.') : ft.st > room && !on ? `Needs 1 stamina.` : ''); }).join('')}
-      ${sw('clinch', 'x', 'Clinch', '1 stamina', 'Mid or Inside: no punch lands for either man, you get 2 stamina. Not twice running.', P.clinch, (range > 2 || me.held || left + (P.clinch ? 1 : 0) < 1) && !P.clinch, range > 2 ? 'Too far away.' : me.held ? 'The referee will not allow it yet.' : '')}</div>`;
+      ${sw('clinch', 'x', 'Clinch', '1 stamina', 'Inside only: no punch lands for either man, you get 2 stamina. Not twice running.', P.clinch, (range > 1 || me.held || left + (P.clinch ? 1 : 0) < 1) && !P.clinch, range > 1 ? 'Inside only.' : me.held ? 'The referee will not allow it yet.' : '')}</div>`;
   for (const b of $('board').querySelectorAll('.sw')) b.onclick = () => { const g = b.dataset.g, id = b.dataset.id; if (g === 'clinch') { P.clinch = !P.clinch; if (P.clinch) { P.lead = P.rear = null; P.feet = 'hold'; } } else if (g === 'lead' || g === 'rear') { if (id === 'high' || id === 'low') { P[g] = null; P[g === 'lead' ? 'hl' : 'hr'] = id; } else P[g] = P[g] === id ? null : id; } else P[g] = id;
     if (active(P, g) && !P.ord.includes(g)) P.ord = [...P.ord, g]; P.ord = P.ord.filter((sl) => active(P, sl)); plan(); };
   // the order strip (click an action to move it one place earlier) and what each moment leaves open
@@ -245,10 +273,11 @@ function board() { const me = F[0], left = me.st - cost(P); P.ord = ordOf(P); co
     `<span class="lab" style="margin-left:.8rem">What you leave open</span>` + (me.g <= 0 ? '<span class="ln open">your guard is broken: nothing is covered</span>' : all.map((l) => { const sl = slotOf(l), at = P.ord.indexOf(sl);
       return !heldCov[l] ? `<span class="ln open">${THREAT[l]}: OPEN</span>` : at >= 0 ? `<span class="ln open" title="That hand is busy in moment ${at + 1}; before and after it is back and blocks.">${THREAT[l]}: open in moment ${at + 1} only</span>` : `<span class="ln cov">${THREAT[l]}: covered</span>`; }).join(''));
   for (const b of $('lines').querySelectorAll('.seq button')) b.onclick = () => { const i = P.ord.indexOf(b.dataset.sl); if (i > 0) { const o = [...P.ord]; [o[i - 1], o[i]] = [o[i], o[i - 1]]; P.ord = o; plan(); } }; }
-function plan() { phase = 'plan'; draw(); board(); showHold();
+let hisNext = null;   // S555: he makes up his mind while you set your switches (from what he knows at the bell of the beat, never from your switches)
+function plan() { phase = 'plan'; draw(); board(); showHold(); const at = round + ':' + beat; if (!hisNext || hisNext.at !== at) { hisNext = { at, plan: null }; const mine = hisNext; setTimeout(() => { if (hisNext === mine) { mine.plan = ai({ f: F.map((m) => ({ ...m })), range, t: N.beats - beat }); if (!mine.plan) mine.at = ''; } }, 60); }
   $('acts').innerHTML = `<button class="btn go" id="go">Fight this beat</button>`; $('go').onclick = go; }
 function go() { if (busy) return; busy = true; phase = 'play'; $('acts').innerHTML = ''; for (const b of $('board').querySelectorAll('.sw')) b.disabled = true;
-  const S = { f: F, range }, his = ai(S), before = [F[0].hp, F[1].hp], ev = resolve(S, [{ ...P }, his]); range = S.range;
+  const S = { f: F, range, t: N.beats - beat }, his = hisNext && hisNext.at === round + ':' + beat && hisNext.plan ? hisNext.plan : ai(S), before = [F[0].hp, F[1].hp], ev = resolve(S, [{ ...P }, his]); range = S.range;
   $('said').textContent = `He: ${planWords(his)}.`; $('story').innerHTML = ''; let i = 0;
   const step = () => { if (i >= ev.length) return after();
     const e = ev[i++], you = e.k === 0, who = e.k < 0 ? '' : you ? 'Your ' : 'His ', cls = e.t === 'hit' ? (you ? 'good' : 'bad') : e.t === 'block' || e.t === 'miss' ? (you ? 'bad' : 'good') : 'flat';
@@ -294,7 +323,7 @@ function bell() { const [x, y] = F, w = x.pts === y.pts ? -1 : x.pts > y.pts ? 0
 function over(text) { phase = 'over'; busy = false; draw(); $('said').textContent = text; $('board').innerHTML = ''; $('lines').innerHTML = ''; $('acts').innerHTML = '<button class="btn go" id="go">Another bout</button>'; $('go').onclick = setup; }
 function setup() { phase = 'setup'; OPP = OPPS[oppI]; F = [man(N.hp), man(OPP.hp)]; P = plan0(); round = 1; beat = 0; range = 3; cards = []; draw(); pic('guard');
   $('said').textContent = 'Every action is a switch. Both men act at once.';
-  $('story').innerHTML = `<div class="how"><b>Each hand</b> throws one punch a beat, or stays home. <b>A hand that does not punch is held high or low, and blocks</b>: the lead hand high stops straight head punches, low stops body punches; the rear hand high stops hooks, low stops uppercuts.<br><b>Feet</b> change the range: Long, Mid, Inside. Each punch only reaches at some ranges. <b>A jab that lands keeps him out</b>: he cannot step in on the next beat.<br><b>A beat is three moments.</b> The order you click your switches is the order you throw them: your first action meets his first, your second his second. <b>A hand is out of its guard only in the moment it acts.</b> Catch him in the moment his hand is out and it lands; a moment later it is back. Feet take a moment too: step in and then hook, or jab and then back off. A punch of his that misses or is blocked makes your later punches counters (+1).<br><b>Stamina:</b> 1 comes back each beat, and 1 more for each hand you held instead of punching. Switches stay as you set them until you change them - but <b>throw the same thing in two of your last three punching beats and he may read it</b>: he then picks the best answer to exactly that.</div>`;
+  $('story').innerHTML = `<div class="how"><b>Each hand</b> throws one punch a beat, or stays home. <b>A hand that does not punch is held high or low, and blocks</b>: the lead hand high stops straight head punches, low stops body punches; the rear hand high stops hooks, low stops uppercuts.<br><b>Feet</b> change the range: Long, Mid, Inside. Each punch only reaches at some ranges. <b>A step in beats a back off</b> in the same moment: you close anyway. <b>Every back off gives ground</b>: two and you are on the ropes, until you step in. The clinch works Inside only.<br><b>A beat is three moments.</b> The order you click your switches is the order you throw them: your first action meets his first, your second his second. <b>A hand is out of its guard only in the moment it acts.</b> Catch him in the moment his hand is out and it lands; a moment later it is back. Feet take a moment too: step in and then hook, or jab and then back off. A punch of his that misses or is blocked makes your later punches counters (+1).<br><b>Stamina:</b> 1 comes back each beat, and 1 more for each hand you held instead of punching. Switches stay as you set them until you change them - but <b>throw the same thing in two of your last three punching beats and he may read it</b>: he then picks the best answer to exactly that.</div>`;
   $('board').innerHTML = `<div class="opps" style="grid-column:1/4">${OPPS.map((o, i) => `<button class="opp ${i === oppI ? 'on' : ''}" data-o="${i}"><b>${o.n}</b><small>${o.t}</small><small>Health ${o.hp} - ${o.read > 0.7 ? 'reads a habit fast' : o.read > 0.5 ? 'reads a habit' : 'slow to read a habit'}</small></button>`).join('')}</div>`;
   for (const b of $('board').querySelectorAll('.opp')) b.onclick = () => { oppI = +b.dataset.o; setup(); };
   $('lines').innerHTML = ''; $('acts').innerHTML = `<button class="btn go" id="go">Fight ${OPP.n}</button>`; $('go').onclick = () => { snd('bell_round_start_1', 0.5); $('said').textContent = 'Round 1. You start at Long: only a jab reaches.'; $('story').innerHTML = ''; plan(); }; }
