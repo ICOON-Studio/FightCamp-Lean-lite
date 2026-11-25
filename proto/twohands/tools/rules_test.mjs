@@ -169,4 +169,12 @@ test('S555: his skill - at 0 every beat is a plain beat of his style (one of his
     for (let i = 0; i < 10; i++) { const S = ring(2); S.t = 3; const c = R.ai(S); assert.ok(cost(c) <= S.f[1].st); assert.ok([c.lead, c.rear, c.feet].some((x) => R.opp().like.includes(x)), R.opp().n + ': ' + R.planWords(c)); }
     R.opp().skill = was; assert.ok(was > 0.3 && was <= 1, R.opp().n + ' has a skill'); }
 });
+test('S555: a push says what it is and why it did nothing; his plain beats never shove at nothing (owner: "what pushes means ? how is done ?")', () => {
+  let S = ring(2), ev = resolve(S, [plan(), plan({ lead: 'push' })]); const miss = ev.find((e) => e.k === 1 && /^pushes/.test(e.a));
+  assert.match(miss.o, /a shove at nothing: it only works chest to chest, and you were not Inside/);
+  S = ring(1); ev = resolve(S, [plan({ lead: 'push' }), plan()]); assert.match(ev.find((e) => e.k === 0 && /^pushes/.test(e.a)).o, /a shove with the lead glove on his chest: he is back at Mid/); assert.equal(S.range, 2);
+  for (let oi = 0; oi < 3; oi++) { R.setOpp(oi); const was = R.opp().skill; R.opp().skill = 0;
+    for (let i = 0; i < 25; i++) { const T = ring(2 + (i % 2)); T.t = 3; assert.notEqual(R.ai(T).lead, 'push', R.opp().n + ' shoves at nothing on a plain beat'); }
+    R.opp().skill = was; }
+});
 console.log(`RULES_TEST ${n} passed${process.exitCode ? ' - FAILURES above' : ''}`);
