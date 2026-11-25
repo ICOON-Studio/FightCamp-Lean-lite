@@ -1,0 +1,198 @@
+A bout against The Jabber, seed NaN
+--- round 1, beat 1, at Long
+YOU: 1 Jab, 2 Step in - rear hand high
+HE:  1 Step in, 2 Cross - lead hand low
+  moment 1 : Long to Mid - he steps in
+  moment 1 YOU: Jab - lands (his lead hand was held low): -1 health, 1 point
+  moment 2 : Mid to Inside - you step in
+  moment 2 HE: Cross - blocked: your lead hand was back up (its Jab was moment 1)
+ROUND 1 of 3, beat 2 of 6, range Inside. Points this round: you 1 - him 0. Cards so far: none
+YOU: health 18/18, stamina 8/8, guard 6/6, ground given 0/2
+HIM (The Jabber): health 15/16, stamina 7/8, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Step in, 2 Cross - lead hand low
+THIS ROUND (1 beat): his lead hand held high 0, held low 1, thrown 0; his rear hand held high 0, held low 0, thrown 1
+--- round 1, beat 2, at Inside
+YOU: 1 Cross - lead hand high
+HE:  1 Back off - lead hand high, rear hand high
+  moment 1 : Inside to Mid - he backs off
+  moment 1 YOU: Cross - blocked by his lead hand, held high
+ROUND 1 of 3, beat 3 of 6, range Mid. Points this round: you 1 - him 0. Cards so far: none
+YOU: health 18/18, stamina 8/8, guard 6/6, ground given 0/2
+HIM (The Jabber): health 15/16, stamina 8/8, guard 6/6, ground given 1/2
+HIS LAST BEATS, newest first: 1 Back off - lead hand high, rear hand high  |  1 Step in, 2 Cross - lead hand low
+THIS ROUND (2 beats): his lead hand held high 1, held low 1, thrown 0; his rear hand held high 1, held low 0, thrown 1
+--- round 1, beat 3, at Mid
+YOU: 1 Step in, 2 Feint, 3 Body cross
+HE:  1 Overhand, 2 Jab, 3 Back off
+  moment 1 : Mid to Inside - you step in
+  moment 1 HE: Overhand - blocked: your rear hand was still up (its Body cross comes in moment 3)
+  moment 2 YOU: feints - the next punch cannot be covered
+  moment 2 HE: Jab - smothered - too close at Inside
+  moment 3 : Inside to Mid - he backs off
+  moment 3 YOU: Body cross - lands as a counter (the feint drew his hand): -3 health, 1 point, stamina bar 7 for the rest of the bout
+ROUND 1 of 3, beat 4 of 6, range Mid. Points this round: you 2 - him 0. Cards so far: none
+YOU: health 18/18, stamina 5/8, guard 6/6, ground given 0/2
+HIM (The Jabber): health 12/16, stamina 4/7, guard 6/6, ground given 2/2 ON THE ROPES
+HIS LAST BEATS, newest first: 1 Overhand, 2 Jab, 3 Back off  |  1 Back off - lead hand high, rear hand high  |  1 Step in, 2 Cross - lead hand low
+THIS ROUND (3 beats): his lead hand held high 1, held low 1, thrown 1; his rear hand held high 1, held low 0, thrown 2
+--- round 1, beat 4, at Mid
+YOU: 1 Cross - lead hand high
+HE:  1 Cross, 2 Step in - lead hand high
+  moment 1 YOU: Cross - blocked by his lead hand, held high
+  moment 1 HE: Cross - blocked by your lead hand, held high
+  moment 2 : Mid to Inside - he steps in
+ROUND 1 of 3, beat 5 of 6, range Inside. Points this round: you 2 - him 0. Cards so far: none
+YOU: health 18/18, stamina 5/8, guard 6/6, ground given 0/2
+HIM (The Jabber): health 12/16, stamina 3/7, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Cross, 2 Step in - lead hand high  |  1 Overhand, 2 Jab, 3 Back off  |  1 Back off - lead hand high, rear hand high
+THIS ROUND (4 beats): his lead hand held high 2, held low 1, thrown 1; his rear hand held high 1, held low 0, thrown 3
+--- round 1, beat 5, at Inside
+YOU: 1 Lead uppercut - rear hand high
+HE:  1 Cross - lead hand high
+  moment 1 YOU: Lead uppercut - lands (his rear hand was out, throwing its Cross): -3 health, 2 points
+  moment 1 HE: Cross - lands (your lead hand was out, throwing its Lead uppercut): -3 health, 2 points
+ROUND 1 of 3, beat 6 of 6, range Inside. Points this round: you 4 - him 2. Cards so far: none
+YOU: health 15/18, stamina 5/8, guard 6/6, ground given 0/2
+HIM (The Jabber): health 9/16, stamina 3/7, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Cross - lead hand high  |  1 Cross, 2 Step in - lead hand high  |  1 Overhand, 2 Jab, 3 Back off
+THIS ROUND (5 beats): his lead hand held high 3, held low 1, thrown 1; his rear hand held high 1, held low 0, thrown 4
+--- round 1, beat 6, at Inside
+YOU: 1 Lead hook - rear hand high
+HE:  1 Back off, 2 Feint - rear hand low
+  moment 1 : Inside to Mid - he backs off
+  moment 1 YOU: Lead hook - lands (his rear hand was held low): -3 health, 2 points
+  moment 2 HE: feints - the next punch cannot be covered
+BELL. The judges give the round 10-9.
+ROUND 2 of 3, beat 1 of 6, range Long. Points this round: you 0 - him 0. Cards so far: 10-9
+YOU: health 15/18, stamina 8/8, guard 6/6, ground given 0/2
+HIM (The Jabber): health 6/16, stamina 7/7, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Back off, 2 Feint - rear hand low  |  1 Cross - lead hand high  |  1 Cross, 2 Step in - lead hand high
+THIS ROUND (0 beats): his lead hand held high 0, held low 0, thrown 0; his rear hand held high 0, held low 0, thrown 0
+--- round 2, beat 1, at Long
+YOU: 1 Jab, 2 Step in - rear hand high
+HE:  1 Back off - lead hand high, rear hand high
+  moment 1 : stays Long - he backs off
+  moment 1 YOU: Jab - blocked by his lead hand, held high
+  moment 2 : Long to Mid - you step in
+ROUND 2 of 3, beat 2 of 6, range Mid. Points this round: you 0 - him 0. Cards so far: 10-9
+YOU: health 15/18, stamina 8/8, guard 6/6, ground given 0/2
+HIM (The Jabber): health 6/16, stamina 7/7, guard 6/6, ground given 1/2
+HIS LAST BEATS, newest first: 1 Back off - lead hand high, rear hand high  |  1 Back off, 2 Feint - rear hand low  |  1 Cross - lead hand high
+THIS ROUND (1 beat): his lead hand held high 1, held low 0, thrown 0; his rear hand held high 1, held low 0, thrown 0
+--- round 2, beat 2, at Mid
+YOU: 1 Step in, 2 Body hook - rear hand high
+HE:  1 Back off, 2 Body cross - lead hand high
+  moment 1 : Mid to Inside - you step in, he backs off
+  moment 2 YOU: Body hook - lands (his lead hand was held high): -2 health, 1 point, stamina bar 6 for the rest of the bout
+  moment 2 HE: Body cross - lands (your lead hand was out, throwing its Body hook): -2 health, 1 point, stamina bar 7 for the rest of the bout
+ROUND 2 of 3, beat 3 of 6, range Inside. Points this round: you 1 - him 1. Cards so far: 10-9
+YOU: health 13/18, stamina 7/7, guard 6/6, ground given 0/2
+HIM (The Jabber): health 4/16, stamina 6/6, guard 6/6, ground given 2/2 ON THE ROPES
+HIS LAST BEATS, newest first: 1 Back off, 2 Body cross - lead hand high  |  1 Back off - lead hand high, rear hand high  |  1 Back off, 2 Feint - rear hand low
+THIS ROUND (2 beats): his lead hand held high 2, held low 0, thrown 0; his rear hand held high 1, held low 0, thrown 1
+--- round 2, beat 3, at Inside
+YOU: 1 Feint, 2 Overhand
+HE:  1 Push off, 2 Step in, 3 Rear uppercut
+  moment 1 HE: pushes off - a shove with the lead glove on your chest: you are back at Mid
+  moment 1 YOU: feints - the next punch cannot be covered
+  moment 2 : Mid to Inside - he steps in
+  moment 2 YOU: Overhand - lands (the feint drew his hand): -4 health, 2 points
+  moment 3 HE: Rear uppercut - lands (your rear hand was held high): -4 health, 2 points
+  HE GOES DOWN and gets up on 6 health.
+ROUND 2 of 3, beat 4 of 6, range Inside. Points this round: you 6 - him 3. Cards so far: 10-9
+YOU: health 9/18, stamina 4/7, guard 6/6, ground given 0/2
+HIM (The Jabber): health 6/16 (down 1x), stamina 2/6, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Push off, 2 Step in, 3 Rear uppercut  |  1 Back off, 2 Body cross - lead hand high  |  1 Back off - lead hand high, rear hand high
+THIS ROUND (3 beats): his lead hand held high 2, held low 0, thrown 1; his rear hand held high 1, held low 0, thrown 2
+--- round 2, beat 4, at Inside
+YOU: 1 Feint, 2 Overhand
+HE:  clinch
+  HE: ties him up - no punch lands - the referee breaks them at Mid, +2 stamina
+ROUND 2 of 3, beat 5 of 6, range Mid. Points this round: you 6 - him 3. Cards so far: 10-9
+YOU: health 9/18, stamina 1/7, guard 6/6, ground given 0/2
+HIM (The Jabber): health 6/16 (down 1x), stamina 4/6, guard 6/6, ground given 0/2, no clinch yet
+HIS LAST BEATS, newest first: clinch  |  1 Push off, 2 Step in, 3 Rear uppercut  |  1 Back off, 2 Body cross - lead hand high
+THIS ROUND (4 beats): his lead hand held high 2, held low 0, thrown 1; his rear hand held high 1, held low 0, thrown 2
+--- round 2, beat 5, at Mid
+YOU: no action - lead hand high, rear hand high
+HE:  1 Step in, 2 Rear uppercut - lead hand low
+  moment 1 : Mid to Inside - he steps in
+  moment 2 HE: Rear uppercut - lands (your rear hand was held high): -4 health, 2 points
+ROUND 2 of 3, beat 6 of 6, range Inside. Points this round: you 6 - him 5. Cards so far: 10-9
+YOU: health 5/18, stamina 4/7, guard 6/6, ground given 0/2
+HIM (The Jabber): health 6/16 (down 1x), stamina 2/6, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Step in, 2 Rear uppercut - lead hand low  |  clinch  |  1 Push off, 2 Step in, 3 Rear uppercut
+THIS ROUND (5 beats): his lead hand held high 2, held low 1, thrown 1; his rear hand held high 1, held low 0, thrown 3
+--- round 2, beat 6, at Inside
+YOU: 1 Lead uppercut - rear hand high
+HE:  1 Push off, 2 Back off - rear hand high
+  moment 1 HE: pushes off - a shove with the lead glove on your chest: you are back at Mid
+  moment 1 YOU: Lead uppercut - falls short at Mid
+  moment 2 : Mid to Long - he backs off
+BELL. The judges give the round 10-9.
+ROUND 3 of 3, beat 1 of 6, range Long. Points this round: you 0 - him 0. Cards so far: 10-9, 10-9
+YOU: health 5/18, stamina 7/7, guard 6/6, ground given 0/2
+HIM (The Jabber): health 6/16 (down 1x), stamina 6/6, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Push off, 2 Back off - rear hand high  |  1 Step in, 2 Rear uppercut - lead hand low  |  clinch
+THIS ROUND (0 beats): his lead hand held high 0, held low 0, thrown 0; his rear hand held high 0, held low 0, thrown 0
+--- round 3, beat 1, at Long
+YOU: 1 Jab, 2 Step in - rear hand high
+HE:  1 Step in, 2 Lead hook, 3 Body cross
+  moment 1 : Long to Mid - he steps in
+  moment 1 YOU: Jab - blocked: his lead hand was still up (its Lead hook comes in moment 2)
+  moment 2 : Mid to Inside - you step in
+  moment 2 HE: Lead hook - blocked by your rear hand, held high
+  moment 3 HE: Body cross - lands as a counter (your lead hand was held high): -3 health, 1 point, stamina bar 6 for the rest of the bout
+ROUND 3 of 3, beat 2 of 6, range Inside. Points this round: you 0 - him 1. Cards so far: 10-9, 10-9
+YOU: health 2/18, stamina 6/6, guard 6/6, ground given 0/2
+HIM (The Jabber): health 6/16 (down 1x), stamina 2/6, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Step in, 2 Lead hook, 3 Body cross  |  1 Push off, 2 Back off - rear hand high  |  1 Step in, 2 Rear uppercut - lead hand low
+THIS ROUND (1 beat): his lead hand held high 0, held low 0, thrown 1; his rear hand held high 0, held low 0, thrown 1
+--- round 3, beat 2, at Inside
+YOU: clinch
+HE:  1 Back off, 2 Jab - rear hand high
+  YOU: ties him up - no punch lands - the referee breaks them at Mid, +2 stamina
+ROUND 3 of 3, beat 3 of 6, range Mid. Points this round: you 0 - him 1. Cards so far: 10-9, 10-9
+YOU: health 2/18, stamina 6/6, guard 6/6, ground given 0/2, no clinch yet
+HIM (The Jabber): health 6/16 (down 1x), stamina 2/6, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Back off, 2 Jab - rear hand high  |  1 Step in, 2 Lead hook, 3 Body cross  |  1 Push off, 2 Back off - rear hand high
+THIS ROUND (2 beats): his lead hand held high 0, held low 0, thrown 2; his rear hand held high 1, held low 0, thrown 1
+--- round 3, beat 3, at Mid
+YOU: 1 Back off - lead hand high, rear hand high
+HE:  1 Back off - lead hand low, rear hand high
+  moment 1 : Mid to Long - you back off, he backs off
+ROUND 3 of 3, beat 4 of 6, range Long. Points this round: you 0 - him 1. Cards so far: 10-9, 10-9
+YOU: health 2/18, stamina 6/6, guard 6/6, ground given 1/2
+HIM (The Jabber): health 6/16 (down 1x), stamina 4/6, guard 6/6, ground given 1/2
+HIS LAST BEATS, newest first: 1 Back off - lead hand low, rear hand high  |  1 Back off, 2 Jab - rear hand high  |  1 Step in, 2 Lead hook, 3 Body cross
+THIS ROUND (3 beats): his lead hand held high 0, held low 1, thrown 2; his rear hand held high 2, held low 0, thrown 1
+--- round 3, beat 4, at Long
+YOU: 1 Jab - rear hand high
+HE:  1 Back off - lead hand low, rear hand low
+  moment 1 : stays Long - he backs off
+  moment 1 YOU: Jab - lands (his lead hand was held low): -1 health, 1 point
+ROUND 3 of 3, beat 5 of 6, range Long. Points this round: you 1 - him 1. Cards so far: 10-9, 10-9
+YOU: health 2/18, stamina 6/6, guard 6/6, ground given 1/2
+HIM (The Jabber): health 5/16 (down 1x), stamina 6/6, guard 6/6, ground given 2/2 ON THE ROPES
+HIS LAST BEATS, newest first: 1 Back off - lead hand low, rear hand low  |  1 Back off - lead hand low, rear hand high  |  1 Back off, 2 Jab - rear hand high
+THIS ROUND (4 beats): his lead hand held high 0, held low 2, thrown 2; his rear hand held high 2, held low 1, thrown 1
+--- round 3, beat 5, at Long
+YOU: 1 Jab - rear hand high
+HE:  1 Jab, 2 Step in - rear hand high
+  moment 1 YOU: Jab - lands (his lead hand was out, throwing its Jab): -1 health, 1 point
+  moment 1 HE: Jab - lands (your lead hand was out, throwing its Jab): -1 health, 1 point
+  moment 2 : Long to Mid - he steps in
+ROUND 3 of 3, beat 6 of 6, range Mid. Points this round: you 2 - him 2. Cards so far: 10-9, 10-9
+YOU: health 1/18, stamina 6/6, guard 6/6, ground given 1/2
+HIM (The Jabber): health 4/16 (down 1x), stamina 6/6, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Jab, 2 Step in - rear hand high  |  1 Back off - lead hand low, rear hand low  |  1 Back off - lead hand low, rear hand high
+THIS ROUND (5 beats): his lead hand held high 0, held low 2, thrown 3; his rear hand held high 3, held low 1, thrown 1
+--- round 3, beat 6, at Mid
+YOU: 1 Cross - lead hand high
+HE:  1 Step in, 2 Rear uppercut, 3 Jab
+  moment 1 : Mid to Inside - he steps in
+  moment 1 YOU: Cross - blocked: his lead hand was still up (its Jab comes in moment 3)
+  moment 2 HE: Rear uppercut - lands as a counter (your rear hand was held high): -5 health, 2 points
+  YOU GO DOWN and get up on 6 health.
+BELL. The judges give the round 9-10.
+YOU WIN on the cards 29-28
