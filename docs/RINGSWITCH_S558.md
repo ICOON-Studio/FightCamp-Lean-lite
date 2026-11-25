@@ -71,8 +71,9 @@ said 17, the log has 11).
   | +1 and half back | 27% / 23% / 23% | |
   | +1 and all back | 5% / 15% / 13% | |
   On the balance tool (its own look-ahead table, 84 bouts): "all of it back" holds only 7 of 9 bars - the push off
-  falls to 3% of beats (it is the answer to a clinch, and nobody needs it when the clinch pays less). The other
-  versions and the feint cleanup were still measuring at the handover: `E:/FightCamp/tmp/s558_balance/batch/`.
+  falls to 3% of beats (it is the answer to a clinch, and nobody needs it when the clinch pays less). The two
+  other versions (+1 and half back, +1 and all back) fail the same bar, 7 of 9 each; the feint cleanup reads 7 of 9
+  on one set (the mirror at 61%): `E:/FightCamp/tmp/s558_balance/batch/`.
   So: not on the page tonight. The push off has to be given a second job, or the mildest version taken.
 
 ## Tools new this session

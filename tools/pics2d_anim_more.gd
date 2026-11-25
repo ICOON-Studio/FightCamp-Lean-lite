@@ -26,7 +26,7 @@ const STEP_T := [0.0, 0.12, 0.24, 0.36, 0.48, 0.60, 0.72, 0.86]
 ## the place is the body cross's own contact, 6 cm over the belt-line target), "under" = the glove waits UNDER the place
 ## on the punch's way up (an uppercut: how far the glove is off the line straight under the chin)
 const HAND := {"lead_high": ["Left", "face", Vector3(0.0, 0.0, 0.0), "glove"], "lead_low": ["Left", "ribs", Vector3(0.0, 0.0, 0.06), "arm"],
-	"rear_high": ["Right", "head", Vector3(0.03, 0.08, 0.07), "glove"], "rear_low": ["Right", "face", Vector3(0.0, 0.0, -0.13), "under"]}
+	"rear_high": ["Right", "head", Vector3(0.13, 0.07, 0.05), "glove"], "rear_low": ["Right", "face", Vector3(0.0, 0.0, -0.13), "under"]}
 ## run -> the hands it holds (one hand, or both: the page holds every hand that does not punch high or low)
 const HOLDS := {"lead_high": ["lead_high"], "lead_low": ["lead_low"], "rear_high": ["rear_high"], "rear_low": ["rear_low"],
 	"both_high_high": ["lead_high", "rear_high"], "both_high_low": ["lead_high", "rear_low"],
@@ -36,6 +36,9 @@ const HOLD_PLACE_M := 0.08   # the glove (or forearm) this near the place it gua
 const HOLD_OTHER_M := 0.05   # the other hand this near where the guard has it
 const HOLD_OTHER_FACE_M := 0.34   # the hand that is not held: its wrist this near the face (it is in a guard)
 const HOLD_FRONT_M := 0.15   # a glove guarding the face: this far in front of it at most
+## GUARDEAR1 (S559, owner on the blue man's rear_high: "this guard is wrong why he protects his ears ?"): a high rear
+## glove sits on the cheek, AHEAD of the ear line (the head bone) by this much at least. The S553 take had it 0.02 m ahead.
+const HOLD_EAR_AHEAD_M := 0.05
 const FEINT := ["pro_left_jab_b", 0.20]   # ChoreoWait.BEATS "paw"
 const FEINT_T := [0.0, 0.07, 0.13, 0.20, 0.27, 0.36, 0.46]
 const PUSH_T := [0.0, 0.10, 0.20, 0.30, 0.40, 0.55, 0.70, 0.85]
@@ -230,6 +233,8 @@ func _hold_gate(who: int, key: String, was: Dictionary) -> Dictionary:
 				fails.append("%s %.3f m in front of the face (bar 0 to %.2f)" % [h, front / sc, HOLD_FRONT_M])
 		if near > HOLD_PLACE_M * sc:
 			fails.append("%s %.3f m from the place it guards (bar %.2f)" % [h, near / sc, HOLD_PLACE_M])
+		if str(row[1]) == "head" and (mid - head).dot(fwd) / sc < HOLD_EAR_AHEAD_M:
+			fails.append("%s glove %.3f m ahead of the ear line (bar %.2f): it guards the ear, not the cheek" % [h, (mid - head).dot(fwd) / sc, HOLD_EAR_AHEAD_M])
 		if maxf(tip.y, mid.y) > top:
 			fails.append("%s glove %.3f m over the top of the head" % [h, (maxf(tip.y, mid.y) - top) / sc])
 		var d := (mid - place) / sc   # read back the way the place is written: [toward him, out to the hand's side, up]

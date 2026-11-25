@@ -104,3 +104,11 @@ resets 26 Nov 16:00): the toy page and the guard retake need no Fable.
 
 ## Landed at the very end, NOT READ
 Dola answered SQ324 (the coaches map critics, queued in S551): `ops/research/CRITIC_COACHMAP1_BRIEF_DOLA.md`, committed unread. Coaches are parked (S553), so it waits; open it and verify her claims before any coach work.
+
+## The clinch and feint runs finished after the handover was written (all read)
+All three clinch versions hold only 7 of 9 bars, for the same reason: the push off falls to 3% of beats (and with
++1 and all back the clinch itself falls to 3%). "All back": mirror 40%; "+1 and half back": 55%; "+1 and all back":
+49%. So NO clinch version goes on the page as measured: first give the push off a second job (Antigravity: it also
+disrupts a slower punch in its moment; or it costs him stamina), as a tweak, then measure the clinch fix WITH it.
+The feint cleanup (`feint_clean.json`): 7 of 9 on one set - the mirror reads 61% (the bar is 40 to 60). One set is
+not enough to drop it: play `seed=2` before deciding. Files: `E:/FightCamp/tmp/s558_balance/batch/*.txt`.

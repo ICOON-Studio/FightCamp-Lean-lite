@@ -38,9 +38,14 @@ const POSES := {
 	# at the belt with its arm hidden behind the body: "the right hand of blue is not right")
 	"lead_low": {"side": "Left", "from": "hips", "at": Vector3(0.15, -0.08, 0.14), "pole": Vector3(0.0, 1.0, -0.3), "roll": 0.0,
 		"guards": ["chest", Vector3(0.11, 0.0, -0.08)]},
-	# the elbow comes UP in front of the chin and the glove goes to the ear ("answering the phone"): the hook's block
-	"rear_high": {"side": "Right", "from": "head", "at": Vector3(0.05, 0.10, -0.02), "pole": Vector3(1.0, 0.2, -0.2), "roll": 0.0,
-		"guards": ["head", Vector3(0.03, 0.08, 0.07)]},
+	# the glove on the CHEEK, ahead of the ear, the elbow in and down in front of the ribs: the hook's block (GUARDEAR1, S559,
+	# owner: "this guard is wrong why he protects his ears ?" - the S553 pose, "answering the phone", had the glove 0.02 m
+	# ahead of the head bone, at the ear, wrist [0.05, 0.10, -0.02], pole [1.0, 0.2, -0.2]. A first try 0.09 m ahead put the
+	# glove under the chin, hidden behind the jaw; 0.06 m ahead put it on the far cheek, hidden behind the face - the side
+	# camera sees the boxer's LEFT side, so a rear glove is seen only where it stands out past the face. Now 0.13 m ahead,
+	# 0.07 m out: beside the jaw and cheek, its front past the face profile, seen)
+	"rear_high": {"side": "Right", "from": "head", "at": Vector3(0.13, 0.10, -0.04), "pole": Vector3(0.6, 0.3, -1.0), "roll": 0.0,
+		"guards": ["head", Vector3(0.13, 0.07, 0.05)]},
 	# the glove drops to the chest under the chin, on the uppercut's way up, the elbow by the ribs
 	# S554: the wrist 7 cm out to its own side and 2 cm back - the first pose had the glove's MIDDLE 8 cm past the centre
 	# line (the cuff under the chin, not the glove)
@@ -136,8 +141,8 @@ func _initialize() -> void:
 		var g: Array = p["guards"]
 		var place: Vector3 = _mark(str(g[0])) + _off(g[1], s)
 		var gl := _glove(s)
-		print("HOLD_BAKE %s: wrist %s from the %s; glove centre %.3f m from the place it guards, %.3f m under the top of the head, %.3f m from the face; elbow %.0f deg, elbow %s from the chest; the other hand moved %.4f m" % [
-			key, _rel(_g(s + "Hand").origin, str(p["from"]), s), p["from"], gl.distance_to(place) / kk, (_mark("head").y + 0.16 * kk - gl.y) / kk, gl.distance_to(_mark("face")) / kk,
+		print("HOLD_BAKE %s: wrist %s from the %s; glove centre %.3f m from the place it guards, %.3f m under the top of the head, %.3f m from the face, glove centre %s from the head bone (GUARDEAR1: the ear line is the head bone; a high rear glove sits AHEAD of it, on the cheek); elbow %.0f deg, elbow %s from the chest; the other hand moved %.4f m" % [
+			key, _rel(_g(s + "Hand").origin, str(p["from"]), s), p["from"], gl.distance_to(place) / kk, (_mark("head").y + 0.16 * kk - gl.y) / kk, gl.distance_to(_mark("face")) / kk, _rel(gl, "head", s),
 			rad_to_deg((_g(s + "UpperArm").origin - _g(s + "LowerArm").origin).angle_to(_g(s + "Hand").origin - _g(s + "LowerArm").origin)),
 			_rel(_g(s + "LowerArm").origin, "chest", s), 0.0 if o == "" else _other_moved(o)])
 		if not dry:
