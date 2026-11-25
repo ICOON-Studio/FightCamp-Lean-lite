@@ -44,8 +44,18 @@ Seat by seat (the ticked seats: kalli, john, maria, dola, cline, arena, antigrav
   each said (METHOD: the seats' ideas are used and reported).
 
 ## SECOND: read what is still measuring (started in S557; only block_g1 read: 8 of 9 bars, the jab lands 81% - no gain)
-If a file is missing (the run died with the session): `sh E:/FightCamp/tmp/s557_ziva/chain.sh` runs the rest again
-(about 9 minutes a version; the versions already in `done.log` can be taken out of the script first).
+UPDATE (after the handover, the runs finished and were read once, 84 bouts each, one set): NOTHING BEATS THE PAGE.
+- A block costs the blocker guard: block_g1, block_g2, block_g2w all 8 of 9 bars (the page: 8 of 9), the jab lands
+  79 to 81% (the page 73%), stoppages fall to 12-21%. The free chase: 8 of 9, the jab 78%. No gain: none goes on the page.
+- The ground rule in the look-ahead: gave_15 8 of 9, gave_50 6 of 9 (the mirror unfair, 65%), ropes50 8 of 9;
+  `gave_30.txt` came out EMPTY (rerun it if wanted: `N=84 sh proto/twohands/tools/balance_batch.sh <dir>
+  ops/research/s557_balance/gave_30.json`).
+- THE PROBE SAYS WHERE THE FREE ROUNDS COME FROM: the JABBER backs off in 40% of beats and EVERY level round against him
+  goes to a player who never backs off (13 of 13); the solver's price on a back off moves that only to 31-37%. It is his
+  STYLE (`like: [..., 'back']`, lean 0.4), not the look-ahead. The Slugger and the Body Snatcher back off in 6 to 12%.
+  Next try, as a tweak: the Jabber's lean on `back` lower, or no lean on it in a level round's last two beats; measure
+  with `probe_ground.mjs` and `balance.mjs play who=sensible opp=0`.
+Tell him all of this in the first message (METHOD: the seats' ideas are used and reported).
 - `E:/FightCamp/tmp/s557_ziva/`: Ziva's rule ideas, 84 bouts each: `block_g1.txt`, `block_g2.txt`, `block_g2w.txt` (a
   block costs the blocker guard: 1 / 2 by size, the punch's own health, and that with the look-ahead valuing guard
   more) and `chase.txt` (he backed off last beat: your step in is free). `done.log` says what finished.

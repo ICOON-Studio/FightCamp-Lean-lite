@@ -6102,6 +6102,26 @@
   "map": {
    "done_earlier": [
     {
+     "text": "ZIVAFIX1: 4 clarity changes",
+     "who": "claude"
+    },
+    {
+     "text": "Cards fixed: no 0-0 draw",
+     "who": "claude"
+    },
+    {
+     "text": "Kalli table: 4, 4, 6 of 9",
+     "who": "claude"
+    },
+    {
+     "text": "Repeats measured: rare",
+     "who": "claude"
+    },
+    {
+     "text": "Low cover rendered",
+     "who": "claude"
+    },
+    {
      "text": "Southpaw measured: 2 variants",
      "who": "claude"
     },
@@ -6136,47 +6156,19 @@
     {
      "text": "Order version is the page",
      "who": "claude"
-    },
-    {
-     "text": "Opponents play the solved mix",
-     "who": "claude"
-    },
-    {
-     "text": "Dues card test fixed",
-     "who": "claude"
-    },
-    {
-     "text": "Ring Switches balanced: 8/9 bars",
-     "who": "claude"
-    },
-    {
-     "text": "Kalli + John read: balance",
-     "who": "claude"
-    },
-    {
-     "text": "Rule tooltips, drag order, hands",
-     "who": "claude"
     }
    ],
    "done_session": [
     {
-     "text": "ZIVAFIX1: 4 clarity changes",
+     "text": "ZIVARULES1 read: no gain",
      "who": "claude"
     },
     {
-     "text": "Cards fixed: no 0-0 draw",
+     "text": "Low cover: page play + strip",
      "who": "claude"
     },
     {
-     "text": "Kalli table: 4, 4, 6 of 9",
-     "who": "claude"
-    },
-    {
-     "text": "Repeats measured: rare",
-     "who": "claude"
-    },
-    {
-     "text": "Low cover rendered",
+     "text": "Claude played 3 bouts: 8,8,6,6",
      "who": "claude"
     }
    ],
@@ -6308,6 +6300,10 @@
     {
      "text": "Your play: balanced Ring Switches",
      "who": "operator"
+    },
+    {
+     "text": "All agents playtest (his order)",
+     "who": "claude"
     }
    ],
    "next": [
@@ -6704,7 +6700,7 @@
      "who": "claude"
     }
    ],
-   "session": "S557"
+   "session": "S558"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",

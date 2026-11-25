@@ -1,0 +1,54 @@
+b1 r1 beat1 WHY: he lives at Long behind the jab, so I walk in first and jab second from Mid; rear held high is a guess, lead is out.
+b1 r1 beat2 WHY: Inside, he spent both hands and wants Long again; hook then cross both still reach if he backs off to Mid, so I do not need to guess his feet.
+b1 r1 beat3 WHY: his card says he crosses at Mid: lead high takes the cross, and he has held his lead HIGH so the body is the open line: body cross. Cheap, I am at 4 stamina.
+b1 r1 beat4 WHY: he is at 3 stamina after a three-switch beat; last time that happened he backed off with BOTH hands high. I step in with him so I stay Inside and throw the rear uppercut under the high hands. All my stamina on one read.
+b1 r1 beat5 WHY: the round is gone (1-5), I am at 9 health and 2 stamina and he keeps hitting first Inside: clinch, take the breath, no punch lands.
+b1 r1 beat6 WHY: last beat, stamina comes back at the bell so I spend it. His lead hand is a coin flip (high 1, low 1), so I stop guessing: feint first, then the cross he cannot cover. Only his backing off to Long beats it.
+b1 r2 beat1 WHY: I think I see his rhythm: he comes in on odd beats (jab, step in, body cross) and backs off on even ones. Lead high takes the opening jab, I step in under it and dig the body cross in moment 2 while his lead is back up high (body open) - as a counter.
+b1 r2 beat2 WHY: even beat: he backs off, rear hand high every time, sometimes with a lead hook. I step in with him to stay Inside, keep my REAR high against that hook and throw the LEAD uppercut under his high rear hand (medium, so the hook cannot stop it if it is blocked).
+b1 r2 beat3 WHY: his rear hand has never once been held low, so the under line is always open Inside. Same plan again to see if he ever answers it: step in to stay Inside, lead uppercut, rear high.
+b1 r2 beat4 WHY: he is at 3 health and has no answer to the uppercut under his high rear hand. Third time the same plan - if this works again it is a plan that is right every beat against him.
+b1 r2 beat5 WHY: he is ON THE ROPES at 3 health: he cannot back off, and backing off was the only thing that beat my feint-cross in round 1. Feint, then the cross he cannot cover. It is all my stamina and my lead is down while I feint.
+b1 r2 beat6 WHY: 1 stamina, round won 10-2, 5 health: nothing to buy. Both hands up (straight and side), eat a body shot if it comes. A dull beat: the stamina made the choice for me.
+b1 r3 beat1 WHY: cards level 19-19, I have 3 health. He has opened both rounds with jab, step in, then a big rear hand (body cross, then overhand). I cannot afford the body cross, so lead LOW this time: I take the jab (1), step in, dig my body cross in moment 2, and in moment 3 my lead covers the body and my rear is back up for the overhand.
+b1 r3 beat2 WHY: he has learned my uppercut: his rear hand is now held LOW two beats running. That opens the SIDE line he always had shut. Fast lead hook first (it lands before anything slower and stops it), then the overhand on the same open side. Everything I have; if his rear goes back up I am finished.
+b1 r3 beat3 WHY: 1 stamina, 2 health, he has 5 stamina and 1 health. Nothing I can throw reaches Inside for 1. Clinch: nothing lands this beat and I get breath back.
+b1 r3 beat4 WHY: he has thrown the cross three beats running. The fast lead hook is the answer to a cross: if his rear hand is out throwing, my hook lands first and stops it; if his rear is held, he is not crossing. Rear high for his hook. One clean punch drops him.
+b1 r3 beat5 WHY: I am down 3-6 in the deciding round, he has 1 health and 1 stamina. He backs off when he is empty, which beats my feint; so I step in with him first and cross second - his lead hand has not been held high once this round.
+b1 r3 beat6 WHY: last beat, 3-6 down, he has 1 health. His rear hand has been held LOW twice this round, never high: the side is open. Lead hook, fast, all my stamina. My rear low for his favourite lead uppercut.
+b2 r1 beat1 WHY: the Slugger walks in and throws both hands. I let him come: jab him at Long as he walks (fast, lands first), rear high for his overhand and hooks.
+b2 r1 beat2 WHY: at Mid he overhands and hooks, both on the side line: my rear stays HIGH all night. Lead hook is fast and big: it lands before his slow overhand and stops it.
+b2 r1 beat3 WHY: he threw six switches in two beats and has 1 stamina left; I have 6. This is my beat: feint, then the rear uppercut he cannot cover. Only a clinch saves him.
+b2 r1 beat4 WHY: the clinch ate my 4 stamina. He ends every beat with a body cross in moment 3: lead LOW takes it. A hand that punches is back up HIGH in the other moments, so a man who throws both hands is open to the BODY: my body cross goes first, and my rear is back up for his hook.
+b2 r1 beat5 WHY: Inside he uppercuts: my rear goes LOW. His rear was held low last beat, so the side is open: fast lead hook, which also lands before his uppercut and stops it.
+b2 r1 beat6 WHY: 4-5 down, last beat. His rear has been LOW twice: the hook again, same cover.
+b2 r2 beat1 WHY: he opened round 1 with body jab, step in, body cross. Lead LOW takes both body punches; I step in under the first and dig my own body cross in moment 2 as a counter while his hands are up high.
+b2 r2 beat2 WHY: same body cross while his hands are up high, lead low for his body cross, rear back up for the hook. The under line is the one I leave open.
+b2 r2 beat3 WHY: he is at 1 stamina Inside again; last time he clinched and ate my 4 stamina. This time the push off first (it stops his clinch and puts him at Mid), then the body cross.
+b2 r2 beat4 WHY: three body crosses landed and now his lead hand is held LOW. That opens the straight line: the cross. My lead stays low for his body cross.
+b2 r2 beat5 WHY: his cover follows what hit him a beat or two late: it took three body crosses before his lead went low. One cross in, I bet the lead is still low: cross again.
+b2 r2 beat6 WHY: last beat, stamina refills at the bell: step in (it beats his back off) and the cross at his low lead hand again.
+b2 r3 beat1 WHY: 19-19, 3 health against 4: one clean big punch decides it. A rear hand that is waiting to punch is held UP, so the under line is open while he loads: I step in and throw the rear uppercut in moment 2, lead high for the cross he opened with last time.
+b2 r3 beat2 WHY: 5-0 up with 3 health: he needs to hit me, I need the clock. Clinch: nothing lands, a beat gone.
+b2 r3 beat3 WHY: he shoved off my clinch (he can do that too!) and I am at 1 health. But he is at 1 stamina: he cannot pay for a real punch this beat, so this beat is free. Feint, then the overhand he cannot cover; it reaches even if he backs off to Mid.
+b2 r3 beat4 WHY: 7-1 up, 1 health, 1 stamina. Cover the two lines he uses most with his big hands (body cross, hooks and overhands): lead low, rear high, and breathe. The cross or the uppercut gets through.
+b2 r3 beat5 WHY: my rear hand took his overhand. He has 2 health and his lead hand has been LOW all round. Feint, then the cross: it cannot be covered, and my rear is still up in moment 1 for his hook.
+b2 r3 beat6 WHY: last beat, 7-1. His lead hand has been low all round and he cannot clinch now: the cross. If it lands he goes down and nothing he does can catch me on points. Lead high for his own cross.
+b3 r1 beat1 WHY: my opener that worked on both other men: lead low for the body (he is the Body Snatcher), step in, body cross in moment 2 while his hands are up.
+b3 r1 beat2 WHY: he jabbed and ran, and has given 1 of 2 ground. Lead high takes the jab this time; I step in and cross in moment 2. If he runs again he is on the ropes and cannot run a third time.
+b3 r1 beat3 WHY: he holds his hands LOW (lead low, rear low so far) - a body man guarding the body. That leaves the head: cross again, my lead low for his dig.
+b3 r1 beat4 WHY: lead low and the cross has worked twice against him and costs me nothing. Again, to see when he answers it.
+b3 r1 beat5 WHY: that was the same beat twice, word for word (dull). He is at 1 stamina: the other two men clinched there. Push off first to kill the clinch, then the cross from Mid at his low lead hand.
+b3 r1 beat6 WHY: three crosses and his lead went high - but his REAR hand has never been high: the side is open. Overhand with the rear so my lead can stay low for his body cross.
+b3 r2 beat1 WHY: he jabs and runs at Long. A hand that punches LATER is still up before its moment: so I step in first (lead still up takes his jab) and body-jab second - it reaches at Mid or Long, and his lead is back up high so the body is open.
+b3 r2 beat2 WHY: Inside he likes push off, step in, body cross. The cross reaches after his push and lands while his lead is out pushing; lead low takes the body cross.
+b3 r2 beat3 WHY: lead low and the cross again: it pays for itself (2 stamina out, 2 back) and blocks his best punch. Is this a plan that is right every beat against this man?
+b3 r2 beat4 WHY: he found the answer (a step to delay his lead hand, then the uppercut). He has 3 stamina and will spend it now; I am full. Clinch: his stamina is wasted the way the Slugger wasted mine, and next beat he is empty at Mid.
+b3 r2 beat5 WHY: the clinch trap worked: his overhand was wasted, he has 2 stamina, I have 7. His rear hand has never been held high. Step in so he cannot run, then the overhand on the open side, lead low for the body.
+b3 r2 beat6 WHY: 1 health, 2 stamina, Inside: this is where a man clinches. Push off first (no clinch), then the overhand from Mid at the side he never covers.
+b3 r3 beat1 WHY: 20-18 up and every round is scored 10-9, so only a stoppage can beat me: round 3 is dead on the cards. I go for his second knockdown anyway: lead high, step in, cross.
+b3 r3 beat2 WHY: wrong hand: he went to the body twice and I am at 2 health. Three knockdowns would still stop me, so the round is not dead after all. Clinch to stop the run.
+b3 r3 beat3 WHY: the clinch ate his feint and cross: he is at 2 stamina again, I am full. Same trap as round 2: step in, overhand, lead low.
+b3 r3 beat4 WHY: two overhands landed and now his rear hand is HIGH, both hands up: the body is open. Body cross, lead low for his own.
+b3 r3 beat5 WHY: the body cross landed and my rear was back up for his overhand. His lead is still high: the same again.
+b3 r3 beat6 WHY: last beat, level 2-2, he has 2 health. Feint and cross: it cannot be covered. Only a clinch stops it.

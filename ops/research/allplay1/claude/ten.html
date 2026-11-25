@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>Ring Switches - Claude's 10/10 fight screen (ALLPLAY1)</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;overflow:hidden;background:#14161b;color:#e9e6df;font-family:"Segoe UI",Arial,sans-serif}
+.top{position:absolute;left:0;top:0;width:1920px;height:84px;background:#1c1f26;border-bottom:2px solid #2c313b;display:flex;align-items:center;padding:0 36px;gap:44px}
+.top b{font-size:30px;letter-spacing:1px}.top .where{font-size:22px;color:#f0c35a;font-weight:700}
+.cards{margin-left:auto;display:flex;gap:10px;align-items:center;font-size:20px;color:#aab0bc}
+.cardbox{background:#262a33;border-radius:6px;padding:8px 14px;font-weight:700;color:#e9e6df}
+.cardbox.live{border:2px solid #f0c35a;color:#f0c35a}
+.side{position:absolute;top:104px;width:372px;height:596px;background:#1c1f26;border:2px solid #2c313b;border-radius:10px;padding:20px}
+.you{left:24px;border-top:6px solid #3b82d6}.him{right:24px;border-top:6px solid #d6453b}
+.side h2{font-size:26px;margin-bottom:2px}.side .sub{font-size:15px;color:#aab0bc;margin-bottom:14px}
+.lab{font-size:14px;color:#aab0bc;text-transform:uppercase;letter-spacing:1px;margin:14px 0 6px}
+.bar{height:26px;background:#2a2e37;border-radius:5px;position:relative;overflow:hidden}
+.bar i{position:absolute;left:0;top:0;bottom:0;border-radius:5px}.bar span{position:absolute;right:10px;top:2px;font-weight:700;font-size:17px}
+.hp i{background:#c9483f}.pips{display:flex;gap:6px}.pip{width:36px;height:24px;border-radius:4px;background:#e3b341}.pip.off{background:#2a2e37}.pip.cut{background:repeating-linear-gradient(45deg,#2a2e37 0 6px,#3a2a2a 6px 12px)}
+.tag{display:inline-block;background:#3a2a2a;color:#ff9c8f;font-weight:700;font-size:14px;padding:4px 10px;border-radius:4px;margin-top:8px}
+.tag.good{background:#22382b;color:#8fe0a6}.tag.gold{background:#3a3320;color:#f0c35a}
+.beats{font-size:15px;line-height:1.5;color:#d5d2ca}.beats div{padding:6px 8px;border-left:3px solid #3a3f4a;margin-bottom:6px;background:#20232b}
+.beats div:first-child{border-left-color:#f0c35a}
+.ring{position:absolute;left:420px;top:104px;width:1080px;height:372px;border-radius:10px;overflow:hidden;background:linear-gradient(#232a35 0 58%,#3a4656 58% 60%,#6b6f63 60% 100%);border:2px solid #2c313b}
+.rope{position:absolute;left:0;right:0;height:4px;background:#b9b3a3;opacity:.55}
+.band{position:absolute;bottom:0;height:52px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;letter-spacing:2px;color:#22252b}
+.man{position:absolute;bottom:60px;width:150px;height:270px}
+.man .head{position:absolute;left:52px;top:0;width:52px;height:60px;border-radius:26px;background:#d8b08c}
+.man .body{position:absolute;left:30px;top:58px;width:96px;height:120px;border-radius:18px 18px 8px 8px}
+.man .legs{position:absolute;left:38px;top:176px;width:80px;height:94px;background:#1b1d22;border-radius:6px 6px 0 0}
+.man .glove{position:absolute;width:40px;height:40px;border-radius:20px}
+.blue .body{background:#3b82d6}.blue .glove{background:#2b62a6}.red .body{background:#d6453b}.red .glove{background:#a8332b}
+.note{position:absolute;font-size:14px;font-weight:700;padding:4px 9px;border-radius:4px;background:#14161bcc;border:1px solid #f0c35a;color:#f0c35a}
+.strip{position:absolute;left:420px;top:488px;width:1080px;height:212px;display:flex;gap:10px}
+.mom{flex:1;background:#1c1f26;border:2px solid #2c313b;border-radius:10px;padding:12px 14px}
+.mom.hit{border-color:#f0c35a}.mom h3{font-size:15px;color:#aab0bc;letter-spacing:2px;margin-bottom:8px}
+.row{display:flex;align-items:center;gap:8px;margin-bottom:7px;font-size:15px}.row .who{width:44px;font-weight:700}
+.chip{padding:4px 9px;border-radius:4px;font-size:13px;font-weight:700;background:#2a2e37;color:#cfd3db}
+.chip.out{background:#f0c35a;color:#22252b}.chip.shut{background:#22382b;color:#8fe0a6}.chip.open{background:#3a2a2a;color:#ff9c8f}
+.res{margin-top:8px;font-size:15px;line-height:1.35}.res b{color:#f0c35a}
+.plan{position:absolute;left:24px;top:716px;width:1872px;height:340px;background:#1c1f26;border:2px solid #2c313b;border-radius:10px;padding:16px 22px;display:flex;gap:22px}
+.col{flex:1}.col h4{font-size:15px;color:#aab0bc;letter-spacing:2px;margin-bottom:10px}
+.opt{display:inline-flex;align-items:center;gap:8px;margin:0 8px 8px 0;padding:9px 13px;border-radius:6px;background:#262a33;font-size:16px;font-weight:600;border:2px solid transparent}
+.opt small{color:#e3b341;font-weight:700}.opt.on{border-color:#f0c35a;background:#3a3320}.opt.no{opacity:.35}
+.lines{width:330px}.line{display:flex;justify-content:space-between;align-items:center;padding:9px 12px;border-radius:6px;margin-bottom:8px;font-size:16px;font-weight:700}
+.line.c{background:#22382b;color:#8fe0a6}.line.o{background:#3a2a2a;color:#ff9c8f}
+.go{width:250px;display:flex;flex-direction:column;gap:12px}
+.order{display:flex;gap:8px}.order div{flex:1;background:#262a33;border-radius:6px;padding:10px 6px;text-align:center;font-weight:700;font-size:15px}.order div b{display:block;color:#f0c35a;font-size:13px}
+.btn{background:#f0c35a;color:#22252b;font-size:26px;font-weight:800;text-align:center;border-radius:8px;padding:20px 0;letter-spacing:2px}
+.cost{font-size:17px;color:#d5d2ca}.cost b{color:#e3b341}
+</style></head><body>
+<div class="top"><b>ROUND 3 of 3 &nbsp;·&nbsp; BEAT 2 of 6</b><span class="where">INSIDE</span>
+  <span style="font-size:20px;color:#aab0bc">This round: <b style="font-size:24px;color:#e9e6df">YOU 5 – 0 HIM</b> &nbsp; a knockdown round scores <b style="font-size:20px;color:#f0c35a">10-8</b></span>
+  <div class="cards">JUDGES <span class="cardbox">9-10</span><span class="cardbox">10-9</span><span class="cardbox live">10-8 now</span> <span>= 29-27 if it ends like this</span></div></div>
+
+<div class="side you"><h2>YOU</h2><div class="sub">blue corner</div>
+  <div class="lab">Health</div><div class="bar hp"><i style="width:17%"></i><span>3 / 18</span></div><span class="tag">ONE BIG PUNCH PUTS YOU DOWN</span>
+  <div class="lab">Stamina (body punches cut the bar)</div><div class="pips"><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip off"></div><div class="pip off"></div><div class="pip cut"></div><div class="pip cut"></div></div>
+  <div class="lab">Ground</div><div class="pips"><div class="pip off" style="width:150px"></div><div class="pip off" style="width:150px"></div></div><div class="sub" style="margin-top:6px">two steps back and you are on the ropes</div>
+  <div class="lab">What you learned about him</div>
+  <div class="beats"><div>His cover follows what hit him: 3 body crosses, then his lead hand went LOW.</div><div>At 2 stamina or less he hangs on (clinched twice).</div></div></div>
+
+<div class="side him"><h2>THE SLUGGER</h2><div class="sub">red corner · walks in, throws both hands</div>
+  <div class="lab">Health</div><div class="bar hp"><i style="width:29%"></i><span>6 / 21</span></div><span class="tag gold">DOWN ONCE · up on 6</span>
+  <div class="lab">Stamina</div><div class="pips"><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip off"></div><div class="pip cut"></div><div class="pip cut"></div><div class="pip cut"></div></div>
+  <span class="tag good">HE CAN PAY FOR: one big punch and a step</span>
+  <div class="lab">His last three beats</div>
+  <div class="beats"><div>1 Step in · 2 Cross — lead hand LOW</div><div>1 Step in · 2 Cross · 3 Jab</div><div>1 Back off — lead LOW, rear LOW</div></div>
+  <div class="lab">Where his hands have been this round</div>
+  <div class="row"><span class="chip open">LEAD low 1 · high 0</span><span class="chip">REAR threw 1</span></div></div>
+
+<div class="ring"><div class="rope" style="top:70px"></div><div class="rope" style="top:120px"></div><div class="rope" style="top:170px"></div>
+  <div class="band" style="left:0;width:300px;background:#8d927f">LONG</div><div class="band" style="left:300px;width:240px;background:#a3a892">MID</div><div class="band" style="left:540px;width:200px;background:#f0c35a">INSIDE</div><div class="band" style="left:740px;width:340px;background:#8d927f">HIS ROPES · ground given 0 of 2</div>
+  <div class="man blue" style="left:470px"><div class="head"></div><div class="body"></div><div class="legs"></div><div class="glove" style="left:100px;top:8px"></div><div class="glove" style="left:132px;top:36px"></div></div>
+  <div class="man red" style="left:600px"><div class="head"></div><div class="body"></div><div class="legs"></div><div class="glove" style="left:-6px;top:120px"></div><div class="glove" style="left:-40px;top:70px"></div></div>
+  <div class="note" style="left:430px;top:18px">your lead hand HIGH took his cross</div>
+  <div class="note" style="left:690px;top:150px">your uppercut came UNDER his rear hand while it was out</div>
+  <div class="note" style="left:28px;top:300px;border-color:#8fe0a6;color:#8fe0a6">side view · both men chest to the camera</div></div>
+
+<div class="strip">
+  <div class="mom"><h3>MOMENT 1</h3>
+    <div class="row"><span class="who">YOU</span><span class="chip out">FEET step in</span><span class="chip shut">lead HIGH</span><span class="chip">rear up</span></div>
+    <div class="row"><span class="who">HIM</span><span class="chip out">FEET step in</span><span class="chip open">lead LOW</span><span class="chip">rear up</span></div>
+    <div class="res">Long to <b>Inside</b>: you both walked in.</div></div>
+  <div class="mom hit"><h3>MOMENT 2</h3>
+    <div class="row"><span class="who">YOU</span><span class="chip out">REAR uppercut</span><span class="chip shut">lead HIGH</span></div>
+    <div class="row"><span class="who">HIM</span><span class="chip out">REAR cross</span><span class="chip open">lead LOW</span></div>
+    <div class="res">His cross: <b>blocked</b> by your lead hand.<br>Your uppercut: <b>COUNTER, −5</b>. 2 points.</div></div>
+  <div class="mom"><h3>MOMENT 3</h3>
+    <div class="row"><span class="who">YOU</span><span class="chip">—</span></div>
+    <div class="row"><span class="who">HIM</span><span class="chip open">DOWN</span></div>
+    <div class="res"><b>HE GOES DOWN.</b> The beat stops here: a man on the floor throws nothing. Up on 6. +3 points.</div></div></div>
+
+<div class="plan">
+  <div class="col"><h4>LEAD HAND</h4>
+    <span class="opt">Jab <small>1</small></span><span class="opt">Body jab <small>1</small></span><span class="opt">Hook <small>2</small></span><span class="opt">Uppercut <small>2</small></span><span class="opt">Body hook <small>2</small></span><span class="opt on">Feint <small>1</small></span><span class="opt">Push off <small>1</small></span><br>
+    <span class="opt">Held HIGH · shuts straight</span><span class="opt">Held LOW · shuts body</span>
+    <h4 style="margin-top:12px">FEET</h4><span class="opt">Step in <small>1</small></span><span class="opt on">Hold <small>0</small></span><span class="opt">Back off <small>1</small></span><span class="opt">Clinch <small>1</small></span></div>
+  <div class="col"><h4>REAR HAND</h4>
+    <span class="opt">Cross <small>2</small></span><span class="opt on">Overhand <small>3</small></span><span class="opt no">Rear uppercut <small>3</small> · his rear is LOW</span><span class="opt">Body cross <small>2</small></span><br>
+    <span class="opt">Held HIGH · shuts side</span><span class="opt">Held LOW · shuts under</span>
+    <div class="cost" style="margin-top:14px">A hand that punches is <b>held high</b> in the other moments of the beat.<br>Feint first: the overhand <b>cannot be covered</b>. Only his clinch stops it — he clinches at 2 stamina or less; he has <b>4</b>.</div></div>
+  <div class="lines"><h4 style="font-size:15px;color:#aab0bc;letter-spacing:2px;margin-bottom:10px">YOUR FOUR LINES THIS BEAT</h4>
+    <div class="line o"><span>STRAIGHT</span><span>open in moment 1 (feint)</span></div><div class="line c"><span>SIDE</span><span>shut until moment 2</span></div><div class="line o"><span>BODY</span><span>open</span></div><div class="line o"><span>UNDER</span><span>open</span></div></div>
+  <div class="go"><div class="order"><div><b>1ST</b>Feint</div><div><b>2ND</b>Overhand</div><div><b>3RD</b>—</div></div>
+    <div class="cost">Costs <b>4</b> of your <b>4</b> stamina. Next beat you start on <b>1</b>.</div><div class="btn">THROW</div></div></div>
+</body></html>

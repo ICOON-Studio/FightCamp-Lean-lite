@@ -454,6 +454,14 @@
      "globs": [
       "ops/previews/s557_lowcover/*_strip.png"
      ]
+    },
+    {
+     "id": "s558_lowcover",
+     "title": "Low cover: before and after (S558)",
+     "kind": "gallery",
+     "globs": [
+      "ops/previews/s558_lowcover/lowcover_before_after.png"
+     ]
     }
    ]
   }

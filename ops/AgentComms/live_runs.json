@@ -21,6 +21,58 @@
    "eta": "answers within about 2 h",
    "title": "Critics on the coaches map as cut (trial week out, chemistry on the hire card): depth and play out of 10, and what reaches 10",
    "brief": "ops/research/CRITIC_COACHMAP1_BRIEF.md"
+  },
+  "ALLPLAY1_ARENA": {
+   "id": "ALLPLAY1_ARENA",
+   "status": "running",
+   "seat": "arena",
+   "agent": "Arena (six bouts in its own clone)",
+   "started": "2026-11-25T20:45",
+   "eta": "about 30 to 50 min",
+   "title": "Ring Switches playtest, judged on fun (his order: have it playtested by all agents and also you)",
+   "brief": "ops/research/TASK_ALLPLAY1.md",
+   "issue": "https://arena.ai/agent/01a213f1-abc2-7e72-8f58-694c714b1075",
+   "branch": "arena/714b1075-fightcamp-lean-lite"
+  },
+  "ALLPLAY1_ZIVA": {
+   "id": "ALLPLAY1_ZIVA",
+   "status": "running",
+   "seat": "ziva",
+   "agent": "Ziva (six bouts, its editor chat on 7012)",
+   "started": "2026-11-25T20:45",
+   "eta": "about 40 min",
+   "title": "Ring Switches playtest, judged on fun (his order: have it playtested by all agents and also you)",
+   "brief": "ops/research/TASK_ALLPLAY1.md"
+  },
+  "ALLPLAY1_AGY": {
+   "id": "ALLPLAY1_AGY",
+   "status": "running",
+   "seat": "antigravity",
+   "agent": "Antigravity (three bouts by message, play_by_message.mjs)",
+   "started": "2026-11-25T20:45",
+   "eta": "about 60 min, one beat every 75 s",
+   "title": "Ring Switches playtest, judged on fun (his order: have it playtested by all agents and also you)",
+   "brief": "ops/research/TASK_ALLPLAY1.md"
+  },
+  "ALLPLAY1_CLINE": {
+   "id": "ALLPLAY1_CLINE",
+   "status": "stopped",
+   "seat": "cline",
+   "agent": "Cline on a free OpenRouter model",
+   "started": "2026-11-25T20:45",
+   "eta": "stopped after 2 bouts and 9 beats: free-models-per-day limit; resumes when the daily limit resets",
+   "title": "Ring Switches playtest, judged on fun (his order: have it playtested by all agents and also you)",
+   "brief": "ops/research/TASK_ALLPLAY1.md"
+  },
+  "ALLPLAY1_GROK": {
+   "id": "ALLPLAY1_GROK",
+   "status": "stopped",
+   "seat": "kalli, john, maria",
+   "agent": "Grok bots by message (play_by_message.mjs)",
+   "started": "2026-11-25T20:45",
+   "eta": "stopped at beat 1-2: the Grok Bot box accepts messages and starts no turn; drivers resume with the same command",
+   "title": "Ring Switches playtest, judged on fun (his order: have it playtested by all agents and also you)",
+   "brief": "ops/research/TASK_ALLPLAY1.md"
   }
  },
  "codex_budget": {
