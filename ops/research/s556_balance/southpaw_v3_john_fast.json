@@ -1,0 +1,19 @@
+{
+ "_note": "southpaw_v3_john, and the cross is a fast punch in the open stance (its line is clear: speed 1, was 2).",
+ "ACT": {
+  "cross": {
+   "line": "ostraight",
+   "sp": 1
+  }
+ },
+ "src": [
+  [
+   "if (act[k] !== 'lead') c[COVER[P[k].hl][0]] = 1; if (act[k] !== 'rear') c[COVER[P[k].hr][1]] = 1;",
+   "if (act[k] !== 'lead') c[COVER[P[k].hl][0]] = 1; if (act[k] !== 'rear') { c[COVER[P[k].hr][1]] = 1; if (P[k].hr === 'high') c.ostraight = 1; }"
+  ],
+  [
+   "const LINE = { straight: 'Head, straight',",
+   "const LINE = { ostraight: 'Head, the rear straight down the middle', obody: 'Body, the rear straight', straight: 'Head, straight',"
+  ]
+ ]
+}

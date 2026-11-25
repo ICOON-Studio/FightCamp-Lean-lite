@@ -428,6 +428,15 @@
      "globs": [
       "ops/previews/s554_ring/*.png"
      ]
+    },
+    {
+     "id": "s556_bodyjab",
+     "title": "Body jab: its own take, 8 runs (S556)",
+     "kind": "gallery",
+     "globs": [
+      "ops/previews/s556_bodyjab/*_strip.png"
+     ],
+     "cols": 1
     }
    ]
   }

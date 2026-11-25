@@ -1,0 +1,16 @@
+{
+ "_note": "THE GROUND RULE IS ON THE PAGE SINCE S556: this file no longer fits; run breath.json alone, it now measures both. Both seat changes together: moving costs breath (breath.json) and an even round to the man who gave less ground (ground.json).",
+ "N": {
+  "even": 1
+ },
+ "src": [
+  [
+   "home = l.clinch ? 0 : (l.lead ? 0 : 1) + (l.rear ? 0 : 1);",
+   "home = l.clinch || (l.feet && l.feet !== 'hold') ? 0 : (l.lead ? 0 : 1) + (l.rear ? 0 : 1);"
+  ],
+  [
+   "else { d++; f[k].ropes++; }",
+   "else { d++; f[k].ropes++; f[k].gave = (f[k].gave || 0) + 1; }"
+  ]
+ ]
+}

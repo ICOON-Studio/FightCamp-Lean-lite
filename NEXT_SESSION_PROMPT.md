@@ -1,111 +1,106 @@
-# S556 handover (written 2026-11-25, S555 - Fable)
+# S557 handover (written 2026-11-25, S556 - Fable)
 
-Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. The result page of S555, NOT GREEN list first:
-`docs/RINGSWITCH_BALANCE_S555.md`.
+Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. The result pages of S556, NOT GREEN lists
+first: `docs/RINGSWITCH_S556.md` (the page), `docs/RINGSWITCH_SOUTHPAW_S556.md`, `docs/BODYJAB1_RESULT.md`.
 
 ## METHOD lines - quote all of them in your first message
 - ## METHOD - RING SWITCHES IS THE MAIN LINE, AND THE ORDER VERSION IS THE PAGE (owner S553: "i think we should focus more
   on the RingSwitches"; S555: "first off i want version with theorder of actions"). `proto/twohands/order.html` is the
-  hand-edited source. Its generator is gone; `switch.html` is the old version without order: do not build on it.
+  hand-edited source. `switch.html` is the old version without order: do not build on it.
 - ## METHOD - THE SLICE IS BALANCED ON THE INSTRUMENT, NEVER BY HAND (owner S555: "vs the jabber you win very easy , all
   your rear hands land easy , need better balance , i want this slice to be perfectly balance to move on (always have in
-  scope other arts that will be added and knees and elbows)"). AFTER ANY RULE OR NUMBER CHANGE ON THE PAGE:
-  `node proto/twohands/tools/balance.mjs table` (about 7 minutes, writes vtable.json, which the page loads), then
-  `node proto/twohands/tools/balance.mjs play who=mix opp=mirror n=84` (prints the nine bars), then
-  `node proto/twohands/tools/rules_test.mjs` (30 tests). A change is TRIED without touching the page: `tweak=<file.json>`
-  (examples in ops/research/s555_balance/). A quick look may reuse a nearby table (`table=<f>`, 2 minutes); the answer that
-  goes on the page gets its own table.
+  scope other arts that will be added and knees and elbows)"). A CHANGE IS FIRST TRIED WITHOUT TOUCHING THE PAGE
+  (`tweak=<file.json>`, examples in ops/research/s555_balance and s556_balance; `tweak_check.mjs <file>` says whether it
+  still fits the page). AFTER ANY RULE OR NUMBER CHANGE ON THE PAGE: `node proto/twohands/tools/balance.mjs table`
+  (about 5 minutes, writes vtable.json, which the page loads), then `node proto/twohands/tools/balance.mjs play who=mix
+  opp=mirror n=84` (the nine bars; `seed=2` for a second set - one set is +-10 points), then
+  `node proto/twohands/tools/rules_test.mjs` (34 tests) and `node proto/twohands/tools/page_parse.mjs order.html`.
 - ## METHOD - THE FIGHT MUST BE SEEN, SIDE VIEW, BOTH MEN CHEST TO THE CAMERA (owner S553: "Yes, side view"). Every render
   takes `south=blue`. A fall never without its punch. A held hand shows its arm and sits where it guards. Ranges drawn.
 - ## METHOD - THE SEATS' IDEAS ARE USED AND REPORTED (owner S554: "what happenned with the brainstorming from other
   agents ?"). Every answer a seat sends is read the session it lands; he is told what each said, what was built, what not.
-- HOW HE WORKS ON THIS GAME: he plays the page in Chrome while the session runs and writes what is wrong within minutes
-  (S555: three messages in the first hour). Show early; answer his question first, then fix what made him ask.
+- HOW HE WORKS ON THIS GAME: he plays the page in Chrome while the session runs and writes what is wrong within minutes.
+  Show early; answer his question first, then fix what made him ask.
 - A PAGE HE PLAYS IN CHROME NEEDS A SERVER IN A TERMINAL TAB (`python proto/cardgame/serve.py 8797 twohands`; curl first).
-  It was up all S555: http://127.0.0.1:8797/order.html
-- DO NOT EDIT order.html WHILE A balance.mjs RUN IS GOING: its workers read the page as they start.
-- A script with an apostrophe goes in a FILE (the Write tool), never a heredoc. `cd /e/FightCamp/Lean && ...` in every
-  command (a `cd` carries to the next call). Every Godot start goes through `python ops/Tools/godot_slot.py run --who <id> -- ...`.
+  It was up all S556: http://127.0.0.1:8797/order.html
+- DO NOT EDIT order.html (or balance.mjs) WHILE A balance.mjs RUN IS GOING: its workers read both as they start.
+- A script with an apostrophe or a backslash goes in a FILE (the Write tool), never a heredoc. `cd /e/FightCamp/Lean &&
+  ...` in every command (a `cd` carries to the next call). Every Godot start goes through
+  `python ops/Tools/godot_slot.py run --who <id> -- ...`.
 - HIS GAME FIRST: `Get-Process ArcheAgeChronicles` before any render. AGENTS ONLY IN THE CONSOLE.
 - FIGHT ANIMATION: v2 only, no new correction layer in scripts/fight3d; an authored take baked by a tool is the route.
 
-## What S555 left on the page (played in the browser by me for one beat, NOT by him)
-- A blocked punch says whose hand and why: "blocked: your lead hand was still up (its Lead hook comes in moment 2)".
-- The opponents are not scripts: each beat the page solves the guessing game and he draws from the best mix, leaning to
-  his style, with a SKILL (the share of beats he plays that mix: Jabber 0.52, Slugger 0.58, Body Snatcher 0.78).
-- Five rules: a landed jab no longer keeps him out; a step in beats a back off in the same moment; every back off gives
-  ground; the clinch is Inside only and gives 2; the cross and body cross reach Mid and Inside.
-- Numbers: health 17, up on 6 then 4; lead uppercut 2 stamina / 3 health / the hooks' speed; lead hook as fast as the jab.
-- Measured: two equal men who play well box Inside / Mid / Long 32 / 35 / 33% (this morning 6 / 19 / 75), stoppages 20%,
-  draws 12%, 8 of 9 bars (the jab lands 72%). The player who answers the man's last beat wins 44 / 56 / 42% against the
-  three (this morning 100 / 81 / 72), random clicking 11 / 7 / 9%, the best-mix player 81 / 69 / 62%.
-
-## After the handover, the same day (he played and asked; all on the page, pushed)
-- "what pushes means ? how is done ?": a push line says what it is and why it did nothing; his plain beats never shove
-  at nothing. "can you make it so i can drag and fix the order ?": the order chips are dragged (a click still moves one
-  earlier). "when beaten to the punch happens ?": the line names the faster punch; every switch shows its punch's speed
-  (fast / medium / slow). "can you add tooltips for these rules when they apply": hover or tap a row of the beat
-  (`ruleOf`). "visuals for the player to understand which is his leading hand ?": a drawing on each hand's header with
-  that glove lit. NOT done there: the gloves are not marked on the fight picture itself (pictures carry no glove
-  positions except at contact). 32 rule tests.
-- STANCES (his question: "dont we need stances ? switching lead hands , does that fit or it make things brake and
-  complicated ?"). My answer, which he took ("yes prepare this for next session"): stance is a TRAIT of a fighter (a
-  southpaw opponent first), not a switch flipped during a beat (a fourth decision a beat, four stance pairings for the
-  balance, every picture mirrored). NOTHING IS MEASURED YET.
+## What S556 left
+- **The page** (commit 9a8e2a0f5): the body jab with its own pictures; an even round goes to the man who backed off
+  less; health 18 (the opponents 16 / 21 / 18). Two equal men who play well: 8 of 9 bars on two sets of 84 bouts (16%
+  stopped, 2.25 knockdowns, 7.5% draws, Inside / Mid / Long 32 / 35 / 33%); the failing bar is the old one (the jab lands
+  73%, the body jab 69%). The measuring player wins 54 / 51 / 40% against the three. One beat played in the browser by me.
+  HE HAS NOT PLAYED IT.
+- **Moving costs breath** (both seats' other ask): measured, NOT on the page - the men stop moving (feet stay 47% of
+  beats, was 27%), 7 of 9 bars.
+- **The southpaw**: five rule versions measured, none passes (best 6 of 9), none matches John's numbers (the rear
+  straight thrown 25 to 40% more, the jab landing half as often). Why: the rear hand held high already stops the hook
+  and the overhand; with the cross it stops three big punches and the lead hand held high is left with the jab alone
+  (held in 2% of beats). NOTHING BUILT. The design question is with Kalli: SQ334,
+  `ops/research/RINGSWITCH_SOUTHPAW2_BRIEF.md` -> `RINGSWITCH_SOUTHPAW2_BRIEF_KALLI.md`.
+- **The body jab take** (`pro_body_jab`, commit d447ba3a5): `tools/pics2d_bodycross_bake.gd -- take=jab ...` (the tool
+  now takes the punching arm as a setting; the body cross bakes unchanged). Its clip table row was added BY HAND.
+- **Export**: Builds/ rebuilt in S556 (it carries S548's two game changes; WHAT_TO_TRY.txt X and Y).
 
 ## FIRST
-0. THE SOUTHPAW, MEASURED (he said yes). Orthodox against southpaw is the OPEN stance, and both men are in it, so the
-   mirror bout is that game. Two variants are ready to run, nothing on the page is touched:
-   `ops/research/s555_balance/southpaw_v1.json` (the rear straights - cross and body cross - come down the middle past
-   the lead hand: the REAR hand stops them, high the cross, low the body cross) and `southpaw_v2.json` (v1, and the lead
-   hands are in each other's way: a lead hand held LOW stops the jab too).
-   a. `node proto/twohands/tools/tweak_check.mjs ops/research/s555_balance/southpaw_v1.json southpaw` (the tweak's text
-      pairs still fit the page? it prints PASS).
-   b. For each: `node proto/twohands/tools/balance.mjs table tweak=<f> out=<scratch>/sp1.vt.json` (7 to 8 minutes), then
-      `node proto/twohands/tools/balance.mjs play who=mix opp=mirror n=84 tweak=<f> table=<scratch>/sp1.vt.json`
-      (or both in one go: `N=84 sh proto/twohands/tools/balance_batch.sh <scratch_dir> <f1> <f2>`).
-   c. Report to him against the same nine bars, beside today's closed-stance numbers (docs/RINGSWITCH_BALANCE_S555.md):
-      does the open stance stay balanced, and does it ASK SOMETHING ELSE (which hand is held where, how often the cross
-      and the jab are thrown and land)? If it only shifts numbers, say so: then a southpaw is not worth its pictures.
-   d. Only if it passes and differs: the build is a fourth opponent "The Southpaw" whose bouts use the open table (the
-      cover rule keyed by the stance pairing - write it that way from the start, kicks will need the same key), with
-      `covers()`, THREAT / STOPS / YOURS and `ruleOf` saying the open-stance words, and MIRRORED PICTURES of the red man
-      (the mirrored man is what breaks the clinch picture: docs/HOLDTAKES1_RESULT.md). The picture cost is the real price;
-      tell him that number before building. Real-boxing grounding to name in the report (owner S537): ask John for the
-      sourced numbers on orthodox v southpaw (jab and rear-straight land rates) - queue it at session start.
-1. HIS PLAY on the balanced page. If he says an opponent is too hard or too easy, the knob is `skill` in OPPS (0.5 to
-   1.0: the simple player's wins fall from about 60% to about 25%); re-measure with
-   `balance.mjs play who=sensible opp=0,1,2 n=84`.
-2. THE TWO CHANGES BOTH SEATS ASKED FOR, measured on the tool before anything is built (table in the result page):
-   MOVING COSTS BREATH (a held hand gives its +1 stamina only on a beat the feet stayed) and AN EVEN ROUND GOES TO THE MAN
-   WHO GAVE LESS GROUND. Then, one seat each or both: the lead uppercut beats a clinch in the same moment, HURT, Kalli's
-   "back off escapes hooks, not straights" with a CIRCLE feet switch (a new switch needs its pictures).
-3. THE BODY JAB. Measured on the balanced rules it is better still (draws 12% -> 4%, the jab and the body jab each 12% of
-   beats, so Long gets a real guess) but it has no picture. Author its take (pattern `tools/pics2d_bodycross_bake.gd`,
-   496 lines, built around the RIGHT arm: either make its arm and source a parameter and prove the body cross bakes
-   unchanged, or a second tool; name the study and clip it follows, owner S537), family `body_jab` in tools/pics2d_set.gd
-   (499 lines: the entry must replace a comment line), render its runs, then
-   `python ops/research/s555_balance/apply_rules_bjab_patch.py bjab` IS NOT RUNNABLE AS IS (it holds this session's whole
-   rule patch): take only its `if BJAB:` block, add the run names to anim_check.mjs, rebuild the table, re-measure.
-   A baked `mc_Box1_M3_Body_Jab.res` is loaded by the game as `pro_body_jab` by itself (FightClips.pro_stems): check
-   clip census and ring_steps tests after baking.
+-1. COLLECT ZIVAPLAY1 (owner after the S556 handover: "Can ziva play test it and judge it on fun?"). Ziva was started in
+   S556 (the editor on E:/FightCamp/wt/ZIVA_LEAN, chat "Ring Switches Playtest and Fun Evaluation" at
+   http://127.0.0.1:7012/) and plays nine bouts IN WORDS with `proto/twohands/tools/play_cli.mjs` (the page's own rules
+   and opponents; brief `ops/research/TASK_ZIVAPLAY1.md`). Its report: `E:/FightCamp/tmp/zivaplay1/ZIVAPLAY1_REPORT.md`,
+   the bouts' logs beside it. Read it, CHECK THREE OF ITS BEATS against the logs (a seat's claims are re-run before they
+   are trusted), copy the report to ops/research/, tell him what it said and what you do about it, archive the run in
+   live_runs.json. If it stalled: the chat's last message says where; "continue" restarts it. It judged from words and a
+   few pictures: say so beside every score. If the editor is no longer needed, close it by its PID, never by name.
+   `play_cli.mjs` is also the way for ANY shell seat (Arena, Cline, Antigravity) to play the game.
+0. KALLI'S COVER TABLE for the open stance, if it has landed (`start` prints SEAT ANSWERS). Write it as a tweak
+   (pattern: `ops/research/s556_balance/southpaw_v3_john.json` - `ACT.<id>.line` gives a punch its own line, the `src`
+   pair on the cover line says which held hand covers it), `tweak_check.mjs`, then
+   `N=84 sh proto/twohands/tools/balance_batch.sh <out_dir> <file>` (5 minutes a version). Tell him against the nine
+   bars AND John's two facts (the cross thrown MORE than 3.8 a bout, the jab landing well under 73%). Build only at 8
+   bars or more; the build is "The Southpaw", a fourth opponent whose bouts use the open table (the cover rule keyed by
+   the stance pairing), with mirrored pictures of the red man - tell him the picture cost first (about 60 runs, 25
+   minutes of rendering, and the clinch picture breaks with a mirrored man: docs/HOLDTAKES1_RESULT.md).
+1. HIS PLAY on the page. If an opponent is too hard or too easy the knob is `skill` in OPPS (0.5 to 1.0); re-measure
+   with `balance.mjs play who=sensible opp=0,1,2 n=84`. The Body Snatcher stops the measuring player in 40% of bouts:
+   the first one to watch.
+2. THE LOOK-AHEAD DOES NOT KNOW THE GROUND RULE: the solved mix backs off as before, so against a human who plays for
+   level rounds the opponents give ground too cheaply. Either a term in `worth()` for the last beats of a level round, or
+   raise `W.ropes` and re-measure. Measure before and after with the mirror and the three opponents.
+3. THE BODY JAB'S AND THE BODY CROSS'S BLOCKED AND MISSED PICTURES are at chest height (the picture tool sends a blocked
+   body punch onto the cover-up; `mc_block` holds its elbows 0.44-0.47 m over the rib target). An authored LOW cover
+   (elbow down on the ribs) is the fix: the animation item of S557. Name the study and the clip it follows (owner S537).
+4. The rest of the seats' list, each measured on the tool before anything is built: the lead uppercut beats a clinch in
+   the same moment (both seats), HURT, Kalli's CIRCLE feet switch (needs pictures).
 
 ## Then
+- The body hook is the least used punch now (4% of beats; the bar is 3%): watch it after any change.
 - The clinch when HE ties up (a head inside a head with blue mirrored; docs/HOLDTAKES1_RESULT.md).
 - Both REAR hooks that miss are still wide (0.30, 0.34 m). The uppercut picture he sent without words in S552.
-- The page's long how-to text (five lines of rules at the start): he likes little text; move it to hovers.
-- The guard bar: Kalli says cut it, John rebuilds it on stamina. Still his call (it is on the page, nearly idle).
-- The measuring tools `probe_rules.mjs`, `probe_body_jab*.mjs`, `probe_jab_keep.mjs`, `probe_order_guard.mjs` predate the
-  solved opponents: each opponent beat is now a full solve, so they are slow; `balance.mjs play` replaces them.
+- The page's long how-to text: he likes little text; move it to hovers.
+- The guard bar: Kalli says cut it, John rebuilds it on stamina. Still his call.
+- THE CLIP TABLE IS NOT WHAT ONE TOOL WRITES: a full `tools/clip_census.gd` run today changes eight rows
+  (pro_body_cross's contact goes to 0.35 s, pro_right_cross moves, the gut-shot reactions lose the fold fields of
+  `tools/bodyreact2_bake.gd`). Add or refresh ONE row by hand until the census keeps those (docs/BODYJAB1_RESULT.md).
 
 ## Not touched this session
 MATCHBOTS2 hooks on disk, uncommitted (tests/matchmaking_bots_test.gd is modified in the working tree: not mine); the
-05:00 reds left: matchmaking_bots (old), ring_steps fixed by the 05:00 review, dues_card fixed in S555. NO EXPORT SINCE
-S547: S555 changed no game file (one test, the browser toy and its tools). Dola's two queued briefs (SQ324, SQ327) never
-left the queue. Animation: no take was authored this session - the body jab take is the animation item of S556.
+05:00 run of 2026-11-25: no new red (matchmaking_bots is the old one; dues_card was fixed in S555 and ring_steps by the
+05:00 review, both after that run). Dola's two queued briefs (SQ324, SQ327) cannot leave
+the queue: her app runs without its debug port.
+
+## His words after the handover (S556)
+- "Maybe breath can be used to put a limit on movements if that becomes an issue": moving costs breath stays OFF the
+  page and in reserve (`ops/research/s556_balance/breath.json`); bring it back, measured, only if moving becomes a problem.
+- "Can ziva play test it and judge it on fun?": yes, see FIRST -1.
 
 ## Waiting on the owner
-His play on the balanced page. The guard bar: cut or rebuild. The rest of his Q-336 note ("thecoaches should have").
+His play on the page with the body jab. The southpaw: wait for Kalli's table (my advice) or build a version anyway.
+The guard bar: cut or rebuild. The rest of his Q-336 note ("thecoaches should have").
 
-## Model for S556
-Fable, medium effort, Fast off: his play decides the first hour; the body jab is an authored take judged by eye.
+## Model for S557
+Fable, medium effort, Fast off: his play decides the first hour; a low cover take is authored and judged by eye.

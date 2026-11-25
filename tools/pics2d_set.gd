@@ -23,7 +23,7 @@ const BeatClips := preload("res://scripts/fight3d/BeatClips.gd")
 const Gate := preload("res://tools/pics2d_gate.gd")   # PICSFIX1: no body through a body, a blocked punch ends on the block
 ## family -> [takes in order of preference, body target]
 const FAMILIES := {
-	"jab": [["pro_left_jab", "pro_left_jab_a", "pro_left_jab_ft"], false],
+	"jab": [["pro_left_jab", "pro_left_jab_a", "pro_left_jab_ft"], false], "body_jab": [["pro_body_jab"], true],   # S556 BODYJAB1: the authored take (pics2d_bodycross_bake.gd take=jab)
 	"cross": [["pro_right_cross", "pro_right_cross_ft", "pro_right_cross_a"], false],
 	"lead_hook": [["pro_left_hook_ft", "pro_left_hook_v2", "pro_left_hook_hard_ft"], false],
 	"rear_hook": [["pro_right_hook_ft", "pro_right_hook", "pro_right_hook_hard"], false],
@@ -39,7 +39,7 @@ const LOOK_Y := 1.02
 const KO_CLIP := "pro_knockout_v1"
 ## A landed punch: the target's own hit reaction, held this far in (the head on its way, the guard parted).
 const REACT := {"jab": "pro_hit_by_jab_v3", "cross": "pro_hit_by_cross_v1_short", "lead_hook": "pro_hit_by_hook_v1_short",
-	"rear_hook": "pro_hit_by_hook_v2_short", "body_hook": "pro_hit_by_gutshot_v2_short", "body_cross": "pro_hit_by_gutshot_v2_short",
+	"rear_hook": "pro_hit_by_hook_v2_short", "body_hook": "pro_hit_by_gutshot_v2_short", "body_cross": "pro_hit_by_gutshot_v2_short", "body_jab": "pro_hit_by_gutshot_v2_short",
 	"lead_uppercut": "pro_hit_by_hook_v5", "rear_uppercut": "pro_hit_by_cross_v1_short"}
 const REACT_AT_S := 0.05
 const KO_AT := [0.16, 0.42, 0.97]

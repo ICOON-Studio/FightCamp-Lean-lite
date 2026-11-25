@@ -66,7 +66,7 @@ export async function buildTable(tweak, o = {}) { const R = loadTweaked(1, tweak
 // opponents, as the page plays them) or 'mirror' (the same man, no style). Returns counts for the report.
 function bouts(R, who, opp, n) { const { N, ACT, plan0, man, cost, resolve, endBeat } = R, rnd = R.rnd, mirror = opp === 'mirror';
   if (mirror) { if (!R.OPPS[3]) R.OPPS.push({ n: 'mirror', hp: N.hp, read: 0, like: [], lean: 0 }); R.setOpp(3); } else R.setOpp(opp);
-  const o = { n, w: 0, draw: 0, ko: 0, lost: 0, beats: 0, clinch: 0, rng: [0, 0, 0, 0], use: [{}, {}], pun: [{}, {}], np: [[0, 0, 0], [0, 0, 0]], dmg: [0, 0], first: {}, ordered: 0, kd: [0, 0] };
+  const o = { n, w: 0, draw: 0, ko: 0, lost: 0, beats: 0, clinch: 0, rng: [0, 0, 0, 0], use: [{}, {}], pun: [{}, {}], np: [[0, 0, 0], [0, 0, 0]], dmg: [0, 0], first: {}, ordered: 0, kd: [0, 0], lvl: [0, 0, 0] };   // lvl: rounds scored, level on points, of those given to the man who backed off less (N.even, S556)
   const sensible = (S) => { const me = S.f[0], he = S.f[1], g0 = he.last || plan0(), guess = cost(g0) <= he.st ? g0 : { ...plan0(), hl: g0.hl, hr: g0.hr }; let best = plan0(), bv = -1e9;
     for (const c of R.plansFor(S, 0)) { if (c.clinch) continue; const T = { range: S.range, f: S.f.map((m) => ({ ...m, hist: [] })) }; resolve(T, [{ ...c }, { ...guess, clinch: false }]);
       const v = (he.hp - T.f[1].hp) - (me.hp - T.f[0].hp) + 0.25 * T.f[0].st + rnd() * 0.5; if (v > bv) { bv = v; best = c; } }
@@ -74,7 +74,7 @@ function bouts(R, who, opp, n) { const { N, ACT, plan0, man, cost, resolve, endB
   const note = (k, c) => { const u = o.use[k], add = (x) => { u[x] = (u[x] || 0) + 1; }; if (c.clinch) return add('clinch'); add(c.lead || 'lead held ' + c.hl); add(c.rear || 'rear held ' + c.hr); add(c.feet === 'hold' ? 'feet hold' : c.feet === 'in' ? 'step in' : 'back off');
     o.np[k][(c.lead && ACT[c.lead].d ? 1 : 0) + (c.rear ? 1 : 0)]++; if (k === 0 && c.ord && c.ord.length > 1) { o.ordered++; o.first[c.ord[0]] = (o.first[c.ord[0]] || 0) + 1; } };
   for (let b = 0; b < n; b++) { const S = { f: [man(N.hp), man(R.opp().hp)], range: 3 }; let done = false; const t = [0, 0];
-    for (let r = 0; r < N.rounds && !done; r++) { S.range = 3; for (const m of S.f) { m.pts = 0; m.st = m.cap; m.g = N.guard; m.ropes = 0; m.held = 0; m.kept = 0; }
+    for (let r = 0; r < N.rounds && !done; r++) { S.range = 3; for (const m of S.f) { m.pts = 0; m.st = m.cap; m.g = N.guard; m.ropes = 0; m.held = 0; m.kept = 0; m.gave = 0; }
       for (let i = 0; i < N.beats && !done; i++) { S.t = N.beats - i; let mine, his;
         if (who === 'mix') { const z = R.solveBeat(S, S.t, { iters: 400 }); mine = z.A[drawAt(z.p, rnd)]; his = mirror ? z.B[drawAt(z.q, rnd)] : null; }
         else if (who === 'random') { const A = R.plansFor(S, 0); mine = A[Math.floor(rnd() * A.length)]; } else mine = sensible(S);
@@ -82,7 +82,8 @@ function bouts(R, who, opp, n) { const { N, ACT, plan0, man, cost, resolve, endB
         note(0, mine); note(1, his); const hp = [S.f[0].hp, S.f[1].hp], ev = resolve(S, [{ ...mine }, { ...his }]); endBeat(S); o.beats++; o.rng[S.range]++; o.dmg[0] += hp[1] - S.f[1].hp; o.dmg[1] += hp[0] - S.f[0].hp;
         for (const e of ev) { if (e.t === 'clinch') o.clinch++; if (e.id && (e.t === 'hit' || e.t === 'block' || e.t === 'miss')) { const q = o.pun[e.k][e.id] = o.pun[e.k][e.id] || { hit: 0, block: 0, miss: 0 }; q[e.t]++; } }
         for (const k of [0, 1]) if (S.f[k].hp <= 0) { S.f[k].kd++; o.kd[k]++; S.f[1 - k].pts += 3; if (S.f[k].kd > N.kd.length) { if (k === 1) { o.w++; o.ko++; } else o.lost++; done = true; break; } S.f[k].hp = N.kd[S.f[k].kd - 1]; } }
-      if (!done) { const [x, y] = S.f; t[0] += x.pts >= y.pts ? 10 : 9; t[1] += y.pts >= x.pts ? 10 : 9; } }
+      if (!done) { const [x, y] = S.f, lvl = x.pts === y.pts, g = lvl && N.even ? Math.sign((y.gave || 0) - (x.gave || 0)) : 0;   // g > 0: he backed off more, the level round is yours (a tweak counts gave on the page's back off)
+        o.lvl[0]++; if (lvl) o.lvl[1]++; if (g) o.lvl[2]++; t[0] += x.pts > y.pts || (lvl && g >= 0) ? 10 : 9; t[1] += y.pts > x.pts || (lvl && g <= 0) ? 10 : 9; } }
     if (!done) { if (t[0] > t[1]) o.w++; else if (t[0] === t[1]) o.draw++; } }
   return o; }
 const drawAt = (mix, rnd) => { let x = rnd(), i = 0; while (i < mix.length - 1 && (x -= mix[i]) > 0) i++; return i; };
@@ -93,7 +94,7 @@ export async function play(who, opp, n, o = {}) { const jobs = o.jobs || 7, self
   return got.reduce(merge, null); }
 // the report of one pairing
 export function report(R, who, opp, o) { const pc = (x) => (100 * x).toFixed(0) + '%', L = [], name = opp === 'mirror' ? 'the same man (no style)' : R.OPPS[opp].n, tot = (q) => q.hit + q.block + q.miss;
-  L.push(`${who} v ${name}: wins ${pc(o.w / o.n)}, draws ${pc(o.draw / o.n)}, stops him ${pc(o.ko / o.n)}, is stopped ${pc(o.lost / o.n)}; knockdowns a bout ${(o.kd[1] / o.n).toFixed(1)} v ${(o.kd[0] / o.n).toFixed(1)}; health taken a bout ${(o.dmg[0] / o.n).toFixed(1)} v ${(o.dmg[1] / o.n).toFixed(1)}; beats at Inside / Mid / Long ${[1, 2, 3].map((r) => pc(o.rng[r] / o.beats)).join(' / ')}; clinches a bout ${(o.clinch / o.n).toFixed(1)}`);
+  L.push(`${who} v ${name}: wins ${pc(o.w / o.n)}, draws ${pc(o.draw / o.n)}, stops him ${pc(o.ko / o.n)}, is stopped ${pc(o.lost / o.n)}; knockdowns a bout ${(o.kd[1] / o.n).toFixed(1)} v ${(o.kd[0] / o.n).toFixed(1)}; health taken a bout ${(o.dmg[0] / o.n).toFixed(1)} v ${(o.dmg[1] / o.n).toFixed(1)}; beats at Inside / Mid / Long ${[1, 2, 3].map((r) => pc(o.rng[r] / o.beats)).join(' / ')}; clinches a bout ${(o.clinch / o.n).toFixed(1)}; rounds level on points ${pc(o.lvl[1] / Math.max(1, o.lvl[0]))}${o.lvl[2] ? `, ${pc(o.lvl[2] / Math.max(1, o.lvl[1]))} of them given on ground` : ''}`);
   for (const k of [0, 1]) { const u = o.use[k], np = o.np[k], nb = o.beats;
     L.push(`  ${k ? 'he ' : 'you'} a beat: ` + Object.keys(u).sort((a, b) => u[b] - u[a]).map((a) => `${nameOf(R, a)} ${pc(u[a] / nb)}`).join(', ') + ` | punches in a plan: none ${pc(np[0] / nb)}, one ${pc(np[1] / nb)}, two ${pc(np[2] / nb)}`);
     L.push(`  ${k ? 'his ' : 'your'} punches (thrown a bout: lands / blocked / misses): ` + Object.keys(o.pun[k]).sort((a, b) => tot(o.pun[k][b]) - tot(o.pun[k][a])).map((id) => { const q = o.pun[k][id]; return `${R.ACT[id].n} ${(tot(q) / o.n).toFixed(1)}: ${pc(q.hit / tot(q))} / ${pc(q.block / tot(q))} / ${pc(q.miss / tot(q))}`; }).join(', ')); }

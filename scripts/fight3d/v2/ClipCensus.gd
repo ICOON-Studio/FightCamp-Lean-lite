@@ -42,13 +42,13 @@ const MEDIUM_MAX_M := 0.30
 
 ## BODYCROSS4 (S548): the families aimed at the trunk (ChoreoRules.is_body reads this list: a third body punch is one
 ## name here), and the takes only the v2 player plays (no BeatClips pool of the old player picks them).
-const BODY_FAMILIES := ["body_hook", "body_cross"]
+const BODY_FAMILIES := ["body_hook", "body_cross", "body_jab"]
 const V2_PLAYS := ["pro_body_cross"]
 
 ## Punch families by the name's stem (Punch PRO pro_<stem>[form], Starter mc_<family>).
 const STEMS := {
 	"left_jab": "jab", "right_cross": "cross", "left_hook": "lead_hook", "right_hook": "rear_hook",
-	"left_uppercut": "lead_uppercut", "right_uppercut": "rear_uppercut", "body_shot": "body_hook", "kidney_shot": "body_hook",
+	"left_uppercut": "lead_uppercut", "right_uppercut": "rear_uppercut", "body_shot": "body_hook", "kidney_shot": "body_hook", "body_jab": "body_jab",   # S556 BODYJAB1: the authored lead straight to the body (pics2d_bodycross_bake.gd take=jab); its own family: only the 2D pictures use it
 	"body_cross": "body_cross",   # S542 BODYCROSS1: the authored rear straight to the body (tools/pics2d_bodycross_bake.gd); its own family, so no cross or body-hook pool picks it (S548 BODYCROSS4: the v2 player throws it, Choreographer.plan)
 }
 const MC_PUNCH := {"mc_jab": "jab", "mc_cross": "cross", "mc_lead_hook": "lead_hook", "mc_rear_hook": "rear_hook",

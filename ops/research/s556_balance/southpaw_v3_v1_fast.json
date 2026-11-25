@@ -1,0 +1,22 @@
+{
+ "_note": "southpaw_v1 (both rear straights are stopped by the rear hand: high the cross, low the body cross), and the cross is a fast punch in the open stance (speed 1, was 2).",
+ "ACT": {
+  "cross": {
+   "line": "ostraight",
+   "sp": 1
+  },
+  "rbody": {
+   "line": "obody"
+  }
+ },
+ "src": [
+  [
+   "if (act[k] !== 'lead') c[COVER[P[k].hl][0]] = 1; if (act[k] !== 'rear') c[COVER[P[k].hr][1]] = 1;",
+   "if (act[k] !== 'lead') c[COVER[P[k].hl][0]] = 1; if (act[k] !== 'rear') { c[COVER[P[k].hr][1]] = 1; c[P[k].hr === 'high' ? 'ostraight' : 'obody'] = 1; }"
+  ],
+  [
+   "const LINE = { straight: 'Head, straight',",
+   "const LINE = { ostraight: 'Head, the rear straight down the middle', obody: 'Body, the rear straight', straight: 'Head, straight',"
+  ]
+ ]
+}

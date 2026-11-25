@@ -3,23 +3,23 @@
  "updated": "2026-11-25",
  "author": "claude S294",
  "now": {
-  "id": "S555",
+  "id": "S556",
   "owner": "claude",
   "updated": "2026-11-25",
-  "summary": "S555 (Fable) HANDOVER. ## METHOD - RING SWITCHES IS THE MAIN LINE, AND THE ORDER VERSION IS THE PAGE (owner S555: 'first off i want version with theorder of actions'). ## METHOD - THE SLICE IS BALANCED ON THE INSTRUMENT, NEVER BY HAND (owner S555: 'vs the jabber you win very easy , all your rear hands land easy , need better balance , i want this slice to be perfectly balance to move on (always have in scope other arts that will be added and knees and elbows)'): after any rule or number change on proto/twohands/order.html run tools/balance.mjs table, then play, then rules_test. ## METHOD - THE FIGHT MUST BE SEEN, SIDE VIEW, BOTH MEN CHEST TO THE CAMERA. ## METHOD - THE SEATS' IDEAS ARE USED AND REPORTED. Done: order.html is the single source (its generator is gone); a block says whose hand and why; the opponents play each beat's solved mix with a style lean and a skill, not a script; five rule changes and new numbers chosen on the balance tool - two equal men who play well now box Inside / Mid / Long 32 / 35 / 33% (was 6 / 19 / 75), stoppages 20%, draws 12%, 8 of 9 bars (the jab lands 72%). The player who answers the man's last beat wins 44 / 56 / 42% (was 100 / 81 / 72). NOT GREEN: he has not played it; the body jab is measured better still but has no picture; six seat ideas unbuilt and unmeasured. docs/RINGSWITCH_BALANCE_S555.md.",
-  "next_action": "S556: FIRST the southpaw, measured (owner S555 on stances: 'yes prepare this for next session'): run ops/research/s555_balance/southpaw_v1.json and _v2.json on tools/balance.mjs (tweak_check, table, play who=mix opp=mirror n=84) and report against the nine bars beside the closed-stance numbers; build nothing before he has the report. Then his play on the balanced page; the two changes both seats asked for (moving costs breath; an even round to the man who gave less ground), measured; the body jab take.",
-  "last_working_commit": "a42f93d47",
-  "verified_playable": "The S547 build is the last exported .exe. Ring Switches (a browser toy): the order page played in the browser in S555 (one beat against the Jabber: the new block line, a step in, the clinch switch saying Inside only; no console errors; the opponent's choice ready in under a second); 30 rule tests pass; the mirror bout on the page's own rules and table passes 8 of 9 bars.",
-  "incomplete_blocked": "No export since S547 (S555 changed no game file). Ring Switches: the owner has not played the balanced page; the jab lands 72% (the one failing bar); the body jab is measured better but has no take; six seat ideas are unbuilt and unmeasured; red's tie-up borrows blue's picture; both rear hooks that miss are wide; men's pair only; the page's how-to text is long. MATCHBOTS2 not launched. Dola's SQ324 and SQ327 never left the queue.",
-  "next_acceptance": "The open-stance game is measured with its own table for both variants and reported to him against the nine bars, with what it asks differently and the picture cost of a southpaw opponent; he has played the balanced page and said how each opponent feels.",
+  "summary": "S556 (Fable) HANDOVER. ## METHOD - RING SWITCHES IS THE MAIN LINE, AND THE ORDER VERSION IS THE PAGE (owner S555: 'first off i want version with theorder of actions'). ## METHOD - THE SLICE IS BALANCED ON THE INSTRUMENT, NEVER BY HAND (owner S555: 'need better balance , i want this slice to be perfectly balance to move on'): a change is tried as a tweak file first; after any rule or number change on proto/twohands/order.html run tools/balance.mjs table, then play (two sets), then rules_test. ## METHOD - THE FIGHT MUST BE SEEN, SIDE VIEW, BOTH MEN CHEST TO THE CAMERA. ## METHOD - THE SEATS' IDEAS ARE USED AND REPORTED. Done: the southpaw measured in five rule versions (two prepared, three from John's sourced answer SQ333) - none passes (best 6 of 9 bars) and none matches real boxing, nothing built, the cover-table question is with Kalli (SQ334); the body jab has its own authored take and pictures and is on the page; an even round goes to the man who gave less ground (draws 12% -> 6%) is on the page; health 18; the page measures 8 of 9 bars on two sets of 84 bouts (16% stopped, 2.25 knockdowns, 7.5% draws). Moving costs breath measured and left off (the men stop moving, 7 of 9). NOT GREEN: he has not played it; the jab lands 73% and the body jab 69% (the old failing bar); a blocked or missed body punch is drawn at chest height; the look-ahead does not know the ground rule. docs/RINGSWITCH_S556.md, docs/RINGSWITCH_SOUTHPAW_S556.md, docs/BODYJAB1_RESULT.md. After the handover (owner: 'Maybe breath can be used to put a limit on movements if that becomes an issue'; 'Can ziva play test it and judge it on fun?'): breath is kept in reserve as the limiter on movement, not built; proto/twohands/tools/play_cli.mjs plays a bout in words on the page's own rules and opponents; Ziva was started and is playing nine bouts (ZIVAPLAY1, ops/research/TASK_ZIVAPLAY1.md).",
+  "next_action": "S557: FIRST collect ZIVAPLAY1 (Ziva's fun playtest of Ring Switches, E:/FightCamp/tmp/zivaplay1/ZIVAPLAY1_REPORT.md; chat on 7012): read it, check three of its beats against the bout logs, tell him what it said and act on it. S557: FIRST Kalli's cover table for the open stance if it has landed (SQ334): write it as a tweak, measure it (5 minutes), report against the nine bars and John's two facts (the cross thrown more than 3.8 a bout, the jab landing well under 73%); build 'The Southpaw' only at 8 bars or more, after telling him the picture cost. Then his play on the page with the body jab; the look-ahead learns the ground rule; a low cover take so a blocked body punch is drawn on the body (the animation item); the rest of the seats' list measured on the tool.",
+  "last_working_commit": "edff485d2",
+  "verified_playable": "Builds/ exported in S556 (the S547 game plus S548's two changes: the 3D fight throws the body cross, the trial evening's pictures show the prospect's own body; pro_body_jab is on disk and unused by the game). Ring Switches (a browser toy): one beat played in the browser in S556 against the Jabber - both men threw a body jab, both landed, no console error; rules_test 34 pass; anim_check 124 runs PASS.",
+  "incomplete_blocked": "Ring Switches: the owner has not played the page with the body jab; the jab lands 73% and the body jab 69% (bar 65%); blocked and missed body punches are drawn at chest height; the look-ahead does not know the ground rule; the southpaw is not built (five versions fail); six seat ideas still unmeasured. The clip table is not reproducible by one tool (a full census run changes eight rows).",
+  "next_acceptance": "Kalli's open-stance cover table is measured with its own look-ahead and reported to him against the nine bars and John's two facts, or, if it has not landed, his play on the page is answered and the look-ahead plays for level rounds (measured before and after).",
   "awaiting_operator": [
-   "His play on the balanced Ring Switches page (http://127.0.0.1:8797/order.html): is each opponent too hard or too easy",
-   "After the southpaw is measured: is a southpaw opponent worth its mirrored pictures",
-   "The guard bar: cut it or rebuild it - Kalli: cut it; John: a block costs stamina instead",
-   "The rest of his Q-336 note (\"thecoaches should have\")"
+   "His play on the Ring Switches page with the body jab (http://127.0.0.1:8797/order.html): is each opponent too hard or too easy",
+   "The southpaw: wait for Kalli's cover table (my advice) or build one of the measured versions anyway",
+   "The guard bar on the page: cut it (Kalli) or rebuild it on stamina (John)",
+   "The rest of his Q-336 note on coaches ('thecoaches should have')"
   ]
  },
- "next": "S556: see NEXT_SESSION_PROMPT.md - the southpaw measured first, his play on the balanced Ring Switches page, the two seat changes, then the body jab take.",
+ "next": "S557: see NEXT_SESSION_PROMPT.md - Kalli's southpaw cover table measured, his play on the page with the body jab, the look-ahead learns the ground rule, a low cover take.",
  "assessment": {
   "source": "Codex deep audit + Cursor televised-MMA gap assessment, both 2026-09-12",
   "bars": [
@@ -2428,6 +2428,11 @@
     "e33d58a09",
     "a42f93d47"
    ]
+  },
+  {
+   "id": "S556",
+   "date": "2026-11-25",
+   "summary": "The southpaw (owner S555: 'yes prepare this for next session') measured on tools/balance.mjs: versions 1 and 2 (6 and 5 of 9 bars), then John's sourced answer (SQ333: the rear straight thrown 25-40% more against a southpaw, the jab landing half as often) and three more versions from it (5, 6, 5 of 9). All fail the same way: the rear hand held high stops three big punches, the lead hand high only the jab. Nothing built; the cover-table design question queued for Kalli (SQ334). The two changes both seats asked for: an even round to the man who gave less ground (draws 12% -> 6%, on the page) and moving costs breath (the men stop moving, 7 of 9, left off). BODYJAB1: tools/pics2d_bodycross_bake.gd takes the punching arm as a setting (the body cross bakes unchanged, 56 keys identical); pro_body_jab authored (glove 7.8 m/s at the touch, elbow 136 deg, sink 0.17 m), family body_jab, clip table row added by hand, eight frame runs through the picture gate; on the page it made the fight too bloody (2.7 knockdowns, 27% stopped over 168 bouts), so health 18: 8 of 9 bars on two sets. Found: a full clip_census run changes eight other rows of clip_db.json. Export rebuilt. Commits d447ba3a5, 9a8e2a0f5, edff485d2."
   }
  ],
  "blocked_on_operator": [],
@@ -5504,21 +5509,27 @@
   "working_now": [],
   "next": [
    {
+    "id": "ZIVAPLAY1",
+    "who": "ziva",
+    "title": "Ring Switches: Ziva plays nine bouts in words and judges it on fun (your 'Can ziva play test it and judge it on fun?') | RUNNING since S556; the report lands in E:/FightCamp/tmp/zivaplay1/ - the next session reads it, checks three of its beats against the logs and tells you what it said",
+    "after": ""
+   },
+   {
     "id": "SOUTHPAW1",
     "who": "claude",
-    "title": "Ring Switches: stances - a southpaw opponent, measured before anything is built (your 'dont we need stances ?', then 'yes prepare this for next session') | two rule variants are ready to run on the balance tool | NEXT: run both, report against the nine bars with the picture cost",
+    "title": "Ring Switches: a southpaw opponent | five rule versions measured, none passes (best 6 of 9 bars; the cross is thrown less, real boxing says more) | NEXT: Kalli's cover table for the open stance (SQ334), measured the day it lands; nothing is built before 8 bars",
     "after": ""
    },
    {
     "id": "BODYJAB1",
     "who": "claude",
-    "title": "Ring Switches: the body jab | measured on the balanced order page: with it draws 12% -> 4% and the jab and body jab are each 12% of beats (Long gets a real guess); it has no picture | NEXT: author its take, render its runs, apply the page patch, rebuild the table",
+    "title": "Ring Switches: the body jab | DONE in S556: its own take and pictures, on the page, health 18 to keep the fight inside the bars | NEXT: your play; a low cover take so a blocked body punch is drawn on the body, not at chest height",
     "after": ""
    },
    {
     "id": "RINGSWITCH1",
     "who": "claude",
-    "title": "Ring Switches, the main line: the order version is the page and it is balanced on the instrument (8 of 9 bars) | NEXT: your play on it; then the two changes both seats asked for (moving costs breath, an even round to the man who gave less ground), measured first",
+    "title": "Ring Switches, the main line: 8 of 9 bars with the body jab and 'an even round goes to the man who backed off less' | NEXT: your play on it; the opponents learn to play for level rounds; the lead uppercut against the clinch, hurt, a circle step - each measured first | KEPT IN RESERVE (your S556 note: 'Maybe breath can be used to put a limit on movements if that becomes an issue'): moving costs breath is measured and off the page; it comes back only if moving becomes a problem",
     "after": "BODYJAB1"
    },
    {
@@ -5923,6 +5934,11 @@
   },
   "done_recently": [
    {
+    "id": "S556",
+    "who": "claude",
+    "title": "Ring Switches: the body jab with its own take and pictures is on the page; an even round goes to the man who backed off less; health 18 (8 of 9 bars); the southpaw measured in five versions with John's real numbers - none passes, Kalli asked for the cover table"
+   },
+   {
     "id": "S555",
     "who": "claude",
     "title": "Ring Switches balanced: the order version is the page; opponents play the best mix with a style and a skill instead of a script; five rule changes - all three ranges fought, stoppages 20%, no dead punch; you no longer walk over the Jabber (44% from 100%)"
@@ -5975,11 +5991,6 @@
    {
     "title": "Boxer v boxer card game: the code-checked critic (page against code, its own exploiting bots, sweeps) - depth and play out of 10",
     "who": "Arena (chat 01a20db8, repo FightCamp-Lean-lite)",
-    "when": "2026-11-24"
-   },
-   {
-    "title": "Make the written fight plan matter (your Q-328 'make it more impactful'): three ways measured in real bouts before any design",
-    "who": "claude-opus-5-5 (console tab PLANIMPACT1 resumed, tab c3 of the S548 session)",
     "when": "2026-11-24"
    }
   ],
@@ -6069,6 +6080,30 @@
   "map": {
    "done_earlier": [
     {
+     "text": "Order version is the page",
+     "who": "claude"
+    },
+    {
+     "text": "Opponents play the solved mix",
+     "who": "claude"
+    },
+    {
+     "text": "Dues card test fixed",
+     "who": "claude"
+    },
+    {
+     "text": "Ring Switches balanced: 8/9 bars",
+     "who": "claude"
+    },
+    {
+     "text": "Kalli + John read: balance",
+     "who": "claude"
+    },
+    {
+     "text": "Rule tooltips, drag order, hands",
+     "who": "claude"
+    },
+    {
      "text": "Guard holds pass their bars",
      "who": "claude"
     },
@@ -6099,55 +6134,35 @@
     {
      "text": "Kalli + John read: body jab first",
      "who": "claude"
-    },
-    {
-     "text": "Guard holds authored (4 + pairs)",
-     "who": "claude"
-    },
-    {
-     "text": "STYLEPLACE1 checked: FAIL stands",
-     "who": "claude"
-    },
-    {
-     "text": "Guard bar measured: never breaks",
-     "who": "claude"
-    },
-    {
-     "text": "Ring Switches: frame by frame",
-     "who": "claude"
-    },
-    {
-     "text": "Coaches probe 2 checked, asked",
-     "who": "claude"
-    },
-    {
-     "text": "Old red test fixed (move tip)",
-     "who": "claude"
     }
    ],
    "done_session": [
     {
-     "text": "Order version is the page",
+     "text": "Southpaw measured: 2 variants",
      "who": "claude"
     },
     {
-     "text": "Opponents play the solved mix",
+     "text": "Body jab: own take + pictures",
      "who": "claude"
     },
     {
-     "text": "Dues card test fixed",
+     "text": "Even round to ground: measured",
      "who": "claude"
     },
     {
-     "text": "Ring Switches balanced: 8/9 bars",
+     "text": "Body jab on the page, health 18",
      "who": "claude"
     },
     {
-     "text": "Kalli + John read: balance",
+     "text": "Moving costs breath: rejected",
      "who": "claude"
     },
     {
-     "text": "Rule tooltips, drag order, hands",
+     "text": "Southpaw: 5 versions, none pass",
+     "who": "claude"
+    },
+    {
+     "text": "John read: southpaw numbers",
      "who": "claude"
     }
    ],
@@ -6279,6 +6294,10 @@
     {
      "text": "Your play: balanced Ring Switches",
      "who": "operator"
+    },
+    {
+     "text": "Ziva: fun playtest, 9 bouts",
+     "who": "agent"
     }
    ],
    "next": [
@@ -6647,25 +6666,25 @@
      "who": "claude"
     },
     {
-     "text": "Measure: moving costs breath",
+     "text": "Southpaw: Kalli's cover table",
      "who": "claude"
     },
     {
-     "text": "Measure: even round to ground",
-     "who": "claude"
+     "text": "Your play: body jab page",
+     "who": "operator"
     },
     {
-     "text": "Southpaw opponent: measure first",
+     "text": "Look-ahead learns ground rule",
      "who": "claude"
     }
    ],
-   "session": "S555"
+   "session": "S556"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
- "last_working_commit": "a42f93d47",
- "next_action": "S556: FIRST the southpaw, measured (owner S555 on stances: 'yes prepare this for next session'): run ops/research/s555_balance/southpaw_v1.json and _v2.json on tools/balance.mjs (tweak_check, table, play who=mix opp=mirror n=84) and report against the nine bars beside the closed-stance numbers; build nothing before he has the report. Then his play on the balanced page; the two changes both seats asked for (moving costs breath; an even round to the man who gave less ground), measured; the body jab take.",
+ "last_working_commit": "edff485d2",
+ "next_action": "S557: FIRST Kalli's cover table for the open stance if it has landed (SQ334): write it as a tweak, measure it (5 minutes), report against the nine bars and John's two facts (the cross thrown more than 3.8 a bout, the jab landing well under 73%); build 'The Southpaw' only at 8 bars or more, after telling him the picture cost. Then his play on the page with the body jab; the look-ahead learns the ground rule; a low cover take so a blocked body punch is drawn on the body (the animation item); the rest of the seats' list measured on the tool.",
  "next_acceptance": "Rulers vs r0: head jumps on the contact frame under 4, a head inside the other's body under 5 frames, arm out median under 4 frames with join_return green, then r1 film at two fresh blind critics 5+/10",
  "superseded_archive": [
   {

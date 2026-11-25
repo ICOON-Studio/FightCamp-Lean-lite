@@ -1,0 +1,12 @@
+{
+ "_note": "ON THE PAGE SINCE S556 (apply_ground.py): this file no longer fits the page, it is the record of what was measured. AN EVEN ROUND GOES TO THE MAN WHO GAVE LESS GROUND (Kalli 6, John 4): every back off is counted for the round (gave); a round level on points is scored 10-9 to the man who backed off less (N.even, read by tools/balance.mjs when it scores a round). The look-ahead does not know this rule: the men do not play for it.",
+ "N": {
+  "even": 1
+ },
+ "src": [
+  [
+   "else { d++; f[k].ropes++; }",
+   "else { d++; f[k].ropes++; f[k].gave = (f[k].gave || 0) + 1; }"
+  ]
+ ]
+}

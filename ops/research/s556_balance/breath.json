@@ -1,0 +1,9 @@
+{
+ "_note": "MOVING COSTS BREATH (Kalli 3, John 3, S555 brief answers): a held hand gives its +1 stamina only on a beat the feet stayed. Tried on tools/balance.mjs without touching the page.",
+ "src": [
+  [
+   "home = l.clinch ? 0 : (l.lead ? 0 : 1) + (l.rear ? 0 : 1);",
+   "home = l.clinch || (l.feet && l.feet !== 'hold') ? 0 : (l.lead ? 0 : 1) + (l.rear ? 0 : 1);"
+  ]
+ ]
+}

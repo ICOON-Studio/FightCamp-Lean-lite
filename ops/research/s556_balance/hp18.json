@@ -1,0 +1,17 @@
+{
+ "_note": "ON THE PAGE SINCE S556 (apply_hp18.py): running it now changes nothing. S556: with the body jab on the page two equal men knock each other down 2.7 times a bout (168 bouts; the bar is 2.5) and 27% of bouts are stopped. One more point of health for everybody: 18 (up on 6, then 4, as now), the opponents 16 / 21 / 18. The look-ahead does not count health, so the page's own table holds.",
+ "N": {
+  "hp": 18
+ },
+ "OPPS": [
+  {
+   "hp": 16
+  },
+  {
+   "hp": 21
+  },
+  {
+   "hp": 18
+  }
+ ]
+}

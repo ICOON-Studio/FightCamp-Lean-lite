@@ -1,0 +1,18 @@
+{
+ "_note": "OPEN STANCE, John's one rule (SQ333, ops/research/RINGSWITCH_SOUTHPAW_BRIEF_JOHN.md, Q6): only the head cross swaps - it is stopped by the REAR hand held high, no longer by the lead hand. The body cross stays on the lead hand held low, the jab on the lead hand held high. Real numbers to meet: the rear straight is thrown 25 to 40% MORE in open-stance bouts (Goodman 2013, 24 bouts), its land rate does not move; an orthodox jab lands about half as often against a southpaw (three CompuBox notes).",
+ "ACT": {
+  "cross": {
+   "line": "ostraight"
+  }
+ },
+ "src": [
+  [
+   "if (act[k] !== 'lead') c[COVER[P[k].hl][0]] = 1; if (act[k] !== 'rear') c[COVER[P[k].hr][1]] = 1;",
+   "if (act[k] !== 'lead') c[COVER[P[k].hl][0]] = 1; if (act[k] !== 'rear') { c[COVER[P[k].hr][1]] = 1; if (P[k].hr === 'high') c.ostraight = 1; }"
+  ],
+  [
+   "const LINE = { straight: 'Head, straight',",
+   "const LINE = { ostraight: 'Head, the rear straight down the middle', obody: 'Body, the rear straight', straight: 'Head, straight',"
+  ]
+ ]
+}

@@ -12,7 +12,7 @@ const dir = path.join(here, '..', 'img', 'anim');
 const MIN = 3;
 const CORNERS = ['blue', 'red'];
 // the page's punches (ACT[..].pic in order.html) - the overhand has its own run name even while it borrows a take
-const PUNCHES = ['jab', 'cross', 'lead_hook', 'body_hook', 'lead_uppercut', 'rear_uppercut', 'body_cross', 'overhand'];
+const PUNCHES = ['jab', 'body_jab', 'cross', 'lead_hook', 'body_hook', 'lead_uppercut', 'rear_uppercut', 'body_cross', 'overhand'];   // S556: body_jab, its own take (tools/pics2d_bodycross_bake.gd take=jab)
 const RESULTS = ['landed', 'blocked', 'missed'];
 // one run each: feet, the feint, the push, the clinch, the knockdown, and since HOLDTAKES1 (S553) the four ONE-HAND holds
 // (the choice the game is about: a hand held high or low). The two-hand holds of S552 are gone: the page never asks for them.

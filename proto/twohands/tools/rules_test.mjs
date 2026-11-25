@@ -189,4 +189,16 @@ test('S555: beaten to the punch - a BIG punch that lands stops his SLOWER punch 
   ev = resolve(S, [plan({ lead: 'hook', hl: 'low', ord: ['lead'] }), plan({ rear: 'cross', feet: 'in', hr: 'high', ord: ['feet', 'rear'] })]);
   assert.ok(find(ev, 0, 'block', 'hook') && find(ev, 1, 'hit', 'cross'), 'a big punch that is BLOCKED stops nothing, and a punch in another moment is never stopped');
 });
+test('S556: the body jab reaches Long and is the jab one lead hand cannot also stop - held low blocks it, held high does not; it does not shorten his stamina bar', () => {
+  let S = ring(3), ev = resolve(S, [plan({ lead: 'bjab' }), plan({ hl: 'low' })]);
+  assert.ok(find(ev, 0, 'block', 'bjab'), 'a lead hand held low blocks the body jab'); assert.equal(S.f[1].hp, N.hp);
+  S = ring(3); ev = resolve(S, [plan({ lead: 'bjab' }), plan({ hl: 'high' })]);
+  assert.ok(find(ev, 0, 'hit', 'bjab'), 'a lead hand held high does not'); assert.equal(S.f[1].hp, N.hp - ACT.bjab.d); assert.equal(S.f[1].cap, N.st, 'a light punch: the stamina bar is not shortened');
+  S = ring(3); ev = resolve(S, [plan({ lead: 'jab' }), plan({ hl: 'low' })]); assert.ok(find(ev, 0, 'hit', 'jab'), 'and the hand held low for the body jab lets the head jab in');
+  assert.equal(ACT.bjab.pic, 'body_jab', 'it has its own pictures');
+});
+test('S556: every back off is counted for the round (an even round goes to the man who gave less ground)', () => {
+  const S = ring(2); resolve(S, [plan({ feet: 'back' }), plan()]); assert.equal(S.f[0].gave, 1); assert.ok(!S.f[1].gave, 'the man who stood gave none');
+  resolve(S, [plan({ feet: 'in' }), plan({ feet: 'back' })]); assert.equal(S.f[0].gave, 1, 'a step in wins the ropes back, not the count'); assert.equal(S.f[1].gave, 1); assert.equal(N.even, 1);
+});
 console.log(`RULES_TEST ${n} passed${process.exitCode ? ' - FAILURES above' : ''}`);

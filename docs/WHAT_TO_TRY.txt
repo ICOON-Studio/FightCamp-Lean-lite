@@ -1,3 +1,19 @@
+S556 build (2026-11-25, about 17:10) - two small things from S548 in the .exe; the new work is on the Ring Switches page
+
+IN THE .EXE (built in S548, in no export until now):
+X. THE 3D FIGHT THROWS THE REAR STRAIGHT TO THE BODY (the body cross) - from range the body hook is no longer the
+   take it picks.
+Y. THE TRIAL EVENING'S FOUR QUESTION PICTURES SHOW THE PROSPECT'S OWN BODY (they always showed one man, also for a
+   woman prospect).
+ON THE BROWSER PAGE (this session): http://127.0.0.1:8797/order.html
+U. THE BODY JAB (lead hand, 1 stamina, 1 health, reaches Mid and Long): his lead hand held LOW blocks it, held high
+   blocks the head jab - one hand cannot stop both, so Long has a guess now. It has its own pictures. The opponents
+   throw it too.
+V. AN EVEN ROUND GOES TO THE MAN WHO BACKED OFF LESS: the bell line says so when it decides a round; hover the points
+   to see how often each of you has backed off.
+W. HEALTH IS 18 (was 17; the opponents 16 / 21 / 18): with the body jab the bouts were a little too bloody.
+   Not good yet: a blocked or a missed body jab is drawn at chest height, as the body cross's are.
+
 S547 build (2026-11-24, second export about 06:40) - the signing card, CONTINUE, the staff cards
 
 O. THE SIGNING CARD (new mechanic, your interview answers K1 to K4): the scout brings one name at a time (Fighters >

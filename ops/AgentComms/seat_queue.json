@@ -4750,8 +4750,8 @@
    "status": "queued",
    "queued_at": "2026-11-24 12:08",
    "tries": 0,
-   "skips": 57,
-   "last_error": "2026-11-25 15:40 no CDP on 9333 (the app runs without its debug port or is closed; never launched from here - it opens a window)"
+   "skips": 59,
+   "last_error": "2026-11-25 16:40 no CDP on 9333 (the app runs without its debug port or is closed; never launched from here - it opens a window)"
   },
   {
    "id": "SQ325",
@@ -4849,7 +4849,8 @@
    "sent_ms": 1795605031919,
    "answered_at": "2026-11-25 13:40",
    "answer": "research/RINGSWITCH_BALANCE_BRIEF_KALLI.md",
-   "chars": 8220
+   "chars": 8220,
+   "seen_by_claude": true
   },
   {
    "id": "SQ332",
@@ -4863,15 +4864,30 @@
    "sent_ms": 1795605034982,
    "answered_at": "2026-11-25 13:40",
    "answer": "research/RINGSWITCH_BALANCE_BRIEF_JOHN.md",
-   "chars": 8192
+   "chars": 8192,
+   "seen_by_claude": true
   },
   {
    "id": "SQ333",
    "seat": "john",
    "brief": "research/RINGSWITCH_SOUTHPAW_BRIEF.md",
    "stem": "RINGSWITCH_SOUTHPAW_BRIEF_JOHN",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-25 15:53",
+   "tries": 0,
+   "sent_at": "2026-11-25 16:10",
+   "sent_ms": 1795615825977,
+   "answered_at": "2026-11-25 16:40",
+   "answer": "research/RINGSWITCH_SOUTHPAW_BRIEF_JOHN.md",
+   "chars": 24810
+  },
+  {
+   "id": "SQ334",
+   "seat": "kalli",
+   "brief": "research/RINGSWITCH_SOUTHPAW2_BRIEF.md",
+   "stem": "RINGSWITCH_SOUTHPAW2_BRIEF_KALLI",
+   "status": "queued",
+   "queued_at": "2026-11-25 17:06",
    "tries": 0
   }
  ]
