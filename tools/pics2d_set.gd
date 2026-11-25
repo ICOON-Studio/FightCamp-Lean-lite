@@ -20,6 +20,7 @@ const FightClips := preload("res://scripts/fight3d/FightClips.gd")
 const FightCast := preload("res://scripts/fight3d/FightCast.gd")
 const BlockCatch := preload("res://scripts/fight3d/BlockCatch.gd")
 const BeatClips := preload("res://scripts/fight3d/BeatClips.gd")
+const CamPick := preload("res://tools/pics2d_camera.gd")   # CAMPICK1: the owner's saved camera (tools/pics2d_camera.json), else today's
 const Gate := preload("res://tools/pics2d_gate.gd")   # PICSFIX1: no body through a body, a blocked punch ends on the block
 ## family -> [takes in order of preference, body target]
 const FAMILIES := {
@@ -51,6 +52,7 @@ const COVER_AT := 0.45   # the shell held (mc_block: elbows 0.44-0.47 m over the
 var out_dir := "user://pics2d_set"
 var only := ""
 var yaw_deg := 0.0   # the side camera turned this far about the pair (yaw=<deg>)
+var camv := {}       # CAMPICK1: pitch, yaw, size, look_y, look_shift (pics2d_camera.gd read)
 var sv: SubViewport
 var stage: Node3D
 var crew: Node3D
@@ -84,7 +86,8 @@ func _setup() -> bool:
 	if not args.is_empty():
 		out_dir = args[0]
 	only = _arg("only", "")
-	yaw_deg = float(_arg("yaw", "0"))
+	camv = CamPick.read(_arg)
+	yaw_deg = float(camv["yaw"])
 	report = _arg("gate", "on") == "report"
 	DirAccess.make_dir_recursive_absolute(out_dir)
 	Player2.force = true
@@ -455,15 +458,12 @@ func _xy(w: Vector3) -> Array:
 
 ## The fixed side camera: from -X (red left, blue right), level, centred on who is in the picture.
 func _aim(who: Array) -> void:
-	cam.size = ORTHO_M
 	var mid := Vector3.ZERO
 	for i in who:   # the hips, not the roots: a knockdown carries the body a metre from its root
 		var h := Gate.world(stage, i, "Hips")
 		mid += Vector3(h.x, 0.0, h.z)
 	mid /= float(who.size())
-	var off := Vector3(-8.0, 0.0, 0.0).rotated(Vector3.BACK, -deg_to_rad(float(_arg("pitch", "0")))).rotated(Vector3.UP, deg_to_rad(yaw_deg))   # pitch=<deg>: the camera raised, looking down
-	cam.global_position = Vector3(mid.x + off.x, LOOK_Y + off.y, mid.z + off.z)
-	cam.look_at(Vector3(mid.x, LOOK_Y, mid.z), Vector3.UP)
+	CamPick.place(cam, mid, camv.merged({"yaw": yaw_deg}, true))   # pitch= / yaw= / the saved file (CAMPICK1); none = level, side on
 	cam.make_current()
 
 

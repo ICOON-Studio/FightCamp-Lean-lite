@@ -10,26 +10,31 @@
 //    that commentator lights up on the desk.
 (() => {
   const st = $('stage'), im = $('pic'), tell = document.querySelector('.tell');
-  // ---- 1. the floor plates
+  // ---- 1. the distance on the floor (S559 v2, owner on the nested plates: "idonot understand this ,it is not symmetrical"):
+  // ONE bar between the two men's front toes at the range they are at, ticks at both toes, its length the real gap, the
+  // label in words. A range change slides it and flashes. Hover a switch: green if it reaches at this range, red if not.
   const TOES = { 3: [194, 307], 2: [227, 273], 1: [236, 245] };   // [red front toe, blue front toe], x in the 480 px picture
   const PX_M = 189, FLOOR = 434 / 480;
   const ruler = document.createElement('div'); ruler.id = 'ruler'; st.appendChild(ruler);
-  ruler.innerHTML = [3, 2, 1].map((r) => `<div class="plate p${r}" data-r="${r}"></div>`).join('') + '<div class="plabel"></div>';
+  ruler.innerHTML = '<div class="gap"><i></i><i></i></div><div class="plabel"></div>';
   const X = (u) => { const H = st.clientHeight * 1.26, W = H * (im.naturalWidth / im.naturalHeight || 1); return st.clientWidth / 2 + (0.5 - u) * W; };
   const cm = (r) => Math.max(0, Math.round((TOES[r][1] - TOES[r][0]) / PX_M * 100));
-  let shown = 0, hoverReach = null;
-  function place() { if (!st.clientHeight) return; const y = st.clientHeight * -0.17 + FLOOR * st.clientHeight * 1.26;
-    for (const r of [3, 2, 1]) { const el = ruler.querySelector('.p' + r), x1 = X(TOES[r][1] / 480), x2 = X(TOES[r][0] / 480), w = Math.max(14, Math.abs(x2 - x1));
-      el.style.left = ((x1 + x2) / 2 - w / 2) + 'px'; el.style.width = w + 'px'; el.style.top = (y - 5) + 'px';
-      el.classList.toggle('on', r === range); el.classList.toggle('ok', !!hoverReach && hoverReach.includes(r)); el.classList.toggle('no', !!hoverReach && !hoverReach.includes(r)); }
-    const lab = ruler.querySelector('.plabel'); lab.style.top = (y + 9) + 'px'; lab.style.left = (st.clientWidth / 2) + 'px';
-    lab.innerHTML = hoverReach ? hoverReach.map((r) => RNG[r]).join(' and ') + ' only' : `<b>${RNG[range] || ''}</b> ${range ? (range === 1 ? 'toes touching' : cm(range) + ' cm toe to toe') : ''}`;
-    if (range && range !== shown) { const el = ruler.querySelector('.p' + range); if (shown) { el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash'); } shown = range; } }
+  let shown = 0, hoverReach = null, hoverName = '';
+  function place() { if (!st.clientHeight || !range) return; const y = st.clientHeight * -0.17 + FLOOR * st.clientHeight * 1.26;
+    const x1 = X(TOES[range][1] / 480), x2 = X(TOES[range][0] / 480), w = Math.max(18, Math.abs(x2 - x1)), mid = (x1 + x2) / 2, gap = ruler.querySelector('.gap');
+    gap.style.left = (mid - w / 2) + 'px'; gap.style.width = w + 'px'; gap.style.top = (y - 4) + 'px';
+    const reach = hoverReach ? hoverReach.includes(range) : null; gap.className = 'gap' + (reach === true ? ' ok' : reach === false ? ' no' : '');
+    const lab = ruler.querySelector('.plabel'); lab.style.top = (y - 26) + 'px';   /* above the bar, between the shins (under it the ring ends) */ lab.style.left = mid + 'px';
+    lab.innerHTML = hoverReach ? `${hoverName} ${reach ? 'reaches' : '<u>does not reach</u>'} at ${RNG[range]}` : `<b>${RNG[range]}</b> ${range === 1 ? 'toe to toe' : cm(range) + ' cm'}`;
+    if (range !== shown) { if (shown) { gap.classList.remove('flash'); void gap.offsetWidth; gap.classList.add('flash'); } shown = range; } }
   document.addEventListener('mouseover', (e) => { const b = e.target.closest ? e.target.closest('.sw') : null, g = b && b.dataset.g, id = b && b.dataset.id;
     const a = !b ? null : g === 'lead' || g === 'rear' ? (id === 'high' || id === 'low' ? null : ACT[id]) : g === 'feet' ? ACT[id] : null;   // a hand's 'low' hold is not the low kick
-    const r = a && a.reach ? a.reach : null; if (String(r) !== String(hoverReach)) { hoverReach = r; place(); } });
+    const r = a && a.reach ? a.reach : null; if (String(r) !== String(hoverReach)) { hoverReach = r; hoverName = a ? a.n : ''; place(); } });
   const draw0 = draw; draw = function () { draw0(); place(); };
   addEventListener('resize', place); im.addEventListener('load', place);
+  // A picture that is not on disk (the kicks have none yet) must never leave the ring empty (owner S559: "both fighters
+  // disappeared when istarted the beat"): show the men held at the range they are at instead.
+  im.addEventListener('error', () => { const hold = `img/anim/blue_both_high_high${range === 3 ? '' : '_r' + range}_6.webp`; if (!im.src.endsWith(hold)) im.src = hold; });
   // ---- 2. the commentators
   const CREW = [{ n: 'Rita Vance', at: 20 }, { n: 'Hank Brody', at: 50 }, { n: 'Leo Marsh', at: 80 }];   // where each sits on the desk picture (%)
   const light = document.createElement('div'); light.id = 'desklight'; tell.appendChild(light);
