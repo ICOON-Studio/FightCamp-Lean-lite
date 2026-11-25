@@ -1,0 +1,21 @@
+{
+ "_note": "OPEN STANCE (an orthodox man against a southpaw), tried on tools/balance.mjs without touching the page. Both men are in the open stance, so the mirror bout IS this game. v1: the rear straights (cross, body cross) come down the middle, past the lead hand: they are stopped by the REAR hand (high: the cross, low: the body cross) instead of the lead hand. v2: v1, and the lead hands are in each other's way: the jab is also stopped by the lead hand held LOW (a lead hand held at all).",
+ "ACT": {
+  "cross": {
+   "line": "ostraight"
+  },
+  "rbody": {
+   "line": "obody"
+  }
+ },
+ "src": [
+  [
+   "if (act[k] !== 'lead') c[COVER[P[k].hl][0]] = 1; if (act[k] !== 'rear') c[COVER[P[k].hr][1]] = 1;",
+   "if (act[k] !== 'lead') c[COVER[P[k].hl][0]] = 1; if (act[k] !== 'rear') { c[COVER[P[k].hr][1]] = 1; c[P[k].hr === 'high' ? 'ostraight' : 'obody'] = 1; }"
+  ],
+  [
+   "const LINE = { straight: 'Head, straight',",
+   "const LINE = { ostraight: 'Head, the rear straight down the middle', obody: 'Body, the rear straight', straight: 'Head, straight',"
+  ]
+ ]
+}

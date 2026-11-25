@@ -7,18 +7,19 @@
   "owner": "claude",
   "updated": "2026-11-25",
   "summary": "S555 (Fable) HANDOVER. ## METHOD - RING SWITCHES IS THE MAIN LINE, AND THE ORDER VERSION IS THE PAGE (owner S555: 'first off i want version with theorder of actions'). ## METHOD - THE SLICE IS BALANCED ON THE INSTRUMENT, NEVER BY HAND (owner S555: 'vs the jabber you win very easy , all your rear hands land easy , need better balance , i want this slice to be perfectly balance to move on (always have in scope other arts that will be added and knees and elbows)'): after any rule or number change on proto/twohands/order.html run tools/balance.mjs table, then play, then rules_test. ## METHOD - THE FIGHT MUST BE SEEN, SIDE VIEW, BOTH MEN CHEST TO THE CAMERA. ## METHOD - THE SEATS' IDEAS ARE USED AND REPORTED. Done: order.html is the single source (its generator is gone); a block says whose hand and why; the opponents play each beat's solved mix with a style lean and a skill, not a script; five rule changes and new numbers chosen on the balance tool - two equal men who play well now box Inside / Mid / Long 32 / 35 / 33% (was 6 / 19 / 75), stoppages 20%, draws 12%, 8 of 9 bars (the jab lands 72%). The player who answers the man's last beat wins 44 / 56 / 42% (was 100 / 81 / 72). NOT GREEN: he has not played it; the body jab is measured better still but has no picture; six seat ideas unbuilt and unmeasured. docs/RINGSWITCH_BALANCE_S555.md.",
-  "next_action": "S556: his play on the balanced page first. Then measure on tools/balance.mjs the two changes BOTH seats asked for (moving costs breath; an even round goes to the man who gave less ground), then author the body jab take (pattern tools/pics2d_bodycross_bake.gd), render its runs and apply ops/research/s555_balance/apply_rules_bjab_patch.py bjab, rebuild the table, re-measure.",
-  "last_working_commit": "898201754",
+  "next_action": "S556: FIRST the southpaw, measured (owner S555 on stances: 'yes prepare this for next session'): run ops/research/s555_balance/southpaw_v1.json and _v2.json on tools/balance.mjs (tweak_check, table, play who=mix opp=mirror n=84) and report against the nine bars beside the closed-stance numbers; build nothing before he has the report. Then his play on the balanced page; the two changes both seats asked for (moving costs breath; an even round to the man who gave less ground), measured; the body jab take.",
+  "last_working_commit": "a42f93d47",
   "verified_playable": "The S547 build is the last exported .exe. Ring Switches (a browser toy): the order page played in the browser in S555 (one beat against the Jabber: the new block line, a step in, the clinch switch saying Inside only; no console errors; the opponent's choice ready in under a second); 30 rule tests pass; the mirror bout on the page's own rules and table passes 8 of 9 bars.",
   "incomplete_blocked": "No export since S547 (S555 changed no game file). Ring Switches: the owner has not played the balanced page; the jab lands 72% (the one failing bar); the body jab is measured better but has no take; six seat ideas are unbuilt and unmeasured; red's tie-up borrows blue's picture; both rear hooks that miss are wide; men's pair only; the page's how-to text is long. MATCHBOTS2 not launched. Dola's SQ324 and SQ327 never left the queue.",
-  "next_acceptance": "He has played the balanced page and said how each opponent feels; 'moving costs breath' and 'an even round goes to the man who gave less ground' are each measured on balance.mjs with their own table and reported against the nine bars; a body jab run plays on the page with its own picture.",
+  "next_acceptance": "The open-stance game is measured with its own table for both variants and reported to him against the nine bars, with what it asks differently and the picture cost of a southpaw opponent; he has played the balanced page and said how each opponent feels.",
   "awaiting_operator": [
    "His play on the balanced Ring Switches page (http://127.0.0.1:8797/order.html): is each opponent too hard or too easy",
+   "After the southpaw is measured: is a southpaw opponent worth its mirrored pictures",
    "The guard bar: cut it or rebuild it - Kalli: cut it; John: a block costs stamina instead",
    "The rest of his Q-336 note (\"thecoaches should have\")"
   ]
  },
- "next": "S556: see NEXT_SESSION_PROMPT.md - his play on the balanced Ring Switches page, the two seat changes to measure, then the body jab take.",
+ "next": "S556: see NEXT_SESSION_PROMPT.md - the southpaw measured first, his play on the balanced Ring Switches page, the two seat changes, then the body jab take.",
  "assessment": {
   "source": "Codex deep audit + Cursor televised-MMA gap assessment, both 2026-09-12",
   "bars": [
@@ -2415,13 +2416,17 @@
   {
    "id": "S555",
    "date": "2026-11-25",
-   "summary": "Owner on the order page: 'why his jab is blocked when i picked lead hook ?', 'i want version with theorder of actions', then 'vs the jabber you win very easy , all your rear hands land easy , need better balance , i want this slice to be perfectly balance to move on (always have in scope other arts that will be added and knees and elbows)'. order.html became the single source (make_order.py gone); the block line says whose hand and why. Built the balance instrument (tools/balance.mjs: each beat solved as a guessing game by regret matching, the round looked ahead into vtable.json, whole bouts counted against nine bars) and replaced the scripted opponents with ones that play the solved mix with a style lean and a skill. Finding: with both men playing well the morning's rules were 75% Long, a jab every second beat, no knockdown. Five rule changes and new numbers took the mirror bout from 2 to 8 of 9 bars; the measuring player went from 100 / 81 / 72% to 44 / 56 / 42% against the three opponents. The body jab does nothing against scripts on the order page but improves the solved game; it waits for its picture. Kalli and John answered the same session: John's first change is the rule built. dues_card_test (red at 05:00) measured a stale rect: fixed. No game file changed, no export.",
+   "summary": "Owner on the order page: 'why his jab is blocked when i picked lead hook ?', 'i want version with theorder of actions', then 'vs the jabber you win very easy , all your rear hands land easy , need better balance , i want this slice to be perfectly balance to move on (always have in scope other arts that will be added and knees and elbows)'. order.html became the single source (make_order.py gone); the block line says whose hand and why. Built the balance instrument (tools/balance.mjs: each beat solved as a guessing game by regret matching, the round looked ahead into vtable.json, whole bouts counted against nine bars) and replaced the scripted opponents with ones that play the solved mix with a style lean and a skill. Finding: with both men playing well the morning's rules were 75% Long, a jab every second beat, no knockdown. Five rule changes and new numbers took the mirror bout from 2 to 8 of 9 bars; the measuring player went from 100 / 81 / 72% to 44 / 56 / 42% against the three opponents. The body jab does nothing against scripts on the order page but improves the solved game; it waits for its picture. Kalli and John answered the same session: John's first change is the rule built. dues_card_test (red at 05:00) measured a stale rect: fixed. No game file changed, no export. After the handover he kept playing and asked five things, all answered on the page: a push says what it is; the order chips are dragged; 'beaten to the punch' names the faster punch and every switch shows its speed; each row of a beat carries the rules that decided it (hover or tap); the hand headers draw which glove is the lead. On stances: a trait of a fighter (a southpaw opponent), not a switch - he said 'yes prepare this for next session'; two variants are ready, nothing measured.",
    "commits": [
     "675063742",
     "b27e77b6f",
     "3ca3afe8b",
     "c35e6ea40",
-    "898201754"
+    "898201754",
+    "4f6fd1f97",
+    "eb5d794b5",
+    "e33d58a09",
+    "a42f93d47"
    ]
   }
  ],
@@ -5499,6 +5504,12 @@
   "working_now": [],
   "next": [
    {
+    "id": "SOUTHPAW1",
+    "who": "claude",
+    "title": "Ring Switches: stances - a southpaw opponent, measured before anything is built (your 'dont we need stances ?', then 'yes prepare this for next session') | two rule variants are ready to run on the balance tool | NEXT: run both, report against the nine bars with the picture cost",
+    "after": ""
+   },
+   {
     "id": "BODYJAB1",
     "who": "claude",
     "title": "Ring Switches: the body jab | measured on the balanced order page: with it draws 12% -> 4% and the jab and body jab are each 12% of beats (Long gets a real guess); it has no picture | NEXT: author its take, render its runs, apply the page patch, rebuild the table",
@@ -6134,6 +6145,10 @@
     {
      "text": "Kalli + John read: balance",
      "who": "claude"
+    },
+    {
+     "text": "Rule tooltips, drag order, hands",
+     "who": "claude"
     }
    ],
    "now": [
@@ -6638,6 +6653,10 @@
     {
      "text": "Measure: even round to ground",
      "who": "claude"
+    },
+    {
+     "text": "Southpaw opponent: measure first",
+     "who": "claude"
     }
    ],
    "session": "S555"
@@ -6645,8 +6664,8 @@
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
- "last_working_commit": "898201754",
- "next_action": "S556: his play on the balanced page first. Then measure on tools/balance.mjs the two changes BOTH seats asked for (moving costs breath; an even round goes to the man who gave less ground), then author the body jab take (pattern tools/pics2d_bodycross_bake.gd), render its runs and apply ops/research/s555_balance/apply_rules_bjab_patch.py bjab, rebuild the table, re-measure.",
+ "last_working_commit": "a42f93d47",
+ "next_action": "S556: FIRST the southpaw, measured (owner S555 on stances: 'yes prepare this for next session'): run ops/research/s555_balance/southpaw_v1.json and _v2.json on tools/balance.mjs (tweak_check, table, play who=mix opp=mirror n=84) and report against the nine bars beside the closed-stance numbers; build nothing before he has the report. Then his play on the balanced page; the two changes both seats asked for (moving costs breath; an even round to the man who gave less ground), measured; the body jab take.",
  "next_acceptance": "Rulers vs r0: head jumps on the contact frame under 4, a head inside the other's body under 5 frames, arm out median under 4 frames with join_return green, then r1 film at two fresh blind critics 5+/10",
  "superseded_archive": [
   {

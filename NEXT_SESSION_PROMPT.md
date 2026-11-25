@@ -40,7 +40,39 @@ Start: `git pull && python ops/Tools/agent_comms.py start`, then this page. The 
   draws 12%, 8 of 9 bars (the jab lands 72%). The player who answers the man's last beat wins 44 / 56 / 42% against the
   three (this morning 100 / 81 / 72), random clicking 11 / 7 / 9%, the best-mix player 81 / 69 / 62%.
 
+## After the handover, the same day (he played and asked; all on the page, pushed)
+- "what pushes means ? how is done ?": a push line says what it is and why it did nothing; his plain beats never shove
+  at nothing. "can you make it so i can drag and fix the order ?": the order chips are dragged (a click still moves one
+  earlier). "when beaten to the punch happens ?": the line names the faster punch; every switch shows its punch's speed
+  (fast / medium / slow). "can you add tooltips for these rules when they apply": hover or tap a row of the beat
+  (`ruleOf`). "visuals for the player to understand which is his leading hand ?": a drawing on each hand's header with
+  that glove lit. NOT done there: the gloves are not marked on the fight picture itself (pictures carry no glove
+  positions except at contact). 32 rule tests.
+- STANCES (his question: "dont we need stances ? switching lead hands , does that fit or it make things brake and
+  complicated ?"). My answer, which he took ("yes prepare this for next session"): stance is a TRAIT of a fighter (a
+  southpaw opponent first), not a switch flipped during a beat (a fourth decision a beat, four stance pairings for the
+  balance, every picture mirrored). NOTHING IS MEASURED YET.
+
 ## FIRST
+0. THE SOUTHPAW, MEASURED (he said yes). Orthodox against southpaw is the OPEN stance, and both men are in it, so the
+   mirror bout is that game. Two variants are ready to run, nothing on the page is touched:
+   `ops/research/s555_balance/southpaw_v1.json` (the rear straights - cross and body cross - come down the middle past
+   the lead hand: the REAR hand stops them, high the cross, low the body cross) and `southpaw_v2.json` (v1, and the lead
+   hands are in each other's way: a lead hand held LOW stops the jab too).
+   a. `node proto/twohands/tools/tweak_check.mjs ops/research/s555_balance/southpaw_v1.json southpaw` (the tweak's text
+      pairs still fit the page? it prints PASS).
+   b. For each: `node proto/twohands/tools/balance.mjs table tweak=<f> out=<scratch>/sp1.vt.json` (7 to 8 minutes), then
+      `node proto/twohands/tools/balance.mjs play who=mix opp=mirror n=84 tweak=<f> table=<scratch>/sp1.vt.json`
+      (or both in one go: `N=84 sh proto/twohands/tools/balance_batch.sh <scratch_dir> <f1> <f2>`).
+   c. Report to him against the same nine bars, beside today's closed-stance numbers (docs/RINGSWITCH_BALANCE_S555.md):
+      does the open stance stay balanced, and does it ASK SOMETHING ELSE (which hand is held where, how often the cross
+      and the jab are thrown and land)? If it only shifts numbers, say so: then a southpaw is not worth its pictures.
+   d. Only if it passes and differs: the build is a fourth opponent "The Southpaw" whose bouts use the open table (the
+      cover rule keyed by the stance pairing - write it that way from the start, kicks will need the same key), with
+      `covers()`, THREAT / STOPS / YOURS and `ruleOf` saying the open-stance words, and MIRRORED PICTURES of the red man
+      (the mirrored man is what breaks the clinch picture: docs/HOLDTAKES1_RESULT.md). The picture cost is the real price;
+      tell him that number before building. Real-boxing grounding to name in the report (owner S537): ask John for the
+      sourced numbers on orthodox v southpaw (jab and rear-straight land rates) - queue it at session start.
 1. HIS PLAY on the balanced page. If he says an opponent is too hard or too easy, the knob is `skill` in OPPS (0.5 to
    1.0: the simple player's wins fall from about 60% to about 25%); re-measure with
    `balance.mjs play who=sensible opp=0,1,2 n=84`.
