@@ -21,17 +21,6 @@
    "eta": "answers within about 2 h",
    "title": "Critics on the coaches map as cut (trial week out, chemistry on the hire card): depth and play out of 10, and what reaches 10",
    "brief": "ops/research/CRITIC_COACHMAP1_BRIEF.md"
-  },
-  "ZIVAPLAY1": {
-   "id": "ZIVAPLAY1",
-   "status": "running",
-   "seat": "ziva",
-   "agent": "Ziva (the editor on E:/FightCamp/wt/ZIVA_LEAN, chat 'Ring Switches Playtest and Fun Evaluation' at http://127.0.0.1:7012/)",
-   "started": "2026-11-25T17:16",
-   "eta": "about 18:46 (nine bouts of 18 beats and a report: my estimate 1 to 2 hours)",
-   "title": "Ziva plays Ring Switches nine bouts in words and judges it on fun (your 'Can ziva play test it and judge it on fun?')",
-   "brief": "ops/research/TASK_ZIVAPLAY1.md",
-   "out": "E:/FightCamp/tmp/zivaplay1/ZIVAPLAY1_REPORT.md"
   }
  },
  "codex_budget": {

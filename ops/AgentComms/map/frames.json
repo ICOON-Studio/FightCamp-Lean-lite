@@ -437,6 +437,15 @@
       "ops/previews/s556_bodyjab/*_strip.png"
      ],
      "cols": 1
+    },
+    {
+     "id": "s556_zivaplay",
+     "title": "Ziva's 10/10 fight screen (its playtest, S556)",
+     "kind": "gallery",
+     "globs": [
+      "ops/previews/s556_zivaplay/*.png"
+     ],
+     "cols": 1
     }
    ]
   }
