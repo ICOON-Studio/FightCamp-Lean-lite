@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>RING SWITCHES - the 10/10 fight screen (Ziva, ALLPLAY1)</title>
+<style>
+  :root{
+    --bg:#0d0f12; --panel:#171a20; --panel2:#1d2129; --panel3:#232833; --line:#2c323d;
+    --cream:#eae7dd; --dim:#8b9098; --faint:#5d636e;
+    --you:#a3b46a; --you-dark:#5c6a38; --him:#c2603f; --him-dark:#6d3a28;
+    --gold:#d9b45f; --open:#cfe08a; --shut:#6b7079;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:#07080a}
+  body{display:flex;justify-content:center;align-items:flex-start;font-family:"DejaVu Sans","Segoe UI",system-ui,sans-serif}
+  .screen{
+    width:1920px;height:1080px;background:
+      radial-gradient(1200px 700px at 30% -10%, #1a1e26 0%, rgba(13,15,18,0) 60%),
+      linear-gradient(180deg,#0f1115 0%,#0c0e11 100%);
+    color:var(--cream);position:relative;
+    display:grid;gap:12px;padding:14px;
+    grid-template-columns:minmax(0,1fr) 604px;
+    grid-template-rows:68px minmax(0,1fr) 208px 268px 34px;
+    grid-template-areas:
+      "head head"
+      "ring read"
+      "log  log"
+      "sw   sw"
+      "foot foot";
+  }
+  .panel{background:linear-gradient(180deg,var(--panel) 0%,#141720 100%);border:1px solid var(--line);border-radius:10px}
+  .lbl{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+  /* ---------- header ---------- */
+  .head{grid-area:head;display:flex;align-items:center;gap:26px;border-bottom:1px solid var(--line);padding:0 6px}
+  .title{font-size:26px;font-weight:700;letter-spacing:.22em}
+  .title span{color:var(--you)}
+  .sub{font-size:12px;color:var(--dim);letter-spacing:.06em;margin-top:2px}
+  .headmid{margin-left:auto;display:flex;align-items:center;gap:10px}
+  .chip{background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:13px;letter-spacing:.08em}
+  .chip.range{color:var(--gold);border-color:#4a4130}
+  .score{display:flex;align-items:baseline;gap:10px;background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:6px 16px}
+  .score .v{font-size:26px;font-weight:700}
+  .score .you{color:var(--you)} .score .him{color:var(--him)}
+  .score .l{font-size:11px;letter-spacing:.14em;color:var(--faint)}
+  .card-count{font-size:12px;color:var(--dim);text-align:right;line-height:1.35}
+  .life{display:flex;gap:8px;align-items:center}
+  .life b{color:#e07a55;font-size:12px;letter-spacing:.06em;font-weight:600}
+  /* ---------- the ring ---------- */
+  .ring{grid-area:ring;padding:16px 18px 12px;display:flex;flex-direction:column}
+  .ringtop{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+  .rangeline{display:flex;gap:6px;align-items:center}
+  .rng{font-size:12px;letter-spacing:.12em;padding:4px 12px;border-radius:999px;border:1px solid var(--line);color:var(--dim)}
+  .rng.on{background:#26231a;border-color:#514730;color:var(--gold)}
+  .stage{flex:1;position:relative;border-radius:8px;overflow:hidden;
+    background:radial-gradient(600px 320px at 50% 42%, #23272f 0%, #171a20 55%, #12151a 100%);
+    border:1px solid #232833}
+  .canvas{position:absolute;inset:0}
+  .moment{border:none;background:none}
+  .strip{display:flex;gap:14px;margin-top:10px}
+  .strip .side{flex:1;background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:9px 12px}
+  .who{display:flex;justify-content:space-between;align-items:center;font-size:13px;letter-spacing:.08em;margin-bottom:7px}
+  .who .nm{font-weight:700} .who .nm.you{color:var(--you)} .who .nm.him{color:var(--him)}
+  .who .down{font-size:10px;color:#e07a55;letter-spacing:.06em}
+  .mrow{display:flex;align-items:center;gap:8px;margin-top:5px;font-size:10px;color:var(--faint)}
+  .mrow .rl{width:58px;letter-spacing:.1em;text-transform:uppercase}
+  .bar{height:12px;border-radius:3px;background:#0e1015;border:1px solid #262b34;position:relative;flex:1;overflow:hidden}
+  .bar i{position:absolute;inset:0 auto 0 0;display:block}
+  .bar i.hp{background:linear-gradient(90deg,#7d8f4d,#a3b46a)}
+  .bar i.hp.h{background:linear-gradient(90deg,#8d4630,#c2603f)}
+  .bar i.st{background:linear-gradient(90deg,#4f6b8c,#7fa0c4)}
+  .bar .ghost{position:absolute;top:0;bottom:0;background:repeating-linear-gradient(135deg,#1b1f27 0 5px,#22272f 5px 10px);border-left:1px dashed #3a4150}
+  .pips{display:flex;gap:4px}
+  .pips i{width:10px;height:10px;border-radius:2px;background:#2a303a;display:block}
+  .pips i.on{background:var(--you)} .pips i.onh{background:var(--him)}
+  .capnote{font-size:10px;color:#b08a4a;letter-spacing:.04em}
+  /* ---------- the read ---------- */
+  .read{grid-area:read;padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+  .readhead{display:flex;justify-content:space-between;align-items:baseline}
+  .readhead h2{font-size:14px;letter-spacing:.14em;font-weight:700}
+  .readhead .hint{font-size:11px;color:var(--gold);letter-spacing:.04em}
+  .beats{display:flex;gap:8px}
+  .beat{flex:1;background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:8px 9px}
+  .beat .when{font-size:10px;color:var(--faint);letter-spacing:.1em;margin-bottom:5px}
+  .beat .act{font-size:11.5px;line-height:1.5;color:#c9cdd4}
+  .beat .act b{color:var(--cream);font-weight:600}
+  .beat .act .out{color:#e07a55}
+  .beat .act .hom{color:#8fa9cf}
+  .habit{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+  .habit .hrow{display:flex;align-items:center;gap:10px;margin-top:8px}
+  .habit .hn{width:74px;font-size:11px;letter-spacing:.1em;color:var(--dim)}
+  .habit .hbar{flex:1;height:16px;display:flex;border-radius:3px;overflow:hidden;border:1px solid #262b34;background:#0e1015}
+  .habit .hbar span{display:flex;align-items:center;justify-content:center;font-size:10px;color:#0f1115;font-weight:700}
+  .habit .hh{background:#5b6a3a;color:#dfe6c6}       /* held high */
+  .habit .hl{background:#3f4a5e;color:#cfd8e6}       /* held low  */
+  .habit .ht{background:#8a4a33;color:#f2ded4}       /* thrown    */
+  .habit .h0{background:#20242c;color:#5d636e}
+  .habit .concl{margin-top:10px;font-size:12px;color:var(--open);letter-spacing:.02em}
+  .habit .concl b{color:#eaf3c9}
+  /* ---------- the log ---------- */
+  .log{grid-area:log;padding:12px 16px;display:flex;flex-direction:column}
+  .loghead{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+  .loghead h2{font-size:14px;letter-spacing:.14em}
+  .logline{display:grid;grid-template-columns:78px 1fr;gap:12px;padding:6px 0;border-top:1px solid #1f242c;font-size:13px;line-height:1.45}
+  .logline:first-of-type{border-top:none}
+  .logline .mt{font-size:10px;letter-spacing:.1em;color:var(--faint);padding-top:3px}
+  .logline .tx b.y{color:var(--you)} .logline .tx b.h{color:var(--him)}
+  .logline .tx .land{color:var(--open)} .logline .tx .no{color:#e07a55} .logline .tx .dim{color:var(--dim)}
+  .logline .tx .pt{color:var(--gold)}
+  .logline .tx .why{color:#9aa0aa;font-size:12px}
+  .logline.stand .tx{color:var(--dim)}
+  /* ---------- switches ---------- */
+  .sw{grid-area:sw;display:grid;grid-template-columns:minmax(0,1fr) 470px;gap:12px}
+  .swpanel{padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+  .row{display:flex;align-items:center;gap:10px}
+  .rowlab{width:64px;font-size:11px;letter-spacing:.14em;color:var(--dim);text-align:right}
+  .cards{display:flex;gap:8px;flex:1}
+  .sw-card{flex:1;background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:7px 9px;position:relative;min-width:0}
+  .sw-card .nm{font-size:12.5px;font-weight:600;letter-spacing:.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .sw-card .meta{display:flex;gap:8px;align-items:center;margin-top:5px;font-size:10px;color:var(--dim)}
+  .sw-card .cost{color:#8fa9cf}
+  .sw-card .dmg{color:#e0d5ac}
+  .sw-card .ln{color:#a9b0bb}
+  .sw-card .reach{display:flex;gap:3px;margin-top:6px}
+  .sw-card .reach i{width:16px;height:5px;border-radius:2px;background:#262c35}
+  .sw-card .reach i.on{background:#4f5c78}
+  .sw-card .reach i.cur{background:var(--gold)}
+  .sw-card .tagline{position:absolute;top:7px;right:8px;font-size:9px;letter-spacing:.08em;padding:2px 6px;border-radius:999px}
+  .sw-card .tagline.open{background:#2d3a1e;color:#cfe08a;border:1px solid #4b5c2c}
+  .sw-card .tagline.shut{background:#24282f;color:#767c85;border:1px solid #343a44}
+  .sw-card.sel{border-color:var(--you);box-shadow:0 0 0 1px rgba(163,180,106,.35) inset, 0 6px 16px -8px #000;background:linear-gradient(180deg,#20262c,#1a1f26)}
+  .sw-card.sel .nm{color:#e9f0cd}
+  .sw-card.canpay{border-color:#454d3f}
+  .sw-card.cant{opacity:.42;background:repeating-linear-gradient(135deg,#14171d 0 6px,#181c23 6px 12px)}
+  .sw-card.cant .nm{text-decoration:line-through;text-decoration-color:#6b7079}
+  .ordercol{padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+  .slots{display:flex;gap:8px}
+  .slot{flex:1;background:var(--panel2);border:1px dashed #3a4150;border-radius:8px;padding:8px 10px;min-height:64px}
+  .slot .n{font-size:10px;letter-spacing:.12em;color:var(--faint);margin-bottom:6px}
+  .slot .v{font-size:13px;font-weight:600}
+  .slot .v.you{color:var(--you)} .slot .v.hold{color:var(--dim);font-weight:400}
+  .slot .mp{font-size:10px;color:var(--faint);margin-top:4px;line-height:1.4}
+  .offer{margin-top:2px;background:#26221a;border:1px solid #4d4327;border-radius:8px;padding:9px 11px;font-size:12px;color:#e2cf9d;line-height:1.5}
+  .offer b{color:#f0dcae}
+  .offer .bad{color:#e08a63}
+  .foot{grid-area:foot;display:flex;align-items:center;gap:18px;font-size:11px;color:var(--faint);padding:0 6px;letter-spacing:.03em}
+  .foot b{color:#9aa0aa;font-weight:600}
+  .annot{color:#6f7480}
+</style>
+</head>
+<body>
+<div class="screen">
+
+  <!-- ================= HEADER ================= -->
+  <div class="head">
+    <div>
+      <div class="title">RING <span>SWITCHES</span></div>
+      <div class="sub">Ziva's 10/10 fight screen - every rule the log taught me, drawn where it is needed</div>
+    </div>
+    <div class="headmid">
+      <div class="chip">ROUND 2 OF 3</div>
+      <div class="chip">BEAT 4 OF 6</div>
+      <div class="rng on">MID</div>
+      <div class="score">
+        <span class="l">YOU</span><span class="v you">6</span>
+        <span class="l">-</span><span class="v him">0</span><span class="l">HIM</span>
+      </div>
+      <div class="card-count">cards 10-9, 10-9<br>round 1 yours</div>
+      <div class="life">
+        <div class="chip">you <b>down 1x</b></div>
+        <div class="chip">him <b>down 2x &nbsp;ONE MORE ENDS IT</b></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= THE RING ================= -->
+  <div class="panel ring">
+    <div class="ringtop">
+      <div class="lbl">the moment, played out</div>
+      <div class="rangeline">
+        <span class="lbl" style="margin-right:4px">range now</span>
+        <span class="rng">LONG</span><span class="rng on">MID</span><span class="rng">INSIDE</span>
+        <span class="annot">- yours and his, one place at a time</span>
+      </div>
+    </div>
+
+    <div class="stage">
+      <svg class="canvas" viewBox="0 0 1240 286" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <linearGradient id="flr" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#1b1f27"/><stop offset="1" stop-color="#12151a"/>
+          </linearGradient>
+          <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+            <feGaussianBlur stdDeviation="7" result="b"/>
+            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <rect x="0" y="236" width="1240" height="50" fill="url(#flr)"/>
+        <line x1="60" y1="236" x2="1180" y2="236" stroke="#2c323d" stroke-width="1.5"/>
+        <!-- ropes -->
+        <path d="M40 60 C 420 92, 820 92, 1200 60" fill="none" stroke="#2a303a" stroke-width="2"/>
+        <path d="M40 22 C 420 52, 820 52, 1200 22" fill="none" stroke="#252b34" stroke-width="2"/>
+        <text x="40" y="14" fill="#5d636e" font-size="11" letter-spacing="2">ROPES</text>
+
+        <!-- ============ YOU (lead hook, moment 1) ============ -->
+        <g opacity="0.99">
+          <!-- legs -->
+          <line x1="352" y1="200" x2="330" y2="236" stroke="#6f7d47" stroke-width="11" stroke-linecap="round"/>
+          <line x1="368" y1="200" x2="392" y2="236" stroke="#6f7d47" stroke-width="11" stroke-linecap="round"/>
+          <!-- torso -->
+          <path d="M344 142 q16 -14 34 0 l6 62 q-23 12 -46 0 z" fill="#394224" stroke="#8f9d5c" stroke-width="1.5"/>
+          <!-- head -->
+          <circle cx="362" cy="118" r="17" fill="#2f3620" stroke="#a3b46a" stroke-width="1.6"/>
+          <!-- rear hand home high at the chin -->
+          <path d="M382 150 L398 122 L382 106" fill="none" stroke="#8f9d5c" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="380" cy="104" r="9" fill="#2f3620" stroke="#a3b46a" stroke-width="1.6"/>
+          <!-- LEAD HOOK arriving, moment 1 -->
+          <path d="M344 152 L300 138 L262 150" fill="none" stroke="#a3b46a" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)"/>
+          <circle cx="255" cy="152" r="13" fill="#394224" stroke="#cfe08a" stroke-width="2.4" filter="url(#glow)"/>
+          <text x="196" y="196" fill="#cfe08a" font-size="12" letter-spacing="1.5">YOUR LEAD HOOK</text>
+          <text x="196" y="212" fill="#7f8a5a" font-size="11">fast - 3 health - 2 points - side line</text>
+        </g>
+
+        <!-- ============ HIM (body cross, moment 1) ============ -->
+        <g opacity="0.97">
+          <line x1="828" y1="200" x2="806" y2="236" stroke="#7d4630" stroke-width="11" stroke-linecap="round"/>
+          <line x1="848" y1="200" x2="872" y2="236" stroke="#7d4630" stroke-width="11" stroke-linecap="round"/>
+          <path d="M822 142 q16 -14 34 0 l6 62 q-23 12 -46 0 z" fill="#3c2118" stroke="#8d4d34" stroke-width="1.5"/>
+          <circle cx="840" cy="118" r="17" fill="#33190f" stroke="#c2603f" stroke-width="1.6"/>
+          <!-- his lead hand up -->
+          <path d="M820 150 L804 122 L820 106" fill="none" stroke="#8d4d34" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="822" cy="104" r="9" fill="#33190f" stroke="#c2603f" stroke-width="1.6"/>
+          <!-- his BODY CROSS, moment 1 -->
+          <path d="M858 152 L900 166 L940 176" fill="none" stroke="#c2603f" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="948" cy="178" r="13" fill="#3c2118" stroke="#e08a63" stroke-width="2.2"/>
+          <text x="900" y="196" fill="#e08a63" font-size="12" letter-spacing="1.5">HIS BODY CROSS</text>
+          <text x="900" y="212" fill="#8d5f4a" font-size="11">medium - 2 health - body line - reaches Mid</text>
+        </g>
+
+        <!-- the moment stamp between them -->
+        <g>
+          <line x1="452" y1="86" x2="700" y2="86" stroke="#514730" stroke-width="1.5" stroke-dasharray="6 6"/>
+          <text x="452" y="74" fill="#d9b45f" font-size="12" letter-spacing="2">MOMENT 1 - HIS HAND WAS OUT</text>
+          <rect x="452" y="104" width="248" height="34" rx="6" fill="#26221a" stroke="#4d4327"/>
+          <text x="466" y="126" fill="#e2cf9d" font-size="12.5">faster and bigger: your hook lands first</text>
+        </g>
+      </svg>
+    </div>
+
+    <div class="strip">
+      <div class="side">
+        <div class="who"><span class="nm you">YOU (Ziva)</span><span class="down">down 1x - two more end it</span></div>
+        <div class="mrow"><span class="rl">health</span><span class="bar"><i class="hp" style="width:66%"></i></span><span>12 / 18</span></div>
+        <div class="mrow"><span class="rl">stamina</span><span class="bar"><i class="st" style="width:75%"></i><span class="ghost" style="left:75%;right:0"></span></span><span class="capnote">6 now, 8 was</span></div>
+        <div class="mrow"><span class="rl">guard</span><span class="pips"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span><span class="capnote">blocks spend it (I saw 5/6 twice in 108 beats - say why!)</span></div>
+        <div class="mrow"><span class="rl">ground</span><span class="pips"><i></i><i></i></span><span class="capnote">a level round goes to the man who gave less</span></div>
+      </div>
+      <div class="side">
+        <div class="who"><span class="nm him">THE BODY SNATCHER</span><span class="down">down 2x - one more ends it</span></div>
+        <div class="mrow"><span class="rl">health</span><span class="bar"><i class="hp h" style="width:22%"></i></span><span>4 / 18</span></div>
+        <div class="mrow"><span class="rl">stamina</span><span class="bar"><i class="st" style="width:56%"></i><span class="ghost" style="left:56%;right:0"></span></span><span class="capnote">7 now, 8 was - body punches cut this for the bout, floor 4</span></div>
+        <div class="mrow"><span class="rl">guard</span><span class="pips"><i class="onh"></i><i class="onh"></i><i class="onh"></i><i class="onh"></i><i class="onh"></i><i class="onh"></i></span><span class="capnote">6/6</span></div>
+        <div class="mrow"><span class="rl">ground</span><span class="pips"><i class="onh"></i><i></i></span><span class="capnote">gave one place - he is nearer the ropes</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= HIS READ ================= -->
+  <div class="panel read">
+    <div class="readhead">
+      <h2>THE READ</h2>
+      <span class="hint">his last three beats - and what each hand has done this round</span>
+    </div>
+    <div class="beats">
+      <div class="beat">
+        <div class="when">BEAT -1</div>
+        <div class="act"><b>1 Rear uppercut</b><br>with his <span class="hom">lead hand held high</span></div>
+      </div>
+      <div class="beat">
+        <div class="when">BEAT -2</div>
+        <div class="act"><b>1 Step in</b> &middot; <b>2 Lead hook</b> &middot; <b>3 Overhand</b><br><span class="out">rear hand OUT</span></div>
+      </div>
+      <div class="beat">
+        <div class="when">BEAT -3</div>
+        <div class="act"><b>1 Body cross</b><br>with his <span class="hom">lead hand held low</span></div>
+      </div>
+    </div>
+
+    <div class="habit">
+      <div class="lbl">this round, by hand</div>
+      <div class="hrow">
+        <span class="hn">LEAD</span>
+        <span class="hbar">
+          <span class="hh" style="width:33%">high 1</span>
+          <span class="hl" style="width:33%">low 1</span>
+          <span class="ht" style="width:34%">thrown 1</span>
+        </span>
+      </div>
+      <div class="hrow">
+        <span class="hn">REAR</span>
+        <span class="hbar">
+          <span class="h0" style="width:2%"></span>
+          <span class="h0" style="width:2%">&nbsp;</span>
+          <span class="ht" style="width:96%">THROWN 3 of 3</span>
+        </span>
+      </div>
+      <div class="concl">His rear hand has been <b>out of its guard on every beat of the round</b>.
+        The <b>SIDE</b> line is open - that is the hook's line, and mine is faster than anything he throws with that hand.</div>
+    </div>
+    <div class="annot" style="font-size:11px;line-height:1.5">
+      This panel is the whole difference between the first playtest and this one: I asked for it after nine bouts of
+      guessing, and it won me the bout. When it reads 2-2 for a hand, it is a guess again - and then the screen should
+      say so ("no lean yet"), not pretend.
+    </div>
+  </div>
+
+  <!-- ================= THE LOG ================= -->
+  <div class="panel log">
+    <div class="loghead">
+      <h2>WHAT HAPPENED - moment by moment, with the reason</h2>
+      <span class="annot">round 1, beat 4, at Mid - the beat the read paid off (bout 6, seed 76)</span>
+    </div>
+    <div class="logline">
+      <div class="mt">BEFORE</div>
+      <div class="tx"><b class="y">YOU</b> 1 Lead hook &nbsp;&middot;&nbsp; <b class="y">2 Body cross</b>
+        &nbsp;&nbsp;|&nbsp;&nbsp; <b class="h">HIM</b> 1 Body cross
+        <span class="why">- he steps in, I stay: both punches resolve at Mid</span></div>
+    </div>
+    <div class="logline">
+      <div class="mt">MOMENT 1</div>
+      <div class="tx"><b class="y">YOU: Lead hook</b> - <span class="land">LANDS</span>
+        <span class="why">(his rear hand was OUT, throwing its Body cross)</span>
+        &nbsp;<span class="pt">-3 health, 2 points</span></div>
+    </div>
+    <div class="logline">
+      <div class="mt">MOMENT 1</div>
+      <div class="tx"><b class="h">HIM: Body cross</b> - <span class="no">BEATEN TO THE PUNCH</span>
+        <span class="why">(your Lead hook is faster: it landed first and stopped his slower punch)</span></div>
+    </div>
+    <div class="logline">
+      <div class="mt">MOMENT 2</div>
+      <div class="tx"><b class="y">YOU: Body cross</b> - <span class="land">LANDS</span>
+        <span class="why">(his lead hand was held high - the body line is nobody's guard)</span>
+        &nbsp;<span class="pt">-2 health, 1 point</span>
+        &nbsp;<span class="why">his stamina bar <b>8 &rarr; 7 for the rest of the bout</b> (it never goes lower than 4)</span></div>
+    </div>
+    <div class="logline">
+      <div class="mt">MOMENT 3</div>
+      <div class="tx dim"><span class="dim">no third action: my hands are holds, and a hold takes no moment,
+        so my punches resolved FIRST - the one thing in this game I had to learn by losing to it.</span></div>
+    </div>
+    <div class="logline stand">
+      <div class="mt">THE BEAT</div>
+      <div class="tx">5 health and 3 points, his bar cut, and his own punch stopped before it landed -
+        one read, two punches, no coin flip. Points come from the punch's <b>base</b> health, not the damage shown:
+        a counter inflates the health you read without changing the score.</div>
+    </div>
+  </div>
+
+  <!-- ================= SWITCHES + ORDER ================= -->
+  <div class="sw">
+    <div class="panel swpanel">
+      <div class="lbl">your three switches &nbsp;-&nbsp; cost, health, the line it throws on, the ranges it reaches (L M I), and whether his last shown guard leaves it open</div>
+
+      <div class="row">
+        <span class="rowlab">LEAD</span>
+        <div class="cards">
+          <div class="sw-card"><span class="tagline shut">SHUT</span><div class="nm">Jab</div>
+            <div class="meta"><span class="cost">1 st</span><span class="dmg">1 hp</span><span class="ln">straight</span></div>
+            <div class="reach"><i class="r on" style="width:24px;height:15px;line-height:15px;font-size:9px;text-align:center;border-radius:3px">L</i><i class="r on" style="width:24px;height:15px;line-height:15px;font-size:9px;text-align:center;border-radius:3px">M</i><i class="r" style="width:24px;height:15px;line-height:15px;font-size:9px;text-align:center;border-radius:3px">I</i></div></div>
+
+          <div class="sw-card"><span class="tagline open">OPEN</span><div class="nm">Body jab</div>
+            <div class="meta"><span class="cost">1 st</span><span class="dmg">1 hp</span><span class="ln">body</span></div>
+            <div class="reach"><i class="r on" style="width:24px;height:15px;line-height:15px;font-size:9px;text-align:center;border-radius:3px">L</i><i class="r on" style="width:24px;height:15px;line-height:15px;font-size:9px;text-align:center;border-radius:3px">M</i><i class="r" style="width:24px;height:15px;line-height:15px;font-size:9px;text-align:center;border-radius:3px">I</i></div></div>
+
+          <div class="sw-card sel"><span class="tagline open">OPEN</span><div class="nm">Hook</div>
+            <div class="meta"><span class="cost">2 st</span><span class="dmg">3 hp</span><span class="ln">side</span></div>
+            <div class="reach"><i class="r" style="width:24px;height:15px;line-height:15px;font-size:9px;text-align:center;border-radius:3px">L</i><i class="r cur" style="width:24px;height:15px;line-height:15px;font-size:9px;text-align:center;border-radius:3px">M</i><i class="r on" style="width:24px;height:15px;line-height:15px;font-size:9px;text-align:center;border-radius:3px">I</i></div></div>
+
+          <div class="sw-card cant"><span class="tagline shut">NO REACH</span><div class="nm">Lead uppercut</div>
+            <div class="meta"><span class="cost">2 st</span><span class="dmg">3 hp</span><span class="ln">under</span></div>
+            <div class="reach"><i class="r" style="width:24px;height:15px;line-height:15px;font-size:9px;text-align:center;border-radius:3px">L</i><i class="r" style="width:24px;height:15px;line-height:15px;font-size:9px;text-align:center;border-radius:3px">M</i><i class="r on" style="width:24px;height:15px;line-height:15px;font-size:9px;text-align:center;border-radius:3px">I</i></div></div>
+
+          <div class="sw-card"><span class="tagline open">OPEN</span><div class="nm">Body hook</div>
+            <div class="meta"><span class="cost">2 st</span><span class="dmg">2 hp</span><span class="ln">body</span></div>
+            <div class="reach"><i class="r" style="width:24px;height:15px;line-height:15px;font-size:9px;text-align:center;border-radius:3px">L</i><i class="r cur" style="width:24px;height:15px;line-height:15px;font-size:9px;text-align:center;border-radius:3px">M</i><i class="r on" style="width:24px;height:15px;line-height:15px;font-size:9px;text-align:center;border-radius:3px">I</i></div></div>
+
+          <div class="sw-card canpay"><span class="tagline open">PAIRS</span><div class="nm">Feint</div>
+            <div class="meta"><span class="cost">1 st</span><span class="dmg">0 hp</span><span class="ln">sets up</span></div>
+            <div class="reach"><i class="r on" style="width:24px;height:15px;line-height:15px;font-size:9px;text-align:center;border-radius:3px">L</i><i class="r on" style="width:24px;height:15px;line-height:15px;font-size:9px;text-align:center;border-radius:3px">M</i><i class="r on" style="width:24px;height:15px;line-height:15px;font-size:9px;text-align:center;border-radius:3px">I</i></div></div>
+
+          <div class="sw-card cant"><span class="tagline shut">NO REACH</span><div class="nm">Push off</div>
+            <div class="meta"><span class="cost">1 st</span><span class="dmg">0 hp</span><span class="ln">shove</span></div>
+            <div class="reach"><i class="r" style="width:24px;height:15px;line-height:15px;font-size:9px;text-align:center;border-radius:3px">L</i><i class="r" style="width:24px;height:15px;line-height:15px;font-size:9px;text-align:center;border-radius:3px">M</i><i class="r on" style="width:24px;height:15px;line-height:15px;font-size:9px;text-align:center;border-radius:3px">I</i></div></div>
+        </div>
+      </div>
+
+      <div class="row">
+        <span class="rowlab">REAR</span>
+        <div class="cards">
+          <div class="sw-card"><span class="tagline shut">SHUT</span><div class="nm">Cross</div>
+            <div class="meta"><span class="cost">2 st</span><span class="dmg">3 hp</span><span class="ln">straight</span></div>
+            <div class="reach"><i class="r" style="width:24px;height:15px;line-height:15px;font-size:9px;text-align:center;border-radius:3px">L</i><i class="r cur" style="width:24px;height:15px;line-height:15px;font-size:9px;text-align:center;border-radius:3px">M</i><i class="r on" style="width:24px;height:15px;line-height:15px;font-size:9px;text-align:center;border-radius:3px">I</i></div></div>
+
+          <div class="sw-card"><span class="tagline open">OPEN</span><div class="nm">Overhand</div>
+            <div class="meta"><span class="cost">3 st</span><span class="dmg">4 hp</span><span class="ln">side</span></div>
+            <div class="reach"><i class="r" style="width:24px;height:15px;line-height:15px;font-size:9px;text-align:center;border-radius:3px">L</i><i class="r cur" style="width:24px;height:15px;line-height:15px;font-size:9px;text-align:center;border-radius:3px">M</i><i class="r on" style="width:24px;height:15px;line-height:15px;font-size:9px;text-align:center;border-radius:3px">I</i></div></div>
+
+          <div class="sw-card cant"><span class="tagline shut">NO REACH</span><div class="nm">Rear uppercut</div>
+            <div class="meta"><span class="cost">3 st</span><span class="dmg">4 hp</span><span class="ln">under</span></div>
+            <div class="reach"><i class="r" style="width:24px;height:15px;line-height:15px;font-size:9px;text-align:center;border-radius:3px">L</i><i class="r" style="width:24px;height:15px;line-height:15px;font-size:9px;text-align:center;border-radius:3px">M</i><i class="r on" style="width:24px;height:15px;line-height:15px;font-size:9px;text-align:center;border-radius:3px">I</i></div></div>
+
+          <div class="sw-card canpay"><span class="tagline open">OPEN</span><div class="nm">Body cross</div>
+            <div class="meta"><span class="cost">2 st</span><span class="dmg">2 hp</span><span class="ln">body</span></div>
+            <div class="reach"><i class="r" style="width:24px;height:15px;line-height:15px;font-size:9px;text-align:center;border-radius:3px">L</i><i class="r cur" style="width:24px;height:15px;line-height:15px;font-size:9px;text-align:center;border-radius:3px">M</i><i class="r on" style="width:24px;height:15px;line-height:15px;font-size:9px;text-align:center;border-radius:3px">I</i></div></div>
+
+            <div class="meta"><span class="cost">0 st</span><span class="dmg">+1 st</span><span class="ln">blocks side</span></div>
+            <div class="reach"><i class="r on" style="width:24px;height:15px;line-height:15px;font-size:9px;text-align:center;border-radius:3px">L</i><i class="r on" style="width:24px;height:15px;line-height:15px;font-size:9px;text-align:center;border-radius:3px">M</i><i class="r on" style="width:24px;height:15px;line-height:15px;font-size:9px;text-align:center;border-radius:3px">I</i></div></div>
+
+
+            <div class="meta"><span class="cost">0 st</span><span class="dmg">+1 st</span><span class="ln">blocks under</span></div>
+            <div class="reach"><i class="r on" style="width:24px;height:15px;line-height:15px;font-size:9px;text-align:center;border-radius:3px">L</i><i class="r on" style="width:24px;height:15px;line-height:15px;font-size:9px;text-align:center;border-radius:3px">M</i><i class="r on" style="width:24px;height:15px;line-height:15px;font-size:9px;text-align:center;border-radius:3px">I</i></div></div>
+        </div>
+      </div>
+
+      <div class="row">
+        <span class="rowlab">FEET</span>
+        <div class="cards">
+          <div class="sw-card"><span class="tagline open">MOVE</span><div class="nm">Step in</div>
+            <div class="meta"><span class="cost">1 st</span><span class="dmg">-</span><span class="ln">one place closer, even if he backs off</span></div>
+            <div class="reach"><i class="r on" style="width:24px;height:15px;line-height:15px;font-size:9px;text-align:center;border-radius:3px">L</i><i class="r cur" style="width:24px;height:15px;line-height:15px;font-size:9px;text-align:center;border-radius:3px">M</i><i class="r on" style="width:24px;height:15px;line-height:15px;font-size:9px;text-align:center;border-radius:3px">I</i></div></div>
+
+          <div class="sw-card canpay"><span class="tagline open">STAY</span><div class="nm">Hold ground</div>
+            <div class="meta"><span class="cost">0 st</span><span class="dmg">-</span><span class="ln">a level round goes to the man who gave less</span></div>
+            <div class="reach"><i class="r on" style="width:24px;height:15px;line-height:15px;font-size:9px;text-align:center;border-radius:3px">L</i><i class="r cur" style="width:24px;height:15px;line-height:15px;font-size:9px;text-align:center;border-radius:3px">M</i><i class="r on" style="width:24px;height:15px;line-height:15px;font-size:9px;text-align:center;border-radius:3px">I</i></div></div>
+
+          <div class="sw-card"><span class="tagline shut">RISK</span><div class="nm">Back off</div>
+            <div class="meta"><span class="cost">1 st</span><span class="dmg">-</span><span class="ln">one place further; two and you are on the ropes</span></div>
+            <div class="reach"><i class="r on" style="width:24px;height:15px;line-height:15px;font-size:9px;text-align:center;border-radius:3px">L</i><i class="r cur" style="width:24px;height:15px;line-height:15px;font-size:9px;text-align:center;border-radius:3px">M</i><i class="r on" style="width:24px;height:15px;line-height:15px;font-size:9px;text-align:center;border-radius:3px">I</i></div></div>
+
+          <div class="sw-card cant"><span class="tagline shut">INSIDE ONLY</span><div class="nm">Clinch</div>
+            <div class="meta"><span class="cost">1 st</span><span class="dmg">+2 st</span><span class="ln">no punch lands, not twice running</span></div>
+            <div style="color:#a3865a;font-size:10px;margin-top:6px">and it eats a punch you already paid for - FIX 1</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="panel ordercol">
+      <div class="lbl">the order - first meets his first</div>
+      <div class="slots">
+        <div class="slot"><div class="n">MOMENT 1</div><div class="v you">Lead hook</div><div class="mp">his: Body cross<br>faster, so it lands first</div></div>
+        <div class="slot"><div class="n">MOMENT 2</div><div class="v you">Body cross</div><div class="mp">his: nothing<br>the body is nobody's guard</div></div>
+        <div class="slot"><div class="n">MOMENT 3</div><div class="v hold">no action</div><div class="mp">holds take no moment - so my punches resolve first</div></div>
+      </div>
+      <div class="offer">
+        <b>WHEN YOU CANNOT PAY</b> - bout 2 R2B5: I asked for 2 stamina I did not have.<br>
+        <span class="bad">NOT PLAYED: that costs 2 stamina, you have 1.</span> Nothing is lost: the beat waits for a
+        plan you can pay for.<br>
+        <b>YOU CAN PAY FOR IT WITHOUT BODY CROSS: lead=high rear=high feet=hold (0 stamina)</b><br>
+        <span class="annot">Delivered after the first playtest asked for it, and it never cost me a beat again
+        (bout 3 R3B3 was the other one).</span>
+      </div>
+      <div class="offer" style="background:#1c222a;border-color:#39424f">
+        <b style="color:#cfe08a">FIX 2, ON THIS SCREEN:</b> the cards marked NO REACH cannot be thrown from Mid at all -
+        and the real page takes your stamina and only tells you afterwards ("smothered - too close at Inside",
+        bout 3 R3B3). Dim them, or print the reason before the beat.
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <span><b>clinch</b> Inside only - 1 st - +2 st - no punch lands - not twice running - <b>and it eats a punch you already paid for (FIX 1)</b></span>
+    <span><b>feint</b> 1 st - the punch you throw in the next moment <b>cannot be covered</b> (say so in help - FIX 5)</span>
+    <span><b>knockdown</b> 3 points + the punch - up on 6, then 4 - the third ends it whatever the cards say (FIX 7)</span>
+    <span><b>block</b> the man who guessed right gets the counter - make the blocker's guard pay, or drop the meter (FIX 6)</span>
+    <span class="annot">drawn from six bouts played in words, seeds 71-76 - ALLPLAY1, seat ZIVA - never rendered, never opened</span>
+  </div>
+</div>
+</body>
+</html>

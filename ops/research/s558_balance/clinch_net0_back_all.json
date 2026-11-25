@@ -1,0 +1,9 @@
+{
+ "_note": "S558: the clinch gives +1 stamina (net 0) AND the man tied up gets back all of his smothered plan.",
+ "src": [
+  [
+   "else if (clincher != null) { f[clincher].st = Math.min(f[clincher].cap, f[clincher].st + 2);",
+   "else if (clincher != null) { const o = 1 - clincher; f[o].st = Math.min(f[o].cap, f[o].st + cost(P[o])); f[clincher].st = Math.min(f[clincher].cap, f[clincher].st + 1);"
+  ]
+ ]
+}

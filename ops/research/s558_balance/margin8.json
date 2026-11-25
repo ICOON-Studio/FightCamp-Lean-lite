@@ -1,0 +1,9 @@
+{
+ "_note": "S558 (Claude playtest, bout 2 round 3: 12 points to 1 with two knockdowns was scored 10-9; bout 3: two rounds up made round 3 dead on the cards). A round won by 5 points or more is scored 10-8.",
+ "src": [
+  [
+   "sc: [w === 1 ? 9 : 10, w === 0 ? 9 : 10]",
+   "sc: [w === 1 ? (y.pts - x.pts >= 5 ? 8 : 9) : 10, w === 0 ? (x.pts - y.pts >= 5 ? 8 : 9) : 10]"
+  ]
+ ]
+}

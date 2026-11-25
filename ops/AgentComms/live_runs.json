@@ -24,11 +24,11 @@
   },
   "ALLPLAY1_ARENA": {
    "id": "ALLPLAY1_ARENA",
-   "status": "running",
+   "status": "landed",
    "seat": "arena",
    "agent": "Arena (six bouts in its own clone)",
    "started": "2026-11-25T20:45",
-   "eta": "about 30 to 50 min",
+   "eta": "report in: fun 7, depth 7, clarity 7, variety 7 (6 wins); ops/research/allplay1/arena",
    "title": "Ring Switches playtest, judged on fun (his order: have it playtested by all agents and also you)",
    "brief": "ops/research/TASK_ALLPLAY1.md",
    "issue": "https://arena.ai/agent/01a213f1-abc2-7e72-8f58-694c714b1075",
@@ -36,21 +36,21 @@
   },
   "ALLPLAY1_ZIVA": {
    "id": "ALLPLAY1_ZIVA",
-   "status": "running",
+   "status": "landed",
    "seat": "ziva",
    "agent": "Ziva (six bouts, its editor chat on 7012)",
    "started": "2026-11-25T20:45",
-   "eta": "about 40 min",
+   "eta": "report in: fun 7, depth 8, clarity 7, variety 7 (2 wins, 4 losses); ops/research/allplay1/ziva",
    "title": "Ring Switches playtest, judged on fun (his order: have it playtested by all agents and also you)",
    "brief": "ops/research/TASK_ALLPLAY1.md"
   },
   "ALLPLAY1_AGY": {
    "id": "ALLPLAY1_AGY",
-   "status": "running",
+   "status": "landed",
    "seat": "antigravity",
    "agent": "Antigravity (three bouts by message, play_by_message.mjs)",
    "started": "2026-11-25T20:45",
-   "eta": "about 60 min, one beat every 75 s",
+   "eta": "report in: fun 7, depth 7, clarity 6, variety 6 (3 wins); ops/research/allplay1/antigravity",
    "title": "Ring Switches playtest, judged on fun (his order: have it playtested by all agents and also you)",
    "brief": "ops/research/TASK_ALLPLAY1.md"
   },
@@ -66,13 +66,33 @@
   },
   "ALLPLAY1_GROK": {
    "id": "ALLPLAY1_GROK",
-   "status": "stopped",
+   "status": "parked",
    "seat": "kalli, john, maria",
    "agent": "Grok bots by message (play_by_message.mjs)",
    "started": "2026-11-25T20:45",
-   "eta": "stopped at beat 1-2: the Grok Bot box accepts messages and starts no turn; drivers resume with the same command",
+   "eta": "owner S558: grokbots are out of quota; the drivers resume with the same command when the quota is back",
    "title": "Ring Switches playtest, judged on fun (his order: have it playtested by all agents and also you)",
    "brief": "ops/research/TASK_ALLPLAY1.md"
+  },
+  "ALLPLAY1_DOLA": {
+   "id": "ALLPLAY1_DOLA",
+   "status": "landed",
+   "seat": "dola",
+   "agent": "Dola (three bouts by message, play_by_message.mjs via=dola; owner S558: tgry dola now)",
+   "started": "2026-11-25T21:21",
+   "eta": "report in: fun 8, depth 7, clarity 7, variety 8 (1 win, 2 losses); ops/research/allplay1/dola",
+   "title": "Ring Switches playtest, judged on fun (his order: have it playtested by all agents and also you)",
+   "brief": "ops/research/TASK_ALLPLAY1.md"
+  },
+  "RUNESTEP1": {
+   "id": "RUNESTEP1",
+   "status": "running",
+   "seat": "claude worker",
+   "agent": "console worker (Opus, Code Mode), terminal tab RUNESTEP1",
+   "started": "2026-11-25T22:50",
+   "eta": "1 to 2 hours",
+   "title": "Rune Coliseum's step mechanic, and does its logic fit Ring Switches (owner S558)",
+   "brief": "ops/research/TASK_RUNESTEP1.md"
   }
  },
  "codex_budget": {

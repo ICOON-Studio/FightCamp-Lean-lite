@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>RING SWITCHES — 10/10 Fight Screen (Bout 2 · R3 B2 vs The Slugger)</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    background: #0b0d12;
+    color: #f3efe6;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .stage {
+    width: 1920px;
+    height: 1080px;
+    padding: 14px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background:
+      radial-gradient(ellipse 900px 420px at 50% 18%, rgba(246, 198, 108, 0.09), transparent 72%),
+      radial-gradient(circle 520px at 14% 10%, rgba(59, 130, 246, 0.08), transparent 65%),
+      radial-gradient(circle 520px at 86% 10%, rgba(239, 68, 68, 0.09), transparent 65%),
+      linear-gradient(180deg, #11131a 0%, #0b0d12 100%);
+  }
+
+  .mono { font-family: 'Consolas', 'Cascadia Mono', 'Courier New', monospace; }
+  .caps { text-transform: uppercase; letter-spacing: 0.08em; }
+  .display { font-family: 'Bahnschrift', 'Segoe UI', system-ui, sans-serif; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; }
+
+  /* ================= TOP BROADCAST BAR (112px) ================= */
+  .top-bar {
+    height: 112px;
+    display: grid;
+    grid-template-columns: 650px 560px 650px;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+
+  .fighter-hud {
+    background: linear-gradient(180deg, #191c25 0%, #13161e 100%);
+    border: 1px solid #2b3040;
+    border-radius: 10px;
+    padding: 10px 14px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.05), 0 6px 18px rgba(0,0,0,0.45);
+  }
+  .fighter-hud.blue { border-left: 4px solid #3b82f6; }
+  .fighter-hud.red  { border-right: 4px solid #ef4444; }
+
+  .hud-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .fighter-name {
+    font-size: 20px;
+    line-height: 1;
+    display: flex;
+    align-items: baseline;
+    gap: 9px;
+  }
+  .fighter-name.blue { color: #93c5fd; }
+  .fighter-name.red  { color: #fca5a5; }
+  .fighter-sub {
+    font-size: 11px;
+    font-weight: 700;
+    color: #94a3b8;
+    letter-spacing: 0.09em;
+  }
+
+  .tag-row { display: flex; align-items: center; gap: 6px; }
+  .pill {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 7px;
+    border-radius: 4px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border: 1px solid #333a4d;
+    background: #1d2230;
+    color: #cbd5e1;
+    white-space: nowrap;
+  }
+  .pill.warn { background: rgba(234, 179, 8, 0.14); border-color: rgba(234, 179, 8, 0.45); color: #fde047; }
+  .pill.danger { background: rgba(239, 68, 68, 0.18); border-color: rgba(239, 68, 68, 0.55); color: #fca5a5; }
+  .pill.good { background: rgba(45, 212, 191, 0.14); border-color: rgba(45, 212, 191, 0.45); color: #5eead4; }
+  .pill.blue { background: rgba(59, 130, 246, 0.18); border-color: rgba(59, 130, 246, 0.55); color: #93c5fd; }
+
+  .meter-line {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+  }
+  .meter-label {
+    font-size: 11px;
+    font-weight: 800;
+    color: #94a3b8;
+    width: 44px;
+    flex-shrink: 0;
+  }
+  .meter-val {
+    font-size: 13px;
+    font-weight: 800;
+    width: 46px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .meter-val.crit { color: #fb7185; }
+  .meter-val.gold { color: #facc15; }
+  .meter-val.teal { color: #2dd4bf; }
+
+  .pips {
+    flex: 1;
+    display: flex;
+    gap: 3px;
+    height: 15px;
+    align-items: stretch;
+  }
+  .pip {
+    flex: 1;
+    border-radius: 2px;
+    background: #232735;
+    border: 1px solid #30364a;
+  }
+  .pip.hp-blue { background: linear-gradient(180deg, #60a5fa, #2563eb); border-color: #93c5fd; box-shadow: 0 0 8px rgba(59,130,246,0.45); }
+  .pip.hp-crit { background: linear-gradient(180deg, #fb7185, #dc2626); border-color: #fda4af; box-shadow: 0 0 8px rgba(244,63,94,0.55); }
+  .pip.stam-on { background: linear-gradient(180deg, #fde047, #ca8a04); border-color: #fef08a; box-shadow: 0 0 6px rgba(250,204,21,0.4); }
+  .pip.stam-cut {
+    background: repeating-linear-gradient(-45deg, #3c151b, #3c151b 4px, #1e0b0f 4px, #1e0b0f 8px);
+    border-color: #7f1d1d;
+    position: relative;
+  }
+  .pip.stam-cut::after {
+    content: "×";
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 900;
+    color: #f87171;
+  }
+  .pip.grd-on { background: linear-gradient(180deg, #5eead4, #0d9488); border-color: #99f6e4; }
+
+  .kd-box {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 10px;
+    font-weight: 800;
+    color: #94a3b8;
+    padding-left: 6px;
+    border-left: 1px solid #2c3142;
+    flex-shrink: 0;
+  }
+  .kd-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    border: 1.5px solid #475569;
+    background: #141821;
+  }
+
+  .sub-meters {
+    display: grid;
+    grid-template-columns: 1.38fr 1fr;
+    gap: 14px;
+    align-items: center;
+  }
+
+  /* Center Clock & Scorecards */
+  .clock-card {
+    background: linear-gradient(180deg, #1d202b 0%, #13151d 100%);
+    border: 1px solid #3c3629;
+    border-top: 3px solid #d4a442;
+    border-radius: 10px;
+    padding: 8px 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+  }
+  .clock-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .brand-title {
+    font-size: 13px;
+    font-weight: 900;
+    color: #eab308;
+    letter-spacing: 0.14em;
+  }
+  .round-title {
+    font-size: 18px;
+    color: #f8f5ee;
+  }
+  .beat-dots {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .bdot {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: #242836;
+    border: 1.5px solid #475569;
+  }
+  .bdot.done-red { background: #ef4444; border-color: #fca5a5; }
+  .bdot.active { background: #facc15; border-color: #fef9c3; box-shadow: 0 0 8px #facc15; }
+
+  .clock-mid {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #0f1118;
+    border: 1px solid #262b3b;
+    border-radius: 7px;
+    padding: 5px 12px;
+  }
+  .pts-side { display: flex; align-items: baseline; gap: 7px; }
+  .pts-num { font-size: 26px; font-weight: 900; line-height: 1; }
+  .pts-num.blue { color: #60a5fa; }
+  .pts-num.red  { color: #f87171; }
+  .pts-lbl { font-size: 10px; font-weight: 700; color: #94a3b8; letter-spacing: 0.08em; }
+  .cards-strip {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .card-chip {
+    font-size: 11px;
+    font-weight: 800;
+    padding: 3px 7px;
+    border-radius: 4px;
+    background: #1b2234;
+    border: 1px solid #35476b;
+    color: #bfdbfe;
+  }
+  .card-chip.live {
+    background: rgba(239, 68, 68, 0.16);
+    border-color: rgba(248, 113, 113, 0.55);
+    color: #fecaca;
+  }
+
+  /* ================= MIDDLE ARENA STAGE (556px) ================= */
+  .mid-stage {
+    height: 556px;
+    display: grid;
+    grid-template-columns: 392px 1076px 392px;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+
+  .side-panel {
+    background: linear-gradient(180deg, #171a23 0%, #12141c 100%);
+    border: 1px solid #282d3d;
+    border-radius: 10px;
+    padding: 12px 13px;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    overflow: hidden;
+  }
+
+  .panel-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 7px;
+    border-bottom: 1px solid #262b3a;
+  }
+  .panel-title {
+    font-size: 13px;
+    font-weight: 900;
+    color: #e2e8f0;
+    letter-spacing: 0.09em;
+  }
+
+  /* Left Rail: Last Beat Replay */
+  .plan-compare {
+    background: #10131a;
+    border: 1px solid #242938;
+    border-radius: 7px;
+    padding: 7px 9px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 11.5px;
+  }
+  .pc-row { display: flex; align-items: center; gap: 7px; }
+  .pc-who { font-size: 10px; font-weight: 900; width: 32px; }
+  .pc-who.blue { color: #60a5fa; }
+  .pc-who.red  { color: #f87171; }
+  .pc-seq { color: #e2e8f0; font-weight: 600; }
+
+  .moment-card {
+    background: #131722;
+    border: 1px solid #272d3f;
+    border-radius: 8px;
+    padding: 9px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .moment-card.hit-red { border-left: 3px solid #ef4444; background: linear-gradient(90deg, rgba(239,68,68,0.10), #131722 45%); }
+  .moment-card.neutral { border-left: 3px solid #64748b; }
+  .m-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .m-badge {
+    font-size: 10px;
+    font-weight: 900;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: #23293b;
+    color: #f8fafc;
+    letter-spacing: 0.07em;
+  }
+  .m-delta { font-size: 11px; font-weight: 800; color: #f87171; }
+  .m-delta.muted { color: #94a3b8; }
+  .m-line { font-size: 12px; line-height: 1.32; color: #dbe2ee; }
+  .m-line strong { color: #ffffff; }
+  .m-line .why-note { color: #94a3b8; font-size: 11px; }
+  .stop-banner {
+    margin-top: 2px;
+    padding: 4px 7px;
+    border-radius: 5px;
+    background: rgba(245, 158, 11, 0.14);
+    border: 1px solid rgba(245, 158, 11, 0.45);
+    color: #fde68a;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .beat-net {
+    margin-top: auto;
+    background: #0e1017;
+    border: 1px solid #2a2f40;
+    border-radius: 7px;
+    padding: 8px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 11.5px;
+    font-weight: 700;
+  }
+
+  /* Center Ring Canvas */
+  .ring-wrap {
+    background: linear-gradient(180deg, #161923 0%, #101219 100%);
+    border: 1px solid #2c3143;
+    border-radius: 10px;
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 8px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .range-bar {
+    height: 44px;
+    display: grid;
+    grid-template-columns: 150px 1fr 150px;
+    gap: 10px;
+    align-items: center;
+  }
+  .ropes-box {
+    height: 100%;
+    background: #141720;
+    border: 1px solid #2b3143;
+    border-radius: 7px;
+    padding: 4px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2px;
+  }
+  .ropes-top { display: flex; justify-content: space-between; font-size: 10px; font-weight: 800; color: #94a3b8; }
+  .rope-pips { display: flex; gap: 4px; }
+  .rope-pip { flex: 1; height: 6px; border-radius: 2px; background: #242938; border: 1px solid #353c52; }
+
+  .range-lanes {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.15fr;
+    gap: 6px;
+    background: #0e1017;
+    border: 1px solid #262c3d;
+    border-radius: 8px;
+    padding: 4px;
+  }
+  .lane {
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 800;
+    color: #64748b;
+    letter-spacing: 0.08em;
+  }
+  .lane span.sub { font-size: 10px; font-weight: 600; opacity: 0.78; letter-spacing: 0.02em; }
+  .lane.active {
+    background: linear-gradient(180deg, rgba(234, 179, 8, 0.24), rgba(234, 179, 8, 0.10));
+    border: 1px solid rgba(250, 204, 21, 0.7);
+    color: #fef08a;
+    box-shadow: 0 0 14px rgba(234, 179, 8, 0.18);
+  }
+
+  .ring-canvas-box {
+    height: 382px;
+    border-radius: 9px;
+    border: 1px solid #292f40;
+    background: #0d0f15;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .timeline-bar {
+    height: 98px;
+    background: #10131c;
+    border: 1px solid #293044;
+    border-radius: 8px;
+    padding: 7px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .tl-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 10.5px;
+    font-weight: 800;
+    color: #94a3b8;
+    letter-spacing: 0.08em;
+  }
+  .tl-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  .tl-slot {
+    background: #171c29;
+    border: 1px solid #2a3247;
+    border-radius: 6px;
+    padding: 6px 9px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .tl-slot.act {
+    background: linear-gradient(180deg, rgba(59, 130, 246, 0.18), rgba(23, 28, 41, 0.95));
+    border-color: #60a5fa;
+  }
+  .tl-top { display: flex; justify-content: space-between; align-items: center; font-size: 11px; font-weight: 900; }
+  .tl-top .mnum { color: #facc15; }
+  .tl-top .act-lbl { color: #93c5fd; }
+  .tl-guards { display: flex; justify-content: space-between; font-size: 10.5px; color: #cbd5e1; }
+  .g-open { color: #fb923c; font-weight: 800; }
+  .g-safe { color: #5eead4; font-weight: 700; }
+
+  /* Right Rail: Scouting & Reads */
+  .scout-box {
+    background: #10131b;
+    border: 1px solid #272d3e;
+    border-radius: 8px;
+    padding: 9px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .scout-box.gold-edge { border-color: rgba(234, 179, 8, 0.45); background: linear-gradient(180deg, rgba(234,179,8,0.08), #10131b 55%); }
+  .scout-lbl {
+    font-size: 10.5px;
+    font-weight: 900;
+    color: #94a3b8;
+    letter-spacing: 0.08em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .chip-wrap { display: flex; flex-wrap: wrap; gap: 4px; }
+  .mv-chip {
+    font-size: 10.5px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: #1b2232;
+    border: 1px solid #35415c;
+    color: #e2e8f0;
+  }
+  .mv-chip.ok { background: rgba(45, 212, 191, 0.12); border-color: rgba(45, 212, 191, 0.45); color: #99f6e4; }
+  .mv-chip.locked {
+    background: #14161e;
+    border-color: #252836;
+    color: #525b70;
+    text-decoration: line-through;
+  }
+
+  .hand-stat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 7px;
+  }
+  .hand-stat {
+    background: #151924;
+    border: 1px solid #262c3d;
+    border-radius: 6px;
+    padding: 7px 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .hs-title { font-size: 10px; font-weight: 900; color: #fca5a5; letter-spacing: 0.07em; }
+  .hs-nums { display: flex; justify-content: space-between; font-size: 11px; color: #cbd5e1; }
+  .hs-nums b { color: #fff; }
+  .tendency-note {
+    font-size: 11px;
+    line-height: 1.35;
+    color: #fde68a;
+    background: rgba(234, 179, 8, 0.09);
+    border: 1px solid rgba(234, 179, 8, 0.30);
+    border-radius: 5px;
+    padding: 5px 8px;
+  }
+
+  .hist-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .hist-item {
+    background: #141823;
+    border: 1px solid #252b3b;
+    border-radius: 6px;
+    padding: 7px 9px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .hist-item.newest { border-color: #475569; background: #181d2b; }
+  .hi-top { display: flex; justify-content: space-between; font-size: 10px; font-weight: 800; color: #94a3b8; }
+  .hi-body { font-size: 11.5px; font-weight: 700; color: #f1f5f9; }
+  .hi-guard { font-size: 10.5px; color: #93c5fd; }
+
+  /* ================= BOTTOM SWITCHBOARD (360px) ================= */
+  .switchboard {
+    height: 360px;
+    display: grid;
+    grid-template-columns: 516px 440px 332px 560px;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+
+  .bay {
+    background: linear-gradient(180deg, #181c26 0%, #12151d 100%);
+    border: 1px solid #2b3143;
+    border-radius: 10px;
+    padding: 11px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+  }
+  .bay.commit-bay {
+    border-color: #4a3f28;
+    background: linear-gradient(180deg, #1b1d26 0%, #13141b 100%);
+  }
+
+  .bay-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #262c3c;
+  }
+  .bay-title { font-size: 13px; font-weight: 900; color: #f1f5f9; letter-spacing: 0.08em; }
+  .bay-sel { font-size: 10.5px; font-weight: 800; color: #60a5fa; }
+  .bay-sel.gold { color: #facc15; }
+
+  .guard-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 7px;
+  }
+  .sw-btn {
+    background: #1d2230;
+    border: 1.5px solid #2e354a;
+    border-radius: 7px;
+    padding: 7px 9px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 3px;
+    position: relative;
+  }
+  .sw-btn.selected-blue {
+    background: linear-gradient(180deg, rgba(59, 130, 246, 0.28), rgba(30, 58, 138, 0.32));
+    border-color: #60a5fa;
+    box-shadow: 0 0 14px rgba(59, 130, 246, 0.28), inset 0 1px 0 rgba(255,255,255,0.18);
+  }
+  .sw-btn.selected-gold {
+    background: linear-gradient(180deg, rgba(234, 179, 8, 0.25), rgba(146, 64, 14, 0.28));
+    border-color: #facc15;
+    box-shadow: 0 0 16px rgba(234, 179, 8, 0.26), inset 0 1px 0 rgba(255,255,255,0.18);
+  }
+  .sw-btn.disabled {
+    background: #13161f;
+    border-color: #212533;
+    opacity: 0.48;
+  }
+  .sw-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4px;
+  }
+  .sw-name { font-size: 13px; font-weight: 800; color: #f8fafc; }
+  .sw-cost {
+    font-size: 10.5px;
+    font-weight: 900;
+    padding: 1px 5px;
+    border-radius: 4px;
+    background: #11141d;
+    border: 1px solid #394159;
+    color: #facc15;
+  }
+  .sw-cost.plus { color: #5eead4; border-color: rgba(45, 212, 191, 0.45); }
+  .sw-cost.zero { color: #94a3b8; }
+  .sw-cost.no { color: #f87171; border-color: rgba(248,113,113,0.45); }
+  .sw-meta { font-size: 10.5px; color: #cbd5e1; line-height: 1.25; }
+  .sw-sub  { font-size: 10px; color: #94a3b8; line-height: 1.2; }
+  .sw-tag  { font-size: 9.5px; font-weight: 800; color: #fde047; letter-spacing: 0.04em; }
+  .sw-tag.teal { color: #5eead4; }
+  .sw-tag.coral { color: #fda4af; }
+
+  .lead-grid-top { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; flex: 1; }
+  .lead-grid-bot { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; flex: 1; }
+  .rear-grid { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 7px; flex: 1; }
+
+  .feet-stack { display: flex; flex-direction: column; gap: 6px; }
+  .clinch-card {
+    margin-top: auto;
+    background: linear-gradient(180deg, #1b1721 0%, #14121a 100%);
+    border: 1.5px dashed #5b4363;
+    border-radius: 8px;
+    padding: 8px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  /* Bay 4: Moment Order & Commit */
+  .order-slots {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  .order-card {
+    background: #141824;
+    border: 1.5px solid #303952;
+    border-radius: 8px;
+    padding: 9px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .order-card.primary {
+    background: linear-gradient(180deg, rgba(234, 179, 8, 0.16), #141824 72%);
+    border-color: #eab308;
+  }
+  .ord-num {
+    font-size: 10px;
+    font-weight: 900;
+    color: #facc15;
+    letter-spacing: 0.1em;
+    display: flex;
+    justify-content: space-between;
+  }
+  .ord-move { font-size: 15px; font-weight: 900; color: #ffffff; }
+  .ord-desc { font-size: 10.5px; color: #cbd5e1; line-height: 1.25; }
+
+  .stam-math {
+    background: #0f121a;
+    border: 1px solid #282f42;
+    border-radius: 7px;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+  }
+  .sm-eq { display: flex; align-items: center; gap: 8px; font-weight: 700; color: #cbd5e1; }
+  .sm-eq .n { color: #facc15; font-weight: 900; }
+  .sm-eq .neg { color: #f87171; font-weight: 900; }
+  .sm-eq .pos { color: #5eead4; font-weight: 900; }
+
+  .why-preview {
+    background: rgba(59, 130, 246, 0.10);
+    border: 1px solid rgba(96, 165, 250, 0.35);
+    border-radius: 7px;
+    padding: 7px 11px;
+    font-size: 11.5px;
+    line-height: 1.35;
+    color: #dbeafe;
+  }
+  .why-preview b { color: #93c5fd; }
+
+  .commit-row {
+    margin-top: auto;
+    display: grid;
+    grid-template-columns: 1fr 170px;
+    gap: 10px;
+    align-items: stretch;
+  }
+  .commit-btn {
+    height: 60px;
+    border-radius: 9px;
+    background: linear-gradient(180deg, #facc15 0%, #ca8a04 100%);
+    border: 2px solid #fef08a;
+    color: #111318;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    box-shadow: 0 6px 22px rgba(234, 179, 8, 0.32), inset 0 2px 0 rgba(255,255,255,0.45);
+  }
+  .cb-main { font-size: 21px; font-weight: 900; letter-spacing: 0.08em; }
+  .cb-sub { font-size: 11px; font-weight: 800; opacity: 0.85; }
+  .cb-key {
+    font-size: 11px;
+    font-weight: 900;
+    padding: 4px 9px;
+    border-radius: 5px;
+    background: rgba(17, 19, 24, 0.16);
+    border: 1px solid rgba(17, 19, 24, 0.32);
+  }
+  .alt-btn {
+    height: 60px;
+    border-radius: 9px;
+    background: #1b202e;
+    border: 1.5px solid #353e56;
+    color: #cbd5e1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+  }
+  .alt-btn .a1 { font-size: 12px; font-weight: 800; color: #f1f5f9; }
+  .alt-btn .a2 { font-size: 10px; color: #94a3b8; }
+</style>
+</head>
+<body>
+<div class="stage">
+
+  <!-- ==================== TOP BROADCAST BAR ==================== -->
+  <header class="top-bar">
+
+    <!-- YOU (BLUE CORNER) -->
+    <section class="fighter-hud blue">
+      <div class="hud-row">
+        <div class="fighter-name blue display">YOU <span class="fighter-sub">BLUE CORNER · ORTHODOX</span></div>
+        <div class="tag-row">
+          <span class="pill danger">4 HP · KD RISK</span>
+          <span class="pill">GROUND 0/2</span>
+          <span class="pill good">CLINCH REF 0/2</span>
+        </div>
+      </div>
+
+      <div class="meter-line">
+        <span class="meter-label caps">Health</span>
+        <div class="pips">
+          <div class="pip hp-crit"></div><div class="pip hp-crit"></div><div class="pip hp-crit"></div><div class="pip hp-crit"></div>
+          <div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div>
+          <div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div>
+          <div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div>
+        </div>
+        <span class="meter-val mono crit">4/18</span>
+        <div class="kd-box">KD <span class="kd-dot"></span><span class="kd-dot"></span><span class="kd-dot"></span></div>
+      </div>
+
+      <div class="sub-meters">
+        <div class="meter-line">
+          <span class="meter-label caps">Stam</span>
+          <div class="pips">
+            <div class="pip stam-on"></div><div class="pip stam-on"></div>
+            <div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div>
+            <div class="pip stam-cut"></div><div class="pip stam-cut"></div>
+          </div>
+          <span class="meter-val mono gold">2/6</span>
+        </div>
+        <div class="meter-line">
+          <span class="meter-label caps">Guard</span>
+          <div class="pips">
+            <div class="pip grd-on"></div><div class="pip grd-on"></div><div class="pip grd-on"></div>
+            <div class="pip grd-on"></div><div class="pip grd-on"></div><div class="pip grd-on"></div>
+          </div>
+          <span class="meter-val mono teal">6/6</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- CENTER CLOCK & SCORECARDS -->
+    <section class="clock-card">
+      <div class="clock-top">
+        <span class="brand-title display">RING SWITCHES</span>
+        <span class="round-title display">ROUND 3 OF 3 · BEAT 2 OF 6</span>
+        <div class="beat-dots">
+          <span class="bdot done-red" title="Beat 1"></span>
+          <span class="bdot active" title="Beat 2 (Now)"></span>
+          <span class="bdot"></span><span class="bdot"></span><span class="bdot"></span><span class="bdot"></span>
+        </div>
+      </div>
+      <div class="clock-mid">
+        <div class="pts-side">
+          <span class="pts-num blue mono">0</span>
+          <span class="pts-lbl caps">R3 PTS</span>
+        </div>
+        <div class="cards-strip">
+          <span class="card-chip mono">R1 10-9</span>
+          <span class="card-chip mono">R2 10-9</span>
+          <span class="card-chip live mono">R3 LIVE · KD = 8-10 DRAW</span>
+        </div>
+        <div class="pts-side">
+          <span class="pts-lbl caps">R3 PTS</span>
+          <span class="pts-num red mono">4</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- THE SLUGGER (RED CORNER) -->
+    <section class="fighter-hud red">
+      <div class="hud-row">
+        <div class="tag-row">
+          <span class="pill warn">GASSED · 1 STAM</span>
+          <span class="pill">GROUND 0/2</span>
+          <span class="pill danger">4 HP · 1 HIT = KD</span>
+        </div>
+        <div class="fighter-name red display"><span class="fighter-sub">STALKER · RED CORNER</span> THE SLUGGER</div>
+      </div>
+
+      <div class="meter-line">
+        <div class="kd-box" style="padding-left:0; padding-right:6px; border-left:none; border-right:1px solid #2c3142;">
+          <span class="kd-dot"></span><span class="kd-dot"></span><span class="kd-dot"></span> KD
+        </div>
+        <span class="meter-val mono crit" style="text-align:left;">4/21</span>
+        <div class="pips">
+          <div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div>
+          <div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div>
+          <div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div>
+          <div class="pip"></div><div class="pip"></div>
+          <div class="pip hp-crit"></div><div class="pip hp-crit"></div><div class="pip hp-crit"></div><div class="pip hp-crit"></div>
+        </div>
+        <span class="meter-label caps" style="text-align:right;">Health</span>
+      </div>
+
+      <div class="sub-meters">
+        <div class="meter-line">
+          <span class="meter-label caps">Guard</span>
+          <div class="pips">
+            <div class="pip grd-on"></div><div class="pip grd-on"></div><div class="pip grd-on"></div>
+            <div class="pip grd-on"></div><div class="pip grd-on"></div><div class="pip grd-on"></div>
+          </div>
+          <span class="meter-val mono teal">6/6</span>
+        </div>
+        <div class="meter-line">
+          <span class="meter-label caps">Stam</span>
+          <div class="pips">
+            <div class="pip stam-on"></div>
+            <div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div>
+            <div class="pip stam-cut"></div><div class="pip stam-cut"></div>
+          </div>
+          <span class="meter-val mono gold">1/6</span>
+        </div>
+      </div>
+    </section>
+
+  </header>
+
+  <!-- ==================== MIDDLE ARENA STAGE ==================== -->
+  <main class="mid-stage">
+
+    <!-- LEFT RAIL: LAST BEAT REPLAY (R3 B1 — THE SHOCK BEAT) -->
+    <aside class="side-panel">
+      <div class="panel-head">
+        <span class="panel-title display">LAST BEAT REPLAY · R3 B1</span>
+        <span class="pill warn">LONG → INSIDE</span>
+      </div>
+
+      <div class="plan-compare">
+        <div class="pc-row">
+          <span class="pc-who blue">YOU</span>
+          <span class="pc-seq">1 Step in · 2 Feint · 3 Overhand</span>
+        </div>
+        <div class="pc-row">
+          <span class="pc-who red">HIM</span>
+          <span class="pc-seq">1 Step in · 2 Rear uppercut · 3 Lead hook</span>
+        </div>
+      </div>
+
+      <div class="moment-card neutral">
+        <div class="m-head">
+          <span class="m-badge">MOMENT 1</span>
+          <span class="m-delta muted mono">LONG → INSIDE</span>
+        </div>
+        <div class="m-line"><strong>Both fighters step in.</strong> Distance collapses two steps straight to <strong>Inside</strong>. Both guards stay high.</div>
+      </div>
+
+      <div class="moment-card hit-red">
+        <div class="m-head">
+          <span class="m-badge">MOMENT 2</span>
+          <span class="m-delta mono">YOU -4 HP · HIM +2 PTS</span>
+        </div>
+        <div class="m-line"><strong>YOU:</strong> Feints <span class="why-note">(draws guard for M3 punch)</span></div>
+        <div class="m-line"><strong>HE: Rear uppercut LANDS</strong> — <span class="why-note">your rear hand was held HIGH (Under line open).</span></div>
+      </div>
+
+      <div class="moment-card hit-red">
+        <div class="m-head">
+          <span class="m-badge">MOMENT 3</span>
+          <span class="m-delta mono">YOU -3 HP · HIM +2 PTS</span>
+        </div>
+        <div class="m-line"><strong>HE: Lead hook LANDS</strong> — <span class="why-note">your rear hand was OUT throwing Overhand.</span></div>
+        <div class="stop-banner">⚡ SPEED INTERRUPT: His Lead hook (Fast) beat your Overhand (Slow) and STOPPED it!</div>
+      </div>
+
+      <div class="beat-net">
+        <span style="color:#94a3b8;">R3 B1 SWING</span>
+        <span class="mono" style="color:#fca5a5;">YOU -7 HP (0 PTS) · HIM 0 HP (+4 PTS)</span>
+      </div>
+    </aside>
+
+    <!-- CENTER RING STAGE -->
+    <section class="ring-wrap">
+      <!-- RANGE & ROPES RULER -->
+      <div class="range-bar">
+        <div class="ropes-box">
+          <div class="ropes-top"><span>YOUR ROPES</span><span class="mono">0/2</span></div>
+          <div class="rope-pips"><div class="rope-pip"></div><div class="rope-pip"></div></div>
+        </div>
+        <div class="range-lanes">
+          <div class="lane display">LONG <span class="sub">Jabs only</span></div>
+          <div class="lane display">MID <span class="sub">Hooks · Cross · Body</span></div>
+          <div class="lane active display">● INSIDE <span class="sub">All close · Uppercuts · Clinch</span></div>
+        </div>
+        <div class="ropes-box">
+          <div class="ropes-top"><span>HIS ROPES</span><span class="mono">0/2</span></div>
+          <div class="rope-pips"><div class="rope-pip"></div><div class="rope-pip"></div></div>
+        </div>
+      </div>
+
+      <!-- LIVE RING SVG VIEWPORT -->
+      <div class="ring-canvas-box">
+        <svg viewBox="0 0 1052 382" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="spot" cx="50%" cy="28%" r="62%">
+              <stop offset="0%" stop-color="#fde68a" stop-opacity="0.16"/>
+              <stop offset="55%" stop-color="#3b82f6" stop-opacity="0.04"/>
+              <stop offset="100%" stop-color="#0b0d14" stop-opacity="0"/>
+            </radialGradient>
+            <linearGradient id="mat" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#1b2030"/>
+              <stop offset="100%" stop-color="#111520"/>
+            </linearGradient>
+            <linearGradient id="blueSkin" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#3b82f6"/>
+              <stop offset="100%" stop-color="#1d4ed8"/>
+            </linearGradient>
+            <linearGradient id="redSkin" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#ef4444"/>
+              <stop offset="100%" stop-color="#991b1b"/>
+            </linearGradient>
+            <linearGradient id="arrowGrad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#60a5fa" stop-opacity="0.25"/>
+              <stop offset="100%" stop-color="#facc15" stop-opacity="1"/>
+            </linearGradient>
+          </defs>
+
+          <!-- Arena backdrop & spotlight -->
+          <rect width="1052" height="382" fill="#0d1018"/>
+          <ellipse cx="526" cy="95" rx="460" ry="220" fill="url(#spot)"/>
+
+          <!-- Subtle crowd tiers -->
+          <g opacity="0.18" fill="#64748b">
+            <rect x="0" y="34" width="1052" height="2"/>
+            <rect x="0" y="64" width="1052" height="2"/>
+            <rect x="0" y="96" width="1052" height="2"/>
+          </g>
+
+          <!-- Perspective ring canvas -->
+          <polygon points="72,220 980,220 1038,374 14,374" fill="url(#mat)" stroke="#334155" stroke-width="2"/>
+          <!-- Ring floor range markers -->
+          <line x1="210" y1="220" x2="170" y2="374" stroke="#2c354c" stroke-width="1.5" stroke-dasharray="6 6"/>
+          <line x1="842" y1="220" x2="882" y2="374" stroke="#2c354c" stroke-width="1.5" stroke-dasharray="6 6"/>
+          <!-- Inside battle circle -->
+          <ellipse cx="470" cy="322" rx="185" ry="34" fill="rgba(250,204,21,0.08)" stroke="#eab308" stroke-width="1.6" stroke-dasharray="7 5"/>
+          <text x="470" y="362" text-anchor="middle" fill="#facc15" font-size="11" font-weight="800" letter-spacing="2.4">INSIDE RANGE · POCKET</text>
+
+          <!-- Left Corner Post & Ropes (Your Ropes) -->
+          <rect x="52" y="88" width="16" height="165" rx="4" fill="#2563eb" stroke="#93c5fd" stroke-width="1.5"/>
+          <line x1="68" y1="115" x2="984" y2="115" stroke="#dc2626" stroke-width="3" opacity="0.55"/>
+          <line x1="68" y1="154" x2="984" y2="154" stroke="#e2e8f0" stroke-width="3" opacity="0.4"/>
+          <line x1="68" y1="193" x2="984" y2="193" stroke="#2563eb" stroke-width="3" opacity="0.55"/>
+          <!-- Right Corner Post -->
+          <rect x="984" y="88" width="16" height="165" rx="4" fill="#dc2626" stroke="#fca5a5" stroke-width="1.5"/>
+
+          <!-- Ropes penalty callout badges -->
+          <g transform="translate(82, 260)">
+            <rect width="128" height="36" rx="5" fill="#131722" stroke="#334155"/>
+            <text x="10" y="15" fill="#94a3b8" font-size="9.5" font-weight="800" letter-spacing="1">ROPES AT 2/2</text>
+            <text x="10" y="29" fill="#fda4af" font-size="10" font-weight="700">No back-off · +1 dmg</text>
+          </g>
+
+          <!-- ========== LEFT BOXER: YOU (BLUE CORNER, PLANNED: M1 CROSS + LEAD HIGH) ========== -->
+          <g transform="translate(320, 92)">
+            <!-- Ground shadow -->
+            <ellipse cx="48" cy="232" rx="64" ry="14" fill="#06080d" opacity="0.72"/>
+            <!-- Legs & Boots -->
+            <path d="M24,158 L6,226 L28,228 L44,170 Z" fill="#1e293b" stroke="#60a5fa" stroke-width="1.5"/>
+            <path d="M62,158 L84,226 L104,226 L78,166 Z" fill="#1e293b" stroke="#60a5fa" stroke-width="1.5"/>
+            <!-- Blue Boxing Trunks -->
+            <path d="M18,128 L76,128 L82,166 L14,166 Z" fill="url(#blueSkin)" stroke="#93c5fd" stroke-width="1.5"/>
+            <rect x="18" y="124" width="58" height="10" rx="2" fill="#f8fafc"/>
+            <!-- Torso -->
+            <path d="M22,58 L78,56 L74,125 L24,125 Z" fill="#2c364c" stroke="#60a5fa" stroke-width="1.8"/>
+            <!-- Head -->
+            <circle cx="54" cy="34" r="21" fill="#334155" stroke="#93c5fd" stroke-width="2"/>
+            <path d="M46,24 L68,26 L68,38 L46,36 Z" fill="#1e293b" opacity="0.5"/>
+
+            <!-- LEAD ARM HELD HIGH (Blocks Straight) -->
+            <path d="M70,66 L104,88 L98,42" fill="none" stroke="#60a5fa" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+            <ellipse cx="98" cy="36" rx="16" ry="14" fill="#2563eb" stroke="#bfdbfe" stroke-width="2"/>
+            <!-- Blue Guard Shield Arc on Straight Line -->
+            <path d="M116,12 Q132,36 116,60" fill="none" stroke="#5eead4" stroke-width="4" stroke-linecap="round"/>
+            <text x="95" y="7" text-anchor="middle" fill="#5eead4" font-size="10.5" font-weight="900" letter-spacing="0.8">LEAD HIGH · BLOCKS STRAIGHT</text>
+
+            <!-- REAR ARM COCKED FOR M1 CROSS -->
+            <path d="M28,68 L10,92 L46,84" fill="none" stroke="#3b82f6" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+            <ellipse cx="52" cy="83" rx="17" ry="14" fill="#eab308" stroke="#fef08a" stroke-width="2.2"/>
+            <text x="12" y="114" text-anchor="middle" fill="#facc15" font-size="10.5" font-weight="900">M1 CROSS</text>
+          </g>
+
+          <!-- PLANNED MOMENT 1 PUNCH VECTOR ARROW (STRAIGHT LINE) -->
+          <g>
+            <line x1="395" y1="173" x2="546" y2="142" stroke="url(#arrowGrad)" stroke-width="6" stroke-dasharray="10 5"/>
+            <polygon points="560,139 540,131 544,151" fill="#facc15"/>
+            <rect x="418" y="122" width="114" height="22" rx="4" fill="#141824" stroke="#facc15"/>
+            <text x="475" y="137" text-anchor="middle" fill="#fef08a" font-size="10.5" font-weight="900">M1 CROSS · 3 DMG</text>
+          </g>
+
+          <!-- ========== RIGHT BOXER: THE SLUGGER (RED CORNER, GASSED 1/6 STAM, 4/21 HP) ========== -->
+          <g transform="translate(532, 84)">
+            <!-- Ground shadow -->
+            <ellipse cx="64" cy="240" rx="70" ry="15" fill="#06080d" opacity="0.72"/>
+            <!-- Legs -->
+            <path d="M36,164 L16,234 L38,234 L54,174 Z" fill="#231c24" stroke="#f87171" stroke-width="1.5"/>
+            <path d="M74,164 L96,234 L118,232 L90,170 Z" fill="#231c24" stroke="#f87171" stroke-width="1.5"/>
+            <!-- Crimson Trunks -->
+            <path d="M28,132 L96,132 L100,170 L24,170 Z" fill="url(#redSkin)" stroke="#fca5a5" stroke-width="1.5"/>
+            <rect x="28" y="128" width="68" height="10" rx="2" fill="#facc15"/>
+            <!-- Heavy Shouldered Torso -->
+            <path d="M22,56 L98,58 L92,129 L30,129 Z" fill="#3a232a" stroke="#f87171" stroke-width="2"/>
+            <!-- Head -->
+            <circle cx="52" cy="36" r="22" fill="#472830" stroke="#fca5a5" stroke-width="2"/>
+            <!-- Heavy hands (low/tired posture at 1 stamina) -->
+            <path d="M30,72 L12,102 L26,112" fill="none" stroke="#ef4444" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/>
+            <ellipse cx="26" cy="112" rx="17" ry="14" fill="#dc2626" stroke="#fecaca" stroke-width="2"/>
+            <path d="M90,72 L106,104 L74,114" fill="none" stroke="#b91c1c" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/>
+            <ellipse cx="70" cy="114" rx="17" ry="14" fill="#b91c1c" stroke="#fecaca" stroke-width="2"/>
+            <!-- Gassed / Critical badge overhead -->
+            <rect x="-12" y="-12" width="144" height="22" rx="11" fill="rgba(234,179,8,0.18)" stroke="#facc15"/>
+            <text x="60" y="3" text-anchor="middle" fill="#fde047" font-size="10.5" font-weight="900">1/6 STAM · 4/21 HP</text>
+          </g>
+
+          <!-- ========== 4-LINE GUARD ANATOMY CARD (RIGHT SIDE OF RING) ========== -->
+          <g transform="translate(756, 22)">
+            <rect width="276" height="196" rx="8" fill="rgba(16,19,28,0.92)" stroke="#334155" stroke-width="1.2"/>
+            <text x="12" y="21" fill="#e2e8f0" font-size="11" font-weight="900" letter-spacing="1.2">4 LINES · WHICH HAND BLOCKS</text>
+            <line x1="12" y1="29" x2="264" y2="29" stroke="#283044"/>
+
+            <!-- Line 1: Straight (Targeted by M1 Cross!) -->
+            <rect x="10" y="38" width="256" height="33" rx="5" fill="rgba(250,204,21,0.14)" stroke="#facc15"/>
+            <text x="18" y="52" fill="#fef08a" font-size="11" font-weight="900">STRAIGHT → YOUR TARGET (M1)</text>
+            <text x="18" y="65" fill="#cbd5e1" font-size="10">Blocked by his LEAD HIGH · Held 0× R1–R2</text>
+
+            <!-- Line 2: Body -->
+            <rect x="10" y="77" width="256" height="31" rx="5" fill="#151925" stroke="#283044"/>
+            <text x="18" y="91" fill="#e2e8f0" font-size="10.5" font-weight="800">BODY (-1 Max Stam)</text>
+            <text x="18" y="103" fill="#94a3b8" font-size="10">Blocked by his LEAD LOW · Held 3× R2</text>
+
+            <!-- Line 3: Side -->
+            <rect x="10" y="114" width="256" height="31" rx="5" fill="#151925" stroke="#283044"/>
+            <text x="18" y="128" fill="#e2e8f0" font-size="10.5" font-weight="800">SIDE (Hook · Overhand)</text>
+            <text x="18" y="140" fill="#94a3b8" font-size="10">Blocked by his REAR HIGH · Active hand default</text>
+
+            <!-- Line 4: Under -->
+            <rect x="10" y="151" width="256" height="33" rx="5" fill="#151925" stroke="#283044"/>
+            <text x="18" y="165" fill="#e2e8f0" font-size="10.5" font-weight="800">UNDER (Uppercuts · Inside)</text>
+            <text x="18" y="178" fill="#94a3b8" font-size="10">Blocked by his REAR LOW · Slips under high shell</text>
+          </g>
+
+          <!-- Rule reminder strip bottom-right of canvas -->
+          <g transform="translate(756, 232)">
+            <rect width="276" height="58" rx="7" fill="rgba(19,24,36,0.88)" stroke="#2b344b"/>
+            <text x="12" y="19" fill="#5eead4" font-size="10" font-weight="900" letter-spacing="0.8">ACTIVE HAND GUARD RULE</text>
+            <text x="12" y="34" fill="#cbd5e1" font-size="10">A punching hand is open ONLY on its throw</text>
+            <text x="12" y="48" fill="#cbd5e1" font-size="10">moment — it guards HIGH on other moments.</text>
+          </g>
+        </svg>
+      </div>
+
+      <!-- LIVE 3-MOMENT GUARD & ACTION TIMELINE PREVIEW -->
+      <div class="timeline-bar">
+        <div class="tl-head">
+          <span>YOUR BEAT 2 TIMELINE PREVIEW · ORDER: 1 REAR (CROSS) → 2 LEAD (HIGH) → 3 FEET (HOLD)</span>
+          <span style="color:#5eead4;">ACTIVE GUARD WINDOW VERIFIED</span>
+        </div>
+        <div class="tl-grid">
+          <div class="tl-slot act">
+            <div class="tl-top"><span class="mnum">MOMENT 1</span><span class="act-lbl">THROW CROSS (MED · 3 DMG)</span></div>
+            <div class="tl-guards"><span>Lead: <span class="g-safe">HIGH (Straight)</span></span><span>Rear: <span class="g-open">OPEN (Punching)</span></span></div>
+          </div>
+          <div class="tl-slot">
+            <div class="tl-top"><span class="mnum">MOMENT 2</span><span style="color:#94a3b8;">BOTH HANDS ON GUARD</span></div>
+            <div class="tl-guards"><span>Lead: <span class="g-safe">HIGH (Straight)</span></span><span>Rear: <span class="g-safe">RETURNS HIGH (Side)</span></span></div>
+          </div>
+          <div class="tl-slot">
+            <div class="tl-top"><span class="mnum">MOMENT 3</span><span style="color:#94a3b8;">HOLD INSIDE · FULL SHELL</span></div>
+            <div class="tl-guards"><span>Lead: <span class="g-safe">HIGH (Straight)</span></span><span>Rear: <span class="g-safe">HIGH (Side)</span></span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RIGHT RAIL: OPPONENT SCOUTING & READ PANEL -->
+    <aside class="side-panel">
+      <div class="panel-head">
+        <span class="panel-title display">SCOUTING · THE SLUGGER</span>
+        <span class="pill warn">1/6 STAM</span>
+      </div>
+
+      <!-- Stamina Affordability Window -->
+      <div class="scout-box gold-edge">
+        <div class="scout-lbl">
+          <span>AFFORDABLE AT 1 STAMINA (INSIDE)</span>
+          <span style="color:#fde047;">0 PUNCHES REACH</span>
+        </div>
+        <div class="chip-wrap">
+          <span class="mv-chip ok">Step in (1)</span>
+          <span class="mv-chip ok">Back off (1)</span>
+          <span class="mv-chip ok">Push off (1)</span>
+          <span class="mv-chip ok">Feint (1)</span>
+          <span class="mv-chip ok">Rest (0)</span>
+        </div>
+        <div class="chip-wrap">
+          <span class="mv-chip locked">Hook (2)</span>
+          <span class="mv-chip locked">Cross (2)</span>
+          <span class="mv-chip locked">L. Up (2)</span>
+          <span class="mv-chip locked">Body (2)</span>
+          <span class="mv-chip locked">Over (3)</span>
+          <span class="mv-chip locked">R. Up (3)</span>
+        </div>
+      </div>
+
+      <!-- Round & Bout Hand Tendencies -->
+      <div class="scout-box">
+        <div class="scout-lbl">
+          <span>THIS ROUND (1 BEAT) · HAND TALLY</span>
+          <span class="mono" style="color:#cbd5e1;">R3</span>
+        </div>
+        <div class="hand-stat-grid">
+          <div class="hand-stat">
+            <span class="hs-title">LEAD HAND</span>
+            <div class="hs-nums"><span>Hi <b>0</b></span><span>Lo <b>0</b></span><span>Thr <b>1</b></span></div>
+          </div>
+          <div class="hand-stat">
+            <span class="hs-title">REAR HAND</span>
+            <div class="hs-nums"><span>Hi <b>0</b></span><span>Lo <b>0</b></span><span>Thr <b>1</b></span></div>
+          </div>
+        </div>
+        <div class="tendency-note">
+          <strong>Bout Read (R1–R2):</strong> Lead held HIGH <strong>0×</strong> across 12 beats (held LOW 5×). Rested <strong>LOW/LOW</strong> both previous gas-outs.
+        </div>
+      </div>
+
+      <!-- His Last 3 Beats -->
+      <div class="scout-box" style="flex:1; justify-content:flex-start;">
+        <div class="scout-lbl">
+          <span>HIS LAST 3 BEATS (NEWEST FIRST)</span>
+          <span style="color:#64748b;">REAL LOG</span>
+        </div>
+        <div class="hist-list">
+          <div class="hist-item newest">
+            <div class="hi-top"><span>R3 · BEAT 1 (LONG → INSIDE)</span><span style="color:#f87171;">-5 STAM</span></div>
+            <div class="hi-body">1 Step in → 2 Rear uppercut → 3 Lead hook</div>
+            <div class="hi-guard">Both hands thrown · +4 pts</div>
+          </div>
+          <div class="hist-item">
+            <div class="hi-top"><span>R2 · BEAT 6 (INSIDE)</span><span>CLINCHED</span></div>
+            <div class="hi-body">1 Lead uppercut → 2 Body cross</div>
+            <div class="hi-guard">Both hands thrown · Tied up by clinch</div>
+          </div>
+          <div class="hist-item">
+            <div class="hi-top"><span>R2 · BEAT 5 (MID → INSIDE)</span><span>BLOCKED</span></div>
+            <div class="hi-body">1 Step in → 2 Lead hook</div>
+            <div class="hi-guard">Rear hand held HIGH · Countered by your Cross</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+  </main>
+
+  <!-- ==================== BOTTOM SWITCHBOARD (360px) ==================== -->
+  <footer class="switchboard">
+
+    <!-- BAY 1: LEAD HAND -->
+    <section class="bay">
+      <div class="bay-head">
+        <span class="bay-title display">1 · LEAD HAND SWITCH</span>
+        <span class="bay-sel">HELD HIGH · +1 STAM · STRAIGHT</span>
+      </div>
+
+      <div class="guard-pair">
+        <div class="sw-btn selected-blue">
+          <div class="sw-top"><span class="sw-name">HOLD HIGH</span><span class="sw-cost plus">+1 STAM</span></div>
+          <div class="sw-meta">Blocks <strong>Straight</strong> (Jab, Cross)</div>
+          <div class="sw-tag teal">● LOCKED FOR BEAT 2</div>
+        </div>
+        <div class="sw-btn">
+          <div class="sw-top"><span class="sw-name">HOLD LOW</span><span class="sw-cost plus">+1 STAM</span></div>
+          <div class="sw-meta">Blocks <strong>Body</strong> (Body jab, hooks, cross)</div>
+          <div class="sw-sub">Protects stamina cap</div>
+        </div>
+      </div>
+
+      <div class="lead-grid-top">
+        <div class="sw-btn disabled">
+          <div class="sw-top"><span class="sw-name">Jab</span><span class="sw-cost">1</span></div>
+          <div class="sw-meta">1 dmg · Fast · Str</div>
+          <div class="sw-tag coral">Mid/Long only</div>
+          <div class="sw-sub">Halts Step-in</div>
+        </div>
+        <div class="sw-btn disabled">
+          <div class="sw-top"><span class="sw-name">Body Jab</span><span class="sw-cost">1</span></div>
+          <div class="sw-meta">1 dmg · Fast · Bdy</div>
+          <div class="sw-tag coral">Mid/Long only</div>
+          <div class="sw-sub">1 pt · Safe poke</div>
+        </div>
+        <div class="sw-btn">
+          <div class="sw-top"><span class="sw-name">Lead Hook</span><span class="sw-cost">2</span></div>
+          <div class="sw-meta">3 dmg · Fast · Side</div>
+          <div class="sw-tag">2 pts · Stops Med/Slw</div>
+          <div class="sw-sub">Inside &amp; Mid</div>
+        </div>
+        <div class="sw-btn">
+          <div class="sw-top"><span class="sw-name">Lead Up</span><span class="sw-cost">2</span></div>
+          <div class="sw-meta">3 dmg · Med · Und</div>
+          <div class="sw-tag">2 pts · Inside only</div>
+          <div class="sw-sub">Under Rear High</div>
+        </div>
+      </div>
+
+      <div class="lead-grid-bot">
+        <div class="sw-btn">
+          <div class="sw-top"><span class="sw-name">Body Hook</span><span class="sw-cost">2</span></div>
+          <div class="sw-meta">2 dmg · Med · Body</div>
+          <div class="sw-tag teal">-1 Max Stam (bout)</div>
+        </div>
+        <div class="sw-btn">
+          <div class="sw-top"><span class="sw-name">Feint</span><span class="sw-cost">1</span></div>
+          <div class="sw-meta">M+1 punch uncoverable</div>
+          <div class="sw-tag coral">Stuffed if hit in M</div>
+        </div>
+        <div class="sw-btn">
+          <div class="sw-top"><span class="sw-name">Push Off</span><span class="sw-cost">1</span></div>
+          <div class="sw-meta">Shove Inside → Mid</div>
+          <div class="sw-tag">Stops clinch · Disrupts</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BAY 2: REAR HAND -->
+    <section class="bay">
+      <div class="bay-head">
+        <span class="bay-title display">2 · REAR HAND SWITCH</span>
+        <span class="bay-sel gold">CROSS · M1 · 3 DMG</span>
+      </div>
+
+      <div class="guard-pair">
+        <div class="sw-btn">
+          <div class="sw-top"><span class="sw-name">HOLD HIGH</span><span class="sw-cost plus">+1 STAM</span></div>
+          <div class="sw-meta">Blocks <strong>Side</strong> (Hook, Overhand)</div>
+        </div>
+        <div class="sw-btn">
+          <div class="sw-top"><span class="sw-name">HOLD LOW</span><span class="sw-cost plus">+1 STAM</span></div>
+          <div class="sw-meta">Blocks <strong>Under</strong> (Uppercuts)</div>
+        </div>
+      </div>
+
+      <div class="rear-grid">
+        <div class="sw-btn selected-gold">
+          <div class="sw-top"><span class="sw-name">CROSS</span><span class="sw-cost">2 STAM</span></div>
+          <div class="sw-meta"><strong>3 dmg · 2 pts</strong> · Medium · <strong>Straight</strong></div>
+          <div class="sw-sub">Reaches Inside &amp; Mid (hits if he backs off)</div>
+          <div class="sw-tag">★ SELECTED · MOMENT 1</div>
+        </div>
+        <div class="sw-btn">
+          <div class="sw-top"><span class="sw-name">Body Cross</span><span class="sw-cost">2 STAM</span></div>
+          <div class="sw-meta">2 dmg · 1 pt · Medium · Body</div>
+          <div class="sw-sub">Reaches Inside &amp; Mid</div>
+          <div class="sw-tag teal">-1 Max Stam (never &lt;4)</div>
+        </div>
+        <div class="sw-btn disabled">
+          <div class="sw-top"><span class="sw-name">Overhand</span><span class="sw-cost no">3 STAM</span></div>
+          <div class="sw-meta">4 dmg · 2 pts · Slow · Side</div>
+          <div class="sw-sub">Inside &amp; Mid · -2 Guard chip</div>
+          <div class="sw-tag coral">Need 3 stam (have 2)</div>
+        </div>
+        <div class="sw-btn disabled">
+          <div class="sw-top"><span class="sw-name">Rear Uppercut</span><span class="sw-cost no">3 STAM</span></div>
+          <div class="sw-meta">4 dmg · 2 pts · Slow · Under</div>
+          <div class="sw-sub">Inside only · Heavy guard chip</div>
+          <div class="sw-tag coral">Need 3 stam (have 2)</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BAY 3: FEET & CLINCH -->
+    <section class="bay">
+      <div class="bay-head">
+        <span class="bay-title display">3 · FEET &amp; CLINCH</span>
+        <span class="bay-sel">HOLD · INSIDE</span>
+      </div>
+
+      <div class="feet-stack">
+        <div class="sw-btn">
+          <div class="sw-top"><span class="sw-name">STEP IN</span><span class="sw-cost">1 STAM</span></div>
+          <div class="sw-meta">Closer 1 range · Cancels Back-off · Wins ground</div>
+        </div>
+        <div class="sw-btn selected-blue">
+          <div class="sw-top"><span class="sw-name">HOLD GROUND</span><span class="sw-cost zero">0 STAM</span></div>
+          <div class="sw-meta">Stay at <strong>Inside</strong> · Preserves stamina</div>
+        </div>
+        <div class="sw-btn">
+          <div class="sw-top"><span class="sw-name">BACK OFF</span><span class="sw-cost">1 STAM</span></div>
+          <div class="sw-meta">Inside → Mid · +1 Ground given (Ropes at 2/2)</div>
+        </div>
+      </div>
+
+      <div class="clinch-card">
+        <div class="sw-top">
+          <span class="sw-name" style="color:#e9d5ff;">CLINCH (EMERGENCY TIE-UP)</span>
+          <span class="sw-cost zero">NET ±0</span>
+        </div>
+        <div class="sw-meta">Inside only · No punch lands · Breaks at Mid</div>
+        <div class="sw-sub" style="color:#d8b4fe;">Ref Warnings: <strong>0/2</strong> (3rd = -1 pt) · Shoved off by Push (leaves guard High/High)</div>
+      </div>
+    </section>
+
+    <!-- BAY 4: THROW ORDER & COMMIT -->
+    <section class="bay commit-bay">
+      <div class="bay-head">
+        <span class="bay-title display">4 · MOMENT ORDER &amp; COMMIT</span>
+        <span class="bay-sel gold">FIRST MEETS HIS FIRST</span>
+      </div>
+
+      <div class="order-slots">
+        <div class="order-card primary">
+          <div class="ord-num"><span>1ST · MOMENT 1</span><span>REAR</span></div>
+          <div class="ord-move">CROSS</div>
+          <div class="ord-desc">3 dmg · 2 pts · Straight<br>Hits Inside &amp; Mid</div>
+        </div>
+        <div class="order-card">
+          <div class="ord-num"><span>2ND · HELD</span><span>LEAD</span></div>
+          <div class="ord-move">HIGH GUARD</div>
+          <div class="ord-desc">Blocks Straight M1–M3<br>Grants +1 Stamina</div>
+        </div>
+        <div class="order-card">
+          <div class="ord-num"><span>3RD · STANCE</span><span>FEET</span></div>
+          <div class="ord-move">HOLD</div>
+          <div class="ord-desc">Stay Inside · 0 cost<br>Clinch open for B3</div>
+        </div>
+      </div>
+
+      <div class="stam-math">
+        <div class="sm-eq mono">
+          <span>NOW <span class="n">2</span></span>
+          <span>− COST <span class="neg">2</span></span>
+          <span>+ BASE <span class="pos">1</span></span>
+          <span>+ HELD <span class="pos">1</span></span>
+          <span>= <span class="n">2/6 NEXT</span></span>
+        </div>
+        <span class="pill good">STAMINA NEUTRAL</span>
+      </div>
+
+      <div class="why-preview">
+        <b>Tactical Edge:</b> At <strong>1/6 stamina</strong> Inside, The Slugger cannot afford any reaching punch. Moment-1 Cross is risk-free, hits Mid if he backs off or shoves, attacks his 0-for-bout Lead-High guard, and drops him to <strong>1/21 HP</strong>.
+      </div>
+
+      <div class="commit-row">
+        <div class="commit-btn">
+          <div>
+            <div class="cb-main display">THROW BEAT 2</div>
+            <div class="cb-sub mono">lead=high · rear=cross · feet=hold · order=rear,lead,feet</div>
+          </div>
+          <span class="cb-key mono">SPACE</span>
+        </div>
+        <div class="alt-btn">
+          <span class="a1 display">SWAP ORDER</span>
+          <span class="a2">Drag 1st / 2nd / 3rd</span>
+        </div>
+      </div>
+    </section>
+
+  </footer>
+
+</div>
+</body>
+</html>

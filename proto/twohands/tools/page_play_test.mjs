@@ -38,11 +38,11 @@ await test('a bout played to the last bell: every round goes on the cards, and t
     assert.equal(G.get().phase, 'plan'); let rounds = 0;
     for (let b = 0; b < 18 && G.get().phase !== 'over'; b++) { const r0 = G.get().round; G.setP({ hl: 'low', hr: 'high' }); await click();   // both hands held: the cheapest way to hear three bells
       const s = G.get(); if (s.phase !== 'over' && s.round > r0) { rounds++; assert.equal(s.cards.length, rounds, `after bell ${rounds} the cards hold ${s.cards.length} rounds`);
-        assert.match(els.score.innerHTML, new RegExp(`R${rounds} (10|9)-(10|9)`), 'the score line shows the round'); assert.equal(s.seenRound.length, 0, 'a new round: nothing seen of him yet'); } }
+        assert.match(els.score.innerHTML, new RegExp(`R${rounds} (10|9|8)-(10|9|8)`), 'the score line shows the round'); assert.equal(s.seenRound.length, 0, 'a new round: nothing seen of him yet'); } }
     const s = G.get(); assert.equal(s.phase, 'over', 'the bout ended'); const said = els.said.textContent;
     if (/referee stops it/.test(said)) continue;
     done++; assert.equal(s.cards.length, G.N.rounds, 'three rounds on the cards'); const t = [0, 1].map((k) => s.cards.reduce((a, c) => a + c[k], 0));
-    assert.ok(t[0] >= 27 && t[1] >= 27, `the cards add up to a real score, not ${t.join('-')}`); assert.ok(said.includes(`${t[0]}-${t[1]}`), `the result names the cards: "${said}"`); }
+    assert.ok(t[0] >= 24 && t[1] >= 24,   /* S558: a wide round is 10-8, so three lost rounds can be 24 */ `the cards add up to a real score, not ${t.join('-')}`); assert.ok(said.includes(`${t[0]}-${t[1]}`), `the result names the cards: "${said}"`); }
   assert.ok(done >= 1, 'at least one of the six bouts went to the cards');
 });
 

@@ -1,0 +1,13 @@
+{
+ "_note": "RUNESTEP1 (Rune Coliseum: a hit that lands on a man in the middle of a move always knocks him down; here milder): a punch that lands in the moment the other man steps in takes 1 more health. Walking in off Long costs something when he holds and jabs; the first-beat 'walk in' stops being free.",
+ "src": [
+  [
+   "const dmg = a.d + (openNow[sh.k] ? N.counter : 0);",
+   "const caught = act[v] === 'feet' && P[v].feet === 'in', dmg = a.d + (openNow[sh.k] ? N.counter : 0) + (caught ? 1 : 0);"
+  ],
+  [
+   "lands${openNow[sh.k] ? ' as a counter' : ''}",
+   "lands${openNow[sh.k] ? ' as a counter' : ''}${caught ? ' - caught stepping in, +1' : ''}"
+  ]
+ ]
+}

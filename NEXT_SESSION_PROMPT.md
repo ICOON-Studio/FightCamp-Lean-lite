@@ -1,102 +1,106 @@
-# S558 handover (written 2026-11-25, S557 - Fable)
+# S559 handover (written 2026-11-25, S558 - Fable)
 
-Start: `git pull && python ops/Tools/agent_comms.py start`, then this page, then `docs/RINGSWITCH_S557.md` (NOT GREEN first).
+Start: `git pull && python ops/Tools/agent_comms.py start`, then this page, then `docs/RINGSWITCH_S558.md` (NOT GREEN first).
 
 ## METHOD lines - quote all of them in your first message
 - ## METHOD - RING SWITCHES IS THE MAIN LINE, AND THE ORDER VERSION IS THE PAGE (owner S553, S555).
   `proto/twohands/order.html` is the hand-edited source; `switch.html` is the old version: do not build on it.
 - ## METHOD - THE SLICE IS BALANCED ON THE INSTRUMENT, NEVER BY HAND (owner S555). A change is first a tweak file
-  (`tweak=<file.json>`, examples in ops/research/s555_balance, s556_balance, s557_balance; `tweak_check.mjs <file>`).
-  AFTER ANY RULE OR NUMBER CHANGE ON THE PAGE: `node proto/twohands/tools/balance.mjs table` (5 to 6 minutes), then
-  `balance.mjs play who=mix opp=mirror n=84` (the nine bars; `seed=2` for a second set), then `rules_test.mjs`,
-  `page_parse.mjs order.html` AND `node proto/twohands/tools/page_play_test.mjs` (NEW S557: it plays the page itself
-  to the last bell; run it after EVERY page edit, rule or not).
+  (`tweak=<file.json>`, examples in ops/research/s558_balance; `tweak_check.mjs <file>`). AFTER ANY RULE OR NUMBER CHANGE
+  ON THE PAGE: `node proto/twohands/tools/balance.mjs table` (8 minutes), `balance.mjs play who=mix opp=mirror n=84`
+  (and `seed=2`), `rules_test.mjs` (36), `page_parse.mjs order.html`, `page_play_test.mjs` (4). NEW S558: a clinch
+  change is also measured on `probe_clinch.mjs` (a rote "feint, punch, clinch" script must lose clearly).
 - ## METHOD - THE FIGHT MUST BE SEEN, SIDE VIEW, BOTH MEN CHEST TO THE CAMERA (owner S553). Every render takes `south=blue`.
 - ## METHOD - THE SEATS' IDEAS ARE USED AND REPORTED (owner S554).
-- HOW HE WORKS ON THIS GAME: he plays the page in Chrome while the session runs and writes what is wrong within minutes.
-  The page needs its server in a terminal tab (`python proto/cardgame/serve.py 8797 twohands`; curl first).
-- DO NOT EDIT order.html (or balance.mjs) WHILE A balance.mjs RUN IS GOING. A script with an apostrophe or a backslash
-  goes in a FILE (the Write tool): a heredoc turns `\\n` into a real line break (S557: it broke a string on the page).
-  Every Godot start goes through `python ops/Tools/godot_slot.py run --who <id> -- ...`. HIS GAME FIRST
-  (`Get-Process ArcheAgeChronicles`). AGENTS ONLY IN THE CONSOLE.
-- FIGHT ANIMATION: v2 only, no new correction layer in scripts/fight3d; an authored take baked by a tool is the route.
+- HOW HE WORKS ON THIS GAME: he plays the page in Chrome and writes what is wrong within minutes. The page's server runs
+  in a terminal tab (`python proto/cardgame/serve.py 8797 twohands`; curl first).
+- DO NOT EDIT order.html (or balance.mjs) WHILE A balance.mjs RUN IS GOING. BEFORE YOU KILL OR RERUN A MEASUREMENT, look
+  for a chain a previous session left alive (`Get-CimInstance Win32_Process | ? CommandLine -match 'chain.sh|balance'`):
+  S558 killed part of S557's run by mistake. Every Godot start goes through `python ops/Tools/godot_slot.py run`.
+  HIS GAME FIRST (`Get-Process ArcheAgeChronicles`): `balance.mjs` takes 7 workers and 2 GB. AGENTS ONLY IN THE CONSOLE.
+- Every Bash call starts with `cd /e/FightCamp/Lean` (a cd elsewhere moves the session folder).
 
-## FIRST: HIS ORDER, NOT DONE - "have it playtested by all agents and also you" (owner S557, mid-session)
-The brief is written and committed: `ops/research/TASK_ALLPLAY1.md` (six bouts a shell seat, three a chat seat, judged
-on FUN, scores, TO REACH 10/10, a drawn 10/10). NO SEAT WAS STARTED and Claude did not play: S557 hit its size limit.
-Seat by seat (the ticked seats: kalli, john, maria, dola, cline, arena, antigravity, ziva, claude):
-- **Claude**: play at least three bouts yourself with `play_cli.mjs` (one a man, a WHY before each beat), then on the
-  page in the browser; write `E:/FightCamp/tmp/allplay1/claude/ALLPLAY1_CLAUDE.md`.
-- **Ziva**: start its editor (`ops/Tools/godot_hidden.ps1 -e --path E:/FightCamp/wt/ZIVA_LEAN`; port 7012 was DOWN in
-  S557), the built-in browser pane on http://127.0.0.1:7012/, New chat, point at the brief by absolute path.
-- **Arena**: `git push`, `python ops/Tools/lite_mirror.py --lean push`, Chrome arena.ai/agent (repo FightCamp-Lean-lite),
-  a prompt naming the brief; it runs node in its own clone. Check proto/twohands is in the mirror first.
-- **Cline**: `ops\Tools\agent_window.ps1 -Title ALLPLAY1_CLINE -Command ops\Tools\cline_task.cmd ...` (it has a shell).
-- **Kalli, John, Maria (chat, no shell)**: they play BY MESSAGE. The driver is NOT built: for each beat send the state
-  (the tool's own lines) with `node ops/Tools/grokbot_direct.mjs send <bot> <file>`, read the reply with `tail`, parse
-  the one line `lead=.. rear=.. feet=.. order=..`, run `play_cli.mjs beat`, send the result. Kalli and John each have a
-  brief in flight in the same thread (SQ335, SQ336): collect those first or the answers interleave. Maria is free.
-- **Antigravity**: its headless mode has file tools only (no shell): the same by-message driver, one `agy -p` run a
-  beat, its folder under E:/FightCamp/wt (its allow rule). **Dola**: her app runs without its debug port; a relaunch
-  may show her window on his screen - tell him she could not be reached, or ask.
-- Freeze the game for the playtest: no rule change on order.html while seats play (they read the page live).
-- Collect each report the session it lands, check three claims against the logs, tell him every seat's scores and what
-  each said (METHOD: the seats' ideas are used and reported).
+## FIRST: HIS THREE ORDERS FROM THE END OF S558 (none finished)
+1. **HIS IDEA, BUILD IT AS A TOY FIRST (owner S558):** "what if we map the available options for the player (cards,
+   switches) on the opponents body and your own fighters body . Lets say i move my mouse on the left hand of my fighter
+   and the available switches appear like tooltip . if i click the same hand the the tooltip stays and i can make my
+   selection ... then that selection goes into a strip or something like that decides and explains the order . what
+   is your opinion on all this ?" My answer to him: yes (the reasons are in the last message of S558 and below). Build
+   it on a COPY of the page (`proto/twohands/body.html`, rules untouched): hover a hand or the boots of YOUR man = that
+   hand's switches as a tooltip, click = it stays, pick = a chip in the order strip (drag to reorder; the strip says in
+   words what meets what). Hover HIS hand = what that hand did in his last three beats and which line it shuts. A
+   pulsing hand on the first beat; the clinch on the torso; no hover on a phone (a tap opens). Send him the link within
+   the hour. It also cuts the page to 1080 high (it is 1357 now).
+2. **THE GUARD PICTURE (owner S558, with a crop of the blue man):** "this guard is wrong why he protects his ears ?".
+   The pose is the hold `both_low_high` / `rear_high` (lead hand low, rear glove on the side of the head at the ear,
+   face open). I looked: he is right (`E:/FightCamp/tmp/allplay1/guard_holds.png`, four holds side by side). Fix: the
+   rear glove held high sits in FRONT of the ear, on the cheek and jaw, elbow in (HOLDTAKES1 said "at the temple and
+   cheek"; it came out at the ear). Retake `rear_high` and `both_low_high` (and check `both_high_low`), both corners,
+   through `tools/pics2d_anim_more.gd` (`_hold_run`); a picture bar first (the glove's centre ahead of the ear line),
+   red on today's pictures; then gate, `anim_check.mjs`, `anim_web.py`, a before/after strip to him. Animation fixes
+   have his standing approval. This is also the session's animation item.
+3. **RUNE COLISEUM'S STEP MECHANIC (owner S558):** "check the step mechanic included/or required in some moves on the
+   game RuneColossieum ... play it in the background you can use any saved games i have ,i do not care and try see if
+   its logic fits our switch/card game". RUNNING at the handover: a console worker (Opus, terminal tab "RUNESTEP1
+   worker", brief `ops/research/TASK_RUNESTEP1.md`). It writes `ops/research/RUNESTEP1_STUDY.md` and up to three
+   `ops/research/s558_balance/rune_*.json`. Collect it (check three claims against its screenshots under
+   E:/FightCamp/tmp/runestep1), tell him the verdict, measure its best sketch. If the tab died: relaunch the same line.
 
-## SECOND: read what is still measuring (started in S557; only block_g1 read: 8 of 9 bars, the jab lands 81% - no gain)
-UPDATE (after the handover, the runs finished and were read once, 84 bouts each, one set): NOTHING BEATS THE PAGE.
-- A block costs the blocker guard: block_g1, block_g2, block_g2w all 8 of 9 bars (the page: 8 of 9), the jab lands
-  79 to 81% (the page 73%), stoppages fall to 12-21%. The free chase: 8 of 9, the jab 78%. No gain: none goes on the page.
-- The ground rule in the look-ahead: gave_15 8 of 9, gave_50 6 of 9 (the mirror unfair, 65%), ropes50 8 of 9;
-  `gave_30.txt` came out EMPTY (rerun it if wanted: `N=84 sh proto/twohands/tools/balance_batch.sh <dir>
-  ops/research/s557_balance/gave_30.json`).
-- THE PROBE SAYS WHERE THE FREE ROUNDS COME FROM: the JABBER backs off in 40% of beats and EVERY level round against him
-  goes to a player who never backs off (13 of 13); the solver's price on a back off moves that only to 31-37%. It is his
-  STYLE (`like: [..., 'back']`, lean 0.4), not the look-ahead. The Slugger and the Body Snatcher back off in 6 to 12%.
-  Next try, as a tweak: the Jabber's lean on `back` lower, or no lean on it in a level round's last two beats; measure
-  with `probe_ground.mjs` and `balance.mjs play who=sensible opp=0`.
-Tell him all of this in the first message (METHOD: the seats' ideas are used and reported).
-- `E:/FightCamp/tmp/s557_ziva/`: Ziva's rule ideas, 84 bouts each: `block_g1.txt`, `block_g2.txt`, `block_g2w.txt` (a
-  block costs the blocker guard: 1 / 2 by size, the punch's own health, and that with the look-ahead valuing guard
-  more) and `chase.txt` (he backed off last beat: your step in is free). `done.log` says what finished.
-  The guard idea is a THIRD answer to his open call on the guard bar (Kalli: cut it, John: rebuild it on stamina).
-- `E:/FightCamp/tmp/s557_ground/`: the look-ahead learns the ground rule: `gave_15 / 30 / 50.txt` (a back off costs
-  the man that much health in the solver's eyes), `ropes50.txt`, and `probe_page.txt` against `probe_<name>.txt`
-  (`probe_ground.mjs`: a player who never backs off - how many level rounds he is handed).
-- Take a change to the page only at 8 bars or more AND a better probe number; then table, play (two sets), the three tests.
+## SECOND: the clinch (measured in S558, NOT on the page)
+`docs/RINGSWITCH_S558.md` has the table: a rote "step in, feint, cross, then clinch" script breaks even on the page
+(43 / 53 / 43% wins against the three men; the same script without the clinch wins 3%); "the man tied up gets all his
+stamina back" drops it to 18 / 23 / 22%. The balance runs for three clinch versions and the feint cleanup were still
+going at the handover: `E:/FightCamp/tmp/s558_balance/batch/` (`done.log`; `clinch_back_all.txt`,
+`clinch_net0_back_half.txt`, `clinch_net0_back_all.txt`, `feint_clean.txt`). FIRST RESULT: "all of it back" holds only 7 of 9 bars (the push off dies at 3%: it is the answer to a clinch, so it
+needs a second job - Antigravity: let it disrupt a slower punch). Take the mildest version that holds 8 of
+9 bars and puts the loop under 30%; then table, two plays, the three tests, `probe_clinch.mjs`, and the words on the
+page and in `play_cli.mjs help`. If two versions tie, it is his call (it changes how every bout feels): ask on the board.
 
-## THIRD: the low-cover pictures - ON THE PAGE since the end of S557 (gate 6 of 6, anim_check 124 of 124); what is left:
-`E:/FightCamp/tmp/s557_lowcover/final/` (six runs, both corners: body jab / hook / cross, blocked; check
-`anim_web.py`, `anim_stills.py` and `anim_check.mjs` were run). LEFT: play a blocked body punch on the page in the
-browser, send him a before/after strip (strips: `ops/previews/s557_lowcover/`; the before pictures:
-`E:/FightCamp/tmp/s557_lowcover/before/`), put it on the map, and run the Godot tests the picture tools touch
-(fight_pictures_test) through godot_slot. A MISSED body punch is still at chest height: the next animation item,
-with the overhand's own take (it plays the rear hook's pictures; no overhand take exists in the clip table).
+## What S558 did (docs/RINGSWITCH_S558.md)
+- THE ALL-AGENTS PLAYTEST. Reports in `ops/research/allplay1/<seat>/` (fun, depth, clarity, variety):
+  Claude 8, 8, 6, 6 (3 bouts) - Ziva 7, 8, 7, 7 (6) - Antigravity 7, 7, 6, 6 (3) - Dola 8, 7, 7, 8 (3) - Arena 7, 7, 7, 7
+  (6, on the page as it was before the changes). Mean 7.4, 7.4, 6.6, 6.8: under the bar of 8 for depth and play.
+  Kalli, John, Maria: 1 to 2 beats each, then "grokbots are out of quota" (owner). Cline: 2 bouts and a half, no report
+  (free model's daily limit). All five drawings are on the map; Antigravity's is the one to build from.
+- ON THE PAGE (8 of 9 bars on both sets, 36 rule tests, the page played to the bell): a round won by 5 points or more
+  is 10-8; a man at 0 health throws nothing more that beat; words ("ties you up", "you step in and cut him off", "a
+  hand that punches is held HIGH in the other moments", the judges' line). `play_cli.mjs help` says five more rules.
+- NOT TAKEN (measured): Ziva's four rule ideas (no gain on the jab), every ground version (the Jabber backs off by
+  style, the look-ahead does not change it).
+- LOW COVER: played on the page in the browser (his body jab and body cross blocked by my low lead, the new pictures
+  played), both picture tests green, the before/after picture sent and on the map. He has not answered it.
+- Tools: `ops/Tools/play_by_message.mjs` (via=grok | agy | dola | test), `proto/twohands/tools/probe_clinch.mjs`.
 
-## What S557 did (docs/RINGSWITCH_S557.md)
-- A DEFECT ON THE PAGE HE PLAYS: since S556 no round reached the cards (a comment swallowed the line) and a bout on
-  points ended "A DRAW 0-0". Fixed; `page_play_test.mjs` now plays the page to the last bell.
-- ZIVAFIX1: his last three beats on his card; points and the stamina bar said in words; "one more ends it"; a switch
-  the stamina cannot pay is switched off in words. No rule changed.
-- Kalli's cover table (SQ334): 4, 4 and 6 of 9 bars. NOT BUILT. Seven southpaw versions have failed.
-- Repeated beats: rare (0 to 10% of bouts). Not a rule problem.
-- LOWCOVER1: a blocked body punch meets the lead hand held low (0.09 to 0.19 m over the body, was 0.29 to 0.54).
-- Seats: Kalli SQ335 (how the player READS the other man) and John SQ336 (what real boxers read before a punch) sent.
+## Then (what the five reports agree on, most to least)
+- Backing off is dead and Long is a corridor (8 back offs in 366 beats; every round's first beat is "walk in").
+- The guard bar: on every line, explained nowhere on the card, moved on a handful of beats. His open call: cut it,
+  rebuild it on stamina (John), or price the block with it (Ziva, Arena).
+- Reach is not shown before the beat (a switch that cannot reach should be dimmed: Ziva, Arena, Antigravity's drawing).
+- The men break their cards and repeat beats word for word; a feint with no punch behind it (`feint_clean.json`).
+- Getting up from a knockdown on 6 can leave a man healthier than the one who dropped him (his call: it is also the
+  comeback).
+- A MISSED body punch is still at chest height; the overhand plays the rear hook's pictures.
 
-## Then
-- The page is taller than 1080 (about 1416 px): move the long how-to text to hovers, tighten the board.
-- The body hook is the least used punch (4%): watch it. The clinch when HE ties up. Both rear hooks that miss are wide.
-- The guard bar: his call (cut, rebuild on stamina, or the block-costs-guard answer once measured).
-- THE CLIP TABLE IS NOT WHAT ONE TOOL WRITES: add or refresh ONE row by hand (docs/BODYJAB1_RESULT.md).
+## Seats
+- Dola is reachable only while her app runs with its debug port (S558 restarted it: `python ops/Tools/cici/cici.py
+  status`). The 30-minute queue sent her SQ324 mid-playtest and cut the thread: one job at a time for her. SQ327 is
+  back in the queue.
+- Resume a stopped by-message seat with the same command: `node ops/Tools/play_by_message.mjs kalli
+  E:/FightCamp/tmp/allplay1/kalli bouts=0:11,1:12,2:13 pace=45` (john 21-23, maria 31-33), ONE bot at a time.
+- Cline: `CLINE_MODEL=nvidia/nemotron-3-ultra-550b-a55b:free`, workspace `E:/FightCamp/wt/CLINE_ALLPLAY1` (bouts 1, 2
+  and half of 3 are there).
 
 ## Not touched this session
 MATCHBOTS2 hooks on disk, uncommitted (tests/matchmaking_bots_test.gd modified: not mine). The 05:00 run of 2026-11-25
-was already checked in S556 (no new red). Dola's two queued briefs (SQ324, SQ327) cannot leave the queue. No export:
-the game's scripts did not change.
+(517 pass, 6 fail) was checked in S556. No export: the game's scripts did not change.
 
 ## Waiting on the owner
-His play on the page (the body jab, and now his last three beats and the fixed cards).
-The guard bar: cut or rebuild. The rest of his Q-336 note ("thecoaches should have").
+His play on the page (now with 10-8 rounds). His look at the low-cover picture. The guard bar: cut or rebuild. The
+rest of his Q-336 note ("thecoaches should have").
 
-## Model for S558
-Fable, medium effort, Fast off: the playtest is mostly waiting on seats and reading their reports against the logs.
+## Model for S559
+Opus, medium effort, Fast off, in a console tab where it can be (the Fable week was 91% used at 22:45 on 25 Nov and
+resets 26 Nov 16:00): the toy page and the guard retake need no Fable.
+
+## Landed at the very end, NOT READ
+Dola answered SQ324 (the coaches map critics, queued in S551): `ops/research/CRITIC_COACHMAP1_BRIEF_DOLA.md`, committed unread. Coaches are parked (S553), so it waits; open it and verify her claims before any coach work.

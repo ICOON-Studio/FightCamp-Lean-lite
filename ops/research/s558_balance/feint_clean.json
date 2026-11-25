@@ -1,0 +1,9 @@
+{
+ "_note": "S558 (Antigravity bout 1 R3B1, bout 3 R1B2; Claude bout 2 R1B5, bout 3 R3B5): no man plans a feint that is not followed at once by his own rear punch - 'Feint, Step in, Cross' and a feint with nothing behind it read as a broken man and waste his stamina.",
+ "src": [
+  [
+   "for (const ord of perms(ordOf(c0))) out.push({ ...c0, ord }); }",
+   "for (const ord of perms(ordOf(c0))) { if (c0.lead === 'feint' && !(c0.rear && ord[ord.indexOf('lead') + 1] === 'rear')) continue; out.push({ ...c0, ord }); } }"
+  ]
+ ]
+}

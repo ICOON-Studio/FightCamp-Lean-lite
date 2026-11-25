@@ -1,0 +1,25 @@
+{
+ "_note": "RUNESTEP1 (Rune Coliseum: a retreat costs more but opens the distance, and some cards gain a thrust for every metre backed off): a back off arms that man's next punch in the same beat, +1 health when it lands (the pull counter). A back off that is cut off by his step in arms nothing. It still gives ground.",
+ "src": [
+  [
+   "const opening = [0, 0], drawn = [0, 0];",
+   "const opening = [0, 0], drawn = [0, 0], pulled = [0, 0];"
+  ],
+  [
+   "else { d++; f[k].ropes++; f[k].gave = (f[k].gave || 0) + 1; }",
+   "else { d++; f[k].ropes++; f[k].gave = (f[k].gave || 0) + 1; pulled[k] = 1; }"
+  ],
+  [
+   "&& P[k].feet === 'back')) d = -1;",
+   "&& P[k].feet === 'back')) { d = -1; pulled[0] = pulled[1] = 0; }"
+  ],
+  [
+   "const dmg = a.d + (openNow[sh.k] ? N.counter : 0);",
+   "const pull = pulled[sh.k], dmg = a.d + (openNow[sh.k] ? N.counter : 0) + (pull ? 1 : 0); pulled[sh.k] = 0;"
+  ],
+  [
+   "lands${openNow[sh.k] ? ' as a counter' : ''}",
+   "lands${openNow[sh.k] ? ' as a counter' : ''}${pull ? ' - off the pull, +1' : ''}"
+  ]
+ ]
+}

@@ -1,0 +1,174 @@
+A bout against The Slugger, seed 74
+--- round 1, beat 1, at Long
+YOU: 1 Body jab - rear hand high
+HE:  1 Step in - lead hand low, rear hand low
+  moment 1 : Long to Mid - he steps in
+  moment 1 YOU: Body jab - blocked by his lead hand, held low
+ROUND 1 of 3, beat 2 of 6, range Mid. Points this round: you 0 - him 0. Cards so far: none
+YOU: health 18/18, stamina 8/8, guard 6/6, ground given 0/2
+HIM (The Slugger): health 21/21, stamina 8/8, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Step in - lead hand low, rear hand low
+THIS ROUND (1 beat): his lead hand held high 0, held low 1, thrown 0; his rear hand held high 0, held low 1, thrown 0
+--- round 1, beat 2, at Mid
+YOU: 1 Lead hook, 2 Cross
+HE:  1 Step in, 2 Lead uppercut, 3 Body cross
+  moment 1 : Mid to Inside - he steps in
+  moment 1 YOU: Lead hook - blocked: his rear hand was still up (its Body cross comes in moment 3)
+  moment 2 YOU: Cross - lands (his lead hand was out, throwing its Lead uppercut): -3 health, 2 points
+  moment 2 HE: Lead uppercut - lands as a counter (your rear hand was out, throwing its Cross): -4 health, 2 points
+  moment 3 HE: Body cross - lands as a counter (your lead hand was held high): -3 health, 1 point, stamina bar 7 for the rest of the bout
+ROUND 1 of 3, beat 3 of 6, range Inside. Points this round: you 2 - him 3. Cards so far: none
+YOU: health 11/18, stamina 5/7, guard 6/6, ground given 0/2
+HIM (The Slugger): health 18/21, stamina 4/8, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Step in, 2 Lead uppercut, 3 Body cross  |  1 Step in - lead hand low, rear hand low
+THIS ROUND (2 beats): his lead hand held high 0, held low 1, thrown 1; his rear hand held high 0, held low 1, thrown 1
+--- round 1, beat 3, at Inside
+YOU: 1 Lead hook - rear hand low
+HE:  clinch
+  HE: ties him up - no punch lands - the referee breaks them at Mid, +2 stamina
+ROUND 1 of 3, beat 4 of 6, range Mid. Points this round: you 2 - him 3. Cards so far: none
+YOU: health 11/18, stamina 5/7, guard 6/6, ground given 0/2
+HIM (The Slugger): health 18/21, stamina 6/8, guard 6/6, ground given 0/2, no clinch yet
+HIS LAST BEATS, newest first: clinch  |  1 Step in, 2 Lead uppercut, 3 Body cross  |  1 Step in - lead hand low, rear hand low
+THIS ROUND (3 beats): his lead hand held high 0, held low 1, thrown 1; his rear hand held high 0, held low 1, thrown 1
+--- round 1, beat 4, at Mid
+YOU: 1 Lead hook - rear hand high
+HE:  1 Step in, 2 Lead hook - rear hand low
+  moment 1 : Mid to Inside - he steps in
+  moment 1 YOU: Lead hook - lands (his rear hand was held low): -3 health, 2 points
+  moment 2 HE: Lead hook - blocked by your rear hand, held high
+ROUND 1 of 3, beat 5 of 6, range Inside. Points this round: you 4 - him 3. Cards so far: none
+YOU: health 11/18, stamina 5/7, guard 6/6, ground given 0/2
+HIM (The Slugger): health 15/21, stamina 5/8, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Step in, 2 Lead hook - rear hand low  |  clinch  |  1 Step in, 2 Lead uppercut, 3 Body cross
+THIS ROUND (4 beats): his lead hand held high 0, held low 1, thrown 2; his rear hand held high 0, held low 2, thrown 1
+--- round 1, beat 5, at Inside
+YOU: 1 Lead hook - rear hand low
+HE:  clinch
+  HE: ties him up - no punch lands - the referee breaks them at Mid, +2 stamina
+ROUND 1 of 3, beat 6 of 6, range Mid. Points this round: you 4 - him 3. Cards so far: none
+YOU: health 11/18, stamina 5/7, guard 6/6, ground given 0/2
+HIM (The Slugger): health 15/21, stamina 7/8, guard 6/6, ground given 0/2, no clinch yet
+HIS LAST BEATS, newest first: clinch  |  1 Step in, 2 Lead hook - rear hand low  |  clinch
+THIS ROUND (5 beats): his lead hand held high 0, held low 1, thrown 2; his rear hand held high 0, held low 2, thrown 1
+--- round 1, beat 6, at Mid
+YOU: 1 Lead hook - rear hand high
+HE:  1 Back off, 2 Lead uppercut, 3 Overhand
+  moment 1 : Mid to Long - he backs off
+  moment 1 YOU: Lead hook - falls short at Long
+  moment 2 HE: Lead uppercut - falls short at Long
+  moment 3 HE: Overhand - falls short at Long
+BELL. The judges give the round 10-9.
+ROUND 2 of 3, beat 1 of 6, range Long. Points this round: you 0 - him 0. Cards so far: 10-9
+YOU: health 11/18, stamina 7/7, guard 6/6, ground given 0/2
+HIM (The Slugger): health 15/21, stamina 8/8, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Back off, 2 Lead uppercut, 3 Overhand  |  clinch  |  1 Step in, 2 Lead hook - rear hand low
+THIS ROUND (0 beats): his lead hand held high 0, held low 0, thrown 0; his rear hand held high 0, held low 0, thrown 0
+--- round 2, beat 1, at Long
+YOU: 1 Lead hook - rear hand high
+HE:  1 Body jab, 2 Step in, 3 Body cross
+  moment 1 YOU: Lead hook - falls short at Long
+  moment 1 HE: Body jab - lands (your lead hand was out, throwing its Lead hook): -1 health, 1 point
+  moment 2 : Long to Mid - he steps in
+  moment 3 HE: Body cross - lands as a counter (your lead hand was held high): -3 health, 1 point, stamina bar 6 for the rest of the bout
+ROUND 2 of 3, beat 2 of 6, range Mid. Points this round: you 0 - him 2. Cards so far: 10-9
+YOU: health 7/18, stamina 6/6, guard 6/6, ground given 0/2
+HIM (The Slugger): health 15/21, stamina 5/8, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Body jab, 2 Step in, 3 Body cross  |  1 Back off, 2 Lead uppercut, 3 Overhand  |  clinch
+THIS ROUND (1 beat): his lead hand held high 0, held low 0, thrown 1; his rear hand held high 0, held low 0, thrown 1
+--- round 2, beat 2, at Mid
+YOU: 1 Body hook - rear hand high
+HE:  1 Back off - lead hand high, rear hand low
+  moment 1 : Mid to Long - he backs off
+  moment 1 YOU: Body hook - falls short at Long
+ROUND 2 of 3, beat 3 of 6, range Long. Points this round: you 0 - him 2. Cards so far: 10-9
+YOU: health 7/18, stamina 6/6, guard 6/6, ground given 0/2
+HIM (The Slugger): health 15/21, stamina 7/8, guard 6/6, ground given 1/2
+HIS LAST BEATS, newest first: 1 Back off - lead hand high, rear hand low  |  1 Body jab, 2 Step in, 3 Body cross  |  1 Back off, 2 Lead uppercut, 3 Overhand
+THIS ROUND (2 beats): his lead hand held high 1, held low 0, thrown 1; his rear hand held high 0, held low 1, thrown 1
+--- round 2, beat 3, at Long
+YOU: 1 Step in, 2 Body jab - rear hand high
+HE:  1 Step in, 2 Body cross, 3 Body hook
+  moment 1 : Long to Inside - you step in, he steps in
+  moment 2 YOU: Body jab - smothered - too close at Inside
+  moment 2 HE: Body cross - lands as a counter (your lead hand was out, throwing its Body jab): -3 health, 1 point, stamina bar 5 for the rest of the bout
+  moment 3 HE: Body hook - lands as a counter (your lead hand was held high): -3 health, 1 point, stamina bar 4 for the rest of the bout
+ROUND 2 of 3, beat 4 of 6, range Inside. Points this round: you 0 - him 4. Cards so far: 10-9
+YOU: health 1/18, stamina 4/4, guard 6/6, ground given 0/2
+HIM (The Slugger): health 15/21, stamina 3/8, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Step in, 2 Body cross, 3 Body hook  |  1 Back off - lead hand high, rear hand low  |  1 Body jab, 2 Step in, 3 Body cross
+THIS ROUND (3 beats): his lead hand held high 1, held low 0, thrown 2; his rear hand held high 0, held low 1, thrown 2
+--- round 2, beat 4, at Inside
+YOU: 1 Rear uppercut - lead hand high
+HE:  1 Lead hook, 2 Back off - rear hand high
+  moment 1 HE: Lead hook - lands (your rear hand was out, throwing its Rear uppercut): -3 health, 2 points
+  moment 1 YOU: Rear uppercut - beaten to the punch: his Lead hook is faster, landed first and stopped it
+  moment 2 : Inside to Mid - he backs off
+  YOU GO DOWN and get up on 6 health.
+ROUND 2 of 3, beat 5 of 6, range Mid. Points this round: you 0 - him 9. Cards so far: 10-9
+YOU: health 6/18 (down 1x), stamina 3/4, guard 6/6, ground given 0/2
+HIM (The Slugger): health 15/21, stamina 2/8, guard 6/6, ground given 1/2
+HIS LAST BEATS, newest first: 1 Lead hook, 2 Back off - rear hand high  |  1 Step in, 2 Body cross, 3 Body hook  |  1 Back off - lead hand high, rear hand low
+THIS ROUND (4 beats): his lead hand held high 1, held low 0, thrown 3; his rear hand held high 1, held low 1, thrown 2
+--- round 2, beat 5, at Mid
+YOU: 1 Body hook - rear hand high
+HE:  1 Back off - lead hand high, rear hand low
+  moment 1 : Mid to Long - he backs off
+  moment 1 YOU: Body hook - falls short at Long
+ROUND 2 of 3, beat 6 of 6, range Long. Points this round: you 0 - him 9. Cards so far: 10-9
+YOU: health 6/18 (down 1x), stamina 3/4, guard 6/6, ground given 0/2
+HIM (The Slugger): health 15/21, stamina 4/8, guard 6/6, ground given 2/2 ON THE ROPES
+HIS LAST BEATS, newest first: 1 Back off - lead hand high, rear hand low  |  1 Lead hook, 2 Back off - rear hand high  |  1 Step in, 2 Body cross, 3 Body hook
+THIS ROUND (5 beats): his lead hand held high 2, held low 0, thrown 3; his rear hand held high 1, held low 2, thrown 2
+--- round 2, beat 6, at Long
+YOU: 1 Body jab - rear hand high
+HE:  1 Step in, 2 Feint, 3 Body cross
+  moment 1 : Long to Mid - he steps in
+  moment 1 YOU: Body jab - lands (his lead hand was held high): -1 health, 1 point
+  moment 2 HE: feints - the next punch cannot be covered
+  moment 3 HE: Body cross - lands (the feint drew his hand): -2 health, 1 point, stamina bar stays 4 (it never goes lower)
+BELL. The judges give the round 9-10.
+ROUND 3 of 3, beat 1 of 6, range Long. Points this round: you 0 - him 0. Cards so far: 10-9, 9-10
+YOU: health 4/18 (down 1x), stamina 4/4, guard 6/6, ground given 0/2
+HIM (The Slugger): health 14/21, stamina 8/8, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Step in, 2 Feint, 3 Body cross  |  1 Back off - lead hand high, rear hand low  |  1 Lead hook, 2 Back off - rear hand high
+THIS ROUND (0 beats): his lead hand held high 0, held low 0, thrown 0; his rear hand held high 0, held low 0, thrown 0
+--- round 3, beat 1, at Long
+YOU: 1 Body jab - rear hand high
+HE:  1 Step in - lead hand high, rear hand low
+  moment 1 : Long to Mid - he steps in
+  moment 1 YOU: Body jab - lands (his lead hand was held high): -1 health, 1 point
+ROUND 3 of 3, beat 2 of 6, range Mid. Points this round: you 1 - him 0. Cards so far: 10-9, 9-10
+YOU: health 4/18 (down 1x), stamina 4/4, guard 6/6, ground given 0/2
+HIM (The Slugger): health 13/21, stamina 8/8, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Step in - lead hand high, rear hand low  |  1 Step in, 2 Feint, 3 Body cross  |  1 Back off - lead hand high, rear hand low
+THIS ROUND (1 beat): his lead hand held high 1, held low 0, thrown 0; his rear hand held high 0, held low 1, thrown 0
+--- round 3, beat 2, at Mid
+YOU: 1 Lead hook - rear hand high
+HE:  1 Step in, 2 Feint, 3 Overhand
+  moment 1 : Mid to Inside - he steps in
+  moment 1 YOU: Lead hook - blocked: his rear hand was still up (its Overhand comes in moment 3)
+  moment 2 HE: feints - the next punch cannot be covered
+  moment 3 HE: Overhand - lands as a counter (the feint drew his hand): -5 health, 2 points
+  YOU GO DOWN and get up on 4 health.
+ROUND 3 of 3, beat 3 of 6, range Inside. Points this round: you 1 - him 5. Cards so far: 10-9, 9-10
+YOU: health 4/18 (down 2x - ONE MORE ENDS IT), stamina 4/4, guard 6/6, ground given 0/2
+HIM (The Slugger): health 13/21, stamina 4/8, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Step in, 2 Feint, 3 Overhand  |  1 Step in - lead hand high, rear hand low  |  1 Step in, 2 Feint, 3 Body cross
+THIS ROUND (2 beats): his lead hand held high 1, held low 0, thrown 1; his rear hand held high 0, held low 1, thrown 1
+--- round 3, beat 3, at Inside
+YOU: clinch
+HE:  1 Step in - lead hand low, rear hand low
+  YOU: ties him up - no punch lands - the referee breaks them at Mid, +2 stamina
+ROUND 3 of 3, beat 4 of 6, range Mid. Points this round: you 1 - him 5. Cards so far: 10-9, 9-10
+YOU: health 4/18 (down 2x - ONE MORE ENDS IT), stamina 4/4, guard 6/6, ground given 0/2, no clinch yet
+HIM (The Slugger): health 13/21, stamina 6/8, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Step in - lead hand low, rear hand low  |  1 Step in, 2 Feint, 3 Overhand  |  1 Step in - lead hand high, rear hand low
+THIS ROUND (3 beats): his lead hand held high 1, held low 1, thrown 1; his rear hand held high 0, held low 2, thrown 1
+--- round 3, beat 4, at Mid
+YOU: 1 Back off - lead hand high, rear hand high
+HE:  1 Step in, 2 Body hook, 3 Rear uppercut
+  moment 1 : Mid to Inside - you back off, he steps in
+  moment 2 HE: Body hook - lands (your lead hand was held high): -2 health, 1 point, stamina bar stays 4 (it never goes lower)
+  moment 3 HE: Rear uppercut - lands (your rear hand was held high): -4 health, 2 points
+HE WINS - the referee stops it

@@ -462,6 +462,17 @@
      "globs": [
       "ops/previews/s558_lowcover/lowcover_before_after.png"
      ]
+    },
+    {
+     "id": "s558_allplay1",
+     "title": "All-agents playtest: each seat's drawn 10/10 fight screen (S558)",
+     "kind": "gallery",
+     "globs": [
+      "ops/previews/s558_allplay1/ten_antigravity.png",
+      "ops/previews/s558_allplay1/ten_claude.png",
+      "ops/previews/s558_allplay1/ten_dola.png",
+      "ops/previews/s558_allplay1/ten_ziva.png"
+     ]
     }
    ]
   }

@@ -1,0 +1,9 @@
+{
+ "_note": "S558 (Antigravity: the clinch is a stamina-positive reset engine, 14 in 51 beats): the clinch gives +1 stamina, not +2, so with its cost of 1 it is worth nothing in stamina.",
+ "src": [
+  [
+   "f[clincher].st + 2); f[clincher].held = 2;",
+   "f[clincher].st + 1); f[clincher].held = 2;"
+  ]
+ ]
+}

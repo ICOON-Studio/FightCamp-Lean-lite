@@ -201,4 +201,15 @@ test('S556: every back off is counted for the round (an even round goes to the m
   const S = ring(2); resolve(S, [plan({ feet: 'back' }), plan()]); assert.equal(S.f[0].gave, 1); assert.ok(!S.f[1].gave, 'the man who stood gave none');
   resolve(S, [plan({ feet: 'in' }), plan({ feet: 'back' })]); assert.equal(S.f[0].gave, 1, 'a step in wins the ropes back, not the count'); assert.equal(S.f[1].gave, 1); assert.equal(N.even, 1);
 });
+test('S558: a round won by N.wide points or more is 10-8; a narrower one stays 10-9', () => {
+  assert.deepEqual(R.judge({ pts: 2 + N.wide, gave: 0 }, { pts: 2, gave: 0 }).sc, [10, 8]); assert.deepEqual(R.judge({ pts: 1, gave: 0 }, { pts: 1 + N.wide, gave: 0 }).sc, [8, 10]);
+  assert.deepEqual(R.judge({ pts: 1 + N.wide, gave: 0 }, { pts: 2, gave: 0 }).sc, [10, 9]); assert.equal(N.wide, 5);
+});
+test('S558: a man whose health is at 0 throws nothing more that beat; two punches of the same speed in one moment still both land', () => {
+  let S = ring(2); S.f[1].hp = 3;   // my cross lands in moment 1 while his lead hand is out feinting: he is at 0 before his body cross in moment 2
+  let ev = resolve(S, [plan({ rear: 'cross' }), plan({ lead: 'feint', rear: 'rbody', ord: ['lead', 'rear'] })]);
+  assert.ok(find(ev, 0, 'hit', 'cross')); assert.ok(S.f[1].hp <= 0); assert.ok(!ev.some((e) => e.k === 1 && e.id === 'rbody'), 'the man on the floor threw his body cross'); assert.equal(S.f[0].hp, N.hp);
+  S = ring(2); S.f[0].hp = 3; S.f[1].hp = 3; ev = resolve(S, [plan({ rear: 'cross', hl: 'low' }), plan({ rear: 'cross', hl: 'low' })]);
+  assert.ok(find(ev, 0, 'hit', 'cross') && find(ev, 1, 'hit', 'cross'), 'both crosses of the same moment land'); assert.ok(S.f[0].hp <= 0 && S.f[1].hp <= 0);
+});
 console.log(`RULES_TEST ${n} passed${process.exitCode ? ' - FAILURES above' : ''}`);

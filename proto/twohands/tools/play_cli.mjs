@@ -27,6 +27,10 @@ if (cmd === 'help' || !cmd) {
   say('clinch: Inside only, 1 stamina, no punch lands, +2 stamina, the referee breaks you at Mid; not twice running.');
   say(`POINTS: 2 for a big punch landed (3 health or more on its line above), 1 for a small one, 3 for a knockdown; a counter adds health, not points. A body hook or body cross that lands shortens his stamina bar by 1 FOR THE REST OF THE BOUT (never under ${N.capMin}). The third knockdown ends the bout whatever the cards say.`);
   say('In one moment the faster punch lands first; a big one (3 health or more) that lands stops his slower punch. A punch of his that misses or is blocked makes your later punches counters (+1). A round level on points goes to the man who backed off less.');
+  // S558, from the all-agents playtest: five rules every player had to learn by losing to them
+  say(`A hand that punches is held HIGH in the other moments of the beat: to guard low, that hand must stay home. A man who goes down throws nothing more that beat.`);
+  say(`THE JUDGES: more points takes the round 10-9, and 10-8 when you are ${N.wide} points or more ahead. GUARD ${N.guard}: blocking a big punch costs the blocker 1 guard, 1 comes back each beat; at 0 the guard is broken and blocks nothing that beat.`);
+  say('HE READS HABITS: throw the same plan in two of your last three punching beats and he may answer exactly that. A step in and a back off in the same moment: the step in wins, the range closes anyway.');
   say(`Opponents: ${R0.OPPS.slice(0, 3).map((o, i) => `${i} ${o.n} (health ${o.hp}): ${o.t}`).join(' | ')}`);
   process.exit(0); }
 if (cmd === 'new') { const opp = Number(arg.opp || 0), seed = Number(arg.seed || 1);

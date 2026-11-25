@@ -3,11 +3,11 @@
  "updated": "2026-11-25",
  "author": "claude S294",
  "now": {
-  "id": "S556",
+  "id": "S558",
   "owner": "claude",
   "updated": "2026-11-25",
-  "summary": "S557 (Fable) HANDOVER. ## METHOD - RING SWITCHES IS THE MAIN LINE, AND THE ORDER VERSION IS THE PAGE. ## METHOD - THE SLICE IS BALANCED ON THE INSTRUMENT, NEVER BY HAND; after ANY page edit also run page_play_test.mjs (it plays the page itself to the last bell). ## METHOD - THE FIGHT MUST BE SEEN, SIDE VIEW, BOTH MEN CHEST TO THE CAMERA. ## METHOD - THE SEATS' IDEAS ARE USED AND REPORTED. Done: a defect on the page he plays fixed (since S556 no round reached the cards and a bout on points ended 'A DRAW 0-0'); Ziva's four clarity changes (his last three beats on his card, points and the stamina bar in words, 'one more ends it', a switch the stamina cannot pay switched off in words); Kalli's open-stance cover table measured in three versions (4, 4, 6 of 9 bars): the southpaw is NOT built; repeated beats measured rare (0-10% of bouts); a blocked body punch now meets the lead hand held low (0.09-0.19 m over the body, was 0.29-0.54), pictures on the page, not seen by him. NOT DONE: the owner's mid-session order 'have it playtested by all agents and also you' - brief written (TASK_ALLPLAY1.md), no seat started, Claude did not play. Still measuring, unread: Ziva's rule ideas and the ground rule (E:/FightCamp/tmp/s557_ziva, s557_ground). He has not played the page. docs/RINGSWITCH_S557.md.",
-  "next_action": "S558: FIRST HIS ORDER, NOT DONE - 'have it playtested by all agents and also you' (owner S557): the brief is ops/research/TASK_ALLPLAY1.md; no seat was started and Claude did not play (S557 hit its size limit). Start Ziva, Arena and Cline on it, play three bouts yourself, build the by-message driver for Kalli, John, Maria and Antigravity (no shell), tell him Dola could not be reached. SECOND read what is still measuring: E:/FightCamp/tmp/s557_ziva (a block costs the blocker guard, the free chase) and E:/FightCamp/tmp/s557_ground (the look-ahead learns the ground rule). THIRD the low-cover pictures are on the page: play one in the browser, send him a before and after strip, run fight_pictures_test. After every page edit: page_play_test.mjs.",
+  "summary": "S558 (Fable) HANDOVER. ## METHOD - RING SWITCHES IS THE MAIN LINE, AND THE ORDER VERSION IS THE PAGE. ## METHOD - THE SLICE IS BALANCED ON THE INSTRUMENT, NEVER BY HAND (a clinch change also on probe_clinch.mjs). ## METHOD - THE FIGHT MUST BE SEEN, SIDE VIEW, BOTH MEN CHEST TO THE CAMERA. ## METHOD - THE SEATS' IDEAS ARE USED AND REPORTED. Done: his order 'have it playtested by all agents and also you' - five reports (fun, depth, clarity, variety): Claude 8,8,6,6; Ziva 7,8,7,7; Antigravity 7,7,6,6; Dola 8,7,7,8; Arena 7,7,7,7 (mean 7.4, 7.4, 6.6, 6.8: under the bar of 8); Kalli, John, Maria out of quota after 2 beats, Cline stopped by its free daily limit. On the page: a wide round is 10-8, a man at 0 health throws nothing more that beat, words fixed (8 of 9 bars on both sets, 36 rule tests). Measured, not taken: Ziva's rule ideas, the ground versions. Measured, NOT on the page: the clinch (a rote feint-punch-clinch script breaks even; 'the man tied up gets his stamina back' drops it to about 20%). Low cover played on the page, picture tests green, before/after sent. NOT DONE, his three orders from the end of the session: his idea of the switches on the fighters' bodies (build a toy), the guard picture ('why he protects his ears ?'), Rune Coliseum's step mechanic (a console worker was running). docs/RINGSWITCH_S558.md.",
+  "next_action": "S559: FIRST his three orders from the end of S558, none finished - (1) his idea: the switches on the fighters' bodies (hover a hand = its switches as a tooltip, click = it stays, the pick goes into an order strip that explains the order): build it as a toy on a copy of the page (proto/twohands/body.html) and send him the link within the hour; (2) the guard picture, 'this guard is wrong why he protects his ears ?': retake rear_high and both_low_high with the glove in front of the ear on the cheek, a picture bar first; (3) Rune Coliseum's step mechanic: collect the console worker (ops/research/RUNESTEP1_STUDY.md), tell him the verdict. SECOND the clinch: read E:/FightCamp/tmp/s558_balance/batch, take the mildest version that holds 8 of 9 bars and puts the loop under 30% on probe_clinch.mjs, or ask him if two tie.",
   "last_working_commit": "71f6043f8",
   "verified_playable": "Builds/ exported in S556 (the S547 game plus S548's two changes: the 3D fight throws the body cross, the trial evening's pictures show the prospect's own body; pro_body_jab is on disk and unused by the game). Ring Switches (a browser toy): one beat played in the browser in S556 against the Jabber - both men threw a body jab, both landed, no console error; rules_test 34 pass; anim_check 124 runs PASS.",
   "incomplete_blocked": "Ring Switches: the owner has not played the page with the body jab; the jab lands 73% and the body jab 69% (bar 65%); blocked and missed body punches are drawn at chest height; the look-ahead does not know the ground rule; the southpaw is not built (five versions fail); six seat ideas still unmeasured. The clip table is not reproducible by one tool (a full census run changes eight rows).",
@@ -2438,6 +2438,11 @@
    "date": "2026-11-25",
    "summary": "S557 (Fable) HANDOVER. ## METHOD - RING SWITCHES IS THE MAIN LINE, AND THE ORDER VERSION IS THE PAGE. ## METHOD - THE SLICE IS BALANCED ON THE INSTRUMENT, NEVER BY HAND; after ANY page edit also run page_play_test.mjs (it plays the page itself to the last bell). ## METHOD - THE FIGHT MUST BE SEEN, SIDE VIEW, BOTH MEN CHEST TO THE CAMERA. ## METHOD - THE SEATS' IDEAS ARE USED AND REPORTED. Done: a defect on the page he plays fixed (since S556 no round reached the cards and a bout on points ended 'A DRAW 0-0'); Ziva's four clarity changes (his last three beats on his card, points and the stamina bar in words, 'one more ends it', a switch the stamina cannot pay switched off in words); Kalli's open-stance cover table measured in three versions (4, 4, 6 of 9 bars): the southpaw is NOT built; repeated beats measured rare (0-10% of bouts); a blocked body punch now meets the lead hand held low (0.09-0.19 m over the body, was 0.29-0.54), pictures on the page, not seen by him. NOT DONE: the owner's mid-session order 'have it playtested by all agents and also you' - brief written (TASK_ALLPLAY1.md), no seat started, Claude did not play. Still measuring, unread: Ziva's rule ideas and the ground rule (E:/FightCamp/tmp/s557_ziva, s557_ground). He has not played the page. docs/RINGSWITCH_S557.md.",
    "commit": "71f6043f8"
+  },
+  {
+   "id": "S558",
+   "date": "2026-11-25",
+   "summary": "S558 (Fable) HANDOVER. ## METHOD - RING SWITCHES IS THE MAIN LINE, AND THE ORDER VERSION IS THE PAGE. ## METHOD - THE SLICE IS BALANCED ON THE INSTRUMENT, NEVER BY HAND (a clinch change also on probe_clinch.mjs). ## METHOD - THE FIGHT MUST BE SEEN, SIDE VIEW, BOTH MEN CHEST TO THE CAMERA. ## METHOD - THE SEATS' IDEAS ARE USED AND REPORTED. Done: his order 'have it playtested by all agents and also you' - five reports (fun, depth, clarity, variety): Claude 8,8,6,6; Ziva 7,8,7,7; Antigravity 7,7,6,6; Dola 8,7,7,8; Arena 7,7,7,7 (mean 7.4, 7.4, 6.6, 6.8: under the bar of 8); Kalli, John, Maria out of quota after 2 beats, Cline stopped by its free daily limit. On the page: a wide round is 10-8, a man at 0 health throws nothing more that beat, words fixed (8 of 9 bars on both sets, 36 rule tests). Measured, not taken: Ziva's rule ideas, the ground versions. Measured, NOT on the page: the clinch (a rote feint-punch-clinch script breaks even; 'the man tied up gets his stamina back' drops it to about 20%). Low cover played on the page, picture tests green, before/after sent. NOT DONE, his three orders from the end of the session: his idea of the switches on the fighters' bodies (build a toy), the guard picture ('why he protects his ears ?'), Rune Coliseum's step mechanic (a console worker was running). docs/RINGSWITCH_S558.md."
   }
  ],
  "blocked_on_operator": [],
@@ -5356,7 +5361,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-25 S557",
+  "updated": "2026-11-25",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5516,25 +5521,38 @@
    "ZIVAFIX1": "Ring Switches after Ziva's playtest: his last three beats on his card before you choose, points and the stamina bar said in words, 'one more ends it', a switch you cannot pay for switched off in words; and a defect fixed - a bout on points no longer ends 'A DRAW 0-0'",
    "KALLITABLE1": "Kalli's cover table for the southpaw measured in three versions: 4, 4 and 6 of 9 bars - not built"
   },
-  "working_now": [],
+  "working_now": [
+   {
+    "title": "Rune Coliseum's step mechanic against Ring Switches (your order)",
+    "who": "console worker (Opus), terminal tab RUNESTEP1",
+    "started": "2026-11-25T22:50",
+    "run": "RUNESTEP1"
+   }
+  ],
   "next": [
    {
-    "id": "ALLPLAY1",
+    "id": "BODYUI1",
     "who": "claude",
-    "title": "Ring Switches played by every agent and by Claude (your 'have it playtested by all agents and also you'): the brief is written, NO seat started yet - Ziva, Arena, Cline play in words; Kalli, John, Maria, Antigravity need a play-by-message driver; Dola cannot be reached",
+    "title": "Your idea: the switches on the fighters' bodies (hover a hand = its switches, click = it stays, the pick goes into an order strip that explains the order) | NEXT: a toy on a copy of the page, the link to you within the hour",
     "after": ""
    },
    {
-    "id": "ZIVARULES1",
+    "id": "GUARDEAR1",
     "who": "claude",
-    "title": "Ziva's rule ideas on the balance tool: a block costs the blocker guard (three versions), a free chase after he backs off; and the look-ahead learns the ground rule (four versions) | MEASURING at the end of S557, not read",
-    "after": "ALLPLAY1"
+    "title": "The guard picture ('why he protects his ears ?'): the rear glove held high sits at the ear with the face open | NEXT: retake it in front of the ear, on the cheek; a before and after strip to you",
+    "after": ""
    },
    {
-    "id": "LOWCOVER1",
-    "who": "claude",
-    "title": "A blocked body punch is stopped at the body: it meets the lead hand held low (0.09-0.19 m over the body, was 0.29-0.54) | on the page (gate 6 of 6), not seen by you yet; a missed body punch and the overhand's own take are next",
+    "id": "RUNESTEP1",
+    "who": "console worker (Opus)",
+    "title": "Rune Coliseum's step mechanic against our switch game (your 'check the step mechanic ... play it in the background'): a worker is playing it out of sight | NEXT: collect its study, the verdict to you",
     "after": ""
+   },
+   {
+    "id": "CLINCHFIX1",
+    "who": "claude",
+    "title": "The clinch pays too well: a rote 'feint, punch, clinch' script breaks even against all three men (four of five players said so) | NEXT: the mildest measured fix on the page, or your call if two tie",
+    "after": "RUNESTEP1"
    },
    {
     "id": "SOUTHPAW1",
@@ -5956,6 +5974,26 @@
   },
   "done_recently": [
    {
+    "id": "ALLPLAY1",
+    "who": "claude + seats",
+    "title": "Ring Switches played by every agent and by Claude (your 'have it playtested by all agents and also you'): five reports - Claude 8,8,6,6; Ziva 7,8,7,7; Antigravity 7,7,6,6; Dola 8,7,7,8; Arena 7,7,7,7 (fun, depth, clarity, variety). Kalli, John, Maria out of quota; Cline stopped by its free limit"
+   },
+   {
+    "id": "PLAYFIX1",
+    "who": "claude",
+    "title": "After the playtests, on the page: a round won by 5 points or more is 10-8, a man on the floor throws nothing more that beat, the words say the rules players lost to (8 of 9 bars on both sets)"
+   },
+   {
+    "id": "ZIVARULES1",
+    "who": "claude",
+    "title": "Ziva's rule ideas and the ground rule on the balance tool: measured, none better than the page, none taken"
+   },
+   {
+    "id": "LOWCOVER1",
+    "who": "claude",
+    "title": "A blocked body punch meets the lead hand held low: played on the page, picture tests green, before and after sent to you (your look is still open)"
+   },
+   {
     "id": "ZIVAFIX1",
     "who": "claude",
     "title": "Ring Switches after Ziva's playtest: his last three beats on his card before you choose, points and the stamina bar said in words, 'one more ends it', a switch you cannot pay for switched off in words; and a defect fixed - a bout on points no longer ends 'A DRAW 0-0'"
@@ -5994,26 +6032,6 @@
     "id": "S552",
     "who": "claude",
     "title": "Ring Switches plays every action frame by frame (59 of 64 runs); coaches probe checked and asked; one old red test fixed"
-   },
-   {
-    "id": "S551",
-    "who": "claude",
-    "title": "Ring Switches built from your idea and played; plan probe 2 checked; opponents-in-different-places scoped; body cross collected"
-   },
-   {
-    "title": "The written plan, second probe (your Q-333 'Second probe'): the plan sharpens the corner only where it was drilled for THIS opponent - must make a good plan beat a careless one by 6",
-    "who": "claude-opus-5-5 (console tab PLANIMPACT2 of the S550 session)",
-    "when": "2026-11-24"
-   },
-   {
-    "title": "The plan-impact probe collected: no way of making the written plan matter passed",
-    "who": "claude",
-    "when": "2026-11-24"
-   },
-   {
-    "title": "Boxer v boxer card game, version 1 and its critic (5 / 6 / 6): the answerer saw the whole volley",
-    "who": "claude",
-    "when": "2026-11-24"
    }
   ],
   "scope_note": "S294: lean restart (E:\\FightCamp\\Lean\\docs\\RESTART_PLAN.md). Old roadmap items are parked until the weekly builds reach them.",
@@ -6170,6 +6188,18 @@
     {
      "text": "Claude played 3 bouts: 8,8,6,6",
      "who": "claude"
+    },
+    {
+     "text": "All agents played: 5 reports",
+     "who": "claude"
+    },
+    {
+     "text": "Page: 10-8 round, KD stops beat",
+     "who": "claude"
+    },
+    {
+     "text": "Clinch measured: pays too well",
+     "who": "claude"
     }
    ],
    "now": [
@@ -6300,10 +6330,6 @@
     {
      "text": "Your play: balanced Ring Switches",
      "who": "operator"
-    },
-    {
-     "text": "All agents playtest (his order)",
-     "who": "claude"
     }
    ],
    "next": [
@@ -6688,15 +6714,19 @@
      "who": "claude"
     },
     {
-     "text": "All agents playtest (his order)",
+     "text": "Body-mapped switches: a toy",
      "who": "claude"
     },
     {
-     "text": "Read Ziva rules + ground runs",
+     "text": "Guard glove off the ear: retake",
      "who": "claude"
     },
     {
-     "text": "Low cover onto the page",
+     "text": "Rune Coliseum steps: collect",
+     "who": "claude"
+    },
+    {
+     "text": "Clinch fix onto the page",
      "who": "claude"
     }
    ],
@@ -6706,7 +6736,7 @@
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
  "last_working_commit": "71f6043f8",
- "next_action": "S558: FIRST HIS ORDER, NOT DONE - 'have it playtested by all agents and also you' (owner S557): the brief is ops/research/TASK_ALLPLAY1.md; no seat was started and Claude did not play (S557 hit its size limit). Start Ziva, Arena and Cline on it, play three bouts yourself, build the by-message driver for Kalli, John, Maria and Antigravity (no shell), tell him Dola could not be reached. SECOND read what is still measuring: E:/FightCamp/tmp/s557_ziva (a block costs the blocker guard, the free chase) and E:/FightCamp/tmp/s557_ground (the look-ahead learns the ground rule). THIRD the low-cover pictures are on the page: play one in the browser, send him a before and after strip, run fight_pictures_test. After every page edit: page_play_test.mjs.",
+ "next_action": "S559: FIRST his three orders from the end of S558, none finished - (1) his idea: the switches on the fighters' bodies (hover a hand = its switches as a tooltip, click = it stays, the pick goes into an order strip that explains the order): build it as a toy on a copy of the page (proto/twohands/body.html) and send him the link within the hour; (2) the guard picture, 'this guard is wrong why he protects his ears ?': retake rear_high and both_low_high with the glove in front of the ear on the cheek, a picture bar first; (3) Rune Coliseum's step mechanic: collect the console worker (ops/research/RUNESTEP1_STUDY.md), tell him the verdict. SECOND the clinch: read E:/FightCamp/tmp/s558_balance/batch, take the mildest version that holds 8 of 9 bars and puts the loop under 30% on probe_clinch.mjs, or ask him if two tie.",
  "next_acceptance": "Rulers vs r0: head jumps on the contact frame under 4, a head inside the other's body under 5 frames, arm out median under 4 frames with join_return green, then r1 film at two fresh blind critics 5+/10",
  "superseded_archive": [
   {

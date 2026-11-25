@@ -1,0 +1,9 @@
+{
+ "_note": "S558 (Ziva: four beats and ten stamina erased by his clinch, bouts 4 and 5; Claude: bout 2 round 1 beat 3). A man who is tied up gets back the stamina of the plan the clinch smothered: all of it.",
+ "src": [
+  [
+   "else if (clincher != null) { f[clincher].st = Math.min(f[clincher].cap, f[clincher].st + 2);",
+   "else if (clincher != null) { const o = 1 - clincher; f[o].st = Math.min(f[o].cap, f[o].st + cost(P[o])); f[clincher].st = Math.min(f[clincher].cap, f[clincher].st + 2);"
+  ]
+ ]
+}

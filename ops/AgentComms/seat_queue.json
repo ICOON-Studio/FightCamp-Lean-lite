@@ -4747,11 +4747,16 @@
    "seat": "dola",
    "brief": "research/CRITIC_COACHMAP1_BRIEF.md",
    "stem": "CRITIC_COACHMAP1_BRIEF_DOLA",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-24 12:08",
    "tries": 0,
-   "skips": 64,
-   "last_error": "2026-11-25 19:10 no CDP on 9333 (the app runs without its debug port or is closed; never launched from here - it opens a window)"
+   "skips": 68,
+   "last_error": "2026-11-25 21:10 no CDP on 9333 (the app runs without its debug port or is closed; never launched from here - it opens a window)",
+   "sent_at": "2026-11-25 21:40",
+   "pid": 34188,
+   "transcript": "AgentComms/seat_logs/SQ324_dola.txt",
+   "answered_at": "2026-11-25 22:10",
+   "answer": "research/CRITIC_COACHMAP1_BRIEF_DOLA.md"
   },
   {
    "id": "SQ325",
@@ -4902,22 +4907,30 @@
    "seat": "kalli",
    "brief": "research/RINGSWITCH_READ_BRIEF.md",
    "stem": "RINGSWITCH_READ_BRIEF_KALLI",
-   "status": "sent",
+   "status": "answered",
    "queued_at": "2026-11-25 18:56",
    "tries": 0,
    "sent_at": "2026-11-25 19:10",
-   "sent_ms": 1795626625848
+   "sent_ms": 1795626625848,
+   "answered_at": "2026-11-25 19:40",
+   "answer": "research/RINGSWITCH_READ_BRIEF_KALLI.md",
+   "chars": 5554,
+   "seen_by_claude": true
   },
   {
    "id": "SQ336",
    "seat": "john",
    "brief": "research/RINGSWITCH_TELLS_BRIEF.md",
    "stem": "RINGSWITCH_TELLS_BRIEF_JOHN",
-   "status": "sent",
+   "status": "answered",
    "queued_at": "2026-11-25 18:56",
    "tries": 0,
    "sent_at": "2026-11-25 19:10",
-   "sent_ms": 1795626628687
+   "sent_ms": 1795626628687,
+   "answered_at": "2026-11-25 19:40",
+   "answer": "research/RINGSWITCH_TELLS_BRIEF_JOHN.md",
+   "chars": 27945,
+   "seen_by_claude": true
   }
  ]
 }

@@ -1,0 +1,32 @@
+{
+ "_note": "RUNESTEP1 (Rune Coliseum: most attacks carry their own step - 'advance a short / mid distance and attack' - and an attack's recovery leaves the man open): a Lunge jab, a lead punch that steps in one place in its own moment and lands at the new range (from Long it lands at Mid), 2 stamina; the lead hand is still out in the next moment, so his punch on that line gets through. A back off in the same moment cancels the step. The feet switch stays free for a second move.",
+ "ACT": {
+  "ljab": {
+   "n": "Lunge jab",
+   "h": 0,
+   "st": 2,
+   "d": 1,
+   "sp": 1,
+   "reach": [
+    2,
+    3
+   ],
+   "line": "straight",
+   "pic": "jab",
+   "t": "Steps in one place as it lands (from Long it lands at Mid). The lead hand is still out in the next moment."
+  }
+ },
+ "LO": [
+  "ljab"
+ ],
+ "src": [
+  [
+   "let d = 0; for (const k of [0, 1]) if (act[k] === 'feet') {",
+   "let d = 0; for (const k of [0, 1]) if (act[k] === 'lead' && P[k].lead === 'ljab') { d--; f[k].ropes = 0; } for (const k of [0, 1]) if (act[k] === 'feet') {"
+  ],
+  [
+   "if (act[k] !== 'lead') c[COVER[P[k].hl][0]] = 1;",
+   "if (act[k] !== 'lead' && !(P[k].lead === 'ljab' && P[k].ord[i - 1] === 'lead')) c[COVER[P[k].hl][0]] = 1;"
+  ]
+ ]
+}

@@ -1,0 +1,17 @@
+{
+ "_note": "margin8 + kd_stops together",
+ "src": [
+  [
+   "sc: [w === 1 ? 9 : 10, w === 0 ? 9 : 10]",
+   "sc: [w === 1 ? (y.pts - x.pts >= 5 ? 8 : 9) : 10, w === 0 ? (x.pts - y.pts >= 5 ? 8 : 9) : 10]"
+  ],
+  [
+   "const stunNow = [...stun], openNow = [...opening];",
+   "const stunNow = [...stun], openNow = [...opening], downNow = [f[0].hp <= 0, f[1].hp <= 0];"
+  ],
+  [
+   "if (stunNow[sh.k]) { say(sh.k, { m: i, t: 'flat', id: sh.id, a: a.n, o: `beaten",
+   "if (downNow[sh.k]) continue; if (stunNow[sh.k]) { say(sh.k, { m: i, t: 'flat', id: sh.id, a: a.n, o: `beaten"
+  ]
+ ]
+}

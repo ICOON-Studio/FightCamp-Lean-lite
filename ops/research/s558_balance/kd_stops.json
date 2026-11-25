@@ -1,0 +1,13 @@
+{
+ "_note": "S558 (Claude playtest, bout 2 round 3 beat 6 and bout 3 round 3 beat 6): a man whose health is at 0 throws nothing more in that beat (punches of the same speed in the same moment still both land).",
+ "src": [
+  [
+   "const stunNow = [...stun], openNow = [...opening];",
+   "const stunNow = [...stun], openNow = [...opening], downNow = [f[0].hp <= 0, f[1].hp <= 0];"
+  ],
+  [
+   "if (stunNow[sh.k]) { say(sh.k, { m: i, t: 'flat', id: sh.id, a: a.n, o: `beaten",
+   "if (downNow[sh.k]) continue; if (stunNow[sh.k]) { say(sh.k, { m: i, t: 'flat', id: sh.id, a: a.n, o: `beaten"
+  ]
+ ]
+}

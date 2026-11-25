@@ -33,6 +33,8 @@ const brief = fs.readFileSync(path.join(ROOT, 'ops/research/TASK_ALLPLAY1.md'), 
 // ---- the two ways to reach a seat: each takes the text of one message and gives back the seat's whole reply
 async function grokAsk(text, want, maxMin) {
   const f = path.join(DIR, `msg_${String(++st.n).padStart(3, '0')}.txt`); fs.writeFileSync(f, text); save();
+  // S558: three bots answered 1-2 beats in seconds, then the box started no more turns: keep a gap between messages (pace=<s>)
+  const gap = Number(arg.pace || 0) * 1000 - (Date.now() - (grokAsk.lastSend || 0)); if (gap > 0) await sleep(gap); grokAsk.lastSend = Date.now();
   const sent = Date.now() - 5000;
   for (let t = 0; ; t++) {
     const r = spawnSync('node', ['ops/Tools/grokbot_direct.mjs', 'send', seat, f], { cwd: ROOT, encoding: 'utf8' });
@@ -67,11 +69,35 @@ async function agyAsk(text, want, maxMin) {
   }
   stall('agy gave no usable answer');
 }
+// via=dola (S558, owner: "grokbots are out of quota, tgry dola now"): her desktop app through ops/Tools/cici/cici.py (CDP 9333).
+// One fresh chat for the whole playtest; every message ends with a tag, and her answer is what the transcript holds after it.
+async function dolaAsk(text, want, maxMin) {
+  const tag = `[message ${++st.n} of this playtest]`, f = path.join(DIR, `msg_${String(st.n).padStart(3, '0')}.txt`), tr = path.join(DIR, 'transcript.txt');
+  fs.writeFileSync(f, `${text}\n\n${tag}`);
+  const r = spawnSync('python', ['ops/Tools/cici/cici.py', 'send', ...(st.dolaChat ? [] : ['--new']), '--file', f, '--wait', '150', '--out', tr], { cwd: ROOT, encoding: 'utf8', timeout: 300000 });
+  log('dola send: ' + String(r.stdout || r.stderr || '').trim().split('\n').slice(-1)[0].slice(0, 160)); st.dolaChat = 1; save();
+  // After 15 beats the whole-thread read lost my newer messages (her long chat keeps only part of its list): the answer to a
+  // beat is read from the ON-SCREEN tail after my tag; a long answer (the report, the drawing) may also be the last block
+  // of the whole-thread read - `want` (REPORT END, </html>) keeps an old beat answer from passing for it.
+  const vis = path.join(DIR, 'visible.txt'), ui = /^(Show More|Show Less|Today \d.*|Yesterday.*|Chat|Create Videos|Create Images|Writing|Homework|Translate)$/;
+  const clean = (s) => s.split(/\r?\n/).filter((l) => !ui.test(l.trim())).join('\n').trim();
+  const after = () => { let all = ''; try { all = fs.readFileSync(vis, 'utf8'); } catch {} const i = all.lastIndexOf(tag); return i >= 0 ? clean(all.slice(i + tag.length)) : ''; };
+  const lastBlock = () => { let all = ''; try { all = fs.readFileSync(tr, 'utf8'); } catch {} return clean(all.split('----- MESSAGE BREAK -----').pop() || ''); };
+  const reread = (whole) => { spawnSync('python', ['ops/Tools/cici/cici.py', 'read', '--visible-only', '--out', vis], { cwd: ROOT, encoding: 'utf8', timeout: 120000 });
+    if (whole) spawnSync('python', ['ops/Tools/cici/cici.py', 'read', '--out', tr], { cwd: ROOT, encoding: 'utf8', timeout: 180000 }); };
+  const long = !/Answer with ONE line/.test(text.slice(-400));
+  for (const t0 = Date.now(); ;) {
+    reread(long); let reply = after(); if (long && !(reply && want(reply)) && want(lastBlock())) reply = lastBlock();
+    if (reply && want(reply)) { await sleep(6000); reread(long); const again = long && want(lastBlock()) && lastBlock().length > after().length ? lastBlock() : after(); return again && want(again) ? again : reply; }
+    if (Date.now() - t0 > maxMin * 60000) { if (reply) return reply; stall('no usable reply from dola in ' + maxMin + ' min'); }
+    await sleep(15000);
+  }
+}
 // via=test: no seat at all, a fixed answer to each kind of message (proves the driver end to end in seconds)
 async function testAsk(full) { st.n++; fs.appendFileSync(path.join(DIR, 'sent.txt'), `\n=== ${st.n} ===\n${full}\n`); const text = full.slice(-900);
   return /DRAW your 10\/10/.test(text) ? 'Here:\n```html\n<!DOCTYPE html><html><body>ten</body></html>\n```' : /NOW WRITE YOUR REPORT/.test(text) ? 'x'.repeat(1600) + '\nREPORT END'
     : /Nothing is lost|NOT PLAYED/.test(text) ? 'lead=high rear=high feet=hold\nWHY: rest' : st.n % 4 === 0 ? 'clinch\nWHY: breath' : 'I think: `lead=jab rear=high feet=in order=feet,lead`\nWHY: test the jab'; }
-const ask = VIA === 'agy' ? agyAsk : VIA === 'test' ? testAsk : grokAsk;
+const ask = VIA === 'agy' ? agyAsk : VIA === 'dola' ? dolaAsk : VIA === 'test' ? testAsk : grokAsk;
 
 // ---- one plan line out of a reply: the last line that has lead= and rear=, or a bare "clinch"
 function parsePlan(reply) {
