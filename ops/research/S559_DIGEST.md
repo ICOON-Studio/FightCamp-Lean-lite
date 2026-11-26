@@ -36,7 +36,7 @@
 - Rune Coliseum's pull counter: 8 of 9, the jab lands 68% (was 76-81%). On the board as Q-S294-337, unanswered.
 - Clinch: four fixes, all 7 of 9 (push off / clinch die). Not on the page.
 - Kicks: first 4 of 9 (low kick 88%, head kick 92%: feint + head kick unblockable; 96% stoppages); fix A 4 of 9; fix B 6 of 9
-  (head/body kicks die at Mid only). C and D ("standing your ground checks the low kick") measuring at the handover.
+  (head/body kicks die at Mid only). C 5 of 9 and D 4 of 9 ("standing your ground checks the low kick"): the low kick still lands 96% in C; D kills the head kick and the mirror (36%). B stays the best.
 
 ## Incidents
 - KICKTAKE1's first commit swept in ~8,200 unrelated untracked files; my camera push carried it to GitHub. Repaired with a

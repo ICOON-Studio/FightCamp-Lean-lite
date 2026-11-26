@@ -20,8 +20,10 @@ Start: `git pull && python ops/Tools/agent_comms.py start`, then this page, then
 ## RUNNING AT THE HANDOVER (collect first)
 1. HEADMOVE1 measure - DONE after the handover: 8 of 9 bars; the jab lands 65% (order.html 76-81%: the best yet on the one failing bar), the lead uppercut 66%; slip 9% / lean back 6% / slip in 3% / roll 3% of beats; stoppages 11%. Next: a small tweak to pass 9 of 9, then put head movement on the page (his call: it changes every bout). File: `E:/FightCamp/tmp/s559_head/head_base.txt` (balance_batch, page head.html). Read the 9 bars and
    how often slip / roll / lean back / slip in are used; the jab-lands bar (76-81% on order.html) is the one to watch.
-2. Kick fixes C and D (start when 1 ends): `E:/FightCamp/tmp/s559_kick/kick_fix_c.txt`, `kick_fix_d.txt` ("standing your
-   ground checks the low kick"; D also head kick at Mid only). A, B were 4 and 6 of 9 (S559 digest).
+2. Kick fixes C and D - DONE after the handover: C 5 of 9, D 4 of 9, both below B (6 of 9). C: the low kick still lands 96%
+   (standing your ground did not check it - read why in the rule before another version), stoppages 71%, knockdowns 3.8.
+   D: the head kick died (0%), the mirror went unfair (36%). Next kick version starts from B. Files:
+   `E:/FightCamp/tmp/s559_kick/kick_fix_c.txt`, `kick_fix_d.txt`.
 If a background shell is gone, rerun: `N=56 sh proto/twohands/tools/balance_batch.sh <out> ops/research/s558_balance/<f>.json`.
 
 ## FIRST (his asks still open)
