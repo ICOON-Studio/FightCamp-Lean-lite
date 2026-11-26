@@ -1,0 +1,4 @@
+{
+ "_note": "JABLAND1 A (S562) - CHEAPER, NOT WEAKER. The jab and the body jab cost 0 stamina (the lead hand still gives up its rest: +1 for a hand held home), the overhand 2 (was 3). S555 memory: a weaker strike lands MORE - the mix throws a punch only where it is worth its price, so a cheaper punch is thrown into more guards and a smaller share of it lands. Health, speed, reach unchanged, so no punch hits harder. The body jab is cheapened with the jab so the lead-high / lead-low guess at Long stays even (it lands 57-65% today).",
+ "ACT": { "jab": { "st": 0 }, "bjab": { "st": 0 }, "over": { "st": 2 } }
+}

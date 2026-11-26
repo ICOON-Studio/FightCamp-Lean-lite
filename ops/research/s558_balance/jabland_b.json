@@ -1,0 +1,8 @@
+{
+ "_note": "JABLAND1 B (S562) - THE GUARD ANSWERS. (1) The jab is caught by the rear glove held high in the moment the lead hand is out punching (you jab, the rear glove stays at the chin): a third of today's landed jabs are a same-moment jab trade, and the rear hand had no job at Long. (2) The overhand is too slow for the feint's opening: by the time it arrives the drawn hand is back (today most landed overhands come off a feint; it is blocked under 10% of the times it reaches). Two src patches, no number changed.",
+ "src": [
+  ["if (cov[v][a.line] && !wasDrawn) {", "const caught = sh.id === 'jab' && act[v] === 'lead' && cov[v].side; if ((cov[v][a.line] || caught) && !wasDrawn) {"],
+  ["say(sh.k, { m: i, t: 'block', id: sh.id, a: a.n, o: (P[v][sl] ?", "say(sh.k, { m: i, t: 'block', id: sh.id, a: a.n, o: caught ? `caught by ${v ? 'his' : 'your'} rear glove, held high while the lead punched` : (P[v][sl] ?"],
+  ["wasDrawn = drawn[sh.k] === 1;", "wasDrawn = drawn[sh.k] === 1 && sh.id !== 'over';"]
+ ]
+}
