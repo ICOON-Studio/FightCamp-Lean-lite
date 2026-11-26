@@ -16,7 +16,7 @@ three rounds, each beat sealed before the other is seen (ops/Tools/league.mjs). 
 | match | result |
 |---|---|
 | Kalli v John | John WINS on the cards 30-26 |
-| Kalli v Maria | being played (round 1, beat 1) |
+| Kalli v Maria | being played (round 3, beat 6) |
 | Kalli v Antigravity | to play |
 | Kalli v Dola | Dola WINS on the cards 30-27 |
 | Kalli v Claude | Claude WINS - the referee stops it |
@@ -27,6 +27,6 @@ three rounds, each beat sealed before the other is seen (ops/Tools/league.mjs). 
 | Maria v Antigravity | Antigravity WINS on the cards 28-27 |
 | Maria v Dola | to play |
 | Maria v Claude | to play |
-| Antigravity v Dola | to play |
-| Antigravity v Claude | to play |
+| Antigravity v Dola | being played (round 1, beat 1) |
+| Antigravity v Claude | being played (round 1, beat 1) |
 | Dola v Claude | Claude WINS - the referee stops it |
