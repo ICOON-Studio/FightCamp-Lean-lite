@@ -1,0 +1,8 @@
+# node proto/twohands/tools/balance.mjs table tweak=ops/research/s558_balance/long1_l1.json out=/home/user/long1_tmp/l1.vt.json jobs=2 (vt.json not committed)
+BALANCE_TABLE beats left 1: at Long, full stamina v 4: 0.11; having given ground twice v none: -0.521; Mid 0.444; Inside 0.43
+BALANCE_TABLE beats left 2: at Long, full stamina v 4: 1.112; having given ground twice v none: -0.725; Mid 1.64; Inside 1.456
+BALANCE_TABLE beats left 3: at Long, full stamina v 4: 1.269; having given ground twice v none: -0.373; Mid 1.676; Inside 1.504
+BALANCE_TABLE beats left 4: at Long, full stamina v 4: 1.354; having given ground twice v none: -0.317; Mid 1.735; Inside 1.553
+BALANCE_TABLE beats left 5: at Long, full stamina v 4: 1.365; having given ground twice v none: -0.331; Mid 1.728; Inside 1.561
+BALANCE_TABLE beats left 6: at Long, full stamina v 4: 1.363; having given ground twice v none: -0.336; Mid 1.727; Inside 1.563
+BALANCE_TABLE wrote /home/user/long1_tmp/l1.vt.json in 1159 s
