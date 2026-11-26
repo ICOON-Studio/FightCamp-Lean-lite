@@ -1,0 +1,9 @@
+{
+ "_note": "FEINTFIX2 G1 (S567) - THE FEINTING HAND DOES NOT GUARD FIRST (the Claude player's finding): in a beat where your lead hand feints, that hand guards nothing in the moments BEFORE its own feint moment (today it is 'still up' until its own moment). Nothing else changes.",
+ "src": [
+  [
+   "const cov = [0, 1].map((k) => { const c = {}; if (f[k].g <= 0) return c; if (act[k] !== 'lead') c[COVER[P[k].hl][0]] = 1; if (act[k] !== 'rear') c[COVER[P[k].hr][1]] = 1; return c; }), stun = [0, 0];",
+   "const cov = [0, 1].map((k) => { const c = {}; if (f[k].g <= 0) return c; const leadAway = act[k] === 'lead' || (P[k].lead === 'feint' && P[k].ord.indexOf('lead') > i); if (!leadAway) c[COVER[P[k].hl][0]] = 1; if (act[k] !== 'rear') c[COVER[P[k].hr][1]] = 1; return c; }), stun = [0, 0];"
+  ]
+ ]
+}

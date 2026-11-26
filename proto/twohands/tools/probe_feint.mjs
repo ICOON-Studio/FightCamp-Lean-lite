@@ -72,12 +72,16 @@ function bouts(R, who, opp, n) { const { N, ACT, plan0, man, cost, resolve, endB
   // an emitted feint, not a planned shot cancelled by a clinch, knockdown or stun.
   // Count landed punches in the feint moment separately from the tweak's wasted feints.
   o.feintPair = {}; o.feintCaught = {}; o.feintWasted = {};
+  // FEINTFIX2 extras (printed on their own FEINT_EXTRA line; the old lines are unchanged): the health a punch after a
+  // feint does, the share of beats a man holds both hands, beats with no punch landed, rounds played.
+  o.feintAfter = {}; o.bothHeld = [0, 0]; o.noLand = 0; o.rounds = 0;
   const countFeints = (ev) => {
     for (const f of ev.filter(e => e.t === 'flat' && e.a === 'feints')) {
       for (const e of ev) {
         if (e.k === f.k && e.m === f.m + 1 && e.id && ['hit', 'block', 'miss'].includes(e.t)) {
           const q = o.feintPair[e.id] ||= { thrown: 0, landed: 0 };
           q.thrown++; if (e.t === 'hit') q.landed++;
+          if (e.t === 'hit') { const g = o.feintAfter[e.id] ||= { landed: 0, dmg: 0 }; g.landed++; g.dmg += e.dmg || 0; }
         }
         if (e.k === 1 - f.k && e.m === f.m && e.t === 'hit' && e.id) {
           o.feintCaught[e.id] = (o.feintCaught[e.id] || 0) + 1;
@@ -94,13 +98,16 @@ function bouts(R, who, opp, n) { const { N, ACT, plan0, man, cost, resolve, endB
   const note = (k, c) => { const u = o.use[k], add = (x) => { u[x] = (u[x] || 0) + 1; }; if (c.clinch) return add('clinch'); add(c.lead || 'lead held ' + c.hl); add(c.rear || 'rear held ' + c.hr); add(c.feet === 'hold' ? 'feet hold' : c.feet === 'in' ? 'step in' : c.feet === 'back' ? 'back off' : c.feet);   // S559: a kick or a check counted as itself
     o.np[k][(c.lead && ACT[c.lead].d ? 1 : 0) + (c.rear ? 1 : 0)]++; if (k === 0 && c.ord && c.ord.length > 1) { o.ordered++; o.first[c.ord[0]] = (o.first[c.ord[0]] || 0) + 1; } };
   for (let b = 0; b < n; b++) { const S = { f: [man(N.hp), man(R.opp().hp)], range: 3 }; let done = false; const t = [0, 0];
-    for (let r = 0; r < N.rounds && !done; r++) { S.range = 3; for (const m of S.f) { m.pts = 0; m.st = m.cap; m.g = N.guard; m.ropes = 0; m.held = 0; m.kept = 0; m.gave = 0; }
+    for (let r = 0; r < N.rounds && !done; r++) { o.rounds++; S.range = 3; for (const m of S.f) { m.pts = 0; m.st = m.cap; m.g = N.guard; m.ropes = 0; m.held = 0; m.kept = 0; m.gave = 0; }
       for (let i = 0; i < N.beats && !done; i++) { S.t = N.beats - i; let mine, his;
         if (who === 'mix') { const z = R.solveBeat(S, S.t, { iters: 400 }); mine = z.A[drawAt(z.p, rnd)]; his = mirror ? z.B[drawAt(z.q, rnd)] : null; }
         else if (who === 'random') { const A = R.plansFor(S, 0); mine = A[Math.floor(rnd() * A.length)]; } else mine = sensible(S);
         if (!his) his = R.ai(S);
         note(0, mine); note(1, his); const hp = [S.f[0].hp, S.f[1].hp], ev = resolve(S, [{ ...mine }, { ...his }]); endBeat(S); o.beats++; o.rng[S.range]++; o.dmg[0] += hp[1] - S.f[1].hp; o.dmg[1] += hp[0] - S.f[0].hp;
         countFeints(ev);
+        if (!ev.some((e) => e.t === 'hit')) o.noLand++;
+        if (!mine.clinch && !mine.lead && !mine.rear) o.bothHeld[0]++;
+        if (!his.clinch && !his.lead && !his.rear) o.bothHeld[1]++;
         for (const e of ev) { if (e.t === 'clinch') o.clinch++; if (e.id && (e.t === 'hit' || e.t === 'block' || e.t === 'miss')) { const q = o.pun[e.k][e.id] = o.pun[e.k][e.id] || { hit: 0, block: 0, miss: 0 }; q[e.t]++; } }
         for (const k of [0, 1]) if (S.f[k].hp <= 0) { S.f[k].kd++; o.kd[k]++; S.f[1 - k].pts += 3; if (S.f[k].kd > N.kd.length) { if (k === 1) { o.w++; o.ko++; } else o.lost++; done = true; break; } S.f[k].hp = N.kd[S.f[k].kd - 1]; } }
       if (!done) { const [x, y] = S.f, lvl = x.pts === y.pts, g = lvl && N.even ? Math.sign((y.gave || 0) - (x.gave || 0)) : 0;   // g > 0: he backed off more, the level round is yours (a tweak counts gave on the page's back off)
@@ -144,7 +151,7 @@ if (isMain) { const arg = (k, d) => { const a = process.argv.find((x) => x.start
   const mode = process.argv[2] || 'mix', tweak = readTweak(arg('tweak', ''));
   if (mode === 'play') { const table = arg('table', ''), R = loadTweaked(1, tweak, table || undefined), n = Number(arg('n', 56)), jobs = Number(arg('jobs', 7)), seed = Number(arg('seed', 1));
     for (const who of arg('who', 'mix').split(',')) for (const op of arg('opp', 'mirror').split(',')) { const opp = op === 'mirror' ? op : Number(op), t0 = Date.now(), o = await play(who, opp, n, { tweak, table: table || undefined, jobs, seed });
-      console.log(report(R, who, opp, o) + `\n  (${o.n} bouts, ${((Date.now() - t0) / 1000).toFixed(0)} s)`); if (who === 'mix' && opp === 'mirror') console.log(bars(R, o)); console.log('FEINT_COUNTS ' + JSON.stringify({pair: o.feintPair, caught: o.feintCaught, wasted: o.feintWasted})); if (arg('json', '')) fs.writeFileSync(arg('json', ''), JSON.stringify(o)); } }
+      console.log(report(R, who, opp, o) + `\n  (${o.n} bouts, ${((Date.now() - t0) / 1000).toFixed(0)} s)`); if (who === 'mix' && opp === 'mirror') console.log(bars(R, o)); console.log('FEINT_COUNTS ' + JSON.stringify({pair: o.feintPair, caught: o.feintCaught, wasted: o.feintWasted})); console.log('FEINT_EXTRA ' + JSON.stringify({ after: o.feintAfter, bothHeld: o.bothHeld, noLand: o.noLand, rounds: o.rounds, beats: o.beats })); if (arg('json', '')) fs.writeFileSync(arg('json', ''), JSON.stringify(o)); } }
   else if (mode === 'table') { const out = arg('out', TABLE), t0 = Date.now(), VT = await buildTable(tweak, { iters: Number(arg('iters', 500)), jobs: Number(arg('jobs', 6)), log: (s) => console.log('BALANCE_TABLE ' + s) });
     const R = loadTweaked(1, tweak, null); fs.writeFileSync(out, JSON.stringify({ made: 'tools/balance.mjs table', N: R.N, W: R.W, VT }));
     console.log(`BALANCE_TABLE wrote ${out} in ${((Date.now() - t0) / 1000).toFixed(0)} s`); }

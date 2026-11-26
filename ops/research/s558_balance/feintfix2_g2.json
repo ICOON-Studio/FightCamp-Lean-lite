@@ -1,0 +1,9 @@
+{
+ "_note": "FEINTFIX2 G2 (S567) - A SLOW PUNCH FINDS THE HAND COMING BACK (Kalli): a punch of speed slow (the overhand, the rear uppercut) that lands only because the feint drew his hand does 2 less, never under 1. Fast and medium punches after a feint are unchanged.",
+ "src": [
+  [
+   "const pull = pulled[sh.k], dmg = a.d + (openNow[sh.k] ? N.counter : 0) + (pull ? 1 : 0);",
+   "const pull = pulled[sh.k], dmg = Math.max(1, a.d + (openNow[sh.k] ? N.counter : 0) + (pull ? 1 : 0) - (wasDrawn && cov[v][a.line] && a.sp === 3 ? 2 : 0));"
+  ]
+ ]
+}
