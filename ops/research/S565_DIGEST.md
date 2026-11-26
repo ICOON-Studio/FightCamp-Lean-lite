@@ -150,3 +150,18 @@ for the landing bar AND the clinch loop; re-run probe_clinch on F's own table be
   the skill numbers set again - to a target the owner names.
 - version.js: the BOUNCE1 worker added its own entry (0.565.4) from the rule in the file's header.
 
+
+## THE NAME (after the second ship) - his words
+"why you call the game with the wrong name ?" -> asked; "Yes, Puncher's chance"; then "wtf ? i didnt mean to add a
+mechanic , it was the name of game".
+- The game is PUNCHER'S CHANCE (his S559 sentence named the game; S559-S564 read it as a new switch and built a comeback
+  mechanic under it). "Ring Switches" was Claude's working name: removed from the title and top bar of every page, the
+  changelog, the ops board (the gold "Puncher's chance" button opens the game), the words tool's first line.
+- The mistaken mechanic is "All in" now (punch.html, "All in (trial)" on the ops board; ids unchanged). Judged by bots
+  only: version F 8 of 9 bars on both seeds, comeback 10% -> 15% pooled, knockdowns 2.3-2.5 a bout, used on about 3% of
+  beats. No playtester, no critic. His keep-or-cut call (board row ALLIN1).
+- Top bar: the long hint beside the sound button is a tooltip now (the longer name pushed the button to a second line).
+- version 0.565.5. Tests: page_parse 5, page_play_test 4 on order / punch / wait / head, punch_chance_test 14,
+  wait_test 5, rules_test 37; top bars checked on screenshots.
+- His questions answered in chat: the reviews of the comeback switch (above); the games the bots named for spacing and
+  close combat (Kalli: Footsies, Exceed, BattleCON; Dola: Fight Night Champion, Gloomhaven, Toribash, Street Fighter 6).

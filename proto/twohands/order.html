@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Ring Switches</title>
+<title>Puncher's chance</title>
 <style>
 :root{color-scheme:dark;--bg:#151211;--panel:#221c18;--panel2:#2b231d;--line:#43332a;--line2:#5a4436;--fg:#f2e9dd;--muted:#b7a595;--gold:#e3ab45;--red:#d9534a;--blue:#5f92d8;--green:#74bd7c}
 *{box-sizing:border-box}html{font-size:clamp(13px,1.02vw,21px)}html,body{height:100%;margin:0}
@@ -125,7 +125,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 #seqwords{display:flex;flex-wrap:wrap;gap:.1rem 1.4rem;font-size:.88rem;color:var(--fg)}#seqwords b{color:var(--gold);margin-right:.35rem}#seqwords u{color:#ff8f86;text-decoration:none;font-weight:700}#seqwords .meet{color:var(--muted);font-size:.8rem}
 </style><script src="ring_ui.js" defer></script><script src="body_ui.js" defer></script><script src="version.js" defer></script></head>
 <body><div class="app">
-  <div class="top"><span class="brand">Ring Switches</span><span id="where"></span><span id="score"></span><span class="lab" style="margin-left:auto">point at a limb to set it - the order you click is the order you throw</span><button class="btn" id="mute" style="padding:.2rem .6rem;min-height:0;font-size:.85rem">Sound on</button></div>
+  <div class="top"><span class="brand">Puncher's chance</span><span id="where"></span><span id="score"></span><span class="lab" style="margin-left:auto" title="The order you click is the order you throw.">point at a limb to set it</span><button class="btn" id="mute" style="padding:.2rem .6rem;min-height:0;font-size:.85rem">Sound on</button></div>
   <div class="men"><div class="man you" id="you"></div><div class="man him" id="him"></div></div>
   <div class="duo"><div class="side" id="side"><div class="board" id="board"></div></div><div class="stage" id="stage"><div class="rng" id="rng"></div><img id="pic" alt="" src="img/guard.webp"><span class="burst" id="burst"></span><span class="pop p0" id="pop0"></span><span class="pop p1" id="pop1"></span><span class="cap" id="cap"></span><span class="nm you">You</span><span class="nm him" id="nmhim">Him</span></div>
     <div class="tell"><div class="said" id="said"></div><div id="story"></div></div></div>

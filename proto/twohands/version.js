@@ -1,9 +1,14 @@
-/* RING SWITCHES - WHICH VERSION IS RUNNING, AND WHAT CHANGED (S565, the owner: "maybe add a changelog with every fix
+/* PUNCHER'S CHANCE (the game's name; "Ring Switches" was a working name, retired S565) - WHICH VERSION IS RUNNING, AND WHAT CHANGED (S565, the owner: "maybe add a changelog with every fix
    showing which version we running"). One file, loaded by every page and by changelog.html.
    THE RULE: every change a player can see or feel on a page gets ONE line here, newest first, in plain words, and a new
    number: 0.<session>.<n> (n counts up inside the session). The top entry is the version the page shows beside the
    sound button. A measure that changed nothing on a page is not an entry. */
 window.RS_CHANGES = [
+  { v: '0.565.5', date: '2026-11-26', items: [
+    'The game is called Puncher\'s chance on every page (it said Ring Switches).',
+    'The comeback switch that carried the game\'s name by mistake is called "All in" and sits on its own trial page.' ] },
+  { v: '0.565.4', date: '2026-11-26', items: [
+    'Never still: while you plan, both men bounce lightly on the spot (feet where they stand, guard where it is); Fight stops it at once.' ] },
   { v: '0.565.3', date: '2026-11-26', items: [
     'Pick your moment: the opponent on that page now thinks ahead with a table made for the late step (it used the main page\'s).' ] },
   { v: '0.565.2', date: '2026-11-26', items: [
@@ -19,7 +24,7 @@ window.RS_CHANGES = [
     'Punches, feints and the push off start and end where the men stand (33 jumps between pictures down to 2).',
     'Nothing is drawn on or near the fighters: readouts sit in the ring\'s corner badge and the side panels.' ] },
   { v: '0.561.1', date: '2026-11-25', items: [
-    'New page "Puncher\'s chance": the comeback switch beside the clinch.',
+    'A trial page with a comeback switch beside the clinch (now called "All in").',
     'Head movement page: its own pictures - the glove goes through the place the head was.' ] },
   { v: '0.559.1', date: '2026-11-24', items: [
     'Every picture is taken from your ring camera (one fixed camera, you in blue on the near side).' ] },

@@ -41,7 +41,7 @@ def main() -> None:
         rep(a, b, f"tweak src {i}")
 
     # ---- the page
-    rep("<title>Ring Switches</title>", "<title>Ring Switches - Pick your moment</title>", "title")
+    rep("<title>Puncher's chance</title>", "<title>Puncher's chance - Pick your moment</title>", "title")
     rep(".seq button b{color:var(--gold);margin-right:.3rem}",
         ".seq button b{color:var(--gold);margin-right:.3rem}.seq button[data-sl=\"wait\"]{border-style:dashed;background:none;font-weight:400;opacity:.8}"
         ".waitsw{margin-left:.5rem;padding:.25rem .7rem;border-radius:.7rem;border:1px dashed #8a8170;background:none;color:inherit;font:inherit;cursor:pointer}"

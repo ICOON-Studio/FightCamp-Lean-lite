@@ -6,16 +6,17 @@
   "id": "S565",
   "owner": "claude",
   "updated": "2026-11-26",
-  "summary": "S565 (Fable). Start clean (no board question, nightly 506 of 506). LONG IS A CORRIDOR measured two ways at Arena: LONG1 (the stopping jab, Dola's lead hand as a fence, both) and LONG2 (Kalli SQ339, collected: the cross a man walks onto + jabs that score 2 on a stepping man; finding: the page already lands a cross thrown at Long on a man stepping in - no tester found it, K0 counts it). KDHEAL1 collected: keep the get-up [6, 4] (lower: stoppages 45%, comeback 14% then 4%; the bots show no walk-into-a-punch pull). His S562 question 'select exactly on which part of a beat i move' built as a playable copy, wait.html (MOMENTGAP1 collected, FINAL: only the step a moment later holds 8 of 9 on both seeds with the wait in 8% of beats; a free wait anywhere is picked in 67% of beats and holds 7 of 9; asked on the board, Q-344, whether it goes on the main page), with its jump button on the ops board. Fixed on every page: three moments ran the last line off a 1080 screen. CLINCHFIX2's files copied onto main; the six collected Arena pull requests closed. New tool arena_watch.py (one line when a cloud run ends). KDFIRST (own count, two seeds): the man dropped first wins 13% on the page (UFC 34.4% when the fight goes on), the first man dropped twice 9% (UFC 7%). STAGE 2: CLINCHFIX3 collected - none (third failed clinch round: no fourth; the loop's other leg is feint then overhand - cross-check on the JABLAND2 versions: the loop 38 / 63 / 70% today, 33 / 42 / 37% with 'the feint opens the overhand only Inside', 22 / 25 / 25% with that plus 'a punch landing in your feint moment wastes it' (JABLAND2 F) - under the 30% bar against every man with the clinch untouched). PROGP2 collected (his Q-340): 'cheaper or faster' is a real choice for the overhand only. The S564 render worker finished INSIDE1 steps 1-4 (Inside 0.55 m, 0 jumps) and GLIDE2; BOUNCE1 launched as the next console worker. wait.html runs on its own table.",
+  "summary": "S565 (Fable). Start clean (no board question, nightly 506 of 506). LONG IS A CORRIDOR measured two ways at Arena: LONG1 (the stopping jab, Dola's lead hand as a fence, both) and LONG2 (Kalli SQ339, collected: the cross a man walks onto + jabs that score 2 on a stepping man; finding: the page already lands a cross thrown at Long on a man stepping in - no tester found it, K0 counts it). KDHEAL1 collected: keep the get-up [6, 4] (lower: stoppages 45%, comeback 14% then 4%; the bots show no walk-into-a-punch pull). His S562 question 'select exactly on which part of a beat i move' built as a playable copy, wait.html (MOMENTGAP1 collected, FINAL: only the step a moment later holds 8 of 9 on both seeds with the wait in 8% of beats; a free wait anywhere is picked in 67% of beats and holds 7 of 9; asked on the board, Q-344, whether it goes on the main page), with its jump button on the ops board. Fixed on every page: three moments ran the last line off a 1080 screen. CLINCHFIX2's files copied onto main; the six collected Arena pull requests closed. New tool arena_watch.py (one line when a cloud run ends). KDFIRST (own count, two seeds): the man dropped first wins 13% on the page (UFC 34.4% when the fight goes on), the first man dropped twice 9% (UFC 7%). STAGE 2: CLINCHFIX3 collected - none (third failed clinch round: no fourth; the loop's other leg is feint then overhand - cross-check on the JABLAND2 versions: the loop 38 / 63 / 70% today, 33 / 42 / 37% with 'the feint opens the overhand only Inside', 22 / 25 / 25% with that plus 'a punch landing in your feint moment wastes it' (JABLAND2 F) - under the 30% bar against every man with the clinch untouched). PROGP2 collected (his Q-340): 'cheaper or faster' is a real choice for the overhand only. The S564 render worker finished INSIDE1 steps 1-4 (Inside 0.55 m, 0 jumps) and GLIDE2; BOUNCE1 launched as the next console worker. wait.html runs on its own table. THE NAME (owner S565: \"why you call the game with the wrong name ?\", \"i didnt mean to add a mechanic , it was the name of game\"): the game is PUNCHER'S CHANCE; 'Ring Switches' was Claude's working name, removed from every page, the changelog and the ops board. The comeback switch that S559-S562 built under that name is renamed 'All in', off the main button, a trial page: his keep-or-cut call. JABLAND2 collected: none (the jab half works; any feint fix kills the feint and the overhand, 1-2% of beats; F 7 of 9) - so the feint fixes that end the clinch loop cannot go on the page as they are. BOUNCE1 done (99d787712). All in: his 'sounds fun if it is balanced properly' - kept as a trial; his question how it works on the ground in MMA answered as a direction, not designed.",
   "next_action": "S566: his answer to Q-344 (the late step: main page / own page / drop). Collect what has ended (arena_watch.py; branches in NEXT_SESSION_PROMPT.md): JABLAND2 read WITH the clinch cross-check (results/clinchx_*_loop.txt) -> one page change if a version holds the bars; TELLS3M -> the board question, then TELLS2PAGE; AIEMPTY1; KICKFIX3; LONG1 + LONG2 judged together -> one Long rule as a toy page. BOUNCE1 (console worker, RESUME_S565_BOUNCE1): check its pictures yourself, then KDPIC1. Then TASK_PROGP4 (a pair of its own for each punch) and INSIDE1 Phase 2 stills for him.",
   "last_working_commit": "bfa5aa6ea",
   "verified_playable": "Builds/ exported in S556 (the S547 game plus S548's two changes: the 3D fight throws the body cross, the trial evening's pictures show the prospect's own body; pro_body_jab is on disk and unused by the game). Ring Switches (a browser toy): one beat played in the browser in S556 against the Jabber - both men threw a body jab, both landed, no console error; rules_test 34 pass; anim_check 124 runs PASS.",
   "incomplete_blocked": "Six Arena measures (TELLS3M, AIEMPTY1, JABLAND2, KICKFIX3, LONG1, LONG2) and the BOUNCE1 console worker still running at the handover. No export: no game code changed (proto pages and node tools only). Uncommitted pictures from earlier sessions sit in proto/twohands/img/anim: left for the render workers.",
   "next_acceptance": "Each run collected and judged against its bars; his question on the moment answered with both seeds; a Long rule chosen from LONG1 / LONG2 only if it holds the bars on both seeds.",
   "awaiting_operator": [
-   "Q-344: the step a moment later - on the main page, on its own page, or dropped (wait.html is playable: 'Pick your moment' on the ops board)",
-   "His play of the body view (order.html) and punch.html",
-   "The four worker consoles left from S560-S564 (idle, about 1.5 GB together): close them? (asked in chat)"
+   "TESTLINK1 (Render): free or paid instance; the testers' emails; his OK on the notice's words; he connects the test repo in his Render dashboard",
+   "Q-344: the step a moment later - on the main page, on its own page, or dropped",
+   "The 'All in' comeback switch (never asked for): keep it or cut it, after he tries it",
+   "The worker consoles left from S560-S564 (idle, about 1.5 GB together): close them?"
   ]
  },
  "next": "S562: see NEXT_SESSION_PROMPT.md - collect four Arena runs, then the body view as the main page's way to pick (his Q-343).",
@@ -2479,7 +2480,7 @@
   {
    "id": "S565",
    "date": "2026-11-26",
-   "summary": "S565 (Fable). Start clean (no board question, nightly 506 of 506). LONG IS A CORRIDOR measured two ways at Arena: LONG1 (the stopping jab, Dola's lead hand as a fence, both) and LONG2 (Kalli SQ339, collected: the cross a man walks onto + jabs that score 2 on a stepping man; finding: the page already lands a cross thrown at Long on a man stepping in - no tester found it, K0 counts it). KDHEAL1 collected: keep the get-up [6, 4] (lower: stoppages 45%, comeback 14% then 4%; the bots show no walk-into-a-punch pull). His S562 question 'select exactly on which part of a beat i move' built as a playable copy, wait.html (MOMENTGAP1 collected, FINAL: only the step a moment later holds 8 of 9 on both seeds with the wait in 8% of beats; a free wait anywhere is picked in 67% of beats and holds 7 of 9; asked on the board, Q-344, whether it goes on the main page), with its jump button on the ops board. Fixed on every page: three moments ran the last line off a 1080 screen. CLINCHFIX2's files copied onto main; the six collected Arena pull requests closed. New tool arena_watch.py (one line when a cloud run ends). KDFIRST (own count, two seeds): the man dropped first wins 13% on the page (UFC 34.4% when the fight goes on), the first man dropped twice 9% (UFC 7%). STAGE 2: CLINCHFIX3 collected - none (third failed clinch round: no fourth; the loop's other leg is feint then overhand - cross-check on the JABLAND2 versions: the loop 38 / 63 / 70% today, 33 / 42 / 37% with 'the feint opens the overhand only Inside', 22 / 25 / 25% with that plus 'a punch landing in your feint moment wastes it' (JABLAND2 F) - under the 30% bar against every man with the clinch untouched). PROGP2 collected (his Q-340): 'cheaper or faster' is a real choice for the overhand only. The S564 render worker finished INSIDE1 steps 1-4 (Inside 0.55 m, 0 jumps) and GLIDE2; BOUNCE1 launched as the next console worker. wait.html runs on its own table."
+   "summary": "S565 (Fable). Start clean (no board question, nightly 506 of 506). LONG IS A CORRIDOR measured two ways at Arena: LONG1 (the stopping jab, Dola's lead hand as a fence, both) and LONG2 (Kalli SQ339, collected: the cross a man walks onto + jabs that score 2 on a stepping man; finding: the page already lands a cross thrown at Long on a man stepping in - no tester found it, K0 counts it). KDHEAL1 collected: keep the get-up [6, 4] (lower: stoppages 45%, comeback 14% then 4%; the bots show no walk-into-a-punch pull). His S562 question 'select exactly on which part of a beat i move' built as a playable copy, wait.html (MOMENTGAP1 collected, FINAL: only the step a moment later holds 8 of 9 on both seeds with the wait in 8% of beats; a free wait anywhere is picked in 67% of beats and holds 7 of 9; asked on the board, Q-344, whether it goes on the main page), with its jump button on the ops board. Fixed on every page: three moments ran the last line off a 1080 screen. CLINCHFIX2's files copied onto main; the six collected Arena pull requests closed. New tool arena_watch.py (one line when a cloud run ends). KDFIRST (own count, two seeds): the man dropped first wins 13% on the page (UFC 34.4% when the fight goes on), the first man dropped twice 9% (UFC 7%). STAGE 2: CLINCHFIX3 collected - none (third failed clinch round: no fourth; the loop's other leg is feint then overhand - cross-check on the JABLAND2 versions: the loop 38 / 63 / 70% today, 33 / 42 / 37% with 'the feint opens the overhand only Inside', 22 / 25 / 25% with that plus 'a punch landing in your feint moment wastes it' (JABLAND2 F) - under the 30% bar against every man with the clinch untouched). PROGP2 collected (his Q-340): 'cheaper or faster' is a real choice for the overhand only. The S564 render worker finished INSIDE1 steps 1-4 (Inside 0.55 m, 0 jumps) and GLIDE2; BOUNCE1 launched as the next console worker. wait.html runs on its own table. THE NAME (owner S565: \"why you call the game with the wrong name ?\", \"i didnt mean to add a mechanic , it was the name of game\"): the game is PUNCHER'S CHANCE; 'Ring Switches' was Claude's working name, removed from every page, the changelog and the ops board. The comeback switch that S559-S562 built under that name is renamed 'All in', off the main button, a trial page: his keep-or-cut call. JABLAND2 collected: none (the jab half works; any feint fix kills the feint and the overhand, 1-2% of beats; F 7 of 9) - so the feint fixes that end the clinch loop cannot go on the page as they are. BOUNCE1 done (99d787712). All in: his 'sounds fun if it is balanced properly' - kept as a trial; his question how it works on the ground in MMA answered as a direction, not designed."
   }
  ],
  "blocked_on_operator": [],
@@ -5398,7 +5399,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-26 17:11 board_sync",
+  "updated": "2026-11-26 17:41 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5549,23 +5550,25 @@
    "TELLPLAY1": "Make a found tell change the fight, so the plan line that answers it pays",
    "PUSHTANK1": "Corner commands: you select what the corner shouts, live, in two slots",
    "STYLEPLACE1": "Opponents fight in different places",
-   "RINGANIM1": "Standing 2D animations for Ring Switches: built, 59 of 64 runs",
-   "RINGSWITCH1": "Ring Switches: the fight toy",
-   "HOLDTAKES1": "A hand held high or low, seen: four guard takes for Ring Switches",
-   "ALLPLAY1": "Ring Switches played by every agent and by Claude (your 'have it playtested by all agents and also you'): the brief is written, NO seat started yet - Ziva, Arena, Cline play in words; Kalli, John, Maria, Antigravity need a play-by-message driver; Dola cannot be reached",
+   "RINGANIM1": "Standing 2D animations for Puncher's chance: built, 59 of 64 runs",
+   "RINGSWITCH1": "Puncher's chance: the fight toy",
+   "HOLDTAKES1": "A hand held high or low, seen: four guard takes for Puncher's chance",
+   "ALLPLAY1": "Puncher's chance played by every agent and by Claude (your 'have it playtested by all agents and also you'): the brief is written, NO seat started yet - Ziva, Arena, Cline play in words; Kalli, John, Maria, Antigravity need a play-by-message driver; Dola cannot be reached",
    "ZIVARULES1": "Ziva's rule ideas on the balance tool: a block costs the blocker guard (three versions), a free chase after he backs off; and the look-ahead learns the ground rule (four versions) | MEASURING at the end of S557, not read",
    "LOWCOVER1": "A blocked body punch is stopped at the body: it meets the lead hand held low (0.09-0.19 m over the body, was 0.29-0.54) | on the page (gate 6 of 6), not seen by you yet; a missed body punch and the overhand's own take are next",
-   "ZIVAFIX1": "Ring Switches after Ziva's playtest: his last three beats on his card before you choose, points and the stamina bar said in words, 'one more ends it', a switch you cannot pay for switched off in words; and a defect fixed - a bout on points no longer ends 'A DRAW 0-0'",
+   "ZIVAFIX1": "Puncher's chance after Ziva's playtest: his last three beats on his card before you choose, points and the stamina bar said in words, 'one more ends it', a switch you cannot pay for switched off in words; and a defect fixed - a bout on points no longer ends 'A DRAW 0-0'",
    "KALLITABLE1": "Kalli's cover table for the southpaw measured in three versions: 4, 4 and 6 of 9 bars - not built",
    "HEADPICS1": "Head moves in pictures on head.html (your 'finish with the headmoves pics'): slip, roll, lean back, slip in - 22 runs, both corners, your camera",
-   "PUNCHPAGE1": "Puncher's chance on the board: punch.html with the switch beside the clinch (opens when 4+ health behind), and jump buttons to every Ring Switches page on the ops board",
-   "PUNCHCHANCE2": "Puncher's chance: version C with the knockdowns back under the bar (three versions, two seeds each) - running in the cloud",
+   "PUNCHPAGE1": "Puncher's chance on the board: punch.html with the switch beside the clinch (opens when 4+ health behind), and jump buttons to every Puncher's chance page on the ops board",
+   "PUNCHCHANCE2": "All in (the comeback switch): version C with the knockdowns back under the bar (three versions, two seeds each) - running in the cloud",
    "LONG1": "Long range: the stopping jab and the lead hand as a fence, measured",
    "LONG2": "Long range: Kalli's waiting cross, measured",
    "WAITPAGE": "Your play: the step a moment later (wait.html)",
    "KDREPORT": "The knockdown heal: report with the real numbers",
    "PROGP4": "Sharp upgrades: a pair of its own for each punch, measured",
-   "BOUNCE1": "Never still: the bounce while you plan"
+   "BOUNCE1": "Never still: the bounce while you plan",
+   "ALLIN1": "The All in comeback switch: keep it or cut it",
+   "TESTLINK1": "A test link with email sign-in, a notice and a log"
   },
   "working_now": [
    {
@@ -5579,12 +5582,6 @@
     "who": "Arena (cloud: costs your PC nothing)",
     "started": "2026-11-26T15:20",
     "run": "TELLS3M"
-   },
-   {
-    "title": "He never throws a beat that cannot do anything (push off after his back off, a feint with no punch): counted, then filtered",
-    "who": "Arena (cloud: costs your PC nothing)",
-    "started": "2026-11-26T15:45",
-    "run": "AIEMPTY1"
    },
    {
     "title": "The page's one failing bar: the jab fixed (the rear glove catches it), the overhand gets a lever that is not its price - three versions measured",
@@ -5612,6 +5609,18 @@
    }
   ],
   "next": [
+   {
+    "id": "TESTLINK1",
+    "who": "claude",
+    "title": "A test link for your brother on your Render (your 'make it public but ask for email ... keep a log'): one address, email + a personal code, a confidentiality notice, a log of who played which version - built and tested on the PC first, then you connect it in Render",
+    "after": ""
+   },
+   {
+    "id": "ALLIN1",
+    "who": "operator",
+    "title": "The 'All in' comeback switch (built by mistake under the game's name): you said 'sounds fun if it is balanced properly' - it stays as a trial page; next: real players try it (you, then the playtester seats), and a ground version is designed before MMA",
+    "after": ""
+   },
    {
     "id": "TELLS2PAGE",
     "who": "claude",
@@ -5663,7 +5672,7 @@
    {
     "id": "PUNCHCHANCE2",
     "who": "arena",
-    "title": "Puncher's chance: version C with the knockdowns back under the bar (three versions, two seeds each) - running in the cloud",
+    "title": "All in (the comeback switch): version C with the knockdowns back under the bar (three versions, two seeds each) - running in the cloud",
     "after": ""
    },
    {
@@ -5681,7 +5690,7 @@
    {
     "id": "BOUNCE1",
     "who": "claude",
-    "title": "Never still: a light bounce on the feet while you plan - a console worker is building it now (Inside is 0.55 m and the glide renders are in)",
+    "title": "Never still: both men bounce lightly while you plan - BUILT, on every page (v0.565.4). Your play: is the bounce the right size?",
     "after": "HEADPICS1"
    },
    {
@@ -5693,19 +5702,19 @@
    {
     "id": "CLINCHFIX1",
     "who": "claude",
-    "title": "The clinch pays too well: three clinch fixes failed - the clinch was paying for a feint-then-overhand nobody could cover. With the two feint fixes the loop wins 22-25% (today 38-70%), the clinch untouched: waits for the cloud run's bars, then onto the page",
+    "title": "The clinch pays too well: the clinch was paying for a feint-then-overhand nobody could cover. The two feint fixes end the loop (22-25%) but kill the feint and the overhand in normal play (1-2% of beats): no page change yet - next: a milder feint rule that keeps both alive",
     "after": "RUNESTEP1"
    },
    {
     "id": "SOUTHPAW1",
     "who": "claude",
-    "title": "Ring Switches: a southpaw opponent | seven rule versions measured, none passes (Kalli's cover table: 4, 4 and 6 of 9 bars; whichever rear punch no hold stops fully becomes the only punch). NOT built (your 'Wait for Kalli'; build at 8 bars or more)",
+    "title": "Puncher's chance: a southpaw opponent | seven rule versions measured, none passes (Kalli's cover table: 4, 4 and 6 of 9 bars; whichever rear punch no hold stops fully becomes the only punch). NOT built (your 'Wait for Kalli'; build at 8 bars or more)",
     "after": ""
    },
    {
     "id": "RINGSWITCH1",
     "who": "claude",
-    "title": "Ring Switches, the main line: 8 of 9 bars with the body jab and 'an even round goes to the man who backed off less' | NEXT: your play on it; the opponents learn to play for level rounds; the lead uppercut against the clinch, hurt, a circle step - each measured first | KEPT IN RESERVE (your S556 note: 'Maybe breath can be used to put a limit on movements if that becomes an issue'): moving costs breath is measured and off the page; it comes back only if moving becomes a problem",
+    "title": "Puncher's chance, the main line: 8 of 9 bars with the body jab and 'an even round goes to the man who backed off less' | NEXT: your play on it; the opponents learn to play for level rounds; the lead uppercut against the clinch, hurt, a circle step - each measured first | KEPT IN RESERVE (your S556 note: 'Maybe breath can be used to put a limit on movements if that becomes an issue'): moving costs breath is measured and off the page; it comes back only if moving becomes a problem",
     "after": "BODYJAB1"
    },
    {
@@ -5723,19 +5732,19 @@
    {
     "id": "PLANREAD1",
     "who": "claude",
-    "title": "PARKED (S553, Ring Switches first): The card promises +11.6 for a plan the bout pays +1.7 to +2.9 for | NEXT: collect PLANREAD2 (Opus tab, launched 05:50)",
+    "title": "PARKED (S553, Puncher's chance first): The card promises +11.6 for a plan the bout pays +1.7 to +2.9 for | NEXT: collect PLANREAD2 (Opus tab, launched 05:50)",
     "after": ""
    },
    {
     "id": "PLANCORNER1",
     "who": "claude",
-    "title": "PARKED (S553, Ring Switches first): The written plan: two plan-rule probes failed, PLANIMPACT2 checked against the code (S551): the cap is that every style fights in the same four places | NEXT: STYLEPLACE1 (his Q-335 'Yes, scope it')",
+    "title": "PARKED (S553, Puncher's chance first): The written plan: two plan-rule probes failed, PLANIMPACT2 checked against the code (S551): the cap is that every style fights in the same four places | NEXT: STYLEPLACE1 (his Q-335 'Yes, scope it')",
     "after": ""
    },
    {
     "id": "TELLPLAY1",
     "who": "claude",
-    "title": "PARKED (S553, Ring Switches first): Tells: FAIL (under 1 point in the ring). PLANWORTH1 measured: a whole written plan +1.7 over the coach's | NEXT: PLANCORNER1",
+    "title": "PARKED (S553, Puncher's chance first): Tells: FAIL (under 1 point in the ring). PLANWORTH1 measured: a whole written plan +1.7 over the coach's | NEXT: PLANCORNER1",
     "after": ""
    },
    {
@@ -5747,7 +5756,7 @@
    {
     "id": "COACHDEEP1",
     "who": "claude",
-    "title": "PARKED (S553, Ring Switches first): Coaches: nine rounds, cannot reach 8 - COACHMAP2 checked by hand, the FAIL stands | NEXT: your answer to Q-336 (keep the two hire cards, or cut)",
+    "title": "PARKED (S553, Puncher's chance first): Coaches: nine rounds, cannot reach 8 - COACHMAP2 checked by hand, the FAIL stands | NEXT: your answer to Q-336 (keep the two hire cards, or cut)",
     "after": ""
    },
    {
@@ -5777,7 +5786,7 @@
    {
     "id": "CARDGAME1",
     "who": "claude",
-    "title": "Card game: the deck form is parked (your 'there are 1 million deckbuilding games'); the fight game is now Ring Switches | NEXT: see RINGSWITCH1",
+    "title": "Card game: the deck form is parked (your 'there are 1 million deckbuilding games'); the fight game is now Puncher's chance | NEXT: see RINGSWITCH1",
     "after": ""
    },
    {
@@ -6104,6 +6113,26 @@
   },
   "done_recently": [
    {
+    "title": "The jab and the overhand land too often, round 2: the jab is fixed in every version; the overhand and the feint die with any feint fix - no version goes on the page (JABLAND2)",
+    "who": "Arena",
+    "when": "2026-11-26"
+   },
+   {
+    "title": "Never still: both men bounce lightly while you plan (BOUNCE1)",
+    "who": "console worker",
+    "when": "2026-11-26"
+   },
+   {
+    "title": "The game is called Puncher's chance on every page and the board; the switch built under that name by mistake is 'All in' on a trial page",
+    "who": "Claude",
+    "when": "2026-11-26"
+   },
+   {
+    "title": "He never throws a beat that cannot do anything (push off after his back off, a feint with no punch): counted, then filtered",
+    "who": "Arena (cloud: costs your PC nothing)",
+    "when": "2026-11-26"
+   },
+   {
     "title": "The clinch loop: he notices a player who clinches every beat (his habit read sees clinches) - measured",
     "who": "Arena (cloud: costs your PC nothing)",
     "when": "2026-11-26"
@@ -6150,16 +6179,6 @@
    },
    {
     "title": "Your 'select exactly on which part of a beat i move': measured on two seeds - a free wait anywhere breaks two bars (picked in 67% of beats); only the step a moment later holds 8 of 9 (MOMENTGAP1)",
-    "who": "Arena",
-    "when": "2026-11-26"
-   },
-   {
-    "title": "The knockdown beside real fights: on the page the man dropped first wins 13% (real: 34%), dropped twice 9% (real: 7%) - the heal is not too generous",
-    "who": "Claude",
-    "when": "2026-11-26"
-   },
-   {
-    "title": "A knockdown heals (up on 6, then 4): three lower get-up numbers measured - keep today's (KDHEAL1)",
     "who": "Arena",
     "when": "2026-11-26"
    }
@@ -6354,7 +6373,7 @@
      "who": "operator"
     },
     {
-     "text": "Your play: balanced Ring Switches",
+     "text": "Your play: balanced Puncher's chan",
      "who": "operator"
     },
     {
@@ -6784,7 +6803,7 @@
      "who": "claude"
     },
     {
-     "text": "Puncher's chance: measure",
+     "text": "All in switch: measure",
      "who": "claude"
     },
     {
@@ -6800,7 +6819,7 @@
      "who": "claude"
     },
     {
-     "text": "Puncher's chance v2 onto the page",
+     "text": "All in switch v2 onto the page",
      "who": "claude"
     },
     {

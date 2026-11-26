@@ -11117,6 +11117,1356 @@
     0.736,
     0.285
    ]
+  },
+  "blue_both_high_high_bob": {
+   "files": [
+    "blue_both_high_high_bob_0.webp",
+    "blue_both_high_high_bob_1.webp",
+    "blue_both_high_high_bob_2.webp",
+    "blue_both_high_high_bob_3.webp",
+    "blue_both_high_high_bob_4.webp"
+   ],
+   "offs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4
+   ],
+   "contact": -1,
+   "clip": "hold_both_high_high+bob",
+   "masks": [
+    "blue_both_high_high_bob_0_mask.png",
+    "blue_both_high_high_bob_1_mask.png",
+    "blue_both_high_high_bob_2_mask.png",
+    "blue_both_high_high_bob_3_mask.png",
+    "blue_both_high_high_bob_4_mask.png"
+   ]
+  },
+  "blue_both_high_high_bob_r1": {
+   "files": [
+    "blue_both_high_high_bob_r1_0.webp",
+    "blue_both_high_high_bob_r1_1.webp",
+    "blue_both_high_high_bob_r1_2.webp",
+    "blue_both_high_high_bob_r1_3.webp",
+    "blue_both_high_high_bob_r1_4.webp"
+   ],
+   "offs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4
+   ],
+   "contact": -1,
+   "clip": "hold_both_high_high+bob",
+   "masks": [
+    "blue_both_high_high_bob_r1_0_mask.png",
+    "blue_both_high_high_bob_r1_1_mask.png",
+    "blue_both_high_high_bob_r1_2_mask.png",
+    "blue_both_high_high_bob_r1_3_mask.png",
+    "blue_both_high_high_bob_r1_4_mask.png"
+   ]
+  },
+  "blue_both_high_high_bob_r2": {
+   "files": [
+    "blue_both_high_high_bob_r2_0.webp",
+    "blue_both_high_high_bob_r2_1.webp",
+    "blue_both_high_high_bob_r2_2.webp",
+    "blue_both_high_high_bob_r2_3.webp",
+    "blue_both_high_high_bob_r2_4.webp"
+   ],
+   "offs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4
+   ],
+   "contact": -1,
+   "clip": "hold_both_high_high+bob",
+   "masks": [
+    "blue_both_high_high_bob_r2_0_mask.png",
+    "blue_both_high_high_bob_r2_1_mask.png",
+    "blue_both_high_high_bob_r2_2_mask.png",
+    "blue_both_high_high_bob_r2_3_mask.png",
+    "blue_both_high_high_bob_r2_4_mask.png"
+   ]
+  },
+  "blue_both_high_low_bob": {
+   "files": [
+    "blue_both_high_low_bob_0.webp",
+    "blue_both_high_low_bob_1.webp",
+    "blue_both_high_low_bob_2.webp",
+    "blue_both_high_low_bob_3.webp",
+    "blue_both_high_low_bob_4.webp"
+   ],
+   "offs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4
+   ],
+   "contact": -1,
+   "clip": "hold_both_high_low+bob",
+   "masks": [
+    "blue_both_high_low_bob_0_mask.png",
+    "blue_both_high_low_bob_1_mask.png",
+    "blue_both_high_low_bob_2_mask.png",
+    "blue_both_high_low_bob_3_mask.png",
+    "blue_both_high_low_bob_4_mask.png"
+   ]
+  },
+  "blue_both_high_low_bob_r1": {
+   "files": [
+    "blue_both_high_low_bob_r1_0.webp",
+    "blue_both_high_low_bob_r1_1.webp",
+    "blue_both_high_low_bob_r1_2.webp",
+    "blue_both_high_low_bob_r1_3.webp",
+    "blue_both_high_low_bob_r1_4.webp"
+   ],
+   "offs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4
+   ],
+   "contact": -1,
+   "clip": "hold_both_high_low+bob",
+   "masks": [
+    "blue_both_high_low_bob_r1_0_mask.png",
+    "blue_both_high_low_bob_r1_1_mask.png",
+    "blue_both_high_low_bob_r1_2_mask.png",
+    "blue_both_high_low_bob_r1_3_mask.png",
+    "blue_both_high_low_bob_r1_4_mask.png"
+   ]
+  },
+  "blue_both_high_low_bob_r2": {
+   "files": [
+    "blue_both_high_low_bob_r2_0.webp",
+    "blue_both_high_low_bob_r2_1.webp",
+    "blue_both_high_low_bob_r2_2.webp",
+    "blue_both_high_low_bob_r2_3.webp",
+    "blue_both_high_low_bob_r2_4.webp"
+   ],
+   "offs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4
+   ],
+   "contact": -1,
+   "clip": "hold_both_high_low+bob",
+   "masks": [
+    "blue_both_high_low_bob_r2_0_mask.png",
+    "blue_both_high_low_bob_r2_1_mask.png",
+    "blue_both_high_low_bob_r2_2_mask.png",
+    "blue_both_high_low_bob_r2_3_mask.png",
+    "blue_both_high_low_bob_r2_4_mask.png"
+   ]
+  },
+  "blue_both_low_high_bob": {
+   "files": [
+    "blue_both_low_high_bob_0.webp",
+    "blue_both_low_high_bob_1.webp",
+    "blue_both_low_high_bob_2.webp",
+    "blue_both_low_high_bob_3.webp",
+    "blue_both_low_high_bob_4.webp"
+   ],
+   "offs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4
+   ],
+   "contact": -1,
+   "clip": "hold_both_low_high+bob",
+   "masks": [
+    "blue_both_low_high_bob_0_mask.png",
+    "blue_both_low_high_bob_1_mask.png",
+    "blue_both_low_high_bob_2_mask.png",
+    "blue_both_low_high_bob_3_mask.png",
+    "blue_both_low_high_bob_4_mask.png"
+   ]
+  },
+  "blue_both_low_high_bob_r1": {
+   "files": [
+    "blue_both_low_high_bob_r1_0.webp",
+    "blue_both_low_high_bob_r1_1.webp",
+    "blue_both_low_high_bob_r1_2.webp",
+    "blue_both_low_high_bob_r1_3.webp",
+    "blue_both_low_high_bob_r1_4.webp"
+   ],
+   "offs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4
+   ],
+   "contact": -1,
+   "clip": "hold_both_low_high+bob",
+   "masks": [
+    "blue_both_low_high_bob_r1_0_mask.png",
+    "blue_both_low_high_bob_r1_1_mask.png",
+    "blue_both_low_high_bob_r1_2_mask.png",
+    "blue_both_low_high_bob_r1_3_mask.png",
+    "blue_both_low_high_bob_r1_4_mask.png"
+   ]
+  },
+  "blue_both_low_high_bob_r2": {
+   "files": [
+    "blue_both_low_high_bob_r2_0.webp",
+    "blue_both_low_high_bob_r2_1.webp",
+    "blue_both_low_high_bob_r2_2.webp",
+    "blue_both_low_high_bob_r2_3.webp",
+    "blue_both_low_high_bob_r2_4.webp"
+   ],
+   "offs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4
+   ],
+   "contact": -1,
+   "clip": "hold_both_low_high+bob",
+   "masks": [
+    "blue_both_low_high_bob_r2_0_mask.png",
+    "blue_both_low_high_bob_r2_1_mask.png",
+    "blue_both_low_high_bob_r2_2_mask.png",
+    "blue_both_low_high_bob_r2_3_mask.png",
+    "blue_both_low_high_bob_r2_4_mask.png"
+   ]
+  },
+  "blue_both_low_low_bob": {
+   "files": [
+    "blue_both_low_low_bob_0.webp",
+    "blue_both_low_low_bob_1.webp",
+    "blue_both_low_low_bob_2.webp",
+    "blue_both_low_low_bob_3.webp",
+    "blue_both_low_low_bob_4.webp"
+   ],
+   "offs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4
+   ],
+   "contact": -1,
+   "clip": "hold_both_low_low+bob",
+   "masks": [
+    "blue_both_low_low_bob_0_mask.png",
+    "blue_both_low_low_bob_1_mask.png",
+    "blue_both_low_low_bob_2_mask.png",
+    "blue_both_low_low_bob_3_mask.png",
+    "blue_both_low_low_bob_4_mask.png"
+   ]
+  },
+  "blue_both_low_low_bob_r1": {
+   "files": [
+    "blue_both_low_low_bob_r1_0.webp",
+    "blue_both_low_low_bob_r1_1.webp",
+    "blue_both_low_low_bob_r1_2.webp",
+    "blue_both_low_low_bob_r1_3.webp",
+    "blue_both_low_low_bob_r1_4.webp"
+   ],
+   "offs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4
+   ],
+   "contact": -1,
+   "clip": "hold_both_low_low+bob",
+   "masks": [
+    "blue_both_low_low_bob_r1_0_mask.png",
+    "blue_both_low_low_bob_r1_1_mask.png",
+    "blue_both_low_low_bob_r1_2_mask.png",
+    "blue_both_low_low_bob_r1_3_mask.png",
+    "blue_both_low_low_bob_r1_4_mask.png"
+   ]
+  },
+  "blue_both_low_low_bob_r2": {
+   "files": [
+    "blue_both_low_low_bob_r2_0.webp",
+    "blue_both_low_low_bob_r2_1.webp",
+    "blue_both_low_low_bob_r2_2.webp",
+    "blue_both_low_low_bob_r2_3.webp",
+    "blue_both_low_low_bob_r2_4.webp"
+   ],
+   "offs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4
+   ],
+   "contact": -1,
+   "clip": "hold_both_low_low+bob",
+   "masks": [
+    "blue_both_low_low_bob_r2_0_mask.png",
+    "blue_both_low_low_bob_r2_1_mask.png",
+    "blue_both_low_low_bob_r2_2_mask.png",
+    "blue_both_low_low_bob_r2_3_mask.png",
+    "blue_both_low_low_bob_r2_4_mask.png"
+   ]
+  },
+  "blue_guard_bob": {
+   "files": [
+    "blue_guard_bob_0.webp",
+    "blue_guard_bob_1.webp",
+    "blue_guard_bob_2.webp",
+    "blue_guard_bob_3.webp",
+    "blue_guard_bob_4.webp"
+   ],
+   "offs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4
+   ],
+   "contact": -1,
+   "clip": "hold_guard+bob",
+   "masks": [
+    "blue_guard_bob_0_mask.png",
+    "blue_guard_bob_1_mask.png",
+    "blue_guard_bob_2_mask.png",
+    "blue_guard_bob_3_mask.png",
+    "blue_guard_bob_4_mask.png"
+   ]
+  },
+  "blue_guard_bob_r1": {
+   "files": [
+    "blue_guard_bob_r1_0.webp",
+    "blue_guard_bob_r1_1.webp",
+    "blue_guard_bob_r1_2.webp",
+    "blue_guard_bob_r1_3.webp",
+    "blue_guard_bob_r1_4.webp"
+   ],
+   "offs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4
+   ],
+   "contact": -1,
+   "clip": "hold_guard+bob",
+   "masks": [
+    "blue_guard_bob_r1_0_mask.png",
+    "blue_guard_bob_r1_1_mask.png",
+    "blue_guard_bob_r1_2_mask.png",
+    "blue_guard_bob_r1_3_mask.png",
+    "blue_guard_bob_r1_4_mask.png"
+   ]
+  },
+  "blue_guard_bob_r2": {
+   "files": [
+    "blue_guard_bob_r2_0.webp",
+    "blue_guard_bob_r2_1.webp",
+    "blue_guard_bob_r2_2.webp",
+    "blue_guard_bob_r2_3.webp",
+    "blue_guard_bob_r2_4.webp"
+   ],
+   "offs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4
+   ],
+   "contact": -1,
+   "clip": "hold_guard+bob",
+   "masks": [
+    "blue_guard_bob_r2_0_mask.png",
+    "blue_guard_bob_r2_1_mask.png",
+    "blue_guard_bob_r2_2_mask.png",
+    "blue_guard_bob_r2_3_mask.png",
+    "blue_guard_bob_r2_4_mask.png"
+   ]
+  },
+  "blue_lead_high_bob": {
+   "files": [
+    "blue_lead_high_bob_0.webp",
+    "blue_lead_high_bob_1.webp",
+    "blue_lead_high_bob_2.webp",
+    "blue_lead_high_bob_3.webp",
+    "blue_lead_high_bob_4.webp"
+   ],
+   "offs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4
+   ],
+   "contact": -1,
+   "clip": "hold_lead_high+bob",
+   "masks": [
+    "blue_lead_high_bob_0_mask.png",
+    "blue_lead_high_bob_1_mask.png",
+    "blue_lead_high_bob_2_mask.png",
+    "blue_lead_high_bob_3_mask.png",
+    "blue_lead_high_bob_4_mask.png"
+   ]
+  },
+  "blue_lead_high_bob_r1": {
+   "files": [
+    "blue_lead_high_bob_r1_0.webp",
+    "blue_lead_high_bob_r1_1.webp",
+    "blue_lead_high_bob_r1_2.webp",
+    "blue_lead_high_bob_r1_3.webp",
+    "blue_lead_high_bob_r1_4.webp"
+   ],
+   "offs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4
+   ],
+   "contact": -1,
+   "clip": "hold_lead_high+bob",
+   "masks": [
+    "blue_lead_high_bob_r1_0_mask.png",
+    "blue_lead_high_bob_r1_1_mask.png",
+    "blue_lead_high_bob_r1_2_mask.png",
+    "blue_lead_high_bob_r1_3_mask.png",
+    "blue_lead_high_bob_r1_4_mask.png"
+   ]
+  },
+  "blue_lead_high_bob_r2": {
+   "files": [
+    "blue_lead_high_bob_r2_0.webp",
+    "blue_lead_high_bob_r2_1.webp",
+    "blue_lead_high_bob_r2_2.webp",
+    "blue_lead_high_bob_r2_3.webp",
+    "blue_lead_high_bob_r2_4.webp"
+   ],
+   "offs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4
+   ],
+   "contact": -1,
+   "clip": "hold_lead_high+bob",
+   "masks": [
+    "blue_lead_high_bob_r2_0_mask.png",
+    "blue_lead_high_bob_r2_1_mask.png",
+    "blue_lead_high_bob_r2_2_mask.png",
+    "blue_lead_high_bob_r2_3_mask.png",
+    "blue_lead_high_bob_r2_4_mask.png"
+   ]
+  },
+  "blue_lead_low_bob": {
+   "files": [
+    "blue_lead_low_bob_0.webp",
+    "blue_lead_low_bob_1.webp",
+    "blue_lead_low_bob_2.webp",
+    "blue_lead_low_bob_3.webp",
+    "blue_lead_low_bob_4.webp"
+   ],
+   "offs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4
+   ],
+   "contact": -1,
+   "clip": "hold_lead_low+bob",
+   "masks": [
+    "blue_lead_low_bob_0_mask.png",
+    "blue_lead_low_bob_1_mask.png",
+    "blue_lead_low_bob_2_mask.png",
+    "blue_lead_low_bob_3_mask.png",
+    "blue_lead_low_bob_4_mask.png"
+   ]
+  },
+  "blue_lead_low_bob_r1": {
+   "files": [
+    "blue_lead_low_bob_r1_0.webp",
+    "blue_lead_low_bob_r1_1.webp",
+    "blue_lead_low_bob_r1_2.webp",
+    "blue_lead_low_bob_r1_3.webp",
+    "blue_lead_low_bob_r1_4.webp"
+   ],
+   "offs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4
+   ],
+   "contact": -1,
+   "clip": "hold_lead_low+bob",
+   "masks": [
+    "blue_lead_low_bob_r1_0_mask.png",
+    "blue_lead_low_bob_r1_1_mask.png",
+    "blue_lead_low_bob_r1_2_mask.png",
+    "blue_lead_low_bob_r1_3_mask.png",
+    "blue_lead_low_bob_r1_4_mask.png"
+   ]
+  },
+  "blue_lead_low_bob_r2": {
+   "files": [
+    "blue_lead_low_bob_r2_0.webp",
+    "blue_lead_low_bob_r2_1.webp",
+    "blue_lead_low_bob_r2_2.webp",
+    "blue_lead_low_bob_r2_3.webp",
+    "blue_lead_low_bob_r2_4.webp"
+   ],
+   "offs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4
+   ],
+   "contact": -1,
+   "clip": "hold_lead_low+bob",
+   "masks": [
+    "blue_lead_low_bob_r2_0_mask.png",
+    "blue_lead_low_bob_r2_1_mask.png",
+    "blue_lead_low_bob_r2_2_mask.png",
+    "blue_lead_low_bob_r2_3_mask.png",
+    "blue_lead_low_bob_r2_4_mask.png"
+   ]
+  },
+  "blue_rear_high_bob": {
+   "files": [
+    "blue_rear_high_bob_0.webp",
+    "blue_rear_high_bob_1.webp",
+    "blue_rear_high_bob_2.webp",
+    "blue_rear_high_bob_3.webp",
+    "blue_rear_high_bob_4.webp"
+   ],
+   "offs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4
+   ],
+   "contact": -1,
+   "clip": "hold_rear_high+bob",
+   "masks": [
+    "blue_rear_high_bob_0_mask.png",
+    "blue_rear_high_bob_1_mask.png",
+    "blue_rear_high_bob_2_mask.png",
+    "blue_rear_high_bob_3_mask.png",
+    "blue_rear_high_bob_4_mask.png"
+   ]
+  },
+  "blue_rear_high_bob_r1": {
+   "files": [
+    "blue_rear_high_bob_r1_0.webp",
+    "blue_rear_high_bob_r1_1.webp",
+    "blue_rear_high_bob_r1_2.webp",
+    "blue_rear_high_bob_r1_3.webp",
+    "blue_rear_high_bob_r1_4.webp"
+   ],
+   "offs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4
+   ],
+   "contact": -1,
+   "clip": "hold_rear_high+bob",
+   "masks": [
+    "blue_rear_high_bob_r1_0_mask.png",
+    "blue_rear_high_bob_r1_1_mask.png",
+    "blue_rear_high_bob_r1_2_mask.png",
+    "blue_rear_high_bob_r1_3_mask.png",
+    "blue_rear_high_bob_r1_4_mask.png"
+   ]
+  },
+  "blue_rear_high_bob_r2": {
+   "files": [
+    "blue_rear_high_bob_r2_0.webp",
+    "blue_rear_high_bob_r2_1.webp",
+    "blue_rear_high_bob_r2_2.webp",
+    "blue_rear_high_bob_r2_3.webp",
+    "blue_rear_high_bob_r2_4.webp"
+   ],
+   "offs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4
+   ],
+   "contact": -1,
+   "clip": "hold_rear_high+bob",
+   "masks": [
+    "blue_rear_high_bob_r2_0_mask.png",
+    "blue_rear_high_bob_r2_1_mask.png",
+    "blue_rear_high_bob_r2_2_mask.png",
+    "blue_rear_high_bob_r2_3_mask.png",
+    "blue_rear_high_bob_r2_4_mask.png"
+   ]
+  },
+  "blue_rear_low_bob": {
+   "files": [
+    "blue_rear_low_bob_0.webp",
+    "blue_rear_low_bob_1.webp",
+    "blue_rear_low_bob_2.webp",
+    "blue_rear_low_bob_3.webp",
+    "blue_rear_low_bob_4.webp"
+   ],
+   "offs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4
+   ],
+   "contact": -1,
+   "clip": "hold_rear_low+bob",
+   "masks": [
+    "blue_rear_low_bob_0_mask.png",
+    "blue_rear_low_bob_1_mask.png",
+    "blue_rear_low_bob_2_mask.png",
+    "blue_rear_low_bob_3_mask.png",
+    "blue_rear_low_bob_4_mask.png"
+   ]
+  },
+  "blue_rear_low_bob_r1": {
+   "files": [
+    "blue_rear_low_bob_r1_0.webp",
+    "blue_rear_low_bob_r1_1.webp",
+    "blue_rear_low_bob_r1_2.webp",
+    "blue_rear_low_bob_r1_3.webp",
+    "blue_rear_low_bob_r1_4.webp"
+   ],
+   "offs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4
+   ],
+   "contact": -1,
+   "clip": "hold_rear_low+bob",
+   "masks": [
+    "blue_rear_low_bob_r1_0_mask.png",
+    "blue_rear_low_bob_r1_1_mask.png",
+    "blue_rear_low_bob_r1_2_mask.png",
+    "blue_rear_low_bob_r1_3_mask.png",
+    "blue_rear_low_bob_r1_4_mask.png"
+   ]
+  },
+  "blue_rear_low_bob_r2": {
+   "files": [
+    "blue_rear_low_bob_r2_0.webp",
+    "blue_rear_low_bob_r2_1.webp",
+    "blue_rear_low_bob_r2_2.webp",
+    "blue_rear_low_bob_r2_3.webp",
+    "blue_rear_low_bob_r2_4.webp"
+   ],
+   "offs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4
+   ],
+   "contact": -1,
+   "clip": "hold_rear_low+bob",
+   "masks": [
+    "blue_rear_low_bob_r2_0_mask.png",
+    "blue_rear_low_bob_r2_1_mask.png",
+    "blue_rear_low_bob_r2_2_mask.png",
+    "blue_rear_low_bob_r2_3_mask.png",
+    "blue_rear_low_bob_r2_4_mask.png"
+   ]
+  },
+  "red_both_high_high_bob": {
+   "files": [
+    "red_both_high_high_bob_0.webp",
+    "red_both_high_high_bob_1.webp",
+    "red_both_high_high_bob_2.webp",
+    "red_both_high_high_bob_3.webp",
+    "red_both_high_high_bob_4.webp"
+   ],
+   "offs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4
+   ],
+   "contact": -1,
+   "clip": "hold_both_high_high+bob",
+   "masks": [
+    "red_both_high_high_bob_0_mask.png",
+    "red_both_high_high_bob_1_mask.png",
+    "red_both_high_high_bob_2_mask.png",
+    "red_both_high_high_bob_3_mask.png",
+    "red_both_high_high_bob_4_mask.png"
+   ]
+  },
+  "red_both_high_high_bob_r1": {
+   "files": [
+    "red_both_high_high_bob_r1_0.webp",
+    "red_both_high_high_bob_r1_1.webp",
+    "red_both_high_high_bob_r1_2.webp",
+    "red_both_high_high_bob_r1_3.webp",
+    "red_both_high_high_bob_r1_4.webp"
+   ],
+   "offs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4
+   ],
+   "contact": -1,
+   "clip": "hold_both_high_high+bob",
+   "masks": [
+    "red_both_high_high_bob_r1_0_mask.png",
+    "red_both_high_high_bob_r1_1_mask.png",
+    "red_both_high_high_bob_r1_2_mask.png",
+    "red_both_high_high_bob_r1_3_mask.png",
+    "red_both_high_high_bob_r1_4_mask.png"
+   ]
+  },
+  "red_both_high_high_bob_r2": {
+   "files": [
+    "red_both_high_high_bob_r2_0.webp",
+    "red_both_high_high_bob_r2_1.webp",
+    "red_both_high_high_bob_r2_2.webp",
+    "red_both_high_high_bob_r2_3.webp",
+    "red_both_high_high_bob_r2_4.webp"
+   ],
+   "offs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4
+   ],
+   "contact": -1,
+   "clip": "hold_both_high_high+bob",
+   "masks": [
+    "red_both_high_high_bob_r2_0_mask.png",
+    "red_both_high_high_bob_r2_1_mask.png",
+    "red_both_high_high_bob_r2_2_mask.png",
+    "red_both_high_high_bob_r2_3_mask.png",
+    "red_both_high_high_bob_r2_4_mask.png"
+   ]
+  },
+  "red_both_high_low_bob": {
+   "files": [
+    "red_both_high_low_bob_0.webp",
+    "red_both_high_low_bob_1.webp",
+    "red_both_high_low_bob_2.webp",
+    "red_both_high_low_bob_3.webp",
+    "red_both_high_low_bob_4.webp"
+   ],
+   "offs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4
+   ],
+   "contact": -1,
+   "clip": "hold_both_high_low+bob",
+   "masks": [
+    "red_both_high_low_bob_0_mask.png",
+    "red_both_high_low_bob_1_mask.png",
+    "red_both_high_low_bob_2_mask.png",
+    "red_both_high_low_bob_3_mask.png",
+    "red_both_high_low_bob_4_mask.png"
+   ]
+  },
+  "red_both_high_low_bob_r1": {
+   "files": [
+    "red_both_high_low_bob_r1_0.webp",
+    "red_both_high_low_bob_r1_1.webp",
+    "red_both_high_low_bob_r1_2.webp",
+    "red_both_high_low_bob_r1_3.webp",
+    "red_both_high_low_bob_r1_4.webp"
+   ],
+   "offs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4
+   ],
+   "contact": -1,
+   "clip": "hold_both_high_low+bob",
+   "masks": [
+    "red_both_high_low_bob_r1_0_mask.png",
+    "red_both_high_low_bob_r1_1_mask.png",
+    "red_both_high_low_bob_r1_2_mask.png",
+    "red_both_high_low_bob_r1_3_mask.png",
+    "red_both_high_low_bob_r1_4_mask.png"
+   ]
+  },
+  "red_both_high_low_bob_r2": {
+   "files": [
+    "red_both_high_low_bob_r2_0.webp",
+    "red_both_high_low_bob_r2_1.webp",
+    "red_both_high_low_bob_r2_2.webp",
+    "red_both_high_low_bob_r2_3.webp",
+    "red_both_high_low_bob_r2_4.webp"
+   ],
+   "offs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4
+   ],
+   "contact": -1,
+   "clip": "hold_both_high_low+bob",
+   "masks": [
+    "red_both_high_low_bob_r2_0_mask.png",
+    "red_both_high_low_bob_r2_1_mask.png",
+    "red_both_high_low_bob_r2_2_mask.png",
+    "red_both_high_low_bob_r2_3_mask.png",
+    "red_both_high_low_bob_r2_4_mask.png"
+   ]
+  },
+  "red_both_low_high_bob": {
+   "files": [
+    "red_both_low_high_bob_0.webp",
+    "red_both_low_high_bob_1.webp",
+    "red_both_low_high_bob_2.webp",
+    "red_both_low_high_bob_3.webp",
+    "red_both_low_high_bob_4.webp"
+   ],
+   "offs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4
+   ],
+   "contact": -1,
+   "clip": "hold_both_low_high+bob",
+   "masks": [
+    "red_both_low_high_bob_0_mask.png",
+    "red_both_low_high_bob_1_mask.png",
+    "red_both_low_high_bob_2_mask.png",
+    "red_both_low_high_bob_3_mask.png",
+    "red_both_low_high_bob_4_mask.png"
+   ]
+  },
+  "red_both_low_high_bob_r1": {
+   "files": [
+    "red_both_low_high_bob_r1_0.webp",
+    "red_both_low_high_bob_r1_1.webp",
+    "red_both_low_high_bob_r1_2.webp",
+    "red_both_low_high_bob_r1_3.webp",
+    "red_both_low_high_bob_r1_4.webp"
+   ],
+   "offs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4
+   ],
+   "contact": -1,
+   "clip": "hold_both_low_high+bob",
+   "masks": [
+    "red_both_low_high_bob_r1_0_mask.png",
+    "red_both_low_high_bob_r1_1_mask.png",
+    "red_both_low_high_bob_r1_2_mask.png",
+    "red_both_low_high_bob_r1_3_mask.png",
+    "red_both_low_high_bob_r1_4_mask.png"
+   ]
+  },
+  "red_both_low_high_bob_r2": {
+   "files": [
+    "red_both_low_high_bob_r2_0.webp",
+    "red_both_low_high_bob_r2_1.webp",
+    "red_both_low_high_bob_r2_2.webp",
+    "red_both_low_high_bob_r2_3.webp",
+    "red_both_low_high_bob_r2_4.webp"
+   ],
+   "offs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4
+   ],
+   "contact": -1,
+   "clip": "hold_both_low_high+bob",
+   "masks": [
+    "red_both_low_high_bob_r2_0_mask.png",
+    "red_both_low_high_bob_r2_1_mask.png",
+    "red_both_low_high_bob_r2_2_mask.png",
+    "red_both_low_high_bob_r2_3_mask.png",
+    "red_both_low_high_bob_r2_4_mask.png"
+   ]
+  },
+  "red_both_low_low_bob": {
+   "files": [
+    "red_both_low_low_bob_0.webp",
+    "red_both_low_low_bob_1.webp",
+    "red_both_low_low_bob_2.webp",
+    "red_both_low_low_bob_3.webp",
+    "red_both_low_low_bob_4.webp"
+   ],
+   "offs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4
+   ],
+   "contact": -1,
+   "clip": "hold_both_low_low+bob",
+   "masks": [
+    "red_both_low_low_bob_0_mask.png",
+    "red_both_low_low_bob_1_mask.png",
+    "red_both_low_low_bob_2_mask.png",
+    "red_both_low_low_bob_3_mask.png",
+    "red_both_low_low_bob_4_mask.png"
+   ]
+  },
+  "red_both_low_low_bob_r1": {
+   "files": [
+    "red_both_low_low_bob_r1_0.webp",
+    "red_both_low_low_bob_r1_1.webp",
+    "red_both_low_low_bob_r1_2.webp",
+    "red_both_low_low_bob_r1_3.webp",
+    "red_both_low_low_bob_r1_4.webp"
+   ],
+   "offs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4
+   ],
+   "contact": -1,
+   "clip": "hold_both_low_low+bob",
+   "masks": [
+    "red_both_low_low_bob_r1_0_mask.png",
+    "red_both_low_low_bob_r1_1_mask.png",
+    "red_both_low_low_bob_r1_2_mask.png",
+    "red_both_low_low_bob_r1_3_mask.png",
+    "red_both_low_low_bob_r1_4_mask.png"
+   ]
+  },
+  "red_both_low_low_bob_r2": {
+   "files": [
+    "red_both_low_low_bob_r2_0.webp",
+    "red_both_low_low_bob_r2_1.webp",
+    "red_both_low_low_bob_r2_2.webp",
+    "red_both_low_low_bob_r2_3.webp",
+    "red_both_low_low_bob_r2_4.webp"
+   ],
+   "offs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4
+   ],
+   "contact": -1,
+   "clip": "hold_both_low_low+bob",
+   "masks": [
+    "red_both_low_low_bob_r2_0_mask.png",
+    "red_both_low_low_bob_r2_1_mask.png",
+    "red_both_low_low_bob_r2_2_mask.png",
+    "red_both_low_low_bob_r2_3_mask.png",
+    "red_both_low_low_bob_r2_4_mask.png"
+   ]
+  },
+  "red_guard_bob": {
+   "files": [
+    "red_guard_bob_0.webp",
+    "red_guard_bob_1.webp",
+    "red_guard_bob_2.webp",
+    "red_guard_bob_3.webp",
+    "red_guard_bob_4.webp"
+   ],
+   "offs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4
+   ],
+   "contact": -1,
+   "clip": "hold_guard+bob",
+   "masks": [
+    "red_guard_bob_0_mask.png",
+    "red_guard_bob_1_mask.png",
+    "red_guard_bob_2_mask.png",
+    "red_guard_bob_3_mask.png",
+    "red_guard_bob_4_mask.png"
+   ]
+  },
+  "red_guard_bob_r1": {
+   "files": [
+    "red_guard_bob_r1_0.webp",
+    "red_guard_bob_r1_1.webp",
+    "red_guard_bob_r1_2.webp",
+    "red_guard_bob_r1_3.webp",
+    "red_guard_bob_r1_4.webp"
+   ],
+   "offs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4
+   ],
+   "contact": -1,
+   "clip": "hold_guard+bob",
+   "masks": [
+    "red_guard_bob_r1_0_mask.png",
+    "red_guard_bob_r1_1_mask.png",
+    "red_guard_bob_r1_2_mask.png",
+    "red_guard_bob_r1_3_mask.png",
+    "red_guard_bob_r1_4_mask.png"
+   ]
+  },
+  "red_guard_bob_r2": {
+   "files": [
+    "red_guard_bob_r2_0.webp",
+    "red_guard_bob_r2_1.webp",
+    "red_guard_bob_r2_2.webp",
+    "red_guard_bob_r2_3.webp",
+    "red_guard_bob_r2_4.webp"
+   ],
+   "offs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4
+   ],
+   "contact": -1,
+   "clip": "hold_guard+bob",
+   "masks": [
+    "red_guard_bob_r2_0_mask.png",
+    "red_guard_bob_r2_1_mask.png",
+    "red_guard_bob_r2_2_mask.png",
+    "red_guard_bob_r2_3_mask.png",
+    "red_guard_bob_r2_4_mask.png"
+   ]
+  },
+  "red_lead_high_bob": {
+   "files": [
+    "red_lead_high_bob_0.webp",
+    "red_lead_high_bob_1.webp",
+    "red_lead_high_bob_2.webp",
+    "red_lead_high_bob_3.webp",
+    "red_lead_high_bob_4.webp"
+   ],
+   "offs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4
+   ],
+   "contact": -1,
+   "clip": "hold_lead_high+bob",
+   "masks": [
+    "red_lead_high_bob_0_mask.png",
+    "red_lead_high_bob_1_mask.png",
+    "red_lead_high_bob_2_mask.png",
+    "red_lead_high_bob_3_mask.png",
+    "red_lead_high_bob_4_mask.png"
+   ]
+  },
+  "red_lead_high_bob_r1": {
+   "files": [
+    "red_lead_high_bob_r1_0.webp",
+    "red_lead_high_bob_r1_1.webp",
+    "red_lead_high_bob_r1_2.webp",
+    "red_lead_high_bob_r1_3.webp",
+    "red_lead_high_bob_r1_4.webp"
+   ],
+   "offs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4
+   ],
+   "contact": -1,
+   "clip": "hold_lead_high+bob",
+   "masks": [
+    "red_lead_high_bob_r1_0_mask.png",
+    "red_lead_high_bob_r1_1_mask.png",
+    "red_lead_high_bob_r1_2_mask.png",
+    "red_lead_high_bob_r1_3_mask.png",
+    "red_lead_high_bob_r1_4_mask.png"
+   ]
+  },
+  "red_lead_high_bob_r2": {
+   "files": [
+    "red_lead_high_bob_r2_0.webp",
+    "red_lead_high_bob_r2_1.webp",
+    "red_lead_high_bob_r2_2.webp",
+    "red_lead_high_bob_r2_3.webp",
+    "red_lead_high_bob_r2_4.webp"
+   ],
+   "offs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4
+   ],
+   "contact": -1,
+   "clip": "hold_lead_high+bob",
+   "masks": [
+    "red_lead_high_bob_r2_0_mask.png",
+    "red_lead_high_bob_r2_1_mask.png",
+    "red_lead_high_bob_r2_2_mask.png",
+    "red_lead_high_bob_r2_3_mask.png",
+    "red_lead_high_bob_r2_4_mask.png"
+   ]
+  },
+  "red_lead_low_bob": {
+   "files": [
+    "red_lead_low_bob_0.webp",
+    "red_lead_low_bob_1.webp",
+    "red_lead_low_bob_2.webp",
+    "red_lead_low_bob_3.webp",
+    "red_lead_low_bob_4.webp"
+   ],
+   "offs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4
+   ],
+   "contact": -1,
+   "clip": "hold_lead_low+bob",
+   "masks": [
+    "red_lead_low_bob_0_mask.png",
+    "red_lead_low_bob_1_mask.png",
+    "red_lead_low_bob_2_mask.png",
+    "red_lead_low_bob_3_mask.png",
+    "red_lead_low_bob_4_mask.png"
+   ]
+  },
+  "red_lead_low_bob_r1": {
+   "files": [
+    "red_lead_low_bob_r1_0.webp",
+    "red_lead_low_bob_r1_1.webp",
+    "red_lead_low_bob_r1_2.webp",
+    "red_lead_low_bob_r1_3.webp",
+    "red_lead_low_bob_r1_4.webp"
+   ],
+   "offs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4
+   ],
+   "contact": -1,
+   "clip": "hold_lead_low+bob",
+   "masks": [
+    "red_lead_low_bob_r1_0_mask.png",
+    "red_lead_low_bob_r1_1_mask.png",
+    "red_lead_low_bob_r1_2_mask.png",
+    "red_lead_low_bob_r1_3_mask.png",
+    "red_lead_low_bob_r1_4_mask.png"
+   ]
+  },
+  "red_lead_low_bob_r2": {
+   "files": [
+    "red_lead_low_bob_r2_0.webp",
+    "red_lead_low_bob_r2_1.webp",
+    "red_lead_low_bob_r2_2.webp",
+    "red_lead_low_bob_r2_3.webp",
+    "red_lead_low_bob_r2_4.webp"
+   ],
+   "offs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4
+   ],
+   "contact": -1,
+   "clip": "hold_lead_low+bob",
+   "masks": [
+    "red_lead_low_bob_r2_0_mask.png",
+    "red_lead_low_bob_r2_1_mask.png",
+    "red_lead_low_bob_r2_2_mask.png",
+    "red_lead_low_bob_r2_3_mask.png",
+    "red_lead_low_bob_r2_4_mask.png"
+   ]
+  },
+  "red_rear_high_bob": {
+   "files": [
+    "red_rear_high_bob_0.webp",
+    "red_rear_high_bob_1.webp",
+    "red_rear_high_bob_2.webp",
+    "red_rear_high_bob_3.webp",
+    "red_rear_high_bob_4.webp"
+   ],
+   "offs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4
+   ],
+   "contact": -1,
+   "clip": "hold_rear_high+bob",
+   "masks": [
+    "red_rear_high_bob_0_mask.png",
+    "red_rear_high_bob_1_mask.png",
+    "red_rear_high_bob_2_mask.png",
+    "red_rear_high_bob_3_mask.png",
+    "red_rear_high_bob_4_mask.png"
+   ]
+  },
+  "red_rear_high_bob_r1": {
+   "files": [
+    "red_rear_high_bob_r1_0.webp",
+    "red_rear_high_bob_r1_1.webp",
+    "red_rear_high_bob_r1_2.webp",
+    "red_rear_high_bob_r1_3.webp",
+    "red_rear_high_bob_r1_4.webp"
+   ],
+   "offs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4
+   ],
+   "contact": -1,
+   "clip": "hold_rear_high+bob",
+   "masks": [
+    "red_rear_high_bob_r1_0_mask.png",
+    "red_rear_high_bob_r1_1_mask.png",
+    "red_rear_high_bob_r1_2_mask.png",
+    "red_rear_high_bob_r1_3_mask.png",
+    "red_rear_high_bob_r1_4_mask.png"
+   ]
+  },
+  "red_rear_high_bob_r2": {
+   "files": [
+    "red_rear_high_bob_r2_0.webp",
+    "red_rear_high_bob_r2_1.webp",
+    "red_rear_high_bob_r2_2.webp",
+    "red_rear_high_bob_r2_3.webp",
+    "red_rear_high_bob_r2_4.webp"
+   ],
+   "offs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4
+   ],
+   "contact": -1,
+   "clip": "hold_rear_high+bob",
+   "masks": [
+    "red_rear_high_bob_r2_0_mask.png",
+    "red_rear_high_bob_r2_1_mask.png",
+    "red_rear_high_bob_r2_2_mask.png",
+    "red_rear_high_bob_r2_3_mask.png",
+    "red_rear_high_bob_r2_4_mask.png"
+   ]
+  },
+  "red_rear_low_bob": {
+   "files": [
+    "red_rear_low_bob_0.webp",
+    "red_rear_low_bob_1.webp",
+    "red_rear_low_bob_2.webp",
+    "red_rear_low_bob_3.webp",
+    "red_rear_low_bob_4.webp"
+   ],
+   "offs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4
+   ],
+   "contact": -1,
+   "clip": "hold_rear_low+bob",
+   "masks": [
+    "red_rear_low_bob_0_mask.png",
+    "red_rear_low_bob_1_mask.png",
+    "red_rear_low_bob_2_mask.png",
+    "red_rear_low_bob_3_mask.png",
+    "red_rear_low_bob_4_mask.png"
+   ]
+  },
+  "red_rear_low_bob_r1": {
+   "files": [
+    "red_rear_low_bob_r1_0.webp",
+    "red_rear_low_bob_r1_1.webp",
+    "red_rear_low_bob_r1_2.webp",
+    "red_rear_low_bob_r1_3.webp",
+    "red_rear_low_bob_r1_4.webp"
+   ],
+   "offs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4
+   ],
+   "contact": -1,
+   "clip": "hold_rear_low+bob",
+   "masks": [
+    "red_rear_low_bob_r1_0_mask.png",
+    "red_rear_low_bob_r1_1_mask.png",
+    "red_rear_low_bob_r1_2_mask.png",
+    "red_rear_low_bob_r1_3_mask.png",
+    "red_rear_low_bob_r1_4_mask.png"
+   ]
+  },
+  "red_rear_low_bob_r2": {
+   "files": [
+    "red_rear_low_bob_r2_0.webp",
+    "red_rear_low_bob_r2_1.webp",
+    "red_rear_low_bob_r2_2.webp",
+    "red_rear_low_bob_r2_3.webp",
+    "red_rear_low_bob_r2_4.webp"
+   ],
+   "offs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4
+   ],
+   "contact": -1,
+   "clip": "hold_rear_low+bob",
+   "masks": [
+    "red_rear_low_bob_r2_0_mask.png",
+    "red_rear_low_bob_r2_1_mask.png",
+    "red_rear_low_bob_r2_2_mask.png",
+    "red_rear_low_bob_r2_3_mask.png",
+    "red_rear_low_bob_r2_4_mask.png"
+   ]
   }
  },
  "camera": {

@@ -61,11 +61,27 @@
     const show = () => { if (mine >= 0 && mine !== holdTok) return; if (cut && i === c) return done(); $('pic').src = PRE[r.files[i]].src; if (i === at) onHit(); if (i >= r.files.length - 1) return done();
       let wait = Math.min(MAX_GAP, (r.offs[i + 1] - r.offs[i]) * 1000); if (i === c) wait += HOLD; if (big && c - i >= 1 && c - i <= 3) wait *= BIG_SLOW; i++; setTimeout(show, wait); };
     show(); return true; };
-  playRun = function (run, big, onHit, done, cut) { run = atRange(run);
+  playRun = function (run, big, onHit, done, cut) { run = atRange(run); bobTok++; const planHold = phase === 'plan' && isHold(run);   /* BOUNCE1: any run stops the bounce; a hold played in plan starts it when it settles */
     const tp = /^(red|blue)_teep_landed_r2$/.exec(run || '');   /* GLIDE2: a teep that lands at Mid pushes him one place back (kick.html), and its run ends with him there */
     const step = (red, d) => { const n = redIn + blueIn, dm = mOf(n + d) - mOf(n); if (red) { redIn += d; redM += dm; } else { blueIn += d; blueM += dm; } };   /* INSIDE1: the metres of the two ranges */
     const m = /^(red|blue)_(step_in|slip_in|back_off)/.exec(run || ''), move = () => { if (tp) step(tp[1] !== 'red', -1); if (!m) return; const d = m[2] !== 'back_off' ? 1 : -1;   /* HEADPICS1: a slip in is a step in */ step(m[1] === 'red', d); };
-    const ok = run0(run, big, onHit, () => { move(); slide(); done(); }, cut); if (!ok) move(); return ok; };
+    const ok = run0(run, big, onHit, () => { move(); slide(); done(); if (planHold && phase === 'plan') bob(run); }, cut); if (!ok) move(); return ok; };
+  /* BOUNCE1 (S565, owner's roadmap row "Never still: a light bounce between beats"): after the hold run settles while he
+     plans, its _bob run loops (tools/pics2d_bob.gd: the hold's last picture, both men bouncing lightly on the spot, the
+     feet on the hold's own spots; 5 pictures, BOB_S a cycle = pics2d_bob.gd BOB_CYCLE) until the beat is fought. Fight
+     stops it at once and puts the hold's last picture back. No _bob run on disk: the still, as before. */
+  const BOB_S = 0.5; let bobTok = 0, bobHold = '';
+  const isHold = (run) => /^(red|blue)_(guard|lead_high|lead_low|rear_high|rear_low|both_(high|low)_(high|low))(_r[123])?$/.test(run || '');
+  function bob(run) { const b = (run || '').replace(/(_r[123])?$/, '_bob$1'), mine = ++bobTok; bobHold = run; if (!ANIM[b]) return;
+    let tries = 0; const start = () => { if (mine !== bobTok || phase !== 'plan') return; if (!ready(b)) { if (++tries < 20) setTimeout(start, 150); return; }   /* a picture still loading from an earlier warm: wait for it */
+      const r = ANIM[b], n = r.files.length; let i = 0;
+      const tick = () => { if (mine !== bobTok || phase !== 'plan') return; $('pic').src = PRE[r.files[i]].src;
+        const w = (i + 1 < n ? r.offs[i + 1] - r.offs[i] : BOB_S - r.offs[i]) * 1000; i = (i + 1) % n; setTimeout(tick, w); };
+      tick(); }; warm([b]).then(start); }
+  const go0 = go; go = function () { const was = bobHold, h = ANIM[was]; bobTok++; bobHold = '';
+    if (h && /_bob(_r[123])?_\d+\.webp/.test($('pic').src) && PRE[h.files[h.files.length - 1]]) $('pic').src = PRE[h.files[h.files.length - 1]].src;   /* the hold's last picture back: the beat's run starts from it */
+    return go0(); };
+  window.bobState = () => ({ tok: bobTok, hold: bobHold });   /* read by the browser check */
   const hit0 = hitAt; hitAt = function (run) { const a = hit0(atRange(run)); return a ? [a[0] + SX, a[1] + SY] : a; };   /* the burst sits on the slid glove */
   const setup0 = setup; setup = function () { redIn = blueIn = redM = blueM = 0; setup0(); slide(); };
   const bell0 = bell; bell = function () { redIn = blueIn = redM = blueM = 0; bell0(); slide(); };   /* a new round starts at Long, both on their spots */

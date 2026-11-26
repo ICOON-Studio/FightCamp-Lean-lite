@@ -3,6 +3,13 @@
 Start: `git pull && python ops/Tools/agent_comms.py start`, then this page, then `ops/research/S565_DIGEST.md`.
 
 ## METHOD lines - quote all of them in your first message
+- ## METHOD - THE GAME IS CALLED PUNCHER'S CHANCE (owner S559: "We will name it "Puncher's chance" for now"; S565: "why you
+  call the game with the wrong name ?", "wtf ? i didnt mean to add a mechanic , it was the name of game"). "Ring
+  Switches" was Claude's working name: NEVER say it to him, on a page, on the board or in a question. Old notes, file
+  names, code comments and the lines below still carry it - read it as Puncher's chance. The comeback switch S559-S562
+  built under the game's name is "All in" now (punch.html, a trial page; ids pch / punch_chance_* / PUNCHCHANCE1-2 keep
+  their spelling). He never asked for it: his keep-or-cut call after he tries it. Bots only have judged it (version F:
+  8 of 9 bars on both seeds, comeback 10% -> 15%, knockdowns 2.3-2.5); no playtester and no critic has seen it.
 - ## METHOD - RING SWITCHES IS THE MAIN LINE (owner S553, S555). The pages: `proto/twohands/order.html` (boxing, the
   source), `punch.html` (order.html + the Puncher's chance switch: BUILT by `python proto/twohands/tools/make_punch.py
   [tweak.json]`, never edited by hand), `kick.html`, `head.html` (head movement, with its own pictures since S561),
@@ -57,11 +64,14 @@ running"
 the sound button on every page) and `proto/twohands/changelog.html`. THE RULE FROM NOW ON: every change a player can
 see or feel on a page adds one plain line at the top of `RS_CHANGES` with a new number, in the same commit; then
 make_punch.py + make_wait.py. A measure that changed nothing on a page is not an entry.
--> THE LINK: asked him in chat (unanswered at the handover). My reading: "the game" = the Ring Switches pages. The main
-repo is PRIVATE and the pages folder is 67 MB / 5,511 files. Recommended to him: a public web address made from
-`proto/twohands` only (a small public repo with GitHub Pages; works with his PC off; updated with every version).
-NOTHING IS PUBLISHED WITHOUT HIS YES. The other way: a temporary link from this PC (a tunnel tool to download - also his
-yes; it works only while the PC and the page server run).
+-> THE LINK: "make it public but ask for email (maybe nda proof ) when someone sign ins and you keep a log of who uses
+the link ?" and, on the host, "i use render / onrender" -> ops/research/TASK_TESTLINK1.md (decided: a Render WEB SERVICE
+running our own small Node server in front of a built copy of proto/twohands; sign-in = email + a personal code Claude
+makes per tester; a confidentiality notice whose acceptance is recorded; a visit log at /owner/log; Render reads a NEW
+PRIVATE repo ICOON-Studio/punchers-chance-test, never the main one).
+BUILD AND TEST IT ON THE PC FIRST (server.js + server_test.mjs + make_site.py need nothing from him). Then HIS part:
+connect the test repo in his Render dashboard (Blueprint) himself; free or paid instance (asked); the testers' emails;
+his OK on the notice's words (draft it for him). NOTHING IS PUBLISHED before those.
 Also asked, unanswered: close the worker consoles left from S560-S564 (idle, about 1.5 GB together)?
 
 ## OPEN ON THE BOARD
@@ -79,13 +89,11 @@ rebuilt, the page tests, `balance.mjs play n=84` on two seeds, body_ui.js alread
   most 45% of beats; the man walking in still gets in. One version goes to him as a toy page (make_<x>.py, as wait.html).
 - TELLS3M arena/181a4c7c - passes -> ask him on the board (one line + the words-tool transcript): the tell on the page as
   a pose of his body? -> TASK_TELLS2PAGE.
-- JABLAND2 arena/18b46867 (D / E / F: the feint and the overhand). READ IT WITH THE CLINCH CROSS-CHECK (below): its
-  winner may fix the page's failing bar AND the clinch loop in one change. Its winner also goes on head.html.
 - KICKFIX3 arena/c178d87d (quiet for 90+ min, its chat alive on a long run: open the chat).
-- BOUNCE1: a console worker (Opus, Code Mode) launched 17:00 from this session's terminal tab "bounce565" with
-  ops/research/RESUME_S565_BOUNCE1.md. A new session cannot see that tab: find it by process (claude.exe with
-  RESUME_S565_BOUNCE1 in its command line) and by docs/BOUNCE1_RESULT.md's last line. When it ends: check its strips and
-  screenshots yourself, then KDPIC1 (TASK_KDPIC1.md) as the next console worker, one render at a time, his game closed.
+- BOUNCE1 DONE (99d787712, docs/BOUNCE1_RESULT.md): both men bounce while he plans (2.6 cm dip, two a second; numbers
+  BOB_DIP_M / BOB_SWAY_M / BOB_CYCLE in tools/pics2d_bob.gd, BOB_S in ring_ui.js). One page screenshot checked here (his
+  camera, blue left, nothing near the men); his play closes it. THE RENDER SLOT IS FREE: launch KDPIC1 (TASK_KDPIC1.md)
+  as the next console worker, one render at a time, his game closed.
 - Page server: `python proto/cardgame/serve.py 8797 twohands` (check it after any session archive).
 
 ## COLLECTED IN S565 (results on main)
@@ -109,6 +117,23 @@ rebuilt, the page tests, `balance.mjs play n=84` on two seeds, body_ui.js alread
   (his S555 words: "vs the jabber you win very easy"). 53% of the empty beats come from the solved mix itself (a back
   off at Long with no punch, a step in at Inside): a rules question, not a filter. NEXT (his taste: how hard the men
   should be): AIEMPTY2 = the filter + the three skill numbers set again on the instrument to a target he names.
+- JABLAND2 (collected after the ship, docs/JABLAND2_RESULT.md): NONE. The jab half works in every version (jab lands
+  34-42%, thrown 7-10%). But any feint fix kills the feint AND the overhand in the solved mix (1-2% of beats, floor 3%):
+  D 7 of 9 both seeds, E 8 of 9 (nearest), F 7 of 9; the surviving feint-overhand pairs still land 83-94%. SO THE CLINCH
+  CROSS-CHECK'S WINNER (F: the loop 22-25%) CANNOT GO ON THE PAGE. What is known: the loop stands on the feint leg; the
+  fix must cut the feint -> overhand opening WITHOUT making the feint worthless. NEXT (a design question, ask Kalli and
+  Dola with both result pages, then one probe): e.g. the feint opens only ONE line (his reacting hand), the overhand needs
+  the Inside AND a spent opponent, or the overhand's own price and reach change. The jab half alone (version c's: the
+  rear glove held high catches the jab, the jab costs 0) can be measured for the page on its own.
+- ALL IN (the comeback switch): his S565 words "sounds fun if it is balanced properly" and "but how would that work later
+  if we add mma and the fight is on the ground ?" - kept as a trial page. Answered as a direction only: on the ground the
+  all-in action is a committed FINISH (a submission attempt or a ground-and-pound burst): it ends or nearly ends the
+  fight if it is not defended, and a failed one costs the position (he escapes or reverses). Design it before any MMA
+  page; first let real players try the boxing one (him, then a playtester round - play_cli has no punch.html mode yet).
+- HIS QUESTION "how are we progressing with knee,elbow,head intergration ? have the balnced finished or not yet ?" was
+  answered: boxing 7-8 of 9 (the overhand), head movement 7 and 8 of 9, kicks 5-6 of 9 (KICKFIX3 running), knees and
+  elbows NOT STARTED (the instrument reads the punch tables, so they are measured the day they are added). Order stays:
+  one art against itself first, kickboxer first.
 - PROGP2 (his Q-340 "Yes, a choice"): at Sharp "cheaper or faster" is a real choice for the Overhand only (57% / 55%),
   nearly for the lead uppercut (59 / 53). The hook's cheaper card is dead (43%); body hook, rear uppercut and body cross
   always take cheaper; the cross is too strong both ways (62 / 63); the jabs have nothing to give. NEXT: PROGP4, a pair

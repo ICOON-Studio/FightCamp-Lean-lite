@@ -11,7 +11,7 @@
 // ring shows that part: YOUR part = the page's own switch buttons for it (the same buttons, the same rules - this file only
 // chooses which are shown); HIS part = what it can do to you at the range you stand at, from the page's ACT / COVER / STOPS
 // tables. A thin line runs from the lit limb to the panel, drawn BEHIND the men. Click = the part stays open.
-// Parts: lead arm, rear arm, legs (the steps), torso (the clinch; the Puncher's chance on punch.html), head (the head moves
+// Parts: lead arm, rear arm, legs (the steps), torso (the clinch; the All in switch on punch.html), head (the head moves
 // on head.html; the hands held high elsewhere). No circle, no label on a man.
 (() => {
   const stage = $('stage'), im = $('pic'), brd = $('board'), side = $('side');
@@ -20,10 +20,10 @@
     [255, 0, 255, 1, 'lead'], [0, 255, 255, 1, 'rear'], [255, 128, 0, 1, 'feet'], [128, 0, 255, 1, 'clinch'], [255, 0, 128, 1, 'head']];
   const GLOW = [[143, 192, 255], [255, 138, 128]];
   const HM = ['slip', 'roll', 'pull', 'slipin'].filter((id) => FEET[id]);   // the head moves this page has (head.html: all four; order.html: none)
-  const PCH = typeof pcOpen === 'function';   // punch.html: the Puncher's chance
+  const PCH = typeof pcOpen === 'function';   // punch.html: the All in switch (Puncher's chance is the GAME's name, S565)
   const NAME = { lead: 'Lead hand', rear: 'Rear hand', feet: 'Feet', clinch: 'Body', head: 'Head' };
   const SUB = { lead: 'your front hand: punch, or hold it high or low', rear: 'your back hand, the power hand', feet: Object.keys(FEET).some((id) => !['in', 'hold', 'back', ...HM].includes(id)) ? 'the steps, the kicks and the check' : 'step in, back off, or hold your ground',
-    clinch: PCH ? "the clinch (Inside only) and the Puncher's chance" : 'tie him up (Inside only)', head: HM.length ? 'slip, roll, lean back, slip in' : 'the hands held high keep it safe' };
+    clinch: PCH ? "the clinch (Inside only) and All in" : 'tie him up (Inside only)', head: HM.length ? 'slip, roll, lean back, slip in' : 'the hands held high keep it safe' };
   const glow = document.createElement('canvas'); glow.id = 'glow'; stage.appendChild(glow);
   const NS = 'http://www.w3.org/2000/svg', svg = document.createElementNS(NS, 'svg'); svg.id = 'pointer'; document.body.appendChild(svg);
   const line = document.createElementNS(NS, 'polyline'); line.setAttribute('fill', 'none'); line.setAttribute('stroke-width', '2'); line.setAttribute('stroke-linejoin', 'round'); line.setAttribute('stroke-dasharray', '7 4');   // dashed: never read as a rope
@@ -123,7 +123,7 @@
   // what you have set, part by part (a click opens that part)
   function summary() { const h = (sl) => (P.clinch ? 'clinch' : P[sl] ? ACT[P[sl]].n : 'held ' + (sl === 'lead' ? P.hl : P.hr)), n = (sl) => (P.ord.indexOf(sl) >= 0 ? ` - ${['1st', '2nd', '3rd'][P.ord.indexOf(sl)] || P.ord.indexOf(sl) + 1}` : '');   /* S563 ALLPLAY2: "Feint (2)" read as a cost; the order says 1st / 2nd / 3rd */
     const ft = HM.includes(P.feet) ? FEET.hold.n : FEET[P.feet].n, hd = HM.length ? (HM.includes(P.feet) ? FEET[P.feet].n + n('feet') : 'no head move') : [!P.lead && P.hl === 'high' && 'lead high', !P.rear && P.hr === 'high' && 'rear high'].filter(Boolean).join(', ') || 'no hand held high';
-    const rows = [['lead', h('lead') + n('lead')], ['rear', h('rear') + n('rear')], ['feet', ft + (HM.includes(P.feet) ? '' : n('feet'))], ['head', hd], ['clinch', P.clinch ? 'clinch' : PCH && P.pch ? "Puncher's chance" : '-']];
+    const rows = [['lead', h('lead') + n('lead')], ['rear', h('rear') + n('rear')], ['feet', ft + (HM.includes(P.feet) ? '' : n('feet'))], ['head', hd], ['clinch', P.clinch ? 'clinch' : PCH && P.pch ? "All in" : '-']];
     return rows.map(([p, v]) => `<button data-k="0:${p}"><i>${NAME[p]}</i><b>${v}</b></button>`).join(''); }
   // HIS PART (Q-338 "Show what it can do"): one line each, the rest in the tooltip
   const hand = (sl, hold) => `your ${sl} hand ${hold}`;
@@ -141,7 +141,7 @@
         + `<div class="note2">A step in beats a back off in the same moment.</div>`; }
     if (part === 'clinch') { const can = range === 1 && !F[1].held;
       return `<div class="row${can ? '' : ' far'}"${T('The clinch: Inside only, 1 stamina. No punch lands for either man, he gets 2 stamina back, the referee breaks you at Mid. Not twice running; a push stops it.')}><b>Clinch</b><em>Inside only</em><u class="${can ? 'open' : 'far'}">${can ? 'he can' : 'not at ' + R}</u></div>`
-        + (PCH ? (() => { const o = pcOpen({ f: F }, 1); return `<div class="row${o ? '' : ' far'}"${T("His Puncher's chance: open only when he is " + N.pcGap + ' or more health behind, once a round. One power punch of his is all in: double damage, and you go down if it lands. Block it or be out of reach and he is wide open.')}><b>Puncher's chance</b><em>all in</em><u class="${o ? 'open' : 'far'}">${o ? 'open' : 'shut'}</u></div>`; })() : ''); }
+        + (PCH ? (() => { const o = pcOpen({ f: F }, 1); return `<div class="row${o ? '' : ' far'}"${T("His All in: open only when he is " + N.pcGap + ' or more health behind, once a round. One power punch of his is all in: double damage, and you go down if it lands. Block it or be out of reach and he is wide open.')}><b>All in</b><em>double or wide open</em><u class="${o ? 'open' : 'far'}">${o ? 'open' : 'shut'}</u></div>`; })() : ''); }
     if (part === 'head') {
       const ids = Object.keys(ACT).filter((id) => ACT[id].d && !ACT[id].body && ACT[id].line !== 'body');
       return ids.map((id) => { const a = ACT[id], reach = a.reach.includes(range), [ss, sh] = stopOf(a);

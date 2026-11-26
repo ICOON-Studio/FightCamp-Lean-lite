@@ -26,22 +26,9 @@
    "issue": "https://arena.ai/agent/01a217e8-babc-765a-90b4-7ce4181a4c7c",
    "title": "Tells version 3 measured with bots, bars against the control: does the tell help a little, does finding his lie pay?"
   },
-  "AIEMPTY1": {
-   "id": "AIEMPTY1",
-   "status": "done",
-   "seat": "arena",
-   "agent": "Arena (cloud: costs your PC nothing)",
-   "started": "2026-11-26T15:45",
-   "eta": "1-2 h",
-   "brief": "ops/research/TASK_AIEMPTY1.md",
-   "branch": "arena/f889f281-fightcamp-lean-lite",
-   "issue": "https://arena.ai/agent/01a217fb-de65-72ee-a4f8-d9faf889f281",
-   "title": "He never throws a beat that cannot do anything (push off after his back off, a feint with no punch): counted, then filtered",
-   "result": "docs/AIEMPTY1_RESULT.md - none as briefed: the filter makes the Slugger and the Body Snatcher stronger (player-bot 71 -> 63%, 75 -> 52%); the empty beats were a hidden handicap"
-  },
   "JABLAND2": {
    "id": "JABLAND2",
-   "status": "running",
+   "status": "done",
    "seat": "arena",
    "agent": "Arena (cloud: costs your PC nothing)",
    "started": "2026-11-26T16:30",
@@ -49,7 +36,8 @@
    "brief": "ops/research/TASK_JABLAND2.md",
    "branch": "arena/18b46867-fightcamp-lean-lite",
    "issue": "https://arena.ai/agent/01a21808-a018-7ce1-8232-7b2718b46867",
-   "title": "The page's one failing bar: the jab fixed (the rear glove catches it), the overhand gets a lever that is not its price - three versions measured"
+   "title": "The page's one failing bar: the jab fixed (the rear glove catches it), the overhand gets a lever that is not its price - three versions measured",
+   "result": "docs/JABLAND2_RESULT.md - none: the jab half works (lands 34-42%), but with any feint fix the feint and the overhand go dead (1-2% of beats); E 8 of 9, D and F 7 of 9"
   },
   "LONG1": {
    "id": "LONG1",
@@ -77,13 +65,14 @@
   },
   "BOUNCE1": {
    "id": "BOUNCE1",
-   "status": "running",
+   "status": "done",
    "seat": "claude",
    "agent": "console worker (Opus, Code Mode), terminal tab bounce565",
    "started": "2026-11-26T17:02",
    "eta": "2-3 h",
    "title": "Never still: a light bounce on the feet while you plan, at every range",
-   "brief": "ops/research/TASK_BOUNCE1.md"
+   "brief": "ops/research/TASK_BOUNCE1.md",
+   "result": "docs/BOUNCE1_RESULT.md - both men bounce while you plan (a 2.6 cm dip, two a second); 99d787712; his play closes it"
   }
  },
  "codex_budget": {
