@@ -59,7 +59,7 @@
   const run0 = function (run, big, onHit, done, cut) { const r = ANIM[run]; if (!ready(run)) return false;
     const mine = phase === 'plan' ? ++holdTok : (++holdTok, -1), c = r.contact, at = Math.max(c, 0); let i = 0;
     const show = () => { if (mine >= 0 && mine !== holdTok) return; if (cut && i === c) return done(); $('pic').src = PRE[r.files[i]].src; if (i === at) onHit(); if (i >= r.files.length - 1) return done();
-      let wait = Math.min(MAX_GAP, (r.offs[i + 1] - r.offs[i]) * 1000); if (i === c) wait += HOLD; if (big && c - i >= 1 && c - i <= 3) wait *= BIG_SLOW; i++; setTimeout(show, wait); };
+      let wait = Math.min(MAX_GAP, (r.offs[i + 1] - r.offs[i]) * 1000); if (i === c) wait += HOLD; if (big && c - i >= 1 && c - i <= 3) wait *= BIG_SLOW; i++; setTimeout(show, wait / (typeof RATE === 'number' ? RATE : 1)); };   /* S567: the round replay runs faster (RATE, set by the page) */
     show(); return true; };
   playRun = function (run, big, onHit, done, cut) { run = atRange(run); bobTok++; const planHold = phase === 'plan' && isHold(run);   /* BOUNCE1: any run stops the bounce; a hold played in plan starts it when it settles */
     const tp = /^(red|blue)_teep_landed_r2$/.exec(run || '');   /* GLIDE2: a teep that lands at Mid pushes him one place back (kick.html), and its run ends with him there */
@@ -86,6 +86,7 @@
   const setup0 = setup; setup = function () { redIn = blueIn = redM = blueM = 0; setup0(); slide(); };
   const bell0 = bell; bell = function () { redIn = blueIn = redM = blueM = 0; bell0(); slide(); };   /* a new round starts at Long, both on their spots */
   const plan0r = plan; plan = function () { fit(); plan0r(); slide(); };
+  window.ringSpots = (v) => { if (!v) return [redIn, blueIn, redM, blueM]; [redIn, blueIn, redM, blueM] = v; slide(); };   /* S567: the round replay starts both men on their spots and puts them back where they stood */
   window.ringSlide = () => ({ redIn, blueIn, redM, blueM, range, sx: SX, sy: SY, pic: (im.getAttribute('src') || '').split('/').pop() });   // read by the browser check
   // ---- 1. the distance on the floor (S559 v2, owner on the nested plates: "idonot understand this ,it is not symmetrical"):
   // ONE bar between the two men's front toes at the range they are at, ticks at both toes, its length the real gap, the

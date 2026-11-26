@@ -30,14 +30,17 @@ if (S.sealed[who]) { console.log('NOT PLAYED: your beat is already sealed for th
 const R = load(S.seed * 1000 + S.n), me = S.F[who];
 let mine = R.plan0();
 if (rest.includes('clinch')) mine.clinch = true;
-else { const L = arg.lead || 'high', H = arg.rear || 'high';
+else { /* S567, Kalli's first match: "my plan was rejected over the name bodycross" - a punch may be named as the help prints it, by its id, or with the hand left off; a refusal lists the legal words */
+  const norm = (x) => String(x || '').toLowerCase().replace(/[^a-z]/g, ''), names = (h) => Object.keys(ACT).filter((id) => ACT[id].h === h), pick = (x, h) => { const n = norm(x); if (!n || n === 'high' || n === 'low') return n || 'high';
+    const hit = names(h).filter((id) => [id, ACT[id].n, ACT[id].n.replace(/^(lead|rear) /i, ''), (h ? 'rear' : 'lead') + ACT[id].n].some((w) => norm(w) === n)); return hit.length === 1 ? hit[0] : x; };
+  const L = pick(arg.lead, 0), H = pick(arg.rear, 1);
   if (L === 'high' || L === 'low') mine.hl = L; else mine.lead = L; if (H === 'high' || H === 'low') mine.hr = H; else mine.rear = H; mine.feet = arg.feet || 'hold';
   const acts = [...(mine.feet !== 'hold' ? ['feet'] : []), ...(mine.lead ? ['lead'] : []), ...(mine.rear ? ['rear'] : [])], want = (arg.order || '').split(',').filter((x) => acts.includes(x));
   mine.ord = [...want, ...acts.filter((x) => !want.includes(x))]; }
 const bad = mine.clinch ? (S.range > 1 ? 'the clinch works Inside only' : me.held ? 'the referee will not allow a clinch yet' : me.st < 1 ? 'no stamina' : '')
   : (mine.lead && (!ACT[mine.lead] || ACT[mine.lead].h !== 0)) ? `lead=${mine.lead} is not a lead-hand switch` : (mine.rear && (!ACT[mine.rear] || ACT[mine.rear].h !== 1)) ? `rear=${mine.rear} is not a rear-hand switch`
   : !FEET[mine.feet] ? `feet=${mine.feet}: in, hold or back` : R.cost(mine) > me.st ? `that costs ${R.cost(mine)} stamina, you have ${me.st}` : mine.feet === 'back' && me.ropes >= 2 ? 'you are on the ropes: no backing off until you step in' : mine.feet === 'in' && me.kept ? 'kept out: no step in this beat' : '';
-if (bad) { console.log('NOT PLAYED: ' + bad); process.exit(2); }
+if (bad) { console.log('NOT PLAYED: ' + bad + (/is not a (lead|rear)-hand switch/.test(bad) ? `. LEAD hand words: ${Object.keys(ACT).filter((id) => ACT[id].h === 0).join(', ')}, high, low. REAR hand words: ${Object.keys(ACT).filter((id) => ACT[id].h === 1).join(', ')}, high, low.` : '')); process.exit(2); }
 S.sealed[who] = mine;
 if (!S.sealed[1 - who]) { fs.writeFileSync(file, JSON.stringify(S)); console.log(`SEALED for ${nm[who]}: ${R.planWords(mine)}. Waiting for ${nm[1 - who]}.`); process.exit(0); }
 // both sealed: the beat is played, told with the two names (the same lines for both players)

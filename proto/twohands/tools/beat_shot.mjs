@@ -37,6 +37,8 @@ try {
         for (let v = 0.05; v < 0.95; v += 0.02) for (let u = 0.3; u < 0.95; u += 0.01) { const x = r.left + u * r.width, y = r.top + v * r.height, was = hd(); click(x, y); const now = hd(); if (now === 'his ' + want) return now; if (now !== was && now.startsWith('his ')) click(x, y); else if (now !== was) click(x, y); }
         return 'NOT FOUND'; })()`);
       await sleep(400); await shot(`${tag}_${b.label}_part.png`); console.log(`BEAT_SHOT ${b.label} part ${b.part}: ${got} :: ` + await ev("[...document.querySelectorAll('#his .row, #board .sw')].filter((e) => e.offsetParent).map((e) => e.innerText.replace(/\\n/g, ' ')).join(' | ')")); }
+    /* S567: "js": an expression run on the page after the plan shot (a click on a button, a state read), its value printed; the "hold" shots follow it */
+    if (b.js) console.log(`BEAT_SHOT ${b.label} js: ` + JSON.stringify(await ev(b.js)));
     /* S566 STRIP1: "hold": [ms, ..] = more plan shots after those waits (the preview of the chosen moves plays while he plans), the strip's state printed; "plan_only": the beat is not fought */
     for (const [j, ms] of (b.hold || []).entries()) { await sleep(ms); await shot(`${tag}_${b.label}_plan${j + 2}.png`); console.log(`BEAT_SHOT ${b.label} strip ${j + 2}: ` + JSON.stringify(await ev("window.stripState ? stripState() : null"))); }
     /* S566: "drag": [from, to] = a real mouse drag of the strip's card in slot `from` onto slot `to` (0-based), the order printed before and after */

@@ -1,0 +1,80 @@
+John: lead=jab rear=high feet=hold order=lead,feet,rear
+  WHY: At Long only the jab reaches, so I score first for 1 stamina and keep the rear hand high to cover the side line.
+Kalli: lead=jab rear=high feet=in order=feet,lead,rear
+  WHY: At Long only the jab reaches, so I close the distance behind a cheap jab, keep my rear hand high against his side punch, and see how John likes to open.
+Kalli: lead=high rear=cross feet=hold order=lead,rear,feet
+  WHY: John's jab gets blocked by my lead hand held high, and that block turns my cross into a counter at Mid; my rear hand doesn't guard this beat.
+John: lead=bjab rear=rbody feet=hold order=lead,rear,feet
+  WHY: Kalli keeps the rear hand high, which only guards the side line, so I go to the body twice at Mid: the fast body jab first, then the body cross to shorten his stamina bar.
+John: lead=high rear=rbody feet=hold order=rear,lead,feet
+  WHY: Kalli's cross came down the straight line, so my lead stays high to block it, and the body cross goes back to the body that his lead-high guard keeps leaving open.
+Kalli: lead=low rear=cross feet=hold order=lead,rear,feet
+  WHY: John went to the body and his punches landed under my high lead hand, so I drop the lead hand low to block his body jab and body cross, and fire the cross into him while he's punching.
+Kalli: lead=low rear=body feet=hold order=lead,rear,feet
+  WHY: John held his lead hand high to stop my cross, which leaves his body open, so I go downstairs with the body cross to shorten his stamina bar, and keep my lead hand low in case he throws his body cross again.
+John: lead=high rear=cross feet=hold order=rear,lead,feet
+  WHY: Kalli has crossed three beats running, so my lead stays high to block it, and his lead dropped low last beat, which opens the straight line for my cross.
+Kalli: lead=low rear=body feet=hold order=lead,rear,feet
+  WHY: John held his lead hand high to stop my cross, which leaves his body open, so I go downstairs with the body cross to shorten his stamina bar, and keep my lead hand low in case he throws his body cross again.
+Kalli: lead=low rear=bodycross feet=hold order=lead,rear,feet
+  WHY: John held his lead hand high to stop my cross, which leaves his body open, so I go downstairs with the body cross to shorten his stamina bar, and keep my lead hand low in case he throws his body cross again.
+John: lead=bjab rear=rbody feet=hold order=lead,rear,feet
+  WHY: Kalli held both hands high last beat, which leaves the body line open, so I dig two body punches to shorten his stamina bar again.
+Kalli: lead=hook rear=high feet=hold order=rear,lead,feet
+  WHY: John keeps his lead hand high every beat, so straight punches are shut, and my blocked-cross counter goes round it with the lead hook while my rear hand stays high against his side punch.
+Kalli: lead=low rear=low feet=hold order=lead,rear,feet
+  WHY: John keeps going body jab then body cross, so both my hands go low to block them both. That gives me +2 stamina and turns my next punches into counters, while he burns his last 4 stamina.
+John: lead=high rear=high feet=hold order=feet,lead,rear
+  WHY: I'm 4–2 up with only 4 stamina, so I bank the round by holding both hands, which blocks his cross and hook and gets me 3 stamina back.
+Kalli: lead=body rear=high feet=hold order=rear,lead,feet
+  WHY: I'm down on health and stamina at Long, so I hold my ground and touch his body with the cheap body jab under his habitually high lead hand, with my rear hand high, and make John come to me.
+John: lead=bjab rear=high feet=in order=lead,feet,rear
+  WHY: At Long only his jab reaches me, so I open with my own body jab, since his hands sat low last beat, then step in to get back to Mid where my body punches work, with the rear hand high against his hook.
+Kalli: lead=jab rear=high feet=hold order=rear,lead,feet
+  WHY: I'm down on health at Long, so I hold my ground with a cheap jab and my rear hand high, and make John spend stamina coming to me.
+Kalli: lead=low rear=cross feet=hold order=lead,rear,feet
+  WHY: John opens nearly every beat with the body jab, so my low lead hand blocks it, and my cross lands in moment 1 while his lead hand is out throwing.
+John: lead=high rear=rbody feet=hold order=rear,lead,feet
+  WHY: At Mid Kalli's rear hand stays high, so the body is open for my body cross, and my lead held high covers his jab and cross on the straight line.
+Kalli: lead=hook rear=low feet=hold order=lead,rear,feet
+  WHY: When John throws his body cross, his rear hand is out and his side is open, so my lead hook lands there in moment 1, and my rear hand stays low to cover the under line.
+John: lead=feint rear=cross feet=hold order=lead,rear,feet
+  WHY: Kalli keeps reading my body cross with the lead low, so a feint draws his hands and my cross comes right after it, where he can't cover it.
+Kalli: lead=high rear=high feet=back order=feet,lead,rear
+  WHY: I'm at 6 health and losing every exchange at Mid, so I back off to Long out of his cross and hook range and hold both hands for the stamina and the block, which makes him miss and hands me counters.
+John: lead=feint rear=cross feet=hold order=lead,rear,feet
+  WHY: The feint and cross just landed for 4 and Kalli is down to 6 health, so I run it again: another uncoverable cross could floor him, and his rear hand held low leaves the side line open in case he swaps to a hook.
+Kalli: lead=jab rear=high feet=hold order=lead,rear,feet
+  WHY: His cross fell short, so my next punch is a counter, and at Long with 4 stamina he has to step in to me. My jab meets him in moment 1 while my rear hand stays high.
+John: lead=jab rear=high feet=in order=lead,feet,rear
+  WHY: I'm low on stamina and he's backing off, so I score a cheap jab at Long, then step in to press him toward the ropes, with the rear hand high against his hook.
+John: lead=high rear=rbody feet=hold order=rear,lead,feet
+  WHY: I'm 4–2 up with 4 stamina, so a 2-stamina body cross keeps the pressure on his 5 health, while my lead held high blocks his jab and cross.
+Kalli: lead=high rear=low feet=back order=feet,lead,rear
+  WHY: At 5 health I keep my ground given at 1 by backing out of range at the bell, so his feint-cross falls short again, and I hold both hands for stamina going into the last round.
+Kalli: lead=low rear=cross feet=in order=feet,lead,rear
+  WHY: I'm two rounds down and need big damage, so I step to Mid first, block his usual opening body jab with my low lead hand, and land the cross while his lead hand is out.
+John: lead=bjab rear=high feet=in order=feet,lead,rear
+  WHY: I'm 2 rounds up and he keeps backing off, so I step in first, since my step still closes the gap even if he backs off, then land the body jab with the rear hand high against his hook.
+Kalli: lead=uppercut rear=high feet=hold order=lead,rear,feet
+  WHY: Inside, his jabs get smothered and he holds his lead hand high, so my lead uppercut comes up under it in moment 1 for 3, with a counter if his body jab was a miss, and my rear hand stays high against his hook.
+John: lead=hook rear=rup feet=hold order=lead,rear,feet
+  WHY: Inside, with him on 5 health, I go for the finish: the fast lead hook on the side line, then the rear uppercut underneath, which together could put him down.
+Kalli: lead=hook rear=high feet=hold order=lead,rear,feet
+  WHY: Inside, his jabs get smothered and his lead hand sits high, so my lead hook goes round to his side in moment 1 for 3, and my rear hand stays high against his hook.
+Kalli: lead=low rear=cross feet=hold order=rear,lead,feet
+  WHY: John is down to 4 stamina after his hook and uppercut, and I need damage, so my cross goes first while he reloads, with my lead hand low against his body shots.
+John: lead=lup rear=high feet=hold order=lead,rear,feet
+  WHY: His rear hand stays high, which leaves the under line open, so a 2-stamina lead uppercut goes underneath while my rear held high blocks his lead hook.
+Kalli: lead=high rear=cross feet=hold order=lead,rear,feet
+  WHY: I'm at 3 health and he's at 6, and his lead hand keeps throwing uppercuts and hooks, so my cross goes into him while his lead hand is out, and my lead hand held high blocks the straight line.
+John: lead=high rear=cross feet=hold order=rear,lead,feet
+  WHY: He has crossed with his lead low two beats out of three, so my lead held high blocks his cross and my cross goes down the open straight line for 3, enough to drop him at 3 health.
+Kalli: lead=hook rear=low feet=hold order=lead,rear,feet
+  WHY: Both crosses were blocked, so my next punch is a counter, and John keeps his lead hand high, so my lead hook goes round to his side while my rear hand stays low against his uppercut.
+John: lead=feint rear=cross feet=hold order=lead,rear,feet
+  WHY: We're both guarding the straight line with our leads high, so the feint pulls his guard and the cross that follows can't be covered: 3 damage against his 3 health.
+Kalli: clinch
+  WHY: One more knockdown ends it and no single punch of mine takes his 6 health, so I tie him up Inside, smother his feint and cross, and go to the cards on my feet.
+John: lead=high rear=high feet=hold order=feet,lead,rear
+  WHY: I'm 12–4 up and two rounds ahead with only 2 stamina, so I close the fight safely with both hands high, blocking his cross and his lead hook.

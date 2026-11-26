@@ -4,6 +4,10 @@
    number: 0.<session>.<n> (n counts up inside the session). The top entry is the version the page shows beside the
    sound button. A measure that changed nothing on a page is not an entry. */
 window.RS_CHANGES = [
+  { v: '0.567.4', date: '2026-11-27', items: [
+    'A new page, Famous exchanges (scene.html): four famous moments set with our switches and fought on the game's own rules - the counter right as he steps in, covering on the ropes, the feint that hides the right hand, the check hook. Each one then plays straight through.' ] },
+  { v: '0.567.3', date: '2026-11-26', items: [
+    'At the bell a new button, Replay round, plays the whole round again: every beat back to back with no planning pauses. Skip it at any time. It is there after the last round and after a stoppage too.' ] },
   { v: '0.567.2', date: '2026-11-26', items: [
     'His punches show the same three ranges when you mouse over one of his hands: lit where the punch reaches, framed where you both stand now.' ] },
   { v: '0.567.1', date: '2026-11-26', items: [

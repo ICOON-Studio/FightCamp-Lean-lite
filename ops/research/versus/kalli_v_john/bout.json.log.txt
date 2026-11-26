@@ -1,0 +1,104 @@
+Kalli v John, seed 11
+--- round 1, beat 1, at Long
+Kalli: 1 Step in, 2 Jab - rear hand high
+John: 1 Jab - rear hand high
+  moment 1 : Long to Mid - Kalli step in
+  moment 1 John: Jab - blocked: Kalli's lead hand was still up (its Jab comes in moment 2)
+  moment 2 Kalli: Jab - blocked: John's lead hand was back up (its Jab was moment 1)
+--- round 1, beat 2, at Mid
+Kalli: 1 Cross - lead hand high
+John: 1 Body jab, 2 Body cross
+  moment 1 John: Body jab - lands (Kalli's lead hand was held high): -1 health, 1 point
+  moment 1 Kalli: Cross - lands (John's lead hand was out, throwing its Body jab): -3 health, 2 points
+  moment 2 John: Body cross - lands (Kalli's lead hand was held high): -2 health, 1 point, stamina bar 7 for the rest of the bout
+--- round 1, beat 3, at Mid
+Kalli: 1 Cross - lead hand low
+John: 1 Body cross - lead hand high
+  moment 1 Kalli: Cross - blocked by John's lead hand, held high
+  moment 1 John: Body cross - blocked by Kalli's lead hand, held low
+--- round 1, beat 4, at Mid
+Kalli: no action - lead hand high, rear hand high
+John: 1 Cross - lead hand high
+  moment 1 John: Cross - blocked by Kalli's lead hand, held high
+--- round 1, beat 5, at Mid
+Kalli: 1 Lead hook - rear hand high
+John: 1 Body jab, 2 Body cross
+  moment 1 Kalli: Lead hook - blocked: John's rear hand was still up (its Body cross comes in moment 2)
+  moment 1 John: Body jab - lands (Kalli's lead hand was out, throwing its Lead hook): -1 health, 1 point
+  moment 2 John: Body cross - lands as a counter (Kalli's lead hand was held high): -3 health, 1 point, stamina bar 6 for the rest of the bout
+--- round 1, beat 6, at Mid
+Kalli: no action - lead hand low, rear hand low
+John: no action - lead hand high, rear hand high
+  : Nothing thrown - both men wait
+BELL. The judges give the round Kalli 9 - 10 John.
+--- round 2, beat 1, at Long
+Kalli: 1 Jab - rear hand high
+John: 1 Body jab, 2 Step in - rear hand high
+  moment 1 Kalli: Jab - lands (John's lead hand was out, throwing its Body jab): -1 health, 1 point
+  moment 1 John: Body jab - lands (Kalli's lead hand was out, throwing its Jab): -1 health, 1 point
+  moment 2 : Long to Mid - John steps in
+--- round 2, beat 2, at Mid
+Kalli: 1 Cross - lead hand low
+John: 1 Body cross - lead hand high
+  moment 1 Kalli: Cross - blocked by John's lead hand, held high
+  moment 1 John: Body cross - blocked by Kalli's lead hand, held low
+--- round 2, beat 3, at Mid
+Kalli: 1 Lead hook - rear hand low
+John: 1 Feint, 2 Cross
+  moment 1 John: feints - the next punch cannot be covered
+  moment 1 Kalli: Lead hook - blocked: John's rear hand was still up (its Cross comes in moment 2)
+  moment 2 John: Cross - lands as a counter (the feint drew John's hand): -4 health, 2 points
+--- round 2, beat 4, at Mid
+Kalli: 1 Back off - lead hand high, rear hand high
+John: 1 Feint, 2 Cross
+  moment 1 : Mid to Long - Kalli back off
+  moment 1 John: feints - the next punch cannot be covered
+  moment 2 John: Cross - falls short at Long
+--- round 2, beat 5, at Long
+Kalli: 1 Jab - rear hand high
+John: 1 Jab, 2 Step in - rear hand high
+  moment 1 Kalli: Jab - lands (John's lead hand was out, throwing its Jab): -1 health, 1 point
+  moment 1 John: Jab - lands (Kalli's lead hand was out, throwing its Jab): -1 health, 1 point
+  moment 2 : Long to Mid - John steps in
+--- round 2, beat 6, at Mid
+Kalli: 1 Back off - lead hand high, rear hand low
+John: 1 Body cross - lead hand high
+  moment 1 : Mid to Long - Kalli back off
+  moment 1 John: Body cross - falls short at Long
+BELL. The judges give the round Kalli 9 - 10 John.
+--- round 3, beat 1, at Long
+Kalli: 1 Step in, 2 Cross - lead hand low
+John: 1 Step in, 2 Body jab - rear hand high
+  moment 1 : Long to Inside - Kalli step in, John steps in
+  moment 2 John: Body jab - smothered - too close at Inside
+  moment 2 Kalli: Cross - lands as a counter (John's lead hand was out, throwing its Body jab): -4 health, 2 points
+--- round 3, beat 2, at Inside
+Kalli: 1 Lead hook - rear hand high
+John: 1 Lead hook, 2 Rear uppercut
+  moment 1 Kalli: Lead hook - blocked: John's rear hand was still up (its Rear uppercut comes in moment 2)
+  moment 1 John: Lead hook - blocked by Kalli's rear hand, held high
+  moment 2 John: Rear uppercut - lands as a counter (Kalli's rear hand was held high): -5 health, 2 points
+  Kalli GOES DOWN and gets up on 6 health.
+--- round 3, beat 3, at Inside
+Kalli: 1 Cross - lead hand low
+John: 1 Lead uppercut - rear hand high
+  moment 1 Kalli: Cross - lands (John's lead hand was out, throwing its Lead uppercut): -3 health, 2 points
+  moment 1 John: Lead uppercut - lands (Kalli's rear hand was out, throwing its Cross): -3 health, 2 points
+--- round 3, beat 4, at Inside
+Kalli: 1 Cross - lead hand high
+John: 1 Cross - lead hand high
+  moment 1 Kalli: Cross - blocked by John's lead hand, held high
+  moment 1 John: Cross - blocked by Kalli's lead hand, held high
+--- round 3, beat 5, at Inside
+Kalli: 1 Lead hook - rear hand low
+John: 1 Feint, 2 Cross
+  moment 1 John: feints - the next punch cannot be covered
+  moment 1 Kalli: Lead hook - blocked: John's rear hand was still up (its Cross comes in moment 2)
+  moment 2 John: Cross - lands as a counter (the feint drew John's hand): -4 health, 2 points
+  Kalli GOES DOWN and gets up on 4 health.
+--- round 3, beat 6, at Inside
+Kalli: clinch
+John: no action - lead hand high, rear hand high
+  Kalli: ties John up - no punch lands - the referee breaks them at Mid, +2 stamina
+BELL. The judges give the round Kalli 8 - 10 John.
+John WINS on the cards 30-26
