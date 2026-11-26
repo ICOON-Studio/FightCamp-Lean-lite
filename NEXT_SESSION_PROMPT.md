@@ -52,7 +52,7 @@ Dola have a new one: Long is a corridor (SQ339, SQ340).
   Answer him with the final numbers and the costed variant B.
 - CLINCHFIX3 arena/67e7800b - his habit read sees clinches (H1), + clinch +1 stamina (H2).
 - AIEMPTY1 arena/f889f281 - his empty beats counted, then filtered from his plain beats.
-- JABLAND1 arena/ba10e2bf, KICKFIX3 arena/c178d87d, PROGP2 arena/15b7ab01 (his Q-340), HEADPULL1 arena/397eb67a.
+- JABLAND2 arena/18b46867 (JABLAND1 done, none: its jab half works; the overhand gets a lever, not a price), KICKFIX3 arena/c178d87d, PROGP2 arena/15b7ab01 (his Q-340), HEADPULL1 arena/397eb67a.
 - Render worker in terminal tab "renders564" (Opus, Code Mode): RESUME_S564_RENDERS.md - INSIDE1 probe, GLIDE2 renders,
   INSIDE1 re-render. When it ends: BOUNCE1 (TASK_BOUNCE1.md), then KDPIC1 (TASK_KDPIC1.md), each a console worker, one
   render at a time, his game closed.

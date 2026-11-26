@@ -43,6 +43,14 @@
   feet beat the low kick").
 - Map: 41 stale NOW cards dropped; roadmap now / next / plan; live_runs current.
 
+## Stage 2 (after the first ship)
+- JABLAND1 collected (DONE, none): b holds 8 of 9 on both seeds but the jab and overhand go dead (2% / 1%); c's JAB half
+  works on both seeds (the rear glove held high catches the jab while the lead is out; the jab costs 0: lands 37-45%, 9%
+  of beats) - at Long the rear hand held up now matters. The overhand has no working price between 2 and 3.
+- JABLAND2 (Arena arena/18b46867): c's jab half, the overhand at 3, and D the feint opens it only Inside / E a punch landing
+  in the feint's own moment wastes it +1 (Antigravity) / F both. Bars: 9 of 9 both seeds with both punches alive.
+- MOMENTGAP1 B trial (only the feet may wait a moment): a wait in ~7% of beats, 6 of 9 (overhand dead, stoppages 8%).
+
 ## Running at the stage end
 TELLS3M arena/181a4c7c, KDHEAL1 arena/836987cb (KD0 control 8 of 9, comeback 19%; KD3 [3,2] dropped at 75% stoppages),
 MOMENTGAP1 arena/4bdf9ebc (trial: a free wait picked in ~70% of beats, 5 of 9), CLINCHFIX3 arena/67e7800b, AIEMPTY1

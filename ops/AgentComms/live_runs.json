@@ -26,19 +26,6 @@
    "branch": "arena/4bdf9ebc-fightcamp-lean-lite",
    "issue": "https://arena.ai/agent/01a21740-07d4-753e-855e-06a24bdf9ebc"
   },
-  "CLINCHFIX2": {
-   "id": "CLINCHFIX2",
-   "status": "done",
-   "seat": "arena",
-   "agent": "Arena (cloud, a sixth chat: costs your PC nothing)",
-   "started": "2026-11-26T13:35",
-   "eta": "2-3 h",
-   "title": "The clinch pays too well: the version where the push off gets a second job, measured",
-   "brief": "ops/research/TASK_CLINCHFIX2.md",
-   "branch": "arena/204b98f9-fightcamp-lean-lite",
-   "issue": "https://arena.ai/agent/01a21742-8bd0-7f21-b3b8-cef7204b98f9",
-   "result": "none: P2 kills the loop (15-18%) but the clinch and push off go dead, 6 of 9 -> CLINCHFIX3"
-  },
   "GLIDE2": {
    "id": "GLIDE2",
    "status": "running",
@@ -51,7 +38,7 @@
   },
   "JABLAND1": {
    "id": "JABLAND1",
-   "status": "running",
+   "status": "done",
    "seat": "arena",
    "agent": "Arena (cloud, a seventh chat: costs your PC nothing)",
    "started": "2026-11-26T14:45",
@@ -59,7 +46,8 @@
    "title": "The one bar the page still fails: the jab and the overhand land too often - up to three fixes measured",
    "brief": "ops/research/TASK_JABLAND1.md",
    "branch": "arena/ba10e2bf-fightcamp-lean-lite",
-   "issue": "https://arena.ai/agent/01a21756-3d3f-7206-82e3-9cc2ba10e2bf"
+   "issue": "https://arena.ai/agent/01a21756-3d3f-7206-82e3-9cc2ba10e2bf",
+   "result": "docs/JABLAND1_RESULT.md - none: b 8 of 9 but jab and overhand dead; c's jab half works -> JABLAND2"
   },
   "INSIDE1": {
    "id": "INSIDE1",
@@ -70,17 +58,6 @@
    "eta": "4-5 h (renders only with your game closed)",
    "title": "Inside is too close (your 'the distance looks wrong'): a real inside distance, then the parts where the men overlap see-through",
    "brief": "ops/research/RESUME_S564_RENDERS.md"
-  },
-  "ALLPLAY2_AGY": {
-   "seat": "antigravity",
-   "agent": "Antigravity (by message, about 75 s a beat)",
-   "eta": "2-3 h",
-   "brief": "ops/research/TASK_ALLPLAY2.md",
-   "title": "Playtest by message: 2 bouts without tells, 2 with - and your question on showing his intentions",
-   "status": "done",
-   "id": "ALLPLAY2_AGY",
-   "started": "2026-11-26T13:05",
-   "result": "ops/research/allplay2/antigravity/ALLPLAY2_ANTIGRAVITY.md - one body tell (5 of 5); feint-overhand 12 of 13; empty AI beats -> AIEMPTY1"
   },
   "KICKFIX3": {
    "seat": "arena",
@@ -153,6 +130,18 @@
    "branch": "arena/f889f281-fightcamp-lean-lite",
    "issue": "https://arena.ai/agent/01a217fb-de65-72ee-a4f8-d9faf889f281",
    "title": "He never throws a beat that cannot do anything (push off after his back off, a feint with no punch): counted, then filtered"
+  },
+  "JABLAND2": {
+   "id": "JABLAND2",
+   "status": "running",
+   "seat": "arena",
+   "agent": "Arena (cloud: costs your PC nothing)",
+   "started": "2026-11-26T16:30",
+   "eta": "3-4 h",
+   "brief": "ops/research/TASK_JABLAND2.md",
+   "branch": "arena/18b46867-fightcamp-lean-lite",
+   "issue": "https://arena.ai/agent/01a21808-a018-7ce1-8232-7b2718b46867",
+   "title": "The page's one failing bar: the jab fixed (the rear glove catches it), the overhand gets a lever that is not its price - three versions measured"
   }
  },
  "codex_budget": {
