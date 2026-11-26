@@ -1,0 +1,34 @@
+{
+  "_note": "KICKFIX2 E1: fix A reach (all kicks Long/Mid); body kick 2 health / 2 stamina, head kick 4 health / 4 stamina; separate free Check unchanged.",
+  "page": "kick.html",
+  "src": [
+    [
+      "wasDrawn = drawn[sh.k] === 1;",
+      "wasDrawn = drawn[sh.k] === 1 && !sh.kick;"
+    ],
+    [
+      "check: { n: 'Check', st: 1,",
+      "check: { n: 'Check', st: 0,"
+    ],
+    [
+      "headk: { n: 'Head kick', st: 3,",
+      "headk: { n: 'Head kick', st: 4,"
+    ],
+    [
+      "bodyk: { n: 'Body kick', st: 3,",
+      "bodyk: { n: 'Body kick', st: 2,"
+    ]
+  ],
+  "ACT": {
+    "headk": {
+      "d": 4
+    },
+    "low": {
+      "d": 1
+    },
+    "bodyk": {
+      "d": 2,
+      "st": 2
+    }
+  }
+}
