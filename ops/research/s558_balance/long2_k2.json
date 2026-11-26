@@ -1,0 +1,13 @@
+{
+ "_note": "LONG2 K2 (S565) - only the cross half of K1: a cross that lands on a man in the moment he steps in from Long is a counter (+1). The jabs score as today.",
+ "src": [
+  [
+   "const pull = pulled[sh.k], dmg = a.d + (openNow[sh.k] ? N.counter : 0) + (pull ? 1 : 0);",
+   "const walked = r0 === 3 && S.range === 2 && act[v] === 'feet' && P[v].feet === 'in', onto = walked && sh.id === 'cross'; const pull = pulled[sh.k], dmg = a.d + (openNow[sh.k] || onto ? N.counter : 0) + (pull ? 1 : 0);"
+  ],
+  [
+   "lands${openNow[sh.k] ? ' as a counter' : ''}",
+   "lands${openNow[sh.k] ? ' as a counter' : onto ? (v ? ' as a counter - he walked onto it stepping in' : ' as a counter - you walked onto it stepping in') : ''}"
+  ]
+ ]
+}

@@ -1,0 +1,25 @@
+{
+ "_note": "LONG2 K1 (S565, Kalli SQ339 design 1, her pick) - THE WAITING CROSS and THE JAB THAT MEETS HIM. The page already lets a cross thrown at Long land on a man who steps in during that very moment (the step is played first, the men are at Mid when the glove arrives) and makes a cross at a man who did not come fall short and hand him counters. K1 adds her two bonuses: that cross is a counter (+1: 4 health) because he walked onto it, and a jab or body jab that lands on a man in the moment he steps in from Long scores 2 points, as a big punch does.",
+ "src": [
+  [
+   "const pull = pulled[sh.k], dmg = a.d + (openNow[sh.k] ? N.counter : 0) + (pull ? 1 : 0);",
+   "const walked = r0 === 3 && S.range === 2 && act[v] === 'feet' && P[v].feet === 'in', onto = walked && sh.id === 'cross'; const pull = pulled[sh.k], dmg = a.d + (openNow[sh.k] || onto ? N.counter : 0) + (pull ? 1 : 0);"
+  ],
+  [
+   "lands${openNow[sh.k] ? ' as a counter' : ''}",
+   "lands${openNow[sh.k] ? ' as a counter' : onto ? (v ? ' as a counter - he walked onto it stepping in' : ' as a counter - you walked onto it stepping in') : ''}"
+  ],
+  [
+   "A.pts += a.d >= 3 ? 2 : 1;",
+   "A.pts += (a.d >= 3 || (walked && (sh.id === 'jab' || sh.id === 'bjab'))) ? 2 : 1;"
+  ],
+  [
+   "pts: a.d >= 3 ? 2 : 1,",
+   "pts: (a.d >= 3 || (walked && (sh.id === 'jab' || sh.id === 'bjab'))) ? 2 : 1,"
+  ],
+  [
+   "${a.d >= 3 ? '2 points' : '1 point'}",
+   "${(a.d >= 3 || (walked && (sh.id === 'jab' || sh.id === 'bjab'))) ? '2 points' : '1 point'}${walked && a.d < 3 && (sh.id === 'jab' || sh.id === 'bjab') ? ' (it caught him stepping in)' : ''}"
+  ]
+ ]
+}

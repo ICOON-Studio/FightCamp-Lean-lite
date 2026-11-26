@@ -4974,11 +4974,14 @@
    "seat": "kalli",
    "brief": "research/RINGSWITCH_LONG_BRIEF.md",
    "stem": "RINGSWITCH_LONG_BRIEF_KALLI",
-   "status": "sent",
+   "status": "answered",
    "queued_at": "2026-11-26 14:48",
    "tries": 0,
    "sent_at": "2026-11-26 15:40",
-   "sent_ms": 1795700428774
+   "sent_ms": 1795700428774,
+   "answered_at": "2026-11-26 16:03",
+   "answer": "research/RINGSWITCH_LONG_BRIEF_KALLI.md",
+   "chars": 7180
   },
   {
    "id": "SQ340",

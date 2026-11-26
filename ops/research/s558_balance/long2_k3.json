@@ -1,0 +1,21 @@
+{
+ "_note": "LONG2 K3 (S565) - only the jab half of K1: a jab or body jab that lands on a man in the moment he steps in from Long scores 2 points. The cross as today.",
+ "src": [
+  [
+   "const pull = pulled[sh.k], dmg = a.d + (openNow[sh.k] ? N.counter : 0) + (pull ? 1 : 0);",
+   "const walked = r0 === 3 && S.range === 2 && act[v] === 'feet' && P[v].feet === 'in', onto = false; const pull = pulled[sh.k], dmg = a.d + (openNow[sh.k] ? N.counter : 0) + (pull ? 1 : 0);"
+  ],
+  [
+   "A.pts += a.d >= 3 ? 2 : 1;",
+   "A.pts += (a.d >= 3 || (walked && (sh.id === 'jab' || sh.id === 'bjab'))) ? 2 : 1;"
+  ],
+  [
+   "pts: a.d >= 3 ? 2 : 1,",
+   "pts: (a.d >= 3 || (walked && (sh.id === 'jab' || sh.id === 'bjab'))) ? 2 : 1,"
+  ],
+  [
+   "${a.d >= 3 ? '2 points' : '1 point'}",
+   "${(a.d >= 3 || (walked && (sh.id === 'jab' || sh.id === 'bjab'))) ? '2 points' : '1 point'}${walked && a.d < 3 && (sh.id === 'jab' || sh.id === 'bjab') ? ' (it caught him stepping in)' : ''}"
+  ]
+ ]
+}
