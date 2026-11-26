@@ -129,6 +129,8 @@ def main(argv: list[str]) -> int:
             table["runs"][name] = {"files": names, "offs": row["offs"], "contact": row.get("contact", -1), "clip": row.get("clip", "")}
             if masks and len(masks) == len(names):
                 table["runs"][name]["masks"] = masks
+            if row.get("range"):   # S562 GLIDE1: the page range the run was made at (3 Long, 2 Mid, 1 Inside): the page picks it by the range the men stand at
+                table["runs"][name]["range"] = row["range"]
             if row.get("hit"):   # C509: the glove's place on the contact picture (share of width, height) - the page draws the hit there
                 table["runs"][name]["hit"] = row["hit"]
             kept += 1

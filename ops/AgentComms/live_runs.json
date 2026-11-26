@@ -91,6 +91,18 @@
    "eta": "1 h",
    "title": "Punch pictures at every range: the men keep their distance when a punch plays",
    "brief": "ops/previews/s562_glide/render_all.sh"
+  },
+  "MOMENTGAP1": {
+   "id": "MOMENTGAP1",
+   "status": "running",
+   "seat": "arena",
+   "agent": "Arena (cloud, a fifth chat: costs your PC nothing)",
+   "started": "2026-11-26T13:20",
+   "eta": "2-3 h",
+   "title": "Pick the exact moment of the beat you act in (a wait between): measured before it is built",
+   "brief": "ops/research/TASK_MOMENTGAP1.md",
+   "branch": "arena/4bdf9ebc-fightcamp-lean-lite",
+   "issue": "https://arena.ai/agent/01a21740-07d4-753e-855e-06a24bdf9ebc"
   }
  },
  "codex_budget": {
