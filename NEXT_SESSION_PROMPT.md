@@ -32,6 +32,16 @@ tables: open its chat before calling it dead).
 A page_play_test of head.html or kick.html takes 3-4 minutes each beside his game: run them in the background.
 RUNNING AT ARENA (Browser 2) since 20:34: LONG1 cba93bd0 (told to keep working) and PROGP4 efb38a10. Cascadeur: his "not now i
 will do it tomorrow" - ask once at the start whether the plan and the 2026.3 update are done, then launch TASK_CASC_MCP.
+ZIVA: Basic plan CANCELLED on his word (S566), paid until 2026-12-19: give Ziva its heavy work (playtests, motion) BEFORE
+that date; from 2026-12-20 the free model only (about 50 small messages a day), never propose re-subscribing.
+KDPIC1 COLLECTED (docs/KDPIC1_RESULT.md, tools/pics2d_ko_room.gd): the knockdown stays inside the ropes and the stage (he
+turns as he falls, a share of his travel cut; 0 jumps). LEFT: from the furthest-back spot the stage still cuts him (needs
+the page to follow the downed man: a ring_ui.js change, not done). THE OVERHAND IS BLOCKED: no take in our files, 12 Ludo
+candidates, none an overhand -> it is the FIRST take of TASK_CASC_MCP.
+CASCADEUR 2026.3 IS INSTALLED (2026.3.0.17632, S566 21:18). Our hidden channel works on it (/health: server 0.4.0); csend.py's
+printed output no longer comes back (fix first); 2026.3 serves MCP itself at 127.0.0.1:8765/mcp, so no bridge. All of it is in
+TASK_CASC_MCP.md 'State after S566'. LEFT FOR HIM: the paid plan ("not now i will do it tomorrow"). Chrome still holds a
+leftover 'Unconfirmed 397121.crdownload' (600 MB) in his Downloads: his to discard.
 CASCADEUR (his S566 mail + "you do the rest"; "should we wait or work on 3d at the same time at punchers chance ? we could
 use the 3d fight on it too"): ops/research/TASK_CASC_MCP.md written - scope = takes Puncher's chance is MISSING, authored
 in Cascadeur 2026.3, rendered by our picture tools (one take serves both games); NOT the realtime 3D fight code. We already

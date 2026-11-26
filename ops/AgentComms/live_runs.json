@@ -358,17 +358,6 @@
   "brief": "ops/research/TASK_TELLS4M.md",
   "tab": "c2"
  },
- "KDPIC1": {
-  "id": "KDPIC1",
-  "status": "running",
-  "seat": "claude",
-  "agent": "Claude console worker (your PC)",
-  "started": "2026-11-26T19:32",
-  "eta": "2-4 h",
-  "title": "The knockdown stays inside the ring; the overhand gets its own picture (render worker)",
-  "brief": "ops/research/TASK_KDPIC1.md",
-  "tab": "c3"
- },
  "PROGP4": {
   "id": "PROGP4",
   "status": "running",

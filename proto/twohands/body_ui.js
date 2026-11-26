@@ -87,7 +87,9 @@
       t.putImageData(img, 0, 0); x.save(); x.filter = 'blur(3px)'; x.drawImage(tmp, 0, 0); x.drawImage(tmp, 0, 0); x.restore(); x.drawImage(tmp, 0, 0); }
     pointer(lead, r); }
   // ---- the pointer: from the lit limb's edge nearest the panel to the panel, behind the men (#pointer sits under the picture)
-  function pointer(key, r) { const g = key && ring(key); if (!g || !g.pts.length) { line.setAttribute('points', ''); return; }
+  let ptFor = '';   /* S566, owner: "the intermittent lines move along with the bouncing and it is very annoying" - while the men bounce (the _bob pictures) the dashed line keeps the place it had on the still picture; only the limb's glow follows the limb */
+  function pointer(key, r) { const g = key && ring(key); if (!g || !g.pts.length) { line.setAttribute('points', ''); ptFor = ''; return; }
+    const sig = key + '|' + Math.round(r.width) + '|' + Math.round(r.left) + '|' + Math.round(r.top) + '|' + range; if (/_bob(_r[123])?_\d+\.webp/.test(im.src) && ptFor === sig && line.getAttribute('points')) return; ptFor = sig;
     const p = side.getBoundingClientRect(), mir = mirrored(), ax = p.right + 1; let best = null, bd = 1e12;
     for (let j = 0; j < g.pts.length; j += 3) { const i = g.pts[j], px = i % g.W, py = (i - px) / g.W, sx = r.left + ((mir ? g.W - px - 0.5 : px + 0.5) / g.W) * r.width, sy = r.top + ((py + 0.5) / g.H) * r.height;
       const ay = Math.max(p.top + 18, Math.min(p.bottom - 18, sy)), d = (sx - ax) ** 2 + (sy - ay) ** 2; if (d < bd) { bd = d; best = [sx, sy, ay]; } }

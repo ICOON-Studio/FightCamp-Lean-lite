@@ -4,6 +4,8 @@
    number: 0.<session>.<n> (n counts up inside the session). The top entry is the version the page shows beside the
    sound button. A measure that changed nothing on a page is not an entry. */
 window.RS_CHANGES = [
+  { v: '0.566.3', date: '2026-11-26', items: [
+    'The dashed line from a limb to its panel no longer jiggles while the men bounce: it stays still, only the glow follows the limb.' ] },
   { v: '0.566.2', date: '2026-11-26', items: [
     'A held hand now says what it stops, in green under it (lead high: his jab and cross; lead low: his body punches; rear high: his hook and overhand; rear low: his uppercuts). Hover it for the whole rule.' ] },
   { v: '0.566.1', date: '2026-11-26', items: [

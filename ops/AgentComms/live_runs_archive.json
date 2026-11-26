@@ -25303,5 +25303,17 @@
   "title": "The Staff window as cards (your 'this screen is terrible'): a face, the job in plain words, four facts, one button; fits the window with no scroll",
   "brief": "ops/research/TASK_STAFFCARDS1.md",
   "branch": "build/staffcards1"
+ },
+ "KDPIC1": {
+  "id": "KDPIC1",
+  "status": "landed",
+  "seat": "claude",
+  "agent": "Claude console worker (your PC)",
+  "started": "2026-11-26T19:32",
+  "eta": "2-4 h",
+  "title": "The knockdown stays inside the ring; the overhand gets its own picture (render worker)",
+  "brief": "ops/research/TASK_KDPIC1.md",
+  "tab": "c3",
+  "result": "S566: step 1 DONE (20 knockdown runs re-made: inside the ropes and the stage, 0 jumps); the overhand BLOCKED (none in our files, 12 Ludo candidates, none an overhand) -> TASK_CASC_MCP"
  }
 }

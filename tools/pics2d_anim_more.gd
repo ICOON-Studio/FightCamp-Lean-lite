@@ -10,7 +10,7 @@ extends "res://tools/pics2d_anim.gd"
 ##   push               : PushOff (hands on the chest, both pushed out to range) - the game's only push
 ##   clinch             : Clinch.start, as the still tool's clinch picture, seen tying up
 ##   knockdown          : pro_knockout_v1 from the first buckle to the canvas
-## NOT here because no take exists: an overhand (the page borrows the rear hook).
+## NOT here because no take exists: an overhand (the page borrows the rear hook; KDPIC1 S566: Ludo tried, none usable).
 ##   same command as pics2d_anim.gd with --script res://tools/pics2d_anim_more.gd
 
 const RootPath := preload("res://scripts/fight3d/v2/RootPath.gd")
@@ -51,10 +51,13 @@ const KO_AFTER := [0.0, 0.06, 0.12, 0.20, 0.30, 0.42, 0.56, 0.72, 0.90, 1.12, 1.
 ## MASK1 (S559): the pictures the page shows while the player plans (the guard, every hold) get a part mask beside each
 ## frame, <run>_<k>_mask.png, drawn in the same frame (tools/pics2d_mask.gd). mask=off skips it.
 const Mask := preload("res://tools/pics2d_mask.gd")
+const KoRoom := preload("res://tools/pics2d_ko_room.gd")   # KDPIC1: the fall stays inside the ropes
 var mask: RefCounted = null
+var ko_clip := KO_CLIP   # KDPIC1: ko_take=<clip> tries another knockdown take (ko_from= where its fall starts)
 
 
 func _run() -> void:
+	ko_clip = _arg("ko_take", KO_CLIP)
 	if _arg("probe_in", "") != "":
 		await _probe_inside(_arg("probe_in", ""))
 		quit(0)
@@ -376,18 +379,34 @@ func _clinch_run(who: int, name: String) -> void:
 
 
 func _ko_run(who: int, name: String) -> void:
-	if not _has(who, KO_CLIP):
+	if not _has(who, ko_clip):
 		return
-	var len := (stage.boxers[who]["ap"] as AnimationPlayer).get_animation(KO_CLIP).length
+	var len := (stage.boxers[who]["ap"] as AnimationPlayer).get_animation(ko_clip).length
 	var build := func() -> Array:
 		await _home_guard()
-		return [[0.0, func() -> void: stage.v2._play(who, KO_CLIP, 0.0, "reaction", false)]]
+		return [[0.0, func() -> void: stage.v2._play(who, ko_clip, 0.0, "reaction", false)]]
 	var times: Array = KO_FRAC.map(func(f) -> float: return snappedf(float(f) * len, 0.01))
-	await _solo(name, KO_CLIP, times, build, Callable(), true)
+	var away := axis * (-1.0 if who == 0 else 1.0)   # KDPIC1: he falls back, away from the other man (tools/pics2d_ko_room.gd)
+	var at := [Transform3D(), 0.0, {}]   # his place at the start, his hips along `away` there, the fit (empty while measuring)
+	var each := func(t: float) -> void:
+		if t < EPS:
+			at[0] = _node(who).global_transform
+			at[1] = KoRoom.hips_along(stage, who, away)
+		_node(who).global_transform = at[0]
+		if not (at[2] as Dictionary).is_empty():
+			KoRoom.apply(stage, who, away, at[2], KoRoom.frame(stage, who, away, float(at[1])))
+	var frames: Array = []
+	_aim([0, 1])
+	for t in times:
+		await _solo_at(build, each, float(t))
+		frames.append(KoRoom.frame(stage, who, away, float(at[1])))
+	at[2] = KoRoom.fit(stage, cam, away, frames)
+	await _solo(name, ko_clip, times, build, each, true)
+	print("KO_ROOM %s: turned %.0f deg, travel cut by %.0f%%" % [name, float(at[2]["deg"]), 100.0 * float(at[2]["share"])])
 
 
 ## THE KNOCKDOWN COMES FROM THE PUNCH (owner S553, on the fall played by itself after the punch: "there is no hit how is
-## that knock down ?"): a landed punch's own run from its contact on, the hit man going down from that blow (KO_CLIP
+## that knock down ?"): a landed punch's own run from its contact on, the hit man going down from that blow (ko_clip
 ## started one picture after the glove arrives, as a hit reaction is). The pair, the camera and the size are the landed
 ## run's own; the picture is twice as wide, so the man on the canvas is still in it and nothing changes size. The page
 ## plays the landed run up to its contact, then this.
@@ -396,7 +415,7 @@ func _punch_ko_run(who: int, fam: String, name: String) -> void:
 	# calmly for half a second and THEN fell. It is entered where the body starts to go.
 	var ko_from := float(_arg("ko_from", str(KO_FROM)))
 	var b := await _find(who, fam, "landed")
-	if b.is_empty() or not _has(1 - who, KO_CLIP):
+	if b.is_empty() or not _has(1 - who, ko_clip):
 		print("PICS2D_ANIM no %s take on %s" % [fam, name])
 		refused += 1
 		return
@@ -405,7 +424,7 @@ func _punch_ko_run(who: int, fam: String, name: String) -> void:
 	await _pose(who, str(b["clip"]), fam, "landed", float(b["cs"]), b["hand"], body, float(b["step"]), b["side"])
 	_aim([0, 1])
 	var pl := _plan(who, b, fam, "landed")
-	pl["ans"] = KO_CLIP
+	pl["ans"] = ko_clip
 	pl["ans_kind"] = "reaction"
 	pl["ans_t"] = 1.0 / 60.0
 	pl["ans_from"] = ko_from
@@ -418,25 +437,41 @@ func _punch_ko_run(who: int, fam: String, name: String) -> void:
 			break
 		var back := maxf(maxf(Gate.APART_MIN_M - float(m["apart_m"]), Gate.FEET_MIN_M - float(m["feet_m"])), Gate.HEAD_CLEAR_M - float(m["head_clear_m"]))
 		b["step"] = float(b["step"]) - back - 0.02 if back > 0.0 else float(b["step"]) + float(m.get("hit_m", 0.0)) - 0.01
-	var len := (stage.boxers[1 - who]["ap"] as AnimationPlayer).get_animation(KO_CLIP).length
+	var len := (stage.boxers[1 - who]["ap"] as AnimationPlayer).get_animation(ko_clip).length
 	sv.size = Vector2i(SIZE * 2, SIZE)
 	var files: Array = []
 	var times: Array = []
-	for off in KO_AFTER:
-		if float(off) > len - ko_from - 0.05:
-			break
+	var room := {}
+	DirAccess.make_dir_recursive_absolute(out_dir.path_join("ko_masks"))
+	var offs_ko: Array = KO_AFTER.filter(func(o) -> bool: return float(o) <= len - ko_from - 0.05)
+	var h0 := 0.0   # KDPIC1: the fall measured first as the take plays it, then drawn turned and cut to fit (tools/pics2d_ko_room.gd)
+	var frames: Array = []
+	for off in offs_ko:
 		await _pose_at(who, b, pl, Vector3.ZERO, float(off))
+		h0 = KoRoom.hips_along(stage, 1 - who, dirv) if is_zero_approx(float(off)) else h0
+		frames.append(KoRoom.frame(stage, 1 - who, dirv, h0))
+	var fit := KoRoom.fit(stage, cam, dirv, frames)
+	for k in offs_ko.size():
+		var off := float(offs_ko[k])
+		await _pose_at(who, b, pl, Vector3.ZERO, off)
+		KoRoom.apply(stage, 1 - who, dirv, fit, frames[k])
+		if mask != null:
+			mask.sync()
 		await RenderingServer.frame_post_draw
 		var f := "%s_%d" % [name, files.size()]
 		sv.get_texture().get_image().save_png(out_dir.path_join(f + ".png"))
+		if mask != null:   # the pixel proof's mask (tools/ko_room_check.py), kept out of the page's pictures
+			mask.save(out_dir.path_join("ko_masks").path_join(f + "_mask.png"))
+		if room.is_empty():
+			room = {"ring_px": KoRoom.ring_px(stage, cam), "metre_px": KoRoom.metre_px(stage, cam, dirv), "back_m": KoRoom.BACK_M, "win_half_px": KoRoom.WIN_HALF_PX, "fallen": ["red", "blue"][1 - who]}
 		wrote += 1
 		files.append(f + ".png")
 		times.append(off)
 	sv.size = Vector2i(SIZE, SIZE)
 	for f in 3:
 		await process_frame
-	runs[name] = {"files": files, "offs": times, "contact": 0, "clip": str(b["clip"]), "answer": KO_CLIP, "wide": 2, "step": snappedf(float(b["step"]), 0.001), "gate_fails": []}
-	print("PICS2D_ANIM %s = %s then %s, %d frames, step %.2f m" % [name, b["clip"], KO_CLIP, files.size(), float(b["step"])])
+	runs[name] = {"files": files, "offs": times, "contact": 0, "clip": str(b["clip"]), "answer": ko_clip, "wide": 2, "step": snappedf(float(b["step"]), 0.001), "gate_fails": [], "room": room.merged({"turn_deg": float(fit["deg"]), "cut": snappedf(float(fit["share"]), 0.001), "side": snappedf(float(fit["side"]), 0.001)})}
+	print("PICS2D_ANIM %s = %s then %s, %d frames, step %.2f m, turned %.0f deg, travel cut by %.0f%%" % [name, b["clip"], ko_clip, files.size(), float(b["step"]), float(fit["deg"]), 100.0 * float(fit["share"])])
 	_save()
 
 

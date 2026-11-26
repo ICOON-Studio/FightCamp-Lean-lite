@@ -26,6 +26,19 @@ The note's spec file never existed in the repo; this brief is it. Its paths (God
    not say which plan carries scripting or MCP: step 2 finds out. 40% off the first year of an annual plan until 7 Dec.
 2. HIS CLICK: update the installed Cascadeur 2026.2.3 (C:\Program Files\Cascadeur) to 2026.3.
 
+## State after S566 (2026-11-26, read before step 1)
+- INSTALLED: Cascadeur 2026.3.0.17632 (the owner asked; licence accepted on his word; installer from cascadeur.com, Nekki
+  signature valid, kept at E:\FightCamp\dl\cascadeur_2026_3\Cascadeur_2026.3.exe; NSIS, `/S` installs silently, his UAC click).
+- OUR CHANNEL WORKS ON 2026.3: `ensure_server.py --hidden` came up on the hidden desktop; `/health` answered
+  `"server_version": "0.4.0", "version": "2026.3"`.
+- ONE BREAK TO FIX FIRST: `csend.py -c "print(...)"` returned rc 0 and printed NOTHING (on 2026.2 it printed the script's
+  output). Find where 0.4.0 returns a script's output and fix csend.py.
+- NO BRIDGE IS NEEDED: 2026.3 ships `resources/scripts/python/scripts/mcp/` with `mcp_clients.py` and `register_mcp.py`;
+  the script server itself serves MCP over HTTP at `http://127.0.0.1:8765/mcp`. A Claude Code worker can be pointed at
+  that URL directly. Read `script_server/README.md` and `docs/` there before writing anything.
+- STILL WAITS FOR THE OWNER: the paid plan (he said "not now i will do it tomorrow"). On Free nothing can be exported.
+- THE FIRST TAKE IS THE OVERHAND: KDPIC1 found none in our files and none in 12 Ludo candidates.
+
 ## Do
 1. `python ops/Tools/cascadeur/ensure_server.py --hidden`, `/health`, one csend round trip. If 2026.3 broke the channel:
    fix OUR tools (the README's two traps first), write what changed in the README.
