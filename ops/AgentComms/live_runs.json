@@ -10,13 +10,14 @@
    "branch": "arena/c178d87d-fightcamp-lean-lite",
    "issue": "https://arena.ai/agent/01a21781-6171-71d0-b446-b6a4c178d87d",
    "title": "Kicks: the two versions never measured, with the limp spiral capped where it fires",
-   "status": "running",
+   "status": "landed",
    "id": "KICKFIX3",
-   "started": "2026-11-26T13:05"
+   "started": "2026-11-26T13:05",
+   "reconciled": "2026-11-26 19:10 board_reconcile: PR #468 open - collect it"
   },
   "TELLS3M": {
    "id": "TELLS3M",
-   "status": "running",
+   "status": "landed",
    "seat": "arena",
    "agent": "Arena (cloud: costs your PC nothing)",
    "started": "2026-11-26T15:20",
@@ -24,7 +25,8 @@
    "brief": "ops/research/TASK_TELLS3M.md",
    "branch": "arena/181a4c7c-fightcamp-lean-lite",
    "issue": "https://arena.ai/agent/01a217e8-babc-765a-90b4-7ce4181a4c7c",
-   "title": "Tells version 3 measured with bots, bars against the control: does the tell help a little, does finding his lie pay?"
+   "title": "Tells version 3 measured with bots, bars against the control: does the tell help a little, does finding his lie pay?",
+   "reconciled": "2026-11-26 19:10 board_reconcile: PR #469 open - collect it"
   },
   "LONG1": {
    "id": "LONG1",
@@ -332,5 +334,38 @@
   "status": "running",
   "issue": "https://arena.ai/agent/01a20362-68fd-7381-b745-5ef003088e4d",
   "eta": "Kalli at next 30-min reconcile; Arena ~30-60 min"
+ },
+ "KICKFIX4": {
+  "id": "KICKFIX4",
+  "status": "running",
+  "seat": "claude",
+  "agent": "Claude console worker (your PC)",
+  "started": "2026-11-26T19:32",
+  "eta": "4-6 h",
+  "title": "Kicks round 4: a checked low kick hurts more, the low kick keeps the rear hand up - measured on your PC (Arena hit its daily limit)",
+  "brief": "ops/research/TASK_KICKFIX4.md",
+  "tab": "c1"
+ },
+ "TELLS4M": {
+  "id": "TELLS4M",
+  "status": "running",
+  "seat": "claude",
+  "agent": "Claude console worker (your PC)",
+  "started": "2026-11-26T19:32",
+  "eta": "3-4 h",
+  "title": "Tells round 4: the bot that spots the lie fixed, then a fake that may hide one real punch - measured on your PC",
+  "brief": "ops/research/TASK_TELLS4M.md",
+  "tab": "c2"
+ },
+ "KDPIC1": {
+  "id": "KDPIC1",
+  "status": "running",
+  "seat": "claude",
+  "agent": "Claude console worker (your PC)",
+  "started": "2026-11-26T19:32",
+  "eta": "2-4 h",
+  "title": "The knockdown stays inside the ring; the overhand gets its own picture (render worker)",
+  "brief": "ops/research/TASK_KDPIC1.md",
+  "tab": "c3"
  }
 }

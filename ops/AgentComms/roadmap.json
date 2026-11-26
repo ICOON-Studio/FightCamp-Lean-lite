@@ -6,16 +6,15 @@
   "id": "S566",
   "owner": "claude",
   "updated": "2026-11-26",
-  "summary": "S566 (Fable). His two marks on the Q-344 picture built (C520: \"can you add a strip with slots for each action so it is clear what happens when, and player can drage the slot to change the order, also would be nice if a holographic preview plays the current sellection\"; C521 on the help box: \"i do not understand what it does, maybe reoharse and use basic terminology\"): proto/twohands/strip_ui.js - three numbered slots under the ring on every page (a card per moment: what it does, what it leaves open; drag to change the order), a see-through blue copy of his boxer plays the chosen moves (after every change, and while the mouse is on the strip; the playing slot lights), the help box in plain words ('Choose your moves: click a part of your boxer, then the move'). v0.566.1. Stills on 8787/review. Q-344 itself is still open. COLLECTED: TELLS3M - 4 of 7 bars, not for the page (blind following wins +8 / +10 / +29 points over the control; the reader bot is wrong in the probe) -> TASK_TELLS4M written; KICKFIX3 - E2 and E3 5 of 9, the limp loop capped, E3 the base -> TASK_KICKFIX4 written. NOT LAUNCHED: Arena shows Log in in Chrome (his sign-in). LONG1 and LONG2 still running. KDPIC1 (the render worker) not launched: the PC was RED on memory with his game open.",
-  "next_action": "S567: his look at the strip + preview (8787/review, v0.566.1) and his answer to Q-344. Once he has signed in at arena.ai: launch TASK_KICKFIX4 and TASK_TELLS4M (lite mirror already pushed). Collect LONG1 (cba93bd0) and LONG2 (193e5c2c), judged together -> one Long rule as a toy page. KDPIC1 console worker when his game is closed and the watchdog is not RED. Then TASK_PROGP4 and INSIDE1 Phase 2 stills.",
+  "summary": "S566 (Fable). His two marks on the Q-344 picture built (C520: \"can you add a strip with slots for each action so it is clear what happens when, and player can drage the slot to change the order, also would be nice if a holographic preview plays the current sellection\"; C521 on the help box: \"i do not understand what it does, maybe reoharse and use basic terminology\"): proto/twohands/strip_ui.js - three numbered slots under the ring on every page (a card per moment: what it does, what it leaves open; drag to change the order), a see-through blue copy of his boxer plays the chosen moves (after every change, and while the mouse is on the strip; the playing slot lights), the help box in plain words ('Choose your moves: click a part of your boxer, then the move'). v0.566.1. Stills on 8787/review. Q-344 itself is still open. COLLECTED: TELLS3M - 4 of 7 bars, not for the page (blind following wins +8 / +10 / +29 points over the control; the reader bot is wrong in the probe) -> TASK_TELLS4M written; KICKFIX3 - E2 and E3 5 of 9, the limp loop capped, E3 the base -> TASK_KICKFIX4 written. NOT LAUNCHED: Arena shows Log in in Chrome (his sign-in). LONG1 and LONG2 still running. KDPIC1 (the render worker) not launched: the PC was RED on memory with his game open. LATER IN S566 (owner: \"yes close the old consoles ,move arenas work do notwait\"): the six old worker consoles closed (memory 96% -> 64%, PC GREEN); Arena is signed in on Browser 2 but at its daily limit until 20:33, so KICKFIX4 and TELLS4M run as console workers on the PC (tabs c1, c2; rules ops/research/WORKER_S566.md) and KDPIC1 as the render worker (c3). LONG2 collected: none for the page. The strip's drag proved with a real mouse.",
+  "next_action": "S567: collect the three console workers (docs/KICKFIX4_RESULT.md, docs/TELLS4M_RESULT.md, docs/KDPIC1_RESULT.md - check KDPIC1's pictures yourself); LONG1 at Arena (cba93bd0): Keep working after the 20:33 reset, then judge it with LONG2 -> TASK_LONG3 (the jab that meets him does health, alone and with K2). His look at the strip + preview (v0.566.1) and his answer to Q-344. Then TASK_PROGP4 and INSIDE1 Phase 2 stills.",
   "last_working_commit": "bfa5aa6ea",
   "verified_playable": "Builds/ exported in S556 (the S547 game plus S548's two changes: the 3D fight throws the body cross, the trial evening's pictures show the prospect's own body; pro_body_jab is on disk and unused by the game). Ring Switches (a browser toy): one beat played in the browser in S556 against the Jabber - both men threw a body jab, both landed, no console error; rules_test 34 pass; anim_check 124 runs PASS.",
   "incomplete_blocked": "Six Arena measures (TELLS3M, AIEMPTY1, JABLAND2, KICKFIX3, LONG1, LONG2) and the BOUNCE1 console worker still running at the handover. No export: no game code changed (proto pages and node tools only). Uncommitted pictures from earlier sessions sit in proto/twohands/img/anim: left for the render workers.",
   "next_acceptance": "Each run collected and judged against its bars; his question on the moment answered with both seeds; a Long rule chosen from LONG1 / LONG2 only if it holds the bars on both seeds.",
   "awaiting_operator": [
    "Q-344: the step a moment later - main page, own page, or drop",
-   "Sign in at arena.ai in Chrome (two cloud runs wait on it)",
-   "Close the old idle worker consoles (about 1.5 GB)?"
+   "Your look at the strip + preview (v0.566.1, 8787/review)"
   ]
  },
  "next": "S562: see NEXT_SESSION_PROMPT.md - collect four Arena runs, then the body view as the main page's way to pick (his Q-343).",
@@ -2484,7 +2483,7 @@
   {
    "id": "S566",
    "date": "2026-11-26",
-   "summary": "S566 (Fable). His two marks on the Q-344 picture built (C520: \"can you add a strip with slots for each action so it is clear what happens when, and player can drage the slot to change the order, also would be nice if a holographic preview plays the current sellection\"; C521 on the help box: \"i do not understand what it does, maybe reoharse and use basic terminology\"): proto/twohands/strip_ui.js - three numbered slots under the ring on every page (a card per moment: what it does, what it leaves open; drag to change the order), a see-through blue copy of his boxer plays the chosen moves (after every change, and while the mouse is on the strip; the playing slot lights), the help box in plain words ('Choose your moves: click a part of your boxer, then the move'). v0.566.1. Stills on 8787/review. Q-344 itself is still open. COLLECTED: TELLS3M - 4 of 7 bars, not for the page (blind following wins +8 / +10 / +29 points over the control; the reader bot is wrong in the probe) -> TASK_TELLS4M written; KICKFIX3 - E2 and E3 5 of 9, the limp loop capped, E3 the base -> TASK_KICKFIX4 written. NOT LAUNCHED: Arena shows Log in in Chrome (his sign-in). LONG1 and LONG2 still running. KDPIC1 (the render worker) not launched: the PC was RED on memory with his game open."
+   "summary": "S566 (Fable). His two marks on the Q-344 picture built (C520: \"can you add a strip with slots for each action so it is clear what happens when, and player can drage the slot to change the order, also would be nice if a holographic preview plays the current sellection\"; C521 on the help box: \"i do not understand what it does, maybe reoharse and use basic terminology\"): proto/twohands/strip_ui.js - three numbered slots under the ring on every page (a card per moment: what it does, what it leaves open; drag to change the order), a see-through blue copy of his boxer plays the chosen moves (after every change, and while the mouse is on the strip; the playing slot lights), the help box in plain words ('Choose your moves: click a part of your boxer, then the move'). v0.566.1. Stills on 8787/review. Q-344 itself is still open. COLLECTED: TELLS3M - 4 of 7 bars, not for the page (blind following wins +8 / +10 / +29 points over the control; the reader bot is wrong in the probe) -> TASK_TELLS4M written; KICKFIX3 - E2 and E3 5 of 9, the limp loop capped, E3 the base -> TASK_KICKFIX4 written. NOT LAUNCHED: Arena shows Log in in Chrome (his sign-in). LONG1 and LONG2 still running. KDPIC1 (the render worker) not launched: the PC was RED on memory with his game open. LATER IN S566 (owner: \"yes close the old consoles ,move arenas work do notwait\"): the six old worker consoles closed (memory 96% -> 64%, PC GREEN); Arena is signed in on Browser 2 but at its daily limit until 20:33, so KICKFIX4 and TELLS4M run as console workers on the PC (tabs c1, c2; rules ops/research/WORKER_S566.md) and KDPIC1 as the render worker (c3). LONG2 collected: none for the page. The strip's drag proved with a real mouse."
   }
  ],
  "blocked_on_operator": [],
@@ -5403,7 +5402,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-26",
+  "updated": "2026-11-26 19:11 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5580,10 +5579,48 @@
   },
   "working_now": [
    {
+    "title": "Kicks: the two versions never measured, with the limp spiral capped where it fires",
+    "who": "Arena (cloud: costs your PC nothing)",
+    "started": "2026-11-26T13:05",
+    "run": "KICKFIX3",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "Tells version 3 measured with bots, bars against the control: does the tell help a little, does finding his lie pay?",
+    "who": "Arena (cloud: costs your PC nothing)",
+    "started": "2026-11-26T15:20",
+    "run": "TELLS3M",
+    "state": "LANDED - Claude collects"
+   },
+   {
     "title": "Long range is a corridor: a jab that stops a man stepping in, and a lead hand held high as a fence - both measured before anything is built",
     "who": "Arena (cloud: costs your PC nothing)",
     "started": "2026-11-26T16:01",
     "run": "LONG1"
+   },
+   {
+    "title": "Long range, Kalli's pick: the cross a man walks onto as he steps in, and jabs that score 2 on a stepping man - counted on today's page first, then measured",
+    "who": "Arena (cloud, a second chat: costs your PC nothing)",
+    "started": "2026-11-26T16:06",
+    "run": "LONG2"
+   },
+   {
+    "title": "Kicks round 4: a checked low kick hurts more, the low kick keeps the rear hand up - measured on your PC (Arena hit its daily limit)",
+    "who": "Claude console worker (your PC)",
+    "started": "2026-11-26T19:32",
+    "run": "KICKFIX4"
+   },
+   {
+    "title": "Tells round 4: the bot that spots the lie fixed, then a fake that may hide one real punch - measured on your PC",
+    "who": "Claude console worker (your PC)",
+    "started": "2026-11-26T19:32",
+    "run": "TELLS4M"
+   },
+   {
+    "title": "The knockdown stays inside the ring; the overhand gets its own picture (render worker)",
+    "who": "Claude console worker (your PC)",
+    "started": "2026-11-26T19:32",
+    "run": "KDPIC1"
    }
   ],
   "next": [
@@ -5603,18 +5640,6 @@
     "id": "ALLIN1",
     "who": "operator",
     "title": "The 'All in' comeback switch (built by mistake under the game's name): you said 'sounds fun if it is balanced properly' - it stays as a trial page; next: real players try it (you, then the playtester seats), and a ground version is designed before MMA",
-    "after": ""
-   },
-   {
-    "id": "TELLS4M",
-    "who": "arena",
-    "title": "Tells round 4: version 3 held 4 of 7 bars (obeying every tell wins too easily) - a fake may hide one real punch, and the bot that spots the lie is fixed; waits for your Arena sign-in",
-    "after": ""
-   },
-   {
-    "id": "KICKFIX4",
-    "who": "arena",
-    "title": "Kicks round 4: the limp spiral is capped (5 of 9 bars); next a checked low kick hurts more and the low kick keeps the rear hand up; waits for your Arena sign-in",
     "after": ""
    },
    {
@@ -5652,12 +5677,6 @@
     "who": "claude",
     "title": "Your 'Yes, a choice' (Q-340) measured: 'cheaper or faster' is a real choice for the overhand only (57% / 55%); the hook's cheaper card is dead, three punches always take cheaper, the cross is too strong both ways - next: a pair of its own for each punch, measured",
     "after": ""
-   },
-   {
-    "id": "KDPIC1",
-    "who": "claude",
-    "title": "The knockdown stays inside the ring; the overhand gets its own take (none exists: our archives, then Ludo for one hour) - brief ready (TASK_KDPIC1), after the renders",
-    "after": "INSIDE1"
    },
    {
     "id": "GLIDE1",
@@ -6373,6 +6392,18 @@
     {
      "text": "Your play: strip + preview",
      "who": "claude"
+    },
+    {
+     "text": "KICKFIX4 (worker): kicks 4",
+     "who": "claude"
+    },
+    {
+     "text": "TELLS4M (worker): tells 4",
+     "who": "claude"
+    },
+    {
+     "text": "KDPIC1 (worker): knockdown pic",
+     "who": "claude"
     }
    ],
    "next": [
@@ -6867,7 +6898,7 @@
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
  "last_working_commit": "bfa5aa6ea",
- "next_action": "S567: his look at the strip + preview (8787/review, v0.566.1) and his answer to Q-344. Once he has signed in at arena.ai: launch TASK_KICKFIX4 and TASK_TELLS4M (lite mirror already pushed). Collect LONG1 (cba93bd0) and LONG2 (193e5c2c), judged together -> one Long rule as a toy page. KDPIC1 console worker when his game is closed and the watchdog is not RED. Then TASK_PROGP4 and INSIDE1 Phase 2 stills.",
+ "next_action": "S567: collect the three console workers (docs/KICKFIX4_RESULT.md, docs/TELLS4M_RESULT.md, docs/KDPIC1_RESULT.md - check KDPIC1's pictures yourself); LONG1 at Arena (cba93bd0): Keep working after the 20:33 reset, then judge it with LONG2 -> TASK_LONG3 (the jab that meets him does health, alone and with K2). His look at the strip + preview (v0.566.1) and his answer to Q-344. Then TASK_PROGP4 and INSIDE1 Phase 2 stills.",
  "next_acceptance": "Rulers vs r0: head jumps on the contact frame under 4, a head inside the other's body under 5 frames, arm out median under 4 frames with join_return green, then r1 film at two fresh blind critics 5+/10",
  "superseded_archive": [
   {
