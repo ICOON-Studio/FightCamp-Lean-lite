@@ -57,7 +57,7 @@
     const x1 = X(TOES[range][1] / 480), x2 = X(TOES[range][0] / 480), w = Math.max(18, Math.abs(x2 - x1)), mid = (x1 + x2) / 2, gap = ruler.querySelector('.gap');
     gap.style.left = (mid - w / 2) + 'px'; gap.style.width = w + 'px'; gap.style.top = (y - 4) + 'px';
     const reach = hoverReach ? hoverReach.includes(range) : null; gap.className = 'gap' + (reach === true ? ' ok' : reach === false ? ' no' : '');
-    const lab = ruler.querySelector('.plabel'); lab.style.top = (y - 26) + 'px';   /* above the bar, between the shins (under it the ring ends) */ lab.style.left = mid + 'px';
+    const lab = ruler.querySelector('.plabel'); lab.style.top = (y + (range === 1 ? 46 : 12)) + 'px';   /* S560 (owner C515: no overlaps on the fighters): UNDER the bar, on the canvas in front of the boots - above it the words sat on the shins and the boots; Inside the boots pass each other, so lower still */ lab.style.left = mid + 'px';
     lab.innerHTML = hoverReach ? `${hoverName} ${reach ? 'reaches' : '<u>does not reach</u>'} at ${RNG[range]}` : `<b>${RNG[range]}</b> ${range === 1 ? 'toe to toe' : cm(range) + ' cm'}`;
     if (range !== shown) { if (shown) { gap.classList.remove('flash'); void gap.offsetWidth; gap.classList.add('flash'); } shown = range; } }
   document.addEventListener('mouseover', (e) => { const b = e.target.closest ? e.target.closest('.sw') : null, g = b && b.dataset.g, id = b && b.dataset.id;

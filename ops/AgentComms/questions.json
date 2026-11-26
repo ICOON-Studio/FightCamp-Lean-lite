@@ -9307,6 +9307,119 @@
       "answered_at": "2026-11-25T01:38:12Z",
       "seen_by_claude": true,
       "comment_only": false
+    },
+    {
+      "id": "Q-S294-337",
+      "asked": "2026-11-25T21:41:35.456733+00:00",
+      "session": "S294",
+      "text": "Put Rune's pull counter on the page? A back off arms your next punch, +1 health.",
+      "options": [
+        "Yes, put it on",
+        "Not yet"
+      ],
+      "attach": [
+        "research/PULLCOUNTER_S559.md"
+      ],
+      "answer": "Yes, put it on",
+      "note": null,
+      "answered_at": "2026-11-25T22:22:24Z",
+      "seen_by_claude": true,
+      "comment_only": false
+    },
+    {
+      "id": "Q-S294-338",
+      "asked": "2026-11-26T07:43:33.880255+00:00",
+      "session": "S294",
+      "text": "Body view: pointing at HIS limb shows what it did the last 3 beats. Right?",
+      "options": [
+        "Yes",
+        "Show what it can do",
+        "Nothing on him"
+      ],
+      "attach": [],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-339",
+      "asked": "2026-11-26T07:43:34.792020+00:00",
+      "session": "S294",
+      "text": "Body view: head opens slip, roll, lean back; torso the clinch; legs the steps?",
+      "options": [
+        "Yes",
+        "Legs for all movement"
+      ],
+      "attach": [],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-340",
+      "asked": "2026-11-26T07:43:35.562619+00:00",
+      "session": "S294",
+      "text": "Progression: when a move reaches Sharp, you pick one of two upgrades for it?",
+      "options": [
+        "Yes, a choice",
+        "No, one fixed upgrade"
+      ],
+      "attach": [],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-341",
+      "asked": "2026-11-26T07:43:36.319268+00:00",
+      "session": "S294",
+      "text": "Progression: before each bout you pick which moves go in (a fight plan)?",
+      "options": [
+        "Try it",
+        "No"
+      ],
+      "attach": [],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-342",
+      "asked": "2026-11-26T07:43:37.138430+00:00",
+      "session": "S294",
+      "text": "Progression: four attributes on the fight board (health, stamina, recovery, guard), the rest in the gym?",
+      "options": [
+        "Right amount",
+        "Fewer",
+        "More"
+      ],
+      "attach": [],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-343",
+      "asked": "2026-11-26T07:43:42.752434+00:00",
+      "session": "S294",
+      "text": "Body view (new stills on the review page): make it how you pick switches on the main page?",
+      "options": [
+        "Yes, replace the board",
+        "Offer both",
+        "Keep the board"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-343_0_body_mid_lead_hand.png"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
     }
   ]
 }

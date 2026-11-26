@@ -24794,6 +24794,110 @@
    "out": "E:/FightCamp/tmp/zivaplay1/ZIVAPLAY1_REPORT.md",
    "landed": "2026-11-25T18:23",
    "result": "ops/research/ZIVAPLAY1_REPORT.md: FUN 6, DEPTH 7, CLARITY 6, VARIETY 6; seven changes to reach 10; its drawing ops/research/ZIVAPLAY1_TEN.html"
+  },
+  {
+   "id": "MATCHBOTS2",
+   "status": "done",
+   "seat": "claude",
+   "agent": "claude-opus-5-5 (a console tab after PLANIMPACT1: one worker at a time while the owner plays)",
+   "eta": "about 3 h once launched; its probe and test hooks are on disk, uncommitted (the first worker died with the PC restart at step 0-1)",
+   "title": "Scouting must protect a boxer again: the bot that scouts is stopped more often than the one that does not (red in the 05:00 tests)",
+   "brief": "ops/research/TASK_MATCHBOTS2.md",
+   "started": "2026-11-24T12:08",
+   "note": "closed S560: NIGHTREDS2 (S559) turned matchmaking_bots green, the worker never needed",
+   "archived": "2026-11-26 S560"
+  },
+  {
+   "id": "COACHMAP1_CRITICS",
+   "status": "done",
+   "seat": "kalli, dola",
+   "agent": "Kalli (SQ323), Dola (SQ324) - the 30-min job sends them",
+   "started": "2026-11-24T13:15",
+   "eta": "answers within about 2 h",
+   "title": "Critics on the coaches map as cut (trial week out, chemistry on the hire card): depth and play out of 10, and what reaches 10",
+   "brief": "ops/research/CRITIC_COACHMAP1_BRIEF.md",
+   "note": "closed S560: superseded, COACHMAP2 failed (S551), coaches parked behind Ring Switches",
+   "archived": "2026-11-26 S560"
+  },
+  {
+   "id": "ALLPLAY1_ARENA",
+   "status": "landed",
+   "seat": "arena",
+   "agent": "Arena (six bouts in its own clone)",
+   "started": "2026-11-25T20:45",
+   "eta": "report in: fun 7, depth 7, clarity 7, variety 7 (6 wins); ops/research/allplay1/arena",
+   "title": "Ring Switches playtest, judged on fun (his order: have it playtested by all agents and also you)",
+   "brief": "ops/research/TASK_ALLPLAY1.md",
+   "issue": "https://arena.ai/agent/01a213f1-abc2-7e72-8f58-694c714b1075",
+   "branch": "arena/714b1075-fightcamp-lean-lite",
+   "archived": "2026-11-26 S560"
+  },
+  {
+   "id": "ALLPLAY1_ZIVA",
+   "status": "landed",
+   "seat": "ziva",
+   "agent": "Ziva (six bouts, its editor chat on 7012)",
+   "started": "2026-11-25T20:45",
+   "eta": "report in: fun 7, depth 8, clarity 7, variety 7 (2 wins, 4 losses); ops/research/allplay1/ziva",
+   "title": "Ring Switches playtest, judged on fun (his order: have it playtested by all agents and also you)",
+   "brief": "ops/research/TASK_ALLPLAY1.md",
+   "archived": "2026-11-26 S560"
+  },
+  {
+   "id": "ALLPLAY1_AGY",
+   "status": "landed",
+   "seat": "antigravity",
+   "agent": "Antigravity (three bouts by message, play_by_message.mjs)",
+   "started": "2026-11-25T20:45",
+   "eta": "report in: fun 7, depth 7, clarity 6, variety 6 (3 wins); ops/research/allplay1/antigravity",
+   "title": "Ring Switches playtest, judged on fun (his order: have it playtested by all agents and also you)",
+   "brief": "ops/research/TASK_ALLPLAY1.md",
+   "archived": "2026-11-26 S560"
+  },
+  {
+   "id": "ALLPLAY1_CLINE",
+   "status": "stopped",
+   "seat": "cline",
+   "agent": "Cline on a free OpenRouter model",
+   "started": "2026-11-25T20:45",
+   "eta": "stopped after 2 bouts and 9 beats: free-models-per-day limit; resumes when the daily limit resets",
+   "title": "Ring Switches playtest, judged on fun (his order: have it playtested by all agents and also you)",
+   "brief": "ops/research/TASK_ALLPLAY1.md",
+   "archived": "2026-11-26 S560"
+  },
+  {
+   "id": "ALLPLAY1_GROK",
+   "status": "parked",
+   "seat": "kalli, john, maria",
+   "agent": "Grok bots by message (play_by_message.mjs)",
+   "started": "2026-11-25T20:45",
+   "eta": "owner S558: grokbots are out of quota; the drivers resume with the same command when the quota is back",
+   "title": "Ring Switches playtest, judged on fun (his order: have it playtested by all agents and also you)",
+   "brief": "ops/research/TASK_ALLPLAY1.md",
+   "archived": "2026-11-26 S560"
+  },
+  {
+   "id": "ALLPLAY1_DOLA",
+   "status": "landed",
+   "seat": "dola",
+   "agent": "Dola (three bouts by message, play_by_message.mjs via=dola; owner S558: tgry dola now)",
+   "started": "2026-11-25T21:21",
+   "eta": "report in: fun 8, depth 7, clarity 7, variety 8 (1 win, 2 losses); ops/research/allplay1/dola",
+   "title": "Ring Switches playtest, judged on fun (his order: have it playtested by all agents and also you)",
+   "brief": "ops/research/TASK_ALLPLAY1.md",
+   "archived": "2026-11-26 S560"
+  },
+  {
+   "id": "RUNESTEP1",
+   "status": "done",
+   "seat": "claude worker",
+   "agent": "console worker (Opus, Code Mode), terminal tab RUNESTEP1",
+   "started": "2026-11-25T22:50",
+   "eta": "1 to 2 hours",
+   "title": "Rune Coliseum's step mechanic, and does its logic fit Ring Switches (owner S558)",
+   "brief": "ops/research/TASK_RUNESTEP1.md",
+   "note": "done S559: study read (RUNESTEP1_STUDY.md), pull counter measured 8 of 9",
+   "archived": "2026-11-26 S560"
   }
  ],
  "KNOWBUILD1": {

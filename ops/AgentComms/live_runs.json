@@ -2,97 +2,35 @@
  "_doc": "Claude writes one entry per agent run at launch (operator S144: 'make it more clear, who is working on what, ETA'). The ops board /agents page joins it to the live processes. eta = Claude's estimate at launch, local time; status running|waiting|done.",
  "seats": 3,
  "runs": {
-  "MATCHBOTS2": {
-   "id": "MATCHBOTS2",
+  "PUNCHCHANCE1": {
+   "id": "PUNCHCHANCE1",
+   "status": "running",
+   "seat": "claude",
+   "agent": "console worker (Opus, Code Mode), terminal tab PUNCHCHANCE1",
+   "started": "2026-11-26T09:35",
+   "eta": "about 12:35",
+   "title": "Puncher's chance: a comeback switch for the man behind - measured on the instrument before it reaches the page (your S559 idea)",
+   "brief": "ops/research/TASK_PUNCHCHANCE1.md"
+  },
+  "HEADPICS1": {
+   "id": "HEADPICS1",
+   "status": "waiting",
+   "seat": "claude",
+   "agent": "console worker (Opus) - STOPPED 09:50 while your game is open; restarts when it closes",
+   "started": "2026-11-26T09:35",
+   "eta": "3 to 4 hours once restarted",
+   "title": "Head-move pictures: slip, roll, lean back, slip in - from our owned takes, on your camera",
+   "brief": "ops/research/TASK_HEADPICS1.md"
+  },
+  "KICKFIX2": {
+   "id": "KICKFIX2",
    "status": "queued",
    "seat": "claude",
-   "agent": "claude-opus-5-5 (a console tab after PLANIMPACT1: one worker at a time while the owner plays)",
-   "eta": "about 3 h once launched; its probe and test hooks are on disk, uncommitted (the first worker died with the PC restart at step 0-1)",
-   "title": "Scouting must protect a boxer again: the bot that scouts is stopped more often than the one that does not (red in the 05:00 tests)",
-   "brief": "ops/research/TASK_MATCHBOTS2.md",
-   "started": "2026-11-24T12:08"
-  },
-  "COACHMAP1_CRITICS": {
-   "id": "COACHMAP1_CRITICS",
-   "status": "queued",
-   "seat": "kalli, dola",
-   "agent": "Kalli (SQ323), Dola (SQ324) - the 30-min job sends them",
-   "started": "2026-11-24T13:15",
-   "eta": "answers within about 2 h",
-   "title": "Critics on the coaches map as cut (trial week out, chemistry on the hire card): depth and play out of 10, and what reaches 10",
-   "brief": "ops/research/CRITIC_COACHMAP1_BRIEF.md"
-  },
-  "ALLPLAY1_ARENA": {
-   "id": "ALLPLAY1_ARENA",
-   "status": "landed",
-   "seat": "arena",
-   "agent": "Arena (six bouts in its own clone)",
-   "started": "2026-11-25T20:45",
-   "eta": "report in: fun 7, depth 7, clarity 7, variety 7 (6 wins); ops/research/allplay1/arena",
-   "title": "Ring Switches playtest, judged on fun (his order: have it playtested by all agents and also you)",
-   "brief": "ops/research/TASK_ALLPLAY1.md",
-   "issue": "https://arena.ai/agent/01a213f1-abc2-7e72-8f58-694c714b1075",
-   "branch": "arena/714b1075-fightcamp-lean-lite"
-  },
-  "ALLPLAY1_ZIVA": {
-   "id": "ALLPLAY1_ZIVA",
-   "status": "landed",
-   "seat": "ziva",
-   "agent": "Ziva (six bouts, its editor chat on 7012)",
-   "started": "2026-11-25T20:45",
-   "eta": "report in: fun 7, depth 8, clarity 7, variety 7 (2 wins, 4 losses); ops/research/allplay1/ziva",
-   "title": "Ring Switches playtest, judged on fun (his order: have it playtested by all agents and also you)",
-   "brief": "ops/research/TASK_ALLPLAY1.md"
-  },
-  "ALLPLAY1_AGY": {
-   "id": "ALLPLAY1_AGY",
-   "status": "landed",
-   "seat": "antigravity",
-   "agent": "Antigravity (three bouts by message, play_by_message.mjs)",
-   "started": "2026-11-25T20:45",
-   "eta": "report in: fun 7, depth 7, clarity 6, variety 6 (3 wins); ops/research/allplay1/antigravity",
-   "title": "Ring Switches playtest, judged on fun (his order: have it playtested by all agents and also you)",
-   "brief": "ops/research/TASK_ALLPLAY1.md"
-  },
-  "ALLPLAY1_CLINE": {
-   "id": "ALLPLAY1_CLINE",
-   "status": "stopped",
-   "seat": "cline",
-   "agent": "Cline on a free OpenRouter model",
-   "started": "2026-11-25T20:45",
-   "eta": "stopped after 2 bouts and 9 beats: free-models-per-day limit; resumes when the daily limit resets",
-   "title": "Ring Switches playtest, judged on fun (his order: have it playtested by all agents and also you)",
-   "brief": "ops/research/TASK_ALLPLAY1.md"
-  },
-  "ALLPLAY1_GROK": {
-   "id": "ALLPLAY1_GROK",
-   "status": "parked",
-   "seat": "kalli, john, maria",
-   "agent": "Grok bots by message (play_by_message.mjs)",
-   "started": "2026-11-25T20:45",
-   "eta": "owner S558: grokbots are out of quota; the drivers resume with the same command when the quota is back",
-   "title": "Ring Switches playtest, judged on fun (his order: have it playtested by all agents and also you)",
-   "brief": "ops/research/TASK_ALLPLAY1.md"
-  },
-  "ALLPLAY1_DOLA": {
-   "id": "ALLPLAY1_DOLA",
-   "status": "landed",
-   "seat": "dola",
-   "agent": "Dola (three bouts by message, play_by_message.mjs via=dola; owner S558: tgry dola now)",
-   "started": "2026-11-25T21:21",
-   "eta": "report in: fun 8, depth 7, clarity 7, variety 8 (1 win, 2 losses); ops/research/allplay1/dola",
-   "title": "Ring Switches playtest, judged on fun (his order: have it playtested by all agents and also you)",
-   "brief": "ops/research/TASK_ALLPLAY1.md"
-  },
-  "RUNESTEP1": {
-   "id": "RUNESTEP1",
-   "status": "running",
-   "seat": "claude worker",
-   "agent": "console worker (Opus, Code Mode), terminal tab RUNESTEP1",
-   "started": "2026-11-25T22:50",
-   "eta": "1 to 2 hours",
-   "title": "Rune Coliseum's step mechanic, and does its logic fit Ring Switches (owner S558)",
-   "brief": "ops/research/TASK_RUNESTEP1.md"
+   "agent": "console worker (Opus) - queued behind the Puncher's chance measure (one worker while your game is open)",
+   "started": "2026-11-26T09:50",
+   "eta": "about 3 h once launched",
+   "title": "The kick version that holds 8 of 9 bars: kicks back at Long, the low kick as the answer to a man stepping in",
+   "brief": "ops/research/TASK_KICKFIX2.md"
   }
  },
  "codex_budget": {

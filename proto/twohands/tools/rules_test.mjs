@@ -212,4 +212,12 @@ test('S558: a man whose health is at 0 throws nothing more that beat; two punche
   S = ring(2); S.f[0].hp = 3; S.f[1].hp = 3; ev = resolve(S, [plan({ rear: 'cross', hl: 'low' }), plan({ rear: 'cross', hl: 'low' })]);
   assert.ok(find(ev, 0, 'hit', 'cross') && find(ev, 1, 'hit', 'cross'), 'both crosses of the same moment land'); assert.ok(S.f[0].hp <= 0 && S.f[1].hp <= 0);
 });
+test('S560 the pull counter: a back off arms the next punch of the man who backed off, +1 when it lands; cut off by a step in it arms nothing', () => {
+  let S = ring(2), ev = resolve(S, [plan({ feet: 'back', lead: 'jab', ord: ['feet', 'lead'] }), plan({ hl: 'low' })]), h = find(ev, 0, 'hit', 'jab');
+  assert.equal(S.range, 3); assert.ok(h, 'the jab off the back foot did not land'); assert.equal(h.dmg, ACT.jab.d + 1); assert.match(h.o, /off the pull, \+1/); assert.equal(S.f[1].hp, N.hp - ACT.jab.d - 1);
+  S = ring(2); ev = resolve(S, [plan({ lead: 'jab' }), plan({ hl: 'low' })]); h = find(ev, 0, 'hit', 'jab');   /* the control: no back off, no +1 */
+  assert.equal(h.dmg, ACT.jab.d); assert.doesNotMatch(h.o, /off the pull/);
+  S = ring(2); ev = resolve(S, [plan({ feet: 'back', lead: 'hook', ord: ['feet', 'lead'] }), plan({ feet: 'in', hr: 'low', ord: ['feet'] })]); h = find(ev, 0, 'hit', 'hook');   /* he steps in as I back off: cut off */
+  assert.equal(S.range, 1); assert.ok(h, 'the hook did not land'); assert.equal(h.dmg, ACT.hook.d); assert.doesNotMatch(h.o, /off the pull/);
+});
 console.log(`RULES_TEST ${n} passed${process.exitCode ? ' - FAILURES above' : ''}`);

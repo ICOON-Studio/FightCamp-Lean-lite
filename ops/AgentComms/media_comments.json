@@ -3925,7 +3925,8 @@
       "at": "2026-11-25T01:43:12Z",
       "seen_by_claude": true,
       "at_s": 18.0,
-      "id": "C508"
+      "id": "C508",
+      "addressed": "cited by b35bf8488 2026-11-25"
     },
     {
       "path": "_sent/2026-11-25_0134_ring_switches_every_action_frame_by_fram/before_after_real_speed.mp4",
@@ -3933,7 +3934,8 @@
       "at": "2026-11-25T01:44:31Z",
       "seen_by_claude": true,
       "at_s": 8.9,
-      "id": "C509"
+      "id": "C509",
+      "addressed": "cited by b35bf8488 2026-11-25"
     },
     {
       "path": "_sent/2026-11-24_1758_the_close_body_hook_you_said_had_no_punc/bodycross4_close_hook_before_after_m.mp4",
@@ -3965,6 +3967,48 @@
       "at": "2026-11-25T02:45:22Z",
       "seen_by_claude": true,
       "id": "C513"
+    },
+    {
+      "path": "_sent/2026-11-25_2323_guard_rear_glove_off_the_ear_beside_the_/s559_guard_ear_before_after.png",
+      "text": "Looks fine",
+      "at": "2026-11-25T22:18:24Z",
+      "seen_by_claude": true,
+      "id": "C514"
+    },
+    {
+      "path": "_sent/2026-11-25_2308_body_mapped_switches_toy_body_html/s559_body_toy.png",
+      "text": "no overlaps on the fighters and menus . use smaller buttons and and tooltip to make that popu smaller",
+      "at": "2026-11-25T22:19:19Z",
+      "seen_by_claude": true,
+      "id": "C515"
+    },
+    {
+      "path": "_sent/2026-11-25_2214_all_agents_playtest_of_ring_switches_eac/ten_antigravity.png",
+      "text": "not bad",
+      "at": "2026-11-25T22:19:35Z",
+      "seen_by_claude": true,
+      "id": "C516"
+    },
+    {
+      "path": "_sent/2026-11-25_2214_all_agents_playtest_of_ring_switches_eac/ten_claude.png",
+      "text": "not bad",
+      "at": "2026-11-25T22:19:39Z",
+      "seen_by_claude": true,
+      "id": "C517"
+    },
+    {
+      "path": "_sent/2026-11-25_2214_all_agents_playtest_of_ring_switches_eac/ten_dola.png",
+      "text": "nah",
+      "at": "2026-11-25T22:19:52Z",
+      "seen_by_claude": true,
+      "id": "C518"
+    },
+    {
+      "path": "_sent/2026-11-25_2042_low_cover_a_blocked_body_punch_before_an/lowcover_before_after.png",
+      "text": "Looks fine",
+      "at": "2026-11-25T22:20:21Z",
+      "seen_by_claude": true,
+      "id": "C519"
     }
   ]
 }

@@ -5366,7 +5366,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-25 23:01 board_sync",
+  "updated": "2026-11-26 09:40 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5528,38 +5528,16 @@
   },
   "working_now": [
    {
-    "title": "Ring Switches playtest, judged on fun (his order: have it playtested by all agents and also you)",
-    "who": "Arena (six bouts in its own clone)",
-    "started": "2026-11-25T20:45",
-    "run": "ALLPLAY1_ARENA",
-    "state": "LANDED - Claude collects"
+    "title": "Puncher's chance: a comeback switch for the man behind - measured on the instrument before it reaches the page (your S559 idea)",
+    "who": "console worker (Opus, Code Mode), terminal tab PUNCHCHANCE1",
+    "started": "2026-11-26T09:35",
+    "run": "PUNCHCHANCE1"
    },
    {
-    "title": "Ring Switches playtest, judged on fun (his order: have it playtested by all agents and also you)",
-    "who": "Ziva (six bouts, its editor chat on 7012)",
-    "started": "2026-11-25T20:45",
-    "run": "ALLPLAY1_ZIVA",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "Ring Switches playtest, judged on fun (his order: have it playtested by all agents and also you)",
-    "who": "Antigravity (three bouts by message, play_by_message.mjs)",
-    "started": "2026-11-25T20:45",
-    "run": "ALLPLAY1_AGY",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "Ring Switches playtest, judged on fun (his order: have it playtested by all agents and also you)",
-    "who": "Dola (three bouts by message, play_by_message.mjs via=dola; owner S558: tgry dola now)",
-    "started": "2026-11-25T21:21",
-    "run": "ALLPLAY1_DOLA",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "Rune Coliseum's step mechanic, and does its logic fit Ring Switches (owner S558)",
-    "who": "console worker (Opus, Code Mode), terminal tab RUNESTEP1",
-    "started": "2026-11-25T22:50",
-    "run": "RUNESTEP1"
+    "title": "Head-move pictures: slip, roll, lean back, slip in - from our owned takes, on your camera",
+    "who": "console worker (Opus, Code Mode), terminal tab HEADPICS1",
+    "started": "2026-11-26T09:35",
+    "run": "HEADPICS1"
    }
   ],
   "next": [
@@ -6153,64 +6131,6 @@
   "map": {
    "done_earlier": [
     {
-     "text": "ZIVARULES1 read: no gain",
-     "who": "claude"
-    },
-    {
-     "text": "Low cover: page play + strip",
-     "who": "claude"
-    },
-    {
-     "text": "Claude played 3 bouts: 8,8,6,6",
-     "who": "claude"
-    },
-    {
-     "text": "All agents played: 5 reports",
-     "who": "claude"
-    },
-    {
-     "text": "Page: 10-8 round, KD stops beat",
-     "who": "claude"
-    },
-    {
-     "text": "Clinch measured: pays too well",
-     "who": "claude"
-    },
-    {
-     "text": "ZIVAFIX1: 4 clarity changes",
-     "who": "claude"
-    },
-    {
-     "text": "Cards fixed: no 0-0 draw",
-     "who": "claude"
-    },
-    {
-     "text": "Kalli table: 4, 4, 6 of 9",
-     "who": "claude"
-    },
-    {
-     "text": "Repeats measured: rare",
-     "who": "claude"
-    },
-    {
-     "text": "Low cover rendered",
-     "who": "claude"
-    },
-    {
-     "text": "Southpaw measured: 2 variants",
-     "who": "claude"
-    },
-    {
-     "text": "Body jab: own take + pictures",
-     "who": "claude"
-    },
-    {
-     "text": "Even round to ground: measured",
-     "who": "claude"
-    }
-   ],
-   "done_session": [
-    {
      "text": "Body-mapped switches: toy built",
      "who": "claude"
     },
@@ -6265,28 +6185,9 @@
     {
      "text": "21 movement shorts catalogued",
      "who": "claude"
-    },
-    {
-     "text": "Head moves page + 11 tests",
-     "who": "claude"
-    },
-    {
-     "text": "Your camera on every picture",
-     "who": "claude"
-    },
-    {
-     "text": "Lit limbs + first kick pictures",
-     "who": "claude"
-    },
-    {
-     "text": "3 nightly reds green",
-     "who": "claude"
-    },
-    {
-     "text": "Head move art: owned takes",
-     "who": "claude"
     }
    ],
+   "done_session": [],
    "now": [
     {
      "text": "Between-rounds voices: your ear",
@@ -6426,6 +6327,22 @@
     },
     {
      "text": "Kick fixes C/D: measuring",
+     "who": "claude"
+    },
+    {
+     "text": "Pull counter on the page",
+     "who": "claude"
+    },
+    {
+     "text": "Puncher's chance: measuring",
+     "who": "claude"
+    },
+    {
+     "text": "Head move pictures (worker)",
+     "who": "claude"
+    },
+    {
+     "text": "Body toy: no overlaps",
      "who": "claude"
     }
    ],
@@ -6863,7 +6780,7 @@
      "who": "claude"
     }
    ],
-   "session": "S559"
+   "session": "S560"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",

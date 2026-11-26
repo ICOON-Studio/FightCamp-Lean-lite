@@ -1,0 +1,30 @@
+{
+ "_note": "S560: the head-movement page WITH the pull counter (on order.html since S560, owner Q-337 'Yes, put it on'): a back off arms that man's next punch in the beat, +1. head_base was 8 of 9 (lead uppercut lands 66%).",
+ "page": "head.html",
+ "src": [
+  [
+   "const opening = [0, 0], drawn = [0, 0];",
+   "const opening = [0, 0], drawn = [0, 0], pulled = [0, 0];"
+  ],
+  [
+   "else { d++; f[k].ropes++; f[k].gave = (f[k].gave || 0) + 1; }",
+   "else { d++; f[k].ropes++; f[k].gave = (f[k].gave || 0) + 1; pulled[k] = 1; }"
+  ],
+  [
+   "&& P[k].feet === 'back')) d = -1;",
+   "&& P[k].feet === 'back')) { d = -1; pulled[0] = pulled[1] = 0; }"
+  ],
+  [
+   "lands${openNow[sh.k] ? ' as a counter' : ''}",
+   "lands${openNow[sh.k] ? ' as a counter' : ''}${pull ? ' - off the pull, +1' : ''}"
+  ],
+  [
+   "const dmg = a.d + (openNow[sh.k] ? N.counter : 0) + (dodge[v]",
+   "const pull = pulled[sh.k], dmg = a.d + (openNow[sh.k] ? N.counter : 0) + (pull ? 1 : 0) + (dodge[v]"
+  ],
+  [
+   "/* HEADMOVE1: caught rolling into the uppercut */ D.hp -= dmg;",
+   "/* HEADMOVE1: caught rolling into the uppercut */ pulled[sh.k] = 0; D.hp -= dmg;"
+  ]
+ ]
+}

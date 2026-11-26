@@ -19,6 +19,16 @@ once conditions are met) - this is the first of that family.
   beat are counters (+1) and land through his guard.
 - The look-ahead (solveBeat) must see it: it is a plan option (plansFor) like the clinch.
 
+## S560 state of the page (read first)
+- The PULL COUNTER is on order.html since S560 (owner: "Yes, put it on"): a back off arms that man's next punch in the beat,
+  +1. Measured before it went on: 8 of 9 bars, the jab lands 68%. The page's own table (`proto/twohands/vtable.json`) was
+  rebuilt for it. rules_test is 37.
+- You change NO page: tweak files only (`src` pairs are exact text of order.html, no trailing newline). Your tables go to
+  your own out folder (`balance.mjs table tweak=<f> out=<dir>/<name>.vt.json`), never to the page's vtable.json.
+- Another worker (HEADPICS1) renders pictures and edits head.html's page part; do not touch its files.
+- Commit ONLY your paths by pathspec (`git commit -- <files>`), `git diff --cached --stat` first; appended comments `/* */`.
+- Result file: `docs/PUNCHCHANCE1_RESULT.md`, ending with `PUNCHCHANCE1 DONE` or `PUNCHCHANCE1 BLOCKED: <why>`.
+
 ## Bars (balance.mjs + a new comeback count)
 - The 9 bars hold (8 of 9 today on order.html).
 - The comeback bar: in bouts where a man is behind by 4+ health after round 1, he wins 15-30% (measure today's number
@@ -41,7 +51,7 @@ once conditions are met) - this is the first of that family.
 ## Contract
 - OWNS: ops/research/s558_balance/punch_chance_*.json, proto/twohands/tools/punch_chance_test.mjs, a result file
 - RED_TEST: the comeback count without the switch (the number to move)
-- REGRESSION: rules_test 36, page_play_test 4
+- REGRESSION: rules_test 37, page_play_test 4
 - VISUAL: none until it passes; then a page copy + his play
 
 ## Prior research

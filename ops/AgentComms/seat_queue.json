@@ -4756,7 +4756,8 @@
    "pid": 34188,
    "transcript": "AgentComms/seat_logs/SQ324_dola.txt",
    "answered_at": "2026-11-25 22:10",
-   "answer": "research/CRITIC_COACHMAP1_BRIEF_DOLA.md"
+   "answer": "research/CRITIC_COACHMAP1_BRIEF_DOLA.md",
+   "seen_by_claude": true
   },
   {
    "id": "SQ325",
@@ -4793,9 +4794,15 @@
    "seat": "dola",
    "brief": "research/TWOHANDS_DEFENCE_IDEAS_BRIEF.md",
    "stem": "TWOHANDS_DEFENCE_IDEAS_BRIEF_DOLA",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-24 22:59",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-25 23:10",
+   "pid": 33004,
+   "transcript": "AgentComms/seat_logs/SQ327_dola.txt",
+   "answered_at": "2026-11-25 23:40",
+   "answer": "research/TWOHANDS_DEFENCE_IDEAS_BRIEF_DOLA.md",
+   "seen_by_claude": true
   },
   {
    "id": "SQ328",
