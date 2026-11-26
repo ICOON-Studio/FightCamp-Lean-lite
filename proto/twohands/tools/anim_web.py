@@ -99,7 +99,7 @@ def main(argv: list[str]) -> int:
                 cam["render_px"] = Image.open(first).height   # axis_px is in render px: the page scales it by the drawn height / this
             if table.get("camera") and table["camera"].get("axis_px") != cam.get("axis_px"):
                 print("CAMERA DIFFERS %s: %s v %s (two cameras in one table)" % (d, cam.get("axis_px"), table["camera"].get("axis_px")))
-            table["camera"] = cam
+            table["camera"] = {**table.get("camera", {}), **cam}   # S564: keep keys the render's own table lacks (render_px: the page's slide scale)
         for name, row in sorted(runs.items()):
             if strips is not None:
                 strip(d, name, row, strips)

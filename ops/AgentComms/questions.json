@@ -9340,7 +9340,7 @@
       "answer": "Show what it can do",
       "note": null,
       "answered_at": "2026-11-26T08:32:55Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "comment_only": false
     },
     {
@@ -9356,7 +9356,7 @@
       "answer": "Yes",
       "note": null,
       "answered_at": "2026-11-26T08:33:31Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "comment_only": false
     },
     {
@@ -9372,7 +9372,7 @@
       "answer": "Yes, a choice",
       "note": null,
       "answered_at": "2026-11-26T08:33:46Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "comment_only": false
     },
     {
@@ -9388,7 +9388,7 @@
       "answer": "Try it",
       "note": null,
       "answered_at": "2026-11-26T08:34:11Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "comment_only": false
     },
     {
@@ -9405,7 +9405,7 @@
       "answer": "Right amount",
       "note": null,
       "answered_at": "2026-11-26T08:38:32Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "comment_only": false
     },
     {
@@ -9424,7 +9424,7 @@
       "answer": "Yes, replace the board",
       "note": null,
       "answered_at": "2026-11-26T08:37:42Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "comment_only": false
     }
   ]

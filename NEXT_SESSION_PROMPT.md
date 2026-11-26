@@ -1,6 +1,6 @@
-# S565 handover (written 2026-11-26, S564 - Opus 5.5)
+# S566 handover (written 2026-11-26, S565 - Fable 5.2)
 
-Start: `git pull && python ops/Tools/agent_comms.py start`, then this page, then `ops/research/S564_DIGEST.md`.
+Start: `git pull && python ops/Tools/agent_comms.py start`, then this page, then `ops/research/S565_DIGEST.md`.
 
 ## METHOD lines - quote all of them in your first message
 - ## METHOD - RING SWITCHES IS THE MAIN LINE (owner S553, S555). The pages: `proto/twohands/order.html` (boxing, the
@@ -37,49 +37,64 @@ Start: `git pull && python ops/Tools/agent_comms.py start`, then this page, then
 - ## METHOD - EVERY CLIP STARTS AND ENDS WHERE THE MEN STAND (owner S562: "the distance between fighters is not consistant
   when clips play"): a run is made at each page range it can happen at (`tools/pics2d_anim.gd range=` / `short=1`), proved
   by the edge table (hold before, first frame, last frame, hold after; > 8 px = a jump), never by a shrunk strip.
+- ## METHOD - A CLOUD RUN IS WATCHED, NOT POLLED (S565): arm the Monitor tool on `python -u ops/Tools/arena_watch.py 180
+  <ID>=<branch id> ...` (30 min, re-arm): one line when a run's result page carries its done line, a STALL line after 75
+  quiet minutes (a table build commits nothing for an hour: open the chat before calling it dead). Read a branch with
+  `git fetch --no-write-fetch-head --no-tags https://github.com/ICOON-Studio/FightCamp-Lean-lite.git
+  +refs/heads/arena/<id>-fightcamp-lean-lite:refs/lite/arena/<id>`, then `git diff --name-status refs/lite/main...refs/lite/arena/<id>`
+  and `git show <ref>:<path> > <path>` for each ADDED file (never a whole branch, never Arena's Merge).
+- A NEW SLOT IN A PLAN'S ORDER (S565, the 'wait') must be known to `proto/twohands/body_ui.js` words(): it reads
+  `ACT[P[sl]]` for every slot. page_play_test does not load body_ui.js - only `beat_shot.mjs` (headless Edge) caught it.
+- A COPY PAGE IS BUILT, NEVER EDITED: punch.html by make_punch.py, wait.html by make_wait.py. After any order.html edit run
+  both, then page_parse + page_play_test on order, punch, head, kick, wait; wait_test 5.
 
-## His words in S564
-"grokbots are back" -> John and Kalli answered their briefs within the hour (SQ337 comebacks, SQ338 kicks); Kalli and
-Dola have a new one: Long is a corridor (SQ339, SQ340).
+## His words in S565
+None (the session ran from the start line). Asked in chat, unanswered: close the four worker consoles left from S560-S564
+(PUNCHCHANCE1, the old GLIDE2 and INSIDE1 workers, the ALLPLAY2 playtester)? They cannot be closed without his yes.
 
-## RUNNING AT THE HANDOVER (collect first; Arena runs are on ICOON-Studio/FightCamp-Lean-lite, read with
-`gh api repos/ICOON-Studio/FightCamp-Lean-lite/contents/<path>?ref=<branch>`, copy onto main by hand, never Arena's Merge)
-- TELLS3M arena/181a4c7c - tells v3 against bots, bars against the control. Told mid-run to merge main (Body Snatcher rule).
-- KDHEAL1 arena/836987cb - a knockdown heals: KD0 control 8 of 9, comeback 19%; KD3 [3,2] dropped (75% stoppages).
-  REPORT it to him with John's real numbers (a dropped man who fights on wins 34%, dropped twice 7%); not on the page.
-- MOMENTGAP1 arena/4bdf9ebc - HIS question "can i select exactly on which part of a beat i move ? or it breaks balance ?":
-  the n=12 trial says a free wait is picked in ~70% of beats ("wait first, counter his punch") and the page drops to 5 of 9.
-  Answer him with the final numbers and the costed variant B.
-- CLINCHFIX3 arena/67e7800b - his habit read sees clinches (H1), + clinch +1 stamina (H2).
-- AIEMPTY1 arena/f889f281 - his empty beats counted, then filtered from his plain beats.
-- JABLAND2 arena/18b46867 (JABLAND1 done, none: its jab half works; the overhand gets a lever, not a price), KICKFIX3 arena/c178d87d, PROGP2 arena/15b7ab01 (his Q-340).
-- Render worker in terminal tab "renders564" (Opus, Code Mode): RESUME_S564_RENDERS.md - INSIDE1 probe, GLIDE2 renders,
-  INSIDE1 re-render. When it ends: BOUNCE1 (TASK_BOUNCE1.md), then KDPIC1 (TASK_KDPIC1.md), each a console worker, one
-  render at a time, his game closed.
+## RUNNING AT THE HANDOVER (Arena runs are on ICOON-Studio/FightCamp-Lean-lite; collect as the METHOD line says)
+- LONG1 arena/cba93bd0 (TASK_LONG1.md) - the stopping jab (L1), the lead hand as a fence (L2, Dola), both (L3), control L0.
+- LONG2 arena/193e5c2c (TASK_LONG2.md) - Kalli's waiting cross: K0 counts what the page already does (a cross at Long
+  already lands on a man stepping in), K1 her two bonuses, K2 the cross half, K3 the jab half.
+  JUDGE BOTH TOGETHER: bars 8+ of 9 on both seeds and never under the control; the jab's use up (real anchor: the jab is
+  40-44% of punches thrown by pros, G99_COMPUBOX_AVERAGES; on the page the two jabs are ~27%, the head jab 8%); Long at
+  most 45% of beats; the man walking in still gets in. One version goes to him as a toy page (make_<x>.py, as wait.html).
+- MOMENTGAP1 arena/4bdf9ebc - seed 1 is in the digest: A (a free wait anywhere) 7 of 9, a wait in 67% of beats; B (only
+  the step may come a moment later) 8 of 9, a wait in 8% of beats. B SEED 2 PENDING. Then ANSWER HIM (his S562 question):
+  B holds -> "yes for your step, no for your hands", and the page to play is already built: wait.html ("Pick your moment"
+  on the ops board). wait.html's opponent uses the main page's look-ahead table: if B is chosen, build its own table
+  (`balance.mjs table tweak=ops/research/s558_balance/moment_gap_b.json out=proto/twohands/vtable_wait.json jobs=2`,
+  ~50 min, then make_wait.py loads it) before calling the page balanced.
+- TELLS3M arena/181a4c7c - passes -> ask him on the board (one line + the words-tool transcript): the tell on the page as
+  a pose of his body? -> TASK_TELLS2PAGE.
+- CLINCHFIX3 arena/67e7800b, AIEMPTY1 arena/f889f281, JABLAND2 arena/18b46867 (its winner also goes on head.html),
+  KICKFIX3 arena/c178d87d (quiet for 75+ min at 16:30 but its chat was alive on a long run), PROGP2 arena/15b7ab01 (Q-340).
+- Render worker (console, Opus; its tab is not visible from a new session - find it by process: claude.exe with
+  RESUME_S564_RENDERS in its command line): GLIDE2 pushed (7534204a0), INSIDE1 step 3 re-render running. When it ends:
+  BOUNCE1 (TASK_BOUNCE1.md), then KDPIC1 (TASK_KDPIC1.md), each a console worker, one render at a time, his game closed.
 - Page server: `python proto/cardgame/serve.py 8797 twohands` (check it after any session archive).
 
 ## FIRST (in this order)
-0. LONG IS A CORRIDOR (all five testers): Dola SQ340 answered (ops/research/RINGSWITCH_LONG_BRIEF_DOLA.md), Kalli SQ339
-   pending. Write TASK_LONG1 for Arena with tweaks on today's order.html: L1 (Antigravity) a jab that LANDS in the moment
-   he steps in from Long stops him (anchor `if (a.d >= 3) stun[v] = a.n;`, r0 is in scope); L2 (Dola's threatened lead) a
-   lead held high at Long costs his step in 1 stamina (anchor `if (P[k].feet === 'in') { d--; f[k].ropes = 0; }`); L3 both
-   (or Kalli's pick). Bars: 8+ of 9 both seeds, Long's share and the jab's use up. HEADPULL1 DONE (head.html 7 / 8 of 9,
-   the miss is the overhand: apply JABLAND2's winner there too).
-1. Collect the runs above. TELLS3M passes -> ask him on the board (one line + a still or the words-tool transcript): the
-   tell on the page as a pose of his body? -> TELLS2PAGE.
-2. MOMENTGAP1: answer his question in plain numbers. KDHEAL1: report it.
-3. CLINCHFIX3 / AIEMPTY1 / JABLAND1: a version that holds the bars goes on the page (tweak -> page, balance re-run).
-4. When the render worker pushes: BOUNCE1, then KDPIC1.
+1. Collect what has ended (arena_watch prints it). MOMENTGAP1 -> answer him. TELLS3M -> the board question.
+2. KDHEAL1 IS COLLECTED: keep today's get-up [6, 4] (lower: stoppages 45%, comeback 14% then 4%). REPORT it to him with
+   the KDFIRST count (S565_DIGEST: how often the first man dropped wins on the page, beside John's 34.4% / 7%). If he
+   wants the "walk into a punch at 1 health" exploit gone: measure "up on no more than he had, no stamina refill".
+3. CLINCHFIX3 / AIEMPTY1 / JABLAND2: a version that holds the bars goes on the page (tweak -> page, balance re-run, both
+   make scripts, the page tests).
+4. LONG1 + LONG2 -> one Long rule as a toy page for him.
+5. When the render worker pushes: BOUNCE1, then KDPIC1.
 
 ## Waiting on the owner
-- His play of the body view (order.html), punch.html on F, and the tells v3 in the words tool if he wants
-  (`node proto/twohands/tools/play_cli.mjs new <f> opp=1 seed=1 tells=3`).
+- His play of wait.html (the late step), the body view (order.html), punch.html, and tells v3 in the words tool if he
+  wants (`node proto/twohands/tools/play_cli.mjs new <f> opp=1 seed=1 tells=3`).
+- The four old worker consoles (above).
 
 ## Seats
-Arena for node-only measures; console workers (`ops/Tools/claude_cm.ps1 --model claude-opus-5-5 --permission-mode auto
-"<prompt naming the TASK file>"`); Ziva for playtests (fast; its chat can loop on "Go." - resume it from the state file);
-Dola by `play_by_message.mjs via=dola`; Antigravity by `via=agy`; Grok bots (John, Kalli, Maria) back since S564 -
-`gbot.py send --to "<bot>" --file <f>` (positional text fails).
+Arena for node-only measures (push, `python ops/Tools/lite_mirror.py --lean push`, Chrome arena.ai/agent, wait ~15 s for
+the branch selector, a prompt naming the committed TASK file; the branch id is the last 8 characters of the chat URL);
+console workers (`ops/Tools/claude_cm.ps1 --model claude-opus-5-5 --permission-mode auto "<prompt naming the TASK file>"`);
+Ziva for playtests; Dola by `play_by_message.mjs via=dola`; Antigravity by `via=agy`; Grok bots (John, Kalli, Maria) -
+`gbot.py send --to "<bot>" --file <f>`; `seat_queue.py drain` collects a seat answer now instead of at the half hour.
 
-## Model for S565
-Opus, medium effort, Fast off - collecting nine measures, two answers to him, then a page build if the tells pass.
+## Model for S566
+Opus, medium effort, Fast off - collecting up to nine measures, two answers to him, then one page change at a time.

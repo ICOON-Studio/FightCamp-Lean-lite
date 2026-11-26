@@ -152,6 +152,7 @@
     if (P.clinch) { el.innerHTML = '<span>You tie him up: nothing lands either way this beat, you get 2 stamina back.</span>'; return; }
     let r = range; const out = P.ord.map((sl, i) => { const m = `<b>${i + 1}</b>`;
       if (sl === 'feet') { const d = P.feet === 'in' || P.feet === 'slipin' ? -1 : P.feet === 'back' ? 1 : 0; r = Math.max(1, Math.min(3, r + d)); return d ? `${m} you ${FEET[P.feet].n.toLowerCase()} - now at ${RNG[r]}` : `${m} you ${FEET[P.feet].n.toLowerCase()}`; }
+      if (sl === 'wait') return `${m} you wait: both hands are home, your step comes next`;   /* wait.html (S565 MOMENTGAP1 B): an empty moment before a late step */
       const a = ACT[P[sl]]; if (!a.d) return `${m} ${a.n.toLowerCase()} with your ${sl} hand`;
       return `${m} your ${a.n.toLowerCase()} ${a.reach.includes(r) ? 'reaches' : '<u>will not reach</u>'} at ${RNG[r]}; your ${sl} hand is out, ${THREAT[COVER[sl === 'lead' ? P.hl : P.hr][sl === 'lead' ? 0 : 1]].toLowerCase()} can get in`; });
     el.innerHTML = out.length ? out.map((s) => `<span>${s}</span>`).join('') + '<span class="meet">Your moment 1 meets his moment 1, 2 meets 2, 3 meets 3.</span>' : ''; }

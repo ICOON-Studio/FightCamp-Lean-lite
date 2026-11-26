@@ -42,6 +42,7 @@ var RANGE_AT := 0
 var SHORT := false
 const GLIDE_IN_TO := -0.10   # in the punch's spot this long before the contact
 const GLIDE_OUT_FROM := 0.06   # and leaves it after this
+var glide_a := -INF   # S564: the run's first DRAWN offset (a run whose punch starts late draws from offs[first], not offs[0])
 
 
 func _run() -> void:
@@ -242,6 +243,7 @@ func _punch_run(who: int, fam: String, res: String, name: String) -> void:
 	for k in offs.size():
 		if float(offs[k]) <= float(pl["t0"]):
 			first = k
+	glide_a = float(offs[first])
 	var files: Array = []
 	var times: Array = []
 	var gate_fails: Array = []
@@ -284,7 +286,7 @@ func _punch_run(who: int, fam: String, res: String, name: String) -> void:
 func _glide_w(off: float) -> float:
 	if SHORT:
 		return 0.0
-	var a := float(offs[0])
+	var a := maxf(float(offs[0]), glide_a)   # S564: 0 on the first picture drawn (it was 0.3 in on the crosses: 13-22 px)
 	var z := float(offs[offs.size() - 1])
 	if off <= GLIDE_IN_TO:
 		return smoothstep(a, GLIDE_IN_TO, off)
@@ -366,7 +368,9 @@ func _pose_at(who: int, b: Dictionary, pl: Dictionary, give: Vector3, off: float
 	var w := _glide_w(off) if b.has("glide_from") else 1.0
 	await _home_guard(lerpf(float(b.get("glide_from", 0.0)), float(b["step"]), w), who)
 	_node(who).global_position += b["side"] * w
-	_node(d).global_position += give
+	_node(d).global_position += give * w   # S564: the ground a miss gives eases in and out with the glide (it stood moved on the run's ends: 27-37 px)
+	var hips0 := (Gate.world(stage, who, "Hips") - _node(who).global_position) * Vector3(1, 0, 1)   # the guard's hips from his root
+	var hips_d0 := (Gate.world(stage, d, "Hips") - _node(d).global_position) * Vector3(1, 0, 1)
 	if off <= float(pl["t0"]):
 		return   # the guard, before anything starts
 	var todo: Array = [
@@ -393,6 +397,10 @@ func _pose_at(who: int, b: Dictionary, pl: Dictionary, give: Vector3, off: float
 			break
 		await process_frame
 		t += 1.0 / 60.0
+	if b.has("glide_from") and w < 1.0:   # S564: his BODY (not his root) on the range's spot at the run's ends - a take whose first pose stands the hips off the root (the cross: 13-22 px)
+		_node(who).global_position += (hips0 - (Gate.world(stage, who, "Hips") - _node(who).global_position) * Vector3(1, 0, 1)) * (1.0 - w)
+		if res == "missed":   # S564: a miss's pull back carries him away in its take (red's jab: blue's toes out of the picture); his body too
+			_node(d).global_position += (hips_d0 - (Gate.world(stage, d, "Hips") - _node(d).global_position) * Vector3(1, 0, 1)) * (1.0 - w)
 	# Frozen HERE and drawn in this same frame (pics2d_anim._frame): a wait would let the layers that run on the clock
 	# (the join smoother, PunchAim, BlockCatch) go on while the takes stand still - the first strips had the arm home
 	# 0.05 s early because of three such frames.

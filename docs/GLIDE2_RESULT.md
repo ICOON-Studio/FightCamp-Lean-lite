@@ -140,3 +140,9 @@ JUMPS 8
 
 Regression: page_play_test 4 passed on order, punch, head, kick; page_parse ok; rules_test 37; head_test 11; kick_test 12
 (the ring_ui change is INSIDE1's Inside metres; no page change in this step).
+
+## S564 later (with INSIDE1)
+The Inside head moves (cross_slipped, lead_hook_rolled, overhand_rolled _r1, both corners) are made at Inside = 0.55 m and
+on the page (docs/INSIDE1_RESULT.md). The punch runs at every range were measured with the same edge table: 33 jumps from
+GLIDE1 (a miss's given ground, a late-starting take's glide) fixed in tools/pics2d_anim.gd - 2 left (red_jab_missed, refused).
+Still red for GLIDE2: the low kicks' last picture (8-10 px, the take's own end stance) and red_low_kick_missed (refused).

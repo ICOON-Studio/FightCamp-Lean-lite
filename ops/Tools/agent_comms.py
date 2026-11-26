@@ -1623,6 +1623,8 @@ def missing_visual_gate() -> list:
             continue
         if _brief_done(path, text) or re.search(r"^Kind:\s*(research|content)", text, re.I | re.M):
             continue  # S358: a research/words brief cannot break a visual
+        if re.search(r"^Kind:\s*probe", text, re.I | re.M) and re.search(r"^[-\s]*VISUAL:\s*none", text, re.I | re.M):
+            continue  # S565: a numbers-only probe whose contract says VISUAL: none (the Ring Switches balance runs name punches all day)
         if len(_VISUAL_TOPIC_RE.findall(text)) >= 3 and not _VISUAL_GATE_RE.search(text):
             out.append(path.name)
     return out

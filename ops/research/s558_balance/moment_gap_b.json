@@ -1,0 +1,17 @@
+{
+  "_note": "MOMENTGAP1 B, the single follow-up to A: only feet may be delayed by one moment. Insert a free wait immediately before feet only when feet is the final active slot and the total stays <=3. Hand moments remain exactly those of the no-wait order. Motivated by A seed 1: feint/overhand dead and two-punch plans only 9%. Keeps body jab at 1, wait at 2, step in at 3. No other rule changed.",
+  "src": [
+    [
+      "const active = (p, sl) => (sl === 'feet' ? p.feet !== 'hold' : !!p[sl]);",
+      "const active = (p, sl) => (sl === 'wait' ? true : sl === 'feet' ? p.feet !== 'hold' : !!p[sl]);"
+    ],
+    [
+      "const actName = (p, sl) => (sl === 'feet' ? FEET[p.feet].n : ACT[p[sl]].n);",
+      "const actName = (p, sl) => (sl === 'wait' ? 'Wait' : sl === 'feet' ? FEET[p.feet].n : ACT[p[sl]].n);"
+    ],
+    [
+      "for (const ord of perms(ordOf(c0))) out.push({ ...c0, ord });",
+      "for (const base of perms(ordOf(c0))) { out.push({ ...c0, ord: base }); if (base.length < 3 && base.at(-1) === 'feet') out.push({ ...c0, ord: [...base.slice(0, -1), 'wait', 'feet'] }); }"
+    ]
+  ]
+}

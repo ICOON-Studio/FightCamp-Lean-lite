@@ -63,7 +63,7 @@ for col in ("blue", "red"):
         if CAM.get("ring") and col == "red":   # the page slides the blue man's hold by how far red stood in
             for h, rk in ((h0, was), (h1, end)):
                 for m in ("red", "blue"):
-                    h[m] += RANGE_IN.get(rk, 0.0) * float(CAM["axis_px"][0])
+                    h[m] += RANGE_IN.get(rk, 0.0) * float(CAM["axis_px"][0]) * Image.open(fs[0]).size[0] / float(CAM.get("render_px", 768))   # S564: axis_px is in render px (768); the webp is 480
         toward = (1 if col == "red" else -1) * (1 if "step_in" in key else -1)   # + = the way he should go, in px
         go = (b[col] - a[col]) * toward
         toe = (b[col + "_toe"] - a[col + "_toe"]) * toward

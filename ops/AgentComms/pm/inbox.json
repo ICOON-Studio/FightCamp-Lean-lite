@@ -2112,6 +2112,300 @@
       "at": "2026-11-19 03:44",
       "text": "BOARD ANSWER Q-S294-275 - question: Guard damage v4: a blocked punch still wears the arms down; tired arms let more of each punch through (green -> red guard bar), a 3rd punch in a row wears 1.5x, being trapped on the ropes wears faster. Two fresh critics passed it (Dola 8/8/7, Goose 8/7/7). Build it after turning pro? | answer: Yes, build it after turning pro | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
       "status": "waiting"
+    },
+    {
+      "id": "P295",
+      "from": "board",
+      "at": "2026-11-20 20:51",
+      "text": "BOARD ANSWER Q-S294-281 - question: Build the contracts and money ledger design v6? (every payment tagged to a boxer and kind, purse shares and contracts read from it; critics Arena 9/9, Dola 8/8) | answer: Not yet | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P296",
+      "from": "board",
+      "at": "2026-11-20 20:51",
+      "text": "BOARD ANSWER Q-S294-280 - question: Build the knowledge stakes design v5? (what knowing an opponent from film, sparring and her fights changes on the night; critics Arena 7/7, Dola 7/8) | answer: Not yet | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P297",
+      "from": "board",
+      "at": "2026-11-20 23:51",
+      "text": "BOARD ANSWER Q-S294-282 - question: Tooltips and the guide: build to this standard? Every tooltip becomes a small wrapped card that says what the thing is, why it is this value, what moves it and what you can do. The guide lets you look around first: no dimming, the old trainer says what a page is for, a Show me button, and lessons (the clock, tiredness, the mastery bar, fight week or camp, the towel) that arrive when the thing happens and can be read again from the Menu. The picture shows the three tooltips you asked about, before and after. Two critics are still reading it (Dola queued, Arena next session); I build only after  | answer: Yes, build it | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P298",
+      "from": "board",
+      "at": "2026-11-21 02:05",
+      "text": "BOARD ANSWER Q-S294-283 - question: Tooltips, build 1: do the new cards read right to you? The pictures show the coach pay card, the TIREDNESS card, the mastery bar card and the guide before and after \"Show me\". If yes I convert the other screens the same way (about 40 tooltips left on the pages checked) and add the trainer lessons after week 1. | answer: Shorter cards | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P299",
+      "from": "board",
+      "at": "2026-11-21 09:37",
+      "text": "BOARD ANSWER Q-S294-285 - question: Footwork: steps are not worth learning because where they take you pays nothing. Five tests on 'cut off the ring' show its effects never reach the result, even at five times their size: trapping the opponent on the ropes gives no edge by itself, and the step costs an exchange you could have punched in. Real boxing: a man with his back on the ropes cannot use distance and eats the power shots. Plan: (1) measure what each place in the ring is worth today, no game change; (2) being on the ropes or in the corner gives the one who put the opponent there a real edge and takes the trapped boxer's ran | answer: Yes, that plan | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P300",
+      "from": "board",
+      "at": "2026-11-21 09:41",
+      "text": "BOARD ANSWER Q-S294-286 - question: Pro debut opponents: one fixed strength per promoter, or picked to each boxer? Measured on 10 boxers, the same opponent strength gives anywhere from about 30 to 90 in 100 wins depending on the boxer. Today each promoter has one fixed gap (the bigger-gate house about 60 in 100 on average, the safer house about 75), so a weak boxer can get a debut he mostly loses and a strong one a walkover. A real matchmaker picks the opponent to the boxer. Option: each house aims at its chance (about 60 or 75 in 100) and the game picks the opponent to fit, using the win estimate we just fixed. | answer: Pick to each boxer | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P301",
+      "from": "board",
+      "at": "2026-11-21 10:50",
+      "text": "BOARD ANSWER Q-S294-287 - question: Guide (your mark 3 'something more fancy'): which style? A = coach medallion card + spotlight on the button, B = a note pinned to the thing it explains, C = the coach's clipboard with week-1 jobs ticked off. | answer: C clipboard | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P302",
+      "from": "board",
+      "at": "2026-11-21 11:56",
+      "text": "BOARD ANSWER Q-S294-288 - question: Pro offer, win chance for a newcomer: the card reads a boxer who is only weeks into the gym about 10 points too low (Tess: card says 57 in 100, the bout is really 68), because the camp before the debut builds the tank, a new punch and a combination. So the safer promoter's debut is won about 78 in 100 instead of the 75 it aims at (still inside your 70 to 80). Should the promoter's call play the camp ahead so the card is right, or leave it? | answer: i leave this to you pick wahtever you think is right | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P303",
+      "from": "board",
+      "at": "2026-11-21 15:33",
+      "text": "BOARD ANSWER Q-S294-289 - question: Portraits: keep painted, or MetaHuman photos to match the 3D bodies? | answer: Painted | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P304",
+      "from": "board",
+      "at": "2026-11-21 17:28",
+      "text": "BOARD ANSWER Q-S294-292 - question: Add men's 65 kg? Without it a 60 kg man moving up jumps 10 kg (you said women only, Q-233). | answer: Add men's 65 kg | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P305",
+      "from": "board",
+      "at": "2026-11-21 17:44",
+      "text": "BOARD ANSWER Q-S294-293 - question: Weight: may a boxer refuse a class move you choose? | answer: Yes, he can refuse | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P306",
+      "from": "board",
+      "at": "2026-11-21 17:46",
+      "text": "BOARD ANSWER Q-S294-294 - question: Should the 3D body look heavier or lighter with his weight? | answer: Yes, after the probe | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P307",
+      "from": "board",
+      "at": "2026-11-22 02:58",
+      "text": "BOARD ANSWER Q-S294-297 - question: Pro offer: cut every ask (softer, ticket price, costs, split) except Later +2? Two probes found none a real choice. | answer: Yes, cut them | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P308",
+      "from": "board",
+      "at": "2026-11-22 22:57",
+      "text": "BOARD ANSWER Q-S294-304 - question: Mockups (result page v2, office goals, sheets): build them as drawn? | answer: Yes, build them | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P309",
+      "from": "board",
+      "at": "2026-11-23 01:28",
+      "text": "BOARD ANSWER Q-S294-305 - question: Prospects: a rival gym signs them in 1-3 weeks unless you decide? | answer: Yes, add the deadline | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P310",
+      "from": "board",
+      "at": "2026-11-23 03:29",
+      "text": "BOARD ANSWER Q-S294-306 - question: Repeated-combo penalty fires 3 times in 600 bouts. Make repeats cost more? | answer: Yes, make it bite | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P311",
+      "from": "board",
+      "at": "2026-11-23 04:13",
+      "text": "BOARD ANSWER Q-S294-307 - question: Combo counter: spam loses 6 in 100, varied plans get read 17 in 100. Build it? | answer: Yes, build it | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P312",
+      "from": "board",
+      "at": "2026-11-23 11:05",
+      "text": "BOARD ANSWER Q-S294-308 - question: Club show: keep the game's own favour rate (about 3 a year) as the target? | answer: Yes, keep it | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P313",
+      "from": "board",
+      "at": "2026-11-23 11:20",
+      "text": "BOARD ANSWER Q-S294-309 - question: Restyle screens like Fight Business polish: style sheet + 3 mockups first? | answer: Yes, start | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P314",
+      "from": "board",
+      "at": "2026-11-23 11:54",
+      "text": "BOARD ANSWER Q-S294-311 - question: An amateur costs $250/week, earns the club $112. Which fixes it? | answer: Bouts pay by rank | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P315",
+      "from": "board",
+      "at": "2026-11-23 11:54",
+      "text": "BOARD ANSWER Q-S294-310 - question: 2D picture round beside the 3D: keep it as a second view (1.5-2 days for boxing), or drop it? | answer: Keep, build the full set | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P316",
+      "from": "board",
+      "at": "2026-11-23 14:43",
+      "text": "BOARD ANSWER Q-S294-312 - question: Card game plan: sign it so card rounds restart? Two-minute page at the top. | answer: Sign it | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P317",
+      "from": "board",
+      "at": "2026-11-23 14:43",
+      "text": "BOARD ANSWER Q-S294-313 - question: Card game: you play every weekly build, even before balance is finished? | answer: Yes | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P318",
+      "from": "board",
+      "at": "2026-11-23 14:43",
+      "text": "BOARD ANSWER Q-S294-314 - question: Card art order after boxing+BJJ: wrestling, kickboxing, judo, karate, sambo, MMA last? | answer: Yes | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P319",
+      "from": "board",
+      "at": "2026-11-23 14:44",
+      "text": "BOARD ANSWER Q-S294-315 - question: Card game Early Access with four arts, the rest as free updates? | answer: Yes | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P320",
+      "from": "board",
+      "at": "2026-11-23 14:44",
+      "text": "BOARD ANSWER Q-S294-316 - question: May a card art have a bad matchup like real sport, never worse than 40-60? | answer: Yes | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P321",
+      "from": "board",
+      "at": "2026-11-23 14:44",
+      "text": "BOARD ANSWER Q-S294-317 - question: Try the Expedition 33 timed guard once, optional, at the three-art build? | answer: Yes | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P322",
+      "from": "board",
+      "at": "2026-11-23 19:59",
+      "text": "BOARD ANSWER Q-S294-319 - question: Turning pro: 16 rounds, still under 8. Keep what's built and stop rounds, or try v17? | answer: up to you | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P323",
+      "from": "board",
+      "at": "2026-11-24 04:18",
+      "text": "BOARD ANSWER Q-S294-327 - question: Which screen has the 'week preview' button you asked about? | answer: Top bar CONTINUE | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P324",
+      "from": "board",
+      "at": "2026-11-24 11:55",
+      "text": "BOARD ANSWER Q-S294-328 - question: A written fight plan adds 2 wins in 100; live corner calls add 10 to 18. Shrink the plan screen? | answer: make it more impactful | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P325",
+      "from": "board",
+      "at": "2026-11-24 11:57",
+      "text": "BOARD ANSWER Q-S294-329 - question: Coach trial week is the wrong buy in 9 of 10 gyms. Cut it, show chemistry on the hire card? | answer: Cut it, show chemistry | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P326",
+      "from": "board",
+      "at": "2026-11-24 11:57",
+      "text": "BOARD ANSWER Q-S294-330 - question: Corner ring calls (Cut the ring off, Stay off the ropes) add 0 wins in two probes. Cut them? | answer: Cut both | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P327",
+      "from": "board",
+      "at": "2026-11-24 15:54",
+      "text": "BOARD ANSWER Q-S294-334 - question: Coaches scored 5 of 10. Probe her three changes, or cut back to today's two hire cards? | answer: Probe the changes | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P328",
+      "from": "board",
+      "at": "2026-11-24 23:04",
+      "text": "BOARD ANSWER Q-S294-335 - question: The written plan is worth 2 wins in 100. Make opponents fight differently so it matters? | answer: Yes, scope it | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P329",
+      "from": "board",
+      "at": "2026-11-25 03:38",
+      "text": "BOARD ANSWER Q-S294-336 - question: Coaches cannot reach 8 after nine rounds. Keep them as today's two hire cards, or cut coaches? | answer: Keep the two hire cards | note: thecoaches should have | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P330",
+      "from": "board",
+      "at": "2026-11-26 00:22",
+      "text": "BOARD ANSWER Q-S294-337 - question: Put Rune's pull counter on the page? A back off arms your next punch, +1 health. | answer: Yes, put it on | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P331",
+      "from": "board",
+      "at": "2026-11-26 10:32",
+      "text": "BOARD ANSWER Q-S294-338 - question: Body view: pointing at HIS limb shows what it did the last 3 beats. Right? | answer: Show what it can do | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P332",
+      "from": "board",
+      "at": "2026-11-26 10:33",
+      "text": "BOARD ANSWER Q-S294-339 - question: Body view: head opens slip, roll, lean back; torso the clinch; legs the steps? | answer: Yes | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P333",
+      "from": "board",
+      "at": "2026-11-26 10:33",
+      "text": "BOARD ANSWER Q-S294-340 - question: Progression: when a move reaches Sharp, you pick one of two upgrades for it? | answer: Yes, a choice | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P334",
+      "from": "board",
+      "at": "2026-11-26 10:34",
+      "text": "BOARD ANSWER Q-S294-341 - question: Progression: before each bout you pick which moves go in (a fight plan)? | answer: Try it | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P335",
+      "from": "board",
+      "at": "2026-11-26 10:37",
+      "text": "BOARD ANSWER Q-S294-343 - question: Body view (new stills on the review page): make it how you pick switches on the main page? | answer: Yes, replace the board | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P336",
+      "from": "board",
+      "at": "2026-11-26 10:38",
+      "text": "BOARD ANSWER Q-S294-342 - question: Progression: four attributes on the fight board (health, stamina, recovery, guard), the rest in the gym? | answer: Right amount | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
     }
   ]
 }

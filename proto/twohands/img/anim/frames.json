@@ -367,7 +367,7 @@
    "clip": "pro_left_jab",
    "range": 3,
    "hit": [
-    0.392,
+    0.391,
     0.272
    ]
   },
@@ -6844,7 +6844,7 @@
    "clip": "pro_body_jab",
    "range": 2,
    "hit": [
-    0.702,
+    0.703,
     0.344
    ]
   },
@@ -10910,6 +10910,212 @@
    "hit": [
     0.739,
     0.4
+   ]
+  },
+  "blue_cross_slipped_r1": {
+   "files": [
+    "blue_cross_slipped_r1_0.webp",
+    "blue_cross_slipped_r1_1.webp",
+    "blue_cross_slipped_r1_2.webp",
+    "blue_cross_slipped_r1_3.webp",
+    "blue_cross_slipped_r1_4.webp",
+    "blue_cross_slipped_r1_5.webp",
+    "blue_cross_slipped_r1_6.webp",
+    "blue_cross_slipped_r1_7.webp",
+    "blue_cross_slipped_r1_8.webp",
+    "blue_cross_slipped_r1_9.webp"
+   ],
+   "offs": [
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 5,
+   "clip": "pro_right_cross",
+   "range": 1,
+   "hit": [
+    0.349,
+    0.294
+   ]
+  },
+  "blue_lead_hook_rolled_r1": {
+   "files": [
+    "blue_lead_hook_rolled_r1_0.webp",
+    "blue_lead_hook_rolled_r1_1.webp",
+    "blue_lead_hook_rolled_r1_2.webp",
+    "blue_lead_hook_rolled_r1_3.webp",
+    "blue_lead_hook_rolled_r1_4.webp",
+    "blue_lead_hook_rolled_r1_5.webp",
+    "blue_lead_hook_rolled_r1_6.webp",
+    "blue_lead_hook_rolled_r1_7.webp",
+    "blue_lead_hook_rolled_r1_8.webp",
+    "blue_lead_hook_rolled_r1_9.webp",
+    "blue_lead_hook_rolled_r1_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_left_hook_ft",
+   "range": 1,
+   "hit": [
+    0.361,
+    0.266
+   ]
+  },
+  "blue_overhand_rolled_r1": {
+   "files": [
+    "blue_overhand_rolled_r1_0.webp",
+    "blue_overhand_rolled_r1_1.webp",
+    "blue_overhand_rolled_r1_2.webp",
+    "blue_overhand_rolled_r1_3.webp",
+    "blue_overhand_rolled_r1_4.webp",
+    "blue_overhand_rolled_r1_5.webp",
+    "blue_overhand_rolled_r1_6.webp",
+    "blue_overhand_rolled_r1_7.webp",
+    "blue_overhand_rolled_r1_8.webp",
+    "blue_overhand_rolled_r1_9.webp",
+    "blue_overhand_rolled_r1_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_right_hook_ft",
+   "range": 1,
+   "hit": [
+    0.367,
+    0.268
+   ]
+  },
+  "red_cross_slipped_r1": {
+   "files": [
+    "red_cross_slipped_r1_0.webp",
+    "red_cross_slipped_r1_1.webp",
+    "red_cross_slipped_r1_2.webp",
+    "red_cross_slipped_r1_3.webp",
+    "red_cross_slipped_r1_4.webp",
+    "red_cross_slipped_r1_5.webp",
+    "red_cross_slipped_r1_6.webp",
+    "red_cross_slipped_r1_7.webp",
+    "red_cross_slipped_r1_8.webp",
+    "red_cross_slipped_r1_9.webp"
+   ],
+   "offs": [
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 5,
+   "clip": "pro_right_cross",
+   "range": 1,
+   "hit": [
+    0.748,
+    0.308
+   ]
+  },
+  "red_lead_hook_rolled_r1": {
+   "files": [
+    "red_lead_hook_rolled_r1_0.webp",
+    "red_lead_hook_rolled_r1_1.webp",
+    "red_lead_hook_rolled_r1_2.webp",
+    "red_lead_hook_rolled_r1_3.webp",
+    "red_lead_hook_rolled_r1_4.webp",
+    "red_lead_hook_rolled_r1_5.webp",
+    "red_lead_hook_rolled_r1_6.webp",
+    "red_lead_hook_rolled_r1_7.webp",
+    "red_lead_hook_rolled_r1_8.webp",
+    "red_lead_hook_rolled_r1_9.webp",
+    "red_lead_hook_rolled_r1_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_left_hook_ft",
+   "range": 1,
+   "hit": [
+    0.741,
+    0.281
+   ]
+  },
+  "red_overhand_rolled_r1": {
+   "files": [
+    "red_overhand_rolled_r1_0.webp",
+    "red_overhand_rolled_r1_1.webp",
+    "red_overhand_rolled_r1_2.webp",
+    "red_overhand_rolled_r1_3.webp",
+    "red_overhand_rolled_r1_4.webp",
+    "red_overhand_rolled_r1_5.webp",
+    "red_overhand_rolled_r1_6.webp",
+    "red_overhand_rolled_r1_7.webp",
+    "red_overhand_rolled_r1_8.webp",
+    "red_overhand_rolled_r1_9.webp",
+    "red_overhand_rolled_r1_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_right_hook_ft",
+   "range": 1,
+   "hit": [
+    0.736,
+    0.285
    ]
   }
  },
