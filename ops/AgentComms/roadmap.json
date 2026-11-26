@@ -5403,7 +5403,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-26 20:41 board_sync",
+  "updated": "2026-11-26 22:11 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5580,28 +5580,31 @@
   },
   "working_now": [
    {
-    "title": "Kicks round 4: a checked low kick hurts more, the low kick keeps the rear hand up - measured on your PC",
-    "who": "Claude console worker (your PC)",
-    "started": "2026-11-26T22:04",
-    "run": "KICKFIX4"
+    "title": "Kicks: the two versions never measured, with the limp spiral capped where it fires",
+    "who": "Arena (cloud: costs your PC nothing)",
+    "started": "2026-11-26T13:05",
+    "run": "KICKFIX3",
+    "state": "LANDED - Claude collects"
    },
    {
-    "title": "Tells round 4: the bot that spots the lie fixed, then a fake that may hide one real punch - measured on your PC",
-    "who": "Claude console worker (your PC)",
-    "started": "2026-11-26T22:04",
-    "run": "TELLS4M"
+    "title": "Tells version 3 measured with bots, bars against the control: does the tell help a little, does finding his lie pay?",
+    "who": "Arena (cloud: costs your PC nothing)",
+    "started": "2026-11-26T15:20",
+    "run": "TELLS3M",
+    "state": "LANDED - Claude collects"
    },
    {
-    "title": "Long range is a corridor: a jab that stops a man stepping in, and a lead hand held high as a fence - measured in the cloud",
+    "title": "Long range is a corridor: a jab that stops a man stepping in, and a lead hand held high as a fence - both measured before anything is built",
     "who": "Arena (cloud: costs your PC nothing)",
     "started": "2026-11-26T16:01",
     "run": "LONG1"
    },
    {
-    "title": "Your 'Yes, a choice': a pair of upgrades of its own for each punch, measured in the cloud",
-    "who": "Arena (cloud: costs your PC nothing)",
-    "started": "2026-11-26T22:04",
-    "run": "PROGP4"
+    "title": "Long range, Kalli's pick: the cross a man walks onto as he steps in, and jabs that score 2 on a stepping man - counted on today's page first, then measured",
+    "who": "Arena (cloud, a second chat: costs your PC nothing)",
+    "started": "2026-11-26T16:06",
+    "run": "LONG2",
+    "state": "LANDED - Claude collects"
    }
   ],
   "next": [
@@ -6273,64 +6276,6 @@
   "map": {
    "done_earlier": [
     {
-     "text": "Knockdown heal measured: keep it",
-     "who": "claude"
-    },
-    {
-     "text": "Pick your moment: wait.html built",
-     "who": "claude"
-    },
-    {
-     "text": "Knockdown v real fights counted",
-     "who": "claude"
-    },
-    {
-     "text": "Pick your moment: late step holds",
-     "who": "claude"
-    },
-    {
-     "text": "Inside 0.55 m + glide renders in",
-     "who": "agent"
-    },
-    {
-     "text": "Sharp choice: overhand only",
-     "who": "agent"
-    },
-    {
-     "text": "Clinch v3 measured: none",
-     "who": "agent"
-    },
-    {
-     "text": "Tells v2 Arena replay: 7/8/8",
-     "who": "agent"
-    },
-    {
-     "text": "Tells v3: no hidden bigger punch",
-     "who": "claude"
-    },
-    {
-     "text": "5 of 5 testers: one body tell",
-     "who": "agent"
-    },
-    {
-     "text": "Clinch v2 measured: none",
-     "who": "agent"
-    },
-    {
-     "text": "Head + pull counter: 7/8 of 9",
-     "who": "agent"
-    },
-    {
-     "text": "Attributes probe: 3 of 4 count",
-     "who": "claude"
-    },
-    {
-     "text": "Story column readable (all pages)",
-     "who": "claude"
-    }
-   ],
-   "done_session": [
-    {
      "text": "Action strip + preview (C520)",
      "who": "claude"
     },
@@ -6357,6 +6302,40 @@
     {
      "text": "Ziva plan cancelled (till 19 Dec)",
      "who": "claude"
+    },
+    {
+     "text": "Knockdown heal measured: keep it",
+     "who": "claude"
+    },
+    {
+     "text": "Pick your moment: wait.html built",
+     "who": "claude"
+    },
+    {
+     "text": "Knockdown v real fights counted",
+     "who": "claude"
+    },
+    {
+     "text": "Pick your moment: late step holds",
+     "who": "claude"
+    },
+    {
+     "text": "Inside 0.55 m + glide renders in",
+     "who": "agent"
+    },
+    {
+     "text": "Sharp choice: overhand only",
+     "who": "agent"
+    },
+    {
+     "text": "Clinch v3 measured: none",
+     "who": "agent"
+    }
+   ],
+   "done_session": [
+    {
+     "text": "Tells v4 measured: 4 of 7 bars",
+     "who": "agent"
     }
    ],
    "now": [
@@ -6394,14 +6373,6 @@
     },
     {
      "text": "KICKFIX4 (worker): kicks 4",
-     "who": "claude"
-    },
-    {
-     "text": "TELLS4M (worker): tells 4",
-     "who": "claude"
-    },
-    {
-     "text": "KDPIC1 (worker): knockdown pic",
      "who": "claude"
     },
     {
@@ -6897,9 +6868,13 @@
     {
      "text": "Guard stances you can read",
      "who": "claude"
+    },
+    {
+     "text": "Tells v5: last round (Arena)",
+     "who": "agent"
     }
    ],
-   "session": "S566"
+   "session": "S567"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",

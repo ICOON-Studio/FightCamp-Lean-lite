@@ -349,14 +349,15 @@
  },
  "TELLS4M": {
   "id": "TELLS4M",
-  "status": "running",
+  "status": "landed",
   "seat": "claude",
   "agent": "Claude console worker (your PC)",
   "started": "2026-11-26T19:32",
   "eta": "3-4 h",
   "title": "Tells round 4: the bot that spots the lie fixed, then a fake that may hide one real punch - measured on your PC",
   "brief": "ops/research/TASK_TELLS4M.md",
-  "tab": "c2"
+  "tab": "c2",
+  "note": "S567 collected: 4 of 7 bars, not for the page; obeying every tell blind +5.9/+5.3/+9.4 (was +8/+10/+29) -> TELLS5M"
  },
  "PROGP4": {
   "id": "PROGP4",
@@ -382,5 +383,17 @@
   "branch": "arena/cba93bd0-fightcamp-lean-lite",
   "issue": "https://arena.ai/agent/01a21828-826b-7d4c-97e8-e175cba93bd0",
   "note": "S566 20:34: told to keep working after the daily limit reset; alive at 22:00 (on L2)"
+ },
+ "TELLS5M": {
+  "id": "TELLS5M",
+  "status": "running",
+  "seat": "arena",
+  "agent": "Arena (cloud: costs your PC nothing)",
+  "started": "2026-11-26T22:25",
+  "eta": "3-4 h",
+  "title": "Tells, the last round: a punch into his fake does +1, and the Jabber's fake can hide a body hook - measured in the cloud",
+  "brief": "ops/research/TASK_TELLS5M.md",
+  "branch": "arena/4c40abf4-fightcamp-lean-lite",
+  "issue": "https://arena.ai/agent/01a2197e-3c74-79ad-a2d7-74364c40abf4"
  }
 }

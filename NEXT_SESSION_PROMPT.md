@@ -3,7 +3,7 @@
 Start: `git pull && python ops/Tools/agent_comms.py start`, then this page, then `ops/research/S565_DIGEST.md` (S566 is the section just below).
 
 ## S567: DO THESE FIRST, IN THIS ORDER (written at the S566 wrap-up, 22:05 on 2026-11-26)
-1. ASK HIM ONCE, in the first message (all three were "tomorrow" in his own words):
+1. DO NOT ASK HIM (S567: "not yet and stop asking"): he says when these are bought or looked at. The three were:
    - the Cascadeur paid plan ("not now i will do it tomorrow"; Indie is enough; Free cannot export; 40% off annual until 7 Dec);
    - the Animo "Boxing Additional" pack, RenderHub, $69.99 ("this is very good ... i will buy this also tomorrow");
    - his look at the strip + preview + held-hand words + still dashed line (v0.566.3 on http://127.0.0.1:8797/order.html).

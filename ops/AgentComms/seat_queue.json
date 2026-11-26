@@ -4998,6 +4998,24 @@
    "answered_at": "2026-11-26 15:40",
    "answer": "research/RINGSWITCH_LONG_BRIEF_DOLA.md",
    "seen_by_claude": true
+  },
+  {
+   "id": "SQ341",
+   "seat": "kalli",
+   "brief": "research/FEINTFIX1_BRIEF.md",
+   "stem": "FEINTFIX1_BRIEF_KALLI",
+   "status": "queued",
+   "queued_at": "2026-11-26 22:34",
+   "tries": 0
+  },
+  {
+   "id": "SQ342",
+   "seat": "dola",
+   "brief": "research/FEINTFIX1_BRIEF.md",
+   "stem": "FEINTFIX1_BRIEF_DOLA",
+   "status": "queued",
+   "queued_at": "2026-11-26 22:34",
+   "tries": 0
   }
  ]
 }

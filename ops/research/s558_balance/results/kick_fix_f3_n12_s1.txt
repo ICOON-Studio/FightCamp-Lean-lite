@@ -1,0 +1,16 @@
+KICKFIX4 f3 N=12 seed=1 jobs=1 (wt_tmp kf_play.mjs: balance.mjs bouts loop + limp/kick/stamina counters; bars from balance.mjs)
+
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+Error: ENOENT: no such file or directory, open 'E:\FightCamp\wt_tmp\KICKFIX4\kick_fix_f3.vt.json'
+    at Object.readFileSync (node:fs:483:20)
+    at loadTweaked (file:///E:/FightCamp/Lean/proto/twohands/tools/balance.mjs:32:36)
+    at file:///E:/FightCamp/wt_tmp/KICKFIX4/kf_play.mjs:26:132 {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'E:\\FightCamp\\wt_tmp\\KICKFIX4\\kick_fix_f3.vt.json'
+}
+
+Node.js v24.22.1

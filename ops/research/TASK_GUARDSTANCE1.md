@@ -59,3 +59,10 @@ A coach teaches four guards by name because a fighter must see at a glance which
 
 ## Prefab check
 The Animo Additional pack (his purchase, tomorrow) for the Philly shell; our clip_db for a high guard; Cascadeur for the rest.
+
+## State after S567 (no purchase asked about: the owner says when it is bought)
+- RED STILLS TAKEN (today's four set-ups, his camera, Mid): `ops/previews/s567_guardstance/order_<lead>_<rear>_plan.png`.
+  They differ only by one glove a hand's height up or down: the red is confirmed.
+- OUR OWN CANDIDATE TAKES, not yet watched or measured (watch each before using it): `assets/anim/baked/mc_Box1_M3_Block_Loop.res`
+  and `mc_Punch_M3_Block_Loop.res` (+ `_Idle_To_Block` / `_Block_To_Idle` as the settle) for the high guard;
+  `af_crouch_idle.res` for the low crouch. The Philly shell waits for the pack; the long guard has no take (Cascadeur).
