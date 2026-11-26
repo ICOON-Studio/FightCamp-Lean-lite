@@ -1,6 +1,6 @@
-# S563 handover (written 2026-11-26, S562 - Opus 5.5)
+# S564 handover (written 2026-11-26, S563 - Opus 5.5)
 
-Start: `git pull && python ops/Tools/agent_comms.py start`, then this page, then `ops/research/S562_DIGEST.md`.
+Start: `git pull && python ops/Tools/agent_comms.py start`, then this page, then `ops/research/S563_DIGEST.md`.
 
 ## METHOD lines - quote all of them in your first message
 - ## METHOD - RING SWITCHES IS THE MAIN LINE (owner S553, S555). The pages: `proto/twohands/order.html` (boxing, the
@@ -25,6 +25,11 @@ Start: `git pull && python ops/Tools/agent_comms.py start`, then this page, then
   the board" was a jump button on the OPS BOARD; a new playable page always gets its jump button there the same turn:
   `ops/Tools/opsboard/roadmap.html`, the PAGES list).
 - Appended comments are `/* */`, never `//`.
+- ## METHOD - THE TELLS (S563, his "show opponents intentions like card games?"): NEVER his whole plan; ONE body tell
+  from the beat he already chose, with one learnable lie per man (4 of 4 playtesters, ops/research/DESIGN_TELLS2.md). It
+  reaches the page only after the v2 replay (ALLPLAY2B), the bot measure (TELLS2M) and his yes - as a POSE of his body
+  plus the cue word in the ring's corner badge, never near the men.
+- `play_cli.mjs` and `tells.mjs` are imported LIVE by every running playtest: keep old calls working when you change them.
 - ## METHOD - NOTHING NEAR THE FIGHTERS (owner S562: "i told you do not put text or anything near the fighters"): no bar,
   tick, label or marker on, under or beside the men. Ring readouts in ONE badge in the ring's top-left corner, the rest in
   the panels; a readout says what it means for a choice (memory feedback_nothing_near_fighters_s562).
@@ -32,36 +37,41 @@ Start: `git pull && python ops/Tools/agent_comms.py start`, then this page, then
   when clips play"): a run is made at each page range it can happen at (`tools/pics2d_anim.gd range=` / `short=1`), proved
   by the edge table (hold before, first frame, last frame, hold after; > 8 px = a jump), never by a shrunk strip.
 
-## RUNNING AT THE HANDOVER (collect first)
-- GLIDE2 - console tab "GLIDE2" (head moves and kicks at every range on head.html / kick.html; its renders wait for his
-  game to close). Brief ops/research/TASK_GLIDE2.md; it ends with docs/GLIDE2_RESULT.md and `GLIDE2 DONE`.
-- INSIDE1 - console tab "INSIDE1" (owner after the handover, on the Inside hold: "can you make the silhoutes parts that are
-  clipping transparent , the distance looks wrong to me btw"). Inside (0.71 m in, the clinch's tie-up gap) widens to a real
-  inside distance (K50: 0.70-0.90 m feet-mid), every Inside run is re-rendered, the head masks with it (BODYUI2's last step;
-  the after_glide2.sh waiter was stopped), then the overlapping parts see-through. Brief ops/research/TASK_INSIDE1.md.
-  GLIDE2 was told (cross-session message) to leave its Inside renders to INSIDE1.
-- Arena, on ICOON-Studio/FightCamp-Lean-lite (read with `gh api repos/ICOON-Studio/FightCamp-Lean-lite/contents/<path>?ref=<branch>`,
-  copy onto main by hand, never Arena's Merge button, check no test deleted):
-  KICKFIX2 arena/bb25d26e (slow, 2 cores), HEADPULL1 arena/397eb67a, PROGP3 arena/49993fd3 (9 of 9 runs; its guard runs
-  (7 v 5 and 7 v 6) are byte-identical: endBeat clamps m.g to N.guard - my note is typed in its chat
-  arena.ai/agent/01a216e4-80eb-7fea-88a3-0ed549993fd3, send it if still unsent), MOMENTGAP1 arena/4bdf9ebc (his "select
-  exactly on which part of a beat i move"), CLINCHFIX2 arena/204b98f9, JABLAND1 arena/ba10e2bf.
-- Chat seats: SQ337 John, SQ338 Kalli (sent, unanswered).
+## His question this session, answered
+"do you thinkwe should show opponents itentions like more draditional card games or it is fine the way it is ?" - four
+playtesters (Claude, Arena, Ziva, Dola; Antigravity was still playing) all chose ONE body tell over his whole plan; fun with
+tells 8 for all four. Version 2 (lies that fire on visible states, bluffs only, a fake costs 1 stamina, the ledger says
+when) is in the words tool: `node proto/twohands/tools/play_cli.mjs new <f> opp=0 seed=1 tells=2`.
 
-## FIRST (his asks, in this order)
-1. Collect the runs above. A measured version that holds its bars goes on the page (tweak src onto the rules); a rule he
-   did not ask for is reported to him first.
+## RUNNING AT THE HANDOVER (collect first; all Arena runs are on ICOON-Studio/FightCamp-Lean-lite, read with
+`gh api repos/ICOON-Studio/FightCamp-Lean-lite/contents/<path>?ref=<branch>`, copy onto main by hand, never Arena's Merge)
+- ALLPLAY2B: Ziva (its editor on the hidden desktop, port 7012, same chat as round 1; report
+  E:/FightCamp/tmp/allplay2/ziva/ALLPLAY2B_ZIVA.md) and Arena arena/f0a3ce55 - tells v2 replayed.
+- ALLPLAY2 Antigravity: `play_by_message.mjs antigravity E:/FightCamp/wt/AGY_ALLPLAY2 via=agy tag=ALLPLAY2` (its report
+  prompt is the OLD one: ask it the owner's question as a follow-up, as Dola was; see reference_s563_traps).
+- TELLS2M arena/ed0b7f42 (the tells measured with bots), KDHEAL1 arena/836987cb (a knockdown heals: get-up [4,3] [4,2]
+  [3,2]), KICKFIX3 arena/c178d87d, PROGP2 arena/15b7ab01 (his Q-340 Sharp choice), and from S562: HEADPULL1 arena/397eb67a,
+  MOMENTGAP1 arena/4bdf9ebc (his "select exactly on which part of a beat i move"), CLINCHFIX2 arena/204b98f9, JABLAND1
+  arena/ba10e2bf. Chat links are in ops/AgentComms/live_runs.json.
+- GLIDE2 and INSIDE1 (console tabs from S562): code done and committed, BLOCKED on renders until his game is closed
+  (docs/GLIDE2_RESULT.md, docs/INSIDE1_RESULT.md).
+- The page server now runs in this session's terminal tab "Page server 8797" (the old one died when the old sessions were
+  archived on his "Yes, close them").
+
+## FIRST (in this order)
+1. Collect the runs above. Tells: if ALLPLAY2B and TELLS2M agree, write the page version as a brief (the tell from
+   `hisNext`, which the page already chooses before the player; three guard poses a man) and ask him with the board.
 2. MOMENTGAP1's answer to his "can i ... select exactly on which part of a beat i move ? or it breaks balance ?".
-3. BOUNCE1 (brief ops/research/TASK_BOUNCE1.md: after GLIDE2, game closed).
-4. Progression Q-340 "Yes, a choice", Q-341 "Try it", Q-342 "Right amount" - after PROGP3's numbers (guard runs redone).
+3. KDHEAL1: a version that holds its bars is REPORTED to him (a rule he did not ask for), not put on the page.
+4. With his game closed: GLIDE2 and INSIDE1 renders, the knockdown picture inside the ring, an overhand picture, BOUNCE1.
 
 ## Waiting on the owner
-- His play of the body view (order.html: point at a limb), punch.html on F, the distance fix.
+- His play of the body view (order.html), punch.html on F, and the tells (words tool) if he wants to try them.
 
 ## Seats
 Arena for node-only measures; console workers (`ops/Tools/claude_cm.ps1 --model claude-opus-5-5 --permission-mode auto
-"<prompt naming the TASK file>"` in a terminal tab; owner S562: "use console-code if you need more tasks done"); John /
-Kalli through `python ops/Tools/seat_queue.py add`. Page server: `python proto/cardgame/serve.py 8797 twohands`.
+"<prompt naming the TASK file>"`); Ziva for playtests (fast, decides each beat); Dola by `play_by_message.mjs via=dola`;
+Antigravity by `via=agy`. Page server: `python proto/cardgame/serve.py 8797 twohands` (check it after any session archive).
 
-## Model for S563
-Opus, medium effort, Fast off - collecting six measures and two renders, then page work with clear targets.
+## Model for S564
+Opus, medium effort, Fast off - collecting ten measures and two playtests, then one page brief.

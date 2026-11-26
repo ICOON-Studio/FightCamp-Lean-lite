@@ -40,6 +40,13 @@ fake came, the front foot meaning nothing Inside, "quiet" hiding a clinch, and a
 - 76177b9e8 KICKFIX2 collected (PR 454): E1 dead (low kick lands 93%), the limp loop ran uncapped (5 of 9 stoppages after a
   limp) - the run stopped on its own brief's loop rule.
 - PR 453 (PUNCHCHANCE2, collected in S562) closed.
+- b7bdfc914 THE HABIT READ IS SHOWN (Claude, Arena, Ziva: "the rule fires and nothing says so"): "He read you - your
+  <plan> - 2 of your last 3 beats" heads the beat story on order / punch / head / kick and in the words tool. A flag on
+  his plan (`readOf`), no number changes: rules_test 37, kick_test 12, head_test 11, punch_chance_test 14, page_parse 4,
+  page_play_test 4+4; checked on the live page.
+- The page server (8797) died when the old sessions were archived (it lived in one of their tabs); restarted in this
+  session's terminal tab "Page server 8797" (memory reference_s563_traps).
+- DESIGN_PROGRESSION1 3d: the kept attribute ranges after PROGP3; TASK_PROGP2 / KICKFIX3 / KDHEAL1 / TELLS2M briefs.
 
 ## Launched (Arena, cloud; nothing on the PC)
 | Run | Branch on FightCamp-Lean-lite | What |
@@ -48,6 +55,7 @@ fake came, the front foot meaning nothing Inside, "quiet" hiding a clinch, and a
 | PROGP2 | arena/15b7ab01 | his Q-340 "Yes, a choice": at Sharp, cheaper or faster, per punch (probe_sharp.mjs) |
 | ALLPLAY2B (Arena) | arena/f0a3ce55 | tells version 2 replayed, compared with its round 1 |
 | KDHEAL1 | arena/836987cb | "a knockdown heals" (Arena, Ziva): get-up [4,3], [4,2], [3,2] against [6,4] |
+| TELLS2M | arena/ed0b7f42 | the tells v2 with bots: following blindly at most 55%, knowing the lie 70%+ (Kalli's bars) |
 Still running from S562: HEADPULL1 arena/397eb67a, MOMENTGAP1 arena/4bdf9ebc, CLINCHFIX2 arena/204b98f9 (P0 8 of 9 both
 seeds), JABLAND1 arena/ba10e2bf. Ziva plays ALLPLAY2B in its same chat (editor on the hidden desktop, port 7012).
 
