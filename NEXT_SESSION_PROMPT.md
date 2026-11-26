@@ -16,7 +16,10 @@ HIS TWO MARKS ON THE Q-344 PICTURE, BUILT (v0.566.1; stills on 8787/review; his 
 - C521 on the help box "i do not understand what it does, maybe reoharse and use basic terminology" -> body_ui.js: "Choose
   your moves: 1. Click a part of your boxer (the blue one) ... 2. Its moves show here: click the one you want."; the top
   bar says "click your boxer to choose his moves".
-- Q-344 ITSELF IS STILL OPEN (he marked the picture, he did not answer).
+- Q-344 IS CLOSED: PARKED. On the board he wrote "idonot understand what you mean"; after a plain explanation in chat he
+  said "park that for now ? what do you think ?" and Claude agreed. The late step stays on wait.html (measured, working),
+  NOT on the main page; do not ask again unless he brings it up. LESSON: a board question names the thing the player
+  sees ("the Step in a moment later button"), never the measure ("holds the bars on both seeds").
 COLLECTED: TELLS3M (docs/TELLS3M_RESULT.md): 4 of 7 bars, NOT for the page - obeying every tell blind wins +8 / +10 / +29
 points over the no-tell control (a fake hides under 3 damage, so it costs nothing), and the reader bot is wrong in the
 probe. -> ops/research/TASK_TELLS4M.md (reader bot fixed, then version 4: a fake may hide ONE 3-damage punch).

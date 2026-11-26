@@ -10,8 +10,8 @@ import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { load } from './rules.mjs';
-import { LIES, tellOf } from './tells.mjs';
-import { cover, botPlan, bouts } from './probe_tells.mjs';
+import { LIES, LIES3, LIES4, tellOf, fakeOk4 } from './tells.mjs';
+import { cover, botPlan, bouts, lieCueHolds, punchInto } from './probe_tells.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 let n = 0;
@@ -64,4 +64,36 @@ test('a fake costs him 1 stamina after the beat, and his fakes are counted (BOT 
   assert.ok(o.tl.fake >= 0 && o.tl.fake <= o.tl.beats); assert.ok(o.tl.bellN[0] >= 1 || o.ko + o.lost === 1, 'his stamina is read at the first bell');
 });
 
+/* S566 TELLS4M: version 4 and BOT 2 fixed (v2 and v3 calls unchanged: the tests above, plus the v3 checks here) */
+const A = R.ACT, c4 = (o = {}) => ({ ...ctx(o), ACT: A, fakesRound: 0, fakedLast: false });
+test('v4: a fake shoulder may hide one 3-damage punch on an open line (a lead uppercut), never two, never a hook, never more', () => {
+  assert.ok(fakeOk4(plan({ lead: 'lup' }), 'shoulder', A), 'lead uppercut, under, 3: allowed');
+  assert.ok(!fakeOk4(plan({ lead: 'hook' }), 'shoulder', A), 'lead hook is on a covered line (side)');
+  assert.ok(!fakeOk4(plan({ lead: 'lup', rear: 'rbody' }), 'shoulder', A), 'two punches: never');
+  assert.ok(!fakeOk4(plan({ rear: 'rup' }), 'shoulder', A), '4 damage: never');
+  assert.ok(fakeOk4(plan({ lead: 'jab' }), 'shoulder', A) && fakeOk4(plan({ rear: 'rbody' }), 'shoulder', A), 'under 3 as in v3');
+  assert.ok(!fakeOk4(plan({ lead: 'jab' }), 'knees', A) && fakeOk4(plan(), 'knees', A), 'a fake knees still hides no punch');
+  const cj = c4({ hisLast: plan({ feet: 'back' }) });
+  const t4 = tellOf(0, plan({ lead: 'lup' }), cj, 4), t3 = tellOf(0, plan({ lead: 'lup' }), cj, 3);
+  assert.equal(t4.cue, 'shoulder'); assert.ok(t4.fake); assert.equal(t3.cue, 'knees', 'v3 unchanged: no fake over 2 damage'); assert.ok(!t3.fake);
+});
+test('v4: the Body Snatcher fakes the shoulder after his body punch, inside the cap; v3 does not', () => {
+  assert.equal(LIES4[2].length, LIES3[2].length + 1); assert.equal(LIES4[2][2].cue, 'shoulder');
+  const cb = c4({ hisLast: plan({ rear: 'rbody' }) }), jab = plan({ lead: 'jab' });
+  assert.equal(tellOf(2, jab, cb, 4).cue, 'shoulder'); assert.ok(tellOf(2, jab, cb, 4).fake);
+  assert.ok(!tellOf(2, jab, cb, 3).fake, 'v3: a jab beat cannot fake knees (1 damage is not under 1)');
+  assert.equal(tellOf(2, plan(), cb, 4).cue, 'knees', 'an empty beat: knees comes first');
+  assert.ok(!tellOf(2, jab, { ...cb, fakesRound: 2 }, 4).fake, 'the cap of 2 a round'); assert.ok(!tellOf(2, jab, { ...cb, fakedLast: true }, 4).fake, 'never two running');
+});
+test('BOT 2 fixed: it doubts only that man\'s lying cue under a holding condition, and punches into it', () => {
+  const cj = c4({ hisLast: plan({ feet: 'back' }), range: 2 }), base = plan({ hl: 'low', hr: 'low' });
+  assert.ok(lieCueHolds(0, cj, 'shoulder', 3)); assert.ok(!lieCueHolds(0, cj, 'knees', 3), 'the Jabber never fakes knees');
+  const got = botPlan(2, 0, base, { cue: 'shoulder', fake: true }, cj, 3, { fix: 1, FEET: R.FEET });
+  assert.equal(got.lead, 'jab', 'at Mid the cheapest punch that reaches: the jab (1 stamina; ties: bigger, then lead)'); assert.deepEqual(got.ord, ['lead']); assert.equal(got.hr, 'low', 'the other held hand stays');
+  const ins = punchInto(base, { ...cj, range: 1 }, R.FEET); assert.equal(ins.lead, 'hook', 'Inside: 2 stamina, 3 damage, the lead first');
+  const kn = botPlan(2, 0, base, { cue: 'knees' }, cj, 3, { fix: 1 }); assert.equal(kn.hl, 'low'); assert.equal(kn.hr, 'low', 'an honest cue is covered as BOT 1');
+  assert.deepEqual(botPlan(2, 0, base, { cue: 'shoulder' }, cj, 3), base, 'without fix=1 BOT 2 is the TELLS3M bot');
+  const tired = punchInto(base, { ...cj, me: { ...cj.me, st: 0 } }, R.FEET); assert.deepEqual(tired, base, 'no stamina: no punch added');
+  const lng = punchInto(base, { ...cj, range: 3 }, R.FEET); assert.equal(lng.lead, 'jab', 'at Long: the jab');
+});
 console.log(`PROBE_TELLS_TEST ${process.exitCode ? 'FAILED' : 'passed'} (${n} passed)`);

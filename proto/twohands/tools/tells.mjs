@@ -62,6 +62,20 @@ export const LIES3 = [
   [LIES[2], { when: 'the beat after he threw a body punch', test: (c) => !!(c.hisLast && BODY.some((x) => c.hisLast.lead === x || c.hisLast.rear === x)), cue: 'knees' }],
 ];   /* S564 tell_rates opp=2: 'behind on points' held on 5% of beats against a careful player; 'after his body punch' 22% */
 export const CAP3 = { round: 2 };
+/* v4 (S566 TELLS4M, from TELLS3M: blind covering cost nothing, a fake hid under 3 damage):
+   a. a fake shoulder may hide ONE punch of exactly 3 damage on a line the shoulder's cover (both hands high) leaves open
+      - never two punches, never more than 3. With the page's punches that is a lead uppercut, Inside.
+   b. the Body Snatcher also fakes the shoulder on his second condition (the beat after he threw a body punch), inside the
+      same cap of 2 fakes a round, never two running. v2 and v3 calls are unchanged. */
+export const LIES4 = [LIES3[0], LIES3[1], [...LIES3[2], { when: LIES3[2][1].when, test: LIES3[2][1].test, cue: 'shoulder' }]];
+const OPEN4 = { shoulder: ['body', 'under'] };   // the lines both-hands-high leaves open (the page's COVER.high = straight, side)
+const hits = (p, A) => (p && !p.clinch ? [p.lead, p.rear].filter((id) => id && A[id] && A[id].d) : []);
+// v4: may this real beat stand behind a fake of this cue? (a bluff by damage, or the one hidden 3 on an open line)
+export function fakeOk4(p, cue, A) {
+  if (dmgOf(p, A) < promiseOf(cue, A)) return true;
+  const h = hits(p, A);
+  return !!OPEN4[cue] && h.length === 1 && A[h[0]].d === 3 && OPEN4[cue].includes(A[h[0]].line);
+}
 const dmgOf = (p, A) => (p && !p.clinch ? ((p.lead && A[p.lead] && A[p.lead].d) || 0) + ((p.rear && A[p.rear] && A[p.rear].d) || 0) : 0);
 const PROMISE = { shoulder: BIG_REAR, knees: LOW };
 const promiseOf = (cue, A) => Math.min(...(PROMISE[cue] || []).filter((id) => A[id] && A[id].d).map((id) => A[id].d), 99);
@@ -72,6 +86,11 @@ export const LEGEND3 = 'A FAKE ALWAYS HURTS LESS THAN IT SHOWS: a fake shoulder 
 // Returns { cue shown, truth, fake, when (v2: the condition of a fake, for the ledger) }.
 export function tellOf(opp, p, c, v = 1) {
   const truth = truthOf(p, c.range, v), lie = (cue, when) => ({ cue, truth, fake: cue !== truth, when: cue !== truth ? when : '' });
+  if (v >= 4) {   // as v3, with LIES4 and fakeOk4
+    const capped = (c.fakesRound || 0) >= CAP3.round || !!c.fakedLast;
+    if (!capped) for (const L of LIES4[opp] || []) if (L.test(c) && L.cue !== truth && fakeOk4(p, L.cue, c.ACT)) return lie(L.cue, L.when);
+    return lie(truth, '');
+  }
   if (v >= 3) {   // c also carries ACT (the page's punches), fakesRound (his fakes this round) and fakedLast (last beat was one)
     const capped = (c.fakesRound || 0) >= CAP3.round || !!c.fakedLast;
     if (!capped) for (const L of LIES3[opp] || []) {
