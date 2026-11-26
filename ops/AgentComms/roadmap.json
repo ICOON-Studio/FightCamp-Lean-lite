@@ -5381,7 +5381,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-26 12:11 board_sync",
+  "updated": "2026-11-26 12:42 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5563,7 +5563,8 @@
     "title": "The kick version that holds 8 of 9 bars: kicks back at Long, the low kick as the answer to a man stepping in",
     "who": "Arena (cloud, its own clone of the code mirror: costs your PC nothing)",
     "started": "2026-11-26T10:00",
-    "run": "KICKFIX2"
+    "run": "KICKFIX2",
+    "state": "LANDED - Claude collects"
    },
    {
     "title": "Head movement with the pull counter: does it hold 9 of 9 on a bigger sample (two runs of 84 bouts)",
@@ -5575,7 +5576,8 @@
     "title": "Attributes on the fight board: how much health, stamina, recovery and guard each decide a bout (probe before the design goes further)",
     "who": "Arena (cloud, a third chat: costs your PC nothing; its clone has 2 cores, so runs are slow)",
     "started": "2026-11-26T10:12",
-    "run": "PROGP3"
+    "run": "PROGP3",
+    "state": "LANDED - Claude collects"
    },
    {
     "title": "Puncher's chance: version C with the knockdowns back under the bar (three versions, two seeds each)",
@@ -5588,13 +5590,15 @@
     "title": "Body view on the main page: point at a limb to pick its switches; his limbs show what they can do; the head its own part",
     "who": "console worker (Opus, Code Mode), terminal tab BODYUI2",
     "started": "2026-11-26T13:00",
-    "run": "BODYUI2"
+    "run": "BODYUI2",
+    "state": "LANDED - Claude collects"
    },
    {
     "title": "Punch pictures at every range: the men keep their distance when a punch plays",
     "who": "Claude (S562 session), renders on the hidden desktop",
     "started": "2026-11-26T12:20",
-    "run": "GLIDE1"
+    "run": "GLIDE1",
+    "state": "LANDED - Claude collects"
    },
    {
     "title": "Pick the exact moment of the beat you act in (a wait between): measured before it is built",
@@ -5619,6 +5623,12 @@
     "who": "Arena (cloud, a seventh chat: costs your PC nothing)",
     "started": "2026-11-26T14:45",
     "run": "JABLAND1"
+   },
+   {
+    "title": "Inside is too close (your 'the distance looks wrong'): a real inside distance, then the parts where the men overlap see-through",
+    "who": "console worker (Opus, Code Mode), terminal tab INSIDE1",
+    "started": "2026-11-26T15:30",
+    "run": "INSIDE1"
    }
   ],
   "next": [
@@ -6252,64 +6262,6 @@
   "map": {
    "done_earlier": [
     {
-     "text": "Puncher's chance v C: 10 to 18%",
-     "who": "agent"
-    },
-    {
-     "text": "Head move pictures on head.html",
-     "who": "claude"
-    },
-    {
-     "text": "Puncher's chance page + board jump",
-     "who": "claude"
-    },
-    {
-     "text": "Pull counter on the page",
-     "who": "claude"
-    },
-    {
-     "text": "Body toy: words off the boots",
-     "who": "claude"
-    },
-    {
-     "text": "6 questions on the board",
-     "who": "claude"
-    },
-    {
-     "text": "3 cloud measures launched",
-     "who": "claude"
-    },
-    {
-     "text": "Body-mapped switches: toy built",
-     "who": "claude"
-    },
-    {
-     "text": "Guard glove off the ear: retaken",
-     "who": "claude"
-    },
-    {
-     "text": "Rune Coliseum steps: study read",
-     "who": "claude"
-    },
-    {
-     "text": "Clinch: 4 fixes, all 7 of 9",
-     "who": "claude"
-    },
-    {
-     "text": "Pull counter: 8 of 9, jab 68%",
-     "who": "claude"
-    },
-    {
-     "text": "Kickboxing rules page + 12 tests",
-     "who": "claude"
-    },
-    {
-     "text": "Progression spec written (paper)",
-     "who": "claude"
-    }
-   ],
-   "done_session": [
-    {
      "text": "Range badge off the fighters",
      "who": "claude"
     },
@@ -6339,6 +6291,36 @@
     },
     {
      "text": "Puncher's chance page on F",
+     "who": "claude"
+    },
+    {
+     "text": "Puncher's chance v C: 10 to 18%",
+     "who": "agent"
+    },
+    {
+     "text": "Head move pictures on head.html",
+     "who": "claude"
+    },
+    {
+     "text": "Puncher's chance page + board jump",
+     "who": "claude"
+    },
+    {
+     "text": "Pull counter on the page",
+     "who": "claude"
+    },
+    {
+     "text": "Body toy: words off the boots",
+     "who": "claude"
+    },
+    {
+     "text": "6 questions on the board",
+     "who": "claude"
+    }
+   ],
+   "done_session": [
+    {
+     "text": "Attributes probe: 3 of 4 count",
      "who": "claude"
     }
    ],
@@ -6509,6 +6491,18 @@
     },
     {
      "text": "Inside distance + see-through",
+     "who": "claude"
+    },
+    {
+     "text": "Playtest: show his intentions?",
+     "who": "claude"
+    },
+    {
+     "text": "Kick v3: limp capped (Arena)",
+     "who": "claude"
+    },
+    {
+     "text": "Sharp choice probe (Arena)",
      "who": "claude"
     }
    ],
@@ -6962,7 +6956,7 @@
      "who": "claude"
     }
    ],
-   "session": "S562"
+   "session": "S563"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",

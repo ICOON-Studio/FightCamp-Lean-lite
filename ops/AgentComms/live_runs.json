@@ -26,7 +26,7 @@
   },
   "KICKFIX2": {
    "id": "KICKFIX2",
-   "status": "running",
+   "status": "landed",
    "seat": "arena",
    "agent": "Arena (cloud, its own clone of the code mirror: costs your PC nothing)",
    "started": "2026-11-26T10:00",
@@ -34,7 +34,8 @@
    "title": "The kick version that holds 8 of 9 bars: kicks back at Long, the low kick as the answer to a man stepping in",
    "brief": "ops/research/TASK_KICKFIX2.md",
    "branch": "arena/bb25d26e-fightcamp-lean-lite",
-   "issue": "https://arena.ai/agent/01a216db-21b6-714e-a68f-ba6abb25d26e"
+   "issue": "https://arena.ai/agent/01a216db-21b6-714e-a68f-ba6abb25d26e",
+   "reconciled": "2026-11-26 12:42 board_reconcile: PR #454 open - collect it"
   },
   "HEADPULL1": {
    "id": "HEADPULL1",
@@ -50,7 +51,7 @@
   },
   "PROGP3": {
    "id": "PROGP3",
-   "status": "running",
+   "status": "landed",
    "seat": "arena",
    "agent": "Arena (cloud, a third chat: costs your PC nothing; its clone has 2 cores, so runs are slow)",
    "started": "2026-11-26T10:12",
@@ -58,7 +59,8 @@
    "title": "Attributes on the fight board: how much health, stamina, recovery and guard each decide a bout (probe before the design goes further)",
    "brief": "ops/research/TASK_PROGP3.md",
    "branch": "arena/49993fd3-fightcamp-lean-lite",
-   "issue": "https://arena.ai/agent/01a216e4-80eb-7fea-88a3-0ed549993fd3"
+   "issue": "https://arena.ai/agent/01a216e4-80eb-7fea-88a3-0ed549993fd3",
+   "reconciled": "2026-11-26 12:42 board_reconcile: PR #455 open - collect it"
   },
   "PUNCHCHANCE2": {
    "id": "PUNCHCHANCE2",
@@ -150,6 +152,82 @@
    "eta": "4-5 h (renders only with your game closed)",
    "title": "Inside is too close (your 'the distance looks wrong'): a real inside distance, then the parts where the men overlap see-through",
    "brief": "ops/research/TASK_INSIDE1.md"
+  },
+  "ALLPLAY2_CLAUDE": {
+   "seat": "claude",
+   "agent": "console worker (Opus, Code Mode), terminal tab ALLPLAY2 claude",
+   "eta": "1-2 h",
+   "brief": "ops/research/TASK_ALLPLAY2.md",
+   "title": "Playtest: Ring Switches as it is, with and without the opponent's tells - and your question: show his intentions?",
+   "status": "running",
+   "id": "ALLPLAY2_CLAUDE",
+   "started": "2026-11-26T13:05"
+  },
+  "ALLPLAY2_AGY": {
+   "seat": "antigravity",
+   "agent": "Antigravity (by message, about 75 s a beat)",
+   "eta": "2-3 h",
+   "brief": "ops/research/TASK_ALLPLAY2.md",
+   "title": "Playtest by message: 2 bouts without tells, 2 with - and your question on showing his intentions",
+   "status": "running",
+   "id": "ALLPLAY2_AGY",
+   "started": "2026-11-26T13:05"
+  },
+  "ALLPLAY2_DOLA": {
+   "seat": "dola",
+   "agent": "Dola (her desktop app, by message)",
+   "eta": "2-3 h",
+   "brief": "ops/research/TASK_ALLPLAY2.md",
+   "title": "Playtest by message: 2 bouts with tells first, then 2 without - and your question on showing his intentions",
+   "status": "running",
+   "id": "ALLPLAY2_DOLA",
+   "started": "2026-11-26T13:05"
+  },
+  "ALLPLAY2_ARENA": {
+   "seat": "arena",
+   "agent": "Arena (cloud: costs your PC nothing)",
+   "eta": "2-3 h",
+   "brief": "ops/research/TASK_ALLPLAY2.md",
+   "branch": "arena/cc67b4a2-fightcamp-lean-lite",
+   "issue": "https://arena.ai/agent/01a2177b-0162-7360-9c27-8875cc67b4a2",
+   "title": "Playtest in the cloud: 3 bouts with tells, 3 without - and your question on showing his intentions",
+   "status": "running",
+   "id": "ALLPLAY2_ARENA",
+   "started": "2026-11-26T13:05"
+  },
+  "ALLPLAY2_ZIVA": {
+   "seat": "ziva",
+   "status": "queued",
+   "agent": "Ziva (its Godot editor on the hidden desktop)",
+   "eta": "starts when PC memory allows",
+   "brief": "ops/research/TASK_ALLPLAY2.md",
+   "title": "Playtest: Ziva plays with and without tells (waits: PC memory 97% with your game open)",
+   "id": "ALLPLAY2_ZIVA",
+   "started": "2026-11-26T13:05"
+  },
+  "KICKFIX3": {
+   "seat": "arena",
+   "agent": "Arena (cloud: costs your PC nothing)",
+   "eta": "2-3 h",
+   "brief": "ops/research/TASK_KICKFIX3.md",
+   "branch": "arena/c178d87d-fightcamp-lean-lite",
+   "issue": "https://arena.ai/agent/01a21781-6171-71d0-b446-b6a4c178d87d",
+   "title": "Kicks: the two versions never measured, with the limp spiral capped where it fires",
+   "status": "running",
+   "id": "KICKFIX3",
+   "started": "2026-11-26T13:05"
+  },
+  "PROGP2": {
+   "seat": "arena",
+   "agent": "Arena (cloud: costs your PC nothing)",
+   "eta": "2-3 h",
+   "brief": "ops/research/TASK_PROGP2.md",
+   "branch": "arena/15b7ab01-fightcamp-lean-lite",
+   "issue": "https://arena.ai/agent/01a21784-993c-72a7-b4f6-0d2915b7ab01",
+   "title": "Your \"Yes, a choice\": at Sharp, is \"cheaper\" or \"faster\" a real choice for each punch? Measured first",
+   "status": "running",
+   "id": "PROGP2",
+   "started": "2026-11-26T13:05"
   }
  },
  "codex_budget": {

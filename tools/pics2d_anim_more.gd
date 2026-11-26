@@ -19,7 +19,7 @@ const STEPS := {"step_in": ["st_in_m", 1.0, 0.355], "back_off": ["st_out_m", -1.
 ## THE RANGE IS SEEN (owner S553: "i think you need to draw them for inside/midrang/long ?"): the standing pictures at the
 ## page's three ranges. Long = the guard spots; each step in is the step take's own travel (0.355 m), so Mid = one step,
 ## Inside = two. A run's plain name is Long; _r2 = Mid, _r1 = Inside. A step run's suffix is the range it ENDS on.
-const RANGE_IN := {"": 0.0, "_r2": 0.355, "_r1": 0.71}
+const RANGE_IN := {"": RANGE_LONG_M, "_r2": RANGE_MID_M, "_r1": RANGE_INSIDE_M}   # INSIDE1: the one table (pics2d_anim.gd)
 const STEP_T := [0.0, 0.12, 0.24, 0.36, 0.48, 0.60, 0.72, 0.86]
 ## a held hand -> the hand, the place it guards as [landmark, [toward him, out to the hand's side, up] m], and how the
 ## bar reads it: "glove" = the glove's middle, "arm" = the nearest point of elbow-to-glove (the forearm does the guarding;
@@ -55,6 +55,10 @@ var mask: RefCounted = null
 
 
 func _run() -> void:
+	if _arg("probe_in", "") != "":
+		await _probe_inside(_arg("probe_in", ""))
+		quit(0)
+		return
 	if _arg("mask", "on") != "off":
 		mask = Mask.new(root, stage, cam, sv)
 	for who in 2:
@@ -183,8 +187,15 @@ func _step_run(who: int, key: String, name: String, end_in: float = 0.0, ranged 
 	var dist := float(STEPS[key][2])
 	var toward := axis * (1.0 if who == 0 else -1.0)
 	var from: Vector3 = home_t[who].origin - (toward * dist if way > 0.0 else Vector3.ZERO)
-	if ranged:   # it ENDS end_in m in from Long: a step in starts a step further out, a step back a step further in
-		from = home_t[who].origin + toward * (end_in - way * dist)
+	if ranged:   # it ENDS end_in m in from Long and starts on the range next to it (INSIDE1: Mid -> Inside is shorter than
+		# the take's 0.355 m; the body is carried by the take's own hip travel scaled to it, the standing feet held by FootLock)
+		var ins := [RANGE_LONG_M, RANGE_MID_M, RANGE_INSIDE_M]
+		var at := ins.find(end_in)
+		var start_in: float = end_in - way * dist
+		if at >= 0:
+			start_in = float(ins[at - 1]) if way > 0.0 and at > 0 else (float(ins[at + 1]) if way < 0.0 and at < 2 else start_in)
+		dist = absf(end_in - start_in)
+		from = home_t[who].origin + toward * start_in
 	var path := RootPath.of(ap.get_animation(clip))
 	var len := ap.get_animation(clip).length
 	# RENDERFIT1 (S559): a back off's last picture is taken at 0.72 s, when the take has carried him only 87% of its
@@ -203,7 +214,18 @@ func _step_run(who: int, key: String, name: String, end_in: float = 0.0, ranged 
 		await _home_guard((from - home_t[who].origin).dot(toward), who)
 		_node(who).global_position = from
 		return [[0.0, func() -> void: stage.v2._play(who, clip, 0.0, "step", false)]]
+	var slid := {"LeftToes": [0.0, null, INF], "RightToes": [0.0, null, INF]}   # INSIDE1: [slide on the canvas, last place, lowest]
 	var each := func(_t: float) -> void:
+		for b in slid:   # a standing toe (within 1.5 cm of its lowest) that moves over the canvas = a skating foot
+			var p := Gate.world(stage, who, str(b))
+			var row: Array = slid[b]
+			if _t < EPS:   # every picture plays the run again from its start: the last one's sum is the whole run's
+				row[0] = 0.0
+				row[1] = null
+			row[2] = minf(float(row[2]), p.y)
+			if row[1] != null and p.y < float(row[2]) + 0.015 and (row[1] as Vector3).y < float(row[2]) + 0.015:
+				row[0] = float(row[0]) + ((p - (row[1] as Vector3)) * Vector3(1, 0, 1)).length()
+			row[1] = p
 		var pos := ap.current_animation_position if str(ap.current_animation) == clip else len
 		var frac := smoothstep(0.17 * len, 0.82 * len, pos)
 		if not path.is_empty():
@@ -213,6 +235,7 @@ func _step_run(who: int, key: String, name: String, end_in: float = 0.0, ranged 
 		frac = minf(frac / span[0], 1.0)   # RENDERFIT1: 1.0 on the last picture of a back off (span above)
 		_node(who).global_position = from + toward * way * dist * frac
 	await _solo(name, clip, times, build, each)
+	print("STEP_SKATE %s: carried %.3f m, standing toes slid %.3f / %.3f m (left / right)" % [name, dist, float(slid["LeftToes"][0]), float(slid["RightToes"][0])])
 
 
 ## A hand held, or both (HOLDTAKES1): the authored take from the guard; a hand it does not name stays where the guard has it.
@@ -415,3 +438,27 @@ func _punch_ko_run(who: int, fam: String, name: String) -> void:
 	runs[name] = {"files": files, "offs": times, "contact": 0, "clip": str(b["clip"]), "answer": KO_CLIP, "wide": 2, "step": snappedf(float(b["step"]), 0.001), "gate_fails": []}
 	print("PICS2D_ANIM %s = %s then %s, %d frames, step %.2f m" % [name, b["clip"], KO_CLIP, files.size(), float(b["step"])])
 	_save()
+
+
+## INSIDE1 step 1: the hold's last picture (and the guard) at each in-distance, blue stood in with red on his spot as the
+## page's pictures stand: the gate's torso / feet / head measures and the gap between the feet midpoints (K50's close
+## range 0.70-0.90 m). probe_in=0.71,0.60,0.55,0.50 prints INSIDE_PROBE lines and quits.
+func _probe_inside(list: String) -> void:
+	for s in list.split(","):
+		var in_m := float(s)
+		for key in ["guard"] + HOLDS.keys():
+			var clip := "hold_" + str(key)
+			if key != "guard":
+				_add_hold(1, clip)
+			var build := func() -> Array:
+				await _home_guard(in_m, 1)
+				return [] if key == "guard" else [[0.0, func() -> void: stage.v2._play(1, clip, 0.0, "block", false)]]
+			await _solo_at(build, Callable(), float(HOLD_T[-1]))
+			await process_frame
+			var m := {}
+			var fails := Gate._apart(stage, _view(), m)
+			var mid := func(i: int) -> Vector3: return (Gate.world(stage, i, "LeftFoot") + Gate.world(stage, i, "RightFoot")) * 0.5
+			var fm: float = ((mid.call(1) - mid.call(0)) * Vector3(1, 0, 1)).dot(axis)
+			var rg: float = ((_node(1).global_position - _node(0).global_position) * Vector3(1, 0, 1)).dot(axis)
+			print("INSIDE_PROBE in=%.2f %-15s roots %.3f feet_mid %.3f apart %.3f apart_pic %.3f feet %.3f head_clear %.3f %s" % [in_m, key, rg, fm,
+				float(m["apart_m"]), float(m["apart_pic_m"]), float(m["feet_m"]), float(m["head_clear_m"]), "PASS" if fails.is_empty() else "FAIL " + "; ".join(PackedStringArray(fails))])

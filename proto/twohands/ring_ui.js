@@ -17,20 +17,26 @@
   // the two counts (steps of 0.355 m) from the step runs it plays; red's + blue's = the range's (Long 0, Mid 1, Inside 2).
   // Without it a red step snapped a whole step (RINGCAM1: 87 px of the render, 54 of the page picture).
   // The ring itself (img/ring_bg.webp, tools/pics2d_ring_bg.gd: the same camera, 4 times as wide) does NOT slide.
-  const STEP_M = 0.355; let CAM = null, redIn = 0, blueIn = 0, SX = 0, SY = 0;
+  /* INSIDE1 (S562, owner: "the distance looks wrong to me btw"): the slide is in METRES, not steps - Inside is no longer
+     two step takes in. RANGE_M = the picture tools' one table (tools/pics2d_anim.gd RANGE_LONG_M / RANGE_MID_M /
+     RANGE_INSIDE_M): keep the two the same. redM / blueM are each man's metres in from his spot; a step moves the
+     stepper by the gap between the two ranges, as the step runs are made (pics2d_anim_more.gd _step_run). */
+  const RANGE_M = { 3: 0, 2: 0.355, 1: 0.71 };
+  const STEP_M = 0.355; let CAM = null, redIn = 0, blueIn = 0, redM = 0, blueM = 0, SX = 0, SY = 0;
   fetch('img/anim/frames.json').then((r) => r.json()).then((j) => { CAM = j.camera || null; slide(); }).catch(() => {});
   const css = document.createElement('style');
   css.textContent = '.stage{background:#0f1013}.stage:before,.stage:after{display:none}.stage img#ringbg{z-index:0;filter:none;pointer-events:none}';
   document.head.appendChild(css);
   const bg = document.createElement('img'); bg.id = 'ringbg'; bg.alt = ''; bg.src = 'img/ring_bg.webp'; st.insertBefore(bg, st.firstChild);
-  const metresOf = (src) => { const f = (src || '').split('/').pop(); return (/^red_/.test(f) ? -blueIn : redIn) * STEP_M; };
+  const metresOf = (src) => { const f = (src || '').split('/').pop(); return /^red_/.test(f) ? -blueM : redM; };
+  const rOf = (n) => Math.max(1, Math.min(3, 3 - n)), mOf = (n) => RANGE_M[rOf(n)] + (n < 0 ? n * STEP_M : 0);   /* the range of a step count; past Long (the ropes) a step back is a step take */
   function slide() { if (!CAM || !CAM.axis_px) { SX = SY = 0; im.style.translate = ''; return; }
     const k = st.clientHeight * 1.26 / (CAM.render_px || 768), m = metresOf(im.getAttribute('src'));
     SX = -m * CAM.axis_px[0] * k; SY = m * CAM.axis_px[1] * k;   /* the picture is drawn mirrored: its +x is the screen's -x */
     im.style.translate = SX || SY ? `${SX.toFixed(1)}px ${SY.toFixed(1)}px` : ''; }
-  const holdSlide = () => { if (!CAM || !CAM.axis_px) return [0, 0]; const k = st.clientHeight * 1.26 / (CAM.render_px || 768), m = redIn * STEP_M; return [-m * CAM.axis_px[0] * k, m * CAM.axis_px[1] * k]; };
+  const holdSlide = () => { if (!CAM || !CAM.axis_px) return [0, 0]; const k = st.clientHeight * 1.26 / (CAM.render_px || 768), m = redM; return [-m * CAM.axis_px[0] * k, m * CAM.axis_px[1] * k]; };
   new MutationObserver(slide).observe(im, { attributes: true, attributeFilter: ['src'] });   /* runs before the frame is painted */
-  const fit = () => { const t = 3 - (range || 3); redIn = Math.max(-2, Math.min(2, redIn)); blueIn = t - redIn; };   /* the range is the truth: blue takes up what the counts missed */
+  const fit = () => { const t = 3 - (range || 3); redIn = Math.max(-2, Math.min(2, redIn)); blueIn = t - redIn; blueM = RANGE_M[range || 3] - redM; };   /* the range is the truth: blue takes up what the counts (and the metres) missed */
   /* S562 GLIDE1 (owner: "the distance between fighters is not consistant when clips play, it gets reset when some clip
      animations play"): a punch run is made at each range it reaches (tools/pics2d_anim.gd range=: the puncher starts and
      ends on his spot at that range and steps into the punch between); the range the men stand at NOW is the counts'. A
@@ -57,13 +63,14 @@
     show(); return true; };
   playRun = function (run, big, onHit, done, cut) { run = atRange(run);
     const tp = /^(red|blue)_teep_landed_r2$/.exec(run || '');   /* GLIDE2: a teep that lands at Mid pushes him one place back (kick.html), and its run ends with him there */
-    const m = /^(red|blue)_(step_in|slip_in|back_off)/.exec(run || ''), move = () => { if (tp) { if (tp[1] === 'red') blueIn -= 1; else redIn -= 1; } if (!m) return; const d = m[2] !== 'back_off' ? 1 : -1;   /* HEADPICS1: a slip in is a step in */ if (m[1] === 'red') redIn += d; else blueIn += d; };
+    const step = (red, d) => { const n = redIn + blueIn, dm = mOf(n + d) - mOf(n); if (red) { redIn += d; redM += dm; } else { blueIn += d; blueM += dm; } };   /* INSIDE1: the metres of the two ranges */
+    const m = /^(red|blue)_(step_in|slip_in|back_off)/.exec(run || ''), move = () => { if (tp) step(tp[1] !== 'red', -1); if (!m) return; const d = m[2] !== 'back_off' ? 1 : -1;   /* HEADPICS1: a slip in is a step in */ step(m[1] === 'red', d); };
     const ok = run0(run, big, onHit, () => { move(); slide(); done(); }, cut); if (!ok) move(); return ok; };
   const hit0 = hitAt; hitAt = function (run) { const a = hit0(atRange(run)); return a ? [a[0] + SX, a[1] + SY] : a; };   /* the burst sits on the slid glove */
-  const setup0 = setup; setup = function () { redIn = blueIn = 0; setup0(); slide(); };
-  const bell0 = bell; bell = function () { redIn = blueIn = 0; bell0(); slide(); };   /* a new round starts at Long, both on their spots */
+  const setup0 = setup; setup = function () { redIn = blueIn = redM = blueM = 0; setup0(); slide(); };
+  const bell0 = bell; bell = function () { redIn = blueIn = redM = blueM = 0; bell0(); slide(); };   /* a new round starts at Long, both on their spots */
   const plan0r = plan; plan = function () { fit(); plan0r(); slide(); };
-  window.ringSlide = () => ({ redIn, blueIn, range, sx: SX, sy: SY, pic: (im.getAttribute('src') || '').split('/').pop() });   // read by the browser check
+  window.ringSlide = () => ({ redIn, blueIn, redM, blueM, range, sx: SX, sy: SY, pic: (im.getAttribute('src') || '').split('/').pop() });   // read by the browser check
   // ---- 1. the distance on the floor (S559 v2, owner on the nested plates: "idonot understand this ,it is not symmetrical"):
   // ONE bar between the two men's front toes at the range they are at, ticks at both toes, its length the real gap, the
   // label in words. A range change slides it and flashes. Hover a switch: green if it reaches at this range, red if not.

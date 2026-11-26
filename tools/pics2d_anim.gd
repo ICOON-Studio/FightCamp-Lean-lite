@@ -28,7 +28,14 @@ var runs := {}
 ## name, Mid _r2, Inside _r1): the puncher starts and ends on his spot at that range (one step of 0.355 m in a range, as
 ## the hold and step pictures stand) and moves into the punch's own spot on the way in, back out after the contact.
 ## The contact pose (and the gate on it) is the same as before. range=0 (no arg): the old runs.
-const RANGE_STEP_M := 0.355
+## INSIDE1 (S562, owner on the Inside hold: "the distance looks wrong to me"): ONE table of the page's ranges, metres in
+## from the guard spots, read by every picture tool (pics2d_anim_more RANGE_IN, pics2d_head, pics2d_kick) and kept the
+## same in proto/twohands/ring_ui.js RANGE_M. Mid is one step take (0.355 m); Inside was two (0.71: the men 0.69 m apart,
+## the clinch's tie-up gap) and is now where the holds pass the picture gate (docs/INSIDE1_RESULT.md).
+const RANGE_LONG_M := 0.0
+const RANGE_MID_M := 0.355
+const RANGE_INSIDE_M := 0.71
+const RANGE_M := {3: RANGE_LONG_M, 2: RANGE_MID_M, 1: RANGE_INSIDE_M}
 var RANGE_AT := 0
 ## short=1 (with range=): the punch FALLS SHORT - thrown from the puncher's spot at that range, he never moves into it, the
 ## other man stands (no dodge): the page plays it for a punch thrown from further than it reaches. Runs <fam>_short[_r<n>].
@@ -157,7 +164,7 @@ func _punch_run(who: int, fam: String, res: String, name: String) -> void:
 	var d := 1 - who
 	cover = b["cover"]
 	if RANGE_AT in [1, 2, 3]:
-		b["glide_from"] = (3 - RANGE_AT) * RANGE_STEP_M
+		b["glide_from"] = float(RANGE_M[RANGE_AT])
 	# The still's own pose once more: the camera is fixed on it, and how far the other man gave ground (a miss) is read
 	# from it, so he stands there from the first frame on (the punch is out of range all the way, not at the end only).
 	await _pose(who, clip, fam, res, cs, b["hand"], body, float(b["step"]), b["side"])

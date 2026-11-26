@@ -121,7 +121,7 @@
     head.innerHTML = `<b>${NAME[part]}</b><small${hm ? T('Slip, roll, lean back and slip in are on head.html (the head-movement page). Here a hand held high keeps the head safe: the lead hand high stops straight punches to the head, the rear hand high stops hooks.') : ''}>${kept || SUB[part] + (hm ? ' - head moves: head.html' : '')}</small>`;
     filter((b) => inPart(b, part)); }
   // what you have set, part by part (a click opens that part)
-  function summary() { const h = (sl) => (P.clinch ? 'clinch' : P[sl] ? ACT[P[sl]].n : 'held ' + (sl === 'lead' ? P.hl : P.hr)), n = (sl) => (P.ord.indexOf(sl) >= 0 ? ` (${P.ord.indexOf(sl) + 1})` : '');
+  function summary() { const h = (sl) => (P.clinch ? 'clinch' : P[sl] ? ACT[P[sl]].n : 'held ' + (sl === 'lead' ? P.hl : P.hr)), n = (sl) => (P.ord.indexOf(sl) >= 0 ? ` - ${['1st', '2nd', '3rd'][P.ord.indexOf(sl)] || P.ord.indexOf(sl) + 1}` : '');   /* S563 ALLPLAY2: "Feint (2)" read as a cost; the order says 1st / 2nd / 3rd */
     const ft = HM.includes(P.feet) ? FEET.hold.n : FEET[P.feet].n, hd = HM.length ? (HM.includes(P.feet) ? FEET[P.feet].n + n('feet') : 'no head move') : [!P.lead && P.hl === 'high' && 'lead high', !P.rear && P.hr === 'high' && 'rear high'].filter(Boolean).join(', ') || 'no hand held high';
     const rows = [['lead', h('lead') + n('lead')], ['rear', h('rear') + n('rear')], ['feet', ft + (HM.includes(P.feet) ? '' : n('feet'))], ['head', hd], ['clinch', P.clinch ? 'clinch' : PCH && P.pch ? "Puncher's chance" : '-']];
     return rows.map(([p, v]) => `<button data-k="0:${p}"><i>${NAME[p]}</i><b>${v}</b></button>`).join(''); }
