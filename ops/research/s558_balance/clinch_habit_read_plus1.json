@@ -1,0 +1,13 @@
+{
+ "_note": "S564 CLINCHFIX3 H2: H1 (his habit read sees clinches) AND the clinch gives +1 stamina instead of +2 (the first half of CLINCHFIX2 P1, without the half-back and the push-off counter that left the clinch and the push off dead).",
+ "src": [
+  [
+   "if (P[k].lead || P[k].rear) f[k].hist = [...(f[k].hist || []), { ...P[k] }].slice(-3);",
+   "if (P[k].lead || P[k].rear || P[k].clinch) f[k].hist = [...(f[k].hist || []), { ...P[k] }].slice(-3);"
+  ],
+  [
+   "else if (clincher != null) { f[clincher].st = Math.min(f[clincher].cap, f[clincher].st + 2);",
+   "else if (clincher != null) { f[clincher].st = Math.min(f[clincher].cap, f[clincher].st + 1);"
+  ]
+ ]
+}

@@ -1,0 +1,9 @@
+{
+ "_note": "S564 CLINCHFIX3 H1: his habit read sees clinches. order.html records only beats with a punch in the habit history (line 228), so a player who clinches every Inside beat is never read (CLINCHFIX2: the loop wins 38/63/70% on today's page). One change: a clinch beat enters the history too; the AI's existing read (ai(), OPP.read) then answers a clinch habit with whatever beats it. No stamina number changes.",
+ "src": [
+  [
+   "if (P[k].lead || P[k].rear) f[k].hist = [...(f[k].hist || []), { ...P[k] }].slice(-3);",
+   "if (P[k].lead || P[k].rear || P[k].clinch) f[k].hist = [...(f[k].hist || []), { ...P[k] }].slice(-3);"
+  ]
+ ]
+}
