@@ -1,0 +1,19 @@
+AIEMPTY1 (S564) 2026-11-26T13:15Z on 8425298, node v22.22.3, 2 cores
+COMMAND node proto/twohands/tools/probe_empty.mjs who=mix opp=0 n=84 seed=1 jobs=2 json=/tmp/ae/count_0.json
+
+PROBE_EMPTY the page (no tweak) who=mix opp=0 n=84 seed=1 jobs=2
+mix v The Jabber: wins 76%, draws 2%, stops him 35%, is stopped 4%; knockdowns a bout 2.0 v 0.8; health taken a bout 24.4 v 18.4; beats at Inside / Mid / Long 29% / 38% / 33%; clinches a bout 0.8; rounds level on points 14%, 73% of them given on ground
+  you a beat: step in 36%, lead held low 33%, feet hold 31%, back off 29%, Cross 26%, Body cross 21%, rear held high 19%, Body jab 16%, rear held low 15%, Feint 13%, lead held high 9%, Overhand 9%, Jab 7%, Lead uppercut 6%, Lead hook 6%, Rear uppercut 5%, clinch 4%, Push off 3%, Body hook 3% | punches in a plan: none 12%, one 70%, two 14%
+  your punches (thrown a bout: lands / blocked / misses): Cross 4.3: 39% / 29% / 32%, Body cross 3.4: 57% / 23% / 20%, Body jab 2.7: 72% / 27% / 2%, Overhand 1.5: 80% / 7% / 13%, Jab 1.1: 57% / 42% / 1%, Lead uppercut 1.0: 61% / 11% / 28%, Lead hook 1.0: 36% / 48% / 16%, Rear uppercut 0.8: 51% / 10% / 39%, Body hook 0.5: 68% / 16% / 16%
+  he  a beat: back off 47%, step in 32%, Cross 31%, lead held low 25%, rear held high 25%, Jab 22%, rear held low 21%, feet hold 19%, Body cross 16%, lead held high 14%, Body jab 12%, Feint 10%, Body hook 5%, Lead hook 5%, Overhand 4%, Push off 4%, Lead uppercut 3%, Rear uppercut 2%, clinch 1% | punches in a plan: none 20%, one 56%, two 22%
+  his  punches (thrown a bout: lands / blocked / misses): Cross 4.8: 48% / 27% / 25%, Jab 3.6: 54% / 29% / 17%, Body cross 2.6: 50% / 31% / 19%, Body jab 2.1: 59% / 33% / 9%, Body hook 0.8: 38% / 48% / 14%, Lead hook 0.8: 41% / 35% / 24%, Overhand 0.5: 33% / 56% / 12%, Lead uppercut 0.4: 57% / 16% / 27%, Rear uppercut 0.3: 50% / 25% / 25%
+  your order, of the beats with one to choose (68%): first rear 17%, lead 24%, feet 59%
+  (84 bouts, 837 s)
+EMPTY his beats 1451: mix 730 (50%), plain 622 (43%), read 99 (7%)
+  his empty beats per 100 of his beats: E1 1.2, E2 4.3, E3 1.4, E4 11.2, any 16.7  (counts E1 17, E2 63, E3 21, E4 163, any 242)
+  from mix (730 beats): per 100 of ALL his beats E1 0.7, E2 0.0, E3 0.6, E4 7.0, any 8.2; per 100 of this branch's beats any 16.3  (counts E1 10, E2 0, E3 8, E4 101)
+  from plain (622 beats): per 100 of ALL his beats E1 0.5, E2 4.3, E3 0.9, E4 4.2, any 8.4; per 100 of this branch's beats any 19.6  (counts E1 7, E2 63, E3 13, E4 61)
+  from read (99 beats): per 100 of ALL his beats E1 0.0, E2 0.0, E3 0.0, E4 0.1, any 0.1; per 100 of this branch's beats any 1.0  (counts E1 0, E2 0, E3 0, E4 1)
+  his empty kinds by range at the plan (Inside / Mid / Long): E1 17 / 0 / 0, E2 19 / 20 / 24, E3 21 / 0 / 0, E4 0 / 0 / 163
+  your (the player-bot's) empty beats per 100 beats: E1 0.5, E2 0.0, E3 3.0, E4 9.0, any 12.5
+EXIT 0
