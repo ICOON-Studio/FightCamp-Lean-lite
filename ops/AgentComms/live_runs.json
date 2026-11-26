@@ -62,7 +62,7 @@
   },
   "PUNCHCHANCE2": {
    "id": "PUNCHCHANCE2",
-   "status": "running",
+   "status": "landed",
    "seat": "arena",
    "agent": "Arena (cloud, a fourth chat: costs your PC nothing)",
    "started": "2026-11-26T11:20",
@@ -70,27 +70,30 @@
    "title": "Puncher's chance: version C with the knockdowns back under the bar (three versions, two seeds each)",
    "brief": "ops/research/TASK_PUNCHCHANCE2.md",
    "branch": "arena/403bd20a-fightcamp-lean-lite",
-   "issue": "https://arena.ai/agent/01a21702-0f08-75c6-8761-a804403bd20a"
+   "issue": "https://arena.ai/agent/01a21702-0f08-75c6-8761-a804403bd20a",
+   "note": "S562: 91b9438aa - F holds 8 of 9 both seeds, comeback 15%; make_punch.py default F (7d8347a42); punch.html rebuild after BODYUI2"
   },
   "BODYUI2": {
    "id": "BODYUI2",
-   "status": "running",
+   "status": "landed",
    "seat": "claude",
    "agent": "console worker (Opus, Code Mode), terminal tab BODYUI2",
    "started": "2026-11-26T13:00",
    "eta": "3-4 h",
    "title": "Body view on the main page: point at a limb to pick its switches; his limbs show what they can do; the head its own part",
-   "brief": "ops/research/TASK_BODYUI2.md"
+   "brief": "ops/research/TASK_BODYUI2.md",
+   "note": "S562: e8a09fbf5 page side on order/punch/head/kick; the head masks render after GLIDE2 when his game is closed (ops/previews/s562_bodyui2/after_glide2.sh); the head masks are now part of INSIDE1 (all 54 hold runs re-rendered with the new Inside)"
   },
   "GLIDE1": {
    "id": "GLIDE1",
-   "status": "running",
+   "status": "landed",
    "seat": "claude",
    "agent": "Claude (S562 session), renders on the hidden desktop",
    "started": "2026-11-26T12:20",
    "eta": "1 h",
    "title": "Punch pictures at every range: the men keep their distance when a punch plays",
-   "brief": "ops/previews/s562_glide/render_all.sh"
+   "brief": "ops/previews/s562_glide/render_all.sh",
+   "note": "S562: every punch at each range it reaches, falls-short, feint, push off - on the page (f5ad2ff93)"
   },
   "MOMENTGAP1": {
    "id": "MOMENTGAP1",
@@ -125,6 +128,28 @@
    "eta": "2-3 h",
    "title": "Head moves and kicks at every range: the men keep their distance on head.html and kick.html",
    "brief": "ops/research/TASK_GLIDE2.md"
+  },
+  "JABLAND1": {
+   "id": "JABLAND1",
+   "status": "running",
+   "seat": "arena",
+   "agent": "Arena (cloud, a seventh chat: costs your PC nothing)",
+   "started": "2026-11-26T14:45",
+   "eta": "2-3 h",
+   "title": "The one bar the page still fails: the jab and the overhand land too often - up to three fixes measured",
+   "brief": "ops/research/TASK_JABLAND1.md",
+   "branch": "arena/ba10e2bf-fightcamp-lean-lite",
+   "issue": "https://arena.ai/agent/01a21756-3d3f-7206-82e3-9cc2ba10e2bf"
+  },
+  "INSIDE1": {
+   "id": "INSIDE1",
+   "status": "running",
+   "seat": "claude",
+   "agent": "console worker (Opus, Code Mode), terminal tab INSIDE1",
+   "started": "2026-11-26T15:30",
+   "eta": "4-5 h (renders only with your game closed)",
+   "title": "Inside is too close (your 'the distance looks wrong'): a real inside distance, then the parts where the men overlap see-through",
+   "brief": "ops/research/TASK_INSIDE1.md"
   }
  },
  "codex_budget": {

@@ -1,4 +1,4 @@
-# S562 digest (2026-11-26, Opus 5.5) - DRAFT, completed at the handover
+# S562 digest (2026-11-26, Opus 5.5)
 
 ## His words this session (quoted)
 - Board answers read at start: Q-338 "Show what it can do", Q-339 "Yes", Q-340 "Yes, a choice", Q-341 "Try it", Q-342
@@ -19,16 +19,33 @@
 - "use console-code if you need more tasks done"; "can i run archeage ?" (yes; one render left running).
 
 ## Done (commits on main)
-- 83af562e5 page fixes on all five Ring Switches pages: range badge in the ring's top-left corner ("MID lands: ..."; a
-  hovered switch turns it green or red), no bar or words near the men; "Room to back off" bar in each panel (the ground
-  squares); Back off left / Step in right; stamina "-2" a punch, "+1" a held hand, in green; the stamina label "Stamina 3 -
-  1 this beat = 2 of 5 (body shots took 3 off the top)". page_play_test 4 passed on order, punch, head, kick.
-- GLIDE1 (49f6ba017, 63ef865c9, 7bbc8a297): punch runs at every range they reach (Long 12, Mid 42, Inside 42 runs; 3 failed
-  their gate by 1-30 mm and re-render with the other take); falls-short runs; the feint at every range; the push off on
-  the page's spots. Measured: Mid hold -> cross -> hold, blue's back edge 370-371 px throughout (was a 21 px jump).
-- 91b9438aa collected PUNCHCHANCE2 (Arena): version F (C + an all-in knockdown gets up and does not count toward the
-  stoppage) holds 8 of 9 on both seeds, comeback pooled 15%. Not on punch.html yet (BODYUI2 owns make_punch.py today).
+- 83af562e5 + corner badge: the range in ONE badge in the ring's top-left corner ("MID lands: Jab · Body jab ..."; a hovered
+  switch turns it green / red); nothing on or near the men; "Room to back off" bar in each panel; Back off left, Step in
+  right; stamina "-2" a punch, "+1" a held hand, in green; "Stamina 3 - 1 this beat = 2 of 5 (body shots took 3 off the top)".
+- GLIDE1 (49f6ba017 .. f5ad2ff93): `tools/pics2d_anim.gd range=` - every punch at each range it reaches (Long 12, Mid 42,
+  Inside 42 runs; the three that failed their gate by 1-30 mm re-rendered with the family's other take), `short=1` falls-
+  short runs (the other man stands), the feint at Mid and Inside and the push off on the page's spots
+  (`pics2d_anim_more.gd`); `ring_ui.js atRange` plays the run of the range the men stand at. Measured: Mid hold -> cross
+  -> hold 370-371 px (was a 21 px jump); a Long jab 419-425; Inside hook 303-316 (pose only).
+- BODYUI2 (console worker, e8a09fbf5, 36bab1ec5): the body view is how you pick switches on order, punch, head and kick;
+  his limbs show what they can do (punch, damage, speed, reach now, what stops it); the head is its own mask part
+  (tools/pics2d_mask.gd); body.html redirects to order.html. The head masks wait for a render (his game was open).
+- PUNCHCHANCE2 collected (91b9438aa): F holds 8 of 9 on both seeds, comeback pooled 15%; make_punch.py has F's page rule
+  and F as default (7d8347a42); punch.html rebuilt on F (f5ad2ff93).
+- Ops board: NIGHTREDS1 done (05:00 suite 506 passed / 0 failed); runs on the board; review board: body view, range badge.
 
-## Running at the end of the draft
-- BODYUI2 console worker (body view on the main page), GLIDE2 console worker (head moves and kicks at every range).
-- Arena: KICKFIX2, HEADPULL1, PROGP3 (7 of 9 runs), MOMENTGAP1, CLINCHFIX2. John SQ337, Kalli SQ338 still unanswered.
+## Tests run this session
+page_play_test 4 passed on order, punch, head, kick (after every page edit); page_parse ok; punch_chance_test 14;
+rules_test 37. No Godot game code changed (tools and pages only): no export this session.
+
+## Running at the handover
+- GLIDE2 console tab (head moves and kicks at every range; renders wait for his game to close).
+- ops/previews/s562_bodyui2/after_glide2.sh (background): renders the head masks when the game is closed and GLIDE2 is done.
+- Arena: KICKFIX2 (slow: 25 min a table slice on 2 cores), HEADPULL1, PROGP3 (9 of 9 runs, writing its result; its guard
+  runs look clamped to N.guard - note typed in its chat), MOMENTGAP1, CLINCHFIX2, JABLAND1. John SQ337, Kalli SQ338 unanswered.
+- Briefs ready: TASK_BOUNCE1.md (after GLIDE2).
+
+## Lessons
+- A clip's distance is checked by an edge table on the web pictures (hold before, first, last, hold after); a shrunk
+  strip on flat blue looked like another camera to him - compare beside a page picture.
+- Nothing near the men: memory feedback_nothing_near_fighters_s562.

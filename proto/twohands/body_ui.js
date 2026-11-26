@@ -1,29 +1,37 @@
-// BODYUI1 + MASK1 (S559) - the owner's body toy on the REAL body (body.html = order.html's page and rules, plus this file).
-// BODYUI1, the owner: "what if we map the available options for the player (cards, switches) on the opponents body and your
-// own fighters body. Lets say i move my mouse on the left hand of my fighter and the available switches appear ..."
-// MASK1, the owner: "you break down the body to each limb (feet can be one option when it is boxing match for movement
-// options), so when i say you highlight the arm i move my mouse on i do not want text near the fighters (tubes or circles
-// on the fighters are forbidden) make a pointer outlining to the available options menu".
+// BODYUI2 (S562): the body view IS how you pick switches - on order.html (the main page), punch.html and head.html.
+// BODYUI1 (S559), the owner: "what if we map the available options for the player (cards, switches) on the opponents body
+// and your own fighters body. Lets say i move my mouse on the left hand of my fighter and the available switches appear ..."
+// MASK1 (S559): "i do not want text near the fighters (tubes or circles on the fighters are forbidden) make a pointer
+// outlining to the available options menu". S562: Q-343 "make it how you pick switches on the main page?" - "Yes, replace
+// the board"; Q-338 (his limb) - "Show what it can do"; Q-339 "head opens slip, roll, lean back; torso the clinch; legs the
+// steps?" - "Yes".
 // How: every picture shown while he plans has a part mask beside it (<frame>_mask.png, rendered from the 3D in the same
 // frame by tools/pics2d_mask.gd: one flat colour per part). The pixel under the mouse names the part; that part glows (its
-// outline, 3 px out from the mask's edge, 60%, in its corner's colour) on a canvas over the picture. Its switches open in
-// ONE fixed panel left of the ring, and a thin line runs from the lit limb to the panel, drawn BEHIND the men. Click = the
-// part stays open. His parts light too: the panel then says what that limb did in his last three beats.
-// Parts: lead arm, rear arm, legs (= feet: step in, back off), torso (= the clinch). No circle, no label on a man.
+// outline, 3 px out from the mask's edge, in its corner's colour) on a canvas over the picture. ONE fixed panel left of the
+// ring shows that part: YOUR part = the page's own switch buttons for it (the same buttons, the same rules - this file only
+// chooses which are shown); HIS part = what it can do to you at the range you stand at, from the page's ACT / COVER / STOPS
+// tables. A thin line runs from the lit limb to the panel, drawn BEHIND the men. Click = the part stays open.
+// Parts: lead arm, rear arm, legs (the steps), torso (the clinch; the Puncher's chance on punch.html), head (the head moves
+// on head.html; the hands held high elsewhere). No circle, no label on a man.
 (() => {
   const stage = $('stage'), im = $('pic'), brd = $('board'), side = $('side');
   // [r, g, b, who (0 you = blue, 1 him = red), part] - tools/pics2d_mask.gd PART, snapped exactly by anim_web.py
-  const PARTS = [[255, 0, 0, 0, 'lead'], [0, 255, 0, 0, 'rear'], [0, 0, 255, 0, 'feet'], [255, 255, 0, 0, 'clinch'],
-    [255, 0, 255, 1, 'lead'], [0, 255, 255, 1, 'rear'], [255, 128, 0, 1, 'feet'], [128, 0, 255, 1, 'clinch']];
+  const PARTS = [[255, 0, 0, 0, 'lead'], [0, 255, 0, 0, 'rear'], [0, 0, 255, 0, 'feet'], [255, 255, 0, 0, 'clinch'], [0, 128, 255, 0, 'head'],
+    [255, 0, 255, 1, 'lead'], [0, 255, 255, 1, 'rear'], [255, 128, 0, 1, 'feet'], [128, 0, 255, 1, 'clinch'], [255, 0, 128, 1, 'head']];
   const GLOW = [[143, 192, 255], [255, 138, 128]];
-  const NAME = { lead: 'Lead hand', rear: 'Rear hand', feet: 'Feet', clinch: 'Body' };
-  const SUB = { lead: 'your front hand, nearer him', rear: 'your back hand, the power hand', feet: 'step in, back off, or stand', clinch: 'tie him up (Inside only)' };
+  const HM = ['slip', 'roll', 'pull', 'slipin'].filter((id) => FEET[id]);   // the head moves this page has (head.html: all four; order.html: none)
+  const PCH = typeof pcOpen === 'function';   // punch.html: the Puncher's chance
+  const NAME = { lead: 'Lead hand', rear: 'Rear hand', feet: 'Feet', clinch: 'Body', head: 'Head' };
+  const SUB = { lead: 'your front hand: punch, or hold it high or low', rear: 'your back hand, the power hand', feet: Object.keys(FEET).some((id) => !['in', 'hold', 'back', ...HM].includes(id)) ? 'the steps, the kicks and the check' : 'step in, back off, or hold your ground',
+    clinch: PCH ? "the clinch (Inside only) and the Puncher's chance" : 'tie him up (Inside only)', head: HM.length ? 'slip, roll, lean back, slip in' : 'the hands held high keep it safe' };
   const glow = document.createElement('canvas'); glow.id = 'glow'; stage.appendChild(glow);
   const NS = 'http://www.w3.org/2000/svg', svg = document.createElementNS(NS, 'svg'); svg.id = 'pointer'; document.body.appendChild(svg);
-  const line = document.createElementNS(NS, 'polyline'); line.setAttribute('fill', 'none'); line.setAttribute('stroke-width', '2'); line.setAttribute('stroke-linejoin', 'round'); line.setAttribute('stroke-dasharray', '7 4');   // dashed: never read as a rope svg.appendChild(line);
+  const line = document.createElementNS(NS, 'polyline'); line.setAttribute('fill', 'none'); line.setAttribute('stroke-width', '2'); line.setAttribute('stroke-linejoin', 'round'); line.setAttribute('stroke-dasharray', '7 4');   // dashed: never read as a rope
+  svg.appendChild(line);
   const head = document.createElement('div'); head.className = 'hd'; side.insertBefore(head, brd);
+  const sum = document.createElement('div'); sum.id = 'sum'; side.insertBefore(sum, brd);
   const his = document.createElement('div'); his.id = 'his'; side.appendChild(his);
-  let mask = null, maskFor = '', hover = null, pinned = null, drawn = '';
+  let mask = null, maskFor = '', hover = null, pinned = null, peek = null, drawn = '';
   const MASKS = {}, RING = {};
   // ---- the mask of the picture on screen
   let byFile = null, nRuns = 0;
@@ -56,7 +64,7 @@
   stage.addEventListener('mouseleave', () => { stage.classList.remove('over'); if (hover) { hover = null; show(); } });
   stage.addEventListener('click', (e) => { if (phase !== 'plan') return; const key = keyOf(partAt(e)); pinned = key && pinned !== key ? key : null; show(); });
   // ---- the glow: the part's outline, from the mask
-  function ring(key) { const ck = mask.url + '|' + key; if (RING[ck]) return RING[ck];
+  function ring(key) { const ck = mask.url + '|' + key; if (RING[ck] !== undefined) return RING[ck];
     const n = idxOf(key), W = mask.W, H = mask.H, inn = new Uint8Array(W * H); let any = 0;
     for (let i = 0; i < inn.length; i++) if (mask.id[i] === n) { inn[i] = 1; any = 1; }
     if (!any) return (RING[ck] = null);
@@ -69,15 +77,15 @@
   function redraw() {
     const s = stage.getBoundingClientRect(), r = im.getBoundingClientRect(), x = glow.getContext('2d');
     glow.style.left = (r.left - s.left - stage.clientLeft) + 'px'; glow.style.top = (r.top - s.top - stage.clientTop) + 'px'; glow.style.width = r.width + 'px'; glow.style.height = r.height + 'px'; glow.style.transform = mirrored() ? 'scaleX(-1)' : '';
-    const keys = phase === 'plan' && mask ? [...new Set([pinned, hover].filter(Boolean))] : [], sig = (mask ? mask.url : '') + keys.join() + r.width + r.left;
+    const keys = phase === 'plan' && mask ? [...new Set([pinned, hover, peek].filter(Boolean))] : [], sig = (mask ? mask.url : '') + keys.join() + r.width + r.left;
     if (sig === drawn) return; drawn = sig;
     if (!mask || !keys.length) { x.clearRect(0, 0, glow.width, glow.height); line.setAttribute('points', ''); return; }
     if (glow.width !== mask.W || glow.height !== mask.H) { glow.width = tmp.width = mask.W; glow.height = tmp.height = mask.H; }
-    x.clearRect(0, 0, glow.width, glow.height);
-    for (const k of keys) { const g = ring(k); if (!g) continue; const t = tmp.getContext('2d'), img = t.createImageData(g.W, g.H), c = GLOW[+k[0]], al = Math.round(255 * 0.6 * (k === hover || !hover ? 1 : 0.6));
+    x.clearRect(0, 0, glow.width, glow.height); const lead = hover || peek || pinned;
+    for (const k of keys) { const g = ring(k); if (!g) continue; const t = tmp.getContext('2d'), img = t.createImageData(g.W, g.H), c = GLOW[+k[0]], al = Math.round(255 * 0.6 * (k === lead ? 1 : 0.6));
       for (const i of g.pts) { img.data[i * 4] = c[0]; img.data[i * 4 + 1] = c[1]; img.data[i * 4 + 2] = c[2]; img.data[i * 4 + 3] = al; }
       t.putImageData(img, 0, 0); x.save(); x.filter = 'blur(3px)'; x.drawImage(tmp, 0, 0); x.drawImage(tmp, 0, 0); x.restore(); x.drawImage(tmp, 0, 0); }
-    pointer(hover || pinned, r); }
+    pointer(lead, r); }
   // ---- the pointer: from the lit limb's edge nearest the panel to the panel, behind the men (#pointer sits under the picture)
   function pointer(key, r) { const g = key && ring(key); if (!g || !g.pts.length) { line.setAttribute('points', ''); return; }
     const p = side.getBoundingClientRect(), mir = mirrored(), ax = p.right + 1; let best = null, bd = 1e12;
@@ -86,39 +94,77 @@
     const c = GLOW[+key[0]], col = `rgb(${c[0]},${c[1]},${c[2]})`, sr = stage.getBoundingClientRect(), mx = sr.left - 2;
     line.setAttribute('stroke', col); line.setAttribute('opacity', '0.85'); line.style.filter = `drop-shadow(0 0 3px ${col})`;
     line.setAttribute('points', `${best[0]},${best[1]} ${mx},${best[2]} ${ax},${best[2]}`); }
-  // ---- the panel: the page's own switch group for that part (the same buttons, the same rules); his part: what it did
+  // ---- which of the page's own buttons belong to a part of YOUR man
+  function inPart(b, part) { const g = b.dataset.g, id = b.dataset.id;
+    if (part === 'lead' || part === 'rear') return g === part;
+    if (part === 'feet') return g === 'feet' && !HM.includes(id);
+    if (part === 'clinch') return g === 'clinch' || g === 'pch';
+    if (part === 'head') return HM.length ? g === 'feet' && (HM.includes(id) || id === 'hold') : (g === 'lead' || g === 'rear') && id === 'high';
+    return false; }
+  function filter(test) { brd.classList.toggle('part', !!test);
+    for (const b of brd.querySelectorAll('.sw')) b.style.display = !test || test(b) ? '' : 'none';
+    for (const g of brd.querySelectorAll('.grp')) g.style.display = !test || [...g.querySelectorAll('.sw')].some((b) => b.style.display !== 'none') ? '' : 'none'; }
+  // ---- the panel
   function show() { redraw(); panel(); }
-  function panel() { const k = hover || pinned; side.className = 'side' + (k ? ' w' + k[0] : '');
-    if (!k) { const first = round === 1 && beat === 0 && phase === 'plan';
-      head.className = 'hd' + (first ? ' hint' : ''); head.innerHTML = '<b>Point at your man</b><small>an arm, the legs or the body - click it to keep its switches open. Point at him to see what that limb did.</small>';
-      brd.style.display = 'none'; his.style.display = 'none'; return; }
-    head.className = 'hd'; const [w, part] = k.split(':');
-    if (w === '1') { brd.style.display = 'none'; his.style.display = 'block'; head.innerHTML = `<b>His ${NAME[part].toLowerCase()}</b>${pinned === k ? '<small>kept open: click it again to let go</small>' : ''}`; his.innerHTML = hisPart(part); return; }
-    his.style.display = 'none'; brd.style.display = ''; head.innerHTML = `<b>${NAME[part]}</b><small>${pinned === k ? 'kept open: click it again to let go' : SUB[part]}</small>`;
-    brd.className = 'board show' + (part === 'lead' ? 0 : part === 'rear' ? 1 : 2) + (part === 'feet' ? ' only-feet' : part === 'clinch' ? ' only-clinch' : ''); }
-  const BEATS = ['Last beat', 'Before that', 'And before'];
-  function hisPart(part) { const rows = (f) => (seen.length ? [...seen].reverse().map((p, i) => `<div><i>${BEATS[i]}</i> ${f(p)}</div>`).join('') : '<div>Nothing seen of him yet.</div>');
-    if (part === 'feet') return rows((p) => (p.clinch ? 'tied you up' : p.feet === 'in' ? 'stepped in' : p.feet === 'back' ? 'backed off' : 'stood his ground')) + '<div class="hint">A step in beats a back off in the same moment.</div>';
-    if (part === 'clinch') return rows((p) => (p.clinch ? 'clinched' : 'did not clinch')) + '<div class="hint">The clinch works Inside only, and not twice running.</div>';
-    const H = part === 'lead' ? 0 : 1, sl = part;
-    return rows((p) => (p.clinch ? 'clinched' : p[sl] ? 'threw his ' + ACT[p[sl]].n.toLowerCase() : 'held ' + (sl === 'lead' ? p.hl : p.hr) + ' - it shut ' + STOPS[COVER[sl === 'lead' ? p.hl : p.hr][H]]))
-      + `<div class="hint">Held high it shuts ${STOPS[COVER.high[H]]}; held low, ${STOPS[COVER.low[H]]}.</div>`; }
+  const T = (s) => tipAttr(s);
+  function panel() { const k = phase === 'plan' ? hover || pinned : null; side.className = 'side' + (k ? ' w' + k[0] : '');
+    his.style.display = 'none'; sum.style.display = 'none'; brd.style.display = '';
+    if (phase === 'setup') { head.className = 'hd'; head.innerHTML = '<b>Pick your man</b><small>then Fight - in the bout you point at your man to set his switches</small>'; filter(null); return; }
+    if (phase === 'over') { head.className = 'hd'; head.innerHTML = '<b>The bout is over</b>'; filter(null); return; }
+    if (phase !== 'plan') { head.className = 'hd'; head.innerHTML = '<b>This beat</b><small>your switches, lit as they act</small>'; filter((b) => b.classList.contains('on') && !b.classList.contains('home')); return; }
+    if (!k) { const first = round === 1 && beat === 0;
+      head.className = 'hd' + (first ? ' hint' : ''); head.innerHTML = '<b>Point at your man</b><small>an arm, the legs, the body or the head - click it to keep it open. Point at him to see what he can do.</small>';
+      brd.style.display = 'none'; sum.style.display = 'flex'; sum.innerHTML = summary(); for (const b of sum.querySelectorAll('button')) { b.onclick = () => { pinned = b.dataset.k; peek = null; show(); }; b.onmouseenter = () => { peek = b.dataset.k; redraw(); }; b.onmouseleave = () => { peek = null; redraw(); }; } return; }
+    head.className = 'hd'; const [w, part] = k.split(':'), kept = pinned === k ? 'kept open: click it again to let go' : '';
+    if (w === '1') { brd.style.display = 'none'; his.style.display = 'flex'; head.innerHTML = `<b>His ${NAME[part].toLowerCase()}</b><small>${kept || 'what it can do to you at ' + RNG[range]}</small>`; his.innerHTML = hisPart(part); return; }
+    const hm = part === 'head' && !HM.length;
+    head.innerHTML = `<b>${NAME[part]}</b><small${hm ? T('Slip, roll, lean back and slip in are on head.html (the head-movement page). Here a hand held high keeps the head safe: the lead hand high stops straight punches to the head, the rear hand high stops hooks.') : ''}>${kept || SUB[part] + (hm ? ' - head moves: head.html' : '')}</small>`;
+    filter((b) => inPart(b, part)); }
+  // what you have set, part by part (a click opens that part)
+  function summary() { const h = (sl) => (P.clinch ? 'clinch' : P[sl] ? ACT[P[sl]].n : 'held ' + (sl === 'lead' ? P.hl : P.hr)), n = (sl) => (P.ord.indexOf(sl) >= 0 ? ` (${P.ord.indexOf(sl) + 1})` : '');
+    const ft = HM.includes(P.feet) ? FEET.hold.n : FEET[P.feet].n, hd = HM.length ? (HM.includes(P.feet) ? FEET[P.feet].n + n('feet') : 'no head move') : [!P.lead && P.hl === 'high' && 'lead high', !P.rear && P.hr === 'high' && 'rear high'].filter(Boolean).join(', ') || 'no hand held high';
+    const rows = [['lead', h('lead') + n('lead')], ['rear', h('rear') + n('rear')], ['feet', ft + (HM.includes(P.feet) ? '' : n('feet'))], ['head', hd], ['clinch', P.clinch ? 'clinch' : PCH && P.pch ? "Puncher's chance" : '-']];
+    return rows.map(([p, v]) => `<button data-k="0:${p}"><i>${NAME[p]}</i><b>${v}</b></button>`).join(''); }
+  // HIS PART (Q-338 "Show what it can do"): one line each, the rest in the tooltip
+  const hand = (sl, hold) => `your ${sl} hand ${hold}`;
+  function stopOf(a) { return [slotOf(a.line), COVER.high.includes(a.line) ? 'high' : 'low']; }
+  function hisPart(part) { const cv = covers(F[0], P), R = RNG[range];
+    if (part === 'lead' || part === 'rear') { const H = part === 'lead' ? 0 : 1;
+      return Object.keys(ACT).filter((id) => ACT[id].h === H).map((id) => { const a = ACT[id];
+        if (!a.d) return `<div class="row"${T(a.n + ': ' + (a.t || ''))}><b>${a.n}</b><em>no damage</em><u class="far">${a.push ? 'Inside' : 'any range'}</u></div>`;
+        const reach = a.reach.includes(range), [ss, sh] = stopOf(a), cov = cv[a.line];
+        const tip = `${a.n}: ${a.d} health, ${SPEED[a.sp]}, ${LINE[a.line].toLowerCase()}. Reaches ${a.reach.map((r) => RNG[r]).join(', ')}${reach ? '' : ' - not at ' + R + ', unless the range closes first'}.\nStopped by ${hand(ss, sh)}${cov ? ' - as you have it set now.' : '. You have not set that: it is open.'}${a.x ? '\n' + a.x : ''}`;
+        return `<div class="row${reach ? '' : ' far'}"${T(tip)}><b>${a.n}</b><em>${a.d} dmg, ${SPEED[a.sp]}</em><u class="${!reach ? 'far' : cov ? 'ok' : 'open'}">${!reach ? 'short' : cov ? 'stopped' : 'open'}</u><small>stopped by ${ss} ${sh}</small></div>`; }).join(''); }
+    if (part === 'feet') { const f = F[1];
+      return ['in', 'hold', 'back'].map((id) => { const to = clamp(range + (id === 'in' ? -1 : id === 'back' ? 1 : 0), 1, 3), no = (id === 'back' && f.ropes >= 2) || (id === 'in' && f.kept);
+        return `<div class="row${no ? ' far' : ''}"${T(FEET[id].n + ': ' + FEET[id].t)}><b>${FEET[id].n}</b><em>${id === 'hold' ? 'stays at ' + R : R + ' to ' + RNG[to]}</em><u class="far">${no ? (id === 'back' ? 'on the ropes' : 'kept out') : to === range && id !== 'hold' ? 'no room' : 'can'}</u></div>`; }).join('')
+        + `<div class="note2">A step in beats a back off in the same moment.</div>`; }
+    if (part === 'clinch') { const can = range === 1 && !F[1].held;
+      return `<div class="row${can ? '' : ' far'}"${T('The clinch: Inside only, 1 stamina. No punch lands for either man, he gets 2 stamina back, the referee breaks you at Mid. Not twice running; a push stops it.')}><b>Clinch</b><em>Inside only</em><u class="${can ? 'open' : 'far'}">${can ? 'he can' : 'not at ' + R}</u></div>`
+        + (PCH ? (() => { const o = pcOpen({ f: F }, 1); return `<div class="row${o ? '' : ' far'}"${T("His Puncher's chance: open only when he is " + N.pcGap + ' or more health behind, once a round. One power punch of his is all in: double damage, and you go down if it lands. Block it or be out of reach and he is wide open.')}><b>Puncher's chance</b><em>all in</em><u class="${o ? 'open' : 'far'}">${o ? 'open' : 'shut'}</u></div>`; })() : ''); }
+    if (part === 'head') {
+      const ids = Object.keys(ACT).filter((id) => ACT[id].d && !ACT[id].body && ACT[id].line !== 'body');
+      return ids.map((id) => { const a = ACT[id], reach = a.reach.includes(range), [ss, sh] = stopOf(a);
+        return `<div class="row${reach ? '' : ' far'}"${T(a.n + ': ' + a.d + ' health to his head, ' + SPEED[a.sp] + '. Reaches ' + a.reach.map((r) => RNG[r]).join(', ') + '.\nHe stops it with his ' + ss + ' hand held ' + sh + (HM.length ? '; a ' + (a.line === 'straight' ? 'slip' : a.line === 'side' ? 'roll' : 'head move does not save him from an uppercut - a roll even walks into it') + (a.line === 'under' ? '' : ' makes it miss') : '') + '.')}><b>${a.n}</b><em>${a.d} dmg</em><u class="${reach ? 'ok' : 'far'}">${reach ? 'lands at ' + R : 'short'}</u><small>he stops it with his ${ss} ${sh}</small></div>`; }).join(''); }
+    return ''; }
   // ---- the strip says what each moment does
   function words() { const el = $('seqwords'); if (phase !== 'plan') { el.innerHTML = ''; return; }
     if (P.clinch) { el.innerHTML = '<span>You tie him up: nothing lands either way this beat, you get 2 stamina back.</span>'; return; }
     let r = range; const out = P.ord.map((sl, i) => { const m = `<b>${i + 1}</b>`;
-      if (sl === 'feet') { r = Math.max(1, Math.min(3, r + (P.feet === 'in' ? -1 : 1))); return `${m} you ${P.feet === 'in' ? 'step in' : 'back off'} - now at ${RNG[r]}`; }
+      if (sl === 'feet') { const d = P.feet === 'in' || P.feet === 'slipin' ? -1 : P.feet === 'back' ? 1 : 0; r = Math.max(1, Math.min(3, r + d)); return d ? `${m} you ${FEET[P.feet].n.toLowerCase()} - now at ${RNG[r]}` : `${m} you ${FEET[P.feet].n.toLowerCase()}`; }
       const a = ACT[P[sl]]; if (!a.d) return `${m} ${a.n.toLowerCase()} with your ${sl} hand`;
       return `${m} your ${a.n.toLowerCase()} ${a.reach.includes(r) ? 'reaches' : '<u>will not reach</u>'} at ${RNG[r]}; your ${sl} hand is out, ${THREAT[COVER[sl === 'lead' ? P.hl : P.hr][sl === 'lead' ? 0 : 1]].toLowerCase()} can get in`; });
     el.innerHTML = out.length ? out.map((s) => `<span>${s}</span>`).join('') + '<span class="meet">Your moment 1 meets his moment 1, 2 meets 2, 3 meets 3.</span>' : ''; }
-  // ---- wrap the page's own drawing
-  const board0 = board, plan0b = plan;
+  // ---- wrap the page's own drawing (board() fills #board, now inside the panel)
+  const board0 = board, plan0b = plan, go0 = go, over0 = over, setup0 = setup;
   board = function () { board0(); panel(); words(); };
   plan = function () { plan0b(); show(); };
+  go = function () { go0(); hover = null; pinned = null; peek = null; drawn = ''; redraw(); panel(); words(); };
+  over = function (t) { over0(t); panel(); words(); };
+  setup = function () { setup0(); hover = pinned = peek = null; panel(); };
   addEventListener('resize', () => { drawn = ''; redraw(); });
   const sw = document.createElement('div'); sw.id = 'seqwords'; $('lines').parentNode.parentNode.insertBefore(sw, $('lines').parentNode.nextSibling);
-  // the beat is fought: nothing glows (the switches that act are marked in the panel by the page)
-  setInterval(() => { if (phase !== 'plan' && (hover || drawn)) { hover = null; drawn = ''; redraw(); words(); } if (phase === 'plan' && !drawn && (pinned || hover)) redraw(); }, 200);
+  setInterval(() => { if (phase !== 'plan' && (hover || drawn)) { hover = null; drawn = ''; redraw(); words(); } if (phase === 'plan' && !drawn && (pinned || hover || peek)) redraw(); }, 200);
   panel();
-  window.bodyMask = () => ({ pic: im.src.split('/').pop(), mask: mask ? mask.url.split('/').pop() : null, hover, pinned });   // read by tools/mask_shots.mjs
+  window.bodyMask = () => ({ pic: im.src.split('/').pop(), mask: mask ? mask.url.split('/').pop() : null, hover, pinned, parts: PARTS.map((p) => p.slice()) });   // read by tools/mask_shots.mjs
 })();

@@ -3,12 +3,12 @@
  "updated": "2026-11-26",
  "author": "claude S294",
  "now": {
-  "id": "S561",
+  "id": "S562",
   "owner": "claude",
   "updated": "2026-11-26",
-  "summary": "S561 (Fable). His asks, done: 'finish with the headmoves pics' - 22 frame runs on head.html (slip, roll, lean back, slip in; both corners, his camera; all pass the picture bars; docs/HEADPICS1_RESULT.md), played on the real page; 'can i have a jumpsuit for punchers chance on the board' + 'i still dont see any link on the opsboard' - punch.html (the boxing page with the measured version C: open when 4+ health behind, once a round) built by make_punch.py, and jump buttons to the Ring Switches pages on the ops board (Play box + a gold link in the top bar + a map frame). Collected: PUNCHCHANCE1 (version C lifts the comeback 10% -> 18%, knockdowns 2.6 against a bar of 2.5). Launched: PUNCHCHANCE2 at Arena. His board answers Q-338 to Q-343 read (body view replaces the board).",
-  "next_action": "S562: FIRST collect the four Arena runs (KICKFIX2 arena/bb25d26e, HEADPULL1 arena/397eb67a, PROGP3 arena/49993fd3, PUNCHCHANCE2 arena/403bd20a on FightCamp-Lean-lite) and John / Kalli (SQ337, SQ338). THEN his answer Q-343 'Yes, replace the board': the body view becomes how you pick switches on the main page (BODYUI2: brief + build; Q-338 'Show what it can do' for his limbs, Q-339 'Yes' head / torso / legs). Puncher's chance: rebuild punch.html from the version PUNCHCHANCE2 names (python proto/twohands/tools/make_punch.py <tweak>). Progression: Q-340 'Yes, a choice', Q-341 'Try it', Q-342 'Right amount' after PROGP3. The never-still bounce (render: only when his game is closed).",
-  "last_working_commit": "63118b6a0",
+  "summary": "S562 (Opus). His asks this session, done and on the pages: the range readout off the fighters ('i told you do not put text or anything near the fighters') - one badge in the ring's top-left corner says what lands at this range; the ground squares ('i do not undestand what is this') are a 'Room to back off' bar; Back off left / Step in right; stamina -2 / +1 in green and a plain stamina label. 'the distance between fighters is not consistant when clips play' + 'i select hold your ground yet the animation showed my fighter moving': GLIDE1 - every punch rendered at each range it reaches (the puncher starts and ends on his spot, steps into the punch), falls-short punches, the feint at every range, the push off on the page's spots; measured hold->run->hold, no jump. His Q-343 'Yes, replace the board' + Q-338 + Q-339: BODYUI2 - the body view is how you pick switches on order/punch/head/kick; his limbs show what they can do; the head is its own part (its masks render when his game is closed). Collected PUNCHCHANCE2: version F holds 8 of 9 on both seeds, comeback 15% - punch.html is on F. 'can i ... select exactly on which part of a beat i move ?' -> MOMENTGAP1 measuring at Arena.",
+  "next_action": "S563: FIRST collect: GLIDE2 (console tab GLIDE2: head moves and kicks at every range; renders wait for his game to close), INSIDE1 (console tab INSIDE1: the owner's \"the distance looks wrong\" at Inside + \"make the silhoutes parts that are clipping transparent\"; it also renders the head masks, which after_glide2.sh no longer does), and the Arena runs on FightCamp-Lean-lite: KICKFIX2 arena/bb25d26e, HEADPULL1 arena/397eb67a, PROGP3 arena/49993fd3 (its guard runs look clamped to N.guard: my note is typed in its chat, send it if not sent), MOMENTGAP1 arena/4bdf9ebc, CLINCHFIX2 arena/204b98f9, JABLAND1 arena/ba10e2bf. A version that holds goes on the page (tweak src onto order.html rules only with his yes for a rule change he asked about: the moment choice is his ask). Then BOUNCE1 (brief written, after GLIDE2), progression Q-340/341/342 after PROGP3. His play of the body view.",
+  "last_working_commit": "f5ad2ff93",
   "verified_playable": "Builds/ exported in S556 (the S547 game plus S548's two changes: the 3D fight throws the body cross, the trial evening's pictures show the prospect's own body; pro_body_jab is on disk and unused by the game). Ring Switches (a browser toy): one beat played in the browser in S556 against the Jabber - both men threw a body jab, both landed, no console error; rules_test 34 pass; anim_check 124 runs PASS.",
   "incomplete_blocked": "Four cloud measures still running (kicks E, head + pull counter, attributes, Puncher's chance round 2). Not built: the uppercut that catches a man rolling (two tries crowded). No export: no game code changed and his game was open.",
   "next_acceptance": "The four runs are collected and reported against their bars; the body view picks the switches on a page copy he can play, checked in a headless browser, nothing drawn on the fighters.",
@@ -2458,6 +2458,11 @@
    "date": "2026-11-26",
    "summary": "S561 (Fable). His asks, done: 'finish with the headmoves pics' - 22 frame runs on head.html (slip, roll, lean back, slip in; both corners, his camera; all pass the picture bars; docs/HEADPICS1_RESULT.md), played on the real page; 'can i have a jumpsuit for punchers chance on the board' + 'i still dont see any link on the opsboard' - punch.html (the boxing page with the measured version C: open when 4+ health behind, once a round) built by make_punch.py, and jump buttons to the Ring Switches pages on the ops board (Play box + a gold link in the top bar + a map frame). Collected: PUNCHCHANCE1 (version C lifts the comeback 10% -> 18%, knockdowns 2.6 against a bar of 2.5). Launched: PUNCHCHANCE2 at Arena. His board answers Q-338 to Q-343 read (body view replaces the board).",
    "commit": "63118b6a0"
+  },
+  {
+   "id": "S562",
+   "date": "2026-11-26",
+   "summary": "S562 (Opus). His asks this session, done and on the pages: the range readout off the fighters ('i told you do not put text or anything near the fighters') - one badge in the ring's top-left corner says what lands at this range; the ground squares ('i do not undestand what is this') are a 'Room to back off' bar; Back off left / Step in right; stamina -2 / +1 in green and a plain stamina label. 'the distance between fighters is not consistant when clips play' + 'i select hold your ground yet the animation showed my fighter moving': GLIDE1 - every punch rendered at each range it reaches (the puncher starts and ends on his spot, steps into the punch), falls-short punches, the feint at every range, the push off on the page's spots; measured hold->run->hold, no jump. His Q-343 'Yes, replace the board' + Q-338 + Q-339: BODYUI2 - the body view is how you pick switches on order/punch/head/kick; his limbs show what they can do; the head is its own part (its masks render when his game is closed). Collected PUNCHCHANCE2: version F holds 8 of 9 on both seeds, comeback 15% - punch.html is on F. 'can i ... select exactly on which part of a beat i move ?' -> MOMENTGAP1 measuring at Arena."
   }
  ],
  "blocked_on_operator": [],
@@ -5376,7 +5381,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-26 11:03 board_sync",
+  "updated": "2026-11-26 12:11 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5541,6 +5546,20 @@
   },
   "working_now": [
    {
+    "title": "Puncher's chance: a comeback switch for the man behind - measured on the instrument before it reaches the page (your S559 idea)",
+    "who": "console worker (Opus, Code Mode), terminal tab PUNCHCHANCE1",
+    "started": "2026-11-26T09:35",
+    "run": "PUNCHCHANCE1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "Head-move pictures: slip, roll, lean back, slip in - from our owned takes, on your camera",
+    "who": "Claude (S561 session)",
+    "started": "2026-11-26T10:30",
+    "run": "HEADPICS1",
+    "state": "LANDED - Claude collects"
+   },
+   {
     "title": "The kick version that holds 8 of 9 bars: kicks back at Long, the low kick as the answer to a man stepping in",
     "who": "Arena (cloud, its own clone of the code mirror: costs your PC nothing)",
     "started": "2026-11-26T10:00",
@@ -5562,35 +5581,44 @@
     "title": "Puncher's chance: version C with the knockdowns back under the bar (three versions, two seeds each)",
     "who": "Arena (cloud, a fourth chat: costs your PC nothing)",
     "started": "2026-11-26T11:20",
-    "run": "PUNCHCHANCE2"
+    "run": "PUNCHCHANCE2",
+    "state": "LANDED - Claude collects"
    },
    {
-    "title": "Punch pictures at every range: the men keep their distance when a punch plays (your 'the distance between fighters is not consistant'); then falls-short punches, the feint and the push off",
-    "who": "Claude (S562 session), renders on the hidden desktop",
-    "started": "2026-11-26T12:20",
-    "run": "GLIDE1",
-    "state": "Long + Mid on the page; Inside, falls-short, feint, push rendering"
-   },
-   {
-    "title": "The body view on the main page: point at a limb to pick its switches; his limbs show what they can do; the head its own part (your Q-343, Q-338, Q-339)",
+    "title": "Body view on the main page: point at a limb to pick its switches; his limbs show what they can do; the head its own part",
     "who": "console worker (Opus, Code Mode), terminal tab BODYUI2",
     "started": "2026-11-26T13:00",
-    "run": "BODYUI2",
-    "state": "running"
+    "run": "BODYUI2"
    },
    {
-    "title": "Pick the exact moment of the beat you act in (your 'can i be able to select exactly on which part of a beat i move ?'): measured before it is built",
+    "title": "Punch pictures at every range: the men keep their distance when a punch plays",
+    "who": "Claude (S562 session), renders on the hidden desktop",
+    "started": "2026-11-26T12:20",
+    "run": "GLIDE1"
+   },
+   {
+    "title": "Pick the exact moment of the beat you act in (a wait between): measured before it is built",
     "who": "Arena (cloud, a fifth chat: costs your PC nothing)",
     "started": "2026-11-26T13:20",
-    "run": "MOMENTGAP1",
-    "state": "running"
+    "run": "MOMENTGAP1"
    },
    {
-    "title": "The clinch pays too well: the version where the push off gets a second job, measured on today's page",
+    "title": "The clinch pays too well: the version where the push off gets a second job, measured",
     "who": "Arena (cloud, a sixth chat: costs your PC nothing)",
     "started": "2026-11-26T13:35",
-    "run": "CLINCHFIX2",
-    "state": "running"
+    "run": "CLINCHFIX2"
+   },
+   {
+    "title": "Head moves and kicks at every range: the men keep their distance on head.html and kick.html",
+    "who": "console worker (Opus, Code Mode), terminal tab GLIDE2",
+    "started": "2026-11-26T14:00",
+    "run": "GLIDE2"
+   },
+   {
+    "title": "The one bar the page still fails: the jab and the overhand land too often - up to three fixes measured",
+    "who": "Arena (cloud, a seventh chat: costs your PC nothing)",
+    "started": "2026-11-26T14:45",
+    "run": "JABLAND1"
    }
   ],
   "next": [
@@ -6296,6 +6324,22 @@
     {
      "text": "Room to back off bar",
      "who": "claude"
+    },
+    {
+     "text": "Puncher's chance F: 8 of 9",
+     "who": "claude"
+    },
+    {
+     "text": "Punches at every range",
+     "who": "claude"
+    },
+    {
+     "text": "Body view on main page",
+     "who": "claude"
+    },
+    {
+     "text": "Puncher's chance page on F",
+     "who": "claude"
     }
    ],
    "now": [
@@ -6448,14 +6492,6 @@
      "who": "agent"
     },
     {
-     "text": "Punches at every range (render)",
-     "who": "claude"
-    },
-    {
-     "text": "Body view on main page (worker)",
-     "who": "claude"
-    },
-    {
      "text": "Pick the moment: measure (Arena)",
      "who": "agent"
     },
@@ -6465,6 +6501,14 @@
     },
     {
      "text": "Head+kicks every range (worker)",
+     "who": "claude"
+    },
+    {
+     "text": "Jab lands too often (Arena)",
+     "who": "agent"
+    },
+    {
+     "text": "Inside distance + see-through",
      "who": "claude"
     }
    ],
@@ -6903,6 +6947,18 @@
     },
     {
      "text": "Puncher's chance v2 onto the page",
+     "who": "claude"
+    },
+    {
+     "text": "Collect GLIDE2 + head masks",
+     "who": "claude"
+    },
+    {
+     "text": "Collect 6 Arena measures",
+     "who": "claude"
+    },
+    {
+     "text": "Never still: bounce (BOUNCE1)",
      "who": "claude"
     }
    ],

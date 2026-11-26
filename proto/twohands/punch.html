@@ -97,13 +97,38 @@ button{font:inherit;color:inherit;cursor:pointer}
 #call{position:sticky;bottom:0;margin-top:auto;background:rgba(18,14,12,.9);border-left:3px solid var(--gold);border-radius:.4rem;padding:.4rem .6rem;font-size:.98rem;display:none}#call.on{display:block;animation:callin .35s ease-out}
 #call b{display:block;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}#call.w0{border-left-color:#ff8f86}#call.w0 b{color:#ff8f86}#call.w2{border-left-color:#9cc0f5}#call.w2 b{color:#9cc0f5}
 @keyframes callin{0%{opacity:0;transform:translateY(8px)}100%{opacity:1;transform:none}}
-</style><script src="ring_ui.js" defer></script></head>
+
+/* BODYUI2 (S562, owner Q-343 "Body view ... make it how you pick switches on the main page?" - "Yes, replace the board";
+   S559: "i do not want text near the fighters (tubes or circles on the fighters are forbidden) make a pointer outlining to
+   the available options menu"): the limb under the mouse glows (its outline, from a part mask rendered from the 3D beside
+   each picture); its switches sit in ONE fixed panel left of the ring; a thin line runs from the lit limb to it, BEHIND the
+   men. The old board below the ring is gone: the same buttons live in the panel (body_ui.js picks which). */
+.duo{grid-template-columns:17.5rem minmax(24rem,1fr) minmax(13rem,23%)}
+.stage{height:clamp(15rem,60vh,42rem)}.tell{max-height:clamp(15rem,60vh,42rem)}   /* the board moved beside the ring: the ring takes its height */
+.side{background:var(--panel);border:1px solid var(--line);border-radius:.6rem;padding:.4rem;display:flex;flex-direction:column;gap:.35rem;min-width:0;overflow:auto;max-height:clamp(15rem,60vh,42rem);transition:border-color .2s}
+.side.w0{border-color:#8fc0ff}.side.w1{border-color:#ff8a80}
+.side .hd{font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:.1rem .2rem}.side .hd b{color:var(--fg)}.side.w0 .hd b{color:#9cc0f5}.side.w1 .hd b{color:#ff9d95}
+.side .hd small{display:block;text-transform:none;letter-spacing:0;font-size:.75rem;color:var(--muted)}.side .hd small[data-tip]{cursor:help;text-decoration:underline dotted}
+.side .hd.hint{border:1px dashed var(--gold);border-radius:.5rem;padding:.4rem .5rem;animation:pulse 1.4s infinite}
+#side .board{display:flex;flex-direction:column;gap:.35rem}#side .board .grp{padding:.3rem;grid-template-columns:1fr 1fr}#side .board.part .grp>.lab{display:none}#side .opps{grid-template-columns:1fr}
+#sum{display:flex;flex-direction:column;gap:.25rem}#sum button{display:grid;grid-template-columns:5.2rem 1fr;gap:.4rem;text-align:left;padding:.3rem .5rem;border-radius:.45rem;border:1px solid var(--line2);background:var(--panel2);font-size:.85rem}
+#sum button i{font-style:normal;color:var(--muted)}#sum button b{font-weight:600}#sum button:hover{border-color:#8fc0ff}
+#his{display:none;flex-direction:column;gap:.25rem;font-size:.85rem;line-height:1.25}
+#his .row{display:grid;grid-template-columns:1fr auto auto;gap:.1rem .45rem;align-items:center;padding:.25rem .45rem;border-radius:.45rem;border:1px solid var(--line2);background:var(--panel2);cursor:help}
+#his .row b{font-weight:600}#his .row em{font-style:normal;font-size:.75rem;color:var(--muted)}#his .row u{text-decoration:none;font-size:.75rem;font-weight:700;padding:0 .35rem;border-radius:.6rem;border:1px solid}
+#his .row u.ok{color:#bfe6c3;border-color:var(--green)}#his .row u.open{color:#ffb3ad;border-color:var(--red)}#his .row u.far{color:var(--muted);border-color:var(--line2)}
+#his .row.far b{opacity:.55}#his .row small{grid-column:1/-1;color:var(--muted);font-size:.74rem}#his .note2{color:var(--muted);font-size:.78rem;padding:.1rem .2rem}
+#glow{position:absolute;z-index:2;pointer-events:none}
+#pointer{position:fixed;left:0;top:0;width:100vw;height:100vh;z-index:0;pointer-events:none;overflow:visible}
+.stage.over{cursor:pointer}
+#seqwords{display:flex;flex-direction:column;gap:.1rem;font-size:.88rem;color:var(--fg)}#seqwords b{color:var(--gold);margin-right:.35rem}#seqwords u{color:#ff8f86;text-decoration:none;font-weight:700}#seqwords .meet{color:var(--muted);font-size:.8rem}
+</style><script src="ring_ui.js" defer></script><script src="body_ui.js" defer></script></head>
 <body><div class="app">
-  <div class="top"><span class="brand">Ring Switches</span><span id="where"></span><span id="score"></span><span class="lab" style="margin-left:auto">the order you click is the order you throw</span><button class="btn" id="mute" style="padding:.2rem .6rem;min-height:0;font-size:.85rem">Sound on</button></div>
+  <div class="top"><span class="brand">Ring Switches</span><span id="where"></span><span id="score"></span><span class="lab" style="margin-left:auto">point at a limb to set it - the order you click is the order you throw</span><button class="btn" id="mute" style="padding:.2rem .6rem;min-height:0;font-size:.85rem">Sound on</button></div>
   <div class="men"><div class="man you" id="you"></div><div class="man him" id="him"></div></div>
-  <div class="duo"><div class="stage" id="stage"><div class="rng" id="rng"></div><img id="pic" alt="" src="img/guard.webp"><span class="burst" id="burst"></span><span class="pop p0" id="pop0"></span><span class="pop p1" id="pop1"></span><span class="cap" id="cap"></span><span class="nm you">You</span><span class="nm him" id="nmhim">Him</span></div>
+  <div class="duo"><div class="side" id="side"><div class="board" id="board"></div></div><div class="stage" id="stage"><div class="rng" id="rng"></div><img id="pic" alt="" src="img/guard.webp"><span class="burst" id="burst"></span><span class="pop p0" id="pop0"></span><span class="pop p1" id="pop1"></span><span class="cap" id="cap"></span><span class="nm you">You</span><span class="nm him" id="nmhim">Him</span></div>
     <div class="tell"><div class="said" id="said"></div><div id="story"></div></div></div>
-  <div><div class="under" style="margin-bottom:.5rem"><div class="lines" id="lines"></div><div id="acts"></div></div><div class="board" id="board"></div></div>
+  <div><div class="under" style="margin-bottom:.5rem"><div class="lines" id="lines"></div><div id="acts"></div></div></div>
 </div>
 <script>
 // S555: THIS PAGE IS THE SOURCE (the owner: "i want version with the order of actions"). It was generated from switch.html by
@@ -116,7 +141,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 // N / ACT and five rules below were chosen on tools/balance.mjs - two equal men who both play each beat's solved mix box at all
 // three ranges, every punch gets thrown, bouts end both ways (docs/RINGSWITCH_BALANCE_S555.md has the table). keep: 0 = the S554
 // trial "a landed jab keeps him out" is off: it made 75% of beats Long.
-const N = { pcMode: 'hp', pchSt: 2, pcGap: 4, hp: 18, st: 8, rec: 1, hold: 1, guard: 6, grec: 1, rounds: 3, beats: 6, kd: [6, 4], counter: 1, keep: 0, even: 1, capMin: 4, wide: 5 };   // rec: stamina back a beat, + hold for each hand kept home
+const N = { pcMode: 'hp', pchSt: 2, pcGap: 4, pcFree: 1, hp: 18, st: 8, rec: 1, hold: 1, guard: 6, grec: 1, rounds: 3, beats: 6, kd: [6, 4], counter: 1, keep: 0, even: 1, capMin: 4, wide: 5 };   // rec: stamina back a beat, + hold for each hand kept home
 const RNG = { 1: 'Inside', 2: 'Mid', 3: 'Long' };
 // a punch: which hand, stamina, health it takes, speed (1 first), the ranges it reaches, the line it travels on
 const ACT = {
@@ -417,15 +442,15 @@ function go() { if (busy) return; busy = true; phase = 'play'; $('acts').innerHT
     setTimeout(() => { fx(true); if (e.down) setTimeout(() => { pic(kd + '_2'); snd('knockdown_fall_4'); }, 350);
     setTimeout(step, e.t === 'range' || e.t === 'flat' ? 600 : e.down ? 1250 : 900); }, punch ? 220 : 0); };
   const after = () => { endBeat({ f: F }); busy = false; $('cap').textContent = ''; for (const b of document.querySelectorAll('.sw.doing')) b.classList.remove('doing');
-    for (const k of [0, 1]) if (F[k].hp <= 0) { F[k].kd++; F[1 - k].pts += 3; if (F[k].kd > N.kd.length) return over(k ? 'YOU WIN - the referee stops it' : `${OPP.n} WINS - the referee stops it`); F[k].hp = N.kd[F[k].kd - 1];
+    for (const k of [0, 1]) if (F[k].hp <= 0) { const free = !!N.pcFree && ev.some((x) => x.t === 'hit' && x.k === 1 - k && /ALL IN/.test(x.o || '')); if (!free) F[k].kd++; F[1 - k].pts += 3; if (F[k].kd > N.kd.length) return over(k ? 'YOU WIN - the referee stops it' : `${OPP.n} WINS - the referee stops it`); F[k].hp = free ? N.kd[Math.min(F[k].kd, N.kd.length - 1)] : N.kd[F[k].kd - 1];
       $('story').insertAdjacentHTML('beforeend', `<div class="srow ${k ? 'good' : 'bad'}"${tipAttr(`At 0 health a man is down. He gets up on ${N.kd[0]} health the first time and ${N.kd[1]} the second; the third knockdown stops the bout.\nA knockdown is worth 3 points in the round.`)}><b>${k ? 'HE IS' : 'YOU ARE'} DOWN</b><span>health hit 0 - up at ${F[k].hp}; three times and it is stopped</span><em></em></div>`); }
     beat++; if (beat >= N.beats) return bell(); trim(); heldShown = ''; plan(); };
   const need = ev.map(runOf).filter(Boolean); for (const e of ev) if (e.down) need.push(`${e.k ? 'blue' : 'red'}_knockdown`, runOf(e).replace(/_landed$/, '_ko'));
   Promise.race([warm(need), new Promise((ok) => setTimeout(ok, 1500))]).then(() => setTimeout(step, 350)); }
 /* a held hand is SEEN (HOLDTAKES1, S553): every hand that does not punch is held high or low - one hand, or both */
 let heldShown = '';
-function showHold() { const l = P.clinch || P.lead ? '' : P.hl, r = P.clinch || P.rear ? '' : P.hr, h = l && r ? `both_${l}_${r}` : l ? `lead_${l}` : r ? `rear_${r}` : '', key = h + '@' + range; if (key === heldShown) return; heldShown = key; if (!h) return pic('guard');
-  const far = 'blue_' + h, run = range < 3 && ANIM[`${far}_r${range}`] ? `${far}_r${range}` : far;   /* the men stand at the range: Long, Mid (_r2) or Inside (_r1) */
+function showHold() { const l = P.clinch || P.lead ? '' : P.hl, r = P.clinch || P.rear ? '' : P.hr, h = l && r ? `both_${l}_${r}` : l ? `lead_${l}` : r ? `rear_${r}` : '', key = h + '@' + range; if (key === heldShown) return; heldShown = key; if (!h && !ANIM.blue_guard) return pic('guard');   /* BODYUI2: the guard as a run too, at the range (it has its part masks) */
+  const far = 'blue_' + (h || 'guard'), run = range < 3 && ANIM[`${far}_r${range}`] ? `${far}_r${range}` : far;   /* the men stand at the range: Long, Mid (_r2) or Inside (_r1) */
   warm([run]).then(() => { if (phase === 'plan' && heldShown === key) playRun(run, false, () => {}, () => {}); }); }
 const affordable = (id) => (id && ACT[id].st <= F[0].st ? id : null);
 // your switches carry over to the next beat; what the stamina cannot pay is switched off, and the page SAYS so (ZIVAFIX1: a beat was refused without a word)

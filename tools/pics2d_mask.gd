@@ -6,15 +6,18 @@ extends RefCounted
 ## Each body mesh gets a twin on a layer only the mask camera sees: the same mesh, skin and skeleton, one flat colour per
 ## part by vertex colour - the part whose bones carry the most of that vertex's skin weight. Unshaded, no outline, linear
 ## tone map, no anti-aliasing, transparent background. Parts (per man): lead arm, rear arm, legs (both: "feet"), torso
-## (head, neck and trunk). The lead arm is the hand stage.hand_of names for the orthodox LeftHand (a southpaw: his right).
+## (neck down to the hips), head (BODYUI2, S562: its own part - bones named head, neck, jaw, eye, face). The lead arm is the hand stage.hand_of names for the orthodox LeftHand (a southpaw: his right).
 ## Godot's own StandardMaterial3D (unshaded, vertex colour as albedo); no addon.
 
 const LAYER := 1 << 19
 ## [r, g, b] 0..255 per corner and part - anim_web.py snaps the saved mask to exactly these; body_ui.js reads them back.
 const PART := {
-	"blue": {"lead": [255, 0, 0], "rear": [0, 255, 0], "legs": [0, 0, 255], "torso": [255, 255, 0]},
-	"red": {"lead": [255, 0, 255], "rear": [0, 255, 255], "legs": [255, 128, 0], "torso": [128, 0, 255]}}
+	"blue": {"lead": [255, 0, 0], "rear": [0, 255, 0], "legs": [0, 0, 255], "torso": [255, 255, 0], "head": [0, 128, 255]},
+	"red": {"lead": [255, 0, 255], "rear": [0, 255, 255], "legs": [255, 128, 0], "torso": [128, 0, 255], "head": [255, 0, 128]}}
 const ARM := ["upperarm", "lowerarm", "forearm", "elbow", "hand", "wrist", "thumb", "index", "middle", "ring", "little", "pinky", "finger"]
+## BODYUI2 (S562, owner Q-339 "head opens slip, roll, lean back"): the head is its own part. Checked first, so no arm or
+## leg bone name may hold one of these ("ear" is out: forearm).
+const HEAD := ["head", "neck", "jaw", "eye", "face", "facial", "teeth", "tongue", "nose", "brow"]
 const LEG := ["upperleg", "lowerleg", "thigh", "calf", "knee", "foot", "toe", "ball", "ankle", "leg"]
 
 var sv: SubViewport
@@ -78,6 +81,9 @@ static func part_of(bone: String, lead: String) -> String:
 	var b := bone.to_lower()
 	var left := n.begins_with("left") or b.ends_with("_l") or b.ends_with(".l")
 	var right := n.begins_with("right") or b.ends_with("_r") or b.ends_with(".r")
+	for k in HEAD:
+		if n.contains(k):
+			return "head"
 	for k in LEG:
 		if n.contains(k):
 			return "legs"
@@ -95,6 +101,9 @@ func _build(stage: Node3D, i: int, mat: Material) -> void:
 	var bone_part: Array = []
 	for b in skel.get_bone_count():
 		bone_part.append(part_of(skel.get_bone_name(b), lead))
+	if _arg_dbg:   # mask_debug: every bone and its part (BODYUI2: check the head bones by name)
+		for b in skel.get_bone_count():
+			print("PICS2D_MASK_BONE %s %s -> %s" % [col, skel.get_bone_name(b), bone_part[b]])
 	for n in (bx["node"] as Node).find_children("*", "MeshInstance3D", true, false):
 		var mi := n as MeshInstance3D
 		if mi.mesh == null or mi.has_meta("mask_twin") or mi.mesh.get_surface_count() == 0:

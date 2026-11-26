@@ -23,8 +23,8 @@ HERE = Path(__file__).resolve().parent
 OUT = HERE.parent / "img" / "anim"
 WEB_PX = 480
 STRIP_PX = 300
-## tools/pics2d_mask.gd PART: the eight part colours (blue lead, rear, legs, torso; red lead, rear, legs, torso)
-MASK_RGB = [(255, 0, 0), (0, 255, 0), (0, 0, 255), (255, 255, 0), (255, 0, 255), (0, 255, 255), (255, 128, 0), (128, 0, 255)]
+## tools/pics2d_mask.gd PART: the ten part colours (blue lead, rear, legs, torso; red lead, rear, legs, torso; BODYUI2: blue head, red head)
+MASK_RGB = [(255, 0, 0), (0, 255, 0), (0, 0, 255), (255, 255, 0), (255, 0, 255), (0, 255, 255), (255, 128, 0), (128, 0, 255), (0, 128, 255), (255, 0, 128)]
 
 
 def mask_web(src: Path, dst: Path) -> None:

@@ -9710,6 +9710,251 @@
    ],
    "contact": -1,
    "clip": "pro_left_jab_b"
+  },
+  "blue_body_hook_landed_r2": {
+   "files": [
+    "blue_body_hook_landed_r2_0.webp",
+    "blue_body_hook_landed_r2_1.webp",
+    "blue_body_hook_landed_r2_2.webp",
+    "blue_body_hook_landed_r2_3.webp",
+    "blue_body_hook_landed_r2_4.webp",
+    "blue_body_hook_landed_r2_5.webp",
+    "blue_body_hook_landed_r2_6.webp",
+    "blue_body_hook_landed_r2_7.webp",
+    "blue_body_hook_landed_r2_8.webp",
+    "blue_body_hook_landed_r2_9.webp",
+    "blue_body_hook_landed_r2_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_kidney_shot",
+   "range": 2,
+   "hit": [
+    0.374,
+    0.428
+   ]
+  },
+  "blue_body_hook_landed_r1": {
+   "files": [
+    "blue_body_hook_landed_r1_0.webp",
+    "blue_body_hook_landed_r1_1.webp",
+    "blue_body_hook_landed_r1_2.webp",
+    "blue_body_hook_landed_r1_3.webp",
+    "blue_body_hook_landed_r1_4.webp",
+    "blue_body_hook_landed_r1_5.webp",
+    "blue_body_hook_landed_r1_6.webp",
+    "blue_body_hook_landed_r1_7.webp",
+    "blue_body_hook_landed_r1_8.webp",
+    "blue_body_hook_landed_r1_9.webp",
+    "blue_body_hook_landed_r1_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_kidney_shot",
+   "range": 1,
+   "hit": [
+    0.374,
+    0.428
+   ]
+  },
+  "blue_lead_uppercut_blocked_r1": {
+   "files": [
+    "blue_lead_uppercut_blocked_r1_0.webp",
+    "blue_lead_uppercut_blocked_r1_1.webp",
+    "blue_lead_uppercut_blocked_r1_2.webp",
+    "blue_lead_uppercut_blocked_r1_3.webp",
+    "blue_lead_uppercut_blocked_r1_4.webp",
+    "blue_lead_uppercut_blocked_r1_5.webp",
+    "blue_lead_uppercut_blocked_r1_6.webp",
+    "blue_lead_uppercut_blocked_r1_7.webp",
+    "blue_lead_uppercut_blocked_r1_8.webp",
+    "blue_lead_uppercut_blocked_r1_9.webp",
+    "blue_lead_uppercut_blocked_r1_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_left_uppercut_hard",
+   "range": 1,
+   "hit": [
+    0.45,
+    0.271
+   ]
+  },
+  "blue_lead_uppercut_short_r2": {
+   "files": [
+    "blue_lead_uppercut_short_r2_0.webp",
+    "blue_lead_uppercut_short_r2_1.webp",
+    "blue_lead_uppercut_short_r2_2.webp",
+    "blue_lead_uppercut_short_r2_3.webp",
+    "blue_lead_uppercut_short_r2_4.webp",
+    "blue_lead_uppercut_short_r2_5.webp",
+    "blue_lead_uppercut_short_r2_6.webp",
+    "blue_lead_uppercut_short_r2_7.webp",
+    "blue_lead_uppercut_short_r2_8.webp",
+    "blue_lead_uppercut_short_r2_9.webp",
+    "blue_lead_uppercut_short_r2_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_left_uppercut",
+   "range": 2,
+   "hit": [
+    0.505,
+    0.206
+   ]
+  },
+  "blue_rear_uppercut_short_r2": {
+   "files": [
+    "blue_rear_uppercut_short_r2_0.webp",
+    "blue_rear_uppercut_short_r2_1.webp",
+    "blue_rear_uppercut_short_r2_2.webp",
+    "blue_rear_uppercut_short_r2_3.webp",
+    "blue_rear_uppercut_short_r2_4.webp",
+    "blue_rear_uppercut_short_r2_5.webp",
+    "blue_rear_uppercut_short_r2_6.webp",
+    "blue_rear_uppercut_short_r2_7.webp",
+    "blue_rear_uppercut_short_r2_8.webp",
+    "blue_rear_uppercut_short_r2_9.webp",
+    "blue_rear_uppercut_short_r2_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_right_uppercut",
+   "range": 2,
+   "hit": [
+    0.487,
+    0.286
+   ]
+  },
+  "red_lead_uppercut_short_r2": {
+   "files": [
+    "red_lead_uppercut_short_r2_0.webp",
+    "red_lead_uppercut_short_r2_1.webp",
+    "red_lead_uppercut_short_r2_2.webp",
+    "red_lead_uppercut_short_r2_3.webp",
+    "red_lead_uppercut_short_r2_4.webp",
+    "red_lead_uppercut_short_r2_5.webp",
+    "red_lead_uppercut_short_r2_6.webp",
+    "red_lead_uppercut_short_r2_7.webp",
+    "red_lead_uppercut_short_r2_8.webp",
+    "red_lead_uppercut_short_r2_9.webp",
+    "red_lead_uppercut_short_r2_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_left_uppercut",
+   "range": 2,
+   "hit": [
+    0.596,
+    0.227
+   ]
+  },
+  "red_rear_uppercut_short_r2": {
+   "files": [
+    "red_rear_uppercut_short_r2_0.webp",
+    "red_rear_uppercut_short_r2_1.webp",
+    "red_rear_uppercut_short_r2_2.webp",
+    "red_rear_uppercut_short_r2_3.webp",
+    "red_rear_uppercut_short_r2_4.webp",
+    "red_rear_uppercut_short_r2_5.webp",
+    "red_rear_uppercut_short_r2_6.webp",
+    "red_rear_uppercut_short_r2_7.webp",
+    "red_rear_uppercut_short_r2_8.webp",
+    "red_rear_uppercut_short_r2_9.webp",
+    "red_rear_uppercut_short_r2_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_right_uppercut",
+   "range": 2,
+   "hit": [
+    0.61,
+    0.295
+   ]
   }
  },
  "camera": {

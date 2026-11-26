@@ -1,4 +1,4 @@
-// MASK1 (S559): the 8-part hover check of body.html in headless Edge (nothing opens on a monitor). For Long, Mid and
+// MASK1 (S559) / BODYUI2 (S562): the 10-part hover check of the body view (order.html, head.html) in headless Edge (nothing opens on a monitor). For Long, Mid and
 // Inside: the page put at that range, then the mouse on the middle of each part of each man (found on the part mask the
 // page reads), a screenshot each; one more with the lead hand clicked (kept open). Prints what the panel says per part and
 // whether the page scrolls at 1920x1080.
@@ -9,7 +9,9 @@ import { spawn } from 'node:child_process';
 import os from 'node:os';
 
 const out = process.argv[2] || 'ops/previews/s559_mask';
-const url = process.argv[3] || 'http://127.0.0.1:8797/body.html';
+const url = process.argv[3] || 'http://127.0.0.1:8797/order.html';
+const only = process.argv[4] ? process.argv[4].split(',') : null;   /* BODYUI2: e.g. you:head,him:head */
+const tag = process.argv[5] || '';   /* a prefix for the picture names (head.html: 'head_') */
 const EDGE = 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe';
 fs.mkdirSync(out, { recursive: true });
 const port = 9300 + Math.floor(Math.random() * 500);
@@ -28,7 +30,7 @@ const FIND = `(async () => { const im = $('pic'), f = /img\\/anim\\/([^/?#]+\\.w
   let mk = null; for (const n in ANIM) { const r = ANIM[n]; if (r.masks) { const i = r.files.indexOf(f[1]); if (i >= 0) mk = r.masks[i]; } } if (!mk) return { err: 'no mask for ' + f[1] };
   const m = new Image(); await new Promise((ok) => { m.onload = ok; m.src = 'img/anim/' + mk; }); const c = document.createElement('canvas'); c.width = m.naturalWidth; c.height = m.naturalHeight; const x = c.getContext('2d'); x.drawImage(m, 0, 0);
   const d = x.getImageData(0, 0, c.width, c.height).data, W = c.width, H = c.height;
-  const P = [[255,0,0,'you:lead'],[0,255,0,'you:rear'],[0,0,255,'you:feet'],[255,255,0,'you:body'],[255,0,255,'him:lead'],[0,255,255,'him:rear'],[255,128,0,'him:feet'],[128,0,255,'him:body']];
+  const P = window.bodyMask().parts.map((p) => [p[0], p[1], p[2], (p[3] ? 'him:' : 'you:') + p[4]]);
   const r = im.getBoundingClientRect(), mir = parseFloat((/matrix\\(([^,]+)/.exec(getComputedStyle(im).transform) || [0, 1])[1]) < 0, res = {};
   for (const p of P) { const px = []; for (let i = 0; i < W * H; i++) if (d[i*4+3] > 128 && d[i*4] === p[0] && d[i*4+1] === p[1] && d[i*4+2] === p[2]) px.push(i);
     if (!px.length) { res[p[3]] = null; continue; } let sx = 0, sy = 0; for (const i of px) { sx += i % W; sy += (i / W) | 0; } sx /= px.length; sy /= px.length;
@@ -51,12 +53,12 @@ try {
     await ev(`range = ${r}; heldShown = ''; plan(); 1`); for (let t = 0; t < 60; t++) { await sleep(500); if (await ev("/_6\\.webp$/.test($('pic').src)")) break; } await sleep(600);
     const f = await ev(FIND); if (f.err) { report.push(nm + ': ' + f.err); continue; }
     report.push(`${nm}: mask ${f.mask}`);
-    for (const k of Object.keys(f.res)) { const p = f.res[k]; if (!p) { report.push(`  ${k}: NOT ON THE MASK`); continue; }
+    for (const k of Object.keys(f.res)) { if (only && !only.includes(k)) continue; const p = f.res[k]; if (!p) { report.push(`  ${k}: NOT ON THE MASK`); continue; }
       await move(p.x, p.y); await sleep(350); const bm = await ev('JSON.stringify(window.bodyMask ? window.bodyMask() : null)');
-      const said = await ev("(() => { const s = $('side'); return [s.className, s.querySelector('.hd').innerText.replace(/\\s+/g, ' '), [...s.querySelectorAll('.board .grp')].filter((g) => getComputedStyle(g).display !== 'none').map((g) => [...g.querySelectorAll('.sw')].filter((b) => getComputedStyle(b).display !== 'none').map((b) => b.innerText.replace(/\\s+/g, ' ')).join(' | ')).join(' // '), $('his').style.display === 'block' ? $('his').innerText.replace(/\\s+/g, ' ') : ''] })()");
+      const said = await ev("(() => { const s = $('side'), vis = (e) => getComputedStyle(e).display !== 'none'; return [s.className, s.querySelector('.hd').innerText.replace(/\\s+/g, ' '), vis($('board')) ? [...s.querySelectorAll('.board .grp')].filter(vis).map((g) => [...g.querySelectorAll('.sw')].filter(vis).map((b) => b.innerText.replace(/\\s+/g, ' ')).join(' | ')).join(' // ') : '', vis($('his')) ? [...$('his').children].map((r) => r.innerText.replace(/\\s+/g, ' ')).join(' | ') : ''] })()");
       report.push(`  ${k} (${p.n} px) at ${p.x},${p.y} [page ${bm}]: panel ${said[0]} - ${said[1]}${said[2] ? ' :: ' + said[2] : ''}${said[3] ? ' :: ' + said[3] : ''}`);
-      await shot(`mask_${nm}_${k.replace(':', '_')}.png`); }
-    if (r === 3) { const p = f.res['you:lead']; await click(p.x, p.y); await move(5, 5); await sleep(400); await shot('mask_long_lead_pinned.png'); report.push('  lead clicked, mouse away: ' + (await ev("$('side').querySelector('.hd').innerText.replace(/\\s+/g, ' ')"))); await click(p.x, p.y); await move(5, 5); await sleep(200); }
+      await shot(`mask_${tag}${nm}_${k.replace(':', '_')}.png`); }
+    if (r === 3 && f.res['you:lead'] && !only) { const p = f.res['you:lead']; await click(p.x, p.y); await move(5, 5); await sleep(400); await shot('mask_long_lead_pinned.png'); report.push('  lead clicked, mouse away: ' + (await ev("$('side').querySelector('.hd').innerText.replace(/\\s+/g, ' ')"))); await click(p.x, p.y); await move(5, 5); await sleep(200); }
     await move(5, 5); await sleep(200); }
 } catch (e) { report.push('ERROR ' + e.message); }
 fs.writeFileSync(path.join(out, 'mask_report.txt'), report.join('\n') + '\n');
