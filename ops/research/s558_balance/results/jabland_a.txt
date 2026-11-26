@@ -1,4 +1,23 @@
-# ONE-REP TRIAL (n=12, the page's own vtable; replaced by the n=84 run below once it is done)
+# node proto/twohands/tools/balance.mjs play who=mix opp=mirror n=84 seed=1 tweak=ops/research/s558_balance/jabland_a.json table=/home/user/jabland_tmp/a.vt.json
+mix v the same man (no style): wins 44%, draws 2%, stops him 15%, is stopped 27%; knockdowns a bout 1.5 v 1.8; health taken a bout 23.8 v 24.8; beats at Inside / Mid / Long 30% / 37% / 33%; clinches a bout 1.3; rounds level on points 13%, 59% of them given on ground
+  you a beat: back off 36%, lead held low 33%, step in 30%, feet hold 28%, Body jab 24%, Body cross 23%, Cross 22%, rear held high 17%, Overhand 15%, rear held low 11%, Feint 11%, Jab 9%, clinch 6%, Rear uppercut 5%, Lead uppercut 5%, Lead hook 4%, Push off 3%, lead held high 3%, Body hook 2% | punches in a plan: none 8%, one 62%, two 24%
+  your punches (thrown a bout: lands / blocked / misses): Body jab 4.0: 59% / 33% / 8%, Body cross 3.7: 44% / 27% / 29%, Cross 3.7: 37% / 20% / 43%, Overhand 2.2: 65% / 10% / 25%, Jab 1.4: 60% / 34% / 7%, Rear uppercut 0.9: 59% / 1% / 39%, Lead uppercut 0.8: 58% / 11% / 31%, Lead hook 0.7: 28% / 54% / 18%, Body hook 0.4: 57% / 27% / 17%
+  he  a beat: back off 38%, lead held low 34%, step in 34%, Body cross 26%, Body jab 25%, feet hold 23%, Cross 22%, rear held high 16%, Overhand 12%, rear held low 12%, Feint 9%, Jab 8%, Rear uppercut 6%, clinch 6%, lead held high 5%, Lead uppercut 4%, Lead hook 4%, Push off 4%, Body hook 3% | punches in a plan: none 9%, one 61%, two 24%
+  his  punches (thrown a bout: lands / blocked / misses): Body cross 4.3: 47% / 28% / 25%, Body jab 4.2: 63% / 33% / 4%, Cross 3.6: 37% / 19% / 44%, Overhand 1.9: 64% / 11% / 26%, Jab 1.3: 62% / 36% / 2%, Rear uppercut 0.9: 58% / 8% / 33%, Lead uppercut 0.6: 63% / 15% / 22%, Lead hook 0.6: 54% / 28% / 18%, Body hook 0.5: 63% / 29% / 8%
+  your order, of the beats with one to choose (72%): first rear 19%, lead 29%, feet 52%
+  (84 bouts, 769 s)
+BARS 6 of 9 pass
+  PASS every range is fought at (each 15-55% of beats): Inside 30%, Mid 37%, Long 33%
+  PASS no switch is a must (none in over 40% of beats): back off 37%, step in 32%, Body cross 25%
+  FAIL no switch is dead (each in at least 3% of beats): Body hook 2%
+  FAIL every punch lands 30-65% of the time and falls short at most 40%: Cross lands 37%, short 44%
+  FAIL bouts end both ways (stoppages 10-40%, draws at most 20%, 0.5-2.5 knockdowns a bout): stoppages 43%, draws 2%, knockdowns 3.2
+  PASS one punch, two punches and holding all have their beats (two 15-45%, none 5-25%): two 24%, none 9%
+  PASS the clinch is a rescue, not a habit (at most 2 a bout): 1.3
+  PASS the order is a choice (no slot first in over 60% of ordered beats; an order to choose in 40%+ of beats): ordered 72%, most often first 52%
+  PASS the mirror is fair (wins 40-60% of decided bouts): 45%
+
+# ONE-REP TRIAL (n=12, the page's own vtable, run before the table)
 # node proto/twohands/tools/balance.mjs play who=mix opp=mirror n=12 seed=1 jobs=6 tweak=ops/research/s558_balance/jabland_a.json
 mix v the same man (no style): wins 42%, draws 0%, stops him 33%, is stopped 17%; knockdowns a bout 1.6 v 1.5; health taken a bout 23.7 v 23.3; beats at Inside / Mid / Long 31% / 29% / 40%; clinches a bout 1.3; rounds level on points 7%, 50% of them given on ground
   you a beat: back off 37%, lead held low 35%, step in 31%, Body jab 27%, feet hold 26%, Cross 24%, Body cross 22%, rear held low 15%, Overhand 15%, rear held high 12%, Feint 8%, Lead uppercut 7%, clinch 6%, Jab 6%, Rear uppercut 6%, Push off 4%, Body hook 3%, lead held high 2%, Lead hook 2% | punches in a plan: none 6%, one 63%, two 24%
