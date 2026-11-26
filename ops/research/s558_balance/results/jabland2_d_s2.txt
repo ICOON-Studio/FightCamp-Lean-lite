@@ -16,3 +16,5 @@ BARS 7 of 9 pass
   PASS the clinch is a rescue, not a habit (at most 2 a bout): 1.2
   PASS the order is a choice (no slot first in over 60% of ordered beats; an order to choose in 40%+ of beats): ordered 68%, most often first 56%
   PASS the mirror is fair (wins 40-60% of decided bouts): 50%
+Counting replay (same bouts; report verified identical except elapsed time):
+FEINT_COUNTS {"pair":{"cross":{"thrown":147,"landed":137},"rup":{"thrown":11,"landed":9},"over":{"thrown":8,"landed":6},"rbody":{"thrown":2,"landed":2}},"caught":{"lup":4,"cross":19,"rbody":11,"lbody":6,"bjab":3,"rup":3},"wasted":{}}
