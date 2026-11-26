@@ -5,7 +5,7 @@
 //  - "at Long" for points/health: the range in the moment the punch lands, rebuilt from the beat's range
 //    events in order (a feet moment moves the men before the punches in that same moment). A beat-start
 //    cross-check (all hits in a beat that started at Long) is printed too.
-//  - "nothing thrown": neither plan contains a damaging punch (feints, pushes and clinches are not punches).
+//  - "nothing thrown": no punch actually resolves as a hit, block or miss (feints, pushes and clinches are not punches).
 //  - "step in from Long": a beat that starts at Long with feet=='in' in that man's plan. "Got in" = the men
 //    end the beat closer than Long (range after resolve < 3). "Stopped" = a hit whose words say it meets
 //    him stepping in and stops him (L1's words; 0 where there is no such rule). "Paid the fence tax" =
@@ -57,10 +57,10 @@ function boutsLong(R, n, tweak, table, seed) {
         const isLongStart = rangeStart === 3;
         if (isLongStart) {
           o.longStart++;
-          if (plans.every((p) => !(p.lead && ACT[p.lead].d) && !(p.rear && ACT[p.rear].d))) o.nothingThrownLong++;
           classifyLead(o.leadLong, plans[0]); classifyLead(o.leadLongYou, plans[0]); classifyLead(o.leadLong, plans[1]); classifyLead(o.leadLongHe, plans[1]);
         }
         const ev = resolve(S, plans); const rangeAfter = S.range; const stAfterResolve = [S.f[0].st, S.f[1].st];
+        if (isLongStart && !ev.some((e) => e.id && ACT[e.id]?.d && ['hit', 'block', 'miss'].includes(e.t))) o.nothingThrownLong++;
         endBeat(S); o.rngAfter[rangeAfter]++;
         // points/health while at Long, rebuilt moment by moment from the range events
         let curRange = rangeStart;
@@ -83,7 +83,8 @@ function boutsLong(R, n, tweak, table, seed) {
         // step in from Long
         if (isLongStart) for (const k of [0, 1]) {
           if (plans[k].feet !== 'in') continue;
-          o.stepTried[k]++; const gotIn = rangeAfter < 3; if (gotIn) { o.stepGotIn[k]++; o.arrivalStSum[k] += stAfterResolve[k]; o.arrivalN[k]++; }
+          o.stepTried[k]++; const gotIn = rangeAfter < 3; if (gotIn) o.stepGotIn[k]++;
+          if (rangeAfter === 2) { o.arrivalStSum[k] += stAfterResolve[k]; o.arrivalN[k]++; }
           if (ev.some((e) => e.t === 'hit' && e.k === 1 - k && /stops (him|you): still at Long/.test(e.o || ''))) o.stepStopped[k]++;
           const opp = plans[1 - k]; if (!opp.lead && opp.hl === 'high') o.stepFenceCond[k]++;
           if (ev.some((e) => e.t === 'fence-tax' && e.k === k && e.paid > 0)) o.stepFencePaid[k]++;
@@ -120,7 +121,7 @@ function report(o, R) { const pc = (x) => (100 * x).toFixed(0) + '%', f1 = (x) =
   L.push(`lead hand at Long (man-beats ${ll.total}): jab ${share(ll.jab)}, body jab ${share(ll.bjab)}, feint ${share(ll.feint)}, held high ${share(ll.high)}, held low ${share(ll.low)}, other ${share(ll.other)}; you: jab ${pc(o.leadLongYou.jab / Math.max(o.leadLongYou.total, 1))}, body jab ${pc(o.leadLongYou.bjab / Math.max(o.leadLongYou.total, 1))}, feint ${pc(o.leadLongYou.feint / Math.max(o.leadLongYou.total, 1))}, high ${pc(o.leadLongYou.high / Math.max(o.leadLongYou.total, 1))}, low ${pc(o.leadLongYou.low / Math.max(o.leadLongYou.total, 1))}; he: jab ${pc(o.leadLongHe.jab / Math.max(o.leadLongHe.total, 1))}, body jab ${pc(o.leadLongHe.bjab / Math.max(o.leadLongHe.total, 1))}, feint ${pc(o.leadLongHe.feint / Math.max(o.leadLongHe.total, 1))}, high ${pc(o.leadLongHe.high / Math.max(o.leadLongHe.total, 1))}, low ${pc(o.leadLongHe.low / Math.max(o.leadLongHe.total, 1))}`);
   L.push(`outfighter's rounds: ${o.outfighterRounds} of ${o.rounds} completed rounds (${pc(o.outfighterRounds / Math.max(o.rounds, 1))}, ${f2(o.outfighterRounds / n)} a bout; you ${o.outfighterYou}, he ${o.outfighterHe})`);
   L.push(`first step in of a round: mean ${f2(meanFirst)} beats before it (median ${medFirst}), over ${sorted.length} rounds with a step in; ${o.firstStepNoStepRounds} rounds with none; distribution beats-before: ${[0, 1, 2, 3, 4, 5].map((i) => `${i}:${sorted.filter((x) => x === i).length}`).join(' ')}`);
-  L.push(`stamina on arrival at Mid (after the step beat, before recovery): you ${o.arrivalN[0] ? f2(o.arrivalStSum[0] / o.arrivalN[0]) : '-'} over ${o.arrivalN[0]} arrivals, he ${o.arrivalN[1] ? f2(o.arrivalStSum[1] / o.arrivalN[1]) : '-'} over ${o.arrivalN[1]}; lead held high share of ALL man-beats ${pc(o.leadHighAll / Math.max(o.manBeatsAll, 1))}; jab in ${pc(o.jabAll / Math.max(o.manBeatsAll, 1))} of all man-beats, body jab ${pc(o.bjabAll / Math.max(o.manBeatsAll, 1))}, step in ${pc(o.stepInAll / Math.max(o.manBeatsAll, 1))}`);
+  L.push(`stamina on arrival at Mid (steps from Long ending the beat at Mid, before recovery): you ${o.arrivalN[0] ? f2(o.arrivalStSum[0] / o.arrivalN[0]) : '-'} over ${o.arrivalN[0]} arrivals, he ${o.arrivalN[1] ? f2(o.arrivalStSum[1] / o.arrivalN[1]) : '-'} over ${o.arrivalN[1]}; lead held high share of ALL man-beats ${pc(o.leadHighAll / Math.max(o.manBeatsAll, 1))}; jab in ${pc(o.jabAll / Math.max(o.manBeatsAll, 1))} of all man-beats, body jab ${pc(o.bjabAll / Math.max(o.manBeatsAll, 1))}, step in ${pc(o.stepInAll / Math.max(o.manBeatsAll, 1))}`);
   L.push(`bout: wins ${pc(o.w / n)}, stops ${pc((o.ko + o.lost) / n)} (ko ${o.ko}, lost ${o.lost}), draws ${pc(o.draw / n)}, knockdowns a bout ${f1((o.kd[0] + o.kd[1]) / n)}`);
   return L.join('\n'); }
 const isMain = isMainThread && import.meta.url === pathToFileURL(process.argv[1] || '').href;
