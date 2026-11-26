@@ -1,5 +1,8 @@
 // PUNCHCHANCE1 (S560): the comeback count. The solved mix against itself (as balance.mjs play who=mix opp=mirror, the same
 // bout loop), with each bout written down: health after round 1, who won, and the puncher's chance - open, used, landed.
+// PUNCHCHANCE2 (S561): N.pcFree - a man dropped by an all-in punch gets up on his knockdown health and that knockdown
+// does NOT count toward the three-knockdown stoppage (it still scores 3 points). Off by default (N.pcFree unset),
+// so every other tweak measures as before. See applyKnockdown below.
 //   node proto/twohands/tools/probe_punch_chance.mjs [tweak=<f>] [n=84] [jobs=7] [seed=1] [json=<f>]
 // Prints the 9 bars (balance.mjs bars) and the comeback bar: the man 4+ health behind after round 1 wins 15-30%.
 import fs from 'node:fs';
@@ -8,6 +11,16 @@ import { Worker, isMainThread, parentPort, workerData } from 'node:worker_thread
 import { loadTweaked, readTweak, bars } from './balance.mjs';
 
 const drawAt = (mix, rnd) => { let x = rnd(), i = 0; while (i < mix.length - 1 && (x -= mix[i]) > 0) i++; return i; };
+// PUNCHCHANCE2 (S561): the free knockdown, behind N.pcFree (off by default). A man dropped by an all-in punch
+// (allIn true) still scores 3 points to the other man and gets up on his knockdown health - N.kd[min(kd, len-1)],
+// the health for his next counted knockdown, capped at the last - but the knockdown does NOT increment his kd
+// (the three-knockdown stoppage counter) and is NOT tallied in o.kd/rec.kd (the bars knockdowns-a-bout counter).
+// Returns 'stop' (counted, and the stoppage), 'up' (counted, he gets up) or 'free' (all-in, he gets up, not counted).
+export function applyKnockdown(S, k, N, o, rec, allIn) {
+  if (N.pcFree && allIn) { S.f[1 - k].pts += 3; S.f[k].hp = N.kd[Math.min(S.f[k].kd, N.kd.length - 1)]; return 'free'; }
+  S.f[k].kd++; o.kd[k]++; rec.kd[k]++; S.f[1 - k].pts += 3;
+  if (S.f[k].kd > N.kd.length) return 'stop';
+  S.f[k].hp = N.kd[S.f[k].kd - 1]; return 'up'; }
 function bouts(R, n) { const { N, ACT, man, resolve, endBeat } = R, rnd = R.rnd;
   if (!R.OPPS[3]) R.OPPS.push({ n: 'mirror', hp: N.hp, read: 0, like: [], lean: 0 }); R.setOpp(3);
   const o = { n, w: 0, draw: 0, ko: 0, lost: 0, beats: 0, clinch: 0, rng: [0, 0, 0, 0], use: [{}, {}], pun: [{}, {}], np: [[0, 0, 0], [0, 0, 0]], dmg: [0, 0], first: {}, ordered: 0, kd: [0, 0], lvl: [0, 0, 0], recs: [] };
@@ -21,7 +34,8 @@ function bouts(R, n) { const { N, ACT, man, resolve, endBeat } = R, rnd = R.rnd;
         note(0, mine); note(1, his); const hp = [S.f[0].hp, S.f[1].hp], ev = resolve(S, [{ ...mine }, { ...his }]); endBeat(S); o.beats++; o.rng[S.range]++; o.dmg[0] += hp[1] - S.f[1].hp; o.dmg[1] += hp[0] - S.f[0].hp;
         for (const e of ev) { if (e.t === 'clinch') o.clinch++; if (e.id && (e.t === 'hit' || e.t === 'block' || e.t === 'miss')) { const q = o.pun[e.k][e.id] = o.pun[e.k][e.id] || { hit: 0, block: 0, miss: 0 }; q[e.t]++; }
           if (e.t === 'hit' && /ALL IN/.test(e.o || '')) { rr.landed[e.k]++; rec.pcKd[e.k]++; } if (e.t === 'flat' && /^all in and/.test(e.a || '')) rr.missed[e.k]++; }
-        for (const k of [0, 1]) if (S.f[k].hp <= 0) { S.f[k].kd++; o.kd[k]++; rec.kd[k]++; S.f[1 - k].pts += 3; if (S.f[k].kd > N.kd.length) { if (k === 1) { o.w++; o.ko++; rec.win = 0; } else { o.lost++; rec.win = 1; } rec.stop = 1; done = true; break; } S.f[k].hp = N.kd[S.f[k].kd - 1]; } }
+        const allInKd = [false, false]; for (const e of ev) if (e.t === 'hit' && /ALL IN/.test(e.o || '')) allInKd[1 - e.k] = true;   // PUNCHCHANCE2: who was dropped by an all-in punch this beat
+        for (const k of [0, 1]) if (S.f[k].hp <= 0) { if (applyKnockdown(S, k, N, o, rec, allInKd[k]) === 'stop') { if (k === 1) { o.w++; o.ko++; rec.win = 0; } else { o.lost++; rec.win = 1; } rec.stop = 1; done = true; break; } } }
       if (r === 0) rec.r1 = [S.f[0].hp, S.f[1].hp];
       if (!done) { const [x, y] = S.f, lvl = x.pts === y.pts, g = lvl && N.even ? Math.sign((y.gave || 0) - (x.gave || 0)) : 0;
         o.lvl[0]++; if (lvl) o.lvl[1]++; if (g) o.lvl[2]++; t[0] += x.pts > y.pts || (lvl && g >= 0) ? 10 : 9; t[1] += y.pts > x.pts || (lvl && g <= 0) ? 10 : 9; } }
