@@ -55,3 +55,10 @@ Owner: "check the lists for an overhand first and prices for best packs worth bu
   VAT (Unity's store has a Black Friday page; this asset was not shown as part of it).
 - MoCap Online (the Punch Pro we own; its newer punch pack) answered HTTP 429 again: not re-read.
 - So the overhand comes from Cascadeur (TASK_CASC_MCP) or not at all. KDPIC1 (S566) found none in our own files either.
+
+## S566 OWNER VERDICT ON THE ANIMO BOXING ANIMATION PACK: DO NOT BUY
+He opened the Fab listing and sent a still of its hook: "all its hooks look terribel and aim at the sky" (the fist ends
+above head height, the body leaning back). The recommendation above (S439 rank 2, S566 "buy first") was made from clip
+NAMES and the licence, never from watching the motion: withdrawn. The same maker's "Boxing Additional" (knockdowns, hit
+reactions) is UNVERIFIED until its preview is watched; Punch Perfect likewise. Rule from now on: no pack is recommended
+before its preview is watched and judged against our reference (memory feedback_watch_pack_preview_before_recommending_s566).

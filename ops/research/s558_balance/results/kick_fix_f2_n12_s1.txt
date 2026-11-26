@@ -1,0 +1,19 @@
+KICKFIX4 f2 N=12 seed=1 jobs=3 (wt_tmp kf_play.mjs: balance.mjs bouts loop + limp/kick/stamina counters; bars from balance.mjs)
+mix v the same man (no style): wins 42%, draws 8%, stops him 8%, is stopped 42%; knockdowns a bout 1.7 v 1.8; health taken a bout 23.8 v 24.9; beats at Inside / Mid / Long 23% / 28% / 49%; clinches a bout 0.5; rounds level on points 20%, 50% of them given on ground
+  you a beat: rear held high 45%, lead held low 43%, Cross 28%, Body kick 22%, step in 20%, feet hold 18%, Low kick 15%, lead held high 14%, back off 13%, Jab 13%, Body cross 11%, rear held low 9%, Teep 6%, Feint 5%, Body hook 5%, Body jab 5%, Lead uppercut 4%, Lead hook 4%, Push off 4%, Head kick 3%, Rear uppercut 2%, clinch 2%, Overhand 2% | punches in a plan: none 32%, one 56%, two 10%
+  your punches (thrown a bout: lands / blocked / misses): Cross 4.4: 53% / 26% / 21%, Body kick 3.8: 42% / 58% / 0%, Low kick 2.7: 94% / 6% / 0%, Jab 2.3: 81% / 19% / 0%, Body cross 1.8: 29% / 33% / 38%, Teep 1.1: 15% / 38% / 46%, Body hook 0.8: 50% / 50% / 0%, Lead uppercut 0.8: 67% / 0% / 33%, Lead hook 0.7: 25% / 63% / 13%, Head kick 0.6: 43% / 43% / 14%, Rear uppercut 0.4: 100% / 0% / 0%, Overhand 0.4: 40% / 0% / 60%, Body jab 0.2: 100% / 0% / 0%
+  he  a beat: lead held low 51%, rear held high 41%, Cross 25%, step in 25%, Body kick 18%, feet hold 17%, Low kick 16%, rear held low 13%, back off 13%, Body cross 13%, Jab 10%, lead held high 9%, Body jab 7%, Lead uppercut 7%, Head kick 6%, Feint 5%, Push off 4%, Teep 3%, Overhand 3%, Lead hook 3%, clinch 2%, Rear uppercut 2%, Body hook 1% | punches in a plan: none 33%, one 57%, two 8%
+  his  punches (thrown a bout: lands / blocked / misses): Cross 4.3: 39% / 33% / 27%, Body kick 3.0: 56% / 39% / 6%, Low kick 2.8: 88% / 12% / 0%, Body cross 2.1: 64% / 16% / 20%, Jab 1.8: 68% / 32% / 0%, Lead uppercut 1.0: 92% / 0% / 8%, Head kick 0.9: 55% / 36% / 9%, Body jab 0.9: 73% / 27% / 0%, Overhand 0.6: 43% / 14% / 43%, Lead hook 0.6: 71% / 29% / 0%, Teep 0.5: 67% / 17% / 17%, Rear uppercut 0.3: 0% / 33% / 67%, Body hook 0.3: 67% / 33% / 0%
+  your order, of the beats with one to choose (58%): first rear 19%, feet 56%, lead 25%
+  (12 bouts, 325 s, seed 1)
+BARS 5 of 9 pass
+  PASS every range is fought at (each 15-55% of beats): Inside 23%, Mid 28%, Long 49%
+  PASS no switch is a must (none in over 40% of beats): Cross 27%, step in 23%, Body kick 20%
+  FAIL no switch is dead (each in at least 3% of beats): Overhand 3%, Rear uppercut 2%, clinch 2%
+  FAIL every punch lands 30-65% of the time and falls short at most 40%: Jab lands 76%, short 0%; Body jab lands 77%, short 0%; Lead uppercut lands 81%, short 19%; Overhand lands 42%, short 50%; Low kick lands 91%, short 0%
+  FAIL bouts end both ways (stoppages 10-40%, draws at most 20%, 0.5-2.5 knockdowns a bout): stoppages 50%, draws 8%, knockdowns 3.5
+  FAIL one punch, two punches and holding all have their beats (two 15-45%, none 5-25%): two 9%, none 32%
+  PASS the clinch is a rescue, not a habit (at most 2 a bout): 0.5
+  PASS the order is a choice (no slot first in over 60% of ordered beats; an order to choose in 40%+ of beats): ordered 58%, most often first 56%
+  PASS the mirror is fair (wins 40-60% of decided bouts): 45%
+EXTRA strikes a fighter-beat 1.186; plan mix counting a kick as a strike: none 8%, one 68%, two 23%, three 2% (two or more 25%); limp bouts 5/12 (2 stops, 3 to the bell); stoppages after a limp 2/6; stamina bar at the last bell 5.29 of 8

@@ -42,3 +42,29 @@
 - A heredoc with an apostrophe in the text fails (again): write briefs with the Write tool.
 - page_play_test on head.html / kick.html takes 3-4 minutes each: background them.
 - The page's old chip row is hidden by CSS `#lines>.lab:has(+ .seq)`, not removed: make_wait.py's anchors still hold.
+
+## Later in S566 (after the first digest)
+- His words: "park that for now ? what do you think ?" (Q-344: parked, agreed); "it is confusing to me if it matters which
+  hand of the 2 is up , if it does when and how" -> v0.566.2, a held hand says what it stops; "the intermittent lines move
+  along with the bouncing and it is very annoying" -> v0.566.3, the dashed pointer line holds still while the men bounce
+  (headless Edge: 5 bounce pictures, 1 line position); "do we need cascadeur subscription ?"; the Cascadeur 2026.3 mail +
+  "you do the rest"; "should we wait or work on 3d at the same time at punchers chance ? we could use the 3d fight on it too"
+  -> TASK_CASC_MCP (takes Puncher's chance is missing; yes in parallel, as one narrow job); "cascadeur is running can you
+  update it ?" + "Yes, accept it" -> 2026.3.0.17632 installed, our hidden channel answers on it; "also stop ziva subsription
+  and use it until it expires and after that only the free model" -> cancelled, paid until 2026-12-19; on the Animo
+  Boxing Animation Pack I had ranked first: "all its hooks look terribel and aim at the sky" -> do not buy; on the Animo
+  Additional pack: "this is very good ... i will buy this also tomorrow" and his stance idea -> TASK_GUARDSTANCE1.
+- KDPIC1 collected: knockdowns inside the ropes and the stage (tools/pics2d_ko_room.gd); the overhand BLOCKED (no take in
+  our files, 12 Ludo candidates). LONG2 collected: none. PROGP4 launched at Arena; TASK_PROGP4, TASK_KICKFIX4,
+  TASK_TELLS4M, TASK_CASC_MCP, TASK_GUARDSTANCE1 written.
+- The six old worker consoles closed on his yes (memory 96% -> 64%).
+- Still running at 22:02: KICKFIX4, TELLS4M (console workers), LONG1, PROGP4 (Arena).
+
+## More traps
+- A board question names the thing the player SEES ("the Step in a moment later button"), never the measure.
+- Never recommend an animation pack from its clip list: watch the preview.
+- Chrome may hold a finished .exe download as "Unconfirmed ... .crdownload" until he clicks Keep: the bytes are complete -
+  copy it, check the Authenticode signature, use it.
+- `python - <<'EOF'` still eats backslashes in the text (a JS `\n` inside a string became a real newline): use the Write tool
+  for any script that carries backslashes or apostrophes.
+- The idle guard blocks every turn end while runs fly: `idle_guard.py ok "<reason>"` each time.

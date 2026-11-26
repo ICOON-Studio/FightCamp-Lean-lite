@@ -1,0 +1,37 @@
+TELLS VERSION 4
+PROBE_TELLS bot=0 (BOT 0: no tell (the page's mix)) v The Jabber: n=12 seed=1 jobs=2 (worker i: seed*100+i; page order.html through rules.mjs, tells.mjs v2; nothing edited)
+  wins of decided 73% (8 of 11), draws 1; stoppages 42% (he is stopped 5, you are stopped 0); knockdowns a bout 2.67 (him 2.00, you 0.67)
+  his tells: 213 beats, fakes 35 = 16% of beats; cues shown shoulder 119 (fake 35), knees 41 (fake 0), foot 1 (fake 0), backfoot 35 (fake 0), still 17 (fake 0)
+  v4: fakes hiding the one 3-damage punch on an open line: 1 of 35
+  his lie condition held on 37% of beats; the bot changed BOT 0's beat on 0% of beats
+  stamina at the bells (avg, of 8; bells reached 12 / 12 / 7): him 2.7 / 1.8 / 1.7; you 1.9 / 1.8 / 2.3; stoppages by round 0 / 0 / 5
+  FAIL stoppages 10-40%: 42%
+  PASS his fakes on 15-30% of beats: 16%
+  PASS bluff share (fake real damage < cue's smallest punch, or v4: one 3-damage punch on an open line) 100%: 100% (35 of 35, 0 exceptions)
+  bot0 v The Jabber: wins 67%, draws 8%, stops him 42%, is stopped 0%; knockdowns a bout 2.0 v 0.7; health taken a bout 24.5 v 17.3; beats at Inside / Mid / Long 27% / 38% / 36%; clinches a bout 0.7; rounds level on points 13%, 50% of them given on ground
+    you a beat: step in 36%, back off 31%, feet hold 30%, lead held low 29%, Cross 23%, rear held high 22%, Body cross 20%, Body jab 18%, Feint 15%, rear held low 14%, lead held high 12%, Overhand 12%, Jab 8%, Rear uppercut 7%, Lead hook 4%, Push off 4%, clinch 4%, Lead uppercut 4%, Body hook 3% | punches in a plan: none 14%, one 68%, two 15%
+    your punches (thrown a bout: lands / blocked / misses): Cross 3.9: 45% / 21% / 34%, Body cross 3.5: 50% / 26% / 24%, Body jab 3.1: 65% / 32% / 3%, Overhand 2.1: 88% / 0% / 12%, Jab 1.4: 41% / 59% / 0%, Rear uppercut 1.0: 17% / 25% / 58%, Lead hook 0.7: 13% / 38% / 50%, Lead uppercut 0.6: 71% / 14% / 14%, Body hook 0.5: 83% / 17% / 0%
+    he  a beat: back off 48%, Cross 37%, step in 31%, lead held low 29%, rear held low 23%, rear held high 23%, feet hold 20%, Jab 17%, Body jab 16%, lead held high 14%, Body cross 12%, Feint 10%, Body hook 6%, Lead hook 3%, Overhand 3%, Push off 3%, Lead uppercut 2%, Rear uppercut 1%, clinch 0% | punches in a plan: none 24%, one 54%, two 21%
+    his  punches (thrown a bout: lands / blocked / misses): Cross 5.8: 39% / 26% / 35%, Jab 2.9: 49% / 37% / 14%, Body jab 2.8: 58% / 27% / 15%, Body cross 2.1: 48% / 16% / 36%, Body hook 0.9: 55% / 9% / 36%, Overhand 0.5: 17% / 50% / 33%, Lead uppercut 0.4: 80% / 20% / 0%, Lead hook 0.3: 0% / 50% / 50%, Rear uppercut 0.3: 100% / 0% / 0%
+    your order, of the beats with one to choose (71%): first lead 33%, feet 53%, rear 14%
+  SUMMARY {"bot":0,"opp":0,"n":12,"wins":8,"draws":1,"decided":11,"winDec":0.727,"stop":0.417,"ko":5,"lost":0,"kdBout":2.667,"kdHim":2,"kdYou":0.667,"fakeBeat":0.164,"changed":0,"lieHeld":0.366,"bellHim":[2.67,1.75,1.71],"bellYou":[1.92,1.75,2.29],"bells":[12,12,7],"fakeBluff":35,"bluffShare":1,"fakeOver":{},"fakeHid3":1}
+  (12 bouts, 82 s)
+
+TELLS VERSION 4
+PROBE_TELLS bot=0 (BOT 0: no tell (the page's mix)) v The Jabber: n=84 seed=2 jobs=2 (worker i: seed*100+i; page order.html through rules.mjs, tells.mjs v2; nothing edited)
+  wins of decided 87% (73 of 84), draws 0; stoppages 43% (he is stopped 36, you are stopped 0); knockdowns a bout 2.63 (him 2.19, you 0.44)
+  his tells: 1435 beats, fakes 279 = 19% of beats; cues shown shoulder 759 (fake 279), knees 286 (fake 0), foot 38 (fake 0), backfoot 243 (fake 0), still 109 (fake 0)
+  v4: fakes hiding the one 3-damage punch on an open line: 2 of 279
+  his lie condition held on 34% of beats; the bot changed BOT 0's beat on 0% of beats
+  stamina at the bells (avg, of 8; bells reached 84 / 81 / 48): him 2.3 / 2.1 / 2.2; you 1.9 / 1.9 / 1.8; stoppages by round 0 / 3 / 33
+  FAIL stoppages 10-40%: 43%
+  PASS his fakes on 15-30% of beats: 19%
+  PASS bluff share (fake real damage < cue's smallest punch, or v4: one 3-damage punch on an open line) 100%: 100% (279 of 279, 0 exceptions)
+  bot0 v The Jabber: wins 87%, draws 0%, stops him 43%, is stopped 0%; knockdowns a bout 2.2 v 0.4; health taken a bout 25.4 v 16.4; beats at Inside / Mid / Long 28% / 40% / 33%; clinches a bout 1.0; rounds level on points 13%, 89% of them given on ground
+    you a beat: step in 36%, lead held low 32%, feet hold 30%, back off 28%, Cross 26%, rear held high 20%, Body cross 18%, Feint 15%, rear held low 15%, Body jab 15%, Overhand 10%, lead held high 9%, Jab 8%, Lead hook 6%, clinch 5%, Rear uppercut 5%, Body hook 5%, Lead uppercut 3%, Push off 2% | punches in a plan: none 12%, one 69%, two 14%
+    your punches (thrown a bout: lands / blocked / misses): Cross 4.2: 43% / 30% / 28%, Body cross 3.0: 60% / 15% / 25%, Body jab 2.4: 72% / 28% / 0%, Overhand 1.6: 91% / 2% / 7%, Jab 1.4: 48% / 51% / 1%, Lead hook 1.0: 30% / 46% / 23%, Rear uppercut 0.8: 61% / 10% / 28%, Body hook 0.8: 66% / 25% / 9%, Lead uppercut 0.6: 62% / 8% / 30%
+    he  a beat: back off 47%, Cross 31%, step in 29%, rear held high 26%, lead held low 25%, rear held low 22%, Jab 22%, feet hold 22%, lead held high 15%, Body cross 14%, Body jab 12%, Feint 9%, Body hook 5%, Lead hook 4%, Push off 3%, Overhand 3%, Lead uppercut 3%, clinch 2%, Rear uppercut 2% | punches in a plan: none 22%, one 56%, two 20%
+    his  punches (thrown a bout: lands / blocked / misses): Cross 4.7: 44% / 27% / 28%, Jab 3.5: 47% / 34% / 18%, Body cross 2.2: 53% / 26% / 20%, Body jab 2.0: 58% / 34% / 8%, Body hook 0.8: 51% / 36% / 13%, Lead hook 0.7: 31% / 47% / 22%, Overhand 0.4: 26% / 51% / 23%, Lead uppercut 0.4: 50% / 12% / 38%, Rear uppercut 0.3: 38% / 33% / 29%
+    your order, of the beats with one to choose (68%): first lead 25%, feet 59%, rear 16%
+  SUMMARY {"bot":0,"opp":0,"n":84,"wins":73,"draws":0,"decided":84,"winDec":0.869,"stop":0.429,"ko":36,"lost":0,"kdBout":2.631,"kdHim":2.19,"kdYou":0.44,"fakeBeat":0.194,"changed":0,"lieHeld":0.344,"bellHim":[2.26,2.12,2.19],"bellYou":[1.9,1.91,1.77],"bells":[84,81,48],"fakeBluff":279,"bluffShare":1,"fakeOver":{},"fakeHid3":2}
+  (84 bouts, 705 s)

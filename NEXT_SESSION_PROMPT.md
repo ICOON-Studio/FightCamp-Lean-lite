@@ -2,6 +2,26 @@
 
 Start: `git pull && python ops/Tools/agent_comms.py start`, then this page, then `ops/research/S565_DIGEST.md` (S566 is the section just below).
 
+## S567: DO THESE FIRST, IN THIS ORDER (written at the S566 wrap-up, 22:05 on 2026-11-26)
+1. ASK HIM ONCE, in the first message (all three were "tomorrow" in his own words):
+   - the Cascadeur paid plan ("not now i will do it tomorrow"; Indie is enough; Free cannot export; 40% off annual until 7 Dec);
+   - the Animo "Boxing Additional" pack, RenderHub, $69.99 ("this is very good ... i will buy this also tomorrow");
+   - his look at the strip + preview + held-hand words + still dashed line (v0.566.3 on http://127.0.0.1:8797/order.html).
+2. COLLECT WHAT RAN OVERNIGHT (all four were alive at 22:02):
+   - console workers on the PC: KICKFIX4 (tab c1; F1 table + trial committed 20:51) -> docs/KICKFIX4_RESULT.md;
+     TELLS4M (tab c2; step 1 committed 20:09, on the version-4 runs) -> docs/TELLS4M_RESULT.md. They commit to main by
+     pathspec themselves: `git pull` brings their results. If a result page is missing, their tabs are gone with the
+     session: read E:\FightCamp\wt_tmp\<ID>\*.log, then relaunch with the same prompt (ops/research/WORKER_S566.md).
+   - Arena (BROWSER 2: `select_browser`, Browser 1 shows Log in): LONG1 arena/cba93bd0 (on L2), PROGP4 arena/efb38a10 (on
+     its 4th card). Arm `python -u ops/Tools/arena_watch.py 180 LONG1=cba93bd0 PROGP4=efb38a10` under Monitor. An Arena
+     chat that ended its turn with runs "queued" does nothing: open it and send "Keep working".
+3. THEN, by what he bought: TASK_CASC_MCP (the overhand first; 2026.3 is installed, our channel answers, csend's output
+   return is broken: fix first) and TASK_GUARDSTANCE1 (his idea: four readable guard stances, the preview adjusts first).
+   WATCH A PACK'S PREVIEW BEFORE USING OR RECOMMENDING IT. LONG1 + LONG2 judged together -> TASK_LONG3 (the jab that meets
+   him does health). INSIDE1 Phase 2 stills. No Godot change was made in S566: no export was run.
+4. PARKED BY HIM: the "Step in a moment later" button (Q-344) - stays on wait.html, do not ask again.
+5. ZIVA: plan cancelled, paid until 2026-12-19 - give it heavy work before then; the free model only after.
+
 ## S566 in one screen (read first)
 HIS TWO MARKS ON THE Q-344 PICTURE, BUILT (v0.566.1; stills on 8787/review; his look is the gate):
 - C520 "can you add a strip with slots for each action so it is clear what happens when ,and player can drage the slot to
@@ -42,6 +62,11 @@ CASCADEUR 2026.3 IS INSTALLED (2026.3.0.17632, S566 21:18). Our hidden channel w
 printed output no longer comes back (fix first); 2026.3 serves MCP itself at 127.0.0.1:8765/mcp, so no bridge. All of it is in
 TASK_CASC_MCP.md 'State after S566'. LEFT FOR HIM: the paid plan ("not now i will do it tomorrow"). Chrome still holds a
 leftover 'Unconfirmed 397121.crdownload' (600 MB) in his Downloads: his to discard.
+PACKS (S566): no pack lists an overhand. The Animo Boxing Animation Pack is REJECTED by him on sight ("all its hooks look
+terribel and aim at the sky"): never recommend a pack before watching its preview. The Animo "Boxing Additional" pack
+(RenderHub, $69.99: knockdowns, hit reactions, Philly shell): "this is very good", HE BUYS IT TOMORROW - ask once, then fit
+its knockdowns and start ops/research/TASK_GUARDSTANCE1.md (HIS IDEA: each guard set-up its own readable stance, the
+preview adjusts first, the fighter hops into it on Fight). Bought files stay out of AI tools and the public mirror.
 CASCADEUR (his S566 mail + "you do the rest"; "should we wait or work on 3d at the same time at punchers chance ? we could
 use the 3d fight on it too"): ops/research/TASK_CASC_MCP.md written - scope = takes Puncher's chance is MISSING, authored
 in Cascadeur 2026.3, rendered by our picture tools (one take serves both games); NOT the realtime 3D fight code. We already

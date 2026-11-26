@@ -1,0 +1,43 @@
+{
+  "_note": "KICKFIX4 F2: E3 + the low kick keeps the rear hand up (rearLeg off low only; body and head kick keep it).",
+  "page": "kick.html",
+  "src": [
+    [
+      "wasDrawn = drawn[sh.k] === 1;",
+      "wasDrawn = drawn[sh.k] === 1 && !sh.kick;"
+    ],
+    [
+      "headk: { n: 'Head kick', st: 3,",
+      "headk: { n: 'Head kick', st: 4,"
+    ],
+    [
+      "if (P[k].feet === 'check') c.leg = 1;",
+      "if (P[k].feet === 'hold' || P[k].feet === 'back') c.leg = 1;"
+    ],
+    [
+      "const FEETS = ['in', 'hold', 'back', 'check', 'teep',",
+      "const FEETS = ['in', 'hold', 'back', 'teep',"
+    ],
+    [
+      "  check: { n: 'Check', st: 1, t: 'Your lead leg ready all beat: his low kick is stopped and hurts him. You do not move.' },",
+      ""
+    ],
+    [
+      "bodyk: { n: 'Body kick', st: 3,",
+      "bodyk: { n: 'Body kick', st: 2,"
+    ]
+  ],
+  "ACT": {
+    "headk": {
+      "d": 4
+    },
+    "low": {
+      "d": 1,
+      "rearLeg": 0
+    },
+    "bodyk": {
+      "d": 2,
+      "st": 2
+    }
+  }
+}

@@ -369,5 +369,18 @@
   "brief": "ops/research/TASK_PROGP4.md",
   "branch": "arena/efb38a10-fightcamp-lean-lite",
   "issue": "https://arena.ai/agent/01a21923-db62-7d8c-ab5b-8fb4efb38a10"
+ },
+ "LONG1": {
+  "id": "LONG1",
+  "status": "running",
+  "seat": "arena",
+  "agent": "Arena (cloud: costs your PC nothing)",
+  "started": "2026-11-26T16:01",
+  "eta": "by morning",
+  "title": "Long range is a corridor: a jab that stops a man stepping in, and a lead hand held high as a fence - measured in the cloud",
+  "brief": "ops/research/TASK_LONG1.md",
+  "branch": "arena/cba93bd0-fightcamp-lean-lite",
+  "issue": "https://arena.ai/agent/01a21828-826b-7d4c-97e8-e175cba93bd0",
+  "note": "S566 20:34: told to keep working after the daily limit reset; alive at 22:00 (on L2)"
  }
 }
