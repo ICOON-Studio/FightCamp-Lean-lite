@@ -1,0 +1,67 @@
+{
+ "_note": "PUNCHCHANCE2 (S561) F: C, but a man dropped by an all-in punch gets up on his knockdown health and that knockdown does NOT count toward the three-knockdown stoppage (it still scores 3 points). Rule lives in probe_punch_chance.mjs behind N.pcFree=1, off by default. Copy of C, only N.pcFree added.",
+ "N": {
+  "pcMode": "hp",
+  "pchSt": 2,
+  "pcGap": 4,
+  "pcFree": 1
+ },
+ "src": [
+  [
+   "+ FEET[p.feet].st + (p.clinch ? 1 : 0);",
+   "+ FEET[p.feet].st + (p.clinch ? 1 : 0) + (p.pch ? N.pchSt : 0);"
+  ],
+  [
+   "function endBeat(S) { for (const m of S.f) {",
+   "function endBeat(S) { for (const m of S.f) { m.bn = (m.bn || 0) + 1;"
+  ],
+  [
+   "if (m.held) m.held--; } }",
+   "if (m.held) m.held--; } if (S.f[0].bn % N.beats === 0) { const j = judge(S.f[0], S.f[1]); S.f[0].card = (S.f[0].card || 0) + j.sc[0]; S.f[1].card = (S.f[1].card || 0) + j.sc[1]; } }   /* PUNCHCHANCE1: beats seen and the cards so far, for the switch's trigger */"
+  ],
+  [
+   "function plansFor(S, k) { const me = S.f[k], out = [];",
+   "/* PUNCHCHANCE1 (S560 tweak): the puncher's chance - open to the man behind, once a round, never in the round a puncher's chance dropped him */\nconst pcRound = (m) => Math.floor((m.bn || 0) / N.beats), pcPower = (p) => [p.lead, p.rear].some((id) => id && ACT[id].d >= 3);\nfunction pcOpen(S, k) { const me = S.f[k], he = S.f[1 - k], r = pcRound(me); if (!N.pcMode || me.pcR === r || me.pcDrop === r) return false; return N.pcMode === 'cards' ? r === N.rounds - 1 && (me.card || 0) < (he.card || 0) : he.hp - me.hp >= (N.pcGap || 1); }\nfunction plansFor(S, k) { const me = S.f[k], out = [], pcOn = pcOpen(S, k);"
+  ],
+  [
+   "for (const ord of perms(ordOf(c0))) out.push({ ...c0, ord }); }",
+   "for (const ord of perms(ordOf(c0))) { out.push({ ...c0, ord }); if (pcOn && pcPower(c0) && cost(c0) + N.pchSt <= me.st) out.push({ ...c0, ord, pch: true }); } }"
+  ],
+  [
+   "const opening = [0, 0], drawn = [0, 0], pulled = [0, 0];",
+   "const opening = [0, 0], drawn = [0, 0], pulled = [0, 0], allIn = [P[0].pch ? 1 : 0, P[1].pch ? 1 : 0], wide = [0, 0]; for (const k of [0, 1]) if (P[k].pch) { f[k].pcR = pcRound(f[k]); say(k, { t: 'flat', a: 'goes all in', o: 'the puncher chance: the next power punch is double and drops him if it lands' }); }"
+  ],
+  [
+   "const stunNow = [...stun], openNow = [...opening],",
+   "const stunNow = [...stun], openNow = [...opening], wideNow = [...wide],"
+  ],
+  [
+   "wasDrawn = drawn[sh.k] === 1;",
+   "wasDrawn = drawn[sh.k] === 1, all = allIn[sh.k] && a.d >= 3; if (all) allIn[sh.k] = 0;"
+  ],
+  [
+   "'smothered - too close at ' + RNG[S.range] }); opening[v] = 1; continue; }",
+   "'smothered - too close at ' + RNG[S.range] }); opening[v] = 1; if (all) { wide[sh.k] = 1; say(sh.k, { m: i, t: 'flat', a: 'all in and missed', o: 'wide open for the rest of the beat' }); } continue; }"
+  ],
+  [
+   "if (cov[v][a.line] && !wasDrawn) {",
+   "if (cov[v][a.line] && !wasDrawn && !wideNow[v]) {"
+  ],
+  [
+   "(D.g <= 0 ? ' - GUARD BROKEN' : '') }); opening[v] = 1; continue; }",
+   "(D.g <= 0 ? ' - GUARD BROKEN' : '') }); opening[v] = 1; if (all) { wide[sh.k] = 1; say(sh.k, { m: i, t: 'flat', a: 'all in and blocked', o: 'wide open for the rest of the beat' }); } continue; }"
+  ],
+  [
+   "const pull = pulled[sh.k], dmg = a.d + (openNow[sh.k] ? N.counter : 0) + (pull ? 1 : 0); pulled[sh.k] = 0; D.hp -= dmg;",
+   "const pull = pulled[sh.k], ctr = openNow[sh.k] || wideNow[v], dmg = (a.d + (ctr ? N.counter : 0) + (pull ? 1 : 0)) * (all ? 2 : 1); pulled[sh.k] = 0; D.hp -= dmg; if (all) { D.hp = Math.min(D.hp, 0); D.pcDrop = pcRound(D); }"
+  ],
+  [
+   "const why = D.g <= 0 ? 'guard broken'",
+   "const why = all ? 'ALL IN, the puncher chance' : wideNow[v] ? `${v ? 'he' : 'you'} went all in and missed: wide open` : D.g <= 0 ? 'guard broken'"
+  ],
+  [
+   "lands${openNow[sh.k] ? ' as a counter' : ''}",
+   "lands${ctr ? ' as a counter' : ''}"
+  ]
+ ]
+}
