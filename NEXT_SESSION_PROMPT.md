@@ -1,3 +1,16 @@
+# S568 handover (written 2026-11-26, S567 - Fable 5.2)
+
+Start: `git pull && python ops/Tools/agent_comms.py start`, then this page, then `ops/research/S567_DIGEST.md`.
+
+## S568: DO THESE FIRST
+S568: collect what landed - TELLS5M (arena 4c40abf4; fails = his keep-or-cut on the tell, no fifth round), KICKFIX4 (arena b9de29e2: judge by its pull request, its result page starts with the old BLOCKED line), LONG1 (cba93bd0) judged with LONG2 -> TASK_LONG3, PROGP4 (efb38a10), FEINTFIX1_BRIEF_KALLI / _DOLA -> one feint probe brief. His game closed: launch INSIDE1 Phase 2 (the see-through overlap) as the one render worker. NEVER ask about the Cascadeur plan or the packs: he says when they are bought; then TASK_CASC_MCP and GUARDSTANCE1.
+Arena is signed in on BROWSER 1 again (S567). While ArcheAge is open: no PC job; node measures go to Arena.
+
+## S567 in one screen
+S567 (Fable). His ask on the move panel ("can you show here for which distances each punch can hit and for how much vs how much"): every punch and kick card shows Inside / Mid / Long (lit = it reaches, the framed one = where you will be when it goes; red frame = it will fall short), its damage in red beside its stamina in green; the side panel is one card a row (v0.567.1). The same range marks on HIS punches on his hand panel (v0.567.2). Stills on 8787/review; beat_shot.mjs takes "part": "0:rear" / "1:lead". Page play test 4 of 4 on the five pages. His "not yet and stop asking" on the Cascadeur plan: NO purchase question again (memory). His question on the test link answered: the gate serves the live folder, so it is always the latest version while the PC and the gate are on. COLLECTED: TELLS4M - 4 of 7 bars, not for the page; obeying every tell blind +5.9 / +5.3 / +9.4 points (was +8 / +10 / +29), catching the lie pays nothing -> TASK_TELLS5M, the LAST tells round, at Arena (4c40abf4). KICKFIX4: the PC worker stopped for low memory beside ArcheAge (F1 'a checked low kick costs the kicker 2' survives N=12; F2 fails, low kick 91%); the rest moved to Arena (b9de29e2). FEINTFIX1 (the feint that opens the overhand) queued to Kalli (SQ341) and Dola (SQ342). GUARDSTANCE1: red stills of today's four set-ups taken, our candidate takes noted. His 'Yes, close them': the three finished S566 worker consoles closed (about 1.4 GB, not the 7 GB first said).
+
+# (below: the S567 handover as S566 wrote it; its METHOD lines all stand - quote them)
+
 # S567 handover (written 2026-11-26, S566 - Fable 5.2)
 
 Start: `git pull && python ops/Tools/agent_comms.py start`, then this page, then `ops/research/S565_DIGEST.md` (S566 is the section just below).

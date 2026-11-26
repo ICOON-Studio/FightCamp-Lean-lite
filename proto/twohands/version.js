@@ -4,6 +4,8 @@
    number: 0.<session>.<n> (n counts up inside the session). The top entry is the version the page shows beside the
    sound button. A measure that changed nothing on a page is not an entry. */
 window.RS_CHANGES = [
+  { v: '0.567.2', date: '2026-11-26', items: [
+    'His punches show the same three ranges when you mouse over one of his hands: lit where the punch reaches, framed where you both stand now.' ] },
   { v: '0.567.1', date: '2026-11-26', items: [
     'Every punch card now shows the three ranges (Inside, Mid, Long): the lit ones are where it reaches, the framed one is where you will be when it goes. Beside them its damage in red; its stamina cost stays in green.' ] },
   { v: '0.566.3', date: '2026-11-26', items: [

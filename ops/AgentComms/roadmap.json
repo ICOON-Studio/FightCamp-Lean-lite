@@ -3,19 +3,17 @@
  "updated": "2026-11-26",
  "author": "claude S294",
  "now": {
-  "id": "S566",
+  "id": "S567",
   "owner": "claude",
   "updated": "2026-11-26",
-  "summary": "S566 (Fable). His two marks on the Q-344 picture built (C520: \"can you add a strip with slots for each action so it is clear what happens when, and player can drage the slot to change the order, also would be nice if a holographic preview plays the current sellection\"; C521 on the help box: \"i do not understand what it does, maybe reoharse and use basic terminology\"): proto/twohands/strip_ui.js - three numbered slots under the ring on every page (a card per moment: what it does, what it leaves open; drag to change the order), a see-through blue copy of his boxer plays the chosen moves (after every change, and while the mouse is on the strip; the playing slot lights), the help box in plain words ('Choose your moves: click a part of your boxer, then the move'). v0.566.1. Stills on 8787/review. Q-344 itself is still open. COLLECTED: TELLS3M - 4 of 7 bars, not for the page (blind following wins +8 / +10 / +29 points over the control; the reader bot is wrong in the probe) -> TASK_TELLS4M written; KICKFIX3 - E2 and E3 5 of 9, the limp loop capped, E3 the base -> TASK_KICKFIX4 written. NOT LAUNCHED: Arena shows Log in in Chrome (his sign-in). LONG1 and LONG2 still running. KDPIC1 (the render worker) not launched: the PC was RED on memory with his game open. LATER IN S566 (owner: \"yes close the old consoles ,move arenas work do notwait\"): the six old worker consoles closed (memory 96% -> 64%, PC GREEN); Arena is signed in on Browser 2 but at its daily limit until 20:33, so KICKFIX4 and TELLS4M run as console workers on the PC (tabs c1, c2; rules ops/research/WORKER_S566.md) and KDPIC1 as the render worker (c3). LONG2 collected: none for the page. The strip's drag proved with a real mouse. Q-344 CLOSED: on the board he had written \"idonot understand what you mean\"; explained in chat; his \"park that for now ? what do you think ?\" - agreed: the late step stays on wait.html, parked, not on the main page. 20:34: Arena's limit reset - LONG1 told to keep working; PROGP4 launched at Arena (efb38a10). Cascadeur: his \"not now i will do it tomorrow\" (the plan and the update to 2026.3). ZIVA (owner: \"also stop ziva subsription and use it until it expires and after that only the free model\"): Basic cancelled on ziva.sh, paid until 2026-12-19. KDPIC1 collected: knockdowns inside the ropes and the stage (pixel test, 0 jumps; pictures checked by Claude); the overhand BLOCKED - no take anywhere - so it is the first take of TASK_CASC_MCP. Cascadeur 2026.3: licence accepted on his word, installer downloaded but Chrome holds it as an unconfirmed download (his Keep click), not installed. 21:18 Cascadeur 2026.3.0.17632 INSTALLED; our hidden script-server channel answers on it (csend's output return to fix); it serves MCP itself, no bridge. PACKS: no pack lists an overhand; his verdict on the Animo Boxing Animation Pack \"all its hooks look terribel and aim at the sky\" - do not buy (my recommendation was from clip names: withdrawn); the Animo Additional pack \"this is very good\", he buys it tomorrow. HIS IDEA -> TASK_GUARDSTANCE1: the guard set-up shown as a distinct stance, the preview adjusts first.",
-  "next_action": "S567: collect the three console workers (docs/KICKFIX4_RESULT.md, docs/TELLS4M_RESULT.md, docs/KDPIC1_RESULT.md - check KDPIC1's pictures yourself); LONG1 at Arena (cba93bd0): Keep working after the 20:33 reset, then judge it with LONG2 -> TASK_LONG3 (the jab that meets him does health, alone and with K2). His look at the strip + preview (v0.566.1). Collect PROGP4 (Arena efb38a10). Then INSIDE1 Phase 2 stills.",
-  "last_working_commit": "bfa5aa6ea",
+  "summary": "S567 (Fable). His ask on the move panel (\"can you show here for which distances each punch can hit and for how much vs how much\"): every punch and kick card shows Inside / Mid / Long (lit = it reaches, the framed one = where you will be when it goes; red frame = it will fall short), its damage in red beside its stamina in green; the side panel is one card a row (v0.567.1). The same range marks on HIS punches on his hand panel (v0.567.2). Stills on 8787/review; beat_shot.mjs takes \"part\": \"0:rear\" / \"1:lead\". Page play test 4 of 4 on the five pages. His \"not yet and stop asking\" on the Cascadeur plan: NO purchase question again (memory). His question on the test link answered: the gate serves the live folder, so it is always the latest version while the PC and the gate are on. COLLECTED: TELLS4M - 4 of 7 bars, not for the page; obeying every tell blind +5.9 / +5.3 / +9.4 points (was +8 / +10 / +29), catching the lie pays nothing -> TASK_TELLS5M, the LAST tells round, at Arena (4c40abf4). KICKFIX4: the PC worker stopped for low memory beside ArcheAge (F1 'a checked low kick costs the kicker 2' survives N=12; F2 fails, low kick 91%); the rest moved to Arena (b9de29e2). FEINTFIX1 (the feint that opens the overhand) queued to Kalli (SQ341) and Dola (SQ342). GUARDSTANCE1: red stills of today's four set-ups taken, our candidate takes noted. His 'Yes, close them': the three finished S566 worker consoles closed (about 1.4 GB, not the 7 GB first said).",
+  "next_action": "S568: collect what landed - TELLS5M (arena 4c40abf4; fails = his keep-or-cut on the tell, no fifth round), KICKFIX4 (arena b9de29e2: judge by its pull request, its result page starts with the old BLOCKED line), LONG1 (cba93bd0) judged with LONG2 -> TASK_LONG3, PROGP4 (efb38a10), FEINTFIX1_BRIEF_KALLI / _DOLA -> one feint probe brief. His game closed: launch INSIDE1 Phase 2 (the see-through overlap) as the one render worker. NEVER ask about the Cascadeur plan or the packs: he says when they are bought; then TASK_CASC_MCP and GUARDSTANCE1.",
+  "last_working_commit": "5c222e187",
   "verified_playable": "Builds/ exported in S556 (the S547 game plus S548's two changes: the 3D fight throws the body cross, the trial evening's pictures show the prospect's own body; pro_body_jab is on disk and unused by the game). Ring Switches (a browser toy): one beat played in the browser in S556 against the Jabber - both men threw a body jab, both landed, no console error; rules_test 34 pass; anim_check 124 runs PASS.",
-  "incomplete_blocked": "Six Arena measures (TELLS3M, AIEMPTY1, JABLAND2, KICKFIX3, LONG1, LONG2) and the BOUNCE1 console worker still running at the handover. No export: no game code changed (proto pages and node tools only). Uncommitted pictures from earlier sessions sit in proto/twohands/img/anim: left for the render workers.",
-  "next_acceptance": "Each run collected and judged against its bars; his question on the moment answered with both seeds; a Long rule chosen from LONG1 / LONG2 only if it holds the bars on both seeds.",
+  "incomplete_blocked": "Four Arena measures running (LONG1, PROGP4, TELLS5M, KICKFIX4) and two seat questions out. No export: no game code changed. INSIDE1 Phase 2 not started (his game was open).",
+  "next_acceptance": "Each run collected and judged against its bars; the tell either passes its bars or goes to him as keep or cut; one Long rule brief from LONG1 + LONG2.",
   "awaiting_operator": [
-   "Your look at the strip + preview (v0.566.1, 8787/review)",
-   "Cascadeur paid plan (Indie is enough) - you said tomorrow; 2026.3 is already installed",
-   "Animo 'Boxing Additional' pack (RenderHub, $69.99): you said you buy it tomorrow - it feeds GUARDSTANCE1 and the knockdowns"
+   "Your look at the punch cards (v0.567.2) and the strip + preview"
   ]
  },
  "next": "S562: see NEXT_SESSION_PROMPT.md - collect four Arena runs, then the body view as the main page's way to pick (his Q-343).",
@@ -2485,6 +2483,11 @@
    "id": "S566",
    "date": "2026-11-26",
    "summary": "S566 (Fable). His two marks on the Q-344 picture built (C520: \"can you add a strip with slots for each action so it is clear what happens when, and player can drage the slot to change the order, also would be nice if a holographic preview plays the current sellection\"; C521 on the help box: \"i do not understand what it does, maybe reoharse and use basic terminology\"): proto/twohands/strip_ui.js - three numbered slots under the ring on every page (a card per moment: what it does, what it leaves open; drag to change the order), a see-through blue copy of his boxer plays the chosen moves (after every change, and while the mouse is on the strip; the playing slot lights), the help box in plain words ('Choose your moves: click a part of your boxer, then the move'). v0.566.1. Stills on 8787/review. Q-344 itself is still open. COLLECTED: TELLS3M - 4 of 7 bars, not for the page (blind following wins +8 / +10 / +29 points over the control; the reader bot is wrong in the probe) -> TASK_TELLS4M written; KICKFIX3 - E2 and E3 5 of 9, the limp loop capped, E3 the base -> TASK_KICKFIX4 written. NOT LAUNCHED: Arena shows Log in in Chrome (his sign-in). LONG1 and LONG2 still running. KDPIC1 (the render worker) not launched: the PC was RED on memory with his game open. LATER IN S566 (owner: \"yes close the old consoles ,move arenas work do notwait\"): the six old worker consoles closed (memory 96% -> 64%, PC GREEN); Arena is signed in on Browser 2 but at its daily limit until 20:33, so KICKFIX4 and TELLS4M run as console workers on the PC (tabs c1, c2; rules ops/research/WORKER_S566.md) and KDPIC1 as the render worker (c3). LONG2 collected: none for the page. The strip's drag proved with a real mouse. Q-344 CLOSED: on the board he had written \"idonot understand what you mean\"; explained in chat; his \"park that for now ? what do you think ?\" - agreed: the late step stays on wait.html, parked, not on the main page. 20:34: Arena's limit reset - LONG1 told to keep working; PROGP4 launched at Arena (efb38a10). Cascadeur: his \"not now i will do it tomorrow\" (the plan and the update to 2026.3). ZIVA (owner: \"also stop ziva subsription and use it until it expires and after that only the free model\"): Basic cancelled on ziva.sh, paid until 2026-12-19. KDPIC1 collected: knockdowns inside the ropes and the stage (pixel test, 0 jumps; pictures checked by Claude); the overhand BLOCKED - no take anywhere - so it is the first take of TASK_CASC_MCP. Cascadeur 2026.3: licence accepted on his word, installer downloaded but Chrome holds it as an unconfirmed download (his Keep click), not installed. 21:18 Cascadeur 2026.3.0.17632 INSTALLED; our hidden script-server channel answers on it (csend's output return to fix); it serves MCP itself, no bridge. PACKS: no pack lists an overhand; his verdict on the Animo Boxing Animation Pack \"all its hooks look terribel and aim at the sky\" - do not buy (my recommendation was from clip names: withdrawn); the Animo Additional pack \"this is very good\", he buys it tomorrow. HIS IDEA -> TASK_GUARDSTANCE1: the guard set-up shown as a distinct stance, the preview adjusts first."
+  },
+  {
+   "id": "S567",
+   "date": "2026-11-26",
+   "summary": "S567 (Fable). His ask on the move panel (\"can you show here for which distances each punch can hit and for how much vs how much\"): every punch and kick card shows Inside / Mid / Long (lit = it reaches, the framed one = where you will be when it goes; red frame = it will fall short), its damage in red beside its stamina in green; the side panel is one card a row (v0.567.1). The same range marks on HIS punches on his hand panel (v0.567.2). Stills on 8787/review; beat_shot.mjs takes \"part\": \"0:rear\" / \"1:lead\". Page play test 4 of 4 on the five pages. His \"not yet and stop asking\" on the Cascadeur plan: NO purchase question again (memory). His question on the test link answered: the gate serves the live folder, so it is always the latest version while the PC and the gate are on. COLLECTED: TELLS4M - 4 of 7 bars, not for the page; obeying every tell blind +5.9 / +5.3 / +9.4 points (was +8 / +10 / +29), catching the lie pays nothing -> TASK_TELLS5M, the LAST tells round, at Arena (4c40abf4). KICKFIX4: the PC worker stopped for low memory beside ArcheAge (F1 'a checked low kick costs the kicker 2' survives N=12; F2 fails, low kick 91%); the rest moved to Arena (b9de29e2). FEINTFIX1 (the feint that opens the overhand) queued to Kalli (SQ341) and Dola (SQ342). GUARDSTANCE1: red stills of today's four set-ups taken, our candidate takes noted. His 'Yes, close them': the three finished S566 worker consoles closed (about 1.4 GB, not the 7 GB first said)."
   }
  ],
  "blocked_on_operator": [],
@@ -5403,7 +5406,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-26 22:11 board_sync",
+  "updated": "2026-11-26",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5580,38 +5583,51 @@
   },
   "working_now": [
    {
-    "title": "Kicks: the two versions never measured, with the limp spiral capped where it fires",
-    "who": "Arena (cloud: costs your PC nothing)",
-    "started": "2026-11-26T13:05",
-    "run": "KICKFIX3",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "Tells version 3 measured with bots, bars against the control: does the tell help a little, does finding his lie pay?",
-    "who": "Arena (cloud: costs your PC nothing)",
-    "started": "2026-11-26T15:20",
-    "run": "TELLS3M",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "Long range is a corridor: a jab that stops a man stepping in, and a lead hand held high as a fence - both measured before anything is built",
+    "title": "Long range is a corridor: a jab that stops a man stepping in, and a lead hand held high as a fence",
     "who": "Arena (cloud: costs your PC nothing)",
     "started": "2026-11-26T16:01",
-    "run": "LONG1"
+    "run": "LONG1",
+    "state": "running"
    },
    {
-    "title": "Long range, Kalli's pick: the cross a man walks onto as he steps in, and jabs that score 2 on a stepping man - counted on today's page first, then measured",
-    "who": "Arena (cloud, a second chat: costs your PC nothing)",
-    "started": "2026-11-26T16:06",
-    "run": "LONG2",
-    "state": "LANDED - Claude collects"
+    "title": "Your 'Yes, a choice': a pair of upgrades of its own for each punch",
+    "who": "Arena (cloud: costs your PC nothing)",
+    "started": "2026-11-26T20:35",
+    "run": "PROGP4",
+    "state": "running"
+   },
+   {
+    "title": "Tells, the last round: a punch into his fake does +1, the Jabber's fake can hide a body hook",
+    "who": "Arena (cloud: costs your PC nothing)",
+    "started": "2026-11-26T22:25",
+    "run": "TELLS5M",
+    "state": "running"
+   },
+   {
+    "title": "Kicks round 4: a checked low kick hurts the kicker more - moved to the cloud (your PC ran out of memory beside your game)",
+    "who": "Arena (cloud: costs your PC nothing)",
+    "started": "2026-11-26T22:38",
+    "run": "KICKFIX4",
+    "state": "running"
    }
   ],
   "next": [
    {
+    "id": "CARDS1",
+    "who": "operator",
+    "title": "Your ask built (v0.567.2): every punch card shows the ranges it reaches and its damage beside its stamina; his punches too - your look",
+    "after": ""
+   },
+   {
+    "id": "FEINTFIX1",
+    "who": "kalli",
+    "title": "The feint that opens the overhand wins too much: three rule ideas each from Kalli and Dola, then one measure",
+    "after": ""
+   },
+   {
     "id": "STRIP1",
     "who": "operator",
-    "title": "Your two notes built (v0.566.1): three numbered slots under the ring you can drag, a see-through preview of your boxer playing the chosen moves, the help box in plain words - your look",
+    "title": "The strip with three slots and the see-through preview (v0.566.3) - your look",
     "after": ""
    },
    {
@@ -6112,6 +6128,12 @@
   },
   "done_recently": [
    {
+    "id": "TELLS4M",
+    "who": "claude",
+    "title": "Tells version 4 measured: 4 of 7 bars - obeying every tell blind is worth far less now, spotting his fake still pays nothing",
+    "after": ""
+   },
+   {
     "id": "KDPIC1",
     "who": "claude",
     "title": "The knockdown stays inside the ring on every page (20 knockdown runs re-made, no jump); the overhand still has no picture of its own: no take in our files or from Ludo",
@@ -6181,11 +6203,6 @@
    },
    {
     "title": "At Sharp, is 'cheaper' or 'faster' a real choice for each punch? Measured: for the overhand only (PROGP2)",
-    "who": "Arena",
-    "when": "2026-11-26"
-   },
-   {
-    "title": "The clinch loop, third fix (his habit read sees clinches): measured, does not work (CLINCHFIX3)",
     "who": "Arena",
     "when": "2026-11-26"
    }
@@ -6336,6 +6353,22 @@
     {
      "text": "Tells v4 measured: 4 of 7 bars",
      "who": "agent"
+    },
+    {
+     "text": "Punch cards: ranges + damage",
+     "who": "claude"
+    },
+    {
+     "text": "His punches show ranges too",
+     "who": "claude"
+    },
+    {
+     "text": "Feint question to Kalli + Dola",
+     "who": "claude"
+    },
+    {
+     "text": "Kicks 4 moved to Arena",
+     "who": "claude"
     }
    ],
    "now": [
@@ -6369,10 +6402,6 @@
     },
     {
      "text": "Your play: strip + preview",
-     "who": "claude"
-    },
-    {
-     "text": "KICKFIX4 (worker): kicks 4",
      "who": "claude"
     },
     {
@@ -6883,8 +6912,8 @@
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
- "last_working_commit": "bfa5aa6ea",
- "next_action": "S567: collect the three console workers (docs/KICKFIX4_RESULT.md, docs/TELLS4M_RESULT.md, docs/KDPIC1_RESULT.md - check KDPIC1's pictures yourself); LONG1 at Arena (cba93bd0): Keep working after the 20:33 reset, then judge it with LONG2 -> TASK_LONG3 (the jab that meets him does health, alone and with K2). His look at the strip + preview (v0.566.1). Collect PROGP4 (Arena efb38a10). Then INSIDE1 Phase 2 stills.",
+ "last_working_commit": "5c222e187",
+ "next_action": "S568: collect what landed - TELLS5M (arena 4c40abf4; fails = his keep-or-cut on the tell, no fifth round), KICKFIX4 (arena b9de29e2: judge by its pull request, its result page starts with the old BLOCKED line), LONG1 (cba93bd0) judged with LONG2 -> TASK_LONG3, PROGP4 (efb38a10), FEINTFIX1_BRIEF_KALLI / _DOLA -> one feint probe brief. His game closed: launch INSIDE1 Phase 2 (the see-through overlap) as the one render worker. NEVER ask about the Cascadeur plan or the packs: he says when they are bought; then TASK_CASC_MCP and GUARDSTANCE1.",
  "next_acceptance": "Rulers vs r0: head jumps on the contact frame under 4, a head inside the other's body under 5 frames, arm out median under 4 frames with join_return green, then r1 film at two fresh blind critics 5+/10",
  "superseded_archive": [
   {

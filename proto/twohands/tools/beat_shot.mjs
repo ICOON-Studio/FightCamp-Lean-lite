@@ -30,6 +30,13 @@ try {
   for (const b of beats) {
     await ev(`(() => { ${b.range ? `range = ${b.range};` : ''} ${b.hp ? `F[0].hp = ${b.hp[0]}; F[1].hp = ${b.hp[1]};` : ''} P = { ...plan0(), hl: P.hl, hr: P.hr, ...${JSON.stringify(b.mine || {})} }; if (!P.ord || !P.ord.length) P.ord = ordOf(P); hisNext = { at: round + ':' + beat, plan: { ...plan0(), ...${JSON.stringify(b.his || {})} } }; plan(); return 1; })()`);
     await sleep(300); await shot(`${tag}_${b.label}_plan.png`);
+    /* S567: "part": "0:rear" (yours) or "1:lead" (his) = open that part's panel as a click on the boxer does, one more shot (<label>_part.png), the panel's lines printed. Parts: lead, rear, feet, clinch, head */
+    if (b.part) { const got = await ev(`(() => { const [w, p] = ${JSON.stringify(b.part)}.split(':'), hd = () => document.querySelector('.side .hd').innerText.split('\\n')[0].toLowerCase(), want = { lead: 'lead hand', rear: 'rear hand', feet: 'feet', clinch: 'body', head: 'head' }[p];
+        if (w === '0') { const q = document.querySelector('#sum button[data-k="0:' + p + '"]'); if (q) q.click(); return hd(); }
+        const st = document.getElementById('glow').parentElement, r = st.querySelector('img').getBoundingClientRect(), click = (x, y) => st.dispatchEvent(new MouseEvent('click', { clientX: x, clientY: y, bubbles: true }));
+        for (let v = 0.05; v < 0.95; v += 0.02) for (let u = 0.3; u < 0.95; u += 0.01) { const x = r.left + u * r.width, y = r.top + v * r.height, was = hd(); click(x, y); const now = hd(); if (now === 'his ' + want) return now; if (now !== was && now.startsWith('his ')) click(x, y); else if (now !== was) click(x, y); }
+        return 'NOT FOUND'; })()`);
+      await sleep(400); await shot(`${tag}_${b.label}_part.png`); console.log(`BEAT_SHOT ${b.label} part ${b.part}: ${got} :: ` + await ev("[...document.querySelectorAll('#his .row, #board .sw')].filter((e) => e.offsetParent).map((e) => e.innerText.replace(/\\n/g, ' ')).join(' | ')")); }
     /* S566 STRIP1: "hold": [ms, ..] = more plan shots after those waits (the preview of the chosen moves plays while he plans), the strip's state printed; "plan_only": the beat is not fought */
     for (const [j, ms] of (b.hold || []).entries()) { await sleep(ms); await shot(`${tag}_${b.label}_plan${j + 2}.png`); console.log(`BEAT_SHOT ${b.label} strip ${j + 2}: ` + JSON.stringify(await ev("window.stripState ? stripState() : null"))); }
     /* S566: "drag": [from, to] = a real mouse drag of the strip's card in slot `from` onto slot `to` (0-based), the order printed before and after */
