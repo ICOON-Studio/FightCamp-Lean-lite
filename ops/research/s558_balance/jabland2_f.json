@@ -1,0 +1,30 @@
+{
+ "_note": "JABLAND2 F (S564) - D and E together: the feint opens the overhand only Inside, and a punch that lands in the feint's moment wastes it (+1 counter).",
+ "ACT": {
+  "jab": {
+   "st": 0
+  }
+ },
+ "src": [
+  [
+   "if (cov[v][a.line] && !wasDrawn) {",
+   "const caught = sh.id === 'jab' && act[v] === 'lead' && cov[v].side; if ((cov[v][a.line] || caught) && !wasDrawn) {"
+  ],
+  [
+   "say(sh.k, { m: i, t: 'block', id: sh.id, a: a.n, o: (P[v][sl] ?",
+   "say(sh.k, { m: i, t: 'block', id: sh.id, a: a.n, o: caught ? `caught by ${v ? 'his' : 'your'} rear glove, held high while the lead punched` : (P[v][sl] ?"
+  ],
+  [
+   "wasDrawn = drawn[sh.k] === 1;",
+   "wasDrawn = drawn[sh.k] === 1 && !(sh.id === 'over' && S.range !== 1);"
+  ],
+  [
+   "const pull = pulled[sh.k], dmg = a.d + (openNow[sh.k] ? N.counter : 0) + (pull ? 1 : 0);",
+   "const fcaught = act[v] === 'lead' && P[v].lead === 'feint' && drawn[v] === 2; if (fcaught) drawn[v] = 0; const pull = pulled[sh.k], dmg = a.d + (openNow[sh.k] || fcaught ? N.counter : 0) + (pull ? 1 : 0);"
+  ],
+  [
+   "lands${openNow[sh.k] ? ' as a counter' : ''}",
+   "lands${openNow[sh.k] || fcaught ? ' as a counter' : ''}${fcaught ? ' - it caught him in his feint: the feint is wasted' : ''}"
+  ]
+ ]
+}

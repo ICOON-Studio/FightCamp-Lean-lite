@@ -1,6 +1,6 @@
-# S564 handover (written 2026-11-26, S563 - Opus 5.5)
+# S565 handover (written 2026-11-26, S564 - Opus 5.5)
 
-Start: `git pull && python ops/Tools/agent_comms.py start`, then this page, then `ops/research/S563_DIGEST.md`.
+Start: `git pull && python ops/Tools/agent_comms.py start`, then this page, then `ops/research/S564_DIGEST.md`.
 
 ## METHOD lines - quote all of them in your first message
 - ## METHOD - RING SWITCHES IS THE MAIN LINE (owner S553, S555). The pages: `proto/twohands/order.html` (boxing, the
@@ -25,10 +25,11 @@ Start: `git pull && python ops/Tools/agent_comms.py start`, then this page, then
   the board" was a jump button on the OPS BOARD; a new playable page always gets its jump button there the same turn:
   `ops/Tools/opsboard/roadmap.html`, the PAGES list).
 - Appended comments are `/* */`, never `//`.
-- ## METHOD - THE TELLS (S563, his "show opponents intentions like card games?"): NEVER his whole plan; ONE body tell
-  from the beat he already chose, with one learnable lie per man (4 of 4 playtesters, ops/research/DESIGN_TELLS2.md). It
-  reaches the page only after the v2 replay (ALLPLAY2B), the bot measure (TELLS2M) and his yes - as a POSE of his body
-  plus the cue word in the ring's corner badge, never near the men.
+- ## METHOD - THE TELLS (S563, S564; his "show opponents intentions like card games?"): NEVER his whole plan; ONE body tell
+  from the beat he already chose (5 of 5 playtesters). VERSION 3 is the current one (`play_cli.mjs ... tells=3`,
+  tells.mjs LIES3/CAP3): a fake never hides a bigger punch, at most 2 a round, a second rule of his own state. It reaches
+  the page only after TELLS3M (bars against the no-tell control - the page's men are beaten 67-83% by the control alone)
+  and his yes - as a POSE of his body (TASK_TELLS2PAGE) plus the cue word in the ring's corner badge, never near the men.
 - `play_cli.mjs` and `tells.mjs` are imported LIVE by every running playtest: keep old calls working when you change them.
 - ## METHOD - NOTHING NEAR THE FIGHTERS (owner S562: "i told you do not put text or anything near the fighters"): no bar,
   tick, label or marker on, under or beside the men. Ring readouts in ONE badge in the ring's top-left corner, the rest in
@@ -37,41 +38,42 @@ Start: `git pull && python ops/Tools/agent_comms.py start`, then this page, then
   when clips play"): a run is made at each page range it can happen at (`tools/pics2d_anim.gd range=` / `short=1`), proved
   by the edge table (hold before, first frame, last frame, hold after; > 8 px = a jump), never by a shrunk strip.
 
-## His question this session, answered
-"do you thinkwe should show opponents itentions like more draditional card games or it is fine the way it is ?" - four
-playtesters (Claude, Arena, Ziva, Dola; Antigravity was still playing) all chose ONE body tell over his whole plan; fun with
-tells 8 for all four. Version 2 (lies that fire on visible states, bluffs only, a fake costs 1 stamina, the ledger says
-when) is in the words tool: `node proto/twohands/tools/play_cli.mjs new <f> opp=0 seed=1 tells=2`.
+## His words in S564
+"grokbots are back" -> John and Kalli answered their briefs within the hour (SQ337 comebacks, SQ338 kicks); Kalli and
+Dola have a new one: Long is a corridor (SQ339, SQ340).
 
-## RUNNING AT THE HANDOVER (collect first; all Arena runs are on ICOON-Studio/FightCamp-Lean-lite, read with
+## RUNNING AT THE HANDOVER (collect first; Arena runs are on ICOON-Studio/FightCamp-Lean-lite, read with
 `gh api repos/ICOON-Studio/FightCamp-Lean-lite/contents/<path>?ref=<branch>`, copy onto main by hand, never Arena's Merge)
-- ALLPLAY2B: Ziva (its editor on the hidden desktop, port 7012, same chat as round 1; report
-  E:/FightCamp/tmp/allplay2/ziva/ALLPLAY2B_ZIVA.md) and Arena arena/f0a3ce55 - tells v2 replayed.
-- ALLPLAY2 Antigravity: `play_by_message.mjs antigravity E:/FightCamp/wt/AGY_ALLPLAY2 via=agy tag=ALLPLAY2` (its report
-  prompt is the OLD one: ask it the owner's question as a follow-up, as Dola was; see reference_s563_traps).
-- TELLS2M arena/ed0b7f42 (the tells measured with bots), KDHEAL1 arena/836987cb (a knockdown heals: get-up [4,3] [4,2]
-  [3,2]), KICKFIX3 arena/c178d87d, PROGP2 arena/15b7ab01 (his Q-340 Sharp choice), and from S562: HEADPULL1 arena/397eb67a,
-  MOMENTGAP1 arena/4bdf9ebc (his "select exactly on which part of a beat i move"), CLINCHFIX2 arena/204b98f9, JABLAND1
-  arena/ba10e2bf. Chat links are in ops/AgentComms/live_runs.json.
-- GLIDE2 and INSIDE1 (console tabs from S562): code done and committed, BLOCKED on renders until his game is closed
-  (docs/GLIDE2_RESULT.md, docs/INSIDE1_RESULT.md).
-- The page server now runs in this session's terminal tab "Page server 8797" (the old one died when the old sessions were
-  archived on his "Yes, close them").
+- TELLS3M arena/181a4c7c - tells v3 against bots, bars against the control. Told mid-run to merge main (Body Snatcher rule).
+- KDHEAL1 arena/836987cb - a knockdown heals: KD0 control 8 of 9, comeback 19%; KD3 [3,2] dropped (75% stoppages).
+  REPORT it to him with John's real numbers (a dropped man who fights on wins 34%, dropped twice 7%); not on the page.
+- MOMENTGAP1 arena/4bdf9ebc - HIS question "can i select exactly on which part of a beat i move ? or it breaks balance ?":
+  the n=12 trial says a free wait is picked in ~70% of beats ("wait first, counter his punch") and the page drops to 5 of 9.
+  Answer him with the final numbers and the costed variant B.
+- CLINCHFIX3 arena/67e7800b - his habit read sees clinches (H1), + clinch +1 stamina (H2).
+- AIEMPTY1 arena/f889f281 - his empty beats counted, then filtered from his plain beats.
+- JABLAND1 arena/ba10e2bf, KICKFIX3 arena/c178d87d, PROGP2 arena/15b7ab01 (his Q-340), HEADPULL1 arena/397eb67a.
+- Render worker in terminal tab "renders564" (Opus, Code Mode): RESUME_S564_RENDERS.md - INSIDE1 probe, GLIDE2 renders,
+  INSIDE1 re-render. When it ends: BOUNCE1 (TASK_BOUNCE1.md), then KDPIC1 (TASK_KDPIC1.md), each a console worker, one
+  render at a time, his game closed.
+- Page server: `python proto/cardgame/serve.py 8797 twohands` (check it after any session archive).
 
 ## FIRST (in this order)
-1. Collect the runs above. Tells: if ALLPLAY2B and TELLS2M agree, write the page version as a brief (the tell from
-   `hisNext`, which the page already chooses before the player; three guard poses a man) and ask him with the board.
-2. MOMENTGAP1's answer to his "can i ... select exactly on which part of a beat i move ? or it breaks balance ?".
-3. KDHEAL1: a version that holds its bars is REPORTED to him (a rule he did not ask for), not put on the page.
-4. With his game closed: GLIDE2 and INSIDE1 renders, the knockdown picture inside the ring, an overhand picture, BOUNCE1.
+1. Collect the runs above. TELLS3M passes -> ask him on the board (one line + a still or the words-tool transcript): the
+   tell on the page as a pose of his body? -> TELLS2PAGE.
+2. MOMENTGAP1: answer his question in plain numbers. KDHEAL1: report it.
+3. CLINCHFIX3 / AIEMPTY1 / JABLAND1: a version that holds the bars goes on the page (tweak -> page, balance re-run).
+4. When the render worker pushes: BOUNCE1, then KDPIC1.
 
 ## Waiting on the owner
-- His play of the body view (order.html), punch.html on F, and the tells (words tool) if he wants to try them.
+- His play of the body view (order.html), punch.html on F, and the tells v3 in the words tool if he wants
+  (`node proto/twohands/tools/play_cli.mjs new <f> opp=1 seed=1 tells=3`).
 
 ## Seats
 Arena for node-only measures; console workers (`ops/Tools/claude_cm.ps1 --model claude-opus-5-5 --permission-mode auto
-"<prompt naming the TASK file>"`); Ziva for playtests (fast, decides each beat); Dola by `play_by_message.mjs via=dola`;
-Antigravity by `via=agy`. Page server: `python proto/cardgame/serve.py 8797 twohands` (check it after any session archive).
+"<prompt naming the TASK file>"`); Ziva for playtests (fast; its chat can loop on "Go." - resume it from the state file);
+Dola by `play_by_message.mjs via=dola`; Antigravity by `via=agy`; Grok bots (John, Kalli, Maria) back since S564 -
+`gbot.py send --to "<bot>" --file <f>` (positional text fails).
 
-## Model for S564
-Opus, medium effort, Fast off - collecting ten measures and two playtests, then one page brief.
+## Model for S565
+Opus, medium effort, Fast off - collecting nine measures, two answers to him, then a page build if the tells pass.

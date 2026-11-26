@@ -1,0 +1,25 @@
+{
+ "_note": "JABLAND1 C (S562) - B'S GUARD, CHEAPER PUNCHES. B's two guard answers (the rear glove held high catches the jab while the lead hand is out; the overhand is too slow for the feint's opening) cut the jab to 43% and the overhand to 38%, but the mix then threw them in 2% and 1% of beats (dead). A showed that a cheaper punch is thrown into more guards and lands a smaller share. So: B, with the jab at 0 stamina (its hand still gives up its rest) and the overhand at 2 (was 3); the body jab stays 1. The guard keeps the landing down and the price keeps them in the mix.",
+ "ACT": {
+  "jab": {
+   "st": 0
+  },
+  "over": {
+   "st": 2
+  }
+ },
+ "src": [
+  [
+   "if (cov[v][a.line] && !wasDrawn) {",
+   "const caught = sh.id === 'jab' && act[v] === 'lead' && cov[v].side; if ((cov[v][a.line] || caught) && !wasDrawn) {"
+  ],
+  [
+   "say(sh.k, { m: i, t: 'block', id: sh.id, a: a.n, o: (P[v][sl] ?",
+   "say(sh.k, { m: i, t: 'block', id: sh.id, a: a.n, o: caught ? `caught by ${v ? 'his' : 'your'} rear glove, held high while the lead punched` : (P[v][sl] ?"
+  ],
+  [
+   "wasDrawn = drawn[sh.k] === 1;",
+   "wasDrawn = drawn[sh.k] === 1 && sh.id !== 'over';"
+  ]
+ ]
+}

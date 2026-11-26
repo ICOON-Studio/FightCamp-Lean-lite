@@ -1,0 +1,22 @@
+{
+ "_note": "JABLAND2 D (S564) - c's jab half (the rear glove held high catches the jab while the lead is out; the jab costs 0) and the overhand back at 3 stamina, with a different lever than its price (JABLAND1: no price between 2 and 3 works): the feint opens the overhand only INSIDE, where it cannot fall short (Arena's next-probe idea). At Mid the overhand is too slow for the feint's opening.",
+ "ACT": {
+  "jab": {
+   "st": 0
+  }
+ },
+ "src": [
+  [
+   "if (cov[v][a.line] && !wasDrawn) {",
+   "const caught = sh.id === 'jab' && act[v] === 'lead' && cov[v].side; if ((cov[v][a.line] || caught) && !wasDrawn) {"
+  ],
+  [
+   "say(sh.k, { m: i, t: 'block', id: sh.id, a: a.n, o: (P[v][sl] ?",
+   "say(sh.k, { m: i, t: 'block', id: sh.id, a: a.n, o: caught ? `caught by ${v ? 'his' : 'your'} rear glove, held high while the lead punched` : (P[v][sl] ?"
+  ],
+  [
+   "wasDrawn = drawn[sh.k] === 1;",
+   "wasDrawn = drawn[sh.k] === 1 && !(sh.id === 'over' && S.range !== 1);"
+  ]
+ ]
+}

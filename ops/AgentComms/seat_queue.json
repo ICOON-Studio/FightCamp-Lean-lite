@@ -4944,22 +4944,49 @@
    "seat": "john",
    "brief": "research/RINGSWITCH_COMEBACK_BRIEF.md",
    "stem": "RINGSWITCH_COMEBACK_BRIEF_JOHN",
-   "status": "sent",
+   "status": "answered",
    "queued_at": "2026-11-26 09:59",
    "tries": 0,
    "sent_at": "2026-11-26 10:10",
-   "sent_ms": 1795680620515
+   "sent_ms": 1795680620515,
+   "answered_at": "2026-11-26 15:10",
+   "answer": "research/RINGSWITCH_COMEBACK_BRIEF_JOHN.md",
+   "chars": 25461
   },
   {
    "id": "SQ338",
    "seat": "kalli",
    "brief": "research/RINGSWITCH_KICKS_BRIEF.md",
    "stem": "RINGSWITCH_KICKS_BRIEF_KALLI",
-   "status": "sent",
+   "status": "answered",
    "queued_at": "2026-11-26 09:59",
    "tries": 0,
    "sent_at": "2026-11-26 10:10",
-   "sent_ms": 1795680622704
+   "sent_ms": 1795680622704,
+   "answered_at": "2026-11-26 15:10",
+   "answer": "research/RINGSWITCH_KICKS_BRIEF_KALLI.md",
+   "chars": 10437
+  },
+  {
+   "id": "SQ339",
+   "seat": "kalli",
+   "brief": "research/RINGSWITCH_LONG_BRIEF.md",
+   "stem": "RINGSWITCH_LONG_BRIEF_KALLI",
+   "status": "queued",
+   "queued_at": "2026-11-26 14:48",
+   "tries": 0
+  },
+  {
+   "id": "SQ340",
+   "seat": "dola",
+   "brief": "research/RINGSWITCH_LONG_BRIEF.md",
+   "stem": "RINGSWITCH_LONG_BRIEF_DOLA",
+   "status": "sent",
+   "queued_at": "2026-11-26 14:48",
+   "tries": 0,
+   "sent_at": "2026-11-26 15:10",
+   "pid": 29712,
+   "transcript": "AgentComms/seat_logs/SQ340_dola.txt"
   }
  ]
 }

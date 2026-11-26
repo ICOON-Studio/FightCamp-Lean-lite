@@ -47,10 +47,19 @@ var pin := {}   # who -> the standing foot's spot (world, flat) while a kick pla
 const KICK_RANGES := [3, 2]
 const GLIDE_IN := 0.12   # on the kick's spot this long before the contact
 const GLIDE_OUT := 0.08  # and leaves it after this
+## S564 (the edge table: the kicker's first / last picture 15-25 px off the hold): the kick take stands his hips away from
+## his root, so on the range's spot his body is put where the guard puts it - the hips' flat offset from the root in the
+## guard (read once at the start), eased out by the same weight as the glide.
+var guard_hips := {}   # who -&gt; the guard's Hips minus root, flat (world)
 
 
 func _run() -> void:
 	RANGE_AT = int(_arg("range", "0"))
+	if RANGE_AT in [2, 3]:
+		await _home_guard()
+		await process_frame
+		for who in 2:
+			guard_hips[who] = _flat(Gate.world(stage, who, "Hips") - _node(who).global_position)
 	for who in 2:
 		for k in KICKS:
 			_load_kick(who, str(k))
@@ -405,6 +414,9 @@ func _kglide(who: int, kp: Dictionary, off: float, offs: Array) -> void:
 	var w := _kw(off, offs)
 	var from_m := float(RANGE_IN[["_r1", "_r2", ""][RANGE_AT - 1]])   # the range's spot (one shared table, never a number here)
 	_node(who).global_position += dirv * (lerpf(from_m, float(kp["step"]), w) - float(kp["step"])) + (kp["side"] as Vector3) * (w - 1.0)
+	if guard_hips.has(who):   # S564: his body (not his root) on the range's spot at the run's ends
+		var hips := _flat(Gate.world(stage, who, "Hips") - _node(who).global_position)
+		_node(who).global_position += ((guard_hips[who] as Vector3) - hips) * (1.0 - w)
 	var moved := _flat(_node(d).global_position - home_t[d].origin)
 	var rest := Vector3.ZERO
 	if off > 0.0 and RANGE_AT == 2 and str(kp["k"]) == "teep" and str(kp["res"]) == "landed":

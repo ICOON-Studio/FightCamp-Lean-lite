@@ -28,7 +28,7 @@
   },
   "CLINCHFIX2": {
    "id": "CLINCHFIX2",
-   "status": "running",
+   "status": "done",
    "seat": "arena",
    "agent": "Arena (cloud, a sixth chat: costs your PC nothing)",
    "started": "2026-11-26T13:35",
@@ -36,17 +36,18 @@
    "title": "The clinch pays too well: the version where the push off gets a second job, measured",
    "brief": "ops/research/TASK_CLINCHFIX2.md",
    "branch": "arena/204b98f9-fightcamp-lean-lite",
-   "issue": "https://arena.ai/agent/01a21742-8bd0-7f21-b3b8-cef7204b98f9"
+   "issue": "https://arena.ai/agent/01a21742-8bd0-7f21-b3b8-cef7204b98f9",
+   "result": "none: P2 kills the loop (15-18%) but the clinch and push off go dead, 6 of 9 -> CLINCHFIX3"
   },
   "GLIDE2": {
    "id": "GLIDE2",
    "status": "running",
    "seat": "claude",
-   "agent": "console worker (Opus, Code Mode), terminal tab GLIDE2",
-   "started": "2026-11-26T14:00",
+   "agent": "console worker (Opus, Code Mode), terminal tab renders564 (S564: both resumed in one tab, game closed)",
+   "started": "2026-11-26T14:40",
    "eta": "2-3 h",
    "title": "Head moves and kicks at every range: the men keep their distance on head.html and kick.html",
-   "brief": "ops/research/TASK_GLIDE2.md"
+   "brief": "ops/research/RESUME_S564_RENDERS.md"
   },
   "JABLAND1": {
    "id": "JABLAND1",
@@ -64,11 +65,11 @@
    "id": "INSIDE1",
    "status": "running",
    "seat": "claude",
-   "agent": "console worker (Opus, Code Mode), terminal tab INSIDE1",
-   "started": "2026-11-26T15:30",
+   "agent": "console worker (Opus, Code Mode), terminal tab renders564 (S564: both resumed in one tab, game closed)",
+   "started": "2026-11-26T14:40",
    "eta": "4-5 h (renders only with your game closed)",
    "title": "Inside is too close (your 'the distance looks wrong'): a real inside distance, then the parts where the men overlap see-through",
-   "brief": "ops/research/TASK_INSIDE1.md"
+   "brief": "ops/research/RESUME_S564_RENDERS.md"
   },
   "ALLPLAY2_AGY": {
    "seat": "antigravity",
@@ -76,9 +77,10 @@
    "eta": "2-3 h",
    "brief": "ops/research/TASK_ALLPLAY2.md",
    "title": "Playtest by message: 2 bouts without tells, 2 with - and your question on showing his intentions",
-   "status": "running",
+   "status": "done",
    "id": "ALLPLAY2_AGY",
-   "started": "2026-11-26T13:05"
+   "started": "2026-11-26T13:05",
+   "result": "ops/research/allplay2/antigravity/ALLPLAY2_ANTIGRAVITY.md - one body tell (5 of 5); feint-overhand 12 of 13; empty AI beats -> AIEMPTY1"
   },
   "KICKFIX3": {
    "seat": "arena",
@@ -104,28 +106,6 @@
    "id": "PROGP2",
    "started": "2026-11-26T13:05"
   },
-  "ALLPLAY2B_ZIVA": {
-   "id": "ALLPLAY2B_ZIVA",
-   "status": "running",
-   "seat": "ziva",
-   "agent": "Ziva (its Godot editor on the hidden desktop, same chat as round 1)",
-   "started": "2026-11-26T14:00",
-   "eta": "30-60 min",
-   "brief": "ops/research/TASK_ALLPLAY2B.md",
-   "title": "Tells version 2: does each man now lie in a way you can learn? Three bouts, compared with round 1"
-  },
-  "ALLPLAY2B_ARENA": {
-   "id": "ALLPLAY2B_ARENA",
-   "status": "running",
-   "seat": "arena",
-   "agent": "Arena (cloud: costs your PC nothing)",
-   "started": "2026-11-26T14:00",
-   "eta": "1-2 h",
-   "brief": "ops/research/TASK_ALLPLAY2B.md",
-   "branch": "arena/f0a3ce55-fightcamp-lean-lite",
-   "issue": "https://arena.ai/agent/01a217b6-228a-7014-b2b0-4d9af0a3ce55",
-   "title": "Tells version 2: does each man now lie in a way you can learn? Three bouts, compared with round 1"
-  },
   "KDHEAL1": {
    "id": "KDHEAL1",
    "status": "running",
@@ -138,17 +118,41 @@
    "issue": "https://arena.ai/agent/01a217b7-a998-7675-a4a4-c5f4836987cb",
    "title": "A knockdown heals (down at 1 health, up on 6): three lower get-up numbers measured - nothing changes without your yes"
   },
-  "TELLS2M": {
-   "id": "TELLS2M",
+  "TELLS3M": {
+   "id": "TELLS3M",
    "status": "running",
    "seat": "arena",
    "agent": "Arena (cloud: costs your PC nothing)",
-   "started": "2026-11-26T14:12",
+   "started": "2026-11-26T15:20",
+   "eta": "3-4 h",
+   "brief": "ops/research/TASK_TELLS3M.md",
+   "branch": "arena/181a4c7c-fightcamp-lean-lite",
+   "issue": "https://arena.ai/agent/01a217e8-babc-765a-90b4-7ce4181a4c7c",
+   "title": "Tells version 3 measured with bots, bars against the control: does the tell help a little, does finding his lie pay?"
+  },
+  "CLINCHFIX3": {
+   "id": "CLINCHFIX3",
+   "status": "running",
+   "seat": "arena",
+   "agent": "Arena (cloud: costs your PC nothing)",
+   "started": "2026-11-26T15:40",
    "eta": "2-3 h",
-   "brief": "ops/research/TASK_TELLS2M.md",
-   "branch": "arena/ed0b7f42-fightcamp-lean-lite",
-   "issue": "https://arena.ai/agent/01a217bf-a4b9-7bb5-b8d6-4bf7ed0b7f42",
-   "title": "The tells measured with bots: does following his tell win the fight by itself? Does finding his lie pay?"
+   "brief": "ops/research/TASK_CLINCHFIX3.md",
+   "branch": "arena/67e7800b-fightcamp-lean-lite",
+   "issue": "https://arena.ai/agent/01a217fa-9cd2-7e00-a7c2-77d667e7800b",
+   "title": "The clinch loop: he notices a player who clinches every beat (his habit read sees clinches) - measured"
+  },
+  "AIEMPTY1": {
+   "id": "AIEMPTY1",
+   "status": "running",
+   "seat": "arena",
+   "agent": "Arena (cloud: costs your PC nothing)",
+   "started": "2026-11-26T15:45",
+   "eta": "1-2 h",
+   "brief": "ops/research/TASK_AIEMPTY1.md",
+   "branch": "arena/f889f281-fightcamp-lean-lite",
+   "issue": "https://arena.ai/agent/01a217fb-de65-72ee-a4f8-d9faf889f281",
+   "title": "He never throws a beat that cannot do anything (push off after his back off, a feint with no punch): counted, then filtered"
   }
  },
  "codex_budget": {

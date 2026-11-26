@@ -3,17 +3,17 @@
  "updated": "2026-11-26",
  "author": "claude S294",
  "now": {
-  "id": "S563",
+  "id": "S564",
   "owner": "claude",
   "updated": "2026-11-26",
-  "summary": "S563 (Opus). His question: 'do you thinkwe should show opponents itentions like more draditional card games or it is fine the way it is ? Can you have ziva and some other agents playtest the current version and provide feedback' -> a TELLS trial in the words tool (one body cue from the beat he already chose, one learnable lie per man); Claude, Arena, Ziva and Dola played with and without it: 4 of 4 chose ONE body tell, NOT his whole plan; fun with tells 8 for all four (without: 7, 6, 3, 6). Tells version 2 built from their fixes (lies on visible states 13-29% of beats, bluffs only, a fake costs 1 stamina, the ledger says when). His 'Yes, close them': 14 old sessions archived, memory 97% -> 76%, Ziva ran. Page fixes from the playtest: the beat story readable, 'Feint - 2nd', 'He read you' when his habit read fires. Collected PROGP3 (guard decides nothing; kept ranges health 17-19, stamina 7-9, recovery 1) and KICKFIX2 (E1 dead, the limp loop uncapped). Launched at Arena: KICKFIX3, PROGP2 (his Q-340), ALLPLAY2B, KDHEAL1, TELLS2M.",
-  "next_action": "S564: FIRST collect ALLPLAY2B (Ziva in its chat, Arena arena/f0a3ce55), Antigravity's ALLPLAY2 (ask it the owner's question as a follow-up), TELLS2M arena/ed0b7f42, KDHEAL1 arena/836987cb, KICKFIX3 arena/c178d87d, PROGP2 arena/15b7ab01, HEADPULL1, MOMENTGAP1, CLINCHFIX2, JABLAND1. Tells: if the replay and the bot measure agree, a page brief (tell from hisNext, three guard poses a man) and his yes on the board. MOMENTGAP1 answers his 'select exactly on which part of a beat i move'. KDHEAL1 is reported to him, not put on the page. With his game closed: GLIDE2 + INSIDE1 renders, the knockdown picture inside the ring, an overhand picture, BOUNCE1.",
-  "last_working_commit": "f5ad2ff93",
+  "summary": "S564 (Opus). Collected the tells round 2: Arena ALLPLAY2B (v2 fixes work, fun 7 depth 8 clarity 8; the Slugger lied 2 of 18), Ziva ALLPLAY2B (8.3; a fake shoulder hid 5 damage - the bluff was not enforced), Antigravity ALLPLAY2 (one body tell: 5 of 5 testers; feint-overhand 12 of 13), TELLS2M (stopped on its trial: the control already wins 67-83%; the lie rate followed the player, 41-46% v a strong bot). Built TELLS VERSION 3 in the words tool (tells=3): a fake only when his real beat hurts less than the cue promises, at most 2 fakes a round never two running, a second rule of his own state (Slugger stamina 3-, Body Snatcher after his body punch), the fake line names the rule, the legend says a quiet guard does not cover his lead. Rates v AI / careful player: Jabber 19/15%, Slugger 24/24% (v2 27/10%), Body Snatcher 17/11%. probe_tells v=3. CLINCHFIX2: none (the strong fix kills the loop but the clinch and push off go dead) -> CLINCHFIX3 (his habit read never saw clinches: order.html records only punching beats). AIEMPTY1 (his empty beats). Briefs: TELLS3M, TELLS2PAGE (gated), KDPIC1 (no overhand take exists), CLINCHFIX3, AIEMPTY1; Long-range design brief to Kalli + Dola. Render worker renders564 resumed INSIDE1 + GLIDE2 (his game closed). Grok bots back: John SQ337 (UFC comebacks), Kalli SQ338 (kick designs).",
+  "next_action": "S565: FIRST collect (Arena, lite branches; copy onto main by hand): TELLS3M arena/181a4c7c (tells v3 v bots, bars v the control), KDHEAL1 arena/836987cb (REPORT to him with John's numbers: a dropped man who fights on wins 34%, dropped twice 7%; not on the page), MOMENTGAP1 arena/4bdf9ebc (his question: a free wait is picked 7 of 10 beats, 5 of 9 bars at n=12 - answer him with the final), CLINCHFIX3 arena/67e7800b, AIEMPTY1 arena/f889f281, JABLAND1 arena/ba10e2bf, KICKFIX3 arena/c178d87d, PROGP2 arena/15b7ab01 (his Q-340), HEADPULL1 arena/397eb67a. The render worker (terminal tab renders564: INSIDE1 then GLIDE2) - when it pushes, launch BOUNCE1 then KDPIC1 as console workers (one render at a time). If TELLS3M passes: ask him on the board (tells on the page as a pose), then TELLS2PAGE. Kalli + Dola: Long is a corridor (SQ339, SQ340).",
+  "last_working_commit": "a2b4fbaf6",
   "verified_playable": "Builds/ exported in S556 (the S547 game plus S548's two changes: the 3D fight throws the body cross, the trial evening's pictures show the prospect's own body; pro_body_jab is on disk and unused by the game). Ring Switches (a browser toy): one beat played in the browser in S556 against the Jabber - both men threw a body jab, both landed, no console error; rules_test 34 pass; anim_check 124 runs PASS.",
-  "incomplete_blocked": "Four cloud measures still running (kicks E, head + pull counter, attributes, Puncher's chance round 2). Not built: the uppercut that catches a man rolling (two tries crowded). No export: no game code changed and his game was open.",
-  "next_acceptance": "The four runs are collected and reported against their bars; the body view picks the switches on a page copy he can play, checked in a headless browser, nothing drawn on the fighters.",
+  "incomplete_blocked": "Nine Arena measures and the render worker still running at this stage's end (listed in next_action). No export: no game code changed (proto pages and node tools only). Uncommitted pictures from earlier sessions sit in proto/twohands/img/anim (518 changed, 1262 new): left for the render workers.",
+  "next_acceptance": "Each run collected and judged against its bars; tells v3 measured against the control before any page work; his question on the moment answered with numbers.",
   "awaiting_operator": [
-   "His play of the body view (order.html), punch.html on F, and - if he wants - the tells in the words tool (play_cli.mjs ... tells=2)"
+   "His play of the body view (order.html) and punch.html; the tells in the words tool if he wants (play_cli.mjs new <f> opp=1 tells=3)"
   ]
  },
  "next": "S562: see NEXT_SESSION_PROMPT.md - collect four Arena runs, then the body view as the main page's way to pick (his Q-343).",
@@ -2468,6 +2468,11 @@
    "id": "S563",
    "date": "2026-11-26",
    "summary": "S563 (Opus). His question: 'do you thinkwe should show opponents itentions like more draditional card games or it is fine the way it is ? Can you have ziva and some other agents playtest the current version and provide feedback' -> a TELLS trial in the words tool (one body cue from the beat he already chose, one learnable lie per man); Claude, Arena, Ziva and Dola played with and without it: 4 of 4 chose ONE body tell, NOT his whole plan; fun with tells 8 for all four (without: 7, 6, 3, 6). Tells version 2 built from their fixes (lies on visible states 13-29% of beats, bluffs only, a fake costs 1 stamina, the ledger says when). His 'Yes, close them': 14 old sessions archived, memory 97% -> 76%, Ziva ran. Page fixes from the playtest: the beat story readable, 'Feint - 2nd', 'He read you' when his habit read fires. Collected PROGP3 (guard decides nothing; kept ranges health 17-19, stamina 7-9, recovery 1) and KICKFIX2 (E1 dead, the limp loop uncapped). Launched at Arena: KICKFIX3, PROGP2 (his Q-340), ALLPLAY2B, KDHEAL1, TELLS2M."
+  },
+  {
+   "id": "S564",
+   "date": "2026-11-26",
+   "summary": "S564 (Opus). Collected the tells round 2: Arena ALLPLAY2B (v2 fixes work, fun 7 depth 8 clarity 8; the Slugger lied 2 of 18), Ziva ALLPLAY2B (8.3; a fake shoulder hid 5 damage - the bluff was not enforced), Antigravity ALLPLAY2 (one body tell: 5 of 5 testers; feint-overhand 12 of 13), TELLS2M (stopped on its trial: the control already wins 67-83%; the lie rate followed the player, 41-46% v a strong bot). Built TELLS VERSION 3 in the words tool (tells=3): a fake only when his real beat hurts less than the cue promises, at most 2 fakes a round never two running, a second rule of his own state (Slugger stamina 3-, Body Snatcher after his body punch), the fake line names the rule, the legend says a quiet guard does not cover his lead. Rates v AI / careful player: Jabber 19/15%, Slugger 24/24% (v2 27/10%), Body Snatcher 17/11%. probe_tells v=3. CLINCHFIX2: none (the strong fix kills the loop but the clinch and push off go dead) -> CLINCHFIX3 (his habit read never saw clinches: order.html records only punching beats). AIEMPTY1 (his empty beats). Briefs: TELLS3M, TELLS2PAGE (gated), KDPIC1 (no overhand take exists), CLINCHFIX3, AIEMPTY1; Long-range design brief to Kalli + Dola. Render worker renders564 resumed INSIDE1 + GLIDE2 (his game closed). Grok bots back: John SQ337 (UFC comebacks), Kalli SQ338 (kick designs)."
   }
  ],
  "blocked_on_operator": [],
@@ -5551,119 +5556,73 @@
   },
   "working_now": [
    {
-    "title": "Puncher's chance: a comeback switch for the man behind - measured on the instrument before it reaches the page (your S559 idea)",
-    "who": "console worker (Opus, Code Mode), terminal tab PUNCHCHANCE1",
-    "started": "2026-11-26T09:35",
-    "run": "PUNCHCHANCE1",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "Head-move pictures: slip, roll, lean back, slip in - from our owned takes, on your camera",
-    "who": "Claude (S561 session)",
-    "started": "2026-11-26T10:30",
-    "run": "HEADPICS1",
-    "state": "LANDED - Claude collects"
-   },
-   {
     "title": "Head movement with the pull counter: does it hold 9 of 9 on a bigger sample (two runs of 84 bouts)",
     "who": "Arena (cloud, a second chat: costs your PC nothing)",
-    "started": "2026-11-26T10:05",
-    "run": "HEADPULL1"
-   },
-   {
-    "title": "Body view on the main page: point at a limb to pick its switches; his limbs show what they can do; the head its own part",
-    "who": "console worker (Opus, Code Mode), terminal tab BODYUI2",
-    "started": "2026-11-26T13:00",
-    "run": "BODYUI2",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "Punch pictures at every range: the men keep their distance when a punch plays",
-    "who": "Claude (S562 session), renders on the hidden desktop",
-    "started": "2026-11-26T12:20",
-    "run": "GLIDE1",
-    "state": "LANDED - Claude collects"
+    "started": "2026-11-26T10:05"
    },
    {
     "title": "Pick the exact moment of the beat you act in (a wait between): measured before it is built",
     "who": "Arena (cloud, a fifth chat: costs your PC nothing)",
-    "started": "2026-11-26T13:20",
-    "run": "MOMENTGAP1"
-   },
-   {
-    "title": "The clinch pays too well: the version where the push off gets a second job, measured",
-    "who": "Arena (cloud, a sixth chat: costs your PC nothing)",
-    "started": "2026-11-26T13:35",
-    "run": "CLINCHFIX2"
+    "started": "2026-11-26T13:20"
    },
    {
     "title": "Head moves and kicks at every range: the men keep their distance on head.html and kick.html",
-    "who": "console worker (Opus, Code Mode), terminal tab GLIDE2",
-    "started": "2026-11-26T14:00",
-    "run": "GLIDE2"
+    "who": "console worker (Opus, Code Mode), terminal tab renders564 (S564: both resumed in one tab, game closed)",
+    "started": "2026-11-26T14:40"
    },
    {
     "title": "The one bar the page still fails: the jab and the overhand land too often - up to three fixes measured",
     "who": "Arena (cloud, a seventh chat: costs your PC nothing)",
-    "started": "2026-11-26T14:45",
-    "run": "JABLAND1"
+    "started": "2026-11-26T14:45"
    },
    {
     "title": "Inside is too close (your 'the distance looks wrong'): a real inside distance, then the parts where the men overlap see-through",
-    "who": "console worker (Opus, Code Mode), terminal tab INSIDE1",
-    "started": "2026-11-26T15:30",
-    "run": "INSIDE1"
-   },
-   {
-    "title": "Playtest: Ring Switches as it is, with and without the opponent's tells - and your question: show his intentions?",
-    "who": "console worker (Opus, Code Mode), terminal tab ALLPLAY2 claude",
-    "started": "2026-11-26T13:05",
-    "run": "ALLPLAY2_CLAUDE",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "Playtest by message: 2 bouts without tells, 2 with - and your question on showing his intentions",
-    "who": "Antigravity (by message, about 75 s a beat)",
-    "started": "2026-11-26T13:05",
-    "run": "ALLPLAY2_AGY"
-   },
-   {
-    "title": "Playtest by message: 2 bouts with tells first, then 2 without - and your question on showing his intentions",
-    "who": "Dola (her desktop app, by message)",
-    "started": "2026-11-26T13:05",
-    "run": "ALLPLAY2_DOLA"
-   },
-   {
-    "title": "Playtest in the cloud: 3 bouts with tells, 3 without - and your question on showing his intentions",
-    "who": "Arena (cloud: costs your PC nothing)",
-    "started": "2026-11-26T13:05",
-    "run": "ALLPLAY2_ARENA"
-   },
-   {
-    "title": "Playtest: Ziva plays 3 bouts with tells first, then 3 without - and your question on showing his intentions",
-    "who": "Ziva (its Godot editor on the hidden desktop)",
-    "started": "2026-11-26T13:35",
-    "run": "ALLPLAY2_ZIVA"
+    "who": "console worker (Opus, Code Mode), terminal tab renders564 (S564: both resumed in one tab, game closed)",
+    "started": "2026-11-26T14:40"
    },
    {
     "title": "Kicks: the two versions never measured, with the limp spiral capped where it fires",
     "who": "Arena (cloud: costs your PC nothing)",
-    "started": "2026-11-26T13:05",
-    "run": "KICKFIX3"
+    "started": "2026-11-26T13:05"
    },
    {
     "title": "Your \"Yes, a choice\": at Sharp, is \"cheaper\" or \"faster\" a real choice for each punch? Measured first",
     "who": "Arena (cloud: costs your PC nothing)",
-    "started": "2026-11-26T13:05",
-    "run": "PROGP2"
+    "started": "2026-11-26T13:05"
+   },
+   {
+    "title": "A knockdown heals (down at 1 health, up on 6): three lower get-up numbers measured - nothing changes without your yes",
+    "who": "Arena (cloud: costs your PC nothing)",
+    "started": "2026-11-26T14:05"
+   },
+   {
+    "title": "Tells version 3 measured with bots, bars against the control: does the tell help a little, does finding his lie pay?",
+    "who": "Arena (cloud: costs your PC nothing)",
+    "started": "2026-11-26T15:20"
+   },
+   {
+    "title": "The clinch loop: he notices a player who clinches every beat (his habit read sees clinches) - measured",
+    "who": "Arena (cloud: costs your PC nothing)",
+    "started": "2026-11-26T15:40"
+   },
+   {
+    "title": "He never throws a beat that cannot do anything (push off after his back off, a feint with no punch): counted, then filtered",
+    "who": "Arena (cloud: costs your PC nothing)",
+    "started": "2026-11-26T15:45"
    }
   ],
   "next": [
    {
     "id": "TELLS2PAGE",
     "who": "claude",
-    "title": "Your question answered: one body tell before each beat (4 of 4 testers) - onto the page as a pose of his body, after the replay and the bot measure, with your yes",
-    "after": "ALLPLAY2B, TELLS2M"
+    "title": "Your question answered (5 of 5: one body tell): onto the page as a pose of his body + the word in the ring corner - brief ready (TASK_TELLS2PAGE), waits for TELLS3M and your yes",
+    "after": "TELLS3M"
+   },
+   {
+    "id": "AIEMPTY1",
+    "who": "arena",
+    "title": "He never throws a beat that cannot do anything (push off after his back off, a feint with no punch): counted, then filtered - running in the cloud",
+    "after": ""
    },
    {
     "id": "KDHEAL1",
@@ -5674,7 +5633,7 @@
    {
     "id": "KDPIC1",
     "who": "claude",
-    "title": "The knockdown picture keeps the man inside the ring; the overhand gets its own picture (renders, your game closed)",
+    "title": "The knockdown stays inside the ring; the overhand gets its own take (none exists: our archives, then Ludo for one hour) - brief ready (TASK_KDPIC1), after the renders",
     "after": "INSIDE1"
    },
    {
@@ -5686,13 +5645,13 @@
    {
     "id": "MOMENTGAP1",
     "who": "arena",
-    "title": "Pick the exact moment you act in a beat: Arena measures it; on the page only if it holds the bars",
+    "title": "Your 'select exactly on which part of a beat i move': first trial - a free wait is picked in 7 of 10 beats and breaks 4 bars; a costed wait is being measured",
     "after": ""
    },
    {
     "id": "CLINCHFIX2",
     "who": "arena",
-    "title": "The clinch fix v2 (push off counters): Arena measures",
+    "title": "DONE (none): the clinch loop - next CLINCHFIX3: he notices a player who clinches every beat (his habit read never saw clinches) - running in the cloud",
     "after": ""
    },
    {
@@ -6145,6 +6104,41 @@
   },
   "done_recently": [
    {
+    "title": "Tells version 3 in the words tool: a fake never hides a bigger punch, at most 2 fakes a round, a second rule for the Slugger and the Body Snatcher - the Slugger now lies 24% of beats to a careful player (was 10%)",
+    "who": "claude",
+    "when": "2026-11-26"
+   },
+   {
+    "title": "Your question: 5 of 5 playtesters chose ONE body tell, not his whole plan (Antigravity too)",
+    "who": "Claude, Arena, Ziva, Dola, Antigravity",
+    "when": "2026-11-26"
+   },
+   {
+    "title": "Tells v2 replayed (Arena 7/8/8, Ziva 8.3) and measured with bots (TELLS2M: the lie rate followed the player; the old bars could not be met)",
+    "who": "Arena, Ziva",
+    "when": "2026-11-26"
+   },
+   {
+    "title": "The clinch v2 measured: none - the strong fix kills the loop but the clinch and push off go dead (CLINCHFIX2)",
+    "who": "Arena",
+    "when": "2026-11-26"
+   },
+   {
+    "title": "John: real comebacks (a dropped man who fights on wins 34%, dropped twice 7%); Kalli: three kick designs",
+    "who": "John, Kalli",
+    "when": "2026-11-26"
+   },
+   {
+    "title": "The tells measured with bots: does following his tell win the fight by itself? Does finding his lie pay?",
+    "who": "Arena (cloud: costs your PC nothing)",
+    "when": "2026-11-26"
+   },
+   {
+    "title": "Tells version 2: does each man now lie in a way you can learn? Three bouts, compared with round 1",
+    "who": "Ziva (its Godot editor on the hidden desktop, same chat as round 1)",
+    "when": "2026-11-26"
+   },
+   {
     "title": "Your question: 4 of 4 playtesters chose ONE body tell, not his whole plan (fun 8 with tells for all four)",
     "who": "Claude, Arena, Ziva, Dola",
     "when": "2026-11-26"
@@ -6184,26 +6178,6 @@
     "who": "claude",
     "title": "05:00 tests all green: 506 passed, 0 failed (2026-11-26; matchmaking_bots passes, block_meet is out of the list since S548)",
     "after": ""
-   },
-   {
-    "id": "HEADPICS1",
-    "who": "claude",
-    "title": "Head moves in pictures on head.html (your 'finish with the headmoves pics'): slip, roll, lean back, slip in - 22 runs, both corners, your camera"
-   },
-   {
-    "id": "PUNCHPAGE1",
-    "who": "claude",
-    "title": "Puncher's chance on the board: punch.html with the switch beside the clinch (opens when 4+ health behind), and jump buttons to every Ring Switches page on the ops board"
-   },
-   {
-    "id": "PUNCHCHANCE1",
-    "who": "console worker (Opus)",
-    "title": "Puncher's chance measured: version C lifts the comeback from 10% to 18% (bar 15-30%), used in 3% of beats; knockdowns 2.6 against a bar of 2.5"
-   },
-   {
-    "id": "PULLCOUNTER1",
-    "who": "claude",
-    "title": "The pull counter is on the boxing page (your 'Yes, put it on'): back off and your next punch that beat lands +1, shown before you click"
    }
   ],
   "scope_note": "S294: lean restart (E:\\FightCamp\\Lean\\docs\\RESTART_PLAN.md). Old roadmap items are parked until the weekly builds reach them.",
@@ -6292,6 +6266,26 @@
   "map": {
    "done_earlier": [
     {
+     "text": "Attributes probe: 3 of 4 count",
+     "who": "claude"
+    },
+    {
+     "text": "Story column readable (all pages)",
+     "who": "claude"
+    },
+    {
+     "text": "4 of 4: show one body tell",
+     "who": "claude"
+    },
+    {
+     "text": "Habit read shown (He read you)",
+     "who": "claude"
+    },
+    {
+     "text": "PROGP3 + KICKFIX2 collected",
+     "who": "claude"
+    },
+    {
      "text": "Range badge off the fighters",
      "who": "claude"
     },
@@ -6326,48 +6320,24 @@
     {
      "text": "Puncher's chance v C: 10 to 18%",
      "who": "agent"
-    },
-    {
-     "text": "Head move pictures on head.html",
-     "who": "claude"
-    },
-    {
-     "text": "Puncher's chance page + board jump",
-     "who": "claude"
-    },
-    {
-     "text": "Pull counter on the page",
-     "who": "claude"
-    },
-    {
-     "text": "Body toy: words off the boots",
-     "who": "claude"
-    },
-    {
-     "text": "6 questions on the board",
-     "who": "claude"
     }
    ],
    "done_session": [
     {
-     "text": "Attributes probe: 3 of 4 count",
+     "text": "Tells v2 Arena replay: 7/8/8",
+     "who": "agent"
+    },
+    {
+     "text": "Tells v3: no hidden bigger punch",
      "who": "claude"
     },
     {
-     "text": "Story column readable (all pages)",
-     "who": "claude"
+     "text": "5 of 5 testers: one body tell",
+     "who": "agent"
     },
     {
-     "text": "4 of 4: show one body tell",
-     "who": "claude"
-    },
-    {
-     "text": "Habit read shown (He read you)",
-     "who": "claude"
-    },
-    {
-     "text": "PROGP3 + KICKFIX2 collected",
-     "who": "claude"
+     "text": "Clinch v2 measured: none",
+     "who": "agent"
     }
    ],
    "now": [
@@ -6384,175 +6354,15 @@
      "who": "operator"
     },
     {
-     "text": "Bodies phase 2: skin+shape",
-     "who": "agent"
-    },
-    {
-     "text": "Guard v7: trade probe",
-     "who": "agent"
-    },
-    {
-     "text": "Merge branch: 65 kg, towel, ice",
-     "who": "claude"
-    },
-    {
-     "text": "Cross legs FP2POSE2",
-     "who": "agent"
-    },
-    {
-     "text": "Stance length FP2POSE3 (Fable)",
-     "who": "claude"
-    },
-    {
-     "text": "Card plan: AAA prep (Fable)",
-     "who": "claude"
-    },
-    {
-     "text": "3 regressions fix (P4PEVID1)",
-     "who": "claude"
-    },
-    {
-     "text": "2D pictures full set",
-     "who": "claude"
-    },
-    {
-     "text": "Anim reds (Fable)",
-     "who": "claude"
-    },
-    {
-     "text": "Card fix r6b + GrappleMap",
-     "who": "claude"
-    },
-    {
-     "text": "Card plan: your sign-off (Q-312)",
-     "who": "claude"
-    },
-    {
-     "text": "Your play: card game r7",
-     "who": "claude"
-    },
-    {
-     "text": "Turning pro v17: design with you",
-     "who": "claude"
-    },
-    {
-     "text": "Body cross take (Fable tab)",
-     "who": "claude"
-    },
-    {
-     "text": "Coaches v6: no evening trade",
-     "who": "claude"
-    },
-    {
-     "text": "Turning pro v17: map + probe",
-     "who": "claude"
-    },
-    {
-     "text": "Coach interview with you",
-     "who": "claude"
-    },
-    {
-     "text": "Turning pro v18: brief + probe",
-     "who": "claude"
-    },
-    {
-     "text": "Turning pro v18: map + probe (tab)",
-     "who": "claude"
-    },
-    {
-     "text": "Depth prices: 3 critics",
-     "who": "claude"
-    },
-    {
-     "text": "Fight-week load: re-probe (tab)",
-     "who": "claude"
-    },
-    {
-     "text": "Card r9: real positions (Arena)",
-     "who": "claude"
-    },
-    {
-     "text": "Card model: 2 fresh critics",
-     "who": "claude"
-    },
-    {
      "text": "Your play: S544 second export",
      "who": "operator"
-    },
-    {
-     "text": "Collect 3 workers, his 3 answers",
-     "who": "claude"
-    },
-    {
-     "text": "Plan impact probe (Q-328)",
-     "who": "claude"
-    },
-    {
-     "text": "Scouting bots probe",
-     "who": "claude"
-    },
-    {
-     "text": "John: boxing facts (SQ325)",
-     "who": "claude"
     },
     {
      "text": "Your play: balanced Ring Switches",
      "who": "operator"
     },
     {
-     "text": "Step pictures carry man (STEPFIX1)",
-     "who": "claude"
-    },
-    {
-     "text": "Kick fixes C/D: measuring",
-     "who": "claude"
-    },
-    {
-     "text": "Kick version E (Arena)",
-     "who": "agent"
-    },
-    {
-     "text": "Head + pull counter (Arena)",
-     "who": "agent"
-    },
-    {
-     "text": "Attributes probe (Arena)",
-     "who": "agent"
-    },
-    {
-     "text": "Pick the moment: measure (Arena)",
-     "who": "agent"
-    },
-    {
-     "text": "Clinch fix v2: measure (Arena)",
-     "who": "agent"
-    },
-    {
-     "text": "Head+kicks every range (worker)",
-     "who": "claude"
-    },
-    {
-     "text": "Jab lands too often (Arena)",
-     "who": "agent"
-    },
-    {
-     "text": "Inside distance + see-through",
-     "who": "claude"
-    },
-    {
-     "text": "Playtest: show his intentions?",
-     "who": "claude"
-    },
-    {
-     "text": "Kick v3: limp capped (Arena)",
-     "who": "claude"
-    },
-    {
-     "text": "Sharp choice probe (Arena)",
-     "who": "claude"
-    },
-    {
-     "text": "Tells v2: Ziva + Arena replay",
+     "text": "Renders: Inside + glide (worker)",
      "who": "claude"
     }
    ],
@@ -7020,15 +6830,23 @@
     {
      "text": "Collect 10 Arena measures",
      "who": "claude"
+    },
+    {
+     "text": "Tells v3 measured, then page",
+     "who": "claude"
+    },
+    {
+     "text": "Answer: pick your moment",
+     "who": "claude"
     }
    ],
-   "session": "S563"
+   "session": "S564"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
- "last_working_commit": "63118b6a0",
- "next_action": "S564: FIRST collect ALLPLAY2B (Ziva in its chat, Arena arena/f0a3ce55), Antigravity's ALLPLAY2 (ask it the owner's question as a follow-up), TELLS2M arena/ed0b7f42, KDHEAL1 arena/836987cb, KICKFIX3 arena/c178d87d, PROGP2 arena/15b7ab01, HEADPULL1, MOMENTGAP1, CLINCHFIX2, JABLAND1. Tells: if the replay and the bot measure agree, a page brief (tell from hisNext, three guard poses a man) and his yes on the board. MOMENTGAP1 answers his 'select exactly on which part of a beat i move'. KDHEAL1 is reported to him, not put on the page. With his game closed: GLIDE2 + INSIDE1 renders, the knockdown picture inside the ring, an overhand picture, BOUNCE1.",
+ "last_working_commit": "a2b4fbaf6",
+ "next_action": "S565: FIRST collect (Arena, lite branches; copy onto main by hand): TELLS3M arena/181a4c7c (tells v3 v bots, bars v the control), KDHEAL1 arena/836987cb (REPORT to him with John's numbers: a dropped man who fights on wins 34%, dropped twice 7%; not on the page), MOMENTGAP1 arena/4bdf9ebc (his question: a free wait is picked 7 of 10 beats, 5 of 9 bars at n=12 - answer him with the final), CLINCHFIX3 arena/67e7800b, AIEMPTY1 arena/f889f281, JABLAND1 arena/ba10e2bf, KICKFIX3 arena/c178d87d, PROGP2 arena/15b7ab01 (his Q-340), HEADPULL1 arena/397eb67a. The render worker (terminal tab renders564: INSIDE1 then GLIDE2) - when it pushes, launch BOUNCE1 then KDPIC1 as console workers (one render at a time). If TELLS3M passes: ask him on the board (tells on the page as a pose), then TELLS2PAGE. Kalli + Dola: Long is a corridor (SQ339, SQ340).",
  "next_acceptance": "Rulers vs r0: head jumps on the contact frame under 4, a head inside the other's body under 5 frames, arm out median under 4 frames with join_return green, then r1 film at two fresh blind critics 5+/10",
  "superseded_archive": [
   {

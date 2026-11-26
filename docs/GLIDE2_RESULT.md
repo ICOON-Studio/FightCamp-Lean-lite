@@ -1,6 +1,6 @@
 # GLIDE2 result (S562) - head moves and kicks at every range
 
-Status: **BLOCKED on renders**. The tools and the page side are done and committed; the pictures are not made yet.
+Status: S564 rendered and measured (see the end); two leftovers named there. Was: **BLOCKED on renders**. The tools and the page side are done and committed; the pictures are not made yet.
 The render chain (`ops/previews/s562_glide2/render.sh`, one windowed render at a time) waited while ArcheAge was open,
 then Claude Code stopped it because the PC was critically low on memory. Nothing was rendered. It is not restarted
 without the owner's or the main session's go.
@@ -63,3 +63,80 @@ JUMPS 11
 ## Regression (with the ring_ui change)
 page_play_test 4 passed on head.html, kick.html, order.html; head_test 11 passed; kick_test 12 passed; page_parse ok
 (head, kick, order, switch); both tools pass a headless --check-only parse.
+
+
+## S564 - rendered (ArcheAge closed, watchdog GREEN, one windowed render at a time)
+`ops/previews/s562_glide2/render.sh`: head Long 4 runs, head Mid 16 runs, gate_failed 0. Kick Long / Mid: 11 runs each,
+refused 1 (below). anim_web: 42 runs kept. Strips: ops/previews/s562_glide2/strips (head), ops/previews/s564_kick/strips
+(kick) - all opened.
+
+### The edge table, first pass: head moves green, kicks red
+Measured with `proto/twohands/tools/edge_table.py` (S564, new: the old S562 recorder was a scratch file and is gone). Where
+each man STANDS = the middle of his shorts (the step_travel_check band), red / blue, 480-px web units, with the page's slide
+(a red run slid by how far blue stands in). The S562 table above used the outer edges, which a lean or a kicking leg moves.
+Head moves, all 20 runs at Long and Mid: within 3 px in and out (the defender's feet stay; the head moves).
+Kicks: the kicker 15-25 px off his hold at the first and last picture (43 jumps). Seen on overlays: the kick take stands
+his hips away from his root, and the glide put the ROOT on the range's spot.
+
+### The fix (tools/pics2d_kick.gd) and the second render
+`_kglide` now also puts the kicker's HIPS where the guard puts them (the guard's Hips-to-root offset, read once at the
+start of a range= run), eased out by the same weight as the glide (0 at the kick). Re-rendered: ops/previews/s564_kick/
+render.sh (headless parse first, then Long and Mid), 22 runs.
+
+| run | hold before | first | last | hold after | jump in | jump out |
+|---|---|---|---|---|---|---|
+| blue_cross_leaned_r2 | 162 / 314 | 163 / 314 | 165 / 316 | 162 / 314 | +1 / -0 | -2 / -2 |
+| blue_cross_slipped_r2 | 162 / 314 | 162 / 315 | 164 / 314 | 162 / 314 | -0 / +1 | -1 / +0 |
+| blue_jab_leaned_r2 | 162 / 314 | 163 / 312 | 165 / 314 | 162 / 314 | +0 / -2 | -2 / +0 |
+| blue_jab_leaned | 162 / 368 | 163 / 366 | 165 / 368 | 162 / 368 | +0 / -3 | -2 / +0 |
+| blue_jab_slipped_r2 | 162 / 314 | 163 / 312 | 162 / 314 | 162 / 314 | +0 / -2 | +0 / -0 |
+| blue_jab_slipped | 162 / 368 | 163 / 366 | 162 / 367 | 162 / 368 | +0 / -2 | +0 / +1 |
+| blue_lead_hook_leaned_r2 | 162 / 314 | 163 / 312 | 165 / 313 | 162 / 314 | +0 / -2 | -2 / +1 |
+| blue_lead_hook_rolled_r2 | 162 / 314 | 163 / 312 | 165 / 313 | 162 / 314 | +0 / -2 | -2 / +1 |
+| blue_low_kick_blocked_r2 | 162 / 314 | 166 / 314 | 162 / 304 | 162 / 314 | +4 / -0 | **JUMP** +1 / +10 |
+| blue_low_kick_blocked | 162 / 368 | 167 / 368 | 162 / 358 | 162 / 368 | +4 / -0 | **JUMP** +1 / +10 |
+| blue_low_kick_landed_r2 | 162 / 314 | 164 / 312 | 163 / 304 | 162 / 314 | +1 / -2 | **JUMP** -0 / +10 |
+| blue_low_kick_landed | 162 / 368 | 164 / 366 | 163 / 358 | 162 / 368 | +1 / -2 | **JUMP** -0 / +10 |
+| blue_low_kick_missed_r2 | 162 / 314 | 163 / 312 | 154 / 304 | 162 / 314 | +0 / -2 | **JUMP** +8 / +10 |
+| blue_low_kick_missed | 162 / 368 | 163 / 366 | 154 / 358 | 162 / 368 | +1 / -2 | **JUMP** +8 / +10 |
+| blue_overhand_leaned_r2 | 162 / 314 | 163 / 314 | 165 / 316 | 162 / 314 | +0 / -0 | -2 / -2 |
+| blue_overhand_rolled_r2 | 162 / 314 | 162 / 314 | 165 / 316 | 162 / 314 | -0 / -1 | -2 / -1 |
+| blue_teep_blocked_r2 | 162 / 314 | 162 / 311 | 162 / 313 | 162 / 314 | -0 / -3 | +1 / +1 |
+| blue_teep_blocked | 162 / 368 | 162 / 365 | 161 / 367 | 162 / 368 | +0 / -3 | +1 / +1 |
+| blue_teep_landed_r2 | 162 / 314 | 162 / 310 | 110 / 313 | 108 / 314 | -0 / -4 | -2 / +1 |
+| blue_teep_landed | 162 / 368 | 162 / 364 | 157 / 367 | 162 / 368 | -0 / -4 | +5 / +1 |
+| blue_teep_missed_r2 | 162 / 314 | 163 / 310 | 159 / 313 | 162 / 314 | +1 / -4 | +3 / +1 |
+| blue_teep_missed | 162 / 368 | 164 / 364 | 159 / 367 | 162 / 368 | +1 / -4 | +3 / +1 |
+| red_cross_leaned_r2 | 162 / 314 | 162 / 313 | 162 / 311 | 162 / 314 | -0 / -1 | +0 / +3 |
+| red_cross_slipped_r2 | 162 / 314 | 162 / 313 | 162 / 313 | 162 / 314 | -1 / -1 | +0 / +1 |
+| red_jab_leaned_r2 | 162 / 314 | 164 / 313 | 161 / 311 | 162 / 314 | +1 / -1 | +1 / +3 |
+| red_jab_leaned | 162 / 368 | 165 / 368 | 161 / 365 | 162 / 368 | +2 / -1 | +2 / +3 |
+| red_jab_slipped_r2 | 162 / 314 | 164 / 313 | 161 / 313 | 162 / 314 | +2 / -1 | +2 / +1 |
+| red_jab_slipped | 162 / 368 | 164 / 368 | 161 / 368 | 162 / 368 | +2 / -0 | +1 / +1 |
+| red_lead_hook_leaned_r2 | 162 / 314 | 163 / 313 | 161 / 311 | 162 / 314 | +1 / -1 | +1 / +3 |
+| red_lead_hook_rolled_r2 | 162 / 314 | 163 / 313 | 162 / 312 | 162 / 314 | +1 / -1 | +0 / +3 |
+| red_low_kick_blocked_r2 | 162 / 314 | 161 / 309 | 170 / 313 | 162 / 314 | -1 / -5 | -8 / +1 |
+| red_low_kick_blocked | 162 / 368 | 161 / 364 | 170 / 367 | 162 / 368 | -1 / -5 | -8 / +1 |
+| red_low_kick_landed_r2 | 162 / 314 | 162 / 313 | 171 / 314 | 162 / 314 | -1 / -1 | **JUMP** -8 / -0 |
+| red_low_kick_landed | 162 / 368 | 162 / 367 | 171 / 369 | 162 / 368 | -0 / -1 | **JUMP** -9 / -0 |
+| red_overhand_leaned_r2 | 162 / 314 | 164 / 313 | 160 / 311 | 162 / 314 | +2 / -1 | +3 / +3 |
+| red_overhand_rolled_r2 | 162 / 314 | 163 / 313 | 159 / 312 | 162 / 314 | +1 / -1 | +4 / +3 |
+| red_teep_blocked_r2 | 162 / 314 | 165 / 316 | 163 / 313 | 162 / 314 | +2 / +2 | -0 / +1 |
+| red_teep_blocked | 162 / 368 | 166 / 370 | 163 / 368 | 162 / 368 | +4 / +2 | -0 / +1 |
+| red_teep_landed_r2 | 162 / 314 | 165 / 314 | 163 / 364 | 162 / 368 | +3 / -0 | -0 / +4 |
+| red_teep_landed | 162 / 368 | 166 / 368 | 163 / 371 | 162 / 368 | +4 / -0 | -0 / -3 |
+| red_teep_missed_r2 | 162 / 314 | 165 / 314 | 163 / 315 | 162 / 314 | +3 / -1 | -0 / -1 |
+| red_teep_missed | 162 / 368 | 166 / 368 | 163 / 369 | 162 / 368 | +4 / -0 | -1 / -1 |
+JUMPS 8
+
+### Left (named, not hidden)
+- **The low kicks' last picture, 8-10 px** (8 rows above): the take ends in its own recovery stance (the kicking foot
+  planted forward, feet switched), so the body sits ~10 px ahead of the guard; the hips are on the spot. A position fix
+  cannot fix a stance - the take needs a recovery-to-guard tail (or the run ends earlier). Not done here.
+- **red_low_kick_missed (Long and Mid) refused**: STILL_FRAMING FAIL at -0.15 s, blue's LeftToes at x 780 of 768 - the
+  ground he gives on the miss takes his back foot out of the fixed ring camera. The page still plays the OLD run of that
+  name (no range in its row): +167 px. Fix in `_kfind` / the miss's given ground (smaller at Long), then re-render it.
+- Inside head moves (cross_slipped, lead_hook_rolled, overhand_rolled _r1): left to INSIDE1 (Inside is now 0.55 m).
+
+Regression: page_play_test 4 passed on order, punch, head, kick; page_parse ok; rules_test 37; head_test 11; kick_test 12
+(the ring_ui change is INSIDE1's Inside metres; no page change in this step).
