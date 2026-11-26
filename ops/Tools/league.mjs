@@ -9,7 +9,7 @@ import path from 'node:path';
 import { spawn } from 'node:child_process';
 
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1')), '..', '..'), DIR = 'E:/FightCamp/tmp/versus';
-const SEATS = { kalli: 'grok', john: 'grok', maria: 'grok', antigravity: 'agy', dola: 'dola', claude: 'worker' }, NAMES = Object.keys(SEATS), Cap = (s) => s[0].toUpperCase() + s.slice(1);
+const SEATS = { kalli: 'grok', john: 'grok', maria: 'grok', dola: 'dola', claude: 'worker', ziva: 'worker' }   /* S567, owner: "count allmatches of antigravity as not done and finish the league" - Antigravity (its tool opened tabs in his browser) is not a seat: its one played bout is not counted */, NAMES = Object.keys(SEATS), Cap = (s) => s[0].toUpperCase() + s.slice(1);
 const PAIRS = []; for (let i = 0; i < NAMES.length; i++) for (let j = i + 1; j < NAMES.length; j++) PAIRS.push([NAMES[i], NAMES[j]]);
 const dirOf = ([a, b]) => [`${a}_v_${b}`, `${b}_v_${a}`].map((d) => path.join(DIR, d)).find((d) => fs.existsSync(path.join(d, 'bout.json'))) || path.join(DIR, `${a}_v_${b}`);
 const bout = (p) => { try { return JSON.parse(fs.readFileSync(path.join(dirOf(p), 'bout.json'), 'utf8')); } catch { return null; } };
@@ -22,7 +22,7 @@ function table() { const T = Object.fromEntries(NAMES.map((n) => [n, { p: 0, w: 
     for (const k of [0, 1]) { const t = T[ids[k]]; if (!t) continue; t.p++; t.kd += B.F[1 - k].kd || 0; if (!win) { t.d++; t.pts += 1; } else if (win === ids[k]) { t.w++; t.pts += 3; } else t.l++; }
     rows.push(`| ${B.names[0]} v ${B.names[1]} | ${B.over} |`); }
   const order = NAMES.slice().sort((a, b) => T[b].pts - T[a].pts || T[b].w - T[a].w || T[b].kd - T[a].kd);
-  const md = `# The agents' league at Puncher's chance (S567)\n\nOwner S567: "make it a league with the agents and you play also on opus". Every seat fights every other once, one bout of\nthree rounds, each beat sealed before the other is seen (ops/Tools/league.mjs). Win 3, draw 1. Claude plays as Opus 5.5 (a console worker).\n\n| # | seat | played | won | drawn | lost | knockdowns scored | points |\n|---|---|---|---|---|---|---|---|\n${order.map((n, i) => `| ${i + 1} | ${Cap(n)} | ${T[n].p} | ${T[n].w} | ${T[n].d} | ${T[n].l} | ${T[n].kd} | ${T[n].pts} |`).join('\n')}\n\n## Matches\n| match | result |\n|---|---|\n${rows.join('\n')}\n`;
+  const md = `# The agents' league at Puncher's chance (S567)\n\nOwner S567: "make it a league with the agents and you play also on opus". Every seat fights every other once, one bout of\nthree rounds, each beat sealed before the other is seen (ops/Tools/league.mjs). Win 3, draw 1. Claude plays as Opus 5.5 (a console worker); Ziva plays from its own chat in the Godot editor (owner S567: "use ziva too").\n\n| # | seat | played | won | drawn | lost | knockdowns scored | points |\n|---|---|---|---|---|---|---|---|\n${order.map((n, i) => `| ${i + 1} | ${Cap(n)} | ${T[n].p} | ${T[n].w} | ${T[n].d} | ${T[n].l} | ${T[n].kd} | ${T[n].pts} |`).join('\n')}\n\n## Matches\n| match | result |\n|---|---|\n${rows.join('\n')}\n`;
   fs.mkdirSync(path.join(ROOT, 'ops/research/versus'), { recursive: true }); fs.writeFileSync(path.join(ROOT, 'ops/research/versus/LEAGUE.md'), md); return md; }
 
 const [cmd, who] = process.argv.slice(2);

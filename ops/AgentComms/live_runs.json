@@ -432,5 +432,17 @@
   "brief": "ops/research/TASK_SHORTBEAT1.md",
   "branch": "arena/2a3d0ae3-fightcamp-lean-lite",
   "issue": "https://arena.ai/agent/01a21a0e-d3ad-7a41-9a55-2a722a3d0ae3"
+ },
+ "FEINTFIX2": {
+  "id": "FEINTFIX2",
+  "status": "running",
+  "seat": "arena",
+  "agent": "Arena (cloud: costs your PC nothing)",
+  "started": "2026-11-27T01:31",
+  "eta": "4-6 h",
+  "title": "Your 'write the feint fix brief and measure it': three answers to the feint that opens the overhand, with the loop, the league's winning play and the Hearns film as bars",
+  "brief": "ops/research/TASK_FEINTFIX2.md",
+  "branch": "arena/95892a39-fightcamp-lean-lite",
+  "issue": "https://arena.ai/agent/01a21a26-5a3a-7109-b2cd-316e95892a39"
  }
 }
