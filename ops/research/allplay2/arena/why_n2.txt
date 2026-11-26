@@ -1,0 +1,219 @@
+BOUT N2 - The Slugger, seed 32, NO TELLS
+WHY: Long, no tell. The Slugger 'walks in', so he will most likely step in m1. Feint m1, cross m2 as he arrives can't be covered, and my lead is back up for his cross.  || lead=feint rear=cross feet=hold order=lead,rear
+--- round 1, beat 1, at Long
+YOU: 1 Feint, 2 Cross
+HE:  1 Body jab, 2 Step in, 3 Cross
+  moment 1 YOU: feints - the next punch cannot be covered
+  moment 1 HE: Body jab - lands (your lead hand was out, throwing its Feint): -1 health, 1 point
+  moment 2 : Long to Mid - he steps in
+  moment 2 YOU: Cross - lands (the feint drew his hand): -3 health, 2 points
+  moment 3 HE: Cross - blocked: your lead hand was back up (its Feint was moment 1)
+ROUND 1 of 3, beat 2 of 6, range Mid. Points this round: you 2 - him 1. Cards so far: none
+YOU: health 17/18, stamina 6/8, guard 6/6, ground given 0/2
+HIM (The Slugger): health 18/21, stamina 5/8, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Body jab, 2 Step in, 3 Cross
+THIS ROUND (1 beat): his lead hand held high 0, held low 0, thrown 1; his rear hand held high 0, held low 0, thrown 1
+WHY: Mid: the Slugger throws overhands and hooks here. Fast hook m1 beats an overhand or cross that's loading in m1. Rear high blocks his hook and overhand; after the hook my lead is back up for his cross.  || lead=hook rear=high feet=hold order=lead
+--- round 1, beat 2, at Mid
+YOU: 1 Lead hook - rear hand high
+HE:  1 Step in, 2 Body cross, 3 Body hook
+  moment 1 : Mid to Inside - he steps in
+  moment 1 YOU: Lead hook - blocked: his rear hand was still up (its Body cross comes in moment 2)
+  moment 2 HE: Body cross - lands as a counter (your lead hand was held high): -3 health, 1 point, stamina bar 7 for the rest of the bout
+  moment 3 HE: Body hook - lands as a counter (your lead hand was held high): -3 health, 1 point, stamina bar 6 for the rest of the bout
+ROUND 1 of 3, beat 3 of 6, range Inside. Points this round: you 2 - him 3. Cards so far: none
+YOU: health 11/18, stamina 6/6, guard 6/6, ground given 0/2
+HIM (The Slugger): health 18/21, stamina 1/8, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Step in, 2 Body cross, 3 Body hook  |  1 Body jab, 2 Step in, 3 Cross
+THIS ROUND (2 beats): his lead hand held high 0, held low 0, thrown 2; his rear hand held high 0, held low 0, thrown 2
+WHY: Inside, he has 1 stamina, so a clinch or a back off. Push beats the clinch, then an overhand at Mid for 2 points. Without a tell, which line is open is a guess.  || lead=push rear=over feet=hold order=lead,rear
+--- round 1, beat 3, at Inside
+YOU: 1 Push off, 2 Overhand
+HE:  clinch
+  HE: tries to clinch - shoved off
+  moment 1 YOU: pushes off - a shove with the lead glove on his chest: he is back at Mid
+  moment 2 YOU: Overhand - blocked by his rear hand, held high
+ROUND 1 of 3, beat 4 of 6, range Mid. Points this round: you 2 - him 3. Cards so far: none
+YOU: health 11/18, stamina 3/6, guard 6/6, ground given 0/2
+HIM (The Slugger): health 18/21, stamina 1/8, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: clinch  |  1 Step in, 2 Body cross, 3 Body hook  |  1 Body jab, 2 Step in, 3 Cross
+THIS ROUND (3 beats): his lead hand held high 0, held low 0, thrown 2; his rear hand held high 0, held low 0, thrown 2
+WHY: Mid, he still has 1 stamina, and after the failed clinch his hands were up (rear high), so the body is open. Body cross; lead low against his only affordable punch, a body jab.  || lead=low rear=rbody feet=hold order=rear
+--- round 1, beat 4, at Mid
+YOU: 1 Body cross - lead hand low
+HE:  1 Step in - lead hand low, rear hand low
+  moment 1 : Mid to Inside - he steps in
+  moment 1 YOU: Body cross - blocked by his lead hand, held low
+ROUND 1 of 3, beat 5 of 6, range Inside. Points this round: you 2 - him 3. Cards so far: none
+YOU: health 11/18, stamina 3/6, guard 6/6, ground given 0/2
+HIM (The Slugger): health 18/21, stamina 3/8, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Step in - lead hand low, rear hand low  |  clinch  |  1 Step in, 2 Body cross, 3 Body hook
+THIS ROUND (4 beats): his lead hand held high 0, held low 1, thrown 2; his rear hand held high 0, held low 1, thrown 2
+WHY: Inside, he uppercuts here and has 3 stamina. Rear low blocks the uppercut. His rear was held low last beat, so a fast hook m1 at the side.  || lead=hook rear=low feet=hold order=lead
+--- round 1, beat 5, at Inside
+YOU: 1 Lead hook - rear hand low
+HE:  clinch
+  HE: ties you up - no punch lands - the referee breaks them at Mid, +2 stamina
+ROUND 1 of 3, beat 6 of 6, range Mid. Points this round: you 2 - him 3. Cards so far: none
+YOU: health 11/18, stamina 3/6, guard 6/6, ground given 0/2
+HIM (The Slugger): health 18/21, stamina 5/8, guard 6/6, ground given 0/2, no clinch yet
+HIS LAST BEATS, newest first: clinch  |  1 Step in - lead hand low, rear hand low  |  clinch
+THIS ROUND (5 beats): his lead hand held high 0, held low 1, thrown 2; his rear hand held high 0, held low 1, thrown 2
+WHY: Last beat of R1, 2-3 down, 3 stamina: I need a 2-point punch I don't have to guess the line for. Feint m1, uncoverable cross m2 (the cross reaches Inside and Mid, and the Slugger doesn't back off).  || lead=feint rear=cross feet=hold order=lead,rear
+--- round 1, beat 6, at Mid
+YOU: 1 Feint, 2 Cross
+HE:  1 Step in, 2 Lead hook, 3 Body cross
+  moment 1 : Mid to Inside - he steps in
+  moment 1 YOU: feints - the next punch cannot be covered
+  moment 2 HE: Lead hook - lands (your rear hand was out, throwing its Cross): -3 health, 2 points
+  moment 2 YOU: Cross - beaten to the punch: his Lead hook is faster, landed first and stopped it
+  moment 3 HE: Body cross - lands (your lead hand was held high): -2 health, 1 point, stamina bar 5 for the rest of the bout
+BELL. The judges give the round 9-10.
+ROUND 2 of 3, beat 1 of 6, range Long. Points this round: you 0 - him 0. Cards so far: 9-10
+YOU: health 6/18, stamina 5/5, guard 6/6, ground given 0/2
+HIM (The Slugger): health 18/21, stamina 8/8, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Step in, 2 Lead hook, 3 Body cross  |  clinch  |  1 Step in - lead hand low, rear hand low
+THIS ROUND (0 beats): his lead hand held high 0, held low 0, thrown 0; his rear hand held high 0, held low 0, thrown 0
+WHY: R2 at Long, 6 health against 18, my bar cut to 5. His template is step in, lead punch, body cross (it has hit me three times), so lead low for the body cross and rear high for the lead hook, and rest.  || lead=low rear=high feet=hold order=feet
+--- round 2, beat 1, at Long
+YOU: no action - lead hand low, rear hand high
+HE:  1 Back off, 2 Body cross - lead hand low
+  moment 1 : stays Long - he backs off - already at Long, nowhere further
+  moment 2 HE: Body cross - falls short at Long
+ROUND 2 of 3, beat 2 of 6, range Long. Points this round: you 0 - him 0. Cards so far: 9-10
+YOU: health 6/18, stamina 5/5, guard 6/6, ground given 0/2
+HIM (The Slugger): health 18/21, stamina 7/8, guard 6/6, ground given 1/2
+HIS LAST BEATS, newest first: 1 Back off, 2 Body cross - lead hand low  |  1 Step in, 2 Lead hook, 3 Body cross  |  clinch
+THIS ROUND (1 beat): his lead hand held high 0, held low 1, thrown 0; his rear hand held high 0, held low 0, thrown 1
+WHY: Long, he backed off (so a tie is mine) and held his lead low, which leaves the straight open: a jab m1 for a point, rear high.  || lead=jab rear=high feet=hold order=lead
+--- round 2, beat 2, at Long
+YOU: 1 Jab - rear hand high
+HE:  1 Step in, 2 Lead hook - rear hand high
+  moment 1 : Long to Mid - he steps in
+  moment 1 YOU: Jab - blocked: his lead hand was still up (its Lead hook comes in moment 2)
+  moment 2 HE: Lead hook - blocked by your rear hand, held high
+ROUND 2 of 3, beat 3 of 6, range Mid. Points this round: you 0 - him 0. Cards so far: 9-10
+YOU: health 6/18, stamina 5/5, guard 6/6, ground given 0/2
+HIM (The Slugger): health 18/21, stamina 6/8, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Step in, 2 Lead hook - rear hand high  |  1 Back off, 2 Body cross - lead hand low  |  1 Step in, 2 Lead hook, 3 Body cross
+THIS ROUND (2 beats): his lead hand held high 0, held low 1, thrown 1; his rear hand held high 1, held low 0, thrown 1
+WHY: Mid. What I've learned: a hand that punches later is held HIGH until then, so against a two-handed puncher the BODY is open all beat. Body cross m1 into it; lead low against his body cross.  || lead=low rear=rbody feet=hold order=rear
+--- round 2, beat 3, at Mid
+YOU: 1 Body cross - lead hand low
+HE:  1 Step in - lead hand low, rear hand low
+  moment 1 : Mid to Inside - he steps in
+  moment 1 YOU: Body cross - blocked by his lead hand, held low
+ROUND 2 of 3, beat 4 of 6, range Inside. Points this round: you 0 - him 0. Cards so far: 9-10
+YOU: health 6/18, stamina 5/5, guard 6/6, ground given 0/2
+HIM (The Slugger): health 18/21, stamina 8/8, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Step in - lead hand low, rear hand low  |  1 Step in, 2 Lead hook - rear hand high  |  1 Back off, 2 Body cross - lead hand low
+THIS ROUND (3 beats): his lead hand held high 0, held low 2, thrown 1; his rear hand held high 1, held low 1, thrown 1
+WHY: Inside, he has a full 8 stamina for an uppercut volley, and it's 0-0 with a tie mine (he backed off in b1). Clinch: nothing lands, back to Mid. Rational, and dull.  || clinch
+--- round 2, beat 4, at Inside
+YOU: clinch
+HE:  1 Push off, 2 Step in, 3 Rear uppercut
+  YOU: tries to clinch - shoved off
+  moment 1 HE: pushes off - a shove with the lead glove on your chest: you are back at Mid
+  moment 2 : Mid to Inside - he steps in
+  moment 3 HE: Rear uppercut - lands (your rear hand was held high): -4 health, 2 points
+ROUND 2 of 3, beat 5 of 6, range Inside. Points this round: you 0 - him 2. Cards so far: 9-10
+YOU: health 2/18, stamina 5/5, guard 6/6, ground given 0/2
+HIM (The Slugger): health 18/21, stamina 4/8, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Push off, 2 Step in, 3 Rear uppercut  |  1 Step in - lead hand low, rear hand low  |  1 Step in, 2 Lead hook - rear hand high
+THIS ROUND (4 beats): his lead hand held high 0, held low 2, thrown 2; his rear hand held high 1, held low 1, thrown 2
+WHY: Inside, 2 health, 0-2 down. Back off m1 to Mid, where his uppercuts can't reach. Then a pull-counter cross m2 down the straight line his usually-low lead leaves open (+1 damage). Lead low for his body cross, and my rear stays high outside m2.  || lead=low rear=cross feet=back order=feet,rear
+--- round 2, beat 5, at Inside
+YOU: 1 Back off, 2 Cross - lead hand low
+HE:  1 Cross - lead hand high
+  moment 1 : Inside to Mid - you back off
+  moment 1 HE: Cross - lands (your lead hand was held low): -3 health, 2 points
+  YOU GO DOWN and get up on 6 health.
+ROUND 2 of 3, beat 6 of 6, range Mid. Points this round: you 0 - him 7. Cards so far: 9-10
+YOU: health 6/18 (down 1x), stamina 4/5, guard 6/6, ground given 1/2
+HIM (The Slugger): health 18/21, stamina 4/8, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Cross - lead hand high  |  1 Push off, 2 Step in, 3 Rear uppercut  |  1 Step in - lead hand low, rear hand low
+THIS ROUND (5 beats): his lead hand held high 1, held low 2, thrown 2; his rear hand held high 1, held low 1, thrown 3
+WHY: R2 is lost 0-7 (a 10-8), and on the cards the bout is gone unless I score three knockdowns on his 18 health. This is where I stopped caring. Block his body cross and hook and refill for R3.  || lead=low rear=high feet=hold order=feet
+--- round 2, beat 6, at Mid
+YOU: no action - lead hand low, rear hand high
+HE:  1 Jab, 2 Overhand
+  moment 1 HE: Jab - lands (your lead hand was held low): -1 health, 1 point
+  moment 2 HE: Overhand - blocked by your rear hand, held high
+BELL. The judges give the round 8-10.
+ROUND 3 of 3, beat 1 of 6, range Long. Points this round: you 0 - him 0. Cards so far: 9-10, 8-10
+YOU: health 5/18 (down 1x), stamina 5/5, guard 6/6, ground given 0/2
+HIM (The Slugger): health 18/21, stamina 8/8, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Jab, 2 Overhand  |  1 Cross - lead hand high  |  1 Push off, 2 Step in, 3 Rear uppercut
+THIS ROUND (0 beats): his lead hand held high 0, held low 0, thrown 0; his rear hand held high 0, held low 0, thrown 0
+WHY: R3 at Long. The bout is lost on cards, so I play to win the round. He walked into feint-cross in R1b1, so the same again (it isn't in my last 3 plans).  || lead=feint rear=cross feet=hold order=lead,rear
+--- round 3, beat 1, at Long
+YOU: 1 Feint, 2 Cross
+HE:  1 Back off, 2 Body cross - lead hand low
+  moment 1 : stays Long - he backs off - already at Long, nowhere further
+  moment 1 YOU: feints - the next punch cannot be covered
+  moment 2 YOU: Cross - falls short at Long
+  moment 2 HE: Body cross - falls short at Long
+ROUND 3 of 3, beat 2 of 6, range Long. Points this round: you 0 - him 0. Cards so far: 9-10, 8-10
+YOU: health 5/18 (down 1x), stamina 3/5, guard 6/6, ground given 0/2
+HIM (The Slugger): health 18/21, stamina 7/8, guard 6/6, ground given 1/2
+HIS LAST BEATS, newest first: 1 Back off, 2 Body cross - lead hand low  |  1 Jab, 2 Overhand  |  1 Cross - lead hand high
+THIS ROUND (1 beat): his lead hand held high 0, held low 1, thrown 0; his rear hand held high 0, held low 0, thrown 1
+WHY: Long, same picture as R2b2: he backed off holding his lead low, then stepped in and hooked. Jab m1 down the open straight, and rear high for that hook.  || lead=jab rear=high feet=hold order=lead
+--- round 3, beat 2, at Long
+YOU: 1 Jab - rear hand high
+HE:  1 Body jab, 2 Step in - rear hand high
+  moment 1 YOU: Jab - lands (his lead hand was out, throwing its Body jab): -1 health, 1 point
+  moment 1 HE: Body jab - lands (your lead hand was out, throwing its Jab): -1 health, 1 point
+  moment 2 : Long to Mid - he steps in
+ROUND 3 of 3, beat 3 of 6, range Mid. Points this round: you 1 - him 1. Cards so far: 9-10, 8-10
+YOU: health 4/18 (down 1x), stamina 4/5, guard 6/6, ground given 0/2
+HIM (The Slugger): health 17/21, stamina 7/8, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Body jab, 2 Step in - rear hand high  |  1 Back off, 2 Body cross - lead hand low  |  1 Jab, 2 Overhand
+THIS ROUND (2 beats): his lead hand held high 0, held low 1, thrown 1; his rear hand held high 1, held low 0, thrown 1
+WHY: Mid, 1-1. His Mid combos are step in, lead hook or body hook, body cross. In m1 his lead is still up, so a body cross m1 into it; after that my rear is back high for his hook, and my lead stays low for his body cross.  || lead=low rear=rbody feet=hold order=rear
+--- round 3, beat 3, at Mid
+YOU: 1 Body cross - lead hand low
+HE:  1 Step in, 2 Feint, 3 Overhand
+  moment 1 : Mid to Inside - he steps in
+  moment 1 YOU: Body cross - lands (his lead hand was held high): -2 health, 1 point, stamina bar 7 for the rest of the bout
+  moment 2 HE: feints - the next punch cannot be covered
+  moment 3 HE: Overhand - lands (the feint drew his hand): -4 health, 2 points
+  YOU GO DOWN and get up on 4 health.
+ROUND 3 of 3, beat 4 of 6, range Inside. Points this round: you 2 - him 6. Cards so far: 9-10, 8-10
+YOU: health 4/18 (down 2x - ONE MORE ENDS IT), stamina 4/5, guard 6/6, ground given 0/2
+HIM (The Slugger): health 15/21, stamina 3/7, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Step in, 2 Feint, 3 Overhand  |  1 Body jab, 2 Step in - rear hand high  |  1 Back off, 2 Body cross - lead hand low
+THIS ROUND (3 beats): his lead hand held high 0, held low 1, thrown 2; his rear hand held high 1, held low 0, thrown 2
+WHY: Down twice, so one more ends it; Inside, he has 3 stamina. The clinch's worst case is his push plus a 2-stamina punch at Mid, 3 damage, which leaves me standing on 1. Low/low loses to an overhand. Clinch.  || clinch
+--- round 3, beat 4, at Inside
+YOU: clinch
+HE:  1 Step in, 2 Lead uppercut - rear hand high
+  YOU: ties him up - no punch lands - the referee breaks them at Mid, +2 stamina
+ROUND 3 of 3, beat 5 of 6, range Mid. Points this round: you 2 - him 6. Cards so far: 9-10, 8-10
+YOU: health 4/18 (down 2x - ONE MORE ENDS IT), stamina 5/5, guard 6/6, ground given 0/2, no clinch yet
+HIM (The Slugger): health 15/21, stamina 2/7, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Step in, 2 Lead uppercut - rear hand high  |  1 Step in, 2 Feint, 3 Overhand  |  1 Body jab, 2 Step in - rear hand high
+THIS ROUND (4 beats): his lead hand held high 0, held low 1, thrown 3; his rear hand held high 2, held low 0, thrown 2
+WHY: Mid, 2-6, he has 2 stamina, so nothing of his does 4 and I can't be knocked out this beat. Feint m1, uncoverable overhand m2 for 2 points and 4 damage.  || lead=feint rear=over feet=hold order=lead,rear
+--- round 3, beat 5, at Mid
+YOU: 1 Feint, 2 Overhand
+HE:  1 Push off, 2 Back off - rear hand low
+  moment 1 HE: pushes off - a shove at nothing: it only works chest to chest, and you were not Inside
+  moment 1 YOU: feints - the next punch cannot be covered
+  moment 2 : Mid to Long - he backs off
+  moment 2 YOU: Overhand - falls short at Long
+ROUND 3 of 3, beat 6 of 6, range Long. Points this round: you 2 - him 6. Cards so far: 9-10, 8-10
+YOU: health 4/18 (down 2x - ONE MORE ENDS IT), stamina 2/5, guard 6/6, ground given 0/2
+HIM (The Slugger): health 15/21, stamina 2/7, guard 6/6, ground given 1/2
+HIS LAST BEATS, newest first: 1 Push off, 2 Back off - rear hand low  |  1 Step in, 2 Lead uppercut - rear hand high  |  1 Step in, 2 Feint, 3 Overhand
+THIS ROUND (5 beats): his lead hand held high 0, held low 1, thrown 4; his rear hand held high 2, held low 1, thrown 2
+WHY: Last beat, Long, round lost. With his 2 stamina nothing he has does 4 from Long, so I'm safe. Jab m1 for a point, rear high.  || lead=jab rear=high feet=hold order=lead
+--- round 3, beat 6, at Long
+YOU: 1 Jab - rear hand high
+HE:  1 Body jab, 2 Step in - rear hand low
+  moment 1 YOU: Jab - lands (his lead hand was out, throwing its Body jab): -1 health, 1 point
+  moment 1 HE: Body jab - lands (your lead hand was out, throwing its Jab): -1 health, 1 point
+  moment 2 : Long to Mid - he steps in
+BELL. The judges give the round 9-10.
+HE WINS on the cards 26-30
+RESULT: LOSS 26-30 (9-10, 8-10, 9-10). Two knockdowns against me (R2b5 cross, R3b3 feint-overhand). Lines guessed wrong at R1b3, R1b4 and R2b3; stopped caring at R2b6 when the cards made the bout unwinnable.
