@@ -7,6 +7,6 @@ step in from Long: tried a bout you 2.9 v he 2.7 (pooled 5.6); got in (end the b
 lead hand at Long (man-beats 1312): jab 13%, body jab 34%, feint 4%, held high 7%, held low 36%, other 5%; you: jab 13%, body jab 35%, feint 5%, high 6%, low 36%; he: jab 14%, body jab 32%, feint 4%, high 8%, low 37%
 outfighter's rounds: 10 of 230 completed rounds (4%, 0.12 a bout; you 6, he 4)
 first step in of a round: mean 0.77 beats before it (median 1), over 252 rounds with a step in; 0 rounds with none; distribution beats-before: 0:124 1:77 2:36 3:14 4:1 5:0
-stamina on arrival at Mid (after the step beat, before recovery): you 2.92 over 207 arrivals, he 2.84 over 195; lead held high share of ALL man-beats 9%; jab in 7% of all man-beats, body jab 18%, step in 32%
+stamina on arrival at Mid (steps from Long ending the beat at Mid, before recovery): you 3.11 over 122 arrivals, he 3.04 over 110; lead held high share of ALL man-beats 9%; jab in 7% of all man-beats, body jab 18%, step in 32%
 bout: wins 44%, stops 26% (ko 7, lost 15), draws 7%, knockdowns a bout 2.5
-  (84 bouts, 653 s)
+  (84 bouts, 651 s)
