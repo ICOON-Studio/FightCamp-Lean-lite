@@ -91,6 +91,13 @@ gym game already does (decided: 1.0 a focused week, headroom clamp).
 | defence | guard | 5 to 7 (today 6) |
 The other ten keep their gym jobs (training, injuries, mastery ceiling) and may join the board one at a time, each only
 after a probe (e.g. fight IQ = how many of his last beats you see; flexibility = the head kick's needs).
+MEASURED (S563, P3 = docs/PROGP3_RESULT.md, Arena, n=84 a pair; owner Q-342 "Right amount" on the four): the proposed
+ranges decide too much - health 20 v 16 alone 73% (bar 55-62), best v worst 79% (bar 70). Kept ranges: durability ->
+health 17 to 19; stamina -> the stamina bar 7 to 9 (worth the most per step: 9 v 8 = 61%); recovery -> 1 for everyone for
+now (the +1 every second beat alone is 64%: too much for one level); best v worst with these = 65%, inside. DEFENCE ->
+GUARD DECIDES NOTHING (7 v 5 = 53%, bout for bout the same as 7 v 6): the guard almost never breaks, so its size never
+matters. Defence needs another job before it joins the board (the map's "Guard bar: cut or rebuild"); until then three
+attributes feed the fight board, not four.
 Football Manager shows 36 attributes, our reference boxing managers 6-7 (K66): we show 14 in the gym, 4 in the fight.
 
 ### 3e. Styles are the identity (L4)
