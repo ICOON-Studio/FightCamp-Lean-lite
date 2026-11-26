@@ -1,0 +1,10 @@
+$ node proto/twohands/tools/probe_sharp.mjs rebuild=lbody:damage out=/home/user/FightCamp-Lean-lite/.cache/progp4/lbody_damage.vt.json jobs=2
+SHARP_TABLE beats left 1: at Long, full stamina v 4: 0.102; having given ground twice v none: -0.547; Mid 0.627; Inside 0.476
+SHARP_TABLE beats left 2: at Long, full stamina v 4: 1.055; having given ground twice v none: -0.742; Mid 1.512; Inside 1.238
+SHARP_TABLE beats left 3: at Long, full stamina v 4: 1.248; having given ground twice v none: -0.417; Mid 1.678; Inside 1.388
+SHARP_TABLE beats left 4: at Long, full stamina v 4: 1.321; having given ground twice v none: -0.401; Mid 1.715; Inside 1.447
+SHARP_TABLE beats left 5: at Long, full stamina v 4: 1.347; having given ground twice v none: -0.411; Mid 1.728; Inside 1.47
+SHARP_TABLE beats left 6: at Long, full stamina v 4: 1.345; having given ground twice v none: -0.41; Mid 1.725; Inside 1.477
+SHARP_TABLE wrote /home/user/FightCamp-Lean-lite/.cache/progp4/lbody_damage.vt.json
+
+Both men carry lbody:damage in this table. iters=400; six layers; builder symmetry unchanged.
