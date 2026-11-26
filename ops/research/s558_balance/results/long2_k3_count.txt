@@ -1,0 +1,16 @@
+# node proto/twohands/tools/probe_long2.mjs who=mix opp=mirror n=84 tweak=ops/research/s558_balance/long2_k3.json table=/home/user/long2_vt/k3.vt.json seed=1 jobs=2 json=/home/user/long2_vt/k3_c1.json
+LONG2_COUNT who=mix opp=mirror n=84 seed=1 jobs=2 tweak=ops/research/s558_balance/long2_k3.json table=/home/user/long2_vt/k3.vt.json
+SAME BOUTS CHECK (compare with balance.mjs play): 84 bouts, wins 52%, draws 5%, stoppages 20%, knockdowns a bout 2.4, beats 1483, Inside / Mid / Long 30% / 37% / 33% (range at the END of a beat, as balance counts it)
+USE (a man a beat): Jab 8%, Body jab 17%, Cross 26%, Body cross 23%, step in 32%, lead held high 8%
+LONG BEATS (the beat STARTS at Long): 7.93 a bout = 45% of beats; no punch thrown by either man 2%; nothing at all (no punch, feint, push or step) 1%
+CROSS FROM LONG: thrown 2.50 a bout = 16% of a man's Long beats; landed 11% (on a man stepping in that moment 11%, 0.82 health 0.55 points a bout); blocked 4% (of them on a man stepping in 100%); fell short (he did not come) 85%; other 0%
+BODY CROSS FROM LONG: thrown 2.10 a bout = 13% of a man's Long beats; landed 16% (on a man stepping in that moment 16%, 0.88 health 0.35 points a bout); blocked 10% (of them on a man stepping in 100%); fell short (he did not come) 73%; other 0%
+REAR HAND AT LONG (cross + body cross): thrown in 29% of a man's Long beats, landing 13%  [bar 5-15%, 30-65%]
+OFF THE SHORT CROSS: 3.65 a bout; he counters in 7% of them: 0.27 counters a bout, 0.85 health, 0.31 points
+JAB FROM LONG: thrown 2.37 a bout = 15% of a man's Long beats; landed 74%; on a man stepping in 11% (0.25 a bout, 0.50 points); blocked 26%
+BODY JAB FROM LONG: thrown 4.98 a bout = 31% of a man's Long beats; landed 63%; on a man stepping in 10% (0.48 a bout, 0.95 points); blocked 37%
+STEP IN FROM LONG: 5.38 a bout (both at once 20%); lead held high 11%, low 39%, throwing 50%; got in unhit 54% (behind a high lead 50%, low 54%, throwing 54%); hit in the step's moment 26%, later in the beat 21%; hit by Body jab 28%, Cross 27%, Body cross 23%, Jab 11%, Lead hook 4%, Overhand 3%, Lead uppercut 1%, Body hook 1%, Rear uppercut 1%  [bar 60%+ unhit]
+FROM LONG A BOUT: 6.55 points, 8.76 health; by punch (points / health): Jab 2.00 / 2.14, Body jab 3.60 / 4.76, Body hook 0.04 / 0.11, Cross 0.55 / 0.82, Overhand 0.02 / 0.05, Body cross 0.35 / 0.88
+ROUNDS: 234 scored, level on points 12%; won on points by the man whose points from Long beat his opponent's whole round: 18 = 9% of decided rounds
+LAZY PLAN: a second cross from Long in a row (same man, two Long beats running) in 3% of Long beats, landing 0% / blocked 6% / short 94%; any rear cross (head or body) 7%, landing 15%, short 72%  [bar under 40% landing]
+  (84 bouts, 422 s)
