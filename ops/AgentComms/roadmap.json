@@ -6352,6 +6352,10 @@
     {
      "text": "Head + pull counter (Arena)",
      "who": "agent"
+    },
+    {
+     "text": "Attributes probe (Arena)",
+     "who": "agent"
     }
    ],
    "next": [

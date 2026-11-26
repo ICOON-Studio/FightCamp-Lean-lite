@@ -28,7 +28,7 @@
    "seat": "arena",
    "agent": "Arena (cloud, its own clone of the code mirror: costs your PC nothing)",
    "started": "2026-11-26T10:00",
-   "eta": "first numbers in about 30 min, the whole loop 2 to 3 h",
+   "eta": "slow: Arena has 2 cores - first trial numbers in about 1 h, the loop 4 to 5 h",
    "title": "The kick version that holds 8 of 9 bars: kicks back at Long, the low kick as the answer to a man stepping in",
    "brief": "ops/research/TASK_KICKFIX2.md",
    "branch": "arena/bb25d26e-fightcamp-lean-lite",
@@ -45,6 +45,18 @@
    "brief": "ops/research/TASK_HEADPULL1.md",
    "branch": "arena/397eb67a-fightcamp-lean-lite",
    "issue": "https://arena.ai/agent/01a216df-1820-7c22-9f03-e8ff397eb67a"
+  },
+  "PROGP3": {
+   "id": "PROGP3",
+   "status": "running",
+   "seat": "arena",
+   "agent": "Arena (cloud, a third chat: costs your PC nothing; its clone has 2 cores, so runs are slow)",
+   "started": "2026-11-26T10:12",
+   "eta": "3 to 4 h",
+   "title": "Attributes on the fight board: how much health, stamina, recovery and guard each decide a bout (probe before the design goes further)",
+   "brief": "ops/research/TASK_PROGP3.md",
+   "branch": "arena/49993fd3-fightcamp-lean-lite",
+   "issue": "https://arena.ai/agent/01a216e4-80eb-7fea-88a3-0ed549993fd3"
   }
  },
  "codex_budget": {
