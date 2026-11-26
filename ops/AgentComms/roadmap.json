@@ -5381,7 +5381,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-26 12:42 board_sync",
+  "updated": "2026-11-26 13:41 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5560,31 +5560,10 @@
     "state": "LANDED - Claude collects"
    },
    {
-    "title": "The kick version that holds 8 of 9 bars: kicks back at Long, the low kick as the answer to a man stepping in",
-    "who": "Arena (cloud, its own clone of the code mirror: costs your PC nothing)",
-    "started": "2026-11-26T10:00",
-    "run": "KICKFIX2",
-    "state": "LANDED - Claude collects"
-   },
-   {
     "title": "Head movement with the pull counter: does it hold 9 of 9 on a bigger sample (two runs of 84 bouts)",
     "who": "Arena (cloud, a second chat: costs your PC nothing)",
     "started": "2026-11-26T10:05",
     "run": "HEADPULL1"
-   },
-   {
-    "title": "Attributes on the fight board: how much health, stamina, recovery and guard each decide a bout (probe before the design goes further)",
-    "who": "Arena (cloud, a third chat: costs your PC nothing; its clone has 2 cores, so runs are slow)",
-    "started": "2026-11-26T10:12",
-    "run": "PROGP3",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "Puncher's chance: version C with the knockdowns back under the bar (three versions, two seeds each)",
-    "who": "Arena (cloud, a fourth chat: costs your PC nothing)",
-    "started": "2026-11-26T11:20",
-    "run": "PUNCHCHANCE2",
-    "state": "LANDED - Claude collects"
    },
    {
     "title": "Body view on the main page: point at a limb to pick its switches; his limbs show what they can do; the head its own part",
@@ -5629,6 +5608,49 @@
     "who": "console worker (Opus, Code Mode), terminal tab INSIDE1",
     "started": "2026-11-26T15:30",
     "run": "INSIDE1"
+   },
+   {
+    "title": "Playtest: Ring Switches as it is, with and without the opponent's tells - and your question: show his intentions?",
+    "who": "console worker (Opus, Code Mode), terminal tab ALLPLAY2 claude",
+    "started": "2026-11-26T13:05",
+    "run": "ALLPLAY2_CLAUDE",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "Playtest by message: 2 bouts without tells, 2 with - and your question on showing his intentions",
+    "who": "Antigravity (by message, about 75 s a beat)",
+    "started": "2026-11-26T13:05",
+    "run": "ALLPLAY2_AGY"
+   },
+   {
+    "title": "Playtest by message: 2 bouts with tells first, then 2 without - and your question on showing his intentions",
+    "who": "Dola (her desktop app, by message)",
+    "started": "2026-11-26T13:05",
+    "run": "ALLPLAY2_DOLA"
+   },
+   {
+    "title": "Playtest in the cloud: 3 bouts with tells, 3 without - and your question on showing his intentions",
+    "who": "Arena (cloud: costs your PC nothing)",
+    "started": "2026-11-26T13:05",
+    "run": "ALLPLAY2_ARENA"
+   },
+   {
+    "title": "Playtest: Ziva plays 3 bouts with tells first, then 3 without - and your question on showing his intentions",
+    "who": "Ziva (its Godot editor on the hidden desktop)",
+    "started": "2026-11-26T13:35",
+    "run": "ALLPLAY2_ZIVA"
+   },
+   {
+    "title": "Kicks: the two versions never measured, with the limp spiral capped where it fires",
+    "who": "Arena (cloud: costs your PC nothing)",
+    "started": "2026-11-26T13:05",
+    "run": "KICKFIX3"
+   },
+   {
+    "title": "Your \"Yes, a choice\": at Sharp, is \"cheaper\" or \"faster\" a real choice for each punch? Measured first",
+    "who": "Arena (cloud: costs your PC nothing)",
+    "started": "2026-11-26T13:05",
+    "run": "PROGP2"
    }
   ],
   "next": [
@@ -6100,6 +6122,21 @@
   },
   "done_recently": [
    {
+    "title": "Puncher's chance: version C with the knockdowns back under the bar (three versions, two seeds each)",
+    "who": "Arena (cloud, a fourth chat: costs your PC nothing)",
+    "when": "2026-11-26"
+   },
+   {
+    "title": "Attributes on the fight board: how much health, stamina, recovery and guard each decide a bout (probe before the design goes further)",
+    "who": "Arena (cloud, a third chat: costs your PC nothing; its clone has 2 cores, so runs are slow)",
+    "when": "2026-11-26"
+   },
+   {
+    "title": "The kick version that holds 8 of 9 bars: kicks back at Long, the low kick as the answer to a man stepping in",
+    "who": "Arena (cloud, its own clone of the code mirror: costs your PC nothing)",
+    "when": "2026-11-26"
+   },
+   {
     "id": "NIGHTREDS1",
     "who": "claude",
     "title": "05:00 tests all green: 506 passed, 0 failed (2026-11-26; matchmaking_bots passes, block_meet is out of the list since S548)",
@@ -6144,36 +6181,6 @@
     "id": "PLAYFIX1",
     "who": "claude",
     "title": "After the playtests, on the page: a round won by 5 points or more is 10-8, a man on the floor throws nothing more that beat, the words say the rules players lost to (8 of 9 bars on both sets)"
-   },
-   {
-    "id": "ZIVARULES1",
-    "who": "claude",
-    "title": "Ziva's rule ideas and the ground rule on the balance tool: measured, none better than the page, none taken"
-   },
-   {
-    "id": "LOWCOVER1",
-    "who": "claude",
-    "title": "A blocked body punch meets the lead hand held low: played on the page, picture tests green, before and after sent to you (your look is still open)"
-   },
-   {
-    "id": "ZIVAFIX1",
-    "who": "claude",
-    "title": "Ring Switches after Ziva's playtest: his last three beats on his card before you choose, points and the stamina bar said in words, 'one more ends it', a switch you cannot pay for switched off in words; and a defect fixed - a bout on points no longer ends 'A DRAW 0-0'"
-   },
-   {
-    "id": "KALLITABLE1",
-    "who": "claude",
-    "title": "Kalli's cover table for the southpaw measured in three versions: 4, 4 and 6 of 9 bars - not built"
-   },
-   {
-    "id": "ZIVAPLAY1",
-    "who": "ziva",
-    "title": "Ziva played Ring Switches nine bouts in words (2 wins, 7 losses) and judged it: fun 6, depth 7, clarity 6, variety 6 - 'a real game with one genuinely original idea, and the idea works' (the order); seven changes to reach 10 and its drawing of the fight screen"
-   },
-   {
-    "id": "S556",
-    "who": "claude",
-    "title": "Ring Switches: the body jab with its own take and pictures is on the page; an even round goes to the man who backed off less; health 18 (8 of 9 bars); the southpaw measured in five versions with John's real numbers - none passes, Kalli asked for the cover table"
    }
   ],
   "scope_note": "S294: lean restart (E:\\FightCamp\\Lean\\docs\\RESTART_PLAN.md). Old roadmap items are parked until the weekly builds reach them.",
@@ -6321,6 +6328,14 @@
    "done_session": [
     {
      "text": "Attributes probe: 3 of 4 count",
+     "who": "claude"
+    },
+    {
+     "text": "Story column readable (all pages)",
+     "who": "claude"
+    },
+    {
+     "text": "4 of 4: show one body tell",
      "who": "claude"
     }
    ],
@@ -6503,6 +6518,10 @@
     },
     {
      "text": "Sharp choice probe (Arena)",
+     "who": "claude"
+    },
+    {
+     "text": "Tells v2: Ziva + Arena replay",
      "who": "claude"
     }
    ],
@@ -6953,6 +6972,14 @@
     },
     {
      "text": "Never still: bounce (BOUNCE1)",
+     "who": "claude"
+    },
+    {
+     "text": "Knockdown picture inside the ring",
+     "who": "claude"
+    },
+    {
+     "text": "Overhand: its own picture",
      "who": "claude"
     }
    ],

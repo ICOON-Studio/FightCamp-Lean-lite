@@ -24,19 +24,6 @@
    "brief": "ops/research/TASK_HEADPICS1.md",
    "note": "S561: 2bfbce469 - 22 runs on head.html, all pass the picture bars; docs/HEADPICS1_RESULT.md"
   },
-  "KICKFIX2": {
-   "id": "KICKFIX2",
-   "status": "landed",
-   "seat": "arena",
-   "agent": "Arena (cloud, its own clone of the code mirror: costs your PC nothing)",
-   "started": "2026-11-26T10:00",
-   "eta": "slow: Arena has 2 cores - first trial numbers in about 1 h, the loop 4 to 5 h",
-   "title": "The kick version that holds 8 of 9 bars: kicks back at Long, the low kick as the answer to a man stepping in",
-   "brief": "ops/research/TASK_KICKFIX2.md",
-   "branch": "arena/bb25d26e-fightcamp-lean-lite",
-   "issue": "https://arena.ai/agent/01a216db-21b6-714e-a68f-ba6abb25d26e",
-   "reconciled": "2026-11-26 12:42 board_reconcile: PR #454 open - collect it"
-  },
   "HEADPULL1": {
    "id": "HEADPULL1",
    "status": "running",
@@ -48,32 +35,6 @@
    "brief": "ops/research/TASK_HEADPULL1.md",
    "branch": "arena/397eb67a-fightcamp-lean-lite",
    "issue": "https://arena.ai/agent/01a216df-1820-7c22-9f03-e8ff397eb67a"
-  },
-  "PROGP3": {
-   "id": "PROGP3",
-   "status": "landed",
-   "seat": "arena",
-   "agent": "Arena (cloud, a third chat: costs your PC nothing; its clone has 2 cores, so runs are slow)",
-   "started": "2026-11-26T10:12",
-   "eta": "3 to 4 h",
-   "title": "Attributes on the fight board: how much health, stamina, recovery and guard each decide a bout (probe before the design goes further)",
-   "brief": "ops/research/TASK_PROGP3.md",
-   "branch": "arena/49993fd3-fightcamp-lean-lite",
-   "issue": "https://arena.ai/agent/01a216e4-80eb-7fea-88a3-0ed549993fd3",
-   "reconciled": "2026-11-26 12:42 board_reconcile: PR #455 open - collect it"
-  },
-  "PUNCHCHANCE2": {
-   "id": "PUNCHCHANCE2",
-   "status": "landed",
-   "seat": "arena",
-   "agent": "Arena (cloud, a fourth chat: costs your PC nothing)",
-   "started": "2026-11-26T11:20",
-   "eta": "1.5 to 2 h",
-   "title": "Puncher's chance: version C with the knockdowns back under the bar (three versions, two seeds each)",
-   "brief": "ops/research/TASK_PUNCHCHANCE2.md",
-   "branch": "arena/403bd20a-fightcamp-lean-lite",
-   "issue": "https://arena.ai/agent/01a21702-0f08-75c6-8761-a804403bd20a",
-   "note": "S562: 91b9438aa - F holds 8 of 9 both seeds, comeback 15%; make_punch.py default F (7d8347a42); punch.html rebuild after BODYUI2"
   },
   "BODYUI2": {
    "id": "BODYUI2",
@@ -159,7 +120,7 @@
    "eta": "1-2 h",
    "brief": "ops/research/TASK_ALLPLAY2.md",
    "title": "Playtest: Ring Switches as it is, with and without the opponent's tells - and your question: show his intentions?",
-   "status": "running",
+   "status": "landed",
    "id": "ALLPLAY2_CLAUDE",
    "started": "2026-11-26T13:05"
   },
@@ -179,7 +140,7 @@
    "eta": "2-3 h",
    "brief": "ops/research/TASK_ALLPLAY2.md",
    "title": "Playtest by message: 2 bouts with tells first, then 2 without - and your question on showing his intentions",
-   "status": "running",
+   "status": "landed",
    "id": "ALLPLAY2_DOLA",
    "started": "2026-11-26T13:05"
   },
@@ -191,19 +152,19 @@
    "branch": "arena/cc67b4a2-fightcamp-lean-lite",
    "issue": "https://arena.ai/agent/01a2177b-0162-7360-9c27-8875cc67b4a2",
    "title": "Playtest in the cloud: 3 bouts with tells, 3 without - and your question on showing his intentions",
-   "status": "running",
+   "status": "landed",
    "id": "ALLPLAY2_ARENA",
    "started": "2026-11-26T13:05"
   },
   "ALLPLAY2_ZIVA": {
    "seat": "ziva",
-   "status": "queued",
+   "status": "landed",
    "agent": "Ziva (its Godot editor on the hidden desktop)",
-   "eta": "starts when PC memory allows",
+   "eta": "1-2 h",
    "brief": "ops/research/TASK_ALLPLAY2.md",
-   "title": "Playtest: Ziva plays with and without tells (waits: PC memory 97% with your game open)",
+   "title": "Playtest: Ziva plays 3 bouts with tells first, then 3 without - and your question on showing his intentions",
    "id": "ALLPLAY2_ZIVA",
-   "started": "2026-11-26T13:05"
+   "started": "2026-11-26T13:35"
   },
   "KICKFIX3": {
    "seat": "arena",
@@ -228,6 +189,28 @@
    "status": "running",
    "id": "PROGP2",
    "started": "2026-11-26T13:05"
+  },
+  "ALLPLAY2B_ZIVA": {
+   "id": "ALLPLAY2B_ZIVA",
+   "status": "running",
+   "seat": "ziva",
+   "agent": "Ziva (its Godot editor on the hidden desktop, same chat as round 1)",
+   "started": "2026-11-26T14:00",
+   "eta": "30-60 min",
+   "brief": "ops/research/TASK_ALLPLAY2B.md",
+   "title": "Tells version 2: does each man now lie in a way you can learn? Three bouts, compared with round 1"
+  },
+  "ALLPLAY2B_ARENA": {
+   "id": "ALLPLAY2B_ARENA",
+   "status": "running",
+   "seat": "arena",
+   "agent": "Arena (cloud: costs your PC nothing)",
+   "started": "2026-11-26T14:00",
+   "eta": "1-2 h",
+   "brief": "ops/research/TASK_ALLPLAY2B.md",
+   "branch": "arena/f0a3ce55-fightcamp-lean-lite",
+   "issue": "https://arena.ai/agent/01a217b6-228a-7014-b2b0-4d9af0a3ce55",
+   "title": "Tells version 2: does each man now lie in a way you can learn? Three bouts, compared with round 1"
   }
  },
  "codex_budget": {
