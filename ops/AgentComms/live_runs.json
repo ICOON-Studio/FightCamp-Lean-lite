@@ -2,37 +2,27 @@
  "_doc": "Claude writes one entry per agent run at launch (operator S144: 'make it more clear, who is working on what, ETA'). The ops board /agents page joins it to the live processes. eta = Claude's estimate at launch, local time; status running|waiting|done.",
  "seats": 3,
  "runs": {
-  "MOMENTGAP1": {
-   "id": "MOMENTGAP1",
-   "status": "running",
-   "seat": "arena",
-   "agent": "Arena (cloud, a fifth chat: costs your PC nothing)",
-   "started": "2026-11-26T13:20",
-   "eta": "2-3 h",
-   "title": "Pick the exact moment of the beat you act in (a wait between): measured before it is built",
-   "brief": "ops/research/TASK_MOMENTGAP1.md",
-   "branch": "arena/4bdf9ebc-fightcamp-lean-lite",
-   "issue": "https://arena.ai/agent/01a21740-07d4-753e-855e-06a24bdf9ebc"
-  },
   "GLIDE2": {
    "id": "GLIDE2",
-   "status": "running",
+   "status": "done",
    "seat": "claude",
    "agent": "console worker (Opus, Code Mode), terminal tab renders564 (S564: both resumed in one tab, game closed)",
    "started": "2026-11-26T14:40",
    "eta": "2-3 h",
    "title": "Head moves and kicks at every range: the men keep their distance on head.html and kick.html",
-   "brief": "ops/research/RESUME_S564_RENDERS.md"
+   "brief": "ops/research/RESUME_S564_RENDERS.md",
+   "result": "docs/GLIDE2_RESULT.md - head moves and kicks at Long and Mid: 43 jumps -> 8; left: the low kicks' last picture, two refused misses"
   },
   "INSIDE1": {
    "id": "INSIDE1",
-   "status": "running",
+   "status": "done",
    "seat": "claude",
    "agent": "console worker (Opus, Code Mode), terminal tab renders564 (S564: both resumed in one tab, game closed)",
    "started": "2026-11-26T14:40",
    "eta": "4-5 h (renders only with your game closed)",
    "title": "Inside is too close (your 'the distance looks wrong'): a real inside distance, then the parts where the men overlap see-through",
-   "brief": "ops/research/RESUME_S564_RENDERS.md"
+   "brief": "ops/research/RESUME_S564_RENDERS.md",
+   "result": "docs/INSIDE1_RESULT.md - Inside is 0.55 m (was 0.71), everything at Inside re-made, 0 jumps; the see-through overlap (Phase 2) not started"
   },
   "KICKFIX3": {
    "seat": "arena",
@@ -54,22 +44,10 @@
    "branch": "arena/15b7ab01-fightcamp-lean-lite",
    "issue": "https://arena.ai/agent/01a21784-993c-72a7-b4f6-0d2915b7ab01",
    "title": "Your \"Yes, a choice\": at Sharp, is \"cheaper\" or \"faster\" a real choice for each punch? Measured first",
-   "status": "running",
-   "id": "PROGP2",
-   "started": "2026-11-26T13:05"
-  },
-  "KDHEAL1": {
-   "id": "KDHEAL1",
    "status": "done",
-   "seat": "arena",
-   "agent": "Arena (cloud: costs your PC nothing)",
-   "started": "2026-11-26T14:05",
-   "eta": "1-2 h",
-   "brief": "ops/research/TASK_KDHEAL1.md",
-   "branch": "arena/836987cb-fightcamp-lean-lite",
-   "issue": "https://arena.ai/agent/01a217b7-a998-7675-a4a4-c5f4836987cb",
-   "title": "A knockdown heals (down at 1 health, up on 6): three lower get-up numbers measured - nothing changes without your yes",
-   "result": "docs/KDHEAL1_RESULT.md - keep [6, 4]: every lower get-up breaks the stoppage bar (45%, 44%, 75%) and the comeback (14%, 4%)"
+   "id": "PROGP2",
+   "started": "2026-11-26T13:05",
+   "result": "docs/PROGP2_RESULT.md - cheaper / faster is a real choice only for the Overhand (57 / 55) and nearly the lead uppercut; each other punch needs its own pair"
   },
   "TELLS3M": {
    "id": "TELLS3M",
@@ -85,7 +63,7 @@
   },
   "CLINCHFIX3": {
    "id": "CLINCHFIX3",
-   "status": "running",
+   "status": "done",
    "seat": "arena",
    "agent": "Arena (cloud: costs your PC nothing)",
    "started": "2026-11-26T15:40",
@@ -93,7 +71,8 @@
    "brief": "ops/research/TASK_CLINCHFIX3.md",
    "branch": "arena/67e7800b-fightcamp-lean-lite",
    "issue": "https://arena.ai/agent/01a217fa-9cd2-7e00-a7c2-77d667e7800b",
-   "title": "The clinch loop: he notices a player who clinches every beat (his habit read sees clinches) - measured"
+   "title": "The clinch loop: he notices a player who clinches every beat (his habit read sees clinches) - measured",
+   "result": "docs/CLINCHFIX3_RESULT.md - none: the read fires 4-7 times a bout, the loop still wins 37-58%"
   },
   "AIEMPTY1": {
    "id": "AIEMPTY1",
@@ -142,6 +121,16 @@
    "brief": "ops/research/TASK_LONG2.md",
    "branch": "arena/193e5c2c-fightcamp-lean-lite",
    "issue": "https://arena.ai/agent/01a2182d-6dcb-7f59-b27b-6a54193e5c2c"
+  },
+  "BOUNCE1": {
+   "id": "BOUNCE1",
+   "status": "running",
+   "seat": "claude",
+   "agent": "console worker (Opus, Code Mode), terminal tab bounce565",
+   "started": "2026-11-26T17:02",
+   "eta": "2-3 h",
+   "title": "Never still: a light bounce on the feet while you plan, at every range",
+   "brief": "ops/research/TASK_BOUNCE1.md"
   }
  },
  "codex_budget": {

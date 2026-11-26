@@ -9426,6 +9426,24 @@
       "answered_at": "2026-11-26T08:37:42Z",
       "seen_by_claude": true,
       "comment_only": false
+    },
+    {
+      "id": "Q-S294-344",
+      "asked": "2026-11-26T14:40:32.752149+00:00",
+      "session": "S294",
+      "text": "Your step a moment later holds the bars on both seeds. Put that switch on the main page?",
+      "options": [
+        "Yes, main page",
+        "Keep its own page",
+        "Drop it"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-344_0_wait_late_step_plan.png"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
     }
   ]
 }

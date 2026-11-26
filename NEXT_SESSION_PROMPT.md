@@ -59,12 +59,12 @@ None (the session ran from the start line). Asked in chat, unanswered: close the
   JUDGE BOTH TOGETHER: bars 8+ of 9 on both seeds and never under the control; the jab's use up (real anchor: the jab is
   40-44% of punches thrown by pros, G99_COMPUBOX_AVERAGES; on the page the two jabs are ~27%, the head jab 8%); Long at
   most 45% of beats; the man walking in still gets in. One version goes to him as a toy page (make_<x>.py, as wait.html).
-- MOMENTGAP1 arena/4bdf9ebc - seed 1 is in the digest: A (a free wait anywhere) 7 of 9, a wait in 67% of beats; B (only
-  the step may come a moment later) 8 of 9, a wait in 8% of beats. B SEED 2 PENDING. Then ANSWER HIM (his S562 question):
-  B holds -> "yes for your step, no for your hands", and the page to play is already built: wait.html ("Pick your moment"
-  on the ops board). wait.html's opponent uses the main page's look-ahead table: if B is chosen, build its own table
-  (`balance.mjs table tweak=ops/research/s558_balance/moment_gap_b.json out=proto/twohands/vtable_wait.json jobs=2`,
-  ~50 min, then make_wait.py loads it) before calling the page balanced.
+- MOMENTGAP1 COLLECTED (docs/MOMENTGAP1_RESULT.md): B (only the step a moment later) 8 of 9 on both seeds, a wait in 8%
+  of beats; A (a free wait anywhere) 7 of 9, in 67%. ASKED HIM Q-344: main page / its own page / drop. wait.html is the
+  page to play, on its OWN look-ahead table since S565 (`proto/twohands/vtable_wait.json`, 875 s to build at jobs=2;
+  make_wait.py prints which table the page uses).
+  On "Yes, main page": moment_gap_b.json's three rule edits + make_wait.py's page patches go into order.html, vtable.json
+  is rebuilt, both copies rebuilt, `balance.mjs play n=84` on two seeds.
 - TELLS3M arena/181a4c7c - passes -> ask him on the board (one line + the words-tool transcript): the tell on the page as
   a pose of his body? -> TASK_TELLS2PAGE.
 - CLINCHFIX3 arena/67e7800b, AIEMPTY1 arena/f889f281, JABLAND2 arena/18b46867 (its winner also goes on head.html),
@@ -75,10 +75,10 @@ None (the session ran from the start line). Asked in chat, unanswered: close the
 - Page server: `python proto/cardgame/serve.py 8797 twohands` (check it after any session archive).
 
 ## FIRST (in this order)
-1. Collect what has ended (arena_watch prints it). MOMENTGAP1 -> answer him. TELLS3M -> the board question.
-2. KDHEAL1 IS COLLECTED: keep today's get-up [6, 4] (lower: stoppages 45%, comeback 14% then 4%). REPORT it to him with
-   the KDFIRST count (S565_DIGEST: how often the first man dropped wins on the page, beside John's 34.4% / 7%). If he
-   wants the "walk into a punch at 1 health" exploit gone: measure "up on no more than he had, no stamina refill".
+1. Collect what has ended (arena_watch prints it). TELLS3M -> the board question. His answer to Q-344.
+2. KDHEAL1 + KDFIRST ARE REPORTED TO HIM (S565 chat): keep the get-up [6, 4]; on the page the man dropped first wins 13%
+   (real 34.4%), dropped twice 9% (real 7%). If he wants the "walk into a punch at 1 health" exploit gone: measure "up
+   on no more than he had, no stamina refill" - never a lower floor.
 3. CLINCHFIX3 / AIEMPTY1 / JABLAND2: a version that holds the bars goes on the page (tweak -> page, balance re-run, both
    make scripts, the page tests).
 4. LONG1 + LONG2 -> one Long rule as a toy page for him.

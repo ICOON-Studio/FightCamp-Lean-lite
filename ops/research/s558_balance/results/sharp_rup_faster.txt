@@ -1,0 +1,12 @@
+PROBE_SHARP a=rup:faster b=(today) n=84 seed-manifest: jobs split by seed*100+i (page order.html through rules.mjs with the per-man punch-table patch; the page file is not edited)
+A [today's punches, Rear uppercut faster (slow -> medium)]  v  B [today's punches (the page's table)]: A wins 52% of decided (42 of 81), draws 4% of all; stoppages: A stops B 11%, B stops A 15%; knockdowns a bout (suffered): A 1.2 / B 1.2; health dealt a bout: A 21.2 / B 21.2; beats at Inside / Mid / Long 30% / 37% / 34%; clinches a bout 1.3
+  A a beat: back off 36%, lead held low 34%, step in 32%, feet hold 27%, Cross 24%, Body cross 23%, rear held high 21%, Body jab 19%, rear held low 15%, lead held high 9%, Rear uppercut 8%, Lead hook 8%, Jab 7%, Feint 7%, clinch 6%, Body hook 5%, Overhand 4%, Lead uppercut 3%, Push off 2% | punches in a plan: none 11%, one 65%, two 18%
+  A punches (thrown a bout: lands / blocked / misses): Cross 3.7: 44% / 21% / 35%, Body cross 3.7: 45% / 25% / 30%, Body jab 3.2: 68% / 30% / 2%, Lead hook 1.3: 38% / 56% / 6%, Jab 1.3: 57% / 39% / 4%, Rear uppercut 1.2: 49% / 18% / 33%, Body hook 0.8: 54% / 33% / 13%, Overhand 0.7: 68% / 13% / 18%, Lead uppercut 0.5: 60% / 13% / 28%
+  B a beat: back off 36%, lead held low 34%, step in 33%, feet hold 27%, Cross 24%, rear held high 23%, Body cross 22%, rear held low 16%, Body jab 16%, Lead hook 9%, lead held high 9%, Jab 8%, Feint 7%, Rear uppercut 5%, Lead uppercut 5%, Overhand 4%, clinch 4%, Body hook 4%, Push off 4% | punches in a plan: none 13%, one 66%, two 17%
+  B punches (thrown a bout: lands / blocked / misses): Cross 3.9: 40% / 25% / 35%, Body cross 3.6: 48% / 25% / 27%, Body jab 2.8: 67% / 30% / 3%, Jab 1.5: 63% / 36% / 1%, Lead hook 1.4: 47% / 37% / 16%, Rear uppercut 0.8: 49% / 18% / 34%, Lead uppercut 0.8: 69% / 6% / 25%, Body hook 0.7: 47% / 44% / 9%, Overhand 0.7: 70% / 9% / 21%
+  the upgraded punch Rear uppercut (faster): A has it in 8% of beats, B in 5% of beats; thrown a bout: A 1.2 / B 0.8
+  how the two men fought differently, the switches whose use moved most (A share - B share): Rear uppercut +3% (A 8% / B 5%), Body jab +2% (A 19% / B 16%)
+  stoppages 26% of all bouts (bar 10-40%): inside the bar
+  NOTE: the look-ahead table vtable.json was built for equal men - used as it is here: an approximation for unequal men (it reads both men's punches at today's numbers).
+  (84 bouts, 975 s)
+DONE exit=0

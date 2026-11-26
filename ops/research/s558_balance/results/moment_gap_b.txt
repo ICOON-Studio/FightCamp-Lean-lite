@@ -1,0 +1,52 @@
+MOMENTGAP1 B: only feet delayed, hands retain no-wait moments.
+Node v22.22.3; jobs=2; table iters=500; play iters=400.
+Measurement-only loader: full source in moment_gap_a.txt.
+CHECKS PASS: 566 full-stamina plans; 52 delayed-feet plans; hands unchanged; wait free; at most one wait and three moments.
+COMMAND: node proto/twohands/tools/balance.mjs table tweak=ops/research/s558_balance/moment_gap_b.json out=.cache/momentgap1/b-table.json jobs=2
+BALANCE_TABLE beats left 1: at Long, full stamina v 4: 0.111; having given ground twice v none: -0.521; Mid 0.445; Inside 0.396
+BALANCE_TABLE beats left 2: at Long, full stamina v 4: 0.888; having given ground twice v none: -0.706; Mid 1.643; Inside 1.357
+BALANCE_TABLE beats left 3: at Long, full stamina v 4: 1.086; having given ground twice v none: -0.365; Mid 1.634; Inside 1.458
+BALANCE_TABLE beats left 4: at Long, full stamina v 4: 1.114; having given ground twice v none: -0.339; Mid 1.698; Inside 1.51
+BALANCE_TABLE beats left 5: at Long, full stamina v 4: 1.097; having given ground twice v none: -0.355; Mid 1.678; Inside 1.513
+BALANCE_TABLE beats left 6: at Long, full stamina v 4: 1.098; having given ground twice v none: -0.355; Mid 1.676; Inside 1.51
+BALANCE_TABLE wrote .cache/momentgap1/b-table.json in 3032 s
+
+TRIAL COMMAND: node --import ./.cache/momentgap1/measure.mjs proto/twohands/tools/balance.mjs play tweak=ops/research/s558_balance/moment_gap_b.json table=.cache/momentgap1/b-table.json n=12 seed=1 jobs=2
+mix v the same man (no style): wins 42%, draws 0%, stops him 0%, is stopped 8%; knockdowns a bout 0.9 v 1.2; health taken a bout 20.6 v 22.1; beats at Inside / Mid / Long 31% / 29% / 40%; clinches a bout 1.3; rounds level on points 14%, 100% of them given on ground
+  you a beat: lead held low 39%, step in 37%, back off 37%, Cross 25%, Body cross 22%, feet hold 21%, rear held high 19%, rear held low 18%, Body jab 17%, Rear uppercut 10%, lead held high 9%, Jab 7%, Lead uppercut 6%, Feint 6%, clinch 6%, Lead hook 6%, Body hook 2%, Push off 2%, Overhand 2% | punches in a plan: none 13%, one 65%, two 16%
+  your punches (thrown a bout: lands / blocked / misses): Cross 4.2: 46% / 14% / 40%, Body cross 3.7: 41% / 18% / 41%, Body jab 3.0: 64% / 36% / 0%, Rear uppercut 1.5: 39% / 22% / 39%, Jab 1.3: 53% / 40% / 7%, Lead hook 1.1: 54% / 38% / 8%, Lead uppercut 1.0: 33% / 17% / 50%, Body hook 0.3: 50% / 50% / 0%, Overhand 0.3: 100% / 0% / 0%
+  he  a beat: back off 38%, lead held low 35%, step in 35%, rear held high 26%, Cross 23%, feet hold 23%, Body cross 22%, Body jab 19%, rear held low 17%, Lead hook 8%, Jab 7%, lead held high 6%, Rear uppercut 6%, Body hook 6%, Lead uppercut 6%, Push off 5%, Feint 5%, clinch 3%, Overhand 2% | punches in a plan: none 13%, one 69%, two 15%
+  his  punches (thrown a bout: lands / blocked / misses): Cross 3.8: 56% / 9% / 36%, Body cross 3.6: 44% / 23% / 33%, Body jab 3.3: 60% / 38% / 3%, Jab 1.3: 56% / 44% / 0%, Lead hook 1.2: 36% / 21% / 43%, Rear uppercut 1.0: 58% / 8% / 33%, Body hook 0.9: 45% / 36% / 18%, Lead uppercut 0.9: 55% / 0% / 45%, Overhand 0.3: 75% / 0% / 25%
+  your order, of the beats with one to choose (74%): first feet 53%, lead 23%, wait 8%, rear 17%
+MOMENTGAP_METRICS {"n":12,"beats":216,"counters":[14,21],"beaten":[5,6],"wait":[18,14],"waitAt":[[12,6,0],[8,6,0]],"orders":[{"feet>rear":37,"lead":6,"feet>lead>rear":15,"feet":4,"lead>feet>rear":15,"wait>feet":12,"lead>rear":6,"lead>feet":13,"rear>wait>feet":4,"feet>lead":28,"clinch":13,"rear>feet>lead":10,"rear":20,"feet>rear>lead":5,"none":13,"rear>feet":13,"lead>wait>feet":2},{"rear>feet":13,"rear>feet>lead":11,"lead":16,"lead>wait>feet":5,"feet>rear":32,"feet>lead":25,"wait>feet":8,"rear":17,"lead>feet>rear":11,"none":13,"feet>rear>lead":8,"lead>feet":20,"feet":6,"clinch":7,"rear>lead":3,"feet>lead>rear":17,"rear>wait>feet":1,"lead>rear>feet":2,"lead>rear":1}],"anyWait":30,"bothWait":2,"gap":{"within3":{"choices":290,"wait":17},"behind4+":{"choices":71,"wait":9},"ahead4+":{"choices":71,"wait":6}},"afterCounter":{"noCounterLastBeat":{"choices":407,"wait":32},"counterLastBeat":{"choices":25,"wait":0}}}
+  (12 bouts, 267 s)
+BARS 6 of 9 pass
+  PASS every range is fought at (each 15-55% of beats): Inside 31%, Mid 29%, Long 40%
+  PASS no switch is a must (none in over 40% of beats): back off 38%, step in 36%, Cross 24%
+  FAIL no switch is dead (each in at least 3% of beats): Overhand 2%
+  FAIL every punch lands 30-65% of the time and falls short at most 40%: Lead uppercut lands 43%, short 48%
+  FAIL bouts end both ways (stoppages 10-40%, draws at most 20%, 0.5-2.5 knockdowns a bout): stoppages 8%, draws 0%, knockdowns 2.1
+  PASS one punch, two punches and holding all have their beats (two 15-45%, none 5-25%): two 16%, none 13%
+  PASS the clinch is a rescue, not a habit (at most 2 a bout): 1.3
+  PASS the order is a choice (no slot first in over 60% of ordered beats; an order to choose in 40%+ of beats): ordered 74%, most often first 53%
+  PASS the mirror is fair (wins 40-60% of decided bouts): 42%
+
+FULL COMMAND: node --import ./.cache/momentgap1/measure.mjs proto/twohands/tools/balance.mjs play tweak=ops/research/s558_balance/moment_gap_b.json table=.cache/momentgap1/b-table.json n=84 seed=1 jobs=2
+mix v the same man (no style): wins 43%, draws 2%, stops him 6%, is stopped 19%; knockdowns a bout 1.0 v 1.4; health taken a bout 20.8 v 22.8; beats at Inside / Mid / Long 29% / 34% / 37%; clinches a bout 1.1; rounds level on points 14%, 75% of them given on ground
+  you a beat: lead held low 36%, back off 36%, step in 34%, feet hold 26%, Cross 24%, Body cross 24%, rear held high 21%, Body jab 17%, rear held low 17%, lead held high 9%, Jab 8%, Feint 7%, Lead hook 6%, Lead uppercut 5%, Rear uppercut 5%, clinch 5%, Overhand 5%, Body hook 4%, Push off 3% | punches in a plan: none 14%, one 63%, two 18%
+  your punches (thrown a bout: lands / blocked / misses): Cross 4.0: 46% / 19% / 36%, Body cross 4.0: 44% / 28% / 28%, Body jab 3.0: 58% / 40% / 2%, Jab 1.4: 66% / 32% / 2%, Lead hook 1.0: 42% / 42% / 17%, Lead uppercut 0.9: 47% / 15% / 38%, Rear uppercut 0.8: 45% / 9% / 45%, Overhand 0.8: 72% / 5% / 23%, Body hook 0.6: 60% / 21% / 19%
+  he  a beat: back off 38%, lead held low 37%, step in 32%, feet hold 27%, Cross 24%, rear held high 23%, Body cross 22%, Body jab 17%, rear held low 17%, lead held high 8%, Jab 7%, Lead hook 7%, Feint 7%, Rear uppercut 6%, Lead uppercut 6%, Body hook 5%, Overhand 5%, Push off 4%, clinch 3% | punches in a plan: none 14%, one 68%, two 15%
+  his  punches (thrown a bout: lands / blocked / misses): Cross 3.9: 48% / 20% / 33%, Body cross 3.6: 44% / 23% / 33%, Body jab 3.1: 63% / 33% / 4%, Jab 1.3: 64% / 36% / 0%, Lead hook 1.1: 37% / 38% / 24%, Rear uppercut 1.0: 59% / 10% / 30%, Lead uppercut 1.0: 59% / 12% / 28%, Body hook 0.8: 66% / 24% / 10%, Overhand 0.7: 78% / 8% / 14%
+  your order, of the beats with one to choose (72%): first feet 50%, lead 26%, wait 7%, rear 17%
+MOMENTGAP_METRICS {"n":84,"beats":1499,"counters":[103,119],"beaten":[29,29],"wait":[128,116],"waitAt":[[80,48,0],[74,42,0]],"orders":[{"feet>rear":214,"lead":63,"feet>lead>rear":127,"feet":33,"lead>feet>rear":92,"wait>feet":80,"lead>rear":48,"lead>feet":100,"rear>wait>feet":14,"feet>lead":147,"clinch":70,"rear>feet>lead":72,"rear":159,"feet>rear>lead":47,"none":99,"rear>feet":72,"rear>lead":18,"lead>wait>feet":34,"lead>rear>feet":7,"rear>lead>feet":3},{"rear>feet":84,"rear>feet>lead":58,"lead":84,"lead>wait>feet":32,"feet>rear":225,"feet>lead":163,"wait>feet":74,"rear":152,"lead>feet>rear":73,"none":87,"feet>rear>lead":40,"lead>feet":126,"feet":40,"clinch":48,"rear>lead":25,"feet>lead>rear":117,"rear>wait>feet":10,"lead>rear":51,"rear>lead>feet":3,"lead>rear>feet":7}],"anyWait":230,"bothWait":14,"gap":{"within3":{"choices":2088,"wait":160},"behind4+":{"choices":455,"wait":49},"ahead4+":{"choices":455,"wait":35}},"afterCounter":{"noCounterLastBeat":{"choices":2847,"wait":235},"counterLastBeat":{"choices":151,"wait":9}}}
+  (84 bouts, 1789 s)
+BARS 8 of 9 pass
+  PASS every range is fought at (each 15-55% of beats): Inside 29%, Mid 34%, Long 37%
+  PASS no switch is a must (none in over 40% of beats): back off 37%, step in 33%, Cross 24%
+  PASS no switch is dead (each in at least 3% of beats): none under 3%
+  FAIL every punch lands 30-65% of the time and falls short at most 40%: Jab lands 65%, short 1%; Overhand lands 75%, short 19%
+  PASS bouts end both ways (stoppages 10-40%, draws at most 20%, 0.5-2.5 knockdowns a bout): stoppages 25%, draws 2%, knockdowns 2.5
+  PASS one punch, two punches and holding all have their beats (two 15-45%, none 5-25%): two 16%, none 14%
+  PASS the clinch is a rescue, not a habit (at most 2 a bout): 1.1
+  PASS the order is a choice (no slot first in over 60% of ordered beats; an order to choose in 40%+ of beats): ordered 72%, most often first 50%
+  PASS the mirror is fair (wins 40-60% of decided bouts): 44%

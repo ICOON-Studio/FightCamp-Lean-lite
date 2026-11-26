@@ -1,0 +1,7 @@
+BALANCE_TABLE beats left 1: at Long, full stamina v 4: 0.111; having given ground twice v none: -0.521; Mid 0.445; Inside 0.396
+BALANCE_TABLE beats left 2: at Long, full stamina v 4: 0.888; having given ground twice v none: -0.706; Mid 1.643; Inside 1.357
+BALANCE_TABLE beats left 3: at Long, full stamina v 4: 1.086; having given ground twice v none: -0.365; Mid 1.634; Inside 1.458
+BALANCE_TABLE beats left 4: at Long, full stamina v 4: 1.114; having given ground twice v none: -0.339; Mid 1.698; Inside 1.51
+BALANCE_TABLE beats left 5: at Long, full stamina v 4: 1.097; having given ground twice v none: -0.355; Mid 1.678; Inside 1.513
+BALANCE_TABLE beats left 6: at Long, full stamina v 4: 1.098; having given ground twice v none: -0.355; Mid 1.676; Inside 1.51
+BALANCE_TABLE wrote proto/twohands/vtable_wait.json in 875 s

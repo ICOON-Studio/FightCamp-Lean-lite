@@ -1,0 +1,12 @@
+PROBE_SHARP a=over:faster b=(today) n=84 seed-manifest: jobs split by seed*100+i (page order.html through rules.mjs with the per-man punch-table patch; the page file is not edited)
+A [today's punches, Overhand faster (slow -> medium)]  v  B [today's punches (the page's table)]: A wins 55% of decided (42 of 77), draws 8% of all; stoppages: A stops B 15%, B stops A 17%; knockdowns a bout (suffered): A 1.3 / B 1.4; health dealt a bout: A 22.6 / B 21.7; beats at Inside / Mid / Long 32% / 35% / 33%; clinches a bout 1.3
+  A a beat: lead held low 35%, back off 32%, step in 31%, feet hold 31%, Body cross 23%, Cross 22%, rear held high 21%, Body jab 17%, rear held low 14%, lead held high 9%, Feint 8%, Overhand 8%, Jab 7%, Lead hook 6%, Lead uppercut 6%, Rear uppercut 6%, clinch 6%, Body hook 4%, Push off 3% | punches in a plan: none 12%, one 68%, two 15%
+  A punches (thrown a bout: lands / blocked / misses): Body cross 3.9: 48% / 23% / 28%, Cross 3.5: 38% / 21% / 41%, Body jab 2.8: 67% / 29% / 3%, Overhand 1.3: 76% / 7% / 17%, Jab 1.1: 62% / 32% / 5%, Lead hook 1.0: 43% / 41% / 16%, Lead uppercut 0.9: 70% / 20% / 10%, Rear uppercut 0.8: 59% / 12% / 29%, Body hook 0.7: 61% / 21% / 18%
+  B a beat: back off 35%, lead held low 35%, step in 33%, feet hold 28%, Cross 26%, Body cross 24%, rear held high 19%, rear held low 17%, Body jab 17%, lead held high 11%, Jab 8%, Lead hook 6%, Lead uppercut 6%, Feint 6%, Rear uppercut 6%, clinch 4%, Push off 4%, Body hook 3%, Overhand 3% | punches in a plan: none 12%, one 68%, two 16%
+  B punches (thrown a bout: lands / blocked / misses): Cross 4.2: 44% / 21% / 34%, Body cross 3.9: 49% / 24% / 27%, Body jab 2.9: 61% / 35% / 3%, Jab 1.3: 62% / 35% / 3%, Lead uppercut 1.0: 55% / 21% / 24%, Lead hook 1.0: 42% / 43% / 15%, Rear uppercut 0.8: 60% / 11% / 29%, Body hook 0.6: 58% / 25% / 17%, Overhand 0.5: 95% / 5% / 0%
+  the upgraded punch Overhand (faster): A has it in 8% of beats, B in 3% of beats; thrown a bout: A 1.3 / B 0.5
+  how the two men fought differently, the switches whose use moved most (A share - B share): Overhand +5% (A 8% / B 3%), Cross -5% (A 22% / B 26%)
+  stoppages 32% of all bouts (bar 10-40%): inside the bar
+  NOTE: the look-ahead table vtable.json was built for equal men - used as it is here: an approximation for unequal men (it reads both men's punches at today's numbers).
+  (84 bouts, 929 s)
+DONE exit=0

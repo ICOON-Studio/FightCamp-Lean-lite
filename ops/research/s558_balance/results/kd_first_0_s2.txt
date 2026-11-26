@@ -1,0 +1,21 @@
+PROBE the page (no tweak): 84 bouts, 410 s
+BARS 8 of 9 pass
+  PASS every range is fought at (each 15-55% of beats): Inside 33%, Mid 35%, Long 32%
+  PASS no switch is a must (none in over 40% of beats): step in 34%, back off 33%, Body cross 24%
+  PASS no switch is dead (each in at least 3% of beats): none under 3%
+  FAIL every punch lands 30-65% of the time and falls short at most 40%: Jab lands 66%, short 2%; Overhand lands 71%, short 20%
+  PASS bouts end both ways (stoppages 10-40%, draws at most 20%, 0.5-2.5 knockdowns a bout): stoppages 21%, draws 1%, knockdowns 2.4
+  PASS one punch, two punches and holding all have their beats (two 15-45%, none 5-25%): two 17%, none 13%
+  PASS the clinch is a rescue, not a habit (at most 2 a bout): 1.2
+  PASS the order is a choice (no slot first in over 60% of ordered beats; an order to choose in 40%+ of beats): ordered 68%, most often first 57%
+  PASS the mirror is fair (wins 40-60% of decided bouts): 45%
+KDHEAL
+  FAIL the comeback (the man 4+ health behind after round 1 wins 15-30%, PUNCHCHANCE1's bar): 6% - 3 of 47 bouts (0 drawn; 56% of bouts had that gap)
+    any health gap after round 1: 14% - 11 of 77 bouts
+  stopped by a knockdown in the last round (round 3): 21% of bouts (stoppages 21%, before the last round 0%)
+  beats a man is on 1-2 health: 295 (10% of a man's beats); both hands thrown in 12% of them - all beats, both men: 17%
+KDFIRST
+  bouts with no knockdown: 5% (4 of 84)
+  the man dropped FIRST wins: 13% (10 of 80) (1 drawn) - UFC, the fight went on past the knockdown: 34.4%
+  the first man dropped TWICE wins: 14% (7 of 51) - UFC (Kuhn 2014): 7%
+  the bout's only knockdown, one man once: he wins 0% (0 of 12)

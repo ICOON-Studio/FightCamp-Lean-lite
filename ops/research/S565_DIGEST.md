@@ -46,12 +46,29 @@ Render worker (console, Opus): GLIDE2 pushed (7534204a0), INSIDE1 step 3 re-rend
   the mix and the value table are health-blind, so the exploit is a human's. If he wants it gone the shape to measure is
   "up on no more than he had, no stamina refill", not a lower floor.
 
-## MOMENTGAP1 so far (Arena, still running: B seed 2)
-| Version | Seed 1 (n=84) | A wait is in | What breaks |
+## MOMENTGAP1 FINAL (Arena, collected: docs/MOMENTGAP1_RESULT.md) - his S562 question answered
+"can i be able to select exactly on which part of a beat i move ? or it breaks balance ?"
+| Version | Seed 1 | Seed 2 | A wait is in | What breaks |
+|---|---|---|---|---|
+| Today's page (fresh controls) | 7 of 9 | 8 of 9 | - | jab / overhand landing; push off under 3% on seed 1 |
+| A: a free wait anywhere | 7 of 9 | 7 of 9 | 66-67% of a man's beats | two-punch beats 16-17% -> 9-10%, holding 11-13% -> 4%, the overhand at the 3% floor |
+| B: only the step may come a moment later | 8 of 9 | 8 of 9 | 8% of a man's beats (15% of beats have one) | nothing new: the same landing bar the page fails |
+Verdict: "put on the page: B". Counters a bout 2.5-2.6 -> A 2.9-3.1, B 2.6-2.8; no order becomes a must (none over 16%).
+No runaway loop: a man waits LESS when ahead and after his own counter. Limits: the mirror only, not the three styled
+men, no human play. B is built to play: wait.html. Asked on the board whether it goes on the main page (his call: a
+new switch on his page).
+
+## KDFIRST (S565, `probe_kd_first.mjs`, today's page, two seeds of 84 bouts) - the knockdown beside real fights
+| | Page seed 1 | Page seed 2 | Real (John SQ337, UFC) |
 |---|---|---|---|
-| Today's page | 8 of 9 | - | jab / overhand landing |
-| A: a free wait anywhere | 7 of 9 | 67% of beats, first in 39% | two-punch beats 17% -> 9%, holding 12% -> 4%, feint and overhand at the 3% floor |
-| B: only the step may come a moment later | 8 of 9 | 8% of beats | nothing new (the same landing bar) |
+| Bouts with no knockdown | 1% | 5% | most fights |
+| The man dropped FIRST wins | 13% (11 of 83) | 13% (10 of 80) | 34.4% when the fight goes on past the knockdown (13.9% of all fights with one) |
+| The first man dropped TWICE wins | 4% (2 of 45) | 14% (7 of 51) | 7% |
+| The bout's only knockdown: that man wins | 5% (1 of 20) | 0% (0 of 12) | - |
+Reading: on the page nearly every bout has a knockdown (2.5 a bout) and the first one already decides more than in real
+fights (13% v 34%). The heal is not too generous in results; a lower get-up would widen the gap from real fights.
+The comeback share on these runs (the page's own table) was 12% and 6% (Arena's rebuilt table: 19%): a noisy number at
+84 bouts - never judge it on one seed.
 
 ## Running at the handover
 See NEXT_SESSION_PROMPT.md.
@@ -66,3 +83,19 @@ dropped twice). It goes into the knockdown-heal report to him.
 - `ops/Tools/arena_watch.py` (new).
 - `agent_comms.py` start check: a numbers-only probe brief (Kind: probe, VISUAL: none) is no longer flagged for a missing
   visual gate (7 flagged -> 3, all parked card-game / coach briefs).
+
+## After the ship
+- wait.html runs on its own look-ahead table (`proto/twohands/vtable_wait.json`, built in 875 s at jobs=2; its values
+  match the table Arena measured B on). page_parse, page_play_test 4, wait_test 5; one beat played in headless Edge.
+
+## Stage 2
+- a7099d35d CLINCHFIX3 collected (Arena): NONE. H1 (a clinch enters his habit history) 48 / 57 / 53% for the loop against
+  the Jabber / Slugger / Body Snatcher, H2 (+ clinch +1 stamina) 37 / 58 / 42%; today 38 / 63 / 70%; the bar is under 30%.
+  His read fires 4-7 times a bout and it does not matter: the clinch never repeats inside the 3-beat history (it breaks
+  to Mid), so the read answers the loop's punching beat. Bars: H1 8 and 8 of 9, H2 7 and 8.
+  THIRD FAILED CLINCH ROUND (CLINCHFIX1 economy, CLINCHFIX2 push-off counter, CLINCHFIX3 the read) -> no fourth clinch
+  fix. Read of `probe_clinch.mjs`: the loop is "step in, FEINT, OVERHAND (cross if he cannot pay)" then "clinch" - the
+  clinch's +2 stamina pays for a 5-stamina bomb beat every other beat, and the feint makes the overhand uncoverable
+  (Antigravity: 12 of 13 landed). The same man without the clinch wins 7-13%. So the loop has two legs, and JABLAND2's
+  versions cut the other one: D the feint opens the overhand only Inside, E a punch landing in your feint moment wastes
+  it, F both. CROSS-CHECK run on the PC: `probe_clinch.mjs n=60` on today's page and on D, E, F (the page's own table).

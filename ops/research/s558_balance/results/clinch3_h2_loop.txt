@@ -1,0 +1,6 @@
+CLINCH loop v The Jabber: wins 37%, loses 48%, draws 15% | his clinches a bout 0.2 | my clinches a bout 4.7, 93% of them tie him up | his habit read fired 6.1 a bout
+CLINCH loop v The Slugger: wins 58%, loses 28%, draws 13% | his clinches a bout 0.3 | my clinches a bout 7.2, 89% of them tie him up | his habit read fired 3.9 a bout
+CLINCH loop v The Body Snatcher: wins 42%, loses 50%, draws 8% | his clinches a bout 0.3 | my clinches a bout 6.3, 89% of them tie him up | his habit read fired 5.4 a bout
+CLINCH no clinch v The Jabber: wins 7%, loses 93%, draws 0% | his clinches a bout 0.4 | his habit read fired 5.8 a bout
+CLINCH no clinch v The Slugger: wins 12%, loses 87%, draws 2% | his clinches a bout 0.5 | his habit read fired 4.2 a bout
+CLINCH no clinch v The Body Snatcher: wins 5%, loses 93%, draws 2% | his clinches a bout 0.6 | his habit read fired 5.0 a bout

@@ -1,0 +1,12 @@
+PROBE_SHARP a=cross:cheaper b=(today) n=24 seed-manifest: jobs split by seed*100+i (page order.html through rules.mjs with the per-man punch-table patch; the page file is not edited)
+A [today's punches, Cross cheaper (2 -> 1 stamina)]  v  B [today's punches (the page's table)]: A wins 59% of decided (13 of 22), draws 8% of all; stoppages: A stops B 21%, B stops A 13%; knockdowns a bout (suffered): A 1.2 / B 1.6; health dealt a bout: A 24.5 / B 20.6; beats at Inside / Mid / Long 26% / 38% / 36%; clinches a bout 1.0
+  A a beat: Cross 40%, back off 36%, lead held low 35%, step in 33%, feet hold 27%, Body cross 27%, Body jab 20%, rear held high 16%, Feint 13%, rear held low 9%, Lead hook 7%, Jab 5%, Body hook 5%, lead held high 5%, Lead uppercut 5%, Overhand 3%, clinch 3%, Push off 3%, Rear uppercut 2% | punches in a plan: none 6%, one 69%, two 22%
+  A punches (thrown a bout: lands / blocked / misses): Cross 6.1: 48% / 21% / 31%, Body cross 4.3: 50% / 17% / 33%, Body jab 3.4: 64% / 31% / 5%, Lead hook 1.1: 41% / 48% / 11%, Jab 0.9: 67% / 33% / 0%, Body hook 0.8: 47% / 26% / 26%, Lead uppercut 0.8: 72% / 0% / 28%, Overhand 0.5: 77% / 0% / 23%, Rear uppercut 0.3: 57% / 0% / 43%
+  B a beat: back off 38%, lead held low 35%, step in 31%, feet hold 28%, Body cross 26%, Cross 25%, Body jab 20%, rear held low 18%, rear held high 17%, lead held high 14%, Lead hook 8%, Rear uppercut 7%, Lead uppercut 6%, Jab 4%, clinch 4%, Push off 3%, Body hook 3%, Overhand 3%, Feint 3% | punches in a plan: none 13%, one 66%, two 18%
+  B punches (thrown a bout: lands / blocked / misses): Body cross 4.3: 48% / 28% / 24%, Cross 4.1: 37% / 21% / 41%, Body jab 3.4: 61% / 38% / 1%, Lead hook 1.4: 42% / 45% / 12%, Lead uppercut 1.0: 56% / 12% / 32%, Rear uppercut 0.9: 48% / 10% / 43%, Jab 0.7: 88% / 13% / 0%, Body hook 0.5: 69% / 31% / 0%, Overhand 0.5: 55% / 18% / 27%
+  the upgraded punch Cross (cheaper): A has it in 40% of beats, B in 25% of beats; thrown a bout: A 6.1 / B 4.1
+  how the two men fought differently, the switches whose use moved most (A share - B share): Cross +15% (A 40% / B 25%), Feint +10% (A 13% / B 3%)
+  stoppages 33% of all bouts (bar 10-40%): inside the bar
+  NOTE: the look-ahead table vtable.json was built for equal men - used as it is here: an approximation for unequal men (it reads both men's punches at today's numbers).
+  (24 bouts, 259 s)
+DONE exit=0

@@ -6,15 +6,16 @@
   "id": "S565",
   "owner": "claude",
   "updated": "2026-11-26",
-  "summary": "S565 (Fable). Start clean (no board question, nightly 506 of 506). LONG IS A CORRIDOR measured two ways at Arena: LONG1 (the stopping jab, Dola's lead hand as a fence, both) and LONG2 (Kalli SQ339, collected: the cross a man walks onto + jabs that score 2 on a stepping man; finding: the page already lands a cross thrown at Long on a man stepping in - no tester found it, K0 counts it). KDHEAL1 collected: keep the get-up [6, 4] (lower: stoppages 45%, comeback 14% then 4%; the bots show no walk-into-a-punch pull). His S562 question 'select exactly on which part of a beat i move' built as a playable copy, wait.html (MOMENTGAP1 B: only the step may come a moment later; seed 1 holds 8 of 9 with the wait in 8% of beats; a free wait anywhere is picked in 67% of beats and loses two bars), with its jump button on the ops board. Fixed on every page: three moments ran the last line off a 1080 screen. CLINCHFIX2's files copied onto main; the six collected Arena pull requests closed. New tool arena_watch.py (one line when a cloud run ends).",
-  "next_action": "S566: collect what has ended (arena_watch.py; branches in NEXT_SESSION_PROMPT.md): MOMENTGAP1 B seed 2 -> answer him (wait.html is built); TELLS3M -> the board question, then TELLS2PAGE; KDHEAL1 is collected - report it to him with the KDFIRST count beside John's 34.4% / 7%; CLINCHFIX3 / AIEMPTY1 / JABLAND2 -> a version that holds the bars goes on the page; LONG1 + LONG2 judged together -> one Long rule as a toy page; KICKFIX3, PROGP2. Render worker: when it pushes, BOUNCE1 then KDPIC1.",
+  "summary": "S565 (Fable). Start clean (no board question, nightly 506 of 506). LONG IS A CORRIDOR measured two ways at Arena: LONG1 (the stopping jab, Dola's lead hand as a fence, both) and LONG2 (Kalli SQ339, collected: the cross a man walks onto + jabs that score 2 on a stepping man; finding: the page already lands a cross thrown at Long on a man stepping in - no tester found it, K0 counts it). KDHEAL1 collected: keep the get-up [6, 4] (lower: stoppages 45%, comeback 14% then 4%; the bots show no walk-into-a-punch pull). His S562 question 'select exactly on which part of a beat i move' built as a playable copy, wait.html (MOMENTGAP1 collected, FINAL: only the step a moment later holds 8 of 9 on both seeds with the wait in 8% of beats; a free wait anywhere is picked in 67% of beats and holds 7 of 9; asked on the board, Q-344, whether it goes on the main page), with its jump button on the ops board. Fixed on every page: three moments ran the last line off a 1080 screen. CLINCHFIX2's files copied onto main; the six collected Arena pull requests closed. New tool arena_watch.py (one line when a cloud run ends). KDFIRST (own count, two seeds): the man dropped first wins 13% on the page (UFC 34.4% when the fight goes on), the first man dropped twice 9% (UFC 7%).",
+  "next_action": "S566: collect what has ended (arena_watch.py; branches in NEXT_SESSION_PROMPT.md): TELLS3M -> the board question, then TELLS2PAGE; CLINCHFIX3 / AIEMPTY1 / JABLAND2 -> a version that holds the bars goes on the page; LONG1 + LONG2 judged together -> one Long rule as a toy page; KICKFIX3, PROGP2. His answer to Q-344 (the late step: main page / own page / drop): on 'Yes, main page' apply moment_gap_b.json + make_wait.py's page patches to order.html, rebuild its table (vtable.json) and both copies, balance re-run two seeds. Render worker: when it pushes, BOUNCE1 then KDPIC1.",
   "last_working_commit": "a2b4fbaf6",
   "verified_playable": "Builds/ exported in S556 (the S547 game plus S548's two changes: the 3D fight throws the body cross, the trial evening's pictures show the prospect's own body; pro_body_jab is on disk and unused by the game). Ring Switches (a browser toy): one beat played in the browser in S556 against the Jabber - both men threw a body jab, both landed, no console error; rules_test 34 pass; anim_check 124 runs PASS.",
   "incomplete_blocked": "Nine Arena measures (two launched this session) and the render worker still running at this stage's end. No export: no game code changed (proto pages and node tools only). Uncommitted pictures from earlier sessions sit in proto/twohands/img/anim: left for the render workers.",
   "next_acceptance": "Each run collected and judged against its bars; his question on the moment answered with both seeds; a Long rule chosen from LONG1 / LONG2 only if it holds the bars on both seeds.",
   "awaiting_operator": [
-   "His play of wait.html (the late step: 'Pick your moment' on the ops board), the body view (order.html) and punch.html",
-   "The four worker consoles left from S560-S564: close them? (asked in chat)"
+   "Q-344: the step a moment later - on the main page, on its own page, or dropped (wait.html is playable: 'Pick your moment' on the ops board)",
+   "His play of the body view (order.html) and punch.html",
+   "The four worker consoles left from S560-S564 (idle, about 1.5 GB together): close them? (asked in chat)"
   ]
  },
  "next": "S562: see NEXT_SESSION_PROMPT.md - collect four Arena runs, then the body view as the main page's way to pick (his Q-343).",
@@ -2478,7 +2479,7 @@
   {
    "id": "S565",
    "date": "2026-11-26",
-   "summary": "S565 (Fable). Start clean (no board question, nightly 506 of 506). LONG IS A CORRIDOR measured two ways at Arena: LONG1 (the stopping jab, Dola's lead hand as a fence, both) and LONG2 (Kalli SQ339, collected: the cross a man walks onto + jabs that score 2 on a stepping man; finding: the page already lands a cross thrown at Long on a man stepping in - no tester found it, K0 counts it). KDHEAL1 collected: keep the get-up [6, 4] (lower: stoppages 45%, comeback 14% then 4%; the bots show no walk-into-a-punch pull). His S562 question 'select exactly on which part of a beat i move' built as a playable copy, wait.html (MOMENTGAP1 B: only the step may come a moment later; seed 1 holds 8 of 9 with the wait in 8% of beats; a free wait anywhere is picked in 67% of beats and loses two bars), with its jump button on the ops board. Fixed on every page: three moments ran the last line off a 1080 screen. CLINCHFIX2's files copied onto main; the six collected Arena pull requests closed. New tool arena_watch.py (one line when a cloud run ends)."
+   "summary": "S565 (Fable). Start clean (no board question, nightly 506 of 506). LONG IS A CORRIDOR measured two ways at Arena: LONG1 (the stopping jab, Dola's lead hand as a fence, both) and LONG2 (Kalli SQ339, collected: the cross a man walks onto + jabs that score 2 on a stepping man; finding: the page already lands a cross thrown at Long on a man stepping in - no tester found it, K0 counts it). KDHEAL1 collected: keep the get-up [6, 4] (lower: stoppages 45%, comeback 14% then 4%; the bots show no walk-into-a-punch pull). His S562 question 'select exactly on which part of a beat i move' built as a playable copy, wait.html (MOMENTGAP1 collected, FINAL: only the step a moment later holds 8 of 9 on both seeds with the wait in 8% of beats; a free wait anywhere is picked in 67% of beats and holds 7 of 9; asked on the board, Q-344, whether it goes on the main page), with its jump button on the ops board. Fixed on every page: three moments ran the last line off a 1080 screen. CLINCHFIX2's files copied onto main; the six collected Arena pull requests closed. New tool arena_watch.py (one line when a cloud run ends). KDFIRST (own count, two seeds): the man dropped first wins 13% on the page (UFC 34.4% when the fight goes on), the first man dropped twice 9% (UFC 7%)."
   }
  ],
  "blocked_on_operator": [],
@@ -5397,7 +5398,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-26 16:11 board_sync",
+  "updated": "2026-11-26 16:41 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5566,12 +5567,6 @@
   },
   "working_now": [
    {
-    "title": "Pick the exact moment of the beat you act in (a wait between): measured before it is built",
-    "who": "Arena (cloud, a fifth chat: costs your PC nothing)",
-    "started": "2026-11-26T13:20",
-    "run": "MOMENTGAP1"
-   },
-   {
     "title": "Head moves and kicks at every range: the men keep their distance on head.html and kick.html",
     "who": "console worker (Opus, Code Mode), terminal tab renders564 (S564: both resumed in one tab, game closed)",
     "started": "2026-11-26T14:40",
@@ -5594,12 +5589,6 @@
     "who": "Arena (cloud: costs your PC nothing)",
     "started": "2026-11-26T13:05",
     "run": "PROGP2"
-   },
-   {
-    "title": "A knockdown heals (down at 1 health, up on 6): three lower get-up numbers measured - nothing changes without your yes",
-    "who": "Arena (cloud: costs your PC nothing)",
-    "started": "2026-11-26T14:05",
-    "run": "KDHEAL1"
    },
    {
     "title": "Tells version 3 measured with bots, bars against the control: does the tell help a little, does finding his lie pay?",
@@ -5648,7 +5637,7 @@
    {
     "id": "WAITPAGE",
     "who": "operator",
-    "title": "Your play: 'Pick your moment' (wait.html) - your step can come a moment later, the switch beside your order",
+    "title": "Your call (Q-344): the step a moment later holds the bars on both seeds - on the main page, or on its own page 'Pick your moment' (wait.html)",
     "after": ""
    },
    {
@@ -5661,12 +5650,6 @@
     "id": "LONG2",
     "who": "arena",
     "title": "Long range, Kalli's pick: the cross a man walks onto as he steps in (the page already does half of it: counted first) - measured in the cloud",
-    "after": ""
-   },
-   {
-    "id": "KDREPORT",
-    "who": "claude",
-    "title": "A knockdown heals: measured - keep today's numbers (lower ones stop 45% of bouts and kill the comeback); report to you beside the real numbers",
     "after": ""
    },
    {
@@ -5685,12 +5668,6 @@
     "id": "GLIDE1",
     "who": "claude",
     "title": "Punches, feint and push off at every range: the men never jump when a clip plays - Claude renders, then checks on the page",
-    "after": ""
-   },
-   {
-    "id": "MOMENTGAP1",
-    "who": "arena",
-    "title": "Your 'select exactly on which part of a beat i move': a free wait anywhere is picked in 67% of beats and loses two bars; only the step a moment later holds 8 of 9 (seed 1) - seed 2 running, the page to try is built (Pick your moment)",
     "after": ""
    },
    {
@@ -6137,6 +6114,26 @@
   },
   "done_recently": [
    {
+    "title": "A knockdown heals (down at 1 health, up on 6): three lower get-up numbers measured - nothing changes without your yes",
+    "who": "Arena (cloud: costs your PC nothing)",
+    "when": "2026-11-26"
+   },
+   {
+    "title": "Pick the exact moment of the beat you act in (a wait between): measured before it is built",
+    "who": "Arena (cloud, a fifth chat: costs your PC nothing)",
+    "when": "2026-11-26"
+   },
+   {
+    "title": "Your 'select exactly on which part of a beat i move': measured on two seeds - a free wait anywhere breaks two bars (picked in 67% of beats); only the step a moment later holds 8 of 9 (MOMENTGAP1)",
+    "who": "Arena",
+    "when": "2026-11-26"
+   },
+   {
+    "title": "The knockdown beside real fights: on the page the man dropped first wins 13% (real: 34%), dropped twice 9% (real: 7%) - the heal is not too generous",
+    "who": "Claude",
+    "when": "2026-11-26"
+   },
+   {
     "title": "A knockdown heals (up on 6, then 4): three lower get-up numbers measured - keep today's (KDHEAL1)",
     "who": "Arena",
     "when": "2026-11-26"
@@ -6174,36 +6171,6 @@
    {
     "title": "Playtest by message: 2 bouts without tells, 2 with - and your question on showing his intentions",
     "who": "Antigravity (by message, about 75 s a beat)",
-    "when": "2026-11-26"
-   },
-   {
-    "title": "The clinch pays too well: the version where the push off gets a second job, measured",
-    "who": "Arena (cloud, a sixth chat: costs your PC nothing)",
-    "when": "2026-11-26"
-   },
-   {
-    "title": "Tells version 3 in the words tool: a fake never hides a bigger punch, at most 2 fakes a round, a second rule for the Slugger and the Body Snatcher - the Slugger now lies 24% of beats to a careful player (was 10%)",
-    "who": "claude",
-    "when": "2026-11-26"
-   },
-   {
-    "title": "Your question: 5 of 5 playtesters chose ONE body tell, not his whole plan (Antigravity too)",
-    "who": "Claude, Arena, Ziva, Dola, Antigravity",
-    "when": "2026-11-26"
-   },
-   {
-    "title": "Tells v2 replayed (Arena 7/8/8, Ziva 8.3) and measured with bots (TELLS2M: the lie rate followed the player; the old bars could not be met)",
-    "who": "Arena, Ziva",
-    "when": "2026-11-26"
-   },
-   {
-    "title": "The clinch v2 measured: none - the strong fix kills the loop but the clinch and push off go dead (CLINCHFIX2)",
-    "who": "Arena",
-    "when": "2026-11-26"
-   },
-   {
-    "title": "John: real comebacks (a dropped man who fights on wins 34%, dropped twice 7%); Kalli: three kick designs",
-    "who": "John, Kalli",
     "when": "2026-11-26"
    }
   ],
@@ -6357,6 +6324,26 @@
     {
      "text": "Pick your moment: wait.html built",
      "who": "claude"
+    },
+    {
+     "text": "Knockdown v real fights counted",
+     "who": "claude"
+    },
+    {
+     "text": "Pick your moment: late step holds",
+     "who": "claude"
+    },
+    {
+     "text": "Inside 0.55 m + glide renders in",
+     "who": "agent"
+    },
+    {
+     "text": "Sharp choice: overhand only",
+     "who": "agent"
+    },
+    {
+     "text": "Clinch v3 measured: none",
+     "who": "agent"
     }
    ],
    "now": [
@@ -6381,12 +6368,12 @@
      "who": "operator"
     },
     {
-     "text": "Renders: Inside + glide (worker)",
+     "text": "LONG1 + LONG2 (Arena): Long range",
      "who": "claude"
     },
     {
-     "text": "LONG1 + LONG2 (Arena): Long range",
-     "who": "claude"
+     "text": "Never still: bounce (worker)",
+     "who": "agent"
     }
    ],
    "next": [
@@ -6859,16 +6846,12 @@
      "who": "claude"
     },
     {
-     "text": "Answer: pick your moment",
-     "who": "claude"
-    },
-    {
      "text": "Your play: wait.html (late step)",
      "who": "operator"
     },
     {
-     "text": "Report: knockdown heal + real nos",
-     "who": "claude"
+     "text": "Your call Q-344: late step",
+     "who": "operator"
     }
    ],
    "session": "S565"
@@ -6877,7 +6860,7 @@
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
  "last_working_commit": "a2b4fbaf6",
- "next_action": "S566: collect what has ended (arena_watch.py; branches in NEXT_SESSION_PROMPT.md): MOMENTGAP1 B seed 2 -> answer him (wait.html is built); TELLS3M -> the board question, then TELLS2PAGE; KDHEAL1 is collected - report it to him with the KDFIRST count beside John's 34.4% / 7%; CLINCHFIX3 / AIEMPTY1 / JABLAND2 -> a version that holds the bars goes on the page; LONG1 + LONG2 judged together -> one Long rule as a toy page; KICKFIX3, PROGP2. Render worker: when it pushes, BOUNCE1 then KDPIC1.",
+ "next_action": "S566: collect what has ended (arena_watch.py; branches in NEXT_SESSION_PROMPT.md): TELLS3M -> the board question, then TELLS2PAGE; CLINCHFIX3 / AIEMPTY1 / JABLAND2 -> a version that holds the bars goes on the page; LONG1 + LONG2 judged together -> one Long rule as a toy page; KICKFIX3, PROGP2. His answer to Q-344 (the late step: main page / own page / drop): on 'Yes, main page' apply moment_gap_b.json + make_wait.py's page patches to order.html, rebuild its table (vtable.json) and both copies, balance re-run two seeds. Render worker: when it pushes, BOUNCE1 then KDPIC1.",
  "next_acceptance": "Rulers vs r0: head jumps on the contact frame under 4, a head inside the other's body under 5 frames, arm out median under 4 frames with join_return green, then r1 film at two fresh blind critics 5+/10",
  "superseded_archive": [
   {

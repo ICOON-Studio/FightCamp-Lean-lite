@@ -68,7 +68,13 @@ def main() -> None:
     rep("Feet take a moment too: step in and then hook, or jab and then back off.",
         "Feet take a moment too: step in and then hook, or jab and then back off. <b>Your step can come a moment later</b> (the switch beside your order, free): jab in moment 1, nothing in moment 2, step in moment 3 - what he throws in moment 2 finds you where you stood.",
         "the how-to line")
+    # the opponent's look-ahead: the page's own table was solved WITHOUT the late step. Once this page's table is built
+    # (`balance.mjs table tweak=<the tweak> out=proto/twohands/vtable_wait.json jobs=2`, about an hour) the page loads it.
+    own = (HERE.parent / "vtable_wait.json").exists()
+    if own:
+        rep("fetch('vtable.json')", "fetch('vtable_wait.json')", "its own look-ahead table")
     io.open(OUT, "w", encoding="utf-8", newline="").write(s)
+    print("MAKE_WAIT look-ahead table: " + ("vtable_wait.json (its own)" if own else "vtable.json (the main page's: build vtable_wait.json)"))
     print(f"MAKE_WAIT wrote {OUT.name} from {SRC.name} + {TWEAK.name} ({len(tw['src'])} rule edits)")
 
 
