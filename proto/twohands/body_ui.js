@@ -150,6 +150,9 @@
       return ids.map((id) => { const a = ACT[id], reach = a.reach.includes(range), [ss, sh] = stopOf(a);
         return `<div class="row${reach ? '' : ' far'}"${T(a.n + ': ' + a.d + ' health to his head, ' + SPEED[a.sp] + '. Reaches ' + a.reach.map((r) => RNG[r]).join(', ') + '.\nHe stops it with his ' + ss + ' hand held ' + sh + (HM.length ? '; a ' + (a.line === 'straight' ? 'slip' : a.line === 'side' ? 'roll' : 'head move does not save him from an uppercut - a roll even walks into it') + (a.line === 'under' ? '' : ' makes it miss') : '') + '.')}><b>${a.n}</b><em>${a.d} dmg</em><u class="${reach ? 'ok' : 'far'}">${reach ? 'lands at ' + R : 'short'}</u><small>he stops it with his ${ss} ${sh}</small></div>`; }).join(''); }
     return ''; }
+  /* S567: a move name in the commentary is a link - open the hand that holds that card (yours, or his) and flash the card */
+  window.bodyShow = (k, id) => { const a = ACT[id]; if (!a || phase !== 'plan') return; pinned = (k ? 1 : 0) + ':' + (a.h === 0 ? 'lead' : a.h === 1 ? 'rear' : 'feet'); peek = null; show();
+    setTimeout(() => { const el = k ? ([...his.querySelectorAll('.row b')].find((b) => b.textContent === a.n) || {}).parentElement : brd.querySelector(`.sw[data-id="${id}"]`); if (!el) return; el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash'); if (el.scrollIntoView) el.scrollIntoView({ block: 'nearest' }); }, 80); };
   // ---- the strip says what each moment does
   function words() { const el = $('seqwords'); if (phase !== 'plan') { el.innerHTML = ''; return; }
     if (P.clinch) { el.innerHTML = '<span>You tie him up: nothing lands either way this beat, you get 2 stamina back.</span>'; return; }

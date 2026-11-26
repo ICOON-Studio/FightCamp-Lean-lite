@@ -5406,7 +5406,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-26",
+  "updated": "2026-11-26 23:11 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5583,32 +5583,31 @@
   },
   "working_now": [
    {
-    "title": "Long range is a corridor: a jab that stops a man stepping in, and a lead hand held high as a fence",
+    "title": "Kicks: the two versions never measured, with the limp spiral capped where it fires",
+    "who": "Arena (cloud: costs your PC nothing)",
+    "started": "2026-11-26T13:05",
+    "run": "KICKFIX3",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "Tells version 3 measured with bots, bars against the control: does the tell help a little, does finding his lie pay?",
+    "who": "Arena (cloud: costs your PC nothing)",
+    "started": "2026-11-26T15:20",
+    "run": "TELLS3M",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "Long range is a corridor: a jab that stops a man stepping in, and a lead hand held high as a fence - both measured before anything is built",
     "who": "Arena (cloud: costs your PC nothing)",
     "started": "2026-11-26T16:01",
-    "run": "LONG1",
-    "state": "running"
+    "run": "LONG1"
    },
    {
-    "title": "Your 'Yes, a choice': a pair of upgrades of its own for each punch",
-    "who": "Arena (cloud: costs your PC nothing)",
-    "started": "2026-11-26T20:35",
-    "run": "PROGP4",
-    "state": "running"
-   },
-   {
-    "title": "Tells, the last round: a punch into his fake does +1, the Jabber's fake can hide a body hook",
-    "who": "Arena (cloud: costs your PC nothing)",
-    "started": "2026-11-26T22:25",
-    "run": "TELLS5M",
-    "state": "running"
-   },
-   {
-    "title": "Kicks round 4: a checked low kick hurts the kicker more - moved to the cloud (your PC ran out of memory beside your game)",
-    "who": "Arena (cloud: costs your PC nothing)",
-    "started": "2026-11-26T22:38",
-    "run": "KICKFIX4",
-    "state": "running"
+    "title": "Long range, Kalli's pick: the cross a man walks onto as he steps in, and jabs that score 2 on a stepping man - counted on today's page first, then measured",
+    "who": "Arena (cloud, a second chat: costs your PC nothing)",
+    "started": "2026-11-26T16:06",
+    "run": "LONG2",
+    "state": "LANDED - Claude collects"
    }
   ],
   "next": [
@@ -6369,6 +6368,14 @@
     {
      "text": "Kicks 4 moved to Arena",
      "who": "claude"
+    },
+    {
+     "text": "Round replay at the bell",
+     "who": "claude"
+    },
+    {
+     "text": "Famous exchanges page + film check",
+     "who": "claude"
     }
    ],
    "now": [
@@ -6407,6 +6414,10 @@
     {
      "text": "PROGP4 (Arena): upgrade pairs",
      "who": "claude"
+    },
+    {
+     "text": "Agents' league (6 seats, 15 bouts)",
+     "who": "agent"
     }
    ],
    "next": [

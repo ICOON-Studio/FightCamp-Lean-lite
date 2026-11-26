@@ -414,10 +414,10 @@
   "id": "VERSUS1",
   "status": "running",
   "seat": "kalli",
-  "agent": "Kalli v John, Maria v Antigravity (chat seats, driven from your PC: light)",
+  "agent": "League runner + the Claude Opus player (two terminal tabs on your PC: light)",
   "started": "2026-11-26T23:40",
-  "eta": "1-2 h a match",
-  "title": "Your ask: agents fight each other - Kalli v John and Maria v Antigravity, each beat sealed before the other is seen, then each one's verdict",
-  "note": "node ops/Tools/versus_by_message.mjs (resumable): E:/FightCamp/tmp/versus/<a>_v_<b>"
+  "eta": "several hours (15 matches)",
+  "title": "Your ask: the agents' league - Kalli, John, Maria, Antigravity, Dola and Claude (Opus) each fight every other once; the table is ops/research/versus/LEAGUE.md",
+  "note": "node ops/Tools/league.mjs run (resumable); table: node ops/Tools/league.mjs table"
  }
 }

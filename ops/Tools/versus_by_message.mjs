@@ -3,7 +3,7 @@
 // own rules, each beat sealed before the other is seen); this driver is both seats' hands, as play_by_message.mjs is for one.
 //
 //   node ops/Tools/versus_by_message.mjs <dir> a=<seat>:<via> b=<seat>:<via> [seed=1] [pace=<s>]
-//     seat: kalli | john | maria | antigravity | dola       via: grok | agy | dola | test
+//     seat: kalli | john | maria | antigravity | dola | claude       via: grok | agy | dola | claude (API) | worker (a console worker plays by itself) | test
 //     dir:  E:/FightCamp/tmp/versus/<a>_v_<b>
 // Resumable: <dir>/driver.json; everything said is in <dir>/driver.log and <dir>/<seat>/. After the bout each seat is asked
 // for a short verdict (<dir>/VERSUS_<SEAT>.md). Ends with VERSUS DONE <result> or VERSUS STALLED <why>.
@@ -33,6 +33,17 @@ async function ask(S, k, text, want, maxMin) {
     const agy = path.join(process.env.LOCALAPPDATA, 'agy', 'bin', 'agy.exe'), prompt = `You are a boxer in a match. Read the file ${all.replace(/\\/g, '/')} from top to bottom with your file read tool: it is the whole match so far. Answer ONLY its LAST message, exactly in the form it asks for, as your final message. Use no other tool: no shell command, no file write, no search.`;
     for (let t = 0; t < 3; t++) { const r = await run(agy, ['-p', prompt, '--mode', 'accept-edits', '--sandbox', '--print-timeout', `${maxMin * 60}s`], { cwd: S.dir }); if (r.out && want(r.out)) { fs.appendFileSync(all, `\n=== YOUR ANSWER TO MESSAGE ${n} ===\n${r.out}\n`); return r.out; } log(`${S.seat} agy try ${t + 1}: no usable answer (${r.out.length} chars) ${r.err.slice(-160)}`); await sleep(5000); }
     stall(S.seat + ': agy gave no usable answer'); }
+  if (S.via === 'claude') { /* S567 "you play also on opus": one Messages API call a beat (ops/Tools/claude_seat.py), the match so far as one file */
+    const all = path.join(S.dir, 'match_so_far.md'); fs.appendFileSync(all, `
+
+=== MESSAGE ${n} TO YOU ===
+${text}
+`);
+    for (let t = 0; t < 3; t++) { const r = await run('python', ['ops/Tools/claude_seat.py', all, '--model', arg.claude || 'claude-opus-5-5', '--max-tokens', /YOUR VERDICT/.test(text) ? '1600' : '400']); if (r.out && want(r.out)) { fs.appendFileSync(all, `
+=== YOUR ANSWER TO MESSAGE ${n} ===
+${r.out}
+`); return r.out; } log(`${S.seat} claude try ${t + 1}: no usable answer (${r.out.length} chars) ${r.err.slice(-200)}`); await sleep(5000); }
+    stall(S.seat + ': the Claude seat gave no usable answer'); }
   if (S.via === 'dola') { const tag = `[message ${n} of this match]`, tr = path.join(S.dir, 'transcript.txt'), vis = path.join(S.dir, 'visible.txt'); fs.writeFileSync(f, `${text}\n\n${tag}`);
     const r = await run('python', ['ops/Tools/cici/cici.py', 'send', ...(st.dolaChat ? [] : ['--new']), '--file', f, '--wait', '150', '--out', tr]); log('dola send: ' + (r.out || r.err).split('\n').slice(-1)[0].slice(0, 160)); st.dolaChat = 1; save();
     const ui = /^(Show More|Show Less|Today \d.*|Yesterday.*|Chat|Create Videos|Create Images|Writing|Homework|Translate)$/, clean = (s) => s.split(/\r?\n/).filter((l) => !ui.test(l.trim())).join('\n').trim();
@@ -61,15 +72,18 @@ const help = spawnSync('node', ['proto/twohands/tools/play_cli.mjs', 'help'], { 
 if (st.phase === 'intro') { vs('new', BOUT, `a=${SEATS[0].Name}`, `b=${SEATS[1].Name}`, `seed=${arg.seed || 1}`); st.phase = 'bout'; st.first = 1; save(); log(`new bout ${SEATS[0].Name} v ${SEATS[1].Name}`); }
 const intro = (S, o) => `You are ${S.Name}, and this is a MATCH: one bout of a small boxing game, Puncher's chance, against another AI agent, ${o.Name}. You both have the same boxer and the same rules. Each beat you each send your plan without seeing the other's; then the beat is played and you both see what happened. I am only the referee and your hands. Three rounds of six beats. PLAY TO WIN: read what ${o.Name} does and punish it.\n\nTHE GAME'S OWN HELP (all a player is told; there is no computer opponent here, only ${o.Name}):\n\n${help}\n`;
 // one seat's beat: asked until the tool accepts the plan (three refusals: both hands held, feet still)
-async function beat(k) { const S = SEATS[k]; let msg = `${st.first ? intro(S, SEATS[1 - k]) + '\n' : ''}${vs('show', BOUT, `who=${S.who}`).out}\n\n${FORM}`;
+async function beat(k) { const S = SEATS[k];
+  /* via=worker (S567, the league's Claude Opus player: a console worker that runs versus.mjs itself): nothing is sent, the driver waits until that side has sealed its beat */
+  if (S.via === 'worker') { for (const t0 = Date.now(); ;) { const B = JSON.parse(fs.readFileSync(BOUT, 'utf8')); if (B.sealed[k] || B.over || B.n !== beat.n0) return; if (Date.now() - t0 > 20 * 60000) stall(S.seat + ': the worker sealed no beat in 20 min'); await sleep(4000); } } let msg = `${st.first ? intro(S, SEATS[1 - k]) + '\n' : ''}${vs('show', BOUT, `who=${S.who}`).out}\n\n${FORM}`;
   for (let t = 0; t < 3; t++) { const reply = await ask(S, k, msg, (r) => !!parsePlan(r), 12), plan = parsePlan(reply) || ['lead=high', 'rear=high', 'feet=hold'], why = (reply.split(/\r?\n/).find((l) => /^\W*why\b/i.test(l.trim())) || '').trim();
     fs.appendFileSync(path.join(DIR, 'why.txt'), `${S.Name}: ${plan.join(' ')}\n  ${why}\n`); const r = vs('plan', BOUT, `who=${S.who}`, ...plan); log(`${S.seat} ${plan.join(' ')} | ${why.slice(0, 160)} | code ${r.code}`);
     if (r.code === 0) return; msg = `${r.out}\nYour plan was not accepted; nothing is lost. Send another.\n\n${FORM}`; }
   vs('plan', BOUT, `who=${S.who}`, 'lead=high', 'rear=high', 'feet=hold'); log(S.seat + ': three refused plans, both hands held'); }
-while (st.phase === 'bout') { const B = JSON.parse(fs.readFileSync(BOUT, 'utf8')); if (B.over) { st.phase = 'verdict'; save(); break; }
+while (st.phase === 'bout') { const B = JSON.parse(fs.readFileSync(BOUT, 'utf8')); if (B.over) { st.phase = 'verdict'; save(); break; } beat.n0 = B.n;
   await Promise.all([0, 1].filter((k) => !B.sealed[k]).map((k) => beat(k))); st.first = 0; save(); }
 const result = JSON.parse(fs.readFileSync(BOUT, 'utf8')).over, whole = fs.readFileSync(BOUT + '.log.txt', 'utf8');
 await Promise.all([0, 1].map(async (k) => { if (st.verdict[k]) return; const S = SEATS[k], o = SEATS[1 - k];
+  if (S.via === 'worker') { const vf = path.join(DIR, `VERSUS_${S.seat.toUpperCase()}.md`); for (const t0 = Date.now(); !fs.existsSync(vf) && Date.now() - t0 < 15 * 60000;) await sleep(5000); st.verdict[k] = 1; save(); log(S.seat + (fs.existsSync(vf) ? ' verdict file found' : ' wrote no verdict in 15 min')); return; }
   const msg = `THE BOUT IS OVER: ${result}\n\nEvery beat as it was played:\n\n${whole}\n\nYOUR VERDICT, as ONE message of at most 500 words: (1) why you won or lost - the two beats that decided it; (2) what ${o.Name} did that you could read, and what you could not; (3) was playing another agent more fun than a scripted opponent would be, and why; (4) one plan that felt too strong and one switch you never wanted; (5) one line each, 1 to 10: FUN, DEPTH, CLARITY, VARIETY; (6) TO REACH 10/10: the three changes to the game, most important first, each tied to a beat of this bout. End with the line: VERDICT END`;
   const reply = await ask(S, k, msg, (r) => r.length > 600 && /VERDICT END/i.test(r), 20); fs.writeFileSync(path.join(DIR, `VERSUS_${S.seat.toUpperCase()}.md`), `# ${S.Name} on ${SEATS[0].Name} v ${SEATS[1].Name} (${result})\n\n${reply}\n`); st.verdict[k] = 1; save(); log(S.seat + ' verdict saved'); }));
 log('DONE ' + result); console.log(`VERSUS DONE ${result} dir=${DIR}`);

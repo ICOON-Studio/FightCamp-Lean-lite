@@ -1,0 +1,76 @@
+Dola: lead=high rear=high feet=hold order=feet,lead,rear
+  WHY: Long range favors lead hand jab first — high is safest, most reachable, low cost; hold feet keeps distance control; rear high follows to threaten; covers both common opening patterns John might try while staying safe and flexible
+John: lead=high rear=high feet=in order=feet,lead,rear
+  WHY: At Long a jab mostly trades 1 for 1, so I step in to Mid behind both hands held high, which blocks his jab and any cross as I arrive.
+Dola: lead=punch rear=punch feet=hold order=feet,lead,rear
+  WHY: John stepped in and threw high-high — he's extended and committed; I meet him mid-exchange with both punches to beat his follow-up, hold feet keeps position and avoids overcommitting while punishing his aggressive entry
+John: lead=bjab rear=rbody feet=hold order=lead,rear,feet
+  WHY: Dola held both hands high, which leaves the body line open, so I throw two body punches at Mid to score and shorten his stamina bar.
+Dola: lead=jab rear=cross feet=hold order=feet,lead,rear
+  WHY: John stepped in with jab+cross both high — I meet the same pattern with proper terms; hold feet keeps mid-range control and lets my 1-2 land clean before he can reset his guard
+Dola: lead=high rear=rbody feet=hold order=feet,lead,rear
+  WHY: John went body-body twice — he's dropping his lead hand low to aim at my body; I keep lead HIGH to block/guard his body jab and threaten his head, then punish his lowered guard with a rear body shot right where he's leaving himself open
+John: lead=high rear=cross feet=hold order=lead,rear,feet
+  WHY: Dola threw jab then cross, so my lead held high blocks his jab in moment 1, and my cross in moment 2 comes in as a counter while his rear hand is out throwing.
+Dola: lead=low rear=cross feet=hold order=feet,lead,rear
+  WHY: John alternates body then head — last beat he went high; I lead LOW to guard/parry his next body feint or jab, then CROSS over his extended lead hand when he lifts it high again; punishes his predictable switch
+John: lead=feint rear=rbody feet=hold order=lead,rear,feet
+  WHY: Dola keeps his lead high but has started reading my body cross, so the feint draws his hands and the body cross right after it can't be covered and shortens his stamina bar again.
+Dola: lead=high rear=rbody feet=hold order=feet,lead,rear
+  WHY: John's feint+body cross pattern drew my lead hand low last time; I now keep lead HIGH to block his feint distraction and guard my head, then punish his committed body cross with a rear body punch of my own the moment he overcommits low
+John: lead=high rear=cross feet=hold order=rear,lead,feet
+  WHY: Dola crosses nearly every beat, so my lead held high blocks it, and his lead sat low last beat, which leaves the straight line open for my cross.
+Dola: lead=high rear=rbody feet=hold order=feet,lead,rear
+  WHY: John's pattern alternates feint+body cross then high cross; he keeps lead high but is low on stamina and health; I keep lead HIGH to block his high cross, then land a rear body shot — his guard stays up top, body is consistently exposed
+John: lead=high rear=rbody feet=hold order=rear,lead,feet
+  WHY: Dola has switched between the cross and the body cross, so my lead held high covers the cross, and my body cross goes into the open body line, since his lead stays high whenever he goes to the body.
+Dola: lead=jab rear=cross feet=hold order=feet,lead,rear
+  WHY: John consistently leads with high guard then goes body; at Long range I open with a safe, fast jab to measure and disrupt his entry; hold feet keeps my distance; cross follows — he's hurt and low on health, a clean 1-2 can finish strong
+John: lead=low rear=high feet=in order=feet,lead,rear
+  WHY: Dola has gone to the body twice running, so I step in to Mid with my lead held low to block his body cross, and my rear held high against a hook, while banking stamina.
+Dola: lead=low rear=rbody feet=hold order=feet,lead,rear
+  WHY: John stepped in low lead, exposing his body; I keep lead LOW to guard his next low jab/step-in threat and occupy his lead hand, then land a rear body shot — he's at 4 health, body damage finishes fastest
+John: lead=high rear=high feet=hold order=feet,lead,rear
+  WHY: I'm on 4 health and he has only 3 stamina, so I hold both hands high to block his jab, cross and hook, and bank 3 stamina for a counter next beat.
+Dola: lead=high rear=rbody feet=hold order=feet,lead,rear
+  WHY: John did nothing but hold both hands high last beat — he's guarding head only; his body is wide open; I keep lead HIGH to match/block any sudden head jab, then rear body shot finishes him — he's at 2 health, one clean body punch ends this
+John: lead=high rear=low feet=back order=feet,lead,rear
+  WHY: On 2 health, I back off to Long first, where only his jab reaches and my lead held high blocks it, so his body cross and cross fall short.
+Dola: lead=jab rear=cross feet=in order=feet,lead,rear
+  WHY: John backed off to Long range — he's retreating and hurt at 2 health; I step IN with a quick jab to close distance and a cross behind it; Long range favors the fast, straight 1-2 combo to catch him before he can reset or recover
+John: lead=high rear=low feet=hold order=feet,lead,rear
+  WHY: At Long only the jab can reach, so I hold my ground with the lead high to block it and bank stamina; holding keeps me off the ropes.
+Dola: lead=jab rear=high feet=hold order=feet,lead,rear
+  WHY: Step-in cost too much stamina; I keep feet HOLD to conserve my 3 stamina, throw only a lead jab at Long range — low cost, still threatens his hurt 2-health body/head, and saves stamina for when he comes closer
+Dola: lead=low rear=cross feet=hold order=feet,lead,rear
+  WHY: John blocked my jab with lead HIGH last beat — he's covering head; I switch lead LOW to threaten the body where his rear hand hangs low, then cross over his raised lead hand to punish the head; he's at 2 health — either one finishes
+John: lead=high rear=low feet=hold order=feet,lead,rear
+  WHY: His jab is the only punch that reaches at Long, and my lead held high just blocked it, so I hold again and keep my 2 health safe to the bell.
+Dola: lead=jab rear=high feet=hold order=feet,lead,rear
+  WHY: Cross fell short at Long range last beat — only jabs land reliably here; John keeps lead high/rear low; I jab to keep pressure, hold feet to conserve stamina; save power punches for when Round 3 starts at closer range
+John: lead=high rear=low feet=hold order=feet,lead,rear
+  WHY: At Long only his jab reaches, and my lead held high blocks it, so I see out the round at 2 health and take the stamina back for round 3.
+Dola: lead=lup rear=rbody feet=hold order=feet,lead,rear
+  WHY: John blocks lead-high jabs repeatedly — he's fixed on head defense; I throw lead uppercut to slip under his raised lead guard, then rear body punch into his open body; he's at 2 health — either lands finishes the match
+John: lead=jab rear=high feet=hold order=lead,feet,rear
+  WHY: I'm two rounds down, so I have to score, and his jab keeps coming with the rear held high, which leaves his straight line open when his lead is out: my jab trades for a point at Long, with my rear high in case he steps in with a hook.
+Dola: lead=jab rear=high feet=hold order=feet,lead,rear
+  WHY: Uppercut/body punches fall short at Long range — only jabs land reliably here; John just threw a jab, so I match his range with a fast lead jab; hold feet preserves my low stamina (2/5) while keeping pressure
+John: lead=jab rear=high feet=hold order=lead,feet,rear
+  WHY: He has only 2 stamina and threw punches that can't reach Long, so I keep scoring with the jab from out here, where his heavy shots fall short.
+Dola: lead=jab rear=high feet=hold order=feet,lead,rear
+  WHY: John's at 1 health — one clean jab wins this; we traded jabs last beat, so I match him but keep rear HIGH to block his return jab; hold feet stays at Long range where jabs land clean and I can finish him safely
+John: lead=high rear=high feet=hold order=feet,lead,rear
+  WHY: I'm on 1 health, so trading jabs now gets me knocked down; holding both hands high blocks his jab and builds stamina for one clean counter.
+Dola: lead=low rear=cross feet=in order=feet,lead,rear
+  WHY: John blocked my jab with lead HIGH — he's committed to head guard; I go lead LOW to draw his hand up/down then step IN and throw cross straight through; he's at 1 health — one clean cross wins the match
+John: lead=high rear=high feet=hold order=feet,lead,rear
+  WHY: He has jabbed three beats running and my lead held high blocks every one, while my rear punches can't reach Long, so on 1 health I keep blocking and keep my round lead on points.
+Dola: lead=low rear=rbody feet=hold order=feet,lead,rear
+  WHY: John blocked my cross with lead HIGH — he's guarding head only; his body is completely open; I keep lead LOW to occupy his attention/guard then rear body punch goes straight through; he's at 1 health — body shot finishes him instantly
+John: lead=high rear=cross feet=hold order=rear,lead,feet
+  WHY: Dola crossed with the lead low, so my lead held high blocks his cross, and my cross down his open straight line could start a comeback while his rear is busy.
+Dola: lead=high rear=rbody feet=hold order=feet,lead,rear
+  WHY: John just got up from a knockdown — he threw a cross last beat, reaching with lead high; I keep lead HIGH to block his recovery cross, then rear body punch — he's hurt, body is exposed, and this is the final beat of the fight
+John: lead=hook rear=cross feet=hold order=lead,rear,feet
+  WHY: Only a knockdown wins it now, and he's on 6, so I spend all 4 stamina on the fast lead hook and then the cross, 3 health each, into the side line his punching rear hand leaves open and the straight line his low lead leaves open.

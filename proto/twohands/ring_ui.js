@@ -120,8 +120,8 @@
      ground left behind each man moves out of the ring into his panel, a fourth bar under Guard in plain words. */
   css.textContent += '.rng{display:none}.bar.rm i{background:var(--gold)}#ruler .plabel.corner{left:.5rem;top:.45rem;transform:none;border:1px solid var(--line2)}#ruler .plabel.corner.ok{border-color:#74bd7c;box-shadow:0 0 10px rgba(116,189,124,.7)}#ruler .plabel.corner.no{border-color:#d9534a;box-shadow:0 0 10px rgba(217,83,74,.7)}#ruler .plabel.flash{animation:plateflash .9s ease-out}';
   const room = (k) => { const m = F[k], n = 2 - Math.min(2, m.ropes || 0), who = k ? 'he' : 'you';
-    return `<span class="lab" title="Every back off gives up one step of ground; with none left ${who} ${k ? 'is' : 'are'} on the ropes and cannot back off. A step in wins it back.">${n ? `Room to back off ${n} of 2` : 'On the ropes - cannot back off'}</span><div class="bar rm"><i style="width:${50 * n}%"></i></div>`; };
-  const draw0 = draw; draw = function () { draw0(); for (const k of [0, 1]) { const el = $(k ? 'him' : 'you'), h = el.querySelector('.bar.gb'); if (h && !el.querySelector('.bar.rm')) h.insertAdjacentHTML('afterend', room(k)); } place(); };
+    return gz(k, 'rm', n / 2, 0, 0, n ? n + '/2' : 'ropes', 'Ground', `${n ? 'Room to back off: ' + n + ' of 2' : 'On the ropes: cannot back off'}. Every back off gives up one step of ground; with none left ${who} ${k ? 'is' : 'are'} on the ropes and cannot back off. A step in wins it back.`); };   /* S567: a round gauge like the others */
+  const draw0 = draw; draw = function () { draw0(); for (const k of [0, 1]) { const el = $(k ? 'him' : 'you'), h = el.querySelector('.gz.gb'); if (h && !el.querySelector('.gz.rm')) h.insertAdjacentHTML('afterend', room(k)); } place(); };
   addEventListener('resize', place); im.addEventListener('load', place);
   // A picture that is not on disk (the kicks have none yet) must never leave the ring empty (owner S559: "both fighters
   // disappeared when istarted the beat"): show the men held at the range they are at instead.

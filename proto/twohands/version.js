@@ -4,8 +4,12 @@
    number: 0.<session>.<n> (n counts up inside the session). The top entry is the version the page shows beside the
    sound button. A measure that changed nothing on a page is not an entry. */
 window.RS_CHANGES = [
+  { v: '0.567.6', date: '2026-11-27', items: [
+    'Every move name in the commentary is a link now: hover it for the facts of the card, click it to open that card (in your hand, or in his when the line is about him).' ] },
+  { v: '0.567.5', date: '2026-11-27', items: [
+    'Health, stamina, guard and ground are round gauges now, each with its icon and number: the lit arc is what is left, the gold part of stamina is what this beat will cost. A gauge that is low pulses.' ] },
   { v: '0.567.4', date: '2026-11-27', items: [
-    'A new page, Famous exchanges (scene.html): four famous moments set with our switches and fought on the game's own rules - the counter right as he steps in, covering on the ropes, the feint that hides the right hand, the check hook. Each one then plays straight through.' ] },
+    'A new page, Famous exchanges (scene.html): four famous moments set with our switches and fought on the rules of the game itself - the counter right as he steps in, covering on the ropes, the feint that hides the right hand, the check hook. Each one then plays straight through.' ] },
   { v: '0.567.3', date: '2026-11-26', items: [
     'At the bell a new button, Replay round, plays the whole round again: every beat back to back with no planning pauses. Skip it at any time. It is there after the last round and after a stoppage too.' ] },
   { v: '0.567.2', date: '2026-11-26', items: [
