@@ -3,20 +3,19 @@
  "updated": "2026-11-26",
  "author": "claude S294",
  "now": {
-  "id": "S565",
+  "id": "S566",
   "owner": "claude",
   "updated": "2026-11-26",
-  "summary": "S565 (Fable). Start clean (no board question, nightly 506 of 506). LONG IS A CORRIDOR measured two ways at Arena: LONG1 (the stopping jab, Dola's lead hand as a fence, both) and LONG2 (Kalli SQ339, collected: the cross a man walks onto + jabs that score 2 on a stepping man; finding: the page already lands a cross thrown at Long on a man stepping in - no tester found it, K0 counts it). KDHEAL1 collected: keep the get-up [6, 4] (lower: stoppages 45%, comeback 14% then 4%; the bots show no walk-into-a-punch pull). His S562 question 'select exactly on which part of a beat i move' built as a playable copy, wait.html (MOMENTGAP1 collected, FINAL: only the step a moment later holds 8 of 9 on both seeds with the wait in 8% of beats; a free wait anywhere is picked in 67% of beats and holds 7 of 9; asked on the board, Q-344, whether it goes on the main page), with its jump button on the ops board. Fixed on every page: three moments ran the last line off a 1080 screen. CLINCHFIX2's files copied onto main; the six collected Arena pull requests closed. New tool arena_watch.py (one line when a cloud run ends). KDFIRST (own count, two seeds): the man dropped first wins 13% on the page (UFC 34.4% when the fight goes on), the first man dropped twice 9% (UFC 7%). STAGE 2: CLINCHFIX3 collected - none (third failed clinch round: no fourth; the loop's other leg is feint then overhand - cross-check on the JABLAND2 versions: the loop 38 / 63 / 70% today, 33 / 42 / 37% with 'the feint opens the overhand only Inside', 22 / 25 / 25% with that plus 'a punch landing in your feint moment wastes it' (JABLAND2 F) - under the 30% bar against every man with the clinch untouched). PROGP2 collected (his Q-340): 'cheaper or faster' is a real choice for the overhand only. The S564 render worker finished INSIDE1 steps 1-4 (Inside 0.55 m, 0 jumps) and GLIDE2; BOUNCE1 launched as the next console worker. wait.html runs on its own table. THE NAME (owner S565: \"why you call the game with the wrong name ?\", \"i didnt mean to add a mechanic , it was the name of game\"): the game is PUNCHER'S CHANCE; 'Ring Switches' was Claude's working name, removed from every page, the changelog and the ops board. The comeback switch that S559-S562 built under that name is renamed 'All in', off the main button, a trial page: his keep-or-cut call. JABLAND2 collected: none (the jab half works; any feint fix kills the feint and the overhand, 1-2% of beats; F 7 of 9) - so the feint fixes that end the clinch loop cannot go on the page as they are. BOUNCE1 done (99d787712). All in: his 'sounds fun if it is balanced properly' - kept as a trial; his question how it works on the ground in MMA answered as a direction, not designed. TESTLINK1: he chose Tailscale; the gate (server.js: Tailscale login, a confidentiality notice, a visit log, /owner/log) is built, tested (7) and live on his tailnet at https://beast.tail6f2f5c.ts.net:8443/ .",
-  "next_action": "S566: his answer to Q-344 (the late step: main page / own page / drop). Collect what has ended (arena_watch.py; branches in NEXT_SESSION_PROMPT.md): JABLAND2 read WITH the clinch cross-check (results/clinchx_*_loop.txt) -> one page change if a version holds the bars; TELLS3M -> the board question, then TELLS2PAGE; AIEMPTY1; KICKFIX3; LONG1 + LONG2 judged together -> one Long rule as a toy page. BOUNCE1 (console worker, RESUME_S565_BOUNCE1): check its pictures yourself, then KDPIC1. Then TASK_PROGP4 (a pair of its own for each punch) and INSIDE1 Phase 2 stills for him.",
+  "summary": "S566 (Fable). His two marks on the Q-344 picture built (C520: \"can you add a strip with slots for each action so it is clear what happens when, and player can drage the slot to change the order, also would be nice if a holographic preview plays the current sellection\"; C521 on the help box: \"i do not understand what it does, maybe reoharse and use basic terminology\"): proto/twohands/strip_ui.js - three numbered slots under the ring on every page (a card per moment: what it does, what it leaves open; drag to change the order), a see-through blue copy of his boxer plays the chosen moves (after every change, and while the mouse is on the strip; the playing slot lights), the help box in plain words ('Choose your moves: click a part of your boxer, then the move'). v0.566.1. Stills on 8787/review. Q-344 itself is still open. COLLECTED: TELLS3M - 4 of 7 bars, not for the page (blind following wins +8 / +10 / +29 points over the control; the reader bot is wrong in the probe) -> TASK_TELLS4M written; KICKFIX3 - E2 and E3 5 of 9, the limp loop capped, E3 the base -> TASK_KICKFIX4 written. NOT LAUNCHED: Arena shows Log in in Chrome (his sign-in). LONG1 and LONG2 still running. KDPIC1 (the render worker) not launched: the PC was RED on memory with his game open.",
+  "next_action": "S567: his look at the strip + preview (8787/review, v0.566.1) and his answer to Q-344. Once he has signed in at arena.ai: launch TASK_KICKFIX4 and TASK_TELLS4M (lite mirror already pushed). Collect LONG1 (cba93bd0) and LONG2 (193e5c2c), judged together -> one Long rule as a toy page. KDPIC1 console worker when his game is closed and the watchdog is not RED. Then TASK_PROGP4 and INSIDE1 Phase 2 stills.",
   "last_working_commit": "bfa5aa6ea",
   "verified_playable": "Builds/ exported in S556 (the S547 game plus S548's two changes: the 3D fight throws the body cross, the trial evening's pictures show the prospect's own body; pro_body_jab is on disk and unused by the game). Ring Switches (a browser toy): one beat played in the browser in S556 against the Jabber - both men threw a body jab, both landed, no console error; rules_test 34 pass; anim_check 124 runs PASS.",
   "incomplete_blocked": "Six Arena measures (TELLS3M, AIEMPTY1, JABLAND2, KICKFIX3, LONG1, LONG2) and the BOUNCE1 console worker still running at the handover. No export: no game code changed (proto pages and node tools only). Uncommitted pictures from earlier sessions sit in proto/twohands/img/anim: left for the render workers.",
   "next_acceptance": "Each run collected and judged against its bars; his question on the moment answered with both seeds; a Long rule chosen from LONG1 / LONG2 only if it holds the bars on both seeds.",
   "awaiting_operator": [
-   "TESTLINK1: everything is ready - he sends the Tailscale invite to his brother (Machines -> beast -> Share); then check /owner/log",
-   "Q-344: the step a moment later - on the main page, on its own page, or dropped",
-   "The 'All in' comeback switch (never asked for): keep it or cut it, after he tries it",
-   "The worker consoles left from S560-S564 (idle, about 1.5 GB together): close them?"
+   "Q-344: the step a moment later - main page, own page, or drop",
+   "Sign in at arena.ai in Chrome (two cloud runs wait on it)",
+   "Close the old idle worker consoles (about 1.5 GB)?"
   ]
  },
  "next": "S562: see NEXT_SESSION_PROMPT.md - collect four Arena runs, then the body view as the main page's way to pick (his Q-343).",
@@ -2481,6 +2480,11 @@
    "id": "S565",
    "date": "2026-11-26",
    "summary": "S565 (Fable). Start clean (no board question, nightly 506 of 506). LONG IS A CORRIDOR measured two ways at Arena: LONG1 (the stopping jab, Dola's lead hand as a fence, both) and LONG2 (Kalli SQ339, collected: the cross a man walks onto + jabs that score 2 on a stepping man; finding: the page already lands a cross thrown at Long on a man stepping in - no tester found it, K0 counts it). KDHEAL1 collected: keep the get-up [6, 4] (lower: stoppages 45%, comeback 14% then 4%; the bots show no walk-into-a-punch pull). His S562 question 'select exactly on which part of a beat i move' built as a playable copy, wait.html (MOMENTGAP1 collected, FINAL: only the step a moment later holds 8 of 9 on both seeds with the wait in 8% of beats; a free wait anywhere is picked in 67% of beats and holds 7 of 9; asked on the board, Q-344, whether it goes on the main page), with its jump button on the ops board. Fixed on every page: three moments ran the last line off a 1080 screen. CLINCHFIX2's files copied onto main; the six collected Arena pull requests closed. New tool arena_watch.py (one line when a cloud run ends). KDFIRST (own count, two seeds): the man dropped first wins 13% on the page (UFC 34.4% when the fight goes on), the first man dropped twice 9% (UFC 7%). STAGE 2: CLINCHFIX3 collected - none (third failed clinch round: no fourth; the loop's other leg is feint then overhand - cross-check on the JABLAND2 versions: the loop 38 / 63 / 70% today, 33 / 42 / 37% with 'the feint opens the overhand only Inside', 22 / 25 / 25% with that plus 'a punch landing in your feint moment wastes it' (JABLAND2 F) - under the 30% bar against every man with the clinch untouched). PROGP2 collected (his Q-340): 'cheaper or faster' is a real choice for the overhand only. The S564 render worker finished INSIDE1 steps 1-4 (Inside 0.55 m, 0 jumps) and GLIDE2; BOUNCE1 launched as the next console worker. wait.html runs on its own table. THE NAME (owner S565: \"why you call the game with the wrong name ?\", \"i didnt mean to add a mechanic , it was the name of game\"): the game is PUNCHER'S CHANCE; 'Ring Switches' was Claude's working name, removed from every page, the changelog and the ops board. The comeback switch that S559-S562 built under that name is renamed 'All in', off the main button, a trial page: his keep-or-cut call. JABLAND2 collected: none (the jab half works; any feint fix kills the feint and the overhand, 1-2% of beats; F 7 of 9) - so the feint fixes that end the clinch loop cannot go on the page as they are. BOUNCE1 done (99d787712). All in: his 'sounds fun if it is balanced properly' - kept as a trial; his question how it works on the ground in MMA answered as a direction, not designed. TESTLINK1: he chose Tailscale; the gate (server.js: Tailscale login, a confidentiality notice, a visit log, /owner/log) is built, tested (7) and live on his tailnet at https://beast.tail6f2f5c.ts.net:8443/ ."
+  },
+  {
+   "id": "S566",
+   "date": "2026-11-26",
+   "summary": "S566 (Fable). His two marks on the Q-344 picture built (C520: \"can you add a strip with slots for each action so it is clear what happens when, and player can drage the slot to change the order, also would be nice if a holographic preview plays the current sellection\"; C521 on the help box: \"i do not understand what it does, maybe reoharse and use basic terminology\"): proto/twohands/strip_ui.js - three numbered slots under the ring on every page (a card per moment: what it does, what it leaves open; drag to change the order), a see-through blue copy of his boxer plays the chosen moves (after every change, and while the mouse is on the strip; the playing slot lights), the help box in plain words ('Choose your moves: click a part of your boxer, then the move'). v0.566.1. Stills on 8787/review. Q-344 itself is still open. COLLECTED: TELLS3M - 4 of 7 bars, not for the page (blind following wins +8 / +10 / +29 points over the control; the reader bot is wrong in the probe) -> TASK_TELLS4M written; KICKFIX3 - E2 and E3 5 of 9, the limp loop capped, E3 the base -> TASK_KICKFIX4 written. NOT LAUNCHED: Arena shows Log in in Chrome (his sign-in). LONG1 and LONG2 still running. KDPIC1 (the render worker) not launched: the PC was RED on memory with his game open."
   }
  ],
  "blocked_on_operator": [],
@@ -5399,7 +5403,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-26 18:11 board_sync",
+  "updated": "2026-11-26",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5568,35 +5572,27 @@
    "PROGP4": "Sharp upgrades: a pair of its own for each punch, measured",
    "BOUNCE1": "Never still: the bounce while you plan",
    "ALLIN1": "The All in comeback switch: keep it or cut it",
-   "TESTLINK1": "A test link with email sign-in, a notice and a log"
+   "TESTLINK1": "A test link with email sign-in, a notice and a log",
+   "STRIP1": "Your two notes built (v0.566.1): three numbered slots under the ring you can drag, a see-through preview of your boxer playing the chosen moves, the help box in plain words - your look",
+   "TELLS4M": "Tells round 4: version 3 held 4 of 7 bars (obeying every tell wins too easily) - a fake may hide one real punch, and the bot that spots the lie is fixed; waits for your Arena sign-in",
+   "KICKFIX4": "Kicks round 4: the limp spiral is capped (5 of 9 bars); next a checked low kick hurts more and the low kick keeps the rear hand up; waits for your Arena sign-in",
+   "TELLS2PAGE": "The tell onto the page as a pose of his body + the word in the ring corner - brief ready, waits for a tells version that holds its bars and your yes"
   },
   "working_now": [
-   {
-    "title": "Kicks: the two versions never measured, with the limp spiral capped where it fires",
-    "who": "Arena (cloud: costs your PC nothing)",
-    "started": "2026-11-26T13:05",
-    "run": "KICKFIX3"
-   },
-   {
-    "title": "Tells version 3 measured with bots, bars against the control: does the tell help a little, does finding his lie pay?",
-    "who": "Arena (cloud: costs your PC nothing)",
-    "started": "2026-11-26T15:20",
-    "run": "TELLS3M"
-   },
    {
     "title": "Long range is a corridor: a jab that stops a man stepping in, and a lead hand held high as a fence - both measured before anything is built",
     "who": "Arena (cloud: costs your PC nothing)",
     "started": "2026-11-26T16:01",
     "run": "LONG1"
-   },
-   {
-    "title": "Long range, Kalli's pick: the cross a man walks onto as he steps in, and jabs that score 2 on a stepping man - counted on today's page first, then measured",
-    "who": "Arena (cloud, a second chat: costs your PC nothing)",
-    "started": "2026-11-26T16:06",
-    "run": "LONG2"
    }
   ],
   "next": [
+   {
+    "id": "STRIP1",
+    "who": "operator",
+    "title": "Your two notes built (v0.566.1): three numbered slots under the ring you can drag, a see-through preview of your boxer playing the chosen moves, the help box in plain words - your look",
+    "after": ""
+   },
    {
     "id": "TESTLINK1",
     "who": "claude",
@@ -5610,10 +5606,22 @@
     "after": ""
    },
    {
+    "id": "TELLS4M",
+    "who": "arena",
+    "title": "Tells round 4: version 3 held 4 of 7 bars (obeying every tell wins too easily) - a fake may hide one real punch, and the bot that spots the lie is fixed; waits for your Arena sign-in",
+    "after": ""
+   },
+   {
+    "id": "KICKFIX4",
+    "who": "arena",
+    "title": "Kicks round 4: the limp spiral is capped (5 of 9 bars); next a checked low kick hurts more and the low kick keeps the rear hand up; waits for your Arena sign-in",
+    "after": ""
+   },
+   {
     "id": "TELLS2PAGE",
     "who": "claude",
-    "title": "Your question answered (5 of 5: one body tell): onto the page as a pose of his body + the word in the ring corner - brief ready (TASK_TELLS2PAGE), waits for TELLS3M and your yes",
-    "after": "TELLS3M"
+    "title": "The tell onto the page as a pose of his body + the word in the ring corner - brief ready, waits for a tells version that holds its bars and your yes",
+    "after": "TELLS4M"
    },
    {
     "id": "WAITPAGE",
@@ -5629,8 +5637,8 @@
    },
    {
     "id": "LONG2",
-    "who": "arena",
-    "title": "Long range, Kalli's pick: the cross a man walks onto as he steps in (the page already does half of it: counted first) - measured in the cloud",
+    "who": "claude",
+    "title": "Long range, Kalli's pick measured: nothing for the page yet - the page already lands the waiting cross, and a points-only rule changes no bout; next the jab that meets him does real damage (judged with LONG1)",
     "after": ""
    },
    {
@@ -6101,6 +6109,18 @@
   },
   "done_recently": [
    {
+    "id": "TELLS3M",
+    "who": "arena",
+    "title": "Tells version 3 measured: 4 of 7 bars - the fakes are fair now, but obeying every tell wins too easily",
+    "after": ""
+   },
+   {
+    "id": "KICKFIX3",
+    "who": "arena",
+    "title": "Kicks: two versions measured, both 5 of 9 bars; the limp spiral is gone, the low kick still lands too often",
+    "after": ""
+   },
+   {
     "title": "Never still: a light bounce on the feet while you plan, at every range",
     "who": "console worker (Opus, Code Mode), terminal tab bounce565",
     "when": "2026-11-26"
@@ -6247,64 +6267,6 @@
   "map": {
    "done_earlier": [
     {
-     "text": "Tells v2 Arena replay: 7/8/8",
-     "who": "agent"
-    },
-    {
-     "text": "Tells v3: no hidden bigger punch",
-     "who": "claude"
-    },
-    {
-     "text": "5 of 5 testers: one body tell",
-     "who": "agent"
-    },
-    {
-     "text": "Clinch v2 measured: none",
-     "who": "agent"
-    },
-    {
-     "text": "Head + pull counter: 7/8 of 9",
-     "who": "agent"
-    },
-    {
-     "text": "Attributes probe: 3 of 4 count",
-     "who": "claude"
-    },
-    {
-     "text": "Story column readable (all pages)",
-     "who": "claude"
-    },
-    {
-     "text": "4 of 4: show one body tell",
-     "who": "claude"
-    },
-    {
-     "text": "Habit read shown (He read you)",
-     "who": "claude"
-    },
-    {
-     "text": "PROGP3 + KICKFIX2 collected",
-     "who": "claude"
-    },
-    {
-     "text": "Range badge off the fighters",
-     "who": "claude"
-    },
-    {
-     "text": "Back off left, Step in right",
-     "who": "claude"
-    },
-    {
-     "text": "Stamina reads -2 / +1",
-     "who": "claude"
-    },
-    {
-     "text": "Room to back off bar",
-     "who": "claude"
-    }
-   ],
-   "done_session": [
-    {
      "text": "Knockdown heal measured: keep it",
      "who": "claude"
     },
@@ -6331,6 +6293,52 @@
     {
      "text": "Clinch v3 measured: none",
      "who": "agent"
+    },
+    {
+     "text": "Tells v2 Arena replay: 7/8/8",
+     "who": "agent"
+    },
+    {
+     "text": "Tells v3: no hidden bigger punch",
+     "who": "claude"
+    },
+    {
+     "text": "5 of 5 testers: one body tell",
+     "who": "agent"
+    },
+    {
+     "text": "Clinch v2 measured: none",
+     "who": "agent"
+    },
+    {
+     "text": "Head + pull counter: 7/8 of 9",
+     "who": "agent"
+    },
+    {
+     "text": "Attributes probe: 3 of 4 count",
+     "who": "claude"
+    },
+    {
+     "text": "Story column readable (all pages)",
+     "who": "claude"
+    }
+   ],
+   "done_session": [
+    {
+     "text": "Action strip + preview (C520)",
+     "who": "claude"
+    },
+    {
+     "text": "Help box in plain words (C521)",
+     "who": "claude"
+    },
+    {
+     "text": "Tells v3 measured: 4 of 7 bars",
+     "who": "claude"
+    },
+    {
+     "text": "Long, Kalli's pick: none",
+     "who": "claude"
     }
    ],
    "now": [
@@ -6361,6 +6369,10 @@
     {
      "text": "Never still: bounce (worker)",
      "who": "agent"
+    },
+    {
+     "text": "Your play: strip + preview",
+     "who": "claude"
     }
    ],
    "next": [
@@ -6843,15 +6855,19 @@
     {
      "text": "Feint fix: bars, then the page",
      "who": "claude"
+    },
+    {
+     "text": "Tells v4: a blind cover costs",
+     "who": "claude"
     }
    ],
-   "session": "S565"
+   "session": "S566"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
  "last_working_commit": "bfa5aa6ea",
- "next_action": "S566: his answer to Q-344 (the late step: main page / own page / drop). Collect what has ended (arena_watch.py; branches in NEXT_SESSION_PROMPT.md): JABLAND2 read WITH the clinch cross-check (results/clinchx_*_loop.txt) -> one page change if a version holds the bars; TELLS3M -> the board question, then TELLS2PAGE; AIEMPTY1; KICKFIX3; LONG1 + LONG2 judged together -> one Long rule as a toy page. BOUNCE1 (console worker, RESUME_S565_BOUNCE1): check its pictures yourself, then KDPIC1. Then TASK_PROGP4 (a pair of its own for each punch) and INSIDE1 Phase 2 stills for him.",
+ "next_action": "S567: his look at the strip + preview (8787/review, v0.566.1) and his answer to Q-344. Once he has signed in at arena.ai: launch TASK_KICKFIX4 and TASK_TELLS4M (lite mirror already pushed). Collect LONG1 (cba93bd0) and LONG2 (193e5c2c), judged together -> one Long rule as a toy page. KDPIC1 console worker when his game is closed and the watchdog is not RED. Then TASK_PROGP4 and INSIDE1 Phase 2 stills.",
  "next_acceptance": "Rulers vs r0: head jumps on the contact frame under 4, a head inside the other's body under 5 frames, arm out median under 4 frames with join_return green, then r1 film at two fresh blind critics 5+/10",
  "superseded_archive": [
   {

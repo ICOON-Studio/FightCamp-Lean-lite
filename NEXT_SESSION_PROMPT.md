@@ -1,6 +1,38 @@
-# S566 handover (written 2026-11-26, S565 - Fable 5.2)
+# S567 handover (written 2026-11-26, S566 - Fable 5.2)
 
-Start: `git pull && python ops/Tools/agent_comms.py start`, then this page, then `ops/research/S565_DIGEST.md`.
+Start: `git pull && python ops/Tools/agent_comms.py start`, then this page, then `ops/research/S565_DIGEST.md` (S566 is the section just below).
+
+## S566 in one screen (read first)
+HIS TWO MARKS ON THE Q-344 PICTURE, BUILT (v0.566.1; stills on 8787/review; his look is the gate):
+- C520 "can you add a strip with slots for each action so it is clear what happens when ,and player can drage the slot to
+  change the order , also would be nice if a holographic preview plays the current sellection" -> `proto/twohands/strip_ui.js`
+  (loaded after body_ui.js by order, head, kick and so by the built punch and wait pages): three numbered slots under the
+  ring, a card per moment (name, what it does at the range it happens at, what its hand leaves open), drag a card to
+  another slot (a click: one slot earlier); a see-through blue copy of his boxer (`#ghost`, the blue runs with red masked
+  away) plays the chosen moves once after every change and again while the mouse is on the strip, the playing slot lit.
+  It hides the page's old chip row and body_ui's sentence row; rules untouched (it sets P.ord and calls plan()).
+  `window.stripState()` is the browser check; `beat_shot.mjs` beats take `"hold": [ms, ..]` (more plan shots, the strip's
+  state printed) and `"plan_only": true`.
+- C521 on the help box "i do not understand what it does, maybe reoharse and use basic terminology" -> body_ui.js: "Choose
+  your moves: 1. Click a part of your boxer (the blue one) ... 2. Its moves show here: click the one you want."; the top
+  bar says "click your boxer to choose his moves".
+- Q-344 ITSELF IS STILL OPEN (he marked the picture, he did not answer).
+COLLECTED: TELLS3M (docs/TELLS3M_RESULT.md): 4 of 7 bars, NOT for the page - obeying every tell blind wins +8 / +10 / +29
+points over the no-tell control (a fake hides under 3 damage, so it costs nothing), and the reader bot is wrong in the
+probe. -> ops/research/TASK_TELLS4M.md (reader bot fixed, then version 4: a fake may hide ONE 3-damage punch).
+KICKFIX3 (docs/KICKFIX3_RESULT.md): E2 and E3 5 of 9 at N=56, the limp loop capped; E3 is the base. ->
+ops/research/TASK_KICKFIX4.md (checked low kick costs 2; the low kick keeps the rear hand up; both; plan mix both ways).
+NOT LAUNCHED: arena.ai showed "Log in" in Chrome (his sign-in; asked). The lite mirror is pushed (4ed19e17): once he is
+signed in, open two chats and name the two TASK files. KDPIC1 NOT LAUNCHED: the watchdog was RED on memory (96%) with
+ArcheAge open. LONG1 (cba93bd0) and LONG2 (193e5c2c) were still running at the end (LONG1 quiet 90 min on its L2 / L3
+tables: open its chat before calling it dead).
+A page_play_test of head.html or kick.html takes 3-4 minutes each beside his game: run them in the background.
+LONG2 COLLECTED (docs/LONG2_RESULT.md): NONE for the page. The page already lands the waiting cross (a cross from Long in
+29-30% of Long beats, 11-13% land, nearly all on a man stepping in). K2 (the cross half) 8 of 9 page bars on both seeds but
+the +1 is spent on the high lead it causes; K3 (jabs score 2) changes NO bout: the solver's worth() counts health, never
+points, so a points-only rule moves nothing. Its next step: the jab half in HEALTH (a jab landing as he steps in from Long
+is a counter, +2), alone and with K2. JUDGE WITH LONG1 when it lands, then one brief (LONG3). The strip's drag is proved
+with a real mouse: `beat_shot.mjs` beats take `"drag": [from, to]` (slot 3 -> 1 and 1 -> 2 reorder as they should).
 
 ## METHOD lines - quote all of them in your first message
 - ## METHOD - THE GAME IS CALLED PUNCHER'S CHANCE (owner S559: "We will name it "Puncher's chance" for now"; S565: "why you
@@ -159,6 +191,8 @@ rebuilt, the page tests, `balance.mjs play n=84` on two seeds, body_ui.js alread
   see-through overlap where the men cover each other) is NOT started: 3-4 Inside stills to him first.
 
 ## FIRST (in this order)
+0. S566: his look at the strip + preview; Arena sign-in -> launch KICKFIX4 and TELLS4M; items 2 and 3 below are DONE or
+   superseded by the S566 section (JABLAND2 none, TELLS3M and KICKFIX3 collected).
 1. His answers: Q-344, the consoles. Collect what has ended (arena_watch prints it).
 2. JABLAND2 + the clinch cross-check -> one page change if a version holds the bars (tweak -> order.html, table,
    balance two seeds, both make scripts, the page tests, head.html too).

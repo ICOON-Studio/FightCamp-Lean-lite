@@ -30,6 +30,14 @@ try {
   for (const b of beats) {
     await ev(`(() => { ${b.range ? `range = ${b.range};` : ''} ${b.hp ? `F[0].hp = ${b.hp[0]}; F[1].hp = ${b.hp[1]};` : ''} P = { ...plan0(), hl: P.hl, hr: P.hr, ...${JSON.stringify(b.mine || {})} }; if (!P.ord || !P.ord.length) P.ord = ordOf(P); hisNext = { at: round + ':' + beat, plan: { ...plan0(), ...${JSON.stringify(b.his || {})} } }; plan(); return 1; })()`);
     await sleep(300); await shot(`${tag}_${b.label}_plan.png`);
+    /* S566 STRIP1: "hold": [ms, ..] = more plan shots after those waits (the preview of the chosen moves plays while he plans), the strip's state printed; "plan_only": the beat is not fought */
+    for (const [j, ms] of (b.hold || []).entries()) { await sleep(ms); await shot(`${tag}_${b.label}_plan${j + 2}.png`); console.log(`BEAT_SHOT ${b.label} strip ${j + 2}: ` + JSON.stringify(await ev("window.stripState ? stripState() : null"))); }
+    /* S566: "drag": [from, to] = a real mouse drag of the strip's card in slot `from` onto slot `to` (0-based), the order printed before and after */
+    if (b.drag) { const mid = async (i) => ev(`(() => { const r = document.querySelectorAll('#strip .slot')[${i}].getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2]; })()`);
+      const [x0, y0] = await mid(b.drag[0]), [x1, y1] = await mid(b.drag[1]), before = await ev('P.ord.join(",")'), m = (type, x, y, buttons) => send('Input.dispatchMouseEvent', { type, x, y, button: 'left', buttons, clickCount: 1 });
+      await m('mouseMoved', x0, y0, 0); await m('mousePressed', x0, y0, 1); for (let k = 1; k <= 8; k++) { await m('mouseMoved', x0 + (x1 - x0) * k / 8 + (x1 > x0 ? 30 : -30) * (k === 8), y0, 1); await sleep(30); } await shot(`${tag}_${b.label}_drag.png`); await m('mouseReleased', x1 + (x1 > x0 ? 30 : -30), y1, 0); await sleep(300);
+      console.log(`BEAT_SHOT ${b.label} drag slot ${b.drag[0] + 1} -> ${b.drag[1] + 1}: ${before} => ` + await ev('P.ord.join(",")')); await shot(`${tag}_${b.label}_dragged.png`); }
+    if (b.plan_only) continue;
     await ev("document.getElementById('go').click(), 1");
     const seen = [];   /* S561: the runs the beat played (the picture's file name without its frame number), for 'is the new run SHOWN' */
     for (let i = 0; i < 300; i++) { await sleep(50); const r = (await ev("(document.getElementById('pic').getAttribute('src') || '').split('/').pop().replace(/_\d+\.\w+$/, '')")); if (r && seen[seen.length - 1] !== r) seen.push(r); if ((await ev('phase')) !== 'play') break; }

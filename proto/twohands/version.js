@@ -4,6 +4,10 @@
    number: 0.<session>.<n> (n counts up inside the session). The top entry is the version the page shows beside the
    sound button. A measure that changed nothing on a page is not an entry. */
 window.RS_CHANGES = [
+  { v: '0.566.1', date: '2026-11-26', items: [
+    'Under the ring: a strip with three numbered slots, one for each moment of the beat. Each card says what the move does and what it leaves open. Drag a card to another slot to change the order.',
+    'A see-through blue copy of your boxer plays the moves you chose, in order, after every change and while the mouse is on the strip.',
+    'The help box says in plain words how to choose moves: click a part of your boxer, then click the move.' ] },
   { v: '0.565.5', date: '2026-11-26', items: [
     'The game is called Puncher\'s chance on every page (it said Ring Switches).',
     'The comeback switch that carried the game\'s name by mistake is called "All in" and sits on its own trial page.' ] },

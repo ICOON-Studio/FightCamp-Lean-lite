@@ -123,9 +123,9 @@ button{font:inherit;color:inherit;cursor:pointer}
 #pointer{position:fixed;left:0;top:0;width:100vw;height:100vh;z-index:0;pointer-events:none;overflow:visible}
 .stage.over{cursor:pointer}
 #seqwords{display:flex;flex-wrap:wrap;gap:.1rem 1.4rem;font-size:.88rem;color:var(--fg)}#seqwords b{color:var(--gold);margin-right:.35rem}#seqwords u{color:#ff8f86;text-decoration:none;font-weight:700}#seqwords .meet{color:var(--muted);font-size:.8rem}
-</style><script src="ring_ui.js" defer></script><script src="body_ui.js" defer></script><script src="version.js" defer></script></head>
+</style><script src="ring_ui.js" defer></script><script src="body_ui.js" defer></script><script src="strip_ui.js" defer></script><script src="version.js" defer></script></head>
 <body><div class="app">
-  <div class="top"><span class="brand">Puncher's chance</span><span id="where"></span><span id="score"></span><span class="lab" style="margin-left:auto" title="The head holds the head moves. The order you click is the order you throw.">point at a limb to set it</span><button class="btn" id="mute" style="padding:.2rem .6rem;min-height:0;font-size:.85rem">Sound on</button></div>
+  <div class="top"><span class="brand">Puncher's chance</span><span id="where"></span><span id="score"></span><span class="lab" style="margin-left:auto" title="The head holds the head moves. The order you click is the order you throw. Drag a card in the strip under the ring to change it.">click your boxer to choose his moves</span><button class="btn" id="mute" style="padding:.2rem .6rem;min-height:0;font-size:.85rem">Sound on</button></div>
   <div class="men"><div class="man you" id="you"></div><div class="man him" id="him"></div></div>
   <div class="duo"><div class="side" id="side"><div class="board" id="board"></div></div><div class="stage" id="stage"><div class="rng" id="rng"></div><img id="pic" alt="" src="img/guard.webp"><span class="burst" id="burst"></span><span class="pop p0" id="pop0"></span><span class="pop p1" id="pop1"></span><span class="cap" id="cap"></span><span class="nm you">You</span><span class="nm him" id="nmhim">Him</span></div>
     <div class="tell"><div class="said" id="said"></div><div id="story"></div></div></div>

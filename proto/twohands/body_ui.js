@@ -109,11 +109,11 @@
   const T = (s) => tipAttr(s);
   function panel() { const k = phase === 'plan' ? hover || pinned : null; side.className = 'side' + (k ? ' w' + k[0] : '');
     his.style.display = 'none'; sum.style.display = 'none'; brd.style.display = '';
-    if (phase === 'setup') { head.className = 'hd'; head.innerHTML = '<b>Pick your man</b><small>then Fight - in the bout you point at your man to set his switches</small>'; filter(null); return; }
+    if (phase === 'setup') { head.className = 'hd'; head.innerHTML = '<b>Pick your man</b><small>then Fight. In the bout, click your boxer to choose his moves.</small>'; filter(null); return; }
     if (phase === 'over') { head.className = 'hd'; head.innerHTML = '<b>The bout is over</b>'; filter(null); return; }
     if (phase !== 'plan') { head.className = 'hd'; head.innerHTML = '<b>This beat</b><small>your switches, lit as they act</small>'; filter((b) => b.classList.contains('on') && !b.classList.contains('home')); return; }
     if (!k) { const first = round === 1 && beat === 0;
-      head.className = 'hd' + (first ? ' hint' : ''); head.innerHTML = '<b>Point at your man</b><small>an arm, the legs, the body or the head - click it to keep it open. Point at him to see what he can do.</small>';
+      head.className = 'hd' + (first ? ' hint' : ''); head.innerHTML = '<b>Choose your moves</b><small>1. Click a part of your boxer (the blue one): an arm, the legs, the body.<br>2. Its moves show here: click the one you want.<br>Mouse over the red boxer to see what he can hit you with.</small>';   /* S566 C521, owner: "i do not understand what it does, maybe reoharse and use basic terminology" */
       brd.style.display = 'none'; sum.style.display = 'flex'; sum.innerHTML = summary(); for (const b of sum.querySelectorAll('button')) { b.onclick = () => { pinned = b.dataset.k; peek = null; show(); }; b.onmouseenter = () => { peek = b.dataset.k; redraw(); }; b.onmouseleave = () => { peek = null; redraw(); }; } return; }
     head.className = 'hd'; const [w, part] = k.split(':'), kept = pinned === k ? 'kept open: click it again to let go' : '';
     if (w === '1') { brd.style.display = 'none'; his.style.display = 'flex'; head.innerHTML = `<b>His ${NAME[part].toLowerCase()}</b><small>${kept || 'what it can do to you at ' + RNG[range]}</small>`; his.innerHTML = hisPart(part); return; }
