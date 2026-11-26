@@ -1,0 +1,9 @@
+{
+ "_note": "S564 AIEMPTY1: his PLAIN beats (ai(), the 1 - OPP.skill share) never pick an empty plan - E1 a push off ordered after his back off, E2 a feint with no punch of his after it, E3 a step in at Inside with no ground given, E4 a back off at Long with no punch after it (ALLPLAY2 Antigravity section 5 item 4, ALLPLAY2B Arena fix 5). The list `all` is filtered, so `own` and its fallback are both clean (the hold-still plan is never empty, so the list is never empty). The solved mix and the habit read are left alone; no number, no random draw changes.",
+ "src": [
+  [
+   "if (rnd() >= (OPP.skill == null ? 1 : OPP.skill)) { const all = plansFor(S, 1), still =",
+   "if (rnd() >= (OPP.skill == null ? 1 : OPP.skill)) { const all = plansFor(S, 1).filter((c) => { if (c.clinch) return true; const o = ordOf(c), at = (sl) => o.indexOf(sl), after = (i) => ['lead', 'rear'].some((sl) => c[sl] && ACT[c[sl]].d && at(sl) > i); return !((c.lead === 'push' && c.feet === 'back' && at('feet') < at('lead')) || (c.lead === 'feint' && !after(at('lead'))) || (c.feet === 'in' && S.range === 1 && !(me.ropes > 0)) || (c.feet === 'back' && S.range === 3 && !after(at('feet')))); }), still ="
+  ]
+ ]
+}
