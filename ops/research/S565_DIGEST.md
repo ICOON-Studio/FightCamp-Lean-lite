@@ -165,3 +165,15 @@ mechanic , it was the name of game".
   wait_test 5, rules_test 37; top bars checked on screenshots.
 - His questions answered in chat: the reviews of the comeback switch (above); the games the bots named for spacing and
   close combat (Kalli: Footsies, Exceed, BattleCON; Dola: Fight Night Champion, Gloomhaven, Toribash, Street Fighter 6).
+
+## The test link (his words, in order)
+"how can i get my brother a link to test the game ?" / "make it public but ask for email (maybe nda proof ) when someone
+sign ins and you keep a log of who uses the link ?" / "i use render onrender" / "or can you do it via tailscale ?" /
+"Tailscale".
+- Built: `proto/twohands/site/` - server.js (never a file to someone it cannot name; identity from Tailscale; the
+  notice once per notice version, kept with a hash of its words; every page opened kept with the game version;
+  /owner/log for the owner only; tools, the gate itself and the lists never served), notice.txt (a draft), server_test
+  (7), run_gate.ps1. Live on his tailnet: https://beast.tail6f2f5c.ts.net:8443/ (tailscale serve, tailnet only).
+- Owed: his OK on the notice; a one-port rule for a shared guest (from Tailscale's docs); his invite. Unverified: that a
+  shared guest's login reaches the gate. The Render way is written in the task, not built.
+

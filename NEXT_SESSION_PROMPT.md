@@ -69,6 +69,20 @@ the link ?" and, on the host, "i use render / onrender" -> ops/research/TASK_TES
 running our own small Node server in front of a built copy of proto/twohands; sign-in = email + a personal code Claude
 makes per tester; a confidentiality notice whose acceptance is recorded; a visit log at /owner/log; Render reads a NEW
 PRIVATE repo ICOON-Studio/punchers-chance-test, never the main one).
+Then he asked "or can you do it via tailscale ?": YES - Tailscale is installed and signed in here (machine beast; it
+already serves tcp 9791 for something else: never touch it). The same gate, identity from Tailscale, nothing on the web,
+PC must be on, his brother installs Tailscale and is shared the machine (limit the guest to the game's port first).
+WHICH WAY IS HIS CALL (asked in chat): Tailscale (private, PC on) or Render (always on, browser only).
+HE CHOSE "Tailscale". BUILT AND LIVE ON HIS TAILNET (S565): the gate `proto/twohands/site/server.js` (GATE_TEST 7),
+https://beast.tail6f2f5c.ts.net:8443/ -> 127.0.0.1:8798, his log at /owner/log. START THE GATE AGAIN in a terminal tab at
+session start (`powershell -NoProfile -ExecutionPolicy Bypass -File proto/twohands/site/run_gate.ps1`): it ran in the
+S565 session's tab. The notice is APPROVED ("Yes, use them"). Steps for him: docs/TESTLINK_INVITE_STEPS.md (from Tailscale's docs). OWED:
+reading HIS access rules (he signs in to the Tailscale admin page; Chrome showed the login page) to give the exact
+edit - DONE S565: the guest rule is SAVED in his Tailscale rules (members keep everything, invited guests reach
+port 8443 only; details and the undo in the steps file). LEFT: his invite (Machines -> beast -> Share), then check his
+brother appears in /owner/log and cannot open the address without :8443. (Old line: the limit-to-one-port rule BEFORE he
+invites his brother (his other served pages would be open to a guest); the invite is his click. See the task's STATE.
+(The Render lines below are the other way, not built.)
 BUILD AND TEST IT ON THE PC FIRST (server.js + server_test.mjs + make_site.py need nothing from him). Then HIS part:
 connect the test repo in his Render dashboard (Blueprint) himself; free or paid instance (asked); the testers' emails;
 his OK on the notice's words (draft it for him). NOTHING IS PUBLISHED before those.

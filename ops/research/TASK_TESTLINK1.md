@@ -46,6 +46,40 @@ accepted the notice (with the notice's version and time).
 8. THE VERSION: the site shows the same `v0.<session>.<n>`; from then on every page change ends with make_site.py and a
    push to the test repo, and the changelog line is the proof of what a tester played.
 
+## THE TAILSCALE WAY (he asked the same day: "or can you do it via tailscale ?") - the same server.js, another front door
+Checked S565: Tailscale 1.104.6 is installed and signed in on this PC (machine `beast`, tailnet `tail6f2f5c.ts.net`,
+his iPhone is on it). It already serves tcp 9791 -> 127.0.0.1:9792 for something else: NEVER touch that entry.
+- `tailscale serve --bg --https=8443 http://127.0.0.1:<the gate's port>` gives `https://beast.tail6f2f5c.ts.net:8443/`,
+  reachable only by people on his tailnet or people he SHARES the machine with (his brother installs Tailscale and
+  signs in with his own account; the owner sends the share invite from the Tailscale admin page himself).
+- Tailscale tells our server who is asking (the `Tailscale-User-Login` header on served requests): the gate needs no
+  code, the log has a verified identity, the notice step is the same page.
+- Nothing is stored on the web. It works only while this PC, the page server and the gate run.
+- CAUTION to tell him: sharing a machine lets the guest reach it on every port his Tailscale rules allow, not only the
+  game. Before the invite, an access rule must limit the guest to port 8443 (his admin page; say exactly what to click).
+- `tailscale funnel` (public, no sign-in by Tailscale) is the "temporary link" with our email + code gate in front.
+- Adding a serve entry changes his Tailscale setup: do it only on his plain yes.
+So server.js has two identity modes: `tailscale` (the header) and `code` (email + a personal code, for Render).
+
+## STATE AT THE END OF S565 - he chose "Tailscale"; the gate is BUILT and LIVE on his own tailnet
+- `proto/twohands/site/server.js` (the gate, Node only), `notice.txt` (version 1, APPROVED by him in S565: "Yes, use them"), `server_test.mjs` (GATE_TEST 7 passed), `run_gate.ps1` (reads the owner's login from Tailscale: no email in the
+  repo), `data/` (the two lists, git-ignored).
+- Running: terminal tab "gate565" of the S565 session (`powershell -File proto/twohands/site/run_gate.ps1`, port 8798,
+  127.0.0.1 only). It dies with that session's app: a new session starts it again (later: a scheduled task).
+- Tailscale: `tailscale serve --bg --https=8443 http://127.0.0.1:8798` ADDED (tailnet only):
+  https://beast.tail6f2f5c.ts.net:8443/ . Remove with `tailscale serve --https=8443 off`. His other serve entries
+  (tcp 9791, https 443 -> 8791 with /blood-senate, http -> 8788) were not touched.
+- Checked from this PC through that address: the owner gets the game without the notice, a picture and wait.html load,
+  /owner/log lists the visits, a file before agreeing is refused (403), a request not through Tailscale is refused.
+- DONE after that: his OK on the notice. Tailscale's docs read: docs/TESTLINK_INVITE_STEPS.md (the one-port rule with
+  autogroup:shared, the Share clicks; a shared guest's login DOES reach the gate per the Serve page).
+- NOT DONE: (2) the invite to his brother - HE sends it from his Tailscale admin page;
+  (3) BEFORE the invite, a rule that limits a shared guest to port 8443 only: sharing the machine would otherwise also
+  open his other served pages (443, 80, 9791) to the guest. READ TAILSCALE'S DOCS for the exact rule (the shared-users
+  group in the access rules) and the exact clicks - do not write it from memory; (4) UNVERIFIED: that Tailscale passes a
+  SHARED guest's login to the gate (if it does not, the gate refuses him - a safe failure - and the code sign-in mode
+  is the fix); test with his brother's first visit and read /owner/log; (5) make_site.py and the Render way: not built.
+
 ## What only the owner can do (asked in chat)
 - In his Render dashboard: New > Blueprint, pick the test repo (GitHub asks HIM to let Render see that one repo), Deploy.
   Claude never types his Render or GitHub password.
