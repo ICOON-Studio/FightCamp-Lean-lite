@@ -24,13 +24,15 @@
   },
   "KICKFIX2": {
    "id": "KICKFIX2",
-   "status": "queued",
-   "seat": "claude",
-   "agent": "console worker (Opus) - queued behind the Puncher's chance measure (one worker while your game is open)",
-   "started": "2026-11-26T09:50",
-   "eta": "about 3 h once launched",
+   "status": "running",
+   "seat": "arena",
+   "agent": "Arena (cloud, its own clone of the code mirror: costs your PC nothing)",
+   "started": "2026-11-26T10:00",
+   "eta": "first numbers in about 30 min, the whole loop 2 to 3 h",
    "title": "The kick version that holds 8 of 9 bars: kicks back at Long, the low kick as the answer to a man stepping in",
-   "brief": "ops/research/TASK_KICKFIX2.md"
+   "brief": "ops/research/TASK_KICKFIX2.md",
+   "branch": "arena/bb25d26e-fightcamp-lean-lite",
+   "issue": "https://arena.ai/agent/01a216db-21b6-714e-a68f-ba6abb25d26e"
   }
  },
  "codex_budget": {

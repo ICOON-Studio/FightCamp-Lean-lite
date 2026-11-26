@@ -4938,6 +4938,24 @@
    "answer": "research/RINGSWITCH_TELLS_BRIEF_JOHN.md",
    "chars": 27945,
    "seen_by_claude": true
+  },
+  {
+   "id": "SQ337",
+   "seat": "john",
+   "brief": "research/RINGSWITCH_COMEBACK_BRIEF.md",
+   "stem": "RINGSWITCH_COMEBACK_BRIEF_JOHN",
+   "status": "queued",
+   "queued_at": "2026-11-26 09:59",
+   "tries": 0
+  },
+  {
+   "id": "SQ338",
+   "seat": "kalli",
+   "brief": "research/RINGSWITCH_KICKS_BRIEF.md",
+   "stem": "RINGSWITCH_KICKS_BRIEF_KALLI",
+   "status": "queued",
+   "queued_at": "2026-11-26 09:59",
+   "tries": 0
   }
  ]
 }
