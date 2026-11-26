@@ -4,6 +4,7 @@
 // reads ONE plan line back, plays the beat, sends the result. After the last bout it asks for the report and the drawing.
 //
 //   node ops/Tools/play_by_message.mjs <seat> <dir> [via=grok|agy] [bouts=0:11,1:12,2:13]
+//   S563: [tag=ALLPLAY2] reads ops/research/TASK_<tag>.md and names the report <tag>_<SEAT>.md; a bout opp:seed:t has TELLS ON
 //     seat: kalli | john | maria | antigravity      dir: E:/FightCamp/tmp/allplay1/<seat> (agy: a folder under E:/FightCamp/wt)
 // Resumable: <dir>/driver.json holds where it is; run the same command again. Everything said is in <dir>/driver.log.
 // Ends with a line DRIVER DONE <seat> or DRIVER STALLED <seat> <why>.
@@ -16,7 +17,8 @@ const [seat, dirArg, ...rest] = process.argv.slice(2);
 const arg = Object.fromEntries(rest.filter((a) => a.includes('=')).map((a) => a.split('=')));
 if (!seat || !dirArg) { console.log('usage: play_by_message.mjs <seat> <dir> [via=grok|agy] [bouts=0:11,1:12,2:13]'); process.exit(2); }
 const DIR = path.resolve(dirArg), VIA = arg.via || 'grok', SEAT = seat.toUpperCase();
-const BOUTS = (arg.bouts || '0:11,1:12,2:13').split(',').map((b) => { const [opp, seed] = b.split(':'); return { opp: Number(opp), seed: Number(seed) }; });
+const BOUTS = (arg.bouts || '0:11,1:12,2:13').split(',').map((b) => { const [opp, seed, t] = b.split(':'); return { opp: Number(opp), seed: Number(seed), tells: t === 't' }; });   /* S563: opp:seed:t = a TELLS1 bout */
+const TAG = (arg.tag || 'ALLPLAY1').toUpperCase();   /* S563: ALLPLAY2 = the tells playtest, brief TASK_ALLPLAY2.md */
 const OPP = ['The Jabber', 'The Slugger', 'The Body Snatcher'];
 fs.mkdirSync(DIR, { recursive: true });
 const LOG = path.join(DIR, 'driver.log'), STATE = path.join(DIR, 'driver.json');
@@ -28,7 +30,7 @@ const stall = (why) => { log('STALLED ' + why); console.log(`DRIVER STALLED ${se
 
 const cli = (...a) => { const r = spawnSync('node', ['proto/twohands/tools/play_cli.mjs', ...a], { cwd: ROOT, encoding: 'utf8' }); return { out: (r.stdout || '').trim(), code: r.status }; };
 const boutFile = (i) => path.join(DIR, `b${i + 1}.json`);
-const brief = fs.readFileSync(path.join(ROOT, 'ops/research/TASK_ALLPLAY1.md'), 'utf8');
+const brief = fs.readFileSync(path.join(ROOT, `ops/research/TASK_${TAG}.md`), 'utf8');
 
 // ---- the two ways to reach a seat: each takes the text of one message and gives back the seat's whole reply
 async function grokAsk(text, want, maxMin) {
@@ -116,15 +118,15 @@ const FORM = 'Answer with ONE line: lead=<punch|high|low> rear=<punch|high|low> 
 // ---- the playtest
 let carry = '';
 if (st.phase === 'intro') {
-  carry = `You are ${seat[0].toUpperCase() + seat.slice(1)}, and this is a PLAYTEST of a small boxing game. You have no shell here, so you play BY MESSAGE: I am your hands. I send you what the game shows, you send back your plan for the beat, I play it and send you what happened. Three bouts, one against each opponent, played to win. Do not write the report until I ask for it after the third bout.\n\nTHE BRIEF (the part for a seat with no shell is yours):\n\n${brief}\n\nTHE GAME'S OWN HELP (all a player is told):\n\n${cli('help').out}\n`;
+  carry = `You are ${seat[0].toUpperCase() + seat.slice(1)}, and this is a PLAYTEST of a small boxing game. You have no shell here, so you play BY MESSAGE: I am your hands. I send you what the game shows, you send back your plan for the beat, I play it and send you what happened. ${BOUTS.length} bouts, played to win (the list is in the brief). Do not write the report until I ask for it after the last bout.\n\nTHE BRIEF (the part for a seat with no shell is yours):\n\n${brief}\n\nTHE GAME'S OWN HELP (all a player is told):\n\n${cli('help').out}\n`;
   st.phase = 'bout'; save();
 }
 while (st.phase === 'bout' && st.bout < BOUTS.length) {
   const b = BOUTS[st.bout], f = boutFile(st.bout);
   let shown;
-  if (!fs.existsSync(f)) { shown = cli('new', f, `opp=${b.opp}`, `seed=${b.seed}`).out; log(`bout ${st.bout + 1} new: ${OPP[b.opp]} seed ${b.seed}`); }
+  if (!fs.existsSync(f)) { shown = cli('new', f, `opp=${b.opp}`, `seed=${b.seed}`, ...(b.tells ? ['tells=1'] : [])).out; log(`bout ${st.bout + 1} new: ${OPP[b.opp]} seed ${b.seed}`); }
   else shown = '(the bout goes on)\n' + cli('show', f).out;
-  let msg = `${carry}\n=== BOUT ${st.bout + 1} of ${BOUTS.length}, against ${OPP[b.opp]} ===\n${shown}\n\n${FORM}`; carry = '';
+  let msg = `${carry}\n=== BOUT ${st.bout + 1} of ${BOUTS.length}, against ${OPP[b.opp]}${b.tells ? ', TELLS ON' : ', no tells'} ===\n${shown}\n\n${FORM}`; carry = '';
   for (;;) {
     const reply = await ask(msg, (r) => !!parsePlan(r), 12);
     const plan = parsePlan(reply); if (!plan) stall('no plan line in the reply');
@@ -141,10 +143,10 @@ while (st.phase === 'bout' && st.bout < BOUTS.length) {
 if (st.phase === 'bout') { st.phase = 'report'; save(); }
 const fence = (t, lang) => { const m = t.match(new RegExp('```(?:' + lang + ')?\\s*\\n([\\s\\S]*?)```')); return m ? m[1] : t; };
 if (st.phase === 'report') {
-  const logs = BOUTS.map((b, i) => `--- BOUT ${i + 1} (${OPP[b.opp]}) ---\n${fs.existsSync(boutFile(i) + '.log.txt') ? fs.readFileSync(boutFile(i) + '.log.txt', 'utf8') : ''}`).join('\n');
-  const msg = `${carry}\nTHE THREE BOUTS ARE OVER. For your memory, every beat as it was played:\n\n${logs}\n\nNOW WRITE YOUR REPORT, ALLPLAY1_${SEAT}.md, as ONE message: the verdict first, then a NOT SURE list, then sections 2, 3 and 4 of the brief (FUN judged point by point, each with the bout, round and beat that proves it; the SCORES for FUN, DEPTH, CLARITY, VARIETY, 1 to 10, one line each, and what you could NOT judge from words; then TO REACH 10/10, the concrete changes, most important first, each tied to a beat you played). Do not draw the screen yet. End the message with the line: REPORT END`;
+  const logs = BOUTS.map((b, i) => `--- BOUT ${i + 1} (${OPP[b.opp]}${b.tells ? ', tells on' : ''}) ---\n${fs.existsSync(boutFile(i) + '.log.txt') ? fs.readFileSync(boutFile(i) + '.log.txt', 'utf8') : ''}`).join('\n');
+  const msg = `${carry}\nALL ${BOUTS.length} BOUTS ARE OVER. For your memory, every beat as it was played:\n\n${logs}\n\nNOW WRITE YOUR REPORT, ${TAG}_${SEAT}.md, as ONE message: the verdict first, then a NOT SURE list, then sections 2, 3 and 4 of the brief (FUN judged point by point, each with the bout, round and beat that proves it; the SCORES for FUN, DEPTH, CLARITY, VARIETY, 1 to 10, one line each, and what you could NOT judge from words; then TO REACH 10/10, the concrete changes, most important first, each tied to a beat you played). Do not draw the screen yet. End the message with the line: REPORT END`;
   const reply = await ask(msg, (r) => r.length > 1500 && /REPORT END/i.test(r), 25);
-  fs.writeFileSync(path.join(DIR, `ALLPLAY1_${SEAT}.md`), `# ALLPLAY1 - ${seat} (played by message, driver ops/Tools/play_by_message.mjs, S558)\n\n${reply}\n`);
+  fs.writeFileSync(path.join(DIR, `${TAG}_${SEAT}.md`), `# ${TAG} - ${seat} (played by message, driver ops/Tools/play_by_message.mjs, S558)\n\n${reply}\n`);
   log('report saved, ' + reply.length + ' chars'); st.phase = 'draw'; save();
 }
 if (st.phase === 'draw') {

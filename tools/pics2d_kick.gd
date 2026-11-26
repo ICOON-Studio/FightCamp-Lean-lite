@@ -37,9 +37,20 @@ const MISS_CLEAR_M := 0.15
 const CHECK_FOOT_UP_M := 0.15
 
 var pin := {}   # who -> the standing foot's spot (world, flat) while a kick plays
+## GLIDE2 (S562, owner: "the distance between fighters is not consistant when clips play"): range=<2|3> makes a kick run at
+## the page's range (the kicks reach Long and Mid on kick.html; Inside they are smothered): the KICKER starts and ends on
+## his spot at that range (Long = the guard spots, Mid one step of 0.355 m in) and is carried into the kick's own spot
+## between, the standing foot with him (pinned to the body, so it does not skid inside the kick); the other man starts and
+## ends on his own spot (the ground a miss gives him and the push of a teep that lands ease in and out the same way). One
+## exception the rules make: a teep that LANDS at Mid pushes him one place back (kick.html: range + 1), so that run ends
+## with him one step (0.355 m) further back. Names: plain = Long, _r2 = Mid; the run's row says its range.
+const KICK_RANGES := [3, 2]
+const GLIDE_IN := 0.12   # on the kick's spot this long before the contact
+const GLIDE_OUT := 0.08  # and leaves it after this
 
 
 func _run() -> void:
+	RANGE_AT = int(_arg("range", "0"))
 	for who in 2:
 		for k in KICKS:
 			_load_kick(who, str(k))
@@ -49,10 +60,12 @@ func _run() -> void:
 		var col: String = ["red", "blue"][who]
 		for k in KICKS:
 			for res in RESULTS:
-				var name := "%s_%s_%s" % [col, k, res]
+				if RANGE_AT != 0 and not KICK_RANGES.has(RANGE_AT):
+					continue
+				var name := "%s_%s_%s" % [col, k, res] + ("_r%d" % RANGE_AT if RANGE_AT in [1, 2] else "")
 				if _want(name):
 					await _kick_run(who, str(k), str(res), name)
-		if _want(col + "_check"):
+		if RANGE_AT == 0 and _want(col + "_check"):
 			await _check_run(who, col + "_check")
 	_finish()
 
@@ -350,6 +363,7 @@ func _kick_run(who: int, k: String, res: String, name: String) -> void:
 	var hit: Array = []
 	for off in offs:
 		await _kick_live(who, kp, float(kp["tc"]) + float(off))
+		_kglide(who, kp, float(off), offs)
 		if is_zero_approx(float(off)):
 			m = _kgate(who, kp, floor_y)
 			var at: Vector3 = _sole(who, _leg(who, k)) if k == "teep" else ((_shin(who, k)[0] as Vector3).lerp(_shin(who, k)[1], 0.7))
@@ -366,9 +380,36 @@ func _kick_run(who: int, k: String, res: String, name: String) -> void:
 		print("PICS_GATE FAIL %s (contact frame): %s" % [name, "; ".join(PackedStringArray(fails))])
 		failed.append(name)
 	runs[name] = {"files": files, "offs": times, "contact": times.find(0.0), "clip": "kick_" + k, "answer": kp["ans"],
-		"step": snappedf(float(kp["step"]), 0.001), "take_contact_s": snappedf(float(kp["tc"]), 0.001), "gate_fails": fails, "hit": hit, "measures": m}
+		"step": snappedf(float(kp["step"]), 0.001), "take_contact_s": snappedf(float(kp["tc"]), 0.001), "gate_fails": fails, "hit": hit, "measures": m,
+		"range": RANGE_AT, "glide_from": snappedf(float(RANGE_IN[["_r1", "_r2", ""][RANGE_AT - 1]]), 0.001) if RANGE_AT in [2, 3] else -1.0}
 	print("PICS2D_KICK %s = kick_%s, answer %s, %d frames, contact %.2f s into the take, step %+.2f m, %s" % [name, k, kp["ans"] if str(kp["ans"]) != "" else "guard", files.size(), float(kp["tc"]), float(kp["step"]), JSON.stringify(m)])
 	_save()
+
+
+## GLIDE2: 0 on the range's spots, 1 on the kick's - smooth in from the run's first picture, smooth out to its last.
+func _kw(off: float, offs: Array) -> float:
+	if off <= -GLIDE_IN:
+		return smoothstep(float(offs[0]), -GLIDE_IN, off)
+	if off >= GLIDE_OUT:
+		return 1.0 - smoothstep(GLIDE_OUT, float(offs[offs.size() - 1]), off)
+	return 1.0
+
+
+## GLIDE2: the pair as _kick_live left it (the kick's own spots) moved to the run's range: the kicker by what is left of
+## his step at this picture, the other man by what is left of what he was moved (given ground, a teep's push).
+func _kglide(who: int, kp: Dictionary, off: float, offs: Array) -> void:
+	if not (RANGE_AT in [2, 3]):
+		return
+	var d := 1 - who
+	var dirv := axis * (1.0 if who == 0 else -1.0)
+	var w := _kw(off, offs)
+	var from_m := float(RANGE_IN[["_r1", "_r2", ""][RANGE_AT - 1]])   # the range's spot (one shared table, never a number here)
+	_node(who).global_position += dirv * (lerpf(from_m, float(kp["step"]), w) - float(kp["step"])) + (kp["side"] as Vector3) * (w - 1.0)
+	var moved := _flat(_node(d).global_position - home_t[d].origin)
+	var rest := Vector3.ZERO
+	if off > 0.0 and RANGE_AT == 2 and str(kp["k"]) == "teep" and str(kp["res"]) == "landed":
+		rest = dirv * (float(RANGE_IN["_r2"]) - float(RANGE_IN[""]))   # the rules push him one place back: Mid to Long
+	_node(d).global_position += moved.lerp(rest, 1.0 - w) - moved
 
 
 ## The check held, alone (the page holds it all beat): the lead shin up from the guard, read on the last picture.

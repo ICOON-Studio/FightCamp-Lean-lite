@@ -43,6 +43,14 @@ var head_was := Vector3.INF
 var head_rows := {}
 var leans: Array = [null, null]
 var lean_step := -1   # the boxer whose step in carries the slip
+## GLIDE2 (S562, owner: "the distance between fighters is not consistant when clips play"; "i select hold your ground yet the
+## animation showed my fighter moving"): range=<1|2|3> makes the head-move runs at a page range, as GLIDE1 does for the
+## punches (pics2d_anim.gd): the PUNCHER starts and ends on his spot at that range and steps into the punch's spot between;
+## the man who moves his head stays on his own spot (his head moves, his feet stay). Names: plain = Long, _r2 Mid, _r1 Inside.
+## The ranges each run happens at on head.html (ACT reach; a lean back only at Mid or Long):
+const HEAD_RANGES := {"jab_slipped": [3, 2], "cross_slipped": [2, 1], "lead_hook_rolled": [2, 1], "overhand_rolled": [2, 1],
+	"jab_leaned": [3, 2], "cross_leaned": [2], "lead_hook_leaned": [2], "overhand_leaned": [2]}
+var glide_a := -INF   # the run's first kept picture: the glide in starts there (its earlier offsets are not drawn)
 
 
 ## The trunk turned from one bone up, in the world's own axes, after the take has been applied (and before the skin).
@@ -62,12 +70,22 @@ func _run() -> void:
 	for k in 2:
 		slip_deg[k] = float(_arg("slip_deg", "%f,%f" % slip_deg).split(",")[k])
 		slipin_deg[k] = float(_arg("slipin_deg", "%f,%f" % slipin_deg).split(",")[k])
+	RANGE_AT = int(_arg("range", "0"))
 	for who in 2:
 		var col: String = ["red", "blue"][who]
 		for key in HEAD_RUNS:
-			var name := "%s_%s" % [col, key]
+			if RANGE_AT != 0 and not (HEAD_RANGES[key] as Array).has(RANGE_AT):
+				continue
+			var name := "%s_%s" % [col, key] + ("_r%d" % RANGE_AT if RANGE_AT in [1, 2] else "")
 			if _want(name):
 				await _head_run(who, str(HEAD_RUNS[key][0]), str(HEAD_RUNS[key][1]), name)
+	if RANGE_AT != 0:   # a range render makes the head-move runs only (the slip in has its own per-range runs)
+		for n in head_rows:
+			if runs.has(n):
+				(runs[n] as Dictionary)["head"] = head_rows[n]
+		_save()
+		_finish()
+		return
 	for who in 2:
 		var col: String = ["red", "blue"][who]
 		lean_step = who
@@ -142,6 +160,9 @@ func _head_run(who: int, fam: String, kind: String, name: String) -> void:
 	for k in offs.size():
 		if float(offs[k]) <= float(pl["t0"]):
 			first = k
+	glide_a = float(offs[first])
+	if RANGE_AT in [1, 2, 3]:
+		b["glide_from"] = float(RANGE_IN[["_r1", "_r2", ""][RANGE_AT - 1]])   # the range's spot as the hold pictures stand (one shared table)
 	var files: Array = []
 	var times: Array = []
 	var hit_at: Array = []
@@ -161,7 +182,7 @@ func _head_run(who: int, fam: String, kind: String, name: String) -> void:
 		times.append(off)
 	_lean(d, 0.0, 0.0)
 	runs[name] = {"files": files, "offs": times, "contact": times.find(0.0), "clip": clip, "cover": "", "answer": str(pl["ans"]) if str(pl["ans"]) != "" else "slip lean",
-		"step": snappedf(step, 0.001), "gate_fails": [], "hit": hit_at}
+		"step": snappedf(step, 0.001), "gate_fails": [], "hit": hit_at, "range": RANGE_AT, "glide_from": snappedf(float(b.get("glide_from", -1.0)), 0.001)}
 	print("PICS2D_ANIM %s = %s, answer %s, %d frames, step %.2f m" % [name, clip, runs[name]["answer"], files.size(), step])
 	var fails: Array = []
 	var gap := float(head_m.get("gap_m", 0.0))
@@ -185,6 +206,17 @@ func _head_run(who: int, fam: String, kind: String, name: String) -> void:
 		failed.append(name)
 	head_kind = ""
 	_save()
+
+
+## GLIDE2: the glide in starts on the run's first DRAWN picture (on its range spot there), not at the first offset.
+func _glide_w(off: float) -> float:
+	var a := glide_a if glide_a > -INF else float(offs[0])
+	var z := float(offs[offs.size() - 1])
+	if off <= GLIDE_IN_TO:
+		return smoothstep(a, GLIDE_IN_TO, off)
+	if off >= GLIDE_OUT_FROM:
+		return 1.0 - smoothstep(GLIDE_OUT_FROM, z, off)
+	return 1.0
 
 
 ## The other man's answer is the head move instead of the plain miss.

@@ -36,15 +36,28 @@
      ends on his spot at that range and steps into the punch between); the range the men stand at NOW is the counts'. A
      range with no run of its own (a punch thrown out of its reach) takes the nearest range that has one. */
   const atRange = (run) => { if (/^(red|blue)_feint$/.test(run || '')) { const r = 3 - (redIn + blueIn); return r < 3 && ANIM[`${run}_r${r}`] ? `${run}_r${r}` : run; }   /* the feint at each range too */
-    const m = /^(red|blue)_(.+)_(landed|blocked|missed)$/.exec(run || ''); if (!m) return run;
+    const m = /^(red|blue)_(.+)_(landed|blocked|missed|slipped|rolled|leaned)$/.exec(run || ''); if (!m) return run;   /* GLIDE2: the head moves (pics2d_head.gd range=) and the kicks (pics2d_kick.gd range=) at each range too */
     const r = Math.max(1, Math.min(3, 3 - (redIn + blueIn))), name = (x) => (x === 3 ? run : `${run}_r${x}`);
     if (m[3] === 'missed') { const a = Object.values(ACT).find((x) => (x.run || x.pic) === m[2]), sh = `${m[1]}_${m[2]}_short` + (r === 3 ? '' : '_r' + r);   /* thrown from further than it reaches: it FALLS SHORT, he does not move into it */
-      if (a && a.reach && r > Math.max(...a.reach) && ANIM[sh]) return sh; }
+      if (a && a.reach && r > Math.max(...a.reach) && ANIM[sh]) return sh;
+      const g = 'blue_guard' + (r === 3 ? '' : '_r' + r);   /* GLIDE2: SMOTHERED (thrown from closer than it reaches, e.g. a kick Inside) with no run of this range: the men stand at the range (the guard run), never a run made a step away */
+      if (a && a.reach && r < Math.min(...a.reach) && !(ANIM[name(r)] && ANIM[name(r)].range) && ANIM[g]) return g; }
     for (const x of [r, r === 1 ? 2 : r === 3 ? 2 : 1, r === 1 ? 3 : r === 3 ? 1 : 3]) if (ANIM[name(x)] && ANIM[name(x)].range) return name(x);
     return run; };
-  const warm0 = warm; warm = function (runs) { return warm0(runs.flatMap((n) => { const s = n.replace(/_missed$/, '_short'); return [n, n + '_r1', n + '_r2', ...(s !== n ? [s, s + '_r2'] : [])]; })); };   /* the page warms the runs a beat needs by their plain names */
-  const run0 = playRun; playRun = function (run, big, onHit, done, cut) { run = atRange(run);
-    const m = /^(red|blue)_(step_in|slip_in|back_off)/.exec(run || ''), move = () => { if (!m) return; const d = m[2] !== 'back_off' ? 1 : -1;   /* HEADPICS1: a slip in is a step in */ if (m[1] === 'red') redIn += d; else blueIn += d; };
+  const warm0 = warm; warm = function (runs) { return warm0(runs.flatMap((n) => { const s = n.replace(/_missed$/, '_short'), h = /_missed$/.test(n) ? ['slipped', 'rolled', 'leaned'].map((x) => n.replace(/_missed$/, '_' + x)) : [];   /* GLIDE2: a miss may be drawn as the head move that made it */
+    return [n, n + '_r1', n + '_r2', ...(s !== n ? [s, s + '_r2'] : []), ...h.flatMap((x) => [x, x + '_r1', x + '_r2'])]; })); };   /* the page warms the runs a beat needs by their plain names */
+  /* GLIDE2: the page's playRun (the same on order, punch, head and kick), with one change: a hold run (played while the
+     player plans) STOPS when another run starts. It ran on after Go, so its pictures (the men at the hold's spots) were
+     drawn between the beat's pictures - measured: blue_lead_high_r2_4 between blue_cross_slipped_0 and _1, 11-17 px apart. */
+  let holdTok = 0;
+  const run0 = function (run, big, onHit, done, cut) { const r = ANIM[run]; if (!ready(run)) return false;
+    const mine = phase === 'plan' ? ++holdTok : (++holdTok, -1), c = r.contact, at = Math.max(c, 0); let i = 0;
+    const show = () => { if (mine >= 0 && mine !== holdTok) return; if (cut && i === c) return done(); $('pic').src = PRE[r.files[i]].src; if (i === at) onHit(); if (i >= r.files.length - 1) return done();
+      let wait = Math.min(MAX_GAP, (r.offs[i + 1] - r.offs[i]) * 1000); if (i === c) wait += HOLD; if (big && c - i >= 1 && c - i <= 3) wait *= BIG_SLOW; i++; setTimeout(show, wait); };
+    show(); return true; };
+  playRun = function (run, big, onHit, done, cut) { run = atRange(run);
+    const tp = /^(red|blue)_teep_landed_r2$/.exec(run || '');   /* GLIDE2: a teep that lands at Mid pushes him one place back (kick.html), and its run ends with him there */
+    const m = /^(red|blue)_(step_in|slip_in|back_off)/.exec(run || ''), move = () => { if (tp) { if (tp[1] === 'red') blueIn -= 1; else redIn -= 1; } if (!m) return; const d = m[2] !== 'back_off' ? 1 : -1;   /* HEADPICS1: a slip in is a step in */ if (m[1] === 'red') redIn += d; else blueIn += d; };
     const ok = run0(run, big, onHit, () => { move(); slide(); done(); }, cut); if (!ok) move(); return ok; };
   const hit0 = hitAt; hitAt = function (run) { const a = hit0(atRange(run)); return a ? [a[0] + SX, a[1] + SY] : a; };   /* the burst sits on the slid glove */
   const setup0 = setup; setup = function () { redIn = blueIn = 0; setup0(); slide(); };
