@@ -11,6 +11,8 @@ extends SceneTree
 const WG := preload("res://scripts/world/WorldGen.gd")
 const WS := preload("res://scripts/world/WorldSim.gd")
 const MM := preload("res://scripts/rules/Matchmaking.gd")
+const WB := preload("res://scripts/world/WorldBout.gd")
+const BoutRead := preload("res://scripts/rules/BoutRead.gd")
 
 const CAREERS := 120
 const MONTHS := 24
@@ -27,6 +29,17 @@ const UNRANKED_PLACE := 25
 const SCOUT_TOP10 := 5
 
 var failures := 0
+## S548 MATCHBOTS2 probe hooks (tools/matchbots2_probe.gd preloads this script): the probe may shorten the run, swap the bout
+## call for a copy, and log each bout with the read the bot had. Unset, the test runs exactly as before.
+var careers := CAREERS
+var bout_fn := Callable()       # (p, opp, boxers, rng) -> line; empty = MM.fight
+var on_bout := Callable()       # (bot, career, p, opp, read, line)
+var last_read := {}             # what the bot saw of the opponent it took
+## S559 NIGHTREDS2: the scout looks at the fight it signs. It spent its two looks walking down the list and then signed the next
+## option on the level read: 126 punchers taken unscouted, read 0.71, won 0.44, stopped in 23.8% (blind 15.2% in the same power
+## third); since S535 DMGCLASS2 a pro can be stopped past four counts, so that blind signing cost more stoppages than blind's
+## own (0.93 v 0.82). false = the bot before (tools/matchbots2_probe.gd look=0).
+var sign_look := true
 
 
 func _initialize() -> void:
@@ -68,7 +81,12 @@ func _run(bot: String) -> Dictionary:
 	var l := 0
 	var stopped := 0
 	var belts := 0
-	for c in CAREERS:
+	# S559 NIGHTREDS2: every bot starts from empty bout caches. WorldBout.cached keeps the first rows a pair was read at (inside
+	# CACHE_DRIFT) and BoutRead keys by stat bucket, so a bot's numbers moved with the bots run before it (the blind bot read
+	# 0.97 or 0.86 stoppages on the same seeds with only the smart bot's taste changed): a control arm that could share the change.
+	WB._cache = {}
+	BoutRead.clear_cache()
+	for c in careers:
 		var rng := RandomNumberGenerator.new()
 		rng.seed = 7000 + c
 		var world := WG.generate(7000 + c)
@@ -83,7 +101,9 @@ func _run(bot: String) -> Dictionary:
 			if since >= int(p["next_weeks"]):
 				var opp := _pick(bot, p, boxers, rng)
 				if not opp.is_empty():
-					MM.fight(p, opp, boxers, rng)
+					var line: Dictionary = bout_fn.call(p, opp, boxers, rng) if bout_fn.is_valid() else MM.fight(p, opp, boxers, rng)
+					if on_bout.is_valid():
+						on_bout.call(bot, c, p, opp, last_read, line)
 					since = 0
 			if m % 12 == 11:
 				WS.year_end(divs, rng)
@@ -97,13 +117,14 @@ func _run(bot: String) -> Dictionary:
 		stopped += int(p["damage_ledger"].get("stoppage_losses", 0))
 		belts += int(str(p.get("belt", "")) != "")
 	places.sort()
-	var n := float(CAREERS)
-	return {"place": (float(places[CAREERS / 2 - 1]) + float(places[CAREERS / 2])) / 2.0, "top10": top10, "grow": grow / n,
-		"money": int(money / CAREERS), "w": w / n, "l": l / n, "stopped": stopped / n, "belts": belts}
+	var n := float(careers)
+	return {"place": (float(places[careers / 2 - 1]) + float(places[careers / 2])) / 2.0, "top10": top10, "grow": grow / n,
+		"money": int(money / careers), "w": w / n, "l": l / n, "stopped": stopped / n, "belts": belts}
 
 
 func _pick(bot: String, p: Dictionary, boxers: Array, rng: RandomNumberGenerator) -> Dictionary:
 	var offered := MM.offers(p, boxers, rng)
+	last_read = {}
 	if offered.is_empty():
 		return {}
 	match bot:
@@ -151,7 +172,11 @@ func _smart(p: Dictionary, boxers: Array, offered: Array, rng: RandomNumberGener
 			if MM.scout(p, g, rng):
 				scouts_left -= 1
 			ch = MM.shown_chance(p, g, SCOUTED_RISK)
+		if sign_look and scouts and float(ch["mid"]) >= SMART_AT and not g["scouted"] and int(p["money"]) >= MM.SCOUT_COST * 3:
+			MM.scout(p, g, rng)
+			ch = MM.shown_chance(p, g, SCOUTED_RISK)
 		if float(ch["mid"]) >= SMART_AT:
+			last_read = {"scouted": bool(g["scouted"]), "mid": float(ch["mid"]), "shown": float(MM.shown_chance(p, g)["mid"]), "kind": str(g["kind"])}
 			MM.note_choice(p, g["opp"], offered)
 			return g["opp"]
 	var level := offered.filter(func(g): return str(g["kind"]) == "level")

@@ -90,7 +90,16 @@ def main(argv: list[str]) -> int:
     table = json.loads(table_p.read_text(encoding="utf-8")) if table_p.exists() else {"runs": {}}
     kept = skipped = 0
     for d in dirs:
-        runs = json.loads((d / "frames.json").read_text(encoding="utf-8"))["runs"]
+        doc = json.loads((d / "frames.json").read_text(encoding="utf-8"))
+        runs = doc["runs"]
+        if doc.get("camera"):   # RENDERFIT1 (S559): the ring camera's numbers ride along; the page slides every picture by red's metres in with them
+            cam = dict(doc["camera"])
+            first = next((d / r["files"][0] for r in runs.values() if r.get("files")), None)
+            if first is not None and first.exists():
+                cam["render_px"] = Image.open(first).height   # axis_px is in render px: the page scales it by the drawn height / this
+            if table.get("camera") and table["camera"].get("axis_px") != cam.get("axis_px"):
+                print("CAMERA DIFFERS %s: %s v %s (two cameras in one table)" % (d, cam.get("axis_px"), table["camera"].get("axis_px")))
+            table["camera"] = cam
         for name, row in sorted(runs.items()):
             if strips is not None:
                 strip(d, name, row, strips)

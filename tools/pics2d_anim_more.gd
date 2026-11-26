@@ -186,6 +186,16 @@ func _step_run(who: int, key: String, name: String, end_in: float = 0.0, ranged 
 		from = home_t[who].origin + toward * (end_in - way * dist)
 	var path := RootPath.of(ap.get_animation(clip))
 	var len := ap.get_animation(clip).length
+	# RENDERFIT1 (S559): a back off's last picture is taken at 0.72 s, when the take has carried him only 87% of its
+	# travel (RootPath), so he ended 0.05 m short of the next spot: RINGCAM1's "hips 0.05 m ahead" (12 px). The Hips bone
+	# stays on the root through the take (read: 0.023 m all the way), so landing the hips = landing the root: the carry
+	# is spread over the pictures' own window, the last picture on the spot. Step in already lands (7 px): unchanged.
+	var times := STEP_T.filter(func(t) -> bool: return float(t) <= len)
+	var span := [1.0]
+	if key == "back_off" and not path.is_empty() and not times.is_empty():
+		var whole0 := RootPath.at(path, 99.0) - RootPath.at(path, 0.0)
+		if whole0.length() > 0.01:
+			span[0] = clampf((RootPath.at(path, float(times.back())) - RootPath.at(path, 0.0)).dot(whole0) / whole0.length_squared(), 0.5, 1.0)
 	var build := func() -> Array:
 		# RINGCAM1: settled ON the start spot (40 frames), as the hold pictures are; moved there after the guard settled
 		# at Long, frame 0 drew the body 13-28 px short of it (the guard had not caught up) - the "start" snap off Long
@@ -199,8 +209,9 @@ func _step_run(who: int, key: String, name: String, end_in: float = 0.0, ranged 
 			var whole := RootPath.at(path, 99.0) - RootPath.at(path, 0.0)
 			if whole.length() > 0.01:
 				frac = clampf((RootPath.at(path, pos) - RootPath.at(path, 0.0)).dot(whole) / whole.length_squared(), 0.0, 1.0)
+		frac = minf(frac / span[0], 1.0)   # RENDERFIT1: 1.0 on the last picture of a back off (span above)
 		_node(who).global_position = from + toward * way * dist * frac
-	await _solo(name, clip, STEP_T.filter(func(t) -> bool: return float(t) <= len), build, each)
+	await _solo(name, clip, times, build, each)
 
 
 ## A hand held, or both (HOLDTAKES1): the authored take from the guard; a hand it does not name stays where the guard has it.

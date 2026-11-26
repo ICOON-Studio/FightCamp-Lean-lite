@@ -10,17 +10,50 @@
 //    that commentator lights up on the desk.
 (() => {
   const st = $('stage'), im = $('pic'), tell = document.querySelector('.tell');
+  // ---- 0. RENDERFIT1 (S559): the owner's ring camera. Every picture is now in RING coordinates (one fixed camera,
+  // tools/pics2d_camera.json), so a picture is drawn SLID along the red -> blue line by where the men really stand:
+  // a hold, a guard or a blue run is made with red on his spot (blue stood in), so it slides by red's metres in;
+  // a red run (his punch, his step) is made with blue on his spot, so it slides back by blue's metres in. The page keeps
+  // the two counts (steps of 0.355 m) from the step runs it plays; red's + blue's = the range's (Long 0, Mid 1, Inside 2).
+  // Without it a red step snapped a whole step (RINGCAM1: 87 px of the render, 54 of the page picture).
+  // The ring itself (img/ring_bg.webp, tools/pics2d_ring_bg.gd: the same camera, 4 times as wide) does NOT slide.
+  const STEP_M = 0.355; let CAM = null, redIn = 0, blueIn = 0, SX = 0, SY = 0;
+  fetch('img/anim/frames.json').then((r) => r.json()).then((j) => { CAM = j.camera || null; slide(); }).catch(() => {});
+  const css = document.createElement('style');
+  css.textContent = '.stage{background:#0f1013}.stage:before,.stage:after{display:none}.stage img#ringbg{z-index:0;filter:none;pointer-events:none}';
+  document.head.appendChild(css);
+  const bg = document.createElement('img'); bg.id = 'ringbg'; bg.alt = ''; bg.src = 'img/ring_bg.webp'; st.insertBefore(bg, st.firstChild);
+  const metresOf = (src) => { const f = (src || '').split('/').pop(); return (/^red_/.test(f) ? -blueIn : redIn) * STEP_M; };
+  function slide() { if (!CAM || !CAM.axis_px) { SX = SY = 0; im.style.translate = ''; return; }
+    const k = st.clientHeight * 1.26 / (CAM.render_px || 768), m = metresOf(im.getAttribute('src'));
+    SX = -m * CAM.axis_px[0] * k; SY = m * CAM.axis_px[1] * k;   /* the picture is drawn mirrored: its +x is the screen's -x */
+    im.style.translate = SX || SY ? `${SX.toFixed(1)}px ${SY.toFixed(1)}px` : ''; }
+  const holdSlide = () => { if (!CAM || !CAM.axis_px) return [0, 0]; const k = st.clientHeight * 1.26 / (CAM.render_px || 768), m = redIn * STEP_M; return [-m * CAM.axis_px[0] * k, m * CAM.axis_px[1] * k]; };
+  new MutationObserver(slide).observe(im, { attributes: true, attributeFilter: ['src'] });   /* runs before the frame is painted */
+  const fit = () => { const t = 3 - (range || 3); redIn = Math.max(-2, Math.min(2, redIn)); blueIn = t - redIn; };   /* the range is the truth: blue takes up what the counts missed */
+  const run0 = playRun; playRun = function (run, big, onHit, done, cut) {
+    const m = /^(red|blue)_(step_in|back_off)/.exec(run || ''), move = () => { if (!m) return; const d = m[2] === 'step_in' ? 1 : -1; if (m[1] === 'red') redIn += d; else blueIn += d; };
+    const ok = run0(run, big, onHit, () => { move(); slide(); done(); }, cut); if (!ok) move(); return ok; };
+  const hit0 = hitAt; hitAt = function (run) { const a = hit0(run); return a ? [a[0] + SX, a[1] + SY] : a; };   /* the burst sits on the slid glove */
+  const setup0 = setup; setup = function () { redIn = blueIn = 0; setup0(); slide(); };
+  const bell0 = bell; bell = function () { redIn = blueIn = 0; bell0(); slide(); };   /* a new round starts at Long, both on their spots */
+  const plan0r = plan; plan = function () { fit(); plan0r(); slide(); };
+  window.ringSlide = () => ({ redIn, blueIn, range, sx: SX, sy: SY, pic: (im.getAttribute('src') || '').split('/').pop() });   // read by the browser check
   // ---- 1. the distance on the floor (S559 v2, owner on the nested plates: "idonot understand this ,it is not symmetrical"):
   // ONE bar between the two men's front toes at the range they are at, ticks at both toes, its length the real gap, the
   // label in words. A range change slides it and flashes. Hover a switch: green if it reaches at this range, red if not.
-  const TOES = { 3: [194, 307], 2: [227, 273], 1: [236, 245] };   // [red front toe, blue front toe], x in the 480 px picture
-  const PX_M = 189, FLOOR = 434 / 480;
+  // RENDERFIT1 (S559) re-measured on the owner's camera (raised 31 deg, 3.149 m wide; blue_both_high_high*_6, the lead
+  // boots' inner ends): red's front toe stays at 231 (red on his spot), blue's comes in one step (0.355 m = 54 px) a range;
+  // Inside the lead boots pass each other (they stand at different depths), so the gap is 0. 152.4 px a metre (the
+  // camera's axis_px 243.85 of the 768 render). The front toes sit at y 318 (red's) and 331 (blue's): the bar at 324.
+  const TOES = { 3: [231, 318], 2: [231, 264], 1: [231, 231] };   // [red front toe, blue front toe], x in the 480 px picture
+  const PX_M = 152.4, FLOOR = 324 / 480;
   const ruler = document.createElement('div'); ruler.id = 'ruler'; st.appendChild(ruler);
   ruler.innerHTML = '<div class="gap"><i></i><i></i></div><div class="plabel"></div>';
-  const X = (u) => { const H = st.clientHeight * 1.26, W = H * (im.naturalWidth / im.naturalHeight || 1); return st.clientWidth / 2 + (0.5 - u) * W; };
+  const X = (u) => st.clientWidth / 2 + (0.5 - u) * st.clientHeight * 1.26 + holdSlide()[0];   /* RENDERFIT1: u in square-picture widths from its middle (a wide picture has the same middle and scale); TOES are the hold pictures', so the bar takes the HOLD's slide (red's metres in) whatever picture is up */
   const cm = (r) => Math.max(0, Math.round((TOES[r][1] - TOES[r][0]) / PX_M * 100));
   let shown = 0, hoverReach = null, hoverName = '';
-  function place() { if (!st.clientHeight || !range) return; const y = st.clientHeight * -0.17 + FLOOR * st.clientHeight * 1.26;
+  function place() { if (!st.clientHeight || !range) return; const y = st.clientHeight * -0.17 + FLOOR * st.clientHeight * 1.26 + holdSlide()[1];
     const x1 = X(TOES[range][1] / 480), x2 = X(TOES[range][0] / 480), w = Math.max(18, Math.abs(x2 - x1)), mid = (x1 + x2) / 2, gap = ruler.querySelector('.gap');
     gap.style.left = (mid - w / 2) + 'px'; gap.style.width = w + 'px'; gap.style.top = (y - 4) + 'px';
     const reach = hoverReach ? hoverReach.includes(range) : null; gap.className = 'gap' + (reach === true ? ' ok' : reach === false ? ' no' : '');
