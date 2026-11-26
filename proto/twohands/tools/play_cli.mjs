@@ -65,6 +65,7 @@ if (bad && /^that costs/.test(bad)) { let p = { ...mine }; const price = (sl) =>
 if (bad) { console.log('NOT PLAYED: ' + bad); process.exit(2); }
 const T = { f: S.F, range: S.range, t: N.beats - S.beat }, his = (S.tells && S.next) || R.ai(T) || R.plan0();
 say(`--- round ${S.round}, beat ${S.beat + 1}, at ${RNG[S.range]}`); say(`YOU: ${R.planWords(mine)}`); say(`HE:  ${R.planWords(his)}`);
+if (his.readOf) say(`HE READ YOU: your ${R.planWords(his.readOf)} - 2 of your last 3 beats - and he picked the best answer to it.`);   /* S563: the habit read is shown */
 if (S.tells && S.tell) { const t = S.tell; say(t.fake ? `HIS TELL WAS A FAKE: he showed "${CUES[t.cue]}" - his beat would have shown "${CUES[t.truth]}".` : `HIS TELL WAS TRUE: "${CUES[t.cue]}".`); S.tellRound = [...(S.tellRound || []), t]; }
 const ev = R.resolve(T, [{ ...mine }, { ...his }]); R.endBeat(T); S.range = T.range; S.n++; S.seen = [...(S.seen || []), his].slice(-3); S.seenRound = [...(S.seenRound || []), his];
 S.blockedBody = ev.some((e) => e.k === 1 && e.t === 'block' && ACT[e.id] && ACT[e.id].line === 'body');

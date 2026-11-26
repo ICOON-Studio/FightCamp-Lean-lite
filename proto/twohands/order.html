@@ -300,6 +300,7 @@ function ai(S) { const me = S.f[1], you = S.f[0], t = S.t || N.beats, lean = lea
   if (habit && rnd() < OPP.read) { let best = null, bv = -1e9;
     const yours = { ...habit, feet: (habit.feet === 'back' && you.ropes >= 2) || (habit.feet === 'in' && you.kept) ? 'hold' : habit.feet }, guess = cost(yours) <= you.st ? yours : { ...plan0(), hl: habit.hl, hr: habit.hr };
     for (const c of plansFor(S, 1)) { const v = -worth(S, guess, c, t) + lean(c) + rnd() * 0.3; if (v > bv) { bv = v; best = c; } }
+    if (best) best.readOf = { ...habit };   /* S563 ALLPLAY2: three playtesters - his habit read fired and nothing said so; the flag lets the story say it (no number changes) */
     return best; }
   // HIS SKILL: the share of beats he plays the best mix. The rest are plain beats of his style - any plan he can pay for with
   // one of his own switches in it whose punches reach if you stand still (no uppercut thrown from Long) - and those are the
@@ -412,6 +413,7 @@ function plan() { phase = 'plan'; draw(); board(); showHold(); const at = round 
 function go() { if (busy) return; busy = true; phase = 'play'; $('acts').innerHTML = ''; for (const b of $('board').querySelectorAll('.sw')) b.disabled = true;
   const S = { f: F, range, t: N.beats - beat }, his = hisNext && hisNext.at === round + ':' + beat && hisNext.plan ? hisNext.plan : ai(S), before = [F[0].hp, F[1].hp], ev = resolve(S, [{ ...P }, his]); range = S.range; seen = [...seen, his].slice(-3); seenRound.push(his);
   $('said').textContent = `He: ${planWords(his)}.`; $('story').innerHTML = ''; let i = 0;
+  if (his.readOf) $('story').insertAdjacentHTML('beforeend', `<div class="srow bad"${tipAttr('He reads habits: throw the same switches in the same order in two of your last three punching beats, and he may pick the best answer to exactly that.')}><b>He read you</b><span>your ${planWords(his.readOf)} - 2 of your last 3 beats</span><em></em></div>`);   /* S563 */
   const step = () => { if (i >= ev.length) return after();
     const e = ev[i++], you = e.k === 0, who = e.k < 0 ? '' : you ? 'Your ' : 'His ', cls = e.t === 'hit' ? (you ? 'good' : 'bad') : e.t === 'block' || e.t === 'miss' ? (you ? 'bad' : 'good') : 'flat';
     const label = e.t === 'range' ? 'The range' : e.id ? who + e.a : e.k < 0 ? e.a : (you ? 'You ' : 'He ') + (you ? e.a.replace(/^(\w+?)s /, '$1 ').replace(/^ties/, 'tie').replace(/^pushes/, 'push').replace(/^feints/, 'feint').replace(/^reaches/, 'reach').replace(/^tries/, 'try') : e.a);

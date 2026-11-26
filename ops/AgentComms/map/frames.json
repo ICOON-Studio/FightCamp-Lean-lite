@@ -505,6 +505,69 @@
       "ops/previews/s558_allplay1/ten_dola.png",
       "ops/previews/s558_allplay1/ten_ziva.png"
      ]
+    },
+    {
+     "id": "s563_allplay2_ten",
+     "title": "S563 playtest: each tester's 10/10 fight screen (tells on)",
+     "kind": "gallery",
+     "globs": [
+      "ops/research/allplay2/*/ten.png"
+     ],
+     "cols": 2
+    },
+    {
+     "id": "s563_tells",
+     "title": "S563 your question: show his intentions?",
+     "kind": "cards",
+     "columns": [
+      {
+       "title": "ANSWER",
+       "cards": [
+        {
+         "text": "4 of 4 testers: NOT his whole plan",
+         "who": "claude"
+        },
+        {
+         "text": "4 of 4: ONE body tell (fun 8 with tells)",
+         "who": "claude"
+        },
+        {
+         "text": "Ziva: tells worth 4 points a bout",
+         "who": "claude"
+        }
+       ]
+      },
+      {
+       "title": "NOW",
+       "cards": [
+        {
+         "text": "Tells v2: lies you can learn (words)",
+         "who": "claude"
+        },
+        {
+         "text": "Ziva + Arena replay v2",
+         "who": "claude"
+        },
+        {
+         "text": "Knockdown heal measured (Arena)",
+         "who": "claude"
+        }
+       ]
+      },
+      {
+       "title": "NEXT",
+       "cards": [
+        {
+         "text": "Tells on the page as a body pose",
+         "who": "claude"
+        },
+        {
+         "text": "Your play of the tells",
+         "who": "claude"
+        }
+       ]
+      }
+     ]
     }
    ]
   }

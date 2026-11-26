@@ -211,6 +211,18 @@
    "branch": "arena/f0a3ce55-fightcamp-lean-lite",
    "issue": "https://arena.ai/agent/01a217b6-228a-7014-b2b0-4d9af0a3ce55",
    "title": "Tells version 2: does each man now lie in a way you can learn? Three bouts, compared with round 1"
+  },
+  "KDHEAL1": {
+   "id": "KDHEAL1",
+   "status": "running",
+   "seat": "arena",
+   "agent": "Arena (cloud: costs your PC nothing)",
+   "started": "2026-11-26T14:05",
+   "eta": "1-2 h",
+   "brief": "ops/research/TASK_KDHEAL1.md",
+   "branch": "arena/836987cb-fightcamp-lean-lite",
+   "issue": "https://arena.ai/agent/01a217b7-a998-7675-a4a4-c5f4836987cb",
+   "title": "A knockdown heals (down at 1 health, up on 6): three lower get-up numbers measured - nothing changes without your yes"
   }
  },
  "codex_budget": {
