@@ -339,13 +339,15 @@
  "KICKFIX4": {
   "id": "KICKFIX4",
   "status": "running",
-  "seat": "claude",
-  "agent": "Claude console worker (your PC)",
-  "started": "2026-11-26T19:32",
+  "seat": "arena",
+  "agent": "Arena (cloud: costs your PC nothing)",
+  "started": "2026-11-26T22:38",
   "eta": "4-6 h",
-  "title": "Kicks round 4: a checked low kick hurts more, the low kick keeps the rear hand up - measured on your PC (Arena hit its daily limit)",
+  "title": "Kicks round 4: a checked low kick hurts the kicker more - the rest of the measure moved to the cloud (your PC ran out of memory beside your game)",
   "brief": "ops/research/TASK_KICKFIX4.md",
-  "tab": "c1"
+  "branch": "arena/b9de29e2-fightcamp-lean-lite",
+  "issue": "https://arena.ai/agent/01a21992-2f19-7c38-be3d-258cb9de29e2",
+  "note": "S567: the PC worker stopped for low memory with ArcheAge open (F1 survives N=12, F2 fails: low kick 91%); the rest moved to Arena. Its result page starts with the BLOCKED line: judge by the pull request, not arena_watch"
  },
  "TELLS4M": {
   "id": "TELLS4M",
