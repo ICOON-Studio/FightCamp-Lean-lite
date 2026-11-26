@@ -42,7 +42,7 @@
   },
   "LONG2": {
    "id": "LONG2",
-   "status": "running",
+   "status": "landed",
    "seat": "arena",
    "agent": "Arena (cloud, a second chat: costs your PC nothing)",
    "started": "2026-11-26T16:06",
@@ -50,7 +50,8 @@
    "title": "Long range, Kalli's pick: the cross a man walks onto as he steps in, and jabs that score 2 on a stepping man - counted on today's page first, then measured",
    "brief": "ops/research/TASK_LONG2.md",
    "branch": "arena/193e5c2c-fightcamp-lean-lite",
-   "issue": "https://arena.ai/agent/01a2182d-6dcb-7f59-b27b-6a54193e5c2c"
+   "issue": "https://arena.ai/agent/01a2182d-6dcb-7f59-b27b-6a54193e5c2c",
+   "reconciled": "2026-11-26 19:40 board_reconcile: PR #470 open - collect it"
   }
  },
  "codex_budget": {
@@ -367,5 +368,17 @@
   "title": "The knockdown stays inside the ring; the overhand gets its own picture (render worker)",
   "brief": "ops/research/TASK_KDPIC1.md",
   "tab": "c3"
+ },
+ "PROGP4": {
+  "id": "PROGP4",
+  "status": "running",
+  "seat": "arena",
+  "agent": "Arena (cloud: costs your PC nothing)",
+  "started": "2026-11-26T20:35",
+  "eta": "4-6 h",
+  "title": "Your 'Yes, a choice': a pair of upgrades of its own for each punch, measured in the cloud",
+  "brief": "ops/research/TASK_PROGP4.md",
+  "branch": "arena/efb38a10-fightcamp-lean-lite",
+  "issue": "https://arena.ai/agent/01a21923-db62-7d8c-ab5b-8fb4efb38a10"
  }
 }

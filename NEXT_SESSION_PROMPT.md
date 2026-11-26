@@ -30,6 +30,8 @@ signed in, open two chats and name the two TASK files. KDPIC1 NOT LAUNCHED: the 
 ArcheAge open. LONG1 (cba93bd0) and LONG2 (193e5c2c) were still running at the end (LONG1 quiet 90 min on its L2 / L3
 tables: open its chat before calling it dead).
 A page_play_test of head.html or kick.html takes 3-4 minutes each beside his game: run them in the background.
+RUNNING AT ARENA (Browser 2) since 20:34: LONG1 cba93bd0 (told to keep working) and PROGP4 efb38a10. Cascadeur: his "not now i
+will do it tomorrow" - ask once at the start whether the plan and the 2026.3 update are done, then launch TASK_CASC_MCP.
 CASCADEUR (his S566 mail + "you do the rest"; "should we wait or work on 3d at the same time at punchers chance ? we could
 use the 3d fight on it too"): ops/research/TASK_CASC_MCP.md written - scope = takes Puncher's chance is MISSING, authored
 in Cascadeur 2026.3, rendered by our picture tools (one take serves both games); NOT the realtime 3D fight code. We already
