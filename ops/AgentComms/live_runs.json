@@ -33,6 +33,18 @@
    "brief": "ops/research/TASK_KICKFIX2.md",
    "branch": "arena/bb25d26e-fightcamp-lean-lite",
    "issue": "https://arena.ai/agent/01a216db-21b6-714e-a68f-ba6abb25d26e"
+  },
+  "HEADPULL1": {
+   "id": "HEADPULL1",
+   "status": "running",
+   "seat": "arena",
+   "agent": "Arena (cloud, a second chat: costs your PC nothing)",
+   "started": "2026-11-26T10:05",
+   "eta": "about 1 h",
+   "title": "Head movement with the pull counter: does it hold 9 of 9 on a bigger sample (two runs of 84 bouts)",
+   "brief": "ops/research/TASK_HEADPULL1.md",
+   "branch": "arena/397eb67a-fightcamp-lean-lite",
+   "issue": "https://arena.ai/agent/01a216df-1820-7c22-9f03-e8ff397eb67a"
   }
  },
  "codex_budget": {

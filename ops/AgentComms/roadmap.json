@@ -6344,6 +6344,14 @@
     {
      "text": "Body toy: no overlaps",
      "who": "claude"
+    },
+    {
+     "text": "Kick version E (Arena)",
+     "who": "agent"
+    },
+    {
+     "text": "Head + pull counter (Arena)",
+     "who": "agent"
     }
    ],
    "next": [
