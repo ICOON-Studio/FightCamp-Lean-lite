@@ -1,0 +1,13 @@
+{
+ "_note": "S562 CLINCHFIX2 P2: clinch_net0_back_all (the clinch gives +1 stamina, net 0, AND the man tied up gets back all of his smothered plan) plus the same push-off counter as clinch_half_push_counter (a shove that lands puts him off balance, so the pusher's later punches this beat are counters +1, as after a miss or a block). Shove and cross.",
+ "src": [
+  [
+   "else if (clincher != null) { f[clincher].st = Math.min(f[clincher].cap, f[clincher].st + 2);",
+   "else if (clincher != null) { const o = 1 - clincher; f[o].st = Math.min(f[o].cap, f[o].st + cost(P[o])); f[clincher].st = Math.min(f[clincher].cap, f[clincher].st + 1);"
+  ],
+  [
+   "(S.range === 1) { S.range = 2; say(k, { m: i, t: 'flat', a: 'pushes off',",
+   "(S.range === 1) { S.range = 2; opening[k] = 1; say(k, { m: i, t: 'flat', a: 'pushes off',"
+  ]
+ ]
+}

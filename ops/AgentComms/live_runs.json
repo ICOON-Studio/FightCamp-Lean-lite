@@ -129,6 +129,18 @@
    "brief": "ops/research/TASK_LONG1.md",
    "branch": "arena/cba93bd0-fightcamp-lean-lite",
    "issue": "https://arena.ai/agent/01a21828-826b-7d4c-97e8-e175cba93bd0"
+  },
+  "LONG2": {
+   "id": "LONG2",
+   "status": "running",
+   "seat": "arena",
+   "agent": "Arena (cloud, a second chat: costs your PC nothing)",
+   "started": "2026-11-26T16:06",
+   "eta": "3-4 h",
+   "title": "Long range, Kalli's pick: the cross a man walks onto as he steps in, and jabs that score 2 on a stepping man - counted on today's page first, then measured",
+   "brief": "ops/research/TASK_LONG2.md",
+   "branch": "arena/193e5c2c-fightcamp-lean-lite",
+   "issue": "https://arena.ai/agent/01a2182d-6dcb-7f59-b27b-6a54193e5c2c"
   }
  },
  "codex_budget": {
