@@ -1,0 +1,22 @@
+TELLS VERSION 5b (BOT 2 fixed, fix=1)
+PROBE_TELLS bot=2 (BOT 2: knows his lie) v The Slugger: n=12 seed=1 jobs=2 (worker i: seed*100+i; page order.html through rules.mjs, tells.mjs v2; nothing edited)
+  wins of decided 83% (10 of 12), draws 0; stoppages 17% (he is stopped 2, you are stopped 0); knockdowns a bout 2.17 (him 1.67, you 0.50)
+  his tells: 208 beats, fakes 62 = 30% of beats; cues shown shoulder 110 (fake 62), knees 54 (fake 0), foot 9 (fake 0), backfoot 10 (fake 0), still 25 (fake 0)
+  BOT 2 fixed: doubted 76 cues (62 really fake = 82%), punched into 24 of them; health he dealt a bout 16.1
+  v4: fakes hiding the one 3-damage punch on an open line: 3 of 62
+  v5b: fakes hiding the Jabber's lead hook to the body: 0 of 62
+  v5a: caught loading: punches landing in a fake-cue beat did +1: 40 (3.33 a bout, 34 beats with one)
+  his lie condition held on 42% of beats; the bot changed BOT 0's beat on 26% of beats; BOT 2 ignored a cue that would have changed its beat on 30 beats
+  stamina at the bells (avg, of 8; bells reached 12 / 12 / 10): him 2.3 / 2.2 / 2.1; you 2.3 / 1.5 / 1.8; stoppages by round 0 / 0 / 2
+  PASS stoppages 10-40%: 17%
+  PASS his fakes on 15-30% of beats: 30%
+  PASS bluff share (fake real damage < cue's smallest punch, or v5: one 3-damage punch on an open line, or the Jabber's lead body hook) 100%: 100% (62 of 62, 0 exceptions)
+  (BOT 2 bar - 70%+ of decided, OR 10 points more than BOT 1 - is judged in docs/TELLS2M_RESULT.md against BOT 1's file: 83% here)
+  bot2 v The Slugger: wins 83%, draws 0%, stops him 17%, is stopped 0%; knockdowns a bout 1.7 v 0.5; health taken a bout 27.7 v 16.1; beats at Inside / Mid / Long 50% / 35% / 15%; clinches a bout 1.8; rounds level on points 12%, 75% of them given on ground
+    you a beat: feet hold 39%, step in 28%, Body cross 25%, back off 24%, Cross 21%, lead held low 18%, rear held low 17%, rear held high 17%, Body jab 14%, Jab 13%, lead held high 12%, Feint 12%, Lead hook 10%, clinch 8%, Overhand 8%, Lead uppercut 5%, Push off 4%, Body hook 3%, Rear uppercut 3% | punches in a plan: none 12%, one 56%, two 24%
+    your punches (thrown a bout: lands / blocked / misses): Body cross 4.0: 54% / 31% / 15%, Cross 3.2: 47% / 45% / 8%, Body jab 2.5: 67% / 20% / 13%, Jab 2.3: 52% / 22% / 26%, Lead hook 1.6: 37% / 53% / 11%, Overhand 1.4: 94% / 0% / 6%, Lead uppercut 0.8: 50% / 40% / 10%, Rear uppercut 0.6: 71% / 14% / 14%, Body hook 0.5: 50% / 50% / 0%
+    he  a beat: step in 61%, lead held low 32%, rear held high 26%, rear held low 25%, back off 19%, feet hold 17%, Body cross 16%, lead held high 14%, Cross 14%, Body jab 13%, Overhand 9%, Feint 9%, Lead hook 8%, Jab 7%, Lead uppercut 6%, Rear uppercut 6%, Body hook 4%, clinch 3%, Push off 3% | punches in a plan: none 33%, one 44%, two 20%
+    his  punches (thrown a bout: lands / blocked / misses): Body cross 2.6: 45% / 32% / 23%, Cross 2.3: 26% / 52% / 22%, Body jab 2.2: 50% / 27% / 23%, Overhand 1.5: 44% / 39% / 17%, Lead hook 1.3: 56% / 31% / 13%, Jab 1.1: 38% / 23% / 38%, Lead uppercut 0.9: 36% / 45% / 18%, Rear uppercut 0.8: 60% / 10% / 30%, Body hook 0.6: 57% / 14% / 29%
+    your order, of the beats with one to choose (66%): first lead 30%, feet 53%, rear 18%
+  SUMMARY {"bot":2,"opp":1,"n":12,"wins":10,"draws":0,"decided":12,"winDec":0.833,"stop":0.167,"ko":2,"lost":0,"kdBout":2.167,"kdHim":1.667,"kdYou":0.5,"fakeBeat":0.298,"changed":0.264,"lieHeld":0.418,"bellHim":[2.25,2.17,2.1],"bellYou":[2.25,1.5,1.8],"bells":[12,12,10],"fakeBluff":62,"bluffShare":1,"fakeOver":{},"fakeHid3":3,"plus1":40,"plus1Bout":3.333,"plus1Beat":0.163,"fakeHidBody":0,"dmgHim":16.083,"susp":76,"suspFake":62,"punched":24}
+  (12 bouts, 96 s)
