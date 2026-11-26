@@ -1,16 +1,23 @@
-KICKFIX4 f3 N=12 seed=1 jobs=1 (wt_tmp kf_play.mjs: balance.mjs bouts loop + limp/kick/stamina counters; bars from balance.mjs)
-
-node:internal/modules/run_main:107
-    triggerUncaughtException(
-    ^
-Error: ENOENT: no such file or directory, open 'E:\FightCamp\wt_tmp\KICKFIX4\kick_fix_f3.vt.json'
-    at Object.readFileSync (node:fs:483:20)
-    at loadTweaked (file:///E:/FightCamp/Lean/proto/twohands/tools/balance.mjs:32:36)
-    at file:///E:/FightCamp/wt_tmp/KICKFIX4/kf_play.mjs:26:132 {
-  errno: -4058,
-  code: 'ENOENT',
-  syscall: 'open',
-  path: 'E:\\FightCamp\\wt_tmp\\KICKFIX4\\kick_fix_f3.vt.json'
-}
-
-Node.js v24.22.1
+KICKFIX4 f3 N=12 seed=1 jobs=2 (telemetry.mjs: observation-only loader on balance.mjs; table iters=300, 4960 s)
+mix v the same man (no style): wins 33%, draws 8%, stops him 17%, is stopped 33%; knockdowns a bout 1.3 v 1.8; health taken a bout 22.8 v 24.1; beats at Inside / Mid / Long 24% / 29% / 47%; clinches a bout 0.7; rounds level on points 17%, 60% of them given on ground
+  you a beat: lead held low 49%, rear held high 38%, Cross 28%, step in 23%, back off 19%, Body kick 17%, feet hold 15%, Low kick 13%, rear held low 11%, Body cross 11%, lead held high 11%, Jab 8%, Lead hook 7%, Overhand 6%, Feint 6%, Body jab 5%, Lead uppercut 5%, Head kick 4%, Teep 4%, clinch 4%, Body hook 2%, Rear uppercut 2%, Push off 2% | punches in a plan: none 33%, one 51%, two 12%
+  your punches (thrown a bout: lands / blocked / misses): Cross 4.5: 44% / 20% / 35%, Body kick 2.7: 41% / 56% / 3%, Low kick 2.3: 89% / 11% / 0%, Body cross 1.7: 35% / 35% / 30%, Jab 1.4: 76% / 24% / 0%, Lead hook 1.2: 29% / 57% / 14%, Overhand 1.0: 67% / 8% / 25%, Lead uppercut 0.8: 60% / 10% / 30%, Head kick 0.7: 25% / 75% / 0%, Teep 0.6: 43% / 29% / 29%, Body jab 0.5: 50% / 50% / 0%, Body hook 0.4: 40% / 60% / 0%, Rear uppercut 0.3: 67% / 33% / 0%
+  he  a beat: lead held low 47%, rear held high 41%, Cross 28%, step in 23%, back off 18%, Body kick 17%, feet hold 16%, Body cross 14%, Jab 12%, lead held high 11%, rear held low 10%, Head kick 10%, Low kick 8%, Body jab 8%, Teep 7%, Feint 7%, Overhand 4%, Lead hook 4%, Body hook 4%, Push off 3%, Lead uppercut 3%, Rear uppercut 1%, clinch 1% | punches in a plan: none 30%, one 60%, two 9%
+  his  punches (thrown a bout: lands / blocked / misses): Cross 4.3: 57% / 22% / 22%, Body kick 2.8: 44% / 56% / 0%, Body cross 2.3: 57% / 14% / 29%, Jab 2.0: 71% / 29% / 0%, Head kick 1.5: 33% / 67% / 0%, Low kick 1.4: 65% / 35% / 0%, Teep 0.9: 9% / 82% / 9%, Body jab 0.7: 88% / 13% / 0%, Lead hook 0.6: 29% / 71% / 0%, Body hook 0.6: 57% / 29% / 14%, Overhand 0.5: 67% / 0% / 33%, Lead uppercut 0.4: 80% / 0% / 20%, Rear uppercut 0.2: 100% / 0% / 0%
+  your order, of the beats with one to choose (59%): first rear 27%, feet 50%, lead 23%
+  (12 bouts, 479 s)
+BARS 4 of 9 pass
+  PASS every range is fought at (each 15-55% of beats): Inside 24%, Mid 29%, Long 47%
+  PASS no switch is a must (none in over 40% of beats): Cross 28%, step in 23%, back off 18%
+  FAIL no switch is dead (each in at least 3% of beats): Push off 3%, Rear uppercut 2%, clinch 2%
+  FAIL every punch lands 30-65% of the time and falls short at most 40%: Jab lands 73%, short 0%; Body jab lands 71%, short 0%; Lead hook lands 29%, short 10%; Lead uppercut lands 67%, short 27%; Overhand lands 67%, short 28%; Teep lands 22%, short 17%; Low kick lands 80%, short 0%
+  FAIL bouts end both ways (stoppages 10-40%, draws at most 20%, 0.5-2.5 knockdowns a bout): stoppages 50%, draws 8%, knockdowns 3.2
+  FAIL one punch, two punches and holding all have their beats (two 15-45%, none 5-25%): two 11%, none 31%
+  PASS the clinch is a rescue, not a habit (at most 2 a bout): 0.7
+  PASS the order is a choice (no slot first in over 60% of ordered beats; an order to choose in 40%+ of beats): ordered 59%, most often first 50%
+  FAIL the mirror is fair (wins 40-60% of decided bouts): 36%
+EXTRA strikes a fighter-beat 1.175; plan mix counting a kick as a strike: none 8%, one 67%, two 23%, three 1% (two or more 25%); limp bouts 2/12 (1 stops, 1 to the bell); stoppages after a limp 1/6; stamina bar at the last bell 6.13 of 8
+FEEDBACK {"limpBouts":2,"limpStops":1,"limpPriorStops":1,"limpPoints":1,"limpDraws":0,"bellBouts":12,"bellCap":73.5,"bellSt":26,"endCap":71,"strikesPlanned":477,"strikesResolved":433}
+COMMAND_TABLE node proto/twohands/tools/balance.mjs table tweak=ops/research/s558_balance/kick_fix_f3.json out=tmp_kick/kick_fix_f3.vt.json iters=300 jobs=2
+COMMAND_PLAY node --import ./tmp_kick/telemetry.mjs proto/twohands/tools/balance.mjs play who=mix opp=mirror n=12 tweak=ops/research/s558_balance/kick_fix_f3.json table=tmp_kick/kick_fix_f3.vt.json jobs=2 seed=1 json=tmp_kick/kick_fix_f3_n12_s1.json
+RAW_COUNTS {"feedback":{"limpBouts":2,"limpStops":1,"limpPriorStops":1,"limpPoints":1,"limpDraws":0,"bellBouts":12,"bellCap":73.5,"bellSt":26,"endCap":71,"strikesPlanned":477,"strikesResolved":433},"nk":[[14,134,44,3],[10,138,51,2]],"nkAll":[[22,134,44,3],[12,138,51,2]],"n":12,"w":4,"draw":1,"ko":2,"lost":4,"beats":203,"clinch":8,"rng":[0,48,59,96],"use":[{"lead held low":100,"rear held high":77,"low":27,"cross":56,"back off":39,"step in":46,"lead held high":22,"bodyk":34,"headk":9,"jab":17,"over":12,"rear held low":23,"feet hold":31,"feint":12,"lbody":5,"rbody":23,"bjab":11,"teep":9,"rup":4,"clinch":8,"hook":14,"lup":10,"push":4},{"lead held low":95,"rear held high":83,"headk":20,"bjab":16,"teep":14,"cross":56,"back off":36,"low":17,"feint":14,"over":9,"step in":47,"lead held high":22,"rbody":29,"rear held low":21,"jab":24,"bodyk":35,"feet hold":32,"lup":6,"rup":3,"push":7,"hook":9,"lbody":8,"clinch":2}],"pun":[{"low":{"hit":24,"block":3,"miss":0},"cross":{"hit":24,"block":11,"miss":19},"bodyk":{"hit":13,"block":18,"miss":1},"headk":{"hit":2,"block":6,"miss":0},"jab":{"hit":13,"block":4,"miss":0},"over":{"hit":8,"block":1,"miss":3},"lbody":{"hit":2,"block":3,"miss":0},"teep":{"hit":3,"block":2,"miss":2},"bjab":{"hit":3,"block":3,"miss":0},"rbody":{"hit":7,"block":7,"miss":6},"rup":{"hit":2,"block":1,"miss":0},"hook":{"hit":4,"block":8,"miss":2},"lup":{"hit":6,"block":1,"miss":3}},{"headk":{"hit":6,"block":12,"miss":0},"teep":{"hit":1,"block":9,"miss":1},"cross":{"hit":29,"block":11,"miss":11},"low":{"hit":11,"block":6,"miss":0},"over":{"hit":4,"block":0,"miss":2},"rbody":{"hit":16,"block":4,"miss":8},"jab":{"hit":17,"block":7,"miss":0},"bodyk":{"hit":15,"block":19,"miss":0},"bjab":{"hit":7,"block":1,"miss":0},"hook":{"hit":2,"block":5,"miss":0},"lbody":{"hit":4,"block":2,"miss":1},"lup":{"hit":4,"block":0,"miss":1},"rup":{"hit":2,"block":0,"miss":0}}],"np":[[67,104,24],[60,122,19]],"dmg":[274,289],"first":{"rear":32,"feet":60,"lead":28},"ordered":120,"kd":[22,16],"lvl":[29,5,3]}
