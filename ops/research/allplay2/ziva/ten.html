@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>RING SWITCHES - ziva 10/10 fight screen</title>
+<style>
+ *{box-sizing:border-box;margin:0;padding:0}
+ html,body{width:1920px;height:1080px;overflow:hidden}
+ body{background:#14110f;background-image:radial-gradient(1300px 780px at 50% 34%,rgba(255,255,255,.055),transparent 68%),repeating-linear-gradient(0deg,rgba(255,255,255,.013) 0 2px,transparent 2px 4px);color:#f2ede4;font-family:"Segoe UI",system-ui,sans-serif;display:flex;flex-direction:column}
+ .lab{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#8d8880}
+ .num{font-family:Consolas,"Courier New",monospace;font-variant-numeric:tabular-nums}
+ header{height:84px;display:flex;align-items:center;gap:26px;padding:0 30px;border-bottom:3px solid #c8102e;background:#1b1714}
+ .title{font-size:25px;font-weight:800;letter-spacing:.09em}.title span{color:#c8102e}
+ .chip{border:1px solid #3a3430;background:#221d1a;border-radius:3px;padding:6px 13px;display:flex;flex-direction:column;gap:2px}
+ .chip b{font-size:19px;letter-spacing:.03em}
+ .chip.good b{color:#7fd18a}.chip.hot b{color:#f0a417}
+ .tellson{margin-left:auto;display:flex;align-items:center;gap:11px;border:2px solid #f0a417;border-radius:3px;padding:8px 15px}
+ .tellson b{color:#f0a417;font-size:15px;letter-spacing:.14em}
+ .dot{width:10px;height:10px;border-radius:50%;background:#f0a417;box-shadow:0 0 12px #f0a417}
+ .board{flex:1;display:grid;grid-template-columns:455px 1fr 455px;gap:16px;padding:16px 18px 0}
+ .panel{border:1px solid #322c28;background:linear-gradient(180deg,#1d1916,#171412);border-radius:4px;padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+ .who{display:flex;align-items:baseline;gap:10px;border-bottom:1px solid #322c28;padding-bottom:8px}
+ .who h2{font-size:21px;letter-spacing:.06em}
+ .who em{font-style:normal;font-size:12px;color:#8d8880;letter-spacing:.12em;margin-left:auto}
+ .bar{height:25px;border:1px solid #3a3430;background:#0e0c0b;position:relative;border-radius:2px;overflow:hidden}
+ .bar i{position:absolute;inset:0 auto 0 0;display:block}
+ .bar b{position:absolute;right:8px;top:3px;font-size:13px;font-family:Consolas,monospace}
+ .hp i{background:linear-gradient(90deg,#8f0d21,#e01b36)}
+ .st i{background:linear-gradient(90deg,#8a6208,#f0a417)}
+ .bar em{position:absolute;left:8px;top:4px;font-style:normal;font-size:12px;color:#f4efe7;text-shadow:0 1px 2px #000}
+ .row{display:flex;align-items:center;gap:9px}
+ .pips{display:flex;gap:5px}
+ .pips u{width:20px;height:13px;border-radius:2px;border:1px solid #4a423c;background:#171412}
+ .pips u.on{background:linear-gradient(180deg,#cfd6d0,#8d968f);border-color:#cfd6d0}
+ .pips u.ropes{background:linear-gradient(180deg,#e07a7a,#8f2b2b);border-color:#e07a7a}
+ .cards{display:flex;gap:7px;margin-left:auto}
+ .cards s{text-decoration:none;font-family:Consolas,monospace;font-size:14px;border:1px solid #3a3430;padding:3px 8px;border-radius:2px;background:#0e0c0b}
+ .cards s.win{color:#7fd18a;border-color:#2f5f36}.cards s.lose{color:#e07a7a;border-color:#5f2f2f}
+ .hint{font-size:12px;color:#8d8880;line-height:1.45}
+</style></head><body>
+<header>
+  <div class="title">RING <span>SWITCHES</span></div>
+  <div class="chip"><span class="lab">round</span><b>2 of 3</b></div>
+  <div class="chip"><span class="lab">beat</span><b>4 of 6</b></div>
+  <div class="chip hot"><span class="lab">range</span><b>MID</b></div>
+  <div class="chip good"><span class="lab">points this round</span><b>5 - 2</b></div>
+  <div class="chip"><span class="lab">cards</span><b>10-9 &nbsp; 10-8</b></div>
+  <div class="tellson"><span class="dot"></span><b>CUES ON</b></div>
+</header>
+<div class="board">
+  <section class="panel">
+    <div class="who"><h2>YOU</h2><em>ziva</em></div>
+    <div class="lab">health</div>
+    <div class="bar hp"><i style="width:61%"></i><b>11 / 18</b></div>
+    <div class="lab">stamina <span class="warn">cap cut to 7 by his body hooks - permanent</span></div>
+    <div class="bar st"><i style="width:57%"></i><em>4 of 7 &nbsp; a feint plus one cross and you are done</em></div>
+    <div class="row"><span class="lab">guard</span><span class="pips"><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u></span><span class="hint">a big punch you block costs 1; one returns each beat</span></div>
+    <div class="row"><span class="lab">your ground</span><span class="pips"><u></u><u></u></span><span class="hint">two back-offs and you are on the ropes</span></div>
+    <div class="lab">knockdowns</div>
+    <div class="heal"><b>you 1 &nbsp;/&nbsp; him 0</b><span>knocked down and you stand back up on 6 health with a full bar - <i>a knockdown is a heal</i>. Either fix it (stand up on 4, bar stays cut) or make it end the round's momentum; as it plays, the correct move on 1 health is to walk into a punch. <b>TO REACH 10/10, fix 1.</b></span></div>
+    <div class="lab">last beat, and what I have learned about him</div>
+    <div class="hint">Over my three cue bouts his first action was a lead punch <b>20</b> times, a step or a back-off <b>20</b> times, a rear punch <b>11</b> times and a clinch <b>3</b> times - so guessing moment 1 is a coin flip, and that is the read the cue still has to leave to me. What I can own instead is the hand map: he holds a hand home in every beat, so one of my four lines is always open and I can name which. Reading him paid - this bout 30-27 with him down twice; the same man with no cues beat me 26-30.</div>
+  </section>
+  <section class="panel" id="centre">
+    <div class="who"><h2>RANGE - MID</h2><em>the rope is behind him at 2/2</em></div>
+    <div class="ladder">
+      <span class="rng">LONG</span><span class="rng on">MID</span><span class="rng">INSIDE</span>
+    </div>
+    <div class="hint">At <b>Long</b> only jab and body jab reach (1 damage each) - the corridor where every round in my six bouts opened. At <b>Mid and Inside</b> everything reaches and the round is decided.</div>
+    <div class="lab">his cue before this beat</div>
+    <div class="cue">
+      <div class="body">
+        <span class="part shoulder"></span><span class="part lead"></span><span class="part rear drop"></span>
+        <span class="knees"></span><span class="foot"></span>
+        <div class="caption">rear shoulder dropped</div>
+      </div>
+      <div class="cuetext">
+        <b>"his rear shoulder drops back - the rear hand is loading"</b>
+        <p>a cross or an overhand, never a rup. It tells you <i>which hand</i> is busy, not <i>when</i> it fires.</p>
+        <div class="ledger">this bout &nbsp;·&nbsp; shoulder dropped &nbsp;<b class="t">true 4</b> / <b class="f">fake 1</b> &nbsp;·&nbsp; knees bent <b class="t">true 2</b> / <b class="f">fake 3</b> &nbsp;·&nbsp; foot creeps <b class="t">true 1</b> / <b class="f">fake 0</b></div>
+        <div class="fix"><b>FIX 6:</b> the count runs from beat 1 and the fake rule is named on the card ("he fakes the knees when he is behind on health") - the ledger arriving at the bell is information about a round that is already lost.</div>
+      </div>
+    </div>
+    <div class="lab">the three moments of my last real beat <span class="warn">bout 1 R2 beat 5 - it put him on the floor</span></div>
+    <div class="moments">
+      <div class="mom on"><b>moment 1</b><span class="me">I throw the body cross - he keeps his lead high, so the body is open</span><span class="him">his lead hand is out of its guard</span><em>-2 health, 1 point, his bar cut</em></div>
+      <div class="mom"><b>moment 2</b><span class="me">nothing of mine is out - the line comes back</span><span class="him">A MAN WHO GOES DOWN THROWS NOTHING MORE THAT BEAT</span><em>his loaded cross never happened</em></div>
+      <div class="mom"><b>moment 3</b><span class="me">-</span><span class="him">-</span><em>HE GOES DOWN</em></div>
+    </div>
+  </section>
+  <section class="panel" id="right">
+    <div class="who"><h2>THE SLUGGER</h2><em>21 health &nbsp;|&nbsp; walks in, both hands</em></div>
+    <div class="lab">his health</div>
+    <div class="bar hp"><i style="width:81%"></i><b>17 / 21</b></div>
+    <div class="lab">his stamina <span class="warn">the real clock - he spends 4 to 6 a beat</span></div>
+    <div class="bar st"><i style="width:25%"></i><em>2 of 8 &nbsp; out of bullets - this is when his hands go home</em></div>
+    <div class="lab">his hand map by range <span class="warn">the read I actually used</span></div>
+    <table class="handmap">
+      <tr><th>he keeps</th><th>at Long</th><th>at Mid</th><th>at Inside</th></tr>
+      <tr><td>lead hand</td><td class="ok">low / thrown</td><td class="ok">low when moving</td><td class="no">high - digs</td></tr>
+      <tr><td>rear hand</td><td class="no">fires first</td><td class="ok">low = side open</td><td class="ok">low = under open</td></tr>
+      <tr><td>so attack</td><td class="ok">straight</td><td class="ok">his body</td><td class="ok">side, hook</td></tr>
+    </table>
+    <div class="hint">His lead hand is <b>never held low</b> in three bouts of mine - so his body is the one line nobody guards. Every body cross I landed came from this table, not from a cue (bout 4 R3 beats 3-4, bout 6 R3 beats 2-5).</div>
+  </section>
+</div>
+<style>
+ .warn{letter-spacing:0;text-transform:none;color:#c8102e}
+ .heal{border:1px solid #5f2f2f;background:#1d1413;border-radius:3px;padding:9px 11px;display:flex;flex-direction:column;gap:6px}
+ .heal b{color:#e07a7a;font-size:15px}.heal span{font-size:12px;color:#b9b2a8;line-height:1.45}
+ .ladder{display:flex;gap:8px}
+ .rng{flex:1;text-align:center;font-size:15px;letter-spacing:.14em;padding:8px 0;border:1px solid #3a3430;border-radius:3px;background:#171412;color:#8d8880}
+ .rng.on{border-color:#f0a417;background:#2a2113;color:#f0a417;font-weight:700}
+ .cue{display:flex;gap:14px;border:1px solid #3a3430;border-radius:3px;background:#100e0d;padding:12px}
+ .body{position:relative;width:104px;height:132px;border:1px solid #322c28;border-radius:3px;background:linear-gradient(180deg,#1b1a19,#141312)}
+ .part{position:absolute;background:#6b6560;border-radius:2px}
+ .lead{width:10px;height:30px;left:24px;top:30px}
+ .rear{width:10px;height:30px;left:70px;top:30px}
+ .rear.drop{top:40px;background:#c8102e;box-shadow:0 0 10px rgba(200,16,46,.7)}
+ .shoulder{width:16px;height:12px;left:69px;top:26px;background:#f0a417}
+ .knees{width:56px;height:8px;left:24px;top:84px}
+ .foot{width:14px;height:8px;left:64px;top:124px}
+ .caption{position:absolute;left:0;right:0;bottom:6px;text-align:center;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#f0a417}
+ .cuetext{flex:1;display:flex;flex-direction:column;gap:7px}
+ .cuetext b{font-size:15px;color:#f0a417}
+ .cuetext p{font-size:12.5px;color:#b9b2a8;line-height:1.45}
+ .ledger{font-size:12px;font-family:Consolas,monospace;color:#cfc8be;border-top:1px solid #322c28;padding-top:6px}
+ .ledger .t{color:#7fd18a}.ledger .f{color:#e07a7a}
+ .fix{font-size:11.5px;color:#8d8880;line-height:1.4}.fix b{color:#f0a417}
+ .handmap{width:100%;border-collapse:collapse;font-size:12px}
+ .handmap th{text-align:left;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#8d8880;font-weight:600;padding:4px 6px;border-bottom:1px solid #322c28}
+ .handmap td{padding:5px 6px;border-bottom:1px solid #241f1c;color:#d8d1c7}
+ .handmap td:first-child{color:#8d8880}
+ .handmap .ok{color:#7fd18a}.handmap .no{color:#e07a7a}
+ .console{height:392px;display:grid;grid-template-columns:455px 1fr 455px;gap:16px;padding:14px 18px 16px}
+ .grp{display:flex;flex-direction:column;gap:7px}
+ .seg{display:flex;flex-wrap:wrap;gap:6px}
+ .btn{border:1px solid #3a3430;background:#1e1a17;border-radius:3px;padding:6px 9px;display:flex;flex-direction:column;gap:2px;min-width:0}
+ .btn i{font-style:normal;font-size:13.5px;font-weight:600;letter-spacing:.03em}
+ .btn s{text-decoration:none;font-family:Consolas,monospace;font-size:10.5px;color:#8d8880}
+ .btn.big{border-color:#7a2a2a;background:#241616}
+ .btn.big i{color:#f0a417}
+ .btn.hold{border-color:#3a4a3a;background:#161c16}
+ .btn.pick{border-color:#f0a417;background:#2a2113;box-shadow:inset 0 0 0 1px #f0a417}
+ .lines{display:flex;flex-direction:column;gap:6px}
+ .ln{display:flex;align-items:center;gap:8px;font-size:12.5px;border:1px solid #322c28;border-radius:3px;padding:5px 9px;background:#141110}
+ .ln b{width:64px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#8d8880}
+ .ln.open{border-color:#2f5f36}.ln.open em{color:#7fd18a;font-style:normal}
+ .ln.shut{border-color:#5f2f2f;opacity:.85}.ln.shut em{color:#e07a7a;font-style:normal}
+ .order{display:flex;gap:8px}
+ .slot{flex:1;border:1px dashed #3a3430;border-radius:3px;padding:8px;text-align:center;font-size:12px;color:#8d8880}
+ .slot.fill{border-style:solid;border-color:#f0a417;background:#221c12;color:#f0a417;font-weight:700}
+ .clinch{border:1px solid #5f2f2f;background:#1d1413;border-radius:3px;padding:8px 10px;font-size:12px;color:#d8d1c7;line-height:1.4}
+ .clinch b{color:#e07a7a}
+</style>
+<div class="console">
+  <section class="panel">
+    <div class="who"><h2>WHICH LINE IS OPEN?</h2><em>the question the game is about</em></div>
+    <div class="lines">
+      <div class="ln shut"><b>straight</b>his lead hand: help high while it loads its hook<em>SHUT early</em></div>
+      <div class="ln open"><b>side</b>his rear hand is home high only at moment 1<em>OPEN from moment 2</em></div>
+      <div class="ln shut"><b>under</b>his rear hand sits low at Mid<em>SHUT</em></div>
+      <div class="ln open"><b>body</b>he has not held his lead low once in three bouts<em>OPEN all beat</em></div>
+    </div>
+    <div class="lab">the read the game owes the player <span class="warn">fix 3 + fix 5</span></div>
+    <div class="hint"><b>Moment hint:</b> "his lead hand acts <b>LATE</b> in the beat" - every blocked punch of mine in six bouts died on not knowing this (bout 4 R3 beat 6, bout 5 R1 beat 1, bout 2 R1 beat 4). <b>Hand map</b> by range above: "at Mid his rear low leaves the side open" is a read a player can own beat after beat; the four cue words are not.</div>
+  </section>
+  <section class="panel">
+    <div class="who"><h2>YOUR THREE SWITCHES</h2><em>cost &nbsp;/&nbsp; line &nbsp;/&nbsp; speed &nbsp;/&nbsp; reach</em></div>
+    <div class="grp"><div class="lab">lead hand &nbsp;·&nbsp; held high covers STRAIGHT, held low covers BODY</div>
+      <div class="seg">
+        <span class="btn"><i>jab</i><s>1st - 1 dmg - fast - Mid+Long</s></span>
+        <span class="btn"><i>body jab</i><s>1st - 1 dmg - fast - body</s></span>
+        <span class="btn big pick"><i>hook</i><s>2st - 3 dmg - fast - side - Mid+Inside</s></span>
+        <span class="btn"><i>uppercut</i><s>2st - 3 dmg - medium - under - Inside</s></span>
+        <span class="btn"><i>body hook</i><s>2st - 2 dmg - cuts his bar</s></span>
+        <span class="btn"><i>feint</i><s>1st - next punch uncoverable</s></span>
+        <span class="btn"><i>push off</i><s>1st - Inside only - I never threw it in 180 beats</s></span>
+        <span class="btn hold"><i>hold high</i><s>covers straight</s></span>
+        <span class="btn hold"><i>hold low</i><s>covers body</s></span>
+      </div></div>
+    <div class="grp"><div class="lab">rear hand &nbsp;·&nbsp; held high covers SIDE, held low covers UNDER</div>
+      <div class="seg">
+        <span class="btn big"><i>cross</i><s>2st - 3 dmg - medium - straight</s></span>
+        <span class="btn big"><i>overhand</i><s>3st - 4 dmg - slow - side</s></span>
+        <span class="btn"><i>uppercut</i><s>3st - 4 dmg - slow - under - Inside</s></span>
+        <span class="btn"><i>body cross</i><s>2st - 2 dmg - cuts his bar</s></span>
+        <span class="btn hold"><i>hold high</i><s>covers side</s></span>
+        <span class="btn hold"><i>hold low</i><s>covers under</s></span>
+      </div></div>
+    <div class="grp"><div class="lab">feet</div>
+      <div class="seg">
+        <span class="btn"><i>step in</i><s>1st - closes, and wins the ground</s></span>
+        <span class="btn pick"><i>hold</i><s>0st</s></span>
+        <span class="btn"><i>back off</i><s>1st - gives ground; next punch is a +1 pull counter</s></span>
+      </div></div>
+  </section>
+  <section class="panel">
+    <div class="who"><h2>THE ORDER</h2><em>first meets first</em></div>
+    <div class="order">
+      <div class="slot fill">1 &nbsp; feet: hold</div>
+      <div class="slot fill">2 &nbsp; rear: cross</div>
+      <div class="slot fill">3 &nbsp; lead: hook</div>
+    </div>
+    <div class="hint">Speeds decide a moment: faster lands first, and a big punch (3+) that lands <b>stops</b> the slower one. My best beat of six (bout 1 R2 beat 5) came from putting the finish in moment 1, where his own opening punch had its hand away from the line.</div>
+    <div class="clinch"><b>CLINCH - Inside, 1 stamina, no punch lands, referee breaks you to Mid, never twice running.</b> As it plays it also hands the clincher +2 stamina and costs the other man his whole paid beat - it deleted the feint-overhand that would have finished bout 1 (R3 beat 6) and I then used it 7 times myself. <b>FIX 2:</b> price it - the clincher loses his next beat's first moment, or pays stamina instead of gaining it.</div>
+    <div class="hint"><b>FIX 4:</b> make Long worth doing - one punch that scores at Long, or step in free, or open rounds at Mid; the safest range and the dullest range are the same range.</div>
+  </section>
+</div>
+<style>
+ .moments{display:flex;flex-direction:column;gap:7px}
+ .mom{border:1px solid #322c28;border-radius:3px;background:#141110;padding:8px 10px;display:flex;flex-direction:column;gap:4px}
+ .mom b{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#8d8880}
+ .mom .me{font-size:12.5px;color:#f2ede4}.mom .him{font-size:12.5px;color:#c9a3a3}
+ .mom em{font-style:normal;font-family:Consolas,monospace;font-size:11.5px;color:#f0a417}
+ .mom.on{border-color:#f0a417;background:#221c12}.mom.on b{color:#f0a417}
+</style>
+</body></html>

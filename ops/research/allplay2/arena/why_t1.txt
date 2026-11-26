@@ -1,0 +1,20 @@
+BOUT T1 - The Jabber, seed 41, TELLS ON. Result: WIN 29-28 (10-9, 9-10, 10-9)
+R1b1 (tell foot creeps) jab, cross, hold: he will walk to Mid - jab at Long, cross when he arrives.
+R1b2 (tell shoulder) hook in moment 1, rear high: lead stays high except while hooking, rear high vs overhand; hook beats a 1-2 cross.  [learned: feet=hold takes no moment]
+R1b3 (tell quiet, Inside) lbody, rbody: double body to cut his stamina, he never held low.  -> he clinched, my 4 stamina wasted.
+R1b4 (tell knees, Mid) lead low, rear high, rest: body shot is coming and I am on 3 stamina.
+R1b5 (tell quiet, Inside) push, rbody: quiet Inside was a clinch last time; push beats clinch, then body cross at Mid.  -> he backed off, body cross short.
+R1b6 (tell foot) bjab, rbody: 1-2 down, he never holds lead low, body line open both ranges. -> both land, round 3-3 won on back-offs.
+R2b1 (tell shoulder, Long) feint, overhand: he must step in to cross; feint draws hands, overhand uncoverable, lead back up blocks his cross. -> 5 dmg counter. BEST MOMENT.
+R2b2 (tell knees) lead low, cross: block body, his lead was low last beat so straight open. -> he backed off, cross short.
+R2b3 (tell quiet, Long) in, hook, rear high: his rear held low twice, side line open. -> he feinted & backed off, hook short; he is on the ropes.
+R2b4 (tell knees, Long) in, hook: on the ropes, rear low habit. -> his body cross first, then his rear back HIGH blocked my hook.
+R2b5 (tell knees, Mid) lead low, cross: block body, his lead was low with the body cross. -> he stepped in and threw TWO uppercuts as counters: 17->4 health. Forgot knees = uppercut after a step in.
+R2b6 (tell shoulder, Inside, 4 health) clinch: only safe switch; round lost anyway. -> first FAKE (he was quiet: clinch too).
+R3b1 (tell shoulder, Long) feint, overhand: same picture as R2b1, not in my last 3 plans. -> overhand lands 4, his body hook lands 2; FAKE (was knees).
+R3b2 (tell shoulder, Mid; me 2hp him 3hp) feint, cross: third shoulder in a row smells like the lie; any big punch knocks him down. -> he backed off, short. FAKE (quiet).
+R3b3 (tell shoulder, Long) lead high rear high rest: 2 health, 2 stamina, 1 point up. -> he backed off+feint. FAKE (quiet).
+R3b4 (tell shoulder, Long) bjab, rear high: his lead is usually high, body jab for a cheap point; tie goes to me (he backed off 2). -> lands, 3-1. FAKE (quiet).
+R3b5 (tell knees, Long) lead low, rear high: a body hook/cross would drop me from 2. -> body cross blocked but jab landed (1 hp left). TRUE.
+R3b6 (tell shoulder, Mid, 1hp) back off, lead high, rear high: any landed punch = knockdown = loss; back off leaves only jab/bjab in reach. -> jab blocked, body cross short. FAKE (knees). WIN.
+LIE FOUND: from R2b6 on, the shoulder drop was fake 6 of 6 (R3: 5/5). Spotted it at R3b2 (third in a row), used it at R3b4-b6.

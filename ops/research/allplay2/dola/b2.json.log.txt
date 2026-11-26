@@ -1,0 +1,222 @@
+A bout against The Body Snatcher, seed 43
+--- round 1, beat 1, at Long
+YOU: 1 Back off, 2 Jab - rear hand high
+HE:  1 Step in, 2 Lead hook - rear hand low
+HIS TELL WAS TRUE: "his front foot creeps forward".
+  moment 1 : Long to Mid - you back off, he steps in and cuts you off
+  moment 2 YOU: Jab - lands (his lead hand was out, throwing its Lead hook): -1 health, 1 point
+  moment 2 HE: Lead hook - blocked by your rear hand, held high
+ROUND 1 of 3, beat 2 of 6, range Mid. Points this round: you 1 - him 0. Cards so far: none
+YOU: health 18/18, stamina 8/8, guard 6/6, ground given 1/2
+HIM (The Body Snatcher): health 17/18, stamina 7/8, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Step in, 2 Lead hook - rear hand low
+THIS ROUND (1 beat): his lead hand held high 0, held low 0, thrown 1; his rear hand held high 0, held low 1, thrown 0
+HIS TELL before this beat: he bends his knees and his level drops.
+--- round 1, beat 2, at Mid
+YOU: no action - lead hand low, rear hand high
+HE:  1 Step in, 2 Lead uppercut, 3 Body cross
+HIS TELL WAS TRUE: "he bends his knees and his level drops".
+  moment 1 : Mid to Inside - he steps in
+  moment 2 HE: Lead uppercut - lands (your rear hand was held high): -3 health, 2 points
+  moment 3 HE: Body cross - blocked by your lead hand, held low
+ROUND 1 of 3, beat 3 of 6, range Inside. Points this round: you 1 - him 2. Cards so far: none
+YOU: health 15/18, stamina 8/8, guard 6/6, ground given 1/2
+HIM (The Body Snatcher): health 17/18, stamina 3/8, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Step in, 2 Lead uppercut, 3 Body cross  |  1 Step in, 2 Lead hook - rear hand low
+THIS ROUND (2 beats): his lead hand held high 0, held low 0, thrown 2; his rear hand held high 0, held low 1, thrown 1
+HIS TELL before this beat: he bends his knees and his level drops.
+--- round 1, beat 3, at Inside
+YOU: clinch
+HE:  1 Body cross, 2 Back off - lead hand low
+HIS TELL WAS TRUE: "he bends his knees and his level drops".
+  YOU: ties him up - no punch lands - the referee breaks them at Mid, +2 stamina
+ROUND 1 of 3, beat 4 of 6, range Mid. Points this round: you 1 - him 2. Cards so far: none
+YOU: health 15/18, stamina 8/8, guard 6/6, ground given 1/2, no clinch yet
+HIM (The Body Snatcher): health 17/18, stamina 2/8, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Body cross, 2 Back off - lead hand low  |  1 Step in, 2 Lead uppercut, 3 Body cross  |  1 Step in, 2 Lead hook - rear hand low
+THIS ROUND (3 beats): his lead hand held high 0, held low 1, thrown 2; his rear hand held high 0, held low 1, thrown 2
+HIS TELL before this beat: nothing: a plain, quiet guard.
+--- round 1, beat 4, at Mid
+YOU: 1 Body hook - rear hand low
+HE:  1 Back off - lead hand high, rear hand low
+HIS TELL WAS TRUE: "nothing: a plain, quiet guard".
+  moment 1 : Mid to Long - he backs off
+  moment 1 YOU: Body hook - falls short at Long
+ROUND 1 of 3, beat 5 of 6, range Long. Points this round: you 1 - him 2. Cards so far: none
+YOU: health 15/18, stamina 8/8, guard 6/6, ground given 1/2
+HIM (The Body Snatcher): health 17/18, stamina 4/8, guard 6/6, ground given 1/2
+HIS LAST BEATS, newest first: 1 Back off - lead hand high, rear hand low  |  1 Body cross, 2 Back off - lead hand low  |  1 Step in, 2 Lead uppercut, 3 Body cross
+THIS ROUND (4 beats): his lead hand held high 1, held low 1, thrown 2; his rear hand held high 0, held low 2, thrown 2
+HIS TELL before this beat: he bends his knees and his level drops.
+--- round 1, beat 5, at Long
+YOU: 1 Step in, 2 Jab - rear hand low
+HE:  1 Back off, 2 Body cross - lead hand high
+HIS TELL WAS TRUE: "he bends his knees and his level drops".
+  moment 1 : Long to Mid - he backs off, you step in and cut him off
+  moment 2 YOU: Jab - blocked by his lead hand, held high
+  moment 2 HE: Body cross - lands as a counter (your lead hand was out, throwing its Jab): -3 health, 1 point, stamina bar 7 for the rest of the bout
+ROUND 1 of 3, beat 6 of 6, range Mid. Points this round: you 1 - him 3. Cards so far: none
+YOU: health 12/18, stamina 7/7, guard 6/6, ground given 0/2
+HIM (The Body Snatcher): health 17/18, stamina 3/8, guard 6/6, ground given 2/2 ON THE ROPES
+HIS LAST BEATS, newest first: 1 Back off, 2 Body cross - lead hand high  |  1 Back off - lead hand high, rear hand low  |  1 Body cross, 2 Back off - lead hand low
+THIS ROUND (5 beats): his lead hand held high 2, held low 1, thrown 2; his rear hand held high 0, held low 2, thrown 3
+HIS TELL before this beat: he bends his knees and his level drops.
+--- round 1, beat 6, at Mid
+YOU: 1 Body cross - lead hand low
+HE:  1 Body hook - rear hand low
+HIS TELL WAS TRUE: "he bends his knees and his level drops".
+  moment 1 YOU: Body cross - lands (his lead hand was out, throwing its Body hook): -2 health, 1 point, stamina bar 7 for the rest of the bout
+  moment 1 HE: Body hook - blocked by your lead hand, held low
+BELL. The judges give the round 9-10.
+HIS TELLS THIS ROUND: front foot creeps 1 (true 1, fake 0), knees bend 4 (true 4, fake 0), quiet guard 1 (true 1, fake 0)
+ROUND 2 of 3, beat 1 of 6, range Long. Points this round: you 0 - him 0. Cards so far: 9-10
+YOU: health 12/18, stamina 7/7, guard 6/6, ground given 0/2
+HIM (The Body Snatcher): health 15/18, stamina 7/7, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Body hook - rear hand low  |  1 Back off, 2 Body cross - lead hand high  |  1 Back off - lead hand high, rear hand low
+THIS ROUND (0 beats): his lead hand held high 0, held low 0, thrown 0; his rear hand held high 0, held low 0, thrown 0
+HIS TELL before this beat: he bends his knees and his level drops.
+--- round 2, beat 1, at Long
+YOU: no action - lead hand low, rear hand high
+HE:  1 Step in, 2 Lead hook - rear hand high
+HIS TELL WAS A FAKE: he showed "he bends his knees and his level drops" - his beat would have shown "his front foot creeps forward".
+  moment 1 : Long to Mid - he steps in
+  moment 2 HE: Lead hook - blocked by your rear hand, held high
+ROUND 2 of 3, beat 2 of 6, range Mid. Points this round: you 0 - him 0. Cards so far: 9-10
+YOU: health 12/18, stamina 7/7, guard 6/6, ground given 0/2
+HIM (The Body Snatcher): health 15/18, stamina 6/7, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Step in, 2 Lead hook - rear hand high  |  1 Body hook - rear hand low  |  1 Back off, 2 Body cross - lead hand high
+THIS ROUND (1 beat): his lead hand held high 0, held low 0, thrown 1; his rear hand held high 1, held low 0, thrown 0
+HIS TELL before this beat: he bends his knees and his level drops.
+--- round 2, beat 2, at Mid
+YOU: no action - lead hand high, rear hand high
+HE:  1 Lead uppercut - rear hand low
+HIS TELL WAS TRUE: "he bends his knees and his level drops".
+  moment 1 HE: Lead uppercut - falls short at Mid
+ROUND 2 of 3, beat 3 of 6, range Mid. Points this round: you 0 - him 0. Cards so far: 9-10
+YOU: health 12/18, stamina 7/7, guard 6/6, ground given 0/2
+HIM (The Body Snatcher): health 15/18, stamina 6/7, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Lead uppercut - rear hand low  |  1 Step in, 2 Lead hook - rear hand high  |  1 Body hook - rear hand low
+THIS ROUND (2 beats): his lead hand held high 0, held low 0, thrown 2; his rear hand held high 1, held low 1, thrown 0
+HIS TELL before this beat: he bends his knees and his level drops.
+--- round 2, beat 3, at Mid
+YOU: 1 Body hook - rear hand low
+HE:  1 Lead uppercut - rear hand low
+HIS TELL WAS TRUE: "he bends his knees and his level drops".
+  moment 1 YOU: Body hook - lands (his lead hand was out, throwing its Lead uppercut): -2 health, 1 point, stamina bar 6 for the rest of the bout
+  moment 1 HE: Lead uppercut - falls short at Mid
+ROUND 2 of 3, beat 4 of 6, range Mid. Points this round: you 1 - him 0. Cards so far: 9-10
+YOU: health 12/18, stamina 7/7, guard 6/6, ground given 0/2
+HIM (The Body Snatcher): health 13/18, stamina 6/6, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Lead uppercut - rear hand low  |  1 Lead uppercut - rear hand low  |  1 Step in, 2 Lead hook - rear hand high
+THIS ROUND (3 beats): his lead hand held high 0, held low 0, thrown 3; his rear hand held high 1, held low 2, thrown 0
+HIS TELL before this beat: he bends his knees and his level drops.
+--- round 2, beat 4, at Mid
+YOU: 1 Body cross - lead hand low
+HE:  1 Step in, 2 Body cross - lead hand low
+HIS TELL WAS TRUE: "he bends his knees and his level drops".
+  moment 1 : Mid to Inside - he steps in
+  moment 1 YOU: Body cross - blocked by his lead hand, held low
+  moment 2 HE: Body cross - blocked by your lead hand, held low
+ROUND 2 of 3, beat 5 of 6, range Inside. Points this round: you 1 - him 0. Cards so far: 9-10
+YOU: health 12/18, stamina 7/7, guard 6/6, ground given 0/2
+HIM (The Body Snatcher): health 13/18, stamina 5/6, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Step in, 2 Body cross - lead hand low  |  1 Lead uppercut - rear hand low  |  1 Lead uppercut - rear hand low
+THIS ROUND (4 beats): his lead hand held high 0, held low 1, thrown 3; his rear hand held high 1, held low 2, thrown 1
+HIS TELL before this beat: he bends his knees and his level drops.
+--- round 2, beat 5, at Inside
+YOU: clinch
+HE:  1 Rear uppercut - lead hand low
+HIS TELL WAS TRUE: "he bends his knees and his level drops".
+  YOU: ties him up - no punch lands - the referee breaks them at Mid, +2 stamina
+ROUND 2 of 3, beat 6 of 6, range Mid. Points this round: you 1 - him 0. Cards so far: 9-10
+YOU: health 12/18, stamina 7/7, guard 6/6, ground given 0/2, no clinch yet
+HIM (The Body Snatcher): health 13/18, stamina 4/6, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Rear uppercut - lead hand low  |  1 Step in, 2 Body cross - lead hand low  |  1 Lead uppercut - rear hand low
+THIS ROUND (5 beats): his lead hand held high 0, held low 2, thrown 3; his rear hand held high 1, held low 2, thrown 2
+HIS TELL before this beat: his rear shoulder drops back (the rear hand is loading).
+--- round 2, beat 6, at Mid
+YOU: 1 Cross - lead hand high
+HE:  1 Lead hook, 2 Cross
+HIS TELL WAS TRUE: "his rear shoulder drops back (the rear hand is loading)".
+  moment 1 HE: Lead hook - lands (your rear hand was out, throwing its Cross): -3 health, 2 points
+  moment 1 YOU: Cross - beaten to the punch: his Lead hook is faster, landed first and stopped it
+  moment 2 HE: Cross - blocked by your lead hand, held high
+BELL. The judges give the round 9-10.
+HIS TELLS THIS ROUND: knees bend 5 (true 4, fake 1), rear shoulder drop 1 (true 1, fake 0)
+ROUND 3 of 3, beat 1 of 6, range Long. Points this round: you 0 - him 0. Cards so far: 9-10, 9-10
+YOU: health 9/18, stamina 7/7, guard 6/6, ground given 0/2
+HIM (The Body Snatcher): health 13/18, stamina 6/6, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Lead hook, 2 Cross  |  1 Rear uppercut - lead hand low  |  1 Step in, 2 Body cross - lead hand low
+THIS ROUND (0 beats): his lead hand held high 0, held low 0, thrown 0; his rear hand held high 0, held low 0, thrown 0
+HIS TELL before this beat: his rear shoulder drops back (the rear hand is loading).
+--- round 3, beat 1, at Long
+YOU: no action - lead hand high, rear hand high
+HE:  1 Step in, 2 Cross, 3 Body hook
+HIS TELL WAS TRUE: "his rear shoulder drops back (the rear hand is loading)".
+  moment 1 : Long to Mid - he steps in
+  moment 2 HE: Cross - blocked by your lead hand, held high
+  moment 3 HE: Body hook - lands (your lead hand was held high): -2 health, 1 point, stamina bar 6 for the rest of the bout
+ROUND 3 of 3, beat 2 of 6, range Mid. Points this round: you 0 - him 1. Cards so far: 9-10, 9-10
+YOU: health 7/18, stamina 6/6, guard 6/6, ground given 0/2
+HIM (The Body Snatcher): health 13/18, stamina 2/6, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Step in, 2 Cross, 3 Body hook  |  1 Lead hook, 2 Cross  |  1 Rear uppercut - lead hand low
+THIS ROUND (1 beat): his lead hand held high 0, held low 0, thrown 1; his rear hand held high 0, held low 0, thrown 1
+HIS TELL before this beat: he bends his knees and his level drops.
+--- round 3, beat 2, at Mid
+YOU: no action - lead hand low, rear hand high
+HE:  1 Body jab, 2 Step in - rear hand high
+HIS TELL WAS TRUE: "he bends his knees and his level drops".
+  moment 1 HE: Body jab - blocked by your lead hand, held low
+  moment 2 : Mid to Inside - he steps in
+ROUND 3 of 3, beat 3 of 6, range Inside. Points this round: you 0 - him 1. Cards so far: 9-10, 9-10
+YOU: health 7/18, stamina 6/6, guard 6/6, ground given 0/2
+HIM (The Body Snatcher): health 13/18, stamina 2/6, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Body jab, 2 Step in - rear hand high  |  1 Step in, 2 Cross, 3 Body hook  |  1 Lead hook, 2 Cross
+THIS ROUND (2 beats): his lead hand held high 0, held low 0, thrown 2; his rear hand held high 1, held low 0, thrown 1
+HIS TELL before this beat: he bends his knees and his level drops.
+--- round 3, beat 3, at Inside
+YOU: clinch
+HE:  clinch
+HIS TELL WAS A FAKE: he showed "he bends his knees and his level drops" - his beat would have shown "nothing: a plain, quiet guard".
+  YOU: ties him up - no punch lands - the referee breaks them at Mid, +2 stamina
+ROUND 3 of 3, beat 4 of 6, range Mid. Points this round: you 0 - him 1. Cards so far: 9-10, 9-10
+YOU: health 7/18, stamina 6/6, guard 6/6, ground given 0/2, no clinch yet
+HIM (The Body Snatcher): health 13/18, stamina 2/6, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: clinch  |  1 Body jab, 2 Step in - rear hand high  |  1 Step in, 2 Cross, 3 Body hook
+THIS ROUND (3 beats): his lead hand held high 0, held low 0, thrown 2; his rear hand held high 1, held low 0, thrown 1
+HIS TELL before this beat: he bends his knees and his level drops.
+--- round 3, beat 4, at Mid
+YOU: 1 Body hook - rear hand low
+HE:  1 Body cross - lead hand low
+HIS TELL WAS TRUE: "he bends his knees and his level drops".
+  moment 1 YOU: Body hook - blocked by his lead hand, held low
+  moment 1 HE: Body cross - lands (your lead hand was out, throwing its Body hook): -2 health, 1 point, stamina bar 5 for the rest of the bout
+ROUND 3 of 3, beat 5 of 6, range Mid. Points this round: you 0 - him 2. Cards so far: 9-10, 9-10
+YOU: health 5/18, stamina 5/5, guard 6/6, ground given 0/2
+HIM (The Body Snatcher): health 13/18, stamina 2/6, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Body cross - lead hand low  |  clinch  |  1 Body jab, 2 Step in - rear hand high
+THIS ROUND (4 beats): his lead hand held high 0, held low 1, thrown 2; his rear hand held high 1, held low 0, thrown 2
+HIS TELL before this beat: nothing: a plain, quiet guard.
+--- round 3, beat 5, at Mid
+YOU: 1 Step in, 2 Jab - rear hand high
+HE:  1 Back off - lead hand high, rear hand low
+HIS TELL WAS TRUE: "nothing: a plain, quiet guard".
+  moment 1 : Mid to Inside - he backs off, you step in and cut him off
+  moment 2 YOU: Jab - smothered - too close at Inside
+ROUND 3 of 3, beat 6 of 6, range Inside. Points this round: you 0 - him 2. Cards so far: 9-10, 9-10
+YOU: health 5/18, stamina 5/5, guard 6/6, ground given 0/2
+HIM (The Body Snatcher): health 13/18, stamina 4/6, guard 6/6, ground given 1/2
+HIS LAST BEATS, newest first: 1 Back off - lead hand high, rear hand low  |  1 Body cross - lead hand low  |  clinch
+THIS ROUND (5 beats): his lead hand held high 1, held low 1, thrown 2; his rear hand held high 1, held low 1, thrown 2
+HIS TELL before this beat: his rear shoulder drops back (the rear hand is loading).
+--- round 3, beat 6, at Inside
+YOU: 1 Lead hook - rear hand high
+HE:  1 Cross, 2 Step in, 3 Feint
+HIS TELL WAS TRUE: "his rear shoulder drops back (the rear hand is loading)".
+  moment 1 YOU: Lead hook - lands (his rear hand was out, throwing its Cross): -3 health, 2 points
+  moment 1 HE: Cross - beaten to the punch: your Lead hook is faster, landed first and stopped it
+  moment 2 : stays Inside - he steps in - already Inside, nowhere closer
+  moment 3 HE: feints - the next punch cannot be covered
+BELL. The judges give the round 10-9 (level on points: it goes to the man who backed off less - you 0, him 1).
+HIS TELLS THIS ROUND: rear shoulder drop 2 (true 2, fake 0), knees bend 3 (true 2, fake 1), quiet guard 1 (true 1, fake 0)
+HE WINS on the cards 28-29

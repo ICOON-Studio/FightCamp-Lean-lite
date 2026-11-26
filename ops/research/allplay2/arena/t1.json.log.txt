@@ -1,0 +1,238 @@
+A bout against The Jabber, seed 41
+--- round 1, beat 1, at Long
+YOU: 1 Jab, 2 Cross
+HE:  1 Jab, 2 Step in - rear hand high
+HIS TELL WAS TRUE: "his front foot creeps forward".
+  moment 1 YOU: Jab - lands (his lead hand was out, throwing its Jab): -1 health, 1 point
+  moment 1 HE: Jab - lands (your lead hand was out, throwing its Jab): -1 health, 1 point
+  moment 2 : Long to Mid - he steps in
+  moment 2 YOU: Cross - blocked: his lead hand was back up (its Jab was moment 1)
+ROUND 1 of 3, beat 2 of 6, range Mid. Points this round: you 1 - him 1. Cards so far: none
+YOU: health 17/18, stamina 6/8, guard 6/6, ground given 0/2
+HIM (The Jabber): health 15/16, stamina 8/8, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Jab, 2 Step in - rear hand high
+THIS ROUND (1 beat): his lead hand held high 0, held low 0, thrown 1; his rear hand held high 1, held low 0, thrown 0
+HIS TELL before this beat: his rear shoulder drops back (the rear hand is loading).
+--- round 1, beat 2, at Mid
+YOU: 1 Lead hook - rear hand high
+HE:  1 Step in, 2 Lead hook, 3 Cross
+HIS TELL WAS TRUE: "his rear shoulder drops back (the rear hand is loading)".
+  moment 1 : Mid to Inside - he steps in
+  moment 1 YOU: Lead hook - blocked: his rear hand was still up (its Cross comes in moment 3)
+  moment 2 HE: Lead hook - blocked by your rear hand, held high
+  moment 3 HE: Cross - blocked: your lead hand was back up (its Lead hook was moment 1)
+ROUND 1 of 3, beat 3 of 6, range Inside. Points this round: you 1 - him 1. Cards so far: none
+YOU: health 17/18, stamina 6/8, guard 5/6, ground given 0/2
+HIM (The Jabber): health 15/16, stamina 4/8, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Step in, 2 Lead hook, 3 Cross  |  1 Jab, 2 Step in - rear hand high
+THIS ROUND (2 beats): his lead hand held high 0, held low 0, thrown 2; his rear hand held high 1, held low 0, thrown 1
+HIS TELL before this beat: nothing: a plain, quiet guard.
+--- round 1, beat 3, at Inside
+YOU: 1 Body hook, 2 Body cross
+HE:  clinch
+HIS TELL WAS TRUE: "nothing: a plain, quiet guard".
+  HE: ties you up - no punch lands - the referee breaks them at Mid, +2 stamina
+ROUND 1 of 3, beat 4 of 6, range Mid. Points this round: you 1 - him 1. Cards so far: none
+YOU: health 17/18, stamina 3/8, guard 6/6, ground given 0/2
+HIM (The Jabber): health 15/16, stamina 6/8, guard 6/6, ground given 0/2, no clinch yet
+HIS LAST BEATS, newest first: clinch  |  1 Step in, 2 Lead hook, 3 Cross  |  1 Jab, 2 Step in - rear hand high
+THIS ROUND (3 beats): his lead hand held high 0, held low 0, thrown 2; his rear hand held high 1, held low 0, thrown 1
+HIS TELL before this beat: he bends his knees and his level drops.
+--- round 1, beat 4, at Mid
+YOU: no action - lead hand low, rear hand high
+HE:  1 Body cross, 2 Jab, 3 Step in
+HIS TELL WAS TRUE: "he bends his knees and his level drops".
+  moment 1 HE: Body cross - blocked by your lead hand, held low
+  moment 2 HE: Jab - lands (your lead hand was held low): -1 health, 1 point
+  moment 3 : Mid to Inside - he steps in
+ROUND 1 of 3, beat 5 of 6, range Inside. Points this round: you 1 - him 2. Cards so far: none
+YOU: health 16/18, stamina 6/8, guard 6/6, ground given 0/2
+HIM (The Jabber): health 15/16, stamina 3/8, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Body cross, 2 Jab, 3 Step in  |  clinch  |  1 Step in, 2 Lead hook, 3 Cross
+THIS ROUND (4 beats): his lead hand held high 0, held low 0, thrown 3; his rear hand held high 1, held low 0, thrown 2
+HIS TELL before this beat: nothing: a plain, quiet guard.
+--- round 1, beat 5, at Inside
+YOU: 1 Push off, 2 Body cross
+HE:  1 Lead hook, 2 Back off - rear hand high
+HIS TELL WAS TRUE: "nothing: a plain, quiet guard".
+  moment 1 YOU: pushes off - a shove with the lead glove on his chest: he is back at Mid
+  moment 1 HE: Lead hook - blocked: your rear hand was still up (its Body cross comes in moment 2)
+  moment 2 : Mid to Long - he backs off
+  moment 2 YOU: Body cross - falls short at Long
+ROUND 1 of 3, beat 6 of 6, range Long. Points this round: you 1 - him 2. Cards so far: none
+YOU: health 16/18, stamina 4/8, guard 6/6, ground given 0/2
+HIM (The Jabber): health 15/16, stamina 2/8, guard 6/6, ground given 1/2
+HIS LAST BEATS, newest first: 1 Lead hook, 2 Back off - rear hand high  |  1 Body cross, 2 Jab, 3 Step in  |  clinch
+THIS ROUND (5 beats): his lead hand held high 0, held low 0, thrown 4; his rear hand held high 2, held low 0, thrown 2
+HIS TELL before this beat: his front foot creeps forward.
+--- round 1, beat 6, at Long
+YOU: 1 Body jab, 2 Body cross
+HE:  1 Jab, 2 Step in - rear hand low
+HIS TELL WAS TRUE: "his front foot creeps forward".
+  moment 1 YOU: Body jab - lands (his lead hand was out, throwing its Jab): -1 health, 1 point
+  moment 1 HE: Jab - lands (your lead hand was out, throwing its Body jab): -1 health, 1 point
+  moment 2 : Long to Mid - he steps in
+  moment 2 YOU: Body cross - lands (his lead hand was held high): -2 health, 1 point, stamina bar 7 for the rest of the bout
+BELL. The judges give the round 10-9 (level on points: it goes to the man who backed off less - you 0, him 1).
+HIS TELLS THIS ROUND: front foot creeps 2 (true 2, fake 0), rear shoulder drop 1 (true 1, fake 0), quiet guard 2 (true 2, fake 0), knees bend 1 (true 1, fake 0)
+ROUND 2 of 3, beat 1 of 6, range Long. Points this round: you 0 - him 0. Cards so far: 10-9
+YOU: health 15/18, stamina 8/8, guard 6/6, ground given 0/2
+HIM (The Jabber): health 12/16, stamina 7/7, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Jab, 2 Step in - rear hand low  |  1 Lead hook, 2 Back off - rear hand high  |  1 Body cross, 2 Jab, 3 Step in
+THIS ROUND (0 beats): his lead hand held high 0, held low 0, thrown 0; his rear hand held high 0, held low 0, thrown 0
+HIS TELL before this beat: his rear shoulder drops back (the rear hand is loading).
+--- round 2, beat 1, at Long
+YOU: 1 Feint, 2 Overhand
+HE:  1 Step in, 2 Cross - lead hand low
+HIS TELL WAS TRUE: "his rear shoulder drops back (the rear hand is loading)".
+  moment 1 : Long to Mid - he steps in
+  moment 1 YOU: feints - the next punch cannot be covered
+  moment 2 HE: Cross - blocked: your lead hand was back up (its Feint was moment 1)
+  moment 2 YOU: Overhand - lands as a counter (the feint drew his hand): -5 health, 2 points
+ROUND 2 of 3, beat 2 of 6, range Mid. Points this round: you 2 - him 0. Cards so far: 10-9
+YOU: health 15/18, stamina 5/8, guard 6/6, ground given 0/2
+HIM (The Jabber): health 7/16, stamina 6/7, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Step in, 2 Cross - lead hand low  |  1 Jab, 2 Step in - rear hand low  |  1 Lead hook, 2 Back off - rear hand high
+THIS ROUND (1 beat): his lead hand held high 0, held low 1, thrown 0; his rear hand held high 0, held low 0, thrown 1
+HIS TELL before this beat: he bends his knees and his level drops.
+--- round 2, beat 2, at Mid
+YOU: 1 Cross - lead hand low
+HE:  1 Back off, 2 Body jab - rear hand low
+HIS TELL WAS TRUE: "he bends his knees and his level drops".
+  moment 1 : Mid to Long - he backs off
+  moment 1 YOU: Cross - falls short at Long
+  moment 2 HE: Body jab - blocked by your lead hand, held low
+ROUND 2 of 3, beat 3 of 6, range Long. Points this round: you 2 - him 0. Cards so far: 10-9
+YOU: health 15/18, stamina 5/8, guard 6/6, ground given 0/2
+HIM (The Jabber): health 7/16, stamina 6/7, guard 6/6, ground given 1/2
+HIS LAST BEATS, newest first: 1 Back off, 2 Body jab - rear hand low  |  1 Step in, 2 Cross - lead hand low  |  1 Jab, 2 Step in - rear hand low
+THIS ROUND (2 beats): his lead hand held high 0, held low 1, thrown 1; his rear hand held high 0, held low 1, thrown 1
+HIS TELL before this beat: nothing: a plain, quiet guard.
+--- round 2, beat 3, at Long
+YOU: 1 Step in, 2 Lead hook - rear hand high
+HE:  1 Feint, 2 Back off - rear hand low
+HIS TELL WAS TRUE: "nothing: a plain, quiet guard".
+  moment 1 : Long to Mid - you step in
+  moment 1 HE: feints - the next punch cannot be covered
+  moment 2 : Mid to Long - he backs off
+  moment 2 YOU: Lead hook - falls short at Long
+ROUND 2 of 3, beat 4 of 6, range Long. Points this round: you 2 - him 0. Cards so far: 10-9
+YOU: health 15/18, stamina 4/8, guard 6/6, ground given 0/2
+HIM (The Jabber): health 7/16, stamina 6/7, guard 6/6, ground given 2/2 ON THE ROPES
+HIS LAST BEATS, newest first: 1 Feint, 2 Back off - rear hand low  |  1 Back off, 2 Body jab - rear hand low  |  1 Step in, 2 Cross - lead hand low
+THIS ROUND (3 beats): his lead hand held high 0, held low 1, thrown 2; his rear hand held high 0, held low 2, thrown 1
+HIS TELL before this beat: he bends his knees and his level drops.
+--- round 2, beat 4, at Long
+YOU: 1 Step in, 2 Lead hook - rear hand high
+HE:  1 Body cross - lead hand low
+HIS TELL WAS TRUE: "he bends his knees and his level drops".
+  moment 1 : Long to Mid - you step in
+  moment 1 HE: Body cross - lands (your lead hand was held high): -2 health, 1 point, stamina bar 7 for the rest of the bout
+  moment 2 YOU: Lead hook - blocked: his rear hand was back up (its Body cross was moment 1)
+ROUND 2 of 3, beat 5 of 6, range Mid. Points this round: you 2 - him 1. Cards so far: 10-9
+YOU: health 13/18, stamina 3/7, guard 6/6, ground given 0/2
+HIM (The Jabber): health 7/16, stamina 6/7, guard 6/6, ground given 2/2 ON THE ROPES
+HIS LAST BEATS, newest first: 1 Body cross - lead hand low  |  1 Feint, 2 Back off - rear hand low  |  1 Back off, 2 Body jab - rear hand low
+THIS ROUND (4 beats): his lead hand held high 0, held low 2, thrown 2; his rear hand held high 0, held low 2, thrown 2
+HIS TELL before this beat: he bends his knees and his level drops.
+--- round 2, beat 5, at Mid
+YOU: 1 Cross - lead hand low
+HE:  1 Step in, 2 Lead uppercut, 3 Rear uppercut
+HIS TELL WAS TRUE: "he bends his knees and his level drops".
+  moment 1 : Mid to Inside - he steps in
+  moment 1 YOU: Cross - blocked: his lead hand was still up (its Lead uppercut comes in moment 2)
+  moment 2 HE: Lead uppercut - lands as a counter (your rear hand was held high): -4 health, 2 points
+  moment 3 HE: Rear uppercut - lands as a counter (your rear hand was held high): -5 health, 2 points
+ROUND 2 of 3, beat 6 of 6, range Inside. Points this round: you 2 - him 5. Cards so far: 10-9
+YOU: health 4/18, stamina 3/7, guard 6/6, ground given 0/2
+HIM (The Jabber): health 7/16, stamina 1/7, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Step in, 2 Lead uppercut, 3 Rear uppercut  |  1 Body cross - lead hand low  |  1 Feint, 2 Back off - rear hand low
+THIS ROUND (5 beats): his lead hand held high 0, held low 2, thrown 3; his rear hand held high 0, held low 2, thrown 3
+HIS TELL before this beat: his rear shoulder drops back (the rear hand is loading).
+--- round 2, beat 6, at Inside
+YOU: clinch
+HE:  clinch
+HIS TELL WAS A FAKE: he showed "his rear shoulder drops back (the rear hand is loading)" - his beat would have shown "nothing: a plain, quiet guard".
+  YOU: ties him up - no punch lands - the referee breaks them at Mid, +2 stamina
+BELL. The judges give the round 9-10.
+HIS TELLS THIS ROUND: rear shoulder drop 2 (true 1, fake 1), knees bend 3 (true 3, fake 0), quiet guard 1 (true 1, fake 0)
+ROUND 3 of 3, beat 1 of 6, range Long. Points this round: you 0 - him 0. Cards so far: 10-9, 9-10
+YOU: health 4/18, stamina 7/7, guard 6/6, ground given 0/2
+HIM (The Jabber): health 7/16, stamina 7/7, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: clinch  |  1 Step in, 2 Lead uppercut, 3 Rear uppercut  |  1 Body cross - lead hand low
+THIS ROUND (0 beats): his lead hand held high 0, held low 0, thrown 0; his rear hand held high 0, held low 0, thrown 0
+HIS TELL before this beat: his rear shoulder drops back (the rear hand is loading).
+--- round 3, beat 1, at Long
+YOU: 1 Feint, 2 Overhand
+HE:  1 Step in, 2 Body hook, 3 Rear uppercut
+HIS TELL WAS A FAKE: he showed "his rear shoulder drops back (the rear hand is loading)" - his beat would have shown "he bends his knees and his level drops".
+  moment 1 : Long to Mid - he steps in
+  moment 1 YOU: feints - the next punch cannot be covered
+  moment 2 HE: Body hook - lands (your lead hand was held high): -2 health, 1 point, stamina bar 6 for the rest of the bout
+  moment 2 YOU: Overhand - lands (the feint drew his hand): -4 health, 2 points
+  moment 3 HE: Rear uppercut - falls short at Mid
+ROUND 3 of 3, beat 2 of 6, range Mid. Points this round: you 2 - him 1. Cards so far: 10-9, 9-10
+YOU: health 2/18, stamina 4/6, guard 6/6, ground given 0/2
+HIM (The Jabber): health 3/16, stamina 2/7, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Step in, 2 Body hook, 3 Rear uppercut  |  clinch  |  1 Step in, 2 Lead uppercut, 3 Rear uppercut
+THIS ROUND (1 beat): his lead hand held high 0, held low 0, thrown 1; his rear hand held high 0, held low 0, thrown 1
+HIS TELL before this beat: his rear shoulder drops back (the rear hand is loading).
+--- round 3, beat 2, at Mid
+YOU: 1 Feint, 2 Cross
+HE:  1 Back off - lead hand low, rear hand high
+HIS TELL WAS A FAKE: he showed "his rear shoulder drops back (the rear hand is loading)" - his beat would have shown "nothing: a plain, quiet guard".
+  moment 1 : Mid to Long - he backs off
+  moment 1 YOU: feints - the next punch cannot be covered
+  moment 2 YOU: Cross - falls short at Long
+ROUND 3 of 3, beat 3 of 6, range Long. Points this round: you 2 - him 1. Cards so far: 10-9, 9-10
+YOU: health 2/18, stamina 2/6, guard 6/6, ground given 0/2
+HIM (The Jabber): health 3/16, stamina 4/7, guard 6/6, ground given 1/2
+HIS LAST BEATS, newest first: 1 Back off - lead hand low, rear hand high  |  1 Step in, 2 Body hook, 3 Rear uppercut  |  clinch
+THIS ROUND (2 beats): his lead hand held high 0, held low 1, thrown 1; his rear hand held high 1, held low 0, thrown 1
+HIS TELL before this beat: his rear shoulder drops back (the rear hand is loading).
+--- round 3, beat 3, at Long
+YOU: no action - lead hand high, rear hand high
+HE:  1 Back off, 2 Feint - rear hand low
+HIS TELL WAS A FAKE: he showed "his rear shoulder drops back (the rear hand is loading)" - his beat would have shown "nothing: a plain, quiet guard".
+  moment 1 : stays Long - he backs off - already at Long, nowhere further
+  moment 2 HE: feints - the next punch cannot be covered
+ROUND 3 of 3, beat 4 of 6, range Long. Points this round: you 2 - him 1. Cards so far: 10-9, 9-10
+YOU: health 2/18, stamina 5/6, guard 6/6, ground given 0/2
+HIM (The Jabber): health 3/16, stamina 4/7, guard 6/6, ground given 2/2 ON THE ROPES
+HIS LAST BEATS, newest first: 1 Back off, 2 Feint - rear hand low  |  1 Back off - lead hand low, rear hand high  |  1 Step in, 2 Body hook, 3 Rear uppercut
+THIS ROUND (3 beats): his lead hand held high 0, held low 1, thrown 2; his rear hand held high 1, held low 1, thrown 1
+HIS TELL before this beat: his rear shoulder drops back (the rear hand is loading).
+--- round 3, beat 4, at Long
+YOU: 1 Body jab - rear hand high
+HE:  no action - lead hand high, rear hand high
+HIS TELL WAS A FAKE: he showed "his rear shoulder drops back (the rear hand is loading)" - his beat would have shown "nothing: a plain, quiet guard".
+  moment 1 YOU: Body jab - lands (his lead hand was held high): -1 health, 1 point
+ROUND 3 of 3, beat 5 of 6, range Long. Points this round: you 3 - him 1. Cards so far: 10-9, 9-10
+YOU: health 2/18, stamina 6/6, guard 6/6, ground given 0/2
+HIM (The Jabber): health 2/16, stamina 7/7, guard 6/6, ground given 2/2 ON THE ROPES
+HIS LAST BEATS, newest first: no action - lead hand high, rear hand high  |  1 Back off, 2 Feint - rear hand low  |  1 Back off - lead hand low, rear hand high
+THIS ROUND (4 beats): his lead hand held high 1, held low 1, thrown 2; his rear hand held high 2, held low 1, thrown 1
+HIS TELL before this beat: he bends his knees and his level drops.
+--- round 3, beat 5, at Long
+YOU: no action - lead hand low, rear hand high
+HE:  1 Jab, 2 Step in, 3 Body cross
+HIS TELL WAS TRUE: "he bends his knees and his level drops".
+  moment 1 HE: Jab - lands (your lead hand was held low): -1 health, 1 point
+  moment 2 : Long to Mid - he steps in
+  moment 3 HE: Body cross - blocked by your lead hand, held low
+ROUND 3 of 3, beat 6 of 6, range Mid. Points this round: you 3 - him 2. Cards so far: 10-9, 9-10
+YOU: health 1/18, stamina 6/6, guard 6/6, ground given 0/2
+HIM (The Jabber): health 2/16, stamina 4/7, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Jab, 2 Step in, 3 Body cross  |  no action - lead hand high, rear hand high  |  1 Back off, 2 Feint - rear hand low
+THIS ROUND (5 beats): his lead hand held high 1, held low 1, thrown 3; his rear hand held high 2, held low 1, thrown 2
+HIS TELL before this beat: his rear shoulder drops back (the rear hand is loading).
+--- round 3, beat 6, at Mid
+YOU: 1 Back off - lead hand high, rear hand high
+HE:  1 Back off, 2 Jab, 3 Body cross
+HIS TELL WAS A FAKE: he showed "his rear shoulder drops back (the rear hand is loading)" - his beat would have shown "he bends his knees and his level drops".
+  moment 1 : Mid to Long - you back off, he backs off
+  moment 2 HE: Jab - blocked by your lead hand, held high
+  moment 3 HE: Body cross - falls short at Long
+BELL. The judges give the round 10-9.
+HIS TELLS THIS ROUND: rear shoulder drop 5 (true 0, fake 5), knees bend 1 (true 1, fake 0)
+YOU WIN on the cards 29-28

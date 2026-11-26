@@ -19,7 +19,7 @@ const his3 = (S) => { const seen = S.seen || [], rd = S.seenRound || [], held = 
 const bars = (S) => { const [x, y] = S.F, m = (who, f) => `${who}: health ${f.hp}/${f.max}${f.kd ? ` (down ${f.kd}x${f.kd >= N.kd.length ? ' - ONE MORE ENDS IT' : ''})` : ''}, stamina ${f.st}/${f.cap}, guard ${f.g}/${N.guard}, ground given ${Math.min(2, f.ropes)}/2${f.ropes >= 2 ? ' ON THE ROPES' : ''}${f.held ? ', no clinch yet' : ''}`;
   return [`ROUND ${S.round} of ${N.rounds}, beat ${S.beat + 1} of ${N.beats}, range ${RNG[S.range]}. Points this round: you ${x.pts} - him ${y.pts}. Cards so far: ${S.cards.map((c) => c.join('-')).join(', ') || 'none'}`, m('YOU', x), m(`HIM (${R0.OPPS[S.opp].n})`, y), ...his3(S), ...(S.tells && S.tell && !S.over ? [`HIS TELL before this beat: ${CUES[S.tell.cue]}.`] : [])]; };
 /* TELLS1: his next beat is chosen BEFORE yours (as always) and kept, so his cue can be shown first */
-const prepNext = (S) => { const R2 = load(S.seed * 1000 + S.n + 777777); R2.setOpp(S.opp); S.next = R2.ai({ f: S.F, range: S.range, t: N.beats - S.beat }) || R2.plan0(); S.tell = tellOf(S.opp, S.next, S.F[0], S.F[1], !!S.blockedBody); };
+const prepNext = (S) => { const R2 = load(S.seed * 1000 + S.n + 777777); R2.setOpp(S.opp); S.next = R2.ai({ f: S.F, range: S.range, t: N.beats - S.beat }) || R2.plan0(); S.tell = tellOf(S.opp, S.next, { me: S.F[0], him: S.F[1], hisLast: (S.seen || []).slice(-1)[0] || null, meLanded: !!S.meLanded, blockedAny: !!S.blockedAny, blockedBody: !!S.blockedBody, range: S.range }, S.tells === 2 ? 2 : 1); };   /* TELLS2: tells=2 is version 2 (DESIGN_TELLS2.md); a state file with tells true is version 1 */
 if (cmd === 'help' || !cmd) {
   say('RING SWITCHES. Each beat: one switch for the LEAD hand, one for the REAR hand, one for the FEET, and the ORDER you throw them (first meets his first).');
   say(`Health ${N.hp}, stamina ${N.st} (+${N.rec} a beat, +${N.hold} for each hand held), ${N.rounds} rounds of ${N.beats} beats. Down at 0 health: up on ${N.kd.join(' then ')}; the next time it is over.`);
@@ -37,10 +37,10 @@ if (cmd === 'help' || !cmd) {
   say(`Opponents: ${R0.OPPS.slice(0, 3).map((o, i) => `${i} ${o.n} (health ${o.hp}): ${o.t}`).join(' | ')}`);
   process.exit(0); }
 if (cmd === 'new') { const opp = Number(arg.opp || 0), seed = Number(arg.seed || 1);
-  const S = { opp, seed, n: 0, round: 1, beat: 0, range: 3, cards: [], over: '', F: [R0.man(N.hp), R0.man(R0.OPPS[opp].hp)], tells: arg.tells === '1' };
+  const S = { opp, seed, n: 0, round: 1, beat: 0, range: 3, cards: [], over: '', F: [R0.man(N.hp), R0.man(R0.OPPS[opp].hp)], tells: arg.tells === '2' ? 2 : arg.tells === '1' };
   if (S.tells) { S.tellRound = []; prepNext(S); }
   fs.writeFileSync(file, JSON.stringify(S)); fs.writeFileSync(file + '.log.txt', `A bout against ${R0.OPPS[opp].n}, seed ${seed}\n`); say(`A new bout against ${R0.OPPS[opp].n}.`);
-  if (S.tells) say(`TELLS ARE ON IN THIS BOUT. Before each beat you see ONE thing his body does, from the beat he has already chosen: ${Object.keys(CUES).map((c) => `"${CUES[c]}" = ${MEANS[c]}`).join('; ')}. A tell is usually true, but this man lies by one fixed rule you can learn: after each beat you are told whether his tell was true, and at each bell how often each tell lied.`);
+  if (S.tells) say(`TELLS ARE ON IN THIS BOUT. Before each beat you see ONE thing his body does, from the beat he has already chosen: ${Object.keys(CUES).filter((c) => S.tells === 2 || c !== 'backfoot').map((c) => `"${CUES[c]}" = ${MEANS[c]}`).join('; ')}. A tell is usually true, but this man lies by one fixed rule you can learn: after each beat you are told whether his tell was true, and at each bell how often each tell lied.`);
   bars(S).forEach(say); process.exit(0); }
 const S = JSON.parse(fs.readFileSync(file, 'utf8'));
 if (cmd === 'show') { bars(S).forEach(say); if (S.over) say(S.over); process.exit(0); }
@@ -68,6 +68,8 @@ say(`--- round ${S.round}, beat ${S.beat + 1}, at ${RNG[S.range]}`); say(`YOU: $
 if (S.tells && S.tell) { const t = S.tell; say(t.fake ? `HIS TELL WAS A FAKE: he showed "${CUES[t.cue]}" - his beat would have shown "${CUES[t.truth]}".` : `HIS TELL WAS TRUE: "${CUES[t.cue]}".`); S.tellRound = [...(S.tellRound || []), t]; }
 const ev = R.resolve(T, [{ ...mine }, { ...his }]); R.endBeat(T); S.range = T.range; S.n++; S.seen = [...(S.seen || []), his].slice(-3); S.seenRound = [...(S.seenRound || []), his];
 S.blockedBody = ev.some((e) => e.k === 1 && e.t === 'block' && ACT[e.id] && ACT[e.id].line === 'body');
+S.blockedAny = ev.some((e) => e.k === 1 && e.t === 'block'); S.meLanded = ev.some((e) => e.k === 0 && e.t === 'hit');
+if (S.tells === 2 && S.tell && S.tell.fake) { S.F[1].st = Math.max(0, S.F[1].st - 1); say('  (his fake cost him 1 stamina)'); }   /* TELLS2: a bluff costs the liar */
 for (const e of ev) say(`  ${e.m != null ? `moment ${e.m + 1} ` : ''}${e.k === 0 ? 'YOU' : e.k === 1 ? 'HE' : ''}: ${e.a || e.t}${e.o ? ' - ' + e.o : ''}`);
 for (const k of [0, 1]) if (S.F[k].hp <= 0 && !S.over) { S.F[k].kd++; S.F[1 - k].pts += 3; if (S.F[k].kd > N.kd.length) S.over = k ? 'YOU WIN - the referee stops it' : 'HE WINS - the referee stops it'; else { S.F[k].hp = N.kd[S.F[k].kd - 1]; say(`  ${k ? 'HE GOES' : 'YOU GO'} DOWN and ${k ? 'gets' : 'get'} up on ${S.F[k].hp} health.`); } }
 S.beat++;

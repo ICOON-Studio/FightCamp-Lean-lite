@@ -1,0 +1,198 @@
+A bout against The Body Snatcher, seed 33
+--- round 1, beat 1, at Long
+YOU: no action - lead hand low, rear hand high
+HE:  1 Back off, 2 Body cross, 3 Body jab
+  moment 1 : stays Long - he backs off - already at Long, nowhere further
+  moment 2 HE: Body cross - falls short at Long
+  moment 3 HE: Body jab - blocked by your lead hand, held low
+ROUND 1 of 3, beat 2 of 6, range Long. Points this round: you 0 - him 0. Cards so far: none
+YOU: health 18/18, stamina 8/8, guard 6/6, ground given 0/2
+HIM (The Body Snatcher): health 18/18, stamina 5/8, guard 6/6, ground given 1/2
+HIS LAST BEATS, newest first: 1 Back off, 2 Body cross, 3 Body jab
+THIS ROUND (1 beat): his lead hand held high 0, held low 0, thrown 1; his rear hand held high 0, held low 0, thrown 1
+--- round 1, beat 2, at Long
+YOU: 1 Step in, 2 Body cross - lead hand low
+HE:  1 Step in, 2 Body hook, 3 Body cross
+  moment 1 : Long to Inside - you step in, he steps in
+  moment 2 YOU: Body cross - lands (his lead hand was out, throwing its Body hook): -2 health, 1 point, stamina bar 7 for the rest of the bout
+  moment 2 HE: Body hook - blocked by your lead hand, held low
+  moment 3 HE: Body cross - blocked by your lead hand, held low
+ROUND 1 of 3, beat 3 of 6, range Inside. Points this round: you 1 - him 0. Cards so far: none
+YOU: health 18/18, stamina 7/8, guard 6/6, ground given 0/2
+HIM (The Body Snatcher): health 16/18, stamina 1/7, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Step in, 2 Body hook, 3 Body cross  |  1 Back off, 2 Body cross, 3 Body jab
+THIS ROUND (2 beats): his lead hand held high 0, held low 0, thrown 2; his rear hand held high 0, held low 0, thrown 2
+--- round 1, beat 3, at Inside
+YOU: 1 Push off, 2 Cross
+HE:  clinch
+  HE: tries to clinch - shoved off
+  moment 1 YOU: pushes off - a shove with the lead glove on his chest: he is back at Mid
+  moment 2 YOU: Cross - blocked by his lead hand, held high
+ROUND 1 of 3, beat 4 of 6, range Mid. Points this round: you 1 - him 0. Cards so far: none
+YOU: health 18/18, stamina 5/8, guard 6/6, ground given 0/2
+HIM (The Body Snatcher): health 16/18, stamina 1/7, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: clinch  |  1 Step in, 2 Body hook, 3 Body cross  |  1 Back off, 2 Body cross, 3 Body jab
+THIS ROUND (3 beats): his lead hand held high 0, held low 0, thrown 2; his rear hand held high 0, held low 0, thrown 2
+--- round 1, beat 4, at Mid
+YOU: 1 Body hook, 2 Cross
+HE:  no action - lead hand high, rear hand low
+  moment 1 YOU: Body hook - lands (his lead hand was held high): -2 health, 1 point, stamina bar 6 for the rest of the bout
+  moment 2 YOU: Cross - blocked by his lead hand, held high
+ROUND 1 of 3, beat 5 of 6, range Mid. Points this round: you 2 - him 0. Cards so far: none
+YOU: health 18/18, stamina 2/8, guard 6/6, ground given 0/2
+HIM (The Body Snatcher): health 14/18, stamina 4/6, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: no action - lead hand high, rear hand low  |  clinch  |  1 Step in, 2 Body hook, 3 Body cross
+THIS ROUND (4 beats): his lead hand held high 1, held low 0, thrown 2; his rear hand held high 0, held low 1, thrown 2
+--- round 1, beat 5, at Mid
+YOU: no action - lead hand low, rear hand high
+HE:  1 Step in, 2 Body cross - lead hand high
+  moment 1 : Mid to Inside - he steps in
+  moment 2 HE: Body cross - blocked by your lead hand, held low
+ROUND 1 of 3, beat 6 of 6, range Inside. Points this round: you 2 - him 0. Cards so far: none
+YOU: health 18/18, stamina 5/8, guard 6/6, ground given 0/2
+HIM (The Body Snatcher): health 14/18, stamina 3/6, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Step in, 2 Body cross - lead hand high  |  no action - lead hand high, rear hand low  |  clinch
+THIS ROUND (5 beats): his lead hand held high 2, held low 0, thrown 2; his rear hand held high 0, held low 1, thrown 3
+--- round 1, beat 6, at Inside
+YOU: 1 Body cross - lead hand low
+HE:  1 Back off, 2 Body hook - rear hand high
+  moment 1 : Inside to Mid - he backs off
+  moment 1 YOU: Body cross - lands (his lead hand was held high): -2 health, 1 point, stamina bar 5 for the rest of the bout
+  moment 2 HE: Body hook - blocked by your lead hand, held low
+BELL. The judges give the round 10-9.
+ROUND 2 of 3, beat 1 of 6, range Long. Points this round: you 0 - him 0. Cards so far: 10-9
+YOU: health 18/18, stamina 8/8, guard 6/6, ground given 0/2
+HIM (The Body Snatcher): health 12/18, stamina 5/5, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Back off, 2 Body hook - rear hand high  |  1 Step in, 2 Body cross - lead hand high  |  no action - lead hand high, rear hand low
+THIS ROUND (0 beats): his lead hand held high 0, held low 0, thrown 0; his rear hand held high 0, held low 0, thrown 0
+--- round 2, beat 1, at Long
+YOU: 1 Step in, 2 Body cross - lead hand low
+HE:  1 Body jab, 2 Step in, 3 Body cross
+  moment 1 : Long to Mid - you step in
+  moment 1 HE: Body jab - blocked by your lead hand, held low
+  moment 2 : Mid to Inside - he steps in
+  moment 2 YOU: Body cross - lands as a counter (his lead hand was held high): -3 health, 1 point, stamina bar 4 for the rest of the bout
+  moment 3 HE: Body cross - blocked by your lead hand, held low
+ROUND 2 of 3, beat 2 of 6, range Inside. Points this round: you 1 - him 0. Cards so far: 10-9
+YOU: health 18/18, stamina 7/8, guard 6/6, ground given 0/2
+HIM (The Body Snatcher): health 9/18, stamina 2/4, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Body jab, 2 Step in, 3 Body cross  |  1 Back off, 2 Body hook - rear hand high  |  1 Step in, 2 Body cross - lead hand high
+THIS ROUND (1 beat): his lead hand held high 0, held low 0, thrown 1; his rear hand held high 0, held low 0, thrown 1
+--- round 2, beat 2, at Inside
+YOU: 1 Push off, 2 Cross
+HE:  1 Body hook - rear hand high
+  moment 1 YOU: pushes off - a shove with the lead glove on his chest: he is back at Mid
+  moment 1 HE: Body hook - lands (your lead hand was out, throwing its Push off): -2 health, 1 point, stamina bar 7 for the rest of the bout
+  moment 2 YOU: Cross - blocked: his lead hand was back up (its Body hook was moment 1)
+ROUND 2 of 3, beat 3 of 6, range Mid. Points this round: you 1 - him 1. Cards so far: 10-9
+YOU: health 16/18, stamina 5/7, guard 6/6, ground given 0/2
+HIM (The Body Snatcher): health 9/18, stamina 2/4, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Body hook - rear hand high  |  1 Body jab, 2 Step in, 3 Body cross  |  1 Back off, 2 Body hook - rear hand high
+THIS ROUND (2 beats): his lead hand held high 0, held low 0, thrown 2; his rear hand held high 1, held low 0, thrown 1
+--- round 2, beat 3, at Mid
+YOU: 1 Body cross - lead hand low
+HE:  1 Back off - lead hand low, rear hand low
+  moment 1 : Mid to Long - he backs off
+  moment 1 YOU: Body cross - falls short at Long
+ROUND 2 of 3, beat 4 of 6, range Long. Points this round: you 1 - him 1. Cards so far: 10-9
+YOU: health 16/18, stamina 5/7, guard 6/6, ground given 0/2
+HIM (The Body Snatcher): health 9/18, stamina 4/4, guard 6/6, ground given 1/2
+HIS LAST BEATS, newest first: 1 Back off - lead hand low, rear hand low  |  1 Body hook - rear hand high  |  1 Body jab, 2 Step in, 3 Body cross
+THIS ROUND (3 beats): his lead hand held high 0, held low 1, thrown 2; his rear hand held high 1, held low 1, thrown 1
+--- round 2, beat 4, at Long
+YOU: 1 Step in, 2 Cross - lead hand low
+HE:  1 Step in, 2 Cross - lead hand low
+  moment 1 : Long to Inside - you step in, he steps in
+  moment 2 YOU: Cross - lands (his lead hand was held low): -3 health, 2 points
+  moment 2 HE: Cross - lands (your lead hand was held low): -3 health, 2 points
+ROUND 2 of 3, beat 5 of 6, range Inside. Points this round: you 3 - him 3. Cards so far: 10-9
+YOU: health 13/18, stamina 4/7, guard 6/6, ground given 0/2
+HIM (The Body Snatcher): health 6/18, stamina 3/4, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Step in, 2 Cross - lead hand low  |  1 Back off - lead hand low, rear hand low  |  1 Body hook - rear hand high
+THIS ROUND (4 beats): his lead hand held high 0, held low 2, thrown 2; his rear hand held high 1, held low 1, thrown 2
+--- round 2, beat 5, at Inside
+YOU: 1 Lead hook, 2 Cross
+HE:  1 Body hook, 2 Back off - rear hand high
+  moment 1 YOU: Lead hook - blocked by his rear hand, held high
+  moment 1 HE: Body hook - lands as a counter (your lead hand was out, throwing its Lead hook): -3 health, 1 point, stamina bar 6 for the rest of the bout
+  moment 2 : Inside to Mid - he backs off
+  moment 2 YOU: Cross - blocked: his lead hand was back up (its Body hook was moment 1)
+ROUND 2 of 3, beat 6 of 6, range Mid. Points this round: you 3 - him 4. Cards so far: 10-9
+YOU: health 10/18, stamina 1/6, guard 6/6, ground given 0/2
+HIM (The Body Snatcher): health 6/18, stamina 2/4, guard 5/6, ground given 1/2
+HIS LAST BEATS, newest first: 1 Body hook, 2 Back off - rear hand high  |  1 Step in, 2 Cross - lead hand low  |  1 Back off - lead hand low, rear hand low
+THIS ROUND (5 beats): his lead hand held high 0, held low 2, thrown 3; his rear hand held high 2, held low 1, thrown 2
+--- round 2, beat 6, at Mid
+YOU: 1 Jab - rear hand high
+HE:  1 Back off, 2 Jab - rear hand high
+  moment 1 : Mid to Long - he backs off
+  moment 1 YOU: Jab - blocked: his lead hand was still up (its Jab comes in moment 2)
+  moment 2 HE: Jab - blocked: your lead hand was back up (its Jab was moment 1)
+BELL. The judges give the round 9-10.
+ROUND 3 of 3, beat 1 of 6, range Long. Points this round: you 0 - him 0. Cards so far: 10-9, 9-10
+YOU: health 10/18, stamina 6/6, guard 6/6, ground given 0/2
+HIM (The Body Snatcher): health 6/18, stamina 4/4, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Back off, 2 Jab - rear hand high  |  1 Body hook, 2 Back off - rear hand high  |  1 Step in, 2 Cross - lead hand low
+THIS ROUND (0 beats): his lead hand held high 0, held low 0, thrown 0; his rear hand held high 0, held low 0, thrown 0
+--- round 3, beat 1, at Long
+YOU: 1 Step in, 2 Body cross - lead hand low
+HE:  1 Body jab, 2 Step in, 3 Body cross
+  moment 1 : Long to Mid - you step in
+  moment 1 HE: Body jab - blocked by your lead hand, held low
+  moment 2 : Mid to Inside - he steps in
+  moment 2 YOU: Body cross - lands as a counter (his lead hand was held high): -3 health, 1 point, stamina bar stays 4 (it never goes lower)
+  moment 3 HE: Body cross - blocked by your lead hand, held low
+ROUND 3 of 3, beat 2 of 6, range Inside. Points this round: you 1 - him 0. Cards so far: 10-9, 9-10
+YOU: health 10/18, stamina 5/6, guard 6/6, ground given 0/2
+HIM (The Body Snatcher): health 3/18, stamina 1/4, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Body jab, 2 Step in, 3 Body cross  |  1 Back off, 2 Jab - rear hand high  |  1 Body hook, 2 Back off - rear hand high
+THIS ROUND (1 beat): his lead hand held high 0, held low 0, thrown 1; his rear hand held high 0, held low 0, thrown 1
+--- round 3, beat 2, at Inside
+YOU: 1 Push off, 2 Body cross
+HE:  clinch
+  HE: tries to clinch - shoved off
+  moment 1 YOU: pushes off - a shove with the lead glove on his chest: he is back at Mid
+  moment 2 YOU: Body cross - lands (his lead hand was held high): -2 health, 1 point, stamina bar stays 4 (it never goes lower)
+ROUND 3 of 3, beat 3 of 6, range Mid. Points this round: you 2 - him 0. Cards so far: 10-9, 9-10
+YOU: health 10/18, stamina 3/6, guard 6/6, ground given 0/2
+HIM (The Body Snatcher): health 1/18, stamina 1/4, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: clinch  |  1 Body jab, 2 Step in, 3 Body cross  |  1 Back off, 2 Jab - rear hand high
+THIS ROUND (2 beats): his lead hand held high 0, held low 0, thrown 1; his rear hand held high 0, held low 0, thrown 1
+--- round 3, beat 3, at Mid
+YOU: 1 Body jab, 2 Cross
+HE:  no action - lead hand high, rear hand low
+  moment 1 YOU: Body jab - lands (his lead hand was held high): -1 health, 1 point
+  HE GOES DOWN and gets up on 6 health.
+ROUND 3 of 3, beat 4 of 6, range Mid. Points this round: you 6 - him 0. Cards so far: 10-9, 9-10
+YOU: health 10/18, stamina 1/6, guard 6/6, ground given 0/2
+HIM (The Body Snatcher): health 6/18 (down 1x), stamina 4/4, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: no action - lead hand high, rear hand low  |  clinch  |  1 Body jab, 2 Step in, 3 Body cross
+THIS ROUND (3 beats): his lead hand held high 1, held low 0, thrown 1; his rear hand held high 0, held low 1, thrown 1
+--- round 3, beat 4, at Mid
+YOU: no action - lead hand low, rear hand high
+HE:  1 Step in, 2 Feint, 3 Body cross
+  moment 1 : Mid to Inside - he steps in
+  moment 2 HE: feints - the next punch cannot be covered
+  moment 3 HE: Body cross - lands (the feint drew his hand): -2 health, 1 point, stamina bar 5 for the rest of the bout
+ROUND 3 of 3, beat 5 of 6, range Inside. Points this round: you 6 - him 1. Cards so far: 10-9, 9-10
+YOU: health 8/18, stamina 4/5, guard 6/6, ground given 0/2
+HIM (The Body Snatcher): health 6/18 (down 1x), stamina 1/4, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Step in, 2 Feint, 3 Body cross  |  no action - lead hand high, rear hand low  |  clinch
+THIS ROUND (4 beats): his lead hand held high 1, held low 0, thrown 2; his rear hand held high 0, held low 1, thrown 2
+--- round 3, beat 5, at Inside
+YOU: clinch
+HE:  1 Step in - lead hand high, rear hand high
+  YOU: ties him up - no punch lands - the referee breaks them at Mid, +2 stamina
+ROUND 3 of 3, beat 6 of 6, range Mid. Points this round: you 6 - him 1. Cards so far: 10-9, 9-10
+YOU: health 8/18, stamina 5/5, guard 6/6, ground given 0/2, no clinch yet
+HIM (The Body Snatcher): health 6/18 (down 1x), stamina 3/4, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Step in - lead hand high, rear hand high  |  1 Step in, 2 Feint, 3 Body cross  |  no action - lead hand high, rear hand low
+THIS ROUND (5 beats): his lead hand held high 2, held low 0, thrown 2; his rear hand held high 1, held low 1, thrown 2
+--- round 3, beat 6, at Mid
+YOU: 1 Body cross - lead hand low
+HE:  1 Body hook, 2 Back off - rear hand high
+  moment 1 YOU: Body cross - lands (his lead hand was out, throwing its Body hook): -2 health, 1 point, stamina bar stays 4 (it never goes lower)
+  moment 1 HE: Body hook - blocked by your lead hand, held low
+  moment 2 : Mid to Long - he backs off
+BELL. The judges give the round 10-8.
+YOU WIN on the cards 29-27
