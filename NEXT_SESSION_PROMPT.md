@@ -30,6 +30,11 @@ signed in, open two chats and name the two TASK files. KDPIC1 NOT LAUNCHED: the 
 ArcheAge open. LONG1 (cba93bd0) and LONG2 (193e5c2c) were still running at the end (LONG1 quiet 90 min on its L2 / L3
 tables: open its chat before calling it dead).
 A page_play_test of head.html or kick.html takes 3-4 minutes each beside his game: run them in the background.
+CASCADEUR (his S566 mail + "you do the rest"; "should we wait or work on 3d at the same time at punchers chance ? we could
+use the 3d fight on it too"): ops/research/TASK_CASC_MCP.md written - scope = takes Puncher's chance is MISSING, authored
+in Cascadeur 2026.3, rendered by our picture tools (one take serves both games); NOT the realtime 3D fight code. We already
+drive its script server (ops/Tools/cascadeur/): no new bridge first. WAITS FOR HIM: a paid plan (Free exports .casc only;
+Indie is enough) and his update from 2026.2.3 to 2026.3. Told him: yes in parallel, as ONE narrow worker, after KDPIC1.
 LONG2 COLLECTED (docs/LONG2_RESULT.md): NONE for the page. The page already lands the waiting cross (a cross from Long in
 29-30% of Long beats, 11-13% land, nearly all on a man stepping in). K2 (the cross half) 8 of 9 page bars on both seeds but
 the +1 is spent on the high lead it causes; K3 (jabs score 2) changes NO bout: the solver's worth() counts health, never

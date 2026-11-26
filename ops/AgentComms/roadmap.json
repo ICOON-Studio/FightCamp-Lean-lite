@@ -13,7 +13,8 @@
   "incomplete_blocked": "Six Arena measures (TELLS3M, AIEMPTY1, JABLAND2, KICKFIX3, LONG1, LONG2) and the BOUNCE1 console worker still running at the handover. No export: no game code changed (proto pages and node tools only). Uncommitted pictures from earlier sessions sit in proto/twohands/img/anim: left for the render workers.",
   "next_acceptance": "Each run collected and judged against its bars; his question on the moment answered with both seeds; a Long rule chosen from LONG1 / LONG2 only if it holds the bars on both seeds.",
   "awaiting_operator": [
-   "Your look at the strip + preview (v0.566.1, 8787/review)"
+   "Your look at the strip + preview (v0.566.1, 8787/review)",
+   "Cascadeur: a paid plan (Indie is enough: Free exports .casc only) + update to 2026.3 - only if you want the takes-by-instruction stage (40% off annual until 7 Dec)"
   ]
  },
  "next": "S562: see NEXT_SESSION_PROMPT.md - collect four Arena runs, then the body view as the main page's way to pick (his Q-343).",
@@ -5803,6 +5804,12 @@
     "who": "claude",
     "title": "One look across every screen (his S491 'we need to have a cohesive interface /hud/ui/ux'): | NEXT: One sweep: playbook step buttons onto the house kit; fight HUD colours with the v2 fight.",
     "after": ""
+   },
+   {
+    "id": "CASC_MCP",
+    "who": "operator",
+    "title": "Cascadeur 2026.3 by instruction: missing takes for Puncher's chance (the overhand, kicks) - brief ready; waits for your paid plan (Free cannot export) and your update to 2026.3",
+    "after": "KDPIC1"
    }
   ],
   "waiting_seat": [
@@ -6867,6 +6874,10 @@
     },
     {
      "text": "Tells v4: a blind cover costs",
+     "who": "claude"
+    },
+    {
+     "text": "Cascadeur takes by instruction",
      "who": "claude"
     }
    ],

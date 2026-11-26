@@ -20,6 +20,7 @@
     '#strip .slot.wait{border:1px dashed var(--gold);background:none}' +
     '#strip .slot b{font-size:1rem}#strip .slot i{font-style:normal;color:var(--muted)}#strip .slot .ok{color:#bfe6c3}#strip .slot .no2{color:#ffb3ad}' +
     '#strip .slot.empty{color:var(--muted)}' +
+    '.stops{display:block;font-weight:400;font-size:.78rem;color:#bfe6c3}' +
     '#strip .slot.drag{cursor:grabbing;z-index:3;opacity:.9;box-shadow:0 .3rem 1rem #000b}#strip .slot.gapL{box-shadow:-.3rem 0 0 var(--gold)}#strip .slot.gapR{box-shadow:.3rem 0 0 var(--gold)}' +
     '#strip .slot.playing{border-color:#7fe9ff;box-shadow:0 0 .7rem rgba(127,233,255,.75)}#strip .slot.playing .no{color:#7fe9ff}' +
     '#strip .hd{writing-mode:vertical-rl;transform:rotate(180deg);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-align:center}' +
