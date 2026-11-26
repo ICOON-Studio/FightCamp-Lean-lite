@@ -400,7 +400,7 @@
  },
  "ALLPLAY3": {
   "id": "ALLPLAY3",
-  "status": "running",
+  "status": "landed",
   "seat": "arena",
   "agent": "Arena (cloud: costs your PC nothing)",
   "started": "2026-11-26T23:30",
@@ -408,7 +408,8 @@
   "title": "Your ask: an agent plays today's version (three bouts) and judges it - fun, depth, the screen, what to change to reach 10",
   "brief": "ops/research/TASK_ALLPLAY3.md",
   "branch": "arena/7c338f05-fightcamp-lean-lite",
-  "issue": "https://arena.ai/agent/01a219c9-4317-718d-9369-517e7c338f05"
+  "issue": "https://arena.ai/agent/01a219c9-4317-718d-9369-517e7c338f05",
+  "note": "S567 collected: fun 8, depth 8, clarity 7, variety 7; it found play_cli.mjs could not start (fixed)"
  },
  "VERSUS1": {
   "id": "VERSUS1",
@@ -419,5 +420,17 @@
   "eta": "several hours (15 matches)",
   "title": "Your ask: the agents' league - Kalli, John, Maria, Antigravity, Dola and Claude (Opus) each fight every other once; the table is ops/research/versus/LEAGUE.md",
   "note": "node ops/Tools/league.mjs run (resumable); table: node ops/Tools/league.mjs table"
+ },
+ "SHORTBEAT1": {
+  "id": "SHORTBEAT1",
+  "status": "running",
+  "seat": "arena",
+  "agent": "Arena (cloud: costs your PC nothing)",
+  "started": "2026-11-27T01:05",
+  "eta": "3-4 h",
+  "title": "Your 'Yes, measure it': a short opening beat each round (one moment, one action), measured against the page",
+  "brief": "ops/research/TASK_SHORTBEAT1.md",
+  "branch": "arena/2a3d0ae3-fightcamp-lean-lite",
+  "issue": "https://arena.ai/agent/01a21a0e-d3ad-7a41-9a55-2a722a3d0ae3"
  }
 }

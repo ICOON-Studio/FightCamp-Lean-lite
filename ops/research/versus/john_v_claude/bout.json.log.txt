@@ -1,0 +1,108 @@
+John v Claude, seed 28
+--- round 1, beat 1, at Long
+John: 1 Jab - rear hand high
+Claude: 1 Jab - rear hand high
+  moment 1 John: Jab - lands (Claude's lead hand was out, throwing its Jab): -1 health, 1 point
+  moment 1 Claude: Jab - lands (John's lead hand was out, throwing its Jab): -1 health, 1 point
+--- round 1, beat 2, at Long
+John: 1 Step in - lead hand high, rear hand high
+Claude: 1 Step in, 2 Body cross - lead hand high
+  moment 1 : Long to Inside - John step in, Claude steps in
+  moment 2 Claude: Body cross - lands (John's lead hand was held high): -2 health, 1 point, stamina bar 7 for the rest of the bout
+--- round 1, beat 3, at Inside
+John: 1 Lead hook, 2 Body cross
+Claude: 1 Lead uppercut - rear hand high
+  moment 1 John: Lead hook - blocked by Claude's rear hand, held high
+  moment 1 Claude: Lead uppercut - lands as a counter (John's rear hand was held high): -4 health, 2 points
+  moment 2 John: Body cross - lands (Claude's lead hand was held high): -2 health, 1 point, stamina bar 7 for the rest of the bout
+--- round 1, beat 4, at Inside
+John: no action - lead hand high, rear hand low
+Claude: 1 Feint, 2 Rear uppercut
+  moment 1 Claude: feints - the next punch cannot be covered
+  moment 2 Claude: Rear uppercut - lands (the feint drew Claude's hand): -4 health, 2 points
+--- round 1, beat 5, at Inside
+John: clinch
+Claude: clinch
+  John: ties Claude up - no punch lands - the referee breaks them at Mid, +2 stamina
+--- round 1, beat 6, at Mid
+John: 1 Body jab, 2 Body cross
+Claude: no action - lead hand high, rear hand high
+  moment 1 John: Body jab - lands (Claude's lead hand was held high): -1 health, 1 point
+  moment 2 John: Body cross - lands (Claude's lead hand was held high): -2 health, 1 point, stamina bar 6 for the rest of the bout
+BELL. The judges give the round John 9 - 10 Claude.
+--- round 2, beat 1, at Long
+John: 1 Jab - rear hand high
+Claude: 1 Step in, 2 Body cross - lead hand low
+  moment 1 : Long to Mid - Claude steps in
+  moment 1 John: Jab - lands (Claude's lead hand was held low): -1 health, 1 point
+  moment 2 Claude: Body cross - lands (John's lead hand was held high): -2 health, 1 point, stamina bar 6 for the rest of the bout
+--- round 2, beat 2, at Mid
+John: 1 Cross - lead hand low
+Claude: 1 Feint, 2 Cross
+  moment 1 Claude: feints - the next punch cannot be covered
+  moment 1 John: Cross - lands (Claude's lead hand was out, throwing its Feint): -3 health, 2 points
+  moment 2 Claude: Cross - lands (the feint drew Claude's hand): -3 health, 2 points
+--- round 2, beat 3, at Mid
+John: 1 Back off - lead hand high, rear hand high
+Claude: 1 Jab, 2 Body cross
+  moment 1 : Mid to Long - John back off
+  moment 1 Claude: Jab - blocked by John's lead hand, held high
+  moment 2 Claude: Body cross - falls short at Long
+--- round 2, beat 4, at Long
+John: 1 Jab - rear hand high
+Claude: no action - lead hand high, rear hand high
+  moment 1 John: Jab - blocked by Claude's lead hand, held high
+--- round 2, beat 5, at Long
+John: 1 Body jab - rear hand high
+Claude: 1 Step in, 2 Body cross - lead hand high
+  moment 1 : Long to Mid - Claude steps in
+  moment 1 John: Body jab - lands (Claude's lead hand was held high): -1 health, 1 point
+  moment 2 Claude: Body cross - lands (John's lead hand was held high): -2 health, 1 point, stamina bar 5 for the rest of the bout
+  John GOES DOWN and gets up on 6 health.
+--- round 2, beat 6, at Mid
+John: 1 Cross - lead hand low
+Claude: no action - lead hand low, rear hand high
+  moment 1 John: Cross - lands (Claude's lead hand was held low): -3 health, 2 points
+BELL. The judges give the round John 9 - 10 Claude.
+--- round 3, beat 1, at Long
+John: 1 Step in, 2 Feint, 3 Cross
+Claude: no action - lead hand high, rear hand high
+  moment 1 : Long to Mid - John step in
+  moment 2 John: feints - the next punch cannot be covered
+  moment 3 John: Cross - lands (the feint drew Claude's hand): -3 health, 2 points
+--- round 3, beat 2, at Mid
+John: 1 Body jab - rear hand high
+Claude: 1 Back off - lead hand high, rear hand high
+  moment 1 : Mid to Long - Claude backs off
+  moment 1 John: Body jab - lands (Claude's lead hand was held high): -1 health, 1 point
+  Claude GOES DOWN and gets up on 6 health.
+--- round 3, beat 3, at Long
+John: 1 Body jab - rear hand high
+Claude: 1 Step in, 2 Feint, 3 Overhand
+  moment 1 : Long to Mid - Claude steps in
+  moment 1 John: Body jab - lands (Claude's lead hand was held high): -1 health, 1 point
+  moment 2 Claude: feints - the next punch cannot be covered
+  moment 3 Claude: Overhand - lands (the feint drew Claude's hand): -4 health, 2 points
+--- round 3, beat 4, at Mid
+John: 1 Back off, 2 Jab - rear hand high
+Claude: 1 Body cross - lead hand low
+  moment 1 : Mid to Long - John back off
+  moment 1 Claude: Body cross - falls short at Long
+  moment 2 John: Jab - lands as a counter - off the pull, +1 (Claude's lead hand was held low): -3 health, 1 point
+--- round 3, beat 5, at Long
+John: 1 Jab - rear hand high
+Claude: 1 Back off, 2 Body jab - rear hand high
+  moment 1 : stays Long - Claude backs off - already at Long, nowhere further
+  moment 1 John: Jab - blocked: Claude's lead hand was still up (its Body jab comes in moment 2)
+  moment 2 Claude: Body jab - lands as a counter - off the pull, +1 (John's lead hand was held high): -3 health, 1 point
+  John GOES DOWN and gets up on 4 health.
+--- round 3, beat 6, at Long
+John: 1 Step in, 2 Feint, 3 Cross
+Claude: 1 Body jab - rear hand high
+  moment 1 : Long to Mid - John step in
+  moment 1 Claude: Body jab - lands (John's lead hand was held high): -1 health, 1 point
+  moment 2 John: feints - the next punch cannot be covered
+  moment 3 John: Cross - lands (the feint drew Claude's hand): -3 health, 2 points
+  Claude GOES DOWN and gets up on 4 health.
+BELL. The judges give the round John 10 - 8 Claude.
+A DRAW 28-28

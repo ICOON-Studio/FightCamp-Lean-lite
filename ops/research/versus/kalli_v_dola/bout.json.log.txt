@@ -1,0 +1,107 @@
+Kalli v Dola, seed 23
+--- round 1, beat 1, at Long
+Kalli: 1 Jab - rear hand low
+Dola: 1 Jab, 2 Cross
+  moment 1 Kalli: Jab - lands (Dola's lead hand was out, throwing its Jab): -1 health, 1 point
+  moment 1 Dola: Jab - lands (Kalli's lead hand was out, throwing its Jab): -1 health, 1 point
+  moment 2 Dola: Cross - falls short at Long
+--- round 1, beat 2, at Long
+Kalli: 1 Step in - lead hand high, rear hand high
+Dola: 1 Jab, 2 Overhand
+  moment 1 : Long to Mid - Kalli step in
+  moment 1 Dola: Jab - blocked by Kalli's lead hand, held high
+  moment 2 Dola: Overhand - blocked by Kalli's rear hand, held high
+--- round 1, beat 3, at Mid
+Kalli: 1 Lead hook, 2 Cross
+Dola: 1 Jab - rear hand high
+  moment 1 Kalli: Lead hook - blocked by Dola's rear hand, held high
+  moment 1 Dola: Jab - lands (Kalli's lead hand was out, throwing its Lead hook): -1 health, 1 point
+  moment 2 Kalli: Cross - blocked: Dola's lead hand was back up (its Jab was moment 1)
+--- round 1, beat 4, at Mid
+Kalli: no action - lead hand high, rear hand high
+Dola: 1 Feint, 2 Cross
+  moment 1 Dola: feints - the next punch cannot be covered
+  moment 2 Dola: Cross - lands (the feint drew Dola's hand): -3 health, 2 points
+--- round 1, beat 5, at Mid
+Kalli: 1 Jab, 2 Cross
+Dola: 1 Jab - rear hand high
+  moment 1 Kalli: Jab - lands (Dola's lead hand was out, throwing its Jab): -1 health, 1 point
+  moment 1 Dola: Jab - lands (Kalli's lead hand was out, throwing its Jab): -1 health, 1 point
+  moment 2 Kalli: Cross - blocked: Dola's lead hand was back up (its Jab was moment 1)
+--- round 1, beat 6, at Mid
+Kalli: 1 Cross - lead hand high
+Dola: 1 Feint, 2 Body cross
+  moment 1 Dola: feints - the next punch cannot be covered
+  moment 1 Kalli: Cross - lands (Dola's lead hand was out, throwing its Feint): -3 health, 2 points
+  moment 2 Dola: Body cross - lands (the feint drew Dola's hand): -2 health, 1 point, stamina bar 7 for the rest of the bout
+BELL. The judges give the round Kalli 9 - 10 Dola.
+--- round 2, beat 1, at Long
+Kalli: no action - lead hand high, rear hand low
+Dola: 1 Jab, 2 Cross
+  moment 1 Dola: Jab - blocked by Kalli's lead hand, held high
+  moment 2 Dola: Cross - falls short at Long
+--- round 2, beat 2, at Long
+Kalli: 1 Jab - rear hand high
+Dola: 1 Jab, 2 Body cross
+  moment 1 Kalli: Jab - lands (Dola's lead hand was out, throwing its Jab): -1 health, 1 point
+  moment 1 Dola: Jab - lands (Kalli's lead hand was out, throwing its Jab): -1 health, 1 point
+  moment 2 Dola: Body cross - falls short at Long
+--- round 2, beat 3, at Long
+Kalli: 1 Jab - rear hand high
+Dola: 1 Back off, 2 Jab, 3 Cross
+  moment 1 : stays Long - Dola backs off - already at Long, nowhere further
+  moment 1 Kalli: Jab - blocked: Dola's lead hand was still up (its Jab comes in moment 2)
+  moment 2 Dola: Jab - blocked: Kalli's lead hand was back up (its Jab was moment 1)
+  moment 3 Dola: Cross - falls short at Long
+--- round 2, beat 4, at Long
+Kalli: 1 Step in, 2 Cross - lead hand high
+Dola: no action - lead hand high, rear hand high
+  moment 1 : Long to Mid - Kalli step in
+  moment 2 Kalli: Cross - blocked by Dola's lead hand, held high
+--- round 2, beat 5, at Mid
+Kalli: 1 Jab - rear hand low
+Dola: 1 Feint, 2 Cross
+  moment 1 Dola: feints - the next punch cannot be covered
+  moment 1 Kalli: Jab - lands (Dola's lead hand was out, throwing its Feint): -1 health, 1 point
+  moment 2 Dola: Cross - lands (the feint drew Dola's hand): -3 health, 2 points
+--- round 2, beat 6, at Mid
+Kalli: 1 Back off - lead hand high, rear hand high
+Dola: no action - lead hand high, rear hand low
+  moment 1 : Mid to Long - Kalli back off
+BELL. The judges give the round Kalli 9 - 10 Dola.
+--- round 3, beat 1, at Long
+Kalli: 1 Step in, 2 Cross - lead hand high
+Dola: 1 Jab - rear hand high
+  moment 1 : Long to Mid - Kalli step in
+  moment 1 Dola: Jab - blocked by Kalli's lead hand, held high
+  moment 2 Kalli: Cross - blocked: Dola's lead hand was back up (its Jab was moment 1)
+--- round 3, beat 2, at Mid
+Kalli: 1 Lead hook, 2 Cross
+Dola: 1 Feint, 2 Overhand
+  moment 1 Dola: feints - the next punch cannot be covered
+  moment 1 Kalli: Lead hook - blocked: Dola's rear hand was still up (its Overhand comes in moment 2)
+  moment 2 Kalli: Cross - blocked: Dola's lead hand was back up (its Feint was moment 1)
+  moment 2 Dola: Overhand - lands as a counter (the feint drew Dola's hand): -5 health, 2 points
+--- round 3, beat 3, at Mid
+Kalli: 1 Back off - lead hand high, rear hand high
+Dola: 1 Jab, 2 Cross
+  moment 1 : Mid to Long - Kalli back off
+  moment 1 Dola: Jab - blocked by Kalli's lead hand, held high
+  moment 2 Dola: Cross - falls short at Long
+--- round 3, beat 4, at Long
+Kalli: no action - lead hand high, rear hand low
+Dola: no action - lead hand high, rear hand high
+  : Nothing thrown - both men wait
+--- round 3, beat 5, at Long
+Kalli: no action - lead hand high, rear hand low
+Dola: 1 Step in, 2 Jab, 3 Cross
+  moment 1 : Long to Mid - Dola steps in
+  moment 2 Dola: Jab - blocked by Kalli's lead hand, held high
+  moment 3 Dola: Cross - blocked by Kalli's lead hand, held high
+--- round 3, beat 6, at Mid
+Kalli: 1 Back off - lead hand high, rear hand low
+Dola: 1 Jab - rear hand high
+  moment 1 : Mid to Long - Kalli back off
+  moment 1 Dola: Jab - blocked by Kalli's lead hand, held high
+BELL. The judges give the round Kalli 9 - 10 Dola.
+Dola WINS on the cards 30-27

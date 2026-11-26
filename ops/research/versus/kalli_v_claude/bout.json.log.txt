@@ -1,0 +1,85 @@
+Kalli v Claude, seed 24
+--- round 1, beat 1, at Long
+Kalli: no action - lead hand high, rear hand low
+Claude: 1 Step in, 2 Body cross - lead hand high
+  moment 1 : Long to Mid - Claude steps in
+  moment 2 Claude: Body cross - lands (Kalli's lead hand was held high): -2 health, 1 point, stamina bar 7 for the rest of the bout
+--- round 1, beat 2, at Mid
+Kalli: 1 Cross - lead hand low
+Claude: 1 Lead hook - rear hand high
+  moment 1 Claude: Lead hook - lands (Kalli's rear hand was out, throwing its Cross): -3 health, 2 points
+  moment 1 Kalli: Cross - beaten to the punch: Claude's Lead hook is faster, landed first and stopped it
+--- round 1, beat 3, at Mid
+Kalli: 1 Jab - rear hand high
+Claude: 1 Feint, 2 Cross
+  moment 1 Claude: feints - the next punch cannot be covered
+  moment 1 Kalli: Jab - lands (Claude's lead hand was out, throwing its Feint): -1 health, 1 point
+  moment 2 Claude: Cross - lands (the feint drew Claude's hand): -3 health, 2 points
+--- round 1, beat 4, at Mid
+Kalli: 1 Jab, 2 Cross
+Claude: 1 Jab, 2 Body cross
+  moment 1 Kalli: Jab - lands (Claude's lead hand was out, throwing its Jab): -1 health, 1 point
+  moment 1 Claude: Jab - lands (Kalli's lead hand was out, throwing its Jab): -1 health, 1 point
+  moment 2 Kalli: Cross - blocked: Claude's lead hand was back up (its Jab was moment 1)
+  moment 2 Claude: Body cross - lands (Kalli's lead hand was held high): -2 health, 1 point, stamina bar 6 for the rest of the bout
+--- round 1, beat 5, at Mid
+Kalli: 1 Back off - lead hand low, rear hand high
+Claude: no action - lead hand high, rear hand high
+  moment 1 : Mid to Long - Kalli back off
+--- round 1, beat 6, at Long
+Kalli: no action - lead hand high, rear hand low
+Claude: 1 Step in, 2 Feint, 3 Overhand
+  moment 1 : Long to Mid - Claude steps in
+  moment 2 Claude: feints - the next punch cannot be covered
+  moment 3 Claude: Overhand - lands (the feint drew Claude's hand): -4 health, 2 points
+BELL. The judges give the round Kalli 8 - 10 Claude.
+--- round 2, beat 1, at Long
+Kalli: 1 Jab, 2 Back off - rear hand high
+Claude: 1 Step in, 2 Feint, 3 Cross
+  moment 1 : Long to Mid - Claude steps in
+  moment 1 Kalli: Jab - blocked: Claude's lead hand was still up (its Feint comes in moment 2)
+  moment 2 : Mid to Long - Kalli back off
+  moment 2 Claude: feints - the next punch cannot be covered
+  moment 3 Claude: Cross - falls short at Long
+--- round 2, beat 2, at Long
+Kalli: 1 Back off - lead hand high, rear hand high
+Claude: 1 Body jab, 2 Step in, 3 Body cross
+  moment 1 : stays Long - Kalli back off - already at Long, nowhere further
+  moment 1 Claude: Body jab - lands (Kalli's lead hand was held high): -1 health, 1 point
+  moment 2 : Long to Mid - Claude steps in
+  moment 3 Claude: Body cross - lands (Kalli's lead hand was held high): -2 health, 1 point, stamina bar 5 for the rest of the bout
+  Kalli GOES DOWN and gets up on 6 health.
+--- round 2, beat 3, at Mid
+Kalli: 1 Cross - lead hand low
+Claude: no action - lead hand high, rear hand high
+  moment 1 Kalli: Cross - blocked by Claude's lead hand, held high
+--- round 2, beat 4, at Mid
+Kalli: 1 Step in - lead hand low, rear hand high
+Claude: 1 Lead hook, 2 Cross
+  moment 1 : Mid to Inside - Kalli step in
+  moment 1 Claude: Lead hook - blocked by Kalli's rear hand, held high
+  moment 2 Claude: Cross - lands (Kalli's lead hand was held low): -3 health, 2 points
+--- round 2, beat 5, at Inside
+Kalli: clinch
+Claude: 1 Lead uppercut - rear hand high
+  Kalli: ties Claude up - no punch lands - the referee breaks them at Mid, +2 stamina
+--- round 2, beat 6, at Mid
+Kalli: 1 Back off - lead hand high, rear hand low
+Claude: no action - lead hand high, rear hand high
+  moment 1 : Mid to Long - Kalli back off
+BELL. The judges give the round Kalli 8 - 10 Claude.
+--- round 3, beat 1, at Long
+Kalli: 1 Jab - rear hand high
+Claude: 1 Body jab, 2 Step in, 3 Body cross
+  moment 1 Kalli: Jab - lands (Claude's lead hand was out, throwing its Body jab): -1 health, 1 point
+  moment 1 Claude: Body jab - lands (Kalli's lead hand was out, throwing its Jab): -1 health, 1 point
+  moment 2 : Long to Mid - Claude steps in
+  moment 3 Claude: Body cross - lands (Kalli's lead hand was held high): -2 health, 1 point, stamina bar 4 for the rest of the bout
+  Kalli GOES DOWN and gets up on 4 health.
+--- round 3, beat 2, at Mid
+Kalli: 1 Back off - lead hand low, rear hand high
+Claude: 1 Step in, 2 Feint, 3 Overhand
+  moment 1 : Mid to Inside - Kalli back off, Claude steps in and cuts Kalli off
+  moment 2 Claude: feints - the next punch cannot be covered
+  moment 3 Claude: Overhand - lands (the feint drew Claude's hand): -4 health, 2 points
+Claude WINS - the referee stops it

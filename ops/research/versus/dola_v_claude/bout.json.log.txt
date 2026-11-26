@@ -1,0 +1,77 @@
+Dola v Claude, seed 34
+--- round 1, beat 1, at Long
+Dola: 1 Jab - rear hand high
+Claude: 1 Step in, 2 Body cross - lead hand high
+  moment 1 : Long to Mid - Claude steps in
+  moment 1 Dola: Jab - blocked by Claude's lead hand, held high
+  moment 2 Claude: Body cross - lands as a counter (Dola's lead hand was held high): -3 health, 1 point, stamina bar 7 for the rest of the bout
+--- round 1, beat 2, at Mid
+Dola: 1 Body hook - rear hand high
+Claude: 1 Feint, 2 Cross
+  moment 1 Claude: feints - the next punch cannot be covered
+  moment 1 Dola: Body hook - lands (Claude's lead hand was out, throwing its Feint): -2 health, 1 point, stamina bar 7 for the rest of the bout
+  moment 2 Claude: Cross - lands (the feint drew Claude's hand): -3 health, 2 points
+--- round 1, beat 3, at Mid
+Dola: 1 Cross - lead hand low
+Claude: 1 Body cross - lead hand low
+  moment 1 Dola: Cross - lands (Claude's lead hand was held low): -3 health, 2 points
+  moment 1 Claude: Body cross - blocked by Dola's lead hand, held low
+--- round 1, beat 4, at Mid
+Dola: 1 Lead hook - rear hand high
+Claude: 1 Feint, 2 Cross
+  moment 1 Claude: feints - the next punch cannot be covered
+  moment 1 Dola: Lead hook - blocked: Claude's rear hand was still up (its Cross comes in moment 2)
+  moment 2 Claude: Cross - lands as a counter (the feint drew Claude's hand): -4 health, 2 points
+--- round 1, beat 5, at Mid
+Dola: 1 Cross - lead hand high
+Claude: no action - lead hand high, rear hand high
+  moment 1 Dola: Cross - blocked by Claude's lead hand, held high
+--- round 1, beat 6, at Mid
+Dola: 1 Body hook - rear hand low
+Claude: 1 Body cross - lead hand high
+  moment 1 Dola: Body hook - lands (Claude's lead hand was held high): -2 health, 1 point, stamina bar 6 for the rest of the bout
+  moment 1 Claude: Body cross - lands (Dola's lead hand was out, throwing its Body hook): -2 health, 1 point, stamina bar 6 for the rest of the bout
+BELL. The judges give the round Dola 9 - 10 Claude.
+--- round 2, beat 1, at Long
+Dola: 1 Jab - rear hand high
+Claude: 1 Step in, 2 Feint, 3 Overhand
+  moment 1 : Long to Mid - Claude steps in
+  moment 1 Dola: Jab - blocked: Claude's lead hand was still up (its Feint comes in moment 2)
+  moment 2 Claude: feints - the next punch cannot be covered
+  moment 3 Claude: Overhand - lands as a counter (the feint drew Claude's hand): -5 health, 2 points
+--- round 2, beat 2, at Mid
+Dola: 1 Back off - lead hand high, rear hand high
+Claude: 1 Body jab - rear hand high
+  moment 1 : Mid to Long - Dola back off
+  moment 1 Claude: Body jab - lands (Dola's lead hand was held high): -1 health, 1 point
+  Dola GOES DOWN and gets up on 6 health.
+--- round 2, beat 3, at Long
+Dola: no action - lead hand low, rear hand high
+Claude: no action - lead hand high, rear hand high
+  : Nothing thrown - both men wait
+--- round 2, beat 4, at Long
+Dola: 1 Jab - rear hand high
+Claude: 1 Step in, 2 Feint, 3 Overhand
+  moment 1 : Long to Mid - Claude steps in
+  moment 1 Dola: Jab - blocked: Claude's lead hand was still up (its Feint comes in moment 2)
+  moment 2 Claude: feints - the next punch cannot be covered
+  moment 3 Claude: Overhand - lands as a counter (the feint drew Claude's hand): -5 health, 2 points
+--- round 2, beat 5, at Mid
+Dola: 1 Back off - lead hand high, rear hand low
+Claude: 1 Jab - rear hand high
+  moment 1 : Mid to Long - Dola back off
+  moment 1 Claude: Jab - blocked by Dola's lead hand, held high
+--- round 2, beat 6, at Long
+Dola: 1 Step in - lead hand high, rear hand high
+Claude: 1 Body jab - rear hand high
+  moment 1 : Long to Mid - Dola step in
+  moment 1 Claude: Body jab - lands (Dola's lead hand was held high): -1 health, 1 point
+  Dola GOES DOWN and gets up on 4 health.
+BELL. The judges give the round Dola 8 - 10 Claude.
+--- round 3, beat 1, at Long
+Dola: no action - lead hand low, rear hand high
+Claude: 1 Step in, 2 Feint, 3 Overhand
+  moment 1 : Long to Mid - Claude steps in
+  moment 2 Claude: feints - the next punch cannot be covered
+  moment 3 Claude: Overhand - lands (the feint drew Claude's hand): -4 health, 2 points
+Claude WINS - the referee stops it
