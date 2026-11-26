@@ -30,3 +30,23 @@ BARS 6 of 9 pass
   PASS the clinch is a rescue, not a habit (at most 2 a bout): 1.3
   PASS the order is a choice (no slot first in over 60% of ordered beats; an order to choose in 40%+ of beats): ordered 74%, most often first 53%
   PASS the mirror is fair (wins 40-60% of decided bouts): 42%
+
+FULL COMMAND: node --import ./.cache/momentgap1/measure.mjs proto/twohands/tools/balance.mjs play tweak=ops/research/s558_balance/moment_gap_b.json table=.cache/momentgap1/b-table.json n=84 seed=1 jobs=2
+mix v the same man (no style): wins 43%, draws 2%, stops him 6%, is stopped 19%; knockdowns a bout 1.0 v 1.4; health taken a bout 20.8 v 22.8; beats at Inside / Mid / Long 29% / 34% / 37%; clinches a bout 1.1; rounds level on points 14%, 75% of them given on ground
+  you a beat: lead held low 36%, back off 36%, step in 34%, feet hold 26%, Cross 24%, Body cross 24%, rear held high 21%, Body jab 17%, rear held low 17%, lead held high 9%, Jab 8%, Feint 7%, Lead hook 6%, Lead uppercut 5%, Rear uppercut 5%, clinch 5%, Overhand 5%, Body hook 4%, Push off 3% | punches in a plan: none 14%, one 63%, two 18%
+  your punches (thrown a bout: lands / blocked / misses): Cross 4.0: 46% / 19% / 36%, Body cross 4.0: 44% / 28% / 28%, Body jab 3.0: 58% / 40% / 2%, Jab 1.4: 66% / 32% / 2%, Lead hook 1.0: 42% / 42% / 17%, Lead uppercut 0.9: 47% / 15% / 38%, Rear uppercut 0.8: 45% / 9% / 45%, Overhand 0.8: 72% / 5% / 23%, Body hook 0.6: 60% / 21% / 19%
+  he  a beat: back off 38%, lead held low 37%, step in 32%, feet hold 27%, Cross 24%, rear held high 23%, Body cross 22%, Body jab 17%, rear held low 17%, lead held high 8%, Jab 7%, Lead hook 7%, Feint 7%, Rear uppercut 6%, Lead uppercut 6%, Body hook 5%, Overhand 5%, Push off 4%, clinch 3% | punches in a plan: none 14%, one 68%, two 15%
+  his  punches (thrown a bout: lands / blocked / misses): Cross 3.9: 48% / 20% / 33%, Body cross 3.6: 44% / 23% / 33%, Body jab 3.1: 63% / 33% / 4%, Jab 1.3: 64% / 36% / 0%, Lead hook 1.1: 37% / 38% / 24%, Rear uppercut 1.0: 59% / 10% / 30%, Lead uppercut 1.0: 59% / 12% / 28%, Body hook 0.8: 66% / 24% / 10%, Overhand 0.7: 78% / 8% / 14%
+  your order, of the beats with one to choose (72%): first feet 50%, lead 26%, wait 7%, rear 17%
+MOMENTGAP_METRICS {"n":84,"beats":1499,"counters":[103,119],"beaten":[29,29],"wait":[128,116],"waitAt":[[80,48,0],[74,42,0]],"orders":[{"feet>rear":214,"lead":63,"feet>lead>rear":127,"feet":33,"lead>feet>rear":92,"wait>feet":80,"lead>rear":48,"lead>feet":100,"rear>wait>feet":14,"feet>lead":147,"clinch":70,"rear>feet>lead":72,"rear":159,"feet>rear>lead":47,"none":99,"rear>feet":72,"rear>lead":18,"lead>wait>feet":34,"lead>rear>feet":7,"rear>lead>feet":3},{"rear>feet":84,"rear>feet>lead":58,"lead":84,"lead>wait>feet":32,"feet>rear":225,"feet>lead":163,"wait>feet":74,"rear":152,"lead>feet>rear":73,"none":87,"feet>rear>lead":40,"lead>feet":126,"feet":40,"clinch":48,"rear>lead":25,"feet>lead>rear":117,"rear>wait>feet":10,"lead>rear":51,"rear>lead>feet":3,"lead>rear>feet":7}],"anyWait":230,"bothWait":14,"gap":{"within3":{"choices":2088,"wait":160},"behind4+":{"choices":455,"wait":49},"ahead4+":{"choices":455,"wait":35}},"afterCounter":{"noCounterLastBeat":{"choices":2847,"wait":235},"counterLastBeat":{"choices":151,"wait":9}}}
+  (84 bouts, 1789 s)
+BARS 8 of 9 pass
+  PASS every range is fought at (each 15-55% of beats): Inside 29%, Mid 34%, Long 37%
+  PASS no switch is a must (none in over 40% of beats): back off 37%, step in 33%, Cross 24%
+  PASS no switch is dead (each in at least 3% of beats): none under 3%
+  FAIL every punch lands 30-65% of the time and falls short at most 40%: Jab lands 65%, short 1%; Overhand lands 75%, short 19%
+  PASS bouts end both ways (stoppages 10-40%, draws at most 20%, 0.5-2.5 knockdowns a bout): stoppages 25%, draws 2%, knockdowns 2.5
+  PASS one punch, two punches and holding all have their beats (two 15-45%, none 5-25%): two 16%, none 14%
+  PASS the clinch is a rescue, not a habit (at most 2 a bout): 1.1
+  PASS the order is a choice (no slot first in over 60% of ordered beats; an order to choose in 40%+ of beats): ordered 72%, most often first 50%
+  PASS the mirror is fair (wins 40-60% of decided bouts): 44%
