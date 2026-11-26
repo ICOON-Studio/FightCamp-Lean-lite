@@ -1,0 +1,18 @@
+TELL_RATES bouts=12 a man, seed=1, me=ai (the page's AI in his corner, the same AI in yours; a lie counts when its condition holds and the cue it fakes is not the truth)
+  Jabber: ahead on health (S563 trial): 43 of 216 beats = 20%
+  Jabber: he backed off last beat: 63 of 216 beats = 29%
+  Jabber: his last punch landed: 63 of 216 beats = 29%
+  >> TELLS2 as built (The Jabber): fakes 63 of 216 beats = 29%; quiet guard shown 10 of 216 beats = 5%
+  >> TELLS3 as built (The Jabber): fakes 42 of 216 beats = 19%
+  Slugger: stamina 3 or less (S563 trial): 58 of 199 beats = 29%
+  Slugger: stamina 4 or less: 77 of 199 beats = 39%
+  Slugger: you landed on him last beat: 53 of 199 beats = 27%
+  Slugger: he backed off last beat (S564): 15 of 199 beats = 8%
+  >> TELLS2 as built (The Slugger): fakes 53 of 199 beats = 27%; quiet guard shown 27 of 199 beats = 14%
+  >> TELLS3 as built (The Slugger): fakes 47 of 199 beats = 24%
+  Body Snatcher: you blocked his body punch (S563 trial): 20 of 216 beats = 9%
+  Body Snatcher: you blocked any punch of his: 35 of 216 beats = 16%
+  Body Snatcher: he is behind on points this round: 39 of 216 beats = 18%
+  >> TELLS2 as built (The Body Snatcher): fakes 27 of 216 beats = 13%; quiet guard shown 27 of 216 beats = 13%
+  >> TELLS3 as built (The Body Snatcher): fakes 30 of 216 beats = 14%
+RATES_AI_DONE

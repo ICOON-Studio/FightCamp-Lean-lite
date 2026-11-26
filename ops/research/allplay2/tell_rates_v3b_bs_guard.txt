@@ -1,0 +1,8 @@
+TELL_RATES bouts=12 a man, seed=1, me=guard (the page's AI in his corner, a cautious guard-first player in yours; a lie counts when its condition holds and the cue it fakes is not the truth)
+  Body Snatcher: you blocked his body punch (S563 trial): 25 of 209 beats = 12%
+  Body Snatcher: you blocked any punch of his: 39 of 209 beats = 19%
+  Body Snatcher: he is behind on points this round: 10 of 209 beats = 5%
+  Body Snatcher: he threw a body punch last beat (S564): 45 of 209 beats = 22%
+  Body Snatcher: stamina 3 or less (S564): 32 of 209 beats = 15%
+  >> TELLS2 as built (The Body Snatcher): fakes 20 of 209 beats = 10%; quiet guard shown 12 of 209 beats = 6%
+  >> TELLS3 as built (The Body Snatcher): fakes 23 of 209 beats = 11%

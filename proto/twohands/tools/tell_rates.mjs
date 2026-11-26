@@ -27,6 +27,8 @@ const CAND = [
   ['Body Snatcher: you blocked his body punch (S563 trial)', 2, (c) => c.blockedBody, 'knees'],
   ['Body Snatcher: you blocked any punch of his', 2, (c) => c.blockedAny, 'knees'],
   ['Body Snatcher: he is behind on points this round', 2, (c) => c.him.pts < c.me.pts, 'knees'],
+  ['Body Snatcher: he threw a body punch last beat (S564)', 2, (c) => !!(c.hisLast && ['bjab', 'lbody', 'rbody'].some((x) => c.hisLast.lead === x || c.hisLast.rear === x)), 'knees'],
+  ['Body Snatcher: stamina 3 or less (S564)', 2, (c) => c.him.st <= 3, 'knees'],
 ];
 
 function bout(opp, seed) {
@@ -59,7 +61,7 @@ function bout(opp, seed) {
 }
 
 const out = [`TELL_RATES bouts=${BOUTS} a man, seed=${SEED}, me=${ME} (the page's AI in his corner, ${ME === 'guard' ? 'a cautious guard-first player' : 'the same AI'} in yours; a lie counts when its condition holds and the cue it fakes is not the truth)`];
-for (const opp of [0, 1, 2]) {
+for (const opp of (arg.opp != null ? [Number(arg.opp)] : [0, 1, 2])) {   /* S564 opp=<n>: one man only */
   const rows = []; for (let i = 0; i < BOUTS; i++) rows.push(...bout(opp, SEED * 100 + i));
   const cs = CAND.filter((k) => k[1] === opp), pct = (j) => { const f = rows.reduce((s, r) => s + r[j], 0); return `${f} of ${rows.length} beats = ${Math.round(100 * f / rows.length)}%`; };
   cs.forEach((k, j) => out.push(`  ${k[0]}: ${pct(j)}`));

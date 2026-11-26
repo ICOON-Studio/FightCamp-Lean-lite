@@ -24,7 +24,7 @@ export const MEANS = {
   backfoot: 'a back off or a clinch',
   still: 'none of those',
 };
-const BIG_REAR = ['cross', 'over'], LOW = ['bjab', 'lbody', 'rbody', 'lup', 'rup'];
+const BIG_REAR = ['cross', 'over'], LOW = ['bjab', 'lbody', 'rbody', 'lup', 'rup'], BODY = ['bjab', 'lbody', 'rbody'];
 const THREAT = { still: 0, backfoot: 1, foot: 2, knees: 3, shoulder: 4 };
 
 // the cue his chosen plan really gives, his biggest threat first. v1: no back foot cue, the foot counts at any range.
@@ -55,12 +55,12 @@ export const LIES = [
       Slugger's conditions held on 41-46% of beats, against a careful player the Slugger lied 2 of 18 - a rate that
       follows the player's style. The cap bounds the top; a second condition of HIS OWN state lifts the bottom.
    3. A SECOND CONDITION for the two men whose first depends on what YOU do (the Slugger: you landed; the Body Snatcher:
-      you blocked). Both are on screen: his stamina bar, the points this round. */
+      you blocked). Both are on screen: his stamina bar, his last beat in his card. */
 export const LIES3 = [
   [LIES[0]],
   [LIES[1], { when: 'when he was on 3 stamina or less', test: (c) => c.him.st <= 3, cue: 'shoulder' }],
-  [LIES[2], { when: 'when he was behind on points this round', test: (c) => c.him.pts < c.me.pts, cue: 'knees' }],
-];
+  [LIES[2], { when: 'the beat after he threw a body punch', test: (c) => !!(c.hisLast && BODY.some((x) => c.hisLast.lead === x || c.hisLast.rear === x)), cue: 'knees' }],
+];   /* S564 tell_rates opp=2: 'behind on points' held on 5% of beats against a careful player; 'after his body punch' 22% */
 export const CAP3 = { round: 2 };
 const dmgOf = (p, A) => (p && !p.clinch ? ((p.lead && A[p.lead] && A[p.lead].d) || 0) + ((p.rear && A[p.rear] && A[p.rear].d) || 0) : 0);
 const PROMISE = { shoulder: BIG_REAR, knees: LOW };
