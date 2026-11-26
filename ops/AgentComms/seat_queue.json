@@ -4944,18 +4944,22 @@
    "seat": "john",
    "brief": "research/RINGSWITCH_COMEBACK_BRIEF.md",
    "stem": "RINGSWITCH_COMEBACK_BRIEF_JOHN",
-   "status": "queued",
+   "status": "sent",
    "queued_at": "2026-11-26 09:59",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-26 10:10",
+   "sent_ms": 1795680620515
   },
   {
    "id": "SQ338",
    "seat": "kalli",
    "brief": "research/RINGSWITCH_KICKS_BRIEF.md",
    "stem": "RINGSWITCH_KICKS_BRIEF_KALLI",
-   "status": "queued",
+   "status": "sent",
    "queued_at": "2026-11-26 09:59",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-26 10:10",
+   "sent_ms": 1795680622704
   }
  ]
 }

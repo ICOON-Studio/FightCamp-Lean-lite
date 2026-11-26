@@ -1,0 +1,13 @@
+PROBE the page (no switch): 84 bouts, 333 s
+BARS 8 of 9 pass
+  PASS every range is fought at (each 15-55% of beats): Inside 29%, Mid 36%, Long 35%
+  PASS no switch is a must (none in over 40% of beats): back off 35%, step in 31%, Cross 27%
+  PASS no switch is dead (each in at least 3% of beats): none under 3%
+  FAIL every punch lands 30-65% of the time and falls short at most 40%: Jab lands 74%, short 2%; Overhand lands 70%, short 19%
+  PASS bouts end both ways (stoppages 10-40%, draws at most 20%, 0.5-2.5 knockdowns a bout): stoppages 23%, draws 1%, knockdowns 2.4
+  PASS one punch, two punches and holding all have their beats (two 15-45%, none 5-25%): two 17%, none 12%
+  PASS the clinch is a rescue, not a habit (at most 2 a bout): 1.1
+  PASS the order is a choice (no slot first in over 60% of ordered beats; an order to choose in 40%+ of beats): ordered 68%, most often first 55%
+  PASS the mirror is fair (wins 40-60% of decided bouts): 47%
+COMEBACK
+  FAIL the comeback (the man 4+ health behind after round 1 wins 15-30%): 11% - 4 of 35 bouts (0 drawn; 42% of bouts had that gap)

@@ -1,0 +1,17 @@
+PROBE ops/research/s558_balance/punch_chance_c.json: 84 bouts, 543 s
+BARS 7 of 9 pass
+  PASS every range is fought at (each 15-55% of beats): Inside 27%, Mid 37%, Long 36%
+  PASS no switch is a must (none in over 40% of beats): back off 34%, step in 32%, Body cross 25%
+  PASS no switch is dead (each in at least 3% of beats): none under 3%
+  FAIL every punch lands 30-65% of the time and falls short at most 40%: Jab lands 71%, short 2%; Overhand lands 75%, short 21%; Rear uppercut lands 50%, short 43%
+  FAIL bouts end both ways (stoppages 10-40%, draws at most 20%, 0.5-2.5 knockdowns a bout): stoppages 30%, draws 1%, knockdowns 2.6
+  PASS one punch, two punches and holding all have their beats (two 15-45%, none 5-25%): two 16%, none 14%
+  PASS the clinch is a rescue, not a habit (at most 2 a bout): 1.2
+  PASS the order is a choice (no slot first in over 60% of ordered beats; an order to choose in 40%+ of beats): ordered 66%, most often first 53%
+  PASS the mirror is fair (wins 40-60% of decided bouts): 57%
+COMEBACK
+  PASS the comeback (the man 4+ health behind after round 1 wins 15-30%): 20% - 8 of 40 bouts (0 drawn; 48% of bouts had that gap)
+  PASS not a must when open (used in at most 1 open beat in 3): 33% (97 of 294 open beats)
+  PASS rare (in at most 10% of a man's beats): 3%
+  PASS the loop (open for both men in one round, at most 1 round in 5): 1% (3 of 250 rounds)
+  used 1.15 a bout: lands 27%, missed or blocked 54%, the rest beaten to the punch or not thrown
