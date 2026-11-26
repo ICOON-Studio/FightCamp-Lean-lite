@@ -5004,18 +5004,28 @@
    "seat": "kalli",
    "brief": "research/FEINTFIX1_BRIEF.md",
    "stem": "FEINTFIX1_BRIEF_KALLI",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-26 22:34",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-26 22:40",
+   "sent_ms": 1795725645634,
+   "answered_at": "2026-11-26 23:10",
+   "answer": "research/FEINTFIX1_BRIEF_KALLI.md",
+   "chars": 4210
   },
   {
    "id": "SQ342",
    "seat": "dola",
    "brief": "research/FEINTFIX1_BRIEF.md",
    "stem": "FEINTFIX1_BRIEF_DOLA",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-26 22:34",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-26 22:40",
+   "pid": 20120,
+   "transcript": "AgentComms/seat_logs/SQ342_dola.txt",
+   "answered_at": "2026-11-26 23:10",
+   "answer": "research/FEINTFIX1_BRIEF_DOLA.md"
   }
  ]
 }
