@@ -4981,7 +4981,8 @@
    "sent_ms": 1795700428774,
    "answered_at": "2026-11-26 16:03",
    "answer": "research/RINGSWITCH_LONG_BRIEF_KALLI.md",
-   "chars": 7180
+   "chars": 7180,
+   "seen_by_claude": true
   },
   {
    "id": "SQ340",

@@ -1,8 +1,11 @@
 # S565 digest (2026-11-26, Fable 5.2)
 
-## His words this session
-None yet (the session was opened with the start line). Open for him: the four worker consoles left from S560-S564
-(PUNCHCHANCE1, the old GLIDE2 and INSIDE1 workers, the ALLPLAY2 playtester) still hold memory - "close them?" asked in chat.
+## His words this session (quoted)
+- "how can i get my brother a link to test the game ? also maybe add a changelog with every fix showing which version we
+  running" -> version.js + changelog.html built the same turn (v0.565.3 beside the sound button on every page; seven
+  entries back to S559). The link: asked him which way (a public web address from proto/twohands only, recommended, or a
+  temporary link from this PC); nothing published without his yes. The main repo is private; the pages are 67 MB.
+- Open for him: Q-344 (the late step on the main page?), the worker consoles left from S560-S564 (idle, ~1.5 GB).
 
 ## Start state
 No open board question, no new board answer or map note. Nightly 2026-11-26: 506 passed, 0 failed. PC GREEN, E: 62 GB free.
@@ -99,3 +102,51 @@ dropped twice). It goes into the knockdown-heal report to him.
   (Antigravity: 12 of 13 landed). The same man without the clinch wins 7-13%. So the loop has two legs, and JABLAND2's
   versions cut the other one: D the feint opens the overhand only Inside, E a punch landing in your feint moment wastes
   it, F both. CROSS-CHECK run on the PC: `probe_clinch.mjs n=60` on today's page and on D, E, F (the page's own table).
+- bfa5aa6ea PROGP2 collected (Arena; his Q-340 "Yes, a choice"): at Sharp, is "cheaper" or "faster" a real choice?
+  | Punch | cheaper: wins | faster: wins | Verdict |
+  |---|---|---|---|
+  | Overhand | 57% | 55% | the one clean pair |
+  | Lead uppercut | 59% | 53% | nearly (cheaper one point over the bar) |
+  | Lead hook | 43% | already fast | the cheaper card is dead |
+  | Body hook | 54% | 46% | always cheaper |
+  | Cross | 62% | 63% | both too strong |
+  | Rear uppercut | 59% | 52% | always cheaper |
+  | Body cross | 67% | 58% | always cheaper, and it bends the fight (44% of beats) |
+  | Jab, body jab | - | - | nothing to give (already 1 stamina, already fast) |
+  Bar: each card 52-58%, the two within 6 points. The page's own table was used for unequal men (an approximation).
+  NEXT: PROGP4, a pair of its own for each punch (the result page lists one candidate each, unmeasured).
+- The S564 render worker FINISHED (aae794ded, 7534204a0): Inside is 0.55 m (was 0.71), every picture at Inside re-made
+  with head masks, 0 jumps there; punch runs 33 jumps -> 2; head moves and kicks 43 -> 8. Its Inside screenshots opened
+  here (order_I_hook_plan, order_I_cross_after): the men at inside-fighting distance, heads close, bodies and feet
+  apart, nothing near them. Left, named: the low kicks' last picture, red_low_kick_missed and red_jab_missed refused by
+  the camera. Phase 2 (the see-through overlap) not started.
+- 9cbf3b86d BOUNCE1 launched: a console worker (Opus, Code Mode) in this session's terminal tab "bounce565", with
+  ops/research/RESUME_S565_BOUNCE1.md (what changed since the brief: Inside 0.55 m, punch.html and wait.html share
+  ring_ui.js, body_ui.js is not its file).
+- f8dc7dab7 wait.html on its own look-ahead table (vtable_wait.json).
+
+## The clinch cross-check (`probe_clinch.mjs n=60`, the page's own table; results/clinchx_<v>_loop.txt)
+The loop's win share against the Jabber / Slugger / Body Snatcher (bar: under 30% against every man):
+| Version | Jabber | Slugger | Body Snatcher |
+|---|---|---|---|
+| Today's page | 38% | 63% | 70% |
+| CLINCHFIX3 H1 (his read sees clinches) | 48% | 57% | 53% |
+| CLINCHFIX3 H2 (H1 + clinch +1 stamina) | 37% | 58% | 42% |
+| JABLAND2 D (the feint opens the overhand only Inside) | 33% | 42% | 37% |
+| JABLAND2 E (a punch landing in your feint moment wastes it) | 25% | 33% | 32% |
+| **JABLAND2 F (D + E)** | **22%** | **25%** | **25%** |
+The same man without the clinch: 2-15% in every version.
+FINDING: F takes the loop UNDER the bar against every man (and 38 / 45 points under today's against the Slugger and the
+Body Snatcher) WITHOUT TOUCHING THE CLINCH - the clinch and the push off keep their numbers. The clinch was never the
+exploit: it paid for a feint-then-overhand that could not be covered. Caveat: the page's own look-ahead table, one probe
+seed set. Decide with JABLAND2's own bars (Arena, still running): if F holds 8+ of 9 on both seeds it is the page change
+for the landing bar AND the clinch loop; re-run probe_clinch on F's own table before the page edit.
+
+## After the second ship
+- AIEMPTY1 collected (Arena): none as briefed - the filter removes his plain-beat empty beats but makes the Slugger
+  (-8 points for the player-bot) and the Body Snatcher (-23) stronger, past the 5-point bar; the Jabber +1. Finding: the
+  empty beats were a hidden handicap (the player-bot beats every man 71-76% today). 53% of them come from the solved
+  mix (a rules question). The nine bars do not move (the mirror never calls his ai()). Next: AIEMPTY2, the filter with
+  the skill numbers set again - to a target the owner names.
+- version.js: the BOUNCE1 worker added its own entry (0.565.4) from the rule in the file's header.
+

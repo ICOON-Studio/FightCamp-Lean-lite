@@ -6,11 +6,11 @@
   "id": "S565",
   "owner": "claude",
   "updated": "2026-11-26",
-  "summary": "S565 (Fable). Start clean (no board question, nightly 506 of 506). LONG IS A CORRIDOR measured two ways at Arena: LONG1 (the stopping jab, Dola's lead hand as a fence, both) and LONG2 (Kalli SQ339, collected: the cross a man walks onto + jabs that score 2 on a stepping man; finding: the page already lands a cross thrown at Long on a man stepping in - no tester found it, K0 counts it). KDHEAL1 collected: keep the get-up [6, 4] (lower: stoppages 45%, comeback 14% then 4%; the bots show no walk-into-a-punch pull). His S562 question 'select exactly on which part of a beat i move' built as a playable copy, wait.html (MOMENTGAP1 collected, FINAL: only the step a moment later holds 8 of 9 on both seeds with the wait in 8% of beats; a free wait anywhere is picked in 67% of beats and holds 7 of 9; asked on the board, Q-344, whether it goes on the main page), with its jump button on the ops board. Fixed on every page: three moments ran the last line off a 1080 screen. CLINCHFIX2's files copied onto main; the six collected Arena pull requests closed. New tool arena_watch.py (one line when a cloud run ends). KDFIRST (own count, two seeds): the man dropped first wins 13% on the page (UFC 34.4% when the fight goes on), the first man dropped twice 9% (UFC 7%).",
-  "next_action": "S566: collect what has ended (arena_watch.py; branches in NEXT_SESSION_PROMPT.md): TELLS3M -> the board question, then TELLS2PAGE; CLINCHFIX3 / AIEMPTY1 / JABLAND2 -> a version that holds the bars goes on the page; LONG1 + LONG2 judged together -> one Long rule as a toy page; KICKFIX3, PROGP2. His answer to Q-344 (the late step: main page / own page / drop): on 'Yes, main page' apply moment_gap_b.json + make_wait.py's page patches to order.html, rebuild its table (vtable.json) and both copies, balance re-run two seeds. Render worker: when it pushes, BOUNCE1 then KDPIC1.",
-  "last_working_commit": "a2b4fbaf6",
+  "summary": "S565 (Fable). Start clean (no board question, nightly 506 of 506). LONG IS A CORRIDOR measured two ways at Arena: LONG1 (the stopping jab, Dola's lead hand as a fence, both) and LONG2 (Kalli SQ339, collected: the cross a man walks onto + jabs that score 2 on a stepping man; finding: the page already lands a cross thrown at Long on a man stepping in - no tester found it, K0 counts it). KDHEAL1 collected: keep the get-up [6, 4] (lower: stoppages 45%, comeback 14% then 4%; the bots show no walk-into-a-punch pull). His S562 question 'select exactly on which part of a beat i move' built as a playable copy, wait.html (MOMENTGAP1 collected, FINAL: only the step a moment later holds 8 of 9 on both seeds with the wait in 8% of beats; a free wait anywhere is picked in 67% of beats and holds 7 of 9; asked on the board, Q-344, whether it goes on the main page), with its jump button on the ops board. Fixed on every page: three moments ran the last line off a 1080 screen. CLINCHFIX2's files copied onto main; the six collected Arena pull requests closed. New tool arena_watch.py (one line when a cloud run ends). KDFIRST (own count, two seeds): the man dropped first wins 13% on the page (UFC 34.4% when the fight goes on), the first man dropped twice 9% (UFC 7%). STAGE 2: CLINCHFIX3 collected - none (third failed clinch round: no fourth; the loop's other leg is feint then overhand - cross-check on the JABLAND2 versions: the loop 38 / 63 / 70% today, 33 / 42 / 37% with 'the feint opens the overhand only Inside', 22 / 25 / 25% with that plus 'a punch landing in your feint moment wastes it' (JABLAND2 F) - under the 30% bar against every man with the clinch untouched). PROGP2 collected (his Q-340): 'cheaper or faster' is a real choice for the overhand only. The S564 render worker finished INSIDE1 steps 1-4 (Inside 0.55 m, 0 jumps) and GLIDE2; BOUNCE1 launched as the next console worker. wait.html runs on its own table.",
+  "next_action": "S566: his answer to Q-344 (the late step: main page / own page / drop). Collect what has ended (arena_watch.py; branches in NEXT_SESSION_PROMPT.md): JABLAND2 read WITH the clinch cross-check (results/clinchx_*_loop.txt) -> one page change if a version holds the bars; TELLS3M -> the board question, then TELLS2PAGE; AIEMPTY1; KICKFIX3; LONG1 + LONG2 judged together -> one Long rule as a toy page. BOUNCE1 (console worker, RESUME_S565_BOUNCE1): check its pictures yourself, then KDPIC1. Then TASK_PROGP4 (a pair of its own for each punch) and INSIDE1 Phase 2 stills for him.",
+  "last_working_commit": "bfa5aa6ea",
   "verified_playable": "Builds/ exported in S556 (the S547 game plus S548's two changes: the 3D fight throws the body cross, the trial evening's pictures show the prospect's own body; pro_body_jab is on disk and unused by the game). Ring Switches (a browser toy): one beat played in the browser in S556 against the Jabber - both men threw a body jab, both landed, no console error; rules_test 34 pass; anim_check 124 runs PASS.",
-  "incomplete_blocked": "Nine Arena measures (two launched this session) and the render worker still running at this stage's end. No export: no game code changed (proto pages and node tools only). Uncommitted pictures from earlier sessions sit in proto/twohands/img/anim: left for the render workers.",
+  "incomplete_blocked": "Six Arena measures (TELLS3M, AIEMPTY1, JABLAND2, KICKFIX3, LONG1, LONG2) and the BOUNCE1 console worker still running at the handover. No export: no game code changed (proto pages and node tools only). Uncommitted pictures from earlier sessions sit in proto/twohands/img/anim: left for the render workers.",
   "next_acceptance": "Each run collected and judged against its bars; his question on the moment answered with both seeds; a Long rule chosen from LONG1 / LONG2 only if it holds the bars on both seeds.",
   "awaiting_operator": [
    "Q-344: the step a moment later - on the main page, on its own page, or dropped (wait.html is playable: 'Pick your moment' on the ops board)",
@@ -2479,7 +2479,7 @@
   {
    "id": "S565",
    "date": "2026-11-26",
-   "summary": "S565 (Fable). Start clean (no board question, nightly 506 of 506). LONG IS A CORRIDOR measured two ways at Arena: LONG1 (the stopping jab, Dola's lead hand as a fence, both) and LONG2 (Kalli SQ339, collected: the cross a man walks onto + jabs that score 2 on a stepping man; finding: the page already lands a cross thrown at Long on a man stepping in - no tester found it, K0 counts it). KDHEAL1 collected: keep the get-up [6, 4] (lower: stoppages 45%, comeback 14% then 4%; the bots show no walk-into-a-punch pull). His S562 question 'select exactly on which part of a beat i move' built as a playable copy, wait.html (MOMENTGAP1 collected, FINAL: only the step a moment later holds 8 of 9 on both seeds with the wait in 8% of beats; a free wait anywhere is picked in 67% of beats and holds 7 of 9; asked on the board, Q-344, whether it goes on the main page), with its jump button on the ops board. Fixed on every page: three moments ran the last line off a 1080 screen. CLINCHFIX2's files copied onto main; the six collected Arena pull requests closed. New tool arena_watch.py (one line when a cloud run ends). KDFIRST (own count, two seeds): the man dropped first wins 13% on the page (UFC 34.4% when the fight goes on), the first man dropped twice 9% (UFC 7%)."
+   "summary": "S565 (Fable). Start clean (no board question, nightly 506 of 506). LONG IS A CORRIDOR measured two ways at Arena: LONG1 (the stopping jab, Dola's lead hand as a fence, both) and LONG2 (Kalli SQ339, collected: the cross a man walks onto + jabs that score 2 on a stepping man; finding: the page already lands a cross thrown at Long on a man stepping in - no tester found it, K0 counts it). KDHEAL1 collected: keep the get-up [6, 4] (lower: stoppages 45%, comeback 14% then 4%; the bots show no walk-into-a-punch pull). His S562 question 'select exactly on which part of a beat i move' built as a playable copy, wait.html (MOMENTGAP1 collected, FINAL: only the step a moment later holds 8 of 9 on both seeds with the wait in 8% of beats; a free wait anywhere is picked in 67% of beats and holds 7 of 9; asked on the board, Q-344, whether it goes on the main page), with its jump button on the ops board. Fixed on every page: three moments ran the last line off a 1080 screen. CLINCHFIX2's files copied onto main; the six collected Arena pull requests closed. New tool arena_watch.py (one line when a cloud run ends). KDFIRST (own count, two seeds): the man dropped first wins 13% on the page (UFC 34.4% when the fight goes on), the first man dropped twice 9% (UFC 7%). STAGE 2: CLINCHFIX3 collected - none (third failed clinch round: no fourth; the loop's other leg is feint then overhand - cross-check on the JABLAND2 versions: the loop 38 / 63 / 70% today, 33 / 42 / 37% with 'the feint opens the overhand only Inside', 22 / 25 / 25% with that plus 'a punch landing in your feint moment wastes it' (JABLAND2 F) - under the 30% bar against every man with the clinch untouched). PROGP2 collected (his Q-340): 'cheaper or faster' is a real choice for the overhand only. The S564 render worker finished INSIDE1 steps 1-4 (Inside 0.55 m, 0 jumps) and GLIDE2; BOUNCE1 launched as the next console worker. wait.html runs on its own table."
   }
  ],
  "blocked_on_operator": [],
@@ -5398,7 +5398,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-26 16:41 board_sync",
+  "updated": "2026-11-26 17:11 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5563,21 +5563,11 @@
    "LONG1": "Long range: the stopping jab and the lead hand as a fence, measured",
    "LONG2": "Long range: Kalli's waiting cross, measured",
    "WAITPAGE": "Your play: the step a moment later (wait.html)",
-   "KDREPORT": "The knockdown heal: report with the real numbers"
+   "KDREPORT": "The knockdown heal: report with the real numbers",
+   "PROGP4": "Sharp upgrades: a pair of its own for each punch, measured",
+   "BOUNCE1": "Never still: the bounce while you plan"
   },
   "working_now": [
-   {
-    "title": "Head moves and kicks at every range: the men keep their distance on head.html and kick.html",
-    "who": "console worker (Opus, Code Mode), terminal tab renders564 (S564: both resumed in one tab, game closed)",
-    "started": "2026-11-26T14:40",
-    "run": "GLIDE2"
-   },
-   {
-    "title": "Inside is too close (your 'the distance looks wrong'): a real inside distance, then the parts where the men overlap see-through",
-    "who": "console worker (Opus, Code Mode), terminal tab renders564 (S564: both resumed in one tab, game closed)",
-    "started": "2026-11-26T14:40",
-    "run": "INSIDE1"
-   },
    {
     "title": "Kicks: the two versions never measured, with the limp spiral capped where it fires",
     "who": "Arena (cloud: costs your PC nothing)",
@@ -5585,22 +5575,10 @@
     "run": "KICKFIX3"
    },
    {
-    "title": "Your \"Yes, a choice\": at Sharp, is \"cheaper\" or \"faster\" a real choice for each punch? Measured first",
-    "who": "Arena (cloud: costs your PC nothing)",
-    "started": "2026-11-26T13:05",
-    "run": "PROGP2"
-   },
-   {
     "title": "Tells version 3 measured with bots, bars against the control: does the tell help a little, does finding his lie pay?",
     "who": "Arena (cloud: costs your PC nothing)",
     "started": "2026-11-26T15:20",
     "run": "TELLS3M"
-   },
-   {
-    "title": "The clinch loop: he notices a player who clinches every beat (his habit read sees clinches) - measured",
-    "who": "Arena (cloud: costs your PC nothing)",
-    "started": "2026-11-26T15:40",
-    "run": "CLINCHFIX3"
    },
    {
     "title": "He never throws a beat that cannot do anything (push off after his back off, a feint with no punch): counted, then filtered",
@@ -5625,6 +5603,12 @@
     "who": "Arena (cloud, a second chat: costs your PC nothing)",
     "started": "2026-11-26T16:06",
     "run": "LONG2"
+   },
+   {
+    "title": "Never still: a light bounce on the feet while you plan, at every range",
+    "who": "console worker (Opus, Code Mode), terminal tab bounce565",
+    "started": "2026-11-26T17:02",
+    "run": "BOUNCE1"
    }
   ],
   "next": [
@@ -5659,6 +5643,12 @@
     "after": ""
    },
    {
+    "id": "PROGP4",
+    "who": "claude",
+    "title": "Your 'Yes, a choice' (Q-340) measured: 'cheaper or faster' is a real choice for the overhand only (57% / 55%); the hook's cheaper card is dead, three punches always take cheaper, the cross is too strong both ways - next: a pair of its own for each punch, measured",
+    "after": ""
+   },
+   {
     "id": "KDPIC1",
     "who": "claude",
     "title": "The knockdown stays inside the ring; the overhand gets its own take (none exists: our archives, then Ludo for one hour) - brief ready (TASK_KDPIC1), after the renders",
@@ -5667,7 +5657,7 @@
    {
     "id": "GLIDE1",
     "who": "claude",
-    "title": "Punches, feint and push off at every range: the men never jump when a clip plays - Claude renders, then checks on the page",
+    "title": "The men never jump when a clip plays: 33 jumps down to 2 on the punches, 43 to 8 on head moves and kicks - left: the low kicks' last picture and two misses the camera refuses",
     "after": ""
    },
    {
@@ -5691,7 +5681,7 @@
    {
     "id": "BOUNCE1",
     "who": "claude",
-    "title": "Never still: a light bounce between beats (the steps already glide: measured in S560)",
+    "title": "Never still: a light bounce on the feet while you plan - a console worker is building it now (Inside is 0.55 m and the glide renders are in)",
     "after": "HEADPICS1"
    },
    {
@@ -5703,7 +5693,7 @@
    {
     "id": "CLINCHFIX1",
     "who": "claude",
-    "title": "The clinch pays too well | CLINCHFIX2 at Arena measures the push-off-counter version on today's page; the mildest that holds 8 of 9 goes on the page",
+    "title": "The clinch pays too well: three clinch fixes failed - the clinch was paying for a feint-then-overhand nobody could cover. With the two feint fixes the loop wins 22-25% (today 38-70%), the clinch untouched: waits for the cloud run's bars, then onto the page",
     "after": "RUNESTEP1"
    },
    {
@@ -6114,6 +6104,41 @@
   },
   "done_recently": [
    {
+    "title": "The clinch loop: he notices a player who clinches every beat (his habit read sees clinches) - measured",
+    "who": "Arena (cloud: costs your PC nothing)",
+    "when": "2026-11-26"
+   },
+   {
+    "title": "Your \"Yes, a choice\": at Sharp, is \"cheaper\" or \"faster\" a real choice for each punch? Measured first",
+    "who": "Arena (cloud: costs your PC nothing)",
+    "when": "2026-11-26"
+   },
+   {
+    "title": "Inside is too close (your 'the distance looks wrong'): a real inside distance, then the parts where the men overlap see-through",
+    "who": "console worker (Opus, Code Mode), terminal tab renders564 (S564: both resumed in one tab, game closed)",
+    "when": "2026-11-26"
+   },
+   {
+    "title": "Head moves and kicks at every range: the men keep their distance on head.html and kick.html",
+    "who": "console worker (Opus, Code Mode), terminal tab renders564 (S564: both resumed in one tab, game closed)",
+    "when": "2026-11-26"
+   },
+   {
+    "title": "At Sharp, is 'cheaper' or 'faster' a real choice for each punch? Measured: for the overhand only (PROGP2)",
+    "who": "Arena",
+    "when": "2026-11-26"
+   },
+   {
+    "title": "The clinch loop, third fix (his habit read sees clinches): measured, does not work (CLINCHFIX3)",
+    "who": "Arena",
+    "when": "2026-11-26"
+   },
+   {
+    "title": "Inside is a real inside distance (0.55 m) and every picture there is re-made; head moves and kicks keep their distance (INSIDE1 steps 1-4, GLIDE2)",
+    "who": "console worker",
+    "when": "2026-11-26"
+   },
+   {
     "title": "A knockdown heals (down at 1 health, up on 6): three lower get-up numbers measured - nothing changes without your yes",
     "who": "Arena (cloud: costs your PC nothing)",
     "when": "2026-11-26"
@@ -6136,41 +6161,6 @@
    {
     "title": "A knockdown heals (up on 6, then 4): three lower get-up numbers measured - keep today's (KDHEAL1)",
     "who": "Arena",
-    "when": "2026-11-26"
-   },
-   {
-    "title": "Your 'select exactly on which part of a beat i move' as a page to play: the step a moment later (wait.html)",
-    "who": "Claude",
-    "when": "2026-11-26"
-   },
-   {
-    "title": "Long range is a corridor: two measures written, checked beat by beat and launched (LONG1, LONG2); Kalli's and Dola's designs collected",
-    "who": "Claude",
-    "when": "2026-11-26"
-   },
-   {
-    "title": "Three moments ran the last line off the screen under the ring: fixed on every page",
-    "who": "Claude",
-    "when": "2026-11-26"
-   },
-   {
-    "title": "Head movement with the pull counter: does it hold 9 of 9 on a bigger sample (two runs of 84 bouts)",
-    "who": "Arena (cloud, a second chat: costs your PC nothing)",
-    "when": "2026-11-26"
-   },
-   {
-    "title": "Head movement with the pull counter: 7 and 8 of 9 on 84 bouts - the overhand lands too often there too (HEADPULL1)",
-    "who": "Arena",
-    "when": "2026-11-26"
-   },
-   {
-    "title": "The one bar the page still fails: the jab and the overhand land too often - up to three fixes measured",
-    "who": "Arena (cloud, a seventh chat: costs your PC nothing)",
-    "when": "2026-11-26"
-   },
-   {
-    "title": "Playtest by message: 2 bouts without tells, 2 with - and your question on showing his intentions",
-    "who": "Antigravity (by message, about 75 s a beat)",
     "when": "2026-11-26"
    }
   ],
@@ -6852,6 +6842,10 @@
     {
      "text": "Your call Q-344: late step",
      "who": "operator"
+    },
+    {
+     "text": "Feint fix: bars, then the page",
+     "who": "claude"
     }
    ],
    "session": "S565"
@@ -6859,8 +6853,8 @@
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
- "last_working_commit": "a2b4fbaf6",
- "next_action": "S566: collect what has ended (arena_watch.py; branches in NEXT_SESSION_PROMPT.md): TELLS3M -> the board question, then TELLS2PAGE; CLINCHFIX3 / AIEMPTY1 / JABLAND2 -> a version that holds the bars goes on the page; LONG1 + LONG2 judged together -> one Long rule as a toy page; KICKFIX3, PROGP2. His answer to Q-344 (the late step: main page / own page / drop): on 'Yes, main page' apply moment_gap_b.json + make_wait.py's page patches to order.html, rebuild its table (vtable.json) and both copies, balance re-run two seeds. Render worker: when it pushes, BOUNCE1 then KDPIC1.",
+ "last_working_commit": "bfa5aa6ea",
+ "next_action": "S566: his answer to Q-344 (the late step: main page / own page / drop). Collect what has ended (arena_watch.py; branches in NEXT_SESSION_PROMPT.md): JABLAND2 read WITH the clinch cross-check (results/clinchx_*_loop.txt) -> one page change if a version holds the bars; TELLS3M -> the board question, then TELLS2PAGE; AIEMPTY1; KICKFIX3; LONG1 + LONG2 judged together -> one Long rule as a toy page. BOUNCE1 (console worker, RESUME_S565_BOUNCE1): check its pictures yourself, then KDPIC1. Then TASK_PROGP4 (a pair of its own for each punch) and INSIDE1 Phase 2 stills for him.",
  "next_acceptance": "Rulers vs r0: head jumps on the contact frame under 4, a head inside the other's body under 5 frames, arm out median under 4 frames with join_return green, then r1 film at two fresh blind critics 5+/10",
  "superseded_archive": [
   {

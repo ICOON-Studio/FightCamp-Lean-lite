@@ -1,0 +1,20 @@
+AIEMPTY1 (S564) 2026-11-26T14:46Z on 6ad8420, node v22.22.3, 2 cores
+COMMAND node proto/twohands/tools/probe_empty.mjs who=mix opp=2 n=84 seed=1 jobs=2 tweak=ops/research/s558_balance/ai_no_empty.json json=/tmp/ae/filter_2.json
+
+PROBE_EMPTY ops/research/s558_balance/ai_no_empty.json who=mix opp=2 n=84 seed=1 jobs=2
+mix v The Body Snatcher: wins 52%, draws 5%, stops him 7%, is stopped 6%; knockdowns a bout 1.3 v 0.9; health taken a bout 22.5 v 19.6; beats at Inside / Mid / Long 42% / 36% / 22%; clinches a bout 1.5; rounds level on points 15%, 75% of them given on ground
+  you a beat: lead held low 33%, step in 31%, back off 31%, feet hold 31%, Cross 26%, Body cross 20%, rear held high 19%, rear held low 16%, Body jab 16%, Feint 9%, lead held high 7%, clinch 7%, Jab 7%, Lead hook 7%, Overhand 6%, Push off 6%, Rear uppercut 5%, Body hook 4%, Lead uppercut 4% | punches in a plan: none 11%, one 68%, two 14%
+  your punches (thrown a bout: lands / blocked / misses): Cross 4.2: 45% / 34% / 21%, Body cross 3.3: 56% / 31% / 13%, Body jab 2.9: 63% / 31% / 6%, Jab 1.2: 54% / 45% / 1%, Lead hook 1.1: 38% / 54% / 8%, Overhand 0.9: 84% / 12% / 4%, Rear uppercut 0.8: 53% / 19% / 29%, Body hook 0.7: 62% / 31% / 7%, Lead uppercut 0.7: 64% / 19% / 17%
+  he  a beat: step in 51%, lead held low 32%, Body cross 31%, back off 23%, feet hold 22%, rear held high 21%, rear held low 18%, Cross 17%, lead held high 13%, Body jab 12%, Jab 10%, Body hook 10%, Lead hook 8%, Lead uppercut 4%, Overhand 4%, clinch 4%, Rear uppercut 4%, Feint 4%, Push off 3% | punches in a plan: none 18%, one 56%, two 22%
+  his  punches (thrown a bout: lands / blocked / misses): Body cross 5.0: 43% / 30% / 27%, Cross 2.7: 47% / 30% / 22%, Body jab 2.1: 56% / 33% / 10%, Jab 1.8: 59% / 29% / 13%, Body hook 1.6: 54% / 38% / 8%, Lead hook 1.3: 39% / 39% / 22%, Lead uppercut 0.6: 70% / 11% / 19%, Overhand 0.6: 46% / 35% / 19%, Rear uppercut 0.6: 63% / 17% / 21%
+  your order, of the beats with one to choose (66%): first rear 17%, feet 53%, lead 30%
+  (84 bouts, 1033 s)
+EMPTY his beats 1492: mix 1103 (74%), plain 315 (21%), plainAll 8 (1%), read 66 (4%)
+  his empty beats per 100 of his beats: E1 0.5, E2 0.1, E3 10.5, E4 3.2, any 14.3  (counts E1 8, E2 1, E3 157, E4 48, any 213)
+  from mix (1103 beats): per 100 of ALL his beats E1 0.5, E2 0.1, E3 10.4, E4 3.2, any 14.1; per 100 of this branch's beats any 19.1  (counts E1 8, E2 1, E3 155, E4 48)
+  from plain (315 beats): per 100 of ALL his beats E1 0.0, E2 0.0, E3 0.0, E4 0.0, any 0.0; per 100 of this branch's beats any 0.0  (counts E1 0, E2 0, E3 0, E4 0)
+  from plainAll (8 beats): per 100 of ALL his beats E1 0.0, E2 0.0, E3 0.0, E4 0.0, any 0.0; per 100 of this branch's beats any 0.0  (counts E1 0, E2 0, E3 0, E4 0)
+  from read (66 beats): per 100 of ALL his beats E1 0.0, E2 0.0, E3 0.1, E4 0.0, any 0.1; per 100 of this branch's beats any 3.0  (counts E1 0, E2 0, E3 2, E4 0)
+  his empty kinds by range at the plan (Inside / Mid / Long): E1 8 / 0 / 0, E2 1 / 0 / 0, E3 157 / 0 / 0, E4 0 / 0 / 48
+  your (the player-bot's) empty beats per 100 beats: E1 0.9, E2 0.0, E3 3.6, E4 9.9, any 14.3
+EXIT 0
