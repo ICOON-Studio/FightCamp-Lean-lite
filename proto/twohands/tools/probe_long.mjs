@@ -5,7 +5,7 @@
 //  - "at Long" for points/health: the range in the moment the punch lands, rebuilt from the beat's range
 //    events in order (a feet moment moves the men before the punches in that same moment). A beat-start
 //    cross-check (all hits in a beat that started at Long) is printed too.
-//  - "nothing thrown": both plans have lead==null, rear==null and no clinch.
+//  - "nothing thrown": neither plan contains a damaging punch (feints, pushes and clinches are not punches).
 //  - "step in from Long": a beat that starts at Long with feet=='in' in that man's plan. "Got in" = the men
 //    end the beat closer than Long (range after resolve < 3). "Stopped" = a hit whose words say it meets
 //    him stepping in and stops him (L1's words; 0 where there is no such rule). "Paid the fence tax" =
@@ -57,7 +57,7 @@ function boutsLong(R, n, tweak, table, seed) {
         const isLongStart = rangeStart === 3;
         if (isLongStart) {
           o.longStart++;
-          if (plans.every((p) => !p.lead && !p.rear && !p.clinch)) o.nothingThrownLong++;
+          if (plans.every((p) => !(p.lead && ACT[p.lead].d) && !(p.rear && ACT[p.rear].d))) o.nothingThrownLong++;
           classifyLead(o.leadLong, plans[0]); classifyLead(o.leadLongYou, plans[0]); classifyLead(o.leadLong, plans[1]); classifyLead(o.leadLongHe, plans[1]);
         }
         const ev = resolve(S, plans); const rangeAfter = S.range; const stAfterResolve = [S.f[0].st, S.f[1].st];
