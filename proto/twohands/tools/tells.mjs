@@ -76,6 +76,25 @@ export function fakeOk4(p, cue, A) {
   const h = hits(p, A);
   return !!OPEN4[cue] && h.length === 1 && A[h[0]].d === 3 && OPEN4[cue].includes(A[h[0]].line);
 }
+/* v5 (S567 TELLS5M): v4 plus the two costs of a read.
+   a. CAUGHT LOADING (V5a): a punch that lands on him in a beat where his cue was a fake does +1 damage. The beat itself is
+      resolved by rules.mjs, which is not edited: the probe applies the +1 (probe_tells.mjs, catch=1) and counts it.
+   b. THE JABBER'S LEAD BODY HOOK (V5b): a fake shoulder of the Jabber may also hide his lead hook to the body - the page's
+      body hook (lbody: 2 damage, line body, lead hand, reach Inside/Mid) - at the ranges it reaches, beside v4's one
+      3-damage punch on an open line. Never two punches, never more than 3. */
+export const BODYHOOK5 = 'lbody';   // the page's lead hook to the body
+// what a real beat hides behind a fake of this cue: 'bluff' (less damage than the cue promises), 'lead uppercut' (v4's one
+// hidden 3 on an open line), 'lead body hook' (v5b: the Jabber's lead hook to the body, at the ranges it reaches), or null.
+export function hiddenPunch5(p, cue, A, range = 3, opp = -1) {
+  if (dmgOf(p, A) < promiseOf(cue, A)) return 'bluff';
+  const h = hits(p, A);
+  if (!OPEN4[cue] || h.length !== 1) return null;
+  const a = A[h[0]];
+  if (opp === 0 && cue === 'shoulder' && h[0] === p.lead && a.h === 0 && a.d <= 3 && a.line === 'body' && a.reach.includes(range)) return 'lead body hook';   // v5b
+  if (a.d === 3 && OPEN4[cue].includes(a.line)) return 'lead uppercut';                                  // v4: the one hidden 3
+  return null;
+}
+export const fakeOk5 = (p, cue, A, range = 3, opp = -1) => hiddenPunch5(p, cue, A, range, opp) !== null;
 const dmgOf = (p, A) => (p && !p.clinch ? ((p.lead && A[p.lead] && A[p.lead].d) || 0) + ((p.rear && A[p.rear] && A[p.rear].d) || 0) : 0);
 const PROMISE = { shoulder: BIG_REAR, knees: LOW };
 const promiseOf = (cue, A) => Math.min(...(PROMISE[cue] || []).filter((id) => A[id] && A[id].d).map((id) => A[id].d), 99);
@@ -86,6 +105,11 @@ export const LEGEND3 = 'A FAKE ALWAYS HURTS LESS THAN IT SHOWS: a fake shoulder 
 // Returns { cue shown, truth, fake, when (v2: the condition of a fake, for the ledger) }.
 export function tellOf(opp, p, c, v = 1) {
   const truth = truthOf(p, c.range, v), lie = (cue, when) => ({ cue, truth, fake: cue !== truth, when: cue !== truth ? when : '' });
+  if (v >= 5) {   // as v4, with fakeOk5 (v5b: the Jabber's shoulder may also hide his lead body hook)
+    const capped = (c.fakesRound || 0) >= CAP3.round || !!c.fakedLast;
+    if (!capped) for (const L of LIES4[opp] || []) if (L.test(c) && L.cue !== truth && fakeOk5(p, L.cue, c.ACT, c.range, opp)) return lie(L.cue, L.when);
+    return lie(truth, '');
+  }
   if (v >= 4) {   // as v3, with LIES4 and fakeOk4
     const capped = (c.fakesRound || 0) >= CAP3.round || !!c.fakedLast;
     if (!capped) for (const L of LIES4[opp] || []) if (L.test(c) && L.cue !== truth && fakeOk4(p, L.cue, c.ACT)) return lie(L.cue, L.when);

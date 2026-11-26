@@ -10,8 +10,8 @@ import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { load } from './rules.mjs';
-import { LIES, LIES3, LIES4, tellOf, fakeOk4 } from './tells.mjs';
-import { cover, botPlan, bouts, lieCueHolds, punchInto } from './probe_tells.mjs';
+import { LIES, LIES3, LIES4, tellOf, fakeOk4, fakeOk5, hiddenPunch5 } from './tells.mjs';
+import { cover, botPlan, bouts, lieCueHolds, punchInto, caughtLoading } from './probe_tells.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 let n = 0;
@@ -95,5 +95,48 @@ test('BOT 2 fixed: it doubts only that man\'s lying cue under a holding conditio
   assert.deepEqual(botPlan(2, 0, base, { cue: 'shoulder' }, cj, 3), base, 'without fix=1 BOT 2 is the TELLS3M bot');
   const tired = punchInto(base, { ...cj, me: { ...cj.me, st: 0 } }, R.FEET); assert.deepEqual(tired, base, 'no stamina: no punch added');
   const lng = punchInto(base, { ...cj, range: 3 }, R.FEET); assert.equal(lng.lead, 'jab', 'at Long: the jab');
+});
+
+/* S567 TELLS5M: version 5 (v5a caught loading, v5b the Jabber's lead body hook); v2 / v3 / v4 calls unchanged */
+test('v5a: a punch that lands on him in a fake-cue beat does +1 damage (caught loading)', () => {
+  const S = { f: [R.man(R.N.hp), R.man(R.N.hp)] };
+  const ev = [{ k: 0, t: 'hit', id: 'jab' }, { k: 1, t: 'hit', id: 'cross' }, { k: 0, t: 'block' }, { k: 0, t: 'miss' }];
+  const hp0 = S.f[1].hp;
+  assert.equal(caughtLoading(S, ev, { cue: 'shoulder', fake: true }), 1, 'one of your punches landed: one +1');
+  assert.equal(S.f[1].hp, hp0 - 1, 'the man takes the +1 damage');
+  assert.equal(caughtLoading(S, ev, { cue: 'shoulder', fake: false }), 0, 'an honest cue: no +1');
+  assert.equal(caughtLoading(S, ev, null), 0, 'the mirror has no cue: no +1');
+  assert.equal(caughtLoading(S, [], { cue: 'shoulder', fake: true }), 0, 'nothing landed: no +1');
+});
+test('v5a: the probe counts the +1s landed, and without catch=1 there is no +1', () => {
+  const o = bouts(load(7), 1, 0, 1, 4, 0, 1);
+  assert.ok(o.tl.plus1 != null && o.tl.plus1 >= 0, 'the +1 count exists with catch=1');
+  assert.ok(o.tl.plus1Beats >= 0 && o.tl.plus1Beats <= o.tl.beats, 'the beats with a +1 are counted');
+  const plain = bouts(load(7), 1, 0, 1, 4, 0, 0);
+  assert.equal(plain.tl.plus1, undefined, 'without catch=1 there is no +1');
+});
+test('v5b: the Jabber\'s shoulder fake may hide his lead hook to the body, at the ranges it reaches', () => {
+  // the page's body hook (lbody: 2 damage, line body, reach Inside/Mid) is a plain bluff with the page's punches
+  // (2 < the shoulder's promise of 3), so the v5b branch is checked with a synthetic 3-damage lead body punch, where
+  // the reach clause binds.
+  assert.equal(hiddenPunch5(plan({ lead: 'lbody' }), 'shoulder', A, 1, 0), 'bluff', 'the page\'s body hook (2): a plain bluff');
+  const A3 = { ...A, lbody: { ...A.lbody, d: 3 } };
+  assert.equal(hiddenPunch5(plan({ lead: 'lbody' }), 'shoulder', A3, 1, 0), 'lead body hook', 'a 3-damage lead body punch, Inside');
+  assert.equal(hiddenPunch5(plan({ lead: 'lbody' }), 'shoulder', A3, 2, 0), 'lead body hook', 'Mid: the body hook reaches');
+  assert.notEqual(hiddenPunch5(plan({ lead: 'lbody' }), 'shoulder', A3, 3, 0), 'lead body hook', 'at Long it does not reach');
+  assert.equal(hiddenPunch5(plan({ lead: 'lbody' }), 'shoulder', A3, 2, 1), 'lead uppercut', 'the Slugger: the v4 route only');
+  assert.equal(hiddenPunch5(plan({ rear: 'lbody' }), 'shoulder', A3, 2, 0), 'lead uppercut', 'a rear-slot body punch is not the lead hook');
+  assert.equal(hiddenPunch5(plan({ lead: 'lbody', rear: 'jab' }), 'shoulder', A3, 1, 0), null, 'two punches never hide');
+  assert.equal(hiddenPunch5(plan({ lead: 'lup' }), 'shoulder', A, 1, 0), 'lead uppercut', 'v4 keeps its one hidden 3');
+  assert.ok(fakeOk5(plan({ lead: 'lbody' }), 'shoulder', A, 2, 0) && fakeOk5(plan({ lead: 'lup' }), 'shoulder', A, 1, 0));
+  assert.ok(!fakeOk5(plan({ lead: 'lbody', rear: 'jab' }), 'shoulder', A, 1, 0), 'two punches: never');
+});
+test('v5b: with the page\'s punches the lead body hook (2) was already a valid bluff (2 < the shoulder promise of 3)', () => {
+  for (const r of [1, 2, 3]) assert.equal(fakeOk5(plan({ lead: 'lbody' }), 'shoulder', A, r, 0), fakeOk4(plan({ lead: 'lbody' }), 'shoulder', A), `range ${r}: the same decision as v4`);
+  const cj = c4({ hisLast: plan({ feet: 'back' }), range: 2 });
+  assert.equal(tellOf(0, plan({ lead: 'lbody' }), cj, 5).cue, 'shoulder'); assert.ok(tellOf(0, plan({ lead: 'lbody' }), cj, 5).fake);
+  assert.ok(!tellOf(0, plan({ lead: 'lbody' }), { ...cj, fakesRound: 2 }, 5).fake, 'the cap of 2 a round still holds');
+  assert.ok(!tellOf(0, plan({ lead: 'lbody' }), { ...cj, fakedLast: true }, 5).fake, 'never two running');
+  const t4 = tellOf(0, plan({ lead: 'lup' }), cj, 4); assert.equal(t4.cue, 'shoulder'); assert.ok(t4.fake, 'v4 unchanged: the hidden uppercut');
 });
 console.log(`PROBE_TELLS_TEST ${process.exitCode ? 'FAILED' : 'passed'} (${n} passed)`);
