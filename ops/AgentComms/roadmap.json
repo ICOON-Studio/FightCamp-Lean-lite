@@ -1,13 +1,13 @@
 {
  "_note": "SINGLE SOURCE OF TRUTH for the roadmap. The ops board reads this file directly and ROADMAP.md is GENERATED from it by Tools/render_roadmap.py. Do not hand-maintain a second copy anywhere - that is the defect R136/U62 named and it has cost this project eight times.",
- "updated": "2026-11-25",
+ "updated": "2026-11-26",
  "author": "claude S294",
  "now": {
   "id": "S558",
   "owner": "claude",
-  "updated": "2026-11-25",
-  "summary": "S558 (Fable) HANDOVER. ## METHOD - RING SWITCHES IS THE MAIN LINE, AND THE ORDER VERSION IS THE PAGE. ## METHOD - THE SLICE IS BALANCED ON THE INSTRUMENT, NEVER BY HAND (a clinch change also on probe_clinch.mjs). ## METHOD - THE FIGHT MUST BE SEEN, SIDE VIEW, BOTH MEN CHEST TO THE CAMERA. ## METHOD - THE SEATS' IDEAS ARE USED AND REPORTED. Done: his order 'have it playtested by all agents and also you' - five reports (fun, depth, clarity, variety): Claude 8,8,6,6; Ziva 7,8,7,7; Antigravity 7,7,6,6; Dola 8,7,7,8; Arena 7,7,7,7 (mean 7.4, 7.4, 6.6, 6.8: under the bar of 8); Kalli, John, Maria out of quota after 2 beats, Cline stopped by its free daily limit. On the page: a wide round is 10-8, a man at 0 health throws nothing more that beat, words fixed (8 of 9 bars on both sets, 36 rule tests). Measured, not taken: Ziva's rule ideas, the ground versions. Measured, NOT on the page: the clinch (a rote feint-punch-clinch script breaks even; 'the man tied up gets his stamina back' drops it to about 20%). Low cover played on the page, picture tests green, before/after sent. NOT DONE, his three orders from the end of the session: his idea of the switches on the fighters' bodies (build a toy), the guard picture ('why he protects his ears ?'), Rune Coliseum's step mechanic (a console worker was running). docs/RINGSWITCH_S558.md.",
-  "next_action": "S559: FIRST his three orders from the end of S558, none finished - (1) his idea: the switches on the fighters' bodies (hover a hand = its switches as a tooltip, click = it stays, the pick goes into an order strip that explains the order): build it as a toy on a copy of the page (proto/twohands/body.html) and send him the link within the hour; (2) the guard picture, 'this guard is wrong why he protects his ears ?': retake rear_high and both_low_high with the glove in front of the ear on the cheek, a picture bar first; (3) Rune Coliseum's step mechanic: collect the console worker (ops/research/RUNESTEP1_STUDY.md), tell him the verdict. SECOND the clinch: read E:/FightCamp/tmp/s558_balance/batch, take the mildest version that holds 8 of 9 bars and puts the loop under 30% on probe_clinch.mjs, or ask him if two tie.",
+  "updated": "2026-11-26",
+  "summary": "S559 (Opus) HANDOVER. METHOD lines in NEXT_SESSION_PROMPT.md. Done: body-switch toy + MASK1 lit limbs; guard glove off the ear (GUARDEAR1); kickboxing page kick.html (kicks on the feet switch, kick_test 12; fixes A 4/9, B 6/9; C/D measuring); progression spec DESIGN_PROGRESSION1; compact board + big ring + floor distance bar + our own commentators reacting each beat; his camera #16 on every picture (CAMPICK1 tool, RINGCAM1, RENDERFIT1); the 21 Boxing Movement Lab shorts catalogued (BML1); head movement page head.html (head_test 11, measuring); NIGHTREDS2 three reds green; brief PUNCHCHANCE1 (his 'Puncher's chance' switch). Incident: a worker's 8,200-file sweep reached GitHub, repaired (4f5533d3a).",
+  "next_action": "S560: FIRST collect the HEADMOVE1 measure (E:/FightCamp/tmp/s559_head/head_base.txt) and kick fixes C/D (E:/FightCamp/tmp/s559_kick/kick_fix_c|d.txt); then PUNCHCHANCE1 (measure his Puncher's chance), head-move pictures from owned Punch PRO takes, the ghost-step glide + never-still bounce, one-man-per-layer clips; ask his 4 body-view questions and the progression questions on the board; send him the pages on his new camera.",
   "last_working_commit": "71f6043f8",
   "verified_playable": "Builds/ exported in S556 (the S547 game plus S548's two changes: the 3D fight throws the body cross, the trial evening's pictures show the prospect's own body; pro_body_jab is on disk and unused by the game). Ring Switches (a browser toy): one beat played in the browser in S556 against the Jabber - both men threw a body jab, both landed, no console error; rules_test 34 pass; anim_check 124 runs PASS.",
   "incomplete_blocked": "Ring Switches: the owner has not played the page with the body jab; the jab lands 73% and the body jab 69% (bar 65%); blocked and missed body punches are drawn at chest height; the look-ahead does not know the ground rule; the southpaw is not built (five versions fail); six seat ideas still unmeasured. The clip table is not reproducible by one tool (a full census run changes eight rows).",
@@ -2443,6 +2443,11 @@
    "id": "S558",
    "date": "2026-11-25",
    "summary": "S558 (Fable) HANDOVER. ## METHOD - RING SWITCHES IS THE MAIN LINE, AND THE ORDER VERSION IS THE PAGE. ## METHOD - THE SLICE IS BALANCED ON THE INSTRUMENT, NEVER BY HAND (a clinch change also on probe_clinch.mjs). ## METHOD - THE FIGHT MUST BE SEEN, SIDE VIEW, BOTH MEN CHEST TO THE CAMERA. ## METHOD - THE SEATS' IDEAS ARE USED AND REPORTED. Done: his order 'have it playtested by all agents and also you' - five reports (fun, depth, clarity, variety): Claude 8,8,6,6; Ziva 7,8,7,7; Antigravity 7,7,6,6; Dola 8,7,7,8; Arena 7,7,7,7 (mean 7.4, 7.4, 6.6, 6.8: under the bar of 8); Kalli, John, Maria out of quota after 2 beats, Cline stopped by its free daily limit. On the page: a wide round is 10-8, a man at 0 health throws nothing more that beat, words fixed (8 of 9 bars on both sets, 36 rule tests). Measured, not taken: Ziva's rule ideas, the ground versions. Measured, NOT on the page: the clinch (a rote feint-punch-clinch script breaks even; 'the man tied up gets his stamina back' drops it to about 20%). Low cover played on the page, picture tests green, before/after sent. NOT DONE, his three orders from the end of the session: his idea of the switches on the fighters' bodies (build a toy), the guard picture ('why he protects his ears ?'), Rune Coliseum's step mechanic (a console worker was running). docs/RINGSWITCH_S558.md."
+  },
+  {
+   "id": "S559",
+   "date": "2026-11-26",
+   "summary": "S559 (Opus) HANDOVER. METHOD lines in NEXT_SESSION_PROMPT.md. Done: body-switch toy + MASK1 lit limbs; guard glove off the ear (GUARDEAR1); kickboxing page kick.html (kicks on the feet switch, kick_test 12; fixes A 4/9, B 6/9; C/D measuring); progression spec DESIGN_PROGRESSION1; compact board + big ring + floor distance bar + our own commentators reacting each beat; his camera #16 on every picture (CAMPICK1 tool, RINGCAM1, RENDERFIT1); the 21 Boxing Movement Lab shorts catalogued (BML1); head movement page head.html (head_test 11, measuring); NIGHTREDS2 three reds green; brief PUNCHCHANCE1 (his 'Puncher's chance' switch). Incident: a worker's 8,200-file sweep reached GitHub, repaired (4f5533d3a)."
   }
  ],
  "blocked_on_operator": [],
@@ -5361,7 +5366,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-25",
+  "updated": "2026-11-25 23:01 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5523,8 +5528,36 @@
   },
   "working_now": [
    {
-    "title": "Rune Coliseum's step mechanic against Ring Switches (your order)",
-    "who": "console worker (Opus), terminal tab RUNESTEP1",
+    "title": "Ring Switches playtest, judged on fun (his order: have it playtested by all agents and also you)",
+    "who": "Arena (six bouts in its own clone)",
+    "started": "2026-11-25T20:45",
+    "run": "ALLPLAY1_ARENA",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "Ring Switches playtest, judged on fun (his order: have it playtested by all agents and also you)",
+    "who": "Ziva (six bouts, its editor chat on 7012)",
+    "started": "2026-11-25T20:45",
+    "run": "ALLPLAY1_ZIVA",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "Ring Switches playtest, judged on fun (his order: have it playtested by all agents and also you)",
+    "who": "Antigravity (three bouts by message, play_by_message.mjs)",
+    "started": "2026-11-25T20:45",
+    "run": "ALLPLAY1_AGY",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "Ring Switches playtest, judged on fun (his order: have it playtested by all agents and also you)",
+    "who": "Dola (three bouts by message, play_by_message.mjs via=dola; owner S558: tgry dola now)",
+    "started": "2026-11-25T21:21",
+    "run": "ALLPLAY1_DOLA",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "Rune Coliseum's step mechanic, and does its logic fit Ring Switches (owner S558)",
+    "who": "console worker (Opus, Code Mode), terminal tab RUNESTEP1",
     "started": "2026-11-25T22:50",
     "run": "RUNESTEP1"
    }
@@ -6120,6 +6153,30 @@
   "map": {
    "done_earlier": [
     {
+     "text": "ZIVARULES1 read: no gain",
+     "who": "claude"
+    },
+    {
+     "text": "Low cover: page play + strip",
+     "who": "claude"
+    },
+    {
+     "text": "Claude played 3 bouts: 8,8,6,6",
+     "who": "claude"
+    },
+    {
+     "text": "All agents played: 5 reports",
+     "who": "claude"
+    },
+    {
+     "text": "Page: 10-8 round, KD stops beat",
+     "who": "claude"
+    },
+    {
+     "text": "Clinch measured: pays too well",
+     "who": "claude"
+    },
+    {
      "text": "ZIVAFIX1: 4 clarity changes",
      "who": "claude"
     },
@@ -6150,55 +6207,83 @@
     {
      "text": "Even round to ground: measured",
      "who": "claude"
-    },
-    {
-     "text": "Body jab on the page, health 18",
-     "who": "claude"
-    },
-    {
-     "text": "Moving costs breath: rejected",
-     "who": "claude"
-    },
-    {
-     "text": "Southpaw: 5 versions, none pass",
-     "who": "claude"
-    },
-    {
-     "text": "John read: southpaw numbers",
-     "who": "claude"
-    },
-    {
-     "text": "Ziva played 9 bouts: fun 6/10",
-     "who": "agent"
-    },
-    {
-     "text": "Order version is the page",
-     "who": "claude"
     }
    ],
    "done_session": [
     {
-     "text": "ZIVARULES1 read: no gain",
+     "text": "Body-mapped switches: toy built",
      "who": "claude"
     },
     {
-     "text": "Low cover: page play + strip",
+     "text": "Guard glove off the ear: retaken",
      "who": "claude"
     },
     {
-     "text": "Claude played 3 bouts: 8,8,6,6",
+     "text": "Rune Coliseum steps: study read",
      "who": "claude"
     },
     {
-     "text": "All agents played: 5 reports",
+     "text": "Clinch: 4 fixes, all 7 of 9",
      "who": "claude"
     },
     {
-     "text": "Page: 10-8 round, KD stops beat",
+     "text": "Pull counter: 8 of 9, jab 68%",
      "who": "claude"
     },
     {
-     "text": "Clinch measured: pays too well",
+     "text": "Kickboxing rules page + 12 tests",
+     "who": "claude"
+    },
+    {
+     "text": "Progression spec written (paper)",
+     "who": "claude"
+    },
+    {
+     "text": "Commentators react each beat",
+     "who": "claude"
+    },
+    {
+     "text": "Range plates at true distances",
+     "who": "claude"
+    },
+    {
+     "text": "Camera tool built (CAMPICK1)",
+     "who": "claude"
+    },
+    {
+     "text": "Kick sources: Mixamo on disk",
+     "who": "claude"
+    },
+    {
+     "text": "3D study: re-render + masks",
+     "who": "claude"
+    },
+    {
+     "text": "Distance bar + no blank ring",
+     "who": "claude"
+    },
+    {
+     "text": "21 movement shorts catalogued",
+     "who": "claude"
+    },
+    {
+     "text": "Head moves page + 11 tests",
+     "who": "claude"
+    },
+    {
+     "text": "Your camera on every picture",
+     "who": "claude"
+    },
+    {
+     "text": "Lit limbs + first kick pictures",
+     "who": "claude"
+    },
+    {
+     "text": "3 nightly reds green",
+     "who": "claude"
+    },
+    {
+     "text": "Head move art: owned takes",
      "who": "claude"
     }
    ],
@@ -6330,6 +6415,18 @@
     {
      "text": "Your play: balanced Ring Switches",
      "who": "operator"
+    },
+    {
+     "text": "Step pictures carry man (STEPFIX1)",
+     "who": "claude"
+    },
+    {
+     "text": "Head moves: measuring",
+     "who": "claude"
+    },
+    {
+     "text": "Kick fixes C/D: measuring",
+     "who": "claude"
     }
    ],
    "next": [
@@ -6714,29 +6811,65 @@
      "who": "claude"
     },
     {
-     "text": "Body-mapped switches: a toy",
-     "who": "claude"
-    },
-    {
-     "text": "Guard glove off the ear: retake",
-     "who": "claude"
-    },
-    {
-     "text": "Rune Coliseum steps: collect",
-     "who": "claude"
-    },
-    {
      "text": "Clinch fix onto the page",
+     "who": "claude"
+    },
+    {
+     "text": "Switch stance: after southpaw",
+     "who": "claude"
+    },
+    {
+     "text": "Critical shots: liver, chin",
+     "who": "claude"
+    },
+    {
+     "text": "Pull counter: your call (Q-337)",
+     "who": "claude"
+    },
+    {
+     "text": "Boxer v kickboxer balance",
+     "who": "claude"
+    },
+    {
+     "text": "Kick art: find takes (Mixamo...)",
+     "who": "claude"
+    },
+    {
+     "text": "Body view: lit limbs + pointer",
+     "who": "claude"
+    },
+    {
+     "text": "Re-render pictures, your angle",
+     "who": "claude"
+    },
+    {
+     "text": "Layers: one man per clip",
+     "who": "claude"
+    },
+    {
+     "text": "Never still: bounce between beats",
+     "who": "claude"
+    },
+    {
+     "text": "Puncher's chance: measure",
+     "who": "claude"
+    },
+    {
+     "text": "Head move pictures",
+     "who": "claude"
+    },
+    {
+     "text": "Ghost step glide + bounce",
      "who": "claude"
     }
    ],
-   "session": "S558"
+   "session": "S559"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
  "last_working_commit": "71f6043f8",
- "next_action": "S559: FIRST his three orders from the end of S558, none finished - (1) his idea: the switches on the fighters' bodies (hover a hand = its switches as a tooltip, click = it stays, the pick goes into an order strip that explains the order): build it as a toy on a copy of the page (proto/twohands/body.html) and send him the link within the hour; (2) the guard picture, 'this guard is wrong why he protects his ears ?': retake rear_high and both_low_high with the glove in front of the ear on the cheek, a picture bar first; (3) Rune Coliseum's step mechanic: collect the console worker (ops/research/RUNESTEP1_STUDY.md), tell him the verdict. SECOND the clinch: read E:/FightCamp/tmp/s558_balance/batch, take the mildest version that holds 8 of 9 bars and puts the loop under 30% on probe_clinch.mjs, or ask him if two tie.",
+ "next_action": "S560: FIRST collect the HEADMOVE1 measure (E:/FightCamp/tmp/s559_head/head_base.txt) and kick fixes C/D (E:/FightCamp/tmp/s559_kick/kick_fix_c|d.txt); then PUNCHCHANCE1 (measure his Puncher's chance), head-move pictures from owned Punch PRO takes, the ghost-step glide + never-still bounce, one-man-per-layer clips; ask his 4 body-view questions and the progression questions on the board; send him the pages on his new camera.",
  "next_acceptance": "Rulers vs r0: head jumps on the contact frame under 4, a head inside the other's body under 5 frames, arm out median under 4 frames with join_return green, then r1 film at two fresh blind critics 5+/10",
  "superseded_archive": [
   {
