@@ -44,6 +44,9 @@ export function botPlan(bot, opp, base, tell, c, v = 2) {
 
 const drawAt = (mix, rnd) => { let x = rnd(), i = 0; while (i < mix.length - 1 && (x -= mix[i]) > 0) i++; return i; };   // as balance.mjs
 const merge = (a, b) => { if (!a) return b; for (const k in b) { if (typeof b[k] === 'number') a[k] = (a[k] || 0) + b[k]; else if (Array.isArray(b[k]) && typeof b[k][0] === 'number') b[k].forEach((x, i) => { a[k][i] += x; }); else if (Array.isArray(b[k])) b[k].forEach((x, i) => { a[k][i] = merge(a[k][i], x); }); else a[k] = merge(a[k] || {}, b[k]); } return a; };   // as balance.mjs
+const PROMISE_CUE = { shoulder: ['cross', 'over'], knees: ['bjab', 'lbody', 'rbody', 'lup', 'rup'] };
+const planDmg = (p, A) => (p && !p.clinch ? ((p.lead && A[p.lead] && A[p.lead].d) || 0) + ((p.rear && A[p.rear] && A[p.rear].d) || 0) : 0);
+const cueMinDmg = (cue, A) => Math.min(...(PROMISE_CUE[cue] || []).filter((id) => A[id] && A[id].d).map((id) => A[id].d), 99);
 
 // ---- WHOLE BOUTS. balance.mjs bouts(R, 'mix', opp, n), with the tell, the bot's change and the fake's cost added.
 // o = balance.mjs's counts + o.tl (the tells: beats, fakes, cues shown, beats the bot changed, his / your stamina at bells).
@@ -51,7 +54,7 @@ export function bouts(R, bot, opp, n, v = 2) { const { N, ACT, man, resolve, end
   if (mirror) { if (!R.OPPS[3]) R.OPPS.push({ n: 'mirror', hp: N.hp, read: 0, like: [], lean: 0 }); R.setOpp(3); } else R.setOpp(opp);
   const o = { n, w: 0, draw: 0, ko: 0, lost: 0, beats: 0, clinch: 0, rng: [0, 0, 0, 0], use: [{}, {}], pun: [{}, {}], np: [[0, 0, 0], [0, 0, 0]], dmg: [0, 0], first: {}, ordered: 0, kd: [0, 0], lvl: [0, 0, 0] };
   const z0 = () => new Array(N.rounds).fill(0);
-  o.tl = { beats: 0, fake: 0, cue: Object.fromEntries(CUE_KEYS.map((k) => [k, 0])), cueFake: Object.fromEntries(CUE_KEYS.map((k) => [k, 0])), changed: 0, lieHeld: 0, lieSkipped: 0, bellSt: z0(), bellMe: z0(), bellN: z0(), stopRound: z0() };
+  o.tl = { beats: 0, fake: 0, ...(v >= 3 ? { fakeBluff: 0, fakeOver: {} } : {}), cue: Object.fromEntries(CUE_KEYS.map((k) => [k, 0])), cueFake: Object.fromEntries(CUE_KEYS.map((k) => [k, 0])), changed: 0, lieHeld: 0, lieSkipped: 0, bellSt: z0(), bellMe: z0(), bellN: z0(), stopRound: z0() };
   const note = (k, c) => { const u = o.use[k], add = (x) => { u[x] = (u[x] || 0) + 1; }; if (c.clinch) return add('clinch'); add(c.lead || 'lead held ' + c.hl); add(c.rear || 'rear held ' + c.hr); add(c.feet === 'hold' ? 'feet hold' : c.feet === 'in' ? 'step in' : c.feet === 'back' ? 'back off' : c.feet);
     o.np[k][(c.lead && ACT[c.lead].d ? 1 : 0) + (c.rear ? 1 : 0)]++; if (k === 0 && c.ord && c.ord.length > 1) { o.ordered++; o.first[c.ord[0]] = (o.first[c.ord[0]] || 0) + 1; } };
   const same = (a, b) => a.clinch === b.clinch && a.lead === b.lead && a.rear === b.rear && a.hl === b.hl && a.hr === b.hr && a.feet === b.feet;
@@ -63,7 +66,7 @@ export function bouts(R, bot, opp, n, v = 2) { const { N, ACT, man, resolve, end
         else { his = R.ai(S) || R.plan0();   // his beat first (play_cli.mjs since S563), then his cue from it
           const c = { me: { ...S.f[0] }, him: { ...S.f[1] }, ...ctx, range: S.range, ...(v >= 3 ? { ACT, fakesRound: fk.round, fakedLast: fk.last } : {}) }; tell = tellOf(opp, his, c, v); fk.round += tell.fake ? 1 : 0; fk.last = tell.fake;
           const z = R.solveBeat(S, S.t, { iters: 400 }), base = z.A[drawAt(z.p, rnd)]; mine = botPlan(bot, opp, base, tell, c, v);
-          const T = o.tl; T.beats++; T.cue[tell.cue]++; if (tell.fake) { T.fake++; T.cueFake[tell.cue]++; } if (!same(base, mine)) T.changed++;
+          const T = o.tl; T.beats++; T.cue[tell.cue]++; if (tell.fake) { T.fake++; T.cueFake[tell.cue]++; if (v >= 3) { const d = planDmg(his, ACT), m = cueMinDmg(tell.cue, ACT); if (d < m) T.fakeBluff++; else { const k = `${tell.cue}:${his.lead || '-'}+${his.rear || '-'}(${d}>=${m})`; T.fakeOver[k] = (T.fakeOver[k] || 0) + 1; } } } if (!same(base, mine)) T.changed++;
           if (lieHolds(opp, c, v)) { T.lieHeld++; if (bot === 2 && !same(base, cover(base, tell.cue))) T.lieSkipped++; } }
         note(0, mine); note(1, his); const hp = [S.f[0].hp, S.f[1].hp], ev = resolve(S, [{ ...mine }, { ...his }]); endBeat(S); o.beats++; o.rng[S.range]++; o.dmg[0] += hp[1] - S.f[1].hp; o.dmg[1] += hp[0] - S.f[0].hp;
         if (tell && tell.fake) S.f[1].st = Math.max(0, S.f[1].st - 1);   // TELLS2: a bluff costs the liar 1 stamina (as play_cli.mjs)
@@ -85,9 +88,10 @@ export async function play(bot, opp, n, o = {}) { const jobs = o.jobs || 2, self
 
 // the numbers of one pairing (the result table reads these)
 export function summary(o) { const dec = o.n - o.draw, T = o.tl, f = (x) => +x.toFixed(3);
-  return { n: o.n, wins: o.w, draws: o.draw, decided: dec, winDec: dec ? f(o.w / dec) : null, stop: f((o.ko + o.lost) / o.n), ko: o.ko, lost: o.lost,
+  const s = { n: o.n, wins: o.w, draws: o.draw, decided: dec, winDec: dec ? f(o.w / dec) : null, stop: f((o.ko + o.lost) / o.n), ko: o.ko, lost: o.lost,
     kdBout: f((o.kd[0] + o.kd[1]) / o.n), kdHim: f(o.kd[1] / o.n), kdYou: f(o.kd[0] / o.n), fakeBeat: T.beats ? f(T.fake / T.beats) : null, changed: T.beats ? f(T.changed / T.beats) : null,
-    lieHeld: T.beats ? f(T.lieHeld / T.beats) : null, bellHim: T.bellN.map((c, i) => (c ? +(T.bellSt[i] / c).toFixed(2) : null)), bellYou: T.bellN.map((c, i) => (c ? +(T.bellMe[i] / c).toFixed(2) : null)), bells: T.bellN }; }
+    lieHeld: T.beats ? f(T.lieHeld / T.beats) : null, bellHim: T.bellN.map((c, i) => (c ? +(T.bellSt[i] / c).toFixed(2) : null)), bellYou: T.bellN.map((c, i) => (c ? +(T.bellMe[i] / c).toFixed(2) : null)), bells: T.bellN };
+  return T.fakeBluff == null ? s : { ...s, fakeBluff: T.fakeBluff, bluffShare: T.fake ? f(T.fakeBluff / T.fake) : null, fakeOver: T.fakeOver }; }
 
 export function report(R, bot, opp, o, extra = {}) { const pc = (x) => (x == null ? '-' : (100 * x).toFixed(0) + '%'), s = summary(o), T = o.tl, mirror = opp === 'mirror';
   const name = mirror ? 'the mirror mix (the same man, no style, no tells)' : R.OPPS[opp].n, L = [];
@@ -101,6 +105,7 @@ export function report(R, bot, opp, o, extra = {}) { const pc = (x) => (x == nul
   const bar = (ok, txt) => L.push(`  ${ok ? 'PASS' : 'FAIL'} ${txt}`);
   bar(s.stop >= 0.1 && s.stop <= 0.4, `stoppages 10-40%: ${pc(s.stop)}`);
   if (!mirror) bar(s.fakeBeat >= 0.15 && s.fakeBeat <= 0.3, `his fakes on 15-30% of beats: ${pc(s.fakeBeat)}`);
+  if (!mirror && T.fakeBluff != null) { const ex = Object.entries(T.fakeOver || {}); bar(T.fake === T.fakeBluff, `bluff share (fake real damage < cue's smallest punch) 100%: ${T.fake ? pc(s.bluffShare) : '-'} (${T.fakeBluff} of ${T.fake}${ex.length ? '; exceptions ' + ex.map(([k, c]) => k + 'x' + c).join(', ') : ', 0 exceptions'})`); }
   if (mirror) bar(s.winDec != null && Math.abs(s.winDec - 0.5) <= 0.1, `BOT 0 about 50% v the mirror mix (40-60% of decided): ${pc(s.winDec)}`);
   if (bot === 1 && !mirror) bar(s.winDec != null && s.winDec <= 0.55, `BOT 1 wins at most 55% of decided: ${pc(s.winDec)}`);
   if (bot === 2 && !mirror) L.push(`  (BOT 2 bar - 70%+ of decided, OR 10 points more than BOT 1 - is judged in docs/TELLS2M_RESULT.md against BOT 1's file: ${pc(s.winDec)} here)`);

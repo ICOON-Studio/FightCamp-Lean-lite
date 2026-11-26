@@ -1,0 +1,38 @@
+=== TRIAL n=12 seed=1 (2026-11-26T13:18:03Z) ===
+TELLS VERSION 3
+PROBE_TELLS bot=0 (BOT 0: no tell (the page's mix)) v The Body Snatcher: n=12 seed=1 jobs=2 (worker i: seed*100+i; page order.html through rules.mjs, tells.mjs v2; nothing edited)
+  wins of decided 73% (8 of 11), draws 1; stoppages 33% (he is stopped 3, you are stopped 1); knockdowns a bout 2.67 (him 1.75, you 0.92)
+  his tells: 211 beats, fakes 33 = 16% of beats; cues shown shoulder 46 (fake 0), knees 124 (fake 33), foot 14 (fake 0), backfoot 13 (fake 0), still 14 (fake 0)
+  his lie condition held on 45% of beats; the bot changed BOT 0's beat on 0% of beats
+  stamina at the bells (avg, of 8; bells reached 12 / 12 / 8): him 2.0 / 2.3 / 2.4; you 2.0 / 1.7 / 2.1; stoppages by round 0 / 0 / 4
+  PASS stoppages 10-40%: 33%
+  PASS his fakes on 15-30% of beats: 16%
+  PASS bluff share (fake real damage < cue's smallest punch) 100%: 100% (33 of 33, 0 exceptions)
+  bot0 v The Body Snatcher: wins 67%, draws 8%, stops him 25%, is stopped 8%; knockdowns a bout 1.8 v 0.9; health taken a bout 24.9 v 20.3; beats at Inside / Mid / Long 48% / 36% / 17%; clinches a bout 2.0; rounds level on points 6%, 50% of them given on ground
+    you a beat: step in 33%, feet hold 29%, back off 28%, lead held low 27%, Cross 25%, Body cross 19%, rear held low 18%, rear held high 15%, Body jab 14%, lead held high 12%, Feint 11%, clinch 9%, Jab 8%, Lead hook 8%, Overhand 8%, Rear uppercut 5%, Push off 4%, Body hook 4%, Lead uppercut 3% | punches in a plan: none 11%, one 64%, two 15%
+    your punches (thrown a bout: lands / blocked / misses): Cross 3.9: 49% / 28% / 23%, Body cross 3.3: 62% / 28% / 10%, Body jab 2.4: 55% / 31% / 14%, Jab 1.4: 65% / 24% / 12%, Lead hook 1.3: 33% / 60% / 7%, Overhand 1.2: 93% / 0% / 7%, Rear uppercut 0.8: 90% / 10% / 0%, Lead uppercut 0.5: 83% / 17% / 0%, Body hook 0.5: 83% / 17% / 0%
+    he  a beat: step in 54%, lead held low 33%, Body cross 27%, rear held high 23%, feet hold 23%, Cross 19%, back off 18%, rear held low 18%, lead held high 14%, Body jab 10%, Body hook 9%, Lead hook 8%, Jab 7%, clinch 6%, Lead uppercut 5%, Feint 5%, Rear uppercut 4%, Push off 4%, Overhand 2% | punches in a plan: none 21%, one 54%, two 19%
+    his  punches (thrown a bout: lands / blocked / misses): Body cross 4.6: 56% / 20% / 24%, Cross 2.9: 46% / 34% / 20%, Body jab 1.8: 62% / 29% / 10%, Body hook 1.4: 76% / 12% / 12%, Lead hook 1.3: 47% / 47% / 7%, Jab 1.2: 57% / 43% / 0%, Lead uppercut 0.9: 73% / 18% / 9%, Rear uppercut 0.5: 33% / 50% / 17%, Overhand 0.3: 75% / 25% / 0%
+    your order, of the beats with one to choose (65%): first lead 31%, feet 51%, rear 17%
+  SUMMARY {"bot":0,"opp":2,"n":12,"wins":8,"draws":1,"decided":11,"winDec":0.727,"stop":0.333,"ko":3,"lost":1,"kdBout":2.667,"kdHim":1.75,"kdYou":0.917,"fakeBeat":0.156,"changed":0,"lieHeld":0.45,"bellHim":[2,2.33,2.38],"bellYou":[2,1.67,2.13],"bells":[12,12,8],"fakeBluff":33,"bluffShare":1,"fakeOver":{}}
+  (12 bouts, 135 s)
+
+=== FULL n=84 seed=2 (2026-11-26T14:17:19Z) ===
+TELLS VERSION 3
+PROBE_TELLS bot=0 (BOT 0: no tell (the page's mix)) v The Body Snatcher: n=84 seed=2 jobs=2 (worker i: seed*100+i; page order.html through rules.mjs, tells.mjs v2; nothing edited)
+  wins of decided 61% (49 of 81), draws 3; stoppages 14% (he is stopped 10, you are stopped 2); knockdowns a bout 2.12 (him 1.34, you 0.77)
+  his tells: 1500 beats, fakes 231 = 15% of beats; cues shown shoulder 294 (fake 0), knees 910 (fake 231), foot 80 (fake 0), backfoot 98 (fake 0), still 118 (fake 0)
+  his lie condition held on 48% of beats; the bot changed BOT 0's beat on 0% of beats
+  stamina at the bells (avg, of 8; bells reached 84 / 84 / 72): him 2.1 / 1.9 / 2.0; you 1.8 / 1.9 / 2.2; stoppages by round 0 / 0 / 12
+  PASS stoppages 10-40%: 14%
+  PASS his fakes on 15-30% of beats: 15%
+  PASS bluff share (fake real damage < cue's smallest punch) 100%: 100% (231 of 231, 0 exceptions)
+  bot0 v The Body Snatcher: wins 58%, draws 4%, stops him 12%, is stopped 2%; knockdowns a bout 1.3 v 0.8; health taken a bout 23.3 v 18.5; beats at Inside / Mid / Long 43% / 38% / 19%; clinches a bout 1.6; rounds level on points 13%, 84% of them given on ground
+    you a beat: feet hold 32%, step in 31%, lead held low 30%, back off 29%, Cross 23%, Body cross 21%, rear held high 19%, rear held low 17%, Body jab 16%, Feint 11%, lead held high 9%, clinch 8%, Overhand 7%, Lead hook 7%, Push off 7%, Rear uppercut 6%, Jab 5%, Lead uppercut 4%, Body hook 4% | punches in a plan: none 12%, one 67%, two 12%
+    your punches (thrown a bout: lands / blocked / misses): Cross 3.7: 50% / 31% / 20%, Body cross 3.4: 58% / 28% / 14%, Body jab 2.8: 65% / 26% / 9%, Overhand 1.2: 76% / 15% / 9%, Lead hook 1.1: 42% / 51% / 8%, Jab 0.9: 44% / 49% / 8%, Rear uppercut 0.9: 61% / 15% / 24%, Lead uppercut 0.7: 68% / 16% / 16%, Body hook 0.6: 48% / 46% / 6%
+    he  a beat: step in 53%, lead held low 30%, Body cross 29%, rear held high 23%, feet hold 22%, back off 20%, rear held low 20%, Cross 16%, lead held high 15%, Body hook 9%, Jab 9%, Body jab 8%, Lead hook 8%, Feint 7%, Lead uppercut 5%, clinch 5%, Push off 4%, Rear uppercut 4%, Overhand 3% | punches in a plan: none 22%, one 53%, two 19%
+    his  punches (thrown a bout: lands / blocked / misses): Body cross 4.7: 49% / 27% / 24%, Cross 2.7: 51% / 30% / 19%, Jab 1.5: 46% / 47% / 7%, Body jab 1.5: 52% / 40% / 8%, Body hook 1.5: 53% / 29% / 18%, Lead hook 1.2: 33% / 49% / 18%, Lead uppercut 0.9: 55% / 24% / 20%, Overhand 0.5: 43% / 36% / 20%, Rear uppercut 0.5: 60% / 19% / 21%
+    your order, of the beats with one to choose (64%): first lead 28%, feet 56%, rear 16%
+  SUMMARY {"bot":0,"opp":2,"n":84,"wins":49,"draws":3,"decided":81,"winDec":0.605,"stop":0.143,"ko":10,"lost":2,"kdBout":2.119,"kdHim":1.345,"kdYou":0.774,"fakeBeat":0.154,"changed":0,"lieHeld":0.479,"bellHim":[2.07,1.85,1.96],"bellYou":[1.82,1.86,2.18],"bells":[84,84,72],"fakeBluff":231,"bluffShare":1,"fakeOver":{}}
+  (84 bouts, 995 s)
+
