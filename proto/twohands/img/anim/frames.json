@@ -9068,6 +9068,648 @@
     0.285
    ],
    "same_as": "red_rear_hook_missed_r1"
+  },
+  "blue_body_cross_short": {
+   "files": [
+    "blue_body_cross_short_0.webp",
+    "blue_body_cross_short_1.webp",
+    "blue_body_cross_short_2.webp",
+    "blue_body_cross_short_3.webp",
+    "blue_body_cross_short_4.webp",
+    "blue_body_cross_short_5.webp",
+    "blue_body_cross_short_6.webp",
+    "blue_body_cross_short_7.webp",
+    "blue_body_cross_short_8.webp",
+    "blue_body_cross_short_9.webp"
+   ],
+   "offs": [
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 5,
+   "clip": "pro_body_cross",
+   "range": 3,
+   "hit": [
+    0.514,
+    0.376
+   ]
+  },
+  "blue_body_hook_short": {
+   "files": [
+    "blue_body_hook_short_0.webp",
+    "blue_body_hook_short_1.webp",
+    "blue_body_hook_short_2.webp",
+    "blue_body_hook_short_3.webp",
+    "blue_body_hook_short_4.webp",
+    "blue_body_hook_short_5.webp",
+    "blue_body_hook_short_6.webp",
+    "blue_body_hook_short_7.webp",
+    "blue_body_hook_short_8.webp",
+    "blue_body_hook_short_9.webp",
+    "blue_body_hook_short_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_body_shot",
+   "range": 3,
+   "hit": [
+    0.543,
+    0.359
+   ]
+  },
+  "blue_cross_short": {
+   "files": [
+    "blue_cross_short_0.webp",
+    "blue_cross_short_1.webp",
+    "blue_cross_short_2.webp",
+    "blue_cross_short_3.webp",
+    "blue_cross_short_4.webp",
+    "blue_cross_short_5.webp",
+    "blue_cross_short_6.webp",
+    "blue_cross_short_7.webp",
+    "blue_cross_short_8.webp",
+    "blue_cross_short_9.webp"
+   ],
+   "offs": [
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 5,
+   "clip": "pro_right_cross",
+   "range": 3,
+   "hit": [
+    0.448,
+    0.294
+   ]
+  },
+  "blue_lead_hook_short": {
+   "files": [
+    "blue_lead_hook_short_0.webp",
+    "blue_lead_hook_short_1.webp",
+    "blue_lead_hook_short_2.webp",
+    "blue_lead_hook_short_3.webp",
+    "blue_lead_hook_short_4.webp",
+    "blue_lead_hook_short_5.webp",
+    "blue_lead_hook_short_6.webp",
+    "blue_lead_hook_short_7.webp",
+    "blue_lead_hook_short_8.webp",
+    "blue_lead_hook_short_9.webp",
+    "blue_lead_hook_short_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_left_hook_ft",
+   "range": 3,
+   "hit": [
+    0.54,
+    0.266
+   ]
+  },
+  "blue_lead_uppercut_short": {
+   "files": [
+    "blue_lead_uppercut_short_0.webp",
+    "blue_lead_uppercut_short_1.webp",
+    "blue_lead_uppercut_short_2.webp",
+    "blue_lead_uppercut_short_3.webp",
+    "blue_lead_uppercut_short_4.webp",
+    "blue_lead_uppercut_short_5.webp",
+    "blue_lead_uppercut_short_6.webp",
+    "blue_lead_uppercut_short_7.webp",
+    "blue_lead_uppercut_short_8.webp",
+    "blue_lead_uppercut_short_9.webp",
+    "blue_lead_uppercut_short_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_left_uppercut",
+   "range": 3,
+   "hit": [
+    0.618,
+    0.206
+   ]
+  },
+  "blue_rear_hook_short": {
+   "files": [
+    "blue_rear_hook_short_0.webp",
+    "blue_rear_hook_short_1.webp",
+    "blue_rear_hook_short_2.webp",
+    "blue_rear_hook_short_3.webp",
+    "blue_rear_hook_short_4.webp",
+    "blue_rear_hook_short_5.webp",
+    "blue_rear_hook_short_6.webp",
+    "blue_rear_hook_short_7.webp",
+    "blue_rear_hook_short_8.webp",
+    "blue_rear_hook_short_9.webp",
+    "blue_rear_hook_short_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_right_hook_ft",
+   "range": 3,
+   "hit": [
+    0.57,
+    0.268
+   ]
+  },
+  "blue_rear_uppercut_short": {
+   "files": [
+    "blue_rear_uppercut_short_0.webp",
+    "blue_rear_uppercut_short_1.webp",
+    "blue_rear_uppercut_short_2.webp",
+    "blue_rear_uppercut_short_3.webp",
+    "blue_rear_uppercut_short_4.webp",
+    "blue_rear_uppercut_short_5.webp",
+    "blue_rear_uppercut_short_6.webp",
+    "blue_rear_uppercut_short_7.webp",
+    "blue_rear_uppercut_short_8.webp",
+    "blue_rear_uppercut_short_9.webp",
+    "blue_rear_uppercut_short_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_right_uppercut",
+   "range": 3,
+   "hit": [
+    0.6,
+    0.285
+   ]
+  },
+  "red_body_cross_short": {
+   "files": [
+    "red_body_cross_short_0.webp",
+    "red_body_cross_short_1.webp",
+    "red_body_cross_short_2.webp",
+    "red_body_cross_short_3.webp",
+    "red_body_cross_short_4.webp",
+    "red_body_cross_short_5.webp",
+    "red_body_cross_short_6.webp",
+    "red_body_cross_short_7.webp",
+    "red_body_cross_short_8.webp",
+    "red_body_cross_short_9.webp"
+   ],
+   "offs": [
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 5,
+   "clip": "pro_body_cross",
+   "range": 3,
+   "hit": [
+    0.572,
+    0.385
+   ]
+  },
+  "red_body_hook_short": {
+   "files": [
+    "red_body_hook_short_0.webp",
+    "red_body_hook_short_1.webp",
+    "red_body_hook_short_2.webp",
+    "red_body_hook_short_3.webp",
+    "red_body_hook_short_4.webp",
+    "red_body_hook_short_5.webp",
+    "red_body_hook_short_6.webp",
+    "red_body_hook_short_7.webp",
+    "red_body_hook_short_8.webp",
+    "red_body_hook_short_9.webp",
+    "red_body_hook_short_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_body_shot",
+   "range": 3,
+   "hit": [
+    0.546,
+    0.376
+   ]
+  },
+  "red_cross_short": {
+   "files": [
+    "red_cross_short_0.webp",
+    "red_cross_short_1.webp",
+    "red_cross_short_2.webp",
+    "red_cross_short_3.webp",
+    "red_cross_short_4.webp",
+    "red_cross_short_5.webp",
+    "red_cross_short_6.webp",
+    "red_cross_short_7.webp",
+    "red_cross_short_8.webp",
+    "red_cross_short_9.webp"
+   ],
+   "offs": [
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 5,
+   "clip": "pro_right_cross",
+   "range": 3,
+   "hit": [
+    0.64,
+    0.309
+   ]
+  },
+  "red_lead_hook_short": {
+   "files": [
+    "red_lead_hook_short_0.webp",
+    "red_lead_hook_short_1.webp",
+    "red_lead_hook_short_2.webp",
+    "red_lead_hook_short_3.webp",
+    "red_lead_hook_short_4.webp",
+    "red_lead_hook_short_5.webp",
+    "red_lead_hook_short_6.webp",
+    "red_lead_hook_short_7.webp",
+    "red_lead_hook_short_8.webp",
+    "red_lead_hook_short_9.webp",
+    "red_lead_hook_short_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_left_hook_ft",
+   "range": 3,
+   "hit": [
+    0.558,
+    0.282
+   ]
+  },
+  "red_lead_uppercut_short": {
+   "files": [
+    "red_lead_uppercut_short_0.webp",
+    "red_lead_uppercut_short_1.webp",
+    "red_lead_uppercut_short_2.webp",
+    "red_lead_uppercut_short_3.webp",
+    "red_lead_uppercut_short_4.webp",
+    "red_lead_uppercut_short_5.webp",
+    "red_lead_uppercut_short_6.webp",
+    "red_lead_uppercut_short_7.webp",
+    "red_lead_uppercut_short_8.webp",
+    "red_lead_uppercut_short_9.webp",
+    "red_lead_uppercut_short_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_left_uppercut",
+   "range": 3,
+   "hit": [
+    0.483,
+    0.227
+   ]
+  },
+  "red_rear_hook_short": {
+   "files": [
+    "red_rear_hook_short_0.webp",
+    "red_rear_hook_short_1.webp",
+    "red_rear_hook_short_2.webp",
+    "red_rear_hook_short_3.webp",
+    "red_rear_hook_short_4.webp",
+    "red_rear_hook_short_5.webp",
+    "red_rear_hook_short_6.webp",
+    "red_rear_hook_short_7.webp",
+    "red_rear_hook_short_8.webp",
+    "red_rear_hook_short_9.webp",
+    "red_rear_hook_short_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_right_hook_ft",
+   "range": 3,
+   "hit": [
+    0.525,
+    0.286
+   ]
+  },
+  "red_rear_uppercut_short": {
+   "files": [
+    "red_rear_uppercut_short_0.webp",
+    "red_rear_uppercut_short_1.webp",
+    "red_rear_uppercut_short_2.webp",
+    "red_rear_uppercut_short_3.webp",
+    "red_rear_uppercut_short_4.webp",
+    "red_rear_uppercut_short_5.webp",
+    "red_rear_uppercut_short_6.webp",
+    "red_rear_uppercut_short_7.webp",
+    "red_rear_uppercut_short_8.webp",
+    "red_rear_uppercut_short_9.webp",
+    "red_rear_uppercut_short_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_right_uppercut",
+   "range": 3,
+   "hit": [
+    0.497,
+    0.295
+   ]
+  },
+  "blue_overhand_short": {
+   "files": [
+    "blue_rear_hook_short_0.webp",
+    "blue_rear_hook_short_1.webp",
+    "blue_rear_hook_short_2.webp",
+    "blue_rear_hook_short_3.webp",
+    "blue_rear_hook_short_4.webp",
+    "blue_rear_hook_short_5.webp",
+    "blue_rear_hook_short_6.webp",
+    "blue_rear_hook_short_7.webp",
+    "blue_rear_hook_short_8.webp",
+    "blue_rear_hook_short_9.webp",
+    "blue_rear_hook_short_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_right_hook_ft",
+   "range": 3,
+   "hit": [
+    0.57,
+    0.268
+   ],
+   "same_as": "blue_rear_hook_short"
+  },
+  "red_overhand_short": {
+   "files": [
+    "red_rear_hook_short_0.webp",
+    "red_rear_hook_short_1.webp",
+    "red_rear_hook_short_2.webp",
+    "red_rear_hook_short_3.webp",
+    "red_rear_hook_short_4.webp",
+    "red_rear_hook_short_5.webp",
+    "red_rear_hook_short_6.webp",
+    "red_rear_hook_short_7.webp",
+    "red_rear_hook_short_8.webp",
+    "red_rear_hook_short_9.webp",
+    "red_rear_hook_short_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_right_hook_ft",
+   "range": 3,
+   "hit": [
+    0.525,
+    0.286
+   ],
+   "same_as": "red_rear_hook_short"
+  },
+  "blue_feint_r1": {
+   "files": [
+    "blue_feint_r1_0.webp",
+    "blue_feint_r1_1.webp",
+    "blue_feint_r1_2.webp",
+    "blue_feint_r1_3.webp",
+    "blue_feint_r1_4.webp",
+    "blue_feint_r1_5.webp",
+    "blue_feint_r1_6.webp"
+   ],
+   "offs": [
+    0.0,
+    0.07,
+    0.13,
+    0.2,
+    0.27,
+    0.36,
+    0.46
+   ],
+   "contact": -1,
+   "clip": "pro_left_jab_b"
+  },
+  "blue_feint_r2": {
+   "files": [
+    "blue_feint_r2_0.webp",
+    "blue_feint_r2_1.webp",
+    "blue_feint_r2_2.webp",
+    "blue_feint_r2_3.webp",
+    "blue_feint_r2_4.webp",
+    "blue_feint_r2_5.webp",
+    "blue_feint_r2_6.webp"
+   ],
+   "offs": [
+    0.0,
+    0.07,
+    0.13,
+    0.2,
+    0.27,
+    0.36,
+    0.46
+   ],
+   "contact": -1,
+   "clip": "pro_left_jab_b"
+  },
+  "red_feint_r1": {
+   "files": [
+    "red_feint_r1_0.webp",
+    "red_feint_r1_1.webp",
+    "red_feint_r1_2.webp",
+    "red_feint_r1_3.webp",
+    "red_feint_r1_4.webp",
+    "red_feint_r1_5.webp",
+    "red_feint_r1_6.webp"
+   ],
+   "offs": [
+    0.0,
+    0.07,
+    0.13,
+    0.2,
+    0.27,
+    0.36,
+    0.46
+   ],
+   "contact": -1,
+   "clip": "pro_left_jab_b"
+  },
+  "red_feint_r2": {
+   "files": [
+    "red_feint_r2_0.webp",
+    "red_feint_r2_1.webp",
+    "red_feint_r2_2.webp",
+    "red_feint_r2_3.webp",
+    "red_feint_r2_4.webp",
+    "red_feint_r2_5.webp",
+    "red_feint_r2_6.webp"
+   ],
+   "offs": [
+    0.0,
+    0.07,
+    0.13,
+    0.2,
+    0.27,
+    0.36,
+    0.46
+   ],
+   "contact": -1,
+   "clip": "pro_left_jab_b"
   }
  },
  "camera": {
