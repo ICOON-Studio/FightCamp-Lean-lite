@@ -11,7 +11,7 @@ import { fileURLToPath } from 'node:url';
 import { mulberry } from './rules.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
-const html = fs.readFileSync(path.join(here, '..', 'order.html'), 'utf8');
+const html = fs.readFileSync(path.join(here, '..', process.argv[2] || 'order.html'), 'utf8');   /* S561: a page copy with the same page half (punch.html) is played the same way */
 const src = html.slice(html.indexOf('<script>') + 8, html.lastIndexOf('</script>'));
 
 function page(seed) {

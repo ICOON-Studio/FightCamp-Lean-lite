@@ -1,62 +1,59 @@
-# S561 handover (written 2026-11-26, S560 - Fable 5.2)
+# S562 handover (written 2026-11-26, S561 - Fable 5.2)
 
-Start: `git pull && python ops/Tools/agent_comms.py start`, then this page, then `ops/research/S560_DIGEST.md`.
+Start: `git pull && python ops/Tools/agent_comms.py start`, then this page, then `ops/research/S561_DIGEST.md`.
 
 ## METHOD lines - quote all of them in your first message
 - ## METHOD - RING SWITCHES IS THE MAIN LINE (owner S553, S555). The pages: `proto/twohands/order.html` (boxing, the
-  source; the PULL COUNTER is on it since S560), `kick.html` (kickboxing), `head.html` (head movement), `body.html` (the
-  lit-limb toy). The rules sit above each page's `// ---- the page` mark; page look below it and in ring_ui.js / body_ui.js.
-- ## METHOD - THE SLICE IS BALANCED ON THE INSTRUMENT, NEVER BY HAND (owner S555). A change is a tweak file first
-  (`"page": "kick.html"` names the page); `node proto/twohands/tools/balance.mjs table` + `play n=84` / `balance_batch.sh`;
-  rules_test 37, kick_test 12, head_test 11, page_parse, page_play_test 4. Never edit a page's rules while a run reads it.
-  A weaker strike lands MORE (nobody defends it): to lower a landing rate, make the defence cheap or the threat bigger.
-- ## METHOD - THE FIGHT MUST BE SEEN: HIS CAMERA (S559 #16, raised 31 deg, from the side; tools/pics2d_camera.json), one
-  fixed ring camera (RINGCAM1), the page slides the picture for red's steps (ring_ui.js). Every render takes south=blue.
-  A new rule is proved SHOWN with `node proto/twohands/tools/beat_shot.mjs <out> <page> '<beats json>'` (headless Edge).
+  source), `punch.html` (order.html + the Puncher's chance switch: BUILT by `python proto/twohands/tools/make_punch.py
+  [tweak.json]`, never edited by hand), `kick.html`, `head.html` (head movement, with its own pictures since S561),
+  `body.html` (the lit-limb toy). The rules sit above each page's `// ---- the page` mark.
+- ## METHOD - THE SLICE IS BALANCED ON THE INSTRUMENT, NEVER BY HAND (owner S555). A change is a tweak file first;
+  `node proto/twohands/tools/balance.mjs table` + `play n=84`; rules_test 37, kick_test 12, head_test 11, punch_chance_test
+  13, page_parse, page_play_test 4 (`page_play_test.mjs punch.html` for the copy). A weaker strike lands MORE.
+- ## METHOD - THE FIGHT MUST BE SEEN: HIS CAMERA (S559 #16), one fixed ring camera, every render `south=blue`. A new rule
+  or picture is proved SHOWN with `node proto/twohands/tools/beat_shot.mjs <out> <page> '<beats json>'` (headless Edge;
+  it prints the pictures a beat played; a beat can set `"hp": [yours, his]`).
+- ## METHOD - A HEAD MOVE IS STAGED WITH THE GLOVE THROUGH THE PLACE THE HEAD WAS (S561, `tools/pics2d_head.gd`): never
+  the plain miss staging (it gives ground: "he stood far away"). The slip is a lean from the Spine bone; the roll takes
+  pro_right_weave on both men.
 - ## METHOD - ONE ART AGAINST ITSELF FIRST (owner S549, S559 "Yes, kickboxer first").
-- ## METHOD - CONSOLE WORKERS IN PARALLEL (owner S559), up to 3 through `ops/Tools/claude_cm.ps1` in terminal tabs; the
-  Workflow / Agent tools are refused (his S541 rule). Every brief: commit by pathspec, `git diff --cached --stat` first.
-  NODE-ONLY MEASURES GO TO ARENA (S560): `git push`, `python ops/Tools/lite_mirror.py --lean push`, Chrome arena.ai/agent,
-  a prompt naming the committed TASK file. While his game is open: ONE console worker, at Idle priority, no renders.
+- ## METHOD - CONSOLE WORKERS IN PARALLEL (owner S559), up to 3 through `ops/Tools/claude_cm.ps1`; the Workflow / Agent
+  tools are refused. NODE-ONLY MEASURES GO TO ARENA: `git push`, `python ops/Tools/lite_mirror.py --lean push`, Chrome
+  arena.ai/agent (wait ~12 s for the repo selector), a prompt naming the committed TASK file. While his game is open: ONE
+  job on the PC, no second render.
+- WHEN HE SAYS "ON THE BOARD" ASK WHICH BOARD IN ONE LINE IF IT IS NOT PLAIN (S561: "a jumpsuit for punchers chance on
+  the board" was a jump button on the OPS BOARD; a new playable page always gets its jump button there the same turn:
+  `ops/Tools/opsboard/roadmap.html`, the PAGES list).
 - Appended comments are `/* */`, never `//`.
 
-## RUNNING AT THE HANDOVER (collect first)
-1. PUNCHCHANCE1 (terminal tab PUNCHCHANCE1, if still open): `docs/PUNCHCHANCE1_RESULT.md` when done. So far: the man
-   4+ health behind after round 1 wins 11% today; version A 16% but 45% stoppages. Files:
-   `ops/research/s558_balance/punch_chance_*.json`, `punch_chance_out/`, `proto/twohands/tools/probe_punch_chance.mjs`.
-2. Arena, three chats on the lite mirror (ICOON-Studio/FightCamp-Lean-lite). Read each branch with
-   `gh api repos/ICOON-Studio/FightCamp-Lean-lite/contents/<path>?ref=<branch>`, copy its files onto main by hand, never
-   Arena's Merge button, check it deleted no test:
-   - KICKFIX2 `arena/bb25d26e-fightcamp-lean-lite`: `ops/research/s558_balance/kick_fix_e*.json`, `results/kick_fix_e*.txt`,
-     `docs/KICKFIX2_RESULT.md`. Its clone has 2 cores: hours.
-   - HEADPULL1 `arena/397eb67a-fightcamp-lean-lite`: `results/head_pull_1.txt`, `head_pull_2.txt`, `docs/HEADPULL1_RESULT.md`.
-   - PROGP3 `arena/49993fd3-fightcamp-lean-lite`: `proto/twohands/tools/probe_attributes.mjs` + its test,
-     `results/attr_*.txt`, `docs/PROGP3_RESULT.md`.
-3. Chat seats: SQ337 John (real comeback and kick numbers), SQ338 Kalli (what each kick is for, three leg-defence designs).
-4. HEADPICS1 is STOPPED (his game opened): relaunch it when the PC is free - the brief `ops/research/TASK_HEADPICS1.md`
-   carries its state (tools/pics2d_head.gd uncommitted, try1 strips, what was wrong with the roll).
+## RUNNING AT THE HANDOVER (collect first) - all at Arena, on ICOON-Studio/FightCamp-Lean-lite
+Read each branch with `gh api repos/ICOON-Studio/FightCamp-Lean-lite/contents/<path>?ref=<branch>`, copy its files onto
+main by hand, never Arena's Merge button, check it deleted no test.
+- KICKFIX2 `arena/bb25d26e-fightcamp-lean-lite` (chat arena.ai/agent/01a216db-21b6-714e-a68f-ba6abb25d26e).
+- HEADPULL1 `arena/397eb67a-fightcamp-lean-lite` (01a216df-1820-7c22-9f03-e8ff397eb67a).
+- PROGP3 `arena/49993fd3-fightcamp-lean-lite` (01a216e4-80eb-7fea-88a3-0ed549993fd3): the branch is pushed.
+- PUNCHCHANCE2 `arena/403bd20a-fightcamp-lean-lite` (01a21702-0f08-75c6-8761-a804403bd20a): brief
+  `ops/research/TASK_PUNCHCHANCE2.md`; when it names a version, `python proto/twohands/tools/make_punch.py <its tweak>`,
+  `page_play_test.mjs punch.html`, a beat_shot, and tell him.
+- Chat seats: SQ337 John, SQ338 Kalli.
 
-## FIRST (his asks still open)
-1. Collect the five runs above; put the passing kick version and (his call) head movement on the pages.
-2. Puncher's chance: the version that lifts the comeback into 15-30% without breaking stoppages; then a page copy for his play.
-3. Head-move pictures (HEADPICS1 relaunch) - the animation item of the session.
-4. The never-still bounce between beats (the ghost-step glide is measured and already there: `python
-   proto/twohands/tools/step_feet.py blue_step_in_r2 ...`); four step runs cannot be read (boots touch): look at them.
-5. Layers: one man per clip + the guard joint (BML1 "perfect clips"), on MASK1's per-limb layers.
-6. Kicks after KICKFIX2: boxer v kickboxer (noKick on one man), then DESIGN_PROGRESSION1's P1, P2, P4 (P3 is at Arena).
-7. base84 with the pull counter: the jab lands 74%, back off is in 35% of beats (must bar 40%): read both in the next measure.
+## FIRST (his asks, in this order)
+1. Collect the four runs; kicks and head movement onto the pages where they hold their bars (his call for head movement).
+2. HIS ANSWER Q-343 "Yes, replace the board": the body view becomes how you pick switches on the main page. Q-338: pointing
+   at HIS limb "Show what it can do" (not his last three beats). Q-339 "Yes": head opens slip / roll / lean back, torso the
+   clinch, legs the steps. Build it on a page copy first (his rules: nothing written on the fighters, no tubes or circles,
+   small buttons, tooltips; memory feedback_body_view_no_text_on_fighters_s559), a jump button on the ops board, his play.
+3. Progression: Q-340 "Yes, a choice" (a Sharp move: one of two upgrades), Q-341 "Try it" (a fight plan before the bout),
+   Q-342 "Right amount" (four attributes on the fight board) - after PROGP3's numbers.
+4. The never-still bounce and one-man-per-layer clips (renders: only when his game is closed).
+5. base84 with the pull counter: the jab lands 74%, back off in 35% of beats (the must bar is 40%).
 
-## Waiting on the owner (board)
-- Q-338 to Q-343: the body view (make it the main page's way to pick; his limbs; head / torso / legs) and progression
-  (a Sharp choice; a fight plan; four attributes).
-- (Done at the handover, owner: "clear old tabs": the four old worker processes are closed.) He asked how long the
-  head-move pictures take: told 3 to 4 hours of worker time once his game is closed, first strips after about 1 hour.
-- His play of the pages (http://127.0.0.1:8797/order.html with the pull counter; kick.html, head.html, body.html).
+## Waiting on the owner
+- His play of punch.html and head.html (jump buttons on the board's Play box and top bar).
 
 ## Seats
-Console workers (claude_cm.ps1); Arena for node-only measures; John / Kalli through `python ops/Tools/seat_queue.py add
---seat <s> --brief research/<file>` (the path is relative to ops/). The page server runs in a terminal tab:
-`python proto/cardgame/serve.py 8797 twohands`. Ziva idle (its editor plugin lost its backend, S559).
+Arena for node-only measures; console workers (claude_cm.ps1); John / Kalli through `python ops/Tools/seat_queue.py add
+--seat <s> --brief research/<file>`. The page server runs in a terminal tab: `python proto/cardgame/serve.py 8797 twohands`.
 
-## Model for S561
-Opus, medium effort, Fast off - collecting five runs and briefing; the weekly Fable allowance was 94% used at this handover.
+## Model for S562
+Opus, medium effort, Fast off - collecting four runs, then the body-view build is page work with a clear target.

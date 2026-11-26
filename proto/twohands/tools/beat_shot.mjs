@@ -1,7 +1,7 @@
 // BEAT_SHOT (S560): play chosen beats on a page in headless Edge (nothing opens on a monitor) and keep a screenshot and
 // the story lines after each. For "is the new rule SHOWN on the page": the words, the numbers, the picture.
 //   node proto/twohands/tools/beat_shot.mjs <out_dir> <page.html> '<beats json>' [port]
-//   beats: [{ "label": "pull", "range": 2, "mine": { "feet": "back", "lead": "jab", "ord": ["feet", "lead"] }, "his": { "hl": "low" } }, ..]
+//   beats: [{ "label": "pull", "range": 2, ["hp": [yours, his],] "mine": { "feet": "back", "lead": "jab", "ord": ["feet", "lead"] }, "his": { "hl": "low" } }, ..]
 //   (server: python proto/cardgame/serve.py 8797 twohands)
 import fs from 'node:fs';
 import path from 'node:path';
@@ -28,10 +28,12 @@ try {
   await send('Page.navigate', { url }); await sleep(2500);
   await ev("document.getElementById('go').click(), 1"); await sleep(1500);   /* the first button starts the bout */
   for (const b of beats) {
-    await ev(`(() => { ${b.range ? `range = ${b.range};` : ''} P = { ...plan0(), hl: P.hl, hr: P.hr, ...${JSON.stringify(b.mine || {})} }; if (!P.ord || !P.ord.length) P.ord = ordOf(P); hisNext = { at: round + ':' + beat, plan: { ...plan0(), ...${JSON.stringify(b.his || {})} } }; plan(); return 1; })()`);
+    await ev(`(() => { ${b.range ? `range = ${b.range};` : ''} ${b.hp ? `F[0].hp = ${b.hp[0]}; F[1].hp = ${b.hp[1]};` : ''} P = { ...plan0(), hl: P.hl, hr: P.hr, ...${JSON.stringify(b.mine || {})} }; if (!P.ord || !P.ord.length) P.ord = ordOf(P); hisNext = { at: round + ':' + beat, plan: { ...plan0(), ...${JSON.stringify(b.his || {})} } }; plan(); return 1; })()`);
     await sleep(300); await shot(`${tag}_${b.label}_plan.png`);
     await ev("document.getElementById('go').click(), 1");
-    for (let i = 0; i < 300; i++) { await sleep(50); if ((await ev('phase')) !== 'play') break; }
+    const seen = [];   /* S561: the runs the beat played (the picture's file name without its frame number), for 'is the new run SHOWN' */
+    for (let i = 0; i < 300; i++) { await sleep(50); const r = (await ev("(document.getElementById('pic').getAttribute('src') || '').split('/').pop().replace(/_\d+\.\w+$/, '')")); if (r && seen[seen.length - 1] !== r) seen.push(r); if ((await ev('phase')) !== 'play') break; }
+    console.log(`BEAT_SHOT ${b.label} pictures: ` + seen.join(' > '));
     await sleep(800); await shot(`${tag}_${b.label}_after.png`);
     console.log(`BEAT_SHOT ${b.label}: ` + await ev("[...document.querySelectorAll('#story .srow')].map((d) => d.textContent.trim() + (d.title ? ' {tip: ' + d.title + '}' : '')).join(' | ')"));
   }

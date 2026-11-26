@@ -78,7 +78,7 @@ table.waitt td{border-left:4px solid var(--wait)}
 </style>
 </head>
 <body>
-<nav class="fcnav"><b>FIGHTCAMP</b><a href="/" data-p="/">Roadmap</a><a href="/map" data-p="/map" title="Where we are, who works on what, every screen, your notes">Map</a><a href="/pc" data-p="/pc">PC live</a><a href="/review" data-p="/review">Stills &amp; videos</a><a href="/agents" data-p="/agents">Agents live</a><a href="/animations" data-p="/animations">Boxer animations</a><a href="/grappling" data-p="/grappling">Grappling animations</a><a href="/old" data-p="/old">Old detailed board</a><a href="http://127.0.0.1:4101/" title="Model router live: every Claude session (desktop via the model-router mod)">Model router</a></nav>
+<nav class="fcnav"><b>FIGHTCAMP</b><a href="/" data-p="/">Roadmap</a><a href="/map" data-p="/map" title="Where we are, who works on what, every screen, your notes">Map</a><a href="/pc" data-p="/pc">PC live</a><a href="/review" data-p="/review">Stills &amp; videos</a><a href="/agents" data-p="/agents">Agents live</a><a href="/animations" data-p="/animations">Boxer animations</a><a href="/grappling" data-p="/grappling">Grappling animations</a><a href="/old" data-p="/old">Old detailed board</a><a href="http://127.0.0.1:4101/" title="Model router live: every Claude session (desktop via the model-router mod)">Model router</a><a id="navPunch" target="_blank" rel="noopener" style="color:#e3ab45;font-weight:700" title="Ring Switches with the Puncher's chance switch (S561)">Puncher's chance &#9654;</a><script>document.getElementById("navPunch").href="http://"+location.hostname+":8797/punch.html";</script></nav>
 <script>document.querySelectorAll('.fcnav a').forEach(a=>{if(a.dataset.p===location.pathname.replace(/\.html$/,'')||(a.dataset.p==='/'&&location.pathname==='/index.html'))a.classList.add('cur')})</script>
 
 <main>
@@ -93,7 +93,12 @@ table.waitt td{border-left:4px solid var(--wait)}
 
 <!-- S310 operator: "add a link on the board to launch the latest version, or the part i need to test only" - the game's
      rows of /api/launch (AgentComms/launch_targets.json, ids fightcamp_*). The button posts a target NAME only. -->
-<section class="qbox" id="playbox"><h2>Play the game</h2><div id="playList">Checking the build…</div><div class="meta" id="playState"></div></section>
+<section class="qbox" id="playbox"><h2>Play the game</h2><div id="playList">Checking the build…</div><div class="meta" id="playState"></div>
+<!-- S561 operator: "can i have a jumpsuit for punchers chance on the board", "i still dont see any link on the opsboard for
+     punchers chance" - the Ring Switches pages as jump buttons (browser pages on the page server, port 8797; a new one is a row in PAGES). -->
+<div class="meta" style="margin-top:10px">Ring Switches - jump to:</div><div class="quickrow" id="pageJumps"></div></section>
+<script>(function(){ const PAGES=[["Puncher's chance","punch.html","The comeback switch beside the clinch: opens when you are 4 or more health behind, once a round"],["Boxing","order.html","The main page, with the pull counter"],["Head movement","head.html","Slip, roll, lean back, slip in - with their new pictures"],["Kickboxing","kick.html","Kicks: still being balanced"],["Body view","body.html","The lit-limb toy"]];
+  document.getElementById("pageJumps").innerHTML=PAGES.map(function(p,i){ return '<a class="playbtn quick" style="text-decoration:none;display:inline-block'+(i?'':';border-color:#e3ab45;color:#e3ab45;font-weight:700')+'" target="_blank" rel="noopener" title="'+p[2].replace(/"/g,"&quot;")+'" href="http://'+location.hostname+':8797/'+p[1]+'">'+p[0]+'</a>'; }).join(" "); })();</script>
 
 <div id="reviewWait" style="margin:10px 0"></div>
 <section class="qbox" id="qbox"><h2>Questions for you</h2><div id="questions">Loading…</div></section>

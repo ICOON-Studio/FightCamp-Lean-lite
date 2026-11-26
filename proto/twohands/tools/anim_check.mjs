@@ -21,6 +21,8 @@ const NO_TAKE = [];
 // KICKTAKE1 (S559): kick.html's first kicks (ACT[..].pic teep, low_kick) and the shin check, from tools/pics2d_kick.gd.
 // The body kick and the head kick have no take yet (their page falls back to its still).
 const KICKS = ['teep', 'low_kick'];
+/* HEADPICS1 (S561): head.html's head moves - a punch that is slipped, rolled under or leaned away from is SEEN missing that way, and the slip in is its own step (tools/pics2d_head.gd) */
+const HEAD = ['jab_slipped', 'cross_slipped', 'lead_hook_rolled', 'overhand_rolled', 'jab_leaned', 'cross_leaned', 'lead_hook_leaned', 'overhand_leaned', 'slip_in', 'slip_in_r2', 'slip_in_r1'];
 const HANDS = ['lead_high', 'lead_low', 'rear_high', 'rear_low'];
 const BOTH = ['both_high_high', 'both_high_low', 'both_low_high', 'both_low_low'];
 
@@ -31,6 +33,7 @@ export function wanted() {
     for (const s of SOLO) runs.push(`${c}_${s}`);
     for (const k of KICKS) for (const r of RESULTS) runs.push(`${c}_${k}_${r}`);
     runs.push(`${c}_check`);
+    for (const h of HEAD) runs.push(`${c}_${h}`);
     // S553: both hands held (every hand that does not punch is high or low), the knockdown that comes from each punch,
     // and the steps drawn ending on the range they reach (_r3 Long, _r2 Mid, _r1 Inside)
     for (const h of BOTH) runs.push(`${c}_${h}`);

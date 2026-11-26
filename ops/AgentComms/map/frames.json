@@ -277,6 +277,38 @@
    "title": "Ring Switches",
    "frames": [
     {
+     "id": "play_pages",
+     "title": "Play the pages",
+     "kind": "links",
+     "links": [
+      {
+       "title": "Puncher's chance (new)",
+       "url": "http://127.0.0.1:8797/punch.html",
+       "note": "the switch beside the clinch; opens when you are 4+ health behind"
+      },
+      {
+       "title": "Boxing",
+       "url": "http://127.0.0.1:8797/order.html",
+       "note": "the main page, with the pull counter"
+      },
+      {
+       "title": "Head movement",
+       "url": "http://127.0.0.1:8797/head.html",
+       "note": "slip, roll, lean back, slip in - new pictures"
+      },
+      {
+       "title": "Kickboxing",
+       "url": "http://127.0.0.1:8797/kick.html",
+       "note": "kicks still being balanced"
+      },
+      {
+       "title": "Body view",
+       "url": "http://127.0.0.1:8797/body.html",
+       "note": "the lit-limb toy"
+      }
+     ]
+    },
+    {
      "id": "ringswitch_plan",
      "title": "Ring Switches: the plan (S553)",
      "kind": "cards",

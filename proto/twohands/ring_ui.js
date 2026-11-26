@@ -32,7 +32,7 @@
   new MutationObserver(slide).observe(im, { attributes: true, attributeFilter: ['src'] });   /* runs before the frame is painted */
   const fit = () => { const t = 3 - (range || 3); redIn = Math.max(-2, Math.min(2, redIn)); blueIn = t - redIn; };   /* the range is the truth: blue takes up what the counts missed */
   const run0 = playRun; playRun = function (run, big, onHit, done, cut) {
-    const m = /^(red|blue)_(step_in|back_off)/.exec(run || ''), move = () => { if (!m) return; const d = m[2] === 'step_in' ? 1 : -1; if (m[1] === 'red') redIn += d; else blueIn += d; };
+    const m = /^(red|blue)_(step_in|slip_in|back_off)/.exec(run || ''), move = () => { if (!m) return; const d = m[2] !== 'back_off' ? 1 : -1;   /* HEADPICS1: a slip in is a step in */ if (m[1] === 'red') redIn += d; else blueIn += d; };
     const ok = run0(run, big, onHit, () => { move(); slide(); done(); }, cut); if (!ok) move(); return ok; };
   const hit0 = hitAt; hitAt = function (run) { const a = hit0(run); return a ? [a[0] + SX, a[1] + SY] : a; };   /* the burst sits on the slid glove */
   const setup0 = setup; setup = function () { redIn = blueIn = 0; setup0(); slide(); };

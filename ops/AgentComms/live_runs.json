@@ -4,23 +4,25 @@
  "runs": {
   "PUNCHCHANCE1": {
    "id": "PUNCHCHANCE1",
-   "status": "running",
+   "status": "landed",
    "seat": "claude",
    "agent": "console worker (Opus, Code Mode), terminal tab PUNCHCHANCE1",
    "started": "2026-11-26T09:35",
    "eta": "about 12:35",
    "title": "Puncher's chance: a comeback switch for the man behind - measured on the instrument before it reaches the page (your S559 idea)",
-   "brief": "ops/research/TASK_PUNCHCHANCE1.md"
+   "brief": "ops/research/TASK_PUNCHCHANCE1.md",
+   "note": "S561: d64b42a30 - version C (4+ health behind) lifts the comeback 10% -> 18%, knockdowns 2.6 (bar 2.5) -> PUNCHCHANCE2"
   },
   "HEADPICS1": {
    "id": "HEADPICS1",
-   "status": "waiting",
+   "status": "landed",
    "seat": "claude",
-   "agent": "console worker (Opus) - STOPPED 09:50 while your game is open; restarts when it closes",
-   "started": "2026-11-26T09:35",
-   "eta": "3 to 4 hours once restarted",
+   "agent": "Claude (S561 session)",
+   "started": "2026-11-26T10:30",
+   "eta": "about 12:30",
    "title": "Head-move pictures: slip, roll, lean back, slip in - from our owned takes, on your camera",
-   "brief": "ops/research/TASK_HEADPICS1.md"
+   "brief": "ops/research/TASK_HEADPICS1.md",
+   "note": "S561: 2bfbce469 - 22 runs on head.html, all pass the picture bars; docs/HEADPICS1_RESULT.md"
   },
   "KICKFIX2": {
    "id": "KICKFIX2",
@@ -57,6 +59,18 @@
    "brief": "ops/research/TASK_PROGP3.md",
    "branch": "arena/49993fd3-fightcamp-lean-lite",
    "issue": "https://arena.ai/agent/01a216e4-80eb-7fea-88a3-0ed549993fd3"
+  },
+  "PUNCHCHANCE2": {
+   "id": "PUNCHCHANCE2",
+   "status": "running",
+   "seat": "arena",
+   "agent": "Arena (cloud, a fourth chat: costs your PC nothing)",
+   "started": "2026-11-26T11:20",
+   "eta": "1.5 to 2 h",
+   "title": "Puncher's chance: version C with the knockdowns back under the bar (three versions, two seeds each)",
+   "brief": "ops/research/TASK_PUNCHCHANCE2.md",
+   "branch": "arena/403bd20a-fightcamp-lean-lite",
+   "issue": "https://arena.ai/agent/01a21702-0f08-75c6-8761-a804403bd20a"
   }
  },
  "codex_budget": {

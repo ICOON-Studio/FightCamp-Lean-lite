@@ -9337,10 +9337,11 @@
         "Nothing on him"
       ],
       "attach": [],
-      "answer": null,
+      "answer": "Show what it can do",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-26T08:32:55Z",
+      "seen_by_claude": false,
+      "comment_only": false
     },
     {
       "id": "Q-S294-339",
@@ -9352,10 +9353,11 @@
         "Legs for all movement"
       ],
       "attach": [],
-      "answer": null,
+      "answer": "Yes",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-26T08:33:31Z",
+      "seen_by_claude": false,
+      "comment_only": false
     },
     {
       "id": "Q-S294-340",
@@ -9367,10 +9369,11 @@
         "No, one fixed upgrade"
       ],
       "attach": [],
-      "answer": null,
+      "answer": "Yes, a choice",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-26T08:33:46Z",
+      "seen_by_claude": false,
+      "comment_only": false
     },
     {
       "id": "Q-S294-341",
@@ -9382,10 +9385,11 @@
         "No"
       ],
       "attach": [],
-      "answer": null,
+      "answer": "Try it",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-26T08:34:11Z",
+      "seen_by_claude": false,
+      "comment_only": false
     },
     {
       "id": "Q-S294-342",
@@ -9398,10 +9402,11 @@
         "More"
       ],
       "attach": [],
-      "answer": null,
+      "answer": "Right amount",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-26T08:38:32Z",
+      "seen_by_claude": false,
+      "comment_only": false
     },
     {
       "id": "Q-S294-343",
@@ -9416,10 +9421,11 @@
       "attach": [
         "AgentComms/board_attach/Q-S294-343_0_body_mid_lead_hand.png"
       ],
-      "answer": null,
+      "answer": "Yes, replace the board",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-26T08:37:42Z",
+      "seen_by_claude": false,
+      "comment_only": false
     }
   ]
 }

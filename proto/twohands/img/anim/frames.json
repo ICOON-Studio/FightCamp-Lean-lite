@@ -5133,6 +5133,690 @@
     0.989,
     0.4
    ]
+  },
+  "blue_cross_slipped": {
+   "files": [
+    "blue_cross_slipped_0.webp",
+    "blue_cross_slipped_1.webp",
+    "blue_cross_slipped_2.webp",
+    "blue_cross_slipped_3.webp",
+    "blue_cross_slipped_4.webp",
+    "blue_cross_slipped_5.webp",
+    "blue_cross_slipped_6.webp",
+    "blue_cross_slipped_7.webp",
+    "blue_cross_slipped_8.webp",
+    "blue_cross_slipped_9.webp"
+   ],
+   "offs": [
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 5,
+   "clip": "pro_right_cross",
+   "hit": [
+    0.349,
+    0.294
+   ]
+  },
+  "blue_jab_slipped": {
+   "files": [
+    "blue_jab_slipped_0.webp",
+    "blue_jab_slipped_1.webp",
+    "blue_jab_slipped_2.webp",
+    "blue_jab_slipped_3.webp",
+    "blue_jab_slipped_4.webp",
+    "blue_jab_slipped_5.webp",
+    "blue_jab_slipped_6.webp",
+    "blue_jab_slipped_7.webp",
+    "blue_jab_slipped_8.webp",
+    "blue_jab_slipped_9.webp",
+    "blue_jab_slipped_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_left_jab",
+   "hit": [
+    0.35,
+    0.272
+   ]
+  },
+  "blue_slip_in": {
+   "files": [
+    "blue_slip_in_0.webp",
+    "blue_slip_in_1.webp",
+    "blue_slip_in_2.webp",
+    "blue_slip_in_3.webp",
+    "blue_slip_in_4.webp",
+    "blue_slip_in_5.webp",
+    "blue_slip_in_6.webp",
+    "blue_slip_in_7.webp"
+   ],
+   "offs": [
+    0.0,
+    0.12,
+    0.24,
+    0.36,
+    0.48,
+    0.6,
+    0.72,
+    0.86
+   ],
+   "contact": -1,
+   "clip": "st_in_m"
+  },
+  "blue_slip_in_r1": {
+   "files": [
+    "blue_slip_in_r1_0.webp",
+    "blue_slip_in_r1_1.webp",
+    "blue_slip_in_r1_2.webp",
+    "blue_slip_in_r1_3.webp",
+    "blue_slip_in_r1_4.webp",
+    "blue_slip_in_r1_5.webp",
+    "blue_slip_in_r1_6.webp",
+    "blue_slip_in_r1_7.webp"
+   ],
+   "offs": [
+    0.0,
+    0.12,
+    0.24,
+    0.36,
+    0.48,
+    0.6,
+    0.72,
+    0.86
+   ],
+   "contact": -1,
+   "clip": "st_in_m"
+  },
+  "blue_slip_in_r2": {
+   "files": [
+    "blue_slip_in_r2_0.webp",
+    "blue_slip_in_r2_1.webp",
+    "blue_slip_in_r2_2.webp",
+    "blue_slip_in_r2_3.webp",
+    "blue_slip_in_r2_4.webp",
+    "blue_slip_in_r2_5.webp",
+    "blue_slip_in_r2_6.webp",
+    "blue_slip_in_r2_7.webp"
+   ],
+   "offs": [
+    0.0,
+    0.12,
+    0.24,
+    0.36,
+    0.48,
+    0.6,
+    0.72,
+    0.86
+   ],
+   "contact": -1,
+   "clip": "st_in_m"
+  },
+  "red_cross_slipped": {
+   "files": [
+    "red_cross_slipped_0.webp",
+    "red_cross_slipped_1.webp",
+    "red_cross_slipped_2.webp",
+    "red_cross_slipped_3.webp",
+    "red_cross_slipped_4.webp",
+    "red_cross_slipped_5.webp",
+    "red_cross_slipped_6.webp",
+    "red_cross_slipped_7.webp",
+    "red_cross_slipped_8.webp",
+    "red_cross_slipped_9.webp"
+   ],
+   "offs": [
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 5,
+   "clip": "pro_right_cross",
+   "hit": [
+    0.748,
+    0.308
+   ]
+  },
+  "red_jab_slipped": {
+   "files": [
+    "red_jab_slipped_0.webp",
+    "red_jab_slipped_1.webp",
+    "red_jab_slipped_2.webp",
+    "red_jab_slipped_3.webp",
+    "red_jab_slipped_4.webp",
+    "red_jab_slipped_5.webp",
+    "red_jab_slipped_6.webp",
+    "red_jab_slipped_7.webp",
+    "red_jab_slipped_8.webp",
+    "red_jab_slipped_9.webp",
+    "red_jab_slipped_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_left_jab",
+   "hit": [
+    0.75,
+    0.289
+   ]
+  },
+  "red_slip_in": {
+   "files": [
+    "red_slip_in_0.webp",
+    "red_slip_in_1.webp",
+    "red_slip_in_2.webp",
+    "red_slip_in_3.webp",
+    "red_slip_in_4.webp",
+    "red_slip_in_5.webp",
+    "red_slip_in_6.webp",
+    "red_slip_in_7.webp"
+   ],
+   "offs": [
+    0.0,
+    0.12,
+    0.24,
+    0.36,
+    0.48,
+    0.6,
+    0.72,
+    0.86
+   ],
+   "contact": -1,
+   "clip": "st_in_m"
+  },
+  "red_slip_in_r1": {
+   "files": [
+    "red_slip_in_r1_0.webp",
+    "red_slip_in_r1_1.webp",
+    "red_slip_in_r1_2.webp",
+    "red_slip_in_r1_3.webp",
+    "red_slip_in_r1_4.webp",
+    "red_slip_in_r1_5.webp",
+    "red_slip_in_r1_6.webp",
+    "red_slip_in_r1_7.webp"
+   ],
+   "offs": [
+    0.0,
+    0.12,
+    0.24,
+    0.36,
+    0.48,
+    0.6,
+    0.72,
+    0.86
+   ],
+   "contact": -1,
+   "clip": "st_in_m"
+  },
+  "red_slip_in_r2": {
+   "files": [
+    "red_slip_in_r2_0.webp",
+    "red_slip_in_r2_1.webp",
+    "red_slip_in_r2_2.webp",
+    "red_slip_in_r2_3.webp",
+    "red_slip_in_r2_4.webp",
+    "red_slip_in_r2_5.webp",
+    "red_slip_in_r2_6.webp",
+    "red_slip_in_r2_7.webp"
+   ],
+   "offs": [
+    0.0,
+    0.12,
+    0.24,
+    0.36,
+    0.48,
+    0.6,
+    0.72,
+    0.86
+   ],
+   "contact": -1,
+   "clip": "st_in_m"
+  },
+  "blue_cross_leaned": {
+   "files": [
+    "blue_cross_leaned_0.webp",
+    "blue_cross_leaned_1.webp",
+    "blue_cross_leaned_2.webp",
+    "blue_cross_leaned_3.webp",
+    "blue_cross_leaned_4.webp",
+    "blue_cross_leaned_5.webp",
+    "blue_cross_leaned_6.webp",
+    "blue_cross_leaned_7.webp",
+    "blue_cross_leaned_8.webp",
+    "blue_cross_leaned_9.webp",
+    "blue_cross_leaned_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_right_cross",
+   "hit": [
+    0.435,
+    0.294
+   ]
+  },
+  "blue_jab_leaned": {
+   "files": [
+    "blue_jab_leaned_0.webp",
+    "blue_jab_leaned_1.webp",
+    "blue_jab_leaned_2.webp",
+    "blue_jab_leaned_3.webp",
+    "blue_jab_leaned_4.webp",
+    "blue_jab_leaned_5.webp",
+    "blue_jab_leaned_6.webp",
+    "blue_jab_leaned_7.webp",
+    "blue_jab_leaned_8.webp",
+    "blue_jab_leaned_9.webp",
+    "blue_jab_leaned_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_left_jab",
+   "hit": [
+    0.436,
+    0.272
+   ]
+  },
+  "blue_lead_hook_leaned": {
+   "files": [
+    "blue_lead_hook_leaned_0.webp",
+    "blue_lead_hook_leaned_1.webp",
+    "blue_lead_hook_leaned_2.webp",
+    "blue_lead_hook_leaned_3.webp",
+    "blue_lead_hook_leaned_4.webp",
+    "blue_lead_hook_leaned_5.webp",
+    "blue_lead_hook_leaned_6.webp",
+    "blue_lead_hook_leaned_7.webp",
+    "blue_lead_hook_leaned_8.webp",
+    "blue_lead_hook_leaned_9.webp",
+    "blue_lead_hook_leaned_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_left_hook_ft",
+   "hit": [
+    0.438,
+    0.266
+   ]
+  },
+  "blue_lead_hook_rolled": {
+   "files": [
+    "blue_lead_hook_rolled_0.webp",
+    "blue_lead_hook_rolled_1.webp",
+    "blue_lead_hook_rolled_2.webp",
+    "blue_lead_hook_rolled_3.webp",
+    "blue_lead_hook_rolled_4.webp",
+    "blue_lead_hook_rolled_5.webp",
+    "blue_lead_hook_rolled_6.webp",
+    "blue_lead_hook_rolled_7.webp",
+    "blue_lead_hook_rolled_8.webp",
+    "blue_lead_hook_rolled_9.webp",
+    "blue_lead_hook_rolled_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_left_hook_ft",
+   "hit": [
+    0.361,
+    0.266
+   ]
+  },
+  "blue_overhand_leaned": {
+   "files": [
+    "blue_overhand_leaned_0.webp",
+    "blue_overhand_leaned_1.webp",
+    "blue_overhand_leaned_2.webp",
+    "blue_overhand_leaned_3.webp",
+    "blue_overhand_leaned_4.webp",
+    "blue_overhand_leaned_5.webp",
+    "blue_overhand_leaned_6.webp",
+    "blue_overhand_leaned_7.webp",
+    "blue_overhand_leaned_8.webp",
+    "blue_overhand_leaned_9.webp",
+    "blue_overhand_leaned_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_right_hook_ft",
+   "hit": [
+    0.444,
+    0.268
+   ]
+  },
+  "blue_overhand_rolled": {
+   "files": [
+    "blue_overhand_rolled_0.webp",
+    "blue_overhand_rolled_1.webp",
+    "blue_overhand_rolled_2.webp",
+    "blue_overhand_rolled_3.webp",
+    "blue_overhand_rolled_4.webp",
+    "blue_overhand_rolled_5.webp",
+    "blue_overhand_rolled_6.webp",
+    "blue_overhand_rolled_7.webp",
+    "blue_overhand_rolled_8.webp",
+    "blue_overhand_rolled_9.webp",
+    "blue_overhand_rolled_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_right_hook_ft",
+   "hit": [
+    0.367,
+    0.268
+   ]
+  },
+  "red_cross_leaned": {
+   "files": [
+    "red_cross_leaned_0.webp",
+    "red_cross_leaned_1.webp",
+    "red_cross_leaned_2.webp",
+    "red_cross_leaned_3.webp",
+    "red_cross_leaned_4.webp",
+    "red_cross_leaned_5.webp",
+    "red_cross_leaned_6.webp",
+    "red_cross_leaned_7.webp",
+    "red_cross_leaned_8.webp",
+    "red_cross_leaned_9.webp",
+    "red_cross_leaned_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_right_cross",
+   "hit": [
+    0.662,
+    0.309
+   ]
+  },
+  "red_jab_leaned": {
+   "files": [
+    "red_jab_leaned_0.webp",
+    "red_jab_leaned_1.webp",
+    "red_jab_leaned_2.webp",
+    "red_jab_leaned_3.webp",
+    "red_jab_leaned_4.webp",
+    "red_jab_leaned_5.webp",
+    "red_jab_leaned_6.webp",
+    "red_jab_leaned_7.webp",
+    "red_jab_leaned_8.webp",
+    "red_jab_leaned_9.webp",
+    "red_jab_leaned_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_left_jab",
+   "hit": [
+    0.665,
+    0.289
+   ]
+  },
+  "red_lead_hook_leaned": {
+   "files": [
+    "red_lead_hook_leaned_0.webp",
+    "red_lead_hook_leaned_1.webp",
+    "red_lead_hook_leaned_2.webp",
+    "red_lead_hook_leaned_3.webp",
+    "red_lead_hook_leaned_4.webp",
+    "red_lead_hook_leaned_5.webp",
+    "red_lead_hook_leaned_6.webp",
+    "red_lead_hook_leaned_7.webp",
+    "red_lead_hook_leaned_8.webp",
+    "red_lead_hook_leaned_9.webp",
+    "red_lead_hook_leaned_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_left_hook_ft",
+   "hit": [
+    0.664,
+    0.281
+   ]
+  },
+  "red_lead_hook_rolled": {
+   "files": [
+    "red_lead_hook_rolled_0.webp",
+    "red_lead_hook_rolled_1.webp",
+    "red_lead_hook_rolled_2.webp",
+    "red_lead_hook_rolled_3.webp",
+    "red_lead_hook_rolled_4.webp",
+    "red_lead_hook_rolled_5.webp",
+    "red_lead_hook_rolled_6.webp",
+    "red_lead_hook_rolled_7.webp",
+    "red_lead_hook_rolled_8.webp",
+    "red_lead_hook_rolled_9.webp",
+    "red_lead_hook_rolled_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_left_hook_ft",
+   "hit": [
+    0.741,
+    0.281
+   ]
+  },
+  "red_overhand_leaned": {
+   "files": [
+    "red_overhand_leaned_0.webp",
+    "red_overhand_leaned_1.webp",
+    "red_overhand_leaned_2.webp",
+    "red_overhand_leaned_3.webp",
+    "red_overhand_leaned_4.webp",
+    "red_overhand_leaned_5.webp",
+    "red_overhand_leaned_6.webp",
+    "red_overhand_leaned_7.webp",
+    "red_overhand_leaned_8.webp",
+    "red_overhand_leaned_9.webp",
+    "red_overhand_leaned_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_right_hook_ft",
+   "hit": [
+    0.661,
+    0.285
+   ]
+  },
+  "red_overhand_rolled": {
+   "files": [
+    "red_overhand_rolled_0.webp",
+    "red_overhand_rolled_1.webp",
+    "red_overhand_rolled_2.webp",
+    "red_overhand_rolled_3.webp",
+    "red_overhand_rolled_4.webp",
+    "red_overhand_rolled_5.webp",
+    "red_overhand_rolled_6.webp",
+    "red_overhand_rolled_7.webp",
+    "red_overhand_rolled_8.webp",
+    "red_overhand_rolled_9.webp",
+    "red_overhand_rolled_10.webp"
+   ],
+   "offs": [
+    -0.42,
+    -0.3,
+    -0.2,
+    -0.13,
+    -0.08,
+    -0.04,
+    0.0,
+    0.06,
+    0.12,
+    0.2,
+    0.3
+   ],
+   "contact": 6,
+   "clip": "pro_right_hook_ft",
+   "hit": [
+    0.736,
+    0.285
+   ]
   }
  },
  "camera": {
