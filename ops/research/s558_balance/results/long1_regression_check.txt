@@ -1,0 +1,15 @@
+# node ops/research/s558_balance/long1_check.mjs 
+PASS page today: a jab lands on a man stepping in, he is at Mid | {"range":2,"st":[7,7],"hp":[18,17],"words":"Long to Mid: he steps in || Jab: lands (his lead hand was held low): -1 health, 1 point"}
+PASS L1: the jab lands as he steps in from Long - still at Long, he paid the step | {"range":3,"st":[7,7],"hp":[18,17],"words":"Long to Mid: he steps in || Jab: lands (his lead hand was held low): -1 health, 1 point - it meets him stepping in and stops him: still at Long"}
+PASS L1: he steps in behind a high lead - the jab is blocked, he is at Mid | {"range":2,"st":[7,7],"hp":[18,18],"words":"Long to Mid: he steps in || Jab: blocked by his lead hand, held high"}
+PASS L1: the body jab lands on him but does not stop him | {"range":2,"st":[7,7],"hp":[18,17],"words":"Long to Mid: he steps in || Body jab: lands (his lead hand was held high): -1 health, 1 point"}
+PASS L1: his step is his second action, the jab his first moment - no stop (not the same moment) | {"range":2,"st":[7,5],"hp":[18,17],"words":"Jab: lands (his lead hand was held low): -1 health, 1 point || Cross: falls short at Long || Long to Mid: he steps in"}
+PASS L1: from Mid a landed jab stops nobody | {"range":1,"st":[7,7],"hp":[18,18],"words":"Mid to Inside: he steps in || Jab: smothered - too close at Inside"}
+PASS page today: a step in from Long costs 1 | {"range":2,"st":[8,7],"hp":[18,18],"words":"Long to Mid: he steps in"}
+PASS L2: a lead held high at Long - his step in costs 2 | {"range":2,"st":[8,6],"hp":[18,18],"words":"Long to Mid: he steps in"}
+PASS L2: a lead held low is no fence | {"range":2,"st":[8,7],"hp":[18,18],"words":"Long to Mid: he steps in"}
+PASS L2: a lead that jabs is no fence | {"range":2,"st":[7,7],"hp":[18,18],"words":"Long to Mid: he steps in || Jab: blocked by his lead hand, held high"}
+PASS L2: no fence at Mid | {"range":1,"st":[8,7],"hp":[18,18],"words":"Mid to Inside: he steps in"}
+PASS L3: the stopping jab works | {"range":3,"st":[7,7],"hp":[18,17],"words":"Long to Mid: he steps in || Jab: lands (his lead hand was held low): -1 health, 1 point - it meets him stepping in and stops him: still at Long"}
+PASS L3: the fence works | {"range":2,"st":[8,6],"hp":[18,18],"words":"Long to Mid: he steps in"}
+LONG1_CHECK 13 passed
