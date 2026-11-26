@@ -47,10 +47,39 @@ export const LIES = [
   { when: 'the beat after you blocked one of his punches', test: (c) => !!c.blockedAny, cue: 'knees' },                         // the Body Snatcher: blocked, he dips to bring your hands down
 ];
 
-// opp: 0 Jabber, 1 Slugger, 2 Body Snatcher. p: his chosen plan. c: the state (see LIES). v: 1 (the first trial) or 2.
+/* v3 (S564, from ALLPLAY2B Arena + Ziva and the TELLS2M bot trial):
+   1. A BLUFF BY DAMAGE: he fakes only when his real beat does LESS damage than the smallest punch the cue promises
+      (c.ACT given). v2 ranked cues, so a fake shoulder could hide a body cross + lead uppercut (Ziva v2 R1b4, 5 damage)
+      or a double uppercut (Arena V2 R1b4, 7): "the bluff was bigger than the promise".
+   2. A CAP: at most 2 fakes a round and never two beats running. TELLS2M: against a strong bot the Jabber's and the
+      Slugger's conditions held on 41-46% of beats, against a careful player the Slugger lied 2 of 18 - a rate that
+      follows the player's style. The cap bounds the top; a second condition of HIS OWN state lifts the bottom.
+   3. A SECOND CONDITION for the two men whose first depends on what YOU do (the Slugger: you landed; the Body Snatcher:
+      you blocked). Both are on screen: his stamina bar, the points this round. */
+export const LIES3 = [
+  [LIES[0]],
+  [LIES[1], { when: 'when he was on 3 stamina or less', test: (c) => c.him.st <= 3, cue: 'shoulder' }],
+  [LIES[2], { when: 'when he was behind on points this round', test: (c) => c.him.pts < c.me.pts, cue: 'knees' }],
+];
+export const CAP3 = { round: 2 };
+const dmgOf = (p, A) => (p && !p.clinch ? ((p.lead && A[p.lead] && A[p.lead].d) || 0) + ((p.rear && A[p.rear] && A[p.rear].d) || 0) : 0);
+const PROMISE = { shoulder: BIG_REAR, knees: LOW };
+const promiseOf = (cue, A) => Math.min(...(PROMISE[cue] || []).filter((id) => A[id] && A[id].d).map((id) => A[id].d), 99);
+/* v3 teaches it (Arena fix 2, Ziva fix 1): the legend says what a fake hides and what the quiet guard does not cover */
+export const LEGEND3 = 'A FAKE ALWAYS HURTS LESS THAN IT SHOWS: a fake shoulder hides a beat weaker than a cross, a fake knees bend a beat with no punch. He fakes at most twice a round, never two beats running. A quiet guard does not cover his LEAD hand: a jab or a lead hook can still come.';
+
+// opp: 0 Jabber, 1 Slugger, 2 Body Snatcher. p: his chosen plan. c: the state (see LIES). v: 1 (the first trial), 2 or 3.
 // Returns { cue shown, truth, fake, when (v2: the condition of a fake, for the ledger) }.
 export function tellOf(opp, p, c, v = 1) {
   const truth = truthOf(p, c.range, v), lie = (cue, when) => ({ cue, truth, fake: cue !== truth, when: cue !== truth ? when : '' });
+  if (v >= 3) {   // c also carries ACT (the page's punches), fakesRound (his fakes this round) and fakedLast (last beat was one)
+    const capped = (c.fakesRound || 0) >= CAP3.round || !!c.fakedLast;
+    if (!capped) for (const L of LIES3[opp] || []) {
+      const bluff = c.ACT ? dmgOf(p, c.ACT) < promiseOf(L.cue, c.ACT) : THREAT[L.cue] > THREAT[truth];
+      if (L.test(c) && L.cue !== truth && bluff) return lie(L.cue, L.when);
+    }
+    return lie(truth, '');
+  }
   if (v >= 2) {
     const L = LIES[opp];
     if (L && L.test(c) && THREAT[L.cue] > THREAT[truth]) return lie(L.cue, L.when);   // a bluff only: he shows more than he throws

@@ -34,7 +34,7 @@ var runs := {}
 ## the clinch's tie-up gap) and is now where the holds pass the picture gate (docs/INSIDE1_RESULT.md).
 const RANGE_LONG_M := 0.0
 const RANGE_MID_M := 0.355
-const RANGE_INSIDE_M := 0.71
+const RANGE_INSIDE_M := 0.55   # INSIDE1 S564: the probe (docs/INSIDE1_RESULT.md) - holds pass the ring bars, feet midpoints 0.80 m
 const RANGE_M := {3: RANGE_LONG_M, 2: RANGE_MID_M, 1: RANGE_INSIDE_M}
 var RANGE_AT := 0
 ## short=1 (with range=): the punch FALLS SHORT - thrown from the puncher's spot at that range, he never moves into it, the

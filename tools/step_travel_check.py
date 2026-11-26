@@ -13,7 +13,7 @@ from PIL import Image
 ARGS = [a for a in sys.argv[1:] if not a.startswith("--")]
 D = ARGS[0] if ARGS else "proto/twohands/img/anim"
 HOLD = next((a.split("=", 1)[1] for a in sys.argv[1:] if a.startswith("--hold=")), "blue_lead_high")
-RANGE_IN = {"": 0.0, "_r2": 0.355, "_r1": 0.71}
+RANGE_IN = {"": 0.0, "_r2": 0.355, "_r1": 0.55}  # copy of tools/pics2d_anim.gd RANGE_M (INSIDE1 S564)
 CAMF = os.path.join(D, "frames.json")
 CAM = (json.load(open(CAMF)).get("camera") or {}) if os.path.exists(CAMF) else {}
 NEXT = {"step_in_r2": ("", "_r2"), "step_in_r1": ("_r2", "_r1"), "back_off_r3": ("_r2", ""), "back_off_r2": ("_r1", "_r2")}

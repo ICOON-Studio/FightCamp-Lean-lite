@@ -1,9 +1,6 @@
 # INSIDE1 - Inside too close, overlapping parts see-through (S562) - status
 
-BLOCKED at Phase 1 step 1 (the measurement): no Godot run yet. ArcheAge was open the whole time (7.5 GB, RAM 92%,
-godot_slot RED on commit memory). The probe was queued behind a wait for the game, and Claude Code stopped it on low
-memory before the game closed, so no picture or number was made. The waiting chain was stopped by its PIDs (no Godot
-started).
+S564: Phase 1 step 1 done (the probe below, Inside = 0.55 m); the re-render follows. The S562 block (ArcheAge open, no run) is history.
 
 ## Done (code only; the page and the pictures are unchanged, because Inside is still 0.71)
 - `tools/pics2d_anim.gd`: ONE table of the ranges, `RANGE_LONG_M 0 / RANGE_MID_M 0.355 / RANGE_INSIDE_M 0.71`
@@ -42,3 +39,33 @@ puts the uppercuts over the bar. The pick still waits on the gate numbers of the
    moves at Inside), anim_web, edge table, beat_shot, mask_shots.
 3. Phase 2 (see-through overlap).
 Not owned, still holding the old 0.71: `tools/step_travel_check.py` RANGE_IN (a copy) - update it with the pick.
+
+
+## S564 Phase 1 step 1 - the probe (ops/previews/s562_inside/probe/run.log, one hidden-desktop run, south=blue)
+Blue stood in that far, red on his spot; the guard and the eight holds (their last picture). The eight holds read the same
+numbers at each distance (they differ in the hands; the measures are trunk, feet and head).
+
+| Inside in (m) | row | roots | feet midpoints | apart_m (0.60) | feet_m (0.16) | head_clear_m (0.60) | apart_pic_m | ring bars |
+|---|---|---|---|---|---|---|---|---|
+| 0.71 | guard | 0.740 | 0.662 | 0.570 | 0.057 | 0.469 | 0.001 | FAIL apart+feet+head |
+| 0.71 | 8 holds (same) | 0.740 | 0.639 | 0.603 | 0.051 | 0.533 | 0.001 | FAIL feet+head |
+| 0.65 | guard | 0.800 | 0.722 | 0.630 | 0.117 | 0.528 | 0.001 | FAIL feet+head |
+| 0.65 | 8 holds (same) | 0.800 | 0.699 | 0.663 | 0.111 | 0.592 | 0.001 | FAIL feet+head |
+| 0.60 | guard | 0.850 | 0.772 | 0.679 | 0.167 | 0.578 | 0.001 | FAIL head |
+| 0.60 | 8 holds (same) | 0.850 | 0.749 | 0.713 | 0.161 | 0.642 | 0.001 | PASS |
+| 0.55 | guard | 0.900 | 0.822 | 0.729 | 0.217 | 0.627 | 0.001 | PASS |
+| 0.55 | 8 holds (same) | 0.900 | 0.799 | 0.763 | 0.211 | 0.691 | 0.001 | PASS |
+| 0.50 | guard | 0.950 | 0.872 | 0.778 | 0.267 | 0.676 | 0.001 | PASS |
+| 0.50 | 8 holds (same) | 0.950 | 0.849 | 0.813 | 0.261 | 0.741 | 0.001 | PASS |
+
+**apart_pic_m reads 0.001 at every distance, 0.50 included**: his camera (south=blue) looks down the line between the men,
+so on the picture one trunk always covers the other. No distance fixes that - it is exactly what Phase 2 (the see-through
+man in front) is for. The pick goes by the ring bars (apart 0.60, feet 0.16, head 0.60) and K50's 0.70-0.90 m.
+
+**Pick: Inside = 0.55 m in** (was 0.71). The first distance where the guard AND the holds pass every ring bar with margin
+(guard feet 0.217, head 0.627; holds 0.211 / 0.691); feet midpoints 0.80-0.82 m (inside K50's close range); every landed
+hook and uppercut within 0.12 m of its contact (table above). 0.60 fails the guard's head bar (0.578) and holds the feet
+with 0.001 m to spare; 0.50 puts the uppercuts over the 0.15 m glide bar.
+Set: tools/pics2d_anim.gd RANGE_INSIDE_M 0.55, proto/twohands/ring_ui.js RANGE_M[1] 0.55, tools/step_travel_check.py
+RANGE_IN _r1 0.55. Regression: page_play_test 4 passed on order, punch, head, kick; page_parse ok; rules_test 37; head_test
+11; kick_test 12.

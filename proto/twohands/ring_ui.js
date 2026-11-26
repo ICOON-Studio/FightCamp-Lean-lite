@@ -21,7 +21,7 @@
      two step takes in. RANGE_M = the picture tools' one table (tools/pics2d_anim.gd RANGE_LONG_M / RANGE_MID_M /
      RANGE_INSIDE_M): keep the two the same. redM / blueM are each man's metres in from his spot; a step moves the
      stepper by the gap between the two ranges, as the step runs are made (pics2d_anim_more.gd _step_run). */
-  const RANGE_M = { 3: 0, 2: 0.355, 1: 0.71 };
+  const RANGE_M = { 3: 0, 2: 0.355, 1: 0.55 };   /* INSIDE1 S564: Inside 0.55 m in (was 0.71) */
   const STEP_M = 0.355; let CAM = null, redIn = 0, blueIn = 0, redM = 0, blueM = 0, SX = 0, SY = 0;
   fetch('img/anim/frames.json').then((r) => r.json()).then((j) => { CAM = j.camera || null; slide(); }).catch(() => {});
   const css = document.createElement('style');
