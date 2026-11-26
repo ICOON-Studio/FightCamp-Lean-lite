@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>PUNCHER'S CHANCE — my 10/10 screen (ALLPLAY3 ARENA)</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { background:#07090d; }
+  .stage {
+    position:relative; width:1920px; height:1080px; overflow:hidden;
+    background:radial-gradient(1400px 700px at 30% 20%, #10151f 0%, #0a0d13 55%, #07090d 100%);
+    font-family:"Segoe UI", "Helvetica Neue", Arial, sans-serif; color:#e8e6df;
+  }
+  /* ---------- header ---------- */
+  .hdr {
+    position:absolute; left:0; top:0; width:1920px; height:88px;
+    background:linear-gradient(180deg,#131926 0%, #0d1119 100%);
+    border-bottom:2px solid #1f2836; display:flex; align-items:center;
+  }
+  .hdr .title { width:520px; padding-left:36px; }
+  .hdr .title b { font-size:26px; letter-spacing:3px; color:#d4a24e; display:block; }
+  .hdr .title span { font-size:14px; color:#8b94a6; letter-spacing:1px; }
+  .hdr .mid { flex:1; text-align:center; }
+  .hdr .mid b { font-size:24px; letter-spacing:4px; display:block; }
+  .hdr .mid span { font-size:14px; color:#8b94a6; letter-spacing:1px; }
+  .hdr .cards { width:520px; text-align:right; padding-right:36px; font-size:16px; color:#8b94a6; letter-spacing:1px; }
+  .hdr .cards b { color:#e8e6df; font-size:20px; }
+  /* ---------- ring ---------- */
+  .ring {
+    position:absolute; left:0; top:88px; width:1150px; height:770px;
+    background:linear-gradient(180deg, #0c1017 0%, #0e131c 60%, #0a0e15 100%);
+    border-right:2px solid #1f2836;
+  }
+  .ring .rope { position:absolute; left:40px; right:40px; height:3px; background:#232c3d; }
+  .ring .canvasline { position:absolute; left:60px; top:520px; width:1030px; height:150px;
+    background:radial-gradient(600px 90px at 50% 30%, #1a2230 0%, rgba(26,34,48,0) 75%);
+    border-radius:50%; }
+  .rangechip {
+    position:absolute; left:36px; top:22px; font-size:15px; letter-spacing:2px; color:#0b0e14;
+    background:#d4a24e; padding:6px 14px; border-radius:4px; font-weight:700;
+  }
+  .beatline { position:absolute; left:36px; top:64px; font-size:14px; color:#8b94a6; letter-spacing:1px; }
+  /* fighters */
+  .man { position:absolute; }
+  .man .head { width:52px; height:56px; border-radius:50%; background:#2a3547; position:relative; }
+  .man .torso { width:120px; height:170px; border-radius:36px 36px 22px 22px; background:#1d2634; position:relative; top:-14px; }
+  .man .trunk { width:130px; height:70px; border-radius:0 0 26px 26px; position:relative; top:-16px; }
+  .glove { position:absolute; width:58px; height:58px; border-radius:50%; font-size:13px; font-weight:700;
+    display:flex; align-items:center; justify-content:center; color:#0b0e14; letter-spacing:1px; }
+  .me .trunk { background:linear-gradient(180deg,#3a3324,#241f14); border-bottom:6px solid #d4a24e; }
+  .me .glove { background:#d4a24e; }
+  .him .trunk { background:linear-gradient(180deg,#2b2020,#1b1414); border-bottom:6px solid #e25b5b; }
+  .him .glove { background:#e25b5b; }
+  .glab { color:#e8e6df; }
+  /* freeze pose: moment 3 — my overhand lands, he folds */
+  #me { left:330px; top:210px; }
+  #me .glove.lead { left:120px; top:44px; }      /* feinting lead, drawn back up */
+  #me .glove.rear { left:262px; top:-18px; transform:rotate(-18deg); } /* overhand extended over the top */
+  #him { left:640px; top:212px; transform:rotate(9deg); }
+  #him .glove.lead { left:-88px; top:66px; }     /* lead caught out by the feint */
+  #him .glove.rear { left:-30px; top:30px; }
+  .downflash {
+    position:absolute; left:610px; top:640px; font-size:34px; letter-spacing:6px; font-weight:800;
+    color:#e25b5b; text-shadow:0 0 18px rgba(226,91,91,.45);
+  }
+  /* state bars under the ring */
+  .bars { position:absolute; left:40px; top:610px; width:1070px; display:flex; gap:26px; }
+  .bars .col { flex:1; }
+  .bars h4 { font-size:15px; letter-spacing:2px; color:#8b94a6; margin-bottom:8px; }
+  .hbar { height:20px; background:#141a26; border:1px solid #2a3547; border-radius:4px; position:relative; overflow:hidden; }
+  .hbar .fill { position:absolute; left:0; top:0; bottom:0; }
+  .me-f { width:33%; background:linear-gradient(90deg,#d4a24e,#b9873c); }
+  .him-f { width:29%; background:linear-gradient(90deg,#e25b5b,#c04c4c); }
+  .hbar .num { position:absolute; right:8px; top:1px; font-size:12px; color:#e8e6df; font-weight:700; }
+  .sbar { margin-top:6px; height:16px; background:#141a26; border:1px solid #2a3547; border-radius:4px; position:relative; overflow:hidden; display:flex; }
+  .sbar .cell { flex:1; border-right:1px solid #0e131c; }
+  .sbar .cell.on { background:#3f6f52; }
+  .sbar .cell.cut { background:repeating-linear-gradient(45deg,#232c3d 0 6px,#141a26 6px 12px); }
+  .cutnote { font-size:12px; color:#8b94a6; margin-top:5px; }
+  .cutnote em { color:#e2b45b; font-style:normal; }
+  .kdchips { margin-top:8px; display:flex; gap:10px; }
+  .kdchip { font-size:12px; letter-spacing:1px; padding:4px 10px; border-radius:3px; border:1px solid #2a3547; color:#8b94a6; }
+  .kdchip.hot { border-color:#e25b5b; color:#e25b5b; font-weight:700; }
+  .kdchip.gold { border-color:#d4a24e; color:#d4a24e; }
+  /* beat log — the reason a punch landed */
+  .beatlog { position:absolute; left:40px; top:712px; width:1070px; }
+  .beatlog h4 { font-size:15px; letter-spacing:2px; color:#8b94a6; margin-bottom:8px; }
+  .beatlog .ln { font-size:15px; line-height:22px; color:#c9cdd6; }
+  .beatlog .ln b { color:#e8e6df; }
+  .beatlog .ln .why { color:#d4a24e; }
+  .beatlog .ln .bad { color:#e25b5b; }
+  /* ---------- right column ---------- */
+  .colR { position:absolute; left:1152px; top:88px; width:768px; height:992px; padding:18px 30px 0 26px; }
+  .panel { background:#121722; border:1px solid #1f2836; border-radius:8px; padding:14px 16px; margin-bottom:14px; }
+  .panel h3 { font-size:14px; letter-spacing:3px; color:#8b94a6; margin-bottom:10px; }
+  .warn { display:flex; gap:10px; margin-bottom:8px; }
+  .wchip { flex:1; font-size:13px; line-height:18px; padding:8px 12px; border-radius:5px; }
+  .wchip b { display:block; font-size:12px; letter-spacing:2px; margin-bottom:2px; }
+  .wamber { background:rgba(226,180,91,.10); border:1px solid #e2b45b; color:#f0d9a8; }
+  .wamber b { color:#e2b45b; }
+  .wred { background:rgba(226,91,91,.10); border:1px solid #e25b5b; color:#f2c2c2; }
+  .wred b { color:#e25b5b; }
+  .chips { display:flex; flex-wrap:wrap; gap:8px; }
+  .chip { font-size:13px; color:#c9cdd6; background:#0e131c; border:1px solid #2a3547; padding:6px 10px; border-radius:4px; letter-spacing:.5px; }
+  .chip b { color:#d4a24e; }
+  .census { margin-top:9px; font-size:13px; color:#8b94a6; line-height:19px; }
+  .census b { color:#c9cdd6; }
+  /* switch tray */
+  .trayrow { display:flex; gap:8px; margin-bottom:7px; align-items:stretch; }
+  .trayrow .rowlab { width:88px; font-size:12px; letter-spacing:2px; color:#8b94a6; padding-top:12px; }
+  .card { flex:1; background:#0e131c; border:1px solid #2a3547; border-radius:5px; padding:8px 10px; position:relative; }
+  .card b { font-size:14px; color:#e8e6df; display:block; }
+  .card .meta { font-size:11.5px; color:#62c47a; margin-top:3px; letter-spacing:.5px; }
+  .card .cost { position:absolute; right:8px; top:7px; font-size:11px; color:#62c47a; border:1px solid #3f6f52; padding:1px 6px; border-radius:3px; }
+  .card.dim { opacity:.38; }
+  .card.dim .meta { color:#8b94a6; }
+  .card.reach { border-color:#d4a24e; }
+  .card .ord { position:absolute; right:8px; bottom:6px; font-size:10px; letter-spacing:1px; color:#d4a24e; }
+  /* order strip */
+  .order { display:flex; gap:10px; }
+  .slot { flex:1; background:#0e131c; border:1px solid #d4a24e; border-radius:6px; padding:9px 12px; }
+  .slot b { font-size:13px; color:#d4a24e; letter-spacing:1px; display:block; }
+  .slot span { font-size:13px; color:#e8e6df; display:block; margin-top:2px; }
+  .slot em { font-size:11.5px; color:#8b94a6; font-style:normal; display:block; margin-top:3px; line-height:16px; }
+  /* corner card */
+  .corner { position:absolute; left:0; bottom:0; width:1920px; height:118px;
+    background:linear-gradient(180deg,#0d1119,#10151f); border-top:2px solid #1f2836;
+    display:flex; align-items:center; padding:0 36px; gap:26px; }
+  .corner h3 { font-size:13px; letter-spacing:3px; color:#d4a24e; width:170px; line-height:19px; }
+  .rule { flex:1; font-size:13px; line-height:17px; color:#c9cdd6; border-left:1px solid #1f2836; padding-left:16px; }
+  .rule b { color:#e8e6df; }
+  .rule .n { color:#d4a24e; font-weight:700; }
+</style>
+</head>
+<body>
+<div class="stage">
+
+  <div class="hdr">
+    <div class="title"><b>PUNCHER'S CHANCE</b><span>my 10/10 fight screen · v0.567.2 · seat ARENA</span></div>
+    <div class="mid"><b>ROUND 3 · BEAT 2 OF 6</b><span>the beat this screen is built on — bout 2, The Slugger, seed 72</span></div>
+    <div class="cards">CARDS&nbsp; <b>10-9 · 9-10</b> &nbsp;·&nbsp; LEVEL ON THE CARDS</div>
+  </div>
+
+  <div class="ring">
+    <div class="rope" style="top:130px"></div>
+    <div class="rope" style="top:196px"></div>
+    <div class="rope" style="top:262px"></div>
+    <div class="rangechip">RANGE: LONG &rarr; INSIDE&nbsp; (moment 1)</div>
+    <div class="beatline">you set lead / rear / feet and the order — he set his before he saw yours</div>
+    <div class="canvasline"></div>
+
+    <!-- me: frozen at moment 3, overhand extended over the top -->
+    <div class="man me" id="me">
+      <div class="head"></div>
+      <div class="torso"></div>
+      <div class="trunk"></div>
+      <div class="glove lead glab">LEAD<br>up</div>
+      <div class="glove rear glab">REAR<br>OVER</div>
+    </div>
+    <!-- him: lead drawn out by the feint, folding -->
+    <div class="man him" id="him">
+      <div class="head"></div>
+      <div class="torso"></div>
+      <div class="trunk"></div>
+      <div class="glove lead glab">LEAD<br>out</div>
+      <div class="glove rear glab">REAR</div>
+    </div>
+    <div class="downflash">HE GOES DOWN</div>
+
+    <div class="bars">
+      <div class="col">
+        <h4>YOU — health 6 / 18</h4>
+        <div class="hbar"><div class="fill me-f"></div><div class="num">6/18 · down 1x</div></div>
+        <div class="sbar">
+          <div class="cell on"></div><div class="cell on"></div><div class="cell on"></div>
+          <div class="cell on"></div><div class="cell cut"></div><div class="cell cut"></div>
+        </div>
+        <div class="cutnote">stamina <em>4 / 6 — two cells cut, PERMANENT for the bout</em> (his body work, R1–R2)</div>
+        <div class="kdchips">
+          <div class="kdchip gold">took 1 knockdown · up on 6</div>
+          <div class="kdchip">clinches left: 2</div>
+        </div>
+      </div>
+      <div class="col">
+        <h4>THE SLUGGER — health 4 / 21</h4>
+        <div class="hbar"><div class="fill him-f"></div><div class="num">4/21 · down 0x</div></div>
+        <div class="sbar">
+          <div class="cell on"></div><div class="cell on"></div><div class="cell on"></div>
+          <div class="cell on"></div><div class="cell on"></div><div class="cell cut"></div>
+          <div class="cell cut"></div><div class="cell cut"></div>
+        </div>
+        <div class="cutnote">stamina <em>5 / 8 — spent 3 on the failed feint-overhand (R2B4)</em></div>
+        <div class="kdchips">
+          <div class="kdchip hot">ONE MORE ENDS IT — whatever the cards say</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="beatlog">
+      <h4>THIS BEAT, MOMENT BY MOMENT — the reason a punch landed is the whole game</h4>
+      <div class="ln">moment 1 <b>· Long &rarr; Inside — you step in, he steps in</b> · <span class="why">his body jab: SMOTHERED, too close at Inside</span></div>
+      <div class="ln">moment 2 <b>· you feint</b> — <span class="why">the next punch cannot be covered</span></div>
+      <div class="ln">moment 3 <b>· your Overhand lands as a counter — the feint drew his hand</b> · <span class="bad">&minus;5 health, 2 points · HE GOES DOWN and gets up on 6</span></div>
+    </div>
+  </div>
+
+  <div class="colR">
+
+    <div class="panel">
+      <h3>YOUR CORNER — the two warnings that were missing</h3>
+      <div class="warn">
+        <div class="wchip wred"><b>HE HAS MARKED YOUR PLAN</b>feint, overhand — 2 of your last 3 beats. Vary the finish: hook, cross, or clinch first.</div>
+        <div class="wchip wamber"><b>HIS PULL IS LIVE</b>he backed off last beat — your next punch that misses or falls short feeds his counter. Hold the line or cover before you swing.</div>
+      </div>
+      <div class="warn">
+        <div class="wchip wamber" style="max-width:378px;"><b>OPEN LINES, YOUR PLAN, MOMENT 3</b>lead feinting out in moment 2: straight OPEN, side OPEN. His best answer is speed — expect the hook.</div>
+        <div class="wchip" style="background:#0e131c;border:1px solid #2a3547;color:#c9cdd6;"><b style="color:#8b94a6">WHY THIS IS A READ</b>his rear was low 2 of 3 — the side line is open. The census is honest; the answer window is one beat late.</div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h3>HIS CARD — last three beats and the round census</h3>
+      <div class="chips">
+        <div class="chip">1 Jab · 2 Back off — <b>rear low</b></div>
+        <div class="chip">1 Back off · 2 Body jab · 3 Body cross</div>
+        <div class="chip">1 Jab · 2 Step in · 3 Overhand</div>
+      </div>
+      <div class="census">
+        this round: lead hand <b>high 1 · low 1 · thrown 3</b> &nbsp;·&nbsp; rear hand <b>high 1 · low 2 · thrown 2</b><br>
+        his habit: opens Long with a step-in, answers marked plans with <b>speed</b>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h3>SWITCH TRAY — reach lit for LONG · green cost · greyed = does not reach</h3>
+      <div class="trayrow">
+        <div class="rowlab">LEAD</div>
+        <div class="card reach"><span class="cost">1</span><b>Jab</b><div class="meta">reach: LONG · 1 dmg · 1 pt</div></div>
+        <div class="card dim"><span class="cost">2</span><b>Lead hook</b><div class="meta">reach: MID · INSIDE — dimmed at Long</div></div>
+        <div class="card reach"><span class="cost">1</span><b>Feint</b><div class="meta">all ranges · next punch uncoverable</div></div>
+      </div>
+      <div class="trayrow">
+        <div class="rowlab">REAR</div>
+        <div class="card dim"><span class="cost">2</span><b>Cross</b><div class="meta">reach: MID — reaches INSIDE after feet=in</div><div class="ord">IF STEP-IN</div></div>
+        <div class="card dim"><span class="cost">2</span><b>Body cross</b><div class="meta">reach: MID · cuts his stamina bar</div></div>
+        <div class="card dim" style="border-color:#e25b5b"><span class="cost">3</span><b>Overhand</b><div class="meta">reach: MID · INSIDE — the finish, behind the feint</div><div class="ord">IF STEP-IN</div></div>
+      </div>
+      <div class="trayrow">
+        <div class="rowlab">FEET</div>
+        <div class="card reach" style="border-color:#d4a24e"><span class="cost">1</span><b>Step in</b><div class="meta">LONG &rarr; INSIDE · cuts off the back-off</div><div class="ord">MOMENT 1 ✓</div></div>
+        <div class="card"><span class="cost">0</span><b>Hold</b><div class="meta">keep the range · hands guard two lines</div></div>
+        <div class="card"><span class="cost">1</span><b>Back off</b><div class="meta">give ground · feeds his pull — see warning</div></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h3>THE ORDER — three named slots, one line of why the moment decides the punch</h3>
+      <div class="order">
+        <div class="slot"><b>MOMENT 1 · FEET</b><span>Step in</span><em>he backs off every round open — cut off the exit and the jab dies at Inside</em></div>
+        <div class="slot"><b>MOMENT 2 · LEAD</b><span>Feint</span><em>draws his hand; whatever he threw is spent covering nothing</em></div>
+        <div class="slot"><b>MOMENT 3 · REAR</b><span>Overhand</span><em>lands where nothing can cover — the same punch he beat at R2B4, behind the feint instead of bare</em></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="corner">
+    <h3>THE FIVE RULES<br>THAT DECIDED<br>MY THREE BOUTS</h3>
+    <div class="rule"><span class="n">1 ·</span> <b>Order beats power.</b> Same punch, different moment, wins or loses — B2 R3B2 knocked him down; B2 R2B4 the bare version was beaten to the punch.</div>
+    <div class="rule"><span class="n">2 ·</span> <b>The census is a read.</b> Lead low &rarr; cross (B1 R1B4). Lead high 2 running &rarr; body jab knockdown (B3 R3B3). Rear low &rarr; hook (B1 R1B6).</div>
+    <div class="rule"><span class="n">3 ·</span> <b>Step in beats the back-off.</b> Three of my four knockdown/stoppage blows started feet=in at Long — the chase is the third punch Long needed.</div>
+    <div class="rule"><span class="n">4 ·</span> <b>Body work is an injury.</b> My bar 8&rarr;5, permanent, printed on the line that cut it. One punch a beat from round 3 on.</div>
+    <div class="rule"><span class="n">5 ·</span> <b>A marked plan has a meter.</b> Win twice with a beat and his "best answer" arrives — clinch, speed, or body counters. Vary the finish before he does.</div>
+  </div>
+
+</div>
+</body>
+</html>

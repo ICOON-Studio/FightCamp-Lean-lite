@@ -1,0 +1,14 @@
+B1 R1 B1: at Long only his jab reaches; lead high blocks straight, step in closes range.
+B1 R1 B2: feint draws his hand so the cross cannot be covered.
+B1 R1 B3: his lead never held high so cross down the pipe; lead high to guard the side hook.
+B1 R1 B4: he dug to the body twice - lead low blocks body, cross stays open down the middle.
+B1 R1 B5: feint then overhand cannot be covered and 4 damage puts him near the floor; no need to clinch while ahead.
+B1 R1 B6: he has 2 health left - feint then fast hook cannot be covered and drops him; my last-3 read just cost me a blocked overhand, so I switch lines.
+B1 R2 B1: Long again after the knockdown - lead high eats his jab, step in cuts off his back-off as in round 1.
+B1 R2 B2: he's at 6 health and his rear is high guarding the side - feint draws his hands, then the cross lands down the middle.
+B1 R2 B3: he's on the ropes so he cannot give ground again - step in, feint, then the cross at Mid; the feint makes it uncoverable.
+B1 R2 B4: my stamina is 1/5 and he's at 3 health - clinch banks stamina, stops his body work, and the break puts me at Mid where the cross finishes him next beat.
+B1 R2 B5: he's at 3 health and his lead has never gone high this round - cross down the pipe drops him; I change the lead guard to low so his read on my old "cross, lead high" card does not answer it.
+B1 R2 B6: at Long nothing of mine reaches but the step in wins the range war even if he backs - then feint, then cross for the 3 he has left.
+B1 R2 B6 (retry): the feint+cross+step cost 4 and I have 3 - drop the feint, step in and throw the cross alone; it drops him if he's still at 3.
+B1 R3 B1: he's down twice so a third knockdown ends it - step in, feint, overhand costs exactly my 5 stamina and 4 damage puts him on the floor from any range after the step.
