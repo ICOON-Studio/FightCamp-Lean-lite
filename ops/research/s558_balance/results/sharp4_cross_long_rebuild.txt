@@ -1,0 +1,10 @@
+$ node proto/twohands/tools/probe_sharp.mjs rebuild=cross:long out=/home/user/FightCamp-Lean-lite/.cache/progp4/cross_long.vt.json jobs=2
+SHARP_TABLE beats left 1: at Long, full stamina v 4: 0.53; having given ground twice v none: -0.788; Mid 0.602; Inside 0.331
+SHARP_TABLE beats left 2: at Long, full stamina v 4: 2.514; having given ground twice v none: -0.834; Mid 2.439; Inside 1.575
+SHARP_TABLE beats left 3: at Long, full stamina v 4: 2.122; having given ground twice v none: -0.411; Mid 1.966; Inside 1.658
+SHARP_TABLE beats left 4: at Long, full stamina v 4: 2.279; having given ground twice v none: -0.385; Mid 2.138; Inside 1.664
+SHARP_TABLE beats left 5: at Long, full stamina v 4: 2.253; having given ground twice v none: -0.369; Mid 2.07; Inside 1.651
+SHARP_TABLE beats left 6: at Long, full stamina v 4: 2.28; having given ground twice v none: -0.393; Mid 2.129; Inside 1.659
+SHARP_TABLE wrote /home/user/FightCamp-Lean-lite/.cache/progp4/cross_long.vt.json
+
+Both men carry cross:long in this table. iters=400; six layers; builder symmetry unchanged.
