@@ -1,0 +1,239 @@
+R1b1 (tell back foot, Long) jab: back foot means a back off or clinch - at Long it is a back off, and the Slugger throws with both hands, so the jab may slip his loose lead guard.
+--- round 1, beat 1, at Long
+YOU: 1 Jab - rear hand high
+HE:  1 Back off, 2 Jab - rear hand low
+HIS TELL WAS TRUE: "his weight sits on his back foot".
+  moment 1 : stays Long - he backs off - already at Long, nowhere further
+  moment 1 YOU: Jab - blocked: his lead hand was still up (its Jab comes in moment 2)
+  moment 2 HE: Jab - blocked: your lead hand was back up (its Jab was moment 1)
+ROUND 1 of 3, beat 2 of 6, range Long. Points this round: you 0 - him 0. Cards so far: none
+YOU: health 18/18, stamina 8/8, guard 6/6, ground given 0/2
+HIM (The Slugger): health 21/21, stamina 8/8, guard 6/6, ground given 1/2
+HIS LAST BEATS, newest first: 1 Back off, 2 Jab - rear hand low
+THIS ROUND (1 beat): his lead hand held high 0, held low 0, thrown 1; his rear hand held high 0, held low 1, thrown 0
+HIS TELL before this beat: his rear shoulder drops back (the rear hand is loading).
+R1b2 (tell shoulder, Long) lead high, rear high: a true shoulder means a cross or overhand, which cannot reach from Long; hold the range, lead high covers straight, rear high covers the side.
+--- round 1, beat 2, at Long
+YOU: no action - lead hand high, rear hand high
+HE:  1 Step in, 2 Cross - lead hand low
+HIS TELL WAS TRUE: "his rear shoulder drops back (the rear hand is loading)".
+  moment 1 : Long to Mid - he steps in
+  moment 2 HE: Cross - blocked by your lead hand, held high
+ROUND 1 of 3, beat 3 of 6, range Mid. Points this round: you 0 - him 0. Cards so far: none
+YOU: health 18/18, stamina 8/8, guard 6/6, ground given 0/2
+HIM (The Slugger): health 21/21, stamina 7/8, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Step in, 2 Cross - lead hand low  |  1 Back off, 2 Jab - rear hand low
+THIS ROUND (2 beats): his lead hand held high 0, held low 1, thrown 1; his rear hand held high 0, held low 1, thrown 1
+HIS TELL before this beat: nothing: a plain, quiet guard.
+R1b3 (tell quiet, Mid) jab, rear high: quiet means a plain lead punch; my jab is fast so it beats a hook in the same moment, and the high rear still covers the side line.
+--- round 1, beat 3, at Mid
+YOU: 1 Jab - rear hand high
+HE:  1 Lead hook - rear hand low
+HIS TELL WAS TRUE: "nothing: a plain, quiet guard".
+  moment 1 YOU: Jab - lands (his lead hand was out, throwing its Lead hook): -1 health, 1 point
+  moment 1 HE: Lead hook - blocked by your rear hand, held high
+ROUND 1 of 3, beat 4 of 6, range Mid. Points this round: you 1 - him 0. Cards so far: none
+YOU: health 18/18, stamina 8/8, guard 6/6, ground given 0/2
+HIM (The Slugger): health 20/21, stamina 7/8, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Lead hook - rear hand low  |  1 Step in, 2 Cross - lead hand low  |  1 Back off, 2 Jab - rear hand low
+THIS ROUND (3 beats): his lead hand held high 0, held low 1, thrown 2; his rear hand held high 0, held low 2, thrown 1
+HIS TELL before this beat: his rear shoulder drops back (the rear hand is loading).
+R1b4 (tell shoulder, Mid) lead high, rear high: a true shoulder means cross (straight) or overhand (side) at Mid; high lead covers straight, high rear covers side - both covered.
+--- round 1, beat 4, at Mid
+YOU: no action - lead hand high, rear hand high
+HE:  1 Step in, 2 Lead uppercut, 3 Rear uppercut
+HIS TELL WAS A FAKE: he showed "his rear shoulder drops back (the rear hand is loading)" - his beat would have shown "he bends his knees and his level drops".
+  (his fake cost him 1 stamina)
+  moment 1 : Mid to Inside - he steps in
+  moment 2 HE: Lead uppercut - lands (your rear hand was held high): -3 health, 2 points
+  moment 3 HE: Rear uppercut - lands (your rear hand was held high): -4 health, 2 points
+ROUND 1 of 3, beat 5 of 6, range Inside. Points this round: you 1 - him 4. Cards so far: none
+YOU: health 11/18, stamina 8/8, guard 6/6, ground given 0/2
+HIM (The Slugger): health 20/21, stamina 1/8, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Step in, 2 Lead uppercut, 3 Rear uppercut  |  1 Lead hook - rear hand low  |  1 Step in, 2 Cross - lead hand low
+THIS ROUND (4 beats): his lead hand held high 0, held low 1, thrown 3; his rear hand held high 0, held low 2, thrown 2
+HIS TELL before this beat: his weight sits on his back foot.
+R1b5 (tell back foot, Inside, he is on 1 stamina) push: back foot inside means a clinch, and a push beats the clinch every way - it stops it and moves us to Mid.
+--- round 1, beat 5, at Inside
+YOU: clinch
+HE:  1 Back off - lead hand high, rear hand high
+HIS TELL WAS TRUE: "his weight sits on his back foot".
+  YOU: ties him up - no punch lands - the referee breaks them at Mid, +2 stamina
+ROUND 1 of 3, beat 6 of 6, range Mid. Points this round: you 1 - him 4. Cards so far: none
+YOU: health 11/18, stamina 8/8, guard 6/6, ground given 0/2, no clinch yet
+HIM (The Slugger): health 20/21, stamina 3/8, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Back off - lead hand high, rear hand high  |  1 Step in, 2 Lead uppercut, 3 Rear uppercut  |  1 Lead hook - rear hand low
+THIS ROUND (5 beats): his lead hand held high 1, held low 1, thrown 3; his rear hand held high 1, held low 2, thrown 2
+HIS TELL before this beat: his front foot creeps forward.
+R1b6 (tell foot creeps, Mid) lead high, rear low: a true step in heads for Inside and his uppercuts; lead high covers the straight, rear low covers the under line.
+--- round 1, beat 6, at Mid
+YOU: no action - lead hand high, rear hand low
+HE:  1 Step in, 2 Lead hook - rear hand low
+HIS TELL WAS TRUE: "his front foot creeps forward".
+  moment 1 : Mid to Inside - he steps in
+  moment 2 HE: Lead hook - lands (your rear hand was held low): -3 health, 2 points
+BELL. The judges give the round 8-10.
+HIS TELLS THIS ROUND: weight on the back foot 2 (true 2, fake 0), rear shoulder drop 2 (true 1, fake 1: it the beat after you landed on him), quiet guard 1 (true 1, fake 0), front foot creeps 1 (true 1, fake 0)
+ROUND 2 of 3, beat 1 of 6, range Long. Points this round: you 0 - him 0. Cards so far: 8-10
+YOU: health 8/18, stamina 8/8, guard 6/6, ground given 0/2
+HIM (The Slugger): health 20/21, stamina 8/8, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Step in, 2 Lead hook - rear hand low  |  1 Back off - lead hand high, rear hand high  |  1 Step in, 2 Lead uppercut, 3 Rear uppercut
+THIS ROUND (0 beats): his lead hand held high 0, held low 0, thrown 0; his rear hand held high 0, held low 0, thrown 0
+HIS TELL before this beat: he bends his knees and his level drops.
+R2b1 (tell knees, Long) lead low, rear high: at Long a knees tell can only be a body jab; lead low blocks the body line and the high rear keeps the side covered.
+--- round 2, beat 1, at Long
+YOU: no action - lead hand low, rear hand high
+HE:  1 Step in, 2 Body hook, 3 Body cross
+HIS TELL WAS TRUE: "he bends his knees and his level drops".
+  moment 1 : Long to Mid - he steps in
+  moment 2 HE: Body hook - blocked by your lead hand, held low
+  moment 3 HE: Body cross - blocked by your lead hand, held low
+ROUND 2 of 3, beat 2 of 6, range Mid. Points this round: you 0 - him 0. Cards so far: 8-10
+YOU: health 8/18, stamina 8/8, guard 6/6, ground given 0/2
+HIM (The Slugger): health 20/21, stamina 4/8, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Step in, 2 Body hook, 3 Body cross  |  1 Step in, 2 Lead hook - rear hand low  |  1 Back off - lead hand high, rear hand high
+THIS ROUND (1 beat): his lead hand held high 0, held low 0, thrown 1; his rear hand held high 0, held low 0, thrown 1
+HIS TELL before this beat: he bends his knees and his level drops.
+R2b2 (tell knees, Mid) lead low, rear low: knees means body or uppercut; lead low covers the body line and rear low covers the under line - both lines the tell promises are covered.
+--- round 2, beat 2, at Mid
+YOU: no action - lead hand low, rear hand low
+HE:  1 Body cross, 2 Body hook
+HIS TELL WAS TRUE: "he bends his knees and his level drops".
+  moment 1 HE: Body cross - blocked by your lead hand, held low
+  moment 2 HE: Body hook - blocked by your lead hand, held low
+ROUND 2 of 3, beat 3 of 6, range Mid. Points this round: you 0 - him 0. Cards so far: 8-10
+YOU: health 8/18, stamina 8/8, guard 6/6, ground given 0/2
+HIM (The Slugger): health 20/21, stamina 1/8, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Body cross, 2 Body hook  |  1 Step in, 2 Body hook, 3 Body cross  |  1 Step in, 2 Lead hook - rear hand low
+THIS ROUND (2 beats): his lead hand held high 0, held low 0, thrown 2; his rear hand held high 0, held low 0, thrown 2
+HIS TELL before this beat: his front foot creeps forward.
+R2b3 (tell foot creeps, Mid, he is on 1 stamina) clinch: he steps in on his last stamina; the clinch takes the beat safely, no punch lands, and I gain stamina for the counter-attack.
+NOT PLAYED: the clinch works Inside only
+R2b3 (tell foot creeps, Mid, he is on 1 stamina) step in, lead high, rear low: clinch is refused at Mid, so I step in with him; lead high blocks straight, rear low covers the under line he uppercuts.
+--- round 2, beat 3, at Mid
+YOU: 1 Step in - lead hand high, rear hand low
+HE:  1 Step in - lead hand low, rear hand low
+HIS TELL WAS TRUE: "his front foot creeps forward".
+  moment 1 : Mid to Inside - you step in, he steps in
+ROUND 2 of 3, beat 4 of 6, range Inside. Points this round: you 0 - him 0. Cards so far: 8-10
+YOU: health 8/18, stamina 8/8, guard 6/6, ground given 0/2
+HIM (The Slugger): health 20/21, stamina 3/8, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Step in - lead hand low, rear hand low  |  1 Body cross, 2 Body hook  |  1 Step in, 2 Body hook, 3 Body cross
+THIS ROUND (3 beats): his lead hand held high 0, held low 1, thrown 2; his rear hand held high 0, held low 1, thrown 2
+HIS TELL before this beat: he bends his knees and his level drops.
+R2b4 (tell knees, Inside) lead low, rear low: knees means body punch or uppercut at Inside; lead low covers the body line, rear low covers the under line - both promised lines blocked.
+--- round 2, beat 4, at Inside
+YOU: no action - lead hand low, rear hand low
+HE:  1 Rear uppercut - lead hand low
+HIS TELL WAS TRUE: "he bends his knees and his level drops".
+  moment 1 HE: Rear uppercut - blocked by your rear hand, held low
+ROUND 2 of 3, beat 5 of 6, range Inside. Points this round: you 0 - him 0. Cards so far: 8-10
+YOU: health 8/18, stamina 8/8, guard 6/6, ground given 0/2
+HIM (The Slugger): health 20/21, stamina 2/8, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Rear uppercut - lead hand low  |  1 Step in - lead hand low, rear hand low  |  1 Body cross, 2 Body hook
+THIS ROUND (4 beats): his lead hand held high 0, held low 2, thrown 2; his rear hand held high 0, held low 1, thrown 3
+HIS TELL before this beat: nothing: a plain, quiet guard.
+R2b5 (tell quiet, Inside) lead high, rear high: quiet excludes every other tell, so only a plain jab or hook comes; lead high blocks the straight, rear high blocks the side.
+--- round 2, beat 5, at Inside
+YOU: no action - lead hand high, rear hand high
+HE:  1 Feint, 2 Step in - rear hand high
+HIS TELL WAS TRUE: "nothing: a plain, quiet guard".
+  moment 1 HE: feints - the next punch cannot be covered
+  moment 2 : stays Inside - he steps in - already Inside, nowhere closer
+ROUND 2 of 3, beat 6 of 6, range Inside. Points this round: you 0 - him 0. Cards so far: 8-10
+YOU: health 8/18, stamina 8/8, guard 6/6, ground given 0/2
+HIM (The Slugger): health 20/21, stamina 2/8, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Feint, 2 Step in - rear hand high  |  1 Rear uppercut - lead hand low  |  1 Step in - lead hand low, rear hand low
+THIS ROUND (5 beats): his lead hand held high 0, held low 2, thrown 3; his rear hand held high 1, held low 1, thrown 3
+HIS TELL before this beat: his weight sits on his back foot.
+R2b6 (tell back foot, Inside, last beat of the round) push: back foot inside means a clinch or a back off; the push beats the clinch, and if he backs off instead I lose nothing.
+--- round 2, beat 6, at Inside
+YOU: 1 Push off - rear hand high
+HE:  1 Back off, 2 Push off - rear hand high
+HIS TELL WAS TRUE: "his weight sits on his back foot".
+  moment 1 : Inside to Mid - he backs off
+  moment 1 YOU: pushes off - a shove at nothing: it only works chest to chest, and he was not Inside
+  moment 2 HE: pushes off - a shove at nothing: it only works chest to chest, and you were not Inside
+BELL. The judges give the round 10-9 (level on points: it goes to the man who backed off less - you 0, him 1).
+HIS TELLS THIS ROUND: knees bend 3 (true 3, fake 0), front foot creeps 1 (true 1, fake 0), quiet guard 1 (true 1, fake 0), weight on the back foot 1 (true 1, fake 0)
+ROUND 3 of 3, beat 1 of 6, range Long. Points this round: you 0 - him 0. Cards so far: 8-10, 10-9
+YOU: health 8/18, stamina 8/8, guard 6/6, ground given 0/2
+HIM (The Slugger): health 20/21, stamina 8/8, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Back off, 2 Push off - rear hand high  |  1 Feint, 2 Step in - rear hand high  |  1 Rear uppercut - lead hand low
+THIS ROUND (0 beats): his lead hand held high 0, held low 0, thrown 0; his rear hand held high 0, held low 0, thrown 0
+HIS TELL before this beat: he bends his knees and his level drops.
+R3b1 (tell knees, Long - no punch of mine has landed since R1b3, so no lie is due) lead low, rear high: knees at Long means a body jab; lead low blocks the body line.
+--- round 3, beat 1, at Long
+YOU: no action - lead hand low, rear hand high
+HE:  1 Step in, 2 Body cross, 3 Body hook
+HIS TELL WAS TRUE: "he bends his knees and his level drops".
+  moment 1 : Long to Mid - he steps in
+  moment 2 HE: Body cross - blocked by your lead hand, held low
+  moment 3 HE: Body hook - blocked by your lead hand, held low
+ROUND 3 of 3, beat 2 of 6, range Mid. Points this round: you 0 - him 0. Cards so far: 8-10, 10-9
+YOU: health 8/18, stamina 8/8, guard 6/6, ground given 0/2
+HIM (The Slugger): health 20/21, stamina 4/8, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Step in, 2 Body cross, 3 Body hook  |  1 Back off, 2 Push off - rear hand high  |  1 Feint, 2 Step in - rear hand high
+THIS ROUND (1 beat): his lead hand held high 0, held low 0, thrown 1; his rear hand held high 0, held low 0, thrown 1
+HIS TELL before this beat: he bends his knees and his level drops.
+R3b2 (tell knees, Mid) lead low, rear low: knees names body or under; lead low covers body and rear low covers under - both lines the tell promises are shut.
+--- round 3, beat 2, at Mid
+YOU: no action - lead hand low, rear hand low
+HE:  1 Step in, 2 Body cross - lead hand low
+HIS TELL WAS TRUE: "he bends his knees and his level drops".
+  moment 1 : Mid to Inside - he steps in
+  moment 2 HE: Body cross - blocked by your lead hand, held low
+ROUND 3 of 3, beat 3 of 6, range Inside. Points this round: you 0 - him 0. Cards so far: 8-10, 10-9
+YOU: health 8/18, stamina 8/8, guard 6/6, ground given 0/2
+HIM (The Slugger): health 20/21, stamina 3/8, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Step in, 2 Body cross - lead hand low  |  1 Step in, 2 Body cross, 3 Body hook  |  1 Back off, 2 Push off - rear hand high
+THIS ROUND (2 beats): his lead hand held high 0, held low 1, thrown 1; his rear hand held high 0, held low 0, thrown 2
+HIS TELL before this beat: he bends his knees and his level drops.
+R3b3 (tell knees, Inside - his rear has been low, leaving the side open) lead hook, rear low: knees means body/uppercut, neither covers the side; my fast hook lands before his slow Inside punches and I get my first real point.
+--- round 3, beat 3, at Inside
+YOU: 1 Lead hook - rear hand low
+HE:  1 Rear uppercut - lead hand low
+HIS TELL WAS TRUE: "he bends his knees and his level drops".
+  moment 1 YOU: Lead hook - lands (his rear hand was out, throwing its Rear uppercut): -3 health, 2 points
+  moment 1 HE: Rear uppercut - beaten to the punch: your Lead hook is faster, landed first and stopped it
+ROUND 3 of 3, beat 4 of 6, range Inside. Points this round: you 2 - him 0. Cards so far: 8-10, 10-9
+YOU: health 8/18, stamina 8/8, guard 6/6, ground given 0/2
+HIM (The Slugger): health 17/21, stamina 2/8, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Rear uppercut - lead hand low  |  1 Step in, 2 Body cross - lead hand low  |  1 Step in, 2 Body cross, 3 Body hook
+THIS ROUND (3 beats): his lead hand held high 0, held low 2, thrown 1; his rear hand held high 0, held low 0, thrown 3
+HIS TELL before this beat: his rear shoulder drops back (the rear hand is loading).
+R3b4 (tell shoulder, Inside - I just landed a hook, so his shoulder is his known lie) lead low, rear low: the lie hides a knees beat - body or uppercut at Inside; lead low covers body, rear low covers under.
+--- round 3, beat 4, at Inside
+YOU: no action - lead hand low, rear hand low
+HE:  1 Step in - lead hand low, rear hand high
+HIS TELL WAS A FAKE: he showed "his rear shoulder drops back (the rear hand is loading)" - his beat would have shown "nothing: a plain, quiet guard".
+  (his fake cost him 1 stamina)
+  moment 1 : stays Inside - he steps in - already Inside, nowhere closer
+ROUND 3 of 3, beat 5 of 6, range Inside. Points this round: you 2 - him 0. Cards so far: 8-10, 10-9
+YOU: health 8/18, stamina 8/8, guard 6/6, ground given 0/2
+HIM (The Slugger): health 17/21, stamina 3/8, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Step in - lead hand low, rear hand high  |  1 Rear uppercut - lead hand low  |  1 Step in, 2 Body cross - lead hand low
+THIS ROUND (4 beats): his lead hand held high 0, held low 3, thrown 1; his rear hand held high 1, held low 0, thrown 3
+HIS TELL before this beat: he bends his knees and his level drops.
+R3b5 (tell knees, Inside, round lead 2-0) lead low, rear low: knees names body or under at Inside; lead low covers body, rear low covers under - hold the lead and take the round.
+--- round 3, beat 5, at Inside
+YOU: no action - lead hand low, rear hand low
+HE:  1 Body cross, 2 Step in - lead hand high
+HIS TELL WAS TRUE: "he bends his knees and his level drops".
+  moment 1 HE: Body cross - blocked by your lead hand, held low
+  moment 2 : stays Inside - he steps in - already Inside, nowhere closer
+ROUND 3 of 3, beat 6 of 6, range Inside. Points this round: you 2 - him 0. Cards so far: 8-10, 10-9
+YOU: health 8/18, stamina 8/8, guard 6/6, ground given 0/2
+HIM (The Slugger): health 17/21, stamina 2/8, guard 6/6, ground given 0/2
+HIS LAST BEATS, newest first: 1 Body cross, 2 Step in - lead hand high  |  1 Step in - lead hand low, rear hand high  |  1 Rear uppercut - lead hand low
+THIS ROUND (5 beats): his lead hand held high 1, held low 3, thrown 1; his rear hand held high 1, held low 0, thrown 4
+HIS TELL before this beat: he bends his knees and his level drops.
+R3b6 (tell knees, Inside, round lead 2-0) lead low, rear low: knees names body or uppercut; lead low covers body and rear low covers under - protect the lead, take the round and the bout.
+--- round 3, beat 6, at Inside
+YOU: no action - lead hand low, rear hand low
+HE:  1 Lead uppercut - rear hand low
+HIS TELL WAS TRUE: "he bends his knees and his level drops".
+  moment 1 HE: Lead uppercut - blocked by your rear hand, held low
+BELL. The judges give the round 10-9.
+HIS TELLS THIS ROUND: knees bend 5 (true 5, fake 0), rear shoulder drop 1 (true 0, fake 1: it the beat after you landed on him)
+A DRAW 28-28
