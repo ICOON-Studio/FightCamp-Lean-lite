@@ -1,0 +1,13 @@
+{
+ "_note": "LONG1 L1 (S565, Antigravity's idea in ALLPLAY2) - THE STOPPING JAB: a jab to the head that LANDS in the very moment he steps in from Long stops him where he stood - the men are still at Long, he has paid for the step. Blocked by a lead hand held high, so the man walking in chooses: walk in behind a high lead (the body jab then lands, and does not stop him) or step in open. Only the jab (not the body jab); only the step from Long.",
+ "src": [
+  [
+   "if (a.d >= 3) stun[v] = a.n;",
+   "if (a.d >= 3) stun[v] = a.n; const stopped = sh.id === 'jab' && r0 === 3 && S.range === 2 && act[v] === 'feet' && P[v].feet === 'in'; if (stopped) S.range = 3;"
+  ],
+  [
+   "${a.keep && N.keep ? (v ? ' - he cannot step in next beat' : ' - you cannot step in next beat') : ''}",
+   "${a.keep && N.keep ? (v ? ' - he cannot step in next beat' : ' - you cannot step in next beat') : ''}${stopped ? (v ? ' - it meets him stepping in and stops him: still at Long' : ' - it meets you stepping in and stops you: still at Long') : ''}"
+  ]
+ ]
+}

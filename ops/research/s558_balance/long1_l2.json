@@ -1,0 +1,9 @@
+{
+ "_note": "LONG1 L2 (S565, Dola SQ340 design 2) - THE THREATENED LEAD: at Long, a lead hand kept home and held HIGH for the whole beat is a fence - his step in from Long costs him 1 stamina more (2 in all). A lead hand that jabs, feints or is held low is no fence. The tax never takes him below 0 stamina (a man on his last point still gets in).",
+ "src": [
+  [
+   "if (P[k].feet === 'in') { d--; f[k].ropes = 0; }",
+   "if (P[k].feet === 'in') { d--; f[k].ropes = 0; if (S.range === 3 && !P[1 - k].lead && P[1 - k].hl === 'high') f[k].st = Math.max(0, f[k].st - 1); }"
+  ]
+ ]
+}

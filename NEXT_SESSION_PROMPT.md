@@ -52,13 +52,19 @@ Dola have a new one: Long is a corridor (SQ339, SQ340).
   Answer him with the final numbers and the costed variant B.
 - CLINCHFIX3 arena/67e7800b - his habit read sees clinches (H1), + clinch +1 stamina (H2).
 - AIEMPTY1 arena/f889f281 - his empty beats counted, then filtered from his plain beats.
-- JABLAND2 arena/18b46867 (JABLAND1 done, none: its jab half works; the overhand gets a lever, not a price), KICKFIX3 arena/c178d87d, PROGP2 arena/15b7ab01 (his Q-340), HEADPULL1 arena/397eb67a.
+- JABLAND2 arena/18b46867 (JABLAND1 done, none: its jab half works; the overhand gets a lever, not a price), KICKFIX3 arena/c178d87d, PROGP2 arena/15b7ab01 (his Q-340).
 - Render worker in terminal tab "renders564" (Opus, Code Mode): RESUME_S564_RENDERS.md - INSIDE1 probe, GLIDE2 renders,
   INSIDE1 re-render. When it ends: BOUNCE1 (TASK_BOUNCE1.md), then KDPIC1 (TASK_KDPIC1.md), each a console worker, one
   render at a time, his game closed.
 - Page server: `python proto/cardgame/serve.py 8797 twohands` (check it after any session archive).
 
 ## FIRST (in this order)
+0. LONG IS A CORRIDOR (all five testers): Dola SQ340 answered (ops/research/RINGSWITCH_LONG_BRIEF_DOLA.md), Kalli SQ339
+   pending. Write TASK_LONG1 for Arena with tweaks on today's order.html: L1 (Antigravity) a jab that LANDS in the moment
+   he steps in from Long stops him (anchor `if (a.d >= 3) stun[v] = a.n;`, r0 is in scope); L2 (Dola's threatened lead) a
+   lead held high at Long costs his step in 1 stamina (anchor `if (P[k].feet === 'in') { d--; f[k].ropes = 0; }`); L3 both
+   (or Kalli's pick). Bars: 8+ of 9 both seeds, Long's share and the jab's use up. HEADPULL1 DONE (head.html 7 / 8 of 9,
+   the miss is the overhand: apply JABLAND2's winner there too).
 1. Collect the runs above. TELLS3M passes -> ask him on the board (one line + a still or the words-tool transcript): the
    tell on the page as a pose of his body? -> TELLS2PAGE.
 2. MOMENTGAP1: answer his question in plain numbers. KDHEAL1: report it.

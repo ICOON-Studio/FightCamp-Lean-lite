@@ -7,7 +7,7 @@
   "owner": "claude",
   "updated": "2026-11-26",
   "summary": "S564 (Opus). Collected the tells round 2: Arena ALLPLAY2B (v2 fixes work, fun 7 depth 8 clarity 8; the Slugger lied 2 of 18), Ziva ALLPLAY2B (8.3; a fake shoulder hid 5 damage - the bluff was not enforced), Antigravity ALLPLAY2 (one body tell: 5 of 5 testers; feint-overhand 12 of 13), TELLS2M (stopped on its trial: the control already wins 67-83%; the lie rate followed the player, 41-46% v a strong bot). Built TELLS VERSION 3 in the words tool (tells=3): a fake only when his real beat hurts less than the cue promises, at most 2 fakes a round never two running, a second rule of his own state (Slugger stamina 3-, Body Snatcher after his body punch), the fake line names the rule, the legend says a quiet guard does not cover his lead. Rates v AI / careful player: Jabber 19/15%, Slugger 24/24% (v2 27/10%), Body Snatcher 17/11%. probe_tells v=3. CLINCHFIX2: none (the strong fix kills the loop but the clinch and push off go dead) -> CLINCHFIX3 (his habit read never saw clinches: order.html records only punching beats). AIEMPTY1 (his empty beats). Briefs: TELLS3M, TELLS2PAGE (gated), KDPIC1 (no overhand take exists), CLINCHFIX3, AIEMPTY1; Long-range design brief to Kalli + Dola. Render worker renders564 resumed INSIDE1 + GLIDE2 (his game closed). Grok bots back: John SQ337 (UFC comebacks), Kalli SQ338 (kick designs).",
-  "next_action": "S565: FIRST collect (Arena, lite branches; copy onto main by hand): TELLS3M arena/181a4c7c (tells v3 v bots, bars v the control), KDHEAL1 arena/836987cb (REPORT to him with John's numbers: a dropped man who fights on wins 34%, dropped twice 7%; not on the page), MOMENTGAP1 arena/4bdf9ebc (his question: a free wait is picked 7 of 10 beats, 5 of 9 bars at n=12 - answer him with the final), CLINCHFIX3 arena/67e7800b, AIEMPTY1 arena/f889f281, JABLAND2 arena/18b46867 (the jab fixed; the overhand's lever: feint Inside only / a feint caught in its moment), KICKFIX3 arena/c178d87d, PROGP2 arena/15b7ab01 (his Q-340), HEADPULL1 arena/397eb67a. The render worker (terminal tab renders564: INSIDE1 then GLIDE2) - when it pushes, launch BOUNCE1 then KDPIC1 as console workers (one render at a time). If TELLS3M passes: ask him on the board (tells on the page as a pose), then TELLS2PAGE. Kalli + Dola: Long is a corridor (SQ339, SQ340).",
+  "next_action": "S565: FIRST collect (Arena, lite branches; copy onto main by hand): TELLS3M arena/181a4c7c (tells v3 v bots, bars v the control), KDHEAL1 arena/836987cb (REPORT to him with John's numbers: a dropped man who fights on wins 34%, dropped twice 7%; not on the page), MOMENTGAP1 arena/4bdf9ebc (his question: a free wait is picked 7 of 10 beats, 5 of 9 bars at n=12 - answer him with the final), CLINCHFIX3 arena/67e7800b, AIEMPTY1 arena/f889f281, JABLAND2 arena/18b46867 (the jab fixed; the overhand's lever: feint Inside only / a feint caught in its moment), KICKFIX3 arena/c178d87d, PROGP2 arena/15b7ab01 (his Q-340). The render worker (terminal tab renders564: INSIDE1 then GLIDE2) - when it pushes, launch BOUNCE1 then KDPIC1 as console workers (one render at a time). If TELLS3M passes: ask him on the board (tells on the page as a pose), then TELLS2PAGE. Kalli + Dola: Long is a corridor (SQ339, SQ340). LONG IS A CORRIDOR (all five testers): Dola SQ340 answered (three designs), Kalli SQ339 pending. Next: a LONG1 measure brief for Arena with two tweaks on today's order.html - L1 (Antigravity): a jab that LANDS in the moment he steps in from Long stops him (anchor `if (a.d >= 3) stun[v] = a.n;`, r0 is in scope); L2 (Dola's threatened lead): a lead hand held high at Long costs his step in 1 stamina (anchor `if (P[k].feet === 'in') { d--; f[k].ropes = 0; }`); L3 = both (+ Kalli's pick if better). Bars: 8+ of 9 both seeds, Long's share of beats and the jab's use up. HEADPULL1 DONE: head.html 7 and 8 of 9, the miss is the overhand (fix with JABLAND2's winner).",
   "last_working_commit": "a2b4fbaf6",
   "verified_playable": "Builds/ exported in S556 (the S547 game plus S548's two changes: the 3D fight throws the body cross, the trial evening's pictures show the prospect's own body; pro_body_jab is on disk and unused by the game). Ring Switches (a browser toy): one beat played in the browser in S556 against the Jabber - both men threw a body jab, both landed, no console error; rules_test 34 pass; anim_check 124 runs PASS.",
   "incomplete_blocked": "Nine Arena measures and the render worker still running at this stage's end (listed in next_action). No export: no game code changed (proto pages and node tools only). Uncommitted pictures from earlier sessions sit in proto/twohands/img/anim (518 changed, 1262 new): left for the render workers.",
@@ -5391,7 +5391,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-26 15:15 board_sync",
+  "updated": "2026-11-26 15:53 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5559,7 +5559,8 @@
     "title": "Head movement with the pull counter: does it hold 9 of 9 on a bigger sample (two runs of 84 bouts)",
     "who": "Arena (cloud, a second chat: costs your PC nothing)",
     "started": "2026-11-26T10:05",
-    "run": "HEADPULL1"
+    "run": "HEADPULL1",
+    "state": "LANDED - Claude collects"
    },
    {
     "title": "Pick the exact moment of the beat you act in (a wait between): measured before it is built",
@@ -5572,12 +5573,6 @@
     "who": "console worker (Opus, Code Mode), terminal tab renders564 (S564: both resumed in one tab, game closed)",
     "started": "2026-11-26T14:40",
     "run": "GLIDE2"
-   },
-   {
-    "title": "The one bar the page still fails: the jab and the overhand land too often - up to three fixes measured",
-    "who": "Arena (cloud, a seventh chat: costs your PC nothing)",
-    "started": "2026-11-26T14:45",
-    "run": "JABLAND1"
    },
    {
     "title": "Inside is too close (your 'the distance looks wrong'): a real inside distance, then the parts where the men overlap see-through",
@@ -5620,6 +5615,12 @@
     "who": "Arena (cloud: costs your PC nothing)",
     "started": "2026-11-26T15:45",
     "run": "AIEMPTY1"
+   },
+   {
+    "title": "The page's one failing bar: the jab fixed (the rear glove catches it), the overhand gets a lever that is not its price - three versions measured",
+    "who": "Arena (cloud: costs your PC nothing)",
+    "started": "2026-11-26T16:30",
+    "run": "JABLAND2"
    }
   ],
   "next": [
@@ -6115,6 +6116,16 @@
   },
   "done_recently": [
    {
+    "title": "Head movement with the pull counter: 7 and 8 of 9 on 84 bouts - the overhand lands too often there too (HEADPULL1)",
+    "who": "Arena",
+    "when": "2026-11-26"
+   },
+   {
+    "title": "The one bar the page still fails: the jab and the overhand land too often - up to three fixes measured",
+    "who": "Arena (cloud, a seventh chat: costs your PC nothing)",
+    "when": "2026-11-26"
+   },
+   {
     "title": "Playtest by message: 2 bouts without tells, 2 with - and your question on showing his intentions",
     "who": "Antigravity (by message, about 75 s a beat)",
     "when": "2026-11-26"
@@ -6166,11 +6177,6 @@
    },
    {
     "title": "Tells version 2 in the words tool: lies you can learn, bluffs only, a fake costs him stamina, the ledger says when",
-    "who": "claude",
-    "when": "2026-11-26"
-   },
-   {
-    "title": "The beat story readable on every page; 'Feint - 2nd'; 'He read you' when he answers your habit",
     "who": "claude",
     "when": "2026-11-26"
    }
@@ -6332,6 +6338,10 @@
     },
     {
      "text": "Clinch v2 measured: none",
+     "who": "agent"
+    },
+    {
+     "text": "Head + pull counter: 7/8 of 9",
      "who": "agent"
     }
    ],
@@ -6833,6 +6843,10 @@
     {
      "text": "Answer: pick your moment",
      "who": "claude"
+    },
+    {
+     "text": "Long range: measure 2 ideas",
+     "who": "claude"
     }
    ],
    "session": "S564"
@@ -6841,7 +6855,7 @@
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
  "last_working_commit": "a2b4fbaf6",
- "next_action": "S565: FIRST collect (Arena, lite branches; copy onto main by hand): TELLS3M arena/181a4c7c (tells v3 v bots, bars v the control), KDHEAL1 arena/836987cb (REPORT to him with John's numbers: a dropped man who fights on wins 34%, dropped twice 7%; not on the page), MOMENTGAP1 arena/4bdf9ebc (his question: a free wait is picked 7 of 10 beats, 5 of 9 bars at n=12 - answer him with the final), CLINCHFIX3 arena/67e7800b, AIEMPTY1 arena/f889f281, JABLAND2 arena/18b46867 (the jab fixed; the overhand's lever: feint Inside only / a feint caught in its moment), KICKFIX3 arena/c178d87d, PROGP2 arena/15b7ab01 (his Q-340), HEADPULL1 arena/397eb67a. The render worker (terminal tab renders564: INSIDE1 then GLIDE2) - when it pushes, launch BOUNCE1 then KDPIC1 as console workers (one render at a time). If TELLS3M passes: ask him on the board (tells on the page as a pose), then TELLS2PAGE. Kalli + Dola: Long is a corridor (SQ339, SQ340).",
+ "next_action": "S565: FIRST collect (Arena, lite branches; copy onto main by hand): TELLS3M arena/181a4c7c (tells v3 v bots, bars v the control), KDHEAL1 arena/836987cb (REPORT to him with John's numbers: a dropped man who fights on wins 34%, dropped twice 7%; not on the page), MOMENTGAP1 arena/4bdf9ebc (his question: a free wait is picked 7 of 10 beats, 5 of 9 bars at n=12 - answer him with the final), CLINCHFIX3 arena/67e7800b, AIEMPTY1 arena/f889f281, JABLAND2 arena/18b46867 (the jab fixed; the overhand's lever: feint Inside only / a feint caught in its moment), KICKFIX3 arena/c178d87d, PROGP2 arena/15b7ab01 (his Q-340). The render worker (terminal tab renders564: INSIDE1 then GLIDE2) - when it pushes, launch BOUNCE1 then KDPIC1 as console workers (one render at a time). If TELLS3M passes: ask him on the board (tells on the page as a pose), then TELLS2PAGE. Kalli + Dola: Long is a corridor (SQ339, SQ340). LONG IS A CORRIDOR (all five testers): Dola SQ340 answered (three designs), Kalli SQ339 pending. Next: a LONG1 measure brief for Arena with two tweaks on today's order.html - L1 (Antigravity): a jab that LANDS in the moment he steps in from Long stops him (anchor `if (a.d >= 3) stun[v] = a.n;`, r0 is in scope); L2 (Dola's threatened lead): a lead hand held high at Long costs his step in 1 stamina (anchor `if (P[k].feet === 'in') { d--; f[k].ropes = 0; }`); L3 = both (+ Kalli's pick if better). Bars: 8+ of 9 both seeds, Long's share of beats and the jab's use up. HEADPULL1 DONE: head.html 7 and 8 of 9, the miss is the overhand (fix with JABLAND2's winner).",
  "next_acceptance": "Rulers vs r0: head jumps on the contact frame under 4, a head inside the other's body under 5 frames, arm out median under 4 frames with join_return green, then r1 film at two fresh blind critics 5+/10",
  "superseded_archive": [
   {

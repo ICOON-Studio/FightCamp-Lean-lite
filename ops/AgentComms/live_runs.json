@@ -4,7 +4,7 @@
  "runs": {
   "HEADPULL1": {
    "id": "HEADPULL1",
-   "status": "running",
+   "status": "done",
    "seat": "arena",
    "agent": "Arena (cloud, a second chat: costs your PC nothing)",
    "started": "2026-11-26T10:05",
@@ -12,7 +12,9 @@
    "title": "Head movement with the pull counter: does it hold 9 of 9 on a bigger sample (two runs of 84 bouts)",
    "brief": "ops/research/TASK_HEADPULL1.md",
    "branch": "arena/397eb67a-fightcamp-lean-lite",
-   "issue": "https://arena.ai/agent/01a216df-1820-7c22-9f03-e8ff397eb67a"
+   "issue": "https://arena.ai/agent/01a216df-1820-7c22-9f03-e8ff397eb67a",
+   "reconciled": "2026-11-26 15:53 board_reconcile: PR #460 open - collect it",
+   "result": "docs/HEADPULL1_RESULT.md - 7 and 8 of 9 (not 9): the overhand lands 67-68% (JABLAND2)"
   },
   "MOMENTGAP1": {
    "id": "MOMENTGAP1",
@@ -35,19 +37,6 @@
    "eta": "2-3 h",
    "title": "Head moves and kicks at every range: the men keep their distance on head.html and kick.html",
    "brief": "ops/research/RESUME_S564_RENDERS.md"
-  },
-  "JABLAND1": {
-   "id": "JABLAND1",
-   "status": "done",
-   "seat": "arena",
-   "agent": "Arena (cloud, a seventh chat: costs your PC nothing)",
-   "started": "2026-11-26T14:45",
-   "eta": "2-3 h",
-   "title": "The one bar the page still fails: the jab and the overhand land too often - up to three fixes measured",
-   "brief": "ops/research/TASK_JABLAND1.md",
-   "branch": "arena/ba10e2bf-fightcamp-lean-lite",
-   "issue": "https://arena.ai/agent/01a21756-3d3f-7206-82e3-9cc2ba10e2bf",
-   "result": "docs/JABLAND1_RESULT.md - none: b 8 of 9 but jab and overhand dead; c's jab half works -> JABLAND2"
   },
   "INSIDE1": {
    "id": "INSIDE1",

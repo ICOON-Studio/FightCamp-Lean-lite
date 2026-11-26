@@ -1,0 +1,17 @@
+{
+ "_note": "LONG1 L3 (S565) - L1 and L2 together: at Long the lead hand has two jobs and can do one a beat. Thrown as a jab it stops a man stepping in open (L1); held high it taxes his step 1 stamina (L2). The man walking in answers the jab with a high lead of his own and the fence by paying, or by waiting.",
+ "src": [
+  [
+   "if (a.d >= 3) stun[v] = a.n;",
+   "if (a.d >= 3) stun[v] = a.n; const stopped = sh.id === 'jab' && r0 === 3 && S.range === 2 && act[v] === 'feet' && P[v].feet === 'in'; if (stopped) S.range = 3;"
+  ],
+  [
+   "${a.keep && N.keep ? (v ? ' - he cannot step in next beat' : ' - you cannot step in next beat') : ''}",
+   "${a.keep && N.keep ? (v ? ' - he cannot step in next beat' : ' - you cannot step in next beat') : ''}${stopped ? (v ? ' - it meets him stepping in and stops him: still at Long' : ' - it meets you stepping in and stops you: still at Long') : ''}"
+  ],
+  [
+   "if (P[k].feet === 'in') { d--; f[k].ropes = 0; }",
+   "if (P[k].feet === 'in') { d--; f[k].ropes = 0; if (S.range === 3 && !P[1 - k].lead && P[1 - k].hl === 'high') f[k].st = Math.max(0, f[k].st - 1); }"
+  ]
+ ]
+}

@@ -50,6 +50,10 @@
 - JABLAND2 (Arena arena/18b46867): c's jab half, the overhand at 3, and D the feint opens it only Inside / E a punch landing
   in the feint's own moment wastes it +1 (Antigravity) / F both. Bars: 9 of 9 both seeds with both punches alive.
 - MOMENTGAP1 B trial (only the feet may wait a moment): a wait in ~7% of beats, 6 of 9 (overhand dead, stoppages 8%).
+- HEADPULL1 collected: head.html with the pull counter 7 / 8 of 9 on 84 bouts; the miss is the overhand (67-68%).
+- Dola SQ340 (Long is a corridor): range-control step, the threatened lead (a lead held high taxes his step in), the
+  half-step (its pick). Next: TASK_LONG1 (see the next-session page).
+- Owner at the end: "keep going", then "actually handoff".
 
 ## Running at the stage end
 TELLS3M arena/181a4c7c, KDHEAL1 arena/836987cb (KD0 control 8 of 9, comeback 19%; KD3 [3,2] dropped at 75% stoppages),
