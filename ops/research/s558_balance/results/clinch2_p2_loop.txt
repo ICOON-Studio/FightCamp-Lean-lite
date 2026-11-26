@@ -1,0 +1,6 @@
+CLINCH loop v The Jabber: wins 15%, loses 78%, draws 7% | his clinches a bout 0.1 | my clinches a bout 4.4, 95% of them tie him up
+CLINCH loop v The Slugger: wins 18%, loses 73%, draws 8% | his clinches a bout 0.1 | my clinches a bout 7.0, 91% of them tie him up
+CLINCH loop v The Body Snatcher: wins 17%, loses 78%, draws 5% | his clinches a bout 0.1 | my clinches a bout 6.5, 93% of them tie him up
+CLINCH no clinch v The Jabber: wins 7%, loses 93%, draws 0% | his clinches a bout 0.3
+CLINCH no clinch v The Slugger: wins 15%, loses 85%, draws 0% | his clinches a bout 0.3
+CLINCH no clinch v The Body Snatcher: wins 7%, loses 93%, draws 0% | his clinches a bout 0.3
