@@ -57,7 +57,7 @@ await test('ZIVAFIX1: his last three beats are on his card before you choose, ho
 await test('ZIVAFIX1: the stamina bar says what body punches took and for how long; a man down twice reads "one more ends it"; a landed punch says its points', async () => {
   const { els, G, click } = page(2); G.setOpp(2); await click();
   const { F } = G.get(); F[0].cap = 6; F[0].st = 5; F[0].kd = 2; G.draw(); const y = els.you.innerHTML;
-  assert.match(y, /Stamina 5 of 6 \(was 8\)/); assert.match(y, /<s style="width:25%"><\/s>/, 'the lost end of the bar is drawn'); assert.match(y, /for the rest of the bout[\s\S]*never goes under 4/);
+  assert.match(y, /Stamina 5 of 6 \(body shots took 2 off the top\)/); assert.match(y, /<s style="width:25%"><\/s>/, 'the lost end of the bar is drawn'); assert.match(y, /for the rest of the bout[\s\S]*never goes under 4/);
   assert.match(y, /down 2x - one more ends it/); F[0].kd = 1; G.draw(); assert.ok(!/one more ends it/.test(els.you.innerHTML), 'not after the first knockdown');
   assert.match(els.score.innerHTML, /A counter adds health, not points/);
 });

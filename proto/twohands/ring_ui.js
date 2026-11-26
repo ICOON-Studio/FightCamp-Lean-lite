@@ -31,10 +31,19 @@
   const holdSlide = () => { if (!CAM || !CAM.axis_px) return [0, 0]; const k = st.clientHeight * 1.26 / (CAM.render_px || 768), m = redIn * STEP_M; return [-m * CAM.axis_px[0] * k, m * CAM.axis_px[1] * k]; };
   new MutationObserver(slide).observe(im, { attributes: true, attributeFilter: ['src'] });   /* runs before the frame is painted */
   const fit = () => { const t = 3 - (range || 3); redIn = Math.max(-2, Math.min(2, redIn)); blueIn = t - redIn; };   /* the range is the truth: blue takes up what the counts missed */
-  const run0 = playRun; playRun = function (run, big, onHit, done, cut) {
+  /* S562 GLIDE1 (owner: "the distance between fighters is not consistant when clips play, it gets reset when some clip
+     animations play"): a punch run is made at each range it reaches (tools/pics2d_anim.gd range=: the puncher starts and
+     ends on his spot at that range and steps into the punch between); the range the men stand at NOW is the counts'. A
+     range with no run of its own (a punch thrown out of its reach) takes the nearest range that has one. */
+  const atRange = (run) => { const m = /^(red|blue)_.+_(landed|blocked|missed)$/.exec(run || ''); if (!m) return run;
+    const r = Math.max(1, Math.min(3, 3 - (redIn + blueIn))), name = (x) => (x === 3 ? run : `${run}_r${x}`);
+    for (const x of [r, r === 1 ? 2 : r === 3 ? 2 : 1, r === 1 ? 3 : r === 3 ? 1 : 3]) if (ANIM[name(x)] && ANIM[name(x)].range) return name(x);
+    return run; };
+  const warm0 = warm; warm = function (runs) { return warm0(runs.flatMap((n) => [n, n + '_r1', n + '_r2'])); };   /* the page warms the runs a beat needs by their plain names */
+  const run0 = playRun; playRun = function (run, big, onHit, done, cut) { run = atRange(run);
     const m = /^(red|blue)_(step_in|slip_in|back_off)/.exec(run || ''), move = () => { if (!m) return; const d = m[2] !== 'back_off' ? 1 : -1;   /* HEADPICS1: a slip in is a step in */ if (m[1] === 'red') redIn += d; else blueIn += d; };
     const ok = run0(run, big, onHit, () => { move(); slide(); done(); }, cut); if (!ok) move(); return ok; };
-  const hit0 = hitAt; hitAt = function (run) { const a = hit0(run); return a ? [a[0] + SX, a[1] + SY] : a; };   /* the burst sits on the slid glove */
+  const hit0 = hitAt; hitAt = function (run) { const a = hit0(atRange(run)); return a ? [a[0] + SX, a[1] + SY] : a; };   /* the burst sits on the slid glove */
   const setup0 = setup; setup = function () { redIn = blueIn = 0; setup0(); slide(); };
   const bell0 = bell; bell = function () { redIn = blueIn = 0; bell0(); slide(); };   /* a new round starts at Long, both on their spots */
   const plan0r = plan; plan = function () { fit(); plan0r(); slide(); };
@@ -51,19 +60,28 @@
   const ruler = document.createElement('div'); ruler.id = 'ruler'; st.appendChild(ruler);
   ruler.innerHTML = '<div class="gap"><i></i><i></i></div><div class="plabel"></div>';
   const X = (u) => st.clientWidth / 2 + (0.5 - u) * st.clientHeight * 1.26 + holdSlide()[0];   /* RENDERFIT1: u in square-picture widths from its middle (a wide picture has the same middle and scale); TOES are the hold pictures', so the bar takes the HOLD's slide (red's metres in) whatever picture is up */
-  const cm = (r) => Math.max(0, Math.round((TOES[r][1] - TOES[r][0]) / PX_M * 100));
+  /* S562 (owner on the Inside bar, two ticks and 'INSIDE toe to toe': "wtf is this ? what is th eplayer supposed to
+     understadn from this ?"): a distance in cm tells the player nothing. The label says what LANDS at the range he is at
+     (this page's own ACT reach table, so the kick page lists its kicks), and Inside, where the boots meet, has no bar. */
+  const short = (a) => (a.line === 'body' && a.h < 2 && !/jab/i.test(a.n) ? 'Body' : a.n.replace(/^(Lead|Rear) (.)/, (m, w, c) => c.toUpperCase()));
+  const lands = (r) => [...new Set(Object.values(ACT).filter((a) => a.d && a.reach && a.reach.includes(r)).map(short))].join(' · ');
   let shown = 0, hoverReach = null, hoverName = '';
-  function place() { if (!st.clientHeight || !range) return; const y = st.clientHeight * -0.17 + FLOOR * st.clientHeight * 1.26 + holdSlide()[1];
-    const x1 = X(TOES[range][1] / 480), x2 = X(TOES[range][0] / 480), w = Math.max(18, Math.abs(x2 - x1)), mid = (x1 + x2) / 2, gap = ruler.querySelector('.gap');
-    gap.style.left = (mid - w / 2) + 'px'; gap.style.width = w + 'px'; gap.style.top = (y - 4) + 'px';
-    const reach = hoverReach ? hoverReach.includes(range) : null; gap.className = 'gap' + (reach === true ? ' ok' : reach === false ? ' no' : '');
-    const lab = ruler.querySelector('.plabel'); lab.style.top = (y + (range === 1 ? 46 : 12)) + 'px';   /* S560 (owner C515: no overlaps on the fighters): UNDER the bar, on the canvas in front of the boots - above it the words sat on the shins and the boots; Inside the boots pass each other, so lower still */ lab.style.left = mid + 'px';
-    lab.innerHTML = hoverReach ? `${hoverName} ${reach ? 'reaches' : '<u>does not reach</u>'} at ${RNG[range]}` : `<b>${RNG[range]}</b> ${range === 1 ? 'toe to toe' : cm(range) + ' cm'}`;
-    if (range !== shown) { if (shown) { gap.classList.remove('flash'); void gap.offsetWidth; gap.classList.add('flash'); } shown = range; } }
+  /* S562 (owner on the label under the boots: "i told you do not put text or anything near the fighters"): no bar and no
+     words on the floor. The range is ONE badge in the ring's empty top-left corner (where nothing stands): the range, what
+     lands there; a hovered switch turns it green (reaches) or red (does not reach); a range change flashes it. */
+  function place() { if (!st.clientHeight || !range) return; const gap = ruler.querySelector('.gap'), lab = ruler.querySelector('.plabel'); gap.style.display = 'none';
+    const reach = hoverReach ? hoverReach.includes(range) : null; lab.className = 'plabel corner' + (reach === true ? ' ok' : reach === false ? ' no' : '');
+    lab.innerHTML = hoverReach ? `<b>${RNG[range]}</b> ${hoverName} ${reach ? 'reaches' : '<u>does not reach</u>'}` : `<b>${RNG[range]}</b> lands: ${lands(range)}`;
+    if (range !== shown) { if (shown) { lab.classList.remove('flash'); void lab.offsetWidth; lab.classList.add('flash'); } shown = range; } }
   document.addEventListener('mouseover', (e) => { const b = e.target.closest ? e.target.closest('.sw') : null, g = b && b.dataset.g, id = b && b.dataset.id;
     const a = !b ? null : g === 'lead' || g === 'rear' ? (id === 'high' || id === 'low' ? null : ACT[id]) : g === 'feet' ? ACT[id] : null;   // a hand's 'low' hold is not the low kick
     const r = a && a.reach ? a.reach : null; if (String(r) !== String(hoverReach)) { hoverReach = r; hoverName = a ? a.n : ''; place(); } });
-  const draw0 = draw; draw = function () { draw0(); place(); };
+  /* S562 (owner on the gold squares and the white bar in the ring's corner: "also i do not undestand what is this"): the
+     ground left behind each man moves out of the ring into his panel, a fourth bar under Guard in plain words. */
+  css.textContent += '.rng{display:none}.bar.rm i{background:var(--gold)}#ruler .plabel.corner{left:.5rem;top:.45rem;transform:none;border:1px solid var(--line2)}#ruler .plabel.corner.ok{border-color:#74bd7c;box-shadow:0 0 10px rgba(116,189,124,.7)}#ruler .plabel.corner.no{border-color:#d9534a;box-shadow:0 0 10px rgba(217,83,74,.7)}#ruler .plabel.flash{animation:plateflash .9s ease-out}';
+  const room = (k) => { const m = F[k], n = 2 - Math.min(2, m.ropes || 0), who = k ? 'he' : 'you';
+    return `<span class="lab" title="Every back off gives up one step of ground; with none left ${who} ${k ? 'is' : 'are'} on the ropes and cannot back off. A step in wins it back.">${n ? `Room to back off ${n} of 2` : 'On the ropes - cannot back off'}</span><div class="bar rm"><i style="width:${50 * n}%"></i></div>`; };
+  const draw0 = draw; draw = function () { draw0(); for (const k of [0, 1]) { const el = $(k ? 'him' : 'you'), h = el.querySelector('.bar.gb'); if (h && !el.querySelector('.bar.rm')) h.insertAdjacentHTML('afterend', room(k)); } place(); };
   addEventListener('resize', place); im.addEventListener('load', place);
   // A picture that is not on disk (the kicks have none yet) must never leave the ring empty (owner S559: "both fighters
   // disappeared when istarted the beat"): show the men held at the range they are at instead.

@@ -71,6 +71,26 @@
    "brief": "ops/research/TASK_PUNCHCHANCE2.md",
    "branch": "arena/403bd20a-fightcamp-lean-lite",
    "issue": "https://arena.ai/agent/01a21702-0f08-75c6-8761-a804403bd20a"
+  },
+  "BODYUI2": {
+   "id": "BODYUI2",
+   "status": "running",
+   "seat": "claude",
+   "agent": "console worker (Opus, Code Mode), terminal tab BODYUI2",
+   "started": "2026-11-26T13:00",
+   "eta": "3-4 h",
+   "title": "Body view on the main page: point at a limb to pick its switches; his limbs show what they can do; the head its own part",
+   "brief": "ops/research/TASK_BODYUI2.md"
+  },
+  "GLIDE1": {
+   "id": "GLIDE1",
+   "status": "running",
+   "seat": "claude",
+   "agent": "Claude (S562 session), renders on the hidden desktop",
+   "started": "2026-11-26T12:20",
+   "eta": "1 h",
+   "title": "Punch pictures at every range: the men keep their distance when a punch plays",
+   "brief": "ops/previews/s562_glide/render_all.sh"
   }
  },
  "codex_budget": {

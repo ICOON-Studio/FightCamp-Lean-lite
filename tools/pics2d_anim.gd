@@ -21,9 +21,21 @@ const EPS := 0.008
 
 var offs: Array = OFFS
 var runs := {}
+## S562 (owner: "the distance between fighters is not consistant when clips play, it gets reset when some clip animations
+## play", and "i select hold your ground yet the animation showed my fighter moving"): a punch run stood the puncher on
+## the spot his glove needs for the whole run (the jab at Mid, the hooks between Mid and Inside), so on the page the men
+## jumped to that gap and back at every punch. range=<1|2|3>: the run is made at the page's range (Long 3 = the plain
+## name, Mid _r2, Inside _r1): the puncher starts and ends on his spot at that range (one step of 0.355 m in a range, as
+## the hold and step pictures stand) and moves into the punch's own spot on the way in, back out after the contact.
+## The contact pose (and the gate on it) is the same as before. range=0 (no arg): the old runs.
+const RANGE_STEP_M := 0.355
+var RANGE_AT := 0
+const GLIDE_IN_TO := -0.10   # in the punch's spot this long before the contact
+const GLIDE_OUT_FROM := 0.06   # and leaves it after this
 
 
 func _run() -> void:
+	RANGE_AT = int(_arg("range", "0"))
 	if _arg("offs", "") != "":
 		offs = []
 		for s in _arg("offs", "").split(","):
@@ -31,7 +43,7 @@ func _run() -> void:
 	for who in 2:
 		for fam in FAMILIES:
 			for res in RESULTS:
-				var name := "%s_%s_%s" % [["red", "blue"][who], fam, res]
+				var name := "%s_%s_%s" % [["red", "blue"][who], fam, res] + ("_r%d" % RANGE_AT if RANGE_AT in [1, 2] else "")
 				if _want(name):
 					await _punch_run(who, str(fam), str(res), name)
 	_finish()
@@ -140,6 +152,8 @@ func _punch_run(who: int, fam: String, res: String, name: String) -> void:
 	var body: bool = FAMILIES[fam][1]
 	var d := 1 - who
 	cover = b["cover"]
+	if RANGE_AT in [1, 2, 3]:
+		b["glide_from"] = (3 - RANGE_AT) * RANGE_STEP_M
 	# The still's own pose once more: the camera is fixed on it, and how far the other man gave ground (a miss) is read
 	# from it, so he stands there from the first frame on (the punch is out of range all the way, not at the end only).
 	await _pose(who, clip, fam, res, cs, b["hand"], body, float(b["step"]), b["side"])
@@ -244,9 +258,21 @@ func _punch_run(who: int, fam: String, res: String, name: String) -> void:
 		print("PICS_GATE FAIL %s (contact frame): %s" % [name, "; ".join(PackedStringArray(gate_fails))])
 		failed.append(name)
 	runs[name] = {"files": files, "offs": times, "contact": times.find(0.0), "clip": clip, "cover": cover, "answer": pl["ans"],
-		"step": snappedf(float(b["step"]), 0.001), "gate_fails": gate_fails, "hit": hit_at}
+		"step": snappedf(float(b["step"]), 0.001), "gate_fails": gate_fails, "hit": hit_at, "range": RANGE_AT, "glide_from": snappedf(float(b.get("glide_from", -1.0)), 0.001)}
 	print("PICS2D_ANIM %s = %s%s, answer %s, %d frames, step %.2f m" % [name, clip, " cover " + cover if cover != "" else "", pl["ans"], files.size(), float(b["step"])])
 	_save()
+
+
+## S562: 0 on the range's spot, 1 on the punch's spot - smooth in from the run's first offset to GLIDE_IN_TO, smooth out
+## from GLIDE_OUT_FROM to its last.
+func _glide_w(off: float) -> float:
+	var a := float(offs[0])
+	var z := float(offs[offs.size() - 1])
+	if off <= GLIDE_IN_TO:
+		return smoothstep(a, GLIDE_IN_TO, off)
+	if off >= GLIDE_OUT_FROM:
+		return 1.0 - smoothstep(GLIDE_OUT_FROM, z, off)
+	return 1.0
 
 
 ## WHEN each thing of the run starts, in seconds from the contact, as the v2 player times it (Choreographer, Player2):
@@ -319,8 +345,9 @@ func _pose_at(who: int, b: Dictionary, pl: Dictionary, give: Vector3, off: float
 	var res: String = pl["res"]
 	var body: bool = FAMILIES[fam][1]
 	var d := 1 - who
-	await _home_guard(float(b["step"]), who)
-	_node(who).global_position += b["side"]
+	var w := _glide_w(off) if b.has("glide_from") else 1.0
+	await _home_guard(lerpf(float(b.get("glide_from", 0.0)), float(b["step"]), w), who)
+	_node(who).global_position += b["side"] * w
 	_node(d).global_position += give
 	if off <= float(pl["t0"]):
 		return   # the guard, before anything starts
