@@ -1,0 +1,62 @@
+MOMENTGAP1 A — one-rep n=12 trial, then n=84 seed 1
+Node v22.22.3; jobs=2; table iters=500; play iters=400 (instrument default).
+Measurement-only loader (no rule changes):
+// Measurement-only loader: transforms balance's private bout loop, never page rules.
+import { registerHooks } from 'node:module';
+registerHooks({ load(url, context, nextLoad) {
+  const result = nextLoad(url, context);
+  if (!url.endsWith('/proto/twohands/tools/balance.mjs')) return result;
+  let s = String(result.source);
+  const patch = (a,b) => { if (!s.includes(a)) throw Error('measurement anchor missing: '+a); s=s.replace(a,b); };
+  patch('const sensible = (S) =>', `o.momentgap = { counters: [0,0], beaten: [0,0], wait: [0,0], waitAt: [[0,0,0],[0,0,0]], orders: [{},{}], anyWait: 0, bothWait: 0, gap: {}, afterCounter: {} };
+  let previousCounters = [0,0];
+  const sensible = (S) =>`);
+  patch('const u = o.use[k], add =', `const mg=o.momentgap, ord=R.ordOf(c), at=ord.indexOf('wait'), key=c.clinch?'clinch':ord.join('>')||'none';
+    mg.orders[k][key]=(mg.orders[k][key]||0)+1;
+    if(at>=0){mg.wait[k]++;mg.waitAt[k][at]++;}
+    const u = o.use[k], add =`);
+  patch('note(0, mine); note(1, his);', `const mg=o.momentgap, waits=[mine,his].map(p=>R.ordOf(p).includes('wait'));
+        if(waits.some(Boolean)) mg.anyWait++; if(waits.every(Boolean)) mg.bothWait++;
+        for(const k of [0,1]) { const delta=S.f[k].hp-S.f[1-k].hp, bin=delta<=-4?'behind4+':delta>=4?'ahead4+':'within3', pc=previousCounters[k]?'counterLastBeat':'noCounterLastBeat';
+          for(const [obj,key] of [[mg.gap,bin],[mg.afterCounter,pc]]) { const z=obj[key] ||= {choices:0,wait:0};z.choices++;if(waits[k])z.wait++; } }
+        previousCounters=[0,0];
+        note(0, mine); note(1, his);`);
+  patch("for (const e of ev) { if (e.t === 'clinch')", `for (const e of ev) { if(e.t==='hit' && e.o.includes('as a counter')) {o.momentgap.counters[e.k]++;previousCounters[e.k]++;} if(e.t==='flat' && e.o?.startsWith('beaten to the punch'))o.momentgap.beaten[e.k]++; if (e.t === 'clinch')`);
+  patch('const S = { f: [man(N.hp), man(R.opp().hp)], range: 3 }; let done', 'const S = { f: [man(N.hp), man(R.opp().hp)], range: 3 }; previousCounters=[0,0]; let done');
+  patch('S.range = 3; for (const m of S.f)', 'S.range = 3; previousCounters=[0,0]; for (const m of S.f)');
+  patch("return L.join('\\n'); }", "L.push('MOMENTGAP_METRICS ' + JSON.stringify({n:o.n,beats:o.beats,...o.momentgap})); return L.join('\\n'); }");
+  return {...result,source:s};
+}});
+
+COMMAND: node proto/twohands/tools/balance.mjs table tweak=ops/research/s558_balance/moment_gap_a.json out=.cache/momentgap1/a-table.json jobs=2
+BALANCE_TABLE beats left 1: at Long, full stamina v 4: 0.141; having given ground twice v none: -0.448; Mid 0.378; Inside 0.327
+BALANCE_TABLE beats left 2: at Long, full stamina v 4: 0.562; having given ground twice v none: -0.604; Mid 1.041; Inside 0.879
+BALANCE_TABLE beats left 3: at Long, full stamina v 4: 0.969; having given ground twice v none: -0.409; Mid 1.258; Inside 1.193
+BALANCE_TABLE beats left 4: at Long, full stamina v 4: 1.171; having given ground twice v none: -0.334; Mid 1.406; Inside 1.316
+BALANCE_TABLE beats left 5: at Long, full stamina v 4: 1.223; having given ground twice v none: -0.319; Mid 1.441; Inside 1.364
+BALANCE_TABLE beats left 6: at Long, full stamina v 4: 1.25; having given ground twice v none: -0.316; Mid 1.462; Inside 1.375
+BALANCE_TABLE wrote .cache/momentgap1/a-table.json in 5591 s
+
+TRIAL COMMAND: node --import ./.cache/momentgap1/measure.mjs proto/twohands/tools/balance.mjs play tweak=ops/research/s558_balance/moment_gap_a.json table=.cache/momentgap1/a-table.json n=12 seed=1 jobs=2
+mix v the same man (no style): wins 33%, draws 0%, stops him 17%, is stopped 8%; knockdowns a bout 1.1 v 1.3; health taken a bout 19.3 v 22.6; beats at Inside / Mid / Long 30% / 37% / 32%; clinches a bout 1.8; rounds level on points 6%, 100% of them given on ground
+  you a beat: lead held low 36%, step in 35%, back off 35%, Cross 27%, feet hold 23%, rear held high 22%, Body cross 19%, rear held low 16%, Lead hook 15%, Body jab 12%, lead held high 8%, Lead uppercut 8%, clinch 8%, Jab 5%, Rear uppercut 5%, Overhand 3%, Body hook 3%, Feint 3%, Push off 2% | punches in a plan: none 3%, one 81%, two 8%
+  your punches (thrown a bout: lands / blocked / misses): Cross 4.3: 27% / 41% / 31%, Body cross 3.0: 50% / 19% / 31%, Lead hook 2.4: 38% / 52% / 10%, Body jab 2.2: 69% / 31% / 0%, Lead uppercut 1.1: 46% / 23% / 31%, Jab 0.8: 56% / 44% / 0%, Rear uppercut 0.8: 67% / 0% / 33%, Overhand 0.6: 57% / 29% / 14%, Body hook 0.6: 57% / 43% / 0%
+  he  a beat: step in 36%, lead held low 35%, back off 35%, rear held high 27%, feet hold 24%, Body cross 24%, Cross 21%, Body jab 16%, rear held low 14%, Lead hook 10%, Lead uppercut 9%, Jab 7%, lead held high 7%, Rear uppercut 6%, clinch 5%, Body hook 5%, Feint 3%, Overhand 3%, Push off 2% | punches in a plan: none 3%, one 82%, two 10%
+  his  punches (thrown a bout: lands / blocked / misses): Body cross 3.7: 50% / 30% / 20%, Cross 3.2: 55% / 24% / 21%, Body jab 2.8: 65% / 29% / 6%, Lead hook 1.6: 53% / 37% / 11%, Lead uppercut 1.3: 80% / 7% / 13%, Jab 1.2: 57% / 36% / 7%, Rear uppercut 0.9: 36% / 9% / 55%, Body hook 0.8: 60% / 10% / 30%, Overhand 0.3: 50% / 0% / 50%
+  your order, of the beats with one to choose (86%): first wait 50%, feet 31%, rear 11%, lead 8%
+MOMENTGAP_METRICS {"n":12,"beats":210,"counters":[12,16],"beaten":[5,6],"wait":[146,142],"waitAt":[[91,34,21],[71,35,36]],"orders":[{"wait>feet>rear":22,"wait>rear":16,"wait>feet>lead":34,"feet>rear>lead":4,"feet>wait>rear":8,"feet>rear>wait":10,"none":2,"rear>lead>feet":5,"clinch":16,"lead>feet":2,"rear>feet>lead":2,"lead>wait>feet":5,"feet>wait>lead":12,"rear>lead>wait":2,"feet>lead":7,"wait>lead>rear":5,"wait>feet":1,"lead":4,"feet>rear":7,"wait>rear>feet":9,"lead>rear>wait":1,"lead>rear>feet":2,"rear>wait":3,"lead>wait":3,"rear":5,"wait>lead":3,"feet>lead>wait":4,"lead>wait>rear":2,"rear>feet>wait":4,"rear>wait>lead":1,"feet>lead>rear":4,"feet":2,"rear>feet":2,"wait":1},{"wait>rear>feet":3,"lead>wait>feet":10,"lead>wait":5,"lead>wait>rear":2,"wait>rear>lead":2,"rear":4,"wait>rear":10,"feet>lead>rear":8,"wait":1,"feet>rear":15,"feet>wait>rear":4,"clinch":11,"feet>rear>wait":14,"wait>feet>lead":25,"wait>feet>rear":19,"lead":5,"feet>lead>wait":11,"rear>wait":3,"rear>wait>feet":2,"rear>feet>wait":5,"feet>rear>lead":2,"lead>feet":2,"none":2,"lead>feet>wait":2,"rear>feet>lead":3,"feet>wait>lead":7,"wait>lead":5,"rear>feet":3,"feet>lead":7,"wait>lead>feet":1,"rear>lead>feet":2,"wait>feet":2,"wait>lead>rear":3,"feet":1,"rear>lead>wait":2,"lead>rear":3,"lead>rear>wait":2,"rear>wait>lead":2}],"anyWait":190,"bothWait":98,"gap":{"within3":{"choices":284,"wait":194},"behind4+":{"choices":68,"wait":49},"ahead4+":{"choices":68,"wait":45}},"afterCounter":{"noCounterLastBeat":{"choices":400,"wait":274},"counterLastBeat":{"choices":20,"wait":14}}}
+  (12 bouts, 449 s)
+BARS 5 of 9 pass
+  PASS every range is fought at (each 15-55% of beats): Inside 30%, Mid 37%, Long 32%
+  PASS no switch is a must (none in over 40% of beats): step in 35%, back off 35%, Cross 24%
+  FAIL no switch is dead (each in at least 3% of beats): Push off 2%
+  FAIL every punch lands 30-65% of the time and falls short at most 40%: Body jab lands 67%, short 3%; Rear uppercut lands 50%, short 45%
+  PASS bouts end both ways (stoppages 10-40%, draws at most 20%, 0.5-2.5 knockdowns a bout): stoppages 25%, draws 0%, knockdowns 2.4
+  FAIL one punch, two punches and holding all have their beats (two 15-45%, none 5-25%): two 9%, none 3%
+  PASS the clinch is a rescue, not a habit (at most 2 a bout): 1.8
+  PASS the order is a choice (no slot first in over 60% of ordered beats; an order to choose in 40%+ of beats): ordered 86%, most often first 50%
+  FAIL the mirror is fair (wins 40-60% of decided bouts): 33%
+
+CHECKS: RULES_TEST 37 passed; structural plan checks passed (1010 full-stamina plans); wait keeps both hands home, zero damage/cost, future action retained, wait-only plan valid.
+Table SHA256: 056acc0f086d1f2aee476f5b84cfd43db45ad9a96bbdafabad0bb2f09ffe6ddc
+order.html SHA256: 166bec887777789d2ffc78ecc50aed40c987e9543beac0fc5f5a4982b533f442

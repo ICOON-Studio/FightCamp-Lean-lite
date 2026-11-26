@@ -1,0 +1,17 @@
+{
+  "_note": "MOMENTGAP1 A: each order of active slots, optionally one free wait anywhere, at most three moments. A wait acts with neither hand and does not alter cost or recovery. No other rule changed.",
+  "src": [
+    [
+      "const active = (p, sl) => (sl === 'feet' ? p.feet !== 'hold' : !!p[sl]);",
+      "const active = (p, sl) => (sl === 'wait' ? true : sl === 'feet' ? p.feet !== 'hold' : !!p[sl]);"
+    ],
+    [
+      "const actName = (p, sl) => (sl === 'feet' ? FEET[p.feet].n : ACT[p[sl]].n);",
+      "const actName = (p, sl) => (sl === 'wait' ? 'Wait' : sl === 'feet' ? FEET[p.feet].n : ACT[p[sl]].n);"
+    ],
+    [
+      "for (const ord of perms(ordOf(c0))) out.push({ ...c0, ord });",
+      "for (const base of perms(ordOf(c0))) { out.push({ ...c0, ord: base }); if (base.length < 3) for (let at = 0; at <= base.length; at++) out.push({ ...c0, ord: [...base.slice(0, at), 'wait', ...base.slice(at)] }); }"
+    ]
+  ]
+}
