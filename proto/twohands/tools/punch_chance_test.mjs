@@ -2,8 +2,10 @@
 //   node proto/twohands/tools/punch_chance_test.mjs        exit 0 = all pass
 import assert from 'node:assert/strict';
 import { loadTweaked, readTweak } from './balance.mjs';
+import { applyKnockdown } from './probe_punch_chance.mjs';
 
 const A = loadTweaked(1, readTweak('ops/research/s558_balance/punch_chance_a.json'), null), B = loadTweaked(1, readTweak('ops/research/s558_balance/punch_chance_b.json'), null);
+const C = loadTweaked(1, readTweak('ops/research/s558_balance/punch_chance_c.json'), null), F = loadTweaked(1, readTweak('ops/research/s558_balance/punch_chance_f.json'), null);
 const p = (R, o) => ({ ...R.plan0(), ...o });
 const ring = (R, f = [{}, {}], range = 2) => ({ range, f: [Object.assign(R.man(18), f[0]), Object.assign(R.man(18), f[1])] });
 const has = (R, S, k) => R.plansFor(S, k).some((c) => c.pch);
@@ -34,4 +36,17 @@ t('the cards trigger: closed in rounds 1 and 2, open in the last round to the ma
   S.f[1].pts = 4; for (let i = 0; i < B.N.beats; i++) B.endBeat(S); assert.ok(!has(B, S, 0)); for (const m of S.f) m.pts = 0; S.f[1].pts = 2; for (let i = 0; i < B.N.beats; i++) B.endBeat(S);
   assert.ok(has(B, S, 0)); assert.ok(!has(B, S, 1)); });
 t('the value table states never see it (level health, round 1): the look-ahead is the page\'s own', () => { const S = { range: 2, f: [A.man(18), A.man(18)] }; S.f[0].st = 8; S.f[1].st = 3; assert.ok(!has(A, S, 0)); assert.ok(!has(A, S, 1)); });
+t('the free knockdown (PUNCHCHANCE2 F): an all-in drop gets up on his knockdown health, scores 3, and does not count toward the stoppage; off by default it counts as before', () => {
+  const mk = (R, kd) => { const S = { f: [R.man(18), R.man(18)] }; S.f[1].kd = kd; S.f[1].hp = 0; S.f[1].pts = 0; S.f[0].pts = 0; const o = { kd: [0, 0] }, rec = { kd: [0, 0] }; return { S, o, rec }; };
+  // F, first knockdown, all-in: free - kd unchanged, up on 6, 3 points, not tallied
+  { const { S, o, rec } = mk(F, 0); assert.equal(applyKnockdown(S, 1, F.N, o, rec, true), 'free'); assert.equal(S.f[1].kd, 0); assert.equal(S.f[1].hp, F.N.kd[0]); assert.equal(S.f[0].pts, 3); assert.equal(o.kd[1], 0); assert.equal(rec.kd[1], 0); }
+  // F, second knockdown, all-in: free - kd unchanged, up on 4
+  { const { S, o, rec } = mk(F, 1); assert.equal(applyKnockdown(S, 1, F.N, o, rec, true), 'free'); assert.equal(S.f[1].kd, 1); assert.equal(S.f[1].hp, F.N.kd[1]); assert.equal(S.f[0].pts, 3); }
+  // F, one more would stop, all-in: still free, not a stoppage
+  { const { S, o, rec } = mk(F, 2); assert.equal(applyKnockdown(S, 1, F.N, o, rec, true), 'free'); assert.equal(S.f[1].kd, 2); assert.equal(S.f[1].hp, F.N.kd[1]); }
+  // F, a normal drop (not all-in): counted as before
+  { const { S, o, rec } = mk(F, 0); assert.equal(applyKnockdown(S, 1, F.N, o, rec, false), 'up'); assert.equal(S.f[1].kd, 1); assert.equal(S.f[1].hp, F.N.kd[0]); assert.equal(o.kd[1], 1); }
+  // C (pcFree off): an all-in drop counts as before, and the third stops
+  { const { S, o, rec } = mk(C, 0); assert.equal(applyKnockdown(S, 1, C.N, o, rec, true), 'up'); assert.equal(S.f[1].kd, 1); assert.equal(o.kd[1], 1); }
+  { const { S, o, rec } = mk(C, 2); assert.equal(applyKnockdown(S, 1, C.N, o, rec, true), 'stop'); assert.equal(S.f[1].kd, 3); } });
 console.log(`PUNCH_CHANCE_TEST ${n} passed`);

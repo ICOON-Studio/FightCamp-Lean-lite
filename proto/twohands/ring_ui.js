@@ -35,11 +35,14 @@
      animations play"): a punch run is made at each range it reaches (tools/pics2d_anim.gd range=: the puncher starts and
      ends on his spot at that range and steps into the punch between); the range the men stand at NOW is the counts'. A
      range with no run of its own (a punch thrown out of its reach) takes the nearest range that has one. */
-  const atRange = (run) => { const m = /^(red|blue)_.+_(landed|blocked|missed)$/.exec(run || ''); if (!m) return run;
+  const atRange = (run) => { if (/^(red|blue)_feint$/.test(run || '')) { const r = 3 - (redIn + blueIn); return r < 3 && ANIM[`${run}_r${r}`] ? `${run}_r${r}` : run; }   /* the feint at each range too */
+    const m = /^(red|blue)_(.+)_(landed|blocked|missed)$/.exec(run || ''); if (!m) return run;
     const r = Math.max(1, Math.min(3, 3 - (redIn + blueIn))), name = (x) => (x === 3 ? run : `${run}_r${x}`);
+    if (m[3] === 'missed') { const a = Object.values(ACT).find((x) => (x.run || x.pic) === m[2]), sh = `${m[1]}_${m[2]}_short` + (r === 3 ? '' : '_r' + r);   /* thrown from further than it reaches: it FALLS SHORT, he does not move into it */
+      if (a && a.reach && r > Math.max(...a.reach) && ANIM[sh]) return sh; }
     for (const x of [r, r === 1 ? 2 : r === 3 ? 2 : 1, r === 1 ? 3 : r === 3 ? 1 : 3]) if (ANIM[name(x)] && ANIM[name(x)].range) return name(x);
     return run; };
-  const warm0 = warm; warm = function (runs) { return warm0(runs.flatMap((n) => [n, n + '_r1', n + '_r2'])); };   /* the page warms the runs a beat needs by their plain names */
+  const warm0 = warm; warm = function (runs) { return warm0(runs.flatMap((n) => { const s = n.replace(/_missed$/, '_short'); return [n, n + '_r1', n + '_r2', ...(s !== n ? [s, s + '_r2'] : [])]; })); };   /* the page warms the runs a beat needs by their plain names */
   const run0 = playRun; playRun = function (run, big, onHit, done, cut) { run = atRange(run);
     const m = /^(red|blue)_(step_in|slip_in|back_off)/.exec(run || ''), move = () => { if (!m) return; const d = m[2] !== 'back_off' ? 1 : -1;   /* HEADPICS1: a slip in is a step in */ if (m[1] === 'red') redIn += d; else blueIn += d; };
     const ok = run0(run, big, onHit, () => { move(); slide(); done(); }, cut); if (!ok) move(); return ok; };

@@ -5376,7 +5376,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-26 11:10 S561",
+  "updated": "2026-11-26 11:03 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5541,19 +5541,6 @@
   },
   "working_now": [
    {
-    "title": "Puncher's chance: a comeback switch for the man behind - measured on the instrument before it reaches the page (your S559 idea)",
-    "who": "console worker (Opus, Code Mode), terminal tab PUNCHCHANCE1",
-    "started": "2026-11-26T09:35",
-    "run": "PUNCHCHANCE1",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "Head-move pictures: slip, roll, lean back, slip in - from our owned takes, on your camera",
-    "who": "Claude (this session), renders on the hidden desktop",
-    "started": "2026-11-26T10:30",
-    "run": "HEADPICS1"
-   },
-   {
     "title": "The kick version that holds 8 of 9 bars: kicks back at Long, the low kick as the answer to a man stepping in",
     "who": "Arena (cloud, its own clone of the code mirror: costs your PC nothing)",
     "started": "2026-11-26T10:00",
@@ -5576,9 +5563,55 @@
     "who": "Arena (cloud, a fourth chat: costs your PC nothing)",
     "started": "2026-11-26T11:20",
     "run": "PUNCHCHANCE2"
+   },
+   {
+    "title": "Punch pictures at every range: the men keep their distance when a punch plays (your 'the distance between fighters is not consistant'); then falls-short punches, the feint and the push off",
+    "who": "Claude (S562 session), renders on the hidden desktop",
+    "started": "2026-11-26T12:20",
+    "run": "GLIDE1",
+    "state": "Long + Mid on the page; Inside, falls-short, feint, push rendering"
+   },
+   {
+    "title": "The body view on the main page: point at a limb to pick its switches; his limbs show what they can do; the head its own part (your Q-343, Q-338, Q-339)",
+    "who": "console worker (Opus, Code Mode), terminal tab BODYUI2",
+    "started": "2026-11-26T13:00",
+    "run": "BODYUI2",
+    "state": "running"
+   },
+   {
+    "title": "Pick the exact moment of the beat you act in (your 'can i be able to select exactly on which part of a beat i move ?'): measured before it is built",
+    "who": "Arena (cloud, a fifth chat: costs your PC nothing)",
+    "started": "2026-11-26T13:20",
+    "run": "MOMENTGAP1",
+    "state": "running"
+   },
+   {
+    "title": "The clinch pays too well: the version where the push off gets a second job, measured on today's page",
+    "who": "Arena (cloud, a sixth chat: costs your PC nothing)",
+    "started": "2026-11-26T13:35",
+    "run": "CLINCHFIX2",
+    "state": "running"
    }
   ],
   "next": [
+   {
+    "id": "GLIDE1",
+    "who": "claude",
+    "title": "Punches, feint and push off at every range: the men never jump when a clip plays - Claude renders, then checks on the page",
+    "after": ""
+   },
+   {
+    "id": "MOMENTGAP1",
+    "who": "arena",
+    "title": "Pick the exact moment you act in a beat: Arena measures it; on the page only if it holds the bars",
+    "after": ""
+   },
+   {
+    "id": "CLINCHFIX2",
+    "who": "arena",
+    "title": "The clinch fix v2 (push off counters): Arena measures",
+    "after": ""
+   },
    {
     "id": "PUNCHCHANCE2",
     "who": "arena",
@@ -5612,13 +5645,13 @@
    {
     "id": "BODYUI1",
     "who": "claude",
-    "title": "Your idea: the switches on the fighters' bodies | your answers: 'Yes, replace the board', his limbs 'Show what it can do', head / torso / legs 'Yes' | NEXT: the body view picks the switches on a copy of the main page (BODYUI2)",
+    "title": "Your idea: the switches on the fighters' bodies | BODYUI2 is building it on the main page now (your 'Yes, replace the board')",
     "after": ""
    },
    {
     "id": "CLINCHFIX1",
     "who": "claude",
-    "title": "The clinch pays too well: a rote 'feint, punch, clinch' script breaks even against all three men (four of five players said so) | NEXT: the mildest measured fix on the page, or your call if two tie",
+    "title": "The clinch pays too well | CLINCHFIX2 at Arena measures the push-off-counter version on today's page; the mildest that holds 8 of 9 goes on the page",
     "after": "RUNESTEP1"
    },
    {
@@ -5643,12 +5676,6 @@
     "id": "BODYREACT2",
     "who": "claude",
     "title": "In the 3D fight a landed body punch folds the hit boxer (your 'the reaction should force the opponent to bend hisposture a bit'; S305, S310, S369 on the live fight) | NEXT: collect BODYREACT2 (Fable tab): the ruler, the control arm, the films on /review for your eye",
-    "after": ""
-   },
-   {
-    "id": "NIGHTREDS1",
-    "who": "claude",
-    "title": "05:00 tests: 2 old reds left (was 29): matchmaking_bots (the bot that scouts is stopped MORE than the one that does not), block_meet (old player's rulers); move_tip fixed in S552 | NEXT: launch MATCHBOTS2 (brief written) when a tab frees",
     "after": ""
    },
    {
@@ -6035,6 +6062,12 @@
   },
   "done_recently": [
    {
+    "id": "NIGHTREDS1",
+    "who": "claude",
+    "title": "05:00 tests all green: 506 passed, 0 failed (2026-11-26; matchmaking_bots passes, block_meet is out of the list since S548)",
+    "after": ""
+   },
+   {
     "id": "HEADPICS1",
     "who": "claude",
     "title": "Head moves in pictures on head.html (your 'finish with the headmoves pics'): slip, roll, lean back, slip in - 22 runs, both corners, your camera"
@@ -6191,6 +6224,18 @@
   "map": {
    "done_earlier": [
     {
+     "text": "Puncher's chance v C: 10 to 18%",
+     "who": "agent"
+    },
+    {
+     "text": "Head move pictures on head.html",
+     "who": "claude"
+    },
+    {
+     "text": "Puncher's chance page + board jump",
+     "who": "claude"
+    },
+    {
      "text": "Pull counter on the page",
      "who": "claude"
     },
@@ -6233,31 +6278,23 @@
     {
      "text": "Progression spec written (paper)",
      "who": "claude"
-    },
-    {
-     "text": "Commentators react each beat",
-     "who": "claude"
-    },
-    {
-     "text": "Range plates at true distances",
-     "who": "claude"
-    },
-    {
-     "text": "Camera tool built (CAMPICK1)",
-     "who": "claude"
     }
    ],
    "done_session": [
     {
-     "text": "Puncher's chance v C: 10 to 18%",
-     "who": "agent"
-    },
-    {
-     "text": "Head move pictures on head.html",
+     "text": "Range badge off the fighters",
      "who": "claude"
     },
     {
-     "text": "Puncher's chance page + board jump",
+     "text": "Back off left, Step in right",
+     "who": "claude"
+    },
+    {
+     "text": "Stamina reads -2 / +1",
+     "who": "claude"
+    },
+    {
+     "text": "Room to back off bar",
      "who": "claude"
     }
    ],
@@ -6409,6 +6446,26 @@
     {
      "text": "Attributes probe (Arena)",
      "who": "agent"
+    },
+    {
+     "text": "Punches at every range (render)",
+     "who": "claude"
+    },
+    {
+     "text": "Body view on main page (worker)",
+     "who": "claude"
+    },
+    {
+     "text": "Pick the moment: measure (Arena)",
+     "who": "agent"
+    },
+    {
+     "text": "Clinch fix v2: measure (Arena)",
+     "who": "agent"
+    },
+    {
+     "text": "Head+kicks every range (worker)",
+     "who": "claude"
     }
    ],
    "next": [
@@ -6817,10 +6874,6 @@
      "who": "claude"
     },
     {
-     "text": "Body view: lit limbs + pointer",
-     "who": "claude"
-    },
-    {
      "text": "Re-render pictures, your angle",
      "who": "claude"
     },
@@ -6849,15 +6902,11 @@
      "who": "claude"
     },
     {
-     "text": "Body view replaces the board",
-     "who": "claude"
-    },
-    {
      "text": "Puncher's chance v2 onto the page",
      "who": "claude"
     }
    ],
-   "session": "S561"
+   "session": "S562"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",

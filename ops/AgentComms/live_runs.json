@@ -103,6 +103,28 @@
    "brief": "ops/research/TASK_MOMENTGAP1.md",
    "branch": "arena/4bdf9ebc-fightcamp-lean-lite",
    "issue": "https://arena.ai/agent/01a21740-07d4-753e-855e-06a24bdf9ebc"
+  },
+  "CLINCHFIX2": {
+   "id": "CLINCHFIX2",
+   "status": "running",
+   "seat": "arena",
+   "agent": "Arena (cloud, a sixth chat: costs your PC nothing)",
+   "started": "2026-11-26T13:35",
+   "eta": "2-3 h",
+   "title": "The clinch pays too well: the version where the push off gets a second job, measured",
+   "brief": "ops/research/TASK_CLINCHFIX2.md",
+   "branch": "arena/204b98f9-fightcamp-lean-lite",
+   "issue": "https://arena.ai/agent/01a21742-8bd0-7f21-b3b8-cef7204b98f9"
+  },
+  "GLIDE2": {
+   "id": "GLIDE2",
+   "status": "running",
+   "seat": "claude",
+   "agent": "console worker (Opus, Code Mode), terminal tab GLIDE2",
+   "started": "2026-11-26T14:00",
+   "eta": "2-3 h",
+   "title": "Head moves and kicks at every range: the men keep their distance on head.html and kick.html",
+   "brief": "ops/research/TASK_GLIDE2.md"
   }
  },
  "codex_budget": {

@@ -48,7 +48,9 @@ Seat: console worker. Estimate: 3-4 hours, ~10 min of GPU renders.
    goes (it IS the main page now); check the board with a headless Edge screenshot.
 
 ## Renders - read before any Godot run
-- The main session is rendering (S562 GLIDE1) until `ops/previews/s562_glide/render_all.out` prints `GLIDE_RENDER_DONE`.
+- The main session is rendering (S562 GLIDE1) until `ops/previews/s562_glide/chain.out` prints `CHAIN_DONE` (render_all.out,
+  then render_short.out, then render_more.out). Before your render, `python ops/Tools/godot_slot.py status` must show no
+  hidden_desktop job running.
   Two windowed renders never run at once: do steps 1, 2 and the code of 3 first, render the masks only after that line.
 - HIS GAME FIRST: `powershell -NoProfile -ExecutionPolicy Bypass -File ops\Tools\pc_watchdog.ps1 -Once` before the render;
   if ArcheAge is running or the PC is RED, wait. Godot only through `ops/Tools/godot_slot.py` + `tools/hidden_desktop.py`.

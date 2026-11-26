@@ -22,7 +22,7 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[2]
 SRC = HERE.parent / "order.html"
 OUT = HERE.parent / "punch.html"
-TWEAK = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "ops/research/s558_balance/punch_chance_c.json"
+TWEAK = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "ops/research/s558_balance/punch_chance_f.json"   # S562: F (PUNCHCHANCE2)
 
 
 def main() -> None:
@@ -49,6 +49,13 @@ def main() -> None:
     rep("a: 'all in and blocked', o: 'wide open for the rest of the beat'",
         "a: 'gets blocked, wide open', o: `all in and blocked: every punch at ${sh.k ? 'him' : 'you'} lands as a counter for the rest of the beat`", "words: blocked")
     rep("all ? 'ALL IN, the puncher chance' :", "all ? `ALL IN, the Puncher's chance: double, and down` :", "words: why")
+
+    # ---- PUNCHCHANCE2 version F (S562): an all-in knockdown gets up on his knockdown health and does NOT count toward the
+    # three-knockdown stoppage (it still scores 3) - N.pcFree, as probe_punch_chance.mjs applyKnockdown measured it
+    # (docs/PUNCHCHANCE2_RESULT.md: 8 of 9 bars on both seeds, comeback pooled 15%). Off when the tweak has no pcFree.
+    rep("for (const k of [0, 1]) if (F[k].hp <= 0) { F[k].kd++; F[1 - k].pts += 3; if (F[k].kd > N.kd.length) return over(k ? 'YOU WIN - the referee stops it' : `${OPP.n} WINS - the referee stops it`); F[k].hp = N.kd[F[k].kd - 1];",
+        "for (const k of [0, 1]) if (F[k].hp <= 0) { const free = !!N.pcFree && ev.some((x) => x.t === 'hit' && x.k === 1 - k && /ALL IN/.test(x.o || '')); if (!free) F[k].kd++; F[1 - k].pts += 3; if (F[k].kd > N.kd.length) return over(k ? 'YOU WIN - the referee stops it' : `${OPP.n} WINS - the referee stops it`); F[k].hp = free ? N.kd[Math.min(F[k].kd, N.kd.length - 1)] : N.kd[F[k].kd - 1];",
+        "the free all-in knockdown (F)")
 
     # ---- the page
     rep("<title>Ring Switches</title>", "<title>Ring Switches - Puncher's chance</title>", "title")

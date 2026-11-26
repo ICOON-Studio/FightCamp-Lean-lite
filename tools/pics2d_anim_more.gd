@@ -74,8 +74,9 @@ func _run() -> void:
 			for rk in RANGE_IN:
 				if _want("%s_%s%s" % [col, key, rk]):
 					await _hold_run(who, str(key), "%s_%s%s" % [col, key, rk], float(RANGE_IN[rk]))
-		if _want(col + "_feint"):
-			await _feint_run(who, col + "_feint")
+		for rk in RANGE_IN:   # S562: the feint at each range (it was Long only: at Mid and Inside the men jumped apart)
+			if _want(col + "_feint" + rk):
+				await _feint_run(who, col + "_feint" + rk, float(RANGE_IN[rk]))
 		if _want(col + "_knockdown"):
 			await _ko_run(who, col + "_knockdown")
 		for fam in FAMILIES:
@@ -291,11 +292,11 @@ func _hold_gate(who: int, key: String, was: Dictionary) -> Dictionary:
 	return {"fails": fails}
 
 
-func _feint_run(who: int, name: String) -> void:
+func _feint_run(who: int, name: String, in_m := 0.0) -> void:
 	if not _has(who, FEINT[0]):
 		return
 	var build := func() -> Array:
-		await _home_guard()
+		await _home_guard(in_m, who)
 		return [[0.0, func() -> void: stage.v2._play(who, FEINT[0], 0.0, "feint", false)],
 			[float(FEINT[1]), func() -> void:
 				stage.v2._join_next = Player2.JOIN_HOME
@@ -304,13 +305,19 @@ func _feint_run(who: int, name: String) -> void:
 
 
 ## The push off: both men from the tie-up, hands on the chest, out to range (PushOff.begin / step, as after a clinch).
+## S562 (owner: "the distance between fighters is not consistant when clips play"): the pair stands as the page's
+## pictures do - red on his spot, blue at Inside (RANGE_IN _r1) - and blue is moved back to Mid (_r2) over the run, the
+## page's range after a push off. PushOff still drives the arms; the feet are placed here. (It was centred between the
+## Long spots: red half a step in, blue half a step out of where the page's pictures had them.)
 func _push_run(_who: int, name: String) -> void:
-	var mid: Vector3 = (home_t[0].origin + home_t[1].origin) * 0.5
 	var keep := [stage.boxers[0]["pos"], stage.boxers[1]["pos"]]
+	var end_t := float(PUSH_T[-1])
+	var spot := func(i: int, f: float) -> Vector3:
+		return home_t[0].origin if i == 0 else home_t[1].origin - axis * lerpf(float(RANGE_IN["_r1"]), float(RANGE_IN["_r2"]), f)
 	var build := func() -> Array:
 		await _hands_free()
 		for i in 2:
-			var at: Vector3 = mid + axis * PUSH_GAP_M * (0.5 if i == 1 else -0.5)
+			var at: Vector3 = spot.call(i, 0.0)
 			_node(i).global_position = at
 			stage.boxers[i]["pos"] = Vector3(at.x, 0.0, at.z)
 		PushOff.begin(stage)
@@ -319,7 +326,8 @@ func _push_run(_who: int, name: String) -> void:
 		if t > 0.0:
 			PushOff.step(stage, 1.0 / 60.0)
 		for i in 2:
-			var at: Vector3 = stage.boxers[i]["pos"]
+			var at: Vector3 = spot.call(i, smoothstep(0.0, end_t, t))
+			stage.boxers[i]["pos"] = Vector3(at.x, 0.0, at.z)
 			_node(i).global_position = Vector3(at.x, _node(i).global_position.y, at.z)
 	await _solo(name, "PushOff", PUSH_T, build, each)
 	PushOff.cancel(stage)

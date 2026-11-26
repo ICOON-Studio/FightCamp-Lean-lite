@@ -30,20 +30,24 @@ var runs := {}
 ## The contact pose (and the gate on it) is the same as before. range=0 (no arg): the old runs.
 const RANGE_STEP_M := 0.355
 var RANGE_AT := 0
+## short=1 (with range=): the punch FALLS SHORT - thrown from the puncher's spot at that range, he never moves into it, the
+## other man stands (no dodge): the page plays it for a punch thrown from further than it reaches. Runs <fam>_short[_r<n>].
+var SHORT := false
 const GLIDE_IN_TO := -0.10   # in the punch's spot this long before the contact
 const GLIDE_OUT_FROM := 0.06   # and leaves it after this
 
 
 func _run() -> void:
 	RANGE_AT = int(_arg("range", "0"))
+	SHORT = _arg("short", "0") == "1"
 	if _arg("offs", "") != "":
 		offs = []
 		for s in _arg("offs", "").split(","):
 			offs.append(float(s))
 	for who in 2:
 		for fam in FAMILIES:
-			for res in RESULTS:
-				var name := "%s_%s_%s" % [["red", "blue"][who], fam, res] + ("_r%d" % RANGE_AT if RANGE_AT in [1, 2] else "")
+			for res in (["missed"] if SHORT else RESULTS):
+				var name := "%s_%s_%s" % [["red", "blue"][who], fam, "short" if SHORT else res] + ("_r%d" % RANGE_AT if RANGE_AT in [1, 2] else "")
 				if _want(name):
 					await _punch_run(who, str(fam), str(res), name)
 	_finish()
@@ -157,9 +161,14 @@ func _punch_run(who: int, fam: String, res: String, name: String) -> void:
 	# The still's own pose once more: the camera is fixed on it, and how far the other man gave ground (a miss) is read
 	# from it, so he stands there from the first frame on (the punch is out of range all the way, not at the end only).
 	await _pose(who, clip, fam, res, cs, b["hand"], body, float(b["step"]), b["side"])
-	var give: Vector3 = _node(d).global_position - home_t[d].origin
+	var give: Vector3 = Vector3.ZERO if SHORT else _node(d).global_position - home_t[d].origin   # S562: out of reach, he gives no ground
 	_aim([0, 1])
 	var pl := _plan(who, b, fam, res)
+	if SHORT:   # he is out of reach: nothing to dodge
+		pl["ans"] = ""
+		pl["ans_t"] = INF
+		pl["weave"] = false
+		pl["t0"] = float(pl["punch_t"])
 	# Everything is played LIVE here (the still froze each man where it wanted him): the contact is posed and measured
 	# once more, and the pair is moved by what the gate still misses - the still tool's own rule (pics2d_set._punch):
 	# bodies, feet or heads too close step the puncher back; a miss too near gives the other man more ground; a glove
@@ -207,7 +216,7 @@ func _punch_run(who: int, fam: String, res: String, name: String) -> void:
 		_dodge_at(pl, float(best["depth"]))
 		pl["t0"] = minf(float(pl["punch_t"]), float(pl["ans_t"]))
 		print("MISS_FIT %s: the duck at %.0f%% of its depth on the contact, ground given %.2f m, glove %.3f m from his face on the picture" % [name, 100.0 * float(best["depth"]), (give as Vector3).length(), float(best["clear"])])
-	for attempt in (0 if near else 4):
+	for attempt in (0 if near or SHORT else 4):
 		await _pose_at(who, b, pl, give, 0.0)
 		await process_frame
 		var m: Dictionary = Gate.punch(stage, who, b["hand"], res, body, dirv, _px, SIZE / cam.size, _view())
@@ -266,6 +275,8 @@ func _punch_run(who: int, fam: String, res: String, name: String) -> void:
 ## S562: 0 on the range's spot, 1 on the punch's spot - smooth in from the run's first offset to GLIDE_IN_TO, smooth out
 ## from GLIDE_OUT_FROM to its last.
 func _glide_w(off: float) -> float:
+	if SHORT:
+		return 0.0
 	var a := float(offs[0])
 	var z := float(offs[offs.size() - 1])
 	if off <= GLIDE_IN_TO:
