@@ -12,6 +12,7 @@ restart a run it stopped for memory on my own, so the N=56 runs are not done. Wh
 | **F1** checkHurt 2 | 12 | 1 | 5/9 | dead feint 3%, push off 2%, overhand 3%, rear uppercut 1%, clinch 1%; jab 75%, body jab 74%, low kick 81%; stops 42%, KD 2.7; two 10%, none 30% | 81% | 60% | 2.7 | 42% | two 10%, none 30% / two+ 28%, none 7% (PASS both ways) | 1.23 | 0/12, 0/5 | 5.71 |
 | F2 low kick keeps the rear hand | 12 | 1 | 5/9 | dead overhand 3%, rear uppercut 2%, clinch 2%; jab 76%, body jab 77%, lead uppercut 81%, overhand 42% (short 50%), low kick 91%; stops 50%, KD 3.5; two 9%, none 32% | **91%** | 42% | 3.5 | 50% | two 9%, none 32% / two+ 25%, none 8% (PASS both ways) | 1.19 | 5/12, 2/6 | 5.29 |
 | **F3** both | 12 | 1 | 4/9 | dead push off 3%, rear uppercut 2%, clinch 2%; jab 73%, body jab 71%, lead hook 29%, lead uppercut 67%, overhand 67%, teep 22%, low kick 80%; stops 50%, KD 3.2; two 11%, none 31%; mirror 36% | 80% | 67% | 3.2 | 50% | two 11%, none 31% / two+ 25%, none 8% (PASS both ways) | 1.18 | 2/12, 1/6 | 6.13 |
+| **F1** checkHurt 2 | 56 | 1 | 5/9 | dead clinch 3% (2.96%); jab 70%, body jab 67%, low kick 86%; stops 39% (PASS), KD 2.8; two 9%, none 30% | 86% | 67% (<1/bout) | 2.8 | 39% | two 9%, none 30% / two+ 25%, none 10% (PASS both ways) | 1.15 | 0/56, 0/22 | 6.10 |
 | F4 | - | - | pending | only if F3 keeps the low kick over 65% | | | | | | | | |
 
 Trial gate (N=12: no switch over 40%, no kick over 90%, under half of stoppages after a limp): **F1 survives** (top switch
