@@ -1,4 +1,31 @@
-## METHOD (S569, fight pictures): two men baked per picture + the page sliding the whole picture makes every clip that ends a few px off a jump; five patch rounds left leftovers. Fighting games keep each fighter's spot in CODE and play clips on it. No new patch layer on the two-man pictures (RECOIL1 and PUSH1 stopped) until ops/research/LAYERS_SCOPE_S569.md (one man per picture, the page owns each spot) is approved - the owner was asked; his rules question came first (Mixed Martial Cards: ops/research/MMC_DISTANCE_S569.md, toy MMCTOY1 running).
+## METHOD (S569, fight pictures; S570 update): two men baked per picture + the page sliding the whole picture makes every clip that ends a few px off a jump. LAYERS (one man per picture, the page owns each spot) is APPROVED (S570: he bought Cascadeur Indie + the Animo pack) and phase 0 is DONE (holds + jab, 0 jumps, docs/LAYERS0_RESULT.md, ?layers=1). No new patch layer on the two-man pictures; the next fight-picture work is LAYERS phase 1.
+
+# S571 handover (written 2026-11-27, S570 - Opus 5.5)
+
+Start: `git pull && python ops/Tools/agent_comms.py start`, then this page, then `ops/research/S570_DIGEST.md`.
+
+## S571: DO THESE FIRST
+1. OCTAGON (the owner's own design; his target "keep playing until you reach until 8 fun 7 depth"): FIX THE STAMINA LOCK
+   first (proto/octagon/engine.mjs) - the dead-hand swap must count cards unplayable by RANGE only (not stamina), a swap
+   pays no reshuffle penalty, a man under 3 stamina gets +1 for an exchange he does not attack. Bots (`node
+   proto/octagon/pool_sim.mjs n=40`) keep the pool inside 40-60%. Then finish the v4 middleweight cup (drafted:
+   ops/research/octagon/cup4/draft.log): rounds 2-3 = Claude (Iron) v John (Ghost) + Kalli (Body Shop) v Maria (Snapshot);
+   Claude v Kalli + John v Maria. `node ops/Tools/versus_by_message.mjs <dir> a=claude:worker b=<seat>:grok game=octagon
+   v4=1 pa=<fighter> pb=<fighter>`; Claude plays with scratchpad oct.sh-style seal / wait / show. Report the means
+   against FUN 8 / DEPTH 7 (v3 was 7.0 / 7.25). The counter that answers nothing costs 2 STAYS (owner: "this stays of
+   course its very good even better i think than what mmc does").
+2. WORKERS: KICKFIX6 (tab c2) and RULES569 were PAUSED while he played - their node runs are SUSPENDED: resume with
+   `powershell -File ops/Tools/proc_pause.ps1 -Id <pid> -Action resume` for 63064, 6436, 60420 (check they still exist),
+   or relaunch from ops/research/TASK_KICKFIX6.md / TASK_RULES569.md. BUILD1 (tab c1) was on its round-3 probe.
+3. LAYERS phase 1 (docs/LAYERS0_RESULT.md): every family re-rendered with `layers=1` masks, one render at a time, to a
+   seat; his look at http://127.0.0.1:8797/order.html?layers=1 first.
+4. Queue: TYPES1 (his four card types inside Puncher's chance), MMCPLAY1, LONG3 (Arena, Browser 2).
+
+## Rules learned in S570 (also in memory)
+- When he plays (ArcheAge 7 GB): one worker; ask before closing or pausing - he said "you have my permission" in S570
+  for that one time; the safety check refuses Stop-Process / suspend without it.
+- A cup's Gemma seat loads 9 GB (llama-server): unload after (`ollama.exe stop gemma4:12b`).
+- `git rm --cached` + `git commit -- <dir>` puts the files back; proto/ has a .gdignore now.
 
 # S570 handover (written 2026-11-27, S569 - Opus 5.5)
 

@@ -1,0 +1,18 @@
+Claude (Out-Fighter) v Kalli (Pressure Boxer), seed 31
+R1 E1: Claude plays Pull Counter; Kalli plays Lead Hook; Claude Pull Counter reads the Lead Hook: it misses; Claude lands 6 to the head (counter); Claude takes the Lead; Kalli ROCKED (6 to the head): only Counter or Defend next exchange; he has the Lead
+R1 E2: Claude plays Pawing Jab & Angle; Kalli plays Cover Up; Kalli recovers 0 stamina; range: mid -> long; Kalli discards one card, draws one
+R1 E3: Claude plays Step-In Jab; Kalli plays High Shell Guard; range: long -> mid; Claude lands 1 to the head (chip through the guard); Kalli blocked - the Lead is stripped; Kalli recovers 2 stamina
+R1 E4: Claude plays Circle Out & Reset; Kalli plays Head Movement Feint; Claude recovers 2 stamina; Kalli next Attack this round: +2 speed, +1 dmg; range: mid -> long; Claude discards one card, draws one; Kalli discards one card, draws one
+R1 E5: Claude plays Slip & Cross; Kalli plays Fight IQ: Read Tendency; Claude Slip & Cross whiffs: -2 stamina; Kalli Fight IQ: Read Tendency baits the counter; Kalli reads him: sees his hand, he cannot repeat Slip & Cross; Kalli takes the Lead; Kalli no card he can play here: a fresh hand
+R1 E6: Claude plays Pawing Jab & Angle; Kalli plays Cut the Cage; range: long -> mid; Kalli Cut the Cage: no damage; Claude pushed toward the fence: cage space 1; range: mid -> long; Claude discards one card, draws one; END OF ROUND 1: judges 10-8 (damage + clean counters 8 v 0); total 10-8; ROUND 2: back to Long, the Lead neutral, stamina +5 / +4
+R2 E1: Claude plays Check Hook; Kalli plays Slip & Cross; Claude Check Hook: nothing to counter; Kalli discards one card, draws one
+R2 E2: Claude plays Fight IQ: Read Tendency; Kalli plays Cut the Cage; range: long -> mid; Kalli Cut the Cage: no damage; Claude pushed toward the fence: cage space 1; Claude reads him: sees his hand, he cannot repeat Cut the Cage; Kalli takes the Lead
+R2 E3: Claude plays Cross; Kalli plays Cross; Kalli is faster (7 v 6); Kalli lands 4 to the head (beats him to it); Kalli COMBO: Lead Hook (+1 speed, +1 stamina); Kalli lands 4 to the head (combo); Kalli combo stops before Liver Shot; Claude ROCKED (8 to the head): only Counter or Defend next exchange; he has the Lead
+R2 E4: Claude plays Circle Out & Reset; Kalli plays Head Movement Feint; Claude recovers 2 stamina; Kalli next Attack this round: +2 speed, +1 dmg; range: mid -> long; Kalli discards one card, draws one
+R2 E5: Claude plays Step-In Jab; Kalli plays Second Wind; range: long -> mid; Claude lands 2 to the head (nothing covered it); Kalli recovers 6 stamina; Claude takes the Lead
+R2 E6: Claude plays High Shell Guard; Kalli plays Lead Hook; Kalli lands 1 to the head (chip through the guard); Claude blocked - the Lead is stripped; Claude recovers 2 stamina; END OF ROUND 2: judges 9-10 (damage + clean counters 2 v 9); total 19-18; ROUND 3: back to Long, the Lead neutral, stamina +5 / +4
+R3 E1: Claude plays Check Hook; Kalli plays Cut the Cage; range: long -> mid; Claude Check Hook reads the Cut the Cage: it misses; Claude lands 4 to the head (counter); Claude takes the Lead; range: mid -> long
+R3 E2: Claude plays Step-In Jab; Kalli plays High Shell Guard; range: long -> mid; Claude lands 1 to the head (chip through the guard); Kalli blocked - the Lead is stripped; Kalli recovers 2 stamina
+R3 E3: Claude plays Cross; Kalli plays Liver Shot; Claude is faster (6 v 5); Claude lands 4 to the head (beats him to it); Claude takes the Lead
+R3 E4: Claude plays Lead Hook; Kalli plays Head Movement Feint; Claude lands 4 to the head (caught him faking); Claude WINS by KO; Kalli discards one card, draws one
+RESULT: Claude wins by KO in round 3

@@ -73,3 +73,17 @@ a hand with no playable card is swapped for a fresh one; discard one card a turn
 Tendency shows 2 cards; the Liver Shot cuts the stamina cap once; the Pressure Boxer loses his +1 on hooks; health x1.3.
 Result: the styles 43-43 / 46-39 (reader bots), 44-41 (random), KOs 11-33%, comebacks 16-23%, draws ~15% - and no dead
 hands by construction. Still open: the rerun of the cup on v2 (agents), and the numbers shown before the pick (fix 5).
+
+## Cup v2 (round 1) and cup v3 (round A) - the target is FUN 8 and DEPTH 7 (owner S570: "keep playing until you reach until 8 fun 7 depth")
+| version, bout | result | FUN / DEPTH / CLARITY / VARIETY |
+|---|---|---|
+| v2: Claude v Kalli | Claude KO round 3 | Claude 7/8/8/7, Kalli 7/7/5/6 |
+| v2: John v Maria | John KO round 3 | John 6/7/8/6, Maria 6/6/5/5 |
+| v3 (his 52-card CSV): Claude v John | Claude KO round 3 (both rocked twice, 18-18 into round 3, a combo through his guard) | Claude 8/8/7/7, John 6/7/6/7 |
+| v3: Kalli v Maria | Maria 29-28 (round 3 ran dry: both on 0 stamina, circling) | Kalli 7/7/6/6, Maria 7/7/6/6 |
+Means so far - v2: fun 6.5, depth 7.0; v3 (4 verdicts): fun 7.0, depth 7.25. Depth is at target; fun is not.
+What moved fun: rounds that swing (both men rocked), round 3 alive, the speed numbers shown, the CSV's Snap Jab and Mid feint.
+v3.1 built from John's verdict (a combo after a BLOCKED first card at half; a free Hold Ground every turn; a counter that
+answers nothing costs 2) - on bots it tilts to the Pressure Boxer 61-65%: decks to retune before cup round B.
+Still missing for fun 8 (round A): round 3 runs dry on stamina (Maria), the guard is the safe answer too often - a repeated guard should cost 1 or a body shot +1 against it (Maria), four cards decide most exchanges (Kalli).
+Paused while the owner plays (RAM 95% with his game open): no new bouts, no bot runs.

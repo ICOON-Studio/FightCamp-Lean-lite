@@ -152,6 +152,13 @@
           const w = Math.min(MAX_GAP, (r.offs[i + 1] - r.offs[i]) * 1000) + (i === r.contact ? HOLD : 0); i++; setTimeout(show, w); };
         show(); };
       next(); }); }, delay); }
+  /* S570 (owner: "i drag the stepin move on the 2 nd slot yet it goes to 1st one"): a beat has no empty moments - with
+     nothing before it, a move plays first (an empty moment before a step is wait.html's rule, parked by him: Q-344). The
+     drop was silently moved; now the slot he dropped on says why, and where it went, for three seconds. */
+  function dropNote(k, at, name) { const s = document.querySelectorAll('#strip .slot')[k], r = s ? s.getBoundingClientRect() : null; if (!r) return;
+    const n = document.createElement('div'); n.className = 'dropnote'; n.textContent = `Nothing comes before it, so ${name} goes in moment ${at + 1}. A move only plays ${NTH[k]} if something fills moment${k > 1 ? 's 1-' + k : ' 1'} first.`;
+    n.style.cssText = `position:fixed;z-index:9999;left:${Math.round(r.left)}px;top:${Math.round(r.top - 8)}px;width:${Math.round(Math.max(r.width, 240))}px;transform:translateY(-100%);background:#1b2533;border:1px solid #7fe9ff;color:#e8f6ff;border-radius:.5rem;padding:.4rem .55rem;font-size:.8rem;line-height:1.25;box-shadow:0 .3rem .9rem #000b;transition:opacity .4s`;
+    document.body.appendChild(n); setTimeout(() => { n.style.opacity = '0'; }, 3200); setTimeout(() => n.remove(), 3700); }
   /* S567, owner: "makeiteasy to drag and rop the items" - a move card of the panel can be dragged onto one of the three slots under the ring: it is chosen AND put at that moment. A plain click still picks it (last in the order). */
   function cardDrag() { for (const b of document.querySelectorAll('#board .sw')) { if (b.disabled || b.classList.contains('home') || b.dataset.g === 'clinch' || (b.dataset.g === 'feet' && b.dataset.id === 'hold')) continue; b.style.touchAction = 'none';
       b.addEventListener('pointerdown', (e) => { if (e.button > 0 || phase !== 'plan') return; const x0 = e.clientX, y0 = e.clientY; let fly = null, moved = false;
@@ -162,7 +169,8 @@
         const end = (ev) => { removeEventListener('pointermove', move); removeEventListener('pointerup', end); removeEventListener('pointercancel', end); if (fly) fly.remove(); mark(-1); if (!moved) return;
           const kill = (c) => { c.stopPropagation(); c.preventDefault(); }; addEventListener('click', kill, { capture: true, once: true }); setTimeout(() => removeEventListener('click', kill, { capture: true }), 80);   /* the release is not a click on the card */
           const k = ev.type === 'pointerup' ? slotAt(ev.clientX, ev.clientY) : -1; if (k < 0) return plan(); const g = b.dataset.g, id = b.dataset.id; P.clinch = false; if (g === 'feet') P.feet = id; else P[g] = id;
-          const o = ordOf(P).filter((sl) => sl !== g); o.splice(Math.min(k, o.length), 0, g); P.ord = o; plan(); if (window.bodyOverview) bodyOverview(); };
+          const o = ordOf(P).filter((sl) => sl !== g), at = Math.min(k, o.length); o.splice(at, 0, g); P.ord = o; plan(); if (window.bodyOverview) bodyOverview();
+          if (at < k) dropNote(k, at, b.querySelector('b') ? b.querySelector('b').textContent.trim() : 'it'); };
         addEventListener('pointermove', move); addEventListener('pointerup', end); addEventListener('pointercancel', end); }); } }
   // ---- HIS SIDE of the strip, and the strip while a beat is fought
   let lastHis = [], nowHis = [], mineNow = [];

@@ -8,6 +8,8 @@
 // Every exchange is appended to <state.json>.log.txt.
 import fs from 'node:fs';
 import { newBout, play, view, why, CARDS, PROFILES, ROUNDS, EXCHANGES, useV2 } from './engine.mjs';
+import { useV3 } from './cards_v3.mjs';
+import { useV4 } from './fighters_v4.mjs';
 const [cmd, file, ...rest] = process.argv.slice(2), a = Object.fromEntries(rest.filter((x) => x.includes('=')).map((x) => x.split('=')));
 export const HELP = `OCTAGON TACTICS (boxing) - ${ROUNDS} rounds of ${EXCHANGES} exchanges. Each exchange you both pick ONE card from your hand, sealed; then both are shown.
 ORDER: movement (cards that step in or out; opposite steps cancel) -> the TRIANGLE -> speed -> damage -> the Lead.
@@ -21,13 +23,20 @@ DAMAGE: head and body health; 0 in either = KO / TKO. Every 5 body damage = -2 m
 STAMINA: a card costs its stamina when played; no stamina back between exchanges except Defend cards and Second Wind; between rounds your cardio comes back. CAGE SPACE: stepping out costs 1 cage space; at 0 your back is on the fence - you cannot step out and his attacks do +1.
 NO KO: each round the judges score 10-9 for more damage + clean counters (10-8 for 8 or more ahead); most points after 3 rounds wins.
 FIGHTERS: ${Object.values(PROFILES).map((p) => `${p.n} (head ${p.head}, body ${p.body}, stamina ${p.st}; ${p.trait})`).join(' | ')}`;
-if (a.v2 === '1' || file === 'v2=1' || (file && fs.existsSync(file) && cmd !== 'new' && JSON.parse(fs.readFileSync(file, 'utf8')).v2)) useV2();   /* S570 v2: the cup's fixes */
+const saved = file && fs.existsSync(file) && cmd !== 'new' && !/=/.test(file) ? JSON.parse(fs.readFileSync(file, 'utf8')) : {};
+if (a.v4 === '1' || file === 'v4=1' || saved.v4) useV4(); else if (a.v3 === '1' || file === 'v3=1' || saved.v3) useV3(); else if (a.v2 === '1' || file === 'v2=1' || saved.v2) useV2();   /* S570 v2: the cup's fixes */
 const V2HELP = `
-V2 RULES (after the first cup): STEP IN (step) and COVER UP (cover) are always in your hand - Step In: one range closer, 1 stamina, no damage, an Attack (a Check Hook answers it); Cover Up: head guard, 0 stamina. You get 1 stamina back every exchange. Add discard=<id> to throw one card away and draw one. The Lead gives +1 speed. Read Tendency shows 2 of his cards. A Liver Shot cuts his stamina cap once.`;
-if (cmd === 'help' || !cmd) { console.log(HELP + (a.v2 === '1' || file === 'v2=1' ? V2HELP : '')); process.exit(0); }
+V2/V3 RULES: COVER UP (cover) is in your hand only while you are ROCKED (it halves the damage). If no card in your hand can be played, your hand is swapped for a fresh one. Add discard=<id> to throw one card away and draw one. The Lead gives +1 speed. Read shows 2 of his cards. Speed ties go to reach (the Out-Fighter), then reflexes.`;
+if (cmd === 'help' || !cmd) { console.log(HELP + (a.v2 === '1' || file === 'v2=1' || a.v3 === '1' || file === 'v3=1' ? V2HELP : '') + (a.v3 === '1' || file === 'v3=1' ? ' V3: the cards are the boxing + Fight IQ cards of the 52-card database; Cut the Cage is a FEINT (it beats a Counter, a Check Hook included); a combo goes on after your first card is BLOCKED too (it only has to connect); two counters against each other: the quicker takes the Lead, the slower loses 1 stamina; between rounds each fighter gets 3 head health back.' : '')); process.exit(0); }
 const load = () => JSON.parse(fs.readFileSync(file, 'utf8')), save = (B) => fs.writeFileSync(file, JSON.stringify(B));
-if (cmd === 'new') { const S = newBout(+(a.seed || 1), a.pa || 'out', a.pb || 'press', [a.a || 'A', a.b || 'B']); save({ S, sealed: [null, null], n: 0, over: null, v2: a.v2 === '1' ? 1 : 0 }); fs.writeFileSync(file + '.log.txt', `${a.a || 'A'} (${PROFILES[a.pa || 'out'].n}) v ${a.b || 'B'} (${PROFILES[a.pb || 'press'].n}), seed ${a.seed || 1}\n`); console.log('NEW BOUT'); process.exit(0); }
+if (cmd === 'new') { const S = newBout(+(a.seed || 1), a.pa || 'out', a.pb || 'press', [a.a || 'A', a.b || 'B']); save({ S, sealed: [null, null], n: 0, over: null, v2: a.v2 === '1' ? 1 : 0, v3: a.v3 === '1' ? 1 : 0, v4: a.v4 === '1' ? 1 : 0 }); fs.writeFileSync(file + '.log.txt', `${a.a || 'A'} (${PROFILES[a.pa || 'out'].n}) v ${a.b || 'B'} (${PROFILES[a.pb || 'press'].n}), seed ${a.seed || 1}\n`); console.log('NEW BOUT'); process.exit(0); }
 const B = load(), k = a.who === 'b' ? 1 : 0;
+/* S570: v3 cards carry ids like liver3 / slip3; a player who types the plain name (liver, slip, lhook, cross, read,
+   pullc, checkh, circle, cage, upper) gets the card he holds - three refused plans had cost Kalli, Maria and John a turn */
+const ALIAS = { liver: 'liver3', slip: 'slip3', lhook: 'lhook3', cross: 'cross3', read: 'read3', pullc: 'pull3', pull: 'pull3', checkh: 'check3', check: 'check3', circle: 'circle3', cage: 'cutc', upper: 'upper3', uppercut: 'upper3', hook: 'lhook3', guard: 'guard', shell: 'guard', breath: 'breath', wind: 'breath' };
+const fix = (id) => { if (!id || id === 'none') return id; const h = B.S.f[k].hand; if (h.includes(id) || CARDS[id] && CARDS[id].virtual) return id; const al = ALIAS[id]; return al && (h.includes(al) || (CARDS[al] && CARDS[al].virtual)) ? al : id; };
+for (const key of ['card', 'react', 'discard']) if (a[key]) a[key] = fix(a[key].toLowerCase().trim());
+if (a.then) a.then = a.then.split(',').map((x) => fix(x.trim().toLowerCase())).join(',');
 if (cmd === 'show') { console.log(B.over ? `THE BOUT IS OVER: ${B.over}` : view(B.S, k) + (B.sealed[k] ? '\n(your card for this exchange is sealed; waiting for him)' : '')); process.exit(0); }
 if (cmd === 'plan') { if (B.over) { console.log('the bout is over'); process.exit(1); }
   const card = (a.card || '').toLowerCase().trim(), then = (a.then || '').split(',').map((x) => x.trim().toLowerCase()).filter(Boolean), react = (a.react || '').toLowerCase().trim() || null; const discard = (a.discard || '').toLowerCase().trim() || null;

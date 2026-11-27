@@ -73,16 +73,17 @@ ${r.out}
 function parsePlan(reply) { const lines = reply.split(/\r?\n/).map((l) => l.replace(/[`*>]/g, ' ').trim().toLowerCase());
   if (OCT) { for (let i = lines.length - 1; i >= 0; i--) { const l = lines[i], c = (l.match(/\bcard\s*=\s*([a-z]+)/) || [])[1]; if (!c) continue;
       const th = (l.match(/\bthen\s*=\s*([a-z, ]+?)(?=\s+[a-z]+\s*=|$)/) || [])[1], re = (l.match(/\breact\s*=\s*([a-z]+)/) || [])[1];
-      return [`card=${c}`, ...(th ? [`then=${th.split(',').map((x) => x.trim()).filter(Boolean).join(',')}`] : []), ...(re && re !== 'none' ? [`react=${re}`] : [])]; } return null; }
+      const dc = (l.match(/\bdiscard\s*=\s*([a-z]+)/) || [])[1];
+      return [`card=${c}`, ...(th ? [`then=${th.split(',').map((x) => x.trim()).filter(Boolean).join(',')}`] : []), ...(re && re !== 'none' ? [`react=${re}`] : []), ...(dc && dc !== 'none' ? [`discard=${dc}`] : [])]; } return null; }
   for (let i = lines.length - 1; i >= 0; i--) { const l = lines[i], lead = (l.match(/\blead\s*=\s*([a-z]+)/) || [])[1], rear = (l.match(/\brear\s*=\s*([a-z]+)/) || [])[1];
     if (lead && rear) { const feet = (l.match(/\bfeet\s*=\s*([a-z]+)/) || [])[1] || 'hold', order = ((l.match(/\border\s*=\s*([a-z, ]+)/) || [])[1] || '').split(',').map((x) => x.trim().split(' ')[0]).filter((x) => ['feet', 'lead', 'rear'].includes(x));
       return [`lead=${lead}`, `rear=${rear}`, `feet=${feet}`, ...(order.length ? [`order=${order.join(',')}`] : [])]; }
     if (/^(plan\s*[:=]\s*)?clinch\W*$/.test(l)) return ['clinch']; }
   return null; }
-const FORM = OCT ? 'Answer with ONE line: card=<id from YOUR HAND>  (optional on the same line: then=<id>,<id> to combo while you hold the Lead; react=<id> a Counter or Defend kept for his combo)\nand ONE line starting WHY: . Nothing else.'
+const FORM = OCT ? 'Answer with ONE line: card=<id from YOUR HAND>  (optional on the same line: then=<id>,<id> to combo while you hold the Lead; react=<id> a Counter or Defend kept for his combo' + (arg.v2 || arg.v3 || arg.v4 ? '; discard=<id> to throw one card away and draw one' : '') + ')\nand ONE line starting WHY: . Nothing else.'
   : 'Answer with ONE line: lead=<punch|high|low> rear=<punch|high|low> feet=in|hold|back order=<feet,lead,rear in your order>   (or the one word: clinch)\nand ONE line starting WHY: . Nothing else.';
 const SAFE = OCT ? ['card=none'] : ['lead=high', 'rear=high', 'feet=hold'];   /* what is played after three refused plans */
-const help = OCT ? spawnSync('node', ['proto/octagon/versus_oct.mjs', 'help'], { cwd: ROOT, encoding: 'utf8' }).stdout.trim()
+const help = OCT ? spawnSync('node', ['proto/octagon/versus_oct.mjs', 'help', ...(arg.v2 ? ['v2=1'] : []), ...(arg.v3 ? ['v3=1'] : []), ...(arg.v4 ? ['v4=1'] : [])], { cwd: ROOT, encoding: 'utf8' }).stdout.trim()
   : spawnSync('node', ['proto/twohands/tools/play_cli.mjs', 'help'], { cwd: ROOT, encoding: 'utf8' }).stdout.split('\n').filter((l) => !/^Opponents:|HE READS HABITS/.test(l)).join('\n').trim();
 
 /* S568 server=<url> (the S567 handover: "point versus_by_message.mjs at the match server"): the bout is fought on the match
@@ -115,7 +116,7 @@ async function serverBeat(k, s) { const S = SEATS[k];
   await api('/api/plan', { token: st.tok[k], match: st.match, lead: 'high', rear: 'high', feet: 'hold' }); log(S.seat + ': three refused plans, both hands held'); }
 /* S568: a local model loads once (~10 s) before the first beat - not on the clock */
 if (SEATS.some((S) => S.via === 'ollama') && st.phase !== 'verdict') { const wf = path.join(DIR, 'warm.txt'); fs.writeFileSync(wf, 'Say: ready'); const r = await run('python', ['ops/Tools/ollama_seat.py', wf, '--model', arg.model || 'gemma4:12b', '--max-tokens', '5']); log('warm-up: ' + r.err.trim().split(/\r?\n/).slice(-1)[0]); }
-if (!SERVER && st.phase === 'intro') { vs('new', BOUT, `a=${SEATS[0].Name}`, `b=${SEATS[1].Name}`, `seed=${arg.seed || 1}`, ...(arg.page ? [`page=${arg.page}`] : []), ...(OCT ? [`pa=${arg.pa || 'out'}`, `pb=${arg.pb || 'press'}`] : [])); st.phase = 'bout'; st.first = 1; save(); log(`new bout ${SEATS[0].Name} v ${SEATS[1].Name}`); }
+if (!SERVER && st.phase === 'intro') { vs('new', BOUT, `a=${SEATS[0].Name}`, `b=${SEATS[1].Name}`, `seed=${arg.seed || 1}`, ...(arg.page ? [`page=${arg.page}`] : []), ...(OCT ? [`pa=${arg.pa || 'out'}`, `pb=${arg.pb || 'press'}`, ...(arg.v2 ? ['v2=1'] : []), ...(arg.v3 ? ['v3=1'] : []), ...(arg.v4 ? ['v4=1'] : [])] : [])); st.phase = 'bout'; st.first = 1; save(); log(`new bout ${SEATS[0].Name} v ${SEATS[1].Name}`); }
 const intro = (S, o) => `You are ${S.Name}, and this is a MATCH: one bout of ${OCT ? 'a boxing card game, Octagon Tactics' : "a small boxing game, Puncher's chance"}, against another AI agent, ${o.Name}. ${OCT ? 'You each have your own fighter type and deck (shown below); the rules are the same for both' : 'You both have the same boxer and the same rules'}. Each ${OCT ? 'exchange' : 'beat'} you each send your ${OCT ? 'card' : 'plan'} without seeing the other's; then it is played and you both see what happened. I am only the referee and your hands. Three rounds of six ${OCT ? 'exchanges' : 'beats'}. PLAY TO WIN: read what ${o.Name} does and punish it.\n\nTHE GAME'S OWN HELP (all a player is told; there is no computer opponent here, only ${o.Name}):\n\n${help}\n`;
 // one seat's beat: asked until the tool accepts the plan (three refusals: both hands held, feet still)
 async function beat(k) { const S = SEATS[k];

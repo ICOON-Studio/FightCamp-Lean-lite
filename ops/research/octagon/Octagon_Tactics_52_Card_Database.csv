@@ -1,0 +1,53 @@
+Card_ID,Name,Discipline,Type,Color,Speed,Stamina_Cost,Range_Position,Target,Damage,Tags,Effect
+BOX-01,Step-In Jab,Boxing,Attack,Red,8,2,Long -> Mid,Head,2,"[Pre-Move In 1], [Chain +1]","Claim Initiative on hit. If you hold Initiative, chain another Attack."
+BOX-02,Snap Jab,Boxing,Attack,Red,9,1,Mid,Head,2,[Chain +1],Fastest standing punch. Claim Initiative on hit.
+BOX-03,Straight Cross,Boxing,Attack,Red,7,3,Mid,Head,4,[Chain +1],Deals +1 DMG if chained after a Jab or Feint.
+BOX-04,Overhand Right,Boxing,Attack,Red,5,4,Long -> Mid,Head,6,"[Pre-Move In 1], [Heavy]",Triggers Rocked check on clean hit. Push opponent [Move Out 1].
+BOX-05,Lead Left Hook,Boxing,Attack,Red,6,3,Mid / Close,Head,5,[Finisher],"If played as 3rd card in Combo, inflicts Rocked automatically."
+BOX-06,Ripping Liver Hook,Boxing,Attack,Red,6,3,Mid / Close,Body,5,[Finisher],Reduces opponent Max Stamina Cap by 2 on clean hit.
+BOX-07,Short Uppercut,Boxing,Attack,Red,6,3,Close,Head,5,[Anti-Level Change],+3 DMG if opponent plays a Takedown card this exchange.
+BOX-08,Slip & Cross,Boxing,Counter,Blue,7,3,Mid,Head,5,[Counter: Head Attack],"Evades Head Attack, deals 5 DMG, and steals Initiative."
+BOX-09,Pull Counter Cross,Boxing,Counter,Blue,8,3,Mid,Head,6,"[Counter: Attack], [Post-Move Out 1]","Negates Mid Attack, deals 6 DMG, and steps back to Long Range."
+BOX-10,Check Hook,Boxing,Counter,Blue,7,2,Mid,Head,4,"[Counter: Advancing], [Post-Move Out 1]",Beats any [Move In] card. Deals 4 DMG and pivots out.
+BOX-11,Shoulder Roll & Feint,Boxing,Feint,Yellow,8,1,Mid,None,0,[Chain +1],Beats Counter (opponent loses 3 Stamina). Draw 1 card; next Attack +1 SPD.
+BOX-12,Tight High Guard,Boxing,Defend,Green,9,0,Mid / Close,None,0,[Block Head],Blocks up to 6 Head DMG. Recover +2 Stamina.
+MTK-01,Inside Calf Kick,Muay Thai & Kickboxing,Attack,Red,7,2,Long,Legs,3,[Leg Attrition],Inflicts 1 Leg Injury (-1 SPD to opponent) on clean hit.
+MTK-02,Teep (Push Kick),Muay Thai & Kickboxing,Attack,Red,8,2,Long / Mid,Body,2,[Post-Move Out 1],Stops [Move In] attacks and pushes Range back 1 zone.
+MTK-03,Switch Body Kick,Muay Thai & Kickboxing,Attack,Red,6,3,Long,Body,5,[Heavy],Deals 3 DMG even if blocked by High Guard. Drains 2 opponent Stamina.
+MTK-04,Question Mark Head Kick,Muay Thai & Kickboxing,Attack,Red,5,4,Long,Head,7,[Feint-Strike],Ignores Defend cards if you played a Feint or Body/Leg Kick last turn.
+MTK-05,Step-In Standing Elbow,Muay Thai & Kickboxing,Attack,Red,6,3,Mid -> Close,Head,5,"[Pre-Move In 1], [Cut]",Opens an Eye Cut on clean hit (opponent reveals 1 hand card).
+MTK-06,Spinning Back Elbow,Muay Thai & Kickboxing,Attack,Red,4,4,Close,Head,7,[Finisher],"Triggers Rocked check. If countered or blocked, lose 3 extra Stamina."
+MTK-07,Flying Knee,Muay Thai & Kickboxing,Attack,Red,5,5,Long -> Close,Head,8,"[Pre-Move In 2], [Anti-Takedown]","+4 DMG vs Takedowns. If missed/blocked, opponent gets free Takedown."
+MTK-08,Thai Plum Clinch Entry,Muay Thai & Kickboxing,Takedown/Grapple,Purple,6,3,Close,Position,0,[Transition: Clinch],Transitions to Clinch with Dominant Collar Tie (+2 DMG to Clinch Knees).
+MTK-09,Clinch Knee to Liver,Muay Thai & Kickboxing,Attack,Red,7,3,Clinch,Body,5,[Clinch Strike],Deals 5 Body DMG and drains 3 opponent Stamina.
+MTK-10,Shin Check,Muay Thai & Kickboxing,Defend,Green,8,1,Long / Mid,Legs,2,[Block Kick],Blocks Leg/Body Kicks and reflects 2 Leg DMG back to attacker.
+MTK-11,Catch Kick & Sweep,Muay Thai & Kickboxing,Counter,Blue,6,3,Long / Mid,Position,3,[Counter: Kick],"Negates Body/Leg Kick, deals 3 DMG, and transitions to Closed Guard (Top)."
+MTK-12,Feint Teep / Switch Step,Muay Thai & Kickboxing,Feint,Yellow,8,1,Long / Mid,None,0,[Move In 1 or Out 1],Beats Counter. Shift Range 1 zone in either direction and draw 1 card.
+WRE-01,Blast Double-Leg,Wrestling & Judo,Takedown/Grapple,Purple,6,4,Long -> Mid,Position,2,"[Pre-Move In 1], [Takedown]",Beats Feint/High Guard. Moves to Half Guard (Top) and deals 2 slam DMG.
+WRE-02,Low Single-Leg,Wrestling & Judo,Takedown/Grapple,Purple,7,3,Long / Mid,Position,1,"[Takedown], [Low Profile]",Evades High Punches/Head Kicks. Moves to Closed Guard (Top).
+WRE-03,Cage Drag Single,Wrestling & Judo,Takedown/Grapple,Purple,6,3,Clinch,Position,2,"[Takedown], [Cage Bonus]","From Clinch, transitions to Side Control (Top). +2 SPD if opponent Cage Space <= 1."
+WRE-04,Inside Trip (Ouchi Gari),Wrestling & Judo,Takedown/Grapple,Purple,7,2,Clinch,Position,2,[Takedown],Fast clinch trip. Transitions directly to Half Guard (Top).
+WRE-05,Hip Toss (Harai Goshi),Wrestling & Judo,Counter,Blue,6,4,Close / Clinch,Position,4,[Counter: Advancing/Clinch],Beats [Move In] strikes or Clinch attacks. Deals 4 slam DMG and lands in Side Control (Top).
+WRE-06,Mat Return Slam,Wrestling & Judo,Counter,Blue,7,3,Clinch / Back,Position,4,[Counter: Escape],Punishes Stand-Up/Escape attempts. Deals 4 Body DMG and keeps Back Control.
+WRE-07,Level-Change Fake,Wrestling & Judo,Feint,Yellow,8,1,Long / Mid,None,0,"[Move In 1], [Chain +1]",Beats Counter/Sprawl (opponent loses 3 Stamina). Chain an Overhand or Takedown.
+WRE-08,Heavy Sprawl,Wrestling & Judo,Defend,Green,8,2,Long / Mid / Close,None,0,[Block Takedown],"Stops any Takedown, drains 3 attacker Stamina, and claims Initiative."
+WRE-09,Granby Roll Escape,Wrestling & Judo,Defend,Green,7,2,Ground (Bottom),Position,0,[Escape],"From Side Control or Half Guard Bottom, escapes back to Standing (Mid Range)."
+WRE-10,Smothering Top Ride,Wrestling & Judo,Defend,Green,7,1,Ground (Top),None,0,"[Pin], [Block Escape]","Prevents opponent Sweep/Escape, drains 2 opponent Stamina, and keeps Initiative."
+BJJ-01,Guard Pull,Brazilian Jiu-Jitsu,Takedown/Grapple,Purple,8,1,Close / Clinch,Position,0,[Transition: Guard],Voluntarily pulls fight to Closed Guard (you on Bottom) with Initiative.
+BJJ-02,Knee-Slice Guard Pass,Brazilian Jiu-Jitsu,Takedown/Grapple,Purple,6,3,Closed / Half Guard,Position,0,[Guard Pass],Advances Top position by 1 step (Closed -> Half -> Side Control) and keeps Initiative.
+BJJ-03,Toreando Pass to Mount,Brazilian Jiu-Jitsu,Takedown/Grapple,Purple,5,4,Half / Side Control,Position,0,[Guard Pass],Advances directly to Full Mount (Top) with maximum positional dominance.
+BJJ-04,Back Take (Berimbolo),Brazilian Jiu-Jitsu,Takedown/Grapple,Purple,6,3,Guard / Side Control,Position,0,[Back Control],Transitions directly to Back Control (Top) from Guard or Side Control.
+BJJ-05,Scissor Sweep,Brazilian Jiu-Jitsu,Counter,Blue,7,2,Closed / Half Guard,Position,0,"[Sweep], [Counter: Pass/GnP]","Reverses Top opponent's Pass or GnP, flipping position to Full Mount (Top)."
+BJJ-06,Upa Bridge Reversal,Brazilian Jiu-Jitsu,Counter,Blue,7,3,Mount (Bottom),Position,0,"[Sweep], [Counter: GnP]","When mounted, counters a Ground & Pound strike to reverse into Closed Guard (Top)."
+BJJ-07,Rear-Naked Choke,Brazilian Jiu-Jitsu,Takedown/Grapple,Purple,6,4,Back Control (Top),Submission,6,[Submission: Choke],"Drains 6 Stamina. If defender hits 0 Stamina, win by Submission immediately."
+BJJ-08,Spinning Armbar,Brazilian Jiu-Jitsu,Takedown/Grapple,Purple,6,4,Mount / Closed Guard,Submission,5,[Submission: Limb],Deals 5 Limb DMG (reduces Punch DMG by 2). Submits if Limb DMG >= 10 or 0 Stamina.
+BJJ-09,Triangle Choke,Brazilian Jiu-Jitsu,Takedown/Grapple,Purple,7,3,Closed Guard (Bottom),Submission,5,[Submission: Choke],Playable from Bottom Guard. Drains 5 Stamina; Submits at 0 Stamina.
+BJJ-10,Jumping Guillotine,Brazilian Jiu-Jitsu,Counter,Blue,7,4,Standing / Clinch,Submission,5,"[Counter: Takedown], [Submission]","Counters a Double/Single Leg, pulls to Guard, and drains 5 Stamina."
+BJJ-11,Inside Heel Hook,Brazilian Jiu-Jitsu,Takedown/Grapple,Purple,6,4,Half Guard (Bottom),Submission,6,[Submission: Leg],Deals 6 Leg DMG (-2 SPD). Submits immediately if Leg DMG >= 10.
+BJJ-12,Shrimp & Hip Escape,Brazilian Jiu-Jitsu,Defend,Green,8,1,Ground (Bottom),Position,0,[Escape / Reguard],Improves your bottom position by 1 step (Mount -> Side -> Half -> Closed Guard).
+UNI-01,Hammerfist Barrage,Ground & Pound / Fight IQ,Attack,Red,7,3,Ground (Top),Head,4,"[GnP], [Chain +1]",Deals 4 Head DMG (+2 DMG if in Mount or Back Control).
+UNI-02,Crucifix Ground Elbows,Ground & Pound / Fight IQ,Attack,Red,6,4,Side Control / Mount (Top),Head,6,"[GnP], [Cut]","Deals 6 Head DMG, opens an Eye Cut, and triggers a Rocked check."
+UNI-03,Cut the Cage,Ground & Pound / Fight IQ,Feint,Yellow,7,1,Long / Mid,Cage,0,"[Move In 1], [Pressure]",Reduces opponent's Cage Space Dial by 1. Claim Initiative.
+UNI-04,Circle Out & Reset,Ground & Pound / Fight IQ,Defend,Green,8,1,Close / Mid,Cage,0,"[Move Out 1], [Reset]","Moves Range back 1 zone, restores +2 Cage Space, and resets Initiative to Neutral."
+UNI-05,Read Tendencies,Ground & Pound / Fight IQ,Feint,Yellow,9,1,Any,Hand,0,[Fight IQ],"Look at opponent's hand, draw 2 cards, and gain +2 SPD on your next exchange."
+UNI-06,Deep Breath & Pace,Ground & Pound / Fight IQ,Defend,Green,7,0,Long / Closed Guard,Self,0,[Recover],Recover +5 Stamina and clear the Rocked condition.

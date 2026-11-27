@@ -2,27 +2,16 @@
  "_doc": "Claude writes one entry per agent run at launch (operator S144: 'make it more clear, who is working on what, ETA'). The ops board /agents page joins it to the live processes. eta = Claude's estimate at launch, local time; status running|waiting|done.",
  "seats": 3,
  "runs": {
-  "KICKFIX5": {
-   "id": "KICKFIX5",
-   "status": "done",
-   "seat": "claude",
-   "agent": "Fable 5.2 console worker (PC, tab c6)",
-   "started": "2026-11-27T11:55",
-   "eta": "today",
-   "title": "Kicks balance finished today: F4 (the teep covers the lead leg), up to three more fixes, then the winner on kick.html",
-   "brief": "ops/research/TASK_KICKFIX5.md",
-   "note": "owner S569: 'put a fable console for kicks i want it finished today'; stopped for memory with ArcheAge open, resumed 13:25 after he closed it | still running at the S569 handover | S570: BLOCKED for memory (llama-server 9.5 GB); F5 5/9; F6 written -> KICKFIX6"
-  },
   "RULES569": {
    "id": "RULES569",
-   "status": "running",
+   "status": "waiting",
    "seat": "claude",
    "agent": "Fable 5.2 console worker (PC, tab c11)",
    "started": "2026-11-27T16:25",
    "eta": "6-10 h",
    "title": "His rule ideas measured: the exchange that gets dearer first, then one Guard action, the power switch, bars that affect each other (health caps stamina), combined moves",
    "brief": "ops/research/TASK_RULES569.md",
-   "note": "owner S569"
+   "note": "owner S569 | S570: PAUSED while the owner played (node runs suspended: resume with proc_pause.ps1)"
   },
   "BUILD1": {
    "id": "BUILD1",
@@ -37,14 +26,14 @@
   },
   "KICKFIX6": {
    "id": "KICKFIX6",
-   "status": "running",
+   "status": "waiting",
    "seat": "claude",
    "agent": "Opus 5.5 console worker (PC, tab c2)",
    "started": "2026-11-27T19:50",
    "eta": "3-5 h",
    "title": "The kicks measured on the rebuilt kick page (it now has the feint fix): the control + F6, the winner onto the page",
    "brief": "ops/research/TASK_KICKFIX6.md",
-   "note": "S570, ONERULES1 step 3"
+   "note": "S570, ONERULES1 step 3 | S570: PAUSED while the owner played (node runs suspended: resume with proc_pause.ps1)"
   }
  },
  "codex_budget": {
