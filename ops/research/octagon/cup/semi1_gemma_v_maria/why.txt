@@ -1,0 +1,82 @@
+Maria: card=lhook react=shell
+  WHY: An Out-Fighter usually opens with a jab, and my lead hook does 6 against a straight punch. Its Slip and Cross only counters straight punches, so the hook can't be slipped, and my shell stays back for its combo.
+Gemma: card=slip
+  WHY: Testing his opening; if he leads with a straight punch, I land
+Gemma: card=circle
+  WHY: I am ROCKED and must use a Counter or Defend; Circle
+Maria: card=read react=shell
+  WHY: Gemma is rocked, so it can only play a Counter or a Defend, and my feint beats any Counter. It also shows me its hand and stops it repeating Slip and Cross, so I can pick the right punch next exchange.
+Gemma: card=jab
+  WHY: Step in to Mid range to open up my heavy-hitting cards while
+Maria: card=shell
+  WHY: At Long its likely cards are the jab or the paw, both to the head. My High Shell turns those into 1 chip damage and gets 2 stamina back, and its Liver Shot can't reach me from here.
+Gemma: card=liver
+  WHY: A body attack bypasses her High Shell Guard and reduces her maximum stamina
+Maria: card=liver
+  WHY: The hand I read had no Pull Counter, the only card that stops a hook, and a body shot goes under any head guard it might pick. The Liver Shot does 5 with my hook bonus and cuts its stamina for the rest of the fight.
+Gemma: card=cross
+  WHY: I have the Lead and high speed; Cross is a reliable head attack
+Maria: card=philly
+  WHY: Gemma has the Lead and plus 2 speed, and its cross and jab both go to the head. My Philly Shell stops head punches completely, wins back a stamina point, and takes the Lead away from it.
+Gemma: card=read
+  WHY: Maria is a Pressure Boxer who likely wants to power through with a hook
+Maria: card=cross
+  WHY: Gemma is down to 7 stamina, and I'm ahead on damage this round. A cross for 4 to the head puts more on the cards before the bell, and its Slip and Cross already whiffed once, so it's slow to trust that counter again.
+Gemma: card=shell
+  WHY: I am ROCKED and must play a Counter or Defend; High
+Maria: card=cage
+  WHY: Gemma is on 12 head health and wants to snipe me from Long. Cutting the cage walks it back to Mid, where my hooks and feints work, and pushes it toward the fence for just 1 stamina.
+Gemma: card=paw
+  WHY: Maria has the Lead and high speed; feint to bait her attack
+Maria: card=hmf
+  WHY: The feint is the only card I can play at Mid. It beats any counter Gemma tries, and if I'm not hit, my next attack this round gets plus 2 speed and plus 1 damage.
+Gemma: card=jab
+  WHY: It steps in to Mid range to enable my Cross and Lead Hook,
+Maria: card=wind
+  WHY: Second Wind is the only card I can play at Long. It gets 6 stamina back and draws 2 cards, and my plus 2 speed, plus 1 damage bonus waits for the next attack I can actually throw.
+Gemma: card=cross then=lhook
+  WHY: I have the Lead and the Cross is a Chain
+Maria: card=lhook
+  WHY: Gemma leads with straight punches, the jab and the cross, and my lead hook does 6 against a straight punch, plus 1 more from my feint bonus. Its Slip and Cross can't counter a hook.
+Gemma: card=paw
+  WHY: Maria is ROCKED and must use a Counter or Defend; Paw
+Maria: card=pullc
+  WHY: The Pull Counter is the only card I can play while rocked. Gemma has 3 stamina, just enough for one hook like the one it combo'd with, and that hook runs straight into the counter for 5 and gives me the Lead back.
+Gemma: card=jab
+  WHY: I have the Lead and the range is Long; Step-In Jab
+Maria: card=cage
+  WHY: Cut the Cage is the only card I can play at Long. Gemma's back is on the fence with no cage space left, so walking it down to Mid pins it there, where its attacks lose their speed bonus and mine do plus 1 damage.
+Gemma: card=wind
+  WHY: Only playable card at Long range; need to recover stamina and draw new
+Maria: card=hmf
+  WHY: Every card in my hand is blocked at Long, so this is a dead hand and I pick the cheapest card as a pass. If the referee rules it unplayable, I take whatever pass the rules allow, and I'll hit back once Gemma steps in to jab.
+Maria: card=none
+  WHY: None of my cards can be played at Long, so I pass and keep my 6 stamina for when Gemma steps in to Mid.
+Gemma: card=slip
+  WHY: I am at Long range and need to counter his potential straight punches to
+Maria: card=none
+  WHY: Still nothing in my hand is playable at Long, so I pass and save stamina. Gemma has to step in to Mid to score, and when it does, my hook and cross are ready.
+Gemma: card=checkh
+  WHY: It is the only playable card at Long range; it can counter
+Maria: card=none
+  WHY: I still have no legal card at Long, so I pass again. Every exchange Gemma spends waiting out here costs it the chance to score, and my hook and cross hit back the moment it closes in.
+Gemma: card=checkh
+  WHY: It's my only playable card at Long range and can secure
+Maria: card=none
+  WHY: There's still no legal card for me at Long, so I pass. Gemma keeps burning stamina on counters with nothing to answer and is down to 6, so when it finally steps in, I'll have the fresher hands.
+Gemma: card=lhook
+  WHY: I am out of usable cards for Long range and must step in
+Gemma: card=cross
+  WHY: Testing her defense with a straight punch to establish Lead.
+Gemma: card=step
+  WHY: Maintaining distance to scout Maria's opening while preserving stamina.
+Maria: card=none
+  WHY: I still have no legal card at Long, so I have to pass. I'd step in if my hand let me, and this dead hand will be the first fix in my verdict.
+Gemma: card=lhook
+  WHY: I am at Long range but need to land a final blow;
+Gemma: card=jab
+  WHY: Testing the range and looking for a lead.
+Gemma: card=liver
+  WHY: I'm a Pressure Boxer, so I'm targeting the
+Maria: card=none
+  WHY: I have no legal card at Long for the sixth exchange in a row, so I pass. My hand can't cut the distance, so the last round ends without a punch from me.

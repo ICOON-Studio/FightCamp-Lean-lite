@@ -1,0 +1,20 @@
+Maria (Out-Fighter) v John (Pressure Boxer), seed 22
+R1 E1: Maria plays Liver Shot; John plays Cross; John is faster (6 v 5); John lands 4 to the head (beats him to it); John takes the Lead; Maria ROCKED (4 to the head): only Counter or Defend next exchange; he has the Lead
+R1 E2: Maria plays Slip & Cross; John plays Lead Hook; Maria Slip & Cross whiffs: -2 stamina; John lands 5 to the head; Maria ROCKED (5 to the head): only Counter or Defend next exchange; he has the Lead
+R1 E3: Maria plays Slip & Cross; John plays Cross; Maria Slip & Cross reads the Cross: it misses; Maria lands 6 to the head (counter); Maria takes the Lead; John ROCKED (6 to the head): only Counter or Defend next exchange; he has the Lead
+R1 E4: Maria plays Fight IQ: Read Tendency; John plays nothing; Maria reads him: sees his hand, he cannot repeat it
+R1 E5: Maria plays Cross; John plays Lead Hook; Maria is faster (8 v 6); Maria lands 4 to the head (beats him to it)
+R1 E6: Maria plays Cross; John plays Lead Hook; Maria is faster (8 v 6); Maria lands 4 to the head (beats him to it); END OF ROUND 1: judges 10-9 (damage + clean counters 15 v 9); total 10-9; ROUND 2: back to Long, the Lead neutral, stamina +5 / +4
+R2 E1: Maria plays Step-In Jab; John plays Second Wind; range: long -> mid; Maria lands 2 to the head (nothing covered it); John recovers 6 stamina; Maria takes the Lead
+R2 E2: Maria plays Pawing Jab & Angle; John plays Liver Shot; Maria body damage: maximum stamina -2; John lands 5 to the body (caught him faking); Maria liver shot: maximum stamina -2; John takes the Lead
+R2 E3: Maria plays High Shell Guard; John plays Liver Shot; Maria body damage: maximum stamina -2; John lands 5 to the body (to the body, under the guard); Maria liver shot: maximum stamina -2; Maria recovers 2 stamina
+R2 E4: Maria plays Pawing Jab & Angle; John plays Fight IQ: Read Tendency; feint battle: both draw 1, the Lead is neutral; John reads him: sees his hand, he cannot repeat Pawing Jab & Angle; range: mid -> long
+R2 E5: Maria plays Check Hook; John plays Slip & Cross; Maria Check Hook: nothing to counter
+R2 E6: Maria plays Step-In Jab; John plays Cut the Cage; range: long -> close; Maria is faster (8 v 7); Maria lands 2 to the head (beats him to it); Maria takes the Lead; END OF ROUND 2: judges 9-10 (damage + clean counters 4 v 10); total 19-19; ROUND 3: back to Long, the Lead neutral, stamina +5 / +4
+R3 E1: Maria plays Check Hook; John plays nothing; Maria Check Hook: nothing to counter
+R3 E2: Maria plays Step-In Jab; John plays nothing; range: long -> mid; Maria lands 2 to the head; Maria takes the Lead
+R3 E3: Maria plays Lead Hook; John plays Pull Counter; John Pull Counter reads the Lead Hook: it misses; John lands 5 to the head (counter); John takes the Lead; Maria ROCKED (5 to the head): only Counter or Defend next exchange; he has the Lead
+R3 E4: Maria plays Circle Out & Reset; John plays Head Movement Feint; Maria recovers 2 stamina; John next Attack this round: +2 speed, +1 dmg; range: mid -> long
+R3 E5: Maria plays Second Wind; John plays nothing; Maria recovers 6 stamina
+R3 E6: Maria plays Step-In Jab; John plays nothing; range: long -> mid; Maria lands 2 to the head; Maria takes the Lead; END OF ROUND 3: judges 9-10 (damage + clean counters 4 v 6); total 28-29; John WINS on points 29-28
+RESULT: John wins by DECISION 29-28

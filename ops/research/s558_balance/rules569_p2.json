@@ -1,13 +1,13 @@
 {
- "_note": "RULES569 idea 2 ALONE on today's page (owner: 'a switch that sets the power that goes to your punches would be a good idea'): THE POWER SWITCH. One punch a beat can be thrown at FULL POWER: +1 stamina, +1 health for a light punch (jab, body punches) or +2 for a punch of 3 or more, and it is one step slower (he sees it coming). If it is blocked or falls short the thrower is OPEN in his next moment: his guard covers nothing (the last moment of a beat carries to the first of the next). Our numbers, not Mixed Martial Cards' (double damage for +50% stamina).",
+ "_note": "RULES569 idea 2 ALONE on today's page (owner: 'a switch that sets the power that goes to your punches would be a good idea'): THE POWER SWITCH. The LAST punch of a beat can be thrown at FULL POWER (you sit down on the punch that ends the combination): +2 stamina, +1 health, one step slower (he sees it coming; a punch that now does 3 or more stops his slower punch, scores 2 and wears the guard, as any big punch). If it is blocked or falls short the thrower is OPEN in his next moment: his guard covers nothing (the last moment of a beat carries to the first of the next). Our numbers, not Mixed Martial Cards' (double damage for +50% stamina): screened at n=12 - +1 / +2 health for +1 stamina ended 67% of bouts early (3.4 knockdowns); +1 health for +1 stamina was thrown on a third of punches; +1 health for +2 stamina on 8% (38% of them not landing). docs/RULES569_RESULT.md.",
  "src": [
   [
    "const N = { ",
-   "const N = { pw: 1, pwSt: 1, "
+   "const N = { pw: 1, pwSt: 2, pwD: 1, "
   ],
   [
    "FEET[p.feet].st + (p.clinch ? 1 : 0);",
-   "FEET[p.feet].st + (p.clinch ? 1 : 0) + (!p.clinch && p.pw && p[p.pw] && ACT[p[p.pw]].d ? N.pwSt : 0);\n/* RULES569 idea 2, THE POWER SWITCH: one punch a beat can be thrown at FULL POWER (p.pw = 'lead' or 'rear'): +1 stamina, +1 health (a light punch) or +2 (a punch of 3 or more), one step slower. Blocked or short, he is OPEN in his next moment (his guard covers nothing; the last moment of a beat carries to the first of the next). */\nconst full = (a) => ({ ...a, d: a.d + (a.d >= 3 ? 2 : 1), sp: a.sp + 1, full: 1 });"
+   "FEET[p.feet].st + (p.clinch ? 1 : 0) + (!p.clinch && p.pw && p[p.pw] && ACT[p[p.pw]].d ? N.pwSt : 0);\n/* RULES569 idea 2, THE POWER SWITCH: the LAST punch of a beat can be thrown at FULL POWER (p.pw = 'lead' or 'rear'): +2 stamina, +1 health, one step slower (he sees it coming). Blocked or short, he is OPEN in his next moment (his guard covers nothing; the last moment of a beat carries to the first of the next). */\nconst full = (a) => ({ ...a, d: a.d + N.pwD, sp: a.sp + 1, full: 1 });"
   ],
   [
    "for (const k of [0, 1]) { if (f[k].kept && P[k].feet === 'in')",
@@ -47,7 +47,7 @@
   ],
   [
    "for (const ord of perms(ordOf(c0))) out.push({ ...c0, ord }); }",
-   "for (const ord of perms(ordOf(c0))) { out.push({ ...c0, ord }); if (N.pw) for (const sl of ['lead', 'rear']) if (c0[sl] && ACT[c0[sl]].d && cost({ ...c0, pw: sl }) + (typeof dear === 'function' ? dear(me, c0) : 0) <= me.st) out.push({ ...c0, ord, pw: sl }); } }"
+   "for (const ord of perms(ordOf(c0))) { out.push({ ...c0, ord }); if (N.pw) { const lp = [...ord].reverse().find((sl) => sl !== 'feet' && ACT[c0[sl]].d); if (lp && cost({ ...c0, pw: lp }) + (typeof dear === 'function' ? dear(me, c0) : 0) <= me.st) out.push({ ...c0, ord, pw: lp }); } } }"
   ],
   [
    "const T = { range: S.range, f: S.f.map((m) => ({ ...m, hist: [] })) }; resolve(T, [{ ...a }, { ...b }]); endBeat(T);",

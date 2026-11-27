@@ -1,0 +1,20 @@
+Gemma (Out-Fighter) v Claude (Pressure Boxer), seed 21
+R1 E1: Gemma plays Slip & Cross; Claude plays Lead Hook; Gemma Slip & Cross whiffs: -2 stamina; Claude lands 5 to the head; Claude takes the Lead; Gemma ROCKED (5 to the head): only Counter or Defend next exchange; he has the Lead
+R1 E2: Gemma plays Check Hook; Claude plays Head Movement Feint; Gemma Check Hook whiffs: -2 stamina; Claude Head Movement Feint baits the counter; Claude next Attack this round: +2 speed, +1 dmg
+R1 E3: Gemma plays Circle Out & Reset; Claude plays Fight IQ: Read Tendency; Gemma recovers 2 stamina; Claude reads him: sees his hand, he cannot repeat Circle Out & Reset; range: mid -> long
+R1 E4: Gemma plays Step-In Jab; Claude plays Second Wind; range: long -> mid; Gemma lands 2 to the head (nothing covered it); Claude recovers 6 stamina; Gemma takes the Lead
+R1 E5: Gemma plays Lead Hook; Claude plays Philly Shell & Roll; Claude Philly Shell & Roll takes the Lead Hook; Claude blocked - the Lead is stripped; Claude recovers 1 stamina
+R1 E6: Gemma plays Pawing Jab & Angle; Claude plays Liver Shot; Gemma body damage: maximum stamina -2; Claude lands 6 to the body (caught him faking); Gemma liver shot: maximum stamina -2; Claude takes the Lead; END OF ROUND 1: judges 8-10 (damage + clean counters 2 v 11); total 8-10; ROUND 2: back to Long, the Lead neutral, stamina +5 / +4
+R2 E1: Gemma plays Check Hook; Claude plays Step-In Jab; range: long -> mid; Gemma Check Hook reads the Step-In Jab: it misses; Gemma lands 4 to the head (counter); Gemma takes the Lead; range: mid -> long
+R2 E2: Gemma plays Second Wind; Claude plays High Shell Guard; both reset: the Lead is neutral; Gemma recovers 6 stamina; Claude recovers 2 stamina
+R2 E3: Gemma plays Step-In Jab; Claude plays Cut the Cage; range: long -> close; Gemma is faster (8 v 7); Gemma lands 2 to the head (beats him to it); Gemma takes the Lead
+R2 E4: Gemma plays Liver Shot; Claude plays Uppercut; Gemma is faster (7 v 5); Gemma lands 4 to the body (beats him to it); Claude liver shot: maximum stamina -2
+R2 E5: Gemma plays Head Movement Feint; Claude plays Uppercut; Claude lands 6 to the head (caught him faking); Claude takes the Lead; Gemma ROCKED (6 to the head): only Counter or Defend next exchange; he has the Lead
+R2 E6: Gemma plays Circle Out & Reset; Claude plays Liver Shot; Claude lands 2 to the body (half through the circle-out); Gemma liver shot: maximum stamina -2; Gemma recovers 2 stamina; range: close -> mid; END OF ROUND 2: judges 10-9 (damage + clean counters 11 v 8); total 18-19; ROUND 3: back to Long, the Lead neutral, stamina +5 / +4
+R3 E1: Gemma plays Slip & Cross; Claude plays Slip & Cross; Gemma Slip & Cross: nothing to counter
+R3 E2: Gemma plays Pawing Jab & Angle; Claude plays Cut the Cage; range: long -> mid; Claude Cut the Cage: no damage; Gemma pushed toward the fence: cage space 2; Claude takes the Lead; range: mid -> long
+R3 E3: Gemma plays High Shell Guard; Claude plays nothing; Gemma recovers 2 stamina
+R3 E4: Gemma plays Fight IQ: Read Tendency; Claude plays nothing; Gemma reads him: sees his hand, he cannot repeat it
+R3 E5: Gemma plays Check Hook; Claude plays nothing; Gemma Check Hook: nothing to counter
+R3 E6: Gemma plays Step-In Jab; Claude plays nothing; range: long -> mid; Gemma lands 2 to the head; Gemma takes the Lead; END OF ROUND 3: judges 10-9 (damage + clean counters 2 v 0); total 28-28; DRAW 28-28
+RESULT: DRAW 28-28

@@ -31,13 +31,22 @@ MOVE = re.compile(r'knockdown|_ko')
 jumps = Counter(); ex = defaultdict(list); bounds = 0
 prev = None
 LAY = D.parent / 'layers'   # LAYERS0 (S570): with ?layers=1 each man is his own picture; his x comes from his layer
+LROOT = {}   # S570: a layer file -> (side, his feet metres from the picture's centre), from img/layers/frames.json
+if (LAY / 'frames.json').exists():
+    _lj = json.load(open(LAY / 'frames.json', encoding='utf-8'))
+    _ppm = _lj.get('camera', {}).get('px_per_m', 152.4)
+    for _row in _lj.get('runs', {}).values():
+        for _f, _r in zip(_row.get('files', []), _row.get('root', [])):
+            if _r is not None: LROOT[_f] = (_row['side'], _r)
+
+
 def men_at(e):
-    if e.get('lays'):
+    if e.get('lays'):   # each man's FEET on screen: the layer box centre minus his feet metres (the picture is mirrored)
         pos = {}
         for q in e['lays']:
-            m = men_file(LAY / q['f'], 'lay:' + q['f'])
-            if m:
-                pos.update({k: q['l'] + (m[1] - cx) * q['w'] / m[1] for k, cx in m[0].items()})
+            if q['f'] in LROOT:
+                side, r = LROOT[q['f']]
+                pos[side] = q['l'] + q['w'] / 2 - r * _ppm * q['w'] / 480
         return pos or None
     m = men(e['f'])
     return {k: e['l'] + (m[1] - cx) * e['w'] / m[1] for k, cx in m[0].items()} if m else None

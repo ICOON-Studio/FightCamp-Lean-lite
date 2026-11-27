@@ -20,6 +20,7 @@ export const CARDS = {
   shell:  { n: 'High Shell Guard', type: 'D', spd: 9, st: 1, legal: ['long', 'mid', 'close'], covers: 'head', chip: 1, rec: 2, t: 'Defend the HEAD: a head attack does 1 chip dmg and you recover 2 stamina; a BODY attack lands in full. Playing Defend gives up the Lead.' },
   philly: { n: 'Philly Shell & Roll', type: 'D', spd: 8, st: 1, legal: ['mid', 'close'], covers: 'head', chip: 0, rec: 1, t: 'Defend the HEAD: head attacks do nothing, you recover 1 stamina; a BODY attack lands in full. Gives up the Lead.' },
   circle: { n: 'Circle Out & Reset', type: 'D', spd: 8, st: 1, legal: ['mid', 'close'], covers: 'half', rec: 2, post: -1, t: 'Defend: an attack does half dmg (rounded down); +2 stamina, +1 cage space, the Lead goes neutral, you step out one range.' },
+  step:   { n: 'Step In', type: 'A', spd: 6, st: 1, legal: ['long', 'mid'], pre: 1, zone: null, dmg: 0, virtual: 1, t: 'Always there (v2): one range closer, no damage. An Attack, so a Check Hook answers it.' },
   cover:  { n: 'Cover Up', type: 'D', spd: 9, st: 0, legal: ['long', 'mid', 'close'], covers: 'head', chip: 0, rec: 0, virtual: 1, t: 'Rocked only (v2): hands up, chin down - head attacks do nothing; no stamina back. Always in reach, never in your deck.' },
   wind:   { n: 'Second Wind', type: 'D', spd: 5, st: 0, legal: ['long'], covers: 'none', rec: 6, t: 'Long only. Recover 6 stamina and draw 2 - but you block nothing this exchange.' },
 };
@@ -32,13 +33,16 @@ export const PROFILES = {
     deck: { jab: 1, cross: 2, lhook: 3, liver: 2, upper: 2, slip: 1, pullc: 1, hmf: 2, shell: 1, philly: 1, cage: 2, wind: 1, read: 1 } },
 };
 export const ROUNDS = 3, EXCHANGES = 6, HAND = 5;
-export const TUNE = { hp: 1.5, hook: 1, lead: 2, cover: 0, readCards: 0, styleSpeed: 0, stack: 1 };   // v2 switches (S570 cup findings): lead +1, cover=1 a rocked man can always Cover Up, readCards=2, styleSpeed=1 (no reach tie-break; Pressure +1 speed at Close), stack=0 (stepping in together stops at Mid)   // S570 balance knobs: health scale, the Pressure Boxer's hook bonus
+export const TUNE = { hp: 1.5, hook: 1, lead: 2, cover: 0, readCards: 0, styleSpeed: 0, stack: 1, basics: 0, regen: 0, bodyOnce: 0, discard: 0, outHp: 0, coverHalf: 0, deadSwap: 0 };
+// V2 (the cup's fixes, docs/OCTAGON1_RESULT.md): always-there Step In + Cover Up, +1 stamina an exchange, a discard, the Lead +1, rocked can cover, Liver Shot counted once, Read Tendency shows 2 cards
+export const V2 = { lead: 1, cover: 1, readCards: 2, bodyOnce: 1, discard: 1, deadSwap: 1, coverHalf: 1, hook: 0, hp: 1.3 };   // measured S570: basics (free Step In) and regen tilt it 60-70% to the Pressure Boxer - left out
+export const useV2 = () => { Object.assign(TUNE, V2); if (TUNE.coverHalf) { CARDS.cover.covers = 'half'; CARDS.cover.t = 'Always there (v2): hands up, chin down - any attack does half (rounded down); no stamina back.'; } };   // v2 switches (S570 cup findings): lead +1, cover=1 a rocked man can always Cover Up, readCards=2, styleSpeed=1 (no reach tie-break; Pressure +1 speed at Close), stack=0 (stepping in together stops at Mid)   // S570 balance knobs: health scale, the Pressure Boxer's hook bonus
 function rng(s) { let x = s >>> 0 || 1; return () => { x ^= x << 13; x >>>= 0; x ^= x >> 17; x ^= x << 5; x >>>= 0; return x / 4294967296; }; }
 const shuffle = (a, r) => { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
 export function newBout(seed = 1, profA = 'out', profB = 'press', names = ['A', 'B']) {
   const S = { seed, n: 0, round: 1, ex: 1, range: 'mid', init: -1, over: null, cards: [[0, 0], [0, 0]], log: [], score: [0, 0], roundDmg: [0, 0], roundCtr: [0, 0], rs: seed * 7919 + 13 };
   S.f = [profA, profB].map((p, k) => { const P = PROFILES[p], deck = Object.entries(P.deck).flatMap(([id, n]) => Array(n).fill(id));
-    const H = Math.round(P.head * TUNE.hp), Bd = Math.round(P.body * TUNE.hp);
+    const H = Math.round((P.head + (p === 'out' ? TUNE.outHp || 0 : 0)) * TUNE.hp), Bd = Math.round((P.body + (p === 'out' ? TUNE.outHp || 0 : 0)) * TUNE.hp);
     return { name: names[k], prof: p, head: H, headMax: H, body: Bd, bodyMax: Bd, st: P.st, stMax: P.st, cage: 2, deck, hand: [], disc: [], rocked: 0, ban: null, sees: 0, buff: 0, bodyTaken: 0 }; });
   const r = rng(S.rs); S.f.forEach((F) => shuffle(F.deck, r)); S.rs = Math.floor(r() * 1e9); S.f.forEach((F) => draw(S, F, HAND)); return S;
 }
@@ -46,15 +50,16 @@ function draw(S, F, n) { const r = rng(S.rs); for (let i = 0; i < n && F.hand.le
 export const cost = (S, k, id) => { const c = CARDS[id], F = S.f[k]; return Math.max(0, c.st - (F.prof === 'out' && c.post === -1 ? 1 : 0)); };
 // why a card cannot be played now ('' = legal)
 export function why(S, k, id) { const c = CARDS[id], F = S.f[k];
-  if (!c) return 'no such card'; if (id === 'cover') return TUNE.cover && F.rocked ? '' : 'Cover Up is only for a ROCKED man (v2 rules)'; if (!F.hand.includes(id)) return 'not in your hand'; if (!c.legal.includes(S.range)) return `not playable at ${S.range} (only ${c.legal.join(' / ')})`;
+  if (!c) return 'no such card'; if (id === 'cover') return TUNE.basics >= 2 || (TUNE.cover && F.rocked) ? '' : 'Cover Up is only for a ROCKED man (v2 rules)'; if (id === 'step') { if (!TUNE.basics) return 'no Step In in these rules'; if (F.rocked) return 'you are ROCKED: only a Counter or a Defend this exchange'; if (!c.legal.includes(S.range)) return `not playable at ${S.range}`; return F.st < 1 ? 'needs 1 stamina' : ''; } if (!F.hand.includes(id)) return 'not in your hand'; if (!c.legal.includes(S.range)) return `not playable at ${S.range} (only ${c.legal.join(' / ')})`;
   if (cost(S, k, id) > F.st) return `needs ${cost(S, k, id)} stamina, you have ${F.st}`; if (F.ban === id) return 'banned this exchange (he read your tendency)';
   if (F.rocked && !['C', 'D'].includes(c.type)) return 'you are ROCKED: only a Counter or a Defend this exchange'; if (c.post === -1 && F.cage <= 0 && c.type !== 'D') return 'your back is on the fence: you cannot step out'; return ''; }
-export const legalCards = (S, k) => [...new Set(S.f[k].hand), ...(TUNE.cover && S.f[k].rocked ? ['cover'] : [])].filter((id) => !why(S, k, id));
+const extras = (S, k) => [...(TUNE.basics ? ['step'] : []), ...(TUNE.basics >= 2 || (TUNE.cover && S.f[k].rocked) ? ['cover'] : [])];   // basics 1 = Step In always, 2 = Step In + Cover Up always
+export const legalCards = (S, k) => [...new Set(S.f[k].hand), ...extras(S, k)].filter((id) => !why(S, k, id));
 // plan: { card, then: [ids] (a combo, only while you hold the Lead), react: id (a Counter or Defend kept for his combo) } or { card: 'none' }
 export function play(S, plans) {
-  if (S.over) return []; const ev = [], say = (k, t) => ev.push({ k, t }), F = S.f, P = plans.map((p) => ({ card: p.card || 'none', then: (p.then || []).slice(0, 2), react: p.react || null }));
+  if (S.over) return []; const ev = [], say = (k, t) => ev.push({ k, t }), F = S.f, P = plans.map((p) => ({ card: p.card || 'none', then: (p.then || []).slice(0, 2), react: p.react || null, discard: p.discard || null }));
   const initAtStart = S.init; S.n++;
-  for (const k of [0, 1]) { const id = P[k].card; if (id !== 'none' && !CARDS[id].virtual) { F[k].st -= cost(S, k, id); F[k].hand.splice(F[k].hand.indexOf(id), 1); F[k].disc.push(id); S.cards[k][0]++; } F[k].ban = null; }
+  for (const k of [0, 1]) { const id = P[k].card; if (id !== 'none' && CARDS[id].virtual) F[k].st -= cost(S, k, id); if (id !== 'none' && !CARDS[id].virtual) { F[k].st -= cost(S, k, id); F[k].hand.splice(F[k].hand.indexOf(id), 1); F[k].disc.push(id); S.cards[k][0]++; } F[k].ban = null; }
   for (const k of [0, 1]) say(k, P[k].card === 'none' ? 'plays nothing' : `plays ${CARDS[P[k].card].n}`);
   // 1) pre-moves: opposite cancel, the same stack
   let mv = 0; for (const k of [0, 1]) { const c = CARDS[P[k].card]; if (c && c.pre) mv += c.pre; }
@@ -63,7 +68,7 @@ export function play(S, plans) {
   const card = (k) => CARDS[P[k].card] || { type: 'N' }, atk = [0, 1].map((k) => card(k).type === 'A'), inRange = (k) => { const c = card(k); return c.type === 'N' || (c.pre ? true : c.legal.includes(S.range)); };
   const hits = [0, 0], dmgTo = [0, 0], head = [0, 0], lead = [S.init === 0, S.init === 1];
   const speed = (k, c, extra = 0) => c.spd + (lead[k] ? TUNE.lead : 0) + (F[k].prof === 'out' && S.range === 'long' ? 1 : 0) + (TUNE.styleSpeed && F[k].prof === 'press' && S.range === 'close' ? 1 : 0) + (F[k].buff ? 2 : 0) + extra;
-  const hurt = (k, zone, d, why) => { if (d <= 0) return 0; const v = 1 - k; if (zone === 'body') { F[v].body -= d; F[v].bodyTaken += d; while (F[v].bodyTaken >= 5) { F[v].bodyTaken -= 5; F[v].stMax = Math.max(4, F[v].stMax - 2); F[v].st = Math.min(F[v].st, F[v].stMax); say(v, 'body damage: maximum stamina -2'); } } else { F[v].head -= d; head[v] += d; }
+  const hurt = (k, zone, d, why) => { if (d <= 0) return 0; const v = 1 - k; if (zone === 'body') { F[v].body -= d; if (!(TUNE.bodyOnce && P[k].card === 'liver')) F[v].bodyTaken += d; while (F[v].bodyTaken >= 5) { F[v].bodyTaken -= 5; F[v].stMax = Math.max(4, F[v].stMax - 2); F[v].st = Math.min(F[v].st, F[v].stMax); say(v, 'body damage: maximum stamina -2'); } } else { F[v].head -= d; head[v] += d; }
     dmgTo[v] += d; S.roundDmg[k] += d; say(k, `lands ${d} to the ${zone}${why ? ' (' + why + ')' : ''}`); return d; };
   const answers = (c, a) => (c.answers === 'straight' && a.straight) || (c.answers === 'hook' && a.hook) || (c.answers === 'advancing' && !!a.pre);
   const attackDmg = (k, a, other, chained, prev) => { let d = a.dmg + (F[k].buff ? 1 : 0); if (a.hook && F[k].prof === 'press') d += TUNE.hook; if (P[k].card === 'lhook' && other && other.straight && !chained) d += 2; if (chained && prev === 'jab' && a === CARDS.cross) d += 1; if (F[1 - k].cage <= 0) d += 1; return d; };
@@ -111,6 +116,8 @@ export function play(S, plans) {
   for (const k of [0, 1]) { F[k].rocked = 0; if (head[k] >= PROFILES[F[k].prof].rocked && F[k].head > 0) { F[k].rocked = 1; S.init = 1 - k; say(k, `ROCKED (${head[k]} to the head): only Counter or Defend next exchange; he has the Lead`); } }
   for (const k of [0, 1]) if (F[k].head <= 0 || F[k].body <= 0) { S.over = { winner: 1 - k, how: F[k].head <= 0 ? 'KO' : 'TKO (body)', round: S.round, ex: S.ex }; say(-1, `${F[1 - k].name} WINS by ${S.over.how}`); }
   for (const k of [0, 1]) if (F[k].sees) F[k].sees--;
+  if (TUNE.discard) for (const k of [0, 1]) { const d = P[k].discard; if (d && F[k].hand.includes(d)) { F[k].hand.splice(F[k].hand.indexOf(d), 1); F[k].disc.push(d); draw(S, F[k], 1); say(k, 'discards one card, draws one'); } }
+  if (TUNE.regen) for (const k of [0, 1]) F[k].st = Math.min(F[k].stMax, F[k].st + TUNE.regen);
   S.log.push({ round: S.round, ex: S.ex, plays: P.map((p) => p.card), lines: ev });
   if (!S.over) endExchange(S, ev); return ev;
 }
@@ -122,12 +129,13 @@ function endExchange(S, ev) { const F = S.f;
     if (S.round >= ROUNDS) { const w = S.score[0] === S.score[1] ? -1 : S.score[0] > S.score[1] ? 0 : 1; S.over = { winner: w, how: w < 0 ? 'DRAW' : 'DECISION', score: [...S.score] }; ev.push({ k: -1, t: w < 0 ? `DRAW ${S.score[0]}-${S.score[1]}` : `${F[w].name} WINS on points ${S.score[w]}-${S.score[1 - w]}` }); return; }
     S.round++; S.ex = 1; S.range = 'long'; S.init = -1; for (const f of F) { f.st = Math.min(f.stMax, f.st + PROFILES[f.prof].cardio); f.rocked = 0; f.buff = 0; f.cage = Math.max(f.cage, 2); } ev.push({ k: -1, t: `ROUND ${S.round}: back to Long, the Lead neutral, stamina +${PROFILES[F[0].prof].cardio} / +${PROFILES[F[1].prof].cardio}` }); }
   for (const f of F) draw(S, f, HAND - f.hand.length);
+  if (TUNE.deadSwap) [0, 1].forEach((k) => { const f = F[k]; if (!legalCards(S, k).length && f.hand.length) { f.disc.push(...f.hand); f.hand = []; draw(S, f, HAND); ev.push({ k, t: 'no card he can play here: a fresh hand' }); } });   // v2: never a dead hand
 }
 // how one fighter sees the bout (never the other's hand unless he read it)
 export function view(S, k) { const F = S.f[k], O = S.f[1 - k], card = (id) => `${id} = ${CARDS[id].n} [${CARDS[id].type === 'A' ? 'ATTACK' : CARDS[id].type === 'C' ? 'COUNTER' : CARDS[id].type === 'F' ? 'FEINT' : 'DEFEND'}, speed ${CARDS[id].spd}, cost ${cost(S, k, id)}] ${CARDS[id].t}${why(S, k, id) ? ' -- CANNOT NOW: ' + why(S, k, id) : ''}`;
   const L = [`ROUND ${S.round} of ${ROUNDS}, exchange ${S.ex} of ${EXCHANGES}. Range: ${S.range.toUpperCase()}. The Lead: ${S.init < 0 ? 'neutral' : S.init === k ? `YOU (+${TUNE.lead} speed on attacks; a [Chain] card that connects can combo)` : `HIM (+${TUNE.lead} speed on his attacks)`}. Judges so far: you ${S.score[k]} - him ${S.score[1 - k]}.`,
     `YOU (${PROFILES[F.prof].n}): head ${F.head}/${F.headMax}, body ${F.body}/${F.bodyMax}, stamina ${F.st}/${F.stMax}, cage space ${F.cage}/3${F.rocked ? ', ROCKED' : ''}${F.buff ? ', next attack +2 speed +1 dmg' : ''}. Trait: ${PROFILES[F.prof].trait}`,
     `HIM (${O.name}, ${PROFILES[O.prof].n}): head ${O.head}/${O.headMax}, body ${O.body}/${O.bodyMax}, stamina ${O.st}/${O.stMax}, cage space ${O.cage}/3${O.rocked ? ', ROCKED' : ''}, cards in hand ${O.hand.length}${F.sees ? (F.seen ? ' - YOU READ PART OF HIS HAND: ' + F.seen.join(', ') : ' - YOU READ HIS HAND: ' + O.hand.join(', ')) : ''}. Trait: ${PROFILES[O.prof].trait}`,
-    'YOUR HAND:', ...[...new Set(F.hand), ...(TUNE.cover && F.rocked ? ['cover'] : [])].map((id) => `  ${F.hand.filter((x) => x === id).length > 1 ? F.hand.filter((x) => x === id).length + 'x ' : ''}${card(id)}`)];
+    'YOUR HAND:', ...[...new Set(F.hand), ...extras(S, k)].map((id) => `  ${F.hand.filter((x) => x === id).length > 1 ? F.hand.filter((x) => x === id).length + 'x ' : ''}${card(id)}`)];
   const last = S.log[S.log.length - 1]; if (last) L.splice(1, 0, `LAST EXCHANGE (round ${last.round}, exchange ${last.ex}): ` + last.lines.map((e) => (e.k < 0 ? '' : e.k === k ? 'You ' : 'He ') + e.t).join('; '));
   return L.join('\n'); }

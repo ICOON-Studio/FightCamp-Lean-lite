@@ -1,0 +1,20 @@
+Gemma (Out-Fighter) v Maria (Pressure Boxer), seed 11
+R1 E1: Gemma plays Slip & Cross; Maria plays Lead Hook; Gemma Slip & Cross whiffs: -2 stamina; Maria lands 5 to the head; Maria takes the Lead; Gemma ROCKED (5 to the head): only Counter or Defend next exchange; he has the Lead
+R1 E2: Gemma plays Circle Out & Reset; Maria plays Fight IQ: Read Tendency; Gemma recovers 2 stamina; Maria reads him: sees his hand, he cannot repeat Circle Out & Reset; range: mid -> long
+R1 E3: Gemma plays Step-In Jab; Maria plays High Shell Guard; range: long -> mid; Gemma lands 1 to the head (chip through the guard); Maria blocked - the Lead is stripped; Maria recovers 2 stamina
+R1 E4: Gemma plays Liver Shot; Maria plays Liver Shot; Gemma is faster (5.5 v 5); Gemma lands 4 to the body (beats him to it); Maria liver shot: maximum stamina -2; Gemma takes the Lead
+R1 E5: Gemma plays Cross; Maria plays Philly Shell & Roll; Maria Philly Shell & Roll takes the Cross; Maria blocked - the Lead is stripped; Maria recovers 1 stamina
+R1 E6: Gemma plays Fight IQ: Read Tendency; Maria plays Cross; Maria lands 4 to the head (caught him faking); Maria takes the Lead; Gemma ROCKED (4 to the head): only Counter or Defend next exchange; he has the Lead; END OF ROUND 1: judges 9-10 (damage + clean counters 5 v 9); total 9-10; ROUND 2: back to Long, the Lead neutral, stamina +5 / +4
+R2 E1: Gemma plays High Shell Guard; Maria plays Cut the Cage; range: long -> mid; Maria Cut the Cage: no damage; Gemma pushed toward the fence: cage space 2; Gemma recovers 2 stamina; Maria takes the Lead
+R2 E2: Gemma plays Pawing Jab & Angle; Maria plays Head Movement Feint; feint battle: both draw 1, the Lead is neutral; Maria next Attack this round: +2 speed, +1 dmg; range: mid -> long
+R2 E3: Gemma plays Step-In Jab; Maria plays Second Wind; range: long -> mid; Gemma lands 2 to the head (nothing covered it); Maria recovers 6 stamina; Gemma takes the Lead
+R2 E4: Gemma plays Cross; Maria plays Lead Hook; Gemma is faster (8.5 v 8); Gemma lands 4 to the head (beats him to it); Gemma COMBO: Lead Hook (+1 speed, +1 stamina); Gemma lands 4 to the head (combo); Maria ROCKED (8 to the head): only Counter or Defend next exchange; he has the Lead
+R2 E5: Gemma plays Pawing Jab & Angle; Maria plays Pull Counter; Maria Pull Counter whiffs: -2 stamina; Maria baited: -3 stamina more; Gemma Pawing Jab & Angle baits the counter; range: mid -> long
+R2 E6: Gemma plays Step-In Jab; Maria plays Cut the Cage; range: long -> close; Gemma is faster (10 v 9); Gemma lands 2 to the head (beats him to it); END OF ROUND 2: judges 10-8 (damage + clean counters 12 v 0); total 19-18; ROUND 3: back to Long, the Lead neutral, stamina +5 / +4
+R3 E1: Gemma plays Second Wind; Maria plays nothing; Gemma recovers 6 stamina
+R3 E2: Gemma plays Slip & Cross; Maria plays nothing; Gemma Slip & Cross: nothing to counter
+R3 E3: Gemma plays Check Hook; Maria plays nothing; Gemma Check Hook: nothing to counter
+R3 E4: Gemma plays Check Hook; Maria plays nothing; Gemma Check Hook: nothing to counter
+R3 E5: Gemma plays nothing; Maria plays nothing
+R3 E6: Gemma plays nothing; Maria plays nothing; END OF ROUND 3: judges 10-10 (damage + clean counters 0 v 0); total 29-28; Gemma WINS on points 29-28
+RESULT: Gemma wins by DECISION 29-28

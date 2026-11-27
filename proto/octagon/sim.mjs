@@ -3,9 +3,9 @@
 // Bots: random (any legal card), greedy (attack with the Lead or when fresh, defend when low, combos when it can),
 // reader (counts his last 3 card TYPES and plays what beats the most likely one). Prints wins, KO share, card play and
 // win rates, Lead streaks, comebacks, dead and must-play cards.
-import { newBout, play, legalCards, CARDS, PROFILES, TUNE } from './engine.mjs';
+import { newBout, play, legalCards, why, CARDS, PROFILES, TUNE, useV2 } from './engine.mjs';
 const arg = Object.fromEntries(process.argv.slice(2).map((x) => x.split('='))), N = +(arg.n || 1000);
-for (const key of Object.keys(TUNE)) if (arg[key] !== undefined) TUNE[key] = +arg[key];
+for (const key of Object.keys(TUNE)) if (arg[key] !== undefined) TUNE[key] = +arg[key]; if (arg.v2) { useV2(); for (const key of Object.keys(TUNE)) if (arg[key] !== undefined) TUNE[key] = +arg[key]; }
 let seed = +(arg.seed || 1); const r = () => { seed ^= seed << 13; seed >>>= 0; seed ^= seed >> 17; seed ^= seed << 5; seed >>>= 0; return seed / 4294967296; };
 const pick = (a) => a[Math.floor(r() * a.length)];
 const BEATS = { A: 'F', F: 'C', C: 'A' }, ANSWER = { A: 'C', F: 'A', C: 'F' };
@@ -26,7 +26,7 @@ for (const [ba, bb] of [['random', 'random'], ['greedy', 'random'], ['reader', '
   const st = S0(`${ba}(${pa}) v ${bb}(${pb})`);
   for (let i = 0; i < N; i++) { const S = newBout(Math.floor(r() * 1e9), pa, pb, [ba, bb]); let run = 0, holder = -1, behind = -1;
     for (let g = 0; g < 200 && !S.over; g++) { for (const k of [0, 1]) for (const id of legalCards(S, k)) st.legal[id] = (st.legal[id] || 0) + 1;
-      const P = [BOTS[ba](S, 0), BOTS[bb](S, 1)]; const before = S.round; play(S, P); st.ex++;
+      const P = [BOTS[ba](S, 0), BOTS[bb](S, 1)]; if (TUNE.discard) for (const k of [0, 1]) P[k].discard = S.f[k].hand.find((id) => id !== P[k].card && why(S, k, id)) || null; const before = S.round; play(S, P); st.ex++;
       for (const k of [0, 1]) if (P[k].card !== 'none') { st.plays[P[k].card] = (st.plays[P[k].card] || 0) + 1; if (CARDS[P[k].card].type === 'D') st.defend++; }
       const last = S.log[S.log.length - 1]; const w = S.init; if (w === holder && w >= 0) run++; else { if (run) st.streak.push(run); run = w >= 0 ? 1 : 0; holder = w; }
       for (const k of [0, 1]) if (last.lines.some((e) => e.k === k && /^lands/.test(e.t)) && P[k].card !== 'none') st.won[P[k].card] = (st.won[P[k].card] || 0) + 1;

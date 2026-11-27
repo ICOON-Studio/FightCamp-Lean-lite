@@ -1,0 +1,22 @@
+John: card=lhook
+  WHY: At Mid, the Out-Fighter will want to jab or step out, and a hook hits hardest against a straight punch, so I'm throwing my best damage card first and making Claude prove the counter.
+John: card=none
+  WHY: I'm rocked, so I can only play a Counter or a Defend, but I hold no Counter and Second Wind works only at Long; every card in my hand is marked CANNOT NOW, so please rule it a pass or deal me a legal card.
+John: card=cage
+  WHY: Claude is one step from the fence at Long, so Cut the Cage costs 1 stamina, pins Claude's back to the fence and brings us back to Mid where my hooks work.
+John: card=philly
+  WHY: Claude holds the Lead and has been beating my slower cards, so I'll shell up against the likely head shot, get stamina back and take away Claude's combo.
+John: card=hmf
+  WHY: Claude read my first hook with Pull Counter, so I'm feinting to bait that counter again; it costs only 1 stamina, and if I'm not hit my next hook gets +2 speed and +1 damage.
+John: card=lhook
+  WHY: Claude has thrown straight punches whenever holding the Lead, and a hook into a Jab or Cross does 4, +2 for the straight, +1 for my hook trait, so this is my best shot at levelling the round.
+John: card=shell
+  WHY: I'm down to 8 head and Claude's straight punches have beaten me to it all fight, so I'll take only 1 chip, win back 2 stamina and wait for Claude to come to me.
+John: card=wind
+  WHY: Claude sat on a Check Hook waiting for me to step in, so I'll stay at Long, take back 6 stamina and draw 2 cards while Claude waits for a step-in that isn't coming.
+John: card=read
+  WHY: Claude has seen my hand and will likely sit on a counter again, so a cheap, fast feint beats that counter, shows me Claude's hand and draws me a card before I commit to stepping in.
+John: card=liver
+  WHY: Claude's attacks have all gone to the head and the shells I could use are gone, so I'm going to the body, where 5 damage with my hook trait also cuts Claude's maximum stamina for the rest of the fight.
+John: card=cross
+  WHY: Claude has only 7 stamina left and just used a hook, so I expect a cheap straight punch or a defend now, and I need to start landing on the head to win this round back.

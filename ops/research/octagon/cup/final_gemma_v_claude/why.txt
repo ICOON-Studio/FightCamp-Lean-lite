@@ -1,0 +1,40 @@
+Gemma: card=slip
+  WHY: Taking the Lead with a counter to his likely straight punches while staying at
+Gemma: card=checkh
+  WHY: I am ROCKED and must use a Counter or Defend;
+Gemma: card=circle
+  WHY: He has the Lead and a high-speed attack coming; Circle Out
+Gemma: card=jab
+  WHY: Stepping in to close the distance and land a jab to take the
+Gemma: card=lhook
+  WHY: I have the Lead and +2 speed, making this a speed
+Gemma: card=paw
+  WHY: Feint to bait his counter/attack while staying safe at mid-
+Gemma: card=checkh
+  WHY: I am at Long; Check Hook counters his "Step-In
+Gemma: card=wind
+  WHY: I need to recover stamina and draw new cards while at Long range to
+Gemma: card=jab
+  WHY: It is the only card playable at Long range and grants me the Lead
+Gemma: card=liver
+  WHY: I have the Lead and need to break his stamina/body health;
+Gemma: card=hmf
+  WHY: I have the lead and need to bait his counter or setup a
+Gemma: card=circle
+  WHY: I am ROCKED and can only play a Counter or Defend;
+Gemma: card=slip
+  WHY: At Long range, Slip & Cross is the only viable counter to his
+Gemma: card=paw
+  WHY: Claude has very low stamina (4) and is a Pressure Boxer;
+Gemma: card=shell
+  WHY: Claude has very low stamina (3) and the Lead; I must
+Gemma: card=read
+  WHY: He is at 3 stamina; a feint denies him a high
+Gemma: card=checkh
+  WHY: He has hooks and a Liver Shot; Check Hook counters his Step
+Gemma: card=step
+  WHY: It moves me to Mid range, allowing for a combo
+Gemma: card=lead
+  WHY: I am a Pressure Boxer and want to establish the Lead with a
+Gemma: card=jab
+  WHY: Starting with a basic jab to test his distance and establish initiative.

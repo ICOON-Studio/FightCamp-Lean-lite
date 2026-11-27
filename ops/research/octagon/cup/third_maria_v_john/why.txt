@@ -1,0 +1,72 @@
+John: card=cross
+  WHY: An Out-Fighter's best opener at Mid is a Pull Counter waiting for my hook, and a Cross is a straight punch it can't read, so I'd rather land 4 to the head and take the Lead.
+Maria: card=liver
+  WHY: A Pressure Boxer usually opens by attacking, and a feint loses to an attack. My Liver Shot goes under any head guard and cuts its stamina for the rest of the fight, which hurts a fighter who has to chase me.
+Maria: card=slip
+  WHY: The Slip and Cross is the only legal card I have while rocked. John just landed a cross with the Lead and will likely throw it again, and Slip and Cross makes it miss, lands 6 with my reflex bonus, and takes the Lead back.
+John: card=lhook
+  WHY: Maria is rocked and can only counter or defend, and the Lead Hook is my only legal card, so I'm pressing while I'm faster and taking the risk of a Pull Counter.
+Maria: card=slip
+  WHY: I'm rocked again, and Slip and Cross is still my only legal card. John has thrown a cross then a hook, so if it goes back to the straight punch, my counter lands 6 and takes the Lead.
+John: card=cross
+  WHY: Maria just tried Slip & Cross, so the likely switch now is a Pull Counter against my hooks, and a straight Cross gets past that counter while Maria is still rocked.
+Maria: card=read
+  WHY: John is rocked, so it can only Counter or Defend, and my feint beats any counter. It also shows me its hand and keeps my last 7 stamina safe from a Pull Counter.
+John: card=none
+  WHY: I'm rocked, so I can only play a Counter or a Defend, but I hold no Counter and Second Wind works only at Long; every card in my hand is marked CANNOT NOW, so please rule it a pass.
+John: card=lhook
+  WHY: The Lead Hook is my only legal card, and Maria is down to 12 head with 6 stamina and has been throwing straight punches, so a hook into a Cross does 7.
+Maria: card=cross
+  WHY: The only card in John's hand it can play at Mid is the lead hook, at speed 6. My cross with the Lead's plus 2 runs at 8, so it lands first and cancels the hook.
+John: card=lhook
+  WHY: Maria has only 3 stamina left, enough for one more Cross or a cheap defend, and if that Cross comes my hook does 7 even if it lands second, so I'll take the swing to win the round on damage.
+Maria: card=cross
+  WHY: John's hand still holds a second lead hook, and that's the only card it can play at Mid. My cross with the Lead runs at 8 against its 6, so it lands first again and takes the round with my last 3 stamina.
+Maria: card=jab
+  WHY: At Long, John's hand only had Cut the Cage at speed 7 and Second Wind, which blocks nothing. My step-in jab runs at 9 with my Long bonus, so it lands first either way and takes the Lead.
+John: card=wind
+  WHY: Both of us are on 5 stamina, so I'll take back 6 and draw 2 at Long while Maria can't afford much, and then walk Maria down with a full tank.
+John: card=liver
+  WHY: Maria is down to 3 stamina and will likely shell up to recover, and a Liver Shot goes under a head shell for 5 to the body and cuts Maria's maximum stamina.
+Maria: card=paw
+  WHY: I'm on 3 stamina, and the paw costs nothing. If John counters, it whiffs and loses 3 stamina, and either way I step back out to Long, where its hooks can't reach and my Second Wind works.
+Maria: card=shell
+  WHY: John has the Lead and its read hand was full of head hooks, so my High Shell turns a hook into 1 chip damage and gets 2 stamina back. I'm on 3 stamina and need it.
+John: card=liver
+  WHY: I hold the Lead, so my Liver Shot is now speed 7, and Maria has only 3 stamina; another 5 to the body takes Maria past 10 body damage and cuts Maria's stamina again.
+Maria: card=paw
+  WHY: John keeps throwing the Liver Shot with the Lead, and none of my cards block a body shot. The free paw at least steps me out to Long, where its hooks can't reach and my Second Wind and step-in jab both work.
+John: card=read
+  WHY: I have only 5 stamina and no hook in hand, and Maria will likely shell again or wait with a Pull Counter, so a 1-stamina feint beats the counter, shows me Maria's hand and draws me a card.
+John: card=slip
+  WHY: At Long, Maria's only attack is the Step-In Jab, and Maria's Check Hook waits for my Cut the Cage, so Slip & Cross makes the jab miss and lands 5 on a head already at 12.
+Maria: card=checkh
+  WHY: At Long, John's only way in is Cut the Cage, and my Check Hook answers a fighter stepping in. Its walk-in misses, my hook lands 4 with my reflex bonus, and I take the Lead and pivot back out to Long.
+Maria: card=jab
+  WHY: John has 1 stamina, too little for Slip and Cross, the only card that stops a jab, or for any of its punches. My step-in jab lands 2 for nearly free and wins the round's damage.
+John: card=cage
+  WHY: It's my only playable card with 1 stamina, Maria just used the Check Hook, and pinning Maria to the fence means every punch I land in round 3 does +1.
+Maria: card=checkh
+  WHY: John played Cut the Cage last exchange to close in, and it's the Pressure Boxer's only way in from Long. My Check Hook answers that step-in for 4 with my reflex bonus, takes the Lead, and pivots me back out to Long.
+John: card=none
+  WHY: Every card in my hand is marked CANNOT NOW at Long (the uppercuts need Close, Pull Counter and the feints need Mid), so please rule it a pass.
+Maria: card=jab
+  WHY: Rounds are level at 19-19, and John passed last exchange because it's stuck at Long with 4 stamina. My step-in jab runs at 9 there, lands 2 on its 6 head health, and takes the Lead to start winning the damage count.
+John: card=none
+  WHY: My hand is unchanged and every card is still marked CANNOT NOW at Long, so please rule it a pass again, and note that no draw has come to get me out of the dead hand.
+John: card=pullc
+  WHY: Maria has exactly 3 stamina and the Lead Hook I saw in Maria's hand, which needs Mid, so Pull Counter makes it miss, lands 5 and takes the Lead back.
+Maria: card=lhook react=circle
+  WHY: John is on 4 head health, and my lead hook does exactly 4, which would stop it. With the Lead's plus 2 my hook runs at 8, faster than any of its hooks at 6, and Circle Out stays back to halve a combo.
+John: card=hmf
+  WHY: Maria is rocked with 0 stamina and can only counter or defend, so a 1-stamina feint beats any counter, and if I'm not hit my next attack gets +2 speed and +1 damage.
+Maria: card=circle
+  WHY: Circle Out is my only legal card at 0 stamina while rocked. It halves anything John throws, gets 2 stamina back, makes the Lead neutral and steps me out to Long, where my Second Wind works.
+John: card=none
+  WHY: I have 0 stamina and every card is marked CANNOT NOW at Long, so please rule it a pass; Maria is also on 0 stamina, so nothing should land.
+Maria: card=wind
+  WHY: Second Wind is my only legal card, and John is at 0 stamina, so it can't throw anything that costs. I get 6 stamina and two new cards for the last exchange, when it's on 4 head health.
+John: card=none
+  WHY: I still have 0 stamina and every card is marked CANNOT NOW at Long, so please rule it a pass; I can only hope Maria's last punch doesn't take the round.
+Maria: card=jab
+  WHY: John has 0 stamina and can't answer, so my step-in jab lands 2 for free and wins the round on damage.

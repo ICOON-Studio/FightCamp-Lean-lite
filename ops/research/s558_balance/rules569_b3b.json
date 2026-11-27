@@ -1,0 +1,48 @@
+{
+ "_note": "RULES569 idea 3, second version (B3b), alone on today's page. B3 failed its trial and three of its four links never showed: tired arms changed 0 hits (a man on 2 stamina cannot pay for a punch of 2), the guard bar never fell to 2 (today only a blocked big punch wears it, 1, and 1 comes back a beat), the ropes link showed in 3% of beats. Changed: (2) tired arms from 3 stamina or less (N.lk2 3); (3) every blocked punch wears the guard - 1, a big punch 2 (N.gwear) - so the bar moves, and a guard of 2 or less at the start of a beat lets 1 through from a blocked big punch, as before; the solver values guard at 0.3 health a point (was 0.15). (1) health -> stamina bar and (4) ropes -> guard are unchanged. docs/RULES569_RESULT.md.",
+ "N": {
+  "lk2": 3
+ },
+ "src": [
+  [
+   "const N = { ",
+   "const N = { lk1: 3, lk2: 2, lk3: 2, lk4: 1, "
+  ],
+  [
+   "for (const k of [0, 1]) { if (f[k].kept && P[k].feet === 'in')",
+   "/* RULES569 idea 3, THE BARS AFFECT EACH OTHER. Read once at the start of the beat (L0), so no link feeds another twice in a beat. lk1 HEALTH -> STAMINA BAR: each third of his health lost takes 1 from his stamina bar (never under N.capMin). lk2 STAMINA -> PUNCHES: starting a beat on N.lk2 stamina or less, his punches of 2 or more do 1 less. lk3 GUARD -> BLOCKS: starting a beat on N.lk3 guard or less, a blocked punch of 3 or more lets 1 through (never the last health). lk4 GROUND -> GUARD: on the ropes, every punch he blocks takes 1 more guard. */\n  const L0 = f.map((m) => ({ tired: !!N.lk2 && m.st <= N.lk2, soft: !!N.lk3 && m.g <= N.lk3, roped: !!N.lk4 && m.ropes >= 2 }));\n  for (const k of [0, 1]) { if (f[k].kept && P[k].feet === 'in')"
+  ],
+  [
+   "if (cov[v][a.line] && !wasDrawn) { ",
+   "if (cov[v][a.line] && !wasDrawn) { const leak = L0[v].soft && a.d >= 3 && D.hp > 1 ? 1 : 0; D.hp -= leak; if (L0[v].roped) D.g = Math.max(0, D.g - 1); "
+  ],
+  [
+   "(D.g <= 0 ? ' - GUARD BROKEN' : '') });",
+   "(D.g <= 0 ? ' - GUARD BROKEN' : '') + (leak ? ' - a tired guard: 1 gets through' : '') + (L0[v].roped ? ' - on the ropes: 1 more guard' : ''), leak, roped: L0[v].roped ? 1 : 0 });"
+  ],
+  [
+   " + (pull ? 1 : 0); pulled[sh.k] = 0; D.hp -= dmg;",
+   " + (pull ? 1 : 0) - (L0[sh.k].tired && a.d >= 2 ? 1 : 0); pulled[sh.k] = 0; D.hp -= dmg; let hcap = 0; if (N.lk1) { const want = Math.min(2, Math.floor((D.max - D.hp) * N.lk1 / D.max)); if (want > (D.hc || 0)) { hcap = want - (D.hc || 0); const c0 = D.cap; D.cap = Math.max(N.capMin, D.cap - hcap); D.hc = want; D.st = Math.min(D.st, D.cap); hcap = c0 - D.cap; D.hct = (D.hct || 0) + hcap; } }"
+  ],
+  [
+   "say(sh.k, { m: i, t: 'hit', id: sh.id, a: a.n,",
+   "say(sh.k, { m: i, t: 'hit', id: sh.id, a: a.n, tired: L0[sh.k].tired && a.d >= 2 ? 1 : 0, hcap,"
+  ],
+  [
+   "${a.keep && N.keep ? (v ? ' - he cannot step in next beat' : ' - you cannot step in next beat') : ''}`, down: D.hp <= 0 });",
+   "${a.keep && N.keep ? (v ? ' - he cannot step in next beat' : ' - you cannot step in next beat') : ''}${L0[sh.k].tired && a.d >= 2 ? ' - tired arms: 1 less' : ''}${hcap ? `, health lost: ${v ? 'his' : 'your'} stamina bar is ${D.cap}` : ''}`, down: D.hp <= 0 });"
+  ],
+  [
+   "D.g = Math.max(0, D.g - (a.d >= 3 ? 1 : 0));",
+   "D.g = Math.max(0, D.g - (N.gwear ? (a.d >= 3 ? 2 : 1) : (a.d >= 3 ? 1 : 0)));"
+  ],
+  [
+   "const W = { st: 0.25, cap: 0.6, guard: 0.15,",
+   "const W = { st: 0.25, cap: 0.6, guard: 0.3,"
+  ],
+  [
+   "const N = { ",
+   "const N = { gwear: 1, "
+  ]
+ ]
+}

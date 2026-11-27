@@ -34,7 +34,7 @@ PAGE = json.loads(r'''[
  ],
  [
   "<span id=\"where\"></span>",
-  "<span class=\"lab\" title=\"A trial page (RULES569): the guard is one card, one punch a beat can be thrown at full power, and the bars affect each other. The main page is order.html.\">trial: 3 rule ideas</span><span id=\"where\"></span>",
+  "<span class=\"lab\" title=\"A trial page (RULES569): the guard is one card, the last punch of a beat can be thrown at full power, and the bars affect each other. The main page is order.html.\">trial: 3 rule ideas</span><span id=\"where\"></span>",
   "the trial tag"
  ],
  [
@@ -59,7 +59,7 @@ PAGE = json.loads(r'''[
  ],
  [
   "function board() { const me = F[0], left = me.st - cost(P);",
-  "function board() { if (P.pw && (P.clinch || !(P[P.pw] && ACT[P[P.pw]].d) || cost(P) > F[0].st)) P.pw = null; const me = F[0], left = me.st - cost(P);",
+  "function board() { if (P.pw && (P.pw !== lastPunch(P) || cost(P) > F[0].st)) P.pw = null; const me = F[0], left = me.st - cost(P);",
   "full power goes off with its punch"
  ],
  [
@@ -84,7 +84,7 @@ PAGE = json.loads(r'''[
  ],
  [
   "It never goes under ${N.capMin}.`",
-  "It never goes under ${N.capMin}.\\nLow: a man who starts a beat on ${N.lk2} or less has tired arms - his punches of 2 or more do 1 less.\\nFull power on a punch costs 1 more.`",
+  "It never goes under ${N.capMin}.\\nLow: a man who starts a beat on ${N.lk2} or less has tired arms - his punches of 2 or more do 1 less.\\nFull power on a punch costs 2 more.`",
   "stamina gauge words"
  ],
  [
@@ -99,7 +99,7 @@ PAGE = json.loads(r'''[
  ],
  [
   "<b>A hand that does not punch is held high or low, and blocks</b>: the lead hand high stops straight head punches, low stops body punches; the rear hand high stops hooks, low stops uppercuts.",
-  "<b>A hand with no card is back in its stance guard by itself</b>: the lead glove stops his jab and cross, the rear glove stops his lead hook and overhand. A stance leaves the body and the uppercut line open. <b>Guard up is one card</b>: both gloves high, elbows in - everything is blocked from its moment until your next action, but a feint still draws it. <b>Full power</b>: one punch a beat can be thrown at full power (the tag on its card): 1 more stamina, more damage, a step slower - blocked or short, you are wide open in your next moment. <b>The bars are linked</b>: lost health shortens the stamina bar, low stamina weakens punches, a low guard lets big punches through, the ropes wear the guard.",
+  "<b>A hand with no card is back in its stance guard by itself</b>: the lead glove stops his jab and cross, the rear glove stops his lead hook and overhand. A stance leaves the body and the uppercut line open. <b>Guard up is one card</b>: both gloves high, elbows in - everything is blocked from its moment until your next action, but a feint still draws it. <b>Full power</b>: the last punch of your beat can be thrown at full power (the tag on its card): 2 more stamina, 1 more health, a step slower - blocked or short, you are wide open in your next moment. <b>The bars are linked</b>: lost health shortens the stamina bar, low stamina weakens punches, a low guard lets big punches through, the ropes wear the guard.",
   "how: the three ideas"
  ],
  [
@@ -119,7 +119,7 @@ PAGE = json.loads(r'''[
  ],
  [
   "else if (/was held/.test(o)) L.push(held + '.');",
-  "else if (/stance guard does not cover/.test(o)) L.push(held + '.'); if (/FULL POWER/.test(o)) L.push('Full power: 1 more stamina, +1 health on a light punch and +2 on a big one, one step slower.'); if (/wide open/.test(o)) L.push('A full-power punch that is blocked or falls short leaves its thrower wide open in his next moment: nothing is covered.'); if (/tired arms/.test(o)) L.push('Tired arms: a man who starts a beat on 2 stamina or less does 1 less with his punches of 2 or more.'); if (/health lost/.test(o)) L.push('Every third of his health lost takes 1 off the top of his stamina bar.');",
+  "else if (/stance guard does not cover/.test(o)) L.push(held + '.'); if (/FULL POWER/.test(o)) L.push('Full power (the last punch of a beat): 2 more stamina, 1 more health, one step slower.'); if (/wide open/.test(o)) L.push('A full-power punch that is blocked or falls short leaves its thrower wide open in his next moment: nothing is covered.'); if (/tired arms/.test(o)) L.push('Tired arms: a man who starts a beat on 2 stamina or less does 1 less with his punches of 2 or more.'); if (/health lost/.test(o)) L.push('Every third of his health lost takes 1 off the top of his stamina bar.');",
   "rule words: a hit"
  ],
  [
@@ -134,7 +134,7 @@ PAGE = json.loads(r'''[
  ],
  [
   "setup();\nif (/peek=/",
-  "/* RULES569: the FULL POWER tag on a chosen punch card (one punch a beat), and the Guard up card's picture (a stand-in: the both-hands-high guard run) */\nfunction deco569() { const brd = document.getElementById('board'); if (!brd || phase !== 'plan' || !brd.querySelectorAll) return;\n  for (const b of brd.querySelectorAll('.sw')) { const g = b.dataset.g, id = b.dataset.id;\n    if ((g === 'lead' || g === 'rear') && ACT[id] && ACT[id].d && b.classList.contains('on') && !b.querySelector('.pwt')) { const on = P.pw === g, can = on || cost({ ...P, pw: g }) <= F[0].st, s = document.createElement('span');\n      s.className = 'pwt' + (on ? ' on' : '') + (can ? '' : ' no'); s.textContent = on ? 'FULL' : 'full?';\n      s.dataset.tip = (on ? 'FULL POWER is on for this punch. Click to throw it normally.' : can ? 'Throw this punch at FULL POWER (one punch a beat).' : 'Full power needs 1 more stamina.') + '\\n+1 stamina, ' + (ACT[id].d >= 3 ? '+2' : '+1') + ' health, one step slower.\\nBlocked or short: you are wide open in your next moment.';\n      s.onclick = (e) => { e.stopPropagation(); if (!can) return; P.pw = on ? null : g; plan(); }; b.appendChild(s); }\n    if (g === 'lead' && id === 'guard' && window.cardAnim && !b.querySelector('.cpic')) { const sf = range === 3 ? '' : '_r' + range, run = ['blue_both_high_high_bob' + sf, 'blue_both_high_high' + sf, 'blue_both_high_high'].find((n) => ANIM[n]);\n      if (run) { b.classList.add('pc'); const box = document.createElement('div'); box.className = 'cpic'; b.prepend(box); window.cardAnim.attach(box, run, 0.26); } } } }\nwindow.addEventListener('load', () => setTimeout(() => { const plan569 = plan; plan = function () { plan569(); deco569(); }; if (phase === 'plan') deco569(); }, 60));\nsetup();\nif (/peek=/",
+  "const lastPunch = (p) => (p.clinch ? null : [...ordOf(p)].reverse().find((sl) => sl !== 'feet' && ACT[p[sl]].d) || null);\n/* RULES569: the FULL POWER tag on the card of the LAST punch of the beat, and the Guard up card's picture (a stand-in: the both-hands-high guard run) */\nfunction deco569() { const brd = document.getElementById('board'); if (!brd || phase !== 'plan' || !brd.querySelectorAll) return; const last = lastPunch(P);\n  for (const b of brd.querySelectorAll('.sw')) { const g = b.dataset.g, id = b.dataset.id;\n    if (g === last && ACT[id] && ACT[id].d && b.classList.contains('on') && !b.querySelector('.pwt')) { const on = P.pw === g, can = on || cost({ ...P, pw: g }) <= F[0].st, s = document.createElement('span');\n      s.className = 'pwt' + (on ? ' on' : '') + (can ? '' : ' no'); s.textContent = on ? 'FULL' : 'full?';\n      s.dataset.tip = (on ? 'FULL POWER is on for this punch. Click to throw it normally.' : can ? 'Throw this punch at FULL POWER: the last punch of your beat can be.' : 'Full power needs 2 more stamina.') + '\\n+2 stamina, +1 health, one step slower.\\nBlocked or short: you are wide open in your next moment.';\n      s.onclick = (e) => { e.stopPropagation(); if (!can) return; P.pw = on ? null : g; plan(); }; b.appendChild(s); }\n    if (g === 'lead' && id === 'guard' && window.cardAnim && !b.querySelector('.cpic')) { const sf = range === 3 ? '' : '_r' + range, run = ['blue_both_high_high_bob' + sf, 'blue_both_high_high' + sf, 'blue_both_high_high'].find((n) => ANIM[n]);\n      if (run) { b.classList.add('pc'); const box = document.createElement('div'); box.className = 'cpic'; b.prepend(box); window.cardAnim.attach(box, run, 0.26); } } } }\nwindow.addEventListener('load', () => setTimeout(() => { const plan569 = plan; plan = function () { plan569(); deco569(); }; if (phase === 'plan') deco569(); }, 60));\nsetup();\nif (/peek=/",
   "the full-power tag and the Guard up picture"
  ]
 ]''')

@@ -25,16 +25,22 @@
      and the slide it applies (a red run slides by -blueM, a blue run by redM) - falls back to the range split evenly */
   const inM = () => { const r = typeof range === 'number' ? range : 3, RM = { 3: 0, 2: 0.355, 1: 0.55 }, tot = RM[r] ?? 0;
     const w = window.__ringM; return w && Number.isFinite(w.redM) ? { red: w.redM, blue: w.blueM } : { red: tot / 2, blue: tot / 2 }; };
+  /* the blend between two runs (fighting games blend clips): where a run ends a little off its first frame (a bob's sway,
+     a blocked jab left forward), the next run would start back on the spot - a jump. The gap is carried over and eased
+     out over the next frames (x0.45 a frame: under 10% after three pictures). */
+  const last = { red: null, blue: null }, carry = { red: 0, blue: 0 }; let lastRun = '';
   function draw() {
     if (!L || !CANON) return;
     const f = (im.getAttribute('src') || '').split('/').pop(), at = FILE[f];
     const rows = at && ['red', 'blue'].map((s) => L.runs[`${at[0]}_${s}`]);
-    if (!rows || !rows[0] || !rows[1]) { for (const e of lay) e.style.display = 'none'; im.classList.remove('pic-off'); return; }
-    const k = at[1], ppm = (L.camera.px_per_m || 152.4) * (st.clientHeight * 1.26 / (L.camera.web_px || 480)), m = inM();
+    if (!rows || !rows[0] || !rows[1]) { for (const e of lay) e.style.display = 'none'; im.classList.remove('pic-off'); last.red = last.blue = null; lastRun = ''; return; }
+    const k = at[1], ppm = (L.camera.px_per_m || 152.4) * (st.clientHeight * 1.26 / (L.camera.web_px || 480)), m = inM(), fresh = at[0] !== lastRun; lastRun = at[0];
     ['red', 'blue'].forEach((side, i) => { const row = rows[i], e = lay[i], r0 = row.root[0], rk = row.root[Math.min(k, row.root.length - 1)];
       if (r0 == null || rk == null) { e.style.display = 'none'; return; }
       const spot = side === 'red' ? CANON.red + m.red : CANON.blue - m.blue;   /* picture metres: red comes in toward +x, blue toward -x */
-      const want = spot + (rk - r0), dx = want - rk;                           /* move this layer so his feet stand on `want` */
+      let want = spot + (rk - r0);
+      if (fresh && last[side] != null && Math.abs(last[side] - want) < 0.3) carry[side] = last[side] - want; else carry[side] *= 0.45;   /* a real step (0.3 m+) is not blended */
+      want += carry[side]; last[side] = want; const dx = want - rk;            /* move this layer so his feet stand on `want` */
       e.src = 'img/layers/' + row.files[Math.min(k, row.files.length - 1)];
       e.style.translate = `${(-dx * ppm).toFixed(1)}px 0px`;                   /* the picture is drawn mirrored: its +x is the screen's -x */
       e.style.display = ''; });
