@@ -51,7 +51,8 @@
     for (const x of [r, r === 1 ? 2 : r === 3 ? 2 : 1, r === 1 ? 3 : r === 3 ? 1 : 3]) if (ANIM[name(x)] && ANIM[name(x)].range) return name(x);
     return run; };
   const warm0 = warm; warm = function (runs) { return warm0(runs.flatMap((n) => { const s = n.replace(/_missed$/, '_short'), h = /_missed$/.test(n) ? ['slipped', 'rolled', 'leaned'].map((x) => n.replace(/_missed$/, '_' + x)) : [];   /* GLIDE2: a miss may be drawn as the head move that made it */
-    return [n, n + '_r1', n + '_r2', ...(s !== n ? [s, s + '_r2'] : []), ...h.flatMap((x) => [x, x + '_r1', x + '_r2'])]; })); };   /* the page warms the runs a beat needs by their plain names */
+    const st = /_(step_in|slip_in|back_off)/.test(n) ? Object.keys(ANIM).filter((k) => /^(red|blue)_(step_in|slip_in|back_off)(_r[123])?$/.test(k)) : [];   /* S569: a moment's step may be drawn as either man's step from where he stands */
+    return [n, n + '_r1', n + '_r2', ...(s !== n ? [s, s + '_r2'] : []), ...h.flatMap((x) => [x, x + '_r1', x + '_r2']), ...st]; })); };   /* the page warms the runs a beat needs by their plain names */
   /* GLIDE2: the page's playRun (the same on order, punch, head and kick), with one change: a hold run (played while the
      player plans) STOPS when another run starts. It ran on after Go, so its pictures (the men at the hold's spots) were
      drawn between the beat's pictures - measured: blue_lead_high_r2_4 between blue_cross_slipped_0 and _1, 11-17 px apart. */
@@ -61,7 +62,29 @@
     const show = () => { if (mine >= 0 && mine !== holdTok) return; if (cut && i === c) return done(); $('pic').src = PRE[r.files[i]].src; if (i === at) onHit(); if (i >= r.files.length - 1) return done();
       let wait = Math.min(MAX_GAP, (r.offs[i + 1] - r.offs[i]) * 1000); if (i === c) wait += HOLD; if (big && c - i >= 1 && c - i <= 3) wait *= BIG_SLOW; i++; setTimeout(show, wait / (typeof RATE === 'number' ? RATE : 1)); };   /* S567: the round replay runs faster (RATE, set by the page) */
     show(); return true; };
-  playRun = function (run, big, onHit, done, cut) { run = atRange(run); bobTok++; const planHold = phase === 'plan' && isHold(run);   /* BOUNCE1: any run stops the bounce; a hold played in plan starts it when it settles */
+  /* S569 (owner: "the fighter get displaced without moving , i suspect some clip rest the position"; a recorder of real
+     beats found it): the page names ONE step run for a moment, ending on the range the moment reaches. When both men step
+     in (or both back off) in the same moment, that run starts a step away from where the mover stands (+90 px), the other
+     man's step is never drawn, and the counts give both steps to the named man; when he backs off and the other cuts him
+     off, his BACK OFF was drawn for a range that closed. The run's suffix says where the range ends: from it and the step
+     counts, each man who moved plays HIS step from where he stands (the total range after that step names the run), one
+     after the other. */
+  const stepOne = (red, d) => { const n = redIn + blueIn, dm = mOf(n + d) - mOf(n); if (red) { redIn += d; redM += dm; } else { blueIn += d; blueM += dm; } };
+  function stepChain(sm) { const who = sm[1], other = who === 'red' ? 'blue' : 'red', back = sm[2] === 'back_off', n = redIn + blueIn;
+    const want = sm[3] ? 3 - +sm[3] : back && n >= 1 ? n + 1 : null; if (want == null) return null;   /* a plain back off is asked only when its range has no run: the range CLOSED (he cut him off) */
+    const dl = want - n; if (!dl || Math.abs(dl) > 2) return null;
+    const dir = Math.sign(dl), first = (dir < 0) === back ? who : other, steps = [first]; if (Math.abs(dl) === 2) steps.push(first === who ? other : who);
+    let m = n; return steps.map((w) => { m += dir; const base = `${w}_${dir > 0 ? (w === who && sm[2] === 'slip_in' ? 'slip_in' : 'step_in') : 'back_off'}`, r = 3 - m;
+      const name = dir > 0 ? (r >= 3 ? (w === 'red' && r === 3 ? base : '') : `${base}_r${r}`) : (r >= 4 ? base : `${base}_r${r}`);   /* blue's plain step in is Long to Mid, not ropes to Long */
+      return { w, d: dir, name: ANIM[name] ? name : '' }; }); }
+  function playSteps(chain, big, onHit, done) { let i = 0, any = false;
+    const next = () => { while (i < chain.length) { const s = chain[i++], after = () => { stepOne(s.w === 'red', s.d); slide(); next(); };
+        if (s.name && run0(s.name, big, onHit, after)) { any = true; return; } stepOne(s.w === 'red', s.d); slide(); }
+      if (any) done(); };
+    next(); return any; }
+  playRun = function (run, big, onHit, done, cut) { run = atRange(run); bobTok++;
+    { const sm = !cut && /^(red|blue)_(step_in|slip_in|back_off)(?:_r([123]))?$/.exec(run || ''), ch = sm && stepChain(sm); if (ch) return playSteps(ch, big, onHit, done); }
+    const planHold = phase === 'plan' && isHold(run);   /* BOUNCE1: any run stops the bounce; a hold played in plan starts it when it settles */
     const tp = /^(red|blue)_teep_landed_r2$/.exec(run || '');   /* GLIDE2: a teep that lands at Mid pushes him one place back (kick.html), and its run ends with him there */
     const step = (red, d) => { const n = redIn + blueIn, dm = mOf(n + d) - mOf(n); if (red) { redIn += d; redM += dm; } else { blueIn += d; blueM += dm; } };   /* INSIDE1: the metres of the two ranges */
     const m = /^(red|blue)_(step_in|slip_in|back_off)/.exec(run || ''), move = () => { if (tp) step(tp[1] !== 'red', -1); if (!m) return; const d = m[2] !== 'back_off' ? 1 : -1;   /* HEADPICS1: a slip in is a step in */ step(m[1] === 'red', d); };

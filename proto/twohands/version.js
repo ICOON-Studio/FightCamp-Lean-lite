@@ -4,6 +4,8 @@
    number: 0.<session>.<n> (n counts up inside the session). The top entry is the version the page shows beside the
    sound button. A measure that changed nothing on a page is not an entry. */
 window.RS_CHANGES = [
+  { v: '0.569.4', date: '2026-11-27', items: [
+    'Steps no longer make a fighter jump. When you both step in (or both back off) in the same moment, each step is now drawn from where that fighter stands - yours, then his - instead of one step drawn from the wrong spot. When you back off and he cuts you off, his step in is drawn, not your back off.'] },
   { v: '0.569.3', date: '2026-11-27', items: [
     'Your cross thrown from Long (it falls short) no longer moves him: he was drawn a step back for that clip and jumped back to his spot after it. He now stays where he stands and only leans away from the glove.'] },
   { v: '0.569.2', date: '2026-11-27', items: [
