@@ -1,0 +1,18 @@
+FEINTFIX2 G1 trial: page table, n=12, seed=1, jobs=2 (tweak=feintfix2_g1.json)
+mix v the same man (no style): wins 42%, draws 0%, stops him 25%, is stopped 25%; knockdowns a bout 1.3 v 1.4; health taken a bout 22.0 v 22.1; beats at Inside / Mid / Long 33% / 38% / 29%; clinches a bout 1.3; rounds level on points 17%, 60% of them given on ground
+  you a beat: lead held low 39%, back off 34%, feet hold 31%, step in 31%, Cross 27%, Body cross 25%, rear held low 20%, Body jab 16%, rear held high 15%, Lead hook 9%, Jab 8%, lead held high 8%, Body hook 6%, Lead uppercut 5%, Feint 5%, Rear uppercut 4%, clinch 4%, Overhand 4%, Push off 0% | punches in a plan: none 12%, one 62%, two 22%
+  your punches (thrown a bout: lands / blocked / misses): Cross 4.5: 46% / 20% / 33%, Body cross 4.0: 48% / 27% / 25%, Body jab 2.7: 53% / 44% / 3%, Lead hook 1.5: 44% / 33% / 22%, Jab 1.3: 56% / 38% / 6%, Lead uppercut 0.8: 50% / 20% / 30%, Body hook 0.8: 40% / 50% / 10%, Rear uppercut 0.6: 71% / 14% / 14%, Overhand 0.6: 86% / 0% / 14%
+  he  a beat: back off 35%, lead held low 35%, step in 34%, Cross 28%, feet hold 27%, Body cross 22%, rear held low 20%, rear held high 17%, Body jab 16%, lead held high 9%, Lead uppercut 8%, Jab 7%, Lead hook 7%, Body hook 6%, Feint 5%, Overhand 4%, Rear uppercut 4%, clinch 4%, Push off 4% | punches in a plan: none 13%, one 65%, two 19%
+  his  punches (thrown a bout: lands / blocked / misses): Cross 4.3: 44% / 25% / 31%, Body cross 3.6: 44% / 30% / 26%, Body jab 2.7: 63% / 34% / 3%, Lead uppercut 1.3: 50% / 25% / 25%, Jab 1.3: 80% / 20% / 0%, Lead hook 1.1: 62% / 38% / 0%, Body hook 1.0: 50% / 42% / 8%, Overhand 0.7: 75% / 0% / 25%, Rear uppercut 0.6: 43% / 14% / 43%
+  your order, of the beats with one to choose (65%): first lead 23%, feet 61%, rear 17%
+  (12 bouts, 77 s)
+BARS 5 of 9 pass
+  PASS every range is fought at (each 15-55% of beats): Inside 33%, Mid 38%, Long 29%
+  PASS no switch is a must (none in over 40% of beats): back off 35%, step in 32%, Cross 28%
+  FAIL no switch is dead (each in at least 3% of beats): Push off 2%
+  FAIL every punch lands 30-65% of the time and falls short at most 40%: Jab lands 68%, short 3%; Overhand lands 80%, short 20%
+  FAIL bouts end both ways (stoppages 10-40%, draws at most 20%, 0.5-2.5 knockdowns a bout): stoppages 50%, draws 0%, knockdowns 2.8
+  PASS one punch, two punches and holding all have their beats (two 15-45%, none 5-25%): two 20%, none 13%
+  PASS the clinch is a rescue, not a habit (at most 2 a bout): 1.3
+  FAIL the order is a choice (no slot first in over 60% of ordered beats; an order to choose in 40%+ of beats): ordered 65%, most often first 61%
+  PASS the mirror is fair (wins 40-60% of decided bouts): 42%
