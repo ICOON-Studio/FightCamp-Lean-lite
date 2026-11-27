@@ -30,6 +30,8 @@ landed at Mid) rendered and drawn before the whole family.
 
 ## VISUAL GATE
 Red first: a jump_ana run on today's page (no ?layers) records the jab family's boundary jumps - the number to beat.
+MEASURED S570 (Claude, v0.570.2, 6 bouts, threshold 4 px): 508 pictures, 78 run boundaries, 54 jumps over 4 px; 33 of
+them touch the jab or a guard hold (ops/research/s558_balance/results/layers0_base_jumps_4px.txt). Target with ?layers=1: 0.
 Stills are opened with the file tool and checked for: both men head to feet in frame, no arm through a body at Inside,
 no man floating (feet on the canvas line), the near man in front. The owner's look on the page closes it.
 

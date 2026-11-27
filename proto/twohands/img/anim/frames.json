@@ -295,6 +295,19 @@
    ],
    "contact": 6,
    "clip": "pro_left_jab",
+   "masks": [
+    "blue_jab_blocked_0_mask.png",
+    "blue_jab_blocked_1_mask.png",
+    "blue_jab_blocked_2_mask.png",
+    "blue_jab_blocked_3_mask.png",
+    "blue_jab_blocked_4_mask.png",
+    "blue_jab_blocked_5_mask.png",
+    "blue_jab_blocked_6_mask.png",
+    "blue_jab_blocked_7_mask.png",
+    "blue_jab_blocked_8_mask.png",
+    "blue_jab_blocked_9_mask.png",
+    "blue_jab_blocked_10_mask.png"
+   ],
    "range": 3,
    "hit": [
     0.441,
@@ -330,6 +343,19 @@
    ],
    "contact": 6,
    "clip": "pro_left_jab",
+   "masks": [
+    "blue_jab_landed_0_mask.png",
+    "blue_jab_landed_1_mask.png",
+    "blue_jab_landed_2_mask.png",
+    "blue_jab_landed_3_mask.png",
+    "blue_jab_landed_4_mask.png",
+    "blue_jab_landed_5_mask.png",
+    "blue_jab_landed_6_mask.png",
+    "blue_jab_landed_7_mask.png",
+    "blue_jab_landed_8_mask.png",
+    "blue_jab_landed_9_mask.png",
+    "blue_jab_landed_10_mask.png"
+   ],
    "range": 3,
    "hit": [
     0.393,
@@ -365,9 +391,22 @@
    ],
    "contact": 6,
    "clip": "pro_left_jab",
+   "masks": [
+    "blue_jab_missed_0_mask.png",
+    "blue_jab_missed_1_mask.png",
+    "blue_jab_missed_2_mask.png",
+    "blue_jab_missed_3_mask.png",
+    "blue_jab_missed_4_mask.png",
+    "blue_jab_missed_5_mask.png",
+    "blue_jab_missed_6_mask.png",
+    "blue_jab_missed_7_mask.png",
+    "blue_jab_missed_8_mask.png",
+    "blue_jab_missed_9_mask.png",
+    "blue_jab_missed_10_mask.png"
+   ],
    "range": 3,
    "hit": [
-    0.391,
+    0.392,
     0.272
    ]
   },
@@ -1074,6 +1113,19 @@
    ],
    "contact": 6,
    "clip": "pro_left_jab",
+   "masks": [
+    "red_jab_blocked_0_mask.png",
+    "red_jab_blocked_1_mask.png",
+    "red_jab_blocked_2_mask.png",
+    "red_jab_blocked_3_mask.png",
+    "red_jab_blocked_4_mask.png",
+    "red_jab_blocked_5_mask.png",
+    "red_jab_blocked_6_mask.png",
+    "red_jab_blocked_7_mask.png",
+    "red_jab_blocked_8_mask.png",
+    "red_jab_blocked_9_mask.png",
+    "red_jab_blocked_10_mask.png"
+   ],
    "range": 3,
    "hit": [
     0.67,
@@ -1109,6 +1161,19 @@
    ],
    "contact": 6,
    "clip": "pro_left_jab",
+   "masks": [
+    "red_jab_landed_0_mask.png",
+    "red_jab_landed_1_mask.png",
+    "red_jab_landed_2_mask.png",
+    "red_jab_landed_3_mask.png",
+    "red_jab_landed_4_mask.png",
+    "red_jab_landed_5_mask.png",
+    "red_jab_landed_6_mask.png",
+    "red_jab_landed_7_mask.png",
+    "red_jab_landed_8_mask.png",
+    "red_jab_landed_9_mask.png",
+    "red_jab_landed_10_mask.png"
+   ],
    "range": 3,
    "hit": [
     0.714,
@@ -1144,6 +1209,19 @@
    ],
    "contact": 6,
    "clip": "pro_left_jab",
+   "masks": [
+    "red_jab_missed_0_mask.png",
+    "red_jab_missed_1_mask.png",
+    "red_jab_missed_2_mask.png",
+    "red_jab_missed_3_mask.png",
+    "red_jab_missed_4_mask.png",
+    "red_jab_missed_5_mask.png",
+    "red_jab_missed_6_mask.png",
+    "red_jab_missed_7_mask.png",
+    "red_jab_missed_8_mask.png",
+    "red_jab_missed_9_mask.png",
+    "red_jab_missed_10_mask.png"
+   ],
    "range": 3,
    "hit": [
     0.71,
@@ -6251,6 +6329,19 @@
    ],
    "contact": 6,
    "clip": "pro_left_jab",
+   "masks": [
+    "blue_jab_blocked_r2_0_mask.png",
+    "blue_jab_blocked_r2_1_mask.png",
+    "blue_jab_blocked_r2_2_mask.png",
+    "blue_jab_blocked_r2_3_mask.png",
+    "blue_jab_blocked_r2_4_mask.png",
+    "blue_jab_blocked_r2_5_mask.png",
+    "blue_jab_blocked_r2_6_mask.png",
+    "blue_jab_blocked_r2_7_mask.png",
+    "blue_jab_blocked_r2_8_mask.png",
+    "blue_jab_blocked_r2_9_mask.png",
+    "blue_jab_blocked_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
     0.441,
@@ -6286,6 +6377,19 @@
    ],
    "contact": 6,
    "clip": "pro_left_jab",
+   "masks": [
+    "blue_jab_landed_r2_0_mask.png",
+    "blue_jab_landed_r2_1_mask.png",
+    "blue_jab_landed_r2_2_mask.png",
+    "blue_jab_landed_r2_3_mask.png",
+    "blue_jab_landed_r2_4_mask.png",
+    "blue_jab_landed_r2_5_mask.png",
+    "blue_jab_landed_r2_6_mask.png",
+    "blue_jab_landed_r2_7_mask.png",
+    "blue_jab_landed_r2_8_mask.png",
+    "blue_jab_landed_r2_9_mask.png",
+    "blue_jab_landed_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
     0.393,
@@ -6321,6 +6425,19 @@
    ],
    "contact": 6,
    "clip": "pro_left_jab",
+   "masks": [
+    "blue_jab_missed_r2_0_mask.png",
+    "blue_jab_missed_r2_1_mask.png",
+    "blue_jab_missed_r2_2_mask.png",
+    "blue_jab_missed_r2_3_mask.png",
+    "blue_jab_missed_r2_4_mask.png",
+    "blue_jab_missed_r2_5_mask.png",
+    "blue_jab_missed_r2_6_mask.png",
+    "blue_jab_missed_r2_7_mask.png",
+    "blue_jab_missed_r2_8_mask.png",
+    "blue_jab_missed_r2_9_mask.png",
+    "blue_jab_missed_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
     0.392,
@@ -6978,6 +7095,19 @@
    ],
    "contact": 6,
    "clip": "pro_left_jab",
+   "masks": [
+    "red_jab_blocked_r2_0_mask.png",
+    "red_jab_blocked_r2_1_mask.png",
+    "red_jab_blocked_r2_2_mask.png",
+    "red_jab_blocked_r2_3_mask.png",
+    "red_jab_blocked_r2_4_mask.png",
+    "red_jab_blocked_r2_5_mask.png",
+    "red_jab_blocked_r2_6_mask.png",
+    "red_jab_blocked_r2_7_mask.png",
+    "red_jab_blocked_r2_8_mask.png",
+    "red_jab_blocked_r2_9_mask.png",
+    "red_jab_blocked_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
     0.67,
@@ -7013,6 +7143,19 @@
    ],
    "contact": 6,
    "clip": "pro_left_jab",
+   "masks": [
+    "red_jab_landed_r2_0_mask.png",
+    "red_jab_landed_r2_1_mask.png",
+    "red_jab_landed_r2_2_mask.png",
+    "red_jab_landed_r2_3_mask.png",
+    "red_jab_landed_r2_4_mask.png",
+    "red_jab_landed_r2_5_mask.png",
+    "red_jab_landed_r2_6_mask.png",
+    "red_jab_landed_r2_7_mask.png",
+    "red_jab_landed_r2_8_mask.png",
+    "red_jab_landed_r2_9_mask.png",
+    "red_jab_landed_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
     0.714,
@@ -7048,6 +7191,19 @@
    ],
    "contact": 6,
    "clip": "pro_left_jab",
+   "masks": [
+    "red_jab_missed_r2_0_mask.png",
+    "red_jab_missed_r2_1_mask.png",
+    "red_jab_missed_r2_2_mask.png",
+    "red_jab_missed_r2_3_mask.png",
+    "red_jab_missed_r2_4_mask.png",
+    "red_jab_missed_r2_5_mask.png",
+    "red_jab_missed_r2_6_mask.png",
+    "red_jab_missed_r2_7_mask.png",
+    "red_jab_missed_r2_8_mask.png",
+    "red_jab_missed_r2_9_mask.png",
+    "red_jab_missed_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
     0.71,

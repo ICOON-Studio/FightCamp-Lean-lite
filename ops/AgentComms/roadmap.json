@@ -4,10 +4,10 @@
  "author": "claude S294",
  "now": {
   "id": "S568",
-  "owner": "claude",
+  "owner": "S570 (Opus 5.5)",
   "updated": "2026-11-27",
-  "summary": "S568 (Opus): clarity (range large, guided first beat, the whole boxer on the strip, the strip lights what you pick), the hand of cards replaces the body view (v0.568.9), a 5 s beat clock + 1-minute round clock on the one-action page, Gemma (local model) plays live on the match server; workers: ONEACT1 (Fable, one action a beat; Fable beat Dola on it), COUNTERS1 (Opus, Marquez and Mayweather counters); TELLS5M fails (Q-345).",
-  "next_action": "S570: (1) collect what ran overnight - KICKFIX5 (Fable, tab c10: F4 then F5-F7, the winner on kick.html; the owner wanted kicks finished today), COUNTERS2 (Opus, tab c7: the check hook made a read), RULES569 (Fable, tab c11: R5 the exchange that gets dearer first, then guard one action, power mode, bar links incl. health caps stamina, combined moves); a result page missing = read the tab / wt_tmp logs and relaunch with 'resume from docs/<ID>_RESULT.md'. (2) BUILD1 (design: the fighter's body as a Breachway ship, discipline cards per body part, pools 50 -> 100) to a free seat. (3) LAYERS (one man per picture, the page owns each spot) - the owner said 'we can buy the animations and cascaduer now if needed': ask once whether Cascadeur + the Animo pack are bought, then LAYERS phase 0. (4) MMCPLAY1 (agents play Mixed Martial Cards) when a seat frees; LONG3 to Arena. Public site at v0.569.7 (v0.569.8-9 not pushed).",
+  "summary": "S570: head + one pages built from order.html (v0.570.1), the strip shows your guard (v0.570.2, his question), Cascadeur Indie + the Animo pack bought (121 takes catalogued), LAYERS0 started in session (holds cut into one-man layers, ?layers=1 live; jab renders with masks), TYPES1 brief for his four card types, injury badges noted; workers KICKFIX5 (F5 4/9), RULES569 (R5 fails every version), BUILD1 (design + probes, critics next); COUNTERS2 BLOCKED.",
+  "next_action": "S571: (1) collect KICKFIX5, RULES569, BUILD1 (result pages); (2) swap kick.html (make_kick.py) once KICKFIX5's chain ends, re-measure its best on the rebuilt page (ONERULES1 step 3); (3) LAYERS0: cut the jab runs (layers_cut.py), jump_rec with ?layers=1 (gate: 0 jumps over 4 px in the jab + holds family; base 33), stills, his look; (4) TYPES1 and MMCPLAY1 to free seats; LONG3 to Arena (Browser 2).",
   "last_working_commit": "369173f03",
   "verified_playable": "Builds/ exported in S556 (the S547 game plus S548's two changes: the 3D fight throws the body cross, the trial evening's pictures show the prospect's own body; pro_body_jab is on disk and unused by the game). Ring Switches (a browser toy): one beat played in the browser in S556 against the Jabber - both men threw a body jab, both landed, no console error; rules_test 34 pass; anim_check 124 runs PASS.",
   "incomplete_blocked": "Four Arena measures running (FEINTFIX2, SHORTBEAT1, TELLS5M, KICKFIX4). No export: no Godot code changed. The kick, head, All in and wait pages had no play-test run after v0.567.8 / .9. The public site was not looked at signed in.",
@@ -5420,7 +5420,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-27 14:11 board_sync",
+  "updated": "2026-11-27 18:11 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5603,29 +5603,41 @@
     "run": "KICKFIX5"
    },
    {
-    "title": "The check hook, round two: a high lead hand on the step in answers it",
-    "who": "Opus 5.5 console worker (PC, tab c7)",
-    "started": "2026-11-27T13:25",
-    "run": "COUNTERS2"
+    "title": "His rule ideas measured: the exchange that gets dearer first, then one Guard action, the power switch, bars that affect each other (health caps stamina), combined moves",
+    "who": "Fable 5.2 console worker (PC, tab c11)",
+    "started": "2026-11-27T16:25",
+    "run": "RULES569"
    },
    {
-    "title": "Mixed Martial Cards' distance structure on our boxer: a toy page (mmc.html), measured",
-    "who": "Fable 5.2 console worker (PC, tab c9)",
-    "started": "2026-11-27T13:42",
-    "run": "MMCTOY1"
+    "title": "Your Breachway idea: the fighter's body as a ship - discipline cards on each body part are your deck, pools from 50 toward 100; design, a small probe, two critics at 8+",
+    "who": "Opus 5.5 console worker (PC, tab c1)",
+    "started": "2026-11-27T18:20",
+    "run": "BUILD1"
    }
   ],
   "next": [
    {
-    "id": "BUILD1",
+    "id": "LAYERS0",
     "who": "claude",
-    "title": "Your Breachway idea: the fighter's body as a ship - discipline cards on each body part are your fight deck, pools grow from 50 toward 100, moves that blend and flow (design, probe, critics at 8+)",
+    "title": "One man per picture, phase 0 (Claude in session): the guard holds + the jab drawn as two separate men behind ?layers=1, the page keeps each man's spot; holds cut and on the page, jab renders with masks running",
     "after": ""
    },
    {
-    "id": "BUY1",
-    "who": "operator",
-    "title": "Buy Cascadeur (Indie) + the Animo boxing pack when you are ready (you said 'we can buy ... now') - the one-man-per-picture renders start after",
+    "id": "TYPES1",
+    "who": "claude",
+    "title": "Your four card types (Attack / Counter / Feint / Defend) measured on the balance tool before anything is built - it caps the feint loop inside the rules; a seat when one frees",
+    "after": ""
+   },
+   {
+    "id": "ONERULES1",
+    "who": "claude",
+    "title": "One rules core: head.html and one.html now built from the main page (feint fix + pull counter reach them); kick.html swaps when the kicks run ends, then the kicks winner re-measured and the winners stacked",
+    "after": "KICKFIX5"
+   },
+   {
+    "id": "BUILD1",
+    "who": "claude",
+    "title": "Your Breachway idea: the fighter's body as a ship - discipline cards on each body part are your fight deck, pools grow from 50 toward 100, moves that blend and flow (design, probe, critics at 8+)",
     "after": ""
    },
    {
@@ -5635,21 +5647,9 @@
     "after": ""
    },
    {
-    "id": "LAYERS1",
-    "who": "operator",
-    "title": "Your call: draw the fight one man per picture, the page owns each fighter's spot (fighting-game way) - the end of the jumps; plan LAYERS_SCOPE_S569",
-    "after": ""
-   },
-   {
     "id": "KICKFIX5",
     "who": "claude",
     "title": "Kicks finished today (Fable console): F4, up to three own fixes, the winner on kick.html - stopped for memory while ArcheAge is open, restarts when it closes",
-    "after": ""
-   },
-   {
-    "id": "COUNTERS2",
-    "who": "claude",
-    "title": "The check hook, round two (your 'Second round'): a high lead hand on the step in answers it - Opus console when the PC is free",
     "after": ""
    },
    {
@@ -6168,6 +6168,11 @@
   },
   "done_recently": [
    {
+    "title": "The check hook, round two: a high lead hand on the step in answers it",
+    "who": "Opus 5.5 console worker (PC, tab c7)",
+    "when": "2026-11-27"
+   },
+   {
     "id": "TELLS5M",
     "title": "Tells v5 measured: fails (5th round) - Q-345 keep or cut"
    },
@@ -6223,12 +6228,6 @@
     "id": "KDPIC1",
     "who": "claude",
     "title": "The knockdown stays inside the ring on every page (20 knockdown runs re-made, no jump); the overhand still has no picture of its own: no take in our files or from Ludo",
-    "after": ""
-   },
-   {
-    "id": "TELLS3M",
-    "who": "arena",
-    "title": "Tells version 3 measured: 4 of 7 bars - the fakes are fair now, but obeying every tell wins too easily",
     "after": ""
    }
   ],
@@ -6318,64 +6317,6 @@
   "map": {
    "done_earlier": [
     {
-     "text": "Range named large (0.568.1)",
-     "who": "claude"
-    },
-    {
-     "text": "Guided first beat (0.568.2)",
-     "who": "claude"
-    },
-    {
-     "text": "5 s beat clock, one.html",
-     "who": "claude"
-    },
-    {
-     "text": "1-min round clock (0.568.4)",
-     "who": "claude"
-    },
-    {
-     "text": "Gemma plays live, 1.5 s/beat",
-     "who": "claude"
-    },
-    {
-     "text": "Strip: whole boxer each moment",
-     "who": "claude"
-    },
-    {
-     "text": "Strip lights what you pick",
-     "who": "claude"
-    },
-    {
-     "text": "Hand of cards (0.568.9)",
-     "who": "claude"
-    },
-    {
-     "text": "Fable beat Dola, one action",
-     "who": "agent"
-    },
-    {
-     "text": "Tells v5: fails, Q-345",
-     "who": "agent"
-    },
-    {
-     "text": "Agents on the match server",
-     "who": "claude"
-    },
-    {
-     "text": "Short opening beat: none",
-     "who": "agent"
-    },
-    {
-     "text": "Counters: none yet, hook nearest",
-     "who": "agent"
-    },
-    {
-     "text": "One action: faster/beat, 3 of 9",
-     "who": "agent"
-    }
-   ],
-   "done_session": [
-    {
      "text": "Tells cut (Q-345)",
      "who": "claude"
     },
@@ -6432,6 +6373,20 @@
      "who": "claude"
     }
    ],
+   "done_session": [
+    {
+     "text": "Head + one pages built from main",
+     "who": "claude"
+    },
+    {
+     "text": "COUNTERS2: check hook fails",
+     "who": "claude"
+    },
+    {
+     "text": "Cascadeur Indie bought (owner)",
+     "who": "claude"
+    }
+   ],
    "now": [
     {
      "text": "Between-rounds voices: your ear",
@@ -6484,6 +6439,14 @@
     {
      "text": "RULES569: exchange dearer + more",
      "who": "agent"
+    },
+    {
+     "text": "ONERULES1: one rules core",
+     "who": "claude"
+    },
+    {
+     "text": "BUILD1: body as a ship (worker)",
+     "who": "claude"
     }
    ],
    "next": [
@@ -6968,10 +6931,6 @@
      "who": "operator"
     },
     {
-     "text": "COUNTERS2: check hook a read",
-     "who": "claude"
-    },
-    {
      "text": "LONG3: jab meets him (Arena)",
      "who": "agent"
     },
@@ -6988,15 +6947,11 @@
      "who": "claude"
     },
     {
-     "text": "BUILD1: body as a ship (design)",
-     "who": "operator"
-    },
-    {
-     "text": "Buy Cascadeur + Animo pack",
-     "who": "operator"
+     "text": "LAYERS phase 0: holds + jab",
+     "who": "claude"
     }
    ],
-   "session": "S569"
+   "session": "S570"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",

@@ -27,7 +27,8 @@ try {
     await ev(`(() => { try { localStorage.setItem('pc_guided', '1'); } catch (e) {} const b = [...document.querySelectorAll('button')].find((x) => /^Fight/.test(x.textContent.trim())); if (b) b.click(); return 1; })()`);
     await sleep(800);
     await ev(`(() => { window.__log = []; const im = document.getElementById('pic');
-      new MutationObserver(() => { const r = im.getBoundingClientRect(), f = (im.getAttribute('src') || '').split('/').pop(); window.__log.push({ f, l: r.left, w: r.width, beat: round + ':' + beat, ph: phase, ord: (P.ord || []).join(','), feet: P.feet, range }); }).observe(im, { attributes: true, attributeFilter: ['src'] });
+      new MutationObserver(() => { const r = im.getBoundingClientRect(), f = (im.getAttribute('src') || '').split('/').pop(); const lays = [...document.querySelectorAll('#stage img.lay')].filter((e) => e.style.display !== 'none').map((e) => { const q = e.getBoundingClientRect(); return { f: (e.getAttribute('src') || '').split('/').pop(), l: q.left, w: q.width }; });   /* LAYERS0 (S570): ?layers=1 draws each man as his own picture */
+        window.__log.push({ f, l: r.left, w: r.width, beat: round + ':' + beat, ph: phase, ord: (P.ord || []).join(','), feet: P.feet, range, lays }); }).observe(im, { attributes: true, attributeFilter: ['src'] });
       RATE = 3; return 1; })()`);
     for (let b = 0; b < 40; b++) {
       const ph = await ev('phase'); if (ph === 'over') break;

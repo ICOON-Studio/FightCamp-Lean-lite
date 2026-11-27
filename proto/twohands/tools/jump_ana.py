@@ -30,10 +30,38 @@ def run(f): return re.sub(r'_\d+\.\w+$', '', f)
 MOVE = re.compile(r'knockdown|_ko')
 jumps = Counter(); ex = defaultdict(list); bounds = 0
 prev = None
-for e in log:
+LAY = D.parent / 'layers'   # LAYERS0 (S570): with ?layers=1 each man is his own picture; his x comes from his layer
+def men_at(e):
+    if e.get('lays'):
+        pos = {}
+        for q in e['lays']:
+            m = men_file(LAY / q['f'], 'lay:' + q['f'])
+            if m:
+                pos.update({k: q['l'] + (m[1] - cx) * q['w'] / m[1] for k, cx in m[0].items()})
+        return pos or None
     m = men(e['f'])
-    if not m: prev = None; continue
-    pos = {k: e['l'] + (m[1] - cx) * e['w'] / m[1] for k, cx in m[0].items()}
+    return {k: e['l'] + (m[1] - cx) * e['w'] / m[1] for k, cx in m[0].items()} if m else None
+
+
+def men_file(p, key):
+    if cache.get(key):
+        return cache[key]
+    if not p.exists():
+        return None
+    im = Image.open(p).convert('RGBA'); w, h = im.size; px = im.load(); acc = {'blue': [0, 0], 'red': [0, 0]}
+    for y in range(0, h, 2):
+        for x in range(0, w, 2):
+            r, g, b, a = px[x, y]
+            if a < 200: continue
+            k = 'blue' if (b > 140 and b > r + 60 and b > g + 30) else 'red' if (r > 140 and r > g + 80 and r > b + 80) else None
+            if k: acc[k][0] += x; acc[k][1] += 1
+    cache[key] = ({k: v[0] / v[1] for k, v in acc.items() if v[1] > 20}, w)
+    return cache[key]
+
+
+for e in log:
+    pos = men_at(e)
+    if not pos: prev = None; continue
     if prev and prev['bout'] == e['bout'] and run(prev['f']) != run(e['f']):
         bounds += 1
         for who in ('blue', 'red'):

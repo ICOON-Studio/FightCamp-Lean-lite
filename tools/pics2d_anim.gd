@@ -43,10 +43,16 @@ var SHORT := false
 const GLIDE_IN_TO := -0.10   # in the punch's spot this long before the contact
 const GLIDE_OUT_FROM := 0.06   # and leaves it after this
 var glide_a := -INF   # S564: the run's first DRAWN offset (a run whose punch starts late draws from offs[first], not offs[0])
+## LAYERS0 (S570): layers=1 saves a part mask beside EVERY frame (tools/pics2d_mask.gd), so tools/layers_cut.py (proto/twohands)
+## can cut each man out of the frame - one man per picture, the page keeps each spot (ops/research/LAYERS_SCOPE_S569.md).
+const LMask := preload("res://tools/pics2d_mask.gd")
+var layer_mask: RefCounted = null
 
 
 func _run() -> void:
 	RANGE_AT = int(_arg("range", "0"))
+	if _arg("layers", "0") == "1":
+		layer_mask = LMask.new(root, stage, cam, sv)
 	SHORT = _arg("short", "0") == "1"
 	if _arg("offs", "") != "":
 		offs = []
@@ -427,7 +433,11 @@ func _frame(name: String, who: Array = [0, 1]) -> bool:
 	if not bad.is_empty():
 		print("STILL_FRAMING FAIL %s: %s" % [name, "; ".join(PackedStringArray(bad))])
 		return false
+	if layer_mask != null:
+		layer_mask.sync()
 	await RenderingServer.frame_post_draw
 	sv.get_texture().get_image().save_png(out_dir.path_join(name + ".png"))
+	if layer_mask != null:
+		layer_mask.save(out_dir.path_join(name + "_mask.png"))
 	wrote += 1
 	return true

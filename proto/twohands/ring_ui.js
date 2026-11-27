@@ -24,6 +24,7 @@
   const RANGE_M = { 3: 0, 2: 0.355, 1: 0.55 };   /* INSIDE1 S564: Inside 0.55 m in (was 0.71) */
   const STEP_M = 0.355; let CAM = null, redIn = 0, blueIn = 0, redM = 0, blueM = 0, SX = 0, SY = 0;
   fetch('img/anim/frames.json').then((r) => r.json()).then((j) => { CAM = j.camera || null; slide(); }).catch(() => {});
+  window.__ringM = { get redM() { return redM; }, get blueM() { return blueM; } };   /* LAYERS0 (S570): layers_ui.js places each man on these */
   const css = document.createElement('style');
   css.textContent = '.stage{background:#0f1013}.stage:before,.stage:after{display:none}.stage img#ringbg{z-index:0;filter:none;pointer-events:none}';
   document.head.appendChild(css);

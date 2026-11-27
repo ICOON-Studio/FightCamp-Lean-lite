@@ -8,9 +8,9 @@ Updated 2026-11-27 by claude S294.
 
 ## Now
 
-**S568 — ?** *(claude)*
+**S568 — ?** *(S570 (Opus 5.5))*
 
-S568 (Opus): clarity (range large, guided first beat, the whole boxer on the strip, the strip lights what you pick), the hand of cards replaces the body view (v0.568.9), a 5 s beat clock + 1-minute round clock on the one-action page, Gemma (local model) plays live on the match server; workers: ONEACT1 (Fable, one action a beat; Fable beat Dola on it), COUNTERS1 (Opus, Marquez and Mayweather counters); TELLS5M fails (Q-345).
+S570: head + one pages built from order.html (v0.570.1), the strip shows your guard (v0.570.2, his question), Cascadeur Indie + the Animo pack bought (121 takes catalogued), LAYERS0 started in session (holds cut into one-man layers, ?layers=1 live; jab renders with masks), TYPES1 brief for his four card types, injury badges noted; workers KICKFIX5 (F5 4/9), RULES569 (R5 fails every version), BUILD1 (design + probes, critics next); COUNTERS2 BLOCKED.
 
 ## Next
 

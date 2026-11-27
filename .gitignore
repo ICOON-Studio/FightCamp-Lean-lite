@@ -47,3 +47,6 @@ ops/AgentComms/credit_runs/
 
 # S570: the paid Animo pack (81 MB) stays out of git and the public mirror
 assets/anim/animo_boxing/*.fbx
+
+# S570: Godot import files of the web pages (proto/ has a .gdignore now)
+proto/**/*.import

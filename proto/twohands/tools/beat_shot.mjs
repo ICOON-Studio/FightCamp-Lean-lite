@@ -9,7 +9,7 @@ import { spawn } from 'node:child_process';
 import os from 'node:os';
 
 const out = process.argv[2], page = process.argv[3] || 'order.html', beats = JSON.parse(process.argv[4] || '[]');
-const url = `http://127.0.0.1:${process.argv[5] || 8797}/${page}`, tag = page.replace(/\.html$/, '');
+const url = `http://127.0.0.1:${process.argv[5] || 8797}/${page}`, tag = page.replace(/\.html(\?(.*))?$/, (m, q, s) => (s ? '_' + s.replace(/[^a-z0-9]+/gi, '_') : ''));   /* S570: a query (?layers=1) goes into the name, never a '?' in a file name */
 const EDGE = 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe';
 fs.mkdirSync(out, { recursive: true });
 const port = 9300 + Math.floor(Math.random() * 500), prof = fs.mkdtempSync(path.join(os.tmpdir(), 'beatshot-'));

@@ -69,3 +69,8 @@ Not applicable (our design; Breachway is a reference, read not copied).
 
 ## Not yours
 Every page and rule file. No public push. Never "Ring Switches".
+
+## Added S570 (owner, after BUILD1 started): injury badges
+Owner S570 on a reference game's injury badges (a part counter that makes one kind of hit dearer, healing 1 on rest):
+"nice debuff ideas". ops/research/INJURY_BADGES_S570.md - fold it into the design's "hurt part" (a badge per body part that
+greys or weakens that part's cards) for the NEXT round; measured before built.
