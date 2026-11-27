@@ -7,7 +7,7 @@ import { loadTweaked, readTweak, report, bars } from './balance.mjs';
 function bouts(R, who, opp, n) { const { N, ACT, plan0, man, cost, resolve, endBeat } = R, rnd = R.rnd, mirror = opp === 'mirror';
   if (mirror) { if (!R.OPPS[3]) R.OPPS.push({ n: 'mirror', hp: N.hp, read: 0, like: [], lean: 0 }); R.setOpp(3); } else R.setOpp(opp);
   const o = { n, w: 0, draw: 0, ko: 0, lost: 0, beats: 0, clinch: 0, rng: [0, 0, 0, 0], use: [{}, {}], pun: [{}, {}], np: [[0, 0, 0], [0, 0, 0]], dmg: [0, 0], first: {}, ordered: 0, kd: [0, 0], lvl: [0, 0, 0] };   // lvl: rounds scored, level on points, of those given to the man who backed off less (N.even, S556)
-  o.open = { rounds: 0, acts: [0, 0, 0, 0], plans: {}, actions: {}, bothHold: 0, range: [0, 0, 0, 0], dmg: 0, spent: 0, roundDamage: 0, singleStep: 0, stepWin: 0, stepDraw: 0, stoppedRound: 0, jab: 0, punches: 0 };
+  o.open = { rounds: 0, acts: [0, 0, 0, 0], plans: {}, actions: {}, planRounds: {}, actionRounds: {}, bothHold: 0, range: [0, 0, 0, 0], dmg: 0, spent: 0, roundDamage: 0, singleStep: 0, stepWin: 0, stepDraw: 0, stoppedRound: 0, jab: 0, punches: 0 };
   const sensible = (S) => { const me = S.f[0], he = S.f[1], g0 = he.last || plan0(), guess = cost(g0) <= he.st ? g0 : { ...plan0(), hl: g0.hl, hr: g0.hr }; let best = plan0(), bv = -1e9;
     for (const c of R.plansFor(S, 0)) { if (c.clinch) continue; const T = { range: S.range, f: S.f.map((m) => ({ ...m, hist: [] })) }; resolve(T, [{ ...c }, { ...guess, clinch: false }]);
       const v = (he.hp - T.f[1].hp) - (me.hp - T.f[0].hp) + 0.25 * T.f[0].st + rnd() * 0.5; if (v > bv) { bv = v; best = c; } }
@@ -26,6 +26,8 @@ function bouts(R, who, opp, n) { const { N, ACT, plan0, man, cost, resolve, endB
         if (i === 0) { const ps = [mine, his], a = ps.map(p => p.clinch ? 1 : Number(!!p.lead) + Number(!!p.rear) + Number(p.feet !== 'hold'));
           if (workerData.tweak?._note?.startsWith('SHORTBEAT1') && ps.some((p, k) => p.clinch || a[k] > 1 || (p.lead && !ACT[p.lead].d))) throw new Error('illegal feel-out choice');
           o.open.rounds++; for (let k = 0; k < 2; k++) { o.open.acts[a[k]]++; const key = R.planWords(ps[k]); o.open.plans[key] = (o.open.plans[key] || 0) + 1; const action = ps[k].clinch ? 'clinch' : R.ordOf(ps[k]).map(slot => slot === 'feet' ? ps[k].feet : ps[k][slot]).join('>') || 'hold'; o.open.actions[action] = (o.open.actions[action] || 0) + 1; }
+          for (const key of new Set(ps.map(p => R.planWords(p)))) o.open.planRounds[key] = (o.open.planRounds[key] || 0) + 1;
+          for (const key of new Set(ps.map(p => p.clinch ? 'clinch' : R.ordOf(p).map(slot => slot === 'feet' ? p.feet : p[slot]).join('>') || 'hold'))) o.open.actionRounds[key] = (o.open.actionRounds[key] || 0) + 1;
           if (a[0] === 0 && a[1] === 0) o.open.bothHold++;
           const steps = ps.map(p => !p.clinch && p.feet === 'in'); if (steps[0] !== steps[1]) stepper = steps[0] ? 0 : 1; }
         const ev = resolve(S, [{ ...mine }, { ...his }]);
