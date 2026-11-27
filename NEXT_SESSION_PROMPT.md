@@ -9,8 +9,8 @@ Start: `git pull && python ops/Tools/agent_comms.py start`, then this page, then
    (arena/b9de29e2): arm `python -u ops/Tools/arena_watch.py 180 KICKFIX4=b9de29e2:docs/KICKFIX4_RESULT_ARENA.md`; its
    result page still carries the S567 BLOCKED line - judge it by its commits / pull request. IT WENT SILENT at 04:14 UTC on
    2026-11-27 (189+ min, last commit 'E3 table and N=56 seed=1 volume baseline'): open its Arena chat (Browser 2,
-   chat id b9de29e2) and send 'Keep working' - an Arena chat that ended its turn with runs queued does nothing. The LIVE match server (8796)
-   was started before the feint fix: restart it (and Gemma) so online play uses the new rule.
+   chat id b9de29e2) and send 'Keep working' - an Arena chat that ended its turn with runs queued does nothing. The live match server was
+   restarted in S568 after the feint fix (owner: 'Yes, restart it'); Gemma now rejoins by itself after a server restart.
 2. RESTART FOUR SERVICES in terminal tabs (they die with the session): page server `python proto/cardgame/serve.py 8797 twohands`,
    the gate `powershell -NoProfile -ExecutionPolicy Bypass -File proto/twohands/site/run_gate.ps1`, the match server
    `node proto\twohands\site\match_server.mjs`, and GEMMA `node proto\twohands\site\match_llm_bot.mjs` (the local AI he plays).

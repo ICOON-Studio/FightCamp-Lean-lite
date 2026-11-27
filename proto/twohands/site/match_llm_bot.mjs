@@ -27,24 +27,29 @@ function text(s) { const m = (lab, f) => `${lab}: health ${f.health}/${f.healthM
   if (s.hisLastBeats.length) L.push(`HIS LAST BEATS, newest first: ${s.hisLastBeats.join('  |  ')}`);
   if (s.lastBeat) L.push('THE LAST BEAT:', ...s.lastBeat.lines.map((x) => '  ' + x));
   return L.join('\n') + '\nChoose your beat.\n' + FORM; }
-RULES = await (await fetch(B + '/api/help')).text();
-const load = async () => { const w = Date.now(); await think('Say: ready', 4); return ((Date.now() - w) / 1000).toFixed(1); };
-console.log(`MATCH_LLM_BOT ${NAME}: ${MODEL} answers (${await load()} s); it stays loaded only during bouts`);
-let j = {}; for (let k = 1; k <= 9 && !j.token; k++) { j = await post('/api/join', { name: k === 1 ? NAME : `${NAME} ${k}` }); if (!j.token && !/in use/.test(j.error || '')) break; }   /* the server holds a name 15 min after its last call: a restart takes the next free one */
-if (!j.token) { console.log('MATCH_LLM_BOT could not join: ' + (j.error || '?')); process.exit(1); } console.log(`MATCH_LLM_BOT joined as ${j.name}`);
-for (let bout = 0; !BOUTS || bout < BOUTS; bout++) {
-  let f; console.log(`MATCH_LLM_BOT ${NAME}: waiting for an opponent`); for (;;) { f = await post('/api/find', { token: j.token, ...(arg.vs ? { vs: arg.vs } : {}) }); if (f.match) break; await sleep(1500); }
-  console.log(`MATCH_LLM_BOT ${NAME}: bout ${f.match}, the model loads (${await load()} s)`);
-  const secs = []; let him = '', idleSince = Date.now(), lastN = -1;
-  for (;;) { const s = await get(`/api/state?token=${j.token}&match=${f.match}`); him = s.him || him; if (s.over) { console.log(`MATCH_LLM_BOT ${NAME} v ${him}: ${s.over} | beat seconds ${secs.join(' ')}`); break; }
-    if (s.n !== lastN) { lastN = s.n; idleSince = Date.now(); }
-    /* S568: an opponent who has gone (closed the page, a dead process) would hold it for 10 min a beat: after IDLE_S with no
-       beat played, it gives the bout up and waits for the next player */
-    if (!s.yourTurn && Date.now() - idleSince > IDLE_S * 1000) { await post('/api/leave', { token: j.token, match: f.match }); console.log(`MATCH_LLM_BOT ${NAME}: ${him} has not moved for ${IDLE_S} s - bout given up`); break; }
-    if (!s.yourTurn) { await sleep(400); continue; }
-    const t0 = Date.now(); let msg = text(s), sealed = false;
-    for (let t = 0; t < 3 && !sealed; t++) { let plan = null; try { plan = parsePlan(await think(msg)); } catch (e) { console.log('MATCH_LLM_BOT the local model does not answer: ' + e.message); }
-      const r = await post('/api/plan', { token: j.token, match: f.match, ...(plan || { lead: 'high', rear: 'high', feet: 'hold' }) });
-      if (r.ok || /already sealed|is over/.test(r.error || '')) sealed = true; else { console.log(`MATCH_LLM_BOT refused (${r.error})`); msg = text(s) + `\nYOUR LAST PLAN WAS REFUSED: ${r.error}. Send another.`; } }
-    if (!sealed) await post('/api/plan', { token: j.token, match: f.match, lead: 'high', rear: 'high', feet: 'hold' });
-    secs.push(((Date.now() - t0) / 1000).toFixed(1)); } }
+/* S568: the match server may restart (a rules change, the owner's OK): on any network error Gemma waits and joins again, never crashes */
+let bouts = 0;
+async function session() {
+  RULES = await (await fetch(B + '/api/help')).text();
+  const load = async () => { const w = Date.now(); await think('Say: ready', 4); return ((Date.now() - w) / 1000).toFixed(1); };
+  console.log(`MATCH_LLM_BOT ${NAME}: ${MODEL} answers (${await load()} s); it stays loaded only during bouts`);
+  let j = {}; for (let k = 1; k <= 9 && !j.token; k++) { j = await post('/api/join', { name: k === 1 ? NAME : `${NAME} ${k}` }); if (!j.token && !/in use/.test(j.error || '')) break; }   /* the server holds a name 15 min after its last call: a restart takes the next free one */
+  if (!j.token) { console.log('MATCH_LLM_BOT could not join: ' + (j.error || '?')); process.exit(1); } console.log(`MATCH_LLM_BOT joined as ${j.name}`);
+  for (; !BOUTS || bouts < BOUTS; bouts++) {
+    let f; console.log(`MATCH_LLM_BOT ${NAME}: waiting for an opponent`); for (;;) { f = await post('/api/find', { token: j.token, ...(arg.vs ? { vs: arg.vs } : {}) }); if (f.match) break; if (f.error) throw new Error(f.error);   /* a restarted server does not know the token: join again */ await sleep(1500); }
+    console.log(`MATCH_LLM_BOT ${NAME}: bout ${f.match}, the model loads (${await load()} s)`);
+    const secs = []; let him = '', idleSince = Date.now(), lastN = -1;
+    for (;;) { const s = await get(`/api/state?token=${j.token}&match=${f.match}`); if (s.error) throw new Error(s.error); him = s.him || him; if (s.over) { console.log(`MATCH_LLM_BOT ${NAME} v ${him}: ${s.over} | beat seconds ${secs.join(' ')}`); break; }
+      if (s.n !== lastN) { lastN = s.n; idleSince = Date.now(); }
+      /* S568: an opponent who has gone (closed the page, a dead process) would hold it for 10 min a beat: after IDLE_S with no
+         beat played, it gives the bout up and waits for the next player */
+      if (!s.yourTurn && Date.now() - idleSince > IDLE_S * 1000) { await post('/api/leave', { token: j.token, match: f.match }); console.log(`MATCH_LLM_BOT ${NAME}: ${him} has not moved for ${IDLE_S} s - bout given up`); break; }
+      if (!s.yourTurn) { await sleep(400); continue; }
+      const t0 = Date.now(); let msg = text(s), sealed = false;
+      for (let t = 0; t < 3 && !sealed; t++) { let plan = null; try { plan = parsePlan(await think(msg)); } catch (e) { console.log('MATCH_LLM_BOT the local model does not answer: ' + e.message); }
+        const r = await post('/api/plan', { token: j.token, match: f.match, ...(plan || { lead: 'high', rear: 'high', feet: 'hold' }) });
+        if (r.ok || /already sealed|is over/.test(r.error || '')) sealed = true; else { console.log(`MATCH_LLM_BOT refused (${r.error})`); msg = text(s) + `\nYOUR LAST PLAN WAS REFUSED: ${r.error}. Send another.`; } }
+      if (!sealed) await post('/api/plan', { token: j.token, match: f.match, lead: 'high', rear: 'high', feet: 'hold' });
+      secs.push(((Date.now() - t0) / 1000).toFixed(1)); } }
+}
+for (;;) { try { await session(); if (BOUTS && bouts >= BOUTS) break; } catch (e) { console.log('MATCH_LLM_BOT the match server does not answer (' + (e.cause && e.cause.code || e.message) + '): trying again in 10 s'); await sleep(10000); } }

@@ -2491,6 +2491,11 @@
    "id": "S567",
    "date": "2026-11-27",
    "summary": "S567 (Fable). His ask on the move panel (\"can you show here for which distances each punch can hit and for how much vs how much\"): every punch and kick card shows Inside / Mid / Long (lit = it reaches, the framed one = where you will be when it goes; red frame = it will fall short), its damage in red beside its stamina in green; the side panel is one card a row (v0.567.1). The same range marks on HIS punches on his hand panel (v0.567.2). Stills on 8787/review; beat_shot.mjs takes \"part\": \"0:rear\" / \"1:lead\". Page play test 4 of 4 on the five pages. His \"not yet and stop asking\" on the Cascadeur plan: NO purchase question again (memory). His question on the test link answered: the gate serves the live folder, so it is always the latest version while the PC and the gate are on. COLLECTED: TELLS4M - 4 of 7 bars, not for the page; obeying every tell blind +5.9 / +5.3 / +9.4 points (was +8 / +10 / +29), catching the lie pays nothing -> TASK_TELLS5M, the LAST tells round, at Arena (4c40abf4). KICKFIX4: the PC worker stopped for low memory beside ArcheAge (F1 'a checked low kick costs the kicker 2' survives N=12; F2 fails, low kick 91%); the rest moved to Arena (b9de29e2). FEINTFIX1 (the feint that opens the overhand) queued to Kalli (SQ341) and Dola (SQ342). GUARDSTANCE1: red stills of today's four set-ups taken, our candidate takes noted. His 'Yes, close them': the three finished S566 worker consoles closed (about 1.4 GB, not the 7 GB first said). || S567 (Fable), part 2. ON THE PAGE (v0.567.1 to v0.567.9, all pushed): punch cards show the ranges they reach and damage beside stamina, his punches too; a Replay round button at the bell; health, stamina, guard and ground as round gauges; move names in the commentary are links to their cards; after a pick the overview comes back with the move in its lit row (owner: 'i selct an action to go as second and it deltes the first one' - one move a hand, now said), a move card can be dragged onto a slot, the no-step feet card reads 'Stay put (no step)'; the strip has two sides (his 'like rune colossieum'): yours left, his right, his slots fill as each moment plays with the result timed to the picture. NEW PAGES: scene.html (four famous exchanges on our rules, checked on film: 10 of 14 match the ring; the timed counter and the check hook do not exist in our rules), online.html (Play online). PLAYING EACH OTHER: proto/twohands/site/match_server.mjs (port 8796), reached on his tailnet through the gate (:8443/online.html) and PUBLIC on Render: https://punchers-chance-test.onrender.com (private repo ICOON-Studio/punchers-chance-test, a personal code + the notice, Free plan; codes in proto/twohands/site/data/tester_codes.json on this PC). THE AGENTS' LEAGUE (his ask; versus.mjs, versus_by_message.mjs, league.mjs): 15 bouts, Claude (Opus console worker) 13 points, Ziva 12, Dola 9, John 7, Maria 3, Kalli 0; mean verdicts fun 7.4, depth 6.8, clarity 7.2, variety 6.0; every top seat names the FEINT as the broken plan; Antigravity out (its tool opened tabs in his browser). REVIEWS: Arena solo ALLPLAY3 fun 8 depth 8 clarity 7 variety 7; Ludo from a still fun 7 depth 8 clarity 5 variety 6; Toribash read (TORIBASH_NOTES_S567). COLLECTED: TELLS4M (4 of 7, not for the page), PROGP4 (no new upgrade pair passes two seeds), LONG1 (none; with LONG2 none). FIXED ON THE WAY: play_cli.mjs could not start since the S565 rename (a quote), version.js broken for one version (an apostrophe), a commit that went out with a failing play test."
+  },
+  {
+   "id": "S568",
+   "date": "2026-11-27",
+   "summary": "S568 (Opus). The screen made clear on his words: the range large, a guided first beat, the HAND OF CARDS replacing picking by limb (his 'i like the B'), the strip LANES Lead/Rear/Feet in every moment ('i select stay put and nothing like that appears'), guard buttons that say what they stop ('both hands have the same options'). His FEINT RULE on the page (FEINTFIX2 G1, 8 of 9 bars on both seeds). Clocks on one.html (5 s beat, 1-minute round). Gemma, a local model, plays him live on the match server (1.5 s a beat). Measured: his one-action idea (faster per beat, not per round; a toy), the Marquez/Mayweather counters (none yet), the short opening beat (none), tells v5 (fails, Q-345). v0.568.1-12 not public yet. KICKFIX4 stalled at Arena (needs 'Keep working' in Browser 2)."
   }
  ],
  "blocked_on_operator": [],
@@ -5409,7 +5414,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-27 09:10 board_sync",
+  "updated": "2026-11-27 09:40 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5585,13 +5590,6 @@
    "TELLS2PAGE": "The tell onto the page as a pose of his body + the word in the ring corner - brief ready, waits for a tells version that holds its bars and your yes"
   },
   "working_now": [
-   {
-    "title": "Your 'write the feint fix brief and measure it': three answers to the feint that opens the overhand, with the loop, the league's winning play and the Hearns film as bars",
-    "who": "Arena (cloud: costs your PC nothing)",
-    "started": "2026-11-27T01:31",
-    "run": "FEINTFIX2",
-    "state": "LANDED - Claude collects"
-   },
    {
     "title": "Kicks round 4: a checked low kick hurts the kicker more - the rest of the measure moved to the cloud (your PC ran out of memory beside your game)",
     "who": "Arena (cloud: costs your PC nothing)",
