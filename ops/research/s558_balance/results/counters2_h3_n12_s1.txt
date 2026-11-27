@@ -1,0 +1,53 @@
+COMMAND: node proto/twohands/tools/balance.mjs table tweak=ops/research/s558_balance/counters2_h3.json out=<wt_tmp/COUNTERS2/h3.vt.json> jobs=2
+BALANCE_TABLE beats left 1: at Long, full stamina v 4: 0.125; having given ground twice v none: -0.51; Mid 0.412; Inside 0.511
+BALANCE_TABLE beats left 2: at Long, full stamina v 4: 1.097; having given ground twice v none: -0.723; Mid 1.539; Inside 1.459
+BALANCE_TABLE beats left 3: at Long, full stamina v 4: 1.232; having given ground twice v none: -0.462; Mid 1.629; Inside 1.481
+BALANCE_TABLE beats left 4: at Long, full stamina v 4: 1.301; having given ground twice v none: -0.376; Mid 1.694; Inside 1.538
+BALANCE_TABLE beats left 5: at Long, full stamina v 4: 1.306; having given ground twice v none: -0.358; Mid 1.702; Inside 1.555
+BALANCE_TABLE beats left 6: at Long, full stamina v 4: 1.305; having given ground twice v none: -0.356; Mid 1.697; Inside 1.556
+BALANCE_TABLE wrote E:/FightCamp/wt_tmp/COUNTERS2/h3.vt.json in 959 s
+EXIT 0
+
+COMMAND: node --import <measure.mjs> proto/twohands/tools/balance.mjs play tweak=ops/research/s558_balance/counters2_h3.json table=<wt_tmp/COUNTERS2/h3.vt.json> n=12 seed=1 jobs=2
+mix v the same man (no style): wins 50%, draws 0%, stops him 8%, is stopped 0%; knockdowns a bout 1.0 v 0.9; health taken a bout 19.9 v 19.9; beats at Inside / Mid / Long 28% / 40% / 32%; clinches a bout 2.0; rounds level on points 17%, 50% of them given on ground
+  you a beat: lead held low 34%, back off 33%, feet hold 32%, Body cross 30%, step in 28%, Cross 24%, rear held high 15%, rear held low 15%, Body jab 15%, lead held high 11%, Jab 10%, Lead hook 9%, clinch 7%, Feint 6%, Rear uppercut 5%, Overhand 4%, Lead uppercut 3%, Push off 2%, Body hook 2% | punches in a plan: none 11%, one 60%, two 21%
+  your punches (thrown a bout: lands / blocked / misses): Body cross 5.0: 50% / 20% / 30%, Cross 4.0: 35% / 27% / 38%, Body jab 2.6: 65% / 29% / 6%, Jab 1.8: 57% / 38% / 5%, Lead hook 1.5: 22% / 39% / 39%, Rear uppercut 0.7: 63% / 0% / 38%, Lead uppercut 0.6: 57% / 0% / 43%, Body hook 0.4: 60% / 40% / 0%, Overhand 0.3: 100% / 0% / 0%
+  he  a beat: back off 33%, step in 32%, lead held low 32%, feet hold 28%, Cross 25%, rear held high 23%, Body cross 23%, Body jab 18%, rear held low 14%, Lead hook 10%, lead held high 10%, Jab 7%, clinch 7%, Rear uppercut 6%, Lead uppercut 4%, Push off 4%, Body hook 4%, Feint 4%, Overhand 2% | punches in a plan: none 13%, one 61%, two 19%
+  his  punches (thrown a bout: lands / blocked / misses): Cross 4.2: 44% / 32% / 24%, Body cross 3.9: 43% / 26% / 32%, Body jab 3.3: 74% / 23% / 3%, Lead hook 1.7: 40% / 25% / 35%, Jab 1.3: 93% / 7% / 0%, Body hook 0.8: 33% / 22% / 44%, Rear uppercut 0.7: 0% / 38% / 63%, Lead uppercut 0.6: 43% / 14% / 43%, Overhand 0.3: 100% / 0% / 0%
+  your order, of the beats with one to choose (65%): first lead 23%, feet 61%, rear 16%
+COUNTERS1_METRICS {"n":12,"beats":215,"dmg":[239,239],"use":[{"in":60,"back":71},{"in":69,"back":71}],"rng":[0,61,86,68],"wait":[0,0],"fired":[0,0],"timed":[0,0],"out":[{},{}],"hookPlan":[10,8],"cut":[2,2],"chk":[1,1],"chkOut":[{"hit":2},{"hit":2}],"stepIn":[60,69],"leadHi":[25,39],"hookOut":[{"miss":7,"hit":2,"block":1},{"miss":6,"hit":2}]}
+  (12 bouts, 94 s)
+BARS 6 of 9 pass
+  PASS every range is fought at (each 15-55% of beats): Inside 28%, Mid 40%, Long 32%
+  PASS no switch is a must (none in over 40% of beats): back off 33%, step in 30%, Body cross 27%
+  PASS no switch is dead (each in at least 3% of beats): none under 3%
+  FAIL every punch lands 30-65% of the time and falls short at most 40%: Jab lands 72%, short 3%; Body jab lands 70%, short 4%; Lead uppercut lands 50%, short 43%; Rear uppercut lands 31%, short 50%
+  FAIL bouts end both ways (stoppages 10-40%, draws at most 20%, 0.5-2.5 knockdowns a bout): stoppages 8%, draws 0%, knockdowns 1.9
+  PASS one punch, two punches and holding all have their beats (two 15-45%, none 5-25%): two 20%, none 12%
+  PASS the clinch is a rescue, not a habit (at most 2 a bout): 2.0
+  FAIL the order is a choice (no slot first in over 60% of ordered beats; an order to choose in 40%+ of beats): ordered 65%, most often first 61%
+  PASS the mirror is fair (wins 40-60% of decided bouts): 50%
+EXIT 0
+
+TRIAL READ: step in 30.0% (>= 22%: go on), Long 31.6%, back off + hook plan 4.2% of beats, it landed 4 of 18 when chosen and 4 of 4 when he cut you off; lead held high in the moment after a step in 49.6% of step ins. A trial bar failed (lands when cut off 100%, over 80%, on 4 beats), so H3b is run too.
+
+Measurement-only loader (no rule changes), used for every COUNTERS2 play run:
+// COUNTERS2 measurement-only loader (COUNTERS1 + lead high on a step in): transforms balance.mjs's private bout loop in memory, never the page rules.
+import { registerHooks } from 'node:module';
+registerHooks({ load(url, context, nextLoad) {
+  const result = nextLoad(url, context);
+  if (!url.endsWith('/proto/twohands/tools/balance.mjs')) return result;
+  let s = String(result.source);
+  const patch = (a, b) => { if (!s.includes(a)) throw Error('measurement anchor missing: ' + a); s = s.replace(a, b); };
+  patch('function bouts(R, who, opp, n) {', `function __c1(o, R, plans, ev) { const c = o.c1 ||= { wait: [0, 0], fired: [0, 0], timed: [0, 0], out: [{}, {}], hookPlan: [0, 0], cut: [0, 0], chk: [0, 0], chkOut: [{}, {}], stepIn: [0, 0], leadHi: [0, 0] };
+  for (const k of [0, 1]) { const p = plans[k], q = plans[1 - k]; if (p.clinch) continue; const ord = R.ordOf(p), oq = q.clinch ? [] : R.ordOf(q);
+    { const fi = ord.indexOf('feet'); if (p.feet === 'in' && fi >= 0) { c.stepIn[k]++; const mm = Math.min(fi + 1, 2); if (p.hl === 'high' && ord[mm] !== 'lead' && !(p.lead === 'feint' && ord.indexOf('lead') > mm)) c.leadHi[k]++; } }
+    if (ord[0] === 'wait') { c.wait[k]++; const sl = ord[1], id = p[sl]; if (oq[0] === 'feet' && q.feet === 'in') c.fired[k]++;
+      const e = ev.find((x) => x.k === k && x.m === 1 && x.id === id); const t = !e ? (ev.some((x) => x.t === 'clinch') ? 'clinch' : 'none') : e.t === 'flat' ? 'beaten' : e.t; c.out[k][t] = (c.out[k][t] || 0) + 1; }
+    if (p.feet === 'back' && p.lead === 'hook' && ord.indexOf('feet') < ord.indexOf('lead')) { c.hookPlan[k]++; { const e0 = ev.find((x) => x.k === k && x.id === 'hook'); const t0 = !e0 ? (ev.some((x) => x.t === 'clinch') ? 'clinch' : 'none') : e0.t === 'flat' ? 'beaten' : e0.t; (c.hookOut ||= [{}, {}])[k][t0] = (c.hookOut[k][t0] || 0) + 1; } const cutBy = oq.indexOf('feet') === ord.indexOf('feet') && q.feet === 'in'; if (cutBy) { c.cut[k]++; const e = ev.find((x) => x.k === k && x.id === 'hook'); const t = !e ? 'none' : e.t === 'flat' ? 'beaten' : e.t; c.chkOut[k][t] = (c.chkOut[k][t] || 0) + 1; } } }
+  for (const e of ev) { if (e.t === 'hit' && /timed counter/.test(e.o || '')) c.timed[e.k]++; if (e.t === 'hit' && /check hook/.test(e.o || '')) c.chk[e.k]++; } }
+function bouts(R, who, opp, n) {`);
+  patch('endBeat(S); o.beats++;', '__c1(o, R, [mine, his], ev); endBeat(S); o.beats++;');
+  patch("return L.join('\\n'); }", "L.push('COUNTERS1_METRICS ' + JSON.stringify({ n: o.n, beats: o.beats, dmg: o.dmg, use: [{ in: o.use[0]['step in'] || 0, back: o.use[0]['back off'] || 0 }, { in: o.use[1]['step in'] || 0, back: o.use[1]['back off'] || 0 }], rng: o.rng, ...(o.c1 || {}) })); return L.join('\\n'); }");
+  return { ...result, source: s };
+} });

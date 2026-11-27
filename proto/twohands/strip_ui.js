@@ -18,6 +18,7 @@
     '#strip .slot .no{position:absolute;left:.45rem;top:50%;transform:translateY(-50%);font-size:1.5rem;font-weight:700;color:var(--muted);opacity:.7}' +
     '#strip .slot.full{border:1px solid var(--gold);background:#2a2116;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none}#strip .slot.full .no{color:var(--gold);opacity:1}' +
     '#strip .slot.wait{border:1px dashed var(--gold);background:none}' +
+    '#strip .vb{font-size:1.02rem;font-weight:800;letter-spacing:.07em;line-height:1.1;white-space:nowrap}#strip .vb small{font-size:.74rem;font-weight:600;letter-spacing:0;color:#e8dcc6}' +
     '#strip .slot b{font-size:1rem}#strip .slot i{font-style:normal;color:var(--muted)}#strip .slot .ok{color:#bfe6c3}#strip .slot .no2{color:#ffb3ad}' +
     '#strip .slot.empty{color:var(--muted)}' +
     '#strip .slot .lm{font-size:.72rem;color:var(--muted);line-height:1.15}#strip .slot.empty b{color:#bfe6c3}#strip .ln3{display:flex;align-items:center;gap:.3rem;font-size:.78rem;line-height:1.25;white-space:nowrap}#strip .ln3 i{width:.45rem;height:.45rem;border-radius:50%;flex:none}#strip .ln3 em{font-style:normal;color:var(--muted);width:2.1rem;flex:none;font-size:.72rem}#strip .ln3.act b{font-size:.9rem;color:#fff}#strip .ln3x{font-size:.68rem;line-height:1.15;color:var(--muted);white-space:normal}#strip .slot{justify-content:flex-start}#strip .slot.empty .lm{font-size:.8rem;color:#d8cfc2}#strip .slot.full.sel{box-shadow:0 0 0 2px var(--gold),0 0 .9rem rgba(227,171,69,.55)}#strip .pt.sel{color:var(--gold);font-weight:700}#strip .sel.flash{animation:selflash 1.1s ease-out}@keyframes selflash{0%{filter:brightness(2.2)}100%{filter:none}}' +   /* S568: the whole boxer in each moment */
@@ -74,7 +75,17 @@
      Feet - so every choice sits on the strip in its own row: the guards, Stay put, and the move in the moment it happens.
      The acting row is bold; under it, whether it reaches and what it leaves open. The .pt parts light up as before. */
   const LANE = { lead: ['Lead', '#378ADD'], rear: ['Rear', '#D85A30'], feet: ['Feet', '#1D9E75'] };
-  function lanes(i, m) { const actor = m ? m.sl : null, rows = [];
+  /* S569 (owner: "maybe the strip should read like Guard , feint , punch"): each moment opens with ONE big word for what
+     happens in it, so the strip reads as a sentence; the three limb rows stay under it, smaller. */
+  function verb(m) { if (P.clinch) return ['CLINCH', '#888780']; if (!m) return ['GUARD', '#9fd8a6'];
+    if (m.sl === 'wait') return ['WAIT', '#c9a24a'];
+    if (m.sl === 'feet') { if (m.name === 'Stay put') return ['STAY PUT', LANE.feet[1]]; return [({ in: 'STEP IN', back: 'BACK OFF' }[P.feet] || String(m.name || '').toUpperCase()), LANE.feet[1]]; }
+    const id = P[m.sl], a = typeof ACT !== 'undefined' ? ACT[id] : null, col = (LANE[m.sl] || LANE.lead)[1];
+    if (id === 'feint') return ['FEINT', col]; if (id === 'push') return ['PUSH', col];
+    if (a && a.d) return [/kick|teep|knee/.test(id + ' ' + (a.pic || '')) ? 'KICK' : 'PUNCH', col];
+    return [String(m.name || '').toUpperCase(), col]; }
+  function lanes(i, m) { const actor = m ? m.sl : null, rows = [], vb = verb(m);
+    rows.push(`<span class="vb" style="color:${vb[1]}">${vb[0]}${m && m.sl !== 'wait' && m.sl !== 'feet' && !['FEINT', 'PUSH'].includes(vb[0]) ? ` <small>${m.name}</small>` : ''}</span>`);
     for (const h of ['lead', 'rear', 'feet']) { let v;
       if (P.clinch) v = h === 'feet' ? 'clinch' : 'tied up';
       else if (actor === h) v = `<b>${m.name}</b>`;

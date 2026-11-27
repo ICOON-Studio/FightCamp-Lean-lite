@@ -2,6 +2,7 @@
 
 ## What every critic must return (operator S405: "i want the critics everytime to state what to change to reach 10/10")
 Whatever you score (a screen, a film, a mechanic, a design), end with **To reach 10/10**: the concrete changes that would take it from your score to 10, most important first, each specific enough to build. If it needs something the game cannot do yet, say so. A score without this list is not finished.
+**Also score SPEED and THE FIRST FIVE MINUTES** (S569, after the genre's reviews: players praise fast turns, a clean read of what the other side will do, and choices that each matter; they mark down slow turns, unclear results and choices that do not matter): seconds and clicks a turn (a beat) and whether that feels quick, and how far a new player gets in five minutes without help. Both on the 1-10 scale, with their own To reach 10/10 lines.
 
 
 # FightCamp critic pack: the whole game, for judging whether a screen has the right options

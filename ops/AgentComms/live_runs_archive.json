@@ -25379,6 +25379,17 @@
    "branch": "arena/b9de29e2-fightcamp-lean-lite",
    "issue": "https://arena.ai/agent/01a21992-2f19-7c38-be3d-258cb9de29e2",
    "note": "S567: the PC worker stopped for low memory with ArcheAge open (F1 survives N=12, F2 fails: low kick 91%); the rest moved to Arena. Its result page starts with the BLOCKED line: judge by the pull request, not arena_watch | S569: collected F1/F3/E3 from the lite branch (7dd51f129); Arena hit its daily limit before F4 was pushed -> KICKFIX5"
+  },
+  {
+   "id": "RECOIL1",
+   "status": "stopped",
+   "seat": "claude",
+   "agent": "Opus 5.5 console worker (PC, tab c8)",
+   "started": "2026-11-27T13:26",
+   "eta": "3-5 h",
+   "title": "Re-render the punch runs so the man who is hit, blocks or dodges ends on his spot (no snap after a punch)",
+   "brief": "ops/research/TASK_RECOIL1.md",
+   "note": "owner S569: 'the fighter get displaced without moving' | S569: stopped - the method is wrong (two men baked per picture); LAYERS_SCOPE_S569.md replaces it"
   }
  ],
  "KNOWBUILD1": {

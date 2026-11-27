@@ -1,3 +1,5 @@
+## METHOD (S569, fight pictures): two men baked per picture + the page sliding the whole picture makes every clip that ends a few px off a jump; five patch rounds left leftovers. Fighting games keep each fighter's spot in CODE and play clips on it. No new patch layer on the two-man pictures (RECOIL1 and PUSH1 stopped) until ops/research/LAYERS_SCOPE_S569.md (one man per picture, the page owns each spot) is approved - the owner was asked; his rules question came first (Mixed Martial Cards: ops/research/MMC_DISTANCE_S569.md, toy MMCTOY1 running).
+
 # S569 handover (written 2026-11-27, S568 - Opus 5.5)
 
 Start: `git pull && python ops/Tools/agent_comms.py start`, then this page, then `ops/research/S568_DIGEST.md`.

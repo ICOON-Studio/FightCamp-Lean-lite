@@ -1,4 +1,4 @@
-# KICKFIX5 - finish the kicks balance: stopped at the PC's memory gate before F4 could run (S569 console worker)
+# KICKFIX5 - finish the kicks balance: stopped twice for low memory, F4 still not measured (S569 console worker)
 
 2026-11-27 - PC console worker (Fable 5.2, main checkout) - kickboxing - no page, tool or test changed.
 
@@ -10,10 +10,21 @@ leftover waiter (my own process, by PID) so nothing starts by itself when memory
 | version | N | seed | bars passed | each red bar with its number | low kick lands | overhand lands | knockdowns | stoppages | plan mix (hands only / kick counted) | strikes a beat | limp bouts, stops after a limp |
 |---|---:|---:|---|---|---|---|---|---|---|---|---|
 | Boxing page control (today's order.html, its own table) | 56 | 1 | 8/9 | landing: jab 66%, body jab 65% (over by rounding), overhand 71%, rear uppercut short 41% | - | 71% | 2.3 | 14% | two 19%, none 13% (PASS) | 1.01 | 0/56, 0/8 |
-| Boxing page control | 56 | 2 | not run | stopped at the gate | | | | | | | |
+| Boxing page control | 56 | 2 | 8/9 | landing: jab 68%, overhand 70% | - | 70% | 2.2 | 21% | two 20%, none 13% (PASS) | 1.01 | 0/57, 0/12 |
 | F3 (KICKFIX4, the base to beat) | 56 | 1 | 5/9 | dead push off 3%, rear uppercut 3%, clinch 2%; jab 67%, body jab 78%, low kick 87%, head kick 30%; KD 2.9; two 10%, none 30% | 87% | 61% | 2.9 | 32% | two 10%, none 30% / two+ 25%, none 9% | 1.17 | 11/56, 5/18 |
 | F3 | 56 | 2 | 5/9 | dead rear uppercut 3%, clinch 2%; jab 69%, body jab 73%, overhand 72%, low kick 77%; stops 50%, KD 3.1; two 9%, none 30% | 77% | 72% | 3.1 | 50% | two 9%, none 30% / two+ 26%, none 9% | 1.18 | 7/56, 2/28 |
-| F4 = F3 + a teep covers the lead leg in its moment | - | - | written, not run | ops/research/s558_balance/kick_fix_f4.json loads on kick.html (checked); table, N=12 and N=56 still to do | | | | | | | |
+| F4 = F3 + a teep covers the lead leg in its moment | - | - | written, not measured | ops/research/s558_balance/kick_fix_f4.json loads on kick.html (checked); its table ran 30 minutes (2 of its beat rows) and was stopped; table, N=12 and N=56 still to do | | | | | | | |
+
+## Second start, 13:23 to 13:57 (the owner closed his game at 13:20 and asked for the restart)
+The chain started with RAM at 60% and three jobs. The boxing control on seed 2 finished in 4 minutes (8 of 9, row above,
+committed and pushed). The F4 table started at 13:27. At about 13:56 Claude Code stopped the chain again for critically
+low memory: RAM 90%, CPU 100%, with Chrome at 7.2 GB, the Claude consoles at 6.6 GB, a 1.4 GB Godot render (RECOIL1) and
+two COUNTERS2 measuring chains running beside it. The F4 table itself held 318 MB. Its processes had outlived the stop,
+so I ended them myself by PID (two bash, one node, all mine) to honour it: nothing of KICKFIX5 runs now and nothing starts
+by itself. The half-built table is not kept (balance.mjs writes it only at the end).
+
+Both seeds now agree: the boxing page is red on the landing bar ONLY (jab and overhand on both seeds; body jab and the
+rear uppercut falling short on seed 1). So a finished kicks version may be red on landing only, on both seeds.
 
 ## What the control already says
 On seed 1 the boxing page is red on ONE bar only (landing). So for a kicks version to count as finished on seed 1 it may be
@@ -35,13 +46,13 @@ kicks thrown is the limp loop's input.
 ## Feedback loops
 - Limp, too passive, stamina: nothing new measured (F4 not run). Control: 0 limp bouts, 1.01 strikes a fighter-beat (boxing), stamina bar 5.76 at the last bell.
 
-## To resume (needs memory: the chain uses one job while ArcheAge is open, an F4 table is then about 3 hours)
-`bash E:/FightCamp/wt_tmp/KICKFIX5/run.sh c1 control:2 table:f4 play:f4:12:1 > E:/FightCamp/wt_tmp/KICKFIX5/c1.log 2>&1`
+## To resume (needs memory; three measuring workers and a render at once is more than the PC holds beside Chrome)
+`bash E:/FightCamp/wt_tmp/KICKFIX5/run.sh c3 table:f4 play:f4:12:1 > E:/FightCamp/wt_tmp/KICKFIX5/c3.log 2>&1`
 then `play:f4:56:1 play:f4:56:2` if the trial gate passes. The chain waits on RED by itself and commits each result.
 
 ## For the owner
-Nothing went on kick.html today: the PC ran out of memory while ArcheAge was open and the measuring was stopped before the first kicks version could run.
-The boxing page was measured as the yardstick (8 of 9 bars on seed 1), and the next kicks version (F4) is written and ready to run.
-The player feels no change yet; the kicks need about two hours of free PC (game closed) per version, or about five with the game open.
+Nothing went on kick.html yet: the measuring was stopped for low memory a second time, 30 minutes into the first kicks version (F4), with two other measuring workers, a render and Chrome running beside it.
+The yardstick is complete: the boxing page passes 8 of 9 bars on both seeds, so a kicks version has to match that.
+The player feels no change yet; the kicks need about two hours a version with the PC to themselves - run KICKFIX5 alone, or after COUNTERS2 and RECOIL1 finish.
 
-KICKFIX5 BLOCKED: Claude Code stopped the run chain for low memory (RAM 93-98%, ArcheAge open) before the F4 table started; only the boxing control on seed 1 finished. It is not restarted until someone says so.
+KICKFIX5 BLOCKED: Claude Code stopped the run chain for low memory a second time (13:56, RAM 90%, CPU 100%) during the F4 table; both boxing controls are done (8/9, 8/9), F4 is written and unmeasured. It is not restarted until someone says so.

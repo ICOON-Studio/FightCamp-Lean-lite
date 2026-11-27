@@ -4,6 +4,12 @@
    number: 0.<session>.<n> (n counts up inside the session). The top entry is the version the page shows beside the
    sound button. A measure that changed nothing on a page is not an entry. */
 window.RS_CHANGES = [
+  { v: '0.569.7', date: '2026-11-27', items: [
+    'Your hand is picture cards: each card loops its move with your boxer alone (the other man cut away), small enough that every card fits - the ones that do not reach from here are dimmed at the end. The cost is on the top corner, the damage on the picture, the reach under the name. Point at a card for its words; the moving picture is the card itself now.'] },
+  { v: '0.569.6', date: '2026-11-27', items: [
+    'The strip reads like a sentence: each moment opens with one big word - GUARD, FEINT, PUNCH (and which punch), STEP IN, BACK OFF, STAY PUT - in the colour of the limb that does it. The Lead / Rear / Feet rows stay under it, smaller.'] },
+  { v: '0.569.5', date: '2026-11-27', items: [
+    'Animated cards: point at a card in your hand and a picture beside the hand plays that move - your boxer doing it at the range you stand at (a punch that does not reach here: at its nearest range). It goes away when you click or drag the card.'] },
   { v: '0.569.4', date: '2026-11-27', items: [
     'Steps no longer make a fighter jump. When you both step in (or both back off) in the same moment, each step is now drawn from where that fighter stands - yours, then his - instead of one step drawn from the wrong spot. When you back off and he cuts you off, his step in is drawn, not your back off.'] },
   { v: '0.569.3', date: '2026-11-27', items: [
