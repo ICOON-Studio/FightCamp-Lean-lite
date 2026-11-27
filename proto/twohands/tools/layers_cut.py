@@ -49,17 +49,27 @@ def side_masks(mask: Image.Image) -> dict:
 
 
 def feet_x(mask: Image.Image, side: str) -> float | None:
-    """Mean x (px) of the man's lowest leg pixels (the bottom 6% of his legs' height)."""
+    """The man's STANCE CENTRE (px): the middle of the span his feet cover on the floor. LAYERS1 (S572): it was the mean x
+    of his lowest leg pixels, i.e. whichever foot stood nearer the camera (lower on the raised camera's picture) - a guard
+    with the feet set differently read as the man 0.43 m further in (blue in every red cross, his body on the same spot),
+    and the page drew him that far off. Now: for every column the lowest pixel of his legs; the FOOT columns are those
+    whose lowest pixel is in the bottom 40% of his legs' height (the gap between the legs and the knees are not); the
+    stance centre is the middle of the leftmost and rightmost foot column - both feet whatever their depth or overlap."""
     rgb = mask.convert("RGBA")
     px = rgb.load()
-    pts = [(x, y) for y in range(rgb.height) for x in range(rgb.width) if px[x, y][3] >= 128 and px[x, y][:3] == LEGS[side]]
-    if not pts:
+    col = {}
+    hi = None
+    for y in range(rgb.height):
+        for x in range(rgb.width):
+            p = px[x, y]
+            if p[3] >= 128 and p[:3] == LEGS[side]:
+                col[x] = y
+                hi = y if hi is None else hi
+    if not col:
         return None
-    lo = max(y for _, y in pts)
-    hi = min(y for _, y in pts)
-    cut = lo - max(2, int((lo - hi) * 0.06))
-    xs = [x for x, y in pts if y >= cut]
-    return sum(xs) / len(xs)
+    lo = max(col.values())
+    feet = [x for x, y in col.items() if y >= lo - max(6, int((lo - hi) * 0.40))]
+    return (min(feet) + max(feet)) / 2
 
 
 def main() -> None:

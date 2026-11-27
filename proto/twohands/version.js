@@ -4,6 +4,8 @@
    number: 0.<session>.<n> (n counts up inside the session). The top entry is the version the page shows beside the
    sound button. A measure that changed nothing on a page is not an entry. */
 window.RS_CHANGES = [
+  { v: '0.572.1', date: '2026-11-28', items: [
+    'With ?layers=1 the cross is now two separate men too (Mid and Inside, landed, blocked and missed, both sides): each man stays on his own spot, and the punch meets the face or the glove where the 3D take has it. Fix on that page: a man no longer stands in his old pose for a moment when a move plays the first time, and nobody is drawn a step off where he really stands.'] },
   { v: '0.571.1', date: '2026-11-27', items: [
     'Stay put has no slot of its own any more: it showed the same guard and picture as the GUARD moment beside it - two cards, one meaning. Your feet holding their ground lasts the whole beat, so it is now one green strap under the three moments: FEET, ALL BEAT: STAY PUT. The three moments are all your hands.'] },
   { v: '0.570.4', date: '2026-11-27', items: [

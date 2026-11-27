@@ -1,0 +1,20 @@
+John (Lin "Ghost" Hayes) v Maria (Marco "Body Shop" Duarte), seed 92
+R1 E1: John plays Straight Cross; Maria plays Ripping Liver Hook; John is faster (8 v 6); John lands 5 to the head (beats him to it); John takes the Lead; Maria discards one card, draws one
+R1 E2: John plays Tight High Guard; Maria plays Tight High Guard; both reset: the Lead is neutral; John recovers 2 stamina; Maria recovers 2 stamina; Maria discards one card, draws one
+R1 E3: John plays Ripping Liver Hook; Maria plays Ripping Liver Hook; John is faster (7 v 6); John lands 6 to the body (beats him to it); Maria Ripping Liver Hook: maximum stamina -2; John takes the Lead; Maria discards one card, draws one
+R1 E4: John plays Pull Counter Cross; Maria plays Tight High Guard; John Pull Counter Cross: nothing to counter; John Pull Counter Cross whiffs: -1 stamina; Maria recovers 2 stamina; Maria discards one card, draws one
+R1 E5: John plays Pull Counter Cross; Maria plays Cut the Cage; range: mid -> close; John Pull Counter Cross whiffs: -1 stamina; Maria Cut the Cage baits the counter; John pushed toward the fence: cage space 1; Maria takes the Lead; Maria discards one card, draws one
+R1 E6: John plays Tight High Guard; Maria plays Read Tendencies; John recovers 2 stamina; Maria next exchange: +1 speed; Maria reads him: sees 2 of his cards, draws 2; Maria discards one card, draws one; END OF ROUND 1: judges 10-8 (damage + clean counters 11 v 0); total 10-8; ROUND 2: back to Long, the Lead neutral, stamina +5 / +6; Maria no card he can play at this range: a fresh hand (no stamina cost)
+R2 E1: John plays Range Jab; Maria plays Cut the Cage; range: long -> mid; John lands 2 to the head (caught him faking); John takes the Lead
+R2 E2: John plays Elbows Down; Maria plays Pull Counter Cross; Maria Pull Counter Cross: nothing to counter; Maria Pull Counter Cross whiffs: -1 stamina; John recovers 1 stamina
+R2 E3: John plays Snap Jab; Maria plays Shoulder Roll & Feint; John lands 3 to the head (caught him faking); John takes the Lead
+R2 E4: John plays Snap Jab; Maria plays Slip & Cross; Maria Slip & Cross reads the Snap Jab: it misses; Maria lands 5 to the head (counter); Maria takes the Lead; Maria discards one card, draws one
+R2 E5: John plays Shoulder Roll & Feint; Maria plays Ripping Liver Hook; Maria lands 6 to the body (caught him faking); John Ripping Liver Hook: maximum stamina -2; Maria discards one card, draws one
+R2 E6: John plays Circle Out & Reset; Maria plays Tight High Guard; both reset: the Lead is neutral; John recovers 0 stamina; Maria recovers 2 stamina; range: mid -> long; END OF ROUND 2: judges 9-10 (damage + clean counters 5 v 12); total 19-18; ROUND 3: back to Long, the Lead neutral, stamina +5 / +6
+R3 E1: John plays Range Jab; Maria plays Range Jab; John is faster (8.5 v 8); John lands 2 to the head (beats him to it); John takes the Lead; Maria discards one card, draws one
+R3 E2: John plays Range Jab; Maria plays Hold Ground; Maria parries the Range Jab at Long; Maria recovers 0 stamina; John discards one card, draws one; Maria discards one card, draws one
+R3 E3: John plays Step-In Jab; Maria plays Hold Ground; range: long -> mid; John lands 3 to the head (nothing covered it); Maria recovers 0 stamina; John takes the Lead; John discards one card, draws one; Maria discards one card, draws one
+R3 E4: John plays Straight Cross; Maria plays Ripping Liver Hook; John is faster (9 v 6); John lands 5 to the head (beats him to it); Maria discards one card, draws one
+R3 E5: John plays Hold Ground; Maria plays Snap Jab; Maria lands 3 to the head (nothing covered it); John recovers 0 stamina; Maria takes the Lead; Maria discards one card, draws one
+R3 E6: John plays Slip & Cross; Maria plays Straight Cross; John Slip & Cross reads the Straight Cross: it misses; John lands 6 to the head (counter); John takes the Lead; John WINS by KO
+RESULT: John wins by KO in round 3

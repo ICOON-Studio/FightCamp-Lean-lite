@@ -2,8 +2,9 @@
 // (target 40-60%), the class's finish rate and the comeback share.   node proto/octagon/pool_sim.mjs [n=60] [seed=7]
 import { newBout, play, legalCards, why, CARDS, TUNE } from './engine.mjs';
 import { useV4, POOL } from './fighters_v4.mjs';
-useV4();
+import { useV5 } from './cards_v5.mjs';
 const arg = Object.fromEntries(process.argv.slice(2).map((x) => x.split('='))), N = +(arg.n || 60);
+if (arg.v5 === '1') useV5(); else useV4();   /* S572: v5 = the owner's v2.0 rulebook + v2 cards */
 for (const key of Object.keys(TUNE)) if (arg[key] !== undefined) TUNE[key] = +arg[key];
 let seed = +(arg.seed || 7); const r = () => { seed ^= seed << 13; seed >>>= 0; seed ^= seed >> 17; seed ^= seed << 5; seed >>>= 0; return seed / 4294967296; };
 const pick = (a) => a[Math.floor(r() * a.length)], ANSWER = { A: 'C', F: 'A', C: 'F' };

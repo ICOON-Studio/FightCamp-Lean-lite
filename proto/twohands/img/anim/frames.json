@@ -195,9 +195,22 @@
    ],
    "contact": 5,
    "clip": "pro_right_cross",
+   "masks": [
+    "blue_cross_blocked_0_mask.png",
+    "blue_cross_blocked_1_mask.png",
+    "blue_cross_blocked_2_mask.png",
+    "blue_cross_blocked_3_mask.png",
+    "blue_cross_blocked_4_mask.png",
+    "blue_cross_blocked_5_mask.png",
+    "blue_cross_blocked_6_mask.png",
+    "blue_cross_blocked_7_mask.png",
+    "blue_cross_blocked_8_mask.png",
+    "blue_cross_blocked_9_mask.png"
+   ],
+   "range": 3,
    "hit": [
-    0.449,
-    0.264
+    0.45,
+    0.254
    ]
   },
   "blue_cross_landed": {
@@ -227,6 +240,19 @@
    ],
    "contact": 5,
    "clip": "pro_right_cross",
+   "masks": [
+    "blue_cross_landed_0_mask.png",
+    "blue_cross_landed_1_mask.png",
+    "blue_cross_landed_2_mask.png",
+    "blue_cross_landed_3_mask.png",
+    "blue_cross_landed_4_mask.png",
+    "blue_cross_landed_5_mask.png",
+    "blue_cross_landed_6_mask.png",
+    "blue_cross_landed_7_mask.png",
+    "blue_cross_landed_8_mask.png",
+    "blue_cross_landed_9_mask.png"
+   ],
+   "range": 3,
    "hit": [
     0.387,
     0.259
@@ -261,9 +287,23 @@
    ],
    "contact": 6,
    "clip": "pro_right_cross",
+   "masks": [
+    "blue_cross_missed_0_mask.png",
+    "blue_cross_missed_1_mask.png",
+    "blue_cross_missed_2_mask.png",
+    "blue_cross_missed_3_mask.png",
+    "blue_cross_missed_4_mask.png",
+    "blue_cross_missed_5_mask.png",
+    "blue_cross_missed_6_mask.png",
+    "blue_cross_missed_7_mask.png",
+    "blue_cross_missed_8_mask.png",
+    "blue_cross_missed_9_mask.png",
+    "blue_cross_missed_10_mask.png"
+   ],
+   "range": 3,
    "hit": [
     0.389,
-    0.294
+    0.301
    ]
   },
   "blue_jab_blocked": {
@@ -1013,9 +1053,22 @@
    ],
    "contact": 5,
    "clip": "pro_right_cross",
+   "masks": [
+    "red_cross_blocked_0_mask.png",
+    "red_cross_blocked_1_mask.png",
+    "red_cross_blocked_2_mask.png",
+    "red_cross_blocked_3_mask.png",
+    "red_cross_blocked_4_mask.png",
+    "red_cross_blocked_5_mask.png",
+    "red_cross_blocked_6_mask.png",
+    "red_cross_blocked_7_mask.png",
+    "red_cross_blocked_8_mask.png",
+    "red_cross_blocked_9_mask.png"
+   ],
+   "range": 3,
    "hit": [
-    0.649,
-    0.26
+    0.645,
+    0.234
    ]
   },
   "red_cross_landed": {
@@ -1045,9 +1098,22 @@
    ],
    "contact": 5,
    "clip": "pro_right_cross",
+   "masks": [
+    "red_cross_landed_0_mask.png",
+    "red_cross_landed_1_mask.png",
+    "red_cross_landed_2_mask.png",
+    "red_cross_landed_3_mask.png",
+    "red_cross_landed_4_mask.png",
+    "red_cross_landed_5_mask.png",
+    "red_cross_landed_6_mask.png",
+    "red_cross_landed_7_mask.png",
+    "red_cross_landed_8_mask.png",
+    "red_cross_landed_9_mask.png"
+   ],
+   "range": 3,
    "hit": [
-    0.71,
-    0.255
+    0.709,
+    0.223
    ]
   },
   "red_cross_missed": {
@@ -1079,6 +1145,20 @@
    ],
    "contact": 6,
    "clip": "pro_right_cross",
+   "masks": [
+    "red_cross_missed_0_mask.png",
+    "red_cross_missed_1_mask.png",
+    "red_cross_missed_2_mask.png",
+    "red_cross_missed_3_mask.png",
+    "red_cross_missed_4_mask.png",
+    "red_cross_missed_5_mask.png",
+    "red_cross_missed_6_mask.png",
+    "red_cross_missed_7_mask.png",
+    "red_cross_missed_8_mask.png",
+    "red_cross_missed_9_mask.png",
+    "red_cross_missed_10_mask.png"
+   ],
+   "range": 3,
    "hit": [
     0.706,
     0.308
@@ -6226,10 +6306,22 @@
    ],
    "contact": 5,
    "clip": "pro_right_cross",
+   "masks": [
+    "blue_cross_blocked_r2_0_mask.png",
+    "blue_cross_blocked_r2_1_mask.png",
+    "blue_cross_blocked_r2_2_mask.png",
+    "blue_cross_blocked_r2_3_mask.png",
+    "blue_cross_blocked_r2_4_mask.png",
+    "blue_cross_blocked_r2_5_mask.png",
+    "blue_cross_blocked_r2_6_mask.png",
+    "blue_cross_blocked_r2_7_mask.png",
+    "blue_cross_blocked_r2_8_mask.png",
+    "blue_cross_blocked_r2_9_mask.png"
+   ],
    "range": 2,
    "hit": [
-    0.449,
-    0.264
+    0.45,
+    0.254
    ]
   },
   "blue_cross_landed_r2": {
@@ -6259,6 +6351,18 @@
    ],
    "contact": 5,
    "clip": "pro_right_cross",
+   "masks": [
+    "blue_cross_landed_r2_0_mask.png",
+    "blue_cross_landed_r2_1_mask.png",
+    "blue_cross_landed_r2_2_mask.png",
+    "blue_cross_landed_r2_3_mask.png",
+    "blue_cross_landed_r2_4_mask.png",
+    "blue_cross_landed_r2_5_mask.png",
+    "blue_cross_landed_r2_6_mask.png",
+    "blue_cross_landed_r2_7_mask.png",
+    "blue_cross_landed_r2_8_mask.png",
+    "blue_cross_landed_r2_9_mask.png"
+   ],
    "range": 2,
    "hit": [
     0.387,
@@ -6294,10 +6398,23 @@
    ],
    "contact": 6,
    "clip": "pro_right_cross",
+   "masks": [
+    "blue_cross_missed_r2_0_mask.png",
+    "blue_cross_missed_r2_1_mask.png",
+    "blue_cross_missed_r2_2_mask.png",
+    "blue_cross_missed_r2_3_mask.png",
+    "blue_cross_missed_r2_4_mask.png",
+    "blue_cross_missed_r2_5_mask.png",
+    "blue_cross_missed_r2_6_mask.png",
+    "blue_cross_missed_r2_7_mask.png",
+    "blue_cross_missed_r2_8_mask.png",
+    "blue_cross_missed_r2_9_mask.png",
+    "blue_cross_missed_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
     0.389,
-    0.294
+    0.301
    ]
   },
   "blue_jab_blocked_r2": {
@@ -6992,10 +7109,22 @@
    ],
    "contact": 5,
    "clip": "pro_right_cross",
+   "masks": [
+    "red_cross_blocked_r2_0_mask.png",
+    "red_cross_blocked_r2_1_mask.png",
+    "red_cross_blocked_r2_2_mask.png",
+    "red_cross_blocked_r2_3_mask.png",
+    "red_cross_blocked_r2_4_mask.png",
+    "red_cross_blocked_r2_5_mask.png",
+    "red_cross_blocked_r2_6_mask.png",
+    "red_cross_blocked_r2_7_mask.png",
+    "red_cross_blocked_r2_8_mask.png",
+    "red_cross_blocked_r2_9_mask.png"
+   ],
    "range": 2,
    "hit": [
-    0.649,
-    0.26
+    0.645,
+    0.234
    ]
   },
   "red_cross_landed_r2": {
@@ -7025,10 +7154,22 @@
    ],
    "contact": 5,
    "clip": "pro_right_cross",
+   "masks": [
+    "red_cross_landed_r2_0_mask.png",
+    "red_cross_landed_r2_1_mask.png",
+    "red_cross_landed_r2_2_mask.png",
+    "red_cross_landed_r2_3_mask.png",
+    "red_cross_landed_r2_4_mask.png",
+    "red_cross_landed_r2_5_mask.png",
+    "red_cross_landed_r2_6_mask.png",
+    "red_cross_landed_r2_7_mask.png",
+    "red_cross_landed_r2_8_mask.png",
+    "red_cross_landed_r2_9_mask.png"
+   ],
    "range": 2,
    "hit": [
-    0.71,
-    0.255
+    0.709,
+    0.223
    ]
   },
   "red_cross_missed_r2": {
@@ -7060,6 +7201,19 @@
    ],
    "contact": 6,
    "clip": "pro_right_cross",
+   "masks": [
+    "red_cross_missed_r2_0_mask.png",
+    "red_cross_missed_r2_1_mask.png",
+    "red_cross_missed_r2_2_mask.png",
+    "red_cross_missed_r2_3_mask.png",
+    "red_cross_missed_r2_4_mask.png",
+    "red_cross_missed_r2_5_mask.png",
+    "red_cross_missed_r2_6_mask.png",
+    "red_cross_missed_r2_7_mask.png",
+    "red_cross_missed_r2_8_mask.png",
+    "red_cross_missed_r2_9_mask.png",
+    "red_cross_missed_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
     0.706,
@@ -7836,10 +7990,22 @@
    ],
    "contact": 5,
    "clip": "pro_right_cross",
+   "masks": [
+    "blue_cross_blocked_r1_0_mask.png",
+    "blue_cross_blocked_r1_1_mask.png",
+    "blue_cross_blocked_r1_2_mask.png",
+    "blue_cross_blocked_r1_3_mask.png",
+    "blue_cross_blocked_r1_4_mask.png",
+    "blue_cross_blocked_r1_5_mask.png",
+    "blue_cross_blocked_r1_6_mask.png",
+    "blue_cross_blocked_r1_7_mask.png",
+    "blue_cross_blocked_r1_8_mask.png",
+    "blue_cross_blocked_r1_9_mask.png"
+   ],
    "range": 1,
    "hit": [
-    0.449,
-    0.264
+    0.45,
+    0.254
    ]
   },
   "blue_cross_landed_r1": {
@@ -7869,6 +8035,18 @@
    ],
    "contact": 5,
    "clip": "pro_right_cross",
+   "masks": [
+    "blue_cross_landed_r1_0_mask.png",
+    "blue_cross_landed_r1_1_mask.png",
+    "blue_cross_landed_r1_2_mask.png",
+    "blue_cross_landed_r1_3_mask.png",
+    "blue_cross_landed_r1_4_mask.png",
+    "blue_cross_landed_r1_5_mask.png",
+    "blue_cross_landed_r1_6_mask.png",
+    "blue_cross_landed_r1_7_mask.png",
+    "blue_cross_landed_r1_8_mask.png",
+    "blue_cross_landed_r1_9_mask.png"
+   ],
    "range": 1,
    "hit": [
     0.387,
@@ -7904,10 +8082,23 @@
    ],
    "contact": 6,
    "clip": "pro_right_cross",
+   "masks": [
+    "blue_cross_missed_r1_0_mask.png",
+    "blue_cross_missed_r1_1_mask.png",
+    "blue_cross_missed_r1_2_mask.png",
+    "blue_cross_missed_r1_3_mask.png",
+    "blue_cross_missed_r1_4_mask.png",
+    "blue_cross_missed_r1_5_mask.png",
+    "blue_cross_missed_r1_6_mask.png",
+    "blue_cross_missed_r1_7_mask.png",
+    "blue_cross_missed_r1_8_mask.png",
+    "blue_cross_missed_r1_9_mask.png",
+    "blue_cross_missed_r1_10_mask.png"
+   ],
    "range": 1,
    "hit": [
     0.389,
-    0.294
+    0.301
    ]
   },
   "blue_lead_hook_blocked_r1": {
@@ -8530,10 +8721,22 @@
    ],
    "contact": 5,
    "clip": "pro_right_cross",
+   "masks": [
+    "red_cross_blocked_r1_0_mask.png",
+    "red_cross_blocked_r1_1_mask.png",
+    "red_cross_blocked_r1_2_mask.png",
+    "red_cross_blocked_r1_3_mask.png",
+    "red_cross_blocked_r1_4_mask.png",
+    "red_cross_blocked_r1_5_mask.png",
+    "red_cross_blocked_r1_6_mask.png",
+    "red_cross_blocked_r1_7_mask.png",
+    "red_cross_blocked_r1_8_mask.png",
+    "red_cross_blocked_r1_9_mask.png"
+   ],
    "range": 1,
    "hit": [
-    0.649,
-    0.26
+    0.645,
+    0.234
    ]
   },
   "red_cross_landed_r1": {
@@ -8563,10 +8766,22 @@
    ],
    "contact": 5,
    "clip": "pro_right_cross",
+   "masks": [
+    "red_cross_landed_r1_0_mask.png",
+    "red_cross_landed_r1_1_mask.png",
+    "red_cross_landed_r1_2_mask.png",
+    "red_cross_landed_r1_3_mask.png",
+    "red_cross_landed_r1_4_mask.png",
+    "red_cross_landed_r1_5_mask.png",
+    "red_cross_landed_r1_6_mask.png",
+    "red_cross_landed_r1_7_mask.png",
+    "red_cross_landed_r1_8_mask.png",
+    "red_cross_landed_r1_9_mask.png"
+   ],
    "range": 1,
    "hit": [
-    0.71,
-    0.255
+    0.709,
+    0.223
    ]
   },
   "red_cross_missed_r1": {
@@ -8598,6 +8813,19 @@
    ],
    "contact": 6,
    "clip": "pro_right_cross",
+   "masks": [
+    "red_cross_missed_r1_0_mask.png",
+    "red_cross_missed_r1_1_mask.png",
+    "red_cross_missed_r1_2_mask.png",
+    "red_cross_missed_r1_3_mask.png",
+    "red_cross_missed_r1_4_mask.png",
+    "red_cross_missed_r1_5_mask.png",
+    "red_cross_missed_r1_6_mask.png",
+    "red_cross_missed_r1_7_mask.png",
+    "red_cross_missed_r1_8_mask.png",
+    "red_cross_missed_r1_9_mask.png",
+    "red_cross_missed_r1_10_mask.png"
+   ],
    "range": 1,
    "hit": [
     0.706,

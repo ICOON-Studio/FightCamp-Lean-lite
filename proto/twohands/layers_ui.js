@@ -46,6 +46,16 @@
       e.style.display = ''; });
     im.classList.add('pic-off');
   }
+  /* LAYERS1 (S572): the page warms a beat's two-man pictures before it plays them (warm -> PRE); the layer pictures were
+     not warmed, so the first time a run played the page kept the man's LAST layer up until his new one had loaded (a
+     red cross drawn with red still in his guard). warm() now also loads the layers of every run it warmed, and waits. */
+  const LPRE = {}, Lready = fetch('img/layers/frames.json').then((r) => r.json()).catch(() => null);
+  if (typeof warm === 'function') { const warm0 = warm; warm = function (runs) { const p = warm0(runs);
+    return Promise.all([p, Lready]).then(([v, lj]) => { if (!lj || typeof ANIM !== 'object') return v;
+      const todo = [];
+      for (const row of Object.values(lj.runs || {})) { const a = ANIM[row.of]; if (!a || !a.files || !a.files.every((f) => PRE[f])) continue;
+        for (const f of row.files || []) if (!LPRE[f]) todo.push(new Promise((ok) => { const e = new Image(); LPRE[f] = e; e.onload = e.onerror = ok; e.src = 'img/layers/' + f; })); }
+      return Promise.all(todo).then(() => v); }); }; }
   new MutationObserver(draw).observe(im, { attributes: true, attributeFilter: ['src'] });
   addEventListener('resize', draw);
   window.layersState = () => ({ on: !!L, canon: CANON, m: inM(), shown: lay.map((e) => e.style.display !== 'none' && e.getAttribute('src')), tr: lay.map((e) => e.style.translate) });
