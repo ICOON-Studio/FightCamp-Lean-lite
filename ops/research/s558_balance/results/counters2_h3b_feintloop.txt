@@ -1,0 +1,8 @@
+COMMAND: node proto/twohands/tools/probe_clinch.mjs n=60 tweak=ops/research/s558_balance/counters2_h3b.json table=<wt_tmp/COUNTERS2/h3b.vt.json>
+CLINCH loop v The Jabber: wins 33%, loses 58%, draws 8% | his clinches a bout 0.1 | my clinches a bout 4.6, 90% of them tie him up
+CLINCH loop v The Slugger: wins 42%, loses 38%, draws 20% | his clinches a bout 0.1 | my clinches a bout 7.2, 86% of them tie him up
+CLINCH loop v The Body Snatcher: wins 48%, loses 43%, draws 8% | his clinches a bout 0.2 | my clinches a bout 6.3, 87% of them tie him up
+CLINCH no clinch v The Jabber: wins 7%, loses 92%, draws 2% | his clinches a bout 0.3
+CLINCH no clinch v The Slugger: wins 13%, loses 85%, draws 2% | his clinches a bout 0.3
+CLINCH no clinch v The Body Snatcher: wins 2%, loses 98%, draws 0% | his clinches a bout 0.5
+EXIT 0
