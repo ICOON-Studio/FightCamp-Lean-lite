@@ -14,6 +14,9 @@ const [cmd, file, ...rest] = process.argv.slice(2), arg = Object.fromEntries(res
    rules; `new` stores the page in the state file, show / plan read it from there. Default order.html as before. */
 const PAGE = (cmd === 'new' ? arg.page : (file && fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, 'utf8')).page : '')) || 'order.html';
 const R0 = load(1, PAGE), { N, ACT, FEET, RNG } = R0;
+/* S568 ONEACT1: a page whose rules say one action a beat (N.one, set by its tweak: 1 = one action of any kind, 2 = one hand action and the feet move first). The words a player needs, and the refusal of a plan that breaks it. */
+const oneWords = (N) => (N.one === 1 ? `ONE ACTION A BEAT on this page (${N.rounds} rounds of ${N.beats} beats): a punch, a step, a clinch or nothing. The hand that does not punch is held high or low. What a miss, a block, a feint or a back off sets up pays on your punch NEXT beat.` : `ONE HAND A BEAT on this page (${N.rounds} rounds of ${N.beats} beats): one hand acts - a punch, a feint or a push off with the lead hand OR the rear hand - and the other is held high or low. Your feet may also step in or back off: both men's feet move FIRST, then both men's hands go at the same time. There is no order to choose. Stamina: +${N.rec} a beat, nothing for a held hand; the clinch gives 2. A punch of his that misses or is blocked makes your punch NEXT beat a counter (+1). A feint makes your punch NEXT beat impossible to block, and he sees the feint.`);
+const oneBad = (N, p) => (!N.one || p.clinch ? '' : N.one === 1 && (p.lead ? 1 : 0) + (p.rear ? 1 : 0) + (p.feet && p.feet !== 'hold' ? 1 : 0) > 1 ? 'one action a beat: a punch, a step, a clinch or nothing. Send ONE of lead=<punch>, rear=<punch>, feet=in|back; the hand that does not punch is high or low' : N.one === 2 && p.lead && p.rear ? 'one hand a beat: a punch with the lead hand OR the rear hand, not both. Send the other hand as high or low (your feet may still step: feet=in|back)' : '');
 const out = []; const say = (s) => { out.push(s); console.log(s); };
 if (!cmd || !file) { console.log('usage: versus.mjs new|show|plan <state.json> ...  (see the top of the file)'); process.exit(2); }
 if (cmd === 'new') { const S = { vs: 1, page: PAGE, names: [arg.a || 'A', arg.b || 'B'], seed: Number(arg.seed || 1), n: 0, round: 1, beat: 0, range: 3, cards: [], over: '', F: [R0.man(N.hp), R0.man(N.hp)], sealed: [null, null], last: [] };
@@ -24,6 +27,7 @@ const view = (k) => { const me = S.F[k], him = S.F[1 - k], m = (lab, f) => `${la
   const L = [`ROUND ${S.round} of ${N.rounds}, beat ${S.beat + 1} of ${N.beats}, range ${RNG[S.range]}. Points this round: you ${me.pts} - ${nm[1 - k]} ${him.pts}. Cards so far (you-him): ${S.cards.map((c) => c[k] + '-' + c[1 - k]).join(', ') || 'none'}`, m(`YOU (${nm[k]})`, me), m(`HIM (${nm[1 - k]})`, him)];
   const seen = (S.seen || []).map((p) => p[1 - k]); if (seen.length) L.push(`HIS LAST BEATS, newest first: ${[...seen].reverse().map((p) => R0.planWords(p)).join('  |  ')}`);
   if (S.last.length) L.push('THE LAST BEAT:', ...S.last.map((s) => '  ' + s));
+  if (N.one && !S.over) L.push(oneWords(N));
   if (!S.over) L.push(S.sealed[k] ? 'Your beat is sealed. Waiting for him.' : 'Choose your beat.');
   return L; };
 if (cmd === 'show') { view(who).forEach((s) => console.log(s)); if (S.over) console.log(S.over); process.exit(0); }
@@ -40,6 +44,7 @@ else { /* S567, Kalli's first match: "my plan was rejected over the name bodycro
   if (L === 'high' || L === 'low') mine.hl = L; else mine.lead = L; if (H === 'high' || H === 'low') mine.hr = H; else mine.rear = H; mine.feet = arg.feet || 'hold';
   const acts = [...(mine.feet !== 'hold' ? ['feet'] : []), ...(mine.lead ? ['lead'] : []), ...(mine.rear ? ['rear'] : [])], want = (arg.order || '').split(',').filter((x) => acts.includes(x));
   mine.ord = [...want, ...acts.filter((x) => !want.includes(x))]; }
+if (oneBad(N, mine)) { console.log('NOT PLAYED: ' + oneBad(N, mine) + '.'); process.exit(2); }
 const bad = mine.clinch ? (S.range > 1 ? 'the clinch works Inside only' : me.held ? 'the referee will not allow a clinch yet' : me.st < 1 ? 'no stamina' : '')
   : (mine.lead && (!ACT[mine.lead] || ACT[mine.lead].h !== 0)) ? `lead=${mine.lead} is not a lead-hand switch` : (mine.rear && (!ACT[mine.rear] || ACT[mine.rear].h !== 1)) ? `rear=${mine.rear} is not a rear-hand switch`
   : !FEET[mine.feet] ? `feet=${mine.feet}: in, hold or back` : R.cost(mine) > me.st ? `that costs ${R.cost(mine)} stamina, you have ${me.st}` : mine.feet === 'back' && me.ropes >= 2 ? 'you are on the ropes: no backing off until you step in' : mine.feet === 'in' && me.kept ? 'kept out: no step in this beat' : '';

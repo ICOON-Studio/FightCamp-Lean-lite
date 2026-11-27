@@ -1,0 +1,69 @@
+{
+  "_note": "ONEACT1 V2 (S568): ONE HAND ACTION a beat, the feet move first and are free of the action (they still cost stamina). No order to choose. 12 beats a round, stamina back 1 a beat and nothing for a held hand (N.rec 1, N.hold 0: the mirror spends 17.1 a round v 15.5 today). The counter after his miss or block, and the feint, pay on the NEXT beat's punch (open / drawn, valued by the solver at W.open 0.3 / W.drawn 0.6); the pull counter stays in the beat (back off, then the punch). Tried because V1 (one action, feet included) collapsed to both men trading jabs at Long. docs/ONEACT1_RESULT.md.",
+  "src": [
+    [
+      "const N = { hp: 18, st: 8, rec: 1, hold: 1, guard: 6, grec: 1, rounds: 3, beats: 6,",
+      "const N = { one: 2, hp: 18, st: 8, rec: 1, hold: 0, guard: 6, grec: 1, rounds: 3, beats: 12,"
+    ],
+    [
+      "t: 'Draws his hands: the punch you throw in the next moment cannot be covered.'",
+      "t: 'Draws his hands: the punch you throw NEXT BEAT cannot be covered. He sees the feint.'"
+    ],
+    [
+      "Your next punch this beat is a pull counter: +1 if it lands.'",
+      "Your punch this beat is a pull counter: +1 if it lands.'"
+    ],
+    [
+      "const ordOf = (p) => p.clinch ? [] : [...(p.ord || []).filter((sl) => active(p, sl)), ...['feet', 'lead', 'rear'].filter((sl) => active(p, sl) && !(p.ord || []).includes(sl))];",
+      "const ordOf = (p) => (p.clinch ? [] : ['feet', 'lead', 'rear'].filter((sl) => active(p, sl)));   /* ONEACT1 V2 (S568): no order to choose - the feet move first, then the one hand */"
+    ],
+    [
+      "function resolve(S, P) { const ev = [], f = S.f, say = (k, o) => ev.push({ k, ...o });",
+      "const oneOf = (p) => { if (p.clinch || !p.lead || !p.rear) return p; const keep = (p.ord || []).find((sl) => sl !== 'feet' && p[sl]) || 'lead'; return { ...p, lead: keep === 'lead' ? p.lead : null, rear: keep === 'rear' ? p.rear : null }; };   /* ONEACT1 V2 (S568): one hand acts a beat */\nfunction resolve(S, P) { const ev = [], f = S.f, say = (k, o) => ev.push({ k, ...o });\n  for (const k of [0, 1]) P[k] = oneOf(P[k]);\n  /* ONEACT1: what was 'later in this beat' for a hand is now 'next beat' - the counter after his miss or block (open) and the feint (drawn). A new round starts clean. */\n  const carry = f.map((m) => (S.t === N.beats ? [0, 0] : [m.open || 0, m.drawn || 0])); for (const m of f) m.open = m.drawn = 0;"
+    ],
+    [
+      "const opening = [0, 0], drawn = [0, 0], pulled = [0, 0];",
+      "const opening = [carry[0][0], carry[1][0]], drawn = [carry[0][1], carry[1][1]], pulled = [0, 0];"
+    ],
+    [
+      "const act = [P[0].ord[i], P[1].ord[i]]; if (!act[0] && !act[1]) continue;",
+      "const act = [0, 1].map((k) => (i === 0 ? (P[k].feet !== 'hold' ? 'feet' : undefined) : i === 1 ? (P[k].lead ? 'lead' : P[k].rear ? 'rear' : undefined) : undefined)); if (!act[0] && !act[1]) continue;   /* moment 1: both men's feet; moment 2: both men's hands */"
+    ],
+    [
+      "'smothered - too close at ' + RNG[S.range] }); opening[v] = 1; continue; }",
+      "'smothered - too close at ' + RNG[S.range] }); opening[v] = 1; f[v].open = 1; continue; }"
+    ],
+    [
+      "(D.g <= 0 ? ' - GUARD BROKEN' : '') }); opening[v] = 1; continue; }",
+      "(D.g <= 0 ? ' - GUARD BROKEN' : '') }); opening[v] = 1; f[v].open = 1; continue; }"
+    ],
+    [
+      "say(k, { m: i, t: 'flat', a: 'feints', o: 'the next punch cannot be covered' }); }",
+      "say(k, { m: i, t: 'flat', a: 'feints', o: 'the punch next beat cannot be covered' }); }"
+    ],
+    [
+      "    for (const k of [0, 1]) if (drawn[k]) drawn[k]--; }\n  if (!ev.length)",
+      "    for (const k of [0, 1]) if (drawn[k]) drawn[k]--; }\n  for (const k of [0, 1]) f[k].drawn = P[k].lead === 'feint' && !P[k].clinch ? 1 : 0;\n  for (const e of ev) if (e.m != null && e.k >= 0) e.m = Math.max(0, P[e.k].ord.length - 1);   /* shown in his own slot: his hand comes after his step, or alone */\n  if (!ev.length)"
+    ],
+    [
+      "const W = { st: 0.25, cap: 0.6, guard: 0.15, ropes: 0.25, kept: 0.3 };",
+      "const W = { st: 0.25, cap: 0.6, guard: 0.15, ropes: 0.25, kept: 0.3, open: 0.3, drawn: 0.6 };"
+    ],
+    [
+      "if (cost(c0) > me.st || (feet === 'back' && me.ropes >= 2) || (feet === 'in' && me.kept)) continue;",
+      "if (cost(c0) > me.st || (feet === 'back' && me.ropes >= 2) || (feet === 'in' && me.kept) || (c0.lead && c0.rear)) continue;"
+    ],
+    [
+      "for (const ord of perms(ordOf(c0))) out.push({ ...c0, ord }); }",
+      "out.push({ ...c0, ord: ordOf(c0) }); }"
+    ],
+    [
+      "const T = { range: S.range, f: S.f.map((m) => ({ ...m, hist: [] })) }; resolve(T, [{ ...a }, { ...b }]); endBeat(T);",
+      "const T = { range: S.range, t, f: S.f.map((m) => ({ ...m, hist: [] })) }; resolve(T, [{ ...a }, { ...b }]); endBeat(T);"
+    ],
+    [
+      "+ (t > 1 ? W.kept * (y.kept - x.kept) : 0) + rest; }",
+      "+ (t > 1 ? W.kept * (y.kept - x.kept) + W.open * ((x.open || 0) - (y.open || 0)) + W.drawn * ((x.drawn || 0) - (y.drawn || 0)) : 0) + rest; }"
+    ]
+  ]
+}

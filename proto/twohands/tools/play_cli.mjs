@@ -12,16 +12,26 @@ import { CUES, MEANS, tellOf, ledger, LEGEND3 } from './tells.mjs';   /* TELLS1 
 
 const [cmd, file, ...rest] = process.argv.slice(2), arg = Object.fromEntries(rest.filter((a) => a.includes('=')).map((a) => a.split('=')));
 const out = []; const say = (s) => { out.push(s); console.log(s); };
-const R0 = load(1), { N, ACT, FEET, RNG, COVER } = R0, SP = ['', 'fast', 'medium', 'slow'];
+/* S568 page=<file.html> (ONEACT1): `new ... page=one.html` and `help page=one.html` play that page's rules; the state file keeps the page. A page with its own look-ahead table (its fetch('vtable_x.json')) gets it. Default order.html, as before. */
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+const PAGE = (cmd === 'new' || cmd === 'help' ? (process.argv.find((a) => a.startsWith('page=')) || '').slice(5) : (file && fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, 'utf8')).page : '')) || 'order.html';
+const PDIR = path.join(path.dirname(fileURLToPath(import.meta.url)), '..'), TNAME = PAGE === 'order.html' ? '' : ((/fetch\('(vtable\w*\.json)'\)/.exec(fs.readFileSync(path.join(PDIR, PAGE), 'utf8')) || [])[1] || ''), PVT = TNAME && TNAME !== 'vtable.json' && fs.existsSync(path.join(PDIR, TNAME)) ? JSON.parse(fs.readFileSync(path.join(PDIR, TNAME), 'utf8')).VT : null;
+const loadP = (seed) => { const R = load(seed, PAGE); if (PVT) R.setVT(PVT); return R; };
+/* S568 ONEACT1: a page whose rules say one action a beat (N.one, set by its tweak: 1 = one action of any kind, 2 = one hand action and the feet move first). The words a player needs, and the refusal of a plan that breaks it. */
+const oneWords = (N) => (N.one === 1 ? `ONE ACTION A BEAT on this page (${N.rounds} rounds of ${N.beats} beats): a punch, a step, a clinch or nothing. The hand that does not punch is held high or low. What a miss, a block, a feint or a back off sets up pays on your punch NEXT beat.` : `ONE HAND A BEAT on this page (${N.rounds} rounds of ${N.beats} beats): one hand acts - a punch, a feint or a push off with the lead hand OR the rear hand - and the other is held high or low. Your feet may also step in or back off: both men's feet move FIRST, then both men's hands go at the same time. There is no order to choose. Stamina: +${N.rec} a beat, nothing for a held hand; the clinch gives 2. A punch of his that misses or is blocked makes your punch NEXT beat a counter (+1). A feint makes your punch NEXT beat impossible to block, and he sees the feint.`);
+const oneBad = (N, p) => (!N.one || p.clinch ? '' : N.one === 1 && (p.lead ? 1 : 0) + (p.rear ? 1 : 0) + (p.feet && p.feet !== 'hold' ? 1 : 0) > 1 ? 'one action a beat: a punch, a step, a clinch or nothing. Send ONE of lead=<punch>, rear=<punch>, feet=in|back; the hand that does not punch is high or low' : N.one === 2 && p.lead && p.rear ? 'one hand a beat: a punch with the lead hand OR the rear hand, not both. Send the other hand as high or low (your feet may still step: feet=in|back)' : '');
+const R0 = loadP(1), { N, ACT, FEET, RNG, COVER } = R0, SP = ['', 'fast', 'medium', 'slow'];
 // ZIVAFIX1 (S557): his last three beats, newest first, holds included, and what each of his hands did this round - as on his card on the page
 const his3 = (S) => { const seen = S.seen || [], rd = S.seenRound || [], held = (sl, h) => rd.filter((p) => !p.clinch && !p[sl] && (sl === 'lead' ? p.hl : p.hr) === h).length, out = (sl) => rd.filter((p) => !p.clinch && p[sl]).length;
   return seen.length ? [`HIS LAST BEATS, newest first: ${[...seen].reverse().map((p) => R0.planWords(p)).join('  |  ')}`, `THIS ROUND (${rd.length} beat${rd.length === 1 ? '' : 's'}): his lead hand held high ${held('lead', 'high')}, held low ${held('lead', 'low')}, thrown ${out('lead')}; his rear hand held high ${held('rear', 'high')}, held low ${held('rear', 'low')}, thrown ${out('rear')}`] : []; };
 const bars = (S) => { const [x, y] = S.F, m = (who, f) => `${who}: health ${f.hp}/${f.max}${f.kd ? ` (down ${f.kd}x${f.kd >= N.kd.length ? ' - ONE MORE ENDS IT' : ''})` : ''}, stamina ${f.st}/${f.cap}, guard ${f.g}/${N.guard}, ground given ${Math.min(2, f.ropes)}/2${f.ropes >= 2 ? ' ON THE ROPES' : ''}${f.held ? ', no clinch yet' : ''}`;
   return [`ROUND ${S.round} of ${N.rounds}, beat ${S.beat + 1} of ${N.beats}, range ${RNG[S.range]}. Points this round: you ${x.pts} - him ${y.pts}. Cards so far: ${S.cards.map((c) => c.join('-')).join(', ') || 'none'}`, m('YOU', x), m(`HIM (${R0.OPPS[S.opp].n})`, y), ...his3(S), ...(S.tells && S.tell && !S.over ? [`HIS TELL before this beat: ${CUES[S.tell.cue]}.`] : [])]; };
 /* TELLS1: his next beat is chosen BEFORE yours (as always) and kept, so his cue can be shown first */
-const prepNext = (S) => { const R2 = load(S.seed * 1000 + S.n + 777777); R2.setOpp(S.opp); S.next = R2.ai({ f: S.F, range: S.range, t: N.beats - S.beat }) || R2.plan0(); S.tell = tellOf(S.opp, S.next, { me: S.F[0], him: S.F[1], hisLast: (S.seen || []).slice(-1)[0] || null, meLanded: !!S.meLanded, blockedAny: !!S.blockedAny, blockedBody: !!S.blockedBody, range: S.range, ACT, fakesRound: (S.tellRound || []).filter((t) => t.fake).length, fakedLast: !!((S.tellRound || []).slice(-1)[0] || {}).fake }, typeof S.tells === 'number' ? S.tells : 1); };   /* TELLS3 (S564): tells=3, the bluff by damage and the cap */   /* TELLS2: tells=2 is version 2 (DESIGN_TELLS2.md); a state file with tells true is version 1 */
+const prepNext = (S) => { const R2 = loadP(S.seed * 1000 + S.n + 777777); R2.setOpp(S.opp); S.next = R2.ai({ f: S.F, range: S.range, t: N.beats - S.beat }) || R2.plan0(); S.tell = tellOf(S.opp, S.next, { me: S.F[0], him: S.F[1], hisLast: (S.seen || []).slice(-1)[0] || null, meLanded: !!S.meLanded, blockedAny: !!S.blockedAny, blockedBody: !!S.blockedBody, range: S.range, ACT, fakesRound: (S.tellRound || []).filter((t) => t.fake).length, fakedLast: !!((S.tellRound || []).slice(-1)[0] || {}).fake }, typeof S.tells === 'number' ? S.tells : 1); };   /* TELLS3 (S564): tells=3, the bluff by damage and the cap */   /* TELLS2: tells=2 is version 2 (DESIGN_TELLS2.md); a state file with tells true is version 1 */
 if (cmd === 'help' || !cmd) {
   say("PUNCHER'S CHANCE. Each beat: one switch for the LEAD hand, one for the REAR hand, one for the FEET, and the ORDER you throw them (first meets his first).");
+  if (N.one) say(oneWords(N) + ' (Where the lines below speak of an order or of moments, this page has none.)');
   say(`Health ${N.hp}, stamina ${N.st} (+${N.rec} a beat, +${N.hold} for each hand held), ${N.rounds} rounds of ${N.beats} beats. Down at 0 health: up on ${N.kd.join(' then ')}; the next time it is over.`);
   say('LEAD hand: ' + R0.LO.filter((o) => o.lead).map((o) => o.lead).join(', ') + ' | or held: high, low.   REAR hand: ' + R0.RO.filter((o) => o.rear).map((o) => o.rear).join(', ') + ' | or held: high, low.');
   for (const id in ACT) { const a = ACT[id]; say(`  ${id}: ${a.n}, ${a.st} stamina${a.d ? `, ${a.d} health, ${SP[a.sp]}, reaches ${a.reach.map((r) => RNG[r]).join(' and ')}, line: ${a.line}${a.body ? ', shortens his stamina bar' : ''}` : `. ${a.t || ''}`}`); }
@@ -37,22 +47,24 @@ if (cmd === 'help' || !cmd) {
   say(`Opponents: ${R0.OPPS.slice(0, 3).map((o, i) => `${i} ${o.n} (health ${o.hp}): ${o.t}`).join(' | ')}`);
   process.exit(0); }
 if (cmd === 'new') { const opp = Number(arg.opp || 0), seed = Number(arg.seed || 1);
-  const S = { opp, seed, n: 0, round: 1, beat: 0, range: 3, cards: [], over: '', F: [R0.man(N.hp), R0.man(R0.OPPS[opp].hp)], tells: arg.tells === '3' ? 3 : arg.tells === '2' ? 2 : arg.tells === '1' };
+  const S = { ...(PAGE !== 'order.html' ? { page: PAGE } : {}), opp, seed, n: 0, round: 1, beat: 0, range: 3, cards: [], over: '', F: [R0.man(N.hp), R0.man(R0.OPPS[opp].hp)], tells: arg.tells === '3' ? 3 : arg.tells === '2' ? 2 : arg.tells === '1' };
   if (S.tells) { S.tellRound = []; prepNext(S); }
   fs.writeFileSync(file, JSON.stringify(S)); fs.writeFileSync(file + '.log.txt', `A bout against ${R0.OPPS[opp].n}, seed ${seed}\n`); say(`A new bout against ${R0.OPPS[opp].n}.`);
+  if (N.one) say(oneWords(N));
   if (S.tells) say(`TELLS ARE ON IN THIS BOUT. Before each beat you see ONE thing his body does, from the beat he has already chosen: ${Object.keys(CUES).filter((c) => S.tells >= 2 || c !== 'backfoot').map((c) => `"${CUES[c]}" = ${MEANS[c]}`).join('; ')}. A tell is usually true, but this man lies by one fixed rule you can learn: after each beat you are told whether his tell was true, and at each bell how often each tell lied.${S.tells >= 3 ? ' ' + LEGEND3 : ''}`);
   bars(S).forEach(say); process.exit(0); }
 const S = JSON.parse(fs.readFileSync(file, 'utf8'));
 if (cmd === 'show') { bars(S).forEach(say); if (S.over) say(S.over); process.exit(0); }
 if (cmd !== 'beat') { console.log('unknown command: ' + cmd); process.exit(2); }
 if (S.over) { say('The bout is over: ' + S.over); process.exit(0); }
-const R = load(S.seed * 1000 + S.n); R.setOpp(S.opp); const me = S.F[0];
+const R = loadP(S.seed * 1000 + S.n); R.setOpp(S.opp); const me = S.F[0];
 let mine = R.plan0();
 if (rest.includes('clinch')) mine.clinch = true;
 else { const L = arg.lead || 'high', H = arg.rear || 'high';
   if (L === 'high' || L === 'low') mine.hl = L; else mine.lead = L; if (H === 'high' || H === 'low') mine.hr = H; else mine.rear = H; mine.feet = arg.feet || 'hold';
   const acts = [...(mine.feet !== 'hold' ? ['feet'] : []), ...(mine.lead ? ['lead'] : []), ...(mine.rear ? ['rear'] : [])], want = (arg.order || '').split(',').filter((x) => acts.includes(x));
   mine.ord = [...want, ...acts.filter((x) => !want.includes(x))]; }
+if (oneBad(N, mine)) { console.log('NOT PLAYED: ' + oneBad(N, mine) + '.'); process.exit(2); }
 const bad = mine.clinch ? (S.range > 1 ? 'the clinch works Inside only' : me.held ? 'the referee will not allow a clinch yet' : me.st < 1 ? 'no stamina' : '')
   : (mine.lead && (!ACT[mine.lead] || ACT[mine.lead].h !== 0)) ? `lead=${mine.lead} is not a lead-hand switch` : (mine.rear && (!ACT[mine.rear] || ACT[mine.rear].h !== 1)) ? `rear=${mine.rear} is not a rear-hand switch`
   : !FEET[mine.feet] ? `feet=${mine.feet}: in, hold or back` : R.cost(mine) > me.st ? `that costs ${R.cost(mine)} stamina, you have ${me.st}` : mine.feet === 'back' && me.ropes >= 2 ? 'you are on the ropes: no backing off until you step in' : mine.feet === 'in' && me.kept ? 'kept out: no step in this beat' : '';

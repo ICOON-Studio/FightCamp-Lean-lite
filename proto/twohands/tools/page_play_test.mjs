@@ -36,7 +36,7 @@ await test('a bout played to the last bell: every round goes on the cards, and t
   let done = 0;
   for (const seed of [3, 4, 5, 6, 7, 8]) { const { els, G, click } = page(seed); G.setOpp(0); await click();   // "Fight The Jabber"
     assert.equal(G.get().phase, 'plan'); let rounds = 0;
-    for (let b = 0; b < 18 && G.get().phase !== 'over'; b++) { const r0 = G.get().round; G.setP({ hl: 'low', hr: 'high' }); await click();   // both hands held: the cheapest way to hear three bells
+    for (let b = 0; b < G.N.beats * G.N.rounds && G.get().phase !== 'over'; b++)   /* S568 ONEACT1: a page copy with 12 beats a round (one.html) needs 36 clicks; 18 on order.html as before */ { const r0 = G.get().round; G.setP({ hl: 'low', hr: 'high' }); await click();   // both hands held: the cheapest way to hear three bells
       const s = G.get(); if (s.phase !== 'over' && s.round > r0) { rounds++; assert.equal(s.cards.length, rounds, `after bell ${rounds} the cards hold ${s.cards.length} rounds`);
         assert.match(els.score.innerHTML, new RegExp(`R${rounds} (10|9|8)-(10|9|8)`), 'the score line shows the round'); assert.equal(s.seenRound.length, 0, 'a new round: nothing seen of him yet'); } }
     const s = G.get(); assert.equal(s.phase, 'over', 'the bout ended'); const said = els.said.textContent;
